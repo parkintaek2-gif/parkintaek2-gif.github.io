@@ -297,6 +297,18 @@ a{color:var(--accent)}
 .prose pre.code{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:.7rem .8rem;overflow-x:auto;font-size:.76rem;line-height:1.45;white-space:pre-wrap;word-break:break-all}
 .prose code{background:var(--card);padding:.08em .3em;border-radius:3px;font-size:.85em}
 .foot{margin-top:2.5rem;padding-top:1rem;border-top:1px solid var(--line);color:var(--mut);font-size:.78rem}
+/* 휴대폰 — 표를 카드로 바꾼다. 가로 스크롤로 제목이 잘리는 것보다 낫다. */
+@media(max-width:620px){
+  thead{position:absolute;left:-9999px}
+  tr{display:block;border-bottom:1px solid var(--line);padding:.6rem 0}
+  td{display:inline;border:0;padding:0}
+  td.d::before{content:' · '}
+  td.n::after{content:'단어'}
+  td.n::before{content:' · '}
+  td:nth-child(3){display:block;margin:.25rem 0}
+  a.t{font-size:.95rem;line-height:1.4}
+  .wrap{padding-left:1rem;padding-right:1rem}
+}
 </style></head><body><div class="wrap">
 ${inner}
 <div class="foot">
