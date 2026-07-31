@@ -72,3 +72,42 @@ Cloudflare Pages 가 사이트를 새로 만들어 올림
 - 수정 지시를 주기보다 직접 파일을 고칠 것
 - **묻지 말고 판단해서 배포까지 끝낼 것**
 - 화면을 만들면 **렌더해서 눈으로 확인한 뒤** 완료라고 할 것
+
+---
+
+# ⚠ 도메인 — seoulmarkets.com (2026-08-01 확인)
+
+사장님 지시: **도메인은 `seoulmarkets.com` 이다.**
+`src/consts.ts` 의 `SITE_URL` 과 `public/CNAME` 은 이미 그렇게 되어 있다. 코드는 맞다.
+
+## 그런데 지금 접속이 안 된다 — DNS가 GitHub Pages를 안 가리킨다
+
+```
+seoulmarkets.com → 54.149.79.189 · 34.216.117.25   (AWS 주소)
+https://seoulmarkets.com/  → 연결 실패 (HTTP 000)
+```
+
+GitHub Pages는 아래 네 개 중 하나여야 한다. 지금 값은 **전혀 다른 곳**이다
+(도메인 등록업체의 주차 페이지이거나 예전 호스팅으로 보인다).
+
+```
+185.199.108.153
+185.199.109.153
+185.199.110.153
+185.199.111.153
+```
+
+## 해야 할 일
+
+1. 도메인 등록업체(DNS 관리 화면)에서 **A 레코드 4개**를 위 주소로 바꾼다.
+   `www` 를 쓸 것이면 `www` → `<사용자명>.github.io` 로 CNAME 을 건다.
+2. GitHub 저장소 → Settings → Pages → Custom domain 에 `seoulmarkets.com` 입력.
+3. DNS 검증이 끝나면 **Enforce HTTPS** 를 켠다.
+4. 전파에 최대 24시간 걸릴 수 있다. `nslookup seoulmarkets.com` 으로 확인한다.
+
+※ 참고 — 사장님의 다른 도메인들은 등록처가 갈린다.
+  klifemap.ai 는 **Spaceship**, intellitv.net·wiki-tip.com 은 **가비아**다.
+  seoulmarkets.com 이 어디에 등록돼 있는지 먼저 확인하고 그 콘솔에서 바꾼다.
+
+※ **DNS를 바꾸기 전에 지금 그 주소에서 무엇이 서비스되고 있는지 반드시 확인할 것.**
+  살아 있는 사이트를 끊어 버리면 되돌리는 데 또 하루가 걸린다.
