@@ -619,9 +619,10 @@ main {
   margin-top: 2rem;
 }
 
+/* 카테고리 5개가 4+1 로 갈라지지 않게 최소폭을 잡아 3+2 로 떨어뜨린다. */
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
   gap: 1.25rem;
   margin-block: 2rem;
 }

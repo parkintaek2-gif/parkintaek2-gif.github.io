@@ -9,7 +9,7 @@ export const SITE = {
   name: 'Seoul Markets',
   tagline: 'Korean markets, explained with data.',
   description:
-    'Data journalism on Korean equities, commodities and macro — sourced from official Korean government open data, published in English.',
+    'Data journalism on Korean equities, currencies, bonds, commodities and macroeconomics — sourced from official Korean government open data, published in English.',
   locale: 'en-US',
   lang: 'en',
 } as const;
@@ -28,11 +28,27 @@ export const PUBLISHER = {
   foundedYear: 2026,
 } as const;
 
+/**
+ * 카테고리는 「데이터 출처가 확보된 시장」 단위로 나눈다.
+ * 선물·옵션은 별도 카테고리로 두지 않고 기초자산이 속한 시장에 넣는다
+ * (코스피200선물→equities, 달러선물→fx, 국채선물→rates).
+ * 금융 매체가 실제로 지면을 나누는 방식이고, 내비게이션도 5개 선에서 지킬 수 있다.
+ */
 export const CATEGORIES = [
   {
     slug: 'equities',
     label: 'Equities',
-    blurb: 'Listed Korean stocks, indices and securitized products.',
+    blurb: 'Listed Korean stocks, indices, ETFs and equity derivatives.',
+  },
+  {
+    slug: 'fx',
+    label: 'FX',
+    blurb: 'The won against the dollar and its major crosses, plus currency futures.',
+  },
+  {
+    slug: 'rates',
+    label: 'Rates',
+    blurb: 'Korean government and corporate bonds, yields, and the policy rate.',
   },
   {
     slug: 'commodities',
@@ -42,7 +58,7 @@ export const CATEGORIES = [
   {
     slug: 'macro',
     label: 'Macro',
-    blurb: 'Growth, prices, rates and the external balance.',
+    blurb: 'Growth, prices, employment and the external balance.',
   },
 ] as const;
 

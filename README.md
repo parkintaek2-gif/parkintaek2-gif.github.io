@@ -1,6 +1,6 @@
 # Seoul Markets
 
-한국 증시·커머디티·거시 데이터를 영문으로 발행하는 데이터저널리즘 사이트.
+한국 금융시장 전반(증시·외환·채권·커머디티·거시) 데이터를 영문으로 발행하는 데이터저널리즘 사이트.
 Astro 정적 사이트 — 클라이언트 JS 0바이트, 외부 폰트·CDN 없음, DB 없음, 관리자 화면 없음.
 
 ## 기사 발행 / 비공개
@@ -21,7 +21,7 @@ content/articles/{slug}.md    ← 여기에 넣는다. 파일명이 곧 URL 이�
 ---
 title: "제목"                    # 필수, 120자 이내
 dek: "부제 한 줄"                 # 필수, 240자 이내
-category: equities              # 필수 — equities | commodities | macro
+category: equities              # 필수 — equities | fx | rates | commodities | macro
 pubDate: 2026-07-30             # 필수
 dataAsOf: 2026-07-29T15:30:00+09:00   # 필수 — 데이터 기준시각 (T+1 이라 발행일과 다르다)
 author: Markets Desk
@@ -70,4 +70,4 @@ npm run indexnow   # 빌드 후 Bing·Naver·Yandex 에 새 URL 통보
 ## 남은 일 (배포 전)
 
 - `src/consts.ts` 의 `PUBLISHER` PLACEHOLDER → 실제 사업자 정보
-- `content/articles/sample-*.md` 2건 삭제
+- `content/articles/sample-*.md` 4건 삭제

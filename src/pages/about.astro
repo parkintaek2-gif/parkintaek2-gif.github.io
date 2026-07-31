@@ -33,9 +33,19 @@ const jsonLd = {
           plainly what each figure does and does not support.
         </p>
         <p>
-          We publish {CATEGORIES.map((c) => c.label).join(', ')} coverage. We do not publish price
-          targets, trade ideas, or sponsored content.
+          We cover the Korean financial markets as a whole — {CATEGORIES.map((c) => c.label).join(
+            ', ',
+          )} — because they do not move independently of each other. A move in the won shows up in
+          exporter earnings; a shift in the policy rate shows up in bank margins and in the bond
+          curve before it shows up in the equity index. Splitting those into unconnected beats
+          makes the coverage worse.
         </p>
+        <p>
+          Futures and options are covered inside the market they derive from rather than as a
+          separate section: KOSPI 200 derivatives under Equities, currency futures under FX,
+          treasury-bond futures under Rates.
+        </p>
+        <p>We do not publish price targets, trade ideas, or sponsored content.</p>
 
         <h2 id="sources">Where the data comes from</h2>
         <p>
@@ -44,11 +54,27 @@ const jsonLd = {
         </p>
         <ul>
           <li>
-            <strong>Equity, index and securitized-product prices</strong> — Financial Services
+            <strong>Equities, indices and securitized products</strong> — Financial Services
             Commission open APIs distributed through the
             <a href="https://www.data.go.kr" rel="external noopener" target="_blank"
               >Korea Public Data Portal</a
             >, published under an unrestricted use licence.
+          </li>
+          <li>
+            <strong>Bonds and yields</strong> — Financial Services Commission bond price data
+            covering the treasury, general and small-denomination bond markets.
+          </li>
+          <li>
+            <strong>Futures and options</strong> — Financial Services Commission derivatives price
+            data.
+          </li>
+          <li>
+            <strong>Exchange rates</strong> — Export-Import Bank of Korea published rates, and Bank
+            of Korea currency statistics.
+          </li>
+          <li>
+            <strong>Commodities</strong> — Financial Services Commission general-commodity price
+            data for the petroleum, gold and emissions markets.
           </li>
           <li>
             <strong>Macroeconomic series</strong> — Bank of Korea statistics, accessed through the
@@ -59,6 +85,12 @@ const jsonLd = {
             listed-securities datasets.
           </li>
         </ul>
+        <p>
+          One market we do <em>not</em> cover is domestic cryptocurrency trading. Korean exchange
+          volumes are large enough to deserve coverage, but no government open-data feed publishes
+          them, and exchange APIs carry redistribution terms we have not cleared. We would rather
+          leave a visible gap than source a section we cannot stand behind.
+        </p>
         <p>
           We do not scrape the Korea Exchange website, and we do not redistribute licensed vendor
           feeds. {SITE.name} is not affiliated with, endorsed by, or licensed by the Korea Exchange.
