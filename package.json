@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "og": "node scripts/make-og.mjs",
     "indexnow": "node scripts/ping-indexnow.mjs",
-    "start": "node server.mjs"
+    "start": "node server.mjs",
+    "watch:api": "node scripts/watch-datago.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
