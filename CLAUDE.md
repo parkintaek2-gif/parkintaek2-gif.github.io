@@ -103,7 +103,8 @@ GitHub Pages는 아래 네 개 중 하나여야 한다. 지금 값은 **전혀 �
 
 Spaceship(등록업체 확인됨. klifemap.ai 와 같은 곳)에서 A 레코드를 넣었다.
 
-\
+    seoulmarkets.com → 185.199.108.153 · 185.199.109.153   (GitHub Pages)
+
 권한 있는 네임서버(launch1.spaceship.net)에 실제로 반영된 것을 조회로 확인했다.
 그 결과 http 응답이 **000(연결 실패) → 404** 로 바뀌었다. DNS 는 이제 GitHub 까지 닿는다.
 
@@ -116,18 +117,20 @@ Spaceship(등록업체 확인됨. klifemap.ai 와 같은 곳)에서 A 레코드�
 **GitHub 이 이 도메인을 어느 저장소가 서비스하는지 모르기 때문**이다.
 
 **중요 — CNAME 파일만으로는 안 된다.**
- 도  도 seoulmarkets.com 으로 들어 있고,
-배포 아티팩트 루트()에도
+public/CNAME 도 dist/CNAME 도 seoulmarkets.com 으로 들어 있고,
+배포 아티팩트 루트(https://parkintaek2-gif.github.io/seoulmarkets/CNAME)에도
 정상적으로 올라가 있다. 그런데도 적용되지 않았다.
 빈 커밋으로 재배포까지 돌려 **성공(98fd179)** 했는데도 그대로였다.
 → **Actions(actions/deploy-pages) 방식에서는 CNAME 파일이 사용자 도메인을
    자동으로 설정해 주지 않는다.** 설정 화면이나 API 로 직접 넣어야 한다.
 
 **해야 할 일**
-1. Settings → Pages → **Custom domain** 에  입력 후 Save
+1. Settings → Pages → **Custom domain** 에 seoulmarkets.com 입력 후 Save
    (https://github.com/parkintaek2-gif/seoulmarkets/settings/pages)
 2. DNS 검증이 끝나면 **Enforce HTTPS** 를 켠다 (인증서 발급에 몇 분~한 시간)
-3.  로 200 을 확인한다
+3. curl -I https://seoulmarkets.com/ 로 200 을 확인한다
+
+> 이 내용은 **docs/세션간-메모.md** 에도 적어 두었다. 두 세션이 그 파일로 소통한다.
 
 ※ 나(klifemap 세션)는 여기서 막혔다 — 그 입력칸에 글자가 들어가지 않는다.
   클릭은 되는데 포커스가 BODY 에 머문다(탭을 새로 열어도 같았다).
@@ -139,3 +142,52 @@ Spaceship(등록업체 확인됨. klifemap.ai 와 같은 곳)에서 A 레코드�
 
 ※ **DNS를 바꾸기 전에 지금 그 주소에서 무엇이 서비스되고 있는지 반드시 확인할 것.**
   살아 있는 사이트를 끊어 버리면 되돌리는 데 또 하루가 걸린다.
+
+---
+
+# ⚠ 같은 Cloudtype 계정에 KLifeMap 이 함께 있다 (2026-07-31)
+
+`~/Documents/GitHub/klifemap` 의 **KLifeMap**(klifemap.ai)이
+**같은 Cloudtype 계정 `@parkintaek2`** 를 쓴다. **klifemap.ai 는 사장님의 매출이 나는
+서비스다. 죽이면 안 된다.**
+
+| 프로젝트 | Cloudtype 스테이지 | 배포 이름 | 메모리 |
+|---|---|---|---|
+| SeoulMarkets (여기) | `@parkintaek2/seoulmarkets:main` | `web` | 0.5GB |
+| KLifeMap | `@parkintaek2/klifemap:main` | `klifemap-app` | 0.5GB |
+
+구독 총량 **1GB**. 계정 단위로 구독하고 두 프로젝트가 나눠 쓴다. 프로젝트별 결제가 없다.
+
+## 반드시 지킬 것
+
+**`ctype` 명령에는 예외 없이 `-t` 로 대상 스테이지를 명시한다.**
+
+```bash
+ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main
+ctype ls -t @parkintaek2/seoulmarkets:main
+```
+
+`ctype` 에는 "현재 스테이지"라는 전역 상태가 있고, `undeploy` 같은 명령 뒤에 **제멋대로 다른
+프로젝트로 되돌아간다.** 실제로 2026-07-31 에 `-t` 없이 `ctype apply` 를 실행해
+**klifemap 프로젝트에 `web` 이 잘못 생성됐다.** 즉시 제거했고 klifemap-app 은 무사했지만,
+운이 나빴으면 남의 서비스를 메모리 부족으로 밀어낼 수 있었다.
+
+## 배포가 안 뜰 때 — 원인은 대개 메모리다
+
+- `Memory limit exceeded ... 0GB remained` → klifemap 이 다 쓰고 있다. 총량을 늘린다.
+- `ready=1 / unavailable=1` 로 멈춤 → 롤링 업데이트에 두 배 메모리가 필요한데 여유가 없다.
+  `undeploy` 후 다시 `apply` 한다. **이때 `-t` 를 빼먹지 말 것.**
+
+## 프리티어 함정
+
+`spot: true` 로 뜨면 **매일 1회 자동 중지된다.** 매체로는 못 쓴다.
+`.cloudtype/app.yaml` 의 `resources.spot: false` 로 고정돼 있다. 지우지 말 것.
+
+## 백업 경로
+
+GitHub Pages 에 같은 사이트가 떠 있다 — https://parkintaek2-gif.github.io/
+Cloudtype 이 죽으면 DNS 만 되돌려 복구한다. 그래서 푸시는 항상 양쪽에 한다.
+
+```bash
+git push origin main && git push site main
+```
