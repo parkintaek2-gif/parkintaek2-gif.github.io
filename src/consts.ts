@@ -6,7 +6,10 @@
 export const SITE_URL = 'https://seoulmarkets.com';
 
 export const SITE = {
-  name: 'Seoul Markets',
+  // 한 단어로 붙여 쓰고 각 낱말의 첫 글자를 대문자로. (KLifeMap 과 같은 표기 방식)
+  name: 'SeoulMarkets',
+  /** 로고에서 뒷부분에 강조색을 주기 위한 분할. name 을 바꾸면 여기도 맞출 것. */
+  nameParts: ['Seoul', 'Markets'],
   tagline: 'Korean markets, explained with data.',
   description:
     'Data journalism on Korean equities, currencies, bonds, commodities and macroeconomics — sourced from official Korean government open data, published in English.',
@@ -17,15 +20,20 @@ export const SITE = {
 /**
  * 발행 주체 정보. 구글은 금융 콘텐츠를 YMYL로 심사하므로
  * 법인명·주소·연락처가 비어 있으면 검색 노출이 사실상 막힌다.
- * ⚠ TODO: 아래 PLACEHOLDER를 실제 사업자등록 정보로 교체할 것.
+ * 출처: 사업자등록증(법인사업자), 세종세무서장 발급 2025-07-17.
  */
 export const PUBLISHER = {
-  legalName: 'PLACEHOLDER Co., Ltd.', // TODO: 사업자등록증상 법인명(영문)
-  legalNameKo: 'PLACEHOLDER 주식회사', // TODO: 국문 법인명
-  bizRegNo: '000-00-00000', // TODO: 사업자등록번호
-  address: 'PLACEHOLDER, Seoul, Republic of Korea', // TODO: 사업장 주소(영문)
-  email: 'editor@seoulmarkets.com', // TODO: 실제 수신 가능한 주소
-  foundedYear: 2026,
+  legalName: 'Yeopkeopon Sejong Co., Ltd.',
+  legalNameKo: '주식회사 옆커폰세종',
+  representative: 'Kim Mi-hee',
+  representativeKo: '김미희',
+  bizRegNo: '456-87-03384',
+  address: 'Unit 101, 1F, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',
+  addressKo: '세종특별자치시 남세종로 441 상가1동 1층 101호 (보람동, 호려울마을5단지)',
+  // ⚠ 도메인은 등록됐지만 메일 수신 설정은 아직이다.
+  //    Spaceship 에서 이 주소로 포워딩을 걸어야 실제로 받아볼 수 있다.
+  email: 'editor@seoulmarkets.com',
+  foundedYear: 2025, // 법인 개업일 2025-07-15
 } as const;
 
 /**

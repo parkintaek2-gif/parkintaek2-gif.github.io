@@ -8,7 +8,7 @@
 import sharp from 'sharp';
 import { writeFile } from 'node:fs/promises';
 
-const NAME = 'Seoul Markets';
+const NAME = 'SeoulMarkets';
 const TAGLINE = 'Korean markets, explained with data.';
 const DOMAIN = 'seoulmarkets.com';
 

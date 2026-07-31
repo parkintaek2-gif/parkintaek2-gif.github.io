@@ -5,12 +5,13 @@ import { cleanPath } from '../lib/format';
 const path = cleanPath(Astro.url.pathname);
 const isCurrent = (href: string) => (path === href ? 'page' : undefined);
 
-const [word1, ...rest] = SITE.name.split(' ');
+// 붙여 쓴 이름이라 공백 없이 이어 붙인다 — Seoul + Markets
+const [head, ...tail] = SITE.nameParts;
 ---
 
 <header class="masthead">
   <div class="wrap masthead__bar">
-    <a class="logo" href="/">{word1}<span>{rest.length ? ` ${rest.join(' ')}` : ''}</span></a>
+    <a class="logo" href="/" aria-label={SITE.name}>{head}<span>{tail.join('')}</span></a>
     <nav class="nav" aria-label="Sections">
       {
         CATEGORIES.map((c) => (

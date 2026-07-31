@@ -144,7 +144,9 @@ const jsonLd = {
         <h2>Publisher</h2>
         <p>
           <strong>{PUBLISHER.legalName}</strong> ({PUBLISHER.legalNameKo})<br />
+          Representative director: {PUBLISHER.representative} ({PUBLISHER.representativeKo})<br />
           {PUBLISHER.address}<br />
+          <span lang="ko">{PUBLISHER.addressKo}</span><br />
           Business registration number {PUBLISHER.bizRegNo}<br />
           <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
         </p>
