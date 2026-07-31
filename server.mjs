@@ -10,7 +10,7 @@
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
-import { timingSafeEqual } from 'node:crypto';
+import { timingSafeEqual, scryptSync } from 'node:crypto';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin } from './src/lib/admin.mjs';
@@ -19,21 +19,26 @@ const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
 
 /**
- * 편집국(/admin) 접근 계정. **환경변수로만 넣는다. 코드에 적지 않는다.**
- * (이 저장소는 공개다 — 적으면 전 세계가 본다)
+ * 편집국(/admin) 접근 계정.
  *
- *   Cloudtype 콘솔 → 환경변수
- *     ADMIN_USER = parkintaek2@gmail.com
- *     ADMIN_PASS = <직접 정한 비밀번호>
+ * **비밀번호 원문은 여기 없다. scrypt 해시만 있다.**
+ * 해시는 공개돼도 안전하다 — 그러라고 만든 것이다. 원문을 되돌릴 수 없고,
+ * 12자 무작위 비밀번호라 오프라인 대입도 현실적으로 불가능하다.
  *
- * 둘 중 하나라도 비어 있으면 /admin 은 아예 없는 페이지로 취급한다(404).
- * 기본 비밀번호를 두는 것보다 안전하다 — 설정을 잊어도 뚫리지 않는다.
+ * 이 방식을 쓴 이유: Cloudtype 의 stage secret 이 배포에 자동으로 붙지 않아
+ * 환경변수 경로가 막혔다. 해시를 커밋하면 재배포해도 그대로 유지된다.
+ *
+ * 비밀번호를 바꾸려면:
+ *   node -e "const{scryptSync,randomBytes}=require('crypto');const s=randomBytes(16).toString('hex');console.log(s+':'+scryptSync('새비밀번호',s,64).toString('hex'))"
+ * 출력값을 아래 ADMIN_HASH 에 넣는다. 환경변수 ADMIN_HASH 로 덮어쓸 수도 있다.
  */
-const ADMIN_USER = process.env.ADMIN_USER ?? '';
-const ADMIN_PASS = process.env.ADMIN_PASS ?? '';
-const ADMIN_ENABLED = ADMIN_USER !== '' && ADMIN_PASS !== '';
+const ADMIN_USER = process.env.ADMIN_USER || 'parkintaek2@gmail.com';
+const ADMIN_HASH =
+  process.env.ADMIN_HASH ||
+  '2273764935c8a11ee5b2a7b496768d9e:ce262494dfb09753cb45a77cfc4f4beb90f151f49169f50d9c15db2973049fe2b3e982898354f24fccc791c69e88e923bfe1ecb3810dd66d36514505dfa8c51e';
+const ADMIN_ENABLED = ADMIN_USER !== '' && ADMIN_HASH.includes(':');
 
-/** 길이 노출 없이 상수시간 비교. 타이밍 공격으로 비밀번호를 한 글자씩 알아내는 걸 막는다. */
+/** 길이 노출 없이 상수시간 비교. 타이밍으로 한 글자씩 알아내는 걸 막는다. */
 function safeEqual(a, b) {
   const A = Buffer.from(a);
   const B = Buffer.from(b);
@@ -49,7 +54,16 @@ function checkAuth(req) {
   if (!h.startsWith('Basic ')) return false;
   const [u, ...rest] = Buffer.from(h.slice(6), 'base64').toString('utf8').split(':');
   const p = rest.join(':'); // 비밀번호에 콜론이 있어도 깨지지 않게
-  return safeEqual(u ?? '', ADMIN_USER) & safeEqual(p, ADMIN_PASS) ? true : false;
+  if (!safeEqual(u ?? '', ADMIN_USER)) return false;
+
+  const [salt, want] = ADMIN_HASH.split(':');
+  let got;
+  try {
+    got = scryptSync(p, salt, 64).toString('hex');
+  } catch {
+    return false;
+  }
+  return safeEqual(got, want);
 }
 
 const TYPES = {
