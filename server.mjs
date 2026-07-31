@@ -13,7 +13,7 @@ import { stat } from 'node:fs/promises';
 import { timingSafeEqual, scryptSync } from 'node:crypto';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { renderAdmin } from './src/lib/admin.mjs';
+import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -165,13 +165,36 @@ const server = createServer(async (req, res) => {
       res.end('Authentication required');
       return;
     }
-    const html = await renderAdmin({ user: ADMIN_USER });
-    res.writeHead(200, {
+    const adminHeaders = {
       ...BASE_HEADERS,
-      'Content-Type': 'text/html; charset=utf-8',
       'Cache-Control': 'no-store',
       'X-Robots-Tag': 'noindex, nofollow',
+    };
+
+    // /admin/raw/<slug> — 마크다운 원문 그대로 (복사·수정용)
+    const rawMatch = pathname.match(/^\/admin\/raw\/(.+)$/);
+    if (rawMatch) {
+      const md = await renderRaw(decodeURIComponent(rawMatch[1]));
+      if (md == null) {
+        res.writeHead(404, { ...adminHeaders, 'Content-Type': 'text/plain; charset=utf-8' });
+        res.end('Not Found');
+        return;
+      }
+      res.writeHead(200, { ...adminHeaders, 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end(req.method === 'HEAD' ? undefined : md);
+      return;
+    }
+
+    // /admin 또는 /admin/<slug>
+    const slugMatch = pathname.match(/^\/admin\/(.+)$/);
+    const r = await renderAdmin({
+      user: ADMIN_USER,
+      slug: slugMatch ? decodeURIComponent(slugMatch[1]) : null,
     });
+    // 없는 기사면 404 로 돌려준다. 목록에 없는 slug 를 200 으로 주면 안 된다.
+    const status = typeof r === 'string' ? 200 : r.status;
+    const html = typeof r === 'string' ? r : r.html;
+    res.writeHead(status, { ...adminHeaders, 'Content-Type': 'text/html; charset=utf-8' });
     res.end(req.method === 'HEAD' ? undefined : html);
     return;
   }
