@@ -30,9 +30,9 @@ export const PUBLISHER = {
   bizRegNo: '456-87-03384',
   address: 'Unit 101, 1F, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',
   addressKo: '세종특별자치시 남세종로 441 상가1동 1층 101호 (보람동, 호려울마을5단지)',
-  // ⚠ 도메인은 등록됐지만 메일 수신 설정은 아직이다.
-  //    Spaceship 에서 이 주소로 포워딩을 걸어야 실제로 받아볼 수 있다.
-  email: 'editor@seoulmarkets.com',
+  // 실제 수신되는 주소다. editor@seoulmarkets.com 은 메일함이 없어서 쓰지 않는다.
+  // 나중에 도메인 메일을 만들면 여기만 바꾸면 About·푸터·JSON-LD 가 함께 따라간다.
+  email: 'sibcheongan@gmail.com',
   foundedYear: 2025, // 법인 개업일 2025-07-15
 } as const;
 
