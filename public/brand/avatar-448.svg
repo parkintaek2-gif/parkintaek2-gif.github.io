@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="448" height="448">
+  <!--
+    파트너 플랫폼(MSN·SmartNews·Flipboard) 프로필용 마크.
+    favicon.svg 와 같은 도형이다 — 아바타만 다르게 만들면 브랜드가 갈라진다.
+
+    파비콘과 다른 점 세 가지. 전부 「크게 쓰이는 것」과 「잘려 쓰이는 것」 때문이다.
+
+      1. 모서리를 둥글게 하지 않는다. 플랫폼이 원형으로 잘라 쓰는 경우가 많아
+         우리가 미리 둥글리면 이중으로 깎인다.
+      2. 도형을 0.85 로 줄여 정중앙에 놓는다. 원본 비율 그대로 448 로 키우면
+         선 끝이 모서리에 닿아 원형 크롭에서 화살촉이 잘려 나간다.
+      3. 선 끝을 square 가 아니라 butt 로 둔다. square 는 끝점 너머로 선폭의 절반이
+         더 튀어나오는데, 16px 에서는 안 보이지만 448px 에서는 화살촉 위에
+         혹이 하나 붙은 것처럼 보인다.
+  -->
+  <rect width="32" height="32" fill="#0f4c81"/>
+  <!-- 바깥 translate 는 렌더한 PNG 의 흰 픽셀 bbox 를 재서 맞춘 값이다.
+       도형이 대각선이라 경로의 기하 중심과 실제 잉크 중심이 어긋난다. -->
+  <g transform="translate(15.68,16.5) scale(0.85) translate(-16,-15)"
+     fill="none" stroke="#fdfdfc" stroke-width="3" stroke-linejoin="miter">
+    <path d="M5 23 L11 15 L16 19 L26.2 8.2"/>
+    <path d="M20 6.5 H27.5 V14"/>
+  </g>
+</svg>
