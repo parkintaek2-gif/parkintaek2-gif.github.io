@@ -22,7 +22,7 @@ const articles = defineCollection({
     title: z.string().max(120),
     /** 카드·기사 상단에 한 줄로 붙는 부제 */
     dek: z.string().max(240),
-    category: z.enum(['equities', 'fx', 'rates', 'commodities', 'macro']),
+    category: z.enum(['equities', 'fx', 'rates', 'commodities', 'funds', 'macro']),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     /**

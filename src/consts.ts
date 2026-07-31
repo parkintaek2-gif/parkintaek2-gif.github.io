@@ -64,6 +64,11 @@ export const CATEGORIES = [
     blurb: 'Oil, gold and emissions traded through Korean venues.',
   },
   {
+    slug: 'funds',
+    label: 'Funds',
+    blurb: 'Korean fund performance, fees and the managers behind them.',
+  },
+  {
     slug: 'macro',
     label: 'Macro',
     blurb: 'Growth, prices, employment and the external balance.',

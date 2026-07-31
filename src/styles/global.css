@@ -569,6 +569,49 @@ main {
   stroke-width: 1;
 }
 
+/* 기간 전환 버튼 — 자바스크립트가 없으면 기본 기간만 보이고 버튼은 그냥 안 눌린다. */
+.chart__periods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+}
+
+.chart__periods button {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--ink-2);
+  background: var(--paper);
+  border: 1px solid var(--rule-2);
+  border-radius: 999px;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  line-height: 1.2;
+}
+
+.chart__periods button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chart__periods button[aria-pressed='true'] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--paper);
+}
+
+/* 운용사명 — 펀드명 아래 한 단 작게. 이 기획의 핵심 축이라 항상 붙인다. */
+.chart text.house {
+  font-size: 9.5px;
+  fill: var(--muted);
+}
+
+.fundchart svg[hidden] {
+  display: none;
+}
+
 .chart figcaption {
   font-family: var(--sans);
   font-size: 0.76rem;
