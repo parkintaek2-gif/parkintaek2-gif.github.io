@@ -71,7 +71,7 @@ async function resolveFile(pathname) {
   return null;
 }
 
-function send(res, status, full, size, pathname) {
+function send(res, status, full, size, pathname, headOnly = false) {
   const ext = extname(full);
   res.writeHead(status, {
     ...BASE_HEADERS,
@@ -79,6 +79,12 @@ function send(res, status, full, size, pathname) {
     'Content-Length': size,
     'Cache-Control': cacheFor(pathname, ext),
   });
+  // HEAD 는 헤더만 보내고 본문을 보내면 안 된다. Node 는 이걸 자동으로 막아주지 않는다.
+  // 본문을 딸려 보내면 프로토콜 위반이라 헬스체크·프록시가 응답을 못 끝내고 기다린다.
+  if (headOnly) {
+    res.end();
+    return;
+  }
   createReadStream(full).pipe(res);
 }
 
@@ -100,15 +106,17 @@ const server = createServer(async (req, res) => {
     return;
   }
 
+  const headOnly = req.method === 'HEAD';
+
   const hit = await resolveFile(pathname);
   if (hit) {
-    send(res, 200, hit.full, hit.size, pathname);
+    send(res, 200, hit.full, hit.size, pathname, headOnly);
     return;
   }
 
   const notFound = await resolveFile('/404');
   if (notFound) {
-    send(res, 404, notFound.full, notFound.size, '/404');
+    send(res, 404, notFound.full, notFound.size, '/404', headOnly);
     return;
   }
   res.writeHead(404, { ...BASE_HEADERS, 'Content-Type': 'text/plain' }).end('Not Found');

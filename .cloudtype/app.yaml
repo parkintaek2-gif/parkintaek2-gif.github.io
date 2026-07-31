@@ -33,6 +33,12 @@ options:
   build: npm run build
   start: npm start
 
+# 프리티어(spot) 리소스로 뜨면 매일 1회 자동 중지된다 — 매체로는 못 쓴다.
+# 유료(Hobby) 리소스로 고정한다.
+resources:
+  spot: false
+  memory: 0.5
+
 context:
   git:
     url: https://github.com/parkintaek2-gif/seoulmarkets.git
