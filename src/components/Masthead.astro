@@ -1,0 +1,25 @@
+---
+import { SITE, CATEGORIES } from '../consts';
+import { cleanPath } from '../lib/format';
+
+const path = cleanPath(Astro.url.pathname);
+const isCurrent = (href: string) => (path === href ? 'page' : undefined);
+
+const [word1, ...rest] = SITE.name.split(' ');
+---
+
+<header class="masthead">
+  <div class="wrap masthead__bar">
+    <a class="logo" href="/">{word1}<span>{rest.length ? ` ${rest.join(' ')}` : ''}</span></a>
+    <nav class="nav" aria-label="Sections">
+      {
+        CATEGORIES.map((c) => (
+          <a href={`/${c.slug}`} aria-current={isCurrent(`/${c.slug}`)}>
+            {c.label}
+          </a>
+        ))
+      }
+      <a href="/about" aria-current={isCurrent('/about')}>About</a>
+    </nav>
+  </div>
+</header>

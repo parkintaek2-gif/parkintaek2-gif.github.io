@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, CATEGORIES } from '../consts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: `${SITE_URL}/about`,
+  mainEntity: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base
+  title="About & Methodology"
+  description={`Who publishes ${SITE.name}, where the data comes from, and how each figure is verified.`}
+  jsonLd={jsonLd}
+>
+  <div class="wrap">
+    <article class="article">
+      <div class="article__head">
+        <p class="kicker">About</p>
+        <h1>Who we are, and how we handle numbers</h1>
+        <p class="article__dek">{SITE.description}</p>
+      </div>
+
+      <div class="prose">
+        <h2>The publication</h2>
+        <p>
+          {SITE.name} covers Korean equities, commodities and macroeconomics for readers outside
+          Korea. Korean market data is abundant but almost entirely published in Korean, on a
+          delay, and in formats built for domestic regulatory use rather than for reading. We take
+          the official releases, translate the substance rather than just the words, and say
+          plainly what each figure does and does not support.
+        </p>
+        <p>
+          We publish {CATEGORIES.map((c) => c.label).join(', ')} coverage. We do not publish price
+          targets, trade ideas, or sponsored content.
+        </p>
+
+        <h2 id="sources">Where the data comes from</h2>
+        <p>
+          Every figure we publish originates from a government or central-bank open-data release
+          that permits redistribution. In practice that means:
+        </p>
+        <ul>
+          <li>
+            <strong>Equity, index and securitized-product prices</strong> — Financial Services
+            Commission open APIs distributed through the
+            <a href="https://www.data.go.kr" rel="external noopener" target="_blank"
+              >Korea Public Data Portal</a
+            >, published under an unrestricted use licence.
+          </li>
+          <li>
+            <strong>Macroeconomic series</strong> — Bank of Korea statistics, accessed through the
+            Public Data Portal and the Economic Statistics System.
+          </li>
+          <li>
+            <strong>Listing and issuance reference data</strong> — Financial Services Commission
+            listed-securities datasets.
+          </li>
+        </ul>
+        <p>
+          We do not scrape the Korea Exchange website, and we do not redistribute licensed vendor
+          feeds. {SITE.name} is not affiliated with, endorsed by, or licensed by the Korea Exchange.
+        </p>
+
+        <h2>Why our numbers are not live</h2>
+        <p>
+          Korean government open-data feeds settle on a one-business-day lag: a session's figures
+          become available from about 1 p.m. the following business day, and Friday's data arrives
+          the next Monday. We could not publish intraday prices from these sources even if we
+          wanted to, so we do not pretend otherwise.
+        </p>
+        <p>
+          Every article carries an explicit <em>data as-of</em> timestamp in both Korean and US
+          Eastern time, on the article card and again in the article itself. If a figure you read
+          here is a day behind the live market, that is by design and the timestamp will say so.
+        </p>
+
+        <h2>How each article is verified</h2>
+        <p>
+          Articles are drafted with AI assistance from structured data pulls, then reviewed by a
+          human editor before publication. The editor checks three things: that every quoted number
+          traces back to a named source and dataset, that the as-of timestamp matches the actual
+          release, and that any figure which could not be confirmed has been removed rather than
+          softened.
+        </p>
+        <p>
+          The <strong>Data &amp; Verification Notes</strong> block at the foot of every article is
+          generated from the article's own source metadata. It lists the exact agency and API used,
+          what was cross-checked, and — importantly — what we <em>excluded</em> because it could
+          not be verified. If that block is missing, the article does not build.
+        </p>
+
+        <h2>Corrections</h2>
+        <p>
+          If a figure here is wrong, we want to know. Write to
+          <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. Substantive corrections are
+          made in place with a visible updated date; we do not quietly rewrite published numbers.
+        </p>
+
+        <h2>Advertising and independence</h2>
+        <p>
+          {SITE.name} is free to read and funded by display advertising. Advertisers have no
+          involvement in, or advance sight of, editorial decisions. We do not accept paid
+          placements, sponsored articles, or coverage-for-payment arrangements of any kind.
+        </p>
+
+        <h2>Not investment advice</h2>
+        <p>{DISCLAIMER.long}</p>
+
+        <h2>Publisher</h2>
+        <p>
+          <strong>{PUBLISHER.legalName}</strong> ({PUBLISHER.legalNameKo})<br />
+          {PUBLISHER.address}<br />
+          Business registration number {PUBLISHER.bizRegNo}<br />
+          <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+        </p>
+      </div>
+
+      <a class="backlink" href="/">&larr; Back to the front page</a>
+    </article>
+  </div>
+</Base>

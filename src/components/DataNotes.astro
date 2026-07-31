@@ -1,0 +1,78 @@
+---
+import { formatAsOf, iso } from '../lib/format';
+import { DISCLAIMER } from '../consts';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  data: CollectionEntry<'articles'>['data'];
+}
+const { data } = Astro.props;
+---
+
+<!--
+  법적 방어 장치다. 기사마다 반드시 나온다.
+  frontmatter 에서 자동으로 채워지므로 기자가 빠뜨릴 수 없다.
+-->
+<section class="notes" aria-labelledby="notes-h">
+  <h2 id="notes-h">Data &amp; Verification Notes</h2>
+  <dl>
+    <dt>Data as of</dt>
+    <dd><time datetime={iso(data.dataAsOf)}>{formatAsOf(data.dataAsOf)}</time></dd>
+
+    <dt>Sources</dt>
+    <dd>
+      <ul>
+        {
+          data.sources.map((s) => (
+            <li>
+              <span class="src-org">{s.org}</span>
+              {' — '}
+              {s.url ? (
+                <a class="src-api" href={s.url} rel="external noopener" target="_blank">
+                  {s.api}
+                </a>
+              ) : (
+                <span class="src-api">{s.api}</span>
+              )}
+            </li>
+          ))
+        }
+      </ul>
+    </dd>
+
+    <dt>Cross-checks</dt>
+    <dd>
+      {
+        data.crossChecks.length ? (
+          <ul>{data.crossChecks.map((c) => <li>{c}</li>)}</ul>
+        ) : (
+          <span>Single-source figures; no independent cross-check was available.</span>
+        )
+      }
+    </dd>
+
+    <dt>Excluded figures</dt>
+    <dd>
+      {
+        data.excluded.length ? (
+          <ul>{data.excluded.map((e) => <li>{e}</li>)}</ul>
+        ) : (
+          <span>None. Every figure quoted above cleared verification.</span>
+        )
+      }
+    </dd>
+
+    {
+      data.tickers.length > 0 && (
+        <Fragment>
+          <dt>Instruments</dt>
+          <dd>{data.tickers.join(', ')}</dd>
+        </Fragment>
+      )
+    }
+  </dl>
+</section>
+
+<p class="disclaimer">
+  <strong>Not investment advice.</strong>{' '}{DISCLAIMER.long}
+</p>

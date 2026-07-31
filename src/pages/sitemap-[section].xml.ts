@@ -1,0 +1,55 @@
+import type { APIRoute } from 'astro';
+import { SITE_URL, CATEGORIES } from '../consts';
+import { publishedArticles } from '../lib/articles';
+
+type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string };
+
+export function getStaticPaths() {
+  return [{ params: { section: 'pages' } }, ...CATEGORIES.map((c) => ({ params: { section: c.slug } }))];
+}
+
+const xml = (urls: Url[]) => `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+  .map(
+    (u) => `  <url>
+    <loc>${SITE_URL}${u.loc}</loc>${u.lastmod ? `
+    <lastmod>${u.lastmod.toISOString()}</lastmod>` : ''}
+    <changefreq>${u.changefreq}</changefreq>
+    <priority>${u.priority}</priority>
+  </url>`,
+  )
+  .join('\n')}
+</urlset>
+`;
+
+export const GET: APIRoute = async ({ params }) => {
+  const section = params.section!;
+  let urls: Url[];
+
+  if (section === 'pages') {
+    const all = await publishedArticles();
+    const newest = all[0]?.data.pubDate;
+    urls = [
+      { loc: '', lastmod: newest, changefreq: 'daily', priority: '1.0' },
+      { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+      ...CATEGORIES.map((c) => ({
+        loc: `/${c.slug}`,
+        lastmod: all.find((a) => a.data.category === c.slug)?.data.pubDate,
+        changefreq: 'daily',
+        priority: '0.8',
+      })),
+    ];
+  } else {
+    urls = (await publishedArticles(section)).map((a) => ({
+      loc: `/article/${a.id}`,
+      lastmod: a.data.updatedDate ?? a.data.pubDate,
+      changefreq: 'weekly',
+      priority: '0.7',
+    }));
+  }
+
+  return new Response(xml(urls), {
+    headers: { 'Content-Type': 'application/xml; charset=utf-8' },
+  });
+};

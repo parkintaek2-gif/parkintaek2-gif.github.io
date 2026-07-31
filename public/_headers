@@ -1,0 +1,24 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), interest-cohort=()
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.png
+  Cache-Control: public, max-age=604800
+
+/*.svg
+  Cache-Control: public, max-age=604800
+
+/rss.xml
+  Cache-Control: public, max-age=600
+  Content-Type: application/rss+xml; charset=utf-8
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/sitemap-*.xml
+  Cache-Control: public, max-age=3600

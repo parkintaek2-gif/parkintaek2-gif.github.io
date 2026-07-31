@@ -1,0 +1,49 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { CATEGORIES, SITE, SITE_URL } from '../consts';
+import { publishedArticles } from '../lib/articles';
+
+export function getStaticPaths() {
+  return CATEGORIES.map((c) => ({ params: { category: c.slug }, props: { cat: c } }));
+}
+
+const { cat } = Astro.props;
+const articles = await publishedArticles(cat.slug);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `${cat.label} — ${SITE.name}`,
+  description: cat.blurb,
+  url: `${SITE_URL}/${cat.slug}`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title={cat.label} description={`${cat.blurb} ${SITE.description}`} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <div class="page-head">
+      <p class="kicker">Section</p>
+      <h1>{cat.label}</h1>
+      <p>{cat.blurb}</p>
+    </div>
+
+    {
+      articles.length === 0 ? (
+        <p class="empty">Nothing filed in {cat.label} yet.</p>
+      ) : (
+        <ul class="stream">
+          {articles.map((entry) => (
+            <ArticleCard entry={entry} />
+          ))}
+        </ul>
+      )
+    }
+
+    <a class="backlink" href="/">&larr; All sections</a>
+  </div>
+</Base>

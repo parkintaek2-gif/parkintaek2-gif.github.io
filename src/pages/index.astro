@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { SITE, SITE_URL, CATEGORIES } from '../consts';
+import { publishedArticles } from '../lib/articles';
+
+const articles = await publishedArticles();
+const [lead, ...rest] = articles;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE_URL,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title={SITE.name} description={SITE.description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <div class="page-head">
+      <p class="kicker">{SITE.tagline}</p>
+      <h1>Korean markets, in numbers</h1>
+      <p>
+        Every story here starts from an official Korean government data release and states the
+        exact timestamp of the figures it uses. No tips, no targets — just what the data shows and
+        what it does not.
+      </p>
+    </div>
+
+    {
+      articles.length === 0 ? (
+        <p class="empty">No articles published yet.</p>
+      ) : (
+        <ul class="stream">
+          <ArticleCard entry={lead} lead />
+          {rest.map((entry) => (
+            <ArticleCard entry={entry} />
+          ))}
+        </ul>
+      )
+    }
+
+    <div class="cat-grid">
+      {
+        CATEGORIES.map((c) => (
+          <a class="cat-card" href={`/${c.slug}`}>
+            <h3>{c.label}</h3>
+            <p>{c.blurb}</p>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</Base>

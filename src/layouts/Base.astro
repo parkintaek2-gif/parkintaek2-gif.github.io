@@ -1,0 +1,102 @@
+---
+import Masthead from '../components/Masthead.astro';
+import Footer from '../components/Footer.astro';
+import { SITE, SITE_URL, PUBLISHER, ADS } from '../consts';
+import { cleanPath } from '../lib/format';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** 기사 페이지에서 넘기는 JSON-LD 객체 */
+  jsonLd?: unknown;
+  ogType?: 'website' | 'article';
+  image?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  jsonLd,
+  ogType = 'website',
+  image,
+  noindex = false,
+} = Astro.props;
+
+const path = cleanPath(Astro.url.pathname);
+const canonical = path === '/' ? SITE_URL : new URL(path, SITE_URL).href;
+const ogImage = new URL(image ?? '/og-default.png', SITE_URL).href;
+const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
+
+const adsPush =
+  "document.querySelectorAll('ins.adsbygoogle').forEach(function(){(window.adsbygoogle=window.adsbygoogle||[]).push({})});";
+
+// 사이트 전역 Organization/WebSite 마크업 — YMYL 심사에서 발행 주체 식별에 쓰인다.
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsMediaOrganization',
+  '@id': `${SITE_URL}/#organization`,
+  name: SITE.name,
+  legalName: PUBLISHER.legalName,
+  url: SITE_URL,
+  email: PUBLISHER.email,
+  foundingDate: String(PUBLISHER.foundedYear),
+  address: { '@type': 'PostalAddress', streetAddress: PUBLISHER.address, addressCountry: 'KR' },
+  publishingPrinciples: `${SITE_URL}/about`,
+  diversityPolicy: `${SITE_URL}/about`,
+  ethicsPolicy: `${SITE_URL}/about`,
+};
+---
+
+<html lang={SITE.lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(orgLd)} is:inline />
+    {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
+
+    {/* 광고를 붙이기 전까지 이 사이트가 부르는 외부 스크립트는 0개다. */}
+    {
+      ADS.client !== '' && (
+        <script
+          async
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS.client}`}
+          crossorigin="anonymous"
+        />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <Masthead />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    {/* ins 하나당 한 번씩 광고 요청. 페이지당 스크립트 한 줄로 끝낸다. */}
+    {ADS.client !== '' && <script is:inline set:html={adsPush} />}
+  </body>
+</html>

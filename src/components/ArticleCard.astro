@@ -1,0 +1,24 @@
+---
+import { formatDate, formatAsOf, categoryLabel, iso } from '../lib/format';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  entry: CollectionEntry<'articles'>;
+  lead?: boolean;
+}
+const { entry, lead = false } = Astro.props;
+const { title, dek, category, pubDate, dataAsOf } = entry.data;
+const href = `/article/${entry.id}`;
+---
+
+<li class={`card${lead ? ' card--lead' : ''}`}>
+  <p class="card__meta">
+    <a class="tag" href={`/${category}`}>{categoryLabel(category)}</a>
+    <time datetime={iso(pubDate)}>{formatDate(pubDate)}</time>
+  </p>
+  <h2 class="card__title"><a href={href}>{title}</a></h2>
+  <p class="card__dek">{dek}</p>
+  <p class="card__meta" style="margin-top:.6rem;margin-bottom:0">
+    <span class="asof">Data as of {formatAsOf(dataAsOf)}</span>
+  </p>
+</li>

@@ -1,0 +1,46 @@
+{
+  "permissions": {
+    "defaultMode": "acceptEdits",
+    "allow": [
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(git:*)",
+      "Bash(curl:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(mkdir:*)",
+      "Bash(rm:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(for:*)",
+      "PowerShell(npm:*)",
+      "PowerShell(npx:*)",
+      "PowerShell(git:*)",
+      "PowerShell(node:*)",
+      "Read(//**)",
+      "Edit(//**)",
+      "Write(//**)",
+      "Glob(//**)",
+      "Grep(//**)",
+      "WebSearch",
+      "WebFetch",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__computer",
+      "mcp__claude-in-chrome__read_page",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__tabs_create_mcp",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__tabs_close_mcp",
+      "mcp__claude-in-chrome__read_console_messages",
+      "mcp__claude-in-chrome__resize_window",
+      "mcp__claude-in-chrome__find"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(rm -rf /:*)",
+      "Read(./.env)",
+      "Read(./.env.*)"
+    ]
+  }
+}

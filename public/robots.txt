@@ -1,0 +1,5 @@
+# 검색·신디케이션 유입이 유일한 채널이다. 아무 봇도 막지 않는다.
+User-agent: *
+Allow: /
+
+Sitemap: https://seoulmarkets.com/sitemap.xml

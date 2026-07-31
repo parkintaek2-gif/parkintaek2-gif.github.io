@@ -1,0 +1,103 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import DataNotes from '../../components/DataNotes.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { publishedArticles } from '../../lib/articles';
+import { formatDate, formatAsOf, categoryLabel, iso } from '../../lib/format';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../../consts';
+
+export async function getStaticPaths() {
+  const articles = await publishedArticles();
+  return articles.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+
+const url = `${SITE_URL}/article/${entry.id}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  headline: d.title,
+  description: d.dek,
+  datePublished: iso(d.pubDate),
+  dateModified: iso(d.updatedDate ?? d.pubDate),
+  articleSection: categoryLabel(d.category),
+  inLanguage: SITE.lang,
+  url,
+  image: [new URL(d.image ?? '/og-default.png', SITE_URL).href],
+  author: { '@type': 'Organization', name: `${d.author}, ${SITE.name}`, url: `${SITE_URL}/about` },
+  publisher: {
+    '@type': 'NewsMediaOrganization',
+    '@id': `${SITE_URL}/#organization`,
+    name: SITE.name,
+    legalName: PUBLISHER.legalName,
+  },
+  isAccessibleForFree: true,
+  keywords: [...d.tags, ...d.tickers].join(', ') || undefined,
+  // 데이터 출처를 기계가 읽을 수 있게 남긴다 — 검증 가능성이 곧 신뢰도다.
+  citation: d.sources.map((s) => ({
+    '@type': 'CreativeWork',
+    name: `${s.org} — ${s.api}`,
+    ...(s.url ? { url: s.url } : {}),
+  })),
+};
+---
+
+<Base
+  title={d.title}
+  description={d.dek}
+  jsonLd={jsonLd}
+  ogType="article"
+  image={d.image}
+>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <article class="article">
+      <div class="article__head">
+        <p class="kicker">
+          <a class="tag" href={`/${d.category}`}>{categoryLabel(d.category)}</a>
+        </p>
+        <h1>{d.title}</h1>
+        <p class="article__dek">{d.dek}</p>
+      </div>
+
+      <div class="byline">
+        <span>By the {d.author}, {SITE.name}</span>
+        <span>
+          Published <time datetime={iso(d.pubDate)}>{formatDate(d.pubDate)}</time>
+        </span>
+        {
+          d.updatedDate && (
+            <span>
+              Updated <time datetime={iso(d.updatedDate)}>{formatDate(d.updatedDate)}</time>
+            </span>
+          )
+        }
+        <span class="asof">Data as of {formatAsOf(d.dataAsOf)}</span>
+      </div>
+
+      <p class="transparency">
+        <span aria-hidden="true">◆</span>
+        <span>
+          <strong>{DISCLAIMER.ai}</strong> Figures are pulled programmatically from the official
+          sources listed at the end of this article and checked by an editor before publication.{' '}
+          <strong>{DISCLAIMER.short}</strong>
+        </span>
+      </p>
+
+      <div class="prose">
+        <Content />
+      </div>
+
+      <DataNotes data={d} />
+
+      <a class="backlink" href={`/${d.category}`}>&larr; More {categoryLabel(d.category)}</a>
+    </article>
+  </div>
+</Base>

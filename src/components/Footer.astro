@@ -1,0 +1,63 @@
+---
+import { SITE, CATEGORIES, PUBLISHER, DISCLAIMER } from '../consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__grid">
+      <div>
+        <h2>Sections</h2>
+        <ul>
+          {CATEGORIES.map((c) => <li><a href={`/${c.slug}`}>{c.label}</a></li>)}
+        </ul>
+      </div>
+      <div>
+        <h2>The Publication</h2>
+        <ul>
+          <li><a href="/about">About &amp; Methodology</a></li>
+          <li><a href={`mailto:${PUBLISHER.email}`}>Contact the newsroom</a></li>
+          <li><a href="/rss.xml">RSS feed</a></li>
+          <li><a href="/sitemap.xml">Sitemap</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Data Sources</h2>
+        <ul>
+          <li>
+            <a href="https://www.data.go.kr" rel="external noopener" target="_blank"
+              >Korea Public Data Portal</a
+            >
+          </li>
+          <li>
+            <a href="https://ecos.bok.or.kr" rel="external noopener" target="_blank"
+              >Bank of Korea statistics</a
+            >
+          </li>
+          <li><a href="/about#sources">Full source list</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2>Published by</h2>
+        <ul>
+          <li>{PUBLISHER.legalName}</li>
+          <li>{PUBLISHER.address}</li>
+          <li>Business reg. {PUBLISHER.bizRegNo}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot__legal">
+      <p>
+        <strong>{DISCLAIMER.short}</strong>{' '}{DISCLAIMER.long}
+      </p>
+      <p>
+        Market and economic figures are derived from open data published by Korean government
+        agencies. Government open-data feeds are not real time; each article states the exact
+        as-of timestamp of the data it uses. {SITE.name} is not affiliated with, endorsed by, or
+        licensed by the Korea Exchange.
+      </p>
+      <p>&copy; {year} {PUBLISHER.legalName}. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

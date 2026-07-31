@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import { CATEGORIES } from '../consts';
+---
+
+<Base title="Page not found" description="That page does not exist." noindex>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">404</p>
+      <h1>That page isn&rsquo;t here</h1>
+      <p>The link may be old, or the article may have been withdrawn.</p>
+    </div>
+    <div class="cat-grid">
+      {
+        CATEGORIES.map((c) => (
+          <a class="cat-card" href={`/${c.slug}`}>
+            <h3>{c.label}</h3>
+            <p>{c.blurb}</p>
+          </a>
+        ))
+      }
+    </div>
+    <a class="backlink" href="/">&larr; Front page</a>
+  </div>
+</Base>

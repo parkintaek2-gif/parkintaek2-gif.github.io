@@ -1,0 +1,33 @@
+---
+import { ADS } from '../consts';
+
+interface Props {
+  slot: 'banner' | 'inArticle';
+}
+const { slot } = Astro.props;
+
+const configured = ADS.client !== '' && ADS.slots[slot] !== '';
+// 광고 미설정 상태에서 운영 사이트에 빈 박스를 띄우지 않는다.
+// 개발 중에는 자리와 크기를 눈으로 확인할 수 있게 점선 박스를 그린다.
+// 실제 광고 요청(push)은 Base 레이아웃이 페이지당 한 번 일괄 처리한다.
+const showPlaceholder = !configured && import.meta.env.DEV;
+---
+
+{
+  configured ? (
+    <aside class="ad-slot" aria-label="Advertisement">
+      <ins
+        class="adsbygoogle"
+        style="display:block"
+        data-ad-client={ADS.client}
+        data-ad-slot={ADS.slots[slot]}
+        data-ad-format="auto"
+        data-full-width-responsive="true"
+      />
+    </aside>
+  ) : showPlaceholder ? (
+    <aside class="ad-slot ad-slot--placeholder" aria-hidden="true">
+      ad slot — {slot}
+    </aside>
+  ) : null
+}
