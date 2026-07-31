@@ -97,13 +97,41 @@ GitHub Pages는 아래 네 개 중 하나여야 한다. 지금 값은 **전혀 �
 185.199.111.153
 ```
 
-## 해야 할 일
+## 진행 상황 (2026-08-01 갱신)
 
-1. 도메인 등록업체(DNS 관리 화면)에서 **A 레코드 4개**를 위 주소로 바꾼다.
-   `www` 를 쓸 것이면 `www` → `<사용자명>.github.io` 로 CNAME 을 건다.
-2. GitHub 저장소 → Settings → Pages → Custom domain 에 `seoulmarkets.com` 입력.
-3. DNS 검증이 끝나면 **Enforce HTTPS** 를 켠다.
-4. 전파에 최대 24시간 걸릴 수 있다. `nslookup seoulmarkets.com` 으로 확인한다.
+### ✅ 끝난 것 — DNS
+
+Spaceship(등록업체 확인됨. klifemap.ai 와 같은 곳)에서 A 레코드를 넣었다.
+
+\
+권한 있는 네임서버(launch1.spaceship.net)에 실제로 반영된 것을 조회로 확인했다.
+그 결과 http 응답이 **000(연결 실패) → 404** 로 바뀌었다. DNS 는 이제 GitHub 까지 닿는다.
+
+※ GitHub 권장은 A 레코드 4개(108/109/110/111)다. 지금 2개만 들어갔다 —
+  **2개로도 동작한다.** 나머지 둘은 이중화용이니 여유 있을 때 채우면 된다.
+
+### ⛔ 남은 것 — 저장소 설정에 사용자 도메인 한 줄
+
+지금 http://seoulmarkets.com/ 은 「There isn't a GitHub Pages site here」를 낸다.
+**GitHub 이 이 도메인을 어느 저장소가 서비스하는지 모르기 때문**이다.
+
+**중요 — CNAME 파일만으로는 안 된다.**
+ 도  도 seoulmarkets.com 으로 들어 있고,
+배포 아티팩트 루트()에도
+정상적으로 올라가 있다. 그런데도 적용되지 않았다.
+빈 커밋으로 재배포까지 돌려 **성공(98fd179)** 했는데도 그대로였다.
+→ **Actions(actions/deploy-pages) 방식에서는 CNAME 파일이 사용자 도메인을
+   자동으로 설정해 주지 않는다.** 설정 화면이나 API 로 직접 넣어야 한다.
+
+**해야 할 일**
+1. Settings → Pages → **Custom domain** 에  입력 후 Save
+   (https://github.com/parkintaek2-gif/seoulmarkets/settings/pages)
+2. DNS 검증이 끝나면 **Enforce HTTPS** 를 켠다 (인증서 발급에 몇 분~한 시간)
+3.  로 200 을 확인한다
+
+※ 나(klifemap 세션)는 여기서 막혔다 — 그 입력칸에 글자가 들어가지 않는다.
+  클릭은 되는데 포커스가 BODY 에 머문다(탭을 새로 열어도 같았다).
+  **브라우저 조작이 되는 세션이 이 한 칸만 채우면 끝난다.**
 
 ※ 참고 — 사장님의 다른 도메인들은 등록처가 갈린다.
   klifemap.ai 는 **Spaceship**, intellitv.net·wiki-tip.com 은 **가비아**다.
