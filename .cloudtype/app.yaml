@@ -37,7 +37,9 @@ options:
 # 유료(Hobby) 리소스로 고정한다.
 resources:
   spot: false
-  memory: 0.5
+  # 런타임 실측 47.6MB. 의존성 0개 정적 서버라 0.25GB 로 충분하다.
+  # 남는 몫은 같은 계정의 klifemap 이 쓴다.
+  memory: 0.25
 
 context:
   git:
