@@ -10,11 +10,47 @@
 import { createServer } from 'node:http';
 import { createReadStream } from 'node:fs';
 import { stat } from 'node:fs/promises';
+import { timingSafeEqual } from 'node:crypto';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderAdmin } from './src/lib/admin.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
+
+/**
+ * 편집국(/admin) 접근 계정. **환경변수로만 넣는다. 코드에 적지 않는다.**
+ * (이 저장소는 공개다 — 적으면 전 세계가 본다)
+ *
+ *   Cloudtype 콘솔 → 환경변수
+ *     ADMIN_USER = parkintaek2@gmail.com
+ *     ADMIN_PASS = <직접 정한 비밀번호>
+ *
+ * 둘 중 하나라도 비어 있으면 /admin 은 아예 없는 페이지로 취급한다(404).
+ * 기본 비밀번호를 두는 것보다 안전하다 — 설정을 잊어도 뚫리지 않는다.
+ */
+const ADMIN_USER = process.env.ADMIN_USER ?? '';
+const ADMIN_PASS = process.env.ADMIN_PASS ?? '';
+const ADMIN_ENABLED = ADMIN_USER !== '' && ADMIN_PASS !== '';
+
+/** 길이 노출 없이 상수시간 비교. 타이밍 공격으로 비밀번호를 한 글자씩 알아내는 걸 막는다. */
+function safeEqual(a, b) {
+  const A = Buffer.from(a);
+  const B = Buffer.from(b);
+  if (A.length !== B.length) {
+    timingSafeEqual(A, A); // 길이가 달라도 같은 시간을 쓴다
+    return false;
+  }
+  return timingSafeEqual(A, B);
+}
+
+function checkAuth(req) {
+  const h = req.headers.authorization ?? '';
+  if (!h.startsWith('Basic ')) return false;
+  const [u, ...rest] = Buffer.from(h.slice(6), 'base64').toString('utf8').split(':');
+  const p = rest.join(':'); // 비밀번호에 콜론이 있어도 깨지지 않게
+  return safeEqual(u ?? '', ADMIN_USER) & safeEqual(p, ADMIN_PASS) ? true : false;
+}
 
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
@@ -95,6 +131,36 @@ const server = createServer(async (req, res) => {
   }
 
   const pathname = new URL(req.url, 'http://localhost').pathname;
+
+  // ── 편집국 ─────────────────────────────────────────────────────────
+  // 정적 파일 처리보다 먼저 가로챈다. dist/ 에 admin 이라는 파일이 생겨도
+  // 그쪽으로 새지 않게 하려는 것이다.
+  if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+    if (!ADMIN_ENABLED) {
+      // 계정 미설정이면 존재 자체를 알리지 않는다.
+      res.writeHead(404, { ...BASE_HEADERS, 'Content-Type': 'text/plain; charset=utf-8' });
+      res.end('Not Found');
+      return;
+    }
+    if (!checkAuth(req)) {
+      res.writeHead(401, {
+        ...BASE_HEADERS,
+        'WWW-Authenticate': 'Basic realm="SeoulMarkets Newsroom", charset="UTF-8"',
+        'Content-Type': 'text/plain; charset=utf-8',
+      });
+      res.end('Authentication required');
+      return;
+    }
+    const html = await renderAdmin({ user: ADMIN_USER });
+    res.writeHead(200, {
+      ...BASE_HEADERS,
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-store',
+      'X-Robots-Tag': 'noindex, nofollow',
+    });
+    res.end(req.method === 'HEAD' ? undefined : html);
+    return;
+  }
 
   // 확장자 없는 URL 을 정본으로 쓴다. /equities/ 나 /equities.html 로 들어오면 한 곳으로 모은다.
   const canonical = pathname
