@@ -34,6 +34,28 @@ The surplus improved. But decomposing it, the improvement came predominantly fro
 
 This is what economists sometimes call a recession surplus — the balance improves not because the country is selling more but because it is buying less.
 
+<figure class="chart">
+<p class="chart__title">The surplus widened because imports fell, not because exports rose</p>
+<p class="chart__sub">Change on the same quarter a year earlier, per cent</p>
+<svg viewBox="0 0 640 152" role="img" aria-label="Exports rose 2.1 per cent while imports fell 6.4 per cent, so the improvement in the balance came mostly from the import side.">
+  <line class="grid" x1="203" y1="14" x2="203" y2="118"/>
+  <line class="grid" x1="286" y1="14" x2="286" y2="118"/>
+  <line class="grid" x1="537" y1="14" x2="537" y2="118"/>
+  <path d="M453,26 h83.5 a4,4 0 0 1 4,4 v12 a4,4 0 0 1 -4,4 h-83.5 z" fill="var(--c1)"/>
+  <path d="M453,74 h-249 a4,4 0 0 0 -4,4 v12 a4,4 0 0 0 4,4 h249 z" fill="var(--c-neg)"/>
+  <text x="445" y="40" text-anchor="end">Exports</text>
+  <text x="461" y="88" text-anchor="start">Imports</text>
+  <text class="v" x="552" y="40">+2.1%</text>
+  <text class="v" x="192" y="88" text-anchor="end">−6.4%</text>
+  <line class="axis" x1="453" y1="14" x2="453" y2="118"/>
+  <text x="453" y="136" text-anchor="middle">0</text>
+  <text x="203" y="136" text-anchor="middle">−6</text>
+  <text x="286" y="136" text-anchor="middle">−4</text>
+  <text x="537" y="136" text-anchor="middle">+2</text>
+</svg>
+<figcaption>Illustrative figures for layout testing. In a live article: Bank of Korea national accounts, with the import and export components summed and reconciled to the published balance. Not investment advice.</figcaption>
+</figure>
+
 ## The mechanism
 
 Korea imports the great majority of its energy and a large share of its industrial inputs. Import volumes therefore track domestic industrial activity and household consumption fairly closely, with the added complication that the won-denominated value moves with both commodity prices and the exchange rate.

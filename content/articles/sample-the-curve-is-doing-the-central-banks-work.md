@@ -35,6 +35,40 @@ Treasury yields in the intermediate maturities — the part of the curve that ac
 
 The gap between what the committee has decided and what the market has priced has therefore widened. Funding conditions have loosened without a decision.
 
+<figure class="chart">
+<p class="chart__title">The belly of the curve moved; the policy rate did not</p>
+<p class="chart__sub">Korean treasury yields by maturity, per cent</p>
+<ul class="chart__legend">
+  <li><span class="chart__key" style="background:var(--c2)"></span>Three months ago</li>
+  <li><span class="chart__key" style="background:var(--c1)"></span>Latest</li>
+</ul>
+<svg viewBox="0 0 640 232" role="img" aria-label="Compared with three months ago, yields fell most in the two- to five-year maturities, while the 30-year barely moved.">
+  <line class="grid" x1="56" y1="186" x2="608" y2="186"/>
+  <line class="grid" x1="56" y1="122" x2="608" y2="122"/>
+  <line class="grid" x1="56" y1="58" x2="608" y2="58"/>
+  <text x="48" y="190" text-anchor="end">2.8</text>
+  <text x="48" y="126" text-anchor="end">3.2</text>
+  <text x="48" y="62" text-anchor="end">3.6</text>
+  <polyline fill="none" stroke="var(--c2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+    points="56,162 148,151 240,138 332,119 424,93 516,74 608,71"/>
+  <polyline fill="none" stroke="var(--c1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+    points="56,166 148,170 240,165 332,152 424,125 516,93 608,84"/>
+  <circle cx="608" cy="71" r="4" fill="var(--c2)" stroke="var(--paper)" stroke-width="2"/>
+  <circle cx="608" cy="84" r="4" fill="var(--c1)" stroke="var(--paper)" stroke-width="2"/>
+  <text class="v" x="600" y="58" text-anchor="end">3.52</text>
+  <text class="v" x="600" y="103" text-anchor="end">3.44</text>
+  <line class="axis" x1="56" y1="198" x2="608" y2="198"/>
+  <text x="56" y="216" text-anchor="middle">1Y</text>
+  <text x="148" y="216" text-anchor="middle">2Y</text>
+  <text x="240" y="216" text-anchor="middle">3Y</text>
+  <text x="332" y="216" text-anchor="middle">5Y</text>
+  <text x="424" y="216" text-anchor="middle">10Y</text>
+  <text x="516" y="216" text-anchor="middle">20Y</text>
+  <text x="608" y="216" text-anchor="middle">30Y</text>
+</svg>
+<figcaption>Illustrative figures for layout testing. In a live article: Financial Services Commission bond price data, reconciled across the specialist and general bond markets for the same session. Not investment advice.</figcaption>
+</figure>
+
 ## The mechanism
 
 Bond yields at any maturity are, roughly, the average expected policy rate over that horizon plus a term premium. When the belly of the curve falls while the front end sits still, the market is saying it expects cuts — and, crucially, it is charging borrowers *today* on the basis of that expectation.

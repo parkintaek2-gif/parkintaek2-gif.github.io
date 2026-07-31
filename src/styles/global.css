@@ -12,6 +12,16 @@
   --up: #0f7a4d;
   --down: #c0392b;
 
+  /* 차트 색. 이 사이트의 실제 배경색(#fdfdfc / #0e1116)에 대해
+     명도대역·채도·색각이상 분리·명암비를 검증해서 고른 값이다.
+     눈대중으로 바꾸지 말 것 — 바꾸려면 검증을 다시 돌려야 한다. */
+  --c1: #2a78d6; /* 계열 1 (파랑) · 발산형 양(+)극 */
+  --c2: #eb6834; /* 계열 2 (주황) */
+  --c-neg: #e34948; /* 발산형 음(−)극 */
+  --c-mute: #b9bcc2; /* 강조 차트에서 뒤로 물리는 회색 */
+  --c-grid: #e2e5e9;
+  --c-axis: #cfd4da;
+
   --serif: 'Iowan Old Style', 'Charter', Georgia, 'Times New Roman', serif;
   --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --mono: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
@@ -35,6 +45,14 @@
     --accent-soft: #16222e;
     --up: #4ade80;
     --down: #f87171;
+
+    /* 어두운 배경용으로 따로 고른 단계다. 밝은 값을 그냥 뒤집은 게 아니다. */
+    --c1: #3987e5;
+    --c2: #d95926;
+    --c-neg: #e66767;
+    --c-mute: #5b626c;
+    --c-grid: #232a33;
+    --c-axis: #333c47;
   }
 }
 
@@ -462,6 +480,103 @@ main {
 }
 .down {
   color: var(--down);
+}
+
+/* ── 기사 안 차트 ────────────────────────────────────────────────────
+   기사 마크다운에 인라인 SVG 로 들어간다. 이미지 파일도, 자바스크립트도,
+   외부 요청도 없다. 색은 CSS 변수라 다크모드가 자동으로 따라온다. */
+.chart {
+  margin: 2rem 0;
+}
+
+.chart svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.chart__title {
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.35;
+  margin: 0 0 0.15rem;
+  color: var(--ink);
+}
+
+.chart__sub {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin: 0 0 0.9rem;
+  line-height: 1.4;
+}
+
+/* 범례 — 계열이 2개 이상이면 반드시 나온다. 색만으로 구분시키지 않는다. */
+.chart__legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--ink-2);
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.chart__legend li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+}
+
+.chart__key {
+  width: 14px;
+  height: 3px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.chart__key--dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* 축·눈금·라벨은 텍스트 토큰을 쓴다. 절대 계열 색을 입히지 않는다. */
+.chart text {
+  font-family: var(--sans);
+  fill: var(--muted);
+  font-size: 11px;
+}
+
+.chart text.v {
+  fill: var(--ink);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart .grid {
+  stroke: var(--c-grid);
+  stroke-width: 1;
+}
+
+.chart .axis {
+  stroke: var(--c-axis);
+  stroke-width: 1;
+}
+
+.chart figcaption {
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  color: var(--muted);
+  line-height: 1.5;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
 }
 
 /* ── data & verification notes ──────────────────────────────────────── */

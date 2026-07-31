@@ -32,6 +32,35 @@ On that basis, the won has weakened against the dollar over recent weeks, and th
 
 The trade data has not cooperated with that story. Export values have held up over the same stretch.
 
+<figure class="chart">
+<p class="chart__title">The currency and the trade data point opposite ways</p>
+<p class="chart__sub">Both indexed to 100 at week 1. A rising currency line means a weaker won.</p>
+<ul class="chart__legend">
+  <li><span class="chart__key" style="background:var(--c2)"></span>Won per dollar (published rate)</li>
+  <li><span class="chart__key" style="background:var(--c1)"></span>Export value</li>
+</ul>
+<svg viewBox="0 0 640 230" role="img" aria-label="Over eight weeks the won-per-dollar index rose from 100 to 103.4 while the export-value index rose only from 100 to 101.9.">
+  <line class="grid" x1="56" y1="190" x2="600" y2="190"/>
+  <line class="grid" x1="56" y1="126" x2="600" y2="126"/>
+  <line class="grid" x1="56" y1="62" x2="600" y2="62"/>
+  <text x="48" y="194" text-anchor="end">99</text>
+  <text x="48" y="130" text-anchor="end">101</text>
+  <text x="48" y="66" text-anchor="end">103</text>
+  <polyline fill="none" stroke="var(--c2)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+    points="56,158 134,138 212,122 290,126 368,100 446,84 524,65 602,49"/>
+  <polyline fill="none" stroke="var(--c1)" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"
+    points="56,158 134,145 212,164 290,129 368,120 446,136 524,110 602,97"/>
+  <circle cx="602" cy="49" r="4" fill="var(--c2)" stroke="var(--paper)" stroke-width="2"/>
+  <circle cx="602" cy="97" r="4" fill="var(--c1)" stroke="var(--paper)" stroke-width="2"/>
+  <text class="v" x="592" y="36" text-anchor="end">103.4</text>
+  <text class="v" x="592" y="115" text-anchor="end">101.9</text>
+  <line class="axis" x1="56" y1="200" x2="600" y2="200"/>
+  <text x="56" y="218" text-anchor="start">Week 1</text>
+  <text x="602" y="218" text-anchor="end">Week 8</text>
+</svg>
+<figcaption>Illustrative figures for layout testing. In a live article: Export-Import Bank of Korea published rates and Bank of Korea national accounts, indexed to a common base — never plotted on two separate scales. Not investment advice.</figcaption>
+</figure>
+
 ## The mechanism
 
 The reflex reading of a falling currency is that the market has downgraded the country. Sometimes that is right. Often, for Korea specifically, it is not, because the won trades as a high-beta proxy for something else entirely: global risk appetite and the dollar cycle.
