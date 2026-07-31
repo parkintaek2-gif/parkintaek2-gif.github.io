@@ -145,10 +145,13 @@ function periodSvg(period, funds, isDefault) {
       role: 'img',
       'data-period': period,
       hidden: isDefault ? undefined : true,
-      'aria-label': `${period} 기준 수익률. ${rows
+      /* [2026-08-01 지시] 한글이었다. 이건 화면낭독기가 **읽어 주는 글**이라
+         눈에 안 보일 뿐 엄연히 독자에게 나가는 문장이다. 영문 매체이므로 영어로 쓴다.
+         ※ 눈에 안 보이는 텍스트(aria-label·title·alt)도 공개 문장이다. 한글을 쓰지 말 것. */
+      'aria-label': `Return over ${period}. Leading: ${rows
         .slice(0, 3)
         .map((r) => `${r.name} ${r.v.toFixed(1)}%`)
-        .join(', ')} 순.`,
+        .join(', ')}.`,
     },
     kids,
   );

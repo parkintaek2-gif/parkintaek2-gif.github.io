@@ -9,10 +9,13 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<!--
-  법적 방어 장치다. 기사마다 반드시 나온다.
-  frontmatter 에서 자동으로 채워지므로 기자가 빠뜨릴 수 없다.
--->
+{/* [2026-08-01] HTML 주석이었다. Astro 는 HTML 주석을 그대로 내보내므로
+    이 한글이 **공개 기사 소스에 전부 찍히고 있었다.** 페이지 소스보기로 보인다.
+    JSX 주석으로 바꾼다 — 이건 빌드 산출물에 나가지 않는다.
+    ※ 영문 매체다. 화면이든 소스든 한글을 내보내지 말 것.
+
+    (원문) 법적 방어 장치다. 기사마다 반드시 나온다.
+           frontmatter 에서 자동으로 채워지므로 기자가 빠뜨릴 수 없다. */}
 <section class="notes" aria-labelledby="notes-h">
   <h2 id="notes-h">Data &amp; Verification Notes</h2>
   <dl>

@@ -143,10 +143,14 @@ const jsonLd = {
 
         <h2>Publisher</h2>
         <p>
-          <strong>{PUBLISHER.legalName}</strong> ({PUBLISHER.legalNameKo})<br />
-          Representative director: {PUBLISHER.representative} ({PUBLISHER.representativeKo})<br />
+          {/* [2026-08-01 지시] 국문 병기를 뺐다. 영문 매체인데 발행인란만 한글이
+              섞여 있어 격이 떨어졌다. 로마자 표기로 상호·대표자·주소가 다 드러나므로
+              사업자 정보 표시로도 부족하지 않다.
+              값(legalNameKo·representativeKo·addressKo)은 consts.ts 에 그대로 둔다 —
+              한국어판을 낼 때 쓴다. **여기 화면에 다시 넣지 말 것.** */}
+          <strong>{PUBLISHER.legalName}</strong><br />
+          Representative director: {PUBLISHER.representative}<br />
           {PUBLISHER.address}<br />
-          <span lang="ko">{PUBLISHER.addressKo}</span><br />
           Business registration number {PUBLISHER.bizRegNo}<br />
           <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
         </p>
