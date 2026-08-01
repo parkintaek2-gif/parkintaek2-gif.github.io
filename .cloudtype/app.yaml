@@ -39,6 +39,13 @@ resources:
   spot: false
   # 런타임 실측 47.6MB. 의존성 0개 정적 서버라 0.25GB 로 충분하다.
   # 남는 몫은 같은 계정의 klifemap 이 쓴다.
+  #
+  # [2026-08-01] 「우리 몫을 쪼개 신규 사이트에 나누라」는 지시로 0.125 를 시도했다.
+  #   → **Cloudtype 은 메모리를 0.25 단위로만 받는다.** ("memory is only allowed
+  #      in increments of 0.25") 0.25 가 바닥이라 더 쪼갤 수 없다. 이 줄은 못 내린다.
+  #
+  #   ⚠ `ctype apply -p`(prepare) 는 이 오류를 **잡아내지 못했다.** 성공한 것처럼
+  #      "deployed" 를 출력한다. -p 를 검증 수단으로 믿지 말 것 — 실제 apply 만이 검증이다.
   memory: 0.25
 
 context:
