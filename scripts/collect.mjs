@@ -36,6 +36,26 @@ const argv = process.argv.slice(2);
 const DRY = argv.includes('--dry');
 const ONLY = argv.find((a) => a.startsWith('--only='))?.slice(7);
 
+/**
+ * 두 매체가 **같은 아카이브를 쓴다.**
+ *
+ * SeoulMarkets(금융·실물경제)와 WikiTip(한류)은 별개 사이트지만 수집기는 하나다.
+ * 두 벌을 만들 이유가 없고, 만들면 관리가 두 배가 된다.
+ *
+ * WikiTip 쪽에서 쓸 품목을 여기 적어 둔다 — 키가 오는 날 반도체와 음반을 같이 받는다.
+ *
+ *   8523  음반·기록매체        「어느 나라에 K-pop 음반이 얼마나 나갔나」
+ *   3304  화장품               K-뷰티
+ *   1902  라면·면류            K-푸드
+ *   2103  소스류(고추장 등)     K-푸드
+ *   9201·9202  악기
+ *
+ * ⚠ **차트·팬덤 데이터는 수집하지 않는다.** 한터·서클차트는 공공데이터가 아니고
+ *   재배포 근거가 없다. 긁는 것은 KRX 를 긁지 않는 것과 같은 이유로 하지 않는다.
+ *   필요해지면 정식 문의가 순서다.
+ */
+export const WIKITIP_HS = ['8523', '3304', '1902', '2103', '9201', '9202'];
+
 /* ────────────────────────────────────────────────────────────────
    데이터셋 등록부
 
@@ -320,7 +340,21 @@ async function main() {
   process.exit(bad > 0 && ok === 0 ? 1 : 0);
 }
 
-main().catch((e) => {
-  console.error(e);
-  process.exit(1);
-});
+/**
+ * 직접 실행할 때만 돈다.
+ *
+ * ⚠ 전에는 최상단에서 그냥 `main()` 을 불렀다. 그러면 이 파일에서 상수 하나
+ *   (`WIKITIP_HS`·`DATASETS`) 를 import 하는 것만으로 **수집기가 통째로 실행된다.**
+ *   실제로 사전 확인 스크립트를 돌렸더니 「DATA_GO_KR_KEY 가 없습니다」를 뱉고
+ *   프로세스를 죽였다. 키가 있었다면 의도치 않은 호출이 나갔을 것이다.
+ *   모듈은 import 돼도 아무 일이 없어야 한다.
+ */
+const runDirectly =
+  process.argv[1] && import.meta.url === new URL(`file://${process.argv[1]}`).href.replace(/\\/g, '/');
+
+if (runDirectly || process.argv[1]?.endsWith('collect.mjs')) {
+  main().catch((e) => {
+    console.error(e);
+    process.exit(1);
+  });
+}
