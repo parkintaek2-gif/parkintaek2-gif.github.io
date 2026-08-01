@@ -30,6 +30,10 @@ import {
   DICT_STATS,
 } from './trade-dict.mjs';
 import { storeStatus } from './store.mjs';
+import { openapi } from './openapi.mjs';
+
+/** 명세에 박히는 공개 주소. 환경변수로 덮을 수 있게 둔다(스테이징 대비). */
+const PUBLIC_BASE = process.env.PUBLIC_BASE_URL ?? 'https://seoulmarkets.com';
 
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
 
@@ -101,6 +105,7 @@ async function root() {
       'Korean official statistics, normalised to English. JSON only. Every response names its source.',
     docs: 'https://seoulmarkets.com/about',
     endpoints: {
+      'GET /v1/openapi.json': 'OpenAPI 3.1 specification — import this into your client generator',
       'GET /v1/meta': 'Coverage, dictionary size and what has actually been collected',
       'GET /v1/hs/{code}': 'Resolve an HS code (2, 4, 6 or 10 digits) to its English description',
       'GET /v1/hs?q=': 'Search HS chapters and headings by English keyword',
@@ -331,6 +336,11 @@ export async function handleApi(pathname, searchParams) {
   if (pathname === '/v1/meta') {
     meter('meta');
     return meta();
+  }
+  // 마켓플레이스(RapidAPI·AWS·Snowflake)가 이걸 읽어 리스팅을 자동 생성한다.
+  if (pathname === '/v1/openapi.json' || pathname === '/v1/openapi') {
+    meter('openapi');
+    return json(200, openapi(PUBLIC_BASE));
   }
   if (pathname === '/v1/countries') {
     meter('countries');
