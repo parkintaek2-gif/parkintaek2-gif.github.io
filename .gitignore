@@ -19,3 +19,6 @@ archive/
 *.tmp.json
 .r2cfg*
 .arctest/
+
+# 서버 실행 임시 로그
+srv.*.tmp
