@@ -54,15 +54,31 @@ About에 고정 노출한다. 미국 독자를 겨냥하므로 더 중요하다.
 
 `docs/작업지시서.md`의 「작업 순서」를 따른다. 다만 위 세 가지를 먼저 정리한 뒤 시작한다.
 
-## 배포가 어떻게 되는지 (사장님께 설명할 때)
+## 배포가 어떻게 되는지 (2026-08-02 실측으로 정정)
 
 ```
 내 컴퓨터에서 코드 수정
-   ↓  git push
+   ↓  git push origin main && git push site main
 GitHub 저장소
-   ↓  (자동 감지)
-Cloudflare Pages 가 사이트를 새로 만들어 올림
+   ↓  ⚠ 자동으로 뜨지 않는다
+ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main
+   ↓  (Cloudtype 이 저장소를 clone → npm ci → npm run build → npm start)
+https://seoulmarkets.com  (약 2분 뒤 반영)
 ```
+
+**푸시만 하면 배포되지 않는다.** 2026-08-02 에 실측했다 — 푸시 뒤 6분 동안 새 기사가
+계속 404 였고, Cloudtype 의 UPDATED 는 8시간 전 그대로였다. `ctype apply` 를 돌리자
+2분 만에 200 이 됐다. **기사를 올렸으면 apply 까지 해야 발행이 끝난 것이다.**
+
+`-t` 를 빼먹지 말 것 — 같은 계정에 klifemap 이 있다(맨 아래 항목 참조).
+
+배포가 반영됐는지는 눈으로 확인한다.
+```bash
+curl -s -o /dev/null -w "%{http_code}\n" https://seoulmarkets.com/article/{slug}
+```
+
+발행 뒤에는 검색엔진에 알린다 — `npm run indexnow`.
+
 사장님이 파일을 서버에 직접 올릴 일은 없다.
 
 ## 작업 스타일
@@ -75,70 +91,39 @@ Cloudflare Pages 가 사이트를 새로 만들어 올림
 
 ---
 
-# ⚠ 도메인 — seoulmarkets.com (2026-08-01 확인)
+# ✅ 도메인 — seoulmarkets.com (2026-08-02 해결됨)
 
-사장님 지시: **도메인은 `seoulmarkets.com` 이다.**
-`src/consts.ts` 의 `SITE_URL` 과 `public/CNAME` 은 이미 그렇게 되어 있다. 코드는 맞다.
-
-## 그런데 지금 접속이 안 된다 — DNS가 GitHub Pages를 안 가리킨다
+**끝났다. 사이트는 살아 있다.** 아래는 다음 세션이 같은 길을 또 헤매지 않도록 남긴다.
 
 ```
-seoulmarkets.com → 54.149.79.189 · 34.216.117.25   (AWS 주소)
-https://seoulmarkets.com/  → 연결 실패 (HTTP 000)
+seoulmarkets.com → 34.8.247.175   (Cloudtype)
+https://seoulmarkets.com/  → 200
+http://  → https 로 301
 ```
 
-GitHub Pages는 아래 네 개 중 하나여야 한다. 지금 값은 **전혀 다른 곳**이다
-(도메인 등록업체의 주차 페이지이거나 예전 호스팅으로 보인다).
+## 결론 — GitHub Pages 가 아니라 Cloudtype 이 서비스한다
 
+2026-08-01 자 메모는 「GitHub Pages 에 Custom domain 을 넣어야 한다」로 끝나 있었다.
+**그 길로 가지 않았다.** DNS 를 Cloudtype 으로 돌려서 해결됐다.
+GitHub Pages 의 Custom domain 칸은 지금도 비어 있고, **채울 필요가 없다.**
+
+그래서 앞의 메모에 있던 아래 내용은 **모두 해당 없음**이다. 되살리지 말 것.
+- A 레코드를 185.199.108/109.153 으로 넣는 것
+- Settings → Pages → Custom domain 입력칸
+- 「입력칸에 글자가 안 들어간다」던 문제
+
+## 백업 경로는 그대로 살아 있다
+
+GitHub Pages 에도 같은 사이트가 계속 올라간다 — https://parkintaek2-gif.github.io/ (200 확인).
+Cloudtype 이 죽으면 **DNS 를 185.199.108.153·109.153 으로 되돌리고 저장소 설정에
+Custom domain 을 넣으면** 복구된다. 그래서 푸시는 항상 양쪽에 한다.
+
+```bash
+git push origin main && git push site main
 ```
-185.199.108.153
-185.199.109.153
-185.199.110.153
-185.199.111.153
-```
 
-## 진행 상황 (2026-08-01 갱신)
-
-### ✅ 끝난 것 — DNS
-
-Spaceship(등록업체 확인됨. klifemap.ai 와 같은 곳)에서 A 레코드를 넣었다.
-
-    seoulmarkets.com → 185.199.108.153 · 185.199.109.153   (GitHub Pages)
-
-권한 있는 네임서버(launch1.spaceship.net)에 실제로 반영된 것을 조회로 확인했다.
-그 결과 http 응답이 **000(연결 실패) → 404** 로 바뀌었다. DNS 는 이제 GitHub 까지 닿는다.
-
-※ GitHub 권장은 A 레코드 4개(108/109/110/111)다. 지금 2개만 들어갔다 —
-  **2개로도 동작한다.** 나머지 둘은 이중화용이니 여유 있을 때 채우면 된다.
-
-### ⛔ 남은 것 — 저장소 설정에 사용자 도메인 한 줄
-
-지금 http://seoulmarkets.com/ 은 「There isn't a GitHub Pages site here」를 낸다.
-**GitHub 이 이 도메인을 어느 저장소가 서비스하는지 모르기 때문**이다.
-
-**중요 — CNAME 파일만으로는 안 된다.**
-public/CNAME 도 dist/CNAME 도 seoulmarkets.com 으로 들어 있고,
-배포 아티팩트 루트(https://parkintaek2-gif.github.io/seoulmarkets/CNAME)에도
-정상적으로 올라가 있다. 그런데도 적용되지 않았다.
-빈 커밋으로 재배포까지 돌려 **성공(98fd179)** 했는데도 그대로였다.
-→ **Actions(actions/deploy-pages) 방식에서는 CNAME 파일이 사용자 도메인을
-   자동으로 설정해 주지 않는다.** 설정 화면이나 API 로 직접 넣어야 한다.
-
-**해야 할 일**
-1. Settings → Pages → **Custom domain** 에 seoulmarkets.com 입력 후 Save
-   (https://github.com/parkintaek2-gif/seoulmarkets/settings/pages)
-2. DNS 검증이 끝나면 **Enforce HTTPS** 를 켠다 (인증서 발급에 몇 분~한 시간)
-3. curl -I https://seoulmarkets.com/ 로 200 을 확인한다
-
-> 이 내용은 **docs/세션간-메모.md** 에도 적어 두었다. 두 세션이 그 파일로 소통한다.
-
-※ 나(klifemap 세션)는 여기서 막혔다 — 그 입력칸에 글자가 들어가지 않는다.
-  클릭은 되는데 포커스가 BODY 에 머문다(탭을 새로 열어도 같았다).
-  **브라우저 조작이 되는 세션이 이 한 칸만 채우면 끝난다.**
-
-※ 참고 — 사장님의 다른 도메인들은 등록처가 갈린다.
-  klifemap.ai 는 **Spaceship**, intellitv.net·wiki-tip.com 은 **가비아**다.
-  seoulmarkets.com 이 어디에 등록돼 있는지 먼저 확인하고 그 콘솔에서 바꾼다.
+※ 참고 — 사장님의 도메인은 등록처가 갈린다.
+  seoulmarkets.com·klifemap.ai 는 **Spaceship**, intellitv.net·wiki-tip.com 은 **가비아**다.
 
 ※ **DNS를 바꾸기 전에 지금 그 주소에서 무엇이 서비스되고 있는지 반드시 확인할 것.**
   살아 있는 사이트를 끊어 버리면 되돌리는 데 또 하루가 걸린다.
