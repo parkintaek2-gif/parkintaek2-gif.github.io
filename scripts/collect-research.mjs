@@ -44,6 +44,26 @@ const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
 const argv = process.argv.slice(2);
 const DRY = argv.includes('--dry');
 const PAGES = Number(argv.find((a) => a.startsWith('--pages='))?.slice(8)) || 3;
+/** 시작 쪽. 과거 소급(백필)에 쓴다. `--from=800 --pages=100` = 800~899쪽 */
+const FROM = Number(argv.find((a) => a.startsWith('--from='))?.slice(7)) || 1;
+/** 목록만 받고 상세는 건너뛴다. 백필 1단계에 쓴다(상세는 9만 번 호출이라 나눠서 한다). */
+const LIST_ONLY = argv.includes('--list-only');
+
+/*
+ * ── 소급 가능 범위 (2026-08-01 실측) ──────────────────────────
+ *     1쪽  2026-07-31
+ *   800쪽  2024-01-24
+ *  1500쪽  2019-05-10
+ *  3000쪽  2007-12-14   ← 여기가 끝. 이후 쪽은 같은 11건만 반복
+ *
+ * **약 9만 건, 18년치 목표주가 이력이 남아 있다.**
+ * 지수 사업이 요구하는 3~5년 백테스트를 훨씬 넘는다.
+ * 이건 관세청 잠정치와 성질이 다르다 — 저쪽은 오늘 안 받으면 영영 없지만,
+ * 이쪽은 **지금 한 번 받아 두면 18년이 통째로 들어온다.** 우선순위가 그만큼 높다.
+ *
+ * ⚠ 다만 남의 서버를 9만 번 두드리는 일이다. 한 번에 몰아치지 않고 나눠서 받는다.
+ *   `--list-only` 로 목록을 먼저 확보하고(3천 요청), 상세는 날짜별로 나눠 받는다.
+ */
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -139,17 +159,28 @@ async function main() {
   const runStamp = stamp();
   const items = [];
 
-  for (let p = 1; p <= PAGES; p++) {
+  let lastSig = '';
+  for (let p = FROM; p < FROM + PAGES; p++) {
     const url = `${BASE}/company_list.naver?&page=${p}`;
     try {
       const html = await fetchKr(url);
       const rows = parseList(html);
+      // 끝을 지나면 네이버가 **같은 마지막 쪽을 계속 돌려준다**(3000쪽 이후 동일 11건).
+      // 그걸 모르고 돌리면 같은 데이터를 수천 번 받는다. 서명을 비교해 멈춘다.
+      const sig = rows.map((r) => r.nid).join(',');
+      if (sig && sig === lastSig) {
+        console.log(`  ${p}쪽 — 앞쪽과 동일. 마지막에 도달했다고 보고 중단`);
+        break;
+      }
+      lastSig = sig;
       items.push(...rows);
-      console.log(`  목록 ${p}쪽 — ${rows.length}건`);
+      if (p % 25 === 0 || p === FROM) {
+        console.log(`  목록 ${p}쪽 — ${rows.length}건 (${rows[0]?.date ?? '-'})`);
+      }
     } catch (e) {
       console.log(`  목록 ${p}쪽 실패: ${e.message}`);
     }
-    await sleep(800); // 예의. 남의 서버를 몰아치지 않는다
+    await sleep(600); // 예의. 남의 서버를 몰아치지 않는다
   }
 
   // nid 중복 제거 — 페이지가 겹칠 수 있다
@@ -159,6 +190,19 @@ async function main() {
   if (DRY) {
     console.table(uniq.slice(0, 8));
     console.log('\n  --dry — 상세 조회와 저장을 건너뜁니다.');
+    return;
+  }
+
+  // 목록만 저장하고 끝낸다. 백필 1단계 — 상세는 나중에 날짜별로 나눠 받는다.
+  if (LIST_ONLY) {
+    let n = 0;
+    for (const r of uniq) {
+      const key = `raw/research-list/${r.date}/${r.nid}.json`;
+      if (existsSync(path.join(ARCHIVE, key))) continue;
+      await put(key, JSON.stringify(r, null, 2), 'application/json');
+      n++;
+    }
+    console.log(`\n  목록 저장 ${n}건 (신규) / ${uniq.length}건 조회`);
     return;
   }
 
