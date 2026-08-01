@@ -74,6 +74,29 @@ const sample = `{
   }
 }`;
 
+/* 클라이언트 예제.
+   ⚠ 두 가지가 실물과 어긋나면 안 된다 — 시그니처, 그리고 **설치 방법**.
+      처음에 `import { Client } from 'seoulmarkets'` 라고 썼는데, 그 패키지는 npm 에도
+      PyPI 에도 없다. 개발자가 install 하면 바로 실패한다. 문서가 없는 것보다 나쁘다.
+      배포하기 전까지는 **파일을 가져다 쓰는 방법**을 그대로 적는다.
+      npm·PyPI 에 올리면 그때 이 예제를 바꾼다. */
+const jsSample = `// clients/js/seoulmarkets.mjs — copy the file, no install needed
+import { Client } from './seoulmarkets.mjs';
+
+const sm = new Client();
+const chip = await sm.hs('8542');
+console.log(chip.label);        // Electronic integrated circuits
+console.log(chip.resolved);     // true
+
+await sm.search('battery');     // 8506, 8507`;
+
+const pySample = `# clients/python/seoulmarkets.py — pip install requests, then copy the file
+from seoulmarkets import Client
+
+sm = Client()
+print(sm.hs("8542").label)      # Electronic integrated circuits
+print(sm.search("battery"))     # [8506, 8507]`;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebAPI',
@@ -172,6 +195,27 @@ const jsonLd = {
             </tbody>
           </table>
         </div>
+
+        <h2>Clients</h2>
+        <p>
+          Two thin clients, single files, in this site's repository under
+          <code>clients/</code>. They are not on npm or PyPI yet — copy the file rather than
+          installing a package. We would rather say that than publish an install command that
+          fails.
+        </p>
+        <pre class="api-sample"><code>{jsSample}</code></pre>
+        <pre class="api-sample"><code>{pySample}</code></pre>
+        <p>
+          The JavaScript client has no dependencies at all — it uses the built-in
+          <code>fetch</code>, so it runs unchanged on Node 18+, Deno, Bun, Cloudflare Workers and
+          in the browser. The Python client needs only <code>requests</code>.
+        </p>
+        <p>
+          Both surface the <code>resolved</code> flag rather than hiding it, and both raise a typed
+          error carrying the server's own reason code — so your code can tell
+          <em>not collected yet</em> apart from <em>no trade occurred</em>. That distinction is the
+          whole reason these clients read the error envelope instead of the status line.
+        </p>
 
         <h2>The same question always gets the same answer</h2>
         <p>
