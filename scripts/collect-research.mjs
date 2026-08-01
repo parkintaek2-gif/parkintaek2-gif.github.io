@@ -108,7 +108,18 @@ const clean = (s) =>
     .replace(/\s+/g, ' ')
     .trim();
 
-/** 목록 한 페이지 → 리포트 항목들 */
+/**
+ * 목록 한 페이지 → 리포트 항목들.
+ *
+ * ⚠ **종목코드는 여기서만 얻을 수 있다.** 2026-08-02 에 확인했다.
+ *   상세 페이지에도 `code=` 가 나오지만 그건 **인기종목 사이드바**다.
+ *   금호타이어 리포트(nid=94927)의 상세에 005930·000660·035420 이 찍힌다.
+ *   상세에서 코드를 긁으면 **전 기사가 삼성전자로 잘못 붙는다.**
+ *
+ * 코드가 왜 필요한가 — 이름으로는 시세와 못 잇는다. **회사가 이름을 바꾸기 때문**이다.
+ * 아프리카TV→SOOP, 하이투자증권→iM증권 이 실제로 이 데이터 안에 있다.
+ * 이름으로 이으면 개명 시점에서 이력이 끊긴다. 코드는 안 바뀐다.
+ */
 function parseList(html) {
   const out = [];
   for (const tr of html.match(/<tr[^>]*>[\s\S]*?<\/tr>/g) ?? []) {
@@ -120,12 +131,21 @@ function parseList(html) {
     if (!stock || !house) continue;
     out.push({
       nid,
+      // 상장폐지 등으로 링크가 없는 행이 있을 수 있다. 그때는 null 로 둔다 —
+      // 이름으로 추정해 채우지 않는다.
+      code: tr.match(/\/item\/main\.naver\?code=(\d{6})/)?.[1] ?? null,
       stock,
       title,
       house,
       // 26.07.31 → 2026-07-31
       date: /^\d{2}\.\d{2}\.\d{2}$/.test(date) ? `20${date.replace(/\./g, '-')}` : date,
       views: Number(views) || null,
+      /*
+       * PDF **주소만** 남긴다. 파일은 받지 않는다 — 그게 저작물이다.
+       * 주소는 사실이고, 나중에 라이선스가 생기면 무엇이 있었는지 알 수 있다.
+       * PDF 가 아예 없는 리포트도 있어서 그 자체가 정보다.
+       */
+      pdf: tr.match(/href="(https:\/\/stock\.pstatic\.net\/[^"]+\.pdf)"/)?.[1] ?? null,
     });
   }
   return out;
