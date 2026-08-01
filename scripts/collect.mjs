@@ -24,9 +24,10 @@
  *   ARCHIVE_DIR      저장 위치. 기본 ./archive
  */
 
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 
 const KEY = process.env.DATA_GO_KR_KEY ?? '';
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
@@ -217,22 +218,27 @@ async function collectOne(ds, runStamp) {
     if (err) return { ...base, status: 'error', reason: err, bytes: body.length };
 
     const ext = contentType.includes('json') ? 'json' : 'xml';
-    const dir = path.join(ARCHIVE, 'raw', ds.id, runStamp.slice(0, 10));
-    await mkdir(dir, { recursive: true });
-    const file = path.join(dir, `${slug(params)}__${runStamp}.${ext}`);
+    // 키를 슬래시로 짓는다. 로컬에서는 디렉터리가 되고 오브젝트 스토리지에서는
+    // 그대로 키가 된다 — 같은 경로 규칙을 양쪽이 공유해야 나중에 대조가 된다.
+    const key = `raw/${ds.id}/${runStamp.slice(0, 10)}/${slug(params)}__${runStamp}.${ext}`;
 
     // 원칙 1 — 덮어쓰지 않는다.
-    if (existsSync(file)) {
-      return { ...base, status: 'exists', file: path.relative(ARCHIVE, file) };
+    if (existsSync(path.join(ARCHIVE, key))) {
+      return { ...base, status: 'exists', file: key };
     }
-    await writeFile(file, body, 'utf8');
+
+    const saved = await put(key, body, ext === 'json' ? 'application/json' : 'application/xml');
 
     return {
       ...base,
       status: 'ok',
-      file: path.relative(ARCHIVE, file),
+      file: key,
       bytes: body.length,
       params,
+      // 원격 저장 실패는 수집 자체를 실패로 만들지 않는다. 디스크에는 남아 있고,
+      // 나중에 다시 올릴 수 있다. 다만 **조용히 넘어가지 않는다** — 매니페스트에 남긴다.
+      ...(saved.remote ? { remote: true } : {}),
+      ...(saved.remoteError ? { remoteError: saved.remoteError } : {}),
     };
   } catch (e) {
     return { ...base, status: 'error', reason: e.message };
@@ -284,19 +290,31 @@ async function main() {
   }
 
   if (!DRY) {
-    const dir = path.join(ARCHIVE, 'manifest');
-    await mkdir(dir, { recursive: true });
-    await writeFile(
-      path.join(dir, `${runStamp}.json`),
-      JSON.stringify({ runStamp, results }, null, 2),
-      'utf8',
+    await put(
+      `manifest/${runStamp}.json`,
+      JSON.stringify({ runStamp, store: storeStatus(), results }, null, 2),
+      'application/json',
     );
   }
 
   const ok = results.filter((r) => r.status === 'ok').length;
   const bad = results.filter((r) => r.status === 'error').length;
   const skip = results.filter((r) => r.status === 'skipped').length;
+  const remoteBad = results.filter((r) => r.remoteError).length;
   console.log(`\n  수집 ${ok} · 실패 ${bad} · 미확인 ${skip} · 대상 ${results.length}`);
+
+  // ⚠ 아카이브가 이 사업의 해자다. 원격 저장이 꺼져 있으면 재배포 한 번에 사라진다.
+  //   조용히 넘어가면 몇 달 뒤에야 알게 되고, 그때는 이미 늦다.
+  if (!DRY && !remoteEnabled) {
+    console.log(
+      '\n  ⚠ 원격 저장이 꺼져 있습니다. 로컬 디스크에만 남습니다.\n' +
+        '     Cloudtype 컨테이너에는 영구 디스크가 없어 재배포하면 사라집니다.\n' +
+        '     ARCHIVE_S3_ENDPOINT / _BUCKET / _KEY_ID / _SECRET 을 설정하십시오.',
+    );
+  }
+  if (remoteBad) {
+    console.log(`  ⚠ 원격 저장 실패 ${remoteBad}건 — 매니페스트의 remoteError 를 보십시오.`);
+  }
 
   // 하나라도 성공했으면 성공으로 본다. 스케줄러가 매일 죽는 것을 막는다.
   process.exit(bad > 0 && ok === 0 ? 1 : 0);
