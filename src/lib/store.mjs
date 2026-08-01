@@ -151,16 +151,39 @@ export async function put(key, body, contentType = 'application/octet-stream') {
   return out;
 }
 
-/** 설정 상태를 사람이 읽을 수 있게. 비밀값은 절대 담지 않는다 — 길이만 노출한다. */
+/**
+ * 설정 상태.
+ *
+ * ⚠ **공개 API(/v1/meta)에 그대로 실린다.** 두 가지를 지킨다.
+ *
+ *   ① 키·시크릿 값을 담지 않는다 — 존재 여부만.
+ *      이 세션에서 `ctype ls -o json` 이 klifemap 환경변수를 통째로 뱉는 것을 두 번
+ *      겪었다. 같은 실수를 우리 코드가 하면 안 된다.
+ *
+ *   ② **서버 절대경로를 담지 않는다.** 처음엔 local_dir 을 넣었는데
+ *      `C:\Users\USER\Documents\...` 가 그대로 나갔다 — 사용자명과 디렉터리 구조가
+ *      공개된다. 운영에 필요한 것은 「로컬 저장이 되고 있는가」뿐이고, 경로 자체는
+ *      바깥사람에게 아무 쓸모가 없다. 필요하면 로그에서 본다.
+ */
 export function storeStatus() {
   return {
-    local_dir: CFG.dir,
+    local_enabled: true,
     remote_enabled: remoteEnabled,
     remote_endpoint_host: CFG.endpoint ? new URL(CFG.endpoint).host : null,
     remote_bucket: CFG.bucket || null,
     remote_region: CFG.region,
-    // ⚠ 키·시크릿 자체를 여기 담지 않는다. 이 세션에서 ctype ls -o json 이 klifemap
-    //   환경변수를 통째로 뱉는 것을 두 번 겪었다. 같은 실수를 우리 코드가 하면 안 된다.
     credentials_present: Boolean(CFG.keyId && CFG.secret),
+    /**
+     * 원격이 꺼져 있으면 그 사실이 곧 경고다. 아카이브가 이 사업의 해자인데
+     * 재배포마다 비워지는 상태라는 뜻이기 때문이다.
+     */
+    warning: remoteEnabled
+      ? null
+      : 'Remote object storage is not configured; the archive is not durable across redeploys.',
   };
+}
+
+/** 운영용 — 경로가 필요할 때만 쓴다. **공개 응답에 넣지 말 것.** */
+export function localDir() {
+  return CFG.dir;
 }

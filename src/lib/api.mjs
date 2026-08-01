@@ -29,6 +29,7 @@ import {
   describeCountry,
   DICT_STATS,
 } from './trade-dict.mjs';
+import { storeStatus } from './store.mjs';
 
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
 
@@ -137,6 +138,16 @@ async function meta() {
       determinism:
         'The same query returns the same value. Provisional figures are preserved alongside their revisions rather than overwritten.',
     },
+    /**
+     * 아카이브 저장 상태.
+     *
+     * 이걸 밖으로 내는 이유 — Cloudtype 컨테이너에는 영구 디스크가 없다.
+     * 원격 저장이 꺼진 채로 수집이 돌면 **재배포 한 번에 아카이브가 사라진다.**
+     * 그리고 관세청 10일 잠정치는 확정치로 덮인 뒤 다시 못 받는다.
+     * 몇 달 뒤에 알게 되면 이미 늦으므로, 켜져 있는지를 **밖에서 늘 보이게** 둔다.
+     * ⚠ 자격증명 값은 담지 않는다 — 존재 여부만 나간다(store.mjs 참조).
+     */
+    archive: storeStatus(),
     usage_since_restart: usageSnapshot(),
     generated_at: new Date().toISOString(),
   });
