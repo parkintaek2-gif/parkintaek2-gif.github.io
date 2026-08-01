@@ -159,6 +159,26 @@ async function main() {
   const runStamp = stamp();
   const items = [];
 
+  /**
+   * 목록 한 쪽을 **받는 즉시 저장**한다.
+   *
+   * ⚠ 처음엔 3,050쪽을 전부 모은 뒤 한꺼번에 저장하게 짰다. 30분을 돌려도
+   *   디스크에 아무것도 없었고, **중간에 끊기면 통째로 날아가는 구조**였다.
+   *   오래 도는 수집기에서 「끝나고 저장」은 그 자체가 결함이다.
+   *   지금은 한 쪽씩 저장하므로 어디서 끊겨도 그때까지는 남는다.
+   */
+  async function saveList(rows) {
+    let n = 0;
+    for (const r of rows) {
+      const key = `raw/research-list/${r.date}/${r.nid}.json`;
+      if (existsSync(path.join(ARCHIVE, key))) continue;
+      await put(key, JSON.stringify(r, null, 2), 'application/json');
+      n++;
+    }
+    return n;
+  }
+
+  let saved = 0;
   let lastSig = '';
   for (let p = FROM; p < FROM + PAGES; p++) {
     const url = `${BASE}/company_list.naver?&page=${p}`;
@@ -174,8 +194,13 @@ async function main() {
       }
       lastSig = sig;
       items.push(...rows);
+      // 받는 즉시 저장한다. 끊겨도 여기까지는 남는다.
+      if (LIST_ONLY && !DRY) saved += await saveList(rows);
       if (p % 25 === 0 || p === FROM) {
-        console.log(`  목록 ${p}쪽 — ${rows.length}건 (${rows[0]?.date ?? '-'})`);
+        console.log(
+          `  ${p}쪽 — ${rows.length}건 (${rows[0]?.date ?? '-'})` +
+            (LIST_ONLY ? `  누적 저장 ${saved}` : ''),
+        );
       }
     } catch (e) {
       console.log(`  목록 ${p}쪽 실패: ${e.message}`);
@@ -193,16 +218,9 @@ async function main() {
     return;
   }
 
-  // 목록만 저장하고 끝낸다. 백필 1단계 — 상세는 나중에 날짜별로 나눠 받는다.
+  // 백필 1단계는 저장이 이미 쪽 단위로 끝났다. 상세는 나중에 날짜별로 나눠 받는다.
   if (LIST_ONLY) {
-    let n = 0;
-    for (const r of uniq) {
-      const key = `raw/research-list/${r.date}/${r.nid}.json`;
-      if (existsSync(path.join(ARCHIVE, key))) continue;
-      await put(key, JSON.stringify(r, null, 2), 'application/json');
-      n++;
-    }
-    console.log(`\n  목록 저장 ${n}건 (신규) / ${uniq.length}건 조회`);
+    console.log(`\n  목록 저장 ${saved}건 (신규) / ${uniq.length}건 조회`);
     return;
   }
 

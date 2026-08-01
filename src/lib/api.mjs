@@ -19,7 +19,7 @@
  * ──────────────────────────────────────────────────────────────
  */
 
-import { readdir, readFile, stat } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import {
   HS_CHAPTERS,
@@ -94,6 +94,99 @@ async function archiveStatus(id) {
   }
 }
 
+/* ── 증권사 리포트 ───────────────────────────────────────────────
+   `/v1` 에서 **처음으로 실제 데이터가 나가는 곳**이다. 분류 사전은 참조표이고,
+   여기부터가 「우리가 모았기 때문에 존재하는 것」이다.
+
+   파는 것은 리포트가 아니라 사실이다 — 어느 증권사가 언제 얼마를 제시했는가.
+   본문·PDF 는 수집하지도 않았으므로 나갈 것도 없다.
+   ──────────────────────────────────────────────────────────── */
+
+/** 아카이브에서 리포트를 읽는다. 날짜 폴더 구조라 최신부터 역순으로 훑는다. */
+async function readResearch({ limit = 50, house, stock, since } = {}) {
+  const roots = ['raw/research', 'raw/research-list'];
+  const seen = new Set();
+  const out = [];
+
+  for (const root of roots) {
+    let days;
+    try {
+      days = (await readdir(path.join(ARCHIVE, root))).sort().reverse();
+    } catch {
+      continue;
+    }
+    for (const day of days) {
+      if (since && day < since) break; // 날짜 폴더가 정렬돼 있으므로 여기서 끊어도 된다
+      let files;
+      try {
+        files = await readdir(path.join(ARCHIVE, root, day));
+      } catch {
+        continue;
+      }
+      for (const f of files) {
+        if (out.length >= limit) return out;
+        const nid = f.replace(/\.json$/, '');
+        // 상세(research)가 목록(research-list)보다 정보가 많다. 먼저 읽은 쪽을 남긴다.
+        if (seen.has(nid)) continue;
+        try {
+          const j = JSON.parse(await readFile(path.join(ARCHIVE, root, day, f), 'utf8'));
+          if (house && !j.house?.includes(house)) continue;
+          if (stock && !j.stock?.includes(stock)) continue;
+          seen.add(nid);
+          out.push(j);
+        } catch {
+          /* 깨진 파일 하나가 응답 전체를 죽이지 않게 한다 */
+        }
+      }
+    }
+  }
+  return out;
+}
+
+/**
+ * 외부 계약. 내부 필드 이름을 그대로 내보내지 않는다.
+ * `nid` 는 네이버 내부 식별자라 우리 계약에 넣지 않는다 — 그쪽이 바꾸면 우리가 깨진다.
+ */
+function researchContract(r) {
+  return {
+    date: r.date,
+    broker: r.house,
+    subject: r.stock,
+    /** 목표주가. **제시하지 않은 리포트가 실제로 있다.** 0 이나 추정으로 채우지 않는다. */
+    targetPrice: r.targetPrice ?? null,
+    rating: r.opinion ?? null,
+    /** 상세를 아직 안 받은 항목은 목표주가가 null 이다. 그 구분을 밝힌다. */
+    detailFetched: r.targetPrice !== undefined,
+    source: { agency: 'Naver Finance (aggregator)', note: 'Facts only. Report text and PDF are not collected.' },
+  };
+}
+
+async function research(params) {
+  const limit = Math.min(Number(params.get('limit')) || 50, 200);
+  const rows = await readResearch({
+    limit,
+    house: params.get('broker') ?? undefined,
+    stock: params.get('subject') ?? undefined,
+    since: params.get('since') ?? undefined,
+  });
+
+  if (rows.length === 0) {
+    return err(
+      503,
+      'collection_not_started',
+      'No brokerage reports have been collected yet.',
+      'Collection runs twice daily. /v1/meta shows what the archive holds.',
+    );
+  }
+  return json(200, {
+    count: rows.length,
+    results: rows.map(researchContract),
+    coverage: {
+      note: 'Target price and rating are facts stated by the broker. We do not collect or redistribute report text, PDFs or charts.',
+    },
+  });
+}
+
 /* ── 라우트 ─────────────────────────────────────────────────── */
 
 /** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
@@ -110,6 +203,7 @@ async function root() {
       'GET /v1/hs/{code}': 'Resolve an HS code (2, 4, 6 or 10 digits) to its English description',
       'GET /v1/hs?q=': 'Search HS chapters and headings by English keyword',
       'GET /v1/countries': 'Partner country codes and English names',
+      'GET /v1/research': 'Brokerage target prices and ratings — facts only, no report text',
       'GET /v1/trade/flash': "Korea's 10-day provisional trade figures (1st, 11th, 21st, 09:00 KST)",
       'GET /v1/trade/exports': 'Exports and imports by HS code and partner country',
     },
@@ -359,6 +453,10 @@ export async function handleApi(pathname, searchParams) {
     return hsLookup(hsMatch[1]);
   }
 
+  if (pathname === '/v1/research') {
+    meter('research');
+    return research(searchParams);
+  }
   if (pathname === '/v1/trade/flash') {
     meter('trade.flash');
     return tradeNotReady('export-flash-item');
