@@ -5,6 +5,9 @@
  *   npm run collect:research              최근 3페이지
  *   npm run collect:research -- --pages=10
  *   npm run collect:research -- --dry
+ *   npm run collect:research -- --fill              이미 받아 둔 목록의 상세를 채운다(백필 2단계)
+ *   npm run collect:research -- --fill --limit=500  그만큼만 받고 멈춘다
+ *   npm run collect:research -- --fill --oldest     오래된 날짜부터 (기본은 최신부터)
  *
  * ── 무엇을 만들려는 것인가 ──────────────────────────────────────
  * 리포트 본문을 파는 게 아니다. **목표주가가 맞았는지를 파는 것**이다.
@@ -33,7 +36,7 @@
  * 요청 간격을 두고, 신원을 밝히는 User-Agent 를 쓴다.
  */
 
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 
@@ -48,6 +51,16 @@ const PAGES = Number(argv.find((a) => a.startsWith('--pages='))?.slice(8)) || 3;
 const FROM = Number(argv.find((a) => a.startsWith('--from='))?.slice(7)) || 1;
 /** 목록만 받고 상세는 건너뛴다. 백필 1단계에 쓴다(상세는 9만 번 호출이라 나눠서 한다). */
 const LIST_ONLY = argv.includes('--list-only');
+/**
+ * 백필 2단계. **목록 페이지를 다시 부르지 않고** 이미 저장된 목록을 읽어
+ * 상세가 없는 것만 채운다. 목록 3,017쪽은 이미 받아 뒀다(66,071건) —
+ * 그걸 또 부르면 남의 서버를 3천 번 헛되이 두드린다.
+ */
+const FILL = argv.includes('--fill');
+/** --fill 에서 이번 실행에 받을 최대 건수. 끊어서 돌릴 때 쓴다. */
+const LIMIT = Number(argv.find((a) => a.startsWith('--limit='))?.slice(8)) || Infinity;
+/** --fill 순서. 기본은 최신 날짜부터 — 오늘 쓸 수 있는 데이터가 먼저 쌓인다. */
+const OLDEST_FIRST = argv.includes('--oldest');
 
 /*
  * ── 소급 가능 범위 (2026-08-01 실측) ──────────────────────────
@@ -155,7 +168,101 @@ function parseDetail(html) {
   };
 }
 
+/**
+ * 백필 2단계 — 저장된 목록을 읽어 **상세가 없는 것만** 채운다.
+ *
+ * 기본 수집 경로(main)는 목록 페이지를 다시 부른 뒤 상세를 받는다. 백필에는 그게 맞지 않는다.
+ * 66,071건의 목록은 이미 디스크에 있고, 그걸 얻으려고 목록 3,017쪽을 또 부르는 것은
+ * 남의 서버를 헛되이 두드리는 일이다.
+ *
+ * **어디서 끊겨도 그대로 다시 돌리면 이어진다.** 진행 상태를 따로 적지 않는다 —
+ * 「상세 파일이 있으면 건너뛴다」가 곧 진행 상태다. 상태 파일은 실제와 어긋나는 순간
+ * 더 나쁘다.
+ */
+async function fill() {
+  const listRoot = path.join(ARCHIVE, 'raw/research-list');
+  if (!existsSync(listRoot)) {
+    console.log('  목록 아카이브가 없습니다. 먼저 `--list-only` 로 목록을 받으십시오.');
+    return;
+  }
+
+  const days = readdirSync(listRoot)
+    .filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))
+    .sort();
+  // 기본은 최신부터. 중간에 멈춰도 「오늘 쓸 수 있는」 구간이 먼저 채워진다.
+  if (!OLDEST_FIRST) days.reverse();
+
+  // 몇 시간짜리 작업이라 남은 건수를 먼저 센다. 진행률이 안 보이면 살았는지 죽었는지 모른다.
+  let todo = 0;
+  for (const d of days) {
+    for (const f of readdirSync(path.join(listRoot, d))) {
+      if (!existsSync(path.join(ARCHIVE, 'raw/research', d, f))) todo++;
+    }
+  }
+  console.log(
+    `  상세 미확보 ${todo.toLocaleString()}건 · 이번 실행 상한 ${LIMIT === Infinity ? '없음' : LIMIT.toLocaleString()}` +
+      ` · 순서 ${OLDEST_FIRST ? '오래된 것부터' : '최신부터'}`,
+  );
+  if (DRY) return;
+
+  const runStamp = stamp();
+  let done = 0;
+  let filled = 0;
+  let noTarget = 0;
+  let failed = 0;
+
+  outer: for (const d of days) {
+    for (const f of readdirSync(path.join(listRoot, d))) {
+      const key = `raw/research/${d}/${f}`;
+      if (existsSync(path.join(ARCHIVE, key))) continue;
+      if (done >= LIMIT) break outer;
+
+      const r = JSON.parse(readFileSync(path.join(listRoot, d, f), 'utf8'));
+      try {
+        const html = await fetchKr(`${BASE}/company_read.naver?nid=${r.nid}`);
+        const det = parseDetail(html);
+        // ⚠ PDF 는 받지 않는다. 그게 저작물이다.
+        await put(key, JSON.stringify({ ...r, ...det, collectedAt: runStamp }, null, 2), 'application/json');
+        if (det.targetPrice) filled++;
+        // 목표주가를 제시하지 않는 리포트가 실제로 있다(화면에 「목표가 없음」).
+        // null 로 저장하는 것이 맞다. 실패와 구분하려고 따로 센다.
+        else noTarget++;
+      } catch (e) {
+        // 실패는 파일을 남기지 않는다 — 다음 실행에서 자동으로 다시 시도된다.
+        failed++;
+        console.log(`  상세 ${r.nid} 실패: ${e.message}`);
+      }
+      done++;
+      if (done % 200 === 0) {
+        console.log(
+          `  ${done.toLocaleString()}/${todo.toLocaleString()} · 목표주가 ${filled.toLocaleString()}` +
+            ` · 미제시 ${noTarget.toLocaleString()} · 실패 ${failed} · 현재 ${d}`,
+        );
+      }
+      await sleep(700); // 예의. 남의 서버를 몰아치지 않는다
+    }
+  }
+
+  await put(
+    `manifest/research/${runStamp}-fill.json`,
+    JSON.stringify(
+      { runStamp, mode: 'fill', todo, fetched: done, withTarget: filled, noTarget, failed, store: storeStatus() },
+      null,
+      2,
+    ),
+    'application/json',
+  );
+
+  console.log(
+    `\n  받음 ${done.toLocaleString()} · 목표주가 ${filled.toLocaleString()} · 미제시 ${noTarget.toLocaleString()} · 실패 ${failed}` +
+      ` · 남음 ${(todo - done).toLocaleString()}`,
+  );
+  if (!remoteEnabled) console.log('\n  ⚠ 원격 저장이 꺼져 있습니다. 이 PC 에만 있습니다.');
+}
+
 async function main() {
+  if (FILL) return fill();
+
   const runStamp = stamp();
   const items = [];
 
