@@ -198,6 +198,136 @@ export const HS_HEADINGS = {
   3002: 'Human blood; vaccines, toxins and cultures',
   9503: 'Tricycles, dolls, other toys and puzzles',
   4901: 'Printed books, brochures and similar printed matter',
+
+  /* ── 2차 확장 (2026-08-01) ─────────────────────────────────────
+     1차는 52개였고 96개 류 중 21개 류에만 4단위가 있었다. 나머지 75개 류는
+     조회하면 류 이름만 나오고 headingName 이 null 이었다.
+     한국 수출입에서 실제로 규모가 있는 것부터 채운다. 전 세계 4단위는 1,200개가
+     넘지만 전부 넣는 것이 목적이 아니다 — **한국 무역을 설명하는 것**이 목적이다. */
+
+  // ── 비철금속 (수출입 양쪽에서 크다)
+  7601: 'Unwrought aluminium',
+  7604: 'Aluminium bars, rods and profiles',
+  7606: 'Aluminium plates, sheets and strip',
+  7403: 'Refined copper and copper alloys, unwrought',
+  7407: 'Copper bars, rods and profiles',
+  7408: 'Copper wire',
+  7409: 'Copper plates, sheets and strip',
+  7502: 'Unwrought nickel',
+  7901: 'Unwrought zinc',
+  7801: 'Unwrought lead',
+
+  // ── 원자재 수입
+  2601: 'Iron ores and concentrates',
+  2603: 'Copper ores and concentrates',
+  2606: 'Aluminium ores and concentrates',
+  2523: 'Cement, including clinkers',
+  2818: 'Aluminium oxide, including artificial corundum',
+
+  // ── 고무·타이어
+  4011: 'New pneumatic tyres, of rubber',
+  4002: 'Synthetic rubber, in primary forms',
+
+  // ── 기계 (84류 보강)
+  8408: 'Compression-ignition internal combustion piston engines (diesel)',
+  8409: 'Parts for internal combustion piston engines',
+  8411: 'Turbojets, turbopropellers and other gas turbines',
+  8413: 'Pumps for liquids; liquid elevators',
+  8414: 'Air or vacuum pumps; compressors and fans',
+  8418: 'Refrigerators, freezers and other refrigerating equipment',
+  8450: 'Household or laundry-type washing machines',
+  8477: 'Machinery for working rubber or plastics',
+  8483: 'Transmission shafts, gears, gearing and clutches',
+
+  // ── 전기·전자 (85류 보강)
+  8501: 'Electric motors and generators',
+  8504: 'Electrical transformers, static converters and inductors',
+  8516: 'Electric water heaters, space heaters and electrothermic appliances',
+  8518: 'Microphones, loudspeakers, headphones and audio amplifiers',
+  8536: 'Electrical apparatus for switching or protecting circuits',
+  8537: 'Boards, panels and consoles for electric control',
+  8538: 'Parts for electrical switching and control apparatus',
+
+  // ── 정밀·광학 (90류 보강)
+  9001: 'Optical fibres and cables; sheets and plates of polarising material',
+  9027: 'Instruments for physical or chemical analysis',
+  9030: 'Oscilloscopes and instruments for measuring electrical quantities',
+  9031: 'Measuring or checking instruments not elsewhere specified',
+
+  // ── 화학 보강
+  2814: 'Ammonia, anhydrous or in aqueous solution',
+  3102: 'Mineral or chemical fertilisers, nitrogenous',
+  3105: 'Mineral or chemical fertilisers containing two or three nutrients',
+  3208: 'Paints and varnishes in a non-aqueous medium',
+  3808: 'Insecticides, herbicides, disinfectants and similar products',
+  3824: 'Prepared binders; chemical products of the chemical industries',
+  2905: 'Acyclic alcohols and their derivatives',
+
+  // ── 섬유·의류 (수입이 크다)
+  5402: 'Synthetic filament yarn',
+  5407: 'Woven fabrics of synthetic filament yarn',
+  5503: 'Synthetic staple fibres, not carded or combed',
+  6104: "Women's suits, jackets, dresses and trousers, knitted",
+  6109: 'T-shirts, singlets and other vests, knitted or crocheted',
+  6110: 'Jerseys, pullovers, cardigans and waistcoats, knitted',
+  6203: "Men's suits, jackets, trousers and shorts, not knitted",
+  6204: "Women's suits, jackets, dresses and trousers, not knitted",
+  6403: 'Footwear with uppers of leather',
+  6404: 'Footwear with uppers of textile materials',
+  4202: 'Trunks, suitcases, handbags and similar containers',
+
+  // ── 종이·목재
+  4703: 'Chemical wood pulp, soda or sulphate',
+  4810: 'Paper and paperboard, coated with kaolin or other inorganic substances',
+  4811: 'Paper and paperboard, coated, impregnated or surface-decorated',
+  4407: 'Wood sawn or chipped lengthwise, thicker than 6 mm',
+  4412: 'Plywood, veneered panels and similar laminated wood',
+
+  // ── 유리·요업
+  7005: 'Float glass and surface-ground or polished glass, in sheets',
+  7007: 'Safety glass, toughened or laminated',
+  6907: 'Ceramic flags and paving, hearth or wall tiles',
+  6909: 'Ceramic wares for laboratory, chemical or technical uses',
+
+  // ── 귀금속
+  7108: 'Gold, unwrought or in semi-manufactured forms',
+  7113: 'Articles of jewellery and parts thereof',
+
+  // ── 수송기기 보강
+  8603: 'Self-propelled railway or tramway coaches and vans',
+  8607: 'Parts of railway or tramway locomotives or rolling stock',
+  8802: 'Aircraft and spacecraft, powered',
+  8803: 'Parts of aircraft and spacecraft',
+  8711: 'Motorcycles and cycles fitted with an auxiliary motor',
+
+  // ── 가구·조명·잡화
+  9401: 'Seats and parts thereof',
+  9403: 'Other furniture and parts thereof',
+  9405: 'Lamps and lighting fittings',
+  8302: 'Base metal mountings, fittings and similar articles',
+  8207: 'Interchangeable tools for hand tools or machine tools',
+
+  // ── 농축수산물 (대부분 수입)
+  1001: 'Wheat and meslin',
+  1005: 'Maize (corn)',
+  1006: 'Rice',
+  1201: 'Soya beans',
+  1511: 'Palm oil and its fractions',
+  1701: 'Cane or beet sugar and chemically pure sucrose',
+  '0201': 'Meat of bovine animals, fresh or chilled',
+  '0202': 'Meat of bovine animals, frozen',
+  '0203': 'Meat of swine, fresh, chilled or frozen',
+  '0207': 'Meat and edible offal of poultry',
+  '0303': 'Fish, frozen, excluding fish fillets',
+  '0306': 'Crustaceans, whether in shell or not',
+  '0803': 'Bananas, including plantains, fresh or dried',
+  '0901': 'Coffee, whether or not roasted or decaffeinated',
+  2304: 'Oil-cake and other solid residues from soya-bean oil',
+  2402: 'Cigars, cheroots and cigarettes',
+
+  // ── 문화·한류 관련 (WikiTip 기사와 연결되는 품목)
+  9201: 'Pianos, including automatic pianos',
+  9202: 'Other string musical instruments',
 };
 
 /**
