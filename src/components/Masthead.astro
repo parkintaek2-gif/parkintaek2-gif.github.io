@@ -20,6 +20,8 @@ const [head, ...tail] = SITE.nameParts;
           </a>
         ))
       }
+      {/* 데이터 API 는 부가서비스가 아니라 매출의 본체다. 내비게이션에 올린다. */}
+      <a href="/api" aria-current={isCurrent('/api')}>API</a>
       <a href="/about" aria-current={isCurrent('/about')}>About</a>
     </nav>
   </div>

@@ -32,6 +32,8 @@ export const GET: APIRoute = async ({ params }) => {
     const newest = all[0]?.data.pubDate;
     urls = [
       { loc: '', lastmod: newest, changefreq: 'daily', priority: '1.0' },
+      // 데이터 API 판매 화면. 개발자 검색 유입이 곧 영업이라 우선순위를 높게 둔다.
+      { loc: '/api', changefreq: 'weekly', priority: '0.9' },
       { loc: '/about', changefreq: 'monthly', priority: '0.5' },
       ...CATEGORIES.map((c) => ({
         loc: `/${c.slug}`,

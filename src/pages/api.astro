@@ -1,0 +1,232 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE, SITE_URL, PUBLISHER } from '../consts';
+
+/**
+ * 개발자·기관을 향한 판매 화면.
+ *
+ * 이 페이지가 곧 영업이다. 매출 목표 300억의 3분의 2가 데이터에서 나오는데
+ * 우리에겐 영업 인력이 없다. 마켓플레이스와 이 페이지가 그 자리를 대신한다
+ * (docs/사업전략-데이터제공업.md §6).
+ *
+ * 그래서 세 가지를 지킨다.
+ *  1. **지금 되는 것과 아직 안 되는 것을 그대로 적는다.** 데이터 상품을 사는 사람은
+ *     엔지니어다. 과장은 첫 호출에서 들통나고, 그러면 두 번째 기회가 없다.
+ *  2. **복사해서 바로 붙일 수 있는 예제**를 둔다. 문서가 아니라 시연이다.
+ *  3. 왜 이 데이터가 특별한지는 우리 주장이 아니라 **남이 이미 인정한 사실**로 말한다.
+ */
+
+const BASE = `${SITE_URL}/v1`;
+
+const live = [
+  {
+    path: '/v1/hs/{code}',
+    what: 'Resolve any HS code — 2, 4, 6 or 10 digits — to its English description.',
+    example: '/v1/hs/8542',
+  },
+  {
+    path: '/v1/hs?q={keyword}',
+    what: 'Search the classification in English when you do not know the code.',
+    example: '/v1/hs?q=battery',
+  },
+  {
+    path: '/v1/countries',
+    what: 'Partner country codes with English names.',
+    example: '/v1/countries',
+  },
+  {
+    path: '/v1/meta',
+    what: 'Coverage, dictionary size, and exactly what has been collected so far.',
+    example: '/v1/meta',
+  },
+];
+
+const soon = [
+  {
+    path: '/v1/trade/flash',
+    what: "Korea's 10-day provisional trade figures, by product. Released 1st, 11th and 21st at 09:00 KST.",
+  },
+  {
+    path: '/v1/trade/exports',
+    what: 'Exports and imports by HS code and partner country, monthly, back to the start of our archive.',
+  },
+];
+
+const sample = `{
+  "code": "8542",
+  "level": 4,
+  "chapter": "85",
+  "chapterName": "Electrical machinery and equipment and parts thereof",
+  "heading": "8542",
+  "headingName": "Electronic integrated circuits",
+  "label": "Electronic integrated circuits",
+  "source": {
+    "agency": "World Customs Organization",
+    "system": "Harmonized System"
+  }
+}`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebAPI',
+  name: `${SITE.name} Data API`,
+  description:
+    'Korean official trade and market statistics normalised to English and served as JSON.',
+  url: `${SITE_URL}/api`,
+  documentation: `${SITE_URL}/api`,
+  provider: { '@id': `${SITE_URL}/#organization` },
+  termsOfService: `${SITE_URL}/about`,
+};
+---
+
+<Base
+  title="Data API"
+  description="Korean customs, market and macro statistics, normalised to English and served as JSON. Free tier available; the trade endpoints open when collection begins."
+  jsonLd={jsonLd}
+>
+  <div class="wrap">
+    <article class="article">
+      <div class="article__head">
+        <p class="kicker">For developers</p>
+        <h1>Korean official statistics, in English, as JSON</h1>
+        <p class="article__dek">
+          The same data that goes into our reporting, available directly. No XML, no Korean-only
+          field names, no scraping.
+        </p>
+      </div>
+
+      <div class="prose">
+        <h2>Why this data</h2>
+        <p>
+          Korea publishes monthly trade figures the day after the month ends, and provisional
+          figures three times a month. Almost no country moves that fast: UN Comtrade runs up to a
+          month behind, and further for many reporters. Bloomberg counts Korean trade among its
+          twelve key global economic indicators for exactly this reason — Korea imports raw
+          materials, processes them and re-exports, so a shift in world demand shows up here first.
+        </p>
+        <p>
+          That much is well known. What does not exist is the detail in a usable form.
+          The headline number gets reported; the product-level series does not. Korean official
+          feeds return XML, with product and country names in Korean, and no English classification
+          attached. <strong>This API is that missing layer.</strong>
+        </p>
+
+        <h2>Available now</h2>
+        <p>
+          These endpoints are live and need no key. They resolve the classification itself, which is
+          the part that normally costs a translator.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Endpoint</th><th>What it does</th><th>Try it</th></tr>
+            </thead>
+            <tbody>
+              {
+                live.map((e) => (
+                  <tr>
+                    <td><code>{e.path}</code></td>
+                    <td>{e.what}</td>
+                    <td>
+                      <a href={e.example} rel="nofollow">
+                        run
+                      </a>
+                    </td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <p>A request and its response:</p>
+        <pre class="api-sample"><code>curl {BASE}/hs/8542</code></pre>
+        <pre class="api-sample"><code>{sample}</code></pre>
+
+        <h2>Opening next</h2>
+        <p>
+          These return <code>503</code> today with a machine-readable reason. They open as soon as
+          collection starts — we would rather say so than hand you an empty array that looks like a
+          real answer.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Endpoint</th><th>What it will return</th></tr></thead>
+            <tbody>
+              {
+                soon.map((e) => (
+                  <tr>
+                    <td><code>{e.path}</code></td>
+                    <td>{e.what}</td>
+                  </tr>
+                ))
+              }
+            </tbody>
+          </table>
+        </div>
+
+        <h2>How we handle what we do not know</h2>
+        <p>
+          Our heading dictionary covers the products that dominate Korean trade. A code outside that
+          set resolves to its chapter and returns <code>null</code> for the heading, with a note
+          saying so. <strong>We do not generate a plausible description to fill the gap.</strong>
+          A data product that guesses is worse than one with holes, because you cannot tell which is
+          which.
+        </p>
+        <p>
+          Every response names its source. Where a figure is provisional, it is labelled
+          provisional, and the revision is kept alongside rather than overwriting it.
+        </p>
+
+        <h2>Licence</h2>
+        <p>
+          The underlying statistics are published by Korean government agencies under an
+          unrestricted-use licence, which permits redistribution including for commercial purposes.
+          We do not redistribute exchange feeds or licensed vendor data, and we do not scrape.
+        </p>
+
+        <h2>Pricing</h2>
+        <p>
+          The classification endpoints above are free and will stay free. Trade series will have a
+          free tier generous enough to build against, with paid tiers for production volume and
+          bulk history. Institutional licences — full archive, custom aggregations, delivery to your
+          warehouse — are contracted directly.
+        </p>
+        <p>
+          Tell us what you need and we will tell you plainly whether we have it:{' '}
+          <a href={`mailto:${PUBLISHER.email}?subject=${encodeURIComponent('Data API enquiry')}`}
+            >{PUBLISHER.email}</a
+          >.
+        </p>
+
+        <h2>Who we are</h2>
+        <p>
+          {SITE.name} is published by {PUBLISHER.legalName}, registered in Korea. The API and the
+          newsroom run on the same pipeline — every figure in an article comes from the endpoints
+          above, which is why both stay honest. More in <a href="/about">About</a>.
+        </p>
+      </div>
+
+      <a class="backlink" href="/">&larr; Back to the front page</a>
+    </article>
+  </div>
+</Base>
+
+<style>
+  /* 코드 예제는 본문 서체와 확실히 구분되어야 「복사해서 붙이는 것」으로 읽힌다. */
+  .api-sample {
+    background: var(--sunken, #f4f4f1);
+    border: 1px solid var(--line, #e2e5e9);
+    padding: 0.85rem 1rem;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0.75rem 0 1.25rem;
+  }
+  .api-sample code {
+    background: none;
+    border: 0;
+    padding: 0;
+    white-space: pre;
+  }
+</style>
