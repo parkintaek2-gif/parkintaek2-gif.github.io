@@ -14,6 +14,7 @@ import { timingSafeEqual, scryptSync } from 'node:crypto';
 import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
+import { handleApi } from './src/lib/api.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -144,7 +145,21 @@ const server = createServer(async (req, res) => {
     return;
   }
 
-  const pathname = new URL(req.url, 'http://localhost').pathname;
+  const parsed = new URL(req.url, 'http://localhost');
+  const pathname = parsed.pathname;
+
+  // ── 데이터 API (/v1) ───────────────────────────────────────────────
+  // 정적 파일보다 먼저 가로챈다. 매출의 3분의 2가 나올 자리라 별도 서버를 띄울
+  // 법도 하지만, 정적 서버가 실측 47.6MB 밖에 안 쓰고 Cloudtype 여유가 0 이라
+  // 여기 붙였다. 인프라 추가 비용 0원이다.
+  {
+    const api = await handleApi(pathname, parsed.searchParams);
+    if (api) {
+      res.writeHead(api.status, { ...BASE_HEADERS, ...api.headers });
+      res.end(req.method === 'HEAD' ? undefined : api.body);
+      return;
+    }
+  }
 
   // ── 편집국 ─────────────────────────────────────────────────────────
   // 정적 파일 처리보다 먼저 가로챈다. dist/ 에 admin 이라는 파일이 생겨도

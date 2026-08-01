@@ -1,0 +1,272 @@
+/**
+ * 데이터 API — `/v1/*`.
+ *
+ * ── 왜 여기 있는가 ──────────────────────────────────────────────
+ * 매출 목표 300억의 3분의 2가 데이터에서 나온다(docs/사업전략-데이터제공업.md §6).
+ * 그러면 API 는 「2단계」가 아니라 본체다. 미디어가 API 의 마케팅이지 그 반대가 아니다.
+ *
+ * 별도 서버를 띄우지 않고 `server.mjs` 에 붙였다. Cloudtype 메모리가 0.25GB 로
+ * 묶여 있고 여유가 0 인데, 정적 서버는 실측 47.6MB 밖에 안 쓴다. **인프라 추가 0원.**
+ *
+ * ── 설계 원칙 ──────────────────────────────────────────────────
+ * 1. **모든 응답에 `as_of` 와 `source` 를 넣는다.** 미디어에서 지키던 규칙 그대로다.
+ *    출처 없는 숫자를 내보내지 않는 것이 이 회사의 유일한 자산이다.
+ * 2. **모르는 것을 지어내지 않는다.** 사전에 없는 HS 코드는 `null` 로 둔다.
+ *    그럴듯한 이름으로 채우는 순간 데이터 상품으로서 끝난다.
+ * 3. **아직 없는 데이터는 503 으로 정직하게 말한다.** 빈 배열을 200 으로 주면
+ *    이용자는 「데이터가 없다」와 「우리가 아직 안 받았다」를 구분할 수 없다.
+ * 4. JSON only. XML 안 준다. 공공데이터포털이 XML 을 주는 게 바로 그들의 문제다.
+ * ──────────────────────────────────────────────────────────────
+ */
+
+import { readdir, readFile, stat } from 'node:fs/promises';
+import path from 'node:path';
+import {
+  HS_CHAPTERS,
+  HS_HEADINGS,
+  COUNTRIES,
+  describeHs,
+  describeCountry,
+  DICT_STATS,
+} from './trade-dict.mjs';
+
+const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
+
+/** 수집기가 쓰는 데이터셋 id 와 사람이 읽을 설명. collect.mjs 의 등록부와 짝이다. */
+const DATASETS = {
+  nitemtrade: {
+    label: 'Exports and imports by HS code and partner country',
+    agency: 'Korea Customs Service',
+    licence: 'Unrestricted (Korea Public Data Portal)',
+  },
+  'import-flash-item': {
+    label: 'Imports by major product, 10-day provisional',
+    agency: 'Korea Customs Service',
+    licence: 'Unrestricted (Korea Public Data Portal)',
+  },
+  'export-flash-item': {
+    label: 'Exports by major product, 10-day provisional',
+    agency: 'Korea Customs Service',
+    licence: 'Unrestricted (Korea Public Data Portal)',
+  },
+};
+
+const json = (status, body, extra = {}) => ({
+  status,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    // 개발자가 브라우저에서 바로 찔러볼 수 있어야 채택된다. 공개 데이터라 위험이 없다.
+    'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'public, max-age=300',
+    ...extra,
+  },
+  body: JSON.stringify(body, null, 2),
+});
+
+const err = (status, code, message, hint) =>
+  json(status, { error: { code, message, ...(hint ? { hint } : {}) } }, { 'Cache-Control': 'no-store' });
+
+/** 아카이브에 실제로 뭐가 들어와 있는지 센다. 없으면 0 을 돌려준다(던지지 않는다). */
+async function archiveStatus(id) {
+  const dir = path.join(ARCHIVE, 'raw', id);
+  try {
+    const days = await readdir(dir);
+    let files = 0;
+    let latest = null;
+    for (const d of days) {
+      let names = [];
+      try {
+        names = await readdir(path.join(dir, d));
+      } catch {
+        continue;
+      }
+      files += names.length;
+      if (!latest || d > latest) latest = d;
+    }
+    return { collected: files > 0, files, days: days.length, latest_day: latest };
+  } catch {
+    return { collected: false, files: 0, days: 0, latest_day: null };
+  }
+}
+
+/* ── 라우트 ─────────────────────────────────────────────────── */
+
+/** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
+async function root() {
+  return json(200, {
+    service: 'SeoulMarkets Data API',
+    version: 'v1',
+    description:
+      'Korean official statistics, normalised to English. JSON only. Every response names its source.',
+    docs: 'https://seoulmarkets.com/about',
+    endpoints: {
+      'GET /v1/meta': 'Coverage, dictionary size and what has actually been collected',
+      'GET /v1/hs/{code}': 'Resolve an HS code (2, 4, 6 or 10 digits) to its English description',
+      'GET /v1/hs?q=': 'Search HS chapters and headings by English keyword',
+      'GET /v1/countries': 'Partner country codes and English names',
+      'GET /v1/trade/flash': "Korea's 10-day provisional trade figures (1st, 11th, 21st, 09:00 KST)",
+      'GET /v1/trade/exports': 'Exports and imports by HS code and partner country',
+    },
+    licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
+    contact: 'sibcheongan@gmail.com',
+  });
+}
+
+/** GET /v1/meta — 커버리지와 수집 현황을 정직하게 드러낸다. */
+async function meta() {
+  const datasets = {};
+  for (const [id, d] of Object.entries(DATASETS)) {
+    datasets[id] = { ...d, ...(await archiveStatus(id)) };
+  }
+  return json(200, {
+    dictionary: {
+      hs_chapters: DICT_STATS.chapters,
+      hs_headings: DICT_STATS.headings,
+      countries: DICT_STATS.countries,
+      note:
+        'HS chapter names follow the WCO Harmonized System. Headings cover the products that dominate Korean trade; codes outside that set resolve to their chapter and return null for the heading rather than a guess.',
+    },
+    datasets,
+    generated_at: new Date().toISOString(),
+  });
+}
+
+/** GET /v1/hs/{code} */
+async function hsLookup(code) {
+  const d = describeHs(code);
+  if (!d) return err(400, 'invalid_hs_code', 'Provide an HS code of 2, 4, 6 or 10 digits.');
+  return json(200, {
+    ...d,
+    source: { agency: 'World Customs Organization', system: 'Harmonized System' },
+    note:
+      d.label == null
+        ? 'This code is not in our dictionary yet. We return null rather than guessing a description.'
+        : undefined,
+  });
+}
+
+/**
+ * 아주 작은 어간 처리.
+ *
+ * 사전 표제어는 복수형이 많다(batteries, vehicles, preparations).
+ * 이용자는 단수로 친다(battery, vehicle). 단순 부분일치로는 「battery」가
+ * 「batteries」를 못 찾는다 — 실제로 못 찾았다. 검색이 첫 관문인데 거기서
+ * 빈손이면 개발자는 두 번 안 온다.
+ *
+ * 형태소 분석기를 넣을 일은 아니다. 영어 복수 규칙 세 개면 충분하다.
+ */
+function stem(w) {
+  if (w.length > 4 && w.endsWith('ies')) return `${w.slice(0, -3)}y`;
+  if (w.length > 3 && (w.endsWith('es') || w.endsWith('ss'))) {
+    return w.endsWith('ss') ? w : w.slice(0, -2);
+  }
+  if (w.length > 3 && w.endsWith('s')) return w.slice(0, -1);
+  return w;
+}
+
+/** 표제어를 검색용 어간 토큰으로 쪼갠다. */
+function tokens(name) {
+  return name
+    .toLowerCase()
+    .split(/[^a-z0-9]+/)
+    .filter(Boolean)
+    .map(stem);
+}
+
+/** GET /v1/hs?q= — 영어 키워드 검색. 코드를 모르는 사람이 쓰는 입구다. */
+async function hsSearch(q) {
+  const raw = q.trim().toLowerCase();
+  if (raw.length < 2)
+    return err(400, 'query_too_short', 'Use at least two characters, e.g. ?q=semiconductor');
+
+  const needles = raw.split(/[^a-z0-9]+/).filter(Boolean).map(stem);
+  if (!needles.length)
+    return err(400, 'query_too_short', 'Use at least two letters, e.g. ?q=semiconductor');
+
+  // 모든 검색어가 표제어 안에 있어야 맞춘 것으로 본다(AND). 두 단어를 치면 좁혀져야 한다.
+  const match = (name) => {
+    const toks = tokens(name);
+    return needles.every((n) => toks.some((t) => t.startsWith(n) || n.startsWith(t)));
+  };
+
+  const hits = [];
+  for (const [code, name] of Object.entries(HS_HEADINGS)) {
+    if (match(name)) hits.push({ code, level: 4, name });
+  }
+  for (const [code, name] of Object.entries(HS_CHAPTERS)) {
+    if (match(name)) hits.push({ code, level: 2, name });
+  }
+  hits.sort((a, b) => a.level - b.level || a.code.localeCompare(b.code));
+  return json(200, {
+    query: q,
+    count: hits.length,
+    results: hits.slice(0, 100),
+    source: { agency: 'World Customs Organization', system: 'Harmonized System' },
+    ...(hits.length === 0
+      ? {
+          note: 'No match. Our heading dictionary covers the products that dominate Korean trade; try a broader word, or /v1/hs/{code} if you already have the code.',
+        }
+      : {}),
+  });
+}
+
+/** GET /v1/countries */
+async function countries() {
+  return json(200, {
+    count: Object.keys(COUNTRIES).length,
+    results: Object.entries(COUNTRIES).map(([code, name]) => ({ code, name })),
+    source: { standard: 'ISO 3166-1 alpha-2' },
+    note: 'Codes not in this list are returned as-is with a null name.',
+  });
+}
+
+/**
+ * GET /v1/trade/* — 아카이브가 필요한 엔드포인트.
+ *
+ * 인증키가 아직 없어 수집이 시작되지 않았다. 그때 빈 배열을 200 으로 주면
+ * 이용자는 「교역이 없었다」와 「우리가 안 받았다」를 구분하지 못한다.
+ * **503 으로 사실대로 말한다.**
+ */
+async function tradeNotReady(id) {
+  const st = await archiveStatus(id);
+  if (st.collected) {
+    // 수집이 시작되면 여기서 실제 조회로 넘어간다. (다음 작업)
+    return err(
+      501,
+      'not_implemented',
+      'Data has been collected but the query layer for this endpoint is not built yet.',
+      `Archive holds ${st.files} file(s) across ${st.days} day(s); latest ${st.latest_day}.`,
+    );
+  }
+  return err(
+    503,
+    'collection_not_started',
+    'This endpoint has no data yet. Collection begins once the Public Data Portal API key is issued.',
+    'Meanwhile /v1/hs, /v1/hs?q= and /v1/countries are fully available.',
+  );
+}
+
+/**
+ * 라우터. server.mjs 에서 부른다.
+ * 처리 대상이 아니면 **null 을 돌려준다** — 그래야 정적 파일 처리로 넘어간다.
+ */
+export async function handleApi(pathname, searchParams) {
+  if (pathname !== '/v1' && !pathname.startsWith('/v1/')) return null;
+
+  if (pathname === '/v1' || pathname === '/v1/') return root();
+  if (pathname === '/v1/meta') return meta();
+  if (pathname === '/v1/countries') return countries();
+
+  if (pathname === '/v1/hs') {
+    const q = searchParams.get('q');
+    if (!q) return err(400, 'missing_query', 'Use /v1/hs?q=<keyword> or /v1/hs/<code>.');
+    return hsSearch(q);
+  }
+  const hsMatch = pathname.match(/^\/v1\/hs\/([^/]+)$/);
+  if (hsMatch) return hsLookup(hsMatch[1]);
+
+  if (pathname === '/v1/trade/flash') return tradeNotReady('export-flash-item');
+  if (pathname === '/v1/trade/exports') return tradeNotReady('nitemtrade');
+
+  return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');
+}
