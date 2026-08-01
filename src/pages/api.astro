@@ -52,14 +52,22 @@ const soon = [
   },
 ];
 
+/* ⚠ 이 예제는 실제 응답과 **글자 단위로 같아야 한다.**
+   문서와 실물이 다르면 첫 호출에서 들통나고, 데이터 상품에서 그건 치명적이다.
+   응답 계약(src/lib/api.mjs 의 hsContract)을 고치면 여기도 같이 고친다. */
 const sample = `{
   "code": "8542",
-  "level": 4,
-  "chapter": "85",
-  "chapterName": "Electrical machinery and equipment and parts thereof",
-  "heading": "8542",
-  "headingName": "Electronic integrated circuits",
+  "digits": 4,
+  "chapter": {
+    "code": "85",
+    "name": "Electrical machinery and equipment and parts thereof"
+  },
+  "heading": {
+    "code": "8542",
+    "name": "Electronic integrated circuits"
+  },
   "label": "Electronic integrated circuits",
+  "resolved": true,
   "source": {
     "agency": "World Customs Organization",
     "system": "Harmonized System"
@@ -164,6 +172,25 @@ const jsonLd = {
             </tbody>
           </table>
         </div>
+
+        <h2>The same question always gets the same answer</h2>
+        <p>
+          This sounds obvious until you try to build on a source that does not guarantee it. Korean
+          agencies revise: a 10-day provisional figure is superseded by the monthly final, and the
+          monthly final is itself revised around the 15th of the following month.
+        </p>
+        <p>
+          <strong>We keep the revisions alongside the originals rather than overwriting them.</strong>
+          If you pulled a number in March and pull it again in September, you can retrieve exactly
+          what March returned, and see what changed since. Backtests that silently rewrite their own
+          history are not backtests.
+        </p>
+        <p>
+          Field names are part of the contract, not an implementation detail. Within <code>v1</code>
+          we may add fields; we do not remove or rename them. A breaking change ships as
+          <code>/v2</code> with both running. The policy is published at <code>/v1/meta</code> so
+          you do not have to take our word for it.
+        </p>
 
         <h2>How we handle what we do not know</h2>
         <p>
