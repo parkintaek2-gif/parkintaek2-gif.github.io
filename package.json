@@ -16,7 +16,9 @@
     "sync": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/sync-onedrive.ps1 && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/daily-desktop.ps1",
     "daily": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/daily-desktop.ps1",
     "collect:research": "node scripts/collect-research.mjs",
-    "test:crisis": "node src/ai/crisis.test.mjs"
+    "test:crisis": "node src/ai/crisis.test.mjs",
+    "collect:dart": "node scripts/collect-dart.mjs",
+    "collect:dart:corpcode": "node scripts/collect-dart.mjs --corpcode"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",

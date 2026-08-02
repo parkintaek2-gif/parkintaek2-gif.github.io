@@ -43,8 +43,14 @@ import path from 'node:path';
  *
  * 실행하는 쪽이 플래그를 기억해야 하는 구조는 언젠가 잊는다. 저장소가 스스로 읽는다.
  * 이미 환경에 값이 있으면(운영 콘솔에서 넣은 경우) 그쪽을 그대로 둔다. */
+/* ⚠ 2026-08-02 KST 수정 — 여기에 `if (process.env.ARCHIVE_S3_KEY_ID) return;` 가 있었다.
+ *   R2 값 하나가 환경에 있으면 **.env 를 통째로 안 읽는** 구조였다.
+ *   그러면 Cloudtype 콘솔에 R2 를 넣어 둔 환경에서 `DART_API_KEY` 같은 **다른 키가
+ *   영영 안 읽힌다.** 그리고 그것도 조용히 실패한다 — 이 함수가 막으려던 바로 그 사고다.
+ *
+ *   아래 반복문이 이미 변수별로 「없을 때만 넣는다」를 하므로 그 가드는 불필요했다.
+ *   운영 콘솔 값을 덮지 않는다는 원래 의도는 그 한 줄로 그대로 지켜진다. */
 function 환경파일읽기() {
-  if (process.env.ARCHIVE_S3_KEY_ID) return;          // 이미 있으면 건드리지 않는다
   try {
     const 본문 = readFileSync(path.resolve('.env'), 'utf8');
     for (const 줄 of 본문.split(/\r?\n/)) {
