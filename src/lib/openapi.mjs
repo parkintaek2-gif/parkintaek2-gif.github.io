@@ -78,6 +78,11 @@ export function openapi(baseUrl) {
     servers: [{ url: `${baseUrl}/v1`, description: 'Production' }],
     tags: [
       { name: 'Classification', description: 'Resolve HS codes and country codes to English. Free, no key.' },
+      {
+        name: 'Reference',
+        description:
+          'Dictionaries that make the data readable outside Korea. Built while counting 20 years of reports; no public equivalent exists.',
+      },
       { name: 'Trade', description: "Korea's customs trade series." },
       { name: 'Meta', description: 'Coverage, schema policy and collection status.' },
     ],
@@ -192,6 +197,24 @@ export function openapi(baseUrl) {
             },
             400: { description: 'Query too short', content: { 'application/json': { schema: ERROR_SCHEMA } } },
           },
+        },
+      },
+      '/institutions': {
+        get: {
+          tags: ['Reference'],
+          operationId: 'getInstitutions',
+          summary: 'Korean research institutions, in English',
+          description:
+            'Official English names, rename history and institution type. Korean brokerages rename often and our archive spans 2007-2026, so one firm appears under several names — group by `entity`, which is stable across renames. Not every institution is a brokerage: credit-rating and IR bodies publish company analysis without target prices, which is why some records have a null target price.',
+          parameters: [
+            {
+              name: 'type',
+              in: 'query',
+              schema: { type: 'string', enum: ['brokerage', 'credit-rating', 'ir-service'] },
+              description: 'Filter by institution type',
+            },
+          ],
+          responses: { 200: { description: 'Institution dictionary' } },
         },
       },
       '/countries': {

@@ -49,6 +49,14 @@ import {
   DICT_STATS,
 } from './trade-dict.mjs';
 import { storeStatus, get as storeGet } from './store.mjs';
+import {
+  INSTITUTIONS,
+  INSTITUTION_TYPES,
+  INSTITUTION_STATS,
+  ENTITY_CURRENT_NAME,
+  describeInstitution,
+} from './institutions.mjs';
+import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { openapi } from './openapi.mjs';
 
 const gunzipAsync = promisify(gunzip);
@@ -206,15 +214,53 @@ export function researchIndexMeta() {
  * 돌려주는 것은 `{ rows, collected }` 다.
  * `collected:false` 는 「인덱스 자체가 없다」 — 「조건에 안 걸렸다」와 구분해야 한다.
  */
-async function readResearch({ limit = 50, house, stock, since } = {}) {
+/**
+ * `broker` 질의어를 한글 사명 집합으로 바꾼다.
+ *
+ * ── 왜 필요한가 ─────────────────────────────────────────────────
+ * 영문 API 인데 한글로만 검색되면 쓸 수 없다. 그리고 「Mirae Asset」으로 찾았을 때
+ * **대우증권 시절 리포트가 안 나오면 그것도 틀린 답**이다 — 같은 회사다.
+ *
+ * 그래서 셋 다 받는다. 어느 쪽으로 물어도 **같은 법인의 모든 이름**이 걸린다.
+ *   한글 사명   "미래에셋"       (부분 일치)
+ *   영문명      "Mirae Asset"   (대소문자 무시, 부분 일치)
+ *   법인 식별자  "mirae-asset"   (정확 일치)
+ */
+function 기관질의(q) {
+  const 소문자 = q.toLowerCase();
+  const 법인 = new Set();
+  for (const [ko, v] of Object.entries(INSTITUTIONS)) {
+    if (ko.includes(q) || v.en.toLowerCase().includes(소문자) || v.entity === 소문자) 법인.add(v.entity);
+  }
+  if (법인.size === 0) return null; // 사전에 안 걸린다 → 원문 부분일치로 떨어진다
+  const 이름 = new Set();
+  for (const [ko, v] of Object.entries(INSTITUTIONS)) if (법인.has(v.entity)) 이름.add(ko);
+  return 이름;
+}
+
+async function readResearch({ limit = 50, house, stock, since, rating, stance } = {}) {
   const all = await 인덱스();
   if (all.length === 0) return { rows: [], collected: false };
+
+  /* 사전에 걸리면 법인 단위로 넓히고, 안 걸리면 원문 부분일치로 둔다.
+     새 증권사가 사전에 들어오기 전에도 검색이 죽지 않게 하려는 것이다. */
+  const 이름집합 = house ? 기관질의(house) : null;
 
   const out = [];
   for (const r of all) {
     if (since && (r.d ?? '') < since) break; // 최신순이라 여기서 끊어도 된다
-    if (house && !r.h?.includes(house)) continue;
+    if (house) {
+      if (이름집합 ? !이름집합.has(r.h) : !r.h?.includes(house)) continue;
+    }
     if (stock && !r.s?.includes(stock)) continue;
+    /* 의견으로 거르기. 「20년치 매도 의견만」이 한 번에 나와야 상품이 된다.
+       원본 22종을 이용자가 다 알 수는 없으므로 **정규화한 값으로만** 받는다. */
+    if (rating || stance) {
+      const n = normaliseRating(r.o);
+      if (!n) continue; // 상세를 안 받은 것은 「의견이 없다」와 다르다. 제외한다
+      if (rating && n.code !== rating) continue;
+      if (stance && n.stance !== stance) continue;
+    }
     out.push(r);
     if (out.length >= limit) break;
   }
@@ -225,15 +271,45 @@ async function readResearch({ limit = 50, house, stock, since } = {}) {
  * 외부 계약. 내부 필드 이름을 그대로 내보내지 않는다.
  * `nid` 는 네이버 내부 식별자라 우리 계약에 넣지 않는다 — 그쪽이 바꾸면 우리가 깨진다.
  */
-/** 인덱스의 짧은 키(용량 때문에 줄였다)를 외부 계약 이름으로 편다. */
+/**
+ * 인덱스의 짧은 키(용량 때문에 줄였다)를 외부 계약 이름으로 편다.
+ *
+ * ⚠ 2026-08-03 KST — 영문 필드를 **더했다. 기존 필드는 건드리지 않았다.**
+ *   `broker` 를 영문으로 바꾸면 같은 질의가 다른 값을 돌려주게 되고, 그건
+ *   /v1/meta 에 적어 둔 determinism 약속("The same query returns the same value")을
+ *   깨는 것이다. v1 안에서는 **더하기만 한다.**
+ */
 function researchContract(r) {
+  const inst = describeInstitution(r.h);
   return {
     date: r.d,
     broker: r.h,
+    /** 영문명. 사전에 없으면 **null 이다 — 추측해서 채우지 않는다.** */
+    brokerEn: inst?.en ?? null,
+    /**
+     * 동일 법인 식별자. **사명이 바뀌어도 이 값은 안 바뀐다.**
+     * 아카이브가 20년치라 한 회사가 여러 이름으로 들어 있다 —
+     * 이트레이드증권 → 이베스트투자증권 → LS증권이 네 표기로 흩어져 있었다.
+     * 「이 증권사의 20년 적중률」을 내려면 이 값으로 묶어야 한다.
+     */
+    brokerEntity: inst?.entity ?? null,
+    /**
+     * 기관 유형. **목표주가가 null 인 이유를 여기서 읽을 수 있다.**
+     * 평가기관·IR기관은 애초에 목표주가를 제시하지 않는다(4,164건).
+     * 이걸 안 가르면 증권사의 누락처럼 보인다.
+     */
+    brokerType: inst?.type ?? null,
     subject: r.s,
     /** 목표주가. **제시하지 않은 리포트가 실제로 있다.** 0 이나 추정으로 채우지 않는다. */
     targetPrice: r.p ?? null,
+    /** **증권사가 실제로 쓴 말.** 22종으로 갈려 있지만 이것이 사실이라 그대로 둔다 */
     rating: r.o ?? null,
+    /**
+     * 정규화한 의견. 원본 22종(한글·영문·대소문자·오타·잘린 표기)을 8단계로 편다.
+     * `score` 는 **우리가 집계용으로 부여한 순서**이지 증권사가 매긴 숫자가 아니다.
+     * 사전에 없는 새 표기는 `code:"unknown"` 으로 드러난다 — 추측해서 채우지 않는다.
+     */
+    ratingNormalised: normaliseRating(r.o),
     analyst: r.a ?? null,
     /** 상세를 아직 안 받은 항목은 목표주가가 null 이다. 그 구분을 밝힌다. */
     detailFetched: Boolean(r.f),
@@ -243,11 +319,29 @@ function researchContract(r) {
 
 async function research(params) {
   const limit = Math.min(Number(params.get('limit')) || 50, 200);
+  /* 잘못된 값을 조용히 무시하면 이용자는 「그런 의견이 없다」로 오해한다.
+     사전에 없는 값이면 무엇을 쓸 수 있는지 알려 준다. */
+  const rating = params.get('rating');
+  if (rating && !RATING_SCALE[rating]) {
+    return err(
+      400,
+      'unknown_rating',
+      `No such rating: ${rating}`,
+      `Use one of: ${Object.keys(RATING_SCALE).join(', ')}. These are our normalised levels, not the broker's own wording.`,
+    );
+  }
+  const stance = params.get('stance');
+  if (stance && !['positive', 'neutral', 'negative'].includes(stance)) {
+    return err(400, 'unknown_stance', `No such stance: ${stance}`, 'Use positive, neutral or negative.');
+  }
+
   const { rows, collected } = await readResearch({
     limit,
     house: params.get('broker') ?? undefined,
     stock: params.get('subject') ?? undefined,
     since: params.get('since') ?? undefined,
+    rating: rating ?? undefined,
+    stance: stance ?? undefined,
   });
 
   /* 「아직 안 모았다」만 오류다. 모은 것에 조건을 걸어 0건인 것은 정상 응답이다.
@@ -299,7 +393,10 @@ async function root() {
       'GET /v1/hs/{code}': 'Resolve an HS code (2, 4, 6 or 10 digits) to its English description',
       'GET /v1/hs?q=': 'Search HS chapters and headings by English keyword',
       'GET /v1/countries': 'Partner country codes and English names',
-      'GET /v1/research': 'Brokerage target prices and ratings — facts only, no report text',
+      'GET /v1/institutions':
+        'Korean research institutions in English — official names, rename history, and which ones actually issue target prices',
+      'GET /v1/research':
+        'Brokerage target prices and ratings — facts only, no report text. Filter by Korean name, English name or entity id',
       'GET /v1/trade/flash': "Korea's 10-day provisional trade figures (1st, 11th, 21st, 09:00 KST)",
       'GET /v1/trade/exports': 'Exports and imports by HS code and partner country',
     },
@@ -353,6 +450,11 @@ async function meta() {
       hs_chapters: DICT_STATS.chapters,
       hs_headings: DICT_STATS.headings,
       countries: DICT_STATS.countries,
+      /* 기관 사전. **이름 수와 법인 수가 다르다** — 그 차이가 사명 변경 이력이다 */
+      institution_names: INSTITUTION_STATS.names,
+      institution_entities: INSTITUTION_STATS.entities,
+      institution_note:
+        'Korean research institutions, normalised to English. One firm can appear under several Korean names across our 2007-2026 archive; group by `entity`. Not all of them are brokerages — credit-rating and IR bodies publish analysis without target prices.',
       note:
         'HS chapter names follow the WCO Harmonized System. Headings cover the products that dominate Korean trade; codes outside that set resolve to their chapter and return null for the heading rather than a guess.',
     },
@@ -491,6 +593,64 @@ async function hsSearch(q) {
   });
 }
 
+/**
+ * GET /v1/institutions — 기관 사전.
+ *
+ * **이 사전 자체가 상품이다.** 한국 증권사의 영문명·사명 변경 이력을 한곳에 정리해 둔
+ * 공개 자료가 없다. 20년치 리포트를 세면서 만들어졌고, 없으면 우리 데이터도 못 읽는다.
+ * `/v1/hs`·`/v1/countries` 와 같은 자리에 놓는다.
+ */
+async function institutions(params) {
+  const 유형 = params?.get('type') ?? null;
+
+  /* 법인 단위로 접는다. 이름 44개를 그대로 주면 이용자가 같은 회사를 두 곳으로 센다. */
+  const 법인 = new Map();
+  for (const [ko, v] of Object.entries(INSTITUTIONS)) {
+    if (!법인.has(v.entity)) {
+      /* ⚠ 사전에 먼저 나온 표기를 대표명으로 쓰면 **가장 오래된 사명이 대표가 된다.**
+         실제로 ls-securities 가 「E*TRADE Korea Securities」(2015년에 없어진 이름)로
+         나왔다. 현재 이름을 따로 들고 있다가 그것을 쓴다. */
+      const 현재 = ENTITY_CURRENT_NAME[v.entity];
+      법인.set(v.entity, {
+        entity: v.entity,
+        name: 현재?.en ?? v.en,
+        ...(현재?.ko ? { nameKo: 현재.ko } : {}),
+        ...(현재?.since ? { renamedIn: 현재.since } : {}),
+        /** 현재 이름이 우리 아카이브에 아직 안 나타났는가. 사명 변경 직후에 그렇다 */
+        ...(현재 && !INSTITUTIONS[현재.ko] ? { currentNameNotYetInArchive: true } : {}),
+        type: v.type,
+        typeNote: INSTITUTION_TYPES[v.type],
+        issuesTargetPrices: v.type === 'brokerage',
+        /** 확인 못 한 영문명은 감추지 않고 밝힌다. 숨기면 이용자가 확인할 수 없다 */
+        nameVerified: v.verified,
+        knownAs: [],
+      });
+    }
+    const e = 법인.get(v.entity);
+    e.knownAs.push({ ko, en: v.en, ...(v.note ? { note: v.note } : {}) });
+    /* 한 법인 안에 확인 못 한 표기가 하나라도 있으면 확인 안 된 것으로 둔다 */
+    if (!v.verified) e.nameVerified = false;
+  }
+
+  let results = [...법인.values()].sort((a, b) => a.name.localeCompare(b.name));
+  if (유형) results = results.filter((r) => r.type === 유형);
+
+  return json(200, {
+    count: results.length,
+    results,
+    types: INSTITUTION_TYPES,
+    coverage: {
+      korean_names: INSTITUTION_STATS.names,
+      distinct_entities: INSTITUTION_STATS.entities,
+      note:
+        'Korean brokerages rename frequently and our archive spans 2007-2026, so one firm appears under several names. `entity` is stable across renames; group by it rather than by name.',
+      unverified_english_names: INSTITUTION_STATS.unverified,
+      unverified_note:
+        'Where we could not confirm an English name against an official source we say so rather than guess.',
+    },
+  });
+}
+
 /** GET /v1/countries */
 async function countries() {
   return json(200, {
@@ -573,6 +733,10 @@ export async function handleApi(pathname, searchParams) {
   if (pathname === '/v1/countries') {
     meter('countries');
     return countries();
+  }
+  if (pathname === '/v1/institutions') {
+    meter('institutions');
+    return institutions(searchParams);
   }
 
   if (pathname === '/v1/hs') {
