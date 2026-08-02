@@ -16,7 +16,15 @@ const URL_SIGNUP = 'https://auth.data.go.kr/sso/common-signup';
 const UA =
   'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36';
 
-const BLOCK_WORDS = ['전환 작업', '이용이 제한', '점검'];
+/* ⚠ 2026-08-02 21:16 KST 오탐. 가입 페이지가 337B → 21KB 로 커져서 「열렸다」고 알렸는데
+ *   실제로는 사장님이 가입을 못 하셨다. **HTML 이 뜨는 것과 절차가 도는 것은 다르다.**
+ *   메인 페이지에는 그때도 「일시 정지」·「중단」·「제한이 있습니다」가 남아 있었다.
+ *
+ *   그래서 판정을 좁혔다 — 크기만으로 열렸다고 하지 않고, **메인 페이지의 차단 문구까지**
+ *   함께 본다. 둘 다 깨끗해야 알린다.
+ *   **틀린 신호로 「열렸다」고 알리는 것이 안 알리는 것보다 나쁘다.** */
+const BLOCK_WORDS = ['전환 작업', '이용이 제한', '점검', '일시 정지', '중단', '제한이 있습니다'];
+const URL_MAIN = 'https://www.data.go.kr/';
 
 export async function checkOnce() {
   const res = await fetch(URL_SIGNUP, { headers: { 'User-Agent': UA } });
