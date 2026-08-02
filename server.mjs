@@ -146,7 +146,32 @@ const server = createServer(async (req, res) => {
   }
 
   const parsed = new URL(req.url, 'http://localhost');
-  const pathname = parsed.pathname;
+  let pathname = parsed.pathname;
+
+  /* ── 도메인별 분기 ─────────────────────────────────────────────────
+   *
+   * 한 인스턴스가 여러 매체를 서비스한다. **메모리 추가가 0이다.**
+   * Cloudtype 구독 총량이 1GB 이고 klifemap 과 나눠 쓰는데 여유가 0.25GB 뿐이라,
+   * 매체마다 배포를 띄우면 그 자리에서 막힌다.
+   *
+   *   seoulmarkets.com  →  dist/           (금융)
+   *   100yearmap.com    →  dist/100y/      (백년지도 · 교육)
+   *
+   * 내부적으로는 **경로 접두사로 바꿔서** 아래 정적 파일 로직을 그대로 태운다.
+   * 빌드 산출물이 이미 그 구조로 나오면 서버가 따로 알 것이 없다.
+   *
+   * ⚠ Host 헤더는 프록시가 넣어 주는 값이다. 포트가 붙어 올 수 있어 떼고 본다.
+   *   그리고 **모르는 호스트는 기본(금융)으로 보낸다** — 새 도메인을 붙였는데
+   *   여기 안 적으면 조용히 빈 화면이 나오는 것보다 낫다.
+   */
+  const host = String(req.headers.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '');
+  const SITE_PREFIX = { '100yearmap.com': '/100y', 'hundredyearmap.com': '/100y' };
+  const prefix = SITE_PREFIX[host] ?? '';
+  if (prefix && !pathname.startsWith(prefix)) {
+    // ⚠ Astro 가 `dist/100y.html` 로 낸다(폴더가 아니다). 그래서 `/` 는 접두사 **그대로**
+    //   보내야 아래 clean URL 로직이 `100y.html` 을 찾는다. `/100y/` 로 보내면 404 다.
+    pathname = pathname === '/' ? prefix : prefix + pathname;
+  }
 
   // ── 데이터 API (/v1) ───────────────────────────────────────────────
   // 정적 파일보다 먼저 가로챈다. 매출의 3분의 2가 나올 자리라 별도 서버를 띄울
