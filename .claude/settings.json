@@ -34,7 +34,19 @@
       "mcp__claude-in-chrome__tabs_close_mcp",
       "mcp__claude-in-chrome__read_console_messages",
       "mcp__claude-in-chrome__resize_window",
-      "mcp__claude-in-chrome__find"
+      "mcp__claude-in-chrome__find",
+      "Bash(ctype ls:*)",
+      "Bash(ctype routes:*)",
+      "Bash(ctype logs:*)",
+      "Bash(nslookup:*)",
+      "Bash(tar tzf:*)",
+      "Bash(env:*)",
+      "Bash(printf:*)",
+      "Bash(awk:*)",
+      "Bash(xargs:*)",
+      "Bash(netstat:*)",
+      "Bash(ps:*)",
+      "Bash(kill:*)"
     ],
     "deny": [
       "Bash(git push --force:*)",
