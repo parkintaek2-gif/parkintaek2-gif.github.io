@@ -36,29 +36,44 @@ $today    = $now.ToString('yyyy-MM-dd')
 $tomorrow = $now.AddDays(1).ToString('yyyy-MM-dd')
 
 # ── 1. 일반 문서 — 최신본으로 덮어쓴다 ───────────────────────────
-$map = @(
-    'docs\사업보고-2026-08-01.md'
-    'docs\매출계획-2026-2029.md'
-    'docs\콘텐트-유통-콘택포인트.md'
-    'docs\사업전략-데이터제공업.md'
-    'docs\데이터-출처-라이선스.md'
-    'docs\데이터-지도.md'
-    'docs\발행-캘린더.md'
-    'docs\세션간-메모.md'
-    'docs\신규사업\한류매체-동남아-시장조사.md'
-    'docs\신규사업\위키팁-klifemap-유입설계.md'
-    'docs\영업\proposal-data-api.md'
-    'docs\영업\가격표-초안.md'
-    'docs\영업\타깃과-아웃리치.md'
-)
+#
+# ⚠ **손으로 관리하는 목록을 두지 않는다.** 2026-08-02 에 새 문서 세 개를 만들고
+#   목록에 넣는 것을 두 번 잊었다. 그러면 문서는 저장소에만 있고 사장님께는 안 간다.
+#   **만들어 놓고 안 보내면 없는 것과 같다.**
+#
+#   그래서 docs\ 아래 .md 를 전부 가져온다. 새 문서를 만들 때 아무것도 안 해도 따라온다.
+#   하위 폴더는 이름을 접어서 평평하게 둔다 — 바탕화면에서 폴더를 파고들 일이 없게.
+$exclude = @('취재')   # 발행 전 취재 초고. .gitignore 대상이라 여기도 안 내보낸다
 
 $copied = 0
-foreach ($rel in $map) {
-    $src = Join-Path $repo $rel
-    if (-not (Test-Path $src)) { continue }
-    # 같은 이름으로 덮어쓴다 — 사장님 지시
-    Copy-Item $src (Join-Path $docs ([IO.Path]::GetFileName($src))) -Force
+$kept   = @()   # 이번에 복사한 파일 이름. 아래 1-b 에서 나머지를 치우는 데 쓴다
+Get-ChildItem (Join-Path $repo 'docs') -Recurse -Filter *.md -File | ForEach-Object {
+    $rel = $_.FullName.Substring((Join-Path $repo 'docs').Length).TrimStart('\')
+    $top = ($rel -split '\\')[0]
+    if ($exclude -contains $top) { return }
+
+    # docs\영업\가격표-초안.md → 「영업 - 가격표-초안.md」
+    $name = if ($rel -match '\\') { ($rel -replace '\\', ' - ') } else { $rel }
+    Copy-Item $_.FullName (Join-Path $docs $name) -Force
+    $script:kept += $name
     $copied++
+}
+
+# ── 1-b. 없어진 문서를 치운다 ────────────────────────────────────
+#
+# ⚠ **이게 복사보다 중요할 수 있다.** 저장소에서 지운 문서가 바탕화면에 남아 있으면
+#   사장님이 그걸 여신다. 2026-08-02 에 매출추정-2026-2028.md 를 매출계획-2026-2029.md
+#   로 대체했는데, 옛 문서가 남아 있으면 **300억/2031년이라는 폐기된 계획을 읽게 된다.**
+#   틀린 문서가 남아 있는 것은 문서가 없는 것보다 나쁘다.
+#
+#   과거 판은 git 에 있다. 여기는 최신본만 둔다.
+$removed = 0
+Get-ChildItem $docs -Filter *.md -File | ForEach-Object {
+    if ($kept -notcontains $_.Name) {
+        Remove-Item $_.FullName -Force
+        Write-Host "  치움: $($_.Name)"
+        $removed++
+    }
 }
 
 # ── 2. 오늘의 작업목록 틀 — 없으면 만든다 ───────────────────────
