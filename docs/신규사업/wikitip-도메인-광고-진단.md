@@ -88,3 +88,65 @@ klifemap.ai      robots 200 · sitemap 200 · noindex 없음 ✅ · 광고 코�
 
 **⚠ e스포츠 지면에는 광고를 붙이지 않는다.** Riot 승인 전 광고는 약관 위반이고
 `Base.astro` 의 `noAds` 로 코드에서 막아 뒀다.
+
+---
+
+# 넣어야 할 DNS 값 (2026-08-03 07:5x KST)
+
+가비아 DNS 패널이 **자동화에 계속 멎어서**(모달이 열리다 응답 정지, 확인 창 발생)
+제가 끝내지 못했다. **DNS 를 반쯤 쓰다 끊으면 도메인이 죽으므로 밀어붙이지 않았다.**
+
+`dns.gabia.com` → wiki-tip.com **설정** → **레코드 수정**
+
+## 고칠 것 둘
+
+```
+A   @    211.47.74.75  →  34.8.247.175      TTL 1800
+A   www  211.47.74.75  →  34.8.247.175      TTL 1800
+```
+
+`34.8.247.175` 는 **seoulmarkets.com·100yearmap.com 이 이미 쓰는 Cloudtype IP** 다.
+같은 인스턴스에 얹으므로 **메모리 추가 0원**이다(100yearmap 과 같은 방식).
+
+## 추가할 것 하나
+
+```
+TXT  @   cloudtype-space=@parkintaek2      TTL 3600
+```
+
+Cloudtype 이 도메인 소유를 확인하는 값이다. 없으면 인증서가 안 나온다.
+
+## ⚠ 절대 지우면 안 되는 것
+
+```
+TXT  @   "google-site-verification=Qiy_fWAes5ppU38kN5WfOiCcV8S_jwDP-Wlj6sqzU8M"
+```
+
+**구글 서치콘솔 인증이다.** 지우면 검색 등록이 깨진다. TXT 는 여러 개 공존한다.
+
+## 지워도 되는 것 (사장님 확인 — 「티스토리 블로그 없애도 돼」)
+
+```
+CNAME  2023   host.tistory.io.
+CNAME  korea  host.tistory.io.
+```
+어차피 **실제 DNS 에 없어서 접속이 안 되던 것들**이다.
+
+## 넣은 뒤 확인 — 패널 화면 말고 이걸로 본다
+
+```bash
+nslookup -type=A   wiki-tip.com 8.8.8.8     # 34.8.247.175 가 나와야 한다
+nslookup -type=TXT wiki-tip.com 8.8.8.8     # cloudtype + google 둘 다 나와야 한다
+```
+
+**⚠ 여기가 이 건의 핵심이다.** 패널에 저장돼도 실제 DNS 에 안 나올 수 있다 —
+지금 티스토리 CNAME 두 개가 정확히 그 상태다. **반드시 위 명령으로 확인한다.**
+
+반영되면(보통 30분 이내) 남은 것은 제가 한다.
+```
+① Cloudtype 에 wiki-tip.com 라우트 추가
+② server.mjs Host 분기에 wiki-tip.com 추가 — 100yearmap 과 같은 방식
+③ /esports 를 WikiTip 으로 이전 · riot.txt 도 함께 옮겨 재인증
+④ Riot 신청서 Product URL 을 wiki-tip.com/esports 로 변경
+⑤ ads.txt 배치
+```
