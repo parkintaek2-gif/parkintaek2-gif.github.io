@@ -22,32 +22,52 @@ $ErrorActionPreference = 'Stop'
 $repo = Split-Path -Parent $PSScriptRoot
 $root = 'C:\Users\USER\OneDrive\서울마켓'
 
-# 저장소 경로 → OneDrive 하위 폴더
-$map = @(
-    @{ src = 'docs\사업보고-2026-08-01.md';                    dst = '' }
-    @{ src = 'docs\매출계획-2026-2029.md';                      dst = '' }
-    @{ src = 'docs\아이디어-보관함.md';                          dst = '' }
-    @{ src = 'docs\연구-AI운용사와-관할권.md';                   dst = '2. 경제 데이터 가공 및 제공 비즈' }
-    @{ src = 'docs\콘텐트-유통-콘택포인트.md';                   dst = '' }
-    @{ src = 'docs\신규사업\한류매체-동남아-시장조사.md';        dst = '1. 한류 콘텐트 비즈' }
-    @{ src = 'docs\신규사업\위키팁-klifemap-유입설계.md';        dst = '1. 한류 콘텐트 비즈' }
-    @{ src = 'docs\사업전략-데이터제공업.md';                    dst = '2. 경제 데이터 가공 및 제공 비즈' }
-    @{ src = 'docs\데이터-출처-라이선스.md';                     dst = '2. 경제 데이터 가공 및 제공 비즈' }
-    @{ src = 'docs\데이터-지도.md';                              dst = '2. 경제 데이터 가공 및 제공 비즈' }
-    @{ src = 'docs\발행-캘린더.md';                              dst = '2. 경제 데이터 가공 및 제공 비즈' }
-    @{ src = 'docs\영업\proposal-data-api.md';                  dst = '3. 영업자료' }
-    @{ src = 'docs\영업\가격표-초안.md';                         dst = '3. 영업자료' }
-    @{ src = 'docs\영업\타깃과-아웃리치.md';                     dst = '3. 영업자료' }
+# ⚠ **손으로 관리하는 목록을 두지 않는다.**
+#   2026-08-02 에 새 문서를 만들고 이 목록에 넣는 것을 **세 번** 잊었다.
+#   그러면 문서는 저장소에만 있고 사장님께는 안 간다. **만들어 놓고 안 보내면 없는 것과 같다.**
+#
+#   그래서 docs\ 아래 .md 를 **전부** 가져온다. 아래 $folder 는 「어느 칸에 넣을까」를
+#   정하는 것뿐이고, **여기 없는 문서도 루트로 간다.** 최악이 「엉뚱한 칸」이지
+#   「안 감」이 아니다.
+$folder = @{
+    '영업' = '3. 영업자료'
+}
+# docs\신규사업\ 안에 성격이 다른 것이 섞여 있다. 파일 이름으로 갈라 넣는다.
+$byName = @(
+    @{ pat = '교육|라이프맵';           dst = '4. 교육 라이프맵' }
+    @{ pat = '한류|위키팁|wikitip';     dst = '1. 한류 콘텐트 비즈' }
 )
+# 루트에 있는 문서 중 데이터·전략류는 2번 칸으로. 이름으로 알아본다.
+$toBiz2 = '사업전략|데이터-|발행-캘린더|연구-|검색등록|배포-가이드'
 
-$copied = 0
+$exclude = @('취재')   # 발행 전 취재 초고. .gitignore 대상이라 여기도 안 내보낸다
+
+$copied  = 0
 $skipped = @()
+$written = @()   # 이번에 쓴 파일. 아래에서 나머지를 치우는 데 쓴다
 
-foreach ($m in $map) {
-    $src = Join-Path $repo $m.src
-    if (-not (Test-Path $src)) { $skipped += $m.src; continue }
+$docsRoot = Join-Path $repo 'docs'
+$files = Get-ChildItem $docsRoot -Recurse -Filter *.md -File | Where-Object {
+    $rel = $_.FullName.Substring($docsRoot.Length).TrimStart('\')
+    $exclude -notcontains ($rel -split '\\')[0]
+}
 
-    $dir = if ($m.dst) { Join-Path $root $m.dst } else { $root }
+foreach ($f in $files) {
+    $src = $f.FullName
+    $rel = $src.Substring($docsRoot.Length).TrimStart('\')
+    $sub = if ($rel -match '\\') { ($rel -split '\\')[0] } else { '' }
+
+    # 이름으로 갈 곳이 정해지는 것을 먼저 본다 (신규사업 폴더 안이 섞여 있어서)
+    $hit = $byName | Where-Object { $f.BaseName -match $_.pat } | Select-Object -First 1
+
+    $dstName =
+        if ($hit) { $hit.dst }
+        elseif ($sub -and $folder.ContainsKey($sub)) { $folder[$sub] }
+        elseif ($sub) { $sub }                                   # 모르는 하위폴더는 그 이름 그대로
+        elseif ($f.BaseName -match $toBiz2) { '2. 경제 데이터 가공 및 제공 비즈' }
+        else { '' }
+
+    $dir = if ($dstName) { Join-Path $root $dstName } else { $root }
     if (-not (Test-Path $dir)) { New-Item -ItemType Directory -Force -Path $dir | Out-Null }
 
     $base = [IO.Path]::GetFileNameWithoutExtension($src)
@@ -63,7 +83,23 @@ foreach ($m in $map) {
     $stamp = (Get-Item $src).LastWriteTime.ToString('yyyy-MM-dd HHmm')
     $out = Join-Path $dir "$base ($stamp).md"
     Copy-Item $src $out -Force
+    $script:written += $out
     $copied++
+}
+
+# ── 없어지거나 이름이 바뀐 문서를 치운다 ────────────────────────────────
+#
+# ⚠ 위의 「같은 이름 옛 사본 제거」는 **이름이 그대로일 때만** 듣는다.
+#   2026-08-02 에 매출계획-2026-2029 → 2026-2033 으로 바꿨더니 옛 파일이 그대로 남았다.
+#   **사장님이 그걸 여시면 폐기된 계획을 읽으신다.** 문서가 없는 것보다 나쁘다.
+#   그래서 이번에 쓰지 않은 .md 는 전부 치운다. 과거 판은 git 에 있다.
+$removed = 0
+Get-ChildItem $root -Recurse -Filter *.md -File | ForEach-Object {
+    if ($written -notcontains $_.FullName) {
+        Remove-Item $_.FullName -Force
+        Write-Output "  치움: $($_.FullName.Replace("$root\", ''))"
+        $removed++
+    }
 }
 
 Write-Output "동기화 $copied 건 → $root"
