@@ -25,7 +25,7 @@ $root = 'C:\Users\USER\OneDrive\서울마켓'
 # 저장소 경로 → OneDrive 하위 폴더
 $map = @(
     @{ src = 'docs\사업보고-2026-08-01.md';                    dst = '' }
-    @{ src = 'docs\매출추정-2026-2028.md';                      dst = '' }
+    @{ src = 'docs\매출계획-2026-2029.md';                      dst = '' }
     @{ src = 'docs\콘텐트-유통-콘택포인트.md';                   dst = '' }
     @{ src = 'docs\신규사업\한류매체-동남아-시장조사.md';        dst = '1. 한류 콘텐트 비즈' }
     @{ src = 'docs\신규사업\위키팁-klifemap-유입설계.md';        dst = '1. 한류 콘텐트 비즈' }
