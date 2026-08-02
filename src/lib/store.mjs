@@ -30,7 +30,32 @@
 
 import { createHash, createHmac } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
 import path from 'node:path';
+
+/* .env 를 직접 읽는다 — 의존성은 늘리지 않는다(이 저장소의 런타임 의존성은 0개다).
+ *
+ * 왜 필요한가. 2026-08-02 에 이것 때문에 사고가 날 뻔했다.
+ * `scripts/fill-loop.sh` 는 `node scripts/collect-research.mjs` 를 그냥 부른다.
+ * `--env-file` 이 없으니 인증값이 안 들어오고, remoteEnabled 가 false 가 되어
+ * **수집한 파일이 로컬에만 쌓인다.** 그런데 아무 오류도 안 난다 — 설계상 조용히
+ * 로컬 저장으로 내려앉기 때문이다. 12만 건이 그렇게 이 PC 에만 있었다.
+ *
+ * 실행하는 쪽이 플래그를 기억해야 하는 구조는 언젠가 잊는다. 저장소가 스스로 읽는다.
+ * 이미 환경에 값이 있으면(운영 콘솔에서 넣은 경우) 그쪽을 그대로 둔다. */
+function 환경파일읽기() {
+  if (process.env.ARCHIVE_S3_KEY_ID) return;          // 이미 있으면 건드리지 않는다
+  try {
+    const 본문 = readFileSync(path.resolve('.env'), 'utf8');
+    for (const 줄 of 본문.split(/\r?\n/)) {
+      const m = 줄.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)$/);
+      if (!m) continue;                                // 주석·빈 줄
+      const 값 = m[2].trim().replace(/^["']|["']$/g, '');
+      if (process.env[m[1]] === undefined) process.env[m[1]] = 값;
+    }
+  } catch { /* .env 가 없는 것은 정상이다 — 그때는 로컬 저장만 한다 */ }
+}
+환경파일읽기();
 
 const CFG = {
   endpoint: process.env.ARCHIVE_S3_ENDPOINT ?? '',
