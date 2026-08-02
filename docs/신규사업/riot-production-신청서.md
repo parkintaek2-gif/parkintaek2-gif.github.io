@@ -5,7 +5,7 @@
 
 ```
 신청 화면    https://developer.riotgames.com/app/866800/info
-제품명       SeoulMarkets — Korea, Explained in Data
+제품명       WikiTip — Korean Culture, Explained in Data   ← 07:1x 정정
 Product URL  https://seoulmarkets.com/esports
 게임         League of Legends · 토너먼트 주최 아님
 도메인 인증   ✅ 「Verification code found and validated!」
@@ -103,7 +103,7 @@ el.dispatchEvent(new Event('change', { bubbles: true }));
 
 ---
 
-## 제출한 설명문 (1,459자)
+## 제출한 설명문 (1,459자) — ⚠ 07:1x 에 교체됐다. 아래 「정정」이 최신이다
 
 ```
 SeoulMarkets is an English data-journalism site about Korea. We publish Korean
