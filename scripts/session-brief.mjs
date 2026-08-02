@@ -115,6 +115,23 @@ if (existsSync(사다리)) {
   } catch { /* 파일이 깨져도 브리핑은 나간다 */ }
 }
 
+/* 예약해 둔 알림. **사장님께 알려 드려야 하는 것**이라 맨 앞에 놓는다.
+   (2026-08-03 지시 — 「알림 뜨면 나한테도 알려줘」)
+   알림 스크립트가 archive/log/alerts.log 에 한 줄씩 남긴다. */
+{
+  const p = path.join(REPO, 'archive', 'log', 'alerts.log');
+  if (existsSync(p)) {
+    try {
+      const 줄들 = readFileSync(p, 'utf8').split(/\r?\n/).filter(Boolean);
+      const 오늘 = 지금.toLocaleString('sv-SE').slice(0, 10);
+      /* 오늘·어제 것만 올린다. 지난 알림이 계속 쌓여 올라오면 아무도 안 본다 */
+      const 어제 = new Date(지금.getTime() - 86400e3).toLocaleString('sv-SE').slice(0, 10);
+      const 최근 = 줄들.filter((l) => l.includes(오늘) || l.includes(어제));
+      for (const l of 최근) 경고.push(`- 🔔 **예약 알림** — ${l} · **사장님께 알려 드릴 것**`);
+    } catch { /* 무시 */ }
+  }
+}
+
 /* 로그에 실패가 찍혀 있으면 조용히 지나가지 않는다 */
 for (const [이름, 파일] of [['Riot 수집', 'riot-ladder.log'], ['문서 동기화', 'sync.log']]) {
   const p = path.join(REPO, 'archive', 'log', 파일);
