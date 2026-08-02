@@ -150,3 +150,66 @@ nslookup -type=TXT wiki-tip.com 8.8.8.8     # cloudtype + google 둘 다 나와�
 ④ Riot 신청서 Product URL 을 wiki-tip.com/esports 로 변경
 ⑤ ads.txt 배치
 ```
+
+---
+
+# 🔴 정정 (2026-08-03 08:0x KST) — **내가 두 곳에서 틀렸다. 위 DNS 계획을 쓰지 말 것**
+
+옆 세션이 잡아 줬다: 「인텔리티비는 글이 1편」이라는 내 진단이 **루트만 보고
+하위 도메인을 안 본 것**이었다. **내가 그쪽에 경고한 실수를 내가 했다.**
+
+## 실측 (다시 잰 것)
+
+```
+intellitv.net (루트)      글 4     ads.txt 404
+a.intellitv.net           글 69    ads.txt 200   ca-pub-5113515144381167
+2023.intellitv.net        글 289   ads.txt 200   ca-pub-5113515144381167
+korea.intellitv.net       글 49    ads.txt 200   ca-pub-5113515144381167
+                          합 407편. 콘텐츠를 새로 쓸 일이 아니다
+
+wikitip.tistory.com       글 56    ads.txt 404   ca-pub-2510766388382033
+2023.wiki-tip.com         NXDOMAIN   ← 커스텀 도메인만 끊겼다
+korea.wiki-tip.com        NXDOMAIN   ← 블로그 자체는 살아 있다
+```
+
+## 그래서 뒤집히는 판단 둘
+
+**① 「티스토리 CNAME 을 지워도 된다」 — 철회한다.**
+지우면 wiki-tip.com 에서 블로그로 가는 길이 영영 사라진다.
+지금 끊겨 있는 것이지 **없는 것이 아니다.**
+
+**② 「wiki-tip.com 을 Cloudtype 으로 돌린다」 — 다시 생각해야 한다.**
+그러면 **56편을 버리고 빈 Astro 골격을 얹는 것**이 된다.
+글 56편에는 이미 애드센스가 붙어 있다. 빈 사이트로 바꿀 이유가 없다.
+
+## 다시 잡은 순서
+
+```
+1. wiki-tip.com → 티스토리로 연결한다 (블로그 56편이 도메인에서 열리게)
+   티스토리 관리 → 커스텀 도메인 설정이 알려주는 값을 DNS 에 넣는다
+2. ads.txt — wikitip.tistory.com 이 404 다.
+   ⚠ 인텔리티비 하위 3곳은 200 이다. **티스토리도 ads.txt 를 내보낸다.**
+   내가 앞서 「티스토리는 파일을 못 올린다」고 한 것은 틀렸다.
+   되는 곳과 안 되는 곳의 차이가 설정에 있다 — 그 설정을 찾아 켠다
+3. e스포츠 지면은 별도 자리에 둔다 (루트를 티스토리가 쓰므로)
+   서브도메인 하나를 Cloudtype 으로 빼는 편이 깔끔하다
+4. Riot 신청서 Product URL 을 그 주소로 바꾸고 riot.txt 재인증
+```
+
+## klifemap.ai 의 ads.txt 404 는 고칠 필요 없다
+
+**우리는 거기에 광고를 안 단다**(실측 광고 코드 0건, 사장님 확인).
+없는 것이 정상이다.
+
+## 이 건에서 배운 것
+
+**루트만 보고 사이트를 판정하지 않는다.** 하위 도메인에 본체가 있을 수 있다.
+```bash
+# 최소한 이건 돌려 본다
+for h in example.com a.example.com 2023.example.com korea.example.com; do
+  echo "$h $(curl -s "https://$h/sitemap.xml" | grep -c '<loc>')편"
+done
+```
+DNS 패널의 CNAME 목록이 **하위 도메인이 어디에 있는지 알려주는 지도**다.
+위키팁도 패널에 `2023`·`korea` 가 적혀 있었는데 내가 「안 뜨니 죽은 것」으로 넘겼다.
+**안 뜨는 것과 없는 것은 다르다.**
