@@ -1,4 +1,23 @@
 {
+  "autoCompactEnabled": true,
+  "precomputeCompactionEnabled": true,
+  "autoCompactWindow": 800000,
+
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/USER/Documents/GitHub/dataeconomics/scripts/session-brief.mjs\"",
+            "timeout": 20,
+            "statusMessage": "세션 브리핑 읽는 중"
+          }
+        ]
+      }
+    ]
+  },
+
   "permissions": {
     "defaultMode": "acceptEdits",
     "allow": [
