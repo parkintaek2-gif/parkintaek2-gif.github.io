@@ -36,6 +36,7 @@
  */
 
 import { readFileSync } from 'node:fs';
+import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { put } from '../src/lib/store.mjs';
 
@@ -206,6 +207,33 @@ async function main() {
 
   const 키 = `raw/riot-ladder/${날짜}/solo-queue.json`;
   const r = await put(키, JSON.stringify(문서, null, 2), 'application/json');
+
+  /* ── 발행용 요약을 저장소 안에 쓴다 ─────────────────────────────
+     원본은 archive/(gitignore)와 R2 에 있는데 **둘 다 빌드 컨테이너에 없다.**
+     `/v1/research` 가 바로 그것 때문에 503 이었다. 같은 실수를 지면에서 반복하지 않는다.
+
+     그래서 **지면이 쓸 최소한만 저장소에 남긴다.** lp_values(지역당 300개 배열)는
+     뺀다 — 지면에는 백분위만 나가고, 원본 분포가 필요하면 아카이브에서 본다.
+     파생물이라 커밋해도 아깝지 않고, 크기는 몇 KB 다. */
+  const 요약 = {
+    collected_at_kst: 시각,
+    day: 날짜,
+    source: 문서.source,
+    privacy: 문서.privacy,
+    regions: Object.fromEntries(
+      Object.entries(결과).map(([id, v]) => [
+        id,
+        {
+          region_name: v.region_name,
+          challenger: { ...v.challenger, lp_values: undefined },
+          grandmaster: { ...v.grandmaster, lp_values: undefined },
+        },
+      ]),
+    ),
+  };
+  const 요약경로 = path.resolve('src/data/riot-ladder.json');
+  await mkdir(path.dirname(요약경로), { recursive: true });
+  await writeFile(요약경로, JSON.stringify(요약, null, 2) + '\n');
 
   console.log('');
   console.log(`  로컬  ${r.local}`);

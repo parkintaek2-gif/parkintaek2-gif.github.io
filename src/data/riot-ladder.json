@@ -1,0 +1,275 @@
+{
+  "collected_at_kst": "2026-08-02 23:37:54",
+  "day": "2026-08-02",
+  "source": {
+    "api": "Riot Games Developer API",
+    "endpoints": [
+      "/lol/league/v4/challengerleagues",
+      "/lol/league/v4/grandmasterleagues"
+    ],
+    "queue": "RANKED_SOLO_5x5",
+    "key_type": "Personal Key (24h)",
+    "commercial_status": "Production approval NOT granted — non-commercial collection only"
+  },
+  "privacy": "Player identifiers (puuid, summonerId) are intentionally not stored. Distributions only.",
+  "regions": {
+    "kr": {
+      "region_name": "Korea",
+      "challenger": {
+        "players": 300,
+        "lp": {
+          "min": 1696,
+          "p25": 1896,
+          "median": 2009,
+          "p75": 2238,
+          "p90": 2419,
+          "max": 2812,
+          "mean": 2078
+        },
+        "games": {
+          "total": 230128,
+          "mean_per_player": 767,
+          "max_per_player": 2411
+        },
+        "win_rate": 53.64,
+        "veteran": 158,
+        "hot_streak": 63
+      },
+      "grandmaster": {
+        "players": 700,
+        "lp": {
+          "min": 1199,
+          "p25": 1422,
+          "median": 1506,
+          "p75": 1635,
+          "p90": 1731,
+          "max": 1966,
+          "mean": 1531
+        },
+        "games": {
+          "total": 477517,
+          "mean_per_player": 682,
+          "max_per_player": 3022
+        },
+        "win_rate": 53.18,
+        "veteran": 210,
+        "hot_streak": 129
+      }
+    },
+    "sg2": {
+      "region_name": "Southeast Asia",
+      "challenger": {
+        "players": 300,
+        "lp": {
+          "min": 746,
+          "p25": 991,
+          "median": 1074,
+          "p75": 1279,
+          "p90": 1488,
+          "max": 2602,
+          "mean": 1182
+        },
+        "games": {
+          "total": 119413,
+          "mean_per_player": 398,
+          "max_per_player": 2079
+        },
+        "win_rate": 54.6,
+        "veteran": 116,
+        "hot_streak": 60
+      },
+      "grandmaster": {
+        "players": 700,
+        "lp": {
+          "min": 290,
+          "p25": 500,
+          "median": 587,
+          "p75": 706,
+          "p90": 823,
+          "max": 951,
+          "mean": 614
+        },
+        "games": {
+          "total": 276174,
+          "mean_per_player": 395,
+          "max_per_player": 1771
+        },
+        "win_rate": 52.6,
+        "veteran": 160,
+        "hot_streak": 122
+      }
+    },
+    "vn2": {
+      "region_name": "Vietnam",
+      "challenger": {
+        "players": 300,
+        "lp": {
+          "min": 1565,
+          "p25": 1765,
+          "median": 1859,
+          "p75": 2031,
+          "p90": 2340,
+          "max": 3446,
+          "mean": 1965
+        },
+        "games": {
+          "total": 179112,
+          "mean_per_player": 597,
+          "max_per_player": 2987
+        },
+        "win_rate": 55.51,
+        "veteran": 147,
+        "hot_streak": 63
+      },
+      "grandmaster": {
+        "players": 700,
+        "lp": {
+          "min": 1018,
+          "p25": 1156,
+          "median": 1259,
+          "p75": 1424,
+          "p90": 1579,
+          "max": 1776,
+          "mean": 1304
+        },
+        "games": {
+          "total": 427690,
+          "mean_per_player": 611,
+          "max_per_player": 1856
+        },
+        "win_rate": 53.47,
+        "veteran": 219,
+        "hot_streak": 115
+      }
+    },
+    "jp1": {
+      "region_name": "Japan",
+      "challenger": {
+        "players": 50,
+        "lp": {
+          "min": 1543,
+          "p25": 1606,
+          "median": 1684,
+          "p75": 1865,
+          "p90": 2033,
+          "max": 2355,
+          "mean": 1765
+        },
+        "games": {
+          "total": 23323,
+          "mean_per_player": 466,
+          "max_per_player": 1089
+        },
+        "win_rate": 55.56,
+        "veteran": 22,
+        "hot_streak": 8
+      },
+      "grandmaster": {
+        "players": 100,
+        "lp": {
+          "min": 1068,
+          "p25": 1163,
+          "median": 1234,
+          "p75": 1352,
+          "p90": 1441,
+          "max": 1601,
+          "mean": 1264
+        },
+        "games": {
+          "total": 45225,
+          "mean_per_player": 452,
+          "max_per_player": 1506
+        },
+        "win_rate": 54.03,
+        "veteran": 26,
+        "hot_streak": 19
+      }
+    },
+    "na1": {
+      "region_name": "North America",
+      "challenger": {
+        "players": 302,
+        "lp": {
+          "min": 659,
+          "p25": 1573,
+          "median": 1633,
+          "p75": 1820,
+          "p90": 2013,
+          "max": 3190,
+          "mean": 1731
+        },
+        "games": {
+          "total": 201075,
+          "mean_per_player": 666,
+          "max_per_player": 1764
+        },
+        "win_rate": 55.02,
+        "veteran": 116,
+        "hot_streak": 109
+      },
+      "grandmaster": {
+        "players": 718,
+        "lp": {
+          "min": 286,
+          "p25": 1062,
+          "median": 1139,
+          "p75": 1263,
+          "p90": 1397,
+          "max": 1568,
+          "mean": 1165
+        },
+        "games": {
+          "total": 430669,
+          "mean_per_player": 600,
+          "max_per_player": 2189
+        },
+        "win_rate": 53.31,
+        "veteran": 83,
+        "hot_streak": 152
+      }
+    },
+    "euw1": {
+      "region_name": "Europe West",
+      "challenger": {
+        "players": 304,
+        "lp": {
+          "min": 170,
+          "p25": 2512,
+          "median": 2655,
+          "p75": 2923,
+          "p90": 3411,
+          "max": 4617,
+          "mean": 2778
+        },
+        "games": {
+          "total": 274708,
+          "mean_per_player": 904,
+          "max_per_player": 2883
+        },
+        "win_rate": 55.04,
+        "veteran": 155,
+        "hot_streak": 70
+      },
+      "grandmaster": {
+        "players": 746,
+        "lp": {
+          "min": 440,
+          "p25": 1848,
+          "median": 1978,
+          "p75": 2156,
+          "p90": 2294,
+          "max": 2549,
+          "mean": 1979
+        },
+        "games": {
+          "total": 594248,
+          "mean_per_player": 797,
+          "max_per_player": 3258
+        },
+        "win_rate": 53.9,
+        "veteran": 219,
+        "hot_streak": 150
+      }
+    }
+  }
+}
