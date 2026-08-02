@@ -13,13 +13,32 @@
  *    출처 없는 숫자를 내보내지 않는 것이 이 회사의 유일한 자산이다.
  * 2. **모르는 것을 지어내지 않는다.** 사전에 없는 HS 코드는 `null` 로 둔다.
  *    그럴듯한 이름으로 채우는 순간 데이터 상품으로서 끝난다.
- * 3. **아직 없는 데이터는 503 으로 정직하게 말한다.** 빈 배열을 200 으로 주면
+ * 3. **아직 없는 데이터는 사실대로 말한다.** 빈 배열을 200 으로 주면
  *    이용자는 「데이터가 없다」와 「우리가 아직 안 받았다」를 구분할 수 없다.
+ *
+ *    ⚠ 2026-08-02 KST 정정 — 이 원칙은 원래 **503** 으로 구현돼 있었는데,
+ *      **운영에서 정반대로 작동하고 있었다.** Cloudtype 프록시가 5xx 응답의 본문을
+ *      통째로 자기 에러 페이지(HTML)로 갈아치운다. 실측:
+ *
+ *        /v1/nosuchthing  404 → 우리 JSON 도착 ✅
+ *        /v1/hs/zzz       400 → 우리 JSON 도착 ✅
+ *        /v1/research     503 → files.cloudtype.io 회색 화면 ✕
+ *
+ *      즉 이유를 담아 보낸 503 이 개발자에게는 **이유 없는 회색 화면**으로 갔다.
+ *      「정직하게 말한다」는 말이 도착해야 성립한다. 그래서 **404** 로 바꿨다 —
+ *      「아직 존재하지 않는 자원」이라는 뜻이 맞고, 무엇보다 **본문이 실제로 간다.**
+ *      (조용한 실패의 변종이다. 옆 세션에도 알렸다 — docs/세션간-메모.md)
+ *
+ *    그리고 **「질의에 안 걸림」과 「아직 안 모음」을 가른다.** 모은 데이터에
+ *    조건을 걸어 0건인 것은 정상 응답이므로 200·count 0 이다. 이걸 404 로 주면
+ *    이용자가 우리 수집이 멈춘 줄 안다.
  * 4. JSON only. XML 안 준다. 공공데이터포털이 XML 을 주는 게 바로 그들의 문제다.
  * ──────────────────────────────────────────────────────────────
  */
 
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
+import { gunzip } from 'node:zlib';
+import { promisify } from 'node:util';
 import path from 'node:path';
 import {
   HS_CHAPTERS,
@@ -29,8 +48,10 @@ import {
   describeCountry,
   DICT_STATS,
 } from './trade-dict.mjs';
-import { storeStatus } from './store.mjs';
+import { storeStatus, get as storeGet } from './store.mjs';
 import { openapi } from './openapi.mjs';
+
+const gunzipAsync = promisify(gunzip);
 
 /** 명세에 박히는 공개 주소. 환경변수로 덮을 수 있게 둔다(스테이징 대비). */
 const PUBLIC_BASE = process.env.PUBLIC_BASE_URL ?? 'https://seoulmarkets.com';
@@ -102,86 +123,161 @@ async function archiveStatus(id) {
    본문·PDF 는 수집하지도 않았으므로 나갈 것도 없다.
    ──────────────────────────────────────────────────────────── */
 
-/** 아카이브에서 리포트를 읽는다. 날짜 폴더 구조라 최신부터 역순으로 훑는다. */
-async function readResearch({ limit = 50, house, stock, since } = {}) {
-  const roots = ['raw/research', 'raw/research-list'];
-  const seen = new Set();
-  const out = [];
+/* ── 리서치 인덱스 ───────────────────────────────────────────────
+   ⚠ 2026-08-02 KST — 여기가 `/v1/research` 가 503 이던 원인이었다.
 
-  for (const root of roots) {
-    let days;
+   원래는 요청마다 `archive/raw/research/{날짜}/` 를 직접 훑었다. 이 PC 에서는 됐지만
+   **Cloudtype 컨테이너에는 `archive/` 가 아예 없다** — `.gitignore` 라 이미지에 안 들어가고,
+   영구 디스크도 없어서 재배포마다 비워진다. 그래서 운영에서는 늘 0건이었다.
+
+   R2 에는 원본이 다 있지만 거기서 직접 훑는 것도 답이 아니다 —
+   **ListObjectsV2 는 1회 1,000키라 66,071건이면 왕복 66회**다. 요청 하나에 못 시킨다.
+
+   그래서 `scripts/build-research-index.mjs` 가 **읽기용 인덱스 한 개**를 만든다.
+   66,071건이 gzip 0.6MB 다. 프로세스가 뜬 뒤 **한 번만** 받아서 메모리에 든다.
+
+     원본   archive/raw/research/{날짜}/{id}.json   183MB   ← 해자. 그대로 둔다
+     인덱스 index/research.ndjson.gz               0.6MB   ← 이게 API 가 읽는 것
+
+   인덱스는 파생물이라 잃어도 원본에서 다시 만든다. 잃으면 안 되는 것은 원본이다.
+   ──────────────────────────────────────────────────────────── */
+
+const INDEX_KEY = 'index/research.ndjson.gz';
+
+/** 로드된 인덱스. `null` = 아직 안 읽음, `[]` = 읽었는데 없음(둘은 다르다). */
+let 인덱스캐시 = null;
+let 인덱스메타 = null;
+let 인덱스로딩 = null;
+
+async function 인덱스읽기() {
+  const buf = await storeGet(INDEX_KEY);
+  if (!buf) return { rows: [], meta: null };
+
+  const 본문 = (await gunzipAsync(buf)).toString('utf8');
+  const rows = [];
+  for (const 줄 of 본문.split('\n')) {
+    if (!줄) continue;
     try {
-      days = (await readdir(path.join(ARCHIVE, root))).sort().reverse();
+      rows.push(JSON.parse(줄));
     } catch {
-      continue;
-    }
-    for (const day of days) {
-      if (since && day < since) break; // 날짜 폴더가 정렬돼 있으므로 여기서 끊어도 된다
-      let files;
-      try {
-        files = await readdir(path.join(ARCHIVE, root, day));
-      } catch {
-        continue;
-      }
-      for (const f of files) {
-        if (out.length >= limit) return out;
-        const nid = f.replace(/\.json$/, '');
-        // 상세(research)가 목록(research-list)보다 정보가 많다. 먼저 읽은 쪽을 남긴다.
-        if (seen.has(nid)) continue;
-        try {
-          const j = JSON.parse(await readFile(path.join(ARCHIVE, root, day, f), 'utf8'));
-          if (house && !j.house?.includes(house)) continue;
-          if (stock && !j.stock?.includes(stock)) continue;
-          seen.add(nid);
-          out.push(j);
-        } catch {
-          /* 깨진 파일 하나가 응답 전체를 죽이지 않게 한다 */
-        }
-      }
+      /* 한 줄이 깨져도 나머지는 쓴다. 인덱스는 다시 만들 수 있는 것이다 */
     }
   }
-  return out;
+  let meta = null;
+  try {
+    const m = await storeGet('index/research.meta.json');
+    if (m) meta = JSON.parse(m.toString('utf8'));
+  } catch { /* 통계가 없어도 데이터는 나간다 */ }
+  return { rows, meta };
+}
+
+/**
+ * 인덱스를 가져온다. **한 번만 읽고 메모리에 든다.**
+ *
+ * ⚠ 동시에 들어온 요청이 각자 R2 를 때리지 않게 로딩 프라미스를 공유한다.
+ *   콜드스타트 직후에 요청이 몰리면 그것만으로 R2 요금과 지연이 배로 든다.
+ */
+async function 인덱스() {
+  if (인덱스캐시) return 인덱스캐시;
+  if (!인덱스로딩) {
+    인덱스로딩 = 인덱스읽기()
+      .then(({ rows, meta }) => {
+        인덱스캐시 = rows;
+        인덱스메타 = meta;
+        return rows;
+      })
+      .catch((e) => {
+        // 실패는 캐시하지 않는다. R2 가 잠깐 죽은 것뿐일 수 있다.
+        인덱스로딩 = null;
+        throw e;
+      });
+  }
+  return 인덱스로딩;
+}
+
+/** `/v1/meta` 가 쓴다. 아직 안 읽었으면 null — 읽으려고 R2 를 때리지는 않는다. */
+export function researchIndexMeta() {
+  return 인덱스메타;
+}
+
+/**
+ * 인덱스에서 리포트를 고른다. 인덱스는 **최신순으로 미리 정렬돼 있어서** 앞에서 끊으면 된다.
+ *
+ * 돌려주는 것은 `{ rows, collected }` 다.
+ * `collected:false` 는 「인덱스 자체가 없다」 — 「조건에 안 걸렸다」와 구분해야 한다.
+ */
+async function readResearch({ limit = 50, house, stock, since } = {}) {
+  const all = await 인덱스();
+  if (all.length === 0) return { rows: [], collected: false };
+
+  const out = [];
+  for (const r of all) {
+    if (since && (r.d ?? '') < since) break; // 최신순이라 여기서 끊어도 된다
+    if (house && !r.h?.includes(house)) continue;
+    if (stock && !r.s?.includes(stock)) continue;
+    out.push(r);
+    if (out.length >= limit) break;
+  }
+  return { rows: out, collected: true };
 }
 
 /**
  * 외부 계약. 내부 필드 이름을 그대로 내보내지 않는다.
  * `nid` 는 네이버 내부 식별자라 우리 계약에 넣지 않는다 — 그쪽이 바꾸면 우리가 깨진다.
  */
+/** 인덱스의 짧은 키(용량 때문에 줄였다)를 외부 계약 이름으로 편다. */
 function researchContract(r) {
   return {
-    date: r.date,
-    broker: r.house,
-    subject: r.stock,
+    date: r.d,
+    broker: r.h,
+    subject: r.s,
     /** 목표주가. **제시하지 않은 리포트가 실제로 있다.** 0 이나 추정으로 채우지 않는다. */
-    targetPrice: r.targetPrice ?? null,
-    rating: r.opinion ?? null,
+    targetPrice: r.p ?? null,
+    rating: r.o ?? null,
+    analyst: r.a ?? null,
     /** 상세를 아직 안 받은 항목은 목표주가가 null 이다. 그 구분을 밝힌다. */
-    detailFetched: r.targetPrice !== undefined,
+    detailFetched: Boolean(r.f),
     source: { agency: 'Naver Finance (aggregator)', note: 'Facts only. Report text and PDF are not collected.' },
   };
 }
 
 async function research(params) {
   const limit = Math.min(Number(params.get('limit')) || 50, 200);
-  const rows = await readResearch({
+  const { rows, collected } = await readResearch({
     limit,
     house: params.get('broker') ?? undefined,
     stock: params.get('subject') ?? undefined,
     since: params.get('since') ?? undefined,
   });
 
-  if (rows.length === 0) {
+  /* 「아직 안 모았다」만 오류다. 모은 것에 조건을 걸어 0건인 것은 정상 응답이다.
+     ⚠ 503 이 아니라 404 인 이유는 파일 머리 설계원칙 3 을 볼 것 —
+       Cloudtype 프록시가 5xx 본문을 자기 에러 페이지로 갈아치운다. */
+  if (!collected) {
     return err(
-      503,
+      404,
       'collection_not_started',
       'No brokerage reports have been collected yet.',
       'Collection runs twice daily. /v1/meta shows what the archive holds.',
     );
   }
+
+  const meta = researchIndexMeta();
   return json(200, {
     count: rows.length,
     results: rows.map(researchContract),
     coverage: {
+      /* 「이 응답이 얼마 중 얼마인가」를 밝힌다. 개발자가 채택을 결정하는 숫자다 */
+      ...(meta
+        ? {
+            total_records: meta.records,
+            first_day: meta.first_day,
+            latest_day: meta.latest_day,
+            brokers: meta.brokers,
+            subjects: meta.subjects,
+            as_of: meta.generated_at_kst ? `${meta.generated_at_kst} KST` : null,
+          }
+        : {}),
       note: 'Target price and rating are facts stated by the broker. We do not collect or redistribute report text, PDFs or charts.',
     },
   });
@@ -217,6 +313,40 @@ async function meta() {
   const datasets = {};
   for (const [id, d] of Object.entries(DATASETS)) {
     datasets[id] = { ...d, ...(await archiveStatus(id)) };
+  }
+
+  /* 리서치는 파일 개수가 아니라 인덱스에서 센다 — 66,071 파일을 매 요청 세지 않는다.
+     ⚠ 인덱스를 **여기서 읽는다.** /v1/meta 가 첫 요청이면 이 호출이 R2 를 한 번 때리고,
+       그 뒤로는 /v1/research 도 같은 캐시를 쓴다. 어느 쪽이 먼저 오든 한 번뿐이다. */
+  try {
+    await 인덱스();
+    const m = researchIndexMeta();
+    datasets.research = {
+      label: 'Brokerage target prices and ratings',
+      agency: 'Naver Finance (aggregator)',
+      licence: 'Facts only — no report text, PDF or chart is collected or redistributed.',
+      collected: (인덱스캐시?.length ?? 0) > 0,
+      ...(m
+        ? {
+            records: m.records,
+            detail_fetched: m.detail_fetched,
+            with_target_price: m.with_target_price,
+            brokers: m.brokers,
+            subjects: m.subjects,
+            first_day: m.first_day,
+            latest_day: m.latest_day,
+            index_built_kst: m.generated_at_kst,
+          }
+        : {}),
+    };
+  } catch (e) {
+    /* 인덱스를 못 읽는 것은 사고다. **숨기지 않는다** — /v1/meta 는 「무엇이 되고 있나」를
+       보는 창이고, 여기서 조용히 빠지면 며칠 뒤에나 안다. */
+    datasets.research = {
+      label: 'Brokerage target prices and ratings',
+      collected: false,
+      error: 'Index could not be read.',
+    };
   }
   return json(200, {
     dictionary: {
@@ -376,21 +506,25 @@ async function countries() {
  *
  * 인증키가 아직 없어 수집이 시작되지 않았다. 그때 빈 배열을 200 으로 주면
  * 이용자는 「교역이 없었다」와 「우리가 안 받았다」를 구분하지 못한다.
- * **503 으로 사실대로 말한다.**
+ * **사실대로 말한다.**
+ *
+ * ⚠ 2026-08-02 KST — 여기도 503·501 이었다. 둘 다 5xx 라 **본문이 도착하지 않았다**
+ *   (Cloudtype 프록시가 갈아치운다. 설계원칙 3 참조). 뜻이 같으면서 본문이 가는
+ *   4xx 로 내린다 — 404「아직 없는 자원」· 409「모았지만 조회층이 없음」.
  */
 async function tradeNotReady(id) {
   const st = await archiveStatus(id);
   if (st.collected) {
     // 수집이 시작되면 여기서 실제 조회로 넘어간다. (다음 작업)
     return err(
-      501,
+      409,
       'not_implemented',
       'Data has been collected but the query layer for this endpoint is not built yet.',
       `Archive holds ${st.files} file(s) across ${st.days} day(s); latest ${st.latest_day}.`,
     );
   }
   return err(
-    503,
+    404,
     'collection_not_started',
     'This endpoint has no data yet. Collection begins once the Public Data Portal API key is issued.',
     'Meanwhile /v1/hs, /v1/hs?q= and /v1/countries are fully available.',

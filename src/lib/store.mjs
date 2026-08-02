@@ -29,7 +29,7 @@
  */
 
 import { createHash, createHmac } from 'node:crypto';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -98,19 +98,31 @@ function encodeKey(key) {
     .join('/');
 }
 
-/** S3 호환 PUT. 성공하면 저장된 키를 돌려준다. */
-async function putRemote(key, body, contentType) {
+/**
+ * S3 호환 서명 요청. PUT·GET 이 이걸 같이 쓴다.
+ *
+ * ⚠ 처음엔 PUT 전용으로 서명이 함수 안에 박혀 있었다. GET 을 붙이면서 꺼냈다 —
+ *   **서명 코드가 둘로 갈리면 한쪽만 고쳐지고, 그 증상이 SignatureDoesNotMatch 다.**
+ *   그 오류는 원인이 응답에 안 나와서 찾는 데 반나절이 든다. 한 곳에서만 만든다.
+ *
+ * @param method  'PUT' | 'GET'
+ * @param key     버킷 안의 키. 인코딩은 이 함수가 한다
+ * @param body    PUT 일 때만. GET 은 빈 페이로드로 서명한다
+ */
+async function signedFetch(method, key, { body = null, contentType = null, timeout = 60_000 } = {}) {
   const url = new URL(`${CFG.endpoint.replace(/\/$/, '')}/${CFG.bucket}/${encodeKey(key)}`);
-  const payload = Buffer.isBuffer(body) ? body : Buffer.from(body, 'utf8');
+  const payload = body === null ? Buffer.alloc(0) : Buffer.isBuffer(body) ? body : Buffer.from(body, 'utf8');
   const payloadHash = createHash('sha256').update(payload).digest('hex');
 
   const now = new Date();
   const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, ''); // 20260801T091500Z
   const date = amzDate.slice(0, 8);
 
+  /* content-type 은 실제로 보내는 요청에만 넣는다.
+     ⚠ 서명한 헤더와 보내는 헤더가 다르면 서명이 깨진다. 같은 객체에서 둘 다 만든다. */
   const headers = {
     host: url.host,
-    'content-type': contentType,
+    ...(contentType ? { 'content-type': contentType } : {}),
     'x-amz-content-sha256': payloadHash,
     'x-amz-date': amzDate,
   };
@@ -121,7 +133,7 @@ async function putRemote(key, body, contentType) {
     .join('');
 
   const canonicalRequest = [
-    'PUT',
+    method,
     url.pathname,
     '', // 쿼리스트링 없음
     canonicalHeaders,
@@ -139,22 +151,42 @@ async function putRemote(key, body, contentType) {
 
   const signature = hmac(signingKey(CFG.secret, date, CFG.region, 's3'), stringToSign).toString('hex');
 
-  const res = await fetch(url, {
-    method: 'PUT',
+  return fetch(url, {
+    method,
     headers: {
       ...headers,
       authorization: `AWS4-HMAC-SHA256 Credential=${CFG.keyId}/${scope}, SignedHeaders=${signedHeaders}, Signature=${signature}`,
     },
-    body: payload,
-    signal: AbortSignal.timeout(60_000),
+    ...(method === 'PUT' ? { body: payload } : {}),
+    signal: AbortSignal.timeout(timeout),
   });
+}
 
+/** S3 호환 PUT. 성공하면 저장된 키를 돌려준다. */
+async function putRemote(key, body, contentType) {
+  const res = await signedFetch('PUT', key, { body, contentType });
   if (!res.ok) {
     // 본문에 실제 원인이 들어 있다(SignatureDoesNotMatch 등). 잘라서 남긴다.
     const detail = (await res.text().catch(() => '')).slice(0, 300);
     throw new Error(`S3 PUT ${res.status}: ${detail}`);
   }
   return key;
+}
+
+/**
+ * S3 호환 GET. **없으면 null 을 돌려준다 — 던지지 않는다.**
+ *
+ * 「아직 안 올렸다」와 「네트워크가 죽었다」는 부르는 쪽에서 다르게 다뤄야 하는데,
+ * 둘 다 예외로 만들면 구분이 사라진다. 404 는 null, 그 밖의 실패만 던진다.
+ */
+async function getRemote(key, { timeout = 30_000 } = {}) {
+  const res = await signedFetch('GET', key, { timeout });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    const detail = (await res.text().catch(() => '')).slice(0, 300);
+    throw new Error(`S3 GET ${res.status}: ${detail}`);
+  }
+  return Buffer.from(await res.arrayBuffer());
 }
 
 /**
@@ -180,6 +212,26 @@ export async function put(key, body, contentType = 'application/octet-stream') {
     }
   }
   return out;
+}
+
+/**
+ * 한 건을 읽는다. **로컬을 먼저 보고, 없으면 R2 를 본다.**
+ *
+ * ── 왜 이 순서인가 ─────────────────────────────────────────────
+ * 개발 중인 이 PC 에는 로컬에 다 있다. 운영 컨테이너에는 하나도 없다(영구 디스크가 없다).
+ * 같은 코드가 양쪽에서 돌아야 하므로 **환경을 분기하지 않고 순서로 푼다.**
+ * 로컬을 먼저 보는 이유는 그쪽이 빠르고 R2 요청 요금이 안 들기 때문이다.
+ *
+ * **없으면 null 이다.** 「없다」는 정상 상태다 — 아직 안 모은 데이터가 있는 게 당연하다.
+ * 부르는 쪽이 그걸 보고 응답을 정한다.
+ */
+export async function get(key) {
+  try {
+    return await readFile(path.join(CFG.dir, key));
+  } catch { /* 로컬에 없다. R2 를 본다 */ }
+
+  if (!remoteEnabled) return null;
+  return getRemote(key);
 }
 
 /**

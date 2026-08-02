@@ -63,7 +63,7 @@ export function openapi(baseUrl) {
         '',
         `The classification endpoints (${DICT_STATS.chapters} HS chapters, ${DICT_STATS.headings} headings,`,
         `${DICT_STATS.countries} countries) are live and free. The trade series open when collection`,
-        'begins — until then they return 503 with a machine-readable reason rather than an empty',
+        'begins — until then they return 404 with a machine-readable reason rather than an empty',
         'array, because "not collected yet" and "no trade occurred" are different answers.',
         '',
         'We do not guess. A code outside our dictionary returns null for its description with',
@@ -242,7 +242,7 @@ export function openapi(baseUrl) {
             'Released on the 1st, 11th and 21st at 09:00 KST. Provisional figures are preserved alongside their revisions rather than overwritten.',
           responses: {
             200: { description: 'Provisional trade figures' },
-            503: {
+            404: {
               description:
                 'Collection has not started. Deliberate — an empty array would be indistinguishable from "no trade occurred".',
               content: { 'application/json': { schema: ERROR_SCHEMA } },
@@ -257,7 +257,7 @@ export function openapi(baseUrl) {
           summary: 'Exports and imports by HS code and partner country',
           responses: {
             200: { description: 'Trade series' },
-            503: { description: 'Collection has not started', content: { 'application/json': { schema: ERROR_SCHEMA } } },
+            404: { description: 'Collection has not started', content: { 'application/json': { schema: ERROR_SCHEMA } } },
           },
         },
       },
