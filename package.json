@@ -20,7 +20,8 @@
     "collect:dart": "node scripts/collect-dart.mjs",
     "collect:dart:corpcode": "node scripts/collect-dart.mjs --corpcode",
     "collect:riot": "node scripts/collect-riot-ladder.mjs",
-    "probe:riot": "node scripts/probe-riot.mjs"
+    "probe:riot": "node scripts/probe-riot.mjs",
+    "test:accuracy": "node src/lib/accuracy.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
