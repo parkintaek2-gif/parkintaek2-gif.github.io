@@ -8,9 +8,22 @@
 #     ⚠ Cloudflare/GitHub Pages 와 달리 일반 Node 호스팅은 `/equities` → `equities.html`
 #     을 알아서 처리하지 않는다. server.mjs 가 그 일을 한다. 지우면 전 페이지가 404 다.
 #
-# [2] 환경변수 없음.
-#     이 사이트는 API 키도 DB도 쓰지 않는다. 시크릿이 생기면 이 파일이 아니라
-#     반드시 콘솔(또는 `ctype stage secret`)에만 넣을 것 — 이 저장소는 공개다.
+# [2] 환경변수 — **이름만 적는다. 값은 절대 적지 않는다.**
+#     이 저장소는 공개다. `secret:` 속성은 배포환경(스테이지)에 미리 저장해 둔
+#     시크릿을 **이름으로 참조**하는 것이라 값이 파일에 남지 않는다.
+#     (형식 출처: https://docs.cloudtype.io/guide/references/env)
+#
+#     값을 넣는 방법 — 저장소에 안 남는다:
+#       node <ctype.js 경로> stage secret ARCHIVE_S3_SECRET <값> -t @parkintaek2/seoulmarkets:main
+#     ⚠ `ctype stage secret` 은 **설정한 값을 그대로 되돌려 출력한다.** 로그에 남기지 말 것.
+#     ⚠ `ctype ls -o json` 은 환경변수를 통째로 뱉는다. 2026-08-01 에 키가 세 번 샜고
+#       그래서 지금은 권한 deny 목록에 올라가 있다. 쓰지 말 것.
+#
+# [2-1] ⚠ 이 env 블록이 왜 필요했나 (2026-08-02 KST)
+#     `/v1/research` 가 66,071건을 갖고도 「0건」이었다. 원인이 두 겹이었는데
+#     두 번째가 이것이다 — **스테이지에 시크릿을 저장해도 자동 주입되지 않는다.**
+#     `ctype stage secret` 만 하고 배포했더니 `credentials_present:false` 그대로였다.
+#     저장(stage secret)과 주입(이 블록)은 별개다. 둘 다 해야 한다.
 #
 # [3] build 는 `npm run build` 로 dist/ 를 만든다.
 #     dist/ 는 .gitignore 에 있어 저장소에 없으므로 빌드 단계가 반드시 필요하다.
@@ -32,6 +45,21 @@ options:
   install: npm ci
   build: npm run build
   start: npm start
+
+  # R2(아카이브 저장소) 자격증명. **이름만** — 값은 스테이지 시크릿에 있다. 위 [2] 참조.
+  # 이게 없으면 컨테이너가 아카이브를 못 읽는다. 컨테이너에는 영구 디스크가 없어서
+  # `archive/` 가 아예 존재하지 않기 때문이다.
+  env:
+    - name: ARCHIVE_S3_ENDPOINT
+      secret: ARCHIVE_S3_ENDPOINT
+    - name: ARCHIVE_S3_BUCKET
+      secret: ARCHIVE_S3_BUCKET
+    - name: ARCHIVE_S3_KEY_ID
+      secret: ARCHIVE_S3_KEY_ID
+    - name: ARCHIVE_S3_SECRET
+      secret: ARCHIVE_S3_SECRET
+    - name: ARCHIVE_S3_REGION
+      secret: ARCHIVE_S3_REGION
 
 # 프리티어(spot) 리소스로 뜨면 매일 1회 자동 중지된다 — 매체로는 못 쓴다.
 # 유료(Hobby) 리소스로 고정한다.
