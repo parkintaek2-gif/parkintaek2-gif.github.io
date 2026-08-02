@@ -13,6 +13,19 @@ interface Props {
   ogType?: 'website' | 'article';
   image?: string;
   noindex?: boolean;
+  /**
+   * 이 페이지에는 광고를 **절대** 붙이지 않는다.
+   *
+   * ⚠ 2026-08-03 KST — 약속이 아니라 코드로 막는 자리다.
+   *   Riot 개발자 약관은 **Production 승인 전에 광고를 붙이는 것을 금지**한다.
+   *   그런데 `/esports` 는 다른 페이지와 같은 레이아웃을 쓰므로, 나중에 누군가
+   *   `ADS.client` 를 채우는 순간 **아무도 의도하지 않은 채로 위반이 된다.**
+   *   그리고 그 위반의 벌은 API 접근 영구 박탈이다.
+   *
+   *   Riot 신청서에 「승인 전에는 광고를 켜지 않는다」고 적었다.
+   *   문서에만 적어 두면 언젠가 어긋난다. 여기서 막는다.
+   */
+  noAds?: boolean;
 }
 
 const {
@@ -22,6 +35,7 @@ const {
   ogType = 'website',
   image,
   noindex = false,
+  noAds = false,
 } = Astro.props;
 
 const path = cleanPath(Astro.url.pathname);
@@ -78,9 +92,11 @@ const orgLd = {
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} is:inline />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}
 
-    {/* 광고를 붙이기 전까지 이 사이트가 부르는 외부 스크립트는 0개다. */}
+    {/* 광고를 붙이기 전까지 이 사이트가 부르는 외부 스크립트는 0개다.
+        ⚠ noAds 인 페이지에서는 **스크립트 자체를 안 부른다.** 슬롯만 빼면
+          Auto Ads 가 스크립트만 보고 알아서 광고를 꽂을 수 있기 때문이다. */}
     {
-      ADS.client !== '' && (
+      ADS.client !== '' && !noAds && (
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS.client}`}
@@ -97,6 +113,6 @@ const orgLd = {
     </main>
     <Footer />
     {/* ins 하나당 한 번씩 광고 요청. 페이지당 스크립트 한 줄로 끝낸다. */}
-    {ADS.client !== '' && <script is:inline set:html={adsPush} />}
+    {ADS.client !== '' && !noAds && <script is:inline set:html={adsPush} />}
   </body>
 </html>

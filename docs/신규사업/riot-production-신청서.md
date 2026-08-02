@@ -1,6 +1,7 @@
 # Riot Production Key 신청 — **제출 완료**
 
 제출 2026-08-03 00:5x KST · **App ID 866800 · Status: Pending Review**
+수정 2026-08-03 07:1x KST · **제품명·설명을 WikiTip 으로 정정** (아래 「정정」 참조)
 
 ```
 신청 화면    https://developer.riotgames.com/app/866800/info
@@ -172,3 +173,86 @@ spectator   실시간 픽·밴이 열릴 가능성 (Personal 로는 403이었다
 `https://developer.riotgames.com/app/866800/info` 에서 Status 를 본다.
 `Pending Review` → `Approved` 로 바뀌면 광고를 붙일 수 있다.
 문의는 그 화면의 **MESSAGES** 탭으로 한다.
+
+---
+
+# ⚠ 정정 (2026-08-03 07:1x KST) — 브랜드를 잘못 썼다
+
+사장님 지적: **「wiki-tip.com 이 K컬처잖아. 서울마켓츠는 경제/금융이고… 가서 수정해」**
+
+## 무엇이 잘못됐나
+
+wiki-tip.com 이 가비아 파킹이라 못 띄운다는 이유로 **금융 매체에 게임 지면을 얹고
+그 이름으로 신청했다.** 그건 편의였지 판단이 아니었다.
+
+| | 냈던 것 | 고친 것 |
+|---|---|---|
+| 제품명 | `SeoulMarkets — Korea, Explained in Data` | `WikiTip — Korean Culture, Explained in Data` |
+| 설명 첫 문단 | 「무역통계와 66,071건의 증권사 리포트」 — **게임 신청서에 금융 아카이브** | 동남아 대상 K컬처 매체 |
+| 독자 | 「동남아 독자를 위해 현지화」 — 금융 매체 설명과 모순 | 발행처가 K컬처 매체라 모순 해소 |
+| 도메인 불일치 | 설명에 없었다 | **왜 금융 도메인에서 서비스되는지 명시** |
+
+**도메인 불일치를 안 적은 것이 가장 위험했다.** 심사자가 금융 사이트에서 LoL 데이터를
+보면 그것만으로 반려 사유다. 숨기지 않고 「wiki-tip.com 이 아직 연결되지 않아 자매지
+인프라에서 서비스 중이며 DNS 가 되면 옮긴다」로 적었다.
+
+정책 문단 넷(랭킹 도구 아님·개인정보 미보관·전부 무료·문서화된 엔드포인트만)은
+그대로 유지했다. 1,481자.
+
+## ⚠ 광고 — 코드로 막았다
+
+사장님: 「위키팁은 이미 구글 애드센스를 붙이고 있어」
+
+**신청서에 「승인 전에는 광고를 켜지 않는다」고 적었으므로, 그 문장이 거짓이 되면
+브랜드 오류보다 훨씬 나쁘다.** 확인한 사실은 이렇다.
+
+```
+저장소       AdSlot·Base 에 배선은 있으나 ADS.client 가 빈 문자열
+라이브 검사   /esports · seoulmarkets.com → adsbygoogle 문자열 0건
+wiki-tip.com  가비아 403. 우리 사이트가 아직 안 떠 있다
+→ 지금은 신청서 문장이 사실이다
+```
+
+**위험은 앞으로다.** 나중에 누군가 `ADS.client` 를 채우면 같은 레이아웃을 쓰는
+e스포츠 지면에도 광고가 붙고, **아무도 의도하지 않은 채로 위반이 된다.**
+벌은 API 접근 영구 박탈이다. 그래서 문서가 아니라 코드로 막았다.
+
+```
+Base.astro   noAds prop — 스크립트와 push 둘 다 막는다
+             (슬롯만 빼면 Auto Ads 가 스크립트만 보고 광고를 꽂을 수 있다)
+esports.astro   noAds 적용
+wikitip 저장소   같은 가드를 미리 넣어 뒀다. 지면이 그리로 옮겨 가기 때문
+```
+
+**증명했다** — 시험용 광고 ID 를 넣고 빌드했더니
+`index.html` 1건 · `equities.html` 1건 · **`esports.html` 0건**. 그 뒤 ID 를 되돌렸다.
+
+⚠ **광고를 전체에서 멈출 필요는 없다.** Riot 이 관여하는 것은 e스포츠 지면뿐이고,
+전체를 멈추면 매출만 잃는다.
+
+## ⛔ 막힌 것 — 가비아가 아니라 Cloudflare 였다
+
+```
+wiki-tip.com  네임서버 → ines.ns.cloudflare.com · tosana.ns.cloudflare.com
+seoulmarkets.com · 100yearmap.com → launch1/2.spaceship.net
+```
+
+**가비아는 등록처일 뿐 DNS 는 Cloudflare 에서 관리된다.** 가비아에 로그인해도 안 된다.
+
+DNS 를 바꾸기 전에 확인해 둔 것:
+```
+현재      가비아 파킹 403 (Cloudflare IP 경유). 끊어질 서비스가 없다
+MX        없음 — 메일이 안 죽는다
+TXT       google-site-verification=Qiy_fWAes5ppU38kN5WfOiCcV8S_jwDP-Wlj6sqzU8M
+          ⚠ 이건 지우면 안 된다. 서치콘솔 인증이 깨진다
+```
+
+Cloudflare 대시보드가 열리면 남은 것은 이 순서다.
+```
+① CNAME @ → ms8nmh0n689e433f.sel3.cloudtype.app · TXT cloudtype-space=@parkintaek2
+   ⚠ 프록시(주황 구름)는 꺼야 한다. 켜 두면 Cloudtype 인증서 발급이 막힌다
+② Cloudtype 에 wiki-tip.com 라우트 추가
+③ server.mjs Host 분기에 wiki-tip.com 추가 (100yearmap 과 같은 방식, 메모리 0원)
+④ /esports 를 WikiTip 으로 이전 · riot.txt 도 같이 옮겨 재인증
+⑤ Riot 신청서 Product URL 을 wiki-tip.com/esports 로 변경
+```
