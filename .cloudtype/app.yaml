@@ -70,6 +70,14 @@ options:
     - name: RAPIDAPI_PROXY_SECRET
       secret: RAPIDAPI_PROXY_SECRET
 
+    # KDI Open API 인증키.
+    # 신청 2026-08-03 20:05 KST 접수(「등록 되었습니다」). **승인 뒤 메일로 온다.**
+    # ⚠ 없어도 사이트는 정상이다 — 수집기가 「키가 아직 없다」고 말하고 그냥 끝난다.
+    #   실패로 처리하지 않는 이유는, 매일 도는 작업에 미리 걸어 두고
+    #   키가 들어온 날부터 저절로 돌게 하려는 것이다.
+    - name: KDI_API_KEY
+      secret: KDI_API_KEY
+
 # 프리티어(spot) 리소스로 뜨면 매일 1회 자동 중지된다 — 매체로는 못 쓴다.
 # 유료(Hobby) 리소스로 고정한다.
 resources:
