@@ -22,7 +22,9 @@
     "collect:riot": "node scripts/collect-riot-ladder.mjs",
     "probe:riot": "node scripts/probe-riot.mjs",
     "test:accuracy": "node src/lib/accuracy.test.mjs",
-    "outreach": "node scripts/build-outreach-letters.mjs"
+    "outreach": "node scripts/build-outreach-letters.mjs",
+    "collect:broker": "node scripts/collect-broker-direct.mjs",
+    "test:broker": "node scripts/collect-broker-direct.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
