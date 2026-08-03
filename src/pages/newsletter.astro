@@ -1,0 +1,106 @@
+---
+/**
+ * 뉴스레터 전용 페이지.
+ *
+ * 폼 하나만 있는 페이지를 만들지 않는다. **무엇을 보내는지 먼저 말한다.**
+ * 금융은 YMYL 이라 「이메일 주세요」만 있는 화면은 그 자체로 신뢰를 깎는다.
+ * 발행 주체·주기·해지 방법·개인정보 취급을 한 화면에서 다 읽을 수 있어야 한다.
+ */
+import Base from '../layouts/Base.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { SITE_URL, PUBLISHER } from '../consts';
+import stats from '../data/research-stats.json';
+
+const TITLE = 'The Seoul Markets Brief';
+const DESC =
+  'A free email brief on Korean markets, in English. Every figure carries its source and its timestamp.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/newsletter`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">Newsletter</p>
+      <h1>{TITLE}</h1>
+      <p>
+        Korean market data, read in English by someone who checks the timestamp. Free, and it stays
+        free — the newsletter is not a paywall funnel and there is nothing to upgrade to.
+      </p>
+    </div>
+
+    <Newsletter source="newsletter" />
+
+    <div class="prose">
+      <h2>What is actually in it</h2>
+      <p>
+        Most English-language coverage of Korean markets is a translated summary of a Korean
+        headline, published a day late without saying where the number came from. We start from the
+        release itself — the government dataset, the regulatory filing, the research note — and we
+        say which one, and as of when.
+      </p>
+      <ul>
+        <li>
+          <strong>What moved and against what.</strong> Equities, the won, government bonds,
+          commodities — with the release time of every figure, not just the figure.
+        </li>
+        <li>
+          <strong>The target-price scoreboard.</strong> We hold {stats.records.toLocaleString()} Korean
+          brokerage research records going back to {stats.first_day}, covering {stats.brokers} houses
+          and {stats.subjects.toLocaleString()} listed companies. {stats.with_target_price.toLocaleString()}
+          of them carry a published target price. That lets us ask a question nobody publishes in
+          English: <em>whose targets actually landed?</em>
+        </li>
+        <li>
+          <strong>What the data does not show.</strong> When a figure is provisional, revised, or
+          simply too thin to carry a conclusion, we say so instead of writing around it.
+        </li>
+      </ul>
+
+      <h2>What is not in it</h2>
+      <p>
+        No tips, no price targets of our own, no trade ideas. We are a data publication, not an
+        adviser — nothing here is investment advice, and we hold no positions. When we report that a
+        brokerage set a target, that is a fact about the brokerage, not a recommendation from us.
+      </p>
+
+      <h2>How we handle your address</h2>
+      <ul>
+        <li>
+          <strong>No account.</strong> There is no password, no profile, and nothing to log into.
+          One field.
+        </li>
+        <li>
+          <strong>We never sell or share the list.</strong> Not to advertisers, not to partners.
+        </li>
+        <li>
+          <strong>We do not log your IP</strong> when you subscribe. We store your address, the date
+          you joined, and which page you came from. That is all.
+        </li>
+        <li>
+          <strong>One-click unsubscribe</strong> in every issue. No confirmation loop, no
+          “are you sure”.
+        </li>
+      </ul>
+
+      <h2 id="timing">When the first issue goes out</h2>
+      <p>
+        Honestly: not yet. We are still filling the archive that the brief is built on, and we would
+        rather start late than start thin. Subscribing now puts you on the list for the first issue —
+        you will not get anything before then, and you will not get anything else.
+      </p>
+
+      <p class="asof">
+        Published by {PUBLISHER.legalName} · <a href="/about">About and methodology</a> ·
+        <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+      </p>
+    </div>
+  </div>
+</Base>

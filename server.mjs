@@ -140,12 +140,22 @@ function send(res, status, full, size, pathname, headOnly = false) {
 }
 
 const server = createServer(async (req, res) => {
-  if (req.method !== 'GET' && req.method !== 'HEAD') {
+  const parsed = new URL(req.url, 'http://localhost');
+
+  /*
+   * 이 서버는 정적 파일 서버라 원래 GET/HEAD 만 받았다.
+   * 뉴스레터 접수(`/v1/subscribe`) 하나 때문에 **그 경로에서만** POST 를 연다.
+   *
+   * ⚠ 전면 개방하지 않는다. 열어 둔 메서드는 곧 공격면이다.
+   *   실제로 POST 를 처리하는 곳은 `/v1/subscribe` 하나뿐이고, 다른 `/v1/*` 로 온
+   *   POST 는 handleApi 안에서 405 로 떨어진다.
+   */
+  const POST허용 = req.method === 'POST' && parsed.pathname === '/v1/subscribe';
+  if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;
   }
 
-  const parsed = new URL(req.url, 'http://localhost');
   let pathname = parsed.pathname;
 
   /* ── 도메인별 분기 ─────────────────────────────────────────────────
@@ -204,9 +214,35 @@ const server = createServer(async (req, res) => {
       (req.headers['x-forwarded-for'] ?? '').split(',')[0].trim() ||
       req.socket?.remoteAddress ||
       '';
+    /*
+     * POST 본문을 읽는다. 뉴스레터 접수(`/v1/subscribe`) 하나 때문이다.
+     *
+     * ⚠ 크기를 **반드시** 막는다. 안 막으면 누구나 무한정 밀어넣어 메모리를 채운다.
+     *   Cloudtype 여유가 0.25GB 라 그 자리에서 klifemap 까지 같이 죽는다.
+     *   이메일 한 줄에 16KB 면 충분하고도 남는다.
+     */
+    let 본문 = null;
+    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/'))) {
+      본문 = await new Promise((resolve) => {
+        const 조각 = [];
+        let 크기 = 0;
+        let 끝났다 = false;
+        const 마감 = (v) => { if (!끝났다) { 끝났다 = true; resolve(v); } };
+        req.on('data', (c) => {
+          크기 += c.length;
+          if (크기 > 16 * 1024) { req.destroy(); 마감(null); return; }
+          조각.push(c);
+        });
+        req.on('end', () => 마감(Buffer.concat(조각).toString('utf8')));
+        req.on('error', () => 마감(null));
+      });
+    }
+
     const api = await handleApi(pathname, parsed.searchParams, {
       headers: req.headers,
       ip: 클라이언트IP,
+      method: req.method,
+      body: 본문,
     });
     if (api) {
       res.writeHead(api.status, { ...BASE_HEADERS, ...api.headers });

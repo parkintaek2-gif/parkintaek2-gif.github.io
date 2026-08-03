@@ -1,0 +1,268 @@
+---
+/**
+ * 뉴스레터 가입 폼.
+ *
+ * ── 왜 지금인가 ────────────────────────────────────────────────
+ * 발송 수단이 아직 없다. 그래도 지금 붙인다.
+ * **명단은 쌓이는 데 시간이 걸리고, 안 받은 날의 구독자는 영영 못 받는다.**
+ * 그리고 이메일 명단은 **검색 알고리즘 밖에 있는 유일한 자산**이다 —
+ * 우리는 YMYL 금융이라 순위가 언제 흔들릴지 모른다.
+ *
+ * ── 설계에서 지킨 것 ───────────────────────────────────────────
+ * · 계정을 만들지 않는다. 칸이 **하나**다. 「회원가입·로그인 없음」 원칙 그대로
+ * · CAPTCHA 를 쓰지 않는다 — 읽는 사람에게 시험을 내지 않는다. 대신 숨긴 덫
+ * · JS 가 없어도 **폼 자체는 동작한다**(action/method 를 붙여 뒀다).
+ *   JS 가 있으면 페이지를 안 떠나고 그 자리에서 답을 보여 준다
+ * · 라벨을 숨기지 않는다. 스크린리더가 읽을 수 있어야 한다
+ *
+ * @prop compact  본문 사이·푸터에 끼울 때. 설명을 줄이고 한 줄로 만든다
+ * @prop source   어디서 들어왔는지. 나중에 「어느 지면이 구독을 만드나」를 본다
+ */
+interface Props {
+  compact?: boolean;
+  source?: 'home' | 'article' | 'newsletter' | 'api' | 'about' | 'footer';
+}
+const { compact = false, source = 'home' } = Astro.props;
+const id = `nl-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<section class:list={['nl', compact && 'nl--compact']} aria-labelledby={`${id}-h`}>
+  <div class="nl__body">
+    <h2 class="nl__title" id={`${id}-h`}>
+      {compact ? 'Get the brief by email' : 'The Seoul Markets Brief'}
+    </h2>
+    <p class="nl__dek">
+      {
+        compact
+          ? 'Korean market data in English. No tips, no targets — just what the numbers show.'
+          : 'One email. Korean equities, the won, rates and the economy behind them — with the source and the timestamp attached to every figure. Including the one thing nobody else publishes in English: how close Korean brokerage target prices actually landed.'
+      }
+    </p>
+
+    <form class="nl__form" method="post" action="/v1/subscribe" data-source={source}>
+      <label class="nl__label" for={`${id}-email`}>Email address</label>
+      <div class="nl__row">
+        <input
+          class="nl__input"
+          id={`${id}-email`}
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          inputmode="email"
+          placeholder="you@example.com"
+          aria-describedby={`${id}-note`}
+        />
+        <button class="nl__btn" type="submit">Subscribe</button>
+      </div>
+
+      {/* 봇 덫. 사람 눈에 안 보이므로 사람은 절대 채우지 않는다.
+          ⚠ display:none 은 일부 봇이 걸러 낸다. 화면 밖으로 밀어낸다. */}
+      <div class="nl__hp" aria-hidden="true">
+        <label for={`${id}-hp`}>Leave this field empty</label>
+        <input id={`${id}-hp`} type="text" name="hp" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <p class="nl__note" id={`${id}-note`}>
+        No account, no password. Unsubscribe in one click.
+        We never sell or share the list. <a href="/newsletter">What you get →</a>
+      </p>
+      <p class="nl__msg" role="status" aria-live="polite"></p>
+    </form>
+  </div>
+</section>
+
+<style>
+  .nl {
+    border: 1px solid var(--rule);
+    border-radius: 4px;
+    background: var(--paper-2);
+    padding: 1.6rem 1.5rem;
+    margin: 3rem 0;
+  }
+  /* 강조가 필요한 자리(전용 페이지·홈)에는 왼쪽에 색 띠를 준다.
+     테두리 전체에 색을 주면 광고 배너처럼 보인다. */
+  .nl:not(.nl--compact) {
+    border-left: 3px solid var(--accent);
+  }
+  .nl--compact {
+    padding: 1.2rem 1.25rem;
+    margin: 2.25rem 0;
+  }
+  .nl__title {
+    font-family: var(--serif);
+    font-size: 1.32rem;
+    line-height: 1.25;
+    margin: 0 0 0.45rem;
+    letter-spacing: -0.01em;
+  }
+  .nl--compact .nl__title {
+    font-size: 1.06rem;
+  }
+  .nl__dek {
+    margin: 0 0 1.15rem;
+    color: var(--ink-2);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 44rem;
+  }
+  .nl--compact .nl__dek {
+    font-size: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  /* 라벨은 시각적으로만 숨긴다. 지우면 스크린리더가 칸의 뜻을 못 읽는다. */
+  .nl__label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .nl__row {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 30rem;
+  }
+  .nl__input {
+    flex: 1 1 auto;
+    min-width: 0; /* flex 안에서 input 이 안 줄어드는 것을 막는다 */
+    font: inherit;
+    font-size: 0.98rem;
+    padding: 0.62rem 0.7rem;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--rule-2);
+    border-radius: 3px;
+  }
+  .nl__input::placeholder {
+    color: var(--muted);
+  }
+  .nl__input:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+    border-color: var(--accent);
+  }
+  .nl__btn {
+    flex: 0 0 auto;
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 0.62rem 1.1rem;
+    color: #fff;
+    background: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .nl__btn:hover {
+    filter: brightness(1.08);
+  }
+  .nl__btn:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 2px;
+  }
+  .nl__btn[disabled] {
+    opacity: 0.6;
+    cursor: default;
+  }
+  /* 다크모드에서 --accent 가 밝은 하늘색이라 흰 글자가 안 읽힌다. 글자를 어둡게 뒤집는다. */
+  @media (prefers-color-scheme: dark) {
+    .nl__btn {
+      color: #0e1116;
+    }
+  }
+
+  .nl__hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .nl__note {
+    margin: 0.7rem 0 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  .nl__msg {
+    margin: 0.7rem 0 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .nl__msg[data-state] {
+    display: block;
+  }
+  .nl__msg[data-state='ok'] {
+    color: var(--up);
+  }
+  .nl__msg[data-state='error'] {
+    color: var(--down);
+  }
+
+  @media (max-width: 30rem) {
+    .nl__row {
+      flex-direction: column;
+    }
+    .nl__btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  /*
+   * JS 가 있으면 페이지를 안 떠나고 그 자리에서 답을 준다.
+   * **JS 가 없어도 폼은 그대로 제출된다** — action/method 가 붙어 있다.
+   * 읽는 사람이 JS 를 끄고 다닌다는 이유로 구독을 못 하게 만들지 않는다.
+   */
+  document.querySelectorAll<HTMLFormElement>('form.nl__form').forEach((form) => {
+    const input = form.querySelector<HTMLInputElement>('input[name="email"]')!;
+    const hp = form.querySelector<HTMLInputElement>('input[name="hp"]')!;
+    const btn = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const msg = form.querySelector<HTMLParagraphElement>('.nl__msg')!;
+
+    const say = (state: 'ok' | 'error', text: string) => {
+      msg.dataset.state = state;
+      msg.textContent = text;
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = input.value.trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      const 원래 = btn.textContent;
+      btn.textContent = 'Sending…';
+      delete msg.dataset.state;
+
+      try {
+        const res = await fetch('/v1/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source ?? 'home' }),
+        });
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && data.ok) {
+          say('ok', data.message ?? 'You are on the list.');
+          form.reset();
+        } else {
+          // 서버가 준 말을 그대로 보여 준다. 지어내지 않는다.
+          say('error', data?.error?.message ?? data?.message ?? 'Could not subscribe. Please try again.');
+        }
+      } catch {
+        say('error', 'Network error. Please try again.');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 원래;
+      }
+    });
+  });
+</script>

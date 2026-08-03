@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import AdSlot from '../components/AdSlot.astro';
+import Newsletter from '../components/Newsletter.astro';
 import { SITE, SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
 
@@ -44,6 +45,10 @@ const jsonLd = {
         </ul>
       )
     }
+
+    {/* 기사 스트림 **뒤**에 둔다. 첫 화면을 가입 요청으로 막지 않는다 —
+        무엇을 하는 매체인지 먼저 보여 주고 그 다음에 권한다. */}
+    <Newsletter source="home" />
 
     <div class="cat-grid">
       {

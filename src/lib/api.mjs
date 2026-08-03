@@ -60,6 +60,7 @@ import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
+import { subscribe } from './subscribe.mjs';
 
 const gunzipAsync = promisify(gunzip);
 
@@ -794,6 +795,28 @@ export async function handleApi(pathname, searchParams, ctx = {}) {
 
   /* 라우팅은 아래 함수가 한다. 반환문이 스무 개라 하나씩 감싸면 반드시 하나를 빠뜨린다.
      **한 곳에서만 헤더를 붙인다.** */
+  /*
+   * 뉴스레터 접수는 **POST 전용**이라 등급·한도 뒤, 라우팅 앞에서 가른다.
+   * ⚠ GET 으로 받지 않는다. 쿼리스트링에 이메일이 실리면 서버 로그·리퍼러·브라우저
+   *   기록에 남는다. 개인정보를 URL 에 넣지 않는 것은 이 프로젝트의 규칙이다.
+   */
+  if (pathname === '/v1/subscribe') {
+    if (ctx.method !== 'POST') {
+      return 붙이기(
+        err(405, 'method_not_allowed', 'Use POST with a JSON body: {"email":"you@example.com"}'),
+      );
+    }
+    let body;
+    try {
+      body = typeof ctx.body === 'string' ? JSON.parse(ctx.body) : (ctx.body ?? {});
+    } catch {
+      return 붙이기(err(400, 'invalid_json', 'Body must be JSON.'));
+    }
+    meter('subscribe');
+    const r = await subscribe(body);
+    return 붙이기(json(r.status, r.payload, { 'Cache-Control': 'no-store' }));
+  }
+
   return 붙이기(await 라우팅(pathname, searchParams, tier));
 }
 
