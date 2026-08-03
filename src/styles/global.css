@@ -712,7 +712,15 @@ main {
 
 .foot__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  /*
+   * ⚠ `minmax(13rem, 1fr)` 이 아니라 `min(13rem, 100%)` 이다.
+   *   앞의 것은 **최소폭이 컨테이너보다 커지면 그대로 넘친다.**
+   *   13rem 은 기본 글꼴에서 208px 이지만, 브라우저 기본 글꼴을 키운 독자에게는
+   *   (실측: 28px 설정에서 364px) 모바일 폭을 넘어 **본문이 가로로 밀린다.**
+   *   `min(…, 100%)` 을 씌우면 최소폭이 컨테이너를 절대 못 넘는다.
+   *   2026-08-03 실측으로 찾았다 — 기본 16px 에서는 안 보이는 결함이다.
+   */
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
   gap: 1.75rem;
   padding-block: 2.25rem 1.5rem;
 }
@@ -780,7 +788,8 @@ main {
 /* 카테고리 5개가 4+1 로 갈라지지 않게 최소폭을 잡아 3+2 로 떨어뜨린다. */
 .cat-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+  /* 푸터와 같은 이유로 `min(…, 100%)` 을 씌운다 — 최소폭이 컨테이너를 넘으면 안 된다 */
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
   gap: 1.25rem;
   margin-block: 2rem;
 }
