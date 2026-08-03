@@ -1,4 +1,23 @@
-# RapidAPI 등록 — **붙여 넣기만 하시면 됩니다**
+# RapidAPI — ✅ **공개 완료** (2026-08-03 KST)
+
+**https://rapidapi.com/parkintaek2/api/seoulmarkets-korean-broker-ratings-and-trade-data7**
+
+```
+API 등록      OpenAPI 3.0.3 · 엔드포인트 8개
+요금제        BASIC $0(500/월) · PRO $29(2만) · ULTRA $99(15만) · MEGA $399(100만)
+비밀 헤더      X-RapidAPI-Proxy-Secret · Cloudtype 주입 완료
+정산          PayPal parkintaek@naver.com · Ready
+공개          Public
+```
+
+**운영에서 실측한 것** — 비밀값 있으면 1회 1,000건, 없거나 틀리면 200건.
+
+⬜ 다음: 첫 구독자의 호출 패턴을 본다. 지금 가격은 가설이고 그 데이터가 다음 근거다.
+
+---
+
+## (아래는 등록 과정 기록)
+
 
 > 사장님 결정(2026-08-03 KST): 「RapidAPI: 유료화/등록 해」
 
