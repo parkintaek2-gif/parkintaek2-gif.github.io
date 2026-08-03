@@ -11,9 +11,17 @@
 # ⚠ UTF-8 BOM 으로 저장해야 한다. PowerShell 5.1 은 BOM 없는 UTF-8 을 ANSI 로 읽어
 #   한글이 전부 깨진다(daily-desktop.ps1 에서 실제로 당했다).
 
+#
+# 시험은 반드시 -Test 로 한다.
+#   powershell -File scripts\remind-100yearmap.ps1 -Test
+# ⚠ 시험 실행이 진짜 알림과 같은 곳에 남으면 **양치기 소년이 된다.**
+#   실제로 2026-08-03 에 시험 한 줄이 로그에 남아 사장님께 오발 알림이 갔다.
+param([switch]$Test)
+
 $ErrorActionPreference = 'Continue'
 $repo = Split-Path -Parent $PSScriptRoot
 $today = (Get-Date).ToString('yyyy-MM-dd')
+$로그이름 = if ($Test) { 'alerts.test.log' } else { 'alerts.log' }
 
 $본문 = @"
 # 🔴 백년지도 착수일입니다 — $today
@@ -47,14 +55,40 @@ $본문 = @"
 $desk = [Environment]::GetFolderPath('Desktop')
 $share = Join-Path $desk '작업공유'
 if (Test-Path $share) {
-    $본문 | Out-File -FilePath (Join-Path $share "🔴 백년지도 착수 $today.md") -Encoding utf8
+    $본문 | Out-File -FilePath (Join-Path $share $(if ($Test) { "_시험_ 백년지도 착수 $today.md" } else { "🔴 백년지도 착수 $today.md" })) -Encoding utf8
 }
 
 # ③ 로그 — 세션 브리핑이 읽는 곳
+#
+# ⚠ 2026-08-03 KST 수정 — 여기가 **알림이 안 뜰 수 있는 자리**였다.
+#   원래는 Out-File 한 줄이었는데, 파일이 다른 프로세스에 잡혀 있으면 그대로 실패했다.
+#   실제로 시험 중에 실패했고, 더 나쁘게도 **에러 메시지가 로그 파일 안에 들어가** 있었다.
+#   즉 9월 1일에 알림이 안 남고 대신 에러 덩어리가 남을 수 있었다.
+#
+#   알림은 **실패하면 안 되는 종류**다. 늦게 알면 늦게 시작하고, 그건 되돌릴 수 없다.
+#   그래서 ⓐ 잠기면 잠깐 기다렸다 다시 쓴다 ⓑ 그래도 안 되면 별도 파일에 남긴다.
+#   ⓒ 로그가 안 되더라도 토스트와 바탕화면은 계속 진행한다(아래 순서를 바꾼 이유).
 $log = Join-Path $repo 'archive\log'
 if (-not (Test-Path $log)) { New-Item -ItemType Directory -Force -Path $log | Out-Null }
-"[$today] 🔴 백년지도 착수일. docs/신규사업/백년지도-API-확보목록.md 부터 볼 것" |
-    Out-File -FilePath (Join-Path $log 'alerts.log') -Encoding utf8 -Append
+$줄 = "[$today] 🔴 백년지도 착수일. docs/신규사업/백년지도-API-확보목록.md 부터 볼 것"
+$기록됨 = $false
+foreach ($시도 in 1..5) {
+    try {
+        # -ErrorAction Stop 이라야 catch 로 온다. 없으면 조용히 지나간다.
+        Add-Content -Path (Join-Path $log $로그이름) -Value $줄 -Encoding UTF8 -ErrorAction Stop
+        $기록됨 = $true
+        break
+    } catch {
+        Start-Sleep -Milliseconds 400
+    }
+}
+if (-not $기록됨) {
+    # 본 파일이 끝내 안 열리면 **조용히 사라지게 두지 않는다.**
+    # 세션 브리핑이 이 파일도 읽는다.
+    try {
+        Add-Content -Path (Join-Path $log "alerts-$today.log") -Value $줄 -Encoding UTF8 -ErrorAction Stop
+    } catch { }
+}
 
 # ① 토스트
 try {

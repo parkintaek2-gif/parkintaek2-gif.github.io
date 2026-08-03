@@ -33,7 +33,7 @@
  */
 
 import { execSync } from 'node:child_process';
-import { readFileSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 
 const REPO = path.resolve(path.join(import.meta.dirname, '..'));
@@ -121,15 +121,28 @@ if (existsSync(사다리)) {
    (2026-08-03 지시 — 「알림 뜨면 나한테도 알려줘」)
    알림 스크립트가 archive/log/alerts.log 에 한 줄씩 남긴다. */
 {
-  const p = path.join(REPO, 'archive', 'log', 'alerts.log');
-  if (existsSync(p)) {
+  const 로그디렉 = path.join(REPO, 'archive', 'log');
+  /**
+   * ⚠ 2026-08-03 KST — `alerts.log` **한 개만** 읽고 있었다.
+   *   알림 스크립트는 그 파일이 잠기면 `alerts-{날짜}.log` 로 우회해 쓴다.
+   *   여기서 그걸 안 읽으면 우회는 **아무 데도 안 닿는 백업**이라 있으나 마나다.
+   *   `alerts.test.log` 는 일부러 뺀다 — 시험이 사장님께 알림으로 가면 안 된다.
+   */
+  const 대상 = existsSync(로그디렉)
+    ? readdirSync(로그디렉).filter((f) => /^alerts(-\d{4}-\d{2}-\d{2})?\.log$/.test(f))
+    : [];
+  const 오늘 = 지금.toLocaleString('sv-SE').slice(0, 10);
+  /* 오늘·어제 것만 올린다. 지난 알림이 계속 쌓여 올라오면 아무도 안 본다 */
+  const 어제 = new Date(지금.getTime() - 86400e3).toLocaleString('sv-SE').slice(0, 10);
+  const 본것 = new Set();
+  for (const f of 대상) {
     try {
-      const 줄들 = readFileSync(p, 'utf8').split(/\r?\n/).filter(Boolean);
-      const 오늘 = 지금.toLocaleString('sv-SE').slice(0, 10);
-      /* 오늘·어제 것만 올린다. 지난 알림이 계속 쌓여 올라오면 아무도 안 본다 */
-      const 어제 = new Date(지금.getTime() - 86400e3).toLocaleString('sv-SE').slice(0, 10);
-      const 최근 = 줄들.filter((l) => l.includes(오늘) || l.includes(어제));
-      for (const l of 최근) 경고.push(`- 🔔 **예약 알림** — ${l} · **사장님께 알려 드릴 것**`);
+      for (const l of readFileSync(path.join(로그디렉, f), 'utf8').split(/\r?\n/)) {
+        if (!l.trim() || 본것.has(l)) continue;
+        if (!l.includes(오늘) && !l.includes(어제)) continue;
+        본것.add(l);
+        경고.push(`- 🔔 **예약 알림** — ${l} · **사장님께 알려 드릴 것**`);
+      }
     } catch { /* 무시 */ }
   }
 }
