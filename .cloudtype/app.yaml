@@ -61,6 +61,15 @@ options:
     - name: ARCHIVE_S3_REGION
       secret: ARCHIVE_S3_REGION
 
+    # RapidAPI 를 거친 요청인지 가리는 비밀값. **이름만** — 값은 스테이지 시크릿에 있다.
+    #
+    # ⚠ 이게 주입되지 않으면 **유료 구매자도 무료와 똑같이 1회 200건만 받는다.**
+    #   코드(src/lib/tiers.mjs)는 비밀값이 없으면 아무도 pro 로 안 올린다 —
+    #   기본이 닫힘이라 그렇다. 반대로 하면 유료화가 통째로 뚫린다.
+    #   구매자가 곧바로 환불을 요구할 자리이므로 지우지 말 것.
+    - name: RAPIDAPI_PROXY_SECRET
+      secret: RAPIDAPI_PROXY_SECRET
+
 # 프리티어(spot) 리소스로 뜨면 매일 1회 자동 중지된다 — 매체로는 못 쓴다.
 # 유료(Hobby) 리소스로 고정한다.
 resources:
