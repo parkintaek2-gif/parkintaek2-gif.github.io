@@ -25,7 +25,9 @@
     "outreach": "node scripts/build-outreach-letters.mjs",
     "collect:broker": "node scripts/collect-broker-direct.mjs",
     "test:broker": "node scripts/collect-broker-direct.test.mjs",
-    "collect:kdi": "node scripts/collect-kdi.mjs"
+    "collect:kdi": "node scripts/collect-kdi.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "deploy:check": "node scripts/deploy.mjs --check"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
