@@ -31,7 +31,8 @@
     "index:check": "node scripts/claude-index.mjs",
     "index:fix": "node scripts/claude-index.mjs --fix",
     "watch:approvals": "node scripts/watch-approvals.mjs",
-    "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs"
+    "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs",
+    "subjects:dart": "node scripts/fill-subjects-from-dart.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
