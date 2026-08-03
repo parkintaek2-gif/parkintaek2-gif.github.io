@@ -59,19 +59,42 @@ function 값(덩이, 태그) {
  *     `10개월` `46개월` `3년 2개월` `3년2월` `12년` `-` `2020.03~` `해당없음`
  *   그래서 **못 읽으면 null 을 낸다.** 0 으로 만들면 순위 맨 아래가 쓰레기로 찬다.
  */
-export function 개월(s) {
+export function 개월(s, 오늘 = new Date()) {
   if (!s) return null;
   const t = String(s).replace(/\s/g, '');
   if (/^[-–—]$/.test(t) || /해당없음|미등기|없음/.test(t)) return null;
+
+  /* ① 「12년 3개월」 꼴 — 회사가 이미 계산해 준 것. 이게 가장 믿을 만하다 */
   let 총 = 0, 찾음 = false;
   const 년 = t.match(/(\d+(?:\.\d+)?)\s*년/);
   if (년) { 총 += parseFloat(년[1]) * 12; 찾음 = true; }
   const 월 = t.match(/(\d+(?:\.\d+)?)\s*(?:개월|월)/);
   if (월) { 총 += parseFloat(월[1]); 찾음 = true; }
-  /* 단위 없이 숫자만 있으면 **읽지 않는다** — 년인지 월인지 알 수 없다 */
+
+  /*
+   * ② 「2012.12.18~현재」 꼴 — **처음에 이걸 통째로 놓쳤다. 47%가 여기였다.**
+   *   회사 절반쯤이 기간을 안 계산하고 날짜만 적는다. 실측해서 알았다.
+   *   ⚠ 「1963.5~1996.11 / 2003.2~현재 (55년)」처럼 **여러 구간에 합계까지** 적는 곳도 있다.
+   *     그래서 ①이 있으면 ①을 먼저 쓴다 — 회사가 직접 센 값이 우리 계산보다 낫다.
+   */
+  if (!찾음) {
+    const 구간 = [...t.matchAll(/(\d{4})[.\-/]?(\d{1,2})?[.\-/]?(\d{1,2})?\s*~\s*(현재|(\d{4})[.\-/]?(\d{1,2})?)/g)];
+    if (구간.length) {
+      for (const g of 구간) {
+        const 시작 = new Date(+g[1], (+(g[2] ?? 1)) - 1, +(g[3] ?? 1));
+        /* ⚠ 「현재」는 **한국시간 오늘**이다. toISOString 을 쓰면 새벽에 하루가 어긋난다 */
+        const 끝 = g[4] === '현재' ? 오늘 : new Date(+g[5], (+(g[6] ?? 12)) - 1, 1);
+        if (Number.isNaN(시작.getTime()) || Number.isNaN(끝.getTime())) continue;
+        const d = (끝.getFullYear() - 시작.getFullYear()) * 12 + (끝.getMonth() - 시작.getMonth());
+        if (d > 0) { 총 += d; 찾음 = true; }
+      }
+    }
+  }
+
+  /* 단위도 날짜도 없이 숫자만 있으면 **읽지 않는다** — 년인지 월인지 알 수 없다 */
   if (!찾음) return null;
   /* 60년 넘는 재직은 오기입이다. 사람의 근로 기간이 아니다 */
-  if (총 > 720) return null;
+  if (총 > 720 || 총 <= 0) return null;
   return Math.round(총);
 }
 
