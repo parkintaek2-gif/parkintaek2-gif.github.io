@@ -49,21 +49,36 @@
  * RFC 9309 상 그룹은 User-agent 줄로 나뉜다. `*` 에게 적용되는 규칙은
  * `Disallow: /` 하나뿐이다. 우리 UA 는 yeti 가 아니므로 `*` 에 걸린다.
  *
- * ⚠ **그래서 이 수집기는 사장님 판단이 나오기 전까지 돌리지 않는다.**
- *   판단 근거와 대안은 `docs/데이터-출처-라이선스.md` 의 「네이버 금융 경로」 절에 있다.
- *   재개하려면 그 절이 먼저 갱신돼야 한다.
+ * ── 사장님 판단 (2026-08-03 KST) — 이대로 간다 ──────────────────
+ *
+ * 위 사실을 보고드렸고, 이렇게 정하셨다.
+ *
+ *   「증권사에서 못 갖고 오면 네이버 갖고 와서 그냥 써. **사실**을 갖고 온다며.
+ *     스타일·구성 다르고 **네이버의 가공정보만 안 쓰면 됨**」
+ *
+ * 그래서 순서와 경계가 이렇게 정해졌다.
+ *
+ *   순서   ① 증권사 자사 사이트에서 직접  → 안 되는 곳만 ② 네이버
+ *   경계   증권사가 공표한 **사실**은 가져온다
+ *          날짜 · 증권사 · 종목 · 목표주가 · 투자의견 · 애널리스트
+ *
+ *          **네이버가 만든 것은 안 가져온다**
+ *          ✗ 조회수        네이버 화면에서 생긴 지표다. 증권사가 만든 게 아니다
+ *          ✗ 네이버 정렬·순위
+ *          ✗ PDF 주소       stock.pstatic.net 은 네이버 호스팅 경로다
+ *                          (「PDF 가 있었나」만 hasPdf 로 남긴다 — 그건 사실이다)
+ *          ✗ 리포트 본문·표·차트   원래부터 안 받는다
+ *
+ * **표현이 아니라 사실을 가져오고, 우리 구성으로 다시 짠다.** 이것이 기준이다.
+ * (사장님은 경제지 인터넷총괄에디터 20년. 이 판단은 내 추정보다 정확하다)
+ *
+ * ⚠ 다만 정리 전까지 **유료 판매 개시·마켓플레이스 등록은 하지 않는다.**
+ *   되돌리기 어렵고, 사는 쪽 법무가 반드시 본다.
+ *   상세는 `docs/데이터-출처-라이선스.md` 「네이버 금융 경로」 절.
  *
  * (한경 컨센서스·FnGuide 도 `Disallow: /` 다. 확인하고 뺐다 — 이건 맞았다.)
  * 요청 간격을 두고, 신원을 밝히는 User-Agent 를 쓴다.
  */
-
-/**
- * 🔴 안전장치 — 근거가 정리되기 전에 실수로 돌지 않게 막는다.
- * 사장님이 진행하기로 판단하시면 이 상수를 지운다. 조용히 우회하지 않는다.
- */
-const 수집중단_사유 =
-  'robots.txt 재확인 결과 User-agent:* 는 Disallow:/ 다. ' +
-  'docs/데이터-출처-라이선스.md 「네이버 금융 경로」를 보고 판단이 선 뒤에 재개한다.';
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -156,7 +171,7 @@ function parseList(html) {
     if (!nid) continue;
     const tds = (tr.match(/<td[^>]*>[\s\S]*?<\/td>/g) ?? []).map(clean);
     if (tds.length < 5) continue;
-    const [stock, title, house, , date, views] = tds;
+    const [stock, title, house, , date] = tds;
     if (!stock || !house) continue;
     out.push({
       nid,
@@ -168,13 +183,19 @@ function parseList(html) {
       house,
       // 26.07.31 → 2026-07-31
       date: /^\d{2}\.\d{2}\.\d{2}$/.test(date) ? `20${date.replace(/\./g, '-')}` : date,
-      views: Number(views) || null,
       /*
-       * PDF **주소만** 남긴다. 파일은 받지 않는다 — 그게 저작물이다.
-       * 주소는 사실이고, 나중에 라이선스가 생기면 무엇이 있었는지 알 수 있다.
-       * PDF 가 아예 없는 리포트도 있어서 그 자체가 정보다.
+       * ⚠ 2026-08-03 KST — **조회수를 안 받는다.**
+       *   사장님 기준: 「사실은 가져오되 **네이버의 가공정보는 안 쓴다**」.
+       *   조회수는 증권사가 공표한 사실이 아니라 **네이버 화면에서 생긴 지표**다.
+       *   목표주가·투자의견은 증권사가 만든 사실이고, 조회수는 네이버가 만든 숫자다.
+       *   경계가 여기다.
+       *
+       * ⚠ PDF 도 **주소 대신 있고 없고만** 남긴다.
+       *   「PDF 가 있었나」는 사실이라 정보 가치가 있다(없는 리포트가 실제로 있다).
+       *   그런데 `stock.pstatic.net/...` 은 **네이버가 호스팅하는 경로**이고
+       *   그 끝에 있는 것은 저작물 그 자체다. 주소를 들고 있을 이유가 없다.
        */
-      pdf: tr.match(/href="(https:\/\/stock\.pstatic\.net\/[^"]+\.pdf)"/)?.[1] ?? null,
+      hasPdf: /href="https:\/\/stock\.pstatic\.net\/[^"]+\.pdf"/.test(tr),
     });
   }
   return out;
@@ -310,19 +331,6 @@ async function fill() {
 }
 
 async function main() {
-  /* 🔴 근거가 정리되기 전에는 남의 서버를 두드리지 않는다.
-     --dry 도 막는다 — dry 여도 목록 요청은 실제로 나간다. */
-  if (수집중단_사유 && !argv.includes('--i-have-owner-approval')) {
-    console.error('');
-    console.error('🔴 수집을 중단했다.');
-    console.error('   ' + 수집중단_사유);
-    console.error('');
-    console.error('   판단이 서면: npm run collect:research -- --i-have-owner-approval');
-    console.error('   (그때 이 안전장치 자체를 지우는 것이 맞다. 플래그로 사는 코드는 결국 잊힌다)');
-    console.error('');
-    process.exit(2);
-  }
-
   if (FILL) return fill();
 
   const runStamp = stamp();

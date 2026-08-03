@@ -385,6 +385,18 @@ async function research(params) {
           }
         : {}),
       note: 'Target price and rating are facts stated by the broker. We do not collect or redistribute report text, PDFs or charts.',
+      /**
+       * ⚠ 2026-08-03 KST — **커버리지 편향을 숨기지 않는다.**
+       *
+       * 기관별로 세어 보니 대형사가 거의 없다. 삼성증권 381건, 한국투자 179건,
+       * KB 27건, NH 10건이다. 그 하우스들의 **실제 발행량이 이럴 리가 없다.**
+       * 즉 이 아카이브는 「한국 증권사 리서치 전부」가 아니라 **「집계처가 싣는 것」**이다.
+       *
+       * 밝히지 않으면 첫 이용자가 삼성증권을 조회하고 우리를 버린다.
+       * **먼저 말하면 한계이고, 들키면 거짓말이다.**
+       */
+      caveat:
+        'Coverage is uneven by house. This archive reflects what our aggregation source carries, not the full output of Korean research. Several large houses are heavily under-represented — Samsung Securities 381 records, Korea Investment & Securities 179, KB 27, NH 10 — which is not their actual publishing volume. Use /v1/institutions with per-house counts before assuming a house is absent from the market rather than from this archive. We are working to receive reports directly from research desks, which is the only way to close this gap.',
     },
   });
 }

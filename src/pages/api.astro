@@ -237,7 +237,17 @@ const jsonLd = {
           its target price to be is a fact about the market.
         </p>
         <p class="api-note">
-          Two things we would rather tell you than have you discover: the archive is
+          <strong>Coverage is uneven by house, and you should know that before you build.</strong>
+          Counted per firm, several of Korea's largest desks are barely present — Samsung
+          Securities 381 records, Korea Investment 179, KB 27, NH 10. That is not their publishing
+          volume; it is what our aggregation source carries. <strong>This archive is what one
+          aggregator lists, not the full output of Korean research.</strong> If a house looks absent
+          from the market, check it against this archive's per-house counts first. We are working to
+          receive reports directly from research desks, which is the only thing that closes the gap
+          — scraping harder cannot, because what is not there is not there.
+        </p>
+        <p class="api-note">
+          Two more things we would rather tell you than have you discover: the archive is
           <strong>sparse before 2014</strong> — 11 records in 2007, then a gap through 2013, dense
           from 2014 onward. And <code>targetPrice</code> is <code>null</code> for 4,164 records
           because credit-rating and IR bodies publish analysis without one; <code>brokerType</code>
