@@ -30,11 +30,40 @@
  *
  * 제목은 식별자로만 저장하고 재배포하지 않는다.
  *
- * ── 규칙을 지킨다 ──────────────────────────────────────────────
- * `finance.naver.com/robots.txt` 가 `/research/` 를 **명시적으로 Allow** 한다.
- * (한경 컨센서스는 `Disallow: /` 라 쓰지 않는다. 확인하고 뺐다.)
+ * ── 🔴 규칙 — **내가 앞서 적은 것이 틀렸다** (2026-08-03 KST 정정) ──
+ *
+ * 여기에 이렇게 적혀 있었다:
+ *   「finance.naver.com/robots.txt 가 /research/ 를 명시적으로 Allow 한다」
+ *
+ * **틀렸다.** 실측한 robots.txt 는 이렇다.
+ *
+ *   User-agent: *          ← 우리다
+ *   Disallow: /            ← 전부 금지
+ *
+ *   User-agent: yeti       ← 네이버 자사 크롤러
+ *   Disallow: /
+ *   Allow: /sise/
+ *   Allow: /research/      ← 이 Allow 는 **yeti 그룹 소속**이다
+ *
+ * Allow 줄만 보고 **그것이 어느 User-agent 그룹에 속하는지를 안 봤다.**
+ * RFC 9309 상 그룹은 User-agent 줄로 나뉜다. `*` 에게 적용되는 규칙은
+ * `Disallow: /` 하나뿐이다. 우리 UA 는 yeti 가 아니므로 `*` 에 걸린다.
+ *
+ * ⚠ **그래서 이 수집기는 사장님 판단이 나오기 전까지 돌리지 않는다.**
+ *   판단 근거와 대안은 `docs/데이터-출처-라이선스.md` 의 「네이버 금융 경로」 절에 있다.
+ *   재개하려면 그 절이 먼저 갱신돼야 한다.
+ *
+ * (한경 컨센서스·FnGuide 도 `Disallow: /` 다. 확인하고 뺐다 — 이건 맞았다.)
  * 요청 간격을 두고, 신원을 밝히는 User-Agent 를 쓴다.
  */
+
+/**
+ * 🔴 안전장치 — 근거가 정리되기 전에 실수로 돌지 않게 막는다.
+ * 사장님이 진행하기로 판단하시면 이 상수를 지운다. 조용히 우회하지 않는다.
+ */
+const 수집중단_사유 =
+  'robots.txt 재확인 결과 User-agent:* 는 Disallow:/ 다. ' +
+  'docs/데이터-출처-라이선스.md 「네이버 금융 경로」를 보고 판단이 선 뒤에 재개한다.';
 
 import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
@@ -281,6 +310,19 @@ async function fill() {
 }
 
 async function main() {
+  /* 🔴 근거가 정리되기 전에는 남의 서버를 두드리지 않는다.
+     --dry 도 막는다 — dry 여도 목록 요청은 실제로 나간다. */
+  if (수집중단_사유 && !argv.includes('--i-have-owner-approval')) {
+    console.error('');
+    console.error('🔴 수집을 중단했다.');
+    console.error('   ' + 수집중단_사유);
+    console.error('');
+    console.error('   판단이 서면: npm run collect:research -- --i-have-owner-approval');
+    console.error('   (그때 이 안전장치 자체를 지우는 것이 맞다. 플래그로 사는 코드는 결국 잊힌다)');
+    console.error('');
+    process.exit(2);
+  }
+
   if (FILL) return fill();
 
   const runStamp = stamp();
