@@ -112,6 +112,17 @@ const orgLd = {
       <slot />
     </main>
     <Footer />
+    {/*
+      인쇄본에만 나오는 발행 정보. 화면에서는 보이지 않는다.
+
+      ⚠ 인쇄하면 머리말·꼬리말을 숨기므로 **종이에는 발행 주체가 사라진다.**
+        금융(YMYL) 기사에서 누가 냈는지 없는 인쇄본은 출처를 잃은 종이다.
+        인쇄된 것도 우리 매체의 얼굴이라는 것이 필수지시 9의 뜻이다.
+        (「리포트도, 웹페이지도 고객이 보는 시작과 결과는 엔진보다 더 치밀해야 한다」)
+    */}
+    <p class="print-only print-imprint">
+      {SITE.name} · {PUBLISHER.legalName} · <span>{canonical}</span>
+    </p>
     {/* ins 하나당 한 번씩 광고 요청. 페이지당 스크립트 한 줄로 끝낸다. */}
     {ADS.client !== '' && !noAds && <script is:inline set:html={adsPush} />}
   </body>

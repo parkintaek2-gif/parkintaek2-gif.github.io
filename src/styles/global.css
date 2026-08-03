@@ -837,10 +837,114 @@ td {
   color: var(--muted);
 }
 
+/* ── 인쇄 ────────────────────────────────────────────────────────────
+ *
+ * 사장님 필수지시 9: 「그릇이 내용물을 결정한다. …그게 웹 페이지이든,
+ * **인쇄 페이지**이든… 리포트도, 웹페이지도 고객이 보는 시작과 결과는
+ * 엔진보다 더 치밀해야 한다」
+ *
+ * 금융 기사는 인쇄해서 돌려 보는 독자가 실제로 있다. 종이로 나간 것도 우리 얼굴이다.
+ * 전에는 머리말·꼬리말·광고를 숨기는 6줄이 전부였다.
+ */
+.print-only {
+  display: none;
+}
+
 @media print {
+  /* 화면에서만 쓸모 있는 것들 — 종이에서는 잉크 낭비다 */
   .masthead,
   .foot,
-  .ad-slot {
-    display: none;
+  .ad-slot,
+  .skip,
+  .nl,
+  .backlink,
+  .cat-grid {
+    display: none !important;
+  }
+
+  .print-only {
+    display: block;
+  }
+
+  /*
+   * ⚠ 다크모드가 인쇄로 새면 **페이지 전체가 검게 찍힌다.**
+   *   변수만 밝은 값으로 되돌리면 모든 규칙이 따라온다.
+   */
+  :root {
+    --paper: #fff;
+    --paper-2: #fff;
+    --ink: #000;
+    --ink-2: #1a1a1a;
+    --muted: #555;
+    --rule: #bbb;
+    --rule-2: #999;
+    --accent: #000;
+    --accent-soft: #f2f2f2;
+  }
+
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 10.5pt;
+    line-height: 1.5;
+  }
+
+  .wrap {
+    max-width: none;
+    padding-inline: 0;
+  }
+
+  /* 차트는 색이 곧 정보다. 흑백으로 뭉개지면 못 읽는다 */
+  .chart svg,
+  .chart svg * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  /* ── 페이지 나눔 ──
+     제목만 남기고 넘어가거나, 표·차트가 두 장에 걸쳐 끊기면 읽을 수 없다 */
+  h1,
+  h2,
+  h3 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  .chart,
+  figure,
+  table,
+  .transparency,
+  .data-notes,
+  .table-scroll {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  /* 화면에서 가로 스크롤이던 것은 종이에서 스크롤할 수 없다. 다 보이게 편다 */
+  .table-scroll {
+    overflow: visible;
+  }
+
+  /*
+   * 종이에서는 링크가 죽는다 — 어디로 가는지 적어 준다.
+   * ⚠ 본문 링크만 한다. 메뉴까지 하면 주소가 도배된다.
+   */
+  .prose a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.85em;
+    color: #555;
+    word-break: break-all;
+  }
+
+  .print-imprint {
+    margin-top: 1.5rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid #bbb;
+    font-family: var(--sans);
+    font-size: 8.5pt;
+    color: #555;
   }
 }
