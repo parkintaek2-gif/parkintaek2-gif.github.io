@@ -57,6 +57,41 @@ export function 읽기(파일) {
   return 표;
 }
 
+/**
+ * ── ⚠ 신고 단위가 회사마다 다르다 ─────────────────────────────
+ * DART 는 이 칸을 **자유 입력**으로 받는다. 그래서 이런 게 섞여 들어온다.
+ *
+ *   티엘아이        근속 「54」   ← 개월을 년 칸에 적었다 (실제 4.5년)
+ *   팸텍            급여 453억    ← 1인평균 칸에 총액을 적었다
+ *   오가닉티코스메틱  급여 24,400  ← **천원 단위**로 적었다 (실제 2,440만원)
+ *
+ * 실측 분포로 확인했다 — 근속 99%가 19.1년, 급여 99%가 2.24억이다.
+ * 그 밖은 자릿수가 통째로 다르다.
+ *
+ * ⚠ **자동으로 고치지 않는다.** 24,400 에 1000 을 곱하는 건 추측이다.
+ *   회사가 정말 그렇게 신고했는지, 단위를 틀린 건지 우리는 모른다.
+ *   **거르고, 거른 사실을 화면에 밝힌다.** 몰래 고치는 것이 제일 나쁘다.
+ *
+ * 순위표에서 1위가 쓰레기면 **표 전체를 못 믿게 된다.** 그래서 기본은 제외다.
+ */
+export const 한계 = {
+  근속: [0.1, 35],          // 사람의 근속이다. 35년 넘으면 단위를 의심한다
+  급여: [1e7, 1e9],         // 1,000만원 ~ 10억. 지주사 고임금까지 품는 폭이다
+};
+
+export function 이상점검(r) {
+  const 걸림 = [];
+  for (const k of ['근속', '근속남', '근속여']) {
+    const v = r[k];
+    if (v != null && (v < 한계.근속[0] || v > 한계.근속[1])) { 걸림.push('근속'); break; }
+  }
+  for (const k of ['급여', '급여남', '급여여']) {
+    const v = r[k];
+    if (v != null && (v < 한계.급여[0] || v > 한계.급여[1])) { 걸림.push('급여'); break; }
+  }
+  return 걸림.length ? 걸림 : null;
+}
+
 /** 파생 지표를 계산한다. ⚠ **0 과 없음을 구분한다** — 없는 걸 0 으로 만들면 순위가 통째로 틀린다 */
 export function 가공(표) {
   return 표.map((r) => {
@@ -72,7 +107,7 @@ export function 가공(표) {
       급여비: (r.급여남 && r.급여여) ? +((r.급여여 / r.급여남) * 100).toFixed(1) : null,
       여성비: (인원 && 여 != null) ? +((여 / 인원) * 100).toFixed(1) : null,
     };
-  });
+  }).map((r) => ({ ...r, 이상: 이상점검(r) }));
 }
 
 export function 만들기(행들, 연도) {
@@ -146,6 +181,7 @@ td.key .v{position:relative;z-index:1;padding-left:.2rem}
 td.key .v.n{color:var(--neg-s)}
 td.dim{color:var(--dim);font-weight:400}
 .none{color:var(--faint)}
+.warn{color:var(--neg-s);font-size:.8em;cursor:help}
 
 .empty{padding:2.5rem 1rem;text-align:center;color:var(--dim)}
 .more{display:block;width:100%;margin:.8rem 0 0;padding:.7rem;font:inherit;font-size:.9rem;
@@ -203,6 +239,15 @@ footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--line);color
     <input id="q" type="search" placeholder="이름·종목코드·영문" autocomplete="off">
     <p class="hint" id="qh">비우면 전체 순위.</p>
   </div>
+  <div>
+    <label for="o">단위 오기입 의심</label>
+    <select id="o">
+      <option value="1" selected>제외 — 권장</option>
+      <option value="0">포함해서 보기</option>
+    </select>
+    <p class="hint">회사가 개월을 년 칸에, 천원을 원 칸에 적은 것이 섞여 있다.
+      <b id="ocnt">—</b>개사. <b>고치지 않고 걸러만 뒀다.</b></p>
+  </div>
 </div>
 
 <p class="meta"><span>대상 <b id="cnt">—</b>개사</span><span>평균 <b id="avg">—</b></span>
@@ -246,9 +291,11 @@ function 꼴(v, 단위){
 
 function 고른것(){
   const 최소 = +$('n').value;
+  const 이상빼기 = $('o').value === '1';
   const q = $('q').value.trim().toLowerCase();
   return 자료.filter((r) => {
     if (r[기준] == null) return false;                  /* 값 없는 곳은 순위에 못 넣는다 */
+    if (이상빼기 && r.이상) return false;               /* 단위 오기입 의심 — 기본 제외 */
     if (최소 && (r.인원 ?? 0) < 최소) return false;
     if (!q) return true;
     return (r.이름||'').toLowerCase().includes(q)
@@ -289,6 +336,7 @@ function 그리기(){
   const 합 = 값들.reduce((s,v)=>s+v,0);
   const 정렬값 = [...값들].sort((a,b)=>a-b);
   $('cnt').textContent = 행.length.toLocaleString();
+  $('ocnt').textContent = 자료.filter(r=>r.이상).length.toLocaleString();
   $('avg').textContent = 행.length ? 꼴(+(합/행.length).toFixed(2), 축정보.단위).replace(/<[^>]+>/g,'') : '—';
   $('med').textContent = 행.length ? 꼴(정렬값[Math.floor(정렬값.length/2)], 축정보.단위).replace(/<[^>]+>/g,'') : '—';
   $('top').textContent = 행.length ? (행[0].이름 + ' ' + 꼴(행[0][기준], 축정보.단위).replace(/<[^>]+>/g,'')) : '—';
@@ -299,7 +347,7 @@ function 그리기(){
     const w = (Math.abs(v)/최대*100).toFixed(1);
     return \`<tr>
       <td class="rk">\${i+1}</td>
-      <td class="nm"><b>\${거르기(r.이름)}</b><span>\${거르기(r.영문)} · \${거르기(r.종목)}</span></td>
+      <td class="nm"><b>\${거르기(r.이름)}\${r.이상 ? \` <span class="warn" title="신고 단위 오기입 의심 — \${r.이상.join(', ')}">⚠</span>\` : ''}</b><span>\${거르기(r.영문)} · \${거르기(r.종목)}</span></td>
       <td class="key"><span class="fill\${음?' n':''}" style="width:\${w}%"></span><span class="v\${음?' n':''}">\${꼴(v,축정보.단위)}</span></td>
       \${곁.map(a => \`<td class="dim">\${꼴(r[a.키], a.단위)}</td>\`).join('')}
     </tr>\`;
@@ -318,6 +366,7 @@ $('m').value = 기준;
 $('m').onchange = () => { 기준 = $('m').value; 방향 = (축.find(a=>a.키===기준)||{}).방향||'desc'; $('d').value=방향; 보임=50; 그리기(); };
 $('d').onchange = () => { 방향 = $('d').value; 보임=50; 그리기(); };
 $('n').onchange = () => { 보임=50; 그리기(); };
+$('o').onchange = () => { 보임=50; 그리기(); };
 let 타이머; $('q').oninput = () => { clearTimeout(타이머); 타이머=setTimeout(()=>{보임=50;그리기();},150); };
 $('more').onclick = () => { 보임 += 100; 그리기(); };
 그리기();
