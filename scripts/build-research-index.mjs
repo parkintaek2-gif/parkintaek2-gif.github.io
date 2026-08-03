@@ -62,7 +62,73 @@ const 압축 = (r, 상세) => ({
   a: null,
   /** 상세를 받았는가. `p:null` 이 「없다」인지 「아직 안 봤다」인지 구분한다 */
   f: 상세,
+  /** 어디서 왔나. `naver` = 집계 사이트 경유 · `direct` = 증권사 자사 사이트 */
+  src: 'naver',
 });
+
+/**
+ * 증권사 자사 사이트에서 직접 받은 것.
+ * 필드 이름이 네이버 경로와 다르다(`broker`/`subject`/`rating`) — 여기서 맞춘다.
+ *
+ * ⭐ **이 갈래에만 애널리스트 이름이 있다.** 네이버 화면에는 안 나오기 때문이다.
+ */
+const 압축직접 = (r) => ({
+  d: r.date ?? null,
+  h: r.broker ?? null,
+  s: r.subject ?? null,
+  p: r.targetPrice ?? null,
+  o: r.rating ?? null,
+  a: r.analyst ?? null,
+  f: true,
+  src: 'direct',
+});
+
+/** 같은 리포트인가를 가리는 자연키. 두 경로에 같은 건이 들어와 겹친다. */
+const 자연키 = (r) => `${r.d ?? ''}|${r.h ?? ''}|${r.s ?? ''}`;
+
+/**
+ * 증권사 직접 수집분을 훑는다.
+ *
+ * 파일 이름이 `{증권사}-{리포트번호}.json` 이라 네이버 경로의 nid 와 절대 겹치지 않는다.
+ * 그래도 **자연키는 반드시 등록한다** — 뒤에 오는 네이버 갈래가 같은 리포트를
+ * 또 넣지 않게 하려는 것이다.
+ */
+async function 갈래훑기직접(root, 담을곳, 키색인) {
+  const base = path.join(ARCHIVE, root);
+  let days;
+  try {
+    days = (await readdir(base)).sort();
+  } catch {
+    console.log(`  ${root} — 없음. 건너뛴다`);
+    return { 읽음: 0, 깨짐: 0, 이름: 0 };
+  }
+  let 읽음 = 0;
+  let 깨짐 = 0;
+  let 이름 = 0;
+  for (const day of days) {
+    let files;
+    try {
+      files = await readdir(path.join(base, day));
+    } catch {
+      continue;
+    }
+    for (const f of files) {
+      if (!f.endsWith('.json')) continue;
+      try {
+        const j = JSON.parse(await readFile(path.join(base, day, f), 'utf8'));
+        const 줄 = 압축직접(j);
+        const key = `direct:${f.slice(0, -5)}`;
+        담을곳.set(key, 줄);
+        키색인.set(자연키(줄), key);
+        읽음++;
+        if (줄.a) 이름++;
+      } catch {
+        깨짐++;
+      }
+    }
+  }
+  return { 읽음, 깨짐, 이름 };
+}
 
 /**
  * 한 갈래를 훑는다.
@@ -70,7 +136,7 @@ const 압축 = (r, 상세) => ({
  * 상세(`research`)가 목록(`research-list`)보다 정보가 많다. 그래서 상세를 먼저 읽고,
  * 목록은 **상세에 없는 것만** 채운다. `api.mjs` 의 readResearch 와 같은 우선순위다.
  */
-async function 갈래훑기(root, 상세, 담을곳) {
+async function 갈래훑기(root, 상세, 담을곳, 키색인) {
   const base = path.join(ARCHIVE, root);
   let days;
   try {
@@ -82,6 +148,7 @@ async function 갈래훑기(root, 상세, 담을곳) {
 
   let 읽음 = 0;
   let 깨짐 = 0;
+  let 겹침 = 0;
   for (const day of days) {
     let files;
     try {
@@ -95,7 +162,36 @@ async function 갈래훑기(root, 상세, 담을곳) {
       if (담을곳.has(nid)) continue; // 상세가 이미 넣었다
       try {
         const j = JSON.parse(await readFile(path.join(base, day, f), 'utf8'));
-        담을곳.set(nid, 압축(j, 상세));
+        const 줄 = 압축(j, 상세);
+        /*
+         * ⚠ 같은 리포트가 두 경로로 들어온다.
+         *   네이버도 미래에셋 리포트를 싣는다. 그냥 넣으면 **한 건이 두 건으로 세어진다** —
+         *   적중률을 파는 매체에서 건수가 부풀면 그 자체가 오보다.
+         *   먼저 들어온 쪽(직접 수집)이 애널리스트를 갖고 있으므로 **그쪽을 살리고
+         *   빠진 값만 채운다.**
+         */
+        const k = 자연키(줄);
+        const 기존id = 키색인?.get(k);
+        if (기존id) {
+          const 기존 = 담을곳.get(기존id);
+          /*
+           * 🔴 **직접 수집분과 겹칠 때만 병합한다.**
+           *   처음엔 조건 없이 병합했더니 네이버 레코드끼리도 묶여 **130건이 사라졌다**
+           *   (66,093 → 65,975). 같은 증권사가 같은 날 같은 종목에 리포트를 두 건
+           *   내는 일은 실제로 있다 — 조간 코멘트와 기업 업데이트가 그렇다.
+           *   그걸 한 건으로 접으면 **없던 손실을 우리가 만든다.**
+           *   자연키는 두 경로의 중복을 막으려고 만든 것이지 원본을 줄이려는 게 아니다.
+           */
+          if (기존 && 기존.src === 'direct') {
+            기존.p ??= 줄.p;
+            기존.o ??= 줄.o;
+            기존.a ??= 줄.a;
+            겹침++;
+            continue;
+          }
+        }
+        담을곳.set(nid, 줄);
+        키색인?.set(k, nid);
         읽음++;
       } catch {
         // 깨진 파일 하나가 인덱스 전체를 죽이지 않게 한다. 다만 **세어서 보고한다** —
@@ -104,7 +200,7 @@ async function 갈래훑기(root, 상세, 담을곳) {
       }
     }
   }
-  return { 읽음, 깨짐 };
+  return { 읽음, 깨짐, 겹침 };
 }
 
 async function main() {
@@ -115,14 +211,34 @@ async function main() {
   console.log(`  원본 ${ARCHIVE}`);
 
   const 레코드 = new Map();
+  /* 자연키(날짜|증권사|종목) → 파일키. 두 경로에 같은 리포트가 들어와 겹치는 걸 막는다. */
+  const 키색인 = new Map();
+
+  /*
+   * ⭐ **직접 수집분을 먼저 읽는다.** 순서가 뜻을 갖는다.
+   *   네이버 경로에는 애널리스트 이름이 없다. 직접 수집분에는 있다.
+   *   나중에 읽으면 이미 자리를 차지한 네이버 레코드에 밀려 이름이 버려진다.
+   */
+  console.log('  raw/broker (증권사 직접) …');
+  const 직접결과 = await 갈래훑기직접('raw/broker', 레코드, 키색인);
+  console.log(
+    `    ${직접결과.읽음.toLocaleString()}건 · 애널리스트 ${직접결과.이름.toLocaleString()}` +
+      `${직접결과.깨짐 ? ` · 깨짐 ${직접결과.깨짐}` : ''}`,
+  );
 
   console.log('  raw/research (상세) …');
-  const 상세결과 = await 갈래훑기('raw/research', true, 레코드);
-  console.log(`    ${상세결과.읽음.toLocaleString()}건${상세결과.깨짐 ? ` · 깨짐 ${상세결과.깨짐}` : ''}`);
+  const 상세결과 = await 갈래훑기('raw/research', true, 레코드, 키색인);
+  console.log(
+    `    ${상세결과.읽음.toLocaleString()}건${상세결과.겹침 ? ` · 직접분과 겹쳐 병합 ${상세결과.겹침}` : ''}` +
+      `${상세결과.깨짐 ? ` · 깨짐 ${상세결과.깨짐}` : ''}`,
+  );
 
   console.log('  raw/research-list (목록) …');
-  const 목록결과 = await 갈래훑기('raw/research-list', false, 레코드);
-  console.log(`    ${목록결과.읽음.toLocaleString()}건 추가${목록결과.깨짐 ? ` · 깨짐 ${목록결과.깨짐}` : ''}`);
+  const 목록결과 = await 갈래훑기('raw/research-list', false, 레코드, 키색인);
+  console.log(
+    `    ${목록결과.읽음.toLocaleString()}건 추가${목록결과.겹침 ? ` · 병합 ${목록결과.겹침}` : ''}` +
+      `${목록결과.깨짐 ? ` · 깨짐 ${목록결과.깨짐}` : ''}`,
+  );
 
   /* 최신순. 같은 날짜 안의 순서는 의미가 없으므로 건드리지 않는다. */
   const 줄 = [...레코드.values()].sort((a, b) => (b.d ?? '').localeCompare(a.d ?? ''));

@@ -156,7 +156,6 @@ const server = createServer(async (req, res) => {
    *
    *   seoulmarkets.com  →  dist/           (금융)
    *   100yearmap.com    →  dist/100y/      (백년지도 · 교육)
-   *   wiki-tip.com      →  dist/wikitip/   (K컬처 · 영문)
    *
    * 내부적으로는 **경로 접두사로 바꿔서** 아래 정적 파일 로직을 그대로 태운다.
    * 빌드 산출물이 이미 그 구조로 나오면 서버가 따로 알 것이 없다.
@@ -167,15 +166,18 @@ const server = createServer(async (req, res) => {
    */
   const host = String(req.headers.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '');
   /*
-   * ⚠ 2026-08-03 KST — wiki-tip.com 을 추가했다.
-   *   여기 없는 호스트는 **조용히 금융 사이트로 떨어진다.** 그래서 Cloudflare 존만
-   *   만들어 두고 NS 를 바꿨으면 K컬처 도메인에 증시 기사가 떴을 것이다.
-   *   **도메인을 붙이기 전에 반드시 이 줄부터 추가한다.**
+   * ⚠ 여기 없는 호스트는 **조용히 금융 사이트로 떨어진다.** 404 도 에러도 안 난다.
+   *   그래서 새 도메인을 붙일 때는 **NS 를 바꾸기 전에 이 줄부터 추가하고,
+   *   `curl -H "Host: 새도메인" localhost:PORT/` 로 무엇이 뜨는지 눈으로 본다.**
+   *   순서를 뒤집으면 잘못 뜨는 화면을 전 세계가 먼저 본다.
+   *
+   * ⚠ 2026-08-03 KST — wiki-tip.com 을 넣었다가 **뺐다.**
+   *   사장님 지시로 K컬처(위키팁)를 접었다. 「경제·금융 끝나면 그때 한류」.
+   *   도메인과 Cloudflare 존은 살아 있으니, 되살릴 때 이 줄만 다시 넣으면 된다.
    */
   const SITE_PREFIX = {
     '100yearmap.com': '/100y',
     'hundredyearmap.com': '/100y',
-    'wiki-tip.com': '/wikitip',
   };
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !pathname.startsWith(prefix)) {
