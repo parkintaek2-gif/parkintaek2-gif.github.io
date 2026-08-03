@@ -27,7 +27,11 @@
     "test:broker": "node scripts/collect-broker-direct.test.mjs",
     "collect:kdi": "node scripts/collect-kdi.mjs",
     "deploy": "node scripts/deploy.mjs",
-    "deploy:check": "node scripts/deploy.mjs --check"
+    "deploy:check": "node scripts/deploy.mjs --check",
+    "index:check": "node scripts/claude-index.mjs",
+    "index:fix": "node scripts/claude-index.mjs --fix",
+    "watch:approvals": "node scripts/watch-approvals.mjs",
+    "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
