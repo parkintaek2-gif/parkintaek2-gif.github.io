@@ -156,6 +156,7 @@ const server = createServer(async (req, res) => {
    *
    *   seoulmarkets.com  →  dist/           (금융)
    *   100yearmap.com    →  dist/100y/      (백년지도 · 교육)
+   *   wiki-tip.com      →  dist/wikitip/   (K컬처 · 영문)
    *
    * 내부적으로는 **경로 접두사로 바꿔서** 아래 정적 파일 로직을 그대로 태운다.
    * 빌드 산출물이 이미 그 구조로 나오면 서버가 따로 알 것이 없다.
@@ -165,7 +166,17 @@ const server = createServer(async (req, res) => {
    *   여기 안 적으면 조용히 빈 화면이 나오는 것보다 낫다.
    */
   const host = String(req.headers.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '');
-  const SITE_PREFIX = { '100yearmap.com': '/100y', 'hundredyearmap.com': '/100y' };
+  /*
+   * ⚠ 2026-08-03 KST — wiki-tip.com 을 추가했다.
+   *   여기 없는 호스트는 **조용히 금융 사이트로 떨어진다.** 그래서 Cloudflare 존만
+   *   만들어 두고 NS 를 바꿨으면 K컬처 도메인에 증시 기사가 떴을 것이다.
+   *   **도메인을 붙이기 전에 반드시 이 줄부터 추가한다.**
+   */
+  const SITE_PREFIX = {
+    '100yearmap.com': '/100y',
+    'hundredyearmap.com': '/100y',
+    'wiki-tip.com': '/wikitip',
+  };
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !pathname.startsWith(prefix)) {
     // ⚠ Astro 가 `dist/100y.html` 로 낸다(폴더가 아니다). 그래서 `/` 는 접두사 **그대로**
