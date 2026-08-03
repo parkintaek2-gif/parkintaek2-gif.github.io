@@ -172,6 +172,33 @@ async function main() {
   await writeFile(path.join(OUT_DIR, 'research.ndjson.gz'), gz);
   await writeFile(path.join(OUT_DIR, 'research.meta.json'), JSON.stringify(meta, null, 2));
 
+  /*
+   * ⭐ 2026-08-03 KST — **화면이 읽을 통계를 저장소에 커밋한다.**
+   *
+   * `/api` 페이지에 「66,071건」이 손으로 박혀 있었는데, 오늘 인덱스를 다시 만드니
+   * 실물은 66,093건이 됐다. **하루 만에 문서와 실물이 또 갈라졌다.**
+   * 오늘만 세 번 같은 일을 했다 — 사전 커버리지 74→81.5→86.1%.
+   *
+   * 사람이 옮겨 적는 한 반드시 어긋난다. 그래서 **옮겨 적는 일 자체를 없앤다.**
+   *
+   * ⚠ 인덱스 본체(0.6MB)는 커밋하지 않는다. archive/ 는 .gitignore 다.
+   *   빌드는 Cloudtype 컨테이너에서 도는데 거기엔 archive/ 가 없다.
+   *   그래서 **숫자만 담은 작은 파일**을 src/data 에 두고 페이지가 import 한다.
+   */
+  const 화면통계 = {
+    records: meta.records,
+    first_day: meta.first_day,
+    latest_day: meta.latest_day,
+    brokers: meta.brokers,
+    subjects: meta.subjects,
+    with_target_price: meta.with_target_price,
+    generated_at_kst: meta.generated_at_kst ?? null,
+    note: 'scripts/build-research-index.mjs 가 만든다. 손으로 고치지 말 것 — 다음 실행에 덮인다.',
+  };
+  const 화면경로 = path.resolve('src/data/research-stats.json');
+  await mkdir(path.dirname(화면경로), { recursive: true });
+  await writeFile(화면경로, JSON.stringify(화면통계, null, 2) + '\n');
+
   const MB = (n) => (n / 1048576).toFixed(1) + 'MB';
   console.log('');
   console.log(`  ${meta.records.toLocaleString()}건 · ${meta.first_day} ~ ${meta.latest_day}`);

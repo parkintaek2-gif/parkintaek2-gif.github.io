@@ -1,6 +1,8 @@
 ---
 import Base from '../layouts/Base.astro';
 import { SITE, SITE_URL, PUBLISHER } from '../consts';
+import stats from '../data/research-stats.json';
+import { SUBJECT_STATS } from '../lib/subjects.mjs';
 
 /**
  * 개발자·기관을 향한 판매 화면.
@@ -18,6 +20,25 @@ import { SITE, SITE_URL, PUBLISHER } from '../consts';
 
 const BASE = `${SITE_URL}/v1`;
 
+/*
+ * ⭐ 2026-08-03 KST — **숫자를 손으로 적지 않는다.**
+ *
+ *   이 페이지에 「66,071건」이 일곱 군데 박혀 있었다. 오늘 인덱스를 다시 만드니
+ *   실물은 66,093건이 됐고 **하루 만에 문서와 실물이 또 갈라졌다.**
+ *   종목 사전 커버리지도 오늘만 74 → 81.5 → 86.1% 로 세 번 바뀌었고,
+ *   그때마다 파일 세 개를 손으로 맞췄다. 언젠가 반드시 하나를 빠뜨린다.
+ *
+ *   그래서 **옮겨 적는 일 자체를 없앴다.**
+ *     src/data/research-stats.json  ← 인덱스 생성기가 쓴다. 손대지 않는다
+ *     SUBJECT_STATS                 ← 사전 파일이 스스로 센다
+ *
+ *   ⚠ 인덱스 본체는 archive/(.gitignore) 라 빌드 컨테이너에 없다.
+ *     그래서 **숫자만 담은 작은 파일**을 커밋해 두고 여기서 읽는다.
+ */
+const N = (n) => n.toLocaleString('en-US');
+const 건수 = N(stats.records);
+const 첫해 = stats.first_day.slice(0, 4);
+
 /* ⚠ 2026-08-03 KST — 이 페이지에 **리서치가 한 글자도 없었다.**
    66,071건은 우리가 유일하게 실제로 갖고 있는 대량 데이터인데, 개발자가 처음 보는 화면에서
    빠져 있었다. 분류 사전(HS·국가)은 참조표이고, **리서치는 우리가 모았기 때문에 존재하는 것**이다.
@@ -25,12 +46,12 @@ const BASE = `${SITE_URL}/v1`;
 const live = [
   {
     path: '/v1/research',
-    what: 'Every target price and rating issued by Korean brokerages, 2007-2026. 66,071 records.',
+    what: `Every target price and rating issued by Korean brokerages, ${첫해}-${stats.latest_day.slice(0, 4)}. ${건수} records.`,
     example: '/v1/research?broker=Mirae%20Asset&limit=5',
   },
   {
     path: '/v1/institutions',
-    what: 'The 44 Korean research houses in English, grouped into 34 legal entities across renames.',
+    what: `The ${stats.brokers} Korean research houses in English, grouped into 34 legal entities across renames.`,
     example: '/v1/institutions',
   },
   {
@@ -120,12 +141,12 @@ const researchSample = `{
     }
   ],
   "coverage": {
-    "total_records": 66071,
-    "first_day": "2007-12-03",
-    "latest_day": "2026-07-31",
-    "brokers": 44,
-    "subjects": 2782,
-    "as_of": "2026-08-02 22:32:48 KST"
+    "total_records": ${stats.records},
+    "first_day": "${stats.first_day}",
+    "latest_day": "${stats.latest_day}",
+    "brokers": ${stats.brokers},
+    "subjects": ${stats.subjects},
+    "as_of": "${stats.generated_at_kst} KST"
   }
 }`;
 
@@ -176,7 +197,7 @@ const jsonLd = {
         <p class="kicker">For developers</p>
         <h1>Korean market data, in English, as JSON</h1>
         <p class="article__dek">
-          Twenty years of Korean broker target prices and ratings — 66,071 records, normalised —
+          Twenty years of Korean broker target prices and ratings — {건수} records, normalised —
           plus the customs and classification series. The same data that goes into our reporting,
           available directly. No XML, no Korean-only field names.
         </p>
@@ -186,8 +207,8 @@ const jsonLd = {
         <h2>Twenty years of Korean broker calls, in English</h2>
         <p>
           Every target price and investment rating issued by a Korean brokerage that we have
-          collected: <strong>66,071 records from December 2007 to last week</strong>, across 44
-          research houses and 2,782 companies. Who said what, about which stock, on which day, and
+          collected: <strong>{건수} records from December {첫해} to last week</strong>, across {stats.brokers}
+          research houses and {N(stats.subjects)} companies. Who said what, about which stock, on which day, and
           at what price.
         </p>
         <p>
@@ -213,7 +234,7 @@ const jsonLd = {
           </li>
           <li>
             <code>subjectEn</code> — the company's own English spelling, which cannot be derived by
-            rule (SK hynix, NCSOFT, AMOREPACIFIC). 460 names cover 81.5% of records. The rest
+            rule (SK hynix, NCSOFT, AMOREPACIFIC). {SUBJECT_STATS.entries} names cover {SUBJECT_STATS.coveragePct}% of records. The rest
             return <code>null</code> rather than a transliteration we invented.
           </li>
         </ul>
