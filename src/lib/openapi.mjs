@@ -1,5 +1,6 @@
 /**
- * OpenAPI 3.1 명세 — `/v1/openapi.json`
+ * OpenAPI 3.0.3 명세 — `/v1/openapi.json`
+ * (3.1 이 아닌 이유는 아래 openapi 필드의 주석에 있다)
  *
  * ── 왜 필요한가 ────────────────────────────────────────────────
  * RapidAPI·AWS·Snowflake 는 명세를 주면 엔드포인트·파라미터·응답을 **자동으로 읽어**
@@ -18,6 +19,7 @@
  */
 
 import { DICT_STATS } from './trade-dict.mjs';
+import stats from '../data/research-stats.json' with { type: 'json' };
 
 const ERROR_SCHEMA = {
   type: 'object',
@@ -47,12 +49,25 @@ const SOURCE_SCHEMA = {
 
 export function openapi(baseUrl) {
   return {
-    openapi: '3.1.0',
+    /*
+     * ⚠ 2026-08-03 KST — **3.1 이 아니라 3.0.3 이다. 일부러 낮췄다.**
+     *
+     *   RapidAPI 에 이 명세를 올렸더니 임포터가 통째로 실패했다.
+     *     [GraphQL error] Path: createApisFromSpecs — "An unknown internal error occured"
+     *
+     *   원인은 3.1 전용 문법이었다 — `type: ["string","null"]` 과 `info.summary`.
+     *   3.1 이 더 정확한 규격이지만, **이 파일이 존재하는 이유는 마켓플레이스가 읽는 것**이다.
+     *   읽히지 않는 정확함은 쓸모가 없다. 3.0.3 으로 쓰고 null 은 nullable 로 표현한다.
+     *
+     *   RapidAPI 가 3.1 을 지원하면 되돌린다. 그전에 올리지 말 것.
+     */
+    openapi: '3.0.3',
     info: {
       title: 'SeoulMarkets Data API',
       version: '1.0.0',
-      summary: 'Korean official statistics, normalised to English. JSON only.',
       description: [
+        'Korean official statistics, normalised to English. JSON only.',
+        '',
         'Korea publishes monthly trade figures the day after the month ends, and provisional',
         'figures three times a month. Bloomberg counts Korean trade among its twelve key global',
         'economic indicators. The headline number is reported everywhere; the product-level',
@@ -86,7 +101,7 @@ export function openapi(baseUrl) {
       {
         name: 'Research',
         description:
-          'Every target price and rating issued by Korean brokerages, 2007-2026. 66,071 records. This is the only place the series exists in English.',
+          `Every target price and rating issued by Korean brokerages, ${stats.first_day.slice(0, 4)}-${stats.latest_day.slice(0, 4)}. ${stats.records.toLocaleString('en-US')} records. This is the only place the series exists in English.`,
       },
       { name: 'Trade', description: "Korea's customs trade series." },
       { name: 'Meta', description: 'Coverage, schema policy and collection status.' },
@@ -124,14 +139,14 @@ export function openapi(baseUrl) {
                       digits: { type: 'integer', enum: [2, 4, 6, 10] },
                       chapter: {
                         type: 'object',
-                        properties: { code: { type: 'string' }, name: { type: ['string', 'null'] } },
+                        properties: { code: { type: 'string' }, name: { type: 'string', nullable: true } },
                       },
                       heading: {
-                        type: ['object', 'null'],
-                        properties: { code: { type: 'string' }, name: { type: ['string', 'null'] } },
+                        type: 'object', nullable: true,
+                        properties: { code: { type: 'string' }, name: { type: 'string', nullable: true } },
                       },
                       label: {
-                        type: ['string', 'null'],
+                        type: 'string', nullable: true,
                         description: 'Null when the code is not in our dictionary. We do not guess.',
                       },
                       resolved: { type: 'boolean' },
@@ -214,7 +229,7 @@ export function openapi(baseUrl) {
           summary: 'Brokerage target prices and ratings, 2007-2026',
           description: [
             'Every target price and investment rating issued by Korean brokerages that we have',
-            'collected: 66,071 records across 20 years, normalised to English.',
+            `collected: ${stats.records.toLocaleString('en-US')} records across 20 years, normalised to English.`,
             '',
             'Three normalisations matter, and each is exposed as an added field beside the raw one:',
             '',
@@ -296,24 +311,24 @@ export function openapi(baseUrl) {
                           properties: {
                             date: { type: 'string', format: 'date' },
                             broker: { type: 'string', description: 'Korean name exactly as filed.' },
-                            brokerEn: { type: ['string', 'null'] },
+                            brokerEn: { type: 'string', nullable: true },
                             brokerEntity: {
-                              type: ['string', 'null'],
+                              type: 'string', nullable: true,
                               description: 'Stable across renames. Group by this.',
                             },
                             brokerType: {
-                              type: ['string', 'null'],
-                              enum: ['brokerage', 'credit-rating', 'ir-service', null],
+                              type: 'string', nullable: true,
+                              enum: ['brokerage', 'credit-rating', 'ir-service'],
                               description:
                                 'Explains a null target price: credit-rating and IR bodies publish analysis without one (4,164 records).',
                             },
                             subject: { type: 'string' },
-                            subjectEn: { type: ['string', 'null'], description: 'null when not yet in the dictionary.' },
+                            subjectEn: { type: 'string', nullable: true, description: 'null when not yet in the dictionary.' },
                             targetPrice: {
-                              type: ['integer', 'null'],
+                              type: 'integer', nullable: true,
                               description: 'KRW. null means no target was published — not zero.',
                             },
-                            rating: { type: ['string', 'null'], description: 'The broker’s own wording.' },
+                            rating: { type: 'string', nullable: true, description: 'The broker’s own wording.' },
                             ratingNormalised: {
                               type: 'object',
                               properties: {
@@ -324,10 +339,10 @@ export function openapi(baseUrl) {
                                   description: 'Our ordering for aggregation. Not a number the broker assigned.',
                                 },
                                 stance: { type: 'string', enum: ['positive', 'neutral', 'negative'] },
-                                raw: { type: ['string', 'null'] },
+                                raw: { type: 'string', nullable: true },
                               },
                             },
-                            analyst: { type: ['string', 'null'] },
+                            analyst: { type: 'string', nullable: true },
                             detailFetched: {
                               type: 'boolean',
                               description: 'false means the target price was never fetched, not that none exists.',
