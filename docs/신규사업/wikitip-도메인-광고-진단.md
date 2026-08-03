@@ -284,3 +284,54 @@ CNAME 2023 / korea                  지워도 된다 (어차피 NXDOMAIN 이었�
 
 **옮기기 전에 제목이라도 전수로 읽는다.** 51편 뽑는 데 2분 걸렸다.
 URL 목록은 `archive/probe/wikitip-tistory-urls.json` 에 남겼다.
+
+---
+
+# ✅ 최종 결정 (2026-08-03 09:2x KST) — **티스토리는 운영하지 않는다**
+
+사장님 지시: **「티스토리 블로그는 운영하지마」**
+
+이 한 줄로 앞의 논쟁이 전부 정리된다.
+
+```
+✅ wiki-tip.com  →  우리 Astro 사이트(Cloudtype)가 서비스한다
+✕  티스토리를 운영하지 않는다 — 글도 안 옮기고, ads.txt 도 안 켜고, 도메인도 안 붙인다
+```
+
+## 그래서 취소되는 것
+
+| 앞서 적었던 것 | 지금 |
+|---|---|
+| 「티스토리 ads.txt 를 켜야 한다」 | ✕ **취소.** 운영을 안 하는데 광고 설정을 켤 이유가 없다 |
+| 「56편을 버리면 안 된다」 | ✕ 이미 철회했다(콘셉트 불일치). 여기서 완전히 닫힌다 |
+| 「wiki-tip.com 을 티스토리로 연결」 | ✕ **취소.** 우리 사이트로 간다 |
+
+`wikitip.tistory.com` 은 **지우지 않고 그냥 둔다.** 운영을 안 할 뿐이다.
+지우면 되돌릴 수 없고, 남겨 둬도 우리 도메인과 엮이지 않으므로 해가 없다.
+
+## 확정된 DNS — 이제 망설일 것이 없다
+
+`dns.gabia.com` → wiki-tip.com **설정** → **레코드 수정**
+
+```
+고침   A @      211.47.74.75 → 34.8.247.175
+       A www    211.47.74.75 → 34.8.247.175
+추가   TXT @    cloudtype-space=@parkintaek2
+지움   CNAME 2023 / korea      ← 티스토리를 안 쓰므로 지운다
+
+⚠ TXT google-site-verification=Qiy_... 는 보존. 지우면 서치콘솔이 깨진다
+⚠ 넣은 뒤 nslookup -type=A wiki-tip.com 8.8.8.8 로 확인한다.
+  패널에 저장돼도 실제 DNS 에 안 나올 수 있다 — 티스토리 CNAME 둘이 그 상태였다
+```
+
+`34.8.247.175` 는 seoulmarkets·100yearmap 이 쓰는 Cloudtype IP 다. **메모리 추가 0원.**
+
+## 그 뒤 순서 (전부 내가 한다)
+
+```
+① Cloudtype 에 wiki-tip.com 라우트 추가
+② server.mjs Host 분기에 wiki-tip.com 추가 — 100yearmap 과 같은 방식
+③ WikiTip 첫 화면·e스포츠 지면을 우리 사이트로 이전
+④ Riot 신청서 Product URL 을 wiki-tip.com/esports 로 변경 · riot.txt 재인증
+⑤ ads.txt 배치 (우리 도메인에. 단 e스포츠 지면은 Riot 승인 전까지 광고 금지)
+```
