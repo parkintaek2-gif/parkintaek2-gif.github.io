@@ -1,6 +1,6 @@
 {
-  "collected_at_kst": "2026-08-02 23:37:54",
-  "day": "2026-08-02",
+  "collected_at_kst": "2026-08-03 09:37:38",
+  "day": "2026-08-03",
   "source": {
     "api": "Riot Games Developer API",
     "endpoints": [
@@ -18,42 +18,42 @@
       "challenger": {
         "players": 300,
         "lp": {
-          "min": 1696,
+          "min": 1781,
           "p25": 1896,
-          "median": 2009,
-          "p75": 2238,
-          "p90": 2419,
+          "median": 2011,
+          "p75": 2226,
+          "p90": 2440,
           "max": 2812,
-          "mean": 2078
+          "mean": 2079
         },
         "games": {
-          "total": 230128,
-          "mean_per_player": 767,
+          "total": 226717,
+          "mean_per_player": 756,
           "max_per_player": 2411
         },
-        "win_rate": 53.64,
-        "veteran": 158,
+        "win_rate": 53.73,
+        "veteran": 157,
         "hot_streak": 63
       },
       "grandmaster": {
-        "players": 700,
+        "players": 702,
         "lp": {
-          "min": 1199,
-          "p25": 1422,
-          "median": 1506,
-          "p75": 1635,
-          "p90": 1731,
-          "max": 1966,
-          "mean": 1531
+          "min": 1261,
+          "p25": 1418,
+          "median": 1505,
+          "p75": 1630,
+          "p90": 1727,
+          "max": 1890,
+          "mean": 1530
         },
         "games": {
-          "total": 477517,
-          "mean_per_player": 682,
+          "total": 483598,
+          "mean_per_player": 689,
           "max_per_player": 3022
         },
-        "win_rate": 53.18,
-        "veteran": 210,
-        "hot_streak": 129
+        "win_rate": 53.15,
+        "veteran": 206,
+        "hot_streak": 141
       }
     },
     "sg2": {
@@ -61,42 +61,42 @@
       "challenger": {
         "players": 300,
         "lp": {
-          "min": 746,
-          "p25": 991,
+          "min": 881,
+          "p25": 989,
           "median": 1074,
-          "p75": 1279,
+          "p75": 1278,
           "p90": 1488,
           "max": 2602,
-          "mean": 1182
+          "mean": 1180
         },
         "games": {
-          "total": 119413,
-          "mean_per_player": 398,
-          "max_per_player": 2079
+          "total": 120693,
+          "mean_per_player": 402,
+          "max_per_player": 2092
         },
-        "win_rate": 54.6,
-        "veteran": 116,
-        "hot_streak": 60
+        "win_rate": 54.54,
+        "veteran": 113,
+        "hot_streak": 62
       },
       "grandmaster": {
         "players": 700,
         "lp": {
-          "min": 290,
-          "p25": 500,
-          "median": 587,
-          "p75": 706,
-          "p90": 823,
-          "max": 951,
-          "mean": 614
+          "min": 376,
+          "p25": 498,
+          "median": 589,
+          "p75": 700,
+          "p90": 810,
+          "max": 927,
+          "mean": 611
         },
         "games": {
-          "total": 276174,
-          "mean_per_player": 395,
-          "max_per_player": 1771
+          "total": 274106,
+          "mean_per_player": 392,
+          "max_per_player": 2136
         },
-        "win_rate": 52.6,
-        "veteran": 160,
-        "hot_streak": 122
+        "win_rate": 52.62,
+        "veteran": 158,
+        "hot_streak": 128
       }
     },
     "vn2": {
@@ -104,42 +104,42 @@
       "challenger": {
         "players": 300,
         "lp": {
-          "min": 1565,
+          "min": 1704,
           "p25": 1765,
-          "median": 1859,
+          "median": 1856,
           "p75": 2031,
           "p90": 2340,
-          "max": 3446,
-          "mean": 1965
+          "max": 3423,
+          "mean": 1966
         },
         "games": {
-          "total": 179112,
-          "mean_per_player": 597,
+          "total": 175545,
+          "mean_per_player": 585,
           "max_per_player": 2987
         },
-        "win_rate": 55.51,
-        "veteran": 147,
-        "hot_streak": 63
+        "win_rate": 55.61,
+        "veteran": 148,
+        "hot_streak": 65
       },
       "grandmaster": {
         "players": 700,
         "lp": {
-          "min": 1018,
+          "min": 1025,
           "p25": 1156,
-          "median": 1259,
-          "p75": 1424,
-          "p90": 1579,
-          "max": 1776,
-          "mean": 1304
+          "median": 1252,
+          "p75": 1418,
+          "p90": 1578,
+          "max": 1831,
+          "mean": 1302
         },
         "games": {
-          "total": 427690,
-          "mean_per_player": 611,
-          "max_per_player": 1856
+          "total": 428866,
+          "mean_per_player": 613,
+          "max_per_player": 2679
         },
-        "win_rate": 53.47,
-        "veteran": 219,
-        "hot_streak": 115
+        "win_rate": 53.45,
+        "veteran": 211,
+        "hot_streak": 118
       }
     },
     "jp1": {
@@ -147,42 +147,42 @@
       "challenger": {
         "players": 50,
         "lp": {
-          "min": 1543,
-          "p25": 1606,
-          "median": 1684,
-          "p75": 1865,
-          "p90": 2033,
+          "min": 1530,
+          "p25": 1601,
+          "median": 1683,
+          "p75": 1861,
+          "p90": 2062,
           "max": 2355,
-          "mean": 1765
+          "mean": 1762
         },
         "games": {
-          "total": 23323,
-          "mean_per_player": 466,
+          "total": 23553,
+          "mean_per_player": 471,
           "max_per_player": 1089
         },
-        "win_rate": 55.56,
+        "win_rate": 55.43,
         "veteran": 22,
-        "hot_streak": 8
+        "hot_streak": 10
       },
       "grandmaster": {
         "players": 100,
         "lp": {
-          "min": 1068,
-          "p25": 1163,
+          "min": 1073,
+          "p25": 1160,
           "median": 1234,
-          "p75": 1352,
-          "p90": 1441,
-          "max": 1601,
-          "mean": 1264
+          "p75": 1346,
+          "p90": 1417,
+          "max": 1506,
+          "mean": 1259
         },
         "games": {
-          "total": 45225,
-          "mean_per_player": 452,
+          "total": 45839,
+          "mean_per_player": 458,
           "max_per_player": 1506
         },
-        "win_rate": 54.03,
-        "veteran": 26,
-        "hot_streak": 19
+        "win_rate": 54.09,
+        "veteran": 25,
+        "hot_streak": 14
       }
     },
     "na1": {
@@ -191,21 +191,21 @@
         "players": 302,
         "lp": {
           "min": 659,
-          "p25": 1573,
+          "p25": 1576,
           "median": 1633,
-          "p75": 1820,
+          "p75": 1818,
           "p90": 2013,
-          "max": 3190,
-          "mean": 1731
+          "max": 3216,
+          "mean": 1732
         },
         "games": {
-          "total": 201075,
-          "mean_per_player": 666,
+          "total": 201402,
+          "mean_per_player": 667,
           "max_per_player": 1764
         },
-        "win_rate": 55.02,
+        "win_rate": 55.01,
         "veteran": 116,
-        "hot_streak": 109
+        "hot_streak": 104
       },
       "grandmaster": {
         "players": 718,
@@ -214,18 +214,18 @@
           "p25": 1062,
           "median": 1139,
           "p75": 1263,
-          "p90": 1397,
-          "max": 1568,
-          "mean": 1165
+          "p90": 1403,
+          "max": 1612,
+          "mean": 1166
         },
         "games": {
-          "total": 430669,
-          "mean_per_player": 600,
-          "max_per_player": 2189
+          "total": 431658,
+          "mean_per_player": 601,
+          "max_per_player": 2190
         },
         "win_rate": 53.31,
-        "veteran": 83,
-        "hot_streak": 152
+        "veteran": 85,
+        "hot_streak": 143
       }
     },
     "euw1": {
@@ -233,42 +233,42 @@
       "challenger": {
         "players": 304,
         "lp": {
-          "min": 170,
-          "p25": 2512,
-          "median": 2655,
-          "p75": 2923,
+          "min": 226,
+          "p25": 2509,
+          "median": 2659,
+          "p75": 2921,
           "p90": 3411,
           "max": 4617,
-          "mean": 2778
+          "mean": 2781
         },
         "games": {
-          "total": 274708,
-          "mean_per_player": 904,
-          "max_per_player": 2883
+          "total": 275403,
+          "mean_per_player": 906,
+          "max_per_player": 2888
         },
-        "win_rate": 55.04,
-        "veteran": 155,
-        "hot_streak": 70
+        "win_rate": 55.02,
+        "veteran": 152,
+        "hot_streak": 73
       },
       "grandmaster": {
         "players": 746,
         "lp": {
-          "min": 440,
-          "p25": 1848,
-          "median": 1978,
-          "p75": 2156,
-          "p90": 2294,
-          "max": 2549,
+          "min": 365,
+          "p25": 1853,
+          "median": 1976,
+          "p75": 2154,
+          "p90": 2291,
+          "max": 2460,
           "mean": 1979
         },
         "games": {
-          "total": 594248,
-          "mean_per_player": 797,
-          "max_per_player": 3258
+          "total": 589002,
+          "mean_per_player": 790,
+          "max_per_player": 3261
         },
-        "win_rate": 53.9,
-        "veteran": 219,
-        "hot_streak": 150
+        "win_rate": 53.95,
+        "veteran": 217,
+        "hot_streak": 145
       }
     }
   }
