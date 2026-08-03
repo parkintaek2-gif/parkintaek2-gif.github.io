@@ -58,6 +58,7 @@ import {
 } from './institutions.mjs';
 import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
+import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 
 const gunzipAsync = promisify(gunzip);
@@ -329,8 +330,11 @@ function researchContract(r) {
   };
 }
 
-async function research(params) {
-  const limit = Math.min(Number(params.get('limit')) || 50, 200);
+async function research(params, tier = 'free') {
+  /* 1회 최대 건수가 등급의 실체다. 66,093건을 통째로 가져가려면
+     무료(200)로는 331번을 불러야 하고, 유료(1,000)면 67번이다. 값은 여기서 갈린다. */
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
   /* 잘못된 값을 조용히 무시하면 이용자는 「그런 의견이 없다」로 오해한다.
      사전에 없는 값이면 무엇을 쓸 수 있는지 알려 준다. */
   const rating = params.get('rating');
@@ -492,6 +496,11 @@ async function meta() {
      * 스키마 안정성 약속. 이걸 명시해야 남의 서비스가 우리를 물 수 있다.
      * (klifemap 세션의 응답 계약 원칙에서 가져왔다)
      */
+    /*
+     * 한도 공지. **시행 전에 먼저 알린다** — /api 페이지에 그렇게 써서 내보냈다.
+     * 값은 tiers.mjs 하나에서 온다. 두 곳에 적으면 반드시 어긋난다(오늘만 세 번 겪었다).
+     */
+    tiers: TIER_NOTE,
     contract: {
       policy:
         'Fields may be added within v1. Fields are never removed or renamed within v1 — a breaking change ships as /v2.',
@@ -743,9 +752,52 @@ export function usageSnapshot() {
  * 라우터. server.mjs 에서 부른다.
  * 처리 대상이 아니면 **null 을 돌려준다** — 그래야 정적 파일 처리로 넘어간다.
  */
-export async function handleApi(pathname, searchParams) {
+export async function handleApi(pathname, searchParams, ctx = {}) {
   if (pathname !== '/v1' && !pathname.startsWith('/v1/')) return null;
 
+  /*
+   * ── 등급과 한도 (2026-08-03 KST, 사장님 「RapidAPI 유료화/등급 해」) ──
+   *
+   * `ctx` 가 없으면(시험 코드 등) free 로 떨어진다. **기본값은 언제나 닫힘이다.**
+   *
+   * ⚠ 한도 초과라도 `ENFORCE_FROM` 전에는 **막지 않는다.** 오늘 /api 페이지에
+   *   「한도는 시행 전에 먼저 공지한다」고 써서 내보냈다. 같은 날 조이면 그 말이 거짓이 된다.
+   *   헤더로는 지금부터 알려 준다 — 이용자가 미리 자기 사용량을 볼 수 있어야 한다.
+   */
+  const tier = tierOf(ctx.headers);
+  const rate = rateCheck(ctx.ip, tier);
+  const 등급헤더 = {
+    'X-Tier': tier,
+    ...(rate.limit !== null
+      ? {
+          'X-RateLimit-Limit': String(rate.limit),
+          'X-RateLimit-Remaining': String(rate.remaining),
+          'X-RateLimit-Policy': `${rate.limit};w=60`,
+          ...(rate.enforced ? {} : { 'X-RateLimit-Enforced-From': ENFORCE_FROM }),
+        }
+      : {}),
+  };
+  const 붙이기 = (r) => (r ? { ...r, headers: { ...r.headers, ...등급헤더 } } : r);
+
+  if (!rate.allowed) {
+    meter('ratelimited');
+    return 붙이기({
+      ...err(
+        429,
+        'rate_limited',
+        `Free tier is limited to ${rate.limit} requests per minute.`,
+        'Wait for the next minute, or use a paid plan through the marketplace listing. Classification endpoints stay free either way — see /v1/meta.',
+      ),
+      headers: { 'Retry-After': String(rate.retryAfter) },
+    });
+  }
+
+  /* 라우팅은 아래 함수가 한다. 반환문이 스무 개라 하나씩 감싸면 반드시 하나를 빠뜨린다.
+     **한 곳에서만 헤더를 붙인다.** */
+  return 붙이기(await 라우팅(pathname, searchParams, tier));
+}
+
+async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1' || pathname === '/v1/') {
     meter('root');
     return root();
@@ -782,7 +834,7 @@ export async function handleApi(pathname, searchParams) {
 
   if (pathname === '/v1/research') {
     meter('research');
-    return research(searchParams);
+    return research(searchParams, tier);
   }
   if (pathname === '/v1/trade/flash') {
     meter('trade.flash');

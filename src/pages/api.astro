@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import { SITE, SITE_URL, PUBLISHER } from '../consts';
 import stats from '../data/research-stats.json';
 import { SUBJECT_STATS } from '../lib/subjects.mjs';
+import { LIMITS, ENFORCE_FROM } from '../lib/tiers.mjs';
 
 /**
  * 개발자·기관을 향한 판매 화면.
@@ -429,8 +430,34 @@ const jsonLd = {
           are contracted directly.
         </p>
         <p>
-          <strong>No key is required today.</strong> When rate limits arrive they will be published
-          before they are enforced, and existing integrations will not break on the day they land.
+          <strong>No key is required to call this API directly, and that does not change.</strong>
+          The limits below are published now and take effect on {ENFORCE_FROM} — until then
+          every response carries your current usage in <code>X-RateLimit-*</code> headers and
+          nothing is ever rejected, so you can size your integration before anything binds.
+        </p>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th></th><th>Records per request</th><th>Requests per minute</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Direct, no key</td>
+                <td>{LIMITS.free.maxPageSize}</td>
+                <td>{LIMITS.free.perMinute} per IP</td>
+              </tr>
+              <tr>
+                <td>Through a marketplace plan</td>
+                <td>{LIMITS.pro.maxPageSize}</td>
+                <td>set by your plan</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p>
+          The whole archive is {건수} records. At {LIMITS.free.maxPageSize} per call that is{' '}
+          {Math.ceil(stats.records / LIMITS.free.maxPageSize)} requests; at {LIMITS.pro.maxPageSize}{' '}
+          it is {Math.ceil(stats.records / LIMITS.pro.maxPageSize)}. <strong>That difference is
+          what the paid plans are for</strong> — not access to different data. Every field is in
+          the free response too.
         </p>
         <p>
           Tell us what you need and we will tell you plainly whether we have it:{' '}

@@ -178,7 +178,23 @@ const server = createServer(async (req, res) => {
   // 법도 하지만, 정적 서버가 실측 47.6MB 밖에 안 쓰고 Cloudtype 여유가 0 이라
   // 여기 붙였다. 인프라 추가 비용 0원이다.
   {
-    const api = await handleApi(pathname, parsed.searchParams);
+    /*
+     * ⚠ 2026-08-03 KST — 헤더와 IP 를 같이 넘긴다.
+     *   RapidAPI 유료화 때문이다. 마켓플레이스는 자기를 거친 요청에만 헤더를
+     *   붙여 주는데, 그걸 보지 않으면 구매자가 우리 도메인을 직접 불러 버린다.
+     *
+     *   IP 는 **x-forwarded-for 의 맨 앞**을 쓴다. Cloudtype 프록시 뒤라
+     *   socket.remoteAddress 는 전부 프록시 주소로 같게 나온다 —
+     *   그걸로 분당 한도를 걸면 전 세계가 한 양동이에 담긴다.
+     */
+    const 클라이언트IP =
+      (req.headers['x-forwarded-for'] ?? '').split(',')[0].trim() ||
+      req.socket?.remoteAddress ||
+      '';
+    const api = await handleApi(pathname, parsed.searchParams, {
+      headers: req.headers,
+      ip: 클라이언트IP,
+    });
     if (api) {
       res.writeHead(api.status, { ...BASE_HEADERS, ...api.headers });
       res.end(req.method === 'HEAD' ? undefined : api.body);
