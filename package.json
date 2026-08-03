@@ -32,7 +32,11 @@
     "index:fix": "node scripts/claude-index.mjs --fix",
     "watch:approvals": "node scripts/watch-approvals.mjs",
     "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs",
-    "subjects:dart": "node scripts/fill-subjects-from-dart.mjs"
+    "subjects:dart": "node scripts/fill-subjects-from-dart.mjs",
+    "collect:tenure": "node scripts/collect-tenure.mjs",
+    "report:tenure": "node scripts/render-tenure-report.mjs",
+    "report:ranking": "node scripts/render-ranking.mjs",
+    "collect:exec": "node scripts/collect-executives.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
