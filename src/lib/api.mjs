@@ -57,6 +57,7 @@ import {
   describeInstitution,
 } from './institutions.mjs';
 import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
+import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
 import { openapi } from './openapi.mjs';
 
 const gunzipAsync = promisify(gunzip);
@@ -300,6 +301,17 @@ function researchContract(r) {
      */
     brokerType: inst?.type ?? null,
     subject: r.s,
+    /**
+     * 종목 영문명. **사전에 없으면 null 이다 — 음차로 지어내지 않는다.**
+     * 상장사의 공식 영문 표기는 회사가 정한 것이라 규칙으로 못 만든다
+     * (SK hynix·NCSOFT·AMOREPACIFIC 처럼 대소문자까지 회사 것이다).
+     * 지금 사전 330개가 리포트의 74.0% 를 덮는다. 나머지는 DART corpCode 의
+     * `corp_eng_name` 으로 자동 채울 계획이고, 키를 기다리는 중이다.
+     *
+     * ⚠ 사명이 바뀐 회사도 **아카이브에 적힌 그 이름 그대로** 영문을 붙인다.
+     *   2014년 리포트의 「대우조선해양」을 2026년 사명으로 부르면 기록이 아니라 왜곡이다.
+     */
+    subjectEn: describeSubject(r.s),
     /** 목표주가. **제시하지 않은 리포트가 실제로 있다.** 0 이나 추정으로 채우지 않는다. */
     targetPrice: r.p ?? null,
     /** **증권사가 실제로 쓴 말.** 22종으로 갈려 있지만 이것이 사실이라 그대로 둔다 */
@@ -455,6 +467,11 @@ async function meta() {
       institution_entities: INSTITUTION_STATS.entities,
       institution_note:
         'Korean research institutions, normalised to English. One firm can appear under several Korean names across our 2007-2026 archive; group by `entity`. Not all of them are brokerages — credit-rating and IR bodies publish analysis without target prices.',
+      /* 종목 사전. **커버리지를 숨기지 않고 숫자로 낸다.** 74% 는 74% 라고 말한다 */
+      subjects: SUBJECT_STATS.entries,
+      subject_coverage_pct: SUBJECT_STATS.coveragePct,
+      subject_note:
+        'Official English names of listed Korean companies. A company sets its own English spelling (SK hynix, NCSOFT, AMOREPACIFIC), so this cannot be transliterated by rule. Names not yet in the dictionary return `subjectEn: null` rather than a guess. Historical Korean names are kept as filed — a 2014 report on Daewoo Shipbuilding is not relabelled with the 2026 corporate name.',
       note:
         'HS chapter names follow the WCO Harmonized System. Headings cover the products that dominate Korean trade; codes outside that set resolve to their chapter and return null for the heading rather than a guess.',
     },

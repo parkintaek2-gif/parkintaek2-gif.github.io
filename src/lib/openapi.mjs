@@ -83,6 +83,11 @@ export function openapi(baseUrl) {
         description:
           'Dictionaries that make the data readable outside Korea. Built while counting 20 years of reports; no public equivalent exists.',
       },
+      {
+        name: 'Research',
+        description:
+          'Every target price and rating issued by Korean brokerages, 2007-2026. 66,071 records. This is the only place the series exists in English.',
+      },
       { name: 'Trade', description: "Korea's customs trade series." },
       { name: 'Meta', description: 'Coverage, schema policy and collection status.' },
     ],
@@ -196,6 +201,154 @@ export function openapi(baseUrl) {
               },
             },
             400: { description: 'Query too short', content: { 'application/json': { schema: ERROR_SCHEMA } } },
+          },
+        },
+      },
+      /* ⚠ 2026-08-03 KST — 이게 명세에서 통째로 빠져 있었다.
+         66,071건짜리 간판 엔드포인트인데 스펙만 읽는 개발자에게는 **없는 기능**이었다.
+         RapidAPI 는 명세로 리스팅을 만든다 — 안 적힌 것은 팔리지 않는다. */
+      '/research': {
+        get: {
+          tags: ['Research'],
+          operationId: 'listResearch',
+          summary: 'Brokerage target prices and ratings, 2007-2026',
+          description: [
+            'Every target price and investment rating issued by Korean brokerages that we have',
+            'collected: 66,071 records across 20 years, normalised to English.',
+            '',
+            'Three normalisations matter, and each is exposed as an added field beside the raw one:',
+            '',
+            '- `brokerEntity` — a stable id per legal entity. Korean brokerages rename often, and one',
+            '  firm appears under up to four Korean names in the archive. Group by this, not by `broker`.',
+            '- `ratingNormalised` — 22 source spellings (Korean, English, mixed case, one typo, one',
+            '  truncation) folded into 8 levels. `Outperform` is deliberately kept below `Buy`;',
+            '  in Korea it is one notch down, not a synonym.',
+            '- `subjectEn` — official English company name. A company sets its own spelling',
+            '  (SK hynix, NCSOFT, AMOREPACIFIC), so this cannot be derived by rule.',
+            '',
+            'Fields that are unknown are `null`. We never fill a gap with a plausible-looking value.',
+            'Report text and PDFs are not collected, so nothing copyrighted is redistributed —',
+            'these are facts about what was published, not the publications.',
+          ].join('\n'),
+          parameters: [
+            {
+              name: 'broker',
+              in: 'query',
+              schema: { type: 'string' },
+              description:
+                'Korean name, English name, or entity id. All three resolve to the same firm, and a match returns every historical name of that entity — querying "Mirae Asset" also returns its Daewoo Securities-era reports.',
+              examples: {
+                english: { value: 'Mirae Asset' },
+                entity: { value: 'mirae-asset' },
+                korean: { value: '미래에셋' },
+              },
+            },
+            {
+              name: 'subject',
+              in: 'query',
+              schema: { type: 'string' },
+              description: 'Company covered by the report. Korean name as filed.',
+            },
+            {
+              name: 'since',
+              in: 'query',
+              schema: { type: 'string', format: 'date' },
+              description:
+                'Earliest report date, YYYY-MM-DD. Note the archive is sparse before 2014 — see GET /meta.',
+            },
+            {
+              name: 'rating',
+              in: 'query',
+              schema: {
+                type: 'string',
+                enum: ['buy', 'outperform', 'hold', 'neutral', 'marketperform', 'underperform', 'sell', 'unknown'],
+              },
+              description: 'Filter on the normalised level, not the broker wording. Unknown values return 400 with the valid list.',
+            },
+            {
+              name: 'stance',
+              in: 'query',
+              schema: { type: 'string', enum: ['positive', 'neutral', 'negative'] },
+              description:
+                'Coarser than rating. Useful context: 94.1% of rated reports are positive and 0.16% negative — 89 negative records in 20 years.',
+            },
+            {
+              name: 'limit',
+              in: 'query',
+              schema: { type: 'integer', default: 50, maximum: 200 },
+              description: 'Newest first.',
+            },
+          ],
+          responses: {
+            200: {
+              description: 'Matching reports. A filter that matches nothing is 200 with count 0 — not an error.',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      count: { type: 'integer' },
+                      as_of: { type: 'string' },
+                      results: {
+                        type: 'array',
+                        items: {
+                          type: 'object',
+                          properties: {
+                            date: { type: 'string', format: 'date' },
+                            broker: { type: 'string', description: 'Korean name exactly as filed.' },
+                            brokerEn: { type: ['string', 'null'] },
+                            brokerEntity: {
+                              type: ['string', 'null'],
+                              description: 'Stable across renames. Group by this.',
+                            },
+                            brokerType: {
+                              type: ['string', 'null'],
+                              enum: ['brokerage', 'credit-rating', 'ir-service', null],
+                              description:
+                                'Explains a null target price: credit-rating and IR bodies publish analysis without one (4,164 records).',
+                            },
+                            subject: { type: 'string' },
+                            subjectEn: { type: ['string', 'null'], description: 'null when not yet in the dictionary.' },
+                            targetPrice: {
+                              type: ['integer', 'null'],
+                              description: 'KRW. null means no target was published — not zero.',
+                            },
+                            rating: { type: ['string', 'null'], description: 'The broker’s own wording.' },
+                            ratingNormalised: {
+                              type: 'object',
+                              properties: {
+                                code: { type: 'string' },
+                                label: { type: 'string' },
+                                score: {
+                                  type: 'integer',
+                                  description: 'Our ordering for aggregation. Not a number the broker assigned.',
+                                },
+                                stance: { type: 'string', enum: ['positive', 'neutral', 'negative'] },
+                                raw: { type: ['string', 'null'] },
+                              },
+                            },
+                            analyst: { type: ['string', 'null'] },
+                            detailFetched: {
+                              type: 'boolean',
+                              description: 'false means the target price was never fetched, not that none exists.',
+                            },
+                            source: SOURCE_SCHEMA,
+                          },
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            400: {
+              description: 'Unknown rating or stance. The hint lists the valid values.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+            404: {
+              description: 'Index not available. Distinct from "your filter matched nothing".',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
           },
         },
       },
