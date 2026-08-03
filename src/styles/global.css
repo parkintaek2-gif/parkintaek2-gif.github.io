@@ -467,6 +467,26 @@ main {
   height: auto;
 }
 
+/*
+ * 긴 이메일·URL 이 안 접혀 **화면을 가로로 밀고 있었다.**
+ *
+ * 2026-08-03 실측 — 360px 폭에서 `sibcheongan@gmail.com` 하나가 348px 을 차지해
+ * /about 은 74px, /api 는 46px 넘쳤다. 이메일 주소에는 띄어쓰기가 없어서
+ * 브라우저가 줄을 바꿀 자리를 못 찾는다. 글꼴을 키워 읽는 독자에게 특히 심하다.
+ *
+ * ⚠ 발행 주체 연락처는 YMYL 심사에서 반드시 보이는 항목이라 **지울 수 없다.**
+ *   그러니 접히게 만든다.
+ */
+a,
+p,
+li,
+dd,
+dt,
+th,
+td {
+  overflow-wrap: break-word;
+}
+
 .prose code {
   font-family: var(--mono);
   font-size: 0.85em;
