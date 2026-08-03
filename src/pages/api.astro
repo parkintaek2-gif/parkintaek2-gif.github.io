@@ -18,7 +18,21 @@ import { SITE, SITE_URL, PUBLISHER } from '../consts';
 
 const BASE = `${SITE_URL}/v1`;
 
+/* ⚠ 2026-08-03 KST — 이 페이지에 **리서치가 한 글자도 없었다.**
+   66,071건은 우리가 유일하게 실제로 갖고 있는 대량 데이터인데, 개발자가 처음 보는 화면에서
+   빠져 있었다. 분류 사전(HS·국가)은 참조표이고, **리서치는 우리가 모았기 때문에 존재하는 것**이다.
+   파는 사람이 상품을 안 보여 주고 있었다. 앞에 세운다. */
 const live = [
+  {
+    path: '/v1/research',
+    what: 'Every target price and rating issued by Korean brokerages, 2007-2026. 66,071 records.',
+    example: '/v1/research?broker=Mirae%20Asset&limit=5',
+  },
+  {
+    path: '/v1/institutions',
+    what: 'The 44 Korean research houses in English, grouped into 34 legal entities across renames.',
+    example: '/v1/institutions',
+  },
   {
     path: '/v1/hs/{code}',
     what: 'Resolve any HS code — 2, 4, 6 or 10 digits — to its English description.',
@@ -74,6 +88,47 @@ const sample = `{
   }
 }`;
 
+/* ⚠ 실제 응답을 그대로 떠 온 것이다. 손으로 예쁘게 고치지 않는다 —
+   문서와 실물이 갈라지는 것이 이 프로젝트의 반복되는 실패 방식이다.
+   `curl "https://seoulmarkets.com/v1/research?broker=Mirae%20Asset&limit=1"` 로 재현된다. */
+const researchSample = `{
+  "count": 1,
+  "results": [
+    {
+      "date": "2026-07-31",
+      "broker": "미래에셋증권",
+      "brokerEn": "Mirae Asset Securities",
+      "brokerEntity": "mirae-asset",
+      "brokerType": "brokerage",
+      "subject": "해성디에스",
+      "subjectEn": "Haesung DS",
+      "targetPrice": 80000,
+      "rating": "매수",
+      "ratingNormalised": {
+        "code": "buy",
+        "label": "Buy",
+        "score": 5,
+        "stance": "positive",
+        "raw": "매수"
+      },
+      "analyst": null,
+      "detailFetched": true,
+      "source": {
+        "agency": "Naver Finance (aggregator)",
+        "note": "Facts only. Report text and PDF are not collected."
+      }
+    }
+  ],
+  "coverage": {
+    "total_records": 66071,
+    "first_day": "2007-12-03",
+    "latest_day": "2026-07-31",
+    "brokers": 44,
+    "subjects": 2782,
+    "as_of": "2026-08-02 22:32:48 KST"
+  }
+}`;
+
 /* 클라이언트 예제.
    ⚠ 두 가지가 실물과 어긋나면 안 된다 — 시그니처, 그리고 **설치 방법**.
       처음에 `import { Client } from 'seoulmarkets'` 라고 썼는데, 그 패키지는 npm 에도
@@ -119,15 +174,78 @@ const jsonLd = {
     <article class="article">
       <div class="article__head">
         <p class="kicker">For developers</p>
-        <h1>Korean official statistics, in English, as JSON</h1>
+        <h1>Korean market data, in English, as JSON</h1>
         <p class="article__dek">
-          The same data that goes into our reporting, available directly. No XML, no Korean-only
-          field names, no scraping.
+          Twenty years of Korean broker target prices and ratings — 66,071 records, normalised —
+          plus the customs and classification series. The same data that goes into our reporting,
+          available directly. No XML, no Korean-only field names.
         </p>
       </div>
 
       <div class="prose">
-        <h2>Why this data</h2>
+        <h2>Twenty years of Korean broker calls, in English</h2>
+        <p>
+          Every target price and investment rating issued by a Korean brokerage that we have
+          collected: <strong>66,071 records from December 2007 to last week</strong>, across 44
+          research houses and 2,782 companies. Who said what, about which stock, on which day, and
+          at what price.
+        </p>
+        <p>
+          <strong>This series does not exist in English anywhere else.</strong> Korean brokerages
+          publish in Korean, rename themselves often, and each writes ratings its own way — we found
+          22 distinct spellings of eight actual levels, including one typo and one truncation that
+          have been in the record for years. Normalising that is not a translation job; it is
+          twenty years of bookkeeping.
+        </p>
+        <p>Three normalisations come with every record, added beside the raw value, never replacing it:</p>
+        <ul>
+          <li>
+            <code>brokerEntity</code> — a stable id per legal entity. One firm appears under up to
+            four Korean names in this archive: 이트레이드증권 became 이베스트투자증권 in 2015 and LS증권 in
+            2024. Counted separately it ranked 7th with 3,674 reports; grouped correctly it has
+            <strong>5,965</strong>. Any ranking that misses this is simply wrong.
+          </li>
+          <li>
+            <code>ratingNormalised</code> — 22 source spellings folded into 8 levels.
+            <code>Outperform</code> is deliberately <em>not</em> collapsed into <code>Buy</code>; in
+            Korea it sits one notch below, and merging them would erase the distinction analysts
+            meant to draw.
+          </li>
+          <li>
+            <code>subjectEn</code> — the company's own English spelling, which cannot be derived by
+            rule (SK hynix, NCSOFT, AMOREPACIFIC). 460 names cover 81.5% of records. The rest
+            return <code>null</code> rather than a transliteration we invented.
+          </li>
+        </ul>
+        <p>
+          One number to show what the archive is for: of the 55,560 rated reports,
+          <strong>94.1% are positive and 0.16% negative</strong> — 89 negative calls in twenty
+          years. That is not a claim we are making about Korean equity research. It is a count.
+        </p>
+
+        <p>A request and its response:</p>
+        <pre class="api-sample"><code>curl "{BASE}/research?broker=Mirae%20Asset&limit=1"</code></pre>
+        <pre class="api-sample"><code>{researchSample}</code></pre>
+        <p>
+          <code>broker</code> accepts the Korean name, the English name or the entity id, and a
+          match returns every historical name of that entity — asking for <em>Mirae Asset</em> also
+          returns its Daewoo Securities-era reports.
+        </p>
+        <p>
+          <strong>We collect facts, not documents.</strong> Report text, PDFs and charts are never
+          fetched, so there is nothing copyrighted to redistribute. What a broker publicly stated
+          its target price to be is a fact about the market.
+        </p>
+        <p class="api-note">
+          Two things we would rather tell you than have you discover: the archive is
+          <strong>sparse before 2014</strong> — 11 records in 2007, then a gap through 2013, dense
+          from 2014 onward. And <code>targetPrice</code> is <code>null</code> for 4,164 records
+          because credit-rating and IR bodies publish analysis without one; <code>brokerType</code>
+          tells you which is which, so you never mistake a structural absence for a gap in our
+          collection.
+        </p>
+
+        <h2>Why the trade data too</h2>
         <p>
           Korea publishes monthly trade figures the day after the month ends, and provisional
           figures three times a month. Almost no country moves that fast: UN Comtrade runs up to a
@@ -144,8 +262,8 @@ const jsonLd = {
 
         <h2>Available now</h2>
         <p>
-          These endpoints are live and need no key. They resolve the classification itself, which is
-          the part that normally costs a translator.
+          These endpoints are live and need no key. The research archive is the data we collected;
+          the classification endpoints resolve the part that normally costs a translator.
         </p>
         <div class="table-scroll">
           <table>
@@ -176,9 +294,11 @@ const jsonLd = {
 
         <h2>Opening next</h2>
         <p>
-          These return <code>503</code> today with a machine-readable reason. They open as soon as
-          collection starts — we would rather say so than hand you an empty array that looks like a
-          real answer.
+          These return <code>404</code> today with a machine-readable reason in the body. They open
+          as soon as collection starts — we would rather say so than hand you an empty array that
+          looks like a real answer. A filter that legitimately matches nothing returns
+          <code>200</code> with <code>count: 0</code>; the two are different answers and we keep
+          them different.
         </p>
         <div class="table-scroll">
           <table>
@@ -251,17 +371,35 @@ const jsonLd = {
 
         <h2>Licence</h2>
         <p>
-          The underlying statistics are published by Korean government agencies under an
-          unrestricted-use licence, which permits redistribution including for commercial purposes.
-          We do not redistribute exchange feeds or licensed vendor data, and we do not scrape.
+          <strong>Trade, classification and macro series.</strong> Published by Korean government
+          agencies under an unrestricted-use licence, which permits redistribution including for
+          commercial purposes. We do not redistribute exchange feeds or licensed vendor data.
+        </p>
+        <p>
+          <strong>The research archive is a different matter, so we will be precise about it.</strong>
+          A brokerage report is a copyrighted work. What we hold is not the report: it is the set of
+          facts the broker stated publicly — which house, which analyst, which company, which date,
+          what target price, what rating. <strong>We do not collect report text, tables, charts or
+          PDFs</strong>, so there is nothing of the work itself here to redistribute. Aggregating
+          published target prices is what financial media have always done; reproducing the analysis
+          is not, and we do neither by construction rather than by policy.
+        </p>
+        <p>
+          If you need the reports themselves, we cannot sell them to you and will say so rather than
+          take the order.
         </p>
 
         <h2>Pricing</h2>
         <p>
-          The classification endpoints above are free and will stay free. Trade series will have a
-          free tier generous enough to build against, with paid tiers for production volume and
-          bulk history. Institutional licences — full archive, custom aggregations, delivery to your
-          warehouse — are contracted directly.
+          The classification endpoints above are free and will stay free. The research archive is
+          open now with a free tier generous enough to build and backtest against; paid tiers cover
+          production volume and bulk history export. Trade series price the same way when they open.
+          Institutional licences — full archive, custom aggregations, delivery to your warehouse —
+          are contracted directly.
+        </p>
+        <p>
+          <strong>No key is required today.</strong> When rate limits arrive they will be published
+          before they are enforced, and existing integrations will not break on the day they land.
         </p>
         <p>
           Tell us what you need and we will tell you plainly whether we have it:{' '}
@@ -299,5 +437,15 @@ const jsonLd = {
     border: 0;
     padding: 0;
     white-space: pre;
+  }
+
+  /* 「먼저 말해 두는 것」 — 데이터의 구멍을 본문과 같은 무게로 두면 읽고 지나친다.
+     엔지니어는 이 문단 때문에 우리를 믿는다. 눈에 걸리게 세로줄을 준다. */
+  .api-note {
+    border-left: 3px solid var(--line, #d5d9df);
+    padding: 0.15rem 0 0.15rem 1rem;
+    margin: 1.25rem 0;
+    font-size: 0.94em;
+    color: var(--muted, #55606d);
   }
 </style>
