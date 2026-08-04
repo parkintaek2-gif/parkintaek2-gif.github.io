@@ -1,0 +1,249 @@
+---
+/**
+ * WikiTip — About & Methodology. (wiki-tip.com/about)
+ *
+ * ── 왜 만드나 ──────────────────────────────────────────────────
+ * `/about` 이 **404 였다.** 구글은 발행 주체를 확인할 수 없는 사이트를 올려 주지 않는다.
+ * 우리의 유일한 마케팅이 검색 유입인데, 그 문이 닫혀 있었다.
+ *
+ * ── ⚠ 언론사가 아니다 ───────────────────────────────────────────
+ * 사장님 지시(2026-08-04): 「**아직은 언론사 아님에 유의**」
+ * 인터넷신문 등록 전이다. 그래서 이 지면에서
+ *   ① 「news outlet」 「newsroom」 「journalist」 를 쓰지 않는다
+ *   ② 언론사 자격에 딸린 관행(소속사 배포 사진 이용 등)에 기대지 않는다
+ *   ③ 대신 **우리가 무엇인지를 정확히 적는다** — 공개 데이터를 세는 곳이다
+ * 등록하면 이 파일과 `WikiTip.astro` 꼬리말을 함께 고친다.
+ *
+ * ── ⚠ 광고 없음 ────────────────────────────────────────────────
+ * Riot Production 심사 중(App 866800). 승인 전 광고는 API 영구 취소 사유다.
+ * 「광고로 운영한다」고도 적지 않는다 — 지금 사실이 아니다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import { PUBLISHER } from '../../consts';
+
+const TITLE = 'About & methodology';
+const DESC =
+  'Who publishes WikiTip, exactly which public datasets each number comes from, '
+  + 'how we decide what counts as a Korean production, and what we deliberately leave out.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: 'https://wiki-tip.com/about',
+  mainEntity: {
+    '@type': 'Organization',
+    name: 'WikiTip',
+    url: 'https://wiki-tip.com/',
+    parentOrganization: {
+      '@type': 'Organization',
+      legalName: PUBLISHER.legalName,
+      address: PUBLISHER.address,
+      email: PUBLISHER.email,
+      foundingDate: String(PUBLISHER.foundedYear),
+    },
+  },
+};
+---
+
+{/*
+  ⚠ `canonical` 을 일부러 걸지 않았다. **wiki-tip.com 은 아직 우리 것이 아니다** —
+    2026-08-04 12:59 KST 실측으로 `302 → errdoc.gabia.io/403.html` 이다.
+    NS 가 tosana/ines(가비아가 만든 Cloudflare 존)로 가 있어 우리 존(kami/keenan)이
+    권한을 못 갖는다. 죽은 주소를 canonical 로 걸면 색인에서 통째로 빠진다.
+  ⚠ `noindex` 도 같은 이유다. 지면이 부실해서가 아니라 **주소가 아직 안 살아서**다.
+    → NS 가 kami/keenan 으로 바뀌고 `curl https://wiki-tip.com/about` 이 200 이 되면
+      이 파일에서 `noindex` 를 빼고 canonical 을 되살린다. 둘을 같이 푼다.
+*/}
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} noindex>
+  <h1>About &amp; methodology</h1>
+  <p class="lead">
+    WikiTip counts what public datasets already publish about Korean pop culture, names every
+    source, and states what it left out. It does not report rumours, reprint press releases,
+    or rank anything it cannot show the arithmetic for.
+  </p>
+
+  <section>
+    <h2>What this site is</h2>
+    <p>
+      Korean drama, film, music and esports are followed closely across Southeast Asia and the
+      wider English-speaking world, but almost everything written about them in English is
+      either translated gossip or a repackaged press release. Meanwhile the numbers that would
+      settle most arguments — how many countries a title actually charted in, how many hours it
+      was actually watched, how many people actually look a performer up — are published openly
+      and read by almost nobody.
+    </p>
+    <p>
+      That gap is the whole idea. We take feeds that are already public, count them the same way
+      every week, and publish the count with its source attached.
+    </p>
+    <p class="callout">
+      <b>WikiTip is not a registered news outlet.</b> It is a data publication operated by the
+      company named at the foot of this page. We do not employ reporters, we do not conduct
+      interviews, and we do not claim press credentials or the access that comes with them.
+      Everything here is derived from datasets anyone can download.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where each number comes from</h2>
+    <p>Every figure on this site traces to one of four sources. There are no others.</p>
+    <ul class="src">
+      <li>
+        <b>Netflix Top 10 (Tudum)</b> — the official weekly TSV releases covering 94 countries
+        and every week since July 2021. Netflix publishes hours viewed and country rank itself;
+        we do not estimate either.
+        <a href="https://www.netflix.com/tudum/top10" rel="external noopener" target="_blank">netflix.com/tudum/top10</a>
+      </li>
+      <li>
+        <b>Wikidata</b> — country of origin (property P495), cast member (P161) and country of
+        citizenship (P27). This is what tells us a title is a Korean production and a performer
+        is Korean, rather than us deciding it.
+        <a href="https://query.wikidata.org/" rel="external noopener" target="_blank">query.wikidata.org</a>
+      </li>
+      <li>
+        <b>Wikimedia Pageviews API</b> — daily English Wikipedia article views, human traffic
+        only, automated and spider traffic excluded by the API itself.
+        <a href="https://wikimedia.org/api/rest_v1/" rel="external noopener" target="_blank">wikimedia.org/api/rest_v1</a>
+      </li>
+      <li>
+        <b>Riot Games API</b> — ranked ladder counts across six regions, collected once a day
+        under a registered application. A ladder cannot be reconstructed after the fact, so a
+        day we fail to collect is simply missing and we say so rather than interpolating.
+      </li>
+    </ul>
+    <p class="note">
+      All four are used within their published terms. We do not scrape sites that disallow it,
+      we do not resell any feed, and we do not republish a source's data table wholesale — what
+      we publish is a count derived from it.
+    </p>
+  </section>
+
+  <section>
+    <h2>How we decide something is Korean</h2>
+    <p>
+      This decides what appears on the site, so it should not be a judgement call. It is not one.
+      A title counts as a Korean production when Wikidata's country-of-origin field lists South
+      Korea; a performer counts as Korean when the country-of-citizenship field says so.
+    </p>
+    <p>
+      Two consequences worth knowing. International co-productions that list Korea alongside
+      other countries <em>are</em> included — <i>Snowpiercer</i> and <i>Mickey 17</i> both
+      qualify. And because cast lists on those titles include performers of every nationality,
+      the citizenship filter is applied separately at the performer level; without it, an actor
+      ranking built from Korean films fills up with people who are not Korean. We found exactly
+      that in our first roster and corrected it, which cut the list from 1,553 names to 1,344.
+    </p>
+    <p class="note">
+      Where a title has no Wikidata entry, it is absent rather than guessed at. That biases the
+      list slightly toward well-documented titles, and we would rather have that bias visible
+      than fix it by hand.
+    </p>
+  </section>
+
+  <section>
+    <h2>What the numbers do not mean</h2>
+    <ul class="src">
+      <li>
+        <b>Attention is not popularity.</b> A Wikipedia page climbs for good news and bad — an
+        award, a casting, a scandal, a death. We publish the count and the window it covers. We
+        do not publish a reason, because the count does not contain one.
+      </li>
+      <li>
+        <b>Hours viewed is not quality, and not audience size either.</b> A long series
+        accumulates hours a film cannot. We report the figure Netflix publishes and label it.
+      </li>
+      <li>
+        <b>Netflix is not streaming.</b> No other service publishes a comparable weekly ranking,
+        so a title absent here may simply be somewhere else. Broadcast ratings are a separate
+        measurement system and are not mixed in.
+      </li>
+      <li>
+        <b>A missing performer is not an unpopular one.</b> Anyone without an English Wikipedia
+        article cannot be measured by pageviews at all. The front page states how many of our
+        roster that affects.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Photographs</h2>
+    <p>
+      We do not publish agency, label or studio photographs. Korean outlets routinely use
+      officially distributed press images, but that practice rests on being a registered press
+      organisation, and we are not one yet. Rather than borrow a permission we do not hold, the
+      graphics on this site are built from our own counts — charts we made, of numbers we
+      calculated, which nobody else owns.
+    </p>
+  </section>
+
+  <section>
+    <h2>Corrections</h2>
+    <p>
+      If a number here is wrong we want to know, and a correction is cheap because every figure
+      has a named source you can check against us. Write to
+      <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. Substantive corrections are
+      made in place with a visible date. We do not quietly rewrite published figures.
+    </p>
+  </section>
+
+  <section>
+    <h2>Independence</h2>
+    <p>
+      WikiTip is free to read and carries no advertising. We accept no sponsored placements, no
+      paid coverage, and no payment from any agency, label, studio or platform. We are not
+      affiliated with, endorsed by, or licensed by any of them.
+    </p>
+    <p class="note">
+      WikiTip is not endorsed by Riot Games and does not reflect the views or opinions of Riot
+      Games or anyone officially involved in producing or managing Riot Games properties.
+      Riot Games and all associated properties are trademarks or registered trademarks of
+      Riot Games, Inc.
+    </p>
+  </section>
+
+  <section>
+    <h2>Publisher</h2>
+    <p class="pub">
+      <b>{PUBLISHER.legalName}</b><br />
+      Representative director: {PUBLISHER.representative}<br />
+      {PUBLISHER.address}<br />
+      Business registration number {PUBLISHER.bizRegNo}<br />
+      <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+    </p>
+    <p class="note">
+      The same company publishes <a href="https://seoulmarkets.com/">SeoulMarkets</a>, which
+      covers Korean financial markets in English, and <a href="https://100yearmap.com/">백년지도</a>,
+      a Korean-language guide to what happens after university.
+    </p>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2.5rem; }
+  section { margin: 0 0 2.6rem; }
+  h2 { font-size: 1.12rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
+  p { margin: 0 0 .9rem; }
+  .note { font-size: .85rem; color: var(--muted); line-height: 1.65; }
+  .pub { line-height: 1.9; }
+
+  /* 「언론사가 아니다」는 묻히면 안 된다. 본문 흐름에서 한 칸 띄워 세운다 */
+  .callout {
+    border-left: 3px solid var(--accent); background: var(--card);
+    padding: .9rem 1rem; margin: 1.2rem 0 0; border-radius: 0 6px 6px 0;
+    font-size: .93rem; line-height: 1.7;
+  }
+
+  .src { list-style: none; padding: 0; margin: 0 0 1rem; }
+  .src li {
+    padding: .7rem 0; border-bottom: 1px solid var(--line);
+    font-size: .93rem; line-height: 1.7;
+  }
+  .src li:last-child { border-bottom: 0; }
+  .src a { color: var(--accent); }
+
+  .back { margin-top: 3rem; font-size: .9rem; }
+  .back a { color: var(--muted); }
+</style>
