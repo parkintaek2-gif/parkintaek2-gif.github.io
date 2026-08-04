@@ -53,7 +53,7 @@ const 대상 = [
   { id: '15094806', 이름: '증권상품시세정보', 축: 'ETF·ETN·ELW',
     url: 'https://apis.data.go.kr/1160100/service/GetSecuritiesProductInfoService/getETFPriceInfo' },
   { id: '15094784', 이름: '채권시세정보', 축: 'Rates',
-    url: 'https://apis.data.go.kr/1160100/service/GetBondSecuritiesInfoService/getBondBasiInfo' },
+    url: 'https://apis.data.go.kr/1160100/service/GetBondSecuritiesInfoService/getBondPriceInfo' },
   { id: '15094802', 이름: '파생상품시세정보', 축: '선물·옵션',
     url: 'https://apis.data.go.kr/1160100/service/GetDerivativeProductInfoService/getFutresPriceInfo' },
   { id: '15094805', 이름: '일반상품시세정보', 축: 'Commodities',

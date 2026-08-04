@@ -46,6 +46,12 @@ export const 축 = [
     설명: '100%면 같다. 낮을수록 여성 평균이 낮다' },
   { 키: '인원',   이름: '직원 수',         단위: '명',  방향: 'desc', 좋음: null },
   { 키: '여성비', 이름: '여성 비율',       단위: '%',   방향: 'desc', 좋음: null },
+  /* ── 아래는 곁자료가 붙어야 값이 찬다. 없으면 「—」로 나온다 ── */
+  { 키: '대표재직', 이름: '대표이사 재직',  단위: '년',  방향: 'desc', 좋음: null,
+    설명: '한 회사에 대표가 여럿이면 **가장 오래 있은 사람** 기준이다. 오너와 전문경영인은 뜻이 다르다' },
+  { 키: '임원수', 이름: '등기·미등기 임원 수', 단위: '명', 방향: 'desc', 좋음: null },
+  { 키: '업력',   이름: '업력',           단위: '년',  방향: 'desc', 좋음: null,
+    설명: '설립일부터 오늘까지. 상장일이 아니다' },
 ];
 
 export function 읽기(파일) {
@@ -55,6 +61,44 @@ export function 읽기(파일) {
     try { 표.push(JSON.parse(l)); } catch { /* 깨진 줄은 버린다 */ }
   }
   return 표;
+}
+
+/**
+ * 곁들 자료를 corp 로 붙인다 — 업종·지역·임원.
+ * ⚠ **없으면 없는 대로 간다.** 곁자료가 아직 안 모였다고 순위표가 죽으면 안 된다.
+ *   사장님 지시(「업종별·그룹별로도 가공하라」)를 받자마자 수집을 걸었는데,
+ *   수집이 도는 동안에도 기존 축은 계속 보여야 한다.
+ */
+export function 곁붙이기(행들, 회사표, 임원표) {
+  const 회사 = new Map((회사표 ?? []).map((r) => [r.corp, r]));
+  /* 임원은 회사당 여러 명이다 — **대표이사만** 골라 최장 재직을 회사 값으로 삼는다 */
+  const 대표 = new Map();
+  for (const e of 임원표 ?? []) {
+    if (!e.대표 || e.재직개월 == null) continue;
+    const 이전 = 대표.get(e.corp);
+    if (!이전 || e.재직개월 > 이전.재직개월) 대표.set(e.corp, e);
+  }
+  const 임원수 = new Map();
+  for (const e of 임원표 ?? []) 임원수.set(e.corp, (임원수.get(e.corp) ?? 0) + 1);
+
+  return 행들.map((r) => {
+    const c = 회사.get(r.corp);
+    const d = 대표.get(r.corp);
+    return {
+      ...r,
+      업종: c?.업종 ?? null,
+      업종명: c?.업종명 ?? null,
+      시도: c?.시도 ?? null,
+      /* 업력 — ⚠ 「현재」는 한국시간 오늘이다. toISOString 을 쓰면 새벽에 어긋난다 */
+      업력: c?.설립 && /^\d{8}$/.test(c.설립)
+        ? +((new Date().getFullYear() - +c.설립.slice(0, 4))
+          + (new Date().getMonth() + 1 - +c.설립.slice(4, 6)) / 12).toFixed(1)
+        : null,
+      대표재직: d ? +(d.재직개월 / 12).toFixed(1) : null,
+      대표오너: d?.오너 ?? null,
+      임원수: 임원수.get(r.corp) ?? null,
+    };
+  });
 }
 
 /**
@@ -100,6 +144,9 @@ export function 가공(표) {
       ? Math.round(((r.급여남 * 남) + (r.급여여 * 여)) / (남 + 여))
       : (r.급여남 ?? r.급여여 ?? null);
     return {
+      /* ⚠ `corp` 를 반드시 남긴다. 이게 곁자료(업종·임원)를 붙이는 **유일한 열쇠**다.
+       *   처음에 빠뜨려서 35,004행을 읽고도 0건이 붙었다. 종목코드는 없는 회사가 있어 못 쓴다 */
+      corp: r.corp,
       이름: r.이름, 영문: r.영문 ?? '', 종목: r.종목, 인원, 남, 여,
       근속: r.근속 ?? null, 근속남: r.근속남 ?? null, 근속여: r.근속여 ?? null,
       근속격차: (r.근속남 != null && r.근속여 != null) ? +(r.근속남 - r.근속여).toFixed(2) : null,
@@ -240,6 +287,17 @@ footer{margin-top:3rem;padding-top:1.1rem;border-top:1px solid var(--line);color
     <p class="hint" id="qh">비우면 전체 순위.</p>
   </div>
   <div>
+    <label for="ind">업종</label>
+    <select id="ind"><option value="">전체 업종</option></select>
+    <p class="hint">한국표준산업분류 중분류. <b>DART 신고 코드를 앞 2자리로 묶었다</b> —
+      회사마다 2~5자리로 제각각 신고해서 그대로는 갈라진다.</p>
+  </div>
+  <div>
+    <label for="reg">지역</label>
+    <select id="reg"><option value="">전국</option></select>
+    <p class="hint">본사 주소 기준. 공장·연구소 위치가 아니다.</p>
+  </div>
+  <div>
     <label for="o">단위 오기입 의심</label>
     <select id="o">
       <option value="1" selected>제외 — 권장</option>
@@ -292,11 +350,15 @@ function 꼴(v, 단위){
 function 고른것(){
   const 최소 = +$('n').value;
   const 이상빼기 = $('o').value === '1';
+  const 업종 = $('ind').value;
+  const 지역 = $('reg').value;
   const q = $('q').value.trim().toLowerCase();
   return 자료.filter((r) => {
     if (r[기준] == null) return false;                  /* 값 없는 곳은 순위에 못 넣는다 */
     if (이상빼기 && r.이상) return false;               /* 단위 오기입 의심 — 기본 제외 */
     if (최소 && (r.인원 ?? 0) < 최소) return false;
+    if (업종 && r.업종 !== 업종) return false;
+    if (지역 && r.시도 !== 지역) return false;
     if (!q) return true;
     return (r.이름||'').toLowerCase().includes(q)
         || (r.영문||'').toLowerCase().includes(q)
@@ -367,6 +429,26 @@ $('m').onchange = () => { 기준 = $('m').value; 방향 = (축.find(a=>a.키===�
 $('d').onchange = () => { 방향 = $('d').value; 보임=50; 그리기(); };
 $('n').onchange = () => { 보임=50; 그리기(); };
 $('o').onchange = () => { 보임=50; 그리기(); };
+
+/* 업종·지역 선택지는 **자료에 실제로 있는 것만** 넣는다. 고를 수 없는 칸을 만들지 않는다 */
+function 목록채우기(id, 키, 이름키){
+  const 셈 = new Map();
+  for (const r of 자료){
+    const v = r[키];
+    if (!v) continue;
+    const nm = 이름키 ? (r[이름키] ?? v) : v;
+    const cur = 셈.get(v) ?? { 이름: nm, n: 0 };
+    cur.n++; 셈.set(v, cur);
+  }
+  if (!셈.size) { $(id).closest('div').style.display = 'none'; return; }   /* 자료가 아직 없으면 칸을 숨긴다 */
+  const 첫 = $(id).options[0].outerHTML;
+  $(id).innerHTML = 첫 + [...셈].sort((a,b)=>b[1].n-a[1].n)
+    .map(([v,o]) => '<option value="'+v+'">'+거르기(o.이름)+' ('+o.n+')</option>').join('');
+}
+목록채우기('ind','업종','업종명');
+목록채우기('reg','시도');
+$('ind').onchange = () => { 보임=50; 그리기(); };
+$('reg').onchange = () => { 보임=50; 그리기(); };
 let 타이머; $('q').oninput = () => { clearTimeout(타이머); 타이머=setTimeout(()=>{보임=50;그리기();},150); };
 $('more').onclick = () => { 보임 += 100; 그리기(); };
 그리기();
@@ -378,7 +460,14 @@ function main() {
   const 연도 = i > -1 ? process.argv[i + 1] : '2025';
   const 원천 = path.resolve(`archive/raw/dart-employment/employment-${연도}.ndjson`);
   if (!existsSync(원천)) { console.error(`✕ ${원천} 이 없다. npm run collect:tenure 를 먼저.`); process.exit(1); }
-  const 행 = 가공(읽기(원천));
+  /* 곁자료 — 없으면 없는 대로 간다. 수집이 도는 중에도 순위표는 살아 있어야 한다 */
+  const 회사파일 = path.resolve('archive/raw/dart-company/company.ndjson');
+  const 임원파일 = path.resolve(`archive/raw/dart-executives/executives-${연도}.ndjson`);
+  const 회사표 = existsSync(회사파일) ? 읽기(회사파일) : [];
+  const 임원표 = existsSync(임원파일) ? 읽기(임원파일) : [];
+  console.log(`곁자료 — 기업정보 ${회사표.length.toLocaleString()} · 임원 ${임원표.length.toLocaleString()}`);
+
+  const 행 = 곁붙이기(가공(읽기(원천)), 회사표, 임원표);
   mkdirSync(path.resolve('archive/report'), { recursive: true });
   const 산출 = path.resolve(`archive/report/ranking-${연도}.html`);
   writeFileSync(산출, 만들기(행, 연도));
