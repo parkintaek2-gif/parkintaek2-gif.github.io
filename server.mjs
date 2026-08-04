@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
+import { 센다, flush할때되면, 현황 as 유입현황 } from './src/lib/traffic.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -306,6 +307,18 @@ const handle = async (req, res) => {
       'X-Robots-Tag': 'noindex, nofollow',
     };
 
+    /* /admin/traffic — 유입 현황 (JSON).
+     * ⚠ **인증 안쪽**에 둔다. 우리 유입 분포는 밖에 보일 이유가 없다.
+     * 집계만 있고 개인을 식별할 값은 애초에 안 모은다(traffic.mjs). */
+    if (pathname === '/admin/traffic') {
+      let 몸;
+      try { 몸 = JSON.stringify(유입현황(), null, 1); }
+      catch (e) { 몸 = JSON.stringify({ error: String(e?.message ?? e) }); }
+      res.writeHead(200, { ...adminHeaders, 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(req.method === 'HEAD' ? undefined : 몸);
+      return;
+    }
+
     // /admin/raw/<slug> — 마크다운 원문 그대로 (복사·수정용)
     const rawMatch = pathname.match(/^\/admin\/raw\/(.+)$/);
     if (rawMatch) {
@@ -361,6 +374,26 @@ const handle = async (req, res) => {
 };
 
 const server = createServer((req, res) => {
+  /* ── 유입 측정 ────────────────────────────────────────────────────
+   * ⚠ **응답이 끝난 뒤에** 센다. 요청 처리 경로를 한 톨도 늦추지 않는다.
+   *   그리고 `센다`/`flush할때되면` 은 **던지지 않도록** 만들어져 있다(traffic.mjs).
+   *   그래도 여기서 한 번 더 감싼다 — 측정 때문에 세 사이트가 죽는 일은 없어야 한다.
+   *
+   * 남기는 것: 호스트·경로·유입 도메인·봇 여부.  안 남기는 것: **IP·쿠키·UA 원문·검색어**
+   */
+  res.on('finish', () => {
+    try {
+      const u = new URL(req.url ?? '/', 'http://localhost');
+      센다({
+        host: String(req.headers.host ?? '').split(':')[0],
+        pathname: u.pathname,
+        referer: req.headers.referer ?? req.headers.referrer,
+        userAgent: req.headers['user-agent'],
+      });
+      flush할때되면();
+    } catch { /* 측정은 조용히 실패한다 */ }
+  });
+
   handle(req, res).catch((err) => {
     console.error(`[500] ${req.method} ${req.url} —`, err?.message ?? err);
     if (res.headersSent) {
