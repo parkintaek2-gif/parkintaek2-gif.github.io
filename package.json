@@ -43,7 +43,8 @@
     "collect:netflix": "node scripts/collect-netflix-top10.mjs",
     "collect:stars": "node scripts/collect-star-pageviews.mjs",
     "build:rankings": "node scripts/build-rankings-json.mjs",
-    "collect:derivatives": "node scripts/collect-derivatives.mjs"
+    "collect:derivatives": "node scripts/collect-derivatives.mjs",
+    "collect:indices": "node scripts/collect-indices.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
