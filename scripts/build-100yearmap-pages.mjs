@@ -6,9 +6,9 @@
  *
  * 입력  archive/raw/neis/school-info.json   NEIS 학교기본정보 12,665
  *       archive/raw/neis/school-major.json  NEIS 학교학과정보 18,169
- * 출력  archive/100yearmap/pages-school.json  학교 페이지
- *       archive/100yearmap/pages-major.json   학과 페이지
- *       archive/100yearmap/summary.json       집계
+ * 출력  src/data/100yearmap/pages-school.json  학교 페이지
+ *       src/data/100yearmap/pages-major.json   학과 페이지
+ *       src/data/100yearmap/summary.json       집계
  *
  * ⚠ 페이지 한 장마다 「우리만 있는 값」이 최소 하나 있어야 한다.
  *   원자료를 그대로 옮긴 페이지는 색인이 안 되고 사이트 평가만 깎는다.
@@ -22,7 +22,17 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const IN = join(ROOT, 'archive', 'raw', 'neis');
-const OUT = join(ROOT, 'archive', '100yearmap');
+/*
+ * ⚠ 2026-08-04 19:0x KST — 출력 위치를 archive/ 에서 src/data/ 로 옮겼다. (2번이 고침)
+ *   archive/ 는 **gitignore** 라 저장소에 안 올라간다. 그런데 이 산출물을
+ *   src/pages/100y/*.astro 가 import 한다 → **새 클론과 Cloudtype 컨테이너에서 파일이 없어**
+ *    로 빌드가 3초 만에 죽었다.
+ *   그 바람에 16:20 이후 **seoulmarkets 와 100yearmap 배포가 둘 다 멈춰 있었다.**
+ *
+ *   원칙: **빌드가 읽는 것은 빌드 입력이지 아카이브가 아니다.**
+ *   원자료는 archive/ 에, **빌드가 import 하는 산출물은 src/data/ 에** 둔다.
+ */
+const OUT = join(ROOT, 'src', 'data', '100yearmap');
 
 /** 학과명이 아닌 것 — 교육과정 구분값이라 진로 검색어가 되지 않는다.
  *  ⚠ 이걸 안 거르면 「일반학과」 페이지가 2,461개교짜리 최상위 페이지가 된다. */

@@ -13,8 +13,8 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
-import schools from '../../../../archive/100yearmap/pages-school.json';
-import majors from '../../../../archive/100yearmap/pages-major.json';
+import schools from '../../../data/100yearmap/pages-school.json';
+import majors from '../../../data/100yearmap/pages-major.json';
 
 /** 페이지가 있는 학과만 링크한다. 개설 학교가 1곳뿐인 학과는 페이지가 없다(얇아서 뺐다) */
 const HAS_PAGE = new Set((majors as any[]).map((m) => m.url));

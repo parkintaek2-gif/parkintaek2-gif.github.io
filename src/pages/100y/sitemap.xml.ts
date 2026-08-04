@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro';
-import majors from '../../../archive/100yearmap/pages-major.json';
-import schools from '../../../archive/100yearmap/pages-school.json';
+import majors from '../../data/100yearmap/pages-major.json';
+import schools from '../../data/100yearmap/pages-school.json';
 
 /**
  * 백년지도 사이트맵.
