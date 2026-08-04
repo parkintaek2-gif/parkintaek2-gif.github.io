@@ -220,8 +220,25 @@ const handle = async (req, res) => {
     'hundredyearmap.com': '/100y',
     'wiki-tip.com': '/wikitip',
   };
+  /* ⚠⚠ **접두사 밖에 두어야 하는 경로들.** 3번이 잡아 준 사고다 (2026-08-05).
+   *
+   *   404  100yearmap.com/_astro/HundredYear.css   →  dist/100y/_astro/… **그런 폴더가 없다**
+   *   200  seoulmarkets.com/_astro/Base.css        →  dist/_astro/…       접두사가 없어 멀쩡했다
+   *
+   * `dist/_astro/` **하나에 세 사이트 자산이 다 들어간다.** 빌드 도구가 그렇게 낸다.
+   * 그런데 접두사가 붙는 사이트만 못 찾았다.
+   *
+   * ⚠ **오류가 하나도 안 난다.** 빌드 통과·배포 성공·지면 200. **화면만 민얼굴이다.**
+   *   3번이 배포 전에 `<link>` 를 세어 봤기에 걸렸다. 안 셌으면 3,862장이 그대로 나갔다.
+   *
+   * ⚠ **CSS 만의 문제가 아니다.** 앞으로 이미지·JS·폰트를 자산으로 쓰면 같은 일이 난다.
+   *   그래서 파일 하나를 막는 게 아니라 **경로 규칙**으로 막는다.
+   *   새 빌드 도구를 붙일 때 그것이 만드는 공유 경로가 있으면 **여기에 더한다.**
+   */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\//;
+
   const prefix = SITE_PREFIX[host] ?? '';
-  if (prefix && !pathname.startsWith(prefix)) {
+  if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
     // ⚠ Astro 가 `dist/100y.html` 로 낸다(폴더가 아니다). 그래서 `/` 는 접두사 **그대로**
     //   보내야 아래 clean URL 로직이 `100y.html` 을 찾는다. `/100y/` 로 보내면 404 다.
     pathname = pathname === '/' ? prefix : prefix + pathname;
@@ -353,7 +370,22 @@ const handle = async (req, res) => {
     .replace(/\.html$/, '')
     .replace(/(.)\/$/, '$1');
   if (canonical !== pathname) {
-    res.writeHead(301, { ...BASE_HEADERS, Location: canonical || '/' }).end();
+    /* ⚠⚠ **접두사를 도로 떼고 보낸다.** 3번이 잡아 준 것이다 (2026-08-05).
+     *
+     *   전   100yearmap.com/school/  →  301  →  「/100y/school」   ← 내부 경로가 샌다
+     *   후   100yearmap.com/school/  →  301  →  「/school」
+     *
+     * ⚠ 위 줄에 `**` 로 강조를 못 쓴다 — `**` 뒤에 `/` 가 오면 블록 주석이 거기서 끝난다.
+     *   실제로 이 파일에서 한 번 깨뜨렸다. 강조가 필요하면 「」 를 쓴다.
+     *
+     * `/100y` 는 **한 인스턴스가 세 사이트를 서비스하려고 안에서만 쓰는 접두사**다.
+     * 밖으로 나가면 두 주소가 같은 문서를 가리켜 **검색엔진이 중복으로 색인**한다.
+     * 이용자가 그 주소를 공유하면 그것이 퍼진다.
+     *
+     * 원인은 순서였다 — 접두사를 **붙인 뒤에** 정본을 만들었다. 뗀 값으로 보낸다. */
+    let 보낼곳 = canonical;
+    if (prefix && 보낼곳.startsWith(prefix)) 보낼곳 = 보낼곳.slice(prefix.length) || '/';
+    res.writeHead(301, { ...BASE_HEADERS, Location: 보낼곳 || '/' }).end();
     return;
   }
 
