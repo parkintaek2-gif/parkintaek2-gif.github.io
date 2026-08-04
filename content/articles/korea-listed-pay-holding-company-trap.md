@@ -1,0 +1,93 @@
+---
+title: "Half of Korea's ten best-paying listed companies employ fewer than 200 people"
+dek: "Average pay per employee is filed by every listed company. Read the ranking without checking headcount and you will conclude that Korean finance pays three times what chipmaking does. The gap is real, but the ranking is not measuring what it appears to."
+category: equities
+pubDate: 2026-08-04
+dataAsOf: 2026-08-04T09:00:00+09:00
+author: Newsroom
+tags: ["compensation", "corporate disclosure", "holding companies", "human capital"]
+tickers: []
+sources:
+  - org: "Financial Supervisory Service (Korea)"
+    api: "DART Open API — empSttus (Employee Status, annual report item)"
+    url: "https://opendart.fss.or.kr"
+  - org: "Financial Supervisory Service (Korea)"
+    api: "DART Open API — company (industry code, headquarters address, incorporation date)"
+    url: "https://opendart.fss.or.kr"
+crossChecks:
+  - "Average pay per employee is a statutory disclosure item filed by the company itself, not an outside estimate"
+  - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table; 1,560 of those met the thresholds used here"
+  - "60 companies were excluded because a filed figure is outside any plausible range — pay above 1bn won or below 10m won, or tenure above 35 years. These are unit-entry errors by the filer. They were removed, not corrected"
+  - "Only firms with at least 100 employees are counted, and headcount is reported alongside every pay figure so the reader can see the sample behind each number"
+  - "Industry averages are weighted by headcount, not by company, so that a sector's figure reflects the people in it rather than the number of listings"
+  - "Industry codes are filed at two to five digits — a mix of KSIC sub-class and detail-class. All were normalised to the two-digit division before grouping; ungrouped, the same industry splits across several rows"
+excluded:
+  - "Executive pay, which is disclosed separately and is not inside this figure"
+  - "Whether pay is deserved, competitive, or rising — this article reports the filed level and its composition"
+  - "Bonus and stock-option treatment, which filers handle differently and the disclosure does not itemise"
+  - "Unlisted companies, which file no such table"
+draft: false
+---
+
+Every listed Korean company files, once a year, the average annual pay of its employees. Sort 1,560 of them and the top of the table looks like a verdict on which industries pay.
+
+| # | Company | Average pay | Employees |
+| ---: | --- | ---: | ---: |
+| 1 | NH Investment & Securities | 213m won | 958 |
+| 2 | KB Financial Group | 198m | **144** |
+| 3 | Kyobo Securities | 191m | 521 |
+| 4 | Woori Financial Group | 185m | **114** |
+| 5 | SK hynix | 185m | 34,549 |
+| 6 | LG Corp | 180m | **195** |
+| 7 | Shinhan Securities | 179m | 723 |
+| 8 | Daol Investment & Securities | 178m | 344 |
+| 9 | Shinhan Financial Group | 178m | **195** |
+| 10 | Korean Reinsurance | 177m | 446 |
+
+Look at the right-hand column. **Four of the top ten employ fewer than 200 people.** Widen it to the top twenty and nine do — most of them holding companies.
+
+## What a holding company's pay figure is
+
+KB Financial Group is not a bank. It is the entity that owns one. Its 144 employees are the group's head office — planning, finance, strategy, the executive layer — and none of the tellers, call-centre staff or branch managers who make up the tens of thousands of people the group actually employs.
+
+The same is true of Woori Financial Group (114), Shinhan Financial Group (195), LG Corp (195) and JB Financial Group (108). Each files a pay figure that is accurate, statutory, and describes a head office.
+
+Put that next to SK hynix at fifth place. SK hynix files 185m won across **34,549 people**. It is the only company in the top ten whose figure describes a workforce rather than a headquarters.
+
+This is not a flaw in the disclosure. It is a flaw in reading the disclosure as a ranking.
+
+## Weighted by people, the picture changes
+
+Group by industry and weight by headcount rather than by company, and the ordering is different from what the top-ten table implies.
+
+| Industry | Pay per employee | Companies |
+| --- | ---: | ---: |
+| Finance and insurance services | 144m won | 23 |
+| Electronics, computers, telecom equipment | 128m | 173 |
+| Telecommunications | 124m | 10 |
+| Insurance and pensions | 123m | 14 |
+| Motor vehicles and trailers | 119m | 90 |
+| … | | |
+| Retail | 62m | 24 |
+| Medical, precision and optical instruments | 58m | 56 |
+| Other scientific and technical services | 58m | 12 |
+| Education services | 50m | 11 |
+
+Finance still leads. But the distance to chipmaking is 16m won, not the 30m the company ranking suggests — because the industry figure counts the 34,549 people at SK hynix at their real weight, while the company ranking counts a 144-person holding company and a 34,549-person manufacturer as one row each.
+
+## The spread, for context
+
+Across the 1,560 companies and 1,452,844 employees in this sample:
+
+- **Median company:** 64m won
+- **Mean company:** 71m won
+- **Top decile:** 103m won and above
+- **Bottom decile:** 46m won and below
+
+The bottom of the table is not an error. Lingseo Korea files 18m won across 114 employees; Alchera files 24m across 171. Both are within the range a company can legitimately report, and both were checked against the range test that removed sixty other filings as unit-entry mistakes.
+
+## How to read this column
+
+Average pay per employee answers one question well: what does the average person at this specific legal entity earn. It does not answer what a group pays, what a job pays, or what a sector pays — and the ranking format quietly invites all three readings.
+
+The fix is not complicated. **Read the headcount column first.** Four of the ten highest-paying listed companies in Korea would not fill a mid-sized office.
