@@ -1,0 +1,337 @@
+---
+/**
+ * **Rankings** — 동적 순위 표그래프. (seoulmarkets.com/rankings)
+ *
+ * ── 사장님 지시(2026-08-04) ────────────────────────────────────
+ *   「**동적 표그래프**를 만들어. 상 많이 받은 곳, 근속연수 등 직종은, 기업은…」
+ *   「**내가 보고 싶은 순위를 선택하면 순위가 쭉 뜨는 내림차순/오름차순** 등」
+ *
+ * ── 왜 리포트가 아니라 지면인가 ────────────────────────────────
+ * `render-ranking.mjs` 가 만드는 **한국어 로컬 리포트**가 이미 있다(archive/report/).
+ * 그건 사장님이 보시는 용도다. 이 지면은 **고객이 보는 것**이라 두 가지가 다르다 —
+ *   ① 영문이다. SeoulMarkets 는 영문 매체다
+ *   ② 사이트에 올라가 **검색에 걸린다.** 우리의 유일한 마케팅이 검색 유입이다
+ * 계산은 같은 스크립트를 재사용한다(`build-rankings-json.mjs` → `가공`·`곁붙이기`).
+ * **계산을 복사하면 두 곳이 어긋난다.**
+ *
+ * ── ⚠ 외부 자원 0개 ───────────────────────────────────────────
+ * 정렬·필터·막대 전부 손으로 짠다. 표 하나에 라이브러리를 부르지 않는다.
+ *
+ * ── ⚠ 직원 수를 항상 같이 보여 준다 ───────────────────────────
+ * 급여 순위 1위가 CJ(주) 7.5억인데 **지주회사 본사만 센 값**이다.
+ * 우리 기사(`korea-listed-pay-holding-company-trap`)가 바로 그 함정을 다뤘다.
+ * 그 기사를 써 놓고 여기서 인원을 안 보여 주면 우리가 같은 오독을 만든다.
+ * → 어느 축으로 정렬하든 **Employees 열은 늘 보인다.**
+ *
+ * ── ⚠ 「좋음」을 정하지 않는다 ─────────────────────────────────
+ * 근속이 길면 좋은 회사인가? 이직이 막힌 것일 수도 있다.
+ * 축마다 화살표만 주고 **가치판단을 화면에 넣지 않는다.**
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import data from '../data/rankings.json';
+
+const TITLE = 'Korean listed companies, ranked';
+const DESC =
+  `Tenure, pay, gender gap, headcount, CEO tenure and company age for ${data.rows.length.toLocaleString()} `
+  + 'Korean listed companies, from their own regulatory filings. Sort by any measure, filter by industry or region.';
+
+/**
+ * ⚠ 첫 화면 50행을 **서버에서 그려 넣는다.**
+ *
+ * 표를 JS 로만 그리면 HTML 의 `<tbody>` 가 비어서 나간다. 사람 눈에는 같아 보이지만
+ * **검색엔진에는 빈 표**다. 이 지면의 존재 이유가 검색 유입인데 그러면 앞뒤가 안 맞는다.
+ * (구글이 JS 를 돌리긴 하지만 보장이 아니고, 다른 크롤러는 대개 안 돌린다.)
+ *
+ * 그래서 기본 축(Average tenure) 상위 50 을 미리 박아 두고, JS 가 뜨면 그 위에 덮어쓴다.
+ * JS 가 아예 안 뜨는 환경에서도 **표가 읽히고 순위가 보인다.**
+ */
+const 열 = Object.fromEntries(data.cols.map((c, i) => [c, i]));
+const 기본축 = data.axes[0];
+const 기본열 = 열[기본축.id];
+const 초기 = data.rows
+  .filter((r) => r[기본열] != null)
+  .sort((a, b) => b[기본열] - a[기본열])
+  .slice(0, 50);
+const 최대 = Math.max(...초기.map((r) => Math.abs(r[기본열])), 1);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: `Korean listed company workforce rankings ${data.year}`,
+  description: DESC,
+  url: `${SITE_URL}/rankings`,
+  temporalCoverage: String(data.year),
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isBasedOn: 'https://opendart.fss.or.kr',
+  variableMeasured: data.axes.map((a) => a.label),
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="rk">
+      <h1>Korean listed companies, ranked</h1>
+      <p class="lead">
+        Every listed company in Korea files the same workforce table once a year: how many people it
+        employs, how long they stay, and what they are paid, split by sex. Almost nobody reads it,
+        because it sits inside a PDF in Korean. Here is all of it, sorted however you like.
+      </p>
+
+      <div class="ctl">
+        <label>
+          <span>Rank by</span>
+          <select id="axis">
+            {data.axes.map((a) => <option value={a.id}>{a.label}</option>)}
+          </select>
+        </label>
+        <label>
+          <span>Order</span>
+          <select id="dir">
+            <option value="desc">Highest first</option>
+            <option value="asc">Lowest first</option>
+          </select>
+        </label>
+        <label>
+          <span>Industry</span>
+          <select id="ind"><option value="">All industries</option></select>
+        </label>
+        <label>
+          <span>Region</span>
+          <select id="reg"><option value="">All regions</option></select>
+        </label>
+        <label class="grow">
+          <span>Find a company</span>
+          <input id="q" type="search" placeholder="Samsung, Hyundai, SK…" autocomplete="off" />
+        </label>
+      </div>
+
+      <p class="axisnote" id="axisnote"></p>
+      <p class="count" id="count"></p>
+
+      <div class="scroll-x">
+        <table id="tbl">
+          <thead>
+            <tr>
+              <th class="r">#</th>
+              <th>Company</th>
+              <th class="r" id="vh">{기본축.label}</th>
+              <th class="r">Employees</th>
+              <th class="hide-sm">Industry</th>
+            </tr>
+          </thead>
+          <tbody id="body">
+            {초기.map((r, i) => (
+              <tr>
+                <td class="r n">{i + 1}</td>
+                <td class="nm">
+                  <span class="bar" style={`width:${(Math.abs(r[기본열]) / 최대 * 100).toFixed(1)}%`}></span>
+                  <span class="t">{r[열.name]}{r[열.ticker] && <span class="tk"> {r[열.ticker]}</span>}</span>
+                </td>
+                <td class="r v">{r[기본열].toFixed(2)}</td>
+                <td class="r e">{r[열.headcount] == null ? '—' : r[열.headcount].toLocaleString()}</td>
+                <td class="hide-sm i">{r[열.industry] ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <p class="more"><button id="more" type="button">Show 100 more</button></p>
+
+      <section class="meth">
+        <h2>How to read this table</h2>
+        <ul>
+          <li>
+            <b>Check the headcount column before the value column.</b> A holding company files a pay
+            figure for its head office — often fewer than 200 people — not for the group whose name
+            it carries. The top of the pay ranking is mostly head offices.
+            <a href="/article/korea-listed-pay-holding-company-trap">We wrote about exactly this.</a>
+          </li>
+          <li>
+            <b>No measure here is a verdict.</b> Long tenure can mean a company people want to stay
+            at, or a labour market they cannot leave. We publish the number and its direction, and
+            leave the interpretation where it belongs.
+          </li>
+          <li>
+            <b>A blank is not a zero.</b> Where a company did not file a figure, the cell is empty
+            and the company is left out of that ranking rather than sorted to the bottom.
+          </li>
+        </ul>
+
+        <h2>Sources and what we removed</h2>
+        <ul>
+          <li>
+            <b>Source</b> — Financial Supervisory Service, DART Open API: the employee-status,
+            executive-status and corporate-registry items of the {data.year} annual reports.
+            Figures are as filed by each company.
+          </li>
+          <li>
+            <b>{data.filtered} companies were removed</b> for filing a figure outside any plausible
+            range — pay above 1bn won or below 10m, or tenure above 35 years. Korean filers may
+            enter units freely, so months arrive where years belong and thousands of won where won
+            belong. These were <b>removed, not corrected</b>: a corrected figure would be ours, not
+            theirs.
+          </li>
+          <li>
+            <b>Coverage is uneven and we do not hide it.</b> Of the {data.rows.length.toLocaleString()}
+            companies listed here, pay is filed by 95.9%, headcount by 97.5%, tenure by 63.5% and a
+            datable CEO term by 64.1%. Rankings are computed on the companies that filed.
+          </li>
+          <li>
+            <b>{data.ceoFlagged} CEO terms are marked with an asterisk</b> because the term filed is
+            longer than the company has existed. That is impossible as stated, and there are two
+            plausible reasons — the filer counted service at a predecessor or affiliate, or the
+            incorporation date on file is a re-incorporation after a merger or spin-off. The data
+            cannot tell us which. So these are <b>marked, not removed and not adjusted</b>: removing
+            them would delete 6.2% of the column and, because they cluster at the top, would push
+            the whole ranking down.
+          </li>
+          <li>
+            <b>Executive pay is not in this table.</b> It is disclosed separately and is not inside
+            the average-pay figure.
+          </li>
+        </ul>
+        <p class="fine">
+          Data as of {data.generated} KST · fiscal year {data.year} · Not investment advice.
+        </p>
+      </section>
+    </div>
+  </div>
+
+  <script type="application/json" id="rk-data" set:html={JSON.stringify(data)}></script>
+
+  <script is:inline>
+    (() => {
+      const D = JSON.parse(document.getElementById('rk-data').textContent);
+      const col = Object.fromEntries(D.cols.map((c, i) => [c, i]));
+      const AX = Object.fromEntries(D.axes.map((a) => [a.id, a]));
+      const $ = (id) => document.getElementById(id);
+      let 축 = D.axes[0].id, 방향 = D.axes[0].dir, 보임 = 50;
+
+      /* HTML 로 넣는 값은 전부 막는다. 회사명은 신고자가 적은 문자열이다 */
+      const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+        ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+      /* ⚠ 억 단위로 접는 건 급여(KRW)뿐이다. 근속연수를 억으로 접으면 안 된다 */
+      function 꼴(v, unit) {
+        if (v == null) return '—';
+        if (unit === 'KRW') return (v / 1e6).toFixed(1) + 'm';
+        if (unit === '%') return v.toFixed(1) + '%';
+        if (unit === 'n') return v.toLocaleString();
+        return v.toFixed(2);
+      }
+
+      function 채우기(id, ci) {
+        const 셈 = new Map();
+        for (const r of D.rows) { const v = r[ci]; if (v) 셈.set(v, (셈.get(v) ?? 0) + 1); }
+        const el = $(id);
+        el.innerHTML = el.options[0].outerHTML + [...셈].sort((a, b) => b[1] - a[1])
+          .map(([v, n]) => `<option value="${esc(v)}">${esc(v)} (${n})</option>`).join('');
+      }
+
+      function 고른것() {
+        const ci = col[축];
+        const ind = $('ind').value, reg = $('reg').value;
+        const q = $('q').value.trim().toLowerCase();
+        let v = D.rows.filter((r) => r[ci] != null);
+        if (ind) v = v.filter((r) => r[col.industry] === ind);
+        if (reg) v = v.filter((r) => r[col.region] === reg);
+        if (q) v = v.filter((r) => r[col.name].toLowerCase().includes(q)
+          || String(r[col.ticker] ?? '').includes(q));
+        return v.sort((a, b) => 방향 === 'desc' ? b[ci] - a[ci] : a[ci] - b[ci]);
+      }
+
+      function 그리기() {
+        const a = AX[축], ci = col[축];
+        const v = 고른것();
+        $('vh').textContent = a.label;
+        $('axisnote').textContent = a.note ?? '';
+        $('axisnote').style.display = a.note ? '' : 'none';
+        $('count').textContent = v.length
+          ? `${v.length.toLocaleString()} companies filed this figure`
+          : 'No company matches these filters.';
+
+        /* 막대 길이는 **보이는 구간의 최대**가 아니라 전체 최대에 맞춘다.
+           필터를 걸 때마다 막대가 늘었다 줄었다 하면 크기 비교가 깨진다 */
+        const 최대 = Math.max(...v.map((r) => Math.abs(r[ci])), 1);
+        const 볼것 = v.slice(0, 보임);
+        $('body').innerHTML = 볼것.map((r, i) => {
+          const val = r[ci];
+          const w = (Math.abs(val) / 최대 * 100).toFixed(1);
+          return `<tr>
+            <td class="r n">${i + 1}</td>
+            <td class="nm"><span class="bar" style="width:${w}%"></span><span class="t">${esc(r[col.name])}${
+              r[col.ticker] ? ` <span class="tk">${esc(r[col.ticker])}</span>` : ''}</span></td>
+            <td class="r v">${꼴(val, a.unit)}${
+              /* ⚠ 대표 재직이 업력보다 긴 곳. 값을 고치지 않고 **표시만** 한다 */
+              축 === 'ceoTenure' && r[col.ceoFlag] ? '<span class="flag" title="Longer than the company has existed">*</span>' : ''}</td>
+            <td class="r e">${r[col.headcount] == null ? '—' : r[col.headcount].toLocaleString()}</td>
+            <td class="hide-sm i">${esc(r[col.industry] ?? '—')}</td>
+          </tr>`;
+        }).join('');
+        $('more').style.display = v.length > 보임 ? '' : 'none';
+      }
+
+      $('axis').onchange = () => { 축 = $('axis').value; 방향 = AX[축].dir; $('dir').value = 방향; 보임 = 50; 그리기(); };
+      $('dir').onchange = () => { 방향 = $('dir').value; 보임 = 50; 그리기(); };
+      $('ind').onchange = $('reg').onchange = () => { 보임 = 50; 그리기(); };
+      let 타이머;
+      $('q').oninput = () => { clearTimeout(타이머); 타이머 = setTimeout(() => { 보임 = 50; 그리기(); }, 150); };
+      $('more').onclick = () => { 보임 += 100; 그리기(); };
+
+      채우기('ind', col.industry);
+      채우기('reg', col.region);
+      그리기();
+    })();
+  </script>
+</Base>
+
+<style>
+  .rk h1 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); line-height: 1.25; margin: 1rem 0 .7rem; letter-spacing: -.02em; }
+  .rk .lead { color: var(--muted); margin: 0 0 1.6rem; max-width: 46rem; }
+
+  .ctl { display: flex; flex-wrap: wrap; gap: .7rem 1rem; margin: 0 0 1rem; }
+  .ctl label { display: flex; flex-direction: column; gap: .25rem; font-size: .78rem; color: var(--muted); }
+  .ctl label.grow { flex: 1 1 12rem; }
+  .ctl select, .ctl input {
+    font: inherit; font-size: .9rem; padding: .45rem .6rem;
+    border: 1px solid var(--line); border-radius: 6px;
+    background: var(--bg); color: var(--ink); max-width: 100%;
+  }
+  .axisnote { font-size: .84rem; color: var(--muted); margin: 0 0 .5rem; line-height: 1.6; }
+  .count { font-size: .8rem; color: var(--muted); margin: 0 0 .6rem; font-variant-numeric: tabular-nums; }
+
+  /* ⚠ 표가 지면을 가로로 밀지 않게 자기 안에서 스크롤한다 */
+  .scroll-x { overflow-x: auto; }
+  #tbl { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  #tbl th, #tbl td { padding: .5rem .55rem; border-bottom: 1px solid var(--line); text-align: left; }
+  #tbl th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  #tbl .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #tbl .n { color: var(--muted); width: 2.6rem; }
+  #tbl .v { font-weight: 600; }
+  #tbl .e, #tbl .i { color: var(--muted); }
+  #tbl .i { font-size: .82rem; }
+
+  /* 표그래프 — 칸 배경에 막대를 깐다. 눈은 길이를, 필요하면 숫자를 읽는다 */
+  #tbl .nm { position: relative; min-width: 14rem; overflow: hidden; }
+  #tbl .bar { position: absolute; left: 0; top: 3px; bottom: 3px; background: var(--card); border-radius: 0 3px 3px 0; }
+  #tbl .nm .t { position: relative; }
+  #tbl .tk { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+
+  .more { margin: 1rem 0 0; }
+  #more { font: inherit; font-size: .86rem; padding: .5rem 1rem; cursor: pointer;
+          border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); }
+
+  .meth { margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+  .meth h2 { font-size: 1.02rem; margin: 1.4rem 0 .5rem; }
+  .meth h2:first-child { margin-top: 0; }
+  .meth ul { padding-left: 1.1rem; margin: 0; }
+  .meth li { margin: 0 0 .55rem; font-size: .89rem; line-height: 1.65; color: var(--muted); }
+  .meth li b { color: var(--ink); }
+  #tbl .flag { color: var(--accent); font-weight: 700; margin-left: .15rem; cursor: help; }
+  .fine { font-size: .8rem; color: var(--muted); margin: 1rem 0 0; }
+
+  @media (max-width: 560px) { .hide-sm { display: none; } }
+  @media print { .ctl, .more { display: none; } }
+</style>

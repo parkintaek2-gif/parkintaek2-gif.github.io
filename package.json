@@ -41,7 +41,8 @@
     "collect:bonds": "node scripts/collect-bonds.mjs",
     "collect:commodities": "node scripts/collect-commodities.mjs",
     "collect:netflix": "node scripts/collect-netflix-top10.mjs",
-    "collect:stars": "node scripts/collect-star-pageviews.mjs"
+    "collect:stars": "node scripts/collect-star-pageviews.mjs",
+    "build:rankings": "node scripts/build-rankings-json.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
