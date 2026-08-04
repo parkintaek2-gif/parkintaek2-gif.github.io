@@ -93,6 +93,26 @@ const jsonLd = {
         because it sits inside a PDF in Korean. Here is all of it, sorted however you like.
       </p>
 
+      {
+        /**
+         * ⭐ **표를 내려받게 한다.** 전략 Ⅲ — 「B2B 는 지면을 안 산다. 표를 산다」
+         *
+         * 2026-08-05: CSV 는 이미 있는데 **어디에서도 안 걸려 있었다.**
+         * 「무료 발행은 카탈로그」인데 카탈로그에 물건이 안 보이면 없는 것과 같다.
+         * (3번의 회람 지적 — 「쓰이지 않는 도구는 없는 도구다」)
+         *
+         * ⚠ 지면 위쪽에 둔다. 표를 다 훑고 내려간 사람만 보는 자리에 두면 안 걸린다.
+         *   다만 **버튼이 아니라 한 줄**로 둔다 — 기사가 아니라 광고처럼 보이면 안 된다.
+         */
+      }
+      <p class="grab">
+        <a href="/data/korean-listed-workforce.csv" download>Download the whole table (CSV)</a>
+        <span
+          >{data.rows.length.toLocaleString()} companies · fiscal year {data.year} · free, no sign-up.
+          Source and definitions are in the file header.</span
+        >
+      </p>
+
       <div class="ctl">
         <label>
           <span>Rank by</span>
@@ -306,6 +326,13 @@ const jsonLd = {
 <style>
   .rk h1 { font-size: clamp(1.6rem, 4.5vw, 2.2rem); line-height: 1.25; margin: 1rem 0 .7rem; letter-spacing: -.02em; }
   .rk .lead { color: var(--muted); margin: 0 0 1.6rem; max-width: 46rem; }
+
+  /* 표 내려받기 한 줄. ⚠ 버튼처럼 크게 만들지 않는다 — 광고로 보이면 신뢰가 깎인다 */
+  .rk .grab { margin: 0 0 1.6rem; font-size: .88rem; line-height: 1.5; }
+  .rk .grab a { color: var(--accent); font-weight: 600; text-decoration: none;
+                border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .rk .grab a:hover { color: var(--ink); }
+  .rk .grab span { display: block; color: var(--muted); font-size: .8rem; margin-top: .2rem; }
 
   .ctl { display: flex; flex-wrap: wrap; gap: .7rem 1rem; margin: 0 0 1rem; }
   .ctl label { display: flex; flex-direction: column; gap: .25rem; font-size: .78rem; color: var(--muted); }
