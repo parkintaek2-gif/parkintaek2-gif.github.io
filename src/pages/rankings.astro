@@ -139,6 +139,20 @@ const jsonLd = {
 
       <p class="more"><button id="more" type="button">Show 100 more</button></p>
 
+      {/* ⭐ 「B2B 는 지면을 안 산다. 표를 산다」 — 지면과 **같은 빌드**에서 떨어지는 원본.
+          안 걸어 두면 아무도 모른다. 지면 맨 위, 표 바로 아래에 둔다. */}
+      <section class="grab">
+        <a class="grab__btn" href="/data/korean-listed-workforce.csv" download>
+          Download the whole table (CSV)
+        </a>
+        <p class="grab__note">
+          All {data.rows.length.toLocaleString()} companies, all {data.cols.length} columns — the same
+          file this page is built from, so the numbers cannot drift apart. Free to use with attribution
+          to SeoulMarkets and to the Financial Supervisory Service, which publishes the underlying
+          filings. Blank means not disclosed, not zero.
+        </p>
+      </section>
+
       <section class="meth">
         <h2>How to read this table</h2>
         <ul>
@@ -344,6 +358,15 @@ const jsonLd = {
   .more { margin: 1rem 0 0; }
   #more { font: inherit; font-size: .86rem; padding: .5rem 1rem; cursor: pointer;
           border: 1px solid var(--line); border-radius: 6px; background: var(--bg); color: var(--ink); }
+
+  /* ⭐ 내려받기 — 눈에 띄어야 한다. 안 보이면 없는 것과 같다 */
+  .grab { margin: 1.6rem 0 0; padding: 1rem 1.1rem; border: 1px solid var(--line);
+          border-radius: 8px; background: var(--card); }
+  .grab__btn { display: inline-block; font-family: var(--sans); font-size: .92rem; font-weight: 650;
+               text-decoration: none; color: var(--bg); background: var(--ink);
+               padding: .55rem 1rem; border-radius: 6px; }
+  .grab__btn:hover { opacity: .88; }
+  .grab__note { margin: .7rem 0 0; font-size: .83rem; line-height: 1.65; color: var(--muted); }
 
   .meth { margin: 3rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
   .meth h2 { font-size: 1.02rem; margin: 1.4rem 0 .5rem; }
