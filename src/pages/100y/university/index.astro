@@ -1,0 +1,173 @@
+---
+/**
+ * /100y/university — 대학 찾기
+ *
+ * ⛔ 「대학 순위」를 만들지 않는다. 지역으로 묶고, 지역 안에서는 가나다순이다.
+ *    옆에 붙는 중도탈락률은 **사실**이지 등수가 아니다. 정렬 기준으로 쓰지 않는다.
+ *
+ * ⚠ 첫 지역만 펼쳐 둔다 — `<details>` 안이 전부 접혀 있으면 검색엔진이
+ *   「숨긴 내용」으로 낮게 볼 수 있다(2번 지적, 2026-08-04). 아직 실측한 적은 없다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import universities from '../../../data/100yearmap/pages-university.json';
+
+const 묶음 = new Map<string, any[]>();
+for (const u of universities as any[]) {
+  const k = u.지역 ?? '미분류';
+  if (!묶음.has(k)) 묶음.set(k, []);
+  묶음.get(k)!.push(u);
+}
+const 지역목록 = [...묶음.entries()]
+  .map(([지역, list]) => ({ 지역, list: list.sort((a, b) => a.title.localeCompare(b.title, 'ko')) }))
+  .sort((a, b) => b.list.length - a.list.length);
+
+const 전체 = (universities as any[]).length;
+const 종류별 = new Map<string, number>();
+for (const u of universities as any[]) 종류별.set(u.종류, (종류별.get(u.종류) ?? 0) + 1);
+const 공시연도 = (universities as any[])[0]?.공시연도;
+
+const desc =
+  `전국 대학 ${전체}곳을 지역별로 정리했습니다. 학교를 고르면 다니던 100명 가운데 몇 명이 ` +
+  `학교를 떠났는지, 같은 종류 학교들의 가운데값과 얼마나 다른지 볼 수 있습니다.`;
+---
+
+<HundredYear title="대학 찾기" description={desc}>
+  <h1>대학 찾기</h1>
+  <p class="sub">
+    전국 <strong>{전체}곳</strong>입니다 —
+    {[...종류별.entries()].map(([k, v], i) => (
+      <>{i > 0 && ' · '}{k} {v}</>
+    ))}
+    {공시연도 && <> · {공시연도}년 대학정보공시 기준</>}
+  </p>
+
+  <input
+    id="q"
+    type="search"
+    placeholder="학교 이름을 입력하세요 (예: 강릉원주, 교육대)"
+    autocomplete="off"
+    aria-label="대학 이름 검색"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+
+  {
+    지역목록.map(({ 지역, list }, i) => (
+      <details class="grp" data-track={지역} open={i === 0}>
+        <summary>
+          {지역} <span class="note">{list.length}곳</span>
+        </summary>
+        <ul class="unis">
+          {list.map((u) => (
+            <li data-name={u.title}>
+              <a href={href(u.url)}>{u.title}</a>
+              <span class="note">
+                {' '}{u.종류}
+                {u.중도탈락률 != null && <> · 중도탈락 {u.중도탈락률}%</>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))
+  }
+
+  <hr class="rule" />
+  <p class="note">
+    출처 — 한국대학교육협의회 대학정보공시(대학알리미), {공시연도}년.
+    가나다순으로 놓았습니다. <strong>순위가 아닙니다.</strong>
+    중도탈락률은 학교의 성적표가 아닙니다 — 편입·반수·전공 변경이 모두 섞여 있습니다.
+  </p>
+</HundredYear>
+
+<style>
+  #q {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .grp {
+    border-bottom: 1px solid var(--line);
+  }
+  .grp > summary {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .unis {
+    list-style: none;
+    padding: 0 0 0.75rem;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 30rem) {
+    .unis {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+  .unis li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .unis li a {
+    display: inline-block;
+    min-height: 24px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.unis li'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.grp'));
+    if (!q) return;
+
+    function apply() {
+      var v = q.value.trim();
+      if (!v) {
+        items.forEach(function (li) { li.hidden = false; });
+        groups.forEach(function (g, i) { g.hidden = false; g.open = i === 0; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      items.forEach(function (li) {
+        var hit = li.getAttribute('data-name').indexOf(v) >= 0;
+        li.hidden = !hit;
+        if (hit) n++;
+      });
+      groups.forEach(function (g) {
+        var has = !!g.querySelector('.unis li:not([hidden])');
+        g.hidden = !has;
+        g.open = has;
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '곳' : '「' + v + '」 로 찾은 대학이 없습니다';
+    }
+
+    q.addEventListener('input', apply);
+    var qs = new URLSearchParams(location.search).get('q');
+    if (qs) { q.value = qs; apply(); }
+  })();
+</script>

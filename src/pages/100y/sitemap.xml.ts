@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
+import universities from '../../data/100yearmap/pages-university.json';
 
 /**
  * 백년지도 사이트맵.
@@ -39,6 +40,7 @@ export const GET: APIRoute = () => {
     { path: '/', priority: '1.0', changefreq: 'weekly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
     { path: '/school', priority: '0.8', changefreq: 'weekly' },
+    { path: '/university', priority: '0.9', changefreq: 'weekly' },
     // 학과가 학교보다 앞이다. 「어떤 길인가」가 「어느 학교인가」보다 먼저 오는 질문이다
     ...(majors as any[]).map((m) => ({
       path: m.url as string,
@@ -48,6 +50,11 @@ export const GET: APIRoute = () => {
     ...(schools as any[]).map((s) => ({
       path: s.url as string,
       priority: '0.6',
+      changefreq: 'monthly',
+    })),
+    ...(universities as any[]).map((u) => ({
+      path: u.url as string,
+      priority: '0.7',
       changefreq: 'monthly',
     })),
   ];
