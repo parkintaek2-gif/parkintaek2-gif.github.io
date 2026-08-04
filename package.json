@@ -39,6 +39,7 @@
     "collect:exec": "node scripts/collect-executives.mjs",
     "collect:company": "node scripts/collect-company.mjs",
     "collect:bonds": "node scripts/collect-bonds.mjs",
+    "collect:commodities": "node scripts/collect-commodities.mjs",
     "collect:netflix": "node scripts/collect-netflix-top10.mjs",
     "collect:stars": "node scripts/collect-star-pageviews.mjs"
   },
