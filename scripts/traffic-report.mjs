@@ -15,7 +15,7 @@
  */
 
 import { get, remoteEnabled } from '../src/lib/store.mjs';
-import { 일별키 } from '../src/lib/traffic.mjs';
+import { 일별키, 스캐너인가 } from '../src/lib/traffic.mjs';
 import { pathToFileURL } from 'node:url';
 
 const arg = (n, d) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : d; };
@@ -38,8 +38,12 @@ async function main() {
     let j;
     try { j = JSON.parse(String(몸)); } catch { continue; }
     for (const [k, n] of Object.entries(j.집계 ?? {})) {
-      const [host, 경로, 유입, 봇] = k.split('\t');
-      행.push({ 날, host, 경로, 유입, 봇: 봇 === '1', 수: n });
+      /* ⚠ 옛 자료는 4칸, 새 자료는 5칸이다(봇종류가 늘었다). 없으면 undefined 로 둔다 */
+      const [host, 경로, 유입, 봇, 종류] = k.split('\t');
+      /* ⚠ **읽을 때 다시 판정한다.** 저장된 봇 플래그를 그대로 믿지 않는다 —
+       *   판별 규칙을 고치면 **이미 쌓인 것도 같이 고쳐져야** 한다.
+       *   안 그러면 어제 숫자는 옛 규칙, 오늘 숫자는 새 규칙이 되어 비교가 깨진다. */
+      행.push({ 날, host, 경로, 유입, 봇: 봇 === '1' || 스캐너인가(경로), 종류: 종류 || (스캐너인가(경로) ? '스캐너' : null), 수: n });
     }
   }
 
@@ -71,6 +75,10 @@ async function main() {
   표('사이트별 (사람)', 묶기(사람, (x) => x.host));
   표('유입 경로 (사람)', 묶기(사람, (x) => x.유입));
   표('많이 읽힌 지면 (사람)', 묶기(사람, (x) => `${x.host}${x.경로}`), 15);
+
+  /* ⭐ 어느 검색엔진이 왔는가. 「검색 유입 0」이 **크롤링도 안 됐다**인지
+     **크롤링은 됐는데 순위가 없다**인지를 가른다. 할 일이 완전히 다르다 */
+  표('크롤러 (봇)', 묶기(봇, (x) => x.종류 ?? '(미분류)'));
 
   /* ⭐ 우리 마케팅은 「검색」과 「사이트 간 유입」 둘뿐이다. 그 둘을 따로 본다 */
   const 전체 = 합(사람) || 1;

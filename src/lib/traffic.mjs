@@ -56,6 +56,58 @@ let flush중 = false;
 /** ⚠ 봇 판별은 **참고용**이다. 정확할 수 없다 — 그래서 거르지 않고 **따로 센다.** */
 const 봇패턴 = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|headless|curl|wget|python-requests|node-fetch|axios|go-http|monitor|uptime|pingdom/i;
 
+/**
+ * ⚠ **스캐너는 브라우저 UA 를 흉내 낸다.** UA 만 보면 사람으로 세어진다.
+ *
+ * 2026-08-05 첫 측정에서 실제로 그랬다 — 「사람 64」 중 상당수가 이것들이었다.
+ * ```
+ * /wp-admin/install.php · /phpinfo.php · /.env/.env.bak · /.aws/credentials
+ * /test.php · /_profiler/phpinfo · /index.php
+ * ```
+ * (전부 404 다. 우리 사이트에 그런 파일이 없다 — 확인했다)
+ *
+ * **누가 뭐라고 주장하든 `/.aws/credentials` 를 요청하는 건 사람이 아니다.**
+ * 그래서 **UA 가 아니라 「무엇을 요청했는가」로** 가른다. 이쪽이 속이기 어렵다.
+ *
+ * ⚠ 이걸 안 고치면 「검색 유입 0%」 같은 숫자를 **부풀려진 분모**로 말하게 된다.
+ *   우리는 「모든 비율에 분모를 적는다」고 써 놓은 회사다.
+ */
+/** ⚠ 보고 스크립트가 **읽을 때 다시 판정**하려고 내보낸다.
+ *  판별을 고치면 이미 쌓인 것도 같이 고쳐져야 어제와 오늘을 비교할 수 있다. */
+export const 스캐너인가 = (경로) => 스캐너경로.test(String(경로 ?? ''));
+
+/**
+ * 봇의 **종류**만 남긴다. UA 원문은 안 남긴다.
+ *
+ * ⚠ 왜 필요한가 — 2026-08-05 첫 측정이 **검색 유입 0%** 였다.
+ *   그런데 「구글이 우리를 크롤링은 했는가」를 알 수가 없었다. UA 를 안 남겼기 때문이다.
+ *   **크롤링도 안 됐다**와 **크롤링은 됐는데 순위가 없다**는 할 일이 완전히 다르다.
+ *
+ * 봇은 사람이 아니므로 종류를 남겨도 개인정보 문제가 없다. **사람 쪽은 그대로 안 남긴다.**
+ */
+export function 봇종류(userAgent) {
+  const u = String(userAgent ?? '');
+  if (/googlebot|google-inspectiontool|storebot-google/i.test(u)) return 'google';
+  if (/bingbot|adidxbot|bingpreview/i.test(u)) return 'bing';
+  if (/naver|yeti/i.test(u)) return 'naver';
+  if (/daum|daumoa/i.test(u)) return 'daum';
+  if (/duckduck/i.test(u)) return 'duckduckgo';
+  if (/yandex/i.test(u)) return 'yandex';
+  if (/baidu/i.test(u)) return 'baidu';
+  if (/gptbot|oai-searchbot|chatgpt|claudebot|anthropic|perplexity|ccbot/i.test(u)) return 'ai';
+  if (/facebookexternalhit|twitterbot|slackbot|linkedinbot|discordbot|telegram/i.test(u)) return 'sns미리보기';
+  if (/uptime|pingdom|monitor|newrelic|datadog/i.test(u)) return '감시';
+  return '기타';
+}
+
+const 스캐너경로 = new RegExp(
+  '(^|/)(wp-admin|wp-includes|wp-content|wp-login|xmlrpc\\.php|phpinfo|phpmyadmin|_profiler'
+  + '|\\.env|\\.git|\\.aws|\\.ssh|\\.vscode|\\.DS_Store|config\\.json|credentials'
+  + '|vendor/phpunit|autodiscover|owa|ecp/|actuator|solr|jenkins|struts|cgi-bin)'
+  + '|\\.(php|asp|aspx|jsp|cgi|sql|bak|old|swp)$',
+  'i',
+);
+
 /** 리퍼러에서 **도메인만** 뽑는다. 전체 URL 은 남기지 않는다(검색어가 붙어 올 수 있다) */
 export function 유입도메인(referer, 우리호스트) {
   if (!referer) return '(직접)';
@@ -87,9 +139,14 @@ export function 센다(입력) {
      *   시험에서 실제로 잡혔다 — 운영 서버에서 이게 던지면 세 사이트가 같이 죽는다. */
     const { host, pathname, referer, userAgent } = 입력 ?? {};
     if (!셀것인가(pathname)) return;
-    const 봇 = 봇패턴.test(String(userAgent ?? '')) ? '1' : '0';
+    /* ⚠ **경로를 먼저 본다.** UA 는 속일 수 있고 경로는 의도 그 자체다 */
+    const 스캐너 = 스캐너경로.test(String(pathname));
+    const UA봇 = 봇패턴.test(String(userAgent ?? ''));
+    const 봇 = (스캐너 || UA봇) ? '1' : '0';
+    /* 봇이면 **종류만** 남긴다(google/bing/naver…). 사람이면 빈칸이다 */
+    const 종류 = 봇 === '0' ? '' : (스캐너 && !UA봇 ? '스캐너' : 봇종류(userAgent));
     const 경로 = 통.size >= 경로상한 ? '(기타)' : String(pathname).slice(0, 200);
-    const k = `${String(host ?? '').slice(0, 80)}\t${경로}\t${유입도메인(referer, host)}\t${봇}`;
+    const k = `${String(host ?? '').slice(0, 80)}\t${경로}\t${유입도메인(referer, host)}\t${봇}\t${종류}`;
     통.set(k, (통.get(k) ?? 0) + 1);
   } catch {
     /* ⚠ 측정이 서비스를 죽이지 않는다. 조용히 넘긴다 */
@@ -100,16 +157,19 @@ export function 센다(입력) {
 export function 현황() {
   const 행 = [];
   for (const [k, n] of 통) {
-    const [host, 경로, 유입, 봇] = k.split('\t');
-    행.push({ host, 경로, 유입, 봇: 봇 === '1', 수: n });
+    const [host, 경로, 유입, 봇, 종류] = k.split('\t');
+    행.push({ host, 경로, 유입, 봇: 봇 === '1', 종류: 종류 || null, 수: n });
   }
   행.sort((a, b) => b.수 - a.수);
   const 사람 = 행.filter((x) => !x.봇).reduce((s, x) => s + x.수, 0);
   const 봇수 = 행.filter((x) => x.봇).reduce((s, x) => s + x.수, 0);
+  /* ⭐ 어느 검색엔진이 왔는가 — 「검색 유입 0」의 원인을 가르는 데 이게 필요하다 */
+  const 봇별 = {};
+  for (const x of 행) if (x.봇 && x.종류) 봇별[x.종류] = (봇별[x.종류] ?? 0) + x.수;
   return {
     모은시각: new Date(시작).toLocaleString('ko-KR'),
     지금: new Date().toLocaleString('ko-KR'),
-    사람, 봇: 봇수, 서로다른키: 통.size,
+    사람, 봇: 봇수, 봇별, 서로다른키: 통.size,
     R2: remoteEnabled,
     행,
   };
@@ -143,7 +203,7 @@ export async function flush(지금 = new Date()) {
     const 몸 = JSON.stringify({
       날짜: 날,
       갱신: 지금.toLocaleString('ko-KR'),
-      설명: '키 = 호스트\\t경로\\t유입도메인\\t봇(1/0). 개인 식별값은 모으지 않는다',
+      설명: '키 = 호스트\\t경로\\t유입도메인\\t봇(1/0)\\t봇종류. 개인 식별값은 모으지 않는다',
       집계: 누적,
     });
     if (remoteEnabled) await put(key, 몸, 'application/json');

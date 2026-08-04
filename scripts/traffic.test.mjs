@@ -64,5 +64,36 @@ for (let i = 0; i < 4000; i++) 센다({ host: 'x', pathname: `/scan/${i}`, userA
 const 후키 = 현황().서로다른키;
 확인(후키 < 전키 + 4000, `⭐ 경로 상한이 걸린다 (${전키} → ${후키}, 4000건 넣음)`);
 
+/* ⚠ 여기서 「전부 통과」를 찍지 않는다. **아래 ⑦⑧ 이 아직 안 돌았다.**
+ *   중간에 성공 메시지를 찍으면 그게 곧 「검사가 헛도는」 모양이 된다. */
+
+/* ── ⑦ ⭐ 스캐너는 **브라우저 UA 를 흉내 낸다.** 경로로 걸러야 한다
+ *    2026-08-05 첫 측정에서 「사람 64」 중 상당수가 이것들이었다. */
+{
+  const 브라우저UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/131.0 Safari/537.36';
+  const 전 = 현황();
+  const 스캐너경로들 = [
+    '/wp-admin/install.php', '/phpinfo.php', '/.env/.env.bak', '/.aws/credentials',
+    '/test.php', '/_profiler/phpinfo', '/index.php', '/.git/config', '/backup.sql',
+    '/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php', '/config.json.bak',
+  ];
+  for (const p of 스캐너경로들) 센다({ host: 'x.com', pathname: p, userAgent: 브라우저UA });
+  const 후 = 현황();
+  확인(후.사람 === 전.사람,
+    `⭐ 스캐너 경로 ${스캐너경로들.length}건이 사람으로 안 세어진다 (사람 ${전.사람} → ${후.사람})`);
+  확인(후.봇 - 전.봇 === 스캐너경로들.length, '전부 봇으로 세어진다');
+}
+
+/* ── ⑧ ⚠ 진짜 지면은 여전히 사람이어야 한다. 과잉 차단이 더 나쁘다 ── */
+{
+  const 브라우저UA = 'Mozilla/5.0 (Macintosh) Safari/605.1';
+  const 전 = 현황().사람;
+  for (const p of [
+    '/article/korea-tenure-and-returns-industry-mix', '/rankings', '/', '/about',
+    '/100y/school/7531408', '/university/0002744', '/major/%EC%A1%B0%EB%A6%AC%EA%B3%BC',
+  ]) 센다({ host: 'x.com', pathname: p, userAgent: 브라우저UA });
+  확인(현황().사람 - 전 === 7, `⭐ 진짜 지면 7건은 사람으로 센다 (실제 ${현황().사람 - 전})`);
+}
+
 if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
-console.log('  전부 통과 · 0 실패');
+console.log('  스캐너 판별까지 전부 통과');
