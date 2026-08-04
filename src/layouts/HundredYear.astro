@@ -21,8 +21,12 @@
  *
  * ⚠ **이 파일이 디자인의 유일한 자리다.** 페이지마다 `.answer`·`.nums`·`.warn` 을
  *   따로 정의하고 있었는데, 그래서 새로 만든 대학 지면 377장에 스타일이 안 붙었다.
- *   여기로 모으고 `is:global` 로 내보낸다 — 레이아웃의 스코프 스타일은
- *   `<slot />` 으로 들어온 페이지 내용에는 **안 걸린다.**
+ *   여기로 모아 `is:inline` 로 내보낸다 — 레이아웃의 **스코프** 스타일은
+ *   `<slot />` 으로 들어온 페이지 내용에는 **안 걸리기** 때문이다.
+ *   (`is:global` 이 아니라 `is:inline` 인 이유는 `<style>` 바로 위 주석 참조 — /_astro 404)
+ *
+ * ⭐ 2026-08-05 — **인쇄 스타일을 넣었다.** 없어서 종이에서 글자가 사라지고 있었다.
+ *   금 2.29 · 본문 1.21 · 흐림 2.63 (읽히려면 4.5). 학부모가 뽑아서 아이와 보는 지면이다.
  *
  * 지키는 것 (스토리보드 §11)
  *   · 모바일이 기본이다. 360px 에서 먼저 그리고 넓힌다
@@ -96,7 +100,21 @@ const canonical =
     href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
-  <style is:global>
+  <!-- ⚠ is:global 이 아니라 **is:inline** 이다. 되돌리지 말 것 (2026-08-05).
+
+       Astro 는 스타일이 커지면 /_astro/*.css 로 빼내 <link> 로 건다.
+       그런데 백년지도는 server.mjs 가 Host 를 보고 /100y 접두사를 붙이므로
+       /_astro/... 가 dist/100y/_astro/... 를 찾다가 404 가 된다.
+
+       실제로 그렇게 됐다 — 인쇄 스타일을 넣어 용량이 늘자 CSS 가 통째로 빠져나가
+       전 지면이 민얼굴로 나갈 뻔했다. (서울마켓은 접두사가 없어 멀쩡하다)
+
+       is:inline 은 Astro 가 손대지 않고 그대로 둔다 → 항상 인라인 · 링크 없음 · 404 없음.
+       대가는 지면마다 CSS 가 반복되는 것이지만(9.6KB), gzip 이 먹고 요청이 하나 준다.
+
+       ⚠ 근본 해결은 server.mjs 가 /_astro 를 접두사 밖으로 빼 주는 것이다 — 2번 파일이라 넘겼다.
+          그 전에는 **백년지도에서 /_astro 를 쓰는 자산(이미지·JS)을 만들지 않는다.** -->
+  <style is:inline>
     /* ─────────────────────────────────────────────────────────
        색 — klifemap.ai 와 같은 값 (klifemap/public/index.html)
        ⚠ 이름은 백년지도가 쓰던 것을 그대로 둔다(--ink/--card/--accent…).
@@ -238,6 +256,84 @@ const canonical =
       .wrap { padding: 20px 16px 56px; }
       .nav { gap: 14px; font-size: 13px; }
     }
+
+    /* ─────────────────────────────────────────────────────────
+       인쇄 — ⚠ 이게 없어서 **종이에서 글자가 사라지고 있었다** (2026-08-05)
+
+       1번이 회람 문서에 「금색 #c9a84c 는 종이에서 대비 2.1」이라고 적어 준 덕에 알았다.
+       재 보니 우리 색 여섯이 **흰 종이에서 전부 낙제**였다.
+       ```
+       금 2.29 · 금연 1.41 · 본문 1.21 · 흐림 2.63     (읽히려면 4.5)
+       ```
+       백년지도는 **학부모가 뽑아서 아이와 같이 보는** 지면이다. 다크 한 벌만 만든 것이 잘못이었다.
+
+       ⛔ `print-color-adjust: exact` 로 배경을 강제로 찍게 하지 않는다.
+          잉크를 아끼려는 사람의 설정을 우리가 뒤집을 이유가 없다.
+          대신 **배경색에 기대지 않는 표현**으로 바꾼다 —
+          1번이 겪은 「배경색으로만 그린 막대가 인쇄에서 통째로 사라졌다」가 그 이유다.
+
+       ⚠ `<details>` 를 **펼친다.** 출처가 접혀 있으면 종이에서는 영영 안 보인다.
+          우리 지면의 값은 「이 숫자가 어디서 왔나」에 있는데 그게 사라지면 안 된다.
+       ───────────────────────────────────────────────────────── */
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --paper: #ffffff;
+        --card: #ffffff;
+        --ink: #14171c;      /* 대비 17.96 */
+        --muted: #5b626c;    /* 대비  6.16 */
+        --faint: #5b626c;
+        --gold: #6e5312;     /* 대비  7.22 — 금색을 종이에서 읽히는 톤으로 내린다 */
+        --gold-text: #6e5312;
+        --gold-pale: #14171c;
+        --gold-deep: #6e5312;
+        --warn: #6e5312;
+        --line: #c9ced6;
+        --line-soft: #dde1e7;
+      }
+      @page { margin: 16mm 14mm; }
+
+      html, body { background: #fff; }
+      body { font-size: 10.5pt; line-height: 1.6; }
+      .wrap { max-width: none; padding: 0; }
+
+      /* 종이에서 누를 수 없는 것은 지운다 */
+      .nav, input, button, form, .chips, .dl { display: none !important; }
+
+      /* 접힌 것을 전부 편다 — 출처가 이 안에 있다 */
+      details { display: block; }
+      details > summary { display: none; }
+      details > * { display: revert; }
+
+      a { color: var(--ink); text-decoration: underline; }
+      h1 { font-size: 20pt; margin: 0 0 6pt; }
+      h2 { font-size: 14pt; margin: 14pt 0 5pt; }
+      h3 { font-size: 11.5pt; }
+      strong { color: var(--ink); }
+
+      /* 배경에 기대지 않는다 — 테두리로 구분한다 */
+      .card { border: 1px solid var(--line); border-radius: 0; padding: 8pt 10pt; }
+      .answer { border: 1px solid var(--line); border-left: 3pt solid var(--gold); border-radius: 0; padding: 8pt 10pt; }
+      .answer-num { color: var(--ink); font-size: 26pt; }
+      .num { border: 1px solid var(--line); border-radius: 0; padding: 6pt 4pt; }
+      .num .n { color: var(--ink); font-size: 13pt; }
+      .warn {
+        background: none; border: 0; border-left: 2pt solid var(--gold);
+        border-radius: 0; padding: 4pt 0 4pt 8pt; color: var(--ink);
+      }
+      .tablewrap { overflow: visible; }
+      th { color: var(--ink); }
+
+      /* 쪽 넘김 — 제목만 남고 내용이 다음 장으로 넘어가지 않게 */
+      h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+      tr, .num, .answer, .card { break-inside: avoid; page-break-inside: avoid; }
+
+      /* 종이만 보고도 다시 찾아올 수 있게 주소를 찍는다 */
+      .printurl { display: block !important; margin-top: 10pt; font-size: 8.5pt; color: var(--muted); }
+      footer { margin-top: 16pt; padding-top: 8pt; color: var(--muted); }
+    }
+    /* 화면에서는 숨긴다 */
+    .printurl { display: none; }
   </style>
 </head>
 <body>
@@ -262,6 +358,8 @@ const canonical =
       <p>
         백년지도는 학원을 팔지 않습니다. 그래서 안 다녀도 된다고 말할 수 있습니다.
       </p>
+      {/* 인쇄 전용 — 종이만 들고 있어도 다시 찾아올 수 있게 주소와 뽑은 날을 남긴다 */}
+      <p class="printurl">이 지면 — {canonical}</p>
     </footer>
   </div>
 </body>
