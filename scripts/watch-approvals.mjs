@@ -41,7 +41,19 @@ if (existsSync('.env')) {
 /**
  * 확인 대상.
  * ⚠ 엔드포인트는 **포털 상세 페이지에 적힌 것**을 쓴다. 지어내지 않는다.
- *   경로가 틀리면 404 가 아니라 401/403 이 와서 「미승인」으로 오독된다.
+ *
+ * ── ⭐ 2026-08-04 에 알아낸 판별법 ────────────────────────────
+ * 두 응답을 **절대 섞으면 안 된다.** 몇 주치 보고가 이것 때문에 틀렸다.
+ *
+ *   400 「해당 오픈API 서비스가 없거나 폐기됨」 · NO_OPENAPI_SERVICE_ERROR
+ *       → **경로가 틀렸다.** 승인 여부와 무관하다. 내 URL 을 고쳐야 한다
+ *   403 (권한 없음)
+ *       → **경로는 맞고 미신청이다.** 이때만 「대기」가 맞다
+ *   resultCode 00 · NORMAL SERVICE
+ *       → 승인
+ *
+ * 채권시세를 몇 주째 「대기」로 보고했는데 실은 승인돼 있었다 —
+ * 오퍼레이션 이름을 내가 지어내서 400 이 났던 것이다.
  */
 const 대상 = [
   { id: '15094775', 이름: 'KRX상장종목정보', 축: '기준정보',
@@ -55,13 +67,21 @@ const 대상 = [
   { id: '15094784', 이름: '채권시세정보', 축: 'Rates',
     url: 'https://apis.data.go.kr/1160100/service/GetBondSecuritiesInfoService/getBondPriceInfo' },
   { id: '15094802', 이름: '파생상품시세정보', 축: '선물·옵션',
-    url: 'https://apis.data.go.kr/1160100/service/GetDerivativeProductInfoService/getFutresPriceInfo' },
+    url: 'https://apis.data.go.kr/1160100/GetDerivativeProductInfoService/getStockFuturesPriceInfo' },
   { id: '15094805', 이름: '일반상품시세정보', 축: 'Commodities',
     url: 'https://apis.data.go.kr/1160100/service/GetGeneralProductInfoService/getOilPriceInfo' },
   { id: '15043423', 이름: '주식발행정보', 축: 'Equities',
-    url: 'https://apis.data.go.kr/1160100/service/GetStocIssuInfoService/getItemBasiInfo' },
+    url: 'https://apis.data.go.kr/1160100/GetStocIssuInfoService_V3/getStocIssuInfo_V3' },
   { id: '15094792', 이름: '펀드상품기본정보', 축: 'Funds',
-    url: 'https://apis.data.go.kr/1160100/service/GetFundInfoService/getFundBasiInfo' },
+    url: 'https://apis.data.go.kr/1160100/service/GetFundProductInfoService/getStandardCodeInfo' },
+  /*
+   * ⭐ 국민연금 사업장 — **이직률의 유일한 원천**이다(신규취득자수·상실가입자수).
+   *   ⚠ V1(`NpsBplcInfoInqireService`)은 **폐기됐다.** V2 를 쓴다.
+   *     V1 → 400 「없거나 폐기됨」 · V2 → 403 (경로는 맞고 미신청)
+   *   ⚠ 포털 표기상 **개발·운영 둘 다 자동승인**이다. 신청만 하면 즉시 열린다.
+   */
+  { id: '3046071', 이름: '국민연금사업장', 축: '이직률',
+    url: 'https://apis.data.go.kr/B552015/NpsBplcInfoInqireServiceV2/getBassInfoSearchV2' },
 ];
 
 const UA = 'Mozilla/5.0 (compatible; SeoulMarketsBot/0.1; +https://seoulmarkets.com/about)';
@@ -80,8 +100,20 @@ async function 찔러보기(t, key) {
     }
     const 사유 = txt.match(/"?errMsg"?\s*:\s*"?([A-Z_]+)/)?.[1]
       ?? txt.match(/<returnAuthMsg>([^<]+)</)?.[1]
+      ?? txt.match(/<errMsg>([^<]+)</)?.[1]
       ?? `HTTP ${r.status}`;
-    return { 상태: '대기', 사유 };
+    /*
+     * ⭐ **「경로 틀림」과 「미승인」을 가른다.** 섞어서 몇 주치 보고가 틀렸다.
+     *   400 / NO_OPENAPI_SERVICE_ERROR / 「없거나 폐기됨」 → **내 URL 이 틀린 것**이다.
+     *     이걸 「대기」로 적으면 승인된 걸 미승인으로 보고하게 된다(채권시세가 그랬다)
+     *   403 → 경로는 맞고 권한이 없다. 이때만 「대기」가 맞다
+     */
+    const 경로오류 = r.status === 400
+      || /NO_OPENAPI_SERVICE_ERROR/.test(사유)
+      || /없거나 폐기/.test(txt);
+    return 경로오류
+      ? { 상태: '경로오류', 사유: `${사유} — 내 URL 을 고쳐야 한다` }
+      : { 상태: '대기', 사유 };
   } catch (e) {
     /* 네트워크 실패를 「미승인」으로 적지 않는다. 그건 다른 사실이다 */
     return { 상태: '확인불가', 사유: e.name };
@@ -119,12 +151,42 @@ async function main() {
       })()
     : { 상태: '키없음', 사유: '사장님이 opendart.fss.or.kr 에서 발급받아야 한다' };
 
+  /*
+   * KDI — **키 하나에 `cd` 값만 다르다.** 그래서 코드별로 따로 찔러야 한다.
+   *
+   * ⚠ 2026-08-04 에 A만 승인돼 있었다. 신청 URL 이 `openAPIApp?...&type=A` 였고,
+   *   KDI 안내가 「① 신청 → ② 신청자 확인 → ③ 승인/**인증키 전송**」이라
+   *   **신청마다 키가 따로 올 수 있다.** 그래서 코드별 키를 먼저 보고 없으면 공용 키를 쓴다.
+   *     .env — `KDI_API_KEY`(공용) · `KDI_API_KEY_B` … `KDI_API_KEY_F`(코드별)
+   *
+   * ⚠ 응답이 **EUC-KR** 로 올 때가 있다. UTF-8 로 읽으면 깨져서 원인을 못 찾는다.
+   */
+  const KDI이름 = { A: '기본연구보고서', B: '현안자료', C: '경제전망', D: '경제동향', E: '학술지', F: '영상보고서' };
+  결과.KDI = [];
+  for (const cd of Object.keys(KDI이름)) {
+    const 키 = process.env[`KDI_API_KEY_${cd}`] || process.env.KDI_API_KEY;
+    if (!키) { 결과.KDI.push({ cd, 이름: KDI이름[cd], 상태: '키없음' }); continue; }
+    try {
+      const r = await fetch(
+        `https://www.kdi.re.kr/KDIOpenAPI?type=json&apiKey=${encodeURIComponent(키)}&cd=${cd}`,
+        { headers: { 'user-agent': UA }, signal: AbortSignal.timeout(25000) },
+      );
+      const t = await r.text();
+      let j = null;
+      try { j = JSON.parse(t); } catch { /* null 이나 EUC-KR 오류쪽 */ }
+      결과.KDI.push(j && j.ARCHIVE
+        ? { cd, 이름: KDI이름[cd], 상태: '승인', 총건수: j.TOTAL_COUNT ?? null }
+        : { cd, 이름: KDI이름[cd], 상태: '대기' });
+    } catch (e) { 결과.KDI.push({ cd, 이름: KDI이름[cd], 상태: '확인불가', 사유: e.name }); }
+    await sleep(500);
+  }
+
   if (JSON출력) { console.log(JSON.stringify(결과, null, 2)); return; }
 
   console.log(`API 승인 확인 — ${결과.at} KST\n`);
   const 승인 = 결과.공공데이터.filter((x) => x.상태 === '승인');
   for (const r of 결과.공공데이터) {
-    const 표 = r.상태 === '승인' ? '✅' : r.상태 === '대기' ? '⬜' : '⚠';
+    const 표 = r.상태 === '승인' ? '✅' : r.상태 === '대기' ? '⬜' : r.상태 === '경로오류' ? '🔧' : '⚠';
     console.log(
       `  ${표} ${(r.이름 ?? '').padEnd(16)} ${(r.축 ?? '').padEnd(12)} ${r.상태}` +
         (r.총건수 ? ` · ${Number(r.총건수).toLocaleString()}건` : '') +
@@ -132,7 +194,18 @@ async function main() {
     );
   }
   console.log(`\n  DART  ${결과.DART.상태}${결과.DART.사유 ? ' · ' + 결과.DART.사유 : ''}`);
-  console.log(`\n  공공데이터 승인 ${승인.length}/${결과.공공데이터.length}`);
+
+  const KDI승인 = 결과.KDI.filter((x) => x.상태 === '승인');
+  console.log('\n  KDI');
+  for (const k of 결과.KDI) {
+    const 표 = k.상태 === '승인' ? '✅' : k.상태 === '대기' ? '⬜' : '⚠';
+    console.log(`    ${표} cd=${k.cd} ${k.이름.padEnd(14)} ${k.상태}` +
+      (k.총건수 ? ` · ${Number(k.총건수).toLocaleString()}건` : ''));
+  }
+
+  console.log(`\n  공공데이터 ${승인.length}/${결과.공공데이터.length} · KDI ${KDI승인.length}/${결과.KDI.length}`);
+  /* ⭐ 새로 열린 게 있으면 눈에 띄게 — 사장님이 메일을 못 보셔도 여기서 드러난다 */
+  if (KDI승인.length > 1) console.log(`  ⭐ KDI 코드가 늘었다 — 수집기를 돌린다: npm run collect:kdi`);
 
   /* 세션 브리핑이 읽는다. 사장님이 메일을 못 보셔도 여기서 드러난다 */
   const 로그 = path.resolve('archive/log');
