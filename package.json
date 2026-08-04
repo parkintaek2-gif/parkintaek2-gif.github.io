@@ -46,7 +46,8 @@
     "collect:derivatives": "node scripts/collect-derivatives.mjs",
     "collect:indices": "node scripts/collect-indices.mjs",
     "inbox": "node scripts/memo-inbox.mjs",
-    "collect:products": "node scripts/collect-securities-products.mjs"
+    "collect:products": "node scripts/collect-securities-products.mjs",
+    "build:homecharts": "node scripts/build-home-charts.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",

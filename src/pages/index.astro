@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import ArticleCard from '../components/ArticleCard.astro';
 import AdSlot from '../components/AdSlot.astro';
 import Newsletter from '../components/Newsletter.astro';
+import HomeCharts from '../components/HomeCharts.astro';
 import { SITE, SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
 
@@ -32,6 +33,8 @@ const jsonLd = {
         figures it uses. No tips, no targets — just what the data shows and what it does not.
       </p>
     </div>
+
+    <HomeCharts />
 
     {
       articles.length === 0 ? (

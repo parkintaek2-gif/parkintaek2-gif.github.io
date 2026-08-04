@@ -1,0 +1,117 @@
+---
+/**
+ * 첫 화면 그래픽 — **자바스크립트 0줄. SVG 뿐이다.**
+ *
+ * 사장님 지시(2026-08-04): 「앞에 여러 그래픽들을 좀 실어주고, **정적으로** —
+ *   뭐라는 병초를 하면 너무 무거우니까」
+ *
+ * 그래서 이렇게 만들었다.
+ *   · 차트 라이브러리 없음. 200KB 를 부르지 않는다
+ *   · 좌표는 **빌드 때 계산**해 둔다 (`build-home-charts.mjs`)
+ *   · JS 가 꺼져 있어도 그래프가 보인다. 검색엔진도 본다
+ *   · 통째로 5.1KB
+ *
+ * ⚠ **세로축이 0 에서 시작하지 않는다.** 지수는 0 근처에 안 가므로 0 기준이면 선이 납작해진다.
+ *   대신 **그 사실을 화면에 적는다.** 안 적으면 기울기를 과장한 그래프가 된다 —
+ *   우리가 기사에서 늘 지적하는 종류의 거짓말이다.
+ */
+import charts from '../data/home-charts.json';
+
+const 날 = (s) => `${s.slice(4, 6)}/${s.slice(6, 8)}`;
+const 최대낙폭 = Math.max(...charts.sectors.map((s) => Math.abs(s.value)), 1);
+---
+
+<section class="hc">
+  <div class="hc__head">
+    <h2>Where the market actually moved</h2>
+    <p>
+      Two years of daily closes, and every index we track measured from the KOSPI's
+      {날(charts.peakDate)} peak. Sources and method are in the articles below.
+    </p>
+  </div>
+
+  <div class="hc__lines">
+    {charts.series.map((s) => (
+      <figure>
+        <figcaption>
+          <span class="nm">{s.label}</span>
+          <span class={s.change >= 0 ? 'up' : 'dn'}>
+            {s.change >= 0 ? '+' : ''}{s.change}%
+          </span>
+          <span class="sub">2 years</span>
+        </figcaption>
+        <svg viewBox="0 0 640 120" preserveAspectRatio="none" role="img"
+             aria-label={`${s.label}: ${s.first} on ${s.firstDate} to ${s.last} on ${s.lastDate}, ${s.change}%`}>
+          <polyline points={s.points} />
+        </svg>
+        <p class="foot">
+          {s.first.toLocaleString()} → {s.last.toLocaleString()}
+          <span class="peak"> · peak {날(s.peakDate)}, now {s.fromPeak}%</span>
+        </p>
+      </figure>
+    ))}
+  </div>
+
+  <div class="hc__bars">
+    <h3>Since the {날(charts.peakDate)} peak</h3>
+    <ul>
+      {charts.sectors.map((b) => (
+        <li>
+          <span class="bl">{b.label}</span>
+          <span class="bt">
+            <span class={b.value >= 0 ? 'bar up' : 'bar dn'}
+                  style={`width:${(Math.abs(b.value) / 최대낙폭 * 100).toFixed(1)}%`}></span>
+          </span>
+          <span class={b.value >= 0 ? 'bv up' : 'bv dn'}>{b.value >= 0 ? '+' : ''}{b.value}%</span>
+        </li>
+      ))}
+    </ul>
+    <p class="note">
+      Of {charts.sectorCount} tradeable indices, <b>{charts.sectorUp} rose</b>.
+      The median fell {Math.abs(charts.sectorMedian)}%.
+      <br />
+      Vertical axes start at each series' own low, not at zero — the lines show shape, not scale.
+      Data as of {charts.to.slice(0, 4)}-{charts.to.slice(4, 6)}-{charts.to.slice(6, 8)}.
+    </p>
+  </div>
+</section>
+
+<style>
+  .hc { margin: 0 0 2.5rem; padding: 0 0 1.75rem; border-bottom: 1px solid var(--line, #e5e5e5); }
+  .hc__head h2 { font-size: 1.15rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .hc__head p { margin: 0 0 1.4rem; font-size: .88rem; color: var(--muted, #666); line-height: 1.6; }
+
+  .hc__lines { display: grid; gap: 1.1rem; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .hc__lines { grid-template-columns: repeat(3, 1fr); } }
+
+  figure { margin: 0; }
+  figcaption { display: flex; align-items: baseline; gap: .45rem; margin: 0 0 .3rem; }
+  figcaption .nm { font-weight: 650; font-size: .92rem; }
+  figcaption .sub { font-size: .74rem; color: var(--muted, #666); margin-left: auto; }
+  .up { color: #167a4b; } .dn { color: #b3261e; }
+  figcaption .up, figcaption .dn { font-size: .86rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+  svg { width: 100%; height: 74px; display: block; }
+  polyline { fill: none; stroke: currentColor; stroke-width: 1.6; vector-effect: non-scaling-stroke;
+             stroke-linejoin: round; stroke-linecap: round; opacity: .82; }
+
+  .foot { margin: .25rem 0 0; font-size: .76rem; color: var(--muted, #666); font-variant-numeric: tabular-nums; }
+  .foot .peak { display: block; }
+
+  .hc__bars { margin: 1.6rem 0 0; }
+  .hc__bars h3 { font-size: .92rem; margin: 0 0 .6rem; }
+  .hc__bars ul { list-style: none; padding: 0; margin: 0; }
+  .hc__bars li { display: grid; grid-template-columns: 9.5rem 1fr 3.6rem; align-items: center;
+                 gap: .5rem; padding: .2rem 0; font-size: .82rem; }
+  @media (max-width: 560px) { .hc__bars li { grid-template-columns: 7.5rem 1fr 3.2rem; font-size: .78rem; } }
+  .bl { color: var(--muted, #666); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .bt { background: var(--card, #f3f3f3); border-radius: 3px; height: .7rem; overflow: hidden; }
+  .bar { display: block; height: 100%; border-radius: 3px; }
+  .bar.dn { background: #b3261e; opacity: .78; }
+  .bar.up { background: #167a4b; opacity: .78; }
+  .bv { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+  .note { margin: .8rem 0 0; font-size: .76rem; color: var(--muted, #666); line-height: 1.65; }
+
+  @media print { .hc { break-inside: avoid; } }
+</style>
