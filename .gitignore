@@ -10,6 +10,16 @@ dist/
 # 발행 전 초고·제보·감시 기록은 비공개 저장소(seoulmarkets-private-archive)에 둔다.
 docs/취재/
 
+# ⚠ 2026-08-04 — **빌드가 import 하는 파일은 여기 두지 않는다.**
+#   src/pages/100y/*.astro 가 archive/100yearmap/*.json 을 import 하고 있었는데,
+#   archive/ 가 무시되니 **새 클론과 Cloudtype 컨테이너에서 파일이 없어 빌드가 3초 만에 죽었다.**
+#   내 PC 에서는 파일이 있어 멀쩡히 빌드돼서, 원인을 찾는 데 3시간이 걸렸고
+#   그동안 seoulmarkets 와 100yearmap 배포가 둘 다 멈춰 있었다.
+#
+#     원자료          archive/    ← 여기(무시)
+#     빌드가 import   src/data/   ← **커밋한다**
+#
+#   판별: grep -rn "../../../archive" src/   결과가 있으면 그 빌드는 컨테이너에서 죽는다
 # 수집 아카이브. 매일 쌓이므로 저장소에 넣지 않는다.
 # 이건 코드가 아니라 자산이다 — 별도 스토리지(오브젝트 스토리지)로 옮긴다.
 archive/
