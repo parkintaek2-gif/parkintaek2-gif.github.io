@@ -11,7 +11,7 @@
  *      **src/pages/esports.astro 를 지운다.** 그때까지만 두 벌이다.
  *      (두 벌인 채로 잊으면 같은 내용이 두 도메인에서 색인돼 서로 순위를 깎는다)
  */
-import Base from '../../layouts/Base.astro';
+import WikiTip from '../../layouts/WikiTip.astro';
 import { SITE_URL } from '../../consts';
 import ladder from '../../data/riot-ladder.json';
 
@@ -88,7 +88,7 @@ const jsonLd = {
 };
 ---
 
-<Base
+<WikiTip
   title="Why Korea's ladder looks different"
   description="A daily cross-region comparison of the League of Legends Challenger ladder — Korea, Southeast Asia, Vietnam, Japan, North America and Europe West. Aggregate distributions only, no player data."
   jsonLd={jsonLd}
@@ -226,7 +226,7 @@ const jsonLd = {
       </div>
     </article>
   </div>
-</Base>
+</WikiTip>
 
 <style>
   .stamp {
