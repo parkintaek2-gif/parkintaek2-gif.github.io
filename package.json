@@ -38,7 +38,8 @@
     "report:ranking": "node scripts/render-ranking.mjs",
     "collect:exec": "node scripts/collect-executives.mjs",
     "collect:company": "node scripts/collect-company.mjs",
-    "collect:bonds": "node scripts/collect-bonds.mjs"
+    "collect:bonds": "node scripts/collect-bonds.mjs",
+    "collect:netflix": "node scripts/collect-netflix-top10.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
