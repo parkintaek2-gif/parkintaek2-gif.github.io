@@ -27,7 +27,7 @@
  * · 사업자등록번호가 있어야 상장사와 붙는다. 없으면 **사업장명으로는 못 붙인다**
  *   (동명이인 사업장이 수만 개다 — 이름 매칭은 틀린 답을 자신 있게 낸다)
  */
-import { createWriteStream, existsSync, mkdirSync, renameSync, statSync, readFileSync } from 'node:fs';
+import { createWriteStream, existsSync, mkdirSync, renameSync, statSync, readFileSync, copyFileSync } from 'node:fs';
 import { Readable } from 'node:stream';
 import { pipeline } from 'node:stream/promises';
 import { createReadStream } from 'node:fs';
@@ -38,6 +38,19 @@ const 데이터셋 = '15083277';
 const 내려받기 =
   'https://www.data.go.kr/cmm/cmm/fileDownload.do?atchFileId=FILE_000000003681205&fileDetailSn=1&insertDataPrcus=N';
 const DIR = path.resolve('archive/raw/nps');
+/**
+ * ⚠⚠ **달마다 따로 남긴다.** `latest` 하나만 두면 다음 달에 **이번 달치가 사라진다.**
+ *
+ * 이 파일은 **월간 스냅숏**이다(자료생성년월 열이 있다). 포털은 최신 한 벌만 준다 —
+ * 지난 달 것을 다시 달라고 할 수 없다. **소급이 안 되는 자료다.**
+ * 사장님 지시: 「아카이빙은 하루도 빠뜨리지 않는다 — 소급이 안 되는 유일한 항목」
+ *
+ * 그래서 파일 안의 **자료생성년월을 읽어** `workplaces-YYYYMM.csv` 로 남기고,
+ * `workplaces-latest.csv` 는 그 사본으로 둔다(스크립트들이 이 이름을 본다).
+ *
+ * ⭐ 이게 쌓여야 **이직률이 상품이 된다.** 한 달치로는 「6월 상실률」밖에 못 쓴다 —
+ *   퇴직·폐업·계절요인이 섞여 있어 한 달만 보고 「이직률」이라고 하면 거짓말이 된다.
+ */
 const 본 = path.join(DIR, 'workplaces-latest.csv');
 const 임시 = 본 + '.part';
 
@@ -48,6 +61,7 @@ async function 받기() {
   mkdirSync(DIR, { recursive: true });
   if (existsSync(본)) {
     console.log(`이미 있다 — ${본} (${메가(statSync(본).size)})`);
+    달치로남기기();   /* 예전에 받아 둔 것도 달치로 남긴다 */
     console.log('다시 받으려면 그 파일을 지운다.');
     return;
   }
@@ -66,6 +80,27 @@ async function 받기() {
   if (크기 && 받은 !== 크기) throw new Error(`크기가 다르다 — 기대 ${크기} 받음 ${받은}`);
   renameSync(임시, 본);
   console.log(`✅ ${본} (${메가(받은)})`);
+  달치로남기기();
+}
+
+/**
+ * 파일 첫 행에서 **자료생성년월**을 읽어 달치 사본을 만든다.
+ * ⚠ 파일명을 오늘 날짜로 짓지 않는다 — 늦게 받으면 어긋난다. **자료가 말하는 달**을 쓴다.
+ */
+function 달치로남기기() {
+  if (!existsSync(본)) return;
+  const 앞 = readFileSync(본).subarray(0, 8192);
+  const 글 = new TextDecoder('euc-kr', { fatal: false }).decode(앞);
+  const 줄 = 글.split(String.fromCharCode(10)).map((x) => x.trim());
+  const 열 = (줄[0] ?? '').split(',').map((x) => x.trim());
+  const i = 열.findIndex((c) => c.includes('자료생성년월'));
+  const 값 = i > -1 ? (줄[1] ?? '').split(',')[i] : null;
+  const 달 = String(값 ?? '').replace(/[^0-9]/g, '').slice(0, 6);
+  if (달.length !== 6) { console.log('⚠ 자료생성년월을 못 읽었다. 달치 사본을 안 만든다'); return; }
+  const 달파일 = path.join(DIR, `workplaces-${달}.csv`);
+  if (existsSync(달파일)) { console.log(`이미 있다 — ${path.basename(달파일)}`); return; }
+  copyFileSync(본, 달파일);
+  console.log(`📦 달치로 남겼다 — ${path.basename(달파일)}`);
 }
 
 /**
