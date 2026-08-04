@@ -13,11 +13,22 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
+import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import schools from '../../../data/100yearmap/pages-school.json';
 import majors from '../../../data/100yearmap/pages-major.json';
+import universities from '../../../data/100yearmap/pages-university.json';
 
 /** 페이지가 있는 학과만 링크한다. 개설 학교가 1곳뿐인 학과는 페이지가 없다(얇아서 뺐다) */
 const HAS_PAGE = new Set((majors as any[]).map((m) => m.url));
+
+/** 지역 → 그 지역 대학. 한 번만 만들고 2,525장이 나눠 쓴다
+ *  ⚠ 지면마다 filter 를 돌리면 2,525 × 377 번이 된다 */
+const 지역별대학 = new Map<string, any[]>();
+for (const u of universities as any[]) {
+  if (!지역별대학.has(u.지역)) 지역별대학.set(u.지역, []);
+  지역별대학.get(u.지역)!.push(u);
+}
+for (const list of 지역별대학.values()) list.sort((a, b) => a.표시명.localeCompare(b.표시명, 'ko'));
 
 export async function getStaticPaths() {
   return (schools as any[]).map((s) => ({
@@ -40,6 +51,15 @@ const 학과 = (school.학과 ?? []) as { name: string; url: string | null }[];
 
 /** 설립일 19980113 → 1998년 */
 const 설립연도 = /^\d{8}$/.test(school.설립일 ?? '') ? school.설립일.slice(0, 4) : null;
+
+/** ⭐ 두 축을 잇는 자리 — 「대학 다음까지 보는 진로 지도」인데 여태 고교와 대학이 서로 안 닿았다.
+ *  ⚠ 학과끼리 잇는 자료(고교 학과 ↔ 대학 학과)는 **아직 없다.** 있는 것은 지역뿐이다.
+ *    그래서 **지역으로만** 잇는다. 짐작으로 학과를 잇지 않는다.
+ *  ⚠ 이 지면 2,525장 중 1,353장이 학과가 없는 일반고다. 그쪽에는 이게 유일한 다음 걸음이 된다. */
+const 대학지역 = 고교지역_대학지역(school.지역);
+const 지역대학 = 대학지역 ? (지역별대학.get(대학지역) ?? []) : [];
+const 보여줄대학 = 지역대학.slice(0, 12);
+const 지역짧게 = 짧은지역명(school.지역);
 
 const desc = 학과.length
   ? `${school.title}(${school.지역} · ${school.고교유형})에 개설된 학과 ${학과.length}개와, 이 학교유형 졸업자가 취업 뒤에 얼마나 그 자리에 남는지를 공공데이터로 정리했습니다.`
@@ -170,9 +190,43 @@ const jsonLd = {
     </table>
   </div>
 
+  {/* ⭐ 다음 걸음 — 고교 다음이 대학이다. 여태 두 축이 서로 안 닿았다 */}
+  {
+    보여줄대학.length > 0 && (
+      <>
+        <h2>{지역짧게}의 대학 {지역대학.length}곳</h2>
+        <p class="note">
+          가나다순입니다. 순위가 아닙니다.
+          {지역대학.length > 보여줄대학.length && (
+            <> 여기에는 {보여줄대학.length}곳만 보입니다 — <a href="/university">대학 찾기</a>에서 전부 볼 수 있습니다.</>
+          )}
+        </p>
+        <ul class="unis">
+          {보여줄대학.map((u) => (
+            <li>
+              <a href={href(u.url)}>{u.표시명}</a>
+              <span class="note">
+                {' '}{u.종류}
+                {u.취업률 && <> · 취업 {u.취업률.값}%</>}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="warn">
+          ⚠ <strong>같은 시·도라는 뜻일 뿐입니다.</strong> 집에서 다닐 수 있는 거리인지는
+          저희가 알지 못합니다. 그리고 이 학교를 나와 저 대학에 많이 간다는 뜻도 아닙니다 —
+          고등학교 학과와 대학 학과를 잇는 공식 자료가 아직 공개되지 않아, 지금은 지역으로만 이어 두었습니다.
+        </p>
+      </>
+    )
+  }
+
   <hr class="rule" />
   <p class="note">출처 — 교육부 NEIS 교육정보 개방 포털(학교·학과). 학교 정보는 수시로 바뀝니다.</p>
-  <p class="note"><a href="/major">학과로 찾아보기</a></p>
+  <p class="note">
+    <a href="/major">학과로 찾아보기</a> · <a href="/university">대학 찾아보기</a> ·
+    <a href="/data">표 내려받기</a>
+  </p>
 </HundredYear>
 
 <style>
@@ -200,6 +254,28 @@ const jsonLd = {
     color: var(--muted);
   }
   /* ⚠ `.nums` · `.warn` 은 여기 없다. 레이아웃 한 곳에 모았다(2026-08-04) */
+  .unis {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 30rem) {
+    .unis {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+  .unis li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: var(--fs-body);
+  }
+  .unis li a {
+    display: inline-block;
+    min-height: 24px;
+  }
   table th {
     width: 8.5rem;
     white-space: nowrap;
