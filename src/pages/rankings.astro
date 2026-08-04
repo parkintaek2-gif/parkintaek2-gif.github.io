@@ -47,6 +47,21 @@ const DESC =
  * JS 가 아예 안 뜨는 환경에서도 **표가 읽히고 순위가 보인다.**
  */
 const 열 = Object.fromEntries(data.cols.map((c, i) => [c, i]));
+
+/**
+ * 채움률을 **화면에서 계산한다.**
+ *
+ * ⚠ 처음엔 손으로 적어 뒀다(「tenure by 63.5%」). 그런데 2026-08-05 에 파서를 고쳐
+ *   근속이 **97.0%**, 대표재직이 **85.8%** 가 됐는데 **지면은 63.5% 를 그대로 말하고 있었다.**
+ *   우리는 「분모를 밝히는 것」을 상품 사양이라고 말하는 회사다. 그 숫자가 낡으면
+ *   **사양서가 거짓이 된다.** 손으로 적은 값은 반드시 낡는다 — 그래서 계산한다.
+ */
+const 채움 = (id: string) => {
+  const i = 열[id];
+  if (i == null) return '—';
+  const n = data.rows.filter((r) => r[i] != null && r[i] !== '').length;
+  return `${(n / data.rows.length * 100).toFixed(1)}%`;
+};
 const 기본축 = data.axes[0];
 const 기본열 = 열[기본축.id];
 const 초기 = data.rows
@@ -139,20 +154,6 @@ const jsonLd = {
 
       <p class="more"><button id="more" type="button">Show 100 more</button></p>
 
-      {/* ⭐ 「B2B 는 지면을 안 산다. 표를 산다」 — 지면과 **같은 빌드**에서 떨어지는 원본.
-          안 걸어 두면 아무도 모른다. 지면 맨 위, 표 바로 아래에 둔다. */}
-      <section class="grab">
-        <a class="grab__btn" href="/data/korean-listed-workforce.csv" download>
-          Download the whole table (CSV)
-        </a>
-        <p class="grab__note">
-          All {data.rows.length.toLocaleString()} companies, all {data.cols.length} columns — the same
-          file this page is built from, so the numbers cannot drift apart. Free to use with attribution
-          to SeoulMarkets and to the Financial Supervisory Service, which publishes the underlying
-          filings. Blank means not disclosed, not zero.
-        </p>
-      </section>
-
       <section class="meth">
         <h2>How to read this table</h2>
         <ul>
@@ -189,8 +190,9 @@ const jsonLd = {
           </li>
           <li>
             <b>Coverage is uneven and we do not hide it.</b> Of the {data.rows.length.toLocaleString()}
-            companies listed here, pay is filed by 95.9%, headcount by 97.5%, tenure by 63.5% and a
-            datable CEO term by 64.1%. Rankings are computed on the companies that filed.
+            companies listed here, pay is filed by {채움('pay')}, headcount by {채움('headcount')},
+            tenure by {채움('tenure')} and a datable CEO term by {채움('ceoTenure')}.
+            Rankings are computed on the companies that filed.
           </li>
           <li>
             <b>{data.ceoFlagged} CEO terms are marked with an asterisk</b> because the term filed is

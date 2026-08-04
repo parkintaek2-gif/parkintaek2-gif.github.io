@@ -108,6 +108,4 @@ The median company in this sample lost **14.3%** over the twelve months, and onl
 
 We are also not claiming direction. A company whose staff stay may be a company whose business is stable — in which case tenure is a symptom, and the share price is responding to the business, not to the tenure. This dataset cannot separate those, and we are not going to pretend otherwise.
 
-**The full table is downloadable.** All 2,858 companies with every column used here — tenure, pay, gender split, headcount — are at [/data/korean-listed-workforce.csv](/data/korean-listed-workforce.csv), built from the same file this analysis ran on. Anyone who wants to check the industry control, or run it against a different window, can start there rather than from our summary.
-
 What it can do is settle the first question. The gap that looked like it was about who companies employ was about what business they are in. The one that was left is smaller, duller, and harder to write a headline about — which is usually the sign that it is the real one.
