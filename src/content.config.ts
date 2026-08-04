@@ -36,6 +36,21 @@ const articles = defineCollection({
     crossChecks: z.array(z.string()).default([]),
     /** 확인이 안 돼 기사에서 뺀 수치 */
     excluded: z.array(z.string()).default([]),
+    /**
+     * ⭐ **정정 기록.** 낸 뒤에 숫자가 바뀌면 **조용히 고치지 않는다.**
+     *
+     * 우리가 파는 것은 숫자의 신뢰다. 신뢰는 「틀린 적 없다」로 생기지 않는다 —
+     * 아무도 그걸 안 믿는다. **틀렸을 때 어떻게 하는지**로 생긴다.
+     * 고친 자국이 남아 있는 표가, 자국이 없는 표보다 믿을 만하다.
+     *
+     * 2026-08-05 에 처음 필요해졌다 — 직원 수 집계 버그로 이미 낸 기사 셋의
+     * 숫자가 바뀌었다. 그때 **적을 자리가 없다는 걸 알았다.**
+     */
+    corrections: z.array(z.object({
+      date: z.coerce.date(),
+      /** 무엇이 어떻게 바뀌었나. 「수정함」 같은 말로 때우지 않는다 */
+      note: z.string(),
+    })).default([]),
     /** 언급 종목 코드 (선택) */
     tickers: z.array(z.string()).default([]),
     tags: z.array(z.string()).default([]),

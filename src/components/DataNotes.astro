@@ -66,6 +66,27 @@ const { data } = Astro.props;
     </dd>
 
     {
+      /* ⭐ 정정이 있으면 **여기에도** 남긴다. 위 배너는 눈에 띄라고 있는 것이고,
+         이 줄은 **기록**이다. 검증 노트를 훑는 사람이 여기서 이력을 본다 */
+      data.corrections?.length > 0 && (
+        <Fragment>
+          <dt>Corrections</dt>
+          <dd>
+            <ul>
+              {data.corrections.map((c) => (
+                <li>
+                  <time datetime={c.date.toISOString().slice(0, 10)}>
+                    {c.date.toISOString().slice(0, 10)}
+                  </time>{' '}— {c.note}
+                </li>
+              ))}
+            </ul>
+          </dd>
+        </Fragment>
+      )
+    }
+
+    {
       data.tickers.length > 0 && (
         <Fragment>
           <dt>Instruments</dt>

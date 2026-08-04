@@ -91,6 +91,28 @@ const jsonLd = {
         </span>
       </p>
 
+      {
+        /**
+         * ⭐ **정정은 본문 위에 둔다.** 아래에 두면 이미 읽고 나간 뒤다.
+         *
+         * 데이터저널리즘에서 정정을 숨기면 **숫자 전체가 의심스러워진다.**
+         * 반대로 드러내면 「이 매체는 자기 숫자를 다시 본다」가 된다.
+         * 우리가 파는 것이 숫자라서, 이 배너는 **비용이 아니라 신용**이다.
+         */
+        d.corrections?.length > 0 && (
+          <aside class="corrections" role="note" aria-label="Corrections">
+            <strong>{d.corrections.length === 1 ? 'Correction' : 'Corrections'}</strong>
+            <ul>
+              {d.corrections.map((c) => (
+                <li>
+                  <time datetime={iso(c.date)}>{formatDate(c.date)}</time> — {c.note}
+                </li>
+              ))}
+            </ul>
+          </aside>
+        )
+      }
+
       <div class="prose">
         <Content />
       </div>

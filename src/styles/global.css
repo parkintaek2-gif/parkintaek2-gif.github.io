@@ -351,6 +351,39 @@ main {
   line-height: 1.45;
 }
 
+/* ⭐ 정정 고지 — 본문 **위**에 뜬다.
+   투명성 고지(.transparency)와 형태를 맞추되 **색으로 구분**한다.
+   같아 보이면 독자가 늘 있는 문구로 읽고 넘긴다 — 정정은 넘기면 안 된다.
+   ⚠ 빨강으로 하지 않는다. 오류 경고가 아니라 **기록**이다. 겁주는 것이 목적이 아니다 */
+.corrections {
+  background: var(--warn-soft, rgba(180, 120, 20, 0.09));
+  border-left: 3px solid var(--warn, #b47814);
+  padding: 0.7rem 0.9rem;
+  font-size: 0.86rem;
+  color: var(--ink-2);
+  margin-bottom: 1.75rem;
+  line-height: 1.5;
+}
+.corrections strong {
+  display: block;
+  color: var(--warn, #b47814);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.74rem;
+  margin-bottom: 0.3rem;
+}
+.corrections ul { margin: 0; padding-left: 1.1rem; }
+.corrections li + li { margin-top: 0.35rem; }
+.corrections time { color: var(--ink-3, var(--ink-2)); font-variant-numeric: tabular-nums; }
+
+@media (prefers-color-scheme: dark) {
+  .corrections {
+    background: rgba(220, 165, 60, 0.11);
+    border-left-color: #dca53c;
+  }
+  .corrections strong { color: #dca53c; }
+}
+
 .prose {
   font-family: var(--serif);
   font-size: 1.12rem;
@@ -918,6 +951,7 @@ td {
   figure,
   table,
   .transparency,
+  .corrections,
   .data-notes,
   .table-scroll {
     break-inside: avoid;
