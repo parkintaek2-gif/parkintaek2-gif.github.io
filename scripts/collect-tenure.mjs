@@ -80,6 +80,44 @@ export function 수(v) {
   return Number.isFinite(n) ? n : null;
 }
 
+/**
+ * **평균 근속연수**를 읽는다. ⚠ `수()` 로 읽으면 안 된다.
+ *
+ * ── 2026-08-04 에 잡은 것 ──────────────────────────────────────
+ * 순위표에서 근속 채움률이 **63.5%** 였다. 「회사들이 공시를 덜 했나 보다」로
+ * 넘길 뻔했는데, **같은 표의 급여는 96~98%** 였다. 같은 공시 같은 행에서
+ * 하나만 빠질 리 없다. DART 원문을 직접 열어 보니 이랬다.
+ *
+ *   " 5년 8월"   "7년6월"   "7년8개월"   "04년 04개월"   "12년 10개월"
+ *
+ * **회사들은 다 공시했다. `Number("5년 8월")` 이 NaN 이라 내가 버리고 있었다.**
+ * 근속만 null 인 1,067곳 중 **959곳이 급여는 갖고 있었다** — 전부 이 경우다.
+ *
+ * ⚠ 여기서 「월」은 **개월**이다. 8월(August)이 아니다.
+ * ⚠ 이런 자유 서식은 **회사가 손으로 적는 칸**이라 표기가 제각각이다.
+ *   못 읽는 꼴을 만나면 **0 으로 만들지 말고 null 로 둔다** — 없는 걸 0 으로 하면
+ *   「근속 0년 회사」가 순위 맨 아래에 줄줄이 생긴다.
+ */
+export function 근속연수(v) {
+  if (v == null) return null;
+  const s = String(v).replace(/,/g, '').replace(/\s+/g, ' ').trim();
+  if (!s || /^[-–—]$/.test(s) || /해당|없음|미공시/.test(s)) return null;
+
+  /* "N년 M개월" · "N년M월" · "N년" — 앞의 0 이 붙어 와도 된다("04년 04개월") */
+  const m = s.match(/(\d+(?:\.\d+)?)\s*년(?:\s*(\d+(?:\.\d+)?)\s*(?:개월|월))?/);
+  if (m) {
+    const 년 = Number(m[1]);
+    const 월 = m[2] == null ? 0 : Number(m[2]);
+    if (Number.isFinite(년) && Number.isFinite(월)) return +(년 + 월 / 12).toFixed(2);
+  }
+  /* "N개월" 만 온 경우 */
+  const m2 = s.match(/^(\d+(?:\.\d+)?)\s*(?:개월|월)$/);
+  if (m2) { const 월 = Number(m2[1]); if (Number.isFinite(월)) return +(월 / 12).toFixed(2); }
+
+  /* 그냥 숫자로 적은 회사도 있다 ("10.5") */
+  return 수(s);
+}
+
 /** 성별 두 줄을 하나로 합친다 — 가중평균이어야 한다. 단순평균은 틀린다 */
 export function 합치기(행들) {
   const 남 = 행들.find((x) => /남/.test(x.sexdstn ?? ''));
@@ -93,7 +131,8 @@ export function 합치기(행들) {
     return 정 + 기 > 0 ? 정 + 기 : null;
   };
   const 남수 = 인원(남), 여수 = 인원(여);
-  const 남근 = 수(남?.avrg_cnwk_sdytrn), 여근 = 수(여?.avrg_cnwk_sdytrn);
+  /* ⚠ `수()` 가 아니라 `근속연수()` 다. 「5년 8월」 같은 한글 표기가 온다 */
+  const 남근 = 근속연수(남?.avrg_cnwk_sdytrn), 여근 = 근속연수(여?.avrg_cnwk_sdytrn);
   let 전체근속 = null;
   if (남근 != null && 여근 != null && 남수 && 여수) 전체근속 = +(((남근 * 남수) + (여근 * 여수)) / (남수 + 여수)).toFixed(2);
   else 전체근속 = 남근 ?? 여근;
@@ -115,9 +154,21 @@ async function main() {
   mkdirSync(OUT_DIR, { recursive: true });
   const 산출 = path.join(OUT_DIR, `employment-${연도}.ndjson`);
 
-  /* 이어받기 — 이미 받은 건 다시 안 부른다 */
+  /* 이어받기 — 이미 받은 건 다시 안 부른다.
+   *
+   * ⚠ `--refetch` 는 그 이어받기를 **끄고 전부 다시 받는다.**
+   *   파싱 규칙을 고쳤을 때 필요하다 — 저장된 파일에는 **파싱 결과만** 있고
+   *   원문이 없으므로, 규칙만 고치고 다시 돌리면 아무것도 안 바뀐다.
+   *   2026-08-04 에 근속 파서를 고치고 그냥 돌렸다가 **0곳 변경**을 보고 알았다. */
   const 완료 = new Set();
-  if (existsSync(산출)) {
+  /* ⚠ 이 파일은 **append** 로 쓴다. `--refetch` 면 먼저 비워야 중복이 안 쌓인다.
+   *   비우기 전에 `.bak` 으로 옮겨 둔다 — 재수집이 중간에 죽어도 옛것이 남게. */
+  if (existsSync(산출) && process.argv.includes('--refetch')) {
+    writeFileSync(`${산출}.bak`, readFileSync(산출));
+    writeFileSync(산출, '');
+    console.log(`↻ 전부 다시 받는다. 옛 파일은 ${path.basename(산출)}.bak 에 뒀다`);
+  }
+  if (existsSync(산출) && !process.argv.includes('--refetch')) {
     for (const l of readFileSync(산출, 'utf8').split('\n')) {
       if (!l) continue;
       try { 완료.add(JSON.parse(l).corp); } catch { /* 깨진 줄은 그냥 넘긴다 */ }
