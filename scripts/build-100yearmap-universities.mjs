@@ -74,12 +74,19 @@ const pages = 대학.map((u) => {
   const 기준 = 종류기준[u.schlKndNm] ?? null;
   const 차이 = 탈락 != null && 기준?.중앙값 != null ? 한자리(탈락 - 기준.중앙값) : null;
 
+  // ⚠ 캠퍼스가 따로 잡힌다 — 「강원대학교」가 본교·제2캠퍼스로 두 줄, 「경동대학교」는 세 줄이다.
+  //    목록에 `title` 만 쓰면 같은 이름이 여러 번 나와 고장난 것처럼 보인다(실제로 그랬다).
+  //    ⛔ 합치지 않는다. 캠퍼스마다 중도탈락률이 다르므로 합치면 숫자가 거짓말이 된다.
+  //    대신 **화면에 쓸 이름(표시명)**을 여기서 한 번 만들어 두고 모든 지면이 그것만 쓴다.
+  const 캠퍼스 = u.clgcpDivNm ?? null;
+  const 표시명 = 캠퍼스 && 캠퍼스 !== '본교' ? `${u.schlKrnNm} ${캠퍼스}` : u.schlKrnNm;
+
   return {
     url: `/university/${u.schlId}`,
     title: u.schlKrnNm,
+    표시명,
     schlId: u.schlId,
-    // 「본교 / 제1캠퍼스」 같은 구분. 같은 이름이 둘 이상 나오는 이유라 그대로 남긴다
-    캠퍼스: u.clgcpDivNm ?? null,
+    캠퍼스,
     전체이름: u.schlFullNm ?? null,
     종류: u.schlKndNm, // 대학교 · 교육대학 · 전문대학
     구분: u.schlDivNm, // 대학 · 전문대학

@@ -35,7 +35,7 @@ const { uni } = Astro.props as { uni: any };
 /** 같은 지역 · 같은 종류 학교 — ❺ 다음 걸음에 쓴다. 가나다순(등수가 아니다) */
 const 이웃 = (universities as any[])
   .filter((u) => u.schlId !== uni.schlId && u.지역 === uni.지역 && u.종류 === uni.종류)
-  .sort((a, b) => a.title.localeCompare(b.title, 'ko'))
+  .sort((a, b) => a.표시명.localeCompare(b.표시명, 'ko'))
   .slice(0, 12);
 
 const 차이 = uni.가운데값과의차이;
@@ -62,7 +62,8 @@ function 해석문() {
   );
 }
 
-const 제목 = uni.캠퍼스 && uni.캠퍼스 !== '본교' ? `${uni.title} ${uni.캠퍼스}` : uni.title;
+/** 표시명은 수집 단계에서 이미 만들어져 있다 — 지면마다 다시 만들면 언젠가 어긋난다 */
+const 제목 = uni.표시명;
 const desc =
   uni.중도탈락률 != null
     ? `${제목}(${uni.지역} · ${uni.설립} ${uni.종류})에 다니던 100명 중 ${떠난}명이 그 해에 학교를 떠났습니다. ${uni.공시연도}년 대학정보공시 기준입니다.`
@@ -162,7 +163,7 @@ const desc =
         <ul class="neighbors">
           {이웃.map((u) => (
             <li>
-              <a href={href(u.url)}>{u.title}</a>
+              <a href={href(u.url)}>{u.표시명}</a>
               {u.중도탈락률 != null && <span class="note"> {u.중도탈락률}%</span>}
             </li>
           ))}
@@ -194,7 +195,7 @@ const desc =
   .neighbors li {
     padding: 0.4rem 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.95rem;
+    font-size: var(--fs-body);
   }
   .neighbors li a {
     display: inline-block;

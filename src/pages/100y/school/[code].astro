@@ -193,49 +193,13 @@ const jsonLd = {
     border: 1px solid var(--line);
     border-radius: 999px;
     background: var(--card);
-    font-size: 0.92rem;
+    font-size: var(--fs-body);
     text-decoration: none;
   }
   .majors li span {
     color: var(--muted);
   }
-  .nums {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 0.5rem;
-    margin: 0 0 0.8rem;
-  }
-  .num {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 0.5rem;
-    padding: 0.8rem 0.5rem;
-    text-align: center;
-  }
-  .num .n {
-    display: block;
-    font-size: clamp(1.1rem, 5vw, 1.45rem);
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .num .k {
-    display: block;
-    font-size: 0.76rem;
-    color: var(--muted);
-    margin-top: 0.15rem;
-    line-height: 1.35;
-  }
-  .num.drop .n {
-    color: var(--warn);
-  }
-  .warn {
-    font-size: 0.86rem;
-    color: var(--warn);
-    background: color-mix(in srgb, var(--warn) 8%, transparent);
-    border-radius: 0.45rem;
-    padding: 0.6rem 0.75rem;
-    margin: 0 0 1.2rem;
-  }
+  /* ⚠ `.nums` · `.warn` 은 여기 없다. 레이아웃 한 곳에 모았다(2026-08-04) */
   table th {
     width: 8.5rem;
     white-space: nowrap;
