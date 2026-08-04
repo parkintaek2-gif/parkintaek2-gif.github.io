@@ -19,22 +19,25 @@
  *   정의를 바꾸면 「고친 것」이 아니라 「다른 것」이 된다.
  */
 import { readFileSync } from 'node:fs';
+/**
+ * ⚠⚠ **판정 규칙을 베껴 쓰지 않는다. 정본을 가져다 쓴다.**
+ *
+ * 처음엔 「근속 35년 초과 · 급여 10억 초과 / 1천만 미만」을 여기 다시 적었다.
+ * 그랬더니 **제외 건수가 58 로 나왔고, 실제 순위표 빌드는 59 였다.**
+ * 규칙이 두 벌이면 어느 쪽이 맞는지 아무도 모른다 —
+ * 오늘 아침 `합치기` 가 밖에서 건너뛰어진 것과 **같은 종류의 실수**다.
+ */
+import { 이상점검 } from './render-ranking.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const 파일 = path.resolve('archive/raw/dart-employment/employment-2025.ndjson');
 
-/** 기사 methodology 그대로 — 최소 100명, 범위 밖 값은 제외(고치지 않는다) */
+/** 기사 methodology 그대로 — 최소 100명 */
 const 최소인원 = 100;
-const 근속상한 = 35;            // 년
-const 급여상한 = 1_000_000_000; // 원
-const 급여하한 = 10_000_000;    // 원
 
-const 범위밖 = (r) =>
-  (r.근속 != null && r.근속 > 근속상한) ||
-  (r.근속남 != null && r.근속남 > 근속상한) ||
-  (r.근속여 != null && r.근속여 > 근속상한) ||
-  [r.급여남, r.급여여].some((v) => v != null && (v > 급여상한 || v < 급여하한));
+/** 범위 밖 판정은 **순위표가 쓰는 그 함수**다. 여기서 다시 정의하지 않는다 */
+const 범위밖 = (r) => 이상점검(r) != null;
 
 const 수치 = (n) => (n == null ? '—' : n.toLocaleString('en-US'));
 

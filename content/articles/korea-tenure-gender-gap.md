@@ -18,7 +18,7 @@ sources:
 crossChecks:
   - "Tenure by gender is a statutory disclosure item filed by the company itself in its annual report, not an outside estimate"
   - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table"
-  - "60 companies were excluded because a filed figure falls outside any plausible range — a tenure above 35 years or an average salary above 1bn won or below 10m won. These are unit-entry errors by the filer, not outliers. They were removed, not corrected"
+  - "59 companies were excluded because a filed figure falls outside any plausible range — a tenure above 35 years or an average salary above 1bn won or below 10m won. These are unit-entry errors by the filer, not outliers. They were removed, not corrected"
   - "Only firms with at least 100 employees are counted: at 3 employees an average tenure of 20 years describes two founders, not a retention record"
   - "The headline 2.11-year figure is weighted by headcount. The unweighted company average is 1.57 years and the median 1.1 years — all three are reported so the choice of weighting cannot flatter the result"
 excluded:
@@ -79,6 +79,6 @@ Three of the five largest reversals are in auto parts and pulp — the same indu
 
 Average tenure is not a turnover rate. A company that has hired quickly will show a low average because it is full of new people, not because anyone left. A company that has not hired in a decade will show a high one. The two look identical in this column.
 
-It is also a company-filed figure. Nobody audits the tenure table the way the financial statements are audited. Sixty companies filed a number that cannot be right — a tenure of 54 years at a firm whose staff average four and a half, an average salary entered in thousands of won rather than won. Those were removed from the count rather than corrected, because correcting them would mean guessing what the filer meant.
+It is also a company-filed figure. Nobody audits the tenure table the way the financial statements are audited. Fifty-nine companies filed a number that cannot be right — a tenure of 54 years at a firm whose staff average four and a half, an average salary entered in thousands of won rather than won. Those were removed from the count rather than corrected, because correcting them would mean guessing what the filer meant.
 
 What the number is, is the company's own statement about itself, made under a disclosure requirement, in a document its directors sign. Read one at a time, each is unremarkable. Read 1,837 at once, and 76 percent of them say the same thing.

@@ -18,7 +18,7 @@ sources:
 crossChecks:
   - "Average pay per employee is a statutory disclosure item filed by the company itself, not an outside estimate"
   - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table; 1,847 of those met the thresholds used here"
-  - "60 companies were excluded because a filed figure is outside any plausible range — pay above 1bn won or below 10m won, or tenure above 35 years. These are unit-entry errors by the filer. They were removed, not corrected"
+  - "59 companies were excluded because a filed figure is outside any plausible range — pay above 1bn won or below 10m won, or tenure above 35 years. These are unit-entry errors by the filer. They were removed, not corrected"
   - "Only firms with at least 100 employees are counted, and headcount is reported alongside every pay figure so the reader can see the sample behind each number"
   - "Industry averages are weighted by headcount, not by company, so that a sector's figure reflects the people in it rather than the number of listings"
   - "Industry codes are filed at two to five digits — a mix of KSIC sub-class and detail-class. All were normalised to the two-digit division before grouping; ungrouped, the same industry splits across several rows"
@@ -103,7 +103,7 @@ Across the 1,847 companies and 1,812,328 employees in this sample:
 - **Top decile:** 103m won and above
 - **Bottom decile:** 46m won and below
 
-The bottom of the table is not an error. Lynxeo Korea files 18m won across 114 employees; Alchera files 31m across 203. Both are within the range a company can legitimately report, and both were checked against the range test that removed sixty other filings as unit-entry mistakes.
+The bottom of the table is not an error. Lynxeo Korea files 18m won across 114 employees; Alchera files 31m across 203. Both are within the range a company can legitimately report, and both were checked against the range test that removed fifty-nine other filings as unit-entry mistakes.
 
 ## How to read this column
 
