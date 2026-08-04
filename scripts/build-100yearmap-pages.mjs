@@ -59,7 +59,33 @@ const MIN_SCHOOLS = 2;
  *  사장님 지시로 특성화고(521)에서 고등학교 전체(2,408)로 넓혔다.
  *  ⛔ 초등학교 6,341 은 넣지 않는다 — 「대학 이후」 축과 멀고 진로 검색어가 되지 않는다.
  *  중학교 3,328 은 다음 단계다. */
-const TARGET_KINDS = new Set(['고등학교']);
+const TARGET_KINDS = new Set(['고등학교', '각종학교(고)', '고등기술학교']);
+
+/** 「평생학교(고)-2년6학기」처럼 뒤에 학제가 붙어 이름이 갈린다. 앞부분으로 본다. */
+const TARGET_KIND_PREFIX = ['평생학교(고)'];
+
+/** 페이지를 만들 학교인가.
+ *  ⭐ 2026-08-04 넓힘 — 학과 페이지에서 학교로 걸린 링크 406개가 404 였다.
+ *     서울산업정보학교·종로산업정보학교·서울다솜관광고 같은 **각종학교(고) 69곳**은
+ *     실제로 학생을 받고 학과가 있는 직업교육기관이다. 우리 주제 한복판이다.
+ *     학력인정 평생학교(고) 49곳·고등기술학교 4곳도 같은 이유로 넣는다.
+ *
+ *  ⛔ 넣지 않는 것과 그 이유 —
+ *     · 특수학교 71 — 직업계고 취업통계가 포괄하지 않는다. 특성화고 수치를 붙이면 거짓이 된다
+ *     · 재외한국학교 75 — 국내 진로 경로가 아니다
+ *     · 방송통신고 42 — 성인 학습자 과정이라 「대학 이후」 축과 독자가 다르다
+ *     · 공동실습소 5 — 학교가 아니라 여러 학교가 같이 쓰는 실습 시설이다
+ *     넣지 않았다고 없는 것이 아니다. 다음 단계에서 각자의 맥락으로 따로 다룬다. */
+const isTargetKind = (kind) =>
+  TARGET_KINDS.has(kind) || TARGET_KIND_PREFIX.some((p) => (kind || '').startsWith(p));
+
+/** ⛔ 아직 학생을 안 받는 학교는 페이지를 만들지 않는다 (2026-08-04 발견).
+ *  NEIS 에 「(가칭)오송2고」·「검단3고(설립예정)」처럼 개교 전 학교가 5곳 섞여 있고,
+ *  이들은 **학교코드가 빈 문자열**이라 URL 이 겹쳐 빌드가 깨진다.
+ *  백년지도는 「올해 학생을 받는 학과」를 보여주는 서비스다. 개교 전 학교는 그 약속에 어긋난다. */
+const NOT_YET_OPEN = /\(?(가칭|설립예정|개교예정)\)?/;
+const isOpenSchool = (s) =>
+  Boolean((s.SD_SCHUL_CODE || '').trim()) && !NOT_YET_OPEN.test(s.SCHUL_NM || '');
 
 /** URL 슬러그 — 한글은 그대로 두고 공백·괄호만 정리한다.
  *  한글 URL 은 네이버·구글 모두 색인한다. 로마자로 바꾸면 오히려 검색어와 멀어진다. */
@@ -82,7 +108,11 @@ async function main() {
   const majors = (await readJson(join(IN, 'school-major.json'))).rows;
 
   // ── 1단계 대상: 고등학교 전체 ─────────────────────────────────────────
-  const target = schools.filter((s) => TARGET_KINDS.has(s.SCHUL_KND_SC_NM));
+  const target = schools.filter((s) => isTargetKind(s.SCHUL_KND_SC_NM) && isOpenSchool(s));
+  const 제외된개교전 = schools.filter((s) => isTargetKind(s.SCHUL_KND_SC_NM) && !isOpenSchool(s));
+  if (제외된개교전.length) {
+    console.log(`⛔ 개교 전 학교 ${제외된개교전.length}곳 제외: ${제외된개교전.map((s) => s.SCHUL_NM).join(' · ')}`);
+  }
 
   // 학교코드 → 학과 목록
   const majorsBySchool = new Map();
@@ -128,12 +158,30 @@ async function main() {
   const rankOf = new Map(majorRank.map((r, i) => [r.name, i + 1]));
 
   // ── 학교 페이지 ──────────────────────────────────────────────────────
-  const schoolPages = target.map((s) => {
+  /** ⚠ 같은 학교코드가 두 줄로 오는 경우가 있다 (2026-08-04 발견).
+   *  「고양송암고등학교」와 「고양송암고등학교(2년제)」가 코드 7531360 을 같이 쓴다.
+   *  학제(3년제/2년제)만 다른 **한 학교**다. URL 이 하나뿐이라 그냥 두면 한쪽이 조용히 사라진다.
+   *  이름이 짧은 쪽을 대표로 삼고, 다른 이름은 별칭으로 남긴다. */
+  const byCode = new Map();
+  for (const s of target) {
+    const prev = byCode.get(s.SD_SCHUL_CODE);
+    if (!prev) { byCode.set(s.SD_SCHUL_CODE, s); continue; }
+    const [주, 부] = [prev, s].sort((a, b) => a.SCHUL_NM.length - b.SCHUL_NM.length);
+    주._별칭 = [...new Set([...(주._별칭 ?? []), ...(부._별칭 ?? []), 부.SCHUL_NM])];
+    byCode.set(s.SD_SCHUL_CODE, 주);
+  }
+  const 합쳐진 = [...byCode.values()].filter((s) => s._별칭?.length);
+  if (합쳐진.length) {
+    console.log(`↔ 같은 코드 학교 ${합쳐진.length}건 합침: ${합쳐진.map((s) => `${s.SCHUL_NM}(+${s._별칭.join(',')})`).join(' · ')}`);
+  }
+
+  const schoolPages = [...byCode.values()].map((s) => {
     const mine = [...(majorsBySchool.get(s.SD_SCHUL_CODE) || [])].sort((a, b) => a.localeCompare(b, 'ko'));
     return {
       url: `/school/${s.SD_SCHUL_CODE}`,
       title: s.SCHUL_NM,
       titleEn: s.ENG_SCHUL_NM || null,
+      별칭: s._별칭 ?? null,
       code: s.SD_SCHUL_CODE,
       종류: s.SCHUL_KND_SC_NM,
       고교유형: s.HS_SC_NM,
@@ -214,7 +262,7 @@ async function main() {
   const summary = {
     생성: '1단계 — 고등학교 전체 + 학과',
     원천수집시각: 수집시각,
-    기준: { MIN_SCHOOLS, TARGET_KINDS: [...TARGET_KINDS] },
+    기준: { MIN_SCHOOLS, TARGET_KINDS: [...TARGET_KINDS, ...TARGET_KIND_PREFIX.map((p) => `${p}*`)] },
     전체학교: schools.length,
     대상학교: target.length,
     대상_고교유형별: Object.fromEntries(

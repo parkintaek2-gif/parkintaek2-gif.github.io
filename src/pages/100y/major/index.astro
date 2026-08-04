@@ -1,0 +1,168 @@
+---
+/**
+ * /100y/major — 학과 찾기 (스토리보드 P0 → P1 로 가는 길목)
+ *
+ * ⛔ 「인기 학과 TOP 10」을 만들지 않는다. 그것이 줄세우기다.
+ *    계열로 묶고, 계열 안에서는 **가나다순**으로 놓는다.
+ *    「개설 학교 수」는 규모의 사실이라 옆에 적는다 — 순위 번호는 붙이지 않는다.
+ *
+ * 검색은 자바스크립트 한 조각으로 끝낸다. 925개는 브라우저가 감당한다.
+ *   검색이 안 되는 환경에서도 목록 전체가 HTML 로 있으므로 읽을 수 있다(그리고 색인된다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import majors from '../../../../archive/100yearmap/pages-major.json';
+
+/** 계열 순서 — 규모가 큰 순. 이것은 학과 등수가 아니라 묶음의 크기다 */
+const ORDER = ['공업', '상업', '가사', '예술', '농림업', '일반', '해양', '수산', '미분류'];
+
+const 묶음 = new Map<string, any[]>();
+for (const m of majors as any[]) {
+  const k = m.계열 ?? '미분류';
+  if (!묶음.has(k)) 묶음.set(k, []);
+  묶음.get(k)!.push(m);
+}
+const 계열목록 = [...묶음.entries()]
+  .map(([계열, list]) => ({
+    계열,
+    // 가나다순. 학교가 많은 순으로 놓으면 그게 곧 순위표가 된다
+    list: list.sort((a, b) => a.title.localeCompare(b.title, 'ko')),
+  }))
+  .sort((a, b) => {
+    const ia = ORDER.indexOf(a.계열);
+    const ib = ORDER.indexOf(b.계열);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+
+const desc =
+  `전국 고등학교에 실제로 개설된 학과 ${(majors as any[]).length.toLocaleString()}개를 계열별로 정리했습니다. ` +
+  `학과를 고르면 어느 지역 어느 학교에 있는지, 그 길로 간 사람들이 졸업 뒤에 어떻게 됐는지 볼 수 있습니다.`;
+---
+
+<HundredYear title="학과 찾기" description={desc}>
+  <h1>학과 찾기</h1>
+  <p class="sub">
+    전국 고등학교에 실제로 개설된 학과 {(majors as any[]).length.toLocaleString()}개입니다.
+    책에 있는 학과가 아니라 <strong>올해 학생을 받는 학과</strong>입니다.
+  </p>
+
+  <input
+    id="q"
+    type="search"
+    placeholder="학과 이름을 입력하세요 (예: 조리, 반도체, 간호)"
+    autocomplete="off"
+    aria-label="학과 이름 검색"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+
+  {
+    계열목록.map(({ 계열, list }) => (
+      <section class="grp" data-track={계열}>
+        <h2>
+          {계열}계열 <span class="note">{list.length}개 학과</span>
+        </h2>
+        <ul class="majors">
+          {list.map((m) => (
+            <li data-name={m.title}>
+              <a href={href(m.url)}>{m.title}</a>
+              <span class="note"> {m.전국개설교수?.toLocaleString()}곳</span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+
+  <hr class="rule" />
+  <p class="note">
+    출처 — 교육부 NEIS 교육정보 개방 포털. 계열 구분은 학과 이름을 보고 저희가 추정한 것으로,
+    원자료에 있던 값이 아닙니다. 이름만으로 정하기 어려운 학과는 「미분류」로 남겨 두었습니다.
+  </p>
+</HundredYear>
+
+<style>
+  #q {
+    width: 100%;
+    min-height: 44px; /* 스토리보드 §11 — 탭 영역 */
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .grp h2 {
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .majors {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  @media (min-width: 30rem) {
+    .majors {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+  .majors li {
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .majors li a {
+    display: inline-block;
+    min-height: 24px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  // 925개는 브라우저에서 그냥 거른다. 서버·색인 없이 즉시 반응한다.
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.majors li'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.grp'));
+    if (!q) return;
+
+    function apply() {
+      var v = q.value.trim();
+      if (!v) {
+        items.forEach(function (li) { li.hidden = false; });
+        groups.forEach(function (g) { g.hidden = false; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      items.forEach(function (li) {
+        var hit = li.getAttribute('data-name').indexOf(v) >= 0;
+        li.hidden = !hit;
+        if (hit) n++;
+      });
+      groups.forEach(function (g) {
+        g.hidden = !g.querySelector('.majors li:not([hidden])');
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '개 학과' : '「' + v + '」 로 찾은 학과가 없습니다';
+    }
+
+    q.addEventListener('input', apply);
+
+    // 첫 화면 검색창에서 넘어온 ?q= 를 이어받는다.
+    // ⚠ JS 가 없으면 그냥 전체 목록이 보인다 — 925개가 전부 HTML 로 있으므로 못 쓰는 화면이 아니다.
+    var qs = new URLSearchParams(location.search).get('q');
+    if (qs) { q.value = qs; apply(); }
+  })();
+</script>

@@ -1,95 +1,104 @@
 ---
 /**
- * 백년지도 (百年地圖 · CenturyMap) — 첫 화면.
+ * 백년지도 (百年地圖) — P0 첫 화면. 스토리보드 §2 규격.
  *
- * 왜 이 저장소 안에 있나 — Cloudtype 구독 총량이 1GB 이고 klifemap 과 나눠 쓰는데
- * 여유가 0.25GB 뿐이다. 매체마다 배포를 띄우면 그 자리에서 막힌다.
- * `server.mjs` 가 Host 헤더를 보고 100yearmap.com 요청을 이 경로로 돌린다.
- * **메모리 추가 0원.**
+ * 목적은 **하나**다 — 「이 학과 나오면 어떻게 됐나」를 3초 안에 검색하게 만든다.
+ *   회사 소개가 아니다. **도구가 먼저 보여야 한다.**
+ *   그래서 검색창이 첫 화면 안에 있고, 회사 이야기는 스크롤 아래로 내렸다.
  *
- * ⚠ 이 페이지는 Base 레이아웃을 쓰지 않는다. Base 는 SeoulMarkets 의 머리말·꼬리말이
- *   붙어 있어서 그대로 쓰면 금융 매체 얼굴이 교육 사이트에 나온다.
- *   교육 쪽이 커지면 그때 별도 레이아웃으로 뺀다.
+ * 지켜야 할 것 (스토리보드 §2)
+ *   · 가입 유도 배너를 첫 화면에 두지 않는다. 도구를 쓰고 나서 권한다
+ *   · 광고를 첫 화면에 넣지 않는다. 신뢰가 먼저다
+ *   · 검색창은 JS 없이도 동작한다 — form submit 으로 학과 목록에 간다
+ *
+ * ⚠ 예전 푸터가 **쓰지도 않는 출처**를 적고 있었다 (커리어넷·대학알리미·KEDI).
+ *   커리어넷은 승인 대기, 대학알리미는 미신청, KESS 는 수집을 접었다.
+ *   지금 실제로 쓰는 것은 **NEIS 와 KOSIS 둘뿐**이다. 그대로 적는다.
+ *   ⛔ 아직 안 쓰는 출처를 적어 두는 것은, 있지도 않은 근거를 대는 것이다.
  */
-const TITLE = '백년지도 — 대학 다음까지 보는 진로 지도';
+import HundredYear from '../../layouts/HundredYear.astro';
+import { href } from '../../lib/hundredyear';
+import majors from '../../../archive/100yearmap/pages-major.json';
+import schools from '../../../archive/100yearmap/pages-school.json';
+
+const 학과수 = (majors as any[]).length;
+const 학교수 = (schools as any[]).length;
+
+/** 칩에 넣을 학과. ⛔ 「인기 순위」가 아니다 — **계열을 골고루** 섞어 고른 예시다.
+ *  개설 학교가 많은 순으로 놓으면 그 줄 자체가 순위표가 된다. */
+const CHIPS = ['조리과', '자동차과', '보건간호과', '반도체과', '디자인과', '회계정보과', '항공과', '애완동물과'];
+const 칩 = CHIPS.map((name) => (majors as any[]).find((m) => m.title === name)).filter(Boolean);
+
+/** 첫 화면에 쓸 실제 수치 — 이 서비스가 존재하는 이유가 이 한 줄에 있다 */
+const 표본 = (majors as any[]).find((m) => m.취업)?.취업;
+const 전체 = 표본?.전체평균;
+
 const DESC =
-  '학과별 유지취업률·중도탈락률 같은 공공데이터로, 그 길로 간 사람들이 실제로 어떻게 됐는지 보여줍니다. 학원을 팔지 않습니다.';
+  '고등학교 학과별로, 그 길로 간 사람들이 졸업 뒤에 실제로 어떻게 됐는지 공공데이터로 보여줍니다. ' +
+  '무료이고 가입도 필요 없습니다. 학원을 팔지 않습니다.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: '백년지도',
+  alternateName: '百年地圖',
+  description: DESC,
+  inLanguage: 'ko',
+};
 ---
 
-<!-- prettier-ignore -->
-<html lang="ko">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{TITLE}</title>
-  <meta name="description" content={DESC} />
-  <meta property="og:title" content={TITLE} />
-  <meta property="og:description" content={DESC} />
-  <meta property="og:type" content="website" />
-  <!-- 아직 준비 중이라 색인시키지 않는다. 내용이 채워지면 뗀다. -->
-  <meta name="robots" content="noindex" />
-  <style>
-    :root {
-      --ink: #14213d;
-      --muted: #5b6478;
-      --line: #e3e6ec;
-      --accent: #0f4c81;
-      --bg: #fbfbfd;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif;
-      line-height: 1.7;
-      -webkit-text-size-adjust: 100%;
-    }
-    .wrap { max-width: 46rem; margin: 0 auto; padding: 4rem 1.25rem 5rem; }
-    .logo { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
-    .logo span { color: var(--accent); }
-    .hanja { color: var(--muted); font-weight: 400; font-size: 0.85rem; margin-left: 0.4rem; }
-    h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.3; margin: 2.5rem 0 1rem; letter-spacing: -0.02em; }
-    .lead { font-size: 1.06rem; color: var(--muted); margin: 0 0 2.5rem; }
-    .rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-    h2 { font-size: 1.02rem; margin: 2.2rem 0 0.6rem; letter-spacing: -0.01em; }
-    p { margin: 0 0 1rem; }
-    .compare { width: 100%; border-collapse: collapse; font-size: 0.94rem; margin: 1rem 0 0; }
-    .compare th, .compare td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-    .compare th { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 600; }
-    .compare td:first-child { color: var(--muted); width: 8rem; }
-    .compare strong { color: var(--accent); }
-    .note { font-size: 0.88rem; color: var(--muted); }
-    footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.84rem; color: var(--muted); }
-    footer a { color: var(--accent); }
-    @media (prefers-color-scheme: dark) {
-      :root { --ink: #e9ecf2; --muted: #9aa3b5; --line: #262b36; --accent: #7ab3e6; --bg: #12141a; }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="logo">백년<span>지도</span><span class="hanja">百年地圖</span></div>
+<HundredYear title="대학 다음까지 보는 진로 지도" description={DESC} jsonLd={jsonLd}>
+  <h1>대학은 100년 중<br />한 점입니다.</h1>
+  <p class="lead">그 길로 간 사람들이 졸업하고 나서 실제로 어떻게 됐는지 보여드립니다.</p>
 
-    <h1>대학은 100년 중 한 점입니다.</h1>
-    <p class="lead">{DESC}</p>
+  {/* ⭐ 도구가 먼저. JS 없이도 눌리면 학과 목록으로 간다 */}
+  <form class="search" action="/major" method="get" role="search">
+    <input
+      type="search"
+      name="q"
+      placeholder="학과 이름을 넣으세요 (예: 조리과)"
+      aria-label="학과 이름으로 찾기"
+      autocomplete="off"
+    />
+    <button type="submit">찾기</button>
+  </form>
 
-    <hr class="rule" />
+  <ul class="chips">
+    {칩.map((m: any) => <li><a href={href(m.url)}>{m.title}</a></li>)}
+  </ul>
 
-    <h2>어른들은 「이 과에 가라」고 말합니다. 가서 어떻게 됐는지는 아무도 안 봅니다.</h2>
-    <p>
-      취업률은 학교가 관리하는 숫자입니다. 그런데 <strong>1년 뒤에도 그 자리에 남아 있는
-      비율</strong>은 다른 이야기를 합니다. 그걸 학과 단위로 학부모가 읽을 수 있게 만든 곳이
-      한국에 없습니다.
-    </p>
+  <p class="free">
+    <strong>무료입니다. 가입도 필요 없습니다.</strong><br />
+    <span class="note">고등학교 {학교수.toLocaleString()}곳 · 학과 {학과수.toLocaleString()}개</span>
+  </p>
 
-    <h2>우리는 학원을 팔지 않습니다. 그래서 안 다녀도 된다고 말할 수 있습니다.</h2>
-    <p class="note">
-      한국의 진로 조언은 대부분 무언가를 파는 사람에게서 나옵니다.
-      조언과 판매가 같은 주머니에 있으면 조언이 휘어집니다.
-    </p>
+  <hr class="rule" />
 
-    <table class="compare">
+  {/* 여기부터는 스크롤 아래. 이미 검증된 카피라 그대로 살린다 */}
+  <h2>어른들은 「이 과에 가라」고 말합니다. 가서 어떻게 됐는지는 아무도 안 봅니다.</h2>
+  {
+    전체 && (
+      <p>
+        직업계고를 졸업하고 취업한 사람 가운데 <strong>1년 뒤에도 그 자리에 남아 있는 비율은{' '}
+        {전체['1차유지취업률']}%</strong>, 2년 뒤에는 <strong>{전체['2차유지취업률']}%</strong>입니다.
+        1년 사이에 {(전체['1차유지취업률'] - 전체['2차유지취업률']).toFixed(1)}%p 가 사라집니다.
+        「취업률 ○○%」로 끝나는 발표는 이 뒤에 벌어지는 일을 보여주지 않습니다.
+      </p>
+    )
+  }
+  <p class="note">
+    {표본?.기준연도}년 · 국가데이터처 KOSIS 「직업계고 졸업자 취업통계」 · 졸업자{' '}
+    {전체?.졸업자?.toLocaleString()}명
+  </p>
+
+  <h2>우리는 학원을 팔지 않습니다. 그래서 안 다녀도 된다고 말할 수 있습니다.</h2>
+  <p class="note">
+    한국의 진로 조언은 대부분 무언가를 파는 사람에게서 나옵니다. 조언과 판매가 같은 주머니에
+    있으면 조언이 휘어집니다.
+  </p>
+
+  <div class="tablewrap">
+    <table>
       <thead><tr><th></th><th>지금</th><th>백년지도</th></tr></thead>
       <tbody>
         <tr><td>보는 시간</td><td>대학까지</td><td><strong>그 이후 수십 년</strong></td></tr>
@@ -98,26 +107,112 @@ const DESC =
         <tr><td>정하는 사람</td><td>부모·학원</td><td><strong>아이가 정하고 어른이 검증</strong></td></tr>
       </tbody>
     </table>
-
-    <hr class="rule" />
-
-    <h2>준비 중입니다</h2>
-    <p class="note">
-      학과별 결과 데이터 조회를 먼저 무료로 엽니다. 회원가입 없이 쓰실 수 있습니다.
-      진단과 상담은 <strong>보호자와 함께</strong> 이용하는 것을 원칙으로 합니다 —
-      아이가 혼자 AI 와 대화하는 경로는 만들지 않습니다.
-    </p>
-
-    <footer>
-      <p>
-        출처 — 교육부·한국직업능력연구원 커리어넷, 대학알리미, 한국교육개발원 교육통계.
-        공공누리 제1유형에 따라 출처를 표시합니다.
-      </p>
-      <p>
-        백년지도는 <a href="https://seoulmarkets.com">SeoulMarkets</a> 를 만드는 곳에서
-        준비하고 있습니다. 근거를 밝히고, 검증되지 않은 것은 쓰지 않는다는 원칙이 같습니다.
-      </p>
-    </footer>
   </div>
-</body>
-</html>
+
+  <hr class="rule" />
+
+  <h2>지금 열려 있는 것</h2>
+  <p class="note">
+    학과·학교 조회를 <strong>먼저 무료로</strong> 엽니다. 회원가입 없이 쓰실 수 있습니다.
+    적성 진단과 상담은 <strong>보호자와 함께</strong> 쓰는 것을 원칙으로 합니다 —
+    아이가 혼자 AI 와 대화하는 경로는 만들지 않습니다.
+  </p>
+  <p class="note">
+    <a href="/major">학과 {학과수.toLocaleString()}개 전부 보기 →</a>
+  </p>
+
+  <h2>어디서 가져온 숫자인가</h2>
+  <p class="note">
+    <strong>교육부 NEIS 교육정보 개방 포털</strong> — 전국 고등학교와 개설 학과<br />
+    <strong>국가데이터처 KOSIS · 교육부 「직업계고 졸업자 취업통계」</strong> — 유지취업률<br />
+    출처와 기준연도를 페이지마다 함께 적습니다. 계열 구분처럼 <strong>저희가 추정한 것</strong>은
+    추정이라고 밝힙니다.
+  </p>
+  <p class="note">
+    ⚠ 지금 보여드리는 취업 수치는 <strong>학교유형·계열 단위</strong>입니다. 학과 하나하나의
+    공식 수치는 아직 공개되지 않습니다. 대학 축(중도탈락률·유지취업률)은 준비 중입니다.
+  </p>
+</HundredYear>
+
+<style>
+  h1 {
+    font-size: clamp(1.7rem, 6.5vw, 2.4rem);
+    margin: 2rem 0 0.8rem;
+  }
+  .lead {
+    font-size: 1.05rem;
+    color: var(--muted);
+    margin: 0 0 1.5rem;
+  }
+
+  /* ⭐ 검색창 — 첫 화면 안에 있어야 한다. 높이 52px (스토리보드 §2) */
+  .search {
+    display: flex;
+    gap: 0.4rem;
+    margin: 0 0 0.8rem;
+  }
+  .search input {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 52px;
+    padding: 0 0.9rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+  }
+  .search input:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .search button {
+    flex: 0 0 auto;
+    height: 52px;
+    padding: 0 1.1rem;
+    font-size: 1rem;
+    font-family: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--accent);
+    border: 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+
+  .chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding: 0;
+    margin: 0 0 1.5rem;
+  }
+  .chips a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+
+  .free {
+    margin: 0 0 0.5rem;
+  }
+  td:first-child {
+    color: var(--muted);
+    width: 7rem;
+  }
+  strong {
+    color: var(--accent);
+  }
+  h2 strong,
+  .free strong {
+    color: inherit;
+  }
+</style>

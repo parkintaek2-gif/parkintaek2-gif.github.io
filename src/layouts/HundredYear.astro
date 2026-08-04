@@ -1,0 +1,132 @@
+---
+/**
+ * HundredYear.astro — 백년지도 공통 레이아웃
+ *
+ * 왜 Base 를 안 쓰나 — Base 는 SeoulMarkets 의 머리말·꼬리말이 붙어 있다.
+ *   금융 매체 얼굴이 교육 사이트에 나오면 안 된다 (100y/index.astro 주석 참조).
+ *
+ * 스토리보드 §11 디자인 규격을 여기 한 곳에 담는다.
+ *   · 모바일이 기본이다. 360px 에서 먼저 그리고 넓힌다
+ *   · word-break: keep-all  — 없으면 한글 단어가 어색하게 끊긴다
+ *   · 탭 영역 최소 44×44px
+ *   · 시스템 폰트. 웹폰트를 쓰면 첫 화면이 늦어진다
+ *   · 다크모드 지원
+ *   · 표는 표 자체만 가로 스크롤(본문은 안 밀린다)
+ *
+ * ⚠ noindex 는 페이지마다 정한다. 내용이 채워진 페이지부터 뗀다.
+ */
+import { PUBLISHER } from '../consts';
+
+interface Props {
+  title: string;
+  description: string;
+  noindex?: boolean;
+  /** 스토리보드 §11 — og:image 는 카카오톡 유통 경로다. 빈 카드가 나가면 안 퍼진다 */
+  ogImage?: string;
+  jsonLd?: unknown;
+}
+
+const { title, description, noindex = true, ogImage, jsonLd } = Astro.props;
+const FULL = `${title} — 백년지도`;
+
+/**
+ * 정본 주소(canonical).
+ *
+ * ⚠ 빌드 경로에는 `/100y` 가 붙어 있지만, 방문자가 보는 주소에는 없다.
+ *   server.mjs 가 Host 헤더를 보고 붙여 주는 **우리 사정**이라서다.
+ *   누가 `100yearmap.com/100y/major/조리과` 로 들어와도 같은 페이지가 열리는데,
+ *   그러면 검색엔진이 한 문서를 둘로 세고 신호가 갈라진다.
+ *   그래서 정본을 **접두사 없는 주소 하나로** 못 박는다.
+ */
+const ORIGIN = 'https://100yearmap.com';
+/** ⚠ `Astro.url.pathname` 은 두 가지를 이미 갖고 있다. 손대면 오히려 망가진다.
+ *   ① `.html` 이 붙어 있다 — 빌드가 `dist/100y/major/조리과.html` 로 내기 때문.
+ *      우리가 쓰는 정본 주소에는 확장자가 없다(server.mjs 도 그렇게 모아 준다).
+ *   ② **이미 퍼센트 인코딩돼 있다.** 여기서 한 번 더 인코딩하면 `%EC` 가 `%25EC` 가 된다.
+ *      실제로 그렇게 나갔었다. 그대로 쓴다. */
+const canonical =
+  ORIGIN +
+  (Astro.url.pathname
+    .replace(/\/index\.html$/, '/')
+    .replace(/\.html$/, '')
+    .replace(/^\/100y(?=\/|$)/, '') || '/');
+---
+
+<!-- prettier-ignore -->
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{FULL}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={FULL} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="백년지도" />
+  {ogImage && <meta property="og:image" content={ogImage} />}
+  <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  {noindex && <meta name="robots" content="noindex" />}
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  <style>
+    :root {
+      --ink: #14213d; --muted: #5b6478; --line: #e3e6ec;
+      --accent: #0f4c81; --bg: #fbfbfd; --card: #fff; --warn: #8a5a00;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --ink: #e9ecf2; --muted: #9aa3b5; --line: #262b36;
+              --accent: #7ab3e6; --bg: #12141a; --card: #171a21; --warn: #d3a24a; }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: var(--bg); color: var(--ink);
+      font-family: system-ui, -apple-system, 'Segoe UI', 'Malgun Gothic', sans-serif;
+      line-height: 1.7; -webkit-text-size-adjust: 100%;
+      word-break: keep-all; /* 한글 필수 */
+    }
+    .wrap { max-width: 46rem; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+    a { color: var(--accent); }
+    /* 탭 영역 44px — 스토리보드 §11 */
+    .nav { display: flex; align-items: center; gap: 1rem; min-height: 44px; font-size: .95rem; }
+    .logo { font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--ink); }
+    .logo span { color: var(--accent); }
+    h1 { font-size: clamp(1.5rem, 5.5vw, 2.1rem); line-height: 1.3; margin: 1.5rem 0 .3rem; letter-spacing: -.02em; }
+    .sub { color: var(--muted); font-size: .95rem; margin: 0 0 1.5rem; }
+    h2 { font-size: 1.02rem; margin: 2rem 0 .6rem; letter-spacing: -.01em; }
+    p { margin: 0 0 1rem; }
+    .rule { border: 0; border-top: 1px solid var(--line); margin: 2rem 0; }
+    .note { font-size: .88rem; color: var(--muted); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: .6rem; padding: 1rem 1.1rem; margin: 0 0 1rem; }
+    /* 표는 표만 가로로 민다 — 본문은 안 밀린다 */
+    .tablewrap { overflow-x: auto; margin: 1rem 0; }
+    table { width: 100%; border-collapse: collapse; font-size: .94rem; }
+    th, td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-size: .78rem; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+    footer { margin-top: 3rem; padding-top: 1.25rem; border-top: 1px solid var(--line); font-size: .84rem; color: var(--muted); }
+    details > summary { cursor: pointer; min-height: 44px; display: flex; align-items: center; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="logo" href="/">백년<span>지도</span></a>
+      <a href="/major">학과 찾기</a>
+    </nav>
+
+    <slot />
+
+    <footer>
+      <!-- ⚠ YMYL — 발행 주체가 없으면 아무리 좋은 글도 검색에 안 올라온다 (스토리보드 §11) -->
+      <p>
+        <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
+        {PUBLISHER.addressKo}<br />
+        사업자등록번호 {PUBLISHER.bizRegNo} · <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+      </p>
+      <p>
+        백년지도는 학원을 팔지 않습니다. 그래서 안 다녀도 된다고 말할 수 있습니다.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

@@ -97,10 +97,25 @@ function cacheFor(pathname, ext) {
   return 'public, max-age=604800';
 }
 
-/** 경로를 실제 파일로 해석한다. 없으면 null. */
+/** 경로를 실제 파일로 해석한다. 없으면 null.
+ *
+ * ⚠ 2026-08-04 — `decodeURIComponent` 가 **서버 전체를 죽이고 있었다.**
+ *   잘못된 퍼센트 인코딩(`/%`, `/%zz`)이나 UTF-8 이 아닌 바이트가 경로에 들어오면
+ *   URIError 를 던지는데, 이 함수는 try/catch 밖에서 불린다 → 프로세스가 내려간다.
+ *   세 사이트가 한 프로세스에 있으므로 **서울마켓·위키팁도 같이 죽는다.**
+ *   스캐너가 그런 요청 하나만 보내면 끝이라, 원래도 있던 구멍이었다.
+ *   백년지도가 한글 주소 3,450장을 얹으면서 터질 확률만 커졌다.
+ *   못 읽는 경로는 파일도 없는 경로다 — 죽지 말고 404 로 답한다.
+ */
 async function resolveFile(pathname) {
+  let decoded;
+  try {
+    decoded = decodeURIComponent(pathname);
+  } catch {
+    return null; // 해석 불가 → 404
+  }
   // 디렉터리 탈출 차단
-  const clean = normalize(decodeURIComponent(pathname)).replace(/^(\.\.[/\\])+/, '');
+  const clean = normalize(decoded).replace(/^(\.\.[/\\])+/, '');
   const candidates =
     clean === '/' || clean === '\\'
       ? ['index.html']
@@ -139,7 +154,18 @@ function send(res, status, full, size, pathname, headOnly = false) {
   createReadStream(full).pipe(res);
 }
 
-const server = createServer(async (req, res) => {
+/**
+ * 요청 하나가 프로세스를 죽이지 못하게 한다.
+ *
+ * ⚠ 2026-08-04 — 실제로 죽었다. 잘못된 퍼센트 인코딩 하나에 `decodeURIComponent` 가
+ *   URIError 를 던져 서버가 내려갔고, **세 사이트가 한 프로세스**라 서울마켓·위키팁까지
+ *   같이 멈췄다. 그 원인은 resolveFile 안에서 따로 막았지만, 원인을 하나씩 막는 방식으로는
+ *   다음 것을 놓친다. 여기서 한 번 더 받는다.
+ *
+ * 500 을 돌려주고 로그를 남긴 뒤 **계속 산다.** 한 사람의 요청이 실패하는 것과
+ * 세 사이트가 전부 죽는 것은 완전히 다른 일이다.
+ */
+const handle = async (req, res) => {
   const parsed = new URL(req.url, 'http://localhost');
 
   /*
@@ -333,6 +359,18 @@ const server = createServer(async (req, res) => {
     return;
   }
   res.writeHead(404, { ...BASE_HEADERS, 'Content-Type': 'text/plain' }).end('Not Found');
+};
+
+const server = createServer((req, res) => {
+  handle(req, res).catch((err) => {
+    console.error(`[500] ${req.method} ${req.url} —`, err?.message ?? err);
+    if (res.headersSent) {
+      res.destroy(); // 이미 보내기 시작했으면 끊는 수밖에 없다
+      return;
+    }
+    res.writeHead(500, { ...BASE_HEADERS, 'Content-Type': 'text/plain; charset=utf-8' });
+    res.end('Internal Server Error');
+  });
 });
 
 server.listen(PORT, () => {

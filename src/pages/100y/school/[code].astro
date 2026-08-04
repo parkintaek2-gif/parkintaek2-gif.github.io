@@ -1,0 +1,243 @@
+---
+/**
+ * /100y/school/[code] — P2 학교 페이지
+ *
+ * 학과 페이지(P1)가 「이 길로 가면 어떻게 되나」라면,
+ * 학교 페이지는 「그럼 어디로 가야 하나」다. 두 축이 서로를 가리킨다.
+ *
+ * ⛔ 학교끼리 등수를 매기지 않는다. 「명문」·「상위」 같은 말을 쓰지 않는다.
+ *    같은 지역에 몇 곳이 있는지는 규모의 사실이라 쓴다.
+ *
+ * ⚠ 취업 수치는 **학교유형 전체**의 값이다. 이 학교 하나의 성적표가 아니다.
+ *    학교 이름 옆에 붙는 숫자는 오해를 사기 제일 쉬운 자리라, 경고를 숫자 바로 밑에 둔다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href, lastSegment } from '../../../lib/hundredyear';
+import schools from '../../../../archive/100yearmap/pages-school.json';
+import majors from '../../../../archive/100yearmap/pages-major.json';
+
+/** 페이지가 있는 학과만 링크한다. 개설 학교가 1곳뿐인 학과는 페이지가 없다(얇아서 뺐다) */
+const HAS_PAGE = new Set((majors as any[]).map((m) => m.url));
+
+export async function getStaticPaths() {
+  return (schools as any[]).map((s) => ({
+    params: { code: lastSegment(s.url) },
+    props: { school: s },
+  }));
+}
+
+const { school } = Astro.props as { school: any };
+const 취업 = school.취업;
+const 평균 = 취업?.전체평균;
+const 수치 = 취업?.수치;
+const pct = (v: number | null | undefined) => (v == null ? '—' : `${v.toFixed(1)}%`);
+
+/** ⚠ 학과는 문자열이 아니라 객체다 — { name, url, 전국개설교수, 전국순위 }.
+ *  `url` 이 null 이면 그 학과는 독립 페이지가 없다(개설 학교가 1곳뿐이라 뺐다).
+ *  그래도 **이름은 보여준다** — 그 학교에 실제로 있는 학과를 숨기면 안 된다.
+ *  ⛔ `전국순위` 는 읽지 않는다. 정렬용이고 화면에 나가지 않는다. */
+const 학과 = (school.학과 ?? []) as { name: string; url: string | null }[];
+
+/** 설립일 19980113 → 1998년 */
+const 설립연도 = /^\d{8}$/.test(school.설립일 ?? '') ? school.설립일.slice(0, 4) : null;
+
+const desc = 학과.length
+  ? `${school.title}(${school.지역} · ${school.고교유형})에 개설된 학과 ${학과.length}개와, 이 학교유형 졸업자가 취업 뒤에 얼마나 그 자리에 남는지를 공공데이터로 정리했습니다.`
+  : `${school.title}(${school.지역} · ${school.고교유형})의 기본 정보를 교육부 공공데이터로 정리했습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'HighSchool',
+  name: school.title,
+  ...(school.titleEn ? { alternateName: school.titleEn } : {}),
+  address: { '@type': 'PostalAddress', addressRegion: school.지역, streetAddress: school.주소 },
+  ...(school.홈페이지 ? { url: school.홈페이지 } : {}),
+};
+---
+
+<HundredYear title={school.title} description={desc} jsonLd={jsonLd}>
+  <h1>{school.title}</h1>
+  <p class="sub">
+    {school.지역} · {school.고교유형} · {school.설립}
+    {school.공학 && <> · {school.공학}</>}
+    {설립연도 && <> · {설립연도}년 설립</>}
+  </p>
+
+  {/* 개설 학과 — 이 학교의 얼굴이다. 취업 수치보다 먼저 놓는다 */}
+  {
+    학과.length > 0 ? (
+      <>
+        <h2>개설 학과 {학과.length}개</h2>
+        <ul class="majors">
+          {학과.map((m) => (
+            <li>
+              {m.url && HAS_PAGE.has(m.url) ? (
+                <a href={href(m.url)}>{m.name}</a>
+              ) : (
+                <span>{m.name}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+        <p class="note">학과를 누르면 그 길로 간 사람들이 졸업 뒤에 어떻게 됐는지 볼 수 있습니다.</p>
+      </>
+    ) : (
+      <p class="note">
+        이 학교는 NEIS 학과정보에 등록된 학과가 없습니다. 학과를 나누지 않는 일반계 과정이거나,
+        아직 등록되지 않았을 수 있습니다.
+      </p>
+    )
+  }
+
+  {/* 취업 — ⚠ 경고를 숫자 바로 밑에 둔다 */}
+  {
+    수치 && (
+      <>
+        <h2>졸업하고 나서</h2>
+        <div class="nums">
+          <div class="num">
+            <span class="n">{pct(수치['1차유지취업률'])}</span>
+            <span class="k">1년 뒤에도 그 자리에</span>
+          </div>
+          <div class="num">
+            <span class="n">{pct(수치['2차유지취업률'])}</span>
+            <span class="k">2년 뒤</span>
+          </div>
+          <div class="num drop">
+            <span class="n">−{취업['1차에서2차로_빠지는폭']}%p</span>
+            <span class="k">그 사이에 빠진 폭</span>
+          </div>
+        </div>
+        <p class="warn">
+          ⚠ 이 수치는 전국 <strong>{취업.적용단위}</strong> 졸업자{' '}
+          {수치.졸업자?.toLocaleString()}명의 수치입니다.
+          <strong> {school.title} 한 학교의 수치가 아닙니다.</strong> 학교별로 나뉜 공식 통계는
+          공개되지 않습니다.
+        </p>
+        <p>
+          전국 평균은 1년 뒤 {pct(평균['1차유지취업률'])}, 2년 뒤 {pct(평균['2차유지취업률'])}
+          입니다. 「취업했다」로 끝나는 통계는 이 뒤에 벌어지는 일을 보여주지 않습니다.
+        </p>
+
+        <details>
+          <summary>이 숫자는 어디서 왔나</summary>
+          <div class="card">
+            <p class="note">
+              <strong>출처</strong> {취업.출처}<br />
+              <strong>통계표</strong> {취업.표} · <strong>기준연도</strong> {취업.기준연도}년
+            </p>
+            <p class="note">{취업['⚠단위설명']}</p>
+            {취업.유형판정근거 && 취업.유형판정근거 !== 'NEIS 고교유형' && (
+              <p class="note">
+                ⚠ 학교유형 판정 — {취업.유형판정근거}. 교육부 NEIS 고교유형 값에는 마이스터고
+                항목이 없어, 학교 이름을 보고 저희가 판단했습니다.
+              </p>
+            )}
+          </div>
+        </details>
+      </>
+    )
+  }
+
+  <h2>학교 정보</h2>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr><th>지역</th><td>{school.지역}</td></tr>
+        <tr><th>교육청</th><td>{school.교육청}</td></tr>
+        {school.주소 && <tr><th>주소</th><td>{school.주소}</td></tr>}
+        {
+          school.홈페이지 && (
+            <tr>
+              <th>홈페이지</th>
+              <td>
+                <a href={school.홈페이지} rel="nofollow noopener" target="_blank">
+                  {school.홈페이지.replace(/^https?:\/\//, '')}
+                </a>
+              </td>
+            </tr>
+          )
+        }
+        {
+          school.같은지역_고교수 && (
+            <tr>
+              <th>같은 지역 고등학교</th>
+              <td>{school.같은지역_고교수.toLocaleString()}곳</td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="rule" />
+  <p class="note">출처 — 교육부 NEIS 교육정보 개방 포털(학교·학과). 학교 정보는 수시로 바뀝니다.</p>
+  <p class="note"><a href="/major">학과로 찾아보기</a></p>
+</HundredYear>
+
+<style>
+  .majors {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+  .majors li a,
+  .majors li span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 0.25rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--card);
+    font-size: 0.92rem;
+    text-decoration: none;
+  }
+  .majors li span {
+    color: var(--muted);
+  }
+  .nums {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin: 0 0 0.8rem;
+  }
+  .num {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+  }
+  .num .n {
+    display: block;
+    font-size: clamp(1.1rem, 5vw, 1.45rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .num .k {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--muted);
+    margin-top: 0.15rem;
+    line-height: 1.35;
+  }
+  .num.drop .n {
+    color: var(--warn);
+  }
+  .warn {
+    font-size: 0.86rem;
+    color: var(--warn);
+    background: color-mix(in srgb, var(--warn) 8%, transparent);
+    border-radius: 0.45rem;
+    padding: 0.6rem 0.75rem;
+    margin: 0 0 1.2rem;
+  }
+  table th {
+    width: 8.5rem;
+    white-space: nowrap;
+  }
+</style>
