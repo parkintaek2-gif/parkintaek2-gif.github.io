@@ -91,3 +91,25 @@ export const DISCLAIMER = {
   ai: 'AI-assisted, human-reviewed sourcing.',
   long: `${SITE.name} publishes data journalism for general information only. Nothing here is investment advice, a recommendation, or an offer to buy or sell any security. Figures are derived from official public data sources and may be revised by the issuing agency. Verify independently before acting.`,
 } as const;
+
+/**
+ * ⭐ **자매 사이트** — 우리 마케팅 두 축 중 하나.
+ *
+ * 사장님이 정하신 유일한 마케팅은 **검색 유입**과 **자사 사이트 간 유입**이다.
+ * 2026-08-05 에 실측해 보니 **네 사이트 사이 링크가 0개**였다. 축 하나가 없었다.
+ *
+ * 검색 쪽에도 걸린다 — 인바운드 링크가 하나도 없으면 검색엔진이 **찾아올 길이 없다.**
+ * 그날 서버 기록으로 24시간 동안 검색엔진 크롤러가 **0건**이었다.
+ *
+ * ⚠ 여기에 **klifemap.ai 는 아직 안 넣는다.** 오픈이 PG 승인으로 보류돼 있다.
+ *   준비 안 된 곳으로 독자를 보내면 두 사이트가 같이 깎인다. 열리면 넣는다.
+ * ⚠ wiki-tip.com 도 안 넣는다 — 네임서버가 아직 안 넘어왔다(302).
+ *   **살아 있는 것만 건다.** 죽은 링크는 없느니만 못하다.
+ */
+export const SISTER_SITES = [
+  {
+    name: '100 Year Map',
+    url: 'https://100yearmap.com/',
+    what: 'Korean schools and majors, by the numbers',
+  },
+] as const;

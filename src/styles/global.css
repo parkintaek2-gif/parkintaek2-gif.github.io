@@ -796,6 +796,14 @@ td {
   margin-bottom: 0.3rem;
 }
 
+/* 자매 사이트 한 줄 설명 — 이름 아래에 작게. 광고처럼 커지면 신뢰가 깎인다 */
+.foot__note {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
 .foot a {
   color: var(--ink-2);
   text-decoration: none;
