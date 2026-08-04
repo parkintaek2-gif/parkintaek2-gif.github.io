@@ -305,19 +305,41 @@ const jsonLd = {
   /* ⚠ 표가 지면을 가로로 밀지 않게 자기 안에서 스크롤한다 */
   .scroll-x { overflow-x: auto; }
   #tbl { width: 100%; border-collapse: collapse; font-size: .9rem; }
-  #tbl th, #tbl td { padding: .5rem .55rem; border-bottom: 1px solid var(--line); text-align: left; }
-  #tbl th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; white-space: nowrap; }
-  #tbl .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  #tbl .n { color: var(--muted); width: 2.6rem; }
-  #tbl .v { font-weight: 600; }
-  #tbl .e, #tbl .i { color: var(--muted); }
-  #tbl .i { font-size: .82rem; }
+  /* ⚠⚠ 아래는 전부 `:global()` 이다. **빼면 표 스타일이 통째로 죽는다.**
+   *
+   * 2026-08-05 실측으로 잡았다. 종목코드가 회사명과 같은 크기·같은 색으로 나와
+   * 「KIA CORPORATION 000270」처럼 이름의 일부로 읽혔다. 원인은 이랬다.
+   *
+   *   Astro 가 만든 규칙   #tbl[data-astro-cid-zqmnv5ck] .tk[data-astro-cid-zqmnv5ck]
+   *   JS 가 만든 요소      class 만 있고 **스코프 속성이 없다**
+   *
+   * 이 지면은 **모든 행을 JS 로 다시 그린다.** 그래서 행 안의 규칙이 하나도 안 맞았다 —
+   * 막대·정렬·숫자 서식까지 전부. 서버가 그린 첫 50행조차 JS 가 덮어써서 같이 죽었다.
+   *
+   * `#tbl` 자체는 서버가 그려 스코프 속성이 있으므로 **바깥은 스코프를 남기고
+   * 안쪽만 `:global()`** 로 연다. 그래야 다른 지면으로 규칙이 새지 않는다.
+   *
+   * ⚠ 이 지면에 JS 로 그리는 요소를 새로 넣으면 **그 규칙도 `:global()` 로 적는다.**
+   *   안 그러면 로컬에서는 멀쩡하고 배포하면 안 먹는다 — 눈으로 안 보면 못 잡는다.
+   */
+  #tbl :global(th), #tbl :global(td) { padding: .5rem .55rem; border-bottom: 1px solid var(--line); text-align: left; }
+  #tbl :global(th) { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  #tbl :global(.r) { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  #tbl :global(.n) { color: var(--muted); width: 2.6rem; }
+  #tbl :global(.v) { font-weight: 600; }
+  #tbl :global(.e), #tbl :global(.i) { color: var(--muted); }
+  #tbl :global(.i) { font-size: .82rem; }
 
   /* 표그래프 — 칸 배경에 막대를 깐다. 눈은 길이를, 필요하면 숫자를 읽는다 */
-  #tbl .nm { position: relative; min-width: 14rem; overflow: hidden; }
-  #tbl .bar { position: absolute; left: 0; top: 3px; bottom: 3px; background: var(--card); border-radius: 0 3px 3px 0; }
-  #tbl .nm .t { position: relative; }
-  #tbl .tk { color: var(--muted); font-size: .78rem; font-variant-numeric: tabular-nums; }
+  #tbl :global(.nm) { position: relative; min-width: 14rem; overflow: hidden; }
+  #tbl :global(.bar) { position: absolute; left: 0; top: 3px; bottom: 3px; background: var(--card); border-radius: 0 3px 3px 0; }
+  #tbl :global(.nm .t) { position: relative; }
+  /* ⚠ 종목코드는 **줄을 바꿔서** 이름 아래에 둔다.
+   *   한 줄에 붙이면 색과 크기를 달리해도 이름의 일부로 읽힌다. 실제로 그랬다. */
+  #tbl :global(.tk) {
+    display: block; color: var(--muted); font-size: .74rem;
+    font-variant-numeric: tabular-nums; letter-spacing: .02em; margin-top: 1px;
+  }
 
   .more { margin: 1rem 0 0; }
   #more { font: inherit; font-size: .86rem; padding: .5rem 1rem; cursor: pointer;
