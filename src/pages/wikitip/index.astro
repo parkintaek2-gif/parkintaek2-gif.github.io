@@ -2,144 +2,199 @@
 /**
  * WikiTip — 첫 화면. (wiki-tip.com)
  *
- * ── 왜 이 저장소 안에 있나 ──────────────────────────────────────
- * Cloudtype 구독 총량 1GB 를 klifemap 과 나눠 쓰는데 여유가 0.25GB 뿐이다.
- * 매체마다 배포를 띄우면 그 자리에서 막힌다. `server.mjs` 가 Host 헤더를 보고
- * wiki-tip.com 요청을 이 경로로 돌린다. **메모리 추가 0원.**
- * (100yearmap.com 과 같은 방식이다)
+ * ── 2026-08-04 개편 ────────────────────────────────────────────
+ * 전에는 **소개문**이었다. 「무엇을 다룰 것이다」만 있고 숫자가 없었다.
+ * 사장님 지시로 바꿨다 —
+ *   「그릇이 내용물을 결정한다. 첫 화면에 그래픽을 **정적으로, 무겁지 않게**」
+ *   「우리의 **유일한 마케팅은 콘텐트를 통한 검색 유입**」
  *
- * ── 왜 Base 레이아웃을 안 쓰나 ──────────────────────────────────
- * Base 는 SeoulMarkets 의 머리말·꼬리말이 붙어 있다. 그대로 쓰면
- * **금융 매체 얼굴이 K컬처 사이트에 나온다.** 사장님이 Riot 신청 때
- * 「wiki-tip.com 이 케이컬처고 서울마켓츠는 경제/금융이다」라고 지적하신 그 문제다.
+ * 소개문은 검색에 안 걸린다. **숫자와 고유명사가 있어야 걸린다.**
+ * 그래서 첫 화면에서 이미 답 하나를 주고, 그 답이 색인되게 한다.
+ *
+ * ── 왜 이 저장소 안에 있나 ──────────────────────────────────────
+ * Cloudtype 구독 총량을 klifemap 과 나눠 쓴다. 매체마다 배포를 띄우면 막힌다.
+ * `server.mjs` 가 Host 헤더를 보고 wiki-tip.com 요청을 이 경로로 돌린다.
+ * **메모리 추가 0원.** (100yearmap.com 과 같은 방식)
  *
  * ── ⚠ 광고 금지 ────────────────────────────────────────────────
  * Riot Production Key 심사 중이다(App 866800). **승인 전에 광고를 달면
- * API 접근이 영구 취소된다.** 이 페이지에는 애드센스 코드를 넣지 않는다.
- * `/esports` 지면도 `Base.astro` 의 `noAds` 로 막아 뒀고 시험으로 증명했다.
+ * API 접근이 영구 취소된다.** `WikiTip.astro` 에는 광고 자리를 아예 안 만들었다.
+ *
+ * ── ⚠ 사진을 쓰지 않는다 ───────────────────────────────────────
+ * 소속사 배포 이미지는 **등록 언론사의 보도 이용** 관행이다.
+ * 우리는 아직 인터넷신문 등록 전이라 그 자격에 기대지 않는다.
+ * 대신 **우리가 만든 숫자를 그림으로** 쓴다 — 저작권이 우리 것이고 아무도 안 갖고 있다.
  *
  * ── 영문이다 ────────────────────────────────────────────────────
  * 사장님 지시: 「모두 영어로 올려야 하는 거 알지? 우리는 영어 사이트야」
- * 1차 독자는 동남아다. 한국어로 쓰면 그 독자에게 안 닿는다.
+ * 1차 독자는 동남아다. 넷플릭스 실측으로도 확인됐다 —
+ * 한국 작품 진입 국가 2~9위가 전부 동남아·동아시아였다.
  */
-const TITLE = 'WikiTip — Korean pop culture, explained for Southeast Asia';
+import WikiTip from '../../layouts/WikiTip.astro';
+import charts from '../../data/wikitip-charts.json';
+
+const TITLE = 'Korean pop culture, in numbers';
 const DESC =
-  'K-pop, drama, film and esports — reported in English with the numbers behind them. No rumours, no reprints, sources named.';
+  'Which Korean shows are in the Netflix Top 10 across Southeast Asia this week, and which Korean actors '
+  + 'are drawing the most attention on English Wikipedia. Measured, sourced, updated weekly.';
+
+const 백만 = (v) => (v / 1e6).toFixed(0);
+const 최대시청 = Math.max(...charts.시청시간.map((r) => r.시간));
+const 최대관심 = Math.max(...charts.관심.map((r) => r.합));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean titles in the Netflix Top 10 — Southeast Asia',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'WikiTip' },
+  temporalCoverage: charts.넷플릭스주,
+  isBasedOn: [
+    'https://www.netflix.com/tudum/top10',
+    'https://wikimedia.org/api/rest_v1/',
+    'https://query.wikidata.org/',
+  ],
+};
 ---
 
-<!-- prettier-ignore -->
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{TITLE}</title>
-  <meta name="description" content={DESC} />
-  <meta property="og:title" content={TITLE} />
-  <meta property="og:description" content={DESC} />
-  <meta property="og:type" content="website" />
-  <!-- 아직 준비 중이라 색인시키지 않는다. 기사가 채워지면 뗀다. -->
-  <meta name="robots" content="noindex" />
-  <style>
-    :root {
-      --ink: #1a1626;
-      --muted: #635d75;
-      --line: #e7e4ee;
-      --accent: #6b3fa0;
-      --bg: #fcfbfe;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
-      line-height: 1.7;
-      -webkit-text-size-adjust: 100%;
-    }
-    .wrap { max-width: 46rem; margin: 0 auto; padding: 4rem 1.25rem 5rem; }
-    .logo { font-size: 1.05rem; font-weight: 700; letter-spacing: -0.01em; }
-    .logo span { color: var(--accent); }
-    h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.3; margin: 2.5rem 0 1rem; letter-spacing: -0.02em; }
-    .lead { font-size: 1.06rem; color: var(--muted); margin: 0 0 2.5rem; }
-    .rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
-    h2 { font-size: 1.02rem; margin: 2.2rem 0 0.6rem; letter-spacing: -0.01em; }
-    p { margin: 0 0 1rem; }
-    .beats { list-style: none; padding: 0; margin: 1rem 0 0; }
-    .beats li { padding: 0.7rem 0; border-bottom: 1px solid var(--line); font-size: 0.96rem; }
-    .beats b { color: var(--accent); }
-    .note { font-size: 0.88rem; color: var(--muted); }
-    .live { display: inline-block; font-size: 0.78rem; letter-spacing: 0.06em; text-transform: uppercase;
-            color: var(--accent); border: 1px solid var(--accent); border-radius: 999px; padding: 0.1rem 0.6rem; }
-    a { color: var(--accent); }
-    footer { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line); font-size: 0.84rem; color: var(--muted); }
-    @media (prefers-color-scheme: dark) {
-      :root { --ink: #ece9f3; --muted: #a49dba; --line: #2b2637; --accent: #b18cf0; --bg: #141119; }
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="logo">Wiki<span>Tip</span></div>
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} noindex>
+  <h1>Korean pop culture, in numbers</h1>
+  <p class="lead">
+    No rumours, no reprints. We count what Netflix and Wikipedia publish, name every source,
+    and say what we left out.
+  </p>
 
-    <h1>Korean pop culture, with the numbers attached.</h1>
-    <p class="lead">{DESC}</p>
-
-    <hr class="rule" />
-
-    <h2>Most English coverage of Korean culture is translated gossip.</h2>
-    <p>
-      A rumour appears in Korean, gets reposted in English a day later, and nobody
-      says where it came from. By the time it is corrected, the correction does not travel.
+  <!-- ── ① 동남아 — WikiTip 독자가 사는 곳이다 ─────────────────── -->
+  <section>
+    <h2>In the Netflix Top 10 across Southeast Asia</h2>
+    <p class="sub">
+      Week of {charts.넷플릭스주} · Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam ·
+      Korean-produced titles only
     </p>
-    <p>
-      We do the opposite. <strong>Every piece starts from something countable</strong> —
-      a chart position, a ranked-ladder distribution, a box-office tally, a filing —
-      and names where the number came from and when it was measured.
+    <ol class="rank">
+      {charts.동남아.map((r) => (
+        <li>
+          <span class="bar" style={`--w:${(r.국가수 / 6) * 100}%`}></span>
+          <span class="nm">{r.제목}</span>
+          <span class="meta"><b>{r.국가수}</b> of 6 countries · peaked at <b>#{r.최고순위}</b> · {r.구분}</span>
+        </li>
+      ))}
+    </ol>
+    <p class="note">
+      “Korean-produced” comes from Wikidata’s country-of-origin field — not from where it was watched.
+      International co-productions that list Korea are counted.
     </p>
+  </section>
 
-    <h2>What we cover</h2>
-    <ul class="beats">
-      <li><b>K-pop</b> — charts, releases and what the numbers actually show about reach</li>
-      <li><b>Drama &amp; film</b> — viewership, box office, and where a title travelled</li>
-      <li><b>Esports</b> — Korea's ranked ladder measured against Singapore, Vietnam and Japan <span class="live">live</span></li>
-      <li><b>Fandom &amp; industry</b> — how the business behind the culture works</li>
+  <!-- ── ② 누적 시청시간 ───────────────────────────────────────── -->
+  <section>
+    <h2>Most-watched Korean titles, all time</h2>
+    <p class="sub">Netflix global weekly hours viewed, summed since July 2021</p>
+    <ol class="rank">
+      {charts.시청시간.map((r) => (
+        <li>
+          <span class="bar" style={`--w:${(r.시간 / 최대시청) * 100}%`}></span>
+          <span class="nm">{r.제목}</span>
+          <span class="meta"><b>{백만(r.시간)}m</b> hours</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ── ③ 배우 관심도 ─────────────────────────────────────────── -->
+  <section>
+    <h2>Korean actors drawing the most attention</h2>
+    <p class="sub">
+      English Wikipedia page views, {charts.기간} · {charts.잡힘.toLocaleString()} actors measured
+    </p>
+    <ol class="rank">
+      {charts.관심.map((r) => (
+        <li>
+          <span class="bar" style={`--w:${(r.합 / 최대관심) * 100}%`}></span>
+          <span class="nm">{r.이름}</span>
+          <span class="meta"><b>{r.합.toLocaleString()}</b> views · {r.작품수} titles</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- ── ④ 상승 — 「핫」은 총량이 아니라 상승이다 ───────────────── -->
+  <section>
+    <h2>Rising fastest</h2>
+    <p class="sub">Last 7 days against the first 7 of the window · at least 300 views this week</p>
+    <ol class="rank">
+      {charts.상승.map((r) => (
+        <li>
+          <span class="nm">{r.이름}</span>
+          <span class="meta">×<b>{r.상승배수}</b> · {r.최근7일.toLocaleString()} views this week</span>
+        </li>
+      ))}
+    </ol>
+    <p class="note">
+      <b>Attention is not popularity.</b> A page climbs for good news and bad.
+      We report the count, not the reason.
+    </p>
+  </section>
+
+  <!-- ── ⑤ 이미 돌고 있는 것 ───────────────────────────────────── -->
+  <section>
+    <h2>Also running: the ladder census</h2>
+    <p class="sub">
+      Korea is treated as the reference point for competitive play, but almost nobody measures
+      how its player base differs from its neighbours’. We count it daily across six regions.
+      <b>A ladder cannot be measured retroactively</b> — a day not counted is gone.
+    </p>
+    <p class="note"><a href="/esports">See the current census →</a></p>
+  </section>
+
+  <!-- ── 출처 · 제외 — 기사와 같은 기준을 첫 화면에도 건다 ──────── -->
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li><b>Netflix Top 10</b> — the official weekly TSV: 94 countries, 265 weeks since July 2021</li>
+      <li><b>Wikidata</b> — country of origin (P495) and cast (P161). Actors are filtered to Korean citizenship (P27)</li>
+      <li><b>Wikimedia Pageviews API</b> — English Wikipedia, all access, human traffic only</li>
     </ul>
-
-    <hr class="rule" />
-
-    <h2>Already running: the ladder census</h2>
-    <p>
-      Korea is treated as the reference point for competitive play, but almost nobody
-      measures how its player base actually differs from its neighbours'.
-      We count it daily across six regions and keep the series.
-      <strong>A ladder cannot be measured retroactively</strong> — a day not counted is gone.
+    <p class="note">
+      <b>Not included:</b> other streaming services, which publish no comparable ranking ·
+      broadcast ratings · actors with no English Wikipedia article
+      ({(charts.대상배우 - charts.잡힘).toLocaleString()} of {charts.대상배우.toLocaleString()} in our roster).
     </p>
     <p class="note">
-      Built on the Riot Games API. Free to read, no account required.
-      <a href="/esports">See the current census →</a>
+      Not affiliated with any agency, label or studio. Riot Games does not endorse or sponsor this project.
+      Updated {charts.갱신} KST.
     </p>
+  </section>
+</WikiTip>
 
-    <hr class="rule" />
+<style>
+  h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2.5rem; }
+  section { margin: 0 0 3rem; }
+  h2 { font-size: 1.12rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
 
-    <h2>Why Southeast Asia first</h2>
-    <p class="note">
-      Korean culture travels furthest in Southeast Asia, and the English-language coverage
-      written for that audience is thinnest. Singapore and Vietnam are in the esports
-      comparison for the same reason — they are the readers, not a footnote.
-    </p>
+  /* 순위표 — 칸 배경에 막대를 깐다. 표(정확한 값)와 그래프(크기)를 둘 다 준다 */
+  .rank { list-style: none; padding: 0; margin: 0; counter-reset: r; }
+  .rank li {
+    position: relative; counter-increment: r; overflow: hidden;
+    padding: .65rem .8rem .65rem 2.5rem; border-bottom: 1px solid var(--line);
+  }
+  .rank li::before {
+    content: counter(r); position: absolute; left: .4rem; top: .7rem; z-index: 1;
+    color: var(--muted); font-size: .82rem; font-variant-numeric: tabular-nums;
+    width: 1.5rem; text-align: right;
+  }
+  .bar {
+    position: absolute; left: 0; top: 0; bottom: 0; width: var(--w);
+    background: var(--card); border-radius: 0 4px 4px 0;
+  }
+  .nm, .meta { position: relative; }
+  .nm { display: block; font-weight: 600; line-height: 1.35; }
+  .meta { display: block; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta b { color: var(--accent); }
 
-    <footer>
-      <p>
-        WikiTip is published by the team behind
-        <a href="https://seoulmarkets.com">SeoulMarkets</a>, a Korean market data publication.
-        Same rule in both places: name the source, state when it was measured,
-        and do not publish what has not been verified.
-      </p>
-      <p class="note">
-        This is not investment advice and not affiliated with any agency, label or studio.
-        Riot Games does not endorse or sponsor this project.
-      </p>
-    </footer>
-  </div>
-</body>
-</html>
+  .src ul { padding-left: 1.1rem; margin: 0; font-size: .9rem; }
+  .src li { margin: 0 0 .4rem; line-height: 1.6; }
+</style>
