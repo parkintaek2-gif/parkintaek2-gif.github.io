@@ -2486,6 +2486,34 @@ export const DART_SUBJECTS = {
 };
 /* ── DART 자동 채움 끝 ── */
 
+/* ── 사명변경 자동 채움 시작 · scripts/fill-subjects-from-renames.mjs 가 만든다 ──
+ *
+ * ⚠ **일부러 비워 둔다.** 채울 수 있는데 안 채우는 것이다.
+ *
+ * 2026-08-04, 주식시세 아카이브를 받고 나서 **사명이 바뀐 299종목(1,034건)을
+ * 채울 수 있게 됐다.** 커버리지가 98.00% → 99.56% 로 오른다.
+ * `npm run subjects:renames` 로 언제든 다시 잴 수 있다.
+ *
+ * **그런데 채우지 않기로 했다.** 이유가 둘이다.
+ *
+ *   ① 그 값은 「현재 법인명」이라 **시점이 다르다.**
+ *      2018년 「아주캐피탈」 리포트에 `WOORI FINANCIAL CAPITAL` 이 붙는다.
+ *      법인은 같지만 그 리포트가 다룬 회사의 그때 이름이 아니다.
+ *
+ *   ② ⭐ **우리가 이미 공개한 명세에 반한다.** `/v1/meta` 가 이렇게 말한다 —
+ *      "Historical Korean names are kept as filed — a 2014 report on Daewoo
+ *       Shipbuilding is not relabelled with the 2026 corporate name."
+ *      이용자에게 한 약속이다. **조용히 바꾸면 명세가 거짓이 된다.**
+ *      커버리지 1.5%p 와 바꿀 것이 아니다.
+ *
+ * 나중에 정말 필요하면 `subjectEn` 을 바꾸지 말고 **별도 필드**로 낸다
+ * (예: `subjectEnCurrent` + 명세 갱신). 같은 칸에 다른 뜻을 넣지 않는다.
+ *
+ * ⚠ **이 선언은 지우지 않는다.** `describeSubject` 가 참조한다.
+ */
+export const RENAMED_SUBJECTS = {};
+/* ── 사명변경 자동 채움 끝 ── */
+
 /**
  * 한글 종목명을 영문으로 편다.
  * **사전에 없으면 null 이다 — 추측하지 않는다.**
@@ -2499,7 +2527,12 @@ export function describeSubject(ko) {
    *   실제로 두 곳이 갈린다 — 우리는 `GS E&C`, DART 는 `GS Engineering & Construction`.
    *   짧은 통용 표기를 쓴다는 편집 판단이므로 손 사전이 이긴다.
    */
-  return SUBJECTS[ko] ?? DART_SUBJECTS[ko] ?? null;
+  /*
+   * ⚠ 사명변경은 **맨 뒤**다. 여기 값은 「현재 법인명」이라 시점이 다를 수 있다 —
+   *   2018년 「아주캐피탈」에 `WOORI FINANCIAL CAPITAL` 이 붙는다. 법인은 같다.
+   *   앞의 둘에 있으면 그게 그 이름 그대로의 표기이므로 먼저 쓴다.
+   */
+  return SUBJECTS[ko] ?? DART_SUBJECTS[ko] ?? RENAMED_SUBJECTS[ko] ?? null;
 }
 
 /** 사전 통계. `/v1/meta` 가 쓴다. */

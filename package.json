@@ -49,7 +49,8 @@
     "collect:products": "node scripts/collect-securities-products.mjs",
     "build:homecharts": "node scripts/build-home-charts.mjs",
     "collect:stocks": "node scripts/collect-stock-prices.mjs",
-    "collect:funds": "node scripts/collect-fund-codes.mjs"
+    "collect:funds": "node scripts/collect-fund-codes.mjs",
+    "subjects:renames": "node scripts/fill-subjects-from-renames.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",

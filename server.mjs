@@ -15,7 +15,7 @@ import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
-import { 경로펴기 } from './src/lib/url-path.mjs';
+import { 경로후보 } from './src/lib/url-path.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -109,18 +109,19 @@ function cacheFor(pathname, ext) {
  *   못 읽는 경로는 파일도 없는 경로다 — 죽지 말고 404 로 답한다.
  */
 async function resolveFile(pathname) {
-  const decoded = 경로펴기(pathname);
-  if (decoded === null) return null;
-
-  // 디렉터리 탈출 차단
-  const clean = normalize(decoded).replace(/^(\.\.[/\\])+/, '');
-  const candidates =
-    clean === '/' || clean === '\\'
-      ? ['index.html']
-      : extname(clean)
-        ? [clean]
-        : // 확장자가 없으면 clean URL 로 보고 .html 과 디렉터리 index 를 차례로 찾는다
-          [`${clean}.html`, join(clean, 'index.html')];
+  /* ⚠ 후보가 **여럿**일 수 있다. 원시 UTF-8 바이트로 온 한글 주소를 되살린 것이
+   *   두 번째 후보로 온다. 어느 쪽이 맞는지는 **파일이 있는지로 판정**한다 —
+   *   조건으로 가르려다 한 번 실패했다(`new URL()` 이 퍼센트 인코딩을 넣어 버린다).
+   *   순서가 뜻을 갖는다: 원래 해석이 먼저, 되살린 것이 나중. */
+  const candidates = [];
+  for (const decoded of 경로후보(pathname)) {
+    // 디렉터리 탈출 차단
+    const clean = normalize(decoded).replace(/^(\.\.[/\\])+/, '');
+    if (clean === '/' || clean === '\\') candidates.push('index.html');
+    else if (extname(clean)) candidates.push(clean);
+    // 확장자가 없으면 clean URL 로 보고 .html 과 디렉터리 index 를 차례로 찾는다
+    else candidates.push(`${clean}.html`, join(clean, 'index.html'));
+  }
 
   for (const c of candidates) {
     const full = join(ROOT, c);
