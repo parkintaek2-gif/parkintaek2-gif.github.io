@@ -8,14 +8,16 @@
  * ⛔ archive/ 를 src/ 에서 직접 import 하지 않는다. 그러면 컨테이너 빌드가 죽는다.
  *    (2026-08-04 에 이걸 어겨 배포를 3시간 막았다)
  *
- * ⚠ 비교 기준을 **우리가 직접 계산한다.** 이유 —
- *   대학알리미 지역별 표(getRegional*)의 중도탈락 값이 0.3~0.5% 로 오는데,
- *   학교별로 받은 실제 값은 중앙값 7.4% 다. **그 표가 무슨 단위인지 아직 못 쟀다.**
- *   모르는 숫자를 화면에 올리느니, 우리가 받은 335개교 값으로 직접 재고
- *   「우리가 계산했다」고 밝히는 쪽을 택했다.
+ * ⭐ 2026-08-05 — **평균을 우리가 계산하지 않는다.**
+ *   처음엔 `getComparison*` 만 써서 335개교 값으로 **중앙값을 직접 냈다.**
+ *   그런데 `getNotice*` 계열이 **공식 평균(`indctAvg`)을 같이 준다**는 걸 나중에 알았다.
+ *   발표된 평균이 있는데 우리가 만든 값을 화면에 올릴 이유가 없다. 전부 공식값으로 바꿨다.
  *
- * ⛔ 순위를 만들지 않는다. 「몇 위」도, 「상위 몇 %」도 쓰지 않는다.
- *    쓰는 것은 **가운데값과의 차이**뿐이다 — 그건 등수가 아니라 위치다.
+ * ⚠ `indctVal*` 의 뜻은 지표마다 다르다. 원자료 파일의 `뜻` 필드에 적혀 있다.
+ *   숫자만 보고 짐작하지 않는다 — 그러면 화면에서 거짓말이 된다.
+ *
+ * ⛔ 순위를 만들지 않는다. 「몇 위」도 「상위 몇 %」도 쓰지 않는다.
+ *    쓰는 것은 **전국 평균과의 차이**뿐이다 — 등수가 아니라 위치다.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -32,54 +34,51 @@ const readJson = (p) => {
 
 const { svyYr, list: 대학 } = readJson(path.join(RAW, 'universities.json'));
 
-/** 학교별 파일에서 지표값 하나를 꺼낸다. 값이 없으면 null */
-const 지표읽기 = (파일, indctId) => {
+/** getNotice* 파일 하나를 학교ID → item 으로 만든다 */
+const 지표읽기 = (파일) => {
   const m = new Map();
-  for (const r of readJson(path.join(RAW, 파일)).rows) {
-    const it = (r.items || []).find((x) => x.indctId === indctId);
-    const v = it ? Number(it.indctVal1) : NaN;
-    if (!Number.isNaN(v)) m.set(r.schlId, v);
+  const f = path.join(RAW, 파일);
+  if (!fs.existsSync(f)) {
+    console.log(`  ⚠ ${파일} 이 없다 — 그 지표는 비워 둔다`);
+    return m;
+  }
+  for (const r of readJson(f).rows ?? []) {
+    const it = (r.items || [])[0];
+    if (it) m.set(r.schlId, it);
   }
   return m;
 };
 
-const 중도탈락 = 지표읽기('school-dropout.json', '23'); // 중도탈락학생비율 (%)
-const 재적학생 = 지표읽기('school-enrolled.json', '9'); // 재적학생 (명)
+const 취업 = 지표읽기('notice-employment.json');
+const 탈락 = 지표읽기('notice-wastage.json');
+const 신입 = 지표읽기('notice-freshman.json');
+const 재학 = 지표읽기('notice-enrolled.json');
+const 교원 = 지표읽기('notice-faculty.json');
 
-const 중앙값 = (arr) => {
-  if (!arr.length) return null;
-  const s = [...arr].sort((a, b) => a - b);
-  const m = s.length >> 1;
-  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+const 수 = (v) => {
+  const n = Number(v);
+  return v == null || v === '' || Number.isNaN(n) ? null : n;
 };
-
-/** 같은 종류(대학교/교육대학/전문대학)끼리 비교한다. 전문대와 4년제를 섞으면 거짓말이 된다 */
-const 종류별값 = new Map();
-for (const u of 대학) {
-  const v = 중도탈락.get(u.schlId);
-  if (v == null) continue;
-  const k = u.schlKndNm;
-  if (!종류별값.has(k)) 종류별값.set(k, []);
-  종류별값.get(k).push(v);
-}
-const 종류기준 = Object.fromEntries(
-  [...종류별값].map(([k, arr]) => [k, { 중앙값: 중앙값(arr), 표본: arr.length, 최저: Math.min(...arr), 최고: Math.max(...arr) }]),
-);
-
 const 한자리 = (n) => (n == null ? null : Math.round(n * 10) / 10);
 
-const pages = 대학.map((u) => {
-  const 탈락 = 중도탈락.get(u.schlId) ?? null;
-  const 재적 = 재적학생.get(u.schlId) ?? null;
-  const 기준 = 종류기준[u.schlKndNm] ?? null;
-  const 차이 = 탈락 != null && 기준?.중앙값 != null ? 한자리(탈락 - 기준.중앙값) : null;
+/** 값 + 전국평균 + 차이를 한 덩이로 묶는다. 셋을 따로 두면 지면에서 어긋난다 */
+const 지표덩이 = (it, { 값 = 'indctVal4' } = {}) => {
+  if (!it) return null;
+  const v = 한자리(수(it[값]));
+  const avg = 한자리(수(it.indctAvg));
+  if (v == null) return null;
+  return { 값: v, 전국평균: avg, 차이: avg == null ? null : 한자리(v - avg) };
+};
 
+const pages = 대학.map((u) => {
   // ⚠ 캠퍼스가 따로 잡힌다 — 「강원대학교」가 본교·제2캠퍼스로 두 줄, 「경동대학교」는 세 줄이다.
   //    목록에 `title` 만 쓰면 같은 이름이 여러 번 나와 고장난 것처럼 보인다(실제로 그랬다).
-  //    ⛔ 합치지 않는다. 캠퍼스마다 중도탈락률이 다르므로 합치면 숫자가 거짓말이 된다.
-  //    대신 **화면에 쓸 이름(표시명)**을 여기서 한 번 만들어 두고 모든 지면이 그것만 쓴다.
+  //    ⛔ 합치지 않는다. 캠퍼스마다 수치가 다르므로 합치면 숫자가 거짓말이 된다.
   const 캠퍼스 = u.clgcpDivNm ?? null;
   const 표시명 = 캠퍼스 && 캠퍼스 !== '본교' ? `${u.schlKrnNm} ${캠퍼스}` : u.schlKrnNm;
+
+  const e = 취업.get(u.schlId);
+  const w = 탈락.get(u.schlId);
 
   return {
     url: `/university/${u.schlId}`,
@@ -89,17 +88,25 @@ const pages = 대학.map((u) => {
     캠퍼스,
     전체이름: u.schlFullNm ?? null,
     종류: u.schlKndNm, // 대학교 · 교육대학 · 전문대학
-    구분: u.schlDivNm, // 대학 · 전문대학
-    설립: u.estbDivNm, // 국립 · 사립 · 공립 …
+    구분: u.schlDivNm,
+    설립: u.estbDivNm,
     지역: u.znNm,
     공시연도: svyYr,
-    재적학생: 재적,
-    중도탈락률: 한자리(탈락),
-    같은종류_가운데값: 한자리(기준?.중앙값 ?? null),
-    같은종류_표본: 기준?.표본 ?? null,
-    가운데값과의차이: 차이,
-    // 100명 중 몇 명이 떠났나 — 백분율보다 이 말이 먼저 읽힌다
-    떠난사람_100명중: 탈락 != null ? Math.round(탈락) : null,
+
+    // ⭐ 이 지면의 첫 숫자 — 「그 길로 가면 졸업하고 어떻게 되나」
+    취업률: 지표덩이(e),
+    졸업자: 수(e?.indctVal1),
+    취업자: 수(e?.indctVal2),
+    취업대상자: 수(e?.indctVal3),
+
+    중도탈락률: 지표덩이(w),
+    재적학생: 수(w?.indctVal1),
+    중도탈락자: 수(w?.indctVal2),
+
+    신입생충원율: 지표덩이(신입.get(u.schlId)),
+    재학생충원율: 지표덩이(재학.get(u.schlId)),
+    전임교원확보율: 지표덩이(교원.get(u.schlId)),
+
     출처: '한국대학교육협의회 대학정보공시(대학알리미)',
   };
 });
@@ -107,10 +114,10 @@ const pages = 대학.map((u) => {
 fs.mkdirSync(OUT, { recursive: true });
 fs.writeFileSync(path.join(OUT, 'pages-university.json'), JSON.stringify(pages, null, 1));
 
-const 값있음 = pages.filter((p) => p.중도탈락률 != null).length;
-console.log(`대학 페이지 ${pages.length}장 (${svyYr} 공시) — 중도탈락 값 있는 곳 ${값있음}`);
-console.log('종류별 가운데값:');
-for (const [k, v] of Object.entries(종류기준)) {
-  console.log(`  ${k.padEnd(6)} 표본 ${String(v.표본).padStart(3)} · 가운데값 ${한자리(v.중앙값)}% · ${한자리(v.최저)}~${한자리(v.최고)}%`);
-}
+const 셈 = (k) => pages.filter((p) => p[k]).length;
+console.log(`대학 페이지 ${pages.length}장 (${svyYr} 공시)`);
+for (const k of ['취업률', '중도탈락률', '신입생충원율', '재학생충원율', '전임교원확보율'])
+  console.log(`  ${k.padEnd(8)} 값 있는 곳 ${셈(k)}`);
+const 표본 = pages.find((p) => p.취업률 && p.중도탈락률);
+console.log('  표본:', 표본.표시명, JSON.stringify({ 취업률: 표본.취업률, 중도탈락률: 표본.중도탈락률 }));
 console.log('→', path.relative(ROOT, path.join(OUT, 'pages-university.json')));
