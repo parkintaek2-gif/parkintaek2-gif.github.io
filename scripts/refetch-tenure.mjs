@@ -75,7 +75,22 @@ async function main() {
       if (j.status !== '000' || !j.list?.length) { 없음++; }
       else {
         const v = 합치기(j.list);
-        appendFileSync(새, JSON.stringify({ corp: c.corp, 종목: c.종목, 이름: c.이름, 영문: c.영문, 연도: String(연도), ...v }) + '\n');
+        /**
+         * ⭐ **원본 행을 같이 저장한다.** 이게 없어서 오늘 2,921번을 다시 불렀다.
+         *
+         * 임원 재직기간은 `재직원문` 을 같이 저장해 뒀던 덕에 파서를 고친 뒤
+         * **API 호출 0번**으로 35,004건을 다시 계산했다. 근속은 원문이 없어서
+         * 파서를 고쳐도 「0곳 변경」이 나왔고, 결국 전부 다시 받아야 했다.
+         *
+         * 파일이 커지지만(대략 3~5배) **다시 받는 비용이 훨씬 크다.**
+         * 우리가 쓰는 칸만 남긴다 — 응답 전체를 그대로 넣지는 않는다.
+         */
+        const 원행 = j.list.map((x) => ({
+          부문: x.fo_bbm ?? null, 성별: x.sexdstn ?? null, 합: x.sm ?? null,
+          정규: x.rgllbr_co ?? null, 기간제: x.cnttk_co ?? null,
+          근속원문: x.avrg_cnwk_sdytrn ?? null, 급여: x.jan_salary_am ?? null,
+        }));
+        appendFileSync(새, JSON.stringify({ corp: c.corp, 종목: c.종목, 이름: c.이름, 영문: c.영문, 연도: String(연도), ...v, 원행 }) + '\n');
         성공++;
       }
     } catch { 실패++; }
@@ -85,6 +100,36 @@ async function main() {
 
   const 받은총 = 완료.size + 성공;
   console.log(`\n받은 총 ${받은총} / 명단 ${명단.length}`);
+
+  /**
+   * ⭐ **바꾸기 전에 무엇이 얼마나 달라지는지 센다.**
+   * 「없어짐」이 0 이 아니면 갈아끼우면 안 된다 — 채움률만 보면 사라진 값이 안 보인다.
+   * (2026-08-05: 임원 재직기간을 다시 계산할 때 42건이 조용히 사라진 적이 있다)
+   */
+  if (existsSync(새) && existsSync(본)) {
+    const 읽기 = (p) => new Map(readFileSync(p, 'utf8').split('\n').filter((x) => x.trim())
+      .map((l) => { try { const o = JSON.parse(l); return [o.corp, o]; } catch { return null; } }
+      ).filter(Boolean));
+    const 옛 = 읽기(본), 새것 = 읽기(새);
+    let 늘 = 0, 줄 = 0, 같 = 0, 새로 = 0, 없어짐 = 0;
+    const 큰변화 = [];
+    for (const [corp, n] of 새것) {
+      const o = 옛.get(corp);
+      if (!o || o.인원 == null) { if (n.인원 != null) 새로++; continue; }
+      if (n.인원 == null) { 없어짐++; continue; }
+      if (n.인원 === o.인원) { 같++; continue; }
+      (n.인원 > o.인원 ? (늘++, 큰변화) : (줄++, 큰변화))
+        .push({ 이름: n.이름, 전: o.인원, 후: n.인원, 차: n.인원 - o.인원 });
+    }
+    큰변화.sort((a, b) => Math.abs(b.차) - Math.abs(a.차));
+    console.log(`\n■ 인원 변화  같음 ${같} · 늘 ${늘} · 줄 ${줄} · 새로 ${새로} · **없어짐 ${없어짐}**`);
+    console.log('■ 가장 크게 바뀐 10곳');
+    for (const x of 큰변화.slice(0, 10)) {
+      console.log(`   ${String(x.이름).padEnd(16)} ${String(x.전).padStart(8)} → ${String(x.후).padStart(8)}  (${x.차 > 0 ? '+' : ''}${x.차.toLocaleString()})`);
+    }
+    if (없어짐) console.log(`\n⚠ **${없어짐}곳이 값을 잃었다.** 왜인지 보기 전에는 갈아끼우지 않는다.`);
+  }
+
   if (받은총 >= 명단.length * 0.95) {
     /* ⚠ 다 받았을 때만 바꿔치기한다. 중간에 바꾸면 상품 데이터가 반쪽이 된다 */
     renameSync(새, 본);
