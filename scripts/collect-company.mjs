@@ -24,7 +24,7 @@
  *   네이버금융·FnGuide 는 `Disallow: /` 라 못 쓴다(실측).
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync, mkdirSync, appendFileSync, renameSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -120,7 +120,15 @@ async function main() {
   if (!키) { console.error('✕ DART_API_KEY 가 없다.'); process.exit(1); }
   if (!existsSync(XML)) { console.error(`✕ ${XML} 이 없다.`); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });
-  const 산출 = path.join(OUT_DIR, 'company.ndjson');
+  const 본산출 = path.join(OUT_DIR, 'company.ndjson');
+  /**
+   * `--refetch` — 열을 새로 넣었을 때 쓴다(2026-08-05: 사업자번호·법인번호).
+   *
+   * ⚠ **본파일을 지우고 다시 받지 않는다.** `.new` 에 받고 **다 받은 뒤에** 바꾼다.
+   *   중간에 죽어도 쓰던 파일이 안 비워진다 — 한 번 비워 먹은 적이 있다.
+   */
+  const 다시받기 = process.argv.includes('--refetch');
+  const 산출 = 다시받기 ? 본산출 + '.new' : 본산출;
 
   const 완료 = new Set();
   if (existsSync(산출)) for (const l of readFileSync(산출, 'utf8').split('\n')) {
@@ -146,6 +154,17 @@ async function main() {
         if (업) 업종있음++;
         appendFileSync(산출, JSON.stringify({
           corp: c.corp, 종목: c.종목, 이름: j.corp_name, 영문: j.corp_name_eng,
+          /**
+           * ⭐ **사업자등록번호·법인등록번호를 같이 저장한다.**
+           *
+           * 2026-08-05 에 국민연금 사업장 파일(593,127행)을 받아 상장사에 붙이려는데
+           * **붙일 열쇠가 없었다.** 포털 파일은 사업자번호가 앞 6자리로 잘려 오고,
+           * 우리 쪽에는 아예 안 받아 뒀다. 그래서 **이름으로 붙였고 69.9% 였다.**
+           *
+           * 이름 매칭은 정답이 아니라 근사다. 열쇠를 안 받아 둔 대가를
+           * 나중에 **다시 3,925번 부르는 것**으로 치렀다. 앞으로는 같이 받는다.
+           */
+          사업자번호: j.bizr_no ?? null, 법인번호: j.jurir_no ?? null,
           시장: j.corp_cls, 대표: j.ceo_nm, 설립: j.est_dt, 결산월: j.acc_mt,
           업종코드: j.induty_code, 업종: 업?.코드 ?? null, 업종명: 업?.이름 ?? null,
           주소: j.adres, 시도: 시도(j.adres), 홈페이지: j.hm_url,
@@ -158,6 +177,21 @@ async function main() {
   }
   console.log(`\n✅ 성공 ${성공.toLocaleString()} · 업종 있음 ${업종있음.toLocaleString()} · 미제출 ${없음.toLocaleString()} · 실패 ${실패.toLocaleString()}`);
   console.log(`   ${산출}`);
+
+  if (다시받기) {
+    const 줄수 = (p) => readFileSync(p, 'utf8').split('\n').filter((x) => x.trim()).length;
+    const 옛수 = existsSync(본산출) ? 줄수(본산출) : 0;
+    const 새수 = 줄수(산출);
+    console.log(`\n■ 옛 ${옛수.toLocaleString()} → 새 ${새수.toLocaleString()}`);
+    /* ⚠ **줄어들면 바꾸지 않는다.** 조용히 반쪽이 되는 것이 제일 나쁘다 */
+    if (새수 >= 옛수 * 0.95) {
+      if (existsSync(본산출)) renameSync(본산출, 본산출 + '.bak');
+      renameSync(산출, 본산출);
+      console.log(`✅ ${path.basename(본산출)} 을 새것으로 바꿨다 (옛것은 .bak).`);
+    } else {
+      console.log(`⏸ 아직 ${(새수 / 옛수 * 100).toFixed(1)}% 다. 다시 부르면 이어받는다.`);
+    }
+  }
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

@@ -1,5 +1,5 @@
 ---
-title: "Korean firms with more women underperformed by 14 points last year. Control for industry and the gap vanishes."
+title: "Korean firms with more women underperformed by 17 points last year. Control for industry and the gap vanishes."
 dek: "Across 2,573 listed companies, staff tenure and female share both look like they predict returns — in opposite directions. They are the same fact counted twice. One survives an industry control; the other does not."
 category: equities
 pubDate: 2026-08-05
@@ -40,6 +40,11 @@ corrections:
       to +0.133 and female share against return from −0.061 to −0.038. The
       conclusion is unchanged and slightly stronger — the female-share
       relationship collapses further once industry is controlled for.
+  - date: 2026-08-05
+    note: >-
+      The headline said 14 points. The spread across the five tenure groups is
+      17.0 percentage points on the corrected data; the article body has been
+      updated to match and the headline corrected with it.
 draft: false
 ---
 
