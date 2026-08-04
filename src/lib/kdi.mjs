@@ -40,8 +40,19 @@ export const KDI_CODES = {
 };
 
 /** 키가 있는가. **없다고 던지지 않는다** — 승인 전까지는 없는 게 정상이다. */
-export function kdiReady() {
-  return Boolean(process.env.KDI_API_KEY);
+/**
+ * ⚠ **KDI 는 구분(cd)마다 인증키를 따로 준다.**
+ *   2026-08-04 에 사장님이 「KDI 키」라며 40자짜리를 주셨는데, 기존 `KDI_API_KEY` 와
+ *   **다른 값**이었다. 알고 보니 그건 cd=F(영상보고서) 승인 메일의 키였고
+ *   이미 `.env` 에 `KDI_API_KEY_F` 로 들어 있었다.
+ *   → 코드별 키를 먼저 보고, 없으면 공용 키로 떨어진다. (`watch-approvals` 와 같은 규칙)
+ */
+export function kdiKey(cd) {
+  return process.env[`KDI_API_KEY_${cd}`] || process.env.KDI_API_KEY || '';
+}
+
+export function kdiReady(cd) {
+  return Boolean(cd ? kdiKey(cd) : process.env.KDI_API_KEY);
 }
 
 /**
@@ -54,8 +65,8 @@ export function kdiReady() {
  * @param {{srhKey?:'ALL'|'TITLE'|'NAME'|'CONTENT', srhValue?:string}} [opt]
  */
 export async function fetchKdi(cd, opt = {}) {
-  const key = process.env.KDI_API_KEY;
-  if (!key) throw new Error('KDI_API_KEY 가 없다. 승인 메일의 인증키를 넣어야 한다.');
+  const key = kdiKey(cd);   /* ⚠ 구분마다 키가 다르다 */
+  if (!key) throw new Error(`KDI 인증키가 없다 — KDI_API_KEY_${cd} 또는 KDI_API_KEY 를 넣는다.`);
   if (!KDI_CODES[cd]) throw new Error(`모르는 구분 코드: ${cd}`);
 
   const u = new URL(BASE);

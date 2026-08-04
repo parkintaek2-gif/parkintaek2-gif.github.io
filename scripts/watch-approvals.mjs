@@ -66,8 +66,14 @@ const 대상 = [
     url: 'https://apis.data.go.kr/1160100/service/GetSecuritiesProductInfoService/getETFPriceInfo' },
   { id: '15094784', 이름: '채권시세정보', 축: 'Rates',
     url: 'https://apis.data.go.kr/1160100/service/GetBondSecuritiesInfoService/getBondPriceInfo' },
-  { id: '15094802', 이름: '파생상품시세정보', 축: '선물·옵션',
-    url: 'https://apis.data.go.kr/1160100/GetDerivativeProductInfoService/getStockFuturesPriceInfo' },
+  /*
+   * ⚠ 2026-08-04 정정 — 여기에 `service` 경로가 빠져 있었다.
+   *   그래서 400 이 났고 나는 그걸 **「미승인」으로 몇 주째 보고**했다. 실제로는 승인돼 있었다.
+   *   같은 1160100 계열인데 어떤 건 그 조각이 있고 어떤 건 없다(주식발행정보는 없다).
+   *   **오퍼레이션 이름과 경로는 지어내지 말고 포털에서 긁는다.**
+   */
+  { id: '15094802', 이름: '파생상품시세정보', 축: 'fx·선물',
+    url: 'https://apis.data.go.kr/1160100/service/GetDerivativeProductInfoService/getStockFuturesPriceInfo' },
   { id: '15094805', 이름: '일반상품시세정보', 축: 'Commodities',
     url: 'https://apis.data.go.kr/1160100/service/GetGeneralProductInfoService/getOilPriceInfo' },
   { id: '15043423', 이름: '주식발행정보', 축: 'Equities',
@@ -82,6 +88,26 @@ const 대상 = [
    */
   { id: '3046071', 이름: '국민연금사업장', 축: '이직률',
     url: 'https://apis.data.go.kr/B552015/NpsBplcInfoInqireServiceV2/getBassInfoSearchV2' },
+  /*
+   * ⚠ 2026-08-04 추가 — **상세기능을 따로 감시한다.**
+   *   하나만 신청되고 나머지가 403 인 채로 있어도 위 한 줄만 보면 「승인」으로 보인다.
+   *   실제로 그렇게 반나절을 잘못 알고 있었다. **기능 단위로 찌른다.**
+   */
+  { id: '3046071', 이름: '국민연금 상세정보', 축: '이직률',
+    url: 'https://apis.data.go.kr/B552015/NpsBplcInfoInqireServiceV2/getDetailInfoSearchV2' },
+  { id: '3046071', 이름: '국민연금 기간별현황', 축: '⭐이직률 원천',
+    url: 'https://apis.data.go.kr/B552015/NpsBplcInfoInqireServiceV2/getPdAcctoSttusInfoSearchV2' },
+  /*
+   * 대학알리미 3종 — **백년지도(3번 세션) 축**이다. 2026-08-04 에 내가 대신 신청해 승인받았다.
+   * ⚠ 응답이 다른 공공 API 와 다르다 — 최상위가 `response` 로 안 싸여 있고 `{header, body}` 다.
+   *   그래서 `총건수` 판정 코드가 이 셋만 따로 봐야 한다.
+   */
+  { id: '15158684', 이름: '대학 학생현황(지역별)', 축: '백년지도', 대학: true,
+    url: 'https://apis.data.go.kr/B340014/StudentService/getRegionalDropOutStudentCrntSt' },
+  { id: '15158963', 이름: '대학 기본정보', 축: '백년지도', 대학: true,
+    url: 'https://apis.data.go.kr/B340014/StudentService/getRegionalEnrolledStudent' },
+  { id: '15158678', 이름: '대학 교원·연구', 축: '백년지도', 대학: true,
+    url: 'https://apis.data.go.kr/B340014/StudentService/getRegionalGraduateEnterFindJobCrntSt' },
 ];
 
 const UA = 'Mozilla/5.0 (compatible; SeoulMarketsBot/0.1; +https://seoulmarkets.com/about)';

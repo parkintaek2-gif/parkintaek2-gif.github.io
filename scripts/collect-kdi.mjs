@@ -38,7 +38,7 @@ function stamp(d = new Date()) {
 }
 
 async function main() {
-  if (!kdiReady()) {
+  if (!CDS.some((c) => kdiReady(c))) {
     console.log('KDI 인증키가 아직 없다 (KDI_API_KEY).');
     console.log('  신청은 2026-08-03 20:05 KST 에 접수됐다. 승인 메일에 키가 온다.');
     console.log('  키가 오면 .env 와 Cloudtype 환경변수에 넣으면 이 스크립트가 저절로 돈다.');
