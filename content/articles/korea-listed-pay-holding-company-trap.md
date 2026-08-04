@@ -1,6 +1,6 @@
 ---
 title: "Half of Korea's ten best-paying listed companies employ fewer than 200 people"
-dek: "Average pay per employee is filed by every listed company. Read the ranking without checking headcount and you will conclude that Korean finance pays three times what chipmaking does. The gap is real, but the ranking is not measuring what it appears to."
+dek: "Every listed company files its average pay per employee. Read the ranking without checking headcount and you will misread what it measures — four of the top ten are head offices, not workforces."
 category: equities
 pubDate: 2026-08-04
 dataAsOf: 2026-08-04T09:00:00+09:00
