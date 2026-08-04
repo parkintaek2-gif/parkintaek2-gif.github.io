@@ -15,6 +15,7 @@ import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
+import { 경로펴기 } from './src/lib/url-path.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -108,12 +109,9 @@ function cacheFor(pathname, ext) {
  *   못 읽는 경로는 파일도 없는 경로다 — 죽지 말고 404 로 답한다.
  */
 async function resolveFile(pathname) {
-  let decoded;
-  try {
-    decoded = decodeURIComponent(pathname);
-  } catch {
-    return null; // 해석 불가 → 404
-  }
+  const decoded = 경로펴기(pathname);
+  if (decoded === null) return null;
+
   // 디렉터리 탈출 차단
   const clean = normalize(decoded).replace(/^(\.\.[/\\])+/, '');
   const candidates =
