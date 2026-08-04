@@ -38,6 +38,7 @@ export const GET: APIRoute = () => {
   const entries: Entry[] = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
+    { path: '/school', priority: '0.8', changefreq: 'weekly' },
     // 학과가 학교보다 앞이다. 「어떤 길인가」가 「어느 학교인가」보다 먼저 오는 질문이다
     ...(majors as any[]).map((m) => ({
       path: m.url as string,

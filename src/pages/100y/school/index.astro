@@ -1,0 +1,179 @@
+---
+/**
+ * /100y/school — 학교 찾기
+ *
+ * 왜 만드나 — 학교 2,525장이 **들어가는 문이 없었다.** 사이트맵에는 있는데
+ *   사람이 도달할 경로가 학과 페이지를 거치는 것뿐이었다. (2번이 실측해 알려 줌, 2026-08-04)
+ *
+ * ⛔ 「명문고 순위」를 만들지 않는다. 그것이 줄세우기다.
+ *    지역으로 묶고, 지역 안에서는 **가나다순**으로 놓는다.
+ *    학과 수는 규모의 사실이라 옆에 적는다 — 등수는 붙이지 않는다.
+ *
+ * ⚠ 2,525개는 학과(925개)보다 훨씬 많다. 한 장에 다 넣으면 무거워진다.
+ *   그래서 **지역별로 접어 두고**, 검색하면 그때 펼친다.
+ *   ⚠ 접는 것은 `<details>` 다 — 자바스크립트가 없어도 열리고, 안이 HTML 이라 색인된다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import schools from '../../../data/100yearmap/pages-school.json';
+
+/** 지역 순서 — 학교가 많은 순. 이것은 지역 등수가 아니라 묶음의 크기다 */
+const 묶음 = new Map<string, any[]>();
+for (const s of schools as any[]) {
+  const k = s.지역 ?? '미분류';
+  if (!묶음.has(k)) 묶음.set(k, []);
+  묶음.get(k)!.push(s);
+}
+const 지역목록 = [...묶음.entries()]
+  .map(([지역, list]) => ({
+    지역,
+    // 가나다순. 학과가 많은 순으로 놓으면 그게 곧 순위표가 된다
+    list: list.sort((a, b) => a.title.localeCompare(b.title, 'ko')),
+  }))
+  .sort((a, b) => b.list.length - a.list.length);
+
+const 전체 = (schools as any[]).length;
+const 학과있는곳 = (schools as any[]).filter((s) => s.학과수 > 0).length;
+
+const desc =
+  `전국 고등학교 ${전체.toLocaleString()}곳을 지역별로 정리했습니다. ` +
+  `학교를 고르면 어떤 학과가 있는지, 그 학과가 전국에 몇 곳이나 있는지 볼 수 있습니다.`;
+---
+
+<HundredYear title="학교 찾기" description={desc}>
+  <h1>학교 찾기</h1>
+  <p class="sub">
+    전국 고등학교 <strong>{전체.toLocaleString()}곳</strong>입니다.
+    이 가운데 학과가 있는 곳이 {학과있는곳.toLocaleString()}곳입니다 —
+    나머지는 일반고라 학과를 나누지 않습니다.
+  </p>
+
+  <input
+    id="q"
+    type="search"
+    placeholder="학교 이름을 입력하세요 (예: 대전여자상업, 미림마이스터)"
+    autocomplete="off"
+    aria-label="학교 이름 검색"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+
+  {
+    지역목록.map(({ 지역, list }, i) => (
+      <details class="grp" data-track={지역} open={i === 0}>
+        <summary>
+          {지역} <span class="note">{list.length.toLocaleString()}곳</span>
+        </summary>
+        <ul class="schools">
+          {list.map((s) => (
+            <li data-name={s.title}>
+              <a href={href(s.url)}>{s.title}</a>
+              {s.학과수 > 0 && <span class="note"> 학과 {s.학과수}개</span>}
+            </li>
+          ))}
+        </ul>
+      </details>
+    ))
+  }
+
+  <hr class="rule" />
+  <p class="note">
+    출처 — 교육부 NEIS 교육정보 개방 포털. 지역은 학교를 관할하는 교육청 기준입니다.
+    학과가 「0개」인 곳은 학과가 없는 것이 아니라, 학과를 나누지 않는 일반고입니다.
+  </p>
+</HundredYear>
+
+<style>
+  #q {
+    width: 100%;
+    min-height: 44px; /* 스토리보드 §11 — 탭 영역 */
+    padding: 0.6rem 0.8rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+  .grp {
+    border-bottom: 1px solid var(--line);
+  }
+  .grp > summary {
+    /* 44px 탭 영역 — 손가락으로 여닫는다 */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .schools {
+    list-style: none;
+    padding: 0 0 0.75rem;
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 30rem) {
+    .schools {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+  .schools li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--line);
+    font-size: 0.95rem;
+  }
+  .schools li a {
+    display: inline-block;
+    min-height: 24px;
+  }
+  [hidden] {
+    display: none !important;
+  }
+</style>
+
+<script is:inline>
+  // 2,525개를 브라우저에서 그냥 거른다. 검색하면 해당 지역만 펼친다.
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.schools li'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.grp'));
+    if (!q) return;
+
+    function apply() {
+      var v = q.value.trim();
+      if (!v) {
+        items.forEach(function (li) { li.hidden = false; });
+        groups.forEach(function (g, i) { g.hidden = false; g.open = i === 0; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      items.forEach(function (li) {
+        var hit = li.getAttribute('data-name').indexOf(v) >= 0;
+        li.hidden = !hit;
+        if (hit) n++;
+      });
+      groups.forEach(function (g) {
+        var has = !!g.querySelector('.schools li:not([hidden])');
+        g.hidden = !has;
+        g.open = has; // 찾았으면 펼쳐서 보여 준다
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '곳' : '「' + v + '」 로 찾은 학교가 없습니다';
+    }
+
+    q.addEventListener('input', apply);
+
+    // 첫 화면 검색창에서 넘어온 ?q= 를 이어받는다
+    var qs = new URLSearchParams(location.search).get('q');
+    if (qs) { q.value = qs; apply(); }
+  })();
+</script>
