@@ -55,10 +55,15 @@ const 파일들 = [];
 
 const 한글있나 = (s) => /[가-힣]/.test(String(s ?? ''));
 
+/** 같은 url 이 여러 판으로 있을 때 어느 쪽을 남길까 — **채워진 칸이 많은 쪽**이다 */
+const 채운칸 = (r) =>
+  [r.titleKo, r.date, r.topics, (r.authors ?? []).length ? 1 : null].filter(Boolean).length;
+const 더나은 = (a, b) => 채운칸(a) > 채운칸(b);
+
 const 담긴 = [];
 const 뺀것 = [];
 const 제목없음 = [];
-const 본것 = new Set();
+const 본것 = new Map();
 
 for (const p of 파일들) {
   let r;
@@ -75,17 +80,29 @@ for (const p of 파일들) {
     continue;
   }
 
-  /** ⚠ **영상보고서는 제목·날짜·저자가 통째로 안 온다.** 오는 것은 url 뿐이다.
-   *  이름 없는 링크를 지면에 걸 수는 없으므로 뺀다.
-   *  ⛔ 「자료가 없다」가 아니라 **「우리가 아직 못 받았다」**이다. 수를 세어 남긴다. */
+  /** ⚠ 제목이 없는 기록은 지면에 못 건다 — 이름 없는 링크가 된다.
+   *
+   *  ⭐ 2026-08-05 — 영상보고서 180건이 전부 여기 걸렸었다. **자료가 없어서가 아니었다.**
+   *    `src/lib/kdi.mjs` 가 `PUB_NM_KORN` 을 찾는데 영상보고서는 `MOV_NM` 으로 준다.
+   *    매핑을 고치니 180건 전부 제목이 들어왔다.
+   *
+   *  ⚠ **옛 기록을 지우지 않는다.** archive 는 지우는 물건이 아니다.
+   *    매핑을 고치기 전에 받아 둔 「제목 없는 판」이 그대로 남아 있고, 그건 그대로 두는 게 맞다.
+   *    대신 **같은 url 이면 제목이 있는 쪽을 고른다**(아래 `더나은` 참조). */
   if (!r.titleKo) {
     제목없음.push({ 종류: r.categoryKo, url: r.url });
     continue;
   }
 
-  // ⚠ 같은 보고서가 두 파일로 오는 일이 있다(cd 가 다르다). url 로 한 번만 담는다
-  if (본것.has(r.url)) continue;
-  본것.add(r.url);
+  /** ⚠ 같은 자료가 여러 파일로 온다 — cd 가 달라서, 그리고 **다시 받아서**.
+   *  나중 것(제목·날짜가 더 채워진 것)을 남긴다. */
+  const 먼저 = 본것.get(r.url);
+  if (먼저 && !더나은(r, 먼저)) continue;
+  본것.set(r.url, r);
+  if (먼저) {
+    const i = 담긴.findIndex((x) => x.url === r.url);
+    if (i >= 0) 담긴.splice(i, 1);
+  }
 
   담긴.push({
     제목: r.titleKo,
@@ -137,8 +154,10 @@ const 결과 = {
   담김: 담긴.length,
   뺀것: 뺀것.length,
   영문접음,
-  /** ⚠ 못 받은 것. 지면에 이 수를 그대로 쓴다 — 없는 척하지 않는다 */
-  제목이안온것: 제목없음.length,
+  /** ⚠ 못 받은 것 — **같은 url 을 제목 있는 판으로 이미 담았으면 세지 않는다.**
+   *  archive 에는 매핑을 고치기 전의 「제목 없는 판」이 그대로 남아 있다.
+   *  그것까지 세면 지면에 「못 받은 것 22건」이라고 거짓말을 하게 된다. */
+  제목이안온것: 제목없음.filter((x) => !본것.has(x.url)).length,
   분류별,
   자료: 담긴,
 };
@@ -148,7 +167,11 @@ fs.writeFileSync(OUT, JSON.stringify(결과, null, 1));
 
 console.log(`KDI 자료 ${파일들.length}건을 훑었다.`);
 console.log(`  담김 ${담긴.length}건 · 사업평가라 뺀 것 ${뺀것.length}건`);
-console.log(`  영문판이라 접은 것 ${영문접음}건 · ⚠ 제목이 안 온 것 ${제목없음.length}건(대부분 영상보고서)`);
+console.log(
+  `  영문판이라 접은 것 ${영문접음}건 · 제목이 안 온 판 ${제목없음.length}건` +
+    ` (그중 ${제목없음.length - 결과.제목이안온것}건은 제목 있는 판으로 이미 담겼다)`,
+);
+if (결과.제목이안온것) console.log(`  ⚠ 끝내 제목을 못 받은 것 ${결과.제목이안온것}건`);
 for (const [k, v] of Object.entries(분류별)) console.log(`   ${String(v).padStart(3)} ${k}`);
 console.log(`→ ${path.relative(ROOT, OUT)}`);
 if (뺀것.length) {

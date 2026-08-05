@@ -114,6 +114,46 @@ function 정규화(r, cd) {
     const s = typeof x === 'string' ? x.trim() : x;
     return s === '' || s === undefined ? null : s;
   };
+
+  /**
+   * 🔴 **영상보고서(cd=F)는 필드 이름이 통째로 다르다.** (2026-08-05 실측 · 3번)
+   *
+   * 여태 180건 전부 `titleKo: null` 이었다. 제목이 없는 게 아니라
+   * **우리가 `PUB_NM_KORN` 을 찾고 있었는데 F 는 `MOV_NM` 으로 준다.**
+   * 그래서 백년지도 `/research` 에서 22건을 「제목이 안 와서 못 싣는다」고 빼 놨었다.
+   *
+   *   F 에만 있는 것   MOV_NM · MOV_NO · MOV_URL · MOV_TYPE · MOV_CN · PUB_DT
+   *                    LINK_URL · KORN_PATH · PA_NO · PA_TYPE · CD_NM_KORN
+   *   A 에만 있는 것   PUB_NM_KORN · ISSU_DT · MAIN_AUT_NM · SUMM_KORN · PUB_KEYWORD …
+   *
+   * ⛔ **`MOV_CN` 은 담지 않는다.** 그건 영상 나레이션 **전문**이다.
+   *    신청서에 「본문 전문은 수집·전재·재배포하지 않는다」고 적어 냈다. 그 약속을 여기서 지킨다.
+   * ⚠ F 에는 **저자 필드가 아예 없다.** 비어 있는 게 아니라 안 온다. 지어내지 않는다.
+   */
+  if (cd === 'F') {
+    return {
+      source: 'KDI',
+      cd,
+      category: KDI_CODES[cd].en,
+      categoryKo: KDI_CODES[cd].ko,
+      date: 날짜정규화(v(r.PUB_DT)),
+      titleKo: v(r.MOV_NM),
+      titleEn: null, //  F 는 영문 제목을 주지 않는다
+      authors: [], //  ⚠ 필드 자체가 없다
+      summaryKo: null, //  ⛔ MOV_CN 은 본문이라 담지 않는다
+      summaryEn: null,
+      keywords: null,
+      topics: v(r.TOPIC_ARR),
+      lang: 'K',
+      publisher: 'Korea Development Institute',
+      url: v(r.DETAIL_PAGE),
+      /** 유튜브 영상 ID. 공개 식별자지 본문이 아니다 */
+      영상ID: v(r.MOV_URL),
+      /** 이 영상이 다룬 보고서. 상대경로로 오므로 절대주소로 편다 */
+      관련보고서: v(r.LINK_URL) ? new URL(v(r.LINK_URL), 'https://www.kdi.re.kr').href : null,
+    };
+  }
+
   const 저자 = [v(r.MAIN_AUT_NM), v(r.SUB_AUT_NM), v(r.CO_AUT_NM)].filter(Boolean);
 
   return {
