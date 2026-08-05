@@ -120,6 +120,15 @@ const 부르기 = (host, p) => new Promise((resolve) => {
 }).catch((e) => ({ status: 'ERR', error: String(e?.message ?? e) }));
 /*             └ ⚠ 던져서 죽으면 **띄워 둔 서버가 안 죽는다.** 다음 실행 때 포트가 남는다 */
 
+/** 본문까지 읽는다. 404 화면의 **얼굴**을 봐야 하기 때문이다 */
+const 본문 = (host, p) => new Promise((resolve) => {
+  const req = request({ host: '127.0.0.1', port: PORT, path: encodeURI(p), method: 'GET', headers: { Host: host } },
+    (res) => { let b = ''; res.setEncoding('utf8'); res.on('data', (c) => { b += c; }); res.on('end', () => resolve(b)); });
+  req.setTimeout(10000, () => { req.destroy(); resolve(''); });
+  req.on('error', () => resolve(''));
+  req.end();
+});
+
 let 실패 = 0;
 const 확인 = (조건, 이름, 실제) => {
   if (!조건) { 실패++; console.log(`  ✕ ${이름}${실제 !== undefined ? ` — 실제 ${JSON.stringify(실제)}` : ''}`); }
@@ -161,6 +170,35 @@ for (const host of ['seoulmarkets.com', '100yearmap.com']) {
 for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
   const r = await 부르기('100yearmap.com', p);
   확인(r.status !== 'ERR', `${p} 에 서버가 살아 있다`, r.status);
+}
+
+/* ── ⭐ ⑤ 404 도 **그 사이트 얼굴**로 나와야 한다 ──────────────
+ *
+ * 2026-08-05 실측 — 100yearmap.com/없는주소 가 「Page not found | SeoulMarkets」였다.
+ * 금융 매체 머리말이 교육 사이트 방문자에게 그대로 보였다.
+ * **404 는 사람이 제일 자주 보는 실패 화면**이라, 여기서 남의 브랜드가 뜨면
+ * 「이 회사가 뭐 하는 곳인가」가 흔들린다.
+ *
+ * ⚠ 전용 404 가 아직 없으면 공용으로 떨어지는 것이 정상이다(안전한 쪽).
+ *   그래서 **전용 404 가 있을 때만** 그것이 나오는지 본다.
+ */
+{
+  const 전용 = (p) => existsSync(path.join(ROOT, p));
+  for (const [host, 접두] of [['100yearmap.com', '100y'], ['wiki-tip.com', 'wikitip']]) {
+    const r = await 부르기(host, '/이런주소는없다-abc123');
+    확인(r.status === 404, `${host} 없는 주소가 404`, r.status);
+    if (전용(`${접두}/404.html`)) {
+      /* 전용 404 가 생겼으면 **그것이** 나와야 한다. 공용이 나오면 실패 */
+      const 몸 = await 본문(host, '/이런주소는없다-abc123');
+      const 제목 = (몸.match(/<title>([^<]*)/) ?? [])[1] ?? '';
+      /* ⚠ **본문에 'SeoulMarkets' 가 있는지로 보면 안 된다.** 꼬리말의 자매 사이트
+         링크가 걸려 거짓 경보가 난다(2026-08-05에 실제로 났다).
+         **제목**으로 본다 — 공용 404 의 제목이 나오면 그건 남의 화면이다. */
+      확인(!/Page not found | SeoulMarkets/i.test(제목),
+        `⭐ ${host} 404 가 공용(SeoulMarkets) 화면이 아니다`, 제목);
+      확인(제목.trim().length > 0, `${host} 404 에 제목이 있다`, 제목);
+    }
+  }
 }
 
 /* ⚠ **어떤 오류도 무시하지 않는다.** `EADDRINUSE` 를 무시하게 적어 둔 한 줄이

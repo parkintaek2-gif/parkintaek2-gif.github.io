@@ -397,10 +397,26 @@ const handle = async (req, res) => {
     return;
   }
 
-  const notFound = await resolveFile('/404');
-  if (notFound) {
-    send(res, 404, notFound.full, notFound.size, '/404', headOnly);
-    return;
+  /**
+   * ⚠⚠ **404 도 그 사이트 얼굴로 낸다.**
+   *
+   * 2026-08-05 실측 — `100yearmap.com/없는주소` 가 **「Page not found | SeoulMarkets」**
+   * 로 나왔다. 금융 매체 머리말·꼬리말이 교육 사이트 방문자에게 그대로 보였다.
+   * `resolveFile('/404')` 가 접두사를 안 붙여 `dist/404.html`(SeoulMarkets) 를 집었다.
+   *
+   * **404 는 사람이 제일 자주 보는 실패 화면이다.** 오타 하나로 남의 브랜드가 뜨면
+   * 「이 회사가 뭐 하는 곳인가」가 흔들린다. 오픈 열흘 앞이라 더 그렇다.
+   *
+   * 그 사이트 전용 404 가 없으면 **기존대로 공용으로 떨어진다** — 안전한 쪽이다.
+   * 5번(wiki-tip)·3번(100yearmap)은 `src/pages/<접두사>/404.astro` 를 만들면 저절로 걸린다.
+   */
+  const 후보들 = prefix ? [`${prefix}/404`, '/404'] : ['/404'];
+  for (const 후보 of 후보들) {
+    const notFound = await resolveFile(후보);
+    if (notFound) {
+      send(res, 404, notFound.full, notFound.size, 후보, headOnly);
+      return;
+    }
   }
   res.writeHead(404, { ...BASE_HEADERS, 'Content-Type': 'text/plain' }).end('Not Found');
 };
