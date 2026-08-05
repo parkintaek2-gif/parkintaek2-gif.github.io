@@ -76,8 +76,25 @@ const 대상 = [
     url: 'https://apis.data.go.kr/1160100/service/GetDerivativeProductInfoService/getStockFuturesPriceInfo' },
   { id: '15094805', 이름: '일반상품시세정보', 축: 'Commodities',
     url: 'https://apis.data.go.kr/1160100/service/GetGeneralProductInfoService/getOilPriceInfo' },
-  { id: '15043423', 이름: '주식발행정보', 축: 'Equities',
-    url: 'https://apis.data.go.kr/1160100/GetStocIssuInfoService_V3/getStocIssuInfo_V3' },
+  /*
+   * 🔴🔴 **승인돼 있지만 「받지 않는다」.** 라이선스가 **공공누리 2유형**이다 (상업적 이용금지).
+   *
+   * 2026-08-05 에 152,396행을 **먼저 받고 나중에 라이선스를 봤다.** 순서가 거꾸로였다.
+   * 받은 것은 `$CLAUDE_JOB_DIR/tmp/보류-주식발행-2유형/` 으로 격리했고 지면에 안 쓴다.
+   *
+   * ⚠ **「팔지 않으면 된다」가 아니라 「받지 않는다」가 규칙이다.**
+   *   우리는 광고가 붙는 매체이고 데이터를 파는 회사다. 2유형은 처음부터 안 받는다.
+   *
+   * ✅ **대체 경로를 이미 찾았다** — DART `irdsSttus` 로 증자 이력을 받는다.
+   *   그쪽이 **발행가까지 있어** 더 낫고, 라이선스도 🟢 다.
+   *   `scripts/collect-issuance-dart.mjs` 를 쓴다.
+   *
+   * 이 줄을 지우지 않는 이유 — 지우면 다음 세션이 「없네」 하고 **또 신청해서 또 받는다.**
+   *   승인 상태를 계속 보여 주되 **⛔ 표시**로 못을 박는다.
+   */
+  { id: '15043423', 이름: '주식발행정보', 축: '⛔2유형·받지않음',
+    url: 'https://apis.data.go.kr/1160100/GetStocIssuInfoService_V3/getStocIssuInfo_V3',
+    쓰지않음: '공공누리 2유형(상업적 이용금지) — DART irdsSttus 로 대체했다' },
   { id: '15094792', 이름: '펀드상품기본정보', 축: 'Funds',
     url: 'https://apis.data.go.kr/1160100/service/GetFundProductInfoService/getStandardCodeInfo' },
   /*
@@ -212,12 +229,17 @@ async function main() {
   console.log(`API 승인 확인 — ${결과.at} KST\n`);
   const 승인 = 결과.공공데이터.filter((x) => x.상태 === '승인');
   for (const r of 결과.공공데이터) {
-    const 표 = r.상태 === '승인' ? '✅' : r.상태 === '대기' ? '⬜' : r.상태 === '경로오류' ? '🔧' : '⚠';
+    /* ⛔ 라이선스 때문에 **안 받기로 한 것**은 승인이어도 ⛔ 로 낸다.
+       ✅ 로 보이면 다음 세션이 「열려 있네」 하고 수집기를 붙인다.
+       2026-08-05 에 실제로 152,396행을 받고 나서야 2유형인 걸 알았다. */
+    const 표 = r.쓰지않음 ? '⛔'
+      : r.상태 === '승인' ? '✅' : r.상태 === '대기' ? '⬜' : r.상태 === '경로오류' ? '🔧' : '⚠';
     console.log(
-      `  ${표} ${(r.이름 ?? '').padEnd(16)} ${(r.축 ?? '').padEnd(12)} ${r.상태}` +
-        (r.총건수 ? ` · ${Number(r.총건수).toLocaleString()}건` : '') +
+      `  ${표} ${(r.이름 ?? '').padEnd(16)} ${(r.축 ?? '').padEnd(12)} ${r.쓰지않음 ? '쓰지 않음' : r.상태}` +
+        (r.총건수 && !r.쓰지않음 ? ` · ${Number(r.총건수).toLocaleString()}건` : '') +
         (r.사유 ? ` · ${r.사유}` : ''),
     );
+    if (r.쓰지않음) console.log(`     └ ${r.쓰지않음}`);
   }
   console.log(`\n  DART  ${결과.DART.상태}${결과.DART.사유 ? ' · ' + 결과.DART.사유 : ''}`);
 
