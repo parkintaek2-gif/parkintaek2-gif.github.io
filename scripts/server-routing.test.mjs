@@ -16,7 +16,7 @@
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
 import { request } from 'node:http';   /* ⚠ fetch 를 쓰면 안 된다 — 아래 「부르기」 주석 */
-import { readdirSync, existsSync } from 'node:fs';
+import { readdirSync, existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve('dist');
@@ -195,9 +195,26 @@ for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
       const 제목 = (몸.match(/<title>([^<]*)/) ?? [])[1] ?? '';
       /* ⚠ **본문에 'SeoulMarkets' 가 있는지로 보면 안 된다.** 꼬리말의 자매 사이트
          링크가 걸려 거짓 경보가 난다(2026-08-05에 실제로 났다).
-         **제목**으로 본다 — 공용 404 의 제목이 나오면 그건 남의 화면이다. */
-      확인(!/Page not found | SeoulMarkets/i.test(제목),
-        `⭐ ${host} 404 가 공용(SeoulMarkets) 화면이 아니다`, 제목);
+         **제목**으로 본다 — 공용 404 의 제목이 나오면 그건 남의 화면이다.
+
+         🔴 2026-08-06 3번이 고침 — 여기 `/Page not found | SeoulMarkets/i` 로 적혀 있었다.
+            **정규식에서 `|` 는 「또는」이다.** 그래서 이 검사는 사실상 이렇게 읽혔다.
+
+              「Page not found 」 **또는** 「 SeoulMarkets」
+
+            제목이 "Page not found" 로 시작하기만 하면 무조건 걸린다. 5번이 전용 404 를
+            「Page not found | K Culture Wire」로 만들자마자 **멀쩡한 지면이 실패로 찍혔다.**
+            백년지도가 안 걸린 건 실력이 아니라 제목이 한글이라 우연히 피한 것뿐이다.
+
+         ⚠ `\|` 로 escape 만 해도 되지만 **문자열을 손으로 적어 두지 않는다.** 상호가 바뀌면
+            저 문자열도 같이 썩는다. **공용 404 의 제목을 실물에서 읽어** 견준다. */
+      const 공용404 = path.join(ROOT, '404.html');
+      const 공용제목 = existsSync(공용404)
+        ? ((readFileSync(공용404, 'utf8').match(/<title>([^<]*)/) ?? [])[1] ?? '').trim()
+        : '';
+      확인(공용제목.length > 0, '공용 404 의 제목을 읽었다 (없으면 이 검사가 헛돈다)', 공용제목);
+      확인(제목.trim() !== 공용제목,
+        `⭐ ${host} 404 가 공용(${공용제목}) 화면이 아니다`, 제목);
       확인(제목.trim().length > 0, `${host} 404 에 제목이 있다`, 제목);
     }
   }
