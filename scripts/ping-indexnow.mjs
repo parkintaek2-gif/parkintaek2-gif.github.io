@@ -141,9 +141,23 @@ async function 통보(호스트) {
 
   console.log(`IndexNow ${res.status} ${res.statusText} — ${사이트들[호스트].이름} ${호스트} · ${urlList.length} URL(s)`);
   if (!res.ok) {
-    console.log(await res.text());
-    /* 403 은 거의 늘 키 파일이 그 호스트에서 안 열리는 것이다 */
-    if (res.status === 403) console.log(`⚠ ${ORIGIN}/<키>.txt 가 200 인지 먼저 본다. 404 면 그것부터 고친다.`);
+    const 몸 = await res.text();
+    console.log(몸);
+    /**
+     * ⚠ **403 이 두 가지다.** 처음엔 「키 파일 404」 하나로만 알고 안내를 적었는데,
+     *   8/6 에 키 파일이 200 인데도 403 이 났다. 원인이 달랐다.
+     */
+    if (res.status === 403) {
+      if (/SiteVerificationNotCompleted/i.test(몸)) {
+        console.log(
+          `⚠ 키 파일은 있는데 **IndexNow 쪽 확인이 아직 안 끝났다.**\n` +
+            `   키 파일을 방금 올렸으면 정상이다. **조금 뒤에 다시 돌린다.**\n` +
+            `   (8/6 실측 — 키 파일 배포 직후엔 이 오류가 났다)`,
+        );
+      } else {
+        console.log(`⚠ ${ORIGIN}/<키>.txt 가 200 인지 먼저 본다. 404 면 그것부터 고친다.`);
+      }
+    }
   }
   return res.ok;
 }
