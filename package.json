@@ -51,7 +51,8 @@
     "collect:stocks": "node scripts/collect-stock-prices.mjs",
     "collect:funds": "node scripts/collect-fund-codes.mjs",
     "subjects:renames": "node scripts/fill-subjects-from-renames.mjs",
-    "traffic": "node scripts/traffic-report.mjs"
+    "traffic": "node scripts/traffic-report.mjs",
+    "collect:issuance": "node scripts/collect-issuance-dart.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
