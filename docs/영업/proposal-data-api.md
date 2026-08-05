@@ -1,6 +1,6 @@
 # SeoulMarkets Data API — Korean trade data, at product level, in English
 
-*One-page proposal · August 2026 · Yeopkeopon Sejong Co., Ltd.*
+*One-page proposal · August 2026 · K Life Design Co., Ltd.*
 
 ---
 
@@ -100,4 +100,4 @@ university.
 
 **Contact** — sibcheongan@gmail.com
 **Live now** — https://seoulmarkets.com/api
-**Publisher** — Yeopkeopon Sejong Co., Ltd., Sejong, Republic of Korea · Business registration 456-87-03384
+**Publisher** — K Life Design Co., Ltd., Sejong, Republic of Korea · Business registration 456-87-03384

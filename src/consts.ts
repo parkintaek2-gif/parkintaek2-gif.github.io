@@ -21,15 +21,27 @@ export const SITE = {
  * 발행 주체 정보. 구글은 금융 콘텐츠를 YMYL로 심사하므로
  * 법인명·주소·연락처가 비어 있으면 검색 노출이 사실상 막힌다.
  * 출처: 사업자등록증(법인사업자), 세종세무서장 발급 2025-07-17.
+ *
+ * ⚠ 2026-08-05 — **상호가 「주식회사 옆커폰세종」에서 「주식회사 K라이프디자인」으로 바뀌었다.**
+ *   인터넷신문 등록신청서를 쓰다가 사장님께 확인해 정정했다. 법인은 같아서
+ *   **사업자등록번호는 그대로**다(456-87-03384).
+ *   ⬜ 영문 상호는 등기·은행 표기와 대조하지 못했다. 해외 송금·계약서에 쓰기 전에 맞춘다.
+ *
+ * ⚠ **전화번호는 네 사이트 공통 070 하나로 통일한다**(사장님 지시 2026-08-05).
+ *   개인 휴대폰을 지면에 올리지 않는다 — 한 번 공개하면 되돌릴 수 없다.
+ *   이 번호는 claw-ops 월 구독이다. 끊기면 번호가 반납되고 등록증의 번호가 죽는다.
  */
 export const PUBLISHER = {
-  legalName: 'Yeopkeopon Sejong Co., Ltd.',
-  legalNameKo: '주식회사 옆커폰세종',
+  legalName: 'K Life Design Co., Ltd.',
+  legalNameKo: '주식회사 K라이프디자인',
   representative: 'Kim Mi-hee',
   representativeKo: '김미희',
   bizRegNo: '456-87-03384',
   address: 'Unit 101, 1F, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',
   addressKo: '세종특별자치시 남세종로 441 상가1동 1층 101호 (보람동, 호려울마을5단지)',
+  /** 네 사이트 공통 대표번호. 국제 표기는 +82-70-5236-1029 */
+  tel: '070-5236-1029',
+  telIntl: '+82-70-5236-1029',
   // 실제 수신되는 주소다. editor@seoulmarkets.com 은 메일함이 없어서 쓰지 않는다.
   // 나중에 도메인 메일을 만들면 여기만 바꾸면 About·푸터·JSON-LD 가 함께 따라간다.
   email: 'sibcheongan@gmail.com',
