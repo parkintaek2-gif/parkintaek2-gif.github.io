@@ -28,7 +28,7 @@ export interface Props {
   canonical?: string;
 }
 const { title, description, noindex = false, jsonLd, canonical } = Astro.props;
-const 제목 = `${title} | WikiTip`;
+const 제목 = `${title} | K Culture Wire`;
 ---
 
 <!-- prettier-ignore -->
@@ -41,7 +41,7 @@ const 제목 = `${title} | WikiTip`;
   <meta property="og:title" content={제목} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="WikiTip" />
+  <meta property="og:site_name" content="K Culture Wire" />
   {canonical && <link rel="canonical" href={canonical} />}
   {noindex && <meta name="robots" content="noindex" />}
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
@@ -89,7 +89,7 @@ const 제목 = `${title} | WikiTip`;
 <body>
   <div class="wrap">
     <div class="site">
-      <a class="logo" href="/">Wiki<span>Tip</span></a>
+      <a class="logo" href="/">K Culture <span>Wire</span></a>
       <span class="tag">Korean pop culture, in numbers</span>
     </div>
 
@@ -97,7 +97,7 @@ const 제목 = `${title} | WikiTip`;
 
     <footer>
       <p>
-        WikiTip — K-pop, drama, film and esports, reported in English with the numbers behind them.
+        K Culture Wire — K-pop, drama, film and esports, reported in English with the numbers behind them.
         Sources are named on every page.
         <!--
           ⚠ `/about` 이 404 면 구글이 발행 주체를 확인 못 해 색인에서 밀린다.
