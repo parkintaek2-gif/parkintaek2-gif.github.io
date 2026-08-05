@@ -215,10 +215,21 @@ const handle = async (req, res) => {
    *   위키팁은 무료 매체라 PG 와 무관하다. 멈출 이유가 없다.
    *   ← 도메인과 Cloudflare 존을 안 지워 둔 덕에 되살리는 데 한 줄로 끝났다.
    */
+  /*
+   * ⚠ 2026-08-05 KST — **K컬처 매체의 도메인이 `kculturewire.com` 으로 바뀌었다.**
+   *   제호도 「케이컬처와이어」(화면 표기 K Culture Wire)다.
+   *   옛 이름 「케이컬처인코리아」는 K=Korean 이라 **「Korea in Korea」**가 되는 것을
+   *   사장님이 잡으셨다. wiki-tip.com 은 색인 0·트래픽 0 이라 지금이 바꾸기 제일 쌌다.
+   *
+   *   ⛔ **`wiki-tip.com` 을 지우지 않는다.** 같은 접두사를 계속 가리키게 두고,
+   *      나중에 301 을 걸 때까지 두 주소가 다 뜨게 한다. 지우면 옛 주소가 조용히
+   *      금융 사이트로 떨어진다(아래 「모르는 호스트」 주석 참조).
+   */
   const SITE_PREFIX = {
     '100yearmap.com': '/100y',
     'hundredyearmap.com': '/100y',
-    'wiki-tip.com': '/wikitip',
+    'kculturewire.com': '/wikitip',
+    'wiki-tip.com': '/wikitip',   /* 옛 주소. 301 을 걸기 전까지 살려 둔다 */
   };
   /* ⚠⚠ **접두사 밖에 두어야 하는 경로들.** 3번이 잡아 준 사고다 (2026-08-05).
    *

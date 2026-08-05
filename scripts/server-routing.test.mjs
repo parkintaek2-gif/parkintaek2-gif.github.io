@@ -138,7 +138,9 @@ console.log('호스트별 라우팅');
 
 /* ── ⭐ ① 공유 자산은 **접두사가 붙는 사이트에서도** 200 이어야 한다 ── */
 if (자산) {
-  for (const host of ['seoulmarkets.com', '100yearmap.com', 'wiki-tip.com']) {
+  /* ⚠ kculturewire.com 은 2026-08-05 에 붙인 K컬처 매체의 새 주소다.
+     옛 주소 wiki-tip.com 도 **아직 살아 있어야 한다** — 301 을 걸기 전까지 둘 다 뜬다 */
+  for (const host of ['seoulmarkets.com', '100yearmap.com', 'kculturewire.com', 'wiki-tip.com']) {
     const r = await 부르기(host, 자산);
     확인(r.status === 200, `⭐ ${host}${자산} 이 200`, r.status);
   }
@@ -184,7 +186,7 @@ for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
  */
 {
   const 전용 = (p) => existsSync(path.join(ROOT, p));
-  for (const [host, 접두] of [['100yearmap.com', '100y'], ['wiki-tip.com', 'wikitip']]) {
+  for (const [host, 접두] of [['100yearmap.com', '100y'], ['kculturewire.com', 'wikitip'], ['wiki-tip.com', 'wikitip']]) {
     const r = await 부르기(host, '/이런주소는없다-abc123');
     확인(r.status === 404, `${host} 없는 주소가 404`, r.status);
     if (전용(`${접두}/404.html`)) {
@@ -197,6 +199,43 @@ for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
       확인(!/Page not found | SeoulMarkets/i.test(제목),
         `⭐ ${host} 404 가 공용(SeoulMarkets) 화면이 아니다`, 제목);
       확인(제목.trim().length > 0, `${host} 404 에 제목이 있다`, 제목);
+    }
+  }
+}
+
+/* ── ⭐ ⑥ 같은 경로가 **사이트마다 다른 화면**을 내는가 ──────────────
+ *
+ * ⚠⚠ **이 시험이 세 번째로 헛돌았을 때 넣은 것이다.** (2026-08-05)
+ *
+ * `kculturewire.com` 을 SITE_PREFIX 에서 일부러 빼고 돌렸는데 **통과했다.**
+ * 앞의 검사들이 왜 못 잡았나 —
+ * ```
+ * ① 자산 /_astro/…      접두사 밖이라 원래 접두사와 무관하게 200 이다
+ * ② 첫 화면 /           dist/wikitip/index.html 이 **아직 없어** 목록에 못 넣었다
+ * ⑤ 404                 dist/wikitip/404.html 이 **아직 없어** 통째로 건너뛴다
+ * ```
+ * 그래서 **접두사가 빠져도 아무도 안 울었다.** 조용히 금융 사이트가 나온다.
+ *
+ * 진짜 검증은 이것이다 — `/about` 은 **두 사이트에 다 있다.**
+ * 접두사가 먹으면 서로 **다른 제목**이 나오고, 안 먹으면 **같은 제목**이 나온다.
+ * 상태코드로는 절대 못 잡는다. 둘 다 200 이다.
+ */
+{
+  const 제목뽑기 = (몸) => ((몸.match(/<title>([^<]*)/) ?? [])[1] ?? '').trim();
+  const 겹침 = (이름, 접두) =>
+    existsSync(path.join(ROOT, `${이름}.html`)) && existsSync(path.join(ROOT, 접두, `${이름}.html`));
+
+  for (const [host, 접두] of [['kculturewire.com', 'wikitip'], ['100yearmap.com', '100y']]) {
+    /* 두 사이트에 **같은 이름으로 다 있는** 지면만 고른다. 없으면 시험할 수 없다 */
+    const 볼것 = ['about', 'esports'].filter((n) => 겹침(n, 접두));
+    if (!볼것.length) { console.log(`   (${host} — 겹치는 지면이 없어 건너뛴다)`); continue; }
+
+    for (const 이름 of 볼것) {
+      const 금융 = 제목뽑기(await 본문('seoulmarkets.com', `/${이름}`));
+      const 저쪽 = 제목뽑기(await 본문(host, `/${이름}`));
+      확인(저쪽.length > 0 && 금융.length > 0 && 저쪽 !== 금융,
+        `⭐ /${이름} 가 ${host} 와 seoulmarkets 에서 다른 화면이다`,
+        { seoulmarkets: 금융, [host]: 저쪽 });
     }
   }
 }
