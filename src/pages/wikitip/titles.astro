@@ -1,0 +1,130 @@
+---
+/**
+ * K Culture Wire — 동남아 넷플릭스 Top10 에 오른 한국 작품 카탈로그. (/titles)
+ *
+ * 데이터: src/data/wikitip-titles.json (scripts/build-wikitip-titles.mjs 가 만든다).
+ * 첫 화면은 **현재 주** 8개만. 이 지면은 **5년 전체**(265주·448작품)를 카탈로그로 낸다.
+ * 라이선스: 넷플릭스 Tudum 국가별 순위. 원본 표 재배포 없이 **집계**만(첫 화면·About 과 같은 방식).
+ * noindex: 도메인(kculturewire.com)이 파킹이라 index.astro 와 같은 이유.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import data from '../../data/wikitip-titles.json';
+
+const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
+const DESC =
+  `The ${data.titleCount} Korean shows and films that reached the Netflix Top 10 across Southeast Asia `
+  + `since 2021 — how many of the six countries each charted in, how high it went, and how many weeks it stayed. `
+  + `Counted from Netflix’s own weekly lists.`;
+
+const rows = data.rows;
+const reachedNo1 = rows.filter((r) => r.peak === 1).length;
+const allSix = rows.filter((r) => r.countries === data.countries).length;
+const tv = rows.filter((r) => r.type === 'TV').length;
+const films = rows.filter((r) => r.type === 'Films').length;
+const maxWeeks = Math.max(...rows.map((r) => r.weeks));
+
+// 카탈로그를 다 싣지 않는다(448 은 모바일에서 벽이 된다). 오래 머문 순 상위를 싣고 총계를 밝힌다.
+const top = [...rows]
+  .sort((a, b) => b.weeks - a.weeks || b.countries - a.countries || a.peak - b.peak)
+  .slice(0, 40);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean titles in the Netflix Top 10 across Southeast Asia, 2021–2026',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  temporalCoverage: `${data.weekFrom}/${data.weekTo}`,
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://query.wikidata.org/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} noindex>
+  <h1>Korean titles in Southeast Asia’s Netflix Top 10</h1>
+  <p class="lead">
+    Since {data.weekFrom.slice(0, 4)}, <b>{data.titleCount}</b> Korean shows and films have reached the
+    Netflix Top 10 in at least one of six Southeast Asian countries — {data.region.split('— ')[1]}.
+    This is the whole list, counted from Netflix’s own weekly rankings across {data.weekCount} weeks.
+  </p>
+
+  <section class="stats">
+    <div><b>{data.titleCount}</b><span>Korean titles charted</span></div>
+    <div><b>{reachedNo1}</b><span>reached #1 somewhere</span></div>
+    <div><b>{allSix}</b><span>charted in all six countries</span></div>
+    <div><b>{tv} / {films}</b><span>series / films</span></div>
+  </section>
+
+  <section>
+    <h2>The ones that stayed longest</h2>
+    <p class="sub">
+      Ranked by total weeks in the Top 10 across the six countries, then by how many countries and
+      how high. A week counts once per country. Showing the top {top.length} of {data.titleCount}.
+    </p>
+    <ul class="rows">
+      {top.map((r) => (
+        <li>
+          <span class="bar" style={`--w:${(r.weeks / maxWeeks) * 100}%`}></span>
+          <span class="nm">{r.title}</span>
+          <span class="meta">
+            <b>{r.weeks}</b> weeks · {r.countries} of {data.countries} countries · peaked #{r.peak} · {r.type === 'TV' ? 'series' : 'film'}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li>
+        <b>Netflix Top 10 (Tudum)</b> — the official weekly country lists for Singapore, Malaysia,
+        the Philippines, Thailand, Indonesia and Vietnam, every week from {data.weekFrom} to {data.weekTo}.
+      </li>
+      <li>
+        <b>Wikidata</b> — a title counts as Korean when its country-of-origin field (P495) lists
+        South Korea. That is what decides inclusion, not our judgement.
+      </li>
+    </ul>
+    <p class="note">
+      <b>What the numbers are, and are not.</b> “Weeks” counts each week a title appeared in a
+      country’s Top 10, summed across the six — a title in three countries for one week counts as
+      three. It measures reach and staying power on this one service, not quality, and not total
+      audience. Netflix is not streaming: a title absent here may simply be strong elsewhere.
+    </p>
+    <p class="note">
+      The front page shows this week’s new entries. Counts derived from Netflix’s published lists;
+      we do not republish the lists themselves. Updated {data.generated} KST.
+    </p>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2rem; }
+  section { margin: 0 0 3rem; }
+  h2 { font-size: 1.12rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  /* 통계 타일 — 첫 화면과 다른 각도임을 한눈에 */
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin: 0 0 2.5rem; }
+  .stats div { background: var(--card); border-radius: 8px; padding: 1rem; }
+  .stats b { display: block; font-size: 1.5rem; letter-spacing: -.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stats span { font-size: .82rem; color: var(--muted); }
+  @media (min-width: 34rem) { .stats { grid-template-columns: repeat(4, 1fr); } }
+
+  .rows { list-style: none; padding: 0; margin: 0; }
+  .rows li { position: relative; overflow: hidden; padding: .6rem .8rem; border-bottom: 1px solid var(--line); }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); background: var(--card); border-radius: 0 4px 4px 0; }
+  .nm, .meta { position: relative; }
+  .nm { display: block; font-weight: 600; line-height: 1.35; }
+  .meta { display: block; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta b { color: var(--accent); }
+
+  .src ul { padding-left: 1.1rem; margin: 0; font-size: .9rem; }
+  .src li { margin: 0 0 .4rem; line-height: 1.6; }
+  .back { margin-top: 3rem; font-size: .9rem; }
+  .back a { color: var(--muted); }
+</style>
