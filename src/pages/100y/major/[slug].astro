@@ -18,8 +18,12 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
+import { 학과연구, 전체편수 } from '../../../lib/research';
 import majors from '../../../data/100yearmap/pages-major.json';
 import schools from '../../../data/100yearmap/pages-school.json';
+
+/** ⚠ 지면마다 다시 고르면 925번 돈다. 모듈 최상위에서 한 번만 고른다 */
+const 관련연구 = 학과연구();
 
 /** 페이지가 있는 학교만 링크한다.
  *  ⚠ 이 안전장치가 없어서 404 링크 406개가 나갈 뻔했다 (2026-08-04).
@@ -200,6 +204,36 @@ const jsonLd = {
             ))}
           </ul>
         </details>
+      </>
+    )
+  }
+
+  {/* ⭐ 숫자 다음에 오는 질문은 「왜 그렇게 되나?」다. 그건 우리가 못 쓴다 — 가리키기만 한다.
+      ⛔ **이 학과에 대한 연구가 아니다.** 주제가 같을 뿐이라고 반드시 적는다 */}
+  {
+    관련연구.length > 0 && (
+      <>
+        <hr class="rule" />
+        <h2>왜 그렇게 되는지를 다룬 연구</h2>
+        <p class="note">
+          ⚠ <strong>이 학과에 대한 연구가 아닙니다.</strong> 직업교육과 그 뒤의 노동시장을
+          다룬 것이라 주제가 닿을 뿐입니다. 저희가 쓴 글이 아니고, 누르면 원문으로 갑니다.
+        </p>
+        <ul class="papers">
+          {관련연구.map((r) => (
+            <li>
+              <a href={r.url} rel="nofollow noopener" target="_blank">{r.제목}</a>
+              <span class="note">
+                {r.발행일?.slice(0, 7).replace('-', '년 ') ?? '발행일 미상'}월
+                {r.저자.length > 0 && <> · {r.저자.join(', ')}</>}
+                {r.종류 && <> · {r.종류}</>}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p class="note">
+          <a href="/research">국책연구 {전체편수}편 전부 보기 →</a>
+        </p>
       </>
     )
   }

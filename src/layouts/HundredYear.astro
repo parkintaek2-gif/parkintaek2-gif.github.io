@@ -280,6 +280,15 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
     }
     .warn strong { color: var(--warn); }
 
+    /* 국책연구 목록 — /research 와 대학·학과 지면이 같이 쓴다.
+       ⚠ 지면마다 따로 두지 않는다. 2026-08-04 에 `.answer`·`.nums` 를 지면마다 두었다가
+          대학 377장이 통째로 민얼굴로 나간 적이 있다. 공용은 여기 한 곳이다. */
+    .papers { list-style: none; padding: 0; margin: 0 0 20px; }
+    .papers li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .papers li a { display: inline-block; font-size: var(--fs-body); min-height: 24px; }
+    /* 저자·날짜는 제목 아래로 내린다 — 제목이 길어 옆에 붙이면 줄이 엉킨다 */
+    .papers li .note { display: block; margin-top: 2px; }
+
     footer {
       margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line-soft);
       font-size: var(--fs-note); color: var(--faint);
