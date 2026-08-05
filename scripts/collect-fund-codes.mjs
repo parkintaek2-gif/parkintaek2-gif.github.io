@@ -109,6 +109,40 @@ export function 정리(x) {
   };
 }
 
+/**
+ * ⭐ **전체를 한 번에 받는다** — `--all`\n *
+ * `basDt` 를 빼고 부르면 **183,351건 전부가 페이지로** 온다(2026-08-05 실측).
+ * 쪽 1 은 basDt 20260805, 쪽 36,670 은 20211110 이었다 — 날짜가 섞여 나온다.
+ *
+ * 하루씩 받으면 5천 번을 불러야 하는데, 이러면 **184쪽**이면 끝난다.
+ * 그런데도 하루치 파일을 따로 두는 것은 **날마다 새로 붙는 코드를 이어받기** 위해서다.
+ * 두 방식이 싸우지 않게 `--all` 산출물은 **별도 파일**에 쓴다.
+ *
+ * ⚠ 이 자료는 데이터셋 15094792 · **이용허락범위 「제한 없음」**(2026-08-05 확인).
+ *   같은 날 주식발행정보(15043423)는 **제2유형이라 받아 놓고 버렸다.**
+ *   **부르기 전에 대장에 줄부터 만든다.**
+ */
+async function 전체(키) {
+  const 모음 = [];
+  for (let 쪽 = 1; ; 쪽++) {
+    const u = `${URL_}?serviceKey=${키}&numOfRows=${쪽크기}&pageNo=${쪽}&resultType=json`;
+    const r = await fetch(u, { signal: AbortSignal.timeout(40000) });
+    const t = await r.text();
+    let j;
+    try { j = JSON.parse(t); } catch { throw new Error(`JSON 아님: ${t.slice(0, 90)}`); }
+    const h = j.response?.header ?? j.OpenAPI_ServiceResponse?.cmmMsgHeader;
+    const 코드 = h?.resultCode ?? h?.returnReasonCode;
+    if (코드 && 코드 !== '00') throw new Error(`${코드} ${h.resultMsg ?? h.returnAuthMsg ?? ''}`);
+    const b = j.response?.body;
+    const 항목 = b?.items?.item ? [].concat(b.items.item) : [];
+    모음.push(...항목.map(정리));
+    if (쪽 % 30 === 0) console.log(`  ${모음.length.toLocaleString()} / ${Number(b?.totalCount ?? 0).toLocaleString()}`);
+    if (모음.length >= Number(b?.totalCount ?? 0) || !항목.length) break;
+    await new Promise((x) => setTimeout(x, 간격ms));
+  }
+  return 모음;
+}
+
 async function 하루(키, 일자) {
   const 모음 = [];
   for (let 쪽 = 1; ; 쪽++) {
@@ -133,6 +167,33 @@ async function 하루(키, 일자) {
 }
 
 async function main() {
+  /* ⭐ --all : 날짜 없이 전체를 받는다 */
+  if (process.argv.includes('--all')) {
+    const 키 = 키읽기();
+    if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
+    mkdirSync(OUT_DIR, { recursive: true });
+    console.log('펀드 표준코드 전체를 받는다 (basDt 없이)…');
+    const 모음 = await 전체(키);
+    if (!모음.length) { console.error('✕ 한 건도 못 받았다.'); process.exit(1); }
+    const 본 = path.join(OUT_DIR, 'all.ndjson'), 임시 = 본 + '.part';
+    writeFileSync(임시, 모음.map((r) => JSON.stringify(r)).join(String.fromCharCode(10)) + String.fromCharCode(10));
+    /* ⚠ 다 받은 뒤에 바꾼다. 중간에 죽어도 쓰던 파일이 안 비워진다 */
+    const { renameSync } = await import('node:fs');
+    renameSync(임시, 본);
+    const 세기 = (f) => { const m = new Map();
+      for (const r of 모음) { const k = f(r) ?? '(없음)'; m.set(k, (m.get(k) ?? 0) + 1); } 
+      return [...m].sort((a, b) => b[1] - a[1]); };
+    console.log(`\n✅ ${모음.length.toLocaleString()}건 → ${본}`);
+    console.log(`   서로 다른 표준코드 ${new Set(모음.map(r => r.표준코드).filter(Boolean)).size.toLocaleString()}`);
+    const 설정 = 모음.map(r => r.설정일).filter(Boolean).sort();
+    console.log(`   설정일 범위 ${설정[0]} ~ ${설정[설정.length - 1]}`);
+    console.log('\n■ 유형');
+    for (const [k, v] of 세기(r => r.유형).slice(0, 10)) console.log(`   ${String(v).padStart(7)}  ${k}`);
+    console.log('\n■ 분류');
+    for (const [k, v] of 세기(r => r.분류).slice(0, 6)) console.log(`   ${String(v).padStart(7)}  ${k}`);
+    return;
+  }
+
   const 키 = 키읽기();
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });

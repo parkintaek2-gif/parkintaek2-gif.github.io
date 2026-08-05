@@ -2,7 +2,7 @@
 /**
  * KDI 발간물 수집기.
  *
- *   npm run collect:kdi                  신청 승인된 구분(A)만
+ *   npm run collect:kdi                  **승인된 구분 전부**
  *   npm run collect:kdi -- --cd=A,C,D    구분을 지정
  *   npm run collect:kdi -- --dry         저장하지 않고 표본만 본다
  *
@@ -12,7 +12,17 @@
  * 키가 들어온 날부터 저절로 돌기 시작한다.
  *
  * 승인 신청: 2026-08-03 20:05 KST 「등록 되었습니다」 확인
- * 신청 범위: cd=A (기본연구보고서) · 활용목적 「웹사이트 활용」
+ * 신청 범위: 활용목적 「웹사이트 활용」
+ *
+ * ⚠ **처음엔 A 만 승인돼 기본값을 'A' 로 박아 뒀다.** 2026-08-05 에 확인하니
+ *   **여섯 구분이 전부 열려 있었다**(A 838 · B 96 · C 17 · D 60 · E 20 · F 180).
+ *   그런데 기본값이 'A' 라 **승인된 1,211건 중 838건만 받고 있었다.**
+ *   승인 상태를 코드에 박아 두면, 승인이 늘어도 **모르고 지나간다.**
+ *   그래서 기본값을 **전 구분**으로 바꾼다 — 안 열린 구분은 어차피 조용히 0 이다.
+ *
+ * ⚠ KDI 발간물 목록(데이터셋 15091316)은 **공공누리 제1유형** 이다 —
+ *   출처표시하면 상업적 이용·가공이 된다. 다만 **경제동향 본문(3083751)은 제3유형
+ *   (변경금지)** 이라 못 쓴다. 우리는 가공해서 파는 회사다. 서지정보만 받는다.
  *
  * ⚠ 신청서에 적어 낸 약속을 지킨다 — PDF·본문 전문은 받지 않는다.
  *   `src/lib/kdi.mjs` 가 서지정보만 뽑고 나머지는 애초에 응답에 없다.
@@ -27,7 +37,7 @@ import { fetchKdi, kdiReady, KDI_CODES } from '../src/lib/kdi.mjs';
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
 const argv = process.argv.slice(2);
 const DRY = argv.includes('--dry');
-const CDS = (argv.find((a) => a.startsWith('--cd='))?.slice(5) ?? 'A')
+const CDS = (argv.find((a) => a.startsWith('--cd='))?.slice(5) ?? Object.keys(KDI_CODES).join(','))
   .split(',')
   .map((s) => s.trim().toUpperCase())
   .filter(Boolean);
