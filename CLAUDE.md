@@ -267,16 +267,29 @@ ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main
 ctype ls -t @parkintaek2/seoulmarkets:main
 ```
 
-`ctype` 에는 "현재 스테이지"라는 전역 상태가 있고, `undeploy` 같은 명령 뒤에 **제멋대로 다른
+`ctype` 에는 "현재 스테이지"라는 전역 상태가 있고, 명령 뒤에 **제멋대로 다른
 프로젝트로 되돌아간다.** 실제로 2026-07-31 에 `-t` 없이 `ctype apply` 를 실행해
 **klifemap 프로젝트에 `web` 이 잘못 생성됐다.** 즉시 제거했고 klifemap-app 은 무사했지만,
 운이 나빴으면 남의 서비스를 메모리 부족으로 밀어낼 수 있었다.
+
+### 🔴 배포를 지우는 명령은 `remove` 다 — `undeploy` 는 **없는 명령**이다
+
+2026-08-05 에 1번이 실측해 알려 왔다. 이 문서에 `undeploy` 로 적혀 있어서
+**두 세션이 그걸 치고 「지웠다」고 믿었다.**
+
+```
+ctype undeploy web -t …   ✕ 출력도 오류도 없이 **종료코드 0**. 아무 일도 안 일어난다
+ctype remove   web -t …   ✅ 이것이 맞다  (CLI v0.7.1)
+```
+
+**조용히 성공한 척하는 것이 제일 나쁘다.** 지웠다고 믿고 다음 단계로 넘어가면
+남의 스테이지에 우리 배포가 남은 채로 시간이 간다. **지운 뒤에는 `ctype ls -t …` 로 눈으로 본다.**
 
 ## 배포가 안 뜰 때 — 원인은 대개 메모리다
 
 - `Memory limit exceeded ... 0GB remained` → klifemap 이 다 쓰고 있다. 총량을 늘린다.
 - `ready=1 / unavailable=1` 로 멈춤 → 롤링 업데이트에 두 배 메모리가 필요한데 여유가 없다.
-  `undeploy` 후 다시 `apply` 한다. **이때 `-t` 를 빼먹지 말 것.**
+  `remove` 후 다시 `apply` 한다. **이때 `-t` 를 빼먹지 말 것.** (`undeploy` 는 없는 명령이다)
 
 ## 프리티어 함정
 
