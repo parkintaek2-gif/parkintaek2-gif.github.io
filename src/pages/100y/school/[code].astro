@@ -14,6 +14,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
+import { 권할만한 } from '../../../lib/university';
 import schools from '../../../data/100yearmap/pages-school.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -23,8 +24,13 @@ const HAS_PAGE = new Set((majors as any[]).map((m) => m.url));
 
 /** 지역 → 그 지역 대학. 한 번만 만들고 2,525장이 나눠 쓴다
  *  ⚠ 지면마다 filter 를 돌리면 2,525 × 377 번이 된다 */
+/** ⚠ 2026-08-05 — **수치가 하나도 없는 48곳을 여기서 뺐다.**
+ *  이 목록은 2,525장에 그대로 실린다. 학부모가 누르면 텅 빈 지면이 나왔다.
+ *  강원 지역 대학교 13곳 중 5곳이 그랬다(캠퍼스 4 + 한중대학교).
+ *  ⛔ 지면을 지운 것이 아니다 — 「대학 찾기」에는 그대로 있고 「수치 없음」이라 적혀 있다.
+ *     검색해서 온 사람에게는 그 사실 자체가 답이다. 다만 **우리가 먼저 권하지는 않는다.** */
 const 지역별대학 = new Map<string, any[]>();
-for (const u of universities as any[]) {
+for (const u of 권할만한(universities as any[])) {
   if (!지역별대학.has(u.지역)) 지역별대학.set(u.지역, []);
   지역별대학.get(u.지역)!.push(u);
 }

@@ -28,6 +28,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
+import { 수치있음, 캠퍼스인가, 본교찾기, 권할만한 } from '../../../lib/university';
 import universities from '../../../data/100yearmap/pages-university.json';
 
 export async function getStaticPaths() {
@@ -39,11 +40,23 @@ export async function getStaticPaths() {
 
 const { uni } = Astro.props as { uni: any };
 
-/** 같은 지역 · 같은 종류 학교 — ❺ 다음 걸음. 가나다순(등수가 아니다) */
-const 이웃 = (universities as any[])
-  .filter((u) => u.schlId !== uni.schlId && u.지역 === uni.지역 && u.종류 === uni.종류)
+/** 같은 지역 · 같은 종류 학교 — ❺ 다음 걸음. 가나다순(등수가 아니다)
+ *  ⚠ 2026-08-05 — **수치가 하나도 없는 학교를 여기서 뺐다.**
+ *    강원 지역 대학교 13곳 중 5곳이 그랬다(캠퍼스 4 + 한중대학교).
+ *    누르면 텅 빈 지면이 나온다 — 없는 선택지를 학부모에게 내밀고 있었다.
+ *  ⛔ 지면을 지운 것이 아니다. **우리 쪽에서 먼저 권하지 않을 뿐**이다. */
+const 이웃 = 권할만한(
+  (universities as any[]).filter(
+    (u) => u.schlId !== uni.schlId && u.지역 === uni.지역 && u.종류 === uni.종류,
+  ),
+)
   .sort((a, b) => a.표시명.localeCompare(b.표시명, 'ko'))
   .slice(0, 12);
+
+/** 이 지면에 보여 줄 수치가 하나라도 있나 · 캠퍼스면 본교는 어디인가 */
+const 값있음 = 수치있음(uni);
+const 캠퍼스 = 캠퍼스인가(uni);
+const 본교 = 본교찾기(uni, universities as any[]);
 
 const 취 = uni.취업률;
 const 탈 = uni.중도탈락률;
@@ -57,11 +70,9 @@ const 견줌 = (d: any) => {
 
 /** ❸ 해석 — 규칙이 만든다. 숫자가 바뀌면 문장도 같이 바뀐다 */
 function 해석문(): string[] {
-  if (!취 && !탈) {
-    return [
-      `${uni.표시명}의 ${uni.공시연도}년 공시에는 취업률·중도탈락 수치가 없습니다. 수치가 없다는 것이 「0」이라는 뜻은 아닙니다 — 공시 대상이 아니거나 아직 제출되지 않은 것으로 보이는데, 어느 쪽인지는 저희가 아직 확인하지 못했습니다.`,
-    ];
-  }
+  /** ⚠ 수치가 없는 경우의 설명은 지면 위쪽 블록이 이미 한다(캠퍼스인지 아닌지로 갈라서).
+   *  여기서 또 쓰면 같은 말이 두 번 나온다. 비워 둔다. */
+  if (!취 && !탈) return [];
   const 조각: string[] = [];
 
   if (취) {
@@ -121,8 +132,39 @@ const 칸 = [
           취업률 {취.값}%{견줌(취) && <> · {견줌(취)}</>}
         </p>
       </div>
+    ) : 캠퍼스 ? (
+      /* ⭐ 제N캠퍼스 — 값이 있는 캠퍼스는 **0곳**이다. 수치가 본교에 몰려 있다.
+         「없다」로 끝내면 학부모는 이 학교가 문제인 줄 안다. 그게 아니라고 말해 준다 */
+      <div class="card">
+        <p>
+          <strong>이 캠퍼스는 수치가 따로 공시되지 않습니다.</strong> 대학정보공시는 취업률·중도탈락률을
+          <strong> 학교 단위로 묶어서</strong> 냅니다. 이 캠퍼스의 졸업생도 그 안에 함께 들어 있습니다.
+        </p>
+        {본교 ? (
+          <p>
+            숫자는 <a href={href(본교.url)}>{본교.표시명}</a> 지면에서 보실 수 있습니다
+            {본교.취업률 && <> — 취업률 {본교.취업률.값}%</>}.
+          </p>
+        ) : (
+          <p class="note">
+            ⚠ 본교 지면에도 수치가 없어 링크를 걸지 않았습니다. 빈 지면에서 빈 지면으로
+            보내 드리는 것은 도움이 되지 않습니다.
+          </p>
+        )}
+        <p class="note">
+          ⛔ 캠퍼스가 따로 나오지 않는 것은 <strong>학교의 문제가 아니라 공시 방식</strong>입니다.
+        </p>
+      </div>
     ) : (
-      <p class="warn">⚠ {uni.공시연도}년 공시에 이 학교의 취업률 수치가 없습니다.</p>
+      /* ⚠ 본교인데 지표가 하나도 없는 20곳. **폐교라고 쓰지 않는다 — 못 쟀다** */
+      <p class="warn">
+        ⚠ <strong>{uni.공시연도}년 공시에 이 학교의 수치가 하나도 없습니다.</strong> 취업률만이 아니라
+        중도탈락률·재적학생까지 전부 없습니다. 학교 이름은 공시 명단에 있는데 숫자가 오지 않습니다.
+        <br />
+        <strong>이 학교가 지금도 신입생을 받는지 저희는 확인하지 못했습니다.</strong> 공시 자료에는
+        폐교·통합 여부를 알려 주는 항목이 없어서, 저희가 짐작으로 적지 않겠습니다.
+        진학을 생각하신다면 <strong>학교에 직접 확인해 보십시오.</strong>
+      </p>
     )
   }
 
