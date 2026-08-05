@@ -184,6 +184,25 @@ const jsonLd = {
     white-space: nowrap;
     vertical-align: top;
   }
+  /* ⚠ 2026-08-05 실측 — 320px 에서 발행 주체 표가 303px 이 돼 **옆으로 밀어야 주소가 보였다.**
+     문서가 넘치지는 않았고(표 안에서만 스크롤) 고장은 아니지만,
+     **여기는 「누가 내놓는가」를 밝히는 자리다.** 밀어서 읽게 하면 안 된다.
+     좁은 화면에서는 머리칸 폭을 풀고 줄바꿈을 허용한다. */
+  @media (max-width: 360px) {
+    table th {
+      width: auto;
+      white-space: normal;
+    }
+    /* ⚠ 머리칸 폭만 풀어서는 안 줄어들었다. **끊을 수 없는 낱말** 때문이다 —
+       메일주소 `…@gmail.com` 193px + 「사업자등록번호」 110px = 303px.
+       본문에 `word-break: keep-all` 을 걸어 놔서(한글에 필요하다) 아무 데서도 안 끊긴다.
+       ⛔ keep-all 을 전역에서 풀지 않는다 — 그러면 온 지면의 한글이 어색하게 끊긴다.
+          **이 표 안에서만** 끊을 수 있게 한다. */
+    table th,
+    table td {
+      overflow-wrap: anywhere;
+    }
+  }
   /* 숫자 셋 — 「지금 무엇이 있는가」 */
   .nums .n {
     font-variant-numeric: tabular-nums;
