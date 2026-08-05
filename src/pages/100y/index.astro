@@ -20,9 +20,13 @@ import HundredYear from '../../layouts/HundredYear.astro';
 import { href } from '../../lib/hundredyear';
 import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
+import universities from '../../data/100yearmap/pages-university.json';
+import 연구 from '../../data/100yearmap/pages-research.json';
 
 const 학과수 = (majors as any[]).length;
 const 학교수 = (schools as any[]).length;
+const 대학수 = (universities as any[]).length;
+const 연구수 = ((연구 as any).자료 as any[]).length;
 
 /** 칩에 넣을 학과. ⛔ 「인기 순위」가 아니다 — **계열을 골고루** 섞어 고른 예시다.
  *  개설 학교가 많은 순으로 놓으면 그 줄 자체가 순위표가 된다. */
@@ -145,16 +149,29 @@ const jsonLd = {
     <a href="/major">학과 {학과수.toLocaleString()}개 전부 보기 →</a>
   </p>
 
+  {/* ⭐ 숫자 다음에 오는 질문은 「왜 그렇게 되나」다. 그건 우리가 못 쓴다 — 가리키기만 한다 */}
+  <h2>왜 그렇게 되는지는<br class="pcbr" /> 저희가 쓰지 않았습니다.</h2>
+  <p class="note">
+    그 답은 이미 쓰여 있습니다. 국책연구원이 세금으로 썼는데 찾기가 어려워 읽히지 않습니다.
+    사교육 의존, 학군 배정, 세대 간 교육이동성 같은 것을 다룬
+    <strong>한국개발연구원(KDI) 연구 {연구수}편</strong>을 골라 두었습니다.
+  </p>
+  <p class="note">
+    <a href="/research">국책연구가 다룬 것 보기 →</a>
+  </p>
+
   <h2>어디서 가져온 숫자인가?</h2>
   <p class="note">
     <strong>교육부 NEIS 교육정보 개방 포털</strong> — 전국 고등학교와 개설 학과<br />
     <strong>국가데이터처 KOSIS · 교육부 「직업계고 졸업자 취업통계」</strong> — 유지취업률<br />
+    <strong>한국대학교육협의회 대학알리미</strong> — 대학 {대학수}곳의 취업률·중도탈락률<br />
+    <strong>한국개발연구원(KDI)</strong> — 교육·노동 연구 목록<br />
     출처와 기준연도를 페이지마다 함께 적습니다. 계열 구분처럼 <strong>저희가 추정한 것</strong>은
     추정이라고 밝힙니다.
   </p>
   <p class="note">
-    ⚠ 지금 보여드리는 취업 수치는 <strong>학교유형·계열 단위</strong>입니다. 학과 하나하나의
-    공식 수치는 아직 공개되지 않습니다. 대학 축(중도탈락률·유지취업률)은 준비 중입니다.
+    ⚠ 지금 보여드리는 고등학교 취업 수치는 <strong>학교유형·계열 단위</strong>입니다. 학과 하나하나의
+    공식 수치는 아직 공개되지 않습니다.
   </p>
 </HundredYear>
 
