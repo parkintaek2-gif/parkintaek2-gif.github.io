@@ -94,7 +94,30 @@ export function 봇종류(userAgent) {
   if (/duckduck/i.test(u)) return 'duckduckgo';
   if (/yandex/i.test(u)) return 'yandex';
   if (/baidu/i.test(u)) return 'baidu';
-  if (/gptbot|oai-searchbot|chatgpt|claudebot|anthropic|perplexity|ccbot/i.test(u)) return 'ai';
+  /**
+   * ⭐ **AI 크롤러는 하나로 묶지 않는다.**
+   *
+   * 2026-08-05 실측 — 봇 1,919건 중 **1,842건(96%)이 AI** 였다. 구글은 9건이다.
+   * 한 칸에 'ai' 로 뭉쳐 놓으니 **누가 읽는지 알 수가 없었다.**
+   *
+   * 우리는 영문으로 한국 시장 데이터를 낸다. 이 독자층에게는
+   * **구글 순위보다 AI 답변에 인용되는 쪽이 빠를 수 있다.** 그러면 어느 회사가
+   * 얼마나 가져가는지가 전략 정보다. 뭉쳐 두면 그 판단을 못 한다.
+   *
+   * ⚠ 학습용과 검색용을 가른다 — GPTBot 은 학습, OAI-SearchBot 은 답변 인용이다.
+   *   막을지 말지가 다르므로 **한 칸에 두지 않는다.**
+   */
+  if (/oai-searchbot/i.test(u)) return 'ai:openai검색';
+  if (/gptbot/i.test(u)) return 'ai:openai학습';
+  if (/chatgpt-user/i.test(u)) return 'ai:openai사용자';
+  if (/claudebot/i.test(u)) return 'ai:anthropic학습';
+  if (/claude-searchbot/i.test(u)) return 'ai:anthropic검색';
+  if (/claude-user/i.test(u)) return 'ai:anthropic사용자';
+  if (/perplexity/i.test(u)) return 'ai:perplexity';
+  if (/ccbot/i.test(u)) return 'ai:commoncrawl';
+  if (/google-extended/i.test(u)) return 'ai:google학습';
+  if (/bytespider|amazonbot|applebot-extended|meta-externalagent|cohere|diffbot|timpibot|omgili/i.test(u)) return 'ai:기타';
+  if (/anthropic|openai/i.test(u)) return 'ai:기타';
   if (/facebookexternalhit|twitterbot|slackbot|linkedinbot|discordbot|telegram/i.test(u)) return 'sns미리보기';
   if (/uptime|pingdom|monitor|newrelic|datadog/i.test(u)) return '감시';
   return '기타';

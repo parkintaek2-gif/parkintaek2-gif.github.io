@@ -5,7 +5,7 @@
  * ⚠ 이 코드는 **운영 서버 안에서 돈다.** 그래서 「제대로 세는가」보다
  *   **「절대 안 죽는가」**를 먼저 시험한다. 측정 하나 때문에 세 사이트가 멈추면 안 된다.
  */
-import { 센다, 현황, 셀것인가, 유입도메인 } from '../src/lib/traffic.mjs';
+import { 센다, 현황, 셀것인가, 유입도메인, 봇종류 } from '../src/lib/traffic.mjs';
 
 let 실패 = 0;
 const 확인 = (조건, 이름) => { if (!조건) { 실패++; console.log(`  ✕ ${이름}`); } };
@@ -97,3 +97,42 @@ const 후키 = 현황().서로다른키;
 
 if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
 console.log('  스캐너 판별까지 전부 통과');
+
+/* ══════════════════════════════════════════════════════════════════
+ * ⭐ AI 크롤러 세분 — **뭉치면 누가 읽는지 모른다**
+ *
+ * 2026-08-05 실측: 봇 1,919건 중 **1,842건(96%)이 AI**, 구글은 9건이었다.
+ * 우리는 영문으로 한국 시장 데이터를 낸다 — 이 독자층에게는 **구글 순위보다
+ * AI 답변에 인용되는 쪽이 빠를 수 있다.** 그러면 어느 회사가 얼마나 가져가는지가
+ * 전략 정보다. 한 칸에 'ai' 로 두면 그 판단을 못 한다.
+ *
+ * ⚠ **학습용과 검색용을 가른다.** GPTBot 은 학습, OAI-SearchBot 은 답변 인용이다.
+ *   막을지 말지가 다르다.
+ * ⚠ 아래 UA 는 각 사가 공개한 문자열 꼴이다.
+ * ══════════════════════════════════════════════════════════════════ */
+{
+  const 표 = [
+    ['Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)', 'ai:openai학습'],
+    ['Mozilla/5.0 (compatible; OAI-SearchBot/1.0; +https://openai.com/searchbot)', 'ai:openai검색'],
+    ['Mozilla/5.0 (compatible; ChatGPT-User/1.0; +https://openai.com/bot)', 'ai:openai사용자'],
+    ['Mozilla/5.0 (compatible; ClaudeBot/1.0; +claudebot@anthropic.com)', 'ai:anthropic학습'],
+    ['Mozilla/5.0 (compatible; Claude-SearchBot/1.0)', 'ai:anthropic검색'],
+    ['Mozilla/5.0 (compatible; Claude-User/1.0)', 'ai:anthropic사용자'],
+    ['Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/bot)', 'ai:perplexity'],
+    ['CCBot/2.0 (https://commoncrawl.org/faq/)', 'ai:commoncrawl'],
+    ['Mozilla/5.0 (compatible; Google-Extended)', 'ai:google학습'],
+    ['Mozilla/5.0 (compatible; Bytespider; spider-feedback@bytedance.com)', 'ai:기타'],
+    /* ⚠ 검색엔진이 AI 로 새면 안 된다 — 반대쪽도 시험한다 */
+    ['Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', 'google'],
+    ['Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)', 'bing'],
+    ['Mozilla/5.0 (compatible; Yeti/1.1; +http://naver.me/spd)', 'naver'],
+  ];
+  let 실패 = 0;
+  console.log('AI 크롤러 세분');
+  for (const [ua, 기대] of 표) {
+    const v = 봇종류(ua);
+    if (v !== 기대) { 실패++; console.log(`  ✕ ${기대} → ${v}  |  ${ua.slice(0, 46)}`); }
+  }
+  if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
+  console.log(`  ${표.length} 통과 · 0 실패`);
+}

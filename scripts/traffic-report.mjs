@@ -80,6 +80,27 @@ async function main() {
      **크롤링은 됐는데 순위가 없다**인지를 가른다. 할 일이 완전히 다르다 */
   표('크롤러 (봇)', 묶기(봇, (x) => x.종류 ?? '(미분류)'));
 
+  /**
+   * ⭐ **AI 크롤러를 따로 센다.**
+   *
+   * 2026-08-05 실측 — 봇 1,919건 중 **1,842건(96%)이 AI**, 구글은 9건이었다.
+   * 크롤러 목록에 섞어 두면 이 크기가 안 보인다.
+   *
+   * 우리는 영문으로 한국 시장 데이터를 낸다. 이 독자층에게는 **구글 순위보다
+   * AI 답변에 인용되는 쪽이 빠를 수 있다.** 그래서 학습용·검색용을 갈라 놓는다 —
+   * 막을지 말지가 다르고, 「누가 얼마나 가져가나」가 전략 정보다.
+   */
+  const AI = 묶기(봇.filter((x) => String(x.종류 ?? '').startsWith('ai')), (x) => x.종류);
+  const 검색봇 = 묶기(봇.filter((x) => ['google', 'bing', 'naver', 'daum', 'duckduckgo', 'yandex', 'baidu'].includes(x.종류)), (x) => x.종류);
+  const 봇합 = (a) => a.reduce((s, [, v]) => s + v, 0);
+  console.log('■ ⭐ AI 크롤러 vs 검색엔진 크롤러');
+  console.log(`   AI          ${String(봇합(AI)).padStart(7)}`);
+  for (const [k, v] of AI) console.log(`      ${String(v).padStart(6)}  ${k}`);
+  console.log(`   검색엔진      ${String(봇합(검색봇)).padStart(7)}`);
+  for (const [k, v] of 검색봇) console.log(`      ${String(v).padStart(6)}  ${k}`);
+  if (!봇합(검색봇)) console.log('   ⚠ **검색엔진이 한 번도 안 왔다.** 색인이 아니라 발견이 막힌 것이다');
+  console.log('');
+
   /* ⭐ 우리 마케팅은 「검색」과 「사이트 간 유입」 둘뿐이다. 그 둘을 따로 본다 */
   const 전체 = 합(사람) || 1;
   const 검색 = 합(사람.filter((x) => /google|naver|daum|bing|duckduckgo|yahoo/i.test(x.유입)));
