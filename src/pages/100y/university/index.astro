@@ -10,7 +10,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href } from '../../../lib/hundredyear';
-import { 수치있음 } from '../../../lib/university';
+import { 수치있음, 폐교정보 } from '../../../lib/university';
 import universities from '../../../data/100yearmap/pages-university.json';
 
 const 묶음 = new Map<string, any[]>();
@@ -28,7 +28,9 @@ const 종류별 = new Map<string, number>();
 for (const u of universities as any[]) 종류별.set(u.종류, (종류별.get(u.종류) ?? 0) + 1);
 const 공시연도 = (universities as any[])[0]?.공시연도;
 /** ⚠ 2026-08-05 실측 — 377곳 중 48곳은 지표가 **하나도** 없다. 숨기지 않고 표시한다 */
-const 수치없는곳 = (universities as any[]).filter((u) => !수치있음(u)).length;
+const 수치없는곳 = (universities as any[]).filter((u) => !수치있음(u) && !폐교정보(u)).length;
+/** 🔴 문 닫은 학교 — 2026-08-05 에 한국사학진흥재단 명단으로 확인했다 */
+const 폐교한곳 = (universities as any[]).filter((u) => 폐교정보(u)).length;
 
 const desc =
   `전국 대학 ${전체}곳을 지역별로 정리했습니다. 학교를 고르면 졸업생 100명 가운데 몇 명이 취업했는지, 다니던 100명 중 몇 명이 ` +
@@ -69,8 +71,14 @@ const desc =
                 {u.취업률 && <> · 취업 {u.취업률.값}%</>}
                 {/* ⚠ 찾기 지면에서는 **빼지 않는다.** 검색해서 온 사람에게는
                     「수치가 없다」는 것 자체가 답이다. 대신 눌러 보기 전에 알려 준다.
-                    ⛔ 「나쁜 학교」 표시가 아니다 — 캠퍼스는 본교에 수치가 몰려 있을 뿐이다 */}
-                {!수치있음(u) && <> · <span class="nodata">수치 없음</span></>}
+                    ⛔ 「나쁜 학교」 표시가 아니다 — 캠퍼스는 본교에 수치가 몰려 있을 뿐이다
+                    🔴 문을 닫은 학교는 **「수치 없음」이 아니라 「폐교」**라고 쓴다.
+                       그게 찾는 사람이 실제로 알고 싶은 것이다 (2026-08-05) */}
+                {폐교정보(u) ? (
+                  <> · <span class="closed-tag">{폐교정보(u)!.폐교년도}년 폐교</span></>
+                ) : (
+                  !수치있음(u) && <> · <span class="nodata">수치 없음</span></>
+                )}
               </span>
             </li>
           ))}
@@ -92,6 +100,12 @@ const desc =
     <strong>제N캠퍼스</strong>는 수치가 본교에 묶여서 나오고(캠퍼스 단위 공시가 없습니다),
     나머지는 공시 명단에 이름은 있는데 숫자가 오지 않는 학교입니다.
     <strong>학교가 나쁘다는 표시가 아닙니다.</strong>
+  </p>
+  <p class="note">
+    🔴 「○○년 폐교」는 <strong>{폐교한곳}곳</strong>입니다 — 실제로 문을 닫아 더 이상 신입생을 받지
+    않는 학교입니다. 지면은 지우지 않았습니다. 그 학교를 나오신 분에게는 <strong>모교</strong>이고,
+    졸업증명서를 어디서 떼는지가 필요하실 수 있습니다.
+    출처 — 한국사학진흥재단 「폐교 및 법인 해산 현황」.
   </p>
 </HundredYear>
 
@@ -153,6 +167,16 @@ const desc =
     border-radius: 3px;
     padding: 0 0.3em;
     font-size: 0.92em;
+  }
+  /* 🔴 폐교 표시 — 「수치 없음」보다 세게. 그래도 붉은색은 안 쓴다.
+     누군가의 모교다. 사고 화면처럼 보이면 안 된다 */
+  .closed-tag {
+    color: var(--gold-pale);
+    border: 1px solid var(--gold-deep);
+    border-radius: 3px;
+    padding: 0 0.3em;
+    font-size: 0.92em;
+    white-space: nowrap;
   }
   [hidden] {
     display: none !important;

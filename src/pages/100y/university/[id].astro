@@ -28,7 +28,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
-import { 수치있음, 캠퍼스인가, 본교찾기, 권할만한 } from '../../../lib/university';
+import { 수치있음, 캠퍼스인가, 본교찾기, 권할만한, 폐교정보, 폐교출처 } from '../../../lib/university';
 import { 대학연구, 전체편수 } from '../../../lib/research';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -61,6 +61,8 @@ const 이웃 = 권할만한(
 const 값있음 = 수치있음(uni);
 const 캠퍼스 = 캠퍼스인가(uni);
 const 본교 = 본교찾기(uni, universities as any[]);
+/** 🔴 문을 닫은 학교인가. 있으면 **그 사실을 지면 맨 위에** 말한다 */
+const 폐교 = 폐교정보(uni);
 
 const 취 = uni.취업률;
 const 탈 = uni.중도탈락률;
@@ -126,6 +128,34 @@ const 칸 = [
     {uni.재적학생 != null && <> · 재적학생 {uni.재적학생.toLocaleString()}명</>}
   </p>
 
+  {/* 🔴 **문을 닫은 학교면 그 사실이 제일 먼저다.**
+      숫자를 먼저 보여 주고 아래에서 「사실 폐교했다」고 하면 그건 늦다.
+      지원을 생각하고 들어온 사람에게는 이 한 줄이 지면 전체보다 중요하다. */}
+  {
+    폐교 && (
+      <div class="closed">
+        <p class="closed-head">
+          이 학교는 <strong>{폐교.폐교년도}년에 문을 닫았습니다.</strong>
+        </p>
+        <p class="note">
+          더 이상 신입생을 받지 않습니다. 아래 자료는 <strong>문을 닫기 전의 기록</strong>이거나,
+          공시가 멈춰 비어 있습니다.
+        </p>
+        <p class="note">
+          {폐교.법인상태 && <>학교법인은 <strong>{폐교.법인상태}</strong> 상태입니다. </>}
+          졸업증명서·학적부 같은 서류는 <strong>{폐교출처.기관}</strong>이 보관합니다.
+          {' '}
+          <a href="https://www.u-haksa.or.kr/" rel="nofollow noopener" target="_blank">폐교대학 종합관리센터</a>에서
+          떼실 수 있습니다.
+        </p>
+        <p class="note">
+          출처 — {폐교출처.기관} 「{폐교출처.이름}」 ·{' '}
+          <a href={폐교출처.주소} rel="nofollow noopener" target="_blank">공공데이터포털</a>
+        </p>
+      </div>
+    )
+  }
+
   {
     취 ? (
       /* ❶ 한 줄 답 — 이 문장 하나만 읽어도 답이 되게 한다 */
@@ -160,14 +190,24 @@ const 칸 = [
         </p>
       </div>
     ) : (
-      /* ⚠ 본교인데 지표가 하나도 없는 20곳. **폐교라고 쓰지 않는다 — 못 쟀다** */
+      /* ⚠ 본교인데 지표가 하나도 없는 곳. **폐교인지 아닌지로 말이 갈린다** */
       <p class="warn">
         ⚠ <strong>{uni.공시연도}년 공시에 이 학교의 수치가 하나도 없습니다.</strong> 취업률만이 아니라
-        중도탈락률·재적학생까지 전부 없습니다. 학교 이름은 공시 명단에 있는데 숫자가 오지 않습니다.
-        <br />
-        <strong>이 학교가 지금도 신입생을 받는지 저희는 확인하지 못했습니다.</strong> 공시 자료에는
-        폐교·통합 여부를 알려 주는 항목이 없어서, 저희가 짐작으로 적지 않겠습니다.
-        진학을 생각하신다면 <strong>학교에 직접 확인해 보십시오.</strong>
+        중도탈락률·재적학생까지 전부 없습니다.
+        {폐교 ? (
+          <>
+            {' '}
+            <strong>문을 닫은 학교이기 때문입니다.</strong>
+          </>
+        ) : (
+          <>
+            <br />
+            <strong>이 학교가 지금도 신입생을 받는지 저희는 확인하지 못했습니다.</strong>
+            {' '}교육부 폐교 명단에는 <strong>없습니다</strong> — 다른 학교와 통합되었거나 이름이
+            바뀌었을 수 있는데, 어느 쪽인지는 저희가 아직 못 봤습니다.
+            진학을 생각하신다면 <strong>학교에 직접 확인해 보십시오.</strong>
+          </>
+        )}
       </p>
     )
   }
@@ -286,6 +326,32 @@ const 칸 = [
 </HundredYear>
 
 <style>
+  /* 🔴 폐교 알림 — 눈에 걸리되 「사고 화면」처럼 보이지 않게.
+     붉은색을 쓰지 않는다. 학교를 나온 사람에게는 자기 모교다. */
+  .closed {
+    border: 1px solid var(--gold-deep);
+    border-left: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin: 0 0 20px;
+    background: rgba(201, 168, 76, 0.06);
+  }
+  .closed-head {
+    font-family: var(--serif);
+    font-size: var(--fs-sub2);
+    font-weight: 700;
+    color: var(--gold-pale);
+    margin: 0 0 6px;
+  }
+  .closed-head strong {
+    color: var(--gold);
+  }
+  .closed .note {
+    margin: 0 0 6px;
+  }
+  .closed .note:last-child {
+    margin-bottom: 0;
+  }
   .neighbors {
     list-style: none;
     padding: 0;
