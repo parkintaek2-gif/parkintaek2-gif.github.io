@@ -99,6 +99,21 @@ function 통보(문구) {
   appendFileSync(p, `\n${문구}\n`, 'utf8');
 }
 
+/**
+ * 라이브 URL 을 직접 찔러 응답 코드를 본다.
+ * ⚠ 판정을 **시간이 아니라 실제 상태**로 하기 위함이다. ctype 감시가 컨테이너
+ *   기동보다 짧게 끊겨도, 라이브가 200 이면 서비스는 뜬 것이다.
+ *   (실제 공개 URL 이라 fetch 의 Host 문제는 없다 — 호스트 라우팅 시험과 다르다)
+ */
+async function 라이브확인() {
+  try {
+    const r = await fetch('https://seoulmarkets.com/', { method: 'HEAD', redirect: 'manual' });
+    return r.status;
+  } catch {
+    return 0;
+  }
+}
+
 async function main() {
   console.log(`배포 점검 — ${시각()} KST\n`);
 
@@ -164,20 +179,40 @@ async function main() {
     const out = ctype(['apply', '-f', '.cloudtype/app.yaml', '-t', 나.stage]);
     console.log(out.trim().split('\n').slice(-2).join('\n'));
 
-    // ── ④ 뜰 때까지 지켜본다 ────────────────────────────────
+    // ── ④ 뜰 때까지 지켜본다 — **시간이 아니라 실제 상태로 판정한다** ──
+    // ⚠ 옛 감시 한도(400초)가 컨테이너 기동보다 짧아 **성공을 「미완」으로 오판**했다
+    //   (2026-08-05 두 번). 사람이 「실패했네」 하고 다시 돌리면 롤링에 메모리가 두 배 든다.
+    //   그래서 ① 한도를 600초로 늘리고 ② 그래도 Running 을 못 보면 **라이브 URL 로 실제를 본다**
+    //   ③ ⛔ 조용히 「실패/미완」이라고 적지 않는다 — 「판정 보류, 눈으로 확인」으로 적는다.
     let 결과 = 'Starting';
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 30; i++) {
       await sleep(20000);
       결과 = 상태(나.stage, 나.app).status;
       console.log(`  ${(i + 1) * 20}초 · ${결과}`);
       if (결과 === 'Running') break;
     }
-    const 성공 = 결과 === 'Running';
-    통보(
-      `> ${성공 ? '✅' : '⚠'} **[SeoulMarkets] 배포 ${성공 ? '완료' : '미완'} ${시각()} KST** — 상태 \`${결과}\`` +
-        (성공 ? '' : `\n> 서비스는 구버전으로 계속 돕니다. undeploy 는 하지 않았습니다.`),
-    );
-    console.log(성공 ? '\n✅ Running' : `\n⚠ ${결과} 에서 멈췄다. 서비스는 구버전으로 계속 돈다.`);
+
+    if (결과 === 'Running') {
+      const code = await 라이브확인();
+      통보(`> ✅ **[SeoulMarkets] 배포 완료 ${시각()} KST** — 상태 \`Running\` · 라이브 \`${code}\``);
+      console.log(`\n✅ Running · 라이브 ${code}`);
+    } else {
+      // Running 을 못 봤다. **시간 초과일 뿐 성공일 수 있다** — 라이브로 확인한다.
+      const code = await 라이브확인();
+      if (code === 200) {
+        통보(
+          `> 🔶 **[SeoulMarkets] 배포 판정 보류 ${시각()} KST** — ctype 은 \`${결과}\` 이나 라이브 200.\n` +
+            `> ⛔ **재배포하지 마십시오.** 기동이 감시보다 느린 것일 수 있습니다. 라이브를 눈으로 확인하십시오.`,
+        );
+        console.log(`\n🔶 판정 보류 — ctype ${결과} · 라이브 200. 재배포 금지, 눈으로 확인.`);
+      } else {
+        통보(
+          `> ⚠ **[SeoulMarkets] 배포 판정 불가 ${시각()} KST** — ctype \`${결과}\` · 라이브 \`${code}\`.\n` +
+            `> 서비스는 구버전으로 계속 돕니다. **재배포 전에 라이브를 눈으로 확인하십시오** — 「실패」로 단정하지 마십시오.`,
+        );
+        console.log(`\n⚠ 판정 불가 — ctype ${결과} · 라이브 ${code}. 재배포 전 눈으로 확인.`);
+      }
+    }
   } finally {
     락풀기();
     ctype(['ls', '-t', 나.stage]); // 전역 스테이지를 우리 것으로 되돌려 둔다
