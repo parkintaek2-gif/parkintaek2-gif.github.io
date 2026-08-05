@@ -18,9 +18,20 @@ import universities from '../../data/100yearmap/pages-university.json';
  * ⚠ 3,450장을 한 파일에 넣는다. 사이트맵 한도는 5만 URL · 50MB 라 아직 여유가 있다.
  *   대학알리미가 들어와 학과 페이지가 늘면 그때 쪼갠다.
  *
- * ⛔ 아직 noindex 인 페이지도 사이트맵에는 넣는다 — 색인 여부는 페이지의 robots 태그가 정한다.
- *   둘이 어긋나면 검색엔진이 「사이트맵엔 있는데 막혀 있다」고 경고한다.
- *   ⚠ 그래서 **noindex 를 뗄 때 이 파일도 같이 확인**한다. 지금은 사장님 판단 대기 중이다.
+ * 🔴 **noindex 인 지면은 사이트맵에 넣지 않는다** (2026-08-05 정정).
+ *
+ * 앞선 주석은 반대로 적혀 있었다 — 「noindex 인 페이지도 넣는다」.
+ * 그러면 검색엔진에 **모순된 신호**를 준다. 사이트맵은 「이걸 색인해 달라」는 뜻인데
+ * 그 지면이 「색인하지 마라」고 말한다. Search Console 이 경고를 띄우고,
+ * 그런 URL 이 많으면 사이트맵 전체의 신뢰가 깎인다.
+ *
+ * ```
+ * 사장님 결정 2026-08-05 「얇은 것만 빼고 지금 떼라」
+ *   ▶ 넣는다  학과 · 대학 · **학과가 있는 학교** · 고정 지면
+ *   ⏸ 뺀다    학과가 없는 일반고 — `school/[code].astro` 가 같은 조건으로 noindex 를 건다
+ * ```
+ *
+ * ⚠ **두 파일의 조건이 같아야 한다.** 한쪽만 고치면 다시 어긋난다.
  */
 
 const ORIGIN = 'https://100yearmap.com';
@@ -50,11 +61,16 @@ export const GET: APIRoute = () => {
       priority: '0.8',
       changefreq: 'monthly',
     })),
-    ...(schools as any[]).map((s) => ({
-      path: s.url as string,
-      priority: '0.6',
-      changefreq: 'monthly',
-    })),
+    /* ⚠ **학과가 없는 일반고 1,353장은 뺀다.** `school/[code].astro` 가 같은 조건으로
+       noindex 를 걸기 때문이다. 두 곳의 조건이 어긋나면 모순된 신호가 나간다.
+       실측 2026-08-05 — 학교 2,525 = 학과 있음 1,172 + 없음 1,353 */
+    ...(schools as any[])
+      .filter((s) => (s.학과 ?? []).length > 0)
+      .map((s) => ({
+        path: s.url as string,
+        priority: '0.6',
+        changefreq: 'monthly',
+      })),
     ...(universities as any[]).map((u) => ({
       path: u.url as string,
       priority: '0.7',

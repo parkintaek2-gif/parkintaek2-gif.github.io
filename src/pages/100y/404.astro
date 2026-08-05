@@ -12,7 +12,9 @@
  *   그래서 사과 대신 **다음 걸음**을 놓는다 — 검색창이 먼저 온다.
  *
  * ⚠ 검색창은 JS 없이 동작한다. `/major` 로 GET 하면 그쪽이 `q` 를 읽는다(첫 화면과 같다).
- * ⚠ 이 지면은 `noindex` 다 — 레이아웃 기본값이라 따로 넘기지 않는다.
+ * 🔴 이 지면은 **반드시 `noindex`** 다 — 검색 결과에 실패 화면이 뜨면 안 된다.
+ *   ⚠ 2026-08-05 에 레이아웃 기본값이 **「열림」으로 뒤집혔다.** 그래서 여기에
+ *     `noindex={true}` 를 **직접 넘긴다.** 안 넘기면 404 가 검색에 올라간다.
  */
 import HundredYear from '../../layouts/HundredYear.astro';
 import majors from '../../data/100yearmap/pages-major.json';
@@ -27,6 +29,7 @@ const 대학수 = (universities as any[]).length;
 <HundredYear
   title="그 주소에는 지면이 없습니다"
   description="찾으시는 지면이 없습니다. 학과·학교·대학 이름으로 다시 찾아보실 수 있습니다."
+  noindex={true}
 >
   <h1>그 주소에는 지면이 없습니다.</h1>
 
