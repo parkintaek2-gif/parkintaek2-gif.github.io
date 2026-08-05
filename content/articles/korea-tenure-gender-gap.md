@@ -1,6 +1,6 @@
 ---
 title: "In 76 percent of Korea's large listed companies, men stay longer than women"
-dek: "Companies file average tenure by gender in their own annual reports. Across 1,837 listed firms employing 1.83 million people, the weighted gap is 2.11 years — and it is widest in the industries Korea exports."
+dek: "Companies file average tenure by gender in their own annual reports. Across 1,836 listed firms employing 1.81 million people, the weighted gap is 2.11 years — and it is widest in the industries Korea exports."
 category: equities
 pubDate: 2026-08-04
 updatedDate: 2026-08-05
@@ -20,7 +20,7 @@ crossChecks:
   - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table"
   - "59 companies were excluded because a filed figure falls outside any plausible range — a tenure above 35 years or an average salary above 1bn won or below 10m won. These are unit-entry errors by the filer, not outliers. They were removed, not corrected"
   - "Only firms with at least 100 employees are counted: at 3 employees an average tenure of 20 years describes two founders, not a retention record"
-  - "The headline 2.11-year figure is weighted by headcount. The unweighted company average is 1.57 years and the median 1.1 years — all three are reported so the choice of weighting cannot flatter the result"
+  - "The headline 2.11-year figure is weighted by headcount. The unweighted company average is 1.58 years and the median 1.1 years — all three are reported so the choice of weighting cannot flatter the result"
 excluded:
   - "Why the gap exists — this article reports the filed numbers and does not attribute cause"
   - "Pay. Average pay is filed in the same table and will be treated separately; mixing tenure and pay in one comparison obscures both"
@@ -45,9 +45,9 @@ Korean companies are required to state, in their annual report, how long their e
 
 Read all of them at once and a pattern appears that is hard to look away from.
 
-Of 1,837 listed companies with at least 100 employees that filed both figures for 2025, **1,397 report that men have worked there longer than women.** That is 76.0 percent. Women have the longer average tenure at 416 companies, and the two are equal at 24.
+Of 1,836 listed companies with at least 100 employees that filed both figures for 2025, **1,396 report that men have worked there longer than women.** That is 76.0 percent. Women have the longer average tenure at 416 companies, and the two are equal at 24.
 
-Weighted by headcount — that is, counted across the 1,828,238 employees these firms actually employ — the gap is **2.11 years**. The unweighted company average is 1.57 years. The median company reports 1.1 years.
+Weighted by headcount — that is, counted across the 1,814,502 employees these firms actually employ — the gap is **2.11 years**. The unweighted company average is 1.58 years. The median company reports 1.1 years.
 
 ## The gap is widest where Korea builds things
 
@@ -81,4 +81,4 @@ Average tenure is not a turnover rate. A company that has hired quickly will sho
 
 It is also a company-filed figure. Nobody audits the tenure table the way the financial statements are audited. Fifty-nine companies filed a number that cannot be right — a tenure of 54 years at a firm whose staff average four and a half, an average salary entered in thousands of won rather than won. Those were removed from the count rather than corrected, because correcting them would mean guessing what the filer meant.
 
-What the number is, is the company's own statement about itself, made under a disclosure requirement, in a document its directors sign. Read one at a time, each is unremarkable. Read 1,837 at once, and 76 percent of them say the same thing.
+What the number is, is the company's own statement about itself, made under a disclosure requirement, in a document its directors sign. Read one at a time, each is unremarkable. Read 1,836 at once, and 76 percent of them say the same thing.

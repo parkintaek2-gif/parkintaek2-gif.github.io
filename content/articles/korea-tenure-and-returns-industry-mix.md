@@ -18,14 +18,14 @@ sources:
 crossChecks:
   - "2,573 companies that filed a 2025 workforce table and traded on both 1 August 2025 and 3 August 2026. Companies missing either side are excluded rather than imputed"
   - "Tenure is a free-text field. Companies write '5년 8월', '04년 04개월' or a bare decimal; a naive numeric parse silently drops a third of them. Parsing Korean year-and-month text raised coverage from 63.5% to 97.0% before any of this was measured"
-  - "Industry control uses each company's own industry median for both tenure and return, across the 38 industries with 12 or more listed companies (2,427 companies). Industries with fewer are dropped, not merged"
+  - "Industry control uses each company's own industry median for both tenure and return, across the 38 industries with 12 or more listed companies (2,430 companies). Industries with fewer are dropped, not merged"
   - "Spearman rank correlation is used throughout rather than Pearson, so a handful of extreme movers cannot create the relationship"
   - "The tenure-female correlation was computed directly (−0.384) rather than inferred from the quintile tables"
   - "Returns are price returns from close to close. Dividends are not included, which understates total return for higher-yielding sectors"
 excluded:
   - "Any causal claim. Long tenure may be a symptom of a stable business rather than a cause of anything, and this data cannot separate the two"
   - "Whether the pattern repeats in other periods. This is one 12-month window in a falling market — the median company lost 14.3%"
-  - "Company-level recommendations. A rank correlation of 0.133 describes a tendency across thousands of firms, not a property of any one of them"
+  - "Company-level recommendations. A rank correlation of 0.134 describes a tendency across thousands of firms, not a property of any one of them"
   - "Pay and headcount as predictors. Both were measured and neither produced a monotonic relationship worth reporting"
   - "Non-listed employers, and any company that did not file the workforce table"
 corrections:
@@ -37,7 +37,7 @@ corrections:
       a share of headcount) and the headcount-weighted tenure figures. Every
       correlation was recomputed: tenure against female share from −0.373 to
       −0.384, and after the industry control, tenure against return from +0.127
-      to +0.133 and female share against return from −0.061 to −0.038. The
+      to +0.134 and female share against return from −0.061 to −0.037. The
       conclusion is unchanged and slightly stronger — the female-share
       relationship collapses further once industry is controlled for.
   - date: 2026-08-05
@@ -72,16 +72,16 @@ The quintile table is not showing two findings. It is showing one industry map, 
 
 ## What survives when industry is held constant
 
-Compare each company against **its own industry's median** rather than against the whole market. Across the 38 industries with at least 12 listed companies — 2,427 firms in total:
+Compare each company against **its own industry's median** rather than against the whole market. Across the 38 industries with at least 12 listed companies — 2,430 firms in total:
 
 | | Rank correlation with return |
 | --- | ---: |
-| Staff tenure | **+0.133** |
-| Female share | −0.038 |
+| Staff tenure | **+0.134** |
+| Female share | −0.037 |
 
 The female-share relationship collapses to approximately nothing. It was industry composition, and once industry is held constant it stops describing anything.
 
-The tenure relationship survives. It is weak — 0.133 is a tendency, not a rule — but it does not disappear the way the other one does.
+The tenure relationship survives. It is weak — 0.134 is a tendency, not a rule — but it does not disappear the way the other one does.
 
 ## And it is a floor, not a ladder
 

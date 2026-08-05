@@ -17,7 +17,7 @@ sources:
     url: "https://opendart.fss.or.kr"
 crossChecks:
   - "Average pay per employee is a statutory disclosure item filed by the company itself, not an outside estimate"
-  - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table; 1,847 of those met the thresholds used here"
+  - "All 3,925 listed entities in DART's corporate registry were queried; 2,921 had filed a 2025 employee-status table; 1,846 of those met the thresholds used here"
   - "59 companies were excluded because a filed figure is outside any plausible range — pay above 1bn won or below 10m won, or tenure above 35 years. These are unit-entry errors by the filer. They were removed, not corrected"
   - "Only firms with at least 100 employees are counted, and headcount is reported alongside every pay figure so the reader can see the sample behind each number"
   - "Industry averages are weighted by headcount, not by company, so that a sector's figure reflects the people in it rather than the number of listings"
@@ -35,7 +35,7 @@ corrections:
       986 of 2,921 companies were affected. Because average pay is weighted by
       the male and female headcounts, the pay figures moved too, and the ten
       best-paying companies are not the same ten. The table, the sample (1,560
-      companies and 1,452,844 employees, now 1,847 and 1,812,328) and the two
+      companies and 1,452,844 employees, now 1,846 and 1,798,592) and the two
       companies named at the foot of the table were all recomputed. The finding
       — that several of the best-paying filers are holding companies with a few
       hundred head-office staff — is unchanged.
@@ -48,7 +48,7 @@ corrections:
 draft: false
 ---
 
-Every listed Korean company files, once a year, the average annual pay of its employees. Sort 1,847 of them and the top of the table looks like a verdict on which industries pay.
+Every listed Korean company files, once a year, the average annual pay of its employees. Sort 1,846 of them and the top of the table looks like a verdict on which industries pay.
 
 | # | Company | Average pay | Employees |
 | ---: | --- | ---: | ---: |
@@ -96,7 +96,7 @@ Finance still leads. But the distance to chipmaking is 16m won, not the 30m the 
 
 ## The spread, for context
 
-Across the 1,847 companies and 1,812,328 employees in this sample:
+Across the 1,846 companies and 1,798,592 employees in this sample:
 
 - **Median company:** 64m won
 - **Mean company:** 71m won
