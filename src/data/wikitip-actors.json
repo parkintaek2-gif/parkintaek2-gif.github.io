@@ -1,0 +1,361 @@
+{
+  "generated": "2026. 8. 6. 오전 5:35:00",
+  "source": "English Wikipedia page views (Wikimedia Pageviews API), human traffic only. Roster from Wikidata cast lists (P161) filtered to Korean citizenship (P27).",
+  "period": "20260705~20260803",
+  "days": 30,
+  "measured": 1008,
+  "roster": 1344,
+  "totalViews": 7463168,
+  "rows": [
+    {
+      "name": "So Ji-sub",
+      "total": 233542,
+      "daily": 7785,
+      "titles": 5,
+      "days": 30
+    },
+    {
+      "name": "Steven Yeun",
+      "total": 106201,
+      "daily": 3540,
+      "titles": 1,
+      "days": 30
+    },
+    {
+      "name": "Nam Joo-hyuk",
+      "total": 101843,
+      "daily": 3512,
+      "titles": 2,
+      "days": 29
+    },
+    {
+      "name": "Roh Yoon-seo",
+      "total": 100832,
+      "daily": 3477,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Kim Mu-yeol",
+      "total": 89613,
+      "daily": 2987,
+      "titles": 10,
+      "days": 30
+    },
+    {
+      "name": "Park Eun-bin",
+      "total": 85503,
+      "daily": 2948,
+      "titles": 5,
+      "days": 29
+    },
+    {
+      "name": "Choi Dae-hoon",
+      "total": 83936,
+      "daily": 2798,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Son Na-eun",
+      "total": 78075,
+      "daily": 2603,
+      "titles": 3,
+      "days": 30
+    },
+    {
+      "name": "Jisoo",
+      "total": 76744,
+      "daily": 2558,
+      "titles": 1,
+      "days": 30
+    },
+    {
+      "name": "Joo Sang-wook",
+      "total": 72365,
+      "daily": 2495,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Yoon Kyung-ho",
+      "total": 68496,
+      "daily": 2283,
+      "titles": 6,
+      "days": 30
+    },
+    {
+      "name": "Seo In-guk",
+      "total": 65727,
+      "daily": 2191,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Byeon Woo-seok",
+      "total": 62920,
+      "daily": 2097,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Cha Eun-woo",
+      "total": 61857,
+      "daily": 2133,
+      "titles": 5,
+      "days": 29
+    },
+    {
+      "name": "Heo Nam-jun",
+      "total": 59515,
+      "daily": 2052,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Kim Go-eun",
+      "total": 58545,
+      "daily": 2019,
+      "titles": 9,
+      "days": 29
+    },
+    {
+      "name": "Ji Chang-wook",
+      "total": 55492,
+      "daily": 1850,
+      "titles": 5,
+      "days": 30
+    },
+    {
+      "name": "Lee Byung-hun",
+      "total": 54309,
+      "daily": 1873,
+      "titles": 19,
+      "days": 29
+    },
+    {
+      "name": "Kim Soo-hyun",
+      "total": 52725,
+      "daily": 1818,
+      "titles": 8,
+      "days": 29
+    },
+    {
+      "name": "Kim Sae-ron",
+      "total": 52018,
+      "daily": 1734,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Lim Ji-yeon",
+      "total": 50713,
+      "daily": 1690,
+      "titles": 9,
+      "days": 30
+    },
+    {
+      "name": "Yang Se-jong",
+      "total": 50507,
+      "daily": 1684,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Lee Jong-suk",
+      "total": 49868,
+      "daily": 1662,
+      "titles": 6,
+      "days": 30
+    },
+    {
+      "name": "Hwang In-youp",
+      "total": 49217,
+      "daily": 1641,
+      "titles": 2,
+      "days": 30
+    },
+    {
+      "name": "N",
+      "total": 48116,
+      "daily": 1659,
+      "titles": 3,
+      "days": 29
+    },
+    {
+      "name": "Son Ye-jin",
+      "total": 47755,
+      "daily": 1592,
+      "titles": 8,
+      "days": 30
+    },
+    {
+      "name": "Shin Min-a",
+      "total": 47676,
+      "daily": 1589,
+      "titles": 7,
+      "days": 30
+    },
+    {
+      "name": "Lee Dong-wook",
+      "total": 47541,
+      "daily": 1639,
+      "titles": 7,
+      "days": 29
+    },
+    {
+      "name": "Song Hye-kyo",
+      "total": 47089,
+      "daily": 1624,
+      "titles": 5,
+      "days": 29
+    },
+    {
+      "name": "Gong Yoo",
+      "total": 46663,
+      "daily": 1609,
+      "titles": 8,
+      "days": 29
+    },
+    {
+      "name": "Jin Ki-joo",
+      "total": 46405,
+      "daily": 1600,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Go Youn-jung",
+      "total": 44384,
+      "daily": 1530,
+      "titles": 7,
+      "days": 29
+    },
+    {
+      "name": "Lee Hye-ri",
+      "total": 43959,
+      "daily": 1516,
+      "titles": 3,
+      "days": 29
+    },
+    {
+      "name": "Ma Dong-seok",
+      "total": 43207,
+      "daily": 1440,
+      "titles": 18,
+      "days": 30
+    },
+    {
+      "name": "Song Joong-ki",
+      "total": 43173,
+      "daily": 1439,
+      "titles": 8,
+      "days": 30
+    },
+    {
+      "name": "Cho Seung-woo",
+      "total": 43138,
+      "daily": 1488,
+      "titles": 6,
+      "days": 29
+    },
+    {
+      "name": "Namkoong Min",
+      "total": 42824,
+      "daily": 1427,
+      "titles": 2,
+      "days": 30
+    },
+    {
+      "name": "Jun Ji-hyun",
+      "total": 42310,
+      "daily": 1459,
+      "titles": 7,
+      "days": 29
+    },
+    {
+      "name": "Lee Min-ho",
+      "total": 41719,
+      "daily": 1439,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Kim Woo-bin",
+      "total": 41104,
+      "daily": 1370,
+      "titles": 4,
+      "days": 30
+    },
+    {
+      "name": "Jung Ho-yeon",
+      "total": 39865,
+      "daily": 1375,
+      "titles": 2,
+      "days": 29
+    },
+    {
+      "name": "Hyun Bin",
+      "total": 38141,
+      "daily": 1271,
+      "titles": 8,
+      "days": 30
+    },
+    {
+      "name": "Kim Seon-ho",
+      "total": 37450,
+      "daily": 1291,
+      "titles": 3,
+      "days": 29
+    },
+    {
+      "name": "Ha Yoon-kyung",
+      "total": 36555,
+      "daily": 1261,
+      "titles": 5,
+      "days": 29
+    },
+    {
+      "name": "Ok Taec-yeon",
+      "total": 36283,
+      "daily": 1251,
+      "titles": 3,
+      "days": 29
+    },
+    {
+      "name": "Jin Seon-kyu",
+      "total": 35231,
+      "daily": 1174,
+      "titles": 13,
+      "days": 30
+    },
+    {
+      "name": "Park Bo-gum",
+      "total": 34162,
+      "daily": 1178,
+      "titles": 4,
+      "days": 29
+    },
+    {
+      "name": "Bae Suzy",
+      "total": 33713,
+      "daily": 1124,
+      "titles": 8,
+      "days": 30
+    },
+    {
+      "name": "Yoo In-na",
+      "total": 33698,
+      "daily": 1162,
+      "titles": 3,
+      "days": 29
+    },
+    {
+      "name": "Park Seo-joon",
+      "total": 33217,
+      "daily": 1107,
+      "titles": 8,
+      "days": 30
+    }
+  ]
+}
