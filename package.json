@@ -54,6 +54,7 @@
     "traffic": "node scripts/traffic-report.mjs",
     "collect:issuance": "node scripts/collect-issuance-dart.mjs",
     "check:100y": "node scripts/check-100yearmap-copy.mjs",
+    "check:100y:launch": "node scripts/check-100yearmap-launch.mjs",
     "build:100y:research": "node scripts/build-100yearmap-research.mjs"
   },
   "dependencies": {
