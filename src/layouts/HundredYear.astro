@@ -75,6 +75,20 @@ const canonical =
     .replace(/\/index\.html$/, '/')
     .replace(/\.html$/, '')
     .replace(/^\/100y(?=\/|$)/, '') || '/');
+
+/**
+ * ⭐ 기본 OG 카드. **비워 두면 카카오톡에 빈 카드가 나간다.**
+ *
+ * 2026-08-05 실측 — Props 주석에 「빈 카드가 나가면 안 퍼진다」고 적어 놓고
+ *   정작 백년지도에는 한 장도 안 걸어 놨었다. 서울마켓은 걸려 있었다. 내 잘못이다.
+ *
+ * ⚠ 주소에 `/100y` 를 붙이지 않는다 — 방문자가 보는 주소가 아니다.
+ *   파일은 `public/100y/og.png` 에 두고 server.mjs 가 Host 를 보고 `dist/100y/` 에서 찾는다.
+ * ⚠ 다시 구우려면 `node scripts/make-og-100yearmap.mjs` — 몇 초다.
+ *   브랜드가 바뀌어도 **이 카드 한 장만** 다시 구우면 된다. 지면마다 만들지 않는다.
+ * ⚠ 카드에 로고 밑줄(「백년MAP」)은 넣지 않았다. 사장님이 아직 안 정하셨다.
+ */
+const OG = ogImage ?? `${ORIGIN}/og.png`;
 ---
 
 <!-- prettier-ignore -->
@@ -90,8 +104,11 @@ const canonical =
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="백년지도" />
-  {ogImage && <meta property="og:image" content={ogImage} />}
-  <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+  <meta property="og:image" content={OG} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="백년지도 百年之圖 — 대학은 100년 중 한 점일뿐 입니다." />
+  <meta name="twitter:card" content="summary_large_image" />
   {noindex && <meta name="robots" content="noindex" />}
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
