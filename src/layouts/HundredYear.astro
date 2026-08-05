@@ -172,8 +172,18 @@ const canonical =
     }
     .nav a { color: var(--muted); }
     .nav a:hover { color: var(--gold); text-decoration: none; }
-    .logo { font-family: var(--serif); font-weight: 900; font-size: 18px; color: var(--ink) !important; letter-spacing: -.5px; }
-    .logo span { color: var(--gold); }
+    /* 두 줄 로고 — 위는 금색, 아래는 흰색 (사장님 지시 2026-08-05) */
+    .logo { display: inline-flex; flex-direction: column; line-height: 1.05; }
+    .logo:hover { text-decoration: none; }
+    .logo-ko {
+      font-family: var(--serif); font-weight: 900; font-size: 19px;
+      letter-spacing: -.5px; color: var(--gold);
+    }
+    .logo-sub {
+      font-family: var(--sans); font-weight: 700; font-size: 10.5px;
+      letter-spacing: 2.2px; text-indent: 2.2px; color: var(--ink);
+      margin-top: 3px;
+    }
 
     /* ⭐ 위계 — 이 넷 말고 다른 크기를 새로 만들지 않는다 */
     h1 { font-family: var(--serif); font-weight: 900; font-size: var(--fs-title);
@@ -184,6 +194,13 @@ const canonical =
          line-height: 1.6; margin: 24px 0 8px; }
     p { font-size: var(--fs-body); margin: 0 0 16px; }
     strong { font-weight: 700; color: var(--gold-pale); }
+
+    /* ⭐ 넓은 화면에서만 줄을 끊는다 (사장님 지시 2026-08-05).
+       두 문장짜리 제목이 PC 에서 한 줄로 길게 늘어져 보기 나빴다.
+       ⚠ 모바일에서는 감춘다 — 거기서는 브라우저가 알아서 접고, 억지 줄바꿈이 겹치면 더 나빠진다.
+          그래서 `<br>` 를 넣는 게 아니라 **넓을 때만 보이게** 한다. */
+    .pcbr { display: none; }
+    @media (min-width: 40rem) { .pcbr { display: inline; } }
 
     .sub { color: var(--muted); font-size: var(--fs-body); line-height: 1.85; margin: 0 0 28px; }
     .note { font-size: var(--fs-note); color: var(--muted); line-height: 1.75; }
@@ -339,7 +356,13 @@ const canonical =
 <body>
   <div class="wrap">
     <nav class="nav">
-      <a class="logo" href="/">백년<span>지도</span></a>
+      {/* ⭐ 2026-08-05 사장님 지시 — 두 줄 로고. 백년지도는 금색, 아래 줄은 흰색.
+          ⚠ 아래 줄은 아직 「백년MAP」이다. 사장님이 다섯 후보 중에서 고르실 것이다.
+             바꿀 때 이 한 줄만 고치면 된다 — 3,863장에 같이 반영된다. */}
+      <a class="logo" href="/">
+        <span class="logo-ko">백년지도</span>
+        <span class="logo-sub">백년MAP</span>
+      </a>
       <a href="/major">학과 찾기</a>
       <a href="/school">학교 찾기</a>
       <a href="/university">대학 찾기</a>
@@ -356,7 +379,7 @@ const canonical =
         사업자등록번호 {PUBLISHER.bizRegNo} · <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
       </p>
       <p>
-        백년지도는 학원을 팔지 않습니다. 그래서 안 다녀도 된다고 말할 수 있습니다.
+        백년지도는 학원을 팔지 않습니다.<br class="pcbr" /> 그래서 안 다녀도 된다고 말할 수 있습니다.
       </p>
       {/*
         ⭐ **자매 사이트.** 우리 마케팅은 검색 유입과 **자사 사이트 간 유입** 둘뿐인데,
