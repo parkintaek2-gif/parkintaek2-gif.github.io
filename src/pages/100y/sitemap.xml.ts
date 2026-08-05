@@ -54,6 +54,11 @@ export const GET: APIRoute = () => {
        ⚠ 새 고정 지면을 만들면 **여기 한 줄을 같이 넣는다.** 안 넣으면 지면은 검색에 열려 있는데
          사이트맵에는 없는 어긋난 상태가 된다 — /after 를 만들고 실제로 그랬다(2026-08-06). */
     { path: '/after', priority: '0.9', changefreq: 'weekly' },
+    /* 메뉴 셋째 축. 이름은 사장님 결정 대기지만 **주소는 `/work` 로 고정**이다
+       (이름을 주소에 안 박았다 — 지면 앞머리 주석 참조).
+       ⭐ 이 줄을 일부러 안 넣고 빌드해 봤더니 `check:100y:launch` 가 그 자리에서 잡았다.
+          검사가 헛돌지 않는다는 것을 실제로 확인한 셈이다(2026-08-06). */
+    { path: '/work', priority: '0.9', changefreq: 'weekly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
     { path: '/school', priority: '0.8', changefreq: 'weekly' },
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
