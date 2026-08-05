@@ -26,6 +26,10 @@ import 연구 from '../../data/100yearmap/pages-research.json';
 const 학과수 = (majors as any[]).length;
 const 학교수 = (schools as any[]).length;
 const 대학수 = (universities as any[]).length;
+/** ⚠ 377 곳 전부가 아니다. **취업률을 실제로 셀 수 있는 곳**만 센다 —
+ *  수치가 아예 없는 곳(48)과 취업대상자가 0명이라 비율이 안 만들어지는 곳(10)을 뺀다.
+ *  `/after` 지면이 세는 수와 **같은 수여야 한다.** 다르면 둘 중 하나가 거짓말이 된다. */
+const 셀수있는대학 = (universities as any[]).filter((u) => u.취업률 && u.취업대상자 !== 0).length;
 const 연구수 = ((연구 as any).자료 as any[]).length;
 
 /** 칩에 넣을 학과. ⛔ 「인기 순위」가 아니다 — **계열을 골고루** 섞어 고른 예시다.
@@ -151,6 +155,17 @@ const jsonLd = {
   </p>
   <p class="note">
     <a href="/major">학과 {학과수.toLocaleString()}개 전부 보기 →</a>
+  </p>
+
+  {/* 🔴 사장님 지시(2026-08-06) — 「대학 다음이 제일 중요」. 첫 화면에서 바로 들어가게 한다 */}
+  <h2>대학에 간 다음이<br class="pcbr" /> 궁금하실 겁니다.</h2>
+  <p class="note">
+    어디에 합격했는지까지는 어디서나 알려줍니다. <strong>그 다음은 아무도 안 봅니다.</strong>
+    대학·전문대학 {셀수있는대학.toLocaleString()}곳이 졸업생을 어디로 보냈는지,
+    들어간 다음 얼마나 떠났는지를 <strong>등수 없이 분포로</strong> 모았습니다.
+  </p>
+  <p class="note">
+    <a href="/after">대학 이후 보기 →</a>
   </p>
 
   {/* ⭐ 숫자 다음에 오는 질문은 「왜 그렇게 되나」다. 그건 우리가 못 쓴다 — 가리키기만 한다 */}

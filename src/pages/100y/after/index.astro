@@ -1,0 +1,237 @@
+---
+/**
+ * /100y/after — 「대학 이후」
+ *
+ * 🔴 사장님이 잡으신 것 (2026-08-06) —
+ *   *「대학 다음까지이면 **대학 다음이 제일 중요.** 기존 다른 진로사이트 메뉴를 왜 가져다 쓰나?」*
+ *
+ *   메뉴가 「학과 찾기·학교 찾기·대학 찾기」였다. 넷 다 **대학까지**다.
+ *   어느 진학 사이트에나 있는 것이고, **우리가 왜 다른 곳인지가 메뉴에 없었다.**
+ *   이 지면이 그 「대학 다음」이다.
+ *
+ * ⛔ **순위를 만들지 않는다.** 여기 있는 것은 전부 **분포**다 —
+ *   「어디가 몇 등인가」가 아니라 「전체가 어디에 몰려 있는가」다.
+ *   등수를 세면 우리가 하려는 일(길을 안내하는 것)과 정반대가 된다.
+ *
+ * 🔴 **셀 대상이 0명인 열 곳을 뺐다.** (2026-08-06)
+ *   신학대·승가대 아홉 곳과 한국에너지공대는 취업대상자가 **0명**이라 취업률이 0% 로 잡힌다.
+ *   그대로 세면 분포 맨 아래 칸에 「10곳」이 생겨 **「취업이 안 되는 대학이 열 곳 있다」**로 읽힌다.
+ *   0/0 은 비율이 아니다. 세지 않고, **뺐다는 사실을 지면에 적는다.**
+ *
+ * ⚠ 숫자를 손으로 적지 않는다. 전부 자료에서 세어 만든다. 자료가 갱신되면 문장도 같이 바뀐다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import 대학자료 from '../../../data/100yearmap/pages-university.json';
+import 연구자료 from '../../../data/100yearmap/pages-research.json';
+
+type U = any;
+const 전체: U[] = 대학자료 as any;
+
+/** ⛔ 취업대상자가 0명인 곳은 「취업률 0%」가 아니라 **비율이 없는 것**이다. 셈에서 뺀다 */
+const 셀수없음 = 전체.filter((u) => u.취업률 && u.취업대상자 === 0);
+const 셀수있음 = 전체.filter((u) => u.취업률 && u.취업대상자 !== 0);
+
+/** 종류별로 전국평균이 다르다(대학 62.8% · 전문대 72.1%). 섞어서 한 줄로 말하면 거짓말이 된다 */
+const 종류차례 = ['대학교', '전문대학', '교육대학'];
+const 묶음 = 종류차례
+  .map((종류) => {
+    const 목록 = 셀수있음.filter((u) => u.종류 === 종류);
+    if (!목록.length) return null;
+    const 값 = 목록.map((u) => u.취업률.값).sort((a: number, b: number) => a - b);
+    return {
+      종류,
+      수: 목록.length,
+      전국평균: 목록[0].취업률.전국평균,
+      가운데: 값[Math.floor(값.length / 2)],
+      가장낮은: 값[0],
+      가장높은: 값[값.length - 1],
+      높은곳: 목록.filter((u) => u.취업률.차이 >= 0.5).length,
+      낮은곳: 목록.filter((u) => u.취업률.차이 <= -0.5).length,
+      거의같은곳: 목록.filter((u) => Math.abs(u.취업률.차이) < 0.5).length,
+    };
+  })
+  .filter(Boolean) as any[];
+
+/** 분포 — 10%p 칸. ⛔ 막대가 길다고 좋은 것이 아니다. 「몰려 있는 자리」를 보는 것이다 */
+const 칸크기 = 10;
+function 분포(목록: U[]) {
+  const 통 = new Map<number, number>();
+  for (const u of 목록) {
+    const b = Math.floor(u.취업률.값 / 칸크기) * 칸크기;
+    통.set(b, (통.get(b) ?? 0) + 1);
+  }
+  const 칸들 = [...통.keys()].sort((a, b) => a - b);
+  const 최대 = Math.max(...통.values());
+  return { 칸들, 통, 최대 };
+}
+const 전체분포 = 분포(셀수있음);
+
+/** 중도탈락 — 들어간 다음에도 떠난다 */
+const 탈락있음 = 전체.filter((u) => u.중도탈락률);
+const 탈락값 = 탈락있음.map((u) => u.중도탈락률.값).sort((a: number, b: number) => a - b);
+const 탈락가운데 = 탈락값[Math.floor(탈락값.length / 2)];
+
+const 연구수 = ((연구자료 as any).자료 as any[]).length;
+
+const desc =
+  `대학을 졸업한 뒤 실제로 어떻게 됐는지를 ${셀수있음.length.toLocaleString()}개 대학의 ` +
+  `취업률·중도탈락률 분포로 보여드립니다. 순위가 아니라 분포입니다.`;
+---
+
+<HundredYear title="대학 이후" description={desc}>
+  <h1>대학에 간 다음이<br class="pcbr" /> 궁금하실 겁니다.</h1>
+  <p class="lead">
+    어디에 합격했는지까지는 어디서나 알려줍니다. 그 다음은 아무도 안 봅니다.
+    졸업하고 나서 실제로 어떻게 됐는지를 여기 모았습니다.
+  </p>
+
+  <p class="note">
+    ⛔ 이 지면에 <strong>등수는 없습니다.</strong> 여기 있는 것은 전부 분포입니다 —
+    어느 학교가 몇 등인지가 아니라, <strong>전체가 어디에 몰려 있는지</strong>를 봅니다.
+  </p>
+
+  <hr class="rule" />
+
+  <h2>졸업하면 몇 명이 취업하나요?</h2>
+
+  {/* ⚠ `.nums` 는 **짧은 숫자 + 짧은 이름** 두 줄짜리 칸이다(3칸 고정 격자).
+        여기에 설명 문장을 넣었더니 375px 에서 **가로로 101px 넘쳤다.** 설명은 아래 문단으로 뺀다. */}
+  <div class="nums">
+    {
+      묶음.map((g) => (
+        <div class="num">
+          <span class="n">{g.가운데}%</span>
+          <span class="k">{g.종류} {g.수}곳</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <p class="note">
+    ⚠ 위 숫자는 <strong>「한가운데」이지 평균이 아닙니다.</strong> 학교를 취업률 순으로 죽 세웠을 때
+    정확히 가운데 서는 학교의 값입니다. 아주 높거나 아주 낮은 몇 곳에 휘둘리지 않아서
+    「보통은 이 정도」를 볼 때는 평균보다 정직합니다. 전국 평균은 바로 아래 표에 있습니다.
+  </p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>구분</th>
+          <th>전국 평균</th>
+          <th>평균보다 높은 곳</th>
+          <th>거의 같은 곳</th>
+          <th>평균보다 낮은 곳</th>
+          <th>가장 낮은 곳 ~ 가장 높은 곳</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          묶음.map((g) => (
+            <tr>
+              <th>{g.종류}</th>
+              <td>{g.전국평균}%</td>
+              <td>{g.높은곳}곳</td>
+              <td>{g.거의같은곳}곳</td>
+              <td>{g.낮은곳}곳</td>
+              <td>{g.가장낮은}% ~ {g.가장높은}%</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    가나다순도 순위도 아닙니다. 「평균보다 높다·낮다」로만 갈랐습니다.
+    <strong>0.5%p 미만 차이는 「거의 같은 곳」에 넣었습니다</strong> —
+    그만한 차이는 학교를 고르는 근거가 되지 않습니다.
+  </p>
+
+  <h2>전체가 어디에 몰려 있나요?</h2>
+  <div class="dist">
+    {
+      전체분포.칸들.map((b) => {
+        const n = 전체분포.통.get(b) ?? 0;
+        return (
+          <div class="row">
+            <span class="rng">{b}~{b + 칸크기 - 1}%</span>
+            <span class="bar" style={`width:${Math.max(2, Math.round((n / 전체분포.최대) * 100))}%`} />
+            <span class="cnt">{n}곳</span>
+          </div>
+        );
+      })
+    }
+  </div>
+  <p class="note">
+    {셀수있음.length}개 대학·전문대학을 취업률 10%p 칸에 넣어 센 것입니다.
+    막대가 길다고 좋은 칸이 아닙니다 — <strong>학교가 그 자리에 많다는 뜻</strong>입니다.
+  </p>
+
+  <div class="warn">
+    <p>
+      <strong>⚠ 취업률이 0%로 나오는 학교 {셀수없음.length}곳은 여기서 뺐습니다.</strong>
+      대학정보공시에서 <strong>취업할 수 있는 자리에 있던 사람이 0명</strong>으로 집계된 곳입니다.
+      나눌 사람이 없으면 비율 자체가 만들어지지 않습니다.
+    </p>
+    <p class="note">
+      이 곳들을 그대로 세면 맨 아래 칸에 {셀수없음.length}곳이 생겨
+      <strong>「취업이 안 되는 대학이 {셀수없음.length}곳 있다」</strong>로 읽힙니다. 사실과 정반대입니다.
+      빼는 대신, 뺐다는 것을 여기 적어 둡니다.
+    </p>
+  </div>
+
+  <hr class="rule" />
+
+  <h2>들어간 다음에도 떠납니다.</h2>
+  <p class="note">
+    취업률만 보면 대학에 들어간 사람은 다 졸업하는 것처럼 보입니다. 그렇지 않습니다.
+  </p>
+  <div class="answer">
+    <p class="answer-label">한가운데 있는 학교에서, 그 해에 학교를 떠난 학생</p>
+    <p class="answer-num">{탈락가운데}%</p>
+    <p class="answer-sub">{탈락있음.length}곳의 중도탈락률을 죽 세웠을 때 가운데 값입니다</p>
+  </div>
+  <p class="note">
+    ⚠ 이것을 <strong>학교의 성적표로 읽으면 안 됩니다.</strong> 자퇴에는 편입, 반수, 재수,
+    전공을 바꾸려는 결정이 모두 섞여 있습니다. 떠난 사람이 많다는 것은 「나쁜 학교」라는 뜻이 아니라,
+    들어와 보고 생각이 달라진 사람이 그만큼 있었다는 뜻입니다.
+  </p>
+
+  <hr class="rule" />
+
+  <h2>왜 그렇게 되는지는<br class="pcbr" /> 저희가 쓰지 않았습니다.</h2>
+  <p class="note">
+    여기까지는 숫자입니다. 「왜 그렇게 되나」는 저희가 답할 수 없습니다.
+    그 답은 이미 쓰여 있습니다 — 국책연구원이 썼고, 세금으로 만들었고, 아무도 안 읽습니다.
+    <a href="/research">대학 다음을 다룬 연구 {연구수}편</a>을 골라 두었습니다.
+  </p>
+
+  <h2>학교마다 보시려면</h2>
+  <p class="note">
+    <a href="/university">대학 찾기</a>에서 학교 이름으로 찾으시면
+    그 학교의 취업률·중도탈락률과 <strong>전국 평균과의 차이</strong>를 함께 보실 수 있습니다.
+  </p>
+
+  <hr class="rule" />
+  <p class="note">
+    숫자는 <strong>대학정보공시(대학알리미)</strong>가 낸 것입니다. 저희가 계산한 값이 아닙니다.
+    평균보다 높다고 좋은 학교, 낮다고 나쁜 학교가 아닙니다 —
+    학교마다 학과 구성이 다르고, 그것만으로 크게 갈립니다.
+  </p>
+</HundredYear>
+
+<style is:inline>
+  /* ⚠ `is:global` 을 쓰지 않는다 — /_astro/*.css 로 빠져나가 접두사(/100y) 아래서 404 가 난다 */
+  .dist { margin: 14px 0 6px; }
+  .dist .row { display: flex; align-items: center; gap: 10px; margin: 5px 0; font-size: 13px; }
+  .dist .rng { flex: 0 0 74px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .dist .bar {
+    height: 14px; border-radius: 2px; background: var(--gold-deep);
+    max-width: calc(100% - 140px);
+  }
+  .dist .cnt { color: var(--muted); font-variant-numeric: tabular-nums; }
+  @media (max-width: 480px) {
+    .dist .rng { flex-basis: 66px; font-size: 12px; }
+    .dist .cnt { font-size: 12px; }
+  }
+</style>
