@@ -1,0 +1,191 @@
+---
+/**
+ * /100y/about — 우리는 누구인가
+ *
+ * ⭐ 오픈 점검표 3-2(YMYL) 의 첫 항목이다. **발행 주체가 흐리면 검색에 안 올라온다.**
+ *   교육은 사람 인생이 걸린 분야(YMYL)라, 「누가 이 숫자를 내놓는가」를 밝히지 않으면
+ *   내용이 아무리 맞아도 신뢰가 안 선다. 2026-08-05 검사에서 이 지면이 없는 것을 잡았다.
+ *
+ * ⛔ **「언론사」·「보도」·「기자」를 쓰지 않는다.** 인터넷신문 등록이 아직 안 끝났다.
+ *   있지도 않은 자격에 기대지 않는다. 우리는 「교육 정보 서비스」다.
+ *
+ * ⛔ **전화번호를 아직 올리지 않는다.** 070-5236-1029 가 지금 klifemap 전용 ARS 로 간다.
+ *   학부모가 걸면 엉뚱한 음성안내가 나온다. 매체별 분기가 들어간 뒤에 올린다(2번 확인).
+ *
+ * ⛔ 「몇 위」·「명문」을 쓰지 않는다. 이 지면에서 그 약속을 글로 남긴다.
+ */
+import HundredYear from '../../layouts/HundredYear.astro';
+import { PUBLISHER } from '../../consts';
+import majors from '../../data/100yearmap/pages-major.json';
+import schools from '../../data/100yearmap/pages-school.json';
+import universities from '../../data/100yearmap/pages-university.json';
+import 연구 from '../../data/100yearmap/pages-research.json';
+
+const 학과수 = (majors as any[]).length;
+const 학교수 = (schools as any[]).length;
+const 대학수 = (universities as any[]).length;
+const 연구수 = ((연구 as any).자료 as any[]).length;
+
+/** ⚠ 우리 한계를 숫자로 적는다. 「대체로 채워져 있다」는 말은 쓰지 않는다 */
+const 대학값있음 = (universities as any[]).filter((u) => u.취업률).length;
+const 학과없는학교 = (schools as any[]).filter((s) => (s.학과수 ?? 0) === 0).length;
+
+const desc =
+  '백년지도는 고등학교 학과와 대학을 나온 사람들이 졸업 뒤에 실제로 어떻게 됐는지를 ' +
+  '공공데이터로 보여주는 교육 정보 서비스입니다. 순위를 매기지 않고, 학원을 팔지 않습니다.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '백년지도',
+  alternateName: '百年之圖',
+  url: 'https://100yearmap.com/',
+  description: desc,
+  legalName: PUBLISHER.legalNameKo,
+  foundingDate: String(PUBLISHER.foundedYear),
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: PUBLISHER.addressKo,
+    addressCountry: 'KR',
+  },
+  email: PUBLISHER.email,
+};
+---
+
+<HundredYear title="백년지도는 무엇인가?" description={desc} jsonLd={jsonLd}>
+  <h1>대학은 100년 중 한 점일뿐 입니다.</h1>
+
+  <p class="sub">백년지도가 무엇을 하고, 무엇을 하지 않는지 적어 둡니다.</p>
+
+  <h2>교육은 백년지계입니다.<br class="pcbr" /> 그래서 백년지도가 되기로 했습니다.</h2>
+  <p>
+    한국의 진로 정보는 <strong>대학 입학에서 끝납니다.</strong> 어느 대학 어느 과에 가라는 말은
+    넘치는데, <strong>가서 어떻게 됐는지</strong>를 보여주는 곳은 없습니다.
+    아이가 살아갈 시간은 그 뒤로 수십 년입니다.
+  </p>
+  <p>
+    저희는 <strong>줄을 세우지 않습니다.</strong> 아이가 하고 싶은 일을 찾고, 그 길이
+    실제로 어떤 길인지 알아보게 돕는 것이 하려는 일입니다.
+  </p>
+
+  <h2>무엇을 하지 않는가?</h2>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr>
+          <th>순위</th>
+          <td>
+            <strong>매기지 않습니다.</strong> 화면 어디에도 「몇 위」·「명문」·「상위 몇 %」가
+            없습니다. 쓰는 것은 <strong>전국 평균과의 차이</strong>뿐입니다 — 등수가 아니라 위치입니다.
+          </td>
+        </tr>
+        <tr>
+          <th>학원</th>
+          <td>
+            <strong>팔지 않습니다.</strong> 한국의 진로 조언은 대부분 무언가를 파는 사람에게서
+            나옵니다. 조언과 판매가 같은 주머니에 있으면 조언이 휘어집니다.
+            그래서 저희는 <strong>안 다녀도 된다고 말할 수 있습니다.</strong>
+          </td>
+        </tr>
+        <tr>
+          <th>아이 혼자</th>
+          <td>
+            <strong>보호자와 함께 쓰는 것을 원칙으로 합니다.</strong> 아이가 혼자 AI 와 진로를
+            상의하는 경로는 만들지 않습니다.
+          </td>
+        </tr>
+        <tr>
+          <th>추측</th>
+          <td>
+            저희가 <strong>추정한 것은 추정이라고 밝힙니다.</strong> 못 잰 것은
+            「아직 못 쟀다」고 씁니다. 빈칸을 그럴듯한 말로 채우지 않습니다.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>지금 무엇이 있는가?</h2>
+  <div class="nums">
+    <div class="num"><span class="n">{학교수.toLocaleString()}</span><span class="k">고등학교</span></div>
+    <div class="num"><span class="n">{학과수.toLocaleString()}</span><span class="k">고교 학과</span></div>
+    <div class="num"><span class="n">{대학수.toLocaleString()}</span><span class="k">대학</span></div>
+  </div>
+
+  <p class="warn">
+    ⚠ <strong>아직 얇은 곳을 숨기지 않고 적습니다.</strong><br />
+    대학 {대학수}곳 가운데 공시에 수치가 있는 곳은 <strong>{대학값있음}곳</strong>입니다.
+    나머지는 「0」이 아니라 「없음」입니다.<br />
+    고등학교 {학교수.toLocaleString()}곳 가운데 <strong>{학과없는학교.toLocaleString()}곳</strong>은
+    학과를 나누지 않는 일반계라, 이름·주소와 그 지역 대학 목록까지만 있습니다.
+  </p>
+
+  <h2>숫자는 어디서 가져오는가?</h2>
+  <p class="note">
+    <strong>교육부 NEIS 교육정보 개방 포털</strong> — 전국 고등학교와 개설 학과<br />
+    <strong>국가데이터처 KOSIS · 교육부 「직업계고 졸업자 취업통계」</strong> — 유지취업률<br />
+    <strong>한국대학교육협의회 대학알리미</strong> — 대학 취업률·중도탈락률·충원율<br />
+    <strong>한국개발연구원(KDI)</strong> — 교육·노동 연구 {연구수}편의 목록
+  </p>
+  <p class="note">
+    전부 <strong>공공기관이 공개한 자료</strong>이고, 상업적 이용이 허락된 것만 씁니다.
+    지면마다 <strong>출처와 기준연도</strong>를 함께 적습니다.
+    표는 <a href="/data">그대로 내려받으실 수 있습니다</a>.
+  </p>
+  <p class="note">
+    ⛔ 저희가 쓴 해석은 <strong>규칙이 만든 문장</strong>입니다. 숫자가 바뀌면 문장도 같이 바뀝니다.
+    국책연구 목록은 <a href="/research">가리키기만 하고 옮기지 않습니다</a> — 저희 글이 아닙니다.
+  </p>
+
+  <h2>틀리면 어떻게 하는가?</h2>
+  <p class="note">
+    <strong>고치고, 고쳤다고 남깁니다.</strong> 수치가 바뀌면 조용히 바꾸지 않습니다.
+    잘못된 곳을 찾으시면 아래 주소로 알려 주십시오 — 어느 지면의 어느 숫자인지 적어 주시면
+    빠릅니다.
+  </p>
+
+  <h2>발행 주체</h2>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr><th>서비스</th><td>백년지도 (百年之圖) · 100yearmap.com</td></tr>
+        <tr><th>법인</th><td>{PUBLISHER.legalNameKo}</td></tr>
+        <tr><th>대표</th><td>{PUBLISHER.representativeKo}</td></tr>
+        <tr><th>사업자등록번호</th><td>{PUBLISHER.bizRegNo}</td></tr>
+        <tr><th>주소</th><td>{PUBLISHER.addressKo}</td></tr>
+        <tr>
+          <th>메일</th>
+          <td><a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⚠ 백년지도는 <strong>교육 정보 서비스</strong>입니다. 언론사가 아니며,
+    보도나 취재를 하지 않습니다.
+  </p>
+  <p class="note">
+    ⚠ 저희가 보여드리는 것은 <strong>평균과 경향</strong>입니다. 아이는 평균이 아닙니다.
+    진학·진로의 결정은 학교와 상의해 직접 하셔야 합니다.
+  </p>
+
+  <hr class="rule" />
+  <p class="note">
+    <a href="/">첫 화면</a> · <a href="/major">학과 찾기</a> · <a href="/school">학교 찾기</a> ·
+    <a href="/university">대학 찾기</a> · <a href="/research">국책연구</a> ·
+    <a href="/data">표 내려받기</a>
+  </p>
+</HundredYear>
+
+<style>
+  table th {
+    width: 8.5rem;
+    white-space: nowrap;
+    vertical-align: top;
+  }
+  /* 숫자 셋 — 「지금 무엇이 있는가」 */
+  .nums .n {
+    font-variant-numeric: tabular-nums;
+  }
+</style>

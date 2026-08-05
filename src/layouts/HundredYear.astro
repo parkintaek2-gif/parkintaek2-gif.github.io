@@ -402,7 +402,9 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
       <p>
         <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
         {PUBLISHER.addressKo}<br />
-        사업자등록번호 {PUBLISHER.bizRegNo} · <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+        사업자등록번호 {PUBLISHER.bizRegNo} · <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a><br />
+        {/* ⚠ YMYL — 「누가 내놓는가」가 푸터 한 줄로 끝나면 얕다. 설명하는 지면으로 보낸다 */}
+        <a href="/about">백년지도는 무엇인가?</a>
       </p>
       <p>
         백년지도는 학원을 팔지 않습니다.<br class="pcbr" /> 그래서 안 다녀도 된다고 말할 수 있습니다.

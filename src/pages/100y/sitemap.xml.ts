@@ -38,6 +38,7 @@ type Entry = { path: string; priority: string; changefreq: string };
 export const GET: APIRoute = () => {
   const entries: Entry[] = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
+    { path: '/about', priority: '0.8', changefreq: 'monthly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
     { path: '/school', priority: '0.8', changefreq: 'weekly' },
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
