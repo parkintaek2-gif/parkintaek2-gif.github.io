@@ -1,6 +1,6 @@
 ---
 title: "Korea's listed pop-culture companies employ 15,072 people. They stay half as long as the rest of the market."
-dek: "Netflix's Korean catalogue has been watched 27.7 billion hours. The listed companies in that business keep staff 5.5 years against 11.3 across Korea's listed market — and their two halves are mirror-image workforces."
+dek: "Netflix's Korean catalogue has been watched 23.7 billion hours. The listed companies in that business keep staff 5.5 years against 11.3 across Korea's listed market — and their two halves are mirror-image workforces."
 category: people
 pubDate: 2026-08-06
 dataAsOf: 2026-07-26T00:00:00+09:00
@@ -23,7 +23,7 @@ crossChecks:
   - "We tested whether these companies simply being younger explains the short tenure. It does not, on its own: across the 14, tenure and years since incorporation correlate at only 0.30, and the ratio of one to the other ranges from 13% to 46% with no clear pattern. The finding is reported as a negative"
   - "The Netflix figures count Korean titles appearing in the weekly global Top 10 across 265 consecutive weeks. Hours viewed are as Netflix publishes them; we did not model or estimate any week"
 excluded:
-  - "Any claim that the 15,072 people made the 27.7 billion hours. The catalogue is not attributed to these 14 companies — many Korean titles come from private studios, and some of these companies' revenue has nothing to do with Netflix. The two numbers are placed side by side to size an industry, not to link one to the other"
+  - "Any claim that the 15,072 people made the 23.7 billion hours. The catalogue is not attributed to these 14 companies — many Korean titles come from private studios, and some of these companies' revenue has nothing to do with Netflix. The two numbers are placed side by side to size an industry, not to link one to the other"
   - "Privately held agencies and studios, which file no comparable disclosure. Several of the busiest production houses in Korea are private, so this is the listed core of the industry and not the whole of it"
   - "Any ranking of the companies against each other. A short average tenure at a young or fast-hiring company is not a worse company, and this data cannot separate people leaving from people newly arriving — a firm that doubles its headcount mechanically halves its average tenure"
   - "Why tenure differs between any two named companies. We can show the spread; we cannot attribute it from a filing that reports one number per firm per year"
@@ -31,7 +31,7 @@ excluded:
 draft: false
 ---
 
-Korea's pop-culture export is usually measured by what the world watched. Netflix has published its weekly global Top 10 for 265 straight weeks, and over that span 294 Korean titles have appeared on it, for 27.7 billion hours viewed. *Squid Game* alone accounts for 5.05 billion of those hours and held the chart for 42 weeks.
+Korea's pop-culture export is usually measured by what the world watched. Netflix has published its weekly global Top 10 for 265 straight weeks, and over that span 236 Korean titles have appeared on it, for 23.7 billion hours viewed. *Squid Game* alone accounts for 5.05 billion of those hours and held the chart for 42 weeks.
 
 The other side of that trade — the people — is almost never counted. It can be. Korean companies disclose the average tenure, headcount, pay and gender split of their own staff in their annual filings. Fourteen listed entertainment and game companies file that disclosure. Between them they employ **15,072 people**.
 
@@ -78,4 +78,4 @@ Within each group the tenure range is wide — 2.19 to 6.89 years in entertainme
 
 An average tenure figure moves for two opposite reasons: people leaving, and people arriving. A company that doubles its headcount in a year halves its average tenure without a single resignation. HYBE at 2.96 years and Krafton at 3.20 are both companies that grew hard. We cannot separate the two causes from one number a year, so we do not rank these companies and we do not call any of them a bad place to work.
 
-What the numbers do support is the size of the thing. Fourteen companies. 15,072 people. That is the listed core of an industry whose output the world has now watched for 27.7 billion hours — and it is roughly the payroll of a single mid-sized Korean manufacturer.
+What the numbers do support is the size of the thing. Fourteen companies. 15,072 people. That is the listed core of an industry whose output the world has now watched for 23.7 billion hours — and it is roughly the payroll of a single mid-sized Korean manufacturer.

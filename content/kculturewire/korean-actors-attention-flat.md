@@ -1,9 +1,13 @@
 ---
 title: "Korean viewing is winner-take-all. Attention on the people in it is not."
-dek: "One Netflix title is 18.2% of all Korean viewing. The most looked-up Korean actor is 3.1% of all attention. And within the fifty most-searched, appearing in more charting titles does not predict being looked up more."
+dek: "One Netflix title is 21.3% of all Korean viewing. The most looked-up Korean actor is 3.1% of all attention. And within the fifty most-searched, appearing in more charting titles does not predict being looked up more."
 category: people
 pubDate: 2026-08-07
 dataAsOf: 2026-08-03T00:00:00+09:00
+updatedDate: 2026-08-07
+corrections:
+  - date: 2026-08-07
+    note: "The Netflix figures this article quotes were our own published numbers, and they were wrong. Korean titles had been matched by title text against a Wikidata list, which pulled in titles Netflix classes on its English-language charts — The Perfect Couple, Suits, Hit Man and others that are not Korean — along with same-name collisions inside the Non-English charts such as Teach You a Lesson (China) and Hunger (Thailand). The catalogue is 236 titles and 23.7 billion hours, not 294 and 27.7 billion, and Squid Game is 21.3% of it rather than 18.2%. The ten biggest titles are 41.3%, not 36.4%. The pageview side of this article is unaffected — it comes from Wikimedia and was re-derived unchanged — and the comparison the article makes is unchanged in direction and slightly wider: one title still holds a fifth of the viewing while the most looked-up performer holds 3.1% of the attention. The correlation of −0.16 is computed only from pageview and title-count fields and does not move."
 author: Newsroom
 tags: ["korean actors", "wikipedia", "attention", "netflix", "korea"]
 sources:
@@ -19,7 +23,7 @@ sources:
 crossChecks:
   - "The roster is 1,344 Korean performers drawn from the cast lists of charting titles. 1,008 of them — 75.0% — have an English Wikipedia article that returns pageviews; the other 336 cannot be measured at all and are not counted as zero"
   - "Those 1,008 drew 7,463,168 views across the 30 days. Every share quoted is against that total, so 'the top actor is 3.1%' means 3.1% of measured attention, not of all interest in Korean performers"
-  - "The viewing comparison uses our own published figures for the same catalogue: 294 Korean titles and 27.7 billion hours on Netflix's global chart, of which Squid Game is 18.2%"
+  - "The viewing comparison uses our own published figures for the same catalogue: 236 Korean titles and 23.7 billion hours on Netflix's global chart, of which Squid Game is 21.3%. Those figures were corrected on 2026-08-07 and this article follows the corrected set"
   - "The correlation between charting titles and pageviews is computed across the 50 most-viewed performers, which is the set for which we hold both fields. It is −0.16 — no relationship, with a slight negative lean that a sample of 50 cannot distinguish from none"
 excluded:
   - "Anything about the 336 performers with no English Wikipedia article. They may be well known in Korea and simply unmeasurable here, and treating them as zero attention would be false"
@@ -34,7 +38,7 @@ We publish two counts that describe the same industry: how much Korean content t
 
 ## Viewing is a spike
 
-Across 265 weeks of Netflix's global chart, 294 Korean titles have drawn 27.7 billion hours. *Squid Game* alone accounts for **18.2%** of that. The ten biggest titles account for 36.4%.
+Across 265 weeks of Netflix's global chart, 236 Korean titles have drawn 23.7 billion hours. *Squid Game* alone accounts for **21.3%** of that. The ten biggest titles account for 41.3%.
 
 ## Attention is a slope
 

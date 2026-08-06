@@ -41,14 +41,26 @@ const SHORT = {
 const AGENCIES = ['352820', '041510', '035900', '122870', '182360', '253450', '036420', '035760'];
 const GAMES = ['259960', '251270', '036570', '263750', '293490', '078340'];
 
-const byTicker = new Map(rankings.rows.map((r) => [String(r[1]), r]));
+/*
+ * ⚠ 자리번호를 손으로 적어 두지 않는다. `rankings.json` 은 우리 파일이 아니라 6번이 다시 만든다.
+ *   칸 순서가 바뀌면 **아무 오류 없이 다른 값을 싣게 된다.** 2026-08-07 되짚기에서
+ *   같은 종류(필드 이름이 바뀌어 화면이 조용히 빈칸이 된 것)를 한 번 겪었다.
+ *   이름으로 찾고, 없으면 빌드를 멈춘다.
+ */
+const C = Object.fromEntries(rankings.cols.map((c, i) => [c, i]));
+for (const need of ['name', 'ticker', 'tenure', 'tenureGap', 'headcount', 'femaleShare', 'age']) {
+  if (C[need] === undefined) throw new Error(`rankings.json 에 '${need}' 칸이 없다 — 지면을 세울 수 없다`);
+}
+
+const byTicker = new Map(rankings.rows.map((r) => [String(r[C.ticker]), r]));
 const pick = (codes) =>
   codes
     .map((c) => byTicker.get(c))
     .filter(Boolean)
     .map((r) => ({
-      name: SHORT[String(r[1])] || r[0],
-      tenure: r[5], gap: r[6], headcount: r[9], female: r[10], age: r[13],
+      name: SHORT[String(r[C.ticker])] || r[C.name],
+      tenure: r[C.tenure], gap: r[C.tenureGap], headcount: r[C.headcount],
+      female: r[C.femaleShare], age: r[C.age],
     }))
     .sort((a, b) => a.tenure - b.tenure);
 
