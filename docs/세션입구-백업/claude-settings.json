@@ -1,0 +1,90 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch",
+      "WebSearch",
+      "Skill",
+      "Read",
+      "Grep",
+      "Glob",
+      "Edit",
+      "Write",
+      "Bash",
+      "PowerShell",
+      "mcp__claude-in-chrome__navigate",
+      "mcp__claude-in-chrome__read_page",
+      "mcp__claude-in-chrome__get_page_text",
+      "mcp__claude-in-chrome__find",
+      "mcp__claude-in-chrome__computer",
+      "mcp__claude-in-chrome__form_input",
+      "mcp__claude-in-chrome__javascript_tool",
+      "mcp__claude-in-chrome__read_console_messages",
+      "mcp__claude-in-chrome__read_network_requests",
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "mcp__claude-in-chrome__tabs_create_mcp",
+      "mcp__claude-in-chrome__tabs_close_mcp",
+      "mcp__claude-in-chrome__resize_window"
+    ],
+    "deny": [
+      "Bash(ctype ls -o:*)",
+      "Bash(ctype ls -o *)",
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Read(.env)",
+      "Read(**/.env)",
+      "Bash(cat *.env)",
+      "Bash(cat .env*)"
+    ],
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/USER/.claude/hooks/ctype-guard.js\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/USER/Documents/GitHub/dataeconomics/scripts/session-brief.mjs\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node \"C:/Users/USER/Documents/GitHub/dataeconomics/scripts/compact-guard.mjs\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_DISABLE_TERMINAL_TITLE": "1"
+  },
+  "autoCompactWindow": 800000,
+  "autoUpdatesChannel": "latest",
+  "theme": "dark",
+  "preferredNotifChannel": "terminal_bell",
+  "autoCompactEnabled": true,
+  "precomputeCompactionEnabled": true,
+  "remoteControlAtStartup": true,
+  "inputNeededNotifEnabled": true,
+  "agentPushNotifEnabled": false,
+  "skipDangerousModePermissionPrompt": true
+}
