@@ -31,7 +31,7 @@
     "index:check": "node scripts/claude-index.mjs",
     "index:fix": "node scripts/claude-index.mjs --fix",
     "watch:approvals": "node scripts/watch-approvals.mjs",
-    "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs && node scripts/server-url.test.mjs && node scripts/collect-tenure.test.mjs && node scripts/collect-executives.test.mjs && node scripts/traffic.test.mjs && node scripts/server-routing.test.mjs && node scripts/issuance.test.mjs && node scripts/check-100yearmap-copy.mjs && node scripts/check-jsx-space.mjs && node scripts/check-legal-name.mjs && node scripts/check-korean.mjs",
+    "test": "node scripts/claude-index.mjs && node scripts/collect-broker-direct.test.mjs && node scripts/server-url.test.mjs && node scripts/collect-tenure.test.mjs && node scripts/collect-executives.test.mjs && node scripts/traffic.test.mjs && node scripts/server-routing.test.mjs && node scripts/issuance.test.mjs && node scripts/check-100yearmap-copy.mjs && node scripts/check-jsx-space.mjs && node scripts/check-legal-name.mjs && node scripts/check-korean.mjs && node scripts/check-frontmatter.mjs",
     "subjects:dart": "node scripts/fill-subjects-from-dart.mjs",
     "collect:tenure": "node scripts/collect-tenure.mjs",
     "report:tenure": "node scripts/render-tenure-report.mjs",
@@ -60,7 +60,8 @@
     "build:100y:closed": "node scripts/build-100yearmap-closed.mjs",
     "check:index": "node scripts/check-search-index.mjs",
     "check:legal": "node scripts/check-legal-name.mjs",
-    "check:korean": "node scripts/check-korean.mjs"
+    "check:korean": "node scripts/check-korean.mjs",
+    "check:frontmatter": "node scripts/check-frontmatter.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
