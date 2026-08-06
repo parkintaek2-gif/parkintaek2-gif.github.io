@@ -138,8 +138,9 @@ async function 새주소찾기(최대 = 3) {
   //   빌드는 30초 안팎이고 배포는 그보다 훨씬 길다 — 그만한 값을 한다.
   try {
     console.log('판정에 쓸 지면 목록을 만든다 — 빌드한다(30초 안팎)…');
-    // ⚠ 윈도에서는 npx.cmd 를 직접 부른다. shell:true 로 넘기면 인자가 그대로 이어붙는다
-    execFileSync(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['astro', 'build'], { stdio: 'ignore' });
+    // ⚠ npx 도 npx.cmd 도 부르지 않는다 — 셸에 따라 못 찾는다(둘 다 겪었다).
+    //   astro 의 진짜 알맹이를 node 로 바로 부른다. 어느 셸에서 돌든 같다.
+    execFileSync(process.execPath, ['node_modules/astro/bin/astro.mjs', 'build'], { stdio: 'ignore' });
   } catch {
     console.log('⚠ 빌드가 안 됐다 — 지면 판정을 쓰지 않고 옛 방식으로 돈다.');
     return [];
