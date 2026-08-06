@@ -2,6 +2,10 @@ import type { APIRoute } from 'astro';
 import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
+import 중단자료 from '../../data/100yearmap/school-dropout.json';
+
+/** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
+const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
 
 /**
  * 백년지도 사이트맵.
@@ -70,11 +74,14 @@ export const GET: APIRoute = () => {
       priority: '0.8',
       changefreq: 'monthly',
     })),
-    /* ⚠ **학과가 없는 일반고 1,353장은 뺀다.** `school/[code].astro` 가 같은 조건으로
-       noindex 를 걸기 때문이다. 두 곳의 조건이 어긋나면 모순된 신호가 나간다.
-       실측 2026-08-05 — 학교 2,525 = 학과 있음 1,172 + 없음 1,353 */
+    /* ⚠ **얇은 지면은 뺀다.** `school/[code].astro` 가 **같은 조건으로** noindex 를 건다.
+       두 곳이 어긋나면 모순된 신호가 나간다.
+
+       ⭐ 2026-08-06 — 조건이 하나 늘었다. 학교별 **학업중단 수치**가 붙은 지면은
+         학과가 없어도 연다. 유형 평균이 아니라 **이 학교 하나의 숫자**라서다.
+         실측 — 학교 2,525 = 학과 있음 1,172 + 학과 없지만 수치 있음 1,269 + 둘 다 없음 84 */
     ...(schools as any[])
-      .filter((s) => (s.학과 ?? []).length > 0)
+      .filter((s) => (s.학과 ?? []).length > 0 || 중단있는코드.has(s.code))
       .map((s) => ({
         path: s.url as string,
         priority: '0.6',
