@@ -19,6 +19,7 @@ export const GET: APIRoute = async () => {
     { path: '/watched', priority: '0.9', changefreq: 'weekly' },
     { path: '/actors', priority: '0.9', changefreq: 'weekly' },
     { path: '/workforce', priority: '0.9', changefreq: 'weekly' },
+    { path: '/exports', priority: '0.9', changefreq: 'yearly' },   // KOSIS 가 해마다 낸다
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
   ];

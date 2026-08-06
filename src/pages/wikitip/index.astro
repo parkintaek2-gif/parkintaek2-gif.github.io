@@ -33,6 +33,7 @@
 import { getCollection } from 'astro:content';
 import WikiTip from '../../layouts/WikiTip.astro';
 import charts from '../../data/wikitip-charts.json';
+import music from '../../data/wikitip-music-export.json';
 
 /*
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
@@ -187,6 +188,16 @@ const jsonLd = {
       there are, and the gender split — from company filings. Side by side, not ranked.
     </p>
     <p class="note"><a href="/workforce">See the workforce numbers →</a></p>
+  </section>
+
+  <!-- ── ⑦ 수출 지면 — 20년 시계열 (2번 지시 0806 23:3x 「지면은 남는다」) ── -->
+  <section>
+    <h2>Also running: where Korean music is sold</h2>
+    <p class="sub">
+      Twenty years of Korean music export value by region, {music.yearFrom}–{music.yearTo}.
+      Japan was four-fifths of it in 2012 and is a third now — while Japanese sales kept rising.
+    </p>
+    <p class="note"><a href="/exports">See the twenty-year table →</a></p>
   </section>
 
   <!-- ── 출처 · 제외 — 기사와 같은 기준을 첫 화면에도 건다 ──────── -->

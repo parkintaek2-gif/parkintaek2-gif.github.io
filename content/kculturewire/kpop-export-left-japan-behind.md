@@ -10,8 +10,11 @@ sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
     api: "콘텐츠산업조사 (Content Industry Survey), table DT_113_STBL_1020468 — music industry exports by country and continent, 2005–2024, via KOSIS open API"
     url: "https://kosis.kr"
+corrections:
+  - date: 2026-08-06
+    note: "A verification note said the regional figures sum exactly to the published total in all 20 years. They do not: 2017, 2021 and 2022 are off by one thousand dollars, which is rounding in the published table and at most 0.0002% of the year. Every other year is exact. No figure in the article changes; the check was overstated and is now stated as measured."
 crossChecks:
-  - "The regional figures sum exactly to the published total in all 20 years — 2024 is 1,801,449 thousand dollars from the parts and 1,801,449 as published — so no share quoted here rests on a residual we invented"
+  - "The regional figures sum to the published total in 17 of the 20 years exactly, and in 2017, 2021 and 2022 they differ by one thousand dollars — rounding in the source table, at most 0.0002% of the year's total. 2024 is 1,801,449 thousand dollars from the parts and 1,801,449 as published. No share quoted here rests on a residual we invented"
   - "All figures are thousands of US dollars as the survey publishes them. Nothing is converted to won, and no inflation adjustment is applied"
   - "The survey's own regions are used unchanged: Greater China, Japan, Southeast Asia, North America, Europe, Other, and Unclassified. Shares are computed against the published total, which includes Other and Unclassified"
   - "Growth multiples are read between the two stated years and are not annualised except where labelled. The 2005-to-2024 figure of 80.9 times corresponds to 26.0% a year compounded over 19 years"
