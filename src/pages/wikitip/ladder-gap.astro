@@ -1,0 +1,192 @@
+---
+/**
+ * K Culture Wire — 챌린저와 그랜드마스터 사이. (/ladder-gap)
+ *
+ * ── 왜 이 지면인가 ─────────────────────────────────────────────
+ * `/esports` 는 그랜드마스터를 **인원수 하나만** 쓴다. 같은 수집에 GM 의 LP·승률·판수가
+ * 다 들어 있는데 안 쓰고 있었다. 층 **사이의 간격**이 통째로 안 쓰인 축이다.
+ *
+ * ── 기사와 이어진다 ────────────────────────────────────────────
+ * `/article/korea-challenger-win-rate` 가 「한국 챌린저 승률이 꼴찌인 것은 상대가 세다는 뜻」이라 썼다.
+ * 이 지면은 그 **한 층 아래**를 보여 준다 — 한국은 상위 300명과 그 아래 700명의 차가 가장 작다.
+ *
+ * ── ⚠ 나흘이다. 추세가 아니다 ─────────────────────────────────
+ * 8/5 는 키 만료로 비었고 소급이 안 된다. **결측을 지면에 적는다.**
+ * 우리가 말하는 것은 「추세」가 아니라 **순서가 나흘 내내 같다**는 것이다.
+ *
+ * ⛔ 일본은 챌린저 50명·GM 100명으로 다른 곳의 6분의 1이다. 숫자는 싣되 기대지 않는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전이다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import data from '../../data/wikitip-ladder-gap.json';
+
+const TITLE = 'How thin is the top of the ladder?';
+const DESC =
+  'Korea’s top 300 League of Legends players win only 0.45 points more often than the 700 below them '
+  + '— the narrowest gap of six regions, on all four days measured. Elsewhere it is one to two points.';
+
+const kr = data.rows.find((r) => r.code === 'kr')!;
+const 최대 = data.rows[data.rows.length - 1];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: data.day,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://developer.riotgames.com'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/ladder-gap">
+  <h1>How thin is the top of the ladder?</h1>
+  <p class="lead">
+    Every ranked ladder has a top tier and a tier under it. The distance between them says how
+    steep the climb is at the very top — and it is not the same distance everywhere.
+    Collected {data.day} at {data.collectedAt.slice(11, 16)} KST.
+  </p>
+
+  <section>
+    <h2>Korea’s top 300 barely beat the 700 below them</h2>
+    <div class="flip">
+      <div>
+        <span class="lab">Korea — gap between tiers</span>
+        <span class="big">{kr.gap.toFixed(2)} pt</span>
+        <span class="det">
+          Challenger {kr.cWin}% against Grandmaster {kr.gWin}%. The narrowest of the six regions.
+        </span>
+      </div>
+      <div>
+        <span class="lab">{최대.region} — the widest</span>
+        <span class="big">{최대.gap.toFixed(2)} pt</span>
+        <span class="det">
+          {최대.cWin}% against {최대.gWin}% — more than four times Korea’s gap between the same two tiers.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>All six, narrowest gap first</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th><th>Gap</th>
+            <th>Challenger win %</th><th>Grandmaster win %</th>
+            <th>Players (C / GM)</th><th>Median LP gap</th><th>Games each (C / GM)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.rows.map((r) => (
+            <tr class={r.code === 'kr' ? 'me' : ''}>
+              <td class="nm">{r.region}</td>
+              <td class="tot">{r.gap.toFixed(2)} pt</td>
+              <td>{r.cWin}%</td><td>{r.gWin}%</td>
+              <td>{r.cPlayers} / {r.gPlayers}</td>
+              <td>{r.lpGap.toLocaleString()}</td>
+              <td>{r.cGames} / {r.gGames}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      A tier’s win rate is set by the opponents it draws, not by the tier itself. A narrow gap means
+      the players just below the top take nearly as many games off the field as the players at the
+      top do — which is what a deep player base looks like from the inside.
+      {' '}<a href="/article/korea-challenger-win-rate">The same argument, one tier up →</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>The gap, every day we have measured</h2>
+    <p class="sub">
+      Percentage points. {data.days} days — this is not a trend, it is a check that the ordering holds.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Date</th>{data.regions.map((r) => <th>{r}</th>)}</tr>
+        </thead>
+        <tbody>
+          {data.series.map((s) => (
+            <tr>
+              <td class="nm">{s.date}</td>
+              {data.regions.map((r) => (
+                <td class={r === 'Korea' ? 'tot' : ''}>
+                  {(s as Record<string, number | null | string>)[r] ?? '—'}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Korea is narrowest on every one of the {data.days} days, and the ordering of all six does not
+      change. <b>2026-08-05 is missing</b> — the collection key expired and a ladder cannot be
+      reconstructed afterwards, so that day is simply gone rather than interpolated.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li><b>Riot Games</b> — {data.source}. Collected once a day at 22:00 KST.</li>
+      <li>
+        <b>Japan is a sixth the size.</b> Its challenger tier holds {data.rows.find((r) => r.code === 'jp1')!.cPlayers} players
+        against roughly 300 elsewhere, and grandmaster {data.rows.find((r) => r.code === 'jp1')!.gPlayers} against
+        700. A narrower cut of a smaller population behaves differently, and its figure is printed
+        without being leaned on.
+      </li>
+      <li>
+        <b>Win rate is over the current ranked split</b>, including games against opponents outside
+        either tier. It is not a challenger-versus-grandmaster figure.
+      </li>
+      <li>
+        <b>{data.privacy}</b>
+      </li>
+      <li>
+        <b>Four days is a snapshot.</b> Nothing here says a gap is widening or narrowing. What it says
+        is that the six regions sit in the same order every day we looked.
+      </li>
+    </ul>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { margin: 0 0 .5rem; font-size: 1.7rem; letter-spacing: -.02em; }
+  .lead { margin: 0 0 2rem; font-size: 1rem; color: var(--muted); }
+  section { margin: 0 0 2.5rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; line-height: 1.4; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  .flip { display: grid; gap: .8rem; grid-template-columns: 1fr; }
+  @media (min-width: 34rem) { .flip { grid-template-columns: 1fr 1fr; } }
+  .flip > div { background: var(--card); border-radius: 8px; padding: .9rem 1rem; }
+  .lab { display: block; font-size: .76rem; letter-spacing: .04em; text-transform: uppercase;
+         color: var(--muted); font-weight: 700; }
+  .big { display: block; font-size: 1.6rem; font-weight: 700; margin: .25rem 0 .35rem;
+         letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .det { display: block; font-size: .78rem; color: var(--muted); line-height: 1.55; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th, td { padding: .45rem .55rem; border-bottom: 1px solid var(--line); text-align: right;
+           white-space: nowrap; font-variant-numeric: tabular-nums; }
+  th { font-size: .72rem; letter-spacing: .03em; text-transform: uppercase; color: var(--muted);
+       font-weight: 700; }
+  th:first-child, td.nm { text-align: left; }
+  td.tot { font-weight: 700; }
+  /* 한국 줄만 배경으로 뗀다 — 이 지면의 주어이지 등수가 아니다 */
+  tr.me td { background: var(--card); }
+
+  .src ul { margin: 0; padding-left: 1.1rem; font-size: .85rem; color: var(--muted); line-height: 1.7; }
+  .src li { margin: .45rem 0; }
+  .src b { color: var(--ink); }
+  .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>

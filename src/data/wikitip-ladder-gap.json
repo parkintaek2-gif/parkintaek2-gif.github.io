@@ -1,0 +1,140 @@
+{
+ "generated": "2026-08-07T04:0x+09:00",
+ "source": "Riot Games Developer API — /lol/league/v4/challengerleagues and /grandmasterleagues, queue RANKED_SOLO_5x5",
+ "collectedAt": "2026-08-06 22:00:01",
+ "day": "2026-08-06",
+ "days": 4,
+ "privacy": "Player identifiers (puuid, summonerId) are intentionally not stored. Distributions only.",
+ "rows": [
+  {
+   "region": "Korea",
+   "code": "kr",
+   "cPlayers": 300,
+   "gPlayers": 700,
+   "cWin": 53.65,
+   "gWin": 53.2,
+   "gap": 0.45,
+   "cLp": 2008,
+   "gLp": 1499,
+   "lpGap": 509,
+   "cGames": 770,
+   "gGames": 684
+  },
+  {
+   "region": "Europe West",
+   "code": "euw1",
+   "cPlayers": 300,
+   "gPlayers": 700,
+   "cWin": 54.95,
+   "gWin": 53.95,
+   "gap": 1,
+   "cLp": 2623,
+   "gLp": 2005,
+   "lpGap": 618,
+   "cGames": 921,
+   "gGames": 803
+  },
+  {
+   "region": "Japan",
+   "code": "jp1",
+   "cPlayers": 50,
+   "gPlayers": 100,
+   "cWin": 55.5,
+   "gWin": 53.82,
+   "gap": 1.68,
+   "cLp": 1695,
+   "gLp": 1211,
+   "lpGap": 484,
+   "cGames": 465,
+   "gGames": 467
+  },
+  {
+   "region": "Southeast Asia",
+   "code": "sg2",
+   "cPlayers": 300,
+   "gPlayers": 700,
+   "cWin": 54.43,
+   "gWin": 52.6,
+   "gap": 1.83,
+   "cLp": 1061,
+   "gLp": 577,
+   "lpGap": 484,
+   "cGames": 410,
+   "gGames": 396
+  },
+  {
+   "region": "North America",
+   "code": "na1",
+   "cPlayers": 302,
+   "gPlayers": 718,
+   "cWin": 55.16,
+   "gWin": 53.22,
+   "gap": 1.94,
+   "cLp": 1649,
+   "gLp": 1164,
+   "lpGap": 485,
+   "cGames": 659,
+   "gGames": 624
+  },
+  {
+   "region": "Vietnam",
+   "code": "vn2",
+   "cPlayers": 300,
+   "gPlayers": 700,
+   "cWin": 55.46,
+   "gWin": 53.42,
+   "gap": 2.04,
+   "cLp": 1867,
+   "gLp": 1260,
+   "lpGap": 607,
+   "cGames": 601,
+   "gGames": 628
+  }
+ ],
+ "series": [
+  {
+   "date": "2026-08-02",
+   "Korea": 0.46,
+   "Europe West": 1.14,
+   "North America": 1.71,
+   "Vietnam": 2.04,
+   "Japan": 1.53,
+   "Southeast Asia": 2
+  },
+  {
+   "date": "2026-08-03",
+   "Korea": 0.58,
+   "Europe West": 1.08,
+   "North America": 1.75,
+   "Vietnam": 2.15,
+   "Japan": 1.34,
+   "Southeast Asia": 1.93
+  },
+  {
+   "date": "2026-08-04",
+   "Korea": 0.61,
+   "Europe West": 0.98,
+   "North America": 1.8,
+   "Vietnam": 2.06,
+   "Japan": 1.52,
+   "Southeast Asia": 1.92
+  },
+  {
+   "date": "2026-08-06",
+   "Korea": 0.45,
+   "Europe West": 1,
+   "North America": 1.94,
+   "Vietnam": 2.04,
+   "Japan": 1.68,
+   "Southeast Asia": 1.83
+  }
+ ],
+ "regions": [
+  "Korea",
+  "Europe West",
+  "North America",
+  "Vietnam",
+  "Japan",
+  "Southeast Asia"
+ ]
+}
