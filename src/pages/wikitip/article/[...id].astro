@@ -1,0 +1,156 @@
+---
+/**
+ * K Culture Wire — 기사 지면. (`/article/<slug>`)
+ *
+ * ── 왜 SeoulMarkets 기사 라우트를 안 쓰나 ──────────────────────
+ * `src/pages/article/[...id].astro` 는 `Base.astro`(금융 머리말)에 `SITE_URL`
+ * (seoulmarkets.com)로 붙는다. 그대로 쓰면 K컬처 도메인에 금융 매체 얼굴이 나간다 —
+ * 8/3 에 `/esports` 제목이 「… | SeoulMarkets」로 나갔던 그 사고다.
+ *
+ * ── 왜 이 지면이 생겼나 (사장님 지시 2026-08-05 11:30) ─────────
+ * 「네가 할 일은 **영어뉴스+데이터가공**이다」. 8/6 까지 K Culture Wire 는
+ * 데이터 지면 7장뿐이고 **기사가 0편**이었다. 그릇이 없어서 못 쓴 것이라 먼저 만들었다.
+ *
+ * ── 출처·검증을 본문 아래에 그대로 편다 ────────────────────────
+ * 사장님 지시 「아직은 언론사가 아니다. 그 자격에 기대지 않는다」 —
+ * 우리가 파는 것은 숫자의 신뢰다. **무엇을 뺐는지까지** 지면에 적는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전에 광고가 뜨면
+ *    API 가 영구 취소된다. `WikiTip.astro` 와 같은 이유다.
+ */
+import { getCollection, render } from 'astro:content';
+import WikiTip from '../../../layouts/WikiTip.astro';
+
+export async function getStaticPaths() {
+  const all = await getCollection('kcwArticles');
+  const live = all.filter((e) => !e.data.draft);
+  return live.map((entry) => ({ params: { id: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+const { Content } = await render(entry);
+
+const url = `https://www.kculturewire.com/article/${entry.id}`;
+const iso = (v: Date) => new Date(v).toISOString();
+const 날짜 = (v: Date) =>
+  new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const CATEGORY: Record<string, string> = {
+  screen: 'Screen', music: 'Music', esports: 'Esports',
+  people: 'People', industry: 'Industry',
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'NewsArticle',
+  mainEntityOfPage: { '@type': 'WebPage', '@id': url },
+  headline: d.title,
+  description: d.dek,
+  datePublished: iso(d.pubDate),
+  dateModified: iso(d.updatedDate ?? d.pubDate),
+  articleSection: CATEGORY[d.category] ?? d.category,
+  inLanguage: 'en',
+  author: { '@type': 'Organization', name: 'K Culture Wire' },
+  publisher: { '@type': 'Organization', name: 'K Culture Wire' },
+};
+---
+
+<WikiTip title={d.title} description={d.dek} canonical={url} jsonLd={jsonLd}>
+  <article>
+    <p class="kicker">{CATEGORY[d.category] ?? d.category}</p>
+    <h1>{d.title}</h1>
+    <p class="dek">{d.dek}</p>
+    <p class="byline">
+      {d.author} · {날짜(d.pubDate)}
+      <span class="asof">Data as of {날짜(d.dataAsOf)}</span>
+    </p>
+
+    {d.corrections.length > 0 && (
+      <aside class="corr">
+        {/*
+          ⚠ 정정은 **본문 위**에 뜬다. 아래에 숨기면 이미 읽은 사람은 못 본다.
+            숫자가 바뀌면 조용히 고치지 않는다 — 고친 자국이 남은 표가 더 믿을 만하다.
+        */}
+        <b>Corrected</b>
+        <ul>
+          {d.corrections.map((c) => <li>{날짜(c.date)} — {c.note}</li>)}
+        </ul>
+      </aside>
+    )}
+
+    <div class="body"><Content /></div>
+
+    <section class="notes">
+      <h2>Where these numbers come from</h2>
+
+      <h3>Sources</h3>
+      <ul>
+        {d.sources.map((s) => (
+          <li>
+            <b>{s.org}</b> — {s.api}
+            {s.url && <> · <a href={s.url} rel="nofollow noopener">{s.url}</a></>}
+          </li>
+        ))}
+      </ul>
+
+      {d.crossChecks.length > 0 && (
+        <>
+          <h3>What we checked</h3>
+          <ul>{d.crossChecks.map((c) => <li>{c}</li>)}</ul>
+        </>
+      )}
+
+      {d.excluded.length > 0 && (
+        <>
+          <h3>What we left out, and why</h3>
+          <ul>{d.excluded.map((c) => <li>{c}</li>)}</ul>
+        </>
+      )}
+    </section>
+
+    <p class="back"><a href="/">&larr; Back to the front page</a></p>
+  </article>
+</WikiTip>
+
+<style>
+  .kicker { margin: 0 0 .4rem; font-size: .78rem; letter-spacing: .08em;
+            text-transform: uppercase; color: var(--accent); font-weight: 700; }
+  h1 { margin: 0 0 .6rem; font-size: 1.9rem; line-height: 1.25; letter-spacing: -.02em; }
+  .dek { margin: 0 0 1rem; font-size: 1.06rem; color: var(--muted); }
+  .byline { margin: 0 0 2rem; font-size: .84rem; color: var(--muted);
+            padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
+  .asof { display: block; margin-top: .2rem; }
+
+  .corr { margin: 0 0 2rem; padding: .9rem 1.1rem; background: var(--card);
+          border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; font-size: .9rem; }
+  .corr ul { margin: .4rem 0 0; padding-left: 1.1rem; }
+
+  /* 마크다운이 만드는 요소라 :global() 이라야 걸린다 —
+     Astro 스코프 CSS 는 다른 컴포넌트가 만든 노드에 안 붙는다. 로컬은 멀쩡하고 배포하면 안 먹는다 */
+  .body :global(h2) { margin: 2.4rem 0 .7rem; font-size: 1.25rem; letter-spacing: -.01em; }
+  .body :global(h3) { margin: 1.8rem 0 .5rem; font-size: 1.02rem; }
+  .body :global(p) { margin: 0 0 1.05rem; }
+  .body :global(ul), .body :global(ol) { margin: 0 0 1.05rem; padding-left: 1.2rem; }
+  .body :global(li) { margin: .3rem 0; }
+  .body :global(strong) { font-weight: 700; }
+  .body :global(blockquote) { margin: 1.4rem 0; padding-left: 1rem;
+                              border-left: 3px solid var(--line); color: var(--muted); }
+  /* 표가 좁은 화면을 가로로 밀지 않게 표 자신이 스크롤한다 */
+  .body :global(table) { width: 100%; border-collapse: collapse; margin: 1.2rem 0;
+                         font-size: .92rem; display: block; overflow-x: auto; }
+  .body :global(th), .body :global(td) { padding: .5rem .6rem; text-align: left;
+                                         border-bottom: 1px solid var(--line); white-space: nowrap; }
+  .body :global(th) { font-weight: 700; color: var(--muted); font-size: .8rem;
+                      letter-spacing: .03em; text-transform: uppercase; }
+  .body :global(td:nth-child(n+3)) { text-align: right; font-variant-numeric: tabular-nums; }
+
+  .notes { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
+           font-size: .88rem; color: var(--muted); }
+  .notes h2 { font-size: 1.05rem; color: var(--ink); margin: 0 0 1rem; }
+  .notes h3 { font-size: .84rem; letter-spacing: .05em; text-transform: uppercase;
+              margin: 1.4rem 0 .4rem; color: var(--ink); }
+  .notes ul { margin: 0; padding-left: 1.1rem; }
+  .notes li { margin: .35rem 0; }
+
+  .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>

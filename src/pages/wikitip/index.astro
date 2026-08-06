@@ -30,8 +30,20 @@
  * 1차 독자는 동남아다. 넷플릭스 실측으로도 확인됐다 —
  * 한국 작품 진입 국가 2~9위가 전부 동남아·동아시아였다.
  */
+import { getCollection } from 'astro:content';
 import WikiTip from '../../layouts/WikiTip.astro';
 import charts from '../../data/wikitip-charts.json';
+
+/*
+ * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
+ * **만들고 링크를 안 걸면 없는 것과 같다.** 최신 3편만 첫 화면에 세운다.
+ */
+const 기사 = (await getCollection('kcwArticles'))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate))
+  .slice(0, 3);
+const 날짜 = (v) =>
+  new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
 const TITLE = 'Korean pop culture, in numbers';
 const DESC =
@@ -63,6 +75,23 @@ const jsonLd = {
     No rumours, no reprints. We count what Netflix and Wikipedia publish, name every source,
     and say what we left out.
   </p>
+
+  <!--
+    ── ⓪ 기사 — 사장님 지시 「네가 할 일은 **영어뉴스**+데이터가공이다」(2026-08-05)
+       지면(데이터)만 있고 기사가 0편이던 것을 8/6 에 알고 세웠다. 기사가 맨 위에 온다.
+  -->
+  {기사.length > 0 && (
+    <section class="latest">
+      <h2>Latest</h2>
+      {기사.map((a) => (
+        <article class="teaser">
+          <a href={`/article/${a.id}`}>{a.data.title}</a>
+          <p class="sub">{a.data.dek}</p>
+          <p class="when">{날짜(a.data.pubDate)}</p>
+        </article>
+      ))}
+    </section>
+  )}
 
   <!-- ── ① 동남아 — K Culture Wire 독자가 사는 곳이다 ───────────── -->
   <section>
@@ -187,6 +216,15 @@ const jsonLd = {
   h2 { font-size: 1.12rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
   .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
   .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  /* 기사 목록 — 첫 화면 맨 위 */
+  .latest .teaser { padding: .9rem 0; border-bottom: 1px solid var(--line); }
+  .latest .teaser:last-child { border-bottom: 0; }
+  .latest .teaser a { font-size: 1.02rem; font-weight: 700; line-height: 1.4;
+                      color: var(--ink); text-decoration: none; }
+  .latest .teaser a:hover { color: var(--accent); }
+  .latest .teaser .sub { margin: .35rem 0 0; }
+  .latest .when { font-size: .78rem; color: var(--muted); margin: .3rem 0 0; }
 
   /* 순위표 — 칸 배경에 막대를 깐다. 표(정확한 값)와 그래프(크기)를 둘 다 준다 */
   .rank { list-style: none; padding: 0; margin: 0; counter-reset: r; }

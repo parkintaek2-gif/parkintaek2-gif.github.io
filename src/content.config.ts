@@ -62,4 +62,44 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { articles };
+/**
+ * K Culture Wire 기사. (`content/kculturewire/` · 지면 `/article/<slug>`)
+ *
+ * ── 왜 위 `articles` 를 같이 안 쓰나 ───────────────────────────
+ * `articles` 는 **SeoulMarkets 전용**이다 — category enum 이 금융 축(equities·fx·
+ * rates·commodities·funds·macro)이고, 라우트가 `Base.astro`(금융 머리말)에
+ * `SITE_URL`(seoulmarkets.com)로 붙는다. K컬처 기사를 거기 넣으면 카테고리가 안 맞고
+ * **금융 매체 얼굴로 나간다.** `WikiTip.astro` 를 따로 뗀 것과 같은 이유다.
+ *
+ * ── 왜 기사가 필요한가 (사장님 지시 2026-08-05 11:30) ──────────
+ * 「네가 할 일은 **영어뉴스+데이터가공**이다」 — 지면 7장은 데이터 지면이지 기사가 아니다.
+ * 2026-08-06 에 세어 보니 K Culture Wire 기사가 **0편**이었다. 앞 절반을 안 하고 있었다.
+ *
+ * ── 스키마는 위 `articles` 와 일부러 같은 뼈대다 ────────────────
+ * sources·crossChecks·excluded·corrections 를 그대로 가져왔다. **출처 없는 기사를
+ * 막는 장치**이고, 두 매체가 같은 규율을 쓰는 편이 낫다. category 만 K컬처 축이다.
+ */
+const kcwArticles = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './content/kculturewire' }),
+  schema: z.object({
+    title: z.string().max(120),
+    dek: z.string().max(240),
+    /** K컬처 축. 금융 축과 섞지 않는다 */
+    category: z.enum(['screen', 'music', 'esports', 'people', 'industry']),
+    pubDate: z.coerce.date(),
+    updatedDate: z.coerce.date().optional(),
+    dataAsOf: z.coerce.date(),
+    sources: z.array(source).min(1),
+    crossChecks: z.array(z.string()).default([]),
+    excluded: z.array(z.string()).default([]),
+    corrections: z.array(z.object({
+      date: z.coerce.date(),
+      note: z.string(),
+    })).default([]),
+    tags: z.array(z.string()).default([]),
+    author: z.string().default('Newsroom'),
+    draft: z.boolean().default(false),
+  }),
+});
+
+export const collections = { articles, kcwArticles };

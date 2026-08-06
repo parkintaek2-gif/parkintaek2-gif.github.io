@@ -1,4 +1,5 @@
 import type { APIRoute } from 'astro';
+import { getCollection } from 'astro:content';
 
 /**
  * K Culture Wire 사이트맵.
@@ -11,7 +12,7 @@ import type { APIRoute } from 'astro';
 const ORIGIN = 'https://www.kculturewire.com';
 type Entry = { path: string; priority: string; changefreq: string };
 
-export const GET: APIRoute = () => {
+export const GET: APIRoute = async () => {
   const entries: Entry[] = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
     { path: '/titles', priority: '0.9', changefreq: 'weekly' },
@@ -21,6 +22,16 @@ export const GET: APIRoute = () => {
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
   ];
+
+  /*
+   * 기사는 **손으로 넣지 않는다.** 위 목록처럼 적어 두면 다음 기사를 낼 때 빼먹는다 —
+   * 백년지도가 2,483장을 만들어 놓고 사이트맵에 한 번도 안 올린 적이 있다.
+   * 컬렉션에서 바로 읽으니 기사를 쓰면 사이트맵에 저절로 들어간다. draft 는 뺀다.
+   */
+  const articles = await getCollection('kcwArticles');
+  for (const a of articles.filter((e) => !e.data.draft)) {
+    entries.push({ path: `/article/${a.id}`, priority: '0.9', changefreq: 'monthly' });
+  }
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${entries
