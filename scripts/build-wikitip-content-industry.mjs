@@ -35,6 +35,14 @@ const GROUPS = [
   ['Publishing', 'Publishing (includes games)'],
 ];
 
+/**
+ * 인원 가중평균.
+ *
+ * ⚠ **분모는 그 칸을 공시한 회사의 인원만**이다. 안 그러면 급여를 안 밝힌 회사의 직원이
+ *   「0원을 받는 사람」으로 평균에 들어간다. 2026-08-07 되짚기 전의 자료는 그렇게 되어 있었다 —
+ *   콘텐츠 456명, 시장 20,613명이 급여 0원으로 세어져 평균이 각각 0.7%·1.1% 낮게 나갔다.
+ *   근속·인원은 있는 회사만 쓰므로 이 문제가 없고, 그래서 근속 값은 전과 같다.
+ */
 const 가중 = (rows, field) => {
   let 합 = 0, 인원 = 0;
   for (const r of rows) {
@@ -43,6 +51,12 @@ const 가중 = (rows, field) => {
     합 += v * h; 인원 += h;
   }
   return 인원 ? 합 / 인원 : null;  // 반올림은 부르는 쪽에서 한 번만 한다 — 두 번 하면 끝자리가 밀린다
+};
+/** 그 칸을 공시한 인원이 묶음 전체의 몇 %인가 — 지면이 「누구를 뺀 평균인가」를 적을 수 있게. */
+const 공시율 = (rows, field) => {
+  const 전체 = rows.reduce((s, r) => s + (r[C.headcount] ?? 0), 0);
+  const 있는 = rows.filter((r) => r[C[field]] != null).reduce((s, r) => s + (r[C.headcount] ?? 0), 0);
+  return { staffWith: 있는, staffTotal: 전체, pc: +((100 * 있는) / 전체).toFixed(1) };
 };
 /** 근속과 인원이 **둘 다** 있는 회사만 센다. 하나만 있는 곳을 세면 n 과 staff 가 어긋난다. */
 const 쓸수있는 = (rows) => rows.filter((r) => r[C.tenure] != null && r[C.headcount] != null);
@@ -84,8 +98,10 @@ fs.writeFileSync('src/data/wikitip-content-industry.json', JSON.stringify({
   groups,
   content,
   market,
-  /** 업종이 안 붙은 회사 — 어느 묶음에도 안 들어간다. 세어서 밝힌다. */
-  dropped: R.rows.filter((r) => r[C.industry] == null && r[C.tenure] != null && r[C.headcount] != null).length,
+  /** 급여를 공시한 인원의 비중 — 평균 급여가 누구의 평균인지 지면이 밝힌다. */
+  payCoverage: { content: 공시율(셋.filter((r) => r[C.tenure] != null && r[C.headcount] != null), 'pay'), market: 공시율(R.rows.filter((r) => r[C.tenure] != null && r[C.headcount] != null), 'pay') },
+  /** 세 업종에 속하는데 근속이나 인원이 비어 계산에서 빠진 회사. 지면이 「몇 곳 빠졌다」로 밝힌다. */
+  dropped: R.rows.filter((r) => GROUPS.some(([src]) => r[C.industry] === src) && (r[C.tenure] == null || r[C.headcount] == null)).length,
 }, null, 2));
 
 console.log(`콘텐츠 ${content.n}곳 ${content.staff.toLocaleString()}명 근속 ${content.tenure}년 · 시장 ${market.n}곳 ${market.staff.toLocaleString()}명 ${market.tenure}년`);

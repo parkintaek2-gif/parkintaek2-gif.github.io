@@ -147,6 +147,15 @@ const jsonLd = {
         {data.dropped > 0 && ' It does not report both tenure and headcount in this filing, so it cannot be weighted and is excluded rather than counted as zero.'}
       </li>
       <li>
+        <b>🔴 Pay corrected 2026-08-07.</b> The average pay figures were understated, because companies
+        that disclose headcount but not pay were left in the denominator — their staff were being
+        averaged in as if they earned nothing. Pay is now weighted over disclosing companies only, which
+        is {data.payCoverage.content.pc}% of content staff and {data.payCoverage.market.pc}% of the
+        listed market. Content pay rises from ₩75.6m to ₩{(data.content.pay / 1e6).toFixed(1)}m and the
+        market from ₩94.0m to ₩{(data.market.pay / 1e6).toFixed(1)}m. Tenure, headcount and the gender
+        split were computed from companies that disclose them and do not move.
+      </li>
+      <li>
         <b>Not a ranking, and not a judgement.</b> Average tenure falls when people leave and also when
         people arrive — a company that doubles its headcount halves its average tenure without a single
         resignation. No company is named on this page for that reason.
