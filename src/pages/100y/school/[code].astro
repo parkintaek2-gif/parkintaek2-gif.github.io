@@ -16,6 +16,7 @@ import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import { 권할만한 } from '../../../lib/university';
 import schools from '../../../data/100yearmap/pages-school.json';
+import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -53,6 +54,19 @@ export async function getStaticPaths() {
 const { school } = Astro.props as { school: any };
 const 겹침 = (이름수.get(school.title) ?? 0) > 1;
 const 제목 = 겹침 ? `${school.title}(${짧은지역명(school.지역)})` : school.title;
+/**
+ * ⭐ **이 학교 하나의 숫자다** (2026-08-06) — 이 지면에서 처음이다.
+ *
+ * 위의 취업 수치는 「특성화고 전체」·「마이스터고 전체」 값이라 학교마다 똑같다.
+ * 학업중단은 **학교별로 공시된다.** 그래서 얇은 일반고 1,353장이 처음으로
+ * **제 숫자**를 갖는다.
+ *
+ * ⛔ 이것을 「학교의 성적표」로 읽으면 안 된다 — 전학·유학·건강·검정고시가 다 섞여 있다.
+ *   그 말을 숫자 바로 밑에 둔다.
+ */
+const 중단표 = new Map<string, any>(((중단자료 as any).자료 as any[]).map((r) => [r.code, r]));
+const 중단출처 = (중단자료 as any).출처;
+
 const 취업 = school.취업;
 const 평균 = 취업?.전체평균;
 const 수치 = 취업?.수치;
@@ -71,6 +85,8 @@ const 설립연도 = /^\d{8}$/.test(school.설립일 ?? '') ? school.설립일.s
  *  ⚠ 학과끼리 잇는 자료(고교 학과 ↔ 대학 학과)는 **아직 없다.** 있는 것은 지역뿐이다.
  *    그래서 **지역으로만** 잇는다. 짐작으로 학과를 잇지 않는다.
  *  ⚠ 이 지면 2,525장 중 1,353장이 학과가 없는 일반고다. 그쪽에는 이게 유일한 다음 걸음이 된다. */
+const 중단 = 중단표.get(school.code) ?? null;
+
 const 대학지역 = 고교지역_대학지역(school.지역);
 const 지역대학 = 대학지역 ? (지역별대학.get(대학지역) ?? []) : [];
 const 보여줄대학 = 지역대학.slice(0, 12);
@@ -178,6 +194,65 @@ const jsonLd = {
                 항목이 없어, 학교 이름을 보고 저희가 판단했습니다.
               </p>
             )}
+          </div>
+        </details>
+      </>
+    )
+  }
+
+  {
+    중단 && (
+      <>
+        {/* ⭐ 이 지면에서 **이 학교 하나의 숫자**는 이것이 처음이다.
+            🔴 「분모가 작으면 비율을 내지 않고 실제 수로 말한다」 — 2026-08-06 전 사이트 규칙.
+               재학 3명인 학교가 「학업중단률 100%」로 나갈 뻔했다(상동고·영월). */}
+        <h2>다니다가 학교를 떠난 학생은?</h2>
+        {중단.학업중단률 != null ? (
+          <div class="answer">
+            <p class="answer-label">
+              재학생 {중단.재학생.toLocaleString()}명 가운데 그 해에 학교를 떠난 학생
+            </p>
+            <p class="answer-num">{중단.학업중단}명</p>
+            <p class="answer-sub">
+              {중단.학업중단률}%
+              {중단.전입 != null && <> · 같은 해에 전학 온 학생은 {중단.전입}명</>}
+            </p>
+          </div>
+        ) : (
+          <div class="answer">
+            {/* ⚠ 비율을 안 낸 이유를 자료가 갖고 있다. 지면이 그것을 그대로 말한다 */}
+            <p class="answer-label">재학생 {중단.재학생 ?? '—'}명 가운데 그 해에 학교를 떠난 학생</p>
+            <p class="answer-num">{중단.학업중단 ?? '—'}명</p>
+            <p class="answer-sub">
+              <strong>비율로는 적지 않았습니다</strong>
+              {중단.비율못냄 && <> — {중단.비율못냄}</>}
+            </p>
+          </div>
+        )}
+        <p class="note">
+          ⛔ <strong>이것을 학교의 성적표로 읽으면 안 됩니다.</strong> 학교를 떠난 데에는
+          다른 학교로 옮긴 경우, 유학, 건강, 검정고시가 모두 섞여 있습니다.
+          떠난 학생이 많다는 것이 「나쁜 학교」라는 뜻이 아닙니다.
+        </p>
+        {중단.학업중단률 == null && (
+          <p class="note">
+            ⚠ 학생 수가 적은 학교에서는 <strong>한 사람이 비율을 크게 흔듭니다.</strong>
+            그래서 저희는 비율 대신 <strong>실제 사람 수</strong>로만 적습니다.
+          </p>
+        )}
+
+        <details>
+          <summary>이 숫자는 어디서 왔나?</summary>
+          <div class="card">
+            <p class="note">
+              <strong>출처</strong> {중단출처.이름} — 「{중단출처.공시항목}」<br />
+              <strong>공시연도</strong> {중단출처.공시연도}년 ·{' '}
+              <strong>이용허락범위</strong> {중단출처.이용허락범위}
+            </p>
+            <p class="note">
+              ⚠ 재학생 수와 떠난 학생 수는 공시된 값이고, <strong>비율은 저희가 나눈 것</strong>입니다.
+              나라가 발표한 비율이 아닙니다.
+            </p>
           </div>
         </details>
       </>
