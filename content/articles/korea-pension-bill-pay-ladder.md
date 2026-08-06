@@ -12,7 +12,7 @@ sources:
     api: "Workplace subscriber file (가입 사업장 내역), month of record 2026-06"
     url: "https://www.data.go.kr"
 crossChecks:
-  - "The 2026-06 workplace file holds 593,127 workplaces. This uses the 554,570 marked active (status code 1) that report both a subscriber count and a monthly bill — 11,561,661 subscribers in all. The 38,557 withdrawn workplaces are dropped, not counted as zero"
+  - "The 2026-06 workplace file holds 593,127 workplaces. 554,570 are marked active (status code 1), carrying 11,561,661 subscribers; the per-head figures are computed on the 553,978 of them that also report a monthly bill. The 38,557 withdrawn workplaces are dropped, not counted as zero"
   - "The metric is a workplace's monthly pension bill divided by its subscribers, then summed across every workplace in an industry weighted by headcount — so a three-person shop and a three-thousand-person plant each count for their own workers, not one workplace one vote"
   - "The contribution is 9% of a worker's monthly income (4.5% employer, 4.5% employee), so the bill per head moves with pay. It validates against its own ceiling: no fully-capped workplace's per-head bill clears 605,140 won, the wall a workplace hits once every worker sits at or above the income cap"
   - "An industry is ranked only where it employs at least 50,000 of the 11.6 million workers — 41 industries clear that bar — so no place on the ladder rests on a thin sample"
@@ -23,6 +23,15 @@ excluded:
   - "The region breakdown. The file's province code mixes coding schemes — one province returns 128 workers where it should hold hundreds of thousands, and unmapped codes carry hundreds of thousands more — so no regional figure is reported here"
   - "A catch-all bucket of 1.38 million workers at workplaces with no business-registration number, which is not an industry and is left out of the industry ranking"
   - "Whether a worker is full- or part-time, and how weekly hours differ across industries. A low bill can be low pay or short hours; this data cannot tell the two apart"
+corrections:
+  - date: 2026-08-07
+    note: >-
+      A re-verification against the source (8 August re-check) found the
+      cross-check overstated the analysis set. 554,570 is the count of active
+      workplaces (status 1), carrying 11,561,661 subscribers; the per-head bill
+      figures are computed on the 553,978 of those that also report a monthly
+      bill. The headline ratios and the incorporated/sole-proprietor figures are
+      unchanged.
 draft: false
 ---
 
