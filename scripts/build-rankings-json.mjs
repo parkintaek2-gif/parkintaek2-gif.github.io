@@ -26,7 +26,7 @@
  * 섞여 들어온다. **고치면 우리가 지어낸 값**이 된다. 거르고, 몇 건 걸렀는지 화면에 밝힌다.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { 읽기, 곁붙이기, 가공, 이상점검 } from './render-ranking.mjs';
@@ -98,6 +98,8 @@ export const AXES = [
   { key: '임원수', id: 'officers',   label: 'Registered and unregistered officers', unit: 'n', dir: 'desc' },
   { key: '업력',   id: 'age',        label: 'Years since incorporation',   unit: 'yr',  dir: 'desc',
     note: 'From the incorporation date on file, not the listing date.' },
+  { key: '1인당시총', id: 'mktCapPerHead', label: 'Market cap per employee', unit: 'KRW', dir: 'desc',
+    note: 'Latest KRX market capitalisation divided by headcount as filed to DART. Joined on ticker; unlisted names or those with no traded close are left null, not zero.' },
 ];
 
 function main() {
@@ -112,6 +114,21 @@ function main() {
   const 임원표 = existsSync(임원파일) ? 읽기(임원파일) : [];
 
   const 행 = 곁붙이기(가공(읽기(원천)), 회사표, 임원표);
+
+  /* 시가총액 — 최신 거래일 stocks 에서 종목코드로 잇는다(1인당 시총 축용).
+     계산은 여기서만 한다: 시총/인원. 다른 축처럼 render-ranking 이 주는 값이 아니라
+     시세(내 소관)와의 조인이라 이 빌더에서 붙인다. 없으면 null(0 아님). */
+  const 시총맵 = new Map();
+  let 시총일 = null;
+  const stocksDir = path.resolve('archive/raw/stocks');
+  if (existsSync(stocksDir)) {
+    시총일 = readdirSync(stocksDir).filter((f) => /^\d{8}\.ndjson$/.test(f)).sort().pop() ?? null;
+    if (시총일) for (const l of readFileSync(path.join(stocksDir, 시총일), 'utf8').split('\n')) {
+      if (!l.trim()) continue;
+      const s = JSON.parse(l);
+      if (s.시가총액 > 0) 시총맵.set(String(s.코드).padStart(6, '0'), s.시가총액);
+    }
+  }
 
   /* 영문명 붙이기 — corp 로 잇는다. ⚠ 이 열쇠를 빠뜨려 35,004행 읽고 0건 붙은 적이 있다 */
   const 영문맵 = new Map(회사표.map((r) => [r.corp, r]));
@@ -140,6 +157,10 @@ function main() {
     const 업력 = r.업력;
     const 대표모순 = r.대표재직 != null && 업력 != null && r.대표재직 > 업력 + 0.5;
 
+    /* 1인당 시가총액 — 최신 시총 ÷ 신고 인원. 상장·주가·인원 다 있어야 값이 산다 */
+    const 시총 = c?.종목 ? 시총맵.get(String(c.종목).padStart(6, '0')) : null;
+    r['1인당시총'] = (시총 > 0 && r['인원'] > 0) ? 시총 / r['인원'] : null;
+
     rows.push([
       이름,
       c?.종목 ?? null,
@@ -163,6 +184,8 @@ function main() {
     cols: ['name', 'ticker', 'industry', 'region', 'ceoFlag', ...AXES.map((a) => a.id)],
     axes: AXES.map(({ id, label, unit, dir, note }) => ({ id, label, unit, dir, note: note ?? null })),
     filtered: 거른수,
+    /** 1인당 시총 축이 조인한 시세 기준일(YYYYMMDD). 화면 「as of」에 쓴다 */
+    mktCapAsOf: 시총일 ? `${시총일.slice(0, 4)}-${시총일.slice(4, 6)}-${시총일.slice(6, 8)}` : null,
     /** 대표 재직 > 업력 인 곳. 뺀 게 아니라 **표시만** 한다 */
     ceoFlagged: rows.filter((x) => x[4] === 1).length,
     rows,
@@ -176,7 +199,7 @@ function main() {
     return (rows.filter((x) => x[idx] != null).length / rows.length * 100).toFixed(1) + '%';
   };
   console.log(`회사 ${rows.length.toLocaleString()} · 축 ${AXES.length}개 · 단위오기로 거른 것 ${거른수}건`);
-  console.log(`  채움률 — 업종 ${채움('industry')} · 지역 ${채움('region')} · 급여 ${채움('pay')} · 대표재직 ${채움('ceoTenure')}`);
+  console.log(`  채움률 — 업종 ${채움('industry')} · 지역 ${채움('region')} · 급여 ${채움('pay')} · 대표재직 ${채움('ceoTenure')} · 1인당시총 ${채움('mktCapPerHead')}(${산출.mktCapAsOf})`);
   console.log(`  ${(readFileSync(파일).length / 1024).toFixed(0)}KB  →  ${파일}`);
 }
 

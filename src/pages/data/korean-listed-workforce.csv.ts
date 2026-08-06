@@ -48,6 +48,7 @@ export const GET: APIRoute = () => {
     payRatio: 'pay_ratio_male_to_female', headcount: 'employees',
     femaleShare: 'female_share_pct', ceoTenure: 'ceo_tenure_months',
     officers: 'registered_officers', age: 'company_age_years',
+    mktCapPerHead: 'market_cap_per_employee_krw',
   };
 
   const 머리 = [
@@ -60,6 +61,9 @@ export const GET: APIRoute = () => {
     '# We parsed, normalised and translated. Figures are as filed by each company.',
     '# Empty cell = the company did not disclose that field. It does not mean zero.',
     '# avg_tenure_years is filed as free text in Korean ("5년 8월"); we parsed it to decimal years.',
+    '# market_cap_per_employee_krw = KRX market capitalisation on the latest trading day, divided by',
+    '#   employees. Market cap from KRX daily close (data.go.kr, no restriction). Joined on ticker;',
+    '#   blank where the company is unlisted or had no traded close. Not a per-share or valuation figure.',
     '# Not investment advice. https://seoulmarkets.com/rankings',
   ].join('\n');
 
