@@ -40,6 +40,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from 'node:fs';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -141,14 +142,19 @@ async function 한쪽(키, 쪽, 일자) {
   return { 항목: b?.items?.item ? [].concat(b.items.item) : [], 총: Number(b?.totalCount ?? 0) };
 }
 
-/** 날짜별로 갈라 파일에 붙인다. 이미 있는 줄은 건너뛴다(멱등) */
-function 떨구기(날별) {
+/** 날짜별로 갈라 파일에 붙인다. 이미 있는 줄은 건너뛴다(멱등).
+    store.put 은 로컬(archive/)과 R2 양쪽에 쓴다 — 예전엔 로컬에만 쌓였다. 기존 병합은
+    로컬 파일에서 읽는다(put 이 로컬도 쓰므로 다음 호출에서 그대로 이어진다). */
+async function 떨구기(날별) {
   for (const [일자, rows] of Object.entries(날별)) {
     const f = path.join(OUT_DIR, `${일자}.ndjson`);
     const 기존 = existsSync(f) ? readFileSync(f, 'utf8').split('\n').filter(Boolean) : [];
     const 본 = new Set(기존);
     const 새 = rows.map((r) => JSON.stringify(r)).filter((s) => !본.has(s));
-    if (새.length) writeFileSync(f, [...기존, ...새].join('\n') + '\n');
+    if (새.length) {
+      const res = await put(`raw/derivatives/${일자}.ndjson`, [...기존, ...새].join('\n') + '\n', 'application/x-ndjson');
+      if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
+    }
   }
 }
 
@@ -162,7 +168,7 @@ async function 하루(키, 일자) {
     if (받음 >= 총 || !항목.length) break;
     await new Promise((x) => setTimeout(x, 간격ms));
   }
-  떨구기(날별);
+  await 떨구기(날별);
   return 받음;
 }
 
@@ -179,12 +185,12 @@ async function 전체(키) {
     for (const x of 결과.항목) { const r = 정리(x); (날별[r.일자] ??= []).push(r); }
     누적 += 결과.항목.length;
     if (쪽 % 50 === 0) {
-      떨구기(날별); 날별 = {};
+      await 떨구기(날별); 날별 = {};
       writeFileSync(진행파일, JSON.stringify({ 다음쪽: 쪽 + 1 }));
       console.log(`  ${쪽}쪽 · ${누적.toLocaleString()}/${결과.총.toLocaleString()} — 떨궜다`);
     }
     if (누적 >= 결과.총 || !결과.항목.length) {
-      떨구기(날별);
+      await 떨구기(날별);
       writeFileSync(진행파일, JSON.stringify({ 다음쪽: 쪽 + 1, 완료: true }));
       break;
     }
@@ -197,6 +203,7 @@ async function main() {
   const 키 = 키읽기();
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });
+  if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
   const arg = (n) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
 
   if (process.argv.includes('--all')) {

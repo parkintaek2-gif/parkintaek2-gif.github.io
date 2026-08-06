@@ -40,6 +40,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -152,6 +153,7 @@ async function main() {
   } else 날들 = [어제()];   /* ⚠ T+1 — 당일치를 기본으로 하지 않는다 */
 
   mkdirSync(OUT_DIR, { recursive: true });
+  if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
   let 합 = 0, 빈날 = 0;
   for (const 일자 of 날들) {
     try {
@@ -160,7 +162,8 @@ async function main() {
       const 석유 = await 한시장(키, 오퍼.석유, 일자, 석유정리);
       const 모음 = [...금, ...석유];
       if (!모음.length) { 빈날++; console.log(`  ${일자}  0건 (휴장일일 수 있다)`); continue; }
-      writeFileSync(path.join(OUT_DIR, `${일자}.ndjson`), 모음.map((r) => JSON.stringify(r)).join('\n') + '\n');
+      const res = await put(`raw/commodities/${일자}.ndjson`, 모음.map((r) => JSON.stringify(r)).join('\n') + '\n', 'application/x-ndjson');
+      if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
       /* 협의매매가 실제로 있는 날만 세어 둔다 — 없는 날이 흔하다 */
       const 협의 = 석유.filter((r) => r.협의가중평균 != null).length;
       console.log(`✅ ${일자}  금 ${금.length}건 · 석유 ${석유.length}건(협의값 있음 ${협의})`);

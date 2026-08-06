@@ -30,6 +30,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -113,13 +114,15 @@ async function main() {
   } else 날들 = [어제()];   /* ⚠ T+1 — 당일치를 기본으로 하지 않는다 */
 
   mkdirSync(OUT_DIR, { recursive: true });
+  if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
   let 합 = 0, 빈날 = 0;
   for (const 일자 of 날들) {
     const 산출 = path.join(OUT_DIR, `${일자}.ndjson`);
     try {
       const { 모음, 총 } = await 하루받기(키, 일자);
       if (!모음.length) { 빈날++; console.log(`  ${일자}  0건 (휴장일일 수 있다)`); continue; }
-      writeFileSync(산출, 모음.map((r) => JSON.stringify(r)).join('\n') + '\n');
+      const res = await put(`raw/bonds/${일자}.ndjson`, 모음.map((r) => JSON.stringify(r)).join('\n') + '\n', 'application/x-ndjson');
+      if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
       const 수익률있음 = 모음.filter((r) => r.수익률 != null).length;
       console.log(`✅ ${일자}  ${모음.length.toLocaleString()}건 (신고 총 ${총.toLocaleString()}) · 수익률 있음 ${수익률있음.toLocaleString()}`);
       합 += 모음.length;

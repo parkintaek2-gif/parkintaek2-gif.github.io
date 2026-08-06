@@ -32,6 +32,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -128,7 +129,9 @@ async function 하루(키, 일자) {
     await new Promise((x) => setTimeout(x, 간격ms));
   }
   if (전부.length) {
-    writeFileSync(path.join(OUT_DIR, `${일자}.ndjson`), 전부.map((r) => JSON.stringify(r)).join('\n') + '\n');
+    const body = 전부.map((r) => JSON.stringify(r)).join('\n') + '\n';
+    const res = await put(`raw/products/${일자}.ndjson`, body, 'application/x-ndjson');
+    if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
   }
   return 전부;
 }
@@ -137,6 +140,7 @@ async function main() {
   const 키 = 키읽기();
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });
+  if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
   const arg = (n) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
 
   let 날들 = [];
