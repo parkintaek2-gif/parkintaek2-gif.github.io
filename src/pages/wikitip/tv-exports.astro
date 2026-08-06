@@ -119,10 +119,19 @@ const jsonLd = {
     <ul>
       <li><b>{data.sourceKo}</b> — {data.source}. Unit: {data.unit}.</li>
       <li>
-        <b>The categories do not add to the total, and we did not make them.</b> In {data.yearTo} the
-        four named kinds of company account for {천달러(최신.named)} of a published
-        {' '}{천달러(최신.total)} — {비중(최신.residual, 최신.total)} is left over. The source table does
-        not say whose it is, so it is shown as unattributed rather than folded into one of the four.
+        <b>The categories add to the total.</b> In {data.yearTo} the four kinds of company account for
+        {' '}{천달러(최신.named)} of a published {천달러(최신.total)}, exactly. Across all
+        {' '}{data.rows.length} years the largest gap is ${data.reconciled.maxResidual},000, which is rounding.
+      </li>
+      <li>
+        <b>🔴 Corrected 2026-08-07.</b> This page previously showed a {비중(95258, 최신.total)} residual it
+        could not attribute. There was no residual. The source classifies exports on two levels — the form
+        of export above, the type of company below — and returns only the lower name, so several rows a
+        year read “terrestrial broadcasters” and differ by code alone. We had taken the finished-programme
+        row for three of the four types while the fourth entered whole. Each type is now the sum of every
+        export form published for it, checked against the survey’s own subtotal in the
+        {' '}{data.reconciled.checkedAgainstPublishedSubtotal} cells where it publishes one — agreeing to
+        within ${data.reconciled.maxSubtotalGap},000.
       </li>
       <li>
         <b>Missing years.</b> IPTV content providers appear only from 2023, which is when the survey

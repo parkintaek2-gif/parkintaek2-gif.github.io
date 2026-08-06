@@ -1,9 +1,13 @@
 ---
 title: "Korea's television exports moved to companies where people stay half as long"
-dek: "Terrestrial broadcasters were 65.7% of Korea's TV exports in 2012 and 3.8% in 2024. Their staff average 10.3 years of service — the longest in Korean content. The producers who took the trade average 5.4 to 7.3."
+dek: "Terrestrial broadcasters were 81.5% of Korea's TV exports in 2012 and 7.2% in 2024. Their staff average 10.3 years of service — the longest in Korean content. The producers who took the trade average 5.4 to 7.3."
 category: industry
 pubDate: 2026-08-07
 dataAsOf: 2026-08-06T00:00:00+09:00
+updatedDate: 2026-08-07
+corrections:
+  - date: 2026-08-07
+    note: "The export figures in this article were wrong when it was published, and the error was in how the source table was read rather than in the arithmetic. KOSIS table DT_113_STBL_1025706 has a two-level classification — the upper level is the form of export (finished programmes, format sales, video and DVD, time blocks, support for overseas Korean broadcasting, other) and the lower level is the type of company. The rows it returns carry only the lower-level name, so five or six rows in each year are all labelled 'terrestrial broadcasters' and differ only by code. We had taken the finished-programme row alone for three of the four company types, while independent production companies, which the survey does not split by form, entered at their full value. Three of the four figures were therefore a fraction of the right number and were being compared against one that was not. Each company type is now the sum of every export form the survey publishes for it. Where the survey also publishes its own subtotal — eight cells across 2022 to 2024 — our sum matches it to within $1,000, and the four types now add to the published annual total exactly in 2024 and within $2,000 in every other year. Terrestrial broadcasters were 81.5% of exports in 2012, not 65.7%, and 7.2% in 2024, not 3.8%; their peak was $278.5m in 2016, not $212.1m in 2014. The article's finding is unchanged and slightly larger than stated: the terrestrial share fell further than we had published, and the 2024 figure is still about a third of the peak. The claim that a residual was left unattributed in the source was also wrong — nothing was missing from the source, we had simply not added it up."
 author: Newsroom
 tags: ["korean drama", "television", "exports", "workforce", "tenure", "korea"]
 sources:
@@ -15,8 +19,8 @@ sources:
     url: "https://dart.fss.or.kr"
 crossChecks:
   - "The two sides come from unrelated bodies — a content-industry survey and a securities filing — and are reported here side by side. Neither is derived from the other, and nothing here claims one caused the other"
-  - "Export figures are read as published. Terrestrial exports peaked at $212.1m in 2014 and were $47.7m in 2024; independent producers went from $16.8m in 2012 to $645.6m in 2024, against a total that went from $233.8m to $1,257.2m"
-  - "The four named exporter types do not sum to the published total — 7.6% of 2024 is left unattributed in the source. Shares quoted are of the published total, and the residual is shown rather than folded into a category"
+  - "Export figures are summed from the survey's own export-form breakdown for each company type. Terrestrial exports peaked at $278.5m in 2016 and were $91.0m in 2024; independent producers went from $16.8m in 2012 to $645.6m in 2024, against a total that went from $233.8m to $1,257.2m"
+  - "The four named exporter types now sum to the published total: exactly in 2024 and within $2,000 in every other year, which is rounding. Where the survey publishes its own per-type subtotal — eight cells across 2022 to 2024 — our sum matches it to within $1,000"
   - "Tenure is headcount-weighted within each industry code, from the same field of the same filing for every company: broadcasting 10.33 years across 12 companies and 6,393 staff, film/video/audio production 7.32 across 40 and 10,540, publishing 5.44 across 196 and 51,876. The listed market as a whole is 11.29 across 1.87 million workers"
 excluded:
   - "Any equivalence between the two datasets' categories. The trade survey's 'independent production companies' and the filing's 'film, video and audio production' overlap but are not the same set — one is a survey classification of exporters, the other is a company's own filed industry code, and many independent producers are private and file nothing. The comparison is directional, not a matched pair"
@@ -35,11 +39,11 @@ Korean broadcast programme exports grew from **$233.8m in 2012 to $1.26bn in 202
 
 | | 2012 | 2024 |
 | --- | ---: | ---: |
-| Terrestrial broadcasters | 65.7% | **3.8%** |
+| Terrestrial broadcasters | 81.5% | **7.2%** |
 | Independent production companies | 7.2% | **51.4%** |
-| Cable and satellite channels | 11.2% | 21.1% |
+| Cable and satellite channels | 11.3% | 23.4% |
 
-In money, the terrestrial broadcasters peaked at **$212.1m in 2014** and sold **$47.7m** in 2024. They did not merely lose share to a growing market; they sold less than a third of what they once did, in nominal dollars, while the market around them quintupled.
+In money, the terrestrial broadcasters peaked at **$278.5m in 2016** and sold **$91.0m** in 2024. They did not merely lose share to a growing market; they sold less than a third of what they once did, in nominal dollars, while the market around them quintupled.
 
 ## The workforce
 
