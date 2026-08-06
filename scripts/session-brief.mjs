@@ -49,6 +49,67 @@ const 조용히 = (cmd) => {
 
 /* ⚠ 이 PC 는 KST 다. toISOString() 은 UTC 라 새벽에 하루가 어긋난다. */
 const 지금 = new Date();
+
+/* ── ⓪ 내가 몇 번인가 — **사장님이 말해 주지 않아도 스스로 안다** ──────────
+ *
+ * 사장님 지시(2026-08-07): 「노트북을 리부팅할 수밖에 없어, 세션마다 업무지시를 하느라
+ *   반나절을 쓸 일이 없게 조치해라. 내가 세션마다 번호를 지정하지 않아도
+ *   **저절로 자기 세션번호를 알 수 있게** 해라」
+ *
+ * 어떻게 아나 — 입구 단추(.cmd)가 창을 열 때 `CLAUDE_SEAT` 를 심는다.
+ *   그 값으로 `00_세션입구\역할\N.md` 를 읽어 **역할 카드를 통째로** 브리핑에 넣는다.
+ *   세션 ID 가 바뀌어도, 리부팅을 해도, 새 대화를 열어도 번호와 할 일이 따라온다.
+ *
+ * ⛔ 자리를 **추측하지 않는다.** 심어 준 값이 없으면 없다고 적고 넘어간다 —
+ *   잘못 짚으면 그 세션이 남의 일을 한다. 그게 훨씬 비싸다.
+ */
+const 자리 = (process.env.CLAUDE_SEAT ?? '').trim();
+
+/* 창이 열릴 때 **자기 세션 ID 를 스스로 적어 둔다.**
+ *   입구 단추는 이 파일을 보고 그 자리의 대화를 다시 연다.
+ *   ⭐ 이걸로 「ID 를 표식으로 추측해 찾기」가 필요 없어진다 —
+ *     추측은 8/6 에 1번을 나흘치 떨어뜨릴 뻔했다(4번이 잡았다). 사실을 적어 두는 편이 낫다.
+ *   ⛔ 실패해도 브리핑은 그대로 나간다. 이건 곁다리다. */
+if (/^[1-6]$/.test(자리)) {
+  try {
+    const 들어온것 = JSON.parse(readFileSync(0, 'utf8') || '{}');
+    const id = 들어온것.session_id ?? 들어온것.sessionId;
+    if (id) {
+      const 적을곳 = 'C:/Users/USER/Desktop/00_세션입구/_현재';
+      const { mkdirSync, writeFileSync } = await import('node:fs');
+      mkdirSync(적을곳, { recursive: true });
+      writeFileSync(
+        path.join(적을곳, `${자리}.json`),
+        JSON.stringify({ 자리, id, cwd: 들어온것.cwd ?? process.cwd(), 적은때: 지금.toLocaleString('sv-SE') }, null, 2),
+        'utf8',
+      );
+      /* ⚠ 단추(.cmd)가 읽을 것은 **ID 한 줄뿐인 파일**이다.
+         배치에서 JSON 을 긁으면 따옴표·BOM 에 부서진다(2026-08-07 에 시험하다 겪었다).
+         `set /p` 로 한 줄을 그대로 읽게 둔다. 줄바꿈도 넣지 않는다. */
+      writeFileSync(path.join(적을곳, `${자리}.id`), String(id), 'ascii');
+    }
+  } catch { /* 못 적어도 그만이다 */ }
+}
+
+if (/^[1-6]$/.test(자리)) {
+  const 카드길 = path.join('C:/Users/USER/Desktop/00_세션입구/역할', `${자리}.md`);
+  줄.push(`# 너는 ${자리}번이다 — 사장님께 번호를 여쭙지 않는다`);
+  줄.push('');
+  if (existsSync(카드길)) {
+    줄.push(readFileSync(카드길, 'utf8').trim());
+  } else {
+    줄.push(`⚠ 역할 카드(${카드길})가 없다. 세션간 메모 꼬리에서 [… → ${자리}번] 을 찾아 이어서 한다.`);
+  }
+  줄.push('');
+  줄.push('---');
+  줄.push('');
+} else {
+  줄.push('⚠ **이 창은 자리 번호가 심어져 있지 않다**(`CLAUDE_SEAT` 없음).');
+  줄.push('   바탕화면 `00_세션입구` 의 번호 단추로 열면 번호가 저절로 붙는다.');
+  줄.push('   ⛔ 번호를 스스로 짐작하지 않는다 — 잘못 짚으면 남의 일을 하게 된다.');
+  줄.push('');
+}
+
 줄.push(`# 세션 브리핑 — ${지금.toLocaleString('sv-SE')} KST (자동 생성)`);
 줄.push('');
 줄.push('사장님이 말로 브리핑하지 않아도 되도록 훅이 자동으로 넣은 것이다.');
