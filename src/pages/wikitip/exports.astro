@@ -60,7 +60,7 @@ const jsonLd = {
     <h2>The last year, and the first</h2>
     <p class="sub">
       {data.yearTo}: <b>${(최신.total / 1000).toLocaleString('en-US', { maximumFractionDigits: 1 })}m</b> in total ·
-      {data.yearFrom}: <b>${(처음.total / 1000).toLocaleString('en-US', { maximumFractionDigits: 1 })}m</b> ·
+      {data.yearFrom}: <b>${(처음.total / 1000).toLocaleString('en-US', { maximumFractionDigits: 1 })}m</b> ·{' '}
       <b>{(최신.total / 처음.total).toFixed(0)}×</b> over {data.yearTo - data.yearFrom} years
     </p>
     <p class="note">
