@@ -1,0 +1,117 @@
+---
+/**
+ * K Culture Wire — 한국 작품 글로벌 넷플릭스 총 시청시간 카탈로그. (/watched)
+ * 데이터: src/data/wikitip-global.json (scripts/build-wikitip-global.mjs).
+ * /titles(동남아 도달)와 다른 축 — 전 세계 hours viewed. 첫 화면은 상위 10만.
+ * 라이선스: 넷플릭스 Tudum 글로벌 순위. 원본 표 재배포 없이 집계(합)만. canonical=www.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import data from '../../data/wikitip-global.json';
+
+const TITLE = 'The most-watched Korean titles on Netflix, worldwide';
+const DESC =
+  `Korean shows and films have been watched for ${(data.totalHours / 1e9).toFixed(0)} billion hours on Netflix `
+  + `worldwide since 2021 — ${data.titleCount} titles reached the global Top 10. This is the ranking by hours, `
+  + `from Netflix’s own weekly figures.`;
+
+const rows = data.rows;
+const maxHours = rows[0].hours;
+const fmtH = (h) => (h >= 1e9 ? `${(h / 1e9).toFixed(2)}bn` : `${Math.round(h / 1e6)}m`);
+const squidShare = Math.round((rows[0].hours / data.totalHours) * 100);
+const series = rows.filter((r) => r.kind === 'series').length;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean titles by global Netflix hours viewed, 2021–2026',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  temporalCoverage: `${data.weekFrom}/${data.weekTo}`,
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://query.wikidata.org/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/watched">
+  <h1>The most-watched Korean titles on Netflix, worldwide</h1>
+  <p class="lead">
+    Since {data.weekFrom.slice(0, 4)}, Korean shows and films that reached Netflix’s global Top 10
+    have been watched for <b>{(data.totalHours / 1e9).toFixed(1)} billion hours</b> — across
+    {data.titleCount} titles and {data.weekCount} weeks. Here is the ranking by hours viewed.
+  </p>
+
+  <section class="stats">
+    <div><b>{(data.totalHours / 1e9).toFixed(1)}bn</b><span>hours viewed</span></div>
+    <div><b>{data.titleCount}</b><span>titles in the global Top 10</span></div>
+    <div><b>{squidShare}%</b><span>from the single biggest title</span></div>
+    <div><b>{series} / {rows.length - series}</b><span>series / films in the top {rows.length}</span></div>
+  </section>
+
+  <section>
+    <h2>Ranked by hours viewed, worldwide</h2>
+    <p class="sub">
+      Total global hours viewed, summed from Netflix’s weekly Top 10 since {data.weekFrom}.
+      Showing the top {rows.length} of {data.titleCount}.
+    </p>
+    <ul class="rows">
+      {rows.map((r) => (
+        <li>
+          <span class="bar" style={`--w:${(r.hours / maxHours) * 100}%`}></span>
+          <span class="nm">{r.title}</span>
+          <span class="meta">
+            <b>{fmtH(r.hours)}</b> hours · peaked #{r.peak} · {r.weeks} weeks · {r.kind}
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li>
+        <b>Netflix Top 10 (Tudum)</b> — the official global weekly lists, which publish hours
+        viewed for each title. We sum those weekly hours; we do not estimate any of them.
+      </li>
+      <li>
+        <b>Wikidata</b> — a title counts as Korean when its country-of-origin field (P495) lists
+        South Korea. The data decides inclusion, not us.
+      </li>
+    </ul>
+    <p class="note">
+      <b>Hours viewed is not quality, and not audience size.</b> A long series accumulates hours a
+      film cannot, and one enormous title can dwarf the rest — {squidShare}% of all these hours come
+      from a single show. Netflix is also not streaming: a title absent here may be strong elsewhere.
+    </p>
+    <p class="note">
+      The front page shows the current all-time top ten; this is the full ranking. Counts derived
+      from Netflix’s published figures, not a copy of them. Updated {data.generated} KST.
+    </p>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2rem; }
+  section { margin: 0 0 3rem; }
+  h2 { font-size: 1.12rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin: 0 0 2.5rem; }
+  .stats div { background: var(--card); border-radius: 8px; padding: 1rem; }
+  .stats b { display: block; font-size: 1.5rem; letter-spacing: -.02em; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .stats span { font-size: .82rem; color: var(--muted); }
+  @media (min-width: 34rem) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .rows { list-style: none; padding: 0; margin: 0; }
+  .rows li { position: relative; overflow: hidden; padding: .6rem .8rem; border-bottom: 1px solid var(--line); }
+  .bar { position: absolute; left: 0; top: 0; bottom: 0; width: var(--w); background: var(--card); border-radius: 0 4px 4px 0; }
+  .nm, .meta { position: relative; }
+  .nm { display: block; font-weight: 600; line-height: 1.35; }
+  .meta { display: block; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .meta b { color: var(--accent); }
+  .src ul { padding-left: 1.1rem; margin: 0; font-size: .9rem; }
+  .src li { margin: 0 0 .4rem; line-height: 1.6; }
+  .back { margin-top: 3rem; font-size: .9rem; }
+  .back a { color: var(--muted); }
+</style>
