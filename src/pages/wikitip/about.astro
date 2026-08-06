@@ -29,11 +29,11 @@ const DESC =
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'AboutPage',
-  url: 'https://wiki-tip.com/about',
+  url: 'https://www.kculturewire.com/about',
   mainEntity: {
     '@type': 'Organization',
     name: 'K Culture Wire',
-    url: 'https://wiki-tip.com/',
+    url: 'https://www.kculturewire.com/',
     parentOrganization: {
       '@type': 'Organization',
       legalName: PUBLISHER.legalName,
@@ -54,7 +54,7 @@ const jsonLd = {
     → NS 가 kami/keenan 으로 바뀌고 `curl https://wiki-tip.com/about` 이 200 이 되면
       이 파일에서 `noindex` 를 빼고 canonical 을 되살린다. 둘을 같이 푼다.
 */}
-<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} noindex>
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/about">
   <h1>About &amp; methodology</h1>
   <p class="lead">
     K Culture Wire counts what public datasets already publish about Korean pop culture, names every

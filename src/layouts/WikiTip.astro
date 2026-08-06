@@ -43,6 +43,7 @@ const 제목 = `${title} | K Culture Wire`;
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="K Culture Wire" />
   {canonical && <link rel="canonical" href={canonical} />}
+  {canonical && <meta property="og:url" content={canonical} />}
   {noindex && <meta name="robots" content="noindex" />}
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   <style>
