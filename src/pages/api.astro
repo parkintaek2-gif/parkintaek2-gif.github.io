@@ -224,7 +224,7 @@ const jsonLd = {
           <li>
             <code>brokerEntity</code> — a stable id per legal entity. One firm appears under up to
             four Korean names in this archive: 이트레이드증권 became 이베스트투자증권 in 2015 and LS증권 in
-            2024. Counted separately it ranked 7th with 3,674 reports; grouped correctly it has
+            2024. Counted separately it ranked 7th with 3,674 reports; grouped correctly it has{' '}
             <strong>5,965</strong>. Any ranking that misses this is simply wrong.
           </li>
           <li>
@@ -269,7 +269,7 @@ const jsonLd = {
           — scraping harder cannot, because what is not there is not there.
         </p>
         <p class="api-note">
-          Two more things we would rather tell you than have you discover: the archive is
+          Two more things we would rather tell you than have you discover: the archive is{' '}
           <strong>sparse before 2014</strong> — 11 records in 2007, then a gap through 2013, dense
           from 2014 onward. And <code>targetPrice</code> is <code>null</code> for 4,164 records
           because credit-rating and IR bodies publish analysis without one; <code>brokerType</code>
@@ -364,7 +364,7 @@ const jsonLd = {
         </p>
         <p>
           Both surface the <code>resolved</code> flag rather than hiding it, and both raise a typed
-          error carrying the server's own reason code — so your code can tell
+          error carrying the server's own reason code — so your code can tell{' '}
           <em>not collected yet</em> apart from <em>no trade occurred</em>. That distinction is the
           whole reason these clients read the error envelope instead of the status line.
         </p>

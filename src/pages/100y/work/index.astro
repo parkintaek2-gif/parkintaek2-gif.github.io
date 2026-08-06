@@ -135,7 +135,7 @@ const desc =
     </table>
   </div>
   <p class="note">
-    순위가 아닙니다. 1년 뒤 비율이 높은 쪽을 위에 놓은 것뿐입니다.
+    순위가 아닙니다. 1년 뒤 비율이 높은 쪽을 위에 놓은 것뿐입니다.{' '}
     <strong>학교 유형이 다르면 하는 일도 다릅니다</strong> — 그것만으로 크게 갈립니다.
   </p>
 
@@ -146,7 +146,7 @@ const desc =
     <p class="note">
       나라가 <strong>학교 하나하나의 유지취업률을 내놓지 않습니다.</strong> 학교유형 전체 값만 냅니다.
       그래서 저희 지면에 붙어 있는 값도 <strong>{취업있음.length}곳에 {벌목록.length}가지</strong>뿐입니다 —
-      {' '}{벌목록.map((v) => `${v.적용단위.replace(' 전체', '')} ${v.곳}곳`).join(' · ')}.
+      {' '}{벌목록.map((v) => `${v.적용단위.replace(' 전체', '')} ${v.곳}곳`).join(' · ')}.{' '}
       <strong>이 숫자로 학교를 고르실 수는 없습니다.</strong> 「이 길이 대체로 어떤 길인가」까지입니다.
     </p>
   </div>
@@ -155,7 +155,7 @@ const desc =
 
   <h2>학교를 보시려면</h2>
   <p class="note">
-    지금 <a href="/school">학교 찾기</a>에 이 길의 학교
+    지금 <a href="/school">학교 찾기</a>에 이 길의 학교{' '}
     <strong>{취업있음.length.toLocaleString()}곳</strong>이 들어 있습니다.
     학교마다 어떤 학과가 있는지 보실 수 있습니다.
   </p>
