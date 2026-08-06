@@ -93,8 +93,12 @@ if (/^[1-6]$/.test(자리)) {
 
 if (/^[1-6]$/.test(자리)) {
   const 카드길 = path.join('C:/Users/USER/Desktop/00_세션입구/역할', `${자리}.md`);
+  const 공통길 = path.join('C:/Users/USER/Desktop/00_세션입구/역할', '공통.md');
   줄.push(`# 너는 ${자리}번이다 — 사장님께 번호를 여쭙지 않는다`);
   줄.push('');
+  /* 공통 규칙이 자리 카드보다 **먼저**다. 보고 시각·소통 주기·0시 계획이 여기 있고,
+     여섯 자리가 어긋나면 그건 규칙이 아니라 소문이 된다. */
+  if (existsSync(공통길)) { 줄.push(readFileSync(공통길, 'utf8').trim()); 줄.push(''); 줄.push('---'); 줄.push(''); }
   if (existsSync(카드길)) {
     줄.push(readFileSync(카드길, 'utf8').trim());
   } else {
