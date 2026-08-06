@@ -133,6 +133,20 @@ async function 새주소찾기(최대 = 3) {
   const 뿌리 = path.resolve('dist');
   if (!existsSync(뿌리)) return [];
 
+  // ⚠ **dist 가 마지막 커밋보다 낡았으면 판정에 쓸 수 없다.**
+  //   컨테이너는 저장소를 받아 새로 빌드하는데 내 dist 는 그대로라, 옆 세션이 새로 낸 지면이
+  //   내 dist 에 없다. 그러면 「새로 나갈 지면이 없다」로 잘못 읽는다.
+  //   2026-08-07 03:0x 에 실제로 그렇게 읽었다 — 5번의 새 지면 두 장을 못 봤다.
+  try {
+    const { statSync } = await import('node:fs');
+    const 빌드때 = statSync(path.join(뿌리, 'index.html')).mtimeMs;
+    const 커밋때 = Number(execFileSync('git', ['log', '-1', '--format=%ct'], { encoding: 'utf8' }).trim()) * 1000;
+    if (커밋때 > 빌드때) {
+      console.log('⚠ dist 가 마지막 커밋보다 낡았다 — 지면으로 판정하려면 먼저 `npx astro build` 를 한다.');
+      return [];
+    }
+  } catch { /* 못 재면 그냥 간다 */ }
+
   // ① 라이브 사이트맵 셋을 받아 **지금 나가 있는 주소**를 모은다. 요청 세 번이면 된다.
   //    ⛔ dist 의 지면을 하나씩 찔러 보지 않는다 — 3,900 번을 쏘게 된다.
   const 호스트들 = ['https://seoulmarkets.com', 'https://100yearmap.com', 'https://www.kculturewire.com'];
