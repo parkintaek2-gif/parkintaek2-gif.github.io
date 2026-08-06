@@ -3,9 +3,16 @@ import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
+import { 짧은지역명 } from '../../lib/region';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
+
+/** 지역 지면의 주소는 `짧은지역명` 이다. `region/[slug].astro` 의 getStaticPaths 와 **같은 데서 뽑는다** —
+ *  한쪽에 손으로 적어 두면 지역 이름이 바뀔 때 사이트맵만 옛 주소를 가리키게 된다 */
+const 지역들 = [
+  ...new Set((schools as any[]).map((s) => 짧은지역명(s.지역)).filter(Boolean)),
+];
 
 /**
  * 백년지도 사이트맵.
@@ -68,6 +75,16 @@ export const GET: APIRoute = () => {
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
     { path: '/research', priority: '0.7', changefreq: 'monthly' },
     { path: '/data', priority: '0.8', changefreq: 'weekly' },
+    /* 지역으로 보기 — 「경기도 고등학교」처럼 **지역으로 찾는 검색**을 받는 자리다.
+       ⭐ 이번에도 검사가 먼저 잡았다(2026-08-06 17:0x). 지면을 만들고 이 줄을 잊었더니
+          `check:100y:launch` 가 「검색엔 열렸는데 사이트맵에 없다 — /region」으로 세웠다.
+          `/after` 때와 **똑같은 실수**다. 고정 지면을 만들면 여기부터 온다. */
+    { path: '/region', priority: '0.8', changefreq: 'monthly' },
+    ...지역들.map((지역) => ({
+      path: `/region/${지역}`,
+      priority: '0.7',
+      changefreq: 'monthly',
+    })),
     // 학과가 학교보다 앞이다. 「어떤 길인가」가 「어느 학교인가」보다 먼저 오는 질문이다
     ...(majors as any[]).map((m) => ({
       path: m.url as string,

@@ -1,0 +1,107 @@
+---
+/**
+ * /100y/region — 지역으로 보기
+ *
+ * 왜 만드나 — **지역으로 찾는 검색을 받을 지면이 없었다.** 「경기도 고등학교」·「부산 대학교」로
+ *   들어오는 사람이 도달할 자리가 우리 사이트에 한 곳도 없었다. 검색이 유일한 유통 경로다.
+ *
+ * ⛔ **지역을 숫자로 줄세우지 않는다.** 가나다순이다.
+ *    학교가 많은 순으로 놓으면 그것이 곧 등수가 된다 — 「학교 찾기」가 크기 순인 것은
+ *    2,525곳을 접어 두려는 것이고, 여기는 지역 자체가 주인공이라 다르다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import schools from '../../../data/100yearmap/pages-school.json';
+import universities from '../../../data/100yearmap/pages-university.json';
+import 중단원본 from '../../../data/100yearmap/school-dropout.json';
+import 폐교원본 from '../../../data/100yearmap/closed-universities.json';
+import { 지역요약만들기 } from '../../../lib/region-page';
+
+const 지역들 = [...new Set((schools as any[]).map((s) => s.지역).filter(Boolean))];
+
+const 요약들 = 지역들
+  .map((고교지역) =>
+    지역요약만들기({
+      고교지역,
+      학교들: schools as any[],
+      대학들: universities as any[],
+      중단자료: (중단원본 as any).자료,
+      폐교자료: (폐교원본 as any).자료,
+    })
+  )
+  // 가나다순 — 등수로 읽히지 않게
+  .sort((a, b) => a.짧은.localeCompare(b.짧은, 'ko'));
+
+const 고교합 = 요약들.reduce((n, r) => n + r.고교수, 0);
+const 대학합 = 요약들.reduce((n, r) => n + r.대학수, 0);
+
+const desc =
+  `전국 17개 시·도의 고등학교 ${고교합.toLocaleString()}곳과 대학 ${대학합.toLocaleString()}곳을 ` +
+  `지역별로 모았습니다. 지역마다 대학 취업률·중도탈락률·고교 학업중단률이 전국 평균과 얼마나 다른지 볼 수 있습니다.`;
+---
+
+<HundredYear title="지역으로 보기" description={desc}>
+  <h1>지역으로 보기</h1>
+  <p class="sub">
+    시·도 <strong>17곳</strong>입니다. 고등학교 {고교합.toLocaleString()}곳 · 대학 {대학합.toLocaleString()}곳을
+    지역으로 묶었습니다.
+  </p>
+
+  <p class="note">
+    ⛔ 지역을 등수로 놓지 않았습니다. <strong>가나다순</strong>입니다.
+    숫자는 등수가 아니라 <strong>전국 평균에서 얼마나 떨어져 있는지</strong>만 적습니다.
+  </p>
+
+  <ul class="regions">
+    {
+      요약들.map((r) => (
+        <li>
+          <a href={href(`/region/${r.짧은}`)}>{r.짧은}</a>
+          <span class="note">
+            고교 {r.고교수.toLocaleString()}곳 · 대학 {r.대학수}곳
+            {r.폐교.length > 0 && <> · 문 닫은 학교 {r.폐교.length}곳</>}
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <hr class="rule" />
+  <p class="note">
+    출처 — 고등학교는 교육부 NEIS 교육정보 개방 포털, 대학은 대학알리미, 학업중단은 학교알리미,
+    문 닫은 학교는 한국사학진흥재단입니다.
+    지역은 <strong>학교를 관할하는 교육청</strong> 기준이라 주소와 다를 수 있습니다.
+  </p>
+  <p class="note">
+    ⚠ 네 자료가 시·도 이름을 <strong>서로 다르게</strong> 적습니다(예: 「전남광주통합특별시(광주)」와 「광주」).
+    비슷한 글자로 짐작해 잇지 않고 <strong>표로 못 박아</strong> 이었습니다.
+  </p>
+</HundredYear>
+
+<style>
+  .regions {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0 0;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 30rem) {
+    .regions {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 1rem;
+    }
+  }
+  .regions li {
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .regions li a {
+    min-height: 24px;
+    font-weight: 600;
+  }
+</style>
