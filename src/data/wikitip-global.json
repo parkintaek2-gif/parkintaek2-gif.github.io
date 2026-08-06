@@ -1,11 +1,32 @@
 {
-  "generated": "2026. 8. 6. 오후 12:33:38",
-  "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884)",
+  "generated": "2026. 8. 7. 오전 6:19:27",
+  "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 294,
-  "totalHours": 27715940000,
+  "titleCount": 237,
+  "totalHours": 23817940000,
+  "before": {
+    "titles": 294,
+    "hours": 27715940000
+  },
+  "excludedEnglishChart": {
+    "titles": 52,
+    "hours": 2627290000
+  },
+  "excludedByHand": {
+    "titles": 7,
+    "hours": 1270710000,
+    "list": [
+      "Teach You a Lesson",
+      "The Empress",
+      "Fighter",
+      "Animal",
+      "Forgotten Love",
+      "Paradise",
+      "Hunger"
+    ]
+  },
   "rows": [
     {
       "title": "Squid Game",
@@ -34,13 +55,6 @@
       "hours": 653900000,
       "peak": 1,
       "weeks": 15
-    },
-    {
-      "title": "Teach You a Lesson",
-      "kind": "series",
-      "hours": 643200000,
-      "peak": 1,
-      "weeks": 8
     },
     {
       "title": "The Glory",
@@ -99,13 +113,6 @@
       "weeks": 11
     },
     {
-      "title": "The Perfect Couple",
-      "kind": "series",
-      "hours": 331000000,
-      "peak": 1,
-      "weeks": 6
-    },
-    {
       "title": "Dynamite Kiss",
       "kind": "series",
       "hours": 314600000,
@@ -118,13 +125,6 @@
       "hours": 300580000,
       "peak": 2,
       "weeks": 16
-    },
-    {
-      "title": "The Empress",
-      "kind": "series",
-      "hours": 292800000,
-      "peak": 1,
-      "weeks": 11
     },
     {
       "title": "When the Phone Rings",
@@ -176,20 +176,6 @@
       "weeks": 7
     },
     {
-      "title": "Run Away",
-      "kind": "series",
-      "hours": 238700000,
-      "peak": 2,
-      "weeks": 4
-    },
-    {
-      "title": "One Day",
-      "kind": "series",
-      "hours": 225600000,
-      "peak": 1,
-      "weeks": 7
-    },
-    {
       "title": "Gyeongseong Creature",
       "kind": "series",
       "hours": 204100000,
@@ -230,13 +216,6 @@
       "hours": 174400000,
       "peak": 3,
       "weeks": 9
-    },
-    {
-      "title": "Missing You",
-      "kind": "series",
-      "hours": 172100000,
-      "peak": 1,
-      "weeks": 4
     },
     {
       "title": "The WONDERfools",
@@ -302,13 +281,6 @@
       "weeks": 8
     },
     {
-      "title": "Echoes",
-      "kind": "series",
-      "hours": 144960000,
-      "peak": 1,
-      "weeks": 4
-    },
-    {
       "title": "Sold Out on You",
       "kind": "series",
       "hours": 141600000,
@@ -356,6 +328,55 @@
       "hours": 133100000,
       "peak": 1,
       "weeks": 5
+    },
+    {
+      "title": "Narco-Saints",
+      "kind": "series",
+      "hours": 130350000,
+      "peak": 1,
+      "weeks": 5
+    },
+    {
+      "title": "Our Beloved Summer",
+      "kind": "series",
+      "hours": 128890000,
+      "peak": 4,
+      "weeks": 8
+    },
+    {
+      "title": "Tastefully Yours",
+      "kind": "series",
+      "hours": 128000000,
+      "peak": 2,
+      "weeks": 6
+    },
+    {
+      "title": "The Price of Confession",
+      "kind": "series",
+      "hours": 127500000,
+      "peak": 1,
+      "weeks": 4
+    },
+    {
+      "title": "The Guest",
+      "kind": "series",
+      "hours": 125300000,
+      "peak": 6,
+      "weeks": 4
+    },
+    {
+      "title": "Sweet Home",
+      "kind": "series",
+      "hours": 123400000,
+      "peak": 2,
+      "weeks": 5
+    },
+    {
+      "title": "The Good Bad Mother",
+      "kind": "series",
+      "hours": 122850000,
+      "peak": 3,
+      "weeks": 7
     }
   ]
 }

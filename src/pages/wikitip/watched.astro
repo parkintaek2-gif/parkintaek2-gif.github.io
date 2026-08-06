@@ -10,7 +10,7 @@ import data from '../../data/wikitip-global.json';
 
 const TITLE = 'The most-watched Korean titles on Netflix, worldwide';
 const DESC =
-  `Korean shows and films have been watched for ${(data.totalHours / 1e9).toFixed(0)} billion hours on Netflix `
+  `Korean shows and films have been watched for ${(data.totalHours / 1e9).toFixed(1)} billion hours on Netflix `
   + `worldwide since 2021 — ${data.titleCount} titles reached the global Top 10. This is the ranking by hours, `
   + `from Netflix’s own weekly figures.`;
 
@@ -37,6 +37,15 @@ const jsonLd = {
     Since {data.weekFrom.slice(0, 4)}, Korean shows and films that reached Netflix’s global Top 10
     have been watched for <b>{(data.totalHours / 1e9).toFixed(1)} billion hours</b> — across
     {data.titleCount} titles and {data.weekCount} weeks. Here is the ranking by hours viewed.
+  </p>
+
+  <p class="fix">
+    <b>Corrected 2026-08-07.</b> This page previously counted {data.before.titles} titles
+    and {(data.before.hours / 1e9).toFixed(1)} billion hours.
+    Korean titles are matched by title text, and {data.excludedEnglishChart.titles} titles on Netflix's
+    <i>English-language</i> charts — including <i>The Perfect Couple</i> and <i>Suits</i> — had been counted as Korean.
+    Only the Non-English charts are counted now, and hand-checking the largest titles removed {data.excludedByHand.titles} more.
+    The totals fall by {(100 * (1 - data.totalHours / data.before.hours)).toFixed(0)}%.
   </p>
 
   <section class="stats">
@@ -94,6 +103,10 @@ const jsonLd = {
 <style>
   h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
   .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2rem; }
+  /* 정정은 눈에 띄되 본문을 밀어내지 않는 자리에 둔다. 숨기지 않는다. */
+  .fix { font-size: .82rem; line-height: 1.65; color: var(--muted); margin: -1rem 0 2rem;
+         padding: .75rem .9rem; background: var(--card); border-radius: 8px; }
+  .fix b { color: var(--ink); }
   section { margin: 0 0 3rem; }
   h2 { font-size: 1.12rem; margin: 0 0 .3rem; letter-spacing: -.01em; }
   .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }

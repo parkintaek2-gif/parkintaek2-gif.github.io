@@ -1,0 +1,249 @@
+---
+/**
+ * K Culture Wire — 한국 작품 중 드라마와 영화가 세계에서 각각 얼마나 보이나. (/screen-split)
+ *
+ * ── 왜 이 지면인가 ─────────────────────────────────────────────
+ * `kind`(드라마/영화)는 `/watched` 표에 **글자로 찍히기만 했지 한 번도 합해진 적이 없다.**
+ * `/staying-power` 도 칸에 적기만 한다. 「무엇이 오래 가나」는 세었어도
+ * **「어느 쪽이 나가나」는 안 세었다.** 같은 자료의 안 쓰던 축이다.
+ *
+ * ── 🔴 이 지면은 정정 위에 서 있다 ────────────────────────────
+ * 판정을 제목 글자로만 하다 보니 넷플릭스 **영어 차트** 작품까지 한국 것으로 세고 있었다.
+ * 52편·26.3억 시간. 거기에 손으로 확인해 7편을 더 뺐다.
+ * 277억 → 238억 시간(-14%). `/watched` 와 기사도 같이 고쳤다.
+ * 자세한 것은 scripts/build-wikitip-global.mjs 머리말.
+ *
+ * ⛔ 손으로 본 것은 드라마 상위 30편·영화 상위 20편까지다. **그 아래는 안 봤다.** 지면에 적는다.
+ * ⛔ 영화가 짧은 것은 원래 그렇다(한 번 보면 끝). 그래서 **편당 시간과 1위 도달률을 같이** 놓는다.
+ *    「영화가 못한다」로 쓰지 않는다. 시간당으로도 8배 차인 것만 적는다.
+ * ⛔ 광고 자리를 만들지 않았다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import data from '../../data/wikitip-screen-split.json';
+
+const TITLE = 'Korea exports television to the world, not film';
+const DESC =
+  'Korean series and films reach Netflix’s global Top 10 at similar rates — 151 series against 86 films over '
+  + 'five years — but the series account for 22.3 billion hours of viewing and the films for 1.5 billion.';
+
+const s = data.series;
+const f = data.film;
+const bn = (h: number) => `${(h / 1e9).toFixed(2)}bn`;
+const m = (h: number) => `${Math.round(h / 1e6)}m`;
+const oneRate = (x: { numberOnes: number; titles: number }) =>
+  ((x.numberOnes / x.titles) * 100).toFixed(1);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: `${data.weekFrom}/${data.weekTo}`,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/screen-split">
+  <h1>Korea exports television to the world, not film</h1>
+  <p class="lead">
+    Netflix has published a global Top 10 every week since July 2021. Over {data.weekCount} weeks,
+    {s.titles + f.titles} Korean titles reached it. Split them the way Netflix splits its own charts —
+    series on one side, films on the other — and the two sides are not the same business.
+  </p>
+
+  <section>
+    <h2>Similar number of titles. Fifteen times the viewing.</h2>
+    <div class="flip">
+      <div>
+        <span class="lab">Series</span>
+        <span class="big">{bn(s.hours)}</span>
+        <span class="det">
+          {s.titles} titles, {m(s.hoursPerTitle)} hours each on average, {s.weeksPerTitle} weeks on
+          the chart each. {s.numberOnes} of them reached number one.
+        </span>
+      </div>
+      <div>
+        <span class="lab">Films</span>
+        <span class="big">{bn(f.hours)}</span>
+        <span class="det">
+          {f.titles} titles, {m(f.hoursPerTitle)} hours each, {f.weeksPerTitle} weeks each.
+          {f.numberOnes} of them reached number one.
+        </span>
+      </div>
+    </div>
+    <p class="note">
+      Korea puts a film on the global chart for every {data.ratioTitles} series it puts there, and
+      collects <b>{data.ratioHours}×</b> the hours from the series side. Per title the gap is{' '}
+      <b>{data.ratioPerTitle}×</b>.
+    </p>
+  </section>
+
+  <section>
+    <h2>The films are not failing to get noticed</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th>&nbsp;</th><th>Titles</th><th>Reached #1</th><th>Rate</th>
+            <th>Weeks each</th><th>Hours each</th><th>Hours per week on chart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="me">
+            <td class="nm">Series</td>
+            <td>{s.titles}</td><td>{s.numberOnes}</td><td class="tot">{oneRate(s)}%</td>
+            <td>{s.weeksPerTitle}</td><td>{m(s.hoursPerTitle)}</td><td>{m(s.hoursPerWeek)}</td>
+          </tr>
+          <tr>
+            <td class="nm">Films</td>
+            <td>{f.titles}</td><td>{f.numberOnes}</td><td class="tot">{oneRate(f)}%</td>
+            <td>{f.weeksPerTitle}</td><td>{m(f.hoursPerTitle)}</td><td>{m(f.hoursPerWeek)}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      A quarter of the Korean films that chart at all go to number one — close to the series rate.
+      Getting attention is not where the two diverge. What the films do not do is stay: {f.weeksPerTitle} weeks
+      against {s.weeksPerTitle}. Some of that is what a film is — you watch it once — which is why the
+      last column divides by weeks anyway, and the gap is still <b>{(s.hoursPerWeek / f.hoursPerWeek).toFixed(1)}×</b> in
+      the week each is actually on the chart.
+    </p>
+  </section>
+
+  <section>
+    <h2>One title does not explain it</h2>
+    <p class="sub">
+      <i>Squid Game</i> alone is {bn(data.series.top[0].hours)} hours, a fifth of everything Korean on this
+      chart. Take it out entirely and the series side still carries the comparison.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>&nbsp;</th><th>Titles</th><th>Hours</th><th>Hours per title</th><th>vs films</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="nm">All series</td><td>{s.titles}</td><td>{bn(s.hours)}</td>
+            <td>{m(s.hoursPerTitle)}</td><td class="tot">{data.ratioPerTitle}×</td></tr>
+          <tr><td class="nm">Series without <i>Squid Game</i></td><td>{data.withoutSquidGame.titles}</td>
+            <td>{bn(data.withoutSquidGame.hours)}</td><td>{m(data.withoutSquidGame.hoursPerTitle)}</td>
+            <td class="tot">{data.withoutSquidGame.ratioPerTitle}×</td></tr>
+          <tr><td class="nm">Films</td><td>{f.titles}</td><td>{bn(f.hours)}</td>
+            <td>{m(f.hoursPerTitle)}</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Removing the biggest title in the catalogue moves the per-title gap from {data.ratioPerTitle}× to{' '}
+      {data.withoutSquidGame.ratioPerTitle}×. It does not close it. This is the shape of the catalogue,
+      not one outlier.
+    </p>
+  </section>
+
+  <section>
+    <h2>The biggest of each</h2>
+    <div class="two">
+      <div>
+        <h3>Series</h3>
+        <ol>
+          {s.top.slice(0, 8).map((r) => (
+            <li><span class="t">{r.title}</span><span class="v">{m(r.hours)} · {r.weeks}w</span></li>
+          ))}
+        </ol>
+      </div>
+      <div>
+        <h3>Films</h3>
+        <ol>
+          {f.top.slice(0, 8).map((r) => (
+            <li><span class="t">{r.title}</span><span class="v">{m(r.hours)} · {r.weeks}w</span></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+    <p class="note">
+      The largest Korean film in five years, <i>{f.top[0].title}</i> at {m(f.top[0].hours)} hours, has
+      been out-watched by {data.seriesAboveTopFilm} separate Korean series.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li><b>Netflix</b> — Top 10 weekly global hours viewed (Tudum), {data.weekCount} consecutive weeks from {data.weekFrom} to {data.weekTo}. 출처: 넷플릭스 Tudum 주간 글로벌 Top 10.</li>
+      <li>
+        <b>Korean titles are identified by Wikidata</b> country of origin (P495 = Q884), matched on
+        title text. n = {s.titles + f.titles} titles, {s.weeks + f.weeks} title-weeks on the chart.
+      </li>
+      <li>
+        <b>🔴 Corrected 2026-08-07.</b> Title-text matching had counted {data.excludedEnglishChart.titles} titles
+        from Netflix's <i>English-language</i> charts as Korean — {bn(data.excludedEnglishChart.hours)} hours,
+        including <i>The Perfect Couple</i>, <i>Suits</i> and <i>Hit Man</i>, none of them Korean. Netflix splits its
+        charts by a title's primary language, so only the Non-English charts are counted here.
+      </li>
+      <li>
+        <b>Hand-checked as far as {data.audited.tv} series and {data.audited.film} films</b> by hours —
+        about two-thirds of the hours on each side. That removed {data.excludedByHand.titles} more titles
+        ({data.excludedByHand.list.join(', ')}). <b>Below that line nothing has been checked by eye</b>, so
+        same-name collisions remain in the tail. They are small by construction, and we are not claiming
+        otherwise.
+      </li>
+      <li>
+        <b>Series and films are Netflix's own categories</b>, not ours. A limited series is TV here
+        because Netflix charts it as TV.
+      </li>
+      <li>
+        <b>Only the top ten exists in this data.</b> A Korean film watched widely that never breaks the
+        weekly top ten contributes nothing above. This measures the top of the chart, not Korean viewing.
+      </li>
+      <li>
+        <b>Nothing here says why.</b> Release strategy, how many films Korea makes for Netflix at all,
+        and the recommendation weighting behind a chart position are none of them in the published data.
+      </li>
+    </ul>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { margin: 0 0 .5rem; font-size: 1.7rem; letter-spacing: -.02em; }
+  .lead { margin: 0 0 2rem; font-size: 1rem; color: var(--muted); }
+  section { margin: 0 0 2.5rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; line-height: 1.4; }
+  h3 { font-size: .8rem; margin: 0 0 .5rem; letter-spacing: .04em; text-transform: uppercase;
+       color: var(--muted); }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  .flip { display: grid; gap: .8rem; grid-template-columns: 1fr; }
+  @media (min-width: 34rem) { .flip { grid-template-columns: 1fr 1fr; } }
+  .flip > div { background: var(--card); border-radius: 8px; padding: .9rem 1rem; }
+  .lab { display: block; font-size: .76rem; letter-spacing: .04em; text-transform: uppercase;
+         color: var(--muted); font-weight: 700; }
+  .big { display: block; font-size: 1.6rem; font-weight: 700; margin: .25rem 0 .35rem;
+         letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .det { display: block; font-size: .78rem; color: var(--muted); line-height: 1.55; }
+
+  .two { display: grid; gap: 1.2rem; grid-template-columns: 1fr; }
+  @media (min-width: 34rem) { .two { grid-template-columns: 1fr 1fr; } }
+  .two ol { margin: 0; padding-left: 1.2rem; font-size: .84rem; line-height: 1.5; }
+  .two li { margin: .3rem 0; }
+  .two .t { display: block; }
+  .two .v { display: block; color: var(--muted); font-size: .76rem;
+            font-variant-numeric: tabular-nums; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th, td { padding: .45rem .55rem; border-bottom: 1px solid var(--line); text-align: right;
+           white-space: nowrap; font-variant-numeric: tabular-nums; }
+  th { font-size: .71rem; letter-spacing: .03em; text-transform: uppercase; color: var(--muted);
+       font-weight: 700; }
+  th:first-child, td.nm { text-align: left; white-space: normal; }
+  td.tot { font-weight: 700; }
+  tr.me td { background: var(--card); }
+
+  .src ul { margin: 0; padding-left: 1.1rem; font-size: .85rem; color: var(--muted); line-height: 1.7; }
+  .src li { margin: .45rem 0; }
+  .src b { color: var(--ink); }
+  .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>
