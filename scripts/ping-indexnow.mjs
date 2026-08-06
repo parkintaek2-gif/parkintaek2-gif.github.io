@@ -61,7 +61,15 @@ const 사이트들 = {
     폴더: '100y/',                               // dist/100y/
     고르기: (f) => f === 'sitemap.xml',          // 한 장
   },
-  // ⬜ kculturewire.com — 5번 쪽에 아직 사이트맵이 없다(8/6 확인). 생기면 여기 한 줄 더한다
+  /* ⚠ **호스트를 `www.` 로 적는다.** 정식 주소가 그것이다(2026-08-06).
+   *   Cloudtype 은 CNAME 을 요구하는데 Spaceship 은 루트 CNAME 을 A 로 바꿔 응답해서
+   *   **루트(kculturewire.com)는 두 시스템이 영원히 만나지 않는다.** www 로만 붙는다.
+   *   IndexNow 는 `host` 와 URL 의 호스트가 어긋나면 **422** 를 준다. 사이트맵도 www 다. */
+  'www.kculturewire.com': {
+    이름: 'K Culture Wire',
+    폴더: 'wikitip/',                            // dist/wikitip/
+    고르기: (f) => f === 'sitemap.xml',          // 한 장
+  },
 };
 
 const 기본사이트 = 'seoulmarkets.com';
