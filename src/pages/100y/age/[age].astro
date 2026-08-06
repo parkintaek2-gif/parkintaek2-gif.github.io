@@ -1,0 +1,215 @@
+---
+/**
+ * /100y/age/[나이] — 나이 한 자리
+ *
+ * 왜 만드나 — 사장님: 「취업 후는 잘 살고 있을까? …**대학 이후~ 백년지도**」
+ *   「**데이터로 남들은 어떻게 하는지 보여주는 게 현실적이겠지?**」
+ *   로고 밑줄에 「대학 다음까지」를 걸어 놓고 대학 다음이 지면에 한 장도 없었다.
+ *
+ * 화면 순서
+ *   ❶ 한 줄 답     — 그 나이에서 제일 먼저 눈에 들어오는 사실 하나
+ *   ❷ 분포         — 평균보다 **폭**을 먼저 본다
+ *   ❸ 일           — 월급여 · 근속 · 그 나이띠에 몇 사람이 있나
+ *   ❹ 살림         — 자산 · 부채 (가구주 나이로 묶인 값)
+ *   ❺ ⚠ 이것은 통계이지 당신이 아닙니다
+ *   ❻ 어디서 온 숫자인가
+ *
+ * ⛔ 「해야 한다」·「늦었다」·「이르다」를 한 줄도 쓰지 않는다. 우리가 정할 자격이 없다.
+ * ⚠ 한 살로 잰 자료(혼인)와 다섯·열 살로 묶인 자료(임금·살림)가 섞인다.
+ *   묶인 값은 **어느 띠에서 왔는지 그 자리에 적는다.** 한 살처럼 말하면 거짓이 된다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import 원본 from '../../../data/100yearmap/age-axis.json';
+import { 나이말, 임금값, 살림값, 혼인누적, 임금꼭대기, 월급말, type 나이자료 } from '../../../lib/age-page';
+
+/** 지면을 낼 나이 — 오픈에는 다섯 자리만 낸다. 넓히기 전에 되는지 본다 */
+export const 낼나이 = [25, 32, 40, 55, 68];
+
+export async function getStaticPaths() {
+  return [25, 32, 40, 55, 68].map((나이) => ({ params: { age: String(나이) }, props: { 나이 } }));
+}
+
+const { 나이 } = Astro.props as { 나이: number };
+const 자료 = 원본 as unknown as 나이자료;
+
+const 일 = 임금값(자료, 나이);
+const 살림 = 살림값(자료, 나이);
+const 누적 = 혼인누적(자료, 나이);
+const 꼭대기 = 임금꼭대기(자료);
+
+/** 그 나이에서 제일 먼저 눈에 들어오는 사실 — 전부 위 자료에서 나온 값이다 */
+const 한줄: Record<number, { 큰말: string; 밑말: string }> = {
+  25: {
+    큰말: '백에 셋이 결혼했습니다',
+    밑말: `초혼 ${자료.혼인.총건.toLocaleString()}건 가운데 스물다섯까지 한 사람이 남자 ${누적?.남편}% · 여자 ${누적?.아내}%입니다`,
+  },
+  32: {
+    큰말: '초혼이 가장 많은 나이입니다',
+    밑말: `남자 ${자료.혼인.남편분포.값[12].toLocaleString()}명으로 가장 많습니다. 그래도 서른둘까지 한 남자는 ${누적?.남편}% — 절반 언저리입니다`,
+  },
+  40: {
+    큰말: '월급은 아직 오르는 중입니다',
+    밑말: `꼭대기는 ${꼭대기?.띠말} 사람들의 ${꼭대기?.월급}입니다. 마흔은 그 앞자리입니다`,
+  },
+  55: {
+    큰말: '가장 오래 다닌 자리이고, 월급은 내려오기 시작했습니다',
+    밑말: `근속 ${자료.임금['55 ~ 59'].근속년}년으로 모든 나이띠 가운데 가장 깁니다. 월급은 꼭대기(${꼭대기?.월급})에서 내려왔습니다`,
+  },
+  68: {
+    큰말: '월급이 스물다섯 언저리와 같은 자리로 돌아옵니다',
+    밑말:
+      `예순 넘은 사람들의 월급여가 ${월급말(자료.임금['60세 ~'].월급여천원)}입니다. ` +
+      `스물다섯에서 스물아홉 띠는 ${월급말(자료.임금['25 ~ 29'].월급여천원)}이니 거의 같은 자리입니다`,
+  },
+};
+
+/** 분포 그림 — 혼인은 한 살씩 나온다. 값이 있는 데까지만 그린다 */
+const 남값 = 자료.혼인.남편분포.값;
+const 여값 = 자료.혼인.아내분포.값;
+const 남최대 = Math.max(...남값);
+const 여최대 = Math.max(...여값);
+const 혼인볼나이 = 나이 <= 44;
+
+const 다음나이 = 낼나이.filter((n) => n !== 나이);
+
+const desc =
+  `${나이}세에 사람들이 실제로 어떻게 살고 있는지 국가 통계로만 모았습니다. ` +
+  `월급여 ${일?.월급 ?? '—'} · 근속 ${일?.근속 ?? '—'}년` +
+  (누적 ? ` · ${나이}세까지 초혼한 사람 남자 ${누적.남편}% · 여자 ${누적.아내}%` : '') +
+  '. 조언하지 않고 숫자만 놓습니다.';
+---
+
+<HundredYear title={`${나이말(나이)} — 남들은 어떻게 하고 있나`} description={desc}>
+  <h1>{나이말(나이)}</h1>
+  <p class="sub">
+    같은 나이의 사람들이 <strong>실제로 어떻게 했는지</strong>만 놓았습니다.
+    무엇을 하라는 말은 한 줄도 없습니다.
+  </p>
+
+  <div class="answer">
+    <p class="big">{한줄[나이].큰말}</p>
+    <p class="note">{한줄[나이].밑말}</p>
+  </div>
+
+  {
+    혼인볼나이 && (
+      <section>
+        <h2>처음 결혼한 나이 — 평균이 아니라 폭을 봅니다</h2>
+        <div class="dist">
+          {남값.map((v, i) => (
+            <i class={20 + i === 나이 ? 'on' : ''} style={`height:${Math.round((v / 남최대) * 100)}%`} />
+          ))}
+        </div>
+        <div class="axis"><span>20세</span><span>32세</span><span>44세</span></div>
+        <p class="note">
+          초혼 {자료.혼인.총건.toLocaleString()}건을 <strong>남편 나이</strong>로 늘어놓은 것입니다.
+          가장 많은 나이는 <strong>{자료.혼인.최다.남편}</strong>이고,
+          여자 쪽에서 가장 많은 나이는 <strong>{자료.혼인.최다.아내}</strong>입니다.
+          <strong>봉우리는 하나지만 폭이 넓습니다</strong> — 스물다섯에도, 마흔에도 사람이 있습니다.
+        </p>
+
+        <div class="dist 여">
+          {여값.map((v, i) => (
+            <i class={20 + i === 나이 ? 'on' : ''} style={`height:${Math.round((v / 여최대) * 100)}%`} />
+          ))}
+        </div>
+        <div class="axis"><span>20세</span><span>여자</span><span>39세</span></div>
+
+        {누적 && (
+          <p class="note">
+            {나이}세까지 처음 결혼한 사람은 남자 <strong>{누적.남편}%</strong> · 여자{' '}
+            <strong>{누적.아내}%</strong>입니다.
+          </p>
+        )}
+      </section>
+    )
+  }
+
+  {
+    일 && (
+      <section>
+        <h2>일 — {일.띠말} 사람들에게서 잰 값입니다</h2>
+        <ul class="facts">
+          <li><b>월급여</b> {일.월급}</li>
+          <li><b>한 직장에 다닌 햇수</b> {일.근속}년</li>
+          <li><b>이 띠에서 일하는 사람</b> {일.사람?.toLocaleString()}명</li>
+        </ul>
+        <p class="note">
+          ⚠ {일.띠말} 사람을 한데 묶어 잰 값입니다. {나이}세 한 살만 따로 잰 것이 아닙니다.
+          상용근로자 5인 이상 사업체에서 잰 것이라 자영업과 4인 이하는 들어 있지 않습니다.
+        </p>
+      </section>
+    )
+  }
+
+  {
+    살림 && (
+      <section>
+        <h2>살림 — 가구주가 {살림.띠}인 집에서 잰 값입니다</h2>
+        <ul class="facts">
+          <li><b>자산</b> 평균 {살림.자산평균} · <span class="note">한가운데 {살림.자산중앙}</span></li>
+          <li><b>부채</b> 평균 {살림.부채평균}</li>
+          <li><b>한 해 소득</b> 한가운데 {살림.소득중앙}</li>
+        </ul>
+        <p class="note">
+          ⚠ 평균과 한가운데(중앙값)는 <strong>모수가 다릅니다</strong> — 평균은 모든 집, 한가운데는 그것을 가진 집만
+          놓고 잽니다. 평균이 한가운데보다 훨씬 큰 것은 위쪽이 길게 늘어져 있다는 뜻입니다.
+        </p>
+      </section>
+    )
+  }
+
+  <div class="warn">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong>
+    가장 많은 나이가 곧 맞는 나이는 아닙니다. 위 분포의 폭을 먼저 보십시오 —
+    <strong>어느 나이에도 사람이 있습니다.</strong>{' '}
+    늦었다거나 이르다고 말하지 않겠습니다. 우리가 정할 자격이 없습니다.
+  </div>
+
+  <section>
+    <h2>다른 나이</h2>
+    <ul class="ages">
+      {다음나이.map((n) => <li><a href={href(`/age/${n}`)}>{나이말(n)}</a></li>)}
+    </ul>
+  </section>
+
+  <p class="note src">
+    출처 — 혼인 {자료.출처.혼인.기관} 「{자료.출처.혼인.표}」({자료.출처.혼인.해}) ·
+    임금 {자료.출처.임금.기관} 「{자료.출처.임금.표}」({자료.출처.임금.해}, {자료.출처.임금.조건}) ·
+    살림 {자료.출처.살림.기관} 「{자료.출처.살림.표}」({자료.출처.살림.해}).
+    <br />
+    백년지도는 지도입니다. <strong>길을 정해 주지 않고 어디에 무엇이 있는지 보여 줍니다.</strong>{' '}
+    나침반은 보시는 분이 만드십니다.
+  </p>
+</HundredYear>
+
+<style>
+  .answer {
+    border-left: 3px solid var(--gold, #c8a44d);
+    padding: 14px 18px;
+    margin: 22px 0;
+    background: rgba(200, 164, 77, 0.06);
+    border-radius: 12px;
+  }
+  .answer .big { font-size: 1.4rem; font-weight: 800; line-height: 1.35; margin: 0 0 6px; }
+  .dist { display: flex; align-items: flex-end; gap: 2px; height: 78px; margin: 14px 0 4px; }
+  .dist i { flex: 1; background: #2a3040; border-radius: 2px 2px 0 0; display: block; min-height: 1px; }
+  .dist i.on { background: var(--gold, #c8a44d); }
+  .dist.여 { height: 54px; margin-top: 18px; }
+  .axis { display: flex; justify-content: space-between; font-size: 0.78rem; opacity: 0.6; }
+  .facts { list-style: none; padding: 0; margin: 10px 0; }
+  .facts li { padding: 7px 0; border-bottom: 1px solid rgba(128, 128, 128, 0.16); }
+  .facts b { margin-right: 8px; }
+  .warn {
+    margin: 26px 0;
+    padding: 13px 16px;
+    border: 1px solid rgba(211, 162, 74, 0.28);
+    background: rgba(211, 162, 74, 0.07);
+    border-radius: 12px;
+    line-height: 1.75;
+  }
+  .ages { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+  .ages a { display: inline-block; padding: 6px 13px; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 999px; }
+  .src { margin-top: 26px; }
+</style>

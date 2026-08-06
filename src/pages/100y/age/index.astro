@@ -1,0 +1,94 @@
+---
+/**
+ * /100y/age — 나이로 보기
+ *
+ * 왜 만드나 — 사장님 8/7: 「**8/15 오픈 때 폭넓은 나이대도 일부 보여주자**」
+ *   우리 지면은 열아홉에서 끝나 있었다. 로고 밑줄은 「대학 다음까지」인데 대학 다음이 없었다.
+ *
+ * ⛔ 나이를 줄세우지 않는다. 어느 나이가 나은 나이라는 말은 우리가 할 말이 아니다.
+ * ⚠ 오픈에는 다섯 자리만 낸다. 되는지 보고 넓힌다 — 다섯 장이 틀리면 다섯 배로 되돌린다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { href } from '../../../lib/hundredyear';
+import 원본 from '../../../data/100yearmap/age-axis.json';
+import { 나이말, 임금값, 혼인누적, 임금꼭대기, type 나이자료 } from '../../../lib/age-page';
+
+const 자료 = 원본 as unknown as 나이자료;
+const 낼나이 = [25, 32, 40, 55, 68];
+const 꼭대기 = 임금꼭대기(자료);
+
+const 줄들 = 낼나이.map((나이) => {
+  const 일 = 임금값(자료, 나이);
+  const 누적 = 혼인누적(자료, 나이);
+  const 한마디: Record<number, string> = {
+    25: `초혼을 마친 사람이 남자 ${누적?.남편}%입니다 — 백에 셋입니다`,
+    32: `처음 결혼하는 사람이 가장 많은 나이입니다`,
+    40: `월급이 아직 오르는 중입니다. 꼭대기는 ${꼭대기?.띠말}입니다`,
+    55: `근속 ${자료.임금['55 ~ 59'].근속년}년 — 가장 오래 다닌 자리입니다`,
+    68: `월급여가 스물다섯 언저리와 같은 자리로 돌아옵니다`,
+  };
+  return { 나이, 월급: 일?.월급, 띠: 일?.띠말, 한마디: 한마디[나이] };
+});
+
+const desc =
+  '스물다섯·서른둘·마흔·쉰다섯·예순여덟 — 그 나이의 사람들이 실제로 어떻게 살고 있는지 ' +
+  '국가 통계로만 모았습니다. 월급여·근속·초혼·자산·부채를 나이로 놓았습니다. 조언하지 않습니다.';
+---
+
+<HundredYear title="나이로 보기 — 남들은 어떻게 하고 있나" description={desc}>
+  <h1>나이로 보기</h1>
+  <p class="sub">
+    백년지도는 열아홉에서 끝나지 않습니다.
+    <strong>대학 다음의 자리</strong>를 나이로 놓았습니다.
+  </p>
+
+  <p class="note">
+    ⛔ 나이를 줄세우지 않았습니다. 어느 나이가 나은 나이라는 말은 우리가 할 말이 아닙니다.
+    적는 것은 <strong>「같은 나이의 사람들이 실제로 어떻게 했나」</strong>뿐입니다.
+  </p>
+
+  <ul class="ages">
+    {
+      줄들.map((r) => (
+        <li>
+          <a href={href(`/age/${r.나이}`)}>{나이말(r.나이)}</a>
+          <span class="note">
+            {r.한마디} · 월급여 {r.월급} <em>({r.띠} 사람 기준)</em>
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="warn">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong>
+    가장 많은 나이가 곧 맞는 나이는 아닙니다. 늦었다거나 이르다고 말하지 않겠습니다.
+    우리가 정할 자격이 없습니다.
+  </div>
+
+  <p class="note src">
+    출처 — {자료.출처.혼인.기관} 「{자료.출처.혼인.표}」({자료.출처.혼인.해}) ·
+    {자료.출처.임금.기관} 「{자료.출처.임금.표}」({자료.출처.임금.해}) ·
+    {자료.출처.살림.기관} 「{자료.출처.살림.표}」({자료.출처.살림.해}).
+    <br />
+    백년지도는 지도입니다. <strong>길을 정해 주지 않고 어디에 무엇이 있는지 보여 줍니다.</strong>{' '}
+    나침반은 보시는 분이 만드십니다.
+  </p>
+</HundredYear>
+
+<style>
+  .ages { list-style: none; padding: 0; margin: 20px 0; }
+  .ages li { padding: 12px 0; border-bottom: 1px solid rgba(128, 128, 128, 0.16); }
+  .ages a { font-size: 1.15rem; font-weight: 800; margin-right: 10px; }
+  .ages .note { display: block; margin-top: 3px; }
+  .ages em { opacity: 0.7; font-style: normal; }
+  .warn {
+    margin: 26px 0;
+    padding: 13px 16px;
+    border: 1px solid rgba(211, 162, 74, 0.28);
+    background: rgba(211, 162, 74, 0.07);
+    border-radius: 12px;
+    line-height: 1.75;
+  }
+  .src { margin-top: 26px; }
+</style>

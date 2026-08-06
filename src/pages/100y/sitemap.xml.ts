@@ -85,6 +85,14 @@ export const GET: APIRoute = () => {
       priority: '0.7',
       changefreq: 'monthly',
     })),
+    /* 나이로 보기 — 「32살 평균 연봉」·「결혼 적령기」처럼 **나이로 찾는 검색**을 받는 자리다.
+       ⚠ 나이 목록은 `age/[age].astro` 의 getStaticPaths 와 **같아야 한다.** 늘릴 때 두 곳을 함께 고친다. */
+    { path: '/age', priority: '0.8', changefreq: 'monthly' },
+    ...[25, 32, 40, 55, 68].map((나이) => ({
+      path: `/age/${나이}`,
+      priority: '0.7',
+      changefreq: 'monthly',
+    })),
     // 학과가 학교보다 앞이다. 「어떤 길인가」가 「어느 학교인가」보다 먼저 오는 질문이다
     ...(majors as any[]).map((m) => ({
       path: m.url as string,
