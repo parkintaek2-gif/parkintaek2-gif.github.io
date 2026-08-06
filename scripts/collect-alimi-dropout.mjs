@@ -136,13 +136,36 @@ const 우리 = JSON.parse(
 const 열쇠 = (이름, 시도) => `${String(이름 ?? '').trim()}|${시도}`;
 const 우리표 = new Map(우리.map((x) => [열쇠(x.title, x.지역), x]));
 
+/**
+ * ⚠ **저쪽 지역칸이 비어 있는 학교가 있다** (2026-08-06 실측 · 4곳).
+ *   `ADRCD_NM` 이 `undefined` 라 시도를 못 옮기고, 그래서 못 이었다.
+ *
+ * ⭐ 이름이 **양쪽 모두에서 하나뿐**이면 지역 없이도 짝이 하나로 정해진다.
+ *   그때만 이름으로 잇는다. 4곳 중 **2곳**(봉담고·이산고)이 여기 해당한다.
+ *
+ * ⛔ 나머지 둘(광성고·광덕고)은 **양쪽에 같은 이름이 둘씩** 있다. 지역이 없으면
+ *   어느 쪽인지 정할 수 없다. **짐작해 붙이지 않는다** — 붙이면 남의 학교 숫자가
+ *   그 학교 지면에 나간다. 못 이은 채로 둔다.
+ */
+const 우리이름수 = new Map();
+for (const x of 우리) 우리이름수.set(x.title, (우리이름수.get(x.title) ?? 0) + 1);
+const 저쪽이름수 = new Map();
+for (const r of 목록) 저쪽이름수.set(r.SCHUL_NM, (저쪽이름수.get(r.SCHUL_NM) ?? 0) + 1);
+const 이름만표 = new Map(
+  우리.filter((x) => 우리이름수.get(x.title) === 1).map((x) => [x.title, x]),
+);
+
 const 결과 = [];
 const 못이은것 = [];
 for (const r of 목록) {
   /* ⚠ 방송통신고는 우리 지면에 없는 갈래다. 못 이었다고 셈에 넣지 않는다 */
   if (/방송통신/.test(r.SCHUL_NM ?? '')) continue;
   const 시도 = 알리미지역_고교지역(r.ADRCD_NM);
-  const 학교 = 시도 ? 우리표.get(열쇠(r.SCHUL_NM, 시도)) : null;
+  let 학교 = 시도 ? 우리표.get(열쇠(r.SCHUL_NM, 시도)) : null;
+  /* 지역칸이 비었을 때만, 그리고 **양쪽 다 이름이 하나뿐일 때만** 이름으로 잇는다 */
+  if (!학교 && !시도 && 저쪽이름수.get(r.SCHUL_NM) === 1) {
+    학교 = 이름만표.get(String(r.SCHUL_NM ?? '').trim()) ?? null;
+  }
   if (!학교) {
     못이은것.push(`${r.SCHUL_NM} (${r.ADRCD_NM})`);
     continue;
