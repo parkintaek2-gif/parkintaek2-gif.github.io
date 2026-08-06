@@ -183,7 +183,11 @@ async function 새주소찾기(최대 = 3) {
     : 길.startsWith('/wikitip/') ? `https://www.kculturewire.com${길.slice(8)}`
     : `https://seoulmarkets.com${길}`;
 
+  const { createHash } = await import('node:crypto');
+  const 지문 = (글) => createHash('md5').update(글.replace(/\r\n/g, '\n')).digest('hex');
+
   const 잰다 = [];
+  // ① 새로 나갈 지면 — 라이브에 아직 없는 것
   for (const 길 of 후보) {
     if (잰다.length >= 최대) break;
     if (/\/(404|index)$/.test(길)) continue;
@@ -194,7 +198,27 @@ async function 새주소찾기(최대 = 3) {
     if (산것.has(u)) continue;
     try {
       const r = await fetch(u, { method: 'HEAD', redirect: 'manual' });
-      if (r.status === 404) 잰다.push(u);          // 라이브에 아직 없다 = 이번에 나갈 것
+      if (r.status === 404) 잰다.push({ url: u, 기댓값: null });   // 200 이 되면 나간 것
+    } catch { /* 못 재면 넘긴다 */ }
+  }
+  if (잰다.length) return 잰다;
+
+  // ② 새 지면이 없으면 — **글자만 고친 배포**다. 바뀔 지면의 지문으로 판정한다.
+  //    ⭐ 컨테이너 빌드가 내 빌드와 **바이트까지 같은 것**을 확인했다(2026-08-07 08:3x).
+  //      그래서 dist 의 지문과 라이브의 지문을 견줄 수 있다. 지금 다르면 이번에 바뀔 지면이고,
+  //      배포 뒤 같아지면 나간 것이다. 정정만 있는 배포가 600초를 태우던 마지막 구멍이다.
+  const { readFileSync } = await import('node:fs');
+  let 본것 = 0;
+  for (const 길 of 후보) {
+    if (잰다.length >= 2 || 본것 >= 60) break;
+    if (/\/(404|index)$/.test(길) || !/^[/a-z0-9\-_/]+$/i.test(길)) continue;
+    const u = 주소로(길);
+    if (!산것.has(u)) continue;                 // 사이트맵에 있는 것만 본다
+    본것++;
+    try {
+      const 내것 = 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8'));
+      const 라이브 = 지문(await (await fetch(u)).text());
+      if (내것 !== 라이브) 잰다.push({ url: u, 기댓값: 내것 });
     } catch { /* 못 재면 넘긴다 */ }
   }
   return 잰다;
@@ -298,8 +322,15 @@ async function main() {
       결과 = 상태(나.stage, 나.app).status;
 
       if (새주소.length) {
-        const 잰것 = await Promise.all(새주소.map(async (u) => {
-          try { return (await fetch(u, { method: 'HEAD', redirect: 'manual' })).status; } catch { return 0; }
+        const { createHash } = await import('node:crypto');
+        const 잰것 = await Promise.all(새주소.map(async ({ url, 기댓값 }) => {
+          try {
+            if (!기댓값) return (await fetch(url, { method: 'HEAD', redirect: 'manual' })).status;
+            // 글자만 고친 지면은 **지문이 같아지면** 나간 것이다
+            const 글 = await (await fetch(url)).text();
+            const h = createHash('md5').update(글.replace(/\r\n/g, '\n')).digest('hex');
+            return h === 기댓값 ? 200 : 0;
+          } catch { return 0; }
         }));
         // ⚠ **하나라도 200 이면 새 빌드가 서고 있는 것이다.**
         //   「전부 200」으로 두었더니 한 장이 안 떠서 600초를 다 태웠다(2026-08-07 06:0x).
@@ -307,7 +338,7 @@ async function main() {
         //   그것은 배포가 끝났나와 다른 문제다. 안 뜬 것은 **이름을 적어 남긴다.**
         const 뜬것 = 새주소.filter((_, k) => 잰것[k] === 200);
         console.log(`  ${(i + 1) * 20}초 · ${결과} · 새 지면 ${잰것.join('/')}`);
-        if (뜬것.length) { 내용확인 = { 뜬것, 안뜬것: 새주소.filter((u) => !뜬것.includes(u)) }; break; }
+        if (뜬것.length) { 내용확인 = { 뜬것: 뜬것.map((x)=>x.url), 안뜬것: 새주소.filter((x) => !뜬것.includes(x)).map((x)=>x.url) }; break; }
       } else {
         console.log(`  ${(i + 1) * 20}초 · ${결과}`);
       }
