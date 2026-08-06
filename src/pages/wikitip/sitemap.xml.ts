@@ -20,6 +20,7 @@ export const GET: APIRoute = async () => {
     { path: '/actors', priority: '0.9', changefreq: 'weekly' },
     { path: '/workforce', priority: '0.9', changefreq: 'weekly' },
     { path: '/exports', priority: '0.9', changefreq: 'yearly' },   // KOSIS 가 해마다 낸다
+    { path: '/tv-exports', priority: '0.9', changefreq: 'yearly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
   ];
