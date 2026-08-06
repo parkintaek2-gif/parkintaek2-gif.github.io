@@ -46,13 +46,14 @@ const jsonLd = {
 ---
 
 {/*
-  ⚠ `canonical` 을 일부러 걸지 않았다. **wiki-tip.com 은 아직 우리 것이 아니다** —
-    2026-08-04 12:59 KST 실측으로 `302 → errdoc.gabia.io/403.html` 이다.
-    NS 가 tosana/ines(가비아가 만든 Cloudflare 존)로 가 있어 우리 존(kami/keenan)이
-    권한을 못 갖는다. 죽은 주소를 canonical 로 걸면 색인에서 통째로 빠진다.
-  ⚠ `noindex` 도 같은 이유다. 지면이 부실해서가 아니라 **주소가 아직 안 살아서**다.
-    → NS 가 kami/keenan 으로 바뀌고 `curl https://wiki-tip.com/about` 이 200 이 되면
-      이 파일에서 `noindex` 를 빼고 canonical 을 되살린다. 둘을 같이 푼다.
+  ✅ 2026-08-06 17:0x KST 에 **풀렸다.** canonical 은 아래에 걸려 있고 `noindex` 는 없다.
+     라이브 실측 — https://www.kculturewire.com/about **200** · robots 메타 없음(색인 열림).
+
+  ⚠ 위에 있던 「canonical·noindex 를 일부러 안 걸었다」는 주석은 **wiki-tip.com 시절 것**이라
+    지웠다. 그때는 그 주소가 가비아 파킹(302 → errdoc.gabia.io/403.html)이라 죽은 주소를
+    canonical 로 걸면 색인에서 통째로 빠지는 상황이었다. 지금은 주소가 kculturewire.com 이고
+    살아 있다. **주석을 안 고쳤으면 다음 사람이 「noindex 가 걸려 있다」로 읽는다** —
+    실제로 오늘 소스만 보고 그렇게 읽을 뻔했다. 라이브에 물어서 잡았다.
 */}
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/about">
   <h1>About &amp; methodology</h1>
