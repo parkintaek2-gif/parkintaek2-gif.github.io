@@ -140,9 +140,16 @@ async function 새주소찾기(최대 = 3) {
   try {
     const { statSync } = await import('node:fs');
     const 빌드때 = statSync(path.join(뿌리, 'index.html')).mtimeMs;
-    const 커밋때 = Number(execFileSync('git', ['log', '-1', '--format=%ct'], { encoding: 'utf8' }).trim()) * 1000;
-    if (커밋때 > 빌드때) {
-      console.log('⚠ dist 가 마지막 커밋보다 낡았다 — 지면으로 판정하려면 먼저 `npx astro build` 를 한다.');
+    // ⚠ **아무 커밋이나 보면 안 된다.** 문서·스크립트만 고쳐도 「낡았다」가 되어
+    //   멀쩡한 판정을 스스로 껐다(2026-08-07 04:0x, 내가 이 파일을 커밋하고 바로 겪었다).
+    //   지면을 바꾸는 것만 본다 — src/ · content/ · public/ · 설정.
+    const 커밋때 =
+      Number(
+        execFileSync('git', ['log', '-1', '--format=%ct', '--', 'src', 'content', 'public',
+                              'astro.config.mjs', 'package.json'], { encoding: 'utf8' }).trim(),
+      ) * 1000;
+    if (커밋때 && 커밋때 > 빌드때) {
+      console.log('⚠ dist 가 지면 커밋보다 낡았다 — 지면으로 판정하려면 먼저 `npx astro build` 를 한다.');
       return [];
     }
   } catch { /* 못 재면 그냥 간다 */ }
