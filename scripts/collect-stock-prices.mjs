@@ -33,6 +33,7 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 
 const URL_ = 'https://apis.data.go.kr/1160100/service/GetStockSecuritiesInfoService/getStockPriceInfo';
 const OUT_DIR = path.resolve('archive/raw/stocks');
@@ -108,9 +109,13 @@ async function 하루(키, 일자) {
     if (모음.length >= Number(b?.totalCount ?? 0) || !항목.length) break;
     await new Promise((x) => setTimeout(x, 간격ms));
   }
-  /* ⚠ 하루가 끝나면 **즉시 쓴다.** 모아서 쓰지 않는다 */
+  /* ⚠ 하루가 끝나면 **즉시 쓴다.** 모아서 쓰지 않는다.
+     store.put 은 로컬(archive/)과 R2 양쪽에 쓴다 — 예전엔 writeFileSync 로 로컬에만 썼고
+     그래서 시세 아카이브가 이 PC 한 대에만 쌓였다(4.67GB). 원격 실패는 던지지 않고 경고만 한다. */
   if (모음.length) {
-    writeFileSync(path.join(OUT_DIR, `${일자}.ndjson`), 모음.map((r) => JSON.stringify(r)).join('\n') + '\n');
+    const body = 모음.map((r) => JSON.stringify(r)).join('\n') + '\n';
+    const res = await put(`raw/stocks/${일자}.ndjson`, body, 'application/x-ndjson');
+    if (res.remoteError) console.warn(`  ⚠ ${일자} R2 실패: ${String(res.remoteError).slice(0, 80)} (로컬엔 있다)`);
   }
   return 모음;
 }
@@ -119,6 +124,7 @@ async function main() {
   const 키 = 키읽기();
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
   mkdirSync(OUT_DIR, { recursive: true });
+  if (!remoteEnabled) console.warn('⚠ R2 미설정(ARCHIVE_S3_*): 로컬에만 저장된다. 운영·백업이면 .env 를 확인하라.');
   const arg = (n) => { const i = process.argv.indexOf(n); return i > -1 ? process.argv[i + 1] : null; };
 
   let 날들 = [];
@@ -153,6 +159,7 @@ async function main() {
     await new Promise((x) => setTimeout(x, 간격ms));
   }
   console.log(`\n합계 ${합.toLocaleString()}건 · 빈 날 ${빈날} · 실패 ${실패} · ${OUT_DIR}`);
+  console.log(`R2 ${remoteEnabled ? '켜짐' : '꺼짐'} · ${JSON.stringify(storeStatus())}`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();
