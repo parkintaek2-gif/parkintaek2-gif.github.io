@@ -114,7 +114,91 @@ async function 라이브확인() {
   }
 }
 
+/**
+ * **새로 나가는 지면을 미리 골라 둔다** — 배포가 끝났는지 ctype 표시가 아니라 이것으로 안다.
+ *
+ * ⚠ 2026-08-07 새벽에 배포를 네 번 했는데 **네 번 다 600초를 「Starting」으로 태우고
+ *   「판정 보류」로 끝났다.** 라이브는 네 번 다 200 이었다. ctype 표시가 멎어 있는 것이지
+ *   배포가 안 된 것이 아니었다. 한 번에 10분씩, 하룻밤에 40분을 버렸다.
+ *
+ * 그래서 판정을 **표시가 아니라 내용**으로 바꾼다.
+ *   빌드 결과(dist)에는 있는데 **라이브에는 아직 404 인 주소**를 찾아 두고,
+ *   그 주소가 200 이 되는 순간 「나갔다」로 본다. 이건 표시가 아니라 사실이다.
+ *
+ * ⛔ 고칠 것이 지면 추가가 아니라 **글자 수정뿐이면 새 주소가 없다.** 그때는 못 쓴다 —
+ *   빈 배열을 돌려주고, 부르는 쪽이 옛 방식(ctype 표시 + 라이브 200)으로 되돌아간다.
+ *   ⚠ 없는 것을 있는 척하지 않는다.
+ */
+async function 새주소찾기(최대 = 3) {
+  const 뿌리 = path.resolve('dist');
+  if (!existsSync(뿌리)) return [];
+
+  // ① 라이브 사이트맵 셋을 받아 **지금 나가 있는 주소**를 모은다. 요청 세 번이면 된다.
+  //    ⛔ dist 의 지면을 하나씩 찔러 보지 않는다 — 3,900 번을 쏘게 된다.
+  const 호스트들 = ['https://seoulmarkets.com', 'https://100yearmap.com', 'https://www.kculturewire.com'];
+  const 산것 = new Set();
+  for (const h of 호스트들) {
+    try {
+      const t = await (await fetch(`${h}/sitemap.xml`)).text();
+      for (const m of t.matchAll(/<loc>([^<]+)<\/loc>/g)) 산것.add(m[1].replace(/\/$/, ''));
+    } catch { /* 못 받으면 그 호스트는 못 본 것으로 둔다 */ }
+  }
+  if (!산것.size) return [];
+
+  // ② dist 의 지면을 주소로 바꿔 사이트맵에 없는 것을 고른다
+  //    ⚠ dist 는 지우고 다시 만들지 않아 **옛 빌드의 찌꺼기가 남을 수 있다.**
+  //      저장소에 없는 지면이 dist 에만 남으면 영영 404 이고, 그것을 판정에 쓰면
+  //      배포가 끝났는데도 끝까지 기다린다. 아직 실제로 겪지는 않았고 미리 막아 둔다.
+  //      **이번 빌드에서 다시 쓰인 파일만** 본다 — index.html 은 매 빌드 다시 쓰인다.
+  const { readdirSync, statSync } = await import('node:fs');
+  const 기준시각 = existsSync(path.join(뿌리, 'index.html'))
+    ? statSync(path.join(뿌리, 'index.html')).mtimeMs - 10 * 60 * 1000
+    : 0;
+  const 후보 = [];
+  const 걷기 = (d, 앞) => {
+    for (const e of readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) { if (e.name !== '_astro') 걷기(p, `${앞}/${e.name}`); }
+      else if (e.name.endsWith('.html') && statSync(p).mtimeMs >= 기준시각)
+        후보.push(`${앞}/${e.name.replace(/\.html$/, '')}`);
+    }
+  };
+  걷기(뿌리, '');
+
+  const 주소로 = (길) =>
+    길.startsWith('/100y/') ? `https://100yearmap.com${길.slice(5)}`
+    : 길.startsWith('/wikitip/') ? `https://www.kculturewire.com${길.slice(8)}`
+    : `https://seoulmarkets.com${길}`;
+
+  const 잰다 = [];
+  for (const 길 of 후보) {
+    if (잰다.length >= 최대) break;
+    if (/\/(404|index)$/.test(길)) continue;
+    // ⚠ 한글·점이 든 주소는 판정에 쓰지 않는다. 인코딩 때문에 **영영 200 이 안 되는** 것을
+    //   골라 놓으면 배포가 끝났는데도 끝까지 기다린다. 2026-08-07 시험에서 실제로 하나 잡혔다.
+    if (!/^[/a-z0-9\-_/]+$/i.test(길)) continue;
+    const u = 주소로(길);
+    if (산것.has(u)) continue;
+    try {
+      const r = await fetch(u, { method: 'HEAD', redirect: 'manual' });
+      if (r.status === 404) 잰다.push(u);          // 라이브에 아직 없다 = 이번에 나갈 것
+    } catch { /* 못 재면 넘긴다 */ }
+  }
+  return 잰다;
+}
+
 async function main() {
+  // --probe 는 판정에 쓸 「새로 나갈 지면」만 보여준다. 배포도 락도 건드리지 않는다.
+  if (process.argv.includes('--probe')) {
+    const 새주소 = await 새주소찾기();
+    console.log(
+      새주소.length
+        ? `새로 나갈 지면 ${새주소.length}개:\n  ${새주소.join('\n  ')}`
+        : '새로 나갈 지면이 없다 — 이번 배포는 옛 방식으로 판정한다',
+    );
+    return;
+  }
+
   console.log(`배포 점검 — ${시각()} KST\n`);
 
   // ── ① 남의 락이 걸려 있나 ──────────────────────────────────
@@ -167,6 +251,14 @@ async function main() {
   }
 
   // ── ③ 락 걸고 통보 ─────────────────────────────────────────
+  // 배포 **전에** 새로 나갈 주소를 잡아 둔다. 나간 뒤에 재면 이미 200 이라 뭐가 새 것인지 모른다.
+  const 새주소 = await 새주소찾기();
+  console.log(
+    새주소.length
+      ? `이번에 새로 나갈 지면 ${새주소.length}개를 판정에 쓴다:\n  ${새주소.join('\n  ')}`
+      : '새로 나갈 지면이 없다(글자 수정뿐인 듯하다) — 옛 방식(ctype 표시 + 라이브 200)으로 판정한다',
+  );
+
   락걸기('ctype apply');
   통보(
     `> 🚀 **[SeoulMarkets] 배포 시작 ${시각()} KST** — \`${나.stage}\`\n` +
@@ -184,15 +276,36 @@ async function main() {
     //   (2026-08-05 두 번). 사람이 「실패했네」 하고 다시 돌리면 롤링에 메모리가 두 배 든다.
     //   그래서 ① 한도를 600초로 늘리고 ② 그래도 Running 을 못 보면 **라이브 URL 로 실제를 본다**
     //   ③ ⛔ 조용히 「실패/미완」이라고 적지 않는다 — 「판정 보류, 눈으로 확인」으로 적는다.
+    // ⭐ 2026-08-07 — **표시 말고 내용으로 판정한다.** 새로 나갈 주소가 200 이 되면 끝난 것이다.
+    //   ctype 표시가 멎어도 이건 사실이라 안 흔들린다. 없으면 옛 방식으로 되돌아간다.
     let 결과 = 'Starting';
+    let 내용확인 = null;
     for (let i = 0; i < 30; i++) {
       await sleep(20000);
       결과 = 상태(나.stage, 나.app).status;
-      console.log(`  ${(i + 1) * 20}초 · ${결과}`);
+
+      if (새주소.length) {
+        const 잰것 = await Promise.all(새주소.map(async (u) => {
+          try { return (await fetch(u, { method: 'HEAD', redirect: 'manual' })).status; } catch { return 0; }
+        }));
+        const 떴다 = 잰것.every((c) => c === 200);
+        console.log(`  ${(i + 1) * 20}초 · ${결과} · 새 지면 ${잰것.join('/')}`);
+        if (떴다) { 내용확인 = 새주소; break; }
+      } else {
+        console.log(`  ${(i + 1) * 20}초 · ${결과}`);
+      }
       if (결과 === 'Running') break;
     }
 
-    if (결과 === 'Running') {
+    if (내용확인) {
+      // 새로 낸 지면이 실제로 200 이다. ctype 표시가 무엇이든 나간 것이다.
+      통보(
+        `> ✅ **[SeoulMarkets] 배포 완료 ${시각()} KST** — 새 지면이 라이브에 떴다.\n` +
+          내용확인.map((u) => `> · ${u} 200`).join('\n') +
+          `\n> (ctype 표시는 \`${결과}\` — 표시가 아니라 지면으로 판정했다)`,
+      );
+      console.log(`\n✅ 새 지면 ${내용확인.length}개 라이브 200 — 나갔다 (ctype 표시 ${결과})`);
+    } else if (결과 === 'Running') {
       const code = await 라이브확인();
       통보(`> ✅ **[SeoulMarkets] 배포 완료 ${시각()} KST** — 상태 \`Running\` · 라이브 \`${code}\``);
       console.log(`\n✅ Running · 라이브 ${code}`);
