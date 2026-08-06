@@ -1,0 +1,129 @@
+{
+ "generated": "2026-08-07T06:0x+09:00",
+ "source": "Riot Games Developer API",
+ "endpoints": "/lol/league/v4/challengerleagues and /grandmasterleagues, queue RANKED_SOLO_5x5",
+ "collectedAt": "2026-08-06 22:00:01",
+ "day": "2026-08-06",
+ "days": 4,
+ "privacy": "Player identifiers (puuid, summonerId) are intentionally not stored. Distributions only.",
+ "rows": [
+  {
+   "region": "Korea",
+   "code": "kr",
+   "players": 300,
+   "veteran": 162,
+   "vetPc": 54,
+   "hot": 56,
+   "hotPc": 18.7,
+   "gmPlayers": 700,
+   "gmVetPc": 29.4,
+   "gmHotPc": 15.7
+  },
+  {
+   "region": "Vietnam",
+   "code": "vn2",
+   "players": 300,
+   "veteran": 149,
+   "vetPc": 49.7,
+   "hot": 59,
+   "hotPc": 19.7,
+   "gmPlayers": 700,
+   "gmVetPc": 31.9,
+   "gmHotPc": 16.3
+  },
+  {
+   "region": "Europe West",
+   "code": "euw1",
+   "players": 300,
+   "veteran": 148,
+   "vetPc": 49.3,
+   "hot": 60,
+   "hotPc": 20,
+   "gmPlayers": 700,
+   "gmVetPc": 25,
+   "gmHotPc": 18.6
+  },
+  {
+   "region": "Japan",
+   "code": "jp1",
+   "players": 50,
+   "veteran": 21,
+   "vetPc": 42,
+   "hot": 10,
+   "hotPc": 20,
+   "gmPlayers": 100,
+   "gmVetPc": 30,
+   "gmHotPc": 19
+  },
+  {
+   "region": "Southeast Asia",
+   "code": "sg2",
+   "players": 300,
+   "veteran": 112,
+   "vetPc": 37.3,
+   "hot": 57,
+   "hotPc": 19,
+   "gmPlayers": 700,
+   "gmVetPc": 22.9,
+   "gmHotPc": 16.1
+  },
+  {
+   "region": "North America",
+   "code": "na1",
+   "players": 302,
+   "veteran": 111,
+   "vetPc": 36.8,
+   "hot": 93,
+   "hotPc": 30.8,
+   "gmPlayers": 718,
+   "gmVetPc": 13,
+   "gmHotPc": 21.3
+  }
+ ],
+ "series": [
+  {
+   "date": "2026-08-02",
+   "Korea": 52.7,
+   "Europe West": 51,
+   "North America": 38.4,
+   "Vietnam": 49,
+   "Japan": 44,
+   "Southeast Asia": 38.7
+  },
+  {
+   "date": "2026-08-03",
+   "Korea": 53,
+   "Europe West": 50.3,
+   "North America": 37.7,
+   "Vietnam": 49.3,
+   "Japan": 44,
+   "Southeast Asia": 38
+  },
+  {
+   "date": "2026-08-04",
+   "Korea": 53.7,
+   "Europe West": 50.7,
+   "North America": 37.7,
+   "Vietnam": 49.7,
+   "Japan": 44,
+   "Southeast Asia": 37.7
+  },
+  {
+   "date": "2026-08-06",
+   "Korea": 54,
+   "Europe West": 49.3,
+   "North America": 36.8,
+   "Vietnam": 49.7,
+   "Japan": 42,
+   "Southeast Asia": 37.3
+  }
+ ],
+ "regions": [
+  "Korea",
+  "Europe West",
+  "North America",
+  "Vietnam",
+  "Japan",
+  "Southeast Asia"
+ ]
+}

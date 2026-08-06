@@ -26,6 +26,7 @@ export const GET: APIRoute = async () => {
     { path: '/staying-power', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-gap', priority: '0.9', changefreq: 'daily' },
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
+    { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
   ];

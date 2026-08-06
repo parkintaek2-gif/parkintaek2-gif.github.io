@@ -1,0 +1,208 @@
+---
+/**
+ * K Culture Wire — 사다리 꼭대기가 얼마나 자리를 지키나. (/ladder-churn)
+ *
+ * ── 왜 이 지면인가 ─────────────────────────────────────────────
+ * 우리는 이 수집에서 `veteran`(오래 머문 사람)과 `hot_streak`(연승 중인 사람)을
+ * **한 번도 쓴 적이 없다.** `/esports` 도 `/ladder-gap` 도 안 쓴다.
+ * 승률·LP 는 「얼마나 센가」이고, 이 둘은 **「얼마나 자주 바뀌나」**다. 다른 질문이다.
+ *
+ * ── 우리 esports 지면 셋이 세 가지 자로 같은 말을 한다 ─────────
+ *   `/esports`     한국 챌린저 승률이 여섯 중 꼴찌 — 상대가 세다
+ *   `/ladder-gap`  한국은 위층과 아래층 차가 가장 작다 — 저변이 두껍다
+ *   여기          한국 꼭대기가 가장 안 바뀐다 — 그 두꺼움이 자리를 굳혔다
+ * 자가 다른데 결론이 같으면 그건 우연이 아니다. **다만 인과로는 안 쓴다.**
+ *
+ * ── ⚠ 나흘이다 ────────────────────────────────────────────────
+ * 8/5 는 키 만료로 비었고 소급이 안 된다. 결측을 지면에 적는다.
+ * 「추세」가 아니라 **순서가 안 바뀐다**는 확인이다.
+ *
+ * ⛔ 일본은 챌린저 50명이라 다른 곳의 6분의 1이다. 싣되 기대지 않는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production 승인 전이다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import data from '../../data/wikitip-ladder-churn.json';
+
+const TITLE = 'Who stays at the top of the ladder';
+const DESC =
+  'Korea has the most settled top tier of six League of Legends regions — 54% of its challengers are '
+  + 'long-standing, against 36.8% in North America, which has the most players on hot streaks.';
+
+const kr = data.rows.find((r) => r.code === 'kr')!;
+const na = data.rows.find((r) => r.code === 'na1')!;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: data.day,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://developer.riotgames.com'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/ladder-churn">
+  <h1>Who stays at the top of the ladder</h1>
+  <p class="lead">
+    Win rate says how hard a tier is. It does not say how often the people in it change.
+    Riot marks two things we have never used: which players are long-standing in their tier, and
+    which are on a winning streak. Collected {data.day} at {data.collectedAt.slice(11, 16)} KST.
+  </p>
+
+  <section>
+    <h2>Korea’s top is the most settled. North America’s turns over hardest.</h2>
+    <div class="flip">
+      <div>
+        <span class="lab">Korea — long-standing challengers</span>
+        <span class="big">{kr.vetPc}%</span>
+        <span class="det">
+          {kr.veteran} of {kr.players}. The highest of the six, on every day measured.
+          {kr.hotPc}% are on a hot streak.
+        </span>
+      </div>
+      <div>
+        <span class="lab">North America — the mirror</span>
+        <span class="big">{na.vetPc}%</span>
+        <span class="det">
+          {na.veteran} of {na.players} long-standing, the lowest — while <b>{na.hotPc}%</b> are on a
+          hot streak, the highest. Fewer settled players, more players surging.
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>All six, most settled first</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th>Region</th><th>Challengers</th><th>Long-standing</th><th>Share</th>
+            <th>On a hot streak</th><th>Share</th><th>Grandmaster long-standing</th>
+          </tr>
+        </thead>
+        <tbody>
+          {data.rows.map((r) => (
+            <tr class={r.code === 'kr' ? 'me' : ''}>
+              <td class="nm">{r.region}</td>
+              <td>{r.players}</td>
+              <td>{r.veteran}</td><td class="tot">{r.vetPc}%</td>
+              <td>{r.hot}</td><td>{r.hotPc}%</td>
+              <td>{r.gmVetPc}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The two columns move against each other. Where fewer players are settled, more are climbing —
+      which is what churn looks like when you only get to see one night of it. Korea sits at one end
+      of both, North America at the other, and the four regions between them line up in the same order
+      on each measure.
+    </p>
+  </section>
+
+  <section>
+    <h2>Long-standing share, every day we have measured</h2>
+    <p class="sub">Percent of challengers. {data.days} days — a check that the ordering holds, not a trend.</p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Date</th>{data.regions.map((r) => <th>{r}</th>)}</tr>
+        </thead>
+        <tbody>
+          {data.series.map((s) => (
+            <tr>
+              <td class="nm">{s.date}</td>
+              {data.regions.map((r) => (
+                <td class={r === 'Korea' ? 'tot' : ''}>
+                  {(s as Record<string, number | string>)[r] ?? '—'}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Korea is highest on all {data.days} days and North America lowest on all {data.days}.{' '}
+      <b>2026-08-05 is missing</b> — the collection key expired, and a ladder cannot be rebuilt
+      afterwards, so the day is gone rather than filled in.
+    </p>
+  </section>
+
+  <section>
+    <h2>Three measures, one direction</h2>
+    <p class="sub">This is the third thing we have counted about the same six ladders. They do not disagree.</p>
+    <ul class="three">
+      <li><b><a href="/esports">Win rate</a></b> — Korea’s challengers win least often of the six. Their opponents are the hardest.</li>
+      <li><b><a href="/ladder-gap">Tier gap</a></b> — Korea’s top 300 beat the 700 below them by the smallest margin. The field beneath is closest.</li>
+      <li><b>Turnover</b> — Korea’s top tier changes hands least. That field has settled into it.</li>
+    </ul>
+    <p class="note">
+      Three different fields of the same nightly call, pointing the same way. That is worth stating
+      and worth not over-stating: these are three views of one population, not three independent
+      confirmations, and none of them explains <i>why</i>.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from</h2>
+    <ul>
+      <li><b>Riot Games</b> — Developer API, {data.endpoints}. Collected once a day at 22:00 KST.</li>
+      <li>
+        <b>“Long-standing” and “hot streak” are Riot’s own flags</b>, returned per player on the
+        league entry. We count how many carry each flag and divide by the tier size; we do not define
+        either term ourselves and cannot see the threshold behind them.
+      </li>
+      <li>
+        <b>Japan is a sixth the size</b> — {data.rows.find((r) => r.code === 'jp1')!.players} challengers
+        against roughly 300 elsewhere. Its percentages move by two points for one player, and are
+        printed without being leaned on.
+      </li>
+      <li><b>{data.privacy}</b></li>
+      <li>
+        <b>Four days is a snapshot.</b> Nothing here says turnover is rising or falling anywhere. What
+        it says is that the six regions sat in the same order on each of the days we looked.
+      </li>
+    </ul>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { margin: 0 0 .5rem; font-size: 1.7rem; letter-spacing: -.02em; }
+  .lead { margin: 0 0 2rem; font-size: 1rem; color: var(--muted); }
+  section { margin: 0 0 2.5rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; line-height: 1.4; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  .flip { display: grid; gap: .8rem; grid-template-columns: 1fr; }
+  @media (min-width: 34rem) { .flip { grid-template-columns: 1fr 1fr; } }
+  .flip > div { background: var(--card); border-radius: 8px; padding: .9rem 1rem; }
+  .lab { display: block; font-size: .76rem; letter-spacing: .04em; text-transform: uppercase;
+         color: var(--muted); font-weight: 700; }
+  .big { display: block; font-size: 1.6rem; font-weight: 700; margin: .25rem 0 .35rem;
+         letter-spacing: -.01em; font-variant-numeric: tabular-nums; }
+  .det { display: block; font-size: .78rem; color: var(--muted); line-height: 1.55; }
+
+  .three { margin: 0; padding-left: 1.1rem; font-size: .88rem; line-height: 1.7; }
+  .three li { margin: .4rem 0; }
+
+  table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+  th, td { padding: .45rem .55rem; border-bottom: 1px solid var(--line); text-align: right;
+           white-space: nowrap; font-variant-numeric: tabular-nums; }
+  th { font-size: .71rem; letter-spacing: .03em; text-transform: uppercase; color: var(--muted);
+       font-weight: 700; }
+  th:first-child, td.nm { text-align: left; }
+  td.tot { font-weight: 700; }
+  tr.me td { background: var(--card); }
+
+  .src ul { margin: 0; padding-left: 1.1rem; font-size: .85rem; color: var(--muted); line-height: 1.7; }
+  .src li { margin: .45rem 0; }
+  .src b { color: var(--ink); }
+  .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>
