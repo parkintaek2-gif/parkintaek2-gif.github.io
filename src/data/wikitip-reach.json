@@ -1,0 +1,175 @@
+{
+ "generated": "2026-08-07T05:0x+09:00",
+ "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884)",
+ "region": "Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam",
+ "countries": 6,
+ "weekFrom": "2021-07-04",
+ "weekTo": "2026-07-26",
+ "weekCount": 265,
+ "titleCount": 448,
+ "buckets": [
+  {
+   "countries": 6,
+   "n": 194,
+   "share": 43.3,
+   "avgWeeks": 8.1,
+   "tv": 148,
+   "film": 46,
+   "peak1": 126
+  },
+  {
+   "countries": 5,
+   "n": 25,
+   "share": 5.6,
+   "avgWeeks": 5.2,
+   "tv": 19,
+   "film": 6,
+   "peak1": 5
+  },
+  {
+   "countries": 4,
+   "n": 27,
+   "share": 6,
+   "avgWeeks": 4,
+   "tv": 16,
+   "film": 11,
+   "peak1": 4
+  },
+  {
+   "countries": 3,
+   "n": 27,
+   "share": 6,
+   "avgWeeks": 4.6,
+   "tv": 12,
+   "film": 15,
+   "peak1": 3
+  },
+  {
+   "countries": 2,
+   "n": 41,
+   "share": 9.2,
+   "avgWeeks": 2.5,
+   "tv": 15,
+   "film": 26,
+   "peak1": 6
+  },
+  {
+   "countries": 1,
+   "n": 134,
+   "share": 29.9,
+   "avgWeeks": 2.8,
+   "tv": 40,
+   "film": 94,
+   "peak1": 16
+  }
+ ],
+ "formats": [
+  {
+   "type": "Series",
+   "n": 250,
+   "avgCountries": 4.61,
+   "avgWeeks": 7.4,
+   "peak1": 103,
+   "all6": 148
+  },
+  {
+   "type": "Films",
+   "n": 198,
+   "avgCountries": 2.73,
+   "avgWeeks": 2.7,
+   "peak1": 57,
+   "all6": 46
+  }
+ ],
+ "peak1": 160,
+ "examples": {
+  "six": [
+   {
+    "title": "Alchemy of Souls",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 45
+   },
+   {
+    "title": "Hometown Cha-Cha-Cha",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 34
+   },
+   {
+    "title": "Squid Game",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 29
+   },
+   {
+    "title": "Extraordinary Attorney Woo",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 29
+   },
+   {
+    "title": "Business Proposal",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 27
+   },
+   {
+    "title": "Solo Leveling",
+    "type": "TV",
+    "countries": 6,
+    "peak": 1,
+    "weeks": 27
+   }
+  ],
+  "one": [
+   {
+    "title": "It's Okay to Not Be Okay",
+    "type": "TV",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 13
+   },
+   {
+    "title": "Vagabond",
+    "type": "TV",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 8
+   },
+   {
+    "title": "Bad Guys",
+    "type": "TV",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 7
+   },
+   {
+    "title": "Sunshine",
+    "type": "Films",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 6
+   },
+   {
+    "title": "More Than Blue",
+    "type": "Films",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 5
+   },
+   {
+    "title": "6/45",
+    "type": "Films",
+    "countries": 1,
+    "peak": 1,
+    "weeks": 5
+   }
+  ]
+ }
+}
