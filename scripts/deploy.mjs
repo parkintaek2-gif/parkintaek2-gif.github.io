@@ -133,26 +133,17 @@ async function 새주소찾기(최대 = 3) {
   const 뿌리 = path.resolve('dist');
   if (!existsSync(뿌리)) return [];
 
-  // ⚠ **dist 가 마지막 커밋보다 낡았으면 판정에 쓸 수 없다.**
-  //   컨테이너는 저장소를 받아 새로 빌드하는데 내 dist 는 그대로라, 옆 세션이 새로 낸 지면이
-  //   내 dist 에 없다. 그러면 「새로 나갈 지면이 없다」로 잘못 읽는다.
-  //   2026-08-07 03:0x 에 실제로 그렇게 읽었다 — 5번의 새 지면 두 장을 못 봤다.
+  // ⚠ dist 가 낡으면 판정이 틀린다. **낡았는지 맞히려 들지 않고 여기서 새로 빌드한다.**
+  //   시각을 견주는 방식으로 두 번 어긋났다(2026-08-07 03:0x·05:0x). 어긋날 자리를 없앤다.
+  //   빌드는 30초 안팎이고 배포는 그보다 훨씬 길다 — 그만한 값을 한다.
   try {
-    const { statSync } = await import('node:fs');
-    const 빌드때 = statSync(path.join(뿌리, 'index.html')).mtimeMs;
-    // ⚠ **아무 커밋이나 보면 안 된다.** 문서·스크립트만 고쳐도 「낡았다」가 되어
-    //   멀쩡한 판정을 스스로 껐다(2026-08-07 04:0x, 내가 이 파일을 커밋하고 바로 겪었다).
-    //   지면을 바꾸는 것만 본다 — src/ · content/ · public/ · 설정.
-    const 커밋때 =
-      Number(
-        execFileSync('git', ['log', '-1', '--format=%ct', '--', 'src', 'content', 'public',
-                              'astro.config.mjs', 'package.json'], { encoding: 'utf8' }).trim(),
-      ) * 1000;
-    if (커밋때 && 커밋때 > 빌드때) {
-      console.log('⚠ dist 가 지면 커밋보다 낡았다 — 지면으로 판정하려면 먼저 `npx astro build` 를 한다.');
-      return [];
-    }
-  } catch { /* 못 재면 그냥 간다 */ }
+    console.log('판정에 쓸 지면 목록을 만든다 — 빌드한다(30초 안팎)…');
+    // ⚠ 윈도에서는 npx.cmd 를 직접 부른다. shell:true 로 넘기면 인자가 그대로 이어붙는다
+    execFileSync(process.platform === 'win32' ? 'npx.cmd' : 'npx', ['astro', 'build'], { stdio: 'ignore' });
+  } catch {
+    console.log('⚠ 빌드가 안 됐다 — 지면 판정을 쓰지 않고 옛 방식으로 돈다.');
+    return [];
+  }
 
   // ① 라이브 사이트맵 셋을 받아 **지금 나가 있는 주소**를 모은다. 요청 세 번이면 된다.
   //    ⛔ dist 의 지면을 하나씩 찔러 보지 않는다 — 3,900 번을 쏘게 된다.
