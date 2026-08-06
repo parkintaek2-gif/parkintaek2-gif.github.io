@@ -301,9 +301,13 @@ async function main() {
         const 잰것 = await Promise.all(새주소.map(async (u) => {
           try { return (await fetch(u, { method: 'HEAD', redirect: 'manual' })).status; } catch { return 0; }
         }));
-        const 떴다 = 잰것.every((c) => c === 200);
+        // ⚠ **하나라도 200 이면 새 빌드가 서고 있는 것이다.**
+        //   「전부 200」으로 두었더니 한 장이 안 떠서 600초를 다 태웠다(2026-08-07 06:0x).
+        //   지면이 안 뜨는 데는 다른 까닭이 있을 수 있고(주소 규칙·noindex·라우팅),
+        //   그것은 배포가 끝났나와 다른 문제다. 안 뜬 것은 **이름을 적어 남긴다.**
+        const 뜬것 = 새주소.filter((_, k) => 잰것[k] === 200);
         console.log(`  ${(i + 1) * 20}초 · ${결과} · 새 지면 ${잰것.join('/')}`);
-        if (떴다) { 내용확인 = 새주소; break; }
+        if (뜬것.length) { 내용확인 = { 뜬것, 안뜬것: 새주소.filter((u) => !뜬것.includes(u)) }; break; }
       } else {
         console.log(`  ${(i + 1) * 20}초 · ${결과}`);
       }
@@ -312,12 +316,17 @@ async function main() {
 
     if (내용확인) {
       // 새로 낸 지면이 실제로 200 이다. ctype 표시가 무엇이든 나간 것이다.
+      const 못뜬줄 = 내용확인.안뜬것.length
+        ? `\n> ⚠ **아직 404 인 것** — ${내용확인.안뜬것.join(' · ')}\n` +
+          `> 배포와 별개 문제다. 주소 규칙·라우팅을 눈으로 본다.`
+        : '';
       통보(
         `> ✅ **[SeoulMarkets] 배포 완료 ${시각()} KST** — 새 지면이 라이브에 떴다.\n` +
-          내용확인.map((u) => `> · ${u} 200`).join('\n') +
-          `\n> (ctype 표시는 \`${결과}\` — 표시가 아니라 지면으로 판정했다)`,
+          내용확인.뜬것.map((u) => `> · ${u} 200`).join('\n') +
+          `\n> (ctype 표시는 \`${결과}\` — 표시가 아니라 지면으로 판정했다)` + 못뜬줄,
       );
-      console.log(`\n✅ 새 지면 ${내용확인.length}개 라이브 200 — 나갔다 (ctype 표시 ${결과})`);
+      console.log(`\n✅ 새 지면 ${내용확인.뜬것.length}개 라이브 200 — 나갔다 (ctype 표시 ${결과})`);
+      if (내용확인.안뜬것.length) console.log(`⚠ 아직 404: ${내용확인.안뜬것.join(' · ')}`);
     } else if (결과 === 'Running') {
       const code = await 라이브확인();
       통보(`> ✅ **[SeoulMarkets] 배포 완료 ${시각()} KST** — 상태 \`Running\` · 라이브 \`${code}\``);
