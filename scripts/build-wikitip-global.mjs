@@ -29,21 +29,14 @@
  */
 import fs from 'node:fs';
 import readline from 'node:readline';
+import { koreanTitleFilter, NOT_KOREAN, AUDITED as SHARED_AUDITED } from './lib/korean-netflix-titles.mjs';
 
-const korean = new Set(JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-titles.json', 'utf8')).제목);
+const ko = koreanTitleFilter();
+const korean = ko.korean;
 
-/** 손으로 확인해 뺀 것 — 이름만 같고 한국 작품이 아니다. 시간 상위부터 훑어서 나온 것. */
-const NOT_KOREAN = new Map([
-  ['Teach You a Lesson', '중국'],
-  ['The Empress', '독일 (Die Kaiserin)'],
-  ['Forgotten Love', '폴란드 (Znachor)'],
-  ['Hunger', '태국'],
-  ['Paradise', '독일'],
-  ['Animal', '인도'],
-  ['Fighter', '인도'],
-]);
-/** 손으로 본 깊이 — 지면에 그대로 적는다. 이 아래는 안 봤다. */
-const AUDITED = { tv: 30, film: 20 };
+/* NOT_KOREAN(손으로 확인해 뺀 목록)과 AUDITED(손으로 본 깊이)는 lib 에서 온다.
+   여기 다시 적어 두면 두 곳이 갈라진다 — 갈라져서 /staying-power 가 틀린 채 살아 있었다. */
+const AUDITED = SHARED_AUDITED;
 
 const agg = new Map();
 const weeksAll = new Set();

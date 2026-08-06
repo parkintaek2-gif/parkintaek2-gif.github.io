@@ -15,9 +15,12 @@
  */
 import fs from 'node:fs';
 import readline from 'node:readline';
+import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
 
 const SEA = { SG: 'Singapore', MY: 'Malaysia', PH: 'the Philippines', TH: 'Thailand', ID: 'Indonesia', VN: 'Vietnam' };
-const korean = new Set(JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-titles.json', 'utf8')).제목);
+/* 판정은 한 곳에서 온다 — scripts/lib/korean-netflix-titles.mjs.
+   여기 복사해 두면 /watched 만 고치고 이 지면은 틀린 채로 남는다. 실제로 그럴 뻔했다. */
+const ko = koreanTitleFilter();
 
 const agg = new Map();
 const weeksAll = new Set();
@@ -29,7 +32,7 @@ for await (const line of rl) {
   let r; try { r = JSON.parse(line); } catch { continue; }
   scanned++;
   if (!SEA[r.iso2]) continue;
-  if (!korean.has(r.제목)) continue;
+  if (!ko.keepTitle(r.제목)) continue;
   hit++;
   weeksAll.add(r.주);
   let a = agg.get(r.제목);
@@ -45,9 +48,14 @@ const rows = [...agg.values()]
   .sort((x, y) => y.countries - x.countries || x.peak - y.peak || y.weeks - x.weeks);
 
 const weeks = [...weeksAll].sort();
+const st = ko.stats();
 const out = {
   generated: new Date().toLocaleString('ko-KR'),
-  source: 'Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884)',
+  source: 'Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded',
+  /** 뺀 것과 못 거른 것을 같이 낸다. 지면이 이 값을 그대로 적는다. */
+  excludedEnglishChart: st.droppedEnglishChart.length,
+  excludedByHand: st.droppedByHand,
+  unlabelledTitles: st.unlabelled,
   region: 'Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam',
   countries: Object.keys(SEA).length,
   weekFrom: weeks[0],

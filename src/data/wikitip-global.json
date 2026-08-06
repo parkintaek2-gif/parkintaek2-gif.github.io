@@ -1,11 +1,11 @@
 {
-  "generated": "2026. 8. 7. 오전 6:19:27",
+  "generated": "2026. 8. 7. 오전 7:02:28",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 237,
-  "totalHours": 23817940000,
+  "titleCount": 236,
+  "totalHours": 23729840000,
   "before": {
     "titles": 294,
     "hours": 27715940000
@@ -15,9 +15,10 @@
     "hours": 2627290000
   },
   "excludedByHand": {
-    "titles": 7,
-    "hours": 1270710000,
+    "titles": 8,
+    "hours": 1358810000,
     "list": [
+      "The East Palace",
       "Teach You a Lesson",
       "The Empress",
       "Fighter",

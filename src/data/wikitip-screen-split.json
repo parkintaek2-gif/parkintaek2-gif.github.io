@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 7. 오전 6:19:28",
+  "generated": "2026. 8. 7. 오전 7:02:28",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
@@ -7,12 +7,12 @@
   "weekCount": 265,
   "series": {
     "kind": "series",
-    "titles": 151,
-    "hours": 22285830000,
-    "weeks": 797,
-    "hoursPerTitle": 147588278,
-    "weeksPerTitle": 5.28,
-    "hoursPerWeek": 27962146,
+    "titles": 150,
+    "hours": 22197730000,
+    "weeks": 795,
+    "hoursPerTitle": 147984867,
+    "weeksPerTitle": 5.3,
+    "hoursPerWeek": 27921673,
     "numberOnes": 41,
     "top": [
       {
@@ -151,12 +151,12 @@
   },
   "seriesAboveTopFilm": 33,
   "ratioHours": 14.5,
-  "ratioTitles": 1.76,
+  "ratioTitles": 1.74,
   "ratioPerTitle": 8.3,
   "withoutSquidGame": {
-    "titles": 150,
-    "hours": 17237530000,
-    "hoursPerTitle": 114916867,
+    "titles": 149,
+    "hours": 17149430000,
+    "hoursPerTitle": 115096846,
     "ratioPerTitle": 6.5
   },
   "before": {
@@ -168,9 +168,10 @@
     "film": 20
   },
   "excludedByHand": {
-    "titles": 7,
-    "hours": 1270710000,
+    "titles": 8,
+    "hours": 1358810000,
     "list": [
+      "The East Palace",
       "Teach You a Lesson",
       "The Empress",
       "Fighter",

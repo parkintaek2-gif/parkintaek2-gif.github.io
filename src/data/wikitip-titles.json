@@ -1,12 +1,23 @@
 {
-  "generated": "2026. 8. 6. 오전 4:34:22",
-  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884)",
+  "generated": "2026. 8. 7. 오전 7:02:30",
+  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
+  "excludedEnglishChart": 36,
+  "excludedByHand": [
+    "The East Palace",
+    "Teach You a Lesson",
+    "The Empress",
+    "Fighter",
+    "Paradise",
+    "Hunger",
+    "Animal"
+  ],
+  "unlabelledTitles": 204,
   "region": "Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam",
   "countries": 6,
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 448,
+  "titleCount": 405,
   "rows": [
     {
       "title": "Alchemy of Souls",
@@ -394,13 +405,6 @@
       "weeks": 9
     },
     {
-      "title": "Teach You a Lesson",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 8
-    },
-    {
       "title": "If Wishes Could Kill",
       "type": "TV",
       "countries": 6,
@@ -424,13 +428,6 @@
     {
       "title": "Tastefully Yours",
       "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 8
-    },
-    {
-      "title": "The Hunt",
-      "type": "Films",
       "countries": 6,
       "peak": 1,
       "weeks": 8
@@ -515,13 +512,6 @@
     {
       "title": "Mask Girl",
       "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 7
-    },
-    {
-      "title": "Hunger",
-      "type": "Films",
       "countries": 6,
       "peak": 1,
       "weeks": 7
@@ -814,13 +804,6 @@
       "weeks": 3
     },
     {
-      "title": "The Out-Laws",
-      "type": "Films",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 3
-    },
-    {
       "title": "JUNG_E",
       "type": "Films",
       "countries": 6,
@@ -856,28 +839,7 @@
       "weeks": 3
     },
     {
-      "title": "The East Palace",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 2
-    },
-    {
       "title": "City Hunter",
-      "type": "Films",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 2
-    },
-    {
-      "title": "Blackout",
-      "type": "Films",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 2
-    },
-    {
-      "title": "Flight",
       "type": "Films",
       "countries": 6,
       "peak": 1,
@@ -1017,13 +979,6 @@
       "weeks": 5
     },
     {
-      "title": "Spellbound",
-      "type": "Films",
-      "countries": 6,
-      "peak": 2,
-      "weeks": 5
-    },
-    {
       "title": "A Time Called You",
       "type": "TV",
       "countries": 6,
@@ -1036,13 +991,6 @@
       "countries": 6,
       "peak": 2,
       "weeks": 5
-    },
-    {
-      "title": "The Perfect Couple",
-      "type": "TV",
-      "countries": 6,
-      "peak": 2,
-      "weeks": 4
     },
     {
       "title": "Black Knight",
@@ -1206,13 +1154,6 @@
       "weeks": 3
     },
     {
-      "title": "Paradise",
-      "type": "Films",
-      "countries": 6,
-      "peak": 3,
-      "weeks": 3
-    },
-    {
       "title": "Secret Royal Inspector & Joy",
       "type": "TV",
       "countries": 6,
@@ -1283,28 +1224,7 @@
       "weeks": 5
     },
     {
-      "title": "Devil May Cry",
-      "type": "TV",
-      "countries": 6,
-      "peak": 4,
-      "weeks": 4
-    },
-    {
-      "title": "Hit Man",
-      "type": "Films",
-      "countries": 6,
-      "peak": 4,
-      "weeks": 3
-    },
-    {
       "title": "Human Vapor",
-      "type": "TV",
-      "countries": 6,
-      "peak": 4,
-      "weeks": 2
-    },
-    {
-      "title": "Missing You",
       "type": "TV",
       "countries": 6,
       "peak": 4,
@@ -1330,13 +1250,6 @@
       "countries": 6,
       "peak": 5,
       "weeks": 7
-    },
-    {
-      "title": "One Day",
-      "type": "TV",
-      "countries": 6,
-      "peak": 5,
-      "weeks": 3
     },
     {
       "title": "The Cursed",
@@ -1386,20 +1299,6 @@
       "countries": 5,
       "peak": 1,
       "weeks": 5
-    },
-    {
-      "title": "Missing",
-      "type": "Films",
-      "countries": 5,
-      "peak": 1,
-      "weeks": 4
-    },
-    {
-      "title": "Trap",
-      "type": "Films",
-      "countries": 5,
-      "peak": 1,
-      "weeks": 2
     },
     {
       "title": "My Roommate Is a Gumiho",
@@ -1458,13 +1357,6 @@
       "weeks": 4
     },
     {
-      "title": "Warrior",
-      "type": "TV",
-      "countries": 5,
-      "peak": 4,
-      "weeks": 5
-    },
-    {
       "title": "First Lady",
       "type": "TV",
       "countries": 5,
@@ -1493,25 +1385,11 @@
       "weeks": 3
     },
     {
-      "title": "Gifted",
-      "type": "Films",
-      "countries": 5,
-      "peak": 4,
-      "weeks": 2
-    },
-    {
       "title": "Chicken Nugget",
       "type": "TV",
       "countries": 5,
       "peak": 4,
       "weeks": 2
-    },
-    {
-      "title": "Oblivion",
-      "type": "Films",
-      "countries": 5,
-      "peak": 5,
-      "weeks": 1
     },
     {
       "title": "Lookism",
@@ -1535,13 +1413,6 @@
       "weeks": 2
     },
     {
-      "title": "Echoes",
-      "type": "TV",
-      "countries": 5,
-      "peak": 7,
-      "weeks": 1
-    },
-    {
       "title": "Only You",
       "type": "TV",
       "countries": 4,
@@ -1561,13 +1432,6 @@
       "countries": 4,
       "peak": 1,
       "weeks": 3
-    },
-    {
-      "title": "Fighter",
-      "type": "Films",
-      "countries": 4,
-      "peak": 1,
-      "weeks": 2
     },
     {
       "title": "Love (ft. Marriage and Divorce)",
@@ -1619,13 +1483,6 @@
       "weeks": 3
     },
     {
-      "title": "The Witness",
-      "type": "TV",
-      "countries": 4,
-      "peak": 3,
-      "weeks": 2
-    },
-    {
       "title": "The Auditors",
       "type": "TV",
       "countries": 4,
@@ -1659,27 +1516,6 @@
       "countries": 4,
       "peak": 5,
       "weeks": 4
-    },
-    {
-      "title": "Aftermath",
-      "type": "Films",
-      "countries": 4,
-      "peak": 5,
-      "weeks": 2
-    },
-    {
-      "title": "The Witcher: Nightmare of the Wolf",
-      "type": "Films",
-      "countries": 4,
-      "peak": 5,
-      "weeks": 1
-    },
-    {
-      "title": "The Empress",
-      "type": "TV",
-      "countries": 4,
-      "peak": 6,
-      "weeks": 3
     },
     {
       "title": "Monster",
@@ -1750,13 +1586,6 @@
       "countries": 3,
       "peak": 1,
       "weeks": 3
-    },
-    {
-      "title": "Anna",
-      "type": "Films",
-      "countries": 3,
-      "peak": 2,
-      "weeks": 8
     },
     {
       "title": "The Divine Fury",
@@ -1857,25 +1686,11 @@
       "weeks": 2
     },
     {
-      "title": "Eye for an Eye",
-      "type": "Films",
-      "countries": 3,
-      "peak": 4,
-      "weeks": 1
-    },
-    {
       "title": "All In",
       "type": "Films",
       "countries": 3,
       "peak": 5,
       "weeks": 2
-    },
-    {
-      "title": "The Witcher: Sirens of the Deep",
-      "type": "Films",
-      "countries": 3,
-      "peak": 5,
-      "weeks": 1
     },
     {
       "title": "The Winning Try",
@@ -1899,25 +1714,11 @@
       "weeks": 3
     },
     {
-      "title": "Vacation",
-      "type": "Films",
-      "countries": 3,
-      "peak": 7,
-      "weeks": 1
-    },
-    {
       "title": "Homemade Love Story",
       "type": "TV",
       "countries": 3,
       "peak": 8,
       "weeks": 2
-    },
-    {
-      "title": "Collision",
-      "type": "Films",
-      "countries": 3,
-      "peak": 8,
-      "weeks": 1
     },
     {
       "title": "The Medium",
@@ -1983,13 +1784,6 @@
       "weeks": 4
     },
     {
-      "title": "Animal",
-      "type": "Films",
-      "countries": 2,
-      "peak": 2,
-      "weeks": 2
-    },
-    {
       "title": "Hitman: Agent Jun",
       "type": "Films",
       "countries": 2,
@@ -2012,13 +1806,6 @@
     },
     {
       "title": "Possessed",
-      "type": "Films",
-      "countries": 2,
-      "peak": 3,
-      "weeks": 2
-    },
-    {
-      "title": "I Am Legend",
       "type": "Films",
       "countries": 2,
       "peak": 3,
@@ -2053,13 +1840,6 @@
       "weeks": 1
     },
     {
-      "title": "Lost",
-      "type": "TV",
-      "countries": 2,
-      "peak": 6,
-      "weeks": 3
-    },
-    {
       "title": "Reset",
       "type": "TV",
       "countries": 2,
@@ -2081,22 +1861,8 @@
       "weeks": 1
     },
     {
-      "title": "IF",
-      "type": "Films",
-      "countries": 2,
-      "peak": 6,
-      "weeks": 1
-    },
-    {
       "title": "Stepmom",
       "type": "Films",
-      "countries": 2,
-      "peak": 6,
-      "weeks": 1
-    },
-    {
-      "title": "Run Away",
-      "type": "TV",
       "countries": 2,
       "peak": 6,
       "weeks": 1
@@ -2107,13 +1873,6 @@
       "countries": 2,
       "peak": 7,
       "weeks": 3
-    },
-    {
-      "title": "Love Again",
-      "type": "Films",
-      "countries": 2,
-      "peak": 7,
-      "weeks": 2
     },
     {
       "title": "Peninsula",
@@ -2128,13 +1887,6 @@
       "countries": 2,
       "peak": 7,
       "weeks": 1
-    },
-    {
-      "title": "The Girl Next Door",
-      "type": "Films",
-      "countries": 2,
-      "peak": 8,
-      "weeks": 3
     },
     {
       "title": "Tale of the Nine Tailed",
@@ -2188,13 +1940,6 @@
     {
       "title": "Trolley",
       "type": "TV",
-      "countries": 2,
-      "peak": 10,
-      "weeks": 1
-    },
-    {
-      "title": "Roommates",
-      "type": "Films",
       "countries": 2,
       "peak": 10,
       "weeks": 1
@@ -2690,13 +2435,6 @@
       "weeks": 3
     },
     {
-      "title": "Non-Stop",
-      "type": "Films",
-      "countries": 1,
-      "peak": 6,
-      "weeks": 2
-    },
-    {
       "title": "Sleep",
       "type": "Films",
       "countries": 1,
@@ -2879,13 +2617,6 @@
       "weeks": 1
     },
     {
-      "title": "Elysium",
-      "type": "Films",
-      "countries": 1,
-      "peak": 8,
-      "weeks": 1
-    },
-    {
       "title": "Along with the Gods: The Two Worlds",
       "type": "Films",
       "countries": 1,
@@ -2922,13 +2653,6 @@
     },
     {
       "title": "Metamorphosis",
-      "type": "Films",
-      "countries": 1,
-      "peak": 9,
-      "weeks": 2
-    },
-    {
-      "title": "The Client",
       "type": "Films",
       "countries": 1,
       "peak": 9,
@@ -3075,13 +2799,6 @@
       "weeks": 1
     },
     {
-      "title": "Home",
-      "type": "Films",
-      "countries": 1,
-      "peak": 10,
-      "weeks": 1
-    },
-    {
       "title": "Feng Shui",
       "type": "Films",
       "countries": 1,
@@ -3097,13 +2814,6 @@
     },
     {
       "title": "A Werewolf Boy",
-      "type": "Films",
-      "countries": 1,
-      "peak": 10,
-      "weeks": 1
-    },
-    {
-      "title": "The Stranger",
       "type": "Films",
       "countries": 1,
       "peak": 10,

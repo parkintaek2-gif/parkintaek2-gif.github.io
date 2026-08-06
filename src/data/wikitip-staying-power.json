@@ -1,560 +1,607 @@
 {
- "generated": "2026-08-07T03:0x+09:00",
- "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884)",
- "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
- "titleCount": 294,
- "shown": 50,
- "totalHours": 27715940000,
- "peakGroups": [
-  {
-   "label": "Peaked at #1",
-   "n": 30,
-   "avgHours": 471711667,
-   "avgWeeks": 9.5,
-   "avgPerWeek": 40337799
-  },
-  {
-   "label": "Peaked below #1",
-   "n": 20,
-   "avgHours": 216075500,
-   "avgWeeks": 9.4,
-   "avgPerWeek": 25671592
+  "generated": "2026-08-06T22:02:30.584Z",
+  "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
+  "weekFrom": "2021-07-04",
+  "weekTo": "2026-07-26",
+  "weekCount": 265,
+  "titleCount": 236,
+  "shown": 50,
+  "totalHours": 23729840000,
+  "peakGroups": [
+    {
+      "label": "Peaked at #1",
+      "n": 26,
+      "avgHours": 484597692,
+      "avgWeeks": 9.8,
+      "avgPerWeek": 38246175
+    },
+    {
+      "label": "Peaked below #1",
+      "n": 24,
+      "avgHours": 196302083,
+      "avgWeeks": 9,
+      "avgPerWeek": 23531518
+    }
+  ],
+  "longest": [
+    {
+      "title": "Squid Game",
+      "kind": "series",
+      "hours": 5048300000,
+      "peak": 1,
+      "weeks": 42,
+      "perWeek": 120197619
+    },
+    {
+      "title": "Alchemy of Souls",
+      "kind": "series",
+      "hours": 419030000,
+      "peak": 3,
+      "weeks": 27,
+      "perWeek": 15519630
+    },
+    {
+      "title": "Extraordinary Attorney Woo",
+      "kind": "series",
+      "hours": 662090000,
+      "peak": 1,
+      "weeks": 21,
+      "perWeek": 31528095
+    },
+    {
+      "title": "Hometown Cha-Cha-Cha",
+      "kind": "series",
+      "hours": 300580000,
+      "peak": 2,
+      "weeks": 16,
+      "perWeek": 18786250
+    },
+    {
+      "title": "Queen of Tears",
+      "kind": "series",
+      "hours": 653900000,
+      "peak": 1,
+      "weeks": 15,
+      "perWeek": 43593333
+    },
+    {
+      "title": "The Glory",
+      "kind": "series",
+      "hours": 560990000,
+      "peak": 1,
+      "weeks": 13,
+      "perWeek": 43153077
+    },
+    {
+      "title": "Business Proposal",
+      "kind": "series",
+      "hours": 279110000,
+      "peak": 1,
+      "weeks": 13,
+      "perWeek": 21470000
+    },
+    {
+      "title": "All of Us Are Dead",
+      "kind": "series",
+      "hours": 659510000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 59955455
+    },
+    {
+      "title": "King the Land",
+      "kind": "series",
+      "hours": 446900000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 40627273
+    },
+    {
+      "title": "Love Next Door",
+      "kind": "series",
+      "hours": 340200000,
+      "peak": 2,
+      "weeks": 11,
+      "perWeek": 30927273
+    }
+  ],
+  "fiercest": [
+    {
+      "title": "Squid Game",
+      "kind": "series",
+      "hours": 5048300000,
+      "peak": 1,
+      "weeks": 42,
+      "perWeek": 120197619
+    },
+    {
+      "title": "All of Us Are Dead",
+      "kind": "series",
+      "hours": 659510000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 59955455
+    },
+    {
+      "title": "Can This Love Be Translated?",
+      "kind": "series",
+      "hours": 271000000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 54200000
+    },
+    {
+      "title": "Agent Kim Reactivated",
+      "kind": "series",
+      "hours": 269700000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 53940000
+    },
+    {
+      "title": "When Life Gives You Tangerines",
+      "kind": "series",
+      "hours": 481600000,
+      "peak": 1,
+      "weeks": 9,
+      "perWeek": 53511111
+    },
+    {
+      "title": "Bon Appétit, Your Majesty",
+      "kind": "series",
+      "hours": 511900000,
+      "peak": 1,
+      "weeks": 10,
+      "perWeek": 51190000
+    },
+    {
+      "title": "Genie, Make a Wish",
+      "kind": "series",
+      "hours": 241900000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 48380000
+    },
+    {
+      "title": "Queen of Tears",
+      "kind": "series",
+      "hours": 653900000,
+      "peak": 1,
+      "weeks": 15,
+      "perWeek": 43593333
+    },
+    {
+      "title": "The Glory",
+      "kind": "series",
+      "hours": 560990000,
+      "peak": 1,
+      "weeks": 13,
+      "perWeek": 43153077
+    },
+    {
+      "title": "King the Land",
+      "kind": "series",
+      "hours": 446900000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 40627273
+    }
+  ],
+  "rows": [
+    {
+      "title": "Squid Game",
+      "kind": "series",
+      "hours": 5048300000,
+      "peak": 1,
+      "weeks": 42,
+      "perWeek": 120197619
+    },
+    {
+      "title": "Extraordinary Attorney Woo",
+      "kind": "series",
+      "hours": 662090000,
+      "peak": 1,
+      "weeks": 21,
+      "perWeek": 31528095
+    },
+    {
+      "title": "All of Us Are Dead",
+      "kind": "series",
+      "hours": 659510000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 59955455
+    },
+    {
+      "title": "Queen of Tears",
+      "kind": "series",
+      "hours": 653900000,
+      "peak": 1,
+      "weeks": 15,
+      "perWeek": 43593333
+    },
+    {
+      "title": "The Glory",
+      "kind": "series",
+      "hours": 560990000,
+      "peak": 1,
+      "weeks": 13,
+      "perWeek": 43153077
+    },
+    {
+      "title": "Bon Appétit, Your Majesty",
+      "kind": "series",
+      "hours": 511900000,
+      "peak": 1,
+      "weeks": 10,
+      "perWeek": 51190000
+    },
+    {
+      "title": "When Life Gives You Tangerines",
+      "kind": "series",
+      "hours": 481600000,
+      "peak": 1,
+      "weeks": 9,
+      "perWeek": 53511111
+    },
+    {
+      "title": "King the Land",
+      "kind": "series",
+      "hours": 446900000,
+      "peak": 1,
+      "weeks": 11,
+      "perWeek": 40627273
+    },
+    {
+      "title": "Alchemy of Souls",
+      "kind": "series",
+      "hours": 419030000,
+      "peak": 3,
+      "weeks": 27,
+      "perWeek": 15519630
+    },
+    {
+      "title": "Bloodhounds",
+      "kind": "series",
+      "hours": 353170000,
+      "peak": 1,
+      "weeks": 10,
+      "perWeek": 35317000
+    },
+    {
+      "title": "Love Next Door",
+      "kind": "series",
+      "hours": 340200000,
+      "peak": 2,
+      "weeks": 11,
+      "perWeek": 30927273
+    },
+    {
+      "title": "My Demon",
+      "kind": "series",
+      "hours": 331100000,
+      "peak": 2,
+      "weeks": 11,
+      "perWeek": 30100000
+    },
+    {
+      "title": "Dynamite Kiss",
+      "kind": "series",
+      "hours": 314600000,
+      "peak": 1,
+      "weeks": 9,
+      "perWeek": 34955556
+    },
+    {
+      "title": "Hometown Cha-Cha-Cha",
+      "kind": "series",
+      "hours": 300580000,
+      "peak": 2,
+      "weeks": 16,
+      "perWeek": 18786250
+    },
+    {
+      "title": "When the Phone Rings",
+      "kind": "series",
+      "hours": 282300000,
+      "peak": 2,
+      "weeks": 8,
+      "perWeek": 35287500
+    },
+    {
+      "title": "Business Proposal",
+      "kind": "series",
+      "hours": 279110000,
+      "peak": 1,
+      "weeks": 13,
+      "perWeek": 21470000
+    },
+    {
+      "title": "Can This Love Be Translated?",
+      "kind": "series",
+      "hours": 271000000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 54200000
+    },
+    {
+      "title": "Agent Kim Reactivated",
+      "kind": "series",
+      "hours": 269700000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 53940000
+    },
+    {
+      "title": "My Royal Nemesis",
+      "kind": "series",
+      "hours": 247500000,
+      "peak": 1,
+      "weeks": 8,
+      "perWeek": 30937500
+    },
+    {
+      "title": "Genie, Make a Wish",
+      "kind": "series",
+      "hours": 241900000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 48380000
+    },
+    {
+      "title": "True Beauty",
+      "kind": "series",
+      "hours": 241850000,
+      "peak": 5,
+      "weeks": 7,
+      "perWeek": 34550000
+    },
+    {
+      "title": "Gyeongseong Creature",
+      "kind": "series",
+      "hours": 204100000,
+      "peak": 2,
+      "weeks": 8,
+      "perWeek": 25512500
+    },
+    {
+      "title": "Beyond the Bar",
+      "kind": "series",
+      "hours": 202000000,
+      "peak": 2,
+      "weeks": 7,
+      "perWeek": 28857143
+    },
+    {
+      "title": "My Name",
+      "kind": "series",
+      "hours": 194140000,
+      "peak": 2,
+      "weeks": 5,
+      "perWeek": 38828000
+    },
+    {
+      "title": "The Trauma Code: Heroes on Call",
+      "kind": "series",
+      "hours": 184500000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 36900000
+    },
+    {
+      "title": "Crash Course in Romance",
+      "kind": "series",
+      "hours": 183450000,
+      "peak": 2,
+      "weeks": 11,
+      "perWeek": 16677273
+    },
+    {
+      "title": "Strong Girl Nam-soon",
+      "kind": "series",
+      "hours": 174400000,
+      "peak": 3,
+      "weeks": 9,
+      "perWeek": 19377778
+    },
+    {
+      "title": "The WONDERfools",
+      "kind": "series",
+      "hours": 170800000,
+      "peak": 2,
+      "weeks": 5,
+      "perWeek": 34160000
+    },
+    {
+      "title": "Little Women",
+      "kind": "series",
+      "hours": 163520000,
+      "peak": 3,
+      "weeks": 11,
+      "perWeek": 14865455
+    },
+    {
+      "title": "Hellbound",
+      "kind": "series",
+      "hours": 162850000,
+      "peak": 1,
+      "weeks": 6,
+      "perWeek": 27141667
+    },
+    {
+      "title": "Miss Night and Day",
+      "kind": "series",
+      "hours": 160100000,
+      "peak": 2,
+      "weeks": 10,
+      "perWeek": 16010000
+    },
+    {
+      "title": "Doctor Slump",
+      "kind": "series",
+      "hours": 154300000,
+      "peak": 1,
+      "weeks": 9,
+      "perWeek": 17144444
+    },
+    {
+      "title": "Welcome to Samdal-ri",
+      "kind": "series",
+      "hours": 150200000,
+      "peak": 5,
+      "weeks": 8,
+      "perWeek": 18775000
+    },
+    {
+      "title": "The Great Flood",
+      "kind": "film",
+      "hours": 149300000,
+      "peak": 1,
+      "weeks": 7,
+      "perWeek": 21328571
+    },
+    {
+      "title": "Juvenile Justice",
+      "kind": "series",
+      "hours": 146560000,
+      "peak": 1,
+      "weeks": 8,
+      "perWeek": 18320000
+    },
+    {
+      "title": "Destined with You",
+      "kind": "series",
+      "hours": 146000000,
+      "peak": 3,
+      "weeks": 8,
+      "perWeek": 18250000
+    },
+    {
+      "title": "Sold Out on You",
+      "kind": "series",
+      "hours": 141600000,
+      "peak": 1,
+      "weeks": 7,
+      "perWeek": 20228571
+    },
+    {
+      "title": "Our Unwritten Seoul",
+      "kind": "series",
+      "hours": 140600000,
+      "peak": 3,
+      "weeks": 6,
+      "perWeek": 23433333
+    },
+    {
+      "title": "Resident Playbook",
+      "kind": "series",
+      "hours": 139900000,
+      "peak": 3,
+      "weeks": 7,
+      "perWeek": 19985714
+    },
+    {
+      "title": "The King's Affection",
+      "kind": "series",
+      "hours": 138540000,
+      "peak": 2,
+      "weeks": 10,
+      "perWeek": 13854000
+    },
+    {
+      "title": "Breathless",
+      "kind": "series",
+      "hours": 133800000,
+      "peak": 1,
+      "weeks": 7,
+      "perWeek": 19114286
+    },
+    {
+      "title": "Money Heist: Korea - Joint Economic Area",
+      "kind": "series",
+      "hours": 133510000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 26702000
+    },
+    {
+      "title": "As You Stood By",
+      "kind": "series",
+      "hours": 133100000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 26620000
+    },
+    {
+      "title": "Narco-Saints",
+      "kind": "series",
+      "hours": 130350000,
+      "peak": 1,
+      "weeks": 5,
+      "perWeek": 26070000
+    },
+    {
+      "title": "Our Beloved Summer",
+      "kind": "series",
+      "hours": 128890000,
+      "peak": 4,
+      "weeks": 8,
+      "perWeek": 16111250
+    },
+    {
+      "title": "Tastefully Yours",
+      "kind": "series",
+      "hours": 128000000,
+      "peak": 2,
+      "weeks": 6,
+      "perWeek": 21333333
+    },
+    {
+      "title": "The Price of Confession",
+      "kind": "series",
+      "hours": 127500000,
+      "peak": 1,
+      "weeks": 4,
+      "perWeek": 31875000
+    },
+    {
+      "title": "The Guest",
+      "kind": "series",
+      "hours": 125300000,
+      "peak": 6,
+      "weeks": 4,
+      "perWeek": 31325000
+    },
+    {
+      "title": "Sweet Home",
+      "kind": "series",
+      "hours": 123400000,
+      "peak": 2,
+      "weeks": 5,
+      "perWeek": 24680000
+    },
+    {
+      "title": "The Good Bad Mother",
+      "kind": "series",
+      "hours": 122850000,
+      "peak": 3,
+      "weeks": 7,
+      "perWeek": 17550000
+    }
+  ],
+  "excludedEnglishChart": 52,
+  "excludedByHand": [
+    "The East Palace",
+    "Teach You a Lesson",
+    "The Empress",
+    "Fighter",
+    "Animal",
+    "Forgotten Love",
+    "Paradise",
+    "Hunger"
+  ],
+  "audited": {
+    "tv": 30,
+    "film": 20
   }
- ],
- "longest": [
-  {
-   "title": "Squid Game",
-   "kind": "series",
-   "hours": 5048300000,
-   "peak": 1,
-   "weeks": 42,
-   "perWeek": 120197619
-  },
-  {
-   "title": "Alchemy of Souls",
-   "kind": "series",
-   "hours": 419030000,
-   "peak": 3,
-   "weeks": 27,
-   "perWeek": 15519630
-  },
-  {
-   "title": "Extraordinary Attorney Woo",
-   "kind": "series",
-   "hours": 662090000,
-   "peak": 1,
-   "weeks": 21,
-   "perWeek": 31528095
-  },
-  {
-   "title": "Hometown Cha-Cha-Cha",
-   "kind": "series",
-   "hours": 300580000,
-   "peak": 2,
-   "weeks": 16,
-   "perWeek": 18786250
-  },
-  {
-   "title": "Queen of Tears",
-   "kind": "series",
-   "hours": 653900000,
-   "peak": 1,
-   "weeks": 15,
-   "perWeek": 43593333
-  },
-  {
-   "title": "The Glory",
-   "kind": "series",
-   "hours": 560990000,
-   "peak": 1,
-   "weeks": 13,
-   "perWeek": 43153077
-  },
-  {
-   "title": "Business Proposal",
-   "kind": "series",
-   "hours": 279110000,
-   "peak": 1,
-   "weeks": 13,
-   "perWeek": 21470000
-  },
-  {
-   "title": "All of Us Are Dead",
-   "kind": "series",
-   "hours": 659510000,
-   "peak": 1,
-   "weeks": 11,
-   "perWeek": 59955455
-  }
- ],
- "fiercest": [
-  {
-   "title": "Squid Game",
-   "kind": "series",
-   "hours": 5048300000,
-   "peak": 1,
-   "weeks": 42,
-   "perWeek": 120197619
-  },
-  {
-   "title": "Teach You a Lesson",
-   "kind": "series",
-   "hours": 643200000,
-   "peak": 1,
-   "weeks": 8,
-   "perWeek": 80400000
-  },
-  {
-   "title": "All of Us Are Dead",
-   "kind": "series",
-   "hours": 659510000,
-   "peak": 1,
-   "weeks": 11,
-   "perWeek": 59955455
-  },
-  {
-   "title": "Run Away",
-   "kind": "series",
-   "hours": 238700000,
-   "peak": 2,
-   "weeks": 4,
-   "perWeek": 59675000
-  },
-  {
-   "title": "The Perfect Couple",
-   "kind": "series",
-   "hours": 331000000,
-   "peak": 1,
-   "weeks": 6,
-   "perWeek": 55166667
-  },
-  {
-   "title": "Can This Love Be Translated?",
-   "kind": "series",
-   "hours": 271000000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 54200000
-  },
-  {
-   "title": "Agent Kim Reactivated",
-   "kind": "series",
-   "hours": 269700000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 53940000
-  },
-  {
-   "title": "When Life Gives You Tangerines",
-   "kind": "series",
-   "hours": 481600000,
-   "peak": 1,
-   "weeks": 9,
-   "perWeek": 53511111
-  }
- ],
- "rows": [
-  {
-   "title": "Squid Game",
-   "kind": "series",
-   "hours": 5048300000,
-   "peak": 1,
-   "weeks": 42,
-   "perWeek": 120197619
-  },
-  {
-   "title": "Alchemy of Souls",
-   "kind": "series",
-   "hours": 419030000,
-   "peak": 3,
-   "weeks": 27,
-   "perWeek": 15519630
-  },
-  {
-   "title": "Extraordinary Attorney Woo",
-   "kind": "series",
-   "hours": 662090000,
-   "peak": 1,
-   "weeks": 21,
-   "perWeek": 31528095
-  },
-  {
-   "title": "Hometown Cha-Cha-Cha",
-   "kind": "series",
-   "hours": 300580000,
-   "peak": 2,
-   "weeks": 16,
-   "perWeek": 18786250
-  },
-  {
-   "title": "Queen of Tears",
-   "kind": "series",
-   "hours": 653900000,
-   "peak": 1,
-   "weeks": 15,
-   "perWeek": 43593333
-  },
-  {
-   "title": "The Glory",
-   "kind": "series",
-   "hours": 560990000,
-   "peak": 1,
-   "weeks": 13,
-   "perWeek": 43153077
-  },
-  {
-   "title": "Business Proposal",
-   "kind": "series",
-   "hours": 279110000,
-   "peak": 1,
-   "weeks": 13,
-   "perWeek": 21470000
-  },
-  {
-   "title": "All of Us Are Dead",
-   "kind": "series",
-   "hours": 659510000,
-   "peak": 1,
-   "weeks": 11,
-   "perWeek": 59955455
-  },
-  {
-   "title": "King the Land",
-   "kind": "series",
-   "hours": 446900000,
-   "peak": 1,
-   "weeks": 11,
-   "perWeek": 40627273
-  },
-  {
-   "title": "Love Next Door",
-   "kind": "series",
-   "hours": 340200000,
-   "peak": 2,
-   "weeks": 11,
-   "perWeek": 30927273
-  },
-  {
-   "title": "My Demon",
-   "kind": "series",
-   "hours": 331100000,
-   "peak": 2,
-   "weeks": 11,
-   "perWeek": 30100000
-  },
-  {
-   "title": "The Empress",
-   "kind": "series",
-   "hours": 292800000,
-   "peak": 1,
-   "weeks": 11,
-   "perWeek": 26618182
-  },
-  {
-   "title": "Crash Course in Romance",
-   "kind": "series",
-   "hours": 183450000,
-   "peak": 2,
-   "weeks": 11,
-   "perWeek": 16677273
-  },
-  {
-   "title": "Little Women",
-   "kind": "series",
-   "hours": 163520000,
-   "peak": 3,
-   "weeks": 11,
-   "perWeek": 14865455
-  },
-  {
-   "title": "Bon Appétit, Your Majesty",
-   "kind": "series",
-   "hours": 511900000,
-   "peak": 1,
-   "weeks": 10,
-   "perWeek": 51190000
-  },
-  {
-   "title": "Bloodhounds",
-   "kind": "series",
-   "hours": 353170000,
-   "peak": 1,
-   "weeks": 10,
-   "perWeek": 35317000
-  },
-  {
-   "title": "Miss Night and Day",
-   "kind": "series",
-   "hours": 160100000,
-   "peak": 2,
-   "weeks": 10,
-   "perWeek": 16010000
-  },
-  {
-   "title": "The King's Affection",
-   "kind": "series",
-   "hours": 138540000,
-   "peak": 2,
-   "weeks": 10,
-   "perWeek": 13854000
-  },
-  {
-   "title": "When Life Gives You Tangerines",
-   "kind": "series",
-   "hours": 481600000,
-   "peak": 1,
-   "weeks": 9,
-   "perWeek": 53511111
-  },
-  {
-   "title": "Dynamite Kiss",
-   "kind": "series",
-   "hours": 314600000,
-   "peak": 1,
-   "weeks": 9,
-   "perWeek": 34955556
-  },
-  {
-   "title": "Strong Girl Nam-soon",
-   "kind": "series",
-   "hours": 174400000,
-   "peak": 3,
-   "weeks": 9,
-   "perWeek": 19377778
-  },
-  {
-   "title": "Doctor Slump",
-   "kind": "series",
-   "hours": 154300000,
-   "peak": 1,
-   "weeks": 9,
-   "perWeek": 17144444
-  },
-  {
-   "title": "Teach You a Lesson",
-   "kind": "series",
-   "hours": 643200000,
-   "peak": 1,
-   "weeks": 8,
-   "perWeek": 80400000
-  },
-  {
-   "title": "When the Phone Rings",
-   "kind": "series",
-   "hours": 282300000,
-   "peak": 2,
-   "weeks": 8,
-   "perWeek": 35287500
-  },
-  {
-   "title": "My Royal Nemesis",
-   "kind": "series",
-   "hours": 247500000,
-   "peak": 1,
-   "weeks": 8,
-   "perWeek": 30937500
-  },
-  {
-   "title": "Gyeongseong Creature",
-   "kind": "series",
-   "hours": 204100000,
-   "peak": 2,
-   "weeks": 8,
-   "perWeek": 25512500
-  },
-  {
-   "title": "Welcome to Samdal-ri",
-   "kind": "series",
-   "hours": 150200000,
-   "peak": 5,
-   "weeks": 8,
-   "perWeek": 18775000
-  },
-  {
-   "title": "Juvenile Justice",
-   "kind": "series",
-   "hours": 146560000,
-   "peak": 1,
-   "weeks": 8,
-   "perWeek": 18320000
-  },
-  {
-   "title": "Destined with You",
-   "kind": "series",
-   "hours": 146000000,
-   "peak": 3,
-   "weeks": 8,
-   "perWeek": 18250000
-  },
-  {
-   "title": "True Beauty",
-   "kind": "series",
-   "hours": 241850000,
-   "peak": 5,
-   "weeks": 7,
-   "perWeek": 34550000
-  },
-  {
-   "title": "One Day",
-   "kind": "series",
-   "hours": 225600000,
-   "peak": 1,
-   "weeks": 7,
-   "perWeek": 32228571
-  },
-  {
-   "title": "Beyond the Bar",
-   "kind": "series",
-   "hours": 202000000,
-   "peak": 2,
-   "weeks": 7,
-   "perWeek": 28857143
-  },
-  {
-   "title": "The Great Flood",
-   "kind": "film",
-   "hours": 149300000,
-   "peak": 1,
-   "weeks": 7,
-   "perWeek": 21328571
-  },
-  {
-   "title": "Sold Out on You",
-   "kind": "series",
-   "hours": 141600000,
-   "peak": 1,
-   "weeks": 7,
-   "perWeek": 20228571
-  },
-  {
-   "title": "Resident Playbook",
-   "kind": "series",
-   "hours": 139900000,
-   "peak": 3,
-   "weeks": 7,
-   "perWeek": 19985714
-  },
-  {
-   "title": "Breathless",
-   "kind": "series",
-   "hours": 133800000,
-   "peak": 1,
-   "weeks": 7,
-   "perWeek": 19114286
-  },
-  {
-   "title": "The Perfect Couple",
-   "kind": "series",
-   "hours": 331000000,
-   "peak": 1,
-   "weeks": 6,
-   "perWeek": 55166667
-  },
-  {
-   "title": "Hellbound",
-   "kind": "series",
-   "hours": 162850000,
-   "peak": 1,
-   "weeks": 6,
-   "perWeek": 27141667
-  },
-  {
-   "title": "Our Unwritten Seoul",
-   "kind": "series",
-   "hours": 140600000,
-   "peak": 3,
-   "weeks": 6,
-   "perWeek": 23433333
-  },
-  {
-   "title": "Can This Love Be Translated?",
-   "kind": "series",
-   "hours": 271000000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 54200000
-  },
-  {
-   "title": "Agent Kim Reactivated",
-   "kind": "series",
-   "hours": 269700000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 53940000
-  },
-  {
-   "title": "Genie, Make a Wish",
-   "kind": "series",
-   "hours": 241900000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 48380000
-  },
-  {
-   "title": "My Name",
-   "kind": "series",
-   "hours": 194140000,
-   "peak": 2,
-   "weeks": 5,
-   "perWeek": 38828000
-  },
-  {
-   "title": "The Trauma Code: Heroes on Call",
-   "kind": "series",
-   "hours": 184500000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 36900000
-  },
-  {
-   "title": "The WONDERfools",
-   "kind": "series",
-   "hours": 170800000,
-   "peak": 2,
-   "weeks": 5,
-   "perWeek": 34160000
-  },
-  {
-   "title": "Money Heist: Korea - Joint Economic Area",
-   "kind": "series",
-   "hours": 133510000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 26702000
-  },
-  {
-   "title": "As You Stood By",
-   "kind": "series",
-   "hours": 133100000,
-   "peak": 1,
-   "weeks": 5,
-   "perWeek": 26620000
-  },
-  {
-   "title": "Run Away",
-   "kind": "series",
-   "hours": 238700000,
-   "peak": 2,
-   "weeks": 4,
-   "perWeek": 59675000
-  },
-  {
-   "title": "Missing You",
-   "kind": "series",
-   "hours": 172100000,
-   "peak": 1,
-   "weeks": 4,
-   "perWeek": 43025000
-  },
-  {
-   "title": "Echoes",
-   "kind": "series",
-   "hours": 144960000,
-   "peak": 1,
-   "weeks": 4,
-   "perWeek": 36240000
-  }
- ]
 }

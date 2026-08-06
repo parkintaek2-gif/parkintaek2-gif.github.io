@@ -34,6 +34,7 @@ import { getCollection } from 'astro:content';
 import WikiTip from '../../layouts/WikiTip.astro';
 import charts from '../../data/wikitip-charts.json';
 import music from '../../data/wikitip-music-export.json';
+import reachData from '../../data/wikitip-reach.json';
 
 /*
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
@@ -254,8 +255,9 @@ const jsonLd = {
   <section>
     <h2>Also running: how far Korean titles travel here</h2>
     <p class="sub">
-      All 448 Korean titles that charted in the six Southeast Asian markets, sorted by how many of
-      the six they reached. 43.3% reached all six, 29.9% reached exactly one, and little sits between.
+      All {reachData.titleCount} Korean titles that charted in the six Southeast Asian markets, sorted by
+      how many of the six they reached. {reachData.buckets[0].share}% reached all six,
+      {reachData.buckets[5].share}% reached exactly one, and little sits between.
     </p>
     <p class="note"><a href="/reach">See the distribution →</a></p>
   </section>
