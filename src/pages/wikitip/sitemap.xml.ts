@@ -23,6 +23,7 @@ export const GET: APIRoute = async () => {
     { path: '/tv-exports', priority: '0.9', changefreq: 'yearly' },
     { path: '/webtoon', priority: '0.9', changefreq: 'yearly' },
     { path: '/industry', priority: '0.9', changefreq: 'yearly' },
+    { path: '/staying-power', priority: '0.9', changefreq: 'weekly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
   ];
