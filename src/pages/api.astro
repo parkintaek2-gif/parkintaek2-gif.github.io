@@ -259,7 +259,7 @@ const jsonLd = {
           its target price to be is a fact about the market.
         </p>
         <p class="api-note">
-          <strong>Coverage is uneven by house, and you should know that before you build.</strong>
+          <strong>Coverage is uneven by house, and you should know that before you build.</strong>{' '}
           Counted per firm, several of Korea's largest desks are barely present — Samsung
           Securities 381 records, Korea Investment 179, KB 27, NH 10. That is not their publishing
           volume; it is what our aggregation source carries. <strong>This archive is what one
@@ -376,7 +376,7 @@ const jsonLd = {
           monthly final is itself revised around the 15th of the following month.
         </p>
         <p>
-          <strong>We keep the revisions alongside the originals rather than overwriting them.</strong>
+          <strong>We keep the revisions alongside the originals rather than overwriting them.</strong>{' '}
           If you pulled a number in March and pull it again in September, you can retrieve exactly
           what March returned, and see what changed since. Backtests that silently rewrite their own
           history are not backtests.
@@ -392,7 +392,7 @@ const jsonLd = {
         <p>
           Our heading dictionary covers the products that dominate Korean trade. A code outside that
           set resolves to its chapter and returns <code>null</code> for the heading, with a note
-          saying so. <strong>We do not generate a plausible description to fill the gap.</strong>
+          saying so. <strong>We do not generate a plausible description to fill the gap.</strong>{' '}
           A data product that guesses is worse than one with holes, because you cannot tell which is
           which.
         </p>
@@ -408,7 +408,7 @@ const jsonLd = {
           commercial purposes. We do not redistribute exchange feeds or licensed vendor data.
         </p>
         <p>
-          <strong>The research archive is a different matter, so we will be precise about it.</strong>
+          <strong>The research archive is a different matter, so we will be precise about it.</strong>{' '}
           A brokerage report is a copyrighted work. What we hold is not the report: it is the set of
           facts the broker stated publicly — which house, which analyst, which company, which date,
           what target price, what rating. <strong>We do not collect report text, tables, charts or
@@ -430,7 +430,7 @@ const jsonLd = {
           are contracted directly.
         </p>
         <p>
-          <strong>No key is required to call this API directly, and that does not change.</strong>
+          <strong>No key is required to call this API directly, and that does not change.</strong>{' '}
           The limits below are published now and take effect on {ENFORCE_FROM} — until then
           every response carries your current usage in <code>X-RateLimit-*</code> headers and
           nothing is ever rejected, so you can size your integration before anything binds.
