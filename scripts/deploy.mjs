@@ -33,8 +33,22 @@
 import { readFileSync, writeFileSync, existsSync, unlinkSync, appendFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
-import { pathToFileURL } from 'node:url';
+import { pathToFileURL, fileURLToPath } from 'node:url';
 import https from 'node:https';
+
+/**
+ * 🔴 2026-08-08 05:4x — **자리(cwd)를 안 박아 둬서 배포가 「성공」이라 하고 아무것도 안 나갔다.**
+ *
+ *   바탕화면 `00_세션입구` 에서 부르니 `.cloudtype/app.yaml` 을 못 찾았다.
+ *   그런데 **ctype 이 조용히 넘어가고**, 있던 통을 그냥 되살렸다 —
+ *   60초 만에 `Running` 이 떴고(4,807장을 지을 시간이 아니다) 라이브는 200 이었다.
+ *   그래서 이 스크립트가 **「✅ 나갔다」로 끝냈다.** 3번이 낸 길은 라이브에 없었다.
+ *
+ *   ⛔ 「성공」이라 말하면서 아무것도 안 나가는 것이 가장 나쁜 꼴이다.
+ *      멎는 것은 눈에 보이지만 이건 안 보인다.
+ *   ✅ 부른 자리가 어디든 **이 파일 옆 저장소**를 쓴다. `check-riot-key.mjs` 를 고친 것과 같은 꼴이다.
+ */
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 /** ⚠ 저장소 **바깥**이다. klifemap 세션도 같은 경로를 본다. */
 const LOCK = path.resolve('C:/Users/USER/Documents/GitHub/.cloudtype-deploy-lock.json');
@@ -54,10 +68,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 /** ⚠ `-t` 없이 부르지 않는다. 없으면 전역 스테이지로 튀어 남의 프로젝트에 배포된다. */
 function ctype(args) {
   try {
-    return execFileSync('ctype', args, { encoding: 'utf8', timeout: 120000, shell: true });
+    /* ⚠ `cwd: 뿌리` — 어디서 부르든 저장소에서 돌게 한다. 이게 없어 배포가 헛돌았다 */
+    return execFileSync('ctype', args, { encoding: 'utf8', timeout: 120000, shell: true, cwd: 뿌리 });
   } catch (e) {
     return (e.stdout ?? '') + (e.stderr ?? '');
   }
+}
+
+/**
+ * ⛔ **ctype 이 「파일이 없다」를 조용히 넘긴다.** 그러면 안 나간 것을 나갔다고 적게 된다.
+ *    그 말이 보이면 성공으로 읽지 않는다.
+ */
+export function 헛돌았나(출력) {
+  return /not found|no such file/i.test(String(출력 ?? ''));
 }
 
 /** 스테이지의 앱 상태를 읽는다. 색코드가 섞여 오므로 지운다. */
@@ -144,8 +167,11 @@ function 락풀기() {
 
 /** 세션간 메모에 자동으로 적는다. 손으로 적으면 잊는다. */
 function 통보(문구) {
-  const p = path.resolve('docs/세션간-메모.md');
-  if (!existsSync(p)) return;
+  /* ⚠ 상대경로면 부른 자리에 따라 못 찾고, 그때 **조용히 안 적힌다.**
+   *   2026-08-08 05:3x 배포가 그랬다 — 다른 자리에서 불러 통보가 통째로 빠졌다.
+   *   다른 자리들이 「배포 중이구나」를 못 본다. 락과 달리 이건 사람이 보는 신호다. */
+  const p = path.join(뿌리, 'docs', '세션간-메모.md');
+  if (!existsSync(p)) { console.log(`⚠ 통보할 메모가 없다 — ${p}`); return; }
   appendFileSync(p, `\n${문구}\n`, 'utf8');
 }
 
@@ -180,8 +206,9 @@ async function 라이브확인() {
  *   ⚠ 없는 것을 있는 척하지 않는다.
  */
 async function 새주소찾기(최대 = 3) {
-  const 뿌리 = path.resolve('dist');
-  if (!existsSync(뿌리)) return [];
+  /* ⚠ 이름을 `뿌리` 로 두면 저장소 뿌리를 가린다. 부른 자리가 저장소가 아니면 통째로 어긋난다 */
+  const dist뿌리 = path.join(뿌리, 'dist');
+  if (!existsSync(dist뿌리)) return [];
 
   // ⚠ dist 가 낡으면 판정이 틀린다. **낡았는지 맞히려 들지 않고 여기서 새로 빌드한다.**
   //   시각을 견주는 방식으로 두 번 어긋났다(2026-08-07 03:0x·05:0x). 어긋날 자리를 없앤다.
@@ -193,7 +220,7 @@ async function 새주소찾기(최대 = 3) {
     //   두 자리가 동시에 빌드하면 한쪽이 dist 를 비우는 사이 다른 쪽이 죽거나,
     //   더 나쁘게는 **반쯤 섞인 dist** 가 남아 판정이 통째로 틀린다(2026-08-07 16:4x 실제로 겪음).
     //   build-once 가 자물쇠를 쥐고 하나씩 돌린다.
-    execFileSync(process.execPath, [path.join('scripts', 'build-once.mjs')], { stdio: 'ignore' });
+    execFileSync(process.execPath, [path.join(뿌리, 'scripts', 'build-once.mjs')], { stdio: 'ignore', cwd: 뿌리 });
   } catch {
     console.log('⚠ 빌드가 안 됐다 — 지면 판정을 쓰지 않고 옛 방식으로 돈다.');
     return [];
@@ -217,8 +244,8 @@ async function 새주소찾기(최대 = 3) {
   //      배포가 끝났는데도 끝까지 기다린다. 아직 실제로 겪지는 않았고 미리 막아 둔다.
   //      **이번 빌드에서 다시 쓰인 파일만** 본다 — index.html 은 매 빌드 다시 쓰인다.
   const { readdirSync, statSync } = await import('node:fs');
-  const 기준시각 = existsSync(path.join(뿌리, 'index.html'))
-    ? statSync(path.join(뿌리, 'index.html')).mtimeMs - 10 * 60 * 1000
+  const 기준시각 = existsSync(path.join(dist뿌리, 'index.html'))
+    ? statSync(path.join(dist뿌리, 'index.html')).mtimeMs - 10 * 60 * 1000
     : 0;
   const 후보 = [];
   const 걷기 = (d, 앞) => {
@@ -229,7 +256,7 @@ async function 새주소찾기(최대 = 3) {
         후보.push(`${앞}/${e.name.replace(/\.html$/, '')}`);
     }
   };
-  걷기(뿌리, '');
+  걷기(dist뿌리, '');
 
   const 주소로 = (길) =>
     길.startsWith('/100y/') ? `https://100yearmap.com${길.slice(5)}`
@@ -264,7 +291,7 @@ async function 새주소찾기(최대 = 3) {
       if (/\/(404|index)$/.test(길) || !/^[/a-z0-9\-_/]+$/i.test(길)) continue;
       if (!산것.has(주소로(길))) continue;
       try {
-        이번지문.set(길, 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8')));
+        이번지문.set(길, 지문(readFileSync(path.join(dist뿌리, `${길}.html`), 'utf8')));
       } catch { /* 못 읽으면 넘긴다 */ }
     }
     var 이번지문표 = 이번지문;                  // 아래 ②에서 다시 쓴다
@@ -486,8 +513,23 @@ async function main() {
 
   try {
     // ⚠ -t 를 절대 빼지 않는다
-    const out = ctype(['apply', '-f', '.cloudtype/app.yaml', '-t', 나.stage]);
+    /* ⚠ 저장소 절대경로로 준다. 상대경로면 부른 자리에 따라 못 찾는다 */
+    const 설계도 = path.join(뿌리, '.cloudtype', 'app.yaml');
+    if (!existsSync(설계도)) {
+      락풀기();
+      console.log(`\n⛔ 설계도가 없다 — ${설계도}\n   배포하지 않는다. 이걸 넘기면 「나갔다」고 적고 아무것도 안 나간다.`);
+      process.exit(1);
+    }
+    const out = ctype(['apply', '-f', 설계도, '-t', 나.stage]);
     console.log(out.trim().split('\n').slice(-2).join('\n'));
+    /* 🔴 ctype 이 「파일이 없다」를 조용히 넘기고 있던 통을 되살린다.
+     *   그러면 라이브가 200 이라 이 스크립트가 「✅ 나갔다」로 끝낸다 — 실제로는 안 나갔다.
+     *   2026-08-08 05:3x 에 그렇게 한 번 속았다. 그 말이 보이면 성공으로 읽지 않는다. */
+    if (헛돌았나(out)) {
+      락풀기();
+      console.log('\n⛔ ctype 이 「파일을 못 찾았다」고 했다 — 헛돌았다.\n   라이브가 200 이어도 나간 것이 아니다. 아래를 그대로 옮긴다:\n' + out.trim());
+      process.exit(1);
+    }
 
     // ── ④ 뜰 때까지 지켜본다 — **시간이 아니라 실제 상태로 판정한다** ──
     // ⚠ 옛 감시 한도(400초)가 컨테이너 기동보다 짧아 **성공을 「미완」으로 오판**했다

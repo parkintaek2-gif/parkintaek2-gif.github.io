@@ -9,9 +9,10 @@
 import { pathToFileURL } from 'node:url';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readFileSync } from 'node:fs';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
-const { 살아있나, 갱신지난분 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
+const { 살아있나, 갱신지난분, 헛돌았나 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
 
 const 잰다 = [];
 const 봄 = (이름, 본것, 바란것) => {
@@ -47,6 +48,35 @@ const 때 = new Date('2026-08-08T02:11:00');
   갱신지난분('2026-08-08 02:18:00', new Date('2026-08-08T02:30:30')), 12);
 
 function 갱린지난분를안전하게(f, a, b) { try { return f(a, b); } catch { return '던졌다'; } }
+
+/**
+ * 🔴 2026-08-08 05:3x — **배포가 「✅ 나갔다」로 끝났는데 아무것도 안 나갔다.**
+ *
+ * 부른 자리가 저장소가 아니어서 ctype 이 `.cloudtype/app.yaml` 을 못 찾았다.
+ * 그런데 **조용히 넘어가고 있던 통을 되살렸다** — 60초 만에 Running,
+ * 라이브 200. 그래서 나간 줄 알았다. 3번이 낸 길은 라이브에 없었다.
+ *
+ * ⛔ 멎는 것은 눈에 보인다. **「성공」이라 말하며 안 나가는 것은 안 보인다.**
+ */
+console.log('\n헛돌았나 — ctype 이 「파일이 없다」를 조용히 넘긴다');
+봄('⭐ not found 가 보이면 헛돈 것이다',
+  헛돌았나('file "C:\\Users\\USER\\Desktop\\00_세션입구\\.cloudtype\\app.yaml" not found'), true);
+봄('대소문자를 가리지 않는다', 헛돌았나('File Not Found'), true);
+봄('no such file 도 잡는다', 헛돌았나('no such file or directory'), true);
+봄('⭐ 멀쩡한 출력은 헛돈 것이 아니다', 헛돌았나('deployment applied\nRunning'), false);
+봄('빈 출력도 아니다', 헛돌았나(''), false);
+봄('없는 값도 아니다', 헛돌았나(undefined), false);
+
+/* 🔴 자리를 안 박아 둔 것이 뿌리였다. 이 파일이 어디서 불려도 저장소를 가리켜야 한다 */
+console.log('\n자리(cwd)에 안 기대나 — 어디서 불러도 저장소를 본다');
+const 배포소스 = readFileSync(path.join(여기, 'deploy.mjs'), 'utf8');
+봄('⭐ 설계도를 상대경로로 주지 않는다',
+  /'\.cloudtype\/app\.yaml'/.test(배포소스), false);
+봄('⭐ ctype 을 저장소에서 돌린다', /cwd:\s*뿌리/.test(배포소스), true);
+봄('⭐ 저장소 뿌리를 제 파일 자리에서 잡는다',
+  /뿌리\s*=\s*path\.resolve\(path\.dirname\(fileURLToPath/.test(배포소스), true);
+봄('⭐ dist 를 「뿌리」라는 같은 이름으로 가리지 않는다',
+  /const 뿌리 = path\.resolve\('dist'\)/.test(배포소스), false);
 
 const 틀린것 = 잰다.filter((x) => !x).length;
 console.log(틀린것 ? `\n❌ ${틀린것}개 어긋났다` : `  ${잰다.length} 통과 · 0 실패`);
