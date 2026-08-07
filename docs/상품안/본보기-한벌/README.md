@@ -1,6 +1,24 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-07. Six files. Start here.
+Sample bundle, 2026-08-07. Seven files. Start here.
+
+## Read this first: what is empty
+
+We would rather you learn this from us than from a spreadsheet at six in the evening.
+
+| What | How much | Can it be filled? |
+| --- | ---: | --- |
+| Titles whose name is shared with a foreign work, so we cannot say which one charted | 157 of 405 rows (38.8%) | **No.** Netflix publishes no country of production. Nothing in the source separates them |
+| Titles Wikidata gives no country for | 21 rows (5.2%) | **Partly** — by a per-title human check we have not done |
+| Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
+| What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
+| Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
+
+The same thing is in `coverage.csv` in a form you can filter.
+
+**Weighted by viewing rather than by title count, the picture is better** — 79.8% of hours
+sit on titles only Korean works carry. The ambiguity is concentrated in small titles. Both numbers are
+below and neither is the real one on its own.
 
 | File | What it is | Rows |
 | --- | --- | ---: |
@@ -8,6 +26,7 @@ Sample bundle, 2026-08-07. Six files. Start here.
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
 | `corrections.csv` | Every figure we have published and had to change | 12 |
+| `coverage.csv` | What is empty, how much, and whether it can be filled | 6 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 
 ## The column most people will not have seen

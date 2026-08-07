@@ -114,6 +114,29 @@ for (const r of pageFix.rows) fixes.push([r.date, 'data page', r.where, r.what, 
 for (const r of 기사정정) fixes.push([r.date, 'article', `/article/${r.where}`, '', '', '', r.note]);
 fs.writeFileSync(path.join(OUT, 'corrections.csv'), csv(fixes));
 
+/* ── ⑤ 무엇이 비었나 ── 사는 사람이 **열자마자** 알아야 하는 것.
+   2번 지시(2026-08-07 11:3x): 「무엇이 비었는지 먼저 말한다. 몇 %인지, 왜 비었는지,
+   채울 수 있는지 없는지. 채우지 않는다. 밝힌다」
+   ⛔ 「채울 수 있다」와 「못 채운다」를 **가른다.** 못 채우는 것을 못 채운다고만 하면
+      게으른 것과 구분이 안 된다. **무엇이 막는지**까지 적는다. */
+const cov = [['field', 'rows', 'unresolved', 'pc_unresolved', 'fillable', 'what_blocks_it']];
+const 패널줄 = panel.length - 1;
+const pc = (n) => +((100 * n) / 패널줄).toFixed(1);
+cov.push(['attribution — shared name', 패널줄, 패널분포.shared ?? 0, pc(패널분포.shared ?? 0), 'no',
+  'A Korean work and a foreign work carry the same exact title. Netflix publishes no country of production, so nothing in the source data separates them. Only a per-title human check would, and we have not done one below the largest 30 series and 20 films.']);
+cov.push(['attribution — no country on Wikidata', 패널줄, 패널분포.unknown ?? 0, pc(패널분포.unknown ?? 0), 'partly',
+  'Wikidata carries no country-of-origin statement for any work with this title. Fillable by a per-title human check, which we have not done.']);
+cov.push(['hours viewed per country', 패널줄, 패널줄, 100, 'no',
+  'Netflix publishes hours for its global chart only. Country lists carry rank and nothing else. No source we can reach fills this.']);
+cov.push(['titles below each weekly top ten', 'unknown', 'unknown', 'unknown', 'no',
+  'Netflix publishes ten rows a week. What sits at eleven is published nowhere, so we cannot even count what is missing.']);
+cov.push(['broadcast export by company type', bcast.rows.length * 4, 11,
+  +((100 * 11) / (bcast.rows.length * 4)).toFixed(1), 'no',
+  'Zero means the survey published no sales for that company type that year — IPTV content providers before 2023, for instance. It is a real zero in the source, not a gap we introduced.']);
+cov.push(['export figures for 2025 and 2026', 2, 2, 100, 'later',
+  'The content industry survey has not published them. It runs about eighteen months behind. We add them when it does.']);
+fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
+
 /* ── ⑤ 정의 원문 ── 우리 화면에 가두지 않는다. */
 const method = `# Method
 
@@ -204,7 +227,25 @@ fs.writeFileSync(path.join(OUT, 'method.md'), method);
 /* ── ⑥ 읽는 법 ── 맨 먼저 열리는 것. 여기서 못 잰 것을 먼저 말한다. */
 const readme = `# K Culture Wire — Korean Content Panel
 
-Sample bundle, ${new Date().toISOString().slice(0, 10)}. Six files. Start here.
+Sample bundle, ${new Date().toISOString().slice(0, 10)}. Seven files. Start here.
+
+## Read this first: what is empty
+
+We would rather you learn this from us than from a spreadsheet at six in the evening.
+
+| What | How much | Can it be filled? |
+| --- | ---: | --- |
+| Titles whose name is shared with a foreign work, so we cannot say which one charted | ${패널분포.shared ?? 0} of ${panel.length - 1} rows (${(100 * (패널분포.shared ?? 0) / (panel.length - 1)).toFixed(1)}%) | **No.** Netflix publishes no country of production. Nothing in the source separates them |
+| Titles Wikidata gives no country for | ${패널분포.unknown ?? 0} rows (${(100 * (패널분포.unknown ?? 0) / (panel.length - 1)).toFixed(1)}%) | **Partly** — by a per-title human check we have not done |
+| Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
+| What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
+| Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
+
+The same thing is in \`coverage.csv\` in a form you can filter.
+
+**Weighted by viewing rather than by title count, the picture is better** — ${amb.koreaOnly.sharePc}% of hours
+sit on titles only Korean works carry. The ambiguity is concentrated in small titles. Both numbers are
+below and neither is the real one on its own.
 
 | File | What it is | Rows |
 | --- | --- | ---: |
@@ -212,6 +253,7 @@ Sample bundle, ${new Date().toISOString().slice(0, 10)}. Six files. Start here.
 | \`provenance.csv\` | How sure we are that each title is Korean, and how much of the total that covers | ${prov.length - 1} |
 | \`industry-panel.csv\` | Korean music and broadcast exports by year, beside the workforce of listed content companies | ${industry.length - 1} |
 | \`corrections.csv\` | Every figure we have published and had to change | ${fixes.length - 1} |
+| \`coverage.csv\` | What is empty, how much, and whether it can be filled | 6 |
 | \`method.md\` | How each number is made, in the words our build scripts use | — |
 
 ## The column most people will not have seen
@@ -282,7 +324,7 @@ const 총정정 = fixes.length - 1;
 if (총정정 !== 지면건수 + 기사정정.length) throw new Error('정정 건수가 안 맞는다');
 if (기사정정.length === 0) throw new Error('기사 정정을 하나도 못 읽었다 — 앞말 파싱이 깨졌다');
 
-console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 6개`);
+console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 7개`);
 console.log(` 작품 패널   ${panel.length - 1}줄 (맛보기가 아니라 전부)`);
 console.log(` 산업 패널   ${industry.length - 1}줄`);
 console.log(` 정정        ${총정정}건 (지면 ${지면건수} · 기사 ${기사정정.length})`);

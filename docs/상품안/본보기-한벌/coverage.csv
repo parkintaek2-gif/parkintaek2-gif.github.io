@@ -1,0 +1,7 @@
+field,rows,unresolved,pc_unresolved,fillable,what_blocks_it
+attribution — shared name,405,157,38.8,no,"A Korean work and a foreign work carry the same exact title. Netflix publishes no country of production, so nothing in the source data separates them. Only a per-title human check would, and we have not done one below the largest 30 series and 20 films."
+attribution — no country on Wikidata,405,21,5.2,partly,"Wikidata carries no country-of-origin statement for any work with this title. Fillable by a per-title human check, which we have not done."
+hours viewed per country,405,405,100,no,Netflix publishes hours for its global chart only. Country lists carry rank and nothing else. No source we can reach fills this.
+titles below each weekly top ten,unknown,unknown,unknown,no,"Netflix publishes ten rows a week. What sits at eleven is published nowhere, so we cannot even count what is missing."
+broadcast export by company type,52,11,21.2,no,"Zero means the survey published no sales for that company type that year — IPTV content providers before 2023, for instance. It is a real zero in the source, not a gap we introduced."
+export figures for 2025 and 2026,2,2,100,later,The content industry survey has not published them. It runs about eighteen months behind. We add them when it does.
