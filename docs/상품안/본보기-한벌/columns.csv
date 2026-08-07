@@ -6,6 +6,11 @@ korean-title-panel.csv,weeks_on_chart,"Distinct weeks on a chart, counted once p
 korean-title-panel.csv,peak_rank,Best position reached in any of the six,rank (1 is best),never blank
 korean-title-panel.csv,attribution,koreaOnly / shared / unknown — how sure we are this is the Korean work,,never blank
 korean-title-panel.csv,attribution_countries,Countries that also made a work with this exact title,pipe-separated,blank means NOT shared — there is no other country to name. It is not a missing value
+korean-title-panel.csv,korea_chart_weeks,Weeks this title spent on Netflix’s South Korea top ten. The second ruler: a Korean work normally also plays in Korea,weeks,"never blank; 0 means it never appeared, which is a reason to look and not a verdict"
+korean-title-panel.csv,countries_worldwide,"How many countries anywhere in the world charted this title, not only the six",countries,never blank
+korean-title-panel.csv,top_country,The country where it spent the most weeks,,never blank
+korean-title-panel.csv,top_country_pc,Share of all its chart-weeks taken by that one country. 100 means it charted nowhere else,percent,never blank
+korean-title-panel.csv,review_queue,one-country-only / concentrated / no-korea — why this row is queued for a human check,,"blank means not queued: either the name is unambiguous, or the title did chart in Korea"
 cast-title-join.csv,person_qid,"Wikidata Q-number for the person. Join on this, not on the name",,never blank
 cast-title-join.csv,person_name,English label from Wikidata. Names change; Q-numbers do not,,never blank
 cast-title-join.csv,en_wikipedia_article,"Exact English Wikipedia article title, if one exists",,"blank means this person has no English Wikipedia article, so they cannot be matched to the attention panels. They are still really in the cast"

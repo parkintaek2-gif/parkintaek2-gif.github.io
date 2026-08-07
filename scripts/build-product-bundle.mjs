@@ -51,18 +51,29 @@ const csv = (rows) => rows.map((r) => r.map((v) => {
 
 /* ── ① 작품 패널 ── 405편 **전부**. 맛보기 25줄이 아니다. */
 const 판정 = new Map(amb.perTitle.map((r) => [r.title, r]));
+/* 2026-08-08. **거른 자가 둘이 됐다.** 이름(위키데이터)으로 못 가른 편에
+   넷플릭스 한국 차트를 두 번째 자로 댄다. 사는 쪽이 「이 명단이 무엇으로 걸러졌나」를
+   물으면 이제 답이 둘이다 — 그러니 열도 둘이어야 한다. 판정만 팔고 근거를 안 팔지 않는다. */
+const koreaSig = new Map(읽기('src/data/wikitip-korea-signal.json').rows.map((r) => [r.title, r]));
 const panel = [[
   'title', 'format', 'countries_reached', 'weeks_on_chart', 'peak_rank',
   'attribution', 'attribution_countries',
+  'korea_chart_weeks', 'countries_worldwide', 'top_country', 'top_country_pc', 'review_queue',
 ]];
 for (const r of titles.rows) {
   const v = 판정.get(r.title);
+  const k = koreaSig.get(r.title);
   panel.push([
     r.title,
     /^TV/i.test(r.type) ? 'series' : 'film',
     r.countries, r.weeks, r.peak,
     v ? v.verdict : 'not_assessed',
     v && v.verdict === 'shared' ? v.countries.join('|') : '',
+    k ? k.koreaWeeks : '',
+    k ? k.countries : '',
+    k ? k.topCountry : '',
+    k ? k.concentrationPc : '',
+    k && k.queue ? k.queue : '',
   ]);
 }
 fs.writeFileSync(path.join(OUT, 'korean-title-panel.csv'), csv(panel));
@@ -70,6 +81,17 @@ fs.writeFileSync(path.join(OUT, 'korean-title-panel.csv'), csv(panel));
 /* 패널 자체의 판정 분포. 글로벌 목록의 비중과 **다르다** — 동남아 전용 작품은
    작고 이름이 흔해 겹침이 훨씬 많다. 사는 사람이 놀라지 않게 README 에 그대로 싣는다. */
 const 패널분포 = panel.slice(1).reduce((a, r) => { a[r[5]] = (a[r[5]] || 0) + 1; return a; }, {});
+
+/** 두 번째 자가 잡아 낸 크기 — README 가 이 수를 인용한다. **표에서 센다.** */
+const 큐 = (() => {
+  const 겹침 = panel.slice(1).filter((r) => r[5] === 'shared');
+  return {
+    한국없음: 겹침.filter((r) => r[7] === 0).length,
+    한나라: panel.slice(1).filter((r) => r[11] === 'one-country-only').length,
+    몰림: panel.slice(1).filter((r) => r[11] === 'concentrated').length,
+    넓게: panel.slice(1).filter((r) => r[11] === 'no-korea').length,
+  };
+})();
 
 /* ── ② 출처 판정 ── 이 상품의 값이 여기 있다. */
 const prov = [['measure', 'titles', 'share_of_viewing_pc', 'what_it_means']];
@@ -184,8 +206,13 @@ fs.writeFileSync(path.join(OUT, 'corrections.csv'), csv(fixes));
 const cov = [['field', 'rows', 'unresolved', 'pc_unresolved', 'fillable', 'what_blocks_it']];
 const 패널줄 = panel.length - 1;
 const pc = (n) => +((100 * n) / 패널줄).toFixed(1);
-cov.push(['attribution — shared name', 패널줄, 패널분포.shared ?? 0, pc(패널분포.shared ?? 0), 'no',
-  'A Korean work and a foreign work carry the same exact title. Netflix publishes no country of production, so nothing in the source data separates them. Only a per-title human check would, and we have not done one below the largest 30 series and 20 films.']);
+/* ⛔ 2026-08-08. 이 줄은 오래 `no` 였다. **더는 사실이 아니다.** 두 번째 자(한국 차트)가
+   생겨 「못 채운다」가 「차례가 정해졌다」로 바뀌었다. 자가 늘면 이 칸도 바뀌어야 한다 —
+   안 바꾸면 우리가 이미 할 수 있는 일을 못 한다고 파는 것이 된다. */
+cov.push(['attribution — shared name', 패널줄, 패널분포.shared ?? 0, pc(패널분포.shared ?? 0), 'partly',
+  `A Korean work and a foreign work carry the same exact title, and Netflix publishes no country of production. A second signal narrows it: ${큐.한국없음} of these never appear on Netflix's own South Korea chart, ${큐.한나라} charted in exactly one country in the world. Those columns are in korean-title-panel.csv. Closing each row still needs a human check, which is why this is partly and not yes.`]);
+cov.push(['review queue — one country only', 패널줄, 큐.한나라, pc(큐.한나라), 'partly',
+  'Charted in a single country and never in Korea. The most likely place for a foreign work to be sitting in this panel — and also where genuinely Korean titles that simply never charted at home end up. Read row by row; we have not removed any of them.']);
 cov.push(['attribution — no country on Wikidata', 패널줄, 패널분포.unknown ?? 0, pc(패널분포.unknown ?? 0), 'partly',
   'Wikidata carries no country-of-origin statement for any work with this title. Fillable by a per-title human check, which we have not done.']);
 cov.push(['hours viewed per country', 패널줄, 패널줄, 100, 'no',
@@ -250,6 +277,11 @@ const 뜻 = {
     peak_rank: ['Best position reached in any of the six', 'rank (1 is best)', 'never blank'],
     attribution: ['koreaOnly / shared / unknown — how sure we are this is the Korean work', '', 'never blank'],
     attribution_countries: ['Countries that also made a work with this exact title', 'pipe-separated', 'blank means NOT shared — there is no other country to name. It is not a missing value'],
+    korea_chart_weeks: ['Weeks this title spent on Netflix’s South Korea top ten. The second ruler: a Korean work normally also plays in Korea', 'weeks', 'never blank; 0 means it never appeared, which is a reason to look and not a verdict'],
+    countries_worldwide: ['How many countries anywhere in the world charted this title, not only the six', 'countries', 'never blank'],
+    top_country: ['The country where it spent the most weeks', '', 'never blank'],
+    top_country_pc: ['Share of all its chart-weeks taken by that one country. 100 means it charted nowhere else', 'percent', 'never blank'],
+    review_queue: ['one-country-only / concentrated / no-korea — why this row is queued for a human check', '', 'blank means not queued: either the name is unambiguous, or the title did chart in Korea'],
   },
   'cast-title-join.csv': {
     person_qid: ['Wikidata Q-number for the person. Join on this, not on the name', '', 'never blank'],
@@ -438,7 +470,8 @@ Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
 ## What this is, in five lines
 
 1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — ${panel.length - 1} titles,
-   each with a column saying how sure we are it is the Korean work and not a foreign one of the same name.
+   each with **two independent columns** saying how sure we are it is the Korean work and not a foreign
+   one of the same name. Two, not one, because one was not enough — see the next section.
 2. **Which actor appears in which charting Korean title** — ${cj.length - 1} rows, keyed on Wikidata
    Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
 3. **How often each K-pop act was looked up** on English Wikipedia — ${kp.length - 1} acts, ${kpop.days} days.
@@ -448,13 +481,39 @@ Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
 \`columns.csv\` says what every column in every file means, including what a blank cell means.
 \`coverage.csv\` says what is missing and whether it can ever be filled. Read that one before you build on this.
 
+## What filtered this list — there are two rulers, not one
+
+The first question a buyer asks about a panel is what put a row in it. Ours has two answers, and the
+second one is newer than the first.
+
+**Ruler one is the name.** Netflix publishes no country of production, so a title enters because its
+English name matches a Korean work in Wikidata. That fails in exactly one way — another country made
+something with the same name — so we measured how often it can fail. Of ${panel.length - 1} titles,
+${패널분포.shared ?? 0} carry a name a foreign work also carries. The \`attribution\` column holds that verdict.
+
+**Ruler two is Korea's own chart.** A Korean title normally also plays in Korea. So for every title we
+counted its weeks on Netflix's South Korea top ten. Of the ${패널분포.shared ?? 0} ambiguous titles,
+**${큐.한국없음} have never appeared on it**, and ${큐.한나라}
+of those charted in exactly one country in the world. The \`korea_chart_weeks\`, \`top_country\`,
+\`top_country_pc\` and \`review_queue\` columns hold that, per row.
+
+**Neither ruler decides alone, and we do not hide the disagreement.** A Korean work can miss Korea's
+chart because it was released before this data begins in July 2021, because Netflix never streamed it
+domestically, or because it lost its week at home — *Vagabond* is a Korean drama and is in the queue.
+So ruler two produces an ordered list of rows to read, not a deletion. **Nothing has been removed on
+its strength.** What it buys you is that you can sort by it yourself: filter
+\`review_queue = one-country-only\` and you are looking at the ${큐.한나라} rows we are least sure of,
+with the evidence in the same table.
+
+Anything we do remove will appear in \`corrections.csv\` with the old value beside the new one.
+
 ## Read this first: what is empty
 
 We would rather you learn this from us than from a spreadsheet at six in the evening.
 
 | What | How much | Can it be filled? |
 | --- | ---: | --- |
-| Titles whose name is shared with a foreign work, so we cannot say which one charted | ${패널분포.shared ?? 0} of ${panel.length - 1} rows (${(100 * (패널분포.shared ?? 0) / (panel.length - 1)).toFixed(1)}%) | **No.** Netflix publishes no country of production. Nothing in the source separates them |
+| Titles whose name is shared with a foreign work, so the name alone cannot say which one charted | ${패널분포.shared ?? 0} of ${panel.length - 1} rows (${(100 * (패널분포.shared ?? 0) / (panel.length - 1)).toFixed(1)}%) | **Partly, and this changed on 8 August 2026.** We used to say no. Netflix still publishes no country of production, but its Korean chart is a second signal: ${큐.한국없음} of these never appear on it and ${큐.한나라} charted in one country only. That narrows it to a readable queue; it does not close it |
 | Titles Wikidata gives no country for | ${패널분포.unknown ?? 0} rows (${(100 * (패널분포.unknown ?? 0) / (panel.length - 1)).toFixed(1)}%) | **Partly** — by a per-title human check we have not done |
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |

@@ -5,7 +5,8 @@ Sample bundle, 2026-08-07. Ten files. Start here.
 ## What this is, in five lines
 
 1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — 405 titles,
-   each with a column saying how sure we are it is the Korean work and not a foreign one of the same name.
+   each with **two independent columns** saying how sure we are it is the Korean work and not a foreign
+   one of the same name. Two, not one, because one was not enough — see the next section.
 2. **Which actor appears in which charting Korean title** — 3415 rows, keyed on Wikidata
    Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
 3. **How often each K-pop act was looked up** on English Wikipedia — 2361 acts, 30 days.
@@ -15,13 +16,39 @@ Sample bundle, 2026-08-07. Ten files. Start here.
 `columns.csv` says what every column in every file means, including what a blank cell means.
 `coverage.csv` says what is missing and whether it can ever be filled. Read that one before you build on this.
 
+## What filtered this list — there are two rulers, not one
+
+The first question a buyer asks about a panel is what put a row in it. Ours has two answers, and the
+second one is newer than the first.
+
+**Ruler one is the name.** Netflix publishes no country of production, so a title enters because its
+English name matches a Korean work in Wikidata. That fails in exactly one way — another country made
+something with the same name — so we measured how often it can fail. Of 405 titles,
+157 carry a name a foreign work also carries. The `attribution` column holds that verdict.
+
+**Ruler two is Korea's own chart.** A Korean title normally also plays in Korea. So for every title we
+counted its weeks on Netflix's South Korea top ten. Of the 157 ambiguous titles,
+**84 have never appeared on it**, and 25
+of those charted in exactly one country in the world. The `korea_chart_weeks`, `top_country`,
+`top_country_pc` and `review_queue` columns hold that, per row.
+
+**Neither ruler decides alone, and we do not hide the disagreement.** A Korean work can miss Korea's
+chart because it was released before this data begins in July 2021, because Netflix never streamed it
+domestically, or because it lost its week at home — *Vagabond* is a Korean drama and is in the queue.
+So ruler two produces an ordered list of rows to read, not a deletion. **Nothing has been removed on
+its strength.** What it buys you is that you can sort by it yourself: filter
+`review_queue = one-country-only` and you are looking at the 25 rows we are least sure of,
+with the evidence in the same table.
+
+Anything we do remove will appear in `corrections.csv` with the old value beside the new one.
+
 ## Read this first: what is empty
 
 We would rather you learn this from us than from a spreadsheet at six in the evening.
 
 | What | How much | Can it be filled? |
 | --- | ---: | --- |
-| Titles whose name is shared with a foreign work, so we cannot say which one charted | 157 of 405 rows (38.8%) | **No.** Netflix publishes no country of production. Nothing in the source separates them |
+| Titles whose name is shared with a foreign work, so the name alone cannot say which one charted | 157 of 405 rows (38.8%) | **Partly, and this changed on 8 August 2026.** We used to say no. Netflix still publishes no country of production, but its Korean chart is a second signal: 84 of these never appear on it and 25 charted in one country only. That narrows it to a readable queue; it does not close it |
 | Titles Wikidata gives no country for | 21 rows (5.2%) | **Partly** — by a per-title human check we have not done |
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
@@ -42,8 +69,8 @@ below and neither is the real one on its own.
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3415 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
-| `corrections.csv` | Every figure we have published and had to change | 12 |
-| `coverage.csv` | What is empty, how much, and whether it can be filled | 17 |
+| `corrections.csv` | Every figure we have published and had to change | 14 |
+| `coverage.csv` | What is empty, how much, and whether it can be filled | 18 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 
 ## The file you cannot assemble from either source alone
