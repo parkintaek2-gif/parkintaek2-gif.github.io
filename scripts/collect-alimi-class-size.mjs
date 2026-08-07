@@ -63,7 +63,7 @@ import https from 'node:https';
 import qs from 'node:querystring';
 import { 알리미지역_고교지역 } from '../src/lib/region.ts';
 /* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
-import { 방송통신인가 } from '../src/lib/school-rules.ts';
+import { 방송통신인가, 학교급코드 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -131,16 +131,31 @@ const 오늘 = (() => {
   return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}`;
 })();
 
-const { 코드, 글 } = await 받기(
-  qs.stringify({ APITYPE: 항목코드, PBANYR: 공시연도, SCHULKNDCODE: 고등학교 }),
-);
-if (코드 !== 200) throw new Error(`받지 못했다: HTTP ${코드}`);
 
-const 원자료 = JSON.parse(글);
-const 목록 = 원자료.list ?? [];
+/**
+ * 🔴 **학교급을 하나만 받으면 안 된다** (2026-08-07 실측).
+ *   `04` 만 받던 탓에 각종학교·평생학교·고등기술학교 **25곳이 통째로 비어** 있었다.
+ *   코드 목록은 `src/lib/school-rules.ts` 한 곳에 있다.
+ *   ⚠ 어떤 급은 「FileInfo Empty」로 온다 — 그건 오류가 아니라 **그 급에 자료가 없는 것**이다.
+ *     멈추지 않고 넘어가되, **몇 급에서 몇 행을 받았는지 찍는다.** 조용히 지나가면 또 놓친다.
+ */
+const 급별행수 = {};
+const 목록 = [];
+for (const 급 of 학교급코드) {
+  const { 코드: 상태, 글: 답 } = await 받기(
+    qs.stringify({ APITYPE: 항목코드, PBANYR: 공시연도, SCHULKNDCODE: 급 }),
+  );
+  if (상태 !== 200) { 급별행수[급] = `HTTP ${상태}`; continue; }
+  let 몫 = [];
+  try { 몫 = JSON.parse(답).list ?? []; } catch { 몫 = []; }
+  급별행수[급] = 몫.length;
+  목록.push(...몫);
+}
+console.log('  학교급별 받은 행 —', Object.entries(급별행수).map(([k, v]) => `${k}:${v}`).join(' · '));
+
 if (!목록.length) {
   throw new Error(
-    `행이 0개다. 공시연도가 맞는지 본다. 저쪽 답 — ${JSON.stringify(원자료).slice(0, 200)}`,
+    '행이 0개다. 공시연도와 학교급 코드를 본다.',
   );
 }
 

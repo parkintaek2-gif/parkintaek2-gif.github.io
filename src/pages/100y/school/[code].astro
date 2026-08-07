@@ -21,6 +21,8 @@ import 학급자료 from '../../../data/100yearmap/school-class-size.json';
 import 진로자료 from '../../../data/100yearmap/school-career.json';
 import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
 import NextQuestion from '../../../components/NextQuestion.astro';
+/* 🔴 숫자가 없는 지면이 **왜 없는지**를 사실에서 계산한다 — 짐작으로 쓰지 않는다 */
+import { 빈까닭찾기 } from '../../../lib/school-gap';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -124,6 +126,22 @@ const 학급 = 학급표.get(school.code) ?? null;
 const 진로 = 진로표.get(school.code) ?? null;
 
 /**
+ * 🔴 **숫자가 하나도 없는 지면이 103곳 있다** (2026-08-07 · 2번 지시).
+ *
+ *   *「손님이 학교를 검색해 들어왔는데 숫자가 하나도 없으면 그 지면은 없는 것과 같다」*
+ *
+ *   채울 수 있는 것은 먼저 채웠다 — 학교알리미를 학교급 `04` 만 받고 있어서
+ *   `06`·`07` 에 있는 곳을 놓쳤다. 그걸 고쳐 **105 → 103**.
+ *   ⛔ 나머지는 **자료가 있을 수 없다.** 그러면 **왜 없는지를 지면이 말한다.**
+ *     「자료가 없습니다」로 끝내면 우리가 게을렀다는 말과 구분이 안 된다.
+ */
+const 숫자없음 = !중단 && !학급 && !진로 && !취업;
+const 학생0명단 = new Set<string>(((학급자료 as any).통계?.학생0이라뺀곳 ?? []) as string[]);
+const 빈까닭 = 숫자없음
+  ? 빈까닭찾기(school.title, school.설립일, school.종류, 학생0명단, 학급출처.공시연도)
+  : null;
+
+/**
  * ⭐ **계열별 취업·진학** (2026-08-07) — 직업계고 480곳의 빈 자리를 메운다.
  *
  * 여태 이 지면의 취업 숫자는 **두 벌뿐**이었다(특성화고 전체 / 마이스터고 전체).
@@ -211,6 +229,26 @@ const jsonLd = {
     {school.공학 && <> · {school.공학}</>}
     {설립연도 && <> · {설립연도}년 설립</>}
   </p>
+
+  {/* 🔴 숫자가 하나도 없는 지면 — **왜 없는지를 맨 위에서 말한다.**
+        아래로 내려가며 아무것도 못 찾고 나가게 두면 그 지면은 없는 것과 같다.
+        ⛔ 「자료가 없습니다」로 끝내지 않는다. **무엇이 막는지**까지 적는다. */}
+  {
+    빈까닭 && (
+      <div class="card warn">
+        <h2 style="margin-top:0">이 학교는 숫자를 못 보여드립니다</h2>
+        <p><strong>{빈까닭.한줄}.</strong></p>
+        <p
+          class="note"
+          set:html={빈까닭.풀이.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')}
+        />
+        <p class="note">
+          ⚠ 아래에는 <strong>학교 이름·주소 같은 기본 정보만</strong> 있습니다. 진학·취업·학업중단
+          숫자는 <strong>이 지면에 없습니다.</strong>
+        </p>
+      </div>
+    )
+  }
 
   {/* 개설 학과 — 이 학교의 얼굴이다. 취업 수치보다 먼저 놓는다 */}
   {
