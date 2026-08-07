@@ -87,6 +87,12 @@ export const 붙일수있는갈래 = [
   'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
   /* 입구 지면을 달고 나서 늘었다 — 이 넷도 손님이 들어오는 자리다 */
   'size', 'how-long', 'after', 'work', 'research',
+  /**
+   * ⭐ 2026-08-08 05:2x — **팔 물건 두 장.** 여기서 넘어온 손님이 제일 중요하다.
+   * ⚠ 둘을 갈라 붙인다 — `report`(학교 한 장) · `report-area`(지역 한 벌).
+   *   한 이름으로 뭉치면 **어느 쪽이 손님을 데려오는지** 못 잰다. 값을 그걸로 정한다.
+   */
+  'report', 'report-area',
   '기타',
 ] as const;
 export type 갈래 = (typeof 붙일수있는갈래)[number];
@@ -105,6 +111,13 @@ export function 갈래고르기(경로: string | null | undefined): 갈래 {
     .filter((s) => s !== '100y')
     .map((s) => s.replace(/\.html?$/i, ''));
   const 첫 = 조각[0] ?? '';
+  /**
+   * ⚠ **`report` 만은 둘째 조각까지 본다.** 첫 조각만 보면
+   *   `/report/7010057`(학교 한 장)과 `/report/area/…`(지역 한 벌)이 한 이름이 된다.
+   *   이 둘은 파는 물건이 다르고 값도 다르게 정할 것이라, 갈라 놓지 않으면
+   *   「어느 쪽이 손님을 데려오나」를 못 잰다.
+   */
+  if (첫 === 'report') return 조각[1] === 'area' ? 'report-area' : 'report';
   return (붙일수있는갈래 as readonly string[]).includes(첫) ? (첫 as 갈래) : '기타';
 }
 

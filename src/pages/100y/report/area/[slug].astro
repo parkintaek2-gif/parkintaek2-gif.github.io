@@ -36,6 +36,7 @@
  *   이 지면에 필요한 모양은 `public/100y/style.css` 에 넣었다.
  */
 import HundredYear from '../../../../layouts/HundredYear.astro';
+import NextQuestionAfterPick from '../../../../components/NextQuestionAfterPick.astro';
 import schools from '../../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../../data/100yearmap/school-career.json';
 
@@ -317,4 +318,11 @@ const desc =
     ⚠ 전국 갈래별 가운데값은 진학률이 있는 {(진로자료 as any).자료.filter((r: any) => r.진학률 != null).length.toLocaleString()}곳으로
     냈습니다.
   </p>
+
+  {/* ⭐ 2번 지시(05:1x) — **팔 물건 두 장에만 나가는 길이 없었다.**
+        부모가 값을 낼 마음이 가장 큰 순간이 **고르고 난 직후**다. 그 자리가 비어 있었다. */}
+  <NextQuestionAfterPick
+    본것={`${구} 고등학교 ${곳들.length}곳`}
+    여기까지="어느 학교가 이 구에서 어디쯤인지"
+  />
 </HundredYear>
