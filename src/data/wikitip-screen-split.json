@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 7. 오전 7:02:28",
+  "generated": "2026. 8. 8. 오전 1:09:34",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
@@ -184,5 +184,12 @@
   "excludedEnglishChart": {
     "titles": 52,
     "hours": 2627290000
+  },
+  "bothCharts": {
+    "titles": 2,
+    "list": [
+      "Ballerina",
+      "Hierarchy"
+    ]
   }
 }

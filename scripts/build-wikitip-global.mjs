@@ -89,6 +89,13 @@ const totalHours = all.reduce((s, a) => s + a.hours, 0);
 const sumEn = [...droppedEn.values()].reduce((s, v) => s + v, 0);
 const sumHand = [...droppedHand.values()].reduce((s, v) => s + v, 0);
 
+/* ⛔ 2026-08-08. `before - 뺀것 = 남은것` 이 **편수에서 2 만큼 안 맞는다.**
+   원인은 영어·비영어 차트에 **둘 다** 오른 작품이다 — 영어 칸의 시간은 빠지고
+   비영어 칸의 시간은 남으니 그 편은 「뺀 목록」과 「남은 목록」에 같이 있다.
+   ⚠ 지면이 이 폭을 말하려면 **어느 편인지**를 알아야 한다. 이름을 여기서 낸다 —
+     지면에 이름을 손으로 적으면 자료가 움직여도 지면은 안 움직인다. */
+const bothCharts = [...agg.keys()].filter((t) => droppedEn.has(t)).sort();
+
 const out = {
   generated: new Date().toLocaleString('ko-KR'),
   source: 'Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts',
@@ -100,6 +107,8 @@ const out = {
   before: { titles: beforeTitles.size, hours: beforeHours },
   excludedEnglishChart: { titles: droppedEn.size, hours: sumEn },
   excludedByHand: { titles: droppedHand.size, hours: sumHand, list: [...droppedHand.keys()] },
+  /** 영어·비영어 양쪽에 오른 편 — 뺄셈이 안 맞는 폭이 곧 이 편수다. */
+  bothCharts: { titles: bothCharts.length, list: bothCharts },
   rows,
 };
 fs.writeFileSync('src/data/wikitip-global.json', JSON.stringify(out, null, 2));
@@ -148,6 +157,7 @@ fs.writeFileSync('src/data/wikitip-screen-split.json', JSON.stringify({
   audited: AUDITED,
   excludedByHand: out.excludedByHand,
   excludedEnglishChart: out.excludedEnglishChart,
+  bothCharts: out.bothCharts,
 }, null, 2));
 
 console.log(`scanned ${scanned.toLocaleString()} · kept ${hit.toLocaleString()} rows · distinct ${agg.size} · totalHours ${totalHours.toLocaleString()}`);

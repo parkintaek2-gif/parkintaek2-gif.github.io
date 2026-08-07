@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 7. 오전 7:02:28",
+  "generated": "2026. 8. 8. 오전 1:09:34",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
@@ -26,6 +26,13 @@
       "Forgotten Love",
       "Paradise",
       "Hunger"
+    ]
+  },
+  "bothCharts": {
+    "titles": 2,
+    "list": [
+      "Ballerina",
+      "Hierarchy"
     ]
   },
   "rows": [
