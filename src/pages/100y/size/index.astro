@@ -65,7 +65,7 @@ const jsonLd = {
 };
 ---
 
-<HundredYear title="큰 회사가 정말 나을까" description={desc} jsonLd={jsonLd}>
+<HundredYear title="큰 회사가 정말 나을까요?" description={desc} jsonLd={jsonLd}>
   <h1>큰 회사가<br class="pcbr" /> 정말 나을까요?</h1>
   <p class="lead">
     어른들이 하던 말입니다. <strong>숫자로 재 보니 맞았습니다</strong> — 다만
@@ -82,14 +82,17 @@ const jsonLd = {
       <span class="n">{이직배수}배</span>
       <span class="k">사람이 덜 떠난다</span>
     </div>
+    {/* ⚠ 처음에 「{칸.length}칸 / 중간에 뒤집히는 구간」으로 뒀다가 렌더해 보고 고쳤다.
+          그러면 **일곱 구간이 뒤집힌다**로 읽힌다. 뜻은 정반대다.
+          숫자칸은 밑의 설명 없이도 혼자 읽혀야 한다. */}
     <div class="num">
-      <span class="n">{칸.length}칸</span>
-      <span class="k">중간에 뒤집히는 구간</span>
+      <span class="n">0곳</span>
+      <span class="k">방향이 뒤집히는 구간 ({칸.length}칸 중)</span>
     </div>
   </div>
   <p class="note">
-    ⚠ 셋째 칸은 「구간이 {칸.length}개인데 <strong>뒤집히는 곳이 없다</strong>」는 뜻입니다.
-    5~9명이 4.46%로 한 번 살짝 튀는 것 말고는, 커질수록 계속 같은 방향입니다.
+    ⚠ 규모를 {칸.length}칸으로 나눠 봤는데 <strong>중간에 방향이 뒤집히는 곳이 없습니다.</strong>
+    5~9명이 4.46%로 한 번 살짝 튀는 것 말고는, 커질수록 임금은 계속 오르고 떠나는 사람은 계속 줍니다.
   </p>
 
   {/* 🔴 숫자보다 먼저 — 「291,760원」을 월급으로 읽으면 안 된다 */}
@@ -209,7 +212,12 @@ const jsonLd = {
       <strong>범위</strong> 살아 있는 사업장 전부 — {총사업장.toLocaleString()}곳 ·{' '}
       {총사람.toLocaleString()}명. 표본이 아니라 전수입니다.
     </p>
-    <p class="note">⚠ {원.쓰는말}</p>
+    {/* ⚠ 자료 파일의 `쓰는말` 을 그대로 찍으면 반말이라 지면 말투와 어긋난다.
+          뜻은 그대로 두고 우리 말로 옮겨 적는다. */}
+    <p class="note">
+      ⚠ 금액은 <strong>1인당 국민연금 고지액</strong>입니다. 임금에 비례하지만{' '}
+      <strong>상한이 있어 임금 자체는 아닙니다.</strong>
+    </p>
     <p class="note">
       ⚠ 국민연금에 들지 않는 일자리(가입 대상이 아닌 단시간 근로 등)는 여기 없습니다.
     </p>
