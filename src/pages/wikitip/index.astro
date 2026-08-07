@@ -42,10 +42,12 @@ import kpop from '../../data/wikitip-kpop.json';
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
  * **만들고 링크를 안 걸면 없는 것과 같다.** 최신 3편만 첫 화면에 세운다.
  */
-const 기사 = (await getCollection('kcwArticles'))
+const 산기사 = (await getCollection('kcwArticles'))
   .filter((e) => !e.data.draft)
-  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate))
-  .slice(0, 3);
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+/** 「전부 보기」에 적을 수. **손으로 적지 않는다** — 적으면 다음 기사 때 어긋난다. */
+const 전체기사수 = 산기사.length;
+const 기사 = 산기사.slice(0, 3);
 const 날짜 = (v) =>
   new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -94,6 +96,11 @@ const jsonLd = {
           <p class="when">{날짜(a.data.pubDate)}</p>
         </article>
       ))}
+      <!--
+        ⚠ 여기 세 편만 보인다. 2026-08-07 에 손님으로 걸어 보니 **15편 중 3편**이었다.
+        편수를 **손으로 적지 않는다** — 기사가 늘면 저절로 따라온다.
+      -->
+      <p class="more"><a href="/articles">All {전체기사수} articles &rarr;</a></p>
     </section>
   )}
 

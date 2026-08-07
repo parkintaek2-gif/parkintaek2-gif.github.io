@@ -107,7 +107,13 @@ const 제목 = `${title} | K Culture Wire`;
           ⚠ `/about` 이 404 면 구글이 발행 주체를 확인 못 해 색인에서 밀린다.
             지면을 만들었으면 **들어가는 문을 반드시 낸다** — 만들고 링크를 안 걸면 없는 것과 같다.
         -->
-        <a href="/about">About &amp; methodology</a>
+        <!--
+          기사 목록. 2026-08-07 에 손님으로 걸어 보니 **기사 15편 중 첫 화면에 3편만** 보였다.
+          /articles 가 404 였다 — 「뭘 써 왔나」를 묻는 손님이 갈 곳이 없었다.
+          꼬리말에 거는 이유: 어느 지면에서 읽기 시작했든 여기로 나갈 수 있어야 한다.
+        -->
+        <a href="/articles">All articles</a>
+        <span aria-hidden="true"> · </span><a href="/about">About &amp; methodology</a>
         <!--
           정정 지면은 모든 지면 아래에 건다. 한 곳에서만 닿을 수 있으면
           「우리가 틀렸던 것을 숨기지 않는다」가 말뿐이 된다.

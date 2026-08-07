@@ -29,6 +29,8 @@ export const GET: APIRoute = async () => {
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },
     { path: '/screen-split', priority: '0.9', changefreq: 'weekly' },
     { path: '/kpop-attention', priority: '0.9', changefreq: 'weekly' },
+    /* 기사 목록. 2026-08-07 에 만들었다 — 그전엔 404 라 15편 중 3편만 닿을 수 있었다. */
+    { path: '/articles', priority: '0.8', changefreq: 'daily' },
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },

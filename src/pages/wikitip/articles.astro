@@ -1,0 +1,110 @@
+---
+/**
+ * K Culture Wire — **기사 목록**. (`/articles`)
+ *
+ * ── 왜 만드나 (2026-08-07 18:0x, 손님으로 걸어 보고) ────────────
+ * 2번 지시로 사이트를 **처음 온 사람처럼** 33곳 걸었다. 깨진 곳은 없었다.
+ * 대신 **없는 것**이 나왔다 —
+ *
+ *   기사를 **15편** 썼는데 첫 화면에 걸린 것은 **3편**.
+ *   /articles · /archive · /news · /latest 는 전부 **404**.
+ *   나머지 12편은 「그 기사가 쓴 자료 지면」을 거쳐야만 닿는다.
+ *
+ * **「이 사람들 뭘 써 왔나」를 묻는 손님이 갈 곳이 없었다.**
+ * 만들고 링크를 안 걸면 없는 것과 같다 — 첫 화면 주석에 이미 적혀 있던 말인데,
+ * 그 말이 첫 화면 3편에만 적용되고 있었다.
+ *
+ * ── ⛔ 줄세우지 않는다 ─────────────────────────────────────────
+ * 조회수·인기순으로 세우지 않는다. **낸 순서**로 놓고, 갈래로 나눠 볼 수 있게만 한다.
+ * 사장님 지시(2026-08-04): 「순위표로 줄세우지 않는다」.
+ *
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ */
+import { getCollection } from 'astro:content';
+import WikiTip from '../../layouts/WikiTip.astro';
+
+const 기사 = (await getCollection('kcwArticles'))
+  .filter((e) => !e.data.draft)
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
+
+const 날짜 = (v: Date) =>
+  new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const CATEGORY: Record<string, string> = {
+  screen: 'Screen', music: 'Music', esports: 'Esports',
+  people: 'People', industry: 'Industry',
+};
+
+/** 갈래별 편수. **손으로 적지 않는다** — 기사가 늘면 저절로 따라온다. */
+const 갈래셈 = 기사.reduce<Record<string, number>>((a, e) => {
+  a[e.data.category] = (a[e.data.category] ?? 0) + 1;
+  return a;
+}, {});
+
+/** 정정이 붙은 기사 수. 숨기지 않고 **여기서 먼저 말한다.** */
+const 정정있는기사 = 기사.filter((e) => (e.data.corrections ?? []).length > 0).length;
+
+const 첫날 = 기사.length ? 기사[기사.length - 1].data.pubDate : null;
+
+const TITLE = 'Every article we have published';
+const DESC = `All ${기사.length} pieces from K Culture Wire, newest first. Each one names its sources, `
+  + 'lists what we cross-checked, and states what we left out.';
+---
+
+<WikiTip title={TITLE} description={DESC} canonical="https://www.kculturewire.com/articles">
+  <h1>{TITLE}</h1>
+
+  <p class="lede">
+    {기사.length} pieces, newest first. Every one of them names its sources, says what we
+    cross-checked, and states what we could not measure and left out.
+  </p>
+
+  <p class="counts">
+    {Object.entries(갈래셈)
+      .sort((a, b) => b[1] - a[1])
+      .map(([k, n]) => `${CATEGORY[k] ?? k} ${n}`)
+      .join(' · ')}
+    {첫날 && <> &middot; first published {날짜(첫날)}</>}
+  </p>
+
+  <p class="counts">
+    {정정있는기사 > 0
+      ? <>{정정있는기사} of these carry a correction. We keep the old value beside the new one on <a href="/corrections">the corrections page</a>.</>
+      : <>Nothing here has been corrected yet. When something is, the old value stays beside the new one on <a href="/corrections">the corrections page</a>.</>}
+  </p>
+
+  <ul class="list">
+    {기사.map((e) => (
+      <li>
+        <div class="meta">
+          <span class="cat">{CATEGORY[e.data.category] ?? e.data.category}</span>
+          <time datetime={new Date(e.data.pubDate).toISOString()}>{날짜(e.data.pubDate)}</time>
+          {(e.data.corrections ?? []).length > 0 && <span class="fix">corrected</span>}
+        </div>
+        <a class="t" href={`/article/${e.id}`}>{e.data.title}</a>
+        <p class="dek">{e.data.dek}</p>
+        {e.data.pages.length > 0 && (
+          <p class="from">
+            Built from{' '}
+            {e.data.pages.map((p, i) => (
+              <>{i > 0 && ' · '}<a href={p}>{p}</a></>
+            ))}
+          </p>
+        )}
+      </li>
+    ))}
+  </ul>
+
+  <style>
+    .lede { font-size: 1.05rem; }
+    .counts { color: var(--muted); font-size: .92rem; margin: .35rem 0; }
+    .list { list-style: none; padding: 0; margin: 1.6rem 0 0; }
+    .list li { border-top: 1px solid var(--line); padding: 1.1rem 0; }
+    .meta { display: flex; gap: .6rem; align-items: baseline; font-size: .82rem; color: var(--muted); }
+    .cat { color: var(--accent); font-weight: 600; letter-spacing: .02em; }
+    .fix { border: 1px solid var(--line); border-radius: 999px; padding: 0 .45rem; }
+    .t { display: block; margin: .25rem 0 .3rem; font-size: 1.12rem; font-weight: 600; line-height: 1.35; }
+    .dek { margin: 0; color: var(--muted); }
+    .from { margin: .45rem 0 0; font-size: .85rem; color: var(--muted); }
+  </style>
+</WikiTip>
