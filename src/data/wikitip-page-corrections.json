@@ -8,7 +8,8 @@
       "what": "Korean catalogue size and total hours",
       "from": "294 titles · 27.7bn hours",
       "to": "236 titles · 23.7bn hours",
-      "why": "Korean titles were matched by title text against a Wikidata list. 52 titles Netflix classes on its English-language charts — The Perfect Couple, Suits, The Circle, Hit Man among them — were counted as Korean. Netflix splits its charts by a title's primary language, so only the Non-English charts are counted now. Hand-checking the largest remaining titles removed 8 more."
+      "why": "Korean titles were matched by title text against a Wikidata list. 52 titles Netflix classes on its English-language charts — The Perfect Couple, Suits, The Circle, Hit Man among them — were counted as Korean. Netflix splits its charts by a title's primary language, so only the Non-English charts are counted now. Hand-checking the largest remaining titles removed 8 more.",
+      "cause": "title-text"
     },
     {
       "date": "2026-08-07",
@@ -17,7 +18,8 @@
       "what": "Series and film totals",
       "from": "built on the 294-title set",
       "to": "built on the 236-title set",
-      "why": "Same cause as /watched. The page was published after the correction and has never shown the wrong totals, but it rests on the corrected set and says so."
+      "why": "Same cause as /watched. The page was published after the correction and has never shown the wrong totals, but it rests on the corrected set and says so.",
+      "cause": "title-text"
     },
     {
       "date": "2026-08-07",
@@ -26,7 +28,8 @@
       "what": "Exports by type of company, and the unattributed residual",
       "from": "terrestrial 65.7% (2012) → 3.8% (2024), residual 7.6%",
       "to": "terrestrial 81.5% (2012) → 7.2% (2024), residual 0",
-      "why": "KOSIS table DT_113_STBL_1025706 classifies on two levels — form of export above, type of company below — and returns only the lower name, so several rows a year read 'terrestrial broadcasters' and differ by code alone. We had taken the finished-programme row for three of the four company types while the fourth entered whole. Each type is now the sum of every export form published for it. The residual we described as unattributed did not exist; we had not added it up."
+      "why": "KOSIS table DT_113_STBL_1025706 classifies on two levels — form of export above, type of company below — and returns only the lower name, so several rows a year read 'terrestrial broadcasters' and differ by code alone. We had taken the finished-programme row for three of the four company types while the fourth entered whole. Each type is now the sum of every export form published for it. The residual we described as unattributed did not exist; we had not added it up.",
+      "cause": "kosis-two-level"
     },
     {
       "date": "2026-08-07",
@@ -35,7 +38,8 @@
       "what": "Average pay per employee",
       "from": "content ₩75.6m · listed market ₩94.0m",
       "to": "content ₩76.1m · listed market ₩95.1m",
-      "why": "Companies that disclose headcount but not pay were left in the denominator, so their staff were averaged in as if they earned nothing — 456 people in content and 20,613 across the market. Pay is now weighted over disclosing companies only. Tenure, headcount and the gender split come from companies that disclose them and did not move."
+      "why": "Companies that disclose headcount but not pay were left in the denominator, so their staff were averaged in as if they earned nothing — 456 people in content and 20,613 across the market. Pay is now weighted over disclosing companies only. Tenure, headcount and the gender split come from companies that disclose them and did not move.",
+      "cause": "pay-denominator"
     },
     {
       "date": "2026-08-07",
@@ -44,7 +48,8 @@
       "what": "This week's Southeast Asia list",
       "from": "included Teach You a Lesson (China) and The East Palace (China) as Korean",
       "to": "both removed; titles whose name is shared with a foreign work are now flagged in place",
-      "why": "The front page data file was hand-made and could not be rebuilt, so it did not follow when the matching rule was corrected. It is now built by a script from the same rule as every other page."
+      "why": "The front page data file was hand-made and could not be rebuilt, so it did not follow when the matching rule was corrected. It is now built by a script from the same rule as every other page.",
+      "cause": "title-text"
     },
     {
       "date": "2026-08-07",
@@ -53,7 +58,8 @@
       "what": "Korean titles charting in six Southeast Asian markets",
       "from": "448 titles",
       "to": "405 titles",
-      "why": "Same matching cause. 42 titles were not Korean — among them two Witcher animations, I Am Legend and Elysium. The distribution the page describes did not change shape; it sharpened."
+      "why": "Same matching cause. 42 titles were not Korean — among them two Witcher animations, I Am Legend and Elysium. The distribution the page describes did not change shape; it sharpened.",
+      "cause": "title-text"
     },
     {
       "date": "2026-08-07",
@@ -62,7 +68,57 @@
       "what": "The table of longest-running and fiercest Korean titles",
       "from": "listed Teach You a Lesson (China) as the second fiercest, plus The Perfect Couple and Run Away (United States) and The Empress (Germany)",
       "to": "all four removed",
-      "why": "Same cause as the front page — a hand-made data file that could not follow a corrected rule. It is now built by a script."
+      "why": "Same cause as the front page — a hand-made data file that could not follow a corrected rule. It is now built by a script.",
+      "cause": "title-text"
+    },
+    {
+      "date": "2026-08-08",
+      "where": "/exports",
+      "path": "/exports",
+      "what": "The note listing what the region table leaves out",
+      "from": "said the survey’s “Unclassified” region carries no value in any year",
+      "to": "names the year it does carry one — 2005, where it is 89.1% of the total",
+      "why": "The sentence was written by hand and never measured. 2005 is the year with the least regional detail, and the largest cell in it was the one we called empty. The page now reads the exception out of the data.",
+      "cause": "unmeasured-sentence"
+    }
+  ],
+  "causes": {
+    "title-text": "Korean titles were matched by English title text alone, so foreign works with the same name were counted as Korean",
+    "kosis-two-level": "A KOSIS table classifies on two levels and returns only one of them unless both are asked for",
+    "pay-denominator": "Companies that disclose headcount but not pay were left in the denominator",
+    "unmeasured-sentence": "A sentence about the data was written by hand and never measured against it",
+    "miscounted-corrections": "Our own corrections article counted the corrections wrong — it swept in a correction from another day and asserted a single cause the record does not support"
+  },
+  "articleCauses": [
+    {
+      "slug": "korean-actors-attention-flat",
+      "date": "2026-08-07",
+      "cause": "title-text"
+    },
+    {
+      "slug": "korean-titles-southeast-asia-all-or-nothing",
+      "date": "2026-08-07",
+      "cause": "title-text"
+    },
+    {
+      "slug": "netflix-korean-catalogue-concentration",
+      "date": "2026-08-07",
+      "cause": "title-text"
+    },
+    {
+      "slug": "korea-tv-export-shift-tenure",
+      "date": "2026-08-07",
+      "cause": "kosis-two-level"
+    },
+    {
+      "slug": "kpop-export-left-japan-behind",
+      "date": "2026-08-06",
+      "cause": "unmeasured-sentence"
+    },
+    {
+      "slug": "one-flaw-twelve-corrections",
+      "date": "2026-08-08",
+      "cause": "miscounted-corrections"
     }
   ]
 }

@@ -214,8 +214,10 @@ const jsonLd = {
         <br />
         <span class="fine">
           The test in the data's own words: “{ambiguity.method}” It was run over
-          {' '}{ambiguity.titles} titles carrying {bn(ambiguity.totalHours)} hours. The largest titles
-          whose names are shared, and the countries that share them:
+          {' '}{ambiguity.titles} titles carrying {bn(ambiguity.totalHours)} hours — and over
+          {' '}{ambiguity.titlesAssessed} titles in all, because the Southeast Asian country charts
+          publish no hours but are put through the same test. The largest titles whose names are
+          shared, and the countries that share them:
         </span>
         <ul class="shared">
           {sharedTop.map((t) => (

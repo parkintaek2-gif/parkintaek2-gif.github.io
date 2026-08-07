@@ -28,16 +28,52 @@ for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
 let 틀림 = 0;
 const 본다 = (무엇, ok, 값) => { if (!ok) 틀림++; console.log(`${ok ? '  ' : '❌'} ${String(무엇).padEnd(32)} ${값}`); };
 
-/* ── ① 건수 ── */
-const 합 = 지면정정.length + 기사정정;
+/* ── ① 건수 ──
+   ⛔ 2026-08-08. 여기서 **전체 기록**과 기사를 맞추고 있었다. 기사는 「7일 아침에」를 말하는데
+      기록에는 6일 것도 8일 것도 들어온다. 그래서 8일에 새 정정을 하나 넣자 이 검사가 울었고,
+      울린 원인을 보니 **기사 쪽이 처음부터 틀려 있었다** — 12건이라 적었지만 그날 것은 11건이고,
+      「전부 한 결함 탓」이라 적었지만 그중 셋은 딴 원인이었다(기사 본문이 스스로 그렇게 적어 뒀다).
+   ⭐ 자를 날짜로 자르고, **원인표**를 함께 잰다. 세는 것과 까닭이 같이 있어야 이 문장이 산다. */
+const 그날 = '2026-08-07';
+const 원인표 = JSON.parse(fs.readFileSync('src/data/wikitip-page-corrections.json', 'utf8'));
+const 그날지면 = 지면정정.filter((r) => r.date === 그날);
+const 그날기사 = (원인표.articleCauses ?? []).filter((a) => a.date === 그날);
+const 합 = 그날지면.length + 그날기사.length;
+const 결함탓 = [...그날지면, ...그날기사].filter((r) => r.cause === 'title-text').length;
 const 낱말 = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine',
   'ten', 'eleven', 'twelve', 'thirteen', 'fourteen'];
-본다('전체 정정 건수', new RegExp(`we changed (${합}|${낱말[합] ?? 'x'}) published figures`, 'i').test(한줄), 합);
-본다('지면 정정 건수', new RegExp(`(${지면정정.length}|${낱말[지면정정.length] ?? 'x'}) were on data pages`, 'i').test(한줄), 지면정정.length);
-본다('기사 정정 건수', new RegExp(`(${기사정정}|${낱말[기사정정] ?? 'x'}) were inside\\s*articles`, 'i').test(한줄), 기사정정);
+본다('그날 정정 건수', new RegExp(`we changed (${합}|${낱말[합] ?? 'x'}) published figures`, 'i').test(한줄), 합);
+본다('지면 정정 건수', new RegExp(`(${그날지면.length}|${낱말[그날지면.length] ?? 'x'}) were on data pages`, 'i').test(한줄), 그날지면.length);
+본다('기사 정정 건수', new RegExp(`(${그날기사.length}|${낱말[그날기사.length] ?? 'x'}) were inside\\s*articles`, 'i').test(한줄), 그날기사.length);
 본다('제목의 지면·기사 수',
-  new RegExp(`wrong figures on ${낱말[지면정정.length]} pages and ${낱말[기사정정]} articles`, 'i').test(한줄), `${지면정정.length} · ${기사정정}`);
-본다('한 원인이라고 말하나', /\*\*All twelve came from one flaw\*\*|All \w+ came from one flaw/i.test(한줄), '문장');
+  new RegExp(`wrong figures on ${낱말[그날지면.length]} pages and ${낱말[그날기사.length]} articles`, 'i').test(한줄), `${그날지면.length} · ${그날기사.length}`);
+본다('한 결함 탓 건수',
+  new RegExp(`(${결함탓}|${낱말[결함탓] ?? 'x'}) of the (${합}|${낱말[합] ?? 'x'}) came from one flaw`, 'i').test(한줄),
+  `${결함탓}/${합}`);
+본다('나머지를 딴 원인이라 말하나',
+  new RegExp(`other (${합 - 결함탓}|${낱말[합 - 결함탓] ?? 'x'}) were separate`, 'i').test(한줄), 합 - 결함탓);
+
+/* ①-b 원인표가 앞말과 어긋나지 않나 — 원인은 여기(내 자료)에 두고 정정은 앞말에 있다.
+   두 곳이 갈라지면 위 셈이 조용히 틀린다. 슬러그·날짜로 맞춰 본다. */
+{
+  const 앞말것 = [];
+  for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
+    const s = fs.readFileSync(path.join(CD, f), 'utf8');
+    const b = s.match(/^corrections:\n((?:\s{2}- date:[\s\S]*?)(?=^\w|^---$))/m);
+    if (!b) continue;
+    for (const d of b[1].match(/- date:\s*(\S+)/g) || []) {
+      앞말것.push(`${f.replace(/\.md$/, '')}·${d.replace(/- date:\s*/, '')}`);
+    }
+  }
+  const 표것 = (원인표.articleCauses ?? []).map((a) => `${a.slug}·${a.date}`);
+  const 표에없음 = 앞말것.filter((x) => !표것.includes(x));
+  const 앞말에없음 = 표것.filter((x) => !앞말것.includes(x));
+  본다('원인표가 앞말과 맞나', 표에없음.length === 0 && 앞말에없음.length === 0,
+    표에없음.length || 앞말에없음.length ? `표에 없음 [${표에없음}] · 앞말에 없음 [${앞말에없음}]` : `${표것.length}건`);
+  본다('원인이 다 적혀 있나',
+    [...지면정정, ...(원인표.articleCauses ?? [])].every((r) => r.cause && 원인표.causes?.[r.cause]),
+    Object.keys(원인표.causes ?? {}).length + '가지');
+}
 
 /* ── ② 표 — 정정 기록의 **실제 값**과 줄째로 ── */
 const 찾기 = (where) => 지면정정.find((r) => r.where === where);

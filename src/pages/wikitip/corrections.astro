@@ -44,6 +44,21 @@ const 지면정정 = pageFixes.rows
   .map((r) => ({ ...r, date: new Date(r.date) }))
   .sort((a, b) => +b.date - +a.date);
 
+/* ⛔ 2026-08-08. 정정마다 **까닭**이 기록에 붙었는데 지면이 안 보여 줬다.
+   낱개로 늘어놓으면 「많다」만 남는다. 까닭으로 묶으면 **같은 실수를 또 하는가**가 보인다 —
+   읽는 사람이 우리를 재는 자다. 원인 이름은 자료에 있고, 세는 것은 여기서 한다. */
+const 원인별 = Object.entries(pageFixes.causes ?? {})
+  .map(([열쇠, 설명]) => ({
+    열쇠,
+    설명,
+    건수: pageFixes.rows.filter((r) => r.cause === 열쇠).length
+      + (pageFixes.articleCauses ?? []).filter((a) => a.cause === 열쇠).length,
+  }))
+  .sort((a, b) => b.건수 - a.건수);
+
+/** 으뜸 원인 말고도 두 번 이상 난 원인이 몇인가 — 「같은 실수를 또 했나」의 답이다. */
+const 되풀이된것 = 원인별.filter((c) => c.건수 > 1).length - 1;
+
 const 날짜 = (d: Date) =>
   d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
 const 총건수 = 기사정정.length + 지면정정.length;
@@ -85,6 +100,30 @@ const jsonLd = {
     <p class="body">
       We also publish <a href="/about">how each number is made</a>, and every data page names its source
       and says what it leaves out. This page is the other half of that: what we got wrong anyway.
+    </p>
+  </section>
+
+  <section>
+    <h2>What caused them</h2>
+    <p class="body">
+      Every correction here is filed under the mistake it came from. Counting them this way answers the
+      question a list cannot: <b>are we making the same mistake twice?</b>
+    </p>
+    <ul class="causes">
+      {원인별.map((c) => (
+        <li>
+          <b>{c.건수}</b>
+          <span>{c.설명}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="body note">
+      {원인별[0].건수} of the {총건수} come from one cause, and it is the one we{' '}
+      <a href="/article/one-flaw-twelve-corrections">wrote an article about</a>.
+      {되풀이된것 === 0
+        ? ' No other cause has happened more than once.'
+        : ` ${되풀이된것} other ${되풀이된것 === 1 ? 'cause has' : 'causes have'} happened more than once.`}
+      {' '}If a number here starts climbing, that is the thing to hold us to.
     </p>
   </section>
 
@@ -165,6 +204,13 @@ const jsonLd = {
   h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
   .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
   .body { font-size: .92rem; line-height: 1.75; margin: 0 0 .9rem; }
+  .body.note { font-size: .85rem; color: var(--muted); }
+
+  /* 원인별 — 건수를 왼쪽에 세워 「같은 실수를 또 했나」가 눈으로 보이게 한다 */
+  .causes { list-style: none; padding: 0; margin: 0 0 1rem; }
+  .causes li { display: flex; gap: .9rem; align-items: baseline; padding: .6rem 0; border-bottom: 1px solid var(--line); }
+  .causes b { flex: 0 0 2.2rem; text-align: right; font-size: 1.2rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .causes span { font-size: .88rem; line-height: 1.6; }
 
   .stats { display: grid; gap: .6rem; grid-template-columns: 1fr 1fr; margin: 0 0 2.5rem; }
   @media (min-width: 34rem) { .stats { grid-template-columns: repeat(4, 1fr); } }

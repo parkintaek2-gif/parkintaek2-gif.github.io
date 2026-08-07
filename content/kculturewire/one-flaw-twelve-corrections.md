@@ -1,5 +1,5 @@
 ---
-title: "One flaw in how we matched titles put wrong figures on seven pages and five articles in a single morning"
+title: "One flaw in how we matched titles put wrong figures on seven pages and four articles in a single morning"
 dek: "Our Korean Netflix catalogue was 294 titles and 27.7 billion hours. It is 236 and 23.7 billion. Here is the mistake, how it spread, why counting alone would never have caught it, and what we changed so it cannot happen the same way twice."
 category: screen
 pubDate: 2026-08-07
@@ -19,25 +19,30 @@ sources:
     url: "https://query.wikidata.org"
 crossChecks:
   - "Every figure in this piece is read from the same corrections record that feeds our corrections page and the corrections file in our data bundle, not retyped for the article"
-  - "The seven page corrections and five article corrections are counted separately because they are stored separately — pages in a data file, articles in each article's own front matter"
+  - "The seven page corrections and four article corrections are counted separately because they are stored separately — pages in a data file, articles in each article's own front matter"
+  - "Each correction carries the cause it came from, so the eight traced to the title-matching flaw are counted rather than asserted"
   - "The before and after figures are the ones actually published, not reconstructions"
+corrections:
+  - date: 2026-08-08
+    note: "This article said twelve figures changed on 7 August and that all twelve came from one flaw. Both were wrong. Eleven changed that day — the twelfth was a correction made on 6 August to a different article, which we swept into the count. And three of the eleven had nothing to do with the title-matching flaw: two were separate errors this article's own text already described as unrelated, in a KOSIS table read on one level and a pay figure with the wrong denominator. Eight came from the flaw. The counts are now computed from the corrections record, where every entry carries its cause, and a check fails our build if the article and the record disagree. An article about miscounting that miscounted is the worst possible place for this, which is why it is at the top of the page rather than the bottom."
 excluded:
   - "Any claim that the corrected figures are final. They are the best we can currently show, and 204 of 405 titles in the Southeast Asia panel still cannot be language-verified at all"
   - "Any suggestion that we found this because our process is good. We found it because one title on a page looked wrong to a person reading it"
 ---
 
-On 7 August 2026 we changed twelve published figures. Seven were on data pages, five were inside
-articles. **All twelve came from one flaw**, and it had been live for days.
+On 7 August 2026 we changed eleven published figures. Seven were on data pages, four were inside
+articles. **Eight of the eleven came from one flaw**, and it had been live for days. The other three
+were separate mistakes that surfaced only because the flaw made us re-read everything.
 
-| Page | Was | Now |
-| --- | --- | --- |
-| /watched | 294 titles · 27.7bn hours | 236 titles · 23.7bn hours |
-| /titles and /reach | 448 titles | 405 titles |
-| /screen-split | built on the 294 | built on the 236 |
-| /staying-power | listed *Teach You a Lesson* as a Korean title | removed |
-| Front page | included two Chinese dramas | removed |
-| /tv-exports | terrestrial 65.7% of exports | 81.5% |
-| /industry | content pay ₩75.6m | ₩76.1m |
+| Page | Was | Now | Cause |
+| --- | --- | --- | --- |
+| /watched | 294 titles · 27.7bn hours | 236 titles · 23.7bn hours | the flaw |
+| /titles and /reach | 448 titles | 405 titles | the flaw |
+| /screen-split | built on the 294 | built on the 236 | the flaw |
+| /staying-power | listed *Teach You a Lesson* as a Korean title | removed | the flaw |
+| Front page | included two Chinese dramas | removed | the flaw |
+| /tv-exports | terrestrial 65.7% of exports | 81.5% | **a different mistake** |
+| /industry | content pay ₩75.6m | ₩76.1m | **a different mistake** |
 
 ## The flaw
 
@@ -75,8 +80,9 @@ unrelated error — non-disclosing companies left in a denominator — that only
 already re-reading everything.
 
 A correction is not finished when the cause is fixed. It is finished when everything that repeated
-the number has been swept, and something exists to stop it recurring. Twelve figures moved because
-one rule was wrong; a sweep that stopped at the rule would have left seven of them standing.
+the number has been swept, and something exists to stop it recurring. Eight figures moved because
+one rule was wrong; only one of them was the rule's own page. A sweep that stopped there would have
+left seven standing.
 
 ## What changed so it cannot happen the same way
 
