@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { toCsv, csvResponse, type Column } from '../../../lib/csv';
+import { 공학말 } from '../../../lib/school-label';
 import schools from '../../../data/100yearmap/pages-school.json';
 
 /**
@@ -21,7 +22,9 @@ const cols: Column<any>[] = [
   { key: '고교유형', get: (s) => s.고교유형 },
   { key: '고교유형_판정근거', get: (s) => s.취업?.유형판정근거 ?? 'NEIS 고교유형' },
   { key: '설립', get: (s) => s.설립 },
-  { key: '공학구분', get: (s) => s.공학 },
+  /* ⚠ 나이스 값은 「남여공학」·「남」·「여」다. 표에 그대로 내보내면 맞춤법이 틀린 채로 나간다.
+     ⛔ 원자료를 고치지 않고 **내보내는 말**만 편다 — src/lib/school-label.ts 한 곳에서 한다 */
+  { key: '공학구분', get: (s) => 공학말(s.공학, s.종류) ?? '' },
   { key: '지역', get: (s) => s.지역 },
   { key: '교육청', get: (s) => s.교육청 },
   { key: '주소지', get: (s) => s.주소 },

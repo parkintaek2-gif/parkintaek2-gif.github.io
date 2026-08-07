@@ -12,6 +12,7 @@
  *    학교 이름 옆에 붙는 숫자는 오해를 사기 제일 쉬운 자리라, 경고를 숫자 바로 밑에 둔다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import { 공학말 } from '../../../lib/school-label';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import { 권할만한 } from '../../../lib/university';
@@ -226,7 +227,7 @@ const jsonLd = {
   <h1>{school.title}</h1>
   <p class="sub">
     {school.지역} · {school.고교유형} · {school.설립}
-    {school.공학 && <> · {school.공학}</>}
+    {공학말(school.공학, school.종류) && <> · {공학말(school.공학, school.종류)}</>}
     {설립연도 && <> · {설립연도}년 설립</>}
   </p>
 

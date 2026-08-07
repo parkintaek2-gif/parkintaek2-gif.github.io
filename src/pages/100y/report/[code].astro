@@ -26,6 +26,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionAfterPick from '../../../components/NextQuestionAfterPick.astro';
+import { 공학말 } from '../../../lib/school-label';
 import schools from '../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../data/100yearmap/school-career.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
@@ -129,7 +130,7 @@ const desc =
 
   <h1>{school.title}<br class="pcbr" /> 숫자로 보면</h1>
   <p class="sub">
-    {school.지역} · {school.고교유형} · {school.설립} · {school.공학}
+    {school.지역} · {school.고교유형} · {school.설립} · {공학말(school.공학, school.종류)}
     {중단?.재학생 && <> · 재학 {중단.재학생.toLocaleString()}명</>}
   </p>
 

@@ -54,11 +54,21 @@ async function 가져오기(경로) {
   return null;
 }
 
+let 사라진지면 = 0;
+
 /** dist 안의 모든 지면 */
 function 모든지면() {
   const out = [];
   const 훑기 = (d) => {
-    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+    /* ⚠ 훑는 중에 폴더째 사라질 수 있다(다른 자리가 빌드 시작). 죽지 않고 세어 둔다 */
+    let 목록;
+    try {
+      목록 = fs.readdirSync(d, { withFileTypes: true });
+    } catch {
+      사라진지면++;
+      return;
+    }
+    for (const e of 목록) {
       const p = path.join(d, e.name);
       if (e.isDirectory()) 훑기(p);
       else if (e.name.endsWith('.html')) out.push(p);
@@ -72,10 +82,35 @@ function 모든지면() {
 
 const 태그 = (t, re) => (t?.match(re) ?? [])[1] ?? null;
 
+/**
+ * 🔴 2026-08-08 06:0x — **다른 자리가 빌드를 시작하면 이 검사가 죽었다.**
+ *
+ *   여섯 자리가 같은 작업트리를 쓴다. `astro build` 는 시작할 때 `dist` 를 비운다.
+ *   그 20초 사이에 여기서 훑으면 **읽던 파일이 사라져 ENOENT 로 종료**된다.
+ *   오늘 아침에만 네 번 그랬다 — 그동안 **아무것도 못 쟀다.**
+ *
+ * ⛔ 조용히 넘기지 않는다. **몇 장이 사라졌는지 세서 지면 수와 함께 말한다.**
+ *   많이 사라졌으면 그 결과는 「이상 없음」이 아니라 **「못 쟀음」**이다.
+ */
+const 지면읽기 = (p) => {
+  try {
+    return fs.readFileSync(p, 'utf8');
+  } catch {
+    사라진지면++;
+    return null;
+  }
+};
+/** 훑는 사이에 얼마나 사라졌나. 한 장이라도 사라졌으면 그 판정은 못 믿는다 */
+const 훑기가온전한가 = (셌나) => 사라진지면 === 0 && 셌나 > 0;
+
 // ── 3-2 신뢰 (YMYL) ────────────────────────────────────────
 const 첫화면 = await 가져오기('/');
 if (!첫화면) {
-  console.log('⛔ 첫 화면을 못 읽었다. 빌드가 안 돼 있거나 라이브가 죽었다.');
+  /* ⚠ 여기서 멈추는 것은 **고장이 아니라 못 잰 것**이다. 그 말을 그대로 적는다 —
+        「⛔ 첫 화면 없음」만 보면 지면이 깨진 줄 안다. 대개는 옆자리가 빌드 중이다 */
+  console.log('⬜ 첫 화면을 못 읽었다 — **재지 못했다**(고장이 아니다).');
+  console.log('   대개 다른 자리가 `astro build` 를 시작해 dist 를 비운 것이다.');
+  console.log('   `node scripts/build-once.mjs` 로 빌드가 끝난 뒤 다시 돌린다.');
   process.exit(1);
 }
 
@@ -116,7 +151,8 @@ if (!LIVE) {
   let og없음 = 0;
   let canonical없음 = 0;
   for (const p of 지면들) {
-    const t = fs.readFileSync(p, 'utf8');
+    const t = 지면읽기(p);
+    if (t == null) continue;
     const ti = 태그(t, /<title>([^<]*)<\/title>/) ?? '(없음)';
     const de = 태그(t, /<meta name="description" content="([^"]*)"/) ?? '(없음)';
     제목.set(ti, (제목.get(ti) ?? 0) + 1);
@@ -149,7 +185,7 @@ if (!LIVE) {
       : `${noindex.toLocaleString()}/${지면들.length.toLocaleString()}장`,
   );
   // ⚠ /_astro 로 새어 나간 CSS — 백년지도는 접두사 때문에 404 가 된다. 오류가 안 뜬다
-  const 샌것 = 지면들.filter((p) => /<link[^>]+_astro[^>]*\.css/.test(fs.readFileSync(p, 'utf8')));
+  const 샌것 = 지면들.filter((p) => /<link[^>]+_astro[^>]*\.css/.test(지면읽기(p) ?? ''));
   재기('CSS 가 /_astro 로 새지 않았나', 샌것.length === 0, 샌것.length ? `⛔ ${샌것.length}장 — 지면이 민얼굴로 나간다` : '없다');
 }
 
@@ -166,13 +202,16 @@ if (!LIVE) {
  *   빠뜨리는 것은 늘 **손으로 한 줄씩 적는 고정 지면**이다.
  */
 if (!LIVE && sitemap) {
-  const 고정지면 = fs
-    .readdirSync(DIST, { withFileTypes: true })
+  /* ⚠ 폴더째 사라질 수 있다 — 죽지 않고 세어 둔다 */
+  let 뿌리목록 = [];
+  try { 뿌리목록 = fs.readdirSync(DIST, { withFileTypes: true }); } catch { 사라진지면++; }
+  const 고정지면 = 뿌리목록
     .filter((e) => e.isFile() && e.name.endsWith('.html') && e.name !== '404.html')
     .map((e) => '/' + e.name.replace(/\.html$/, ''));
   const 빠진것 = [];
   for (const 길 of 고정지면) {
-    const 글 = fs.readFileSync(path.join(DIST, 길.slice(1) + '.html'), 'utf8');
+    const 글 = 지면읽기(path.join(DIST, 길.slice(1) + '.html'));
+    if (글 == null) continue; // 훑는 사이에 사라졌다 — 아래 「온전히 쟀나」가 말해 준다
     if (/noindex/.test(글)) continue; // 닫아 둔 것은 안 넣는 게 맞다
     if (!sitemap.includes(`${ORIGIN}${길}<`) && !sitemap.includes(`${ORIGIN}${길}</loc>`)) 빠진것.push(길);
   }
@@ -451,6 +490,70 @@ if (!LIVE) {
   );
 }
 
+// ── 2-x 나가면 안 되는 말이 지면에 있나 ─────────────────────
+/**
+ * 🔴 2026-08-08 05:4x — 2번이 잡았다. **「남여공학」이 2,525장에 찍혀 있었다.**
+ *
+ *   나이스가 주는 값(`남여공학`·`남`·`여`)을 그대로 지면에 내보내고 있었다.
+ *   *「값이 정해져 여는 날 「남여공학」이 그대로 나가면 나머지가 아무리 좋아도
+ *     **그 한 글자를 봅니다**」*
+ *
+ * ⚠ 이런 것은 **사람이 기억해서** 막을 수 없다. 자료를 다시 받으면 되돌아온다.
+ *   그래서 **말 목록을 `src/lib/school-label.ts` 에 두고 검사가 그걸 본다.**
+ *   새로 발견하면 그 목록에 한 줄 더한다 — 검사를 고칠 일이 없다.
+ *
+ * ⛔ 원자료(`pages-school.json`)는 안 고친다. 고치는 것은 **보이는 말**뿐이라
+ *   검사도 **지면(dist)** 을 훑는다. 자료를 훑으면 영원히 걸린다.
+ */
+if (!LIVE) {
+  const { 나가면안되는말, 공학말 } = await import('../src/lib/school-label.ts');
+
+  /**
+   * ⭐ **자가시험 — 검사가 스스로를 먼저 증명한다.**
+   *
+   *   2026-08-08 06:0x 에 이 검사를 손으로 깨뜨려 보려다 못 했다. 여섯 자리가 같은
+   *   작업트리를 써서 **훑는 20초 사이에 다른 자리가 dist 를 비운다.** 세 번 다 그랬다.
+   *
+   *   그래서 dist 에 기대지 않고 **여기서 증명한다.** 통과가 「이상 없음」인지
+   *   **「못 재고 있음」**인지 가리는 것이 검사의 값어치다.
+   */
+  const 시험 = [
+    ['틀린 말을 잡는다', 나가면안되는말.some((m) => '<p>남여공학</p>'.includes(m)), true],
+    ['성한 지면은 안 잡는다', 나가면안되는말.some((m) => '<p>남녀공학</p>'.includes(m)), false],
+    ['막아 둔 말이 비어 있지 않다', 나가면안되는말.length > 0, true],
+    ['펴는 쪽도 맞다 — 남여공학', 공학말('남여공학'), '남녀공학'],
+    ['펴는 쪽도 맞다 — 여', 공학말('여', '고등학교'), '여자고등학교'],
+    ['종류를 모르면 지어내지 않는다', 공학말('여'), '여학교'],
+    ['모르는 값은 그대로 둔다', 공학말('혼성'), '혼성'],
+    ['빈 값은 아무 말도 안 만든다', 공학말(''), null],
+  ];
+  const 시험실패 = 시험.filter(([, 실제, 기대]) => JSON.stringify(실제) !== JSON.stringify(기대));
+  if (시험실패.length) {
+    재기('나가면 안 되는 말이 지면에 있나', false, `⛔ **자가시험이 깨졌다** — ${시험실패.map(([n]) => n).join(' · ')}. 검사를 못 믿으니 결과를 안 낸다`);
+  } else {
+
+  const 볼것 = 모든지면();
+  const 걸린 = [];
+  for (const p of 볼것) {
+    const 글 = 지면읽기(p);
+    if (글 == null) continue;
+    for (const 말 of 나가면안되는말) {
+      if (글.includes(말)) {
+        걸린.push(`${path.basename(p)} — 「${말}」`);
+        break;
+      }
+    }
+  }
+  재기(
+    '나가면 안 되는 말이 지면에 있나',
+    걸린.length === 0,
+    걸린.length
+      ? `⛔ ${걸린.length}장 — ${걸린[0]} …`
+      : `지면 ${볼것.length.toLocaleString()}장 · 막아 둔 말 ${나가면안되는말.length}가지 · 0건 (자가시험 ${시험.length}건 통과)`,
+  );
+  }
+}
+
 // ── 3-1 그릇 · 눈으로 봐야 하는 것 ──────────────────────────
 /** ⚠ 아래 셋은 **이 검사가 못 잰다.** 통과로 세지 않는다.
  *  다만 밖에서 잰 것이 있으면 그 결과를 여기 적어 둔다 — 「안 쟀다」와 「재고 나서 이렇다」는 다르다. */
@@ -464,8 +567,36 @@ if (!LIVE) {
 못잼('첫 화면 3초 판정', '사람이 봐야 한다. 8/13 교차감사에서 2번이 본다');
 못잼('인쇄 페이지 나눔', '@media print 는 넣었고 흰 종이 대비도 쟀는데, **실제 출력은 아직 못 봤다**');
 
+/**
+ * 🔴 **반쯤 재고 「이상 없음」이라고 하지 않는다.**
+ *
+ *   여섯 자리가 같은 작업트리를 쓴다. 훑는 20초 사이에 다른 자리가 빌드를 시작하면
+ *   `dist` 가 비워지고 **읽던 파진다.** 예전엔 그 자리에서 검사가 죽었다(ENOENT).
+ *   이제는 안 죽지만, **덜 읽은 채로 「0건」이 나오면 그게 더 나쁘다.**
+ *
+ *   ⛔ 그래서 사라진 장이 있으면 **통과로 세지 않고 「못 쟀다」로 적는다.**
+ *   ⚠ 이건 고장이 아니라 **다시 돌리면 되는 것**이다. 그 말도 같이 적는다.
+ */
+if (!LIVE) {
+  if (사라진지면 === 0) {
+    재기('온전히 훑었나', true, '훑는 사이에 사라진 지면 없다');
+  } else {
+    못잼(
+      '온전히 훑었나',
+      `⚠ 훑는 사이에 **${사라진지면.toLocaleString()}장이 사라졌다** — 다른 자리가 빌드를 시작했다. ` +
+        '위 dist 판정들은 **덜 읽고 낸 값**이라 그대로 믿지 않는다. 빌드가 끝난 뒤 다시 돌린다',
+    );
+  }
+}
+
 // ── 출력 ───────────────────────────────────────────────────
 console.log(`백년지도 오픈 점검 — ${LIVE ? '라이브' : 'dist/100y'}\n`);
+/* 🔴 맨 위에 크게. 밑에 ⬜ 한 줄로 두면 「통과 23」만 보고 넘어간다 */
+if (사라진지면 > 0) {
+  console.log(`  ⬜⬜ **덜 읽고 낸 값이다** — 훑는 사이에 ${사라진지면.toLocaleString()}장이 사라졌다.`);
+  console.log('       다른 자리가 빌드 중이다. 아래 dist 판정은 그대로 믿지 않는다.');
+  console.log('       `node scripts/build-once.mjs` 뒤에 다시 돌린다.\n');
+}
 for (const r of 결과) console.log(`  ${r.상태} ${r.항목.padEnd(26)} ${r.말}`);
 
 const 실패 = 결과.filter((r) => r.상태 === '⛔');
