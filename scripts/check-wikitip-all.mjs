@@ -39,6 +39,7 @@ const 검사 = [
   ['파는 한 벌이 소개 글대로인가', 'check-product-bundle.mjs'],
   ['새 세 편이 자료와 맞나', 'check-three-new-articles.mjs'],
   ['더 낸 세 편이 자료와 맞나', 'check-three-more-articles.mjs'],
+  ['한국 차트×관심도 기사가 자료와 맞나', 'check-home-chart-attention-article.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
 ];
