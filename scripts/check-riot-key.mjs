@@ -19,15 +19,23 @@
  *    Riot 이 잠깐 흔들리면 남의 빌드까지 막는다. 사람이 부를 때만 돈다.
  */
 import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const REGIONS = ['kr', 'na1', 'euw1'];
 const 조용히 = process.argv.includes('--quiet');
 const 말 = (...a) => { if (!조용히) console.log(...a); };
 
-const env = fs.existsSync('.env') ? fs.readFileSync('.env', 'utf8') : '';
+/* ⚠ `.env` 를 상대경로로 읽으면 **다른 폴더에서 부를 때 「키가 없다」가 나온다.**
+ *   2026-08-07 21:4x 에 실제로 걸렸다 — 키는 멀쩡히 있는데 자가 없다고 했다.
+ *   이 파일 위치를 기준으로 저장소 뿌리를 잡는다. 부르는 자리와 상관없이 같은 답이 나온다. */
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const env파일 = path.join(뿌리, '.env');
+
+const env = fs.existsSync(env파일) ? fs.readFileSync(env파일, 'utf8') : '';
 const m = env.match(/RIOT[A-Z_]*=\s*(\S+)/);
 if (!m) {
-  console.log('🔴 .env 에 RIOT 키가 없다');
+  console.log(`🔴 ${env파일} 에 RIOT 키가 없다`);
   process.exit(1);
 }
 const key = m[1];
