@@ -100,14 +100,26 @@ if (process.argv[1] && process.argv[1].endsWith('collect-korea-chart-signal.mjs'
     한칸.add(`${r.제목}|${r.국가}|${r.주}`);
   }
 
+  /* 위키데이터가 그 이름으로 대는 나라들 — 아래 세 번째 신호가 쓴다. */
+  const 대는나라 = new Map(a.perTitle.map((p) => [p.title, p.countries ?? []]));
+
   const rows = t.rows.map((r) => {
     const s = 신호(볼것.get(r.title));
+    /* ⭐ 2026-08-08 08:1x. 차례 20편을 읽다 **더 날카로운 것**을 봤다 —
+       한 나라에서만 떴는데 **위키데이터가 바로 그 나라 작품을 대는** 경우다.
+       「어디서만 떴나」와 「누가 같은 이름을 쓰나」가 **같은 나라를 가리킨다.**
+       ⛔ 그래도 자동으로 안 뺀다. 이 자에 *It's Okay to Not Be Okay* 와
+          *Keys to the Heart* 가 걸린다 — 둘 다 널리 알려진 한국 작품이다.
+          자가 날카로워도 **틀린 쪽으로 날카로울 수 있다.** 세어서 내고 사람이 읽는다. */
+    const 같은나라 = !!s.topCountry && (대는나라.get(r.title) ?? []).includes(s.topCountry);
     return {
       title: r.title,
       type: r.type,
       seaWeeks: r.weeks,
       verdict: 판정.get(r.title) ?? 'unknown',
       ...s,
+      /** 뜬 나라와 위키데이터가 대는 나라가 같은가. 셋째 신호다. */
+      sameCountryWork: 같은나라,
       queue: 볼차례(s, 판정.get(r.title)),
     };
   });
@@ -126,6 +138,8 @@ if (process.argv[1] && process.argv[1].endsWith('collect-korea-chart-signal.mjs'
     scannedRowsForPanel: 패널행,
     /** 겹치는 이름 중 한국 차트에 한 번도 안 오른 것 — 손으로 볼 전체 크기 */
     sharedWithoutKorea: 겹침.filter((r) => r.koreaWeeks === 0).length,
+    /** 한 나라에서만 뜨고 **그 나라 작품이 위키데이터에 있는** 편. 가장 날카로운 신호다. */
+    sameCountryWork: rows.filter((r) => r.queue === 'one-country-only' && r.sameCountryWork).length,
     queues: {
       oneCountryOnly: 차례('one-country-only').length,
       concentrated: 차례('concentrated').length,
@@ -136,7 +150,7 @@ if (process.argv[1] && process.argv[1].endsWith('collect-korea-chart-signal.mjs'
       const 순 = { 'one-country-only': 0, concentrated: 1, 'no-korea': 2 };
       return 순[x.queue] - 순[y.queue] || y.seaWeeks - x.seaWeeks;
     }).map((r) => ({
-      title: r.title, type: r.type, queue: r.queue, seaWeeks: r.seaWeeks,
+      title: r.title, type: r.type, queue: r.queue, seaWeeks: r.seaWeeks, sameCountryWork: r.sameCountryWork,
       countries: r.countries, topCountry: r.topCountry, topWeeks: r.topWeeks,
       concentrationPc: r.concentrationPc,
     })),
