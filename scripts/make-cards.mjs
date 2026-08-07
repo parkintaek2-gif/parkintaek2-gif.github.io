@@ -174,7 +174,7 @@ function 여러줄(글, { x, y, 크기, 최대폭, 글꼴, 색, 굵기 = 400, �
  *   가운데가 텅 빈다(사장님이 두 번째 카드에서 바로 잡으셨다).
  *   위에서부터 **흐르게** 쌓고, 남는 자리를 그림이 채우고, 출처·주소만 바닥에 붙인다.
  */
-function svg({ w, h }, 카드) {
+export function 카드svg({ w, h }, 카드) {
   const { 위, 큰, 밑, 분포, 강조칸, 출처, 주소, 견줌, 목록, 영문 } = 카드;
   const 여백 = Math.round(w * 0.075);
   const 안폭 = w - 여백 * 2;
@@ -351,7 +351,7 @@ let 센것 = 0;
 for (const 사실 of 사실들) {
   for (const [key, 판형] of Object.entries(판)) {
     const 파일 = path.join(낼곳, `${사실.이름}-${판형.이름}.png`);
-    await sharp(Buffer.from(svg(판형, 사실))).png().toFile(파일);
+    await sharp(Buffer.from(카드svg(판형, 사실))).png().toFile(파일);
     센것++;
   }
 }
