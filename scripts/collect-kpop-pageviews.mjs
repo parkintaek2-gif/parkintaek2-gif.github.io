@@ -107,24 +107,35 @@ const 실패이유 = new Map();
  * ⚠ 그리고 실패가 절반을 넘으면 **파일을 안 쓴다.** 반쯤 빈 자료를 남기면
  *   다음 사람이 그것을 「그 정도밖에 없다」로 읽는다.
  */
-for (const [i, p] of roster.entries()) {
-  try {
-    /* 한명() 은 이미 합·하루평균·최고·상승배수까지 낸 **객체**를 돌려준다.
-       일별 배열이 아니다. 여기서 다시 계산하지 않는다 — 두 곳에서 세면 언젠가 갈라진다. */
-    const v = await 한명(p.name, 날짜(시작), 날짜(끝));
-    if (v === null) { 문서없음++; }
-    else {
-      결과.push({ ...v, 갈래: p.kind });
-      잡힘++;
+/**
+ * 한 줄씩 물으면 1,958명에 10분 넘게 걸리고, 그 사이에 한 번이라도 끊기면 처음부터다.
+ * 실제로 두 번 끊겼다. **동시에 여섯 줄**로 묻는다 — 2분이면 끝난다.
+ *
+ * ⛔ 더 늘리지 않는다. 위키미디어는 우리에게 키도 안 받고 열어 준 곳이다.
+ *    빨리 받겠다고 남의 서버를 두드리지 않는다. 여섯이면 초당 스물 남짓이다.
+ */
+const 동시 = 6;
+let 다음 = 0;
+async function 한줄() {
+  while (다음 < roster.length) {
+    const i = 다음++;
+    const p = roster[i];
+    try {
+      /* 한명() 은 이미 합·하루평균·최고·상승배수까지 낸 **객체**를 돌려준다.
+         일별 배열이 아니다. 여기서 다시 계산하지 않는다 — 두 곳에서 세면 언젠가 갈라진다. */
+      const v = await 한명(p.name, 날짜(시작), 날짜(끝));
+      if (v === null) { 문서없음++; }
+      else { 결과.push({ ...v, 갈래: p.kind }); 잡힘++; }
+    } catch (e) {
+      실패++;
+      const 이유 = String(e.message).slice(0, 40);
+      실패이유.set(이유, (실패이유.get(이유) || 0) + 1);
     }
-  } catch (e) {
-    실패++;
-    const 이유 = String(e.message).slice(0, 40);
-    실패이유.set(이유, (실패이유.get(이유) || 0) + 1);
+    if (i % 200 === 0) process.stdout.write('.');
+    await new Promise((s) => setTimeout(s, 간격ms));
   }
-  if (i % 100 === 0) process.stdout.write('.');
-  await new Promise((s) => setTimeout(s, 간격ms));
 }
+await Promise.all(Array.from({ length: 동시 }, () => 한줄()));
 process.stdout.write('\n');
 
 if (실패) {

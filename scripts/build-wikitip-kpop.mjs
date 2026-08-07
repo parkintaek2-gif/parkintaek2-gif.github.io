@@ -30,6 +30,19 @@ const 파일 = files[files.length - 1];
 const j = JSON.parse(fs.readFileSync(path.join(DIR, 파일), 'utf8'));
 const 사람 = j.사람;
 
+/**
+ * ⚠ 배우 명단과 **겹치는 사람**이 있다. 위키데이터가 「가수」 직업도 달아 둔 배우들이다.
+ *   빼지 않는다 — 지수(블랙핑크)도 차은우도 **실제로 둘 다**다. 우리가 가를 일이 아니다.
+ *   대신 **표시하고 크기를 밝힌다**: 편수로는 8% 남짓인데 **조회수로는 4분의 1이 넘는다.**
+ *   그걸 안 밝히면 「K팝 관심도 1·2위가 소지섭·스티븐 연」이 되어 읽는 사람을 속인다.
+ */
+const 배우명단 = (() => {
+  const f = fs.readdirSync(DIR).filter((x) => /^actors-\d+\.json$/.test(x)).sort();
+  if (!f.length) return new Set();
+  return new Set(JSON.parse(fs.readFileSync(path.join(DIR, f[f.length - 1]), 'utf8')).사람.map((p) => p.이름));
+})();
+const 배우이기도 = (p) => 배우명단.has(p.이름);
+
 const 갈래 = (k) => 사람.filter((p) => p.갈래 === k);
 const 그룹 = 갈래('group');
 const 개인 = 갈래('person');
@@ -42,6 +55,8 @@ const 줄 = (p) => ({
   peakDay: p.최고일,
   peakViews: p.최고조회,
   last7: p.최근7일,
+  /** 배우 명단(/actors)에도 있는 사람. 빼지 않고 지면에 표시한다. */
+  alsoActor: 배우이기도(p),
 });
 
 const 합계 = 사람.reduce((s, p) => s + p.합, 0);
@@ -70,13 +85,23 @@ const out = {
   days: j.일수,
   roster: j.대상,
   measured: j.잡힘,
-  notFound: j.못찾음,
+  notFound: j.문서없음 ?? 0,
+  fetchFailed: j.부르기실패 ?? 0,
   /** 명단 질의 중 못 물은 갈래 — 있으면 명단이 덜 찬 것이다. 지면에 적는다. */
   rosterQueriesMissed: j.명단못물은갈래 ?? 0,
   rosterQueries: j.명단갈래수 ?? null,
   totalViews: 합계,
   groups: { n: 그룹.length, views: 그룹.reduce((s, p) => s + p.합, 0), mean: 무게(그룹) },
   people: { n: 개인.length, views: 개인.reduce((s, p) => s + p.합, 0), mean: 무게(개인) },
+  /** 배우 명단과 겹치는 몫 — 편수와 조회수를 **둘 다** 낸다. 하나만 내면 작아 보인다. */
+  actorOverlap: (() => {
+    const 겹 = 사람.filter(배우이기도);
+    const 겹합 = 겹.reduce((s2, p) => s2 + p.합, 0);
+    return { n: 겹.length, nPc: +((100 * 겹.length) / 사람.length).toFixed(1),
+      views: 겹합, viewsPc: +((100 * 겹합) / 합계).toFixed(1) };
+  })(),
+  /** 배우 명단에 없는 사람만으로 다시 센 상위 — 지면이 두 목록을 나란히 놓는다. */
+  topMusicOnly: 상위(사람.filter((p) => !배우이기도(p)), 15),
   concentration: 쏠림,
   topGroups: 상위(그룹, 15),
   topPeople: 상위(개인, 15),
@@ -91,7 +116,7 @@ if (out.groups.views + out.people.views !== 합계) throw new Error('조회수 �
 
 fs.writeFileSync('src/data/wikitip-kpop.json', JSON.stringify(out, null, 2));
 
-console.log(`${파일} · 명단 ${out.roster} · 잡힘 ${out.measured} · 못 찾음 ${out.notFound}`);
+console.log(`${파일} · 명단 ${out.roster} · 잡힘 ${out.measured} · 문서없음 ${out.notFound} · 부르기실패 ${out.fetchFailed}`);
 console.log(` 그룹 ${out.groups.n}팀 평균 ${out.groups.mean.toLocaleString()} · 개인 ${out.people.n}명 평균 ${out.people.mean.toLocaleString()}`);
 console.log(` 쏠림 ${쏠림.map((c) => `상위${c.top} ${c.sharePc}%`).join(' · ')}`);
 console.log(' 그룹 상위:', out.topGroups.slice(0, 5).map((r) => `${r.name}(${r.total.toLocaleString()})`).join(' · '));

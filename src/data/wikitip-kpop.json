@@ -1,0 +1,637 @@
+{
+  "generated": "2026-08-07T05:29:00.597Z",
+  "source": "Wikimedia Pageviews API (en.wikipedia, all-access, user)",
+  "rosterSource": "Wikidata — P27=Q884 with occupation singer/rapper/composer/musician, plus P31=Q215380 musical groups with P495=Q884. English Wikipedia article required.",
+  "period": "20260708~20260806",
+  "days": 30,
+  "roster": 1958,
+  "measured": 1958,
+  "notFound": 0,
+  "fetchFailed": 0,
+  "rosterQueriesMissed": 0,
+  "rosterQueries": 5,
+  "totalViews": 8329978,
+  "groups": {
+    "n": 412,
+    "views": 1264453,
+    "mean": 3069
+  },
+  "people": {
+    "n": 1546,
+    "views": 7065525,
+    "mean": 4570
+  },
+  "actorOverlap": {
+    "n": 154,
+    "nPc": 7.9,
+    "views": 2260199,
+    "viewsPc": 27.1
+  },
+  "topMusicOnly": [
+    {
+      "name": "BTS",
+      "kind": "group",
+      "total": 383622,
+      "daily": 12787,
+      "peakDay": "20260719",
+      "peakViews": 96360,
+      "last7": 66382,
+      "alsoActor": false
+    },
+    {
+      "name": "V (singer)",
+      "kind": "person",
+      "total": 128856,
+      "daily": 4295,
+      "peakDay": "20260719",
+      "peakViews": 10791,
+      "last7": 28575,
+      "alsoActor": false
+    },
+    {
+      "name": "Jung Kook",
+      "kind": "person",
+      "total": 126923,
+      "daily": 4231,
+      "peakDay": "20260719",
+      "peakViews": 13939,
+      "last7": 25426,
+      "alsoActor": false
+    },
+    {
+      "name": "Jennie (singer)",
+      "kind": "person",
+      "total": 112397,
+      "daily": 3747,
+      "peakDay": "20260802",
+      "peakViews": 8261,
+      "last7": 36224,
+      "alsoActor": false
+    },
+    {
+      "name": "Eric Nam",
+      "kind": "person",
+      "total": 100562,
+      "daily": 3352,
+      "peakDay": "20260726",
+      "peakViews": 11714,
+      "last7": 20311,
+      "alsoActor": false
+    },
+    {
+      "name": "Jin (singer)",
+      "kind": "person",
+      "total": 84463,
+      "daily": 2815,
+      "peakDay": "20260719",
+      "peakViews": 13949,
+      "last7": 16774,
+      "alsoActor": false
+    },
+    {
+      "name": "Jimin",
+      "kind": "person",
+      "total": 81970,
+      "daily": 2732,
+      "peakDay": "20260719",
+      "peakViews": 10536,
+      "last7": 17163,
+      "alsoActor": false
+    },
+    {
+      "name": "Suga",
+      "kind": "person",
+      "total": 76152,
+      "daily": 2538,
+      "peakDay": "20260719",
+      "peakViews": 11681,
+      "last7": 15570,
+      "alsoActor": false
+    },
+    {
+      "name": "RM (musician)",
+      "kind": "person",
+      "total": 75911,
+      "daily": 2530,
+      "peakDay": "20260719",
+      "peakViews": 9892,
+      "last7": 16016,
+      "alsoActor": false
+    },
+    {
+      "name": "IU (entertainer)",
+      "kind": "person",
+      "total": 74413,
+      "daily": 2480,
+      "peakDay": "20260710",
+      "peakViews": 10584,
+      "last7": 14823,
+      "alsoActor": false
+    },
+    {
+      "name": "Rosé (singer)",
+      "kind": "person",
+      "total": 74280,
+      "daily": 2476,
+      "peakDay": "20260731",
+      "peakViews": 3539,
+      "last7": 19890,
+      "alsoActor": false
+    },
+    {
+      "name": "J-Hope",
+      "kind": "person",
+      "total": 67172,
+      "daily": 2239,
+      "peakDay": "20260719",
+      "peakViews": 10416,
+      "last7": 13401,
+      "alsoActor": false
+    },
+    {
+      "name": "Ateez",
+      "kind": "group",
+      "total": 58783,
+      "daily": 1959,
+      "peakDay": "20260708",
+      "peakViews": 2699,
+      "last7": 12680,
+      "alsoActor": false
+    },
+    {
+      "name": "Stray Kids",
+      "kind": "group",
+      "total": 58615,
+      "daily": 1954,
+      "peakDay": "20260726",
+      "peakViews": 3483,
+      "last7": 14865,
+      "alsoActor": false
+    },
+    {
+      "name": "San (singer)",
+      "kind": "person",
+      "total": 54600,
+      "daily": 1820,
+      "peakDay": "20260710",
+      "peakViews": 2686,
+      "last7": 10974,
+      "alsoActor": false
+    }
+  ],
+  "concentration": [
+    {
+      "top": 1,
+      "views": 383622,
+      "sharePc": 4.6
+    },
+    {
+      "top": 10,
+      "views": 1429523,
+      "sharePc": 17.2
+    },
+    {
+      "top": 50,
+      "views": 3328164,
+      "sharePc": 40
+    }
+  ],
+  "topGroups": [
+    {
+      "name": "BTS",
+      "kind": "group",
+      "total": 383622,
+      "daily": 12787,
+      "peakDay": "20260719",
+      "peakViews": 96360,
+      "last7": 66382,
+      "alsoActor": false
+    },
+    {
+      "name": "Ateez",
+      "kind": "group",
+      "total": 58783,
+      "daily": 1959,
+      "peakDay": "20260708",
+      "peakViews": 2699,
+      "last7": 12680,
+      "alsoActor": false
+    },
+    {
+      "name": "Stray Kids",
+      "kind": "group",
+      "total": 58615,
+      "daily": 1954,
+      "peakDay": "20260726",
+      "peakViews": 3483,
+      "last7": 14865,
+      "alsoActor": false
+    },
+    {
+      "name": "Babymonster",
+      "kind": "group",
+      "total": 37936,
+      "daily": 1265,
+      "peakDay": "20260708",
+      "peakViews": 1544,
+      "last7": 9075,
+      "alsoActor": false
+    },
+    {
+      "name": "Seventeen (South Korean band)",
+      "kind": "group",
+      "total": 32001,
+      "daily": 1067,
+      "peakDay": "20260727",
+      "peakViews": 1590,
+      "last7": 6528,
+      "alsoActor": false
+    },
+    {
+      "name": "BigBang (South Korean band)",
+      "kind": "group",
+      "total": 30963,
+      "daily": 1032,
+      "peakDay": "20260729",
+      "peakViews": 1552,
+      "last7": 7993,
+      "alsoActor": false
+    },
+    {
+      "name": "Exo",
+      "kind": "group",
+      "total": 26610,
+      "daily": 887,
+      "peakDay": "20260726",
+      "peakViews": 1123,
+      "last7": 6231,
+      "alsoActor": false
+    },
+    {
+      "name": "I-dle",
+      "kind": "group",
+      "total": 26005,
+      "daily": 867,
+      "peakDay": "20260731",
+      "peakViews": 1526,
+      "last7": 6501,
+      "alsoActor": false
+    },
+    {
+      "name": "Tomorrow X Together",
+      "kind": "group",
+      "total": 24617,
+      "daily": 821,
+      "peakDay": "20260805",
+      "peakViews": 1370,
+      "last7": 6302,
+      "alsoActor": false
+    },
+    {
+      "name": "Xlov",
+      "kind": "group",
+      "total": 20596,
+      "daily": 687,
+      "peakDay": "20260730",
+      "peakViews": 1738,
+      "last7": 6041,
+      "alsoActor": false
+    },
+    {
+      "name": "Kard (group)",
+      "kind": "group",
+      "total": 16436,
+      "daily": 548,
+      "peakDay": "20260730",
+      "peakViews": 1278,
+      "last7": 4744,
+      "alsoActor": false
+    },
+    {
+      "name": "Super Junior",
+      "kind": "group",
+      "total": 16237,
+      "daily": 541,
+      "peakDay": "20260721",
+      "peakViews": 648,
+      "last7": 3683,
+      "alsoActor": false
+    },
+    {
+      "name": "Itzy",
+      "kind": "group",
+      "total": 16050,
+      "daily": 535,
+      "peakDay": "20260711",
+      "peakViews": 665,
+      "last7": 3424,
+      "alsoActor": false
+    },
+    {
+      "name": "Shinee",
+      "kind": "group",
+      "total": 15864,
+      "daily": 529,
+      "peakDay": "20260802",
+      "peakViews": 614,
+      "last7": 3913,
+      "alsoActor": false
+    },
+    {
+      "name": "2PM",
+      "kind": "group",
+      "total": 15175,
+      "daily": 506,
+      "peakDay": "20260805",
+      "peakViews": 660,
+      "last7": 4122,
+      "alsoActor": false
+    }
+  ],
+  "topPeople": [
+    {
+      "name": "So Ji-sub",
+      "kind": "person",
+      "total": 221480,
+      "daily": 7383,
+      "peakDay": "20260726",
+      "peakViews": 16423,
+      "last7": 38393,
+      "alsoActor": true
+    },
+    {
+      "name": "V (singer)",
+      "kind": "person",
+      "total": 128856,
+      "daily": 4295,
+      "peakDay": "20260719",
+      "peakViews": 10791,
+      "last7": 28575,
+      "alsoActor": false
+    },
+    {
+      "name": "Jung Kook",
+      "kind": "person",
+      "total": 126923,
+      "daily": 4231,
+      "peakDay": "20260719",
+      "peakViews": 13939,
+      "last7": 25426,
+      "alsoActor": false
+    },
+    {
+      "name": "Jennie (singer)",
+      "kind": "person",
+      "total": 112397,
+      "daily": 3747,
+      "peakDay": "20260802",
+      "peakViews": 8261,
+      "last7": 36224,
+      "alsoActor": false
+    },
+    {
+      "name": "Steven Yeun",
+      "kind": "person",
+      "total": 107124,
+      "daily": 3571,
+      "peakDay": "20260726",
+      "peakViews": 8138,
+      "last7": 25593,
+      "alsoActor": true
+    },
+    {
+      "name": "Eric Nam",
+      "kind": "person",
+      "total": 100562,
+      "daily": 3352,
+      "peakDay": "20260726",
+      "peakViews": 11714,
+      "last7": 20311,
+      "alsoActor": false
+    },
+    {
+      "name": "Jin (singer)",
+      "kind": "person",
+      "total": 84463,
+      "daily": 2815,
+      "peakDay": "20260719",
+      "peakViews": 13949,
+      "last7": 16774,
+      "alsoActor": false
+    },
+    {
+      "name": "Kim Mu-yeol",
+      "kind": "person",
+      "total": 82126,
+      "daily": 2738,
+      "peakDay": "20260712",
+      "peakViews": 4196,
+      "last7": 13291,
+      "alsoActor": true
+    },
+    {
+      "name": "Jimin",
+      "kind": "person",
+      "total": 81970,
+      "daily": 2732,
+      "peakDay": "20260719",
+      "peakViews": 10536,
+      "last7": 17163,
+      "alsoActor": false
+    },
+    {
+      "name": "Jisoo",
+      "kind": "person",
+      "total": 78272,
+      "daily": 2609,
+      "peakDay": "20260731",
+      "peakViews": 8972,
+      "last7": 29037,
+      "alsoActor": true
+    },
+    {
+      "name": "Suga",
+      "kind": "person",
+      "total": 76152,
+      "daily": 2538,
+      "peakDay": "20260719",
+      "peakViews": 11681,
+      "last7": 15570,
+      "alsoActor": false
+    },
+    {
+      "name": "RM (musician)",
+      "kind": "person",
+      "total": 75911,
+      "daily": 2530,
+      "peakDay": "20260719",
+      "peakViews": 9892,
+      "last7": 16016,
+      "alsoActor": false
+    },
+    {
+      "name": "IU (entertainer)",
+      "kind": "person",
+      "total": 74413,
+      "daily": 2480,
+      "peakDay": "20260710",
+      "peakViews": 10584,
+      "last7": 14823,
+      "alsoActor": false
+    },
+    {
+      "name": "Rosé (singer)",
+      "kind": "person",
+      "total": 74280,
+      "daily": 2476,
+      "peakDay": "20260731",
+      "peakViews": 3539,
+      "last7": 19890,
+      "alsoActor": false
+    },
+    {
+      "name": "Son Na-eun",
+      "kind": "person",
+      "total": 74106,
+      "daily": 2470,
+      "peakDay": "20260726",
+      "peakViews": 7055,
+      "last7": 11370,
+      "alsoActor": true
+    }
+  ],
+  "rising": [
+    {
+      "name": "Seonghwa",
+      "kind": "person",
+      "total": 5355,
+      "daily": 179,
+      "peakDay": "20260729",
+      "peakViews": 512,
+      "last7": 2936,
+      "alsoActor": false,
+      "rise": 163.11
+    },
+    {
+      "name": "Park Jin-young",
+      "kind": "person",
+      "total": 8854,
+      "daily": 295,
+      "peakDay": "20260801",
+      "peakViews": 915,
+      "last7": 5390,
+      "alsoActor": true,
+      "rise": 158.53
+    },
+    {
+      "name": "Haewon (singer)",
+      "kind": "person",
+      "total": 1689,
+      "daily": 56,
+      "peakDay": "20260731",
+      "peakViews": 155,
+      "last7": 904,
+      "alsoActor": false,
+      "rise": 100.44
+    },
+    {
+      "name": "Wonhee",
+      "kind": "person",
+      "total": 8719,
+      "daily": 291,
+      "peakDay": "20260727",
+      "peakViews": 685,
+      "last7": 4118,
+      "alsoActor": false,
+      "rise": 56.41
+    },
+    {
+      "name": "Sunoo",
+      "kind": "person",
+      "total": 1084,
+      "daily": 36,
+      "peakDay": "20260806",
+      "peakViews": 406,
+      "last7": 887,
+      "alsoActor": false,
+      "rise": 16.74
+    },
+    {
+      "name": "Huh Ji-won",
+      "kind": "person",
+      "total": 932,
+      "daily": 31,
+      "peakDay": "20260805",
+      "peakViews": 235,
+      "last7": 458,
+      "alsoActor": false,
+      "rise": 9.96
+    },
+    {
+      "name": "Sobangcha",
+      "kind": "group",
+      "total": 837,
+      "daily": 28,
+      "peakDay": "20260804",
+      "peakViews": 330,
+      "last7": 566,
+      "alsoActor": false,
+      "rise": 7.97
+    },
+    {
+      "name": "HueningKai",
+      "kind": "person",
+      "total": 7802,
+      "daily": 260,
+      "peakDay": "20260722",
+      "peakViews": 397,
+      "last7": 2343,
+      "alsoActor": false,
+      "rise": 7.76
+    },
+    {
+      "name": "Anita Tsoy",
+      "kind": "person",
+      "total": 3449,
+      "daily": 115,
+      "peakDay": "20260718",
+      "peakViews": 344,
+      "last7": 941,
+      "alsoActor": false,
+      "rise": 7.24
+    },
+    {
+      "name": "Lee Sun-bin",
+      "kind": "person",
+      "total": 28663,
+      "daily": 955,
+      "peakDay": "20260801",
+      "peakViews": 5790,
+      "last7": 18965,
+      "alsoActor": true,
+      "rise": 6.23
+    },
+    {
+      "name": "Kang Kyun-sung",
+      "kind": "person",
+      "total": 1052,
+      "daily": 35,
+      "peakDay": "20260804",
+      "peakViews": 418,
+      "last7": 687,
+      "alsoActor": false,
+      "rise": 6.13
+    },
+    {
+      "name": "Ko Ji-yong",
+      "kind": "person",
+      "total": 4741,
+      "daily": 158,
+      "peakDay": "20260729",
+      "peakViews": 1325,
+      "last7": 912,
+      "alsoActor": false,
+      "rise": 5.07
+    }
+  ]
+}
