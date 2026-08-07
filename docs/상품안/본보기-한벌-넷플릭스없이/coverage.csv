@@ -1,0 +1,5 @@
+field,rows,unresolved,pc_unresolved,fillable,what_blocks_it
+K-pop acts with no English Wikipedia article,uncountable,uncountable,unknown,no,"An act without an article produces no row at all, so we cannot even count how many are missing. Every share in this panel is computed over the acts we can see."
+listed companies that disclose headcount but not pay,see note,see note,see note,no,The filing is optional for that field. Companies missing it are excluded from pay figures rather than averaged in at zero.
+export figures for 2025 and 2026,2 years,2 years,100,later,The Content Industry Survey runs about eighteen months behind. We add years as they are published.
+anything derived from Netflix charts,not included,not included,n/a,later,Deliberately excluded from this bundle while the redistribution terms of the chart source are confirmed. The fuller bundle carries those tables.

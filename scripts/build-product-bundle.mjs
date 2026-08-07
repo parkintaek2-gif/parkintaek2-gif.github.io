@@ -642,3 +642,109 @@ console.log(` 조인 패널   ${cj.length - 1}줄 (작품 ${cast.출연진이붙
 console.log(` 산업 패널   ${industry.length - 1}줄`);
 console.log(` 정정        ${총정정}건 (지면 ${지면건수} · 기사 ${기사정정.length})`);
 console.log(` 출처 판정   한국만 ${amb.koreaOnly.sharePc}% · 겹침 ${amb.shared.sharePc}% · 모름 ${amb.unknown.sharePc}%`);
+
+/* ── ⑦ **넷플릭스 없는 한 벌** ──
+   2026-08-08. 라이선스 대장에서 넷플릭스 Tudum 재배포 조건이 ⬜ 미확인이다.
+   그 확인이 끝날 때까지 위 한 벌은 **파일로 못 연다.** 그런데 안에는
+   넷플릭스와 아무 상관 없는 표도 있다 — K팝 관심도(위키미디어)와 상장사 인력(DART·KOSIS)이다.
+   ⛔ 확인을 기다리느라 **팔 수 있는 것까지 묶어 두지 않는다.**
+   ⚠ 가르는 자는 하나다 — **줄도 고르는 기준도** 넷플릭스에서 안 온 것만 넣는다.
+      그래서 조인 패널(cast-title-join)은 **뺀다.** 줄은 위키데이터지만
+      「어느 작품을 넣을까」를 넷플릭스 차트가 정했다. 그 선을 흐리지 않는다.
+   ⚠ 이건 판단이다. 2번·사장님이 뒤집으실 수 있게 **따로** 낸다. 위 한 벌은 그대로 둔다. */
+const OUT2 = 'docs/상품안/본보기-한벌-넷플릭스없이';
+fs.mkdirSync(OUT2, { recursive: true });
+for (const f of fs.readdirSync(OUT2)) fs.unlinkSync(path.join(OUT2, f));
+/* ⛔ 여기서 **내 규칙에 내가 걸렸다.** K팝 표의 마지막 열
+   also_on_screen_actor_roster 는 「넷플릭스 차트에 오른 작품에 나오나」다 —
+   값 자체가 **넷플릭스가 고른 명단**에서 나온다. 「줄도 고르는 기준도 깨끗한 것만」이
+   내가 방금 적은 선인데 이 열이 그 선을 넘는다. **뺀다.**
+   ⚠ 위 한 벌에는 그대로 둔다. 거기는 넷플릭스 표가 이미 있다. */
+const kp2 = kp.map((r) => r.slice(0, -1));
+fs.writeFileSync(path.join(OUT2, 'kpop-attention-panel.csv'), csv(kp2));
+fs.writeFileSync(path.join(OUT2, 'industry-panel.csv'), csv(industry));
+fs.writeFileSync(path.join(OUT2, 'corrections.csv'), csv(fixes));
+
+/* 사전·빈칸 — 위 한 벌과 **같은 뜻 표**에서 뽑는다. 두 벌이 갈라지지 않게 한다. */
+{
+  const 실린표 = ['kpop-attention-panel.csv', 'industry-panel.csv', 'corrections.csv'];
+  const dict2 = [['file', 'column', 'what_it_is', 'unit', 'what_a_blank_cell_means']];
+  for (const 파일 of 실린표) {
+    const 머리 = fs.readFileSync(path.join(OUT2, 파일), 'utf8').split('\n')[0].split(',');
+    for (const c of 머리) dict2.push([파일, c, ...뜻[파일][c]]);
+  }
+  fs.writeFileSync(path.join(OUT2, 'columns.csv'), csv(dict2));
+
+  const cov2 = [['field', 'rows', 'unresolved', 'pc_unresolved', 'fillable', 'what_blocks_it']];
+  cov2.push(['K-pop acts with no English Wikipedia article', 'uncountable', 'uncountable', 'unknown', 'no',
+    'An act without an article produces no row at all, so we cannot even count how many are missing. Every share in this panel is computed over the acts we can see.']);
+  cov2.push(['listed companies that disclose headcount but not pay', ind.payCoverage?.total ?? 'see note',
+    ind.payCoverage?.missing ?? 'see note', ind.payCoverage?.missingPc ?? 'see note', 'no',
+    'The filing is optional for that field. Companies missing it are excluded from pay figures rather than averaged in at zero.']);
+  cov2.push(['export figures for 2025 and 2026', '2 years', '2 years', 100, 'later',
+    'The Content Industry Survey runs about eighteen months behind. We add years as they are published.']);
+  cov2.push(['anything derived from Netflix charts', 'not included', 'not included', 'n/a', 'later',
+    'Deliberately excluded from this bundle while the redistribution terms of the chart source are confirmed. The fuller bundle carries those tables.']);
+  fs.writeFileSync(path.join(OUT2, 'coverage.csv'), csv(cov2));
+
+  const readme2 = `# Korean culture data — the part that carries no chart licence question
+
+Two panels and our corrections record. **Nothing in this bundle is derived from Netflix's charts**,
+which is the whole point of it: it can be used today without waiting on anything.
+
+## What this is, in four lines
+
+1. **How often each K-pop act was looked up** on English Wikipedia — ${kp.length - 1} acts and members,
+   ${kpop.days} days, daily. Groups and individuals are marked separately, and so are the ones who are
+   also screen actors.
+2. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed
+   content companies — ${industry.length - 1} rows.
+3. **Everything we have published and had to correct**, with the old value beside the new one.
+4. \`columns.csv\` says what every column means, including what a blank cell means. \`coverage.csv\`
+   says what is missing and whether it can ever be filled.
+
+## Why this bundle exists separately
+
+Our fuller bundle includes a panel of Korean titles on Netflix. The redistribution terms for that
+chart source are still being confirmed, and **we check a licence before we publish, not after.**
+
+Rather than hold back the tables that have no such question, we cut them out into this one. The rule
+we used is strict: a table is here only if **both its rows and the choice of which rows to include**
+come from sources with no open question.
+
+That rule cost us a column as well as a table. The K-pop panel in the fuller bundle carries a flag
+saying whether an act also appears in a charting screen title; it is dropped here, because whether
+someone is on that roster is decided by which titles reached a Netflix chart. Same line, applied to
+a column rather than a file.
+
+That is why the actor-to-title join is **not** here. Its rows are Wikidata statements, but which
+titles it covers was decided by the Netflix charts, and we would rather draw the line clearly than
+argue about the edge.
+
+## Sources
+
+| Panel | Source | Status |
+| --- | --- | --- |
+| K-pop attention | Wikimedia Pageviews API (en.wikipedia); roster from Wikidata | open |
+| Music and broadcast exports | Content Industry Survey via KOSIS | open |
+| Listed workforce | FSS DART annual report employee disclosures | confirmed unrestricted, 2026-08-05 |
+
+## Read this before you build on it
+
+**These are lookups, not listens.** The K-pop figure counts how many times an English Wikipedia page
+was opened. It is curiosity, not consumption, and nobody should convert it into streams or sales.
+
+**An act with no English article is invisible here.** It produces no row, so it cannot be counted as
+a zero — it is simply absent, and we cannot say how many are.
+
+**The survey years run behind.** 2025 and 2026 are not published yet.
+
+Every figure in this bundle is produced by a build script from the same files our public pages read.
+When a number changes on the site it changes here, and the change is written into \`corrections.csv\`.
+
+Questions: parkintaek2@gmail.com
+`;
+  fs.writeFileSync(path.join(OUT2, 'README.md'), readme2);
+  console.log(`넷플릭스 없는 한 벌 → ${OUT2}/ 파일 ${fs.readdirSync(OUT2).length}개`
+    + ` (K팝 ${kp.length - 1}줄 · 산업 ${industry.length - 1}줄 · 정정 ${fixes.length - 1}건)`);
+}

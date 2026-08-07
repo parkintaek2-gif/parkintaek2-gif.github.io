@@ -69,7 +69,7 @@ below and neither is the real one on its own.
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3413 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
-| `corrections.csv` | Every figure we have published and had to change | 14 |
+| `corrections.csv` | Every figure we have published and had to change | 17 |
 | `coverage.csv` | What is empty, how much, and whether it can be filled | 18 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 

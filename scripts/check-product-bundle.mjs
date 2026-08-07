@@ -132,7 +132,36 @@ if (process.argv[1] && process.argv[1].endsWith('check-product-bundle.mjs')) {
     }
   }
 
-  /* ⑤ 값은 아직 안 적혀 있어야 한다 — 사장님 판단 전이다 */
+  /* ── ⑤ **넷플릭스 없는 한 벌**이 정말 없는가 ──
+     2026-08-08. 라이선스 확인을 기다리느라 팔 수 있는 것까지 묶어 두지 않으려고 두 번째 벌을 냈다.
+     ⛔ 그 벌의 값은 「넷플릭스가 하나도 안 들었다」는 약속뿐이다. **약속이 깨지면 물건이 없다.**
+     ⚠ 만들면서 내가 한 번 걸렸다 — K팝 표의 `also_on_screen_actor_roster` 열이
+        넷플릭스가 고른 명단에서 나온다. 파일만 보고 **열은 안 봤다.** 그래서 열 이름도 본다. */
+  {
+    const OUT2 = 'docs/상품안/본보기-한벌-넷플릭스없이';
+    if (fs.existsSync(OUT2)) {
+      const 금칙열 = ['korea_chart_weeks', 'review_queue', 'attribution', 'countries_reached',
+        'weeks_on_chart', 'peak_rank', 'also_on_screen_actor_roster', 'title'];
+      const 금칙파일 = ['korean-title-panel.csv', 'cast-title-join.csv', 'provenance.csv'];
+      const 안 = fs.readdirSync(OUT2);
+      for (const f of 금칙파일) {
+        if (안.includes(f)) 넘음.push(`⛔ 넷플릭스 없는 벌에 «${f}» 가 있다 — 그 벌의 약속이 깨진다`);
+      }
+      for (const f of 안.filter((x) => x.endsWith('.csv') && x !== 'columns.csv' && x !== 'corrections.csv')) {
+        const 열들 = 머리(fs.readFileSync(path.join(OUT2, f), 'utf8'));
+        for (const c of 열들) {
+          if (금칙열.includes(c)) 넘음.push(`⛔ 넷플릭스 없는 벌 ${f} 에 «${c}» 열이 있다 — 그 값은 넷플릭스가 고른 명단에서 온다`);
+        }
+      }
+      const r2 = 안.includes('README.md') ? fs.readFileSync(path.join(OUT2, 'README.md'), 'utf8') : '';
+      if (!/no chart licence question|not derived from Netflix/i.test(r2)) {
+        넘음.push('넷플릭스 없는 벌의 README 가 「왜 따로 있나」를 말하지 않는다');
+      }
+      if (/\$[0-9]|₩[0-9]/.test(r2)) 넘음.push('넷플릭스 없는 벌 README 에 값이 적혀 있다');
+    }
+  }
+
+  /* ⑥ 값은 아직 안 적혀 있어야 한다 — 사장님 판단 전이다 */
   if (/\bUSD|\$[0-9]|₩[0-9]|원\/월|price:/i.test(readme)) {
     넘음.push('README 에 값이 적혀 있다. 값은 사장님 판단이고 아직 안 나왔다');
   }
