@@ -37,6 +37,7 @@ const 검사 = [
   ['짧은 제목 기사가 자료와 맞나', 'check-short-titles-article.mjs'],
   ['센 것을 지면이 다 보여 주나', 'check-data-keys-shown.mjs'],
   ['파는 한 벌이 소개 글대로인가', 'check-product-bundle.mjs'],
+  ['새 세 편이 자료와 맞나', 'check-three-new-articles.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
 ];
 
