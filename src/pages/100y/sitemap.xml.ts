@@ -77,6 +77,11 @@ export const GET: APIRoute = () => {
        ⭐ 이 줄을 일부러 안 넣고 빌드해 봤더니 `check:100y:launch` 가 그 자리에서 잡았다.
           검사가 헛돌지 않는다는 것을 실제로 확인한 셈이다(2026-08-06). */
     { path: '/work', priority: '0.9', changefreq: 'weekly' },
+    /* ⭐ 2026-08-07 신설 — 「그 일자리는 얼마나 갈까」. 다른 자리가 넘겨 준 사업 축 자료로 만들었다.
+       ⚠ 메뉴에는 안 넣었다(이미 여덟 칸이다). `/work`·`/after` 에서 잇는다.
+       ⛔ 이 줄을 빠뜨리면 지면은 검색에 열려 있는데 사이트맵에 없는 어긋난 상태가 된다 —
+         `/after` 와 `/region` 에서 실제로 그랬고 `check:100y:launch` 가 잡았다. */
+    { path: '/how-long', priority: '0.8', changefreq: 'monthly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
     /* ⭐ 2026-08-07 신설 — **대학** 학과. `/major`(고등학교 학과)와 다른 지면이다.
        이름이 82개 겹치지만 학교급이 달라 섞으면 숫자가 어긋난다. */
