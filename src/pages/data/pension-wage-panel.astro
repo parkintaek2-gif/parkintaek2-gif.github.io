@@ -40,7 +40,7 @@ const 눌림 = {
     ['Daegu', '0.3%'],
   ],
   size: [
-    ['1,000+ employees', '21%'],
+    ['1,000+ employees', '21.0%'],
     ['300–999 employees', '4.1%'],
     ['10–29 employees', '0.3%'],
   ],
@@ -187,10 +187,44 @@ const jsonLd = {
 
       <section class="cta">
         <h2>Ask for the panel</h2>
-        <p>
-          Want a sample cut or the full three-axis panel for your desk? Email
-          <a href="mailto:hello@seoulmarkets.com">hello@seoulmarkets.com</a>. While you are here, the
-          company-level workforce table it joins to is already free to download —
+        <p class="cta__lead">
+          Want a sample cut or the full three-axis panel for your desk? Leave an email and we send
+          you the sample and the current terms. It reaches us directly — no account, and this is not
+          the newsletter.
+        </p>
+        {
+          /* ⚠ 사는 길. 처음엔 seoulmarkets.com 도메인 메일을 mailto 로 적었다가 2번이 잡았다 —
+             그 도메인엔 MX 가 없어 메일이 우리에게 안 온다(사는 사람이 마지막 걸음에서 사라진다).
+             그래서 죽은 주소를 빼고 **실제로 도는** /v1/subscribe 로 접수한다. source='panel' 로
+             B2B 문의를 뉴스레터와 갈라 센다. 사장님 대표 메일이 서면 그때 병기한다.
+             (JSX 주석이라 지면으로 나가지 않는다 — HTML 주석은 죽은 주소가 그대로 실린다) */
+        }
+        <form class="ask" method="post" action="/v1/subscribe" data-source="panel">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input
+              id="ask-email"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              inputmode="email"
+              placeholder="you@company.com"
+              aria-describedby="ask-note"
+            />
+            <button type="submit">Request the panel</button>
+          </div>
+          <!-- 봇 덫. 화면 밖으로 민다(display:none 은 일부 봇이 거른다) -->
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the
+            panel. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+        <p class="cta__also">
+          While you are here, the company-level workforce table this joins to is free to download —
           <a href="/data/korean-listed-workforce.csv" download>the whole listed-company table (CSV)</a>,
           or browse it on the <a href="/rankings">rankings page</a>.
         </p>
@@ -202,6 +236,48 @@ const jsonLd = {
       </p>
     </article>
   </div>
+
+  <script is:inline>
+    /* JS 로 그 자리에서 접수한다. /v1/subscribe 는 실제로 도는 엔드포인트다(뉴스레터와 같은 길).
+       실패하면 서버가 준 말을 그대로 보여 준다 — 지어내지 않는다. */
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true;
+        const was = btn.textContent;
+        btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'panel' }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            say('ok', 'Thanks — we have your address and will email you the sample and the terms.');
+            form.reset();
+          } else {
+            say('error', data?.error?.message || data?.message || 'Could not send. Please try again.');
+          }
+        } catch {
+          say('error', 'Network error. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = was;
+        }
+      });
+    })();
+  </script>
 </Base>
 
 <style>
@@ -248,10 +324,31 @@ const jsonLd = {
   .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
          border-radius: 10px; background: var(--card); }
   .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
-  .cta p { line-height: 1.7; margin: 0; font-size: .95rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta__also { margin: 1.1rem 0 0; font-size: .88rem; color: var(--muted); }
   .cta a, .pp a { color: var(--accent); text-decoration: none;
                   border-bottom: 1px solid currentColor; padding-bottom: 1px; }
   .cta a:hover, .pp a:hover { color: var(--ink); }
+
+  /* 사는 길 — 신청 폼. 뉴스레터 폼과 같은 결(라벨 숨김·봇 덫·aria-live). */
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden;
+        clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
 
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
   .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }

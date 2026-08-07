@@ -65,7 +65,8 @@ export function 키(email) {
   return createHash('sha256').update(email.trim().toLowerCase()).digest('hex').slice(0, 32);
 }
 
-const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'unknown']);
+// 'panel' — B2B 임금패널 지면(/data/pension-wage-panel)의 「신청」 폼. 뉴스레터와 갈라 센다.
+const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel', 'unknown']);
 
 /**
  * 구독 접수.
