@@ -45,6 +45,11 @@ const 제목 = `${title} | K Culture Wire`;
   <meta property="og:image" content="https://www.kculturewire.com/og.svg" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://www.kculturewire.com/og.svg" />
+  <!--
+    피드. 8/7 까지 /rss.xml 이 404 라 **따라 읽을 방법이 하나도 없었다.**
+    머리에 이 한 줄이 있어야 읽개가 스스로 찾는다 — 링크만 걸어서는 못 찾는다.
+  -->
+  <link rel="alternate" type="application/rss+xml" title="K Culture Wire" href="/rss.xml" />
   {canonical && <link rel="canonical" href={canonical} />}
   {canonical && <meta property="og:url" content={canonical} />}
   {noindex && <meta name="robots" content="noindex" />}
@@ -123,6 +128,7 @@ const 제목 = `${title} | K Culture Wire`;
           숨기지 않는다」고 적어 놓고 **틀렸다고 알려 줄 문이 없었다.**
         -->
         <span aria-hidden="true"> · </span><a href="/contact">Contact</a>
+        <span aria-hidden="true"> · </span><a href="/rss.xml">RSS</a>
         <span aria-hidden="true"> · </span><a href="/about">About &amp; methodology</a>
         <!--
           정정 지면은 모든 지면 아래에 건다. 한 곳에서만 닿을 수 있으면
