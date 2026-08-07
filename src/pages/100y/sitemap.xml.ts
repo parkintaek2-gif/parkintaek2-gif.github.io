@@ -3,6 +3,8 @@ import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
+import 대학학과 from '../../data/100yearmap/major-outcomes.json';
+import { 학과슬러그 } from '../../lib/college-major';
 import { 짧은지역명 } from '../../lib/region';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
@@ -71,6 +73,9 @@ export const GET: APIRoute = () => {
           검사가 헛돌지 않는다는 것을 실제로 확인한 셈이다(2026-08-06). */
     { path: '/work', priority: '0.9', changefreq: 'weekly' },
     { path: '/major', priority: '0.9', changefreq: 'weekly' },
+    /* ⭐ 2026-08-07 신설 — **대학** 학과. `/major`(고등학교 학과)와 다른 지면이다.
+       이름이 82개 겹치지만 학교급이 달라 섞으면 숫자가 어긋난다. */
+    { path: '/college-major', priority: '0.9', changefreq: 'weekly' },
     { path: '/school', priority: '0.8', changefreq: 'weekly' },
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
     { path: '/research', priority: '0.7', changefreq: 'monthly' },
@@ -97,6 +102,13 @@ export const GET: APIRoute = () => {
     ...(majors as any[]).map((m) => ({
       path: m.url as string,
       priority: '0.8',
+      changefreq: 'monthly',
+    })),
+    /* 대학 학과 837 — ⚠ 주소는 `학과주소()` 가 만든다. 지면과 **같은 함수**를 써야 어긋나지 않는다.
+       ⚠ 여기서 인코딩하면 아래 `loc()` 이 한 번 더 해서 이중 인코딩된다. **날 이름**을 넘긴다 */
+    ...((대학학과 as any).자료 as any[]).map((m) => ({
+      path: `/college-major/${학과슬러그(m.학과)}`,
+      priority: '0.7',
       changefreq: 'monthly',
     })),
     /* ⚠ **얇은 지면은 뺀다.** `school/[code].astro` 가 **같은 조건으로** noindex 를 건다.

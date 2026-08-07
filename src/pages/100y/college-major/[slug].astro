@@ -1,0 +1,173 @@
+---
+/**
+ * /100y/college-major/[slug] — **대학 학과** 졸업 후 상황
+ *
+ * 🔴 **`/major` 와 다른 지면이다.** 헷갈리면 숫자가 어긋난다 (2026-08-07 실측).
+ *
+ *   /major          **고등학교** 학과 925 — NEIS. 「전기과」는 특성화고 170곳에 개설
+ *   /college-major  **대학** 학과 837 — 한국교육개발원. 「전기과」는 졸업자 1,511명
+ *
+ *   이름이 82개가 그대로 같다(어미를 다듬으면 156개). 이름으로 이으면
+ *   **특성화고 지면에 전문대 취업률이 찍힌다.** 그래서 두 지면을 갈라 둔다.
+ *   ⛔ 두 자료를 한 지면에 섞지 않는다. 섞는 순간 학부모가 학교급을 구분할 수 없다.
+ *
+ * ⛔ **등수를 쓰지 않는다.** 쓰는 것은 **전국 평균과의 차이**뿐이다 (사장님 지시).
+ * ⛔ 「해야 한다」·「늦었다」·「이르다」를 쓰지 않는다. 우리가 정할 자격이 없다.
+ * ✅ 못 잰 것은 「못 쟀다」로 적는다. **0 으로 채우지 않는다.**
+ *
+ * ⚠ 원자료가 **취업대상자 100명 이상 학과만** 싣는다. 분모가 작으면 비율이 뜻을 잃어서다.
+ *   그 사실을 지면에 적는다 — 안 적으면 「우리 과가 없다」가 왜인지 알 수 없다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import { 학과슬러그 } from '../../../lib/college-major';
+import 성과 from '../../../data/100yearmap/major-outcomes.json';
+import 묶음 from '../../../data/100yearmap/major-merged.json';
+
+const 전국 = (성과 as any).전국;
+const 출처 = (성과 as any).출처;
+const 정의 = (성과 as any).정의;
+
+/** 묶은 이름(660) — 남녀 취업률 차이는 여기에만 있다. 없으면 안 쓴다 */
+const 꼬리떼기 = (s: string) => String(s).replace(/(학과|학부|전공|계열|과)$/, '').replace(/\s/g, '');
+const 묶음표 = new Map<string, any>(((묶음 as any).자료 as any[]).map((x) => [x.이름, x]));
+
+export async function getStaticPaths() {
+  return ((성과 as any).자료 as any[]).map((m) => ({
+    /* ⚠ 이름을 그대로 쓰면 슬래시가 든 넷에서 빌드가 죽는다. `학과슬러그` 가 다듬는다 */
+    params: { slug: 학과슬러그(m.학과) },
+    props: { 과: m },
+  }));
+}
+
+const { 과 } = Astro.props as { 과: any };
+const 묶인것 = 묶음표.get(꼬리떼기(과.학과)) ?? null;
+
+/** 전국 평균과의 차이. ⛔ 등수가 아니다 */
+const 차이 = Math.round((과.취업률 - 전국.취업률) * 10) / 10;
+const 견줌 =
+  Math.abs(차이) < 0.5
+    ? `전국 평균(${전국.취업률}%)과 거의 같습니다`
+    : `전국 평균 ${전국.취업률}%보다 ${Math.abs(차이)}%p ${차이 > 0 ? '높습니다' : '낮습니다'}`;
+
+/**
+ * ⚠ 남녀 취업률 차이는 **묶은 이름에만** 있다.
+ *   그리고 묶은 이름은 여러 학과를 합친 것이라 **이 학과 하나의 값이 아니다.**
+ *   쓰되 그 말을 같이 붙인다. 안 붙이면 이 학과의 남녀 격차로 읽힌다.
+ */
+const 남녀차 =
+  묶인것 && 묶인것.남취업률 != null && 묶인것.여취업률 != null
+    ? Math.round((묶인것.남취업률 - 묶인것.여취업률) * 10) / 10
+    : null;
+
+const 제목 = `${과.학과} — 졸업하고 나서`;
+const desc =
+  `${과.학과}를 나온 사람들이 졸업 뒤 어떻게 됐는지 공공데이터로 정리했습니다. ` +
+  `취업률 ${과.취업률}% · 진학률 ${과.진학률}% · 졸업자 ${과.졸업자.toLocaleString()}명 기준입니다.`;
+---
+
+<HundredYear title={제목} description={desc}>
+  <h1>{과.학과}</h1>
+  <p class="sub">대학 학과 · {출처.조사회차} 조사</p>
+
+  {/* ❶ 한 줄 답 */}
+  <div class="answer">
+    <p class="answer-label">졸업하고, 취업할 수 있는 자리에 있던 사람 가운데 취업한 비율</p>
+    <p class="answer-num">{과.취업률}%</p>
+    <p class="answer-sub">
+      {견줌} · 실제로는 {과.취업대상자.toLocaleString()}명 중 {과.취업자.toLocaleString()}명
+    </p>
+  </div>
+
+  <p class="note">
+    ⛔ <strong>이것은 통계이지 당신이 아닙니다.</strong> 같은 과를 나와도 사람마다 다릅니다.
+    저희는 <strong>어디에 무엇이 있는지</strong>를 보여드릴 뿐, 어느 길이 낫다고 말하지 않습니다.
+  </p>
+
+  {/* ❷ 숫자 칸 */}
+  <div class="nums">
+    <div class="num">
+      <span class="n">{과.졸업자.toLocaleString()}</span>
+      <span class="k">졸업자(명)</span>
+    </div>
+    <div class="num">
+      <span class="n">{과.진학률}%</span>
+      <span class="k">대학원 등 진학</span>
+    </div>
+    <div class="num">
+      <span class="n">{Math.abs(차이)}%p</span>
+      <span class="k">전국 평균과의 차이</span>
+    </div>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>진학한 사람은 취업률 계산에서 빠집니다.</strong>{' '}
+    취업대상자는 졸업자에서 진학자·입대자·취업불가능자·외국인유학생을 뺀 수입니다.
+    그래서 진학이 많은 과는 <strong>졸업자보다 취업대상자가 훨씬 적습니다</strong> —
+    이 과는 {과.졸업자.toLocaleString()}명 중 {과.취업대상자.toLocaleString()}명입니다.
+  </p>
+
+  {
+    묶인것 && (
+      <>
+        <hr class="rule" />
+        <h2>남녀가 다르게 나오나요?</h2>
+        <div class="tablewrap">
+          <table>
+            <tbody>
+              <tr><th>여성 비율</th><td>{묶인것.여성비}%</td></tr>
+              <tr><th>남성 취업률</th><td>{묶인것.남취업률}%</td></tr>
+              <tr><th>여성 취업률</th><td>{묶인것.여취업률}%</td></tr>
+              {남녀차 != null && (
+                <tr>
+                  <th>차이</th>
+                  <td>
+                    {Math.abs(남녀차)}%p{' '}
+                    {Math.abs(남녀차) < 0.5 ? '(거의 같습니다)' : 남녀차 > 0 ? '(남성이 높습니다)' : '(여성이 높습니다)'}
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          ⚠ <strong>이 표는 「{묶인것.이름}」으로 묶은 {묶인것.묶은개수}개 학과를 합친 값입니다.</strong>{' '}
+          이 학과 하나의 남녀 차이가 아닙니다. 원자료가 학과별로는 남녀를 갈라 주지 않습니다.
+        </p>
+      </>
+    )
+  }
+
+  <hr class="rule" />
+
+  <h2>이 숫자는 어디서 왔나?</h2>
+  <div class="card">
+    <p class="note">
+      <strong>출처</strong> {출처.이름}<br />
+      <strong>데이터셋</strong> {출처.데이터셋} · <strong>조사</strong> {출처.조사회차} ·{' '}
+      <strong>이용허락범위</strong> {출처.이용허락범위}
+    </p>
+    <p class="note">
+      <strong>취업자</strong> {정의.취업자}<br />
+      <strong>취업대상자</strong> {정의.취업대상자}
+    </p>
+    <p class="note">
+      ⚠ 원자료는 <strong>취업대상자가 100명 이상인 학과만</strong> 싣습니다.
+      분모가 작으면 한 사람이 비율을 크게 흔들어서입니다. 작은 학과가 안 보이는 것은 그 때문입니다.
+    </p>
+  </div>
+
+  <div class="warn">
+    <p>
+      🔴 <strong>이 지면은 대학 학과입니다. 고등학교 학과가 아닙니다.</strong>
+    </p>
+    <p class="note">
+      이름이 같은 고등학교 학과가 따로 있습니다 — 예를 들어 「전기과」는
+      특성화고에도 있고 대학에도 있는데 <strong>졸업 뒤가 전혀 다릅니다.</strong>{' '}
+      고등학교 학과는 <a href="/major">학과 찾기</a>에서 보십시오.
+    </p>
+  </div>
+
+  <p class="note">
+    <a href="/college-major">대학 학과 전부 보기</a> · <a href="/after">대학 이후</a>
+  </p>
+</HundredYear>
