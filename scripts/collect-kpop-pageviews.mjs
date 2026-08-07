@@ -96,38 +96,48 @@ const { roster, 못물음, 갈래수 } = await 명단();
 console.log(`명단 ${roster.length}명·팀 (그룹 ${roster.filter((x) => x.kind === 'group').length})`);
 
 const 결과 = [];
-let 잡힘 = 0, 없음 = 0;
+let 잡힘 = 0, 문서없음 = 0, 실패 = 0;
+const 실패이유 = new Map();
+
+/**
+ * ⚠ 「문서가 없다(404)」와 「부르다 실패했다(예외)」를 **절대 한 칸에 담지 않는다.**
+ *   처음에 둘을 「못 찾음」 하나로 세었더니 **1,958건 전부가 실패한 것이 「문서가 없다」로 보였다.**
+ *   수치가 그럴듯해서 잘못을 못 볼 뻔했다. 갈라 세면 0/1958 이 즉시 이상해 보인다.
+ *
+ * ⚠ 그리고 실패가 절반을 넘으면 **파일을 안 쓴다.** 반쯤 빈 자료를 남기면
+ *   다음 사람이 그것을 「그 정도밖에 없다」로 읽는다.
+ */
 for (const [i, p] of roster.entries()) {
   try {
+    /* 한명() 은 이미 합·하루평균·최고·상승배수까지 낸 **객체**를 돌려준다.
+       일별 배열이 아니다. 여기서 다시 계산하지 않는다 — 두 곳에서 세면 언젠가 갈라진다. */
     const v = await 한명(p.name, 날짜(시작), 날짜(끝));
-    if (v === null) { 없음++; }
+    if (v === null) { 문서없음++; }
     else {
-      const 합 = v.reduce((s, x) => s + x.views, 0);
-      const 최고 = v.reduce((a, x) => (x.views > a.views ? x : a), v[0]);
-      const 최근7 = v.slice(-7).reduce((s, x) => s + x.views, 0);
-      const 첫7 = v.slice(0, 7).reduce((s, x) => s + x.views, 0);
-      결과.push({
-        이름: p.name,
-        갈래: p.kind,
-        합,
-        일수: v.length,
-        하루평균: Math.round(합 / v.length),
-        최고일: 최고.timestamp.slice(0, 8),
-        최고조회: 최고.views,
-        최근7일: 최근7,
-        /* 첫 7일이 0 이면 배수를 못 낸다 — null 로 둔다. 0 으로 나누지 않는다. */
-        상승배수: 첫7 > 0 ? +(최근7 / 첫7).toFixed(2) : null,
-      });
+      결과.push({ ...v, 갈래: p.kind });
       잡힘++;
     }
   } catch (e) {
-    /* 한 사람이 실패해도 멈추지 않는다. 다만 세어서 밝힌다. */
-    없음++;
+    실패++;
+    const 이유 = String(e.message).slice(0, 40);
+    실패이유.set(이유, (실패이유.get(이유) || 0) + 1);
   }
   if (i % 100 === 0) process.stdout.write('.');
   await new Promise((s) => setTimeout(s, 간격ms));
 }
 process.stdout.write('\n');
+
+if (실패) {
+  console.log(`⚠ 부르다 실패 ${실패}건 — ${[...실패이유].map(([k, n]) => `${k}×${n}`).join(' · ')}`);
+}
+if (잡힘 === 0) {
+  console.error('🔴 하나도 못 잡았다. 파일을 쓰지 않는다 — 빈 자료는 「그만큼밖에 없다」로 읽힌다.');
+  process.exit(1);
+}
+if (실패 > roster.length / 2) {
+  console.error(`🔴 절반 넘게(${실패}/${roster.length}) 실패했다. 파일을 쓰지 않는다.`);
+  process.exit(1);
+}
 
 fs.mkdirSync(OUT, { recursive: true });
 const 파일 = path.join(OUT, `kpop-${날짜(끝)}.json`);
@@ -141,11 +151,12 @@ fs.writeFileSync(파일, JSON.stringify({
   명단못물은갈래: 못물음,
   명단갈래수: 갈래수,
   잡힘,
-  못찾음: 없음,
+  문서없음,
+  부르기실패: 실패,
   사람: 결과,
 }, null, 2));
 
 console.log(`저장 ${파일}`);
-console.log(`대상 ${roster.length} · 잡힘 ${잡힘} · 못 찾음 ${없음}`);
+console.log(`대상 ${roster.length} · 잡힘 ${잡힘} · 문서없음 ${문서없음} · 부르기실패 ${실패}`);
 console.log('관심 상위 8:', [...결과].sort((a, b) => b.합 - a.합).slice(0, 8)
   .map((r) => `${r.이름}(${r.합.toLocaleString()})`).join(' · '));
