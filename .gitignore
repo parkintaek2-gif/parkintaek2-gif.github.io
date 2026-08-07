@@ -35,3 +35,6 @@ srv.*.tmp
 
 # 대외 발송 문서 — 저장소가 공개다. 발송 전 초안이 검색에 걸리면 안 된다
 archive/outreach/
+
+# 빌드 자물쇠 — 이 PC 의 작업트리 이야기다. 커밋하지 않는다
+.build-lock.json

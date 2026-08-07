@@ -1,0 +1,248 @@
+---
+/**
+ * /100y/size — **큰 회사가 정말 나은가요?**
+ *
+ * 자료는 사업 축(d80abf75)이 만들어 넘겨 준 것이고 지면은 여기서 만든다(2026-08-07 16:0x).
+ * 국민연금 가입 사업장 전부 — 553,978곳 · 1,156만명.
+ *
+ * ## 🔴 「월임금」이라는 칸 이름을 그대로 쓰면 안 된다
+ *
+ *   원자료의 `월임금` 은 **1인당 국민연금 고지액**이다. 화면에 「월임금 291,760원」으로
+ *   내보내면 **월급 29만원**으로 읽힌다. 그건 거짓이다.
+ *
+ *   ```
+ *   고지액 = 기준소득월액 × 9%   (직장가입자 · 근로자 4.5% + 사업주 4.5%)
+ *   → 되돌리면 324만 ~ 507만원. 실제 임금대와 맞는다
+ *   ```
+ *
+ *   ⛔ 다만 **되돌린 값은 우리가 낸 것**이다. 나라가 발표한 임금이 아니다. 그렇게 표시한다.
+ *   ⛔ 그리고 **국민연금에는 상한이 있다.** 높은 쪽이 눌린다 —
+ *     **진짜 격차는 여기 보이는 것보다 크다.** 그 말을 같이 적는다.
+ *
+ * ## ⭐ 이 지면이 말해야 할 것은 둘이다
+ *
+ *   ① 규모가 커질수록 **임금은 1.56배**, 떠나는 사람은 **1.61배 적다.** 뒤집히는 구간이 없다
+ *   ② 그런데 1,000명 이상은 **759곳뿐인데 251만명**이 거기 있다(21.7%).
+ *      「큰 회사」는 **자리가 적은 게 아니라 문이 좁다.** 둘 다 말해야 정직하다
+ *
+ * ## ⛔ 지면 규칙
+ *
+ *   - 「큰 회사에 가야 한다」를 쓰지 않는다. 숫자만 놓는다. 고르는 것은 읽는 사람이다
+ *   - 등수·「몇 위」를 쓰지 않는다
+ *   - ⚠ `is:global` 을 쓰지 않는다 — `/_astro/*.css` 로 빠져 접두사(/100y) 아래서 404 가 난다
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import 자료 from '../../../data/100yearmap/size-axis.json';
+
+const 원 = 자료 as any;
+const 칸 = (원.자료 as any[]) ?? [];
+
+const 총사업장 = 칸.reduce((a, x) => a + x.사업장, 0);
+const 총사람 = 칸.reduce((a, x) => a + x.사람, 0);
+const 작은쪽 = 칸[0];
+const 큰쪽 = 칸[칸.length - 1];
+const 임금배수 = (큰쪽.월임금 / 작은쪽.월임금).toFixed(2);
+const 이직배수 = (작은쪽.월상실률 / 큰쪽.월상실률).toFixed(2);
+const 최대임금 = Math.max(...칸.map((x) => x.월임금));
+const 최대상실 = Math.max(...칸.map((x) => x.월상실률));
+
+/** 고지액을 기준소득월액으로 되돌린다. ⛔ **우리가 낸 값**이라 화면에 그렇게 밝힌다 */
+const 요율 = 0.09;
+const 만원 = (원단위: number) => Math.round(원단위 / 요율 / 10000);
+const 몫 = (n: number) => Math.round((n / 총사람) * 1000) / 10;
+
+const desc =
+  `사업장 규모가 커질수록 임금과 사람이 남는 정도가 어떻게 달라지는지 보여드립니다. ` +
+  `국민연금 가입 사업장 ${총사업장.toLocaleString()}곳 · ${(총사람 / 10000).toFixed(0)}만명 기준입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 원.이름,
+  description: desc,
+  temporalCoverage: '2026-06',
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear title="큰 회사가 정말 나을까" description={desc} jsonLd={jsonLd}>
+  <h1>큰 회사가<br class="pcbr" /> 정말 나을까요?</h1>
+  <p class="lead">
+    어른들이 하던 말입니다. <strong>숫자로 재 보니 맞았습니다</strong> — 다만
+    같이 봐야 할 것이 하나 더 있습니다.
+  </p>
+
+  <h2>규모가 커지면 무엇이 달라지나요?</h2>
+  <div class="nums">
+    <div class="num">
+      <span class="n">{임금배수}배</span>
+      <span class="k">가장 작은 곳 대비 임금</span>
+    </div>
+    <div class="num">
+      <span class="n">{이직배수}배</span>
+      <span class="k">사람이 덜 떠난다</span>
+    </div>
+    <div class="num">
+      <span class="n">{칸.length}칸</span>
+      <span class="k">중간에 뒤집히는 구간</span>
+    </div>
+  </div>
+  <p class="note">
+    ⚠ 셋째 칸은 「구간이 {칸.length}개인데 <strong>뒤집히는 곳이 없다</strong>」는 뜻입니다.
+    5~9명이 4.46%로 한 번 살짝 튀는 것 말고는, 커질수록 계속 같은 방향입니다.
+  </p>
+
+  {/* 🔴 숫자보다 먼저 — 「291,760원」을 월급으로 읽으면 안 된다 */}
+  <div class="card warn">
+    <p class="note">
+      ⛔ <strong>아래 금액은 월급이 아닙니다.</strong> 국민연금 <strong>고지액</strong>입니다 —
+      월 소득의 <strong>9%</strong>만큼 걷힙니다(근로자 4.5% + 회사 4.5%).
+    </p>
+    <p class="note">
+      ⛔ 게다가 국민연금에는 <strong>상한이 있습니다.</strong> 많이 버는 쪽이 눌립니다 —
+      <strong>실제 임금 격차는 여기 보이는 것보다 큽니다.</strong>
+    </p>
+  </div>
+
+  <h2>규모별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>규모</th>
+          <th>사업장</th>
+          <th>일하는 사람</th>
+          <th>국민연금 고지액(월)</th>
+          <th>한 달에 떠나는 비율</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          칸.map((x) => (
+            <tr>
+              <td>{x.규모}</td>
+              <td>{x.사업장.toLocaleString()}곳</td>
+              <td>
+                {(x.사람 / 10000).toFixed(0)}만명 <span class="note">({몫(x.사람)}%)</span>
+              </td>
+              <td>
+                {x.월임금.toLocaleString()}원{' '}
+                <span class="note">(되돌리면 약 {만원(x.월임금)}만원)</span>
+              </td>
+              <td>{x.월상실률}%</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 「되돌리면 약 ○○만원」은 <strong>저희가 9%로 나눠 낸 값</strong>입니다. 나라가 발표한
+    임금이 아닙니다. 상한에 걸린 사람이 섞여 있어 <strong>큰 회사 쪽은 실제보다 낮게</strong> 나옵니다.
+  </p>
+
+  {/* ⛔ 평균만 싣지 않는다. 퍼짐을 그린다 */}
+  <h2>고지액은 이렇게 벌어집니다</h2>
+  <div class="dist">
+    {
+      칸.map((x) => (
+        <div class="row">
+          <span class="nm">{x.규모}</span>
+          <span
+            class="bar"
+            style={`width: calc((100% - 250px) * ${x.월임금 / 최대임금})`}
+            aria-hidden="true"
+          />
+          <span class="rng">{Math.round(x.월임금 / 1000)}천원</span>
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>사람이 떠나는 속도는 이렇게 줄어듭니다</h2>
+  <div class="dist">
+    {
+      칸.map((x) => (
+        <div class="row">
+          <span class="nm">{x.규모}</span>
+          <span
+            class="bar leave"
+            style={`width: calc((100% - 250px) * ${x.월상실률 / 최대상실})`}
+            aria-hidden="true"
+          />
+          <span class="rng">{x.월상실률}%</span>
+        </div>
+      ))
+    }
+  </div>
+  <p class="note">
+    ⚠ <strong>한 달에 떠나는 비율</strong>입니다. 4.29%는 스물세 명 가운데 한 명이 그 달에
+    자격을 잃었다는 뜻입니다. 이직·퇴직·폐업이 다 섞여 있습니다.
+  </p>
+
+  {/* ⭐ 이 지면의 두 번째 이야기 — 이것을 빼면 반쪽이다 */}
+  <h2>그런데 문은 좁습니다</h2>
+  <div class="answer">
+    <p class="answer-label">
+      {큰쪽.규모} 사업장은 전국에 {큰쪽.사업장.toLocaleString()}곳뿐인데, 거기서 일하는 사람은
+    </p>
+    <p class="answer-num">{(큰쪽.사람 / 10000).toFixed(0)}만명</p>
+    <p class="answer-sub">
+      일하는 사람 {몫(큰쪽.사람)}%가 사업장 {((큰쪽.사업장 / 총사업장) * 100).toFixed(2)}%에 모여
+      있습니다
+    </p>
+  </div>
+  <p class="note">
+    ⚠ 「큰 회사」는 <strong>자리가 적은 것이 아니라 문이 좁습니다.</strong> 사람은 많이 들어가
+    있는데 <strong>들어갈 문 자체가 {큰쪽.사업장.toLocaleString()}개</strong>입니다.
+    작은 곳이 나쁘다는 뜻도 아닙니다 — {작은쪽.규모} 사업장{' '}
+    {작은쪽.사업장.toLocaleString()}곳이 {(작은쪽.사람 / 10000).toFixed(0)}만명을 데리고 있습니다.
+  </p>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <div class="card">
+    <p class="note">
+      <strong>출처</strong> {원.출처?.이름} · <strong>이용허락범위</strong>{' '}
+      {원.출처?.이용허락범위}
+    </p>
+    <p class="note">
+      <strong>범위</strong> 살아 있는 사업장 전부 — {총사업장.toLocaleString()}곳 ·{' '}
+      {총사람.toLocaleString()}명. 표본이 아니라 전수입니다.
+    </p>
+    <p class="note">⚠ {원.쓰는말}</p>
+    <p class="note">
+      ⚠ 국민연금에 들지 않는 일자리(가입 대상이 아닌 단시간 근로 등)는 여기 없습니다.
+    </p>
+  </div>
+
+  <h2>이어서 보실 곳</h2>
+  <p>
+    <a href="/how-long">그 일자리는 얼마나 갈까</a> — 업종에 따라 얼마나 다른지<br />
+    <a href="/work">바로 일터로</a> — 대학에 가지 않고 일터로 간 사람들<br />
+    <a href="/after">대학 이후</a> — 대학을 나온 사람들은 어디로 갔는지
+  </p>
+</HundredYear>
+
+<style is:inline>
+  /* ⚠ `is:global` 을 쓰지 않는다 — /_astro/*.css 로 빠져나가 접두사(/100y) 아래서 404 가 난다 */
+  .warn { border-left: 3px solid var(--gold-deep); }
+  .dist { margin: 14px 0 6px; }
+  .dist .row { display: flex; align-items: center; gap: 10px; margin: 6px 0; font-size: 13px; }
+  .dist .nm { flex: 0 1 120px; min-width: 0; overflow-wrap: anywhere; }
+  .dist .rng {
+    flex: 0 0 auto; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap;
+  }
+  /* ⚠ 폭 셈 — 이름 120 + 틈 20 + 값 약 70 = 210px 이 막대 밖에서 쓰인다.
+        250px 로 잡아 어떤 경우에도 줄이 넘치지 않게 못 박는다 */
+  .dist .bar {
+    height: 14px; border-radius: 2px; background: var(--gold-deep);
+    flex: 0 0 auto; min-width: 2px; max-width: calc(100% - 250px);
+  }
+  /* 떠나는 비율은 다른 이야기라 색을 가른다 — 같은 금색이면 두 그림이 한 이야기로 읽힌다 */
+  .dist .bar.leave { background: var(--muted); }
+  @media (max-width: 480px) {
+    .dist .row { flex-wrap: wrap; gap: 4px 8px; margin: 10px 0; font-size: 12px; }
+    .dist .nm { flex: 1 0 100%; color: var(--ink); }
+    .dist .bar { max-width: calc(100% - 76px); height: 11px; }
+  }
+</style>

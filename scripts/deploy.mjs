@@ -160,8 +160,11 @@ async function 새주소찾기(최대 = 3) {
   try {
     console.log('판정에 쓸 지면 목록을 만든다 — 빌드한다(30초 안팎)…');
     // ⚠ npx 도 npx.cmd 도 부르지 않는다 — 셸에 따라 못 찾는다(둘 다 겪었다).
-    //   astro 의 진짜 알맹이를 node 로 바로 부른다. 어느 셸에서 돌든 같다.
-    execFileSync(process.execPath, ['node_modules/astro/bin/astro.mjs', 'build'], { stdio: 'ignore' });
+    // 🔴 astro 를 **직접** 부르지 않는다 — 여섯 자리가 같은 작업트리를 쓴다.
+    //   두 자리가 동시에 빌드하면 한쪽이 dist 를 비우는 사이 다른 쪽이 죽거나,
+    //   더 나쁘게는 **반쯤 섞인 dist** 가 남아 판정이 통째로 틀린다(2026-08-07 16:4x 실제로 겪음).
+    //   build-once 가 자물쇠를 쥐고 하나씩 돌린다.
+    execFileSync(process.execPath, [path.join('scripts', 'build-once.mjs')], { stdio: 'ignore' });
   } catch {
     console.log('⚠ 빌드가 안 됐다 — 지면 판정을 쓰지 않고 옛 방식으로 돈다.');
     return [];
@@ -222,6 +225,24 @@ async function 새주소찾기(최대 = 3) {
       if (r.status === 404) 잰다.push({ url: u, 기댓값: null });   // 200 이 되면 나간 것
     } catch { /* 못 재면 넘긴다 */ }
   }
+
+  // ⚠ 지문표는 **새 지면이 있든 없든 남긴다.** 여기서 일찍 돌아가 버리면 표가 영영 안 생기고,
+  //   다음에 자료만 고친 배포가 왔을 때 또 못 잰다. 실제로 한 번 그렇게 비어 있었다.
+  {
+    const { readFileSync } = await import('node:fs');
+    const 이번지문 = new Map();
+    for (const 길 of 후보) {
+      if (/\/(404|index)$/.test(길) || !/^[/a-z0-9\-_/]+$/i.test(길)) continue;
+      if (!산것.has(주소로(길))) continue;
+      try {
+        이번지문.set(길, 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8')));
+      } catch { /* 못 읽으면 넘긴다 */ }
+    }
+    var 이번지문표 = 이번지문;                  // 아래 ②에서 다시 쓴다
+    var 지난지문표 = 지문표읽기();
+    지문표쓰기(이번지문);
+  }
+
   if (잰다.length) return 잰다;
 
   // ② 새 지면이 없으면 — **자료·글자만 고친 배포**다. 바뀐 지면의 지문으로 판정한다.
@@ -234,19 +255,8 @@ async function 새주소찾기(최대 = 3) {
   //
   //    ✅ 고친 방법 — **지난 배포 때의 dist 지문표를 남겨 두고, 이번 dist 와 견준다.**
   //      바뀐 지면이 어느 것인지 **자기 PC 안에서 정확히** 알아낸다. 라이브를 4,700번 찌르지 않는다.
-  const { readFileSync } = await import('node:fs');
-
-  const 이번지문 = new Map();
-  for (const 길 of 후보) {
-    if (/\/(404|index)$/.test(길) || !/^[/a-z0-9\-_/]+$/i.test(길)) continue;
-    if (!산것.has(주소로(길))) continue;          // 사이트맵에 있는 것만 본다
-    try {
-      이번지문.set(길, 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8')));
-    } catch { /* 못 읽으면 넘긴다 */ }
-  }
-
-  const 지난지문 = 지문표읽기();
-  지문표쓰기(이번지문);                            // 다음 배포가 견줄 수 있게 남긴다
+  const 이번지문 = 이번지문표;
+  const 지난지문 = 지난지문표;
 
   // 지난 표가 있으면 **바뀐 지면만** 골라 낸다. 없으면(첫 배포) 옛 방식으로 되돌아간다
   const 바뀐것 = 지난지문
@@ -305,7 +315,7 @@ async function main() {
     const 새주소 = await 새주소찾기();
     console.log(
       새주소.length
-        ? `새로 나갈 지면 ${새주소.length}개:\n  ${새주소.join('\n  ')}`
+        ? `새로 나갈 지면 ${새주소.length}개:\n  ${새주소.map((x) => (x.기댓값 ? `${x.url}  (지문으로 잰다)` : x.url)).join('\n  ')}`
         : '새로 나갈 지면이 없다 — 이번 배포는 옛 방식으로 판정한다',
     );
     return;
@@ -373,7 +383,7 @@ async function main() {
   const 새주소 = await 새주소찾기();
   console.log(
     새주소.length
-      ? `이번에 새로 나갈 지면 ${새주소.length}개를 판정에 쓴다:\n  ${새주소.join('\n  ')}`
+      ? `이번에 새로 나갈 지면 ${새주소.length}개를 판정에 쓴다:\n  ${새주소.map((x) => (x.기댓값 ? `${x.url}  (지문으로 잰다)` : x.url)).join('\n  ')}`
       : '새로 나갈 지면이 없다(글자 수정뿐인 듯하다) — 옛 방식(ctype 표시 + 라이브 200)으로 판정한다',
   );
 
