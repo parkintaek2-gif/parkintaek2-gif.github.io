@@ -130,6 +130,18 @@ function main() {
     }
   }
 
+  /* 시세 이중화 — 수집기(collect-stock-prices)는 실패하면 파일을 아예 안 쓴다(0건도 안 쓴다).
+     그래서 「옛 값」은 여기서만 샌다: 위 sort().pop() 이 새 파일이 없으면 오래된 파일을 조용히 재사용한다.
+     지면은 「as of」로 빌드시각을 보여줘서 손님은 시세가 옛것인지 모른다 → 시세 기준일·지연을 따로 내보낸다.
+     T+1 + 주말 + 명절 최장 휴장을 넉넉히 덮어 7일을 넘으면 「못 받은 것」으로 본다. */
+  let mktCapLagDays = null;
+  if (시총일) {
+    const [oy, om, od] = new Date().toLocaleString('sv-SE').slice(0, 10).split('-').map(Number);
+    const y = +시총일.slice(0, 4), m = +시총일.slice(4, 6), d = +시총일.slice(6, 8);
+    mktCapLagDays = Math.round((new Date(oy, om - 1, od) - new Date(y, m - 1, d)) / 86400000);
+  }
+  const mktCapStale = 시총일 == null || (mktCapLagDays != null && mktCapLagDays > 7);
+
   /* 영문명 붙이기 — corp 로 잇는다. ⚠ 이 열쇠를 빠뜨려 35,004행 읽고 0건 붙은 적이 있다 */
   const 영문맵 = new Map(회사표.map((r) => [r.corp, r]));
 
@@ -186,6 +198,9 @@ function main() {
     filtered: 거른수,
     /** 1인당 시총 축이 조인한 시세 기준일(YYYYMMDD). 화면 「as of」에 쓴다 */
     mktCapAsOf: 시총일 ? `${시총일.slice(0, 4)}-${시총일.slice(4, 6)}-${시총일.slice(6, 8)}` : null,
+    /** 시세 지연(일) 과 「너무 오래됐나」 플래그. 지면이 옛 값을 옛 값으로 말하게 하는 근거다 */
+    mktCapLagDays,
+    mktCapStale,
     /** 대표 재직 > 업력 인 곳. 뺀 게 아니라 **표시만** 한다 */
     ceoFlagged: rows.filter((x) => x[4] === 1).length,
     rows,
@@ -201,6 +216,7 @@ function main() {
   console.log(`회사 ${rows.length.toLocaleString()} · 축 ${AXES.length}개 · 단위오기로 거른 것 ${거른수}건`);
   console.log(`  채움률 — 업종 ${채움('industry')} · 지역 ${채움('region')} · 급여 ${채움('pay')} · 대표재직 ${채움('ceoTenure')} · 1인당시총 ${채움('mktCapPerHead')}(${산출.mktCapAsOf})`);
   console.log(`  ${(readFileSync(파일).length / 1024).toFixed(0)}KB  →  ${파일}`);
+  if (mktCapStale) console.warn(`  ⚠ 시세가 오래됐다(${산출.mktCapAsOf ?? '파일 없음'}${mktCapLagDays != null ? `, ${mktCapLagDays}일 전` : ''}) — 1인당시총은 지면에서 「not received」로 나간다. collect:prices 를 확인하라.`);
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

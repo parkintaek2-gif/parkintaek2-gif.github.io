@@ -283,8 +283,18 @@ const jsonLd = {
         const a = AX[축], ci = col[축];
         const v = 고른것();
         $('vh').textContent = a.label;
-        $('axisnote').textContent = a.note ?? '';
-        $('axisnote').style.display = a.note ? '' : 'none';
+        let 노트 = a.note ?? '';
+        /* 시세 이중화 — 1인당시총은 시세와의 조인이라, 시세가 오래되거나 없으면 조용히 옛 값/빈 값이 나간다.
+           빌드가 넣어 준 시세 기준일을 함께 보여 손님이 옛것을 옛것으로 읽게 한다(없으면 「not received」). */
+        if (축 === 'mktCapPerHead') {
+          노트 += D.mktCapAsOf
+            ? (D.mktCapStale
+                ? ` ⚠ Market-cap prices are as of ${D.mktCapAsOf} and have not updated since — treat this column as not received.`
+                : ` Market-cap prices are as of ${D.mktCapAsOf}.`)
+            : ' ⚠ Market-cap prices were not received — this column is unavailable.';
+        }
+        $('axisnote').textContent = 노트;
+        $('axisnote').style.display = 노트 ? '' : 'none';
         $('count').textContent = v.length
           ? `${v.length.toLocaleString()} companies filed this figure`
           : 'No company matches these filters.';
