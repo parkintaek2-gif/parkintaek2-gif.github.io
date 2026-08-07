@@ -25,6 +25,7 @@ const 검사 = [
   ['배우겹침 기사가 자료와 맞나', 'check-kpop-actors-article.mjs'],
   ['한 하루 몫 기사가 자료와 맞나', 'check-kpop-spike-article.mjs'],
   ['배우 작품수 기사가 자료와 맞나', 'check-actor-titles-article.mjs'],
+  ['한국 작품 명단이 깨끗한가', 'check-korean-title-rosters.mjs'],
   ['출연 겹침 기사가 자료와 맞나', 'check-one-body-article.mjs'],
 ];
 
