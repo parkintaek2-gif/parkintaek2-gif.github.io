@@ -34,6 +34,7 @@ const 검사 = [
   ['산업·웹툰 세 편이 자료와 맞나', 'check-industry-articles.mjs'],
   ['이름 겹치는 편을 지면이 대나', 'check-titles-ambiguity-page.mjs'],
   ['뺄셈이 안 맞는 폭의 까닭이 맞나', 'check-screen-split-gap.mjs'],
+  ['짧은 제목 기사가 자료와 맞나', 'check-short-titles-article.mjs'],
   ['센 것을 지면이 다 보여 주나', 'check-data-keys-shown.mjs'],
 ];
 

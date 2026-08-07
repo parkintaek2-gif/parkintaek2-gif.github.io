@@ -13,6 +13,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
+import korea from '../../data/wikitip-korea-signal.json';
 
 const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
 const DESC =
@@ -48,6 +49,19 @@ const totalWeeks = rows.reduce((s, r) => s + r.weeks, 0);
 const sharedWeeks = sharedRows.reduce((s, r) => s + r.weeks, 0);
 const sharedWeekPc = +((100 * sharedWeeks) / totalWeeks).toFixed(1);
 const sharedTop = sharedRows.slice(0, 12);
+
+/* 2026-08-08. 겹치는 이름에 **두 번째 자**를 댄다 — 넷플릭스 한국 차트다.
+   ⛔ 「한국 차트에 없다」를 「한국 것이 아니다」로 쓰지 않는다. 손으로 볼 **차례**일 뿐이다.
+   ⛔ 갈래별 몫도 손으로 안 적는다. 판정에서 센다. */
+const 갈래몫 = ['TV', 'Films'].map((k) => {
+  const g = korea.rows.filter((r) => r.type === k);
+  return {
+    이름: k === 'TV' ? 'Series' : 'Films',
+    n: g.length,
+    몫: +((100 * g.filter((r) => r.verdict === 'shared').length) / g.length).toFixed(1),
+  };
+});
+const 급한차례 = korea.reviewQueue.filter((r) => r.queue === 'one-country-only').slice(0, 8);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -126,6 +140,52 @@ const jsonLd = {
       would rather you saw the list than took our word for the ones we happened to check. Where the
       chart carries a language label we use it; {data.unlabelledTitles} of these titles never reached
       a global Top 10 and so carry no label to check against.
+    </p>
+  </section>
+
+  <section>
+    <h2>A second ruler: Netflix’s own Korean chart</h2>
+    <p class="sub">
+      Wikidata says a collision is possible. It cannot say which work charted. A Korean title normally
+      also plays in Korea, so we checked every shared title against Netflix’s South Korea list over the
+      same weeks. {korea.method}
+    </p>
+    <ul class="verdicts">
+      <li><b>{korea.sharedWithoutKorea}</b><span>of the {korea.sharedTitles} shared titles have never appeared on Netflix’s Korean top ten</span></li>
+      <li><b>{korea.queues.oneCountryOnly}</b><span>of those charted in exactly one country in the world — the queue we read first</span></li>
+      <li><b>{korea.queues.concentrated}</b><span>took more than half their weeks in a single country</span></li>
+      <li><b>{korea.queues.noKorea}</b><span>spread widely but never touched Korea</span></li>
+    </ul>
+    <p class="sub">
+      The ambiguity is not spread evenly. Films carry short, common names; series do not:
+    </p>
+    <ul class="verdicts">
+      {갈래몫.map((r) => (
+        <li><b>{r.몫}%</b><span>of the {r.n} {r.이름.toLowerCase()} in this list share their name with a foreign work</span></li>
+      ))}
+    </ul>
+    <p class="sub">Charted in one country and never in Korea — first in the queue:</p>
+    <ul class="shared">
+      {급한차례.map((r) => (
+        <li>
+          <span class="nm">{r.title}</span>
+          <span class="meta"><b>{r.seaWeeks}</b> weeks · only in {r.topCountry} · {r.type === 'TV' ? 'series' : 'film'}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="note">
+      <b>This queue is not a list of errors.</b> <cite>Vagabond</cite> is on it and is plainly a Korean
+      drama; it simply never reached Korea’s own top ten. A Korean title can miss that chart because it
+      was released before this data begins in July 2021, because Netflix never streamed it in Korea, or
+      because it lost its week at home. Absence is a reason to look, not a verdict. Anything we do
+      remove will appear on <a href="/corrections">the corrections page</a> with the evidence.
+      <br />
+      <span class="fine">
+        Counted from {korea.panelTitles} panel titles across every country Netflix publishes. Weeks are
+        counted once per country per week: the source repeats {korea.duplicateRows.toLocaleString()} of
+        its {korea.scannedRowsForPanel.toLocaleString()} rows for these titles, and counting rows would
+        overstate them. Updated {korea.generated} KST · {korea.sourceKo} ({korea.source}).
+      </span>
     </p>
   </section>
 
@@ -215,6 +275,8 @@ const jsonLd = {
   .shared .nm { display: block; font-weight: 600; line-height: 1.35; }
   .shared .meta { display: block; font-size: .82rem; color: var(--muted); line-height: 1.5; }
   .shared .meta b { color: var(--accent); font-variant-numeric: tabular-nums; }
+
+  .fine { display: block; margin-top: .5rem; font-size: .78rem; }
 
   .src ul { padding-left: 1.1rem; margin: 0; font-size: .9rem; }
   .src li { margin: 0 0 .4rem; line-height: 1.6; }
