@@ -23,6 +23,7 @@ const 검사 = [
   ['K팝 명단에 있어야 할 이름이 있나', 'check-kpop-roster.mjs'],
   ['그룹↔멤버 기사가 자료와 맞나', 'check-kpop-members-article.mjs'],
   ['배우겹침 기사가 자료와 맞나', 'check-kpop-actors-article.mjs'],
+  ['한 하루 몫 기사가 자료와 맞나', 'check-kpop-spike-article.mjs'],
 ];
 
 let 돈것 = 0;
