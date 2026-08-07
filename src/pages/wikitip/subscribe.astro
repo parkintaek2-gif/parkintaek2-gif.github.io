@@ -1,0 +1,97 @@
+---
+/**
+ * K Culture Wire — **받는 사람 목록을 여는 자리**. (`/subscribe`)
+ *
+ * ── 왜 만드나 (2026-08-07 18:0x, 손님으로 걸어 보고) ────────────
+ * 33곳을 걸어 보니 깨진 곳은 없었는데 **없는 것**이 다섯 나왔다. 그중 가장 아픈 것 —
+ *
+ *   내 유료 계획이 「첫 달은 무료로 열고 **받는 사람 목록만 만든다**」인데
+ *   **그 목록을 모을 자리가 사이트에 없었다.** 계획이 자리가 없어 막혀 있었다.
+ *
+ * ── ⛔ 폼을 만들지 않는다 ──────────────────────────────────────
+ * 받은 주소를 어디에 담을지가 아직 안 정해졌다(2번께 여쭈어 두었다).
+ * 담을 곳 없이 폼을 세우면 **주소를 받아 놓고 잃어버린다.** 그게 제일 나쁘다.
+ * 그래서 지금은 **메일 한 줄**로 연다. 정해지면 이 지면만 고치면 된다.
+ *
+ * ⛔ 「구독하면 이런 게 옵니다」를 부풀리지 않는다. 아직 한 번도 안 보냈다.
+ *    보낸 적 없는 것을 보낸 것처럼 적으면 첫 통에서 들킨다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ */
+import { getCollection } from 'astro:content';
+import WikiTip from '../../layouts/WikiTip.astro';
+import { PUBLISHER } from '../../consts';
+
+const 기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft);
+
+/** 지면 수는 **세어서** 적는다. 손으로 적으면 지면이 늘 때 어긋난다. */
+const 지면수 = Object.keys(import.meta.glob('./*.astro')).filter(
+  (p) => !/\/(404|subscribe)\.astro$/.test(p),
+).length;
+
+const MAIL = 'parkintaek2@gmail.com';
+const TITLE = 'Get this by email';
+const DESC = 'K Culture Wire counts what public datasets publish about Korean pop culture. '
+  + 'Ask to be on the list and you will get each new piece as it goes out.';
+---
+
+<WikiTip title={TITLE} description={DESC} canonical="https://www.kculturewire.com/subscribe">
+  <h1>{TITLE}</h1>
+
+  <p class="lede">
+    We count what public datasets already publish about Korean pop culture — Netflix's weekly
+    lists, Wikipedia's daily traffic, Korea's own export statistics — name every source, and say
+    what we left out. {기사.length} pieces so far, across {지면수} data pages.
+  </p>
+
+  <!--
+    ⛔ 폼이 아니라 메일이다. 주소를 담을 곳이 정해지기 전에 폼을 세우면
+       받아 놓고 잃어버린다. 정해지면 이 자리만 바뀐다.
+  -->
+  <p class="ask">
+    <a class="btn" href={`mailto:${MAIL}?subject=${encodeURIComponent('K Culture Wire — add me to the list')}`}>
+      Email us to be added
+    </a>
+  </p>
+  <p class="plain">
+    Or write to <a href={`mailto:${MAIL}`}>{MAIL}</a> with anything at all in it. A blank message
+    is enough.
+  </p>
+
+  <h2>What you would actually get</h2>
+  <p>
+    Each new piece as it is published, with the figure that drove it in the first line. Nothing
+    else. <strong>We have not sent one yet</strong> — this list is opening now, and we would rather
+    say that than describe a newsletter that does not exist.
+  </p>
+
+  <h2>What we will not do with your address</h2>
+  <ul>
+    <li>We will not sell it, rent it, or pass it to anyone.</li>
+    <li>We will not send anything except our own pieces.</li>
+    <li>Reply <em>stop</em> to any message and you are off the list. No form to find.</li>
+  </ul>
+
+  <h2>If you are asking on behalf of an organisation</h2>
+  <p>
+    Say so in the message. We keep the panels behind these pages as CSVs — every title, every act,
+    every year, with a column saying how sure we are of each row and a file listing what is empty
+    and why. Tell us what you are trying to measure and we will tell you whether our data can
+    answer it, including when it cannot.
+  </p>
+
+  <p class="who">
+    {PUBLISHER} &middot; <a href="/about">How we make these numbers</a> &middot;{' '}
+    <a href="/corrections">Everything we have had to correct</a>
+  </p>
+
+  <style>
+    .lede { font-size: 1.05rem; }
+    .ask { margin: 1.4rem 0 .4rem; }
+    .btn {
+      display: inline-block; padding: .7rem 1.2rem; border-radius: 8px;
+      background: var(--accent); color: #fff; font-weight: 600; text-decoration: none;
+    }
+    .plain { color: var(--muted); margin: 0 0 1.6rem; }
+    .who { color: var(--muted); font-size: .9rem; margin-top: 2rem; }
+  </style>
+</WikiTip>
