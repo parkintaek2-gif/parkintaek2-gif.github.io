@@ -71,11 +71,48 @@ async function 한도읽기() {
   return out;
 }
 
+/**
+ * 컬렉션별 **갈래 목록**을 스키마에서 읽는다.
+ *
+ * ⚠ 2026-08-07: 5번 기사 하나가 `category: attention` 로 나갔다. 그 갈래는 없다.
+ *   **저장소 전체 빌드가 멈췄고 여섯 자리가 40분 동안 아무것도 못 냈다.**
+ *   길이는 이 파일에서 잡았는데 갈래는 안 봤다 — 같은 자리에서 1초면 잡혔을 것이다.
+ *
+ * ⛔ 갈래 이름을 여기 손으로 적지 않는다. 스키마가 늘면 이 검사가 조용히 헛돈다.
+ *    두 컬렉션이 **다른** 목록을 쓰므로(금융 축 · K컬처 축) 컬렉션별로 읽는다.
+ */
+async function 갈래읽기() {
+  const src = await readFile(path.join(ROOT, 'src', 'content.config.ts'), 'utf8');
+  const out = {};
+  for (const t of 대상) {
+    const 표 = `const ${t.컬렉션} = defineCollection(`;
+    const 시작 = src.indexOf(표);
+    if (시작 < 0) throw new Error(`content.config.ts 에서 ${t.컬렉션} 을 못 찾았다`);
+    /* 다음 컬렉션 선언 전까지가 이 컬렉션의 몸이다. 마지막이면 파일 끝까지.
+       ⛔ 시작+1 부터 찾으면 **자기 자신**이 다시 잡힌다. 표 길이만큼 건너뛴다. */
+    const 다음 = src.indexOf('defineCollection(', 시작 + 표.length);
+    const 몸 = src.slice(시작, 다음 < 0 ? undefined : 다음);
+    const m = 몸.match(/category:\s*z\.enum\(\[([^\]]*)\]\)/);
+    if (!m) throw new Error(`${t.컬렉션} 에서 category 의 z.enum() 을 못 찾았다`);
+    out[t.컬렉션] = [...m[1].matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]);
+    if (!out[t.컬렉션].length) throw new Error(`${t.컬렉션} 의 갈래 목록이 비었다`);
+  }
+  return out;
+}
+
 /** 한 편을 검사한다. 고치지 않는다 — 위반 목록만 돌려준다 */
-export function 한편검사({ 이름, 원문, 한도 }) {
+export function 한편검사({ 이름, 원문, 한도, 갈래 }) {
   const 위반 = [];
   const { 없음, 값, 여러줄 } = 앞말읽기(원문);
   if (없음) { 위반.push({ 이름, 필드: '(frontmatter)', 말: '--- 로 감싼 앞말이 없다' }); return 위반; }
+  /* 갈래 — 스키마에 없는 값이면 **저장소 전체 빌드가 멈춘다.** 여기서 1초에 잡는다. */
+  if (갈래) {
+    const c = 값.category;
+    if (c === undefined) 위반.push({ 이름, 필드: 'category', 말: '없다' });
+    else if (!갈래.includes(c)) {
+      위반.push({ 이름, 필드: 'category', 말: `'${c}' 는 없는 갈래다 — 쓸 수 있는 것: ${갈래.join(' · ')}` });
+    }
+  }
   for (const 필드 of Object.keys(한도)) {
     if (여러줄.includes(필드)) {
       위반.push({ 이름, 필드, 말: `여러 줄 값이라 길이를 못 쟀다. 한 줄 따옴표로 적는다` });
@@ -111,7 +148,21 @@ function 자가시험() {
     const n = 한편검사({ 이름: '(자가시험)', 원문: e.원문, 한도 }).length;
     if (n !== e.기대) { console.log(`  ⛔ 자가시험 실패 — ${e.말}: ${e.기대} 기대, ${n} 나옴`); 실패++; }
   }
-  console.log(`앞말 길이 검사 — 자가시험 ${예.length}건 중 ${예.length - 실패}건 통과`);
+
+  /* 갈래 검사도 **실제로 잡는지** 본다. 위 예들은 갈래를 안 넘겨 건너뛰므로 따로 시험한다. */
+  const 갈래예 = [
+    { 말: '있는 갈래 — 통과해야 한다', 원문: 앞('가', '나'), 갈래: ['screen', 'music', 'people'], 기대: 0 },
+    { 말: '없는 갈래 — 걸려야 한다', 원문: 앞('가', '나'), 갈래: ['screen', 'music'], 기대: 1 },
+    { 말: '갈래 없음 — 걸려야 한다', 원문: `---\ntitle: "가"\ndek: "나"\n---\n본문`, 갈래: ['people'], 기대: 1 },
+    // ⛔ 갈래 목록을 안 넘기면 갈래를 **안 본다.** 옛 부름말이 조용히 헛돌지 않는지 확인한다
+    { 말: '갈래 목록 없이 부르면 갈래는 안 본다', 원문: 앞('가', '나'), 갈래: undefined, 기대: 0 },
+  ];
+  for (const e of 갈래예) {
+    const n = 한편검사({ 이름: '(자가시험)', 원문: e.원문, 한도, 갈래: e.갈래 }).length;
+    if (n !== e.기대) { console.log(`  ⛔ 자가시험 실패 — ${e.말}: ${e.기대} 기대, ${n} 나옴`); 실패++; }
+  }
+
+  console.log(`앞말 검사 — 자가시험 ${예.length + 갈래예.length}건 중 ${예.length + 갈래예.length - 실패}건 통과`);
   return 실패;
 }
 
@@ -121,6 +172,7 @@ async function main() {
   if (자가) return;
 
   const 한도 = await 한도읽기();
+  const 갈래 = await 갈래읽기();
   const 위반 = [];
   let 셈 = 0;
   for (const t of 대상) {
@@ -130,11 +182,11 @@ async function main() {
     for (const f of 파일들) {
       셈++;
       const 원문 = await readFile(path.join(ROOT, t.폴더, f), 'utf8');
-      위반.push(...한편검사({ 이름: `${t.폴더}/${f}`, 원문, 한도 }));
+      위반.push(...한편검사({ 이름: `${t.폴더}/${f}`, 원문, 한도, 갈래: 갈래[t.컬렉션] }));
     }
   }
 
-  console.log(`앞말 길이 검사 — 기사 ${셈}편 (title ≤${한도.title} · dek ≤${한도.dek})`);
+  console.log(`앞말 검사 — 기사 ${셈}편 (title ≤${한도.title} · dek ≤${한도.dek} · 갈래는 스키마에서 읽음)`);
   if (!위반.length) { console.log('✅ 넘은 곳 0건'); return; }
   for (const v of 위반) console.log(`  ⛔ ${v.이름}  [${v.필드}]  ${v.말}`);
   console.log(`\n⛔ ${위반.length}건 — **빌드가 여기서 멈춘다.** 앞말을 줄이고 다시 돌린다.`);
