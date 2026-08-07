@@ -24,6 +24,7 @@ const 검사 = [
   ['그룹↔멤버 기사가 자료와 맞나', 'check-kpop-members-article.mjs'],
   ['배우겹침 기사가 자료와 맞나', 'check-kpop-actors-article.mjs'],
   ['한 하루 몫 기사가 자료와 맞나', 'check-kpop-spike-article.mjs'],
+  ['배우 작품수 기사가 자료와 맞나', 'check-actor-titles-article.mjs'],
 ];
 
 let 돈것 = 0;
