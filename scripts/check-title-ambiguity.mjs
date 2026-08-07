@@ -49,6 +49,14 @@ const 총시간 = list.reduce((s, x) => s + x.hours, 0);
 const 첫화면 = JSON.parse(fs.readFileSync('src/data/wikitip-charts.json', 'utf8')).동남아.map((r) => r.제목);
 for (const t of 첫화면) if (!agg.has(t)) list.push({ title: t, hours: 0, frontPageOnly: true });
 
+/* ⚠ 동남아 목록(/titles·/reach)도 **반드시** 넣는다. 글로벌 Top10 에 못 오르고
+   나라별 차트에만 뜬 작품이 절반이나 된다 — 2026-08-07 에 상품 한 벌을 열어 보고 알았다.
+   405줄 중 202줄에 판정이 비어 있었다. 이 칸이 그 상품의 값인데 절반이 빈 채였다.
+   「글로벌만 재고 동남아는 안 잰다」는 우리가 정한 적 없는 경계였다. */
+const 동남아 = JSON.parse(fs.readFileSync('src/data/wikitip-titles.json', 'utf8')).rows.map((r) => r.title);
+const 이미 = new Set(list.map((x) => x.title));
+for (const t of 동남아) if (!이미.has(t)) { list.push({ title: t, hours: 0, seaOnly: true }); 이미.add(t); }
+
 /* ── 위키데이터에 묻는다 ── 제목마다 그 이름을 가진 영화·드라마의 나라 전부. */
 const 나라 = new Map();
 const 못물음 = [];
@@ -89,7 +97,11 @@ process.stdout.write('\n');
 /* ── 가른다 ── 한국만 / 겹침 / 모름. 못 물은 것은 「모름」에 넣지 않고 따로 센다. */
 const KOREA = 'South Korea';
 const 통 = { koreaOnly: [], shared: [], unknown: [], unreachable: [] };
-for (const x of list) {
+/* ⚠ 시간 비중은 **글로벌 목록만**으로 낸다. 동남아 전용 제목은 시청시간이 0 이라
+   섞으면 편수는 늘고 비중은 그대로여서 「몇 편 중 몇 편」이 지면과 어긋난다.
+   판정(perTitle)은 전부에 주고, 요약(koreaOnly/shared/unknown)은 글로벌 것만 센다. */
+const 글로벌만 = list.filter((x) => !x.seaOnly && !x.frontPageOnly);
+for (const x of 글로벌만) {
   if (못물음.includes(x.title)) { 통.unreachable.push(x); continue; }
   const c = 나라.get(x.title);
   if (!c) { 통.unknown.push(x); continue; }
@@ -102,7 +114,10 @@ const 몫 = (arr) => +((100 * 시간(arr)) / 총시간).toFixed(1);
 const out = {
   generated: new Date().toISOString(),
   method: 'Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.',
-  titles: list.length,
+  /** 요약이 대상으로 삼은 편수 — 글로벌 목록. 지면이 이 수를 인용한다. */
+  titles: 글로벌만.length,
+  /** 판정을 준 편수 — 동남아 전용 제목까지 포함. 상품 패널이 이 수를 쓴다. */
+  titlesAssessed: list.length,
   totalHours: 총시간,
   koreaOnly: { titles: 통.koreaOnly.length, hours: 시간(통.koreaOnly), sharePc: 몫(통.koreaOnly) },
   shared: { titles: 통.shared.length, hours: 시간(통.shared), sharePc: 몫(통.shared) },

@@ -1,7 +1,8 @@
 {
-  "generated": "2026-08-07T00:55:57.335Z",
+  "generated": "2026-08-07T01:58:00.965Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
   "titles": 236,
+  "titlesAssessed": 440,
   "totalHours": 23729840000,
   "koreaOnly": {
     "titles": 143,
@@ -2442,6 +2443,1949 @@
         "South Korea",
         "Thailand",
         "United States"
+      ]
+    },
+    {
+      "title": "Solo Leveling",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Japan",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Lovely Runner",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Military Prosecutor Doberman",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "One the Woman",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Mine",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Germany",
+        "Italy",
+        "South Korea",
+        "Spain",
+        "Turkey",
+        "United States"
+      ]
+    },
+    {
+      "title": "Lawless Lawyer",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Poong, the Joseon Psychiatrist",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Jirisan",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Bulgasal: Immortal Souls",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Love Scout",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Sh**ting Stars",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Unlock My Boss",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Safe",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "France",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Murderer",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Hong Kong",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Vincenzo",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Café Minamdang",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Sell Your Haunted House",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Believer",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Japan",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Bad And Crazy",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Police University",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Tarot",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Germany",
+        "Indonesia",
+        "Philippines",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Secret Royal Inspector & Joy",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Penthouse: War in Life",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Missing: The Other Side",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Dr. Romantic",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Cursed",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "France",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Mama",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "Hungary",
+        "Israel",
+        "People's Republic of China",
+        "Poland",
+        "South Korea",
+        "Soviet Union",
+        "Spain",
+        "United Kingdom",
+        "United States",
+        "Venezuela"
+      ]
+    },
+    {
+      "title": "Check in Hanyang",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "The Crowned Clown",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "My Roommate Is a Gumiho",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Encounter",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "South Korea",
+        "United Kingdom",
+        "United States",
+        "Yugoslavia"
+      ]
+    },
+    {
+      "title": "Through the Darkness",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Ghost Ship",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Germany",
+        "South Korea",
+        "Spain",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Crash Landing on You",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "First Lady",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Devil Judge",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Dare to Love Me",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Summer Strike",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Only You",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Hong Kong",
+        "Italy",
+        "Netherlands",
+        "Philippines",
+        "South Korea",
+        "Soviet Union",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Love (ft. Marriage and Divorce)",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Doubt",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Czech Republic",
+        "Iran",
+        "Philippines",
+        "South Korea",
+        "Spain",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Unstoppable",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "Norway",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Tunnel",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Nigeria",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Connection",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Auditors",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Man in Love",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Black Out",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "France",
+        "Germany",
+        "Italy",
+        "Netherlands",
+        "South Korea",
+        "Switzerland",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Swindlers",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Greece",
+        "Italy",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Mr. Robot",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Inspector Koo",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Fabulous",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Hunt",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "Iran",
+        "Italy",
+        "South Korea",
+        "Soviet Union"
+      ]
+    },
+    {
+      "title": "Hello Ghost",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Indonesia",
+        "South Korea",
+        "Taiwan"
+      ]
+    },
+    {
+      "title": "Train to Busan",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Divine Fury",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Extreme Job",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Reply 1988",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Cleaning Up",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Band of Brothers",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Babel",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "France",
+        "Mexico",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Red Eye",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Birthcare Center",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Zombie Detective",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "All In",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Winning Try",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Racket Boys",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "My ID is Gangnam Beauty",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Homemade Love Story",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "My Annoying Brother",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "One Night Stand",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Canada",
+        "India",
+        "Indonesia",
+        "Netherlands",
+        "South Korea",
+        "Thailand",
+        "United States"
+      ]
+    },
+    {
+      "title": "Vanished",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Austria",
+        "Cambodia",
+        "Canada",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Collectors",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Midnight Runners",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Project Wolf Hunting",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Wild Card",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Hitman: Agent Jun",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Marry YOU",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Possessed",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Denmark",
+        "Hong Kong",
+        "Malaysia",
+        "Nigeria",
+        "Norway",
+        "Romania",
+        "Russia",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Itaewon Class",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Inside Men",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "Reset",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "Denmark",
+        "France",
+        "People's Republic of China",
+        "South Korea",
+        "Thailand"
+      ]
+    },
+    {
+      "title": "Commitment",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "South Korea",
+        "Turkey"
+      ]
+    },
+    {
+      "title": "Stepmom",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "Soviet Union",
+        "United States"
+      ]
+    },
+    {
+      "title": "What's Wrong with Secretary Kim",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Peninsula",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Agents of Mystery",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Tale of the Nine Tailed",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "New World",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "People's Republic of China",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Law School",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Operation Chromite",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Delightfully Deceitful",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Alive",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Belgium",
+        "Canada",
+        "France",
+        "Japan",
+        "Russia",
+        "South Korea",
+        "Spain",
+        "United States"
+      ]
+    },
+    {
+      "title": "Snowpiercer",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Czech Republic",
+        "France",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Trolley",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Big",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "It's Okay to Not Be Okay",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Vagabond",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Denmark",
+        "France",
+        "Iran",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Bad Guys",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "More Than Blue",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "6/45",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Childe",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Long Live Love!",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Thailand"
+      ]
+    },
+    {
+      "title": "PROJECT SILENCE",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Love Reset",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Smugglers",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "British Hong Kong",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Promise",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "Egypt",
+        "France",
+        "Germany",
+        "Indonesia",
+        "Malaysia",
+        "People's Republic of China",
+        "Philippines",
+        "South Korea",
+        "Switzerland",
+        "Thailand",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Prison Playbook",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Wildflower",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Impetigore",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Indonesia",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Miracle in Cell No. 7",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Indonesia",
+        "Philippines",
+        "South Korea",
+        "Turkey"
+      ]
+    },
+    {
+      "title": "Memory",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "France",
+        "Germany",
+        "Netherlands",
+        "South Korea",
+        "Thailand",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Fearless Love",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Midnight",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Brazil",
+        "Egypt",
+        "German Empire",
+        "Indonesia",
+        "Japan",
+        "Mexico",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Descendants of the Sun",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Roundup: No Way Out",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Cobweb",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Hungary",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Closet",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "France",
+        "Hong Kong",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Live",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Bangladesh",
+        "Germany",
+        "India",
+        "Italy",
+        "Japan",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Glorious Days",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Indonesia"
+      ]
+    },
+    {
+      "title": "Parasite",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Gangster, The Cop, The Devil",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "The Roundup",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Greece",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Time",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Hong Kong",
+        "India",
+        "Indonesia",
+        "Japan",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Nocturnal",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "Love in the Big City",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Russia",
+        "South Korea",
+        "Ukraine",
+        "United States"
+      ]
+    },
+    {
+      "title": "Ghost House",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "Thailand",
+        "United States"
+      ]
+    },
+    {
+      "title": "Countdown",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Armenia",
+        "Australia",
+        "Germany",
+        "Iraq",
+        "Netherlands",
+        "Russia",
+        "South Korea",
+        "Thailand",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Urban Myths",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "The Assassin",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "France",
+        "Hong Kong",
+        "Italy",
+        "People's Republic of China",
+        "South Korea",
+        "Taiwan",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "The Prison",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "I",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "Indonesia",
+        "Iran",
+        "Russia",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Stepmother",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Fireworks",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Egypt",
+        "Germany",
+        "Indonesia",
+        "Iran",
+        "Italy",
+        "South Korea",
+        "Switzerland",
+        "United States"
+      ]
+    },
+    {
+      "title": "Take Point",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Gangnam Zombie",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Seobok",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Guardian: The Lonely and Great God",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Real Has Come!",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Once Again",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Austria",
+        "Germany",
+        "India",
+        "People's Republic of China",
+        "Philippines",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Waterworld",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "United States"
+      ]
+    },
+    {
+      "title": "In Between",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "France",
+        "Hong Kong",
+        "Israel",
+        "Kosovo",
+        "People's Republic of China",
+        "Portugal",
+        "South Korea",
+        "Turkey",
+        "United States"
+      ]
+    },
+    {
+      "title": "Love Child",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Denmark",
+        "Dominican Republic",
+        "Philippines",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Voice",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Germany",
+        "Japan",
+        "Norway",
+        "South Korea",
+        "Thailand"
+      ]
+    },
+    {
+      "title": "The Lord Musang King",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Malaysia",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Come Back Home",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Hong Kong",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "18 Again",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Green Mothers' Club",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Pure Love",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Japan",
+        "Philippines",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "My Golden Life",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Sleep",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Germany",
+        "South Korea",
+        "Sweden",
+        "United States"
+      ]
+    },
+    {
+      "title": "Recalled",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Miracle in Cell No.7",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Miss & Mrs. Cops",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Persona: Sulli",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "I Need Romance",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "A Korean Odyssey",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Birth of a Beauty",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Moon",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "Thailand",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "The World of the Married",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Policeman's Lineage",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Into the Storm",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Peru",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Respect",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "Philippines",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Arthdal Chronicles",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Diary of a Prosecutor",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "You Are the Apple of My Eye",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Japan",
+        "South Korea",
+        "Taiwan"
+      ]
+    },
+    {
+      "title": "While You Were Sleeping",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Abyss",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Start-Up",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Philippines",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The K2",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "We Are All Trying Here",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Knight Flower",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Divine Move 2: The Wrathful",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Now and Forever",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Philippines",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "To Be Continued",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Latvia",
+        "South Korea",
+        "Sweden",
+        "Thailand"
+      ]
+    },
+    {
+      "title": "Along with the Gods: The Two Worlds",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Pinocchio",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Belgium",
+        "Canada",
+        "Czech Republic",
+        "France",
+        "German Democratic Republic",
+        "Germany",
+        "Italy",
+        "Kingdom of Italy",
+        "Luxembourg",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Echoes of Survivors: Inside Korea’s Tragedies",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Metamorphosis",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Canada",
+        "Hungary",
+        "Italy",
+        "Philippines",
+        "South Korea",
+        "Soviet Union",
+        "Spain",
+        "Sweden",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Spring of Youth",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Like Flowers in Sand",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Umma",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Reflection of You",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Luck-Key",
+      "hours": 0,
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "You and Me",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Iran",
+        "New Zealand",
+        "People's Republic of China",
+        "Soviet Union",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Anchor",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Night Owl",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Along with the Gods: The Last 49 Days",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Secret Zoo",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Memoir of a Murderer",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Negotiation",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Colombia",
+        "Cuba",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Space Sweepers",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "High Society",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "France",
+        "Germany",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "When the Weather Is Fine",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Red Sleeve",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Way Back",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "India",
+        "Poland",
+        "South Korea",
+        "United Arab Emirates",
+        "United States"
+      ]
+    },
+    {
+      "title": "Yesterday",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Australia",
+        "Canada",
+        "France",
+        "Germany",
+        "Hungary",
+        "Morocco",
+        "Netherlands",
+        "Nigeria",
+        "Poland",
+        "South Africa",
+        "South Korea",
+        "Sweden",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Feng Shui",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "People's Republic of China",
+        "Philippines"
+      ]
+    },
+    {
+      "title": "Dog Days",
+      "hours": 0,
+      "verdict": "shared",
+      "countries": [
+        "Austria",
+        "Canada",
+        "Japan",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "A Werewolf Boy",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "RV: Resurrected Victims",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "SKY Castle",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Merciless",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Berlin File",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Fiery Priest",
+      "hours": 0,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
       ]
     }
   ],
