@@ -1,0 +1,68 @@
+{
+  "note": "지면(.astro)에 손으로 적은 정정을 기계가 읽을 수 있게 옮겨 둔 것. 기사 정정은 앞말(frontmatter)에서 자동으로 온다. 새 정정을 지면에 적으면 여기에도 적어야 하고, 안 적으면 scripts/check-corrections.mjs 가 잡는다.",
+  "rows": [
+    {
+      "date": "2026-08-07",
+      "where": "/watched",
+      "path": "/watched",
+      "what": "Korean catalogue size and total hours",
+      "from": "294 titles · 27.7bn hours",
+      "to": "236 titles · 23.7bn hours",
+      "why": "Korean titles were matched by title text against a Wikidata list. 52 titles Netflix classes on its English-language charts — The Perfect Couple, Suits, The Circle, Hit Man among them — were counted as Korean. Netflix splits its charts by a title's primary language, so only the Non-English charts are counted now. Hand-checking the largest remaining titles removed 8 more."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "/screen-split",
+      "path": "/screen-split",
+      "what": "Series and film totals",
+      "from": "built on the 294-title set",
+      "to": "built on the 236-title set",
+      "why": "Same cause as /watched. The page was published after the correction and has never shown the wrong totals, but it rests on the corrected set and says so."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "/tv-exports",
+      "path": "/tv-exports",
+      "what": "Exports by type of company, and the unattributed residual",
+      "from": "terrestrial 65.7% (2012) → 3.8% (2024), residual 7.6%",
+      "to": "terrestrial 81.5% (2012) → 7.2% (2024), residual 0",
+      "why": "KOSIS table DT_113_STBL_1025706 classifies on two levels — form of export above, type of company below — and returns only the lower name, so several rows a year read 'terrestrial broadcasters' and differ by code alone. We had taken the finished-programme row for three of the four company types while the fourth entered whole. Each type is now the sum of every export form published for it. The residual we described as unattributed did not exist; we had not added it up."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "/industry",
+      "path": "/industry",
+      "what": "Average pay per employee",
+      "from": "content ₩75.6m · listed market ₩94.0m",
+      "to": "content ₩76.1m · listed market ₩95.1m",
+      "why": "Companies that disclose headcount but not pay were left in the denominator, so their staff were averaged in as if they earned nothing — 456 people in content and 20,613 across the market. Pay is now weighted over disclosing companies only. Tenure, headcount and the gender split come from companies that disclose them and did not move."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "front page",
+      "path": "/",
+      "what": "This week's Southeast Asia list",
+      "from": "included Teach You a Lesson (China) and The East Palace (China) as Korean",
+      "to": "both removed; titles whose name is shared with a foreign work are now flagged in place",
+      "why": "The front page data file was hand-made and could not be rebuilt, so it did not follow when the matching rule was corrected. It is now built by a script from the same rule as every other page."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "/titles and /reach",
+      "path": "/reach",
+      "what": "Korean titles charting in six Southeast Asian markets",
+      "from": "448 titles",
+      "to": "405 titles",
+      "why": "Same matching cause. 42 titles were not Korean — among them two Witcher animations, I Am Legend and Elysium. The distribution the page describes did not change shape; it sharpened."
+    },
+    {
+      "date": "2026-08-07",
+      "where": "/staying-power",
+      "path": "/staying-power",
+      "what": "The table of longest-running and fiercest Korean titles",
+      "from": "listed Teach You a Lesson (China) as the second fiercest, plus The Perfect Couple and Run Away (United States) and The Empress (Germany)",
+      "to": "all four removed",
+      "why": "Same cause as the front page — a hand-made data file that could not follow a corrected rule. It is now built by a script."
+    }
+  ]
+}

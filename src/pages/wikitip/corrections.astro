@@ -1,0 +1,192 @@
+---
+/**
+ * K Culture Wire — 우리가 틀렸던 것 전부. (/corrections)
+ *
+ * ── 왜 이 지면인가 ─────────────────────────────────────────────
+ * 2026-08-07 하루에 아홉 곳을 고쳤는데 **그 이력이 아홉 군데에 흩어져** 있었다.
+ * 기사에는 앞말(frontmatter)로, 지면에는 손으로 적은 문단으로.
+ * 읽는 사람이 「이 매체가 무엇을 언제 왜 고쳤나」를 한 번에 볼 곳이 없었다.
+ *
+ * 그리고 같은 날 유료 상품 1안을 내면서 **「우리가 틀렸던 목록」을 파는 것이
+ * 이 상품의 핵심**이라고 적었다. 그 목록이 사이트에 없으면 그건 없는 것을 파는 것이다.
+ * 그래서 먼저 세운다.
+ *
+ * ── 저절로 따라오게 만든다 ─────────────────────────────────────
+ * 기사 정정은 **컬렉션에서 읽는다.** 손으로 옮기지 않는다 —
+ * 옮기면 다음 정정 때 빠지고, 빠진 정정 목록은 안 하느니만 못하다.
+ * 지면 정정은 손으로 적은 문단이라 자료 파일로 옮겨 두고,
+ * `scripts/check-corrections.mjs` 가 「지면에 있는데 목록에 없는 것」을 잡는다.
+ *
+ * ⛔ 광고 자리를 만들지 않았다.
+ * ⛔ 정정을 지우지 않는다. 고친 것을 지우면 고친 적이 없는 것이 된다.
+ */
+import { getCollection } from 'astro:content';
+import WikiTip from '../../layouts/WikiTip.astro';
+import pageFixes from '../../data/wikitip-page-corrections.json';
+
+const TITLE = 'Corrections';
+const DESC =
+  'Every number we have published and had to change, with the date, the old value, the new value '
+  + 'and the reason. We keep the record rather than quietly editing.';
+
+const 기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft);
+const 기사정정 = 기사
+  .flatMap((a) => a.data.corrections.map((c) => ({
+    date: new Date(c.date),
+    where: a.data.title,
+    path: `/article/${a.id}`,
+    note: c.note,
+  })))
+  .sort((a, b) => +b.date - +a.date);
+
+const 지면정정 = pageFixes.rows
+  .map((r) => ({ ...r, date: new Date(r.date) }))
+  .sort((a, b) => +b.date - +a.date);
+
+const 날짜 = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+const 총건수 = 기사정정.length + 지면정정.length;
+const 최근 = [...기사정정, ...지면정정].sort((a, b) => +b.date - +a.date)[0];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: TITLE,
+  description: DESC,
+  publisher: { '@type': 'Organization', name: 'K Culture Wire' },
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/corrections">
+  <h1>Corrections</h1>
+  <p class="lead">
+    Every figure we have published and then had to change is listed here, with what it was, what it
+    became, and why. Nothing is edited away. If you have quoted one of our numbers, this page tells you
+    whether it still stands.
+  </p>
+
+  <section class="stats">
+    <div><b>{총건수}</b><span>corrections published</span></div>
+    <div><b>{지면정정.length}</b><span>on data pages</span></div>
+    <div><b>{기사정정.length}</b><span>in articles</span></div>
+    <div><b>{최근 ? 날짜(최근.date) : '—'}</b><span>most recent</span></div>
+  </section>
+
+  <section>
+    <h2>Why this page exists</h2>
+    <p class="body">
+      A number that changes without notice is worse than a number that was never published, because
+      somebody has already used it. On <b>7 August 2026</b> we found that one flaw — matching Korean
+      titles by their text alone — had put wrong figures on seven pages and four articles at once, and
+      that a second, unrelated flaw had been misreading a government table for as long as we had used it.
+      Everything that came out of that is below.
+    </p>
+    <p class="body">
+      We also publish <a href="/about">how each number is made</a>, and every data page names its source
+      and says what it leaves out. This page is the other half of that: what we got wrong anyway.
+    </p>
+  </section>
+
+  <section>
+    <h2>On data pages</h2>
+    <ul class="fixes">
+      {지면정정.map((r) => (
+        <li>
+          <div class="head">
+            <a href={r.path}>{r.where}</a>
+            <span class="when">{날짜(r.date)}</span>
+          </div>
+          <div class="what">{r.what}</div>
+          <div class="delta">
+            <span class="from">{r.from}</span>
+            <span class="arrow">→</span>
+            <span class="to">{r.to}</span>
+          </div>
+          <p class="why">{r.why}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>In articles</h2>
+    <p class="sub">
+      Article corrections also appear at the top of the article itself, where anyone reading it will
+      see them. They are repeated here so the record is in one place.
+    </p>
+    <ul class="fixes">
+      {기사정정.map((r) => (
+        <li>
+          <div class="head">
+            <a href={r.path}>{r.where}</a>
+            <span class="when">{날짜(r.date)}</span>
+          </div>
+          <p class="why">{r.note}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="src">
+    <h2>How we handle a correction</h2>
+    <ul>
+      <li>
+        <b>The wrong figure is replaced, not hidden.</b> The old value stays on this page with the date
+        it was published and the date it changed.
+      </li>
+      <li>
+        <b>Everything downstream is checked.</b> A wrong number travels: on 7 August a corrected total
+        was still being quoted by three pieces that do not use the underlying data at all. Fixing the
+        source is half of it; finding what repeated it is the other half.
+      </li>
+      <li>
+        <b>The cause is fixed, not just the number.</b> Most of what went wrong that day came from data
+        files that had been built by hand and could not be rebuilt, so a corrected rule never reached
+        them. All of them are now built by scripts, and a check refuses the build if a new one appears.
+      </li>
+      <li>
+        <b>Where we cannot resolve something, we say so instead of choosing.</b> Some titles are shared
+        by a Korean work and a foreign one; we mark them rather than guess, and we publish how much of
+        the total that affects.
+      </li>
+    </ul>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { margin: 0 0 .5rem; font-size: 1.7rem; letter-spacing: -.02em; }
+  .lead { margin: 0 0 2rem; font-size: 1rem; color: var(--muted); }
+  section { margin: 0 0 2.5rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
+  .sub { font-size: .87rem; color: var(--muted); margin: 0 0 1rem; line-height: 1.6; }
+  .body { font-size: .92rem; line-height: 1.75; margin: 0 0 .9rem; }
+
+  .stats { display: grid; gap: .6rem; grid-template-columns: 1fr 1fr; margin: 0 0 2.5rem; }
+  @media (min-width: 34rem) { .stats { grid-template-columns: repeat(4, 1fr); } }
+  .stats > div { background: var(--card); border-radius: 8px; padding: .8rem .9rem; }
+  .stats b { display: block; font-size: 1.25rem; font-weight: 700; letter-spacing: -.01em;
+             font-variant-numeric: tabular-nums; }
+  .stats span { display: block; font-size: .74rem; color: var(--muted); margin-top: .2rem;
+                line-height: 1.4; }
+
+  .fixes { list-style: none; margin: 0; padding: 0; }
+  .fixes > li { border-top: 1px solid var(--line); padding: 1rem 0; }
+  .head { display: flex; flex-wrap: wrap; gap: .5rem; align-items: baseline;
+          justify-content: space-between; }
+  .head a { font-weight: 700; font-size: .95rem; }
+  .when { font-size: .76rem; color: var(--muted); white-space: nowrap; }
+  .what { font-size: .84rem; color: var(--muted); margin: .3rem 0 .5rem; }
+  .delta { display: flex; flex-wrap: wrap; gap: .45rem; align-items: baseline; font-size: .85rem;
+           font-variant-numeric: tabular-nums; }
+  .from { text-decoration: line-through; color: var(--muted); }
+  .arrow { color: var(--muted); }
+  .to { font-weight: 700; }
+  .why { font-size: .84rem; color: var(--muted); line-height: 1.7; margin: .6rem 0 0; }
+
+  .src ul { margin: 0; padding-left: 1.1rem; font-size: .85rem; color: var(--muted); line-height: 1.7; }
+  .src li { margin: .5rem 0; }
+  .src b { color: var(--ink); }
+  .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>

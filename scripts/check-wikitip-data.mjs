@@ -34,10 +34,19 @@ const 지면 = fs.readdirSync(PAGE_DIR).filter((f) => f.endsWith('.astro'));
 
 const 문제 = [];
 
-/* ── ① 자료마다 만든 스크립트가 있나 ── */
+/* ── ① 자료마다 만든 스크립트가 있나 ──
+ *
+ * 손으로 쓰는 자료가 하나 있다 — 정정 기록이다. 그건 계산이 아니라 **사람의 판단**이라
+ * 스크립트로 만들 수 없다. 그래서 예외를 두되 **공짜로 주지 않는다**:
+ * 손으로 쓰는 파일은 **검사 스크립트가 지키고 있을 때만** 허용한다.
+ * 지키는 검사가 없으면 그건 그냥 손으로 만든 파일이고, 오늘 우리가 고친 바로 그 결함이다.
+ */
 for (const f of 자료) {
   const 만드는곳 = 스크립트.filter((s) => s.body.includes(`${DATA_DIR}/${f}`) && /writeFileSync/.test(s.body));
-  if (!만드는곳.length) 문제.push(`${f} — 이 자료를 만드는 스크립트가 없다. 고쳐도 안 따라온다`);
+  if (만드는곳.length) continue;
+  const 지키는검사 = 스크립트.filter((s) => /^check-/.test(s.name) && s.body.includes(`${DATA_DIR}/${f}`));
+  if (지키는검사.length) continue;
+  문제.push(`${f} — 만드는 스크립트도, 지키는 검사도 없다. 고쳐도 안 따라온다`);
 }
 
 /* ── ②③ 지면이 읽는 자료와 칸 ── */
