@@ -1,0 +1,263 @@
+---
+/**
+ * **National Pension wage panel** — B2B 상품 지면. (seoulmarkets.com/data/pension-wage-panel)
+ *
+ * ── 왜 지면인가 (사장님 지시 2026-08-08, 2번 경유 · 33021) ──────────
+ *   「B2B 한 장에 표본 이름을 붙이고, 그 한 장을 **지면으로** 세운다.
+ *    기업이 사려면 **주소가 있어야** 한다. 문서는 보내야 하지만 지면은 링크만 주면 된다.」
+ *   확인 항목 — 라이브 200 · 표본 · 눌림 · 하한 방향 · 주는 꼴 넷이 다 보이나.
+ *
+ * ── 원본 ───────────────────────────────────────────────────────
+ *   docs/상품안/6번-B2B상품-임금패널.md (문서). 이 지면은 그 문서를 영문 지면으로 세운 것이다.
+ *   수치는 3번 검증본(nps-cap-share.json, 자 일치 확인)과 국민연금 원자료.
+ *   ⛔ 값(가격)은 넣지 않는다 — 사장님 결정 대기.
+ *
+ * ── ⚠ 규칙 ─────────────────────────────────────────────────────
+ *   · 모든 수는 하한이라고 화면에서 말한다. 이게 이 상품의 핵심 사양이다.
+ *   · 원자료 이용허락범위는 「제한 없음」(국민연금 데이터셋 15083277). 그래도 우리가 파는 것은
+ *     원자료가 아니라 우리의 가공·조인·눌림 계산이다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+
+const TITLE = 'The National Pension wage panel';
+const SAMPLE = '553,978 active workplaces · 11,561,661 subscribers · month of 2026-06';
+const DESC =
+  'A near-census pay ladder for the Korean workforce, built from the national pension bill: '
+  + '553,978 active workplaces and 11.56 million subscribers, split by industry, region and firm size, '
+  + 'with a cap-pressure column on every row so a buyer knows how far each figure is a floor.';
+
+/** ② 상한 눌림 — 축별 상위 (3번 검증본). 화면과 하나의 출처로 묶는다. */
+const 눌림 = {
+  industry: [
+    ['Video & imaging-equipment manufacturing', '95.0%'],
+    ['Computer manufacturing', '51.4%'],
+    ['Truck & special-vehicle manufacturing', '42.7%'],
+  ],
+  region: [
+    ['Gyeonggi', '9.4%'],
+    ['Seoul', '6.1%'],
+    ['Daegu', '0.3%'],
+  ],
+  size: [
+    ['1,000+ employees', '21%'],
+    ['300–999 employees', '4.1%'],
+    ['10–29 employees', '0.3%'],
+  ],
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean National Pension wage panel',
+  description: DESC,
+  url: `${SITE_URL}/data/pension-wage-panel`,
+  temporalCoverage: '2026-06',
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isBasedOn: 'https://www.data.go.kr/data/15083277/fileData.do',
+  license: 'https://www.kogl.or.kr/info/license.do',
+  variableMeasured: [
+    'monthly pension bill per subscriber',
+    'subscribers',
+    'share of subscribers at the income ceiling',
+  ],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>The National Pension wage panel</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Every month, the national pension bills each Korean workplace 9% of its workers' pay. Nobody
+        games that number to look good — it is what the pension actually collects. Divide it by
+        headcount and roll it up, and you get a pay ladder for almost the entire workforce, one that
+        no survey and no tax return can match for coverage. Here is that panel, with the one thing a
+        buyer needs and competitors leave out: <b>how far each figure is a floor.</b>
+      </p>
+
+      <!-- 다섯 줄 요약 — 처음 보는 사람용 -->
+      <ol class="five">
+        <li><b>What it is</b> — the pension bill (9% of pay) per subscriber, rolled up into an
+          industry, region and firm-size pay ladder.</li>
+        <li><b>Why trust it</b> — it is money the pension really collects, not a survey or a
+          self-report. There is nothing to inflate.</li>
+        <li><b>How big</b> — 553,978 active workplaces, ~11.56 million subscribers. Not a sample —
+          close to a census.</li>
+        <li><b>The limit</b> — pay above the income ceiling is billed as if it were at the ceiling,
+          so those cells read low. Every figure is therefore a <b>floor</b>.</li>
+        <li><b>The form</b> — one CSV per axis (industry 1,232, region 16, size 7), each row carrying
+          a cap-pressure column. Refreshed monthly. Redistribution-free source.</li>
+      </ol>
+
+      <!-- ① 표본 -->
+      <section class="blk">
+        <h2>① The sample — how many</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Active workplaces (status code 1)</th><td>554,570</td>
+              <td class="note">per-head figures use the 553,978 that also file a monthly bill</td></tr>
+            <tr><th>Subscribers (people)</th><td>11,561,661</td>
+              <td class="note">one workplace row can carry many people</td></tr>
+            <tr><th>Withdrawn workplaces</th><td>38,557</td>
+              <td class="note">dropped, <b>never counted as zero</b></td></tr>
+            <tr><th>Month of record</th><td>2026-06</td>
+              <td class="note">monthly release, 1–2 months in arrears</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">Close to a census. This counts almost every registered workplace, not a
+          thousand-person poll.</p>
+      </section>
+
+      <!-- ② 상한 눌림 -->
+      <section class="blk">
+        <h2>② Where the ceiling presses — and how much</h2>
+        <p>
+          When a worker earns above the monthly income ceiling (a bill of ₩573,300), the pension is
+          figured as if they sat exactly at the ceiling. Their cell reads low. Of all 11.56 million
+          subscribers, <b>634,927 (5.5%)</b> are at the ceiling. We count that pressure on <b>every
+          axis</b> — and hand it over with the data, because it is the part a buyer has to see.
+        </p>
+        <table class="press">
+          <thead>
+            <tr><th>Axis</th><th>Most-pressed cells</th><th class="r">At the ceiling</th></tr>
+          </thead>
+          <tbody>
+            {Object.entries(눌림).flatMap(([axis, rows]) =>
+              rows.map((r, i) => (
+                <tr>
+                  {i === 0 && <td rowspan={rows.length} class="axis">{axis === 'industry'
+                    ? 'Industry (1,232)' : axis === 'region' ? 'Region (16)' : 'Firm size (7)'}</td>}
+                  <td>{r[0]}</td>
+                  <td class="r">{r[1]}</td>
+                </tr>
+              )))}
+          </tbody>
+        </table>
+        <p class="fine">
+          Read the region row carefully: Gyeonggi is pressed <i>harder</i> than Seoul, so a raw
+          ranking that ignores the ceiling would put them in the wrong order. That is exactly the
+          mistake the cap-pressure column stops a buyer from making.
+        </p>
+      </section>
+
+      <!-- ③ 하한 방향 -->
+      <section class="blk">
+        <h2>③ Every figure is a floor — the error runs one way</h2>
+        <p>This data's error has a fixed direction. That is what makes it safe to quote.</p>
+        <ul class="arrows">
+          <li><b>The ceiling only cuts downward.</b> A pressed cell reads below the true pay, never
+            above it.</li>
+          <li><b>The count itself under-counts.</b> We mark a cell pressed only where its workplace
+            average reaches the ceiling, so workplaces where only some workers are capped are missed
+            — the real number of pressed people is above 634,927.</li>
+          <li><b>Therefore every number is a floor.</b> A buyer can cite it as "at least this much"
+            and stay safe.</li>
+        </ul>
+        <p class="fine">
+          A dataset that knows its own limit is worth more than one that hides it. Rival tables rank
+          without removing cap pressure; we attach it, cell by cell, so a buyer can decide for
+          themselves whether a figure belongs in their report.
+        </p>
+      </section>
+
+      <!-- ④ 주는 꼴 -->
+      <section class="blk">
+        <h2>④ What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">Three CSVs — <code>industry.csv</code> (1,232 rows),
+              <code>region.csv</code> (16), <code>size.csv</code> (7). Columns: group · subscribers ·
+              average monthly bill (pay proxy) · pressed subscribers · share at the ceiling.</td></tr>
+            <tr><th>The floor column</th><td colspan="2"><b>Every row carries the share-at-ceiling
+              figure</b>, so a buyer sees at a glance how far that cell is a floor.</td></tr>
+            <tr><th>Definitions</th><td colspan="2">A <code>method.md</code> that quotes tenure, bill
+              and ceiling from the source verbatim — not paraphrased into our own words.</td></tr>
+            <tr><th>Refresh</th><td colspan="2">Monthly, on the pension's release cycle (1–2 months
+              in arrears). Every changed figure is logged in <code>corrections.csv</code>, not
+              silently edited.</td></tr>
+            <tr><th>Source</th><td colspan="2">National Pension registered-workplace file
+              (data.go.kr dataset 15083277). Redistribution unrestricted. The CP949 (Korean-Windows)
+              encoding is decoded by us.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the panel</h2>
+        <p>
+          Want a sample cut or the full three-axis panel for your desk? Email
+          <a href="mailto:hello@seoulmarkets.com">hello@seoulmarkets.com</a>. While you are here, the
+          company-level workforce table it joins to is already free to download —
+          <a href="/data/korean-listed-workforce.csv" download>the whole listed-company table (CSV)</a>,
+          or browse it on the <a href="/rankings">rankings page</a>.
+        </p>
+      </section>
+
+      <p class="fine bottom">
+        Data as of 2026-06 (National Pension), retrieved via data.go.kr · Figures are floors, as
+        described above · Not investment advice.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td.note { color: var(--muted); font-size: .82rem; white-space: normal;
+                     font-variant-numeric: normal; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); vertical-align: middle;
+                        border-right: 1px solid var(--line); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .arrows { padding-left: 1.1rem; margin: 0 0 .8rem; }
+  .arrows li { margin: 0 0 .5rem; line-height: 1.65; }
+  .arrows li b { color: var(--ink); }
+
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; margin: 0; font-size: .95rem; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none;
+                  border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+
+  @media (max-width: 560px) {
+    table.kv th { white-space: normal; }
+    .pp .sample { white-space: normal; }
+  }
+</style>
