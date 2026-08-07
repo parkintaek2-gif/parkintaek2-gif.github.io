@@ -23,10 +23,15 @@ import { PUBLISHER } from '../../consts';
 
 const 기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft);
 
-/** 지면 수는 **세어서** 적는다. 손으로 적으면 지면이 늘 때 어긋난다. */
-const 지면수 = Object.keys(import.meta.glob('./*.astro')).filter(
-  (p) => !/\/(404|subscribe)\.astro$/.test(p),
-).length;
+/**
+ * 자료 지면 수는 **세어서** 적는다. 손으로 적으면 지면이 늘 때 어긋난다.
+ *
+ * ⛔ 「.astro 개수 − 404 − subscribe」로 셌더니 **19장**이 나왔다. 틀렸다 —
+ *    첫 화면·방법론·기사 목록·정정은 **자료 지면이 아니다.** 그것까지 세면
+ *    사는 사람에게 없는 것을 있다고 말하는 것이다. 자료 지면이 아닌 것을 이름으로 뺀다.
+ */
+const 자료아님 = /\/(404|index|about|articles|subscribe|corrections)\.astro$/;
+const 지면수 = Object.keys(import.meta.glob('./*.astro')).filter((p) => !자료아님.test(p)).length;
 
 const MAIL = 'parkintaek2@gmail.com';
 const TITLE = 'Get this by email';
