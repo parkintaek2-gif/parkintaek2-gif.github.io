@@ -29,9 +29,14 @@ const 첫화면 = 'dist/wikitip.html';
 const 얇은기준 = 900;   // 자 — 이보다 짧으면 손님이 읽을 것이 없다
 const 나가는길기준 = 3; // 기사 하나에서 다른 곳으로 가는 길
 
+/** ⚠ 엔티티를 **지우지 않고 되돌린다.** 통째로 지웠더니 `Film &amp; television` 이
+    「Film  television」이 되어 갈래 검사가 늘 헛울었다. 자주 쓰는 것만 되돌린다. */
+const 되돌림 = { '&amp;': '&', '&#39;': "'", '&quot;': '"', '&lt;': '<', '&gt;': '>', '&middot;': '·', '&nbsp;': ' ' };
 export function 본문(h) {
   return h.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<style[\s\S]*?<\/style>/g, ' ')
-    .replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/g, ' ').replace(/\s+/g, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/&[a-z#0-9]+;/gi, (m) => 되돌림[m] ?? ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 export function 링크(h) {
@@ -85,6 +90,32 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
       if (묶음 === '기사' && 안쪽.filter((u) => u.startsWith('/')).length < 나가는길기준) {
         문제.push(`${이름} — 나가는 길이 ${안쪽.filter((u) => u.startsWith('/')).length}개뿐이다`);
       }
+    }
+  }
+
+  /* ── 첫 화면이 우리 자산을 보여 주나 ──
+     ⛔ 2026-08-08 06:0x. 라이브 첫 화면을 재 보니 **36편 중 3편**만 걸려 있었다.
+        8/7 에 「15편 중 3편」이라고 적어 두고 **수만 세고 안 늘렸다.**
+        기사가 가장 큰 자산인데 손님은 첫 화면에서 셋만 봤다.
+     ⚠ 「몇 편」을 손으로 박지 않는다 — **전체 편수에 비례**해서 본다. 기사가 늘면 기준도 는다. */
+  {
+    const 첫 = fs.existsSync(첫화면) ? fs.readFileSync(첫화면, 'utf8') : '';
+    const 건기사 = new Set([...첫.matchAll(/href="(\/article\/[^"]+)"/g)].map((m) => m[1]));
+    const 최소 = Math.min(8, 기사.length);   // 갈래 칸이 다섯을 저절로 채운다 — 바닥은 그 위로
+    if (건기사.size < 최소) {
+      문제.push(`🔴 첫 화면이 기사 ${건기사.size}편만 건다 — 전체 ${기사.length}편 중. 적어도 ${최소}편은 보여야 한다`);
+    }
+    /* 갈래 넓이 — 기사가 있는 갈래는 첫 화면에 이름이 나와야 한다 */
+    const 갈래 = new Set();
+    for (const f of fs.readdirSync('content/kculturewire').filter((x) => x.endsWith('.md'))) {
+      const m = fs.readFileSync(path.join('content/kculturewire', f), 'utf8').match(/^category:\s*(\w+)/m);
+      if (m) 갈래.add(m[1]);
+    }
+    const 표기 = { screen: 'Film & television', music: 'Music', esports: 'Esports', people: 'People', industry: 'Industry' };
+    const 본문첫 = 본문(첫);
+    for (const g of 갈래) {
+      const 말 = 표기[g] ?? g;
+      if (!본문첫.includes(말)) 문제.push(`첫 화면이 «${말}» 갈래를 안 보여 준다 — 손님이 그 축이 있는 줄 모른다`);
     }
   }
 
