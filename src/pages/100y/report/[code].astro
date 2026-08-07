@@ -1,0 +1,322 @@
+---
+/**
+ * /100y/report/[code] — **고등학교 한 곳 리포트** (상품 ③ 본보기)
+ *
+ * 2번 지시(2026-08-08 01:4x) — *「목록 ③에 적은 칸을 실제 숫자로 채워 한 장을 만들어라.
+ *   값은 목록만 보고 못 정한다. **한 장을 놓고 봐야 「부모가 돈 내고 살까」가 보인다**」*
+ *
+ * ## ⭐ 이 지면이 파는 것
+ *
+ *   새로운 사실이 아니다. **모아 놓은 것**이다.
+ *   지금 부모는 학교 이름을 하나씩 검색해 학교알리미에서 표를 읽고 종이에 옮겨 견준다.
+ *   그 수고를 **한 장**으로 줄인다.
+ *
+ * ## ⛔ 지키는 것
+ *
+ *   - **등수를 쓰지 않는다.** 「몇 위」·「상위 몇 %」를 한 줄도 안 쓴다. 퍼짐만 보인다
+ *   - **「좋다·나쁘다」를 쓰지 않는다.** 고르는 것은 읽는 사람이다
+ *   - **견줄 값을 반드시 옆에 둔다.** 숫자 하나만 두면 읽는 사람이 못 읽는다
+ *   - **못 담은 것을 지면에 적는다.** 안 적으면 「이게 전부」로 읽힌다
+ *   - ⚠ `is:global` 을 쓰지 않는다 — `/_astro/*.css` 로 빠져 접두사 아래서 404 가 난다
+ *
+ * ## ⚠ 지금은 **본보기 한 장**이다
+ *
+ *   1,821곳이 넉 자료를 다 갖고 있지만, 값이 정해지기 전에는 **한 장만** 낸다.
+ *   ⛔ `noindex` 다 — 팔 물건을 검색에 흘리지 않는다. 값이 정해지면 그때 연다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import schools from '../../../data/100yearmap/pages-school.json';
+import 진로자료 from '../../../data/100yearmap/school-career.json';
+import 학급자료 from '../../../data/100yearmap/school-class-size.json';
+import 중단자료 from '../../../data/100yearmap/school-dropout.json';
+
+/**
+ * 본보기로 낼 학교. 2번이 골라 줬다 —
+ * ⭐ 진학률 63.6% 는 눈에 띄게 좋지도 나쁘지도 않은 자리라 「우리 학교는 어디쯤인가」가 잘 보인다.
+ * ⛔ 잘 나온 학교를 고르면 **팔릴 것처럼 보이는 착시**가 생긴다. 보통 학교로 본다.
+ *
+ * ⚠ **목록을 `getStaticPaths` 안에 둔다.** 밖에 두면 「본보기 is not defined」로 빌드가 죽는다 —
+ *   Astro 가 이 함수를 모듈 밖으로 떼어 내 따로 돌리기 때문이다(2026-08-08 실제로 겪었다).
+ */
+export async function getStaticPaths() {
+  const 본보기 = ['7010057'];
+  return 본보기.map((code) => ({ params: { code } }));
+}
+
+const { code } = Astro.params as { code: string };
+const school = (schools as any[]).find((x) => x.code === code)!;
+const 진로 = ((진로자료 as any).자료 as any[]).find((r) => r.code === code) ?? null;
+const 학급 = ((학급자료 as any).자료 as any[]).find((r) => r.code === code) ?? null;
+const 중단 = ((중단자료 as any).자료 as any[]).find((r) => r.code === code) ?? null;
+
+const 진로통계 = (진로자료 as any).통계;
+const 학급통계 = (학급자료 as any).통계;
+
+/** 같은 지역·같은 유형과 견준다. ⛔ 등수가 아니라 **퍼짐**을 보인다 */
+const 코드표 = new Map((schools as any[]).map((x) => [x.code, x]));
+const 또래 = ((진로자료 as any).자료 as any[]).filter((r) => {
+  const s = 코드표.get(r.code);
+  return s && s.지역 === school.지역 && s.고교유형 === school.고교유형 && r.진학률 != null;
+});
+const 또래값 = 또래.map((r) => r.진학률).sort((a, b) => a - b);
+const 중간값 = (a: number[]) => {
+  if (!a.length) return null;
+  const m = a.length >> 1;
+  return Math.round((a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2) * 10) / 10;
+};
+const 또래중간 = 중간값(또래값);
+
+/** ⛔ 「높다·낮다」만 말하고 좋다·나쁘다를 말하지 않는다 */
+const 견줌 = (값: number, 중간: number | null, 단위 = '%p') => {
+  if (중간 == null) return null;
+  const 차 = Math.round((값 - 중간) * 10) / 10;
+  if (차 === 0) return '같습니다';
+  return `${Math.abs(차)}${단위} ${차 > 0 ? '높습니다' : '낮습니다'}`;
+};
+
+const desc =
+  `${school.title} 한 곳의 졸업생 진로·학급·학업중단을 한 장에 모았습니다. ` +
+  `같은 지역 ${또래.length}곳, 전국과 견줄 값을 함께 넣었습니다.`;
+---
+
+<HundredYear title={`${school.title} 리포트`} description={desc} noindex={true}>
+  <p class="note">
+    ⬜ <strong>본보기 한 장입니다.</strong> 값이 정해지기 전이라 검색에 열지 않았습니다.
+  </p>
+
+  <h1>{school.title}<br class="pcbr" /> 숫자로 보면</h1>
+  <p class="sub">
+    {school.지역} · {school.고교유형} · {school.설립} · {school.공학}
+    {중단?.재학생 && <> · 재학 {중단.재학생.toLocaleString()}명</>}
+  </p>
+
+  {/* 🔴 제일 먼저 오는 물음. 부모가 이걸 보러 온다 */}
+  {
+    진로 && (
+      <>
+        <h2>졸업생은 어디로 갔나요?</h2>
+        <div class="answer">
+          <p class="answer-label">졸업생 {진로.졸업자.toLocaleString()}명 가운데 진학한 학생</p>
+          <p class="answer-num">{진로.진학률}%</p>
+          <p class="answer-sub">
+            {진로.진학.toLocaleString()}명 · 그 밖 {진로.그밖.toLocaleString()}명 ({진로.그밖율}%)
+          </p>
+        </div>
+
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>어디로</th>
+                <th>사람</th>
+                <th>졸업생 대비</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>대학교(4년제 이상)</th>
+                <td>{진로.대학교.toLocaleString()}명</td>
+                <td>{Math.round((진로.대학교 / 진로.졸업자) * 1000) / 10}%</td>
+              </tr>
+              <tr>
+                <th>전문대학</th>
+                <td>{진로.전문대학.toLocaleString()}명</td>
+                <td>{Math.round((진로.전문대학 / 진로.졸업자) * 1000) / 10}%</td>
+              </tr>
+              {진로.국외 > 0 && (
+                <tr>
+                  <th>국외 진학</th>
+                  <td>{진로.국외.toLocaleString()}명</td>
+                  <td>{Math.round((진로.국외 / 진로.졸업자) * 1000) / 10}%</td>
+                </tr>
+              )}
+              <tr>
+                <th>그 밖</th>
+                <td>{진로.그밖.toLocaleString()}명</td>
+                <td>{진로.그밖율}%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          ⚠ <strong>「그 밖」을 「노는 학생」으로 읽으면 안 됩니다.</strong> 진학에 속하지 않는
+          경우가 다 여기 들어갑니다 — <strong>다시 시험을 준비하는 학생</strong>과 취업한 학생이
+          섞여 있습니다. 일반고에서 이 칸이 큰 것은 대개 재수입니다.
+        </p>
+      </>
+    )
+  }
+
+  {/* 🔴 숫자 하나만 두면 못 읽는다. **견줄 값을 반드시 옆에** */}
+  {
+    진로 && 또래중간 != null && (
+      <>
+        <h2>같은 지역 학교들과 견주면?</h2>
+        <div class="tablewrap">
+          <table>
+            <tbody>
+              <tr>
+                <th>{school.title}</th>
+                <td><strong>{진로.진학률}%</strong></td>
+              </tr>
+              <tr>
+                <th>
+                  {school.지역} {school.고교유형} {또래.length}곳의 가운데값
+                </th>
+                <td>
+                  {또래중간}% <span class="note">— {견줌(진로.진학률, 또래중간)}</span>
+                </td>
+              </tr>
+              <tr>
+                <th>전국 가운데값</th>
+                <td>
+                  {진로통계.진학률_중간값}%{' '}
+                  <span class="note">— {견줌(진로.진학률, 진로통계.진학률_중간값)}</span>
+                </td>
+              </tr>
+              <tr>
+                <th>{school.지역} {school.고교유형}의 퍼짐</th>
+                <td>
+                  가장 낮은 곳 {또래값[0]}% · 가장 높은 곳 {또래값[또래값.length - 1]}%
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {/* ⭐ 이 차이를 설명 안 하면 「서울 학교는 다 나쁘다」로 읽힌다 */}
+        {/* ⚠ 「서울특별시**이**」로 나갔다. 렌더해 보고 잡았다 —
+              지역 이름이 받침으로 끝나는지 아닌지에 따라 조사가 갈린다.
+              ⛔ 문장을 바꿔 조사를 아예 안 쓰게 한다. 이게 제일 안전하다. */}
+        <p class="note">
+          ⚠ <strong>{school.지역} 학교들이 전국보다 낮게 나오는 것은 학교 탓이 아닙니다.</strong>{' '}
+          재수를 택하는 비율이 지역마다 크게 다르고, 재수생은 진학률 계산에서{' '}
+          <strong>「그 밖」으로 빠집니다.</strong> 그래서 같은 실력이어도 재수가 많은 지역은
+          진학률이 낮게 나옵니다. <strong>지역이 다른 학교끼리 견주지 마십시오.</strong>
+        </p>
+        <p class="note">
+          ⛔ 저희는 <strong>등수를 매기지 않습니다.</strong> 퍼진 폭만 보여드립니다 — 어디쯤인지는
+          읽는 분이 보십시오.
+        </p>
+      </>
+    )
+  }
+
+  {
+    학급 && (
+      <>
+        <h2>어떤 데서 배우나요?</h2>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>무엇</th>
+                <th>{school.title}</th>
+                <th>전국 가운데값</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>학급당 학생</th>
+                <td><strong>{학급.학급당학생}명</strong></td>
+                <td>
+                  {학급통계.학급당학생_중간값}명{' '}
+                  <span class="note">
+                    — {견줌(학급.학급당학생, 학급통계.학급당학생_중간값, '명')}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>수업교원 1인당 학생</th>
+                <td><strong>{학급.교원1인당학생}명</strong></td>
+                <td>
+                  {학급통계.교원1인당학생_중간값}명{' '}
+                  <span class="note">
+                    — {견줌(학급.교원1인당학생, 학급통계.교원1인당학생_중간값, '명')}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <th>학생 · 학급 · 수업교원</th>
+                <td colspan="2">
+                  {학급.학생.toLocaleString()}명 · {학급.학급}개 학급 · 교원 {학급.수업교원}명
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          ⚠ <strong>【수업교원】</strong>은 정규 교과목을 단독 전담하여 수업하는 교원입니다.
+          휴직·파견까지 넣은 「교원수」와 다릅니다.
+        </p>
+      </>
+    )
+  }
+
+  {
+    중단 && (
+      <>
+        <h2>다니다가 학교를 떠난 학생은?</h2>
+        <div class="answer">
+          <p class="answer-label">
+            재학생 {중단.재학생.toLocaleString()}명 가운데 그 해에 학교를 떠난 학생
+          </p>
+          <p class="answer-num">{중단.학업중단}명</p>
+          <p class="answer-sub">
+            {중단.학업중단률}%
+            {중단.전입 != null && <> · 같은 해에 전학 온 학생은 {중단.전입}명</>}
+          </p>
+        </div>
+        <p class="note">
+          ⛔ <strong>이것을 학교의 성적표로 읽으면 안 됩니다.</strong> 학교를 떠난 데에는 다른
+          학교로 옮긴 경우, 유학, 건강, 검정고시가 모두 섞여 있습니다.
+        </p>
+      </>
+    )
+  }
+
+  {/* 🔴 못 담은 것을 안 적으면 「이게 전부」로 읽힌다 */}
+  <h2>이 한 장에 <strong>없는</strong> 것</h2>
+  <div class="card warn">
+    <p class="note">
+      ⛔ <strong>내신·수능 성적, 대학 합격 실적은 없습니다.</strong> 어디에도 공개돼 있지
+      않습니다. 저희가 안 넣은 것이 아니라 <strong>아무도 내지 않는 숫자</strong>입니다.
+    </p>
+    <p class="note">
+      ⛔ <strong>어느 대학에 갔는지</strong>는 없습니다. 공시는 「전문대학·대학교·국외」까지만
+      나눕니다.
+    </p>
+    <p class="note">
+      ⛔ <strong>「그 밖」 {진로?.그밖.toLocaleString()}명이 무엇을 하는지</strong>는 나뉘어 있지
+      않습니다. 재수·취업·미상이 한 칸에 들어 있습니다.
+    </p>
+    <p class="note">
+      ⚠ <strong>학교의 좋고 나쁨을 저희가 말하지 않습니다.</strong> 숫자를 모아 견줄 값과 함께
+      놓을 뿐입니다.
+    </p>
+  </div>
+
+  <h2>이 숫자는 어디서 왔나요?</h2>
+  <div class="card">
+    <p class="note">
+      <strong>졸업생 진로 · 학급 · 학업중단</strong> — 학교알리미(한국교육학술정보원)
+      공개용데이터 {(진로자료 as any).출처.공시연도}년 공시 · 공공누리 제1유형(출처표시)
+    </p>
+    <p class="note">
+      ⚠ 사람 수는 공시된 값이고, <strong>비율과 가운데값은 저희가 낸 것</strong>입니다. 나라가
+      발표한 비율이 아닙니다.
+    </p>
+    <p class="note">
+      ⚠ 전국 가운데값은 진학 {진로통계.비율낸학교.toLocaleString()}곳 · 학급{' '}
+      {학급통계.학급당학생_셈.toLocaleString()}곳으로 냈습니다.
+    </p>
+  </div>
+
+  <p class="note">
+    <a href={`/school/${code}`}>{school.title} 지면에서 더 보기</a>
+  </p>
+</HundredYear>
+
+<style is:inline>
+  /* ⚠ `is:global` 을 쓰지 않는다 — /_astro/*.css 로 빠져나가 접두사(/100y) 아래서 404 가 난다 */
+  .warn { border-left: 3px solid var(--gold-deep); }
+</style>
