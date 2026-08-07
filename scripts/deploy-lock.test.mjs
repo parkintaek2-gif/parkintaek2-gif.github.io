@@ -12,7 +12,7 @@ import { fileURLToPath } from 'node:url';
 import { readFileSync } from 'node:fs';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
-const { 살아있나, 갱신지난분, 헛돌았나 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
+const { 살아있나, 갱신지난분, 헛돌았나, 상대가배포중인가 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
 
 const 잰다 = [];
 const 봄 = (이름, 본것, 바란것) => {
@@ -66,6 +66,22 @@ console.log('\n헛돌았나 — ctype 이 「파일이 없다」를 조용히 �
 봄('⭐ 멀쩡한 출력은 헛돈 것이 아니다', 헛돌았나('deployment applied\nRunning'), false);
 봄('빈 출력도 아니다', 헛돌았나(''), false);
 봄('없는 값도 아니다', 헛돌았나(undefined), false);
+
+/**
+ * 🔴 2026-08-08 — **오늘만 네 번 상대 표시에 막혔다**(06:28·07:03·07:19·08:08).
+ * 네 번 다 klifemap.ai 는 200 이었고 1번은 그 사이 커밋하고 있었다.
+ * 네 번째는 11분째라 12분 문턱에 1분 모자라 막혔다 — 문턱은 임의의 수다.
+ * ⭐ 락이 더 나은 자다. 락은 우리가 쓰는 사실이고 ctype 표시는 남이 보여 주는 화면이다.
+ */
+console.log('\n상대가 배포 중인가 — 표시가 아니라 락으로 본다');
+const 산락 = (덧) => ({ project: 'klifemap', 임자살아있다: true, 지난분: 2, ...덧 });
+봄('⭐ 락이 아예 없으면 아무도 안 하고 있다', 상대가배포중인가(null, 'klifemap'), false);
+봄('상대가 쥐고 있으면 배포 중이다', 상대가배포중인가(산락(), 'klifemap'), true);
+봄('⭐ 내 락이면 상대가 하는 게 아니다', 상대가배포중인가(산락({ project: 'seoulmarkets' }), 'klifemap'), false);
+봄('⭐ 임자가 죽었으면 남은 자국일 뿐이다', 상대가배포중인가(산락({ 임자살아있다: false }), 'klifemap'), false);
+봄('너무 오래된 락은 만료로 본다', 상대가배포중인가(산락({ 지난분: 25 }), 'klifemap', 20), false);
+봄('만료 직전은 아직 살아 있다', 상대가배포중인가(산락({ 지난분: 19 }), 'klifemap', 20), true);
+봄('지난분을 모르면 막는 쪽으로 둔다', 상대가배포중인가(산락({ 지난분: undefined }), 'klifemap'), true);
 
 /* 🔴 자리를 안 박아 둔 것이 뿌리였다. 이 파일이 어디서 불려도 저장소를 가리켜야 한다 */
 console.log('\n자리(cwd)에 안 기대나 — 어디서 불러도 저장소를 본다');
