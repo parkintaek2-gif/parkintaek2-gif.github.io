@@ -88,29 +88,32 @@ const 판 = {
  * 두 값을 나란히 놓는 꼴 — 「엄마 72.2% · 아빠 10.2%」처럼 **차이가 이야기인 것**에 쓴다.
  * ⚠ 두 막대의 자를 **같게** 둔다. 각자 최대에 맞춰 그리면 차이가 사라진다.
  */
-export function 견줌막대(둘, { 폭, 높이 }) {
+export function 견줌막대(둘, { 폭, 높이, 글꼴 = 'Malgun Gothic, sans-serif', 글자 = 34 }) {
   const 최대 = Math.max(...둘.map((d) => d.값));
   const 칸 = 폭 / 둘.length;
+  const 바폭 = 칸 * 0.62;
   return 둘
     .map((d, i) => {
       const h = Math.round((d.값 / 최대) * 높이);
-      const x = i * 칸;
+      /* ⚠ **가운데를 맞춘다.** 막대를 칸 왼쪽에 붙이면 오른쪽이 비어 그림이 한쪽으로 쏠린다.
+         숫자와 이름도 막대 한가운데에 세운다(사장님 지시 2026-08-07). */
+      const 가운데x = i * 칸 + 칸 / 2;
       return (
-        `<rect x="${x.toFixed(0)}" y="${높이 - h}" width="${(칸 * 0.6).toFixed(0)}" height="${h}" rx="6" fill="${i === 0 ? '#c9a84c' : '#3a4150'}"/>` +
-        `<text x="${x.toFixed(0)}" y="${높이 + 42}" font-family="Malgun Gothic, sans-serif" font-size="34" fill="#9aa0ac">${안전글(d.이름)}</text>` +
-        `<text x="${x.toFixed(0)}" y="${높이 - h - 18}" font-family="Malgun Gothic, sans-serif" font-weight="700" font-size="40" fill="#e9e9ee">${안전글(d.표시 ?? d.값)}</text>`
+        `<rect x="${(가운데x - 바폭 / 2).toFixed(0)}" y="${높이 - h}" width="${바폭.toFixed(0)}" height="${h}" rx="6" fill="${i === 0 ? '#c9a84c' : '#3a4150'}"/>` +
+        `<text x="${가운데x.toFixed(0)}" y="${높이 + Math.round(글자 * 1.3)}" text-anchor="middle" font-family="${글꼴}" font-size="${글자}" fill="#9aa0ac">${안전글(d.이름)}</text>` +
+        `<text x="${가운데x.toFixed(0)}" y="${높이 - h - Math.round(글자 * 0.5)}" text-anchor="middle" font-family="${글꼴}" font-weight="700" font-size="${Math.round(글자 * 1.15)}" fill="#e9e9ee">${안전글(d.표시 ?? d.값)}</text>`
       );
     })
     .join('');
 }
 
 /** 목록 꼴 — 위아래 몇 줄을 그대로 보여 준다. 「가져가 쓸 수 있게」의 가장 싼 형태다 */
-export function 목록줄(줄들, { 폭, 줄높이 }) {
+export function 목록줄(줄들, { 폭, 줄높이, 글꼴 = 'Malgun Gothic, sans-serif' }) {
   return 줄들
     .map((r, i) => {
       const y = i * 줄높이;
       return (
-        `<text x="0" y="${y}" font-family="Malgun Gothic, sans-serif" font-size="${Math.round(줄높이 * 0.52)}" fill="#e9e9ee">${안전글(r.이름)}</text>` +
+        `<text x="0" y="${y}" font-family="${글꼴}" font-size="${Math.round(줄높이 * 0.52)}" fill="#e9e9ee">${안전글(r.이름)}</text>` +
         `<text x="${폭}" y="${y}" text-anchor="end" font-family="Malgun Gothic, sans-serif" font-weight="700" font-size="${Math.round(줄높이 * 0.52)}" fill="#c9a84c">${안전글(r.값)}</text>` +
         `<line x1="0" y1="${y + 그림자(줄높이)}" x2="${폭}" y2="${y + 그림자(줄높이)}" stroke="#232833" stroke-width="1"/>`
       );
@@ -156,10 +159,10 @@ export function 줄나눔(글, 크기, 최대폭) {
 }
 
 /** 여러 줄을 그린다. 그리고 **다음 것이 놓일 y** 를 돌려준다 — 빈칸이 생기지 않게 */
-function 여러줄(글, { x, y, 크기, 최대폭, 글꼴, 색, 굵기 = 400, 줄간격 = 1.32 }) {
+function 여러줄(글, { x, y, 크기, 최대폭, 글꼴, 색, 굵기 = 400, 줄간격 = 1.32, 가운데 = true }) {
   const 줄 = 줄나눔(글, 크기, 최대폭);
   const 그림 = 줄
-    .map((s, i) => `<text x="${x}" y="${Math.round(y + 크기 * (1 + 줄간격 * i))}" font-family="${글꼴}" font-weight="${굵기}" font-size="${크기}" fill="${색}">${안전글(s)}</text>`)
+    .map((s, i) => `<text x="${가운데 ? Math.round(x + 최대폭 / 2) : x}" y="${Math.round(y + 크기 * (1 + 줄간격 * i))}"${가운데 ? ' text-anchor="middle"' : ''} font-family="${글꼴}" font-weight="${굵기}" font-size="${크기}" fill="${색}">${안전글(s)}</text>`)
     .join('');
   return { 그림, 끝y: Math.round(y + 크기 * (1 + 줄간격 * (줄.length - 1))) };
 }
@@ -221,16 +224,19 @@ function svg({ w, h }, 카드) {
     const 이름높이 = Math.round(w * 0.06);
     const 그래프높이 = Math.min(남은높이 - 이름높이 - Math.round(w * 0.06), Math.round(h * 0.22));
     const 시작 = 가운데(그래프높이 + 이름높이) + Math.round(w * 0.05);
-    조각.push(`<g transform="translate(${여백}, ${시작})">${견줌막대(견줌, { 폭: 안폭, 높이: 그래프높이 })}</g>`);
+    조각.push(`<g transform="translate(${여백}, ${시작})">${견줌막대(견줌, { 폭: 안폭, 높이: 그래프높이, 글꼴: 본문글꼴, 글자: Math.round(w * 0.030) })}</g>`);
   } else if (목록) {
     const 줄높이 = Math.min(Math.round(남은높이 / 목록.length), Math.round(w * 0.085));
     const 시작 = 가운데(줄높이 * 목록.length);
-    조각.push(`<g transform="translate(${여백}, ${시작 + 줄높이})">${목록줄(목록, { 폭: 안폭, 줄높이 })}</g>`);
+    /* 표도 가운데 맞춤이다(사장님 지시). 안폭보다 좁게 잡아 판 한가운데에 세운다 */
+    const 표폭 = Math.round(안폭 * 0.86);
+    const 표x = Math.round((w - 표폭) / 2);
+    조각.push(`<g transform="translate(${표x}, ${시작 + 줄높이})">${목록줄(목록, { 폭: 표폭, 줄높이, 글꼴: 본문글꼴 })}</g>`);
   }
 
   const 출처줄 = 여러줄(출처, { x: 여백, y: 출처y - 출처크기, 크기: 출처크기, 최대폭: 안폭, 글꼴: 본문글꼴, 색: '#8e95a1' });
   조각.push(출처줄.그림);
-  조각.push(`<text x="${여백}" y="${바닥y}" font-family="${제목글꼴}" font-weight="700" font-size="${주소크기}" fill="#c9a84c">${안전글(주소)}</text>`);
+  조각.push(`<text x="${Math.round(w / 2)}" y="${바닥y}" text-anchor="middle" font-family="${제목글꼴}" font-weight="700" font-size="${주소크기}" fill="#c9a84c">${안전글(주소)}</text>`);
 
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
   <rect width="${w}" height="${h}" fill="#0b0d12"/>
