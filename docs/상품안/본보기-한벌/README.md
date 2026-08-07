@@ -1,6 +1,19 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-07. Nine files. Start here.
+Sample bundle, 2026-08-07. Ten files. Start here.
+
+## What this is, in five lines
+
+1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — 405 titles,
+   each with a column saying how sure we are it is the Korean work and not a foreign one of the same name.
+2. **Which actor appears in which charting Korean title** — 3415 rows, keyed on Wikidata
+   Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
+3. **How often each K-pop act was looked up** on English Wikipedia — 2361 acts, 30 days.
+4. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
+5. **Everything we have published and had to correct**, with the old value beside the new one.
+
+`columns.csv` says what every column in every file means, including what a blank cell means.
+`coverage.csv` says what is missing and whether it can ever be filled. Read that one before you build on this.
 
 ## Read this first: what is empty
 

@@ -1,0 +1,47 @@
+file,column,what_it_is,unit,what_a_blank_cell_means
+korean-title-panel.csv,title,The title exactly as Netflix printed it,,never blank
+korean-title-panel.csv,format,"series or film, from Netflix’s own chart category",,never blank
+korean-title-panel.csv,countries_reached,How many of six Southeast Asian markets it charted in at any point,markets (max 6),never blank
+korean-title-panel.csv,weeks_on_chart,"Distinct weeks on a chart, counted once per title however many countries",weeks,never blank
+korean-title-panel.csv,peak_rank,Best position reached in any of the six,rank (1 is best),never blank
+korean-title-panel.csv,attribution,koreaOnly / shared / unknown — how sure we are this is the Korean work,,never blank
+korean-title-panel.csv,attribution_countries,Countries that also made a work with this exact title,pipe-separated,blank means NOT shared — there is no other country to name. It is not a missing value
+cast-title-join.csv,person_qid,"Wikidata Q-number for the person. Join on this, not on the name",,never blank
+cast-title-join.csv,person_name,English label from Wikidata. Names change; Q-numbers do not,,never blank
+cast-title-join.csv,en_wikipedia_article,"Exact English Wikipedia article title, if one exists",,"blank means this person has no English Wikipedia article, so they cannot be matched to the attention panels. They are still really in the cast"
+cast-title-join.csv,title_qid,Wikidata Q-number for the title. Join on this,,never blank
+cast-title-join.csv,title_name,English label for the title,,never blank
+cast-title-join.csv,title_format,"film or series, from Wikidata’s instance-of",,never blank
+cast-title-join.csv,titles_this_person_has_here,"How many charting Korean titles this person appears in, in this file",titles,never blank
+kpop-attention-panel.csv,name,Exact English Wikipedia article title,,never blank
+kpop-attention-panel.csv,kind,group or individual. The two are never added together,,never blank
+kpop-attention-panel.csv,en_wikipedia_views_30d,"Article opens over the window. NOT streams, sales or chart position",page opens,never blank
+kpop-attention-panel.csv,daily_avg,"Mean opens per day over the window, rounded",page opens,never blank
+kpop-attention-panel.csv,peak_day,Date of the single largest day,YYYYMMDD,never blank
+kpop-attention-panel.csv,peak_day_views,Opens on that day,page opens,never blank
+kpop-attention-panel.csv,views_last_7d,Opens in the final seven days of the window,page opens,never blank
+kpop-attention-panel.csv,last7_vs_daily_avg,Last seven days against the daily average,ratio,"blank means the act averaged under one view a day, so there is no base to divide by. We do not write 0, which would look like a measured collapse"
+kpop-attention-panel.csv,also_on_screen_actor_roster,yes / no — also appears in a Korean title that reached a Netflix Top 10,,never blank. no means we checked and it is no
+industry-panel.csv,year,Survey or filing year,year,never blank
+industry-panel.csv,series,Which dataset the row belongs to,,never blank
+industry-panel.csv,measure,What is being counted,,never blank
+industry-panel.csv,value,"The published figure, unadjusted",see unit column,never blank
+industry-panel.csv,unit,"Unit of the value. Exports are nominal US dollars, not inflation-adjusted",,never blank
+industry-panel.csv,source,The exact table or filing it came from,,never blank
+provenance.csv,measure,Which attribution verdict this row describes,,never blank
+provenance.csv,titles,How many titles carry that verdict,titles,never blank
+provenance.csv,share_of_viewing_pc,Share of global viewing hours those titles hold,percent,never blank
+provenance.csv,what_it_means,Plain-language reading of the verdict,,never blank
+corrections.csv,date,When we changed it,YYYY-MM-DD,never blank
+corrections.csv,kind,data page or article,,never blank
+corrections.csv,where,Which page or article carried the wrong figure,,never blank
+corrections.csv,what,Which figure changed,,"blank for article corrections, where what changed was a sentence rather than one number. The why column carries it"
+corrections.csv,from,Old value,,blank for article corrections — see what
+corrections.csv,to,New value,,blank for article corrections — see what
+corrections.csv,why,What was wrong and how we found it,,never blank
+coverage.csv,field,What is being described,,never blank
+coverage.csv,rows,Population the gap is measured against. Read this before the next column,,never blank
+coverage.csv,unresolved,How much of that population is unresolved,,never blank
+coverage.csv,pc_unresolved,The same as a share,percent,never blank
+coverage.csv,fillable,no / partly / later / yes — whether this can ever be filled,,never blank
+coverage.csv,what_blocks_it,"Why it cannot be filled, or what would fill it",,never blank

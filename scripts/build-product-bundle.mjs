@@ -234,6 +234,89 @@ cov.push(['k-pop — period covered', kpop.days, 0, 0, 'later',
   `${kpop.period}. Thirty days only. This panel cannot show a trend across years yet; we began collecting daily in August 2026 and the window grows from here.`]);
 fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
 
+/* ── ④-2 열 사전 ── CSV 를 **혼자 열어도** 뜻을 알아야 한다.
+   2번 지시(2026-08-07 22:2x): 「무엇이 들어 있는지, 어디서 왔는지, 무엇을 못 담았는지가
+   **그 한 벌 안에** 있어야 한다」.
+   ⛔ 빈칸이 무슨 뜻인지를 **열마다** 적는다. 우리는 빈칸을 두 가지로 쓴다 —
+      「재서 아니다」가 아니라 **「못 쟀다」**일 때만 빈칸이다. 그 규칙을 사는 사람이 알아야 한다.
+   ⛔ 열 목록을 손으로 적지 않는다. **실제로 낸 표의 머리줄**에서 읽는다.
+      손으로 적으면 열이 늘 때 사전이 조용히 낡는다. */
+const 뜻 = {
+  'korean-title-panel.csv': {
+    title: ['The title exactly as Netflix printed it', '', 'never blank'],
+    format: ['series or film, from Netflix’s own chart category', '', 'never blank'],
+    countries_reached: ['How many of six Southeast Asian markets it charted in at any point', 'markets (max 6)', 'never blank'],
+    weeks_on_chart: ['Distinct weeks on a chart, counted once per title however many countries', 'weeks', 'never blank'],
+    peak_rank: ['Best position reached in any of the six', 'rank (1 is best)', 'never blank'],
+    attribution: ['koreaOnly / shared / unknown — how sure we are this is the Korean work', '', 'never blank'],
+    attribution_countries: ['Countries that also made a work with this exact title', 'pipe-separated', 'blank means NOT shared — there is no other country to name. It is not a missing value'],
+  },
+  'cast-title-join.csv': {
+    person_qid: ['Wikidata Q-number for the person. Join on this, not on the name', '', 'never blank'],
+    person_name: ['English label from Wikidata. Names change; Q-numbers do not', '', 'never blank'],
+    en_wikipedia_article: ['Exact English Wikipedia article title, if one exists', '', 'blank means this person has no English Wikipedia article, so they cannot be matched to the attention panels. They are still really in the cast'],
+    title_qid: ['Wikidata Q-number for the title. Join on this', '', 'never blank'],
+    title_name: ['English label for the title', '', 'never blank'],
+    title_format: ['film or series, from Wikidata’s instance-of', '', 'never blank'],
+    titles_this_person_has_here: ['How many charting Korean titles this person appears in, in this file', 'titles', 'never blank'],
+  },
+  'kpop-attention-panel.csv': {
+    name: ['Exact English Wikipedia article title', '', 'never blank'],
+    kind: ['group or individual. The two are never added together', '', 'never blank'],
+    en_wikipedia_views_30d: ['Article opens over the window. NOT streams, sales or chart position', 'page opens', 'never blank'],
+    daily_avg: ['Mean opens per day over the window, rounded', 'page opens', 'never blank'],
+    peak_day: ['Date of the single largest day', 'YYYYMMDD', 'never blank'],
+    peak_day_views: ['Opens on that day', 'page opens', 'never blank'],
+    views_last_7d: ['Opens in the final seven days of the window', 'page opens', 'never blank'],
+    last7_vs_daily_avg: ['Last seven days against the daily average', 'ratio', 'blank means the act averaged under one view a day, so there is no base to divide by. We do not write 0, which would look like a measured collapse'],
+    also_on_screen_actor_roster: ['yes / no — also appears in a Korean title that reached a Netflix Top 10', '', 'never blank. no means we checked and it is no'],
+  },
+  'industry-panel.csv': {
+    year: ['Survey or filing year', 'year', 'never blank'],
+    series: ['Which dataset the row belongs to', '', 'never blank'],
+    measure: ['What is being counted', '', 'never blank'],
+    value: ['The published figure, unadjusted', 'see unit column', 'never blank'],
+    unit: ['Unit of the value. Exports are nominal US dollars, not inflation-adjusted', '', 'never blank'],
+    source: ['The exact table or filing it came from', '', 'never blank'],
+  },
+  'provenance.csv': {
+    measure: ['Which attribution verdict this row describes', '', 'never blank'],
+    titles: ['How many titles carry that verdict', 'titles', 'never blank'],
+    share_of_viewing_pc: ['Share of global viewing hours those titles hold', 'percent', 'never blank'],
+    what_it_means: ['Plain-language reading of the verdict', '', 'never blank'],
+  },
+  'corrections.csv': {
+    date: ['When we changed it', 'YYYY-MM-DD', 'never blank'],
+    kind: ['data page or article', '', 'never blank'],
+    where: ['Which page or article carried the wrong figure', '', 'never blank'],
+    what: ['Which figure changed', '', 'blank for article corrections, where what changed was a sentence rather than one number. The why column carries it'],
+    from: ['Old value', '', 'blank for article corrections — see what'],
+    to: ['New value', '', 'blank for article corrections — see what'],
+    why: ['What was wrong and how we found it', '', 'never blank'],
+  },
+  'coverage.csv': {
+    field: ['What is being described', '', 'never blank'],
+    rows: ['Population the gap is measured against. Read this before the next column', '', 'never blank'],
+    unresolved: ['How much of that population is unresolved', '', 'never blank'],
+    pc_unresolved: ['The same as a share', 'percent', 'never blank'],
+    fillable: ['no / partly / later / yes — whether this can ever be filled', '', 'never blank'],
+    what_blocks_it: ['Why it cannot be filled, or what would fill it', '', 'never blank'],
+  },
+};
+const dict = [['file', 'column', 'what_it_is', 'unit', 'what_a_blank_cell_means']];
+for (const [파일, 열들] of Object.entries(뜻)) {
+  const p = path.join(OUT, 파일);
+  if (!fs.existsSync(p)) throw new Error(`${파일} 이 없다 — 사전이 실제 표와 어긋난다`);
+  /* ⛔ 실제 머리줄에서 읽는다. 사전에만 있고 표에 없는 열, 표에 있고 사전에 없는 열을 **둘 다** 잡는다. */
+  const 머리 = fs.readFileSync(p, 'utf8').split('\n')[0].split(',');
+  const 사전에없음 = 머리.filter((c) => !열들[c]);
+  const 표에없음 = Object.keys(열들).filter((c) => !머리.includes(c));
+  if (사전에없음.length) throw new Error(`${파일} 의 열 ${사전에없음.join(' · ')} 이 사전에 없다`);
+  if (표에없음.length) throw new Error(`${파일} 사전에 ${표에없음.join(' · ')} 가 있는데 표에는 없다`);
+  for (const c of 머리) dict.push([파일, c, ...열들[c]]);
+}
+fs.writeFileSync(path.join(OUT, 'columns.csv'), csv(dict));
+
 /* ── ⑤ 정의 원문 ── 우리 화면에 가두지 않는다. */
 const method = `# Method
 
@@ -350,7 +433,20 @@ fs.writeFileSync(path.join(OUT, 'method.md'), method);
 /* ── ⑥ 읽는 법 ── 맨 먼저 열리는 것. 여기서 못 잰 것을 먼저 말한다. */
 const readme = `# K Culture Wire — Korean Content Panel
 
-Sample bundle, ${new Date().toISOString().slice(0, 10)}. Nine files. Start here.
+Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
+
+## What this is, in five lines
+
+1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — ${panel.length - 1} titles,
+   each with a column saying how sure we are it is the Korean work and not a foreign one of the same name.
+2. **Which actor appears in which charting Korean title** — ${cj.length - 1} rows, keyed on Wikidata
+   Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
+3. **How often each K-pop act was looked up** on English Wikipedia — ${kp.length - 1} acts, ${kpop.days} days.
+4. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
+5. **Everything we have published and had to correct**, with the old value beside the new one.
+
+\`columns.csv\` says what every column in every file means, including what a blank cell means.
+\`coverage.csv\` says what is missing and whether it can ever be filled. Read that one before you build on this.
 
 ## Read this first: what is empty
 
