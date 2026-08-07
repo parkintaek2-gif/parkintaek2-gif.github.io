@@ -25,7 +25,7 @@ crossChecks:
   - "The series and film totals quoted in the film section are the same 236 titles split by Netflix's own chart category, and they add back to 23.7bn"
 excluded:
   - "Anything outside the Top 10. Netflix publishes the top ten and nothing below it, so a Korean title watched heavily but never in the top ten is invisible here. This measures reach at the top of the chart, not total Korean viewing"
-  - "Certainty that every remaining title is Korean. The identification is title text against Wikidata, we hand-checked the largest 30 series and largest 20 films — 65% and 62% of the hours on each side — and nothing below that line has been checked by eye. Some same-name collisions are still in the tail, and they are small by construction"
+  - "Certainty that every remaining title is Korean. Identification is title text against Wikidata. We hand-checked the largest 30 series and 20 films, and measured the rest: asking Wikidata which countries made a work with each exact title, 79.8% of the viewing sits on titles only Korean works carry, 17% on titles a foreign work shares a name with, and 3.2% on titles Wikidata gives no country for. The shared share is what we cannot settle from text alone — it is stated, not resolved"
   - "Budgets, licence fees and what any title earned. Netflix publishes hours viewed and nothing about money, and we did not estimate it"
   - "Why a title charted. Release timing, marketing spend and Netflix's own recommendation weighting all move these numbers and none of them are in the published data"
   - "Titles co-produced with other countries where Wikidata records a country of origin other than Korea. The identification is only as good as that field, and a title with no country recorded is not counted"

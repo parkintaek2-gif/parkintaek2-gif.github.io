@@ -41,8 +41,23 @@ const sea = new Map();
     if (r.구분) a.구분 = r.구분;
   }
 }
+/* 이름이 겹치는 제목에는 표시를 붙인다 — 빼지도 감추지도 않는다.
+   check-title-ambiguity.mjs 가 위키데이터에 물어 만든 판정이다. 없으면 표시 없이 낸다. */
+let 판정 = new Map();
+try {
+  const a = JSON.parse(fs.readFileSync('src/data/wikitip-title-ambiguity.json', 'utf8'));
+  판정 = new Map(a.frontPage.map((r) => [r.title, r]));
+} catch { /* 아직 안 잰 것이다. 표시 없이 낸다 — 없는 확인을 있다고 하지 않는다. */ }
+
 const 동남아 = [...sea.values()]
-  .map((a) => ({ 제목: a.제목, 국가수: a.iso.size, 최고순위: a.최고순위, 구분: a.구분 }))
+  .map((a) => {
+    const v = 판정.get(a.제목);
+    return {
+      제목: a.제목, 국가수: a.iso.size, 최고순위: a.최고순위, 구분: a.구분,
+      이름겹침: v ? v.verdict === 'shared' : false,
+      겹치는나라수: v && v.verdict === 'shared' ? v.countries.length : 0,
+    };
+  })
   .sort((x, y) => y.국가수 - x.국가수 || x.최고순위 - y.최고순위)
   .slice(0, 8);
 

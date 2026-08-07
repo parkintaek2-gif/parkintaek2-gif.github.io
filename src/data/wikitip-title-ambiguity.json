@@ -1,0 +1,293 @@
+{
+  "generated": "2026-08-06T23:56:46.168Z",
+  "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
+  "titles": 236,
+  "totalHours": 23729840000,
+  "koreaOnly": {
+    "titles": 143,
+    "hours": 18945420000,
+    "sharePc": 79.8
+  },
+  "shared": {
+    "titles": 79,
+    "hours": 4026390000,
+    "sharePc": 17
+  },
+  "unknown": {
+    "titles": 14,
+    "hours": 758030000,
+    "sharePc": 3.2
+  },
+  "unreachable": {
+    "titles": 0,
+    "hours": 0,
+    "sharePc": 0
+  },
+  "sharedTop": [
+    {
+      "title": "The Glory",
+      "hours": 560990000,
+      "countries": [
+        "People's Republic of China",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Bloodhounds",
+      "hours": 353170000,
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Love Next Door",
+      "hours": 340200000,
+      "countries": [
+        "South Korea",
+        "Thailand"
+      ]
+    },
+    {
+      "title": "Business Proposal",
+      "hours": 279110000,
+      "countries": [
+        "Hong Kong",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "True Beauty",
+      "hours": 241850000,
+      "countries": [
+        "Canada",
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Little Women",
+      "hours": 163520000,
+      "countries": [
+        "Japan",
+        "South Korea",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Hellbound",
+      "hours": 162850000,
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Breathless",
+      "hours": 133800000,
+      "countries": [
+        "Australia",
+        "Dominican Republic",
+        "France",
+        "Netherlands",
+        "South Korea",
+        "Spain",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "The Guest",
+      "hours": 125300000,
+      "countries": [
+        "Canada",
+        "Egypt",
+        "France",
+        "Iran",
+        "Italy",
+        "Nigeria",
+        "People's Republic of China",
+        "South Korea",
+        "Soviet Union",
+        "Switzerland",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Sweet Home",
+      "hours": 123400000,
+      "countries": [
+        "Japan",
+        "Poland",
+        "South Korea",
+        "Spain"
+      ]
+    },
+    {
+      "title": "Celebrity",
+      "hours": 113200000,
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Trigger",
+      "hours": 91200000,
+      "countries": [
+        "Canada",
+        "Denmark",
+        "India",
+        "Norway",
+        "Russia",
+        "South Korea",
+        "Sweden"
+      ]
+    },
+    {
+      "title": "Black Knight",
+      "hours": 79400000,
+      "countries": [
+        "South Korea",
+        "United States"
+      ]
+    },
+    {
+      "title": "Oasis",
+      "hours": 79000000,
+      "countries": [
+        "Canada",
+        "Chile",
+        "France",
+        "Germany",
+        "Japan",
+        "Serbia",
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "The Trunk",
+      "hours": 66700000,
+      "countries": [
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "Carter",
+      "hours": 64040000,
+      "countries": [
+        "Canada",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Typhoon Family",
+      "hours": 56200000,
+      "countries": [
+        "Japan",
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Frog",
+      "hours": 56100000,
+      "countries": [
+        "France",
+        "Iran",
+        "South Korea",
+        "United Kingdom"
+      ]
+    },
+    {
+      "title": "Karma",
+      "hours": 54200000,
+      "countries": [
+        "British Raj",
+        "France",
+        "Greece",
+        "India",
+        "Indonesia",
+        "People's Republic of China",
+        "Philippines",
+        "South Korea",
+        "Sri Lanka",
+        "Taiwan",
+        "Thailand",
+        "United States"
+      ]
+    },
+    {
+      "title": "Ballerina",
+      "hours": 50600000,
+      "countries": [
+        "Canada",
+        "Denmark",
+        "France",
+        "Germany",
+        "South Korea",
+        "United States"
+      ]
+    }
+  ],
+  "frontPage": [
+    {
+      "title": "Agent Kim Reactivated",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Desire",
+      "verdict": "shared",
+      "countries": [
+        "Argentina",
+        "Australia",
+        "Austria",
+        "Canada",
+        "Czechoslovakia",
+        "France",
+        "Germany",
+        "Italy",
+        "Japan",
+        "People's Republic of China",
+        "Philippines",
+        "South Korea",
+        "Sweden",
+        "Taiwan",
+        "United Kingdom",
+        "United States"
+      ]
+    },
+    {
+      "title": "Spooky in Love",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "The Apartment Job",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
+      "title": "Mercy For None",
+      "verdict": "unknown",
+      "countries": []
+    },
+    {
+      "title": "Wonderful Nightmare",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    }
+  ]
+}
