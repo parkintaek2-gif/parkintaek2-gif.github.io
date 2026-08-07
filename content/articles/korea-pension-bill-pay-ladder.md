@@ -16,6 +16,7 @@ crossChecks:
   - "The metric is a workplace's monthly pension bill divided by its subscribers, then summed across every workplace in an industry weighted by headcount — so a three-person shop and a three-thousand-person plant each count for their own workers, not one workplace one vote"
   - "The contribution is 9% of a worker's monthly income (4.5% employer, 4.5% employee), so the bill per head moves with pay. It validates against its own ceiling: no fully-capped workplace's per-head bill clears 605,140 won, the wall a workplace hits once every worker sits at or above the income cap"
   - "An industry is ranked only where it employs at least 50,000 of the 11.6 million workers — 41 industries clear that bar — so no place on the ladder rests on a thin sample"
+  - "In the top-ranked industry, imaging-equipment manufacturing, 147,430 of its 155,224 workers — 95.0% — sit at workplaces billed at or above 573,300 won a head, the point where the income ceiling caps the contribution. Its 581,799 is therefore a floor the data cannot see past, and the 2.3x gap to the bottom is a lower bound, not the full distance"
   - "The source file is Korean-Windows encoded (CP949/EUC-KR) and was decoded before any field was read"
 excluded:
   - "Any conversion of the bill into a won salary. The bill carries arrears and back-payments — its fully-capped ceiling of 605,140 sits above the 573,300 that 9% of the current income cap alone would give — so inverting it to a precise wage would invent precision the data does not hold. This ranks pay; it does not read it"
@@ -67,7 +68,7 @@ So the bill ranks pay; it does not read it. It tells you an imaging-equipment wo
 
 ## The ceiling hides the top
 
-That ceiling is the quiet part of the story. The top of the ladder is not just high; it is pressed against a wall. The best-paid industries have most of their workers at or over the cap, which means the true distance between the top industry and the middle is *larger* than the 2.3x shows — the measurement runs out of room before the pay does. The compression is at the top, and it flatters no one at the bottom.
+That ceiling is the quiet part of the story. The top of the ladder is not just high; it is pressed against a wall. In the industry at the very top — imaging-equipment manufacturing — 147,430 of its 155,224 workers, **95%**, are already billed at or above the cap. Its 581,799 won a head is a floor, not a reading of the pay: the real figure runs past where this measure can follow. So the true distance between the top industry and the middle is *larger* than the 2.3x shows — the measurement runs out of room before the pay does, and the 2.3x is a lower bound. The compression is at the top, and it flatters no one at the bottom.
 
 ## Incorporated versus not
 
