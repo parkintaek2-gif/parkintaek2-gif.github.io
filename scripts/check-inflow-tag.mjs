@@ -42,12 +42,33 @@ export function 표뽑기(html) {
   return { from: q.get('from'), at: q.get('at') };
 }
 
-/** 붙어도 되는 갈래인가. **모르는 갈래가 주소에 실리면 그게 사고다** */
-export const 갈래목록 = [
-  'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
-  'size', 'how-long', 'after', 'work', 'research',
-  '기타',
-];
+/**
+ * 붙어도 되는 갈래인가. **모르는 갈래가 주소에 실리면 그게 사고다**
+ *
+ * 🔴 2026-08-08 05:3x — **이 목록을 손으로 베껴 뒀던 것이 사고였다.**
+ *
+ *   3번이 팔 지면 두 곳에 길을 내면서 `src/lib/klifemap.ts` 에 `report`·`report-area`
+ *   를 늘렸다. **이쪽 사본은 안 늘었다.** 그래서 자가 「표가 안 붙었다」고 했는데
+ *   표는 멀쩡히 붙어 있었다. 손으로 재 보니 있었다 — **자가 틀린 것이다.**
+ *
+ *   ⛔ 주소를 한 곳에만 두려고 `klifemap.ts` 를 만들어 놓고, **갈래 목록은 두 곳에 뒀다.**
+ *      같은 것을 두 곳에 적으면 한 쪽만 고쳐진다. 그게 이번에 그대로 났다.
+ *   ✅ 이제 **그 파일에서 읽는다.** 못 읽으면 짐작하지 않고 터진다 —
+ *      낡은 사본으로 조용히 통과하느니 시끄럽게 멎는 편이 낫다.
+ */
+export function 갈래목록읽기(소스) {
+  const m = String(소스 ?? '').match(/붙일수있는갈래\s*=\s*\[([\s\S]*?)\]\s*as const/);
+  if (!m) throw new Error('src/lib/klifemap.ts 에서 붙일수있는갈래 를 못 찾았다 — 짐작하지 않는다');
+  const 걷은 = m[1].replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/\/\/[^\n]*/g, ' ');
+  const 목록 = [...걷은.matchAll(/['"]([^'"]+)['"]/g)].map((x) => x[1]);
+  if (!목록.length) throw new Error('붙일수있는갈래 가 비어 보인다 — 짐작하지 않는다');
+  return 목록;
+}
+
+export const 갈래목록 = 갈래목록읽기(
+  fs.readFileSync(path.join(뿌리, 'src', 'lib', 'klifemap.ts'), 'utf8'),
+);
+
 export function 제대로붙었나(표) {
   if (!표) return { 된다: false, 왜: '표가 아예 없다 — 넘어온 것을 도착지가 못 안다' };
   if (표.from !== '100y') return { 된다: false, 왜: `from 이 100y 가 아니다 (${표.from})` };
@@ -105,6 +126,21 @@ function 셀프테스트() {
   확인('from 이 다르면 거짓', 제대로붙었나({ from: '남의곳', at: 'major' }).된다, false);
   확인('⭐ 모르는 갈래는 거짓 — 주소에 아무거나 싣지 않는다', 제대로붙었나({ from: '100y', at: '학교이름' }).된다, false);
   확인('기타는 된다', 제대로붙었나({ from: '100y', at: '기타' }).된다, true);
+
+  /* 🔴 자가 낡아서 대상을 틀렸다고 한 그 사고를 못 되풀이하게 박아 둔다 */
+  확인('⭐ 갈래 목록을 소스에서 읽는다',
+    갈래목록읽기(`export const 붙일수있는갈래 = [\n  'major', 'school',\n  '기타',\n] as const;`),
+    ['major', 'school', '기타']);
+  확인('⭐ 목록 안 주석은 갈래가 아니다',
+    갈래목록읽기(`붙일수있는갈래 = [\n  'major',\n  /* '옛것' 은 뺐다 */\n  // '이것도'\n  '기타',\n] as const`),
+    ['major', '기타']);
+  확인('⭐ 못 찾으면 짐작하지 않고 터진다',
+    (() => { try { 갈래목록읽기('아무 글도 없다'); return '안 터졌다'; } catch { return '터졌다'; } })(), '터졌다');
+  확인('⭐ 비어 있어도 터진다',
+    (() => { try { 갈래목록읽기('붙일수있는갈래 = [\n] as const'); return '안 터졌다'; } catch { return '터졌다'; } })(), '터졌다');
+  확인('🔴 진짜 파일에 report 가 있다 — 3번이 늘린 것이 여기 닿나', 갈래목록.includes('report'), true);
+  확인('🔴 진짜 파일에 report-area 가 있다', 갈래목록.includes('report-area'), true);
+  확인('⭐ 팔 지면 표가 통과한다', 제대로붙었나({ from: '100y', at: 'report-area' }).된다, true);
 
   확인('⭐ 사람을 가리키는 것이 실리면 집어낸다', 붙으면안되는것([{ from: '100y', at: 'major', code: '1371661' }]), ['code=1371661']);
   확인('둘뿐이면 깨끗하다', 붙으면안되는것([{ from: '100y', at: 'major' }]), []);
@@ -190,7 +226,13 @@ function 빌드결과() {
   if (나쁜값.length) console.log(`⛔ 주소에 실리면 안 되는 것: ${[...new Set(나쁜값)].slice(0, 5).join(', ')}`);
 
   if (못붙은.length) {
-    console.log(`\n⛔ 표가 안 붙은 지면 ${못붙은.length}장. 보기: ${path.relative(뿌리, 못붙은[0].f)}`);
+    /* ⚠ **왜 안 됐는지를 그대로 적는다.** 전에는 무슨 이유든 「표가 안 붙었다」로 적었다.
+     *   실제 이유는 「모르는 갈래」였는데 그 말이 화면에서 버려져, 자가 낡은 것을
+     *   대상이 틀린 것으로 읽게 만들었다. 고친 사람을 엉뚱한 데로 보낸다. */
+    console.log(`\n⛔ 제대로 안 붙은 지면 ${못붙은.length}장`);
+    for (const x of 못붙은.slice(0, 3)) {
+      console.log(`   ${path.relative(뿌리, x.f)}\n     → ${제대로붙었나(x.표).왜}`);
+    }
     process.exit(1);
   }
   console.log('\n✅ 링크가 있는 곳은 전부 표가 붙었다. 넘어온 것을 도착지가 안다.');
