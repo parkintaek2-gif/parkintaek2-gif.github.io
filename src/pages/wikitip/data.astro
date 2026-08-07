@@ -1,0 +1,173 @@
+---
+/**
+ * K Culture Wire — **파는 자료 한 벌의 착륙 지면.** (/data)
+ *
+ * ── 왜 만드나 ─────────────────────────────────────────────────
+ * 2026-08-08 04:3x. 2번 지시로 손님 걸음을 끝까지 걸어 보다 **길 끝이 막힌 것**을 봤다.
+ * 「첫 화면 → 목록 → 기사 → 나가는 길 → 한 벌(유료)」에서 마지막 칸이 **없었다.**
+ * 한 벌은 `docs/상품안/본보기-한벌/` 에만 있고 손님이 닿을 주소가 하나도 없었다.
+ * 사장님 지시 6번 — 「어떤 메뉴도 클릭이 돼야 하고 랜딩페이지가 있어야 한다」.
+ *
+ * ── ⛔ 이 지면이 하지 않는 것 ─────────────────────────────────
+ * ① **값을 안 적는다.** 사장님 판단이고 아직 안 나왔다. 한 벌 검사가 값이 적히면 선다.
+ * ② **파일을 안 내려준다.** 넷플릭스 주간 순위의 재배포 조건이 라이선스 대장에 **⬜ 미확인**이다.
+ *    확인 전에 파일을 여는 것은 「받기 전에 본다」를 어기는 것이다. 확인되면 그때 연다.
+ * ③ 광고 자리를 안 만든다(Riot Production 승인 전).
+ *
+ * ⚠ 줄 수는 **실제 파일에서 센다.** 손으로 적으면 자료가 움직여도 지면은 안 움직인다.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import WikiTip from '../../layouts/WikiTip.astro';
+import titles from '../../data/wikitip-titles.json';
+import korea from '../../data/wikitip-korea-signal.json';
+
+const BUNDLE = 'docs/상품안/본보기-한벌';
+const 줄수 = (f) => {
+  const p = path.join(BUNDLE, f);
+  if (!fs.existsSync(p)) return null;
+  return fs.readFileSync(p, 'utf8').split('\n').filter((l) => l.trim()).length - 1;
+};
+const 표들 = [
+  { 파일: 'korean-title-panel.csv', 이름: 'Korean titles on Netflix in Southeast Asia',
+    말: 'Every Korean film and series that reached a Top 10 in six markets since 2021, with how far it travelled, how long it stayed — and two independent columns saying how sure we are it is the Korean work.' },
+  { 파일: 'cast-title-join.csv', 이름: 'Who appears in what',
+    말: 'Actors joined to titles on Wikidata Q-numbers, not on names. Netflix does not publish cast; Wikidata does not know the charts. This is the join between them.' },
+  { 파일: 'kpop-attention-panel.csv', 이름: 'K-pop attention',
+    말: 'Daily English Wikipedia lookups for every act and member with an article, with a column marking the ones who are also on our screen-actor roster.' },
+  { 파일: 'industry-panel.csv', 이름: 'Listed content companies',
+    말: 'Headcount, tenure, pay and the male/female split for every listed Korean company that discloses them, from its own annual filing.' },
+  { 파일: 'corrections.csv', 이름: 'Everything we got wrong',
+    말: 'Every figure we have published and had to change, with the old value beside the new one and the cause it came from.' },
+  { 파일: 'coverage.csv', 이름: 'What is missing',
+    말: 'Each gap, how big it is, and whether it can ever be filled. Read this one before you build on any of the others.' },
+  { 파일: 'columns.csv', 이름: 'What every column means',
+    말: 'A row per column across every file, including what a blank cell means — a blank is not always a missing value.' },
+];
+const 있는표 = 표들.map((t) => ({ ...t, 줄: 줄수(t.파일) })).filter((t) => t.줄 !== null);
+const 전체줄 = 있는표.reduce((s, t) => s + t.줄, 0);
+
+const TITLE = 'The data behind these pages';
+const DESC = `Every number on this site comes from ${전체줄.toLocaleString()} rows we built and keep. `
+  + 'This is what is in them, what is missing from them, and what we have had to correct.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'K Culture Wire data bundle',
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://query.wikidata.org', 'https://kosis.kr', 'https://dart.fss.or.kr'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/data">
+  <h1>The data behind these pages</h1>
+  <p class="lead">
+    Nothing on this site is written from a press release. Every figure comes out of tables we build and
+    keep — <b>{전체줄.toLocaleString()} rows</b> across {있는표.length} files. This page says what is in
+    them, and it says what is missing from them before it says anything else.
+  </p>
+
+  <section>
+    <h2>What is in it</h2>
+    <ul class="files">
+      {있는표.map((t) => (
+        <li>
+          <div class="head"><b>{t.이름}</b><span>{t.줄.toLocaleString()} rows</span></div>
+          <p>{t.말}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Two rulers, not one</h2>
+    <p class="body">
+      The first question anyone should ask about a panel is what put a row in it. Ours has two answers.
+    </p>
+    <p class="body">
+      <b>The name.</b> Netflix publishes no country of production, so a title enters because its English
+      name matches a Korean work in Wikidata. That can fail in exactly one way — another country made
+      something with the same name — so we measured how often it can.
+      {' '}<b>{korea.sharedTitles} of {titles.titleCount}</b> titles carry a name a foreign work also carries.
+    </p>
+    <p class="body">
+      <b>Korea's own chart.</b> A Korean title normally also plays in Korea, so we counted every title's
+      weeks on Netflix's South Korea list. <b>{korea.sharedWithoutKorea} of those {korea.sharedTitles}
+      have never appeared on it</b>, and {korea.queues.oneCountryOnly} charted in exactly one country in
+      the world. Those columns are in the table, per row, so you can sort by them yourself.
+    </p>
+    <p class="note">
+      <b>Neither ruler decides alone and we do not hide the disagreement.</b> A Korean work can miss
+      Korea's chart because it was released before this data begins, or was never streamed there.
+      Nothing has been removed on the second ruler's strength alone — it produces a queue to read, and
+      anything we do remove appears on <a href="/corrections">the corrections page</a> with the evidence.
+    </p>
+  </section>
+
+  <section>
+    <h2>What is missing</h2>
+    <p class="body">
+      We would rather you learned this from us than from a spreadsheet at six in the evening.
+    </p>
+    <ul class="gaps">
+      <li><b>Hours per country.</b> Netflix publishes viewing hours for its global list only. The country lists carry rank and nothing else, and no source we can reach fills this.</li>
+      <li><b>What sits below each weekly top ten.</b> Unpublished, so we cannot even count what is missing.</li>
+      <li><b>Cast completeness.</b> Wikidata's cast lists are short and skew to well-known names. Every network figure we publish is a floor, not a count.</li>
+      <li><b>Acts with no English Wikipedia article.</b> They produce no row, so they are invisible — and we cannot say how many there are.</li>
+      <li><b>Export figures for 2025 and 2026.</b> The survey runs about eighteen months behind.</li>
+    </ul>
+    <p class="note">
+      The same list is in <code>coverage.csv</code> in a form you can filter, with a column saying
+      whether each gap can ever be filled.
+    </p>
+  </section>
+
+  <section class="ask">
+    <h2>How to get it</h2>
+    <p class="body">
+      <b>Email <a href="mailto:parkintaek2@gmail.com?subject=K%20Culture%20Wire%20data">parkintaek2@gmail.com</a></b>
+      and say what you are trying to answer. We will tell you whether these tables can answer it —
+      including when they cannot, which is the more useful reply.
+    </p>
+    <p class="note">
+      <!--
+        ⛔ 값을 적지 않는다. 사장님 판단이고 아직 안 나왔다.
+        ⛔ 파일을 안 연다. 넷플릭스 주간 순위 재배포 조건이 대장에 ⬜ 미확인이다.
+           「라이선스는 받기 전에 본다」 — 확인되면 그때 연다. 못 한 확인을 한 것처럼 두지 않는다.
+      -->
+      <b>Two things we are not doing yet, and why.</b> We have not put a price here, because it is not
+      set. And we are not offering the files as a download yet: the redistribution terms for one of the
+      sources are still being confirmed, and we check a licence before we publish, not after. Ask and we
+      will tell you exactly where that stands.
+    </p>
+  </section>
+
+  <p class="back"><a href="/">&larr; Back to the front page</a></p>
+</WikiTip>
+
+<style>
+  h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2.5rem; line-height: 1.7; }
+  section { margin: 0 0 3rem; }
+  h2 { font-size: 1.12rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
+  .body { font-size: .92rem; line-height: 1.75; margin: 0 0 .9rem; }
+  .note { font-size: .84rem; color: var(--muted); line-height: 1.7; margin: .9rem 0 0; }
+
+  .files { list-style: none; padding: 0; margin: 0; }
+  .files li { padding: .9rem 0; border-bottom: 1px solid var(--line); }
+  .files .head { display: flex; gap: .8rem; align-items: baseline; justify-content: space-between; }
+  .files b { font-size: 1rem; }
+  .files .head span { font-size: .82rem; color: var(--accent); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .files p { font-size: .87rem; color: var(--muted); line-height: 1.65; margin: .3rem 0 0; }
+
+  .gaps { padding-left: 1.1rem; margin: 0; font-size: .89rem; line-height: 1.7; }
+  .gaps li { margin: 0 0 .5rem; }
+
+  .ask { background: var(--card); border-radius: 10px; padding: 1.2rem 1.1rem; }
+  .ask h2 { margin-top: 0; }
+  code { font-size: .85em; }
+  .back { margin-top: 3rem; font-size: .9rem; }
+  .back a { color: var(--muted); }
+</style>
