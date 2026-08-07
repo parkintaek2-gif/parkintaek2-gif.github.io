@@ -1,13 +1,11 @@
-# Korean Listed Workforce Panel — coverage (fill rate by column, 2862 companies)
-# We do not pretend this is a census. Empty = not disclosed, never zero.
+# Korean Listed Workforce Panel — coverage (Electronics and telecom equipment, 320 companies)
+# We publish fill rates so no one mistakes this for a census.
 column,filled,total,fill_pct
-avg_tenure_years,2779,2862,97.1
-tenure_gap_M_minus_F_years,2717,2862,94.9
-avg_annual_pay_krw,2746,2862,95.9
-female_to_male_pay_pct,2720,2862,95.0
-employees,2790,2862,97.5
-female_share_pct,2736,2862,95.6
-ceo_tenure_months,2455,2862,85.8
-registered_officers,2861,2862,100.0
-company_age_years,2819,2862,98.5
-market_cap_per_employee_krw,2603,2862,91.0
+avg_tenure_years,319,320,99.7
+tenure_gap_M_minus_F_years,315,320,98.4
+avg_annual_pay_krw,320,320,100.0
+female_to_male_pay_pct,317,320,99.1
+employees,320,320,100.0
+female_share_pct,317,320,99.1
+ceo_tenure_months,267,320,83.4
+market_cap_per_employee_krw,300,320,93.8

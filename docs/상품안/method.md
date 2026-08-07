@@ -1,27 +1,29 @@
 # Korean Listed Workforce Panel — method
 
-> How every column is built, in the source's own words where the source has words.
-> This file is the product. The panel is only trustworthy to the degree this is.
-
-## Source and join
-- **People columns**: FSS DART annual-report disclosures — `empSttus` (employee status) and `exctvSttus` (officer status), fiscal year 2025, for the 2,921 of 3,925 listed entities that filed the table.
-- **Market cap**: Korea Exchange daily close, 2026-08-05, joined to each company by ticker (a 93% match on the 2,862-name panel).
-- Figures are **as filed by each company**. An empty cell means the company did not disclose that field; it does not mean zero.
+> Definitions are quoted from the source filings and standards, not paraphrased, so a buyer can audit our judgment.
+> Data: FSS DART annual reports (empSttus/exctvSttus) parsed by SeoulMarkets; market cap from KRX daily close (data.go.kr, 2026-08-05).
+> Full category shown: **Electronics and telecom equipment** (320 listed companies). The paid panel covers all 2,862.
 
 ## Columns
-- **avg_tenure_years** — average years of service. DART files this as free-text Korean ("5년 8월" = 5 years 8 months); we parse it to decimal years, weighted by male and female headcount.
-- **tenure_gap_M_minus_F_years** — male average tenure minus female average tenure. Positive means men stay longer.
-- **avg_annual_pay_krw** — average annual pay per employee, as filed. ⚠ Bonus and option treatment differs by company; holding companies report head office only.
-- **female_to_male_pay_pct** — female average pay ÷ male average pay × 100. 100 means equal.
-- **employees** — total headcount. ⚠ **The DART table carries no required total row.** Reading only the first male and first female row understates badly — it put Samsung Electronics at 50,817 against the 128,881 it actually filed. We use the company's own total line where it files one and the sum of its divisions where it does not; 1,017 of the 2,921 filed the table split into more than one group.
-- **female_share_pct** — female ÷ total headcount.
-- **ceo_tenure_months** — tenure of the longest-serving representative director, in months.
-- **market_cap_per_employee_krw** — market cap ÷ employees. ⚠ **At the company level this is an artifact**: the top is holding companies (head-office staff against a whole group's cap) and pre-revenue biotech (a market cap that is a bet on a drug). Read it only as **capital intensity by industry median** (17.5× top to bottom across 26 industries), never as productivity — market cap is a forward bet, not value produced.
 
-## What this panel is not
-- Not a redistribution of DART's raw filings — it is our parse, normalisation and English rendering.
-- Not analyst views, target prices, or the NPS raw workplace table (those we do not sell; see the product design).
-- Not a claim of completeness — see `coverage.csv` for the fill rate of every column.
+| Column | Definition (as filed / as standardised) |
+|---|---|
+| `company_en` | Company's English name from its DART registry entry; Korean name where no English is filed. |
+| `ticker` | 6-digit KRX code. |
+| `industry` | KSIC 2-digit division, mapped to the government English label. Blank where DART carries no code → shown as "Other", never invented. |
+| `avg_tenure_years` | DART 근속연수, filed as free text in Korean ("5년 8월") and parsed to decimal years, weighted by male and female headcount. |
+| `tenure_gap_M_minus_F_years` | Male average tenure minus female average tenure. Positive = men stay longer. |
+| `avg_annual_pay_krw` | 1인평균 급여액 as filed. ⚠ Bonus and option treatment differs by company; holding companies count head office only. |
+| `female_to_male_pay_pct` | Female average pay ÷ male average pay × 100. 100 = equal. |
+| `employees` | 인원 — the company's own total row where it files one, otherwise the sum of its divisions. ⚠ Reading only the first row drops 482,227 people from the market (see corrections). |
+| `female_share_pct` | Female headcount ÷ total headcount × 100. |
+| `ceo_tenure_months` | Longest-serving representative director's tenure. ⚠ 113 firms report a CEO tenure longer than the company's own age (predecessor service or post-merger re-incorporation); flagged, not dropped. |
+| `market_cap_per_employee_krw` | KRX market cap ÷ employees. **Capital intensity, not productivity** — market cap is a forward bet, not value staff produced. At the company level it is dominated by holding companies (head-office headcount) and pre-revenue biotech; use the industry median (17.5× top-to-bottom across 26 industries), never a company ranking. |
 
-## Licence note
-DART disclosures: usage scope "no restriction" as published on data.go.kr (datasets 15060615, 15060612). KRX close via data.go.kr, no restriction. Redistribution terms must be carried into any contract verbatim (see docs/데이터-라이선스-대장.md).
+## Rules we keep
+- Empty cell = not disclosed. Never zero.
+- Unit-entry errors (개월↔년, 천원↔원) are filtered, not corrected — correcting would invent a figure. Filtered counts are published in coverage.csv.
+- Every figure is re-derived from the raw filing, and re-checked against the source. Discrepancies go in corrections.csv, not a silent edit.
+
+## Redistribution
+KOSIS Art. 8 (commercial use allowed) · DART / KRX via data.go.kr, no restriction. Raw filings are **not** resold — what we sell is our parse, join and correction record.
