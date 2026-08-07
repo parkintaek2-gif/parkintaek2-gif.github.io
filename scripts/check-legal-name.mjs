@@ -90,7 +90,7 @@ function 검사(파일들, { 옛상호도보나 }) {
 // ── 자가시험 — 일부러 틀린 값을 넣어 **실제로 잡히는지** 본다 ──────────
 {
   const 나쁜예 = ['주식회사 K라이프디자인입니다', '발행 주체는 K라이프디자인', '주식회사 케이라이프 디자인'];
-  const 좋은예 = [`발행 주체는 ${정본}입니다`, 'K Life Design Co., Ltd.'];
+  const 좋은예 = [`발행 주체는 ${정본}입니다`, 'KLifeDesign InC.'];
   let 실패 = 0;
   for (const s of 나쁜예) if (!틀린표기.some((r) => r.test(s))) { console.log(`  ⛔ 자가시험: 못 잡았다 — ${s}`); 실패++; }
   for (const s of 좋은예) if (틀린표기.some((r) => r.test(s))) { console.log(`  ⛔ 자가시험: 멀쩡한 것을 잡았다 — ${s}`); 실패++; }

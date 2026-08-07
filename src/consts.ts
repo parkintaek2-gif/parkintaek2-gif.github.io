@@ -41,8 +41,8 @@ export const SITE = {
  *   앞으로도 상호는 **사람이 부르는 말이 아니라 등기부 글자**로 적는다.
  *
  * ⬜ 영문 상호는 **등기부에 없다.** 국내 법인 등기는 한글 상호만 올린다.
- *   그래서 영문은 우리가 정하는 표기이고, 「케이」=K 로 잡아 K Life Design Co., Ltd. 로 쓴다.
- *   해외 송금·계약서에 쓰기 전에 은행 표기와 맞춘다.
+ *   ⚠ 2026-08-07 정정 — **영문 상호가 등기부에 있다**(KLifeDesign InC.). 우리가 정할 것이 아니었다.
+ *   해외 송금·계약서도 이 표기로 맞춘다.
  *
  * ⚠ **전화번호는 네 사이트 공통 070 하나로 통일한다**(사장님 지시 2026-08-05).
  *   개인 휴대폰을 지면에 올리지 않는다 — 한 번 공개하면 되돌릴 수 없다.
@@ -51,13 +51,20 @@ export const SITE = {
  *      1번이 매체별 분기를 넣은 뒤에 화면에 올린다.
  */
 export const PUBLISHER = {
-  legalName: 'K Life Design Co., Ltd.',      /* 등기부에 없는 표기다. 위 주석 참조 */
+  /* 🔴 2026-08-07 — 등기사항전부증명서를 실제로 받아 대조했다. **등기부에 영문 상호가 있다.**
+     「KLifeDesign InC.」 — 우리가 정해 쓰던 「K Life Design Co., Ltd.」는 등기부에 없는 표기였다.
+     ⚠ 등기부 표기를 그대로 쓴다. 대문자·띄어쓰기까지 등기부 글자다(InC. 도 그대로다). */
+  legalName: 'KLifeDesign InC.',
   legalNameKo: '주식회사 케이라이프디자인',      /* 🔴 등기부 글자 그대로. 「K라이프디자인」 아니다 */
+  /* 법인등록번호는 공개 정보다(등기부 첫 줄). 사업자등록번호와 다른 번호다 */
+  corpRegNo: '164711-0015700',
   representative: 'Kim Mi-hee',
   representativeKo: '김미희',
   bizRegNo: '456-87-03384',
-  address: 'Unit 101, 1F, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',
-  addressKo: '세종특별자치시 남세종로 441 상가1동 1층 101호 (보람동, 호려울마을5단지)',
+  /* ⚠ 본점 표기도 등기부 그대로다 — **「제상가1동 101호」**. 「상가1동 1층 101호」가 아니다.
+     「1층」은 우리가 덧붙인 말이었다. 등기부에 없는 말을 주소에 넣지 않는다. */
+  address: 'Unit 101, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',
+  addressKo: '세종특별자치시 남세종로 441, 제상가1동 101호 (보람동, 호려울마을5단지)',
   /** 네 사이트 공통 대표번호. 국제 표기는 +82-70-5236-1029 */
   tel: '070-5236-1029',
   telIntl: '+82-70-5236-1029',
