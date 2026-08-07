@@ -11,7 +11,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 여기 = path.dirname(fileURLToPath(import.meta.url));
-const { 살아있나 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
+const { 살아있나, 갱신지난분 } = await import(pathToFileURL(path.join(여기, 'deploy.mjs')).href);
 
 const 잰다 = [];
 const 봄 = (이름, 본것, 바란것) => {
@@ -25,6 +25,21 @@ console.log('배포 자물쇠 — 죽은 임자 가리기');
 봄('없는 pid 는 죽었다', 살아있나(999999), false);
 봄('⚠ pid 가 없는 옛 락은 살아 있는 것으로 본다(안전한 쪽)', 살아있나(undefined), true);
 봄('0 도 마찬가지다', 살아있나(0), true);
+
+/**
+ * 2026-08-08 새벽 — **상대 프로젝트 표시가 멎은 것**을 배포 중으로 보고 네 번 막혔다.
+ * 한 시간 반을 잃었다. 표시가 얼마나 지났는지 못 재면 그 판정을 할 수 없다.
+ */
+console.log('\n표시가 얼마나 지났나 — 못 읽으면 짐작하지 않는다');
+const 때 = new Date('2026-08-08T02:11:00');
+봄('12분 지난 것을 12로 읽는다', Math.round(갱신지난분('2026-08-08 01:59:00', 때)), 12);
+봄('방금 것은 0 에 가깝다', Math.round(갱신지난분('2026-08-08 02:11:00', 때)), 0);
+봄('⭐ 못 읽으면 null — 0 으로 밀지 않는다', 갱신지난분('아무말', 때), null);
+봄('빈 값도 null', 갱신지난분('', 때), null);
+봄('undefined 도 null', 갱린지난분를안전하게(갱신지난분, undefined, 때), null);
+봄('⚠ 미래 시각은 0 으로 본다(시계가 어긋난 것)', 갱신지난분('2026-08-08 03:00:00', 때), 0);
+
+function 갱린지난분를안전하게(f, a, b) { try { return f(a, b); } catch { return '던졌다'; } }
 
 const 틀린것 = 잰다.filter((x) => !x).length;
 console.log(틀린것 ? `\n❌ ${틀린것}개 어긋났다` : `  ${잰다.length} 통과 · 0 실패`);

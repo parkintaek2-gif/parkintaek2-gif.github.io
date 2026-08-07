@@ -34,11 +34,13 @@ import { readFileSync, writeFileSync, existsSync, unlinkSync, appendFileSync } f
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import https from 'node:https';
 
 /** ⚠ 저장소 **바깥**이다. klifemap 세션도 같은 경로를 본다. */
 const LOCK = path.resolve('C:/Users/USER/Documents/GitHub/.cloudtype-deploy-lock.json');
-const 나 = { project: 'seoulmarkets', stage: '@parkintaek2/seoulmarkets:main', app: 'web' };
-const 상대 = { project: 'klifemap', stage: '@parkintaek2/klifemap:main', app: 'klifemap-app' };
+/** ⚠ `probe` — 그 프로젝트가 **실제로 살아 있나**를 볼 주소. 표시가 멎었는지 가릴 때 쓴다 */
+const 나 = { project: 'seoulmarkets', stage: '@parkintaek2/seoulmarkets:main', app: 'web', probe: 'https://seoulmarkets.com/' };
+const 상대 = { project: 'klifemap', stage: '@parkintaek2/klifemap:main', app: 'klifemap-app', probe: 'https://klifemap.ai/' };
 const 락만료분 = 20;
 
 const argv = process.argv.slice(2);
@@ -59,6 +61,29 @@ function ctype(args) {
 }
 
 /** 스테이지의 앱 상태를 읽는다. 색코드가 섞여 오므로 지운다. */
+/**
+ * ctype 이 찍어 준 갱신 시각이 몇 분 지났나. 못 읽으면 **null — 짐작하지 않는다.**
+ * ⚠ null 을 0 으로 보면 「방금 갱신됐다」가 되어 막는 쪽으로 기울고, 큰 수로 보면 미는 쪽으로 기운다.
+ *   못 읽으면 **막는 쪽**이 안전하므로 부르는 자리에서 null 을 「멎지 않았다」로 쓴다.
+ */
+export function 갱신지난분(적힌시각, 지금 = new Date()) {
+  const t = Date.parse(String(적힌시각 ?? '').trim().replace(' ', 'T'));
+  if (Number.isNaN(t)) return null;
+  const 분 = (지금.getTime() - t) / 60000;
+  return 분 < 0 ? 0 : 분;
+}
+
+/** 그 주소가 실제로 열리나. 못 열리면 false — 배포 중일 수 있으니 막는 쪽으로 쓴다 */
+function 살아서열리나(주소) {
+  if (!주소) return Promise.resolve(false);
+  return new Promise((r) => {
+    https
+      .get(주소, { timeout: 10000 }, (res) => { res.resume(); r(res.statusCode >= 200 && res.statusCode < 400); })
+      .on('error', () => r(false))
+      .on('timeout', function () { this.destroy(); r(false); });
+  });
+}
+
 function 상태(stage, app) {
   const out = ctype(['ls', '-t', stage]).replace(/\x1b\[[0-9;]*m/g, '');
   for (const line of out.split(/\r?\n/)) {
@@ -354,7 +379,35 @@ async function main() {
 
   const 막힘 = [];
   if (상대상태.status !== 'Running') {
-    막힘.push(`${상대.project} 이 ${상대상태.status} 다 — 배포 중인 것을 밀면 둘 다 죽는다`);
+    /* ⚠⚠ 2026-08-08 02:1x — **이 자리에서 한 시간 반을 잃었다.**
+     *   klifemap 이 01:58 에 Starting 으로 찍힌 뒤 표시가 그대로 멎었다.
+     *   1번은 그 뒤 배포한 적이 없고 klifemap.ai 는 99ms 에 200 을 줬는데도
+     *   내 배포가 **네 번** 막혔다.
+     *
+     *   같은 교훈이 이 파일 141줄에 이미 적혀 있었다 —
+     *   「ctype 표시가 멎어 있는 것이지 배포가 안 된 것이 아니었다」.
+     *   그런데 그걸 **내 프로젝트에만** 적용하고 상대 프로젝트에는 안 썼다.
+     *
+     * ⛔ 그렇다고 표시를 무시하지는 않는다. 진짜 도는 배포를 밀면 둘 다 죽는다.
+     *    **두 가지가 같이 맞을 때만** 멎은 표시로 본다 —
+     *      ① 표시가 12분 넘게 그대로다   ② 상대 사이트가 200 을 준다
+     *    진짜 배포 중이면 표시가 방금 갱신되거나 사이트가 흔들린다. */
+    const 지난분 = 갱신지난분(상대상태.updated);
+    const 상대살았나 = await 살아서열리나(상대.probe);
+    const 멎은표시 = 지난분 !== null && 지난분 >= 12 && 상대살았나;
+
+    if (멎은표시) {
+      console.log(
+        `\n⚠ ${상대.project} 표시가 ${Math.round(지난분)}분째 ${상대상태.status} 인데 ` +
+        `${상대.probe} 는 200 이다. **표시가 멎은 것으로 본다.**`,
+      );
+      console.log('   (진짜 배포 중이면 표시가 방금 갱신되거나 사이트가 흔들린다)');
+    } else {
+      막힘.push(
+        `${상대.project} 이 ${상대상태.status} 다 — 배포 중인 것을 밀면 둘 다 죽는다` +
+        (지난분 === null ? '' : ` (${Math.round(지난분)}분째 · 사이트 ${상대살았나 ? '200' : '안 열림'})`),
+      );
+    }
   }
   if (내상태.status === 'Starting') {
     막힘.push(`이 프로젝트가 이미 Starting 이다 — 앞선 배포가 아직 안 끝났다`);
