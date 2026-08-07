@@ -338,6 +338,52 @@ if (!LIVE) {
   );
 }
 
+// ── 2-x 지면이 부르는 자산이 실제로 그 자리에 있나 ──────────
+/**
+ * 🔴 **자산 이름을 `100y` 로 시작하게 지으면 조용히 엉뚱한 파일이 간다** (2026-08-08 실측).
+ *
+ *   server.mjs 는 `pathname.startsWith('/100y')` 이면 접두사를 **안 붙인다** —
+ *   「이미 붙었다」고 보기 때문이다. 그런데 `/100y.css` 도 그 조건에 걸린다.
+ *
+ *   ```
+ *   /style.css  →  dist/100y/style.css   ✅
+ *   /100y.css   →  dist/100y.css         ⛔ 그건 첫 화면 **HTML** 이다
+ *   ```
+ *
+ *   ⛔ 404 도 안 난다. **CSS 자리에 HTML 이 온다.** 지면이 민얼굴로 뜬다.
+ *   그래서 지면이 부르는 자산을 **server.mjs 와 같은 규칙으로 풀어** 파일이 있는지 본다.
+ */
+if (!LIVE) {
+  /* ⚠ server.mjs 의 규칙을 그대로 옮긴다. 2번 파일이라 고치지 않고 흉내만 낸다 */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\//;
+  const 접두사 = '/100y';
+  const 풀기 = (p) =>
+    접두사 && !공유경로.test(p) && !p.startsWith(접두사) ? (p === '/' ? 접두사 : 접두사 + p) : p;
+
+  const 걸린것 = [];
+  const 본자산 = new Set();
+  for (const p of 모든지면()) {
+    let 글;
+    try { 글 = fs.readFileSync(p, 'utf8'); } catch { continue; }
+    for (const m of 글.matchAll(/(?:href|src)="(\/[^"?#]+\.(?:css|js|png|jpg|jpeg|svg|webp|woff2?))(?:[?#][^"]*)?"/g)) {
+      const 주소 = m[1];
+      if (본자산.has(주소)) continue;
+      본자산.add(주소);
+      const 실제 = path.join(ROOT, 'dist', 풀기(주소));
+      if (!fs.existsSync(실제)) {
+        걸린것.push(`${주소} → dist${풀기(주소)} **없다**`);
+      } else if (/\.(css|js)$/.test(주소) && /^\s*<!doctype html/i.test(fs.readFileSync(실제, 'utf8').slice(0, 40))) {
+        걸린것.push(`${주소} → dist${풀기(주소)} 은 **HTML 이다**(자산이 아니다)`);
+      }
+    }
+  }
+  재기(
+    '지면이 부르는 자산이 그 자리에 있나',
+    걸린것.length === 0,
+    걸린것.length ? `⛔ ${걸린것.length}건 — ${걸린것[0]}` : `자산 ${본자산.size}가지 · 어긋난 것 없다`,
+  );
+}
+
 // ── 2-x 마크다운이 날것으로 찍히나 ─────────────────────────
 /**
  * 🔴 **원자료 문자열을 그대로 찍다가 서식 기호가 손님 화면에 나가는 자리**를 잡는다.
