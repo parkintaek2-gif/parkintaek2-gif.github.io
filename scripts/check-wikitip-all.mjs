@@ -40,6 +40,7 @@ const 검사 = [
   ['새 세 편이 자료와 맞나', 'check-three-new-articles.mjs'],
   ['더 낸 세 편이 자료와 맞나', 'check-three-more-articles.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
+  ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
 ];
 
 let 돈것 = 0;

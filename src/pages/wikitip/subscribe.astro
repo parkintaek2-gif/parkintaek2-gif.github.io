@@ -91,7 +91,9 @@ const DESC = 'K Culture Wire counts what public datasets publish about Korean po
   </p>
 
   <p class="who">
-    {PUBLISHER} &middot; <a href="/about">How we make these numbers</a> &middot;{' '}
+    {/* ⛔ 2026-08-08. 여기에 {PUBLISHER} 를 그대로 썼다 — 객체라 화면에 [object Object] 가 나갔다.
+        회사 이름이 그렇게 나가는 자리가 두 장 있었다. 등기부 영문 상호를 쓴다. */}
+    {PUBLISHER.legalName} &middot; <a href="/about">How we make these numbers</a> &middot;{' '}
     <a href="/corrections">Everything we have had to correct</a> &middot;{' '}
     <a href="/contact">Other ways to reach us</a>
   </p>
