@@ -23,6 +23,15 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+/**
+ * ⛔ 「이름이 같은 외국 작품」을 거르는 규칙은 **이미 한 곳에 있다.**
+ *   `scripts/lib/korean-netflix-titles.mjs`. 2026-08-07 아침에 /watched 가 14% 틀린
+ *   원인이 이 규칙이었고, 그때 한 곳으로 모았다.
+ *   **그런데 이 수집기는 그 규칙을 안 썼다.** 그래서 The Perfect Couple(미국) ·
+ *   Hunger(태국) · Teach You a Lesson(중국) · Friends(미국) 가 한국 작품으로 들어왔다.
+ *   새 스크립트가 **기존 규칙을 물려받지 않는 것**이 오늘 세 번째다. 손 규칙은 여기서 가져다 쓴다.
+ */
+import { NOT_KOREAN } from './lib/korean-netflix-titles.mjs';
 
 const DIR = path.resolve('archive/raw/netflix-top10');
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) korean titles keyed';
@@ -98,13 +107,43 @@ console.log(`넷플릭스 표에 뜬 제목 ${표제목.size.toLocaleString()}�
 const 위키 = await 한국작품();
 console.log(`위키데이터 한국 작품 이름 ${위키.size.toLocaleString()}개(이름표·문서명 둘 다 셈)`);
 
+/**
+ * 넷플릭스가 붙인 **언어 딱지**를 제목마다 만든다.
+ * 넷플릭스는 작품의 주 언어로 English / Non-English 차트를 가른다.
+ * 한국 작품이 영어 차트에 오르는 일은 사실상 없다 → **영어 차트로 확인된 제목은 뺀다.**
+ * ⚠ 한 제목이 양쪽에 다 나오면 **이름만 같은 두 작품**이다. 'both' 로 두고 세어서 남긴다.
+ */
+const 언어 = new Map();
+{
+  const tsv = fs.readdirSync(DIR).filter((f) => /^global-.*\.tsv$/.test(f)).sort().pop();
+  if (!tsv) { console.error('❌ 글로벌 TSV 가 없다 — 언어 딱지를 만들 수 없다'); process.exit(1); }
+  const 줄들 = fs.readFileSync(path.join(DIR, tsv), 'utf8').trim().split(/\r?\n/);
+  const 머리 = 줄들[0].split('\t');
+  const iT = 머리.indexOf('show_title'); const iC = 머리.indexOf('category');
+  for (const 줄 of 줄들.slice(1)) {
+    const c = 줄.split('\t');
+    const l = /Non-English/i.test(c[iC]) ? 'ne' : 'en';
+    const 전 = 언어.get(c[iT]);
+    언어.set(c[iT], 전 && 전 !== l ? 'both' : l);
+  }
+}
+
 const 맞춘것 = new Map();          // Q → 정보
 const 못맞춘것 = [];
+const 뺀것 = { 영어차트: [], 손으로: [], 이름겹침: [], 딱지없음: [] };
 for (const t of 표제목) {
   const v = 위키.get(t.toLowerCase());
-  if (v) 맞춘것.set(v.q, { ...v, 넷플릭스제목: t });
-  else 못맞춘것.push(t);
+  if (!v) { 못맞춘것.push(t); continue; }
+  if (NOT_KOREAN.has(t)) { 뺀것.손으로.push(t); continue; }
+  const l = 언어.get(t);
+  if (l === 'en') { 뺀것.영어차트.push(t); continue; }
+  /* ⛔ 'both' 는 **못 가른 것**이다. 남기되 세어서 파일에 적는다 — 지면이 그 수를 밝힌다. */
+  if (l === 'both') 뺀것.이름겹침.push(t);
+  if (l === undefined) 뺀것.딱지없음.push(t);
+  맞춘것.set(v.q, { ...v, 넷플릭스제목: t, 언어딱지: l ?? null });
 }
+console.log(`영어 차트로 확인돼 뺀 제목 ${뺀것.영어차트.length}개 · 손으로 뺀 것 ${뺀것.손으로.length}개`);
+console.log(`남겼지만 못 가른 것 — 이름 겹침 ${뺀것.이름겹침.length}개 · 언어 딱지 없음 ${뺀것.딱지없음.length}개`);
 
 const 옛길 = path.join(DIR, 'korean-titles.json');
 const 옛수 = fs.existsSync(옛길) ? JSON.parse(fs.readFileSync(옛길, 'utf8')).제목.length : 0;
@@ -133,6 +172,13 @@ fs.writeFileSync(산출, JSON.stringify({
   넷플릭스제목수: 표제목.size,
   맞춘작품수: 맞춘것.size,
   못맞춘제목수: 못맞춘것.length,
+  /** 뺀 것과 **못 가른 것**을 나눠 적는다. 뭉치면 「거른 줄 알았다」가 된다. */
+  뺀것: {
+    영어차트: 뺀것.영어차트.sort(), 손으로: 뺀것.손으로.sort(),
+  },
+  못가른것: {
+    이름겹침: 뺀것.이름겹침.sort(), 언어딱지없음수: 뺀것.딱지없음.length,
+  },
   /** 못 맞춘 제목 전부. 대부분 한국 작품이 아니지만, **세어 보라고 남긴다.** */
   못맞춘제목: 못맞춘것.sort(),
   작품: Object.fromEntries([...맞춘것].map(([q, v]) => [q, v])),

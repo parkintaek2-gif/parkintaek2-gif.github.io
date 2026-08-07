@@ -67,7 +67,11 @@ const 자리수 = Object.values(c.배우).reduce((s, v) => s + v.작품.length, 
 /* ── ② 빼기 표 — **줄째로**, 값은 다시 세서 ── */
 const 순 = Object.entries(c.배우).sort((a, b) => b[1].작품.length - a[1].작품.length);
 const 표 = [['none', 0], ['10 busiest', 10], ['20 busiest', 20],
-  ['34 busiest \\(everyone with 10\\+ titles\\)', 34], ['50 busiest', 50], ['100 busiest', 100]];
+  /* ⚠ 「10편 이상 나온 사람 전부」는 **세어서** 넣는다. 34 라고 손으로 적어 뒀다가
+     자료가 바뀌어 30명이 됐을 때 자와 기사가 같이 틀렸다. */
+  [`${Object.values(c.배우).filter((v) => v.작품.length >= 10).length} busiest \\(everyone with 10\\+ titles\\)`,
+    Object.values(c.배우).filter((v) => v.작품.length >= 10).length],
+  ['50 busiest', 50], ['100 busiest', 100]];
 for (const [이름, n] of 표) {
   const r = n ? 구조(new Set(순.slice(0, n).map(([q]) => q))) : 전부;
   const pc = (100 * r.가장큰 / r.작품수).toFixed(1);
@@ -100,16 +104,18 @@ const 낱말수 = (n) => {
   const n = 편수.filter((x) => x >= 10).length;
   본다('열 편 이상', new RegExp(`(${n}|${낱말수(n)}) actors appear in ten or more`, 'i').test(본문), `${n} · ${낱말수(n)}`);
 }
-for (const [이름, n] of [['Hwang Jung-min', 21], ['Ma Dong-seok', 18]]) {
+/* ⛔ 편수를 여기 손으로 적지 않는다. **자료에서 읽어** 그 수가 기사에 있는지 본다.
+   손으로 적으면 자료가 바뀔 때 자와 기사가 **같이** 틀린다. 방금 그랬다. */
+for (const 이름 of ['Hwang Jung-min', 'Ma Dong-seok']) {
   const v = Object.values(c.배우).find((x) => x.이름 === 이름);
-  본다(`${이름} 편수`, v && v.작품.length === n && 본문.includes(`${이름} appears in ${n}`)
-    || (v && v.작품.length === n && new RegExp(`${이름}[^.]{0,40}${n}`).test(본문)), v ? v.작품.length : '없다');
+  const n = v?.작품.length;
+  본다(`${이름} 편수`, !!v && new RegExp(`${이름}[^.]{0,60}?\\b${n}\\b`).test(본문), n ?? '자료에 없다');
 }
 
 /* ── ④ 이어진 작품 표 ── */
 const 이름으로 = (nm) => Object.entries(t.작품).find(([, v]) => v.이름 === nm || v.넷플릭스제목 === nm)?.[0];
-for (const [nm, 링크, 출연] of [['12.12: The Day', 112, 28], ['Mr. Sunshine', 105, 32],
-  ['Ashfall', 86, 12], ['Inside Men', 83, 13], ['Squid Game', 69, 16]]) {
+for (const [nm, 링크, 출연] of [['12.12: The Day', 110, 28], ['Mr. Sunshine', 104, 32],
+  ['Squid Game', 69, 16], ['The Thieves', 67, 11], ['Pinocchio', 64, 43]]) {
   const q = 이름으로(nm);
   const 실링크 = q ? 전부.이웃.get(q)?.size : undefined;
   const 실출연 = q ? Object.values(c.배우).filter((v) => v.작품.includes(q)).length : undefined;
