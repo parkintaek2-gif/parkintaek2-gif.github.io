@@ -28,6 +28,7 @@ const 검사 = [
   ['한국 작품 명단이 깨끗한가', 'check-korean-title-rosters.mjs'],
   ['세어 둔 한계를 지면이 말하나', 'check-disclosed-limits.mjs'],
   ['출연 겹침 기사가 자료와 맞나', 'check-one-body-article.mjs'],
+  ['밤에 낸 세 편이 자료와 맞나', 'check-three-title-articles.mjs'],
 ];
 
 let 돈것 = 0;
