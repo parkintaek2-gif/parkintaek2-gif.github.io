@@ -29,6 +29,7 @@ const 검사 = [
   ['세어 둔 한계를 지면이 말하나', 'check-disclosed-limits.mjs'],
   ['출연 겹침 기사가 자료와 맞나', 'check-one-body-article.mjs'],
   ['밤에 낸 세 편이 자료와 맞나', 'check-three-title-articles.mjs'],
+  ['정정 기사가 기록과 맞나', 'check-corrections-article.mjs'],
 ];
 
 let 돈것 = 0;
