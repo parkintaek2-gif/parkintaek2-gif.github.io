@@ -34,7 +34,6 @@ export const 주소들 = [
   'www.seoulmarkets.com',
   '100yearmap.com',
   'www.100yearmap.com',
-  'hundredyearmap.com',
   'kculturewire.com',
   'www.kculturewire.com',
   'wiki-tip.com',
@@ -42,6 +41,17 @@ export const 주소들 = [
   'klifemap.ai',
   'www.klifemap.ai',
 ];
+
+/**
+ * ⛔ **여기 있는 것은 안 잰다.** 왜 안 재는지를 적어 둔다 —
+ *    적어 두지 않으면 다음 사람이 「빠졌다」고 보고 다시 넣는다.
+ */
+export const 안재는것 = {
+  'hundredyearmap.com':
+    '2026-08-08 실측 — NS·SOA 가 아예 없다. **우리가 가진 도메인이 아니다.** ' +
+    'server.mjs 의 SITE_PREFIX 에 이름만 남아 있는데, 사는 것을 정하기 전에는 지면이 없다. ' +
+    '살 것이면 그때 이 목록에 넣는다.',
+};
 
 /** 인증서가 이 이름을 덮나. `*.a.b` 는 `c.a.b` 만 덮고 `a.b` 나 `d.c.a.b` 는 못 덮는다 */
 export function 이름이덮이나(호스트, 이름목록) {
