@@ -139,6 +139,39 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
     }
   }
 
+  /* ── 사는 길이 이어지나 ──
+     2번 지시(2026-08-08 07:3x): 「손님이 되어 /data 에서 한 벌을 사는 데까지 걸으십시오.
+     누르는 곳마다 도착지가 있나 · 값이 보이나 · 신청이 실제로 접수되나」
+     ⛔ 07:5x 에 걸어 보니 막힌 칸이 셋이었다 —
+        ① 첫 화면 **본문**에 /data 가 없었다(꼬리말에만) ② 언제 답하는지 안 적었다
+        ③ 오늘 바로 건넬 수 있는 벌을 만들어 놓고 **지면이 그것을 몰랐다**
+     ⚠ 값은 아직 사장님 손이라 「값이 있나」는 안 본다. **값이 없다고 말하나**를 본다. */
+  {
+    const 첫 = fs.existsSync(첫화면) ? fs.readFileSync(첫화면, 'utf8') : '';
+    const 본문부 = 첫.slice(0, 첫.lastIndexOf('<footer'));
+    if (!본문부.includes('href="/data"')) {
+      문제.push('🔴 첫 화면 **본문**에 /data 로 가는 길이 없다 — 꼬리말까지 안 내리는 손님은 자료를 파는 줄 모른다');
+    }
+    const dp = `${D}/data.html`;
+    if (!fs.existsSync(dp)) {
+      문제.push('🔴 /data 가 없다 — 파는 것에 닿을 주소가 사라졌다');
+    } else {
+      const t = 본문(fs.readFileSync(dp, 'utf8'));
+      const 있어야 = [
+        [/reply within/i, '언제 답하는지'],
+        [/ready to hand over today/i, '오늘 바로 건넬 수 있는 것이 무엇인지'],
+        [/not put a price here/i, '값이 아직 없다는 것'],
+        [/mailto:/i, null],
+      ];
+      for (const [re, 무엇] of 있어야) {
+        if (무엇 && !re.test(t)) 문제.push(`/data 가 «${무엇}»를 말하지 않는다 — 손님이 기다릴지 딴 데를 볼지 못 정한다`);
+      }
+      if (!/mailto:/i.test(fs.readFileSync(dp, 'utf8'))) {
+        문제.push('🔴 /data 에 신청할 곳이 없다 — 읽고 나서 갈 데가 없다');
+      }
+    }
+  }
+
   console.log(`걸어 본 것 — 지면 ${지면.length}장 · 기사 ${기사.length}편`);
   if (문제.length) {
     console.log(`\n⛔ 손님 걸음 — ${문제.length}건`);
