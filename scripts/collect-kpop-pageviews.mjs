@@ -26,7 +26,7 @@ import { 날짜, 한명 } from './collect-star-pageviews.mjs';
 const OUT = path.resolve('archive/raw/star-pageviews');
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) k-pop attention';
 const SPARQL = 'https://query.wikidata.org/sparql';
-const 간격ms = 120;
+const 간격ms = 250;
 const 창 = 30;
 
 /** 직업 코드 — 가수 · 래퍼 · 작곡가 · 음악가. 배우는 일부러 뺀다(그쪽은 /actors 다). */
@@ -68,8 +68,19 @@ async function 한질의(where, kind) {
 }
 
 async function 명단() {
+  /**
+   * ⚠ `wdt:P31 wd:Q215380`(음악 그룹) **하나만** 쓰면 K팝의 대부분이 빠진다.
+   *   블랙핑크는 위키데이터에 **girl group 으로만** 달려 있고 musical group 이 없다.
+   *   처음에 그렇게 뽑았더니 412팀이 나왔고 그 안에
+   *   **Twice · Blackpink · 소녀시대 · aespa · NewJeans · IVE 가 전부 없었다.**
+   *   K팝 지면에 블랙핑크가 없으면 그 지면은 틀린 것이다.
+   *
+   *   `P31/P279*` 로 **하위 유형까지** 훑는다 — girl group · boy band 가 그렇게 들어온다.
+   *   412 → 816팀. 위 여섯이 전부 잡히는 것을 눈으로 확인했다.
+   *   질의는 2.9초로 여전히 빠르다.
+   */
   const 조각 = [
-    ['?item wdt:P31 wd:Q215380 ; wdt:P495 wd:Q884 .', 'group'],
+    ['?item wdt:P31/wdt:P279* wd:Q215380 ; wdt:P495 wd:Q884 .', 'group'],
     ...직업.map((o) => [`?item wdt:P31 wd:Q5 ; wdt:P27 wd:Q884 ; wdt:P106 ${o} .`, 'person']),
   ];
   /* 같은 이름이 두 갈래로 오면 사람 쪽을 남긴다 — 그룹 판정이 더 헐겁다. */
@@ -114,16 +125,40 @@ const 실패이유 = new Map();
  * ⛔ 더 늘리지 않는다. 위키미디어는 우리에게 키도 안 받고 열어 준 곳이다.
  *    빨리 받겠다고 남의 서버를 두드리지 않는다. 여섯이면 초당 스물 남짓이다.
  */
-const 동시 = 6;
+/**
+ * ⚠ 여섯 줄로 두드렸더니 **2,362건 중 2,164건이 429(속도 제한)** 로 튕겼다.
+ *   빨리 받으려다 남의 서버에 무례했다. **두 줄로 줄이고 간격을 늘린다.**
+ *   초당 여덟 번쯤이다. 5분이면 끝나고, 그 정도면 서로 편하다.
+ *
+ * ⚠ 429 는 **실패가 아니라 「천천히 하라」**다. 실패로 세면 남의 말을 우리 잘못으로 적는 것이다.
+ *   기다렸다 다시 부른다. 세 번까지 기다리고, 그래도 안 되면 그때 실패로 센다.
+ */
+const 동시 = 2;
+const 뜸들이기 = [2000, 6000, 15000];
 let 다음 = 0;
+let 참은횟수 = 0;
+
+async function 참고부르기(name) {
+  for (let 시도 = 0; ; 시도++) {
+    try {
+      /* 한명() 은 이미 합·하루평균·최고·상승배수까지 낸 **객체**를 돌려준다.
+         일별 배열이 아니다. 여기서 다시 계산하지 않는다 — 두 곳에서 세면 언젠가 갈라진다. */
+      return await 한명(name, 날짜(시작), 날짜(끝));
+    } catch (e) {
+      const 속도제한 = /429/.test(String(e.message));
+      if (!속도제한 || 시도 >= 뜸들이기.length) throw e;
+      참은횟수++;
+      await new Promise((s) => setTimeout(s, 뜸들이기[시도]));
+    }
+  }
+}
+
 async function 한줄() {
   while (다음 < roster.length) {
     const i = 다음++;
     const p = roster[i];
     try {
-      /* 한명() 은 이미 합·하루평균·최고·상승배수까지 낸 **객체**를 돌려준다.
-         일별 배열이 아니다. 여기서 다시 계산하지 않는다 — 두 곳에서 세면 언젠가 갈라진다. */
-      const v = await 한명(p.name, 날짜(시작), 날짜(끝));
+      const v = await 참고부르기(p.name);
       if (v === null) { 문서없음++; }
       else { 결과.push({ ...v, 갈래: p.kind }); 잡힘++; }
     } catch (e) {
@@ -137,6 +172,7 @@ async function 한줄() {
 }
 await Promise.all(Array.from({ length: 동시 }, () => 한줄()));
 process.stdout.write('\n');
+if (참은횟수) console.log(`⏳ 429 로 기다렸다 다시 부른 횟수 ${참은횟수} — 실패가 아니라 예의다`);
 
 if (실패) {
   console.log(`⚠ 부르다 실패 ${실패}건 — ${[...실패이유].map(([k, n]) => `${k}×${n}`).join(' · ')}`);
