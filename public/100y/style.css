@@ -249,3 +249,35 @@
     }
     /* 화면에서는 숨긴다 */
     .printurl { display: none; }
+
+/* ── 퍼짐 띠 — 시·군·구 한 벌 지면(/report/area/…) ─────────────────────
+   ⛔ **등수를 그리지 않는다.** 점이 놓인 자리만 보인다.
+   ⚠ 점이 겹칠 수 있다. 겹치는 것도 정보다(그 구간에 학교가 몰려 있다는 뜻) —
+     억지로 벌리면 자리가 거짓이 된다. 반투명으로 두어 겹침이 진하게 보이게 한다. */
+.spread { margin: 14px 0 6px; }
+.spread-line {
+  position: relative;
+  height: 34px;
+  border-bottom: 1px solid var(--line);
+}
+.spread-dot {
+  position: absolute;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.72;
+}
+.spread-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+@media print {
+  .spread-dot { background: #000; opacity: 1; }
+  .spread-line { border-bottom: 1pt solid #000; }
+}
