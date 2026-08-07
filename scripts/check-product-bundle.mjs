@@ -94,7 +94,45 @@ if (process.argv[1] && process.argv[1].endsWith('check-product-bundle.mjs')) {
     }
   }
 
-  /* ④ 값은 아직 안 적혀 있어야 한다 — 사장님 판단 전이다 */
+  /* ── ④ 라이선스가 안 끝났으면 **파일을 열지 못하게 막는다** ──
+     2026-08-08. 라이선스 대장에서 Netflix Tudum 재배포 조건이 ⬜ 미확인이다.
+     지금은 한 벌이 `docs/` 안에만 있어 손님이 못 받는다 — 그래서 안전하다.
+     ⛔ 위험한 것은 **다음 사람이 그 사정을 모르고 파일을 웹으로 여는 것**이다.
+        「라이선스는 받기 전에 본다」를 사람 기억에 맡기지 않고 여기서 막는다.
+     ⚠ 확인이 끝나 대장이 🟢 가 되면 이 규칙은 저절로 풀린다 — 대장을 읽어서 판단한다. */
+  {
+    const 대장길 = 'docs/데이터-라이선스-대장.md';
+    const 대장 = fs.existsSync(대장길) ? fs.readFileSync(대장길, 'utf8') : '';
+    const 넷플릭스줄 = 대장.split('\n').find((l) => /^\|\s*Netflix Top10/.test(l)) ?? '';
+    const 안끝남 = !넷플릭스줄 || /⬜|🔴/.test(넷플릭스줄);
+    /* 웹으로 나가는 자리 — public/ 과 라우트. 여기에 한 벌 CSV 이름이 있으면 열린 것이다. */
+    const 웹자리 = ['public', 'src/pages/wikitip'];
+    const 넷플릭스표 = ['korean-title-panel.csv', 'cast-title-join.csv'];
+    if (안끝남) {
+      for (const d of 웹자리) {
+        if (!fs.existsSync(d)) continue;
+        const 안 = fs.readdirSync(d, { recursive: true }).map(String);
+        for (const 표 of 넷플릭스표) {
+          if (안.some((f) => f.includes(표) || f.includes(표.replace('.csv', '.csv.ts')))) {
+            넘음.push(`⛔ ${d} 에 «${표}» 가 있다 — 대장의 Netflix 재배포 조건이 아직 안 끝났다(${넷플릭스줄.trim().slice(0, 60)})`);
+          }
+        }
+      }
+      /* 지면이 「내려받으라」고 말하고 있지도 않아야 한다 */
+      const 데이터지면 = 'src/pages/wikitip/data.astro';
+      if (fs.existsSync(데이터지면)) {
+        const g = fs.readFileSync(데이터지면, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/<!--[\s\S]*?-->/g, ' ');
+        if (/download the files|Download the bundle|href="[^"]*\.csv"/i.test(g)) {
+          넘음.push('⛔ /data 가 파일을 내려받게 한다 — 대장의 Netflix 조건이 아직 안 끝났다');
+        }
+        if (!/still being confirmed|not offering the files/i.test(g)) {
+          넘음.push('/data 가 「파일은 아직 안 연다」는 까닭을 말하지 않는다. 안 적으면 손님이 그냥 없는 줄 안다');
+        }
+      }
+    }
+  }
+
+  /* ⑤ 값은 아직 안 적혀 있어야 한다 — 사장님 판단 전이다 */
   if (/\bUSD|\$[0-9]|₩[0-9]|원\/월|price:/i.test(readme)) {
     넘음.push('README 에 값이 적혀 있다. 값은 사장님 판단이고 아직 안 나왔다');
   }
