@@ -86,3 +86,7 @@ Two smaller limits. "Appears in nothing else" means nothing else **in this set**
 that reached a Netflix Top 10, not a career. And reality formats list participants under the same
 cast property as actors, which is why *The Influencer* sits where it does; that is Wikidata's
 modelling, not a finding about casting.
+
+---
+
+Half the people appear once. The pairs that do repeat are barely more common than chance. [Read the null model behind that claim →](/article/korean-casting-barely-repeats-itself)

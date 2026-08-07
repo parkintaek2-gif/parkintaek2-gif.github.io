@@ -74,3 +74,7 @@ draws at film's overall share of the set. Nobody's career works that way. It is 
 
 **And this is only what charted.** A film actor whose work never reached a Netflix Top 10, or who
 works mainly in theatre or advertising, is either absent or looks like something they are not.
+
+---
+
+If the wall between formats is thin, is there a wall between people — do the same actors keep working together? [Read how rarely a casting pair repeats →](/article/korean-casting-barely-repeats-itself)

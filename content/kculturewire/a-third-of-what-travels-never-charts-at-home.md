@@ -96,3 +96,7 @@ Korean work — and even for that we treat absence as a reason to look, never as
 **And 140 is a floor, not a count of failures.** It includes every title released before July 2021,
 which had its domestic run before this data starts. We cannot separate those out, so the honest
 reading of the 35% is: at most that many skipped Korea's chart, and some of them never had the chance.
+
+---
+
+If a title can travel without playing at home, how much of the rest of the panel can we even check? [Read the half we cannot verify by language →](/article/half-our-panel-cannot-be-verified)

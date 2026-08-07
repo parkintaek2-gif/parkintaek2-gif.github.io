@@ -120,3 +120,7 @@ pageview history can be re-fetched at any time; the join we discarded has to be 
 scratch, which is the more expensive of the two mistakes and the one we made.
 
 We would rather print that than report the count as though it were the whole story.
+
+---
+
+More titles buys a floor. Does the kind of title matter as well as the count? [Read what Korea’s own chart adds →](/article/playing-at-home-predicts-being-looked-up-abroad)

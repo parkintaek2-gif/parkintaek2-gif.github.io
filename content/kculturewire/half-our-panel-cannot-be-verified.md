@@ -100,3 +100,7 @@ stops being shown.
 That check was written on 7 August 2026 after we found that the figure had been computed for weeks
 and displayed nowhere. Counting a limit and showing it are different things, and until that day we
 had been treating them as the same.
+
+---
+
+Netflix has a second chart we had not used, and it settles some of these titles. [Read what Korea’s own chart says about them →](/article/a-third-of-what-travels-never-charts-at-home)

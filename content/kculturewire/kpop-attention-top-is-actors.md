@@ -100,3 +100,7 @@ It also cannot say **why** a page was opened. So Ji-sub's 221,480 openings are n
 people were looking for an actor rather than a singer. They are evidence that people were looking for
 So Ji-sub. The split in the table above is a split by credit, not by intent, and no data we can reach
 turns one into the other.
+
+---
+
+If the top of music attention is actors, does screen work carry back into it? [Read what predicts an actor being looked up →](/article/playing-at-home-predicts-being-looked-up-abroad)

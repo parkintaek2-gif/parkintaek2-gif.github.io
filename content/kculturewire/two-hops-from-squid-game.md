@@ -75,3 +75,7 @@ the true structure of the whole 906 is something this data cannot show.
 
 If anything, the direction of that error is knowable: adding cast can only create hops, never remove
 them. The catalogue is at least this connected, and probably more.
+
+---
+
+Two hops is short. It is short because of pairs that almost never repeat. [Read how rarely a casting pair works together twice →](/article/korean-casting-barely-repeats-itself)

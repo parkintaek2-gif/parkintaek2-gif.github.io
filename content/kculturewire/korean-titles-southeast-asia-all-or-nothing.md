@@ -75,3 +75,7 @@ Part of that is mechanical and we should say so: a film is one sitting and a ser
 "Korean content is popular in Southeast Asia" is true and tells you nothing about any particular title. What the chart data says is narrower and more usable: a Korean title released into this region has roughly a **45% chance of behaving as a regional release** and a **31% chance of being a single-market event**, with relatively little chance of the middle outcome that intuition expects.
 
 And 149 of the 397 — **37.5%** — reached number one somewhere in the region at least once. Charting at all in Southeast Asia is hard; charting at the very top, for the titles that get there, is common.
+
+---
+
+All-or-nothing abroad. At home the split is different again. [Read the 140 that never charted in Korea →](/article/a-third-of-what-travels-never-charts-at-home)

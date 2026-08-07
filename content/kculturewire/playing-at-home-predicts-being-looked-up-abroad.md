@@ -100,3 +100,7 @@ one we printed.** If Netflix-commissioned casts are, it is smaller. We cannot te
 absent rows are absent by exactly the mechanism we would need to measure them.
 
 We print the ratio and we print this paragraph, and we would rather you read both.
+
+---
+
+This rests on which titles played at home, which is itself a finding. [Read the 140 titles that never charted in Korea →](/article/a-third-of-what-travels-never-charts-at-home)

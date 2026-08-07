@@ -81,3 +81,7 @@ series than a single "Korean wave export" figure.
 **And this is two categories, not the whole industry.** Games are larger than both and games are not
 in this comparison. We picked these two because they are the pair most often treated as one story;
 the survey does not treat them as one, and neither should a forecast.
+
+---
+
+Same size, unrelated motion. The viewing figures tell a third story again. [Read exports grew, viewing did not →](/article/korea-exports-grew-viewing-did-not)

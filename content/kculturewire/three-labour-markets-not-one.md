@@ -78,3 +78,7 @@ These are 248 listed companies. **Most Korean content production is private** â€
 much of what reaches a Netflix Top 10 file nothing here at all. Tenure is what the filing says, not a
 measure of whether people want to stay. And "publishing" is a filing category: Korean game companies
 report under it, which is why the largest group by staff is named for a form and not for a medium.
+
+---
+
+Three markets by tenure and pay. By gender the split inside the sector is larger still. [Read the 22.8-point gap inside one industry â†’](/article/women-in-korean-content-companies)

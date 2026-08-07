@@ -65,3 +65,7 @@ Cultural exports are usually discussed one title at a time — this drama charte
 At the level of what the industries actually sell abroad, the two are close enough that the ranking has flipped three times in thirteen years, and the current gap opened up in the last two of them.
 
 **One caution.** This is not K-pop against K-drama. The music series covers the entire music industry's exports and the broadcast series covers programme sales; each contains activity most readers would not picture under those names, and neither survey separates a genre. What the comparison supports is the size of two trades against each other — not a verdict on which art form travels better.
+
+---
+
+Outselling is one comparison. Moving together is another, and they give opposite answers. [Read why the two series do not track each other →](/article/music-and-broadcast-exports-are-the-same-size)

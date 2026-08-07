@@ -90,3 +90,7 @@ later years when they appear.
 **And the two 28s are different sets.** Twenty-eight businesses are platforms; twenty-eight are
 publishers by main line of work. They are separate cuts of the same 396 and the coincidence of the
 number means nothing.
+
+---
+
+Twenty-eight platforms and 368 suppliers is one cut. The survey has another. [Read the two economies inside webtoons →](/article/korea-webtoon-two-economies)

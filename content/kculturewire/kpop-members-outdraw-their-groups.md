@@ -130,3 +130,7 @@ published openly and daily for everyone in this panel.
 
 Thirty days is also all we have. We began collecting daily this month. A month from now this article
 could be written about trends; today it cannot.
+
+---
+
+Members outdraw groups. Across the whole field, though, no single act is large. [Read how concentrated K-pop attention really is →](/article/music-has-no-squid-game-and-is-more-concentrated-anyway)

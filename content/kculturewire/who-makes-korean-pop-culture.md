@@ -83,3 +83,7 @@ Within each group the tenure range is wide — 2.19 to 6.89 years in entertainme
 An average tenure figure moves for two opposite reasons: people leaving, and people arriving. A company that doubles its headcount in a year halves its average tenure without a single resignation. HYBE at 2.96 years and Krafton at 3.20 are both companies that grew hard. We cannot separate the two causes from one number a year, so we do not rank these companies and we do not call any of them a bad place to work.
 
 What the numbers do support is the size of the thing. Fourteen companies. 15,072 people. That is the listed core of an industry whose output the world has now watched for 23.7 billion hours — and it is roughly the payroll of a single mid-sized Korean manufacturer.
+
+---
+
+The sector is not one workforce, and the filings say so three different ways. [Read three labour markets, not one →](/article/three-labour-markets-not-one)

@@ -115,3 +115,7 @@ which would be arithmetic rather than attention.
 
 And the underlying figure remains what it has been throughout: openings of an English Wikipedia
 article. Not streams, not sales, not chart position, and not attention inside Korea.
+
+---
+
+Level or event is one shape. The shape of the whole field is another. [Read why music is the steeper distribution →](/article/music-has-no-squid-game-and-is-more-concentrated-anyway)

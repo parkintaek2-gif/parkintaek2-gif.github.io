@@ -74,3 +74,7 @@ That sentence is worth stating precisely, because it is easy to over-read.
 **And short tenure is not a verdict.** An average tenure figure falls when people leave and equally when people arrive. A firm that doubles its headcount halves its average tenure without one resignation. The companies taking this trade are the ones that have been hiring.
 
 What survives all of that is still worth knowing. The institutions that carried Korean television abroad for a generation now account for one dollar in twenty-six of that trade. The work went somewhere, and where it went, people have not been there long.
+
+---
+
+The people inside these companies are not one workforce either. [Read the three labour markets in one sector →](/article/three-labour-markets-not-one)

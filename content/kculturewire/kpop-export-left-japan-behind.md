@@ -69,3 +69,7 @@ The 2024 figure is the one to sit with: exports grew **47.4% in a single year**,
 ---
 
 **출처: 국가데이터처 KOSIS, 한국콘텐츠진흥원 「콘텐츠산업조사」, 기준 2024년.**
+
+---
+
+Music export grew past Japan. It also stayed level with a completely different industry. [Read music beside broadcast, thirteen years →](/article/music-and-broadcast-exports-are-the-same-size)

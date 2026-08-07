@@ -119,6 +119,26 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
     }
   }
 
+  /* ── 기사 **본문**에서 나가는 길이 있나 ──
+     ⛔ 2026-08-08 06:3x. 2번이 물어서 재 보니 **36편 중 31편**에 본문 링크가 하나도 없었다.
+        위 ③ 규칙은 꼬리말·이웃기사까지 세어서 **늘 통과했다** — 재는 자리가 틀렸다.
+     ⭐ 검색으로 온 사람은 첫 화면을 안 거치고 기사 한 장에 곧장 떨어진다.
+        거기서 나갈 길이 없으면 한 장만 보고 간다. 그래서 **본문**을 따로 잰다.
+     ⚠ 앞말(frontmatter)은 뺀다. 거기 적힌 pages 는 지면이 거는 것이지 손님이 누르는 것이 아니다. */
+  {
+    const CD = 'content/kculturewire';
+    if (fs.existsSync(CD)) {
+      const 없는 = [];
+      for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
+        const 본문md = fs.readFileSync(path.join(CD, f), 'utf8').replace(/^---[\s\S]*?\n---\n/, '');
+        if (![...본문md.matchAll(/\]\((\/[^)]*)\)/g)].length) 없는.push(f.replace('.md', ''));
+      }
+      if (없는.length) {
+        문제.push(`🔴 기사 ${없는.length}편의 **본문**에 나가는 길이 하나도 없다: ${없는.slice(0, 3).join(' · ')}${없는.length > 3 ? ` 외 ${없는.length - 3}편` : ''}`);
+      }
+    }
+  }
+
   console.log(`걸어 본 것 — 지면 ${지면.length}장 · 기사 ${기사.length}편`);
   if (문제.length) {
     console.log(`\n⛔ 손님 걸음 — ${문제.length}건`);

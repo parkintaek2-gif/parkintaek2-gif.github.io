@@ -74,3 +74,7 @@ So the three things are separate, and it is worth keeping them apart when someon
 - **How hard each individual game is** — Korea, clearly, and consistently.
 
 Only the third is about the depth of the player base, and it is the one that does not show up in a highlight reel.
+
+---
+
+If the win rate at the top is set by who you have to play, what is the rank itself worth in points? [Read why the same rank costs 2.5× more in Europe →](/article/what-it-costs-to-be-top-300)

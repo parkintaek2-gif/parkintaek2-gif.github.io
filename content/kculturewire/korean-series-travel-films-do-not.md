@@ -66,3 +66,7 @@ unverified rows. They are counted and named on `/titles` rather than quietly dro
 
 Everything above is chart presence. It is not viewing, it is not revenue, and it is one service.
 A Korean film absent from these lists may be doing well somewhere we cannot see.
+
+---
+
+Series travel further abroad. They also behave differently at home. [Read which titles skip Korea’s own chart →](/article/a-third-of-what-travels-never-charts-at-home)

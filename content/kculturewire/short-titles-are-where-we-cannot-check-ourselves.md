@@ -135,3 +135,7 @@ two weeks — so the risk sits in the tail rather than the top. It is still ther
 The one thing we can say without hedging is the size of what we do not know, which is what this piece
 is. A panel that reported 397 titles and said nothing else would be a cleaner-looking number and a
 worse one.
+
+---
+
+Every panel here carries its verification columns with it. [Read what is in the data and what is missing from it →](/data)

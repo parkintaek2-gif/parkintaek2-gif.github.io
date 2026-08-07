@@ -69,3 +69,7 @@ way in all three groups, and we do not know why it is what it is.
 **And it is listed companies only.** Much of Korean film and drama production is private and files
 none of this. The 10,540 people in the film row are the ones inside listed companies, which is not
 the same as the people who make Korean films.
+
+---
+
+Gender splits the sector one way. Tenure and pay split it another. [Read the three labour markets underneath →](/article/three-labour-markets-not-one)

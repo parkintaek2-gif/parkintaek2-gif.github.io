@@ -94,3 +94,7 @@ a fact about Korean casting.
 
 The shuffle is what turns it into a claim: **not "repeats are rare" but "repeats are barely more
 common than they would be if nobody chose anybody."**
+
+---
+
+If pairings are close to random, what holds the network of Korean productions together at all? [Read how it stays one connected body →](/article/korean-netflix-titles-one-body)

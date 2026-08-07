@@ -85,3 +85,7 @@ names change and identifiers do not. Matching these two sources on title text at
 
 The file is in our data bundle as `cast-title-join.csv`, with a column dictionary that says what a
 blank cell means in each column, and a coverage file that carries every number above.
+
+---
+
+These limits sit under every network figure we publish, and under the tables themselves. [Read what is in the data and what is missing →](/data)

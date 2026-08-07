@@ -79,3 +79,7 @@ between Japan and North America.
 **And four days is the window.** We began daily collection on 2 August 2026. The ordering of regions by
 challenger LP was the same on all four days, which tells us the table is not one afternoon's reading
 and tells us nothing at all about direction.
+
+---
+
+The points differ by region. So does who stays in the tier once they arrive. [Read where players stay and where they pass through →](/article/the-top-tier-is-where-players-stay)

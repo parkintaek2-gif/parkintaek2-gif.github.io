@@ -79,3 +79,7 @@ Counting the businesses rather than the market is the difference between knowing
 ---
 
 **출처: 국가데이터처 KOSIS, 한국콘텐츠진흥원 「웹툰산업실태조사」, 기준 2024년.**
+
+---
+
+Two economies, and the survey counts them separately. [Read what the 396 businesses actually earn →](/article/twenty-eight-webtoon-platforms)

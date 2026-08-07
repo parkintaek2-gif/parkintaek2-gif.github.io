@@ -88,3 +88,7 @@ viewing hour is an hour.
 row at all, so it is invisible here — and we cannot say how many are missing, because counting them
 would require the list we do not have. If those acts are systematically small, the true music
 distribution is steeper still than 67.0%.
+
+---
+
+Screen has the giant. Whether a title is even Korean is the harder question underneath it. [Read what we cannot verify about the catalogue →](/article/short-titles-are-where-we-cannot-check-ourselves)

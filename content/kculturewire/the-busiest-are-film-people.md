@@ -77,3 +77,7 @@ how much, and we are not going to model it.
 
 **And this is only what charted.** A television actor with thirty credits, none of which reached a
 Netflix Top 10, does not appear at all.
+
+---
+
+The busiest are film people. Removing them does not break anything. [Read why the network holds without them →](/article/korean-netflix-titles-one-body)

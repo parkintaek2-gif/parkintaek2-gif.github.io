@@ -105,3 +105,7 @@ with them the links to everything else those people have been in.
 And this is cast alone. Directors, writers, producers, studios and agencies are not in it. If the
 question is whether Korean screen output is made by an overlapping pool of people, cast is one
 answer, and almost certainly the most conservative one available.
+
+---
+
+The body holds without its busiest people. It is built from pairs — and those barely repeat. [Read how rarely two actors work together twice →](/article/korean-casting-barely-repeats-itself)

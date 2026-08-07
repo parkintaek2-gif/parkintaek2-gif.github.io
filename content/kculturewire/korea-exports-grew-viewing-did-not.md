@@ -81,3 +81,7 @@ Export revenue counts what Korean companies were paid. Chart hours count what pe
 Netflix publishes ten rows a week and nothing beneath them. **A Korean title watched heavily but never in the top ten does not exist in this data.** If Korean viewing is growing below the chart line — which is exactly what a broader, less hit-driven catalogue would look like — none of the numbers above would move.
 
 So the honest statement is narrower than the headline anyone would want: **Korean presence at the very top of the global chart has been flat for four years, while Korean content export revenue has not been.** Whether that is a plateau in demand or a change in where demand shows up, this data cannot say — and neither can anyone else's, because nobody publishes the part that would settle it.
+
+---
+
+Exports grew; so did another category, at almost exactly the same rate and for unrelated reasons. [Read music and broadcast, side by side for thirteen years →](/article/music-and-broadcast-exports-are-the-same-size)

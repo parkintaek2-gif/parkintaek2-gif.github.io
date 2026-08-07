@@ -75,3 +75,7 @@ A title is a single object that everyone either watched or did not. Attention on
 That is a practical point for anyone reading Korean entertainment coverage. Rankings of titles and rankings of people look like the same kind of list and are not. A title chart is dominated by its top row and the rest is a long tail. A person chart is a gentle slope where the difference between first and fiftieth is a factor of seven.
 
 **One caution that applies to every figure above.** 336 of the 1,344 performers on our roster have no English Wikipedia article, so they cannot be measured at all — they are not in the 1,008 and are not counted as zero. And a pageview count records that someone looked, never why. A month with one large piece of news about one person would redraw the top of this table entirely.
+
+---
+
+Attention is flat across the top. Something else is not: whether the work played in Korea. [Read the signal that predicts being looked up abroad →](/article/playing-at-home-predicts-being-looked-up-abroad)
