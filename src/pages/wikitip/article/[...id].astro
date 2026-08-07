@@ -30,6 +30,17 @@ const { entry } = Astro.props;
 const d = entry.data;
 const { Content } = await render(entry);
 
+/**
+ * 같은 자료 지면을 쓴 다른 기사. **규칙으로 뽑는다** — 손으로 고르면 다음에 빠진다.
+ * ⛔ 순위로 세우지 않는다. 낸 순서다.
+ */
+const 모든기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft);
+const 전체기사수 = 모든기사.length;
+const 이웃 = 모든기사
+  .filter((e) => e.id !== entry.id && e.data.pages.some((p) => d.pages.includes(p)))
+  .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate))
+  .slice(0, 4);
+
 const url = `https://www.kculturewire.com/article/${entry.id}`;
 const iso = (v: Date) => new Date(v).toISOString();
 const 날짜 = (v: Date) =>
@@ -108,7 +119,33 @@ const jsonLd = {
       )}
     </section>
 
-    <p class="back"><a href="/">&larr; Back to the front page</a></p>
+    <!--
+      ── 나가는 길 (2026-08-07 18:0x, 손님으로 걸어 보고) ──────────
+      기사에서 나가는 링크가 **셋뿐**이었다 — / · /about · /corrections.
+      **자기가 쓴 자료 지면으로도, 다른 기사로도 안 갔다.** 지면→기사는 걸리는데
+      기사→지면이 안 걸리는 한쪽 길이었다. 다 읽으면 막다른 곳이었다.
+
+      ⛔ 「관련 기사」를 손으로 고르지 않는다. `pages` 를 공유하는 기사를 규칙으로 뽑는다.
+         손으로 고르면 다음 기사를 낼 때 빠진다 — 8/7 에 12편 중 7편이 그랬다.
+    -->
+    {d.pages.length > 0 && (
+      <section class="onward">
+        <h3>The data behind this</h3>
+        <ul>{d.pages.map((p) => <li><a href={p}>{p}</a></li>)}</ul>
+      </section>
+    )}
+
+    {이웃.length > 0 && (
+      <section class="onward">
+        <h3>Written from the same data</h3>
+        <ul>{이웃.map((e) => <li><a href={`/article/${e.id}`}>{e.data.title}</a></li>)}</ul>
+      </section>
+    )}
+
+    <p class="back">
+      <a href="/articles">&larr; All {전체기사수} articles</a>
+      <span aria-hidden="true"> · </span><a href="/">Front page</a>
+    </p>
   </article>
 </WikiTip>
 
@@ -143,6 +180,12 @@ const jsonLd = {
   .body :global(th) { font-weight: 700; color: var(--muted); font-size: .8rem;
                       letter-spacing: .03em; text-transform: uppercase; }
   .body :global(td:nth-child(n+3)) { text-align: right; font-variant-numeric: tabular-nums; }
+
+  /* 나가는 길 — 다 읽은 사람이 다음으로 갈 자리. 8/7 까지 없었다. */
+  .onward { margin-top: 2.2rem; }
+  .onward h3 { font-size: 1rem; margin: 0 0 .5rem; }
+  .onward ul { margin: 0; padding-left: 1.1rem; line-height: 1.8; }
+  .onward a { color: var(--accent); }
 
   .notes { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
            font-size: .88rem; color: var(--muted); }

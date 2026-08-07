@@ -32,6 +32,7 @@ export const GET: APIRoute = async () => {
     /* 기사 목록. 2026-08-07 에 만들었다 — 그전엔 404 라 15편 중 3편만 닿을 수 있었다. */
     { path: '/articles', priority: '0.8', changefreq: 'daily' },
     { path: '/subscribe', priority: '0.8', changefreq: 'monthly' },
+    { path: '/contact', priority: '0.7', changefreq: 'monthly' },
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
