@@ -224,25 +224,79 @@ async function 새주소찾기(최대 = 3) {
   }
   if (잰다.length) return 잰다;
 
-  // ② 새 지면이 없으면 — **글자만 고친 배포**다. 바뀔 지면의 지문으로 판정한다.
+  // ② 새 지면이 없으면 — **자료·글자만 고친 배포**다. 바뀐 지면의 지문으로 판정한다.
   //    ⭐ 컨테이너 빌드가 내 빌드와 **바이트까지 같은 것**을 확인했다(2026-08-07 08:3x).
-  //      그래서 dist 의 지문과 라이브의 지문을 견줄 수 있다. 지금 다르면 이번에 바뀔 지면이고,
-  //      배포 뒤 같아지면 나간 것이다. 정정만 있는 배포가 600초를 태우던 마지막 구멍이다.
+  //
+  //    🔴 2026-08-07 16:0x — 여기에 구멍이 있었다. **실제로 5번 자료가 안 나갔는데 「나갔다」고 했다.**
+  //      옛 방식은 dist 를 걸으며 앞에서부터 60장만 라이브와 견줬다. 지면이 4,700장이라
+  //      앞 60장은 거의 다 백년지도 것이고, **바뀐 K팝 지면은 영영 안 걸렸다.**
+  //      그래서 「바뀐 곳이 없다」로 보고 옛 방식(200)으로 되돌아가 무조건 통과했다.
+  //
+  //    ✅ 고친 방법 — **지난 배포 때의 dist 지문표를 남겨 두고, 이번 dist 와 견준다.**
+  //      바뀐 지면이 어느 것인지 **자기 PC 안에서 정확히** 알아낸다. 라이브를 4,700번 찌르지 않는다.
   const { readFileSync } = await import('node:fs');
-  let 본것 = 0;
+
+  const 이번지문 = new Map();
   for (const 길 of 후보) {
-    if (잰다.length >= 2 || 본것 >= 60) break;
     if (/\/(404|index)$/.test(길) || !/^[/a-z0-9\-_/]+$/i.test(길)) continue;
-    const u = 주소로(길);
-    if (!산것.has(u)) continue;                 // 사이트맵에 있는 것만 본다
-    본것++;
+    if (!산것.has(주소로(길))) continue;          // 사이트맵에 있는 것만 본다
     try {
-      const 내것 = 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8'));
+      이번지문.set(길, 지문(readFileSync(path.join(뿌리, `${길}.html`), 'utf8')));
+    } catch { /* 못 읽으면 넘긴다 */ }
+  }
+
+  const 지난지문 = 지문표읽기();
+  지문표쓰기(이번지문);                            // 다음 배포가 견줄 수 있게 남긴다
+
+  // 지난 표가 있으면 **바뀐 지면만** 골라 낸다. 없으면(첫 배포) 옛 방식으로 되돌아간다
+  const 바뀐것 = 지난지문
+    ? [...이번지문.keys()].filter((길) => 지난지문.get(길) !== 이번지문.get(길))
+    : null;
+
+  if (!지난지문) {
+    console.log('⬜ 지난 배포의 지문표가 없다 — 이번에 만들어 둔다. 이번 판정은 옛 방식으로 돈다');
+    return 잰다;
+  }
+  if (!바뀐것.length) {
+    console.log('⬜ 지난 배포와 견줘 바뀐 지면이 없다 — 자료·글자도 그대로다');
+    return 잰다;
+  }
+  console.log(`바뀐 지면 ${바뀐것.length}장을 찾았다 (지난 배포와 견줌). 그중 앞 3장으로 판정한다`);
+
+  for (const 길 of 바뀐것.slice(0, 3)) {
+    const u = 주소로(길);
+    try {
       const 라이브 = 지문(await (await fetch(u)).text());
-      if (내것 !== 라이브) 잰다.push({ url: u, 기댓값: 내것 });
+      // 이미 같으면 이번 배포로 바뀔 것이 없는 지면이다(누가 먼저 냈을 수 있다)
+      if (라이브 !== 이번지문.get(길)) 잰다.push({ url: u, 기댓값: 이번지문.get(길) });
     } catch { /* 못 재면 넘긴다 */ }
   }
   return 잰다;
+}
+
+/**
+ * dist 지면의 지문표. **저장소 바깥**에 둔다 — 커밋에 섞이면 diff 가 지저분해지고,
+ * 다른 세션이 같은 저장소를 쓰는데 이 표는 **이 PC 의 마지막 배포** 이야기라서 그렇다.
+ */
+const 지문표 = path.resolve('C:/Users/USER/Documents/GitHub/.cloudtype-dist-manifest.json');
+
+function 지문표읽기() {
+  if (!existsSync(지문표)) return null;
+  try {
+    const j = JSON.parse(readFileSync(지문표, 'utf8'));
+    return new Map(Object.entries(j.지면 ?? {}));
+  } catch {
+    return null; // 깨진 표는 없는 것으로 본다
+  }
+}
+
+function 지문표쓰기(표) {
+  try {
+    writeFileSync(
+      지문표,
+      JSON.stringify({ 만든때: 지금().toISOString(), 지면: Object.fromEntries(표) }, null, 0),
+    );
+  } catch { /* 못 써도 배포는 계속한다 */ }
 }
 
 async function main() {
