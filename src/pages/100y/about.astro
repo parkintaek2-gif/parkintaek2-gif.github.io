@@ -15,6 +15,7 @@
  * ⛔ 「몇 위」·「명문」을 쓰지 않는다. 이 지면에서 그 약속을 글로 남긴다.
  */
 import HundredYear from '../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../components/NextQuestionBrief.astro';
 import { PUBLISHER } from '../../consts';
 import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
@@ -176,6 +177,7 @@ const jsonLd = {
     <a href="/university">대학 찾기</a> · <a href="/research">국책연구</a> ·{' '}
     <a href="/data">표 내려받기</a>
   </p>
+  <NextQuestionBrief 모은것="저희가 무엇을 하는 곳인지" />
 </HundredYear>
 
 <style>

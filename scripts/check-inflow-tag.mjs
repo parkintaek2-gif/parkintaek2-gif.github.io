@@ -25,9 +25,18 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/** 나가는 링크에서 표를 뽑는다. 없으면 null */
+/**
+ * 나가는 링크에서 표를 뽑는다. 없으면 null.
+ *
+ * ⚠ 2026-08-08 03:1x — **주석 안의 「klifemap」을 링크로 셌다.**
+ *   `/about` 지면에 나가는 길이 없는데 제 자는 「있다」고 했다. 1번이 실측으로 잡아 줬다.
+ *   ⛔ 주석을 먼저 걷는다. 소스에서든 빌드 결과에서든 **손님이 못 누르는 것은 링크가 아니다.**
+ */
 export function 표뽑기(html) {
-  const m = String(html ?? '').match(/klifemap\.ai\/child-career\.html\?([^"'\s<]*)/);
+  const 걷은 = String(html ?? '')
+    .replace(/<!--[\s\S]*?-->/g, ' ')      // HTML 주석
+    .replace(/\/\*[\s\S]*?\*\//g, ' ');    // 소스 주석(.astro 앞머리)
+  const m = 걷은.match(/klifemap\.ai\/child-career\.html\?([^"'\s<]*)/);
   if (!m) return null;
   const q = new URLSearchParams(m[1].replace(/&amp;/g, '&'));
   return { from: q.get('from'), at: q.get('at') };
@@ -83,6 +92,13 @@ function 셀프테스트() {
   확인('&amp; 로 적혀 있어도 뽑는다', 표뽑기('<a href="https://klifemap.ai/child-career.html?from=100y&amp;at=school">'), { from: '100y', at: 'school' });
   확인('⭐ 표가 없으면 null', 표뽑기('<a href="https://klifemap.ai/child-career.html">'), null);
   확인('링크가 아예 없으면 null', 표뽑기('<p>아무 글</p>'), null);
+  확인('⭐ HTML 주석 안의 것은 링크가 아니다',
+    표뽑기('<!-- https://klifemap.ai/child-career.html?from=100y&at=major -->'), null);
+  확인('⭐ 소스 주석 안의 것도 링크가 아니다',
+    표뽑기('/* klifemap.ai/child-career.html?from=100y&at=major 로 간다 */'), null);
+  확인('주석과 진짜가 같이 있으면 진짜를 뽑는다',
+    표뽑기('<!-- klifemap.ai/child-career.html?from=100y&at=school -->' +
+           '<a href="https://klifemap.ai/child-career.html?from=100y&at=major">'), { from: '100y', at: 'major' });
 
   확인('제대로 붙은 것', 제대로붙었나({ from: '100y', at: 'major' }).된다, true);
   확인('⭐ 표가 없으면 거짓', 제대로붙었나(null).된다, false);
