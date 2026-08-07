@@ -127,6 +127,20 @@ const jsonLd = {
       separate event from staying on a chart for six weeks — and on that measure the gap is nearly
       two markets.
     </p>
+    <!--
+      ⛔ 2026-08-07 신설. 빌드가 세어 두는 `unlabelledTitles` 를 **어느 지면도 안 쓰고 있었다.**
+         세어 놓고 안 보여 주면 안 센 것과 같다. 수는 자료에서 읽는다.
+    -->
+    <p class="note">
+      <b>What we could not verify.</b> Netflix labels its <em>global</em> chart by a title’s primary
+      language; country charts carry no language field. <b>{data.unlabelledTitles} of these
+      titles have never reached a global Top 10</b>, so that check cannot be applied to them and
+      they are included on a title-text match alone. They are the small ones — the median title in
+      that group charted in a single country — but the share is large enough that we print it
+      rather than leave you to find it. Where the label does exist it does work:
+      <b>{data.excludedEnglishChart}</b> titles matched a Korean work by name but sit on Netflix’s
+      English charts and are out, and <b>{data.excludedByHand.length}</b> more came out by hand.
+    </p>
   </section>
 
   <KcwRelatedArticles page="/reach" />

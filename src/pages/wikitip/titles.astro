@@ -96,6 +96,29 @@ const jsonLd = {
       three. It measures reach and staying power on this one service, not quality, and not total
       audience. Netflix is not streaming: a title absent here may simply be strong elsewhere.
     </p>
+    <!--
+      ⛔ 2026-08-07 에 이 자리가 비어 있었다. 빌드가 `unlabelledTitles` 를 세어 두는데
+         **어느 지면도 그 값을 안 썼다.** 405편 중 204편이 언어로 확인이 안 되는데
+         지면은 그 말을 한 적이 없다. 「무엇을 못 쟀는지 밝힌다」가 여기서 빠져 있었다.
+      ⛔ 이 수를 손으로 적지 않는다. 자료에서 읽는다.
+    -->
+    <p class="note">
+      <b>How many of these we could verify.</b> Netflix splits its <em>global</em> chart by a
+      title’s primary language, so a title that has reached the global Top 10 can be checked
+      against that label. Country charts carry no language field. <b>{data.unlabelledTitles} of
+      these {data.titleCount} titles have never appeared in a global Top 10</b>, so the language
+      check cannot be applied to them at all — they are here on a title-text match alone. They are
+      also the small ones: the median title in that group charted in one country. We keep them and
+      say so rather than drop them quietly.
+    </p>
+    <p class="note">
+      <b>What the check did remove.</b> Where the label exists, it works:
+      <b>{data.excludedEnglishChart}</b> titles matched a Korean work by name but Netflix filed
+      them on its English charts, so they are not the Korean work and are out.
+      A further <b>{data.excludedByHand.length}</b> came out by hand after we read them one at a
+      time — {data.excludedByHand.slice(0, 3).join(', ')} among them. Both counts are produced by
+      the build, not typed here.
+    </p>
     <p class="note">
       The front page shows this week’s new entries. Counts derived from Netflix’s published lists;
       we do not republish the lists themselves. Updated {data.generated} KST.

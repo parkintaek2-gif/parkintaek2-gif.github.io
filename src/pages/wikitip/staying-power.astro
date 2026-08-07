@@ -107,6 +107,19 @@ const jsonLd = {
       hard a title landed in the weeks it was going to have anyway — it is not a foothold that keeps
       it on the chart longer. <a href="/article/netflix-korean-catalogue-concentration">The full story →</a>
     </p>
+    <!--
+      ⛔ 2026-08-07 신설. 빌드가 세어 둔 「걸러 낸 수」를 지면이 안 쓰고 있었다.
+         세어 놓고 안 보여 주면 안 센 것과 같다. 수는 자료에서 읽는다.
+    -->
+    <p class="note">
+      <b>What is not on this list.</b> Netflix files its global charts by a title’s primary
+      language, and a Korean work belongs on the Non-English side. <b>{data.excludedEnglishChart}</b>
+      titles matched a Korean work by name but sit on the English charts, so they are not that work
+      and are out. <b>{data.excludedByHand.length}</b> more came out after we read them one at a
+      time — {data.excludedByHand.slice(0, 3).join(', ')} among them. We hand-checked the largest
+      {' '}{data.audited.tv} series and {data.audited.film} films by hours and stopped there; below
+      that line the language rule is doing the work on its own.
+    </p>
   </section>
 
   <section>
