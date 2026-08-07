@@ -35,6 +35,10 @@ export const GET: APIRoute = async ({ params }) => {
       // 데이터 API 판매 화면. 개발자 검색 유입이 곧 영업이라 우선순위를 높게 둔다.
       { loc: '/api', changefreq: 'weekly', priority: '0.9' },
       { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+      // 데이터 랭킹 지면 — 검색 유입 가치가 있는데 사이트맵에 빠져 있었다(손님 걸음 2026-08-07 실측).
+      { loc: '/rankings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
+      // 구독자 모으는 유일한 자리 — 검색이 못 찾으면 유입이 없다.
+      { loc: '/newsletter', changefreq: 'monthly', priority: '0.5' },
       ...CATEGORIES.map((c) => ({
         loc: `/${c.slug}`,
         lastmod: all.find((a) => a.data.category === c.slug)?.data.pubDate,
