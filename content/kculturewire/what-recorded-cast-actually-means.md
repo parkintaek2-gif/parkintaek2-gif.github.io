@@ -1,6 +1,6 @@
 ---
 title: "Everything we can say about Korean casting rests on a median of five recorded names per title"
-dek: "Wikidata records no cast at all for 270 of 906 Korean titles. Of the 636 that have any, the median series lists five people and the median film four. Here is what that does to every figure we publish from it."
+dek: "Wikidata records no cast at all for 266 of 901 Korean titles. Of the 635 that have any, the median series lists five people and the median film four. Here is what that does to every figure we publish from it."
 category: screen
 pubDate: 2026-08-08
 dataAsOf: 2026-08-07T00:00:00+09:00
@@ -18,7 +18,7 @@ sources:
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
   - "Counts are of the join as published in our data bundle, produced by the same build, not retyped"
-  - "The 270 titles with no cast are those matched to a Korean Wikidata item that carries no P161 statement at all. They are absent from the join rather than present with an empty cast"
+  - "The 266 titles with no cast are those matched to a Korean Wikidata item that carries no P161 statement at all. They are absent from the join rather than present with an empty cast"
   - "Medians are given separately for film and series because their recorded cast sizes differ and a combined median would hide that"
 excluded:
   - "Any estimate of true cast size. We do not know how many people were actually credited in these productions and we are not going to model it"
@@ -32,14 +32,14 @@ actually made of.
 
 | | Titles | Median cast recorded |
 | --- | ---: | ---: |
-| Films | 352 | 4 |
+| Films | 351 | 4 |
 | Series | 284 | 5 |
 
 **A sixteen-episode drama is represented here by a median of five names.** Seventy-five titles have
-exactly one person recorded. And 270 of the 906 Korean titles we matched carry no cast statement at
+exactly one person recorded. And 266 of the 901 Korean titles we matched carry no cast statement at
 all, so they are not in the join in any form.
 
-That is the whole foundation: **3,415 casting slots**, 1,355 people, 636 titles.
+That is the whole foundation: **3,413 casting slots**, 1,355 people, 635 titles.
 
 ## What thin records do to each figure
 
@@ -53,7 +53,7 @@ lower, by an amount we cannot compute.
 **"61.6% of multi-title actors work in both film and series" is a floor.** A missing credit can only
 make a crosser look like a specialist. The true crossing rate is higher.
 
-**"96.8% of titles form one connected body" is also a floor.** Adding a cast member can create a
+**"96.7% of titles form one connected body" is also a floor.** Adding a cast member can create a
 link between two titles; it can never remove one. More complete records would make the catalogue
 look more connected, not less.
 
@@ -81,7 +81,7 @@ unanswerable, and rebuilding the link took a full day of re-querying.
 The join is now keyed on Wikidata Q-numbers for both the person and the title, not on names, because
 names change and identifiers do not. Matching these two sources on title text attaches cast to only
 317 of 1,005 titles — chart names and article titles disagree constantly. On Q-numbers it reaches
-636 of 906.
+635 of 901.
 
 The file is in our data bundle as `cast-title-join.csv`, with a column dictionary that says what a
 blank cell means in each column, and a coverage file that carries every number above.

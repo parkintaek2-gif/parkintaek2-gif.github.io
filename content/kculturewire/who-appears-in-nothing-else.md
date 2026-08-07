@@ -17,7 +17,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 636 of 906"
+  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 635 of 901"
   - "This piece uses no pageview data, so it does not depend on whether anyone has an English Wikipedia article. 265 of the 1,355 people here have no article and are counted the same as everyone else"
   - "The comparison is restricted to the 297 productions with at least five recorded cast members, because a title with two recorded names produces a 0% or 50% that means nothing"
   - "'Appears in nothing else' means nothing else in this set — Korean titles that reached a Netflix Top 10. It is not a claim about a person's career"
@@ -67,7 +67,7 @@ That is not a judgement about either. A production that draws entirely on the es
 one that brings in twenty new faces are doing different jobs. What the join makes visible is that
 **the difference is enormous and completely invisible from any one title**.
 
-Across the whole set, **654 of 1,355 people — 48.3% — appear in exactly one** of these titles.
+Across the whole set, **655 of 1,355 people — 48.3% — appear in exactly one** of these titles.
 Nearly half of everyone credited in Korean titles that reached a Netflix Top 10 did so once.
 
 ## The limit that matters most here
@@ -82,7 +82,7 @@ people, so the productions that look most self-contained are the ones cast with 
 names — which is the same population the measure is trying to describe. We report the figure and
 the flaw together because separating them would make the number look better than it is.
 
-Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 906 Korean titles
+Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 901 Korean titles
 that reached a Netflix Top 10, not a career. And reality formats list participants under the same
 cast property as actors, which is why *The Influencer* sits where it does; that is Wikidata's
 modelling, not a finding about casting.

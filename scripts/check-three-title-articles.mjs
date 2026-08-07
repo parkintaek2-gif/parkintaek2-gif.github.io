@@ -78,9 +78,15 @@ const 작품줄 = Object.entries(t.작품).map(([q, v]) => {
   본다('② 영어 차트로 뺀 수', new RegExp(`\\*\\*${지면.excludedEnglishChart} titles\\*\\* matched a Korean work`).test(한줄), 지면.excludedEnglishChart);
   /* 기사는 문장 첫머리 수를 낱말로 쓴다. 숫자와 낱말을 **둘 다** 받는다. */
   const 낱말 = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
-  본다('② 손으로 뺀 수',
-    new RegExp(`\\*\\*(${지면.excludedByHand.length}|${낱말[지면.excludedByHand.length] ?? 'x'}) more\\*\\*`, 'i').test(한줄),
-    지면.excludedByHand.length);
+  /* ⛔ 2026-08-08. 「손으로 뺀 수」에 판정 질의가 답해서 뺀 여덟 편이 섞여 들어왔다.
+     기사 문장은 **읽어서 뺀 것**을 말한다. 그러니 읽은 것만 센다. */
+  본다('② 읽어서 뺀 수',
+    new RegExp(`\\*\\*(${지면.excludedByHandRead.length}|${낱말[지면.excludedByHandRead.length] ?? 'x'}) more\\*\\*`, 'i').test(한줄),
+    지면.excludedByHandRead.length);
+  본다('② 판정 질의로 뺀 수',
+    new RegExp(`\\*\\*(${지면.excludedByAttribution.length}|${낱말[지면.excludedByAttribution.length] ?? 'x'}) more\\*\\*`, 'i').test(한줄)
+    || new RegExp(`(${지면.excludedByAttribution.length}|${낱말[지면.excludedByAttribution.length] ?? 'x'}) came out because our own`, 'i').test(한줄),
+    지면.excludedByAttribution.length);
   본다('② Friends 는 이 표에 없다', !지면.excludedByHand.includes('Friends') && 한줄.includes('It never charted in these six countries'), 지면.excludedByHand.join(' · '));
 }
 

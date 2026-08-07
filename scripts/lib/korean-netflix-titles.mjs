@@ -23,8 +23,12 @@ import fs from 'node:fs';
 const GLOBAL_TSV = 'archive/raw/netflix-top10/global-2026-08-04.tsv';
 const KOREAN_JSON = 'archive/raw/netflix-top10/korean-titles.json';
 
-/** 손으로 확인해 뺀 것 — 이름만 같고 한국 작품이 아니다. 확인한 근거를 나라로 적는다. */
-export const NOT_KOREAN = new Map([
+/**
+ * 손으로 **읽어서** 뺀 것 — 시간 상위를 한 편씩 보고 확인한 목록이다.
+ * ⛔ 아래 BY_ATTRIBUTION 과 **섞지 않는다.** 뺀 까닭이 다르고, 기사가 그 수를 인용한다.
+ *   섞으면 「손으로 아홉 편을 읽었다」가 어느 날 조용히 열일곱이 된다 — 읽지도 않고.
+ */
+export const BY_HAND = new Map([
   ['Teach You a Lesson', '중국'],
   ['The Empress', '독일 (Die Kaiserin)'],
   ['Forgotten Love', '폴란드 (Znachor)'],
@@ -38,6 +42,32 @@ export const NOT_KOREAN = new Map([
      나라별 표에서 **108주 · 36나라**(AU·BE·DK·FI…)로 뜬다. 2002년 한국 2부작이 그럴 수 없다. */
   ['Friends', '미국 (NBC 1994) — 108주·36나라'],
 ]);
+
+/**
+ * **읽어서 뺀 것이 아니다.** 우리 판정 질의(`check-title-ambiguity.mjs`)가
+ * 「그 이름을 가진 영화·드라마 중 **한국 것이 하나도 없다**」고 답한 편이다.
+ */
+export const BY_ATTRIBUTION = new Map([
+  /* 2026-08-08 추가 — **여덟 편을 한 근거로 뺀다.**
+     손으로 하나씩 고른 것이 아니다. 우리 **판정 질의**(그 이름을 가진 영화·드라마의 나라 전부,
+     `check-title-ambiguity.mjs`)가 이 여덟에 대해 **한국을 하나도 안 돌려줬다.**
+     같은 질의로 낸 79.8% / 17% / 3.2% 를 우리는 지면·상품·기사에 싣고 있다.
+     그 자가 「한국 작품이 아니다」라고 답한 것을 한국 작품 명단에 두면 **우리 방법론과 어긋난다.**
+     ⛔ 이것은 「겹침(모른다)」이 아니다. 겹침은 한국이 **들어 있고** 딴 나라도 있는 것이다.
+        여기 여덟은 한국이 **아예 없다.** 두 경우를 한 딱지로 묶고 있었던 것이 잘못이었다.
+     ⚠ 넷플릭스 나라별 표의 자국 쏠림도 같은 쪽을 가리킨다(아래 괄호). 근거를 겹쳐 적는다. */
+  ['Wildflower', '필리핀·영국·미국 (한국 없음) — 필리핀에서만 13주'],
+  ['Long Live Love!', '태국 (한국 없음) — 태국에서만 4주'],
+  ['Glorious Days', '인도네시아 (한국 없음) — 인도네시아에서만 3주'],
+  ['Waterworld', '미국 (한국 없음) — 1995년작, 19나라'],
+  ['Re/Member', '일본 (한국 없음) — 27나라'],
+  ['Into the Storm', '호주·페루·영국·미국 (한국 없음) — 11나라'],
+  ['You and Me', '호주·이란·뉴질랜드·중국·소련·영국·미국 (한국 없음) — 필리핀에서만 1주'],
+  ['Feng Shui', '중국·필리핀 (한국 없음) — 필리핀에서만 1주'],
+]);
+
+/** 두 목록을 합친 것. **거르는 쪽은 이것만 쓴다.** 세는 쪽은 위 둘을 따로 쓴다. */
+export const NOT_KOREAN = new Map([...BY_HAND, ...BY_ATTRIBUTION]);
 /* ⚠ 확신이 없는 것은 **넣지 않는다.** 첫 화면 이번 주 칸의 `Desire`·`Spooky in Love`·
    `The Apartment Job` 은 어느 나라 것인지 확인하지 못했다. 짐작으로 빼면 맞는 것을 잃는다.
    확인되면 그때 넣는다. 못 한 확인을 한 것처럼 두지 않는다. */
@@ -113,6 +143,10 @@ export function koreanTitleFilter() {
     stats: () => ({
       droppedEnglishChart: [...droppedEn],
       droppedByHand: [...droppedHand],
+      /* ⛔ 2026-08-08. 뺀 까닭이 둘로 갈렸다. 합계만 내면 지면이 「손으로 읽었다」를
+         읽지도 않은 편까지 세어 말한다. **까닭별로도 낸다.** */
+      droppedByHandRead: [...droppedHand].filter((t) => BY_HAND.has(t)),
+      droppedByAttribution: [...droppedHand].filter((t) => BY_ATTRIBUTION.has(t)),
       unlabelled: unlabelled.size,
       ambiguous: [...both],
     }),

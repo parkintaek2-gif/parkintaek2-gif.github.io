@@ -55,6 +55,9 @@ const out = {
   /** 뺀 것과 못 거른 것을 같이 낸다. 지면이 이 값을 그대로 적는다. */
   excludedEnglishChart: st.droppedEnglishChart.length,
   excludedByHand: st.droppedByHand,
+  /** 까닭별로 가른 것 — 「손으로 읽었다」와 「판정 질의가 답했다」는 다른 말이다. */
+  excludedByHandRead: st.droppedByHandRead,
+  excludedByAttribution: st.droppedByAttribution,
   unlabelledTitles: st.unlabelled,
   region: 'Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam',
   countries: Object.keys(SEA).length,

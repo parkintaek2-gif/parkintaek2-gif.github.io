@@ -16,7 +16,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "A casting slot is one person in one title. The panel holds 3,415 of them across 636 titles and 1,355 people"
+  - "A casting slot is one person in one title. The panel holds 3,413 of them across 635 titles and 1,355 people"
   - "The comparison is slot against slot, not title against title, so it is not distorted by films and series having different cast sizes on average"
   - "The 30 are everyone with ten or more titles in this set, not a hand-picked list"
   - "No pageview data is used. Nothing here depends on whether a person has an English Wikipedia article"
@@ -27,7 +27,7 @@ excluded:
 ---
 
 Count casting slots — one person in one title — and this panel leans television. **1,804 series slots
-against 1,611 film slots**, across 636 titles.
+against 1,609 film slots**, across 635 titles.
 
 Now look at the thirty people who appear in ten or more of these titles. Their slots split the other
 way, and not narrowly.

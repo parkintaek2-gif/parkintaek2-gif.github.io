@@ -1,18 +1,18 @@
 {
-  "generated": "2026-08-07T01:58:00.965Z",
+  "generated": "2026-08-07T17:10:13.632Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
-  "titles": 236,
-  "titlesAssessed": 440,
-  "totalHours": 23729840000,
+  "titles": 235,
+  "titlesAssessed": 432,
+  "totalHours": 23720700000,
   "koreaOnly": {
     "titles": 143,
     "hours": 18945420000,
-    "sharePc": 79.8
+    "sharePc": 79.9
   },
   "shared": {
-    "titles": 79,
-    "hours": 4026390000,
-    "sharePc": 17
+    "titles": 78,
+    "hours": 4017250000,
+    "sharePc": 16.9
   },
   "unknown": {
     "titles": 14,
@@ -1853,14 +1853,6 @@
       ]
     },
     {
-      "title": "Re/Member",
-      "hours": 9140000,
-      "verdict": "shared",
-      "countries": [
-        "Japan"
-      ]
-    },
-    {
       "title": "Queen Mantis",
       "hours": 9100000,
       "verdict": "koreaOnly",
@@ -3381,14 +3373,6 @@
       ]
     },
     {
-      "title": "Long Live Love!",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "Thailand"
-      ]
-    },
-    {
       "title": "PROJECT SILENCE",
       "hours": 0,
       "verdict": "unknown",
@@ -3437,16 +3421,6 @@
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
-      ]
-    },
-    {
-      "title": "Wildflower",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "Philippines",
-        "United Kingdom",
-        "United States"
       ]
     },
     {
@@ -3557,14 +3531,6 @@
         "Italy",
         "Japan",
         "South Korea"
-      ]
-    },
-    {
-      "title": "Glorious Days",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "Indonesia"
       ]
     },
     {
@@ -3774,14 +3740,6 @@
       ]
     },
     {
-      "title": "Waterworld",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "United States"
-      ]
-    },
-    {
       "title": "In Between",
       "hours": 0,
       "verdict": "shared",
@@ -3964,17 +3922,6 @@
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
-      ]
-    },
-    {
-      "title": "Into the Storm",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "Australia",
-        "Peru",
-        "United Kingdom",
-        "United States"
       ]
     },
     {
@@ -4186,20 +4133,6 @@
       "countries": []
     },
     {
-      "title": "You and Me",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "Australia",
-        "Iran",
-        "New Zealand",
-        "People's Republic of China",
-        "Soviet Union",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "Anchor",
       "hours": 0,
       "verdict": "koreaOnly",
@@ -4317,15 +4250,6 @@
         "Sweden",
         "United Kingdom",
         "United States"
-      ]
-    },
-    {
-      "title": "Feng Shui",
-      "hours": 0,
-      "verdict": "shared",
-      "countries": [
-        "People's Republic of China",
-        "Philippines"
       ]
     },
     {

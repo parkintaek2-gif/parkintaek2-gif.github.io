@@ -1,31 +1,21 @@
 {
-  "generated": "2026. 8. 8. 오전 1:33:49",
+  "generated": "2026. 8. 8. 오전 2:10:22",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists — every country Netflix publishes, not only Southeast Asia",
   "sourceKo": "넷플릭스 Tudum 나라별 주간 Top 10 전 세계",
   "method": "A Korean title should normally also appear on Netflix’s South Korea chart. Absence is not proof — a title released before July 2021, or never streamed in Korea, cannot appear — so this ranks titles for human review rather than deciding them.",
-  "panelTitles": 405,
-  "sharedTitles": 157,
-  "duplicateRows": 1186,
-  "scannedRowsForPanel": 34273,
-  "sharedWithoutKorea": 84,
+  "panelTitles": 397,
+  "sharedTitles": 149,
+  "duplicateRows": 1179,
+  "scannedRowsForPanel": 34172,
+  "sharedWithoutKorea": 76,
   "queues": {
-    "oneCountryOnly": 25,
+    "oneCountryOnly": 20,
     "concentrated": 19,
-    "noKorea": 40
+    "noKorea": 37
   },
   "reviewQueue": [
     {
       "title": "It's Okay to Not Be Okay",
-      "type": "TV",
-      "queue": "one-country-only",
-      "seaWeeks": 13,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 13,
-      "concentrationPc": 100
-    },
-    {
-      "title": "Wildflower",
       "type": "TV",
       "queue": "one-country-only",
       "seaWeeks": 13,
@@ -75,32 +65,12 @@
       "concentrationPc": 100
     },
     {
-      "title": "Long Live Love!",
-      "type": "Films",
-      "queue": "one-country-only",
-      "seaWeeks": 4,
-      "countries": 1,
-      "topCountry": "Thailand",
-      "topWeeks": 4,
-      "concentrationPc": 100
-    },
-    {
       "title": "Smugglers",
       "type": "Films",
       "queue": "one-country-only",
       "seaWeeks": 3,
       "countries": 1,
       "topCountry": "Thailand",
-      "topWeeks": 3,
-      "concentrationPc": 100
-    },
-    {
-      "title": "Glorious Days",
-      "type": "Films",
-      "queue": "one-country-only",
-      "seaWeeks": 3,
-      "countries": 1,
-      "topCountry": "Indonesia",
       "topWeeks": 3,
       "concentrationPc": 100
     },
@@ -241,26 +211,6 @@
       "seaWeeks": 1,
       "countries": 1,
       "topCountry": "Indonesia",
-      "topWeeks": 1,
-      "concentrationPc": 100
-    },
-    {
-      "title": "You and Me",
-      "type": "Films",
-      "queue": "one-country-only",
-      "seaWeeks": 1,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 1,
-      "concentrationPc": 100
-    },
-    {
-      "title": "Feng Shui",
-      "type": "Films",
-      "queue": "one-country-only",
-      "seaWeeks": 1,
-      "countries": 1,
-      "topCountry": "Philippines",
       "topWeeks": 1,
       "concentrationPc": 100
     },
@@ -635,16 +585,6 @@
       "concentrationPc": 40
     },
     {
-      "title": "Waterworld",
-      "type": "Films",
-      "queue": "no-korea",
-      "seaWeeks": 3,
-      "countries": 19,
-      "topCountry": "Philippines",
-      "topWeeks": 3,
-      "concentrationPc": 13.6
-    },
-    {
       "title": "Murderer",
       "type": "Films",
       "queue": "no-korea",
@@ -653,16 +593,6 @@
       "topCountry": "Vietnam",
       "topWeeks": 2,
       "concentrationPc": 28.6
-    },
-    {
-      "title": "Re/Member",
-      "type": "Films",
-      "queue": "no-korea",
-      "seaWeeks": 2,
-      "countries": 27,
-      "topCountry": "Hong Kong",
-      "topWeeks": 2,
-      "concentrationPc": 5.9
     },
     {
       "title": "Mama",
@@ -803,16 +733,6 @@
       "topCountry": "Bolivia",
       "topWeeks": 1,
       "concentrationPc": 8.3
-    },
-    {
-      "title": "Into the Storm",
-      "type": "Films",
-      "queue": "no-korea",
-      "seaWeeks": 1,
-      "countries": 11,
-      "topCountry": "Canada",
-      "topWeeks": 2,
-      "concentrationPc": 12.5
     },
     {
       "title": "Outlaw",
@@ -2861,18 +2781,6 @@
       "queue": null
     },
     {
-      "title": "Re/Member",
-      "type": "Films",
-      "seaWeeks": 2,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 27,
-      "topCountry": "Hong Kong",
-      "topWeeks": 2,
-      "concentrationPc": 5.9,
-      "queue": "no-korea"
-    },
-    {
       "title": "The Penthouse: War in Life",
       "type": "TV",
       "seaWeeks": 11,
@@ -4265,18 +4173,6 @@
       "queue": null
     },
     {
-      "title": "Long Live Love!",
-      "type": "Films",
-      "seaWeeks": 4,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Thailand",
-      "topWeeks": 4,
-      "concentrationPc": 100,
-      "queue": "one-country-only"
-    },
-    {
       "title": "Wonderful Nightmare",
       "type": "Films",
       "seaWeeks": 3,
@@ -4383,18 +4279,6 @@
       "topWeeks": 21,
       "concentrationPc": 63.6,
       "queue": null
-    },
-    {
-      "title": "Wildflower",
-      "type": "TV",
-      "seaWeeks": 13,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 13,
-      "concentrationPc": 100,
-      "queue": "one-country-only"
     },
     {
       "title": "Impetigore",
@@ -4551,18 +4435,6 @@
       "topWeeks": 7,
       "concentrationPc": 63.6,
       "queue": null
-    },
-    {
-      "title": "Glorious Days",
-      "type": "Films",
-      "seaWeeks": 3,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Indonesia",
-      "topWeeks": 3,
-      "concentrationPc": 100,
-      "queue": "one-country-only"
     },
     {
       "title": "Keys to the Heart",
@@ -4853,18 +4725,6 @@
       "queue": null
     },
     {
-      "title": "Waterworld",
-      "type": "Films",
-      "seaWeeks": 3,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 19,
-      "topCountry": "Philippines",
-      "topWeeks": 3,
-      "concentrationPc": 13.6,
-      "queue": "no-korea"
-    },
-    {
       "title": "In Between",
       "type": "Films",
       "seaWeeks": 2,
@@ -5127,18 +4987,6 @@
       "topWeeks": 5,
       "concentrationPc": 71.4,
       "queue": null
-    },
-    {
-      "title": "Into the Storm",
-      "type": "Films",
-      "seaWeeks": 1,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 11,
-      "topCountry": "Canada",
-      "topWeeks": 2,
-      "concentrationPc": 12.5,
-      "queue": "no-korea"
     },
     {
       "title": "Respect",
@@ -5441,18 +5289,6 @@
       "queue": null
     },
     {
-      "title": "You and Me",
-      "type": "Films",
-      "seaWeeks": 1,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 1,
-      "concentrationPc": 100,
-      "queue": "one-country-only"
-    },
-    {
       "title": "Anchor",
       "type": "Films",
       "seaWeeks": 1,
@@ -5619,18 +5455,6 @@
       "topWeeks": 2,
       "concentrationPc": 14.3,
       "queue": "no-korea"
-    },
-    {
-      "title": "Feng Shui",
-      "type": "Films",
-      "seaWeeks": 1,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 1,
-      "concentrationPc": 100,
-      "queue": "one-country-only"
     },
     {
       "title": "Dog Days",

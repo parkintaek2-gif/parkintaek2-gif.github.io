@@ -104,7 +104,11 @@ const 규칙길 = 'scripts/lib/korean-netflix-titles.mjs';
   for (const n of ['Teach You a Lesson', 'Hunger', 'Forgotten Love', 'The Empress']) {
     본다(`손 목록에 ${n}`, src.includes(`'${n}'`) && 한줄.includes(`*${n}*`), '규칙 파일 · 기사 둘 다');
   }
-  const 손수 = (src.match(/^\s*\['[^']+', '[^']*'\],$/gm) || []).length;
+  /* ⛔ 2026-08-08. 규칙 파일 전체에서 줄을 세고 있었다. 그날 목록이 둘로 갈렸다 —
+     **읽어서 뺀 것(BY_HAND)**과 **판정 질의가 답해서 뺀 것(BY_ATTRIBUTION)**.
+     전체를 세면 「손으로 아홉 편을 읽었다」가 읽지도 않고 열일곱이 된다. **읽은 것만 센다.** */
+  const 손목록 = src.match(/export const BY_HAND = new Map\(\[([\s\S]*?)\n\]\);/);
+  const 손수 = 손목록 ? (손목록[1].match(/^\s*\['[^']+', '[^']*'\],$/gm) || []).length : 0;
   본다('손으로 뺀 수', new RegExp(`(${손수}|${낱말[손수] ?? 'x'}) more came out by hand`, 'i').test(한줄), 손수);
 }
 

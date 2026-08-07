@@ -1,6 +1,6 @@
 ---
 title: "Korean film and television share actors freely — but less freely than chance alone would produce"
-dek: "Of 701 actors with two or more charting Korean titles, 61.6% have worked in both film and series. If format meant nothing, the figure would be 73.2%. The gap is the size of the wall, and it is smaller than reputation suggests."
+dek: "Of 700 actors with two or more charting Korean titles, 61.6% have worked in both film and series. If format meant nothing, the figure would be 73.2%. The gap is the size of the wall, and it is smaller than reputation suggests."
 category: screen
 pubDate: 2026-08-08
 dataAsOf: 2026-08-07T00:00:00+09:00
@@ -17,8 +17,8 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "Restricted to the 701 people with two or more titles here, because someone with one title cannot be shown to cross anything"
-  - "The chance figure is a null model, not an observation: for a person with n titles it is the probability that n independent draws are not all film and not all series, with the film probability set to film's share of the 636 titles (55.3%). It is stated as a comparison, not as what would really happen"
+  - "Restricted to the 700 people with two or more titles here, because someone with one title cannot be shown to cross anything"
+  - "The chance figure is a null model, not an observation: for a person with n titles it is the probability that n independent draws are not all film and not all series, with the film probability set to film's share of the 635 titles (55.3%). It is stated as a comparison, not as what would really happen"
   - "Film and series come from Wikidata's own instance-of statement, not our reading of a title"
   - "No pageview data is used, so nothing here depends on whether a person has an English Wikipedia article"
 excluded:
@@ -32,7 +32,7 @@ Korean screen work is often described as two industries — film people and tele
 an occasional crossing that gets remarked on. The join between Netflix's charts and Wikidata's cast
 lists lets us put a number on it.
 
-Of the **701 actors with two or more charting Korean titles**, 432 have appeared in both a film and a
+Of the **700 actors with two or more charting Korean titles**, 431 have appeared in both a film and a
 series. That is **61.6%**. Most people who work more than once work across the line.
 
 ## The number that makes it interesting
@@ -41,17 +41,17 @@ series. That is **61.6%**. Most people who work more than once work across the l
 compare it against, so we asked what the figure would be if format meant nothing at all — if each of
 a person's titles were drawn without regard to whether it was a film or a series.
 
-**73.2%.** Under that null, 513 of the 701 would have worked in both.
+**73.2%.** Under that null, 513 of the 700 would have worked in both.
 
-So the wall is real and it is thin: about **81 people** who could have crossed, given how many titles
+So the wall is real and it is thin: about **82 people** who could have crossed, given how many titles
 they have, did not. Format is doing something. It is not doing very much.
 
 ## Where the separation actually sits
 
-| Of the 701 with two or more titles | People | Share |
+| Of the 700 with two or more titles | People | Share |
 | --- | ---: | ---: |
-| Both film and series | 432 | 61.6% |
-| Series only | 184 | 26.2% |
+| Both film and series | 431 | 61.6% |
+| Series only | 184 | 26.3% |
 | Film only | 85 | 12.1% |
 
 **Series-only outnumber film-only by more than two to one.** That is the asymmetry: there is a

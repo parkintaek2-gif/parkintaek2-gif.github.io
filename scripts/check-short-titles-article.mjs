@@ -97,8 +97,12 @@ if (process.argv[1] && process.argv[1].endsWith('check-short-titles-article.mjs'
     && 본문.includes(`${K.queues.noKorea} that spread widely`),
     `${K.queues.oneCountryOnly}·${K.queues.concentrated}·${K.queues.noKorea}`);
   {
+    /* ⚠ 낱말로 쓴 수를 받되 **20은 「twenty」다.** 처음엔 20을 「twenty-zero」로 만들어
+       검사가 헛울었다. 스무 자리 낱말을 따로 만든다. */
+    const 스무 = (n) => (n === 20 ? 'twenty' : `twenty-${낱[n - 20] ?? 'x'}`);
+    const 낱로 = (n) => (n < 21 ? (낱[n] ?? 스무(n)) : 스무(n));
     const f = K.reviewQueue.filter((r) => r.queue === 'one-country-only' && r.type === 'Films').length;
-    본다('한 나라만 중 영화', new RegExp(`(${f}|${낱[f] ?? 'x'}) of the (${K.queues.oneCountryOnly}|twenty-${낱[K.queues.oneCountryOnly - 20] ?? 'x'}) are films`, 'i').test(본문), f);
+    본다('한 나라만 중 영화', new RegExp(`(${f}|${낱로(f)}) of the (${K.queues.oneCountryOnly}|${낱로(K.queues.oneCountryOnly)}) are films`, 'i').test(본문), f);
   }
   본다('중복 행을 밝히나',
     본문.includes(`${K.duplicateRows.toLocaleString('en-US')} of ${K.scannedRowsForPanel.toLocaleString('en-US')}`),
@@ -106,12 +110,21 @@ if (process.argv[1] && process.argv[1].endsWith('check-short-titles-article.mjs'
 
   /* ── ⑧ 이름을 댄 작품이 정말 그런가 — **여기가 제일 아프다** ── */
   const 찾 = (t) => R.find((r) => r.title === t);
-  for (const [이름, 나라, 주수] of [['Impetigore', 'Indonesia', 5], ['The Lord Musang King', 'Malaysia', 1],
-    ['Wildflower', 'Philippines', 13], ['Vagabond', 'Vietnam', 8]]) {
+  /* 아직 패널에 있는 편 — 자료와 한 자 한 자 맞아야 한다 */
+  for (const [이름, 나라, 주수] of [['Impetigore', 'Indonesia', 5], ['Vagabond', 'Vietnam', 8]]) {
     const r = 찾(이름);
     const ok = !!r && r.countries === 1 && r.koreaWeeks === 0 && r.topCountry === 나라 && r.seaWeeks === 주수
       && 본문.includes(이름);
     본다(`«${이름}»`, ok, r ? `${r.seaWeeks}w · ${r.topCountry} · 나라 ${r.countries} · 한국 ${r.koreaWeeks}` : '패널에 없다');
+  }
+  /* ⛔ 뺀 편을 기사가 계속 「차례에 있다」로 말하면 안 된다. **뺐다고 말하고 있나**를 본다.
+     2026-08-08 에 Wildflower·The Lord Musang King 이 패널에서 빠졌다. 기사는 살아 있었다. */
+  /* ⚠ 손으로 이름을 적어 두지 않는다 — **자료에서 뺀 목록을 읽는다.** 처음엔 두 이름을 적었다가
+     The Lord Musang King 이 안 빠졌는데도 빠졌다고 검사가 우겼다. 잣대가 틀렸다. */
+  const 뺀것 = new Set(T.excludedByAttribution ?? []);
+  for (const 이름 of 뺀것) {
+    if (!본문.includes(이름)) continue;                    // 안 부르면 볼 것이 없다
+    본다(`뺀 «${이름}» 을 뺐다고 말하나`, /no longer in the panel/i.test(본문), '패널에서 빠짐');
   }
   /* 「빼지 않는다」의 근거로 든 두 편도 정말 한국 차트에 없나 */
   for (const 이름 of ['Smugglers', 'Keys to the Heart']) {

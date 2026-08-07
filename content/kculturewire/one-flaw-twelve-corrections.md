@@ -26,7 +26,7 @@ corrections:
   - date: 2026-08-08
     note: "This article said twelve figures changed on 7 August and that all twelve came from one flaw. Both were wrong. Eleven changed that day — the twelfth was a correction made on 6 August to a different article, which we swept into the count. And three of the eleven had nothing to do with the title-matching flaw: two were separate errors this article's own text already described as unrelated, in a KOSIS table read on one level and a pay figure with the wrong denominator. Eight came from the flaw. The counts are now computed from the corrections record, where every entry carries its cause, and a check fails our build if the article and the record disagree. An article about miscounting that miscounted is the worst possible place for this, which is why it is at the top of the page rather than the bottom."
 excluded:
-  - "Any claim that the corrected figures are final. They are the best we can currently show, and 204 of 405 titles in the Southeast Asia panel still cannot be language-verified at all"
+  - "Any claim that the corrected figures are final. They are the best we can currently show, and 197 of 397 titles in the Southeast Asia panel still cannot be language-verified at all"
   - "Any suggestion that we found this because our process is good. We found it because one title on a page looked wrong to a person reading it"
 ---
 
@@ -104,10 +104,10 @@ roster we produce and fails the build if a known foreign title is in it.
 
 ## What is still wrong
 
-204 of the 405 titles in the Southeast Asia panel have never reached a global Top 10, so the
+197 of the 397 titles in the Southeast Asia panel have never reached a global Top 10, so the
 language test cannot be applied to them at all. They are in the panel on a name match — the same
 weak key that caused all of this — and we cannot tell you what share of them is foreign, because we
-have not read all 204.
+have not read all 197.
 
 That number is now printed on the pages that use it, and there is a check that fails our build if it
 stops being printed. It is the honest state of the thing: one flaw found and fixed, and a second,

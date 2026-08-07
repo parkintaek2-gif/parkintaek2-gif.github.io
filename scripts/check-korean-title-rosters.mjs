@@ -116,6 +116,31 @@ for (const { 파일, 제목, 걸러진 } of 명단들) {
   }
 }
 
+/* ── 2026-08-08 신설 ── **우리 자신의 판정 질의와 어긋나는 줄이 있나.**
+   ⛔ 「겹침」은 두 가지를 한 딱지로 묶고 있었다.
+        ① 한국이 **들어 있고** 딴 나라도 있다 → 정말 모른다
+        ② 한국이 **아예 없다**            → 우리 자가 「한국 것이 아니다」라고 답한 것이다
+      ②를 한국 작품 패널에 두면 **우리가 지면·상품에 싣는 79.9%/16.9%/3.2% 와 어긋난다.**
+      02:1x 에 여덟 편이 이 상태였다(Waterworld·Re/Member·Into the Storm…). 여덟 다 뺐다.
+   ⚠ 이 검사는 「빼라」고 말하지 않는다. **두 자가 어긋난다**고 말한다. 어느 쪽을 고칠지는 사람이 정한다. */
+{
+  const 판정길 = 'src/data/wikitip-title-ambiguity.json';
+  const 패널길 = 'src/data/wikitip-titles.json';
+  if (fs.existsSync(판정길) && fs.existsSync(패널길)) {
+    const amb = JSON.parse(fs.readFileSync(판정길, 'utf8'));
+    const 패널 = new Set(JSON.parse(fs.readFileSync(패널길, 'utf8')).rows.map((r) => r.title));
+    const 어긋남 = amb.perTitle.filter((p) => 패널.has(p.title)
+      && p.verdict === 'shared' && !p.countries.includes('South Korea'));
+    if (어긋남.length) {
+      걸림 += 어긋남.length;
+      console.log(`❌ 판정 질의가 「한국 작품 아님」이라 답한 편이 패널에 ${어긋남.length}개 있다`);
+      for (const p of 어긋남) console.log(`     ${p.title} — ${p.countries.join(', ')}`);
+    } else {
+      console.log(`   판정 질의와 패널이 어긋나는 줄 0건 (패널 ${패널.size}편)`);
+    }
+  }
+}
+
 if (걸림) {
   console.error(`\n❌ ${걸림}건. 이름만 같은 외국 작품이 한국 작품 명단에 있다.`);
   console.error('   ⛔ 명단에서 손으로 지우지 않는다. **그 명단을 만든 스크립트가**');

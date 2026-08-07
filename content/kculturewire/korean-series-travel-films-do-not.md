@@ -22,7 +22,7 @@ crossChecks:
   - "Film and series come from Wikidata's own instance-of statement, not from our reading of a title"
   - "Medians are used throughout. Squid Game distorts a mean of 144 series and tells you nothing about the typical one"
 excluded:
-  - "The 674 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
+  - "The 669 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
   - "Hours viewed by country. Netflix publishes hours for the global chart only, so nothing here says how much anything was watched in any single market"
   - "Any claim about production budgets, licensing terms or how Netflix decides what to promote. None of that is published"
   - "Any claim that this is Korean output. It is Korean output that charted, which is a small and self-selected slice"
@@ -58,7 +58,7 @@ We do not know how Netflix promotes titles, in which markets, or with what dubbi
 coverage. A series may travel further because a serial hooks a viewer for weeks and is therefore
 worth pushing in more places — that is a plausible mechanism and it is not in the published data.
 
-We also do not know what the 674 excluded titles would do. They are the ones that never reached a
+We also do not know what the 669 excluded titles would do. They are the ones that never reached a
 global Top 10, so they carry no language label and we cannot confirm they are Korean at all. They
 are small — the median charted in a single country for three weeks — but they are three-quarters of
 the names our roster matched, and a comparison built on them would be a comparison built on

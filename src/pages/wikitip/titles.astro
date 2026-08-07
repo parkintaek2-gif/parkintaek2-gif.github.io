@@ -228,9 +228,13 @@ const jsonLd = {
       <b>What the check did remove.</b> Where the label exists, it works:
       <b>{data.excludedEnglishChart}</b> titles matched a Korean work by name but Netflix filed
       them on its English charts, so they are not the Korean work and are out.
-      A further <b>{data.excludedByHand.length}</b> came out by hand after we read them one at a
-      time — {data.excludedByHand.slice(0, 3).join(', ')} among them. Both counts are produced by
-      the build, not typed here.
+      A further <b>{data.excludedByHandRead.length}</b> came out by hand after we read them one at a
+      time — {data.excludedByHandRead.slice(0, 3).join(', ')} among them.
+      {' '}<b>{data.excludedByAttribution.length} more came out on 8 August 2026 without being read</b>:
+      the same Wikidata question that produces the verdicts below returned no Korean work at all for
+      those names — {data.excludedByAttribution.slice(0, 3).join(', ')} among them. A title our own
+      instrument says nothing Korean carries cannot sit in a Korean panel. Every count here is
+      produced by the build, not typed.
     </p>
     <p class="note">
       The front page shows this week’s new entries. Counts derived from Netflix’s published lists;

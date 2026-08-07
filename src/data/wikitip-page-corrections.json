@@ -80,6 +80,16 @@
       "to": "names the year it does carry one — 2005, where it is 89.1% of the total",
       "why": "The sentence was written by hand and never measured. 2005 is the year with the least regional detail, and the largest cell in it was the one we called empty. The page now reads the exception out of the data.",
       "cause": "unmeasured-sentence"
+    },
+    {
+      "date": "2026-08-08",
+      "where": "/titles and /reach",
+      "path": "/titles",
+      "cause": "attribution-contradiction",
+      "what": "The size of the Southeast Asia panel and everything counted from it",
+      "from": "405 titles, 204 of them unverifiable by language label",
+      "to": "397 titles, 197 unverifiable",
+      "why": "Eight titles were in a Korean panel although our own attribution query — the one that produces the shared/unambiguous split we publish — returned no Korean work for those exact names: Waterworld, Re/Member, Into the Storm, Wildflower, Feng Shui, Glorious Days, Long Live Love! and You and Me. This was not a judgement call; it was our list contradicting our own instrument. A check now fails the build if any panel title is in that state."
     }
   ],
   "causes": {
@@ -87,7 +97,8 @@
     "kosis-two-level": "A KOSIS table classifies on two levels and returns only one of them unless both are asked for",
     "pay-denominator": "Companies that disclose headcount but not pay were left in the denominator",
     "unmeasured-sentence": "A sentence about the data was written by hand and never measured against it",
-    "miscounted-corrections": "Our own corrections article counted the corrections wrong — it swept in a correction from another day and asserted a single cause the record does not support"
+    "miscounted-corrections": "Our own corrections article counted the corrections wrong — it swept in a correction from another day and asserted a single cause the record does not support",
+    "attribution-contradiction": "Our own attribution query returned no Korean work for a title that was nonetheless in our Korean panel — the list and the instrument we publish disagreed"
   },
   "articleCauses": [
     {
@@ -119,6 +130,11 @@
       "slug": "one-flaw-twelve-corrections",
       "date": "2026-08-08",
       "cause": "miscounted-corrections"
+    },
+    {
+      "slug": "short-titles-are-where-we-cannot-check-ourselves",
+      "date": "2026-08-08",
+      "cause": "attribution-contradiction"
     }
   ]
 }
