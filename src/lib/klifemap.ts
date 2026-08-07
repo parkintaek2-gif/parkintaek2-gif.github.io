@@ -84,16 +84,26 @@ export const KLIFEMAP_밝힘 = '같은 곳에서 만드는 KLifeMap';
  *   그 바람에 age·region·university 가 전부 `기타` 로 뭉뚱그려졌다.
  *   갈래를 못 가르면 「어느 지면이 손님을 데려오나」를 못 잰다 — 이걸 만든 이유가 그것이다. */
 export const 붙일수있는갈래 = [
-  'major', 'college-major', 'school', 'university', 'region', 'age', 'data', '기타',
+  'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
+  /* 입구 지면을 달고 나서 늘었다 — 이 넷도 손님이 들어오는 자리다 */
+  'size', 'how-long', 'after', 'work', 'research',
+  '기타',
 ] as const;
 export type 갈래 = (typeof 붙일수있는갈래)[number];
 
-/** 지면 경로에서 갈래를 고른다. 모르는 것은 `기타` — 지어내지 않는다 */
+/**
+ * 지면 경로에서 갈래를 고른다. 모르는 것은 `기타` — 지어내지 않는다.
+ *
+ * ⚠ **입구 지면은 `/major.html` 로 나온다**(빌드가 file 꼴이라 그렇다).
+ *   처음엔 `.html` 을 안 떼서 열세 장이 전부 `기타` 로 떨어졌다.
+ *   낱장(`/major/3D건축인테리어과`)만 보고 자를 만들면 이걸 못 잡는다.
+ */
 export function 갈래고르기(경로: string | null | undefined): 갈래 {
   const 조각 = String(경로 ?? '')
     .split('/')
     .filter(Boolean)
-    .filter((s) => s !== '100y');
+    .filter((s) => s !== '100y')
+    .map((s) => s.replace(/\.html?$/i, ''));
   const 첫 = 조각[0] ?? '';
   return (붙일수있는갈래 as readonly string[]).includes(첫) ? (첫 as 갈래) : '기타';
 }

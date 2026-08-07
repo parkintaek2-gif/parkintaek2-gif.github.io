@@ -9,6 +9,7 @@
  *   「숨긴 내용」으로 낮게 볼 수 있다(2번 지적, 2026-08-04). 아직 실측한 적은 없다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import { 수치있음, 폐교정보 } from '../../../lib/university';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -108,6 +109,7 @@ const desc =
     졸업증명서를 어디서 떼는지가 필요하실 수 있습니다.
     출처 — 한국사학진흥재단 「폐교 및 법인 해산 현황」.
   </p>
+  <NextQuestionBrief 모은것="대학 자료" />
 </HundredYear>
 
 <style>

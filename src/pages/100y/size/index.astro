@@ -32,6 +32,7 @@
  *   - ⚠ `is:global` 을 쓰지 않는다 — `/_astro/*.css` 로 빠져 접두사(/100y) 아래서 404 가 난다
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 자료 from '../../../data/100yearmap/size-axis.json';
 
 const 원 = 자료 as any;
@@ -231,6 +232,7 @@ const jsonLd = {
     <a href="/work">바로 일터로</a> — 대학에 가지 않고 일터로 간 사람들<br />
     <a href="/after">대학 이후</a> — 대학을 나온 사람들은 어디로 갔는지
   </p>
+  <NextQuestionBrief 모은것="회사 크기별 임금과 이직 자료" />
 </HundredYear>
 
 <style is:inline>

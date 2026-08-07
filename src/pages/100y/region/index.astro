@@ -10,6 +10,7 @@
  *    2,525곳을 접어 두려는 것이고, 여기는 지역 자체가 주인공이라 다르다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import schools from '../../../data/100yearmap/pages-school.json';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -76,6 +77,7 @@ const desc =
     ⚠ 네 자료가 시·도 이름을 <strong>서로 다르게</strong> 적습니다(예: 「전남광주통합특별시(광주)」와 「광주」).
     비슷한 글자로 짐작해 잇지 않고 <strong>표로 못 박아</strong> 이었습니다.
   </p>
+  <NextQuestionBrief 모은것="지역마다 다른 값을 모은 자료" />
 </HundredYear>
 
 <style>

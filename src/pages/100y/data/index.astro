@@ -14,6 +14,7 @@
  *   경계는 나중에 그어도 되고, 지금은 「우리에게 무엇이 있는지」가 먼저다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import majors from '../../../data/100yearmap/pages-major.json';
 import schools from '../../../data/100yearmap/pages-school.json';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -124,6 +125,7 @@ const DESC =
     표에 없는 항목이 필요하시거나 다른 형식(JSON·API)이 필요하시면 아래 메일로 알려 주십시오.{' '}
     <a href="/major">학과 찾기</a> · <a href="/school">학교 찾기</a> · <a href="/university">대학 찾기</a>
   </p>
+  <NextQuestionBrief 모은것="우리가 쓰는 원자료 목록" />
 </HundredYear>
 
 <style>

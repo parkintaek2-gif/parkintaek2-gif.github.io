@@ -25,6 +25,7 @@
  *   그 사실을 지면에 적는다. 적지 않으면 「이 학교 취업률」로 읽힌다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 학교자료 from '../../../data/100yearmap/pages-school.json';
 
 type S = any;
@@ -187,4 +188,5 @@ const desc =
   <p class="note">
     숫자는 <strong>{출처}</strong>가 낸 {기준연도}년 값입니다. 저희가 계산한 값이 아닙니다.
   </p>
+  <NextQuestionBrief 모은것="일자리 자료" />
 </HundredYear>

@@ -9,6 +9,7 @@
  * ✅ 원자료가 100명 미만 학과를 안 실은 것을 지면에 적는다. 「우리 과가 없다」의 이유다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { 학과주소 } from '../../../lib/college-major';
 import 성과 from '../../../data/100yearmap/major-outcomes.json';
 
@@ -102,6 +103,7 @@ const desc =
     <br />
     🔴 이 지면은 <strong>대학</strong> 학과입니다. 고등학교 학과는 <a href="/major">학과 찾기</a>에 따로 있습니다.
   </p>
+  <NextQuestionBrief 모은것="전문대 학과 자료" />
 </HundredYear>
 
 <style is:inline>

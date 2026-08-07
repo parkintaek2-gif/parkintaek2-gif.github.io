@@ -10,6 +10,7 @@
  *   검색이 안 되는 환경에서도 목록 전체가 HTML 로 있으므로 읽을 수 있다(그리고 색인된다).
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import majors from '../../../data/100yearmap/pages-major.json';
 
@@ -78,6 +79,7 @@ const desc =
     출처 — 교육부 NEIS 교육정보 개방 포털. 계열 구분은 학과 이름을 보고 저희가 추정한 것으로,
     원자료에 있던 값이 아닙니다. 이름만으로 정하기 어려운 학과는 「미분류」로 남겨 두었습니다.
   </p>
+  <NextQuestionBrief 모은것="4년제 학과 자료" />
 </HundredYear>
 
 <style>

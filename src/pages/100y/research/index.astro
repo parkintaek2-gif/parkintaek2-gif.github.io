@@ -19,6 +19,7 @@
  * ⚠ 이 지면은 **어른이 읽는 자리**다. 아이에게 읽히려고 만든 것이 아니다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 연구 from '../../../data/100yearmap/pages-research.json';
 /* 🔴 저자 칸에 여럿이 `|` 로 묶여 온다(90편 중 17편). 푸는 자리는 `lib/research.ts` 한 곳이다 */
 import { 저자풀기 } from '../../../lib/research';
@@ -147,6 +148,7 @@ const desc =
     <a href="/university">대학 찾기</a> · <a href="/school">학교 찾기</a> ·{' '}
     <a href="/major">학과 찾기</a> · <a href="/data">표 내려받기</a>
   </p>
+  <NextQuestionBrief 모은것="우리가 만든 조사" />
 </HundredYear>
 
 {/* ⚠ `.papers` 는 여기 없다. **레이아웃 한 곳에 모았다**(2026-08-05) —

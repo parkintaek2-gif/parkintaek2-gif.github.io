@@ -17,6 +17,7 @@
  *   ⛔ 아직 안 쓰는 출처를 적어 두는 것은, 있지도 않은 근거를 대는 것이다.
  */
 import HundredYear from '../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../components/NextQuestionBrief.astro';
 import { href } from '../../lib/hundredyear';
 import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
@@ -193,6 +194,7 @@ const jsonLd = {
     ⚠ 지금 보여드리는 고등학교 취업 수치는 <strong>학교유형·계열 단위</strong>입니다. 학과 하나하나의
     공식 수치는 아직 공개되지 않습니다.
   </p>
+  <NextQuestionBrief 모은것="학과·학교·업종·지역을 모은 지도" />
 </HundredYear>
 
 <style>

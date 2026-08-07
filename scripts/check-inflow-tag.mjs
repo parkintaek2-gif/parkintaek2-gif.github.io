@@ -35,7 +35,9 @@ export function 표뽑기(html) {
 
 /** 붙어도 되는 갈래인가. **모르는 갈래가 주소에 실리면 그게 사고다** */
 export const 갈래목록 = [
-  'major', 'college-major', 'school', 'university', 'region', 'age', 'data', '기타',
+  'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
+  'size', 'how-long', 'after', 'work', 'research',
+  '기타',
 ];
 export function 제대로붙었나(표) {
   if (!표) return { 된다: false, 왜: '표가 아예 없다 — 넘어온 것을 도착지가 못 안다' };

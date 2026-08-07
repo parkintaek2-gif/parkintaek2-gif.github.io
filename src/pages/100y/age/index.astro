@@ -9,6 +9,7 @@
  * ⚠ 오픈에는 다섯 자리만 낸다. 되는지 보고 넓힌다 — 다섯 장이 틀리면 다섯 배로 되돌린다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import 원본 from '../../../data/100yearmap/age-axis.json';
 import { 나이말, 임금값, 혼인누적, 임금꼭대기, type 나이자료 } from '../../../lib/age-page';
@@ -74,6 +75,7 @@ const desc =
     백년지도는 지도입니다. <strong>길을 정해 주지 않고 어디에 무엇이 있는지 보여 줍니다.</strong>{' '}
     나침반은 보시는 분이 만드십니다.
   </p>
+  <NextQuestionBrief 모은것="나이마다 사람들이 무엇을 했는지 모은 자료" />
 </HundredYear>
 
 <style>

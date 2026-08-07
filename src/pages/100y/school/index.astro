@@ -14,6 +14,7 @@
  *   ⚠ 접는 것은 `<details>` 다 — 자바스크립트가 없어도 열리고, 안이 HTML 이라 색인된다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import schools from '../../../data/100yearmap/pages-school.json';
 
@@ -80,6 +81,7 @@ const desc =
     출처 — 교육부 NEIS 교육정보 개방 포털. 지역은 학교를 관할하는 교육청 기준입니다.
     학과가 「0개」인 곳은 학과가 없는 것이 아니라, 학과를 나누지 않는 일반고입니다.
   </p>
+  <NextQuestionBrief 모은것="고등학교 자료" />
 </HundredYear>
 
 <style>
