@@ -39,6 +39,32 @@ weeks. It is not simultaneous. A title that hit Vietnam in 2022 and Thailand in 
 
 `peak_rank` is the best position reached in any of the six.
 
+## K-pop attention
+
+`kpop-attention-panel.csv` carries 2,361 acts — 816 groups and
+1545 individuals — measured over 30 days (20260708~20260806).
+
+**The number is English Wikipedia article opens, and nothing else.** Not streams, not sales, not chart
+position, not attention inside Korea. We use it because it is the only per-artist demand signal
+published openly, daily, worldwide, with a history back to 2015. Wikimedia filters out declared bots;
+what remains is human traffic, not verified humans.
+
+The roster is a rule, not a list we typed: Wikidata — P27=Q884 (Korean citizenship) with occupation singer/rapper/composer/musician, plus musical groups reached by P31/P279* from Q215380 (so girl group, boy band and other subtypes count, not only the parent class) with P495=Q884. English Wikipedia article required for both.
+
+That rule matters more than it looks. Selecting groups by `P31 = musical group` alone — the obvious
+reading — silently dropped Blackpink, Twice, NewJeans, aespa, IVE and Girls' Generation, because
+Wikidata types them as *girl group* and never as the parent class. It cost us 404 groups and produced
+no error, no zero, and no warning. Walking subclasses (`P31/P279*`) is why they are here.
+
+Groups and individuals are **counted apart and never added.** A group's article and its members'
+articles are different pages, and summing them counts the same interest twice.
+
+154 of these acts (6.5%) also appear on our screen-actor roster, because
+Wikidata records both occupations for them — Jisoo and Cha Eun-woo really are both. We do not remove
+them; we flag them in `also_on_screen_actor_roster` and report the size, which is larger than it
+sounds: **23.1% of all views in this panel.** Filter that column out and the ranking changes
+substantially. Both versions are defensible; the undisclosed one is not.
+
 ## Exports
 
 Music: KOSIS table DT_113_STBL_1020468, 2005–2024, thousands of US dollars as

@@ -225,7 +225,12 @@ const 파일 = path.join(OUT, `kpop-${날짜(끝)}.json`);
 fs.writeFileSync(파일, JSON.stringify({
   갱신: new Date().toLocaleString('ko-KR'),
   출처: 'Wikimedia Pageviews API (en.wikipedia, all-access, user)',
-  명단출처: 'Wikidata — P27=Q884 with occupation singer/rapper/composer/musician, plus P31=Q215380 musical groups with P495=Q884. English Wikipedia article required.',
+  /* ⛔ 이 글은 **위 질의와 같은 말**이어야 한다. 규칙만 고치고 글을 그대로 두면
+     그 글이 method.md 로 나가 사는 사람이 잘못 안다. 실제로 그럴 뻔했다 —
+     P31 하나만 보다 P31/P279* 로 넓혔는데 글은 하루 동안 옛것이었다. */
+  명단출처: 'Wikidata — P27=Q884 (Korean citizenship) with occupation singer/rapper/composer/musician, '
+    + 'plus musical groups reached by P31/P279* from Q215380 (so girl group, boy band and other subtypes '
+    + 'count, not only the parent class) with P495=Q884. English Wikipedia article required for both.',
   기간: `${날짜(시작)}~${날짜(끝)}`,
   일수: 창,
   대상: roster.length,

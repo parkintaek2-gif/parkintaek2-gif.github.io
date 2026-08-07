@@ -34,6 +34,15 @@ const music = 읽기('src/data/wikitip-music-export.json');
 const bcast = 읽기('src/data/wikitip-broadcast-export.json');
 const ind = 읽기('src/data/wikitip-content-industry.json');
 const pageFix = 읽기('src/data/wikitip-page-corrections.json');
+const kpop = 읽기('src/data/wikitip-kpop.json');
+/* K팝 **원자료**를 읽는다. 지면 자료는 상위 15줄만 들고 있다 —
+   사는 사람에게 상위 15줄을 파는 것은 맛보기지 패널이 아니다. */
+const kpopRaw = (() => {
+  const d = 'archive/raw/star-pageviews';
+  const f = fs.readdirSync(d).filter((x) => /^kpop-\d+\.json$/.test(x)).sort().pop();
+  if (!f) throw new Error('K팝 원자료가 없다 — collect-kpop-pageviews.mjs 를 먼저 돌린다');
+  return 읽기(path.join(d, f));
+})();
 
 const csv = (rows) => rows.map((r) => r.map((v) => {
   const s = String(v ?? '');
@@ -98,6 +107,34 @@ for (const g of ind.groups) {
 industry.push([ind.year, 'listed_workforce', 'whole listed market — avg tenure', ind.market.tenure, 'years (headcount-weighted)', 'FSS DART']);
 fs.writeFileSync(path.join(OUT, 'industry-panel.csv'), csv(industry));
 
+/* ── ③-2 K팝 관심 패널 ── 이 한 벌이 K팝 없이 나가면 안 된다.
+   우리 독자는 「k팝 등에 관심이 많은 해외」다(사장님, 2026-08-05). 주력 소재를 빼고 팔 수 없다.
+   ⛔ 상위 몇 줄이 아니라 **명단 전부**를 낸다. 자르면 사는 사람이 자기 기준으로 못 자른다.
+   ⛔ 이것은 「인기」가 아니라 **영어 위키백과를 몇 번 열었나**다. 열 이름 자체에 그렇게 적는다 —
+      `views` 라고만 적으면 읽는 사람이 스트리밍 수로 읽는다. */
+const kp = [[
+  'name', 'kind', 'en_wikipedia_views_30d', 'daily_avg', 'peak_day', 'peak_day_views',
+  'views_last_7d', 'last7_vs_daily_avg', 'also_on_screen_actor_roster',
+]];
+/* 배우 겹침은 **지면과 같은 명단**에서 읽는다. 지면 자료의 상위 15줄에서 뽑으면
+   나머지 2,346줄이 전부 빈칸이 되고, 사는 사람은 그것을 「배우가 아니다」로 읽는다. */
+const 배우명단 = (() => {
+  const d = 'archive/raw/star-pageviews';
+  const f = fs.readdirSync(d).filter((x) => /^actors-\d+\.json$/.test(x)).sort().pop();
+  if (!f) throw new Error('배우 명단이 없다 — 겹침을 빈칸으로 낼 수 없다');
+  return new Set(읽기(path.join(d, f)).사람.map((p) => p.이름));
+})();
+for (const p of kpopRaw.사람) {
+  kp.push([
+    p.이름, p.갈래 === 'group' ? 'group' : 'individual',
+    p.합, p.하루평균, p.최고일, p.최고조회, p.최근7일, p.상승배수,
+    /* ⛔ 아니면 빈칸이 아니라 `no` 다. 빈칸은 「안 쟀다」로 읽힌다 — 이건 재서 아닌 것이다.
+       숫자 칸은 반대다. 못 잰 값은 빈칸으로 둔다. 0 으로 채우면 잰 값처럼 보인다. */
+    배우명단.has(p.이름) ? 'yes' : 'no',
+  ]);
+}
+fs.writeFileSync(path.join(OUT, 'kpop-attention-panel.csv'), csv(kp));
+
 /* ── ④ 정정 ── /corrections 와 **같은 자료**에서 온다. 손으로 옮기면 다음에 빠진다. */
 const 기사정정 = [];
 const CD = 'content/kculturewire';
@@ -135,6 +172,27 @@ cov.push(['broadcast export by company type', bcast.rows.length * 4, 11,
   'Zero means the survey published no sales for that company type that year — IPTV content providers before 2023, for instance. It is a real zero in the source, not a gap we introduced.']);
 cov.push(['export figures for 2025 and 2026', 2, 2, 100, 'later',
   'The content industry survey has not published them. It runs about eighteen months behind. We add them when it does.']);
+/* K팝 쪽의 빈 곳. ⛔ 「조회수 = 인기」로 읽히는 것을 여기서 막는다. */
+cov.push(['k-pop attention — what the number is', kpop.roster, 0, 0, 'no',
+  'Every figure in the k-pop panel is how many times an English Wikipedia article was opened. It is not streams, not sales, not chart position, and not attention inside Korea. Nothing we can reach publishes per-artist streaming.']);
+cov.push(['k-pop roster — no English Wikipedia article', kpop.roster, 'unknown', 'unknown', 'no',
+  'An artist with no English Wikipedia article cannot be measured and does not appear at all. We cannot count who is missing, because the absence produces no row. This falls hardest on newly debuted acts and on members of new groups.']);
+cov.push(['k-pop roster — fetch failed', kpop.roster, kpop.fetchFailed,
+  +((100 * kpop.fetchFailed) / kpop.roster).toFixed(1), 'yes',
+  'The pageviews API did not answer for these names after three tries. Fillable by re-running the collector; we leave them out rather than write a zero.']);
+/* 빈칸을 하나도 설명 없이 두지 않는다. 사는 사람이 열자마자 세어 볼 칸들이다. */
+cov.push(['k-pop — last7_vs_daily_avg is blank', kp.length - 1,
+  kp.slice(1).filter((r) => r[7] === '' || r[7] === null).length,
+  +((100 * kp.slice(1).filter((r) => r[7] === '' || r[7] === null).length) / (kp.length - 1)).toFixed(1), 'no',
+  'These acts averaged under one view a day, so there is no base to divide by. The cell is left empty rather than written as zero, which would look like a measured collapse in interest instead of an absence of traffic.']);
+cov.push(['titles — attribution_countries is blank', 패널줄,
+  패널줄 - (패널분포.shared ?? 0), +((100 * (패널줄 - (패널분포.shared ?? 0))) / 패널줄).toFixed(1), 'no',
+  'Blank here means the title is not shared with a foreign work, so there is no other country to name. It is not a missing value. Only rows marked shared carry country names.']);
+cov.push(['corrections — from/to are blank', fixes.length - 1, 기사정정.length,
+  +((100 * 기사정정.length) / (fixes.length - 1)).toFixed(1), 'no',
+  'Article corrections are written as prose in the why column because what changed was a sentence, not a single figure. Data-page corrections carry a from and a to. Both kinds are in the same file on purpose.']);
+cov.push(['k-pop — period covered', kpop.days, 0, 0, 'later',
+  `${kpop.period}. Thirty days only. This panel cannot show a trend across years yet; we began collecting daily in August 2026 and the window grows from here.`]);
 fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
 
 /* ── ⑤ 정의 원문 ── 우리 화면에 가두지 않는다. */
@@ -178,6 +236,32 @@ weeks. It is not simultaneous. A title that hit Vietnam in 2022 and Thailand in 
 \`weeks_on_chart\` counts distinct weeks, once per title however many countries it appeared in.
 
 \`peak_rank\` is the best position reached in any of the six.
+
+## K-pop attention
+
+\`kpop-attention-panel.csv\` carries ${kpopRaw.사람.length.toLocaleString()} acts — ${kpop.groups.n} groups and
+${kpop.people.n} individuals — measured over ${kpop.days} days (${kpop.period}).
+
+**The number is English Wikipedia article opens, and nothing else.** Not streams, not sales, not chart
+position, not attention inside Korea. We use it because it is the only per-artist demand signal
+published openly, daily, worldwide, with a history back to 2015. Wikimedia filters out declared bots;
+what remains is human traffic, not verified humans.
+
+The roster is a rule, not a list we typed: ${kpop.rosterSource}
+
+That rule matters more than it looks. Selecting groups by \`P31 = musical group\` alone — the obvious
+reading — silently dropped Blackpink, Twice, NewJeans, aespa, IVE and Girls' Generation, because
+Wikidata types them as *girl group* and never as the parent class. It cost us 404 groups and produced
+no error, no zero, and no warning. Walking subclasses (\`P31/P279*\`) is why they are here.
+
+Groups and individuals are **counted apart and never added.** A group's article and its members'
+articles are different pages, and summing them counts the same interest twice.
+
+${kpop.actorOverlap.n} of these acts (${kpop.actorOverlap.nPc}%) also appear on our screen-actor roster, because
+Wikidata records both occupations for them — Jisoo and Cha Eun-woo really are both. We do not remove
+them; we flag them in \`also_on_screen_actor_roster\` and report the size, which is larger than it
+sounds: **${kpop.actorOverlap.viewsPc}% of all views in this panel.** Filter that column out and the ranking changes
+substantially. Both versions are defensible; the undisclosed one is not.
 
 ## Exports
 
@@ -227,7 +311,7 @@ fs.writeFileSync(path.join(OUT, 'method.md'), method);
 /* ── ⑥ 읽는 법 ── 맨 먼저 열리는 것. 여기서 못 잰 것을 먼저 말한다. */
 const readme = `# K Culture Wire — Korean Content Panel
 
-Sample bundle, ${new Date().toISOString().slice(0, 10)}. Seven files. Start here.
+Sample bundle, ${new Date().toISOString().slice(0, 10)}. Eight files. Start here.
 
 ## Read this first: what is empty
 
@@ -240,6 +324,8 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
 | Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
+| K-pop acts with no English Wikipedia article — invisible to us entirely | uncountable | **No.** An act with no article produces no row, so we cannot even say how many are missing |
+| K-pop history before ${kpop.period.slice(0, 4)} | ${kpop.days} days is all there is | **Later.** We began collecting daily this month. The window grows from here |
 
 The same thing is in \`coverage.csv\` in a form you can filter.
 
@@ -250,10 +336,11 @@ below and neither is the real one on its own.
 | File | What it is | Rows |
 | --- | --- | ---: |
 | \`korean-title-panel.csv\` | Every Korean title that charted in six Southeast Asian markets since ${titles.weekFrom.slice(0, 4)} | ${panel.length - 1} |
+| \`kpop-attention-panel.csv\` | Every K-pop act with an English Wikipedia article, and how often it was opened over ${kpop.days} days | ${kp.length - 1} |
 | \`provenance.csv\` | How sure we are that each title is Korean, and how much of the total that covers | ${prov.length - 1} |
 | \`industry-panel.csv\` | Korean music and broadcast exports by year, beside the workforce of listed content companies | ${industry.length - 1} |
 | \`corrections.csv\` | Every figure we have published and had to change | ${fixes.length - 1} |
-| \`coverage.csv\` | What is empty, how much, and whether it can be filled | 6 |
+| \`coverage.csv\` | What is empty, how much, and whether it can be filled | ${cov.length - 1} |
 | \`method.md\` | How each number is made, in the words our build scripts use | — |
 
 ## The column most people will not have seen
@@ -323,9 +410,17 @@ const 지면건수 = pageFix.rows.length;
 const 총정정 = fixes.length - 1;
 if (총정정 !== 지면건수 + 기사정정.length) throw new Error('정정 건수가 안 맞는다');
 if (기사정정.length === 0) throw new Error('기사 정정을 하나도 못 읽었다 — 앞말 파싱이 깨졌다');
+/* K팝 패널이 지면 자료와 같은 명단인지. 어긋나면 둘 중 하나가 낡은 것이다. */
+if (kp.length - 1 !== kpop.measured) throw new Error(`K팝 줄 수 ${kp.length - 1} ≠ 지면 ${kpop.measured}`);
+/* ⛔ 있어야 할 이름이 있는지 **따로** 본다. 8월 7일에 수치가 멀쩡한 채로 블랙핑크가 빠졌다. */
+const 온도계 = ['Blackpink', 'BTS', 'Twice', 'NewJeans'];
+const 이름들 = new Set(kp.slice(1).map((r) => r[0]));
+const 없는것 = 온도계.filter((n) => !이름들.has(n));
+if (없는것.length) throw new Error(`K팝 패널에 ${없는것.join('·')} 이 없다 — 명단이 덜 찼다`);
 
-console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 7개`);
+console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 ${fs.readdirSync(OUT).length}개`);
 console.log(` 작품 패널   ${panel.length - 1}줄 (맛보기가 아니라 전부)`);
+console.log(` K팝 패널    ${kp.length - 1}줄 (그룹 ${kpop.groups.n} · 개인 ${kpop.people.n} · 배우겹침 ${kp.slice(1).filter((r) => r[8] === 'yes').length})`);
 console.log(` 산업 패널   ${industry.length - 1}줄`);
 console.log(` 정정        ${총정정}건 (지면 ${지면건수} · 기사 ${기사정정.length})`);
 console.log(` 출처 판정   한국만 ${amb.koreaOnly.sharePc}% · 겹침 ${amb.shared.sharePc}% · 모름 ${amb.unknown.sharePc}%`);

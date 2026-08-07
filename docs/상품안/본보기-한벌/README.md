@@ -1,6 +1,6 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-07. Seven files. Start here.
+Sample bundle, 2026-08-07. Eight files. Start here.
 
 ## Read this first: what is empty
 
@@ -13,6 +13,8 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
 | Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
+| K-pop acts with no English Wikipedia article — invisible to us entirely | uncountable | **No.** An act with no article produces no row, so we cannot even say how many are missing |
+| K-pop history before 2026 | 30 days is all there is | **Later.** We began collecting daily this month. The window grows from here |
 
 The same thing is in `coverage.csv` in a form you can filter.
 
@@ -23,10 +25,11 @@ below and neither is the real one on its own.
 | File | What it is | Rows |
 | --- | --- | ---: |
 | `korean-title-panel.csv` | Every Korean title that charted in six Southeast Asian markets since 2021 | 405 |
+| `kpop-attention-panel.csv` | Every K-pop act with an English Wikipedia article, and how often it was opened over 30 days | 2361 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
 | `corrections.csv` | Every figure we have published and had to change | 12 |
-| `coverage.csv` | What is empty, how much, and whether it can be filled | 6 |
+| `coverage.csv` | What is empty, how much, and whether it can be filled | 13 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 
 ## The column most people will not have seen
