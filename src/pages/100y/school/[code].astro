@@ -19,6 +19,7 @@ import schools from '../../../data/100yearmap/pages-school.json';
 import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
 import 진로자료 from '../../../data/100yearmap/school-career.json';
+import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -120,6 +121,41 @@ const 설립연도 = /^\d{8}$/.test(school.설립일 ?? '') ? school.설립일.s
 const 중단 = 중단표.get(school.code) ?? null;
 const 학급 = 학급표.get(school.code) ?? null;
 const 진로 = 진로표.get(school.code) ?? null;
+
+/**
+ * ⭐ **계열별 취업·진학** (2026-08-07) — 직업계고 480곳의 빈 자리를 메운다.
+ *
+ * 여태 이 지면의 취업 숫자는 **두 벌뿐**이었다(특성화고 전체 / 마이스터고 전체).
+ * 516곳이 전부 같은 숫자를 보니 학교를 고르는 데 쓸 수가 없었다.
+ *
+ * 🔴 **학교별 숫자는 어디에도 없다.** 오늘 네 방향으로 확인했다 —
+ *   ① 학교알리미 공개용 28항목에 특성화고 취업 칸이 없다
+ *   ② 항목 52(졸업생의 진로)에 특성화고가 4곳뿐이다(항목 09 에는 487곳)
+ *   ③ 유력 항목 8개를 2023~2026 네 해로 두드렸다 — 전부 미공시
+ *   ④ KOSIS 직업계고 관련 58표의 축을 다 봤다 — 학교 단위 축이 없다
+ *
+ * 🟢 대신 **계열**을 붙인다. 그 학교의 학과가 속한 계열을 **모두** 보인다.
+ *   ⚠ 계열이 하나로 정해지는 학교는 88곳뿐이고 **398곳은 여러 계열**이다(실측).
+ *     하나를 골라 붙이면 나머지를 숨기는 것이라, 있는 대로 다 보인다.
+ *   ⚠ 학과의 계열은 **학과 이름으로 저희가 추정한 것**이다. 그 말을 지면에 적는다.
+ *   ⛔ 여전히 학교 하나의 값이 아니다. 「이 학교 취업률」로 읽히게 두지 않는다.
+ */
+const 계열표 = new Map<string, any>(((계열자료 as any).자료 as any[]).map((r) => [r.계열, r]));
+const 계열통계 = (계열자료 as any).통계;
+const 계열출처 = (계열자료 as any).출처;
+const 학과계열 = new Map<string, string>(
+  (majors as any[]).filter((m) => m.계열).map((m) => [m.title, m.계열]),
+);
+const 이학교계열 = [
+  ...new Set(
+    (school.학과 ?? [])
+      .map((a: any) => 학과계열.get(a.name))
+      .filter((c: string | undefined) => c && c !== '미분류'),
+  ),
+]
+  .map((c) => 계열표.get(c as string))
+  .filter(Boolean)
+  .sort((a: any, b: any) => b.졸업자 - a.졸업자);
 
 /** 전국 중간값과 견준다. ⛔ 「좋다/나쁘다」를 말하지 않는다 — 차이만 적는다.
  *  ⚠ 소수 한 자리끼리 뺀다. 반올림한 값과 안 반올림한 값을 견주면 **말이 뒤집힌다**
@@ -245,6 +281,75 @@ const jsonLd = {
                 항목이 없어, 학교 이름을 보고 저희가 판단했습니다.
               </p>
             )}
+          </div>
+        </details>
+      </>
+    )
+  }
+
+  {
+    이학교계열.length > 0 && (
+      <>
+        {/* ⭐ 2026-08-07 — 두 벌이던 취업 숫자를 계열 단위로 잘게 나눴다.
+            ⛔ 그래도 학교 하나의 값은 아니다. 그 말을 표 바로 밑에 둔다. */}
+        <h2>이 학교 계열은 졸업하고 어디로 갔나요?</h2>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr>
+                <th>계열</th>
+                <th>진학률</th>
+                <th>취업률</th>
+                <th>전국 졸업자</th>
+              </tr>
+            </thead>
+            <tbody>
+              {이학교계열.map((c: any) => (
+                <tr>
+                  <td>{c.계열}</td>
+                  <td>{c.진학률}%</td>
+                  <td>
+                    {c.취업률 != null ? (
+                      `${c.취업률}%`
+                    ) : (
+                      <span class="note">{c.취업률못냄}</span>
+                    )}
+                  </td>
+                  <td>{c.졸업자.toLocaleString()}명</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {/* 🔴 분모를 안 적으면 「졸업생 절반이 취업」으로 읽힌다 */}
+        <p class="note">
+          ⚠ <strong>취업률의 분모는 졸업자가 아닙니다.</strong> 진학·입대한 사람을 뺀{' '}
+          <strong>취업 대상</strong>으로 나눈 값입니다. 그래서 진학률과 더해도 100%가 되지 않습니다.
+        </p>
+        <p class="note">
+          ⚠ 이 수치는 <strong>전국 그 계열 전체</strong>의 값입니다. 이 학교의 값이 아닙니다.{' '}
+          <strong>학교별로 나뉜 직업계고 취업 통계는 어디에도 공개돼 있지 않습니다</strong> —
+          학교알리미 28개 항목과 KOSIS 직업계고 58개 표를 다 열어 확인했습니다.
+        </p>
+        <p class="note">
+          ⚠ 계열은 <strong>학과 이름을 보고 저희가 추정한 것</strong>입니다. 나라가 그렇게 분류했다는
+          뜻이 아닙니다.
+        </p>
+        <details>
+          <summary>이 숫자는 어디서 왔나?</summary>
+          <div class="card">
+            <p class="note">
+              <strong>출처</strong> {계열출처.이름}<br />
+              <strong>통계표</strong> {계열출처.표} 「{계열출처.표이름}」 ·{' '}
+              <strong>기준연도</strong> {계열통계.기준연도}년
+            </p>
+            <p class="note">
+              <strong>취업률</strong> {계열출처.취업률정의}<br />
+              <strong>진학률</strong> {계열출처.진학률정의}
+            </p>
+            <p class="note">
+              ⛔ 위쪽의 <strong>유지취업률과 빼서 견주지 마십시오.</strong> {계열출처.다른자경고}
+            </p>
           </div>
         </details>
       </>

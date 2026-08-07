@@ -20,6 +20,7 @@ import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 학과연구, 전체편수 } from '../../../lib/research';
 import majors from '../../../data/100yearmap/pages-major.json';
+import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
 import schools from '../../../data/100yearmap/pages-school.json';
 
 /** ⚠ 지면마다 다시 고르면 925번 돈다. 모듈 최상위에서 한 번만 고른다 */
@@ -38,6 +39,27 @@ export async function getStaticPaths() {
 }
 
 const { major } = Astro.props as { major: any };
+/**
+ * ⭐ **계열별 취업·진학** (2026-08-07) — 두 벌이 여덟 벌이 됐다.
+ *
+ * 여태 이 지면의 취업 숫자는 「특성화고 전체」 한 벌이라 925장이 **전부 같은 숫자**를 봤다.
+ * 계열별(공업·상업·농림업·수산·해양·가사·예술·일반·실업·종합)은 잡을 수 있어 붙인다.
+ *
+ * 🔴 **학교별·학과별은 어디에도 없다.** 오늘 네 방향으로 확인했다 —
+ *   학교알리미 28항목 · 항목52의 특성화고 4곳 · 유력 항목 8개×4개 연도 · KOSIS 직업계고 58표.
+ *   ⛔ 그러니 이것도 **이 학과 하나의 값이 아니다.** 그 말을 숫자 옆에 적는다.
+ *
+ * ⚠ 재는 자가 위 유지취업률과 **다르다.** 위는 1~2년 뒤 자격 유지, 이건 졸업 시점 취업이다.
+ *   ⛔ 두 숫자를 빼서 견주지 않게 문구를 넣는다.
+ * ⚠ 취업률의 분모는 졸업자가 아니라 **취업대상자**(졸업자 − 진학 − 입대 − 제외)다.
+ *   안 적으면 「졸업생 절반이 취업」으로 읽힌다.
+ */
+const 계열표 = new Map<string, any>(((계열자료 as any).자료 as any[]).map((r) => [r.계열, r]));
+const 계열통계 = (계열자료 as any).통계;
+const 계열출처 = (계열자료 as any).출처;
+const 계열값 =
+  major.계열 && major.계열 !== '미분류' ? (계열표.get(major.계열) ?? null) : null;
+
 const 취업 = major.취업;
 const 평균 = 취업?.전체평균;
 const 수치 = 취업?.수치;
@@ -124,6 +146,82 @@ const jsonLd = {
 
         {/* ❸ 해석 — 숫자를 읽어주는 한 문단 */}
         <p>{해석}</p>
+
+        {/* ⭐ 계열별 — 「특성화고 전체」보다 한 칸 잘게 나뉜 값. 여덟 벌이 됐다.
+            ⛔ 여전히 이 학과 하나의 값은 아니다. 그 말을 표 바로 밑에 둔다. */}
+        {계열값 && (
+          <>
+            <h2>{major.계열}계열은 졸업하고 어디로 갔나요?</h2>
+            <div class="tablewrap">
+              <table>
+                <tbody>
+                  <tr>
+                    <th>졸업자</th>
+                    <td>{계열값.졸업자.toLocaleString()}명</td>
+                  </tr>
+                  <tr>
+                    <th>진학률</th>
+                    <td>
+                      {계열값.진학률}% <span class="note">({계열값.진학자.toLocaleString()}명)</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>취업률</th>
+                    <td>
+                      {계열값.취업률 != null ? (
+                        <>
+                          {계열값.취업률}%{' '}
+                          <span class="note">
+                            (취업 {계열값.취업자.toLocaleString()}명 ÷ 취업 대상{' '}
+                            {계열값.취업대상자.toLocaleString()}명)
+                          </span>
+                        </>
+                      ) : (
+                        <>
+                          취업 {계열값.취업자?.toLocaleString() ?? '—'}명{' '}
+                          <span class="note">— {계열값.취업률못냄}</span>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            {/* 🔴 분모를 안 적으면 「졸업생 절반이 취업」으로 읽힌다 */}
+            <p class="warn">
+              ⚠ <strong>취업률의 분모는 졸업자가 아닙니다.</strong> 진학·입대한 사람을 뺀{' '}
+              <strong>취업 대상</strong>으로 나눈 값입니다. 그래서 진학률과 더해도 100%가 되지
+              않습니다.
+            </p>
+            <p class="warn">
+              ⚠ 이 수치는 <strong>{major.계열}계열 전체</strong>의 값입니다. {major.title} 하나의
+              값이 아닙니다. <strong>학교별·학과별로 나뉜 통계는 어디에도 공개돼 있지 않습니다</strong>{' '}
+              — 저희가 학교알리미 28개 항목과 KOSIS 직업계고 58개 표를 다 열어 확인했습니다.
+            </p>
+            <p class="warn">
+              ⛔ <strong>위의 유지취업률과 빼서 견주지 마십시오.</strong> 위는 1~2년 뒤에도 자리가
+              유지된 비율이고, 이것은 졸업 시점에 취업한 비율입니다. 재는 자가 다릅니다.
+            </p>
+            <details>
+              <summary>이 숫자는 어디서 왔나?</summary>
+              <div class="card">
+                <p class="note">
+                  <strong>출처</strong> {계열출처.이름}<br />
+                  <strong>통계표</strong> {계열출처.표} 「{계열출처.표이름}」<br />
+                  <strong>기준연도</strong> {계열통계.기준연도}년
+                </p>
+                <p class="note">
+                  <strong>취업률</strong> {계열출처.취업률정의}<br />
+                  <strong>진학률</strong> {계열출처.진학률정의}
+                </p>
+                <p class="note">
+                  ⚠ 저희가 계산한 값이 아니라 <strong>공표된 비율</strong>입니다. 다만 사람 수로
+                  나눠 다시 맞춰 봤고, {계열통계.계열수}가지 계열 전부 맞았습니다.
+                </p>
+              </div>
+            </details>
+          </>
+        )}
 
         {/* ❹ 어디서 왔나 — 접어 둔다. 필요한 사람만 편다 */}
         <details>
