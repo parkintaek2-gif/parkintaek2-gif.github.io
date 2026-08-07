@@ -57,9 +57,15 @@ export function 붙으면안되는것(표들) {
   return 나쁜;
 }
 
-function 받기(u) {
+/* ⚠ 301 을 따라간다. 안 따라가면 지면을 못 읽고 「나가는 링크가 없다」로 잘못 읽는다.
+ *   2026-08-07 23:2x 에 실제로 그렇게 읽었다 — 표는 멀쩡히 붙어 있었다. */
+function 받기(u, 남은 = 4) {
   return new Promise((r) => {
     https.get(u, { timeout: 25000 }, (res) => {
+      if ([301, 302, 307, 308].includes(res.statusCode) && res.headers.location && 남은 > 0) {
+        res.resume();
+        return 받기(new URL(res.headers.location, u).href, 남은 - 1).then(r);
+      }
       let b = '';
       res.on('data', (c) => (b += c));
       res.on('end', () => r({ 코드: res.statusCode, 글: b }));
@@ -94,9 +100,10 @@ function 셀프테스트() {
 
 async function 라이브() {
   /* 갈래마다 한 장씩 본다. 한 장만 보면 그 갈래만 맞는 것을 전체로 착각한다 */
+  /* ⚠ 목록 지면이 아니라 **실제 낱장**을 본다. 목록에는 나가는 링크가 없다 */
   const 볼것 = [
-    ['major', 'https://100yearmap.com/major/'],
-    ['school', 'https://100yearmap.com/school/'],
+    ['major', 'https://100yearmap.com/major/3D건축인테리어과'],
+    ['school', 'https://100yearmap.com/school/7531602'],
   ];
   const 표들 = [];
   let 나쁨 = 0;
