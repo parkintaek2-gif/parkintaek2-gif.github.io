@@ -286,6 +286,7 @@ async function 수집(key) {
       목록 = a.parseList(await fetchHtml(a.list(p)));
     } catch (e) {
       console.log(`  목록 ${p}쪽 실패: ${e.message}`);
+      실패++; // ⚠ 목록을 못 부른 것도 실패다. 여기서 안 세면 「실패 0」으로 조용히 성공이 된다
       break;
     }
     console.log(`  ${p}쪽 — ${목록.length}건`);
@@ -323,6 +324,7 @@ async function 수집(key) {
     `  → ${기록.length}건 · 목표주가 ${목표있음} · 애널리스트 ${이름있음} · 실패 ${실패}`,
   );
   if (기록.length && 기록.length === 이름있음) console.log('    ✅ 애널리스트 전건 확보 — 네이버 경로로는 못 하던 것');
+  if (!기록.length) console.log('    ⚠ 0건 — 이번에 아무것도 못 받았다. 실패로 센다(예약이 성공으로 넘기지 않게).');
   return { 기록, 실패 };
 }
 
@@ -338,9 +340,27 @@ async function main() {
   console.log('⚠ 사실만 받는다. 본문·PDF 는 받지도 저장하지도 않는다.\n');
 
   const 전체 = [];
+  const 결과 = [];
   for (const k of 대상) {
-    const { 기록 } = await 수집(k);
+    const { 기록, 실패 } = await 수집(k);
     전체.push(...기록);
+    // 실패 판정: 아무것도 못 받았거나(0건) 상세/목록에서 한 번이라도 실패했으면 실패다
+    결과.push({ key: k, ko: 증권사[k].ko, 건수: 기록.length, 실패, 실패판정: 기록.length === 0 || 실패 > 0 });
+  }
+
+  /*
+   * 🔴 0 을 성공으로 넘기지 않는다 (2026-08-08 지시).
+   *   미래에셋이 18:40 에 목록 타임아웃으로 0건이었는데 종료코드 0(성공)으로 끝났다.
+   *   눈으로 안 봤으면 그날치가 그대로 없어졌다. 한 곳이라도 실패면 종료코드 1로 끝낸다.
+   *   ⚠ 단, 받은 것은 **먼저 저장한 뒤** 종료코드만 1로 둔다 — 부분 성공분을 버리지 않는다.
+   */
+  const 실패목록 = 결과.filter((r) => r.실패판정);
+  if (실패목록.length) {
+    console.error(
+      `\n🔴 ${실패목록.length}곳 실패 — ${실패목록.map((r) => `${r.ko}(${r.건수}건·상세실패${r.실패})`).join(' · ')}`,
+    );
+    console.error('   0건이거나 목록을 못 부른 곳이 있다 → 종료코드 1. 예약이 「성공」으로 넘기지 않게.');
+    process.exitCode = 1;
   }
 
   if (DRY) {
@@ -374,6 +394,8 @@ async function main() {
         건수: 전체.length,
         목표주가: 전체.filter((r) => r.targetPrice).length,
         애널리스트: 전체.filter((r) => r.analyst).length,
+        증권사별: 결과, // 곳마다 건수·실패·실패판정 — 나중에 「그날 어디가 비었나」를 안다
+        실패곳: 실패목록.map((r) => r.ko),
         store: storeStatus(),
       },
       null,
