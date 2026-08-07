@@ -111,6 +111,14 @@ const out = {
   /** 겹치는 것 중 큰 것부터 — 손으로 볼 차례를 정하는 데 쓴다. */
   sharedTop: 통.shared.sort((a, b) => b.hours - a.hours).slice(0, 20)
     .map((x) => ({ title: x.title, hours: x.hours, countries: x.countries })),
+  /** 편마다 판정을 남긴다. 요약만 두면 「어느 편이 어느 쪽인가」를 못 쓴다 —
+      상품이든 지면이든 값은 그 칸에 있다. 요약은 이것을 접은 것일 뿐이다. */
+  perTitle: list.map((x) => {
+    const c = 나라.get(x.title);
+    const v = 못물음.includes(x.title) ? 'unreachable'
+      : !c ? 'unknown' : (c.size === 1 && c.has(KOREA) ? 'koreaOnly' : 'shared');
+    return { title: x.title, hours: x.hours, verdict: v, countries: c ? [...c].sort() : [] };
+  }),
   /** 첫 화면 이번 주 칸 — 가장 많이 보이는 자리다. 한 줄씩 어느 쪽인지 적는다. */
   frontPage: 첫화면.map((t) => {
     const c = 나라.get(t);
