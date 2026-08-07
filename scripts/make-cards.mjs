@@ -77,8 +77,11 @@ if (process.argv.includes('--selftest')) {
   if (차이말(72.2, 10.2, true) !== '7.1배 · 62.0%p 차이') 틀림.push('퍼센트 차이말이 다르다: ' + 차이말(72.2, 10.2, true));
   if (차이말(100, 5) !== '20배 차이') 틀림.push('열 배 넘으면 소수점을 뗀다');
   if (차이말(5, 0) !== null) 틀림.push('0 으로 나눈다');
+  if (차이말(52.5, 47.5) !== null) 틀림.push('반반인 것에 차이 배지를 붙인다');
+  if (차이말(52.5, 47.5, true) !== null) 틀림.push('5%p 차이에 배지를 붙인다');
+  if (차이말(60, 45, true) === null) 틀림.push('15%p 차이를 안 적는다');
 
-  console.log(틀림.length ? `⛔ 자가시험 실패\n  ${틀림.join('\n  ')}` : `✅ 카드 굽기 자가시험 ${5 + 4 + 3}건 통과`);
+  console.log(틀림.length ? `⛔ 자가시험 실패\n  ${틀림.join('\n  ')}` : `✅ 카드 굽기 자가시험 ${5 + 4 + 6}건 통과`);
   process.exit(틀림.length ? 1 : 0);
 }
 
@@ -101,6 +104,10 @@ export function 차이말(a, b, 퍼센트 = false) {
   const 큰 = Math.max(a, b), 작 = Math.min(a, b);
   if (!작) return null;
   const 배 = 큰 / 작;
+  /* ⛔ **차이가 작으면 아무 말도 하지 않는다.**
+     52.5% 대 47.5% 에 「1.1배 차이」를 붙이면 반반인 것을 차이가 있는 것처럼 만든다.
+     그건 우리가 하지 않기로 한 일이다 — 없는 이야기를 그림으로 만드는 것. */
+  if (배 < 1.3 && !(퍼센트 && 큰 - 작 >= 10)) return null;
   const 배말 = 배 >= 10 ? `${Math.round(배)}배` : `${배.toFixed(1)}배`;
   return 퍼센트 ? `${배말} · ${(큰 - 작).toFixed(1)}%p 차이` : `${배말} 차이`;
 }
@@ -226,7 +233,7 @@ export function 카드svg({ w, h }, 카드) {
   const 조각 = [];
   let y = Math.round(h * 0.085);
 
-  const 라벨 = 여러줄(위, { x: 여백, y, 크기: Math.round(w * 0.030), 최대폭: 안폭, 글꼴: 본문글꼴, 색: '#9aa0ac' });
+  const 라벨 = 여러줄(위, { x: 여백, y, 크기: Math.round(w * 0.033), 최대폭: 안폭, 글꼴: 본문글꼴, 색: '#9aa0ac' });
   조각.push(라벨.그림);
   y = 라벨.끝y + Math.round(h * 0.045);
 
@@ -234,7 +241,7 @@ export function 카드svg({ w, h }, 카드) {
   조각.push(제목.그림);
   y = 제목.끝y + Math.round(h * 0.035);
 
-  const 부제 = 여러줄(밑, { x: 여백, y, 크기: Math.round(w * 0.032), 최대폭: 안폭, 글꼴: 본문글꼴, 색: '#bf9d45', 줄간격: 1.45 });
+  const 부제 = 여러줄(밑, { x: 여백, y, 크기: Math.round(w * 0.038), 최대폭: 안폭, 글꼴: 본문글꼴, 색: '#bf9d45', 줄간격: 1.45 });
   조각.push(부제.그림);
   y = 부제.끝y;
 
