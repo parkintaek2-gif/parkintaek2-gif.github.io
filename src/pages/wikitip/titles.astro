@@ -12,6 +12,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
+import ambiguity from '../../data/wikitip-title-ambiguity.json';
 
 const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
 const DESC =
@@ -30,6 +31,23 @@ const maxWeeks = Math.max(...rows.map((r) => r.weeks));
 const top = [...rows]
   .sort((a, b) => b.weeks - a.weeks || b.countries - a.countries || a.peak - b.peak)
   .slice(0, 40);
+
+/* ⛔ 2026-08-08. 이 지면은 「몇 편을 못 쟀나」는 적으면서 **어느 편인지는 한 번도 안 적었다.**
+   판정(perTitle)은 이미 448편 전부에 있다. 이름으로 붙여서 겹치는 편을 이름째 낸다.
+   ⛔ 숫자를 손으로 적지 않는다 — 여기서 세고 지면은 그 값을 읽는다.
+   ⛔ 글로벌 요약(ambiguity.titles=236)과 이 448편은 **다른 모집단**이다. 섞어 적지 않는다. */
+const 판정 = new Map(ambiguity.perTitle.map((p) => [p.title, p]));
+const 붙은판정 = rows.map((r) => ({ ...r, v: 판정.get(r.title) })).filter((r) => r.v);
+const sharedRows = 붙은판정
+  .filter((r) => r.v.verdict === 'shared')
+  .map((r) => ({ ...r, others: r.v.countries.filter((c) => c !== 'South Korea') }))
+  .sort((a, b) => b.weeks - a.weeks || b.others.length - a.others.length);
+const koreaOnlyCount = 붙은판정.filter((r) => r.v.verdict === 'koreaOnly').length;
+const unknownCount = 붙은판정.filter((r) => r.v.verdict === 'unknown').length;
+const totalWeeks = rows.reduce((s, r) => s + r.weeks, 0);
+const sharedWeeks = sharedRows.reduce((s, r) => s + r.weeks, 0);
+const sharedWeekPc = +((100 * sharedWeeks) / totalWeeks).toFixed(1);
+const sharedTop = sharedRows.slice(0, 12);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -74,6 +92,41 @@ const jsonLd = {
         </li>
       ))}
     </ul>
+  </section>
+
+  <section>
+    <h2>Which of these we cannot tell apart by name</h2>
+    <p class="sub">
+      A title enters this list because its English name matches a Korean work. That rule can only go
+      wrong one way: <b>another country made something with the same name</b>. So we asked Wikidata,
+      for every title here, which countries produced a film or series carrying exactly that label.
+    </p>
+    <ul class="verdicts">
+      <li><b>{koreaOnlyCount}</b><span>only Korean works carry the name — the text rule cannot be wrong</span></li>
+      <li><b>{sharedRows.length}</b><span>a foreign work shares the name — we cannot tell from the text which one charted</span></li>
+      <li><b>{unknownCount}</b><span>Wikidata gives no country for the name at all</span></li>
+    </ul>
+    <p class="sub">
+      The shared group is <b>{sharedWeekPc}%</b> of all {totalWeeks.toLocaleString()} chart-weeks on
+      this page. These are the {sharedTop.length} of them that stayed longest, with the countries
+      whose works share the name:
+    </p>
+    <ul class="shared">
+      {sharedTop.map((r) => (
+        <li>
+          <span class="nm">{r.title}</span>
+          <span class="meta"><b>{r.weeks}</b> weeks · shares the name with {r.others.length === 1 ? 'a work from' : 'works from'} {r.others.slice(0, 4).join(', ')}{r.others.length > 4 ? ` and ${r.others.length - 4} more` : ''}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="note">
+      <b>Shared does not mean wrong.</b> <cite>The Glory</cite> and <cite>Business Proposal</cite> are in this
+      group and both are plainly the Korean works — nothing else by those names has been near a
+      Southeast Asian Top 10. It means we cannot prove it <em>from the title text alone</em>, and we
+      would rather you saw the list than took our word for the ones we happened to check. Where the
+      chart carries a language label we use it; {data.unlabelledTitles} of these titles never reached
+      a global Top 10 and so carry no label to check against.
+    </p>
   </section>
 
   <KcwRelatedArticles page="/titles" />
@@ -150,6 +203,18 @@ const jsonLd = {
   .nm { display: block; font-weight: 600; line-height: 1.35; }
   .meta { display: block; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
   .meta b { color: var(--accent); }
+
+  /* 판정 셋 — 타일이 아니라 줄로 둔다. 순위가 아니라 「어느 칸에 몇 편」이다. */
+  .verdicts { list-style: none; padding: 0; margin: 0 0 1.6rem; }
+  .verdicts li { display: flex; gap: .8rem; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid var(--line); }
+  .verdicts b { flex: 0 0 3.6rem; text-align: right; font-size: 1.15rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+  .verdicts span { font-size: .87rem; color: var(--muted); line-height: 1.5; }
+
+  .shared { list-style: none; padding: 0; margin: 0; }
+  .shared li { padding: .55rem 0; border-bottom: 1px solid var(--line); }
+  .shared .nm { display: block; font-weight: 600; line-height: 1.35; }
+  .shared .meta { display: block; font-size: .82rem; color: var(--muted); line-height: 1.5; }
+  .shared .meta b { color: var(--accent); font-variant-numeric: tabular-nums; }
 
   .src ul { padding-left: 1.1rem; margin: 0; font-size: .9rem; }
   .src li { margin: 0 0 .4rem; line-height: 1.6; }

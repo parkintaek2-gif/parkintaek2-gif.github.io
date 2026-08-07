@@ -100,6 +100,38 @@ const jsonLd = {
       against {하나.avgWeeks} for the single-market titles. Whatever carries a title across the region
       also keeps it on the chart when it arrives.
     </p>
+
+    <!--
+      ⛔ 2026-08-08 신설. 빌드가 `examples` 를 만들어 두는데 **어느 지면도 안 썼다.**
+         제목 열여섯 개를 세어 놓고 한 번도 안 보여 준 것이다.
+         숫자만 있는 표는 읽는 사람이 자기 눈으로 확인할 수가 없다.
+      ⛔ 순위표가 아니다. **두 끝을 나란히 놓고 무엇이 다른지**를 옆에 적는다.
+    -->
+    <h3>What each end looks like</h3>
+    <div class="two">
+      <div>
+        <h4>Reached all six</h4>
+        <ul>
+          {data.examples.six.map((e) => (
+            <li><b>{e.title}</b> <span>{e.weeks}w · peak #{e.peak}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h4>Reached one</h4>
+        <ul>
+          {data.examples.one.map((e) => (
+            <li><b>{e.title}</b> <span>{e.weeks}w · peak #{e.peak}</span></li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    <p class="note">
+      <b>The right-hand column is not a list of failures.</b> Three of those eight reached number one
+      in the market they did chart in, and <i>The Promise</i> held a Top 10 place for 36 weeks — longer
+      than anything in the left-hand column. They travelled to one country and stayed. What separates
+      the two sides is reach, and reach is not the same thing as doing well.
+    </p>
   </section>
 
   <section>
@@ -181,6 +213,19 @@ const jsonLd = {
   section { margin: 0 0 2.5rem; }
   h2 { font-size: 1.1rem; margin: 0 0 .7rem; letter-spacing: -.01em; }
   .note { font-size: .82rem; color: var(--muted); margin: .9rem 0 0; line-height: 1.6; }
+
+  /* 두 끝을 나란히. 좁은 화면에서는 위아래로 접힌다 — 가로로 밀리면 안 된다 */
+  h3 { font-size: 1rem; margin: 1.8rem 0 .2rem; }
+  h4 { font-size: .88rem; margin: 0 0 .4rem; color: var(--accent); }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-top: .6rem; }
+  @media (max-width: 560px) { .two { grid-template-columns: 1fr; } }
+  .two ul { list-style: none; padding: 0; margin: 0; }
+  .two li {
+    padding: .34rem 0; border-bottom: 1px solid var(--line);
+    font-size: .9rem; line-height: 1.45;
+  }
+  .two li:last-child { border-bottom: 0; }
+  .two li span { display: block; color: var(--muted); font-size: .78rem; }
 
   /* 두 무더기가 눈에 보여야 한다 — 막대 길이로 U자를 드러낸다 */
   .dist { list-style: none; margin: 0; padding: 0; }

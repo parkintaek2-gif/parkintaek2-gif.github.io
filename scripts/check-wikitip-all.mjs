@@ -32,6 +32,7 @@ const 검사 = [
   ['정정 기사가 기록과 맞나', 'check-corrections-article.mjs'],
   ['조인 네 편이 자료와 맞나', 'check-join-articles.mjs'],
   ['산업·웹툰 세 편이 자료와 맞나', 'check-industry-articles.mjs'],
+  ['이름 겹치는 편을 지면이 대나', 'check-titles-ambiguity-page.mjs'],
 ];
 
 let 돈것 = 0;
