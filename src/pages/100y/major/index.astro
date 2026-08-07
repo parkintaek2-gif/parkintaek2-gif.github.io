@@ -10,6 +10,8 @@
  *   검색이 안 되는 환경에서도 목록 전체가 HTML 로 있으므로 읽을 수 있다(그리고 색인된다).
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+/* 🔴 「전국 N곳」이 얼마나 부푸는지 — scripts/count-100y-major-inflation.mjs 가 센다 */
+import 부풀림 from '../../../data/100yearmap/major-inflation.json';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import majors from '../../../data/100yearmap/pages-major.json';
@@ -42,10 +44,114 @@ const desc =
 
 <HundredYear title="학과 찾기" description={desc}>
   <h1>학과 찾기</h1>
+  {/* 🔴 2026-08-08 08:2x — 여기 「책에 있는 학과가 아니라 **올해 학생을 받는 학과**입니다」가
+        있었다. **틀린 말이었다.** 나이스 학과정보에는 개설일도 폐과일도 없다.
+        ⛔ 확인 안 된 것을 자신 있게 적어 두면, 나머지가 다 맞아도 그 한 줄이 우리를 무너뜨린다. */}
   <p class="sub">
     전국 고등학교의 나이스 학과정보에 등록된 학과 {(majors as any[]).length.toLocaleString()}개입니다.
-    책에 있는 학과가 아니라 <strong>올해 학생을 받는 학과</strong>입니다.
+    학교가 나라에 올려 둔 목록이고, <strong>지금 학생을 받는지까지는 나라가 알려 주지 않습니다.</strong>
   </p>
+
+  {/**
+    * 🔴 2번 지시(2026-08-08 07:30) — **「전국 N곳」이 얼마나 부푸는지 표 하나.**
+    *
+    *   목록마다 「39곳」처럼 곳 수가 붙어 있는데, 그 수가 얼마나 믿을 만한지를
+    *   **읽는 사람이 알 길이 없었다.** 아래 다섯이 그 폭을 보여 준다.
+    *
+    * ⛔ 「제일 심한 다섯」을 고르지 않았다 — 큰 학과 둘 + 비율 큰 셋을 섞는다.
+    *   심한 것만 실으면 그림이 거짓이 된다(`scripts/count-100y-major-inflation.mjs`).
+    */}
+  <h2>여기 붙은 「몇 곳」은<br class="pcbr" /> 조금 부풀어 있습니다</h2>
+  <p>
+    아래 목록에서 학과 옆에 붙은 곳 수는 <strong>나라(NEIS)가 준 그대로</strong>입니다.
+    그런데 그 목록에 <strong>옛 기록이 섞여 있습니다.</strong> 얼마나 섞였는지 다섯 개로
+    재 봤습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>학과</th>
+          <th>전국</th>
+          <th>그중 일반고</th>
+          <th>부푸는 폭</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          (부풀림.보일다섯 as any[]).map((x) => (
+            <tr>
+              <th>{x.학과}</th>
+              <td>{x.전체.toLocaleString()}곳</td>
+              <td>{x.일반고.toLocaleString()}곳</td>
+              <td>
+                <strong>{x.일반고비중}%</strong>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ <strong>일반고에 있다고 다 옛것은 아닙니다.</strong> 일반 과정과 직업 과정을 같이
+    운영하는 학교(종합고)가 있습니다. 그래서 한 걸음 더 좁혀 봤습니다 —{' '}
+    <strong>나라 자료에서 계열까지 「일반계」로 올라온 곳</strong>입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>학과</th>
+          <th>일반고이면서 계열도 일반계</th>
+          <th>전국 대비</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          (부풀림.보일다섯 as any[]).map((x) => (
+            <tr>
+              <th>{x.학과}</th>
+              <td>{x.일반계인일반고.toLocaleString()}곳</td>
+              <td>{x.일반계인일반고비중}%</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {
+    (부풀림.자주나오는학교 as any[]).length > 0 && (
+      <>
+        <p>
+          그리고 <strong>같은 학교가 여러 학과에 겹쳐 나옵니다.</strong> 한 학과씩 잘못 들어간
+          것이 아니라 <strong>옛 목록이 통째로 남아 있는 것으로 보입니다.</strong>
+        </p>
+        <ul class="majors">
+          {(부풀림.자주나오는학교 as any[]).slice(0, 5).map((x) => (
+            <li>
+              <span>
+                {x.학교} — {x.학과수}개 학과
+              </span>
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+
+  <p class="note">
+    ⛔ <strong>그렇다고 저희가 골라 지우지 않았습니다.</strong> 나라 자료에 개설일도 폐과일도
+    없어서 <strong>어느 줄이 옛것인지 가릴 자가 없습니다.</strong> 지우면 지금 있는 학과까지
+    지웁니다. <strong>학교에 확인하시는 편이 확실합니다.</strong>
+  </p>
+  <p class="note">
+    ⚠ 저희가 아는 것은 <strong>「일반계 일반고에 이 학과가 올라와 있다」</strong>까지입니다.{' '}
+    <strong>「이 줄은 옛것이다」라고는 말하지 않겠습니다.</strong> 재 보지 않은 것이기 때문입니다.
+  </p>
+
+  <hr class="rule" />
 
   <input
     id="q"
