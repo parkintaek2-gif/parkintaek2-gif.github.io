@@ -1,8 +1,9 @@
 ---
 title: "China is Korea's biggest trading partner. Its yuan futures are 0.03% of the market."
-dek: "Across 629 trading days, 99.2% of Korean currency-futures turnover was one contract: the dollar. The exchange also lists 1,272 flexible-dated dollar futures that have never traded once."
+dek: "Across 629 trading days, 99.0% of Korean currency-futures turnover was one contract: the dollar. The exchange also lists 1,272 flexible-dated dollar futures that have never traded once."
 category: fx
 pubDate: 2026-08-04
+updatedDate: 2026-08-07
 dataAsOf: 2026-08-03T18:00:00+09:00
 author: Newsroom
 tags: ["currency futures", "won", "yuan", "market structure", "korea exchange"]
@@ -23,6 +24,19 @@ excluded:
   - "Options. This operation returns futures only"
   - "Korea's trade shares by country. That China is the largest partner is context taken from general knowledge, not measured here, and no figure in this article rests on it"
   - "Any period before 2024. The archive is being extended backwards and 2022–2023 is still filling"
+corrections:
+  - date: 2026-08-07
+    note: >-
+      Re-derived from the completed archive. Within the same 629-day window, euro
+      and yen turnover were understated at first publication because some of those
+      trading days had not yet been backfilled: yen rose from 18.0tn won (620 days
+      traded) to 27.3tn (629), euro from 28.5tn (623 days) to 29.4tn (626). The
+      dollar's turnover, peak open interest and day count did not change, so its
+      share moved only from 99.20% to 99.03%. Separately, the dollar-to-yuan
+      turnover multiple was published as 2,993×, which did not match the 1.5tn
+      yuan figure in the same table; the correct multiple is 3,862×. The finding —
+      the dollar is essentially the whole market and the yuan is a rounding error —
+      is unchanged.
 draft: false
 ---
 
@@ -34,18 +48,18 @@ It is 0.03% of the currency futures market.
 
 | Contract | Turnover | Share | Days traded | Peak open interest |
 | --- | ---: | ---: | ---: | ---: |
-| US dollar | 5,936.4tn won | **99.20%** | 629 of 629 | 1,538,305 |
-| Euro | 28.5tn | 0.48% | 623 | 33,938 |
-| Yen | 18.0tn | 0.30% | 620 | 40,107 |
+| US dollar | 5,936.4tn won | **99.03%** | 629 of 629 | 1,538,305 |
+| Euro | 29.4tn | 0.49% | 626 | 33,938 |
+| Yen | 27.3tn | 0.46% | 629 | 40,107 |
 | Yuan | 1.5tn | **0.03%** | 531 | 275 |
 
-Over two and a half years the dollar contract moved **2,993 times** the value of the yuan contract. Peak open interest tells the same story from a different angle: at its busiest the yuan contract had 275 contracts outstanding. The dollar had over 1.5 million.
+Over two and a half years the dollar contract moved **3,862 times** the value of the yuan contract. Peak open interest tells the same story from a different angle: at its busiest the yuan contract had 275 contracts outstanding. The dollar had over 1.5 million.
 
 The euro and yen are small too, but they are small in the ordinary way — a few tenths of a percent, thousands of contracts open, trading nearly every day. The yuan is a different order of magnitude. Its peak open interest would fit in a single dollar-contract trade.
 
 ## What the dollar contract is actually for
 
-The dollar contract carries 99.2% of the turnover because it is not really a currency market. It is the hedging instrument for everything else — exporters, importers, bond investors, equity investors, anyone with a won balance sheet and a dollar exposure. Korea's entire foreign-currency risk is expressed through one line.
+The dollar contract carries 99.0% of the turnover because it is not really a currency market. It is the hedging instrument for everything else — exporters, importers, bond investors, equity investors, anyone with a won balance sheet and a dollar exposure. Korea's entire foreign-currency risk is expressed through one line.
 
 That is efficient right up until it isn't. A market with one liquid instrument prices that instrument well and everything else badly. If you need to hedge a yuan receivable — and Korean exporters have a lot of them — the exchange has a contract for you, and 275 contracts of open interest to meet you in it.
 
@@ -72,7 +86,7 @@ The same records carry the underlying spot rate the exchange publishes against e
 
 The won lost 10.0% against the dollar over the whole window, but the shape matters more than the endpoint. It fell steadily for two and a half years to 1,555.8, and then in **22 trading days gave back 8.1% of that** — from 1,555.8 on 2 July to 1,429.8 on 3 August.
 
-A 126-won round trip in a month, in the one contract that carries 99.2% of the market's hedging, on 1.5 million open contracts. Whatever happened in July, it happened in a market with nowhere else to go.
+A 126-won round trip in a month, in the one contract that carries 99.0% of the market's hedging, on 1.5 million open contracts. Whatever happened in July, it happened in a market with nowhere else to go.
 
 ## How to read a concentration number
 
