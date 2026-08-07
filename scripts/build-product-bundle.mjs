@@ -135,6 +135,31 @@ for (const p of kpopRaw.사람) {
 }
 fs.writeFileSync(path.join(OUT, 'kpop-attention-panel.csv'), csv(kp));
 
+/* ── ③-3 조인 패널 ── **이 한 벌에서 남이 못 주는 것이 이것이다.**
+   넷플릭스는 출연진을 안 낸다. 위키데이터는 넷플릭스 차트를 모른다.
+   둘을 **Q번호로** 붙여 둔 표는 우리 것뿐이다.
+   ⛔ 제목 문자열로 붙이지 않는다. 그렇게 하면 1,005편 중 317편(32%)에만 붙는다 —
+      「Squid Game (TV series)」 같은 것이 전부 어긋난다. Q번호로 붙이면 70%다.
+   ⛔ 사람의 Q번호도 같이 낸다. 이름은 바뀌고(동명이인 구분자·표기) Q번호는 안 바뀐다.
+      사는 사람이 다음 달 자료와 이어 붙일 수 있어야 한다. */
+const cast = (() => {
+  const p = 'archive/raw/netflix-top10/korean-cast-joined.json';
+  if (!fs.existsSync(p)) throw new Error('조인 자료가 없다 — collect-korean-cast.mjs 를 먼저 돌린다');
+  return 읽기(p);
+})();
+const titlesKeyed = 읽기('archive/raw/netflix-top10/korean-titles-keyed.json');
+const cj = [[
+  'person_qid', 'person_name', 'en_wikipedia_article', 'title_qid', 'title_name',
+  'title_format', 'titles_this_person_has_here',
+]];
+for (const [pq, v] of Object.entries(cast.배우)) {
+  for (const wq of v.작품) {
+    const w = titlesKeyed.작품[wq];
+    cj.push([pq, v.이름, v.문서 ?? '', wq, w?.이름 ?? '', w?.갈래 ?? '', v.작품.length]);
+  }
+}
+fs.writeFileSync(path.join(OUT, 'cast-title-join.csv'), csv(cj));
+
 /* ── ④ 정정 ── /corrections 와 **같은 자료**에서 온다. 손으로 옮기면 다음에 빠진다. */
 const 기사정정 = [];
 const CD = 'content/kculturewire';
@@ -191,6 +216,20 @@ cov.push(['titles — attribution_countries is blank', 패널줄,
 cov.push(['corrections — from/to are blank', fixes.length - 1, 기사정정.length,
   +((100 * 기사정정.length) / (fixes.length - 1)).toFixed(1), 'no',
   'Article corrections are written as prose in the why column because what changed was a sentence, not a single figure. Data-page corrections carry a from and a to. Both kinds are in the same file on purpose.']);
+/* 조인 패널의 빈 곳 — 사는 사람이 가장 먼저 셀 자리다. */
+cov.push(['cast join — titles with no cast recorded', titlesKeyed.맞춘작품수,
+  titlesKeyed.맞춘작품수 - cast.출연진이붙은작품,
+  +((100 * (titlesKeyed.맞춘작품수 - cast.출연진이붙은작품)) / titlesKeyed.맞춘작품수).toFixed(1), 'partly',
+  'Wikidata carries no cast statement for these titles at all. They are absent from the join rather than present with an empty cast. Fillable only as Wikidata fills, which we do not control.']);
+cov.push(['cast join — people with no English Wikipedia article', cast.배우수,
+  cast.배우수 - cast.문서있는배우,
+  +((100 * (cast.배우수 - cast.문서있는배우)) / cast.배우수).toFixed(1), 'no',
+  `These people are in the join and in the roster; they simply cannot be matched to pageview data, which is keyed on article titles. Being unmeasurable is not the same as being absent, and both counts are given. Note the units: this is ${cast.배우수 - cast.문서있는배우} people, who occupy ${cj.slice(1).filter((r) => !r[2]).length} rows of cast-title-join.csv because a person appears once per title. Counting blank rows there will not give you this number.`]);
+cov.push(['cast join — foreign cast', cast.배우수, 'unknown', 'unknown', 'no',
+  'The roster filters to Korean citizenship (P27=Q884). International co-productions lose their non-Korean cast, and the links those people would create are missing. We cannot count who was removed this way because they were never selected.']);
+cov.push(['titles — language label unavailable', titlesKeyed.맞춘작품수, titlesKeyed.못가른것.언어딱지없음수,
+  +((100 * titlesKeyed.못가른것.언어딱지없음수) / titlesKeyed.맞춘작품수).toFixed(1), 'no',
+  'Netflix labels its global chart by primary language; country charts carry no language field. Titles that never reached a global Top 10 cannot be checked that way and are included on a title-text match alone. They are the small ones — the median charted in one country for three weeks — but the share is large and stated rather than buried.']);
 cov.push(['k-pop — period covered', kpop.days, 0, 0, 'later',
   `${kpop.period}. Thirty days only. This panel cannot show a trend across years yet; we began collecting daily in August 2026 and the window grows from here.`]);
 fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
@@ -311,7 +350,7 @@ fs.writeFileSync(path.join(OUT, 'method.md'), method);
 /* ── ⑥ 읽는 법 ── 맨 먼저 열리는 것. 여기서 못 잰 것을 먼저 말한다. */
 const readme = `# K Culture Wire — Korean Content Panel
 
-Sample bundle, ${new Date().toISOString().slice(0, 10)}. Eight files. Start here.
+Sample bundle, ${new Date().toISOString().slice(0, 10)}. Nine files. Start here.
 
 ## Read this first: what is empty
 
@@ -337,11 +376,34 @@ below and neither is the real one on its own.
 | --- | --- | ---: |
 | \`korean-title-panel.csv\` | Every Korean title that charted in six Southeast Asian markets since ${titles.weekFrom.slice(0, 4)} | ${panel.length - 1} |
 | \`kpop-attention-panel.csv\` | Every K-pop act with an English Wikipedia article, and how often it was opened over ${kpop.days} days | ${kp.length - 1} |
+| \`cast-title-join.csv\` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | ${cj.length - 1} |
 | \`provenance.csv\` | How sure we are that each title is Korean, and how much of the total that covers | ${prov.length - 1} |
 | \`industry-panel.csv\` | Korean music and broadcast exports by year, beside the workforce of listed content companies | ${industry.length - 1} |
 | \`corrections.csv\` | Every figure we have published and had to change | ${fixes.length - 1} |
 | \`coverage.csv\` | What is empty, how much, and whether it can be filled | ${cov.length - 1} |
 | \`method.md\` | How each number is made, in the words our build scripts use | — |
+
+## The file you cannot assemble from either source alone
+
+\`cast-title-join.csv\`. **Netflix does not publish cast. Wikidata does not know about Netflix's
+charts.** This file is the two of them joined — ${cj.length - 1} rows saying which person appears in
+which charting Korean title.
+
+It is keyed on **Wikidata Q-numbers**, for both the person and the title, not on names. That matters
+more than it sounds. Joining these two sources on title text attaches cast to only 317 of 1,005
+titles, because chart names and article names disagree constantly — *Squid Game* on the chart is
+*Squid Game (TV series)* in the encyclopaedia. On Q-numbers it reaches ${cast.출연진이붙은작품} of
+${titlesKeyed.맞춘작품수}. We spent a day rebuilding this because we had originally stored the count
+of titles per actor and thrown the identifiers away, which made every question of the form *did this
+show move its cast* unanswerable.
+
+Names also change — disambiguators get added, romanisation is revised. Q-numbers do not. If you want
+to line this month's file up against next month's, join on the Q-number columns.
+
+⚠ ${titlesKeyed.맞춘작품수 - cast.출연진이붙은작품} titles carry no cast statement in Wikidata at all
+and are absent here rather than present with an empty cast. ${cast.배우수 - cast.문서있는배우} of the
+${cast.배우수} people have no English Wikipedia article, so they are in the join but cannot be matched
+to the attention panels. Both counts are in \`coverage.csv\`.
 
 ## The column most people will not have seen
 
@@ -421,6 +483,7 @@ if (없는것.length) throw new Error(`K팝 패널에 ${없는것.join('·')} �
 console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 ${fs.readdirSync(OUT).length}개`);
 console.log(` 작품 패널   ${panel.length - 1}줄 (맛보기가 아니라 전부)`);
 console.log(` K팝 패널    ${kp.length - 1}줄 (그룹 ${kpop.groups.n} · 개인 ${kpop.people.n} · 배우겹침 ${kp.slice(1).filter((r) => r[8] === 'yes').length})`);
+console.log(` 조인 패널   ${cj.length - 1}줄 (작품 ${cast.출연진이붙은작품}/${titlesKeyed.맞춘작품수} · 사람 ${cast.배우수})`);
 console.log(` 산업 패널   ${industry.length - 1}줄`);
 console.log(` 정정        ${총정정}건 (지면 ${지면건수} · 기사 ${기사정정.length})`);
 console.log(` 출처 판정   한국만 ${amb.koreaOnly.sharePc}% · 겹침 ${amb.shared.sharePc}% · 모름 ${amb.unknown.sharePc}%`);

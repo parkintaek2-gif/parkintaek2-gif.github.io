@@ -1,6 +1,6 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-07. Eight files. Start here.
+Sample bundle, 2026-08-07. Nine files. Start here.
 
 ## Read this first: what is empty
 
@@ -26,11 +26,34 @@ below and neither is the real one on its own.
 | --- | --- | ---: |
 | `korean-title-panel.csv` | Every Korean title that charted in six Southeast Asian markets since 2021 | 405 |
 | `kpop-attention-panel.csv` | Every K-pop act with an English Wikipedia article, and how often it was opened over 30 days | 2361 |
+| `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3415 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
 | `corrections.csv` | Every figure we have published and had to change | 12 |
-| `coverage.csv` | What is empty, how much, and whether it can be filled | 13 |
+| `coverage.csv` | What is empty, how much, and whether it can be filled | 17 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
+
+## The file you cannot assemble from either source alone
+
+`cast-title-join.csv`. **Netflix does not publish cast. Wikidata does not know about Netflix's
+charts.** This file is the two of them joined — 3415 rows saying which person appears in
+which charting Korean title.
+
+It is keyed on **Wikidata Q-numbers**, for both the person and the title, not on names. That matters
+more than it sounds. Joining these two sources on title text attaches cast to only 317 of 1,005
+titles, because chart names and article names disagree constantly — *Squid Game* on the chart is
+*Squid Game (TV series)* in the encyclopaedia. On Q-numbers it reaches 636 of
+906. We spent a day rebuilding this because we had originally stored the count
+of titles per actor and thrown the identifiers away, which made every question of the form *did this
+show move its cast* unanswerable.
+
+Names also change — disambiguators get added, romanisation is revised. Q-numbers do not. If you want
+to line this month's file up against next month's, join on the Q-number columns.
+
+⚠ 270 titles carry no cast statement in Wikidata at all
+and are absent here rather than present with an empty cast. 265 of the
+1355 people have no English Wikipedia article, so they are in the join but cannot be matched
+to the attention panels. Both counts are in `coverage.csv`.
 
 ## The column most people will not have seen
 
