@@ -1,24 +1,326 @@
-# SeoulMarkets — Korean Listed Workforce Panel (SAMPLE, 20 of 2,862 rows)
-# Source: FSS DART annual reports (empSttus/exctvSttus) parsed by us; market cap from KRX (data.go.kr).
-# Figures as filed. Empty = not disclosed (not zero). Not investment advice. Full method in method.md.
+# SeoulMarkets — Korean Listed Workforce Panel — FULL CATEGORY SAMPLE
+# Category: Electronics and telecom equipment (320 of 320 listed companies in this KSIC division)
+# Source: FSS DART annual reports (empSttus/exctvSttus) parsed by us; market cap from KRX (data.go.kr), 2026-08-05.
+# Figures as filed. Empty cell = not disclosed (not zero). Definitions in method.md. Corrections in corrections.csv.
+# Not investment advice. https://seoulmarkets.com/rankings
 company_en,ticker,industry,avg_tenure_years,tenure_gap_M_minus_F_years,avg_annual_pay_krw,female_to_male_pay_pct,employees,female_share_pct,ceo_tenure_months,market_cap_per_employee_krw
-"SAMSUNG ELECTRONICS CO,.LTD",005930,Electronics and telecom equipment,13.73,1,157064509,77.8,128881,26.9,3.8,11159011317
-HYUNDAI MOTOR CO,005380,Motor vehicles,15.8,4.9,130858949,89.4,72598,8.2,3.4,1140864987
-KIA CORPORATION,000270,Motor vehicles,20.76,6.6,134011705,85.9,36566,5.2,,1420033056
-SK hynix Inc.,000660,Electronics and telecom equipment,13.43,-3.4,185004892,80.3,34549,33.3,3.8,35267627567
-LG ELECTRONICS INC.,066570,Electronics and telecom equipment,13.76,2.7,117590675,77.9,34144,16.3,38,856308356
-"LG Display Co., Ltd.",034220,Electronics and telecom equipment,14.93,2.6,85864347,75.3,24430,14.3,2.7,200573066
-E-MART Inc.,139480,Retail trade,13.95,2,51733261,56.5,23075,57.6,1.8,95314703
-EehwaConstruction,001840,Building construction,5.81,1.7,49698975,84.3,160,11.3,55.2,391180200
-MANHO ROPE & WIRE LTD,001080,Basic metals,9.2,-0.45,53703669,79.9,160,6.9,36,1043984375
-FnGuide Inc.,064850,Information services,5.59,-0.67,58333638,85.5,160,39.4,0.8,1252997083
-ELP Corp.,063760,Medical and optical instruments,5.82,2.07,44207547,73.7,159,11.9,26.8,146621541
+"GEOMC CO., LTD.",033030,Electronics and telecom equipment,5.2,1.42,57895893,123.4,3,33.3,34.9,
+"SAMWHA CAPACITOR CO.,LTD",001820,Electronics and telecom equipment,7.51,0.9,62937485,91.5,658,20.8,39,1276468085
+ThinkwareSystemsCorporation,084730,Electronics and telecom equipment,5.9,3.17,50098859,80.8,263,19,14,276257160
+INTELLIAN TECHNOLOGIES Inc.,189300,Electronics and telecom equipment,5.02,1.09,70694000,72.3,500,10.2,,1507544579
+"IDP Corp., Ltd.",332370,Electronics and telecom equipment,7.63,3.9,85931034,55.9,58,17.2,20,1258715397
+"ACTRO CO.,Ltd",290740,Electronics and telecom equipment,5.41,2.25,100888313,41.4,64,18.8,,1258126375
+"ZalmanTechCo.,Ltd.",090120,Electronics and telecom equipment,5.63,-1.03,68010364,68.4,33,15.2,8.7,
+"Q.S.ICo.,Ltd.",066310,Electronics and telecom equipment,6.72,3,35565217,57.5,138,26.1,25.3,501205019
+"AVATEC CO.,LTD.",149950,Electronics and telecom equipment,7.03,2.9,57077406,72.4,387,12.9,24,307964781
+"WIWORLD Co.,Ltd",140660,Electronics and telecom equipment,6.69,3.25,32310345,87.9,29,17.2,26.1,56692192
+"IK Semicon Co., Ltd.",149010,Electronics and telecom equipment,2.2,1.2,49750000,55.4,20,25,26,543660000
+"POONGWON PRECISION Co.,Ltd.",371950,Electronics and telecom equipment,5.66,-3.7,51881081,83,185,12.4,29.6,610051292
+"BCnC Co., Ltd.",146320,Electronics and telecom equipment,4.25,-0.05,48855261,87,303,17.8,22.3,422373696
+ODTech,080520,Electronics and telecom equipment,7.7,0,33564286,91.4,280,47.9,24,123535657
+KOREA COMPUTER INC.,054040,Electronics and telecom equipment,13.48,0.8,48884258,83.8,93,52.7,28.4,891697381
+"KOREA CIRCUIT CO.,LTD",007810,Electronics and telecom equipment,4.15,0.4,56843798,82.8,1306,11.6,6,1017333191
+"OPTICIS CO., LTD.",109080,Electronics and telecom equipment,8.53,-2.1,47888889,70.9,99,44.4,25,516348687
+Suprema Inc.,236200,Electronics and telecom equipment,5.02,1.33,77358566,71.1,251,23.5,,1592143507
+"PAVONINE CO., LTD.",177830,Electronics and telecom equipment,7.54,0.2,37688357,71.6,224,32.1,29.1,121349925
+"INTERFLEX CO., LTD.",051370,Electronics and telecom equipment,5.5,-0.6,49554745,82.4,411,16.1,,404115817
+FINE SEMITECH Corp.,036810,Electronics and telecom equipment,5.21,-0.3,54810526,84.5,855,35.4,13,534281343
+Suprema HQ Inc.,094840,Electronics and telecom equipment,3.26,1.17,72677419,67.9,62,41.9,,2347139638
+"KH VATEC Co., LTD",060720,Electronics and telecom equipment,8.67,2.6,61698492,90.3,199,5,32,1279057796
+CU TECH CORPORATION,376290,Electronics and telecom equipment,10.34,1.5,48886462,98.5,39,30.8,14.3,1150001282
+"JMT CO.,Ltd.",094970,Electronics and telecom equipment,7.12,4.42,75424800,38.9,15,20,,3584123360
+Synopex Inc.,025320,Electronics and telecom equipment,5.97,-1.64,69290123,87.3,162,14.8,21.3,2224414761
+"RS AUTOMATION CO.,LTD.",140670,Electronics and telecom equipment,7.47,0.6,52535032,55.2,157,21,16.6,828455918
+"BIXOLONCo.,Ltd",093190,Electronics and telecom equipment,10.84,4.8,83560976,60,123,17.9,,1343595073
+PIMS Inc.,347770,Electronics and telecom equipment,2.59,-0.3,49598471,75.6,210,12.4,4.3,102312474
+"Genohco, Inc",361390,Electronics and telecom equipment,3.42,1.72,49134585,75,147,16.3,21.9,884884695
+"YMC Co., Ltd.",155650,Electronics and telecom equipment,6.59,-0.09,53102564,87,156,12.8,17.9,384960533
+"i-Components Co., Ltd",059100,Electronics and telecom equipment,6.84,0.59,54163983,97.6,120,14.2,,306403933
+"GAONCHIPS CO., LTD.",399720,Electronics and telecom equipment,3.84,0.28,79770115,72.6,261,18.4,13.3,2185480446
+"SAMSUNG ELECTRO-MECHANICS CO.,LTD",009150,Electronics and telecom equipment,15.76,1,109530108,80,12173,23.8,,8320434714
+"Fine M-Tec Co.,Ltd.",441270,Electronics and telecom equipment,2.28,-0.19,60131387,66.7,137,14.6,3.3,2599365534
+"BLUETOP CO.,LTD.",191600,Electronics and telecom equipment,3,-1,46814570,74,151,24.5,12.6,299714108
+SUNGWOO TECHRON COMPANY,045300,Electronics and telecom equipment,9.19,6.44,44765853,62.4,272,37.5,29.3,94419023
+"WiSoL Co.,LTD.",122990,Electronics and telecom equipment,6.38,-0.3,56108911,68.9,404,25.7,3.8,381782869
+"SEOWONINTECH.CO.,LTD",093920,Electronics and telecom equipment,11.12,2.09,41637238,69,189,38.1,34.4,481238095
+"DAEDUCK ELECTRONICS CO.,LTD",353200,Electronics and telecom equipment,9.84,4.8,81525256,78.6,2633,13.7,11.4,1995069931
+AUTOMOBILE & PCB,015260,Electronics and telecom equipment,4.68,-0.35,40023858,76.1,233,52.8,,75427474
+"SUNGWOOELECTRONICSCO.,LTD.",081580,Electronics and telecom equipment,9.63,3,63918367,74.2,98,12.2,15.6,381373721
+RANIX INC.,317120,Electronics and telecom equipment,3.34,1.78,71437500,52.6,80,11.3,22.3,281165500
+"I&C Technology Co., Ltd.",052860,Electronics and telecom equipment,6.13,4,57232558,67.8,86,9.3,29.2,877761141
+"Anapass, Inc.",123860,Electronics and telecom equipment,8.41,-0.5,119000000,65.1,135,22.2,23.4,1313818974
+"SAMWHA ELECTRIC CO.,LTD",009470,Electronics and telecom equipment,11.72,6.34,58044829,68.6,434,54.4,27.6,365741198
+"CNSLINK Co., Ltd",245450,Electronics and telecom equipment,7.44,2.3,54609756,69.5,41,24.4,22,61618440
+"UIL Co.,Ltd",049520,Electronics and telecom equipment,9.97,-2.16,60526316,66.7,133,36.8,4.7,881217857
+"Elensys Co.,Ltd.",264850,Electronics and telecom equipment,6.91,1.78,40343750,66,128,70.3,,1545498565
+PEOPLE & TELECOMMUNICATION INC.,054340,Electronics and telecom equipment,6,,43000000,,1,,6.6,
+"SD system  Co., Ltd",121890,Electronics and telecom equipment,5.59,2.23,51719314,66.8,70,15.7,24.6,369312321
+UTI INC.,179900,Electronics and telecom equipment,5.09,0.31,63253968,77.3,126,14.3,15.7,418582920
+"FINE DNC CO.,LTD.",049120,Electronics and telecom equipment,7.58,3.4,58024523,61.1,120,12.5,33.7,186854310
+EMSONIC CORPORATION,008120,Electronics and telecom equipment,8.39,2.6,49260870,73.1,46,19.6,14,
 "COWEAVER Co.,Ltd.",056360,Electronics and telecom equipment,9.72,2,63890528,60,159,13.8,,367225962
-"GOOD PEOPLE CO., LTD.",033340,Apparel,11.16,1.09,58063625,83.1,159,46.5,3.1,203047395
-INSUN ENVIRONMENTAL NEW TECHNOLOGY CO.,060150,Waste management,8,2.67,53989479,61.2,159,20.8,,858257974
-"Korea No.12 Special Purpose Acquisition Co., LTD.",458610,Financial support services,1,,,,1,,1.8,
-하나35호스팩,,,0.75,,,,1,,0.8,
-Shinhan 14th Special Purpose Acquisition Company,487360,Financial support services,1.5,,,,1,,1.5,11364600000
-"Korea No.13 Special Purpose Acquisition Co., LTD.",464440,Financial support services,2.42,,,,1,100,2.4,
-하나36호스팩,,,0.42,,,,1,,0.4,
-Hana 30 Special Purpose Acquisition Company,469880,Financial support services,0.83,,,,1,,2.4,
+"SAMWHA ELECTRONICS CO.,LTD",011230,Electronics and telecom equipment,13.98,6.8,48984443,83.1,106,17.9,33.6,519826716
+"DAHAAM e-TEC CO., LTD",009280,Electronics and telecom equipment,12.82,-1,64344400,55.5,5,40,9.8,
+"AJINEXTEK Co., Ltd.",059120,Electronics and telecom equipment,6.88,1.97,64502700,49.1,90,10,31,1420047341
+"Chips&Media, Inc.",094360,Electronics and telecom equipment,6.61,1.59,130431128,68,86,19.8,21,2577531908
+"INTELLIGENT DIGITAL INTEGRATED SECURITY CO., LTD.",143160,Electronics and telecom equipment,8.51,2.33,67054795,61.6,438,21.2,28.2,371158987
+"SUNGMOON ELECTRONICS CO.,LTD",014910,Electronics and telecom equipment,12.77,4.2,47686556,76.4,72,22.2,32.2,534288504
+"Elivision Co., Ltd.",276240,Electronics and telecom equipment,4.58,4.3,43583333,74.7,12,16.7,22,523308365
+KORTEK CORPORATION,052330,Electronics and telecom equipment,9.32,1.91,76423358,59.3,274,13.9,,794085640
+HiDeep Inc.,365590,Electronics and telecom equipment,6.47,-0.84,85279412,74.2,68,16.2,15.7,496996425
+FINEDIGITAL Inc.,038950,Electronics and telecom equipment,9.54,4.92,63046875,64.4,128,38.3,33,228146780
+Digital Graphics Incorporation,043360,Electronics and telecom equipment,9.08,4.98,47925275,59.9,69,18.8,18,307173913
+"DaejooElectronicMaterialsCo.,Ltd.",078600,Electronics and telecom equipment,6.87,1,68683473,85.7,357,13.2,,3756676149
+"SEJIN T.S CO., LTD.",067770,Electronics and telecom equipment,17.44,0.4,46500000,73.1,28,39.3,,668728657
+LEENO Industrial Inc,058470,Electronics and telecom equipment,9.34,0.59,117014294,62.9,677,55.5,29,7531126684
+"Kisan Telecom CO., Ltd.",035460,Electronics and telecom equipment,13.96,-2.9,56297167,60.9,60,8.3,32,581893260
+"BioSmart Co., Ltd.",038460,Electronics and telecom equipment,9.64,1.2,57035714,71.9,168,38.7,19.3,431021207
+TelechipsInc.,054450,Electronics and telecom equipment,6.22,2.8,74114683,69.3,489,17,,302574962
+"TFE Co., Ltd.",425420,Electronics and telecom equipment,3.96,1.5,46700730,53.7,274,29.2,22.8,1460031622
+"DONGWOON ANATECH CO.,LTD.",094170,Electronics and telecom equipment,4.57,1.25,94802192,60.2,203,22.7,20.1,3296147547
+i3system Inc.,214430,Electronics and telecom equipment,7.57,0.3,67087266,88.1,507,9.1,27,958441415
+"HYUNWOOINDUSTRIALCO.,LTD",092300,Electronics and telecom equipment,7.17,0.1,51478669,83.4,269,28.6,39.1,186891926
+"Aroot Co., Ltd.",096690,Electronics and telecom equipment,6.74,0.04,45881266,69.3,79,17.7,7.1,278034396
+"TJ MEDIA CO.,LTD",032540,Electronics and telecom equipment,8.89,5,57710526,57.7,228,44.3,15.3,287339429
+SAWNICS INC.,088280,Electronics and telecom equipment,5.03,1.75,59745789,71.4,95,22.1,25.8,504620814
+MKElectron,033160,Electronics and telecom equipment,10.96,0.33,61251593,77.9,296,13.5,2.9,1392816556
+"LMS Co.,Ltd.",073110,Electronics and telecom equipment,7.79,2.83,51285714,83,189,19,24.8,230160010
+"Korea Robot Manufacturing Co., Ltd.",093640,Electronics and telecom equipment,4.34,-0.42,74655600,62.1,65,13.8,2,2008519555
+LOTTE ENERGY MATERIALS CORPORATION,020150,Electronics and telecom equipment,13.77,8.3,71803723,70.3,591,10,2.8,2768901385
+Ubiquoss Inc.,264450,Electronics and telecom equipment,5.59,1,79703579,78.1,190,10.5,8.8,807373983
+RAONTECH INC.,418420,Electronics and telecom equipment,4.7,-0.92,69133333,80.3,75,13.3,16.2,1555140998
+"KAON Group Co., Ltd.",078890,Electronics and telecom equipment,4.92,1,73808989,58.2,267,15.7,,305012165
+"TRUEN Co., Ltd",417790,Electronics and telecom equipment,4.08,1.4,66455486,59.7,105,8.6,20.8,570278062
+"PARTRONCO.,LTD",091700,Electronics and telecom equipment,7.85,-0.51,61492509,95.1,544,13.6,22,504595588
+"MCNEX CO.,LTD",097520,Electronics and telecom equipment,6.42,-4.4,59280706,67.3,472,14.2,19.7,717074523
+"DAP Co., Ltd",066900,Electronics and telecom equipment,5.54,1.66,54017746,88.6,1127,20.4,23.7,34813015
+"MECARO.CO.,LTD.",241770,Electronics and telecom equipment,4.28,-1.41,59524229,90,227,7.9,19.3,1668090643
+"KnJ Co.,Ltd.",272110,Electronics and telecom equipment,3.05,1,52092664,75.9,259,14.7,18.3,861413054
+"KOSTECSYS. CO., LTD.",355150,Electronics and telecom equipment,6.49,1.42,45895746,59.6,67,53.7,,2214680157
+"Woori-Net Co., Ltd.",115440,Electronics and telecom equipment,6.96,0.6,64674180,70.9,239,5.9,26.6,345959317
+"SUNNY ELECTRONICS CO.,LTD",004770,Electronics and telecom equipment,11.67,-9.33,50552250,74.2,32,31.3,,1877455784
+"AMOGREENTECH Co., Ltd.",125210,Electronics and telecom equipment,6.29,0.5,46634838,69.5,346,25.7,17.2,282734002
+"SANGSHIN ELECTRONICS CO., LTD.",263810,Electronics and telecom equipment,7.68,-0.6,44764712,65.8,118,30.5,10.7,350211194
+"Se Gyung Hi Tech Co., Ltd.",148150,Electronics and telecom equipment,4.43,-1.3,51861818,77.8,275,17.8,2,407126824
+"SERONICS. CO., LTD.",042600,Electronics and telecom equipment,7.25,-1.78,54147242,133.7,1054,37.5,6,106319390
+Samjin,032750,Electronics and telecom equipment,8.77,-10.2,53603526,76.4,63,9.5,27.1,428619917
+"Nextchip Co., Ltd.",396270,Electronics and telecom equipment,4.85,0.2,59378505,82.3,214,23.8,6,328874310
+Sapien Semiconductors Inc.,452430,Electronics and telecom equipment,2.44,-0.2,97492958,57.9,71,21.1,8.3,3488206056
+"SHINSUNG E&G Co.,LTD.",011930,Electronics and telecom equipment,4.92,0.88,56382857,87.2,525,12.6,23.9,645543195
+"Zaram Technology,Inc.",389020,Electronics and telecom equipment,6.3,1.08,91714286,60.8,70,25.7,26.5,2170168629
+Xperix Inc.,317770,Electronics and telecom equipment,3.85,1.83,68823529,83.3,68,26.5,2.7,1554681698
+"DK TECH CO.,LTD",290550,Electronics and telecom equipment,2.53,-0.08,38539617,71.7,107,37.4,2.8,3437594577
+"LS Materials Co.,Ltd.",417200,Electronics and telecom equipment,6.51,3.4,49934426,65.4,122,11.5,5,6654359902
+"DERKWOO ELECTRONICS CO.,LTD.",263600,Electronics and telecom equipment,3.66,1.37,51000000,75.8,318,25.5,15.9,177337413
+AUK CORP,017900,Electronics and telecom equipment,11.93,5.7,43986750,77.7,708,41.7,11.1,577800801
+"NANOCMS CO., LTD",247660,Electronics and telecom equipment,3.51,3.96,29896552,43.6,58,41.4,11.3,213825717
+"TLB Co., Ltd.",356860,Electronics and telecom equipment,4.95,0.79,58012368,88.4,465,14.8,14.6,718178326
+"Solid, Inc.",050890,Electronics and telecom equipment,5.13,1.59,76855856,71.6,333,18,,1837292184
+"BHCo.,Ltd.",090460,Electronics and telecom equipment,5.63,-0.66,56500730,86.4,1370,31.2,22.3,361476272
+"Micro Contact Solution Co.,Ltd.",098120,Electronics and telecom equipment,4.81,0.18,55153061,67.3,196,46.9,25.7,1043336957
+"HD HYUNDAI ENERGY SOLUTIONS CO.,LTD.",322000,Electronics and telecom equipment,10.01,5.7,89889483,56.8,238,15.5,,6395294118
+"OKins Electronics Co.,Ltd.",080580,Electronics and telecom equipment,5.6,0.37,56041444,73.8,171,27.5,27.7,1640407611
+"MOBASE Co., Ltd.",101330,Electronics and telecom equipment,10.54,8,39657143,85,35,5.7,26,2347770084
+"Sigetronics, Inc.",429270,Electronics and telecom equipment,4.17,-0.42,39901086,73.4,81,39.5,17.9,275087569
+SK hynix Inc.,000660,Electronics and telecom equipment,13.43,-3.4,185004892,80.3,34549,33.3,3.8,35267627567
+"DUKSANHIMETALCO.,LTD.",077360,Electronics and telecom equipment,4.68,1.58,71448161,78.1,299,9.7,16.4,1486200266
+"Edge Foundry Co.,Ltd",105550,Electronics and telecom equipment,5.75,-4.4,43579782,82.7,124,23.4,19.5,250708865
+CammSys Corp.,050110,Electronics and telecom equipment,7.22,-5.84,55252896,84.5,135,18.5,15.8,208686884
+"ASICLAND Co.,Ltd",445090,Electronics and telecom equipment,3.48,0.41,69939394,78.4,264,25.4,9.8,798731816
+"SINDOH CO.,LTD",029530,Electronics and telecom equipment,17.51,-0.9,75170132,73.2,303,23.1,2,1308256578
+SUNGHO ELECTRONICS CORP.,043260,Electronics and telecom equipment,6.18,2.8,50354860,72.6,86,22.1,15.5,15849926593
+"Pixelplus. Co., Ltd.",087600,Electronics and telecom equipment,7.21,0.89,78548673,66.7,113,19.5,,293056572
+BG T&A Co.,046310,Electronics and telecom equipment,9.84,4,76935484,50,62,29,,606430450
+JOOSUNG CORPORATION,109070,Electronics and telecom equipment,5.94,3.96,44208533,54.6,60,41.7,2,1248081769
+"TIGER ELEC CO.,LTD.",219130,Electronics and telecom equipment,4.42,0,48394585,84.1,246,19.5,,1876319508
+"WOOJEON CO., LTD.",052270,Electronics and telecom equipment,8.35,0.5,63605263,60.6,76,9.2,38,
+"Samyung ENC Co., Ltd.",065570,Electronics and telecom equipment,10.71,1.5,38200000,57.8,190,35.8,21.6,64714170
+RFHIC CORPORATION,218410,Electronics and telecom equipment,7.49,2.17,63740383,65.7,334,23.4,26.3,4161364122
+"SIMMTECH Co., Ltd.",222800,Electronics and telecom equipment,9.45,0.3,59982679,81.4,2902,17.7,,1329698447
+"MOTIVELINK CO.,LTD",463480,Electronics and telecom equipment,6.81,0.74,50723081,69.8,111,21.6,16.7,447615636
+Hana Materials Inc.,166090,Electronics and telecom equipment,5.93,-1.1,76800558,75.9,717,11.6,,1541941390
+"ISTE Co.,Ltd.",212710,Electronics and telecom equipment,5.05,2.17,59839261,63.1,88,5.7,12,869932121
+"Green Resource Co.,Ltd",402490,Electronics and telecom equipment,3.31,1.39,42295828,66.6,64,28.1,15,1934319317
+"DILLI ILLUSTRATE INC.,",131180,Electronics and telecom equipment,7.78,2.1,48456000,74.6,65,20,,324204615
+HanaMicronInc.,067310,Electronics and telecom equipment,7.78,1.5,62937743,92.3,771,41.2,7.4,2751048925
+"ICH Co., Ltd.",368600,Electronics and telecom equipment,2.33,0.12,53400000,68.4,195,20,13.3,126728244
+"ONEUL E&M co.,Ltd",192410,Electronics and telecom equipment,6.95,0.46,39809031,67.9,97,29.9,3.3,1069752011
+Wavice Inc.,289930,Electronics and telecom equipment,2.92,1,65512821,64.3,156,17.9,3.1,618677778
+"ICTK Co., Ltd.",456010,Electronics and telecom equipment,3.3,1.02,62316371,89.5,70,18.6,8.3,3200875821
+"TELAUM CO., LTD.",047730,Electronics and telecom equipment,2.83,0.31,38500000,213.3,12,25,7.8,
+"POINT MOBILE Co., Ltd.",318020,Electronics and telecom equipment,5.94,3.34,58537000,60.4,160,29.4,2.4,166067172
+"Piolink, Inc.",170790,Electronics and telecom equipment,5.81,1.36,54258065,74.5,434,23.5,23,127062276
+"WITS Co., Ltd.",459100,Electronics and telecom equipment,2.94,0.47,67039542,52.4,131,16,5.9,429681664
+"JNTC CO.,LTD.",204270,Electronics and telecom equipment,9.84,-3.16,55897727,71.8,264,18.9,1.6,3328478025
+"Finecircuit CO.,LTD.",127980,Electronics and telecom equipment,3.81,0.83,37843950,88.4,119,22.7,10.2,300992177
+"ADTechnology Co., Ltd.",200710,Electronics and telecom equipment,3.45,-0.2,63017903,93.8,391,24.6,5.9,1026004626
+"VECT Co., Ltd.",457600,Electronics and telecom equipment,6.27,6,56143231,63.9,52,28.8,19.8,972705288
+Ace Technologies Corp.,088800,Electronics and telecom equipment,5.89,3.96,30544402,40.5,259,29.3,,606383717
+"ATUM CO., LTD.",355690,Electronics and telecom equipment,1.97,0,46133114,50.4,35,25.7,9,1177157847
+"HAESUNG DS Co.,Ltd.",195870,Electronics and telecom equipment,6.19,1.7,79435746,82.9,1354,18.3,1,655391433
+"MOATECH CO., LTD.",033200,Electronics and telecom equipment,10.46,2.72,51481422,58.9,83,25.3,27.3,288334643
+"CITECH CO.,LTD",004920,Electronics and telecom equipment,4.37,0.59,37267261,54,111,23.4,14.2,437182711
+"TechL Co., LTD.",064520,Electronics and telecom equipment,5.75,1.33,46964912,69.8,114,37.7,3.2,291936240
+"Amotech Co., Ltd.",052710,Electronics and telecom equipment,10.47,0.6,52100503,77.2,597,37.7,31.2,337287913
+"Hansol Technics Co., Ltd",004710,Electronics and telecom equipment,9.95,2.4,64841897,75,506,18.6,32.9,811494438
+KORCHIP CORPORATION,126730,Electronics and telecom equipment,2.7,-1.79,43754316,98.5,95,13.7,31,1234279838
+"SEOUL SEMICONDUCTOR CO., LTD.",046890,Electronics and telecom equipment,8.18,1.21,49518519,38.5,162,40.7,34.6,3368756444
+KEC CORPORATION,092220,Electronics and telecom equipment,18.2,-0.81,60742277,75.6,542,34.1,0.5,201503963
+"SEOUL VIOSYS CO., LTD.",092190,Electronics and telecom equipment,7.8,-1.05,60217617,78.4,193,31.1,,1411700492
+"GO Element Co., Ltd.",311320,Electronics and telecom equipment,6.52,1.4,54283386,61.1,95,20,20.6,941444531
+Signetics Corp.,033170,Electronics and telecom equipment,8.08,6.6,45300813,66,123,27.6,1,236972589
+"ANAM ELECTRONICS CO.,LTD",008700,Electronics and telecom equipment,7.84,2,58216216,63.3,148,8.1,10.8,644096470
+"LG INNOTEK CO., LTD.",011070,Electronics and telecom equipment,9.42,0.79,92627877,77.6,12211,17,11,1164845738
+"U.I.DISPLAY CO.,LTD.",069330,Electronics and telecom equipment,6.36,0.42,47733796,78.8,49,12.2,35.4,349430607
+"Namuga Co.,Ltd",190510,Electronics and telecom equipment,6.43,-0.08,87302326,62.4,129,16.3,2,1534098479
+"LX Semicon Co., Ltd.",108320,Electronics and telecom equipment,6.49,1.65,97688779,68.3,1417,19.1,2.8,406894450
+"JAHWA ELECTRONICS CO.,LTD",033240,Electronics and telecom equipment,4.42,0.88,52852703,76.3,1585,29,,365317005
+"KOCOM CO., LTD",015710,Electronics and telecom equipment,10.37,0.63,53847682,76.8,151,16.6,,306493510
+"S Connect Co., LTD",096630,Electronics and telecom equipment,11.42,2.58,87816206,61,63,15.9,21,502498223
+"INNOX Advanced Materials Co., Ltd.",272290,Electronics and telecom equipment,5.35,1.95,77987620,76.3,727,10.6,8.6,570426667
+"ABCO ELECTRONICS CO., LTD.",036010,Electronics and telecom equipment,8.56,2.58,45179413,81.7,363,35.5,12,229239027
+"CAP Co.,Ltd.",198080,Electronics and telecom equipment,12.59,-1.02,51958408,73.6,196,41.8,14.8,258202473
+"Global Display Co., Ltd.",155960,Electronics and telecom equipment,5.87,2,47221449,71.2,78,6.4,6.6,
+"TOP RUN TOTAL SOLUTION CO.,LTD",336680,Electronics and telecom equipment,6.82,1.19,56085809,58.4,185,16.2,,526878051
+INZI DISPLAY COMPANY LIMITED,037330,Electronics and telecom equipment,12.54,4.9,58731512,71.5,123,19.5,,283648399
+"ALT  Co., Ltd.",459550,Electronics and telecom equipment,4.02,-0.03,106647059,69.4,51,29.4,8.3,901518575
+IntermCorporation,017250,Electronics and telecom equipment,9.33,1.4,43645697,78.8,261,41,13.6,77086078
+"Sena Technologies Co., Ltd.",061090,Electronics and telecom equipment,6.07,3,69115044,74.7,113,31,27,2269275177
+"APACT Co., Ltd.",200470,Electronics and telecom equipment,6.64,1.75,46113636,84.1,440,28.6,6.5,529526163
+"AHA Co.,Ltd",102950,Electronics and telecom equipment,3.48,0.11,35054054,86.1,148,18.9,16,158881420
+"Hanwha Vision CO.,LTD",489790,Electronics and telecom equipment,11.72,4.5,122524528,74.4,1060,19.6,1,2333897274
+PULOON Robotics Inc.,094940,Electronics and telecom equipment,8.82,3,47777323,50,130,39.2,25,414853382
+"OE Solutions Co., Ltd.",138080,Electronics and telecom equipment,7.06,2.25,47577728,67.3,283,45.2,,1100002169
+CS CORPORATION,065770,Electronics and telecom equipment,5.55,-0.37,64933333,45.1,45,15.6,9.3,388823700
+"RFsemiTechnologies,Inc.",096610,Electronics and telecom equipment,8.8,-1.11,39571785,90.7,93,47.3,2.3,554308695
+"DG-ITX Co., Ltd.",099520,Electronics and telecom equipment,8.25,-3.99,59514211,54.7,76,22.4,28,765024500
+"WORLDEXINDUSTRY&TRADINGCO.,LTD",101160,Electronics and telecom equipment,5.08,1.38,57495810,84.3,399,23.8,26,1197978064
+Solus Advanced Materials Co. Ltd.,336370,Electronics and telecom equipment,4.14,1.01,94621212,72.2,198,25.8,,2503709337
+"HMNEX Co.,Ltd.",036170,Electronics and telecom equipment,11.28,6.3,61470333,67.1,36,8.3,4.2,4943342094
+"SAMYOUNG ELECTRONICS CO.,LTD",005680,Electronics and telecom equipment,,,48557377,65.5,305,47.2,37.8,904262295
+"Luxpia Co., Ltd.",092590,Electronics and telecom equipment,3.87,-0.41,34473684,75,76,55.3,26.3,68018270
+Y&NEXT Inc.,090740,Electronics and telecom equipment,4,,60000000,,2,,3.9,
+"SAMYOUNG S&C CO., LTD.",361670,Electronics and telecom equipment,7.77,-5.08,46334865,63.3,58,29.3,19.8,352274260
+"ITM Semiconductor Co., Ltd",084850,Electronics and telecom equipment,6.66,2.1,56506369,72.8,314,25.8,21.8,619807560
+Asia Pacific Satellite lnc.,211270,Electronics and telecom equipment,8.68,4.75,63710383,65.4,183,18.6,,666753221
+"Pentastone Electronics, Inc.",332570,Electronics and telecom equipment,6.51,1.95,55478261,74,115,27,18.2,3818162541
+FADU INC.,440110,Electronics and telecom equipment,3.58,-0.05,118240418,56.2,287,22,9.5,11611091622
+"GIGALANE Co., Ltd.",049080,Electronics and telecom equipment,7.12,-0.01,67854749,66.3,179,26.3,12.8,521155255
+"VISSEM Electronics Co., Ltd.",072950,Electronics and telecom equipment,9.29,1.5,55262729,69.8,221,35.7,22.7,311537627
+"Cellfie Global Co.,Ltd.",068940,Electronics and telecom equipment,6.15,2.5,53574190,76,105,18.1,1,340191362
+"Amosense Co., Ltd.",357580,Electronics and telecom equipment,5.76,1,51238411,70.9,302,23.5,12.1,240479914
+"HYUNDAI HT CO,LTD.",039010,Electronics and telecom equipment,6.66,-1.5,35347241,77.1,232,17.2,15,273620690
+EXICURE HITRON INC.,019490,Electronics and telecom equipment,5.31,0.04,56750000,114.5,32,21.9,0.1,1292183065
+"DB HiTek Co.,LTD",000990,Electronics and telecom equipment,10.29,0.9,93215218,58.3,2221,45.4,15.6,1762905412
+"Dasan Solueta Co.,Ltd.",154040,Electronics and telecom equipment,5.2,0.7,57633481,83,108,14.8,4.3,196742116
+INNO INSTRUMENT INC.,215790,Electronics and telecom equipment,2.15,1.33,36850000,50,40,32.5,,994993780
+LG ELECTRONICS INC.,066570,Electronics and telecom equipment,13.76,2.7,117590675,77.9,34144,16.3,38,856308356
+"Fidelix Co., Ltd.",032580,Electronics and telecom equipment,7.52,2.08,78160111,80.1,63,11.1,25.3,2356057884
+"JangWonTech Co., Ltd.",174880,Electronics and telecom equipment,6.19,0.37,41448598,61.7,107,30.8,1.4,
+"NEWFLEXTECHNOLGYCo.,LTD.",085670,Electronics and telecom equipment,7.38,2.36,45105634,61.7,142,14.1,25.8,530562254
+"HANWHA SYSTEMS Co., Ltd.",272210,Electronics and telecom equipment,10.57,3.66,107586406,78,4855,16,1.3,2817253092
+S&S TECH CORPORATION,101490,Electronics and telecom equipment,5.71,2.83,58890675,73.8,311,13.2,9.4,3028729607
+"SAMJI ELECTRONICS CO., LTD.",037460,Electronics and telecom equipment,6.58,2.2,64338710,59.2,124,13.7,27.9,4711315223
+"DOWOOINSYS Co., LTD.",484120,Electronics and telecom equipment,3.01,0.63,51755725,82.2,393,40.7,1.3,497684434
+"Y2 Solution CO.,LTD",011690,Electronics and telecom equipment,5.59,1.47,75042105,67,95,23.2,4.8,1302040082
+"RFTECH CO., LTD",061040,Electronics and telecom equipment,8.73,-0.5,56533333,56.3,240,26.7,6.9,248826133
+"DAIDONG ELECTRONICS.,LTD",008110,Electronics and telecom equipment,11.16,6,58727651,59.7,43,14,28,
+"THE MIDONG Co,. Ltd",161570,Electronics and telecom equipment,7.08,-1.7,66293000,55.7,5,40,,
+"QUALITAS SEMICONDUCTOR CO., LTD.",432720,Electronics and telecom equipment,3.29,0.5,83654085,68.9,164,22.6,8.9,738791859
+"S&KPOLYTECCO.,LTD.",091340,Electronics and telecom equipment,13.94,-2.08,49981652,82.8,23,13,5.9,1025347731
+Iron Device Corp.,464500,Electronics and telecom equipment,3.81,-1.58,74239130,88.2,46,19.6,18.3,532352397
+"Alphachips, Inc.",117670,Electronics and telecom equipment,6.42,1.9,61270800,65.9,115,20,,549738535
+MiCo Ltd.,059090,Electronics and telecom equipment,4.39,1.37,56859903,71,207,25.6,,2634598150
+Melfas Inc.,096640,Electronics and telecom equipment,2.13,0.83,41270270,46.9,37,29.7,3.8,
+"ALT Co.,Ltd.",172670,Electronics and telecom equipment,4.85,-1.1,55497326,74.2,187,40.6,22.8,525636584
+CoAsia Corporation,045970,Electronics and telecom equipment,6.56,-0.34,58263158,80.8,114,36.8,10.3,626709547
+"Pharmicell Co.,Ltd.",005690,Electronics and telecom equipment,5.34,1.09,71661290,61.1,186,22.6,17,3684117419
+"THE CODI Co., LTD.",224060,Electronics and telecom equipment,7.89,-3.71,43170920,68.6,33,39.4,6.8,540311955
+Linked Inc.,193250,Electronics and telecom equipment,4.92,1.01,48809529,57.8,34,17.6,10.4,624801016
+"LG Display Co., Ltd.",034220,Electronics and telecom equipment,14.93,2.6,85864347,75.3,24430,14.3,2.7,200573066
+LIGHTRON FIBER-OPTIC DEVICES INC.,069540,Electronics and telecom equipment,11.69,-1.83,68666667,70.3,66,24.2,1.1,4934539126
+"KESPION Co., Ltd.",079190,Electronics and telecom equipment,8.95,1.72,51880220,73.1,41,19.5,5.8,248609203
+"IL ROBOTICS CO., LTD.",403810,Electronics and telecom equipment,2,1.2,58333333,46.9,6,16.7,0.3,3892127183
+"CNPLUS Co., Ltd.",115530,Electronics and telecom equipment,4.55,-3.18,45403509,74.3,57,21.1,,352722308
+"LIG Accuver Co.,Ltd.",073490,Electronics and telecom equipment,6.69,1.91,67174888,80,446,20.2,,545567426
+"KH Mirae Corporation Co., Ltd.",111870,Electronics and telecom equipment,3.04,,34145364,83.2,11,9.1,2.4,
+"DASAN Networks, Inc.",039560,Electronics and telecom equipment,7.02,-0.3,44305697,59.8,182,39.6,34.9,596196835
+"SYNIC SOLUTION CO., LTD.",234030,Electronics and telecom equipment,5.81,0.08,84622222,68.8,45,28.9,19.9,1673332222
+KMW CO. LTD.,032500,Electronics and telecom equipment,14.82,5.38,50434783,82.7,69,17.4,35.6,10450089422
+Coset Inc.,189350,Electronics and telecom equipment,9.75,5,35115385,61.2,78,73.1,20.3,114338462
+"HANYANG DIGITECH CO.,LTD.",078350,Electronics and telecom equipment,5.87,1.7,60000000,100,81,13.6,,3876966286
+"Mdevice Co., Ltd",226590,Electronics and telecom equipment,1.21,-0.62,31038462,108.9,26,26.9,17,4867893040
+"HFR, Inc.",230240,Electronics and telecom equipment,7.91,3.4,58505814,57.8,172,20.3,26.2,1245784302
+"ILJIN DISPLAY CO.,LTD.",020760,Electronics and telecom equipment,6.41,-1.85,54428571,68.4,42,14.3,1.9,1321511201
+Jeju Semiconductor Corp.,080220,Electronics and telecom equipment,8.62,-0.9,93115108,69.1,139,12.9,26.3,18708157493
+"HanWool Materials Science, Inc.",091440,Electronics and telecom equipment,2.77,0.33,50040558,90.7,52,17.3,0.9,1881393195
+WINPAC INC.,097800,Electronics and telecom equipment,4.25,0,47908861,86,395,29.9,2.1,119454400
+"MICRO2NANO, INC.",424980,Electronics and telecom equipment,7.35,4.25,47719910,62.7,134,13.4,25.3,300361582
+"FOCUS AI Co., Ltd.",331380,Electronics and telecom equipment,4.53,1.33,55068966,63.3,116,22.4,11.8,680788539
+"SAMSUNG ELECTRONICS CO,.LTD",005930,Electronics and telecom equipment,13.73,1,157064509,77.8,128881,26.9,3.8,11159011317
+"DUK SAN NEOLUX CO.,LTD",213420,Electronics and telecom equipment,4.47,0.6,58071429,85,294,21.4,11.7,2677375423
+"N CITRON, INC.",101400,Electronics and telecom equipment,6.54,-1.6,67600000,61.3,10,40,5.1,2140527952
+"RF Materials Co., Ltd.",327260,Electronics and telecom equipment,5.47,-0.58,50725539,76.3,89,38.2,18,3411076475
+"ISUPETASYS CO.,LTD",007660,Electronics and telecom equipment,12.45,3.25,98486980,89.2,1368,6.9,22.9,4545146820
+"NC& Co., Ltd.",092600,Electronics and telecom equipment,5.25,2.4,66200000,70.4,140,22.9,20,68728831
+"Zinitix Co.,Ltd.",303030,Electronics and telecom equipment,7.12,-0.2,70583333,60.3,84,8.3,0.3,204953034
+"WELKEEPS HITECH CO.,LTD",043590,Electronics and telecom equipment,4.67,5.5,69470667,105.6,3,33.3,,5192167129
+"EV ADVANCED MATERIAL CO., LTD.",131400,Electronics and telecom equipment,9.75,4.48,51827183,63.9,126,18.3,6.6,328701254
+"SOLUM CO., LTD.",248070,Electronics and telecom equipment,5.11,0.26,71071429,69.7,504,21.4,10.3,1402230095
+"COMMAX Co., Ltd.",036690,Electronics and telecom equipment,11.54,4,62000000,60,130,11.5,17,966862367
+"LiComm Co., Ltd.",388790,Electronics and telecom equipment,7.7,3.7,41626866,61.7,67,29.9,26.4,1896250209
+NEPES Corporation,033640,Electronics and telecom equipment,5.48,3.5,55395520,70.1,1200,43.2,35.7,320907228
+MERCURY CORPORATION,100590,Electronics and telecom equipment,14.98,10.18,77718519,56.5,135,12.6,40.9,452610948
+"iA, Inc.",038880,Electronics and telecom equipment,2.06,0.56,31181818,56.8,22,36.4,0.8,1253542382
+"UNION biometrics Co., Ltd.",203450,Electronics and telecom equipment,6.3,3.75,49165046,66.6,151,18.5,25.8,229366604
+"JOONGANG ADVANCED MATERIALS Co., Ltd",051980,Electronics and telecom equipment,6.62,0.97,51622537,76,108,10.2,5.8,1027598308
+LDTInc.,096870,Electronics and telecom equipment,7.18,1.85,49566581,61.6,62,16.1,18.3,305644480
+"EM-Tech.CO.,LTD.",091120,Electronics and telecom equipment,6.99,-0.37,57186275,74.3,306,9.8,25,235157945
+"COTS Technology Co., Ltd.",448710,Electronics and telecom equipment,3.54,3.1,56605398,57.1,221,14.9,26.6,270243437
+"ENTERMEDIA CO., LTD",068420,Electronics and telecom equipment,6.17,2.25,68333333,44,6,33.3,6,
+"SFA Semicon Co., Ltd",036540,Electronics and telecom equipment,8.18,0.3,57857877,79.4,584,39.6,0.8,1475636965
+"FRTEKCO.,LTD.",073540,Electronics and telecom equipment,4.34,2.3,68375848,121.4,33,24.2,25.3,829090909
+"SEMCNS Co., Ltd.",252990,Electronics and telecom equipment,2.82,0.52,53664495,80.4,307,30.6,1.9,2608788025
+"DREAMTECH CO.,LTD.",192650,Electronics and telecom equipment,5.53,0.4,56187279,53.9,401,43.4,12.1,751701353
+"SENSORVIEW CO., LTD.",321370,Electronics and telecom equipment,3.39,0.59,47988237,57.5,97,24.7,11.2,730232847
+"DOOSAN CO.,LTD",000150,Electronics and telecom equipment,13.66,5.24,134630646,61.5,1749,19.1,34.2,11666227616
+3ALogics. Inc.,177900,Electronics and telecom equipment,6.46,0.57,58729167,83.8,48,22.9,21.9,822357500
+"LUMENS CO., LTD.",038060,Electronics and telecom equipment,8.43,2.4,65304348,65.7,92,19.6,1.6,522336586
+"LB SEMICON, INC.",061970,Electronics and telecom equipment,4.71,0.28,54583317,77.4,1513,34.5,6.2,157971956
+"BLUECOM CO.,LTD",033560,Electronics and telecom equipment,12.01,9.56,47107333,57.5,12,33.3,,7509750000
+"Hustory Co., Ltd.",046400,Electronics and telecom equipment,6.79,2.82,50208231,59.8,13,15.4,,
+"Elentec Co., Ltd",054210,Electronics and telecom equipment,6.39,1.6,59048825,76.9,412,19.4,44.5,475130984
+"CMTX Co.,Ltd.",388210,Electronics and telecom equipment,1.8,-0.25,57141264,83.1,269,18.6,12.9,2835318223
+"Kwangmu Co.,Ltd.",029480,Electronics and telecom equipment,7.21,2.53,72990999,69.8,24,4.2,1.4,3538358571
+ESTec Corporation,069510,Electronics and telecom equipment,14.47,-4.78,82627566,89.3,341,15.2,0.1,399606745
+"FutureCore Co.,Ltd.",151910,Electronics and telecom equipment,6.41,-0.34,50835646,70.5,55,23.6,0.2,
+"INTOPS CO., LTD.",049070,Electronics and telecom equipment,9.97,3.66,55841216,62.5,296,22,19.9,1056849774
+"ATEC MOBILITY Co., Ltd",224110,Electronics and telecom equipment,3.51,0.9,47004115,72,243,21.4,11,188789653
+"ELCOMTEC CO.,LTD",037950,Electronics and telecom equipment,5,-1.54,56494800,86.8,40,15,,1178042834
+"MUGUNGHWA INFORMATION TECHNOLOGY CO., LTD.",038340,Electronics and telecom equipment,3.5,2,73706253,49.9,12,25,4.8,
+"TIDE Co., Ltd.",346010,Electronics and telecom equipment,6.53,1.33,61851852,57.6,27,14.8,,180002296
+"UJU ELECTRONICS CO., LTD",065680,Electronics and telecom equipment,9.76,-0.36,63377358,78.5,371,11.6,32.3,585312853
+OptiCore Inc.,380540,Electronics and telecom equipment,2.91,-0.33,72455601,62.9,38,23.7,1.4,5438371746
+"PHOTON CO., LTD",208710,Electronics and telecom equipment,3.27,-1.16,62797515,64.5,33,30.3,2.9,1052413570
+H&SHigh Tech Corp.,044990,Electronics and telecom equipment,5.48,1.69,58414894,74.7,188,23.9,20.8,493829436
+"RYUK-IL C&S., Ltd.",191410,Electronics and telecom equipment,8.28,2,77493320,52.9,25,36,19.3,628334620
+"DHAUTOWARE Co., LTD",025440,Electronics and telecom equipment,4.66,0.9,71978852,73.3,331,15.1,,101836323
+"KOREA ADVANCED MATERIALS Co.,Ltd.",062970,Electronics and telecom equipment,8.52,4.51,41187947,48.9,38,15.8,1.3,1745709723
+"ABKO CO., LTD.",129890,Electronics and telecom equipment,3,0,36135593,86.8,59,37.3,,720238079
+"M2N Co.,Ltd",033310,Electronics and telecom equipment,8.39,3.63,53541692,63.9,208,53.4,28.6,254247881
+DongilTechnology,032960,Electronics and telecom equipment,14.28,-5,60076923,59.7,117,25.6,39,301486452
+"KH FEELUX Co.,Ltd.",033180,Electronics and telecom equipment,8.7,0.96,55714136,68.8,125,24,6.8,
+"ABOV Semiconductor Co.,Ltd.",102120,Electronics and telecom equipment,7.52,1.4,103373200,63.7,215,20,19.9,607853649
+ATLAS LINK Inc.,297570,Electronics and telecom equipment,5.23,-0.3,90958784,62.8,37,10.8,10.9,771959591
+"PRO2000 CO.,LTD.",321260,Electronics and telecom equipment,4,0,39899083,87.8,109,22,19.8,440468982
+HUNEED TECHNOLOGIES,005870,Electronics and telecom equipment,8.56,-1.05,68738081,67.4,310,15.2,23.6,198534921
+"HLB innoVation Co.,Ltd.",024850,Electronics and telecom equipment,11.55,7.6,67339738,76.9,61,9.8,,5673993928
+"TOVISCo.,LTD",051360,Electronics and telecom equipment,5.44,3.5,62206186,46.8,485,36.1,,243924261
+"RN2 Technologies Co., Ltd.",148250,Electronics and telecom equipment,5.75,-0.27,40141500,61,112,50,1,224941188
+"Vidente Co., Ltd.",121800,Electronics and telecom equipment,8.63,0.17,57666667,46.3,54,25.9,3,4746469417
+"IMCo.,LTD",101390,Electronics and telecom equipment,2.82,2.92,84454545,38.9,11,18.2,4.5,
+"AGOS Co., Ltd.",175140,Electronics and telecom equipment,2.1,-1.22,57139517,49,29,41.4,1.8,2236381303
+"RNT-X CO.,LTD.",123010,Electronics and telecom equipment,5.34,2.32,55261068,66.8,59,42.4,1.4,636975470
+"IMAGIS Co., Ltd.",115610,Electronics and telecom equipment,6.43,,66764706,,34,,6.2,605190495
+KEM Tech Corp.,106080,Electronics and telecom equipment,2.14,0.92,64932920,64.5,25,12,2.6,380279922
+"JOOYONTECH CO.,LTD.",044380,Electronics and telecom equipment,10.37,3,50329070,82.5,43,20.9,,233933174

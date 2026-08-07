@@ -1,0 +1,10 @@
+# Korean Listed Workforce Panel — corrections log
+# Every number we changed after first publishing it. Selling this is the point:
+# a data vendor's capital is trust, and trust is what you do when you are wrong (strategy II).
+date,article_or_field,was,now,why
+2026-08-05,gender-gap (female/male pay share),78%,76%,First-male-first-female row reading understated headcount; sample rose 1066 to 1836 and the headline changed
+2026-08-05,employees — Samsung Electronics,50817,128881,Parser read only the first division row; the filing's own gender-total is 94273 men + 34608 women
+2026-08-05,pay-holding article headline,Half,Four,Body and headline disagreed from publication; corrected to match the filings
+2026-08-05,company name — Lynxeo Korea,Lingseo Korea,Lynxeo Korea,Romanisation error in an earlier build
+2026-08-05,tenure-returns correlation,-0.061,-0.037,Recomputed after the headcount fix; article title moved from 14 to 17 points
+2026-08-07,pension-bill article cross-check,"554,570 report both","553,978 report both","554,570 is active workplaces (11,561,661 subscribers); 553,978 of them also report a monthly bill. Re-verification on 8 August"

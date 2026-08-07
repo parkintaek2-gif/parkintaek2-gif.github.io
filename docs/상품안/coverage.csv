@@ -1,0 +1,13 @@
+# Korean Listed Workforce Panel — coverage (fill rate by column, 2862 companies)
+# We do not pretend this is a census. Empty = not disclosed, never zero.
+column,filled,total,fill_pct
+avg_tenure_years,2779,2862,97.1
+tenure_gap_M_minus_F_years,2717,2862,94.9
+avg_annual_pay_krw,2746,2862,95.9
+female_to_male_pay_pct,2720,2862,95.0
+employees,2790,2862,97.5
+female_share_pct,2736,2862,95.6
+ceo_tenure_months,2455,2862,85.8
+registered_officers,2861,2862,100.0
+company_age_years,2819,2862,98.5
+market_cap_per_employee_krw,2603,2862,91.0
