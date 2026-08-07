@@ -70,7 +70,11 @@ export function 갱신지난분(적힌시각, 지금 = new Date()) {
   const t = Date.parse(String(적힌시각 ?? '').trim().replace(' ', 'T'));
   if (Number.isNaN(t)) return null;
   const 분 = (지금.getTime() - t) / 60000;
-  return 분 < 0 ? 0 : 분;
+  /* ⚠ 2026-08-08 02:3x — **화면에 「12분째」라 적어 놓고 막았다.**
+   *   판정은 11.6 으로 하고 표시만 반올림해 12 로 보여 줬다.
+   *   ⛔ **적은 수와 잰 수가 다르면 사람이 도구를 못 믿는다.** 내림으로 맞춘다 —
+   *      이제 화면의 수가 곧 판정에 쓴 수다. */
+  return 분 < 0 ? 0 : Math.floor(분);
 }
 
 /** 그 주소가 실제로 열리나. 못 열리면 false — 배포 중일 수 있으니 막는 쪽으로 쓴다 */
