@@ -17,6 +17,7 @@ import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region'
 import { 권할만한 } from '../../../lib/university';
 import schools from '../../../data/100yearmap/pages-school.json';
 import 중단자료 from '../../../data/100yearmap/school-dropout.json';
+import 학급자료 from '../../../data/100yearmap/school-class-size.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -67,6 +68,21 @@ const 제목 = 겹침 ? `${school.title}(${짧은지역명(school.지역)})` : s
 const 중단표 = new Map<string, any>(((중단자료 as any).자료 as any[]).map((r) => [r.code, r]));
 const 중단출처 = (중단자료 as any).출처;
 
+/**
+ * ⭐ **이 학교 하나의 숫자 둘째** (2026-08-07) — 학급당 학생 수 · 수업교원 1인당 학생 수.
+ *
+ * 🔴 **졸업생 진로는 못 받는다.** 학교알리미 공개용데이터에 없고(항목 이름·코드로 두 번 확인),
+ *   KOSIS 334/DT_33403N_006 은 축이 「학제및설립별」이라 고교도 학교별도 아니다.
+ *   그러니 「어디로 갔나」 대신 **「어떤 데서 배우나」**를 학교별로 말한다.
+ *
+ * ⚠ 【수업교원】은 정규 교과목을 **단독 전담해 수업하는** 교원이다. 휴직·파견까지 넣은
+ *   「교원수」와 다르다. **그 말을 지면에 그대로 적는다** — 안 적으면 다른 표와 안 맞는다고 읽힌다.
+ * ⛔ 등수를 쓰지 않는다. **전국 중간값과의 견줌**만 쓴다.
+ */
+const 학급표 = new Map<string, any>(((학급자료 as any).자료 as any[]).map((r) => [r.code, r]));
+const 학급출처 = (학급자료 as any).출처;
+const 학급통계 = (학급자료 as any).통계;
+
 const 취업 = school.취업;
 const 평균 = 취업?.전체평균;
 const 수치 = 취업?.수치;
@@ -86,6 +102,17 @@ const 설립연도 = /^\d{8}$/.test(school.설립일 ?? '') ? school.설립일.s
  *    그래서 **지역으로만** 잇는다. 짐작으로 학과를 잇지 않는다.
  *  ⚠ 이 지면 2,525장 중 1,353장이 학과가 없는 일반고다. 그쪽에는 이게 유일한 다음 걸음이 된다. */
 const 중단 = 중단표.get(school.code) ?? null;
+const 학급 = 학급표.get(school.code) ?? null;
+
+/** 전국 중간값과 견준다. ⛔ 「좋다/나쁘다」를 말하지 않는다 — 차이만 적는다.
+ *  ⚠ 소수 한 자리끼리 뺀다. 반올림한 값과 안 반올림한 값을 견주면 **말이 뒤집힌다**
+ *    (2026-08-06 대학 지면에서 실제로 났다 — `check:100y:launch` 가 그 규칙을 지킨다) */
+const 견줌 = (값: number | null, 중간: number | null) => {
+  if (값 == null || 중간 == null) return null;
+  const 차 = Math.round((값 - 중간) * 10) / 10;
+  if (차 === 0) return `전국 중간값(${중간}명)과 같습니다`;
+  return `전국 중간값 ${중간}명보다 ${Math.abs(차)}명 ${차 > 0 ? '많습니다' : '적습니다'}`;
+};
 
 const 대학지역 = 고교지역_대학지역(school.지역);
 const 지역대학 = 대학지역 ? (지역별대학.get(대학지역) ?? []) : [];
@@ -123,7 +150,7 @@ const jsonLd = {
   ⚠ **사이트맵도 조건이 같아야 한다**(`sitemap.xml.ts`). 한쪽만 고치면 구글에 모순된
     신호를 준다. `check:100y:launch` 의 「연 지면이 사이트맵에 다 있나」가 지킨다.
 */}
-<HundredYear title={제목} description={desc} jsonLd={jsonLd} noindex={학과.length === 0 && !중단}>
+<HundredYear title={제목} description={desc} jsonLd={jsonLd} noindex={학과.length === 0 && !중단 && !학급}>
   <h1>{school.title}</h1>
   <p class="sub">
     {school.지역} · {school.고교유형} · {school.설립}
@@ -262,6 +289,98 @@ const jsonLd = {
             <p class="note">
               ⚠ 재학생 수와 떠난 학생 수는 공시된 값이고, <strong>비율은 저희가 나눈 것</strong>입니다.
               나라가 발표한 비율이 아닙니다.
+            </p>
+          </div>
+        </details>
+      </>
+    )
+  }
+
+  {
+    학급 && (
+      <>
+        {/* ⭐ 이 학교 하나의 숫자 둘째 (2026-08-07).
+            ⛔ 등수를 쓰지 않는다. 전국 중간값과의 차이만 쓴다.
+            ⛔ 「좋다·나쁘다」를 쓰지 않는다 — 작은 학교는 학급이 작을 수밖에 없다. */}
+        <h2>어떤 데서 배우나?</h2>
+        <div class="tablewrap">
+          <table>
+            <tbody>
+              <tr>
+                <th>학급당 학생</th>
+                <td>
+                  {학급.학급당학생 != null ? (
+                    <>
+                      <strong>{학급.학급당학생}명</strong>
+                      {견줌(학급.학급당학생, 학급통계.학급당학생_중간값) && (
+                        <> — {견줌(학급.학급당학생, 학급통계.학급당학생_중간값)}</>
+                      )}
+                    </>
+                  ) : (
+                    <>—</>
+                  )}
+                </td>
+              </tr>
+              <tr>
+                <th>수업교원 1인당 학생</th>
+                <td>
+                  {학급.교원1인당학생 != null ? (
+                    <>
+                      <strong>{학급.교원1인당학생}명</strong>
+                      {견줌(학급.교원1인당학생, 학급통계.교원1인당학생_중간값) && (
+                        <> — {견줌(학급.교원1인당학생, 학급통계.교원1인당학생_중간값)}</>
+                      )}
+                    </>
+                  ) : (
+                    <>—</>
+                  )}
+                </td>
+              </tr>
+              {/* ⛔ 0 으로 채우지 않는다. 못 낸 것은 못 냈다고 적는다 */}
+              <tr>
+                <th>학생 · 학급 · 수업교원</th>
+                <td>
+                  {학급.학생.toLocaleString()}명 · {학급.학급}개 학급 · 수업교원 {학급.수업교원}명
+                  {학급.과정 && <> · {학급.과정} 과정을 합친 값</>}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        {학급.못냄 && (
+          <p class="note">
+            ⚠ <strong>일부는 비율로 적지 못했습니다</strong> — {학급.못냄}. 0으로 채우지 않았습니다.
+          </p>
+        )}
+        {/* ⚠ 처음엔 「학급이 작은 것은…」만 적었다. 렌더해 보니 이 학교는 오히려 큰 쪽이었고,
+              문구가 한쪽만 보고 있었다. **많은 쪽·적은 쪽을 다 적는다** */}
+        <p class="note">
+          ⚠ <strong>이것을 학교의 성적표로 읽으면 안 됩니다.</strong> 학급 학생이 적은 것은 시골의
+          작은 학교여서일 수도, 학급을 작게 꾸리는 학교여서일 수도 있습니다. 많은 것은 학생이
+          몰리는 곳이어서일 수도, 교실이 모자라서일 수도 있습니다.{' '}
+          <strong>숫자 하나가 어느 쪽인지 말해 주지는 않습니다.</strong>
+        </p>
+
+        <details>
+          <summary>이 숫자는 어디서 왔나?</summary>
+          <div class="card">
+            <p class="note">
+              <strong>출처</strong> {학급출처.이름} — 「{학급출처.공시항목}」<br />
+              <strong>공시연도</strong> {학급출처.공시연도}년 ·{' '}
+              <strong>이용허락범위</strong> {학급출처.이용허락범위}
+            </p>
+            <p class="note">
+              ⚠ <strong>【수업교원】</strong>은 정규 교과목을 단독 전담하여 수업하는 교원입니다.
+              휴직·파견까지 넣은 「교원수」와 다르므로, 다른 표의 교원 수와 어긋나 보일 수 있습니다.
+            </p>
+            <p class="note">
+              ⚠ 학생 수·학급 수·수업교원 수는 공시된 값이고,{' '}
+              <strong>1인당·학급당 값은 저희가 나눈 것</strong>입니다. 나라가 발표한 비율이 아닙니다.
+              전국 중간값은 {학급통계.학교수.toLocaleString()}곳으로 냈습니다.
+            </p>
+            <p class="note">
+              ⛔ 졸업생이 어디로 갔는지(진학·취업)는 <strong>공개용데이터에 없습니다.</strong>{' '}
+              그 항목은 별도 신청·심사를 거쳐야 해서, 저희가 아직 받지 못했습니다. 받으면 넣겠습니다.
             </p>
           </div>
         </details>

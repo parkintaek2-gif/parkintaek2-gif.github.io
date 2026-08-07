@@ -3,12 +3,17 @@ import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
+import 학급자료 from '../../data/100yearmap/school-class-size.json';
 import 대학학과 from '../../data/100yearmap/major-outcomes.json';
 import { 학과슬러그 } from '../../lib/college-major';
 import { 짧은지역명 } from '../../lib/region';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
+/** ⭐ 2026-08-07 — 학급당·수업교원 1인당 학생 수도 **이 학교 하나의 숫자**라 지면을 연다.
+ *  ⚠ 지금은 두 자료의 학교 집합이 정확히 같다(2,371곳 · 실측). 그래도 조건을 같이 늘려 둔다 —
+ *    한쪽 자료만 다시 받으면 갈라지고, 그때 조건이 어긋나면 모순된 신호가 나간다 */
+const 학급있는코드 = new Set(((학급자료 as any).자료 as any[]).map((r) => r.code));
 
 /** 지역 지면의 주소는 `짧은지역명` 이다. `region/[slug].astro` 의 getStaticPaths 와 **같은 데서 뽑는다** —
  *  한쪽에 손으로 적어 두면 지역 이름이 바뀔 때 사이트맵만 옛 주소를 가리키게 된다 */
@@ -118,7 +123,10 @@ export const GET: APIRoute = () => {
          학과가 없어도 연다. 유형 평균이 아니라 **이 학교 하나의 숫자**라서다.
          실측 — 학교 2,525 = 학과 있음 1,172 + 학과 없지만 수치 있음 1,269 + 둘 다 없음 84 */
     ...(schools as any[])
-      .filter((s) => (s.학과 ?? []).length > 0 || 중단있는코드.has(s.code))
+      .filter(
+        (s) =>
+          (s.학과 ?? []).length > 0 || 중단있는코드.has(s.code) || 학급있는코드.has(s.code),
+      )
       .map((s) => ({
         path: s.url as string,
         priority: '0.6',
