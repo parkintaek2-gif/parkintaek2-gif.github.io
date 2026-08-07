@@ -36,6 +36,7 @@ import charts from '../../data/wikitip-charts.json';
 import music from '../../data/wikitip-music-export.json';
 import reachData from '../../data/wikitip-reach.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
+import kpop from '../../data/wikitip-kpop.json';
 
 /*
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
@@ -292,6 +293,17 @@ const jsonLd = {
       one, so it is not that they go unnoticed.
     </p>
     <p class="note"><a href="/screen-split">See the split →</a></p>
+  </section>
+
+  <!-- ── ⑯ K팝 관심도 — 음악 축에 지면이 /exports 하나뿐이었다 ── -->
+  <section>
+    <h2>Also running: who the English-speaking world looks up in K-pop</h2>
+    <p class="sub">
+      Every Korean musician and group with an English Wikipedia article —
+      {kpop.roster.toLocaleString()} of them — counted over 30 days. Attention, not popularity:
+      a page climbs for good news and bad, and we report the count rather than the reason.
+    </p>
+    <p class="note"><a href="/kpop-attention">See the count →</a></p>
   </section>
 
   <!-- ── 출처 · 제외 — 기사와 같은 기준을 첫 화면에도 건다 ──────── -->

@@ -28,6 +28,7 @@ export const GET: APIRoute = async () => {
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },
     { path: '/screen-split', priority: '0.9', changefreq: 'weekly' },
+    { path: '/kpop-attention', priority: '0.9', changefreq: 'weekly' },
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
