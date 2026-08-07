@@ -73,7 +73,12 @@ if (process.argv.includes('--selftest')) {
   if (줄나눔('', 40, 500).length !== 0) 틀림.push('빈 글에서 줄이 생긴다');
   if (글자폭('가', 40) <= 글자폭('a', 40)) 틀림.push('한글이 라틴보다 좁게 잡힌다');
 
-  console.log(틀림.length ? `⛔ 자가시험 실패\n  ${틀림.join('\n  ')}` : `✅ 카드 굽기 자가시험 ${5 + 4}건 통과`);
+  /* 차이말 — 눈대중으로 「두 배쯤?」 하게 두지 않는다 */
+  if (차이말(72.2, 10.2, true) !== '7.1배 · 62.0%p 차이') 틀림.push('퍼센트 차이말이 다르다: ' + 차이말(72.2, 10.2, true));
+  if (차이말(100, 5) !== '20배 차이') 틀림.push('열 배 넘으면 소수점을 뗀다');
+  if (차이말(5, 0) !== null) 틀림.push('0 으로 나눈다');
+
+  console.log(틀림.length ? `⛔ 자가시험 실패\n  ${틀림.join('\n  ')}` : `✅ 카드 굽기 자가시험 ${5 + 4 + 3}건 통과`);
   process.exit(틀림.length ? 1 : 0);
 }
 
@@ -88,23 +93,56 @@ const 판 = {
  * 두 값을 나란히 놓는 꼴 — 「엄마 72.2% · 아빠 10.2%」처럼 **차이가 이야기인 것**에 쓴다.
  * ⚠ 두 막대의 자를 **같게** 둔다. 각자 최대에 맞춰 그리면 차이가 사라진다.
  */
-export function 견줌막대(둘, { 폭, 높이, 글꼴 = 'Malgun Gothic, sans-serif', 글자 = 34 }) {
+/**
+ * 몇 배·몇 %p 인지 사람이 읽는 말로. **차이를 눈이 아니라 글자로도 준다.**
+ * ⚠ 퍼센트끼리는 「몇 배」와 「몇 %p」가 다른 말이다. 둘 다 적는다.
+ */
+export function 차이말(a, b, 퍼센트 = false) {
+  const 큰 = Math.max(a, b), 작 = Math.min(a, b);
+  if (!작) return null;
+  const 배 = 큰 / 작;
+  const 배말 = 배 >= 10 ? `${Math.round(배)}배` : `${배.toFixed(1)}배`;
+  return 퍼센트 ? `${배말} · ${(큰 - 작).toFixed(1)}%p 차이` : `${배말} 차이`;
+}
+
+export function 견줌막대(둘, { 폭, 높이, 글꼴 = 'Malgun Gothic, sans-serif', 글자 = 34, 퍼센트 = false }) {
   const 최대 = Math.max(...둘.map((d) => d.값));
   const 칸 = 폭 / 둘.length;
-  const 바폭 = 칸 * 0.62;
-  return 둘
+  /* ⚠ **막대를 굵게 두지 않는다.** 가로로 굵으면 그림이 둔해 보인다(사장님 지적 2026-08-07).
+     칸의 3분의 1 남짓, 그리고 폭에 위쪽 한도를 둔다 — 두 개짜리 카드에서 특히 두꺼워진다. */
+  const 바폭 = Math.min(칸 * 0.34, 폭 * 0.11);
+  const 그림 = 둘
     .map((d, i) => {
       const h = Math.round((d.값 / 최대) * 높이);
-      /* ⚠ **가운데를 맞춘다.** 막대를 칸 왼쪽에 붙이면 오른쪽이 비어 그림이 한쪽으로 쏠린다.
-         숫자와 이름도 막대 한가운데에 세운다(사장님 지시 2026-08-07). */
       const 가운데x = i * 칸 + 칸 / 2;
+      const 왼 = 가운데x - 바폭 / 2;
+      const 색 = i === 0 ? '#c9a84c' : '#3a4150';
       return (
-        `<rect x="${(가운데x - 바폭 / 2).toFixed(0)}" y="${높이 - h}" width="${바폭.toFixed(0)}" height="${h}" rx="6" fill="${i === 0 ? '#c9a84c' : '#3a4150'}"/>` +
-        `<text x="${가운데x.toFixed(0)}" y="${높이 + Math.round(글자 * 1.3)}" text-anchor="middle" font-family="${글꼴}" font-size="${글자}" fill="#9aa0ac">${안전글(d.이름)}</text>` +
-        `<text x="${가운데x.toFixed(0)}" y="${높이 - h - Math.round(글자 * 0.5)}" text-anchor="middle" font-family="${글꼴}" font-weight="700" font-size="${Math.round(글자 * 1.15)}" fill="#e9e9ee">${안전글(d.표시 ?? d.값)}</text>`
+        `<rect x="${왼.toFixed(0)}" y="${높이 - h}" width="${바폭.toFixed(0)}" height="${h}" rx="4" fill="${색}"/>` +
+        /* 꼭대기 선 — 값이 어디서 끝나는지 눈이 바로 잡는다 */
+        `<rect x="${(왼 - 바폭 * 0.28).toFixed(0)}" y="${(높이 - h - 5).toFixed(0)}" width="${(바폭 * 1.56).toFixed(0)}" height="5" rx="2.5" fill="${i === 0 ? '#e8d9a8' : '#7c8696'}"/>` +
+        `<text x="${가운데x.toFixed(0)}" y="${높이 + Math.round(글자 * 1.35)}" text-anchor="middle" font-family="${글꼴}" font-size="${글자}" fill="#9aa0ac">${안전글(d.이름)}</text>` +
+        `<text x="${가운데x.toFixed(0)}" y="${높이 - h - Math.round(글자 * 0.75)}" text-anchor="middle" font-family="${글꼴}" font-weight="700" font-size="${Math.round(글자 * 1.15)}" fill="#e9e9ee">${안전글(d.표시 ?? d.값)}</text>`
       );
     })
     .join('');
+
+  /* 둘일 때는 **차이를 글자로도** 준다. 눈대중으로 「두 배쯤?」 하게 두지 않는다 */
+  if (둘.length !== 2) return 그림;
+  const 말 = 차이말(둘[0].값, 둘[1].값, 퍼센트);
+  if (!말) return 그림;
+  const 가운데 = 폭 / 2;
+  const 위 = Math.round(높이 - (Math.max(둘[0].값, 둘[1].값) / 최대) * 높이) - Math.round(글자 * 2.2);
+  /* ⚠ 배지 폭을 **글자를 재서** 잡는다. 어림해 두었더니 글자가 배지 밖으로 삐져나왔다 */
+  const 말크기 = Math.round(글자 * 0.88);
+  const 배지폭 = Math.round(글자폭(말, 말크기) + 말크기 * 1.6);
+  const 배지높이 = Math.round(말크기 * 1.9);
+  return (
+    그림 +
+    `<line x1="${(칸 / 2).toFixed(0)}" y1="${위 + 8}" x2="${(폭 - 칸 / 2).toFixed(0)}" y2="${위 + 8}" stroke="#5a6272" stroke-width="2" stroke-dasharray="6 6"/>` +
+    `<rect x="${(가운데 - 배지폭 / 2).toFixed(0)}" y="${(위 + 8 - 배지높이 / 2).toFixed(0)}" width="${배지폭}" height="${배지높이}" rx="${Math.round(배지높이 / 2)}" fill="#0b0d12" stroke="#5a6272" stroke-width="2"/>` +
+    `<text x="${가운데.toFixed(0)}" y="${(위 + 8 + 말크기 * 0.36).toFixed(0)}" text-anchor="middle" font-family="${글꼴}" font-weight="700" font-size="${말크기}" fill="#e8d9a8">${안전글(말)}</text>`
+  );
 }
 
 /** 목록 꼴 — 위아래 몇 줄을 그대로 보여 준다. 「가져가 쓸 수 있게」의 가장 싼 형태다 */
@@ -224,7 +262,7 @@ export function 카드svg({ w, h }, 카드) {
     const 이름높이 = Math.round(w * 0.06);
     const 그래프높이 = Math.min(남은높이 - 이름높이 - Math.round(w * 0.06), Math.round(h * 0.22));
     const 시작 = 가운데(그래프높이 + 이름높이) + Math.round(w * 0.05);
-    조각.push(`<g transform="translate(${여백}, ${시작})">${견줌막대(견줌, { 폭: 안폭, 높이: 그래프높이, 글꼴: 본문글꼴, 글자: Math.round(w * 0.030) })}</g>`);
+    조각.push(`<g transform="translate(${여백}, ${시작})">${견줌막대(견줌, { 폭: 안폭, 높이: 그래프높이, 글꼴: 본문글꼴, 글자: Math.round(w * 0.030), 퍼센트: !!카드.퍼센트 })}</g>`);
   } else if (목록) {
     const 줄높이 = Math.min(Math.round(남은높이 / 목록.length), Math.round(w * 0.085));
     const 시작 = 가운데(줄높이 * 목록.length);
@@ -285,6 +323,7 @@ const 사실들 = [
       { 이름: '엄마', 값: 72.2, 표시: '72.2%' },
       { 이름: '아빠', 값: 10.2, 표시: '10.2%' },
     ],
+    퍼센트: true,
     출처: '국가데이터처 「출생아 부모의 육아휴직 사용률」 2024',
     주소: '100yearmap.com/age/32',
   },
