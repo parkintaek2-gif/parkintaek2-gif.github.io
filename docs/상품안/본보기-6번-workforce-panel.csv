@@ -1,0 +1,24 @@
+# SeoulMarkets — Korean Listed Workforce Panel (SAMPLE, 20 of 2,862 rows)
+# Source: FSS DART annual reports (empSttus/exctvSttus) parsed by us; market cap from KRX (data.go.kr).
+# Figures as filed. Empty = not disclosed (not zero). Not investment advice. Full method in method.md.
+company_en,ticker,industry,avg_tenure_years,tenure_gap_M_minus_F_years,avg_annual_pay_krw,female_to_male_pay_pct,employees,female_share_pct,ceo_tenure_months,market_cap_per_employee_krw
+"SAMSUNG ELECTRONICS CO,.LTD",005930,Electronics and telecom equipment,13.73,1,157064509,77.8,128881,26.9,3.8,11159011317
+HYUNDAI MOTOR CO,005380,Motor vehicles,15.8,4.9,130858949,89.4,72598,8.2,3.4,1140864987
+KIA CORPORATION,000270,Motor vehicles,20.76,6.6,134011705,85.9,36566,5.2,,1420033056
+SK hynix Inc.,000660,Electronics and telecom equipment,13.43,-3.4,185004892,80.3,34549,33.3,3.8,35267627567
+LG ELECTRONICS INC.,066570,Electronics and telecom equipment,13.76,2.7,117590675,77.9,34144,16.3,38,856308356
+"LG Display Co., Ltd.",034220,Electronics and telecom equipment,14.93,2.6,85864347,75.3,24430,14.3,2.7,200573066
+E-MART Inc.,139480,Retail trade,13.95,2,51733261,56.5,23075,57.6,1.8,95314703
+EehwaConstruction,001840,Building construction,5.81,1.7,49698975,84.3,160,11.3,55.2,391180200
+MANHO ROPE & WIRE LTD,001080,Basic metals,9.2,-0.45,53703669,79.9,160,6.9,36,1043984375
+FnGuide Inc.,064850,Information services,5.59,-0.67,58333638,85.5,160,39.4,0.8,1252997083
+ELP Corp.,063760,Medical and optical instruments,5.82,2.07,44207547,73.7,159,11.9,26.8,146621541
+"COWEAVER Co.,Ltd.",056360,Electronics and telecom equipment,9.72,2,63890528,60,159,13.8,,367225962
+"GOOD PEOPLE CO., LTD.",033340,Apparel,11.16,1.09,58063625,83.1,159,46.5,3.1,203047395
+INSUN ENVIRONMENTAL NEW TECHNOLOGY CO.,060150,Waste management,8,2.67,53989479,61.2,159,20.8,,858257974
+"Korea No.12 Special Purpose Acquisition Co., LTD.",458610,Financial support services,1,,,,1,,1.8,
+하나35호스팩,,,0.75,,,,1,,0.8,
+Shinhan 14th Special Purpose Acquisition Company,487360,Financial support services,1.5,,,,1,,1.5,11364600000
+"Korea No.13 Special Purpose Acquisition Co., LTD.",464440,Financial support services,2.42,,,,1,100,2.4,
+하나36호스팩,,,0.42,,,,1,,0.4,
+Hana 30 Special Purpose Acquisition Company,469880,Financial support services,0.83,,,,1,,2.4,
