@@ -20,6 +20,8 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import 연구 from '../../../data/100yearmap/pages-research.json';
+/* 🔴 저자 칸에 여럿이 `|` 로 묶여 온다(90편 중 17편). 푸는 자리는 `lib/research.ts` 한 곳이다 */
+import { 저자풀기 } from '../../../lib/research';
 
 const 자료 = (연구 as any).자료 as any[];
 
@@ -123,7 +125,7 @@ const desc =
               </a>
               <span class="note">
                 {날짜(r.발행일)}
-                {r.저자.length > 0 && <> · {r.저자.join(', ')}</>}
+                {저자풀기(r.저자).length > 0 && <> · {저자풀기(r.저자).join(', ')}</>}
                 {r.종류 && <> · {r.종류}</>}
               </span>
             </li>

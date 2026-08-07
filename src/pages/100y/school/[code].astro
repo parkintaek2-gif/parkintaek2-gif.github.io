@@ -20,6 +20,7 @@ import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
 import 진로자료 from '../../../data/100yearmap/school-career.json';
 import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
+import NextQuestion from '../../../components/NextQuestion.astro';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -673,6 +674,22 @@ const jsonLd = {
           고등학교 학과와 대학 학과를 잇는 공식 자료가 아직 공개되지 않아, 지금은 지역으로만 이어 두었습니다.
         </p>
       </>
+    )
+  }
+
+  {/* ⭐ 2026-08-07 — 「그래서 우리 아이한테는?」 자리.
+        ⚠ **진로·계열 숫자가 있는 지면에만** 붙인다. 이름·주소밖에 없는 얇은 지면에 붙이면
+          아무것도 안 보여 주고 물음만 던지는 꼴이 된다. */}
+  {
+    (진로 || 이학교계열.length > 0) && (
+      <NextQuestion
+        본것={`${school.title} 졸업생`}
+        무리={
+          진로
+            ? `이 학교 졸업생 ${진로.졸업자.toLocaleString()}명을 한데 묶은 값`
+            : '전국 그 계열 전체를 묶은 값'
+        }
+      />
     )
   }
 

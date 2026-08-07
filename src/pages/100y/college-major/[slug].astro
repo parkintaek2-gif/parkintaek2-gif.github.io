@@ -20,6 +20,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { 학과슬러그 } from '../../../lib/college-major';
+import NextQuestion from '../../../components/NextQuestion.astro';
 import 성과 from '../../../data/100yearmap/major-outcomes.json';
 import 묶음 from '../../../data/100yearmap/major-merged.json';
 
@@ -166,6 +167,13 @@ const desc =
       고등학교 학과는 <a href="/major">학과 찾기</a>에서 보십시오.
     </p>
   </div>
+
+  {/* ⭐ 2026-08-07 — 「그래서 우리 아이한테는?」 자리. 사장님 지시로 낸 유입 입구다.
+        ⛔ 배너가 아니라 **이 지면에서 이어지는 다음 물음**이다. 문구는 한 곳에서 관리한다. */}
+  <NextQuestion
+    본것="이 학과를 나온 사람들"
+    무리={`전국 ${과.학과} 졸업생 ${(과.졸업자 ?? 0).toLocaleString()}명을 한데 묶은 값`}
+  />
 
   <p class="note">
     <a href="/college-major">대학 학과 전부 보기</a> · <a href="/after">대학 이후</a>
