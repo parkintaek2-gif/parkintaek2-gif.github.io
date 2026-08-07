@@ -62,6 +62,8 @@ import path from 'node:path';
 import https from 'node:https';
 import qs from 'node:querystring';
 import { 알리미지역_고교지역 } from '../src/lib/region.ts';
+/* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
+import { 방송통신인가 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -172,7 +174,7 @@ let 방통 = 0;
 
 for (const r of 목록) {
   /* ⚠ 방송통신고는 우리 지면에 없는 갈래다. 못 이었다고 셈에 넣지 않는다 */
-  if (/방송통신/.test(r.SCHUL_NM ?? '')) { 방통++; continue; }
+  if (방송통신인가(r.SCHUL_NM)) { 방통++; continue; }
   const 시도 = 알리미지역_고교지역(r.ADRCD_NM);
   let 학교 = 시도 ? 우리표.get(열쇠(r.SCHUL_NM, 시도)) : null;
   if (!학교 && !시도) {

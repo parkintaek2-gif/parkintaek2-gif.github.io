@@ -45,6 +45,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+/* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
+import { 최소분모 as 공통최소분모 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -165,7 +167,7 @@ for (const v of 계열표.values()) {
  *     `collect-alimi-career.mjs` 의 `최소졸업자`, `check-100yearmap-launch.mjs` 의
  *     `작은분모` 와 **같은 뜻**이다. 하나를 바꾸면 넷을 같이 본다.
  */
-const 최소분모 = 30;
+const 최소분모 = 공통최소분모;
 for (const v of 계열표.values()) {
   if (v.취업대상자 != null && v.취업대상자 < 최소분모) {
     v.취업률못냄 = `취업 대상이 ${v.취업대상자}명이라 비율이 뜻을 잃는다`;

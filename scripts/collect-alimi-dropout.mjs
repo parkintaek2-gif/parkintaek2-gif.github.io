@@ -50,6 +50,8 @@ import path from 'node:path';
 import https from 'node:https';
 import qs from 'node:querystring';
 import { 알리미지역_고교지역 } from '../src/lib/region.ts';
+/* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
+import { 최소분모, 방송통신인가 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -118,7 +120,7 @@ const 수 = (v) => (v == null || v === '' ? null : Number(v));
  *   전국 평균과의 차이보다 크게 흔든다. 그때는 **비율 대신 실제 수**로 말한다
  *   (「19명 가운데 3명」이 「15.8%」보다 정직하고 알아듣기도 쉽다).
  */
-const 최소재학생 = 30;
+const 최소재학생 = 최소분모;
 
 const { 코드, 글 } = await 받기(
   qs.stringify({ APITYPE: 항목코드, PBANYR: 공시연도, SCHULKNDCODE: 고등학교 }),
@@ -159,7 +161,7 @@ const 결과 = [];
 const 못이은것 = [];
 for (const r of 목록) {
   /* ⚠ 방송통신고는 우리 지면에 없는 갈래다. 못 이었다고 셈에 넣지 않는다 */
-  if (/방송통신/.test(r.SCHUL_NM ?? '')) continue;
+  if (방송통신인가(r.SCHUL_NM)) continue;
   const 시도 = 알리미지역_고교지역(r.ADRCD_NM);
   let 학교 = 시도 ? 우리표.get(열쇠(r.SCHUL_NM, 시도)) : null;
   /* 지역칸이 비었을 때만, 그리고 **양쪽 다 이름이 하나뿐일 때만** 이름으로 잇는다 */

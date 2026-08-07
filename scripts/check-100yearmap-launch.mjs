@@ -17,6 +17,8 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+/* 🔴 규칙은 한 곳에 있다. 검사도 **같은 값**을 불러 쓴다 — 따로 적으면 검사가 헛돈다 */
+import { 최소분모 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -313,7 +315,7 @@ if (!LIVE) {
  * 재는 법 — 학교 지면에서 「재학생 N명 가운데 … M명」 다음에 **비율(%)이 붙었는데
  * N 이 문턱보다 작으면** 잡는다. 문턱은 수집기와 같아야 한다.
  */
-const 작은분모 = 30; // ⚠ `scripts/collect-alimi-dropout.mjs` 의 `최소재학생` 과 같아야 한다
+const 작은분모 = 최소분모;
 if (!LIVE) {
   const 학교지면 = 모든지면().filter((p) => p.includes(`${path.sep}school${path.sep}`));
   const 걸린곳 = [];

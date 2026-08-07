@@ -93,6 +93,8 @@ import path from 'node:path';
 import https from 'node:https';
 import qs from 'node:querystring';
 import { 알리미지역_고교지역 } from '../src/lib/region.ts';
+/* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
+import { 최소분모, 방송통신인가, 우리갈래인가 } from '../src/lib/school-rules.ts';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -169,7 +171,7 @@ const 오늘 = (() => {
  *   ⚠ 이 값은 `collect-alimi-dropout.mjs` 의 `최소재학생`, `check-100yearmap-launch.mjs` 의
  *     `작은분모` 와 **같은 뜻**이다. 하나를 바꾸면 셋을 같이 본다.
  */
-const 최소졸업자 = 30;
+const 최소졸업자 = 최소분모;
 
 const { 코드, 글 } = await 받기(
   qs.stringify({ APITYPE: 항목코드, PBANYR: 공시연도, SCHULKNDCODE: 고등학교 }),
@@ -207,10 +209,10 @@ let 방통 = 0;
 let 우리갈래아님 = 0;
 
 for (const r of 목록) {
-  if (/방송통신/.test(r.SCHUL_NM ?? '')) { 방통++; continue; }
+  if (방송통신인가(r.SCHUL_NM)) { 방통++; continue; }
   /* ⚠ 특수학교·각종학교는 `HS_KND_SC_NM` 이 비어 있다. 우리 지면에 없는 갈래라
      못 이었다고 세지 않는다 — 세면 못 이은 수가 192 로 부풀어 잘못 읽힌다 */
-  if (!String(r.HS_KND_SC_NM ?? '').trim()) { 우리갈래아님++; continue; }
+  if (!우리갈래인가(r.HS_KND_SC_NM)) { 우리갈래아님++; continue; }
   const 시도 = 알리미지역_고교지역(r.ADRCD_NM);
   let 학교 = 시도 ? 우리표.get(열쇠(r.SCHUL_NM, 시도)) : null;
   if (!학교 && !시도) {
