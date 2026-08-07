@@ -106,6 +106,31 @@ console.log('명단을 위키데이터에 묻는다…');
 const { roster, 못물음, 갈래수 } = await 명단();
 console.log(`명단 ${roster.length}명·팀 (그룹 ${roster.filter((x) => x.kind === 'group').length})`);
 
+/**
+ * ── 이어서 할 수 있게 한다 ────────────────────────────────────
+ * 2,362명을 한 번에 받으려면 8분쯤 걸리고, 그 사이 한 번만 끊겨도 처음부터다.
+ * 실제로 세 번 끊겼다. **받은 것을 그때그때 적어 두고, 다시 돌면 남은 것만 받는다.**
+ *
+ * ⛔ 이 조각 파일은 **결과가 아니다.** 다 받은 뒤에만 진짜 파일을 쓴다.
+ *    조각을 결과로 쓰면 반쯤 받은 것이 「그만큼밖에 없다」로 읽힌다.
+ */
+const 조각파일 = path.join(OUT, `.kpop-${날짜(끝)}.partial.json`);
+fs.mkdirSync(OUT, { recursive: true });
+let 받아둔 = new Map();
+if (fs.existsSync(조각파일)) {
+  try {
+    const p = JSON.parse(fs.readFileSync(조각파일, 'utf8'));
+    if (p.기간 === `${날짜(시작)}~${날짜(끝)}`) {
+      받아둔 = new Map(p.항목.map((x) => [x.key, x.val]));
+      console.log(`이어서 한다 — 이미 받아 둔 것 ${받아둔.size}건`);
+    }
+  } catch { /* 조각이 깨졌으면 없는 셈 친다. 처음부터 받는다 — 깨진 것을 믿느니 낫다. */ }
+}
+const 조각쓰기 = () => fs.writeFileSync(조각파일, JSON.stringify({
+  기간: `${날짜(시작)}~${날짜(끝)}`,
+  항목: [...받아둔].map(([key, val]) => ({ key, val })),
+}));
+
 const 결과 = [];
 let 잡힘 = 0, 문서없음 = 0, 실패 = 0;
 const 실패이유 = new Map();
@@ -157,8 +182,16 @@ async function 한줄() {
   while (다음 < roster.length) {
     const i = 다음++;
     const p = roster[i];
+    /* 이미 받아 둔 것은 다시 안 부른다 — 남의 서버를 두 번 두드릴 이유가 없다. */
+    if (받아둔.has(p.name)) {
+      const v = 받아둔.get(p.name);
+      if (v === null) 문서없음++;
+      else { 결과.push({ ...v, 갈래: p.kind }); 잡힘++; }
+      continue;
+    }
     try {
       const v = await 참고부르기(p.name);
+      받아둔.set(p.name, v);
       if (v === null) { 문서없음++; }
       else { 결과.push({ ...v, 갈래: p.kind }); 잡힘++; }
     } catch (e) {
@@ -166,11 +199,12 @@ async function 한줄() {
       const 이유 = String(e.message).slice(0, 40);
       실패이유.set(이유, (실패이유.get(이유) || 0) + 1);
     }
-    if (i % 200 === 0) process.stdout.write('.');
+    if (i % 200 === 0) { process.stdout.write('.'); 조각쓰기(); }
     await new Promise((s) => setTimeout(s, 간격ms));
   }
 }
 await Promise.all(Array.from({ length: 동시 }, () => 한줄()));
+조각쓰기();
 process.stdout.write('\n');
 if (참은횟수) console.log(`⏳ 429 로 기다렸다 다시 부른 횟수 ${참은횟수} — 실패가 아니라 예의다`);
 
@@ -205,5 +239,7 @@ fs.writeFileSync(파일, JSON.stringify({
 
 console.log(`저장 ${파일}`);
 console.log(`대상 ${roster.length} · 잡힘 ${잡힘} · 문서없음 ${문서없음} · 부르기실패 ${실패}`);
+/* 다 쓴 뒤에 조각을 지운다 — 성공한 뒤에만 지운다. */
+fs.rmSync(조각파일, { force: true });
 console.log('관심 상위 8:', [...결과].sort((a, b) => b.합 - a.합).slice(0, 8)
   .map((r) => `${r.이름}(${r.합.toLocaleString()})`).join(' · '));

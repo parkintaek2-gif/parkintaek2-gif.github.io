@@ -1,31 +1,31 @@
 {
-  "generated": "2026-08-07T05:29:00.597Z",
+  "generated": "2026-08-07T06:29:27.145Z",
   "source": "Wikimedia Pageviews API (en.wikipedia, all-access, user)",
   "rosterSource": "Wikidata — P27=Q884 with occupation singer/rapper/composer/musician, plus P31=Q215380 musical groups with P495=Q884. English Wikipedia article required.",
   "period": "20260708~20260806",
   "days": 30,
-  "roster": 1958,
-  "measured": 1958,
+  "roster": 2362,
+  "measured": 2361,
   "notFound": 0,
-  "fetchFailed": 0,
+  "fetchFailed": 1,
   "rosterQueriesMissed": 0,
   "rosterQueries": 5,
-  "totalViews": 8329978,
+  "totalViews": 9773132,
   "groups": {
-    "n": 412,
-    "views": 1264453,
-    "mean": 3069
+    "n": 816,
+    "views": 2836463,
+    "mean": 3476
   },
   "people": {
-    "n": 1546,
-    "views": 7065525,
-    "mean": 4570
+    "n": 1545,
+    "views": 6936669,
+    "mean": 4490
   },
   "actorOverlap": {
     "n": 154,
-    "nPc": 7.9,
+    "nPc": 6.5,
     "views": 2260199,
-    "viewsPc": 27.1
+    "viewsPc": 23.1
   },
   "topMusicOnly": [
     {
@@ -36,16 +36,6 @@
       "peakDay": "20260719",
       "peakViews": 96360,
       "last7": 66382,
-      "alsoActor": false
-    },
-    {
-      "name": "V (singer)",
-      "kind": "person",
-      "total": 128856,
-      "daily": 4295,
-      "peakDay": "20260719",
-      "peakViews": 10791,
-      "last7": 28575,
       "alsoActor": false
     },
     {
@@ -66,6 +56,16 @@
       "peakDay": "20260802",
       "peakViews": 8261,
       "last7": 36224,
+      "alsoActor": false
+    },
+    {
+      "name": "Blackpink",
+      "kind": "group",
+      "total": 105378,
+      "daily": 3513,
+      "peakDay": "20260731",
+      "peakViews": 5697,
+      "last7": 31618,
       "alsoActor": false
     },
     {
@@ -139,6 +139,16 @@
       "alsoActor": false
     },
     {
+      "name": "Cortis",
+      "kind": "group",
+      "total": 70756,
+      "daily": 2359,
+      "peakDay": "20260715",
+      "peakViews": 4197,
+      "last7": 21703,
+      "alsoActor": false
+    },
+    {
       "name": "J-Hope",
       "kind": "person",
       "total": 67172,
@@ -149,33 +159,23 @@
       "alsoActor": false
     },
     {
-      "name": "Ateez",
+      "name": "NewJeans",
       "kind": "group",
-      "total": 58783,
-      "daily": 1959,
-      "peakDay": "20260708",
-      "peakViews": 2699,
-      "last7": 12680,
+      "total": 65745,
+      "daily": 2192,
+      "peakDay": "20260722",
+      "peakViews": 8569,
+      "last7": 9645,
       "alsoActor": false
     },
     {
-      "name": "Stray Kids",
+      "name": "Le Sserafim",
       "kind": "group",
-      "total": 58615,
-      "daily": 1954,
-      "peakDay": "20260726",
-      "peakViews": 3483,
-      "last7": 14865,
-      "alsoActor": false
-    },
-    {
-      "name": "San (singer)",
-      "kind": "person",
-      "total": 54600,
-      "daily": 1820,
-      "peakDay": "20260710",
+      "total": 62522,
+      "daily": 2084,
+      "peakDay": "20260712",
       "peakViews": 2686,
-      "last7": 10974,
+      "last7": 13076,
       "alsoActor": false
     }
   ],
@@ -183,17 +183,17 @@
     {
       "top": 1,
       "views": 383622,
-      "sharePc": 4.6
+      "sharePc": 3.9
     },
     {
       "top": 10,
-      "views": 1429523,
-      "sharePc": 17.2
+      "views": 1406045,
+      "sharePc": 14.4
     },
     {
       "top": 50,
-      "views": 3328164,
-      "sharePc": 40
+      "views": 3497768,
+      "sharePc": 35.8
     }
   ],
   "topGroups": [
@@ -208,6 +208,46 @@
       "alsoActor": false
     },
     {
+      "name": "Blackpink",
+      "kind": "group",
+      "total": 105378,
+      "daily": 3513,
+      "peakDay": "20260731",
+      "peakViews": 5697,
+      "last7": 31618,
+      "alsoActor": false
+    },
+    {
+      "name": "Cortis",
+      "kind": "group",
+      "total": 70756,
+      "daily": 2359,
+      "peakDay": "20260715",
+      "peakViews": 4197,
+      "last7": 21703,
+      "alsoActor": false
+    },
+    {
+      "name": "NewJeans",
+      "kind": "group",
+      "total": 65745,
+      "daily": 2192,
+      "peakDay": "20260722",
+      "peakViews": 8569,
+      "last7": 9645,
+      "alsoActor": false
+    },
+    {
+      "name": "Le Sserafim",
+      "kind": "group",
+      "total": 62522,
+      "daily": 2084,
+      "peakDay": "20260712",
+      "peakViews": 2686,
+      "last7": 13076,
+      "alsoActor": false
+    },
+    {
       "name": "Ateez",
       "kind": "group",
       "total": 58783,
@@ -228,6 +268,66 @@
       "alsoActor": false
     },
     {
+      "name": "Twice",
+      "kind": "group",
+      "total": 54912,
+      "daily": 1830,
+      "peakDay": "20260714",
+      "peakViews": 5323,
+      "last7": 10076,
+      "alsoActor": false
+    },
+    {
+      "name": "Aespa",
+      "kind": "group",
+      "total": 49456,
+      "daily": 1649,
+      "peakDay": "20260803",
+      "peakViews": 6003,
+      "last7": 17313,
+      "alsoActor": false
+    },
+    {
+      "name": "Illit",
+      "kind": "group",
+      "total": 48136,
+      "daily": 1605,
+      "peakDay": "20260727",
+      "peakViews": 1975,
+      "last7": 10955,
+      "alsoActor": false
+    },
+    {
+      "name": "Enhypen",
+      "kind": "group",
+      "total": 45321,
+      "daily": 1511,
+      "peakDay": "20260806",
+      "peakViews": 3650,
+      "last7": 11885,
+      "alsoActor": false
+    },
+    {
+      "name": "Rescene",
+      "kind": "group",
+      "total": 42713,
+      "daily": 1424,
+      "peakDay": "20260709",
+      "peakViews": 3903,
+      "last7": 4960,
+      "alsoActor": false
+    },
+    {
+      "name": "Girls' Generation",
+      "kind": "group",
+      "total": 39036,
+      "daily": 1301,
+      "peakDay": "20260805",
+      "peakViews": 1913,
+      "last7": 11067,
+      "alsoActor": false
+    },
+    {
       "name": "Babymonster",
       "kind": "group",
       "total": 37936,
@@ -238,113 +338,13 @@
       "alsoActor": false
     },
     {
-      "name": "Seventeen (South Korean band)",
+      "name": "Ive (group)",
       "kind": "group",
-      "total": 32001,
-      "daily": 1067,
+      "total": 33374,
+      "daily": 1112,
       "peakDay": "20260727",
-      "peakViews": 1590,
-      "last7": 6528,
-      "alsoActor": false
-    },
-    {
-      "name": "BigBang (South Korean band)",
-      "kind": "group",
-      "total": 30963,
-      "daily": 1032,
-      "peakDay": "20260729",
-      "peakViews": 1552,
-      "last7": 7993,
-      "alsoActor": false
-    },
-    {
-      "name": "Exo",
-      "kind": "group",
-      "total": 26610,
-      "daily": 887,
-      "peakDay": "20260726",
-      "peakViews": 1123,
-      "last7": 6231,
-      "alsoActor": false
-    },
-    {
-      "name": "I-dle",
-      "kind": "group",
-      "total": 26005,
-      "daily": 867,
-      "peakDay": "20260731",
-      "peakViews": 1526,
-      "last7": 6501,
-      "alsoActor": false
-    },
-    {
-      "name": "Tomorrow X Together",
-      "kind": "group",
-      "total": 24617,
-      "daily": 821,
-      "peakDay": "20260805",
-      "peakViews": 1370,
-      "last7": 6302,
-      "alsoActor": false
-    },
-    {
-      "name": "Xlov",
-      "kind": "group",
-      "total": 20596,
-      "daily": 687,
-      "peakDay": "20260730",
-      "peakViews": 1738,
-      "last7": 6041,
-      "alsoActor": false
-    },
-    {
-      "name": "Kard (group)",
-      "kind": "group",
-      "total": 16436,
-      "daily": 548,
-      "peakDay": "20260730",
-      "peakViews": 1278,
-      "last7": 4744,
-      "alsoActor": false
-    },
-    {
-      "name": "Super Junior",
-      "kind": "group",
-      "total": 16237,
-      "daily": 541,
-      "peakDay": "20260721",
-      "peakViews": 648,
-      "last7": 3683,
-      "alsoActor": false
-    },
-    {
-      "name": "Itzy",
-      "kind": "group",
-      "total": 16050,
-      "daily": 535,
-      "peakDay": "20260711",
-      "peakViews": 665,
-      "last7": 3424,
-      "alsoActor": false
-    },
-    {
-      "name": "Shinee",
-      "kind": "group",
-      "total": 15864,
-      "daily": 529,
-      "peakDay": "20260802",
-      "peakViews": 614,
-      "last7": 3913,
-      "alsoActor": false
-    },
-    {
-      "name": "2PM",
-      "kind": "group",
-      "total": 15175,
-      "daily": 506,
-      "peakDay": "20260805",
-      "peakViews": 660,
-      "last7": 4122,
+      "peakViews": 2146,
+      "last7": 8207,
       "alsoActor": false
     }
   ],
@@ -358,16 +358,6 @@
       "peakViews": 16423,
       "last7": 38393,
       "alsoActor": true
-    },
-    {
-      "name": "V (singer)",
-      "kind": "person",
-      "total": 128856,
-      "daily": 4295,
-      "peakDay": "20260719",
-      "peakViews": 10791,
-      "last7": 28575,
-      "alsoActor": false
     },
     {
       "name": "Jung Kook",
@@ -498,6 +488,16 @@
       "peakViews": 7055,
       "last7": 11370,
       "alsoActor": true
+    },
+    {
+      "name": "J-Hope",
+      "kind": "person",
+      "total": 67172,
+      "daily": 2239,
+      "peakDay": "20260719",
+      "peakViews": 10416,
+      "last7": 13401,
+      "alsoActor": false
     }
   ],
   "rising": [
