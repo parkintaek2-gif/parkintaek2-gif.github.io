@@ -1,0 +1,44 @@
+/**
+ * K Culture Wire(5번) 검사를 **한 번에** 돌린다.
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ * 8월 7일에 검사를 여섯 개 만들었다. 전부 일부러 깨뜨려 서는 것까지 봤다.
+ * 그런데 **어느 사슬에도 안 걸려 있었다.** 내가 손으로 부를 때만 돌았다.
+ *
+ * 손으로 부르는 검사는 검사가 아니다. 잊으면 없는 것과 같고,
+ * 잊는 것이 바로 검사를 만든 이유다.
+ *
+ * ⛔ package.json 은 2번 것이다. 거기에 `node scripts/check-wikitip-all.mjs` 한 줄을
+ *    넣어 달라고 부탁한다. 그때까지는 내 예약이 이걸 부른다.
+ * ⛔ 하나가 서면 **거기서 멈춘다.** 뒤엣것을 마저 돌려 「몇 개 실패」로 뭉뚱그리면
+ *    무엇부터 고쳐야 하는지가 흐려진다.
+ */
+import { execFileSync } from 'node:child_process';
+import fs from 'node:fs';
+
+const 검사 = [
+  ['자료에 만든 이가 있나', 'check-wikitip-data.mjs'],
+  ['고친 것이 정정 지면에 있나', 'check-corrections.mjs'],
+  ['기사가 지면에 걸려 있나', 'check-article-reach.mjs'],
+  ['K팝 명단에 있어야 할 이름이 있나', 'check-kpop-roster.mjs'],
+  ['그룹↔멤버 기사가 자료와 맞나', 'check-kpop-members-article.mjs'],
+];
+
+let 돈것 = 0;
+for (const [무엇, 파일] of 검사) {
+  if (!fs.existsSync(`scripts/${파일}`)) {
+    console.error(`❌ ${파일} 이 없다 — 검사 목록이 실제와 어긋난다`);
+    process.exit(1);
+  }
+  try {
+    execFileSync('node', [`scripts/${파일}`], { stdio: 'pipe' });
+    console.log(`  ✅ ${무엇.padEnd(28)} (${파일})`);
+    돈것++;
+  } catch (e) {
+    console.error(`\n❌ ${무엇} — ${파일}\n`);
+    process.stderr.write(String(e.stdout ?? ''));
+    process.stderr.write(String(e.stderr ?? ''));
+    process.exit(1);
+  }
+}
+console.log(`\n✅ K Culture Wire 검사 ${돈것}개 전부 통과`);
