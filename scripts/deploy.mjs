@@ -68,12 +68,33 @@ function 상태(stage, app) {
   return { status: '알 수 없음', updated: '', raw: out.slice(0, 300) };
 }
 
+/**
+ * 락을 건 프로세스가 아직 살아 있는가.
+ *
+ * ⚠ **죽은 프로세스는 배포하고 있지 않다.** 그런데 락은 남는다.
+ *   2026-08-07 하루에 **세 번** 이 자물쇠에 막혔다 — 배포가 중간에 끊길 때마다 남았고,
+ *   그때마다 20분을 기다리거나 손으로 지웠다. 손으로 지우는 것은 **위험하다** —
+ *   진짜 도는 배포를 지울 수 있다. 그래서 **pid 가 살아 있는지로 가린다.**
+ *
+ * ⛔ 다른 프로젝트(klifemap)의 pid 는 이 PC 의 것이지만 확실치 않을 수 있어,
+ *   **내 프로젝트 락에만** 이 판정을 쓴다. 남의 것은 시간으로만 만료시킨다.
+ */
+export function 살아있나(pid) {
+  if (!pid) return true; // pid 가 없는 옛 락은 살아 있는 것으로 본다(안전한 쪽)
+  try {
+    process.kill(pid, 0); // 신호 0 은 죽이지 않는다. 있는지만 묻는다
+    return true;
+  } catch (e) {
+    return e.code === 'EPERM'; // 남의 계정 것이면 살아 있는 것이다
+  }
+}
+
 function 락읽기() {
   if (!existsSync(LOCK)) return null;
   try {
     const j = JSON.parse(readFileSync(LOCK, 'utf8'));
     const 지난분 = (Date.now() - new Date(j.startedAt).getTime()) / 60000;
-    return { ...j, 지난분 };
+    return { ...j, 지난분, 임자살아있다: 살아있나(j.pid) };
   } catch {
     return null; // 깨진 락은 없는 것으로 본다
   }
@@ -251,8 +272,14 @@ async function main() {
     unlinkSync(LOCK);
   }
   if (락 && 락.project === 나.project && 락.지난분 < 락만료분) {
-    console.error(`⛔ 이 프로젝트가 이미 배포 중이다 (${락.지난분.toFixed(1)}분 전 시작).`);
-    process.exit(1);
+    // ⚠ 락을 건 프로세스가 죽었으면 배포는 이미 끝났거나 끊긴 것이다. 20분을 기다릴 이유가 없다
+    if (!락.임자살아있다) {
+      console.log(`⚠ 내 락이 ${락.지난분.toFixed(0)}분째인데 **건 프로세스(pid ${락.pid})가 죽어 있다** — 치우고 진행한다.`);
+      unlinkSync(LOCK);
+    } else {
+      console.error(`⛔ 이 프로젝트가 이미 배포 중이다 (${락.지난분.toFixed(1)}분 전 시작 · pid ${락.pid} 살아 있음).`);
+      process.exit(1);
+    }
   }
 
   // ── ② 상대 스테이지가 안정적인가 ───────────────────────────
