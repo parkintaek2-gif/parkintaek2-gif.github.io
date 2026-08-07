@@ -30,6 +30,7 @@ const 검사 = [
   ['출연 겹침 기사가 자료와 맞나', 'check-one-body-article.mjs'],
   ['밤에 낸 세 편이 자료와 맞나', 'check-three-title-articles.mjs'],
   ['정정 기사가 기록과 맞나', 'check-corrections-article.mjs'],
+  ['조인 네 편이 자료와 맞나', 'check-join-articles.mjs'],
 ];
 
 let 돈것 = 0;
