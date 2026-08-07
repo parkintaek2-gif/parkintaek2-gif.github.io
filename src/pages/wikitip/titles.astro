@@ -10,6 +10,7 @@
  *     kculturewire.com 은 살아 있다. 소스만 보면 반대로 읽는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
 
 const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
@@ -74,6 +75,8 @@ const jsonLd = {
       ))}
     </ul>
   </section>
+
+  <KcwRelatedArticles page="/titles" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

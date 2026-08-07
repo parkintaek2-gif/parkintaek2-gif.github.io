@@ -6,6 +6,8 @@ pubDate: 2026-08-06
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom
 tags: ["webtoon", "korea", "comics", "content industry", "kocca"]
+pages:
+  - "/webtoon"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
     api: "웹툰산업실태조사 (Webtoon Industry Survey), tables DT_467002_A005 and DT_467002_A004, reference year 2024, via KOSIS open API"

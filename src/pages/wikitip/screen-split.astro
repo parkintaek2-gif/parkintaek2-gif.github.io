@@ -19,6 +19,7 @@
  * ⛔ 광고 자리를 만들지 않았다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-screen-split.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
 
@@ -167,6 +168,8 @@ const jsonLd = {
       been out-watched by {data.seriesAboveTopFilm} separate Korean series.
     </p>
   </section>
+
+  <KcwRelatedArticles page="/screen-split" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

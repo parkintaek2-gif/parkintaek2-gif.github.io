@@ -10,6 +10,9 @@ corrections:
     note: "Every count in this article was overstated when it was published. Korean titles were matched by title text against a Wikidata list, and English titles collide across countries, so titles that are not Korean were counted — among them The Perfect Couple and Run Away (United States), Hunger (Thailand), Forgotten Love (Poland) and two Witcher animations. Netflix splits its global charts by a title primary language, and we now use that classification to drop any title Netflix places on its English-language charts, plus a hand-checked list of same-name collisions inside the Non-English charts. The catalogue falls from 448 titles to 405. Every figure and table below has been recomputed. The shape of the finding did not change — it sharpened: the all-six share rises from 43.3% to 44.4%, the single-market share from 29.9% to 31.9%, and the thin middle falls from 26.8% to 23.7%. The country lists carry no language field of their own, so this correction is only as good as the global chart classification it borrows."
 author: Newsroom
 tags: ["netflix", "southeast asia", "korean drama", "korean film", "korea"]
+pages:
+  - "/reach"
+  - "/titles"
 sources:
   - org: "Netflix"
     api: "Top 10 weekly country lists (Tudum) for Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam, 265 weeks from 2021-07-04 to 2026-07-26"

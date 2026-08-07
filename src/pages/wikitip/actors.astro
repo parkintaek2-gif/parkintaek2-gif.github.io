@@ -10,6 +10,7 @@
  *     실제로는 noindex 가 걸린 적이 없다. 소스만 보면 반대로 읽는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-actors.json';
 
 const monthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -73,6 +74,8 @@ const jsonLd = {
       ))}
     </ul>
   </section>
+
+  <KcwRelatedArticles page="/actors" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

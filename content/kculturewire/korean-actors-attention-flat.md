@@ -10,6 +10,9 @@ corrections:
     note: "The Netflix figures this article quotes were our own published numbers, and they were wrong. Korean titles had been matched by title text against a Wikidata list, which pulled in titles Netflix classes on its English-language charts — The Perfect Couple, Suits, Hit Man and others that are not Korean — along with same-name collisions inside the Non-English charts such as Teach You a Lesson (China) and Hunger (Thailand). The catalogue is 236 titles and 23.7 billion hours, not 294 and 27.7 billion, and Squid Game is 21.3% of it rather than 18.2%. The ten biggest titles are 41.3%, not 36.4%. The pageview side of this article is unaffected — it comes from Wikimedia and was re-derived unchanged — and the comparison the article makes is unchanged in direction and slightly wider: one title still holds a fifth of the viewing while the most looked-up performer holds 3.1% of the attention. The correlation of −0.16 is computed only from pageview and title-count fields and does not move."
 author: Newsroom
 tags: ["korean actors", "wikipedia", "attention", "netflix", "korea"]
+pages:
+  - "/actors"
+  - "/watched"
 sources:
   - org: "Wikimedia Foundation"
     api: "Pageviews API — daily English Wikipedia article views, human traffic only, 2026-07-05 to 2026-08-03"

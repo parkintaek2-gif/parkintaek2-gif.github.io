@@ -6,6 +6,9 @@ pubDate: 2026-08-07
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom
 tags: ["k-pop", "korean drama", "exports", "music", "television", "korea"]
+pages:
+  - "/exports"
+  - "/tv-exports"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
     api: "콘텐츠산업조사 (Content Industry Survey) — music industry exports by region, table DT_113_STBL_1020468, and broadcast programme exports by company type, table DT_113_STBL_1025706, via KOSIS open API"

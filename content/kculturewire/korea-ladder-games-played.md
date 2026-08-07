@@ -6,6 +6,10 @@ pubDate: 2026-08-07
 dataAsOf: 2026-08-06T22:00:01+09:00
 author: Newsroom
 tags: ["league of legends", "esports", "korea", "ranked ladder", "riot games"]
+pages:
+  - "/esports"
+  - "/ladder-gap"
+  - "/ladder-churn"
 sources:
   - org: "Riot Games"
     api: "Developer API — /lol/league/v4/challengerleagues and /lol/league/v4/grandmasterleagues, queue RANKED_SOLO_5x5, collected once a day at 22:00 KST across six regions"

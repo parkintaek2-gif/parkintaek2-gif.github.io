@@ -6,6 +6,10 @@ pubDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["netflix", "data", "korean drama", "method", "korea"]
+pages:
+  - "/watched"
+  - "/screen-split"
+  - "/corrections"
 sources:
   - org: "Netflix"
     api: "Top 10 weekly global and per-country tables (Tudum). Column headers read verbatim from the published TSV files, 2026-08-04 download"

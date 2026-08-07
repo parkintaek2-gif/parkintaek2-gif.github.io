@@ -18,6 +18,7 @@
  * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전이다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-ladder-gap.json';
 
 const TITLE = 'How thin is the top of the ladder?';
@@ -130,6 +131,8 @@ const jsonLd = {
       reconstructed afterwards, so that day is simply gone rather than interpolated.
     </p>
   </section>
+
+  <KcwRelatedArticles page="/ladder-gap" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

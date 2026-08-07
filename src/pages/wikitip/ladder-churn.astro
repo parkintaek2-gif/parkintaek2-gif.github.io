@@ -21,6 +21,7 @@
  * ⛔ 광고 자리를 만들지 않았다. Riot Production 승인 전이다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-ladder-churn.json';
 
 const TITLE = 'Who stays at the top of the ladder';
@@ -146,6 +147,8 @@ const jsonLd = {
       confirmations, and none of them explains <i>why</i>.
     </p>
   </section>
+
+  <KcwRelatedArticles page="/ladder-churn" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

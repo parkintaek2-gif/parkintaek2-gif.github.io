@@ -12,6 +12,7 @@
  *      (두 벌인 채로 잊으면 같은 내용이 두 도메인에서 색인돼 서로 순위를 깎는다)
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import { SITE_URL } from '../../consts';
 import ladder from '../../data/riot-ladder.json';
 
@@ -226,6 +227,12 @@ const jsonLd = {
         </p>
       </div>
     </article>
+
+    <!--
+      이 자료로 쓴 기사를 스스로 건다. 기사 앞말의 `pages` 를 읽으므로
+      새 기사를 내면 여기에 저절로 붙는다 — 손으로 걸면 다음 기사 때 빠진다.
+    -->
+    <KcwRelatedArticles page="/esports" />
   </div>
 </WikiTip>
 

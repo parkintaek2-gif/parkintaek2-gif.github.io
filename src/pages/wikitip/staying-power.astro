@@ -17,6 +17,7 @@
  * ⛔ 광고 자리를 만들지 않았다. Riot Production 승인 전이다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-staying-power.json';
 
 const TITLE = 'Staying power and force — two different things';
@@ -130,6 +131,8 @@ const jsonLd = {
       </table>
     </div>
   </section>
+
+  <KcwRelatedArticles page="/staying-power" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

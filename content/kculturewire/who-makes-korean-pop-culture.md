@@ -6,6 +6,10 @@ pubDate: 2026-08-06
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["k-pop", "korean drama", "games", "workforce", "tenure", "netflix", "korea"]
+pages:
+  - "/workforce"
+  - "/industry"
+  - "/watched"
 sources:
   - org: "Financial Supervisory Service (Korea), DART"
     api: "Annual report employee and executive disclosures (직원 등의 현황), filing year 2025, for 2,862 listed companies"

@@ -6,6 +6,10 @@ pubDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["netflix", "exports", "korean drama", "k-pop", "squid game", "korea"]
+pages:
+  - "/watched"
+  - "/exports"
+  - "/tv-exports"
 sources:
   - org: "Netflix"
     api: "Top 10 weekly global hours viewed (Tudum), Non-English charts, 265 consecutive weeks from 2021-07-04 to 2026-07-26"

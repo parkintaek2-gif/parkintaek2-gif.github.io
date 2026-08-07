@@ -6,6 +6,7 @@
  * 라이선스: 넷플릭스 Tudum 글로벌 순위. 원본 표 재배포 없이 집계(합)만. canonical=www.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-global.json';
 
 const TITLE = 'The most-watched Korean titles on Netflix, worldwide';
@@ -73,6 +74,8 @@ const jsonLd = {
       ))}
     </ul>
   </section>
+
+  <KcwRelatedArticles page="/watched" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

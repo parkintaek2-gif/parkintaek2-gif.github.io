@@ -23,6 +23,7 @@
  *     실제로 noindex 가 걸린 적은 없다. 소스만 보면 반대로 읽는다 — 오늘 그럴 뻔했다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import rankings from '../../data/rankings.json';
 
 const TITLE = 'Who works in K-pop and Korean games';
@@ -146,6 +147,8 @@ const pct = (v) => (v == null ? '—' : `${v}%`);
   </section>
 
   <!-- ── 출처 · 제외 ────────────────────────────────────────────── -->
+  <KcwRelatedArticles page="/workforce" />
+
   <section class="src">
     <h2>Where these numbers come from</h2>
     <ul>

@@ -6,6 +6,8 @@ pubDate: 2026-08-06
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom
 tags: ["k-pop", "music", "exports", "japan", "korea", "kocca"]
+pages:
+  - "/exports"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
     api: "콘텐츠산업조사 (Content Industry Survey), table DT_113_STBL_1020468 — music industry exports by country and continent, 2005–2024, via KOSIS open API"

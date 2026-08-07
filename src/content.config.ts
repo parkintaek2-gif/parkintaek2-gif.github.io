@@ -97,6 +97,17 @@ const kcwArticles = defineCollection({
       note: z.string(),
     })).default([]),
     tags: z.array(z.string()).default([]),
+    /**
+     * 이 기사가 쓴 **지면 주소**들. 지면이 이걸 보고 스스로 기사를 건다.
+     *
+     * ⚠ 관계를 **지면이 아니라 기사에** 둔다. 지면에 손으로 걸면 다음 기사를 쓸 때 빠진다 —
+     *   2026-08-07 에 실제로 12편 중 7편이 아무 지면에도 안 걸려 있었다.
+     *   기사를 쓰는 사람은 자기가 어느 자료를 썼는지 알고, 지면은 그걸 읽기만 하면 된다.
+     *   그러면 기사를 내는 순간 지면에 저절로 걸린다.
+     *
+     * ⛔ 빈 배열도 뜻이 있다 — 「어느 지면 자료도 안 썼다」다. 억지로 채우지 않는다.
+     */
+    pages: z.array(z.string()).default([]),
     author: z.string().default('Newsroom'),
     draft: z.boolean().default(false),
   }),

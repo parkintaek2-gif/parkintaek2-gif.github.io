@@ -7,6 +7,10 @@ updatedDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["netflix", "korean drama", "squid game", "streaming", "korea"]
+pages:
+  - "/watched"
+  - "/staying-power"
+  - "/screen-split"
 sources:
   - org: "Netflix"
     api: "Top 10 weekly global hours viewed (Tudum), 265 consecutive weeks from 2021-07-04 to 2026-07-26, Non-English charts only"

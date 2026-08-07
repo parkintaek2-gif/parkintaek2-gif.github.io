@@ -19,6 +19,7 @@
  * ⛔ 광고 자리를 만들지 않았다. Riot Production 승인 전이다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-webtoon.json';
 
 const TITLE = 'Korea’s webtoon businesses, counted';
@@ -130,6 +131,8 @@ const jsonLd = {
       )}
     </section>
   ))}
+
+  <KcwRelatedArticles page="/webtoon" />
 
   <section class="src">
     <h2>Where these numbers come from</h2>

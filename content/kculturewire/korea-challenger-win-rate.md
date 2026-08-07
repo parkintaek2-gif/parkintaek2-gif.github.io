@@ -6,6 +6,9 @@ pubDate: 2026-08-06
 dataAsOf: 2026-08-06T21:50:00+09:00
 author: Newsroom
 tags: ["league of legends", "esports", "korea", "solo queue", "riot games"]
+pages:
+  - "/esports"
+  - "/ladder-gap"
 sources:
   - org: "Riot Games"
     api: "Developer API — /lol/league/v4/challengerleagues, queue RANKED_SOLO_5x5, six regions, collected daily at 22:00 KST"
