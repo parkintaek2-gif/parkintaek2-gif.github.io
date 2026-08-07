@@ -133,5 +133,5 @@ briefly in a single country. Those are also the smallest entries — the median 
 two weeks — so the risk sits in the tail rather than the top. It is still there.
 
 The one thing we can say without hedging is the size of what we do not know, which is what this piece
-is. A panel that reported 405 titles and said nothing else would be a cleaner-looking number and a
+is. A panel that reported 397 titles and said nothing else would be a cleaner-looking number and a
 worse one.

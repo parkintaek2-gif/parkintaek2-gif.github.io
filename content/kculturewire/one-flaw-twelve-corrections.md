@@ -44,6 +44,11 @@ were separate mistakes that surfaced only because the flaw made us re-read every
 | /tv-exports | terrestrial 65.7% of exports | 81.5% | **a different mistake** |
 | /industry | content pay ₩75.6m | ₩76.1m | **a different mistake** |
 
+**Those "now" figures are what they became that morning, not what they are today.** The panel moved
+again on 8 August, from 405 titles to 397, for a different reason — see the correction at the top of
+this piece and [the current catalogue](/titles). We do not rewrite this table when later numbers move,
+because it is a record of one day.
+
 ## The flaw
 
 Netflix does not publish a country of production. To build a Korean panel you have to decide which

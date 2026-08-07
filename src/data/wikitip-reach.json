@@ -1,26 +1,26 @@
 {
-  "generated": "2026-08-06T22:02:30.796Z",
+  "generated": "2026-08-07T17:58:22.079Z",
   "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "region": "Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam",
   "countries": 6,
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 405,
+  "titleCount": 397,
   "buckets": [
     {
       "countries": 6,
-      "n": 180,
-      "share": 44.4,
+      "n": 179,
+      "share": 45.1,
       "avgWeeks": 8.4,
       "tv": 142,
-      "film": 38,
+      "film": 37,
       "peak1": 119
     },
     {
       "countries": 5,
       "n": 19,
-      "share": 4.7,
+      "share": 4.8,
       "avgWeeks": 6.1,
       "tv": 17,
       "film": 2,
@@ -29,7 +29,7 @@
     {
       "countries": 4,
       "n": 22,
-      "share": 5.4,
+      "share": 5.5,
       "avgWeeks": 4.5,
       "tv": 14,
       "film": 8,
@@ -38,7 +38,7 @@
     {
       "countries": 3,
       "n": 22,
-      "share": 5.4,
+      "share": 5.5,
       "avgWeeks": 5,
       "tv": 12,
       "film": 10,
@@ -47,7 +47,7 @@
     {
       "countries": 2,
       "n": 33,
-      "share": 8.1,
+      "share": 8.3,
       "avgWeeks": 2.7,
       "tv": 13,
       "film": 20,
@@ -55,34 +55,34 @@
     },
     {
       "countries": 1,
-      "n": 129,
-      "share": 31.9,
+      "n": 122,
+      "share": 30.7,
       "avgWeeks": 2.8,
-      "tv": 40,
-      "film": 89,
-      "peak1": 16
+      "tv": 39,
+      "film": 83,
+      "peak1": 15
     }
   ],
   "formats": [
     {
       "type": "Series",
-      "n": 238,
-      "avgCountries": 4.6,
-      "avgWeeks": 7.7,
+      "n": 237,
+      "avgCountries": 4.62,
+      "avgWeeks": 7.6,
       "peak1": 101,
       "all6": 142
     },
     {
       "type": "Films",
-      "n": 167,
-      "avgCountries": 2.57,
+      "n": 160,
+      "avgCountries": 2.61,
       "avgWeeks": 2.8,
-      "peak1": 49,
-      "all6": 38
+      "peak1": 48,
+      "all6": 37
     }
   ],
-  "peak1": 150,
-  "middleShare": 23.7,
+  "peak1": 149,
+  "middleShare": 24.2,
   "excludedEnglishChart": 36,
   "excludedByHand": [
     "The East Palace",
@@ -91,9 +91,17 @@
     "Fighter",
     "Paradise",
     "Hunger",
-    "Animal"
+    "Re/Member",
+    "Glorious Days",
+    "Animal",
+    "Into the Storm",
+    "You and Me",
+    "Wildflower",
+    "Feng Shui",
+    "Waterworld",
+    "Long Live Love!"
   ],
-  "unlabelledTitles": 204,
+  "unlabelledTitles": 197,
   "examples": {
     "six": [
       {
@@ -176,13 +184,6 @@
         "weeks": 13
       },
       {
-        "title": "Wildflower",
-        "type": "TV",
-        "countries": 1,
-        "peak": 2,
-        "weeks": 13
-      },
-      {
         "title": "Stepmother",
         "type": "TV",
         "countries": 1,
@@ -209,6 +210,13 @@
         "countries": 1,
         "peak": 1,
         "weeks": 7
+      },
+      {
+        "title": "Sunshine",
+        "type": "Films",
+        "countries": 1,
+        "peak": 1,
+        "weeks": 6
       }
     ]
   }

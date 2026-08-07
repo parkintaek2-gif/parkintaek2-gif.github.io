@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-06T22:02:30.584Z",
+  "generated": "2026-08-07T17:58:22.588Z",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 236,
+  "titleCount": 235,
   "shown": 50,
-  "totalHours": 23729840000,
+  "totalHours": 23720700000,
   "peakGroups": [
     {
       "label": "Peaked at #1",
@@ -598,7 +598,8 @@
     "Animal",
     "Forgotten Love",
     "Paradise",
-    "Hunger"
+    "Hunger",
+    "Re/Member"
   ],
   "audited": {
     "tv": 30,
