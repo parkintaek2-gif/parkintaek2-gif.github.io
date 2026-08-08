@@ -1,0 +1,103 @@
+---
+/**
+ * **/data** — 데이터 상품 카탈로그(발견 경로). (seoulmarkets.com/data)
+ *
+ * ── 왜 (2번 38376·38878, 사장님 「수익성이 먼저」) ──────────────
+ *   판매 지면들이 직접 URL 로만 있어 손님이 발견할 길이 없었다. 이 인덱스가 그 길이다.
+ *   각 상품에 「무엇이 들어 있나」 + 값(또는 「곧 엽니다」) + 다음 칸(지면 링크)이 하나도 안 빠지게 둔다.
+ *   ⛔ 값은 확정 전까지 「곧 엽니다」 — 사장님 결정 대기.
+ */
+import Base from '../../layouts/Base.astro';
+
+const TITLE = 'Data for licence';
+const DESC =
+  'Datasets SeoulMarkets builds from Korean public filings and sells: the labour fingerprint of '
+  + 'listed companies by sector, and a near-census pension wage panel. Company-level tables are free.';
+
+const 상품 = [
+  {
+    href: '/data/sector-workforce-panel',
+    name: 'The sector workforce panel',
+    one: '2,644 listed companies in 11 sectors, each carrying tenure, pay, the gender pay gap and pay-per-head — the columns the big vendors leave out. Leaders flagged. Quarterly.',
+    price: 'Licensing — coming soon',
+    cta: 'See what’s in it',
+  },
+  {
+    href: '/data/pension-wage-panel',
+    name: 'The National Pension wage panel',
+    one: 'A near-census pay ladder for the Korean workforce from the national pension bill — 553,978 workplaces, 11.56m people, by industry, region and firm size, with a cap-pressure column so every figure is a floor.',
+    price: 'Licensing — coming soon',
+    cta: 'See what’s in it',
+  },
+  {
+    href: '/data/korean-listed-workforce.csv',
+    name: 'Listed-company workforce table (CSV)',
+    one: 'The company-level table the sector panel is built from — every listed company with employees, tenure, pay and market cap. Free to download.',
+    price: 'Free',
+    cta: 'Download the CSV',
+    download: true,
+  },
+];
+---
+
+<Base title={TITLE} description={DESC}>
+  <div class="wrap">
+    <article class="dx">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>Data for licence</h1>
+      <p class="lead">
+        We build datasets from Korea's public filings and sell what the terminals don't carry — the
+        <b>labour fingerprint</b> of listed companies and a near-census wage panel. Every figure is
+        re-derived from the source and ships with its own correction record. Company-level tables are
+        free; the joined panels are licensed.
+      </p>
+
+      <ul class="cards">
+        {상품.map((p) => (
+          <li class="card">
+            <h2><a href={p.href}>{p.name}</a></h2>
+            <p class="one">{p.one}</p>
+            <div class="foot">
+              <span class="price" data-free={p.price === 'Free' ? '' : undefined}>{p.price}</span>
+              {p.download
+                ? <a class="go" href={p.href} download>{p.cta} →</a>
+                : <a class="go" href={p.href}>{p.cta} →</a>}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <p class="fine">
+        Built from DART annual filings, KRX close and the National Pension workplace file via
+        data.go.kr (licence "unrestricted"). What we sell is our parse, join and correction record —
+        not the raw filings. Sector map derived from public KSIC; no GICS data or trademark is used.
+        Not investment advice.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .dx { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .dx h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .6rem; letter-spacing: -.02em; }
+  .dx .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 2rem; }
+  .dx .lead b { font-weight: 650; }
+
+  .cards { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1rem; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.3rem; background: var(--card); }
+  .card h2 { font-size: 1.12rem; margin: 0 0 .5rem; letter-spacing: -.01em; }
+  .card h2 a { color: var(--ink); text-decoration: none; }
+  .card h2 a:hover { color: var(--accent); }
+  .card .one { font-size: .93rem; line-height: 1.65; margin: 0 0 1rem; color: var(--ink-2, var(--ink)); }
+  .foot { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+  .price { font-size: .84rem; font-weight: 600; color: var(--muted); }
+  .price[data-free] { color: var(--up, #1a7f37); }
+  .go { font-size: .9rem; font-weight: 650; color: var(--accent); text-decoration: none;
+        border-bottom: 1px solid currentColor; padding-bottom: 1px; white-space: nowrap; }
+  .go:hover { color: var(--ink); }
+
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 2rem 0 1rem;
+          padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>
