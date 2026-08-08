@@ -58,8 +58,26 @@ if (process.argv[1] && process.argv[1].endsWith('check-search-readiness.mjs')) {
   const 실린주소 = 주소들(xml);
   const 짝 = 그림짝(xml);
 
-  /* ── ① 빌드된 지면이 전부 사이트맵에 있나 ── */
-  const 지면 = fs.readdirSync(D).filter((f) => f.endsWith('.html') && !안넣는것.has(f));
+  /* ── ① 빌드된 지면이 전부 사이트맵에 있나 ──
+   * 🔴 2026-08-09 07:2x — **하위 폴더를 안 팠다.** 그날 `/market/<나라>` 93장을 냈는데
+   *   사이트맵에 `/market/` 이 **0개**였고 이 자는 **통과**했다.
+   *   ⛔ 검색 유입이 우리 유일한 마케팅인데, 새 지면 93장이 검색엔진에 안 알려진 채였다.
+   *   ⭐ 판다. `article/` 만 따로 센다(그림 짝을 거기서만 보기 때문이다).
+   */
+  const 지면 = [];
+  const 판다 = (d, 앞) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      if (e.isDirectory()) {
+        if (e.name === 'article') continue;
+        판다(path.join(d, e.name), `${앞}${e.name}/`);
+        continue;
+      }
+      if (!e.name.endsWith('.html')) continue;
+      if (!앞 && 안넣는것.has(e.name)) continue;
+      지면.push(`${앞}${e.name}`);
+    }
+  };
+  판다(D, '');
   const 기사 = fs.existsSync(`${D}/article`) ? fs.readdirSync(`${D}/article`).filter((f) => f.endsWith('.html')) : [];
   const 있어야 = [...지면.map((f) => `/${f.replace('.html', '')}`), ...기사.map((f) => `/article/${f.replace('.html', '')}`)];
   if (fs.existsSync(첫화면)) 있어야.push('/');

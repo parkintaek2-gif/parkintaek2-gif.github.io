@@ -1,5 +1,6 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import markets from '../../data/wikitip-markets.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -86,6 +87,18 @@ export const GET: APIRoute = async () => {
    * 백년지도가 2,483장을 만들어 놓고 사이트맵에 한 번도 안 올린 적이 있다.
    * 컬렉션에서 바로 읽으니 기사를 쓰면 사이트맵에 저절로 들어간다. draft 는 뺀다.
    */
+  /*
+   * 🔴 2026-08-09 07:2x — **시장 93장을 내고 여기 한 줄을 안 넣었다.**
+   *   위 ⚠ 가 정확히 이 일을 적어 두었는데(「지면을 새로 만들면 여기 한 줄을 같이 넣는다」)
+   *   그대로 다시 했다. 라이브 사이트맵에 `/market/` 이 **0개**였다.
+   *   ⛔ 그리고 `check-search-readiness` 는 **통과했다** — 그 자도 하위 폴더를 안 봤다.
+   * ⭐ 그래서 손으로 안 적는다. 기사와 같은 방식으로 **자료에서 뽑는다.**
+   *   시장이 늘거나 줄면 사이트맵이 저절로 따라온다.
+   */
+  for (const m of markets.markets.filter((x) => x.hasPage)) {
+    entries.push({ path: `/market/${m.slug}`, priority: '0.8', changefreq: 'weekly' });
+  }
+
   const articles = await getCollection('kcwArticles');
   for (const a of articles.filter((e) => !e.data.draft)) {
     const 날 = a.data.updatedDate ?? a.data.pubDate;
