@@ -1,0 +1,283 @@
+{
+  "generated": "2026-08-09",
+  "source": "SeoulMarkets analyst attention — archive/raw/research (stock-name join) + archive/raw/stocks (code·name·mcap) + rankings + KSIC sector map",
+  "brokerages_in_archive": 20,
+  "method_note": "Joined by stock name: the raw ticker field is filled in only 352 of 6,372 reports (a scraper gap, not a market fact); every uncoded report still names a single stock. A company \"appears\" if at least one report named it in the year.",
+  "sample_caveat": "This archive is a sample of retail-board research from a set of brokerages. A company NOT appearing means it drew no report in this sample — NOT that no analyst covers it. Read the sector figures as attention concentration within our archive, not as market-wide coverage.",
+  "disclaimer": "Attention is a visibility measure, not investment advice. Appearing or not appearing is neither a buy nor a sell signal.",
+  "summary": {
+    "year": "2026",
+    "listed_companies": 2819,
+    "covered": 939,
+    "uncovered": 1880,
+    "coverage_pct": 33.3,
+    "total_stock_reports": 6372,
+    "distinct_names_in_research": 975,
+    "names_matched_to_listing": 939,
+    "one_report_only": 411,
+    "single_house": 459,
+    "busiest_report_count": 100,
+    "median_reports_when_covered": 2
+  },
+  "by_sector": [
+    {
+      "sector": "Real Estate",
+      "listed": 30,
+      "covered": 2,
+      "coverage_pct": 6.7,
+      "uncovered": 28,
+      "reports": 4,
+      "thin_one_report_only": 1
+    },
+    {
+      "sector": "Financials",
+      "listed": 229,
+      "covered": 55,
+      "coverage_pct": 24,
+      "uncovered": 174,
+      "reports": 621,
+      "thin_one_report_only": 9
+    },
+    {
+      "sector": "Consumer Discretionary",
+      "listed": 384,
+      "covered": 97,
+      "coverage_pct": 25.3,
+      "uncovered": 287,
+      "reports": 793,
+      "thin_one_report_only": 44
+    },
+    {
+      "sector": "Materials",
+      "listed": 391,
+      "covered": 111,
+      "coverage_pct": 28.4,
+      "uncovered": 280,
+      "reports": 669,
+      "thin_one_report_only": 43
+    },
+    {
+      "sector": "Health Care",
+      "listed": 376,
+      "covered": 134,
+      "coverage_pct": 35.6,
+      "uncovered": 242,
+      "reports": 558,
+      "thin_one_report_only": 67
+    },
+    {
+      "sector": "Communication Services",
+      "listed": 310,
+      "covered": 116,
+      "coverage_pct": 37.4,
+      "uncovered": 194,
+      "reports": 797,
+      "thin_one_report_only": 59
+    },
+    {
+      "sector": "Consumer Staples",
+      "listed": 95,
+      "covered": 36,
+      "coverage_pct": 37.9,
+      "uncovered": 59,
+      "reports": 174,
+      "thin_one_report_only": 23
+    },
+    {
+      "sector": "Industrials",
+      "listed": 625,
+      "covered": 239,
+      "coverage_pct": 38.2,
+      "uncovered": 386,
+      "reports": 1555,
+      "thin_one_report_only": 110
+    },
+    {
+      "sector": "Information Technology",
+      "listed": 360,
+      "covered": 141,
+      "coverage_pct": 39.2,
+      "uncovered": 219,
+      "reports": 975,
+      "thin_one_report_only": 55
+    }
+  ],
+  "largest_absent_from_archive": [
+    {
+      "ticker": "042700",
+      "name_en": "HANMI Semiconductor CO., LTD.",
+      "sector": "Industrials",
+      "mcap_krw": 19920249800000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "086520",
+      "name_en": "ECOPRO CO.,LTD",
+      "sector": "Financials",
+      "mcap_krw": 11174377309600,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "277810",
+      "name_en": "Rainbow Robotics",
+      "sector": "Industrials",
+      "mcap_krw": 9389531272000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "180640",
+      "name_en": "HANJINKAL",
+      "sector": "Financials",
+      "mcap_krw": 8178379177500,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "028300",
+      "name_en": "HLB Co.,LTD.",
+      "sector": "Health Care",
+      "mcap_krw": 4648617982700,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "087010",
+      "name_en": "Peptron, Inc.",
+      "sector": "Health Care",
+      "mcap_krw": 3998925525000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "108490",
+      "name_en": "ROBOTIS",
+      "sector": "Industrials",
+      "mcap_krw": 3547968776000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "214370",
+      "name_en": "CAREGEN CO.,LTD.",
+      "sector": "Health Care",
+      "mcap_krw": 3416274000000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "022100",
+      "name_en": "POSCO DX COMPANY LTD.",
+      "sector": "Industrials",
+      "mcap_krw": 3169924099650,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "084370",
+      "name_en": "EugeneTechnologyCo.,Ltd.",
+      "sector": "Industrials",
+      "mcap_krw": 2825547978600,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "017800",
+      "name_en": "HYUNDAI ELEVATOR CO.,LTD",
+      "sector": "Industrials",
+      "mcap_krw": 2783377812000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "008930",
+      "name_en": "Hanmi Science Co.,Ltd",
+      "sector": "Financials",
+      "mcap_krw": 2759599042500,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "319400",
+      "name_en": "HYUNDAI MOVEX Co., Ltd.",
+      "sector": "Industrials",
+      "mcap_krw": 2723144153550,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "302440",
+      "name_en": "SK Bioscience Co.,Ltd",
+      "sector": "Health Care",
+      "mcap_krw": 2714596733800,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "080220",
+      "name_en": "Jeju Semiconductor Corp.",
+      "sector": "Information Technology",
+      "mcap_krw": 2600433891500,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "026960",
+      "name_en": "DONG SUH COMPANIES INC.",
+      "sector": "Consumer Discretionary",
+      "mcap_krw": 2512440000000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "009970",
+      "name_en": "Youngone Holdings Co., Ltd",
+      "sector": "Financials",
+      "mcap_krw": 2459929848300,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "001720",
+      "name_en": "SHINYOUNG SECURITIES CO.,LTD",
+      "sector": "Financials",
+      "mcap_krw": 2418324000000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "000240",
+      "name_en": "HANKOOK & COMPANY CO., LTD.",
+      "sector": "Financials",
+      "mcap_krw": 2416101858000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "279570",
+      "name_en": "Kbank",
+      "sector": "Financials",
+      "mcap_krw": 2304348457680,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "085620",
+      "name_en": "MIRAE ASSET Life Insurance CO., Ltd.",
+      "sector": "Financials",
+      "mcap_krw": 2275079400000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "005290",
+      "name_en": "DONGJIN SEMICHEM CO., LTD.",
+      "sector": "Materials",
+      "mcap_krw": 2130551266800,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "032820",
+      "name_en": "Woori Technology, Incorporation",
+      "sector": "Industrials",
+      "mcap_krw": 2026763498760,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "002790",
+      "name_en": "AMOREPACIFIC Holdings Corp.",
+      "sector": "Materials",
+      "mcap_krw": 1995558498000,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    },
+    {
+      "ticker": "010170",
+      "name_en": "TAIHAN Fiberoptics Co.,LTD",
+      "sector": "Industrials",
+      "mcap_krw": 1876711916200,
+      "note": "absent from our 2026 sample; not a claim about market coverage"
+    }
+  ],
+  "absent_from_archive_total": 1880
+}
