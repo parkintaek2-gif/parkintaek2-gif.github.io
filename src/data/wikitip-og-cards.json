@@ -131,6 +131,11 @@
       "figure": "6",
       "label": "titles fill half of America’s Korean chart",
       "왜": "자동은 문장 첫 수를 집는데 그러면 「Six」가 글자라 놓치거나 93 을 집는다. 이 기사의 요점은 6 대 49 라는 대비다"
+    },
+    "the-decline-that-was-not-there": {
+      "figure": "69%",
+      "label": "a decline we could not publish",
+      "왜": "자동은 제목 첫 수 69 를 집는데 딱지가 「down since 2017」로 붙으면 카드가 하락을 사실로 말한다. 이 기사의 요점은 그 수가 틀렸다는 것이다"
     }
   }
 }
