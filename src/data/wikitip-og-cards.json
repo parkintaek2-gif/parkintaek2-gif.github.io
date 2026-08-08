@@ -111,6 +111,11 @@
       "figure": "30.8%",
       "label": "North America, where five regions sit at 19",
       "왜": "자동은 18.7%(표 첫 줄)를 집는다. 기사가 파는 것은 **떨어져 있는 하나**다"
+    },
+    "young-firms-explain-some-of-it": {
+      "figure": "1.32×",
+      "label": "what is left once firm age is held fixed",
+      "왜": "자동은 6.18(근속)을 집는다. 기사가 파는 것은 **나이를 묶어도 남는 것**이다"
     }
   }
 }
