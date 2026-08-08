@@ -1,0 +1,52 @@
+{
+  "이름": "백년지도 데이터 출처 대장 — 파일마다 어디서·어떤 라이선스·언제·어떻게 받았나",
+  "왜": "9,900원짜리를 파는 자료다. 「이 숫자 어디서 왔냐」에 한 줄로 답이 나와야 한다. 합법수집 플레이북 ⑥",
+  "쓰는법": "배열로 된 데이터 파일은 안에 출처 칸을 못 넣는다(모양을 바꾸면 지면이 깨진다). 그런 파일은 여기서 찾는다",
+  "붙인이": "8번(3번 보조) · 2번 지시 2026-08-08 13:3x",
+  "붙인때": "2026-08-08",
+  "파일": {
+    "pages-school.json": {
+      "무엇": "고등학교 2,525곳 페이지 밑자료",
+      "출처": "NEIS 교육정보 개방 포털(한국교육학술정보원)",
+      "url": "https://open.neis.go.kr",
+      "이용허락범위": "공공누리 1유형 · 인증키 발급받아 조회",
+      "받은법": "공식 OpenAPI 인증키로 조회. 사이트를 긁지 않았다",
+      "근거": "행마다 「출처: NEIS 교육정보 개방 포털」이 이미 들어 있다"
+    },
+    "pages-major.json": {
+      "무엇": "고교 학과 925개 페이지 밑자료",
+      "출처": "NEIS 교육정보 개방 포털 · 학교학과정보",
+      "url": "https://open.neis.go.kr",
+      "이용허락범위": "공공누리 1유형",
+      "받은법": "공식 OpenAPI"
+    },
+    "pages-major-thin.json": {
+      "무엇": "위에서 갈라낸 얇은 학과 1,826건",
+      "출처": "pages-major.json 에서 파생",
+      "url": "https://open.neis.go.kr"
+    },
+    "pages-university.json": {
+      "무엇": "대학 377곳 페이지 밑자료",
+      "출처": "대학알리미 대학정보공시(한국대학교육협의회)",
+      "url": "https://apis.data.go.kr/B340014",
+      "이용허락범위": "이용허락범위 제한 없음",
+      "공시연도": "2025",
+      "받은법": "공공데이터포털 OpenAPI. ⚠ 대학알리미 사이트 자체는 robots Disallow 라 긁지 않았다"
+    },
+    "areas.json": { "무엇": "지역 묶음", "출처": "pages-school.json 에서 센 것" },
+    "summary.json": { "무엇": "전체 건수 요약", "출처": "위 파일들에서 센 것" }
+  },
+  "이미_파일_안에_출처가_있는_것": [
+    "school-career.json", "school-class-size.json", "school-dropout.json",
+    "closed-universities.json", "industry-axis.json", "size-axis.json", "region-axis.json",
+    "business-lifespan.json", "industry-size-cross.json", "industry-region-cross.json",
+    "major-outcomes.json", "major-merged.json", "field-outcomes.json", "work-map.json"
+  ],
+  "아직_url_이_없는_것": {
+    "age-axis.json": "고용노동부 「규모·학력·연령계층·성별 임금 및 근로조건」 · 표 id 118/… — 3번이 url 을 채워 주십시오",
+    "nps-cap-share.json": "국민연금 15083277 — url https://www.data.go.kr/data/15083277/fileData.do (8번 확인)",
+    "voc-series-outcomes.json": "국가데이터처 KOSIS 334/DT_92002… 「직업계고 졸업자 취업통계」 — url 필요",
+    "kosis-explanation.json": "KOSIS 통계설명 조회(statisticsExplData) — url 필요",
+    "pages-research.json": "한국개발연구원(KDI) 오픈API · 행마다 kdi.re.kr 링크는 있다 — 파일 머리에 url 필요"
+  }
+}
