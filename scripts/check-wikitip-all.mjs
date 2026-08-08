@@ -63,6 +63,7 @@ const 검사 = [
   ['멀리 간 작품과 배우 조회 — 기사가 자료와 맞나', 'check-actor-reach-article.mjs'],
   ['몇 곳이 절반인가 — 기사가 자료와 맞나', 'check-who-makes-it-article.mjs'],
   ['차트 어디에 앉아 있나 — 기사가 자료와 맞나', 'check-rank-shape-article.mjs'],
+  ['카탈로그가 크면 더 멀리 가나 — 기사가 자료와 맞나', 'check-catalogue-reach-article.mjs'],
   /* 🔴 2026-08-09 07:2x — 이 자는 **있었는데 전체검사에 안 걸려 있었다.**
      dek 이 넘쳐 공유 빌드를 세 번째로 막고서야 알았다. 자가 없던 게 아니라 안 돌렸다 */
   ['앞말 길이가 스키마 한도 안인가(빌드가 여기서 멈춘다)', 'check-frontmatter.mjs'],

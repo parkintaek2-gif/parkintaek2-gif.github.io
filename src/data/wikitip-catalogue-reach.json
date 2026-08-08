@@ -1,0 +1,92 @@
+{
+ "generated": "2026-08-08T23:16:06.156Z",
+ "source": "Netflix Top 10 (Tudum) weekly country lists for reach; Wikidata production, broadcaster and distributor credits for which company is attached to which title, retrieved by item number rather than by name",
+ "question": "Does a company with more charting titles get more countries out of each one?",
+ "unit": "Reach is the number of markets in which a title appeared in a weekly top 10 at least once, out of 93. Per-title reach is a company's mean across its own charting titles; total reach is the union of the markets its titles reached, so it cannot exceed 93.",
+ "cannotAnswer": "Reach counts countries, not viewers. A title that charted for one week in 40 markets and a title that led 40 markets for a year both count as 40. These figures also say nothing about why a catalogue travels — budget, cast, release timing and the deal behind the title are all invisible here.",
+ "firmsTotal": 208,
+ "firmsWithCharting": 207,
+ "titlesAsked": 901,
+ "titlesWithFirm": 535,
+ "firmCoveragePc": 59.4,
+ "marketCount": 93,
+ "singleTitleFirms": {
+  "firms": 111,
+  "perTitleMedian": 3,
+  "reachedOneMarketOnly": 39,
+  "biggest": 87
+ },
+ "multiTitleFirms": 96,
+ "rPerTitle": -0.101,
+ "rTotal": 0.536,
+ "bands": [
+  {
+   "key": "2",
+   "label": "2 titles",
+   "firms": 28,
+   "perTitleMedian": 10.8,
+   "perTitleMean": 17.8,
+   "totalMarketsMedian": 19.5,
+   "titlesMedian": 2
+  },
+  {
+   "key": "3-4",
+   "label": "3–4 titles",
+   "firms": 36,
+   "perTitleMedian": 10,
+   "perTitleMean": 14.4,
+   "totalMarketsMedian": 26,
+   "titlesMedian": 3.5
+  },
+  {
+   "key": "5-9",
+   "label": "5–9 titles",
+   "firms": 15,
+   "perTitleMedian": 11.1,
+   "perTitleMean": 14,
+   "totalMarketsMedian": 50,
+   "titlesMedian": 6
+  },
+  {
+   "key": "10-19",
+   "label": "10–19 titles",
+   "firms": 6,
+   "perTitleMedian": 9.3,
+   "perTitleMean": 14.9,
+   "totalMarketsMedian": 64,
+   "titlesMedian": 11.5
+  },
+  {
+   "key": "20+",
+   "label": "20 or more",
+   "firms": 11,
+   "perTitleMedian": 13,
+   "perTitleMean": 12.1,
+   "totalMarketsMedian": 73,
+   "titlesMedian": 37
+  }
+ ],
+ "grades": [
+  {
+   "grade": "A",
+   "firms": 17,
+   "titlesMedian": 25,
+   "marketsMedian": 71,
+   "perTitleMedian": 10.8
+  },
+  {
+   "grade": "B",
+   "firms": 15,
+   "titlesMedian": 6,
+   "marketsMedian": 50,
+   "perTitleMedian": 11.1
+  },
+  {
+   "grade": "C",
+   "firms": 175,
+   "titlesMedian": 1,
+   "marketsMedian": 8,
+   "perTitleMedian": 7
+  }
+ ]
+}
