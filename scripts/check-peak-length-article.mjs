@@ -134,8 +134,11 @@ if (process.argv[1] && process.argv[1].endsWith('check-peak-length-article.mjs')
   {
     const 옛문장 = ['doubles the hours. It adds no weeks', 'it is not a foothold that keeps'];
     for (const s of 옛문장) {
-      /* 주석 안에 「이랬다」로 남는 것은 허용한다 — 지운 자국이 남는 편이 낫다 */
-      const 본문 = 지면.replace(/<!--[\s\S]*?-->/g, '');
+      /* 주석 안에 「이랬다」로 남는 것은 허용한다 — 지운 자국이 남는 편이 낫다.
+         ⛔ 2026-08-08 11:0x. HTML 주석만 걷었더니, 내부 메모가 새는 것을 막느라
+            같은 주석을 **JSX 주석**으로 바꾼 뒤 「옛 문장이 남았다」로 잘못 나왔다.
+            지면은 멀쩡했다 — 두 꼴을 다 걷는다. */
+      const 본문 = 지면.replace(/<!--[\s\S]*?-->/g, '').replace(/\{\/\*[\s\S]*?\*\/\}/g, '');
       본다(`옛 문장이 지면에 남았나 — ${s.slice(0, 22)}`, !본문.includes(s), 본문.includes(s) ? '남았다' : '없다');
     }
   }

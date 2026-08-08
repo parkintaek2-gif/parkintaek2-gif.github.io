@@ -83,13 +83,13 @@ const jsonLd = {
     </p>
   </section>
 
-  <!--
+  {/*
     🔴 2026-08-08 정정. 여기 제목이 「Reaching number one doubles the hours. It adds no weeks.」였다.
        그 수는 **시간 상위 50편 안에서** 낸 것이다 — 시간으로 고른 50편을 놓고 시간을 설명했다.
        235편 전부로 재면 주수가 갈린다(중앙 5주 대 2주). 「주수는 그대로」는 상위 50편이
        다들 9주쯤이라 그렇게 보였을 뿐이다. 무리를 전체로 다시 세고 제목을 고쳤다.
     ⛔ 평균만 내지 않는다. 한 편이 5.05bn 을 가져가는 분포라 평균은 그 한 편을 말한다.
-  -->
+  */}
   <section>
     <h2>Reaching number one goes with longer runs, not just bigger weeks</h2>
     <div class="scroll-x">
@@ -144,11 +144,11 @@ const jsonLd = {
     </p>
   </section>
 
-  <!--
+  {/*
     ⚠ 2026-08-08. 위 정정을 내면서 **한 주짜리가 얼마나 많은지**를 세어 놓고 안 보여 주고 있었다.
       세어 놓고 안 내면 안 센 것과 같다 — `check-data-keys-shown.mjs` 가 그것을 잡았다.
     ⛔ 줄세우기가 아니다. 「가장 흔한 결과가 무엇인가」다.
-  -->
+  */}
   <section>
     <h2>The most common outcome is one week</h2>
     <p class="note">
@@ -171,10 +171,10 @@ const jsonLd = {
       {data.weeksDistribution[data.weeksDistribution.length - 1].weeks} weeks — but it is thin, and
       that thinness is the point. A chart run is not a duration most titles have.
     </p>
-    <!--
+    {/*
       ⛔ 2026-08-07 신설. 빌드가 세어 둔 「걸러 낸 수」를 지면이 안 쓰고 있었다.
          세어 놓고 안 보여 주면 안 센 것과 같다. 수는 자료에서 읽는다.
-    -->
+    */}
     <p class="note">
       <b>What is not on this list.</b> Netflix files its global charts by a title’s primary
       language, and a Korean work belongs on the Non-English side. <b>{data.excludedEnglishChart}</b>{' '}

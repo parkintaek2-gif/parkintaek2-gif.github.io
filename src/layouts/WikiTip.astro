@@ -41,7 +41,7 @@ const {
 const 제목 = `${title} | K Culture Wire`;
 ---
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -57,10 +57,10 @@ const 제목 = `${title} | K Culture Wire`;
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content={ogImage} />
-  <!--
+  {/*
     피드. 8/7 까지 /rss.xml 이 404 라 **따라 읽을 방법이 하나도 없었다.**
     머리에 이 한 줄이 있어야 읽개가 스스로 찾는다 — 링크만 걸어서는 못 찾는다.
-  -->
+  */}
   <link rel="alternate" type="application/rss+xml" title="K Culture Wire" href="/rss.xml" />
   {canonical && <link rel="canonical" href={canonical} />}
   {canonical && <meta property="og:url" content={canonical} />}
@@ -120,44 +120,44 @@ const 제목 = `${title} | K Culture Wire`;
       <p>
         K Culture Wire — K-pop, drama, film and esports, reported in English with the numbers behind them.
         Sources are named on every page.
-        <!--
+        {/*
           ⚠ `/about` 이 404 면 구글이 발행 주체를 확인 못 해 색인에서 밀린다.
             지면을 만들었으면 **들어가는 문을 반드시 낸다** — 만들고 링크를 안 걸면 없는 것과 같다.
-        -->
-        <!--
+        */}
+        {/*
           기사 목록. 2026-08-07 에 손님으로 걸어 보니 **기사 15편 중 첫 화면에 3편만** 보였다.
           /articles 가 404 였다 — 「뭘 써 왔나」를 묻는 손님이 갈 곳이 없었다.
           꼬리말에 거는 이유: 어느 지면에서 읽기 시작했든 여기로 나갈 수 있어야 한다.
-        -->
+        */}
         <a href="/articles">All articles</a>
-        <!--
+        {/*
           받는 사람 목록. 유료 계획이 「첫 달 무료로 열고 목록을 만든다」인데
           2026-08-07 까지 **목록을 모을 자리가 없었다.** 계획이 자리가 없어 막혀 있었다.
-        -->
+        */}
         <span aria-hidden="true"> · </span><a href="/subscribe">Get this by email</a>
-        <!--
+        {/*
           연락 자리. 8/7 까지 /contact 이 404 였다 — 지면마다 「우리가 틀린 것을
           숨기지 않는다」고 적어 놓고 **틀렸다고 알려 줄 문이 없었다.**
-        -->
+        */}
         <span aria-hidden="true"> · </span><a href="/contact">Contact</a>
-        <!--
+        {/*
           2026-08-08. 손님 걸음 끝 칸이 **없었다** — 파는 자료에 닿을 주소가 하나도 없었다.
           사장님 지시 6번: 「어떤 메뉴도 클릭이 돼야 하고 랜딩페이지가 있어야 한다」.
-        -->
+        */}
         <span aria-hidden="true"> · </span><a href="/data">The data</a>
         <span aria-hidden="true"> · </span><a href="/rss.xml">RSS</a>
         <span aria-hidden="true"> · </span><a href="/about">About &amp; methodology</a>
-        <!--
+        {/*
           정정 지면은 모든 지면 아래에 건다. 한 곳에서만 닿을 수 있으면
           「우리가 틀렸던 것을 숨기지 않는다」가 말뿐이 된다.
-        -->
+        */}
         <span aria-hidden="true"> · </span><a href="/corrections">Corrections</a>
       </p>
-      <!--
+      {/*
         ⚠ 다른 두 사이트로 나가는 링크. 사장님 지시 —
           「우리의 유일한 마케팅은 콘텐트를 통한 검색 유입,
             **우리가 운영하는 다른 사이트를 통한 유입**」
-      -->
+      */}
       <p>
         <a href="https://seoulmarkets.com/">SeoulMarkets</a> — Korean markets in numbers ·{' '}
         <a href="https://100yearmap.com/">백년지도</a> — 대학 다음까지 보는 진로 지도

@@ -45,6 +45,7 @@ const 검사 = [
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],
+  ['안에서 쓰는 말이 밖으로 나가나', 'check-no-internal-leak.mjs'],
 ];
 
 let 돈것 = 0;
