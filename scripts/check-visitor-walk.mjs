@@ -207,6 +207,38 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
     }
   }
 
+  /* ── 재면 밝힌다 ──
+     2026-08-08 11:5x. 이 사이트에 **분석 코드가 한 줄도 없었다**(소스·빌드·라이브 0건).
+     붙이기로 했는데, 붙이는 순간 **쿠키와 접속기록이 생긴다.**
+     ⛔ 재는 것과 밝히는 것은 **한 덩어리다.** 하나만 있으면 선다 —
+        태그만 있고 지면이 없으면 몰래 재는 것이고,
+        지면만 있고 태그가 없으면 없는 것을 있다고 적은 것이다. 둘 다 거짓이다.
+     ⚠ 측정 ID 를 검사에 손으로 박지 않는다. **지면에 나간 것에서 읽어** 서로 맞춘다. */
+  {
+    const 첫 = fs.existsSync(첫화면) ? fs.readFileSync(첫화면, 'utf8') : '';
+    const 잰다 = /googletagmanager\.com\/gtag\/js\?id=(G-[A-Z0-9]+)/;
+    const m = 첫.match(잰다);
+    const pp = `${D}/privacy.html`;
+    if (m) {
+      if (!fs.existsSync(pp)) {
+        문제.push('🔴 분석 태그를 달아 놓고 /privacy 가 없다 — 밝히지 않고 재는 것이다');
+      } else {
+        const t = 본문(fs.readFileSync(pp, 'utf8'));
+        if (!t.includes(m[1])) 문제.push(`🔴 /privacy 가 실제로 쓰는 측정 ID(${m[1]})를 안 적는다`);
+        for (const [말, 무엇] of [[/cookie/i, '쿠키가 생긴다는 것'], [/switch the analytics off|opt-out|block/i, '끄는 법']]) {
+          if (!말.test(t)) 문제.push(`/privacy 가 «${무엇}»을 말하지 않는다`);
+        }
+      }
+      /* 꼬리말에서 닿아야 한다. 만들고 문을 안 내면 없는 것과 같다 */
+      if (!첫.includes('href="/privacy"')) 문제.push('🔴 첫 화면에서 /privacy 로 가는 길이 없다');
+    } else if (fs.existsSync(pp)) {
+      const t = 본문(fs.readFileSync(pp, 'utf8'));
+      if (/Google Analytics/i.test(t)) {
+        문제.push('🔴 /privacy 는 분석을 쓴다고 적었는데 지면에 태그가 없다 — 없는 것을 있다고 적었다');
+      }
+    }
+  }
+
   console.log(`걸어 본 것 — 지면 ${지면.length}장 · 기사 ${기사.length}편`);
   if (문제.length) {
     console.log(`\n⛔ 손님 걸음 — ${문제.length}건`);

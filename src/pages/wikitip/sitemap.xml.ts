@@ -64,6 +64,8 @@ export const GET: APIRoute = async () => {
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },
     { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
+    /* 쿠키·접속기록을 밝히는 지면. 2026-08-08 에 분석 태그를 붙이면서 같이 냈다 */
+    { path: '/privacy', priority: '0.5', changefreq: 'yearly' },
   ];
 
   /*
