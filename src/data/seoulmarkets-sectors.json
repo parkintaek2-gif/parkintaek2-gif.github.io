@@ -1,14 +1,14 @@
 {
-  "_왜": "우리 rankings.json 의 업종 라벨은 KSIC 2자리 division 이다. 사장님 지시(2026-08-08): 미국·글로벌 표준(GICS)으로 한국 상장사를 재분류해 팔 데이터를 만든다. 이 파일이 KSIC division → GICS 11 sector 대응표다.",
+  "_왜": "우리 rankings.json 의 업종 라벨은 KSIC 2자리 division 이다. 사장님 지시(2026-08-08): 국제 통용 11 대분류 체계로 한국 상장사를 재분류해 팔 데이터를 만든다. 이 파일이 KSIC division → SeoulMarkets 업종체계(11 대분류) 대응표다. ⛔ GICS(S&P·MSCI 독점) 데이터·상표는 쓰지 않는다 — 공개 개념인 11 대분류만 차용해 공공 KSIC 에서 우리가 유도한다(비용 0·재배포 자유).",
   "_주의": [
-    "⚠ 이것은 **근사 매핑**이다. KSIC division 과 GICS sector 는 1:1 이 아니다 — division 하나 안에 GICS 두 섹터가 섞이는 곳이 있다. 아래 note 가 붙은 라벨이 그렇다.",
-    "⛔ 종목 단위 정본 GICS 는 KRX(data.krx.co.kr)·S&P·MSCI 가 공표한다. 우리가 파는 것은 그 분류 위에 우리 고유 사람데이터(고용·임금·근속·이직률)를 얹은 것이지, 분류 자체가 아니다.",
-    "Publishing 은 한국에서 게임 소프트웨어 퍼블리셔(엔씨·넷마블 등)를 포함한다 → GICS 로는 Communication Services(게임)다. 도서출판과 섞여 있어 종목 단위 확인이 필요하다.",
+    "⚠ 이것은 **근사 매핑**이다. KSIC division 과 11 대분류는 1:1 이 아니다 — division 하나 안에 두 대분류가 섞이는 곳이 있다. 아래 note 가 붙은 라벨이 그렇다.",
+    "⛔ 우리가 파는 것은 이 업종체계 위에 얹은 우리 고유 사람데이터(고용·임금·근속·이직률)이지 분류 자체가 아니다. 분류는 공공 KSIC 에서 우리가 유도했고 비용 0·재배포 자유다.",
+    "Publishing 은 한국에서 게임 소프트웨어 퍼블리셔(엔씨·넷마블 등)를 포함한다 → 대분류로는 Communication Services(게임)다. 도서출판과 섞여 있어 종목 단위 확인이 필요하다.",
     "Information services 는 네이버·카카오 같은 포털을 포함할 수 있다 → Communication Services(Interactive Media). 순수 데이터처리는 IT 다.",
     "Research and development 는 바이오텍 R&D(Health Care)와 비바이오 연구가 섞인다. 다수가 바이오라 Health Care 로 두되 종목 단위로 갈라야 한다.",
     "Medical and optical instruments 는 의료기기(Health Care)와 광학기기(IT)가 섞인다."
   ],
-  "gics_sectors": [
+  "sectors": [
     "Energy", "Materials", "Industrials", "Consumer Discretionary", "Consumer Staples",
     "Health Care", "Financials", "Information Technology", "Communication Services", "Utilities", "Real Estate"
   ],
@@ -29,7 +29,7 @@
     "Food products": { "sector": "Consumer Staples" },
     "Fabricated metal products": { "sector": "Industrials" },
     "Rubber and plastics": { "sector": "Materials" },
-    "Building construction": { "sector": "Industrials", "note": "GICS Construction & Engineering" },
+    "Building construction": { "sector": "Industrials", "note": "Construction & Engineering" },
     "Retail trade": { "sector": "Consumer Discretionary", "note": "식품소매는 Consumer Staples" },
     "Film, video and audio production": { "sector": "Communication Services" },
     "Computer programming": { "sector": "Information Technology" },

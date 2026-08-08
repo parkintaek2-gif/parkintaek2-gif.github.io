@@ -1,4 +1,4 @@
-gics_sector,ksic_industry,company_en,ticker,lead_or_other,market_cap_krw,employees,avg_annual_pay_krw,avg_tenure_years,female_to_male_pay_pct,female_share_pct,market_cap_per_employee_krw
+sector,source_industry_ksic,company_en,ticker,lead_or_other,market_cap_krw,employees,avg_annual_pay_krw,avg_tenure_years,female_to_male_pay_pct,female_share_pct,market_cap_per_employee_krw
 Information Technology,"Electronics and telecom equipment","SAMSUNG ELECTRONICS CO,.LTD",005930,주도주,1438184537568000,128881,157064509,13.73,77.8,26.9,11159011317
 Information Technology,"Electronics and telecom equipment","SK hynix Inc.",000660,기타,1218461264820000,34549,185004892,13.43,80.3,33.3,35267627567
 Information Technology,"Electronics and telecom equipment","SAMSUNG ELECTRO-MECHANICS CO.,LTD",009150,기타,101284651776000,12173,109530108,15.76,80,23.8,8320434714
