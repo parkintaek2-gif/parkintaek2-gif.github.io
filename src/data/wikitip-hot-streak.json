@@ -1,0 +1,258 @@
+{
+  "generated": "2026. 8. 8. 오후 2:09:25",
+  "source": "Riot Games Developer API — challenger and grandmaster league entries, queue RANKED_SOLO_5x5. “Hot streak” and “veteran” are Riot’s own per-player flags.",
+  "sourceKo": "라이엇 개발자 API — 챌린저·그랜드마스터, 연승·베테랑은 라이엇 자체 표시",
+  "privacy": "Player identifiers are not stored. Distributions only.",
+  "days": [
+    "2026-08-02",
+    "2026-08-03",
+    "2026-08-04",
+    "2026-08-06"
+  ],
+  "dayCount": 4,
+  "asOf": "2026-08-06",
+  "stalled": "Collection stopped after this day because the API key expired. Ladder state cannot be backfilled, so these four days are all there will ever be for this window.",
+  "rows": [
+    {
+      "region": "Korea",
+      "code": "kr",
+      "challengers": 300,
+      "onePlayerPoints": 0.33,
+      "hotPc": 18.7,
+      "veteranPc": 54,
+      "gmPlayers": 700,
+      "gmHotPc": 15.7,
+      "gmVeteranPc": 29.4,
+      "hotRange": {
+        "min": 18.7,
+        "max": 21,
+        "spread": 2.3
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 21
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 20.7
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 19.7
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 18.7
+        }
+      ]
+    },
+    {
+      "region": "Southeast Asia",
+      "code": "sg2",
+      "challengers": 300,
+      "onePlayerPoints": 0.33,
+      "hotPc": 19,
+      "veteranPc": 37.3,
+      "gmPlayers": 700,
+      "gmHotPc": 16.1,
+      "gmVeteranPc": 22.9,
+      "hotRange": {
+        "min": 19,
+        "max": 21.3,
+        "spread": 2.3
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 20
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 21.3
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 20.3
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 19
+        }
+      ]
+    },
+    {
+      "region": "Vietnam",
+      "code": "vn2",
+      "challengers": 300,
+      "onePlayerPoints": 0.33,
+      "hotPc": 19.7,
+      "veteranPc": 49.7,
+      "gmPlayers": 700,
+      "gmHotPc": 16.3,
+      "gmVeteranPc": 31.9,
+      "hotRange": {
+        "min": 19.3,
+        "max": 21.7,
+        "spread": 2.4
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 21
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 21.7
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 19.3
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 19.7
+        }
+      ]
+    },
+    {
+      "region": "Japan",
+      "code": "jp1",
+      "challengers": 50,
+      "onePlayerPoints": 2,
+      "hotPc": 20,
+      "veteranPc": 42,
+      "gmPlayers": 100,
+      "gmHotPc": 19,
+      "gmVeteranPc": 30,
+      "hotRange": {
+        "min": 16,
+        "max": 20,
+        "spread": 4
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 16
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 16
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 18
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 20
+        }
+      ]
+    },
+    {
+      "region": "North America",
+      "code": "na1",
+      "challengers": 302,
+      "onePlayerPoints": 0.33,
+      "hotPc": 30.8,
+      "veteranPc": 36.8,
+      "gmPlayers": 718,
+      "gmHotPc": 21.3,
+      "gmVeteranPc": 13,
+      "hotRange": {
+        "min": 30.8,
+        "max": 36.1,
+        "spread": 5.3
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 36.1
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 33.8
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 31.8
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 30.8
+        }
+      ]
+    },
+    {
+      "region": "Europe West",
+      "code": "euw1",
+      "challengers": 300,
+      "onePlayerPoints": 0.33,
+      "hotPc": 20,
+      "veteranPc": 49.3,
+      "gmPlayers": 700,
+      "gmHotPc": 18.6,
+      "gmVeteranPc": 25,
+      "hotRange": {
+        "min": 20,
+        "max": 23,
+        "spread": 3
+      },
+      "hotByDay": [
+        {
+          "day": "2026-08-02",
+          "hotPc": 23
+        },
+        {
+          "day": "2026-08-03",
+          "hotPc": 20.4
+        },
+        {
+          "day": "2026-08-04",
+          "hotPc": 21.1
+        },
+        {
+          "day": "2026-08-06",
+          "hotPc": 20
+        }
+      ]
+    }
+  ],
+  "cluster": {
+    "note": "Regions whose hot-streak share sits within five points of the next one down, counted from the bottom. This is not a ranking; it is a count of how many sit together.",
+    "inCluster": [
+      "Korea",
+      "Southeast Asia",
+      "Vietnam",
+      "Japan",
+      "Europe West"
+    ],
+    "clusterSpread": 1.3,
+    "clusterMin": 18.7,
+    "clusterMax": 20,
+    "outside": [
+      {
+        "region": "North America",
+        "hotPc": 30.8,
+        "aboveClusterBy": 10.8
+      }
+    ]
+  },
+  "counterexample": {
+    "note": "The two least-veteran regions have almost the same veteran share and completely different hot-streak shares, so low veteran share does not explain a high hot-streak share.",
+    "pair": [
+      {
+        "region": "North America",
+        "veteranPc": 36.8,
+        "hotPc": 30.8
+      },
+      {
+        "region": "Southeast Asia",
+        "veteranPc": 37.3,
+        "hotPc": 19
+      }
+    ],
+    "veteranGap": 0.5,
+    "hotGap": 11.8
+  }
+}
