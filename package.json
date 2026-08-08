@@ -56,6 +56,7 @@
     "check:100y": "node scripts/check-100yearmap-copy.mjs",
     "check:space": "node scripts/check-jsx-space.mjs",
     "check:100y:launch": "node scripts/check-100yearmap-launch.mjs",
+    "check:100y:phone": "node scripts/check-100y-phone.mjs",
     "build:100y:research": "node scripts/build-100yearmap-research.mjs",
     "build:100y:closed": "node scripts/build-100yearmap-closed.mjs",
     "check:index": "node scripts/check-search-index.mjs",
