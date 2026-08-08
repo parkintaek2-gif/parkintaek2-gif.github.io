@@ -210,9 +210,25 @@ if (process.argv.includes('--selftest')) {
     (xs) => new Set(xs).size === xs.length);
   재본다('마지막도 움직인다', [칸HTML(13.0), 칸HTML(13.1)], (x) => x[0] !== x[1]);
   /* ⛔ 화면에 나온 수가 **자료의 수와 같아야** 한다. 손으로 박으면 여기서 걸린다 */
-  재본다('미국 값이 자료와 같다', 글자만(칸HTML(7)), (s) => s.includes(String(미국.halfTakes)));
-  재본다('베트남 값이 자료와 같다', 글자만(칸HTML(7)), (s) => s.includes(String(베트남.halfTakes)));
-  재본다('우크라이나 값이 자료와 같다', 글자만(칸HTML(7)), (s) => s.includes(String(우크라.halfTakes)));
+  /* 🔴 2026-08-09 02:4x — **이 세 줄이 아무것도 안 재고 있었다.**
+   *   전에는 `글자만(칸HTML(7)).includes(String(값))` 이었다. 값이 6·49·2 인데
+   *   같은 화면에 247·38·20 이 함께 있어서 **아무 수나 걸렸다.**
+   *   ⛔ 일부러 미국 값을 6 → 7 로 틀리게 박아도 「247」의 7 에 걸려 **안 울었다.**
+   *   ⭐ 그래서 **이름과 값을 묶어** 잰다. 줄 하나를 집어서 그 줄의 값을 본다.
+   *
+   * ⚠ 이 자가 그동안 한 번도 안 돌았다(gomgomi 가 process.exit 로 먼저 죽었다).
+   *   돌게 만들자마자 **약한 시험 셋이 드러났다.** 안 돌던 검사를 켜면 이런 것이 나온다. */
+  const 줄값 = (html, 이름) => {
+    const m = new RegExp(`<span class="이름">${이름}</span>[\\s\\S]*?<span class="값"[^>]*>(\\d+)</span>`).exec(html);
+    return m ? Number(m[1]) : null;
+  };
+  재본다('막대 줄에서 미국 값이 자료와 같다', 줄값(칸HTML(7), 'United States'), 미국.halfTakes);
+  재본다('막대 줄에서 베트남 값이 자료와 같다', 줄값(칸HTML(7), 'Vietnam'), 베트남.halfTakes);
+  재본다('막대 줄에서 우크라이나 값이 자료와 같다', 줄값(칸HTML(7), 'Ukraine'), 우크라.halfTakes);
+  /* 짚는 문장도 이름과 붙여서 본다 — 문장만 고치고 표를 안 고치는 어긋남을 잡는다 */
+  재본다('짚는 문장의 두 수가 자료와 같다', 글자만(칸HTML(7)),
+    (s) => s.includes(`In Vietnam it takes ${베트남.halfTakes}.`)
+      && s.includes(`In Ukraine, ${우크라.halfTakes}.`));
   재본다('나라 수가 자료와 같다', 글자만(칸HTML(10)), (s) => s.includes(String(나라수)));
   재본다('⛔ 줄세우기가 아니라고 화면에 적혀 있다', 글자만(칸HTML(10)), (s) => s.includes('Not a ranking'));
   재본다('⛔ 시청량이 아니라고 적혀 있다', 글자만(칸HTML(10)), (s) => s.includes('Not viewing'));

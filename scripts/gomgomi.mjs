@@ -28,6 +28,10 @@
  *   node scripts/gomgomi.mjs --selftest
  */
 
+/* 아래 「내가 실행됐나」를 재는 데만 쓴다. 그림 만드는 데는 바깥 것이 하나도 안 든다 */
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
 export const 색 = {
   금빛: '#F0C85A', 진금: '#D9A93C', 크림: '#FBEEC6',
   먹: '#3A2A10', 볼: '#F2A0A0', 흰: '#FFFFFF',
@@ -141,8 +145,26 @@ export function 곰곰이(초 = 0, 짓 = {}) {
 </svg>`;
 }
 
-/* ── 검사 ── */
-if (process.argv.includes('--selftest')) {
+/* ── 검사 ──
+ * 🔴 2026-08-09 02:3x — **이 문이 남의 검사를 막고 있었다.** (2번이 02:1x 에 짚어 주셨다)
+ *
+ *   `process.argv` 만 보면, **남이 gomgomi 를 가져다 쓸 때도** 이 블록이 돈다.
+ *   그리고 아래 `process.exit` 에서 **프로세스가 죽는다** — 가져다 쓰는 쪽 검사는 한 줄도 못 돈다.
+ *   ⛔ 그런데 화면에는 「✅ 검사 12개 통과」가 찍힌다. **안 돌고 통과한 것이다.**
+ *
+ *   실제로 잃은 것 —
+ *     make-video-kcw.mjs   자기 검사 14개 · **한 번도 안 돎**
+ *     make-video2.mjs      자기 검사 있음 · **한 번도 안 돎**
+ *   ⚠ 둘 다 「12개 통과」와 비슷한 꼴로 찍혀서 눈에도 안 걸렸다.
+ *
+ * ⭐ 팀 규칙 그대로다 — **「없다·0 은 결과로 안 받고 자를 먼저 의심한다」**.
+ *    여기선 **「통과」가 결과로 안 받아야 할 것**이었다.
+ *
+ * ⛔ 그래서 **내가 실행된 때만** 돈다. 가져다 쓰는 쪽은 자기 검사를 돌린다.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가실행됐다 && process.argv.includes('--selftest')) {
   let 통과 = 0, 실패 = 0;
   const 재본다 = (이름, 실제, 바람) => {
     const ok = typeof 바람 === 'function' ? 바람(실제) : 실제 === 바람;
