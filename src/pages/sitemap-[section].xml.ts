@@ -37,8 +37,15 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/about', changefreq: 'monthly', priority: '0.5' },
       // 데이터 랭킹 지면 — 검색 유입 가치가 있는데 사이트맵에 빠져 있었다(손님 걸음 2026-08-07 실측).
       { loc: '/rankings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
-      // 국민연금 임금패널 B2B 지면 — 기업이 살 「주소」다. 개발자·기업 검색 유입이 곧 영업(33021, 2026-08-08).
+      // 데이터 상품 지면들 — 기업이 살 「주소」다. 검색 유입이 곧 영업. 5장이 사이트맵에 0개였다(56316, 2026-08-09).
+      { loc: '/data', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/sector-workforce-panel', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/pension-wage-panel', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/target-price-accuracy', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/board-composition', changefreq: 'weekly', priority: '0.8' },
+      // 파는 조건 지면 — 사는 쪽 법무가 본다.
+      { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
+      { loc: '/refund', changefreq: 'monthly', priority: '0.3' },
       // 구독자 모으는 유일한 자리 — 검색이 못 찾으면 유입이 없다.
       { loc: '/newsletter', changefreq: 'monthly', priority: '0.5' },
       ...CATEGORIES.map((c) => ({
