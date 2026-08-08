@@ -1,0 +1,101 @@
+{
+  "_왜": "업종별 상장사 이사회 지문 — 여성 임원·오너경영·CEO 재임·임원 나이. build-governance.mjs 산출.",
+  "_단서": [
+    "오너 필드는 공시 결측이 많아 오너경영 비율은 하한(floor)이다",
+    "임원=등기·비등기 공시된 자, 회사 20곳+ 업종만 표시"
+  ],
+  "임원총수": 35004,
+  "여성임원비율": 7.2,
+  "업종": [
+    {
+      "sector": "Industrials",
+      "companies": 625,
+      "officers": 7958,
+      "femaleOfficerPct": 4.9,
+      "ownerLedPctFloor": 54.2,
+      "medianOfficerAge": 57,
+      "medianTenureYears": 5
+    },
+    {
+      "sector": "Materials",
+      "companies": 390,
+      "officers": 4940,
+      "femaleOfficerPct": 6.7,
+      "ownerLedPctFloor": 54.6,
+      "medianOfficerAge": 57,
+      "medianTenureYears": 5.8
+    },
+    {
+      "sector": "Consumer Discretionary",
+      "companies": 384,
+      "officers": 3988,
+      "femaleOfficerPct": 8.7,
+      "ownerLedPctFloor": 46.6,
+      "medianOfficerAge": 57,
+      "medianTenureYears": 5.4
+    },
+    {
+      "sector": "Health Care",
+      "companies": 376,
+      "officers": 4483,
+      "femaleOfficerPct": 10.5,
+      "ownerLedPctFloor": 58.8,
+      "medianOfficerAge": 55,
+      "medianTenureYears": 4.9
+    },
+    {
+      "sector": "Information Technology",
+      "companies": 360,
+      "officers": 3994,
+      "femaleOfficerPct": 4.2,
+      "ownerLedPctFloor": 52.2,
+      "medianOfficerAge": 56,
+      "medianTenureYears": 6.2
+    },
+    {
+      "sector": "Communication Services",
+      "companies": 310,
+      "officers": 3045,
+      "femaleOfficerPct": 8.8,
+      "ownerLedPctFloor": 56.1,
+      "medianOfficerAge": 54,
+      "medianTenureYears": 4.8
+    },
+    {
+      "sector": "Financials",
+      "companies": 229,
+      "officers": 3966,
+      "femaleOfficerPct": 9,
+      "ownerLedPctFloor": 34.5,
+      "medianOfficerAge": 55,
+      "medianTenureYears": 3.1
+    },
+    {
+      "sector": "Unclassified",
+      "companies": 105,
+      "officers": 876,
+      "femaleOfficerPct": 7.2,
+      "ownerLedPctFloor": 38.1,
+      "medianOfficerAge": 54,
+      "medianTenureYears": 2.8
+    },
+    {
+      "sector": "Consumer Staples",
+      "companies": 95,
+      "officers": 1173,
+      "femaleOfficerPct": 7.7,
+      "ownerLedPctFloor": 53.7,
+      "medianOfficerAge": 57,
+      "medianTenureYears": 4.6
+    },
+    {
+      "sector": "Real Estate",
+      "companies": 30,
+      "officers": 274,
+      "femaleOfficerPct": 7.7,
+      "ownerLedPctFloor": 20,
+      "medianOfficerAge": 53.5,
+      "medianTenureYears": 3.9
+    }
+  ]
+}
