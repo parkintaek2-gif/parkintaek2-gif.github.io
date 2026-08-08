@@ -1,5 +1,6 @@
 ---
 import Masthead from '../components/Masthead.astro';
+import Analytics from '../components/Analytics.astro';
 import Footer from '../components/Footer.astro';
 import { SITE, SITE_URL, PUBLISHER, ADS } from '../consts';
 import { cleanPath } from '../lib/format';
@@ -104,6 +105,7 @@ const orgLd = {
         />
       )
     }
+    <Analytics />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>

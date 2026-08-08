@@ -1,5 +1,6 @@
 ---
 import fs from 'node:fs';
+import Analytics from '../components/Analytics.astro';
 import path from 'node:path';
 
 /** CSS 파일이 바뀌면 저절로 바뀌는 판 번호. ⛔ 손으로 올리지 않는다 —
@@ -196,6 +197,7 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
        ⚠ 주소 뒤 숫자는 **파일 내용에서 뽑은 것**이다. CSS 를 고치면 저절로 바뀌어
          손님 브라우저가 옛 CSS 를 붙들고 있지 않는다. 손으로 올릴 필요가 없다. */}
   <link rel="stylesheet" href={`/style.css?v=${스타일판}`} />
+  <Analytics />
 </head>
 <body>
   <div class="wrap">
