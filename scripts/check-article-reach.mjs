@@ -30,9 +30,16 @@ const 경고 = [];
 
 /** 앞말에서 pages 목록을 뽑는다. 컬렉션을 안 거치고 글자로 읽는다 — 빌드 없이 돌아야 한다. */
 const pages를읽는다 = (src) => {
-  const m = src.match(/^pages:\s*\n((?:\s+-\s+.*\n)+)/m);
+  /*
+   * ⛔ 2026-08-08 11:2x. 원래 `\s+-` 로 읽었다. `\s` 는 줄바꿈까지 먹어서
+   *    **CRLF 로 저장된 기사 하나에서 통째로 안 읽혔다** — `korean-netflix-titles-one-body`
+   *    한 편이 「pages 가 비었다」로 나왔는데 실제로는 /actors 와 /titles 가 적혀 있었다.
+   *    39편 중 그 한 편만 CRLF 였고, 자가 없는 잘못을 만들어 낸 것이다.
+   *    줄 안의 빈칸만 먹도록 `[^\S\r\n]` 로 좁히고 `\r?\n` 을 받는다.
+   */
+  const m = src.match(/^pages:[^\S\r\n]*\r?\n((?:[^\S\r\n]+-[^\S\r\n]+.*\r?\n)+)/m);
   if (!m) return null;
-  return [...m[1].matchAll(/-\s+"?([^"\n]+?)"?\s*$/gm)].map((x) => x[1].trim());
+  return [...m[1].matchAll(/-[^\S\r\n]+"?([^"\r\n]+?)"?[^\S\r\n]*\r?$/gm)].map((x) => x[1].trim());
 };
 
 const 기사들 = fs.readdirSync(CD).filter((f) => f.endsWith('.md'));

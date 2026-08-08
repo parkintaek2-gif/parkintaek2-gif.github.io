@@ -42,6 +42,7 @@ const 검사 = [
   ['한국 차트×관심도 기사가 자료와 맞나', 'check-home-chart-attention-article.mjs'],
   ['제목이 열쇠가 아닌 것을 기사가 맞게 말하나', 'check-key-integrity-article.mjs'],
   ['봉우리가 길이인 것을 기사·지면이 맞게 말하나', 'check-peak-length-article.mjs'],
+  ['안 보이는 사람을 기사·지면이 맞게 말하나', 'check-invisible-acts-article.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],

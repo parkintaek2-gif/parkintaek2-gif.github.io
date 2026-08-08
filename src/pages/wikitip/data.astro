@@ -19,8 +19,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import titles from '../../data/wikitip-titles.json';
 import korea from '../../data/wikitip-korea-signal.json';
+import invisible from '../../data/wikitip-kpop-invisible.json';
+
+/** 갈래를 열쇠로 찾아 쓴다. 순서가 바뀌어도 안 어긋난다 */
+const 안보임 = Object.fromEntries(invisible.rows.map((r) => [r.key, r]));
 
 const BUNDLE = 'docs/상품안/본보기-한벌';
 const 줄수 = (f) => {
@@ -115,7 +120,27 @@ const jsonLd = {
       <li><b>Hours per country.</b> Netflix publishes viewing hours for its global list only. The country lists carry rank and nothing else, and no source we can reach fills this.</li>
       <li><b>What sits below each weekly top ten.</b> Unpublished, so we cannot even count what is missing.</li>
       <li><b>Cast completeness.</b> Wikidata's cast lists are short and skew to well-known names. Every network figure we publish is a floor, not a count.</li>
-      <li><b>Acts with no English Wikipedia article.</b> They produce no row, so they are invisible — and we cannot say how many there are.</li>
+      <li>
+        <b>Acts with no English Wikipedia article.</b> They produce no row in the attention panel.
+        We counted how many: Wikidata holds <b>{안보임.groups.all.toLocaleString()}</b> Korean musical
+        groups and we measure the <b>{안보임.groups.withEn.toLocaleString()}</b> with an English
+        article, so <b>{안보임.groups.missing.toLocaleString()} ({안보임.groups.missingPc}%)</b> are
+        outside it. Among singers it is {안보임.singer.missing.toLocaleString()} of{' '}
+        {안보임.singer.all.toLocaleString()} ({안보임.singer.missingPc}%), and{' '}
+        {안보임.singer.koNotEn.toLocaleString()} of those have a Korean article.
+        {' '}<a href="/article/the-acts-our-k-pop-panel-cannot-see">How we counted it →</a>
+        <div class="prov">
+          {invisible.method}{' '}
+          {invisible.limit}{' '}
+          {invisible.overlapWarning}{' '}
+          Counted across {invisible.queriedGroups + invisible.failedGroups} Wikidata queries
+          {invisible.failedGroups > 0
+            ? `, of which ${invisible.failedGroups} returned no answer and are recorded as empty rather than zero`
+            : ', all of which answered'}.
+          Occupations are <code>{invisible.occupations.join(' ')}</code>, the same codes the
+          attention panel is built from.
+        </div>
+      </li>
       <li><b>Export figures for 2025 and 2026.</b> The survey runs about eighteen months behind.</li>
     </ul>
     <p class="note">
@@ -163,6 +188,8 @@ const jsonLd = {
     </p>
   </section>
 
+  <KcwRelatedArticles page="/data" />
+
   <p class="back"><a href="/">&larr; Back to the front page</a></p>
 </WikiTip>
 
@@ -183,6 +210,8 @@ const jsonLd = {
 
   .gaps { padding-left: 1.1rem; margin: 0; font-size: .89rem; line-height: 1.7; }
   .gaps li { margin: 0 0 .5rem; }
+  .prov { margin: .45rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.6; }
+  .prov code { font-size: .95em; }
 
   .ask { background: var(--card); border-radius: 10px; padding: 1.2rem 1.1rem; }
   .ask h2 { margin-top: 0; }
