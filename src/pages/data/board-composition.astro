@@ -1,0 +1,219 @@
+---
+/*
+ * Board composition — B2B 상품 지면. (seoulmarkets.com/data/board-composition)
+ *
+ * 왜 (사장님 데이터 상품 사업): 대형 벤더가 안 파는 「업종별 이사회 구성」 —
+ *   여성 임원·오너경영·CEO 재임·임원 나이. 의결권자문·거버넌스펀드·리서치가 산다.
+ *   ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다.
+ *
+ * 자료: src/data/governance.json (scripts/build-governance.mjs 산출).
+ *   임원별 성별·직위·대표·오너·생년월·재직 → 종목 → 업종. 정직 단서(오너 결측 하한)를 화면에 적는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/governance.json';
+
+const TITLE = 'Who sits on Korean boards';
+const SAMPLE = `${data.임원총수.toLocaleString()} officers across listed companies · by sector`;
+const DESC =
+  'Korean listed-company boards by sector: the share of women, how many are owner-led, how long the '
+  + 'chief executive has served, and the age of the room — from every company\'s own filing.';
+
+const rows = data.업종;
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean listed-company board composition by sector',
+  description: DESC, url: `${SITE_URL}/data/board-composition`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['female officer share', 'owner-led share', 'CEO tenure', 'officer age'],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>Who sits on Korean boards</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Every listed company files who runs it — each officer's gender, title, tenure and whether they
+        are the owner. Roll it up by sector and the boardroom has a shape: <b>where women reach the
+        table, where the founder still runs the firm, and how long the chief executive lasts.</b>
+      </p>
+
+      <ol class="five">
+        <li><b>What it is</b> — for each sector, the share of officers who are women, the share of
+          companies still owner-led, the median CEO tenure and the median officer age.</li>
+        <li><b>Why trust it</b> — every figure is from a company's own annual filing of its officers,
+          not a survey or a reconstruction.</li>
+        <li><b>How big</b> — {data.임원총수.toLocaleString()} officers across the listed market, {data.여성임원비율}% of them women.</li>
+        <li><b>The honest caveat</b> — the owner flag is missing from many filings, so the owner-led
+          share is a floor, marked with a +.</li>
+        <li><b>The form</b> — one CSV: company · ticker · sector · officer · gender · title · CEO flag ·
+          owner flag · tenure · age. Plus this by-sector summary.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>① The boardroom, by sector</h2>
+        <p>Health care and finance seat the most women; heavy industry and IT the fewest. Owner-led
+          firms cluster in health care and consumer; finance is the most professionally run.</p>
+        <table class="press">
+          <thead>
+            <tr><th>Sector</th><th class="r">Cos.</th><th class="r">Women</th>
+              <th class="r">Owner-led</th><th class="r">CEO tenure</th><th class="r">Age</th></tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td class="axis">{r.sector}</td>
+                <td class="r">{r.companies}</td>
+                <td class="r"><b>{r.femaleOfficerPct}%</b></td>
+                <td class="r">{r.ownerLedPctFloor}%+</td>
+                <td class="r">{r.medianTenureYears}y</td>
+                <td class="r">{r.medianOfficerAge}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="fine">
+          Health care seats women in one board seat in ten; industrials and IT closer to one in
+          twenty. Finance, the most professionally managed, is the least owner-led — and its CEOs turn
+          over fastest, a median three years against six in IT.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>② What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">One CSV — company · ticker · sector · officer name ·
+              gender · title · representative-director flag · owner flag · tenure (months) · birth-year
+              age. Plus the by-sector summary above.</td></tr>
+            <tr><th>The owner flag</th><td colspan="2">Filed inconsistently, so the owner-led share is a
+              <b>floor</b> (shown as %+). Where it is present we use it; where blank we do not guess.</td></tr>
+            <tr><th>Coverage</th><td colspan="2">Officers as disclosed in annual reports, joined to our
+              sector scheme. Sectors with at least 20 companies are shown.</td></tr>
+            <tr><th>Refresh</th><td colspan="2">Annually, on the reporting cycle.</td></tr>
+            <tr><th>Source</th><td colspan="2">FSS DART annual reports (executive disclosures). We store
+              the filed facts, not the reports themselves.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the dataset</h2>
+        <p class="cta__lead">
+          Want the full officer-level file, or one sector's boards? Leave a work email and we send a
+          sample and the current licensing terms. It reaches us directly — no account, and this is not
+          the newsletter.
+        </p>
+        <form class="ask" method="post" action="/v1/subscribe" data-source="board-composition">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input id="ask-email" type="email" name="email" required autocomplete="email"
+              inputmode="email" placeholder="you@company.com" aria-describedby="ask-note" />
+            <button type="submit">Request the dataset</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the board
+            dataset. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="fine bottom">
+        From FSS DART executive disclosures · Owner-led share is a floor (filing gaps) · Not investment
+        advice. See our <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
+      </p>
+    </article>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true; const was = btn.textContent; btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'board-composition' }),
+          });
+          const d = await res.json().catch(() => ({}));
+          if (res.ok && d.ok) { say('ok', 'Thanks — we have your address and will email you the sample and the terms.'); form.reset(); }
+          else { say('error', d?.error?.message || d?.message || 'Could not send. Please try again.'); }
+        } catch { say('error', 'Network error. Please try again.'); }
+        finally { btn.disabled = false; btn.textContent = was; }
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; font-variant-numeric: normal; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>
