@@ -90,7 +90,20 @@ if (process.argv[1] && process.argv[1].endsWith('check-stale-numbers.mjs')) {
     if (typeof v === 'number') 지금.add(String(v));
     else if (v && typeof v === 'object' && !Array.isArray(v)) {
       for (const x of Object.values(v)) if (typeof x === 'number') 지금.add(String(x));
-    } else if (Array.isArray(v)) 지금.add(String(v.length));
+    } else if (Array.isArray(v)) {
+      지금.add(String(v.length));
+      /* 🔴 2026-08-09 06:0x — **배열 속 객체까지는 안 들어갔다.**
+         그래서 54편째가 인용한 `bands[1].actors = 204` 를 「옛 수」라고 울었다.
+         지면과 기사가 인용하는 자리가 바로 거기다(띠 표 한 줄씩).
+         ⛔ 그렇다고 파일 전체를 긁으면 아무것도 안 걸린다 — 위 주석이 그 실패를 적어 뒀다.
+         ⭐ 그래서 **한 겹만** 더 들어간다. 배열 → 객체 → 숫자까지. 그 아래는 안 본다.
+         고친 뒤 세 군데를 다시 깨뜨려 서는 것을 봤다. */
+      for (const e of v) {
+        if (e && typeof e === 'object' && !Array.isArray(e)) {
+          for (const x of Object.values(e)) if (typeof x === 'number') 지금.add(String(x));
+        }
+      }
+    }
   };
   for (const f of fs.readdirSync('src/data').filter((x) => /^wikitip-.*\.json$/.test(x))) {
     const j = JSON.parse(fs.readFileSync(path.join('src/data', f), 'utf8'));

@@ -69,6 +69,8 @@ export const GET: APIRoute = async () => {
     { path: '/arrival', priority: '0.9', changefreq: 'weekly' },
     /* 53편째 기사의 표. 2026-08-09 05:3x — 줄어든 게 아니라 옮겨 갔다 */
     { path: '/where-it-moved', priority: '0.9', changefreq: 'weekly' },
+    /* 54편째 기사의 표. 2026-08-09 06:2x — 작품이 멀리 가면 배우도 더 찾아보나 */
+    { path: '/actor-reach', priority: '0.9', changefreq: 'weekly' },
     /*
      * 파는 자료의 착륙 지면. 2026-08-08 04:3x 에 만들어 놓고 **여기 한 줄을 안 넣었다** —
      * 하루 동안 검색엔 열려 있는데 사이트맵엔 없는 어긋난 상태였다. 위 ⚠ 가 이것이다.
