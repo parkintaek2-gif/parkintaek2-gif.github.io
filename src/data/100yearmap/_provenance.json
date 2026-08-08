@@ -1,52 +1,115 @@
 {
-  "이름": "백년지도 데이터 출처 대장 — 파일마다 어디서·어떤 라이선스·언제·어떻게 받았나",
-  "왜": "9,900원짜리를 파는 자료다. 「이 숫자 어디서 왔냐」에 한 줄로 답이 나와야 한다. 합법수집 플레이북 ⑥",
-  "쓰는법": "배열로 된 데이터 파일은 안에 출처 칸을 못 넣는다(모양을 바꾸면 지면이 깨진다). 그런 파일은 여기서 찾는다",
-  "붙인이": "8번(3번 보조) · 2번 지시 2026-08-08 13:3x",
-  "붙인때": "2026-08-08",
-  "파일": {
-    "pages-school.json": {
-      "무엇": "고등학교 2,525곳 페이지 밑자료",
-      "출처": "NEIS 교육정보 개방 포털(한국교육학술정보원)",
-      "url": "https://open.neis.go.kr",
-      "이용허락범위": "공공누리 1유형 · 인증키 발급받아 조회",
-      "받은법": "공식 OpenAPI 인증키로 조회. 사이트를 긁지 않았다",
-      "근거": "행마다 「출처: NEIS 교육정보 개방 포털」이 이미 들어 있다"
-    },
-    "pages-major.json": {
-      "무엇": "고교 학과 925개 페이지 밑자료",
-      "출처": "NEIS 교육정보 개방 포털 · 학교학과정보",
-      "url": "https://open.neis.go.kr",
-      "이용허락범위": "공공누리 1유형",
-      "받은법": "공식 OpenAPI"
-    },
-    "pages-major-thin.json": {
-      "무엇": "위에서 갈라낸 얇은 학과 1,826건",
-      "출처": "pages-major.json 에서 파생",
-      "url": "https://open.neis.go.kr"
-    },
-    "pages-university.json": {
-      "무엇": "대학 377곳 페이지 밑자료",
-      "출처": "대학알리미 대학정보공시(한국대학교육협의회)",
-      "url": "https://apis.data.go.kr/B340014",
-      "이용허락범위": "이용허락범위 제한 없음",
-      "공시연도": "2025",
-      "받은법": "공공데이터포털 OpenAPI. ⚠ 대학알리미 사이트 자체는 robots Disallow 라 긁지 않았다"
-    },
-    "areas.json": { "무엇": "지역 묶음", "출처": "pages-school.json 에서 센 것" },
-    "summary.json": { "무엇": "전체 건수 요약", "출처": "위 파일들에서 센 것" }
+ "이름": "백년지도 데이터 출처 대장 — 파일마다 어디서·어떤 라이선스·언제·어떻게 받았나",
+ "왜": "9,900원짜리를 파는 자료다. 「이 숫자 어디서 왔냐」에 한 줄로 답이 나와야 한다. 합법수집 플레이북 ⑥",
+ "쓰는법": "배열로 된 데이터 파일은 안에 출처 칸을 못 넣는다(모양을 바꾸면 지면이 깨진다). 그런 파일은 여기서 찾는다",
+ "붙인이": "8번(3번 보조) · 2번 지시 2026-08-08 13:3x",
+ "붙인때": "2026-08-08",
+ "파일": {
+  "pages-school.json": {
+   "무엇": "고등학교 2,525곳 페이지 밑자료",
+   "출처": "NEIS 교육정보 개방 포털(한국교육학술정보원)",
+   "url": "https://open.neis.go.kr",
+   "이용허락범위": "공공누리 1유형 · 인증키 발급받아 조회",
+   "받은법": "공식 OpenAPI 인증키로 조회. 사이트를 긁지 않았다",
+   "근거": "행마다 「출처: NEIS 교육정보 개방 포털」이 이미 들어 있다"
   },
-  "이미_파일_안에_출처가_있는_것": [
-    "school-career.json", "school-class-size.json", "school-dropout.json",
-    "closed-universities.json", "industry-axis.json", "size-axis.json", "region-axis.json",
-    "business-lifespan.json", "industry-size-cross.json", "industry-region-cross.json",
-    "major-outcomes.json", "major-merged.json", "field-outcomes.json", "work-map.json"
-  ],
-  "아직_url_이_없는_것": {
-    "age-axis.json": "고용노동부 「규모·학력·연령계층·성별 임금 및 근로조건」 · 표 id 118/… — 3번이 url 을 채워 주십시오",
-    "nps-cap-share.json": "국민연금 15083277 — url https://www.data.go.kr/data/15083277/fileData.do (8번 확인)",
-    "voc-series-outcomes.json": "국가데이터처 KOSIS 334/DT_92002… 「직업계고 졸업자 취업통계」 — url 필요",
-    "kosis-explanation.json": "KOSIS 통계설명 조회(statisticsExplData) — url 필요",
-    "pages-research.json": "한국개발연구원(KDI) 오픈API · 행마다 kdi.re.kr 링크는 있다 — 파일 머리에 url 필요"
+  "pages-major.json": {
+   "무엇": "고교 학과 925개 페이지 밑자료",
+   "출처": "NEIS 교육정보 개방 포털 · 학교학과정보",
+   "url": "https://open.neis.go.kr",
+   "이용허락범위": "공공누리 1유형",
+   "받은법": "공식 OpenAPI"
+  },
+  "pages-major-thin.json": {
+   "무엇": "위에서 갈라낸 얇은 학과 1,826건",
+   "출처": "pages-major.json 에서 파생",
+   "url": "https://open.neis.go.kr"
+  },
+  "pages-university.json": {
+   "무엇": "대학 377곳 페이지 밑자료",
+   "출처": "대학알리미 대학정보공시(한국대학교육협의회)",
+   "url": "https://apis.data.go.kr/B340014",
+   "이용허락범위": "이용허락범위 제한 없음",
+   "공시연도": "2025",
+   "받은법": "공공데이터포털 OpenAPI. ⚠ 대학알리미 사이트 자체는 robots Disallow 라 긁지 않았다"
+  },
+  "areas.json": {
+   "무엇": "지역 묶음",
+   "출처": "pages-school.json 에서 센 것",
+   "url": null,
+   "url이없는까닭": "밖에서 받은 것이 아니라 **우리가 센 것**이다. 밑자료는 pages-school.json 이고 그 출처는 위에 있다",
+   "만든것": "scripts/count-100y-areas.mjs"
+  },
+  "summary.json": {
+   "무엇": "전체 건수 요약",
+   "출처": "위 파일들에서 센 것",
+   "url": null,
+   "url이없는까닭": "밖에서 받은 것이 아니라 **우리가 센 것**이다"
+  },
+  "age-axis.json": {
+   "무엇": "나이 축 — 나이대별 월급여 · 자산/부채 · 혼인",
+   "출처": "국가데이터처 KOSIS OpenAPI (고용노동부·통계청 표를 KOSIS 로 받음)",
+   "url": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
+   "표": "118/DT_118N_PAY0004(임금) · 101/DT_1HDAAA06(자산·부채) · 101/DT_1B83A36(초혼 혼인)",
+   "이용허락범위": "KOSIS 통계정보 활용약관 제8조 — 상업적 활용 가능",
+   "받은법": "공식 OpenAPI 인증키로 조회. 사이트를 긁지 않았다",
+   "근거": "scripts/collect-age-axis.mjs 가 부르는 주소를 그대로 옮겼다"
+  },
+  "voc-series-outcomes.json": {
+   "무엇": "직업계고 계열별 졸업·취업·진학 10계열",
+   "출처": "국가데이터처 KOSIS · 교육부 「직업계고 졸업자 취업통계」",
+   "url": "https://kosis.kr/openapi/Param/statisticsParameterData.do",
+   "표": "334/DT_920024_3N_007",
+   "이용허락범위": "KOSIS 통계정보 활용약관 제8조 — 상업적 활용 가능",
+   "받은법": "공식 OpenAPI",
+   "⚠주의": "취업률 분모는 **취업대상자**(졸업자 − 진학자 − 입대자 − 제외인정자)다. 졸업자가 아니다"
+  },
+  "kosis-explanation.json": {
+   "무엇": "KOSIS 통계설명 — 우리가 쓰는 표들이 무엇을 재는지",
+   "출처": "국가데이터처 KOSIS 통계설명 조회(statisticsExplData)",
+   "url": "https://kosis.kr/openapi/statisticsExplData.do",
+   "이용허락범위": "KOSIS 통계정보 활용약관 제8조 — 상업적 활용 가능",
+   "받은법": "공식 OpenAPI"
+  },
+  "pages-research.json": {
+   "무엇": "국책연구(KDI)가 다룬 것 — 서지정보",
+   "출처": "한국개발연구원(KDI) 오픈API",
+   "url": "https://www.kdi.re.kr/KDIOpenAPI",
+   "이용허락범위": "KDI 오픈API 이용약관 — 출처표시",
+   "받은법": "공식 오픈API. 본문·PDF 를 받지 않았다 — 서지정보만이다",
+   "근거": "src/lib/kdi.mjs 가 부르는 주소를 그대로 옮겼다"
+  },
+  "nps-cap-share.json": {
+   "무엇": "국민연금 상한에 눌린 사람 비율 — 업종 1,232 · 지역 16 · 규모 7",
+   "출처": "국민연금공단 「국민연금 가입 사업장 내역」",
+   "url": "https://www.data.go.kr/data/15083277/fileData.do",
+   "이용허락범위": "이용허락범위 제한 없음",
+   "받은법": "공공데이터포털에서 파일을 내려받았다. 사이트를 긁지 않았다",
+   "⚠주의": "사업장 한 줄에 사람이 여럿이라 **1인당 평균이 상한에 닿았나**를 센 것이다. 덜 세는 쪽으로 틀린다"
   }
+ },
+ "이미_파일_안에_출처가_있는_것": [
+  "business-lifespan.json",
+  "closed-universities.json",
+  "field-outcomes.json",
+  "industry-axis.json",
+  "industry-life.json",
+  "industry-region-cross.json",
+  "industry-size-cross.json",
+  "major-inflation.json",
+  "major-merged.json",
+  "major-outcomes.json",
+  "region-axis.json",
+  "school-career.json",
+  "school-class-size.json",
+  "school-dropout.json",
+  "size-axis.json",
+  "work-map.json"
+ ],
+ "3번감수": {
+  "언제": "2026-08-08 14:5x",
+  "한것": "8번이 비워 둔 url 다섯 칸을 채웠다. **수집기 소스에 적힌 주소만** 옮겼다 — 기억으로 안 적었다",
+  "⚠남은것": "없다. 「파일」 칸에 url 이 다 있다",
+  "찾은것": "자료 27개 중 **2개가 대장에 없었다**(industry-life · major-inflation). 둘 다 파일 안에는 출처가 있어 아래 목록에 넣었다. scripts/check-100y-provenance.mjs 가 다음부터 운다"
+ }
 }
