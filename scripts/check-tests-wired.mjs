@@ -35,6 +35,7 @@ export const 봐준다 = {
   'check-100y-print.mjs': '진짜 크롬으로 A4 에 앉힌다. 크롬과 빌드가 둘 다 있어야 돈다 — npm run check:100y:print',
   'check-100y-phone.mjs': '진짜 크롬을 375px 로 띄운다. 크롬과 빌드가 둘 다 있어야 돈다 — npm run check:100y:phone',
   'check-100y-live-sale.mjs': '라이브를 받아 잰다. 인터넷이 끊기면 npm test 가 통째로 죽고, 배포 전에는 옛 지면을 보고 운다',
+  'check-analytics-fires.mjs': '진짜 크롬으로 라이브를 열어 GA 가 쏘는지 잰다. 크롬·인터넷이 둘 다 있어야 돈다 — npm run check:ga',
   'check-100yearmap-launch.mjs': 'dist 5,000장을 훑는다. 빌드가 없으면 잴 것이 없고, 여섯이 dist 를 같이 써서 남이 빌드하는 사이에 ENOENT 가 난다 — npm run check:100y:launch',
 };
 

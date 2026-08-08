@@ -69,7 +69,8 @@
     "check:100y:rules": "node scripts/check-school-rules.mjs",
     "check:comment": "node scripts/check-comment-close.mjs",
     "build:raw": "astro build",
-    "fix:jsx-space": "node scripts/fix-jsx-space.mjs"
+    "fix:jsx-space": "node scripts/fix-jsx-space.mjs",
+    "check:ga": "node scripts/check-analytics-fires.mjs"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",

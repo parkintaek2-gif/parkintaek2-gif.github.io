@@ -30,10 +30,29 @@ export const 잇는곳 = [
  *   갈래는 **어느 레이아웃에 넣느냐**로 가른다 — WikiTip.astro 에는 넣지 않는다(자기 GA 가 있다).
  *   진짜 손님이 아닌 방문(로컬·미리보기)은 GA 쪽 내부 트래픽 규칙으로 거른다. */
 ---
+{/*
+  🔴 2026-08-08 22:2x — **오늘 하루 네 사이트 GA 가 통째로 죽어 있었다.**
+
+  구글이 「사이트에서 Google 태그를 못 찾았다」는 메일을 보내와 크롬으로 재 보니 —
+    gtag/js 는 200 으로 받아 왔는데  window.gtag 가 undefined
+    콘솔에  ⛔ Unexpected token '='
+
+  나간 지면을 열어 보니 이랬다 —
+      const ID = "G-B06MWDY5K8";
+      const  = ["100yearmap.com", …];        ← **변수 이름이 사라졌다**
+
+  ⛔ 까닭 — `define:vars` 에 **한글 이름**을 넘겼더니 번들러가 그 이름을 뭉갰다.
+     `측정ID` → `ID` 로 깎이고, `잇는곳` → **빈 이름**이 되어 문법 오류가 났다.
+     그 오류가 같은 블록의 `function gtag()` 정의까지 통째로 죽였다.
+
+  ⭐ 그래서 브라우저로 나가는 조각에는 **ASCII 이름만** 쓴다.
+     한글 이름은 위(서버 쪽 export)에 그대로 둔다 — 개인정보처리방침 지면이 그걸 읽는다.
+  ⚠ 검사: scripts/check-analytics-fires.mjs (라이브에서 실제로 쏘는지 잰다)
+*/}
 <script async src={`https://www.googletagmanager.com/gtag/js?id=${측정ID}`} />
-<script is:inline define:vars={{ 측정ID, 잇는곳 }}>
+<script is:inline define:vars={{ gaId: 측정ID, gaDomains: 잇는곳 }}>
   window.dataLayer = window.dataLayer || [];
   function gtag() { window.dataLayer.push(arguments); }
   gtag('js', new Date());
-  gtag('config', 측정ID, { linker: { domains: 잇는곳 } });
+  gtag('config', gaId, { linker: { domains: gaDomains } });
 </script>
