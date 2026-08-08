@@ -77,6 +77,16 @@ export const GET: APIRoute = () => {
        ⚠ 고정 지면을 만들면 **여기 한 줄을 같이 넣는다.** 안 넣으면 검사가 잡는다 */
     /* ⚠ 이미지 사이트맵도 지면 목록에 넣는다 — 검색엔진이 이 파일을 먼저 찾는다 */
     { path: '/sitemap-image.xml', priority: '0.3', changefreq: 'weekly' },
+    /**
+     * 🔴 2026-08-09 04:2x — **값 지면.** 2번 실측: `/price` 를 포함해 값이 있을 만한
+     *   주소가 **전부 404** 였고 첫 화면에 값 글자가 **0번**이었다.
+     *
+     * ⚠ 우선순위를 0.9 로 둔다. 파는 지면 114장은 `noindex` 라 닫혀 있어서,
+     *   「백년지도 값」·「학교 자료 얼마」로 찾아오는 사람이 닿을 곳이 **여기 하나뿐**이다.
+     * ⛔ 이 줄을 빠뜨리면 지면은 열려 있는데 사이트맵에 없는 어긋난 상태가 된다 —
+     *   `/after`·`/region` 에서 두 번 그랬다. 그래서 지면과 **같은 커밋**에 넣는다.
+     */
+    { path: '/price', priority: '0.9', changefreq: 'weekly' },
     { path: '/terms', priority: '0.4', changefreq: 'yearly' },
     { path: '/privacy', priority: '0.4', changefreq: 'yearly' },
     { path: '/refund', priority: '0.4', changefreq: 'yearly' },
