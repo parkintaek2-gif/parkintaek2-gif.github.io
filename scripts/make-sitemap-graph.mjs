@@ -40,7 +40,9 @@ const 짜임 = {
   '백년지도': {
     빛: '#c9a84c', 한마디: '대학 다음까지 — 고교·학과·대학을 한자리에',
     묶음: [
-      { 제목: '🔵 파는 것', 색: '#7bc47f', 골라: (p) => p.startsWith('/report') },
+      /* ⚠ 사이트맵에 실린 /report 는 **무료 144곳**이다. 파는 114곳은 noindex 라 여기 없다.
+       *   「파는 것」이라 적었다가 무료를 파는 것처럼 보고할 뻔했다 — 라이브로 재서 잡았다 */
+      { 제목: '무료로 여는 것 (9곳 이하 지역)', 골라: (p) => p.startsWith('/report') },
       { 제목: '고교 (검색으로 들어오는 큰 문)', 골라: (p) => p.startsWith('/school') },
       { 제목: '학과 · 대학', 골라: (p) => /^\/(major|college-major|university)/.test(p) },
       { 제목: '축으로 보기', 골라: (p) => /^\/(region|age|size|how-long|after|work|research)/.test(p) },
@@ -110,10 +112,10 @@ const 설명 = {
  */
 const 숨은것 = {
   '백년지도': {
-    제목: '🔵 파는 것 (아직 검색에 안 염)', 색: '#7bc47f',
+    제목: '🔵 파는 것 (일부러 검색에 안 엶)', 색: '#7bc47f',
     것: [
-      { 길: '/report/{학교코드}', 수: 1, 설명: '학교 한 곳 · 무료 예정' },
-      { 길: '/report/area/{지역}', 수: 1, 설명: '지역 한 벌 · 9,900원' },
+      { 길: '/report/area/{10곳 이상}', 수: 114, 설명: '지역 한 벌 · 9,900원' },
+      { 길: '/report/{학교코드}', 수: 1, 설명: '학교 한 곳 · 값 미정' },
     ],
   },
 };
@@ -182,40 +184,82 @@ export function 묶기(마디들, 규칙) {
 
 /* ── 그리기 ── */
 const 몫 = (이름) => { const i = process.argv.indexOf(이름); return i >= 0 ? process.argv[i + 1] : null; };
-const 낼폴더 = 몫('--out') ?? '.';
+const 낼폴더 = path.resolve(몫('--out') ?? '.');
 const 날짜 = 몫('--날짜') ?? '';
+/* ⛔ 모르는 깃발은 조용히 넘기지 않는다. `--폴더` 로 잘못 쳤을 때 그냥 cwd 에 뱉고
+ *   「됐다」고 해서, 보고에 옛 그림이 들어갈 뻔했다 */
+const 아는깃발 = ['--out', '--날짜'];
+for (const a of process.argv.slice(2)) {
+  if (a.startsWith('--') && !아는깃발.includes(a)) {
+    console.error(`⛔ 모르는 깃발: ${a} — 아는 것은 ${아는깃발.join(' · ')}`); process.exit(1);
+  }
+}
+if (!fs.existsSync(낼폴더)) fs.mkdirSync(낼폴더, { recursive: true });
 
 const 마디폭 = 176, 마디높 = 54, 마디틈 = 14, 줄틈 = 16, 한줄최대 = 4;
 const 상자안 = 18, 상자제목 = 30, 상자틈 = 26, 위여백 = 132;
 
-function 그림(이름, 묶음들, 총장) {
-  const 짜 = 짜임[이름];
-  let x = 40;
-  const 상자들 = [];
-  for (const b of 묶음들) {
+/**
+ * 묶음 상자를 **여러 줄로 접는다.**
+ * ⛔ 한 줄로 쭉 늘어놓으면 백년지도가 가로 6,236px 이 됐다. A4 에 넣으면 글씨가 안 읽힌다.
+ *   사장님은 종이로 보신다 — 안 읽히면 없는 것과 같다.
+ * @returns {{상자들:object[], 폭:number, 높:number}}
+ */
+export function 자리잡기(묶음들, 최대폭 = 1720) {
+  const 잰것 = 묶음들.map((b) => {
     const 칸 = Math.min(한줄최대, b.것.length);
     const 줄수 = Math.ceil(b.것.length / 칸);
     /* ⚠ 상자가 제목보다 좁으면 **제목이 옆 상자를 덮는다.** 「고교 (검색으로…) 2,4」로 잘려 나왔다.
      *   제목 글자 수로 최소 너비를 잡는다 — 한글은 대략 15px, 장수 꼬리는 60px 본다. */
     const 제목너비 = b.제목.replace(/[^\S]/g, '').length * 15 + 92;
-    const 너비 = Math.max(칸 * 마디폭 + (칸 - 1) * 마디틈 + 상자안 * 2, 제목너비);
-    const 높이 = 상자제목 + 줄수 * 마디높 + (줄수 - 1) * 줄틈 + 상자안 * 2;
-    const 마디들 = b.것.map((n, i) => ({
-      ...n,
-      x: x + 상자안 + (i % 칸) * (마디폭 + 마디틈),
-      y: 위여백 + 상자제목 + 상자안 + Math.floor(i / 칸) * (마디높 + 줄틈),
-    }));
-    상자들.push({ ...b, x, y: 위여백, 너비, 높이, 마디들 });
-    x += 너비 + 상자틈;
+    return { ...b, 칸, 너비: Math.max(칸 * 마디폭 + (칸 - 1) * 마디틈 + 상자안 * 2, 제목너비),
+      높이: 상자제목 + 줄수 * 마디높 + (줄수 - 1) * 줄틈 + 상자안 * 2 };
+  });
+
+  /* 줄로 접는다 — 넘치면 다음 줄. 한 상자가 혼자 최대폭보다 넓어도 버리지 않는다 */
+  const 줄들 = [];
+  let 이줄 = [], 이폭 = 0;
+  for (const b of 잰것) {
+    const 더할폭 = 이줄.length ? 상자틈 + b.너비 : b.너비;
+    if (이줄.length && 이폭 + 더할폭 > 최대폭 - 80) { 줄들.push(이줄); 이줄 = []; 이폭 = 0; }
+    이줄.push(b); 이폭 += 이줄.length === 1 ? b.너비 : 상자틈 + b.너비;
   }
-  const 폭 = Math.max(1400, x + 40);
-  const 높 = 위여백 + Math.max(...상자들.map((b) => b.높이)) + 90;
+  if (이줄.length) 줄들.push(이줄);
+
+  const 줄간 = 34;
+  const 폭 = Math.max(1400, Math.min(최대폭, Math.max(...줄들.map((r) =>
+    r.reduce((a, b) => a + b.너비, 0) + (r.length - 1) * 상자틈)) + 80));
+
+  const 상자들 = [];
+  let y = 위여백;
+  for (const 줄 of 줄들) {
+    const 줄폭 = 줄.reduce((a, b) => a + b.너비, 0) + (줄.length - 1) * 상자틈;
+    let x = Math.max(40, (폭 - 줄폭) / 2);   /* 가운데로 — 마지막 줄이 왼쪽에 붙으면 어설프다 */
+    for (const b of 줄) {
+      const 마디들 = b.것.map((n, i) => ({
+        ...n,
+        x: x + 상자안 + (i % b.칸) * (마디폭 + 마디틈),
+        y: y + 상자제목 + 상자안 + Math.floor(i / b.칸) * (마디높 + 줄틈),
+      }));
+      상자들.push({ ...b, x, y, 마디들 });
+      x += b.너비 + 상자틈;
+    }
+    y += Math.max(...줄.map((b) => b.높이)) + 줄간;
+  }
+  return { 상자들, 폭, 높: y - 줄간 + 90 };
+}
+
+function 그림(이름, 묶음들, 총장) {
+  const 짜 = 짜임[이름];
+  const { 상자들, 폭, 높 } = 자리잡기(묶음들);
   const 뿌리x = 폭 / 2, 뿌리y = 64;
 
-  const 선 = 상자들.flatMap((b) => b.마디들.map((n) => {
-    const 끝x = n.x + 마디폭 / 2, 끝y = n.y;
-    return `<path d="M ${뿌리x} ${뿌리y + 18} C ${뿌리x} ${(뿌리y + 끝y) / 2}, ${끝x} ${(뿌리y + 끝y) / 2}, ${끝x} ${끝y}" fill="none" stroke="#3a4150" stroke-width="1"/>`;
-  })).join('');
+  /* ⚠ 선은 **뿌리 → 묶음 상자**로만 긋는다. 마디마다 그으면 줄이 접힌 뒤로 아랫줄 선이
+   *   윗줄 상자를 가로질러 지나가 그림이 엉킨다. 안쪽 마디는 상자가 이미 묶고 있다. */
+  const 선 = 상자들.map((b) => {
+    const 끝x = b.x + b.너비 / 2, 끝y = b.y;
+    return `<path d="M ${뿌리x} ${뿌리y + 18} C ${뿌리x} ${(뿌리y + 끝y) / 2}, ${끝x} ${(뿌리y + 끝y) / 2}, ${끝x} ${끝y}" fill="none" stroke="#3a4150" stroke-width="1.4"/>`;
+  }).join('');
 
   const 칸들 = 상자들.map((b) => `
     <div class="box" style="left:${b.x}px;top:${b.y}px;width:${b.너비}px;height:${b.높이}px;${b.색 ? `--bc:${b.색}` : ''}">
@@ -254,7 +298,7 @@ function 그림(이름, 묶음들, 총장) {
 <svg>${선}</svg>
 <div class="root">첫 화면</div>
 ${칸들}
-<div class="foot">⚠ 낱장이 여럿인 갈래는 마디 하나로 묶고 장수를 적었습니다. 4,619장을 다 그리면 아무것도 안 보입니다.</div>`;
+<div class="foot">⚠ 낱장이 여럿인 갈래는 마디 하나로 묶고 장수를 적었습니다. ${총장.toLocaleString('ko-KR')}장을 다 그리면 아무것도 안 보입니다.</div>`;
 }
 
 /* ── 뽑기 ── */
