@@ -20,6 +20,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-world-share.json';
+import season from '../../data/wikitip-season.json';
 
 const TITLE = "How much of the world's Netflix top 10 is Korean";
 
@@ -279,6 +280,50 @@ const jsonLd = {
       show.</b> What moves the global figure is not a rising tide of Korean content — it is whether
       one enormous title happens to be out.
       {' '}<a href="/article/the-share-that-did-not-grow">The full story &rarr;</a>
+    </p>
+  </section>
+
+  {/*
+    🔴 2026-08-08 22:3x — 「K드라마 성수기」를 잰 표. 달 폭은 2.2p 뿐이고 주 폭은 그 여섯 배다.
+    ⛔ 「9월이 좋다」로 읽히게 두지 않는다. 오른쪽 칸(으뜸 한 편 뺀 값)을 **같은 표에** 둔다 —
+       그 칸이 없으면 손님은 왼쪽 칸만 보고 철이 있다고 읽는다.
+  */}
+  <section>
+    <h2>Is there a season?</h2>
+    <p class="note">{season.question}</p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th>Month</th><th>Korean share</th>
+            <th>Without that month&rsquo;s biggest title</th><th>That title</th>
+          </tr>
+        </thead>
+        <tbody>
+          {season.months.map((m) => (
+            <tr class={m.pc === season.highest.pc || m.pc === season.lowest.pc ? 'edge' : ''}>
+              <td class="nm">{m.name}</td>
+              <td class="tot">{m.pc}%</td>
+              <td>{m.pcWithoutTop}%</td>
+              <td class="nm"><i>{m.topTitle}</i> <span class="pc">{m.topTitleShareOfKorean}% of the month</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>The whole monthly range is {season.monthRange} points</b> — {season.lowest.pc}% in
+      {' '}{season.lowest.name} to {season.highest.pc}% in {season.highest.name}, against
+      {' '}{season.yearPc}% for the year. Remove each month&rsquo;s own biggest title and the band
+      becomes <b>{season.monthRangeWithoutTop}</b>, so {season.verdict}.
+      {' '}<i>{season.mostFrequentTopTitle.title}</i> is the biggest Korean title in
+      {' '}{season.mostFrequentTopTitle.months} of the twelve months.
+    </p>
+    <p class="note">
+      Set that against the weekly figures above: {season.weekLow.pc}% to {season.weekHigh.pc}% is a
+      range of <b>{season.weekRange} points, {season.timesWeekBeatsMonth} times the monthly one</b>.
+      The calendar is not what moves this number.
+      {' '}<a href="/article/there-is-no-k-drama-season">The full story &rarr;</a>
     </p>
   </section>
 
