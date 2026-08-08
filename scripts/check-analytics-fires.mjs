@@ -69,7 +69,11 @@ for (const u of 잴곳) {
   p.on('pageerror', (e) => 오류.push(String(e.message).slice(0, 80)));
   try {
     await p.goto(u, { waitUntil: 'networkidle2', timeout: 60000 });
-    await new Promise((r) => setTimeout(r, 3000));   // 늦게 쏘는 것까지 기다린다
+    /* ⛔ 3초로 뒀다가 www.100yearmap.com 을 「안 쏨」으로 잘못 적었다(2026-08-08 22:4x).
+     *   실제로는 쏘고 있었고 **내 자가 짧았다.** 쏠 때까지 기다리되 최대 12초에서 끊는다. */
+    const 끝 = Date.now() + 12000;
+    while (!쏨.length && Date.now() < 끝) await new Promise((r) => setTimeout(r, 500));
+    await new Promise((r) => setTimeout(r, 1000));   // 쏜 뒤 뒤따르는 것까지 센다
   } catch (e) { 오류.push('못 열었다: ' + String(e.message).slice(0, 60)); }
 
   const 이름 = u.replace('https://', '').padEnd(26);
