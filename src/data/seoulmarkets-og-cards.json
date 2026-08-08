@@ -1,0 +1,51 @@
+{
+  "_왜": "기사마다 다른 공유 카드에 박을 수. scripts/make-og-seoulmarkets.mjs 가 읽는다.",
+  "_규칙": [
+    "자동 제안이 표본크기·창길이·기여율 같은 곁가지 수를 집은 것만 여기서 바로잡는다.",
+    "⛔ figure 는 그 기사의 제목·글머리·본문에 실제로 있어야 한다(생성기가 검증). 없으면 카드가 안 만들어진다.",
+    "서술형 기사(수가 요점이 아닌 것)는 여기 안 적는다 — 기본 카드로 둔다. 억지 수를 박지 않는다.",
+    "label 은 45자 안쪽."
+  ],
+  "chosen": {
+    "korea-bigger-firms-pay-more-every-step": {
+      "figure": "1.56x", "label": "more pay at the largest firms, every step",
+      "왜": "자동은 554,570(사업장 수). 요점은 규모 프리미엄 1.56x"
+    },
+    "korea-currency-futures-one-contract": {
+      "figure": "99.0%", "label": "of currency-futures turnover is the dollar",
+      "왜": "자동은 629(거래일). 요점은 달러 99.0%"
+    },
+    "korea-etf-premium-means-two-different-things": {
+      "figure": "0.48", "label": "point move a premium predicts next day",
+      "왜": "자동은 605,072(fund-days, 표본)"
+    },
+    "korea-how-long-industries-keep-workers": {
+      "figure": "16", "label": "years carmakers keep their people",
+      "왜": "자동은 44(업종 수). 요점은 16년 대 4년 미만"
+    },
+    "korea-oil-exchange-two-prices": {
+      "figure": "37", "label": "to 46% of days the two prices disagree",
+      "왜": "자동은 37만 집고 46%를 놓쳤다"
+    },
+    "korea-pension-bill-pay-ladder": {
+      "figure": "2.3", "label": "times, top to bottom of the pay ladder",
+      "왜": "자동은 9%(기여율). 요점은 2.3배"
+    },
+    "korea-tenure-and-returns-industry-mix": {
+      "figure": "17", "label": "point gap that vanishes under industry control",
+      "왜": "자동은 2,573(표본)"
+    },
+    "korea-tenure-gender-gap": {
+      "figure": "76", "label": "percent of large firms, men stay longer",
+      "왜": "자동은 1,836(표본)"
+    },
+    "korea-tenure-tracks-pay": {
+      "figure": "0.67", "label": "the sectors that keep workers pay most",
+      "왜": "자동은 44(업종 수)"
+    },
+    "kospi-is-a-semiconductor-index": {
+      "figure": "60.1%", "label": "of KOSPI market cap is electronics",
+      "왜": "자동은 160(지수 수). 요점은 반도체 60.1%"
+    }
+  }
+}

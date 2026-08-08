@@ -1,5 +1,6 @@
 ---
 import { render } from 'astro:content';
+import fs from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import DataNotes from '../../components/DataNotes.astro';
 import AdSlot from '../../components/AdSlot.astro';
@@ -17,6 +18,14 @@ const d = entry.data;
 const { Content } = await render(entry);
 
 const url = `${SITE_URL}/article/${entry.id}`;
+
+/**
+ * 이 기사만의 공유 카드. scripts/make-og-seoulmarkets.mjs 가 미리 만들어 둔다.
+ * 카드가 있으면 og:image 로 쓰고, 없으면(서술형 기사 등) Base 가 og-default 로 떨어진다.
+ * 프론트matter 의 image 가 있으면 그게 우선.
+ */
+const 카드있음 = fs.existsSync(`public/og/${entry.id}.png`);
+const ogImage = d.image ?? (카드있음 ? `/og/${entry.id}.png` : undefined);
 
 /**
  * ⭐ 나가는 길 — **본문 끝에서 다음 기사로 직접 건다.** (2번 지시 2026-08-08)
@@ -45,7 +54,7 @@ const jsonLd = {
   articleSection: categoryLabel(d.category),
   inLanguage: SITE.lang,
   url,
-  image: [new URL(d.image ?? '/og-default.png', SITE_URL).href],
+  image: [new URL(ogImage ?? '/og-default.png', SITE_URL).href],
   author: { '@type': 'Organization', name: `${d.author}, ${SITE.name}`, url: `${SITE_URL}/about` },
   publisher: {
     '@type': 'NewsMediaOrganization',
@@ -69,7 +78,7 @@ const jsonLd = {
   description={d.dek}
   jsonLd={jsonLd}
   ogType="article"
-  image={d.image}
+  image={ogImage}
 >
   <div class="wrap">
     <AdSlot slot="banner" />
