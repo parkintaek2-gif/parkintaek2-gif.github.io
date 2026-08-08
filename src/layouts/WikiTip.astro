@@ -19,6 +19,8 @@
  * SeoulMarkets 는 파랑(금융), WikiTip 은 보라다.
  * `wikitip/index.astro` 가 이미 쓰던 값을 그대로 가져왔다 — 두 지면이 따로 놀면 안 된다.
  */
+import Analytics from '../components/Analytics.astro';
+
 export interface Props {
   title: string;
   description: string;
@@ -66,6 +68,14 @@ const 제목 = `${title} | K Culture Wire`;
   {canonical && <meta property="og:url" content={canonical} />}
   {noindex && <meta name="robots" content="noindex" />}
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+  {/*
+    ⛔ 2026-08-08 11:5x 실측 — **이 사이트에 분석 코드가 한 줄도 없었다.**
+       소스 0건 · 빌드 0건 · 라이브 0건. 2번 커밋에 「WikiTip 은 자기 GA 속성이 따로 있다」고
+       적혀 있었지만 그런 것은 없었다. 출시 이레 앞에서 우리만 아무것도 안 재고 있었다.
+    ⚠ 이걸 붙이는 순간 쿠키와 접속기록이 생긴다. /privacy 를 같이 냈다 —
+       재는 것을 먼저 붙이고 밝히는 것을 나중에 하면 순서가 거꾸로다.
+  */}
+  <Analytics />
   <style>
     :root {
       --ink: #1a1626;
@@ -152,6 +162,8 @@ const 제목 = `${title} | K Culture Wire`;
           「우리가 틀렸던 것을 숨기지 않는다」가 말뿐이 된다.
         */}
         <span aria-hidden="true"> · </span><a href="/corrections">Corrections</a>
+        {/* 재는 것을 붙였으면 밝히는 길도 같이 낸다. 2026-08-08. */}
+        <span aria-hidden="true"> · </span><a href="/privacy">Cookies</a>
       </p>
       {/*
         ⚠ 다른 두 사이트로 나가는 링크. 사장님 지시 —
