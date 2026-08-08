@@ -79,9 +79,13 @@ const 나라자리 = new Map();
 /* 자리 많은 것부터 넣는다 — 중간에 끊겨도 큰 것부터 답이 남는다 */
 for (const [t, 자리] of [...나라자리].sort((a, b) => b[1] - a[1])) {
   if (이미.has(t)) continue;
-  list.push({ title: t, hours: 0, countryOnly: true, places: 자리 });
+  list.push({ title: t, hours: 0, countryOnly: true });
   이미.add(t);
 }
+/* ⛔ 자리는 **어느 목록에서 들어왔든** 붙인다.
+   처음에 나라 판으로 들어온 편에만 붙였더니 동남아 목록으로 먼저 들어온 편이
+   지면에서 **「0자리」로 찍혔다.** 안 센 것을 0 이라고 적으면 그건 거짓말이다. */
+for (const x of list) x.places = 나라자리.get(x.title) || 0;
 
 /* ── 위키데이터에 묻는다 ── 제목마다 그 이름을 가진 영화·드라마의 나라 전부. */
 const 나라 = new Map();
@@ -180,7 +184,7 @@ const out = {
     return {
       title: x.title,
       hours: x.hours,
-      ...(x.places ? { places: x.places } : {}),
+      places: x.places,
       verdict: 판정하기(x.title),
       countries: c ? [...c].sort() : [],
     };
