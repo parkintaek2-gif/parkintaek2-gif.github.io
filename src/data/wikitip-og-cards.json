@@ -156,6 +156,21 @@
    "figure": "22 of 24",
    "label": "markets where Korean titles are rarer at #1 than on the chart",
    "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다"
+  },
+  "half-our-panel-cannot-be-verified": {
+   "figure": "197 of 397",
+   "label": "titles that never reached a global Top 10, so the language label cannot be applied",
+   "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다"
+  },
+  "it-moved-it-did-not-shrink": {
+   "figure": "9.68",
+   "label": "points — the mean Korean share fall across ten Asian markets",
+   "왜": "자동 딱지가 「points」 한 낱말이라 무엇의 포인트인지 안 보였다. 카드만 보고는 못 읽는다"
+  },
+  "women-in-korean-content-companies": {
+   "figure": "22.8",
+   "label": "points between two halves of one sector — the larger fact",
+   "왜": "자동은 56.9% 를 집었는데 이 기사의 요점은 그 수가 아니라 **한 갈래 안의 22.8p 차이**다. 딱지도 「women」 한 낱말이었다"
   }
  }
 }

@@ -1,31 +1,36 @@
 ---
 /*
- * Board composition — B2B 상품 지면. (seoulmarkets.com/data/board-composition)
+ * Analyst attention — B2B 상품 지면. (seoulmarkets.com/data/analyst-attention)
  *
- * 왜 (사장님 데이터 상품 사업): 대형 벤더가 안 파는 「업종별 이사회 구성」 —
- *   여성 임원·오너경영·CEO 재임·임원 나이. 의결권자문·거버넌스펀드·리서치가 산다.
- *   ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다.
+ * 왜 (사장님 데이터 상품 사업): 대형 벤더가 파는 것은 「리포트 그 자체」다. 우리가 파는 것은
+ *   「관심이 어디에 쏠리고 어디가 비는가」 — 소수 종목에 리서치가 얼마나 몰리나. 퀀트·팩터·
+ *   미디어·IR 이 산다. ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다.
  *
- * 자료: src/data/governance.json (scripts/build-governance.mjs 산출).
- *   임원별 성별·직위·대표·오너·생년월·재직 → 종목 → 업종. 정직 단서(오너 결측 하한)를 화면에 적는다.
+ * ⚠ 정직 관문: 우리 아카이브는 한 묶음 증권사의 소매 리서치 「표본」이다. 어떤 회사가 안 뜬 것은
+ *   「우리 표본에 안 떴다」이지 「시장이 그 회사를 안 본다」가 아니다. 이 문장을 화면에 못박는다.
+ *   그래서 각도가 「커버리지 사막」이 아니라 「관심 쏠림」이다.
+ *
+ * 자료: src/data/analyst-coverage.json (scripts/build-analyst-coverage.mjs 산출).
+ *   리서치 원본의 티커 필드가 성겨서(6,372건 중 352건) 종목명으로 이었다 — 그 단서를 화면에 적는다.
  */
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
-import data from '../../data/governance.json';
+import data from '../../data/analyst-coverage.json';
 
-const TITLE = 'Who sits on Korean boards';
-const SAMPLE = `${data.임원총수.toLocaleString()} officers across listed companies · by sector`;
+const s = data.summary;
+const rows = data.by_sector;
+const TITLE = 'Where analyst attention piles up';
+const SAMPLE = `${s.total_stock_reports.toLocaleString()} single-stock reports · ${data.brokerages_in_archive} brokerages · ${s.year}`;
 const DESC =
-  'Korean listed-company boards by sector: the share of women, how many are owner-led, how long the '
-  + 'chief executive has served, and the age of the room — from every company\'s own filing.';
+  'Korean equity research attention by sector, from our archive of single-stock broker reports: how '
+  + 'many listed companies drew a report, how heavily attention concentrates, and where it thins out.';
 
-const rows = data.업종;
 const jsonLd = {
   '@context': 'https://schema.org', '@type': 'Dataset',
-  name: 'Korean listed-company board composition by sector',
-  description: DESC, url: `${SITE_URL}/data/board-composition`,
+  name: 'Korean analyst attention by sector',
+  description: DESC, url: `${SITE_URL}/data/analyst-attention`,
   creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
-  variableMeasured: ['female officer share', 'owner-led share', 'CEO tenure', 'officer age'],
+  variableMeasured: ['companies drawing a report', 'reports per company', 'attention concentration by sector'],
 };
 ---
 
@@ -33,52 +38,66 @@ const jsonLd = {
   <div class="wrap">
     <article class="pp">
       <p class="kicker">SeoulMarkets · data for licence</p>
-      <h1>Who sits on Korean boards</h1>
+      <h1>Where analyst attention piles up</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
-        Every listed company files who runs it — each officer's gender, title, tenure and whether they
-        are the owner. Roll it up by sector and the boardroom has a shape: <b>where women reach the
-        table, where the founder still runs the firm, and how long the chief executive lasts.</b>
+        Korean brokerages write a lot of research — and it lands on the same few names. From our
+        archive of single-stock reports we measure <b>where attention concentrates and where it
+        thins</b>: {s.covered.toLocaleString()} of {s.listed_companies.toLocaleString()} listed
+        companies drew at least one report in {s.year}; the busiest name drew {s.busiest_report_count};
+        the median covered company drew {s.median_reports_when_covered}.
       </p>
 
+      <aside class="caveat" role="note">
+        <b>Read this first.</b> This is an archive of retail-board research from {data.brokerages_in_archive}
+        brokerages — a sample, not the whole market. A company <b>not appearing</b> means it drew no
+        report <i>in this sample</i>; it is <b>not</b> a claim that no analyst covers it, and it is
+        neither a buy nor a sell signal. What the data measures is <b>attention concentration</b>, not
+        market-wide coverage.
+      </aside>
+
       <ol class="five">
-        <li><b>What it is</b> — for each sector, the share of officers who are women, the share of
-          companies still owner-led, the median CEO tenure and the median officer age.</li>
-        <li><b>Why trust it</b> — every figure is from a company's own annual filing of its officers,
-          not a survey or a reconstruction.</li>
-        <li><b>How big</b> — {data.임원총수.toLocaleString()} officers across the listed market, {data.여성임원비율}% of them women.</li>
-        <li><b>The honest caveat</b> — the owner flag is missing from many filings, so the owner-led
-          share is a floor, marked with a +.</li>
-        <li><b>The form</b> — one CSV: company · ticker · sector · officer · gender · title · CEO flag ·
-          owner flag · tenure · age. Plus this by-sector summary.</li>
+        <li><b>What it is</b> — for each sector, how many of its listed companies appeared in analyst
+          research this year, how many reports they drew, and how many drew just one.</li>
+        <li><b>Why trust it</b> — every report is a filed, dated broker note we archived, joined to a
+          company by name and to our public-code sector scheme.</li>
+        <li><b>How big</b> — {s.total_stock_reports.toLocaleString()} single-stock reports across
+          {s.distinct_names_in_research.toLocaleString()} named companies in {s.year}.</li>
+        <li><b>The honest caveat</b> — the ticker field is filled on only a fraction of reports (a
+          scraper gap), so coverage is joined by <b>company name</b>; and the archive is a sample of
+          brokerages, so absence is not market-wide.</li>
+        <li><b>The form</b> — one CSV: sector · listed companies · companies with a report · coverage
+          share · reports · companies with only one report. Plus the concentration summary.</li>
       </ol>
 
       <section class="blk">
-        <h2>① The boardroom, by sector</h2>
-        <p>Health care and finance seat the most women; heavy industry and IT the fewest. Owner-led
-          firms cluster in health care and consumer; finance is the most professionally run.</p>
+        <h2>① Attention, by sector</h2>
+        <p>The share of each sector's listed companies that drew at least one report this year. It runs
+          from the low twenties to the high thirties — and even the covered names are thin: hundreds
+          drew a single report all year.</p>
         <table class="press">
           <thead>
-            <tr><th>Sector</th><th class="r">Cos.</th><th class="r">Women</th>
-              <th class="r">Owner-led</th><th class="r">CEO tenure</th><th class="r">Age</th></tr>
+            <tr><th>Sector</th><th class="r">Listed</th><th class="r">With a report</th>
+              <th class="r">Share</th><th class="r">Reports</th><th class="r">One only</th></tr>
           </thead>
           <tbody>
             {rows.map((r) => (
               <tr>
                 <td class="axis">{r.sector}</td>
-                <td class="r">{r.companies}</td>
-                <td class="r"><b>{r.femaleOfficerPct}%</b></td>
-                <td class="r">{r.ownerLedPctFloor}%+</td>
-                <td class="r">{r.medianTenureYears}y</td>
-                <td class="r">{r.medianOfficerAge}</td>
+                <td class="r">{r.listed}</td>
+                <td class="r">{r.covered}</td>
+                <td class="r"><b>{r.coverage_pct}%</b></td>
+                <td class="r">{r.reports.toLocaleString()}</td>
+                <td class="r">{r.thin_one_report_only}</td>
               </tr>
             ))}
           </tbody>
         </table>
         <p class="fine">
-          Health care seats women in one board seat in ten; industrials and IT closer to one in
-          twenty. Finance, the most professionally managed, is the least owner-led — and its CEOs turn
-          over fastest, a median three years against six in IT.
+          Across the market, {s.one_report_only.toLocaleString()} companies drew exactly one report all
+          year, and {s.single_house.toLocaleString()} were seen by a single brokerage. Attention is not
+          spread — it stacks on a short list while most of the market goes unwritten-about in this
+          sample.
         </p>
       </section>
 
@@ -86,16 +105,17 @@ const jsonLd = {
         <h2>② What you get</h2>
         <table class="kv">
           <tbody>
-            <tr><th>Files</th><td colspan="2">One CSV — company · ticker · sector · officer name ·
-              gender · title · representative-director flag · owner flag · tenure (months) · birth-year
-              age. Plus the by-sector summary above.</td></tr>
-            <tr><th>The owner flag</th><td colspan="2">Filed inconsistently, so the owner-led share is a{' '}
-              <b>floor</b> (shown as %+). Where it is present we use it; where blank we do not guess.</td></tr>
-            <tr><th>Coverage</th><td colspan="2">Officers as disclosed in annual reports, joined to our
-              sector scheme. Sectors with at least 20 companies are shown.</td></tr>
-            <tr><th>Refresh</th><td colspan="2">Annually, on the reporting cycle.</td></tr>
-            <tr><th>Source</th><td colspan="2">FSS DART annual reports (executive disclosures). We store
-              the filed facts, not the reports themselves.</td></tr>
+            <tr><th>Files</th><td colspan="2">One CSV — sector · listed companies · companies with a
+              report · coverage share · report count · companies with only one report. Plus the
+              market-wide concentration summary.</td></tr>
+            <tr><th>The join</th><td colspan="2">By <b>company name</b>: the raw ticker field is present
+              on only {s.total_stock_reports > 0 ? '352' : 'a fraction'} of {s.total_stock_reports.toLocaleString()}
+              reports — a scraper gap, not a market fact. Every uncoded report still names one stock.</td></tr>
+            <tr><th>The sample</th><td colspan="2">Retail-board research from {data.brokerages_in_archive}
+              brokerages. Absence means "not in this sample", never "market-wide uncovered".</td></tr>
+            <tr><th>Refresh</th><td colspan="2">Daily archive; the panel rolls up the current year.</td></tr>
+            <tr><th>Source</th><td colspan="2">Our own daily archive of broker research boards, joined to
+              KRX names and our public-KSIC sector scheme.</td></tr>
           </tbody>
         </table>
       </section>
@@ -103,11 +123,11 @@ const jsonLd = {
       <section class="cta">
         <h2>Ask for the dataset</h2>
         <p class="cta__lead">
-          Want the full officer-level file, or one sector's boards? Leave a work email and we send a
-          sample and the current licensing terms. It reaches us directly — no account, and this is not
-          the newsletter.
+          Want the by-sector attention panel, or the concentration series over time? Leave a work email
+          and we send a sample and the current licensing terms. It reaches us directly — no account, and
+          this is not the newsletter.
         </p>
-        <form class="ask" method="post" action="/v1/subscribe" data-source="board-composition">
+        <form class="ask" method="post" action="/v1/subscribe" data-source="analyst-attention">
           <label class="vh" for="ask-email">Work email</label>
           <div class="ask__row">
             <input id="ask-email" type="email" name="email" required autocomplete="email"
@@ -118,15 +138,16 @@ const jsonLd = {
             <label for="ask-hp">Leave this field empty</label>
             <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
           </div>
-          <p class="ask__note" id="ask-note">We store your address and that you asked about the board
-            dataset. We never sell or share it.</p>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the analyst
+            attention dataset. We never sell or share it.</p>
           <p class="ask__msg" role="status" aria-live="polite"></p>
         </form>
       </section>
 
       <p class="fine bottom">
-        From FSS DART executive disclosures · Owner-led share is a floor (filing gaps) · Not investment
-        advice. See our <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
+        From our own broker-research archive · Joined by company name (ticker-field gap) · A brokerage
+        sample, so absence is not market-wide · Not investment advice. See our{' '}
+        <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
       </p>
     </article>
   </div>
@@ -149,7 +170,7 @@ const jsonLd = {
         try {
           const res = await fetch('/v1/subscribe', {
             method: 'POST', headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'board-composition' }),
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'analyst-attention' }),
           });
           const d = await res.json().catch(() => ({}));
           if (res.ok && d.ok) { say('ok', 'Thanks — we have your address and will email you the sample and the terms.'); form.reset(); }
@@ -168,8 +189,11 @@ const jsonLd = {
   .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
   .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
                 margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
-  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
   .pp .lead b { font-weight: 650; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--accent-soft, var(--card)); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
   .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
           border: 1px solid var(--line); border-radius: 8px; }
   .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
