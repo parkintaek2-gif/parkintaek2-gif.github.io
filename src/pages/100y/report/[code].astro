@@ -22,7 +22,10 @@
  * ## ⚠ 지금은 **본보기 한 장**이다
  *
  *   1,821곳이 넉 자료를 다 갖고 있지만, 값이 정해지기 전에는 **한 장만** 낸다.
- *   ⛔ `noindex` 다 — 팔 물건을 검색에 흘리지 않는다. 값이 정해지면 그때 연다.
+ *   🔴 2026-08-08 10:1x — **열었다.** 1번이 잡아 준 것을 2번이 넘겼다 —
+ *     *「무료로 열어도 noindex 면 광고가 안 된다」.*
+ *     학교 한 곳은 **통째로 열고** 지역 묶음(114개 구)을 판다. 연 부분이 그대로 광고가 된다.
+ *     ⛔ 파는 쪽은 그대로 닫혀 있다. **살 수 없는 물건이 검색에 뜨면 헛걸음**이다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionAfterPick from '../../../components/NextQuestionAfterPick.astro';
@@ -123,9 +126,10 @@ const desc =
   `같은 지역 ${또래.length}곳, 전국과 견줄 값을 함께 넣었습니다.`;
 ---
 
-<HundredYear title={`${school.title} 리포트`} description={desc} noindex={true}>
+<HundredYear title={`${school.title} 리포트`} description={desc}>
   <p class="note">
-    ⬜ <strong>본보기 한 장입니다.</strong> 값이 정해지기 전이라 검색에 열지 않았습니다.
+    🎁 <strong>이 학교 한 곳은 무료입니다.</strong> 같은 것을 <strong>지역 한 벌</strong>로 묶어
+    보시려면 <a href="/report/area/서울특별시-강동구">구 단위로 모은 지면</a>이 따로 있습니다.
   </p>
 
   <h1>{school.title}<br class="pcbr" /> 숫자로 보면</h1>

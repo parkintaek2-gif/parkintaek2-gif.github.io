@@ -582,20 +582,36 @@ if (!LIVE) {
  *   바꾸기 전에 세어 봤다(0개). 다음에 바꿀 때도 먼저 센다.
  */
 if (!LIVE) {
+  /**
+   * ⚠ 2번 지시(10:12) — *「한 곳만 지우지 말고 **같은 버릇을 훑으십시오**」.*
+   *   주석만 막으면 다음엔 다른 꼴로 새어 나간다. **나가면 안 되는 말의 갈래**를 센다.
+   */
+  const 무늬 = {
+    'HTML 주석': /<!--[\s\S]*?-->/,
+    'TODO·FIXME': /\b(TODO|FIXME|XXX|HACK)\b/,
+    /* 자리 번호와 서버 파일 이름 — 우리 안에서만 쓰는 말이다 */
+    '자리 이름': /(\d번 파일|server\.mjs|세션간-메모)/,
+    '내부 표시': /(되돌리지 말 것|스토리보드 §)/,
+  };
   const 볼것 = 모든지면();
   const 샌것 = [];
   for (const p of 볼것) {
     const 글 = 지면읽기(p);
     if (글 == null) continue;
-    const m = 글.match(/<!--[\s\S]*?-->/g);
-    if (m) 샌것.push(`${path.basename(p)} — ${m[0].replace(/\s+/g, ' ').slice(0, 60)}`);
+    for (const [이름, re] of Object.entries(무늬)) {
+      const m = 글.match(re);
+      if (m) {
+        샌것.push(`${path.basename(p)} [${이름}] ${m[0].replace(/\s+/g, ' ').slice(0, 50)}`);
+        break;
+      }
+    }
   }
   재기(
     '내부 메모가 지면에 나가나',
     샌것.length === 0,
     샌것.length
       ? `⛔ ${샌것.length}장 — ${샌것[0]} …`
-      : `지면 ${볼것.length.toLocaleString()}장 · HTML 주석 0건`,
+      : `지면 ${볼것.length.toLocaleString()}장 · 무늬 ${Object.keys(무늬).length}가지 · 0건`,
   );
 }
 

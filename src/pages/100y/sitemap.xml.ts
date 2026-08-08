@@ -167,6 +167,16 @@ export const GET: APIRoute = () => {
         priority: '0.6',
         changefreq: 'monthly',
       })),
+    /**
+     * 🔴 2026-08-08 10:1x — **학교 한 곳 리포트도 열었다.**
+     *
+     *   1번이 잡아 준 것 — *「무료로 열어도 noindex 면 광고가 안 된다」.*
+     *   학교 한 곳은 통째로 열고 지역 묶음(114개 구)을 판다. **연 부분이 그대로 광고**다.
+     *
+     * ⚠ 목록이 `report/[code].astro` 의 `getStaticPaths` 와 **같아야 한다.**
+     *   지금은 본보기 한 곳이라 여기 한 줄이다. 늘리면 **두 곳을 같이** 늘린다.
+     */
+    { path: '/report/7010057', priority: '0.7', changefreq: 'monthly' },
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
