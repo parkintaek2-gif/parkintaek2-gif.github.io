@@ -21,7 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const 해 = process.argv[2];
+const 해들 = process.argv.slice(2); // 예: 2022 2023 2024 — 여러 해 합산(연도마다 시세 캐시 비워 메모리 아낌)
 const sd = path.join(ROOT, 'archive/raw/stocks');
 const rd = path.join(ROOT, 'archive/raw/research');
 
@@ -59,29 +59,35 @@ function shift(yyyymmdd, days) {
 }
 
 /* 리포트 순회 — 발행연도 필터 */
-const dirs = fs.readdirSync(rd).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).filter((d) => !해 || d.startsWith(해)).sort();
+const allDirs = fs.readdirSync(rd).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d))
+  .filter((d) => !해들.length || 해들.some((y) => d.startsWith(y))).sort();
+const byYear = {};
+for (const d of allDirs) (byYear[d.slice(0, 4)] ||= []).push(d);
 const house = new Map();
 let 총 = 0, 조인 = 0, 백필 = 0, code없음 = 0;
-for (const d of dirs) {
-  const ymd = d.replace(/-/g, '');
-  for (const f of fs.readdirSync(path.join(rd, d)).filter((f) => f.endsWith('.json'))) {
-    let o; try { o = JSON.parse(fs.readFileSync(path.join(rd, d, f), 'utf8')); } catch { continue; }
-    if (!o.targetPrice || !o.stock) continue;
-    총++;
-    let code = o.code ? String(o.code) : n2c.get(o.stock.replace(/\s/g, ''));
-    if (!o.code && code) 백필++;
-    if (!code) { code없음++; continue; }
-    const open = 종가맵(ymd).get(code);
-    const fut = 종가맵(shift(ymd, 365)).get(code);
-    if (!open || !fut) continue;
-    조인++;
-    const 여력 = (o.targetPrice / open - 1) * 100;
-    const 실제 = (fut / open - 1) * 100;
-    const 달성 = fut >= o.targetPrice;
-    const h = o.house || '(미상)';
-    if (!house.has(h)) house.set(h, { n: 0, 달성: 0, 여력합: 0, 실제합: 0 });
-    const hh = house.get(h); hh.n++; if (달성) hh.달성++; hh.여력합 += 여력; hh.실제합 += 실제;
+for (const yr of Object.keys(byYear).sort()) {
+  for (const d of byYear[yr]) {
+    const ymd = d.replace(/-/g, '');
+    for (const f of fs.readdirSync(path.join(rd, d)).filter((f) => f.endsWith('.json'))) {
+      let o; try { o = JSON.parse(fs.readFileSync(path.join(rd, d, f), 'utf8')); } catch { continue; }
+      if (!o.targetPrice || !o.stock) continue;
+      총++;
+      let code = o.code ? String(o.code) : n2c.get(o.stock.replace(/\s/g, ''));
+      if (!o.code && code) 백필++;
+      if (!code) { code없음++; continue; }
+      const open = 종가맵(ymd).get(code);
+      const fut = 종가맵(shift(ymd, 365)).get(code);
+      if (!open || !fut) continue;
+      조인++;
+      const 여력 = (o.targetPrice / open - 1) * 100;
+      const 실제 = (fut / open - 1) * 100;
+      const 달성 = fut >= o.targetPrice;
+      const h = o.house || '(미상)';
+      if (!house.has(h)) house.set(h, { n: 0, 달성: 0, 여력합: 0, 실제합: 0 });
+      const hh = house.get(h); hh.n++; if (달성) hh.달성++; hh.여력합 += 여력; hh.실제합 += 실제;
+    }
   }
+  closeCache.clear(); // 연도 끝나면 시세 종가맵 캐시를 비운다 — 메모리 초과 방지(전기간 killed 교훈)
 }
 
 const rows = [...house.entries()].filter(([, v]) => v.n >= 20)
@@ -91,12 +97,12 @@ const rows = [...house.entries()].filter(([, v]) => v.n >= 20)
 
 const out = {
   _왜: '목표주가 적중률 — 발행시 목표가 vs 12개월 뒤 실제주가. scripts/build-target-price-accuracy.mjs 산출.',
-  _단서: ['상폐·개명 종목은 빠짐(생존편향·상방)', '12개월 종가 하나로 재 기간 중 도달분은 과소', '발행연도 필터: ' + (해 || '전기간')],
+  _단서: ['상폐·개명 종목은 빠짐(생존편향·상방)', '12개월 종가 하나로 재 기간 중 도달분은 과소', '발행연도: ' + (해들.length ? 해들.join(',') : '전기간')],
   기준일: latest.replace('.ndjson', ''), 대상리포트: 총, 조인성공: 조인, 종목명백필: 백필, code없음,
   증권사: rows,
 };
 fs.writeFileSync(path.join(ROOT, 'src/data/target-price-accuracy.json'), JSON.stringify(out, null, 2));
-console.log(`목표주가 적중률 ${해 || '전기간'} — 리포트 ${총} · 조인 ${조인} · 백필 ${백필} · code없음 ${code없음}`);
+console.log(`목표주가 적중률 ${해들.length ? 해들.join(',') : '전기간'} — 리포트 ${총} · 조인 ${조인} · 백필 ${백필} · code없음 ${code없음}`);
 console.log('증권사별(달성률 순, 20건+):');
 for (const r of rows.slice(0, 12)) console.log(`  ${r.house.padEnd(14)} n=${String(r.n).padStart(4)} 달성 ${String(r.hitRate).padStart(4)}% 목표여력 ${r.avgTargetUpside}% 실제 ${r.avgActual}%`);
 console.log('→ src/data/target-price-accuracy.json');
