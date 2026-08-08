@@ -126,8 +126,30 @@ process.stdout.write('\n');
 
 /* ── 가른다 ── 한국만 / 겹침 / 모름. 못 물은 것은 「모름」에 넣지 않고 따로 센다. */
 const KOREA = 'South Korea';
-const 통 = { koreaOnly: [], shared: [], noKorea: [], unknown: [], unreachable: [] };
+const 통 = { koreaOnly: [], shared: [], koreaUnconfirmed: [], unknown: [], unreachable: [] };
 const 못물음집 = new Set(못물음);
+
+/**
+ * 🔴 2026-08-09. **「한국 작품이 없다」는 내 질의가 못 본 것이었다.**
+ *
+ * 위 질의는 `rdfs:label` 을 **대소문자까지 똑같이** 맞춘다. 그래서 —
+ *   넷플릭스 `Land`                 · 위키데이터 한국 영화 이름표 `LAND`                (Q136691896)
+ *   넷플릭스 `Deliver Us from Evil` · 위키데이터 한국 영화 이름표 `Deliver Us From Evil` (Q93739110)
+ *   `Modern family` · `Dear mother` · `Detour`(DETOUR) · `Asura`(ASURA) · `Stand by me` · `Love me`
+ * 한국 작품만 빠지고, 이름표가 딱 맞는 **외국 작품만 남았다.**
+ * ⛔ 그 답을 그대로 읽으면 「한국 작품이 아니다」가 된다. **스물두 편을 뺄 뻔했다.**
+ *
+ * ⭐ 그래서 이름이 아니라 **열쇠로 묻는다.** 우리는 이미 Q번호를 받아 뒀다
+ *    (`korean-titles-keyed.json` — 「제목 문자열은 열쇠가 아니다」가 그 파일의 첫 줄이다).
+ *    열쇠가 있으면 한국 작품이 **있는 것이 확인된 것**이다. 이름표 철자와 무관하다.
+ *
+ * ⚠ 열쇠가 없는 편은 「한국 작품이 없다」가 **아니라** 「우리가 못 맞췄다」다.
+ *    그래서 딱지 이름을 `koreaUnconfirmed` 로 둔다. 없다고 하지 않는다.
+ */
+const 한국열쇠 = (() => {
+  const k = JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-titles-keyed.json', 'utf8'));
+  return new Map(Object.values(k.작품).map((x) => [x.넷플릭스제목, x.q]));
+})();
 
 /**
  * 🔴 2026-08-09. **`shared` 가 두 가지를 한 통에 담고 있었다.**
@@ -144,9 +166,12 @@ const 못물음집 = new Set(못물음);
 const 판정하기 = (title) => {
   if (못물음집.has(title)) return 'unreachable';
   const c = 나라.get(title);
-  if (!c) return 'unknown';
-  if (c.size === 1 && c.has(KOREA)) return 'koreaOnly';
-  return c.has(KOREA) ? 'shared' : 'noKorea';
+  /** 한국 작품이 있다는 근거는 **둘 중 하나면 된다** — 이름표가 맞거나, 열쇠가 있거나. */
+  const 한국있다 = (c && c.has(KOREA)) || 한국열쇠.has(title);
+  const 외국 = c ? [...c].filter((x) => x !== KOREA) : [];
+  if (한국있다) return 외국.length ? 'shared' : 'koreaOnly';
+  if (외국.length) return 'koreaUnconfirmed';
+  return 'unknown';
 };
 /* ⚠ 시간 비중은 **글로벌 목록만**으로 낸다. 동남아 전용 제목은 시청시간이 0 이라
    섞으면 편수는 늘고 비중은 그대로여서 「몇 편 중 몇 편」이 지면과 어긋난다.
@@ -170,8 +195,10 @@ const out = {
   totalHours: 총시간,
   koreaOnly: { titles: 통.koreaOnly.length, hours: 시간(통.koreaOnly), sharePc: 몫(통.koreaOnly) },
   shared: { titles: 통.shared.length, hours: 시간(통.shared), sharePc: 몫(통.shared) },
-  /** 한국이 **하나도 없는** 편. 겹침(모른다)이 아니라 **명단에 있으면 안 되는** 것이다. */
-  noKorea: { titles: 통.noKorea.length, hours: 시간(통.noKorea), sharePc: 몫(통.noKorea) },
+  /** 외국 작품이 그 이름을 쓰는데 **한국 작품을 우리가 못 맞춘** 편. ⛔ 「없다」가 아니라 「못 맞췄다」다. */
+  koreaUnconfirmed: {
+    titles: 통.koreaUnconfirmed.length, hours: 시간(통.koreaUnconfirmed), sharePc: 몫(통.koreaUnconfirmed),
+  },
   unknown: { titles: 통.unknown.length, hours: 시간(통.unknown), sharePc: 몫(통.unknown) },
   unreachable: { titles: 통.unreachable.length, hours: 시간(통.unreachable), sharePc: 몫(통.unreachable) },
   /** 겹치는 것 중 큰 것부터 — 손으로 볼 차례를 정하는 데 쓴다. */
@@ -185,6 +212,9 @@ const out = {
       title: x.title,
       hours: x.hours,
       places: x.places,
+      /** 한국 작품의 Q번호. 있으면 **이름표 철자와 무관하게** 한국 작품이 확인된 것이다.
+          ⛔ 이 칸이 있어야 다른 검사도 같은 근거를 볼 수 있다 — 판정 딱지만 두면 자가 서로 못 맞댄다. */
+      q: 한국열쇠.get(x.title) || null,
       verdict: 판정하기(x.title),
       countries: c ? [...c].sort() : [],
     };
@@ -193,24 +223,31 @@ const out = {
   frontPage: 첫화면.map((t) => ({
     title: t, verdict: 판정하기(t), countries: 나라.get(t) ? [...나라.get(t)].sort() : [],
   })),
-  /** 🔴 한국이 하나도 없는데 명단에 있는 편 — 자리 많은 것부터. **뺄 차례가 이 순서다.** */
-  noKoreaQueue: list
-    .filter((x) => 판정하기(x.title) === 'noKorea')
+  /** 🔴 외국 것만 맞은 편 — 자리 많은 것부터. ⛔ **뺄 차례가 아니라 볼 차례다.** */
+  koreaUnconfirmedQueue: list
+    .filter((x) => 판정하기(x.title) === 'koreaUnconfirmed')
     .map((x) => ({ title: x.title, places: x.places || 0, hours: x.hours, countries: [...나라.get(x.title)].sort() }))
     .sort((a, b) => b.places - a.places || b.hours - a.hours),
+  /** 이름표 철자가 달라 이름으로는 못 찾고 **열쇠로 찾은** 편. 이 자가 왜 필요한지의 증거다. */
+  keyedNotLabelled: list
+    .filter((x) => 한국열쇠.has(x.title) && !(나라.get(x.title) || new Set()).has(KOREA))
+    .map((x) => ({ title: x.title, q: 한국열쇠.get(x.title), places: x.places || 0 }))
+    .sort((a, b) => b.places - a.places),
 };
 fs.writeFileSync('src/data/wikitip-title-ambiguity.json', JSON.stringify(out, null, 2));
 
 console.log(`목록 ${out.titles}편 · ${(총시간 / 1e9).toFixed(2)}bn 시간`);
 console.log(` 한국만  ${out.koreaOnly.titles}편 ${out.koreaOnly.sharePc}% — 글자로 골라도 틀릴 수 없다`);
 console.log(` 겹침    ${out.shared.titles}편 ${out.shared.sharePc}% — 한국이 있고 딴 나라도 있다. 어느 쪽인지 모른다`);
-console.log(` 한국없음 ${out.noKorea.titles}편 ${out.noKorea.sharePc}% — 🔴 모르는 게 아니라 한국 작품이 아니다`);
+console.log(` 못맞춤  ${out.koreaUnconfirmed.titles}편 ${out.koreaUnconfirmed.sharePc}% — 외국 것은 맞았고 한국 것을 못 맞췄다`);
 console.log(` 모름    ${out.unknown.titles}편 ${out.unknown.sharePc}% — 위키데이터가 나라를 모른다`);
 console.log(`판정 준 편수 ${out.titlesAssessed}편 (나라 판까지 전부)`);
-console.log(`🔴 뺄 차례 — 자리 많은 것부터:`);
-for (const x of out.noKoreaQueue.slice(0, 12)) {
-  console.log(`   ${x.title.padEnd(34)} ${String(x.places).padStart(4)}자리 · ${x.countries.join('·')}`);
+console.log(`🔴 볼 차례 — 자리 많은 것부터:`);
+for (const x of out.koreaUnconfirmedQueue.slice(0, 10)) {
+  console.log(`   ${x.title.padEnd(30)} ${String(x.places).padStart(4)}자리 · ${x.countries.slice(0, 4).join('·')}`);
 }
-console.log(`   … 한국 없음이 모두 ${out.noKoreaQueue.length}편`);
+console.log(`   … 못 맞춘 것이 모두 ${out.koreaUnconfirmedQueue.length}편`);
+console.log(`⭐ 이름으로는 못 찾고 열쇠로 찾은 편 ${out.keyedNotLabelled.length}편 — 이름표 철자가 다르다:`);
+for (const x of out.keyedNotLabelled.slice(0, 8)) console.log(`   ${x.title.padEnd(30)} ${x.q} · ${x.places}자리`);
 if (out.unreachable.titles) console.log(` 못 물음 ${out.unreachable.titles}편 ${out.unreachable.sharePc}%`);
 console.log('겹치는 것 중 큰 것:', out.sharedTop.slice(0, 5).map((x) => `${x.title}(${x.countries.length}국)`).join(' · '));

@@ -21,6 +21,12 @@ const 판정길 = 'src/data/wikitip-title-ambiguity.json';
 export function 어긋났나(판정) {
   if (!판정) return false;                       // 판정 자체가 없으면 다른 검사가 잡는다
   if (판정.verdict === 'unknown') return false;  // 모르는 것과 아니라는 것은 다르다
+  /* 🔴 2026-08-09. **이름으로 못 찾는다고 없는 것이 아니다.**
+     위키데이터는 한국 영화 `Land` 를 `LAND` 로, `Deliver Us from Evil` 을
+     `Deliver Us From Evil` 로 적어 둔다. 이름표 대조는 대소문자를 가려서 한국 것만 빠지고
+     철자가 딱 맞는 **외국 것만** 남는다 — 그러면 이 자가 「어긋났다」고 운다. 실은 안 어긋났다.
+     ⛔ 그래서 이름이 아니라 **열쇠**를 본다. Q번호가 있으면 한국 작품이 확인된 것이다. */
+  if (판정.q) return false;
   return !(판정.countries ?? []).includes('South Korea');
 }
 
@@ -31,6 +37,10 @@ if (process.argv[1] && process.argv[1].endsWith('check-attribution-agrees.mjs'))
   자가('겹쳐도 한국이 있으면 아님', !어긋났나({ verdict: 'shared', countries: ['Japan', 'South Korea'] }));
   자가('한국이 없으면 어긋남', 어긋났나({ verdict: 'shared', countries: ['Philippines'] }));
   자가('unknown 은 넘긴다', !어긋났나({ verdict: 'unknown', countries: [] }));
+  자가('열쇠가 있으면 이름표가 안 맞아도 아님',
+    !어긋났나({ verdict: 'koreaOnly', countries: [], q: 'Q136691896' }));
+  자가('열쇠가 없고 외국만 대면 어긋남',
+    어긋났나({ verdict: 'koreaUnconfirmed', countries: ['Netherlands'], q: null }));
   자가('판정이 없으면 넘긴다', !어긋났나(null));
   console.log(`질의 어긋남 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
   if (통과 !== 시험) process.exit(1);

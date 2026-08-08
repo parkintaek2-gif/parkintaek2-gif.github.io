@@ -33,16 +33,18 @@ const 맞밖 = data.matched.other;
 /* 이름겹침 판정 — 938편 전부. ⛔ 수를 손으로 적지 않는다. 판정 칸에서 센다 */
 const 센다 = (v: string) => ambiguity.perTitle.filter((p) => p.verdict === v).length;
 const 확실 = [
-  { key: 'koreaOnly', label: 'Only Korean works carry this name', n: 센다('koreaOnly'),
+  { key: 'koreaOnly', label: 'A Korean work carries this name, and no foreign one does', n: 센다('koreaOnly'),
     means: 'The name cannot be matched to anything else. Safe.' },
-  { key: 'shared', label: 'A Korean work and a foreign one share it', n: 센다('shared'),
-    means: 'We cannot tell from the name which one charted.' },
+  { key: 'shared', label: 'A Korean work and a foreign one share the name', n: 센다('shared'),
+    means: 'We cannot tell from the name alone which one charted.' },
   { key: 'unknown', label: 'Wikidata records no country for the name', n: 센다('unknown'),
-    means: 'No basis to judge — not evidence of either.' },
-  { key: 'noKorea', label: 'No Korean work carries this name at all', n: 센다('noKorea'),
-    means: 'Should not be counted as Korean. Listed below.' },
+    means: 'No basis to judge — not evidence either way.' },
+  { key: 'koreaUnconfirmed', label: 'Foreign works carry it and we could not tie it to a Korean one',
+    n: 센다('koreaUnconfirmed'), means: 'Still open. Listed below by name.' },
 ];
-const 빠질자리 = ambiguity.noKoreaQueue.reduce((s, x) => s + x.places, 0);
+const 열린자리 = ambiguity.koreaUnconfirmedQueue.reduce((s, x) => s + x.places, 0);
+const 열쇠로찾음 = ambiguity.keyedNotLabelled;
+const 열쇠자리 = 열쇠로찾음.reduce((s, x) => s + x.places, 0);
 const 슬롯합 = data.countries.reduce((s, c) => s + c.koreanSlots, 0);
 
 const DESC =
@@ -266,9 +268,10 @@ const jsonLd = {
   <section>
     <h2>How sure are we that these titles are Korean?</h2>
     <p class="note lead-in">
-      Every title above is matched by its English name against works Wikidata records as made in
-      South Korea. We asked, for all {ambiguity.perTitle.length} titles in this table, which countries
-      made a film or series carrying exactly that name. Four answers came back.
+      Every title above is matched against works Wikidata records as made in South Korea — by
+      Wikidata item number where we hold one, and by English name otherwise. We asked, for all
+      {' '}{ambiguity.perTitle.length} titles in this table, which countries made a film or series of
+      that name. Four answers came back.
     </p>
     <div class="scroll-x">
       <table>
@@ -277,7 +280,7 @@ const jsonLd = {
         </thead>
         <tbody>
           {확실.map((r) => (
-            <tr class={r.key === 'noKorea' ? 'edge' : ''}>
+            <tr class={r.key === 'koreaUnconfirmed' ? 'edge' : ''}>
               <td class="nm">{r.label}</td>
               <td class="tot">{r.n}</td>
               <td>{((100 * r.n) / ambiguity.perTitle.length).toFixed(1)}%</td>
@@ -296,17 +299,38 @@ const jsonLd = {
       A figure weighted by places or hours inherits the first number; a count of distinct titles —
       the “Different titles” column above — inherits the second.
     </p>
+    <p class="warn">
+      <b>A name is not an identifier, and this check learned that the hard way.</b> Asked by name
+      alone, Wikidata reported no Korean work behind <i>Land</i>, <i>Deliver Us from Evil</i> or{' '}
+      <i>Detour</i> — because it files them as <i>LAND</i>, <i>Deliver Us From Evil</i> and{' '}
+      <i>DETOUR</i>, and a label match is case-sensitive. Only the foreign works came back, which
+      reads exactly like “this is not Korean.” We now ask by identifier instead, using the Wikidata
+      item numbers already stored alongside these titles.{' '}
+      <b>{열쇠로찾음.length} titles</b> carrying {열쇠자리.toLocaleString('en-US')} of the
+      {' '}{슬롯합.toLocaleString('en-US')} places on this page are found only that way.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Found by identifier, not by name</th><th>Wikidata item</th><th>Places</th></tr></thead>
+        <tbody>
+          {열쇠로찾음.slice(0, 12).map((x) => (
+            <tr><td class="nm"><i>{x.title}</i></td><td class="nm">{x.q}</td><td class="tot">{x.places}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
     <p class="note lead-in">
-      The last row is not ambiguity. Wikidata records <b>no Korean work at all</b> under these names,
-      so they should not be in this table. They are still counted in the columns above — removing
-      them changes {빠질자리} of the {슬롯합.toLocaleString('en-US')} Korean places on this page,
-      or {((100 * 빠질자리) / 슬롯합).toFixed(2)}%. We name them rather than quietly restate the totals:
+      The last row of the first table is what is left over: foreign works carry the name and no
+      Korean item is tied to it. That is <b>not</b> a finding that the title is foreign — it is the
+      part we have not settled. It covers {열린자리} of the {슬롯합.toLocaleString('en-US')} Korean
+      places here, or {((100 * 열린자리) / 슬롯합).toFixed(2)}%. We name them rather than quietly
+      drop or keep them:
     </p>
     <div class="scroll-x">
       <table>
         <thead><tr><th>Title</th><th>Places</th><th>Countries Wikidata records for that name</th></tr></thead>
         <tbody>
-          {ambiguity.noKoreaQueue.map((x) => (
+          {ambiguity.koreaUnconfirmedQueue.map((x) => (
             <tr>
               <td class="nm"><i>{x.title}</i></td>
               <td class="tot">{x.places}</td>
@@ -317,10 +341,10 @@ const jsonLd = {
       </table>
     </div>
     <p class="note">
-      What this check cannot do: it reads names, not works. A title Wikidata has never heard of comes
-      back “no country”, which is not evidence either way. And a shared name stays shared — we can say
-      how large that group is, which is what this table is for, but not which work charted in Manila
-      on a given week.
+      What this check still cannot do: a shared name stays shared. We can say how large that group
+      is, which is what the first table is for, but not which of the two works charted in Manila on a
+      given week. And a title Wikidata has never heard of comes back with no country, which is not
+      evidence in either direction.
     </p>
   </section>
 

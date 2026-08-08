@@ -1,28 +1,28 @@
 {
-  "generated": "2026-08-08T15:26:03.148Z",
+  "generated": "2026-08-08T15:44:27.311Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
   "titles": 235,
   "titlesAssessed": 938,
   "totalHours": 23720700000,
   "koreaOnly": {
-    "titles": 143,
-    "hours": 18945420000,
-    "sharePc": 79.9
+    "titles": 154,
+    "hours": 19607060000,
+    "sharePc": 82.7
   },
   "shared": {
     "titles": 76,
     "hours": 3981640000,
     "sharePc": 16.8
   },
-  "noKorea": {
+  "koreaUnconfirmed": {
     "titles": 2,
     "hours": 35610000,
     "sharePc": 0.2
   },
   "unknown": {
-    "titles": 14,
-    "hours": 758030000,
-    "sharePc": 3.2
+    "titles": 3,
+    "hours": 96390000,
+    "sharePc": 0.4
   },
   "unreachable": {
     "titles": 0,
@@ -244,6 +244,7 @@
       "title": "Squid Game",
       "hours": 5048300000,
       "places": 3228,
+      "q": "Q106582931",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -253,6 +254,7 @@
       "title": "Extraordinary Attorney Woo",
       "hours": 662090000,
       "places": 518,
+      "q": "Q110118400",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -262,6 +264,7 @@
       "title": "All of Us Are Dead",
       "hours": 659510000,
       "places": 619,
+      "q": "Q96414952",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -271,6 +274,7 @@
       "title": "Queen of Tears",
       "hours": 653900000,
       "places": 443,
+      "q": "Q116921048",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -280,6 +284,7 @@
       "title": "The Glory",
       "hours": 560990000,
       "places": 601,
+      "q": "Q113197148",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -290,6 +295,7 @@
       "title": "Bon Appétit, Your Majesty",
       "hours": 511900000,
       "places": 502,
+      "q": "Q131910461",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -299,6 +305,7 @@
       "title": "When Life Gives You Tangerines",
       "hours": 481600000,
       "places": 344,
+      "q": "Q117353211",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -308,6 +315,7 @@
       "title": "King the Land",
       "hours": 446900000,
       "places": 452,
+      "q": "Q114243955",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -317,6 +325,7 @@
       "title": "Alchemy of Souls",
       "hours": 419030000,
       "places": 623,
+      "q": "Q110890248",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -326,6 +335,7 @@
       "title": "Bloodhounds",
       "hours": 353170000,
       "places": 583,
+      "q": "Q109767798",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -336,6 +346,7 @@
       "title": "Love Next Door",
       "hours": 340200000,
       "places": 368,
+      "q": "Q124326709",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -346,6 +357,7 @@
       "title": "My Demon",
       "hours": 331100000,
       "places": 506,
+      "q": "Q120721044",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -355,6 +367,7 @@
       "title": "Dynamite Kiss",
       "hours": 314600000,
       "places": 318,
+      "q": "Q136373942",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -364,6 +377,7 @@
       "title": "Hometown Cha-Cha-Cha",
       "hours": 300580000,
       "places": 371,
+      "q": "Q106758556",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -373,6 +387,7 @@
       "title": "When the Phone Rings",
       "hours": 282300000,
       "places": 372,
+      "q": "Q130258195",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -382,6 +397,7 @@
       "title": "Business Proposal",
       "hours": 279110000,
       "places": 464,
+      "q": "Q108486931",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -392,6 +408,7 @@
       "title": "Can This Love Be Translated?",
       "hours": 271000000,
       "places": 210,
+      "q": "Q125121395",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -401,6 +418,7 @@
       "title": "Agent Kim Reactivated",
       "hours": 269700000,
       "places": 358,
+      "q": "Q139553270",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -410,6 +428,7 @@
       "title": "My Royal Nemesis",
       "hours": 247500000,
       "places": 338,
+      "q": "Q136763742",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -419,6 +438,7 @@
       "title": "Genie, Make a Wish",
       "hours": 241900000,
       "places": 189,
+      "q": "Q126414646",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -428,6 +448,7 @@
       "title": "True Beauty",
       "hours": 241850000,
       "places": 489,
+      "q": "Q136664884",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -439,6 +460,7 @@
       "title": "Gyeongseong Creature",
       "hours": 204100000,
       "places": 256,
+      "q": "Q110614173",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -448,6 +470,7 @@
       "title": "Beyond the Bar",
       "hours": 202000000,
       "places": 281,
+      "q": "Q134735571",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -457,6 +480,7 @@
       "title": "My Name",
       "hours": 194140000,
       "places": 277,
+      "q": "Q138197878",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -466,6 +490,7 @@
       "title": "The Trauma Code: Heroes on Call",
       "hours": 184500000,
       "places": 210,
+      "q": "Q124128670",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -475,6 +500,7 @@
       "title": "Crash Course in Romance",
       "hours": 183450000,
       "places": 211,
+      "q": "Q113994390",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -484,6 +510,7 @@
       "title": "Strong Girl Nam-soon",
       "hours": 174400000,
       "places": 244,
+      "q": "Q112307747",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -493,13 +520,15 @@
       "title": "The WONDERfools",
       "hours": 170800000,
       "places": 216,
-      "verdict": "unknown",
+      "q": "Q130748503",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Little Women",
       "hours": 163520000,
       "places": 288,
+      "q": "Q12614254",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -512,6 +541,7 @@
       "title": "Hellbound",
       "hours": 162850000,
       "places": 261,
+      "q": "Q100934044",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -522,6 +552,7 @@
       "title": "Miss Night and Day",
       "hours": 160100000,
       "places": 293,
+      "q": "Q125865640",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -531,6 +562,7 @@
       "title": "Doctor Slump",
       "hours": 154300000,
       "places": 287,
+      "q": "Q117219597",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -540,13 +572,15 @@
       "title": "Welcome to Samdal-ri",
       "hours": 150200000,
       "places": 166,
-      "verdict": "unknown",
+      "q": "Q118611683",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "The Great Flood",
       "hours": 149300000,
       "places": 351,
+      "q": "Q124436027",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -556,6 +590,7 @@
       "title": "Juvenile Justice",
       "hours": 146560000,
       "places": 134,
+      "q": "Q108688881",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -565,13 +600,15 @@
       "title": "Destined with You",
       "hours": 146000000,
       "places": 285,
-      "verdict": "unknown",
+      "q": "Q116550095",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Sold Out on You",
       "hours": 141600000,
       "places": 232,
+      "q": "Q137711304",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -581,6 +618,7 @@
       "title": "Our Unwritten Seoul",
       "hours": 140600000,
       "places": 176,
+      "q": "Q131393572",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -590,6 +628,7 @@
       "title": "Resident Playbook",
       "hours": 139900000,
       "places": 85,
+      "q": "Q122854712",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -599,6 +638,7 @@
       "title": "The King's Affection",
       "hours": 138540000,
       "places": 232,
+      "q": "Q106466324",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -608,6 +648,7 @@
       "title": "Breathless",
       "hours": 133800000,
       "places": 250,
+      "q": "Q486355",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -624,6 +665,7 @@
       "title": "Money Heist: Korea - Joint Economic Area",
       "hours": 133510000,
       "places": 212,
+      "q": "Q107565086",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -633,6 +675,7 @@
       "title": "As You Stood By",
       "hours": 133100000,
       "places": 156,
+      "q": "Q132130038",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -642,6 +685,7 @@
       "title": "Narco-Saints",
       "hours": 130350000,
       "places": 164,
+      "q": "Q110633989",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -651,6 +695,7 @@
       "title": "Our Beloved Summer",
       "hours": 128890000,
       "places": 137,
+      "q": "Q107474096",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -660,6 +705,7 @@
       "title": "Tastefully Yours",
       "hours": 128000000,
       "places": 247,
+      "q": "Q131717000",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -669,6 +715,7 @@
       "title": "The Price of Confession",
       "hours": 127500000,
       "places": 84,
+      "q": "Q131822507",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -678,6 +725,7 @@
       "title": "The Guest",
       "hours": 125300000,
       "places": 137,
+      "q": "Q29042737",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -698,6 +746,7 @@
       "title": "Sweet Home",
       "hours": 123400000,
       "places": 247,
+      "q": "Q65266317",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -710,6 +759,7 @@
       "title": "The Good Bad Mother",
       "hours": 122850000,
       "places": 191,
+      "q": "Q116230044",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -719,6 +769,7 @@
       "title": "The Art of Sarah",
       "hours": 120100000,
       "places": 200,
+      "q": "Q131844525",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -728,6 +779,7 @@
       "title": "Celebrity",
       "hours": 113200000,
       "places": 145,
+      "q": "Q114566119",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -738,6 +790,7 @@
       "title": "Boyfriend on Demand",
       "hours": 111600000,
       "places": 137,
+      "q": "Q132561179",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -747,6 +800,7 @@
       "title": "Under the Queen's Umbrella",
       "hours": 110460000,
       "places": 128,
+      "q": "Q111986155",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -756,6 +810,7 @@
       "title": "Parasyte: The Grey",
       "hours": 109100000,
       "places": 247,
+      "q": "Q124480521",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -765,6 +820,7 @@
       "title": "Young Lady and Gentleman",
       "hours": 108210000,
       "places": 351,
+      "q": "Q107029730",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -774,6 +830,7 @@
       "title": "Physical: Asia",
       "hours": 107100000,
       "places": 101,
+      "q": "Q136676709",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -783,6 +840,7 @@
       "title": "Mask Girl",
       "hours": 105600000,
       "places": 155,
+      "q": "Q115517391",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -792,6 +850,7 @@
       "title": "Our Blues",
       "hours": 105150000,
       "places": 123,
+      "q": "Q110627977",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -801,6 +860,7 @@
       "title": "Mr. Queen",
       "hours": 104920000,
       "places": 213,
+      "q": "Q100605045",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -810,6 +870,7 @@
       "title": "Hierarchy",
       "hours": 103400000,
       "places": 288,
+      "q": "Q124480568",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -819,6 +880,7 @@
       "title": "The Atypical Family",
       "hours": 101100000,
       "places": 200,
+      "q": "Q123495191",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -828,6 +890,7 @@
       "title": "Forecasting Love and Weather",
       "hours": 100850000,
       "places": 158,
+      "q": "Q107343177",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -837,6 +900,7 @@
       "title": "If Wishes Could Kill",
       "hours": 100200000,
       "places": 187,
+      "q": "Q137836018",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -846,6 +910,7 @@
       "title": "Queenmaker",
       "hours": 99480000,
       "places": 98,
+      "q": "Q116233325",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -855,6 +920,7 @@
       "title": "Cashero",
       "hours": 93800000,
       "places": 124,
+      "q": "Q132152067",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -864,6 +930,7 @@
       "title": "Trigger",
       "hours": 91200000,
       "places": 110,
+      "q": "Q130597380",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -879,6 +946,7 @@
       "title": "The Silent Sea",
       "hours": 89770000,
       "places": 124,
+      "q": "Q101083996",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -888,13 +956,15 @@
       "title": "Mercy For None",
       "hours": 89200000,
       "places": 203,
-      "verdict": "unknown",
+      "q": "Q123305848",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Reborn Rich",
       "hours": 87660000,
       "places": 13,
+      "q": "Q110244733",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -904,6 +974,7 @@
       "title": "A Time Called You",
       "hours": 85700000,
       "places": 76,
+      "q": "Q111534327",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -913,6 +984,7 @@
       "title": "Castaway Diva",
       "hours": 85400000,
       "places": 118,
+      "q": "Q117815050",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -922,6 +994,7 @@
       "title": "A Killer Paradox",
       "hours": 85300000,
       "places": 97,
+      "q": "Q115413158",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -931,6 +1004,7 @@
       "title": "The 8 Show",
       "hours": 80700000,
       "places": 144,
+      "q": "Q124001145",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -940,6 +1014,7 @@
       "title": "Heavenly Ever After",
       "hours": 80600000,
       "places": 90,
+      "q": "Q132157441",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -949,6 +1024,7 @@
       "title": "Dear Hongrang",
       "hours": 79900000,
       "places": 66,
+      "q": "Q122730767",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -958,6 +1034,7 @@
       "title": "Black Knight",
       "hours": 79400000,
       "places": 197,
+      "q": "Q110638048",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -968,6 +1045,7 @@
       "title": "Oasis",
       "hours": 79000000,
       "places": 239,
+      "q": "Q487216",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -984,6 +1062,7 @@
       "title": "Romance in the House",
       "hours": 75900000,
       "places": 152,
+      "q": "Q127257036",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -993,6 +1072,7 @@
       "title": "Badland Hunters",
       "hours": 74600000,
       "places": 226,
+      "q": "Q123469290",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1002,6 +1082,7 @@
       "title": "See You in My 19th Life",
       "hours": 74600000,
       "places": 122,
+      "q": "Q114863982",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1011,6 +1092,7 @@
       "title": "Hospital Playlist",
       "hours": 72060000,
       "places": 219,
+      "q": "Q83625648",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1020,6 +1102,7 @@
       "title": "Undercover Miss Hong",
       "hours": 70000000,
       "places": 69,
+      "q": "Q136644388",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1029,6 +1112,7 @@
       "title": "Remarriage & Desires",
       "hours": 67850000,
       "places": 71,
+      "q": "Q110618833",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1038,6 +1122,7 @@
       "title": "The Trunk",
       "hours": 66700000,
       "places": 86,
+      "q": "Q120703298",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -1048,6 +1133,7 @@
       "title": "Kill Boksoon",
       "hours": 66080000,
       "places": 225,
+      "q": "Q114414622",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1057,6 +1143,7 @@
       "title": "Doona!",
       "hours": 66000000,
       "places": 97,
+      "q": "Q114878691",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1066,6 +1153,7 @@
       "title": "D.P.",
       "hours": 64100000,
       "places": 68,
+      "q": "Q105226735",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1075,6 +1163,7 @@
       "title": "Carter",
       "hours": 64040000,
       "places": 201,
+      "q": "Q110629410",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -1085,6 +1174,7 @@
       "title": "Phantom Lawyer",
       "hours": 60100000,
       "places": 120,
+      "q": "Q136933517",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1094,6 +1184,7 @@
       "title": "Daily Dose of Sunshine",
       "hours": 59900000,
       "places": 59,
+      "q": "Q116033324",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1103,6 +1194,7 @@
       "title": "Nevertheless,",
       "hours": 59360000,
       "places": 156,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -1110,6 +1202,7 @@
       "title": "Officer Black Belt",
       "hours": 57000000,
       "places": 205,
+      "q": "Q123354234",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1119,6 +1212,7 @@
       "title": "Typhoon Family",
       "hours": 56200000,
       "places": 58,
+      "q": "Q132209543",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -1129,6 +1223,7 @@
       "title": "The Frog",
       "hours": 56100000,
       "places": 83,
+      "q": "Q120240271",
       "verdict": "shared",
       "countries": [
         "France",
@@ -1141,6 +1236,7 @@
       "title": "Mr. Plankton",
       "hours": 55600000,
       "places": 98,
+      "q": "Q124795628",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1150,6 +1246,7 @@
       "title": "Love to Hate You",
       "hours": 54210000,
       "places": 88,
+      "q": "Q110646204",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1159,6 +1256,7 @@
       "title": "Karma",
       "hours": 54200000,
       "places": 93,
+      "q": "Q19599057",
       "verdict": "shared",
       "countries": [
         "British Raj",
@@ -1179,6 +1277,7 @@
       "title": "Thirty-Nine",
       "hours": 52650000,
       "places": 107,
+      "q": "Q108306908",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1188,6 +1287,7 @@
       "title": "The Potato Lab",
       "hours": 51000000,
       "places": 77,
+      "q": "Q131837705",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1197,6 +1297,7 @@
       "title": "Ballerina",
       "hours": 50600000,
       "places": 241,
+      "q": "Q116232642",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -1211,6 +1312,7 @@
       "title": "Human Vapor",
       "hours": 50500000,
       "places": 40,
+      "q": "Q136735821",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -1221,6 +1323,7 @@
       "title": "The Uncanny Counter",
       "hours": 50000000,
       "places": 146,
+      "q": "Q98099408",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1230,6 +1333,7 @@
       "title": "My Liberation Notes",
       "hours": 47270000,
       "places": 83,
+      "q": "Q110245384",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1239,6 +1343,7 @@
       "title": "Melo Movie",
       "hours": 46800000,
       "places": 44,
+      "q": "Q131767898",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1248,6 +1353,7 @@
       "title": "Song of the Bandits",
       "hours": 46200000,
       "places": 34,
+      "q": "Q113482392",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1257,13 +1363,15 @@
       "title": "Behind Your Touch",
       "hours": 46000000,
       "places": 96,
-      "verdict": "unknown",
+      "q": "Q117280410",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Desire",
       "hours": 45300000,
       "places": 175,
+      "q": "Q16724515",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -1288,6 +1396,7 @@
       "title": "Love Untangled",
       "hours": 44100000,
       "places": 129,
+      "q": "Q131858995",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1297,6 +1406,7 @@
       "title": "Captivating the King",
       "hours": 44100000,
       "places": 57,
+      "q": "Q123333036",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1306,6 +1416,7 @@
       "title": "Uprising",
       "hours": 42400000,
       "places": 148,
+      "q": "Q123760976",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -1318,6 +1429,7 @@
       "title": "No Tail to Tell",
       "hours": 42300000,
       "places": 73,
+      "q": "Q130241021",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1327,6 +1439,7 @@
       "title": "JUNG_E",
       "hours": 39800000,
       "places": 172,
+      "q": "Q110629546",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1336,6 +1449,7 @@
       "title": "Goodbye Earth",
       "hours": 37900000,
       "places": 50,
+      "q": "Q113504488",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1345,6 +1459,7 @@
       "title": "Kingdom: Ashin of the North",
       "hours": 37140000,
       "places": 135,
+      "q": "Q107639992",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1354,6 +1469,7 @@
       "title": "Humint",
       "hours": 37100000,
       "places": 125,
+      "q": "Q131466792",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1363,6 +1479,7 @@
       "title": "The Pirates: The Last Royal Treasure",
       "hours": 36590000,
       "places": 158,
+      "q": "Q97338678",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1372,6 +1489,7 @@
       "title": "Yaksha: Ruthless Operations",
       "hours": 36520000,
       "places": 143,
+      "q": "Q108101745",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1381,6 +1499,7 @@
       "title": "The Devil's Plan",
       "hours": 35000000,
       "places": 60,
+      "q": "Q122740095",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1390,6 +1509,7 @@
       "title": "A Model Family",
       "hours": 34960000,
       "places": 27,
+      "q": "Q110637991",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1399,6 +1519,7 @@
       "title": "20th Century Girl",
       "hours": 34510000,
       "places": 114,
+      "q": "Q110625579",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1408,6 +1529,7 @@
       "title": "Dangerous Liaisons",
       "hours": 34150000,
       "places": 165,
+      "q": "Q5216112",
       "verdict": "shared",
       "countries": [
         "France",
@@ -1423,6 +1545,7 @@
       "title": "Unlocked",
       "hours": 33090000,
       "places": 145,
+      "q": "Q116178439",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -1434,6 +1557,7 @@
       "title": "Tomorrow",
       "hours": 32800000,
       "places": 135,
+      "q": "Q16724646",
       "verdict": "shared",
       "countries": [
         "Bangladesh",
@@ -1452,6 +1576,7 @@
       "title": "The Bequeathed",
       "hours": 32100000,
       "places": 51,
+      "q": "Q123944011",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1461,6 +1586,7 @@
       "title": "Noise",
       "hours": 31600000,
       "places": 114,
+      "q": "Q133575909",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -1479,6 +1605,7 @@
       "title": "Wall to Wall",
       "hours": 31100000,
       "places": 110,
+      "q": "Q131858979",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -1489,13 +1616,15 @@
       "title": "Mission: Cross",
       "hours": 30700000,
       "places": 70,
-      "verdict": "unknown",
+      "q": "Q123354206",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Revelations",
       "hours": 29800000,
       "places": 112,
+      "q": "Q131858968",
       "verdict": "shared",
       "countries": [
         "India",
@@ -1508,6 +1637,7 @@
       "title": "Mantis",
       "hours": 29600000,
       "places": 117,
+      "q": "Q132731541",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -1518,7 +1648,8 @@
       "title": "Undercover",
       "hours": 28900000,
       "places": 48,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Australia",
         "Belgium",
@@ -1538,6 +1669,7 @@
       "title": "First Love",
       "hours": 28580000,
       "places": 47,
+      "q": "Q19941239",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -1557,6 +1689,7 @@
       "title": "Idol I",
       "hours": 28300000,
       "places": 40,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -1564,6 +1697,7 @@
       "title": "Divorce Attorney Shin",
       "hours": 27190000,
       "places": 49,
+      "q": "Q116178090",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1573,6 +1707,7 @@
       "title": "A Virtuous Business",
       "hours": 27000000,
       "places": 73,
+      "q": "Q127690872",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1582,6 +1717,7 @@
       "title": "Notes from the Last Row",
       "hours": 26700000,
       "places": 29,
+      "q": "Q137836165",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1591,6 +1727,7 @@
       "title": "Believer 2",
       "hours": 26600000,
       "places": 68,
+      "q": "Q116232217",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1600,6 +1737,7 @@
       "title": "The Sound of Magic",
       "hours": 26570000,
       "places": 74,
+      "q": "Q12605565",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1609,6 +1747,7 @@
       "title": "Husbands in Action",
       "hours": 26500000,
       "places": 82,
+      "q": "Q137843012",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1618,6 +1757,7 @@
       "title": "Made in Korea",
       "hours": 25500000,
       "places": 107,
+      "q": "Q124799060",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1627,6 +1767,7 @@
       "title": "Pro Bono",
       "hours": 25400000,
       "places": 40,
+      "q": "Q135923528",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -1637,6 +1778,7 @@
       "title": "Kingdom",
       "hours": 25200000,
       "places": 121,
+      "q": "Q30947892",
       "verdict": "shared",
       "countries": [
         "India",
@@ -1650,6 +1792,7 @@
       "title": "You and Everything Else",
       "hours": 25100000,
       "places": 17,
+      "q": "Q132130031",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1659,6 +1802,7 @@
       "title": "Doom at Your Service",
       "hours": 25000000,
       "places": 26,
+      "q": "Q104846829",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1668,6 +1812,7 @@
       "title": "In the Name of God: A Holy Betrayal",
       "hours": 24530000,
       "places": 24,
+      "q": "Q116972275",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1677,6 +1822,7 @@
       "title": "The Apartment Job",
       "hours": 24100000,
       "places": 34,
+      "q": "Q139455537",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1686,6 +1832,7 @@
       "title": "The Interest of Love",
       "hours": 23340000,
       "places": 51,
+      "q": "Q114457789",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1695,6 +1842,7 @@
       "title": "City Hunter",
       "hours": 23100000,
       "places": 96,
+      "q": "Q16261374",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -1706,6 +1854,7 @@
       "title": "Eve",
       "hours": 22100000,
       "places": 41,
+      "q": "Q111025790",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -1720,6 +1869,7 @@
       "title": "Mimi",
       "hours": 21830000,
       "places": 109,
+      "q": "Q15768419",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -1736,6 +1886,7 @@
       "title": "Happiness",
       "hours": 21760000,
       "places": 123,
+      "q": "Q5652293",
       "verdict": "shared",
       "countries": [
         "Finland",
@@ -1756,6 +1907,7 @@
       "title": "My Name Is Loh Kiwan",
       "hours": 21400000,
       "places": 50,
+      "q": "Q116700659",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1765,6 +1917,7 @@
       "title": "Spooky in Love",
       "hours": 20500000,
       "places": 64,
+      "q": "Q138266416",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1774,6 +1927,7 @@
       "title": "Seoul Vibe",
       "hours": 19630000,
       "places": 45,
+      "q": "Q108067645",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1783,6 +1937,7 @@
       "title": "Dream",
       "hours": 18500000,
       "places": 43,
+      "q": "Q140093114",
       "verdict": "shared",
       "countries": [
         "India",
@@ -1796,6 +1951,7 @@
       "title": "Lookism",
       "hours": 18010000,
       "places": 15,
+      "q": "Q115322550",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -1806,6 +1962,7 @@
       "title": "Oh My Venus",
       "hours": 17520000,
       "places": 47,
+      "q": "Q21059581",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1815,6 +1972,7 @@
       "title": "Ghost Doctor",
       "hours": 17520000,
       "places": 114,
+      "q": "Q109342743",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1824,6 +1982,7 @@
       "title": "Outlaw",
       "hours": 17200000,
       "places": 80,
+      "q": "Q17487135",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -1839,6 +1998,7 @@
       "title": "Dog Days Out",
       "hours": 16800000,
       "places": 38,
+      "q": "Q136443827",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1848,6 +2008,7 @@
       "title": "Agency",
       "hours": 16700000,
       "places": 29,
+      "q": "Q115557959",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1857,6 +2018,7 @@
       "title": "I Can't Live Without You",
       "hours": 15200000,
       "places": 36,
+      "q": "Q128694679",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -1868,6 +2030,7 @@
       "title": "Love and Leashes",
       "hours": 14100000,
       "places": 35,
+      "q": "Q105674145",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1877,6 +2040,7 @@
       "title": "The Influencer",
       "hours": 13700000,
       "places": 56,
+      "q": "Q129271031",
       "verdict": "shared",
       "countries": [
         "Colombia",
@@ -1887,6 +2051,7 @@
       "title": "Grudge",
       "hours": 13230000,
       "places": 14,
+      "q": "Q93736490",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -1897,6 +2062,7 @@
       "title": "The 8th Night",
       "hours": 12300000,
       "places": 24,
+      "q": "Q85985072",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1906,6 +2072,7 @@
       "title": "When the Stars Gossip",
       "hours": 10800000,
       "places": 39,
+      "q": "Q111820593",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1915,6 +2082,7 @@
       "title": "The Tale of Lady Ok",
       "hours": 10700000,
       "places": 48,
+      "q": "Q125288592",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1924,6 +2092,7 @@
       "title": "Youth",
       "hours": 10500000,
       "places": 30,
+      "q": "Q16725366",
       "verdict": "shared",
       "countries": [
         "France",
@@ -1945,6 +2114,7 @@
       "title": "She Would Never Know",
       "hours": 10420000,
       "places": 13,
+      "q": "Q103306641",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1954,6 +2124,7 @@
       "title": "Good News",
       "hours": 10300000,
       "places": 24,
+      "q": "Q131859817",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -1967,6 +2138,7 @@
       "title": "Happy Ending",
       "hours": 10300000,
       "places": 60,
+      "q": "Q139841464",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -1979,6 +2151,7 @@
       "title": "Backstreet Rookie",
       "hours": 10130000,
       "places": 35,
+      "q": "Q91091667",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -1988,13 +2161,15 @@
       "title": "Hotel Del Luna",
       "hours": 9980000,
       "places": 27,
-      "verdict": "unknown",
+      "q": "Q61981835",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Somebody",
       "hours": 9940000,
       "places": 24,
+      "q": "Q133806752",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -2005,6 +2180,7 @@
       "title": "One More Time",
       "hours": 9590000,
       "places": 58,
+      "q": "Q52637887",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -2017,6 +2193,7 @@
       "title": "A Journey",
       "hours": 9500000,
       "places": 24,
+      "q": "Q93739830",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -2030,6 +2207,7 @@
       "title": "Friendly Rivalry",
       "hours": 9200000,
       "places": 16,
+      "q": "Q127800838",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2039,6 +2217,7 @@
       "title": "Queen Mantis",
       "hours": 9100000,
       "places": 38,
+      "q": "Q130596425",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2048,6 +2227,7 @@
       "title": "Once Upon a Small Town",
       "hours": 9050000,
       "places": 24,
+      "q": "Q113611791",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2057,6 +2237,7 @@
       "title": "أصحاب ...ولا أعزّ",
       "hours": 8730000,
       "places": 59,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -2064,6 +2245,7 @@
       "title": "Still Shining",
       "hours": 8600000,
       "places": 12,
+      "q": "Q136752821",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2073,6 +2255,7 @@
       "title": "Monster",
       "hours": 8500000,
       "places": 40,
+      "q": "Q15982937",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2092,6 +2275,7 @@
       "title": "Wonderful Nightmare",
       "hours": 8300000,
       "places": 3,
+      "q": "Q20002716",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2101,6 +2285,7 @@
       "title": "The Match",
       "hours": 7900000,
       "places": 25,
+      "q": "Q16725001",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -2117,6 +2302,7 @@
       "title": "Glitch",
       "hours": 7440000,
       "places": 5,
+      "q": "Q107646135",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2129,6 +2315,7 @@
       "title": "Queen",
       "hours": 7400000,
       "places": 4,
+      "q": "Q12620690",
       "verdict": "shared",
       "countries": [
         "India",
@@ -2141,7 +2328,8 @@
       "title": "UFO",
       "hours": 6710000,
       "places": 17,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Denmark",
         "Turkey",
@@ -2153,6 +2341,7 @@
       "title": "Aema",
       "hours": 6700000,
       "places": 9,
+      "q": "Q134283276",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2162,6 +2351,7 @@
       "title": "Oh My Ghost Clients",
       "hours": 6700000,
       "places": 36,
+      "q": "Q131469214",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2171,6 +2361,7 @@
       "title": "Chicken Nugget",
       "hours": 6600000,
       "places": 19,
+      "q": "Q114347363",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2180,13 +2371,15 @@
       "title": "Lies Hidden in my Garden",
       "hours": 6500000,
       "places": 5,
-      "verdict": "unknown",
+      "q": "Q117865066",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Frankly Speaking",
       "hours": 6400000,
       "places": 26,
+      "q": "Q116947667",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2196,6 +2389,7 @@
       "title": "Rewind",
       "hours": 6100000,
       "places": 10,
+      "q": "Q3428809",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2218,6 +2412,7 @@
       "title": "The Haunted Palace",
       "hours": 5800000,
       "places": 65,
+      "q": "Q126679425",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -2228,6 +2423,7 @@
       "title": "Wonderland",
       "hours": 5600000,
       "places": 22,
+      "q": "Q101010925",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2249,6 +2445,7 @@
       "title": "Exhuma",
       "hours": 5400000,
       "places": 13,
+      "q": "Q117322466",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2258,6 +2455,7 @@
       "title": "The Stone",
       "hours": 5300000,
       "places": 16,
+      "q": "Q17024757",
       "verdict": "shared",
       "countries": [
         "Azerbaijan Soviet Socialist Republic",
@@ -2270,6 +2468,7 @@
       "title": "In Her Place",
       "hours": 5300000,
       "places": 5,
+      "q": "Q18786584",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -2281,6 +2480,7 @@
       "title": "Yadang: The Snitch",
       "hours": 5100000,
       "places": 8,
+      "q": "Q133917515",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2290,13 +2490,15 @@
       "title": "I, the Executioner",
       "hours": 5100000,
       "places": 11,
-      "verdict": "unknown",
+      "q": "Q119680224",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Taxi Driver",
       "hours": 5000000,
       "places": 141,
+      "q": "Q61049966",
       "verdict": "shared",
       "countries": [
         "Ghana",
@@ -2311,6 +2513,7 @@
       "title": "Amazon Bullseye",
       "hours": 4200000,
       "places": 6,
+      "q": "Q123354222",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2320,13 +2523,15 @@
       "title": "GOOD BOY",
       "hours": 3900000,
       "places": 9,
-      "verdict": "unknown",
+      "q": "Q130200788",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Holy Night: Demon Hunters",
       "hours": 3800000,
       "places": 5,
+      "q": "Q130598116",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2336,6 +2541,7 @@
       "title": "Last Summer",
       "hours": 3690000,
       "places": 12,
+      "q": "Q135225888",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2350,6 +2556,7 @@
       "title": "Confidential Assignment 2: International",
       "hours": 3530000,
       "places": 11,
+      "q": "Q105584534",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2359,6 +2566,7 @@
       "title": "Cyber Hell: Exposing an Internet Horror",
       "hours": 3430000,
       "places": 14,
+      "q": "Q111662797",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2368,6 +2576,7 @@
       "title": "The Ugly",
       "hours": 3400000,
       "places": 7,
+      "q": "Q134285109",
       "verdict": "shared",
       "countries": [
         "New Zealand",
@@ -2378,13 +2587,15 @@
       "title": "Escape From Mogadishu",
       "hours": 3260000,
       "places": 10,
-      "verdict": "unknown",
+      "q": "Q107208538",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "No Other Choice",
       "hours": 3200000,
       "places": 6,
+      "q": "Q129906152",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2394,6 +2605,7 @@
       "title": "Deep",
       "hours": 3200000,
       "places": 8,
+      "q": "Q61092545",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -2408,6 +2620,7 @@
       "title": "Concrete Utopia",
       "hours": 3100000,
       "places": 9,
+      "q": "Q106514501",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2417,6 +2630,7 @@
       "title": "Escape",
       "hours": 2900000,
       "places": 16,
+      "q": "Q16724499",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2434,6 +2648,7 @@
       "title": "Ransomed",
       "hours": 2800000,
       "places": 11,
+      "q": "Q119848413",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2443,6 +2658,7 @@
       "title": "Keys to the Heart",
       "hours": 2700000,
       "places": 3,
+      "q": null,
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -2453,6 +2669,7 @@
       "title": "Men of Plastic",
       "hours": 2660000,
       "places": 5,
+      "q": "Q114836415",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2462,6 +2679,7 @@
       "title": "My Wonderful Life",
       "hours": 2500000,
       "places": 1,
+      "q": "Q95951792",
       "verdict": "shared",
       "countries": [
         "Poland",
@@ -2473,6 +2691,7 @@
       "title": "The Point Men",
       "hours": 2460000,
       "places": 10,
+      "q": "Q79998779",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2485,6 +2704,7 @@
       "title": "Sinkhole",
       "hours": 2260000,
       "places": 12,
+      "q": "Q97216877",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2494,6 +2714,7 @@
       "title": "Don't Buy the Seller",
       "hours": 2100000,
       "places": 5,
+      "q": "Q124348204",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2503,6 +2724,7 @@
       "title": "Switch",
       "hours": 2070000,
       "places": 11,
+      "q": "Q115408546",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2520,6 +2742,7 @@
       "title": "Pilot",
       "hours": 2000000,
       "places": 12,
+      "q": "Q123354224",
       "verdict": "shared",
       "countries": [
         "Iran",
@@ -2532,6 +2755,7 @@
       "title": "Rebound",
       "hours": 2000000,
       "places": 5,
+      "q": "Q116882535",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -2545,6 +2769,7 @@
       "title": "Number One",
       "hours": 1900000,
       "places": 4,
+      "q": "Q138504849",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2560,6 +2785,7 @@
       "title": "Sunshine",
       "hours": 1900000,
       "places": 7,
+      "q": "Q21058528",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2578,6 +2804,7 @@
       "title": "Firefighters",
       "hours": 1900000,
       "places": 3,
+      "q": "Q130597773",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2587,6 +2814,7 @@
       "title": "In Our Prime",
       "hours": 1730000,
       "places": 6,
+      "q": "Q110878273",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2598,6 +2826,7 @@
       "title": "The Pact",
       "hours": 1700000,
       "places": 2,
+      "q": "Q134606127",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2614,6 +2843,7 @@
       "title": "Murder Report",
       "hours": 1700000,
       "places": 6,
+      "q": "Q140575514",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2623,6 +2853,7 @@
       "title": "Hopeless",
       "hours": 1700000,
       "places": 6,
+      "q": "Q117666718",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2632,6 +2863,7 @@
       "title": "The Beast",
       "hours": 1600000,
       "places": 5,
+      "q": "Q21710607",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -2647,6 +2879,7 @@
       "title": "Streaming",
       "hours": 1500000,
       "places": 5,
+      "q": "Q133522386",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2656,6 +2889,7 @@
       "title": "A Hard Day",
       "hours": 1260000,
       "places": 3,
+      "q": "Q16734496",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -2666,6 +2900,7 @@
       "title": "The Medium",
       "hours": 1180000,
       "places": 9,
+      "q": "Q107073403",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -2681,6 +2916,7 @@
       "title": "Solo Leveling",
       "hours": 0,
       "places": 255,
+      "q": "Q137843036",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -2691,6 +2927,7 @@
       "title": "Lovely Runner",
       "hours": 0,
       "places": 51,
+      "q": "Q121144610",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2700,6 +2937,7 @@
       "title": "Military Prosecutor Doberman",
       "hours": 0,
       "places": 38,
+      "q": "Q110443756",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2709,6 +2947,7 @@
       "title": "One the Woman",
       "hours": 0,
       "places": 24,
+      "q": "Q107441580",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2718,6 +2957,7 @@
       "title": "Mine",
       "hours": 0,
       "places": 87,
+      "q": "Q105940076",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -2732,6 +2972,7 @@
       "title": "Lawless Lawyer",
       "hours": 0,
       "places": 28,
+      "q": "Q50716289",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2741,6 +2982,7 @@
       "title": "Poong, the Joseon Psychiatrist",
       "hours": 0,
       "places": 28,
+      "q": "Q111459956",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2750,6 +2992,7 @@
       "title": "Jirisan",
       "hours": 0,
       "places": 26,
+      "q": "Q31179387",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2759,6 +3002,7 @@
       "title": "Bulgasal: Immortal Souls",
       "hours": 0,
       "places": 64,
+      "q": "Q109313195",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2768,6 +3012,7 @@
       "title": "Love Scout",
       "hours": 0,
       "places": 54,
+      "q": "Q130211747",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2777,6 +3022,7 @@
       "title": "Sh**ting Stars",
       "hours": 0,
       "places": 70,
+      "q": "Q108869539",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2786,6 +3032,7 @@
       "title": "Unlock My Boss",
       "hours": 0,
       "places": 42,
+      "q": "Q114614616",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2795,6 +3042,7 @@
       "title": "Safe",
       "hours": 0,
       "places": 52,
+      "q": "Q15968271",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2807,6 +3055,7 @@
       "title": "Murderer",
       "hours": 0,
       "places": 7,
+      "q": "Q19000164",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -2817,6 +3066,7 @@
       "title": "Vincenzo",
       "hours": 0,
       "places": 213,
+      "q": "Q101252455",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2826,6 +3076,7 @@
       "title": "Café Minamdang",
       "hours": 0,
       "places": 71,
+      "q": "Q110114981",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2835,6 +3086,7 @@
       "title": "Sell Your Haunted House",
       "hours": 0,
       "places": 21,
+      "q": "Q105943258",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2844,6 +3096,7 @@
       "title": "Believer",
       "hours": 0,
       "places": 17,
+      "q": "Q51748848",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -2855,13 +3108,15 @@
       "title": "Bad And Crazy",
       "hours": 0,
       "places": 19,
-      "verdict": "unknown",
+      "q": "Q108876770",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Police University",
       "hours": 0,
       "places": 16,
+      "q": "Q106582948",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2871,6 +3126,7 @@
       "title": "Tarot",
       "hours": 0,
       "places": 93,
+      "q": "Q127429036",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -2884,6 +3140,7 @@
       "title": "Secret Royal Inspector & Joy",
       "hours": 0,
       "places": 18,
+      "q": "Q108764822",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2893,6 +3150,7 @@
       "title": "The Penthouse: War in Life",
       "hours": 0,
       "places": 63,
+      "q": "Q85987403",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2902,6 +3160,7 @@
       "title": "Missing: The Other Side",
       "hours": 0,
       "places": 26,
+      "q": "Q97420690",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2911,6 +3170,7 @@
       "title": "Dr. Romantic",
       "hours": 0,
       "places": 53,
+      "q": "Q27067918",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2920,6 +3180,7 @@
       "title": "The Cursed",
       "hours": 0,
       "places": 53,
+      "q": "Q85984688",
       "verdict": "shared",
       "countries": [
         "France",
@@ -2931,6 +3192,7 @@
       "title": "Mama",
       "hours": 0,
       "places": 15,
+      "q": "Q18145534",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -2950,6 +3212,7 @@
       "title": "Check in Hanyang",
       "hours": 0,
       "places": 17,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -2957,6 +3220,7 @@
       "title": "The Crowned Clown",
       "hours": 0,
       "places": 27,
+      "q": "Q59398667",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -2966,13 +3230,15 @@
       "title": "My Roommate Is a Gumiho",
       "hours": 0,
       "places": 35,
-      "verdict": "unknown",
+      "q": "Q104903382",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Encounter",
       "hours": 0,
       "places": 35,
+      "q": "Q12963682",
       "verdict": "shared",
       "countries": [
         "India",
@@ -2986,6 +3252,7 @@
       "title": "Through the Darkness",
       "hours": 0,
       "places": 17,
+      "q": "Q107864287",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -2996,6 +3263,7 @@
       "title": "Ghost Ship",
       "hours": 0,
       "places": 23,
+      "q": "Q97212591",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -3010,6 +3278,7 @@
       "title": "Crash Landing on You",
       "hours": 0,
       "places": 187,
+      "q": "Q65258113",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3019,6 +3288,7 @@
       "title": "First Lady",
       "hours": 0,
       "places": 16,
+      "q": "Q135747753",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -3030,6 +3300,7 @@
       "title": "The Devil Judge",
       "hours": 0,
       "places": 12,
+      "q": "Q105324923",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3039,6 +3310,7 @@
       "title": "Dare to Love Me",
       "hours": 0,
       "places": 9,
+      "q": "Q125398232",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3048,6 +3320,7 @@
       "title": "Summer Strike",
       "hours": 0,
       "places": 12,
+      "q": "Q114875974",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3057,6 +3330,7 @@
       "title": "Only You",
       "hours": 0,
       "places": 17,
+      "q": "Q22973678",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -3073,6 +3347,7 @@
       "title": "Love (ft. Marriage and Divorce)",
       "hours": 0,
       "places": 89,
+      "q": "Q104772941",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3082,6 +3357,7 @@
       "title": "Doubt",
       "hours": 0,
       "places": 27,
+      "q": "Q124619385",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -3097,6 +3373,7 @@
       "title": "Unstoppable",
       "hours": 0,
       "places": 10,
+      "q": "Q55106096",
       "verdict": "shared",
       "countries": [
         "India",
@@ -3109,6 +3386,7 @@
       "title": "Tunnel",
       "hours": 0,
       "places": 14,
+      "q": "Q28700201",
       "verdict": "shared",
       "countries": [
         "Nigeria",
@@ -3120,6 +3398,7 @@
       "title": "Connection",
       "hours": 0,
       "places": 10,
+      "q": "Q124043194",
       "verdict": "shared",
       "countries": [
         "India",
@@ -3130,6 +3409,7 @@
       "title": "The Auditors",
       "hours": 0,
       "places": 6,
+      "q": "Q125968286",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3139,6 +3419,7 @@
       "title": "Man in Love",
       "hours": 0,
       "places": 30,
+      "q": "Q15982923",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3148,6 +3429,7 @@
       "title": "Black Out",
       "hours": 0,
       "places": 7,
+      "q": "Q126416080",
       "verdict": "shared",
       "countries": [
         "France",
@@ -3163,6 +3445,7 @@
       "title": "The Swindlers",
       "hours": 0,
       "places": 7,
+      "q": "Q24862776",
       "verdict": "shared",
       "countries": [
         "Greece",
@@ -3174,6 +3457,7 @@
       "title": "Mr. Robot",
       "hours": 0,
       "places": 74,
+      "q": "Q133826569",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3184,6 +3468,7 @@
       "title": "Inspector Koo",
       "hours": 0,
       "places": 29,
+      "q": "Q107817259",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3193,6 +3478,7 @@
       "title": "The Fabulous",
       "hours": 0,
       "places": 5,
+      "q": "Q110638016",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3202,6 +3488,7 @@
       "title": "Hunt",
       "hours": 0,
       "places": 10,
+      "q": "Q111601995",
       "verdict": "shared",
       "countries": [
         "India",
@@ -3215,6 +3502,7 @@
       "title": "Hello Ghost",
       "hours": 0,
       "places": 15,
+      "q": "Q5232957",
       "verdict": "shared",
       "countries": [
         "Indonesia",
@@ -3226,6 +3514,7 @@
       "title": "Train to Busan",
       "hours": 0,
       "places": 11,
+      "q": "Q20948236",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3235,6 +3524,7 @@
       "title": "The Divine Fury",
       "hours": 0,
       "places": 9,
+      "q": "Q56461564",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3244,6 +3534,7 @@
       "title": "Extreme Job",
       "hours": 0,
       "places": 17,
+      "q": "Q55106022",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3253,6 +3544,7 @@
       "title": "Reply 1988",
       "hours": 0,
       "places": 44,
+      "q": "Q19657395",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3262,6 +3554,7 @@
       "title": "Cleaning Up",
       "hours": 0,
       "places": 20,
+      "q": "Q111384306",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3273,6 +3566,7 @@
       "title": "Band of Brothers",
       "hours": 0,
       "places": 38,
+      "q": "Q4854249",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3283,6 +3577,7 @@
       "title": "Babel",
       "hours": 0,
       "places": 13,
+      "q": "Q61017351",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -3296,6 +3591,7 @@
       "title": "Red Eye",
       "hours": 0,
       "places": 54,
+      "q": "Q483307",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3307,6 +3603,7 @@
       "title": "Birthcare Center",
       "hours": 0,
       "places": 8,
+      "q": "Q96742850",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3316,6 +3613,7 @@
       "title": "Zombie Detective",
       "hours": 0,
       "places": 5,
+      "q": "Q97195534",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3325,6 +3623,7 @@
       "title": "All In",
       "hours": 0,
       "places": 4,
+      "q": "Q483139",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3336,6 +3635,7 @@
       "title": "The Winning Try",
       "hours": 0,
       "places": 16,
+      "q": "Q132888605",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3345,6 +3645,7 @@
       "title": "Racket Boys",
       "hours": 0,
       "places": 22,
+      "q": "Q105987655",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3354,6 +3655,7 @@
       "title": "My ID is Gangnam Beauty",
       "hours": 0,
       "places": 23,
+      "q": "Q55038915",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3363,6 +3665,7 @@
       "title": "Homemade Love Story",
       "hours": 0,
       "places": 5,
+      "q": "Q97233788",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3372,6 +3675,7 @@
       "title": "My Annoying Brother",
       "hours": 0,
       "places": 5,
+      "q": "Q22100066",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3381,6 +3685,7 @@
       "title": "One Night Stand",
       "hours": 0,
       "places": 4,
+      "q": "Q19161888",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -3397,6 +3702,7 @@
       "title": "Vanished",
       "hours": 0,
       "places": 5,
+      "q": "Q19603697",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -3412,6 +3718,7 @@
       "title": "Collectors",
       "hours": 0,
       "places": 4,
+      "q": "Q100945934",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3421,6 +3728,7 @@
       "title": "Midnight Runners",
       "hours": 0,
       "places": 6,
+      "q": "Q28700706",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3430,6 +3738,7 @@
       "title": "Project Wolf Hunting",
       "hours": 0,
       "places": 10,
+      "q": "Q113407742",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3439,6 +3748,7 @@
       "title": "Wild Card",
       "hours": 0,
       "places": 21,
+      "q": "Q12608351",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3449,6 +3759,7 @@
       "title": "Hitman: Agent Jun",
       "hours": 0,
       "places": 9,
+      "q": "Q79999337",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3458,13 +3769,15 @@
       "title": "Marry YOU",
       "hours": 0,
       "places": 5,
-      "verdict": "unknown",
+      "q": "Q130749079",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Possessed",
       "hours": 0,
       "places": 3,
+      "q": "Q108033569",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -3482,6 +3795,7 @@
       "title": "Itaewon Class",
       "hours": 0,
       "places": 74,
+      "q": "Q65283099",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3491,6 +3805,7 @@
       "title": "Inside Men",
       "hours": 0,
       "places": 6,
+      "q": "Q20780511",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3501,6 +3816,7 @@
       "title": "Reset",
       "hours": 0,
       "places": 5,
+      "q": "Q136358509",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -3515,6 +3831,7 @@
       "title": "Commitment",
       "hours": 0,
       "places": 3,
+      "q": "Q5152897",
       "verdict": "shared",
       "countries": [
         "India",
@@ -3526,6 +3843,7 @@
       "title": "Stepmom",
       "hours": 0,
       "places": 33,
+      "q": "Q139840449",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3537,6 +3855,7 @@
       "title": "What's Wrong with Secretary Kim",
       "hours": 0,
       "places": 15,
+      "q": "Q51661554",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -3547,6 +3866,7 @@
       "title": "Peninsula",
       "hours": 0,
       "places": 11,
+      "q": "Q65061643",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3556,6 +3876,7 @@
       "title": "Agents of Mystery",
       "hours": 0,
       "places": 11,
+      "q": "Q124829354",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3565,6 +3886,7 @@
       "title": "Tale of the Nine Tailed",
       "hours": 0,
       "places": 17,
+      "q": "Q97194459",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3574,6 +3896,7 @@
       "title": "New World",
       "hours": 0,
       "places": 4,
+      "q": "Q6408823",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -3584,6 +3907,7 @@
       "title": "Law School",
       "hours": 0,
       "places": 3,
+      "q": "Q105360413",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3593,6 +3917,7 @@
       "title": "Operation Chromite",
       "hours": 0,
       "places": 3,
+      "q": "Q21780588",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3602,6 +3927,7 @@
       "title": "Delightfully Deceitful",
       "hours": 0,
       "places": 4,
+      "q": "Q117085988",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3611,6 +3937,7 @@
       "title": "Alive",
       "hours": 0,
       "places": 6,
+      "q": "Q26211595",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -3627,6 +3954,7 @@
       "title": "Snowpiercer",
       "hours": 0,
       "places": 60,
+      "q": "Q492908",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -3639,6 +3967,7 @@
       "title": "Trolley",
       "hours": 0,
       "places": 9,
+      "q": "Q111458428",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3648,6 +3977,7 @@
       "title": "Big",
       "hours": 0,
       "places": 12,
+      "q": "Q488633",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3658,6 +3988,7 @@
       "title": "It's Okay to Not Be Okay",
       "hours": 0,
       "places": 13,
+      "q": "Q79997183",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -3668,6 +3999,7 @@
       "title": "Vagabond",
       "hours": 0,
       "places": 8,
+      "q": "Q55695457",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -3680,6 +4012,7 @@
       "title": "Bad Guys",
       "hours": 0,
       "places": 7,
+      "q": "Q17987202",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3690,6 +4023,7 @@
       "title": "More Than Blue",
       "hours": 0,
       "places": 5,
+      "q": "Q6911066",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3699,6 +4033,7 @@
       "title": "6/45",
       "hours": 0,
       "places": 7,
+      "q": "Q111948809",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3708,6 +4043,7 @@
       "title": "The Childe",
       "hours": 0,
       "places": 8,
+      "q": "Q111940050",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3717,13 +4053,15 @@
       "title": "PROJECT SILENCE",
       "hours": 0,
       "places": 8,
-      "verdict": "unknown",
+      "q": "Q117842179",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Love Reset",
       "hours": 0,
       "places": 3,
+      "q": "Q116795756",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3733,6 +4071,7 @@
       "title": "Smugglers",
       "hours": 0,
       "places": 3,
+      "q": "Q116442876",
       "verdict": "shared",
       "countries": [
         "British Hong Kong",
@@ -3743,6 +4082,7 @@
       "title": "The Promise",
       "hours": 0,
       "places": 37,
+      "q": "Q22569625",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -3764,6 +4104,7 @@
       "title": "Prison Playbook",
       "hours": 0,
       "places": 33,
+      "q": "Q39059594",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3773,6 +4114,7 @@
       "title": "Impetigore",
       "hours": 0,
       "places": 5,
+      "q": "Q65212218",
       "verdict": "shared",
       "countries": [
         "Indonesia",
@@ -3784,6 +4126,7 @@
       "title": "Miracle in Cell No. 7",
       "hours": 0,
       "places": 6,
+      "q": "Q3809340",
       "verdict": "shared",
       "countries": [
         "Indonesia",
@@ -3796,6 +4139,7 @@
       "title": "Memory",
       "hours": 0,
       "places": 58,
+      "q": "Q117431971",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -3812,6 +4156,7 @@
       "title": "Fearless Love",
       "hours": 0,
       "places": 3,
+      "q": "Q16184061",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3821,6 +4166,7 @@
       "title": "Midnight",
       "hours": 0,
       "places": 5,
+      "q": "Q106996423",
       "verdict": "shared",
       "countries": [
         "Brazil",
@@ -3838,6 +4184,7 @@
       "title": "Descendants of the Sun",
       "hours": 0,
       "places": 4,
+      "q": "Q18652415",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -3848,6 +4195,7 @@
       "title": "The Roundup: No Way Out",
       "hours": 0,
       "places": 2,
+      "q": "Q113317051",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -3857,6 +4205,7 @@
       "title": "Cobweb",
       "hours": 0,
       "places": 8,
+      "q": "Q112892327",
       "verdict": "shared",
       "countries": [
         "Hungary",
@@ -3868,6 +4217,7 @@
       "title": "The Closet",
       "hours": 0,
       "places": 1,
+      "q": "Q65058433",
       "verdict": "shared",
       "countries": [
         "France",
@@ -3879,6 +4229,7 @@
       "title": "Live",
       "hours": 0,
       "places": 5,
+      "q": "Q42778231",
       "verdict": "shared",
       "countries": [
         "Bangladesh",
@@ -3893,6 +4244,7 @@
       "title": "Parasite",
       "hours": 0,
       "places": 11,
+      "q": "Q61448040",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3904,13 +4256,15 @@
       "title": "The Gangster, The Cop, The Devil",
       "hours": 0,
       "places": 7,
-      "verdict": "unknown",
+      "q": "Q63198576",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "The Roundup",
       "hours": 0,
       "places": 5,
+      "q": "Q109355923",
       "verdict": "shared",
       "countries": [
         "Greece",
@@ -3921,6 +4275,7 @@
       "title": "Time",
       "hours": 0,
       "places": 5,
+      "q": "Q483909",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -3936,6 +4291,7 @@
       "title": "Nocturnal",
       "hours": 0,
       "places": 15,
+      "q": "Q131545925",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -3947,6 +4303,7 @@
       "title": "Love in the Big City",
       "hours": 0,
       "places": 11,
+      "q": "Q121323115",
       "verdict": "shared",
       "countries": [
         "Russia",
@@ -3959,6 +4316,7 @@
       "title": "Ghost House",
       "hours": 0,
       "places": 2,
+      "q": "Q624731",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3970,6 +4328,7 @@
       "title": "Countdown",
       "hours": 0,
       "places": 6,
+      "q": "Q5176830",
       "verdict": "shared",
       "countries": [
         "Armenia",
@@ -3988,6 +4347,7 @@
       "title": "Urban Myths",
       "hours": 0,
       "places": 4,
+      "q": "Q111450541",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -3998,6 +4358,7 @@
       "title": "The Assassin",
       "hours": 0,
       "places": 2,
+      "q": "Q115904584",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4014,6 +4375,7 @@
       "title": "The Prison",
       "hours": 0,
       "places": 6,
+      "q": "Q23994924",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4023,6 +4385,7 @@
       "title": "I",
       "hours": 0,
       "places": 3,
+      "q": "Q93737175",
       "verdict": "shared",
       "countries": [
         "India",
@@ -4036,6 +4399,7 @@
       "title": "Stepmother",
       "hours": 0,
       "places": 9,
+      "q": "Q12600647",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4045,6 +4409,7 @@
       "title": "Fireworks",
       "hours": 0,
       "places": 10,
+      "q": "Q626986",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -4061,6 +4426,7 @@
       "title": "Take Point",
       "hours": 0,
       "places": 2,
+      "q": "Q50676956",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4070,6 +4436,7 @@
       "title": "Gangnam Zombie",
       "hours": 0,
       "places": 2,
+      "q": "Q115136778",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4079,6 +4446,7 @@
       "title": "Seobok",
       "hours": 0,
       "places": 3,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4086,6 +4454,7 @@
       "title": "Guardian: The Lonely and Great God",
       "hours": 0,
       "places": 24,
+      "q": "Q24859151",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4095,6 +4464,7 @@
       "title": "The Real Has Come!",
       "hours": 0,
       "places": 5,
+      "q": "Q116687949",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4104,6 +4474,7 @@
       "title": "Once Again",
       "hours": 0,
       "places": 12,
+      "q": "Q79997078",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -4119,6 +4490,7 @@
       "title": "In Between",
       "hours": 0,
       "places": 3,
+      "q": "Q19598835",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4137,6 +4509,7 @@
       "title": "Love Child",
       "hours": 0,
       "places": 2,
+      "q": "Q17071771",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4151,6 +4524,7 @@
       "title": "Voice",
       "hours": 0,
       "places": 3,
+      "q": "Q7939473",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -4164,6 +4538,7 @@
       "title": "The Lord Musang King",
       "hours": 0,
       "places": 1,
+      "q": "Q136691879",
       "verdict": "shared",
       "countries": [
         "Malaysia",
@@ -4174,6 +4549,7 @@
       "title": "Come Back Home",
       "hours": 0,
       "places": 1,
+      "q": "Q113550153",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -4184,6 +4560,7 @@
       "title": "18 Again",
       "hours": 0,
       "places": 7,
+      "q": "Q97421688",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4193,6 +4570,7 @@
       "title": "Green Mothers' Club",
       "hours": 0,
       "places": 19,
+      "q": "Q110264048",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4202,6 +4580,7 @@
       "title": "Pure Love",
       "hours": 0,
       "places": 3,
+      "q": "Q16724991",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -4213,6 +4592,7 @@
       "title": "My Golden Life",
       "hours": 0,
       "places": 3,
+      "q": "Q31177380",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4222,6 +4602,7 @@
       "title": "Sleep",
       "hours": 0,
       "places": 5,
+      "q": "Q117793835",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -4234,6 +4615,7 @@
       "title": "Recalled",
       "hours": 0,
       "places": 2,
+      "q": "Q106541036",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4243,6 +4625,7 @@
       "title": "Miracle in Cell No.7",
       "hours": 0,
       "places": 1,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4250,6 +4633,7 @@
       "title": "Miss & Mrs. Cops",
       "hours": 0,
       "places": 1,
+      "q": "Q62624418",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4259,6 +4643,7 @@
       "title": "Persona: Sulli",
       "hours": 0,
       "places": 2,
+      "q": "Q119853872",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4268,6 +4653,7 @@
       "title": "I Need Romance",
       "hours": 0,
       "places": 6,
+      "q": "Q491414",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4277,6 +4663,7 @@
       "title": "A Korean Odyssey",
       "hours": 0,
       "places": 8,
+      "q": "Q41948223",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4286,6 +4673,7 @@
       "title": "Birth of a Beauty",
       "hours": 0,
       "places": 6,
+      "q": "Q18116666",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4295,6 +4683,7 @@
       "title": "The Moon",
       "hours": 0,
       "places": 6,
+      "q": "Q118286995",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4306,6 +4695,7 @@
       "title": "The World of the Married",
       "hours": 0,
       "places": 8,
+      "q": "Q79997161",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4315,6 +4705,7 @@
       "title": "The Policeman's Lineage",
       "hours": 0,
       "places": 7,
+      "q": "Q109743680",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4324,6 +4715,7 @@
       "title": "Respect",
       "hours": 0,
       "places": 1,
+      "q": "Q65247791",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -4337,6 +4729,7 @@
       "title": "Arthdal Chronicles",
       "hours": 0,
       "places": 1,
+      "q": "Q56063639",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4346,6 +4739,7 @@
       "title": "Diary of a Prosecutor",
       "hours": 0,
       "places": 6,
+      "q": "Q65234954",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4355,6 +4749,7 @@
       "title": "You Are the Apple of My Eye",
       "hours": 0,
       "places": 2,
+      "q": "Q130265921",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -4366,6 +4761,7 @@
       "title": "While You Were Sleeping",
       "hours": 0,
       "places": 4,
+      "q": "Q130598182",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4376,6 +4772,7 @@
       "title": "Abyss",
       "hours": 0,
       "places": 3,
+      "q": "Q61095392",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4385,6 +4782,7 @@
       "title": "Start-Up",
       "hours": 0,
       "places": 4,
+      "q": "Q65267829",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -4395,6 +4793,7 @@
       "title": "The K2",
       "hours": 0,
       "places": 2,
+      "q": "Q25916838",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4404,6 +4803,7 @@
       "title": "We Are All Trying Here",
       "hours": 0,
       "places": 11,
+      "q": "Q137843064",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4413,6 +4813,7 @@
       "title": "Knight Flower",
       "hours": 0,
       "places": 1,
+      "q": "Q117431043",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4422,6 +4823,7 @@
       "title": "The Divine Move 2: The Wrathful",
       "hours": 0,
       "places": 1,
+      "q": "Q72931135",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4431,6 +4833,7 @@
       "title": "Now and Forever",
       "hours": 0,
       "places": 1,
+      "q": "Q7065899",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4444,6 +4847,7 @@
       "title": "To Be Continued",
       "hours": 0,
       "places": 1,
+      "q": "Q20898086",
       "verdict": "shared",
       "countries": [
         "Latvia",
@@ -4456,6 +4860,7 @@
       "title": "Along with the Gods: The Two Worlds",
       "hours": 0,
       "places": 3,
+      "q": "Q26252639",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4465,6 +4870,7 @@
       "title": "Pinocchio",
       "hours": 0,
       "places": 3,
+      "q": "Q17401474",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -4484,6 +4890,7 @@
       "title": "The Echoes of Survivors: Inside Korea’s Tragedies",
       "hours": 0,
       "places": 7,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4491,6 +4898,7 @@
       "title": "Metamorphosis",
       "hours": 0,
       "places": 2,
+      "q": "Q66991809",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -4509,6 +4917,7 @@
       "title": "Spring of Youth",
       "hours": 0,
       "places": 1,
+      "q": "Q131541824",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4518,6 +4927,7 @@
       "title": "Like Flowers in Sand",
       "hours": 0,
       "places": 4,
+      "q": "Q123370376",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4527,6 +4937,7 @@
       "title": "Umma",
       "hours": 0,
       "places": 1,
+      "q": "Q117431940",
       "verdict": "shared",
       "countries": [
         "India",
@@ -4538,6 +4949,7 @@
       "title": "Reflection of You",
       "hours": 0,
       "places": 9,
+      "q": "Q107467167",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4547,6 +4959,7 @@
       "title": "Luck-Key",
       "hours": 0,
       "places": 1,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4554,6 +4967,7 @@
       "title": "Anchor",
       "hours": 0,
       "places": 1,
+      "q": "Q79999246",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4563,6 +4977,7 @@
       "title": "The Night Owl",
       "hours": 0,
       "places": 4,
+      "q": "Q114767372",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4573,6 +4988,7 @@
       "title": "Along with the Gods: The Last 49 Days",
       "hours": 0,
       "places": 3,
+      "q": "Q54803694",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4582,6 +4998,7 @@
       "title": "Secret Zoo",
       "hours": 0,
       "places": 1,
+      "q": "Q79999312",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4591,6 +5008,7 @@
       "title": "Memoir of a Murderer",
       "hours": 0,
       "places": 1,
+      "q": "Q21577091",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4600,6 +5018,7 @@
       "title": "The Negotiation",
       "hours": 0,
       "places": 3,
+      "q": "Q30612784",
       "verdict": "shared",
       "countries": [
         "Colombia",
@@ -4611,6 +5030,7 @@
       "title": "Space Sweepers",
       "hours": 0,
       "places": 1,
+      "q": "Q65267432",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4620,6 +5040,7 @@
       "title": "High Society",
       "hours": 0,
       "places": 4,
+      "q": "Q55105802",
       "verdict": "shared",
       "countries": [
         "France",
@@ -4633,6 +5054,7 @@
       "title": "When the Weather Is Fine",
       "hours": 0,
       "places": 2,
+      "q": "Q76598163",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4642,6 +5064,7 @@
       "title": "The Red Sleeve",
       "hours": 0,
       "places": 2,
+      "q": "Q106945342",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4651,6 +5074,7 @@
       "title": "The Way Back",
       "hours": 0,
       "places": 25,
+      "q": "Q20444153",
       "verdict": "shared",
       "countries": [
         "India",
@@ -4664,6 +5088,7 @@
       "title": "Yesterday",
       "hours": 0,
       "places": 14,
+      "q": "Q8052973",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4686,6 +5111,7 @@
       "title": "Dog Days",
       "hours": 0,
       "places": 4,
+      "q": "Q124499929",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -4699,6 +5125,7 @@
       "title": "A Werewolf Boy",
       "hours": 0,
       "places": 3,
+      "q": "Q115890",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4708,6 +5135,7 @@
       "title": "RV: Resurrected Victims",
       "hours": 0,
       "places": 1,
+      "q": "Q30637480",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4717,6 +5145,7 @@
       "title": "SKY Castle",
       "hours": 0,
       "places": 1,
+      "q": "Q58213269",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4726,6 +5155,7 @@
       "title": "The Merciless",
       "hours": 0,
       "places": 1,
+      "q": "Q29571847",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4735,6 +5165,7 @@
       "title": "The Berlin File",
       "hours": 0,
       "places": 2,
+      "q": "Q3943872",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4744,6 +5175,7 @@
       "title": "The Fiery Priest",
       "hours": 0,
       "places": 2,
+      "q": "Q58483854",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -4753,6 +5185,7 @@
       "title": "Gossip Girl",
       "hours": 0,
       "places": 137,
+      "q": "Q139840237",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4763,13 +5196,15 @@
       "title": "I am Solo",
       "hours": 0,
       "places": 110,
-      "verdict": "unknown",
+      "q": "Q113548365",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Awake",
       "hours": 0,
       "places": 79,
+      "q": "Q130598223",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -4781,6 +5216,7 @@
       "title": "Boys Over Flowers",
       "hours": 0,
       "places": 76,
+      "q": "Q482653",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -4791,6 +5227,7 @@
       "title": "Spy",
       "hours": 0,
       "places": 61,
+      "q": "Q18575710",
       "verdict": "shared",
       "countries": [
         "India",
@@ -4805,7 +5242,8 @@
       "title": "Land",
       "hours": 0,
       "places": 53,
-      "verdict": "noKorea",
+      "q": "Q136691896",
+      "verdict": "shared",
       "countries": [
         "Canada",
         "France",
@@ -4818,6 +5256,7 @@
       "title": "Barbie",
       "hours": 0,
       "places": 50,
+      "q": "Q20444599",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4829,6 +5268,7 @@
       "title": "Watcher",
       "hours": 0,
       "places": 50,
+      "q": "Q63313397",
       "verdict": "shared",
       "countries": [
         "Romania",
@@ -4841,6 +5281,7 @@
       "title": "Scent of a Woman",
       "hours": 0,
       "places": 49,
+      "q": "Q487101",
       "verdict": "shared",
       "countries": [
         "Italy",
@@ -4852,6 +5293,7 @@
       "title": "Family Business",
       "hours": 0,
       "places": 46,
+      "q": "Q65233787",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -4866,6 +5308,7 @@
       "title": "Last Holiday",
       "hours": 0,
       "places": 44,
+      "q": "Q109458414",
       "verdict": "shared",
       "countries": [
         "Kazakhstan",
@@ -4878,6 +5321,7 @@
       "title": "Champion",
       "hours": 0,
       "places": 42,
+      "q": "Q5069958",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -4891,6 +5335,7 @@
       "title": "Angel Eyes",
       "hours": 0,
       "places": 40,
+      "q": "Q79999129",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -4901,6 +5346,7 @@
       "title": "Addicted",
       "hours": 0,
       "places": 34,
+      "q": "Q592391",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -4913,6 +5359,7 @@
       "title": "شباب البومب 2",
       "hours": 0,
       "places": 24,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4920,6 +5367,7 @@
       "title": "Alice",
       "hours": 0,
       "places": 24,
+      "q": "Q85982239",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -4943,6 +5391,7 @@
       "title": "Flower of Evil",
       "hours": 0,
       "places": 24,
+      "q": "Q85982056",
       "verdict": "shared",
       "countries": [
         "Italy",
@@ -4954,6 +5403,7 @@
       "title": "Mr. Sunshine",
       "hours": 0,
       "places": 23,
+      "q": "Q32846647",
       "verdict": "shared",
       "countries": [
         "Hong Kong",
@@ -4965,7 +5415,8 @@
       "title": "Modern Family",
       "hours": 0,
       "places": 22,
-      "verdict": "noKorea",
+      "q": "Q19939271",
+      "verdict": "shared",
       "countries": [
         "United States"
       ]
@@ -4974,6 +5425,7 @@
       "title": "العنكبوت",
       "hours": 0,
       "places": 21,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -4981,6 +5433,7 @@
       "title": "Wanted",
       "hours": 0,
       "places": 20,
+      "q": "Q18815846",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5002,6 +5455,7 @@
       "title": "My Son",
       "hours": 0,
       "places": 20,
+      "q": "Q4189052",
       "verdict": "shared",
       "countries": [
         "France",
@@ -5017,6 +5471,7 @@
       "title": "Waves",
       "hours": 0,
       "places": 18,
+      "q": "Q16725421",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -5030,6 +5485,7 @@
       "title": "The Net",
       "hours": 0,
       "places": 18,
+      "q": "Q27581922",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -5044,6 +5500,7 @@
       "title": "Destiny",
       "hours": 0,
       "places": 17,
+      "q": "Q19599331",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -5064,6 +5521,7 @@
       "title": "Mickey 17",
       "hours": 0,
       "places": 16,
+      "q": "Q112977213",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5074,6 +5532,7 @@
       "title": "Reminiscence",
       "hours": 0,
       "places": 15,
+      "q": "Q16725390",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -5087,6 +5546,7 @@
       "title": "Heroes",
       "hours": 0,
       "places": 15,
+      "q": "Q486639",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -5106,6 +5566,7 @@
       "title": "Life",
       "hours": 0,
       "places": 15,
+      "q": "Q47115326",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5129,6 +5590,7 @@
       "title": "وحش أمينة",
       "hours": 0,
       "places": 15,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5136,6 +5598,7 @@
       "title": "وحش - عرس النار",
       "hours": 0,
       "places": 15,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5143,6 +5606,7 @@
       "title": "Bodyguard",
       "hours": 0,
       "places": 15,
+      "q": "Q130597754",
       "verdict": "shared",
       "countries": [
         "India",
@@ -5156,6 +5620,7 @@
       "title": "Revenge",
       "hours": 0,
       "places": 14,
+      "q": "Q16725187",
       "verdict": "shared",
       "countries": [
         "Bangladesh",
@@ -5180,6 +5645,7 @@
       "title": "وحش حولي",
       "hours": 0,
       "places": 14,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5187,6 +5653,7 @@
       "title": "Poseidon",
       "hours": 0,
       "places": 13,
+      "q": "Q492407",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5197,6 +5664,7 @@
       "title": "Honeymoon",
       "hours": 0,
       "places": 13,
+      "q": "Q19349424",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5221,6 +5689,7 @@
       "title": "Night in Paradise",
       "hours": 0,
       "places": 13,
+      "q": "Q97766123",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -5233,6 +5702,7 @@
       "title": "Island",
       "hours": 0,
       "places": 12,
+      "q": "Q21709963",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5248,6 +5718,7 @@
       "title": "Doctor John",
       "hours": 0,
       "places": 12,
+      "q": "Q62030503",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5257,6 +5728,7 @@
       "title": "12.12: The Day",
       "hours": 0,
       "places": 12,
+      "q": "Q115858816",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5266,6 +5738,7 @@
       "title": "Good Partner",
       "hours": 0,
       "places": 12,
+      "q": "Q124749480",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5275,6 +5748,7 @@
       "title": "Holy Punch",
       "hours": 0,
       "places": 12,
+      "q": "Q130598180",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5284,6 +5758,7 @@
       "title": "Ashfall",
       "hours": 0,
       "places": 11,
+      "q": "Q73993691",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5293,6 +5768,7 @@
       "title": "Love me",
       "hours": 0,
       "places": 11,
+      "q": null,
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5302,6 +5778,7 @@
       "title": "The Killing Vote",
       "hours": 0,
       "places": 11,
+      "q": "Q116907485",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5311,6 +5788,7 @@
       "title": "وحش البنوك",
       "hours": 0,
       "places": 10,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5318,6 +5796,7 @@
       "title": "Sweethearts",
       "hours": 0,
       "places": 10,
+      "q": "Q22974494",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5333,6 +5812,7 @@
       "title": "Mothers",
       "hours": 0,
       "places": 10,
+      "q": "Q33101662",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -5348,6 +5828,7 @@
       "title": "Godsend",
       "hours": 0,
       "places": 10,
+      "q": "Q18145924",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5359,6 +5840,7 @@
       "title": "Awaken",
       "hours": 0,
       "places": 10,
+      "q": "Q85975839",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -5371,6 +5853,7 @@
       "title": "To My Beloved Thief",
       "hours": 0,
       "places": 10,
+      "q": "Q136091871",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5380,6 +5863,7 @@
       "title": "Red Balloon",
       "hours": 0,
       "places": 10,
+      "q": "Q113611219",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5391,6 +5875,7 @@
       "title": "Midnight Sun",
       "hours": 0,
       "places": 9,
+      "q": "Q134426748",
       "verdict": "shared",
       "countries": [
         "Iran",
@@ -5402,6 +5887,7 @@
       "title": "Moving On",
       "hours": 0,
       "places": 9,
+      "q": "Q85438284",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5415,6 +5901,7 @@
       "title": "Morning Glory",
       "hours": 0,
       "places": 9,
+      "q": "Q12589676",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5427,6 +5914,7 @@
       "title": "Hot Stove League",
       "hours": 0,
       "places": 9,
+      "q": "Q66827067",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5436,6 +5924,7 @@
       "title": "About Family",
       "hours": 0,
       "places": 9,
+      "q": "Q130597944",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5445,6 +5934,7 @@
       "title": "Family by Choice",
       "hours": 0,
       "places": 9,
+      "q": "Q124611032",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5454,6 +5944,7 @@
       "title": "Citizen of a Kind",
       "hours": 0,
       "places": 9,
+      "q": "Q115778970",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5463,6 +5954,7 @@
       "title": "The Witch: Part 1 - The Subversion",
       "hours": 0,
       "places": 9,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5470,6 +5962,7 @@
       "title": "The Boy Next Door",
       "hours": 0,
       "places": 8,
+      "q": "Q22974343",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5481,6 +5974,7 @@
       "title": "The Vanished",
       "hours": 0,
       "places": 8,
+      "q": "Q30612786",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5493,6 +5987,7 @@
       "title": "Father",
       "hours": 0,
       "places": 8,
+      "q": "Q19940320",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5514,13 +6009,15 @@
       "title": "All For Love",
       "hours": 0,
       "places": 8,
-      "verdict": "unknown",
+      "q": "Q4729958",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "(Girl)Friend",
       "hours": 0,
       "places": 8,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5528,6 +6025,7 @@
       "title": "Doctor Prisoner",
       "hours": 0,
       "places": 8,
+      "q": "Q60643360",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5537,6 +6035,7 @@
       "title": "The Dream Life of Mr. Kim",
       "hours": 0,
       "places": 8,
+      "q": "Q136243480",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5546,6 +6045,7 @@
       "title": "My Mister",
       "hours": 0,
       "places": 8,
+      "q": "Q43111245",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5555,6 +6055,7 @@
       "title": "Holi-Day",
       "hours": 0,
       "places": 8,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5562,6 +6063,7 @@
       "title": "Soil",
       "hours": 0,
       "places": 7,
+      "q": "Q12626168",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -5574,6 +6076,7 @@
       "title": "The House",
       "hours": 0,
       "places": 7,
+      "q": "Q79999282",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -5594,6 +6097,7 @@
       "title": "حظك اليوم",
       "hours": 0,
       "places": 7,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5601,7 +6105,8 @@
       "title": "Deliver Us from Evil",
       "hours": 0,
       "places": 7,
-      "verdict": "noKorea",
+      "q": "Q93739110",
+      "verdict": "shared",
       "countries": [
         "Canada",
         "Denmark",
@@ -5614,6 +6119,7 @@
       "title": "When My Love Blooms",
       "hours": 0,
       "places": 7,
+      "q": "Q85989135",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5623,6 +6129,7 @@
       "title": "Honour",
       "hours": 0,
       "places": 7,
+      "q": "Q136510752",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5633,6 +6140,7 @@
       "title": "Real Men",
       "hours": 0,
       "places": 7,
+      "q": "Q12618363",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5644,6 +6152,7 @@
       "title": "Touch Your Heart",
       "hours": 0,
       "places": 7,
+      "q": "Q59387181",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5653,6 +6162,7 @@
       "title": "Search WWW",
       "hours": 0,
       "places": 7,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5660,6 +6170,7 @@
       "title": "Insider",
       "hours": 0,
       "places": 7,
+      "q": "Q110979919",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -5670,6 +6181,7 @@
       "title": "Perhaps Love",
       "hours": 0,
       "places": 7,
+      "q": "Q109668267",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5682,6 +6194,7 @@
       "title": "Miracle: Letters to the President",
       "hours": 0,
       "places": 7,
+      "q": "Q106614348",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5691,6 +6204,7 @@
       "title": "Brother",
       "hours": 0,
       "places": 6,
+      "q": "Q16725154",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -5711,6 +6225,7 @@
       "title": "دروب أريكة",
       "hours": 0,
       "places": 6,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5718,6 +6233,7 @@
       "title": "Solace",
       "hours": 0,
       "places": 6,
+      "q": "Q16162683",
       "verdict": "shared",
       "countries": [
         "Brazil",
@@ -5729,6 +6245,7 @@
       "title": "Our Universe",
       "hours": 0,
       "places": 6,
+      "q": "Q137668853",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5739,6 +6256,7 @@
       "title": "Save Me",
       "hours": 0,
       "places": 6,
+      "q": "Q30147768",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5752,6 +6270,7 @@
       "title": "Blood",
       "hours": 0,
       "places": 6,
+      "q": "Q18642176",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -5772,6 +6291,7 @@
       "title": "صاحب المقام",
       "hours": 0,
       "places": 6,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -5779,6 +6299,7 @@
       "title": "Twins",
       "hours": 0,
       "places": 6,
+      "q": "Q117431980",
       "verdict": "shared",
       "countries": [
         "India",
@@ -5791,6 +6312,7 @@
       "title": "A Confession",
       "hours": 0,
       "places": 6,
+      "q": "Q19349191",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5801,6 +6323,7 @@
       "title": "Confession",
       "hours": 0,
       "places": 6,
+      "q": "Q16724539",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -5814,6 +6337,7 @@
       "title": "Her Private Life",
       "hours": 0,
       "places": 6,
+      "q": "Q61360109",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -5824,6 +6348,7 @@
       "title": "Pretty Crazy",
       "hours": 0,
       "places": 6,
+      "q": "Q111817932",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5833,6 +6358,7 @@
       "title": "Dirty Money",
       "hours": 0,
       "places": 6,
+      "q": "Q130023224",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -5847,6 +6373,7 @@
       "title": "The Witch",
       "hours": 0,
       "places": 6,
+      "q": "Q131746501",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5861,6 +6388,7 @@
       "title": "Parole Examiner Lee",
       "hours": 0,
       "places": 6,
+      "q": "Q129978668",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5870,6 +6398,7 @@
       "title": "My Happy Ending",
       "hours": 0,
       "places": 6,
+      "q": "Q121435074",
       "verdict": "shared",
       "countries": [
         "Israel",
@@ -5881,6 +6410,7 @@
       "title": "A Good Day to Be a Dog",
       "hours": 0,
       "places": 6,
+      "q": "Q115412432",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5890,6 +6420,7 @@
       "title": "Decision to Leave",
       "hours": 0,
       "places": 6,
+      "q": "Q100889636",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5899,6 +6430,7 @@
       "title": "Behind Every Star",
       "hours": 0,
       "places": 6,
+      "q": "Q112312662",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -5908,6 +6440,7 @@
       "title": "Happy Together",
       "hours": 0,
       "places": 6,
+      "q": "Q16181823",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -5923,6 +6456,7 @@
       "title": "Runaway",
       "hours": 0,
       "places": 5,
+      "q": "Q7379627",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5943,6 +6477,7 @@
       "title": "Spotlight",
       "hours": 0,
       "places": 5,
+      "q": "Q625059",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -5956,6 +6491,7 @@
       "title": "Virus",
       "hours": 0,
       "places": 5,
+      "q": "Q130598189",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -5970,6 +6506,7 @@
       "title": "Ghost",
       "hours": 0,
       "places": 5,
+      "q": "Q20444740",
       "verdict": "shared",
       "countries": [
         "India",
@@ -5984,6 +6521,7 @@
       "title": "Grand Prix",
       "hours": 0,
       "places": 5,
+      "q": "Q5594912",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -5997,6 +6535,7 @@
       "title": "Together",
       "hours": 0,
       "places": 5,
+      "q": "Q109285012",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -6021,6 +6560,7 @@
       "title": "Summertime",
       "hours": 0,
       "places": 5,
+      "q": "Q7637683",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -6038,6 +6578,7 @@
       "title": "Blossom",
       "hours": 0,
       "places": 5,
+      "q": "Q27953703",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -6050,6 +6591,7 @@
       "title": "Off Road",
       "hours": 0,
       "places": 5,
+      "q": "Q18648383",
       "verdict": "shared",
       "countries": [
         "Italy",
@@ -6060,6 +6602,7 @@
       "title": "Home Sweet Home",
       "hours": 0,
       "places": 5,
+      "q": "Q3541419",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6086,6 +6629,7 @@
       "title": "Now, We Are Breaking Up",
       "hours": 0,
       "places": 5,
+      "q": "Q106375214",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6095,6 +6639,7 @@
       "title": "The Cave",
       "hours": 0,
       "places": 5,
+      "q": "Q130597921",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -6113,6 +6658,7 @@
       "title": "Swallow",
       "hours": 0,
       "places": 5,
+      "q": "Q130597995",
       "verdict": "shared",
       "countries": [
         "France",
@@ -6125,6 +6671,7 @@
       "title": "No Mercy",
       "hours": 0,
       "places": 5,
+      "q": "Q12608709",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -6137,6 +6684,7 @@
       "title": "The People Upstairs",
       "hours": 0,
       "places": 5,
+      "q": "Q134588295",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -6147,7 +6695,8 @@
       "title": "Love Me",
       "hours": 0,
       "places": 5,
-      "verdict": "noKorea",
+      "q": "Q135293697",
+      "verdict": "shared",
       "countries": [
         "Australia",
         "Canada",
@@ -6164,6 +6713,7 @@
       "title": "Harbin",
       "hours": 0,
       "places": 5,
+      "q": "Q127510067",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6173,6 +6723,7 @@
       "title": "Brewing Love",
       "hours": 0,
       "places": 5,
+      "q": "Q130219380",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6182,6 +6733,7 @@
       "title": "The Boys",
       "hours": 0,
       "places": 5,
+      "q": "Q114056520",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6196,6 +6748,7 @@
       "title": "Troll Factory",
       "hours": 0,
       "places": 5,
+      "q": "Q123354208",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6205,6 +6758,7 @@
       "title": "Our Season",
       "hours": 0,
       "places": 5,
+      "q": "Q111795729",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6214,6 +6768,7 @@
       "title": "High Cookie",
       "hours": 0,
       "places": 5,
+      "q": "Q122871938",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6223,6 +6778,7 @@
       "title": "Boomerang Family",
       "hours": 0,
       "places": 5,
+      "q": "Q13100383",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6232,6 +6788,7 @@
       "title": "The King",
       "hours": 0,
       "places": 5,
+      "q": "Q24856048",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6251,6 +6808,7 @@
       "title": "Count",
       "hours": 0,
       "places": 5,
+      "q": "Q116786097",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6260,6 +6818,7 @@
       "title": "Broker",
       "hours": 0,
       "places": 5,
+      "q": "Q23994919",
       "verdict": "shared",
       "countries": [
         "India",
@@ -6270,6 +6829,7 @@
       "title": "The Bad Guys: Reign of Chaos",
       "hours": 0,
       "places": 5,
+      "q": null,
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6279,6 +6839,7 @@
       "title": "Asura: The City of Madness",
       "hours": 0,
       "places": 5,
+      "q": "Q21059216",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6288,6 +6849,7 @@
       "title": "Потяг до Різдва",
       "hours": 0,
       "places": 5,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -6295,6 +6857,7 @@
       "title": "Madam",
       "hours": 0,
       "places": 4,
+      "q": "Q20946229",
       "verdict": "shared",
       "countries": [
         "India",
@@ -6305,6 +6868,7 @@
       "title": "Take My Hand",
       "hours": 0,
       "places": 4,
+      "q": "Q15208983",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6315,6 +6879,7 @@
       "title": "The Shadow",
       "hours": 0,
       "places": 4,
+      "q": "Q27952269",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -6332,6 +6897,7 @@
       "title": "Crush",
       "hours": 0,
       "places": 4,
+      "q": "Q12963033",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6352,6 +6918,7 @@
       "title": "Knock Knock",
       "hours": 0,
       "places": 4,
+      "q": "Q112898807",
       "verdict": "shared",
       "countries": [
         "Chile",
@@ -6363,6 +6930,7 @@
       "title": "Soulmate",
       "hours": 0,
       "places": 4,
+      "q": "Q111934326",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -6374,6 +6942,7 @@
       "title": "حكايات بنات الجزء ١",
       "hours": 0,
       "places": 4,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -6381,6 +6950,7 @@
       "title": "راس السنة",
       "hours": 0,
       "places": 4,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -6388,6 +6958,7 @@
       "title": "Sweetheart",
       "hours": 0,
       "places": 4,
+      "q": "Q16725295",
       "verdict": "shared",
       "countries": [
         "Bangladesh",
@@ -6405,7 +6976,8 @@
       "title": "Let's Dance",
       "hours": 0,
       "places": 4,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Australia",
         "Canada",
@@ -6420,6 +6992,7 @@
       "title": "The Outlaws",
       "hours": 0,
       "places": 4,
+      "q": "Q33101534",
       "verdict": "shared",
       "countries": [
         "Algeria",
@@ -6432,6 +7005,7 @@
       "title": "Drive",
       "hours": 0,
       "places": 4,
+      "q": "Q130598181",
       "verdict": "shared",
       "countries": [
         "India",
@@ -6446,6 +7020,7 @@
       "title": "ボイリング・ポイント／沸騰",
       "hours": 0,
       "places": 4,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -6453,6 +7028,7 @@
       "title": "Character",
       "hours": 0,
       "places": 4,
+      "q": "Q19162184",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -6465,6 +7041,7 @@
       "title": "Graceful Family",
       "hours": 0,
       "places": 4,
+      "q": "Q65277880",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6474,6 +7051,7 @@
       "title": "Beyond Evil",
       "hours": 0,
       "places": 4,
+      "q": "Q97214444",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -6484,6 +7062,7 @@
       "title": "A Family",
       "hours": 0,
       "places": 4,
+      "q": "Q16271318",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6499,6 +7078,7 @@
       "title": "Hero",
       "hours": 0,
       "places": 4,
+      "q": "Q19349875",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6525,6 +7105,7 @@
       "title": "My Sassy Girl",
       "hours": 0,
       "places": 4,
+      "q": "Q483166",
       "verdict": "shared",
       "countries": [
         "Indonesia",
@@ -6538,13 +7119,15 @@
       "title": "She was pretty",
       "hours": 0,
       "places": 4,
-      "verdict": "unknown",
+      "q": "Q20730109",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "My Lovely Liar",
       "hours": 0,
       "places": 4,
+      "q": "Q115531995",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6554,6 +7137,7 @@
       "title": "Return",
       "hours": 0,
       "places": 4,
+      "q": "Q61099579",
       "verdict": "shared",
       "countries": [
         "Azerbaijan",
@@ -6571,6 +7155,7 @@
       "title": "A Company Man",
       "hours": 0,
       "places": 4,
+      "q": "Q4656045",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6580,6 +7165,7 @@
       "title": "Black Money",
       "hours": 0,
       "places": 4,
+      "q": "Q72542645",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -6590,6 +7176,7 @@
       "title": "Fabricated City",
       "hours": 0,
       "places": 4,
+      "q": "Q28133253",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6599,6 +7186,7 @@
       "title": "Lost in Starlight",
       "hours": 0,
       "places": 4,
+      "q": "Q131823316",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6608,6 +7196,7 @@
       "title": "Following",
       "hours": 0,
       "places": 4,
+      "q": "Q125943204",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -6618,6 +7207,7 @@
       "title": "Phantom",
       "hours": 0,
       "places": 4,
+      "q": "Q112117180",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -6632,6 +7222,7 @@
       "title": "The Day I Died: Unclosed Case",
       "hours": 0,
       "places": 4,
+      "q": "Q93739112",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6641,6 +7232,7 @@
       "title": "Fatal Intuition",
       "hours": 0,
       "places": 4,
+      "q": "Q20944412",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6650,6 +7242,7 @@
       "title": "By Quantum Physics: A Nightlife Venture",
       "hours": 0,
       "places": 4,
+      "q": "Q72939059",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6659,6 +7252,7 @@
       "title": "Beauty and Mr. Romantic",
       "hours": 0,
       "places": 4,
+      "q": "Q124312197",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6668,6 +7262,7 @@
       "title": "Svaha: The Sixth Finger",
       "hours": 0,
       "places": 4,
+      "q": "Q61100936",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6677,6 +7272,7 @@
       "title": "The Yellow Sea",
       "hours": 0,
       "places": 4,
+      "q": "Q1393064",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6686,6 +7282,7 @@
       "title": "Highway Family",
       "hours": 0,
       "places": 4,
+      "q": "Q114767380",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6695,6 +7292,7 @@
       "title": "Night Has Come",
       "hours": 0,
       "places": 4,
+      "q": "Q123539209",
       "verdict": "shared",
       "countries": [
         "Mexico",
@@ -6707,6 +7305,7 @@
       "title": "Perfect Marriage Revenge",
       "hours": 0,
       "places": 4,
+      "q": "Q121841153",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6716,6 +7315,7 @@
       "title": "Devils",
       "hours": 0,
       "places": 4,
+      "q": "Q119435895",
       "verdict": "shared",
       "countries": [
         "France",
@@ -6728,6 +7328,7 @@
       "title": "Split",
       "hours": 0,
       "places": 4,
+      "q": "Q27869782",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -6743,6 +7344,7 @@
       "title": "The Battle: Roar to Victory",
       "hours": 0,
       "places": 4,
+      "q": "Q65255143",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6752,6 +7354,7 @@
       "title": "Tomb of the River",
       "hours": 0,
       "places": 4,
+      "q": "Q109270685",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6761,6 +7364,7 @@
       "title": "The Killer: A Girl Who Deserves to Die",
       "hours": 0,
       "places": 4,
+      "q": "Q111937655",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6770,6 +7374,7 @@
       "title": "Decibel",
       "hours": 0,
       "places": 4,
+      "q": "Q114554516",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6779,6 +7384,7 @@
       "title": "Nothing Serious",
       "hours": 0,
       "places": 4,
+      "q": "Q109228965",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6788,6 +7394,7 @@
       "title": "Honest Candidate",
       "hours": 0,
       "places": 4,
+      "q": "Q79277344",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6797,6 +7404,7 @@
       "title": "Black Dog",
       "hours": 0,
       "places": 4,
+      "q": "Q77390246",
       "verdict": "shared",
       "countries": [
         "France",
@@ -6810,6 +7418,7 @@
       "title": "Sweet & Sour",
       "hours": 0,
       "places": 4,
+      "q": "Q106416026",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -6820,6 +7429,7 @@
       "title": "Uncle",
       "hours": 0,
       "places": 4,
+      "q": "Q107490492",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6834,6 +7444,7 @@
       "title": "Revolver",
       "hours": 0,
       "places": 3,
+      "q": "Q126921922",
       "verdict": "shared",
       "countries": [
         "France",
@@ -6846,6 +7457,7 @@
       "title": "Mr. Right",
       "hours": 0,
       "places": 3,
+      "q": "Q12608385",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -6858,6 +7470,7 @@
       "title": "Eden",
       "hours": 0,
       "places": 3,
+      "q": "Q19349625",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6888,6 +7501,7 @@
       "title": "Oldboy",
       "hours": 0,
       "places": 3,
+      "q": "Q475693",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -6899,6 +7513,7 @@
       "title": "The Tunnel",
       "hours": 0,
       "places": 3,
+      "q": "Q17425044",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -6918,6 +7533,7 @@
       "title": "Oh My Baby",
       "hours": 0,
       "places": 3,
+      "q": "Q89074943",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -6927,6 +7543,7 @@
       "title": "The Informant",
       "hours": 0,
       "places": 3,
+      "q": "Q55105863",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -6941,6 +7558,7 @@
       "title": "Butterfly",
       "hours": 0,
       "places": 3,
+      "q": "Q65239496",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -6959,6 +7577,7 @@
       "title": "Untouchable",
       "hours": 0,
       "places": 3,
+      "q": "Q40178510",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -6972,6 +7591,7 @@
       "title": "Sunset",
       "hours": 0,
       "places": 3,
+      "q": "Q16724614",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -6990,6 +7610,7 @@
       "title": "Truth",
       "hours": 0,
       "places": 3,
+      "q": "Q16724647",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -7002,20 +7623,23 @@
       "title": "PLUTO",
       "hours": 0,
       "places": 3,
-      "verdict": "unknown",
+      "q": "Q18170264",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Voice Of Silence",
       "hours": 0,
       "places": 3,
-      "verdict": "unknown",
+      "q": "Q66220160",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "My Absolute Boyfriend",
       "hours": 0,
       "places": 3,
+      "q": "Q55603107",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7025,6 +7649,7 @@
       "title": "Extraordinary You",
       "hours": 0,
       "places": 3,
+      "q": "Q65272295",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7034,6 +7659,7 @@
       "title": "Beautiful Gong Shim",
       "hours": 0,
       "places": 3,
+      "q": "Q23488923",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7043,6 +7669,7 @@
       "title": "My Country: The New Age",
       "hours": 0,
       "places": 3,
+      "q": "Q63282795",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7052,6 +7679,7 @@
       "title": "The Fortress",
       "hours": 0,
       "places": 3,
+      "q": "Q29641342",
       "verdict": "shared",
       "countries": [
         "Hungary",
@@ -7066,6 +7694,7 @@
       "title": "الناموس",
       "hours": 0,
       "places": 3,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7073,6 +7702,7 @@
       "title": "The Plan",
       "hours": 0,
       "places": 3,
+      "q": "Q18116698",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -7085,6 +7715,7 @@
       "title": "The Legend of the Blue Sea",
       "hours": 0,
       "places": 3,
+      "q": "Q24698311",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7094,6 +7725,7 @@
       "title": "A Woman's Life",
       "hours": 0,
       "places": 3,
+      "q": "Q22974477",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -7107,6 +7739,7 @@
       "title": "Lobby",
       "hours": 0,
       "places": 3,
+      "q": "Q133819698",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7116,6 +7749,7 @@
       "title": "People and Meat",
       "hours": 0,
       "places": 3,
+      "q": "Q136325017",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7125,6 +7759,7 @@
       "title": "Sunim & Sonim: Soul Trip in India",
       "hours": 0,
       "places": 3,
+      "q": "Q140185656",
       "verdict": "shared",
       "countries": [
         "India",
@@ -7135,6 +7770,7 @@
       "title": "Wish",
       "hours": 0,
       "places": 3,
+      "q": "Q16172931",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -7145,6 +7781,7 @@
       "title": "Project Y",
       "hours": 0,
       "places": 3,
+      "q": "Q135437367",
       "verdict": "shared",
       "countries": [
         "Israel",
@@ -7155,6 +7792,7 @@
       "title": "The Witch : Part2. The Other One",
       "hours": 0,
       "places": 3,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7162,6 +7800,7 @@
       "title": "Positively Yours",
       "hours": 0,
       "places": 3,
+      "q": "Q137217475",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7171,13 +7810,15 @@
       "title": "Only God knows Everything",
       "hours": 0,
       "places": 3,
-      "verdict": "unknown",
+      "q": "Q135486575",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Canola",
       "hours": 0,
       "places": 3,
+      "q": "Q21057627",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7187,6 +7828,7 @@
       "title": "The Killers",
       "hours": 0,
       "places": 3,
+      "q": "Q140289788",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -7199,6 +7841,7 @@
       "title": "The Culprit",
       "hours": 0,
       "places": 3,
+      "q": "Q65294252",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7208,6 +7851,7 @@
       "title": "Veteran",
       "hours": 0,
       "places": 3,
+      "q": "Q19939990",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7217,6 +7861,7 @@
       "title": "My Sweet Mobster",
       "hours": 0,
       "places": 3,
+      "q": "Q124611059",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7226,6 +7871,7 @@
       "title": "Bad Memory Eraser",
       "hours": 0,
       "places": 3,
+      "q": "Q121031348",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7235,6 +7881,7 @@
       "title": "The Sin",
       "hours": 0,
       "places": 3,
+      "q": "Q124785221",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -7246,6 +7893,7 @@
       "title": "Queen of Divorce",
       "hours": 0,
       "places": 3,
+      "q": "Q123693323",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7255,6 +7903,7 @@
       "title": "Secretly, Greatly",
       "hours": 0,
       "places": 3,
+      "q": "Q7444445",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7264,6 +7913,7 @@
       "title": "A Man of Reason",
       "hours": 0,
       "places": 3,
+      "q": "Q113330857",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7273,6 +7923,7 @@
       "title": "Remember",
       "hours": 0,
       "places": 3,
+      "q": "Q85978076",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -7289,6 +7940,7 @@
       "title": "Single in Seoul",
       "hours": 0,
       "places": 3,
+      "q": "Q102273941",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7298,6 +7950,7 @@
       "title": "Usury Academy",
       "hours": 0,
       "places": 3,
+      "q": "Q130598144",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7307,6 +7960,7 @@
       "title": "Chabak - Night of Murder and Romance",
       "hours": 0,
       "places": 3,
+      "q": "Q130598115",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7316,7 +7970,8 @@
       "title": "V.I.P.",
       "hours": 0,
       "places": 3,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Belgium",
         "Canada",
@@ -7330,6 +7985,7 @@
       "title": "The Man Standing Next",
       "hours": 0,
       "places": 3,
+      "q": "Q78730189",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7339,6 +7995,7 @@
       "title": "The Matchmakers",
       "hours": 0,
       "places": 3,
+      "q": "Q120533831",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -7349,6 +8006,7 @@
       "title": "The Goblin",
       "hours": 0,
       "places": 3,
+      "q": "Q130597834",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7358,13 +8016,15 @@
       "title": "Mission: Possible",
       "hours": 0,
       "places": 3,
-      "verdict": "unknown",
+      "q": "Q105294011",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Blade of the Immortal",
       "hours": 0,
       "places": 3,
+      "q": "Q28213068",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -7376,6 +8036,7 @@
       "title": "Christmas Carol",
       "hours": 0,
       "places": 3,
+      "q": "Q115627589",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7385,6 +8046,7 @@
       "title": "Ditto",
       "hours": 0,
       "places": 3,
+      "q": "Q3032184",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -7395,6 +8057,7 @@
       "title": "Life is Beautiful",
       "hours": 0,
       "places": 3,
+      "q": "Q101001902",
       "verdict": "shared",
       "countries": [
         "Netherlands",
@@ -7406,6 +8069,7 @@
       "title": "Steel Rain2: Summit",
       "hours": 0,
       "places": 3,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7413,6 +8077,7 @@
       "title": "Gate",
       "hours": 0,
       "places": 3,
+      "q": "Q50320243",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -7424,6 +8089,7 @@
       "title": "The Girl on a Bulldozer",
       "hours": 0,
       "places": 3,
+      "q": "Q111532444",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7433,6 +8099,7 @@
       "title": "Spiritwalker",
       "hours": 0,
       "places": 3,
+      "q": "Q85983581",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7442,6 +8109,7 @@
       "title": "The Pirates",
       "hours": 0,
       "places": 3,
+      "q": "Q15979736",
       "verdict": "shared",
       "countries": [
         "France",
@@ -7453,6 +8121,7 @@
       "title": "Jo Pil-ho: The Dawning Rage",
       "hours": 0,
       "places": 3,
+      "q": "Q63224822",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7462,13 +8131,15 @@
       "title": "Mad for Each Other",
       "hours": 0,
       "places": 3,
-      "verdict": "unknown",
+      "q": "Q108916196",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Hostage: Missing Celebrity",
       "hours": 0,
       "places": 3,
+      "q": "Q107264952",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7478,6 +8149,7 @@
       "title": "Moby Dick",
       "hours": 0,
       "places": 3,
+      "q": "Q17564496",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -7491,6 +8163,7 @@
       "title": "Aloners",
       "hours": 0,
       "places": 3,
+      "q": "Q106921060",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7500,6 +8173,7 @@
       "title": "Fire",
       "hours": 0,
       "places": 3,
+      "q": "Q16191330",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -7517,6 +8191,7 @@
       "title": "Night and Day",
       "hours": 0,
       "places": 3,
+      "q": "Q531261",
       "verdict": "shared",
       "countries": [
         "Armenia",
@@ -7533,6 +8208,7 @@
       "title": "Rainbow",
       "hours": 0,
       "places": 3,
+      "q": "Q65257758",
       "verdict": "shared",
       "countries": [
         "India",
@@ -7550,6 +8226,7 @@
       "title": "Chocolate",
       "hours": 0,
       "places": 3,
+      "q": "Q65296659",
       "verdict": "shared",
       "countries": [
         "India",
@@ -7564,6 +8241,7 @@
       "title": "Misty",
       "hours": 0,
       "places": 3,
+      "q": "Q47073600",
       "verdict": "shared",
       "countries": [
         "British Hong Kong",
@@ -7575,6 +8253,7 @@
       "title": "With or Without You",
       "hours": 0,
       "places": 2,
+      "q": "Q24861124",
       "verdict": "shared",
       "countries": [
         "France",
@@ -7589,6 +8268,7 @@
       "title": "Secrets and Lies",
       "hours": 0,
       "places": 2,
+      "q": "Q51475040",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -7599,6 +8279,7 @@
       "title": "Bait",
       "hours": 0,
       "places": 2,
+      "q": "Q130598152",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -7611,6 +8292,7 @@
       "title": "My Old Lady",
       "hours": 0,
       "places": 2,
+      "q": "Q117432073",
       "verdict": "shared",
       "countries": [
         "France",
@@ -7623,6 +8305,7 @@
       "title": "National Security",
       "hours": 0,
       "places": 2,
+      "q": "Q6978317",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -7634,6 +8317,7 @@
       "title": "Dual",
       "hours": 0,
       "places": 2,
+      "q": "Q29378096",
       "verdict": "shared",
       "countries": [
         "Finland",
@@ -7647,6 +8331,7 @@
       "title": "First Man",
       "hours": 0,
       "places": 2,
+      "q": "Q136642313",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -7657,6 +8342,7 @@
       "title": "Love Song",
       "hours": 0,
       "places": 2,
+      "q": "Q19598834",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -7670,6 +8356,7 @@
       "title": "مسار إجباري",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7677,6 +8364,7 @@
       "title": "بابا جه",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7684,6 +8372,7 @@
       "title": "الرجل الرابع",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7691,6 +8380,7 @@
       "title": "The Journey",
       "hours": 0,
       "places": 2,
+      "q": "Q16175805",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -7717,6 +8407,7 @@
       "title": "Wrongfully Accused",
       "hours": 0,
       "places": 2,
+      "q": "Q117431897",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -7728,6 +8419,7 @@
       "title": "Camping",
       "hours": 0,
       "places": 2,
+      "q": "Q27952734",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -7743,6 +8435,7 @@
       "title": "Black Rain",
       "hours": 0,
       "places": 2,
+      "q": "Q19162436",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -7754,6 +8447,7 @@
       "title": "Love in the Moonlight",
       "hours": 0,
       "places": 2,
+      "q": "Q23001122",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7763,6 +8457,7 @@
       "title": "Iris",
       "hours": 0,
       "places": 2,
+      "q": "Q496296",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -7784,6 +8479,7 @@
       "title": "The Handmaiden",
       "hours": 0,
       "places": 2,
+      "q": "Q20444585",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7793,6 +8489,7 @@
       "title": "The Thieves",
       "hours": 0,
       "places": 2,
+      "q": "Q492485",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -7804,6 +8501,7 @@
       "title": "The Queen's Classroom",
       "hours": 0,
       "places": 2,
+      "q": "Q12252305",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -7814,6 +8512,7 @@
       "title": "The Three Musketeers",
       "hours": 0,
       "places": 2,
+      "q": "Q17254818",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -7838,7 +8537,8 @@
       "title": "Motherland",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Canada",
         "Germany",
@@ -7861,6 +8561,7 @@
       "title": "אמיא",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7868,6 +8569,7 @@
       "title": "משי זהב",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7875,6 +8577,7 @@
       "title": "Between Walls",
       "hours": 0,
       "places": 2,
+      "q": "Q93739809",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7884,6 +8587,7 @@
       "title": "לעבור את הקיר",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -7891,6 +8595,7 @@
       "title": "Endless Love",
       "hours": 0,
       "places": 2,
+      "q": "Q16725032",
       "verdict": "shared",
       "countries": [
         "Myanmar",
@@ -7906,6 +8611,7 @@
       "title": "Life Is Beautiful",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "shared",
       "countries": [
         "Czechoslovakia",
@@ -7923,7 +8629,8 @@
       "title": "Black Jack",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "France",
         "Germany",
@@ -7940,6 +8647,7 @@
       "title": "The Roundup: Punishment",
       "hours": 0,
       "places": 2,
+      "q": "Q115283311",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7949,7 +8657,8 @@
       "title": "Asura",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": "Q130598068",
+      "verdict": "shared",
       "countries": [
         "India",
         "Japan",
@@ -7960,6 +8669,7 @@
       "title": "Love Letter",
       "hours": 0,
       "places": 2,
+      "q": "Q6690935",
       "verdict": "shared",
       "countries": [
         "India",
@@ -7971,6 +8681,7 @@
       "title": "The Villagers",
       "hours": 0,
       "places": 2,
+      "q": "Q56686172",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7980,6 +8691,7 @@
       "title": "Miss Baek",
       "hours": 0,
       "places": 2,
+      "q": "Q56682904",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7989,6 +8701,7 @@
       "title": "Juror 8",
       "hours": 0,
       "places": 2,
+      "q": "Q63109407",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -7998,6 +8711,7 @@
       "title": "When Spring Comes",
       "hours": 0,
       "places": 2,
+      "q": "Q6788984",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8007,6 +8721,7 @@
       "title": "Serve the People",
       "hours": 0,
       "places": 2,
+      "q": "Q110707514",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8016,6 +8731,7 @@
       "title": "One Ordinary Day",
       "hours": 0,
       "places": 2,
+      "q": "Q105393718",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8025,6 +8741,7 @@
       "title": "Dark Figure of Crime",
       "hours": 0,
       "places": 2,
+      "q": "Q51844664",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8034,6 +8751,7 @@
       "title": "Secret Garden",
       "hours": 0,
       "places": 2,
+      "q": "Q16724890",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8043,6 +8761,7 @@
       "title": "Hope",
       "hours": 0,
       "places": 2,
+      "q": "Q117429496",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8063,6 +8782,7 @@
       "title": "The Secret Life of My Secretary",
       "hours": 0,
       "places": 2,
+      "q": "Q60533038",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8072,7 +8792,8 @@
       "title": "Whistleblower",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Ireland",
         "Japan",
@@ -8083,6 +8804,7 @@
       "title": "Exit",
       "hours": 0,
       "places": 2,
+      "q": "Q55708078",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -8103,6 +8825,7 @@
       "title": "My First Client",
       "hours": 0,
       "places": 2,
+      "q": "Q65272271",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8112,6 +8835,7 @@
       "title": "بلال: بطل من فصيل جديد",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -8119,6 +8843,7 @@
       "title": "A Wonderful World",
       "hours": 0,
       "places": 2,
+      "q": "Q21824884",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8128,7 +8853,8 @@
       "title": "Bigman",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Netherlands"
       ]
@@ -8137,6 +8863,7 @@
       "title": "Deranged",
       "hours": 0,
       "places": 2,
+      "q": "Q492266",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8149,6 +8876,7 @@
       "title": "Pink",
       "hours": 0,
       "places": 2,
+      "q": "Q7195952",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -8162,6 +8890,7 @@
       "title": "The Wedding Day",
       "hours": 0,
       "places": 2,
+      "q": "Q12603999",
       "verdict": "shared",
       "countries": [
         "France",
@@ -8174,6 +8903,7 @@
       "title": "Temptation",
       "hours": 0,
       "places": 2,
+      "q": "Q16725200",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -8191,6 +8921,7 @@
       "title": "Illusion",
       "hours": 0,
       "places": 2,
+      "q": "Q117432113",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8209,6 +8940,7 @@
       "title": "Dead End",
       "hours": 0,
       "places": 2,
+      "q": "Q18648164",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -8228,6 +8960,7 @@
       "title": "The Noisy Mansion",
       "hours": 0,
       "places": 2,
+      "q": "Q132153221",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8237,6 +8970,7 @@
       "title": "The World of Love",
       "hours": 0,
       "places": 2,
+      "q": "Q135488622",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8246,6 +8980,7 @@
       "title": "It’s Okay!",
       "hours": 0,
       "places": 2,
+      "q": "Q124309693",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8255,6 +8990,7 @@
       "title": "Sister",
       "hours": 0,
       "places": 2,
+      "q": "Q16724656",
       "verdict": "shared",
       "countries": [
         "Bulgaria",
@@ -8271,6 +9007,7 @@
       "title": "Hitman 2",
       "hours": 0,
       "places": 2,
+      "q": "Q130598216",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8280,6 +9017,7 @@
       "title": "Blind",
       "hours": 0,
       "places": 2,
+      "q": "Q492203",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -8299,6 +9037,7 @@
       "title": "Heartman: Rock and Love",
       "hours": 0,
       "places": 2,
+      "q": "Q137886427",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8308,6 +9047,7 @@
       "title": "Forbidden Fairytale",
       "hours": 0,
       "places": 2,
+      "q": "Q131412614",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8317,6 +9057,7 @@
       "title": "The Queen of Crime",
       "hours": 0,
       "places": 2,
+      "q": "Q27951912",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8326,13 +9067,15 @@
       "title": "Land Of Happiness",
       "hours": 0,
       "places": 2,
-      "verdict": "unknown",
+      "q": "Q55735939",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Concrete Market",
       "hours": 0,
       "places": 2,
+      "q": "Q137574491",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8342,6 +9085,7 @@
       "title": "The Desperate Chase",
       "hours": 0,
       "places": 2,
+      "q": "Q123474846",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8351,6 +9095,7 @@
       "title": "New Normal",
       "hours": 0,
       "places": 2,
+      "q": "Q113107162",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8360,6 +9105,7 @@
       "title": "The Face Reader",
       "hours": 0,
       "places": 2,
+      "q": "Q14795754",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8369,6 +9115,7 @@
       "title": "Devils Stay",
       "hours": 0,
       "places": 2,
+      "q": "Q123354194",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8378,13 +9125,15 @@
       "title": "Proof of Innocence",
       "hours": 0,
       "places": 2,
-      "verdict": "unknown",
+      "q": "Q23999998",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Special Delivery",
       "hours": 0,
       "places": 2,
+      "q": "Q97207066",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8397,6 +9146,7 @@
       "title": "Miss Conspirator",
       "hours": 0,
       "places": 2,
+      "q": "Q6876402",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8406,6 +9156,7 @@
       "title": "Bugonia",
       "hours": 0,
       "places": 2,
+      "q": "Q125971387",
       "verdict": "shared",
       "countries": [
         "Ireland",
@@ -8417,6 +9168,7 @@
       "title": "Your Letter",
       "hours": 0,
       "places": 2,
+      "q": "Q136139225",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8426,6 +9178,7 @@
       "title": "Beasts Clawing at Straws",
       "hours": 0,
       "places": 2,
+      "q": "Q65294195",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8435,6 +9188,7 @@
       "title": "The Land of Morning Calm",
       "hours": 0,
       "places": 2,
+      "q": "Q133728894",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8444,6 +9198,7 @@
       "title": "Kingmaker",
       "hours": 0,
       "places": 2,
+      "q": "Q85986884",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -8455,6 +9210,7 @@
       "title": "Trade Your Love",
       "hours": 0,
       "places": 2,
+      "q": "Q61100194",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8464,6 +9220,7 @@
       "title": "Stellar",
       "hours": 0,
       "places": 2,
+      "q": "Q130597829",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8474,6 +9231,7 @@
       "title": "Real",
       "hours": 0,
       "places": 2,
+      "q": "Q25206219",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -8484,6 +9242,7 @@
       "title": "Heo's Diner",
       "hours": 0,
       "places": 2,
+      "q": "Q133265942",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8493,6 +9252,7 @@
       "title": "Concerning My Daughter",
       "hours": 0,
       "places": 2,
+      "q": "Q130461513",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8502,6 +9262,7 @@
       "title": "Cabriolet",
       "hours": 0,
       "places": 2,
+      "q": "Q140289686",
       "verdict": "shared",
       "countries": [
         "Czech Republic",
@@ -8512,6 +9273,7 @@
       "title": "Heartsping: Teenieping of Love",
       "hours": 0,
       "places": 2,
+      "q": "Q130511042",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8521,13 +9283,15 @@
       "title": "FENGSHUI",
       "hours": 0,
       "places": 2,
-      "verdict": "unknown",
+      "q": "Q54819842",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "sorry? not sorry!",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -8535,6 +9299,7 @@
       "title": "Because I Hate Korea",
       "hours": 0,
       "places": 2,
+      "q": "Q122226580",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8544,6 +9309,7 @@
       "title": "Open City",
       "hours": 0,
       "places": 2,
+      "q": "Q1663086",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8553,6 +9319,7 @@
       "title": "The Gossip",
       "hours": 0,
       "places": 2,
+      "q": "Q126114238",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -8563,13 +9330,15 @@
       "title": "Heaven's Soldiers",
       "hours": 0,
       "places": 2,
-      "verdict": "unknown",
+      "q": "Q572866",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Ms. Apocalypse",
       "hours": 0,
       "places": 2,
+      "q": "Q130598219",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8579,6 +9348,7 @@
       "title": "Han Gong-ju",
       "hours": 0,
       "places": 2,
+      "q": "Q16255731",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8588,6 +9358,7 @@
       "title": "The Five",
       "hours": 0,
       "places": 2,
+      "q": "Q17497500",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -8599,6 +9370,7 @@
       "title": "Picnic",
       "hours": 0,
       "places": 2,
+      "q": "Q124804941",
       "verdict": "shared",
       "countries": [
         "Croatia",
@@ -8612,6 +9384,7 @@
       "title": "Granny's Got Talent",
       "hours": 0,
       "places": 2,
+      "q": "Q19603889",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8621,6 +9394,7 @@
       "title": "The Devil's Deal",
       "hours": 0,
       "places": 2,
+      "q": "Q107639040",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8630,6 +9404,7 @@
       "title": "200 Pounds Beauty",
       "hours": 0,
       "places": 2,
+      "q": "Q211722",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8639,6 +9414,7 @@
       "title": "Havana",
       "hours": 0,
       "places": 2,
+      "q": "Q130598124",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -8649,6 +9425,7 @@
       "title": "Hail to Hell",
       "hours": 0,
       "places": 2,
+      "q": "Q130598111",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8658,6 +9435,7 @@
       "title": "Greenhouse",
       "hours": 0,
       "places": 2,
+      "q": "Q130598081",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8667,6 +9445,7 @@
       "title": "War of the Arrows",
       "hours": 0,
       "places": 2,
+      "q": "Q486956",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8676,6 +9455,7 @@
       "title": "Live Stream",
       "hours": 0,
       "places": 2,
+      "q": "Q130598067",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -8686,6 +9466,7 @@
       "title": "My Worst Neighbor",
       "hours": 0,
       "places": 2,
+      "q": "Q118970581",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8695,6 +9476,7 @@
       "title": "Windmill",
       "hours": 0,
       "places": 2,
+      "q": "Q130598047",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -8705,6 +9487,7 @@
       "title": "KATURI the Movie The Big City Adventure",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -8712,6 +9495,7 @@
       "title": "Next Sohee",
       "hours": 0,
       "places": 2,
+      "q": "Q112133963",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8721,6 +9505,7 @@
       "title": "B Cut",
       "hours": 0,
       "places": 2,
+      "q": "Q130597822",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8730,6 +9515,7 @@
       "title": "Tazza: The High Rollers",
       "hours": 0,
       "places": 2,
+      "q": "Q7690479",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8739,6 +9525,7 @@
       "title": "White Night",
       "hours": 0,
       "places": 2,
+      "q": "Q14480218",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -8751,6 +9538,7 @@
       "title": "The Unjust",
       "hours": 0,
       "places": 2,
+      "q": "Q493391",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8760,6 +9548,7 @@
       "title": "Next Door",
       "hours": 0,
       "places": 2,
+      "q": "Q130597928",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -8773,6 +9562,7 @@
       "title": "The Other Child",
       "hours": 0,
       "places": 2,
+      "q": "Q130597915",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8782,6 +9572,7 @@
       "title": "Pawn",
       "hours": 0,
       "places": 2,
+      "q": "Q65241567",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -8792,6 +9583,7 @@
       "title": "Daemuga",
       "hours": 0,
       "places": 2,
+      "q": "Q79999040",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8801,6 +9593,7 @@
       "title": "The Deal",
       "hours": 0,
       "places": 2,
+      "q": "Q19627582",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -8821,6 +9614,7 @@
       "title": "Portrait of a Beauty",
       "hours": 0,
       "places": 2,
+      "q": "Q487376",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8830,6 +9624,7 @@
       "title": "Good Job",
       "hours": 0,
       "places": 2,
+      "q": "Q113252657",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8839,6 +9634,7 @@
       "title": "My Boss, My Teacher",
       "hours": 0,
       "places": 2,
+      "q": "Q486850",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8848,6 +9644,7 @@
       "title": "Part-Time Spy",
       "hours": 0,
       "places": 2,
+      "q": "Q28700629",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8857,6 +9654,7 @@
       "title": "A Special Lady",
       "hours": 0,
       "places": 2,
+      "q": "Q22974211",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8866,6 +9664,7 @@
       "title": "The Drug King",
       "hours": 0,
       "places": 2,
+      "q": "Q30115167",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8875,6 +9674,7 @@
       "title": "Contorted",
       "hours": 0,
       "places": 2,
+      "q": "Q114407234",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8884,6 +9684,7 @@
       "title": "King of Prison 2: The Prison War",
       "hours": 0,
       "places": 2,
+      "q": "Q109458971",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8893,6 +9694,7 @@
       "title": "The Mayor",
       "hours": 0,
       "places": 2,
+      "q": "Q27952232",
       "verdict": "shared",
       "countries": [
         "Italy",
@@ -8904,6 +9706,7 @@
       "title": "Welcome to Wedding Hell",
       "hours": 0,
       "places": 2,
+      "q": "Q111969021",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8913,6 +9716,7 @@
       "title": "The Book of Fish",
       "hours": 0,
       "places": 2,
+      "q": "Q103742243",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8922,6 +9726,7 @@
       "title": "Lucid Dream",
       "hours": 0,
       "places": 2,
+      "q": "Q20444294",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8931,6 +9736,7 @@
       "title": "Celeb Five: Behind the Curtain",
       "hours": 0,
       "places": 2,
+      "q": "Q111460301",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8940,6 +9746,7 @@
       "title": "Coin Locker Girl",
       "hours": 0,
       "places": 2,
+      "q": "Q19792325",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8949,6 +9756,7 @@
       "title": "One-Line",
       "hours": 0,
       "places": 2,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -8956,6 +9764,7 @@
       "title": "Snatch Up",
       "hours": 0,
       "places": 2,
+      "q": "Q27952392",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8965,6 +9774,7 @@
       "title": "Artificial City",
       "hours": 0,
       "places": 2,
+      "q": "Q106393476",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8974,6 +9784,7 @@
       "title": "The Precious memory of Gogo Brothers",
       "hours": 0,
       "places": 2,
+      "q": "Q109464087",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8983,6 +9794,7 @@
       "title": "I Saw the Devil",
       "hours": 0,
       "places": 2,
+      "q": "Q485725",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -8992,6 +9804,7 @@
       "title": "Beastie Boys",
       "hours": 0,
       "places": 2,
+      "q": "Q492142",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9001,6 +9814,7 @@
       "title": "Guimoon: The Lightless Door",
       "hours": 0,
       "places": 2,
+      "q": "Q107583795",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9010,6 +9824,7 @@
       "title": "The Raincoat Killer: Chasing a Predator in Korea",
       "hours": 0,
       "places": 2,
+      "q": "Q108935276",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9019,6 +9834,7 @@
       "title": "Diva",
       "hours": 0,
       "places": 2,
+      "q": "Q93739098",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -9034,6 +9850,7 @@
       "title": "Whispering Corridors 6: The Humming",
       "hours": 0,
       "places": 2,
+      "q": "Q96384351",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9043,6 +9860,7 @@
       "title": "The Guard Post",
       "hours": 0,
       "places": 2,
+      "q": "Q7738426",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9052,6 +9870,7 @@
       "title": "Monthly Magazine Home",
       "hours": 0,
       "places": 2,
+      "q": "Q105453557",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9061,6 +9880,7 @@
       "title": "Stone Skipping",
       "hours": 0,
       "places": 2,
+      "q": "Q97961602",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9070,6 +9890,7 @@
       "title": "Young Adult Matters",
       "hours": 0,
       "places": 2,
+      "q": "Q106177775",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9079,7 +9900,8 @@
       "title": "Superstar",
       "hours": 0,
       "places": 2,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Brazil",
         "France",
@@ -9096,6 +9918,7 @@
       "title": "Rebirth",
       "hours": 0,
       "places": 2,
+      "q": "Q16725276",
       "verdict": "shared",
       "countries": [
         "Israel",
@@ -9109,6 +9932,7 @@
       "title": "A Normal Family",
       "hours": 0,
       "places": 2,
+      "q": "Q120922062",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9118,6 +9942,7 @@
       "title": "A Wedding Invitation",
       "hours": 0,
       "places": 2,
+      "q": "Q10792815",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -9128,6 +9953,7 @@
       "title": "Cassiopeia",
       "hours": 0,
       "places": 2,
+      "q": "Q111914907",
       "verdict": "shared",
       "countries": [
         "Brazil",
@@ -9138,6 +9964,7 @@
       "title": "Seven Days",
       "hours": 0,
       "places": 2,
+      "q": "Q484869",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -9155,6 +9982,7 @@
       "title": "The Wailing",
       "hours": 0,
       "places": 2,
+      "q": "Q22972803",
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -9167,6 +9995,7 @@
       "title": "Black Night",
       "hours": 0,
       "places": 2,
+      "q": "Q16725515",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9176,6 +10005,7 @@
       "title": "Wasteland",
       "hours": 0,
       "places": 2,
+      "q": "Q55105566",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -9193,6 +10023,7 @@
       "title": "The Layover",
       "hours": 0,
       "places": 1,
+      "q": "Q130598031",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -9203,6 +10034,7 @@
       "title": "Begin Again",
       "hours": 0,
       "places": 1,
+      "q": "Q33101305",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -9214,6 +10046,7 @@
       "title": "Dream High",
       "hours": 0,
       "places": 1,
+      "q": "Q483378",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9223,6 +10056,7 @@
       "title": "Showtime",
       "hours": 0,
       "places": 1,
+      "q": "Q20926230",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -9236,6 +10070,7 @@
       "title": "Success",
       "hours": 0,
       "places": 1,
+      "q": "Q16725095",
       "verdict": "shared",
       "countries": [
         "Croatia",
@@ -9250,6 +10085,7 @@
       "title": "My Girl",
       "hours": 0,
       "places": 1,
+      "q": "Q496555",
       "verdict": "shared",
       "countries": [
         "People's Republic of China",
@@ -9262,7 +10098,8 @@
       "title": "#Iamhere",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Belgium",
         "France"
@@ -9272,13 +10109,15 @@
       "title": "Clean With Passion For Now",
       "hours": 0,
       "places": 1,
-      "verdict": "unknown",
+      "q": "Q47743749",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Strongest Deliveryman",
       "hours": 0,
       "places": 1,
+      "q": "Q29962350",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9288,6 +10127,7 @@
       "title": "Good Doctor",
       "hours": 0,
       "places": 1,
+      "q": "Q13425770",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -9298,6 +10138,7 @@
       "title": "Three",
       "hours": 0,
       "places": 1,
+      "q": "Q562712",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -9316,6 +10157,7 @@
       "title": "Tidal Wave",
       "hours": 0,
       "places": 1,
+      "q": "Q495128",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -9326,6 +10168,7 @@
       "title": "Someone Like You",
       "hours": 0,
       "places": 1,
+      "q": "Q109457856",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -9338,7 +10181,8 @@
       "title": "Oh My God",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Indonesia",
         "Japan",
@@ -9350,6 +10194,7 @@
       "title": "נדל״ן-סיפור אהבה",
       "hours": 0,
       "places": 1,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -9357,6 +10202,7 @@
       "title": "Siren",
       "hours": 0,
       "places": 1,
+      "q": "Q16164148",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -9370,6 +10216,7 @@
       "title": "Our Blooming Youth",
       "hours": 0,
       "places": 1,
+      "q": "Q115877118",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9379,6 +10226,7 @@
       "title": "A Year-End Medley",
       "hours": 0,
       "places": 1,
+      "q": "Q107102266",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9388,7 +10236,8 @@
       "title": "#Manhole",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Japan"
       ]
@@ -9397,6 +10246,7 @@
       "title": "Nobody Knows",
       "hours": 0,
       "places": 1,
+      "q": "Q16261852",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -9408,6 +10258,7 @@
       "title": "Innocent Witness",
       "hours": 0,
       "places": 1,
+      "q": "Q61100203",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9417,6 +10268,7 @@
       "title": "Another Miss Oh",
       "hours": 0,
       "places": 1,
+      "q": "Q23919406",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9426,6 +10278,7 @@
       "title": "The Spy Gone North",
       "hours": 0,
       "places": 1,
+      "q": "Q30607228",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9435,6 +10288,7 @@
       "title": "Iron Man",
       "hours": 0,
       "places": 1,
+      "q": "Q17158431",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -9446,6 +10300,7 @@
       "title": "Homme Fatale",
       "hours": 0,
       "places": 1,
+      "q": "Q65238240",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9455,6 +10310,7 @@
       "title": "Guest House",
       "hours": 0,
       "places": 1,
+      "q": "Q55105962",
       "verdict": "shared",
       "countries": [
         "India",
@@ -9466,6 +10322,7 @@
       "title": "Puppy Love",
       "hours": 0,
       "places": 1,
+      "q": "Q19162208",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -9482,6 +10339,7 @@
       "title": "Betrayal",
       "hours": 0,
       "places": 1,
+      "q": "Q85979397",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -9501,6 +10359,7 @@
       "title": "I Am Sam",
       "hours": 0,
       "places": 1,
+      "q": "Q3790042",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -9511,6 +10370,7 @@
       "title": "Boy",
       "hours": 0,
       "places": 1,
+      "q": "Q137740016",
       "verdict": "shared",
       "countries": [
         "Denmark",
@@ -9526,6 +10386,7 @@
       "title": "The Land",
       "hours": 0,
       "places": 1,
+      "q": "Q7745332",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -9539,7 +10400,8 @@
       "title": "Supernova",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Argentina",
         "France",
@@ -9558,6 +10420,7 @@
       "title": "Secretary",
       "hours": 0,
       "places": 1,
+      "q": "Q139838794",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -9571,6 +10434,7 @@
       "title": "Heaven",
       "hours": 0,
       "places": 1,
+      "q": "Q21575581",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -9592,6 +10456,7 @@
       "title": "Obsessed",
       "hours": 0,
       "places": 1,
+      "q": "Q16256481",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -9604,7 +10469,8 @@
       "title": "Dear Mother",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": "Q16725091",
+      "verdict": "shared",
       "countries": [
         "France"
       ]
@@ -9613,6 +10479,7 @@
       "title": "The Uninvited",
       "hours": 0,
       "places": 1,
+      "q": "Q7771529",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -9628,6 +10495,7 @@
       "title": "Slave",
       "hours": 0,
       "places": 1,
+      "q": "Q21058294",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9637,6 +10505,7 @@
       "title": "Montage",
       "hours": 0,
       "places": 1,
+      "q": "Q13218545",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -9647,6 +10516,7 @@
       "title": "Wedding Impossible",
       "hours": 0,
       "places": 1,
+      "q": "Q123495072",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9656,6 +10526,7 @@
       "title": "Hear Me : Our Summer",
       "hours": 0,
       "places": 1,
+      "q": null,
       "verdict": "unknown",
       "countries": []
     },
@@ -9663,6 +10534,7 @@
       "title": "Road to Boston",
       "hours": 0,
       "places": 1,
+      "q": "Q111943486",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9672,6 +10544,7 @@
       "title": "House of the Seasons",
       "hours": 0,
       "places": 1,
+      "q": "Q133521202",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9681,6 +10554,7 @@
       "title": "Pandora",
       "hours": 0,
       "places": 1,
+      "q": "Q27954163",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -9693,6 +10567,7 @@
       "title": "My Turn",
       "hours": 0,
       "places": 1,
+      "q": "Q79998996",
       "verdict": "shared",
       "countries": [
         "Hungary",
@@ -9703,6 +10578,7 @@
       "title": "Shiri",
       "hours": 0,
       "places": 1,
+      "q": "Q391544",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9712,6 +10588,7 @@
       "title": "Whenever Possible",
       "hours": 0,
       "places": 1,
+      "q": "Q125524050",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9721,6 +10598,7 @@
       "title": "Judge vs. Judge",
       "hours": 0,
       "places": 1,
+      "q": "Q42298674",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9730,6 +10608,7 @@
       "title": "Payback: Money and Power",
       "hours": 0,
       "places": 1,
+      "q": "Q115100579",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9739,6 +10618,7 @@
       "title": "Not Others",
       "hours": 0,
       "places": 1,
+      "q": "Q117031722",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9748,13 +10628,15 @@
       "title": "Jeong-Sun",
       "hours": 0,
       "places": 1,
-      "verdict": "unknown",
+      "q": "Q114818806",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "The Suspect",
       "hours": 0,
       "places": 1,
+      "q": "Q14361469",
       "verdict": "shared",
       "countries": [
         "Egypt",
@@ -9771,13 +10653,15 @@
       "title": "Keys To The Heart",
       "hours": 0,
       "places": 1,
-      "verdict": "unknown",
+      "q": "Q30644591",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "Love in Contract",
       "hours": 0,
       "places": 1,
+      "q": "Q113042451",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9787,6 +10671,7 @@
       "title": "One on One",
       "hours": 0,
       "places": 1,
+      "q": "Q17041657",
       "verdict": "shared",
       "countries": [
         "Israel",
@@ -9798,6 +10683,7 @@
       "title": "Iron Family",
       "hours": 0,
       "places": 1,
+      "q": "Q126490051",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9807,6 +10693,7 @@
       "title": "City of Fathers",
       "hours": 0,
       "places": 1,
+      "q": "Q5123679",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9816,6 +10703,7 @@
       "title": "The Tooth and the Nail",
       "hours": 0,
       "places": 1,
+      "q": "Q27951910",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9825,6 +10713,7 @@
       "title": "My Heart Puppy",
       "hours": 0,
       "places": 1,
+      "q": "Q111817993",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9834,6 +10723,7 @@
       "title": "The Sword with No Name",
       "hours": 0,
       "places": 1,
+      "q": "Q493734",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9843,6 +10733,7 @@
       "title": "The Housemaid",
       "hours": 0,
       "places": 1,
+      "q": "Q49729",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -9854,6 +10745,7 @@
       "title": "Shadows in the Palace",
       "hours": 0,
       "places": 1,
+      "q": "Q16167319",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9863,6 +10755,7 @@
       "title": "No Tears for the Dead",
       "hours": 0,
       "places": 1,
+      "q": "Q16324124",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9872,6 +10765,7 @@
       "title": "Princess Aurora",
       "hours": 0,
       "places": 1,
+      "q": "Q771383",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9881,6 +10775,7 @@
       "title": "Search Out",
       "hours": 0,
       "places": 1,
+      "q": "Q89175873",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9890,6 +10785,7 @@
       "title": "Vertigo",
       "hours": 0,
       "places": 1,
+      "q": null,
       "verdict": "shared",
       "countries": [
         "Argentina",
@@ -9904,6 +10800,7 @@
       "title": "Hello Carbot the Movie: The Secret of Omphalos Island",
       "hours": 0,
       "places": 1,
+      "q": "Q61100949",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9913,6 +10810,7 @@
       "title": "Single Rider",
       "hours": 0,
       "places": 1,
+      "q": "Q28317759",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9922,6 +10820,7 @@
       "title": "Pororo and Friends: Virus Busters",
       "hours": 0,
       "places": 1,
+      "q": "Q125640186",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9931,6 +10830,7 @@
       "title": "1987: When the Day Comes",
       "hours": 0,
       "places": 1,
+      "q": "Q30115075",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9940,6 +10840,7 @@
       "title": "Pororo, The Racing Adventure",
       "hours": 0,
       "places": 1,
+      "q": "Q7230290",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9949,6 +10850,7 @@
       "title": "Hometown",
       "hours": 0,
       "places": 1,
+      "q": "Q16724542",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -9959,6 +10861,7 @@
       "title": "Where Would You Like to Go?",
       "hours": 0,
       "places": 1,
+      "q": "Q130598070",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9968,6 +10871,7 @@
       "title": "Friend",
       "hours": 0,
       "places": 1,
+      "q": "Q484497",
       "verdict": "shared",
       "countries": [
         "India",
@@ -9980,6 +10884,7 @@
       "title": "The Concubine",
       "hours": 0,
       "places": 1,
+      "q": "Q491969",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -9989,6 +10894,7 @@
       "title": "Hidden",
       "hours": 0,
       "places": 1,
+      "q": "Q117432107",
       "verdict": "shared",
       "countries": [
         "Norway",
@@ -10003,7 +10909,8 @@
       "title": "Detour",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": "Q27951988",
+      "verdict": "shared",
       "countries": [
         "Canada",
         "Germany",
@@ -10019,6 +10926,7 @@
       "title": "Master",
       "hours": 0,
       "places": 1,
+      "q": "Q24856122",
       "verdict": "shared",
       "countries": [
         "Bangladesh",
@@ -10031,13 +10939,15 @@
       "title": "Love is for Suckers",
       "hours": 0,
       "places": 1,
-      "verdict": "unknown",
+      "q": "Q113807005",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
       "title": "My Love, My Bride",
       "hours": 0,
       "places": 1,
+      "q": "Q6945937",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10047,6 +10957,7 @@
       "title": "Good Morning",
       "hours": 0,
       "places": 1,
+      "q": "Q111752918",
       "verdict": "shared",
       "countries": [
         "Armenia",
@@ -10060,6 +10971,7 @@
       "title": "Innocence",
       "hours": 0,
       "places": 1,
+      "q": "Q85972954",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -10078,6 +10990,7 @@
       "title": "Take 1",
       "hours": 0,
       "places": 1,
+      "q": "Q114234890",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10087,6 +11000,7 @@
       "title": "Tazza: One Eyed Jack",
       "hours": 0,
       "places": 1,
+      "q": "Q65302313",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10096,6 +11010,7 @@
       "title": "My Unfamiliar Family",
       "hours": 0,
       "places": 1,
+      "q": "Q88979344",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10105,6 +11020,7 @@
       "title": "Dragon Inn Part 1: The City of Sadness",
       "hours": 0,
       "places": 1,
+      "q": "Q103412263",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10114,6 +11030,7 @@
       "title": "The Aftermath of Murder",
       "hours": 0,
       "places": 1,
+      "q": "Q117432097",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10123,6 +11040,7 @@
       "title": "Man of Men",
       "hours": 0,
       "places": 1,
+      "q": "Q72259413",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10132,6 +11050,7 @@
       "title": "Anarchist from Colony",
       "hours": 0,
       "places": 1,
+      "q": "Q28224697",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10141,6 +11060,7 @@
       "title": "Nailed",
       "hours": 0,
       "places": 1,
+      "q": "Q78514475",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -10153,6 +11073,7 @@
       "title": "Golden Slumber",
       "hours": 0,
       "places": 1,
+      "q": "Q29650253",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10162,6 +11083,7 @@
       "title": "Crime Solving Special Squad",
       "hours": 0,
       "places": 1,
+      "q": "Q97205006",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10171,6 +11093,7 @@
       "title": "More Than Family",
       "hours": 0,
       "places": 1,
+      "q": "Q100989574",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10180,6 +11103,7 @@
       "title": "Musudan",
       "hours": 0,
       "places": 1,
+      "q": "Q22973788",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10189,6 +11113,7 @@
       "title": "Sunflower",
       "hours": 0,
       "places": 1,
+      "q": "Q16174790",
       "verdict": "shared",
       "countries": [
         "Australia",
@@ -10206,6 +11131,7 @@
       "title": "A Violent Prosecutor",
       "hours": 0,
       "places": 1,
+      "q": "Q21057612",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10215,6 +11141,7 @@
       "title": "Running Wild",
       "hours": 0,
       "places": 1,
+      "q": "Q7379999",
       "verdict": "shared",
       "countries": [
         "Austria",
@@ -10228,6 +11155,7 @@
       "title": "Stranger",
       "hours": 0,
       "places": 1,
+      "q": "Q28972794",
       "verdict": "shared",
       "countries": [
         "Germany",
@@ -10242,6 +11170,7 @@
       "title": "X",
       "hours": 0,
       "places": 1,
+      "q": "Q27952996",
       "verdict": "shared",
       "countries": [
         "Canada",
@@ -10260,7 +11189,8 @@
       "title": "StartUp",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": null,
+      "verdict": "koreaUnconfirmed",
       "countries": [
         "Netherlands",
         "United States"
@@ -10270,6 +11200,7 @@
       "title": "A Girl at My Door",
       "hours": 0,
       "places": 1,
+      "q": "Q16734412",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10279,6 +11210,7 @@
       "title": "Miss Granny",
       "hours": 0,
       "places": 1,
+      "q": "Q15708907",
       "verdict": "shared",
       "countries": [
         "Philippines",
@@ -10289,6 +11221,7 @@
       "title": "Like Father, Like Son",
       "hours": 0,
       "places": 1,
+      "q": "Q16166090",
       "verdict": "shared",
       "countries": [
         "Japan",
@@ -10300,7 +11233,8 @@
       "title": "Stand By Me",
       "hours": 0,
       "places": 1,
-      "verdict": "noKorea",
+      "q": "Q55105989",
+      "verdict": "shared",
       "countries": [
         "People's Republic of China",
         "Taiwan"
@@ -10310,6 +11244,7 @@
       "title": "Villains",
       "hours": 0,
       "places": 1,
+      "q": "Q118366920",
       "verdict": "shared",
       "countries": [
         "South Korea",
@@ -10321,6 +11256,7 @@
       "title": "Wolf",
       "hours": 0,
       "places": 1,
+      "q": "Q16163144",
       "verdict": "shared",
       "countries": [
         "Belgium",
@@ -10347,6 +11283,7 @@
       "title": "Rookie Cops",
       "hours": 0,
       "places": 1,
+      "q": "Q108933112",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -10356,6 +11293,7 @@
       "title": "Fallen",
       "hours": 0,
       "places": 1,
+      "q": "Q93736752",
       "verdict": "shared",
       "countries": [
         "Brazil",
@@ -10413,7 +11351,7 @@
     },
     {
       "title": "Mercy For None",
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "countries": []
     },
     {
@@ -10424,19 +11362,7 @@
       ]
     }
   ],
-  "noKoreaQueue": [
-    {
-      "title": "Land",
-      "places": 53,
-      "hours": 0,
-      "countries": [
-        "Canada",
-        "France",
-        "Germany",
-        "United Kingdom",
-        "United States"
-      ]
-    },
+  "koreaUnconfirmedQueue": [
     {
       "title": "Undercover",
       "places": 48,
@@ -10457,14 +11383,6 @@
       ]
     },
     {
-      "title": "Modern Family",
-      "places": 22,
-      "hours": 0,
-      "countries": [
-        "United States"
-      ]
-    },
-    {
       "title": "UFO",
       "places": 17,
       "hours": 6710000,
@@ -10472,34 +11390,6 @@
         "Denmark",
         "Turkey",
         "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "Deliver Us from Evil",
-      "places": 7,
-      "hours": 0,
-      "countries": [
-        "Canada",
-        "Denmark",
-        "Norway",
-        "Sweden",
-        "United States"
-      ]
-    },
-    {
-      "title": "Love Me",
-      "places": 5,
-      "hours": 0,
-      "countries": [
-        "Australia",
-        "Canada",
-        "France",
-        "Germany",
-        "India",
-        "Indonesia",
-        "Sweden",
-        "Ukraine",
         "United States"
       ]
     },
@@ -10566,16 +11456,6 @@
         "Sweden",
         "United Kingdom",
         "United States"
-      ]
-    },
-    {
-      "title": "Asura",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "India",
-        "Japan",
-        "People's Republic of China"
       ]
     },
     {
@@ -10659,29 +11539,6 @@
       ]
     },
     {
-      "title": "Dear Mother",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "France"
-      ]
-    },
-    {
-      "title": "Detour",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Canada",
-        "Germany",
-        "Nigeria",
-        "Norway",
-        "People's Republic of Bulgaria",
-        "South Africa",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "StartUp",
       "places": 1,
       "hours": 0,
@@ -10689,15 +11546,208 @@
         "Netherlands",
         "United States"
       ]
+    }
+  ],
+  "keyedNotLabelled": [
+    {
+      "title": "Destined with You",
+      "q": "Q116550095",
+      "places": 285
+    },
+    {
+      "title": "The WONDERfools",
+      "q": "Q130748503",
+      "places": 216
+    },
+    {
+      "title": "Mercy For None",
+      "q": "Q123305848",
+      "places": 203
+    },
+    {
+      "title": "Welcome to Samdal-ri",
+      "q": "Q118611683",
+      "places": 166
+    },
+    {
+      "title": "I am Solo",
+      "q": "Q113548365",
+      "places": 110
+    },
+    {
+      "title": "Behind Your Touch",
+      "q": "Q117280410",
+      "places": 96
+    },
+    {
+      "title": "Mission: Cross",
+      "q": "Q123354206",
+      "places": 70
+    },
+    {
+      "title": "Land",
+      "q": "Q136691896",
+      "places": 53
+    },
+    {
+      "title": "My Roommate Is a Gumiho",
+      "q": "Q104903382",
+      "places": 35
+    },
+    {
+      "title": "Hotel Del Luna",
+      "q": "Q61981835",
+      "places": 27
+    },
+    {
+      "title": "Modern Family",
+      "q": "Q19939271",
+      "places": 22
+    },
+    {
+      "title": "Bad And Crazy",
+      "q": "Q108876770",
+      "places": 19
+    },
+    {
+      "title": "I, the Executioner",
+      "q": "Q119680224",
+      "places": 11
+    },
+    {
+      "title": "Escape From Mogadishu",
+      "q": "Q107208538",
+      "places": 10
+    },
+    {
+      "title": "GOOD BOY",
+      "q": "Q130200788",
+      "places": 9
+    },
+    {
+      "title": "PROJECT SILENCE",
+      "q": "Q117842179",
+      "places": 8
+    },
+    {
+      "title": "All For Love",
+      "q": "Q4729958",
+      "places": 8
+    },
+    {
+      "title": "The Gangster, The Cop, The Devil",
+      "q": "Q63198576",
+      "places": 7
+    },
+    {
+      "title": "Deliver Us from Evil",
+      "q": "Q93739110",
+      "places": 7
+    },
+    {
+      "title": "Lies Hidden in my Garden",
+      "q": "Q117865066",
+      "places": 5
+    },
+    {
+      "title": "Marry YOU",
+      "q": "Q130749079",
+      "places": 5
+    },
+    {
+      "title": "Love Me",
+      "q": "Q135293697",
+      "places": 5
+    },
+    {
+      "title": "She was pretty",
+      "q": "Q20730109",
+      "places": 4
+    },
+    {
+      "title": "PLUTO",
+      "q": "Q18170264",
+      "places": 3
+    },
+    {
+      "title": "Voice Of Silence",
+      "q": "Q66220160",
+      "places": 3
+    },
+    {
+      "title": "Only God knows Everything",
+      "q": "Q135486575",
+      "places": 3
+    },
+    {
+      "title": "Mission: Possible",
+      "q": "Q105294011",
+      "places": 3
+    },
+    {
+      "title": "Mad for Each Other",
+      "q": "Q108916196",
+      "places": 3
+    },
+    {
+      "title": "Asura",
+      "q": "Q130598068",
+      "places": 2
+    },
+    {
+      "title": "Land Of Happiness",
+      "q": "Q55735939",
+      "places": 2
+    },
+    {
+      "title": "Proof of Innocence",
+      "q": "Q23999998",
+      "places": 2
+    },
+    {
+      "title": "FENGSHUI",
+      "q": "Q54819842",
+      "places": 2
+    },
+    {
+      "title": "Heaven's Soldiers",
+      "q": "Q572866",
+      "places": 2
+    },
+    {
+      "title": "Clean With Passion For Now",
+      "q": "Q47743749",
+      "places": 1
+    },
+    {
+      "title": "Dear Mother",
+      "q": "Q16725091",
+      "places": 1
+    },
+    {
+      "title": "Jeong-Sun",
+      "q": "Q114818806",
+      "places": 1
+    },
+    {
+      "title": "Keys To The Heart",
+      "q": "Q30644591",
+      "places": 1
+    },
+    {
+      "title": "Detour",
+      "q": "Q27951988",
+      "places": 1
+    },
+    {
+      "title": "Love is for Suckers",
+      "q": "Q113807005",
+      "places": 1
     },
     {
       "title": "Stand By Me",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "People's Republic of China",
-        "Taiwan"
-      ]
+      "q": "Q55105989",
+      "places": 1
     }
   ]
 }
