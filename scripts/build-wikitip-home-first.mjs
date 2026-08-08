@@ -254,7 +254,27 @@ if (out.neverAtHomeByFormat.series + out.neverAtHomeByFormat.films !== out.never
   throw new Error('한국 기록 없음의 갈래 합이 안 맞는다');
 }
 
-fs.writeFileSync('src/data/wikitip-home-first.json', JSON.stringify(out, null, 2));
+/**
+ * ⛔ 이미 방송사 시험이 든 자료를 **시험 없는 것으로 덮지 않는다.**
+ *
+ * 곳간(archive/…/broadcaster-p449.json)은 git 밖이다. 다른 자리에서 이 수집기를 그냥 돌리면
+ * 곳간이 없어 `broadcasterTest` 가 null 이 되고, **좋은 자료가 빈 자료로 덮인다.**
+ * 그러면 기사 검사가 서고, 선 까닭이 「기사가 틀렸다」로 읽힌다 — 틀린 것은 자료 쪽이다.
+ * 덮지 말고 멈추고, 어떻게 해야 하는지 말한다.
+ */
+const 낼길 = 'src/data/wikitip-home-first.json';
+if (!out.broadcasterTest && fs.existsSync(낼길)) {
+  const 옛 = JSON.parse(fs.readFileSync(낼길, 'utf8'));
+  if (옛.broadcasterTest) {
+    throw new Error(
+      '이미 있는 자료에는 방송사 시험이 들어 있는데 이번 판에는 없다 — 덮지 않는다.\n'
+      + '  KCW_FETCH=1 node scripts/build-wikitip-home-first.mjs 로 한 번 받으면 된다\n'
+      + '  (Wikidata P449, 397편 중 Q 붙은 것만. 곳간은 archive 라 git 에 없다)',
+    );
+  }
+}
+
+fs.writeFileSync(낼길, JSON.stringify(out, null, 2));
 
 console.log(`나라별 자리 ${out.slotsPerCountry}줄 · ${out.weekCount}주 — 일곱 나라 모두 같다 ✅`);
 console.log(`동남아에 걸린 한국 작품 ${out.titleCount}편 · 한국 기록 없음 ${out.neverAtHome} (${out.neverAtHomePc}%)`);
