@@ -155,6 +155,17 @@ const 제일낮은 = 잰곳.find((x) => x.진로.진학률 === 낮은값) ?? nul
    붙이지 않으면 지면 여섯 장의 제목이 같아진다(검사가 잡았다). */
 const 온이름 = 열쇠만들기(시도, 구);
 
+/**
+ * 🔴 2번 지시(2026-08-08 12:1x) — **4,767장이 전부 같은 그림으로 공유됐다.**
+ *
+ *   *「누가 노원구 지면을 카톡으로 보내도 강릉여고를 보낸 사람과 똑같은 그림이 뜹니다」*
+ *
+ *   카드는 `scripts/make-og-100y-pages.mjs` 가 굽는다. 여기서는 **주소만** 가리킨다.
+ * ⚠ 파일 이름 규칙이 굽는 쪽과 **한 글자도 달라선 안 된다** — 다르면 카드가 404 다.
+ *   굽는 쪽: `area-${slug}.png`
+ */
+const 카드주소 = `https://100yearmap.com/og/area-${slug}.png`;
+
 const 한벌인가 = 한벌로팔만한가(곳들.length);
 
 const desc = 한벌인가
@@ -163,7 +174,12 @@ const desc = 한벌인가
   : `${시도} ${구}의 고등학교 ${곳들.length}곳입니다. 학교가 적어 무료로 열어 둔 지면입니다.`;
 ---
 
-<HundredYear title={`${온이름} 고등학교 ${곳들.length}곳`} description={desc} noindex={한벌인가}>
+<HundredYear
+  title={`${온이름} 고등학교 ${곳들.length}곳`}
+  description={desc}
+  noindex={한벌인가}
+  ogImage={카드주소}
+>
   {
     한벌인가 ? (
       <p class="note">

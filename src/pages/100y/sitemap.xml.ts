@@ -73,6 +73,8 @@ export const GET: APIRoute = () => {
     { path: '/about', priority: '0.8', changefreq: 'monthly' },
     /* 🔴 2026-08-08 11:3x — 파는 지면이 라이브인데 이 셋이 404 였다(2번 실측).
        ⚠ 고정 지면을 만들면 **여기 한 줄을 같이 넣는다.** 안 넣으면 검사가 잡는다 */
+    /* ⚠ 이미지 사이트맵도 지면 목록에 넣는다 — 검색엔진이 이 파일을 먼저 찾는다 */
+    { path: '/sitemap-image.xml', priority: '0.3', changefreq: 'weekly' },
     { path: '/terms', priority: '0.4', changefreq: 'yearly' },
     { path: '/privacy', priority: '0.4', changefreq: 'yearly' },
     { path: '/refund', priority: '0.4', changefreq: 'yearly' },

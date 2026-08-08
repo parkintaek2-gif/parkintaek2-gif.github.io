@@ -212,6 +212,13 @@ const jsonLd = {
  *   지면이 없는 열쇠로 링크를 걸면 404 가 된다.
  *   주소를 못 가른 학교 4곳은 여기서 null 이고, 그 지면에는 줄이 안 붙는다.
  */
+/**
+ * 🔴 2번 지시(2026-08-08 12:1x) — 학교 지면 8장이 **전부 같은 그림**으로 공유되고 있었다.
+ *   카드는 `scripts/make-og-100y-pages.mjs` 가 굽는다. 여기서는 **주소만** 가리킨다.
+ * ⚠ 굽는 쪽과 이름 규칙이 같아야 한다 — `school-${code}.png`. 다르면 404 다.
+ */
+const 카드주소 = `https://100yearmap.com/og/school-${school.code}.png`;
+
 const 이지역 = (() => {
   const g = 지역가르기(school.주소);
   if (!g) return null;
@@ -237,7 +244,13 @@ const 이지역 = (() => {
   ⚠ **사이트맵도 조건이 같아야 한다**(`sitemap.xml.ts`). 한쪽만 고치면 구글에 모순된
     신호를 준다. `check:100y:launch` 의 「연 지면이 사이트맵에 다 있나」가 지킨다.
 */}
-<HundredYear title={제목} description={desc} jsonLd={jsonLd} noindex={학과.length === 0 && !중단 && !학급}>
+<HundredYear
+  title={제목}
+  description={desc}
+  jsonLd={jsonLd}
+  noindex={학과.length === 0 && !중단 && !학급}
+  ogImage={카드주소}
+>
   <h1>{school.title}</h1>
   <p class="sub">
     {school.지역} · {school.고교유형} · {school.설립}
