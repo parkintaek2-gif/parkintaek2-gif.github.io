@@ -31,6 +31,26 @@ export function 절반편수(자리들) {
 }
 
 /** 대조군이 갉아먹은 몫 */
+/**
+ * 지면 몸에서 **중괄호 안(코드)을 통째로 벗긴다.** 남는 것이 손님이 읽는 글자다.
+ *
+ * 🔴 2026-08-09 06:4x — 전에는 정규식으로 벗겼다. 두 겹까지만 벗겨져서,
+ *   `{시장길.has(c.iso2) ? <a href={`/market/${…}`}>…</a> : c.name}` 처럼 **세 겹**이면
+ *   코드가 글자로 새어 나왔다. 그래서 `c.iso2` 의 **2** 를 「손으로 박은 수」라고 울었다.
+ * ⛔ 헛울음도 나쁘지만 **더 나쁜 것은 그 반대**다 — 못 벗긴 자리에 진짜 박힌 수가 있으면
+ *   그 수는 코드로 보여 **그냥 지나간다.** 자가 놓치는 쪽이 무섭다.
+ * ⭐ 그래서 세면서 벗긴다. 겹이 몇이든 맞는다.
+ */
+export function 코드벗기기(글) {
+  let 깊이 = 0; let 밖 = '';
+  for (const c of 글) {
+    if (c === '{') { 깊이 += 1; 밖 += ' '; continue; }
+    if (c === '}') { 깊이 = Math.max(0, 깊이 - 1); 밖 += ' '; continue; }
+    밖 += 깊이 ? ' ' : c;
+  }
+  return 밖;
+}
+
 export function 설명된몫(날것, 맞춘것) {
   if (typeof 날것 !== 'number' || typeof 맞춘것 !== 'number' || !날것) return null;
   return +((100 * (날것 - 맞춘것)) / 날것).toFixed(1);
@@ -46,6 +66,10 @@ if (process.argv[1] && process.argv[1].endsWith('check-catalogue-depth-article.m
   자가('설명된 몫', 설명된몫(37, 25) === 32.4);
   자가('안 줄었으면 0%', 설명된몫(10, 10) === 0);
   자가('날것이 0 이면 null', 설명된몫(0, 0) === null);
+  자가('코드벗기기 — 한 겹', 코드벗기기('a {b} c').replace(/\s+/g, ' ') === 'a   c'.replace(/\s+/g, ' '));
+  자가('코드벗기기 — 세 겹도 벗긴다',
+    !/\d/.test(코드벗기기('x {f(a.iso2) ? <a href={`/m/${s}`}>1</a> : b} y')));
+  자가('코드벗기기 — 밖의 수는 남긴다', /42/.test(코드벗기기('takes 42 places {code}')));
   console.log(`깊이 기사 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
   if (통과 !== 시험) process.exit(1);
 
@@ -158,8 +182,7 @@ if (process.argv[1] && process.argv[1].endsWith('check-catalogue-depth-article.m
   /* ── ⑧ 지면이 수를 손으로 안 박았나 ── `/home-first` 와 같은 자다 ── */
   if (fs.existsSync(지면길)) {
     const 몸 = fs.readFileSync(지면길, 'utf8').split(/^---$/m)[2] ?? '';
-    const 박힌 = [...몸.split('<style>')[0]
-      .replace(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g, ' ')
+    const 박힌 = [...코드벗기기(몸.split('<style>')[0])
       .replace(/<[^>]*>/g, ' ')
       .matchAll(/\d[\d,.]*/g)]
       /* ⚠ `a top 10, not…` 의 쉼표까지 수에 붙어 `10,` 이 됐고, 면제표의 `10` 을 비껴갔다.

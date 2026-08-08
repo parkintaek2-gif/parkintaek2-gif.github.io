@@ -56,13 +56,30 @@ if (process.argv[1] && process.argv[1].endsWith('check-two-clicks.mjs')) {
     process.exit(1);
   }
 
-  /** 세어야 할 자료 지면 — 기사와 404 는 뺀다 */
+  /**
+   * 세어야 할 자료 지면 — 기사와 404 는 뺀다.
+   *
+   * 🔴 2026-08-09 06:1x — **하위 폴더를 안 팠다.** 그날 `/market/<나라>` 93장을 냈는데
+   *   이 자는 여전히 「자료 지면 29장」이라 답했다. 93장이 **자 눈 밖**에 있었다.
+   *   ⛔ 100% 라는 초록불이 **안 센 93장**을 덮고 있었다 — 오늘 새벽 자가시험에서 겪은 것과 같다.
+   *   ⭐ 그래서 판다. `article/` 만 뺀다(기사는 `check-article-reach` 가 따로 맡는다).
+   */
   const 자료아님 = /^(404)$/;
-  const 지면들 = fs.readdirSync(빌드칸)
-    .filter((f) => f.endsWith('.html'))
-    .map((f) => f.replace(/\.html$/, ''))
-    .filter((n) => !자료아님.test(n))
-    .map((n) => `/${n}`);
+  const 지면들 = [];
+  const 판다 = (d, 앞) => {
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      if (e.isDirectory()) {
+        if (e.name === 'article') continue;         // 기사는 이 자가 안 센다
+        판다(`${d}/${e.name}`, `${앞}/${e.name}`);
+        continue;
+      }
+      if (!e.name.endsWith('.html')) continue;
+      const n = e.name.replace(/\.html$/, '');
+      if (!앞 && 자료아님.test(n)) continue;
+      지면들.push(`${앞}/${n}`);
+    }
+  };
+  판다(빌드칸, '');
   지면들.push('/');
 
   /* ── 너비우선으로 두 걸음 ── */

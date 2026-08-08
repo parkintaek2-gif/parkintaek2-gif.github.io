@@ -1,0 +1,167 @@
+---
+/**
+ * K Culture Wire — **시장 한 곳** (`/market/<slug>`). 93장이 여기서 나온다.
+ *
+ * ── 왜 93장인가 ────────────────────────────────────────────────
+ * `/catalogue-depth` 는 93개 시장을 **한 장에 접어** 두었다. 접어 두면 두 가지를 잃는다 —
+ *   ① 손님은 「Korean shows in Vietnam」을 검색한다. 접힌 줄은 그 말에 안 걸린다
+ *   ② 광고 재고가 한 장뿐이다. 05:3x 에 재 보니 지금 79장으로는 지면당 월 13.5만 PV 가 필요했다
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **얇으면 안 낸다.** 작품이 여덟 편 미만인 시장은 `hasPage: false` 라 여기서 안 만든다.
+ *    나라×작품 조합(88,000장)은 아예 안 만든다 — 얇은 지면은 색인이 안 되고 벌점이다.
+ * ⛔ **줄세우지 않는다.** 「몇 등 시장」이라 안 쓴다. 가운데값과 견주고 **왜 다른지**를 같이 적는다.
+ * ⛔ **취향을 평가하지 않는다.** 「인기 있다」가 아니라 **몇 자리를 차지했나**를 적는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-markets.json` 에서 읽는다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-markets.json';
+
+export function getStaticPaths() {
+  /* ⛔ 표가 얇은 시장은 지면을 안 낸다. 자료가 그렇게 판정해 둔 것을 그대로 따른다 */
+  return data.markets.filter((m) => m.hasPage).map((m) => ({ params: { slug: m.slug }, props: { m } }));
+}
+
+const { m } = Astro.props;
+const 중 = data.medians;
+
+const TITLE = `Korean titles on Netflix in ${m.name}`;
+const DESC =
+  `Korean shows and films took ${m.koreanSlots.toLocaleString('en-US')} of ${m.name}'s Netflix top 10 `
+  + `places over ${data.weekCount} weeks — ${m.koreanPc}% of the chart, spread across `
+  + `${m.distinctTitles} different titles. Counted from Netflix's own weekly lists.`;
+
+const 해 = m.byYear.filter((y) => y.places > 0);
+const 큰해 = 해.reduce((a, y) => (y.places > a.places ? y : a), 해[0]);
+const 작은해 = 해.reduce((a, y) => (y.places < a.places ? y : a), 해[0]);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: `${data.weekFrom}/${data.weekTo}`,
+  spatialCoverage: m.name,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical={`https://www.kculturewire.com/market/${m.slug}`}>
+  <h1>{TITLE}</h1>
+  <p class="lead">
+    Between {data.weekFrom} and {data.weekTo}, {m.name}'s Netflix top 10 had
+    {' '}{(data.weekCount * 20).toLocaleString('en-US')} places to give out across films and series.
+    Korean titles took <b>{m.koreanSlots.toLocaleString('en-US')}</b> of them — <b>{m.koreanPc}%</b>.
+  </p>
+
+  <section>
+    <h2>The four numbers</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>&nbsp;</th><th>{m.name}</th><th>Median of {data.countryCount} markets</th><th>Where it sits</th></tr></thead>
+        <tbody>
+          <tr class="edge">
+            <td class="nm">Share of chart places</td>
+            <td class="tot">{m.koreanPc}%</td><td>{중.koreanPc}%</td><td class="nm">{m.vsMedian.koreanPc}</td>
+          </tr>
+          <tr>
+            <td class="nm">Different Korean titles</td>
+            <td class="tot">{m.distinctTitles}</td><td>{중.distinctTitles}</td><td class="nm">{m.vsMedian.distinctTitles}</td>
+          </tr>
+          <tr>
+            <td class="nm">Titles filling half those places</td>
+            <td class="tot">{m.halfTakes}</td><td>{중.halfTakes}</td><td class="nm">{m.vsMedian.halfTakes}</td>
+          </tr>
+          <tr>
+            <td class="nm">Weeks with a Korean title</td>
+            <td class="tot">{m.weeksWithKorean}</td><td>—</td><td class="nm">of {data.weekCount}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>“Titles filling half” is the one to read twice.</b> {m.name} needs <b>{m.halfTakes}</b> titles
+      to cover half of its Korean chart places. A market that needs few is not a smaller market — it is
+      a market where the same titles return. A market that needs many rotates through more of the
+      catalogue. Neither is better; they are different questions.
+      {' '}<a href="/catalogue-depth">The same figure for every market →</a>
+    </p>
+  </section>
+
+  <section>
+    <h2>The titles that took those places</h2>
+    <p class="note lead-in">
+      The {m.titlesShown} titles with the most chart places in {m.name}, out of {m.distinctTitles} that
+      charted at all. ⛔ This is not a ranking of quality — it records how long each stayed on the list.
+    </p>
+    <div class="scroll-x tall">
+      <table>
+        <thead>
+          <tr><th>Title</th><th>Places</th><th>Weeks</th><th>Peak</th><th>First → Last</th></tr>
+        </thead>
+        <tbody>
+          {m.titles.map((t) => (
+            <tr>
+              <td class="nm"><i>{t.title}</i></td>
+              <td class="tot">{t.places}</td>
+              <td>{t.weeks}</td>
+              <td>{t.peak}</td>
+              <td class="nm">{t.first} → {t.last}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <i>{m.topTitle}</i> is the largest single title here, holding {m.topTitlePc}% of
+      {' '}{m.name}'s Korean places by itself. <i>Places</i> counts one title on one weekly list;
+      a title can hold a place for many weeks. <i>Peak</i> is the highest position it reached.
+    </p>
+  </section>
+
+  <section>
+    <h2>Year by year</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Year</th><th>Korean chart places</th></tr></thead>
+        <tbody>
+          {m.byYear.map((y) => (
+            <tr><td class="nm">{y.year}</td><td class="tot">{y.places}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The busiest year here was <b>{큰해.year}</b> ({큰해.places} places) and the quietest
+      {' '}<b>{작은해.year}</b> ({작은해.places}). ⚠ 2021 begins on {data.weekFrom} and the final year
+      ends on {data.weekTo}, so those two are partial years and cannot be compared with the rest.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Where these numbers come from, and what they cannot answer</h2>
+    <ul>
+      <li><b>Netflix</b> — {data.source}</li>
+      <li>
+        <b>A top 10 is a rank list, not a viewing count.</b> A title just outside {m.name}'s top 10
+        is invisible here no matter how much it was watched. Nothing on this page measures hours.
+      </li>
+      <li>
+        <b>Identification is by name and by Wikidata item number.</b> Where an English name is shared
+        by a Korean work and a foreign one we say so rather than guess.
+        {' '}<a href="/catalogue-depth">The size of that group is published →</a>
+      </li>
+      <li>
+        <b>Russia is excluded</b> from every figure on this site, so it is absent here too.
+      </li>
+    </ul>
+    <p class="note">
+      <a href="/catalogue-depth">← All {data.countryCount} markets side by side</a> ·{' '}
+      <a href="/titles">Every Korean title that has charted</a> ·{' '}
+      <a href="/methodology">How we count</a>
+    </p>
+  </section>
+</WikiTip>

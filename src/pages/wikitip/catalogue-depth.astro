@@ -22,6 +22,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-catalogue-depth.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
+import markets from '../../data/wikitip-markets.json';
 
 const TITLE = 'How many different Korean titles has your country actually seen?';
 
@@ -42,6 +43,8 @@ const 확실 = [
   { key: 'koreaUnconfirmed', label: 'Foreign works carry it and we could not tie it to a Korean one',
     n: 센다('koreaUnconfirmed'), means: 'Still open. Listed below by name.' },
 ];
+/* 시장 한 곳씩 낸 지면으로 가는 길. ⛔ 안 이으면 93장이 있어도 없는 것과 같다 */
+const 시장길 = new Map(markets.markets.filter((m) => m.hasPage).map((m) => [m.iso2, m.slug]));
 const 열린자리 = ambiguity.koreaUnconfirmedQueue.reduce((s, x) => s + x.places, 0);
 const 열쇠로찾음 = ambiguity.keyedNotLabelled;
 const 열쇠자리 = 열쇠로찾음.reduce((s, x) => s + x.places, 0);
@@ -227,6 +230,13 @@ const jsonLd = {
     <h2>Every market, in alphabetical order</h2>
     <p class="note lead-in">
       Sorted by name, not by size. Look up your own; the order carries no meaning.
+      {' '}<b>Every market name below is a link</b> — {markets.pageCount} of them open a page with
+      that market's own titles, up to {markets.titlesPerPage} of them, week by week. A market needs
+      at least {markets.minTitlesForPage} charting titles to get a page; we do not publish a page
+      thin enough to say nothing.
+      {' '}Medians across the {markets.countryCount} markets, for comparison on those pages:
+      {' '}{markets.medians.koreanPc}% of chart places · {markets.medians.distinctTitles} different
+      titles · {markets.medians.halfTakes} titles filling half.
     </p>
     <div class="scroll-x tall">
       <table>
@@ -239,7 +249,9 @@ const jsonLd = {
         <tbody>
           {[...data.countries].sort((a, b) => a.name.localeCompare(b.name)).map((c) => (
             <tr class={c.inAsianTen ? 'edge' : ''}>
-              <td class="nm">{c.name}</td>
+              <td class="nm">{시장길.has(c.iso2)
+                ? <a href={`/market/${시장길.get(c.iso2)}`}>{c.name}</a>
+                : c.name}</td>
               <td>{c.koreanPc}%</td>
               <td>{c.koreanSlots.toLocaleString('en-US')}</td>
               <td class="tot">{c.distinctTitles}</td>

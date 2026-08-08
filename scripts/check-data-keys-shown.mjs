@@ -62,15 +62,27 @@ const 면제 = [
   },
 ];
 
-/** 지면·부품이 자료를 무슨 이름으로 읽는지 모은다. */
+/**
+ * 지면·부품이 자료를 무슨 이름으로 읽는지 모은다.
+ *
+ * 🔴 2026-08-09 06:1x — **하위 폴더를 안 팠다.**
+ *   `src/pages/wikitip/market/[slug].astro` 한 장이 93개 시장 지면을 만드는데,
+ *   이 자가 그 폴더를 안 봐서 **93장에 실린 값을 「어느 지면도 안 보여 준다」**고 울었다.
+ *   ⛔ 그때 면제표에 까닭을 적었으면 **93장이 영영 자 눈 밖**에 남았을 것이다.
+ *   ⭐ 면제가 아니라 **자를 고치는 자리**였다. 앞으로 어느 폴더에 지면을 내도 본다.
+ */
 export function 읽는지면(디렉들) {
   const 글들 = [];
-  for (const d of 디렉들) {
-    if (!fs.existsSync(d)) continue;
-    for (const f of fs.readdirSync(d).filter((x) => x.endsWith('.astro') || x.endsWith('.ts'))) {
-      글들.push({ 이름: `${path.basename(d)}/${f}`, 글: fs.readFileSync(path.join(d, f), 'utf8') });
+  const 판다 = (d, 앞) => {
+    if (!fs.existsSync(d)) return;
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const 길 = path.join(d, e.name);
+      if (e.isDirectory()) { 판다(길, `${앞}/${e.name}`); continue; }
+      if (!e.name.endsWith('.astro') && !e.name.endsWith('.ts')) continue;
+      글들.push({ 이름: `${앞}/${e.name}`, 글: fs.readFileSync(길, 'utf8') });
     }
-  }
+  };
+  for (const d of 디렉들) 판다(d, path.basename(d));
   return 글들;
 }
 
