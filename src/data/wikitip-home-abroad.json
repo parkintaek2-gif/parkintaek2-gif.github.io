@@ -1,0 +1,270 @@
+{
+ "generated": "2026-08-08T18:58:21.678Z",
+ "source": "Netflix Top 10 (Tudum) weekly country lists, 2021–2026; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
+ "question": "Does how long a Korean title stays on Korea’s own Netflix chart tell you whether it will travel?",
+ "unit": "One place is one title on one country’s weekly top 10. A title on the list for six weeks in Korea has six home places.",
+ "weekFrom": "2021-07-04",
+ "weekTo": "2026-07-26",
+ "weekCount": 265,
+ "titles": 938,
+ "chartedAtHome": 560,
+ "neverChartedAtHome": 378,
+ "whyNotCompared": "Titles that never charted in Korea are, by definition, titles we only know about because they charted somewhere else. Comparing the two groups directly would answer a question we have already decided.",
+ "bands": [
+  {
+   "band": "1–2",
+   "titles": 219,
+   "reachedTenPc": 11.4,
+   "reachedTwentyPc": 5.5,
+   "neverLeftPc": 67.6,
+   "medianCountries": 0,
+   "medianAbroadPlaces": 0,
+   "film": {
+    "titles": 168,
+    "reachedTenPc": 6.5
+   },
+   "series": {
+    "titles": 51,
+    "reachedTenPc": 27.5
+   },
+   "medianFirstWeek": "2023-06-04"
+  },
+  {
+   "band": "3–5",
+   "titles": 165,
+   "reachedTenPc": 25.5,
+   "reachedTwentyPc": 20,
+   "neverLeftPc": 47.3,
+   "medianCountries": 1,
+   "medianAbroadPlaces": 1,
+   "film": {
+    "titles": 100,
+    "reachedTenPc": 8
+   },
+   "series": {
+    "titles": 65,
+    "reachedTenPc": 52.3
+   },
+   "medianFirstWeek": "2023-12-03"
+  },
+  {
+   "band": "6–10",
+   "titles": 138,
+   "reachedTenPc": 56.5,
+   "reachedTwentyPc": 49.3,
+   "neverLeftPc": 17.4,
+   "medianCountries": 19,
+   "medianAbroadPlaces": 66,
+   "film": {
+    "titles": 41,
+    "reachedTenPc": 39
+   },
+   "series": {
+    "titles": 97,
+    "reachedTenPc": 63.9
+   },
+   "medianFirstWeek": "2024-04-07"
+  },
+  {
+   "band": "11 or more",
+   "titles": 38,
+   "reachedTenPc": 63.2,
+   "reachedTwentyPc": 47.4,
+   "neverLeftPc": 23.7,
+   "medianCountries": 17,
+   "medianAbroadPlaces": 123,
+   "film": {
+    "titles": 10,
+    "reachedTenPc": 40
+   },
+   "series": {
+    "titles": 28,
+    "reachedTenPc": 71.4
+   },
+   "medianFirstWeek": "2023-01-01"
+  }
+ ],
+ "travelledWithoutHome": [
+  {
+   "title": "Oasis",
+   "countries": 82,
+   "places": 239,
+   "film": false
+  },
+  {
+   "title": "Dangerous Liaisons",
+   "countries": 70,
+   "places": 165,
+   "film": true
+  },
+  {
+   "title": "Breathless",
+   "countries": 69,
+   "places": 250,
+   "film": false
+  },
+  {
+   "title": "Young Lady and Gentleman",
+   "countries": 54,
+   "places": 351,
+   "film": false
+  },
+  {
+   "title": "Outlaw",
+   "countries": 53,
+   "places": 80,
+   "film": true
+  },
+  {
+   "title": "Happy Ending",
+   "countries": 47,
+   "places": 60,
+   "film": true
+  },
+  {
+   "title": "Gossip Girl",
+   "countries": 45,
+   "places": 137,
+   "film": false
+  },
+  {
+   "title": "The Guest",
+   "countries": 43,
+   "places": 137,
+   "film": false
+  },
+  {
+   "title": "Land",
+   "countries": 43,
+   "places": 53,
+   "film": true
+  },
+  {
+   "title": "Mr. Robot",
+   "countries": 43,
+   "places": 74,
+   "film": false
+  },
+  {
+   "title": "One More Time",
+   "countries": 38,
+   "places": 58,
+   "film": true
+  },
+  {
+   "title": "Awake",
+   "countries": 38,
+   "places": 79,
+   "film": true
+  },
+  {
+   "title": "The Cursed",
+   "countries": 38,
+   "places": 53,
+   "film": true
+  },
+  {
+   "title": "Barbie",
+   "countries": 37,
+   "places": 50,
+   "film": true
+  },
+  {
+   "title": "Last Holiday",
+   "countries": 36,
+   "places": 44,
+   "film": true
+  },
+  {
+   "title": "Spy",
+   "countries": 30,
+   "places": 61,
+   "film": true
+  },
+  {
+   "title": "Red Eye",
+   "countries": 30,
+   "places": 54,
+   "film": false
+  },
+  {
+   "title": "Monster",
+   "countries": 27,
+   "places": 40,
+   "film": true
+  },
+  {
+   "title": "Dog Days Out",
+   "countries": 25,
+   "places": 38,
+   "film": false
+  },
+  {
+   "title": "Undercover",
+   "countries": 24,
+   "places": 48,
+   "film": false
+  },
+  {
+   "title": "Snowpiercer",
+   "countries": 24,
+   "places": 60,
+   "film": false
+  },
+  {
+   "title": "Safe",
+   "countries": 22,
+   "places": 52,
+   "film": true
+  },
+  {
+   "title": "Band of Brothers",
+   "countries": 21,
+   "places": 38,
+   "film": false
+  },
+  {
+   "title": "Stepmom",
+   "countries": 21,
+   "places": 33,
+   "film": true
+  },
+  {
+   "title": "Ghost Ship",
+   "countries": 21,
+   "places": 23,
+   "film": true
+  },
+  {
+   "title": "The Way Back",
+   "countries": 21,
+   "places": 25,
+   "film": true
+  },
+  {
+   "title": "أصحاب ...ولا أعزّ",
+   "countries": 21,
+   "places": 59,
+   "film": true
+  },
+  {
+   "title": "Mimi",
+   "countries": 21,
+   "places": 109,
+   "film": true
+  },
+  {
+   "title": "I Can't Live Without You",
+   "countries": 20,
+   "places": 36,
+   "film": true
+  },
+  {
+   "title": "Sh**ting Stars",
+   "countries": 20,
+   "places": 70,
+   "film": false
+  }
+ ],
+ "travelledWithoutHomeCount": 30
+}

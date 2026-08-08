@@ -81,7 +81,25 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   if (통과 !== 시험) process.exit(1);
 
   if (!fs.existsSync(D)) { console.error(`⛔ ${D} 가 없다 — node scripts/build-once.mjs 를 먼저 돌린다`); process.exit(1); }
-  const 지면 = fs.readdirSync(D).filter((f) => f.endsWith('.html'));
+  /* 🔴 2026-08-09 04:0x — **하위 폴더를 안 팠다.** 그날 `/market/<나라>` 93장을 냈는데
+     93장 전부에 죽은 링크(`/methodology`)가 들어간 채 **라이브로 나갔다.**
+     이 자는 `home-abroad.html` 한 장만 잡았다 — 나머지 93장은 못 본 자리에 있었다.
+     ⛔ 오늘 이 병을 다섯 번째 만난다(열쇠 · 두 번 안에 닿나 · 손으로 박은 수 · 검색 채비 · 여기).
+     ⭐ 판다. `article/` 은 아래에서 따로 센다. */
+  const 지면 = [];
+  {
+    const 판다 = (d, 앞) => {
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        if (e.isDirectory()) {
+          if (e.name === 'article') continue;
+          판다(path.join(d, e.name), `${앞}${e.name}/`);
+          continue;
+        }
+        if (e.name.endsWith('.html')) 지면.push(`${앞}${e.name}`);
+      }
+    };
+    판다(D, '');
+  }
   const 기사디렉 = `${D}/article`;
   const 기사 = fs.existsSync(기사디렉) ? fs.readdirSync(기사디렉).filter((f) => f.endsWith('.html')) : [];
 
