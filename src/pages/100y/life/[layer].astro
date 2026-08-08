@@ -1,0 +1,161 @@
+---
+/**
+ * /100y/life/[layer] — **층 대문** (50대 · 60대)
+ *
+ * 🔴 2번 지시(2026-08-09 03:4x) — *「대문 두 장만 8/14 까지. 나머지 126장은 8/16~17 그대로」*
+ *   사장님 — **「네 층이 넘어야지 100년 산다며」** · **「행복을 찾아가는 백년지도」**
+ *
+ * ⚠ 자료는 이미 있었다. `age-axis.json` 의 50·60대 칸을 **10대 진로 지면에만** 쓰고 있었다.
+ * ⛔ 「곧 나옵니다」 안내판을 세우지 않는다. 숫자가 실려야 지면이다(2번 확인 항목 ②).
+ *
+ * ⛔ 이 층에서 특히 안 하는 것 — 조언. 「준비하셔야 합니다」·「늦었습니다」를 안 쓴다.
+ *   ✅ 적는 것은 **「같은 나이의 사람들이 실제로 어떻게 하고 있나」**뿐이다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import { href } from '../../../lib/hundredyear';
+import 원본 from '../../../data/100yearmap/age-axis.json';
+import { 낼층, 층뽑기, 차이말, type 나이축, type 층 } from '../../../lib/age-layer';
+
+export async function getStaticPaths() {
+  /* ⚠ 목록을 **함수 안에서** 읽는다 — Astro 가 이 함수를 모듈 밖으로 떼어 낸다 */
+  const { 낼층: 층들 } = await import('../../../lib/age-layer');
+  return 층들.map((층) => ({ params: { layer: 층 }, props: { 층 } }));
+}
+
+const { 층 } = Astro.props as { 층: 층 };
+const 자료 = 원본 as unknown as 나이축;
+const 것 = 층뽑기(자료, 층)!;
+const 출처 = (원본 as any).출처;
+
+const 사람합 = 것.임금칸.reduce((n, x) => n + x.사람, 0);
+const 다음층 = (낼층 as readonly string[]).filter((x) => x !== 층);
+
+const desc =
+  `${층} 사람들이 실제로 어떻게 하고 있는지 국가 통계로만 모았습니다. ` +
+  `월급여·근속·자산·부채를 그 나이에 놓았습니다. ⛔ 조언하지 않습니다.`;
+---
+
+<HundredYear title={`${층} — ${것.물음}`} description={desc}>
+  <h1>{층}</h1>
+  <p class="sub">{것.물음}</p>
+
+  <p class="note">
+    ⛔ 나이를 줄세우지 않았습니다. 어느 나이가 나은 나이라는 말은 우리가 할 말이 아닙니다.{' '}
+    <strong>조언하지 않습니다</strong> — 같은 나이의 사람들이 실제로 어떻게 하고 있는지만 적습니다.
+  </p>
+
+  <h2>월급여와 근속</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>나이</th>
+          <th>월급여</th>
+          <th>근속</th>
+          <th>사람</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          것.임금칸.map((x) => (
+            <tr>
+              <th>{x.이름}</th>
+              <td>
+                <strong>{x.월급만원.toLocaleString()}만원</strong>
+              </td>
+              <td>{x.근속년}년</td>
+              <td>{x.사람.toLocaleString()}명</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  {
+    것.앞층과 && (
+      <div class="answer">
+        <p class="answer-label">앞 자리와 견주면</p>
+        <p class="answer-num">{차이말(것.앞층과.월급차만원)}</p>
+        <p class="answer-sub">
+          근속은 {것.앞층과.근속차년 > 0 ? '+' : ''}
+          {것.앞층과.근속차년}년입니다
+        </p>
+      </div>
+    )
+  }
+
+  <p class="note">
+    ⚠ <strong>월급여는 사람 한 명 기준</strong>이고, 아래 자산·부채는 <strong>가구 기준</strong>입니다.
+    두 표를 더하거나 빼지 마십시오 — 세는 단위가 다릅니다.
+  </p>
+
+  <h2>가진 것과 갚을 것</h2>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr>
+          <th>자산 (가운데값)</th>
+          <td><strong>{것.살림칸.자산중앙만원.toLocaleString()}만원</strong></td>
+        </tr>
+        <tr>
+          <th>부채 (가운데값)</th>
+          <td>{것.살림칸.부채중앙만원.toLocaleString()}만원</td>
+        </tr>
+        <tr>
+          <th>한 해 소득 (가운데값)</th>
+          <td>{것.살림칸.소득중앙만원.toLocaleString()}만원</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⛔ <strong>평균이 아니라 가운데값</strong>입니다. 평균은 몇 사람이 끌어올려 대부분의 사람과
+    멀어집니다. 가운데값은 <strong>딱 가운데 있는 집</strong>의 값입니다.
+  </p>
+
+  <h2>이 지면에 없는 것</h2>
+  <p class="note">
+    이 층에서 <strong>무엇을 해야 하는지</strong>는 없습니다. 연금을 얼마 넣으라거나 언제 그만두라는
+    말은 저희가 할 자격이 없습니다.{' '}
+    <strong>업종·지역·규모로 갈라 본 것</strong>도 아직 없습니다 — 손에 있는 자료로 만들 수 있고,
+    8월 16~17일에 냅니다.
+  </p>
+
+  <hr class="rule" />
+  <p class="note">
+    다른 층 —{' '}
+    {
+      다음층.map((x, i) => (
+        <>
+          {i > 0 && ' · '}
+          <a class="gotoarea" href={href(`/life/${x}`)}>
+            {x} →
+          </a>
+        </>
+      ))
+    }{' '}
+    · <a href="/age">나이로 보기</a>
+  </p>
+
+  <details>
+    <summary>이 숫자는 어디서 왔나?</summary>
+    <div>
+      <p class="note">
+        <strong>월급여·근속</strong> — {출처?.임금?.기관}「{출처?.임금?.표}」{' '}
+        {출처?.임금?.해}년 ({출처?.임금?.조건})
+      </p>
+      <p class="note">
+        <strong>자산·부채·소득</strong> — {출처?.살림?.기관}「{출처?.살림?.표}」{' '}
+        {출처?.살림?.해}년
+      </p>
+      <p class="note">
+        ⚠ 두 자료는 <strong>세는 단위가 다릅니다</strong>. 월급여는 사람, 자산·부채는 가구입니다.
+      </p>
+    </div>
+  </details>
+
+  <NextQuestionBrief 모은것={`${층} 사람들의 임금과 살림을 모은 자료`} />
+</HundredYear>

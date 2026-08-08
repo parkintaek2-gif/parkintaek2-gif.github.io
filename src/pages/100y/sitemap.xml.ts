@@ -10,6 +10,8 @@ import { 학과슬러그 } from '../../lib/college-major';
 import 지역단위 from '../../data/100yearmap/areas.json';
 import { 한벌로팔만한가 } from '../../lib/school-area';
 import { 짧은지역명 } from '../../lib/region';
+/* 🔴 층 목록은 **한 곳**에서 온다 — 지면과 사이트맵이 두 벌을 두면 갈라진다 */
+import { 낼층 } from '../../lib/age-layer';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
@@ -119,6 +121,15 @@ export const GET: APIRoute = () => {
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
+      changefreq: 'monthly',
+    })),
+    /* 층 대문 — 「50대 평균 연봉」·「60대 자산」처럼 **층으로 찾는 검색**을 받는 자리다.
+       🔴 2026-08-09 03:5x — 지면을 내자마자 여기 넣는다. `/after`·`/region` 때
+          **두 번 잊었고 두 번 다 검사가 잡았다.** 세 번째는 안 만든다.
+       ⚠ 목록은 `src/lib/age-layer.ts` 의 `낼층` 에서 온다 — 두 곳에 적지 않는다. */
+    ...(낼층 as readonly string[]).map((층) => ({
+      path: `/life/${층}`,
+      priority: '0.8',
       changefreq: 'monthly',
     })),
     // 학과가 학교보다 앞이다. 「어떤 길인가」가 「어느 학교인가」보다 먼저 오는 질문이다
