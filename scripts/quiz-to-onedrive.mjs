@@ -22,7 +22,7 @@ import { 모든문제, 문제뽑기 } from './achim-quiz.mjs';
 export const 낼곳 = 'C:/Users/USER/OneDrive';
 export const 자리이름 = {
   '2': '조율·경영', '3': '백년지도', '5': 'K Culture Wire', '6': 'SeoulMarkets',
-  '1': 'KLifeMap', '4': '일본(KLifeMap 보조)', '7': '감수(KLifeMap 보조)', '8': '자료 검증(백년지도 보조)',
+  '1': 'KLifeMap', '4': '일본어판(KLifeMap)', '7': '감수(KLifeMap 보조)', '8': '자료 검증(백년지도 보조)',
 };
 
 /** 파일 이름 — 사장님이 「퀴즈」라 하셨다. 날짜를 붙여 그날치를 남긴다 */
