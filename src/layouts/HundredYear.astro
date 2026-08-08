@@ -124,7 +124,7 @@ const canonical =
 const OG = ogImage ?? `${ORIGIN}/og.png`;
 ---
 
-<!-- prettier-ignore -->
+{/* prettier-ignore */}
 <html lang="ko">
 <head>
   <meta charset="utf-8" />
@@ -158,7 +158,7 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
     href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@500;700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap"
     rel="stylesheet"
   />
-  <!-- ⚠ is:global 이 아니라 **is:inline** 이다. 되돌리지 말 것 (2026-08-05).
+  {/* ⚠ is:global 이 아니라 **is:inline** 이다. 되돌리지 말 것 (2026-08-05).
 
        Astro 는 스타일이 커지면 /_astro/*.css 로 빼내 <link> 로 건다.
        그런데 백년지도는 server.mjs 가 Host 를 보고 /100y 접두사를 붙이므로
@@ -171,7 +171,7 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
        대가는 지면마다 CSS 가 반복되는 것이지만(9.6KB), gzip 이 먹고 요청이 하나 준다.
 
        ⚠ 근본 해결은 server.mjs 가 /_astro 를 접두사 밖으로 빼 주는 것이다 — 2번 파일이라 넘겼다.
-          그 전에는 **백년지도에서 /_astro 를 쓰는 자산(이미지·JS)을 만들지 않는다.** -->
+          그 전에는 **백년지도에서 /_astro 를 쓰는 자산(이미지·JS)을 만들지 않는다.** */}
     {/* 🔴 **인라인이 아니라 파일이다** (2026-08-08).
        전에는 여기 CSS 를 통째로 박아 뒀다. 지면 4,700장 × 10.1KB = **47.7MB** 였다.
        그렇게 둔 이유는 Astro 가 스스로 빼내면 `/_astro/*.css` 로 가는데
@@ -246,7 +246,7 @@ const OG = ogImage ?? `${ORIGIN}/og.png`;
     <slot />
 
     <footer>
-      <!-- ⚠ YMYL — 발행 주체가 없으면 아무리 좋은 글도 검색에 안 올라온다 (스토리보드 §11) -->
+      {/* ⚠ YMYL — 발행 주체가 없으면 아무리 좋은 글도 검색에 안 올라온다 (스토리보드 §11) */}
       <p>
         <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
         {PUBLISHER.addressKo}<br />
