@@ -115,7 +115,8 @@ const out = {
   weekCount: [...나라.values()][0].weeks.size,
   countryCount: 잰것.length,
   slotsPerCountry: [...나라.values()][0].rows,
-  band: { from: 띠[0], to: 띠[1] },
+  /* ⛔ 띠 범위를 여기 따로 안 둔다. `matched.from/to` 와 같은 수를 두 곳에 두면 갈라진다 —
+     오늘 아침에 한 벌 크기를 두 지면이 각자 세다가 다른 수를 말한 것과 같은 병이다 */
   groups: [
     { group: 'The ten Asian markets', ...무리셈(안) },
     { group: 'The other markets', ...무리셈(밖) },

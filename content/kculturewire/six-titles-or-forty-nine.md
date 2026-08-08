@@ -7,6 +7,7 @@ dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "catalogue"]
 pages:
+  - "/catalogue-depth"
   - "/world-share"
 sources:
   - org: "Netflix"
@@ -121,3 +122,6 @@ And the surviving two-thirds of the gap is not explained. We controlled for one 
 Korean places a market has at all — because it was the objection we could test. Release windows,
 subtitle and dub availability, and the size of each market's domestic production are all plausible
 and none of them is separated here.
+
+Every figure above, including the matched-band control and the full width inside the Asian group,
+is on [the catalogue-depth table](/catalogue-depth) with what it cannot answer printed beside it.

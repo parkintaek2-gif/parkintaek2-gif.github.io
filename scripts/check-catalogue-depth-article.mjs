@@ -136,6 +136,41 @@ if (process.argv[1] && process.argv[1].endsWith('check-catalogue-depth-article.m
     한줄.includes('It is not a measure of taste'), 'Top10 에 들었나만 보인다');
   있나('뺀 나라를 이름으로', d.excludedCountry.name);
 
-  console.log(틀림 ? `\n⛔ 어긋난 것 ${틀림}건` : '\n✅ 깊이 기사 — 자료와 전부 맞다');
+  /* ── ⑦ 기사에서 표로 가는 길이 **정말 있나** ────────────────────────
+     🔴 2번 지시 18:4x — 「every figure has a table behind it」이라 적어 놓고 표가 없었다.
+        그 한 줄이 라이브에서 거짓말이었다. ⛔ 링크는 눈으로 세지 않는다. 자로 센다. */
+  const 지면길 = 'src/pages/wikitip/catalogue-depth.astro';
+  const 원문 = fs.readFileSync(기사길, 'utf8');
+  본다('표 지면이 있나', fs.existsSync(지면길), 지면길);
+  본다('기사가 표로 가는 길을 가졌나',
+    /\]\(\/catalogue-depth\)/.test(원문), 'markdown 링크 (/catalogue-depth)');
+  본다('frontmatter 의 pages 에 걸었나',
+    /^\s*-\s*"\/catalogue-depth"\s*$/m.test(원문), '지면이 이 기사를 스스로 건다');
+  const 빌드 = 'dist/wikitip/article/six-titles-or-forty-nine.html';
+  if (fs.existsSync(빌드)) {
+    const h = fs.readFileSync(빌드, 'utf8');
+    본다('빌드된 기사에 <a href> 가 있나',
+      /href="\/catalogue-depth"/.test(h), '⛔ 마크다운만 보고 끝내지 않는다');
+  } else {
+    본다('빌드된 기사를 봤나', false, '🔴 빌드부터 해야 한다');
+  }
+
+  /* ── ⑧ 지면이 수를 손으로 안 박았나 ── `/home-first` 와 같은 자다 ── */
+  if (fs.existsSync(지면길)) {
+    const 몸 = fs.readFileSync(지면길, 'utf8').split(/^---$/m)[2] ?? '';
+    const 박힌 = [...몸.split('<style>')[0]
+      .replace(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g, ' ')
+      .replace(/<[^>]*>/g, ' ')
+      .matchAll(/\d[\d,.]*/g)]
+      /* ⚠ `a top 10, not…` 의 쉼표까지 수에 붙어 `10,` 이 됐고, 면제표의 `10` 을 비껴갔다.
+         꼬리의 쉼표·마침표를 뗀다 — `1,247` 은 7 로 끝나니 안 다친다 */
+      .map((m) => m[0].replace(/[,.]+$/, ''))
+      /* 면제 — 「Netflix top 10」은 넷플릭스가 붙인 차트 이름이지 우리가 센 수가 아니다 */
+      .filter((v) => v !== '10');
+    본다('지면이 수를 손으로 박았나', 박힌.length === 0,
+      박힌.length ? `🔴 ${박힌.join(' · ')}` : '박은 수 0개');
+  }
+
+  console.log(틀림 ? `\n⛔ 어긋난 것 ${틀림}건` : '\n✅ 깊이 기사·지면 — 자료와 전부 맞다');
   process.exit(틀림 ? 1 : 0);
 }

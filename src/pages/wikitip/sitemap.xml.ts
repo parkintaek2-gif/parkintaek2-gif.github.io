@@ -57,6 +57,9 @@ export const GET: APIRoute = async () => {
     { path: '/home-first', priority: '0.9', changefreq: 'weekly' },
     /* 45편째 기사의 표. 2026-08-08 17:2x — 93개국 자리 셈 */
     { path: '/world-share', priority: '0.9', changefreq: 'weekly' },
+    /* 46편째 기사의 표. 2026-08-08 18:5x, 2번 지시 —
+       기사에 「every figure has a table behind it」이라 적어 놓고 표가 없던 것을 메운다 */
+    { path: '/catalogue-depth', priority: '0.9', changefreq: 'weekly' },
     /*
      * 파는 자료의 착륙 지면. 2026-08-08 04:3x 에 만들어 놓고 **여기 한 줄을 안 넣었다** —
      * 하루 동안 검색엔 열려 있는데 사이트맵엔 없는 어긋난 상태였다. 위 ⚠ 가 이것이다.

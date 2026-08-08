@@ -31,7 +31,7 @@ export function 박힌수(원문, 면제) {
   const 남은 = 본문
     .replace(/\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\}/g, ' ')
     .replace(/<[^>]*>/g, ' ');
-  return [...남은.matchAll(/\d[\d,.]*/g)].map((m) => m[0]).filter((v) => !면제.includes(v));
+  return [...남은.matchAll(/\d[\d,.]*/g)].map((m) => m[0].replace(/[,.]+$/, '')).filter((v) => !면제.includes(v));
 }
 
 /** 떨어진 폭을 다시 낸다. 자료가 적어 둔 값을 그대로 안 믿는다 */
