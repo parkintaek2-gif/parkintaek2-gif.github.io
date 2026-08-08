@@ -1,6 +1,6 @@
 ---
-title: "Twenty-one corrections in three days, and eight distinct ways of being wrong. Four of them still have no test."
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-one. Four of the eight kinds now fail the build if they recur; the other four are a work list."
+title: "Twenty-one corrections in three days, and eight distinct ways of being wrong. All eight now fail the build."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-one. This piece went out with four of the eight untested; the missing four were written the same afternoon."
 category: screen
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
@@ -37,10 +37,10 @@ There are eight kinds.
 | Cause | Pages | Articles | Guarded by a test |
 | --- | ---: | ---: | :--- |
 | Matched a Korean title by name alone | 5 | 3 | yes |
-| Our attribution query contradicted our own panel | 1 | 2 | not yet |
-| A KOSIS table classifies on two levels, we read one | 1 | 1 | not yet |
-| A sentence about the data was never measured | 1 | 1 | not yet |
-| Companies without pay data left in the denominator | 1 | 0 | not yet |
+| Our attribution query contradicted our own panel | 1 | 2 | yes |
+| A KOSIS table classifies on two levels, we read one | 1 | 1 | yes |
+| A sentence about the data was never measured | 1 | 1 | yes |
+| Companies without pay data left in the denominator | 1 | 0 | yes |
 | Our corrections article miscounted the corrections | 0 | 1 | yes |
 | A comparison computed on a group selected by the outcome | 1 | 1 | yes |
 | A limitation written down and never tested | 1 | 1 | yes |
@@ -50,28 +50,36 @@ name matched a Korean work, and foreign works with the same name came in with th
 moved figures on five pages and in three articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).
 
-## The half that has no test yet
+## The half that had no test now has one
 
-Four of the eight kinds now **fail the build** if they come back. A page that recomputes a comparison
-on the fifty largest titles, or an article that says a limitation is unmeasurable, stops the build
-before it can be published.
+When this piece first went out, four of the eight kinds failed the build if they recurred and four
+did not. We published the gap rather than the coverage, because a list of missing tests is worth more
+to someone deciding whether to trust these numbers than a sentence about taking accuracy seriously.
 
-Four do not.
+**The four missing tests were written the same afternoon.** Here is what each one actually does, which
+matters more than the fact that it exists.
 
-- **Our attribution query contradicting our own panel.** We removed eight titles this morning because
-  our own query said no Korean work carries that name. Nothing yet re-runs that comparison
-  automatically.
-- **Two-level classification in a government table.** Reading one level and not the other turned a
-  65.7% into an 81.5%. The fix was manual and the trap is still open on any other table shaped that
-  way.
-- **Sentences about the data that were never measured.** We wrote that a survey region "carries no
-  value in any year" when it is 89.1% of 2005. There is no test that walks our prose and asks each
-  claim to prove itself.
-- **Denominators that quietly include what they should exclude.** Companies that disclose headcount
-  but not pay were left in a pay average.
+- **Our attribution query contradicting our own panel.** Every title in the panel is now checked
+  against the query that decides whether a Korean work carries that name. If the query names no
+  Korean work, the build stops. Titles the query has never heard of are counted separately and not
+  treated as foreign — not knowing and knowing-otherwise are different facts.
+- **Two-level classification in a government table.** For every year, the parts must sum to the
+  published total. Reading one level and not the other leaves a residual, and that residual is what
+  we once printed as a real category. Anything above 0.5% of the total now fails.
+- **Denominators that quietly include what they should exclude.** The data must carry the headcount
+  the pay average was actually divided by, separately from the total headcount, and the page must
+  say the difference out loud. We cannot recompute the average from company rows we do not hold —
+  so instead we made silence impossible.
+- **Sentences about the data that were never measured.** The narrow version of this is the one that
+  works: a claim that something is *empty in every year* is checkable, and each one now needs a
+  signature naming what measures it.
 
-We are publishing the gap rather than the coverage. **A list of four missing tests is worth more to
-someone deciding whether to trust these numbers than a sentence saying we take accuracy seriously.**
+That last test taught us something about tests. **The first version flagged 77 sentences and most of
+them were good ones** — "nothing here says why", "nothing here is a ranking", the disclaimers we
+write on purpose. A check that punishes those would have pushed us to delete the honest sentences to
+make the build pass. We narrowed it to claims of emptiness, which is the shape the actual mistake
+had, and it went from 77 findings to one — a correction notice quoting the old wrong sentence, which
+is signed and stays.
 
 ## Why the tag matters more than the count
 

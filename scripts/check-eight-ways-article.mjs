@@ -91,22 +91,38 @@ if (process.argv[1] && process.argv[1].endsWith('check-eight-ways-article.mjs'))
   {
     const 있는것 = Object.values(c.guards).filter(Boolean);
     const 없는것 = Object.entries(c.guards).filter(([, v]) => !v).map(([k]) => k);
+    /*
+     * ⛔ 이 자는 **두 세상을 다 받아야 한다.**
+     *   빈틈이 있을 때는 「몇이 없다」와 **그 목록**을 요구하고,
+     *   다 막았을 때는 「여덟 다 막았다」와 **빈틈을 먼저 냈다는 사실**을 요구한다.
+     *   앞엣것만 재면, 자를 다 만든 날 기사가 자기 검사에 걸린다(실제로 걸렸다).
+     *   뒤엣것만 재면, 빈틈을 슬그머니 지우고 「다 막았다」로 바꿔도 안 걸린다. 둘 다 막는다.
+     */
     아무거나('자가 있는 것 수',
-      `${낱[있는것.length]} of the ${낱[원인수]} kinds now **fail the build**`,
-      `${있는것.length} of the ${원인수} kinds now **fail the build**`);
-    본다('자가 없다고 적은 수', 한줄.includes(`${낱[없는것.length].charAt(0).toUpperCase()}${낱[없는것.length].slice(1)} do not`)
-      || 한줄.includes(`${낱[없는것.length]} do not`), `${없는것.length}가지`);
-    /* 없는 넷을 **하나씩** 적었나. 뭉뚱그리면 목록이 아니다 */
-    const 짧은말 = {
-      'attribution-contradiction': 'attribution query contradicting',
-      'kosis-two-level': 'Two-level classification',
-      'unmeasured-sentence': 'never measured',
-      'pay-denominator': 'Denominators that quietly include',
-    };
-    for (const k of 없는것) {
-      본다(`  «${k}» 를 목록에 적었나`, !!짧은말[k] && 한줄.includes(짧은말[k]), 짧은말[k] ?? '말이 안 정해졌다');
+      `${낱[있는것.length]} of the ${낱[원인수]} kinds`,
+      `${있는것.length} of the ${원인수} kinds`,
+      `all ${낱[원인수]} now`);
+    if (없는것.length) {
+      본다('자가 없다고 적은 수', 소문자.includes(`${낱[없는것.length]} do not`), `${없는것.length}가지`);
+      const 짧은말 = {
+        'attribution-contradiction': 'attribution query contradicting',
+        'kosis-two-level': 'Two-level classification',
+        'unmeasured-sentence': 'never measured',
+        'pay-denominator': 'Denominators that quietly include',
+      };
+      for (const k of 없는것) {
+        본다(`  «${k}» 를 목록에 적었나`, !!짧은말[k] && 한줄.includes(짧은말[k]), 짧은말[k] ?? '말이 안 정해졌다');
+      }
+      있나('빈틈을 낸다고 말하나', 'publishing the gap rather than the coverage');
+    } else {
+      /* 다 막았어도 **빈틈을 먼저 냈다는 사실**은 지면에 남아야 한다. 자랑만 남기면 기록이 아니다 */
+      아무거나('빈틈이 있었다는 것을 남겼나',
+        'published the gap rather than the coverage',
+        'four of the eight kinds failed the build');
+      본다('자가 무엇을 하는지 넷 다 적었나',
+        ['attribution query contradicting', 'Two-level classification', 'Denominators that quietly include', 'empty in every year']
+          .every((s) => 한줄.includes(s)), '넷 다');
     }
-    있나('빈틈을 낸다고 말하나', 'publishing the gap rather than the coverage');
   }
 
   /* ── ⑤ 자로 댄 파일이 **실제로 있나** ── */

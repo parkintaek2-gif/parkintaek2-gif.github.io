@@ -46,6 +46,11 @@ const 검사 = [
   ['분모를 기사가 맞게 말하나', 'check-output-denominator-article.mjs'],
   ['여덟 가지로 틀린 것을 기사가 맞게 세나', 'check-eight-ways-article.mjs'],
   ['한 지역만 다른 것을 기사가 맞게 말하나', 'check-hot-streak-article.mjs'],
+  /* 2번 지시 14:2x — 자가 없던 네 꼴에 자를 만들었다. 원인 딱지와 1:1 로 붙는다 */
+  ['질의가 패널과 어긋나나 (attribution-contradiction)', 'check-attribution-agrees.mjs'],
+  ['두 겹 표에서 한 겹만 읽었나 (kosis-two-level)', 'check-two-level-totals.mjs'],
+  ['분모에 안 뺄 것이 남았나 (pay-denominator)', 'check-pay-denominator.mjs'],
+  ['재지 않고 쓴 절대 문장이 있나 (unmeasured-sentence)', 'check-absolute-claims.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],
