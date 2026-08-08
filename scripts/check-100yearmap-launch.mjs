@@ -84,7 +84,7 @@ function 모든지면() {
     for (const e of 목록) {
       const p = path.join(d, e.name);
       if (e.isDirectory()) 훑기(p);
-      else if (e.name.endsWith('.html')) out.push(p);
+      else if (e.name.endsWith('.html') && !소유확인파일(e.name)) out.push(p);
     }
   };
   if (fs.existsSync(DIST)) 훑기(DIST);
@@ -94,6 +94,28 @@ function 모든지면() {
 }
 
 const 태그 = (t, re) => (t?.match(re) ?? [])[1] ?? null;
+
+/**
+ * 🔴 **소유확인 파일은 지면이 아니다** (2026-08-08 19:0x).
+ *
+ *   사장님이 오늘 네 사이트에 네이버 소유확인을 붙이셨다. 그 파일이 `dist` 에 떨어지자
+ *   내 검사가 **한꺼번에 셋을 울었다.**
+ *
+ *   ```
+ *   ⛔ canonical 이 전 지면에      1장 빠짐
+ *   ⛔ OG 카드가 전 지면에         1장 빠짐
+ *   ⛔ 연 지면이 사이트맵에 다 있나  /naver86609d…
+ *   ```
+ *
+ *   ⚠ 셋 다 **거짓 경보**다. 그 파일의 알맹이는 한 줄이다 —
+ *   `naver-site-verification: naver86609d…html`. 손님이 볼 지면이 아니고,
+ *   canonical·OG 를 붙이면 오히려 확인이 깨진다. 사이트맵에 넣을 것도 아니다.
+ *
+ *   ⛔ 소음을 두면 **다음 진짜 경보를 못 읽는다.** 그래서 지면 셈에서 뺀다.
+ *   ⚠ 다만 **아무 파일이나 빼지 않는다** — 소유확인 꼴(제공사 이름 + 긴 열쇠)만 뺀다.
+ */
+const 소유확인파일 = (이름) =>
+  /^(naver[0-9a-f]{16,}|google[0-9a-f]{12,}|BingSiteAuth|naver-site-verification.*)\.html$/i.test(이름);
 
 /**
  * 🔴 2026-08-08 06:0x — **다른 자리가 빌드를 시작하면 이 검사가 죽었다.**
@@ -219,7 +241,7 @@ if (!LIVE && sitemap) {
   let 뿌리목록 = [];
   try { 뿌리목록 = fs.readdirSync(DIST, { withFileTypes: true }); } catch { 사라진지면++; }
   const 고정지면 = 뿌리목록
-    .filter((e) => e.isFile() && e.name.endsWith('.html') && e.name !== '404.html')
+    .filter((e) => e.isFile() && e.name.endsWith('.html') && e.name !== '404.html' && !소유확인파일(e.name))
     .map((e) => '/' + e.name.replace(/\.html$/, ''));
   const 빠진것 = [];
   for (const 길 of 고정지면) {
@@ -643,7 +665,13 @@ if (!LIVE) {
     '앞선 「가로 넘침」 검사는 **정직하게 초록**이었다 — 지면은 안 넘쳤고 표만 잘렸다',
 );
 못잼('첫 화면 3초 판정', '사람이 봐야 한다. 8/13 교차감사에서 2번이 본다');
-못잼('인쇄 페이지 나눔', '@media print 는 넣었고 흰 종이 대비도 쟀는데, **실제 출력은 아직 못 봤다**');
+/* ⚠ ⬜ 로 둔다 — 이 검사가 잰 것이 아니다. 밖에서 잰 것을 적어 둘 뿐이다 */
+못잼(
+  '인쇄 페이지 나눔',
+  '⭐ 2026-08-08 19:0x — **자를 만들었다.** `npm run check:100y:print` 가 진짜 크롬을 A4 에 앉힌다. ' +
+    '파는 2장·무료 1장·학교 1장 — **3~4쪽 · 종이 밖으로 잘려 나간 것 0곳 · 주소줄 찍힘 · 글자 1,719~2,176자.** ' +
+    '⬜ 다만 「접힌 채 남은 곳」 규칙은 **브라우저에서 울려 보지 못했다** — 종이 규칙을 지워도 이 크롬은 닫힌 details 를 그대로 찍는다',
+);
 
 /**
  * 🔴 **반쯤 재고 「이상 없음」이라고 하지 않는다.**
