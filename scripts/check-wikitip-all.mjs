@@ -64,6 +64,8 @@ const 검사 = [
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],
+  /* 2번 지시 23:2x — 구글은 링크를 타고 온다. 두 번 안에 못 닿으면 색인을 걸어도 잘 안 잡힌다 */
+  ['첫 화면에서 두 번 안에 닿나', 'check-two-clicks.mjs'],
   ['안에서 쓰는 말이 밖으로 나가나', 'check-no-internal-leak.mjs'],
   /* 2번 지시 19:4x — 카드의 「every figure has a table behind it」이 참말인가.
      ⛔ 초록이 된 뒤에 물렸다. 빨간 자를 공용 사슬에 물리면 여섯 자리가 다 선다 */
