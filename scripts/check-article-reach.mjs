@@ -42,6 +42,15 @@ const pages를읽는다 = (src) => {
   return [...m[1].matchAll(/-[^\S\r\n]+"?([^"\r\n]+?)"?[^\S\r\n]*\r?$/gm)].map((x) => x[1].trim());
 };
 
+/**
+ * 앞말 길이 — 스키마가 정한 한계다(`src/content.config.ts`, 2번 파일).
+ * ⛔ 2026-08-08 에 **두 번** 이 한계를 넘겨 빌드가 죽었다. 스키마가 잡아 주긴 하는데
+ *    빌드가 1분 돌고 나서 죽는다. 여기서 1초에 잡는다. 자리는 같고 값이 싸다.
+ * ⚠ 한계를 여기에 손으로 적는다 — 스키마는 2번 것이라 안 건드린다.
+ *    스키마가 바뀌면 이 수도 같이 고친다. 그래서 어디를 봐야 하는지 위에 적어 둔다.
+ */
+const 앞말한계 = { title: 120, dek: 240 };
+
 const 기사들 = fs.readdirSync(CD).filter((f) => f.endsWith('.md'));
 const 지면본문 = new Map(
   fs.readdirSync(PD).filter((f) => f.endsWith('.astro'))
@@ -54,6 +63,15 @@ for (const f of 기사들) {
   const src = fs.readFileSync(path.join(CD, f), 'utf8');
   if (/^draft:\s*true/m.test(src)) continue;
   const slug = f.replace(/\.md$/, '');
+
+  /* 앞말 길이. 넘으면 빌드가 죽는데, 죽기까지 1분이 걸린다. 여기서 먼저 잡는다 */
+  for (const [열쇠, 한계] of Object.entries(앞말한계)) {
+    const m = src.match(new RegExp(`^${열쇠}:\\s*"([\\s\\S]*?)"\\s*\\r?$`, 'm'));
+    if (m && m[1].length > 한계) {
+      문제.push(`${slug} — ${열쇠} 가 ${m[1].length}자다. 스키마 한계 ${한계}자를 넘어 빌드가 선다`);
+    }
+  }
+
   const pages = pages를읽는다(src);
 
   if (!pages || !pages.length) {

@@ -160,7 +160,14 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
       const 있어야 = [
         [/reply within/i, '언제 답하는지'],
         [/ready to hand over today/i, '오늘 바로 건넬 수 있는 것이 무엇인지'],
-        [/not put a price here/i, '값이 아직 없다는 것'],
+        /*
+         * ⛔ 2026-08-08 13:2x. 여기가 「not put a price here」(값이 아직 없다)를 **요구**하고 있었다.
+         *    12:3x 2번 지시로 그 문장을 지웠더니 **자가 지면을 틀렸다고 했다.** 지면이 맞고 자가 낡았다.
+         *    2번: 「미정이라고 적지 마십시오. **곧 엽니다 · 열리면 알려 드릴까요**로 두십시오」
+         * ⚠ 그래서 재는 것을 뒤집는다 — 「없다고 말하나」가 아니라 **「언제 살 수 있나를 말하나」**다.
+         */
+        [/opens shortly|opens soon/i, '언제 열리는지'],
+        [/tell me when|let you know|told when it opens/i, '열리면 알려 준다는 것'],
         [/mailto:/i, null],
       ];
       for (const [re, 무엇] of 있어야) {
@@ -168,6 +175,14 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
       }
       if (!/mailto:/i.test(fs.readFileSync(dp, 'utf8'))) {
         문제.push('🔴 /data 에 신청할 곳이 없다 — 읽고 나서 갈 데가 없다');
+      }
+      /* ⛔ 「미정」을 지면에 안 적는다(2번 지시). 손님이 읽는 것은 「언제 살 수 있나」다 */
+      for (const 말 of [/not set/i, /undecided/i, /\bTBD\b/, /to be decided/i]) {
+        if (말.test(t)) 문제.push(`🔴 /data 가 «${말.source}» 라고 적었다 — 「미정」은 안 적는다`);
+      }
+      /* 무엇이 들어 있나를 **수로** 말하나. 값을 못 적는 동안 이게 사는 판단의 전부다 */
+      for (const [re, 무엇] of [[/\bTables\b/, '파일 수'], [/\bRows\b/, '줄 수'], [/\bFormat\b/, '어떤 꼴'], [/\bRefreshed\b/, '갱신 주기']]) {
+        if (!re.test(t)) 문제.push(`/data 가 «${무엇}»를 안 적는다 — 값이 없는 동안 이게 판단의 전부다`);
       }
     }
   }

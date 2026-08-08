@@ -51,6 +51,8 @@ const 원인별 = Object.entries(pageFixes.causes ?? {})
   .map(([열쇠, 설명]) => ({
     열쇠,
     설명,
+    /* 이 꼴이 다시 나면 빌드를 세우는 자. 없으면 null — 없는 자를 있다고 안 적는다 */
+    자: (pageFixes.guards ?? {})[열쇠] ?? null,
     건수: pageFixes.rows.filter((r) => r.cause === 열쇠).length
       + (pageFixes.articleCauses ?? []).filter((a) => a.cause === 열쇠).length,
   }))
@@ -113,7 +115,7 @@ const jsonLd = {
       {원인별.map((c) => (
         <li>
           <b>{c.건수}</b>
-          <span>{c.설명}</span>
+          <span>{c.설명}<em class={c.자 ? "has" : "none"}>{c.자 ? "a check now fails the build if this recurs" : "no check yet"}</em></span>
         </li>
       ))}
     </ul>
@@ -124,6 +126,12 @@ const jsonLd = {
         ? ' No other cause has happened more than once.'
         : ` ${되풀이된것} other ${되풀이된것 === 1 ? 'cause has' : 'causes have'} happened more than once.`}
       {' '}If a number here starts climbing, that is the thing to hold us to.
+    </p>
+    <p class="body note">
+      <b>{원인별.filter((c) => c.자).length} of the {원인별.length} causes now fail the build if they come back.</b>{' '}
+      {원인별.filter((c) => !c.자).length} do not, and we would rather show you that list than a sentence
+      about taking accuracy seriously. {pageFixes.guardNote}
+      {' '}<a href="/article/eight-ways-we-have-been-wrong">Which ones, and why →</a>
     </p>
   </section>
 
@@ -208,6 +216,9 @@ const jsonLd = {
 
   /* 원인별 — 건수를 왼쪽에 세워 「같은 실수를 또 했나」가 눈으로 보이게 한다 */
   .causes { list-style: none; padding: 0; margin: 0 0 1rem; }
+  .causes em { display: block; font-style: normal; font-size: .78rem; margin-top: .15rem; }
+  .causes em.has { color: var(--accent); }
+  .causes em.none { color: var(--muted); }
   .causes li { display: flex; gap: .9rem; align-items: baseline; padding: .6rem 0; border-bottom: 1px solid var(--line); }
   .causes b { flex: 0 0 2.2rem; text-align: right; font-size: 1.2rem; color: var(--accent); font-variant-numeric: tabular-nums; }
   .causes span { font-size: .88rem; line-height: 1.6; }

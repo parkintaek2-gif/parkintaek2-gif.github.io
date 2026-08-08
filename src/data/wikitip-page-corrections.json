@@ -173,5 +173,16 @@
       "date": "2026-08-08",
       "cause": "limit-never-tested"
     }
-  ]
+  ],
+  "guards": {
+    "title-text": "scripts/check-korean-title-rosters.mjs",
+    "miscounted-corrections": "scripts/check-corrections-article.mjs",
+    "selected-on-outcome": "scripts/check-peak-length-article.mjs",
+    "limit-never-tested": "scripts/check-invisible-acts-article.mjs",
+    "attribution-contradiction": null,
+    "kosis-two-level": null,
+    "pay-denominator": null,
+    "unmeasured-sentence": null
+  },
+  "guardNote": "A guard is a check that fails the build if this kind of mistake recurs. Null means we have not written one yet — it is a work list, not a claim of coverage."
 }
