@@ -57,6 +57,7 @@
     "check:space": "node scripts/check-jsx-space.mjs",
     "check:100y:launch": "node scripts/check-100yearmap-launch.mjs",
     "check:100y:label": "node scripts/check-100y-label-echo.mjs",
+    "check:100y:print": "node scripts/check-100y-print.mjs",
     "check:100y:phone": "node scripts/check-100y-phone.mjs",
     "build:100y:research": "node scripts/build-100yearmap-research.mjs",
     "build:100y:closed": "node scripts/build-100yearmap-closed.mjs",

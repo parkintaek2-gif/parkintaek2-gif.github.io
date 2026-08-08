@@ -31,6 +31,7 @@ export const 봐준다 = {
   /* 3번(백년지도) 것 넷 — 2026-08-08 16:5x~17:5x. 넷 다 **상시로 돌 수 없는 까닭**이 다르다.
      ⚠ 상시로 돌 수 있는 둘(check-100y-provenance · check-100y-major-bridge)은 npm test 에 물렸다 */
   'check-100y-label-echo.mjs': '나간 지면 4,963장을 훑는다. 빌드가 없으면 잴 것이 없다 — npm run check:100y:label',
+  'check-100y-print.mjs': '진짜 크롬으로 A4 에 앉힌다. 크롬과 빌드가 둘 다 있어야 돈다 — npm run check:100y:print',
   'check-100y-phone.mjs': '진짜 크롬을 375px 로 띄운다. 크롬과 빌드가 둘 다 있어야 돈다 — npm run check:100y:phone',
   'check-100y-live-sale.mjs': '라이브를 받아 잰다. 인터넷이 끊기면 npm test 가 통째로 죽고, 배포 전에는 옛 지면을 보고 운다',
   'check-100yearmap-launch.mjs': 'dist 5,000장을 훑는다. 빌드가 없으면 잴 것이 없고, 여섯이 dist 를 같이 써서 남이 빌드하는 사이에 ENOENT 가 난다 — npm run check:100y:launch',
