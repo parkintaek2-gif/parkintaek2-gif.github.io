@@ -242,7 +242,15 @@ console.log(` 겹침    ${out.shared.titles}편 ${out.shared.sharePc}% — 한�
 console.log(` 못맞춤  ${out.koreaUnconfirmed.titles}편 ${out.koreaUnconfirmed.sharePc}% — 외국 것은 맞았고 한국 것을 못 맞췄다`);
 console.log(` 모름    ${out.unknown.titles}편 ${out.unknown.sharePc}% — 위키데이터가 나라를 모른다`);
 console.log(`판정 준 편수 ${out.titlesAssessed}편 (나라 판까지 전부)`);
-console.log(`🔴 볼 차례 — 자리 많은 것부터:`);
+/* 🔴 2번 지시(2026-08-09 01:1x): 「**없다는 답이 나오면 자를 먼저 의심한다**」를 자에 적어 두라.
+   ⛔ 주석으로만 적지 않는다. 오늘 1번이 겪은 것이 그것이다 —
+      「배포할 때마다 올릴 필요는 없다」는 주석 한 줄이 닷새 동안 다음 사람을 안심시켰다.
+   ⭐ 그래서 **돌 때마다 화면에 찍는다.** 읽히지 않는 자리에 둔 규칙은 없는 규칙이다. */
+console.log('\n⛔ 「없다」는 답이 나오면 **자를 먼저 의심한다.**');
+console.log('   2026-08-09 에 이 자가 22편을 「한국 작품이 아니다」라 답했다. 자료가 아니라 질의가 못 본 것이었다');
+console.log('   (위키데이터가 한국 영화를 LAND·DETOUR 로 적어 두는데 이름표 대조가 대소문자를 가렸다).');
+console.log('   ⭐ 근거가 **하나뿐이면 「없다」로 적지 않는다.** 이 자는 이름과 열쇠 둘로 묻는다.');
+console.log(`\n🔴 볼 차례 — 자리 많은 것부터:`);
 for (const x of out.koreaUnconfirmedQueue.slice(0, 10)) {
   console.log(`   ${x.title.padEnd(30)} ${String(x.places).padStart(4)}자리 · ${x.countries.slice(0, 4).join('·')}`);
 }
