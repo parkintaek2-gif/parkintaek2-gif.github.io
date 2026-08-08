@@ -214,6 +214,12 @@
          문장 한가운데 링크를 44px 로 만들면 줄 사이가 들쭉날쭉해진다.
        ───────────────────────────────────────────────────────── */
     .note > a:only-child { display: inline-flex; align-items: center; min-height: 44px; }
+    /* 🔴 미리보기에서 **가린 칸**. class 이름은 `price.ts` 의 `미리보기.가린곳표시` 와 같아야 한다
+       (JSON-LD 가 이 선택자를 구글에 그대로 알려 준다 — 다르면 거짓말이 된다).
+       ⚠ 흐리게만 하지 않는다. 흐린 글씨는 **읽히는 수**다 —
+         지면에 아예 안 넣고 「가려짐」이라는 **다른 글자**를 넣는다. */
+    td.paywall { color: var(--faint); font-size: var(--fs-note); letter-spacing: .5px; }
+
     /* 링크만 「·」로 늘어놓은 한 줄. `:only-child` 로는 못 가르므로 **표시를 붙여** 가른다 */
     .linkrow a { display: inline-flex; align-items: center; min-height: 44px; vertical-align: middle; }
     .majors li > a { display: inline-flex; align-items: center; min-height: 44px; }
