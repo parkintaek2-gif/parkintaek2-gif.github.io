@@ -39,19 +39,11 @@ import HundredYear from '../../../../layouts/HundredYear.astro';
 import NextQuestionAfterPick from '../../../../components/NextQuestionAfterPick.astro';
 import schools from '../../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../../data/100yearmap/school-career.json';
+import { 지역가르기, 슬러그풀기 } from '../../../../lib/school-area';
 
-/**
- * 주소 둘째 낱말이 시·군·구다. `서울특별시 강동구 고덕로 227` → `강동구`
- * ⚠ 「세종특별자치시 …」처럼 구가 없는 곳도 있다. 그때는 null 이고 **묶지 않는다.**
- */
-export function 구뽑기(주소: string | null | undefined): string | null {
-  const 토막 = String(주소 ?? '').trim().split(/\s+/);
-  const 둘째 = 토막[1];
-  return 둘째 && /[구군시]$/.test(둘째) ? 둘째 : null;
-}
-
-/** 주소 표기용 열쇠. ⚠ 「고양시 일산동구」처럼 시·도를 안 붙이면 겹친다 */
-export const 지역열쇠 = (시도: string, 구: string) => `${시도}-${구}`;
+/* 🔴 가르는 규칙은 **한 곳에만** 둔다 — src/lib/school-area.ts
+   지면 안에 따로 적어 뒀더니 05:2x 에 큰 시가 통째로 한 덩어리가 됐다.
+   2번이 값을 정하시면서 이 자가 **파는 단위를 정하는 자**가 됐다. 두 벌을 두지 않는다. */
 
 export async function getStaticPaths() {
   /**
@@ -66,14 +58,17 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params as { slug: string };
-const [시도, 구] = slug.split('-');
+/* ⚠ 「경기도-수원시-장안구」처럼 조각이 셋일 수 있다. split('-')[1] 로 자르면 「수원시」만 남는다 */
+const 푼것 = 슬러그풀기(slug)!;
+const 시도 = 푼것.시도;
+const 구 = 푼것.이름;
 
 const 진로표 = new Map(((진로자료 as any).자료 as any[]).map((r) => [r.code, r]));
 const 진로통계 = (진로자료 as any).통계;
 
 /** ⛔ 가나다순. **진학률 순으로 세우지 않는다** */
 const 곳들 = (schools as any[])
-  .filter((x) => x.지역 === 시도 && 구뽑기(x.주소) === 구)
+  .filter((x) => 지역가르기(x.주소)?.열쇠 === `${시도} ${구}`)
   .map((x) => ({ ...x, 진로: 진로표.get(x.code) ?? null }))
   .sort((a, b) => a.title.localeCompare(b.title, 'ko'));
 
