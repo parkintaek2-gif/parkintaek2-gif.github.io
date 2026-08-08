@@ -101,7 +101,14 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   {
     const 첫 = fs.existsSync(첫화면) ? fs.readFileSync(첫화면, 'utf8') : '';
     const 건기사 = new Set([...첫.matchAll(/href="(\/article\/[^"]+)"/g)].map((m) => m[1]));
-    const 최소 = Math.min(8, 기사.length);   // 갈래 칸이 다섯을 저절로 채운다 — 바닥은 그 위로
+    /*
+     * ⛔ 2026-08-08 15:5x. 여기가 `Math.min(8, …)` 이었다 — **바닥이 8에 못박혀 있었다.**
+     *    바로 위 주석에는 「전체 편수에 비례해서 본다」고 적혀 있다. **주석과 코드가 달랐다.**
+     *    기사가 36 → 43 으로 느는 동안 첫 화면은 계속 8편이었고 자는 한 번도 안 울었다.
+     *    아침에 이름 붙인 꼴 그대로다 — 「검사가 있다 ≠ 재고 있다」.
+     * ⚠ 이제 정말로 비례한다. 기사가 늘면 바닥도 는다. 갈래 칸이 다섯을 저절로 채우니 8이 아래끝이다.
+     */
+    const 최소 = Math.max(8, Math.ceil(기사.length * 0.25));
     if (건기사.size < 최소) {
       문제.push(`🔴 첫 화면이 기사 ${건기사.size}편만 건다 — 전체 ${기사.length}편 중. 적어도 ${최소}편은 보여야 한다`);
     }
