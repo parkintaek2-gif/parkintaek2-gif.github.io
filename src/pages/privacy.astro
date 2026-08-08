@@ -1,0 +1,127 @@
+---
+/**
+ * SeoulMarkets — **쿠키와 접속기록을 밝히는 지면.** (`/privacy`)
+ *
+ * ── 왜 만드나 ─────────────────────────────────────────────────
+ * 2026-08-08 12:0x. 내가(2번) 네 사이트에 GA 를 심어 놓고 라이브를 재 봤더니
+ * **서울마켓만 밝히는 지면이 없었다.** 백년지도는 3번이, K Culture Wire 는 5번이
+ * 같은 커밋에 냈는데, 태그를 붙인 나만 안 냈다.
+ *
+ * ⛔ 재는 것을 붙여 놓고 밝히는 것을 미루지 않는다. 미룬 만큼 몰래 잰 것이 된다.
+ * ⛔ 없는 것을 있다고 적지 않는다 — 회원도 결제도 폼도 없다. 있는 것은 메일 한 통이다.
+ * ⚠ 광고는 이 사이트에 **아직 없다.** 애드센스가 붙는 날 이 지면을 먼저 고친다.
+ *
+ * 5번이 쓴 `wikitip/privacy.astro` 와 **같은 사실**을 말한다. 두 지면이 어긋나면 안 되므로
+ * 측정 ID·도메인 목록은 손으로 적지 않고 `Analytics.astro` 한 곳에서 가져온다.
+ */
+import Base from '../layouts/Base.astro';
+import { 측정ID, 잇는곳 } from '../components/Analytics.astro';
+import { PUBLISHER, SITE_URL } from '../consts';
+
+const MAIL = 'parkintaek2@gmail.com';
+const TITLE = 'Cookies and what we log';
+const DESC = 'SeoulMarkets runs one analytics tag and nothing else. This page says what it stores, '
+  + 'who else can see it, and how to switch it off.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/privacy`,
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: PUBLISHER.legalName, email: MAIL },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <h1>Cookies and what we log</h1>
+  <p class="lead">
+    This site has no accounts, no login, no payment and no comment box, so there is very little to
+    tell. There is one thing, and it started on <b>8 August 2026</b>: an analytics tag.
+  </p>
+
+  <section>
+    <h2>The one thing we run</h2>
+    <p>
+      <b>Google Analytics 4</b>, measurement ID <code>{측정ID}</code>. It sets cookies in your
+      browser and records that a page was opened — which page, roughly where in the world from, what
+      kind of device, and which link brought you. It is the same tag on all four of our sites
+      ({잇는곳.join(', ')}), so a visit that moves between them is counted as one person moving
+      rather than four separate arrivals.
+    </p>
+    <p class="note">
+      That last part is the honest reason it is one tag and not four: we want to know whether these
+      sites feed each other. It also means Google can associate your visits across them.
+    </p>
+  </section>
+
+  <section>
+    <h2>What we do not run</h2>
+    <ul>
+      <li><b>No accounts, no login, no password.</b> There is nothing to sign into.</li>
+      <li><b>No payment.</b> Data requests are handled by email; no card ever touches this site.</li>
+      <li>
+        <b>No forms.</b> The newsletter and contact links are <code>mailto:</code> links — the
+        message goes from your mail program to our inbox and never through this server.
+      </li>
+      <li><b>No comments, no uploads, no chat.</b></li>
+      <li>
+        <b>No advertising yet.</b> If we ever carry ads, ad cookies come with them. We will change
+        this page on the same day, not after.
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>If you write to us</h2>
+    <p>
+      We keep the email. That is unavoidable — it is how we answer you — and we use it only to
+      answer, and to send you the pieces if you asked to be on the list. We do not sell it, rent it
+      or pass it to anyone. Reply <em>stop</em> to any message, or write saying delete me, and the
+      address goes.
+    </p>
+  </section>
+
+  <section>
+    <h2>How to switch the analytics off</h2>
+    <p>
+      Use your browser's tracker blocking, an extension that blocks Google Analytics, or Google's
+      own opt-out add-on. Nothing here breaks when the tag is blocked — every page is plain HTML
+      with the numbers already in it, and none of it waits on the tag to load.
+    </p>
+    <p class="note">
+      We would rather say that than put a consent banner in front of the reading. If enough of you
+      block it, we will find out from the numbers, which seems like the right way round.
+    </p>
+  </section>
+
+  <section>
+    <h2>Who we are, and how to ask</h2>
+    <p>
+      {PUBLISHER.legalName}. Write to <a href={`mailto:${MAIL}`}>{MAIL}</a> to ask what we hold about
+      you, to have it deleted, or to complain about any of the above. It is one inbox and a person
+      reads it. There is no form, because a form would be a worse version of an email.
+    </p>
+  </section>
+
+  <p class="back">
+    <a href="/about">How we make these numbers</a>
+    <span aria-hidden="true"> · </span><a href="/">Front page</a>
+  </p>
+</Base>
+
+<style>
+  h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
+  .lead { font-size: 1.02rem; color: var(--muted); margin: 0 0 2.5rem; line-height: 1.7; }
+  section { margin: 0 0 2.4rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .6rem; letter-spacing: -.01em; }
+  p { font-size: .93rem; line-height: 1.75; margin: 0 0 .9rem; }
+  .note { font-size: .85rem; color: var(--muted); }
+  ul { padding-left: 1.15rem; font-size: .93rem; line-height: 1.75; margin: 0; }
+  li { margin: 0 0 .45rem; }
+  code { font-size: .9em; }
+  .back { margin-top: 3rem; font-size: .9rem; }
+  .back a { color: var(--muted); }
+</style>
