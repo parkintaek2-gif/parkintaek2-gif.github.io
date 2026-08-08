@@ -1,0 +1,113 @@
+---
+/**
+ * /100y/terms — 이용약관
+ *
+ * 🔴 2번 지시(2026-08-08 11:3x) — 파는 지면이 라이브인데 약관이 없었다.
+ *   *「파는 말을 걸어 놓고 무엇을 파는지·못 물리는지를 안 적어 두면 그건 우리가 진 자리입니다」*
+ *
+ * ## ⛔ 다른 사이트 약관을 복사하지 않는다
+ *
+ *   2번이 못박았다 — *「KLifeMap 환불규정을 그대로 복사하지 마십시오.
+ *   그쪽은 39,000원 코칭이라 조건이 다릅니다」.*
+ *   복사하면 **우리가 팔지 않는 것에 대한 조항**이 남는다. 그게 제일 위험하다.
+ *
+ * ## ⭐ 이 약관이 꼭 말해야 하는 셋
+ *
+ *   ```
+ *   ① 무엇을 파나        지역 한 벌(디지털 자료) 1회 열람·내려받기
+ *   ② 숫자가 언제 것인가   원자료 기준시점의 값이다. 오늘 값이 아니다
+ *   ③ 무엇을 보장 안 하나  진학·취업을 보장하지 않는다
+ *   ```
+ *
+ * ⚠ 값은 `src/lib/price.ts` 한 곳에서 온다. 약관에 손으로 적지 않는다.
+ */
+import HundredYear from '../../layouts/HundredYear.astro';
+import { PUBLISHER } from '../../consts';
+import { 값글자, 다음칸 } from '../../lib/price';
+import 진로자료 from '../../data/100yearmap/school-career.json';
+
+const 공시연도 = (진로자료 as any).출처.공시연도;
+
+const desc =
+  '백년지도가 파는 것과 팔지 않는 것, 숫자가 언제 기준인지, 무엇을 보장하지 않는지 적었습니다.';
+---
+
+<HundredYear title="이용약관" description={desc}>
+  <h1>이용약관</h1>
+  <p class="lead">
+    백년지도(100yearmap.com)를 보시거나 지역 한 벌을 사실 때 적용됩니다.{' '}
+    <strong>지금은 아직 팔지 않습니다</strong> — 여는 날부터 아래가 적용됩니다.
+  </p>
+
+  <h2>1. 저희가 파는 것</h2>
+  <p>
+    <strong>지역 한 벌</strong>입니다. 시·군·구 하나의 고등학교를 한 장에 모아 놓은{' '}
+    <strong>디지털 자료</strong>이고, 값은 <strong>{값글자}</strong>입니다.
+    사시면 <strong>그 한 벌을 열어 보시고 내려받으실 수 있습니다.</strong>
+  </p>
+  <p class="note">
+    ⚠ 고등학교가 <strong>열 곳이 안 되는 지역</strong>은 팔지 않습니다. 그 지역 지면은{' '}
+    <strong>무료로 열려 있습니다.</strong>
+  </p>
+
+  <h2>2. 숫자는 언제 것인가</h2>
+  <p>
+    저희가 싣는 수치는 <strong>나라가 공개한 자료를 그대로 옮긴 것</strong>이고,
+    <strong>그 자료의 기준시점 값</strong>입니다. 오늘 값이 아닙니다.
+    졸업생 진로·학급·학업중단은 <strong>학교알리미 {공시연도}년 공시</strong>이며,
+    지면마다 어느 해 것인지 적어 두었습니다.
+  </p>
+  <p>
+    비율과 가운데값은 <strong>저희가 낸 값</strong>입니다. 나라가 발표한 비율이 아닙니다.
+    그 사실도 지면에 적혀 있습니다.
+  </p>
+  <p class="note">
+    ⚠ 학교 사정은 수시로 바뀝니다. <strong>학교에 직접 확인하시는 편이 확실합니다.</strong>
+  </p>
+
+  <h2>3. 저희가 보장하지 않는 것</h2>
+  <p>
+    <strong>진학이나 취업을 보장하지 않습니다.</strong> 저희가 드리는 것은 모아 놓은 숫자와
+    견줄 값이고, <strong>고르는 것은 읽으시는 분</strong>입니다.
+  </p>
+  <p>
+    <strong>학교의 좋고 나쁨을 저희가 말하지 않습니다.</strong> 등수를 매기지 않고,
+    퍼짐 안에서 어디쯤인지만 보여 드립니다.
+  </p>
+  <p class="note">
+    ⚠ 이 자료를 입시·진학 상담의 <strong>유일한 근거로 쓰지 마십시오.</strong>{' '}
+    저희 지면에는 성적·합격 실적이 없고, 그 사실을 각 지면에 적어 두었습니다.
+  </p>
+
+  <h2>4. 자료의 출처와 저작권</h2>
+  <p>
+    바탕 자료는 <strong>학교알리미(한국교육학술정보원)</strong>와{' '}
+    <strong>교육부 NEIS 교육정보 개방 포털</strong>, 그 밖의 공공데이터입니다.
+    각 지면에 출처와 이용허락범위를 적었습니다.
+  </p>
+  <p>
+    저희가 만든 <strong>구성·설명·계산값</strong>은 {PUBLISHER.legalNameKo}에 있습니다.
+    사신 자료는 <strong>사신 분이 보시는 데</strong> 쓰시면 됩니다.{' '}
+    <strong>다시 팔거나 그대로 배포하시는 것은 안 됩니다.</strong>
+  </p>
+
+  <h2>5. 여는 시점</h2>
+  <p>
+    지금 지역 한 벌 지면에는 <strong>「{다음칸.머리}」</strong>라고 적혀 있고{' '}
+    <strong>아직 결제를 받지 않습니다.</strong> 알림을 신청하신 분께는
+    열리는 날 한 번 알려 드립니다.
+  </p>
+
+  <h2>6. 만든 곳</h2>
+  <p>
+    <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
+    {PUBLISHER.addressKo}<br />
+    사업자등록번호 {PUBLISHER.bizRegNo} · {다음칸.받는곳}
+  </p>
+
+  <hr class="rule" />
+  <p class="note">
+    <a href="/privacy">개인정보처리방침</a> · <a href="/refund">환불규정</a> ·{' '}
+    <a href="/about">백년지도는 무엇인가</a>
+  </p>
+</HundredYear>

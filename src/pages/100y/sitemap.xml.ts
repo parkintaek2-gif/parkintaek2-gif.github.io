@@ -71,6 +71,11 @@ export const GET: APIRoute = () => {
   const entries: Entry[] = [
     { path: '/', priority: '1.0', changefreq: 'weekly' },
     { path: '/about', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 2026-08-08 11:3x — 파는 지면이 라이브인데 이 셋이 404 였다(2번 실측).
+       ⚠ 고정 지면을 만들면 **여기 한 줄을 같이 넣는다.** 안 넣으면 검사가 잡는다 */
+    { path: '/terms', priority: '0.4', changefreq: 'yearly' },
+    { path: '/privacy', priority: '0.4', changefreq: 'yearly' },
+    { path: '/refund', priority: '0.4', changefreq: 'yearly' },
     /* 🔴 「대학 다음이 제일 중요」(사장님 2026-08-06). 우리가 남과 다른 자리라 첫 화면 다음으로 높다.
        ⚠ 새 고정 지면을 만들면 **여기 한 줄을 같이 넣는다.** 안 넣으면 지면은 검색에 열려 있는데
          사이트맵에는 없는 어긋난 상태가 된다 — /after 를 만들고 실제로 그랬다(2026-08-06). */
