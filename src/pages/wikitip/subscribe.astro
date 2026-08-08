@@ -37,9 +37,26 @@ const MAIL = 'parkintaek2@gmail.com';
 const TITLE = 'Get this by email';
 const DESC = 'K Culture Wire counts what public datasets publish about Korean pop culture. '
   + 'Ask to be on the list and you will get each new piece as it goes out.';
+
+/**
+ * 구조화 데이터. 2026-08-08 09:4x 실측에서 이 지면에 없었다.
+ * ⚠ 지금 「신청」은 **메일 한 통**이다. 폼도 결제도 없다.
+ *   그래서 `Offer` 나 `price` 를 적지 않는다 — 없는 것을 있다고 적는 자리가 된다.
+ *   `WebPage` 에 발행 주체와 피드만 단다. 결제가 생기면 그때 고친다.
+ */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: TITLE,
+  description: DESC,
+  url: 'https://www.kculturewire.com/subscribe',
+  inLanguage: 'en',
+  isPartOf: { '@type': 'WebSite', name: 'K Culture Wire', url: 'https://www.kculturewire.com' },
+  publisher: { '@type': 'Organization', name: 'K Culture Wire', email: MAIL },
+};
 ---
 
-<WikiTip title={TITLE} description={DESC} canonical="https://www.kculturewire.com/subscribe">
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/subscribe">
   <h1>{TITLE}</h1>
 
   <p class="lede">
