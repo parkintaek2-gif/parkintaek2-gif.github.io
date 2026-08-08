@@ -39,3 +39,12 @@ archive/outreach/
 # 빌드 자물쇠 — 이 PC 의 작업트리 이야기다. 커밋하지 않는다
 .build-lock.json
 .ganglyeong/
+
+# ⚠ 2026-08-09 — 소리·영상 생성물. 코드가 아니라 자산이다.
+#   6번이 `git add -A` 로 아홉 개를 쓸어 담았다가 되물렸다(추적 해제). 다시 딸려 가지 않게 막는다.
+#   ⛔ **뿌리에 떨어진 것만** 막는다. `public/` 아래는 지면이 실제로 내보내는 자산이라 남긴다
+#      (예: public/100y/media/gomgomi-gangdong.mp4 는 지금도 추적 중이다).
+out/
+/*.mp4
+/*.m4a
+/*.wav
