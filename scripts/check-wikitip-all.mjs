@@ -58,6 +58,7 @@ const 검사 = [
   ['없던 하락을 기사가 맞게 말하나', 'check-debut-counts-article.mjs'],
   ['들어온 뒤에 오르나를 기사·지면이 맞게 말하나', 'check-climb-article.mjs'],
   ['집 차트가 밖을 말해 주나 — 기사가 자료와 맞나', 'check-home-abroad-article.mjs'],
+  ['도착하나 번지나 — 기사가 자료와 맞나', 'check-arrival-article.mjs'],
   ['철이 없다는 것을 기사·지면이 맞게 말하나', 'check-season-article.mjs'],
   ['배우·K팝이 같은 꼴인 것을 기사가 맞게 말하나', 'check-peak-day-article.mjs'],
   /* 🔴 2026-08-08 18:0x — 라이브에만 나던 병. 내 화면에서는 영원히 맞았다 */
