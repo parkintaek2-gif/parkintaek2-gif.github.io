@@ -215,7 +215,12 @@ if (process.argv.includes('--selftest')) {
   process.exit(실패 ? 1 : 0);
 }
 
-/* ── 실행 ── */
+/* ── 실행 ──
+ * ⛔ **직접 부를 때만 돈다.** 남이 import 하면 여기는 건너뛴다.
+ *   (2026-08-09: quiz-to-onedrive 가 문제를 가져다 쓰려는데 이 블록이 같이 돌아 죽었다) */
+const 이파일이곧실행 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (!이파일이곧실행) { /* 가져다 쓰는 중이다 — 아무것도 안 한다 */ }
+else {
 const argv = process.argv.slice(2);
 const 값 = (이름) => { const i = argv.indexOf(이름); return i >= 0 ? String(argv[i + 1] ?? '').trim() : ''; };
 const 자리 = 값('--자리');
@@ -263,3 +268,4 @@ fs.mkdirSync(표폴더, { recursive: true });
 fs.writeFileSync(path.join(표폴더, 표이름(오늘, 자리)), `${오늘} ${자리}번 아침 퀴즈 ${문제들.length}문제 다 맞힘\n`);
 console.log(`\n✅ ${문제들.length}문제 다 맞혔습니다. 오늘(${오늘}) 일을 시작하십시오.`);
 console.log(`   적어 뒀습니다 — .ganglyeong/${표이름(오늘, 자리)}`);
+}   /* ← 「직접 부를 때만 돈다」 끝 */
