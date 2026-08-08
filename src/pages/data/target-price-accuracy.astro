@@ -1,0 +1,221 @@
+---
+/*
+ * Target-price accuracy — B2B 상품 지면. (seoulmarkets.com/data/target-price-accuracy)
+ *
+ * 왜 (사장님 2026-08-08): 「어느 증권사의 목표주가가 맞았나」 — 국내외에 파는 곳이 없다.
+ *   시간이 쌓여야만 만들어진다. 아카이브가 곧 해자다.
+ *   ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다.
+ *
+ * 자료: src/data/target-price-accuracy.json (scripts/build-target-price-accuracy.mjs 산출).
+ *   과거 리포트는 종목명→code 백필로 시세 조인. 정직 단서(생존편향 등)를 화면에 적는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/target-price-accuracy.json';
+
+const TITLE = 'Which brokers hit their target prices';
+const SAMPLE = `${data.조인성공.toLocaleString()} rated reports joined to price · 12-month horizon`;
+const DESC =
+  'Korean brokerage target prices, scored against what the stock actually did 12 months later. '
+  + 'Hit rate by house, the average target upside they promised, and what the shares really returned — '
+  + 'built from a multi-year archive nobody else keeps.';
+
+const rows = data.증권사;
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean brokerage target-price accuracy',
+  description: DESC, url: `${SITE_URL}/data/target-price-accuracy`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['target-price hit rate', 'average target upside', 'realized 12-month return'],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>Which brokers hit their target prices</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Every broker report carries a target price. Almost nobody keeps score. We do — matching each
+        target to what the stock actually did twelve months later, across a multi-year archive. The
+        result is the one number a broker never publishes about itself: <b>how often its targets were
+        right.</b>
+      </p>
+
+      <ol class="five">
+        <li><b>What it is</b> — every rated report's target price, scored against the share price
+          twelve months later, aggregated by brokerage.</li>
+        <li><b>Why trust it</b> — targets and prices are both facts on the record; we join them and
+          keep the archive. Nothing is self-reported by the broker.</li>
+        <li><b>How big</b> — {data.조인성공.toLocaleString()} reports joined to a price (reference {data.기준일}).</li>
+        <li><b>The honest caveats</b> — delisted and renamed tickers drop out (survivorship, upward);
+          a single 12-month close undercounts targets hit mid-year. Both ship with the data.</li>
+        <li><b>The form</b> — one CSV: broker · stock · report date · target · price then and 12 months
+          on · hit flag. Plus this by-broker summary.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>① Hit rate by brokerage</h2>
+        <p>Share of target prices reached within twelve months, the average upside each house promised,
+          and what the shares really returned. Houses with at least 20 scored reports.</p>
+        <table class="press">
+          <thead>
+            <tr><th>Brokerage</th><th class="r">Reports</th><th class="r">Hit rate</th>
+              <th class="r">Avg target upside</th><th class="r">Actual 12m</th></tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr>
+                <td class="axis">{r.house}</td>
+                <td class="r">{r.n}</td>
+                <td class="r"><b>{r.hitRate}%</b></td>
+                <td class="r">{r.avgTargetUpside}%</td>
+                <td class="r">{r.avgActual}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="fine">
+          Read the gap between the two right-hand columns: houses promise ~40% upside and the shares
+          return ~20%. Targets are optimistic almost everywhere — the product is knowing by how much,
+          and for whom.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>② What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">One CSV — brokerage · analyst (where filed) · stock ·
+              ticker · report date · target price · price at publication · price 12 months later ·
+              hit flag · realized return. Plus the by-broker summary above.</td></tr>
+            <tr><th>Coverage</th><td colspan="2">Multi-year. Past reports carry no ticker at source, so
+              we restore it by name — the join rate and the misses are disclosed.</td></tr>
+            <tr><th>The caveats travel with it</th><td colspan="2">Survivorship (delisted names drop)
+              and the single-close undercount are stated in a <code>method.md</code>, not buried.</td></tr>
+            <tr><th>Refresh</th><td colspan="2">As new reports mature past their 12-month mark.</td></tr>
+            <tr><th>Source</th><td colspan="2">Broker-published facts (date, house, stock, target,
+              rating) and KRX close via data.go.kr. We do not store report text, PDFs or charts.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the dataset</h2>
+        <p class="cta__lead">
+          Want the full report-level file, or a single broker's track record? Leave a work email and we
+          send a sample and the current licensing terms. It reaches us directly — no account, and this
+          is not the newsletter.
+        </p>
+        <form class="ask" method="post" action="/v1/subscribe" data-source="target-price">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input id="ask-email" type="email" name="email" required autocomplete="email"
+              inputmode="email" placeholder="you@company.com" aria-describedby="ask-note" />
+            <button type="submit">Request the dataset</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the
+            target-price dataset. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="fine bottom">
+        Prices via data.go.kr (KRX close, reference {data.기준일}) · Targets are broker-published facts ·
+        Survivorship and single-close caveats as stated above · Not investment advice.
+        See our <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
+      </p>
+    </article>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true; const was = btn.textContent; btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'target-price' }),
+          });
+          const d = await res.json().catch(() => ({}));
+          if (res.ok && d.ok) { say('ok', 'Thanks — we have your address and will email you the sample and the terms.'); form.reset(); }
+          else { say('error', d?.error?.message || d?.message || 'Could not send. Please try again.'); }
+        } catch { say('error', 'Network error. Please try again.'); }
+        finally { btn.disabled = false; btn.textContent = was; }
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; font-variant-numeric: normal; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>
