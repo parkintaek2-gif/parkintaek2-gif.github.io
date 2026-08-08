@@ -26,6 +26,22 @@ const D = 'dist/wikitip';
     이걸 몰라 처음 돌렸을 때 25장 전부 「죽은 링크 /」로 울렸다. 잣대가 틀린 것이었다. */
 const 첫화면 = 'dist/wikitip.html';
 
+/**
+ * 값은 **소스에서 읽는다.** 자에 박으면 자와 지면이 어긋날 자리가 하나 더 생긴다.
+ *
+ * ⛔ 처음 쓸 때 `\d` 가 `d` 로 들어가 **빈 배열**이 나왔다. 그러면 아래에서
+ *    `new RegExp('')` 이 되어 **무엇에나 맞는 자**가 된다 — 규칙이 늘 통과한다.
+ *    오늘 하루 종일 잡아 온 꼴을 자기 손으로 만들 뻔했다. **못 읽으면 크게 선다.**
+ */
+export function 값읽기() {
+  const s = fs.readFileSync('src/data/wikitip-price.ts', 'utf8');
+  const v = [...s.matchAll(/^export const (?:ONE_OFF_USD|MONTHLY_USD) = (\d+);/gm)].map((m) => m[1]);
+  if (v.length !== 2) {
+    throw new Error(`src/data/wikitip-price.ts 에서 값을 ${v.length}개 읽었다. 둘이라야 한다 — 자가 무엇과 맞출지 모른다`);
+  }
+  return v;
+}
+
 const 얇은기준 = 900;   // 자 — 이보다 짧으면 손님이 읽을 것이 없다
 const 나가는길기준 = 3; // 기사 하나에서 다른 곳으로 가는 길
 
@@ -59,6 +75,8 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   자가('바깥 주소는 늘 살아 있다고 본다', 있나('https://x.com', () => false));
   자가('첫 화면은 wikitip.html 로 찾는다', 있나('/', (p) => p === 첫화면));
   자가('없는 주소는 잡는다', !있나('/nope', () => false));
+  자가('값을 소스에서 둘 읽는다', 값읽기().length === 2);
+  자가('값이 숫자다', 값읽기().every((v) => /^\d+$/.test(v)));
   console.log(`손님 걸음 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
   if (통과 !== 시험) process.exit(1);
 
@@ -173,8 +191,15 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
          *    2번: 「미정이라고 적지 마십시오. **곧 엽니다 · 열리면 알려 드릴까요**로 두십시오」
          * ⚠ 그래서 재는 것을 뒤집는다 — 「없다고 말하나」가 아니라 **「언제 살 수 있나를 말하나」**다.
          */
-        [/opens shortly|opens soon/i, '언제 열리는지'],
-        [/tell me when|let you know|told when it opens/i, '열리면 알려 준다는 것'],
+        /*
+         * ⛔ 2026-08-08 16:0x. **값이 정해졌다**(2번 15:5x). 자를 또 뒤집는다 —
+         *    12:3x 에는 「곧 엽니다」를 요구했고, 이제는 **값 자체**를 요구한다.
+         *    ⚠ 값을 자에 손으로 안 박는다. `wikitip-price.ts` 에서 읽어 지면과 맞댄다 —
+         *       박으면 값을 바꿀 때 자와 지면이 어긋나고, 자가 지면을 틀렸다고 한다.
+         *       오늘만 그 꼴을 두 번 겪었다.
+         */
+        [new RegExp(값읽기().map((v) => `\\$${v}`).join('|')), '값'],
+        [/free|opening month/i, '여는 달이 무료라는 것'],
         [/mailto:/i, null],
       ];
       for (const [re, 무엇] of 있어야) {

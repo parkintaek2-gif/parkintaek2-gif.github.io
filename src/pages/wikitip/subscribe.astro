@@ -21,6 +21,7 @@ import { getCollection } from 'astro:content';
 import WikiTip from '../../layouts/WikiTip.astro';
 import { PUBLISHER } from '../../consts';
 import { 한벌 } from '../../data/wikitip-bundle';
+import { ONE_OFF_USD, MONTHLY_USD, usd, 여는달 } from '../../data/wikitip-price';
 
 const 기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft);
 
@@ -142,13 +143,22 @@ const jsonLd = {
     is the more useful one and it is the one most people do not get.
     {' '}<a href="/data">The full contents →</a>
   </p>
+  {/*
+    값이 정해졌다 (2번 15:5x). ⛔ 여기 손으로 안 적는다 — `wikitip-price.ts` 한 곳에서 온다.
+    /data 와 이 지면이 다른 값을 말하면 사는 쪽에서는 우리가 다투는 것으로 보인다.
+  */}
+  <p class="price">
+    <b>{usd(ONE_OFF_USD)}</b> once, or <b>{usd(MONTHLY_USD)} a month</b> for the refreshes.
+    <span class="free">Free for the opening month, {여는달()}.</span>
+  </p>
   <p class="ask">
-    <a class="btn" href={열림알림}>Tell me when the data opens</a>
+    <a class="btn" href={열림알림}>Ask for the data</a>
   </p>
   <p class="plain">
-    <b>Access opens shortly.</b> We are putting the last checks through these tables. Ask above and
-    you will hear the day it opens, before it goes anywhere public. No payment, no form, no card —
-    one email, and a person answers it within a working day.
+    No form and no card — one email, and a person answers within a working day. The opening month is
+    the full price standing with the month opened, not a discount.
+    {' '}<a href="/terms">The terms</a> and <a href="/refund">the refund policy</a> are both short
+    enough to read before you decide.
   </p>
 
   <p class="who">
@@ -166,6 +176,9 @@ const jsonLd = {
       display: inline-block; padding: .7rem 1.2rem; border-radius: 8px;
       background: var(--accent); color: #fff; font-weight: 600; text-decoration: none;
     }
+    .price { font-size: 1.06rem; margin: 1.6rem 0 .2rem; line-height: 1.7; }
+    .price b { font-size: 1.25rem; }
+    .price .free { display: block; font-size: .9rem; color: var(--accent); margin-top: .25rem; }
     .plain { color: var(--muted); margin: 0 0 1.6rem; }
     .spec { width: 100%; border-collapse: collapse; font-size: .88rem; margin: .6rem 0 1rem; }
     .spec th { text-align: left; padding: .45rem .8rem .45rem 0; color: var(--muted); font-weight: 600;

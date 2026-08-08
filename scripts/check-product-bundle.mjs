@@ -161,9 +161,23 @@ if (process.argv[1] && process.argv[1].endsWith('check-product-bundle.mjs')) {
     }
   }
 
-  /* ⑥ 값은 아직 안 적혀 있어야 한다 — 사장님 판단 전이다 */
-  if (/\bUSD|\$[0-9]|₩[0-9]|원\/월|price:/i.test(readme)) {
-    넘음.push('README 에 값이 적혀 있다. 값은 사장님 판단이고 아직 안 나왔다');
+  /*
+   * ⑥ 값. **2026-08-08 16:0x 에 정해졌다**(2번 15:5x · 사장님이 우리에게 맡기셨다).
+   *    그전까지 이 자리는 「값이 적혀 있으면 선다」였다. 지시가 바뀌었으니 자도 뒤집는다 —
+   *    ⛔ README 에 값을 적으려면 **소스와 같은 값**이어야 한다. 손으로 적어 어긋나면 선다.
+   *    ⛔ 넷플릭스 없는 한 벌에는 여전히 값이 없다. 거기 값이 적히면 선다.
+   * ⚠ 소스를 여기서 읽는다. 자에 값을 손으로 박으면 **자와 지면이 어긋날 자리를 하나 더 만드는 것**이다.
+   */
+  {
+    const 소스 = fs.readFileSync('src/data/wikitip-price.ts', 'utf8');
+    const 옳은값 = [...소스.matchAll(/^export const (?:ONE_OFF_USD|MONTHLY_USD) = (\d+);/gm)]
+      .map((m) => `$${m[1]}`);
+    if (옳은값.length !== 2) 넘음.push('src/data/wikitip-price.ts 에서 값을 못 읽었다 — 자가 무엇과 맞출지 모른다');
+    const 적힌값 = [...new Set(readme.match(/\$\d+/g) ?? [])];
+    const 틀린값 = 적힌값.filter((v) => !옳은값.includes(v));
+    if (틀린값.length) {
+      넘음.push(`README 의 값 ${틀린값.join(', ')} 이 소스(${옳은값.join(' · ')})와 다르다`);
+    }
   }
 
   if (넘음.length) {

@@ -22,6 +22,7 @@ import titles from '../../data/wikitip-titles.json';
 import korea from '../../data/wikitip-korea-signal.json';
 import invisible from '../../data/wikitip-kpop-invisible.json';
 import { 한벌 } from '../../data/wikitip-bundle';
+import { ONE_OFF_USD, MONTHLY_USD, WHY as PRICE_WHY, usd, 여는달 } from '../../data/wikitip-price';
 
 /** 갈래를 열쇠로 찾아 쓴다. 순서가 바뀌어도 안 어긋난다 */
 const 안보임 = Object.fromEntries(invisible.rows.map((r) => [r.key, r]));
@@ -188,17 +189,25 @@ const jsonLd = {
     </p>
     <p class="note">
       {/*
-        ⛔ 값을 적지 않는다. 사장님 판단이고 아직 안 나왔다.
-        ⛔ 파일을 안 연다. 넷플릭스 주간 순위 재배포 조건이 대장에 ⬜ 미확인이다.
-           「라이선스는 받기 전에 본다」 — 확인되면 그때 연다. 못 한 확인을 한 것처럼 두지 않는다.
+        값이 정해졌다 (2번 15:5x · 사장님이 우리에게 맡기셨다).
+        ⛔ 값을 여기 손으로 안 적는다. `wikitip-price.ts` 한 곳에서만 온다 —
+           지면마다 적으면 바꿀 때 한쪽만 고쳐진다. 오늘 아침 한 벌 크기에서 그 병을 겪었다.
+        ⛔ 넷플릭스 없는 한 벌은 값을 **안 지어낸다.** 재배포 조건이 아직 ⬜ 미확인이다.
       */}
-      <b>Access opens shortly.</b> We are putting the last checks through these tables and opening
-      them for purchase soon. Say the word and we will tell you the day it opens, before it goes
-      anywhere public — <a href={열림알림}>ask to be told when it opens</a>.
+      <b>{usd(ONE_OFF_USD)}</b> for the bundle as it stands, or <b>{usd(MONTHLY_USD)} a month</b> for
+      the refreshes and whatever tables we add. One licence covers one organisation —
+      <a href="/terms"> the terms are short</a>.
+      <br /><br />
+      <b>The opening month is free.</b> Everything above is open at no charge from {여는달()}. That is
+      the full price standing with the month opened, not a discount — we would rather you saw what it
+      costs and then decided.
+      <br /><br />
+      <b>Why that price.</b> {PRICE_WHY[0]} {PRICE_WHY[1]}
       <br /><br />
       <b>One table is waiting on someone else.</b> We are not offering the chart-derived tables as a
       public download yet: the redistribution terms for that source are still being confirmed, and we
-      check a licence before we publish, not after. The other tables do not wait on it.
+      check a licence before we publish, not after. The other tables do not wait on it, and the
+      Netflix-free bundle is <b>priced separately</b> once we know what we are allowed to include.
     </p>
   </section>
 
