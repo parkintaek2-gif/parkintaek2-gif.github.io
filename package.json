@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "node scripts/build-once.mjs",
     "preview": "astro preview",
     "og": "node scripts/make-og.mjs",
     "indexnow": "node scripts/ping-indexnow.mjs",
@@ -63,7 +63,8 @@
     "check:korean": "node scripts/check-korean.mjs",
     "check:frontmatter": "node scripts/check-frontmatter.mjs",
     "check:100y:rules": "node scripts/check-school-rules.mjs",
-    "check:comment": "node scripts/check-comment-close.mjs"
+    "check:comment": "node scripts/check-comment-close.mjs",
+    "build:raw": "astro build"
   },
   "dependencies": {
     "@astrojs/markdown-satteri": "^0.3.5",
