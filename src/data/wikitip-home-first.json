@@ -1,0 +1,248 @@
+{
+  "generated": "2026. 8. 8. 오후 4:27:30",
+  "source": "Netflix Top 10 (Tudum) weekly country lists for Korea and the six Southeast Asian markets; Korean titles identified via Wikidata country of origin (P495 = Q884)",
+  "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한국과 동남아 여섯 나라",
+  "question": "For Korean titles that charted in Southeast Asia, did Korea's own chart get there first?",
+  "home": "Korea",
+  "region": "Singapore, Malaysia, the Philippines, Thailand, Indonesia, Vietnam",
+  "weekFrom": "2021-07-04",
+  "weekTo": "2026-07-26",
+  "weekCount": 265,
+  "slotsPerCountry": 5300,
+  "titleCount": 397,
+  "neverAtHome": 140,
+  "neverAtHomePc": 35.3,
+  "bothCharted": 257,
+  "all": {
+    "n": 257,
+    "homeFirst": 46,
+    "sameWeek": 160,
+    "awayFirst": 51,
+    "homeFirstPc": 17.9,
+    "sameWeekPc": 62.3,
+    "awayFirstPc": 19.8
+  },
+  "censoredExcluded": {
+    "n": 246,
+    "homeFirst": 45,
+    "sameWeek": 154,
+    "awayFirst": 47,
+    "homeFirstPc": 18.3,
+    "sameWeekPc": 62.6,
+    "awayFirstPc": 19.1
+  },
+  "censoredCount": 11,
+  "sharedNameCount": 9,
+  "sharedNameInBoth": 7,
+  "sharedNameTitles": [
+    "Glitch",
+    "Kingdom",
+    "Last Summer",
+    "Mine",
+    "Once Again",
+    "One Night Stand",
+    "Only You",
+    "Start-Up",
+    "Tunnel"
+  ],
+  "cleanest": {
+    "n": 241,
+    "homeFirst": 43,
+    "sameWeek": 154,
+    "awayFirst": 44,
+    "homeFirstPc": 17.8,
+    "sameWeekPc": 63.9,
+    "awayFirstPc": 18.3
+  },
+  "byFormat": [
+    {
+      "format": "Series",
+      "n": 171,
+      "homeFirst": 24,
+      "sameWeek": 124,
+      "awayFirst": 23,
+      "homeFirstPc": 14,
+      "sameWeekPc": 72.5,
+      "awayFirstPc": 13.5
+    },
+    {
+      "format": "Films",
+      "n": 75,
+      "homeFirst": 21,
+      "sameWeek": 30,
+      "awayFirst": 24,
+      "homeFirstPc": 28,
+      "sameWeekPc": 40,
+      "awayFirstPc": 32
+    }
+  ],
+  "leadWeeks": {
+    "homeFirstMedian": 7,
+    "homeFirstMax": 100,
+    "homeFirstOneWeek": 14,
+    "awayFirstMedian": 86,
+    "awayFirstMax": 205,
+    "awayFirstOneWeek": 8
+  },
+  "allSixNeverHome": [
+    {
+      "title": "The Penthouse: War in Life",
+      "type": "TV",
+      "firstAway": "2022-01-09"
+    },
+    {
+      "title": "The Cursed",
+      "type": "TV",
+      "firstAway": "2022-03-20"
+    },
+    {
+      "title": "Bad And Crazy",
+      "type": "TV",
+      "firstAway": "2022-04-03"
+    },
+    {
+      "title": "Secret Royal Inspector & Joy",
+      "type": "TV",
+      "firstAway": "2022-05-08"
+    },
+    {
+      "title": "Sell Your Haunted House",
+      "type": "TV",
+      "firstAway": "2022-07-24"
+    },
+    {
+      "title": "Police University",
+      "type": "TV",
+      "firstAway": "2022-07-31"
+    },
+    {
+      "title": "Young Lady and Gentleman",
+      "type": "TV",
+      "firstAway": "2022-08-28"
+    },
+    {
+      "title": "Sh**ting Stars",
+      "type": "TV",
+      "firstAway": "2022-10-16"
+    },
+    {
+      "title": "Jirisan",
+      "type": "TV",
+      "firstAway": "2022-10-30"
+    },
+    {
+      "title": "Unlock My Boss",
+      "type": "TV",
+      "firstAway": "2023-03-12"
+    },
+    {
+      "title": "Dr. Romantic",
+      "type": "TV",
+      "firstAway": "2023-05-07"
+    },
+    {
+      "title": "Murderer",
+      "type": "Films",
+      "firstAway": "2023-11-12"
+    },
+    {
+      "title": "Safe",
+      "type": "Films",
+      "firstAway": "2024-03-17"
+    },
+    {
+      "title": "Mama",
+      "type": "Films",
+      "firstAway": "2024-06-02"
+    },
+    {
+      "title": "The Stone",
+      "type": "Films",
+      "firstAway": "2025-08-03"
+    }
+  ],
+  "neverAtHomeByFormat": {
+    "series": 57,
+    "films": 83
+  },
+  "broadcasterTest": {
+    "property": "Wikidata P449 (original broadcaster)",
+    "mixedNever": {
+      "n": 136,
+      "withBroadcaster": 53,
+      "pc": 39
+    },
+    "mixedCharted": {
+      "n": 253,
+      "withBroadcaster": 168,
+      "pc": 66.4
+    },
+    "seriesNever": {
+      "n": 57,
+      "withBroadcaster": 46,
+      "pc": 80.7
+    },
+    "seriesCharted": {
+      "n": 175,
+      "withBroadcaster": 163,
+      "pc": 93.1
+    },
+    "verdict": "not supported"
+  },
+  "examples": {
+    "homeFirst": [
+      {
+        "title": "Cobweb",
+        "type": "Films",
+        "weeks": 100
+      },
+      {
+        "title": "18 Again",
+        "type": "TV",
+        "weeks": 62
+      },
+      {
+        "title": "Ransomed",
+        "type": "Films",
+        "weeks": 54
+      },
+      {
+        "title": "The Prison",
+        "type": "Films",
+        "weeks": 49
+      },
+      {
+        "title": "Inside Men",
+        "type": "Films",
+        "weeks": 47
+      }
+    ],
+    "awayFirst": [
+      {
+        "title": "Birth of a Beauty",
+        "type": "TV",
+        "weeks": 205
+      },
+      {
+        "title": "Taxi Driver",
+        "type": "TV",
+        "weeks": 183
+      },
+      {
+        "title": "The Fiery Priest",
+        "type": "TV",
+        "weeks": 182
+      },
+      {
+        "title": "The Night Owl",
+        "type": "Films",
+        "weeks": 150
+      },
+      {
+        "title": "One the Woman",
+        "type": "TV",
+        "weeks": 149
+      }
+    ]
+  }
+}

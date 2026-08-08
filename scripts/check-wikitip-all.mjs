@@ -52,6 +52,7 @@ const 검사 = [
   ['분모에 안 뺄 것이 남았나 (pay-denominator)', 'check-pay-denominator.mjs'],
   ['재지 않고 쓴 절대 문장이 있나 (unmeasured-sentence)', 'check-absolute-claims.mjs'],
   ['젊어서인지 아닌지를 기사가 맞게 말하나', 'check-firm-age-article.mjs'],
+  ['한국이 먼저였나를 기사가 맞게 말하나', 'check-home-first-article.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],
