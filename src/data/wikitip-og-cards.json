@@ -96,6 +96,11 @@
       "figure": "1,312",
       "label": "Korean groups our panel cannot see",
       "왜": "자동은 2,362(패널 크기)를 집는다. 기사가 파는 것은 **못 보는 쪽**이다"
+    },
+    "what-share-of-korean-output-the-charts-touch": {
+      "figure": "30.3%",
+      "label": "of Korean series since 2021 · films 14.3%",
+      "왜": "자동은 30%(반올림 글)나 4,752 를 집는다. 두 갈래의 대비가 기사다"
     }
   }
 }
