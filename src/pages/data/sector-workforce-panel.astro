@@ -1,0 +1,317 @@
+---
+/**
+ * **Sector workforce panel** — B2B 상품 지면. (seoulmarkets.com/data/sector-workforce-panel)
+ *
+ * ── 왜 지면인가 (사장님 지시 2026-08-08, 2번 38878) ──────────────
+ *   「6번의 새 데이터가공 비즈니스를 위한 업무플로우를 초기부터 매출이 나게. 팔 수 있는 물건으로.」
+ *   백년지도·임금패널과 같은 모양 — 파는 지면 + 「무엇이 들어 있나」 + 「곧 엽니다·알림 받기」.
+ *   ⛔ 값(가격)은 지면에 넣지 않는다(사장님 확정 대기, 38376 규칙: 미정은 「곧 엽니다」로).
+ *   ⛔ 결제는 붙이지 않는다 — 지금 필요한 것은 **살 뜻을 세는 칸**이다.
+ *
+ * ── 원본 ───────────────────────────────────────────────────────
+ *   판매정의 docs/상품안/6번-P1-판매정의.md · 업종체계 docs/SeoulMarkets-업종체계.md
+ *   수치는 scripts/build-sector-panel.mjs 실측(시총 기준일 2026-08-05).
+ *
+ * ── 우리가 파는 것 ─────────────────────────────────────────────
+ *   분류(공공 KSIC 유도)가 아니라, 그 위에 얹은 **우리 노동데이터**(근속·임금·성별·1인당 인건비).
+ *   대형 벤더가 재무는 줘도 이건 안 준다. ⛔ GICS 데이터·상표는 쓰지 않는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+
+const TITLE = 'The sector workforce panel';
+const SAMPLE = '2,644 listed companies · 11 sectors · market cap as of 2026-08-05';
+const DESC =
+  'Korean listed companies sorted into 11 standard sectors, each carrying the labour fingerprint the '
+  + 'big vendors leave out: tenure, average pay, gender pay gap, female share and capital-per-head — '
+  + 'with market leaders separated from the rest, for 2,644 companies.';
+
+/** 섹터 요약 — build-sector-panel.mjs 실측(시총 20260805). 화면과 하나의 출처로 묶는다. */
+const 섹터 = [
+  ['Information Technology', '52.1%', '93%', '6.5y', '57.8m', '21%'],
+  ['Industrials', '14.5%', '22%', '6.4y', '61.0m', '14%'],
+  ['Financials', '13.4%', '35%', '6.2y', '115.8m', '35%'],
+  ['Consumer Discretionary', '6.1%', '56%', '7.1y', '57.4m', '30%'],
+  ['Health Care', '4.8%', '47%', '4.9y', '57.1m', '40%'],
+  ['Materials', '3.9%', '30%', '8.6y', '61.6m', '13%'],
+  ['Communication Services', '3.1%', '41%', '4.7y', '60.9m', '35%'],
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean listed-company sector workforce panel',
+  description: DESC,
+  url: `${SITE_URL}/data/sector-workforce-panel`,
+  temporalCoverage: '2026',
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: [
+    'average tenure', 'average annual pay', 'female-to-male pay ratio',
+    'female share', 'market cap per employee', 'sector concentration',
+  ],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>The sector workforce panel</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Every listed company files, once a year, how long its people stay, what it pays them, and how
+        that splits by gender. Almost nobody joins it up. We sort all of Korea's listed companies into
+        11 standard sectors and hand you the one thing the big data vendors leave out of their
+        terminals: <b>the labour fingerprint of each sector</b> — tenure, pay, the gender gap, and how
+        concentrated the market cap really is.
+      </p>
+
+      <!-- 다섯 줄 요약 -->
+      <ol class="five">
+        <li><b>What it is</b> — 2,644 listed companies in 11 sectors, each row carrying tenure, average
+          pay, gender pay gap, female share and market-cap-per-employee, with sector leaders flagged.</li>
+        <li><b>Why trust it</b> — every figure is re-derived from the company's own annual filing
+          (DART) and the exchange's close, and re-checked. Discrepancies are logged, not hidden.</li>
+        <li><b>How big</b> — 2,862 listed companies mapped, 2,644 joined to a market cap. Not a
+          sample — the whole board.</li>
+        <li><b>What only we have</b> — the big vendors sell price and financials. Tenure, churn,
+          gender pay gap and pay-per-head by sector are the columns they don't carry.</li>
+        <li><b>The form</b> — one CSV per sector, plus an all-sector summary. Leaders vs the rest on
+          every row. Refreshed quarterly, on the filing cycle.</li>
+      </ol>
+
+      <!-- ① 무엇을 재나 -->
+      <section class="blk">
+        <h2>① The labour fingerprint — by sector</h2>
+        <p>
+          Each sector reads differently, and the difference is the product. IT is more than half the
+          market's value and brutally concentrated; finance pays the most; health care is the youngest
+          and most female. Median figures shown — the CSV carries every company.
+        </p>
+        <table class="press">
+          <thead>
+            <tr><th>Sector</th><th class="r">Mkt weight</th><th class="r">Top-3 conc.</th>
+              <th class="r">Tenure</th><th class="r">Pay (median)</th><th class="r">Female</th></tr>
+          </thead>
+          <tbody>
+            {섹터.map((s) => (
+              <tr>
+                <td class="axis">{s[0]}</td>
+                <td class="r">{s[1]}</td><td class="r">{s[2]}</td>
+                <td class="r">{s[3]}</td><td class="r">₩{s[4]}</td><td class="r">{s[5]}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <p class="fine">
+          Read IT's 93%: the three biggest names hold 93% of the sector's market cap. A buyer weighing
+          "Korean tech" is really weighing three companies — that is exactly what a concentration
+          column tells you and a price feed does not.
+        </p>
+      </section>
+
+      <!-- ② 무엇이 들어 있나 -->
+      <section class="blk">
+        <h2>② What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">One CSV per sector plus an all-sector summary. Columns:
+              sector · source industry (KSIC) · company · ticker · <b>leader / other</b> · market cap ·
+              employees · average annual pay · average tenure · gender pay ratio · female share ·
+              market-cap-per-employee.</td></tr>
+            <tr><th>Leaders vs the rest</th><td colspan="2">Every row is flagged <b>leader</b> or
+              <b>other</b> by market-cap weight, so you can read a sector as its handful of movers plus
+              a long tail — not one undifferentiated list.</td></tr>
+            <tr><th>The sector map</th><td colspan="2">Our own 11-sector scheme, derived from public
+              KSIC. <b>No GICS data or trademark is used or resold</b> — redistribution-free.</td></tr>
+            <tr><th>Definitions</th><td colspan="2">A <code>method.md</code> quoting each field from
+              the source filing, plus a <code>corrections.csv</code> — every figure we changed after
+              first publishing it, never a silent edit.</td></tr>
+            <tr><th>Refresh</th><td colspan="2">Quarterly, on the DART filing cycle.</td></tr>
+            <tr><th>Source</th><td colspan="2">DART annual reports (employment & pay) and KRX close via
+              data.go.kr, licence "unrestricted". What we sell is our parse, join and correction
+              record — not the raw filings.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- ③ 왜 우리 것인가 -->
+      <section class="blk">
+        <h2>③ Why this is ours to sell — and no one else's</h2>
+        <ul class="arrows">
+          <li><b>The columns are the moat.</b> Price and financials are everywhere. Tenure, churn,
+            gender pay gap and pay-per-head, joined to a sector map, are not sold anywhere in Korea.</li>
+          <li><b>Built from filings, not surveys.</b> Every number comes from a company's own legal
+            disclosure — auditable, cite-able, and it reconciles to the source.</li>
+          <li><b>We carry our own corrections.</b> A dataset that logs what it changed is worth more
+            than one that hides it. We sell trust, so the correction record ships with the data.</li>
+        </ul>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the panel</h2>
+        <p class="cta__lead">
+          Want a sample sector cut or the full 11-sector panel for your desk? Leave a work email and we
+          send the sample and the current licensing terms. It reaches us directly — no account, and
+          this is not the newsletter.
+        </p>
+        {
+          /* 사는 길. 죽은 mailto 대신 실제로 도는 /v1/subscribe 로 접수한다. source='sector-panel'
+             로 이 상품 문의를 뉴스레터·임금패널과 갈라 센다.
+             (JSX 주석이라 지면으로 나가지 않는다) */
+        }
+        <form class="ask" method="post" action="/v1/subscribe" data-source="sector-panel">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input
+              id="ask-email"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              inputmode="email"
+              placeholder="you@company.com"
+              aria-describedby="ask-note"
+            />
+            <button type="submit">Request the panel</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the sector
+            panel. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+        <p class="cta__also">
+          While you are here, the company-level table this is built from is free —{' '}
+          <a href="/data/korean-listed-workforce.csv" download>the whole listed-company table (CSV)</a>,
+          or browse it on the <a href="/rankings">rankings page</a>.
+        </p>
+      </section>
+
+      <p class="fine bottom">
+        Market cap as of 2026-08-05 (KRX via data.go.kr) · Employment & pay from DART annual filings ·
+        Sector map derived from public KSIC, no GICS data used · Not investment advice.
+      </p>
+    </article>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true;
+        const was = btn.textContent;
+        btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'sector-panel' }),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.ok) {
+            say('ok', 'Thanks — we have your address and will email you the sample and the terms.');
+            form.reset();
+          } else {
+            say('error', data?.error?.message || data?.message || 'Could not send. Please try again.');
+          }
+        } catch {
+          say('error', 'Network error. Please try again.');
+        } finally {
+          btn.disabled = false;
+          btn.textContent = was;
+        }
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td.note { color: var(--muted); font-size: .82rem; white-space: normal;
+                     font-variant-numeric: normal; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); vertical-align: middle;
+                        white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+  .arrows { padding-left: 1.1rem; margin: 0 0 .8rem; }
+  .arrows li { margin: 0 0 .5rem; line-height: 1.65; }
+  .arrows li b { color: var(--ink); }
+
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta__also { margin: 1.1rem 0 0; font-size: .88rem; color: var(--muted); }
+  .cta a, .pp a { color: var(--accent); text-decoration: none;
+                  border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden;
+        clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
+
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+
+  @media (max-width: 560px) {
+    table.kv th { white-space: normal; }
+    .pp .sample { white-space: normal; }
+  }
+</style>
