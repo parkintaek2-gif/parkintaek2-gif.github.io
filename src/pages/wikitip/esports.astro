@@ -15,6 +15,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import { SITE_URL } from '../../consts';
 import ladder from '../../data/riot-ladder.json';
+import hot from '../../data/wikitip-hot-streak.json';
 
 /**
  * e스포츠 — 랭크 사다리 교차지역 비교.
@@ -226,6 +227,54 @@ const jsonLd = {
           Nothing here is investment advice.
         </p>
       </div>
+    </article>
+
+    {/*
+      🔴 2026-08-08 20:0x — `wikitip-hot-streak.json` 을 **어느 지면도 안 읽고 있었다.**
+         27편째 기사가 이 수로 쓰였는데 손님이 표를 볼 곳이 없었다.
+         우리 카드에 「every figure has a table behind it」이라 적혀 있다. 그 줄을 참말로 만든다.
+      ⛔ 줄세우지 않는다 — 다섯이 붙어 있고 하나가 떨어져 있다는 **모양**을 보인다.
+      ⛔ 멈춘 것을 숨기지 않는다. 나흘치뿐이고 사다리는 소급이 안 된다.
+    */}
+    <article class="card">
+      <h2>Who is on a hot streak, by region</h2>
+      <p class="note">
+        Riot flags each top-tier player as being on a hot streak or not. Across
+        {' '}{hot.rows.length} regions, {hot.cluster.inCluster.length} of them sit inside
+        {' '}{hot.cluster.clusterSpread} points of each other and one does not.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr>
+              <th>Region</th><th>Challengers</th><th>On a hot streak</th>
+              <th>Veterans</th><th>Grandmaster hot streak</th>
+            </tr>
+          </thead>
+          <tbody>
+            {[...hot.rows].sort((a, b) => a.hotPc - b.hotPc).map((r) => (
+              <tr class={hot.cluster.outside.some((o) => o.region === r.region) ? 'edge' : ''}>
+                <td class="nm">{r.region}</td>
+                <td>{r.challengers}</td>
+                <td class="tot">{r.hotPc}%</td>
+                <td>{r.veteranPc}%</td>
+                <td>{r.gmHotPc}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <b>{hot.cluster.outside.map((o) => o.region).join(', ')} sits
+        {' '}{hot.cluster.outside[0].aboveClusterBy} points above the group.</b> The obvious
+        explanation is that it has fewer long-serving players, and that explanation fails on its own
+        data: {hot.counterexample.pair[0].region} and {hot.counterexample.pair[1].region} are
+        {' '}{hot.counterexample.veteranGap} points apart on veterans and
+        {' '}{hot.counterexample.hotGap} points apart on hot streaks.
+      </p>
+      <p class="disclaimer">
+        <b>{hot.dayCount} days only, {hot.days[0]} to {hot.asOf} — {hot.days.join(", ")}.</b> {hot.stalled}
+      </p>
     </article>
 
     {/*

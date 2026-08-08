@@ -22,6 +22,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-screen-split.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
+import denom from '../../data/wikitip-output-denominator.json';
 
 const TITLE = 'Korea exports television to the world, not film';
 const DESC =
@@ -180,6 +181,52 @@ const jsonLd = {
     <p class="note">
       The largest Korean film in five years, <i>{f.top[0].title}</i> at {m(f.top[0].hours)} hours, has
       been out-watched by {data.seriesAboveTopFilm} separate Korean series.
+    </p>
+  </section>
+
+  {/*
+    🔴 2026-08-08 20:1x — `wikitip-output-denominator.json` 을 **어느 지면도 안 읽고 있었다.**
+       우리 패널에는 원래 분모가 없다(차트에 든 것만 들어온다). 분모를 세어 놓고 안 보여 주면
+       손님은 「397편」을 전부로 읽는다. 그건 우리가 제일 하기 싫은 오해다.
+    ⛔ 이 표의 비율은 **천장**이다. 위키데이터는 만들어진 것이 아니라 적힌 것을 센다 —
+       실제로 더 만들어졌다면 우리 몫은 여기 적힌 것보다 **낮지, 높지 않다.**
+  */}
+  <section>
+    <h2>What our panel is a share of</h2>
+    <p class="note">
+      {denom.method}
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr>
+            <th>Type</th><th>Recorded as Korean</th><th>Since {denom.chartEraFrom}</th>
+            <th>In our panel</th><th>Share of all</th><th>Share since {denom.chartEraFrom}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {denom.rows.map((r) => (
+            <tr>
+              <td class="nm">{r.label}</td>
+              <td>{r.recorded.toLocaleString('en-US')}</td>
+              <td>{r.sinceChartEra.toLocaleString('en-US')}</td>
+              <td>{r.ourPanel}</td>
+              <td>{r.coveragePc}%</td>
+              <td class="tot">{r.coverageSinceChartEraPc}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>These shares are ceilings, not estimates.</b> {denom.limit}
+      {' '}The panel underneath is our own — <b>{denom.panelTitles}</b> titles, built from
+      {' '}<code>{denom.panelSource.split(" — ")[0]}</code>, the same file <a href="/titles">the title panel</a> reads.
+    </p>
+    <p class="note">
+      <b>And the two right-hand columns are not comparable to each other.</b> {denom.yearWarning}
+      {' '}Films without a recorded year number {denom.rows[0].recordedWithoutYear.toLocaleString('en-US')}
+      {' '}and series {denom.rows[1].recordedWithoutYear.toLocaleString('en-US')}.
     </p>
   </section>
 
