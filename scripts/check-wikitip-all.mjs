@@ -62,6 +62,9 @@ const 검사 = [
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],
   ['안에서 쓰는 말이 밖으로 나가나', 'check-no-internal-leak.mjs'],
+  /* 2번 지시 19:4x — 카드의 「every figure has a table behind it」이 참말인가.
+     ⛔ 초록이 된 뒤에 물렸다. 빨간 자를 공용 사슬에 물리면 여섯 자리가 다 선다 */
+  ['표가 뒤에 있다는 약속이 참말인가', 'check-table-promises.mjs'],
 ];
 
 let 돈것 = 0;

@@ -13,6 +13,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
+import key from '../../data/wikitip-key-integrity.json';
 import korea from '../../data/wikitip-korea-signal.json';
 
 const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
@@ -190,6 +191,85 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    🔴 2026-08-08 20:3x — `wikitip-key-integrity.json` 을 **어느 지면도 안 읽고 있었다.**
+       이 표는 우리 판이 어떻게 묶여 있는지를 사는 사람에게 밝히는 자리다. 없으면
+       손님은 「한 주에 한 나라 Top10 = 열 편」으로 읽는다. 우리가 처음에 그렇게 읽었다.
+    ⛔ 「중복」이라 부르지 않는다. 같은 제목이 한 목록에 여러 자리를 잡는 것은 **시즌이 다른 것**이고,
+       그건 자료의 흠이 아니라 우리가 열쇠를 잘못 잡은 것이었다.
+  */}
+  <section>
+    <h2>What counts as one row here</h2>
+    <p class="note">{key.question}</p>
+    <div class="scroll-x">
+      <table>
+        <tbody>
+          <tr>
+            <td class="nm">Rows we read</td>
+            <td class="tot">{key.rows.toLocaleString('en-US')}</td>
+            <td class="sub">every country, every week</td>
+          </tr>
+          <tr>
+            <td class="nm">Rows a title-only key would have merged away</td>
+            <td class="tot">{key.extraRowsByTitleCountryWeek.toLocaleString('en-US')}</td>
+            <td class="sub">{key.extraRowsPc}% of the file</td>
+          </tr>
+          <tr>
+            <td class="nm">Explained once the season is part of the key</td>
+            <td class="tot">{key.explainedBySeasonPc}%</td>
+            <td class="sub">{key.titlesAffected} titles across {key.countriesAffected} countries</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      A weekly top ten is not ten titles. One show can hold several places at once with different
+      seasons — the record is <b>{key.biggest[0].places} of the ten</b> in
+      {' '}{key.biggest[0].country}, week {key.biggest[0].week}. How often that happens:
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Places held by one title at once</th><th>Times</th></tr>
+        </thead>
+        <tbody>
+          {key.placesDistribution.map((d) => (
+            <tr><td class="nm">{d.places}</td><td class="tot">{d.times.toLocaleString('en-US')}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>This is not a fault in Netflix's data.</b> It is what happens when you key on a title alone,
+      which is what we did at first. Everything on this page is keyed on week, country, list and
+      season together — with that key the file has <b>{key.duplicateSlots}</b> duplicate slots and
+      {' '}<b>{key.duplicateWholeRows}</b> duplicate rows in {key.distinctSlots.toLocaleString('en-US')}.
+      {' '}<a href="/article/a-weekly-top-ten-is-not-ten-titles">The full story &rarr;</a>
+    </p>
+    <p class="note">
+      <b>Where the extra rows come from.</b> Adding the list (Films or TV) to the key explains
+      {' '}{key.extraRowsWithList.toLocaleString('en-US')} of them and the season a further
+      {' '}{key.extraRowsWithSeason}. It happens in {key.listsWithARepeatedTitle.toLocaleString('en-US')}
+      {' '}separate country-weeks, and {key.biggestCount} of those are ties for the largest case above.
+    </p>
+    <p class="note">
+      <b>And {key.nameCollisions.pairs} pairs are two different works sharing a name in the same
+      week</b> — mostly <i>{key.nameCollisions.byTitle[0].title}</i>
+      {' '}({key.nameCollisions.byTitle[0].pairs} of them). Weeks-on-chart separates
+      {' '}{key.nameCollisions.separatedByWeeksOnChart} of the {key.nameCollisions.pairs};
+      {' '}<b>{key.nameCollisions.unresolvable} cannot be separated at all</b> and we say so rather
+      than pick one.
+    </p>
+    <p class="note">
+      <b>What this costs our own panel.</b> These {data.titleCount} titles come from
+      {' '}{key.ourPanel.rowsRead.toLocaleString('en-US')} rows, which are
+      {' '}{key.ourPanel.distinctTitleCountryWeeks.toLocaleString('en-US')} distinct title-country-weeks.
+      Counting rows instead would have added {key.ourPanel.extraRowsIfCountingRows.toLocaleString('en-US')}
+      {' '}({key.ourPanel.extraRowsPc}%) — mostly <i>{key.ourPanel.worst[0].title}</i> holding three
+      places at once.
+    </p>
+  </section>
+
   <KcwRelatedArticles page="/titles" />
 
   <section class="src">
@@ -247,6 +327,7 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+  td.sub { color: var(--muted); font-size: .78rem; text-align: left; white-space: normal; }
   h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
   .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2rem; }
   section { margin: 0 0 3rem; }

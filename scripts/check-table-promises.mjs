@@ -58,9 +58,37 @@ export function 맨수(s) {
   return v.length ? v : null;
 }
 
-/** frontmatter 의 pages 를 읽는다 */
+/**
+ * 한 수를 **받아들일 여러 꼴**로 낸다.
+ *
+ * 🔴 2026-08-08 20:2x — 자가 `/staying-power` 를 「표에 그 수가 없다」고 불렀다. **있었다.**
+ *    기사는 `1.20×`, 지면은 자료에서 읽어 `1.2×` 로 낸다(JSON 이 꼬리 0 을 안 담는다).
+ *    **같은 수다.** 자릿수까지 자가 정하면 자가 글을 이긴다 — 오늘만 이 자리에서 다섯 번 걸렸다.
+ */
+export function 받을꼴(v) {
+  if (typeof v !== 'string' || !v.length) return [];
+  const 꼴 = new Set([v]);
+  const n = Number(v);
+  if (Number.isFinite(n)) {
+    꼴.add(String(n));                    // 1.20 → 1.2 · 19.0 → 19
+    if (Number.isInteger(n)) 꼴.add(n.toFixed(1));  // 19 → 19.0
+    else 꼴.add(n.toFixed(2));            // 1.2 → 1.20
+  }
+  return [...꼴];
+}
+
+/**
+ * frontmatter 의 pages 를 읽는다.
+ *
+ * 🔴 2026-08-08 20:2x — 자가 `korean-netflix-titles-one-body` 를 「건 지면이 없다」고 불렀다.
+ *    **있었다.** 그 파일만 줄 끝이 CRLF 라 `[ \t]*\n` 이 `\r\n` 을 못 넘었다.
+ *    저장소에 CRLF 파일과 LF 파일이 섞여 있다(git 이 체크아웃에서 바꾼다).
+ *    ⛔ 줄 끝을 먼저 눌러 놓고 읽는다. 8/7 에 `check-article-reach` 가 같은 자리에서
+ *       **딱 한 편**을 「닿을 수 없다」고 불렀다. 같은 병을 두 번 앓지 않는다.
+ */
 export function 걸린지면(원문) {
-  const m = 원문.match(/^pages:\s*\n((?:[ \t]*-[ \t]*"[^"]+"[ \t]*\n)*)/m);
+  const 눌린 = 원문.replace(/\r\n/g, '\n');
+  const m = 눌린.match(/^pages:[ \t]*\n((?:[ \t]*-[ \t]*"[^"]+"[ \t]*\n)*)/m);
   if (!m) return [];
   return [...m[1].matchAll(/"([^"]+)"/g)].map((x) => x[1]);
 }
@@ -72,9 +100,16 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
   자가('기호를 뗀다', 맨수('$39') === '39');
   자가('꼬리 점을 뗀다', 맨수('1.32×') === '1.32');
   자가('숫자가 없으면 null', 맨수('none') === null);
+  자가('1.20 은 1.2 로도 받는다', 받을꼴('1.20').includes('1.2'));
+  자가('19 는 19.0 으로도 받는다', 받을꼴('19').includes('19.0'));
+  자가('1.2 는 1.20 으로도 받는다', 받을꼴('1.2').includes('1.20'));
+  자가('빈 것은 빈 배열', 받을꼴('').length === 0);
   자가('pages 를 읽는다',
     걸린지면('a: 1\npages:\n  - "/x"\n  - "/y"\nb: 2\n').join() === '/x,/y');
   자가('pages 가 비면 빈 배열', 걸린지면('a: 1\nb: 2\n').length === 0);
+  /* ⚠ 저장소에 CRLF 파일과 LF 파일이 섞여 있다. 이 한 줄이 없어 딱 한 편을 놓쳤다 */
+  자가('줄 끝이 CRLF 여도 읽는다',
+    걸린지면('a: 1\r\npages:\r\n  - "/x"\r\nb: 2\r\n').join() === '/x');
   자가('면제에 까닭이 다 있다',
     Object.values(면제).every((v) => typeof v === 'string' && v.length > 20));
   console.log(`표 약속 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
@@ -123,8 +158,12 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
     /* 지면 파일이 dist 에 없는 것과, 있는데 수가 없는 것은 **다른 말**이다 */
     const 있는지면 = 지면.filter((p) => fs.existsSync(`dist/wikitip${p}.html`));
     if (!있는지면.length) { 못잼.push(`${slug} → ${지면.join(',')}`); continue; }
-    const 보임 = 있는지면.some((p) => fs.readFileSync(`dist/wikitip${p}.html`, 'utf8')
-      .replace(/<[^>]+>/g, ' ').replace(/,/g, '').includes(수));
+    const 꼴들 = 받을꼴(수);
+    const 보임 = 있는지면.some((p) => {
+      const t = fs.readFileSync(`dist/wikitip${p}.html`, 'utf8')
+        .replace(/<[^>]+>/g, ' ').replace(/,/g, '');
+      return 꼴들.some((v) => t.includes(v));
+    });
     if (!보임) 빈약속.push(`${slug} [${fig}] → ${있는지면.join(',')}`);
   }
   본다('대표 수가 걸린 지면에 있나', 빈약속.length === 0,

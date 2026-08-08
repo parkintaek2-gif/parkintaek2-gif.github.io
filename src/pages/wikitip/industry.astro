@@ -25,6 +25,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-content-industry.json';
+import age from '../../data/wikitip-firm-age.json';
 
 const TITLE = 'Korea’s listed content industry, all 248 companies';
 const DESC =
@@ -134,6 +135,68 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    🔴 2026-08-08 20:2x — `wikitip-firm-age.json` 을 **어느 지면도 안 읽고 있었다.**
+       43편째 기사가 이 수로 쓰였는데 손님이 표를 볼 곳이 없었다.
+    ⛔ 이 표의 요지는 「콘텐트사가 사람을 못 붙든다」가 **아니다.**
+       스물넷 된 회사에 십일 년 근속이 있을 수 없다. 나이를 묶어 놓고도 남는 몫만 우리 것이다.
+    ⛔ 얇은 띠(회사 다섯 곳 미만)는 배수를 안 낸다. 네 곳으로 낸 배수는 네 회사를 읽는 것이다.
+  */}
+  <section>
+    <h2>How much of that is simply being younger</h2>
+    <p class="note">{age.method}</p>
+    <div class="scroll-x">
+      <table>
+        <tbody>
+          <tr>
+            <td class="nm">Content ({age.overall.contentFirms} firms)</td>
+            <td>{age.overall.contentTenure} years</td>
+            <td class="tot">{age.overall.contentAge.toFixed(1)} years old</td>
+          </tr>
+          <tr>
+            <td class="nm">Everything else ({age.overall.restFirms.toLocaleString('en-US')} firms)</td>
+            <td>{age.overall.restTenure} years</td>
+            <td class="tot">{age.overall.restAge.toFixed(1)} years old</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Content companies hold staff <b>{age.overall.ratio}×</b> less long, and they are
+      {' '}{age.overall.ageGap} years younger. Band both sides by the companies' own age and the gap
+      narrows — but it does not close.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Company age</th><th>Content firms</th><th>Their tenure</th><th>Everyone else</th><th>Ratio</th></tr>
+        </thead>
+        <tbody>
+          {age.bands.map((b) => (
+            <tr class={b.thin ? 'thin' : ''}>
+              <td class="nm">{b.label}</td>
+              <td>{b.contentFirms}</td>
+              <td>{b.contentTenure} yrs</td>
+              <td>{b.restTenure} yrs</td>
+              <td class="tot">{b.thin ? '—' : `${b.ratio}×`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Across the {age.withinBand.measuredBands} bands we will read, the ratio runs from
+      {' '}<b>{age.withinBand.max}×</b> down to <b>{age.withinBand.min}×</b>. Holding firm age
+      roughly fixed takes the gap from {age.overall.ratio}× to {age.withinBand.min}×, and never to 1.
+      {' '}<b>Being younger explains some of it, not most of it.</b>
+    </p>
+    <p class="note">
+      <b>One band is left unread</b> — the rule is fewer than {age.thinThreshold} companies on either side. {age.thinNote} <b>And these are listed companies only.</b>
+      {' '}{age.limit} {age.firmsUsed.toLocaleString('en-US')} companies disclose tenure, headcount
+      and incorporation year, and every figure here uses those same rows.
+    </p>
+  </section>
+
   <KcwRelatedArticles page="/industry" />
 
   <section class="src">
@@ -178,6 +241,7 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+  tr.thin td { color: var(--muted); font-style: italic; }
   h1 { margin: 0 0 .5rem; font-size: 1.7rem; letter-spacing: -.02em; }
   .lead { margin: 0 0 2rem; font-size: 1rem; color: var(--muted); }
   section { margin: 0 0 2.5rem; }
