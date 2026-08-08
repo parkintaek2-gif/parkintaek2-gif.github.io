@@ -1,0 +1,177 @@
+{
+  "generated": "2026. 8. 8. 오후 9:08:37",
+  "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
+  "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한 작품이 한 나라에서 달린 자취",
+  "question": "When a title enters a country's top 10, is that week its highest rank — or does it climb afterwards?",
+  "unit": "One run is one title in one country on one list (Films or TV). A title charting in six countries is six runs.",
+  "minWeeks": 2,
+  "minWeeksWhy": "A run of a single week cannot climb, so counting it as \"did not climb\" would be counting the calendar rather than the title.",
+  "runs": 108403,
+  "korean": {
+    "runs": 7083,
+    "climbed": 4058,
+    "climbedPc": 57.3,
+    "peakedFirstWeek": 3025,
+    "peakedFirstWeekPc": 42.7,
+    "meanWeeks": 4.9
+  },
+  "other": {
+    "runs": 101320,
+    "climbed": 41019,
+    "climbedPc": 40.5,
+    "peakedFirstWeek": 60301,
+    "peakedFirstWeekPc": 59.5,
+    "meanWeeks": 3.9
+  },
+  "gap": 16.8,
+  "bands": [
+    {
+      "label": "2 weeks",
+      "korean": {
+        "runs": 2565,
+        "climbed": 1013,
+        "climbedPc": 39.5,
+        "peakedFirstWeek": 1552,
+        "peakedFirstWeekPc": 60.5,
+        "meanWeeks": 2
+      },
+      "other": {
+        "runs": 48865,
+        "climbed": 15004,
+        "climbedPc": 30.7,
+        "peakedFirstWeek": 33861,
+        "peakedFirstWeekPc": 69.3,
+        "meanWeeks": 2
+      },
+      "gap": 8.8
+    },
+    {
+      "label": "3 weeks",
+      "korean": {
+        "runs": 1278,
+        "climbed": 833,
+        "climbedPc": 65.2,
+        "peakedFirstWeek": 445,
+        "peakedFirstWeekPc": 34.8,
+        "meanWeeks": 3
+      },
+      "other": {
+        "runs": 21808,
+        "climbed": 10854,
+        "climbedPc": 49.8,
+        "peakedFirstWeek": 10954,
+        "peakedFirstWeekPc": 50.2,
+        "meanWeeks": 3
+      },
+      "gap": 15.4
+    },
+    {
+      "label": "4–5 weeks",
+      "korean": {
+        "runs": 1381,
+        "climbed": 873,
+        "climbedPc": 63.2,
+        "peakedFirstWeek": 508,
+        "peakedFirstWeekPc": 36.8,
+        "meanWeeks": 4.4
+      },
+      "other": {
+        "runs": 17517,
+        "climbed": 8248,
+        "climbedPc": 47.1,
+        "peakedFirstWeek": 9269,
+        "peakedFirstWeekPc": 52.9,
+        "meanWeeks": 4.4
+      },
+      "gap": 16.1
+    },
+    {
+      "label": "6–10 weeks",
+      "korean": {
+        "runs": 1415,
+        "climbed": 977,
+        "climbedPc": 69,
+        "peakedFirstWeek": 438,
+        "peakedFirstWeekPc": 31,
+        "meanWeeks": 7.5
+      },
+      "other": {
+        "runs": 8776,
+        "climbed": 4386,
+        "climbedPc": 50,
+        "peakedFirstWeek": 4390,
+        "peakedFirstWeekPc": 50,
+        "meanWeeks": 7.2
+      },
+      "gap": 19
+    },
+    {
+      "label": "11 weeks or more",
+      "korean": {
+        "runs": 444,
+        "climbed": 362,
+        "climbedPc": 81.5,
+        "peakedFirstWeek": 82,
+        "peakedFirstWeekPc": 18.5,
+        "meanWeeks": 20.1
+      },
+      "other": {
+        "runs": 4354,
+        "climbed": 2527,
+        "climbedPc": 58,
+        "peakedFirstWeek": 1827,
+        "peakedFirstWeekPc": 42,
+        "meanWeeks": 21.8
+      },
+      "gap": 23.5
+    }
+  ],
+  "formats": [
+    {
+      "format": "Series",
+      "korean": {
+        "runs": 4735,
+        "climbed": 2957,
+        "climbedPc": 62.4,
+        "peakedFirstWeek": 1778,
+        "peakedFirstWeekPc": 37.6,
+        "meanWeeks": 6
+      },
+      "other": {
+        "runs": 35945,
+        "climbed": 16769,
+        "climbedPc": 46.7,
+        "peakedFirstWeek": 19176,
+        "peakedFirstWeekPc": 53.3,
+        "meanWeeks": 5.6
+      },
+      "gap": 15.7
+    },
+    {
+      "format": "Films",
+      "korean": {
+        "runs": 2348,
+        "climbed": 1101,
+        "climbedPc": 46.9,
+        "peakedFirstWeek": 1247,
+        "peakedFirstWeekPc": 53.1,
+        "meanWeeks": 2.7
+      },
+      "other": {
+        "runs": 65375,
+        "climbed": 24250,
+        "climbedPc": 37.1,
+        "peakedFirstWeek": 41125,
+        "peakedFirstWeekPc": 62.9,
+        "meanWeeks": 3
+      },
+      "gap": 9.8
+    }
+  ],
+  "survivesLengthControl": true,
+  "survivesFormatControl": true,
+  "excludedCountry": {
+    "name": "Russia",
+    "why": "Netflix stopped publishing a list for this market in 2022, so its runs cover a different window from every other market."
+  }
+}
