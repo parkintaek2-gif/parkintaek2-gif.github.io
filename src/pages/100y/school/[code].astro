@@ -24,6 +24,9 @@ import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
 import NextQuestion from '../../../components/NextQuestion.astro';
 /* 🔴 숫자가 없는 지면이 **왜 없는지**를 사실에서 계산한다 — 짐작으로 쓰지 않는다 */
 import { 빈까닭찾기 } from '../../../lib/school-gap';
+/* 🔴 이 학교가 어느 지역 한 벌에 드는가 — 가르는 자와 목록은 **한 곳**에서 온다 */
+import { 지역가르기 } from '../../../lib/school-area';
+import 지역단위 from '../../../data/100yearmap/areas.json';
 import majors from '../../../data/100yearmap/pages-major.json';
 import universities from '../../../data/100yearmap/pages-university.json';
 
@@ -204,6 +207,17 @@ const jsonLd = {
   address: { '@type': 'PostalAddress', addressRegion: school.지역, streetAddress: school.주소 },
   ...(school.홈페이지 ? { url: school.홈페이지 } : {}),
 };
+/**
+ * 이 학교가 드는 지역 한 벌. ⚠ **`areas.json` 에 있는 것만** 잇는다 —
+ *   지면이 없는 열쇠로 링크를 걸면 404 가 된다.
+ *   주소를 못 가른 학교 4곳은 여기서 null 이고, 그 지면에는 줄이 안 붙는다.
+ */
+const 이지역 = (() => {
+  const g = 지역가르기(school.주소);
+  if (!g) return null;
+  return ((지역단위 as any).단위 as any[]).find((a) => a.열쇠 === g.열쇠) ?? null;
+})();
+
 ---
 
 {/* ⚠ 제목에만 지역을 붙인다. h1 은 그대로 둔다 —
@@ -758,6 +772,41 @@ const jsonLd = {
           ⚠ <strong>같은 시·도라는 뜻일 뿐입니다.</strong> 집에서 다닐 수 있는 거리인지는
           저희가 알지 못합니다. 그리고 이 학교를 나와 저 대학에 많이 간다는 뜻도 아닙니다 —
           고등학교 학과와 대학 학과를 잇는 공식 자료가 아직 공개되지 않아, 지금은 지역으로만 이어 두었습니다.
+        </p>
+      </>
+    )
+  }
+
+  {/**
+    * 🔴 2번 지시(2026-08-08 11:0x) — **학교 2,444장이 이 물건의 유일한 광고인데 0장이 이어져 있었다.**
+    *
+    *   *「손님이 값을 모르고, 알아도 살 데가 없고, 애초에 그 지면에 닿을 길이 없다」*
+    *
+    *   부모는 학교 한 곳을 보러 왔다가 **「옆 학교는 어떤가」**를 묻는다. 그 자리가 여기다.
+    *   ⛔ 값을 여기 적지 않는다. 여기서 파는 것이 아니다 — **길만 놓는다.**
+    *   ⚠ 그 지역이 무료인지 한 벌인지에 따라 **말이 달라야 한다.** 무료인데
+    *     「한 벌로 보기」라고 하면 돈 내는 줄 안다.
+    */}
+  {
+    이지역 && (
+      <>
+        <hr class="rule" />
+        <p class="note">
+          <a href={`/report/area/${이지역.slug}`}>
+            이 학교가 있는 {이지역.이름} 고등학교 {이지역.곳}곳을 한 번에 →
+          </a>
+        </p>
+        <p class="note">
+          {이지역.한벌로팔만한가 ? (
+            <>
+              한 표에 {이지역.곳}곳을 놓고 <strong>퍼짐 안에서 어디쯤인지</strong>만 봅니다.{' '}
+              <strong>줄을 세우지 않습니다.</strong>
+            </>
+          ) : (
+            <>
+              {이지역.이름}은 학교가 {이지역.곳}곳이라 <strong>무료로 열어 둔 지면</strong>입니다.
+            </>
+          )}
         </p>
       </>
     )

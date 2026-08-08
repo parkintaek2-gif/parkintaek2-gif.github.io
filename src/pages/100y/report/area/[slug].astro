@@ -40,6 +40,8 @@ import NextQuestionAfterPick from '../../../../components/NextQuestionAfterPick.
 import schools from '../../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../../data/100yearmap/school-career.json';
 import { 지역가르기, 슬러그풀기, 한벌로팔만한가, 열쇠만들기 } from '../../../../lib/school-area';
+/* 🔴 값과 다음 칸은 **한 곳**에서 온다 — 지면마다 9,900 을 적으면 값이 바뀔 때 일부만 고쳐진다 */
+import { 값글자, 한벌에드는것, 다음칸, 알림메일주소 } from '../../../../lib/price';
 
 /* 🔴 가르는 규칙은 **한 곳에만** 둔다 — src/lib/school-area.ts
    지면 안에 따로 적어 뒀더니 05:2x 에 큰 시가 통째로 한 덩어리가 됐다.
@@ -181,6 +183,50 @@ const desc = 한벌인가
     <strong>{곳들.length}곳을 한 번에 놓고 보는 화면</strong>입니다. 지금은 학교를 하나씩
     검색해 표를 읽고 종이에 옮겨야 합니다.
   </p>
+
+  {/**
+    * 🔴 2번 지시(2026-08-08 11:0x) — **값표도 계산대도 없었다.**
+    *
+    *   라이브 실측 — 파는 지면(노원구)에 9,900원 표기 0 · 사는 단추 0.
+    *   *「손님이 값을 모르고, 알아도 살 데가 없다」*
+    *
+    * ⛔ **결제 얘기는 하지 않는다.** 붙일 곳이 아직 없다. 「곧 엽니다 + 알림 받기」로 둔다.
+    *   결제 수단 없이 「결제하기」를 놓으면 누른 사람이 빈 화면을 본다.
+    * ⛔ **무료 지면에는 값을 안 띄운다.** 9곳 이하는 무료다 — 거기 9,900 이 뜨면 거짓말이다.
+    */}
+  {
+    한벌인가 && (
+      <section class="pricebox">
+        <h2>이 한 벌은 {값글자}입니다</h2>
+        <p class="answer-num">{값글자}</p>
+        <p class="note">
+          {온이름} 고등학교 <strong>{곳들.length}곳</strong>을 한 장에. 학교알리미에서{' '}
+          <strong>{곳들.length}번 검색해 옮겨 적던 것</strong>을 한 번으로 줄입니다.
+        </p>
+
+        <h3>무엇이 들어 있나요?</h3>
+        <ul class="majors">
+          {한벌에드는것.map((줄) => (
+            <li>
+              <span>{줄}</span>
+            </li>
+          ))}
+        </ul>
+
+        <p>
+          <strong>{다음칸.머리}.</strong> {다음칸.말}
+        </p>
+        <p>
+          <a href={알림메일주소(온이름)}>{다음칸.단추} →</a>
+        </p>
+        <p class="note">
+          ⚠ 누르시면 <strong>메일 쓰는 창</strong>이 열립니다. 저희가 받는 것은 메일 주소뿐이고,
+          <strong>열리는 날 한 번만</strong> 보내 드립니다.
+        </p>
+      </section>
+    )
+  }
+
 
   {
     퍼짐 != null && (
