@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-07T17:58:22.588Z",
+  "generated": "2026-08-08T01:09:22.840Z",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
@@ -8,6 +8,26 @@
   "shown": 50,
   "totalHours": 23720700000,
   "peakGroups": [
+    {
+      "label": "Peaked at #1",
+      "n": 63,
+      "avgHours": 236440476,
+      "medianHours": 103400000,
+      "avgWeeks": 6.4,
+      "medianWeeks": 5,
+      "avgPerWeek": 25025742
+    },
+    {
+      "label": "Peaked below #1",
+      "n": 172,
+      "avgHours": 51307849,
+      "medianHours": 24100000,
+      "avgWeeks": 3.5,
+      "medianWeeks": 2,
+      "avgPerWeek": 11166990
+    }
+  ],
+  "peakGroupsTop50Only": [
     {
       "label": "Peaked at #1",
       "n": 26,
@@ -23,6 +43,183 @@
       "avgPerWeek": 23531518
     }
   ],
+  "peakByRank": [
+    {
+      "peak": 1,
+      "n": 63,
+      "medianHours": 103400000,
+      "medianWeeks": 5
+    },
+    {
+      "peak": 2,
+      "n": 24,
+      "medianHours": 128000000,
+      "medianWeeks": 5
+    },
+    {
+      "peak": 3,
+      "n": 30,
+      "medianHours": 66700000,
+      "medianWeeks": 4
+    },
+    {
+      "peak": 4,
+      "n": 23,
+      "medianHours": 46800000,
+      "medianWeeks": 3
+    },
+    {
+      "peak": 5,
+      "n": 28,
+      "medianHours": 24530000,
+      "medianWeeks": 2
+    },
+    {
+      "peak": 6,
+      "n": 12,
+      "medianHours": 23340000,
+      "medianWeeks": 2
+    },
+    {
+      "peak": 7,
+      "n": 9,
+      "medianHours": 8600000,
+      "medianWeeks": 2
+    },
+    {
+      "peak": 8,
+      "n": 23,
+      "medianHours": 6700000,
+      "medianWeeks": 1
+    },
+    {
+      "peak": 9,
+      "n": 14,
+      "medianHours": 5000000,
+      "medianWeeks": 1
+    },
+    {
+      "peak": 10,
+      "n": 9,
+      "medianHours": 2260000,
+      "medianWeeks": 1
+    }
+  ],
+  "weeksBands": [
+    {
+      "label": "1–2 weeks",
+      "n": 90,
+      "topN": 1,
+      "topMedianHours": 45300000,
+      "restN": 89,
+      "restMedianHours": 6600000,
+      "ratio": 6.86
+    },
+    {
+      "label": "3–5 weeks",
+      "n": 94,
+      "topN": 41,
+      "topMedianHours": 80700000,
+      "restN": 53,
+      "restMedianHours": 46200000,
+      "ratio": 1.75
+    },
+    {
+      "label": "6–10 weeks",
+      "n": 38,
+      "topN": 14,
+      "topMedianHours": 154300000,
+      "restN": 24,
+      "restMedianHours": 128890000,
+      "ratio": 1.2
+    },
+    {
+      "label": "11 weeks or more",
+      "n": 13,
+      "topN": 7,
+      "topMedianHours": 653900000,
+      "restN": 6,
+      "restMedianHours": 331100000,
+      "ratio": 1.97
+    }
+  ],
+  "weeksDistribution": [
+    {
+      "weeks": 1,
+      "n": 52
+    },
+    {
+      "weeks": 2,
+      "n": 38
+    },
+    {
+      "weeks": 3,
+      "n": 33
+    },
+    {
+      "weeks": 4,
+      "n": 36
+    },
+    {
+      "weeks": 5,
+      "n": 25
+    },
+    {
+      "weeks": 6,
+      "n": 7
+    },
+    {
+      "weeks": 7,
+      "n": 11
+    },
+    {
+      "weeks": 8,
+      "n": 11
+    },
+    {
+      "weeks": 9,
+      "n": 5
+    },
+    {
+      "weeks": 10,
+      "n": 4
+    },
+    {
+      "weeks": 11,
+      "n": 6
+    },
+    {
+      "weeks": 13,
+      "n": 2
+    },
+    {
+      "weeks": 15,
+      "n": 1
+    },
+    {
+      "weeks": 16,
+      "n": 1
+    },
+    {
+      "weeks": 21,
+      "n": 1
+    },
+    {
+      "weeks": 27,
+      "n": 1
+    },
+    {
+      "weeks": 42,
+      "n": 1
+    }
+  ],
+  "oneWeekOnly": 52,
+  "correlations": {
+    "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
+    "weeksVsLogHours": 0.732,
+    "peakVsLogHours": -0.75,
+    "weeksVsPeak": -0.474
+  },
   "longest": [
     {
       "title": "Squid Game",

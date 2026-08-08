@@ -60,6 +60,68 @@ const grp = (f, label) => {
   };
 };
 
+/**
+ * ── 🔴 2026-08-08 10:1x. **봉우리 무리를 상위 50편 안에서 셌다.** ────────
+ * 시간 상위 50편만 놓고 「#1 을 찍으면 시간이 두 배, 주수는 그대로」라고 지면에 적었다.
+ * 그 50편은 **시간으로 고른 것**이다. 결과로 표본을 고르고 그 결과를 설명한 꼴이다.
+ * 235편 전부로 재면 문장이 뒤집힌다 — #1 을 찍은 것은 중앙 5주, 못 찍은 것은 중앙 2주다.
+ * 「주수는 그대로」는 상위 50편 안에서 다들 9주쯤 되기 때문에 그렇게 보였을 뿐이다.
+ *
+ * ⛔ 그래서 무리는 **전체로** 센다. 그리고 평균만 내지 않는다 —
+ *    한 편(오징어 게임)이 5.05bn 을 가져가는 분포라 평균은 그 한 편을 말한다. **중앙값을 같이 낸다.**
+ */
+const 중앙 = (xs) => { const s = [...xs].sort((a, b) => a - b); return s.length ? s[Math.floor(s.length / 2)] : 0; };
+const 무리 = (rows, label) => ({
+  label,
+  n: rows.length,
+  avgHours: rows.length ? Math.round(rows.reduce((s, r) => s + r.hours, 0) / rows.length) : 0,
+  medianHours: 중앙(rows.map((r) => r.hours)),
+  avgWeeks: rows.length ? +(rows.reduce((s, r) => s + r.weeks, 0) / rows.length).toFixed(1) : 0,
+  medianWeeks: 중앙(rows.map((r) => r.weeks)),
+  avgPerWeek: rows.length ? Math.round(rows.reduce((s, r) => s + r.perWeek, 0) / rows.length) : 0,
+});
+
+/** 로그 시간과의 상관. **로그를 쓰는 까닭** — 시간이 세 자릿수를 넘나들어 원값이면 큰 것 몇 편이 다 정한다 */
+export function 상관(xs, ys) {
+  const n = xs.length;
+  if (n < 3) return 0;
+  const mx = xs.reduce((a, b) => a + b, 0) / n;
+  const my = ys.reduce((a, b) => a + b, 0) / n;
+  let sxy = 0; let sxx = 0; let syy = 0;
+  for (let i = 0; i < n; i++) { const dx = xs[i] - mx; const dy = ys[i] - my; sxy += dx * dy; sxx += dx * dx; syy += dy * dy; }
+  return +(sxy / Math.sqrt(sxx * syy)).toFixed(3);
+}
+
+const 로그시간 = all.map((r) => Math.log(r.hours || 1));
+/** 오래 간 것끼리 묶어 놓고 봉우리를 견준다. **교란을 통제하지 않으면 길이를 봉우리라고 부르게 된다** */
+const 띠 = [['1–2 weeks', 1, 2], ['3–5 weeks', 3, 5], ['6–10 weeks', 6, 10], ['11 weeks or more', 11, 999]]
+  .map(([label, lo, hi]) => {
+    const g = all.filter((r) => r.weeks >= lo && r.weeks <= hi);
+    const a = g.filter((r) => r.peak === 1);
+    const b = g.filter((r) => r.peak > 1);
+    return {
+      label,
+      n: g.length,
+      topN: a.length,
+      topMedianHours: 중앙(a.map((r) => r.hours)),
+      restN: b.length,
+      restMedianHours: 중앙(b.map((r) => r.hours)),
+      /** 띠 안에서 남는 배수. 이게 진짜 봉우리 몫이다 */
+      ratio: b.length && a.length ? +(중앙(a.map((r) => r.hours)) / 중앙(b.map((r) => r.hours))).toFixed(2) : null,
+    };
+  });
+
+/** 봉우리 등수별 중앙값. **줄세우기가 아니다** — 순서대로 안 간다는 것을 보이려고 낸다 */
+const 등수별 = [];
+for (let p = 1; p <= 10; p++) {
+  const g = all.filter((r) => r.peak === p);
+  if (!g.length) continue;
+  등수별.push({ peak: p, n: g.length, medianHours: 중앙(g.map((r) => r.hours)), medianWeeks: 중앙(g.map((r) => r.weeks)) });
+}
+
+const 주분포 = [...all.reduce((m, r) => m.set(r.weeks, (m.get(r.weeks) || 0) + 1), new Map())]
+  .sort((a, b) => a[0] - b[0]).map(([weeks, n]) => ({ weeks, n }));
+
 const weeks = [...weeksAll].sort();
 const st = ko.stats();
 const out = {
@@ -71,7 +133,20 @@ const out = {
   titleCount: all.length,
   shown: shown.length,
   totalHours: all.reduce((s, r) => s + r.hours, 0),
-  peakGroups: [grp((r) => r.peak === 1, 'Peaked at #1'), grp((r) => r.peak > 1, 'Peaked below #1')],
+  /** ⛔ 전체 235편으로 센다. 상위 50편으로 세던 것이 8/8 정정 대상이었다 */
+  peakGroups: [무리(all.filter((r) => r.peak === 1), 'Peaked at #1'), 무리(all.filter((r) => r.peak > 1), 'Peaked below #1')],
+  /** 예전 값 — **지면에 쓰지 않는다.** 무엇이 어떻게 틀렸는지 되짚을 수 있게 남긴다 */
+  peakGroupsTop50Only: [grp((r) => r.peak === 1, 'Peaked at #1'), grp((r) => r.peak > 1, 'Peaked below #1')],
+  peakByRank: 등수별,
+  weeksBands: 띠,
+  weeksDistribution: 주분포,
+  oneWeekOnly: all.filter((r) => r.weeks === 1).length,
+  correlations: {
+    note: 'Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.',
+    weeksVsLogHours: 상관(all.map((r) => r.weeks), 로그시간),
+    peakVsLogHours: 상관(all.map((r) => r.peak), 로그시간),
+    weeksVsPeak: 상관(all.map((r) => r.weeks), all.map((r) => r.peak)),
+  },
   longest: [...shown].sort((a, b) => b.weeks - a.weeks || b.hours - a.hours).slice(0, 10),
   fiercest: [...shown].sort((a, b) => b.perWeek - a.perWeek).slice(0, 10),
   rows: shown,

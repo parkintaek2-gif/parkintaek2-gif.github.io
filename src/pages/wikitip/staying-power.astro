@@ -83,29 +83,93 @@ const jsonLd = {
     </p>
   </section>
 
+  <!--
+    🔴 2026-08-08 정정. 여기 제목이 「Reaching number one doubles the hours. It adds no weeks.」였다.
+       그 수는 **시간 상위 50편 안에서** 낸 것이다 — 시간으로 고른 50편을 놓고 시간을 설명했다.
+       235편 전부로 재면 주수가 갈린다(중앙 5주 대 2주). 「주수는 그대로」는 상위 50편이
+       다들 9주쯤이라 그렇게 보였을 뿐이다. 무리를 전체로 다시 세고 제목을 고쳤다.
+    ⛔ 평균만 내지 않는다. 한 편이 5.05bn 을 가져가는 분포라 평균은 그 한 편을 말한다.
+  -->
   <section>
-    <h2>Reaching number one doubles the hours. It adds no weeks.</h2>
+    <h2>Reaching number one goes with longer runs, not just bigger weeks</h2>
     <div class="scroll-x">
       <table>
         <thead>
-          <tr><th>Group</th><th>Titles</th><th>Avg hours</th><th>Avg weeks</th><th>Avg per week</th></tr>
+          <tr><th>Group</th><th>Titles</th><th>Median hours</th><th>Median weeks</th><th>Avg hours</th></tr>
         </thead>
         <tbody>
           {data.peakGroups.map((g) => (
             <tr>
               <td class="nm">{g.label}</td>
-              <td>{g.n}</td><td class="tot">{M(g.avgHours)}</td>
-              <td class="tot">{g.avgWeeks}</td><td>{M(g.avgPerWeek)}</td>
+              <td>{g.n}</td><td class="tot">{M(g.medianHours)}</td>
+              <td class="tot">{g.medianWeeks}</td><td>{M(g.avgHours)}</td>
             </tr>
           ))}
         </tbody>
       </table>
     </div>
     <p class="note">
-      {(p1.avgHours / pn.avgHours).toFixed(1)}× the hours, and a difference of
-      {' '}{(p1.avgWeeks - pn.avgWeeks).toFixed(1)} of a week in run length. The top spot measures how
-      hard a title landed in the weeks it was going to have anyway — it is not a foothold that keeps
-      it on the chart longer. <a href="/article/netflix-korean-catalogue-concentration">The full story →</a>
+      All {data.titleCount} titles, not the fifty largest. The median title that reached number one
+      drew <b>{(p1.medianHours / pn.medianHours).toFixed(1)}×</b> the hours of one that did not, and
+      it also ran <b>{p1.medianWeeks} weeks against {pn.medianWeeks}</b>. Most of that gap is length,
+      not landing: hold the run length fixed and what remains is{' '}
+      <b>{data.weeksBands.find((b) => b.label === '6–10 weeks')?.ratio}×</b> among titles that lasted
+      six to ten weeks.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Titles that lasted</th><th>Reached #1</th><th>Median hours</th><th>Did not</th><th>Median hours</th></tr>
+        </thead>
+        <tbody>
+          {data.weeksBands.map((b) => (
+            <tr>
+              <td class="nm">{b.label}</td>
+              <td>{b.topN}</td><td class="tot">{b.topN ? M(b.topMedianHours) : '—'}</td>
+              <td>{b.restN}</td><td class="tot">{b.restN ? M(b.restMedianHours) : '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>Neither number is the cause of the other.</b> Weeks on chart and peak rank track total hours
+      about equally well ({data.correlations.weeksVsLogHours} and{' '}
+      {Math.abs(data.correlations.peakVsLogHours)} against log hours), and they track each other at{' '}
+      {Math.abs(data.correlations.weeksVsPeak)}, so a table that shows one is partly showing the other.
+      Reaching number two goes with a higher median than reaching number one
+      ({M(data.peakByRank[1].medianHours)} against {M(data.peakByRank[0].medianHours)}) — the order
+      does not run down the ranks.
+      {' '}<a href="/article/reaching-number-one-is-mostly-length">The full story →</a>
+    </p>
+  </section>
+
+  <!--
+    ⚠ 2026-08-08. 위 정정을 내면서 **한 주짜리가 얼마나 많은지**를 세어 놓고 안 보여 주고 있었다.
+      세어 놓고 안 내면 안 센 것과 같다 — `check-data-keys-shown.mjs` 가 그것을 잡았다.
+    ⛔ 줄세우기가 아니다. 「가장 흔한 결과가 무엇인가」다.
+  -->
+  <section>
+    <h2>The most common outcome is one week</h2>
+    <p class="note">
+      <b>{data.oneWeekOnly} of {data.titleCount}</b> Korean titles that reached a global Non-English
+      Top 10 — <b>{((100 * data.oneWeekOnly) / data.titleCount).toFixed(1)}%</b> — were on it for
+      exactly one week. Half the panel was gone within two.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Weeks on chart</th>{data.weeksDistribution.slice(0, 10).map((w) => <th>{w.weeks}</th>)}</tr>
+        </thead>
+        <tbody>
+          <tr><td class="nm">Titles</td>{data.weeksDistribution.slice(0, 10).map((w) => <td class="tot">{w.n}</td>)}</tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The tail runs past this table — the longest run in the panel is{' '}
+      {data.weeksDistribution[data.weeksDistribution.length - 1].weeks} weeks — but it is thin, and
+      that thinness is the point. A chart run is not a duration most titles have.
     </p>
     <!--
       ⛔ 2026-08-07 신설. 빌드가 세어 둔 「걸러 낸 수」를 지면이 안 쓰고 있었다.

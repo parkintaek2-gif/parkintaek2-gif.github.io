@@ -34,6 +34,13 @@ const 기록용 = /^(generated|source|sourceKo|unit|unitKo|unitMean|privacy|note
  */
 const 면제 = [
   {
+    파일: 'wikitip-staying-power.json', 열쇠: 'peakGroupsTop50Only',
+    까닭: '2026-08-08 에 물린 옛 값이다. 시간 상위 50편만으로 센 것이라 **지면에 내면 안 되는 수**다. '
+      + '지우지 않고 남기는 까닭은 무엇이 어떻게 틀렸는지 되짚을 수 있게 하기 위해서다 — 조용히 덮으면 정정이 아니다. '
+      + '지면이 이 열쇠를 쓰면 check-peak-length-article.mjs 가 선다',
+    쓰는곳: 'scripts/check-peak-length-article.mjs',
+  },
+  {
     파일: 'wikitip-global.json', 열쇠: 'bothCharts',
     까닭: '같은 값을 wikitip-screen-split.json 이 들고 있고 /screen-split 이 그것을 쓴다. 한 값을 두 지면에서 두 번 낼 일이 아니다',
     같은값: { 파일: 'wikitip-screen-split.json', 열쇠: 'bothCharts' },

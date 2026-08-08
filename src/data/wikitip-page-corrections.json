@@ -90,6 +90,16 @@
       "from": "405 titles, 204 of them unverifiable by language label",
       "to": "397 titles, 197 unverifiable",
       "why": "Eight titles were in a Korean panel although our own attribution query — the one that produces the shared/unambiguous split we publish — returned no Korean work for those exact names: Waterworld, Re/Member, Into the Storm, Wildflower, Feng Shui, Glorious Days, Long Live Love! and You and Me. This was not a judgement call; it was our list contradicting our own instrument. A check now fails the build if any panel title is in that state."
+    },
+    {
+      "date": "2026-08-08",
+      "where": "/staying-power",
+      "path": "/staying-power",
+      "what": "What reaching number one is worth",
+      "from": "Reaching number one doubles the hours. It adds no weeks. (2.5x on means of the top 50 by hours)",
+      "to": "4.3x on medians of all 235 titles, and five median weeks against two — then 1.20x once run length is held fixed among titles that lasted six to ten weeks",
+      "why": "The peak-group table was computed on the fifty largest titles by hours. Inside that group every title has already had a long run, so run length looked irrelevant when it is in fact what put those titles in the group. Recomputed on all 235 titles, with medians beside means because one title holds 5.05bn of 23.72bn hours.",
+      "cause": "selected-on-outcome"
     }
   ],
   "causes": {
@@ -98,7 +108,8 @@
     "pay-denominator": "Companies that disclose headcount but not pay were left in the denominator",
     "unmeasured-sentence": "A sentence about the data was written by hand and never measured against it",
     "miscounted-corrections": "Our own corrections article counted the corrections wrong — it swept in a correction from another day and asserted a single cause the record does not support",
-    "attribution-contradiction": "Our own attribution query returned no Korean work for a title that was nonetheless in our Korean panel — the list and the instrument we publish disagreed"
+    "attribution-contradiction": "Our own attribution query returned no Korean work for a title that was nonetheless in our Korean panel — the list and the instrument we publish disagreed",
+    "selected-on-outcome": "A comparison was computed on the fifty largest titles by hours — a group selected on the very outcome being explained — and reported as if it described the whole panel"
   },
   "articleCauses": [
     {
@@ -140,6 +151,11 @@
       "slug": "korean-titles-southeast-asia-all-or-nothing",
       "date": "2026-08-08",
       "cause": "attribution-contradiction"
+    },
+    {
+      "slug": "reaching-number-one-is-mostly-length",
+      "date": "2026-08-08",
+      "cause": "selected-on-outcome"
     }
   ]
 }

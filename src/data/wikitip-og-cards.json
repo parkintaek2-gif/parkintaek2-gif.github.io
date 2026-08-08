@@ -72,6 +72,11 @@
       "label": "years in broadcasting, 5.4 in games",
       "왜": "「10.3 years」만으로는 세 시장이 다르다는 게 안 보인다"
     },
+    "reaching-number-one-is-mostly-length": {
+      "figure": "1.20×",
+      "label": "what is left of 4.3× once you hold length",
+      "왜": "자동은 표본 크기 235 를 집었다. 이 기사가 파는 것은 **길이를 묶으면 남는 것**이다"
+    },
     "a-weekly-top-ten-is-not-ten-titles": {
       "figure": "7",
       "label": "of the ten places, held by one show",
