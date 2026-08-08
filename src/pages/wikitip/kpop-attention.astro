@@ -26,6 +26,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-kpop.json';
+import peak from '../../data/wikitip-peak-day.json';
 
 const TITLE = 'Who the English-speaking world looks up when it looks up K-pop';
 const DESC =
@@ -181,6 +182,80 @@ const jsonLd = {
       <b>This column is kept apart from the totals on purpose.</b> A sharp rise is a thing that
       happened, not a thing that is good. Merged into one ranking it would read as popularity, and we
       have no way to tell you which of these is a comeback and which is a headline nobody wanted.
+    </p>
+  </section>
+
+  {/*
+    🔴 2026-08-08 23:2x — 50편째가 기대는 표. 「아이돌은 사건, 배우는 잔잔」이 참인지 잰 것이다.
+    ⛔ 크기를 안 맞춘 값(5.5% 대 6.2%)만 내면 **정반대 지면**이 된다. 띠 표를 같은 자리에 둔다.
+    ⛔ 사람 이름을 안 댄다. 두 창이 사흘 어긋나 한 사람의 사건이 한쪽에만 들 수 있다.
+  */}
+  <section>
+    <h2>Is idol attention spikier than actors&rsquo;?</h2>
+    <p class="note">{peak.question}</p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Counted as</th><th>Names</th><th>Biggest day, as a share of the month</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="nm">Actors, all of them</td>
+            <td>{peak.actorsMeasured.toLocaleString('en-US')}</td>
+            <td class="tot">{peak.rawActors.medianPeakPc}%</td>
+          </tr>
+          <tr>
+            <td class="nm">K-pop acts, all of them</td>
+            <td>{peak.kpopMeasured.toLocaleString('en-US')}</td>
+            <td class="tot">{peak.rawKpop.medianPeakPc}%</td>
+          </tr>
+          <tr class="edge">
+            <td class="nm">Actors, {peak.compareFrom.toLocaleString('en-US')}+ lookups only</td>
+            <td>{peak.matchedActors.n}</td>
+            <td class="tot">{peak.matchedActors.medianPeakPc}%</td>
+          </tr>
+          <tr class="edge">
+            <td class="nm">K-pop acts, {peak.compareFrom.toLocaleString('en-US')}+ lookups only</td>
+            <td>{peak.matchedKpop.n}</td>
+            <td class="tot">{peak.matchedKpop.medianPeakPc}%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>The raw gap is {Math.abs(peak.rawGap)} points and the matched gap is
+      {' '}{Math.abs(peak.matchedGap)}.</b> A name with a few hundred lookups a month is lumpy by
+      arithmetic, and that band is where the raw difference lives — so {peak.verdict}.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>30-day total</th><th>Actors</th><th>K-pop acts</th></tr>
+        </thead>
+        <tbody>
+          {peak.bands.map((b) => (
+            <tr>
+              <td class="nm">{b.label}</td>
+              <td>{b.actors.medianPeakPc}% <span class="pc">n={b.actors.n}</span></td>
+              <td>{b.kpop.medianPeakPc}% <span class="pc">n={b.kpop.n}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The share falls as names get bigger and then <b>turns back up at the very top</b>, in both
+      groups at the same point. The fall is arithmetic; the rise is not, and we did not measure what
+      causes it. Groups and individual members inside the K-pop roster behave the same way here
+      ({peak.kpopGroups.medianPeakPc}% against {peak.kpopPeople.medianPeakPc}%).
+    </p>
+    <p class="note">
+      <b>Two windows, {peak.periodOffsetDays} days apart</b> — actors {peak.actorPeriod}, K-pop acts
+      {' '}{peak.kpopPeriod}. An event inside one and outside the other would land on individuals,
+      which is why nothing here is reported below the group level.
+      {' '}{peak.actorsNoArticle} performers and {peak.kpopNoArticle} acts have no English article
+      and cannot appear at all.
+      {' '}<a href="/article/actors-and-idols-same-shape">The full story &rarr;</a>
     </p>
   </section>
 

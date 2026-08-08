@@ -1,0 +1,124 @@
+{
+  "generated": "2026. 8. 8. 오후 11:09:35",
+  "source": "Wikimedia REST pageviews for English Wikipedia articles, 30 days per roster",
+  "sourceKo": "영어 위키백과 문서의 하루 조회수 — 로스터마다 서른 날",
+  "question": "Of a month of lookups, how much lands on the single biggest day — and is that different for actors and for K-pop acts?",
+  "actorPeriod": "20260705~20260803",
+  "kpopPeriod": "20260708~20260806",
+  "periodOffsetDays": 3,
+  "actorsMeasured": 1008,
+  "kpopMeasured": 2361,
+  "actorsNoArticle": 336,
+  "kpopNoArticle": 0,
+  "rawActors": {
+    "n": 1008,
+    "medianPeakPc": 5.5,
+    "medianTotal": 2507
+  },
+  "rawKpop": {
+    "n": 2361,
+    "medianPeakPc": 6.2,
+    "medianTotal": 872
+  },
+  "bands": [
+    {
+      "label": "under 300",
+      "from": 0,
+      "to": 300,
+      "actors": {
+        "n": 221,
+        "medianPeakPc": 16.7,
+        "medianTotal": 23
+      },
+      "kpop": {
+        "n": 659,
+        "medianPeakPc": 8.6,
+        "medianTotal": 122
+      }
+    },
+    {
+      "label": "300–999",
+      "from": 300,
+      "to": 1000,
+      "actors": {
+        "n": 108,
+        "medianPeakPc": 5.6,
+        "medianTotal": 664
+      },
+      "kpop": {
+        "n": 601,
+        "medianPeakPc": 6,
+        "medianTotal": 566
+      }
+    },
+    {
+      "label": "1,000–4,999",
+      "from": 1000,
+      "to": 5000,
+      "actors": {
+        "n": 337,
+        "medianPeakPc": 4.9,
+        "medianTotal": 2445
+      },
+      "kpop": {
+        "n": 694,
+        "medianPeakPc": 5.2,
+        "medianTotal": 2059
+      }
+    },
+    {
+      "label": "5,000–29,999",
+      "from": 5000,
+      "to": 30000,
+      "actors": {
+        "n": 282,
+        "medianPeakPc": 4.8,
+        "medianTotal": 9732
+      },
+      "kpop": {
+        "n": 345,
+        "medianPeakPc": 5.1,
+        "medianTotal": 9367
+      }
+    },
+    {
+      "label": "30,000 or more",
+      "from": 30000,
+      "to": null,
+      "actors": {
+        "n": 60,
+        "medianPeakPc": 7,
+        "medianTotal": 46663
+      },
+      "kpop": {
+        "n": 62,
+        "medianPeakPc": 7.1,
+        "medianTotal": 49456
+      }
+    }
+  ],
+  "compareFrom": 5000,
+  "matchedActors": {
+    "n": 342,
+    "medianPeakPc": 5,
+    "medianTotal": 11506
+  },
+  "matchedKpop": {
+    "n": 407,
+    "medianPeakPc": 5.1,
+    "medianTotal": 11012
+  },
+  "kpopGroups": {
+    "n": 105,
+    "medianPeakPc": 5.1,
+    "medianTotal": 11129
+  },
+  "kpopPeople": {
+    "n": 302,
+    "medianPeakPc": 5.2,
+    "medianTotal": 10989
+  },
+  "matchedGap": -0.1,
+  "verdict": "the two groups are the same shape once size is held fixed",
+  "rawGap": -0.7
+}

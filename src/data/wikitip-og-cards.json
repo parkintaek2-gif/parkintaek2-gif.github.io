@@ -146,6 +146,11 @@
       "figure": "2.2",
       "label": "points — the whole yearly swing",
       "왜": "자동은 제목 첫 수를 집는데 그러면 14.1(주 폭)을 집을 수 있다. 이 기사의 요점은 달 폭이 **작다**는 것이다"
+    },
+    "actors-and-idols-same-shape": {
+      "figure": "0.1",
+      "label": "points — the gap once size is held fixed",
+      "왜": "자동은 제목 첫 수 1,008 을 집는다. 이 기사의 요점은 **차이가 거의 없다**는 것이라 그 수를 카드에 박아야 한다"
     }
   }
 }
