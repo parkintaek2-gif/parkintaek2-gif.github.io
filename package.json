@@ -31,7 +31,7 @@
     "index:check": "node scripts/claude-index.mjs",
     "index:fix": "node scripts/claude-index.mjs --fix",
     "watch:approvals": "node scripts/watch-approvals.mjs",
-    "test": "node scripts/check-comment-close.mjs && node scripts/claude-index.mjs && node scripts/deploy-lock.test.mjs && node scripts/collect-broker-direct.test.mjs && node scripts/server-url.test.mjs && node scripts/collect-tenure.test.mjs && node scripts/collect-executives.test.mjs && node scripts/traffic.test.mjs && node scripts/server-routing.test.mjs && node scripts/issuance.test.mjs && node scripts/check-100yearmap-copy.mjs && node scripts/check-school-rules.mjs && node scripts/check-jsx-space.mjs && node scripts/check-legal-name.mjs && node scripts/check-korean.mjs && node scripts/check-frontmatter.mjs",
+    "test": "node scripts/check-tests-wired.mjs && node scripts/check-comment-close.mjs && node scripts/claude-index.mjs && node scripts/deploy-lock.test.mjs && node scripts/collect-broker-direct.test.mjs && node scripts/server-url.test.mjs && node scripts/collect-tenure.test.mjs && node scripts/collect-executives.test.mjs && node scripts/traffic.test.mjs && node scripts/server-routing.test.mjs && node scripts/issuance.test.mjs && node scripts/check-100yearmap-copy.mjs && node scripts/check-school-rules.mjs && node scripts/check-jsx-space.mjs && node scripts/check-legal-name.mjs && node scripts/check-korean.mjs && node scripts/check-frontmatter.mjs",
     "subjects:dart": "node scripts/fill-subjects-from-dart.mjs",
     "collect:tenure": "node scripts/collect-tenure.mjs",
     "report:tenure": "node scripts/render-tenure-report.mjs",
