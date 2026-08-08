@@ -41,12 +41,88 @@ export function 그림박기(그림경로, 기준폴더) {
 }
 
 /**
+ * ```진도 블록 → **진짜 표 + CSS 막대**.
+ * ⛔ 글자 막대(███░░░)를 등폭 글꼴에 기대 줄 맞추던 것을 그만둔다. 이모지가 섞이면
+ *    폭이 어긋나 칸이 들쭉날쭉해졌다 — 사장님이 「확 와닿지 않는다」 하신 그 모양이다.
+ * 한 줄 서식:  이름 | 현재 | 목표 | 기한 | 비고
+ *   · 현재/목표는 숫자. 단위는 목표에 붙여 쓴다(`133편`) — 화면에는 「133 / 133편」으로 나온다
+ *   · 목표가 0 이거나 숫자가 아니면 **못 잰 것**이다. 0% 로 적지 않고 「—」로 둔다
+ */
+const 수 = (s) => { const m = String(s).replace(/,/g, '').match(/-?\d+(\.\d+)?/); return m ? Number(m[0]) : null; };
+
+/**
+ * ⛔ **안 끝난 것을 100% 로 적지 않는다.** 4,982/4,989 는 반올림하면 100% 인데,
+ *   그 7건 안에 「약관이 세 사이트에 없다」가 들어 있다. 오늘 이 표를 보고 「② 는 다 됐네」
+ *   하시면 안 된다. 끝나지 않았으면 99% 가 천장이고, 시작도 안 했으면 0% 가 바닥이다.
+ */
+export function 보일퍼센트(율) {
+  if (율 >= 1) return 100;
+  if (율 <= 0) return 0;
+  return Math.min(99, Math.max(1, Math.round(율 * 100)));
+}
+
+/**
+ * 문서 안의 모든 ```진도 블록을 **더해서** 한눈에 표를 만든다.
+ * ⛔ 합계를 손으로 적지 않는다. 방금 손으로 적었다가 ① 을 5,260 대신 4,982 로 썼다.
+ *    같은 숫자를 두 곳에 적으면 한 쪽만 고쳐진다 — 오늘 아침 그걸로 3번을 잘못 나무랐다.
+ * 쓰는 법: 문서 어딘가에 빈 ```진도합계 블록을 두면 그 자리에 들어간다.
+ */
+export function 진도합계(원문) {
+  const 덩이 = [...String(원문 ?? '').matchAll(/^#{2,3}\s+(.+?)\n+```진도\n([\s\S]*?)```/gm)];
+  let 총a = 0, 총b = 0, 총끝 = 0, 총수 = 0;
+  const 줄 = [];
+  for (const [, 제목, 몸] of 덩이) {
+    const 것들 = 몸.split('\n').map((x) => x.trim()).filter(Boolean)
+      .map((x) => x.split('|').map((y) => y.trim())).filter((c) => c.length >= 3);
+    let a = 0, b = 0, 끝 = 0, 잰것 = 0;
+    for (const c of 것들) {
+      const x = 수(c[1]), y = 수(c[2]);
+      if (x === null || y === null || y <= 0) continue;
+      a += x; b += y; 잰것 += 1; if (x >= y) 끝 += 1;
+    }
+    if (!잰것) continue;
+    총a += a; 총b += b; 총끝 += 끝; 총수 += 잰것;
+    /* 제목에서 「① 콘텐트 — 밖에서…」의 앞부분만 쓴다 — 표 칸에 문장이 들어가면 안 읽힌다 */
+    const 짧게 = 제목.split('—')[0].replace(/\*\*/g, '').trim();
+    줄.push(`${짧게} | ${a} | ${b} | | 끝난 항목 **${끝} / ${잰것}**`);
+  }
+  줄.push(`**전체** | ${총a} | ${총b} | | **끝난 항목 ${총끝} / ${총수}**`);
+  return 진도표(줄);
+}
+
+export function 진도표(줄들) {
+  const 칸 = (l) => l.split('|').map((x) => x.trim());
+  const 몸 = 줄들.map((l) => l.trim()).filter(Boolean).map(칸).filter((c) => c.length >= 3);
+
+  const 행 = 몸.map(([이름, 현재, 목표, 기한 = '', 비고 = '']) => {
+    const a = 수(현재), b = 수(목표);
+    const 율 = (a !== null && b !== null && b > 0) ? Math.max(0, Math.min(1, a / b)) : null;
+    const 끝 = 율 === 1;
+    const 폭 = 율 === null ? 0 : Math.max(율 > 0 ? 2 : 0, Math.round(율 * 100));
+    const 단위 = String(목표).replace(/^[\d,\.]+/, '');
+    return `<tr class="${끝 ? 'done' : ''}">
+      <td class="nm">${꾸밈(이름)}</td>
+      <td class="bar"><span class="track"><span class="fill${끝 ? ' ok' : ''}" style="width:${폭}%"></span></span></td>
+      <td class="pc">${율 === null ? '—' : 보일퍼센트(율) + '%'}</td>
+      <td class="num">${꾸밈(String(현재))} / ${꾸밈(String(목표))}${단위 ? '' : ''}</td>
+      <td class="when">${꾸밈(기한)}</td>
+      <td class="memo">${꾸밈(비고)}</td>
+    </tr>`;
+  }).join('');
+
+  return `<table class="jindo"><thead><tr>
+    <th>무엇을</th><th>진도</th><th class="pc">%</th><th class="num">현재 / 목표</th>
+    <th class="when">언제까지</th><th>비고</th></tr></thead><tbody>${행}</tbody></table>`;
+}
+
+/**
  * md → html 본문. 아주 좁은 갈래만 받는다 — 보고서에 쓰는 것만.
  * @param {string} 원문
  * @param {(경로:string)=>string} 그림해결  그림 경로를 src 로 바꾸는 함수(검사에서 갈아낀다)
  */
 export function 옮김(원문, 그림해결 = (p) => p) {
-  const 줄들 = String(원문 ?? '').split('\n');
+  const 전체 = String(원문 ?? '');
+  const 줄들 = 전체.split('\n');
   const 밖 = [];
   let i = 0;
   let 표모으는중 = null;
@@ -74,14 +150,19 @@ export function 옮김(원문, 그림해결 = (p) => p) {
       continue;
     }
 
-    /* 코드블록 — 안쪽은 꾸미지 않는다. 막대 그림이 여기 들어온다 */
+    /* 코드블록 — 안쪽은 꾸미지 않는다 */
     if (/^```/.test(줄)) {
       표닫기();
+      const 갈래 = 줄.slice(3).trim();
       const 담을것 = [];
       i += 1;
       while (i < 줄들.length && !/^```/.test(줄들[i])) 담을것.push(줄들[i++]);
       i += 1;
-      밖.push(`<pre>${esc(담을것.join('\n'))}</pre>`);
+      /* ⚠ `진도목록` 은 **합계에 안 들어간다.** 「안 끝난 것만」 같은 발췌를 합계에 넣으면
+       *   같은 일이 두 번 세어져 진도가 낮아진다. 보이는 모양은 `진도` 와 같다 */
+      if (갈래 === '진도' || 갈래 === '진도목록') 밖.push(진도표(담을것));
+      else if (갈래 === '진도합계') 밖.push(진도합계(전체));
+      else 밖.push(`<pre>${esc(담을것.join('\n'))}</pre>`);
       continue;
     }
 
@@ -165,6 +246,23 @@ export const 겉옷 = (제목, 본문) => `<!doctype html><html lang="ko"><head>
   figcaption { font-size: 9pt; color: #6b7280; margin-top: 1.6mm; }
   .장넘김 { break-after: page; }
   b { color: #0b0d12; }
+
+  /* 진도표 — 막대는 글자가 아니라 칸이다. 이모지가 섞여도 줄이 안 어긋난다 */
+  table.jindo { font-size: 9.2pt; }
+  table.jindo th, table.jindo td { padding: 1.3mm 2mm; }
+  table.jindo td.nm { width: 27%; font-weight: 600; }
+  table.jindo td.bar { width: 22%; }
+  table.jindo .track { display: block; height: 4.6mm; background: #e7eaf0; border-radius: 2px;
+                       overflow: hidden; }
+  table.jindo .fill { display: block; height: 100%; background: #4b6bdb; border-radius: 2px; }
+  table.jindo .fill.ok { background: #2f9e5e; }
+  table.jindo td.pc, table.jindo th.pc { width: 7%; text-align: right; font-variant-numeric: tabular-nums;
+                                         font-weight: 700; }
+  table.jindo td.num, table.jindo th.num { width: 15%; text-align: right;
+                                           font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.jindo td.when, table.jindo th.when { width: 10%; white-space: nowrap; }
+  table.jindo td.memo { color: #4a5163; }
+  table.jindo tr.done td.nm, table.jindo tr.done td.pc { color: #2f7a4e; }
 </style></head><body>${본문}</body></html>`;
 
 /* ─────────────────────────── 검사 ─────────────────────────── */
@@ -204,6 +302,49 @@ if (process.argv.includes('--selftest')) {
   재본다('겉옷 제목도 막는다', 겉옷('<b>x', '') , (s) => s.includes('&lt;b&gt;x'));
   재본다('표는 장 가운데서 안 갈라진다', 겉옷('t',''), (s) => /table\s*\{[^}]*break-inside:\s*avoid/.test(s));
 
+  /* 진도표 */
+  재본다('안 끝났으면 100% 로 안 적는다', 보일퍼센트(4982 / 4989), 99);
+  재본다('끝났으면 100', 보일퍼센트(1), 100);
+  재본다('넘쳐도 100', 보일퍼센트(2), 100);
+  재본다('아무것도 안 했으면 0', 보일퍼센트(0), 0);
+  재본다('조금이라도 했으면 0 이 아니다', 보일퍼센트(1 / 4957), 1);
+  재본다('진도 100%', 진도표(['가|5|5|끝|']), (s) => s.includes('width:100%') && s.includes('>100%<'));
+  재본다('99.9% 는 99% 로 나온다', 진도표(['가|4982|4989|오늘|']), (s) => s.includes('>99%<'));
+  재본다('끝난 줄은 초록으로 표시', 진도표(['가|5|5|끝|']), (s) => s.includes('class="fill ok"'));
+  재본다('안 끝난 줄은 초록이 아니다', 진도표(['가|1|5|끝|']), (s) => !s.includes('fill ok'));
+  재본다('반쯤', 진도표(['가|1|2|8/9|말']), (s) => s.includes('width:50%') && s.includes('>50%<'));
+  재본다('쉼표 붙은 큰 수', 진도표(['가|4,957|4,957장|계속|']), (s) => s.includes('width:100%'));
+  재본다('0 은 0% 로 나온다', 진도표(['가|0|3|오늘|']), (s) => s.includes('>0%<'));
+  재본다('0 은 막대가 안 찬다', 진도표(['가|0|3|오늘|']), (s) => s.includes('width:0%'));
+  재본다('조금이라도 있으면 막대가 보인다', 진도표(['가|1|4957|오늘|']), (s) => s.includes('width:2%'));
+  재본다('목표가 0 이면 못 잰 것 — 0% 가 아니다', 진도표(['가|0|0|오늘|']), (s) => s.includes('>—<'));
+  재본다('목표가 글자면 못 잰 것', 진도표(['가|있음|모름|오늘|']), (s) => s.includes('>—<'));
+  재본다('넘쳐도 100 을 안 넘는다', 진도표(['가|9|5|끝|']), (s) => s.includes('width:100%'));
+  재본다('빈 줄은 버린다', 진도표(['', '  ', '가|1|2|오늘|']), (s) => (s.match(/<tr class=/g) ?? []).length === 1);
+  재본다('칸이 모자란 줄은 버린다', 진도표(['가|1']), (s) => !s.includes('<tr class='));
+  재본다('기한·비고 없어도 안 죽는다', 진도표(['가|1|2']), (s) => s.includes('<tr class='));
+  재본다('진도 블록이 표로 나온다', 옮김('```진도\n가|1|2|오늘|말\n```'), (s) => s.includes('table class="jindo"'));
+  재본다('보통 코드블록은 그대로 pre', 옮김('```\n가|1|2\n```'), (s) => s.startsWith('<pre>'));
+  재본다('이름의 굵게가 산다', 진도표(['**가**|1|2|오늘|']), (s) => s.includes('<b>가</b>'));
+
+  /* 진도합계 — 손으로 더하지 않는다 */
+  const 본보기 = '## ① 가 — 하나\n\n```진도\nA|1|4|오늘|\nB|3|6|오늘|\n```\n\n## ② 나 — 둘\n\n```진도\nC|5|5|끝|\n```\n';
+  재본다('합계가 두 덩이를 더한다', 진도합계(본보기), (s) => s.includes('4 / 10') || s.includes('>4 / 10<'));
+  재본다('합계에 전체 줄이 있다', 진도합계(본보기), (s) => s.includes('<b>전체</b>'));
+  재본다('합계 전체는 9/15', 진도합계(본보기), (s) => s.includes('9 / 15'));
+  재본다('끝난 항목을 센다', 진도합계(본보기), (s) => s.includes('끝난 항목 <b>1 / 1</b>'));
+  재본다('제목의 설명은 잘라 쓴다', 진도합계(본보기), (s) => s.includes('① 가') && !s.includes('하나'));
+  재본다('못 잰 줄은 합계에서 뺀다', 진도합계('## ① 가\n\n```진도\nA|1|2|오늘|\nB|0|0|오늘|\n```\n'),
+    (s) => s.includes('1 / 2'));
+  재본다('진도 블록이 없으면 전체 줄만', 진도합계('글만 있다'), (s) => (s.match(/<tr class=/g) ?? []).length === 1);
+  재본다('진도목록은 합계에 안 들어간다',
+    진도합계('## 가\n\n```진도\nA|1|2|오늘|\n```\n\n## 발췌\n\n```진도목록\nA|1|2|오늘|\n```\n'),
+    (s) => (s.match(/<tr class=/g) ?? []).length === 2);
+  재본다('진도목록도 표로 나온다', 옮김('```진도목록\nA|1|2|오늘|\n```'), (s) => s.includes('table class="jindo"'));
+  재본다('진도합계 블록이 자리를 찾는다',
+    옮김('```진도합계\n```\n\n## ① 가\n\n```진도\nA|1|2|오늘|\n```'),
+    (s) => (s.match(/table class="jindo"/g) ?? []).length === 2);
+
   console.log(실패 ? `\n⛔ ${실패}개 틀렸다 (통과 ${통과})` : `✅ 검사 ${통과}개 통과`);
   process.exit(실패 ? 1 : 0);
 }
@@ -218,6 +359,13 @@ const 기준폴더 = path.dirname(path.resolve(입력));
 const 원문 = fs.readFileSync(입력, 'utf8');
 const 제목 = (원문.split('\n').find((l) => l.startsWith('# ')) ?? '# 업무보고').slice(2).trim();
 const html = 겉옷(제목, 옮김(원문, (p) => 그림박기(p, 기준폴더)));
+
+/* 눈으로 볼 수 있게 html 도 남긴다 — **PDF 만 보면 무엇이 잘렸는지 못 본다** */
+if (process.argv.includes('--html')) {
+  const h = 출력.replace(/\.pdf$/, '.html');
+  fs.writeFileSync(h, html, 'utf8');
+  console.log(`   ↳ ${h}`);
+}
 
 const require = createRequire('C:\\Users\\USER\\Documents\\GitHub\\klifemap\\package.json');
 const puppeteer = require('puppeteer-core');
