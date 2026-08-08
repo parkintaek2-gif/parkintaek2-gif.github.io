@@ -1,0 +1,120 @@
+{
+  "_왜": "목표주가 적중률 — 발행시 목표가 vs 12개월 뒤 실제주가. scripts/build-target-price-accuracy.mjs 산출.",
+  "_단서": [
+    "상폐·개명 종목은 빠짐(생존편향·상방)",
+    "12개월 종가 하나로 재 기간 중 도달분은 과소",
+    "발행연도 필터: 2024"
+  ],
+  "기준일": "20260805",
+  "대상리포트": 7572,
+  "조인성공": 7119,
+  "종목명백필": 7119,
+  "code없음": 453,
+  "증권사": [
+    {
+      "house": "SK증권",
+      "n": 626,
+      "hitRate": 34.3,
+      "avgTargetUpside": 35,
+      "avgActual": 26.6
+    },
+    {
+      "house": "유안타증권",
+      "n": 358,
+      "hitRate": 32.4,
+      "avgTargetUpside": 42,
+      "avgActual": 20.4
+    },
+    {
+      "house": "iM증권",
+      "n": 117,
+      "hitRate": 31.6,
+      "avgTargetUpside": 40.6,
+      "avgActual": 29.8
+    },
+    {
+      "house": "하나증권",
+      "n": 868,
+      "hitRate": 29.1,
+      "avgTargetUpside": 37.6,
+      "avgActual": 18.3
+    },
+    {
+      "house": "삼성증권",
+      "n": 112,
+      "hitRate": 28.6,
+      "avgTargetUpside": 51.8,
+      "avgActual": 11.8
+    },
+    {
+      "house": "DS투자증권",
+      "n": 270,
+      "hitRate": 27.4,
+      "avgTargetUpside": 36.7,
+      "avgActual": 23.2
+    },
+    {
+      "house": "신한투자증권",
+      "n": 792,
+      "hitRate": 26.5,
+      "avgTargetUpside": 40.5,
+      "avgActual": 18.2
+    },
+    {
+      "house": "교보증권",
+      "n": 495,
+      "hitRate": 25.9,
+      "avgTargetUpside": 34.8,
+      "avgActual": 20.5
+    },
+    {
+      "house": "키움증권",
+      "n": 497,
+      "hitRate": 24.7,
+      "avgTargetUpside": 36.5,
+      "avgActual": 17.5
+    },
+    {
+      "house": "IBK투자증권",
+      "n": 304,
+      "hitRate": 24.3,
+      "avgTargetUpside": 43.3,
+      "avgActual": 12.1
+    },
+    {
+      "house": "미래에셋증권",
+      "n": 616,
+      "hitRate": 23.1,
+      "avgTargetUpside": 35.6,
+      "avgActual": 13.7
+    },
+    {
+      "house": "한화투자증권",
+      "n": 500,
+      "hitRate": 19.2,
+      "avgTargetUpside": 37.1,
+      "avgActual": 8.3
+    },
+    {
+      "house": "유진투자증권",
+      "n": 520,
+      "hitRate": 19,
+      "avgTargetUpside": 39.8,
+      "avgActual": 8.5
+    },
+    {
+      "house": "대신증권",
+      "n": 745,
+      "hitRate": 18.4,
+      "avgTargetUpside": 40,
+      "avgActual": 7.9
+    },
+    {
+      "house": "하이투자증권",
+      "n": 259,
+      "hitRate": 15.4,
+      "avgTargetUpside": 34.2,
+      "avgActual": -0.8
+    }
+  ]
+}
