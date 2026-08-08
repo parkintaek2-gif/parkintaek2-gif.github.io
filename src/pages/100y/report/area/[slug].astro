@@ -39,7 +39,7 @@ import HundredYear from '../../../../layouts/HundredYear.astro';
 import NextQuestionAfterPick from '../../../../components/NextQuestionAfterPick.astro';
 import schools from '../../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../../data/100yearmap/school-career.json';
-import { 지역가르기, 슬러그풀기 } from '../../../../lib/school-area';
+import { 지역가르기, 슬러그풀기, 한벌로팔만한가, 열쇠만들기 } from '../../../../lib/school-area';
 
 /* 🔴 가르는 규칙은 **한 곳에만** 둔다 — src/lib/school-area.ts
    지면 안에 따로 적어 뒀더니 05:2x 에 큰 시가 통째로 한 덩어리가 됐다.
@@ -47,14 +47,21 @@ import { 지역가르기, 슬러그풀기 } from '../../../../lib/school-area';
 
 export async function getStaticPaths() {
   /**
-   * ⚠ **본보기 한 곳만 낸다.** 값이 정해지기 전이라 전 구를 열지 않는다.
-   * ⛔ 이 배열을 `getStaticPaths` 밖에 두면 「is not defined」로 빌드가 죽는다 —
-   *   Astro 가 이 함수를 모듈 밖으로 떼어 내 따로 돌린다.
-   * 2번이 강동구를 고른 까닭 — 갈래가 넷 다 있고(일반·자율·특목·특성화),
-   * 퍼짐이 40%p 라 「어디쯤인지」가 눈에 보이고, **가장 낮은 곳이 자율고**다.
+   * 🔴 2026-08-08 09:16 · 2번 지시 — **본보기 한 장에서 272장으로.**
+   *
+   *   *「값이 정해졌는데 팔 지면이 본보기 한 장뿐입니다. 113개가 서야
+   *     그날부터 팔 물건이 생깁니다」*
+   *
+   *   ```
+   *   10곳 이상  113개   한 벌로 판다
+   *   9곳 이하   159개   무료로 연다 — 「학교가 적어 한 벌로 팔지 않습니다」를 적는다
+   *   ```
+   *
+   * ⛔ 목록을 이 함수 **안**에서 읽는다. 밖에 두면 「is not defined」로 빌드가 죽는다 —
+   *   Astro 가 이 함수를 모듈 밖으로 떼어 내 따로 돌린다(2026-08-08 실제로 겪었다).
    */
-  const 본보기 = ['서울특별시-강동구'];
-  return 본보기.map((slug) => ({ params: { slug } }));
+  const { 단위 } = await import('../../../../data/100yearmap/areas.json');
+  return (단위 as any[]).map((a) => ({ params: { slug: a.slug } }));
 }
 
 const { slug } = Astro.params as { slug: string };
@@ -68,7 +75,8 @@ const 진로통계 = (진로자료 as any).통계;
 
 /** ⛔ 가나다순. **진학률 순으로 세우지 않는다** */
 const 곳들 = (schools as any[])
-  .filter((x) => 지역가르기(x.주소)?.열쇠 === `${시도} ${구}`)
+  /* ⚠ 열쇠는 lib 가 만든다. 여기서 이어 붙이면 세종이 0곳이 된다 */
+  .filter((x) => 지역가르기(x.주소)?.열쇠 === 열쇠만들기(시도, 구))
   .map((x) => ({ ...x, 진로: 진로표.get(x.code) ?? null }))
   .sort((a, b) => a.title.localeCompare(b.title, 'ko'));
 
@@ -129,15 +137,43 @@ const 이구갈래 = [...new Set(곳들.map((x) => String(x.고교유형 ?? '').
 /** 가장 낮은 곳 — ⛔ 「꼴찌」라고 쓰지 않는다. 갈래를 설명하려고 짚는 것뿐이다 */
 const 제일낮은 = 잰곳.find((x) => x.진로.진학률 === 낮은값) ?? null;
 
-const desc =
-  `${시도} ${구}의 고등학교 ${곳들.length}곳을 한 장에 모았습니다. ` +
-  `줄 세우지 않고 퍼짐 안에서 어디쯤인지만 보여드립니다.`;
+/**
+ * 🔴 **한 벌로 팔 크기인가.** 2번이 정한 값(10곳)이고 `school-area.ts` 한 곳에서 온다.
+ *
+ *   ```
+ *   10곳 이상   한 벌로 판다     — 값이 정해질 때까지 검색에 안 연다
+ *   9곳 이하    무료로 연다      — 「학교가 적어 한 벌로 팔지 않습니다」를 적는다
+ *   ```
+ *
+ * ⚠ **미리보기를 어디까지 열지는 아직 안 정해졌다**(2번 03:2x — 「전부 닫으면 아무도
+ *   모르고, 전부 열면 살 이유가 없습니다」). 정해지기 전까지 파는 쪽은 닫아 둔다.
+ *   ⛔ 내가 혼자 열지 않는다. 한 줄만 주시면 바로 바뀐다.
+ */
+/* ⚠ 제목에 시·도를 붙인다 — 「중구」는 서울·부산·대구·인천·대전·울산에 다 있다.
+   붙이지 않으면 지면 여섯 장의 제목이 같아진다(검사가 잡았다). */
+const 온이름 = 열쇠만들기(시도, 구);
+
+const 한벌인가 = 한벌로팔만한가(곳들.length);
+
+const desc = 한벌인가
+  ? `${시도} ${구}의 고등학교 ${곳들.length}곳을 한 장에 모았습니다. ` +
+    `줄 세우지 않고 퍼짐 안에서 어디쯤인지만 보여드립니다.`
+  : `${시도} ${구}의 고등학교 ${곳들.length}곳입니다. 학교가 적어 무료로 열어 둔 지면입니다.`;
 ---
 
-<HundredYear title={`${구} 고등학교 ${곳들.length}곳`} description={desc} noindex={true}>
-  <p class="note">
-    ⬜ <strong>본보기 한 장입니다.</strong> 값이 정해지기 전이라 검색에 열지 않았습니다.
-  </p>
+<HundredYear title={`${온이름} 고등학교 ${곳들.length}곳`} description={desc} noindex={한벌인가}>
+  {
+    한벌인가 ? (
+      <p class="note">
+        ⬜ <strong>값이 정해지기 전이라 검색에 열지 않았습니다.</strong>
+      </p>
+    ) : (
+      <p class="note">
+        🎁 <strong>이 지면은 무료입니다.</strong> {구}에는 고등학교가 {곳들.length}곳뿐이라{' '}
+        <strong>한 벌로 팔지 않습니다.</strong> 열 곳이 넘는 지역만 한 벌로 냅니다.
+      </p>
+    )
+  }
 
   <h1>{구} 고등학교<br class="pcbr" /> {곳들.length}곳, 한 장에</h1>
   <p class="lead">
@@ -149,7 +185,8 @@ const desc =
   {
     퍼짐 != null && (
       <>
-        <h2>이 구는 이렇게 퍼져 있습니다</h2>
+        {/* ⚠ 「이 구는」이라고 쓰면 안 된다 — 동해시·가평군처럼 **구가 없는 단위**가 144개다 */}
+        <h2>이 지역은 이렇게 퍼져 있습니다</h2>
         <div class="answer">
           <p class="answer-label">진학률이 가장 낮은 곳부터 가장 높은 곳까지</p>
           <p class="answer-num">{낮은값}% ~ {높은값}%</p>
@@ -213,7 +250,7 @@ const desc =
       <>
         <h2>낮은 것이 나쁜 것이 아닙니다</h2>
         <p>
-          이 구에서 진학률이 가장 낮게 나온 곳은 <strong>{제일낮은.title}</strong>({제일낮은.고교유형})입니다.
+          이 지역에서 진학률이 가장 낮게 나온 곳은 <strong>{제일낮은.title}</strong>({제일낮은.고교유형})입니다.
           그런데 <strong>{제일낮은.고교유형}는 「그 밖」 칸이 원래 큽니다.</strong> 재수를 택한 학생이
           그 칸으로 들어가고, <strong>재수생은 진학률 계산에서 빠집니다.</strong>
         </p>
@@ -273,7 +310,7 @@ const desc =
           맞지 않습니다. <a href="/work">바로 일터로</a>에서 이 길의 숫자를 따로 보실 수 있습니다.
         </p>
         <p class="note">
-          ⛔ <strong>자리에서 빼지 않고 그대로 뒀습니다.</strong> 빼면 이 구에 학교가{' '}
+          ⛔ <strong>자리에서 빼지 않고 그대로 뒀습니다.</strong> 빼면 이 지역에 학교가{' '}
           {잰곳.length}곳인 것처럼 보입니다. 실제로는 {곳들.length}곳입니다.
         </p>
       </>
@@ -318,6 +355,6 @@ const desc =
         부모가 값을 낼 마음이 가장 큰 순간이 **고르고 난 직후**다. 그 자리가 비어 있었다. */}
   <NextQuestionAfterPick
     본것={`${구} 고등학교 ${곳들.length}곳`}
-    여기까지="어느 학교가 이 구에서 어디쯤인지"
+    여기까지="어느 학교가 이 지역에서 어디쯤인지"
   />
 </HundredYear>

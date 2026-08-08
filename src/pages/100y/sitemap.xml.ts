@@ -6,6 +6,9 @@ import 중단자료 from '../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../data/100yearmap/school-class-size.json';
 import 대학학과 from '../../data/100yearmap/major-outcomes.json';
 import { 학과슬러그 } from '../../lib/college-major';
+/* ⚠ 위의 (시·도 목록)과 이름이 겹치지 않게 **다른 이름**으로 받는다 */
+import 지역단위 from '../../data/100yearmap/areas.json';
+import { 한벌로팔만한가 } from '../../lib/school-area';
 import { 짧은지역명 } from '../../lib/region';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
@@ -145,6 +148,25 @@ export const GET: APIRoute = () => {
       priority: '0.7',
       changefreq: 'monthly',
     })),
+    /**
+     * 🔴 2026-08-08 09:4x — **지역 한 벌 지면.** 258장 중 **무료로 연 것만** 넣는다.
+     *
+     *   ```
+     *   10곳 이상 114장   한 벌로 판다  → 지면이 noindex 다. 여기 안 넣는다
+     *   9곳 이하  144장   무료로 열었다 → 여기 넣는다
+     *   ```
+     *
+     * ⚠ **`[slug].astro` 의 noindex 조건과 한 글자도 다르면 안 된다.** 둘 다
+     *   `한벌로팔만한가(곳수)` 한 곳을 부른다 — 손으로 10 을 다시 적지 않는다.
+     *   8/6 에 `/after` 가 「검색엔 열렸는데 사이트맵에 없음」으로 걸린 적이 있다.
+     */
+    ...((지역단위 as any).단위 as any[])
+      .filter((a) => !한벌로팔만한가(a.곳))
+      .map((a) => ({
+        path: `/report/area/${a.slug}`,
+        priority: '0.6',
+        changefreq: 'monthly',
+      })),
   ];
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
