@@ -43,6 +43,23 @@ const 같은갈래 = 다른것.filter((a) => a.data.category === d.category);
 const 나머지 = 다른것.filter((a) => a.data.category !== d.category);
 const 읽을것 = [...같은갈래, ...나머지].slice(0, 3);
 
+/*
+ * 이 기사가 이어지는 데이터 상품 — 주제로 고른다. (2번 46083: 기사 → 상품 직접 링크)
+ * 검색으로 한 편에 들어온 사람을 그 데이터를 파는 지면으로 곧장 보낸다.
+ */
+const 상품들 = {
+  sector: { href: '/data/sector-workforce-panel', name: 'the sector workforce panel',
+    blurb: 'tenure, pay and the gender pay gap for every listed company, by sector' },
+  wage: { href: '/data/pension-wage-panel', name: 'the National Pension wage panel',
+    blurb: 'a near-census pay ladder by industry, region and firm size' },
+  target: { href: '/data/target-price-accuracy', name: 'broker target-price accuracy',
+    blurb: 'every broker target scored against the stock twelve months later' },
+};
+const 관련상품 = /analyst|sell-rating|hold|research|broker/.test(entry.id) ? 상품들.target
+  : /pension|wage|churn|separation|workers-concentrate|bigger-firms|small-firms|oldest-workplace|pension-map/.test(entry.id) ? 상품들.wage
+  : /tenure|gender|headcount|workforce|market-cap-per-worker|pay-holding|how-long-industries/.test(entry.id) ? 상품들.sector
+  : null;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
@@ -145,6 +162,16 @@ const jsonLd = {
       <DataNotes data={d} />
 
       {
+        관련상품 && (
+          <aside class="product-cta">
+            <span class="pc-kicker">The data behind this article</span>
+            <a class="pc-link" href={관련상품.href}>License {관련상품.name} &rarr;</a>
+            <span class="pc-blurb">{관련상품.blurb}</span>
+          </aside>
+        )
+      }
+
+      {
         읽을것.length > 0 && (
           <nav class="readnext" aria-label="Read next">
             <h2>Read next</h2>
@@ -169,6 +196,18 @@ const jsonLd = {
 </Base>
 
 <style>
+  /* 이 기사의 데이터를 파는 지면으로 곧장 보내는 칸. (2번 46083) */
+  .product-cta {
+    display: block; margin: 2rem 0 0; padding: 1.1rem 1.2rem;
+    border: 1px solid var(--accent); border-radius: 10px; background: var(--accent-soft, var(--card));
+  }
+  .pc-kicker { display: block; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--accent); font-weight: 700; margin-bottom: 0.35rem; }
+  .pc-link { display: inline-block; font-family: var(--serif, inherit); font-size: 1.08rem;
+    font-weight: 650; color: var(--ink); text-decoration: none; margin-bottom: 0.25rem; }
+  .pc-link:hover { color: var(--accent); }
+  .pc-blurb { display: block; font-size: 0.88rem; line-height: 1.55; color: var(--muted); }
+
   /* 나가는 길. 본문을 다 읽은 사람에게 다음 세 편을 직접 건다. */
   .readnext {
     margin: 3rem 0 0;
