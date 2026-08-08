@@ -23,6 +23,16 @@ import { 학과슬러그 } from '../../../lib/college-major';
 import NextQuestion from '../../../components/NextQuestion.astro';
 import 성과 from '../../../data/100yearmap/major-outcomes.json';
 import 묶음 from '../../../data/100yearmap/major-merged.json';
+import 고교학과 from '../../../data/100yearmap/pages-major.json';
+import { 다리찾기, 못이은까닭, 이은말, 이은주의 } from '../../../lib/major-bridge';
+
+/** ⚠ 이름만 뽑아 둔다. 숫자는 안 가져온다 — 두 지면의 숫자를 섞지 않는다 */
+const 고교학과이름 = (고교학과 as any[]).map((x) => x.title as string);
+/**
+ * 🔴 주소는 **자료에 적힌 것을 쓴다.** 이름으로 만들지 않는다 —
+ *   「S/W디자인과」 한 곳이 슬래시를 갖고 있어 `/major/${이름}` 으로 만들면 길이 끊긴다.
+ */
+const 고교학과주소 = new Map((고교학과 as any[]).map((x) => [x.title as string, x.url as string]));
 
 const 전국 = (성과 as any).전국;
 const 출처 = (성과 as any).출처;
@@ -42,6 +52,14 @@ export async function getStaticPaths() {
 
 const { 과 } = Astro.props as { 과: any };
 const 묶인것 = 묶음표.get(꼬리떼기(과.학과)) ?? null;
+
+/**
+ * 🔴 이 지면에서 **나가는 길** — 2번 지시(16:5x). 837장이 차림표로만 되돌아 나가고 있었다.
+ *
+ * ⚠ 이름표는 **「이름이 같은」**이다. 「이 학과로 가는」이 아니다 —
+ *   까닭은 `src/lib/major-bridge.ts` 머리에 적었다. 우리에게 없는 자료를 있다고 말하지 않는다.
+ */
+const 다리 = 다리찾기(과.학과, 고교학과이름);
 
 /** 전국 평균과의 차이. ⛔ 등수가 아니다 */
 const 차이 = Math.round((과.취업률 - 전국.취업률) * 10) / 10;
@@ -166,6 +184,32 @@ const desc =
       특성화고에도 있고 대학에도 있는데 <strong>졸업 뒤가 전혀 다릅니다.</strong>{' '}
       고등학교 학과는 <a href="/major">학과 찾기</a>에서 보십시오.
     </p>
+
+    {/**
+      * 🔴 이 지면에서 나가는 **낱장 길** (2026-08-08 17:0x · 2번 지시).
+      *
+      *   ⛔ 「이 학과로 가는 고등학교 학과」라고 쓰지 않는다. 그 자료가 우리에게 없다.
+      *     쓰는 말은 **「이름이 같은 고등학교 학과」**다 — 우리가 아는 것이 딱 그것이라서다.
+      *   ⚠ 못 이은 지면도 **비워 두지 않는다.** 왜 없는지 적는다. 안 적으면 다음 사람이 또 센다.
+      */}
+    {다리 ? (
+      <>
+        <p class="note">
+          <strong>{이은말}</strong> —{' '}
+          {다리.고교학과.map((이름, i) => (
+            <>
+              {i > 0 && ' · '}
+              <a class="gotoarea" href={고교학과주소.get(이름)}>
+                {이름} →
+              </a>
+            </>
+          ))}
+        </p>
+        <p class="note">{이은주의}</p>
+      </>
+    ) : (
+      <p class="note">{못이은까닭}</p>
+    )}
   </div>
 
   {/* ⭐ 2026-08-07 — 「그래서 우리 아이한테는?」 자리. 사장님 지시로 낸 유입 입구다.
