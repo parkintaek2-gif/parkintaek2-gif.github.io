@@ -86,13 +86,37 @@ const FORCE = argv.includes('--force');
  *
  *   *「⛔ 「보류」는 사람이 「다시 돌려야 하나」로 읽습니다. 오늘 그래서 겹쳐 돌린 사람이 있었습니다」*
  */
+/**
+ * 🔴 Git Bash(MSYS)가 `/` 로 시작하는 인자를 **윈도 경로로 바꿔** 버린다 (5번이 잡음, 2026-08-09 03:5x).
+ *
+ * ```
+ * 넣은 것   --표식 https://…/sitemap.xml "/market/vietnam"
+ * 받은 것   "C:/Program Files/Git/market/vietnam"      ← 낱말이 통째로 딴것이 됐다
+ * 그래서    배포는 제대로 나갔는데 판정만 ❌ 「안 나갔다」로 찍혔다
+ * ```
+ *
+ * ⛔ 이건 쓰는 사람 잘못이 아니다. **자가 되돌려 놓는다.**
+ * ⚠ 되돌린 것은 화면에 찍는다 — 조용히 고치면 다음 사람이 또 속는다.
+ */
+export function 경로되돌리기(낱말) {
+  const 글 = String(낱말 ?? '');
+  const m = /^[A-Za-z]:[\\/](?:.*[\\/])?Git[\\/](.*)$/.exec(글);
+  if (!m) return { 낱말: 글, 되돌렸나: false };
+  return { 낱말: '/' + m[1].replace(/\\/g, '/'), 되돌렸나: true };
+}
+
 function 표식읽기(a = argv) {
   const i = a.findIndex((x) => x === '--표식' || x === '--marker');
   if (i < 0) return null;
   const 주소 = a[i + 1];
-  const 낱말 = a[i + 2];
+  let 낱말 = a[i + 2];
   if (!주소 || !낱말 || 주소.startsWith('--') || 낱말.startsWith('--')) return null;
   if (!/^https?:\/\//.test(주소)) return null;
+  const 되돌린 = 경로되돌리기(낱말);
+  if (되돌린.되돌렸나) {
+    console.log(`⚠ 표식이 Git Bash 에 뭉개져 있었다 — 되돌렸다: ${낱말}  →  ${되돌린.낱말}`);
+    낱말 = 되돌린.낱말;
+  }
   return { 주소, 낱말 };
 }
 const 표식 = 표식읽기();
@@ -535,6 +559,22 @@ async function 자가시험() {
       (await 표식집기('u', 'x', async () => { throw new Error('끊김'); })) === null],
     ['200 이 아니면 null', async () =>
       (await 표식집기('u', 'x', async () => ({ ok: false }))) === null],
+
+    /* 🔴 Git Bash 가 `/` 로 시작하는 낱말을 윈도 경로로 바꿔 버리던 것 (5번이 잡음) */
+    ['뭉개진 표식을 되돌린다', async () =>
+      경로되돌리기('C:/Program Files/Git/market/vietnam').낱말 === '/market/vietnam'],
+    ['되돌렸다고 알려 준다', async () =>
+      경로되돌리기('C:/Program Files/Git/market/vietnam').되돌렸나 === true],
+    ['역슬래시도 되돌린다', async () =>
+      경로되돌리기('C:\\Program Files\\Git\\data\\board-composition').낱말 === '/data/board-composition'],
+    ['멀쩡한 낱말은 안 건드린다', async () =>
+      경로되돌리기('15 August').낱말 === '15 August' && 경로되돌리기('15 August').되돌렸나 === false],
+    ['멀쩡한 경로도 안 건드린다', async () =>
+      경로되돌리기('/market/vietnam').낱말 === '/market/vietnam'],
+    ['Git 이 안 든 윈도 경로는 안 건드린다', async () =>
+      경로되돌리기('C:/Users/USER/x').되돌렸나 === false],
+    ['빈 값에 안 죽는다', async () =>
+      경로되돌리기(null).낱말 === '' && 경로되돌리기(undefined).되돌렸나 === false],
   ];
   let 진 = 0;
   for (const [이름, 재기] of 본보기) {
