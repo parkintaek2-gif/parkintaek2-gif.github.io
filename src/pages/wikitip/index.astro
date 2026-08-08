@@ -65,8 +65,13 @@ const 갈래별 = Object.keys(갈래이름)
   .map((k) => ({ 열쇠: k, 이름: 갈래이름[k], 편: 산기사.filter((a) => a.data.category === k) }))
   .filter((g) => g.편.length)
   .sort((a, b) => b.편.length - a.편.length);
+/**
+ * 🔴 2026-08-08 17:5x — 시간대를 안 못박으면 **첫 화면 날짜가 하루 일찍 나간다.**
+ * 우리 frontmatter 는 KST 로 적는다(`…T00:00:00+09:00`). 내보내는 기계는 UTC 다.
+ * 까닭 전문은 `src/pages/wikitip/article/[...id].astro` 위쪽에 있다.
+ */
 const 날짜 = (v) =>
-  new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  new Date(v).toLocaleDateString('en-GB', { timeZone: 'Asia/Seoul', day: 'numeric', month: 'long', year: 'numeric' });
 
 const TITLE = 'Korean pop culture, in numbers';
 const DESC =

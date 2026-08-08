@@ -37,8 +37,33 @@ export const WHY = [
 
 /** 사람이 읽는 꼴. 지면·검사가 **같은 함수**를 쓴다 — 두 자리가 다르게 적으면 안 된다 */
 export const usd = (n: number) => `$${n}`;
-export const 여는달 = (): string => {
-  const 꼴 = (s: string) =>
-    new Date(`${s}T00:00:00+09:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long' });
-  return `${꼴(FREE_FROM)} to ${꼴(FREE_UNTIL)}`;
+
+/**
+ * 🔴 **2026-08-08 17:5x — 라이브에 하루 이른 날짜가 나가고 있었다.**
+ *
+ * ```
+ * 내 화면(KST)   15 August to 14 September   ← 맞다
+ * 라이브(UTC)    14 August to 13 September   ← 손님이 본 것
+ * ```
+ *
+ * 까닭 — 앞판은 이렇게 썼다:
+ *   `new Date('2026-08-15T00:00:00+09:00').toLocaleDateString('en-GB', …)`
+ * `toLocaleDateString` 은 `timeZone` 을 안 주면 **그 기계의 시간대**로 그린다.
+ * 내 기계는 KST 라 15일로 보였고, 내보내는 기계는 UTC 라 **같은 순간이 14일**이었다.
+ * ⛔ 내 화면에서 맞는 것은 맞다는 뜻이 아니다. 8/15 는 우리 출시일이고,
+ *    하루 이른 날짜는 「무료가 언제 시작하나」를 손님에게 틀리게 말한 것이다.
+ *
+ * ⛔ 그래서 **Date 를 아예 안 쓴다.** 값은 이미 '2026-08-15' 라는 글자다.
+ *    글자에서 글자를 만들면 시간대가 끼어들 자리가 없다.
+ *    (`timeZone: 'Asia/Seoul'` 을 주는 고침도 되지만, 다음 사람이 그 한 칸을 지우면 조용히 되살아난다)
+ */
+const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+export const 날짜꼴 = (s: string): string => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+  if (!m) throw new Error(`날짜가 YYYY-MM-DD 가 아니다: ${s} — 지어내지 않고 선다`);
+  const 달 = 달이름[+m[2] - 1];
+  if (!달) throw new Error(`달이 ${m[2]} 이다: ${s}`);
+  return `${+m[3]} ${달}`;
 };
+export const 여는달 = (): string => `${날짜꼴(FREE_FROM)} to ${날짜꼴(FREE_UNTIL)}`;

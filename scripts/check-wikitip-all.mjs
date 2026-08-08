@@ -54,6 +54,8 @@ const 검사 = [
   ['젊어서인지 아닌지를 기사가 맞게 말하나', 'check-firm-age-article.mjs'],
   ['한국이 먼저였나를 기사가 맞게 말하나', 'check-home-first-article.mjs'],
   ['자리로 잰 한류를 기사·지면이 맞게 말하나', 'check-world-share-article.mjs'],
+  /* 🔴 2026-08-08 18:0x — 라이브에만 나던 병. 내 화면에서는 영원히 맞았다 */
+  ['날짜가 어느 시간대에서도 같은가', 'check-price-dates.mjs'],
   ['고쳐 놓고 남은 옛 수가 있나', 'check-stale-numbers.mjs'],
   ['손님으로 걸어 걸리는 것이 있나', 'check-visitor-walk.mjs'],
   ['검색이 우리를 다 볼 수 있나', 'check-search-readiness.mjs'],

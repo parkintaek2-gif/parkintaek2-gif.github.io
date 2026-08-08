@@ -50,8 +50,19 @@ const url = `https://www.kculturewire.com/article/${entry.id}`;
  */
 const 카드 = `https://www.kculturewire.com/og/${entry.id}.png`;
 const iso = (v: Date) => new Date(v).toISOString();
+/**
+ * 🔴 2026-08-08 17:5x — **날짜가 라이브에서 하루 일찍 나가고 있었다.**
+ *
+ * frontmatter 의 dataAsOf 는 `2026-07-26T00:00:00+09:00`(KST 자정)이다.
+ * `toLocaleDateString` 에 timeZone 을 안 주면 **그리는 기계의 시간대**로 그린다.
+ * 내보내는 기계는 UTC 라 그 순간이 7월 25일 15시 → 화면에 **25 July** 로 나갔다.
+ * 45편 전부가 그랬고, 내 화면(KST)에서는 26 July 라 **영원히 안 보였다.**
+ *
+ * ⛔ 우리 날짜는 KST 로 적는다. 그리는 것도 KST 로 못박는다.
+ *    같은 병을 값 쪽에서 지키는 자는 `scripts/check-price-dates.mjs` 다.
+ */
 const 날짜 = (v: Date) =>
-  new Date(v).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  new Date(v).toLocaleDateString('en-GB', { timeZone: 'Asia/Seoul', day: 'numeric', month: 'long', year: 'numeric' });
 
 const CATEGORY: Record<string, string> = {
   screen: 'Screen', music: 'Music', esports: 'Esports',

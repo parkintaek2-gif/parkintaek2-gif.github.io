@@ -61,8 +61,13 @@ const 원인별 = Object.entries(pageFixes.causes ?? {})
 /** 으뜸 원인 말고도 두 번 이상 난 원인이 몇인가 — 「같은 실수를 또 했나」의 답이다. */
 const 되풀이된것 = 원인별.filter((c) => c.건수 > 1).length - 1;
 
+/**
+ * 🔴 2026-08-08 17:5x — 시간대를 안 못박으면 **라이브에서 하루 일찍 나간다.**
+ * 정정 날짜가 하루 어긋나면 「언제 고쳤나」가 틀린다. 그건 이 지면이 파는 것이다.
+ * 까닭은 `src/pages/wikitip/article/[...id].astro` 위쪽에 적어 두었다.
+ */
 const 날짜 = (d: Date) =>
-  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  d.toLocaleDateString('en-GB', { timeZone: 'Asia/Seoul', day: 'numeric', month: 'long', year: 'numeric' });
 const 총건수 = 기사정정.length + 지면정정.length;
 const 최근 = [...기사정정, ...지면정정].sort((a, b) => +b.date - +a.date)[0];
 
