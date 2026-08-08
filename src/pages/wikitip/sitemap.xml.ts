@@ -52,6 +52,9 @@ export const GET: APIRoute = async () => {
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },
     { path: '/screen-split', priority: '0.9', changefreq: 'weekly' },
     { path: '/kpop-attention', priority: '0.9', changefreq: 'weekly' },
+    /* 44편째 기사의 표. 2026-08-08 17:0x — 기사만 내고 지면을 안 내면 카드의
+       「every figure has a table behind it」이 거짓말이 된다 */
+    { path: '/home-first', priority: '0.9', changefreq: 'weekly' },
     /*
      * 파는 자료의 착륙 지면. 2026-08-08 04:3x 에 만들어 놓고 **여기 한 줄을 안 넣었다** —
      * 하루 동안 검색엔 열려 있는데 사이트맵엔 없는 어긋난 상태였다. 위 ⚠ 가 이것이다.

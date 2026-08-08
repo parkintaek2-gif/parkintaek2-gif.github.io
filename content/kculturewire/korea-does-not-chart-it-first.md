@@ -7,6 +7,7 @@ dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "southeast-asia", "charts", "measurement"]
 pages:
+  - "/home-first"
   - "/titles"
   - "/reach"
 sources:
