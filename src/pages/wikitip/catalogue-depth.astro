@@ -21,6 +21,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-catalogue-depth.json';
+import ambiguity from '../../data/wikitip-title-ambiguity.json';
 
 const TITLE = 'How many different Korean titles has your country actually seen?';
 
@@ -28,6 +29,21 @@ const 안 = data.groups[0];
 const 밖 = data.groups[1];
 const 맞안 = data.matched.asian;
 const 맞밖 = data.matched.other;
+
+/* 이름겹침 판정 — 938편 전부. ⛔ 수를 손으로 적지 않는다. 판정 칸에서 센다 */
+const 센다 = (v: string) => ambiguity.perTitle.filter((p) => p.verdict === v).length;
+const 확실 = [
+  { key: 'koreaOnly', label: 'Only Korean works carry this name', n: 센다('koreaOnly'),
+    means: 'The name cannot be matched to anything else. Safe.' },
+  { key: 'shared', label: 'A Korean work and a foreign one share it', n: 센다('shared'),
+    means: 'We cannot tell from the name which one charted.' },
+  { key: 'unknown', label: 'Wikidata records no country for the name', n: 센다('unknown'),
+    means: 'No basis to judge — not evidence of either.' },
+  { key: 'noKorea', label: 'No Korean work carries this name at all', n: 센다('noKorea'),
+    means: 'Should not be counted as Korean. Listed below.' },
+];
+const 빠질자리 = ambiguity.noKoreaQueue.reduce((s, x) => s + x.places, 0);
+const 슬롯합 = data.countries.reduce((s, c) => s + c.koreanSlots, 0);
 
 const DESC =
   `Across ${data.countryCount} markets, the typical Asian one has charted `
@@ -237,6 +253,74 @@ const jsonLd = {
       Shaded rows are the {안.countries} Asian markets grouped above. Every figure is measured over
       the same {data.weekCount} weeks with the same identification, so a market low on this table
       charted fewer Korean titles — it does not mean fewer were available or fewer were watched.
+    </p>
+  </section>
+
+  {/*
+    🔴 2026-08-09 새로 붙였다. 이 지면은 93개 시장을 다 싣는데, 그 명단이 얼마나 확실한지는
+       한 번도 안 적었다. 이름겹침 감사가 동남아까지만 덮고 있었기 때문이다 — 이제 938편 전부에 있다.
+    ⛔ 시간으로 잰 79.9% 를 여기 그대로 옮겨 적지 않는다. **분모가 다르다.**
+       시간 비중은 큰 작품이 끌어올리고, 편수는 꼬리가 끌어내린다. 둘 다 적어야 손님이 안 속는다.
+    ⛔ 숫자를 손으로 적지 않는다 — perTitle 에서 센다.
+  */}
+  <section>
+    <h2>How sure are we that these titles are Korean?</h2>
+    <p class="note lead-in">
+      Every title above is matched by its English name against works Wikidata records as made in
+      South Korea. We asked, for all {ambiguity.perTitle.length} titles in this table, which countries
+      made a film or series carrying exactly that name. Four answers came back.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Answer</th><th>Titles</th><th>Share</th><th>What it means for a figure on this page</th></tr>
+        </thead>
+        <tbody>
+          {확실.map((r) => (
+            <tr class={r.key === 'noKorea' ? 'edge' : ''}>
+              <td class="nm">{r.label}</td>
+              <td class="tot">{r.n}</td>
+              <td>{((100 * r.n) / ambiguity.perTitle.length).toFixed(1)}%</td>
+              <td class="nm">{r.means}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="warn">
+      <b>By viewing, this catalogue is far more certain than it is by title count.</b>{' '}
+      {ambiguity.koreaOnly.sharePc}% of Korean viewing hours sit on titles only Korean works carry —
+      but only {((100 * 확실[0].n) / ambiguity.perTitle.length).toFixed(1)}% of the titles do. The two
+      are not in conflict: the largest titles are the unmistakable ones, and the uncertainty lives in
+      the tail, where a single common English word can name a Korean series and a foreign one at once.
+      A figure weighted by places or hours inherits the first number; a count of distinct titles —
+      the “Different titles” column above — inherits the second.
+    </p>
+    <p class="note lead-in">
+      The last row is not ambiguity. Wikidata records <b>no Korean work at all</b> under these names,
+      so they should not be in this table. They are still counted in the columns above — removing
+      them changes {빠질자리} of the {슬롯합.toLocaleString('en-US')} Korean places on this page,
+      or {((100 * 빠질자리) / 슬롯합).toFixed(2)}%. We name them rather than quietly restate the totals:
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Title</th><th>Places</th><th>Countries Wikidata records for that name</th></tr></thead>
+        <tbody>
+          {ambiguity.noKoreaQueue.map((x) => (
+            <tr>
+              <td class="nm"><i>{x.title}</i></td>
+              <td class="tot">{x.places}</td>
+              <td class="nm">{x.countries.slice(0, 5).join(', ')}{x.countries.length > 5 ? ` and ${x.countries.length - 5} more` : ''}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      What this check cannot do: it reads names, not works. A title Wikidata has never heard of comes
+      back “no country”, which is not evidence either way. And a shared name stays shared — we can say
+      how large that group is, which is what this table is for, but not which work charted in Manila
+      on a given week.
     </p>
   </section>
 
