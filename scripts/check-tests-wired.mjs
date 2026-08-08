@@ -36,9 +36,51 @@ export const 봐준다 = {
   'check-100yearmap-launch.mjs': 'dist 5,000장을 훑는다. 빌드가 없으면 잴 것이 없고, 여섯이 dist 를 같이 써서 남이 빌드하는 사이에 ENOENT 가 난다 — npm run check:100y:launch',
 };
 
-export function 갈라내기(파일들, 부름, 봐줄것 = 봐준다) {
+/**
+ * 파일 하나를 읽어 준다. 없으면 빈 글이다.
+ * ⚠ 검사에서 갈아 끼울 수 있게 밖으로 뺐다 — 자가시험이 진짜 파일을 안 만들어도 되게.
+ */
+export const 소스읽기 = (이름) => {
+  try { return fs.readFileSync(path.join(뿌리, 'scripts', 이름), 'utf8'); }
+  catch { return ''; }
+};
+
+/**
+ * **모아 부르는 자를 따라간다.**
+ *
+ * 🔴 왜 — 2026-08-08 18:5x. `check-wikitip-all.mjs` 한 자가 42개를 execFileSync 로 부른다.
+ *   그 42개는 실제로 매번 돈다. 그런데 이 자는 `package.json` 의 글자만 봐서
+ *   **42개를 전부 「안 불림」으로 셌다.** 세는 자가 틀리면 못 박은 수도 틀린다.
+ *
+ * ⛔ 「불린다」는 package.json 에 이름이 있다는 뜻이 아니라 **실제로 돈다**는 뜻이다.
+ *   그러니 물린 자가 제 안에서 부르는 검사도 물린 것으로 센다. 몇 단계든 따라간다.
+ *
+ * ⚠ 돌고 도는 것(a 가 b 를, b 가 a 를)에 안 빠진다 — **`물림` 이 곧 본 것**이라
+ *   한 파일이 두 번 줄에 서지 않는다. ⛔ 따로 「본 것」 자물쇠를 두었다가 뺐다.
+ *   빼고 깨뜨려 보니 검사가 그대로 통과했다 — **안 서는 자물쇠는 자물쇠가 아니다.**
+ *
+ * ⛔ **주석에 적힌 이름은 안 센다.** 주석은 부르는 것이 아니라 말하는 것이다.
+ *   (이 파일만 해도 `봐준다` 설명에 검사 이름 넷이 적혀 있다. 그걸 「부른다」고 세면 거짓이다.)
+ */
+export const 주석빼기 = (글) =>
+  String(글 ?? '').replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
+
+export function 갈라내기(파일들, 부름, 봐줄것 = 봐준다, 읽기 = 소스읽기) {
   const 검사 = 파일들.filter((f) => 검사무늬.test(f));
-  const 안불림 = 검사.filter((f) => !String(부름 ?? '').includes(f) && !(f in 봐줄것));
+  const 물림 = new Set(검사.filter((f) => String(부름 ?? '').includes(f)));
+
+  const 볼것 = [...물림];
+  while (볼것.length) {
+    const 이번 = 볼것.pop();
+    let 글 = '';
+    try { 글 = 주석빼기(읽기(이번)); } catch { 글 = ''; }   // 못 읽으면 안 부르는 것으로 본다. 죽지 않는다
+    for (const f of 검사) {
+      if (f === 이번 || 물림.has(f)) continue;
+      if (글.includes(f)) { 물림.add(f); 볼것.push(f); }
+    }
+  }
+
+  const 안불림 = 검사.filter((f) => !물림.has(f) && !(f in 봐줄것));
   return { 검사수: 검사.length, 안불림 };
 }
 
@@ -58,6 +100,29 @@ if (process.argv.includes('--selftest')) {
   재본다('빈 목록', 갈라내기([], '', {}).안불림, []);
   재본다('부름이 null 이어도 안 죽는다', 갈라내기(['a.test.mjs'], null, {}).안불림, ['a.test.mjs']);
   재본다('봐준 것에 까닭이 다 있다', Object.values(봐준다).every((x) => x && x.length > 3), true);
+
+  /* ── 모아 부르는 자를 따라가나 ── */
+  const 글판 = (표) => (이름) => 표[이름] ?? '';
+  재본다('모아 부르는 자가 부르면 물린 것이다',
+    갈라내기(['check-all.mjs', 'check-b.mjs'], 'node scripts/check-all.mjs', {},
+      글판({ 'check-all.mjs': "execFileSync('node',['scripts/check-b.mjs'])" })).안불림, []);
+  재본다('두 단계도 따라간다',
+    갈라내기(['check-all.mjs', 'check-b.mjs', 'check-c.mjs'], 'node scripts/check-all.mjs', {},
+      글판({ 'check-all.mjs': "'check-b.mjs'", 'check-b.mjs': "'check-c.mjs'" })).안불림, []);
+  재본다('안 물린 자가 부르는 것은 그대로 안 물린 것이다',
+    갈라내기(['check-all.mjs', 'check-b.mjs'], '', {},
+      글판({ 'check-all.mjs': "'check-b.mjs'" })).안불림, ['check-all.mjs', 'check-b.mjs']);
+  재본다('돌고 도는 것에 안 빠진다',
+    갈라내기(['check-a.mjs', 'check-b.mjs'], 'node scripts/check-a.mjs', {},
+      글판({ 'check-a.mjs': "'check-b.mjs'", 'check-b.mjs': "'check-a.mjs'" })).안불림, []);
+  재본다('주석에 적힌 이름은 안 센다',
+    갈라내기(['check-a.mjs', 'check-b.mjs'], 'node scripts/check-a.mjs', {},
+      글판({ 'check-a.mjs': '/* check-b.mjs 는 느려서 뺐다 */' })).안불림, ['check-b.mjs']);
+  재본다('한 줄 주석도 안 센다',
+    갈라내기(['check-a.mjs', 'check-b.mjs'], 'node scripts/check-a.mjs', {},
+      글판({ 'check-a.mjs': '// check-b.mjs 는 나중에' })).안불림, ['check-b.mjs']);
+  재본다('읽기가 터져도 안 죽는다',
+    갈라내기(['check-a.mjs'], 'node scripts/check-a.mjs', {}, () => { throw new Error('x'); }).안불림, []);
   console.log(실패 ? `\n⛔ ${실패}개 틀렸다 (통과 ${통과})` : `✅ 검사 ${통과}개 통과`);
   process.exit(실패 ? 1 : 0);
 }
@@ -67,8 +132,17 @@ const j = JSON.parse(fs.readFileSync(path.join(뿌리, 'package.json'), 'utf8'))
 const 파일들 = fs.readdirSync(path.join(뿌리, 'scripts'));
 const { 검사수, 안불림 } = 갈라내기(파일들, j.scripts?.test ?? '');
 
-/** ⚠ 오늘 53개다. 이 수를 **줄이기만** 한다 — 늘어나면 운다 */
-const 오늘까지봐주는수 = 53;
+/**
+ * ⚠ 이 수를 **줄이기만** 한다 — 늘어나면 운다.
+ *
+ * 53 (8/8 15:4x) → **11** (8/8 18:5x)
+ *   ⭐ 42개는 새로 물려서 준 것이 아니다. **원래 돌고 있었는데 내가 못 세고 있었다** —
+ *     `check-wikitip-all.mjs` 가 부르는 것을 이 자가 안 따라갔다.
+ *     세는 자를 고치고, 그 자를 `npm test` 에 물렸다.
+ *   ⛔ 남은 11개는 대개 **인터넷·라이브·크롬**을 탄다. 물리면 npm test 가 남의 사정으로 죽는다.
+ *     각자 봐준다 에 까닭을 적고 넣든지, 상시로 돌게 고치든지 주인이 정한다.
+ */
+const 오늘까지봐주는수 = 11;
 
 console.log(`검사 파일 ${검사수}개 · npm test 가 부르는 것 ${검사수 - 안불림.length}개 · 안 부르는 것 ${안불림.length}개`);
 if (안불림.length > 오늘까지봐주는수) {
