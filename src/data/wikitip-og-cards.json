@@ -1,0 +1,86 @@
+{
+  "_왜": "기사마다 다른 공유 카드에 박을 수. scripts/make-og-articles.mjs 가 읽는다.",
+  "_규칙": [
+    "자동 제안이 틀리거나 약한 것만 여기 적는다. 안 적힌 기사는 글머리 첫 수를 자동으로 쓴다.",
+    "⛔ 여기 적은 figure 는 그 기사의 제목·글머리·본문에 실제로 있어야 한다. 없으면 카드가 안 만들어진다.",
+    "⛔ 낡은 수를 적지 않는다 — 정정으로 바뀐 값(294 → 236 같은)이 카드로 나가면 정정이 되살아난다.",
+    "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
+  ],
+  "chosen": {
+    "one-flaw-twelve-corrections": {
+      "figure": "236",
+      "label": "titles — we had published 294",
+      "왜": "자동은 294 를 집었다. 그건 우리가 정정으로 버린 수다. 정정 기사가 낡은 값을 카드로 퍼뜨릴 뻔했다"
+    },
+    "korea-exports-grew-viewing-did-not": {
+      "figure": "63%",
+      "label": "more exports, and no more viewing",
+      "왜": "자동은 「74 — and 79 million hours a」로 문장 한가운데를 집었다"
+    },
+    "korean-actors-more-titles-buys-a-floor": {
+      "figure": "54,309",
+      "label": "views for the actor with 19 titles",
+      "왜": "자동은 19 만 집어 「무엇이 19 인지」가 안 보였다. 대비가 이 기사의 전부다"
+    },
+    "korea-music-outsells-television": {
+      "figure": "$1.80bn",
+      "label": "music against $1.26bn broadcast",
+      "왜": "자동 딱지가 「against $1」에서 잘렸다"
+    },
+    "two-hops-from-squid-game": {
+      "figure": "502",
+      "label": "of 635 titles, within two actors",
+      "왜": "자동은 432(중간 단계)를 집었다. 기사의 결론은 502 다"
+    },
+    "music-and-broadcast-exports-are-the-same-size": {
+      "figure": "−0.13",
+      "label": "correlation between their growth",
+      "왜": "「같은 크기인데 같이 안 움직인다」가 요점이다. 20% 로는 그게 안 보인다"
+    },
+    "who-makes-korean-pop-culture": {
+      "figure": "15,072",
+      "label": "people, and they stay 5.5 years",
+      "왜": "자동은 23.7 billion 을 집는데 그건 옆 기사 카드와 같은 수다"
+    },
+    "kpop-export-left-japan-behind": {
+      "figure": "39×",
+      "label": "North America's growth since 2018",
+      "왜": "자동은 $22m 을 집었다. 「일본이 준 게 아니라 나머지가 컸다」가 요점이다"
+    },
+    "korean-actors-attention-flat": {
+      "figure": "3.1%",
+      "label": "for the most looked-up Korean actor",
+      "왜": "자동은 21.3% 를 집는데 그건 다른 두 기사와 같은 수다"
+    },
+    "short-titles-are-where-we-cannot-check-ourselves": {
+      "figure": "58.1%",
+      "label": "of films come back ambiguous",
+      "왜": "자동은 397 을 집는데 옆 기사 카드와 같은 수다"
+    },
+    "film-and-series-share-people-but-less-than-chance": {
+      "figure": "61.6%",
+      "label": "where chance alone gives 73.2%",
+      "왜": "기댓값과의 차이가 기사다. 700 은 표본 크기일 뿐이다"
+    },
+    "korean-series-travel-films-do-not": {
+      "figure": "35",
+      "label": "countries for a series, 11 for a film",
+      "왜": "자동은 표본 크기 232 를 집었다"
+    },
+    "three-labour-markets-not-one": {
+      "figure": "10.3",
+      "label": "years in broadcasting, 5.4 in games",
+      "왜": "「10.3 years」만으로는 세 시장이 다르다는 게 안 보인다"
+    },
+    "twenty-eight-webtoon-platforms": {
+      "figure": "214",
+      "label": "of them have fewer than ten staff",
+      "왜": "자동은 ₩94.5bn 을 집는데 옆 기사 카드와 **똑같은 수**다. 두 카드가 같은 말을 하면 안 나눈 것이다"
+    },
+    "korea-webtoon-two-economies": {
+      "figure": "₩94.5bn",
+      "label": "a platform, ₩1.5bn a content provider",
+      "왜": "자동은 표본 크기 396 을 집었다. 63배 차이가 기사다"
+    }
+  }
+}

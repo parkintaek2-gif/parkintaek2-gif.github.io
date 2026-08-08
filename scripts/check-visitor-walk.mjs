@@ -172,6 +172,41 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
     }
   }
 
+  /* ── 공유되는 순간 ──
+     2번 지시(2026-08-08 08:4x): 「기사 36편의 og:image 가 전부 한 장입니다. 기사마다 다른 카드를 다십시오」
+     ⛔ 두 가지가 같이 틀려 있었다 —
+        ① `/og.svg` 였다. **SVG 는 카카오톡·X·페이스북이 안 그린다** — 공유하면 그림이 아예 안 뜬다
+        ② 36편이 같은 그림이라 떠도 다 똑같다. 유입의 첫 칸이 비어 있었다
+     ⚠ 「og:image 가 있나」로는 못 잡는다. 있었는데 안 뜨는 것이었다.
+        **확장자 · 서로 다른가 · 파일이 실제로 있나** 셋을 따로 잰다. */
+  {
+    const 카드들 = new Map();
+    for (const f of 기사) {
+      const h = fs.readFileSync(path.join(기사디렉, f), 'utf8');
+      const m = h.match(/property="og:image" content="([^"]+)"/);
+      const 이름 = `article/${f}`;
+      if (!m) { 문제.push(`🔴 ${이름} — og:image 가 없다. 공유하면 그림 없이 나간다`); continue; }
+      const 주소 = m[1];
+      if (!/\.png$/i.test(주소)) {
+        문제.push(`🔴 ${이름} — og:image 가 «${주소.split('/').pop()}» 다. PNG 라야 카카오톡·X·페이스북이 그린다`);
+      }
+      /* 절대 주소가 아니면 저 셋은 못 따라온다 */
+      if (!/^https:\/\//.test(주소)) 문제.push(`🔴 ${이름} — og:image 가 절대 주소가 아니다: ${주소}`);
+      /* 지면이 가리키는 파일이 실제로 나갔나. `public/wikitip/*` 가 `dist/wikitip/*` 로 복사된다 */
+      const 안쪽길 = 주소.replace(/^https:\/\/www\.kculturewire\.com/, '');
+      if (안쪽길.startsWith('/') && !fs.existsSync(path.join(D, 안쪽길.slice(1)))) {
+        문제.push(`🔴 ${이름} — og:image 가 가리키는 ${안쪽길} 이 dist 에 없다. 공유하면 404 다`);
+      }
+      카드들.set(이름, 주소);
+    }
+    /* 서로 다른가 — 이게 2번이 물은 것이다 */
+    const 가짓수 = new Set(카드들.values()).size;
+    if (기사.length && 가짓수 < 카드들.size) {
+      const 겹친 = [...카드들.values()].filter((v, i, a) => a.indexOf(v) !== i);
+      문제.push(`🔴 기사 ${카드들.size}편이 카드 ${가짓수}가지를 나눠 쓴다 — 겹치는 것: ${[...new Set(겹친)].slice(0, 2).join(' · ')}`);
+    }
+  }
+
   console.log(`걸어 본 것 — 지면 ${지면.length}장 · 기사 ${기사.length}편`);
   if (문제.length) {
     console.log(`\n⛔ 손님 걸음 — ${문제.length}건`);

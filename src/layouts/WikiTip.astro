@@ -26,8 +26,18 @@ export interface Props {
   noindex?: boolean;
   jsonLd?: unknown;
   canonical?: string;
+  /**
+   * 공유 카드. **절대 주소여야 한다** — 카카오톡·X·페이스북은 상대 주소를 못 따라온다.
+   * ⛔ 2026-08-08 까지 여기가 `/og.svg` 하나로 굳어 있었다. 두 가지가 같이 틀렸다 —
+   *    **SVG 는 저 셋이 아예 안 그리고**, 36편이 같은 그림이면 떠도 다 똑같다.
+   *    기사는 `scripts/make-og-articles.mjs` 가 만든 자기 카드를 넣는다.
+   */
+  ogImage?: string;
 }
-const { title, description, noindex = false, jsonLd, canonical } = Astro.props;
+const {
+  title, description, noindex = false, jsonLd, canonical,
+  ogImage = 'https://www.kculturewire.com/og.png',
+} = Astro.props;
 const 제목 = `${title} | K Culture Wire`;
 ---
 
@@ -42,9 +52,11 @@ const 제목 = `${title} | K Culture Wire`;
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="K Culture Wire" />
-  <meta property="og:image" content="https://www.kculturewire.com/og.svg" />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:image" content="https://www.kculturewire.com/og.svg" />
+  <meta name="twitter:image" content={ogImage} />
   <!--
     피드. 8/7 까지 /rss.xml 이 404 라 **따라 읽을 방법이 하나도 없었다.**
     머리에 이 한 줄이 있어야 읽개가 스스로 찾는다 — 링크만 걸어서는 못 찾는다.
