@@ -35,13 +35,50 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = path.resolve(
+/**
+ * 🔴 **여섯 자리가 한 벌로 쓴다** (2026-08-08 13:3x · 1번 부탁).
+ *
+ *   1번이 이걸 KLifeMap 에서 돌려 보려다 막혔다 — 거기 폴더는 `public·tools·tests·db` 다.
+ *   *「제가 복사해 폴더만 바꾸면 **자가 두 벌**이 됩니다. 한쪽만 고친 날 둘이 갈라지고,
+ *     **갈라진 줄도 모릅니다**」*
+ *
+ *   ```bash
+ *   node scripts/check-comment-close.mjs                              여기 기본값(src,scripts)
+ *   node scripts/check-comment-close.mjs --dirs public,tools,tests    다른 폴더
+ *   node scripts/check-comment-close.mjs --root /path/to/repo         다른 저장소
+ *   node scripts/check-comment-close.mjs --ext .php,.js               다른 확장자
+ *   ```
+ *
+ *   ⛔ 복사본을 만들지 않는다. 이 자를 고치면 **그날 여섯 자리가 다 좋아진다.**
+ */
+const 인자값 = (이름, 기본) => {
+  const i = process.argv.indexOf(이름);
+  return i >= 0 && process.argv[i + 1] ? process.argv[i + 1] : 기본;
+};
+const 쪼개기 = (s) => String(s).split(',').map((x) => x.trim()).filter(Boolean);
+
+const 여기 = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
   '..',
 );
-const 볼폴더 = ['src', 'scripts'];
-const 볼확장 = new Set(['.astro', '.ts', '.mjs', '.js', '.tsx']);
-const 건너뛸 = new Set(['node_modules', 'dist', '.git', '.astro']);
+const ROOT = path.resolve(인자값('--root', 여기));
+const 볼폴더 = 쪼개기(인자값('--dirs', 'src,scripts'));
+const 볼확장 = new Set(쪼개기(인자값('--ext', '.astro,.ts,.mjs,.js,.tsx,.jsx,.mts,.cjs')));
+const 건너뛸 = new Set([
+  'node_modules', 'dist', '.git', '.astro', 'build', 'coverage', '.next',
+  /**
+   * ⛔ **남이 만든 것은 안 본다** (2026-08-08 13:4x · 1번 저장소에서 돌려 보고 넣었다).
+   *
+   *   KLifeMap 에서 돌렸더니 7건이 걸렸는데 **전부 `jspdf`·`html2canvas` 압축본**이었다.
+   *   압축된 파일은 라이선스 머리글 뒤에 코드가 바로 붙는 것이 정상이다.
+   *
+   *   ⚠ 이 검사가 막으려는 것은 **우리가 주석을 쓰다가 닫는 것**이다.
+   *     우리가 안 쓴 코드에 우는 자는 소음이고, 소음은 다음 진짜 경보를 못 읽게 만든다.
+   */
+  'vendor', 'vendors', 'third_party', 'thirdparty',
+]);
+/** 압축본은 건너뛴다 — 사람이 고칠 파일이 아니다 */
+const 압축본 = /\.min\.(js|mjs|cjs|ts)$/i;
 
 /**
  * 한 파일에서 **주석을 일찍 닫는 자리**를 찾는다.
@@ -126,7 +163,7 @@ function 파일모으기() {
       if (건너뛸.has(e.name)) continue;
       const p = path.join(d, e.name);
       if (e.isDirectory()) 훑(p);
-      else if (볼확장.has(path.extname(e.name))) 나온것.push(p);
+      else if (볼확장.has(path.extname(e.name)) && !압축본.test(e.name)) 나온것.push(p);
     }
   };
   for (const d of 볼폴더) 훑(path.join(ROOT, d));
@@ -186,20 +223,45 @@ if (!자가통과) {
 
 const 파일들 = 파일모으기();
 const 걸린것 = [];
+/**
+ * 🔴 **못 읽힌 파일을 조용히 넘기지 않는다** (2026-08-08 · 1번이 얹어 준 것).
+ *
+ *   1번 말 그대로 — *「까닭을 안 가리고 **못 읽히는 파일**을 잡는다.
+ *   오늘 셋이 빠진 것은 전부 읽히지 않는 파일이었습니다. 까닭은 나중에 봐도 됩니다.
+ *   **못 읽힌다는 사실 자체가 자입니다**」*
+ *
+ *   ⛔ 전에는 `catch { continue }` 로 넘겼다. 그러면 못 읽은 파일이 **통과로 보인다** —
+ *     0장을 훑고 「0건」이라 말하는 것과 같은 병이다.
+ */
+const 못읽은것 = [];
 for (const p of 파일들) {
   let 글;
   try {
     글 = fs.readFileSync(p, 'utf8');
-  } catch {
+  } catch (e) {
+    못읽은것.push({ 파일: path.relative(ROOT, p), 까닭: String(e?.code ?? e?.message ?? e).slice(0, 40) });
     continue;
   }
   for (const x of 찾기(글)) 걸린것.push({ 파일: path.relative(ROOT, p), ...x });
 }
 
-console.log(`\n주석 일찍 닫힘 검사 — 파일 ${파일들.length}개`);
+console.log(
+  `\n주석 일찍 닫힘 검사 — ${path.basename(ROOT)}/{${볼폴더.join(',')}} · 파일 ${파일들.length}개`,
+);
+
+/* 🔴 못 읽은 것을 **먼저** 말한다. 0장을 훑고 「0건」이라 하면 그게 제일 나쁘다 */
+if (파일들.length === 0) {
+  console.log('⬜ 볼 파일이 0개다 — **재지 못했다.** `--dirs` 가 맞는지 보십시오');
+  process.exit(2);
+}
+if (못읽은것.length > 0) {
+  console.log(`  ⬜ 못 읽은 파일 ${못읽은것.length}개 — 이건 통과가 아니라 **못 잰 것**이다`);
+  for (const x of 못읽은것.slice(0, 5)) console.log(`     ${x.파일} (${x.까닭})`);
+}
+
 if (걸린것.length === 0) {
-  console.log('✅ 주석을 일찍 닫는 곳 0건');
-  process.exit(0);
+  console.log(`✅ 주석을 일찍 닫는 곳 0건${못읽은것.length ? ` (다만 ${못읽은것.length}개는 못 읽었다)` : ''}`);
+  process.exit(못읽은것.length ? 2 : 0);
 }
 for (const x of 걸린것.slice(0, 20)) {
   console.log(`  ⛔ ${x.파일}:${x.줄번호}`);
