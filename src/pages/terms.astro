@@ -1,0 +1,80 @@
+---
+/*
+ * Terms of use — 데이터 라이선스 판매 약관. (seoulmarkets.com/terms)
+ *
+ * 왜 (2번 41271, 사장님 오픈 D-7): 파는 지면은 섰는데 파는 조건이 없었다.
+ *   손님이 무엇을 사는지, 틀리면 어떻게 되는지를 못 본다. 투자 판단 면책이 제일 중요하다.
+ *   내용은 2번이 정했고, 6번은 문장만 다듬는다.
+ *   금지: 백년지도·KLifeMap 문구를 복사하지 않는다(파는 물건이 다르다).
+ */
+import Base from '../layouts/Base.astro';
+const TITLE = 'Terms of use';
+const DESC = 'What you license from SeoulMarkets: data, not advice. Sources, reference dates, and the investment-advice disclaimer.';
+---
+
+<Base title={TITLE} description={DESC} noindex={false}>
+  <div class="wrap">
+    <article class="legal">
+      <p class="kicker">SeoulMarkets</p>
+      <h1>Terms of use</h1>
+      <p class="lead">These terms cover the datasets SeoulMarkets licenses. In plain language:
+        <b>you are buying data, not analysis, and not investment advice.</b></p>
+
+      <section>
+        <h2>What you license</h2>
+        <p>You license a <b>dataset</b> — one or more CSV files and tables you download. It is{' '}
+          <b>data, not a recommendation</b>. We do not tell you what to buy, sell or hold.</p>
+      </section>
+
+      <section>
+        <h2>Where the figures come from</h2>
+        <p>Every figure is built from <b>public data</b> — Korea's statistical industry codes (KSIC),
+          corporate filings (DART), the National Pension workplace file and exchange closes, obtained
+          through the public data portal under an unrestricted licence. Each figure is <b>as of the
+          reference date of its source</b>, which is stated in the dataset. Sources release on a lag;
+          the data is not real-time.</p>
+        <p>What we sell is <b>our parse, our join and our correction record</b> — not the raw filings
+          themselves, which remain the property of their issuers.</p>
+      </section>
+
+      <section>
+        <h2>Not investment advice</h2>
+        <p><b>We do not provide investment advice, and we are not responsible for any investment
+          outcome.</b> The datasets describe what has been filed and measured. Any decision you make
+          from them is your own. Nothing here is a solicitation, recommendation, or a statement that
+          any security is a good or bad investment.</p>
+      </section>
+
+      <section>
+        <h2>Accuracy and corrections</h2>
+        <p>We re-derive every figure from its source and re-check it. When we find and fix an error,
+          we log it in a corrections record that ships with the data — we do not silently edit. If a
+          figure is wrong, see the refund terms below.</p>
+      </section>
+
+      <section>
+        <h2>Use of the data</h2>
+        <p>A licence is for your organisation's own use and analysis. Please do not resell or
+          redistribute the dataset as-is. Cite SeoulMarkets when you publish figures derived from it.</p>
+      </section>
+
+      <p class="also">See also our <a href="/refund">refund policy</a> and{' '}
+        <a href="/about">about page</a>.</p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .legal { max-width: 44rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .legal h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.2; margin: 0 0 .6rem; }
+  .legal .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .legal section { margin: 0 0 1.6rem; }
+  .legal h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .legal p { line-height: 1.7; margin: 0 0 .7rem; }
+  .legal b { font-weight: 650; }
+  .legal a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .legal a:hover { color: var(--ink); }
+  .also { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--muted); }
+</style>

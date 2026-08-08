@@ -1,0 +1,61 @@
+---
+/*
+ * Refund policy — 데이터 라이선스 환불. (seoulmarkets.com/refund)
+ *
+ * 왜 (2번 41271): 파는 조건 중 환불. 디지털 자료라 내려받은 뒤엔 물릴 수 없다.
+ *   대신 받기 전에는 전액, 수치가 틀렸으면(우리 잘못) 받은 뒤라도 전액.
+ *   금지: 백년지도·KLifeMap 문구 복사 금지.
+ */
+import Base from '../layouts/Base.astro';
+const TITLE = 'Refund policy';
+const DESC = 'Full refund before download; because the data is digital, none after — except when a figure is wrong, which is on us.';
+---
+
+<Base title={TITLE} description={DESC} noindex={false}>
+  <div class="wrap">
+    <article class="legal">
+      <p class="kicker">SeoulMarkets</p>
+      <h1>Refund policy</h1>
+      <p class="lead">The data is a digital file. That shapes the rule, and we keep it simple and in
+        your favour where we can.</p>
+
+      <section>
+        <h2>Before you download — full refund</h2>
+        <p>Change your mind before you have downloaded the dataset and we refund you <b>in full</b>,
+          no questions asked.</p>
+      </section>
+
+      <section>
+        <h2>After you download — no refund</h2>
+        <p>Once you have downloaded the file, we cannot take it back, so a licence is{' '}
+          <b>non-refundable after download</b> — the standard rule for digital data. One exception,
+          below, matters more than the rule.</p>
+      </section>
+
+      <section>
+        <h2>If a figure is wrong — full refund, even after download</h2>
+        <p><b>If the data is wrong — a real error in the numbers — you get a full refund even after
+          you have downloaded it.</b> That is our mistake, not yours. We sell accuracy, so we stand
+          behind it: report the error and we will refund the licence and correct the record.</p>
+      </section>
+
+      <p class="also">See also our <a href="/terms">terms of use</a> and{' '}
+        <a href="/about">about page</a>.</p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .legal { max-width: 44rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .legal h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.2; margin: 0 0 .6rem; }
+  .legal .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .legal section { margin: 0 0 1.6rem; }
+  .legal h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .legal p { line-height: 1.7; margin: 0 0 .7rem; }
+  .legal b { font-weight: 650; }
+  .legal a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .legal a:hover { color: var(--ink); }
+  .also { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); font-size: .92rem; color: var(--muted); }
+</style>
