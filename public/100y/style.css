@@ -108,6 +108,14 @@
     th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
     th { font-size: 11px; letter-spacing: 1.5px; color: var(--gold-text); font-weight: 700; }
 
+    /* 🔴 파는 지면으로 가는 길 — 폰에서 **19px 짜리 글줄**이었다(2026-08-08 15:3x 실측).
+       손가락으로 짚는 곳은 44px 이 권장이다. 여기가 우리 물건으로 가는 유일한 문이라
+       가장 짚기 어려운 자리가 가장 중요한 자리였다. */
+    a.gotoarea {
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-weight: 700;
+    }
+
     details > summary {
       cursor: pointer; min-height: 44px; display: flex; align-items: center;
       font-size: var(--fs-body); color: var(--muted);
@@ -167,9 +175,37 @@
     }
     footer strong { color: var(--muted); }
 
+    /* ─────────────────────────────────────────────────────────
+       폰 — 🔴 **파는 표의 세 칸이 화면 밖에 있었다** (2026-08-08 15:3x 실측)
+
+       2번 지시로 폰 너비(375px)에서 사는 길을 처음부터 끝까지 걸어 봤다.
+       파는 지면(강남구 21곳)에서 이랬다.
+
+       ```
+       감싼 칸 324px  ·  표 480px
+       보이는 칸   학교 · 갈래
+       ⛔ 밖에 있던 칸   졸업생 · 진학 · 그 밖
+       ```
+
+       🔴 **진학률과 「그 밖」이 이 지면이 파는 것**이다. 그게 안 보였다.
+       ⚠ `.tablewrap` 에 `overflow-x:auto` 가 있어 **지면은 안 넘쳤다.**
+         그래서 「가로 넘침 0」 검사는 통과였다. 표 안에서만 잘려 있었으니
+         **자는 조용했고 물건만 안 보였다.**
+       ⛔ 옆으로 밀 수 있다는 표시도 없었다. 미는 줄 모르면 없는 것과 같다.
+
+       고친 뒤 같은 자리에서 다시 쟀다 — **표 480px → 324px · 다섯 칸 다 보인다.**
+       ⚠ 이름이 긴 학교는 두 줄로 접힌다(단국대학교부속소프/트웨어고등학교).
+         낱말 가운데서 갈리지만, **안 보이는 것보다 접히는 편이 낫다.**
+       ───────────────────────────────────────────────────────── */
     @media (max-width: 480px) {
       .wrap { padding: 20px 16px 56px; }
       .nav { gap: 14px; font-size: 13px; }
+
+      .tablewrap table { font-size: 13px; }
+      .tablewrap th, .tablewrap td { padding: 7px 4px; }
+      .tablewrap th { font-size: 10px; letter-spacing: 0.5px; }
+      /* 이름 칸만 낱말 가운데서 접는다. 숫자 칸은 접히면 못 읽는다 */
+      .tablewrap th:first-child, .tablewrap td:first-child { overflow-wrap: anywhere; }
     }
 
     /* ─────────────────────────────────────────────────────────
@@ -294,3 +330,6 @@
 .pricebox h2 { margin-top: 0; }
 .pricebox h3 { margin-bottom: 6px; }
 .pricebox .answer-num { margin: 6px 0 2px; }
+/* ⚠ 「한 벌에 든 것」 목록과 「곧 엽니다」 사이가 **0px 이었다**(2026-08-08 15:4x · 375px 실측).
+   붙어 있으니 다음 칸 안내가 **목록의 여섯째 줄**로 읽혔다. 사는 이야기가 시작되는 자리다 */
+.pricebox ul + p { margin-top: 18px; }
