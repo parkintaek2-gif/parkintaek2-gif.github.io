@@ -38,3 +38,4 @@ archive/outreach/
 
 # 빌드 자물쇠 — 이 PC 의 작업트리 이야기다. 커밋하지 않는다
 .build-lock.json
+.ganglyeong/
