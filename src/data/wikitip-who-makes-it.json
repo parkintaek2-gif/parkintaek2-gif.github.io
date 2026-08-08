@@ -1,0 +1,85 @@
+{
+ "generated": "2026-08-08T21:13:41.370Z",
+ "source": "Wikidata production company (P272), original broadcaster (P449) and distributor (P750) on the Korean titles that appear in Netflix country top 10 lists, 2021–2026",
+ "question": "How many companies does it take to account for half the Korean series that chart?",
+ "unit": "A company “covers” a series if Wikidata lists it as producer, first broadcaster or distributor. Titles are counted as a set, so a series credited to several companies is still one series.",
+ "whySeriesOnly": "Companies are attached to 92% of series but only 37.7% of films, and measuring concentration on a half-empty list makes the missing companies look small rather than missing. Films are left out rather than half-counted.",
+ "seriesTotal": 362,
+ "filmsTotal": 539,
+ "filmsWithFirm": 203,
+ "filmCoveragePc": 37.7,
+ "roles": [
+  {
+   "key": "any",
+   "label": "Any credit",
+   "firms": 129,
+   "series": 332,
+   "seriesCoveragePc": 91.7,
+   "halfTakesFirms": 3,
+   "namesInHalf": [
+    "JTBC",
+    "SBS",
+    "tvN"
+   ]
+  },
+  {
+   "key": "production",
+   "label": "Production company",
+   "firms": 99,
+   "series": 151,
+   "seriesCoveragePc": 41.7,
+   "halfTakesFirms": 5,
+   "namesInHalf": [
+    "Chorokbaem Media",
+    "Kakao Entertainment",
+    "SLL",
+    "Studio Dragon",
+    "Studio N"
+   ]
+  },
+  {
+   "key": "broadcaster",
+   "label": "First broadcaster",
+   "firms": 28,
+   "series": 291,
+   "seriesCoveragePc": 80.4,
+   "halfTakesFirms": 3,
+   "namesInHalf": [
+    "JTBC",
+    "SBS",
+    "tvN"
+   ]
+  },
+  {
+   "key": "distributor",
+   "label": "Distributor",
+   "firms": 25,
+   "series": 130,
+   "seriesCoveragePc": 35.9,
+   "halfTakesFirms": 3,
+   "namesInHalf": [
+    "CJ ENM Entertainment Division",
+    "SLL",
+    "tvN"
+   ]
+  }
+ ],
+ "firmSizeBands": [
+  {
+   "band": "1 series",
+   "firms": 59
+  },
+  {
+   "band": "2–4",
+   "firms": 51
+  },
+  {
+   "band": "5 or more",
+   "firms": 19
+  }
+ ],
+ "marketHalfTakesMedian": 20,
+ "marketHalfTakesUS": 6,
+ "marketHalfTakesVN": 49,
+ "marketCount": 93
+}
