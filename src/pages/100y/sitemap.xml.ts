@@ -9,6 +9,8 @@ import { 학과슬러그 } from '../../lib/college-major';
 /* ⚠ 위의 (시·도 목록)과 이름이 겹치지 않게 **다른 이름**으로 받는다 */
 import 지역단위 from '../../data/100yearmap/areas.json';
 import { 한벌로팔만한가 } from '../../lib/school-area';
+/* 🔴 파는 지면을 검색에 여는 스위치. `[slug].astro` 의 noindex 와 **같은 것**을 부른다 */
+import { 파는지면검색 } from '../../lib/price';
 import { 짧은지역명 } from '../../lib/region';
 /* 🔴 층 목록은 **한 곳**에서 온다 — 지면과 사이트맵이 두 벌을 두면 갈라진다 */
 import { 낼층 } from '../../lib/age-layer';
@@ -189,7 +191,9 @@ export const GET: APIRoute = () => {
      *   8/6 에 `/after` 가 「검색엔 열렸는데 사이트맵에 없음」으로 걸린 적이 있다.
      */
     ...((지역단위 as any).단위 as any[])
-      .filter((a) => !한벌로팔만한가(a.곳))
+      /* 🔴 스위치는 `price.ts` **한 곳**이다. `[slug].astro` 의 noindex 가 같은 것을 부른다 —
+         두 곳에 두면 한쪽만 켜져 「사이트맵엔 있는데 지면은 noindex」가 된다 */
+      .filter((a) => 파는지면검색.연다 || !한벌로팔만한가(a.곳))
       .map((a) => ({
         path: `/report/area/${a.slug}`,
         priority: '0.6',
