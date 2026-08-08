@@ -19,6 +19,7 @@
  *   묶인 값은 **어느 띠에서 왔는지 그 자리에 적는다.** 한 살처럼 말하면 거짓이 된다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import 원본 from '../../../data/100yearmap/age-axis.json';
 import { 나이말, 임금값, 살림값, 혼인누적, 임금꼭대기, 월급말, type 나이자료 } from '../../../lib/age-page';
@@ -182,6 +183,15 @@ const desc =
     백년지도는 지도입니다. <strong>길을 정해 주지 않고 어디에 무엇이 있는지 보여 줍니다.</strong>{' '}
     나침반은 보시는 분이 만드십니다.
   </p>
+  {/**
+    * 🔴 다섯 장에 나가는 문이 없었다 (2026-08-09 06:3x · 전수로 셈).
+    *   `/age` 입구와 `/life` 층 대문에는 있는데 **한 살짜리 낱장에만** 빠져 있었다.
+    *
+    * ⚠ `NextQuestion`(「그래서 우리 아이한테는?」)을 쓰지 않는다. 이 지면은
+    *   예순여덟 살도 보는 자리다. **「우리 아이」로 말을 걸면 읽는 사람이 여기 없는 사람이 된다.**
+    *   `Brief` 는 「여기 모아 둔 것은 …입니다」라 나이를 가리지 않는다.
+    */}
+  <NextQuestionBrief 모은것={`${나이말(나이)} 사람들이 무엇을 했는지 모은 자료`} />
 </HundredYear>
 
 <style>

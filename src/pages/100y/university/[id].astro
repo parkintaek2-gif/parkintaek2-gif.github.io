@@ -27,6 +27,7 @@
  *    처음엔 우리가 중앙값을 냈었는데, 공식 평균이 있는 걸 알고 전부 바꿨다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 수치있음, 캠퍼스인가, 본교찾기, 권할만한, 폐교정보, 폐교출처 } from '../../../lib/university';
 import { 대학연구, 전체편수 } from '../../../lib/research';
@@ -387,6 +388,16 @@ const 칸 = [
   <p class="note">
     고등학교와 학과는 <a href="/major">학과 찾기</a> · <a href="/school">학교 찾기</a> 에서 볼 수 있습니다.
   </p>
+  {/**
+    * 🔴 **377장에 나가는 문이 한 개도 없었다** (2026-08-09 06:2x · 전수로 셈).
+    *
+    *   1번이 「꼬리가 붙었나」를 물어 4,967장을 세다가 나왔다 —
+    *   링크가 **없는** 장 516 중 **대학 낱장 377** 이 가장 컸다. 조건이 아니라 **아예 없었다.**
+    *
+    * ⚠ `NextQuestion`(낱장용)이 아니라 `Brief` 를 쓴다. 이 지면이 보여 준 것은
+    *   **그 대학 하나의 숫자**가 아니라 전국을 견준 값이라, 「여기까지 보신 숫자는」이 안 맞는다.
+    */}
+  <NextQuestionBrief 모은것={`대학 ${(universities as any[]).length.toLocaleString()}곳의 취업·중도탈락 자료`} />
 </HundredYear>
 
 <style>
@@ -434,9 +445,11 @@ const 칸 = [
     border-bottom: 1px solid var(--line);
     font-size: var(--fs-body);
   }
+  /* 🔴 24px 이었다(2026-08-09 06:2x). 표본에 이 지면이 안 잡혀 44px 작업에서 빠졌었다 */
   .neighbors li a {
-    display: inline-block;
-    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   /* ⚠ 숫자가 넷이라 셋 기준 격자에 넣으면 하나가 혼자 남는다. 휴대폰은 2×2 로 접는다 */
   .nums {
