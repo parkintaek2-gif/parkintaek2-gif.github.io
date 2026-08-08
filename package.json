@@ -60,6 +60,7 @@
     "check:100y:reach": "node scripts/check-100y-reach.mjs",
     "check:100y:print": "node scripts/check-100y-print.mjs",
     "check:100y:phone": "node scripts/check-100y-phone.mjs",
+    "check:100y:tap": "node scripts/check-100y-tap.mjs",
     "build:100y:research": "node scripts/build-100yearmap-research.mjs",
     "build:100y:closed": "node scripts/build-100yearmap-closed.mjs",
     "check:index": "node scripts/check-search-index.mjs",

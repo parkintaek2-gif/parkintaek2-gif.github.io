@@ -228,9 +228,16 @@ const desc =
     border-bottom: 1px solid var(--line);
     font-size: var(--fs-body);
   }
+  /* 🔴 24px 이었다 — 925줄이 전부 27px 로 나왔다(2026-08-09 05:2x · 375px 실측).
+     ⚠ 공용 style.css 에 `.majors li > a { min-height: 44px }` 를 넣었는데
+       **여기 스코프 규칙이 이겼다.** Astro 가 `[data-astro-cid-…]` 를 붙여 더 세다.
+       공용에 넣었으니 됐겠거니 하고 넘어갈 뻔했다 — 자로 다시 재서 잡았다.
+     ⚠ 한 줄이 44px 이 되면 925줄이 세로로 길어진다. 그래도 여기가 **학과를 고르는 자리**고
+       위에 걸러 넣는 칸(#q)이 있어 끝까지 훑는 지면이 아니다. */
   .majors li a {
-    display: inline-block;
-    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   [hidden] {
     display: none !important;

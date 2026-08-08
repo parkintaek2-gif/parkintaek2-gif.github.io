@@ -79,4 +79,8 @@ const 나가는주소 = 입구주소(Astro.url?.pathname);
   /* ⚠ `is:global` 을 쓰지 않는다 — /_astro/*.css 로 빠져나가 접두사(/100y) 아래서 404 가 난다 */
   .nextq { margin: 26px 0 6px; padding-top: 4px; border-top: 1px solid var(--line); }
   .nextq h2 { margin-top: 18px; }
+  /* 🔴 짚는 자리 44px — 낱장 지면에 붙는 **나가는 문**이다(2026-08-09 05:2x).
+     ⚠ 뒤에 설명 글이 붙어 있어 공용 `:only-child` 규칙에 안 걸린다.
+       짝인 `NextQuestionBrief` 와 **같이** 고친다 — 한쪽만 고치면 지면에 따라 달라진다. */
+  .nextq a { display: inline-flex; align-items: center; min-height: 44px; vertical-align: middle; }
 </style>

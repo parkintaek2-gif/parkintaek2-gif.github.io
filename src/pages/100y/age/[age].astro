@@ -210,6 +210,11 @@ const desc =
     line-height: 1.75;
   }
   .ages { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
-  .ages a { display: inline-block; padding: 6px 13px; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 999px; }
+  /* 🔴 41px 이었다(2026-08-09 05:3x · 375px 실측). **세 px 이 모자랐다** —
+     눈으로는 절대 안 잡히는 차이다. 자가 아니면 못 봤을 자리다. */
+  .ages a {
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 6px 13px; border: 1px solid rgba(128, 128, 128, 0.3); border-radius: 999px;
+  }
   .src { margin-top: 26px; }
 </style>

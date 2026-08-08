@@ -103,7 +103,11 @@ const desc =
 <style>
   .ages { list-style: none; padding: 0; margin: 20px 0; }
   .ages li { padding: 12px 0; border-bottom: 1px solid rgba(128, 128, 128, 0.16); }
-  .ages a { font-size: 1.15rem; font-weight: 800; margin-right: 10px; }
+  /* 🔴 26px 이었다(2026-08-09 05:2x · 375px 실측). 다섯 자리로 들어가는 문이다 */
+  .ages a {
+    display: inline-flex; align-items: center; min-height: 44px;
+    font-size: 1.15rem; font-weight: 800; margin-right: 10px;
+  }
   .ages .note { display: block; margin-top: 3px; }
   .ages em { opacity: 0.7; font-style: normal; }
   .warn {

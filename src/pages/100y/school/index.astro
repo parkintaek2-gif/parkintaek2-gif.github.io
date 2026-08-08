@@ -151,9 +151,12 @@ const desc =
     border-bottom: 1px solid var(--line);
     font-size: var(--fs-body);
   }
+  /* 🔴 24px 이었다 — 2,525줄이 전부 27px 로 나왔다(2026-08-09 05:2x · 375px 실측).
+     여기가 **학교를 고르는 자리**다. 위에 걸러 넣는 칸이 있어 끝까지 훑는 지면이 아니다. */
   .schools li a {
-    display: inline-block;
-    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   [hidden] {
     display: none !important;

@@ -159,9 +159,11 @@ const desc =
     border-bottom: 1px solid var(--line);
     font-size: var(--fs-body);
   }
+  /* 🔴 24px 이었다 — 377줄이 27px 로 나왔다(2026-08-09 05:2x · 375px 실측) */
   .unis li a {
-    display: inline-block;
-    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
   /* 「수치 없음」 — 눈에 띄되 낙인처럼 보이지 않게. 붉은색을 쓰지 않는다 */
   .nodata {
