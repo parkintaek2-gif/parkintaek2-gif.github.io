@@ -4,7 +4,14 @@
  *
  *   node scripts/check-100y-phone.mjs              파는 3장 · 무료 2장 · 학교 1장
  *   node scripts/check-100y-phone.mjs --넓게        파는 6장 · 무료 4장 · 학교 3장
+ *   node scripts/check-100y-phone.mjs --라이브      **나가 있는 지면**을 잰다
  *   node scripts/check-100y-phone.mjs --자가시험    자가 시험만
+ *
+ * ## ⚠ 빌드와 라이브는 **다른 값이다**
+ *
+ *   2번 지시(17:3x) — *「⛔ 「241장 했습니다」는 빌드 숫자입니다. 라이브 숫자를 따로 적으십시오」*.
+ *   오늘 커밋만 되고 안 나간 것이 여덟 번이었다. **빌드에서 잰 값을 라이브라고 하면 안 된다.**
+ *   ⚠ 어느 쪽을 쟀는지 이 자가 **첫 줄에 못 박는다.**
  *
  * ## 🔴 왜 만들었나 (2026-08-08 16:3x)
  *
@@ -177,8 +184,17 @@ const 서버 = http.createServer((q, s) => {
   s.writeHead(200, { 'content-type': 꼴 ?? 'application/octet-stream' });
   fs.createReadStream(p).pipe(s);
 });
+const 라이브 = process.argv.includes('--라이브') || process.argv.includes('--live');
+/**
+ * ⚠ 라이브를 잴 때도 **어느 지면을 볼지는 빌드에서 고른다.**
+ *   나가 있는 지면 목록을 따로 받을 길이 없어서다. 주소는 같으니 그대로 쓴다.
+ * ⛔ 그래서 라이브에 아직 없는 지면을 부를 수 있다 — 그때는 「못 읽었다」로 센다.
+ */
 await new Promise((r) => 서버.listen(0, '127.0.0.1', r));
-const 밑주소 = `http://127.0.0.1:${서버.address().port}`;
+const 밑주소 = 라이브 ? 'https://100yearmap.com' : `http://127.0.0.1:${서버.address().port}`;
+/** 라이브는 `.html` 이 붙은 주소를 안 쓴다 */
+const 주소만들기 = (길) => 밑주소 + (라이브 ? encodeURI(길.replace(/\.html$/, '')) : 길);
+console.log(라이브 ? '⚠ **라이브**(100yearmap.com)를 잰다' : '⚠ **빌드**(dist/100y)를 잰다 — 라이브가 아니다');
 
 const puppeteer = (await import(pathToFileURL(퍼핏).href)).default;
 const 브라우저 = await puppeteer.launch({
@@ -194,7 +210,8 @@ try {
     const 창 = await 브라우저.newPage();
     try {
       await 창.setViewport({ width: 폰너비, height: 760, deviceScaleFactor: 1, isMobile: true });
-      await 창.goto(밑주소 + 길, { waitUntil: 'load', timeout: 30000 });
+      const 답 = await 창.goto(주소만들기(길), { waitUntil: 'load', timeout: 30000 });
+      if (답 && 답.status() !== 200) throw new Error(`${답.status()} — 나가 있지 않다`);
       /* 🔴 옷을 입었는지부터 본다. 안 입은 지면을 재면 **전부 거짓으로 운다** */
       const 옷 = await 창.evaluate(() => getComputedStyle(document.body).backgroundColor);
       if (옷 === 'rgba(0, 0, 0, 0)' || 옷 === 'transparent')
