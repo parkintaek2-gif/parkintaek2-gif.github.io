@@ -1,0 +1,384 @@
+    /* ─────────────────────────────────────────────────────────
+       색 — klifemap.ai 와 같은 값 (klifemap/public/index.html)
+       ⚠ 이름은 백년지도가 쓰던 것을 그대로 둔다(--ink/--card/--accent…).
+         페이지 30여 곳이 이 이름을 쓰고 있어, 이름을 바꾸면 다 고쳐야 한다.
+       ───────────────────────────────────────────────────────── */
+    :root {
+      color-scheme: dark;
+      --paper: #141821;
+      --line: #262b36;
+      --line-soft: #1d222c;
+      --gold: #c9a84c;
+      --gold-deep: #a07830;
+      --gold-text: #bf9d45;
+      --gold-pale: #e8d9a8;
+
+      /* 백년지도가 쓰던 이름 → klifemap 값으로 잇는다 */
+      --bg: #0b0d12;
+      --ink: #e9e9ee;
+      --muted: #9aa0ac;
+      --faint: #8e95a1;
+      --card: #141821;
+      --accent: #c9a84c;
+      --warn: #d3a24a;
+
+      /* ⭐ 글자 크기 체계 — 제목 > 부제1 > 부제2 > 본문 = 표 */
+      --fs-title: clamp(27px, 6.2vw, 46px);
+      --fs-sub1: clamp(21px, 4.6vw, 30px);
+      --fs-sub2: 16px;
+      --fs-body: 15px;
+      --fs-note: 13px; /* 위계 밖 — 출처·주석 */
+
+      --serif: 'Noto Serif KR', serif;
+      --sans: 'Noto Sans KR', system-ui, -apple-system, 'Malgun Gothic', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; background: var(--bg); }
+    body {
+      background: var(--bg); color: var(--ink);
+      font-family: var(--sans);
+      font-size: var(--fs-body);
+      line-height: 1.8;
+      word-break: keep-all; /* 한글 필수 */
+    }
+    /* klifemap 은 .maxw 1080px 이지만 본문은 600~700px 로 잡는다.
+       읽는 글이 1080px 로 늘어지면 한 줄이 너무 길어진다 — klifemap 도 .lead 를 700px 로 묶는다 */
+    .wrap { max-width: 720px; margin: 0 auto; padding: 28px 20px 72px; }
+    a { color: var(--gold); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* 머리말 — 탭 영역 44px (스토리보드 §11) */
+    .nav {
+      display: flex; align-items: center; gap: 18px; min-height: 44px;
+      font-size: 14px; border-bottom: 1px solid var(--line-soft); padding-bottom: 14px;
+      /* ⚠ 칸이 하나 늘자(「대학 이후」) 375px 에서 **낱말 안에서 줄이 갈렸다** —
+         「대학 / 이후」와 「대학 / 찾기」가 세로로 겹쳐 무슨 메뉴인지 안 보였다.
+         칸은 통째로 두고 **줄만 넘긴다.** */
+      /* ⚠ row-gap 을 0 으로 내렸다 — 아래에서 칸마다 44px 을 주므로 사이는 이미 벌어져 있다.
+         6px 을 그대로 두면 네 줄짜리 메뉴가 24px 더 길어져 검색창이 첫 화면 밖으로 밀린다 */
+      flex-wrap: wrap; row-gap: 0;
+    }
+    /* 🔴 **짚는 자리를 44px 로** (2026-08-09 05:2x 실측 · 사장님 지시로 남아 있던 항목).
+       ```
+       메뉴 아홉 칸  23px   ⛔  로고 34px  ⛔   꼬리말 일곱 19~21px  ⛔
+       ```
+       ⚠ 스토리보드 §11 이 「탭 영역 최소 44×44px」이라 적어 두고 `.nav` **통**에만 걸어 뒀다.
+         칸이 한 줄이던 시절엔 그게 곧 칸 높이였는데, 칸이 열로 늘어 **네 줄로 접히면서**
+         통은 124px 인데 **칸 하나는 23px** 이 됐다. 통을 재고 칸을 안 쟀다.
+       ⛔ 히트영역만 `::after` 로 넓히지 않는다 — 접힌 줄끼리 겹쳐 옆 칸이 눌린다. */
+    .nav a {
+      color: var(--muted); white-space: nowrap;
+      display: inline-flex; align-items: center; min-height: 44px;
+    }
+    .nav a:hover { color: var(--gold); text-decoration: none; }
+    /* 두 줄 로고 — 위는 금색, 아래는 흰색 (사장님 지시 2026-08-05) */
+    .logo { display: inline-flex; flex-direction: column; line-height: 1.05; }
+    .logo:hover { text-decoration: none; }
+    .logo-ko {
+      font-family: var(--serif); font-weight: 900; font-size: 19px;
+      letter-spacing: -.5px; color: var(--gold);
+    }
+    .logo-sub {
+      font-family: var(--sans); font-weight: 700; font-size: 10.5px;
+      letter-spacing: 2.2px; text-indent: 2.2px; color: var(--ink);
+      margin-top: 3px;
+    }
+    /* 한글 밑줄은 자간을 좁힌다 — 2.2px 는 영문 대문자 기준이라 한글에서는 흩어져 보인다 */
+    .logo-sub.ko { letter-spacing: .6px; text-indent: .6px; }
+
+    /* ⭐ 위계 — 이 넷 말고 다른 크기를 새로 만들지 않는다 */
+    h1 { font-family: var(--serif); font-weight: 900; font-size: var(--fs-title);
+         line-height: 1.35; letter-spacing: -.5px; margin: 32px 0 10px; }
+    h2 { font-family: var(--serif); font-weight: 900; font-size: var(--fs-sub1);
+         line-height: 1.45; margin: 44px 0 14px; }
+    h3 { font-family: var(--serif); font-weight: 700; font-size: var(--fs-sub2);
+         line-height: 1.6; margin: 24px 0 8px; }
+    p { font-size: var(--fs-body); margin: 0 0 16px; }
+    strong { font-weight: 700; color: var(--gold-pale); }
+
+    /* ⭐ 넓은 화면에서만 줄을 끊는다 (사장님 지시 2026-08-05).
+       두 문장짜리 제목이 PC 에서 한 줄로 길게 늘어져 보기 나빴다.
+       ⚠ 모바일에서는 감춘다 — 거기서는 브라우저가 알아서 접고, 억지 줄바꿈이 겹치면 더 나빠진다.
+          그래서 `<br>` 를 넣는 게 아니라 **넓을 때만 보이게** 한다. */
+    .pcbr { display: none; }
+    @media (min-width: 40rem) { .pcbr { display: inline; } }
+
+    .sub { color: var(--muted); font-size: var(--fs-body); line-height: 1.85; margin: 0 0 28px; }
+    .note { font-size: var(--fs-note); color: var(--muted); line-height: 1.75; }
+    .rule { border: 0; border-top: 1px solid var(--line-soft); margin: 40px 0; }
+    .card {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 16px; padding: 20px 22px; margin: 0 0 16px;
+    }
+    /* klifemap 의 눈썹 글씨 — 금색 소문자 라벨 */
+    .label { font-size: 11px; letter-spacing: 2.5px; color: var(--gold); font-weight: 700; }
+
+    /* 표 — ⭐ 본문과 **같은 크기**다. 표는 우리 콘텐츠의 몸통이지 각주가 아니다.
+       표만 가로로 민다. 본문은 안 밀린다 */
+    .tablewrap { overflow-x: auto; margin: 16px 0; }
+    table { width: 100%; border-collapse: collapse; font-size: var(--fs-body); }
+    th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-size: 11px; letter-spacing: 1.5px; color: var(--gold-text); font-weight: 700; }
+    /**
+     * 🔴 **표 칸 안의 링크가 15px 이었다** (2026-08-09 05:3x · 375px 실측).
+     *
+     *   지역 한 벌의 학교 이름 26개가 그랬다. `th` 가 11px 짜리 눈썹 글씨라
+     *   그 안의 링크까지 같이 작아졌다 — **표에서 학교로 들어가는 유일한 길**인데
+     *   이 지면에서 가장 짚기 어려운 자리였다.
+     *
+     * ⚠ `:only-child` 로 가른다. 문장 속에 섞인 링크는 그대로 둔다 —
+     *   거기까지 키우면 표 줄 사이가 들쭉날쭉해진다.
+     */
+    th > a:only-child, td > a:only-child {
+      display: inline-flex; align-items: center; min-height: 44px;
+    }
+
+    /* 🔴 파는 지면으로 가는 길 — 폰에서 **19px 짜리 글줄**이었다(2026-08-08 15:3x 실측).
+       손가락으로 짚는 곳은 44px 이 권장이다. 여기가 우리 물건으로 가는 유일한 문이라
+       가장 짚기 어려운 자리가 가장 중요한 자리였다. */
+    a.gotoarea {
+      display: inline-flex; align-items: center; min-height: 44px;
+      font-weight: 700;
+    }
+
+    details > summary {
+      cursor: pointer; min-height: 44px; display: flex; align-items: center;
+      font-size: var(--fs-body); color: var(--muted);
+    }
+    details > summary:hover { color: var(--gold); }
+
+    /* ─────────────────────────────────────────────────────────
+       ❶ 한 줄 답 · ❷ 숫자 칸 · ⚠ 경고
+       ⚠ 여기 한 곳에만 둔다. 페이지마다 복사하면 새 지면에서 스타일이 빠진다
+         (대학 지면 377장이 실제로 그랬다, 2026-08-04)
+       ───────────────────────────────────────────────────────── */
+    .answer {
+      background: var(--paper); border: 1px solid var(--line);
+      border-left: 3px solid var(--gold);
+      border-radius: 16px; padding: 20px 22px; margin: 0 0 24px;
+    }
+    .answer-label { font-size: var(--fs-note); color: var(--muted); margin: 0; }
+    .answer-num {
+      font-family: var(--serif); font-weight: 900;
+      font-size: clamp(34px, 11vw, 52px); line-height: 1.1;
+      letter-spacing: -1px; color: var(--gold); margin: 6px 0;
+    }
+    .answer-sub { font-size: var(--fs-note); color: var(--muted); margin: 0; }
+
+    .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 0 0 14px; }
+    .num {
+      background: var(--paper); border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 8px; text-align: center;
+    }
+    .num .n {
+      display: block; font-family: var(--serif); font-weight: 900;
+      font-size: clamp(18px, 5vw, 24px); letter-spacing: -.5px; color: var(--gold-pale);
+    }
+    .num .k { display: block; font-size: 11px; color: var(--faint); margin-top: 4px; letter-spacing: .5px; }
+    .num.drop .n { color: var(--warn); }
+
+    .warn {
+      font-size: var(--fs-note); color: var(--warn); line-height: 1.75;
+      background: rgba(211, 162, 74, .08);
+      border: 1px solid rgba(211, 162, 74, .2);
+      border-radius: 12px; padding: 12px 14px; margin: 0 0 20px;
+    }
+    .warn strong { color: var(--warn); }
+
+    /* 국책연구 목록 — /research 와 대학·학과 지면이 같이 쓴다.
+       ⚠ 지면마다 따로 두지 않는다. 2026-08-04 에 `.answer`·`.nums` 를 지면마다 두었다가
+          대학 377장이 통째로 민얼굴로 나간 적이 있다. 공용은 여기 한 곳이다. */
+    .papers { list-style: none; padding: 0; margin: 0 0 20px; }
+    .papers li { padding: 9px 0; border-bottom: 1px solid var(--line); }
+    .papers li a { display: inline-flex; align-items: center; font-size: var(--fs-body); min-height: 44px; }
+    /* 저자·날짜는 제목 아래로 내린다 — 제목이 길어 옆에 붙이면 줄이 엉킨다 */
+    .papers li .note { display: block; margin-top: 2px; }
+
+    footer {
+      margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--line-soft);
+      font-size: var(--fs-note); color: var(--faint);
+    }
+    footer strong { color: var(--muted); }
+    /* 꼬리말 링크 일곱이 19~21px 이었다. 여기에 약관·개인정보·환불·값이 있다 —
+       「사도 되는 곳인가」를 보는 자리라 짚기 어려우면 안 된다.
+       ⚠ `vertical-align: middle` 이 없으면 inline-flex 가 글줄 기준선을 밀어 줄이 어긋난다 */
+    footer a { display: inline-flex; align-items: center; min-height: 44px; vertical-align: middle; }
+
+    /* ─────────────────────────────────────────────────────────
+       ⭐ **혼자 선 링크 한 줄**과 **목록 속 링크** — 여기도 44px 이다.
+       ```
+       「학과 925개 전부 보기 →」  19px      「조리과」 목록 925줄  27px
+       ```
+       ⚠ `.note` 안에 글과 섞여 있는 링크는 건드리지 않는다(`:only-child` 로 가른다).
+         문장 한가운데 링크를 44px 로 만들면 줄 사이가 들쭉날쭉해진다.
+       ───────────────────────────────────────────────────────── */
+    .note > a:only-child { display: inline-flex; align-items: center; min-height: 44px; }
+    /* 🔴 미리보기에서 **가린 칸**. class 이름은 `price.ts` 의 `미리보기.가린곳표시` 와 같아야 한다
+       (JSON-LD 가 이 선택자를 구글에 그대로 알려 준다 — 다르면 거짓말이 된다).
+       ⚠ 흐리게만 하지 않는다. 흐린 글씨는 **읽히는 수**다 —
+         지면에 아예 안 넣고 「가려짐」이라는 **다른 글자**를 넣는다. */
+    td.paywall { color: var(--faint); font-size: var(--fs-note); letter-spacing: .5px; }
+
+    /* 링크만 「·」로 늘어놓은 한 줄. `:only-child` 로는 못 가르므로 **표시를 붙여** 가른다 */
+    .linkrow a { display: inline-flex; align-items: center; min-height: 44px; vertical-align: middle; }
+    .majors li > a { display: inline-flex; align-items: center; min-height: 44px; }
+
+    /* ─────────────────────────────────────────────────────────
+       폰 — 🔴 **파는 표의 세 칸이 화면 밖에 있었다** (2026-08-08 15:3x 실측)
+
+       2번 지시로 폰 너비(375px)에서 사는 길을 처음부터 끝까지 걸어 봤다.
+       파는 지면(강남구 21곳)에서 이랬다.
+
+       ```
+       감싼 칸 324px  ·  표 480px
+       보이는 칸   학교 · 갈래
+       ⛔ 밖에 있던 칸   졸업생 · 진학 · 그 밖
+       ```
+
+       🔴 **진학률과 「그 밖」이 이 지면이 파는 것**이다. 그게 안 보였다.
+       ⚠ `.tablewrap` 에 `overflow-x:auto` 가 있어 **지면은 안 넘쳤다.**
+         그래서 「가로 넘침 0」 검사는 통과였다. 표 안에서만 잘려 있었으니
+         **자는 조용했고 물건만 안 보였다.**
+       ⛔ 옆으로 밀 수 있다는 표시도 없었다. 미는 줄 모르면 없는 것과 같다.
+
+       고친 뒤 같은 자리에서 다시 쟀다 — **표 480px → 324px · 다섯 칸 다 보인다.**
+       ⚠ 이름이 긴 학교는 두 줄로 접힌다(단국대학교부속소프/트웨어고등학교).
+         낱말 가운데서 갈리지만, **안 보이는 것보다 접히는 편이 낫다.**
+       ───────────────────────────────────────────────────────── */
+    @media (max-width: 480px) {
+      .wrap { padding: 20px 16px 56px; }
+      .nav { gap: 14px; font-size: 13px; }
+
+      .tablewrap table { font-size: 13px; }
+      .tablewrap th, .tablewrap td { padding: 7px 4px; }
+      .tablewrap th { font-size: 10px; letter-spacing: 0.5px; }
+      /* 이름 칸만 낱말 가운데서 접는다. 숫자 칸은 접히면 못 읽는다 */
+      .tablewrap th:first-child, .tablewrap td:first-child { overflow-wrap: anywhere; }
+    }
+
+    /* ─────────────────────────────────────────────────────────
+       인쇄 — ⚠ 이게 없어서 **종이에서 글자가 사라지고 있었다** (2026-08-05)
+
+       1번이 회람 문서에 「금색 #c9a84c 는 종이에서 대비 2.1」이라고 적어 준 덕에 알았다.
+       재 보니 우리 색 여섯이 **흰 종이에서 전부 낙제**였다.
+       ```
+       금 2.29 · 금연 1.41 · 본문 1.21 · 흐림 2.63     (읽히려면 4.5)
+       ```
+       백년지도는 **학부모가 뽑아서 아이와 같이 보는** 지면이다. 다크 한 벌만 만든 것이 잘못이었다.
+
+       ⛔ `print-color-adjust: exact` 로 배경을 강제로 찍게 하지 않는다.
+          잉크를 아끼려는 사람의 설정을 우리가 뒤집을 이유가 없다.
+          대신 **배경색에 기대지 않는 표현**으로 바꾼다 —
+          1번이 겪은 「배경색으로만 그린 막대가 인쇄에서 통째로 사라졌다」가 그 이유다.
+
+       ⚠ `<details>` 를 **펼친다.** 출처가 접혀 있으면 종이에서는 영영 안 보인다.
+          우리 지면의 값은 「이 숫자가 어디서 왔나」에 있는데 그게 사라지면 안 된다.
+       ───────────────────────────────────────────────────────── */
+    @media print {
+      :root {
+        --bg: #ffffff;
+        --paper: #ffffff;
+        --card: #ffffff;
+        --ink: #14171c;      /* 대비 17.96 */
+        --muted: #5b626c;    /* 대비  6.16 */
+        --faint: #5b626c;
+        --gold: #6e5312;     /* 대비  7.22 — 금색을 종이에서 읽히는 톤으로 내린다 */
+        --gold-text: #6e5312;
+        --gold-pale: #14171c;
+        --gold-deep: #6e5312;
+        --warn: #6e5312;
+        --line: #c9ced6;
+        --line-soft: #dde1e7;
+      }
+      @page { margin: 16mm 14mm; }
+
+      html, body { background: #fff; }
+      body { font-size: 10.5pt; line-height: 1.6; }
+      .wrap { max-width: none; padding: 0; }
+
+      /* 종이에서 누를 수 없는 것은 지운다 */
+      .nav, input, button, form, .chips, .dl { display: none !important; }
+
+      /* 접힌 것을 전부 편다 — 출처가 이 안에 있다 */
+      details { display: block; }
+      details > summary { display: none; }
+      details > * { display: revert; }
+
+      a { color: var(--ink); text-decoration: underline; }
+      h1 { font-size: 20pt; margin: 0 0 6pt; }
+      h2 { font-size: 14pt; margin: 14pt 0 5pt; }
+      h3 { font-size: 11.5pt; }
+      strong { color: var(--ink); }
+
+      /* 배경에 기대지 않는다 — 테두리로 구분한다 */
+      .card { border: 1px solid var(--line); border-radius: 0; padding: 8pt 10pt; }
+      .answer { border: 1px solid var(--line); border-left: 3pt solid var(--gold); border-radius: 0; padding: 8pt 10pt; }
+      .answer-num { color: var(--ink); font-size: 26pt; }
+      .num { border: 1px solid var(--line); border-radius: 0; padding: 6pt 4pt; }
+      .num .n { color: var(--ink); font-size: 13pt; }
+      .warn {
+        background: none; border: 0; border-left: 2pt solid var(--gold);
+        border-radius: 0; padding: 4pt 0 4pt 8pt; color: var(--ink);
+      }
+      .tablewrap { overflow: visible; }
+      th { color: var(--ink); }
+
+      /* 쪽 넘김 — 제목만 남고 내용이 다음 장으로 넘어가지 않게 */
+      h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
+      tr, .num, .answer, .card { break-inside: avoid; page-break-inside: avoid; }
+
+      /* 종이만 보고도 다시 찾아올 수 있게 주소를 찍는다 */
+      .printurl { display: block !important; margin-top: 10pt; font-size: 8.5pt; color: var(--muted); }
+      footer { margin-top: 16pt; padding-top: 8pt; color: var(--muted); }
+    }
+    /* 화면에서는 숨긴다 */
+    .printurl { display: none; }
+
+/* ── 퍼짐 띠 — 시·군·구 한 벌 지면(/report/area/…) ─────────────────────
+   ⛔ **등수를 그리지 않는다.** 점이 놓인 자리만 보인다.
+   ⚠ 점이 겹칠 수 있다. 겹치는 것도 정보다(그 구간에 학교가 몰려 있다는 뜻) —
+     억지로 벌리면 자리가 거짓이 된다. 반투명으로 두어 겹침이 진하게 보이게 한다. */
+.spread { margin: 14px 0 6px; }
+.spread-line {
+  position: relative;
+  height: 34px;
+  border-bottom: 1px solid var(--line);
+}
+.spread-dot {
+  position: absolute;
+  bottom: -5px;
+  width: 9px;
+  height: 9px;
+  margin-left: -4.5px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0.72;
+}
+.spread-ends {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+@media print {
+  .spread-dot { background: #000; opacity: 1; }
+  .spread-line { border-bottom: 1pt solid #000; }
+}
+
+/* ── 값표 — 지역 한 벌 파는 지면 ────────────────────────────────────
+   ⚠ 눈에 띄어야 하지만 **겁을 주지 않는다.** 테두리 하나와 여백뿐이다.
+   ⛔ 빨간 배경·깜빡임·「지금 바로」를 쓰지 않는다. 우리가 파는 것은 침착함이다. */
+.pricebox {
+  margin: 34px 0 10px;
+  padding: 18px 16px 10px;
+  border: 1px solid var(--gold-deep);
+  border-radius: 2px;
+}
+.pricebox h2 { margin-top: 0; }
+.pricebox h3 { margin-bottom: 6px; }
+.pricebox .answer-num { margin: 6px 0 2px; }
+/* ⚠ 「한 벌에 든 것」 목록과 「곧 엽니다」 사이가 **0px 이었다**(2026-08-08 15:4x · 375px 실측).
+   붙어 있으니 다음 칸 안내가 **목록의 여섯째 줄**로 읽혔다. 사는 이야기가 시작되는 자리다 */
+.pricebox ul + p { margin-top: 18px; }
