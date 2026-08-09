@@ -1,0 +1,211 @@
+{
+ "generated": "2026-08-09T03:08:17.974Z",
+ "source": "Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number",
+ "question": "A Korean title leaves a country's top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?",
+ "unit": "One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market's top 10, between two weeks in which it is present.",
+ "thresholdNote": "Four weeks is our threshold, not Netflix's. The table of other thresholds is published beside the result so the choice can be judged rather than trusted.",
+ "cannotAnswer": "Nothing here says why a title came back. A local holiday, a cast member in the news, a promotion slot, or simply a slow week in that market would all look identical. Netflix publishes the position and the season label, not the reason.",
+ "weekFrom": "2021-07-04",
+ "weekTo": "2026-07-26",
+ "marketCount": 93,
+ "koreanRows": 37750,
+ "seasonLabelledRows": 29791,
+ "seasonLabelPc": 78.9,
+ "cellsMeasured": 6991,
+ "contiguousCells": 5902,
+ "thresholdWeeks": 4,
+ "nearbyWeeks": 4,
+ "gaps": 940,
+ "seasonChanged": 425,
+ "seasonChangedPc": 45.2,
+ "sameSeason": 310,
+ "sameSeasonPc": 33,
+ "unknownSeason": 205,
+ "unknownSeasonPc": 21.8,
+ "pulledByOtherSeason": 16,
+ "pulledByOtherSeasonPc": 5.2,
+ "alone": 294,
+ "alonePc": 94.8,
+ "thresholds": [
+  {
+   "weeks": 2,
+   "gaps": 1096,
+   "sameSeason": 444,
+   "seasonChanged": 430,
+   "unknown": 222
+  },
+  {
+   "weeks": 3,
+   "gaps": 989,
+   "sameSeason": 353,
+   "seasonChanged": 425,
+   "unknown": 211
+  },
+  {
+   "weeks": 4,
+   "gaps": 940,
+   "sameSeason": 310,
+   "seasonChanged": 425,
+   "unknown": 205
+  },
+  {
+   "weeks": 6,
+   "gaps": 898,
+   "sameSeason": 275,
+   "seasonChanged": 425,
+   "unknown": 198
+  },
+  {
+   "weeks": 8,
+   "gaps": 849,
+   "sameSeason": 234,
+   "seasonChanged": 424,
+   "unknown": 191
+  },
+  {
+   "weeks": 12,
+   "gaps": 776,
+   "sameSeason": 187,
+   "seasonChanged": 412,
+   "unknown": 177
+  }
+ ],
+ "longestReturns": [
+  {
+   "title": "Juvenile Justice",
+   "market": "Bangladesh",
+   "iso2": "BD",
+   "gapWeeks": 223,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Bolivia",
+   "iso2": "BO",
+   "gapWeeks": 219,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Hong Kong",
+   "iso2": "HK",
+   "gapWeeks": 219,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Indonesia",
+   "iso2": "ID",
+   "gapWeeks": 220,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Malaysia",
+   "iso2": "MY",
+   "gapWeeks": 219,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Peru",
+   "iso2": "PE",
+   "gapWeeks": 221,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Philippines",
+   "iso2": "PH",
+   "gapWeeks": 220,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Qatar",
+   "iso2": "QA",
+   "gapWeeks": 222,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "Singapore",
+   "iso2": "SG",
+   "gapWeeks": 220,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  },
+  {
+   "title": "Juvenile Justice",
+   "market": "United Arab Emirates",
+   "iso2": "AE",
+   "gapWeeks": 223,
+   "season": "Juvenile Justice: Season 1",
+   "pulledByOtherSeason": false
+  }
+ ],
+ "returnTitles": [
+  "A Korean Odyssey",
+  "Alchemy of Souls",
+  "All For Love",
+  "All of Us Are Dead",
+  "Black Knight",
+  "Bloodhounds",
+  "Boys Over Flowers",
+  "Breathless",
+  "Business Proposal",
+  "Crash Landing on You",
+  "D.P.",
+  "Extraordinary Attorney Woo",
+  "First Lady",
+  "Forecasting Love and Weather",
+  "Guardian: The Lonely and Great God",
+  "Gyeongseong Creature",
+  "Hometown Cha-Cha-Cha",
+  "Hotel Del Luna",
+  "I am Solo",
+  "Juvenile Justice",
+  "King the Land",
+  "Little Women",
+  "Love (ft. Marriage and Divorce)",
+  "Mad for Each Other",
+  "Mercy For None",
+  "Miss Night and Day",
+  "Money Heist: Korea - Joint Economic Area",
+  "Monster",
+  "Mr. Sunshine",
+  "My Demon",
+  "My Mister",
+  "Our Unwritten Seoul",
+  "Pinocchio",
+  "Prison Playbook",
+  "Queen of Tears",
+  "Racket Boys",
+  "Reply 1988",
+  "Safe",
+  "Solo Leveling",
+  "Squid Game",
+  "Tale of the Nine Tailed",
+  "Taxi Driver",
+  "The 8 Show",
+  "The Glory",
+  "The King's Affection",
+  "The Penthouse: War in Life",
+  "The Promise",
+  "The Trauma Code: Heroes on Call",
+  "The Uncanny Counter",
+  "The World of the Married",
+  "Thirty-Nine",
+  "True Beauty",
+  "Undercover Miss Hong",
+  "Vincenzo"
+ ]
+}
