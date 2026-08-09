@@ -41,6 +41,12 @@ const {
   ogImage = 'https://www.kculturewire.com/og.png',
 } = Astro.props;
 const 제목 = `${title} | K Culture Wire`;
+/**
+ * 인용 문구에 넣을 해.
+ * ⛔ `new Date()` 를 안 쓴다 — 빌드할 때마다 바뀌면 **같은 지면이 어제와 다른 인용을 준다.**
+ *    검사가 「지면이 수를 손으로 박았나」를 볼 때도 흔들린다. 한 해 한 번 여기를 고친다.
+ */
+const 인용연도 = 2026;
 ---
 
 {/* prettier-ignore */}
@@ -111,6 +117,10 @@ const 제목 = `${title} | K Culture Wire`;
     footer { margin-top: 4rem; padding-top: 1.25rem; border-top: 1px solid var(--line);
              color: var(--muted); font-size: .84rem; }
     footer a { color: var(--muted); }
+    /* 인용 안내. 조용히 두되 복사할 줄만 또렷하게 */
+    .cite { font-size: .82rem; }
+    .cite-line { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem;
+                 color: var(--ink); word-break: break-word; }
     /* 표·코드가 지면을 밀지 않게 각자 스크롤한다 */
     .scroll-x { overflow-x: auto; }
     @media print {
@@ -169,6 +179,24 @@ const 제목 = `${title} | K Culture Wire`;
         <span aria-hidden="true"> · </span><a href="/privacy">Cookies</a>
         <span aria-hidden="true"> · </span><a href="/terms">Terms</a>
         <span aria-hidden="true"> · </span><a href="/refund">Refunds</a>
+      </p>
+      {/*
+        🔴 2026-08-09 19:2x — 사장님 경고(「핑계를 찾지 마라 · 막은 적이 있어야 까닭이다」)에
+          내 「채널 계정이 없어 0건 나갔다」를 다시 대 봤다. 그 말은 참이다(문안 189개가 못 나갔다).
+          ⛔ 그런데 **계정 없이 손님이 오는 통로**를 다 챙겼는지는 안 봤었다. 재 보니 —
+             RSS ✅ (head alternate · 눈에 보이는 길 · 글 64편)
+             내려받을 파일 ❌ 0개
+             **인용 안내 ❌ 없음**
+          ⭐ 데이터 매체가 계정 없이 손님을 얻는 길은 **남이 우리 수를 쓰고 우리를 거는 것**이다.
+             그러려면 어떻게 걸어야 하는지가 화면에 있어야 한다. 그게 없었다.
+          ⛔ 지면마다 손으로 붙이지 않는다. 틀에 한 번 둔다.
+      */}
+      <p class="cite">
+        <b>Citing this page.</b> Every figure here is measured from named public sources and the
+        method is on <a href="/about">how we count</a>. Please cite as
+        {' '}<span class="cite-line">K Culture Wire, <em>{title}</em>, {인용연도},
+        {' '}{canonical ?? 'https://www.kculturewire.com'}</span> — and if a number here is wrong,
+        {' '}<a href="/contact">tell us</a> and it goes on <a href="/corrections">corrections</a>.
       </p>
       {/*
         ⚠ 다른 두 사이트로 나가는 링크. 사장님 지시 —

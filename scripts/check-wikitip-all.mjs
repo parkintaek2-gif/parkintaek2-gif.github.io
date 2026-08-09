@@ -70,6 +70,8 @@ const 검사 = [
   ['반 칸 — 기사가 자료와 맞나', 'check-siblings-article.mjs'],
   ['하나의 줄 — 기사가 자료와 맞나', 'check-lead-lag-article.mjs'],
   ['자리가 못 말하는 것 — 기사가 자료와 맞나', 'check-rank-tells-article.mjs'],
+  /* 🔴 사장님 경고(막은 적이 있어야 까닭이다) 뒤에 만들었다 — 계정 없이 손님이 올 통로 */
+  ['남이 우리를 인용할 수 있나', 'check-citable.mjs'],
   ['우리 수의 얼마가 확인된 것인가 — 기사가 자료와 맞나', 'check-confirmation-article.mjs'],
   /* 🔴 2026-08-09 07:2x — 이 자는 **있었는데 전체검사에 안 걸려 있었다.**
      dek 이 넘쳐 공유 빌드를 세 번째로 막고서야 알았다. 자가 없던 게 아니라 안 돌렸다 */
