@@ -74,15 +74,27 @@ if (내가실행됐다) {
     }
   };
   걷는다('.');
+  /*
+   * 🔴 2026-08-10 02:0x — **첫 화면 한 장이 안 보이고 있었다.**
+   *   `astro.config.mjs` 가 `build: { format: 'file' }` 이라 `pages/wikitip/index.astro` 는
+   *   `dist/wikitip/index.html` 이 아니라 **`dist/wikitip.html`**(한 칸 위)로 나온다.
+   *   ⛔ 그래서 첫 화면에서 걸어 들어가는 셈이 통째로 헛돌았다 — 「747장 못 닿음」이 나왔다.
+   *   ⚠ 라이브 `/` 는 200 이고 링크가 61개다. **없던 게 아니라 내 자가 딴 데를 봤다.**
+   */
+  const 첫화면파일 = `${지음방}.html`;
+  const 첫화면있다 = fs.existsSync(첫화면파일);
   if (!파일들.length) {
     console.log('⬜ dist 가 비었다 — 다른 창이 빌드 중일 수 있다. 다시 짓고 부른다.');
     process.exit(1);
   }
 
   const 들어오는길 = new Map(파일들.map((f) => [주소(f), 0]));
-  for (const f of 파일들) {
-    const 나 = 주소(f);
-    const 본것 = new Set(링크들(fs.readFileSync(`${지음방}/${f}`, 'utf8')));
+  if (첫화면있다) 들어오는길.set('/', 0);
+  const 볼것들 = [...파일들.map((f) => ({ 길: 주소(f), 파일: `${지음방}/${f}` }))];
+  if (첫화면있다) 볼것들.push({ 길: '/', 파일: 첫화면파일 });
+  for (const v of 볼것들) {
+    const 나 = v.길;
+    const 본것 = new Set(링크들(fs.readFileSync(v.파일, 'utf8')));
     for (const h of 본것) {
       if (h === 나) continue;                       /* ⛔ 자기 자신은 안 센다 */
       if (들어오는길.has(h)) 들어오는길.set(h, 들어오는길.get(h) + 1);
@@ -101,16 +113,53 @@ if (내가실행됐다) {
   }
   const 가운데 = (a) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
 
-  /* 🔴 길이 0 인 지면은 **고아**다. 사이트맵에만 있으면 구글은 그것을 가장 약한 신호로 본다 */
-  const 고아 = [...들어오는길].filter(([, n]) => n === 0).map(([p]) => p);
-  if (고아.length) {
-    const sm = fs.existsSync(`${지음방}/sitemap.xml`) ? fs.readFileSync(`${지음방}/sitemap.xml`, 'utf8') : '';
-    console.log(`🔴 어느 지면에서도 안 걸리는 고아 ${고아.length}장`);
-    for (const p of 고아) {
-      console.log(`   ${p}   (사이트맵에 ${sm.includes(`kculturewire.com${p}<`) ? '있다 — 구글은 여기서만 안다' : '없다 — 아무 데서도 안 보인다'})`);
-    }
-    console.log('');
+  /*
+   * 🔴 2번 지시(02:2x) — **딱 하나를 잰다: 사이트맵에는 있는데 어느 지면에서도 안 걸린 장이 몇인가.**
+   *   ⛔ dist 전체가 아니라 **사이트맵 기준**이다. 우리가 「구글아 와서 보라」고 낸 목록이 그것이다.
+   */
+  const sm = fs.existsSync(`${지음방}/sitemap.xml`) ? fs.readFileSync(`${지음방}/sitemap.xml`, 'utf8') : '';
+  const 사이트맵길 = [...sm.matchAll(/<loc>https:\/\/www\.kculturewire\.com([^<]*)<\/loc>/g)]
+    .map((m) => (m[1] || '/').replace(/\/$/, '') || '/');
+  const 사이트맵고아 = 사이트맵길.filter((p) => (들어오는길.get(p) ?? 0) === 0);
+  const 사이트맵인데지면없음 = 사이트맵길.filter((p) => !들어오는길.has(p));
+
+  console.log('🔴 2번이 물으신 수 — **사이트맵에 있는데 어느 지면에서도 안 걸린 장**');
+  console.log(`   **고아 ${사이트맵고아.length}장 / 사이트맵 ${사이트맵길.length}장**`);
+  if (사이트맵인데지면없음.length) {
+    console.log(`   ⚠ 그중 ${사이트맵인데지면없음.length}장은 **지은 것 자체가 없다** — ${사이트맵인데지면없음.slice(0, 5).join(' · ')}`);
   }
+  for (const p of 사이트맵고아.slice(0, 10)) console.log(`     ${p}`);
+  console.log('');
+
+  /*
+   * ⭐ 고아가 없어도 **깊으면 늦게 온다.** 크롤러는 첫 화면에서 링크를 타고 들어온다.
+   *   그래서 첫 화면에서 **몇 번 만에 닿나**를 같이 잰다. 고아 수만으로는 절반이다.
+   */
+  const 깊이 = new Map([['/', 0]]);
+  const 줄서기 = ['/'];
+  const 링크캐시 = new Map();
+  for (const f of 파일들) 링크캐시.set(주소(f), `${지음방}/${f}`);
+  if (첫화면있다) 링크캐시.set('/', 첫화면파일);
+  while (줄서기.length) {
+    const 지금 = 줄서기.shift();
+    const f = 링크캐시.get(지금);
+    if (!f) continue;
+    for (const h of new Set(링크들(fs.readFileSync(f, 'utf8')))) {
+      if (깊이.has(h) || !들어오는길.has(h)) continue;
+      깊이.set(h, 깊이.get(지금) + 1);
+      줄서기.push(h);
+    }
+  }
+  const 깊이별 = new Map();
+  for (const p of 사이트맵길) {
+    const d = 깊이.has(p) ? 깊이.get(p) : '못 닿음';
+    깊이별.set(d, (깊이별.get(d) ?? 0) + 1);
+  }
+  console.log('첫 화면에서 몇 번 만에 닿나 (사이트맵 기준)');
+  for (const [d, n] of [...깊이별].sort((a, b) => (typeof a[0] === 'number' ? a[0] : 99) - (typeof b[0] === 'number' ? b[0] : 99))) {
+    console.log(`   ${String(d).padStart(6)}번  ${String(n).padStart(4)}장`);
+  }
+  console.log('');
 
   console.log(`지은 지면 ${파일들.length}장 — **들어오는 길** 수\n`);
   console.log('갈래          장수   가운데   길 0인 것   길 1인 것');
