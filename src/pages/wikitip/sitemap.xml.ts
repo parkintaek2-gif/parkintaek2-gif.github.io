@@ -101,6 +101,8 @@ export const GET: APIRoute = async () => {
     { path: '/leverage', priority: '0.9', changefreq: 'weekly' },
     /* 67편째 기사의 표. 2026-08-09 23:2x — 들어오는 것만 재 왔다. **나가는 자리**를 처음 잰다 */
     { path: '/exit', priority: '0.9', changefreq: 'weekly' },
+    /* 68편째 기사의 표. 2026-08-10 00:4x — 작품은 26.4% 줄었는데 자리는 안 줄었다 */
+    { path: '/fewer-titles', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

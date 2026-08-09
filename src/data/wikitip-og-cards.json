@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "a-quarter-fewer-titles": {
+   "figure": "26.4%",
+   "label": "fewer Korean titles charted than in 2022",
+   "왜": "자동은 「276 — Korean titles charted somewhere in 2022」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 줄어든 몫이다"
+  },
   "how-a-title-leaves": {
    "figure": "70.3%",
    "label": "chance a No.10 title is gone next week",
