@@ -1,0 +1,133 @@
+{
+  "generated": "2026-08-09T19:22:39.055Z",
+  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
+  "question": "Some markets carry Korean titles that went almost nowhere else. Others only ever show the ones that went everywhere. Knowing which is which is how a release order gets built.",
+  "unit": "Breadth is the total number of countries a title reached at any point. For each market we take the median breadth of the Korean titles that appeared there: a high number means only wide titles get in, a low number means narrow ones do too.",
+  "whyNotARanking": "The full order of 93 markets is not published, because a league table of countries invites a reading this data cannot support. The two ends are shown with the figure that explains most of the difference beside them.",
+  "whatCannotBeSeparated": "A market that carries few Korean titles at all will mechanically show only the biggest ones, so \"hard to reach\" and \"rarely plays Korean titles\" are entangled. The Korean share of each market is printed beside its breadth so the two can be read apart, and the markets are also grouped into bands of similar Korean share. What we cannot do is separate them completely.",
+  "rowsRead": 493600,
+  "titlesMeasured": 988,
+  "marketMinTitles": 10,
+  "marketsMeasured": 93,
+  "widestOnly": [
+    {
+      "iso2": "EE",
+      "name": "Estonia",
+      "koreanTitles": 36,
+      "medianBreadth": 78,
+      "narrowTitlePc": 0,
+      "koreanSharePc": 1.8,
+      "band": "5% 미만"
+    },
+    {
+      "iso2": "SI",
+      "name": "Slovenia",
+      "koreanTitles": 50,
+      "medianBreadth": 76,
+      "narrowTitlePc": 0,
+      "koreanSharePc": 2.2,
+      "band": "5% 미만"
+    },
+    {
+      "iso2": "CH",
+      "name": "Switzerland",
+      "koreanTitles": 59,
+      "medianBreadth": 72,
+      "narrowTitlePc": 5.1,
+      "koreanSharePc": 2.6,
+      "band": "5% 미만"
+    },
+    {
+      "iso2": "LT",
+      "name": "Lithuania",
+      "koreanTitles": 44,
+      "medianBreadth": 71,
+      "narrowTitlePc": 0,
+      "koreanSharePc": 2.1,
+      "band": "5% 미만"
+    },
+    {
+      "iso2": "MT",
+      "name": "Malta",
+      "koreanTitles": 53,
+      "medianBreadth": 71,
+      "narrowTitlePc": 5.7,
+      "koreanSharePc": 2.1,
+      "band": "5% 미만"
+    }
+  ],
+  "narrowToo": [
+    {
+      "iso2": "KR",
+      "name": "South Korea",
+      "koreanTitles": 586,
+      "medianBreadth": 2,
+      "narrowTitlePc": 63,
+      "koreanSharePc": 51.4,
+      "band": "12% 이상"
+    },
+    {
+      "iso2": "JP",
+      "name": "Japan",
+      "koreanTitles": 250,
+      "medianBreadth": 17.5,
+      "narrowTitlePc": 34,
+      "koreanSharePc": 20.2,
+      "band": "12% 이상"
+    },
+    {
+      "iso2": "VN",
+      "name": "Vietnam",
+      "koreanTitles": 261,
+      "medianBreadth": 21,
+      "narrowTitlePc": 17.6,
+      "koreanSharePc": 29.3,
+      "band": "12% 이상"
+    },
+    {
+      "iso2": "TH",
+      "name": "Thailand",
+      "koreanTitles": 275,
+      "medianBreadth": 21,
+      "narrowTitlePc": 22.2,
+      "koreanSharePc": 23.4,
+      "band": "12% 이상"
+    },
+    {
+      "iso2": "TW",
+      "name": "Taiwan",
+      "koreanTitles": 258,
+      "medianBreadth": 21,
+      "narrowTitlePc": 19.8,
+      "koreanSharePc": 23.6,
+      "band": "12% 이상"
+    }
+  ],
+  "byBand": [
+    {
+      "band": "5% 미만",
+      "markets": 49,
+      "medianBreadth": 62,
+      "spread": 49
+    },
+    {
+      "band": "5–8%",
+      "markets": 12,
+      "medianBreadth": 52,
+      "spread": 6
+    },
+    {
+      "band": "8–12%",
+      "markets": 18,
+      "medianBreadth": 46,
+      "spread": 9
+    },
+    {
+      "band": "12% 이상",
+      "markets": 14,
+      "medianBreadth": 21,
+      "spread": 43
+    }
+  ],
+  "cannotAnswer": "This says which titles appeared, not why. Licensing windows, dubbing, local release dates and how crowded a chart is would all produce this pattern, and none of them is in a rank table. It is also not viewing: a title outside a top 10 is invisible here at any level."
+}

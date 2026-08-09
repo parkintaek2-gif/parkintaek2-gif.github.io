@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "which-markets-only-take-the-big-ones": {
+   "figure": "2",
+   "label": "markets a Korean title needs, at home. Estonia 78",
+   "왜": "자동은 93(시장 수)을 집어 「93개 시장」이라는 다른 기사가 된다. 이 기사의 요점은 2 대 78 이라는 거리다"
+  },
   "when-a-korean-title-is-widest": {
    "figure": "20.1%",
    "label": "Korean series widest in week one — others 45%",
