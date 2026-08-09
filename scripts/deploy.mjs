@@ -586,9 +586,55 @@ async function 자가시험() {
   return 진;
 }
 
+/**
+ * 🔒 배포 관문 — **열쇠 없이는 못 나간다.**
+ *
+ * 사장님(2026-08-09 20:10): 「자물쇠를 최대로 찾아 **채워라. 모든 세션에**」
+ * 2번(20:4x): 「지금 **2번 말고 전부 ☐** 입니다. **만들어만 놓고 아무도 안 씁니다**」
+ *
+ * ⛔ 실제로 그랬다 — 이 파일에 `deploy-key` 라는 글자가 **한 번도 없었다.**
+ *    그래서 5번은 2026-08-09 하루에 배포를 다섯 번 하면서 열쇠를 **한 번도 안 받았다.**
+ *    자물쇠가 없던 게 아니라 **문에 안 달려 있었다.**
+ *
+ * ⛔ **뒷문을 안 만든다.** `--열쇠없이` 같은 스위치를 두면 그건 자물쇠가 아니라 장식이다.
+ * ⚠ 대신 **여는 법을 화면에 정확히 찍는다.** 막기만 하고 길을 안 알려 주면 일이 멈춘다.
+ * ⚠ `--probe` · `--자가시험` 은 배포가 아니므로 안 막는다. 락도 안 건드린다.
+ */
+async function 열쇠관문() {
+  const { execFileSync } = await import('node:child_process');
+  const i = argv.findIndex((a) => a === '--열쇠' || a === '--key');
+  const 열쇠 = i >= 0 ? argv[i + 1] : null;
+  if (!열쇠) {
+    console.log('\n🔒 **배포 열쇠가 없다.** 이 자는 열쇠 없이 배포하지 않는다.\n');
+    console.log('  ① node scripts/deploy-key.mjs            히스토리를 읽고 물음을 받는다');
+    console.log('  ② node scripts/deploy-key.mjs --답 "…"   맞히면 열쇠가 나온다');
+    console.log('  ③ node scripts/deploy.mjs --열쇠 <열쇠> …  그때 배포가 열린다\n');
+    console.log('⚠ 열쇠는 **커밋이나 날이 바뀌면 죽는다.** 그때는 다시 읽고 다시 받는다.');
+    console.log('⛔ 뒷문은 없다. 히스토리를 안 읽으면 못 나간다.');
+    return false;
+  }
+  try {
+    execFileSync('node', ['scripts/check-deploy-ready.mjs', '--열쇠', 열쇠], { stdio: 'inherit' });
+    return true;
+  } catch {
+    console.log('\n⛔ 관문에서 섰다. 위에 적힌 것을 고치고 다시 돌린다.');
+    return false;
+  }
+}
+
 async function main() {
   if (argv.includes('--selftest') || argv.includes('--자가시험')) {
     process.exit((await 자가시험()) ? 1 : 0);
+  }
+
+  /*
+   * ⛔ --probe 보다 앞에 두지 않는다 — probe 는 배포가 아니다.
+   * 🔴 `process.exit(1)` 을 안 쓴다 — 아래 try/finally 를 타면서 **종료코드가 0 으로 덮였다.**
+   *    실제로 그랬다: 막는 글은 찍히는데 `$?` 가 0 이라, 이어 부르는 쪽은 **성공으로 읽었다.**
+   *    ⭐ 던져서 위쪽 catch 가 1 로 끝내게 한다. 자물쇠는 **소리만 내면 안 되고 물어야 한다.**
+   */
+  if (!process.argv.includes('--probe') && !(await 열쇠관문())) {
+    throw new Error('배포 열쇠가 없다 — 위에 적힌 세 줄을 따른다');
   }
 
   // --probe 는 판정에 쓸 「새로 나갈 지면」만 보여준다. 배포도 락도 건드리지 않는다.
