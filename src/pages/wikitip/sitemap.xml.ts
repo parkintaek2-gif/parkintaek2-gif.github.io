@@ -94,6 +94,8 @@ export const GET: APIRoute = async () => {
     { path: '/lead-lag', priority: '0.9', changefreq: 'weekly' },
     /* 64편째 기사의 표. 2026-08-09 19:1x — 순위가 시청을 얼마나 말해 주나(우리 물건의 한계) */
     { path: '/rank-tells', priority: '0.9', changefreq: 'weekly' },
+    /* 65편째 기사의 표. 2026-08-09 21:2x — 7.7% 는 고르게가 아니라 몰려 있다 */
+    { path: '/clumping', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

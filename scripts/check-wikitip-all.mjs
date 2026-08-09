@@ -70,6 +70,7 @@ const 검사 = [
   ['반 칸 — 기사가 자료와 맞나', 'check-siblings-article.mjs'],
   ['하나의 줄 — 기사가 자료와 맞나', 'check-lead-lag-article.mjs'],
   ['자리가 못 말하는 것 — 기사가 자료와 맞나', 'check-rank-tells-article.mjs'],
+  ['한 주에 하나가 아니다 — 기사가 자료와 맞나', 'check-clumping-article.mjs'],
   /* 🔴 사장님 경고(막은 적이 있어야 까닭이다) 뒤에 만들었다 — 계정 없이 손님이 올 통로 */
   ['남이 우리를 인용할 수 있나', 'check-citable.mjs'],
   /* 🔴 사장님(20:10) 「자물쇠를 최대로 찾아 채워라. 모든 세션에」 — 「있나」가 아니라 「달려 있나」 */
