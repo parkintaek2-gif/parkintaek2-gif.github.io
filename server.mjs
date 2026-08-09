@@ -16,7 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
-import { 센다, flush할때되면, 현황 as 유입현황 } from './src/lib/traffic.mjs';
+import { 센다, flush할때되면, 유입표, 현황 as 유입현황 } from './src/lib/traffic.mjs';
 
 const ROOT = fileURLToPath(new URL('./dist/', import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
@@ -438,7 +438,8 @@ const server = createServer((req, res) => {
    *   그리고 `센다`/`flush할때되면` 은 **던지지 않도록** 만들어져 있다(traffic.mjs).
    *   그래도 여기서 한 번 더 감싼다 — 측정 때문에 세 사이트가 죽는 일은 없어야 한다.
    *
-   * 남기는 것: 호스트·경로·유입 도메인·봇 여부.  안 남기는 것: **IP·쿠키·UA 원문·검색어**
+   * 남기는 것: 호스트·경로·유입 도메인·봇 여부·**우리가 붙인 `?from=` 딱지**.
+   * 안 남기는 것: **IP·쿠키·UA 원문·검색어·물음표 뒤 나머지 전부**
    */
   res.on('finish', () => {
     try {
@@ -448,6 +449,10 @@ const server = createServer((req, res) => {
         pathname: u.pathname,
         referer: req.headers.referer ?? req.headers.referrer,
         userAgent: req.headers['user-agent'],
+        /* ⭐ 3번이 여섯 번 물은 한 줄 — 「한 장이 몇 번 열리나 · 값 지면까지 %」
+         * ⛔ 물음표 뒤를 통째로 안 남긴다. **`from` 하나만** 흰 목록으로 뽑는다 —
+         *    거기엔 손님이 친 검색어·이메일이 들어올 수 있다 */
+        from: 유입표(u.searchParams),
       });
       flush할때되면();
     } catch { /* 측정은 조용히 실패한다 */ }

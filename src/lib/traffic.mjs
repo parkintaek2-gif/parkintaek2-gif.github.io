@@ -156,11 +156,29 @@ export function 셀것인가(pathname) {
  * 한 건 센다. **동기이고 절대 던지지 않는다.**
  * 요청 처리 경로에서 불리므로 여기서 무거운 것을 하지 않는다.
  */
+/**
+ * `?from=` 만 남긴다. ⛔ 물음표 뒤를 통째로 남기지 않는다.
+ *
+ * 왜 하나만 — 물음표 뒤에는 손님이 친 검색어·이메일이 들어올 수 있다.
+ * 이 파일 머리에 「검색어는 안 남긴다」고 적어 뒀다. 그 약속을 지키려면 **흰 목록**이라야 한다.
+ * 3번이 여섯 번 물어본 것이 이것이다 — 「한 장이 몇 번 열리나 · 값 지면까지 %」.
+ */
+export function 유입표(searchParams) {
+  try {
+    const v = searchParams?.get?.('from');
+    if (!v) return '';
+    const 다듬은 = String(v).slice(0, 40).replace(/[^A-Za-z0-9_\-.]/g, '');
+    return 다듬은;
+  } catch {
+    return '';
+  }
+}
+
 export function 센다(입력) {
   try {
     /* ⚠ **구조분해를 기본값에 맡기지 않는다.** `센다(null)` 이면 기본값이 안 걸려 던진다.
      *   시험에서 실제로 잡혔다 — 운영 서버에서 이게 던지면 세 사이트가 같이 죽는다. */
-    const { host, pathname, referer, userAgent } = 입력 ?? {};
+    const { host, pathname, referer, userAgent, from } = 입력 ?? {};
     if (!셀것인가(pathname)) return;
     /* ⚠ **경로를 먼저 본다.** UA 는 속일 수 있고 경로는 의도 그 자체다 */
     const 스캐너 = 스캐너경로.test(String(pathname));
@@ -169,7 +187,9 @@ export function 센다(입력) {
     /* 봇이면 **종류만** 남긴다(google/bing/naver…). 사람이면 빈칸이다 */
     const 종류 = 봇 === '0' ? '' : (스캐너 && !UA봇 ? '스캐너' : 봇종류(userAgent));
     const 경로 = 통.size >= 경로상한 ? '(기타)' : String(pathname).slice(0, 200);
-    const k = `${String(host ?? '').slice(0, 80)}\t${경로}\t${유입도메인(referer, host)}\t${봇}\t${종류}`;
+    /* ⭐ from 은 **우리가 붙인 딱지**다. 손님이 친 글이 아니다 — 흰 목록이라 안전하다 */
+    const 딱지 = String(from ?? '').slice(0, 40).replace(/[^A-Za-z0-9_\-.]/g, '');
+    const k = `${String(host ?? '').slice(0, 80)}\t${경로}\t${유입도메인(referer, host)}\t${봇}\t${종류}\t${딱지}`;
     통.set(k, (통.get(k) ?? 0) + 1);
   } catch {
     /* ⚠ 측정이 서비스를 죽이지 않는다. 조용히 넘긴다 */
@@ -180,8 +200,10 @@ export function 센다(입력) {
 export function 현황() {
   const 행 = [];
   for (const [k, n] of 통) {
-    const [host, 경로, 유입, 봇, 종류] = k.split('\t');
-    행.push({ host, 경로, 유입, 봇: 봇 === '1', 종류: 종류 || null, 수: n });
+    /* ⚠ 옛 줄(R2 에 쌓인 것)은 칸이 다섯이다. 딱지 칸이 없으면 빈칸으로 읽는다 —
+     *   여섯째를 못 읽어 통째로 버리면 **어제까지 센 것이 사라진다** */
+    const [host, 경로, 유입, 봇, 종류, 딱지] = k.split('\t');
+    행.push({ host, 경로, 유입, 봇: 봇 === '1', 종류: 종류 || null, 딱지: 딱지 || null, 수: n });
   }
   행.sort((a, b) => b.수 - a.수);
   const 사람 = 행.filter((x) => !x.봇).reduce((s, x) => s + x.수, 0);
@@ -189,10 +211,13 @@ export function 현황() {
   /* ⭐ 어느 검색엔진이 왔는가 — 「검색 유입 0」의 원인을 가르는 데 이게 필요하다 */
   const 봇별 = {};
   for (const x of 행) if (x.봇 && x.종류) 봇별[x.종류] = (봇별[x.종류] ?? 0) + x.수;
+  /* ⭐ 3번이 물은 것 — 어느 딱지로 들어와 어디까지 갔나. **사람만 센다** */
+  const 딱지별 = {};
+  for (const x of 행) if (!x.봇 && x.딱지) 딱지별[x.딱지] = (딱지별[x.딱지] ?? 0) + x.수;
   return {
     모은시각: new Date(시작).toLocaleString('ko-KR'),
     지금: new Date().toLocaleString('ko-KR'),
-    사람, 봇: 봇수, 봇별, 서로다른키: 통.size,
+    사람, 봇: 봇수, 봇별, 딱지별, 서로다른키: 통.size,
     R2: remoteEnabled,
     행,
   };
