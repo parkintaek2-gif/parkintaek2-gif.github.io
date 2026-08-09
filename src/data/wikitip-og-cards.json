@@ -153,9 +153,9 @@
    "왜": "자동은 제목 첫 수 1,008 을 집는다. 이 기사의 요점은 **차이가 거의 없다**는 것이라 그 수를 카드에 박아야 한다"
   },
   "middle-of-the-chart": {
-   "figure": "22 of 24",
+   "figure": "22 of 23",
    "label": "markets where Korean titles are rarer at #1 than on the chart",
-   "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다"
+   "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다 / 2026-08-09 10:3x — 비라틴 제목을 빼면서 띠가 24곳→23곳이 됐다. 카드도 같이 옮긴다"
   },
   "half-our-panel-cannot-be-verified": {
    "figure": "197 of 397",
@@ -181,6 +181,11 @@
    "figure": "−0.101",
    "label": "catalogue size against how far one title travels — nothing there",
    "왜": "자동은 앞말 첫 수 207 을 집는다. 이 기사의 요점은 회사 수가 아니라 **관계가 없다는 것**이라 그 수를 박는다 / 카드 자가 「본문에 없다」고 울어 알았다 — 기사는 빼기표(U+2212), 카드는 하이픈으로 적었었다"
+  },
+  "the-broadcast-run-that-never-happened": {
+   "figure": "39",
+   "label": "markets for the median Korean series that never aired on Korean TV — against 4",
+   "왜": "자동은 dek 첫 수 287 을 집는다. 이 기사의 요점은 표본 크기가 아니라 **4 대 39** 라 그 수를 박는다"
   }
  }
 }

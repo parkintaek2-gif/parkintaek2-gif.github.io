@@ -78,6 +78,8 @@ export const GET: APIRoute = async () => {
     { path: '/rank-shape', priority: '0.9', changefreq: 'weekly' },
     /* 57편째 기사의 표. 2026-08-09 08:3x — 카탈로그가 커도 편당은 안 늘어난다 */
     { path: '/catalogue-reach', priority: '0.9', changefreq: 'weekly' },
+    /* 58편째 기사의 표. 2026-08-09 10:2x — 방송을 거친 시리즈와 안 거친 시리즈 */
+    { path: '/two-pipelines', priority: '0.9', changefreq: 'weekly' },
     /*
      * 파는 자료의 착륙 지면. 2026-08-08 04:3x 에 만들어 놓고 **여기 한 줄을 안 넣었다** —
      * 하루 동안 검색엔 열려 있는데 사이트맵엔 없는 어긋난 상태였다. 위 ⚠ 가 이것이다.
