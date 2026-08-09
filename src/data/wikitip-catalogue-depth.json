@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 9. 오전 8:41:07",
+  "generated": "2026. 8. 10. 오전 5:50:04",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 넷플릭스가 목록을 내는 나라 전부",
   "question": "How many different Korean titles has each market actually seen in its top 10, and how many of them carry half of it?",
@@ -21,11 +21,11 @@
     {
       "group": "The other markets",
       "countries": 83,
-      "medianKoreanSlots": 209,
+      "medianKoreanSlots": 208,
       "medianDistinctTitles": 85,
       "medianHalfTakes": 17,
       "medianTopTitlePc": 14.6,
-      "medianSlotsPerTitle": 2.68
+      "medianSlotsPerTitle": 2.67
     }
   ],
   "matched": {
@@ -47,7 +47,7 @@
     },
     "other": {
       "countries": 7,
-      "medianKoreanSlots": 637,
+      "medianKoreanSlots": 636,
       "medianDistinctTitles": 150,
       "medianHalfTakes": 29,
       "medianTopTitlePc": 7.1,
@@ -168,13 +168,13 @@
     {
       "iso2": "IE",
       "name": "Ireland",
-      "koreanSlots": 85,
+      "koreanSlots": 84,
       "koreanPc": 1.6,
-      "distinctTitles": 38,
+      "distinctTitles": 37,
       "halfTakes": 7,
       "topTitle": "Squid Game",
-      "topTitlePc": 23.5,
-      "slotsPerTitle": 2.24,
+      "topTitlePc": 23.8,
+      "slotsPerTitle": 2.27,
       "inAsianTen": false
     },
     {
@@ -192,9 +192,9 @@
   ],
   "asianShallowest": {
     "name": "Japan",
-    "distinctTitles": 237,
+    "distinctTitles": 234,
     "halfTakes": 33,
-    "topTitlePc": 6.7
+    "topTitlePc": 6.8
   },
   "asianHalfRange": {
     "min": 33,
@@ -316,13 +316,13 @@
     {
       "iso2": "JP",
       "name": "Japan",
-      "koreanSlots": 1070,
-      "koreanPc": 20.2,
-      "distinctTitles": 237,
+      "koreanSlots": 1065,
+      "koreanPc": 20.1,
+      "distinctTitles": 234,
       "halfTakes": 33,
       "topTitle": "Crash Landing on You",
-      "topTitlePc": 6.7,
-      "slotsPerTitle": 4.51,
+      "topTitlePc": 6.8,
+      "slotsPerTitle": 4.55,
       "inAsianTen": true
     },
     {
@@ -340,13 +340,13 @@
     {
       "iso2": "SA",
       "name": "Saudi Arabia",
-      "koreanSlots": 637,
+      "koreanSlots": 636,
       "koreanPc": 12,
-      "distinctTitles": 158,
-      "halfTakes": 33,
+      "distinctTitles": 157,
+      "halfTakes": 32,
       "topTitle": "Squid Game",
       "topTitlePc": 7.1,
-      "slotsPerTitle": 4.03,
+      "slotsPerTitle": 4.05,
       "inAsianTen": false
     },
     {
@@ -412,13 +412,13 @@
     {
       "iso2": "OM",
       "name": "Oman",
-      "koreanSlots": 562,
+      "koreanSlots": 561,
       "koreanPc": 10.6,
-      "distinctTitles": 142,
+      "distinctTitles": 141,
       "halfTakes": 30,
       "topTitle": "Squid Game",
       "topTitlePc": 7.8,
-      "slotsPerTitle": 3.96,
+      "slotsPerTitle": 3.98,
       "inAsianTen": false
     },
     {
@@ -448,13 +448,13 @@
     {
       "iso2": "MA",
       "name": "Morocco",
-      "koreanSlots": 498,
+      "koreanSlots": 496,
       "koreanPc": 9.4,
-      "distinctTitles": 136,
+      "distinctTitles": 135,
       "halfTakes": 30,
       "topTitle": "Squid Game",
-      "topTitlePc": 9.2,
-      "slotsPerTitle": 3.66,
+      "topTitlePc": 9.3,
+      "slotsPerTitle": 3.67,
       "inAsianTen": false
     },
     {
@@ -496,13 +496,13 @@
     {
       "iso2": "DO",
       "name": "Dominican Republic",
-      "koreanSlots": 440,
+      "koreanSlots": 439,
       "koreanPc": 8.3,
-      "distinctTitles": 130,
+      "distinctTitles": 129,
       "halfTakes": 28,
       "topTitle": "Squid Game",
       "topTitlePc": 5.7,
-      "slotsPerTitle": 3.38,
+      "slotsPerTitle": 3.4,
       "inAsianTen": false
     },
     {
@@ -532,13 +532,13 @@
     {
       "iso2": "JO",
       "name": "Jordan",
-      "koreanSlots": 402,
+      "koreanSlots": 401,
       "koreanPc": 7.6,
-      "distinctTitles": 123,
+      "distinctTitles": 122,
       "halfTakes": 24,
       "topTitle": "Squid Game",
-      "topTitlePc": 12.4,
-      "slotsPerTitle": 3.27,
+      "topTitlePc": 12.5,
+      "slotsPerTitle": 3.29,
       "inAsianTen": false
     },
     {
@@ -616,25 +616,13 @@
     {
       "iso2": "RO",
       "name": "Romania",
-      "koreanSlots": 278,
+      "koreanSlots": 276,
       "koreanPc": 5.2,
-      "distinctTitles": 115,
+      "distinctTitles": 113,
       "halfTakes": 21,
       "topTitle": "Squid Game",
-      "topTitlePc": 14,
-      "slotsPerTitle": 2.42,
-      "inAsianTen": false
-    },
-    {
-      "iso2": "RE",
-      "name": "Réunion",
-      "koreanSlots": 262,
-      "koreanPc": 4.9,
-      "distinctTitles": 113,
-      "halfTakes": 27,
-      "topTitle": "Squid Game",
-      "topTitlePc": 9.5,
-      "slotsPerTitle": 2.32,
+      "topTitlePc": 14.1,
+      "slotsPerTitle": 2.44,
       "inAsianTen": false
     },
     {
@@ -650,18 +638,6 @@
       "inAsianTen": false
     },
     {
-      "iso2": "IN",
-      "name": "India",
-      "koreanSlots": 511,
-      "koreanPc": 9.6,
-      "distinctTitles": 112,
-      "halfTakes": 17,
-      "topTitle": "Squid Game",
-      "topTitlePc": 13.5,
-      "slotsPerTitle": 4.56,
-      "inAsianTen": false
-    },
-    {
       "iso2": "VE",
       "name": "Venezuela",
       "koreanSlots": 387,
@@ -674,15 +650,27 @@
       "inAsianTen": false
     },
     {
-      "iso2": "TR",
-      "name": "Turkey",
-      "koreanSlots": 330,
-      "koreanPc": 6.2,
+      "iso2": "IN",
+      "name": "India",
+      "koreanSlots": 510,
+      "koreanPc": 9.6,
       "distinctTitles": 111,
-      "halfTakes": 21,
+      "halfTakes": 17,
       "topTitle": "Squid Game",
-      "topTitlePc": 15.8,
-      "slotsPerTitle": 2.97,
+      "topTitlePc": 13.5,
+      "slotsPerTitle": 4.59,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "RE",
+      "name": "Réunion",
+      "koreanSlots": 260,
+      "koreanPc": 4.9,
+      "distinctTitles": 111,
+      "halfTakes": 26,
+      "topTitle": "Squid Game",
+      "topTitlePc": 9.6,
+      "slotsPerTitle": 2.34,
       "inAsianTen": false
     },
     {
@@ -695,6 +683,18 @@
       "topTitle": "Squid Game",
       "topTitlePc": 9.5,
       "slotsPerTitle": 3.55,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "TR",
+      "name": "Turkey",
+      "koreanSlots": 325,
+      "koreanPc": 6.1,
+      "distinctTitles": 110,
+      "halfTakes": 20,
+      "topTitle": "Squid Game",
+      "topTitlePc": 16,
+      "slotsPerTitle": 2.95,
       "inAsianTen": false
     },
     {
@@ -712,25 +712,25 @@
     {
       "iso2": "NC",
       "name": "New Caledonia",
-      "koreanSlots": 235,
+      "koreanSlots": 234,
       "koreanPc": 4.4,
-      "distinctTitles": 106,
+      "distinctTitles": 105,
       "halfTakes": 23,
       "topTitle": "Squid Game",
       "topTitlePc": 9.8,
-      "slotsPerTitle": 2.22,
+      "slotsPerTitle": 2.23,
       "inAsianTen": false
     },
     {
       "iso2": "MU",
       "name": "Mauritius",
-      "koreanSlots": 272,
+      "koreanSlots": 271,
       "koreanPc": 5.1,
-      "distinctTitles": 105,
+      "distinctTitles": 104,
       "halfTakes": 22,
       "topTitle": "Squid Game",
       "topTitlePc": 11.4,
-      "slotsPerTitle": 2.59,
+      "slotsPerTitle": 2.61,
       "inAsianTen": false
     },
     {
@@ -784,25 +784,25 @@
     {
       "iso2": "KE",
       "name": "Kenya",
-      "koreanSlots": 249,
+      "koreanSlots": 247,
       "koreanPc": 4.7,
-      "distinctTitles": 95,
+      "distinctTitles": 94,
       "halfTakes": 21,
       "topTitle": "Squid Game",
-      "topTitlePc": 12,
-      "slotsPerTitle": 2.62,
+      "topTitlePc": 12.1,
+      "slotsPerTitle": 2.63,
       "inAsianTen": false
     },
     {
       "iso2": "GR",
       "name": "Greece",
-      "koreanSlots": 221,
+      "koreanSlots": 220,
       "koreanPc": 4.2,
-      "distinctTitles": 94,
-      "halfTakes": 19,
+      "distinctTitles": 93,
+      "halfTakes": 18,
       "topTitle": "Squid Game",
-      "topTitlePc": 15.8,
-      "slotsPerTitle": 2.35,
+      "topTitlePc": 15.9,
+      "slotsPerTitle": 2.37,
       "inAsianTen": false
     },
     {
@@ -832,49 +832,37 @@
     {
       "iso2": "JM",
       "name": "Jamaica",
-      "koreanSlots": 196,
+      "koreanSlots": 195,
       "koreanPc": 3.7,
-      "distinctTitles": 83,
+      "distinctTitles": 82,
       "halfTakes": 20,
       "topTitle": "Squid Game",
-      "topTitlePc": 11.2,
-      "slotsPerTitle": 2.36,
+      "topTitlePc": 11.3,
+      "slotsPerTitle": 2.38,
       "inAsianTen": false
     },
     {
       "iso2": "AR",
       "name": "Argentina",
-      "koreanSlots": 209,
+      "koreanSlots": 208,
       "koreanPc": 3.9,
-      "distinctTitles": 79,
+      "distinctTitles": 78,
       "halfTakes": 15,
       "topTitle": "Squid Game",
       "topTitlePc": 14.4,
-      "slotsPerTitle": 2.65,
+      "slotsPerTitle": 2.67,
       "inAsianTen": false
     },
     {
       "iso2": "FR",
       "name": "France",
-      "koreanSlots": 189,
-      "koreanPc": 3.6,
-      "distinctTitles": 79,
-      "halfTakes": 16,
+      "koreanSlots": 184,
+      "koreanPc": 3.5,
+      "distinctTitles": 76,
+      "halfTakes": 15,
       "topTitle": "Squid Game",
-      "topTitlePc": 16.4,
-      "slotsPerTitle": 2.39,
-      "inAsianTen": false
-    },
-    {
-      "iso2": "PL",
-      "name": "Poland",
-      "koreanSlots": 160,
-      "koreanPc": 3,
-      "distinctTitles": 74,
-      "halfTakes": 17,
-      "topTitle": "Squid Game",
-      "topTitlePc": 18.1,
-      "slotsPerTitle": 2.16,
+      "topTitlePc": 16.8,
+      "slotsPerTitle": 2.42,
       "inAsianTen": false
     },
     {
@@ -890,39 +878,51 @@
       "inAsianTen": false
     },
     {
+      "iso2": "PL",
+      "name": "Poland",
+      "koreanSlots": 157,
+      "koreanPc": 3,
+      "distinctTitles": 71,
+      "halfTakes": 17,
+      "topTitle": "Squid Game",
+      "topTitlePc": 18.5,
+      "slotsPerTitle": 2.21,
+      "inAsianTen": false
+    },
+    {
       "iso2": "ES",
       "name": "Spain",
-      "koreanSlots": 166,
+      "koreanSlots": 164,
       "koreanPc": 3.1,
-      "distinctTitles": 72,
+      "distinctTitles": 71,
       "halfTakes": 15,
       "topTitle": "Squid Game",
-      "topTitlePc": 16.3,
+      "topTitlePc": 16.5,
       "slotsPerTitle": 2.31,
       "inAsianTen": false
     },
     {
       "iso2": "BS",
       "name": "Bahamas",
-      "koreanSlots": 145,
+      "koreanSlots": 143,
       "koreanPc": 2.7,
-      "distinctTitles": 70,
-      "halfTakes": 19,
+      "distinctTitles": 69,
+      "halfTakes": 18,
       "topTitle": "Squid Game",
-      "topTitlePc": 12.4,
+      "topTitlePc": 12.6,
       "slotsPerTitle": 2.07,
       "inAsianTen": false
     },
     {
       "iso2": "TT",
       "name": "Trinidad and Tobago",
-      "koreanSlots": 152,
-      "koreanPc": 2.9,
-      "distinctTitles": 69,
-      "halfTakes": 17,
+      "koreanSlots": 150,
+      "koreanPc": 2.8,
+      "distinctTitles": 68,
+      "halfTakes": 16,
       "topTitle": "Squid Game",
-      "topTitlePc": 13.2,
-      "slotsPerTitle": 2.2,
+      "topTitlePc": 13.3,
+      "slotsPerTitle": 2.21,
       "inAsianTen": false
     },
     {
@@ -938,18 +938,6 @@
       "inAsianTen": false
     },
     {
-      "iso2": "AT",
-      "name": "Austria",
-      "koreanSlots": 142,
-      "koreanPc": 2.7,
-      "distinctTitles": 63,
-      "halfTakes": 12,
-      "topTitle": "Squid Game",
-      "topTitlePc": 19.7,
-      "slotsPerTitle": 2.25,
-      "inAsianTen": false
-    },
-    {
       "iso2": "IT",
       "name": "Italy",
       "koreanSlots": 160,
@@ -962,27 +950,39 @@
       "inAsianTen": false
     },
     {
+      "iso2": "AT",
+      "name": "Austria",
+      "koreanSlots": 140,
+      "koreanPc": 2.6,
+      "distinctTitles": 61,
+      "halfTakes": 11,
+      "topTitle": "Squid Game",
+      "topTitlePc": 20,
+      "slotsPerTitle": 2.3,
+      "inAsianTen": false
+    },
+    {
       "iso2": "LU",
       "name": "Luxembourg",
-      "koreanSlots": 145,
+      "koreanSlots": 144,
       "koreanPc": 2.7,
-      "distinctTitles": 62,
+      "distinctTitles": 61,
       "halfTakes": 12,
       "topTitle": "Squid Game",
-      "topTitlePc": 17.9,
-      "slotsPerTitle": 2.34,
+      "topTitlePc": 18.1,
+      "slotsPerTitle": 2.36,
       "inAsianTen": false
     },
     {
       "iso2": "UY",
       "name": "Uruguay",
-      "koreanSlots": 154,
+      "koreanSlots": 153,
       "koreanPc": 2.9,
-      "distinctTitles": 62,
+      "distinctTitles": 61,
       "halfTakes": 12,
       "topTitle": "Squid Game",
-      "topTitlePc": 14.9,
-      "slotsPerTitle": 2.48,
+      "topTitlePc": 15,
+      "slotsPerTitle": 2.51,
       "inAsianTen": false
     },
     {
@@ -998,30 +998,6 @@
       "inAsianTen": false
     },
     {
-      "iso2": "CY",
-      "name": "Cyprus",
-      "koreanSlots": 135,
-      "koreanPc": 2.5,
-      "distinctTitles": 60,
-      "halfTakes": 12,
-      "topTitle": "Squid Game",
-      "topTitlePc": 23,
-      "slotsPerTitle": 2.25,
-      "inAsianTen": false
-    },
-    {
-      "iso2": "DE",
-      "name": "Germany",
-      "koreanSlots": 148,
-      "koreanPc": 2.8,
-      "distinctTitles": 60,
-      "halfTakes": 11,
-      "topTitle": "Squid Game",
-      "topTitlePc": 20.9,
-      "slotsPerTitle": 2.47,
-      "inAsianTen": false
-    },
-    {
       "iso2": "HU",
       "name": "Hungary",
       "koreanSlots": 155,
@@ -1034,15 +1010,15 @@
       "inAsianTen": false
     },
     {
-      "iso2": "IL",
-      "name": "Israel",
-      "koreanSlots": 139,
-      "koreanPc": 2.6,
-      "distinctTitles": 60,
+      "iso2": "CY",
+      "name": "Cyprus",
+      "koreanSlots": 134,
+      "koreanPc": 2.5,
+      "distinctTitles": 59,
       "halfTakes": 11,
       "topTitle": "Squid Game",
-      "topTitlePc": 20.1,
-      "slotsPerTitle": 2.32,
+      "topTitlePc": 23.1,
+      "slotsPerTitle": 2.27,
       "inAsianTen": false
     },
     {
@@ -1058,15 +1034,39 @@
       "inAsianTen": false
     },
     {
+      "iso2": "IL",
+      "name": "Israel",
+      "koreanSlots": 138,
+      "koreanPc": 2.6,
+      "distinctTitles": 59,
+      "halfTakes": 11,
+      "topTitle": "Squid Game",
+      "topTitlePc": 20.3,
+      "slotsPerTitle": 2.34,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "DE",
+      "name": "Germany",
+      "koreanSlots": 146,
+      "koreanPc": 2.8,
+      "distinctTitles": 58,
+      "halfTakes": 11,
+      "topTitle": "Squid Game",
+      "topTitlePc": 21.2,
+      "slotsPerTitle": 2.52,
+      "inAsianTen": false
+    },
+    {
       "iso2": "FI",
       "name": "Finland",
-      "koreanSlots": 142,
+      "koreanSlots": 141,
       "koreanPc": 2.7,
-      "distinctTitles": 58,
+      "distinctTitles": 57,
       "halfTakes": 9,
       "topTitle": "Squid Game",
-      "topTitlePc": 26.8,
-      "slotsPerTitle": 2.45,
+      "topTitlePc": 27,
+      "slotsPerTitle": 2.47,
       "inAsianTen": false
     },
     {
@@ -1079,18 +1079,6 @@
       "topTitle": "Squid Game",
       "topTitlePc": 20.8,
       "slotsPerTitle": 2.18,
-      "inAsianTen": false
-    },
-    {
-      "iso2": "BE",
-      "name": "Belgium",
-      "koreanSlots": 150,
-      "koreanPc": 2.8,
-      "distinctTitles": 55,
-      "halfTakes": 11,
-      "topTitle": "Squid Game",
-      "topTitlePc": 19.3,
-      "slotsPerTitle": 2.73,
       "inAsianTen": false
     },
     {
@@ -1118,75 +1106,87 @@
       "inAsianTen": false
     },
     {
-      "iso2": "CH",
-      "name": "Switzerland",
-      "koreanSlots": 137,
-      "koreanPc": 2.6,
+      "iso2": "BE",
+      "name": "Belgium",
+      "koreanSlots": 144,
+      "koreanPc": 2.7,
       "distinctTitles": 54,
       "halfTakes": 10,
       "topTitle": "Squid Game",
-      "topTitlePc": 19.7,
-      "slotsPerTitle": 2.54,
+      "topTitlePc": 20.1,
+      "slotsPerTitle": 2.67,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "CH",
+      "name": "Switzerland",
+      "koreanSlots": 136,
+      "koreanPc": 2.6,
+      "distinctTitles": 53,
+      "halfTakes": 10,
+      "topTitle": "Squid Game",
+      "topTitlePc": 19.9,
+      "slotsPerTitle": 2.57,
       "inAsianTen": false
     },
     {
       "iso2": "CA",
       "name": "Canada",
-      "koreanSlots": 107,
+      "koreanSlots": 106,
       "koreanPc": 2,
-      "distinctTitles": 53,
-      "halfTakes": 11,
+      "distinctTitles": 52,
+      "halfTakes": 10,
       "topTitle": "Squid Game",
-      "topTitlePc": 23.4,
-      "slotsPerTitle": 2.02,
+      "topTitlePc": 23.6,
+      "slotsPerTitle": 2.04,
       "inAsianTen": false
     },
     {
       "iso2": "MT",
       "name": "Malta",
-      "koreanSlots": 109,
-      "koreanPc": 2.1,
-      "distinctTitles": 51,
-      "halfTakes": 12,
+      "koreanSlots": 108,
+      "koreanPc": 2,
+      "distinctTitles": 50,
+      "halfTakes": 11,
       "topTitle": "Squid Game",
-      "topTitlePc": 22.9,
-      "slotsPerTitle": 2.14,
+      "topTitlePc": 23.1,
+      "slotsPerTitle": 2.16,
       "inAsianTen": false
     },
     {
       "iso2": "SE",
       "name": "Sweden",
-      "koreanSlots": 113,
+      "koreanSlots": 111,
       "koreanPc": 2.1,
-      "distinctTitles": 51,
+      "distinctTitles": 49,
       "halfTakes": 8,
       "topTitle": "Squid Game",
-      "topTitlePc": 24.8,
-      "slotsPerTitle": 2.22,
+      "topTitlePc": 25.2,
+      "slotsPerTitle": 2.27,
       "inAsianTen": false
     },
     {
       "iso2": "HR",
       "name": "Croatia",
-      "koreanSlots": 113,
+      "koreanSlots": 112,
       "koreanPc": 2.1,
-      "distinctTitles": 49,
-      "halfTakes": 8,
+      "distinctTitles": 48,
+      "halfTakes": 7,
       "topTitle": "Squid Game",
-      "topTitlePc": 28.3,
-      "slotsPerTitle": 2.31,
+      "topTitlePc": 28.6,
+      "slotsPerTitle": 2.33,
       "inAsianTen": false
     },
     {
       "iso2": "NO",
       "name": "Norway",
-      "koreanSlots": 102,
+      "koreanSlots": 101,
       "koreanPc": 1.9,
-      "distinctTitles": 49,
+      "distinctTitles": 48,
       "halfTakes": 9,
       "topTitle": "Squid Game",
-      "topTitlePc": 26.5,
-      "slotsPerTitle": 2.08,
+      "topTitlePc": 26.7,
+      "slotsPerTitle": 2.1,
       "inAsianTen": false
     },
     {
@@ -1204,25 +1204,13 @@
     {
       "iso2": "GB",
       "name": "United Kingdom",
-      "koreanSlots": 93,
-      "koreanPc": 1.8,
-      "distinctTitles": 45,
-      "halfTakes": 10,
-      "topTitle": "Squid Game",
-      "topTitlePc": 24.7,
-      "slotsPerTitle": 2.07,
-      "inAsianTen": false
-    },
-    {
-      "iso2": "NL",
-      "name": "Netherlands",
-      "koreanSlots": 113,
-      "koreanPc": 2.1,
+      "koreanSlots": 92,
+      "koreanPc": 1.7,
       "distinctTitles": 44,
-      "halfTakes": 6,
+      "halfTakes": 9,
       "topTitle": "Squid Game",
-      "topTitlePc": 22.1,
-      "slotsPerTitle": 2.57,
+      "topTitlePc": 25,
+      "slotsPerTitle": 2.09,
       "inAsianTen": false
     },
     {
@@ -1235,6 +1223,18 @@
       "topTitle": "Squid Game",
       "topTitlePc": 30.3,
       "slotsPerTitle": 1.81,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "NL",
+      "name": "Netherlands",
+      "koreanSlots": 95,
+      "koreanPc": 1.8,
+      "distinctTitles": 42,
+      "halfTakes": 7,
+      "topTitle": "Squid Game",
+      "topTitlePc": 26.3,
+      "slotsPerTitle": 2.26,
       "inAsianTen": false
     },
     {
@@ -1262,18 +1262,6 @@
       "inAsianTen": false
     },
     {
-      "iso2": "IE",
-      "name": "Ireland",
-      "koreanSlots": 85,
-      "koreanPc": 1.6,
-      "distinctTitles": 38,
-      "halfTakes": 7,
-      "topTitle": "Squid Game",
-      "topTitlePc": 23.5,
-      "slotsPerTitle": 2.24,
-      "inAsianTen": false
-    },
-    {
       "iso2": "US",
       "name": "United States",
       "koreanSlots": 84,
@@ -1283,6 +1271,18 @@
       "topTitle": "Squid Game",
       "topTitlePc": 32.1,
       "slotsPerTitle": 2.21,
+      "inAsianTen": false
+    },
+    {
+      "iso2": "IE",
+      "name": "Ireland",
+      "koreanSlots": 84,
+      "koreanPc": 1.6,
+      "distinctTitles": 37,
+      "halfTakes": 7,
+      "topTitle": "Squid Game",
+      "topTitlePc": 23.8,
+      "slotsPerTitle": 2.27,
       "inAsianTen": false
     },
     {

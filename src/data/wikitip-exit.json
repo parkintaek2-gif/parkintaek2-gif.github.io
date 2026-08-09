@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T13:56:45.648Z",
+  "generated": "2026-08-09T20:50:20.277Z",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "Everything published about a chart is about getting on it. This asks the other question: when a title leaves, what position was it in the week before it went?",
   "unit": "A run is one title in one country across consecutive chart weeks. A title that leaves and comes back later has two runs, because the two departures are two separate events.",
@@ -10,10 +10,10 @@
   "marketCount": 93,
   "weekCount": 265,
   "korean": {
-    "runs": 12026,
-    "departures": 11779,
+    "runs": 11969,
+    "departures": 11722,
     "stillOnChart": 247,
-    "singleWeekRuns": 4103,
+    "singleWeekRuns": 4059,
     "byRank": [
       {
         "rank": 1,
@@ -22,98 +22,98 @@
         "exitPcMultiWeek": 0.5,
         "entriesPc": 6.6,
         "weeksPc": 10.2,
-        "weeksAtRank": 3859,
+        "weeksAtRank": 3856,
         "endRatePc": 1.2
       },
       {
         "rank": 2,
-        "exits": 184,
+        "exits": 182,
         "exitPc": 1.6,
         "exitPcMultiWeek": 1.9,
         "entriesPc": 6.2,
         "weeksPc": 10.1,
-        "weeksAtRank": 3799,
+        "weeksAtRank": 3792,
         "endRatePc": 4.8
       },
       {
         "rank": 3,
-        "exits": 372,
+        "exits": 371,
         "exitPc": 3.2,
         "exitPcMultiWeek": 3.5,
         "entriesPc": 7.7,
         "weeksPc": 10.3,
-        "weeksAtRank": 3871,
+        "weeksAtRank": 3867,
         "endRatePc": 9.6
       },
       {
         "rank": 4,
-        "exits": 663,
+        "exits": 660,
         "exitPc": 5.6,
         "exitPcMultiWeek": 5.8,
         "entriesPc": 9.1,
         "weeksPc": 10.3,
-        "weeksAtRank": 3902,
+        "weeksAtRank": 3893,
         "endRatePc": 17
       },
       {
         "rank": 5,
-        "exits": 950,
+        "exits": 947,
         "exitPc": 8.1,
         "exitPcMultiWeek": 8.4,
         "entriesPc": 10.3,
         "weeksPc": 10.5,
-        "weeksAtRank": 3961,
-        "endRatePc": 24
+        "weeksAtRank": 3957,
+        "endRatePc": 23.9
       },
       {
         "rank": 6,
-        "exits": 1220,
+        "exits": 1215,
         "exitPc": 10.4,
         "exitPcMultiWeek": 10.3,
         "entriesPc": 10.4,
         "weeksPc": 9.9,
-        "weeksAtRank": 3746,
-        "endRatePc": 32.6
+        "weeksAtRank": 3740,
+        "endRatePc": 32.5
       },
       {
         "rank": 7,
-        "exits": 1648,
+        "exits": 1640,
         "exitPc": 14,
         "exitPcMultiWeek": 14,
         "entriesPc": 11.1,
         "weeksPc": 10,
-        "weeksAtRank": 3774,
-        "endRatePc": 43.7
+        "weeksAtRank": 3761,
+        "endRatePc": 43.6
       },
       {
         "rank": 8,
-        "exits": 1995,
+        "exits": 1984,
         "exitPc": 16.9,
         "exitPcMultiWeek": 17,
         "entriesPc": 12.4,
         "weeksPc": 9.9,
-        "weeksAtRank": 3735,
-        "endRatePc": 53.4
+        "weeksAtRank": 3723,
+        "endRatePc": 53.3
       },
       {
         "rank": 9,
-        "exits": 2248,
+        "exits": 2237,
         "exitPc": 19.1,
         "exitPcMultiWeek": 19.1,
         "entriesPc": 12.4,
         "weeksPc": 9.6,
-        "weeksAtRank": 3614,
-        "endRatePc": 62.2
+        "weeksAtRank": 3601,
+        "endRatePc": 62.1
       },
       {
         "rank": 10,
-        "exits": 2454,
+        "exits": 2441,
         "exitPc": 20.8,
         "exitPcMultiWeek": 19.5,
-        "entriesPc": 13.7,
+        "entriesPc": 13.6,
         "weeksPc": 9.2,
-        "weeksAtRank": 3489,
-        "endRatePc": 70.3
+        "weeksAtRank": 3476,
+        "endRatePc": 70.2
       }
     ],
     "bottomThreePc": 56.8,
@@ -234,22 +234,22 @@
   "marketsMeasured": 91,
   "marketsHigh": [
     {
-      "국가": "Argentina",
-      "나간것": 90,
-      "아래셋": 62,
-      "아래셋몫": 68.9
-    },
-    {
       "국가": "Indonesia",
       "나간것": 316,
       "아래셋": 217,
       "아래셋몫": 68.7
     },
     {
+      "국가": "Argentina",
+      "나간것": 89,
+      "아래셋": 61,
+      "아래셋몫": 68.5
+    },
+    {
       "국가": "Norway",
-      "나간것": 54,
-      "아래셋": 36,
-      "아래셋몫": 66.7
+      "나간것": 53,
+      "아래셋": 35,
+      "아래셋몫": 66
     },
     {
       "국가": "Nicaragua",
@@ -266,12 +266,6 @@
   ],
   "marketsLow": [
     {
-      "국가": "Canada",
-      "나간것": 59,
-      "아래셋": 27,
-      "아래셋몫": 45.8
-    },
-    {
       "국가": "Iceland",
       "나간것": 44,
       "아래셋": 20,
@@ -279,15 +273,21 @@
     },
     {
       "국가": "Luxembourg",
-      "나간것": 67,
+      "나간것": 66,
       "아래셋": 30,
+      "아래셋몫": 45.5
+    },
+    {
+      "국가": "Canada",
+      "나간것": 58,
+      "아래셋": 26,
       "아래셋몫": 44.8
     },
     {
       "국가": "France",
-      "나간것": 88,
-      "아래셋": 39,
-      "아래셋몫": 44.3
+      "나간것": 85,
+      "아래셋": 37,
+      "아래셋몫": 43.5
     },
     {
       "국가": "Slovakia",

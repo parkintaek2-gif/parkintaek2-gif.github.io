@@ -1,6 +1,6 @@
 ---
 title: "Korean titles do come back to charts they had left. Most of the comebacks are second seasons."
-dek: "Of 940 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all. Of the 310 genuine returns, 94.8% happen with no other season nearby."
+dek: "Of 938 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all. Of the 310 genuine returns, 94.8% happen with no other season nearby."
 category: screen
 purpose: both
 pubDate: 2026-08-09
@@ -32,7 +32,7 @@ It is not always one run. A title leaves a country's top 10 and, sometimes, come
 
 ## The first thing we saw was wrong
 
-Across 6,991 title-and-market cells, 940 gaps of four weeks or more end with the title back on that
+Across 6,978 title-and-market cells, 938 gaps of four weeks or more end with the title back on that
 country's chart. The longest was **223 weeks** — more than four years — and it belonged to *Juvenile
 Justice* in several markets at once.
 
@@ -43,15 +43,15 @@ our own reading:
 
 | Gaps of four weeks or more | Cells | Share |
 |---|---:|---:|
-| Season label changed — a new season, not a return | 425 | **45.2%** |
+| Season label changed — a new season, not a return | 424 | **45.2%** |
 | Same season — the title genuinely came back | 310 | **33.0%** |
-| No season label on one side — we cannot tell | 205 | 21.8% |
+| No season label on one side — we cannot tell | 204 | 21.7% |
 
 Nearly half of what looks like a Korean title returning to a chart is a different season of that
 title arriving. Had we not split on the label, we would have published a number about catalogue
 revival that was largely a number about sequels.
 
-The third row is not small print. Netflix carries a season label on 78.9% of Korean chart rows, so a
+The third row is not small print. Netflix carries a season label on 79% of Korean chart rows, so a
 fifth of the gaps cannot be classified at all. They stay in their own row.
 
 ## The explanation we had, and had to drop
@@ -76,14 +76,14 @@ Four weeks is our choice, not Netflix's, so here is what happens at other thresh
 
 | Gap of at least | Gaps | Season changed | Same season | Cannot tell |
 |---|---:|---:|---:|---:|
-| 2 weeks | 1,096 | 430 | 444 | 222 |
-| 3 weeks | 989 | 425 | 353 | 211 |
-| 4 weeks | 940 | 425 | 310 | 205 |
-| 6 weeks | 898 | 425 | 275 | 198 |
-| 8 weeks | 849 | 424 | 234 | 191 |
-| 12 weeks | 776 | 412 | 187 | 177 |
+| 2 weeks | 1,094 | 429 | 444 | 221 |
+| 3 weeks | 987 | 424 | 353 | 210 |
+| 4 weeks | 938 | 424 | 310 | 204 |
+| 6 weeks | 896 | 424 | 275 | 197 |
+| 8 weeks | 847 | 423 | 234 | 190 |
+| 12 weeks | 774 | 411 | 187 | 176 |
 
-Read the season-changed column down: 430 at two weeks, 412 at twelve. It barely moves. A gap between
+Read the season-changed column down: 429 at two weeks, 411 at twelve. It barely moves. A gap between
 two seasons is long by construction, so raising the bar does not remove those cases. The same-season
 column falls by more than half over the same range.
 
@@ -93,7 +93,7 @@ worth doing, and it is why we are more confident in the classification than in t
 ## How common is any of this
 
 Returning is the exception, and we would rather say so than let a mechanism read as a trend. Of the
-6,991 title-and-market cells, 5,902 are a single unbroken run with no gap at all. Only 54 distinct
+6,978 title-and-market cells, 5,895 are a single unbroken run with no gap at all. Only 54 distinct
 titles came back anywhere across 93 markets and five years.
 
 ## What this cannot tell you

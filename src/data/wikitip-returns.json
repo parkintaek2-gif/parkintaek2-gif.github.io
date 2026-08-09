@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-09T06:13:13.322Z",
+ "generated": "2026-08-09T20:50:51.779Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number",
  "question": "A Korean title leaves a country's top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?",
  "unit": "One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market's top 10, between two weeks in which it is present.",
@@ -8,20 +8,20 @@
  "weekFrom": "2021-07-04",
  "weekTo": "2026-07-26",
  "marketCount": 93,
- "koreanRows": 37750,
- "seasonLabelledRows": 29791,
- "seasonLabelPc": 78.9,
- "cellsMeasured": 6991,
- "contiguousCells": 5902,
+ "koreanRows": 37666,
+ "seasonLabelledRows": 29738,
+ "seasonLabelPc": 79,
+ "cellsMeasured": 6978,
+ "contiguousCells": 5895,
  "thresholdWeeks": 4,
  "nearbyWeeks": 4,
- "gaps": 940,
- "seasonChanged": 425,
+ "gaps": 938,
+ "seasonChanged": 424,
  "seasonChangedPc": 45.2,
  "sameSeason": 310,
  "sameSeasonPc": 33,
- "unknownSeason": 205,
- "unknownSeasonPc": 21.8,
+ "unknownSeason": 204,
+ "unknownSeasonPc": 21.7,
  "pulledByOtherSeason": 16,
  "pulledByOtherSeasonPc": 5.2,
  "alone": 294,
@@ -29,45 +29,45 @@
  "thresholds": [
   {
    "weeks": 2,
-   "gaps": 1096,
+   "gaps": 1094,
    "sameSeason": 444,
-   "seasonChanged": 430,
-   "unknown": 222
+   "seasonChanged": 429,
+   "unknown": 221
   },
   {
    "weeks": 3,
-   "gaps": 989,
+   "gaps": 987,
    "sameSeason": 353,
-   "seasonChanged": 425,
-   "unknown": 211
+   "seasonChanged": 424,
+   "unknown": 210
   },
   {
    "weeks": 4,
-   "gaps": 940,
+   "gaps": 938,
    "sameSeason": 310,
-   "seasonChanged": 425,
-   "unknown": 205
+   "seasonChanged": 424,
+   "unknown": 204
   },
   {
    "weeks": 6,
-   "gaps": 898,
+   "gaps": 896,
    "sameSeason": 275,
-   "seasonChanged": 425,
-   "unknown": 198
+   "seasonChanged": 424,
+   "unknown": 197
   },
   {
    "weeks": 8,
-   "gaps": 849,
+   "gaps": 847,
    "sameSeason": 234,
-   "seasonChanged": 424,
-   "unknown": 191
+   "seasonChanged": 423,
+   "unknown": 190
   },
   {
    "weeks": 12,
-   "gaps": 776,
+   "gaps": 774,
    "sameSeason": 187,
-   "seasonChanged": 412,
-   "unknown": 177
+   "seasonChanged": 411,
+   "unknown": 176
   }
  ],
  "longestReturns": [
@@ -156,8 +156,8 @@
   {
    "band": "Under 5%",
    "markets": 49,
-   "cells": 3050,
-   "chances": 4320,
+   "cells": 3013,
+   "chances": 4293,
    "returns": 43,
    "perCellPc": 1.4,
    "perChancePc": 1
@@ -165,8 +165,8 @@
   {
    "band": "5–10%",
    "markets": 23,
-   "cells": 2728,
-   "chances": 6762,
+   "cells": 2720,
+   "chances": 6757,
    "returns": 69,
    "perCellPc": 2.5,
    "perChancePc": 1.02
@@ -174,7 +174,7 @@
   {
    "band": "10–20%",
    "markets": 11,
-   "cells": 1592,
+   "cells": 1590,
    "chances": 5155,
    "returns": 76,
    "perCellPc": 4.8,
@@ -183,8 +183,8 @@
   {
    "band": "20% and over",
    "markets": 10,
-   "cells": 2792,
-   "chances": 11351,
+   "cells": 2789,
+   "chances": 11349,
    "returns": 122,
    "perCellPc": 4.4,
    "perChancePc": 1.07

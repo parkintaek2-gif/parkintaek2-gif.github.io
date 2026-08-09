@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 9. 오전 8:40:57",
+  "generated": "2026. 8. 10. 오전 5:50:23",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
@@ -7,12 +7,12 @@
   "weekCount": 265,
   "series": {
     "kind": "series",
-    "titles": 150,
-    "hours": 22197730000,
-    "weeks": 795,
-    "hoursPerTitle": 147984867,
-    "weeksPerTitle": 5.3,
-    "hoursPerWeek": 27921673,
+    "titles": 149,
+    "hours": 22168830000,
+    "weeks": 794,
+    "hoursPerTitle": 148784094,
+    "weeksPerTitle": 5.33,
+    "hoursPerWeek": 27920441,
     "numberOnes": 41,
     "top": [
       {
@@ -79,12 +79,12 @@
   },
   "film": {
     "kind": "film",
-    "titles": 84,
-    "hours": 1514240000,
-    "weeks": 203,
-    "hoursPerTitle": 18026667,
+    "titles": 83,
+    "hours": 1507530000,
+    "weeks": 201,
+    "hoursPerTitle": 18163012,
     "weeksPerTitle": 2.42,
-    "hoursPerWeek": 7459310,
+    "hoursPerWeek": 7500149,
     "numberOnes": 22,
     "top": [
       {
@@ -151,12 +151,12 @@
   },
   "seriesAboveTopFilm": 33,
   "ratioHours": 14.7,
-  "ratioTitles": 1.79,
+  "ratioTitles": 1.8,
   "ratioPerTitle": 8.2,
   "withoutSquidGame": {
-    "titles": 149,
-    "hours": 17149430000,
-    "hoursPerTitle": 115096846,
+    "titles": 148,
+    "hours": 17120530000,
+    "hoursPerTitle": 115679257,
     "ratioPerTitle": 6.4
   },
   "before": {
@@ -168,8 +168,8 @@
     "film": 20
   },
   "excludedByHand": {
-    "titles": 9,
-    "hours": 1367950000,
+    "titles": 11,
+    "hours": 1403560000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
@@ -179,7 +179,9 @@
       "Forgotten Love",
       "Paradise",
       "Hunger",
-      "Re/Member"
+      "Re/Member",
+      "UFO",
+      "Undercover"
     ]
   },
   "excludedEnglishChart": {

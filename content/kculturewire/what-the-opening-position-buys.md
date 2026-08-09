@@ -39,12 +39,12 @@ connected the two ends. So: **does the opening position say anything about the l
 | 1 | 487 | **6** | 90.3% | 0.4% |
 | 2 | 459 | 5 | 76.7% | 3.5% |
 | 3 | 603 | 4 | 63.7% | 6.8% |
-| 4 | 710 | 4 | 50.8% | 12.1% |
+| 4 | 710 | 4 | 51% | 12.1% |
 | 5 | 787 | 3 | 44.7% | 19.6% |
 | 6 | 836 | 2 | 34% | 28.2% |
 | 7 | 868 | 2 | 26.6% | 36.6% |
 | 8 | 1,007 | 2 | 24.1.1% | 42.1% |
-| 9 | 1,002 | 1 | 21.1% | 50.8% |
+| 9 | 1,002 | 1 | 21.1% | 50.5% |
 | 10 | 1,133 | **1** | 16.7% | 56% |
 
 A Korean series that opens at number one runs a median of **six weeks**, and nine in ten of them last
@@ -64,8 +64,8 @@ taken as the gap between the two ends of the table divided by the nine steps bet
 |---|---:|---:|---:|---:|
 | Korean series | 7,892 | 6 | 1 | **0.56** |
 | Every other series | 79,015 | 5 | 1 | **0.44** |
-| Korean films | 3,853 | 4 | 1 | **0.33** |
-| Every other film | 117,293 | 3 | 1 | **0.22** |
+| Korean films | 3,830 | 4 | 1 | **0.33** |
+| Every other film | 117,316 | 3 | 1 | **0.22** |
 
 Two things fall out of that column.
 

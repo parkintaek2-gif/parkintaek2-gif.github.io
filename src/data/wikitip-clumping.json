@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T12:10:24.820Z",
+  "generated": "2026-08-09T20:50:13.551Z",
   "source": "Netflix Top 10 (Tudum) weekly country lists. One cell is one country, one week, one of the two charts (films or series).",
   "question": "Our headline figure is an average. Is a Korean title on a country chart most weeks, or absent most weeks and several at once when it is there?",
   "unit": "A cell is one country-week-chart. \"Any\" means at least one Korean title held a place in that cell. The even comparison is what the same overall share would produce if places fell independently.",
@@ -8,41 +8,41 @@
   "minimumWeeks": 50,
   "rowsRead": 493600,
   "cellsMeasured": 49290,
-  "koreanPlaces": 37750,
+  "koreanPlaces": 37666,
   "allPlaces": 492900,
-  "worldSharePc": 7.7,
-  "cellsWithAny": 20157,
-  "observedAnyPc": 40.9,
-  "evenAnyPc": 54.9,
-  "clumping": 0.255,
+  "worldSharePc": 7.6,
+  "cellsWithAny": 20100,
+  "observedAnyPc": 40.8,
+  "evenAnyPc": 54.8,
+  "clumping": 0.256,
   "distribution": [
     {
       "korean": 0,
-      "cells": 29133,
-      "observedPc": 59.1,
-      "evenPc": 45.1
+      "cells": 29190,
+      "observedPc": 59.2,
+      "evenPc": 45.2
     },
     {
       "korean": 1,
-      "cells": 11459,
+      "cells": 11424,
       "observedPc": 23.2,
       "evenPc": 37.4
     },
     {
       "korean": 2,
-      "cells": 4585,
+      "cells": 4567,
       "observedPc": 9.3,
-      "evenPc": 14
+      "evenPc": 13.9
     },
     {
       "korean": 3,
-      "cells": 1947,
-      "observedPc": 4,
+      "cells": 1944,
+      "observedPc": 3.9,
       "evenPc": 3.1
     },
     {
       "korean": 4,
-      "cells": 883,
+      "cells": 882,
       "observedPc": 1.8,
       "evenPc": 0.4
     },
@@ -99,20 +99,20 @@
       "iso2": "AR",
       "weeks": 530,
       "koreanShare": 3.9,
-      "weeksWithAny": 171,
-      "observedAnyPc": 32.3,
-      "evenAnyPc": 33.1,
-      "clumping": 0.026,
+      "weeksWithAny": 170,
+      "observedAnyPc": 32.1,
+      "evenAnyPc": 33,
+      "clumping": 0.028,
       "mostInOneWeek": 3
     },
     {
       "iso2": "AT",
       "weeks": 530,
-      "koreanShare": 2.7,
-      "weeksWithAny": 120,
-      "observedAnyPc": 22.6,
-      "evenAnyPc": 23.8,
-      "clumping": 0.048,
+      "koreanShare": 2.6,
+      "weeksWithAny": 119,
+      "observedAnyPc": 22.5,
+      "evenAnyPc": 23.5,
+      "clumping": 0.044,
       "mostInOneWeek": 2
     },
     {
@@ -138,11 +138,11 @@
     {
       "iso2": "BE",
       "weeks": 530,
-      "koreanShare": 2.8,
-      "weeksWithAny": 125,
-      "observedAnyPc": 23.6,
-      "evenAnyPc": 25,
-      "clumping": 0.055,
+      "koreanShare": 2.7,
+      "weeksWithAny": 122,
+      "observedAnyPc": 23,
+      "evenAnyPc": 24.1,
+      "clumping": 0.044,
       "mostInOneWeek": 2
     },
     {
@@ -189,30 +189,30 @@
       "iso2": "BS",
       "weeks": 530,
       "koreanShare": 2.7,
-      "weeksWithAny": 127,
-      "observedAnyPc": 24,
-      "evenAnyPc": 24.2,
-      "clumping": 0.011,
+      "weeksWithAny": 126,
+      "observedAnyPc": 23.8,
+      "evenAnyPc": 23.9,
+      "clumping": 0.007,
       "mostInOneWeek": 2
     },
     {
       "iso2": "CA",
       "weeks": 530,
       "koreanShare": 2,
-      "weeksWithAny": 91,
-      "observedAnyPc": 17.2,
-      "evenAnyPc": 18.4,
-      "clumping": 0.069,
+      "weeksWithAny": 90,
+      "observedAnyPc": 17,
+      "evenAnyPc": 18.3,
+      "clumping": 0.072,
       "mostInOneWeek": 3
     },
     {
       "iso2": "CH",
       "weeks": 530,
       "koreanShare": 2.6,
-      "weeksWithAny": 122,
-      "observedAnyPc": 23,
-      "evenAnyPc": 23,
-      "clumping": 0.001,
+      "weeksWithAny": 121,
+      "observedAnyPc": 22.8,
+      "evenAnyPc": 22.9,
+      "clumping": 0.003,
       "mostInOneWeek": 2
     },
     {
@@ -249,10 +249,10 @@
       "iso2": "CY",
       "weeks": 530,
       "koreanShare": 2.5,
-      "weeksWithAny": 116,
-      "observedAnyPc": 21.9,
-      "evenAnyPc": 22.7,
-      "clumping": 0.038,
+      "weeksWithAny": 115,
+      "observedAnyPc": 21.7,
+      "evenAnyPc": 22.6,
+      "clumping": 0.04,
       "mostInOneWeek": 3
     },
     {
@@ -269,10 +269,10 @@
       "iso2": "DE",
       "weeks": 530,
       "koreanShare": 2.8,
-      "weeksWithAny": 122,
-      "observedAnyPc": 23,
-      "evenAnyPc": 24.7,
-      "clumping": 0.067,
+      "weeksWithAny": 121,
+      "observedAnyPc": 22.8,
+      "evenAnyPc": 24.4,
+      "clumping": 0.063,
       "mostInOneWeek": 3
     },
     {
@@ -289,10 +289,10 @@
       "iso2": "DO",
       "weeks": 530,
       "koreanShare": 8.3,
-      "weeksWithAny": 285,
-      "observedAnyPc": 53.8,
-      "evenAnyPc": 58,
-      "clumping": 0.072,
+      "weeksWithAny": 284,
+      "observedAnyPc": 53.6,
+      "evenAnyPc": 57.9,
+      "clumping": 0.074,
       "mostInOneWeek": 5
     },
     {
@@ -331,38 +331,38 @@
       "koreanShare": 3.1,
       "weeksWithAny": 146,
       "observedAnyPc": 27.5,
-      "evenAnyPc": 27.3,
-      "clumping": -0.011,
+      "evenAnyPc": 27,
+      "clumping": -0.021,
       "mostInOneWeek": 2
     },
     {
       "iso2": "FI",
       "weeks": 530,
       "koreanShare": 2.7,
-      "weeksWithAny": 125,
-      "observedAnyPc": 23.6,
-      "evenAnyPc": 23.8,
-      "clumping": 0.008,
+      "weeksWithAny": 124,
+      "observedAnyPc": 23.4,
+      "evenAnyPc": 23.6,
+      "clumping": 0.01,
       "mostInOneWeek": 3
     },
     {
       "iso2": "FR",
       "weeks": 530,
-      "koreanShare": 3.6,
-      "weeksWithAny": 159,
-      "observedAnyPc": 30,
-      "evenAnyPc": 30.4,
-      "clumping": 0.015,
+      "koreanShare": 3.5,
+      "weeksWithAny": 154,
+      "observedAnyPc": 29.1,
+      "evenAnyPc": 29.8,
+      "clumping": 0.024,
       "mostInOneWeek": 3
     },
     {
       "iso2": "GB",
       "weeks": 530,
-      "koreanShare": 1.8,
-      "weeksWithAny": 85,
-      "observedAnyPc": 16,
-      "evenAnyPc": 16.2,
-      "clumping": 0.012,
+      "koreanShare": 1.7,
+      "weeksWithAny": 84,
+      "observedAnyPc": 15.8,
+      "evenAnyPc": 16.1,
+      "clumping": 0.013,
       "mostInOneWeek": 2
     },
     {
@@ -379,10 +379,10 @@
       "iso2": "GR",
       "weeks": 530,
       "koreanShare": 4.2,
-      "weeksWithAny": 183,
-      "observedAnyPc": 34.5,
-      "evenAnyPc": 34.7,
-      "clumping": 0.004,
+      "weeksWithAny": 182,
+      "observedAnyPc": 34.3,
+      "evenAnyPc": 34.6,
+      "clumping": 0.006,
       "mostInOneWeek": 3
     },
     {
@@ -419,10 +419,10 @@
       "iso2": "HR",
       "weeks": 530,
       "koreanShare": 2.1,
-      "weeksWithAny": 100,
-      "observedAnyPc": 18.9,
-      "evenAnyPc": 19.4,
-      "clumping": 0.027,
+      "weeksWithAny": 99,
+      "observedAnyPc": 18.7,
+      "evenAnyPc": 19.2,
+      "clumping": 0.029,
       "mostInOneWeek": 2
     },
     {
@@ -449,30 +449,30 @@
       "iso2": "IE",
       "weeks": 530,
       "koreanShare": 1.6,
-      "weeksWithAny": 77,
-      "observedAnyPc": 14.5,
-      "evenAnyPc": 14.9,
-      "clumping": 0.027,
+      "weeksWithAny": 76,
+      "observedAnyPc": 14.3,
+      "evenAnyPc": 14.8,
+      "clumping": 0.029,
       "mostInOneWeek": 2
     },
     {
       "iso2": "IL",
       "weeks": 530,
       "koreanShare": 2.6,
-      "weeksWithAny": 118,
-      "observedAnyPc": 22.3,
-      "evenAnyPc": 23.3,
-      "clumping": 0.046,
+      "weeksWithAny": 117,
+      "observedAnyPc": 22.1,
+      "evenAnyPc": 23.2,
+      "clumping": 0.048,
       "mostInOneWeek": 3
     },
     {
       "iso2": "IN",
       "weeks": 530,
       "koreanShare": 9.6,
-      "weeksWithAny": 303,
-      "observedAnyPc": 57.2,
-      "evenAnyPc": 63.7,
-      "clumping": 0.103,
+      "weeksWithAny": 302,
+      "observedAnyPc": 57,
+      "evenAnyPc": 63.6,
+      "clumping": 0.105,
       "mostInOneWeek": 4
     },
     {
@@ -499,10 +499,10 @@
       "iso2": "JM",
       "weeks": 530,
       "koreanShare": 3.7,
-      "weeksWithAny": 169,
-      "observedAnyPc": 31.9,
-      "evenAnyPc": 31.4,
-      "clumping": -0.016,
+      "weeksWithAny": 168,
+      "observedAnyPc": 31.7,
+      "evenAnyPc": 31.3,
+      "clumping": -0.014,
       "mostInOneWeek": 3
     },
     {
@@ -511,18 +511,18 @@
       "koreanShare": 7.6,
       "weeksWithAny": 271,
       "observedAnyPc": 51.1,
-      "evenAnyPc": 54.6,
-      "clumping": 0.063,
+      "evenAnyPc": 54.5,
+      "clumping": 0.061,
       "mostInOneWeek": 4
     },
     {
       "iso2": "JP",
       "weeks": 530,
-      "koreanShare": 20.2,
-      "weeksWithAny": 392,
-      "observedAnyPc": 74,
-      "evenAnyPc": 89.5,
-      "clumping": 0.174,
+      "koreanShare": 20.1,
+      "weeksWithAny": 389,
+      "observedAnyPc": 73.4,
+      "evenAnyPc": 89.4,
+      "clumping": 0.179,
       "mostInOneWeek": 8
     },
     {
@@ -531,8 +531,8 @@
       "koreanShare": 4.7,
       "weeksWithAny": 199,
       "observedAnyPc": 37.5,
-      "evenAnyPc": 38.2,
-      "clumping": 0.017,
+      "evenAnyPc": 38,
+      "clumping": 0.011,
       "mostInOneWeek": 3
     },
     {
@@ -589,10 +589,10 @@
       "iso2": "LU",
       "weeks": 530,
       "koreanShare": 2.7,
-      "weeksWithAny": 126,
-      "observedAnyPc": 23.8,
-      "evenAnyPc": 24.2,
-      "clumping": 0.019,
+      "weeksWithAny": 125,
+      "observedAnyPc": 23.6,
+      "evenAnyPc": 24.1,
+      "clumping": 0.02,
       "mostInOneWeek": 3
     },
     {
@@ -609,10 +609,10 @@
       "iso2": "MA",
       "weeks": 530,
       "koreanShare": 9.4,
-      "weeksWithAny": 323,
-      "observedAnyPc": 60.9,
-      "evenAnyPc": 62.7,
-      "clumping": 0.028,
+      "weeksWithAny": 322,
+      "observedAnyPc": 60.8,
+      "evenAnyPc": 62.6,
+      "clumping": 0.029,
       "mostInOneWeek": 5
     },
     {
@@ -628,21 +628,21 @@
     {
       "iso2": "MT",
       "weeks": 530,
-      "koreanShare": 2.1,
-      "weeksWithAny": 98,
-      "observedAnyPc": 18.5,
-      "evenAnyPc": 18.8,
-      "clumping": 0.015,
+      "koreanShare": 2,
+      "weeksWithAny": 97,
+      "observedAnyPc": 18.3,
+      "evenAnyPc": 18.6,
+      "clumping": 0.016,
       "mostInOneWeek": 2
     },
     {
       "iso2": "MU",
       "weeks": 530,
       "koreanShare": 5.1,
-      "weeksWithAny": 217,
-      "observedAnyPc": 40.9,
-      "evenAnyPc": 41,
-      "clumping": 0,
+      "weeksWithAny": 216,
+      "observedAnyPc": 40.8,
+      "evenAnyPc": 40.8,
+      "clumping": 0.002,
       "mostInOneWeek": 3
     },
     {
@@ -679,10 +679,10 @@
       "iso2": "NC",
       "weeks": 530,
       "koreanShare": 4.4,
-      "weeksWithAny": 195,
-      "observedAnyPc": 36.8,
-      "evenAnyPc": 36.5,
-      "clumping": -0.009,
+      "weeksWithAny": 194,
+      "observedAnyPc": 36.6,
+      "evenAnyPc": 36.3,
+      "clumping": -0.007,
       "mostInOneWeek": 4
     },
     {
@@ -708,21 +708,21 @@
     {
       "iso2": "NL",
       "weeks": 530,
-      "koreanShare": 2.1,
-      "weeksWithAny": 94,
-      "observedAnyPc": 17.7,
-      "evenAnyPc": 19.4,
-      "clumping": 0.085,
-      "mostInOneWeek": 4
+      "koreanShare": 1.8,
+      "weeksWithAny": 83,
+      "observedAnyPc": 15.7,
+      "evenAnyPc": 16.5,
+      "clumping": 0.054,
+      "mostInOneWeek": 2
     },
     {
       "iso2": "NO",
       "weeks": 530,
       "koreanShare": 1.9,
-      "weeksWithAny": 91,
-      "observedAnyPc": 17.2,
-      "evenAnyPc": 17.7,
-      "clumping": 0.028,
+      "weeksWithAny": 90,
+      "observedAnyPc": 17,
+      "evenAnyPc": 17.5,
+      "clumping": 0.03,
       "mostInOneWeek": 2
     },
     {
@@ -741,8 +741,8 @@
       "koreanShare": 10.6,
       "weeksWithAny": 322,
       "observedAnyPc": 60.8,
-      "evenAnyPc": 67.4,
-      "clumping": 0.099,
+      "evenAnyPc": 67.3,
+      "clumping": 0.098,
       "mostInOneWeek": 4
     },
     {
@@ -789,10 +789,10 @@
       "iso2": "PL",
       "weeks": 530,
       "koreanShare": 3,
-      "weeksWithAny": 141,
-      "observedAnyPc": 26.6,
-      "evenAnyPc": 26.4,
-      "clumping": -0.008,
+      "weeksWithAny": 138,
+      "observedAnyPc": 26,
+      "evenAnyPc": 26,
+      "clumping": -0.003,
       "mostInOneWeek": 3
     },
     {
@@ -829,20 +829,20 @@
       "iso2": "RE",
       "weeks": 530,
       "koreanShare": 4.9,
-      "weeksWithAny": 214,
-      "observedAnyPc": 40.4,
-      "evenAnyPc": 39.8,
-      "clumping": -0.015,
+      "weeksWithAny": 212,
+      "observedAnyPc": 40,
+      "evenAnyPc": 39.5,
+      "clumping": -0.012,
       "mostInOneWeek": 3
     },
     {
       "iso2": "RO",
       "weeks": 530,
       "koreanShare": 5.2,
-      "weeksWithAny": 212,
-      "observedAnyPc": 40,
-      "evenAnyPc": 41.7,
-      "clumping": 0.04,
+      "weeksWithAny": 210,
+      "observedAnyPc": 39.6,
+      "evenAnyPc": 41.4,
+      "clumping": 0.043,
       "mostInOneWeek": 3
     },
     {
@@ -861,18 +861,18 @@
       "koreanShare": 12,
       "weeksWithAny": 344,
       "observedAnyPc": 64.9,
-      "evenAnyPc": 72.2,
-      "clumping": 0.101,
+      "evenAnyPc": 72.1,
+      "clumping": 0.1,
       "mostInOneWeek": 4
     },
     {
       "iso2": "SE",
       "weeks": 530,
       "koreanShare": 2.1,
-      "weeksWithAny": 100,
-      "observedAnyPc": 18.9,
-      "evenAnyPc": 19.4,
-      "clumping": 0.027,
+      "weeksWithAny": 98,
+      "observedAnyPc": 18.5,
+      "evenAnyPc": 19.1,
+      "clumping": 0.031,
       "mostInOneWeek": 2
     },
     {
@@ -928,21 +928,21 @@
     {
       "iso2": "TR",
       "weeks": 530,
-      "koreanShare": 6.2,
-      "weeksWithAny": 245,
-      "observedAnyPc": 46.2,
-      "evenAnyPc": 47.4,
-      "clumping": 0.025,
+      "koreanShare": 6.1,
+      "weeksWithAny": 243,
+      "observedAnyPc": 45.8,
+      "evenAnyPc": 46.9,
+      "clumping": 0.022,
       "mostInOneWeek": 3
     },
     {
       "iso2": "TT",
       "weeks": 530,
-      "koreanShare": 2.9,
-      "weeksWithAny": 134,
-      "observedAnyPc": 25.3,
-      "evenAnyPc": 25.2,
-      "clumping": -0.001,
+      "koreanShare": 2.8,
+      "weeksWithAny": 133,
+      "observedAnyPc": 25.1,
+      "evenAnyPc": 25,
+      "clumping": -0.006,
       "mostInOneWeek": 3
     },
     {
@@ -979,10 +979,10 @@
       "iso2": "UY",
       "weeks": 530,
       "koreanShare": 2.9,
-      "weeksWithAny": 138,
-      "observedAnyPc": 26,
-      "evenAnyPc": 25.5,
-      "clumping": -0.02,
+      "weeksWithAny": 137,
+      "observedAnyPc": 25.8,
+      "evenAnyPc": 25.4,
+      "clumping": -0.018,
       "mostInOneWeek": 2
     },
     {
@@ -1016,6 +1016,6 @@
       "mostInOneWeek": 3
     }
   ],
-  "marketsMoreClumpedThanEven": 80,
+  "marketsMoreClumpedThanEven": 81,
   "cannotAnswer": "This cannot say why the places arrive together. Netflix publishes neither release dates by country nor what it promoted where, and a chart place is an outcome rather than a decision."
 }

@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 9. 오후 2:09:18",
+  "generated": "2026. 8. 10. 오전 5:51:58",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 넷플릭스가 목록을 내는 나라 전부",
   "question": "Of the top-10 places Netflix publishes around the world, how many hold a Korean title — and is that share growing?",
@@ -9,19 +9,19 @@
   "countryCount": 93,
   "slotsPerCountry": 5300,
   "totalSlots": 492900,
-  "koreanSlots": 37750,
-  "worldPc": 7.7,
+  "koreanSlots": 37666,
+  "worldPc": 7.6,
   "confirmation": {
-    "labelledSlots": 31143,
+    "labelledSlots": 31078,
     "labelledPc": 82.5,
-    "unlabelledSlots": 6078,
+    "unlabelledSlots": 6059,
     "unlabelledPc": 16.1,
     "bothSlots": 529,
     "bothPc": 1.4,
     "keyedSlots": 37371,
-    "keyedPc": 99,
-    "unkeyedSlots": 379,
-    "unkeyedPc": 1,
+    "keyedPc": 99.2,
+    "unkeyedSlots": 295,
+    "unkeyedPc": 0.8,
     "note": "Netflix labels a title Non-English on its global charts, and that is the label we use to exclude English-language works with the same name. Country charts carry no such label, so a title that never reached a global top 10 has nothing to check against. We keep those rather than drop them, and this is how much of the total rests on them."
   },
   "medianCountryPc": 4.5,
@@ -141,19 +141,19 @@
     {
       "from": 2,
       "to": 3,
-      "countries": 22,
+      "countries": 21,
       "names": [
         "Hungary",
         "New Zealand",
-        "Trinidad and Tobago",
         "Uruguay",
-        "Belgium",
         "Germany",
-        "Austria",
+        "Trinidad and Tobago",
         "Bahamas",
+        "Belgium",
         "Finland",
         "Luxembourg",
         "South Africa",
+        "Austria",
         "Israel",
         "Switzerland",
         "Cyprus",
@@ -161,23 +161,23 @@
         "Slovenia",
         "Croatia",
         "Lithuania",
-        "Malta",
-        "Netherlands",
         "Sweden",
-        "Canada"
+        "Canada",
+        "Malta"
       ]
     },
     {
       "from": 0,
       "to": 2,
-      "countries": 9,
+      "countries": 10,
       "names": [
         "Latvia",
         "Norway",
         "Estonia",
+        "Netherlands",
         "Ukraine",
-        "United Kingdom",
         "Denmark",
+        "United Kingdom",
         "Ireland",
         "United States",
         "Iceland"
@@ -196,7 +196,7 @@
     {
       "year": "2022",
       "weeks": 52,
-      "pc": 7.6
+      "pc": 7.5
     },
     {
       "year": "2023",
@@ -218,7 +218,7 @@
     {
       "year": "2021",
       "weeks": 26,
-      "pc": 8.5
+      "pc": 8.4
     },
     {
       "year": "2026",
@@ -259,7 +259,7 @@
         },
         {
           "year": "2023",
-          "pc": 26
+          "pc": 25.9
         },
         {
           "year": "2024",
@@ -277,7 +277,7 @@
       "byYear": [
         {
           "year": "2022",
-          "pc": 1.9
+          "pc": 1.8
         },
         {
           "year": "2023",
@@ -360,10 +360,10 @@
     },
     {
       "year": "2023",
-      "pc": 26,
-      "koreanTitles": 139,
+      "pc": 25.9,
+      "koreanTitles": 138,
       "allTitles": 1158,
-      "slotsPerKoreanTitle": 17.8
+      "slotsPerKoreanTitle": 17.9
     },
     {
       "year": "2024",

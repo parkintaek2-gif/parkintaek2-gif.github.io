@@ -1,11 +1,11 @@
 {
-  "generated": "2026. 8. 9. 오전 8:40:57",
+  "generated": "2026. 8. 10. 오전 5:50:23",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 234,
-  "totalHours": 23711970000,
+  "titleCount": 232,
+  "totalHours": 23676360000,
   "before": {
     "titles": 293,
     "hours": 27707210000
@@ -15,8 +15,8 @@
     "hours": 2627290000
   },
   "excludedByHand": {
-    "titles": 9,
-    "hours": 1367950000,
+    "titles": 11,
+    "hours": 1403560000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
@@ -26,7 +26,9 @@
       "Forgotten Love",
       "Paradise",
       "Hunger",
-      "Re/Member"
+      "Re/Member",
+      "UFO",
+      "Undercover"
     ]
   },
   "bothCharts": {

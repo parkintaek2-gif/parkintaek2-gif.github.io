@@ -1,6 +1,6 @@
 ---
 title: "Korean music attention has no Squid Game — and it is still the more concentrated of the two"
-dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.2% of titles on screen. No giant, steeper slope."
+dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.3% of titles on screen. No giant, steeper slope."
 category: music
 purpose: both
 pubDate: 2026-08-08
@@ -30,7 +30,7 @@ excluded:
   - "Revenue, streams and sales. Nothing here is a money figure and none of these numbers should be read as one"
 ---
 
-Two Korean cultural exports, measured on the two instruments we have: **234 titles** carrying five
+Two Korean cultural exports, measured on the two instruments we have: **232 titles** carrying five
 years of Netflix viewing hours, and **2,361 K-pop acts and members** carrying thirty days of English
 Wikipedia lookups.
 
@@ -48,20 +48,20 @@ act in K-pop is a twenty-fifth of the attention its own field receives.
 
 ## The panels are ten times different in size
 
-235 against 2,361. A top-50 share means something completely different in each. So ask the question
+232 against 2,361. A top-50 share means something completely different in each. So ask the question
 that does not depend on panel size: **how much of the field do you need before you have half the
 total?**
 
 | | Half the total comes from | As a share of the panel | Top 10% of the panel holds |
 | --- | ---: | ---: | ---: |
-| Screen | 17 titles | **7.3%** | 56.2% |
+| Screen | 17 titles | **7.3%** | 56.3% |
 | Music | 107 acts | **4.5%** | **67.0%** |
 
 **Music is the steeper distribution.** Its top tenth holds ten points more of its field's attention
 than screen's top tenth holds of viewing. Half of all K-pop lookups sit on 107 of 2,361 acts.
 
 So both statements are true and they are about different things. **Screen has one giant; music has a
-steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.4%** — flatter still against music's 67.0%.
+steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.5%** — flatter still against music's 67.0%.
 Nothing in music is remotely as large as *Squid Game* relative to its field — and the field beneath
 it is still more unequal.
 

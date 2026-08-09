@@ -1,14 +1,14 @@
 {
- "generated": "2026-08-08T23:41:22.791Z",
+ "generated": "2026-08-09T20:50:28.916Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021–2026; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "Does how long a Korean title stays on Korea’s own Netflix chart tell you whether it will travel?",
  "unit": "One place is one title on one country’s weekly top 10. A title on the list for six weeks in Korea has six home places.",
  "weekFrom": "2021-07-04",
  "weekTo": "2026-07-26",
  "weekCount": 265,
- "titles": 915,
+ "titles": 902,
  "chartedAtHome": 560,
- "neverChartedAtHome": 355,
+ "neverChartedAtHome": 342,
  "whyNotCompared": "Titles that never charted in Korea are, by definition, titles we only know about because they charted somewhere else. Comparing the two groups directly would answer a question we have already decided.",
  "bands": [
   {
@@ -200,12 +200,6 @@
    "film": false
   },
   {
-   "title": "Undercover",
-   "countries": 24,
-   "places": 48,
-   "film": false
-  },
-  {
    "title": "Snowpiercer",
    "countries": 24,
    "places": 60,
@@ -260,5 +254,5 @@
    "film": false
   }
  ],
- "travelledWithoutHomeCount": 29
+ "travelledWithoutHomeCount": 28
 }

@@ -1,6 +1,6 @@
 ---
 title: "Twenty-three corrections, and nine distinct ways of being wrong. All nine now fail the build."
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-three. This piece went out with four kinds untested; every kind now fails the build, including the one found today."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-four. This piece went out with four kinds untested; every kind now fails the build, including the one found today."
 category: screen
 purpose: ads
 pubDate: 2026-08-08
@@ -25,7 +25,7 @@ excluded:
 ---
 
 We keep a record of every figure we have published and had to change. As of today it holds
-**23 corrections** — 12 on data pages and 11 in articles.
+**24 corrections** — 12 on data pages and 12 in articles.
 
 Counting them was never the interesting part. What we wanted to know was whether they were 23
 separate accidents or a few repeating shapes. So each one carries a tag for the **kind** of mistake
@@ -46,7 +46,7 @@ There are nine kinds.
 | A comparison computed on a group selected by the outcome | 1 | 1 | yes |
 | A limitation written down and never tested | 1 | 1 | yes |
 
-**One cause produced eight of the twenty-three.** Titles entered our Korean panel because their English
+**One cause produced eight of the twenty-four.** Titles entered our Korean panel because their English
 name matched a Korean work, and foreign works with the same name came in with them. That single flaw
 moved figures on five pages and in three articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).

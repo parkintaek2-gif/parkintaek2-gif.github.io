@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T13:32:59.674Z",
+  "generated": "2026-08-09T20:50:34.278Z",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series, joined to production company (P272), first broadcaster (P449) and distributor (P750) from Wikidata.",
   "question": "Production costs are reported to have risen roughly 27-fold in under a decade, and the argument that follows is that only a few buyers can now finance a Korean series. If that shifted power, the charts should show it. Did they?",
   "unit": "One year holds every Korean series that reached any country top 10 that year. \"Half takes\" is how many companies it takes to cover half of those titles, counting each title once however many companies are credited on it.",
@@ -19,9 +19,9 @@
     {
       "year": "2021",
       "weeks": 26,
-      "titles": 71,
+      "titles": 69,
       "titlesWithFirm": 59,
-      "places": 3491,
+      "places": 3475,
       "firms": 32,
       "halfTakesFirms": 3,
       "halfTakesIfEven": 16,
@@ -38,9 +38,9 @@
     {
       "year": "2022",
       "weeks": 52,
-      "titles": 127,
+      "titles": 125,
       "titlesWithFirm": 107,
-      "places": 5939,
+      "places": 5904,
       "firms": 55,
       "halfTakesFirms": 3,
       "halfTakesIfEven": 28,
@@ -95,9 +95,9 @@
     {
       "year": "2025",
       "weeks": 52,
-      "titles": 96,
+      "titles": 95,
       "titlesWithFirm": 65,
-      "places": 6266,
+      "places": 6264,
       "firms": 52,
       "halfTakesFirms": 3,
       "halfTakesIfEven": 26,

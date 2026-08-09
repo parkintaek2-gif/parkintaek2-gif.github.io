@@ -62,9 +62,9 @@ between the two formats. The number worth having is what is left after removing 
 
 | | Series minus films, mean weeks |
 |---|---:|
-| Korean titles | **1.76 weeks** |
+| Korean titles | **1.77 weeks** |
 | Every other title | **0.69 weeks** |
-| Difference | **1.07 weeks** |
+| Difference | **1.08 weeks** |
 
 Korean series pull away from Korean films by a week more than other series pull away from other
 films. That extra week is the Korean part, and it sits entirely on the series side.
@@ -88,7 +88,7 @@ series with their biggest contributor removed, and still reach four weeks half a
 ## How they leave
 
 There is one more asymmetry, and it runs the other way. Of Korean series runs that ended, **62.9%**
-ended from positions 8, 9 or 10 — against 57.5% for other series and 44.4% for Korean films. A
+ended from positions 8, 9 or 10 — against 57.5% for other series and 44.3% for Korean films. A
 Korean series is on the chart longer and then slides off the bottom of it; a Korean film is more
 often simply gone.
 

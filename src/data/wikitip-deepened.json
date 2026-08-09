@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T15:45:10.016Z",
+  "generated": "2026-08-09T20:50:16.039Z",
   "whatIsStillOnlyInTheSheet": "The week-by-week path of a title, the full company catalogue table and the titles that never charted remain in the company sheet. What is here is the per-market summary: how many separate runs, the longest, and the position each run ended from.",
   "rowsRead": 493600,
   "bySlug": {
@@ -925,7 +925,7 @@
       "marketsWithReturn": 12,
       "exitsCounted": 36,
       "exitBottomThree": 29,
-      "companionAvg": 0.67,
+      "companionAvg": 0.65,
       "companionWeeksAlone": 55
     },
     "the-trauma-code-heroes-on-call": {

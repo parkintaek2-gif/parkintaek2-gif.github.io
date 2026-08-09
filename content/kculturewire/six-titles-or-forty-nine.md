@@ -40,7 +40,7 @@ has each one actually seen, and how few of them carry half of it?
 | | Markets | Korean places | Different Korean titles | Titles that fill half | Largest single title |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | The ten Asian markets | 10 | 1,251 | **247** | **54** | 2.8% |
-| The other markets | 83 | 209 | **85** | **17** | 14.6% |
+| The other markets | 83 | 208 | **85** | **17** | 14.6% |
 
 All figures are medians of the markets in each group.
 
@@ -57,7 +57,7 @@ places in the median Asian market against **14.4%** elsewhere.
 | Thailand | 260 | 49 | *Alchemy of Souls* | 4.4% |
 | Malaysia | 248 | 53 | *Squid Game* | 2.8% |
 | Vietnam | 247 | 49 | *Reply 1988* | 2.5% |
-| Ireland | 38 | 7 | *Squid Game* | 23.5% |
+| Ireland | 37 | 7 | *Squid Game* | 23.8% |
 | United States | 38 | 6 | *Squid Game* | 32.1% |
 | Estonia | 34 | 3 | *Squid Game* | 43.9% |
 | Latvia | 33 | 2 | *Squid Game* | 46.1% |
@@ -89,7 +89,7 @@ both groups have members — and compare within it.
 | Matched on Korean places (600–1,200) | Markets | Korean places | Different titles | Titles that fill half | Largest title |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | Asian | 4 | 1,171 | 243 | **54** | 3.1% |
-| Other | 7 | 637 | 150 | **29** | 7.1% |
+| Other | 7 | 636 | 150 | **29** | 7.1% |
 
 The Asian markets in that band are Hong Kong, Japan, the Philippines and Singapore. The others are
 Bangladesh, Bolivia, the Maldives, Nigeria, Peru, Qatar and Saudi Arabia.
@@ -101,7 +101,7 @@ That is the honest size of the finding: smaller than the first table suggests, a
 ## Japan is the shallowest of the ten
 
 Within the ten Asian markets, the number of titles needed to fill half runs from **33 to 117**.
-The low end is Japan: 237 different Korean titles have charted there, as many as its neighbours,
+The low end is Japan: 234 different Korean titles have charted there, as many as its neighbours,
 but 33 of them carry half the places and its largest single title holds 6.7% — closer to the
 non-Asian pattern than to Vietnam's 49 and 2.5%.
 

@@ -58,9 +58,9 @@ So the same measurement, inside bands of equal run length:
 | Weeks on a chart | Korean series | Every other series |
 |---|---:|---:|
 | 1–2 weeks | 50% *(6 titles)* | 83.5% *(461)* |
-| 3–4 weeks | 38.1% *(21)* | 46.2% *(504)* |
+| 3–4 weeks | 40% *(20)* | 46.1% *(505)* |
 | 5–8 weeks | 26.6% *(79)* | 28.6% *(567)* |
-| 9 weeks or more | **9.7%** *(103)* | **24%** *(458)* |
+| 9 weeks or more | **9.8%** *(102)* | **24%** *(459)* |
 
 **The gap narrows sharply, and in the middle it nearly disappears.** Among titles that lasted five to
 eight weeks, Korean series peak in week one 26.6% of the time and other series 28.6% — a difference

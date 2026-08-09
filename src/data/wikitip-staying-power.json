@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-08T23:41:33.595Z",
+  "generated": "2026-08-09T20:51:06.906Z",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 234,
+  "titleCount": 232,
   "shown": 50,
-  "totalHours": 23711970000,
+  "totalHours": 23676360000,
   "peakGroups": [
     {
       "label": "Peaked at #1",
@@ -19,12 +19,12 @@
     },
     {
       "label": "Peaked below #1",
-      "n": 171,
-      "avgHours": 51556842,
+      "n": 169,
+      "avgHours": 51956272,
       "medianHours": 24100000,
       "avgWeeks": 3.5,
       "medianWeeks": 2,
-      "avgPerWeek": 11215276
+      "avgPerWeek": 11157143
     }
   ],
   "peakGroupsTop50Only": [
@@ -76,7 +76,7 @@
     },
     {
       "peak": 6,
-      "n": 12,
+      "n": 10,
       "medianHours": 23340000,
       "medianWeeks": 2
     },
@@ -108,12 +108,12 @@
   "weeksBands": [
     {
       "label": "1–2 weeks",
-      "n": 90,
+      "n": 88,
       "topN": 1,
       "topMedianHours": 45300000,
-      "restN": 89,
-      "restMedianHours": 6600000,
-      "ratio": 6.86
+      "restN": 87,
+      "restMedianHours": 6500000,
+      "ratio": 6.97
     },
     {
       "label": "3–5 weeks",
@@ -146,11 +146,11 @@
   "weeksDistribution": [
     {
       "weeks": 1,
-      "n": 52
+      "n": 51
     },
     {
       "weeks": 2,
-      "n": 38
+      "n": 37
     },
     {
       "weeks": 3,
@@ -213,12 +213,12 @@
       "n": 1
     }
   ],
-  "oneWeekOnly": 52,
+  "oneWeekOnly": 51,
   "correlations": {
     "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
-    "weeksVsLogHours": 0.732,
+    "weeksVsLogHours": 0.733,
     "peakVsLogHours": -0.753,
-    "weeksVsPeak": -0.475
+    "weeksVsPeak": -0.473
   },
   "longest": [
     {
@@ -796,7 +796,9 @@
     "Forgotten Love",
     "Paradise",
     "Hunger",
-    "Re/Member"
+    "Re/Member",
+    "UFO",
+    "Undercover"
   ],
   "audited": {
     "tv": 30,
