@@ -62,13 +62,34 @@ async function 네이버(host) {
   return { 수: 링크.size, 메모: '' };
 }
 
+/**
+ * 🔴 2026-08-09 11:0x — **이 자가 「빙 0건」을 계속 거짓으로 보고하고 있었다.**
+ *
+ * 2번 지시로 작품 지면 530장이 잡혔는지 재다가 알았다. 양성 대조군을 세워 봤더니 —
+ *
+ *     site:en.wikipedia.org → 링크 **0개**
+ *     site:netflix.com      → 링크 **0개**
+ *
+ * 위키백과가 빙에 0건일 리가 없다. 곧 **사이트가 아니라 자가 못 재는 것**이었다.
+ * 응답 본문을 열어 보니 `bing.com/challenge/verify` · `div class="captcha"` —
+ * **Cloudflare 봇 확인 화면**이다. 결과 줄(`b_algo`)이 0개이고 `<cite>` 도 0개다.
+ *
+ * ⛔ 그런데 우리는 그 0 을 「빙 색인 0건 → IndexNow 통보를 확인한다」로 **문제라고 적어 왔다.**
+ *    구글은 이미 「JS필요」로 못 잼 처리를 해 뒀는데 빙만 0 으로 세고 있었다.
+ * ⛔ **「못 쟀다」와 「0건」은 다른 말이다.** 이제 캡차를 알아보고 「막힘」으로 돌려준다.
+ */
 async function 빙(host) {
   const html = await 가져오기(`https://www.bing.com/search?q=${encodeURIComponent('site:' + host)}`);
   if (html == null) return { 수: null, 메모: '요청 실패' };
+  if (/challenge\/verify|class="captcha|verify you are human|unusual traffic/i.test(html)) {
+    return { 수: null, 메모: '막힘(캡차)' };
+  }
   const 링크 = new Set(
     (html.match(new RegExp(`https?://[a-z0-9.-]*${host.replace(/\./g, '\\.')}[^"'<> ]*`, 'gi')) ?? [])
       .map((u) => u.replace(/[),.]+$/, '')),
   );
+  /* 결과 줄이 하나도 없는데 링크만 0 인 것은 「없다」가 아니라 「못 읽었다」다 */
+  if (!링크.size && !/class="b_algo"|<cite/i.test(html)) return { 수: null, 메모: '못 읽음(결과 줄 없음)' };
   return { 수: 링크.size, 메모: '' };
 }
 
