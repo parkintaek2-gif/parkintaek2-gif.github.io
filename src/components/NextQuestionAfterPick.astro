@@ -30,7 +30,7 @@
  * ⚠ 다른 사이트로 나간다는 것을 밝힌다. 남의 서비스인 척하지 않는다.
  * ⚠ `is:global` 을 쓰지 않는다 — `/_astro/*.css` 로 빠져 접두사(/100y) 아래서 404 가 난다.
  */
-import { KLIFEMAP_적성, KLIFEMAP_밝힘, 입구주소 } from '../lib/klifemap';
+import { KLIFEMAP_밝힘, 입구주소, 입구고르기 } from '../lib/klifemap';
 
 interface Props {
   /** 이 지면에서 본 것 — 「가락고등학교 한 곳」·「강동구 학교 14곳」처럼 구체로 */
@@ -39,11 +39,13 @@ interface Props {
   여기까지: string;
 }
 const { 본것, 여기까지 } = Astro.props as Props;
+/* 🔴 갈래마다 도착지가 다르다. 04:1x 까지 4,966장이 전부 「우리 아이」로 갔다 */
+const 나가는문 = 입구고르기(Astro.url?.pathname);
 const 나가는주소 = 입구주소(Astro.url?.pathname);
 ---
 
 {
-  KLIFEMAP_적성.준비됨 && 나가는주소 && (
+  나가는문.준비됨 && 나가는주소 && (
     <section class="nextq-pick">
       <h2>그다음은 저희가 답을 못 드립니다</h2>
       <p>
@@ -57,9 +59,9 @@ const 나가는주소 = 입구주소(Astro.url?.pathname);
       </p>
       <p>
         <a href={나가는주소} rel="noopener">
-          {KLIFEMAP_적성.이름} →
+          {나가는문.이름} →
         </a>{' '}
-        — {KLIFEMAP_적성.설명}
+        — {나가는문.설명}
       </p>
       <p class="note">
         ⚠ 누르시면 <strong>{KLIFEMAP_밝힘}</strong> 지면으로 넘어갑니다. 백년지도가 아닙니다.

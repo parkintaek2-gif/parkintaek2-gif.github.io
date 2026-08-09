@@ -64,6 +64,43 @@ export const KLIFEMAP_적성: 입구 = {
   설명: '같은 곳에서 만드는 KLifeMap 이 아이의 타고난 결을 봅니다',
 };
 
+/**
+ * ⭐ **어른이 가는 문** (2026-08-09 21:2x · 2번 지시).
+ *
+ *   ## 🔴 왜 갈랐나 — **4,966장이 전부 「우리 아이」로 가고 있었다**
+ *
+ *   04:1x 에 문을 세다가 알았다. 딱지는 열일곱 갈래로 갈려 있는데 **도착지가 한 곳**이었다 —
+ *   `/age/32`(서른둘) 에서 간 사람도, `/university/…` 에서 간 사람도 **아이 이야기**를 봤다.
+ *   ⛔ 서른둘 손님에게 아이 화면을 보이면 거기서 나간다. 1번이 적은 「사람 0명」이 여기서 만들어진다.
+ *
+ *   ## 재 본 것 — ⛔ 로그인 화면으로는 안 보낸다
+ *
+ *   ```
+ *   ✅ /ilzin.html          200 · 19,037자 · 로그인 흔적 없음   ← 여기로 보낸다
+ *   ✅ /child-career.html   200 ·  7,775자 · 로그인 흔적 없음   ← 아이 쪽은 그대로
+ *   ⛔ /saju.html · /mingli-*  로그인 벽 (2번이 잼)
+ *   ```
+ *   ⚠ 2번이 여섯 장을 재서 골라 주셨고, **나도 두 장을 직접 다시 쟀다.**
+ */
+export const KLIFEMAP_어른: 입구 = {
+  준비됨: true,
+  주소: 'https://klifemap.ai/ilzin.html',
+  이름: '오늘 내 흐름은 어떤가',
+  설명: '같은 곳에서 만드는 KLifeMap 이 날마다의 결을 봅니다',
+};
+
+/**
+ * 🔴 **어른 쪽으로 보낼 갈래** (2번이 정한 셋).
+ *   ⛔ 여기 없는 갈래는 그대로 아이 쪽으로 간다 — 학교·학과는 학부모가 보는 자리다.
+ *   ⚠ 갈래를 늘릴 때는 **도착지를 먼저 재고** 늘린다. 로그인 벽이면 안 넣는다.
+ */
+export const 어른갈래: ReadonlySet<string> = new Set(['age', 'university', 'work', 'life', 'how-long', 'size']);
+
+/** 갈래에 맞는 문을 고른다. ⛔ 한 곳으로 몰지 않는다 */
+export function 입구고르기(경로?: string | null): 입구 {
+  return 어른갈래.has(갈래고르기(경로)) ? KLIFEMAP_어른 : KLIFEMAP_적성;
+}
+
 /** 같은 곳에서 만드는 다른 사이트라는 것을 밝힌다. ⛔ 남의 서비스인 척하지 않는다 */
 export const KLIFEMAP_밝힘 = '같은 곳에서 만드는 KLifeMap';
 
@@ -179,8 +216,10 @@ export function 갈래고르기(경로: string | null | undefined): 갈래 {
  * ⚠ 이미 물음표가 붙어 있을 수 있으므로 `?` 와 `&` 를 가려 쓴다.
  */
 export function 입구주소(경로?: string | null): string | null {
-  if (!KLIFEMAP_적성.준비됨 || !KLIFEMAP_적성.주소) return null;
-  const 밑 = KLIFEMAP_적성.주소;
+  /** ⚠ 도착지가 갈래마다 다르다. 한 곳으로 몰지 않는다 — `입구고르기` 를 거친다 */
+  const 문 = 입구고르기(경로);
+  if (!문.준비됨 || !문.주소) return null;
+  const 밑 = 문.주소;
   const 이음 = 밑.includes('?') ? '&' : '?';
   return `${밑}${이음}from=100y&at=${갈래고르기(경로)}`;
 }
