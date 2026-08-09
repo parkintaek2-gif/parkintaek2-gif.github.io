@@ -146,9 +146,17 @@ const 못물음집 = new Set(못물음);
  * ⚠ 열쇠가 없는 편은 「한국 작품이 없다」가 **아니라** 「우리가 못 맞췄다」다.
  *    그래서 딱지 이름을 `koreaUnconfirmed` 로 둔다. 없다고 하지 않는다.
  */
+/* ⭐ 2026-08-10 — 손으로 붙인 열쇠를 **커밋되는 자리**에서 합친다.
+   `archive/` 는 gitignore 라 다른 창에 없고, 다시 수집하면 덮인다. 거기에만 두면 손이 지워진다. */
 const 한국열쇠 = (() => {
   const k = JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-titles-keyed.json', 'utf8'));
-  return new Map(Object.values(k.작품).map((x) => [x.넷플릭스제목, x.q]));
+  const m = new Map(Object.values(k.작품).map((x) => [x.넷플릭스제목, x.q]));
+  const 손길 = 'src/data/kcw-manual-title-keys.json';
+  if (fs.existsSync(손길)) {
+    const 손 = JSON.parse(fs.readFileSync(손길, 'utf8'));
+    for (const x of 손.작품 ?? []) m.set(x.넷플릭스제목, x.q);   /* 손이 수집기를 이긴다 */
+  }
+  return m;
 })();
 
 /**
