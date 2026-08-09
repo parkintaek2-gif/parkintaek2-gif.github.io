@@ -75,6 +75,12 @@ export const 면제 = [
   { 지면: 'staying-power.html', 문장: 'never', 잰다: 'wikitip-staying-power.json — 주수 분포를 세어서 낸다' },
   { 지면: 'esports.html', 문장: 'never', 잰다: '라이엇이 안 주는 것에 대한 문장이다. 우리 자료 주장이 아니다' },
   { 지면: 'ladder-churn.html', 문장: 'never', 잰다: 'wikitip-ladder-churn.json · privacy — 안 담는다는 약속이다' },
+  /*
+   * ⭐ 이건 **재고 쓴** 절대 문장이다. 「어느 해나 몇 배」를 말하려면 가장 낮은 해를 알아야 하고,
+   *   수집기가 그것을 세어 둔다(topThreeMin · topThreeMinYear). 지면이 같은 문단에서 그 수를 적는다.
+   * ⛔ 문장이 바뀌면 면제가 저절로 풀린다 — 그게 이 표의 요점이다.
+   */
+  { 지면: 'leverage.html', 문장: 'in every year on this table', 잰다: 'wikitip-leverage.json · topThreeMin/topThreeMinYear — 여섯 해 중 가장 낮은 값(6.31×·2021)을 세어 같은 문단에 적는다' },
 ];
 
 /** 화면에 보이는 글만. 붙은 낱말이 생기지 않게 빈칸으로 바꾼다 */

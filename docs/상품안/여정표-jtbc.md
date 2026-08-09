@@ -114,6 +114,34 @@ chart carries at all — the United States fills half its Korean places with 6 t
 needs 49. A small number here can mean a narrow market, not a weak title.
 The comparable figure for every market is at **kculturewire.com/catalogue-depth**.
 
+## Where you sit in the year
+
+The argument running through the industry right now starts from cost — a reported rise from about
+$360,000 an episode in 2015 to roughly $9.8m for *Squid Game* season 2 in 2024 — and concludes that
+fewer companies can now finance a Korean series. **Those cost figures are not ours and we hold no
+budgets.** What we can measure is the consequence the argument predicts: the charts closing around
+fewer companies. Across 2022–2025 they did not. The three largest companies' coverage
+went from 11.56× an even split to 9.81× — down.
+
+Your own line, against that:
+
+| Year | Your titles charting | All Korean titles charting | Your share | Market top-3 concentration |
+|---|---:|---:|---:|---:|
+| 2021 *(part year)* | 10 | 59 | 16.9% | 6.31× |
+| 2022 | 17 | 107 | 15.9% | 11.56× |
+| 2023 | 23 | 87 | 26.4% | 11.49× |
+| 2024 | 13 | 59 | 22% | 8.05× |
+| 2025 | 8 | 65 | 12.3% | 9.81× |
+| 2026 *(part year)* | 6 | 35 | 17.1% | 6.98× |
+
+⛔ **This is not a ranking and no other company appears on it.** The right-hand column is the whole
+market, published openly at kculturewire.com/leverage; the columns beside it are yours. A year where
+your share falls while the market count also falls is a different story from one where only yours does,
+and the two columns are here so you can tell them apart.
+
+⚠ A year with fewer charting titles makes any share look larger. That is why the market column is a
+ratio against an even split rather than a raw percentage.
+
 ## What this sheet cannot tell you
 
 - Every title of yours in our data entered at least one country top 10.

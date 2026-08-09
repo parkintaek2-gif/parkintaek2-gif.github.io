@@ -183,6 +183,60 @@ if (내가실행됐다) {
   for (const [, rows] of 모음) for (const r of rows) 시장.set(r.국가, (시장.get(r.국가) || 0) + 1);
   const 시장순 = [...시장].sort((a, b) => b[1] - a[1]);
 
+  /*
+   * 🔴 2026-08-09 22:4x — **지금 업계가 하는 이야기 안에 이 회사를 놓는다.**
+   *   업계 이야기는 「제작비 27배 → 감당할 곳이 준다 → 몰린다」다. 우리가 재 보니 **안 몰렸다.**
+   *   ⭐ 손님이 사는 까닭은 「우리 작품이 어디 갔나」만이 아니라 **「그래서 우리가 어디 있나」**다.
+   *      판 전체 수치는 지면에 공짜로 있다. 파는 것은 **그 옆에 놓인 자기 줄**이다.
+   * ⛔ 남의 회사 수치를 이 종이에 안 적는다. 자기 줄과 **판 전체**만 나란히 놓는다.
+   * ⛔ 판 자료가 없으면 이 절을 **통째로 뺀다.** 빈 표를 손님에게 보내지 않는다.
+   */
+  const 판길 = 'src/data/wikitip-leverage.json';
+  const 판 = fs.existsSync(판길) ? JSON.parse(fs.readFileSync(판길, 'utf8')) : null;
+  let 자리절 = '';
+  if (판) {
+    const 해별내작품 = new Map();
+    for (const [t, rows] of 모음) {
+      for (const r of rows) {
+        const y = String(해(r.주));
+        if (!해별내작품.has(y)) 해별내작품.set(y, new Set());
+        해별내작품.get(y).add(t);
+      }
+    }
+    const 줄들 = 판.byYear.map((y) => {
+      const 내것 = 해별내작품.get(y.year)?.size ?? 0;
+      const 몫 = y.titlesWithFirm ? +((100 * 내것) / y.titlesWithFirm).toFixed(1) : null;
+      const 덜 = y.weeks < 40 ? ' *(part year)*' : '';
+      return `| ${y.year}${덜} | ${내것} | ${y.titlesWithFirm} | ${몫 == null ? '—' : `${몫}%`} | ${y.topThreeRatio}× |`;
+    });
+    const 온전 = 판.byYear.filter((y) => y.weeks >= 40);
+    const ㅊ = 온전[0]; const ㄲ = 온전[온전.length - 1];
+    자리절 = `
+## Where you sit in the year
+
+The argument running through the industry right now starts from cost — a reported rise from about
+$360,000 an episode in 2015 to roughly $9.8m for *Squid Game* season 2 in 2024 — and concludes that
+fewer companies can now finance a Korean series. **Those cost figures are not ours and we hold no
+budgets.** What we can measure is the consequence the argument predicts: the charts closing around
+fewer companies. Across ${ㅊ.year}–${ㄲ.year} they did not. The three largest companies' coverage
+went from ${ㅊ.topThreeRatio}× an even split to ${ㄲ.topThreeRatio}× — down.
+
+Your own line, against that:
+
+| Year | Your titles charting | All Korean titles charting | Your share | Market top-3 concentration |
+|---|---:|---:|---:|---:|
+${줄들.join('\n')}
+
+⛔ **This is not a ranking and no other company appears on it.** The right-hand column is the whole
+market, published openly at kculturewire.com/leverage; the columns beside it are yours. A year where
+your share falls while the market count also falls is a different story from one where only yours does,
+and the two columns are here so you can tell them apart.
+
+⚠ A year with fewer charting titles makes any share look larger. That is why the market column is a
+ratio against an even split rather than a raw percentage.
+`;
+  }
+
   const 값 = { A: '$60,000', B: '$24,000', C: '$6,000' }[회사.grade];
   /* 🔴 `toISOString()` 은 **UTC** 를 준다. 새벽 4시(KST)에 부르면 **어제 날짜**가 찍힌다.
      2026-08-07 에 /subscribe 가 라이브에서 하루 이른 날짜를 손님께 보인 것이 같은 병이었다.
@@ -237,7 +291,7 @@ ${시장순.slice(-4).map(([n, v]) => `| ${n} | ${v} |`).join('\n')}
 chart carries at all — the United States fills half its Korean places with 6 titles, Vietnam
 needs 49. A small number here can mean a narrow market, not a weak title.
 The comparable figure for every market is at **kculturewire.com/catalogue-depth**.
-
+${자리절}
 ## What this sheet cannot tell you
 
 ${안걸린것.length ? `- **${안걸린것.length} of your titles never entered any country's top 10** in this window, so they have no row above: ${안걸린것.slice(0, 6).join(', ')}${안걸린것.length > 6 ? ` and ${안걸린것.length - 6} more` : ''}. Absence from a top 10 is not absence of viewing.` : '- Every title of yours in our data entered at least one country top 10.'}

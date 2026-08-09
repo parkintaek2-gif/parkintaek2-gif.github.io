@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "the-charts-did-not-concentrate": {
+   "figure": "9.81×",
+   "label": "top three vs an even split — was 11.56×",
+   "왜": "🔴 자동이 $360,000 을 집었다. 그건 **남의 수**(인용한 제작비)인데 카드 밑에 「Measured, not repeated」가 붙어 나갔다 — 기사가 통째로 막으려던 바로 그 섞임이다. 우리가 잰 수로 바꿨다"
+  },
   "one-flaw-twelve-corrections": {
    "figure": "236",
    "label": "titles — we had published 294",
