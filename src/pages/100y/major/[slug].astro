@@ -86,6 +86,19 @@ const 해석 = 수치
     `「취업했다」로 끝나는 통계는 이 부분을 보여주지 않습니다.`
   : null;
 
+/**
+ * 🔴 **간판에 찾는 낱말이 없었다** (2026-08-09 10:4x · 2번 실측).
+ *   「정보처리과 — 백년지도」 ⛔ 학생이 치는 말은 **「정보처리과 취업률」**이다.
+ *
+ * ⛔ 여기에 「진학률」을 붙이지 않는다 — 이 지면이 가진 것은 **유지취업률**이다.
+ *   없는 것을 간판에 달면 눌러 들어온 사람이 빈손으로 나간다.
+ * ⚠ 수치가 없는 학과에는 대신 **「개설 고등학교」**를 단다 —
+ *   그건 우리가 실제로 가진 것이고(전국 몇 곳), 그것도 찾는 말이다.
+ */
+const 학과제목 = 수치
+  ? `${major.title} 취업률`
+  : `${major.title} 개설 고등학교`;
+
 const desc = 수치
   ? `${major.title}는 전국 ${학교수.toLocaleString()}개 고등학교에 있습니다. ` +
     `이 길로 간 사람들이 졸업 1년 뒤에도 그 자리에 남아 있는 비율은 ${pct(수치['1차유지취업률'])}, 2년 뒤에는 ${pct(수치['2차유지취업률'])}입니다.`
@@ -101,7 +114,7 @@ const jsonLd = {
 };
 ---
 
-<HundredYear title={major.title} description={desc} jsonLd={jsonLd}>
+<HundredYear title={학과제목} description={desc} jsonLd={jsonLd}>
   <h1>{major.title}</h1>
   <p class="sub">
     전국 <strong>{학교수.toLocaleString()}</strong>개 고등학교에 있습니다
