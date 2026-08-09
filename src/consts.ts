@@ -120,7 +120,7 @@ export type CategorySlug = (typeof CATEGORIES)[number]['slug'];
  * 비어 있으면 운영 빌드에서 빈 박스를 그리지 않는다.
  */
 export const ADS = {
-  client: '', // 예: 'ca-pub-0000000000000000'
+  client: 'ca-pub-5113515144381167', // 애드센스 승인·등록 완료(2번 61153, pub-5113515144381167)
   slots: { banner: '', inArticle: '' },
 } as const;
 
