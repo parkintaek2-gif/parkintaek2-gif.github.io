@@ -1,6 +1,6 @@
 ---
 title: "Korean titles are commonest in the middle of the chart — except in ten markets, where they own the top"
-dek: "Across 93 Netflix markets Korean titles hold 7.7% of chart places. In the 24 markets where their share runs 5–10%, they hold only 5.6% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%."
+dek: "Across 93 Netflix markets Korean titles hold 7.7% of chart places. In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%."
 category: screen
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
@@ -32,7 +32,7 @@ number one. Are Korean titles as likely to be there as anywhere else?
 Mostly, no.
 
 Added up, though, the answer looks like nothing at all. Across all 93 markets Korean titles hold
-**7.9%** of number-one places against **7.7%** of places overall, and 48 of 93 markets sit lower at
+**7.8%** of number-one places against **7.7%** of places overall, and 50 of 93 markets sit lower at
 number one than across their chart. That is a coin toss. Anyone who asked this question once and
 stopped there would publish a flat line and move on, and we nearly did.
 
@@ -47,21 +47,21 @@ separates from the rest.
 
 | Korean share of the market | Markets | #1 | #5 | #10 | All places | #1 minus all |
 |---|---|---|---|---|---|---|
-| Under 5% | 48 | 2.9% | 2.8% | 3.2% | 2.8% | +0.1p |
-| 5–10% | 24 | 5.6% | 8.6% | 7.9% | 7.7% | −2.1p |
-| 10–20% | 11 | 9.9% | 13.4% | 10.1% | 11.7% | −1.8p |
+| Under 5% | 49 | 2.9% | 2.9% | 3.2% | 2.8% | +0.1p |
+| 5–10% | 23 | 5.5% | 8.6% | 8.1% | 7.8% | −2.3p |
+| 10–20% | 11 | 9.6% | 13.3% | 9.9% | 11.6% | −2p |
 | 20% and over | 10 | 35.3% | 26.4% | 20.4% | 26.7% | +8.6p |
 
 The two middle rows are humps. Korean titles are least common at number one, most common around the
 middle of the list, and taper again toward number ten. The bottom row is the opposite: a slope that
 starts at its highest point and falls all the way down.
 
-This is not an average concealing disagreement. On the 5–10% row, **22 of 24 markets** individually
+This is not an average concealing disagreement. On the 5–10% row, **22 of 23 markets** individually
 sit lower at number one than across their chart. On the bottom row, **none of the ten do** — every
 one of them is higher.
 
 Films and series are separate top tens, and a pattern that only appeared when they were added
-together would be worth nothing. Split apart, the 5–10% row is −0.5 points for films and −3.8 points
+together would be worth nothing. Split apart, the 5–10% row is −0.6 points for films and −3.9 points
 for series; the bottom row is +4.2 and +13.0. Different sizes, same direction, four times over.
 
 ## The objection, which is right three times out of four
@@ -73,12 +73,12 @@ In three of the four bands, it is close to all it is.
 
 | Korean share of the market | Distinct titles at #1 | Largest title's share | #1 share without the top three |
 |---|---|---|---|
-| Under 5% | 50 | 68.6% | 0.6% (all places: 2.8%) |
-| 5–10% | 71 | 35.5% | 3.0% (7.7%) |
-| 10–20% | 72 | 28.0% | 6.2% (11.7%) |
+| Under 5% | 48 | 67.9% | 0.6% (all places: 2.8%) |
+| 5–10% | 67 | 36.2% | 2.9% (7.8%) |
+| 10–20% | 67 | 28.9% | 5.9% (11.6%) |
 | 20% and over | 250 | 5.3% | 30.8% (26.7%) |
 
-The largest title is the same one in all four rows. In the 48 markets where Korean titles hold under
+The largest title is the same one in all four rows. In the 49 markets where Korean titles hold under
 5% of the chart, *Squid Game* accounts for more than two-thirds of every Korean week at number one,
 and removing the three biggest titles drops that band's number-one share to **0.6%** — against 2.8%
 of the chart overall. The +0.1p in the table above was not a Korean chart reaching number one. It

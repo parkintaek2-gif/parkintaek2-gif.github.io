@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 8. 오후 10:38:20",
+  "generated": "2026. 8. 9. 오전 8:41:39",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 달마다 묶어 센 것",
   "question": "Does the Korean share of the world's top-10 places have a season?",
@@ -9,23 +9,23 @@
       "name": "January",
       "weeks": 22,
       "slots": 40920,
-      "korean": 3468,
-      "pc": 8.5,
+      "korean": 3425,
+      "pc": 8.4,
       "topTitle": "Squid Game",
       "topTitleSlots": 697,
-      "topTitleShareOfKorean": 20.1,
-      "pcWithoutTop": 6.9
+      "topTitleShareOfKorean": 20.4,
+      "pcWithoutTop": 6.8
     },
     {
       "month": 2,
       "name": "February",
       "weeks": 20,
       "slots": 37200,
-      "korean": 2841,
+      "korean": 2812,
       "pc": 7.6,
       "topTitle": "All of Us Are Dead",
       "topTitleSlots": 355,
-      "topTitleShareOfKorean": 12.5,
+      "topTitleShareOfKorean": 12.6,
       "pcWithoutTop": 6.7
     },
     {
@@ -33,20 +33,20 @@
       "name": "March",
       "weeks": 23,
       "slots": 42780,
-      "korean": 3169,
+      "korean": 3158,
       "pc": 7.4,
       "topTitle": "The Glory",
       "topTitleSlots": 247,
       "topTitleShareOfKorean": 7.8,
-      "pcWithoutTop": 6.9
+      "pcWithoutTop": 6.8
     },
     {
       "month": 4,
       "name": "April",
       "weeks": 21,
       "slots": 39060,
-      "korean": 3068,
-      "pc": 7.9,
+      "korean": 3065,
+      "pc": 7.8,
       "topTitle": "Bloodhounds",
       "topTitleSlots": 306,
       "topTitleShareOfKorean": 10,
@@ -57,7 +57,7 @@
       "name": "May",
       "weeks": 22,
       "slots": 40920,
-      "korean": 2849,
+      "korean": 2844,
       "pc": 7,
       "topTitle": "My Royal Nemesis",
       "topTitleSlots": 181,
@@ -81,7 +81,7 @@
       "name": "July",
       "weeks": 26,
       "slots": 48360,
-      "korean": 4112,
+      "korean": 4111,
       "pc": 8.5,
       "topTitle": "Squid Game",
       "topTitleSlots": 641,
@@ -93,7 +93,7 @@
       "name": "August",
       "weeks": 22,
       "slots": 40920,
-      "korean": 3162,
+      "korean": 3153,
       "pc": 7.7,
       "topTitle": "Extraordinary Attorney Woo",
       "topTitleSlots": 200,
@@ -105,35 +105,35 @@
       "name": "September",
       "weeks": 21,
       "slots": 39060,
-      "korean": 3466,
-      "pc": 8.9,
+      "korean": 3451,
+      "pc": 8.8,
       "topTitle": "Bon Appétit, Your Majesty",
       "topTitleSlots": 257,
       "topTitleShareOfKorean": 7.4,
-      "pcWithoutTop": 8.3
+      "pcWithoutTop": 8.2
     },
     {
       "month": 10,
       "name": "October",
       "weeks": 23,
       "slots": 42780,
-      "korean": 3427,
-      "pc": 8,
+      "korean": 3381,
+      "pc": 7.9,
       "topTitle": "Squid Game",
       "topTitleSlots": 465,
-      "topTitleShareOfKorean": 13.6,
-      "pcWithoutTop": 7
+      "topTitleShareOfKorean": 13.8,
+      "pcWithoutTop": 6.9
     },
     {
       "month": 11,
       "name": "November",
       "weeks": 21,
       "slots": 39060,
-      "korean": 2607,
-      "pc": 6.7,
+      "korean": 2582,
+      "pc": 6.6,
       "topTitle": "Squid Game",
       "topTitleSlots": 347,
-      "topTitleShareOfKorean": 13.3,
+      "topTitleShareOfKorean": 13.4,
       "pcWithoutTop": 5.8
     },
     {
@@ -141,23 +141,23 @@
       "name": "December",
       "weeks": 22,
       "slots": 40920,
-      "korean": 3058,
-      "pc": 7.5,
+      "korean": 3033,
+      "pc": 7.4,
       "topTitle": "Squid Game",
       "topTitleSlots": 351,
-      "topTitleShareOfKorean": 11.5,
-      "pcWithoutTop": 6.7
+      "topTitleShareOfKorean": 11.6,
+      "pcWithoutTop": 6.6
     }
   ],
   "monthRange": 2.2,
-  "monthRangeWithoutTop": 2.5,
+  "monthRangeWithoutTop": 2.4,
   "highest": {
     "name": "September",
-    "pc": 8.9
+    "pc": 8.8
   },
   "lowest": {
-    "name": "June",
-    "pc": 6.7
+    "name": "November",
+    "pc": 6.6
   },
   "yearPc": 7.7,
   "weekRange": 14.1,

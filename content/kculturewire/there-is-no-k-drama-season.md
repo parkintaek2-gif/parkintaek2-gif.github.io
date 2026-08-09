@@ -34,18 +34,18 @@ published top-10 places did Korean titles hold in each calendar month?
 
 | Month | Korean share | Without that month's biggest title |
 | --- | ---: | ---: |
-| January | 8.5% | 6.9% |
+| January | 8.4% | 6.8% |
 | February | 7.6% | 6.7% |
-| March | 7.4% | 6.9% |
-| April | 7.9% | 7.1% |
-| May | 7.0% | 6.5% |
-| June | **6.7%** | 6.2% |
+| March | 7.4% | 6.8% |
+| April | 7.8% | 7.1% |
+| May | 7% | 6.5% |
+| June | 6.7% | 6.2% |
 | July | 8.5% | 7.3% |
 | August | 7.7% | 7.3% |
-| September | **8.9%** | 8.3% |
-| October | 8.0% | 7.0% |
-| November | 6.7% | 5.8% |
-| December | 7.5% | 6.7% |
+| September | 8.8% | 8.2% |
+| October | 7.9% | 6.9% |
+| November | 6.6% | 5.8% |
+| December | 7.4% | 6.6% |
 
 The whole year sits at 7.7%. The best month is 8.9% and the worst is 6.7%. **That is the entire
 range: 2.2 points.**
@@ -63,7 +63,7 @@ Korean chart place in the month.
 So we removed each month's own biggest title and measured again — that is the right-hand column
 above. If the swing were a title effect, the band should collapse.
 
-It does not. The band goes from 2.2 points to **2.5**. Taking the biggest title out of every month
+It does not. The band goes from 2.2 points to **2.4**. Taking the biggest title out of every month
 leaves the monthly pattern slightly *wider* than before, which is the opposite of what a
 one-title explanation predicts.
 

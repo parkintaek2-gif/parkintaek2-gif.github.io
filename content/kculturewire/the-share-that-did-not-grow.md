@@ -30,14 +30,14 @@ Netflix publishes twenty places per country per week — ten films, ten series. 
 that makes it one of the few things about the Korean wave that can be counted rather than asserted.
 
 We counted all of it: 93 countries with a complete record, 265 weeks, **492,900 places**. Korean
-titles hold **37,962** of them.
+titles hold **37,750** of them.
 
 ## 7.7% of the world, and half of Korea
 
 | | Korean share of top-10 places |
 | --- | ---: |
 | All 93 markets | **7.7%** |
-| The median country | 4.7% |
+| The median country | 4.5% |
 | South Korea itself | **49.7%** in 2025 |
 
 Korea's own figure is the one that surprises people first. Even at home, in the market where every
@@ -63,9 +63,9 @@ the English-speaking world.
 | Year | Weeks | Korean share |
 | --- | ---: | ---: |
 | 2022 | 52 | 7.6% |
-| 2023 | 53 | 8.0% |
+| 2023 | 53 | 7.9% |
 | 2024 | 52 | 7.0% |
-| 2025 | 52 | 7.8% |
+| 2025 | 52 | 7.7% |
 
 Four complete years, and the share ends where it started. If the Korean wave has been growing since
 2022, it has not been growing into these places.
@@ -79,7 +79,7 @@ countries and it hides the only movement in the data.
 | --- | ---: | ---: | ---: | ---: |
 | South Korea | 49.8% | 54.3% | 51.2% | 49.7% |
 | The nine Asian markets that were once above 20% | **30.3%** | 26.0% | 19.7% | **19.5%** |
-| The five largest English-speaking markets | 2.0% | 1.3% | 1.9% | 2.0% |
+| The five largest English-speaking markets | 1.9% | 1.3% | 1.9% | 2.0% |
 
 The nine markets where Korean titles were strongest gave up **10.8 points in four years** — better
 than a third of the share they held. The English-speaking markets did not pick it up; they are

@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-08T20:16:18.276Z",
+ "generated": "2026-08-08T23:41:49.282Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "Korean titles lost chart share across Asia between 2022 and 2025. Where did that share go?",
  "unit": "Each market gives out 20 places a week — ten films and ten series. Share is Korean places divided by that year's places in that market.",
@@ -12,8 +12,8 @@
  "beforeSlots": 1040,
  "afterSlots": 1040,
  "markets": 93,
- "roseCount": 68,
- "fellCount": 25,
+ "roseCount": 66,
+ "fellCount": 27,
  "asianTen": {
   "markets": 10,
   "meanChangePp": -9.68,
@@ -21,8 +21,8 @@
  },
  "elsewhere": {
   "markets": 83,
-  "meanChangePp": 1.32,
-  "roseCount": 68
+  "meanChangePp": 1.31,
+  "roseCount": 66
  },
  "topRisers": [
   {
@@ -368,19 +368,6 @@
    "afterTitles": 22
   },
   {
-   "iso2": "JO",
-   "name": "Jordan",
-   "inAsianTen": false,
-   "beforePlaces": 62,
-   "afterPlaces": 102,
-   "beforePc": 6,
-   "afterPc": 9.8,
-   "changePp": 3.8,
-   "timesPlaces": 1.65,
-   "beforeTitles": 22,
-   "afterTitles": 28
-  },
-  {
    "iso2": "CL",
    "name": "Chile",
    "inAsianTen": false,
@@ -391,6 +378,19 @@
    "changePp": 3.5,
    "timesPlaces": 1.65,
    "beforeTitles": 18,
+   "afterTitles": 23
+  },
+  {
+   "iso2": "JO",
+   "name": "Jordan",
+   "inAsianTen": false,
+   "beforePlaces": 57,
+   "afterPlaces": 93,
+   "beforePc": 5.5,
+   "afterPc": 8.9,
+   "changePp": 3.4,
+   "timesPlaces": 1.63,
+   "beforeTitles": 21,
    "afterTitles": 23
   },
   {
@@ -410,13 +410,13 @@
    "iso2": "BR",
    "name": "Brazil",
    "inAsianTen": false,
-   "beforePlaces": 52,
+   "beforePlaces": 51,
    "afterPlaces": 85,
-   "beforePc": 5,
+   "beforePc": 4.9,
    "afterPc": 8.2,
-   "changePp": 3.2,
-   "timesPlaces": 1.63,
-   "beforeTitles": 17,
+   "changePp": 3.3,
+   "timesPlaces": 1.67,
+   "beforeTitles": 16,
    "afterTitles": 26
   },
   {
@@ -459,19 +459,6 @@
    "afterTitles": 22
   },
   {
-   "iso2": "OM",
-   "name": "Oman",
-   "inAsianTen": false,
-   "beforePlaces": 99,
-   "afterPlaces": 126,
-   "beforePc": 9.5,
-   "afterPc": 12.1,
-   "changePp": 2.6,
-   "timesPlaces": 1.27,
-   "beforeTitles": 25,
-   "afterTitles": 32
-  },
-  {
    "iso2": "CY",
    "name": "Cyprus",
    "inAsianTen": false,
@@ -511,6 +498,19 @@
    "afterTitles": 15
   },
   {
+   "iso2": "EG",
+   "name": "Egypt",
+   "inAsianTen": false,
+   "beforePlaces": 49,
+   "afterPlaces": 73,
+   "beforePc": 4.7,
+   "afterPc": 7,
+   "changePp": 2.3,
+   "timesPlaces": 1.49,
+   "beforeTitles": 20,
+   "afterTitles": 21
+  },
+  {
    "iso2": "SK",
    "name": "Slovakia",
    "inAsianTen": false,
@@ -535,19 +535,6 @@
    "timesPlaces": 2.05,
    "beforeTitles": 10,
    "afterTitles": 8
-  },
-  {
-   "iso2": "EG",
-   "name": "Egypt",
-   "inAsianTen": false,
-   "beforePlaces": 54,
-   "afterPlaces": 77,
-   "beforePc": 5.2,
-   "afterPc": 7.4,
-   "changePp": 2.2,
-   "timesPlaces": 1.43,
-   "beforeTitles": 21,
-   "afterTitles": 23
   },
   {
    "iso2": "IT",
@@ -641,6 +628,19 @@
    "afterTitles": 21
   },
   {
+   "iso2": "OM",
+   "name": "Oman",
+   "inAsianTen": false,
+   "beforePlaces": 96,
+   "afterPlaces": 113,
+   "beforePc": 9.2,
+   "afterPc": 10.9,
+   "changePp": 1.7,
+   "timesPlaces": 1.18,
+   "beforeTitles": 24,
+   "afterTitles": 27
+  },
+  {
    "iso2": "GR",
    "name": "Greece",
    "inAsianTen": false,
@@ -652,19 +652,6 @@
    "timesPlaces": 1.57,
    "beforeTitles": 15,
    "afterTitles": 14
-  },
-  {
-   "iso2": "KW",
-   "name": "Kuwait",
-   "inAsianTen": false,
-   "beforePlaces": 102,
-   "afterPlaces": 119,
-   "beforePc": 9.8,
-   "afterPc": 11.4,
-   "changePp": 1.6,
-   "timesPlaces": 1.17,
-   "beforeTitles": 28,
-   "afterTitles": 32
   },
   {
    "iso2": "LV",
@@ -680,17 +667,17 @@
    "afterTitles": 5
   },
   {
-   "iso2": "IL",
-   "name": "Israel",
+   "iso2": "LB",
+   "name": "Lebanon",
    "inAsianTen": false,
-   "beforePlaces": 30,
-   "afterPlaces": 45,
-   "beforePc": 2.9,
-   "afterPc": 4.3,
+   "beforePlaces": 40,
+   "afterPlaces": 54,
+   "beforePc": 3.8,
+   "afterPc": 5.2,
    "changePp": 1.4,
-   "timesPlaces": 1.5,
-   "beforeTitles": 15,
-   "afterTitles": 14
+   "timesPlaces": 1.35,
+   "beforeTitles": 18,
+   "afterTitles": 17
   },
   {
    "iso2": "UY",
@@ -704,6 +691,32 @@
    "timesPlaces": 1.67,
    "beforeTitles": 11,
    "afterTitles": 12
+  },
+  {
+   "iso2": "IL",
+   "name": "Israel",
+   "inAsianTen": false,
+   "beforePlaces": 27,
+   "afterPlaces": 41,
+   "beforePc": 2.6,
+   "afterPc": 3.9,
+   "changePp": 1.3,
+   "timesPlaces": 1.52,
+   "beforeTitles": 13,
+   "afterTitles": 12
+  },
+  {
+   "iso2": "MA",
+   "name": "Morocco",
+   "inAsianTen": false,
+   "beforePlaces": 94,
+   "afterPlaces": 106,
+   "beforePc": 9,
+   "afterPc": 10.2,
+   "changePp": 1.2,
+   "timesPlaces": 1.13,
+   "beforeTitles": 26,
+   "afterTitles": 27
   },
   {
    "iso2": "PK",
@@ -745,6 +758,19 @@
    "afterTitles": 4
   },
   {
+   "iso2": "FR",
+   "name": "France",
+   "inAsianTen": false,
+   "beforePlaces": 28,
+   "afterPlaces": 40,
+   "beforePc": 2.7,
+   "afterPc": 3.8,
+   "changePp": 1.1,
+   "timesPlaces": 1.43,
+   "beforeTitles": 13,
+   "afterTitles": 18
+  },
+  {
    "iso2": "DE",
    "name": "Germany",
    "inAsianTen": false,
@@ -784,21 +810,34 @@
    "afterTitles": 27
   },
   {
-   "iso2": "FR",
-   "name": "France",
-   "inAsianTen": false,
-   "beforePlaces": 30,
-   "afterPlaces": 40,
-   "beforePc": 2.9,
-   "afterPc": 3.8,
-   "changePp": 0.9,
-   "timesPlaces": 1.33,
-   "beforeTitles": 14,
-   "afterTitles": 18
-  },
-  {
    "iso2": "NC",
    "name": "New Caledonia",
+   "inAsianTen": false,
+   "beforePlaces": 41,
+   "afterPlaces": 51,
+   "beforePc": 3.9,
+   "afterPc": 4.9,
+   "changePp": 1,
+   "timesPlaces": 1.24,
+   "beforeTitles": 19,
+   "afterTitles": 21
+  },
+  {
+   "iso2": "KW",
+   "name": "Kuwait",
+   "inAsianTen": false,
+   "beforePlaces": 95,
+   "afterPlaces": 104,
+   "beforePc": 9.1,
+   "afterPc": 10,
+   "changePp": 0.9,
+   "timesPlaces": 1.09,
+   "beforeTitles": 26,
+   "afterTitles": 27
+  },
+  {
+   "iso2": "RE",
+   "name": "Réunion",
    "inAsianTen": false,
    "beforePlaces": 42,
    "afterPlaces": 51,
@@ -807,7 +846,7 @@
    "changePp": 0.9,
    "timesPlaces": 1.21,
    "beforeTitles": 20,
-   "afterTitles": 21
+   "afterTitles": 22
   },
   {
    "iso2": "AT",
@@ -823,17 +862,17 @@
    "afterTitles": 11
   },
   {
-   "iso2": "MA",
-   "name": "Morocco",
+   "iso2": "LU",
+   "name": "Luxembourg",
    "inAsianTen": false,
-   "beforePlaces": 98,
-   "afterPlaces": 106,
-   "beforePc": 9.4,
-   "afterPc": 10.2,
+   "beforePlaces": 22,
+   "afterPlaces": 30,
+   "beforePc": 2.1,
+   "afterPc": 2.9,
    "changePp": 0.8,
-   "timesPlaces": 1.08,
-   "beforeTitles": 27,
-   "afterTitles": 27
+   "timesPlaces": 1.36,
+   "beforeTitles": 10,
+   "afterTitles": 13
   },
   {
    "iso2": "DK",
@@ -849,19 +888,6 @@
    "afterTitles": 7
   },
   {
-   "iso2": "LU",
-   "name": "Luxembourg",
-   "inAsianTen": false,
-   "beforePlaces": 23,
-   "afterPlaces": 30,
-   "beforePc": 2.2,
-   "afterPc": 2.9,
-   "changePp": 0.7,
-   "timesPlaces": 1.3,
-   "beforeTitles": 11,
-   "afterTitles": 13
-  },
-  {
    "iso2": "MT",
    "name": "Malta",
    "inAsianTen": false,
@@ -873,19 +899,6 @@
    "timesPlaces": 1.5,
    "beforeTitles": 10,
    "afterTitles": 6
-  },
-  {
-   "iso2": "RE",
-   "name": "Réunion",
-   "inAsianTen": false,
-   "beforePlaces": 44,
-   "afterPlaces": 51,
-   "beforePc": 4.2,
-   "afterPc": 4.9,
-   "changePp": 0.7,
-   "timesPlaces": 1.16,
-   "beforeTitles": 21,
-   "afterTitles": 22
   },
   {
    "iso2": "ZA",
@@ -901,19 +914,6 @@
    "afterTitles": 11
   },
   {
-   "iso2": "BH",
-   "name": "Bahrain",
-   "inAsianTen": false,
-   "beforePlaces": 96,
-   "afterPlaces": 102,
-   "beforePc": 9.2,
-   "afterPc": 9.8,
-   "changePp": 0.6,
-   "timesPlaces": 1.06,
-   "beforeTitles": 26,
-   "afterTitles": 31
-  },
-  {
    "iso2": "HR",
    "name": "Croatia",
    "inAsianTen": false,
@@ -925,19 +925,6 @@
    "timesPlaces": 1.35,
    "beforeTitles": 10,
    "afterTitles": 7
-  },
-  {
-   "iso2": "LB",
-   "name": "Lebanon",
-   "inAsianTen": false,
-   "beforePlaces": 48,
-   "afterPlaces": 54,
-   "beforePc": 4.6,
-   "afterPc": 5.2,
-   "changePp": 0.6,
-   "timesPlaces": 1.13,
-   "beforeTitles": 19,
-   "afterTitles": 17
   },
   {
    "iso2": "NZ",
@@ -977,6 +964,19 @@
    "timesPlaces": 1.05,
    "beforeTitles": 21,
    "afterTitles": 21
+  },
+  {
+   "iso2": "PL",
+   "name": "Poland",
+   "inAsianTen": false,
+   "beforePlaces": 29,
+   "afterPlaces": 34,
+   "beforePc": 2.8,
+   "afterPc": 3.3,
+   "changePp": 0.5,
+   "timesPlaces": 1.17,
+   "beforeTitles": 15,
+   "afterTitles": 12
   },
   {
    "iso2": "CA",
@@ -1031,17 +1031,17 @@
    "afterTitles": 5
   },
   {
-   "iso2": "PL",
-   "name": "Poland",
+   "iso2": "SE",
+   "name": "Sweden",
    "inAsianTen": false,
-   "beforePlaces": 30,
-   "afterPlaces": 34,
-   "beforePc": 2.9,
-   "afterPc": 3.3,
+   "beforePlaces": 21,
+   "afterPlaces": 25,
+   "beforePc": 2,
+   "afterPc": 2.4,
    "changePp": 0.4,
-   "timesPlaces": 1.13,
-   "beforeTitles": 16,
-   "afterTitles": 12
+   "timesPlaces": 1.19,
+   "beforeTitles": 11,
+   "afterTitles": 8
   },
   {
    "iso2": "FI",
@@ -1055,32 +1055,6 @@
    "timesPlaces": 1.1,
    "beforeTitles": 14,
    "afterTitles": 6
-  },
-  {
-   "iso2": "SA",
-   "name": "Saudi Arabia",
-   "inAsianTen": false,
-   "beforePlaces": 131,
-   "afterPlaces": 134,
-   "beforePc": 12.6,
-   "afterPc": 12.9,
-   "changePp": 0.3,
-   "timesPlaces": 1.02,
-   "beforeTitles": 33,
-   "afterTitles": 36
-  },
-  {
-   "iso2": "SE",
-   "name": "Sweden",
-   "inAsianTen": false,
-   "beforePlaces": 22,
-   "afterPlaces": 25,
-   "beforePc": 2.1,
-   "afterPc": 2.4,
-   "changePp": 0.3,
-   "timesPlaces": 1.14,
-   "beforeTitles": 12,
-   "afterTitles": 8
   },
   {
    "iso2": "CH",
@@ -1122,6 +1096,45 @@
    "afterTitles": 6
   },
   {
+   "iso2": "BH",
+   "name": "Bahrain",
+   "inAsianTen": false,
+   "beforePlaces": 93,
+   "afterPlaces": 92,
+   "beforePc": 8.9,
+   "afterPc": 8.8,
+   "changePp": -0.1,
+   "timesPlaces": 0.99,
+   "beforeTitles": 25,
+   "afterTitles": 26
+  },
+  {
+   "iso2": "GP",
+   "name": "Guadeloupe",
+   "inAsianTen": false,
+   "beforePlaces": 42,
+   "afterPlaces": 41,
+   "beforePc": 4,
+   "afterPc": 3.9,
+   "changePp": -0.1,
+   "timesPlaces": 0.98,
+   "beforeTitles": 18,
+   "afterTitles": 19
+  },
+  {
+   "iso2": "IE",
+   "name": "Ireland",
+   "inAsianTen": false,
+   "beforePlaces": 15,
+   "afterPlaces": 14,
+   "beforePc": 1.4,
+   "afterPc": 1.3,
+   "changePp": -0.1,
+   "timesPlaces": 0.93,
+   "beforeTitles": 10,
+   "afterTitles": 4
+  },
+  {
    "iso2": "KR",
    "name": "South Korea",
    "inAsianTen": true,
@@ -1135,68 +1148,42 @@
    "afterTitles": 116
   },
   {
-   "iso2": "GP",
-   "name": "Guadeloupe",
+   "iso2": "GB",
+   "name": "United Kingdom",
    "inAsianTen": false,
-   "beforePlaces": 44,
-   "afterPlaces": 41,
-   "beforePc": 4.2,
-   "afterPc": 3.9,
-   "changePp": -0.3,
-   "timesPlaces": 0.93,
-   "beforeTitles": 19,
-   "afterTitles": 19
-  },
-  {
-   "iso2": "IE",
-   "name": "Ireland",
-   "inAsianTen": false,
-   "beforePlaces": 17,
+   "beforePlaces": 18,
    "afterPlaces": 14,
-   "beforePc": 1.6,
+   "beforePc": 1.7,
    "afterPc": 1.3,
-   "changePp": -0.3,
-   "timesPlaces": 0.82,
+   "changePp": -0.4,
+   "timesPlaces": 0.78,
    "beforeTitles": 11,
-   "afterTitles": 4
+   "afterTitles": 3
   },
   {
    "iso2": "BE",
    "name": "Belgium",
    "inAsianTen": false,
-   "beforePlaces": 33,
+   "beforePlaces": 32,
    "afterPlaces": 27,
-   "beforePc": 3.2,
+   "beforePc": 3.1,
    "afterPc": 2.6,
-   "changePp": -0.6,
-   "timesPlaces": 0.82,
-   "beforeTitles": 15,
+   "changePp": -0.5,
+   "timesPlaces": 0.84,
+   "beforeTitles": 14,
    "afterTitles": 9
-  },
-  {
-   "iso2": "GB",
-   "name": "United Kingdom",
-   "inAsianTen": false,
-   "beforePlaces": 20,
-   "afterPlaces": 14,
-   "beforePc": 1.9,
-   "afterPc": 1.3,
-   "changePp": -0.6,
-   "timesPlaces": 0.7,
-   "beforeTitles": 12,
-   "afterTitles": 3
   },
   {
    "iso2": "MQ",
    "name": "Martinique",
    "inAsianTen": false,
-   "beforePlaces": 49,
+   "beforePlaces": 46,
    "afterPlaces": 39,
-   "beforePc": 4.7,
+   "beforePc": 4.4,
    "afterPc": 3.8,
-   "changePp": -0.9,
-   "timesPlaces": 0.8,
-   "beforeTitles": 20,
+   "changePp": -0.6,
+   "timesPlaces": 0.85,
+   "beforeTitles": 19,
    "afterTitles": 18
   },
   {
@@ -1239,6 +1226,19 @@
    "afterTitles": 12
   },
   {
+   "iso2": "SA",
+   "name": "Saudi Arabia",
+   "inAsianTen": false,
+   "beforePlaces": 127,
+   "afterPlaces": 114,
+   "beforePc": 12.2,
+   "afterPc": 11,
+   "changePp": -1.2,
+   "timesPlaces": 0.9,
+   "beforeTitles": 32,
+   "afterTitles": 31
+  },
+  {
    "iso2": "BD",
    "name": "Bangladesh",
    "inAsianTen": false,
@@ -1265,17 +1265,17 @@
    "afterTitles": 24
   },
   {
-   "iso2": "QA",
-   "name": "Qatar",
+   "iso2": "AE",
+   "name": "United Arab Emirates",
    "inAsianTen": false,
-   "beforePlaces": 138,
-   "afterPlaces": 122,
-   "beforePc": 13.3,
-   "afterPc": 11.7,
-   "changePp": -1.6,
-   "timesPlaces": 0.88,
-   "beforeTitles": 37,
-   "afterTitles": 33
+   "beforePlaces": 115,
+   "afterPlaces": 100,
+   "beforePc": 11.1,
+   "afterPc": 9.6,
+   "changePp": -1.5,
+   "timesPlaces": 0.87,
+   "beforeTitles": 31,
+   "afterTitles": 28
   },
   {
    "iso2": "KE",
@@ -1304,16 +1304,16 @@
    "afterTitles": 30
   },
   {
-   "iso2": "AE",
-   "name": "United Arab Emirates",
+   "iso2": "QA",
+   "name": "Qatar",
    "inAsianTen": false,
-   "beforePlaces": 118,
-   "afterPlaces": 100,
-   "beforePc": 11.3,
-   "afterPc": 9.6,
-   "changePp": -1.7,
-   "timesPlaces": 0.85,
-   "beforeTitles": 32,
+   "beforePlaces": 135,
+   "afterPlaces": 116,
+   "beforePc": 13,
+   "afterPc": 11.2,
+   "changePp": -1.8,
+   "timesPlaces": 0.86,
+   "beforeTitles": 36,
    "afterTitles": 28
   },
   {

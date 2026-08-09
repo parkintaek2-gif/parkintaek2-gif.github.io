@@ -1,0 +1,197 @@
+---
+/**
+ * K Culture Wire — **작품 한 편** (`/title/<slug>`). 530장이 여기서 나온다.
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ * 손님은 「Squid Game countries」·「Hellbound where did it chart」를 검색한다.
+ * 작품이 접혀 있으면 그 말에 안 걸린다. 그리고 이 지면이 파는 물건(「내 작품 여정표」)의
+ * **공짜 맛보기**다 — 회사가 자기 작품이 어디까지 갔는지를 여기서 먼저 본다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **얇으면 안 낸다.** 자료 줄이 여섯 미만인 작품은 `hasPage: false` 라 여기서 안 만든다.
+ * ⛔ **줄세우지 않는다.** 시장을 「많이 본 순」으로 안 놓는다 — **가나다순**으로 놓고 수를 옆에 적는다.
+ * ⛔ **취향을 평가하지 않는다.** 「인기 있다」가 아니라 몇 자리를 차지했나를 적는다.
+ * ⛔ 철자가 다른 같은 이름을 **합치지 않았다.** 합쳤다고 오해하지 않게 화면에 적는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-title-pages.json` 에서 읽는다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-title-pages.json';
+import markets from '../../../data/wikitip-markets.json';
+
+/* ⛔ 시장 주소를 **짐작하지 않는다.** iso2 를 소문자로 만든 것이 주소일 거라 여겼다가
+   93장 전부 죽은 링크가 될 뻔했다 — 실제 주소는 나라 이름이다(AR → argentina). */
+const 시장주소 = new Map(markets.markets.filter((m) => m.hasPage).map((m) => [m.iso2, m.slug]));
+
+export function getStaticPaths() {
+  /* ⛔ 얇은 작품은 지면을 안 낸다. 자료가 그렇게 판정해 둔 것을 그대로 따른다 */
+  return data.titles.filter((t) => t.hasPage).map((t) => ({ params: { slug: t.slug }, props: { t } }));
+}
+
+const { t } = Astro.props;
+const 중 = data.medians;
+const 갈래 = t.type === 'Films' ? 'film' : 'series';
+
+const TITLE = `${t.title} — every country it charted in`;
+const DESC =
+  `${t.title} took ${t.places.toLocaleString('en-US')} Netflix top 10 places across ${t.markets} of `
+  + `${data.marketCount} markets between ${t.firstWeek} and ${t.lastWeek}, peaking at number ${t.peak}. `
+  + `Counted week by week from Netflix's own country lists.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: `${t.firstWeek}/${t.lastWeek}`,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical={`https://www.kculturewire.com/title/${t.slug}`}>
+  <h1>{t.title}</h1>
+  <p class="lead">
+    A Korean {갈래} that reached a Netflix weekly top 10 in <b>{t.markets}</b> of
+    {' '}{data.marketCount} markets, holding <b>{t.places.toLocaleString('en-US')}</b> chart places
+    across {t.weeks} weeks between {t.firstWeek} and {t.lastWeek}. Its best position anywhere was
+    {' '}<b>number {t.peak}</b>.
+  </p>
+  <p class="note lead-in"><b>What a place is.</b> {data.unit}</p>
+
+  {t.otherSpellings && (
+    <p class="warn">
+      ⚠ Netflix's lists also carry <b>{t.otherSpellings.join(', ')}</b> as a separate entry.
+      We have <b>not</b> merged it into these figures. The two spellings may be the same work, but we
+      could not confirm it from Wikidata, and merging on a guess would change every number on this
+      page. Whatever charted under that spelling is not counted here.
+    </p>
+  )}
+
+  <section>
+    <h2>Beside the median charting Korean title</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th></th><th>{t.title}</th><th>Median Korean title that charted</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">Markets reached</td><td class="tot">{t.markets}</td><td>{중.markets}</td></tr>
+          <tr><td class="nm">Weeks on a chart somewhere</td><td class="tot">{t.weeks}</td><td>{중.weeks}</td></tr>
+          <tr><td class="nm">Chart places held</td><td class="tot">{t.places.toLocaleString('en-US')}</td><td>{중.places}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The median is taken across all {data.titleCount} Korean titles that reached any country top 10,
+      most of which charted in one or two markets. <b>This is a comparison, not a ranking</b> — we do
+      not publish a league of titles, and a title well above the median is a title that travelled,
+      not a title that is better.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where it charted — all {t.markets} markets</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Market</th><th>Places</th><th>Best position</th><th>First week</th><th>Last week</th></tr>
+        </thead>
+        <tbody>
+          {t.byMarket.map((m) => (
+            <tr>
+              <td class="nm">{시장주소.has(m.iso2)
+                ? <a href={`/market/${시장주소.get(m.iso2)}`}>{m.name}</a>
+                : m.name}</td>
+              <td class="tot">{m.places}</td>
+              <td>{m.peak}</td>
+              <td>{m.first}</td>
+              <td>{m.last}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>Markets are in alphabetical order, not in order of size.</b> A market name is a link only
+      where that country has a page of its own; the rest are plain text rather than a link that goes
+      nowhere.
+    </p>
+  </section>
+
+  {t.byYear.length > 1 && (
+    <section>
+      <h2>Chart places by year</h2>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Year</th><th>Places</th></tr></thead>
+          <tbody>
+            {t.byYear.map((y) => (<tr><td class="nm">{y.year}</td><td class="tot">{y.places}</td></tr>))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        ⚠ {data.weekFrom.slice(0, 4)} and {data.weekTo.slice(0, 4)} are part years — Netflix's weekly
+        country lists start {data.weekFrom} and our copy ends {data.weekTo}, so those two rows cover
+        fewer weeks than the others and cannot be compared with them.
+      </p>
+    </section>
+  )}
+
+  {t.firms.length > 0 && (
+    <section>
+      <h2>Companies credited on it</h2>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Company</th><th>Credited as</th></tr></thead>
+          <tbody>
+            {t.firms.map((f) => (
+              <tr><td class="nm">{f.firm}</td><td>{f.roles.join(', ')}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        From Wikidata, listed alphabetically. <b>A credit is not a share of the work</b> — it records
+        that a company is attached, not how much of the budget or the decision it held. Companies
+        inside one corporate group are listed separately because we did not confirm the ownership tree.
+      </p>
+    </section>
+  )}
+
+  {t.cast.length > 0 && (
+    <section>
+      <h2>Cast recorded as Korean</h2>
+      <p class="note lead-in">
+        {t.cast.length} {t.cast.length === 1 ? 'name' : 'names'}, alphabetically. Wikidata cast lists
+        are incomplete and skew toward better-known names, so this is not a full cast list and a short
+        one does not mean a small production.
+      </p>
+      <p class="names">{t.cast.map((c) => c.name).join(' · ')}</p>
+    </section>
+  )}
+
+  <section class="src">
+    <h2>Where these numbers come from, and what they cannot answer</h2>
+    <ul>
+      <li><b>Netflix and Wikidata</b> — {data.source}</li>
+      <li><b>A chart position is not a viewing figure.</b> {data.cannotAnswer}</li>
+      <li>
+        <b>Only the weeks we hold.</b> Everything here is counted between {data.weekFrom} and
+        {' '}{data.weekTo} — {data.weekCount} weekly lists. Anything before or after is outside our copy.
+      </li>
+      <li>
+        <b>Russia is excluded</b> throughout this site, because Netflix withdrew from it and the
+        remaining weeks are not comparable with the others.
+      </li>
+    </ul>
+    <p class="note">
+      <a href="/titles">Every Korean title that has charted</a> ·{' '}
+      <a href="/catalogue-reach">How far a company's catalogue travels</a> ·{' '}
+      <a href="/about">How we count</a>
+    </p>
+  </section>
+</WikiTip>
+
+<style>
+  .names { line-height: 1.9; }
+</style>

@@ -1,6 +1,6 @@
 ---
-title: "Twenty-one corrections in three days, and eight distinct ways of being wrong. All eight now fail the build."
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-one. This piece went out with four of the eight untested; the missing four were written the same afternoon."
+title: "Twenty-three corrections, and nine distinct ways of being wrong. All nine now fail the build."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-three. This piece went out with four kinds untested; every kind now fails the build, including the one found today."
 category: screen
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
@@ -19,18 +19,18 @@ crossChecks:
   - "The four unguarded causes are counted from the same file, so the gap cannot be understated by leaving one out"
 excluded:
   - "Mistakes we caught before publishing. This record starts at the moment a wrong figure was readable by someone else; the ones we caught in drafting are not corrections and counting them would flatter us"
-  - "Any claim that eight is the number of ways we can be wrong. It is the number we have met so far, and the fourth new kind appeared today"
+  - "Any claim that nine is the number of ways we can be wrong. It is the number we have met so far, and the ninth appeared on 9 August while we were building something unrelated"
   - "Severity ranking. A one-word label error and a 14% overcount are both listed as one correction each, because we have no honest way to weigh them against each other"
 ---
 
 We keep a record of every figure we have published and had to change. As of today it holds
-**21 corrections** — 11 on data pages and 10 in articles — made across three days.
+**23 corrections** — 12 on data pages and 11 in articles.
 
-Counting them was never the interesting part. What we wanted to know was whether they were 21
+Counting them was never the interesting part. What we wanted to know was whether they were 23
 separate accidents or a few repeating shapes. So each one carries a tag for the **kind** of mistake
 that produced it.
 
-There are eight kinds.
+There are nine kinds.
 
 ## What went wrong, and how often
 
@@ -45,10 +45,36 @@ There are eight kinds.
 | A comparison computed on a group selected by the outcome | 1 | 1 | yes |
 | A limitation written down and never tested | 1 | 1 | yes |
 
-**One cause produced eight of the twenty-one.** Titles entered our Korean panel because their English
+**One cause produced eight of the twenty-three.** Titles entered our Korean panel because their English
 name matched a Korean work, and foreign works with the same name came in with them. That single flaw
 moved figures on five pages and in three articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).
+
+
+## The ninth kind, found today
+
+A rule that decides what counts was wrong, and every figure measured through it moved with it.
+
+Our test for whether a Netflix title is Korean matched the title text against Wikidata labels **in any
+language**. Wikidata carries an item's labels in dozens of languages, so titles written in Arabic,
+Hebrew, Cyrillic and Japanese script matched Korean items and were counted as Korean works. There were
+23 of them, holding 212 chart places.
+
+They are local titles, and the way to see it is that **Netflix does not translate titles in these
+lists**. *Squid Game* holds 445 chart places across ten Arab markets under its Latin name. Only 10 of
+the 1,530 distinct titles on Egypt's chart are written in Arabic script, and 4 of Israel's 1,825 in
+Hebrew. If the lists were localised those shares would be near total.
+
+We nearly reached for a weaker argument first — that none of the 23 ever charted anywhere in Asia — and
+it does not hold: 141 genuinely Korean titles never charted in Asia either, two of them with more than
+200 chart places. The script rule is the one that survives.
+
+Korea's share of world chart places moved from 37,962 places to 37,750. Both round to 7.7%, which is
+the number we publish most often, so the headline figure did not move at all — and that is exactly the
+kind of error that survives a long time if nobody checks the rule itself rather than the output.
+
+This kind is different from the eight above it in one way worth naming: **the articles were not wrong
+about what they were given.** The writing was faithful to a measurement that was not.
 
 ## The half that had no test now has one
 

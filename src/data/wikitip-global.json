@@ -1,14 +1,14 @@
 {
-  "generated": "2026. 8. 8. 오전 2:09:16",
+  "generated": "2026. 8. 9. 오전 8:40:57",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 235,
-  "totalHours": 23720700000,
+  "titleCount": 234,
+  "totalHours": 23711970000,
   "before": {
-    "titles": 294,
-    "hours": 27715940000
+    "titles": 293,
+    "hours": 27707210000
   },
   "excludedEnglishChart": {
     "titles": 52,

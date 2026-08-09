@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 8. 오후 5:20:44",
+  "generated": "2026. 8. 9. 오전 8:40:52",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 넷플릭스가 목록을 내는 나라 전부",
   "question": "Of the top-10 places Netflix publishes around the world, how many hold a Korean title — and is that share growing?",
@@ -9,9 +9,9 @@
   "countryCount": 93,
   "slotsPerCountry": 5300,
   "totalSlots": 492900,
-  "koreanSlots": 37962,
+  "koreanSlots": 37750,
   "worldPc": 7.7,
-  "medianCountryPc": 4.7,
+  "medianCountryPc": 4.5,
   "home": {
     "name": "South Korea",
     "pc": 51.4,
@@ -58,54 +58,54 @@
       "countries": 11,
       "names": [
         "Bangladesh",
+        "Peru",
         "Qatar",
         "Saudi Arabia",
-        "Peru",
         "Bolivia",
         "Nigeria",
         "Maldives",
         "Oman",
-        "Kuwait",
         "United Arab Emirates",
-        "Pakistan"
+        "Pakistan",
+        "Kuwait"
       ]
     },
     {
       "from": 5,
       "to": 10,
-      "countries": 24,
+      "countries": 23,
       "names": [
         "Nicaragua",
         "Sri Lanka",
         "Honduras",
         "India",
-        "Bahrain",
         "El Salvador",
         "Morocco",
+        "Bahrain",
         "Ecuador",
         "Dominican Republic",
         "Guatemala",
         "Mexico",
-        "Jordan",
         "Chile",
+        "Jordan",
         "Colombia",
         "Paraguay",
         "Venezuela",
         "Brazil",
         "Panama",
-        "Egypt",
         "Turkey",
+        "Egypt",
         "Costa Rica",
         "Romania",
-        "Mauritius",
-        "Réunion"
+        "Mauritius"
       ]
     },
     {
       "from": 3,
       "to": 5,
-      "countries": 17,
+      "countries": 18,
       "names": [
+        "Réunion",
         "Kenya",
         "Lebanon",
         "Martinique",
@@ -136,21 +136,21 @@
         "Uruguay",
         "Belgium",
         "Germany",
-        "Israel",
-        "Luxembourg",
         "Austria",
         "Bahamas",
         "Finland",
+        "Luxembourg",
         "South Africa",
+        "Israel",
         "Switzerland",
         "Cyprus",
         "Australia",
         "Slovenia",
-        "Sweden",
         "Croatia",
         "Lithuania",
         "Malta",
         "Netherlands",
+        "Sweden",
         "Canada"
       ]
     },
@@ -188,7 +188,7 @@
     {
       "year": "2023",
       "weeks": 53,
-      "pc": 8
+      "pc": 7.9
     },
     {
       "year": "2024",
@@ -198,7 +198,7 @@
     {
       "year": "2025",
       "weeks": 52,
-      "pc": 7.8
+      "pc": 7.7
     }
   ],
   "partialYears": [
@@ -210,7 +210,7 @@
     {
       "year": "2026",
       "weeks": 30,
-      "pc": 7.8
+      "pc": 7.7
     }
   ],
   "groups": [
@@ -264,7 +264,7 @@
       "byYear": [
         {
           "year": "2022",
-          "pc": 2
+          "pc": 1.9
         },
         {
           "year": "2023",
@@ -379,26 +379,26 @@
     {
       "week": "2025-01-05",
       "pc": 15.2,
-      "koreanSlots": 283,
-      "topTitle": "Squid Game",
-      "topTitleSlots": 186,
-      "topTitleShare": 65.7
-    },
-    {
-      "week": "2024-12-29",
-      "pc": 15.2,
       "koreanSlots": 282,
       "topTitle": "Squid Game",
       "topTitleSlots": 186,
       "topTitleShare": 66
     },
     {
+      "week": "2024-12-29",
+      "pc": 15.1,
+      "koreanSlots": 280,
+      "topTitle": "Squid Game",
+      "topTitleSlots": 186,
+      "topTitleShare": 66.4
+    },
+    {
       "week": "2025-01-12",
       "pc": 14.8,
-      "koreanSlots": 276,
+      "koreanSlots": 275,
       "topTitle": "Squid Game",
       "topTitleSlots": 183,
-      "topTitleShare": 66.3
+      "topTitleShare": 66.5
     }
   ],
   "troughWeeks": [

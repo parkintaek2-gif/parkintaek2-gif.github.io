@@ -1,6 +1,6 @@
 ---
 title: "Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one."
-dek: "Across 93 markets, 57.3% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
+dek: "Across 93 markets, 57.5% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
 category: screen
 pubDate: 2026-08-08
 dataAsOf: 2026-07-26T00:00:00+09:00
@@ -37,8 +37,8 @@ whether any later week beat the opening week.
 
 | | Runs | Climbed after week one | Peaked in week one |
 | --- | ---: | ---: | ---: |
-| Korean titles | 7,083 | **57.3%** | 42.7% |
-| Everything else | 101,320 | **40.5%** | 59.5% |
+| Korean titles | 7,022 | **57.5%** | 42.5% |
+| Everything else | 101,381 | **40.5%** | 59.5% |
 
 A Korean title's opening week is its best week 42.7% of the time. For everything else on the same
 charts, in the same weeks, it is 59.5%. **The typical non-Korean title arrives at its peak; the
@@ -52,11 +52,11 @@ same length.
 
 | Run length | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| 2 weeks | 39.5% | 30.7% | +8.8 |
+| 2 weeks | 39.7% | 30.7% | +9.0 |
 | 3 weeks | 65.2% | 49.8% | +15.4 |
-| 4–5 weeks | 63.2% | 47.1% | +16.1 |
-| 6–10 weeks | 69.0% | 50.0% | +19.0 |
-| 11 weeks or more | 81.5% | 58.0% | +23.5 |
+| 4–5 weeks | 63.3% | 47.1% | +16.2 |
+| 6–10 weeks | 69.1% | 50.0% | +19.1 |
+| 11 weeks or more | 81.7% | 58.0% | +23.7 |
 
 It does not vanish in any band. The smallest gap is 8.8 points among two-week runs and the largest
 is 23.5 points among the longest. **Length is not the explanation**, and among runs long enough for
@@ -67,8 +67,8 @@ more heavily series than the field is:
 
 | Format | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| Series | 62.4% | 46.7% | +15.7 |
-| Films | 46.9% | 37.1% | +9.8 |
+| Series | 62.5% | 46.6% | +15.9 |
+| Films | 47.1% | 37.1% | +10.0 |
 
 Korean films climb less often than Korean series — 46.9% against 62.4% — but still more often than
 non-Korean films. The gap is not an artefact of what Korea puts on the chart.

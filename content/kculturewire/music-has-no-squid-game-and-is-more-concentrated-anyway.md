@@ -4,6 +4,9 @@ dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest 
 category: music
 pubDate: 2026-08-08
 dataAsOf: 2026-08-06T00:00:00+09:00
+corrections:
+  - date: 2026-08-09
+    note: "The screen panel this article measures was 235 titles and is now 234, and the shares move with it: the 17 titles that reach half the attention are 7.3% of the panel rather than 7.2%, and the ten largest hold 56.2% rather than 57.0%. The article was right about the numbers it was given; the rule that produced them was wrong. Our test for whether a Netflix title is Korean matched the title text against Wikidata labels in any language, so 23 titles written in Arabic, Hebrew, Cyrillic and Japanese script were counted as Korean works. They are local titles. Netflix does not translate titles in these lists — Squid Game holds 445 chart places across ten Arab markets under its Latin name, and only 10 of the 1,530 distinct titles on Egypt's chart are written in Arabic script. The rule now ignores non-Latin labels. The comparison this article makes is unchanged in direction: music is still the more concentrated of the two, and still more concentrated once Squid Game is removed from the screen side."
 author: Newsroom
 tags: ["kpop", "netflix", "attention", "concentration", "measurement"]
 pages:
@@ -26,7 +29,7 @@ excluded:
   - "Revenue, streams and sales. Nothing here is a money figure and none of these numbers should be read as one"
 ---
 
-Two Korean cultural exports, measured on the two instruments we have: **235 titles** carrying five
+Two Korean cultural exports, measured on the two instruments we have: **234 titles** carrying five
 years of Netflix viewing hours, and **2,361 K-pop acts and members** carrying thirty days of English
 Wikipedia lookups.
 
@@ -50,7 +53,7 @@ total?**
 
 | | Half the total comes from | As a share of the panel | Top 10% of the panel holds |
 | --- | ---: | ---: | ---: |
-| Screen | 17 titles | **7.2%** | 57.0% |
+| Screen | 17 titles | **7.3%** | 56.2% |
 | Music | 107 acts | **4.5%** | **67.0%** |
 
 **Music is the steeper distribution.** Its top tenth holds ten points more of its field's attention

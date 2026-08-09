@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 8. 오후 9:08:37",
+  "generated": "2026. 8. 9. 오전 8:41:17",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한 작품이 한 나라에서 달린 자취",
   "question": "When a title enters a country's top 10, is that week its highest rank — or does it climb afterwards?",
@@ -8,58 +8,58 @@
   "minWeeksWhy": "A run of a single week cannot climb, so counting it as \"did not climb\" would be counting the calendar rather than the title.",
   "runs": 108403,
   "korean": {
-    "runs": 7083,
-    "climbed": 4058,
-    "climbedPc": 57.3,
-    "peakedFirstWeek": 3025,
-    "peakedFirstWeekPc": 42.7,
+    "runs": 7022,
+    "climbed": 4035,
+    "climbedPc": 57.5,
+    "peakedFirstWeek": 2987,
+    "peakedFirstWeekPc": 42.5,
     "meanWeeks": 4.9
   },
   "other": {
-    "runs": 101320,
-    "climbed": 41019,
+    "runs": 101381,
+    "climbed": 41042,
     "climbedPc": 40.5,
-    "peakedFirstWeek": 60301,
+    "peakedFirstWeek": 60339,
     "peakedFirstWeekPc": 59.5,
     "meanWeeks": 3.9
   },
-  "gap": 16.8,
+  "gap": 17,
   "bands": [
     {
       "label": "2 weeks",
       "korean": {
-        "runs": 2565,
-        "climbed": 1013,
-        "climbedPc": 39.5,
-        "peakedFirstWeek": 1552,
-        "peakedFirstWeekPc": 60.5,
+        "runs": 2535,
+        "climbed": 1006,
+        "climbedPc": 39.7,
+        "peakedFirstWeek": 1529,
+        "peakedFirstWeekPc": 60.3,
         "meanWeeks": 2
       },
       "other": {
-        "runs": 48865,
-        "climbed": 15004,
+        "runs": 48895,
+        "climbed": 15011,
         "climbedPc": 30.7,
-        "peakedFirstWeek": 33861,
+        "peakedFirstWeek": 33884,
         "peakedFirstWeekPc": 69.3,
         "meanWeeks": 2
       },
-      "gap": 8.8
+      "gap": 9
     },
     {
       "label": "3 weeks",
       "korean": {
-        "runs": 1278,
-        "climbed": 833,
+        "runs": 1262,
+        "climbed": 823,
         "climbedPc": 65.2,
-        "peakedFirstWeek": 445,
+        "peakedFirstWeek": 439,
         "peakedFirstWeekPc": 34.8,
         "meanWeeks": 3
       },
       "other": {
-        "runs": 21808,
-        "climbed": 10854,
+        "runs": 21824,
+        "climbed": 10864,
         "climbedPc": 49.8,
-        "peakedFirstWeek": 10954,
+        "peakedFirstWeek": 10960,
         "peakedFirstWeekPc": 50.2,
         "meanWeeks": 3
       },
@@ -68,104 +68,104 @@
     {
       "label": "4–5 weeks",
       "korean": {
-        "runs": 1381,
-        "climbed": 873,
-        "climbedPc": 63.2,
-        "peakedFirstWeek": 508,
-        "peakedFirstWeekPc": 36.8,
+        "runs": 1369,
+        "climbed": 867,
+        "climbedPc": 63.3,
+        "peakedFirstWeek": 502,
+        "peakedFirstWeekPc": 36.7,
         "meanWeeks": 4.4
       },
       "other": {
-        "runs": 17517,
-        "climbed": 8248,
+        "runs": 17529,
+        "climbed": 8254,
         "climbedPc": 47.1,
-        "peakedFirstWeek": 9269,
+        "peakedFirstWeek": 9275,
         "peakedFirstWeekPc": 52.9,
         "meanWeeks": 4.4
       },
-      "gap": 16.1
+      "gap": 16.2
     },
     {
       "label": "6–10 weeks",
       "korean": {
-        "runs": 1415,
+        "runs": 1413,
         "climbed": 977,
-        "climbedPc": 69,
-        "peakedFirstWeek": 438,
-        "peakedFirstWeekPc": 31,
+        "climbedPc": 69.1,
+        "peakedFirstWeek": 436,
+        "peakedFirstWeekPc": 30.9,
         "meanWeeks": 7.5
       },
       "other": {
-        "runs": 8776,
+        "runs": 8778,
         "climbed": 4386,
         "climbedPc": 50,
-        "peakedFirstWeek": 4390,
+        "peakedFirstWeek": 4392,
         "peakedFirstWeekPc": 50,
         "meanWeeks": 7.2
       },
-      "gap": 19
+      "gap": 19.1
     },
     {
       "label": "11 weeks or more",
       "korean": {
-        "runs": 444,
+        "runs": 443,
         "climbed": 362,
-        "climbedPc": 81.5,
-        "peakedFirstWeek": 82,
-        "peakedFirstWeekPc": 18.5,
-        "meanWeeks": 20.1
+        "climbedPc": 81.7,
+        "peakedFirstWeek": 81,
+        "peakedFirstWeekPc": 18.3,
+        "meanWeeks": 20.2
       },
       "other": {
-        "runs": 4354,
+        "runs": 4355,
         "climbed": 2527,
         "climbedPc": 58,
-        "peakedFirstWeek": 1827,
+        "peakedFirstWeek": 1828,
         "peakedFirstWeekPc": 42,
         "meanWeeks": 21.8
       },
-      "gap": 23.5
+      "gap": 23.7
     }
   ],
   "formats": [
     {
       "format": "Series",
       "korean": {
-        "runs": 4735,
-        "climbed": 2957,
-        "climbedPc": 62.4,
-        "peakedFirstWeek": 1778,
-        "peakedFirstWeekPc": 37.6,
+        "runs": 4728,
+        "climbed": 2955,
+        "climbedPc": 62.5,
+        "peakedFirstWeek": 1773,
+        "peakedFirstWeekPc": 37.5,
         "meanWeeks": 6
       },
       "other": {
-        "runs": 35945,
-        "climbed": 16769,
-        "climbedPc": 46.7,
-        "peakedFirstWeek": 19176,
-        "peakedFirstWeekPc": 53.3,
+        "runs": 35952,
+        "climbed": 16771,
+        "climbedPc": 46.6,
+        "peakedFirstWeek": 19181,
+        "peakedFirstWeekPc": 53.4,
         "meanWeeks": 5.6
       },
-      "gap": 15.7
+      "gap": 15.9
     },
     {
       "format": "Films",
       "korean": {
-        "runs": 2348,
-        "climbed": 1101,
-        "climbedPc": 46.9,
-        "peakedFirstWeek": 1247,
-        "peakedFirstWeekPc": 53.1,
+        "runs": 2294,
+        "climbed": 1080,
+        "climbedPc": 47.1,
+        "peakedFirstWeek": 1214,
+        "peakedFirstWeekPc": 52.9,
         "meanWeeks": 2.7
       },
       "other": {
-        "runs": 65375,
-        "climbed": 24250,
+        "runs": 65429,
+        "climbed": 24271,
         "climbedPc": 37.1,
-        "peakedFirstWeek": 41125,
+        "peakedFirstWeek": 41158,
         "peakedFirstWeekPc": 62.9,
         "meanWeeks": 3
       },
-      "gap": 9.8
+      "gap": 10
     }
   ],
   "survivesLengthControl": true,

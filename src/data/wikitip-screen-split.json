@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 8. 오전 2:09:16",
+  "generated": "2026. 8. 9. 오전 8:40:57",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
@@ -79,12 +79,12 @@
   },
   "film": {
     "kind": "film",
-    "titles": 85,
-    "hours": 1522970000,
-    "weeks": 206,
-    "hoursPerTitle": 17917294,
+    "titles": 84,
+    "hours": 1514240000,
+    "weeks": 203,
+    "hoursPerTitle": 18026667,
     "weeksPerTitle": 2.42,
-    "hoursPerWeek": 7393058,
+    "hoursPerWeek": 7459310,
     "numberOnes": 22,
     "top": [
       {
@@ -150,9 +150,9 @@
     ]
   },
   "seriesAboveTopFilm": 33,
-  "ratioHours": 14.6,
-  "ratioTitles": 1.76,
-  "ratioPerTitle": 8.3,
+  "ratioHours": 14.7,
+  "ratioTitles": 1.79,
+  "ratioPerTitle": 8.2,
   "withoutSquidGame": {
     "titles": 149,
     "hours": 17149430000,
@@ -160,8 +160,8 @@
     "ratioPerTitle": 6.4
   },
   "before": {
-    "titles": 294,
-    "hours": 27715940000
+    "titles": 293,
+    "hours": 27707210000
   },
   "audited": {
     "tv": 30,

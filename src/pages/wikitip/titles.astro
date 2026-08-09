@@ -12,6 +12,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
+import titlePages from '../../data/wikitip-title-pages.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
 import key from '../../data/wikitip-key-integrity.json';
 import korea from '../../data/wikitip-korea-signal.json';
@@ -191,6 +192,44 @@ const jsonLd = {
     </p>
   </section>
 
+  {/* ── 작품 지면으로 가는 문. 2026-08-09 09:0x — 530장을 만들어 놓고 여기 안 걸면 없는 것과 같다 ── */}
+  <section>
+    <h2>Every Korean title that has charted, and where it charted</h2>
+    <p class="sub">
+      {titlePages.titleCount} Korean titles have reached at least one country's Netflix top 10 since
+      {' '}{titlePages.weekFrom}. <b>{titlePages.pageCount}</b> of them have a page of their own,
+      listing every market they charted in, the companies credited on them and the cast Wikidata
+      records as Korean.
+    </p>
+    <p class="note">
+      The other {titlePages.titleCount - titlePages.pageCount} do not, and we would rather say so
+      than publish an empty page: a title needs at least {titlePages.minRowsForPage} rows of data
+      before we make one. The published pages carry {titlePages.rowsMedianPublished} rows at the
+      median and {titlePages.rowsTotalPublished.toLocaleString('en-US')} rows between them; across all
+      {' '}{titlePages.titleCount} titles the median is {titlePages.rowsMedianAll}, which is why most
+      of them have no page.
+    </p>
+    <p class="note">
+      Of the {titlePages.titleCount} titles, {titlePages.withFirms} carry at least one company credit
+      and {titlePages.withCast} carry at least one cast member Wikidata records as Korean. Neither
+      gap means the title had no company or no Korean cast — it means Wikidata does not hold it.
+      {titlePages.clashingSlugs.length > 0 && (
+        <> ⚠ {titlePages.clashingSlugs.length} pairs of titles differ only in spacing or capitalisation
+        {' '}({titlePages.clashingSlugs.map((c) => c.titles.join(' / ')).join('; ')}). We publish the
+        one Wikidata identifies and leave the other out rather than merge two entries we cannot prove
+        are the same work.</>
+      )}
+    </p>
+    <div class="titlegrid">
+      {titlePages.titles.filter((x) => x.hasPage).map((x) => (
+        <a href={`/title/${x.slug}`}>{x.title} <span class="fine">{x.markets}</span></a>
+      ))}
+    </div>
+    <p class="note">
+      <b>Alphabetical, not ranked.</b> The small number beside each is how many markets it charted in.
+    </p>
+  </section>
+
   {/*
     🔴 2026-08-08 20:3x — `wikitip-key-integrity.json` 을 **어느 지면도 안 읽고 있었다.**
        이 표는 우리 판이 어떻게 묶여 있는지를 사는 사람에게 밝히는 자리다. 없으면
@@ -327,6 +366,11 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+  .titlegrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: 0.15rem 1rem; margin: 1rem 0; font-size: 0.86rem; }
+  .titlegrid a { text-decoration: none; }
+  .titlegrid a:hover { text-decoration: underline; }
+  .titlegrid .fine { opacity: 0.5; }
+
   td.sub { color: var(--muted); font-size: .78rem; text-align: left; white-space: normal; }
   h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.25; margin: 1.2rem 0 .8rem; letter-spacing: -.02em; }
   .lead { font-size: 1.05rem; color: var(--muted); margin: 0 0 2rem; }

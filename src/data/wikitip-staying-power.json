@@ -1,12 +1,12 @@
 {
-  "generated": "2026-08-08T01:09:22.840Z",
+  "generated": "2026-08-08T23:41:33.595Z",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
   "weekCount": 265,
-  "titleCount": 235,
+  "titleCount": 234,
   "shown": 50,
-  "totalHours": 23720700000,
+  "totalHours": 23711970000,
   "peakGroups": [
     {
       "label": "Peaked at #1",
@@ -19,12 +19,12 @@
     },
     {
       "label": "Peaked below #1",
-      "n": 172,
-      "avgHours": 51307849,
+      "n": 171,
+      "avgHours": 51556842,
       "medianHours": 24100000,
       "avgWeeks": 3.5,
       "medianWeeks": 2,
-      "avgPerWeek": 11166990
+      "avgPerWeek": 11215276
     }
   ],
   "peakGroupsTop50Only": [
@@ -58,7 +58,7 @@
     },
     {
       "peak": 3,
-      "n": 30,
+      "n": 29,
       "medianHours": 66700000,
       "medianWeeks": 4
     },
@@ -117,12 +117,12 @@
     },
     {
       "label": "3–5 weeks",
-      "n": 94,
+      "n": 93,
       "topN": 41,
       "topMedianHours": 80700000,
-      "restN": 53,
-      "restMedianHours": 46200000,
-      "ratio": 1.75
+      "restN": 52,
+      "restMedianHours": 47270000,
+      "ratio": 1.71
     },
     {
       "label": "6–10 weeks",
@@ -154,7 +154,7 @@
     },
     {
       "weeks": 3,
-      "n": 33
+      "n": 32
     },
     {
       "weeks": 4,
@@ -217,8 +217,8 @@
   "correlations": {
     "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
     "weeksVsLogHours": 0.732,
-    "peakVsLogHours": -0.75,
-    "weeksVsPeak": -0.474
+    "peakVsLogHours": -0.753,
+    "weeksVsPeak": -0.475
   },
   "longest": [
     {

@@ -49,7 +49,7 @@ Here is the same comparison over the whole panel.
 | Peaked at | Titles | Median hours | Median weeks | Mean hours |
 | --- | ---: | ---: | ---: | ---: |
 | **#1** | 63 | **103.4m** | **5** | 236.4m |
-| Below #1 | 172 | 24.1m | 2 | 51.3m |
+| Below #1 | 171 | 24.1m | 2 | 51.3m |
 
 The gap in hours is larger than we said — **4.3× on medians**, against the 2.5× we reported on means
 of the top fifty. And the claim that it adds no weeks is simply false: the median number-one title
@@ -66,7 +66,7 @@ So hold the length roughly fixed and look again.
 | Titles that lasted | Reached #1 | Median hours | Did not | Median hours | Ratio |
 | --- | ---: | ---: | ---: | ---: | ---: |
 | 1–2 weeks | 1 | 45.3m | 89 | 6.6m | — |
-| 3–5 weeks | 41 | 80.7m | 53 | 46.2m | 1.75× |
+| 3–5 weeks | 41 | 80.7m | 52 | 47.3m | 1.71× |
 | 6–10 weeks | 14 | 154.3m | 24 | 128.9m | **1.20×** |
 | 11 weeks or more | 7 | 653.9m | 6 | 331.1m | 1.97× |
 
@@ -93,13 +93,13 @@ the audience.
 
 ## Neither column is the cause of the other
 
-Against log hours, weeks on chart correlates at **0.732** and peak rank at **−0.75**. They are the
-same strength. And they correlate with each other at **−0.474**, so a table showing one is partly
+Against log hours, weeks on chart correlates at **0.732** and peak rank at **−0.753**. They are the
+same strength. And they correlate with each other at **−0.475**, so a table showing one is partly
 showing the other. There is no version of this data in which we can hand you a single number and call
 it the driver, and we are not going to invent one.
 
-What the panel does say plainly is that **22.1% of Korean titles that reached a global Non-English
-Top 10 were there for exactly one week** — 52 of 235. The most common outcome for a title that
+What the panel does say plainly is that **22.2% of Korean titles that reached a global Non-English
+Top 10 were there for exactly one week** — 52 of 234. The most common outcome for a title that
 charts at all is to chart once.
 
 ## What we changed

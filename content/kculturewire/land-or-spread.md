@@ -1,6 +1,6 @@
 ---
 title: "Korean titles reach the world two ways, and the average of them describes neither"
-dek: "Among 167 Korean titles that reached 20 countries or more, the first week already holds a median 39.1% of the countries they ever reach. But 58 of them started under 25% and 33 were nearly everywhere at once."
+dek: "Among 166 Korean titles that reached 20 countries or more, the first week already holds a median 39.1% of the countries they ever reach. But 58 of them started under 25% and 33 were nearly everywhere at once."
 category: screen
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
@@ -29,7 +29,7 @@ excluded:
 ---
 
 We set out to find the gateway market: the country a Korean title shows up in before it shows up
-anywhere else. The answer was that there is not one. Among the **167 Korean titles** that reached 20
+anywhere else. The answer was that there is not one. Among the **166 Korean titles** that reached 20
 countries or more on Netflix's weekly lists, the middle title is already in **14 countries** in its
 first charting week.
 
@@ -51,10 +51,10 @@ it would suggest a single pattern: titles land, then top up.
 
 | Share of countries reached in week one | Titles | Share |
 | --- | ---: | ---: |
-| under 25% | **58** | 34.7% |
-| 25–49% | 42 | 25.1% |
-| 50–74% | 34 | 20.4% |
-| 75% or more | **33** | 19.8% |
+| under 25% | **58** | 34.9% |
+| 25–49% | 42 | 25.3% |
+| 50–74% | 33 | 19.9% |
+| 75% or more | **33** | 19.9% |
 
 The two ends are nearly the same size. **58 titles built their footprint over weeks; 33 had it
 almost immediately.** The median of 39.1% sits between two groups and describes neither of them —
@@ -94,7 +94,7 @@ reached in the same seven days.
 
 ## Films land; series accumulate
 
-Across the 55 films in this set the first week holds a median **50.0%** of the eventual footprint.
+Across the 54 films in this set the first week holds a median **50.0%** of the eventual footprint.
 Across the 112 series it is **37.8%**. A film has one week to be found. A series can pick up a market
 in its third week, and often does.
 

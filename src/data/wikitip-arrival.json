@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-08T19:31:45.284Z",
+ "generated": "2026-08-08T23:41:33.038Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "When a Korean title reaches many countries, does it start in one and spread, or appear in many at once?",
  "unit": "A title’s first week is the earliest week it appears on any country list. First-week share is how many of its eventual countries were already there in that week.",
@@ -8,8 +8,8 @@
  "weekFrom": "2021-07-04",
  "weekTo": "2026-07-26",
  "weekCount": 265,
- "titlesAll": 938,
- "titles": 167,
+ "titlesAll": 915,
+ "titles": 166,
  "medianCountries": 43,
  "medianFirstWeekCountries": 14,
  "medianFirstWeekSharePc": 39.1,
@@ -18,7 +18,7 @@
    "band": "under 25%",
    "shape": "spread",
    "titles": 58,
-   "sharePc": 34.7,
+   "sharePc": 34.9,
    "medianCountries": 37,
    "medianFirstWeekCountries": 2,
    "films": 19,
@@ -28,7 +28,7 @@
    "band": "25–49%",
    "shape": "mixed",
    "titles": 42,
-   "sharePc": 25.1,
+   "sharePc": 25.3,
    "medianCountries": 41,
    "medianFirstWeekCountries": 12,
    "films": 7,
@@ -37,18 +37,18 @@
   {
    "band": "50–74%",
    "shape": "mostly at once",
-   "titles": 34,
-   "sharePc": 20.4,
+   "titles": 33,
+   "sharePc": 19.9,
    "medianCountries": 59,
    "medianFirstWeekCountries": 37,
-   "films": 17,
+   "films": 16,
    "series": 17
   },
   {
    "band": "75% or more",
    "shape": "landed",
    "titles": 33,
-   "sharePc": 19.8,
+   "sharePc": 19.9,
    "medianCountries": 52,
    "medianFirstWeekCountries": 52,
    "films": 12,
@@ -57,7 +57,7 @@
  ],
  "byFormat": {
   "film": {
-   "titles": 55,
+   "titles": 54,
    "medianFirstWeekSharePc": 50
   },
   "series": {

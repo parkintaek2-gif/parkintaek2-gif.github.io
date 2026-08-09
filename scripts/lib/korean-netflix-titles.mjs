@@ -83,11 +83,35 @@ export const NOT_KOREAN = new Map([...BY_HAND, ...BY_ATTRIBUTION]);
 export const AUDITED = { tv: 30, film: 20 };
 
 /**
+ * 아랍·히브리·키릴·일본·중국 문자가 들어 있나.
+ *
+ * 🔴 2026-08-09 08:4x — 작품 지면을 만들다가 잡았다. 주소가 빈 제목 22개가
+ *   **아랍어·히브리어·우크라이나어·일본어**였다. 그것들이 「한국 작품」으로 세어지고 있었다.
+ *
+ * ── 왜 빼도 되나 — **재서 확인했다** ─────────────────────────
+ * ⛔ 「아시아에서 안 떴으니 한국 것이 아니다」는 **근거가 못 된다.** 진짜 한국 작품 141편(15.4%)도
+ *    아시아 열 곳 어디에도 안 떴다(Breathless 250자리 · Oasis 239자리).
+ * ⭐ 진짜 근거는 이것이다 — **넷플릭스는 이 자료에서 제목을 현지어로 안 옮긴다.**
+ *      Squid Game 은 아랍 10개국에서 **라틴 제목 그대로** 445자리를 잡았다
+ *      이집트 차트의 서로 다른 제목 1,530개 중 아랍 문자는 **10개(0.7%)** 뿐이다
+ *      이스라엘 1,825개 중 히브리 문자는 **4개(0.2%)**
+ *    옮긴다면 저 몫이 100% 가까워야 한다. 안 그렇다 → 비라틴 제목은 **그 나라 작품**이다.
+ * ⚠ 그렇다면 왜 한국 명단에 있었나 — 위키데이터 질의가 **언어를 안 가리고 이름표를 받아서**다.
+ *    한국 작품 항목에 딴 나라 작품의 아랍어 이름표가 붙어 있으면 글자로 맞아 버린다.
+ * ⛔ 그래서 NOT_KOREAN 에 **손 목록으로 넣지 않는다.** 그건 「손으로 읽었다」는 수를 부풀린다.
+ *    규칙으로 막는다 — 이 자료에서 한글이 든 제목은 **0개**이고 라틴이 아닌 한국 제목도 0개다.
+ */
+export function 비라틴글자(제목) {
+  return /[֐-׿؀-ۿЀ-ӿ぀-ヿ一-鿿가-힯]/.test(String(제목));
+}
+
+/**
  * 제목 → 'ne'(Non-English) | 'en'(English) 딱지. 넷플릭스 글로벌 표가 붙인 것이지 우리가 정한 게 아니다.
  * 글로벌 표에 없는 제목은 이 지도에 없다 — 「모른다」이지 「한국 것이 아니다」가 아니다.
  */
 export function buildLanguageMap() {
-  const korean = new Set(JSON.parse(fs.readFileSync(KOREAN_JSON, 'utf8')).제목);
+  const 원제목 = JSON.parse(fs.readFileSync(KOREAN_JSON, 'utf8')).제목;
+  const korean = new Set(원제목.filter((t) => !비라틴글자(t)));
   const lines = fs.readFileSync(GLOBAL_TSV, 'utf8').trim().split(/\r?\n/);
   const head = lines[0].split('\t');
   const iTitle = head.indexOf('show_title');

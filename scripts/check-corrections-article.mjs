@@ -58,7 +58,14 @@ const 낱말 = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', '
 {
   const 앞말것 = [];
   for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
-    const s = fs.readFileSync(path.join(CD, f), 'utf8');
+    /*
+     * 🔴 2026-08-09 09:3x — **줄 끝을 안 눌러 놓고 읽고 있었다.**
+     *   저장소에 CRLF 파일과 LF 파일이 섞여 있다(git 이 체크아웃에서 바꾼다).
+     *   오늘 손댄 기사 둘이 CRLF 가 되자 `^---$` 가 `---\r` 에 안 걸려
+     *   **정정 앞말이 통째로 안 보였다.** 기사는 맞게 적혀 있었는데 자가 못 읽은 것이다.
+     * ⚠ `check-table-promises` 가 8/8 에 같은 병을 겪고 적어 뒀다. 두 번째다.
+     */
+    const s = fs.readFileSync(path.join(CD, f), 'utf8').replace(/\r\n/g, '\n');
     const b = s.match(/^corrections:\n((?:\s{2}- date:[\s\S]*?)(?=^\w|^---$))/m);
     if (!b) continue;
     for (const d of b[1].match(/- date:\s*(\S+)/g) || []) {

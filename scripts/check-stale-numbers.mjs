@@ -116,9 +116,23 @@ if (process.argv[1] && process.argv[1].endsWith('check-stale-numbers.mjs')) {
    */
   const 면제 = [{
     파일: 'content/kculturewire/one-flaw-twelve-corrections.md',
-    수: ['448', '405'],
-    까닭: '이 표는 8월 7일 하루의 기록이다. 그날 448 에서 405 로 바뀐 것을 적는 자리라 두 옛 수가 다 있어야 한다. 표 아래 각주가 8일에 397 로 또 바뀐 것을 알린다',
+    수: ['448', '405', '294'],
+    까닭: '이 표는 8월 7일 하루의 기록이다. 그날 448 에서 405 로 바뀐 것을 적는 자리라 두 옛 수가 다 있어야 한다. 표 아래 각주가 8일에 397 로 또 바뀐 것을 알린다. '
+      + '294 도 같은 자리다 — 이 기사의 주어가 「294 였고 236 이 되었다」라서, 294 를 지우면 기사가 말할 것이 없어진다',
     확인문: 'it is a record of one day',
+  }, {
+    /* 🔴 2026-08-09 09:4x — 아래 둘은 새로 넣는다. 옛 수를 **일부러** 인용하는 자리다 */
+    파일: 'content/kculturewire/netflix-does-not-say-where-a-show-is-from.md',
+    수: ['294'],
+    까닭: '이 기사는 「우리가 먼저 틀렸다」를 적는 문단에서 옛 값 294 를 인용한다. '
+      + '그 문장이 바로 뒤에 236 으로 고쳤다고 이어 적으므로, 옛 수가 남아 있는 것이 아니라 **기록으로 서 있는** 것이다',
+    확인문: 'We found this because we got it wrong first',
+  }, {
+    파일: 'content/kculturewire/eight-ways-we-have-been-wrong.md',
+    수: ['37,962'],
+    까닭: '아홉째 까닭을 적은 절이 「37,962 에서 37,750 으로 옮겼다」고 두 값을 나란히 적는다. '
+      + '옛 값을 지우면 무엇이 얼마나 움직였는지 못 읽는다. ⛔ 이 절이 사라지면 면제도 사라져야 한다',
+    확인문: 'moved from 37,962 places to 37,750',
   }];
   for (const e of 면제) {
     if (!fs.existsSync(e.파일)) { console.log(`   ⚠ 면제표가 없는 파일 ${e.파일} 을 가리킨다`); continue; }

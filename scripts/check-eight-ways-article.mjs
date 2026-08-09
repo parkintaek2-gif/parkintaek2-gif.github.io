@@ -15,9 +15,17 @@ import fs from 'node:fs';
 const 기사길 = 'content/kculturewire/eight-ways-we-have-been-wrong.md';
 const 기록길 = 'src/data/wikitip-page-corrections.json';
 const 천 = (n) => Number(n).toLocaleString('en-US');
+/*
+ * 🔴 2026-08-09 09:1x — 이 목록이 **스물하나에서 끊겨** 있었다. 정정이 23건이 되자
+ *   `낱[23]` 이 undefined 가 되어 「produced eight of the undefined」를 찾고 있었다.
+ *   기사는 맞게 적혀 있었는데 자가 못 읽은 것이다. ⛔ 정정은 계속 는다 — 넉넉히 둔다.
+ */
 const 낱 = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten',
   'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen',
-  'nineteen', 'twenty', 'twenty-one'];
+  'nineteen', 'twenty', 'twenty-one', 'twenty-two', 'twenty-three', 'twenty-four', 'twenty-five',
+  'twenty-six', 'twenty-seven', 'twenty-eight', 'twenty-nine', 'thirty', 'thirty-one', 'thirty-two',
+  'thirty-three', 'thirty-four', 'thirty-five', 'thirty-six', 'thirty-seven', 'thirty-eight',
+  'thirty-nine', 'forty'];
 
 /** 원인별로 지면·기사 건수를 다시 센다 */
 export function 원인별(기록) {

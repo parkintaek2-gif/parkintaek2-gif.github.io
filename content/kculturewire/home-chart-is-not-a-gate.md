@@ -1,6 +1,6 @@
 ---
 title: "A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more."
-dek: "Titles with six to ten weeks on Korea's own Netflix chart reached ten countries 56.5% of the time, against 11.4% for those with one or two. But 30 reached twenty countries without ever charting in Korea."
+dek: "Titles with six to ten weeks on Korea's own Netflix chart reached ten countries 56.5% of the time, against 11.4% for those with one or two. But 29 reached twenty countries without ever charting in Korea."
 category: screen
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
@@ -32,7 +32,7 @@ Anyone selling a Korean show abroad has heard the same shorthand: it did well at
 travel. Anyone buying has heard it too. It is a testable claim, and Netflix publishes enough to test
 it â€” a weekly top 10 for 93 markets, including Korea's own.
 
-We took the **938 Korean titles** that appear on any of those lists between 2021-07-04 and
+We took the **915 Korean titles** that appear on any of those lists between 2021-07-04 and
 2026-07-26, counted how many places each took on Korea's chart, and asked how far it went afterwards.
 
 ## The home run does lean the odds
@@ -81,7 +81,7 @@ about the calendar. They do not: the median first week is 2023-06-04 for the 1â€
 
 ## The home chart is not a gate
 
-**30 titles reached twenty or more countries without ever appearing on Korea's own top 10.**
+**29 titles reached twenty or more countries without ever appearing on Korea's own top 10.**
 
 | Title | Countries | Chart places abroad | Format |
 | --- | ---: | ---: | --- |
@@ -98,7 +98,7 @@ perfectly well elsewhere.
 
 ## The comparison we did not make
 
-Of the 938 titles, **560 charted in Korea and 378 never did**. The obvious move is to put those two
+Of the 915 titles, **560 charted in Korea and 355 never did**. The obvious move is to put those two
 groups side by side and report which travels further. We did not, and the reason is worth stating
 rather than burying: the 378 are in our data **only by virtue of** having charted somewhere abroad.
 A title that charted in neither place is invisible to us entirely. Comparing the two groups would

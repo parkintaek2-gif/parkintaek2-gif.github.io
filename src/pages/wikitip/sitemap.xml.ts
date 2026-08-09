@@ -1,6 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import markets from '../../data/wikitip-markets.json';
+import titlePages from '../../data/wikitip-title-pages.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -111,6 +112,13 @@ export const GET: APIRoute = async () => {
    */
   for (const m of markets.markets.filter((x) => x.hasPage)) {
     entries.push({ path: `/market/${m.slug}`, priority: '0.8', changefreq: 'weekly' });
+  }
+
+  /* 작품 지면. 2026-08-09 09:0x — 시장과 **같은 방식으로 자료에서 뽑는다.**
+     ⛔ 손으로 적지 않는다. 얇아서 안 내는 작품은 hasPage 가 false 라 저절로 빠진다.
+     2번이 「사이트맵에 들어갔나 — 오늘 두 번 빠뜨린 자리」라고 짚은 그 자리다. */
+  for (const x of titlePages.titles.filter((y) => y.hasPage)) {
+    entries.push({ path: `/title/${x.slug}`, priority: '0.7', changefreq: 'weekly' });
   }
 
   const articles = await getCollection('kcwArticles');
