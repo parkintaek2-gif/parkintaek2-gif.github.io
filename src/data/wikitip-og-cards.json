@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "korean-films-leave-like-everyone-else": {
+   "figure": "3.72",
+   "label": "weeks a Korean series holds a chart — films 1.96",
+   "왜": "자동은 「208,053 — finished runs」로 표본 크기를 집었다. 기사의 요점은 영화와 시리즈가 갈린 것이다"
+  },
   "a-quarter-fewer-titles": {
    "figure": "26.4%",
    "label": "fewer Korean titles charted than in 2022",
