@@ -140,7 +140,12 @@ if (규칙수(낼것) !== 규칙수(원본)) {
  *     **느리고 그물 타는 것**으로 만들면 그게 더 나쁘다.
  *   ⛔ 물리기 전에 셋이 지금 exit 0 인지 먼저 봤다(8번이 시킨 대로). 셋 다 0 이었다.
  */
-const 물릴자들 = ['check-100y-customer.mjs', 'check-100y-leak.mjs', 'check-100y-tap.mjs'];
+const 물릴자들 = [
+  'check-100y-customer.mjs',
+  'check-100y-leak.mjs',
+  'check-100y-tap.mjs',
+  'check-100y-short-links.mjs',
+];
 
 function 물린자들돌리기() {
   /* ⚠ 이 파일은 ESM 이다. `require` 는 없다 — 위에서 import 해 둔 것을 쓴다 */
