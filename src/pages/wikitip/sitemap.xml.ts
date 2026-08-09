@@ -82,6 +82,12 @@ export const GET: APIRoute = async () => {
     { path: '/two-pipelines', priority: '0.9', changefreq: 'weekly' },
     /* 59편째 기사의 표. 2026-08-09 12:2x — 돌아온 줄 알았더니 시즌 2 */
     { path: '/returns', priority: '0.9', changefreq: 'weekly' },
+    /*
+     * 61편째 기사의 표. 2026-08-09 16:2x — 회사가 한 나라에 발을 들이면 다음 작품이 쉬운가.
+     * ⚠ 지면을 낸 그 빌드에서 이 줄을 안 넣어 검사가 잡았다. 오늘 GSC 에서 본
+     *   「Google에는 아직 알려지지 않은 URL」이 바로 이 상태에서 나온다.
+     */
+    { path: '/foothold', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*
