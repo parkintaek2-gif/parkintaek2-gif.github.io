@@ -2,6 +2,7 @@
 title: "We publish one figure more than any other. A sixth of it rests on titles we could not check."
 dek: "Korean titles hold 7.7% of the world's Netflix top 10 places — 37,750 of 492,900. Of those, 82.5% carry the label we use to exclude same-name foreign works. 16.1% carry no label at all, and we keep them because we cannot check them."
 category: industry
+purpose: ads
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

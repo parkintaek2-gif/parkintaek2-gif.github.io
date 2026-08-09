@@ -2,6 +2,7 @@
 title: "Korean titles did not lose the world's Netflix charts. They lost Asia's and gained Latin America's."
 dek: "Between 2022 and 2025 Korean share fell in all ten Asian markets we track, a mean of 9.68 points, and rose in 68 of the other 83. Japan went from 32.6% to 11.2%, and its distinct Korean titles from 62 to 38."
 category: screen
+purpose: both
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

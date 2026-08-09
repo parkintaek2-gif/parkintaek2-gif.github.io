@@ -2,6 +2,7 @@
 title: "Korea's Netflix chart led Southeast Asia for 46 of 397 Korean titles. Usually they enter the same week."
 dek: "Of the 397 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 46 and in the same week for 160 — and never charted 140 of them at all. Series enter together; films scatter."
 category: screen
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

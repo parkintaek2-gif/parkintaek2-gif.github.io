@@ -2,6 +2,7 @@
 title: "A bigger Korean catalogue reaches more countries. Each title in it does not."
 dek: "Across 207 companies with a charting Korean title, catalogue size tracks total reach (r = 0.536) and not reach per title (r = −0.101). Firms with 20 or more titles get 13 markets from the median title; firms with two get 10.8."
 category: industry
+purpose: both
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

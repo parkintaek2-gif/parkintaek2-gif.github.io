@@ -2,6 +2,7 @@
 title: "Actors whose one charting title also played in Korea are looked up 1.7 times as often abroad"
 dek: "Hold the number of titles fixed and the gap is still there: 1,926 English Wikipedia lookups against 1,111. Hold how far the title travelled fixed and it survives that too. Korea's own chart predicts foreign curiosity."
 category: people
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-03T00:00:00+09:00
 author: Newsroom

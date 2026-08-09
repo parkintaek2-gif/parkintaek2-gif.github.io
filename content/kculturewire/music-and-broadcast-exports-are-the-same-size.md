@@ -2,6 +2,7 @@
 title: "Korea's music and broadcast exports have been the same size for thirteen years — and they do not move together"
 dek: "In ten of thirteen years the two are within 20% of each other. Their year-on-year growth correlates at −0.13. Two industries arriving at the same number by unrelated routes, until 2024 pulled them apart."
 category: industry
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2024-01-01T00:00:00+09:00
 author: Newsroom

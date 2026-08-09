@@ -2,6 +2,7 @@
 title: "Korean titles are commonest in the middle of the chart — except in ten markets, where they own the top"
 dek: "Across 93 Netflix markets Korean titles hold 7.7% of chart places. In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%."
 category: screen
+purpose: both
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

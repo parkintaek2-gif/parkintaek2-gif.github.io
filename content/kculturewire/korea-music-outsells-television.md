@@ -2,6 +2,7 @@
 title: "Korea exports more music than television — but only just, and not always"
 dek: "In 2012 the two were the same size to within half a percent. Broadcast was ahead again as recently as 2022. In 2024 music pulled to $1.80bn against $1.26bn, the widest gap in thirteen years."
 category: music
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom

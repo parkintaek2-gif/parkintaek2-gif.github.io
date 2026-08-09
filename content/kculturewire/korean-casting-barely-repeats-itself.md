@@ -2,6 +2,7 @@
 title: "Only 1.8% of Korean casting pairs ever work together twice — barely more than chance would give you"
 dek: "Across 635 charting Korean titles there are 13,558 pairs of actors who have shared a production. 250 of them have done it more than once. Shuffle the same casts at random and you get about 208. The repertory company is mostly not there."
 category: people
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom

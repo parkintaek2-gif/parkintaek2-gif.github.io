@@ -2,6 +2,7 @@
 title: "Almost every Korean title on Netflix shares an actor with almost every other. Removing the 100 busiest barely dents it."
 dek: "Of 660 Korean titles with a recorded cast, 639 form a single connected body through shared actors. We expected a few very busy people to be holding it together. Take out the 100 busiest and 93.5% is still one piece."
 category: screen
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-07T00:00:00+09:00
 author: Newsroom

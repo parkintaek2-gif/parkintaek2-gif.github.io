@@ -2,6 +2,7 @@
 title: "Netflix's Southeast Asia charts reach 30% of Korean series made since 2021, and 14% of the films"
 dek: "Our panel never had a denominator. Wikidata records 782 Korean series and 1,120 Korean films from the chart era; 237 series and 160 films reached a Top 10. Series are twice as likely to be seen at all."
 category: screen
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom

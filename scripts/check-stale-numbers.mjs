@@ -39,7 +39,10 @@ export function 옛수뽑기(from) {
 
 /** 정정 문단·주석은 옛 수를 일부러 적는 자리다. 지우고 본다. */
 export function 볼본문(글, 파일) {
-  let s = 글;
+  /* 🔴 CRLF 를 먼저 누른다. `^corrections:\n` 은 `\r\n` 파일에서 **한 줄도 못 뺀다**.
+     ⛔ 같은 병으로 8/8 에 check-table-promises · check-corrections-article 이 물렸다. 세 번째다.
+     ⚠ 윈도 체크아웃이 .gitattributes 로 줄끝을 바꾸므로 **아무 파일이나 어느 날 갑자기 CRLF 가 된다.** */
+  let s = String(글).replace(/\r\n/g, '\n');
   /* 주석은 지면에 안 나간다. `/* *​/` 와 `<!-- -->` 만 지우다가 **`//` 한 줄 주석**을 놓쳐
      titles.astro 의 주석 속 448 에서 헛울었다. 셋 다 지운다.
      ⚠ `//` 는 URL 의 `https://` 와 겹친다 — 줄 첫머리 쪽 `//` 만 지운다. */
@@ -65,6 +68,9 @@ if (process.argv[1] && process.argv[1].endsWith('check-stale-numbers.mjs')) {
   자가('주석은 본문에서 뺀다', !볼본문('a /* 405 */ b', 'x.astro').includes('405'));
   자가('앞말 corrections 묶음을 뺀다',
     !볼본문('---\ncorrections:\n  - date: 2026-08-07\n    note: "was 405"\n---\nbody 397', 'x.md').includes('405'));
+  /* 🔴 이 줄이 오늘 헛울린 자리다 — 줄끝만 바뀌어도 자가 눈을 감았다 */
+  자가('CRLF 파일에서도 corrections 묶음을 뺀다',
+    !볼본문('---\r\ncorrections:\r\n  - date: 2026-08-07\r\n    note: "was 405"\r\n---\r\nbody 397', 'x.md').includes('405'));
   console.log(`옛 수 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
   if (통과 !== 시험) process.exit(1);
 

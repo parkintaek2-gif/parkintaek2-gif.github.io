@@ -2,6 +2,7 @@
 title: "Korean viewing is winner-take-all. Attention on the people in it is not."
 dek: "One Netflix title is 21.3% of all Korean viewing. The most looked-up Korean actor is 3.1% of all attention. And within the fifty most-searched, appearing in more charting titles does not predict being looked up more."
 category: people
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-03T00:00:00+09:00
 updatedDate: 2026-08-07

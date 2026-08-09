@@ -2,6 +2,7 @@
 title: "Korean content companies are 38.8% women against the market's 28% — the gap inside them is bigger"
 dek: "Film, video and audio production is 56.9% women. Publishing and games is 34.1%. Both sit above the whole listed market. The 22.8-point gap inside one sector is the larger fact and the filings do not explain it."
 category: people
+purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2025-01-01T00:00:00+09:00
 author: Newsroom

@@ -2,6 +2,7 @@
 title: "One flaw in how we matched titles put wrong figures on seven pages and four articles in a single morning"
 dek: "Our Korean Netflix catalogue was 294 titles and 27.7 billion hours. It is 236 and 23.7 billion. Here is the mistake, how it spread, why counting alone would never have caught it, and what we changed so it cannot happen the same way twice."
 category: screen
+purpose: ads
 pubDate: 2026-08-07
 dataAsOf: 2026-08-07T00:00:00+09:00
 author: Newsroom

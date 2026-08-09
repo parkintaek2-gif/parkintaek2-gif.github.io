@@ -2,6 +2,7 @@
 title: "Korea's content exports grew 63% in two years. Its viewing at the top of Netflix did not move."
 dek: "Korean titles have drawn between 74 and 79 million hours a week from Netflix's global chart in every year that did not carry a Squid Game release. Over the same span, music and broadcast exports went from $1.88bn to $3.06bn."
 category: industry
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom

@@ -2,6 +2,7 @@
 title: "Appearing in more Netflix hits raises a Korean actor's floor, not their ceiling"
 dek: "Actors in six to nine charting Korean titles are looked up seven times as often as those in one. But the busiest are not the most looked-up: Lee Byung-hun has 19 charting titles and 54,309 views; Steven Yeun has one and 106,201."
 category: people
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-03T00:00:00+09:00
 author: Newsroom

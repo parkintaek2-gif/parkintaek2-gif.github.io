@@ -2,6 +2,7 @@
 title: "Every credited name in Parasite appears in another charting Korean title. In The Influencer, none of them do."
 dek: "Across 297 Korean productions with five or more recorded cast, the median has 16.7% of its cast appearing in nothing else that charted. The spread runs from 0% to 100%, and it separates prestige work from reality and youth casting."
 category: screen
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-07T00:00:00+09:00
 author: Newsroom

@@ -162,6 +162,24 @@ const jsonLd = {
       </section>
     )}
 
+    {/*
+      ⛔ 광고 자리가 아니다. Riot Production(App 866800) 승인 전이라 광고는 아직 하나도 없다.
+      ⛔ 60편에 같은 꼬리를 손으로 붙여 넣지 않는다 — 틀에 한 번 둔다.
+      ⚠ 그래도 문구가 예순 편에 똑같이 뜨므로, **이 기사가 쓴 지면 이름**을 넣어 다르게 만든다.
+    */}
+    <section class="onward b2b">
+      <h3>If you work in this business</h3>
+      <p>
+        Everything on this page is measured from the same weekly Netflix lists, per market and per
+        title. We publish the pages free; what we sell is the same measurement cut to one company's
+        catalogue{d.pages && d.pages.length > 0 ? ' — including the figures behind ' : ''}
+        {d.pages && d.pages.length > 0 && d.pages.map((p, i) => (
+          <>{i > 0 ? ' and ' : ''}<a href={p}>{p}</a></>
+        ))}.
+      </p>
+      <p><a href="/for-industry">What a company sheet contains, and what it cannot tell you &rarr;</a></p>
+    </section>
+
     <p class="back">
       <a href="/articles">&larr; All {전체기사수} articles</a>
       <span aria-hidden="true"> · </span><a href="/">Front page</a>
@@ -206,6 +224,12 @@ const jsonLd = {
   .onward h3 { font-size: 1rem; margin: 0 0 .5rem; }
   .onward ul { margin: 0; padding-left: 1.1rem; line-height: 1.8; }
   .onward a { color: var(--accent); }
+  /* B2B 로 나가는 길. ⛔ 광고 자리가 아니라 우리 물건이다 — 화면에서도 그렇게 보이게 조용히 둔다 */
+  .b2b { margin-top: 2.6rem; padding: 1rem 1.1rem; background: var(--card);
+         border: 1px solid var(--line); border-radius: 6px; font-size: .92rem; }
+  .b2b h3 { margin: 0 0 .5rem; }
+  .b2b p { margin: 0 0 .6rem; color: var(--muted); }
+  .b2b p:last-child { margin: 0; }
 
   .notes { margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--line);
            font-size: .88rem; color: var(--muted); }

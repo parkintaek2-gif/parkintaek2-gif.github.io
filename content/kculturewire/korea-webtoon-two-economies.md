@@ -2,6 +2,7 @@
 title: "Korea's webtoon industry averages ₩8.1bn a business. Three-quarters of it earns under ₩1bn."
 dek: "396 webtoon businesses were surveyed in 2024. The 28 platforms average ₩94.5bn each; the 368 content providers average ₩1.5bn. The average describes almost nobody, and the studios that draw the comics sit at the bottom of it."
 category: industry
+purpose: both
 pubDate: 2026-08-06
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom

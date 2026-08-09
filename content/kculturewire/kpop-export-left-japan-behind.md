@@ -2,6 +2,7 @@
 title: "K-pop's music exports were 81% Japanese in 2012. They are 36% Japanese now — and Japan never shrank."
 dek: "Korean music exports went from $22m in 2005 to $1.80bn in 2024. Japan's share more than halved — but Japanese sales grew 1.7× since 2018 while North America grew 39×. The concentration broke because everywhere else caught up."
 category: music
+purpose: both
 pubDate: 2026-08-06
 dataAsOf: 2024-12-31T00:00:00+09:00
 author: Newsroom

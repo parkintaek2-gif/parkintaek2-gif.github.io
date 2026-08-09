@@ -2,6 +2,7 @@
 title: "Twenty-three corrections, and nine distinct ways of being wrong. All nine now fail the build."
 dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-three. This piece went out with four kinds untested; every kind now fails the build, including the one found today."
 category: screen
+purpose: ads
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom

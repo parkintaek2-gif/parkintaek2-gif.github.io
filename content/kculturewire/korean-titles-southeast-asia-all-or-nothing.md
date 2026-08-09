@@ -2,6 +2,7 @@
 title: "In Southeast Asia a Korean title charts in all six countries or in one. There is little in between."
 dek: "Of 397 Korean titles that reached a Netflix Top 10 in Southeast Asia since 2021, 45.1% charted in all six countries and 30.7% in exactly one. Series average 4.6 countries; films average 2.6."
 category: screen
+purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00
 updatedDate: 2026-08-07
