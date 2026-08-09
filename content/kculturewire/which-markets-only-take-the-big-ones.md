@@ -24,6 +24,9 @@ crossChecks:
 excluded:
   - "Russia, excluded across this publication because Netflix withdrew and the remaining weeks are not comparable"
   - "Licensing windows, local release dates and dubbing schedules, none of which appear in a chart"
+corrections:
+  - date: 2026-08-10
+    note: "Published with Malta in the first table at a median breadth of 71. Malta is no longer in it: Croatia is, at the same 71. Thirteen titles were being counted as Korean that are not, and two of them charted in Malta. The test that found them is where a title charted. Undercover took 48 chart places without one of them in Korea, 16 of them in the Netherlands and 6 in Belgium — it is the Belgian series, and Wikidata knows no Korean work by that name. The other twelve are the same shape: a title that never reaches Korea's own chart, has no Korean work of that name, and peaks in exactly the country the foreign work comes from. Removing them takes 84 chart places out of 37,750, which is 0.22%, and moves three figures here: Japan's median breadth from 17.5 to 18, the under-5% band from 62 to 63, and the range inside that band from 49 to 48.5. The direction of the article is unchanged. Two further titles met two of the three tests but were kept, because a Korean work does share their name and we cannot tell which one charted: Keys to the Heart and Life Is Beautiful."
 ---
 
 Every Korean title that charts anywhere has a **breadth** — the number of countries it reached at
@@ -40,13 +43,13 @@ market, the **median breadth of the Korean titles that appeared there**.
 | Estonia | 78 | 1.8% |
 | Slovenia | 76 | 2.2% |
 | Switzerland | 72 | 2.6% |
+| Croatia | 71 | 2.1% |
 | Lithuania | 71 | 2.1% |
-| Malta | 71 | 2.1% |
 
 | Narrow titles get in too | Median breadth | Korean share of that chart |
 |---|---:|---:|
 | South Korea | 2 | 51.4% |
-| Japan | 17.5 | 20.2% |
+| Japan | 18 | 20.1% |
 | Vietnam | 21 | 29.3% |
 | Thailand | 21 | 23.4% |
 | Taiwan | 21 | 23.6% |
@@ -70,16 +73,16 @@ So the same measurement, with markets grouped by how much of their chart is Kore
 
 | Korean share of the chart | Markets | Median breadth | Range within the band |
 |---|---:|---:|---:|
-| Under 5% | 49 | 62 | 49 |
+| Under 5% | 49 | 63 | 48.5 |
 | 5–8% | 12 | 52 | 6 |
 | 8–12% | 18 | 46 | 9 |
 | 12% or more | 14 | 21 | 43 |
 
-**It falls straight down: 62, 52, 46, 21.** The more of a chart is Korean, the narrower the titles
+**It falls straight down: 63, 52, 46, 21.** The more of a chart is Korean, the narrower the titles
 that get onto it. Most of what looks like "hard to reach" is "rarely plays Korean titles".
 
 **But it is not all of it.** Inside the under-5% band — 49 markets that all play Korean titles about
-as rarely as each other — the breadth still ranges across 49 markets' worth. Two countries with the
+as rarely as each other — the breadth still ranges across 48.5 markets' worth. Two countries with the
 same Korean share can want very different titles.
 
 ⚠ We cannot take that further. Separating "this market is hard" from "this market has one Korean

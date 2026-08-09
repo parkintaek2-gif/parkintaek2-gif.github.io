@@ -1,8 +1,8 @@
 ---
-title: "At number one a Korean title has a 1.2% chance of being gone next week. At number ten it is 70.3%"
+title: "At number one a Korean title has a 1.2% chance of being gone next week. At number ten it is 70.2%"
 category: screen
 purpose: both
-dek: "Everything written about a chart is about getting on it. We measured 11,779 departures instead — the position a Korean title held the week before it vanished, against the 10.0% each rank would take if position did not matter."
+dek: "Everything written about a chart is about getting on it. We measured 11,722 departures instead — the position a Korean title held the week before it vanished, against the 10.0% each rank would take if position did not matter."
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -36,8 +36,8 @@ market, is at [how a title leaves](/exit) — and the arriving end we have alrea
 
 ## The chart bottom is a trapdoor. The top is not.
 
-A run is one title in one country across consecutive chart weeks. We found 12,026 of them. Of those,
-**11,779 ended** — the other 247 are still on a chart in the last week we hold, and a run our data
+A run is one title in one country across consecutive chart weeks. We found 11,969 of them. Of those,
+**11,722 ended** — the other 247 are still on a chart in the last week we hold, and a run our data
 outlives has not left, so they are set aside rather than counted.
 
 Take every week a Korean title spent at a given position, and ask what share of those weeks turned
@@ -49,12 +49,12 @@ out to be its last:
 | 2 | 4.8% |
 | 3 | 9.6% |
 | 4 | 17% |
-| 5 | 24% |
-| 6 | 32.6% |
-| 7 | 43.7% |
-| 8 | 53.4% |
-| 9 | 62.2% |
-| 10 | **70.3%** |
+| 5 | 23.9% |
+| 6 | 32.5% |
+| 7 | 43.6% |
+| 8 | 53.3% |
+| 9 | 62.1% |
+| 10 | **70.2%** |
 
 A title at number one is almost never gone next week. A title at number ten is gone more often than
 not. Between position 7 and position 8 the run crosses a coin flip.
@@ -65,7 +65,7 @@ worth more than the difference between rank 1 and rank 2.
 
 ## Where departures land, and the comparison that matters
 
-Of the 11,779 departures, **56.8% happened from positions 8, 9 or 10.** If leaving had nothing to
+Of the 11,722 departures, **56.8% happened from positions 8, 9 or 10.** If leaving had nothing to
 do with position, that figure would be 30.0%, because every country-week-chart has exactly one
 place at each rank. Only **5.2%** of departures happened from the top three.
 
@@ -88,7 +88,7 @@ Both groups sit level, so the gap is in how they leave, not where they were. A K
 charts is slightly more likely to slide out and slightly less likely to be pushed out while still
 ranking well.
 
-Entries look nothing like exits, which is worth stating plainly: **13.7%** of Korean runs began at
+Entries look nothing like exits, which is worth stating plainly: **13.6%** of Korean runs began at
 position 10 and **6.6%** began at position 1. Getting on a chart is spread across the whole list.
 Leaving it is not.
 
