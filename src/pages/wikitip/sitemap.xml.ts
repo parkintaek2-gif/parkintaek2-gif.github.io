@@ -82,6 +82,8 @@ export const GET: APIRoute = async () => {
     { path: '/two-pipelines', priority: '0.9', changefreq: 'weekly' },
     /* 59편째 기사의 표. 2026-08-09 12:2x — 돌아온 줄 알았더니 시즌 2 */
     { path: '/returns', priority: '0.9', changefreq: 'weekly' },
+    /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
+    { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*
      * 파는 자료의 착륙 지면. 2026-08-08 04:3x 에 만들어 놓고 **여기 한 줄을 안 넣었다** —
      * 하루 동안 검색엔 열려 있는데 사이트맵엔 없는 어긋난 상태였다. 위 ⚠ 가 이것이다.
