@@ -1,6 +1,6 @@
 ---
 title: "Korean titles are commonest in the middle of the chart — except in ten markets, where they own the top"
-dek: "Across 93 Netflix markets Korean titles hold 7.7% of chart places. In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%."
+dek: "Across 93 Netflix markets Korean titles hold 7.6% of chart places. In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%."
 category: screen
 purpose: both
 pubDate: 2026-08-09
@@ -25,7 +25,7 @@ crossChecks:
 
 Every chart page we have published counts places. A Korean series at number one in Vietnam and a
 Korean film at number ten in Belgium both count as one place, and 492,900 of those places across 93
-markets is how we get the figure we keep repeating: **7.7% of the chart is Korean.**
+markets is how we get the figure we keep repeating: **7.6% of the chart is Korean.**
 
 That figure hides a question we had never asked. The places are not identical. A tenth of them are
 number one. Are Korean titles as likely to be there as anywhere else?
@@ -33,7 +33,7 @@ number one. Are Korean titles as likely to be there as anywhere else?
 Mostly, no.
 
 Added up, though, the answer looks like nothing at all. Across all 93 markets Korean titles hold
-**7.8%** of number-one places against **7.7%** of places overall, and 50 of 93 markets sit lower at
+**7.8%** of number-one places against **7.6%** of places overall, and 50 of 93 markets sit lower at
 number one than across their chart. That is a coin toss. Anyone who asked this question once and
 stopped there would publish a flat line and move on, and we nearly did.
 
@@ -48,8 +48,8 @@ separates from the rest.
 
 | Korean share of the market | Markets | #1 | #5 | #10 | All places | #1 minus all |
 |---|---|---|---|---|---|---|
-| Under 5% | 49 | 2.9% | 2.9% | 3.2% | 2.8% | +0.1p |
-| 5–10% | 23 | 5.5% | 8.6% | 8.1% | 7.8% | −2.3p |
+| Under 5% | 49 | 2.9% | 2.8% | 3.2% | 2.8% | +0.1p |
+| 5–10% | 23 | 5.5% | 8.6% | 8% | 7.8% | −2.3p |
 | 10–20% | 11 | 9.6% | 13.3% | 9.9% | 11.6% | −2p |
 | 20% and over | 10 | 35.3% | 26.4% | 20.4% | 26.7% | +8.6p |
 
@@ -62,8 +62,8 @@ sit lower at number one than across their chart. On the bottom row, **none of th
 one of them is higher.
 
 Films and series are separate top tens, and a pattern that only appeared when they were added
-together would be worth nothing. Split apart, the 5–10% row is −0.6 points for films and −3.9 points
-for series; the bottom row is +4.2 and +13.0. Different sizes, same direction, four times over.
+together would be worth nothing. Split apart, the 5–10% row is −0.5 points for films and −3.9 points
+for series; the bottom row is +4.3 and +13.0. Different sizes, same direction, four times over.
 
 ## The objection, which is right three times out of four
 
@@ -74,8 +74,8 @@ In three of the four bands, it is close to all it is.
 
 | Korean share of the market | Distinct titles at #1 | Largest title's share | #1 share without the top three |
 |---|---|---|---|
-| Under 5% | 48 | 67.9% | 0.6% (all places: 2.8%) |
-| 5–10% | 67 | 36.2% | 2.9% (7.8%) |
+| Under 5% | 47 | 68% | 0.6% (all places: 2.8%) |
+| 5–10% | 66 | 36.2% | 2.9% (7.8%) |
 | 10–20% | 67 | 28.9% | 5.9% (11.6%) |
 | 20% and over | 250 | 5.3% | 30.8% (26.7%) |
 
@@ -112,7 +112,7 @@ never crowded out to begin with.
 
 ## Why we bothered
 
-Because "7.7% of the chart" is the number we sell, and it turns out to mean two different things. In
+Because "7.6% of the chart" is the number we sell, and it turns out to mean two different things. In
 Vietnam it means Korean titles are a routine first choice. In Poland it means they are a reliable
 mid-chart presence and, once, *Squid Game*. Those are not the same business, and a buyer deciding
 where to place a title should not be handed one number for both.

@@ -1,5 +1,5 @@
 ---
-title: "Korean titles hold 7.7% of the world's top-10 places. Where they were strongest, the share fell by a third."
+title: "Korean titles hold 7.6% of the world's top-10 places. Where they were strongest, the share fell by a third."
 dek: "Across 93 countries and 265 weeks the global share has not moved since 2022. That average hides nine Asian markets where Korean titles held 30.3% of places and now hold 19.5% — all nine fell, and Korea's own chart did not."
 category: screen
 purpose: both
@@ -31,9 +31,9 @@ Netflix publishes twenty places per country per week — ten films, ten series. 
 that makes it one of the few things about the Korean wave that can be counted rather than asserted.
 
 We counted all of it: 93 countries with a complete record, 265 weeks, **492,900 places**. Korean
-titles hold **37,750** of them.
+titles hold **37,666** of them.
 
-## 7.7% of the world, and half of Korea
+## 7.6% of the world, and half of Korea
 
 | | Korean share of top-10 places |
 | --- | ---: |
@@ -63,7 +63,7 @@ the English-speaking world.
 
 | Year | Weeks | Korean share |
 | --- | ---: | ---: |
-| 2022 | 52 | 7.6% |
+| 2022 | 52 | 7.5% |
 | 2023 | 53 | 7.9% |
 | 2024 | 52 | 7.0% |
 | 2025 | 52 | 7.7% |
@@ -79,8 +79,8 @@ countries and it hides the only movement in the data.
 | Group | 2022 | 2023 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
 | South Korea | 49.8% | 54.3% | 51.2% | 49.7% |
-| The nine Asian markets that were once above 20% | **30.3%** | 26.0% | 19.7% | **19.5%** |
-| The five largest English-speaking markets | 1.9% | 1.3% | 1.9% | 2.0% |
+| The nine Asian markets that were once above 20% | **30.3%** | 25.9% | 19.7% | **19.5%** |
+| The five largest English-speaking markets | 1.8% | 1.3% | 1.9% | 2.0% |
 
 The nine markets where Korean titles were strongest gave up **10.8 points in four years** — better
 than a third of the share they held. The English-speaking markets did not pick it up; they are
@@ -113,7 +113,7 @@ These are different problems and the data separates them cleanly.
 | Year | Korean share | Korean titles charting | Places per Korean title | All titles charting |
 | --- | ---: | ---: | ---: | ---: |
 | 2022 | 30.3% | **161** | 17.6 | 1,127 |
-| 2023 | 26.0% | 139 | 17.8 | 1,158 |
+| 2023 | 25.9% | 138 | 17.8 | 1,158 |
 | 2024 | 19.7% | 100 | 18.5 | 1,248 |
 | 2025 | 19.5% | **102** | 17.9 | 1,247 |
 
