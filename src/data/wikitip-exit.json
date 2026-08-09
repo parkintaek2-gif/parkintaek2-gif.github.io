@@ -1,0 +1,301 @@
+{
+  "generated": "2026-08-09T13:56:45.648Z",
+  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
+  "question": "Everything published about a chart is about getting on it. This asks the other question: when a title leaves, what position was it in the week before it went?",
+  "unit": "A run is one title in one country across consecutive chart weeks. A title that leaves and comes back later has two runs, because the two departures are two separate events.",
+  "whyTheBaselineIsFree": "Every country-week has exactly one title at each position from 1 to 10. If leaving had nothing to do with position, departures would fall at 10.0% on each rank. Nothing has to be simulated: the chart itself is the control.",
+  "whatWasExcluded": "A run still on the chart in the last week we hold has not left — our data ended, the run did not. Those runs are counted and set aside rather than treated as departures, because including them would import the final week's whole position table into the answer.",
+  "rowsRead": 493600,
+  "rowsOverwritten": 25,
+  "marketCount": 93,
+  "weekCount": 265,
+  "korean": {
+    "runs": 12026,
+    "departures": 11779,
+    "stillOnChart": 247,
+    "singleWeekRuns": 4103,
+    "byRank": [
+      {
+        "rank": 1,
+        "exits": 45,
+        "exitPc": 0.4,
+        "exitPcMultiWeek": 0.5,
+        "entriesPc": 6.6,
+        "weeksPc": 10.2,
+        "weeksAtRank": 3859,
+        "endRatePc": 1.2
+      },
+      {
+        "rank": 2,
+        "exits": 184,
+        "exitPc": 1.6,
+        "exitPcMultiWeek": 1.9,
+        "entriesPc": 6.2,
+        "weeksPc": 10.1,
+        "weeksAtRank": 3799,
+        "endRatePc": 4.8
+      },
+      {
+        "rank": 3,
+        "exits": 372,
+        "exitPc": 3.2,
+        "exitPcMultiWeek": 3.5,
+        "entriesPc": 7.7,
+        "weeksPc": 10.3,
+        "weeksAtRank": 3871,
+        "endRatePc": 9.6
+      },
+      {
+        "rank": 4,
+        "exits": 663,
+        "exitPc": 5.6,
+        "exitPcMultiWeek": 5.8,
+        "entriesPc": 9.1,
+        "weeksPc": 10.3,
+        "weeksAtRank": 3902,
+        "endRatePc": 17
+      },
+      {
+        "rank": 5,
+        "exits": 950,
+        "exitPc": 8.1,
+        "exitPcMultiWeek": 8.4,
+        "entriesPc": 10.3,
+        "weeksPc": 10.5,
+        "weeksAtRank": 3961,
+        "endRatePc": 24
+      },
+      {
+        "rank": 6,
+        "exits": 1220,
+        "exitPc": 10.4,
+        "exitPcMultiWeek": 10.3,
+        "entriesPc": 10.4,
+        "weeksPc": 9.9,
+        "weeksAtRank": 3746,
+        "endRatePc": 32.6
+      },
+      {
+        "rank": 7,
+        "exits": 1648,
+        "exitPc": 14,
+        "exitPcMultiWeek": 14,
+        "entriesPc": 11.1,
+        "weeksPc": 10,
+        "weeksAtRank": 3774,
+        "endRatePc": 43.7
+      },
+      {
+        "rank": 8,
+        "exits": 1995,
+        "exitPc": 16.9,
+        "exitPcMultiWeek": 17,
+        "entriesPc": 12.4,
+        "weeksPc": 9.9,
+        "weeksAtRank": 3735,
+        "endRatePc": 53.4
+      },
+      {
+        "rank": 9,
+        "exits": 2248,
+        "exitPc": 19.1,
+        "exitPcMultiWeek": 19.1,
+        "entriesPc": 12.4,
+        "weeksPc": 9.6,
+        "weeksAtRank": 3614,
+        "endRatePc": 62.2
+      },
+      {
+        "rank": 10,
+        "exits": 2454,
+        "exitPc": 20.8,
+        "exitPcMultiWeek": 19.5,
+        "entriesPc": 13.7,
+        "weeksPc": 9.2,
+        "weeksAtRank": 3489,
+        "endRatePc": 70.3
+      }
+    ],
+    "bottomThreePc": 56.8,
+    "topThreePc": 5.2,
+    "weeksBottomThreePc": 28.7
+  },
+  "allTitles": {
+    "runs": 209913,
+    "departures": 208053,
+    "byRank": [
+      {
+        "rank": 1,
+        "exits": 1303,
+        "exitPc": 0.6,
+        "exitPcMultiWeek": 0.7,
+        "entriesPc": 9.3,
+        "weeksPc": 10,
+        "weeksAtRank": 49289,
+        "endRatePc": 2.6
+      },
+      {
+        "rank": 2,
+        "exits": 4752,
+        "exitPc": 2.3,
+        "exitPcMultiWeek": 2.6,
+        "entriesPc": 9.1,
+        "weeksPc": 10,
+        "weeksAtRank": 49278,
+        "endRatePc": 9.6
+      },
+      {
+        "rank": 3,
+        "exits": 9143,
+        "exitPc": 4.4,
+        "exitPcMultiWeek": 4.8,
+        "entriesPc": 9.2,
+        "weeksPc": 10,
+        "weeksAtRank": 49287,
+        "endRatePc": 18.6
+      },
+      {
+        "rank": 4,
+        "exits": 14346,
+        "exitPc": 6.9,
+        "exitPcMultiWeek": 7.2,
+        "entriesPc": 9.4,
+        "weeksPc": 10,
+        "weeksAtRank": 49286,
+        "endRatePc": 29.1
+      },
+      {
+        "rank": 5,
+        "exits": 19117,
+        "exitPc": 9.2,
+        "exitPcMultiWeek": 9.6,
+        "entriesPc": 9.7,
+        "weeksPc": 10,
+        "weeksAtRank": 49287,
+        "endRatePc": 38.8
+      },
+      {
+        "rank": 6,
+        "exits": 24032,
+        "exitPc": 11.6,
+        "exitPcMultiWeek": 11.9,
+        "entriesPc": 9.8,
+        "weeksPc": 10,
+        "weeksAtRank": 49289,
+        "endRatePc": 48.8
+      },
+      {
+        "rank": 7,
+        "exits": 28664,
+        "exitPc": 13.8,
+        "exitPcMultiWeek": 14.1,
+        "entriesPc": 10.1,
+        "weeksPc": 10,
+        "weeksAtRank": 49290,
+        "endRatePc": 58.2
+      },
+      {
+        "rank": 8,
+        "exits": 32311,
+        "exitPc": 15.5,
+        "exitPcMultiWeek": 15.5,
+        "entriesPc": 10.6,
+        "weeksPc": 10,
+        "weeksAtRank": 49289,
+        "endRatePc": 65.6
+      },
+      {
+        "rank": 9,
+        "exits": 35793,
+        "exitPc": 17.2,
+        "exitPcMultiWeek": 16.7,
+        "entriesPc": 11.1,
+        "weeksPc": 10,
+        "weeksAtRank": 49290,
+        "endRatePc": 72.6
+      },
+      {
+        "rank": 10,
+        "exits": 38592,
+        "exitPc": 18.5,
+        "exitPcMultiWeek": 17,
+        "entriesPc": 11.8,
+        "weeksPc": 10,
+        "weeksAtRank": 49290,
+        "endRatePc": 78.3
+      }
+    ],
+    "bottomThreePc": 51.2,
+    "topThreePc": 7.3,
+    "weeksBottomThreePc": 30
+  },
+  "whyWeeksColumnIsHere": "Korean titles do not sit evenly across a chart, so departures could look bottom-heavy simply because Korean weeks are bottom-heavy. Each group is therefore also shown against the positions its own titles actually occupied, which is the comparison that survives.",
+  "marketMinDepartures": 40,
+  "marketsMeasured": 91,
+  "marketsHigh": [
+    {
+      "국가": "Argentina",
+      "나간것": 90,
+      "아래셋": 62,
+      "아래셋몫": 68.9
+    },
+    {
+      "국가": "Indonesia",
+      "나간것": 316,
+      "아래셋": 217,
+      "아래셋몫": 68.7
+    },
+    {
+      "국가": "Norway",
+      "나간것": 54,
+      "아래셋": 36,
+      "아래셋몫": 66.7
+    },
+    {
+      "국가": "Nicaragua",
+      "나간것": 155,
+      "아래셋": 101,
+      "아래셋몫": 65.2
+    },
+    {
+      "국가": "Guatemala",
+      "나간것": 131,
+      "아래셋": 85,
+      "아래셋몫": 64.9
+    }
+  ],
+  "marketsLow": [
+    {
+      "국가": "Canada",
+      "나간것": 59,
+      "아래셋": 27,
+      "아래셋몫": 45.8
+    },
+    {
+      "국가": "Iceland",
+      "나간것": 44,
+      "아래셋": 20,
+      "아래셋몫": 45.5
+    },
+    {
+      "국가": "Luxembourg",
+      "나간것": 67,
+      "아래셋": 30,
+      "아래셋몫": 44.8
+    },
+    {
+      "국가": "France",
+      "나간것": 88,
+      "아래셋": 39,
+      "아래셋몫": 44.3
+    },
+    {
+      "국가": "Slovakia",
+      "나간것": 65,
+      "아래셋": 27,
+      "아래셋몫": 41.5
+    }
+  ],
+  "whyMarketsDiffer": "A market where departures cluster at the bottom is one where a title slides out. A market where they are spread further up is one where titles are pushed out while still ranking well, which happens where the chart turns over quickly. The two ends of this table are not better and worse markets; they are different rates of replacement.",
+  "cannotAnswer": "A departure from a top 10 is not a departure from the service. A title that leaves at position 10 may have lost almost no viewing at all, and a title pushed out at position 3 may have lost none. Netflix publishes no viewing figures for country charts, so nothing here measures how many people watched anything."
+}
