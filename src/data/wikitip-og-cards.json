@@ -191,6 +191,11 @@
    "figure": "45.2%",
    "label": "of Korean chart comebacks are a different season, not a comeback",
    "왜": "자동은 dek 첫 수 940 을 집는다. 이 기사의 요점은 틈 수가 아니라 **절반 가까이가 복귀가 아니라는 것**이라 그 수를 박는다"
+  },
+  "how-much-of-our-own-number-is-checked": {
+   "figure": "16.1%",
+   "label": "of our headline figure rests on titles we could not check",
+   "왜": "자동은 dek 첫 수 7.7 을 집는데 그건 이 기사의 주어가 아니다. 요점은 **확인 못 한 몫**이라 그 수를 박는다"
   }
  }
 }

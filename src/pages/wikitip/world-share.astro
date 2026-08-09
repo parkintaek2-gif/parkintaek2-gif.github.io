@@ -366,6 +366,23 @@ const jsonLd = {
       second is the one that matters when you are deciding whether to use the number.
     </p>
     <p class="note">{data.confirmation.note}</p>
+    {data.confirmation.unkeyedSlots !== null && (
+      <>
+        <p class="note lead-in">
+          <b>A second, independent check.</b> The language label asks whether a title is
+          <i>not English</i>. It does not ask <i>which work this is</i>. For that we hold a Wikidata
+          item number, matched by number rather than by name — and
+          {' '}<b>{data.confirmation.keyedPc}%</b> of the places above sit on titles that have one.
+          The remaining <b>{data.confirmation.unkeyedSlots} places ({data.confirmation.unkeyedPc}%)</b>
+          {' '}entered on a name match alone.
+        </p>
+        <p class="note">
+          The two checks catch different things and neither is a superset of the other, which is why
+          both are printed. A title can carry a Wikidata number and still have no language label, and
+          the reverse happens too.
+        </p>
+      </>
+    )}
   </section>
 
   <KcwRelatedArticles page="/world-share" />

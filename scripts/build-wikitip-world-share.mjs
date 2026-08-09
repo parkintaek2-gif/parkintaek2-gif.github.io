@@ -58,6 +58,18 @@ const 아홉해 = new Map();
 /** ⛔ 나라마다 따로 센다. 아래에서 **온전한 나라만** 더한다 —
  *  처음엔 전부 세었다가 자가 「합이 다르다」고 울었다. 자가 옳았다 */
 const 확인나라 = new Map();
+/**
+ * ⛔ **두 번째 축** — 위키데이터 Q번호(열쇠)가 붙었나. 언어 딱지와 **서로 다른 것**을 본다.
+ *   딱지는 「영어 작품이 아닌가」를 보고, 열쇠는 「이 작품이 무엇인가」를 본다.
+ *   둘 다 없는 자리가 우리가 제일 모르는 자리다.
+ */
+const 열쇠집합 = (() => {
+  const 길 = 'archive/raw/netflix-top10/korean-titles-keyed.json';
+  if (!fs.existsSync(길)) return null; // ⛔ 없으면 「0」이 아니라 **못 쟀다**
+  const k = JSON.parse(fs.readFileSync(길, 'utf8'));
+  return new Set(Object.values(k.작품).map((x) => x.넷플릭스제목));
+})();
+const 열쇠나라 = new Map();
 
 const rl = readline.createInterface({
   input: fs.createReadStream('archive/raw/netflix-top10/countries.ndjson'),
@@ -79,6 +91,11 @@ for await (const line of rl) {
     if (딱지 === undefined) c.unlabelled += 1;
     else if (딱지 === 'both') c.both += 1;
     else c.labelled += 1;
+    if (열쇠집합) {
+      let q = 열쇠나라.get(r.iso2);
+      if (!q) { q = { keyed: 0, unkeyed: 0 }; 열쇠나라.set(r.iso2, q); }
+      if (열쇠집합.has(r.제목)) q.keyed += 1; else q.unkeyed += 1;
+    }
   }
   let ay = a.byYear.get(y);
   if (!ay) { ay = { rows: 0, korean: 0 }; a.byYear.set(y, ay); }
@@ -161,6 +178,10 @@ const 확인 = 온전.reduce((s, a) => {
   const c = 확인나라.get(a.iso2) ?? { labelled: 0, unlabelled: 0, both: 0 };
   return { labelled: s.labelled + c.labelled, unlabelled: s.unlabelled + c.unlabelled, both: s.both + c.both };
 }, { labelled: 0, unlabelled: 0, both: 0 });
+const 열쇠셈 = 열쇠집합 ? 온전.reduce((s, a) => {
+  const q = 열쇠나라.get(a.iso2) ?? { keyed: 0, unkeyed: 0 };
+  return { keyed: s.keyed + q.keyed, unkeyed: s.unkeyed + q.unkeyed };
+}, { keyed: 0, unkeyed: 0 }) : null;
 const 비들 = 온전.map((a) => 비율(a.korean, a.rows)).sort((a, b) => a - b);
 
 const out = {
@@ -187,6 +208,11 @@ const out = {
     unlabelledPc: 비율(확인.unlabelled, 전체한),
     bothSlots: 확인.both,
     bothPc: 비율(확인.both, 전체한),
+    /** ⛔ 못 쟀으면 0 이 아니라 null. archive 는 git 이 안 담는다 */
+    keyedSlots: 열쇠셈 ? 열쇠셈.keyed : null,
+    keyedPc: 열쇠셈 ? 비율(열쇠셈.keyed, 전체한) : null,
+    unkeyedSlots: 열쇠셈 ? 열쇠셈.unkeyed : null,
+    unkeyedPc: 열쇠셈 ? 비율(열쇠셈.unkeyed, 전체한) : null,
     note: 'Netflix labels a title Non-English on its global charts, and that is the label we use to '
       + 'exclude English-language works with the same name. Country charts carry no such label, so a '
       + 'title that never reached a global top 10 has nothing to check against. We keep those rather '
