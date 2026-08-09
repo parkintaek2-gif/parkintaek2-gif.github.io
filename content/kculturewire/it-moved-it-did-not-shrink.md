@@ -41,7 +41,7 @@ other 83**.
 | | Markets | Mean change | Markets that rose |
 | --- | ---: | ---: | ---: |
 | The ten Asian markets | 10 | **−9.68p** | **0** |
-| Everywhere else | 83 | **+1.31p** | 68 |
+| Everywhere else | 83 | **+1.37p** | 68 |
 
 Not one Asian market went up. Not one.
 

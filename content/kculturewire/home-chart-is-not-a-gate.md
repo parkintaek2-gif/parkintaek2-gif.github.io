@@ -33,7 +33,7 @@ Anyone selling a Korean show abroad has heard the same shorthand: it did well at
 travel. Anyone buying has heard it too. It is a testable claim, and Netflix publishes enough to test
 it — a weekly top 10 for 93 markets, including Korea's own.
 
-We took the **915 Korean titles** that appear on any of those lists between 2021-07-04 and
+We took the **902 Korean titles** that appear on any of those lists between 2021-07-04 and
 2026-07-26, counted how many places each took on Korea's chart, and asked how far it went afterwards.
 
 ## The home run does lean the odds
@@ -99,14 +99,14 @@ perfectly well elsewhere.
 
 ## The comparison we did not make
 
-Of the 915 titles, **560 charted in Korea and 355 never did**. The obvious move is to put those two
+Of the 902 titles, **560 charted in Korea and 342 never did**. The obvious move is to put those two
 groups side by side and report which travels further. We did not, and the reason is worth stating
-rather than burying: the 378 are in our data **only by virtue of** having charted somewhere abroad.
+rather than burying: the 342 are in our data **only by virtue of** having charted somewhere abroad.
 A title that charted in neither place is invisible to us entirely. Comparing the two groups would
 answer a question we had already decided by the way we built the list.
 
 So the bands above are cut **inside** the 560 that did chart at home, where the comparison is honest,
-and the 378 appear only in the section above — as named cases, not as an average.
+and the 342 appear only in the section above — as named cases, not as an average.
 
 ## What a seller can take from this
 
