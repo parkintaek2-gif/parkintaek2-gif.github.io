@@ -20,6 +20,7 @@
  * · 못 잰 것은 **못 쟀다**고 적는다. 빈칸을 0 으로 채우지 않는다
  *
  * 쓰는 법: node scripts/make-kcw-firm-report.mjs --회사 "SHOWBOX Co., Ltd."
+ *          node scripts/make-kcw-firm-report.mjs --전부      ← A등급 열일곱 곳을 한 번에
  *          node scripts/make-kcw-firm-report.mjs --selftest
  */
 import fs from 'node:fs';
@@ -110,19 +111,24 @@ if (내가실행됐다) {
     process.exit(1);
   }
   const 자료 = JSON.parse(fs.readFileSync(회사파일, 'utf8'));
-  if (!고른회사) {
-    console.log('⛔ --회사 <이름> 이 없다. A등급 열일곱 곳:');
+  if (!고른회사 && !process.argv.includes('--전부')) {
+    console.log('⛔ --회사 <이름> 이 없다(A등급 전부는 --전부). A등급 열일곱 곳:');
     for (const f of 자료.firms.filter((x) => x.grade === 'A')) console.log(`   ${f.firm}  (${f.works.length}편)`);
     process.exit(1);
   }
-  const 회사 = 자료.firms.find((x) => x.firm === 고른회사);
-  if (!회사) throw new Error(`그런 회사가 명단에 없다: ${고른회사} — 이름을 그대로 넣는다`);
+  /*
+   * ⭐ 2026-08-09 11:1x — `--전부` 를 붙였다.
+   *   ⛔ 회사 한 곳마다 원자료(49만 줄)를 다시 읽고 있었다. 열일곱 곳이면 열일곱 번이다.
+   *      **한 번 읽고 열일곱 장**을 낸다. 만드는 내용은 한 글자도 안 바꿨다.
+   */
+  const 만들회사들 = 고른회사 === '--전부' || process.argv.includes('--전부')
+    ? 자료.firms.filter((x) => x.grade === 'A')
+    : [자료.firms.find((x) => x.firm === 고른회사)];
+  if (만들회사들.some((x) => !x)) throw new Error(`그런 회사가 명단에 없다: ${고른회사} — 이름을 그대로 넣는다`);
 
-  /* 이 회사 작품의 넷플릭스 제목. ⛔ 제목이 없는 것은 셈에서 빼고 **몇 편을 뺐는지 적는다** */
-  const 제목들 = new Set(회사.works.map((w) => w.title).filter(Boolean));
-  const 제목없음 = 회사.works.length - 제목들.size;
-
-  const 모음 = new Map([...제목들].map((t) => [t, []]));
+  /* 이 회사들 작품의 넷플릭스 제목을 **다 합쳐** 한 번만 읽는다 */
+  const 온제목 = new Set(만들회사들.flatMap((f) => f.works.map((w) => w.title).filter(Boolean)));
+  const 온모음 = new Map([...온제목].map((t) => [t, []]));
   /* ⛔ 자료 창은 **판 전체**에서 잰다. 그 회사 줄에서 재면 그건 창이 아니라 **그들의 발자국**이다.
      둘을 한 줄에 적으면 손님은 「자료가 104주뿐인가」로 읽는다. 갈라 적는다. */
   const 창 = { 첫: '9999-99-99', 끝: '0000-00-00', 나라: new Set() };
@@ -134,9 +140,15 @@ if (내가실행됐다) {
     if (r.주 < 창.첫) 창.첫 = r.주;
     if (r.주 > 창.끝) 창.끝 = r.주;
     창.나라.add(r.iso2);
-    if (!모음.has(r.제목)) continue;
-    모음.get(r.제목).push(r);
+    if (!온모음.has(r.제목)) continue;
+    온모음.get(r.제목).push(r);
   }
+
+  /* 여기서부터 회사마다 한 장씩. **원자료는 위에서 이미 다 읽었다** */
+  for (const 회사 of 만들회사들) {
+  const 제목들 = new Set(회사.works.map((w) => w.title).filter(Boolean));
+  const 제목없음 = 회사.works.length - 제목들.size;
+  const 모음 = new Map([...제목들].map((t) => [t, 온모음.get(t) ?? []]));
 
   const 줄 = [...모음].map(([title, rows]) => ({ title, ...(여정(rows) ?? {}) }))
     .filter((x) => x.places)
@@ -222,4 +234,5 @@ Every figure on this sheet has a table behind it at kculturewire.com.
   console.log(`${회사.firm} — 작품 ${줄.length}편 · 자리 ${총자리} · 시장 ${총나라.size} · 주 ${총주.size}`);
   if (안걸린것.length) console.log(`⚠ 어느 나라 top10 에도 안 걸린 작품 ${안걸린것.length}편 — 0 으로 안 적고 따로 밝혔다`);
   console.log(`→ ${낼길}`);
+  }
 }
