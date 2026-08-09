@@ -46,6 +46,31 @@ export function 국민연금것인가(자료) {
   return /15083277|국민연금/.test(s);
 }
 
+/**
+ * **내가 책임지는 자료인가** — 국민연금(15083277) 또는 KEDI(15042211).
+ *
+ * ⛔ 남의 자료는 **잠그지 않는다. 알림만 낸다.**
+ *    오늘 아침 내가 자를 고쳐 여섯 자리의 `npm test` 를 몇 시간 빨갛게 했다.
+ *    자물쇠는 자기 것에만 건다 — 남의 빌드를 내 규칙으로 세우지 않는다.
+ */
+export function 내자료인가(자료) {
+  const s = JSON.stringify(자료?.출처 ?? '');
+  return /15083277|국민연금|15042211|한국교육개발원|KEDI/.test(s);
+}
+
+/** 밖에서 받아 온 자료인가 — 우리가 센 것(파생)은 대조할 공표치가 없다 */
+export function 밖에서온것인가(자료) {
+  const s = JSON.stringify(자료?.출처 ?? '');
+  return /https?:\/\/|데이터셋|OpenAPI|오픈API/.test(s);
+}
+
+/** 공표치와 맞춰 봤다고 말했나 — 「못 맞췄다」를 적은 것도 **말한 것**으로 친다 */
+export function 대조를말했나(자료) {
+  if (!자료 || typeof 자료 !== 'object') return false;
+  for (const k of Object.keys(자료)) if (/^대조$|공표.*대조|대조.*공표/.test(k)) return true;
+  return /공표에 같은 칸이 없|못 맞췄|대조 없이 나간다/.test(JSON.stringify(자료));
+}
+
 /** 자료에 없는 것을 가리키는 이름표 — 값과 함께 보고 판정한다 */
 export function 없는것을가리키나(이름표, 있는최소인원) {
   if (typeof 이름표 !== 'string') return false;
@@ -148,12 +173,20 @@ const 시험실패 = 자가시험();
 
 
 const 운다 = [];
+/* ⬜ 남의 자료 — **잠그지 않고 알림만** 낸다 */
+const 알림 = [];
 const 파일들 = fs.readdirSync(자료방).filter((f) => f.endsWith('.json'));
 let 본것 = 0;
 
 for (const f of 파일들) {
   let j;
   try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+  /* ⬜ 밖에서 온 자료인데 대조를 한 마디도 안 한 것 — 내 것이면 울고, 남의 것이면 알림만 */
+  if (밖에서온것인가(j) && !대조를말했나(j)) {
+    const 말 = `${f} — 밖에서 받은 자료인데 **공표치와 맞춰 봤다는 말이 없다**(못 맞췄으면 「못 맞췄다」라고 적으면 된다)`;
+    if (내자료인가(j)) 운다.push(말); else 알림.push(말);
+  }
+
   if (!국민연금것인가(j)) continue;
   본것++;
 
@@ -176,6 +209,10 @@ if (본것 === 0) {
   process.exit(2);
 }
 
+if (알림.length) {
+  console.log(`⬜ 남의 자료 ${알림.length}건 — **안 잠급니다. 주인이 보시라고 적습니다**`);
+  for (const x of 알림) console.log(`   ${x}`);
+}
 console.log(`국민연금 자료 ${본것}개를 봤다`);
 if (운다.length === 0) {
   console.log('✅ 덮는범위·대조 다 있음 · 없는 것을 가리키는 이름표 0 · 넘겨 말하는 문구 0');
