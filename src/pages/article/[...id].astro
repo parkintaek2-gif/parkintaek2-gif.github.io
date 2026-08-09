@@ -202,6 +202,22 @@ const jsonLd = {
         )
       }
 
+      {/**
+       * ⭐ 라이프 파이프라인 — KLifeMap 으로 보내는 문 + 딱지. (사장님 지시 2026-08-10 · 2번 경유 77112)
+       *   회사 구조가 바뀌었다: 돈 받는 곳은 KLifeMap(시장 1.4조), SeoulMarkets 는 소비자를 그리로 보낸다.
+       *   · 딱지 from=smk · at=<갈래(카테고리)> — 어느 갈래가 좋은 문인지 /admin 딱지별로 잰다.
+       *   · ⛔ 로그인 화면이 아니라 로그인 없이 열리는 /ilzin.html 로 보낸다(2번·6번이 쟀다).
+       *   · ⛔ 데이터 상품(B2B) 지면에는 안 붙인다 — 여긴 소비자 기사면이다. 자기 상품 CTA 뒤에 부차로 둔다.
+       *   · ⛔ 남의 서비스인 척하지 않는다 — 「From the same team」으로 밝히고, 다른 사이트라고 적는다.
+       */}
+      <aside class="klm-door">
+        <span class="klm-kicker">From the same team</span>
+        <a class="klm-link" href={`https://klifemap.ai/ilzin.html?from=smk&at=${d.category}`} rel="noopener">
+          KLifeMap — a daily reading of where your work is headed &rarr;
+        </a>
+        <span class="klm-blurb">A separate site by the makers of {SITE.name}. Opens without an account.</span>
+      </aside>
+
       <a class="backlink" href={`/${d.category}`}>&larr; More {categoryLabel(d.category)}</a>
     </article>
   </div>
@@ -219,6 +235,16 @@ const jsonLd = {
     font-weight: 650; color: var(--ink); text-decoration: none; margin-bottom: 0.25rem; }
   .pc-link:hover { color: var(--accent); }
   .pc-blurb { display: block; font-size: 0.88rem; line-height: 1.55; color: var(--muted); }
+
+  /* 라이프 파이프라인 문 — 자기 데이터 상품(product-cta)보다 부차적으로 보이게. 강조 테두리 없이 은은하게. */
+  .klm-door { display: block; margin: 1.4rem 0 0; padding: 0.9rem 1.1rem;
+    border: 1px solid var(--rule, var(--border)); border-radius: 10px; background: var(--card); }
+  .klm-kicker { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.06em;
+    color: var(--muted); font-weight: 700; margin-bottom: 0.3rem; }
+  .klm-link { display: inline-block; font-size: 0.98rem; font-weight: 600; color: var(--ink);
+    text-decoration: none; margin-bottom: 0.2rem; }
+  .klm-link:hover { color: var(--accent); }
+  .klm-blurb { display: block; font-size: 0.82rem; line-height: 1.5; color: var(--muted); }
 
   /* 나가는 길. 본문을 다 읽은 사람에게 다음 세 편을 직접 건다. */
   .readnext {
