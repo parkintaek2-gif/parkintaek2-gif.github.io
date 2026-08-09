@@ -196,6 +196,56 @@ export const 미리보기 = {
 } as const;
 
 /** 메일 한 통으로 끝나게 제목·본문을 미리 채운다. ⚠ 개인정보를 주소에 싣지 않는다 */
+/* ────────────────────────────────────────────────────────────────
+ * 🔴 **사는 길** — 2번 지시(2026-08-10 08:35) *「값을 눌러도 살 수가 없습니다」*
+ * ──────────────────────────────────────────────────────────────── */
+
+/**
+ * ## 어디로 보내나 — **KLifeMap 결제로 넘긴다.** 이렇게 정했다
+ *
+ *   ```
+ *   ① 백년지도가 직접 받나   ⛔ 우리 저장소에 결제 코드 **0곳**이다.
+ *                             그리고 2번이 「결제 화면을 새로 만들지 마라」 하셨다
+ *   ② KLifeMap 으로 넘기나   ⭐ 이미 다 있다 — 요금표·쿠폰·계좌이체·환불·관리자 입금확인
+ *                             (klifemap/server.js:3008 `/api/billing/checkout`)
+ *   ```
+ *   ⭐ 사장님 말씀 *「KLifeMap 고객과 백년지도 고객은 같다」* 와도 맞는다.
+ *
+ * ## 🔴 그런데 **지금 켜면 손님이 오류 화면을 본다.** 재서 알았다
+ *
+ *   ```
+ *   klifemap /api/billing/prices 의 상품 **14개** — 지역 한 벌이 **없다**
+ *      saju · sajuAiReport · gunghap · taekil · sungmyung · careerCoach ·
+ *      parentCoaching · childCareerCoaching · coupleLoverCoaching ·
+ *      separationCoaching · personalityCoaching · lifeDesignCoaching ·
+ *      intelligenceOne(9,900) · intelligenceAll
+ *   payMethods.bankTransfer = **false**  ← 계좌이체도 아직 꺼져 있다
+ *   ```
+ *   ⛔ 없는 `service` 로 보내면 checkout 화면이 **「잘못된 주문」 칸**을 띄운다.
+ *     막다른 길을 **오류 화면**으로 바꾸는 것은 나아지는 게 아니다.
+ *
+ * ⭐ 그래서 **길은 코드에 다 내 두고, 켜는 것은 `살수있나` 한 줄**로 둔다.
+ *   🖐 켜기 전에 **KLifeMap 요금표에 한 줄**이 있어야 한다(1번 손) — `사는상품` 참고.
+ */
+export const 사는상품 = 'regionSet';
+
+/** KLifeMap 결제 화면 — ⚠ 주소를 지면에 손으로 적지 않는다. 여기 한 곳이다 */
+export const 사는곳뿌리 = 'https://klifemap.ai/checkout.html';
+
+/**
+ * 사는 데로 가는 주소.
+ * @param 지역이름 어느 지역 한 벌인가 — 딱지에 실어 보낸다
+ *
+ * ⚠ 딱지를 **셋 다** 단다 — `from` · `at` · `area`.
+ *   `?from=` 은 우리 서버가 물음표 뒤를 안 적어 우리 쪽에선 못 세지만,
+ *   **받는 쪽(KLifeMap)은 센다.** 1번이 그 자리를 이미 만들어 두었다.
+ */
+export function 사는주소(지역이름?: string): string {
+  const 딱지 = new URLSearchParams({ type: 'single', service: 사는상품, from: '100y', at: 'price' });
+  if (지역이름) 딱지.set('area', 지역이름);
+  return `${사는곳뿌리}?${딱지.toString()}`;
+}
+
 export function 알림메일주소(지역이름: string): string {
   const 제목 = `[백년지도] ${지역이름} 한 벌이 열리면 알려 주세요`;
   const 본문 = `${지역이름} 지역 한 벌이 열리면 이 메일로 알려 주세요.`;
