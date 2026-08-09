@@ -38,10 +38,10 @@ there anything left to push after that?**
 
 | | Titles | Median peak week | Widest in week 1 | Widest by week 4 |
 |---|---:|---:|---:|---:|
-| Korean series | 209 | 2 | **20.1%** | 80.4% |
-| Every other series | 1,990 | 2 | **44.7%** | 92% |
-| Korean films | 109 | 2 | 29.4% | 82.6% |
-| Every other film | 3,231 | 2 | 36.5% | 78.6% |
+| Korean series | 207 | 2 | **20.3%** | 80.7% |
+| Every other series | 1,992 | 2 | **44.7%** | 91.9% |
+| Korean films | 108 | 2 | 28.7% | 82.4% |
+| Every other film | 3,232 | 2 | 36.5% | 78.6% |
 
 Other series are at their widest on the first Monday **44.7%** of the time. Korean series manage it
 **20.1%** of the time — less than half as often.

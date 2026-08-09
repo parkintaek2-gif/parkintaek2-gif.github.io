@@ -40,10 +40,10 @@ was in the week before it vanished — is at [how a title leaves](/exit).
 
 | | Runs | Median weeks | Mean weeks | Gone after one week | Lasting 4+ weeks |
 |---|---:|---:|---:|---:|---:|
-| Korean films | 3,853 | 2 | **1.96** | 42% | 8.8% |
-| Every other film | 117,293 | 2 | **2.02** | 42.4% | 9.9% |
-| Korean series | 7,926 | 3 | **3.72** | 30.8% | 38.5% |
-| Every other series | 78,981 | 2 | **2.71** | 34.1% | 23.3% |
+| Korean films | 3,830 | 2 | **1.96** | 41.8% | 8.8% |
+| Every other film | 117,316 | 2 | **2.02** | 42.4% | 9.9% |
+| Korean series | 7,892 | 3 | **3.73** | 30.6% | 38.6% |
+| Every other series | 79,015 | 2 | **2.71** | 34.1% | 23.3% |
 
 Read the first two rows and there is nothing to report. A Korean film holds a country's top 10 for
 1.96 weeks on average; every other film on the same charts holds it for 2.02. Four in ten of each are
@@ -77,7 +77,7 @@ measured again with its single most-charting title taken out:
 
 | | Mean weeks | Without the biggest title | 4+ weeks | Without the biggest title |
 |---|---:|---:|---:|---:|
-| Korean series | 3.72 | **3.56** | 38.5% | **36.4%** |
+| Korean series | 3.73 | **3.57** | 38.6% | **36.6%** |
 | Every other series | 2.71 | **2.67** | 23.3% | **23%** |
 | Korean films | 1.96 | 1.96 | 8.8% | 8.7% |
 | Every other film | 2.02 | 2.02 | 9.9% | 9.9% |

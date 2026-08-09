@@ -188,6 +188,11 @@
    "slug": "music-has-no-squid-game-and-is-more-concentrated-anyway",
    "date": "2026-08-09",
    "cause": "ruler-fixed-upstream"
+  },
+  {
+   "slug": "which-markets-only-take-the-big-ones",
+   "date": "2026-08-10",
+   "cause": "ruler-fixed-upstream"
   }
  ],
  "guards": {
