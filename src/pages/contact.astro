@@ -1,0 +1,62 @@
+---
+/**
+ * /contact — 손님이 닿는 문. (seoulmarkets.com/contact)
+ *
+ * 왜 (2번 75196): /contact 가 404였다. 애드센스 심사가 콘텐트+연락처를 본다. 6번이 광고 첫 자리.
+ * ⚠ 대표 메일이 아직 없어 지금은 PUBLISHER.email(실수신 주소)로 둔다. 대표 메일 나오면 그때 바꾼다(consts 한 곳).
+ */
+import Base from '../layouts/Base.astro';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../consts';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: `${SITE_URL}/contact`,
+  mainEntity: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base
+  title="Contact"
+  description={`How to reach ${SITE.name} — data licensing, samples, and questions about a figure.`}
+  jsonLd={jsonLd}
+>
+  <div class="wrap">
+    <article class="article">
+      <div class="article__head">
+        <p class="kicker">Contact</p>
+        <h1>Reach us</h1>
+        <p class="article__dek">
+          For data licensing, a sample, or a question about how a figure was derived — one address,
+          and a person reads it.
+        </p>
+      </div>
+
+      <div class="prose">
+        <h2>Email</h2>
+        <p>
+          Write to <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. Tell us which dataset
+          or article you mean and we reply directly — a sample and the current licensing terms, or the
+          method behind a number. No account, no form-in-the-middle.
+        </p>
+
+        <h2>What we can and cannot answer</h2>
+        <p>
+          We answer questions about the <b>data</b> — where a figure comes from, how it was joined,
+          what it excludes, and how to license it. {DISCLAIMER.ai} We do not give investment advice or
+          views on individual securities: {DISCLAIMER.short.toLowerCase()} If a figure looks wrong,
+          tell us — we keep a correction record and would rather fix it than defend it.
+        </p>
+
+        <h2>Who publishes this</h2>
+        <p>
+          {SITE.name} is published by {PUBLISHER.legalName} ({PUBLISHER.legalNameKo}). See our{' '}
+          <a href="/about">about &amp; methodology</a>, <a href="/terms">terms of use</a> and
+          {' '}<a href="/privacy">privacy policy</a>.
+        </p>
+      </div>
+
+      <a class="backlink" href="/">&larr; Back to {SITE.name}</a>
+    </article>
+  </div>
+</Base>

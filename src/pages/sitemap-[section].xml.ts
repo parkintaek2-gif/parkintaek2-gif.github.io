@@ -35,6 +35,7 @@ export const GET: APIRoute = async ({ params }) => {
       // 데이터 API 판매 화면. 개발자 검색 유입이 곧 영업이라 우선순위를 높게 둔다.
       { loc: '/api', changefreq: 'weekly', priority: '0.9' },
       { loc: '/about', changefreq: 'monthly', priority: '0.5' },
+      { loc: '/contact', changefreq: 'monthly', priority: '0.4' },
       // 데이터 랭킹 지면 — 검색 유입 가치가 있는데 사이트맵에 빠져 있었다(손님 걸음 2026-08-07 실측).
       { loc: '/rankings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
       // 데이터 상품 지면들 — 기업이 살 「주소」다. 검색 유입이 곧 영업. 5장이 사이트맵에 0개였다(56316, 2026-08-09).
