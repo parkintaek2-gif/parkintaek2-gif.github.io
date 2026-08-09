@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "when-a-korean-title-is-widest": {
+   "figure": "20.1%",
+   "label": "Korean series widest in week one — others 45%",
+   "왜": "자동은 「26.6% — against 28」로 대조군 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 20.1 대 44.7 이다"
+  },
   "what-the-opening-position-buys": {
    "figure": "6",
    "label": "weeks if it opens at No.1 — one week at No.10",

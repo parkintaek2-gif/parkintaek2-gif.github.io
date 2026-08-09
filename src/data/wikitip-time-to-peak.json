@@ -1,0 +1,146 @@
+{
+  "generated": "2026-08-09T19:02:42.993Z",
+  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
+  "question": "A title that travels is on several country charts at once, and that number rises and then falls. The week it is highest is the week the title is at its widest. When does that happen — and is there anything left to push after it?",
+  "unit": "Width is how many countries held the title in the same week. The peak week is counted from the title's first chart week anywhere, so week 1 is the week it first appears.",
+  "threshold": "Only titles that reached at least 5 countries in total are measured. Below that the question does not exist: a title in one or two markets is at its widest almost by default.",
+  "whyOpenEndedRemoved": "A title still on a chart in the last week we hold could still get wider, so its peak week is not yet known. Those are removed and counted separately.",
+  "whyOthersToo": "Peaking in the first week could be true of every title on Netflix. Every non-Korean title is measured the same way, and films and series are never mixed.",
+  "rowsRead": 493600,
+  "countryThreshold": 5,
+  "byGroup": [
+    {
+      "group": "한국 시리즈",
+      "titles": 209,
+      "droppedThin": 216,
+      "droppedOpenEnded": 7,
+      "medianWeek": 2,
+      "peakInWeekOnePc": 20.1,
+      "peakByWeekFourPc": 80.4,
+      "latestWeek": 34,
+      "medianWidth": 20,
+      "byLengthBand": [
+        {
+          "band": "1–2주",
+          "titles": 6,
+          "peakInWeekOnePc": 50
+        },
+        {
+          "band": "3–4주",
+          "titles": 21,
+          "peakInWeekOnePc": 38.1
+        },
+        {
+          "band": "5–8주",
+          "titles": 79,
+          "peakInWeekOnePc": 26.6
+        },
+        {
+          "band": "9주 이상",
+          "titles": 103,
+          "peakInWeekOnePc": 9.7
+        }
+      ]
+    },
+    {
+      "group": "그 밖 시리즈",
+      "titles": 1990,
+      "droppedThin": 2346,
+      "droppedOpenEnded": 47,
+      "medianWeek": 2,
+      "peakInWeekOnePc": 44.7,
+      "peakByWeekFourPc": 92,
+      "latestWeek": 98,
+      "medianWidth": 19,
+      "byLengthBand": [
+        {
+          "band": "1–2주",
+          "titles": 461,
+          "peakInWeekOnePc": 83.5
+        },
+        {
+          "band": "3–4주",
+          "titles": 504,
+          "peakInWeekOnePc": 46.2
+        },
+        {
+          "band": "5–8주",
+          "titles": 567,
+          "peakInWeekOnePc": 28.6
+        },
+        {
+          "band": "9주 이상",
+          "titles": 458,
+          "peakInWeekOnePc": 24
+        }
+      ]
+    },
+    {
+      "group": "한국 영화",
+      "titles": 109,
+      "droppedThin": 442,
+      "droppedOpenEnded": 5,
+      "medianWeek": 2,
+      "peakInWeekOnePc": 29.4,
+      "peakByWeekFourPc": 82.6,
+      "latestWeek": 15,
+      "medianWidth": 10,
+      "byLengthBand": [
+        {
+          "band": "1–2주",
+          "titles": 9,
+          "peakInWeekOnePc": 88.9
+        },
+        {
+          "band": "3–4주",
+          "titles": 22,
+          "peakInWeekOnePc": 27.3
+        },
+        {
+          "band": "5–8주",
+          "titles": 49,
+          "peakInWeekOnePc": 24.5
+        },
+        {
+          "band": "9주 이상",
+          "titles": 29,
+          "peakInWeekOnePc": 20.7
+        }
+      ]
+    },
+    {
+      "group": "그 밖 영화",
+      "titles": 3231,
+      "droppedThin": 4610,
+      "droppedOpenEnded": 70,
+      "medianWeek": 2,
+      "peakInWeekOnePc": 36.5,
+      "peakByWeekFourPc": 78.6,
+      "latestWeek": 104,
+      "medianWidth": 13,
+      "byLengthBand": [
+        {
+          "band": "1–2주",
+          "titles": 593,
+          "peakInWeekOnePc": 77.1
+        },
+        {
+          "band": "3–4주",
+          "titles": 892,
+          "peakInWeekOnePc": 39.5
+        },
+        {
+          "band": "5–8주",
+          "titles": 875,
+          "peakInWeekOnePc": 28.7
+        },
+        {
+          "band": "9주 이상",
+          "titles": 871,
+          "peakInWeekOnePc": 13.5
+        }
+      ]
+    }
+  ],
+  "cannotAnswer": "Width is a count of charts, not of people. A title can be in more countries and be watched less, and a title one place outside a top 10 is invisible here. This also cannot say what made a title widen — a marketing push, a holiday and a dubbing release all look the same in a rank table."
+}
