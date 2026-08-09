@@ -1,0 +1,317 @@
+{
+  "generated": "2026-08-09T10:09:35.109Z",
+  "source": "Netflix Top 10 (Tudum). The global weekly lists carry hours viewed; the per-country lists do not.",
+  "question": "If you know a title's rank, how much do you know about how much it was watched?",
+  "unit": "Spread is the 90th percentile divided by the 10th — how many times bigger a high week is than a low one. \"Knowing nothing\" is the spread across every row of a chart; \"knowing the rank\" is the median of the spreads inside each of the ten rank positions.",
+  "whyChartFixed": "Films and series, English and non-English, are four charts of different sizes. Mixing them would let a difference between charts be read as a difference between ranks.",
+  "countryRowsRead": 493600,
+  "countryRowsWithViewing": 0,
+  "globalRowsRead": 10600,
+  "globalRowsWithViewing": 10600,
+  "weeksSpanned": 265,
+  "byChart": [
+    {
+      "chart": "Films (English)",
+      "weeks": 265,
+      "allSpread": 5.94,
+      "withinRankSpread": 2.19,
+      "medianTop": 42400000,
+      "medianTenth": 5400000,
+      "topOverTenth": 7.85,
+      "byRank": [
+        {
+          "rank": 1,
+          "weeks": 265,
+          "medianHours": 42400000,
+          "spread": 4.1
+        },
+        {
+          "rank": 2,
+          "weeks": 265,
+          "medianHours": 21900000,
+          "spread": 3.38
+        },
+        {
+          "rank": 3,
+          "weeks": 265,
+          "medianHours": 15030000,
+          "spread": 2.78
+        },
+        {
+          "rank": 4,
+          "weeks": 265,
+          "medianHours": 11630000,
+          "spread": 2.47
+        },
+        {
+          "rank": 5,
+          "weeks": 265,
+          "medianHours": 9200000,
+          "spread": 2.24
+        },
+        {
+          "rank": 6,
+          "weeks": 265,
+          "medianHours": 8400000,
+          "spread": 2.11
+        },
+        {
+          "rank": 7,
+          "weeks": 265,
+          "medianHours": 7300000,
+          "spread": 2.07
+        },
+        {
+          "rank": 8,
+          "weeks": 265,
+          "medianHours": 6500000,
+          "spread": 2.14
+        },
+        {
+          "rank": 9,
+          "weeks": 265,
+          "medianHours": 5900000,
+          "spread": 2.11
+        },
+        {
+          "rank": 10,
+          "weeks": 265,
+          "medianHours": 5400000,
+          "spread": 1.93
+        }
+      ]
+    },
+    {
+      "chart": "Films (Non-English)",
+      "weeks": 265,
+      "allSpread": 7.62,
+      "withinRankSpread": 3,
+      "medianTop": 16600000,
+      "medianTenth": 2100000,
+      "topOverTenth": 7.9,
+      "byRank": [
+        {
+          "rank": 1,
+          "weeks": 265,
+          "medianHours": 16600000,
+          "spread": 4.15
+        },
+        {
+          "rank": 2,
+          "weeks": 265,
+          "medianHours": 10700000,
+          "spread": 3.57
+        },
+        {
+          "rank": 3,
+          "weeks": 265,
+          "medianHours": 7500000,
+          "spread": 3.74
+        },
+        {
+          "rank": 4,
+          "weeks": 265,
+          "medianHours": 5800000,
+          "spread": 3.65
+        },
+        {
+          "rank": 5,
+          "weeks": 265,
+          "medianHours": 4500000,
+          "spread": 2.88
+        },
+        {
+          "rank": 6,
+          "weeks": 265,
+          "medianHours": 3500000,
+          "spread": 3.12
+        },
+        {
+          "rank": 7,
+          "weeks": 265,
+          "medianHours": 3000000,
+          "spread": 2.68
+        },
+        {
+          "rank": 8,
+          "weeks": 265,
+          "medianHours": 2600000,
+          "spread": 2.53
+        },
+        {
+          "rank": 9,
+          "weeks": 265,
+          "medianHours": 2300000,
+          "spread": 2.54
+        },
+        {
+          "rank": 10,
+          "weeks": 265,
+          "medianHours": 2100000,
+          "spread": 2.38
+        }
+      ]
+    },
+    {
+      "chart": "TV (English)",
+      "weeks": 265,
+      "allSpread": 9.19,
+      "withinRankSpread": 4.24,
+      "medianTop": 78150000,
+      "medianTenth": 11010000,
+      "topOverTenth": 7.1,
+      "byRank": [
+        {
+          "rank": 1,
+          "weeks": 265,
+          "medianHours": 78150000,
+          "spread": 4.64
+        },
+        {
+          "rank": 2,
+          "weeks": 265,
+          "medianHours": 45090000,
+          "spread": 3.68
+        },
+        {
+          "rank": 3,
+          "weeks": 265,
+          "medianHours": 32230000,
+          "spread": 3.58
+        },
+        {
+          "rank": 4,
+          "weeks": 265,
+          "medianHours": 24800000,
+          "spread": 4.34
+        },
+        {
+          "rank": 5,
+          "weeks": 265,
+          "medianHours": 20400000,
+          "spread": 4.14
+        },
+        {
+          "rank": 6,
+          "weeks": 265,
+          "medianHours": 17430000,
+          "spread": 4.67
+        },
+        {
+          "rank": 7,
+          "weeks": 265,
+          "medianHours": 14760000,
+          "spread": 4.7
+        },
+        {
+          "rank": 8,
+          "weeks": 265,
+          "medianHours": 13140000,
+          "spread": 4.27
+        },
+        {
+          "rank": 9,
+          "weeks": 265,
+          "medianHours": 12190000,
+          "spread": 4.21
+        },
+        {
+          "rank": 10,
+          "weeks": 265,
+          "medianHours": 11010000,
+          "spread": 3.59
+        }
+      ]
+    },
+    {
+      "chart": "TV (Non-English)",
+      "weeks": 265,
+      "allSpread": 6.74,
+      "withinRankSpread": 3.65,
+      "medianTop": 45800000,
+      "medianTenth": 7400000,
+      "topOverTenth": 6.19,
+      "byRank": [
+        {
+          "rank": 1,
+          "weeks": 265,
+          "medianHours": 45800000,
+          "spread": 4.57
+        },
+        {
+          "rank": 2,
+          "weeks": 265,
+          "medianHours": 26500000,
+          "spread": 3.34
+        },
+        {
+          "rank": 3,
+          "weeks": 265,
+          "medianHours": 20100000,
+          "spread": 4.54
+        },
+        {
+          "rank": 4,
+          "weeks": 265,
+          "medianHours": 16410000,
+          "spread": 3.33
+        },
+        {
+          "rank": 5,
+          "weeks": 265,
+          "medianHours": 13100000,
+          "spread": 3.81
+        },
+        {
+          "rank": 6,
+          "weeks": 265,
+          "medianHours": 12000000,
+          "spread": 3.44
+        },
+        {
+          "rank": 7,
+          "weeks": 265,
+          "medianHours": 10920000,
+          "spread": 3.48
+        },
+        {
+          "rank": 8,
+          "weeks": 265,
+          "medianHours": 9640000,
+          "spread": 4
+        },
+        {
+          "rank": 9,
+          "weeks": 265,
+          "medianHours": 8600000,
+          "spread": 3.45
+        },
+        {
+          "rank": 10,
+          "weeks": 265,
+          "medianHours": 7400000,
+          "spread": 4.06
+        }
+      ]
+    }
+  ],
+  "narrowing": [
+    {
+      "chart": "Films (English)",
+      "narrowedPc": 63.1
+    },
+    {
+      "chart": "Films (Non-English)",
+      "narrowedPc": 60.6
+    },
+    {
+      "chart": "TV (English)",
+      "narrowedPc": 53.9
+    },
+    {
+      "chart": "TV (Non-English)",
+      "narrowedPc": 45.8
+    }
+  ],
+  "cannotAnswer": "The global lists are not the country lists. A rank on a country chart is produced by that country's viewers, and Netflix never publishes those hours at all, so how well rank stands in for viewing inside one country cannot be measured from anything Netflix releases."
+}
