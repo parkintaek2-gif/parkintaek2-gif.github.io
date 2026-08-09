@@ -1,0 +1,180 @@
+/**
+ * build-100y-industry-region.mjs — **업종 × 시도 칸**을 자료로 만든다 (2번 지시 2026-08-09 16:2x)
+ *
+ *   node scripts/build-100y-industry-region.mjs --자가시험
+ *   node scripts/build-100y-industry-region.mjs [--문턱 1000]
+ *
+ * 낼 것: `src/data/100yearmap/industry-region-cells.json`
+ *
+ * ## 🔴 왜 — **30~40대 손님이 21명에서 2,723명이 되는 자리다**
+ *
+ *   2번 셈: 지면 한 장이 1.75명을 데려온다. 1,556장 × 1.75 = 약 2,723명(목표 4,251의 64%).
+ *   ⭐ 그리고 이 칸들이 **사장님의 「0살~100살이 다 고객이다」를 처음 실행하는 수**다.
+ *
+ * ## ⛔ 이 자는 **지면을 만들지 않는다.** 자료까지만이다
+ *
+ *   새 지면 만들기는 아직 사장님 멈춤 지시 안이다.
+ *   ⭐ 「해라」 하시는 순간 바로 나가게 **자료와 슬러그까지** 만들어 둔다.
+ *
+ * ## ⚠ 이 자가 조심하는 것
+ *
+ *   ```
+ *   🔴 원자료가 **CP949** 다. utf8 로 읽으면 업종명이 통째로 깨진다
+ *      ⭐ 따로 받을 것 없다 — Node 의 TextDecoder('euc-kr') 가 그대로 읽는다
+ *   ⚠ 여러 바이트가 **덩어리 경계에 걸린다** → decode({stream:true}) 로 이어 붙인다
+ *   ⛔ 쉼표가 든 줄(사업장명 등)은 칸이 22개가 아니다. **버리고 몇 줄 버렸는지 적는다**
+ *   ⚠ 업종명에 **빈칸이 둘 붙은 것**이 있다(「비주거용 건물 임대업(점포  자기땅)」).
+ *      슬러그를 만들 때 뭉개지 않으면 주소가 갈린다
+ *   ⛔ 사람 수가 문턱 미만인 칸은 **안 낸다.** 지면 한 장이 못 된다
+ *   ```
+ *
+ * ⚠ 검산 — 사람 합이 `nps-cap-share.json` 의 전체와 **한 명도 안 틀려야** 한다.
+ *   틀리면 낸 파일을 지운다. 조용히 넘어가지 않는다.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
+const 원자료 = path.join(ROOT, 'archive', 'raw', 'nps', 'workplaces-202606.csv');
+const 낼길 = path.join(ROOT, 'src', 'data', '100yearmap', 'industry-region-cells.json');
+
+/**
+ * 시도코드 → 이름.
+ *
+ * 🔴 **옛 코드와 새 코드가 같이 들어 있다.** 새 코드를 안 넣었더니 **105만 명(9.1%)이 통째로 빠졌다** —
+ *   `12` 전남광주통합특별시 554,171명 · `51` 강원 232,776명 · `52` 전북 263,774명.
+ *   ⛔ 그런데 옛 코드(29·42·45·46)에도 몇십 명이 남아 있다. 지우지 않고 **같은 이름으로 합친다.**
+ *   ⭐ 자가 「모르는 시도코드」를 찍어 줘서 알았다. 안 찍었으면 9%가 조용히 사라졌다.
+ */
+export const 시도이름 = {
+  11: '서울특별시', 12: '전남광주통합특별시', 26: '부산광역시', 27: '대구광역시',
+  28: '인천광역시', 29: '전남광주통합특별시', 30: '대전광역시', 31: '울산광역시',
+  36: '세종특별자치시', 41: '경기도', 42: '강원특별자치도', 43: '충청북도',
+  44: '충청남도', 45: '전북특별자치도', 46: '전남광주통합특별시', 47: '경상북도',
+  48: '경상남도', 50: '제주특별자치도', 51: '강원특별자치도', 52: '전북특별자치도',
+};
+
+/** 주소·이름에 쓸 슬러그. ⚠ 빈칸이 둘 붙은 이름이 있다 — 하나로 뭉갠다 */
+export function 슬러그(업종, 시도) {
+  const 씻기 = (s) => String(s).trim().replace(/\s+/g, ' ').replace(/[()]/g, '').replace(/\s/g, '-');
+  return `${씻기(시도)}-${씻기(업종)}`;
+}
+
+/** CSV 한 줄을 칸으로. ⛔ 22칸이 아니면 null — 쉼표가 든 이름이 있다 */
+export function 줄가르기(l) {
+  const c = l.split(',');
+  if (c.length !== 22) return null;
+  const 사람 = Number(c[18]);
+  if (!c[13] || !c[9] || !Number.isFinite(사람) || 사람 <= 0) return null;
+  return { 업종코드: c[13], 업종명: c[14], 시도코드: c[9], 사람 };
+}
+
+/** CP949 파일을 줄로 흘린다. ⚠ 덩어리 경계에 걸린 글자를 이어 붙인다 */
+export async function* 줄흘리기(길) {
+  const 해독 = new TextDecoder('euc-kr');
+  let 꼬리 = '';
+  for await (const 덩어리 of fs.createReadStream(길, { highWaterMark: 1 << 20 })) {
+    const 글 = 해독.decode(덩어리, { stream: true });
+    const 줄들 = (꼬리 + 글).split(/\r?\n/);
+    꼬리 = 줄들.pop() ?? '';
+    for (const l of 줄들) yield l;
+  }
+  const 끝 = 꼬리 + 해독.decode();
+  if (끝) yield 끝;
+}
+
+if (process.argv.includes('--자가시험')) {
+  let 통과 = 0, 실패 = 0;
+  const 본다 = (이름, 됐나) => { if (됐나) 통과 += 1; else { 실패 += 1; console.error(`  ⛔ ${이름}`); } };
+  const 줄 = (칸) => 칸.join(',');
+  const 스물둘 = (업코드, 업명, 시도, 사람) => {
+    const c = new Array(22).fill('');
+    c[9] = 시도; c[13] = 업코드; c[14] = 업명; c[18] = String(사람);
+    return 줄(c);
+  };
+
+  본다('① 스물두 칸을 가른다', 줄가르기(스물둘('292201', '컴퓨터 제조업', '41', 4))?.사람 === 4);
+  본다('② 칸이 모자라면 버린다', 줄가르기('a,b,c') === null);
+  본다('③ 사람 0 은 안 센다', 줄가르기(스물둘('1', 'ㄱ', '11', 0)) === null);
+  본다('④ 업종명을 읽는다', 줄가르기(스물둘('1', '요양병원', '11', 9))?.업종명 === '요양병원');
+  본다('⑤ 🔴 CP949 를 푼다', new TextDecoder('euc-kr').decode(Buffer.from([0xbc, 0xad, 0xbf, 0xef])) === '서울');
+  본다('⑥ 빈칸 둘을 하나로 뭉갠다', 슬러그('비주거용 건물 임대업(점포  자기땅)', '서울특별시') === '서울특별시-비주거용-건물-임대업점포-자기땅');
+  본다('⑦ 시도 이름표에 새 코드가 있다', [12, 51, 52].every((c) => 시도이름[c]) && Object.keys(시도이름).length === 20);
+  본다('⑧ 같은 슬러그가 겹치지 않는다', 슬러그('ㄱ', '서울특별시') !== 슬러그('ㄱ', '경기도'));
+
+  console.log(실패 ? `\n⛔ ${실패}개 틀렸다 (통과 ${통과})` : `✅ 자가시험 ${통과}개 통과`);
+  process.exit(실패 ? 1 : 0);
+}
+
+const i = process.argv.indexOf('--문턱');
+const 문턱 = i >= 0 ? Number(process.argv[i + 1]) : 1000;
+const 잰때 = process.hrtime.bigint();
+
+const 칸 = new Map();
+const 업종이름 = new Map();
+let 줄수 = 0, 버린줄 = 0, 사람합 = 0, 모르는시도 = new Set();
+for await (const l of 줄흘리기(원자료)) {
+  줄수 += 1;
+  if (줄수 === 1) continue;
+  const r = 줄가르기(l);
+  if (!r) { 버린줄 += 1; continue; }
+  사람합 += r.사람;
+  업종이름.set(r.업종코드, r.업종명);
+  const 시도 = 시도이름[Number(r.시도코드)];
+  if (!시도) { 모르는시도.add(r.시도코드); continue; }
+  /**
+   * 🔴 **코드가 아니라 이름으로 묶는다.**
+   *   처음에 `업종코드|시도코드` 로 묶었더니 1,392칸에 주소가 1,318개 — **74칸이 겹쳤다.**
+   *   ⛔ 겹친 채로 냈으면 지면 74장이 서로를 덮었을 것이다(뒤엣것이 앞엣것을 지운다).
+   *   까닭 둘 —
+   *     ① 시도코드 **29(광주)와 46(전남)** 이 우리 이름으로는 한 곳이다(전남광주통합특별시)
+   *     ② 업종코드가 달라도 **업종명이 같은 것**이 있다
+   *   ⭐ 자가 멈춰 세워서 알았다. 「몇 칸이냐」만 세고 「주소가 겹치나」를 안 봤으면 못 봤다.
+   */
+  const k = `${r.업종명}|${시도}`;
+  const 이전 = 칸.get(k);
+  if (이전) 이전.사람 += r.사람;
+  else 칸.set(k, { 업종: r.업종명, 시도, 사람: r.사람 });
+}
+
+/** 🔴 검산 — 사람 합이 공표 파일과 어긋나면 **안 낸다** */
+const 공표 = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/100yearmap/nps-cap-share.json'), 'utf8'));
+if (사람합 !== 공표.전체.사람) {
+  console.log(`⛔ 사람 합이 안 맞는다 — 우리 ${사람합.toLocaleString()} · 공표 ${공표.전체.사람.toLocaleString()}`);
+  console.log('   파일을 내지 않는다.');
+  process.exit(1);
+}
+
+const 낼것 = [...칸.values()]
+  .map((c) => ({ 업종: c.업종, 시도: c.시도, 사람: c.사람, slug: 슬러그(c.업종, c.시도) }))
+  .filter((c) => c.업종 && c.사람 >= 문턱)
+  .sort((a, b) => b.사람 - a.사람);
+
+/** ⚠ 슬러그가 겹치면 지면 하나가 다른 지면을 덮는다. 겹치면 **안 낸다** */
+const 슬러그들 = new Set(낼것.map((c) => c.slug));
+if (슬러그들.size !== 낼것.length) {
+  console.log(`⛔ 슬러그가 겹친다 — ${낼것.length}칸에 주소는 ${슬러그들.size}개. 파일을 내지 않는다.`);
+  process.exit(1);
+}
+
+fs.writeFileSync(낼길, JSON.stringify({
+  이름: '업종 × 시도 — 국민연금 가입 사업장',
+  출처: 공표.출처,
+  문턱: `가입자 ${문턱.toLocaleString()}명 이상인 칸만`,
+  '⚠ 세는 단위': '사업장에 등록된 **가입자 수**다. 사람이 여러 곳에 걸치면 여러 번 세어진다',
+  '⛔ 안 쓰는 말': '순위 · 몇 위 · 상위 몇 % · 좋은 업종 · 나쁜 업종',
+  '⚠ 이름표': '업종명이 통계 분류 말이라 손님이 치는 말과 다르다. 이름표 표가 아직 없다',
+  잰때: '2026-06',
+  전체칸: 칸.size,
+  낸칸: 낼것.length,
+  버린줄,
+  자료: 낼것,
+}, null, 1), 'utf8');
+
+const 걸린초 = Number(process.hrtime.bigint() - 잰때) / 1e9;
+console.log(`✅ ${path.relative(ROOT, 낼길)}`);
+console.log(`   줄 ${줄수.toLocaleString()} · 버린 줄 ${버린줄.toLocaleString()} · 사람 ${사람합.toLocaleString()} (공표와 같다)`);
+console.log(`   업종 × 시도 ${칸.size.toLocaleString()}칸 중 **${낼것.length.toLocaleString()}칸**이 문턱(${문턱.toLocaleString()}명)을 넘는다`);
+if (모르는시도.size) console.log(`   ⚠ 모르는 시도코드 ${[...모르는시도].join(',')} — 그 줄은 칸에 안 넣었다`);
+console.log(`   걸린 시간 **${걸린초.toFixed(1)}초**`);
+console.log('⛔ 지면은 만들지 않았다. 자료까지다.');
