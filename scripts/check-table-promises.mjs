@@ -36,18 +36,27 @@ export const 면제 = {
     + '못 믿는 수로 표를 만들면 그 표가 다시 남을 속인다. pages 를 비운 것이 이 기사의 정직이다.',
 };
 
-/** 지면 소스를 다 이어 붙인다 — 어느 지면이 어느 자료를 읽는지 이름으로 본다 */
+/**
+ * 지면 소스를 다 이어 붙인다 — 어느 지면이 어느 자료를 읽는지 이름으로 본다.
+ *
+ * 🔴 2026-08-10 00:4x — **이 자가 `title/` · `market/` · `firm/` 을 안 보고 있었다.**
+ *   맨 위 `.astro` 와 `article/` 만 읽었다. 작품 지면 530장·시장 93장·회사 8장이
+ *   통째로 안 보였고, 그 지면들만 읽는 자료를 「아무 지면도 안 읽는다」고 잘못 세웠다.
+ *   ⛔ 사이트맵이 정확히 같은 병으로 시장 93장을 빠뜨린 적이 있다(이 저장소 sitemap.xml.ts 주석).
+ *   ⭐ 그래서 방 이름을 적지 않는다. **아래로 다 걷는다.** 방이 늘어도 자가 저절로 따라온다.
+ */
 export function 지면소스(읽기 = fs) {
   const 조각 = [];
-  for (const f of 읽기.readdirSync(지면칸).filter((x) => x.endsWith('.astro'))) {
-    조각.push(읽기.readFileSync(`${지면칸}/${f}`, 'utf8'));
-  }
-  for (const f of 읽기.readdirSync(`${지면칸}/article`)) {
-    조각.push(읽기.readFileSync(`${지면칸}/article/${f}`, 'utf8'));
-  }
-  for (const f of 읽기.readdirSync('src/components').filter((x) => x.endsWith('.astro'))) {
-    조각.push(읽기.readFileSync(`src/components/${f}`, 'utf8'));
-  }
+  const 걷는다 = (방) => {
+    for (const e of 읽기.readdirSync(방, { withFileTypes: true })) {
+      if (e.isDirectory()) { 걷는다(`${방}/${e.name}`); continue; }
+      if (e.name.endsWith('.astro') || e.name.endsWith('.ts')) {
+        조각.push(읽기.readFileSync(`${방}/${e.name}`, 'utf8'));
+      }
+    }
+  };
+  걷는다(지면칸);
+  걷는다('src/components');
   return 조각.join('\n');
 }
 

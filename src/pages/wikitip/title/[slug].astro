@@ -18,6 +18,8 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-title-pages.json';
 import markets from '../../../data/wikitip-markets.json';
+/* ⭐ 열 장에만 붙는 자료. 2번 지시(01:2x) — 530장을 다 고치기 전에 열 장으로 먼저 잰다 */
+import deepened from '../../../data/wikitip-deepened.json';
 
 /* ⛔ 시장 주소를 **짐작하지 않는다.** iso2 를 소문자로 만든 것이 주소일 거라 여겼다가
    93장 전부 죽은 링크가 될 뻔했다 — 실제 주소는 나라 이름이다(AR → argentina). */
@@ -31,6 +33,8 @@ export function getStaticPaths() {
 const { t } = Astro.props;
 const 중 = data.medians;
 const 갈래 = t.type === 'Films' ? 'film' : 'series';
+/* ⛔ 없으면 `undefined` 다 — 그 지면은 예전 그대로 나간다. 그게 이 실험의 대조군이다 */
+const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
 
 const TITLE = `${t.title} — every country it charted in`;
 const DESC =
@@ -124,6 +128,62 @@ const jsonLd = {
       </p>
     )}
   </section>
+
+  {/*
+    ⭐ 2026-08-10 01:0x — 2번 지시(01:2x) 「530장 말고 **열 장만** 먼저 두껍게」.
+      ⛔ 이 절은 **고른 열 장에만** 붙는다. 나머지는 한 글자도 안 바꾼다 —
+        안 그러면 일주일 뒤에 「두껍게 한 것만 달라졌나」를 못 잰다.
+      ⛔ 열 장은 **두꺼운 것부터 고르지 않았다.** 이미 색인된 12장 하나하나에
+        가장 닮은 안 된 것을 붙였다(갈래 같고 시장·자리가 가까운 것).
+        두꺼운 것부터 골랐으면 「두꺼워서 들어갔다」가 저절로 나와 실험이 안 된다.
+      ⛔ 파는 것(주별 자취·회사 카탈로그 표·안 오른 작품)은 여전히 여정표에만 있다.
+  */}
+  {깊은것 && (
+    <section>
+      <h2>Every run this title had, market by market</h2>
+      <p class="body">
+        A run is a stretch of consecutive weeks on one country's chart. A title that leaves and comes
+        back later has two runs there, because those are two separate events — and{' '}
+        {깊은것.marketsWithReturn > 0
+          ? <>this one did that in <b>{깊은것.marketsWithReturn}</b> of its {t.markets} markets.</>
+          : <>this one never did: every market held it once and then it was gone.</>}
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Market</th><th>Runs</th><th>Places</th><th>Longest run</th><th>Left from position</th></tr>
+          </thead>
+          <tbody>
+            {깊은것.byMarketRuns.map((m) => (
+              <tr class={m.runs > 1 ? 'edge' : undefined}>
+                <td class="nm">{m.market}</td>
+                <td>{m.runs}</td>
+                <td class="tot">{m.places}</td>
+                <td>{m.longestRun} {m.longestRun === 1 ? 'week' : 'weeks'}</td>
+                <td>{m.leftFrom ?? (m.stillOn ? 'still on the chart' : '—')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <b>{깊은것.exitBottomThree} of {깊은것.exitsCounted} runs ended from positions 8 to 10.</b>{' '}
+        Across every Korean title that figure is 56.8%, and it would be 30% if leaving had nothing to do
+        with position — <a href="/exit">how a title leaves</a> has the whole table.
+      </p>
+      <p class="note">
+        <b>It was rarely alone.</b> In the weeks and countries where it charted, an average of{' '}
+        <b>{깊은것.companionAvg}</b> other Korean titles were on the same chart, and it had the
+        country's Korean places to itself in <b>{깊은것.companionWeeksAlone}%</b> of them. Two titles
+        from one company on the same chart cost each other about half a position —{' '}
+        <a href="/siblings">we measured that</a>.
+      </p>
+      <p class="note fine">
+        Counted from {deepened.rowsRead.toLocaleString('en-US')} weekly country chart rows.
+        {' '}{deepened.whatIsStillOnlyInTheSheet}
+      </p>
+    </section>
+  )}
 
   <section>
     <h2>Where it charted — all {t.markets} markets</h2>
