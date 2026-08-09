@@ -104,7 +104,10 @@ if (내가실행됐다) {
 
   /* ── 있나 없나 표. 칸 둘 ── */
   {
-    const ㄱ = 표줄(본, 'If the same 7.7% fell independently', 2);
+    /* 🔴 2026-08-10 — 여기에 **7.7% 가 박혀 있었다.** 규칙이 바뀌어 7.6% 가 되자
+       자물쇠가 기사를 못 찾아 섰다. 자가 낡으면 기사가 맞아도 선다.
+       ⛔ 대표 수는 자료에서 읽는다. 자에 손으로 적지 않는다. */
+    const ㄱ = 표줄(본, `If the same ${d.worldSharePc}% fell independently`, 2);
     const ㄴ = 표줄(본, 'Actually observed', 2);
     본다('고른 경우', ㄱ.length === 1 && 칸자리(ㄱ[0], 1, d.evenAnyPc), `${d.evenAnyPc}%`);
     본다('실제', ㄴ.length === 1 && 칸자리(ㄴ[0], 1, d.observedAnyPc), `${d.observedAnyPc}%`);
@@ -133,7 +136,8 @@ if (내가실행됐다) {
 
   /* ⛔ 지켜야 할 말 */
   본다('대표 수가 안 틀렸다고 적었나',
-    /Nothing about the 7\.7% itself/i.test(민본) && /it is correct/i.test(민본), '수는 맞다');
+    new RegExp(`Nothing about the ${String(d.worldSharePc).replace('.', '\\.')}% itself`, 'i')
+      .test(민본) && /it is correct/i.test(민본), '수는 맞다');
   본다('대조군이 무엇인지 적었나',
     /what unclumped would look like/i.test(민본), '이항으로 견줬다');
   본다('한두 시장 탓이 아니라고 적었나',
