@@ -170,7 +170,14 @@ if (내가실행됐다) {
     question: 'If an actor’s title reached twenty countries, do more people look the actor up?',
     unit: 'Views are one actor’s English Wikipedia page views over 30 days. Reach is the largest number of countries any of that actor’s charting titles reached.',
     /** ⛔ 지면이 이 문장을 그대로 싣는다 */
-    castCaveat: cast.주의,
+    /*
+     * 🔴 2026-08-10 — 여기서 `cast.주의`(**한국어 내부 메모**)를 그대로 손님 화면에 보냈다.
+     *   8/9 에 자료 파일을 손으로 고쳐 막았는데, 오늘 다시 지으니 **되살아났다.**
+     *   ⛔ 자료를 손으로 고치면 그때뿐이다. **자를 고쳐야 다시 안 샌다.**
+     *   ⚠ 5번 손님은 영어권이다. 화면에 한국어가 있으면 거기서 끝난다.
+     */
+    castCaveat: 'Foreign actors in international co-productions are excluded by country of '
+      + 'citizenship, which also drops Korean actors whose citizenship is not recorded in Wikidata.',
     viewPeriod: 조회원.기간,
     viewDays: 조회원.일수,
     weekFrom: 창첫,

@@ -1,9 +1,9 @@
 {
- "generated": "2026-08-09T20:49:59.684Z",
+ "generated": "2026-08-09T23:24:01.531Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists joined to English Wikipedia page views (Wikimedia Pageviews API, human traffic) through Wikidata cast lists (P161) filtered to Korean citizenship (P27)",
  "question": "If an actor’s title reached twenty countries, do more people look the actor up?",
  "unit": "Views are one actor’s English Wikipedia page views over 30 days. Reach is the largest number of countries any of that actor’s charting titles reached.",
- "castCaveat": "⚠ 국제 공동제작의 외국 배우는 P27 로 걸러진다. 국적이 안 적힌 한국 배우도 함께 빠진다.",
+ "castCaveat": "Foreign actors in international co-productions are excluded by country of citizenship, which also drops Korean actors whose citizenship is not recorded in Wikidata.",
  "viewPeriod": "20260705~20260803",
  "viewDays": 30,
  "weekFrom": "2021-07-04",
