@@ -20,49 +20,55 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| All of Us Are Dead | 93 | 619 | 1 | 34 | 2022-01-30 → 2025-01-05 | India (28) |
-| King the Land | 55 | 452 | 1 | 22 | 2023-06-18 → 2024-08-04 | Nicaragua (17) |
-| Miss Night and Day | 38 | 293 | 1 | 14 | 2024-06-16 → 2024-09-15 | Bolivia (10) |
-| Doctor Slump | 47 | 287 | 1 | 14 | 2024-01-28 → 2024-04-28 | Indonesia (11) |
-| Destined with You | 44 | 285 | 1 | 10 | 2023-08-27 → 2023-10-29 | Indonesia (10) |
-| Beyond the Bar | 53 | 281 | 1 | 9 | 2025-08-03 → 2025-09-28 | Honduras (8) |
-| Strong Girl Nam-soon | 45 | 244 | 1 | 9 | 2023-10-08 → 2023-12-03 | Hong Kong (9) |
-| Doctor Cha | 39 | 239 | 1 | 12 | 2023-04-23 → 2023-07-09 | Indonesia (11) |
-| The Art of Sarah | 65 | 200 | 1 | 8 | 2026-02-15 → 2026-04-05 | Taiwan (8) |
-| The Atypical Family | 39 | 200 | 1 | 11 | 2024-05-05 → 2024-07-14 | Indonesia (8) |
-| The Good Bad Mother | 34 | 191 | 1 | 11 | 2023-04-30 → 2023-07-09 | Indonesia (11) |
-| Welcome to Samdal-ri | 35 | 166 | 1 | 12 | 2023-12-03 → 2024-02-18 | Indonesia (12) |
-| Forecasting Love and Weather | 24 | 158 | 1 | 16 | 2022-02-20 → 2022-06-26 | Thailand (13) |
-| Cashero | 52 | 124 | 1 | 5 | 2025-12-28 → 2026-01-25 | Pakistan (5) |
-| Behind Your Touch | 27 | 96 | 2 | 9 | 2023-08-13 → 2023-10-08 | South Korea (9) |
-| My Liberation Notes | 15 | 83 | 1 | 15 | 2022-04-17 → 2022-07-24 | South Korea (15) |
-| The Frog | 39 | 83 | 1 | 6 | 2024-08-25 → 2024-09-29 | South Korea (6) |
-| The Sound of Magic | 36 | 74 | 1 | 3 | 2022-05-08 → 2022-05-22 | Bahrain (3) |
-| A Virtuous Business | 17 | 73 | 1 | 11 | 2024-10-13 → 2024-12-22 | South Korea (7) |
-| The Interest of Love | 12 | 51 | 1 | 9 | 2023-01-08 → 2023-03-19 | Indonesia (8) |
-| Divorce Attorney Shin | 10 | 49 | 1 | 7 | 2023-03-12 → 2023-04-23 | Japan (7) |
-| The Tale of Lady Ok | 12 | 48 | 1 | 11 | 2024-12-01 → 2025-02-09 | South Korea (11) |
-| The Apartment Job | 19 | 34 | 3 | 3 | 2026-07-12 → 2026-07-26 | Malaysia (3) |
-| Agency | 11 | 29 | 2 | 9 | 2023-03-26 → 2023-07-02 | Vietnam (5) |
-| Inspector Koo | 7 | 29 | 3 | 7 | 2021-11-07 → 2021-12-19 | South Korea (7) |
-| A Model Family | 20 | 27 | 2 | 4 | 2022-08-14 → 2022-09-04 | South Korea (4) |
-| Frankly Speaking | 9 | 26 | 2 | 6 | 2024-05-05 → 2024-06-09 | South Korea (6) |
-| Cleaning Up | 6 | 20 | 1 | 11 | 2022-08-07 → 2024-05-05 | Ireland (5) |
-| Reborn Rich | 2 | 13 | 1 | 13 | 2022-11-20 → 2025-06-08 | South Korea (12) |
-| Still Shining | 8 | 12 | 5 | 5 | 2026-03-08 → 2026-04-05 | South Korea (5) |
-| We Are All Trying Here | 3 | 11 | 1 | 9 | 2026-04-19 → 2026-06-14 | South Korea (9) |
-| GOOD BOY | 1 | 9 | 2 | 9 | 2025-06-01 → 2025-07-27 | South Korea (9) |
-| Miraculous Brothers | 5 | 8 | 6 | 3 | 2023-09-17 → 2023-10-01 | Indonesia (2) |
-| The World of the Married | 3 | 8 | 2 | 8 | 2022-05-01 → 2023-09-03 | Japan (5) |
-| 18 Again | 3 | 7 | 4 | 7 | 2022-01-30 → 2023-04-09 | Hong Kong (3) |
-| Love Me | 1 | 5 | 7 | 5 | 2025-12-21 → 2026-01-18 | South Korea (5) |
-| Beyond Evil | 1 | 4 | 4 | 4 | 2023-04-09 → 2023-04-30 | Japan (4) |
-| Queen of Divorce | 1 | 3 | 5 | 3 | 2024-06-16 → 2024-06-30 | South Korea (3) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| All of Us Are Dead | 93 | 93 | 619 | 1 | 34 | 2022-01-30 → 2025-01-05 | India (28) |
+| King the Land | 55 | 46 | 452 | 1 | 22 | 2023-06-18 → 2024-08-04 | Nicaragua (17) |
+| Miss Night and Day | 38 | 35 | 293 | 1 | 14 | 2024-06-16 → 2024-09-15 | Bolivia (10) |
+| Doctor Slump | 47 | 35 | 287 | 1 | 14 | 2024-01-28 → 2024-04-28 | Indonesia (11) |
+| Destined with You | 44 | 43 | 285 | 1 | 10 | 2023-08-27 → 2023-10-29 | Indonesia (10) |
+| Beyond the Bar | 53 | 51 | 281 | 1 | 9 | 2025-08-03 → 2025-09-28 | Honduras (8) |
+| Strong Girl Nam-soon | 45 | 45 | 244 | 1 | 9 | 2023-10-08 → 2023-12-03 | Hong Kong (9) |
+| Doctor Cha | 39 | 36 | 239 | 1 | 12 | 2023-04-23 → 2023-07-09 | Indonesia (11) |
+| The Art of Sarah | 65 | 65 | 200 | 1 | 8 | 2026-02-15 → 2026-04-05 | Taiwan (8) |
+| The Atypical Family | 39 | 34 | 200 | 1 | 11 | 2024-05-05 → 2024-07-14 | Indonesia (8) |
+| The Good Bad Mother | 34 | 32 | 191 | 1 | 11 | 2023-04-30 → 2023-07-09 | Indonesia (11) |
+| Welcome to Samdal-ri | 35 | 25 | 166 | 1 | 12 | 2023-12-03 → 2024-02-18 | Indonesia (12) |
+| Forecasting Love and Weather | 24 | 18 | 158 | 1 | 16 | 2022-02-20 → 2022-06-26 | Thailand (13) |
+| Cashero | 52 | 51 | 124 | 1 | 5 | 2025-12-28 → 2026-01-25 | Pakistan (5) |
+| Behind Your Touch | 27 | 27 | 96 | 2 | 9 | 2023-08-13 → 2023-10-08 | South Korea (9) |
+| My Liberation Notes | 15 | 15 | 83 | 1 | 15 | 2022-04-17 → 2022-07-24 | South Korea (15) |
+| The Frog | 39 | 39 | 83 | 1 | 6 | 2024-08-25 → 2024-09-29 | South Korea (6) |
+| The Sound of Magic | 36 | 36 | 74 | 1 | 3 | 2022-05-08 → 2022-05-22 | Bahrain (3) |
+| A Virtuous Business | 17 | 14 | 73 | 1 | 11 | 2024-10-13 → 2024-12-22 | South Korea (7) |
+| The Interest of Love | 12 | 11 | 51 | 1 | 9 | 2023-01-08 → 2023-03-19 | Indonesia (8) |
+| Divorce Attorney Shin | 10 | 10 | 49 | 1 | 7 | 2023-03-12 → 2023-04-23 | Japan (7) |
+| The Tale of Lady Ok | 12 | 12 | 48 | 1 | 11 | 2024-12-01 → 2025-02-09 | South Korea (11) |
+| The Apartment Job | 19 | 19 | 34 | 3 | 3 | 2026-07-12 → 2026-07-26 | Malaysia (3) |
+| Agency | 11 | 10 | 29 | 2 | 9 | 2023-03-26 → 2023-07-02 | Vietnam (5) |
+| Inspector Koo | 7 | 6 | 29 | 3 | 7 | 2021-11-07 → 2021-12-19 | South Korea (7) |
+| A Model Family | 20 | 20 | 27 | 2 | 4 | 2022-08-14 → 2022-09-04 | South Korea (4) |
+| Frankly Speaking | 9 | 9 | 26 | 2 | 6 | 2024-05-05 → 2024-06-09 | South Korea (6) |
+| Cleaning Up | 6 | 3 | 20 | 1 | 11 | 2022-08-07 → 2024-05-05 | Ireland (5) |
+| Reborn Rich | 2 | 1 | 13 | 1 | 13 | 2022-11-20 → 2025-06-08 | South Korea (12) |
+| Still Shining | 8 | 7 | 12 | 5 | 5 | 2026-03-08 → 2026-04-05 | South Korea (5) |
+| We Are All Trying Here | 3 | 3 | 11 | 1 | 9 | 2026-04-19 → 2026-06-14 | South Korea (9) |
+| GOOD BOY | 1 | 1 | 9 | 2 | 9 | 2025-06-01 → 2025-07-27 | South Korea (9) |
+| Miraculous Brothers | 5 | 5 | 8 | 6 | 3 | 2023-09-17 → 2023-10-01 | Indonesia (2) |
+| The World of the Married | 3 | 1 | 8 | 2 | 8 | 2022-05-01 → 2023-09-03 | Japan (5) |
+| 18 Again | 3 | 1 | 7 | 4 | 7 | 2022-01-30 → 2023-04-09 | Hong Kong (3) |
+| Love Me | 1 | 1 | 5 | 7 | 5 | 2025-12-21 → 2026-01-18 | South Korea (5) |
+| Beyond Evil | 1 | 1 | 4 | 4 | 4 | 2023-04-09 → 2023-04-30 | Japan (4) |
+| Queen of Divorce | 1 | 1 | 3 | 5 | 3 | 2024-06-16 → 2024-06-30 | South Korea (3) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

@@ -20,21 +20,27 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Wild Card | 13 | 21 | 2 | 7 | 2022-06-26 → 2026-02-22 | Egypt (2) |
-| My Son | 10 | 20 | 1 | 4 | 2024-02-25 → 2024-05-05 | Bahrain (2) |
-| Solace | 3 | 6 | 3 | 5 | 2022-06-12 → 2024-04-28 | Spain (3) |
-| No Mercy | 2 | 5 | 2 | 5 | 2022-04-24 → 2026-01-11 | South Korea (4) |
-| My Sassy Girl | 2 | 4 | 5 | 4 | 2021-08-08 → 2021-11-28 | South Korea (3) |
-| Voice | 2 | 3 | 5 | 3 | 2021-12-26 → 2022-05-29 | Thailand (2) |
-| Ghost House | 1 | 2 | 3 | 2 | 2024-11-03 → 2024-11-10 | Thailand (2) |
-| The Five | 1 | 2 | 4 | 2 | 2024-06-02 → 2024-06-09 | South Korea (2) |
-| Princess Aurora | 1 | 1 | 6 | 1 | 2024-05-26 → 2024-05-26 | South Korea (1) |
-| Shadows in the Palace | 1 | 1 | 9 | 1 | 2024-06-16 → 2024-06-16 | South Korea (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Wild Card | 13 | 9 | 21 | 2 | 7 | 2022-06-26 → 2026-02-22 | Egypt (2) |
+| My Son | 10 | 7 | 20 | 1 | 4 | 2024-02-25 → 2024-05-05 | Bahrain (2) |
+| Solace | 3 | 2 | 6 | 3 | 5 | 2022-06-12 → 2024-04-28 | Spain (3) |
+| No Mercy | 2 | 1 | 5 | 2 | 5 | 2022-04-24 → 2026-01-11 | South Korea (4) |
+| My Sassy Girl | 2 | 1 | 4 | 5 | 4 | 2021-08-08 → 2021-11-28 | South Korea (3) |
+| Voice | 2 | 1 | 3 | 5 | 3 | 2021-12-26 → 2022-05-29 | Thailand (2) |
+| Ghost House | 1 | 1 | 2 | 3 | 2 | 2024-11-03 → 2024-11-10 | Thailand (2) |
+| The Five | 1 | 1 | 2 | 4 | 2 | 2024-06-02 → 2024-06-09 | South Korea (2) |
+| Princess Aurora | 1 | 1 | 1 | 6 | 1 | 2024-05-26 → 2024-05-26 | South Korea (1) |
+| Shadows in the Palace | 1 | 1 | 1 | 9 | 1 | 2024-06-16 → 2024-06-16 | South Korea (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

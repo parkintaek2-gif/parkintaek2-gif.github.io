@@ -20,24 +20,30 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Extraordinary Attorney Woo | 57 | 518 | 1 | 37 | 2022-07-03 → 2023-05-28 | Japan (25) |
-| Tastefully Yours | 54 | 247 | 1 | 8 | 2025-05-18 → 2025-07-06 | Indonesia (8) |
-| Unlock My Boss | 11 | 42 | 2 | 5 | 2023-03-12 → 2023-04-09 | Hong Kong (5) |
-| Summer Strike | 7 | 12 | 7 | 2 | 2023-02-26 → 2023-03-05 | Indonesia (2) |
-| Honour | 2 | 7 | 1 | 4 | 2024-07-14 → 2024-08-04 | Ireland (4) |
-| Brewing Love | 1 | 5 | 4 | 5 | 2024-11-10 → 2024-12-08 | South Korea (5) |
-| Lies Hidden in my Garden | 1 | 5 | 1 | 5 | 2023-06-25 → 2023-07-23 | South Korea (5) |
-| Like Flowers in Sand | 2 | 4 | 6 | 3 | 2023-12-24 → 2024-01-07 | South Korea (3) |
-| Battle for Happiness | 1 | 2 | 8 | 2 | 2023-09-03 → 2023-09-10 | South Korea (2) |
-| Good Job | 1 | 2 | 4 | 2 | 2022-12-04 → 2022-12-11 | South Korea (2) |
-| True to Love | 1 | 2 | 3 | 2 | 2023-06-04 → 2023-06-11 | South Korea (2) |
-| Love is for Suckers | 1 | 1 | 6 | 1 | 2022-12-11 → 2022-12-11 | South Korea (1) |
-| Not Others | 1 | 1 | 10 | 1 | 2025-01-05 → 2025-01-05 | South Korea (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Extraordinary Attorney Woo | 57 | 54 | 518 | 1 | 37 | 2022-07-03 → 2023-05-28 | Japan (25) |
+| Tastefully Yours | 54 | 53 | 247 | 1 | 8 | 2025-05-18 → 2025-07-06 | Indonesia (8) |
+| Unlock My Boss | 11 | 11 | 42 | 2 | 5 | 2023-03-12 → 2023-04-09 | Hong Kong (5) |
+| Summer Strike | 7 | 7 | 12 | 7 | 2 | 2023-02-26 → 2023-03-05 | Indonesia (2) |
+| Honour | 2 | 2 | 7 | 1 | 4 | 2024-07-14 → 2024-08-04 | Ireland (4) |
+| Brewing Love | 1 | 1 | 5 | 4 | 5 | 2024-11-10 → 2024-12-08 | South Korea (5) |
+| Lies Hidden in my Garden | 1 | 1 | 5 | 1 | 5 | 2023-06-25 → 2023-07-23 | South Korea (5) |
+| Like Flowers in Sand | 2 | 2 | 4 | 6 | 3 | 2023-12-24 → 2024-01-07 | South Korea (3) |
+| Battle for Happiness | 1 | 1 | 2 | 8 | 2 | 2023-09-03 → 2023-09-10 | South Korea (2) |
+| Good Job | 1 | 1 | 2 | 4 | 2 | 2022-12-04 → 2022-12-11 | South Korea (2) |
+| True to Love | 1 | 1 | 2 | 3 | 2 | 2023-06-04 → 2023-06-11 | South Korea (2) |
+| Love is for Suckers | 1 | 1 | 1 | 6 | 1 | 2022-12-11 → 2022-12-11 | South Korea (1) |
+| Not Others | 1 | 1 | 1 | 10 | 1 | 2025-01-05 → 2025-01-05 | South Korea (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

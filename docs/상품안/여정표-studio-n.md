@@ -20,22 +20,28 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Bloodhounds | 87 | 583 | 1 | 17 | 2023-06-11 → 2026-05-31 | South Korea (21) |
-| Sweet Home | 42 | 247 | 1 | 12 | 2023-11-12 → 2024-08-25 | Vietnam (21) |
-| The Trauma Code: Heroes on Call | 63 | 210 | 1 | 27 | 2025-01-26 → 2026-07-05 | Vietnam (27) |
-| Mercy For None | 75 | 203 | 1 | 10 | 2025-06-08 → 2026-07-26 | Indonesia (10) |
-| Unlocked | 52 | 145 | 1 | 13 | 2022-06-12 → 2024-01-14 | Taiwan (7) |
-| The 8 Show | 68 | 144 | 1 | 10 | 2024-05-19 → 2025-01-12 | South Korea (8) |
-| See You in My 19th Life | 35 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
-| Doona! | 43 | 97 | 1 | 6 | 2023-10-22 → 2023-11-26 | Indonesia (6) |
-| Melo Movie | 27 | 44 | 1 | 5 | 2025-02-16 → 2025-03-16 | South Korea (5) |
-| Unlock My Boss | 11 | 42 | 2 | 5 | 2023-03-12 → 2023-04-09 | Hong Kong (5) |
-| Chicken Nugget | 8 | 19 | 2 | 6 | 2024-03-17 → 2024-04-21 | South Korea (6) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Bloodhounds | 87 | 83 | 583 | 1 | 17 | 2023-06-11 → 2026-05-31 | South Korea (21) |
+| Sweet Home | 42 | 42 | 247 | 1 | 12 | 2023-11-12 → 2024-08-25 | Vietnam (21) |
+| The Trauma Code: Heroes on Call | 63 | 63 | 210 | 1 | 27 | 2025-01-26 → 2026-07-05 | Vietnam (27) |
+| Mercy For None | 75 | 75 | 203 | 1 | 10 | 2025-06-08 → 2026-07-26 | Indonesia (10) |
+| Unlocked | 52 | 46 | 145 | 1 | 13 | 2022-06-12 → 2024-01-14 | Taiwan (7) |
+| The 8 Show | 68 | 68 | 144 | 1 | 10 | 2024-05-19 → 2025-01-12 | South Korea (8) |
+| See You in My 19th Life | 35 | 29 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
+| Doona! | 43 | 43 | 97 | 1 | 6 | 2023-10-22 → 2023-11-26 | Indonesia (6) |
+| Melo Movie | 27 | 27 | 44 | 1 | 5 | 2025-02-16 → 2025-03-16 | South Korea (5) |
+| Unlock My Boss | 11 | 11 | 42 | 2 | 5 | 2023-03-12 → 2023-04-09 | Hong Kong (5) |
+| Chicken Nugget | 8 | 8 | 19 | 2 | 6 | 2024-03-17 → 2024-04-21 | South Korea (6) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

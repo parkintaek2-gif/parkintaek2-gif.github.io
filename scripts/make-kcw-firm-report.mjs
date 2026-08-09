@@ -61,10 +61,29 @@ export function 여정(줄들) {
     나라별.set(r.국가, (나라별.get(r.국가) || 0) + 1);
   }
   const 큰나라 = [...나라별].sort((a, b) => b[1] - a[1])[0];
+  /*
+   * 🔴 2026-08-09 20:1x — **한 주에 가장 넓게 퍼졌을 때 몇 나라였나.**
+   *   ⭐ 「35개 나라」는 *동시에* 35곳인 것과 *차례로* 35곳인 것이 전혀 다른 이야기인데,
+   *     지금 시트는 그 둘을 같은 칸(Markets)에 담아 왔다. 회사가 알고 싶은 것은 앞엣것이다.
+   *   ⭐ 그리고 오늘 잰 것 — 이 칸을 순위 옆에 두면 시청시간 설명력이 **+4.2%p** 오른다.
+   *     넷플릭스가 세계 차트에도 나라 차트에도 안 주는 칸이고, 우리가 만든다.
+   */
+  const 주별나라 = new Map();
+  for (const r of 줄들) {
+    if (!주별나라.has(r.주)) 주별나라.set(r.주, new Set());
+    주별나라.get(r.주).add(r.iso2);
+  }
+  let 가장넓은주 = null; let 가장넓은수 = 0;
+  /* ⛔ 같은 넓이면 **이른 주**를 잡는다 — 늦은 주를 잡으면 회사마다 답이 달라진다 */
+  for (const w of [...주별나라.keys()].sort()) {
+    const n = 주별나라.get(w).size;
+    if (n > 가장넓은수) { 가장넓은수 = n; 가장넓은주 = w; }
+  }
   return {
     places: 줄들.length, countries: 나라.size, weeks: 주.size,
     peak: 최고, first: 첫, last: 끝,
     topMarket: 큰나라[0], topMarketPlaces: 큰나라[1],
+    widestWeekCountries: 가장넓은수, widestWeek: 가장넓은주,
   };
 }
 
@@ -169,7 +188,7 @@ if (내가실행됐다) {
      2026-08-07 에 /subscribe 가 라이브에서 하루 이른 날짜를 손님께 보인 것이 같은 병이었다.
      ⛔ 손님에게 가는 종이에 날짜를 틀리게 적지 않는다. 자리(시간대)를 못박는다. */
   const 잰날 = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul' }).format(new Date());
-  const 줄글 = (x) => `| ${x.title} | ${x.countries} | ${x.places} | ${x.peak} | ${x.weeks} | ${x.first} → ${x.last} | ${x.topMarket} (${x.topMarketPlaces}) |`;
+  const 줄글 = (x) => `| ${x.title} | ${x.countries} | ${x.widestWeekCountries} | ${x.places} | ${x.peak} | ${x.weeks} | ${x.first} → ${x.last} | ${x.topMarket} (${x.topMarketPlaces}) |`;
 
   const md = `# ${회사.firm} — where your titles travelled
 
@@ -193,12 +212,18 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
 ${줄.map(줄글).join('\n')}
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

@@ -20,48 +20,54 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Young Lady and Gentleman | 54 | 351 | 1 | 17 | 2022-08-28 → 2023-06-11 | Indonesia (11) |
-| The King's Affection | 34 | 232 | 1 | 19 | 2021-10-17 → 2022-07-24 | Japan (17) |
-| Boys Over Flowers | 7 | 76 | 1 | 49 | 2022-06-19 → 2023-06-04 | Bolivia (49) |
-| Café Minamdang | 10 | 71 | 3 | 12 | 2022-07-03 → 2022-09-18 | Indonesia (12) |
-| Spy | 30 | 61 | 2 | 5 | 2024-12-08 → 2025-01-05 | Jordan (4) |
-| Oh My Venus | 17 | 47 | 3 | 10 | 2021-10-10 → 2022-09-04 | Hong Kong (7) |
-| The Promise | 2 | 37 | 2 | 37 | 2021-09-12 → 2023-11-19 | Philippines (36) |
-| Sell Your Haunted House | 7 | 21 | 3 | 6 | 2022-07-24 → 2022-08-28 | Malaysia (6) |
-| Dali & Cocky Prince | 8 | 19 | 4 | 4 | 2022-07-31 → 2022-08-21 | Indonesia (3) |
-| Police University | 6 | 16 | 3 | 4 | 2022-07-31 → 2022-08-21 | Indonesia (4) |
-| Poseidon | 11 | 13 | 4 | 5 | 2023-09-17 → 2026-06-28 | Italy (2) |
-| Big | 12 | 12 | 4 | 2 | 2025-12-14 → 2025-12-28 | Bolivia (1) |
-| Last Summer | 6 | 12 | 1 | 7 | 2021-07-11 → 2025-11-23 | Indonesia (3) |
-| Once Again | 3 | 12 | 2 | 12 | 2021-07-11 → 2024-07-14 | South Korea (4) |
-| To My Beloved Thief | 2 | 10 | 3 | 8 | 2026-01-11 → 2026-03-01 | South Korea (8) |
-| Dare to Love Me | 8 | 9 | 6 | 2 | 2024-05-19 → 2024-05-26 | South Korea (2) |
-| Doctor Prisoner | 2 | 8 | 6 | 8 | 2022-07-24 → 2024-07-07 | Taiwan (5) |
-| Witch at Court | 4 | 7 | 7 | 2 | 2021-09-12 → 2021-09-19 | Philippines (2) |
-| Blood | 5 | 6 | 3 | 3 | 2023-09-24 → 2025-10-26 | Finland (2) |
-| Homemade Love Story | 3 | 5 | 8 | 2 | 2022-08-28 → 2022-09-04 | Philippines (2) |
-| The Real Has Come! | 2 | 5 | 5 | 4 | 2023-06-18 → 2023-07-09 | Thailand (4) |
-| Zombie Detective | 3 | 5 | 4 | 2 | 2021-08-22 → 2021-08-29 | Malaysia (2) |
-| Beauty and Mr. Romantic | 1 | 4 | 7 | 4 | 2024-03-31 → 2024-04-21 | South Korea (4) |
-| Crush | 2 | 4 | 1 | 2 | 2022-04-03 → 2022-04-10 | Belgium (2) |
-| Descendants of the Sun | 2 | 4 | 2 | 4 | 2021-08-08 → 2023-07-09 | Vietnam (3) |
-| Mr. Right | 2 | 3 | 5 | 2 | 2024-10-06 → 2024-10-13 | Australia (2) |
-| My Golden Life | 1 | 3 | 6 | 3 | 2022-08-07 → 2022-08-21 | Vietnam (3) |
-| The Matchmakers | 1 | 3 | 5 | 3 | 2023-11-05 → 2023-11-19 | South Korea (3) |
-| Iris | 1 | 2 | 9 | 2 | 2022-07-24 → 2022-07-31 | Hong Kong (2) |
-| Love in the Moonlight | 1 | 2 | 6 | 2 | 2022-07-24 → 2022-07-31 | Hong Kong (2) |
-| When Spring Comes | 1 | 2 | 6 | 2 | 2024-01-21 → 2024-01-28 | Japan (2) |
-| Dream High | 1 | 1 | 9 | 1 | 2022-07-31 → 2022-07-31 | Bolivia (1) |
-| Good Doctor | 1 | 1 | 9 | 1 | 2022-07-31 → 2022-07-31 | Hong Kong (1) |
-| I Am Sam | 1 | 1 | 7 | 1 | 2023-11-12 → 2023-11-12 | New Zealand (1) |
-| Iron Family | 1 | 1 | 6 | 1 | 2024-10-06 → 2024-10-06 | South Korea (1) |
-| Iron Man | 1 | 1 | 10 | 1 | 2022-01-09 → 2022-01-09 | Japan (1) |
-| Strongest Deliveryman | 1 | 1 | 9 | 1 | 2022-12-04 → 2022-12-04 | Hong Kong (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Young Lady and Gentleman | 54 | 53 | 351 | 1 | 17 | 2022-08-28 → 2023-06-11 | Indonesia (11) |
+| The King's Affection | 34 | 30 | 232 | 1 | 19 | 2021-10-17 → 2022-07-24 | Japan (17) |
+| Boys Over Flowers | 7 | 7 | 76 | 1 | 49 | 2022-06-19 → 2023-06-04 | Bolivia (49) |
+| Café Minamdang | 10 | 10 | 71 | 3 | 12 | 2022-07-03 → 2022-09-18 | Indonesia (12) |
+| Spy | 30 | 30 | 61 | 2 | 5 | 2024-12-08 → 2025-01-05 | Jordan (4) |
+| Oh My Venus | 17 | 16 | 47 | 3 | 10 | 2021-10-10 → 2022-09-04 | Hong Kong (7) |
+| The Promise | 2 | 1 | 37 | 2 | 37 | 2021-09-12 → 2023-11-19 | Philippines (36) |
+| Sell Your Haunted House | 7 | 7 | 21 | 3 | 6 | 2022-07-24 → 2022-08-28 | Malaysia (6) |
+| Dali & Cocky Prince | 8 | 7 | 19 | 4 | 4 | 2022-07-31 → 2022-08-21 | Indonesia (3) |
+| Police University | 6 | 6 | 16 | 3 | 4 | 2022-07-31 → 2022-08-21 | Indonesia (4) |
+| Poseidon | 11 | 4 | 13 | 4 | 5 | 2023-09-17 → 2026-06-28 | Italy (2) |
+| Big | 12 | 10 | 12 | 4 | 2 | 2025-12-14 → 2025-12-28 | Bolivia (1) |
+| Last Summer | 6 | 5 | 12 | 1 | 7 | 2021-07-11 → 2025-11-23 | Indonesia (3) |
+| Once Again | 3 | 1 | 12 | 2 | 12 | 2021-07-11 → 2024-07-14 | South Korea (4) |
+| To My Beloved Thief | 2 | 2 | 10 | 3 | 8 | 2026-01-11 → 2026-03-01 | South Korea (8) |
+| Dare to Love Me | 8 | 8 | 9 | 6 | 2 | 2024-05-19 → 2024-05-26 | South Korea (2) |
+| Doctor Prisoner | 2 | 1 | 8 | 6 | 8 | 2022-07-24 → 2024-07-07 | Taiwan (5) |
+| Witch at Court | 4 | 4 | 7 | 7 | 2 | 2021-09-12 → 2021-09-19 | Philippines (2) |
+| Blood | 5 | 3 | 6 | 3 | 3 | 2023-09-24 → 2025-10-26 | Finland (2) |
+| Homemade Love Story | 3 | 3 | 5 | 8 | 2 | 2022-08-28 → 2022-09-04 | Philippines (2) |
+| The Real Has Come! | 2 | 2 | 5 | 5 | 4 | 2023-06-18 → 2023-07-09 | Thailand (4) |
+| Zombie Detective | 3 | 3 | 5 | 4 | 2 | 2021-08-22 → 2021-08-29 | Malaysia (2) |
+| Beauty and Mr. Romantic | 1 | 1 | 4 | 7 | 4 | 2024-03-31 → 2024-04-21 | South Korea (4) |
+| Crush | 2 | 2 | 4 | 1 | 2 | 2022-04-03 → 2022-04-10 | Belgium (2) |
+| Descendants of the Sun | 2 | 1 | 4 | 2 | 4 | 2021-08-08 → 2023-07-09 | Vietnam (3) |
+| Mr. Right | 2 | 2 | 3 | 5 | 2 | 2024-10-06 → 2024-10-13 | Australia (2) |
+| My Golden Life | 1 | 1 | 3 | 6 | 3 | 2022-08-07 → 2022-08-21 | Vietnam (3) |
+| The Matchmakers | 1 | 1 | 3 | 5 | 3 | 2023-11-05 → 2023-11-19 | South Korea (3) |
+| Iris | 1 | 1 | 2 | 9 | 2 | 2022-07-24 → 2022-07-31 | Hong Kong (2) |
+| Love in the Moonlight | 1 | 1 | 2 | 6 | 2 | 2022-07-24 → 2022-07-31 | Hong Kong (2) |
+| When Spring Comes | 1 | 1 | 2 | 6 | 2 | 2024-01-21 → 2024-01-28 | Japan (2) |
+| Dream High | 1 | 1 | 1 | 9 | 1 | 2022-07-31 → 2022-07-31 | Bolivia (1) |
+| Good Doctor | 1 | 1 | 1 | 9 | 1 | 2022-07-31 → 2022-07-31 | Hong Kong (1) |
+| I Am Sam | 1 | 1 | 1 | 7 | 1 | 2023-11-12 → 2023-11-12 | New Zealand (1) |
+| Iron Family | 1 | 1 | 1 | 6 | 1 | 2024-10-06 → 2024-10-06 | South Korea (1) |
+| Iron Man | 1 | 1 | 1 | 10 | 1 | 2022-01-09 → 2022-01-09 | Japan (1) |
+| Strongest Deliveryman | 1 | 1 | 1 | 9 | 1 | 2022-12-04 → 2022-12-04 | Hong Kong (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

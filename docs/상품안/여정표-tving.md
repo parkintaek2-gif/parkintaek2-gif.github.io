@@ -20,21 +20,27 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Alchemy of Souls | 45 | 623 | 1 | 45 | 2022-06-26 → 2023-04-30 | Thailand (54) |
-| See You in My 19th Life | 35 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
-| Eve | 18 | 41 | 3 | 4 | 2024-07-28 → 2024-08-18 | Indonesia (4) |
-| Military Prosecutor Doberman | 13 | 38 | 1 | 10 | 2022-09-04 → 2024-07-21 | Vietnam (7) |
-| Poong, the Joseon Psychiatrist | 13 | 28 | 1 | 6 | 2023-01-15 → 2024-09-22 | Malaysia (4) |
-| Cleaning Up | 6 | 20 | 1 | 11 | 2022-08-07 → 2024-05-05 | Ireland (5) |
-| My Lovely Liar | 3 | 4 | 6 | 2 | 2025-09-28 → 2025-10-05 | Taiwan (2) |
-| Love in Contract | 1 | 1 | 9 | 1 | 2024-11-17 → 2024-11-17 | South Korea (1) |
-| Our Blooming Youth | 1 | 1 | 10 | 1 | 2025-06-22 → 2025-06-22 | Japan (1) |
-| Villains | 1 | 1 | 10 | 1 | 2022-08-07 → 2022-08-07 | Turkey (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Alchemy of Souls | 45 | 35 | 623 | 1 | 45 | 2022-06-26 → 2023-04-30 | Thailand (54) |
+| See You in My 19th Life | 35 | 29 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
+| Eve | 18 | 18 | 41 | 3 | 4 | 2024-07-28 → 2024-08-18 | Indonesia (4) |
+| Military Prosecutor Doberman | 13 | 9 | 38 | 1 | 10 | 2022-09-04 → 2024-07-21 | Vietnam (7) |
+| Poong, the Joseon Psychiatrist | 13 | 10 | 28 | 1 | 6 | 2023-01-15 → 2024-09-22 | Malaysia (4) |
+| Cleaning Up | 6 | 3 | 20 | 1 | 11 | 2022-08-07 → 2024-05-05 | Ireland (5) |
+| My Lovely Liar | 3 | 3 | 4 | 6 | 2 | 2025-09-28 → 2025-10-05 | Taiwan (2) |
+| Love in Contract | 1 | 1 | 1 | 9 | 1 | 2024-11-17 → 2024-11-17 | South Korea (1) |
+| Our Blooming Youth | 1 | 1 | 1 | 10 | 1 | 2025-06-22 → 2025-06-22 | Japan (1) |
+| Villains | 1 | 1 | 1 | 10 | 1 | 2022-08-07 → 2022-08-07 | Turkey (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

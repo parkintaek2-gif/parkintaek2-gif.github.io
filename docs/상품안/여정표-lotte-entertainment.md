@@ -20,28 +20,34 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Badland Hunters | 89 | 226 | 1 | 10 | 2024-01-28 → 2024-06-02 | Vietnam (9) |
-| Thirty-Nine | 16 | 107 | 1 | 11 | 2022-02-20 → 2022-05-01 | Hong Kong (11) |
-| Escape From Mogadishu | 2 | 10 | 1 | 10 | 2021-12-19 → 2022-06-05 | South Korea (8) |
-| Concrete Utopia | 2 | 9 | 1 | 9 | 2023-12-10 → 2024-04-07 | South Korea (7) |
-| The Divine Fury | 4 | 9 | 2 | 9 | 2022-01-23 → 2023-10-15 | Thailand (3) |
-| Midnight Runners | 2 | 6 | 2 | 6 | 2022-09-11 → 2023-10-29 | Vietnam (4) |
-| Omniscient Reader: The Prophecy | 1 | 6 | 1 | 6 | 2025-12-07 → 2026-01-11 | South Korea (6) |
-| Sleep | 2 | 5 | 2 | 5 | 2023-12-17 → 2024-05-26 | South Korea (3) |
-| Streaming | 1 | 5 | 2 | 5 | 2025-06-29 → 2025-07-27 | South Korea (5) |
-| High Society | 3 | 4 | 10 | 3 | 2023-05-21 → 2024-10-27 | Indonesia (2) |
-| Tazza: The Hidden Card | 2 | 4 | 5 | 4 | 2022-09-25 → 2023-07-16 | South Korea (3) |
-| Along with the Gods: The Last 49 Days | 3 | 3 | 8 | 3 | 2022-01-02 → 2022-08-14 | Hong Kong (1) |
-| Along with the Gods: The Two Worlds | 2 | 3 | 5 | 3 | 2021-12-26 → 2022-08-14 | Japan (2) |
-| The Pirates | 1 | 3 | 3 | 3 | 2022-01-23 → 2022-02-06 | South Korea (3) |
-| Beastie Boys | 1 | 2 | 5 | 2 | 2021-11-21 → 2021-11-28 | South Korea (2) |
-| War of the Arrows | 1 | 2 | 7 | 2 | 2023-10-15 → 2023-10-22 | South Korea (2) |
-| The Concubine | 1 | 1 | 7 | 1 | 2023-09-24 → 2023-09-24 | South Korea (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Badland Hunters | 89 | 89 | 226 | 1 | 10 | 2024-01-28 → 2024-06-02 | Vietnam (9) |
+| Thirty-Nine | 16 | 16 | 107 | 1 | 11 | 2022-02-20 → 2022-05-01 | Hong Kong (11) |
+| Escape From Mogadishu | 2 | 1 | 10 | 1 | 10 | 2021-12-19 → 2022-06-05 | South Korea (8) |
+| Concrete Utopia | 2 | 1 | 9 | 1 | 9 | 2023-12-10 → 2024-04-07 | South Korea (7) |
+| The Divine Fury | 4 | 1 | 9 | 2 | 9 | 2022-01-23 → 2023-10-15 | Thailand (3) |
+| Midnight Runners | 2 | 1 | 6 | 2 | 6 | 2022-09-11 → 2023-10-29 | Vietnam (4) |
+| Omniscient Reader: The Prophecy | 1 | 1 | 6 | 1 | 6 | 2025-12-07 → 2026-01-11 | South Korea (6) |
+| Sleep | 2 | 1 | 5 | 2 | 5 | 2023-12-17 → 2024-05-26 | South Korea (3) |
+| Streaming | 1 | 1 | 5 | 2 | 5 | 2025-06-29 → 2025-07-27 | South Korea (5) |
+| High Society | 3 | 2 | 4 | 10 | 3 | 2023-05-21 → 2024-10-27 | Indonesia (2) |
+| Tazza: The Hidden Card | 2 | 1 | 4 | 5 | 4 | 2022-09-25 → 2023-07-16 | South Korea (3) |
+| Along with the Gods: The Last 49 Days | 3 | 1 | 3 | 8 | 3 | 2022-01-02 → 2022-08-14 | Hong Kong (1) |
+| Along with the Gods: The Two Worlds | 2 | 1 | 3 | 5 | 3 | 2021-12-26 → 2022-08-14 | Japan (2) |
+| The Pirates | 1 | 1 | 3 | 3 | 3 | 2022-01-23 → 2022-02-06 | South Korea (3) |
+| Beastie Boys | 1 | 1 | 2 | 5 | 2 | 2021-11-21 → 2021-11-28 | South Korea (2) |
+| War of the Arrows | 1 | 1 | 2 | 7 | 2 | 2023-10-15 → 2023-10-22 | South Korea (2) |
+| The Concubine | 1 | 1 | 1 | 7 | 1 | 2023-09-24 → 2023-09-24 | South Korea (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

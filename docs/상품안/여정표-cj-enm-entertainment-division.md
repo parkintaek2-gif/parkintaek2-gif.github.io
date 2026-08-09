@@ -20,36 +20,42 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Queen of Tears | 46 | 443 | 1 | 22 | 2024-03-10 → 2024-08-18 | Bangladesh (20) |
-| Love Next Door | 53 | 368 | 1 | 13 | 2024-08-18 → 2024-11-10 | Indonesia (12) |
-| Vincenzo | 17 | 213 | 3 | 76 | 2021-07-04 → 2023-06-11 | Pakistan (45) |
-| Crash Course in Romance | 34 | 211 | 1 | 13 | 2023-01-22 → 2023-04-16 | South Korea (12) |
-| Our Unwritten Seoul | 40 | 176 | 1 | 9 | 2025-05-25 → 2025-07-20 | Indonesia (9) |
-| See You in My 19th Life | 35 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
-| Castaway Diva | 31 | 118 | 1 | 7 | 2023-10-29 → 2023-12-10 | Indonesia (7) |
-| The Potato Lab | 20 | 77 | 4 | 7 | 2025-03-02 → 2025-04-13 | El Salvador (7) |
-| Undercover Miss Hong | 14 | 69 | 2 | 10 | 2026-01-18 → 2026-03-22 | South Korea (9) |
-| Spooky in Love | 47 | 64 | 3 | 2 | 2026-07-19 → 2026-07-26 | Bolivia (2) |
-| Typhoon Family | 19 | 58 | 1 | 9 | 2025-10-12 → 2025-12-07 | South Korea (9) |
-| Captivating the King | 21 | 57 | 2 | 7 | 2024-01-28 → 2024-03-10 | South Korea (7) |
-| Pro Bono | 7 | 40 | 3 | 8 | 2025-12-14 → 2026-02-01 | Taiwan (8) |
-| Mr. Sunshine | 1 | 23 | 7 | 23 | 2021-08-22 → 2023-04-23 | South Korea (23) |
-| I, the Executioner | 2 | 11 | 1 | 11 | 2025-02-02 → 2025-08-10 | South Korea (9) |
-| The Auditors | 4 | 6 | 4 | 4 | 2024-12-15 → 2025-01-12 | Indonesia (2) |
-| Broker | 1 | 5 | 6 | 5 | 2023-01-01 → 2023-01-29 | South Korea (5) |
-| Delightfully Deceitful | 3 | 4 | 7 | 2 | 2025-07-27 → 2025-08-03 | South Korea (2) |
-| My Lovely Liar | 3 | 4 | 6 | 2 | 2025-09-28 → 2025-10-05 | Taiwan (2) |
-| Phantom | 2 | 4 | 1 | 4 | 2024-01-07 → 2024-10-13 | South Korea (3) |
-| Deranged | 1 | 2 | 6 | 2 | 2021-07-04 → 2021-07-11 | Nigeria (2) |
-| Another Miss Oh | 1 | 1 | 8 | 1 | 2022-11-27 → 2022-11-27 | Japan (1) |
-| Keys To The Heart | 1 | 1 | 9 | 1 | 2024-11-17 → 2024-11-17 | South Korea (1) |
-| The Spy Gone North | 1 | 1 | 9 | 1 | 2022-02-06 → 2022-02-06 | Japan (1) |
-| Villains | 1 | 1 | 10 | 1 | 2022-08-07 → 2022-08-07 | Turkey (1) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Queen of Tears | 46 | 42 | 443 | 1 | 22 | 2024-03-10 → 2024-08-18 | Bangladesh (20) |
+| Love Next Door | 53 | 44 | 368 | 1 | 13 | 2024-08-18 → 2024-11-10 | Indonesia (12) |
+| Vincenzo | 17 | 15 | 213 | 3 | 76 | 2021-07-04 → 2023-06-11 | Pakistan (45) |
+| Crash Course in Romance | 34 | 25 | 211 | 1 | 13 | 2023-01-22 → 2023-04-16 | South Korea (12) |
+| Our Unwritten Seoul | 40 | 40 | 176 | 1 | 9 | 2025-05-25 → 2025-07-20 | Indonesia (9) |
+| See You in My 19th Life | 35 | 29 | 122 | 2 | 7 | 2023-06-18 → 2023-07-30 | Indonesia (7) |
+| Castaway Diva | 31 | 29 | 118 | 1 | 7 | 2023-10-29 → 2023-12-10 | Indonesia (7) |
+| The Potato Lab | 20 | 19 | 77 | 4 | 7 | 2025-03-02 → 2025-04-13 | El Salvador (7) |
+| Undercover Miss Hong | 14 | 14 | 69 | 2 | 10 | 2026-01-18 → 2026-03-22 | South Korea (9) |
+| Spooky in Love | 47 | 47 | 64 | 3 | 2 | 2026-07-19 → 2026-07-26 | Bolivia (2) |
+| Typhoon Family | 19 | 19 | 58 | 1 | 9 | 2025-10-12 → 2025-12-07 | South Korea (9) |
+| Captivating the King | 21 | 18 | 57 | 2 | 7 | 2024-01-28 → 2024-03-10 | South Korea (7) |
+| Pro Bono | 7 | 7 | 40 | 3 | 8 | 2025-12-14 → 2026-02-01 | Taiwan (8) |
+| Mr. Sunshine | 1 | 1 | 23 | 7 | 23 | 2021-08-22 → 2023-04-23 | South Korea (23) |
+| I, the Executioner | 2 | 1 | 11 | 1 | 11 | 2025-02-02 → 2025-08-10 | South Korea (9) |
+| The Auditors | 4 | 3 | 6 | 4 | 4 | 2024-12-15 → 2025-01-12 | Indonesia (2) |
+| Broker | 1 | 1 | 5 | 6 | 5 | 2023-01-01 → 2023-01-29 | South Korea (5) |
+| Delightfully Deceitful | 3 | 3 | 4 | 7 | 2 | 2025-07-27 → 2025-08-03 | South Korea (2) |
+| My Lovely Liar | 3 | 3 | 4 | 6 | 2 | 2025-09-28 → 2025-10-05 | Taiwan (2) |
+| Phantom | 2 | 1 | 4 | 1 | 4 | 2024-01-07 → 2024-10-13 | South Korea (3) |
+| Deranged | 1 | 1 | 2 | 6 | 2 | 2021-07-04 → 2021-07-11 | Nigeria (2) |
+| Another Miss Oh | 1 | 1 | 1 | 8 | 1 | 2022-11-27 → 2022-11-27 | Japan (1) |
+| Keys To The Heart | 1 | 1 | 1 | 9 | 1 | 2024-11-17 → 2024-11-17 | South Korea (1) |
+| The Spy Gone North | 1 | 1 | 1 | 9 | 1 | 2022-02-06 → 2022-02-06 | Japan (1) |
+| Villains | 1 | 1 | 1 | 10 | 1 | 2022-08-07 → 2022-08-07 | Turkey (1) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 

@@ -20,23 +20,29 @@ Netflix publishes global hours to you. It does not publish **which market**. Thi
 
 ⛔ This is not a ranking of quality. It is a record of movement.
 
-| Title | Markets | Places | Peak | Weeks | First → Last | Largest market |
-|---|---:|---:|---:|---:|---|---|
-| Humint | 67 | 125 | 1 | 11 | 2026-04-05 → 2026-06-28 | South Korea (11) |
-| I, the Executioner | 2 | 11 | 1 | 11 | 2025-02-02 → 2025-08-10 | South Korea (9) |
-| Escape From Mogadishu | 2 | 10 | 1 | 10 | 2021-12-19 → 2022-06-05 | South Korea (8) |
-| The Battleship Island | 3 | 6 | 5 | 4 | 2023-01-08 → 2026-04-05 | Malaysia (3) |
-| Start-Up | 2 | 4 | 5 | 4 | 2021-10-10 → 2026-03-01 | Indonesia (3) |
-| Svaha: The Sixth Finger | 1 | 4 | 6 | 4 | 2024-03-03 → 2024-03-24 | South Korea (4) |
-| Hostage: Missing Celebrity | 1 | 3 | 1 | 3 | 2021-12-05 → 2021-12-19 | South Korea (3) |
-| Smugglers | 1 | 3 | 1 | 3 | 2024-04-28 → 2024-05-12 | Thailand (3) |
-| Veteran | 1 | 3 | 3 | 3 | 2024-09-15 → 2024-09-29 | South Korea (3) |
-| Exit | 2 | 2 | 4 | 2 | 2021-08-08 → 2022-10-30 | Japan (1) |
-| The Berlin File | 2 | 2 | 8 | 2 | 2021-09-12 → 2026-04-05 | Hong Kong (1) |
-| The Unjust | 1 | 2 | 8 | 2 | 2023-04-23 → 2023-04-30 | South Korea (2) |
+| Title | Markets | At once | Places | Peak | Weeks | First → Last | Largest market |
+|---|---:|---:|---:|---:|---:|---|---|
+| Humint | 67 | 67 | 125 | 1 | 11 | 2026-04-05 → 2026-06-28 | South Korea (11) |
+| I, the Executioner | 2 | 1 | 11 | 1 | 11 | 2025-02-02 → 2025-08-10 | South Korea (9) |
+| Escape From Mogadishu | 2 | 1 | 10 | 1 | 10 | 2021-12-19 → 2022-06-05 | South Korea (8) |
+| The Battleship Island | 3 | 2 | 6 | 5 | 4 | 2023-01-08 → 2026-04-05 | Malaysia (3) |
+| Start-Up | 2 | 1 | 4 | 5 | 4 | 2021-10-10 → 2026-03-01 | Indonesia (3) |
+| Svaha: The Sixth Finger | 1 | 1 | 4 | 6 | 4 | 2024-03-03 → 2024-03-24 | South Korea (4) |
+| Hostage: Missing Celebrity | 1 | 1 | 3 | 1 | 3 | 2021-12-05 → 2021-12-19 | South Korea (3) |
+| Smugglers | 1 | 1 | 3 | 1 | 3 | 2024-04-28 → 2024-05-12 | Thailand (3) |
+| Veteran | 1 | 1 | 3 | 3 | 3 | 2024-09-15 → 2024-09-29 | South Korea (3) |
+| Exit | 2 | 1 | 2 | 4 | 2 | 2021-08-08 → 2022-10-30 | Japan (1) |
+| The Berlin File | 2 | 1 | 2 | 8 | 2 | 2021-09-12 → 2026-04-05 | Hong Kong (1) |
+| The Unjust | 1 | 1 | 2 | 8 | 2 | 2023-04-23 → 2023-04-30 | South Korea (2) |
 
 *Places* counts one title appearing in one country in one week. A title in 3 countries for 4 weeks
 can take 12 places. *Peak* is the highest position it reached in any single market.
+
+**Read *Markets* and *At once* together.** *Markets* is every country the title ever reached;
+*At once* is the most it held in a single week. A title with 40 markets and 38 at once opened
+everywhere on one day. A title with 40 markets and 6 at once spread country by country over months —
+two different kinds of release that the first column alone cannot tell apart. Netflix publishes
+neither figure: both are counted here from the weekly country lists.
 
 ## Where they travelled — and why the ends differ
 
