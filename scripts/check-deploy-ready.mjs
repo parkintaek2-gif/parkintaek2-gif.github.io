@@ -42,11 +42,40 @@ export function 지킴줄읽기(줄) {
   return { 자리, 파일, 있어야하는글자, 넣은날: 넣은날 || '', 까닭: 까닭 || '' };
 }
 
-/** git status --porcelain 을 읽어 깨끗한지. ⛔ ?? (안 담긴 새 파일)는 깨끗한 것으로 본다 */
+/**
+ * 손님에게 나가는 파일인가. ⛔ docs/ 와 메모는 배포되지 않는다.
+ *
+ * 왜 가르나 — 2026-08-09 20:40 에 관문이 `docs/세션간-메모.md` 하나로 막혔다.
+ * 그 파일은 여덟 자리가 십 분마다 덧쓴다. **늘 막히는 관문은 아무도 안 본다.**
+ * 사장님: 「문서는 안 읽힙니다」. 자물쇠도 늘 울면 안 읽힌다.
+ */
+export function 나가는파일인가(길) {
+  const p = String(길 ?? '').replace(/^"|"$/g, '').replace(/\\/g, '/');
+  if (!p) return false;
+  if (p.startsWith('docs/')) return false;
+  if (p.startsWith('archive/')) return false;
+  if (/^[^/]+\.md$/.test(p)) return false;          // 뿌리의 메모 파일
+  return true;
+}
+
+/** 포슬린 한 줄에서 길만 뽑는다. `R  옛 -> 새` 는 새 쪽을 본다. */
+export function 길뽑기(줄) {
+  const 뒤 = String(줄 ?? '').slice(3).trim();
+  const i = 뒤.indexOf(' -> ');
+  return i >= 0 ? 뒤.slice(i + 4).trim() : 뒤;
+}
+
+/**
+ * git status --porcelain 을 읽어 깨끗한지.
+ * ⛔ ?? (안 담긴 새 파일)는 깨끗한 것으로 본다.
+ * 🔴 막는 것은 **나가는 파일**만. docs/ 는 ⚠ 로만 알린다.
+ */
 export function 깨끗한가(포슬린) {
   const 줄들 = String(포슬린 ?? '').split('\n').map((l) => l.trimEnd()).filter(Boolean);
-  const 더러운줄 = 줄들.filter((l) => !l.startsWith('??'));
-  return { 깨끗하다: 더러운줄.length === 0, 더러운줄 };
+  const 담긴것 = 줄들.filter((l) => !l.startsWith('??'));
+  const 더러운줄 = 담긴것.filter((l) => 나가는파일인가(길뽑기(l)));
+  const 안나가는줄 = 담긴것.filter((l) => !나가는파일인가(길뽑기(l)));
+  return { 깨끗하다: 더러운줄.length === 0, 더러운줄, 안나가는줄 };
 }
 
 /** 로컬이 원격과 같은가. 앞섰으면(밀 것이 있으면) 그것도 막는다 */
@@ -73,8 +102,13 @@ export function 판정글(결과) {
   const 줄 = ['# 배포 관문', ''];
   줄.push(결과.열쇠.맞다 ? '✅ 열쇠 맞다 — 히스토리를 읽었다' : `🔴 ${결과.열쇠.까닭}`);
   줄.push(결과.최신.최신이다 ? '✅ 최신이다' : `🔴 최신이 아니다 — ${결과.최신.까닭}`);
-  줄.push(결과.깨끗.깨끗하다 ? '✅ 커밋 안 된 변경 없다'
+  줄.push(결과.깨끗.깨끗하다 ? '✅ 손님에게 나가는 것 중 커밋 안 된 것 없다'
     : `🔴 커밋 안 된 변경 ${결과.깨끗.더러운줄.length}개 — ${결과.깨끗.더러운줄.slice(0, 5).join(' / ')}`);
+  const 안나감 = 결과.깨끗.안나가는줄 ?? [];
+  if (안나감.length) {
+    줄.push(`⚠ 커밋 안 된 문서 ${안나감.length}개 (배포엔 안 나간다 — 막지 않는다)`);
+    for (const l of 안나감.slice(0, 3)) 줄.push(`   · ${l}`);
+  }
   if (!결과.지킴수) 줄.push('⚠ 지킴 목록이 비어 있다 — 고친 것을 아무도 안 적었다');
   else if (!결과.사라진것.length) 줄.push(`✅ 지킴 목록 ${결과.지킴수}줄 다 살아 있다`);
   else {
@@ -109,6 +143,26 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   자가('?? 만 있으면 깨끗', 깨끗한가('?? new.txt\n?? b/').깨끗하다 === true);
   자가('M 이 있으면 안 깨끗', 깨끗한가(' M a.html').깨끗하다 === false);
   자가('안 깨끗한 줄을 돌려준다', 깨끗한가(' M a.html\n?? n').더러운줄.length === 1);
+
+  // 🔴 docs/ 는 배포에 안 나간다 — 막지 않는다 (2026-08-09 20:40 관문이 메모 하나로 막힌 일)
+  자가('src 는 나가는 파일', 나가는파일인가('src/pages/a.astro') === true);
+  자가('public 도 나가는 파일', 나가는파일인가('public/og.png') === true);
+  자가('⛔ docs/ 는 안 나간다', 나가는파일인가('docs/세션간-메모.md') === false);
+  자가('⛔ 뿌리 메모(.md)도 안 나간다', 나가는파일인가('README.md') === false);
+  자가('⛔ archive/ 도 안 나간다', 나가는파일인가('archive/log/x.log') === false);
+  자가('src 밑 .md 는 나간다', 나가는파일인가('src/content/글.md') === true);
+  자가('빈 길은 안 나가는 것', 나가는파일인가('') === false);
+  자가('따옴표 붙은 길도 읽는다', 나가는파일인가('"docs/한글.md"') === false);
+
+  자가('길만 뽑는다', 길뽑기(' M src/a.astro') === 'src/a.astro');
+  자가('이름 바뀐 것은 새 쪽을 본다', 길뽑기('R  옛.md -> src/새.astro') === 'src/새.astro');
+
+  자가('🔴 문서만 더러우면 통과시킨다', 깨끗한가(' M docs/세션간-메모.md').깨끗하다 === true);
+  자가('그래도 따로 세어 알려 준다', 깨끗한가(' M docs/세션간-메모.md').안나가는줄.length === 1);
+  자가('🔴 나가는 것이 섞이면 막는다',
+       깨끗한가(' M docs/메모.md\n M src/a.astro').깨끗하다 === false);
+  자가('막을 때 문서는 안 세운다',
+       깨끗한가(' M docs/메모.md\n M src/a.astro').더러운줄.length === 1);
 
   자가('뒤졌으면 막는다', 최신인가({ 로컬: 'a', 원격: 'b', 앞선수: 0, 뒤진수: 2 }).최신이다 === false);
   자가('뒤진 것을 까닭에 적는다', 최신인가({ 로컬: 'a', 원격: 'b', 앞선수: 0, 뒤진수: 2 }).까닭.includes('뒤졌다'));
