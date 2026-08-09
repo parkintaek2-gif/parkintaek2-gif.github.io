@@ -1,9 +1,9 @@
 {
-  "generated": "2026-08-08T15:44:27.311Z",
+  "generated": "2026-08-09T20:06:25.577Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
-  "titles": 235,
-  "titlesAssessed": 938,
-  "totalHours": 23720700000,
+  "titles": 234,
+  "titlesAssessed": 915,
+  "totalHours": 23711970000,
   "koreaOnly": {
     "titles": 154,
     "hours": 19607060000,
@@ -20,8 +20,8 @@
     "sharePc": 0.2
   },
   "unknown": {
-    "titles": 3,
-    "hours": 96390000,
+    "titles": 2,
+    "hours": 87660000,
     "sharePc": 0.4
   },
   "unreachable": {
@@ -2232,14 +2232,6 @@
       "countries": [
         "South Korea"
       ]
-    },
-    {
-      "title": "أصحاب ...ولا أعزّ",
-      "hours": 8730000,
-      "places": 59,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Still Shining",
@@ -5356,14 +5348,6 @@
       ]
     },
     {
-      "title": "شباب البومب 2",
-      "hours": 0,
-      "places": 24,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Alice",
       "hours": 0,
       "places": 24,
@@ -5420,14 +5404,6 @@
       "countries": [
         "United States"
       ]
-    },
-    {
-      "title": "العنكبوت",
-      "hours": 0,
-      "places": 21,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Wanted",
@@ -5587,22 +5563,6 @@
       ]
     },
     {
-      "title": "وحش أمينة",
-      "hours": 0,
-      "places": 15,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
-      "title": "وحش - عرس النار",
-      "hours": 0,
-      "places": 15,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Bodyguard",
       "hours": 0,
       "places": 15,
@@ -5640,14 +5600,6 @@
         "United Kingdom",
         "United States"
       ]
-    },
-    {
-      "title": "وحش حولي",
-      "hours": 0,
-      "places": 14,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Poseidon",
@@ -5783,14 +5735,6 @@
       "countries": [
         "South Korea"
       ]
-    },
-    {
-      "title": "وحش البنوك",
-      "hours": 0,
-      "places": 10,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Sweethearts",
@@ -6094,14 +6038,6 @@
       ]
     },
     {
-      "title": "حظك اليوم",
-      "hours": 0,
-      "places": 7,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Deliver Us from Evil",
       "hours": 0,
       "places": 7,
@@ -6222,14 +6158,6 @@
       ]
     },
     {
-      "title": "دروب أريكة",
-      "hours": 0,
-      "places": 6,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Solace",
       "hours": 0,
       "places": 6,
@@ -6286,14 +6214,6 @@
         "United Kingdom",
         "United States"
       ]
-    },
-    {
-      "title": "صاحب المقام",
-      "hours": 0,
-      "places": 6,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Twins",
@@ -6846,14 +6766,6 @@
       ]
     },
     {
-      "title": "Потяг до Різдва",
-      "hours": 0,
-      "places": 5,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Madam",
       "hours": 0,
       "places": 4,
@@ -6939,22 +6851,6 @@
       ]
     },
     {
-      "title": "حكايات بنات الجزء ١",
-      "hours": 0,
-      "places": 4,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
-      "title": "راس السنة",
-      "hours": 0,
-      "places": 4,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Sweetheart",
       "hours": 0,
       "places": 4,
@@ -7015,14 +6911,6 @@
         "United Kingdom",
         "United States"
       ]
-    },
-    {
-      "title": "ボイリング・ポイント／沸騰",
-      "hours": 0,
-      "places": 4,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Character",
@@ -7691,14 +7579,6 @@
       ]
     },
     {
-      "title": "الناموس",
-      "hours": 0,
-      "places": 3,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "The Plan",
       "hours": 0,
       "places": 3,
@@ -8353,30 +8233,6 @@
       ]
     },
     {
-      "title": "مسار إجباري",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
-      "title": "بابا جه",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
-      "title": "الرجل الرابع",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "The Journey",
       "hours": 0,
       "places": 2,
@@ -8558,22 +8414,6 @@
       ]
     },
     {
-      "title": "אמיא",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
-      "title": "משי זהב",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
-    },
-    {
       "title": "Between Walls",
       "hours": 0,
       "places": 2,
@@ -8582,14 +8422,6 @@
       "countries": [
         "South Korea"
       ]
-    },
-    {
-      "title": "לעבור את הקיר",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Endless Love",
@@ -8830,14 +8662,6 @@
       "countries": [
         "South Korea"
       ]
-    },
-    {
-      "title": "بلال: بطل من فصيل جديد",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "A Wonderful World",
@@ -10189,14 +10013,6 @@
         "People's Republic of China",
         "United States"
       ]
-    },
-    {
-      "title": "נדל״ן-סיפור אהבה",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "unknown",
-      "countries": []
     },
     {
       "title": "Siren",
