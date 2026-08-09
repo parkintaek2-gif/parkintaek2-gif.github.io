@@ -148,6 +148,51 @@ const jsonLd = {
     </p>
   </section>
 
+  {data.addingWeeks && (
+    <section>
+      <h2>What one more column buys — and the trap in measuring it</h2>
+      <p class="note lead-in">
+        If a rank alone leaves this much unsaid, the next question is what to put beside it. We tested
+        two candidates: Netflix's own <b>weeks in top 10</b>, and <b>how many countries' charts the
+        title was on that week</b> — a column Netflix does not publish anywhere and we build from the
+        {' '}{data.countryRowsRead.toLocaleString('en-US')} country rows.
+      </p>
+      <p class="warn">
+        <b>The trap first.</b> {data.whySham} Every figure in the table below has that sham figure
+        subtracted from it.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Chart</th><th>Rank alone</th><th>+ weeks in top 10</th><th>+ countries that week</th></tr>
+          </thead>
+          <tbody>
+            {data.addingWeeks.map((x) => (
+              <tr class={x.chart === 'TV (Non-English)' ? 'edge' : ''}>
+                <td class="nm">{x.chart}</td>
+                <td>{몫(x.chart)}%</td>
+                <td>{x.realGainPc > 0 ? `+${x.realGainPc}` : x.realGainPc}pp</td>
+                <td class="tot">{x.breadthRealGainPc > 0 ? `+${x.breadthRealGainPc}` : x.breadthRealGainPc}pp</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        🔴 <b>On the chart Korean titles sit on, Netflix's own column is worth nothing</b> —
+        {' '}{data.addingWeeks.find((x) => x.chart === 'TV (Non-English)').realGainPc} points, which is
+        to say less than a meaningless label. The column we build ourselves is worth
+        {' '}{data.addingWeeks.find((x) => x.chart === 'TV (Non-English)').breadthRealGainPc} points,
+        taking the chart from {몫('TV (Non-English)')}% to
+        {' '}{data.addingWeeks.find((x) => x.chart === 'TV (Non-English)').breadthNarrowedPc}%.
+      </p>
+      <p class="note fine">
+        Had we picked without measuring, we would have picked weeks in top 10 — it arrives in the file
+        already and costs nothing to pass on. It is the one that does not work.
+      </p>
+    </section>
+  )}
+
   <KcwRelatedArticles page="/rank-tells" />
 
   <section class="src">

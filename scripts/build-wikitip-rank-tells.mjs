@@ -86,16 +86,27 @@ if (내가실행됐다) {
 
   /* ── ① 나라 차트에 시청 칸이 정말 하나도 없나. **없다고 단정하지 않고 센다** ── */
   let 나라줄 = 0; let 나라시청 = 0;
+  /*
+   * ⭐ 같은 훑기에서 **「그 주에 그 작품이 몇 나라 차트에 있었나」**도 센다.
+   *   세계 차트에는 이 칸이 없지만 우리는 나라 차트 93개를 다 가지고 있어 **우리가 만들 수 있다.**
+   *   ⛔ 그것이 요점이다 — 넷플릭스가 안 주는 칸을 우리가 붙이는 것이 우리 물건이다.
+   */
+  const 나라폭 = new Map();   // `${주}|${제목소문자}` → 나라 수
   for (const l of fs.readFileSync(나라파일, 'utf8').split('\n')) {
     if (!l) continue;
     나라줄 += 1;
     let r;
     try { r = JSON.parse(l); } catch { continue; }
     if (r.시청시간 != null || r.시청수 != null) 나라시청 += 1;
+    if (String(r.iso2).toUpperCase() === 'RU') continue;
+    const k = `${r.주}|${String(r.제목 || '').toLowerCase()}`;
+    나라폭.set(k, (나라폭.get(k) ?? 0) + 1);
   }
 
   /* ── ② 세계 차트 — 갈래마다 순위별 시청시간 ── */
   const 갈래 = new Map();      // 구분 → Map(순위 → [시청시간])
+  /* 아래 「순위 + 누적주」 셈이 같은 줄을 다시 쓰므로 한 번 담아 둔다. 파일을 두 번 안 읽는다 */
+  const 원줄들 = [];
   let 세계줄 = 0; let 시청있는줄 = 0;
   const 주모음 = new Set();
   for (const l of fs.readFileSync(세계파일, 'utf8').split('\n')) {
@@ -110,6 +121,13 @@ if (내가실행됐다) {
     const m = 갈래.get(r.구분);
     if (!m.has(r.순위)) m.set(r.순위, []);
     m.get(r.순위).push(r.시청시간);
+    원줄들.push({
+      구분: r.구분,
+      순위: r.순위,
+      누적주: r.누적주,
+      나라수: 나라폭.get(`${r.주}|${String(r.제목 || '').toLowerCase()}`) ?? null,
+      시청시간: r.시청시간,
+    });
   }
 
   const 갈래들 = [...갈래.keys()].sort();
@@ -168,6 +186,84 @@ if (내가실행됐다) {
     narrowedPc: +(100 * (1 - c.withinRankSpread / c.allSpread)).toFixed(1),
   }));
 
+  /*
+   * 🔴 2번 요청(2026-08-09 15:2x): 「우리 순위 **+ ___** 를 같이 주면 설명력이 45.8% → ___% 가 된다」
+   *
+   * ⭐ 더할 것은 **누적주**(Netflix 의 weeks-in-top-10)다. 고른 까닭 —
+   *    ① 세계 차트 10,600줄에 **전부** 있고, **나라 차트에도 있다** — 지금 팔 수 있다
+   *    ② 편성 담당자가 이미 아는 말이라 설명이 필요 없다
+   *
+   * ⛔ 🔴 **잘게 쪼개면 저절로 좁아진다.** 칸을 나눌수록 칸 안 표본이 줄고,
+   *    표본이 적으면 90분위와 10분위가 가까워져 「좁아진 것처럼」 보인다.
+   *    ⭐ 그래서 **가짜 대조군**을 같이 둔다 — 뜻 없는 딱지로 **같은 수만큼** 쪼개서
+   *      그것만으로 얼마나 줄어드는지 잰다. 진짜로 번 것 = 실제 − 가짜.
+   *    ⛔ Math.random() 을 안 쓴다(이 환경에서 못 쓰고, 써도 빌드마다 답이 바뀐다).
+   *      줄 차례를 쓰는 **결정적 나눔**이라 언제 돌려도 같은 답이 나온다.
+   */
+  const 누적띠 = (w) => (w <= 1 ? '1' : w <= 2 ? '2' : w <= 4 ? '3–4' : w <= 8 ? '5–8' : '9+');
+  /*
+   * ⭐ 후보가 둘이다. 하나만 고르라는 요청이지만 **고르기 전에 둘을 나란히 잰다.**
+   *   ⛔ 안 재고 고르면 그게 짐작이다.
+   *   ① 누적주   — 넷플릭스가 주는 칸. 우리도 이미 판다
+   *   ② 나라 폭  — 그 주에 몇 나라 차트에 있었나. **넷플릭스가 안 주고 우리가 만든 칸**
+   */
+  const 폭띠 = (n) => (n == null ? '?' : n <= 1 ? '1' : n <= 5 ? '2–5' : n <= 15 ? '6–15' : n <= 40 ? '16–40' : '41+');
+  const 띠수 = 5;
+  const 더함 = [];
+  for (const c of 갈래들) {
+    const 참칸 = new Map();
+    const 가짜칸 = new Map();
+    /*
+     * 🔴 처음에 줄 전체 차례로 `i % 5` 를 썼더니 **가짜 딱지가 순위와 묶여 버렸다.**
+     *   원자료가 주마다 1~10위 차례로 늘어서 있어서, 순위 1 인 줄은 i 가 늘 5의 배수였고
+     *   가짜 칸이 순위당 하나씩 열 개밖에 안 생겼다(참은 47개). **대조가 아니었다.**
+     * ⭐ 그래서 **순위마다 따로 세는 카운터**를 쓴다. 그러면 순위와 안 묶이고
+     *   칸 수도 참과 비슷해진다. 그 수를 아래 cellsUsed / shamCellsUsed 로 같이 낸다.
+     */
+    const 폭칸 = new Map();
+    const 순위별차례 = new Map();
+    for (const r of 원줄들.filter((x) => x.구분 === c)) {
+      const k3 = `${r.순위}|${폭띠(r.나라수)}`;
+      if (!폭칸.has(k3)) 폭칸.set(k3, []);
+      폭칸.get(k3).push(r.시청시간);
+      const k1 = `${r.순위}|${누적띠(r.누적주)}`;
+      const n = 순위별차례.get(r.순위) ?? 0;
+      순위별차례.set(r.순위, n + 1);
+      const k2 = `${r.순위}|${n % 띠수}`;
+      if (!참칸.has(k1)) 참칸.set(k1, []);
+      if (!가짜칸.has(k2)) 가짜칸.set(k2, []);
+      참칸.get(k1).push(r.시청시간);
+      가짜칸.get(k2).push(r.시청시간);
+    }
+    /* ⛔ 칸이 너무 작으면 벌어짐이 뜻을 잃는다. 스무 줄 밑은 뺀다 — 참·가짜 같은 문턱 */
+    const 쓸만한 = (m) => [...m.values()].filter((v) => v.length >= 20);
+    const 참 = 가운데(쓸만한(참칸).map(벌어짐).filter((x) => x != null));
+    const 가짜 = 가운데(쓸만한(가짜칸).map(벌어짐).filter((x) => x != null));
+    const 밑 = byChart.find((x) => x.chart === c).allSpread;
+    const 폭 = 가운데(쓸만한(폭칸).map(벌어짐).filter((x) => x != null));
+    더함.push({
+      chart: c,
+      cellsUsed: 쓸만한(참칸).length,
+      shamCellsUsed: 쓸만한(가짜칸).length,
+      breadthCellsUsed: 쓸만한(폭칸).length,
+      withRankAndWeeks: 참 == null ? null : +참.toFixed(2),
+      withRankAndShamLabel: 가짜 == null ? null : +가짜.toFixed(2),
+      withRankAndBreadth: 폭 == null ? null : +폭.toFixed(2),
+      narrowedPc: 참 == null ? null : +(100 * (1 - 참 / 밑)).toFixed(1),
+      shamNarrowedPc: 가짜 == null ? null : +(100 * (1 - 가짜 / 밑)).toFixed(1),
+      breadthNarrowedPc: 폭 == null ? null : +(100 * (1 - 폭 / 밑)).toFixed(1),
+    });
+  }
+  for (const x of 더함) {
+    if (x.narrowedPc == null || x.shamNarrowedPc == null) {
+      throw new Error(`${x.chart} — 더함/가짜를 못 쟀다`);
+    }
+    x.realGainPc = +(x.narrowedPc - x.shamNarrowedPc).toFixed(1);
+    /* ⛔ 폭도 같은 가짜 문턱을 뺀다. 안 빼면 「잘게 쪼개서 좁아진 것」을 성과로 판다 */
+    x.breadthRealGainPc = x.breadthNarrowedPc == null ? null
+      : +(x.breadthNarrowedPc - x.shamNarrowedPc).toFixed(1);
+  }
+
   const out = {
     generated: new Date().toISOString(),
     source: 'Netflix Top 10 (Tudum). The global weekly lists carry hours viewed; the per-country lists do not.',
@@ -184,6 +280,8 @@ if (내가실행됐다) {
     weeksSpanned: 주모음.size,
     byChart,
     narrowing: 좁힘,
+    addingWeeks: 더함,
+    whySham: 'Splitting rows into more cells narrows the range on its own, because a smaller sample puts the 90th and 10th percentiles closer together. Each real split is therefore run again against a meaningless label with the same number of buckets, and only the difference between the two is counted as information.',
     cannotAnswer: 'The global lists are not the country lists. A rank on a country chart is produced by that '
       + 'country\'s viewers, and Netflix never publishes those hours at all, so how well rank stands in for '
       + 'viewing inside one country cannot be measured from anything Netflix releases.',

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T10:09:35.109Z",
+  "generated": "2026-08-09T10:58:03.498Z",
   "source": "Netflix Top 10 (Tudum). The global weekly lists carry hours viewed; the per-country lists do not.",
   "question": "If you know a title's rank, how much do you know about how much it was watched?",
   "unit": "Spread is the 90th percentile divided by the 10th — how many times bigger a high week is than a low one. \"Knowing nothing\" is the spread across every row of a chart; \"knowing the rank\" is the median of the spreads inside each of the ten rank positions.",
@@ -313,5 +313,64 @@
       "narrowedPc": 45.8
     }
   ],
+  "addingWeeks": [
+    {
+      "chart": "Films (English)",
+      "cellsUsed": 41,
+      "shamCellsUsed": 50,
+      "breadthCellsUsed": 35,
+      "withRankAndWeeks": 2.08,
+      "withRankAndShamLabel": 2.24,
+      "withRankAndBreadth": 1.96,
+      "narrowedPc": 65,
+      "shamNarrowedPc": 62.4,
+      "breadthNarrowedPc": 67,
+      "realGainPc": 2.6,
+      "breadthRealGainPc": 4.6
+    },
+    {
+      "chart": "Films (Non-English)",
+      "cellsUsed": 37,
+      "shamCellsUsed": 50,
+      "breadthCellsUsed": 35,
+      "withRankAndWeeks": 2.76,
+      "withRankAndShamLabel": 2.85,
+      "withRankAndBreadth": 2.23,
+      "narrowedPc": 63.8,
+      "shamNarrowedPc": 62.6,
+      "breadthNarrowedPc": 70.7,
+      "realGainPc": 1.2,
+      "breadthRealGainPc": 8.1
+    },
+    {
+      "chart": "TV (English)",
+      "cellsUsed": 46,
+      "shamCellsUsed": 50,
+      "breadthCellsUsed": 27,
+      "withRankAndWeeks": 3.49,
+      "withRankAndShamLabel": 3.94,
+      "withRankAndBreadth": 3.54,
+      "narrowedPc": 62,
+      "shamNarrowedPc": 57.1,
+      "breadthNarrowedPc": 61.5,
+      "realGainPc": 4.9,
+      "breadthRealGainPc": 4.4
+    },
+    {
+      "chart": "TV (Non-English)",
+      "cellsUsed": 47,
+      "shamCellsUsed": 50,
+      "breadthCellsUsed": 27,
+      "withRankAndWeeks": 3.58,
+      "withRankAndShamLabel": 3.56,
+      "withRankAndBreadth": 3.28,
+      "narrowedPc": 46.9,
+      "shamNarrowedPc": 47.1,
+      "breadthNarrowedPc": 51.3,
+      "realGainPc": -0.2,
+      "breadthRealGainPc": 4.2
+    }
+  ],
+  "whySham": "Splitting rows into more cells narrows the range on its own, because a smaller sample puts the 90th and 10th percentiles closer together. Each real split is therefore run again against a meaningless label with the same number of buckets, and only the difference between the two is counted as information.",
   "cannotAnswer": "The global lists are not the country lists. A rank on a country chart is produced by that country's viewers, and Netflix never publishes those hours at all, so how well rank stands in for viewing inside one country cannot be measured from anything Netflix releases."
 }
