@@ -1015,3 +1015,22 @@ td {
 .article__head h1 {
   font-size: min(clamp(1.95rem, 5.5vw, 2.9rem), 52px);
 }
+
+/**
+ * 상품 지면 데이터표 — 좁은 화면에서 가로로 넘치지 않게 표 안에서만 스크롤. (6번 손님 걷기 발견 · 2번 80604 · 2026-08-10)
+ *
+ * 걷다 보니 상품면 7곳(.press · pension 만 .kv) 데이터표가 감싸개 없이 놓여 있었다.
+ * 폰(375px)에서 넓은 표(target 20행 · candour 등)가 뷰포트를 넘겨 손님이 열을 못 본다.
+ * 6번은 파는 지면이 곧 상품이라 이게 상품 흠이다. 표 자체를 스크롤 상자로 만들어
+ * 페이지 가로스크롤 대신 표 안에서만 밀리게 한다. 데스크톱(넓은 화면)엔 영향 없다.
+ * ⭐ 한 자리에서 고쳐 앞으로 새 상품면 표도 같이 걸린다(자 달기).
+ */
+@media (max-width: 48rem) {
+  table.press,
+  table.kv {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
