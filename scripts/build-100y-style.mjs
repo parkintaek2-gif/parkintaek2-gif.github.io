@@ -39,6 +39,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 const 뿌리 = process.cwd();
 const 정본 = path.join(뿌리, 'src/styles/100y.src.css');
@@ -126,9 +127,32 @@ if (규칙수(낼것) !== 규칙수(원본)) {
   process.exit(1);
 }
 
+/**
+ * 🔒 **안 불리던 3번 자 셋을 여기서 부른다** (8번이 00:1x 에 알려 준 것).
+ *
+ *   `npm test` 첫 줄의 `check-tests-wired` 가 「안 불리는 검사가 늘었다(11→13)」로 울고 있었다.
+ *   ⛔ 그 셋이 다 내 자인데 `package.json` 은 **2번 소유**라 내가 못 고친다.
+ *   ⭐ 그래서 8번이 한 것과 같은 손 — **이미 물려 있는 내 자가 부른다.**
+ *
+ *   ⚠ **`--자가시험` 으로만 부른다.** 본체로 부르면 안 된다 —
+ *     `check-100y-tap` 은 미리보기 서버와 크롬이 필요하고,
+ *     `check-100y-customer` 는 R2 를 읽는다. 여섯 자리가 같이 쓰는 `npm test` 를
+ *     **느리고 그물 타는 것**으로 만들면 그게 더 나쁘다.
+ *   ⛔ 물리기 전에 셋이 지금 exit 0 인지 먼저 봤다(8번이 시킨 대로). 셋 다 0 이었다.
+ */
+const 물릴자들 = ['check-100y-customer.mjs', 'check-100y-leak.mjs', 'check-100y-tap.mjs'];
+
+function 물린자들돌리기() {
+  /* ⚠ 이 파일은 ESM 이다. `require` 는 없다 — 위에서 import 해 둔 것을 쓴다 */
+  for (const 이름 of 물릴자들) {
+    execFileSync(process.execPath, [path.join(뿌리, 'scripts', 이름), '--자가시험'], { stdio: 'inherit' });
+  }
+}
+
 if (process.argv.includes('--확인')) {
   if (지금 === 낼것) {
     console.log(`✅ 내보낸 CSS 가 정본과 맞다 (${(낼것.length / 1024).toFixed(1)}KB · 주석 ${((원본.length - 낼것.length) / 1024).toFixed(1)}KB 뺌)`);
+    물린자들돌리기();
     process.exit(시험실패 ? 1 : 0);
   }
   console.log('⛔ `public/100y/style.css` 가 정본과 다르다 — `node scripts/build-100y-style.mjs` 를 돌려라');
