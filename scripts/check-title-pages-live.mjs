@@ -64,7 +64,18 @@ if (내가실행됐다) {
   const 표본 = [];
   for (let i = 0; i < 낼것.length && 표본.length < 표본수; i += 간격) 표본.push(낼것[i]);
 
-  const sm = await (await fetch(`${호스트}/sitemap.xml`, { headers: { 'User-Agent': UA } })).text();
+  /*
+   * ⛔ 라이브에 못 닿으면 **넘어간다.** 인터넷 사정으로 남의 빌드를 죽이지 않는다.
+   *   못 잰 것을 흠으로 세면 다음 사람이 이 자를 npm test 에서 빼 버린다 —
+   *   그러면 「안 불리는 검사는 그냥 문장」으로 돌아간다.
+   */
+  let sm = '';
+  try {
+    sm = await (await fetch(`${호스트}/sitemap.xml`, { headers: { 'User-Agent': UA } })).text();
+  } catch (e) {
+    console.log(`⬜ 라이브에 못 닿아 **못 쟀다** — ${e.message}`);
+    process.exit(0);
+  }
 
   const 결과 = [];
   for (const t of 표본) {
