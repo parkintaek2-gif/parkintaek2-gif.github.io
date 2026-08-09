@@ -202,7 +202,8 @@ const jsonLd = {
   <section class="src">
     <h2>Where these numbers come from</h2>
     <ul>
-      <li><b>{data.sourceKo}</b> — {data.source}.</li>
+      {/* ⛔ 영어 앞 · 원어 괄호 안. 손님이 영어권이다(2026-08-10 손님 걷기) */}
+      <li><b>{data.source}</b> ({data.sourceKo}).</li>
       <li>
         <b>Which companies are in.</b> Every listed company whose own filed industry code is
         broadcasting, film/video/audio production, or publishing. Korean game companies file as

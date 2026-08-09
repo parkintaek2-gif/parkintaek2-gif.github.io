@@ -16,7 +16,7 @@ sources:
     api: "Top 10 weekly global hours viewed (Tudum), Non-English charts, 265 consecutive weeks from 2021-07-04 to 2026-07-26"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
-    api: "콘텐츠산업조사 (Content Industry Survey) — music industry exports (KOSIS DT_113_STBL_1020468) and broadcast programme exports (DT_113_STBL_1025706), via KOSIS open API"
+    api: "Content Industry Survey (콘텐츠산업조사) — music industry exports (KOSIS DT_113_STBL_1020468) and broadcast programme exports (DT_113_STBL_1025706), via KOSIS open API"
     url: "https://kosis.kr"
   - org: "Wikidata"
     api: "Country of origin (P495 = Q884) used to identify Korean titles in the weekly lists"

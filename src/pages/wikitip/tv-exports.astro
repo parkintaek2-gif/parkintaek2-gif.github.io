@@ -120,7 +120,8 @@ const jsonLd = {
   <section class="src">
     <h2>Where these numbers come from</h2>
     <ul>
-      <li><b>{data.sourceKo}</b> — {data.source}. Unit: {data.unit}.</li>
+      {/* ⛔ 영어 앞 · 원어 괄호 안. 손님이 영어권이다(2026-08-10 손님 걷기) */}
+      <li><b>{data.source}</b> ({data.sourceKo}). Unit: {data.unit}.</li>
       <li>
         <b>The categories add to the total.</b> In {data.yearTo} the four kinds of company account for
         {' '}{천달러(최신.named)} of a published {천달러(최신.total)}, exactly. Across all
@@ -147,7 +148,8 @@ const jsonLd = {
       </li>
     </ul>
     <p class="note">
-      출처: 국가데이터처 KOSIS, 한국콘텐츠진흥원 「콘텐츠산업조사」, 기준 {data.yearTo}년.
+      Sources: KOSIS (국가데이터처) and the Content Industry Survey (한국콘텐츠진흥원 「콘텐츠산업조사」),
+      figures to {data.yearTo}.
     </p>
   </section>
 

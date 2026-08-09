@@ -32,6 +32,7 @@
  */
 import { getCollection } from 'astro:content';
 import WikiTip from '../../layouts/WikiTip.astro';
+import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import charts from '../../data/wikitip-charts.json';
 import music from '../../data/wikitip-music-export.json';
 import reachData from '../../data/wikitip-reach.json';
@@ -470,7 +471,7 @@ const jsonLd = {
     </p>
     <p class="note">
       Not affiliated with any agency, label or studio. Riot Games does not endorse or sponsor this project.
-      Updated {charts.갱신} KST.
+      {지은날글(charts.갱신)}
     </p>
   </section>
 </WikiTip>

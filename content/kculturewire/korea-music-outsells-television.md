@@ -12,7 +12,7 @@ pages:
   - "/tv-exports"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
-    api: "콘텐츠산업조사 (Content Industry Survey) — music industry exports by region, table DT_113_STBL_1020468, and broadcast programme exports by company type, table DT_113_STBL_1025706, via KOSIS open API"
+    api: "Content Industry Survey (콘텐츠산업조사) — music industry exports by region, table DT_113_STBL_1020468, and broadcast programme exports by company type, table DT_113_STBL_1025706, via KOSIS open API"
     url: "https://kosis.kr"
 crossChecks:
   - "Both series come from the same survey family, are published by the same agency in the same unit (thousands of US dollars), and are compared only over the 13 years both cover — 2012 to 2024"

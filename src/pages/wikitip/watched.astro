@@ -6,6 +6,7 @@
  * 라이선스: 넷플릭스 Tudum 글로벌 순위. 원본 표 재배포 없이 집계(합)만. canonical=www.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-global.json';
 
@@ -36,14 +37,15 @@ const jsonLd = {
   <h1>The most-watched Korean titles on Netflix, worldwide</h1>
   <p class="lead">
     Since {data.weekFrom.slice(0, 4)}, Korean shows and films that reached Netflix’s global Top 10
-    have been watched for <b>{(data.totalHours / 1e9).toFixed(1)} billion hours</b> — across
+    {/* ⛔ 줄 끝의 빈칸은 사라진다 — `{' '}` 를 안 쓰면 「across234」로 붙어 나간다(손님으로 걸어 봤다) */}
+    have been watched for <b>{(data.totalHours / 1e9).toFixed(1)} billion hours</b> — across{' '}
     {data.titleCount} titles and {data.weekCount} weeks. Here is the ranking by hours viewed.
   </p>
 
   <p class="fix">
     <b>Corrected 2026-08-07.</b> This page previously counted {data.before.titles} titles
     and {(data.before.hours / 1e9).toFixed(1)} billion hours.
-    Korean titles are matched by title text, and {data.excludedEnglishChart.titles} titles on Netflix's
+    Korean titles are matched by title text, and {data.excludedEnglishChart.titles} titles on Netflix's{' '}
     <i>English-language</i> charts — including <i>The Perfect Couple</i> and <i>Suits</i> — had been counted as Korean.
     Only the Non-English charts are counted now, and hand-checking the largest titles removed {data.excludedByHand.titles} more.
     The totals fall by {(100 * (1 - data.totalHours / data.before.hours)).toFixed(0)}%.
@@ -96,7 +98,7 @@ const jsonLd = {
     </p>
     <p class="note">
       The front page shows the current all-time top ten; this is the full ranking. Counts derived
-      from Netflix’s published figures, not a copy of them. Updated {data.generated} KST.
+      from Netflix’s published figures, not a copy of them. {지은날글(data.generated)}
     </p>
   </section>
 

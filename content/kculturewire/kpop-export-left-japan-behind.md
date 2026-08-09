@@ -11,7 +11,7 @@ pages:
   - "/exports"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
-    api: "콘텐츠산업조사 (Content Industry Survey), table DT_113_STBL_1020468 — music industry exports by country and continent, 2005–2024, via KOSIS open API"
+    api: "Content Industry Survey (콘텐츠산업조사), table DT_113_STBL_1020468 — music industry exports by country and continent, 2005–2024, via KOSIS open API"
     url: "https://kosis.kr"
 corrections:
   - date: 2026-08-06
@@ -69,7 +69,7 @@ The 2024 figure is the one to sit with: exports grew **47.4% in a single year**,
 
 ---
 
-**출처: 국가데이터처 KOSIS, 한국콘텐츠진흥원 「콘텐츠산업조사」, 기준 2024년.**
+**Sources: KOSIS (국가데이터처) and the Content Industry Survey (한국콘텐츠진흥원 「콘텐츠산업조사」), reference year 2024.**
 
 ---
 

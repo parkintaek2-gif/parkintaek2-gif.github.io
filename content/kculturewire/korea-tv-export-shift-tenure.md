@@ -16,7 +16,7 @@ pages:
   - "/industry"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
-    api: "콘텐츠산업조사 (Content Industry Survey), table DT_113_STBL_1025706 — broadcast programme exports by type of company, 2012–2024, via KOSIS open API"
+    api: "Content Industry Survey (콘텐츠산업조사), table DT_113_STBL_1025706 — broadcast programme exports by type of company, 2012–2024, via KOSIS open API"
     url: "https://kosis.kr"
   - org: "Financial Supervisory Service (Korea), DART"
     api: "Annual report employee disclosures (직원 등의 현황), filing year 2025, all 2,779 listed companies reporting both tenure and headcount"

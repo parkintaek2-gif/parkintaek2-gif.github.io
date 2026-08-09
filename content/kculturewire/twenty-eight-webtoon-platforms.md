@@ -11,7 +11,7 @@ pages:
   - "/webtoon"
 sources:
   - org: "Korea Creative Content Agency"
-    api: "웹툰산업실태조사 (Webtoon Industry Survey), reference year 2024, via KOSIS tables DT_467002_A005 and DT_467002_A004"
+    api: "Webtoon Industry Survey (웹툰산업실태조사), reference year 2024, via KOSIS tables DT_467002_A005 and DT_467002_A004"
     url: "https://kosis.kr"
 crossChecks:
   - "Every figure is as the survey publishes it. The two groups — platforms and content providers — are the survey's own split, not ours"

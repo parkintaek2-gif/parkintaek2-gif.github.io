@@ -142,7 +142,8 @@ const 인용연도 = 2026;
     <footer>
       <p>
         K Culture Wire — K-pop, drama, film and esports, reported in English with the numbers behind them.
-        Sources are named on every page.
+        {/* ⛔ 줄 끝 빈칸은 사라진다 — 없으면 「every page.All articles」로 붙어 나간다(손님으로 걸어 봤다) */}
+        Sources are named on every page.{' '}
         {/*
           ⚠ `/about` 이 404 면 구글이 발행 주체를 확인 못 해 색인에서 밀린다.
             지면을 만들었으면 **들어가는 문을 반드시 낸다** — 만들고 링크를 안 걸면 없는 것과 같다.
@@ -174,6 +175,15 @@ const 인용연도 = 2026;
           정정 지면은 모든 지면 아래에 건다. 한 곳에서만 닿을 수 있으면
           「우리가 틀렸던 것을 숨기지 않는다」가 말뿐이 된다.
         */}
+        {/*
+          🔴🔴 2026-08-10 03:0x — **손님으로 걸어 보니 여기가 비어 있었다.**
+            구글이 나를 `/watched`(자료 지면)에 내려놓았는데, 그 지면에서 **파는 자리로 가는 길이 없었다.**
+            /for-industry 링크는 750장 중 80장(거의 기사)에만 있었고,
+            자료 지면 아홉 곳(watched · titles · data · reach · world-share ·
+            catalogue-depth · exit · opening · run-length)에는 **한 곳도 없었다.**
+          ⛔ 지면마다 손으로 붙이지 않는다. **꼬리에 한 줄** — 그러면 750장 전부에 생긴다.
+        */}
+        <span aria-hidden="true"> · </span><a href="/for-industry">For rights holders</a>
         <span aria-hidden="true"> · </span><a href="/corrections">Corrections</a>
         {/* 재는 것을 붙였으면 밝히는 길도 같이 낸다. 2026-08-08. */}
         <span aria-hidden="true"> · </span><a href="/privacy">Cookies</a>
@@ -204,8 +214,16 @@ const 인용연도 = 2026;
             **우리가 운영하는 다른 사이트를 통한 유입**」
       */}
       <p>
+        {/*
+          🔴 2026-08-10 03:0x — **손님으로 걸어 보니 여기가 한국어였다.**
+            「백년지도 — 대학 다음까지 보는 진로 지도」. 영어권 손님을 받는 사이트의 꼬리다.
+            2번: 「④⑤에서 한국어가 나오면 거기서 끝납니다」 — 그 자리가 정확히 여기였다.
+          ⛔ 이름만 영어로 바꾼다. **받는 화면(100yearmap.com)은 3번 것**이라 안 건드리고 알린다.
+          ⚠ 그래서 이 문은 아직 **누르면 한국어 화면**이 나온다. 그 사실을 여기 적어 둔다.
+        */}
         <a href="https://seoulmarkets.com/">SeoulMarkets</a> — Korean markets in numbers ·{' '}
-        <a href="https://100yearmap.com/">백년지도</a> — 대학 다음까지 보는 진로 지도
+        <a href="https://100yearmap.com/" hreflang="ko">100 Year Map</a> — Korean careers, mapped past
+        graduation <span class="fine">(in Korean)</span>
       </p>
     </footer>
   </div>

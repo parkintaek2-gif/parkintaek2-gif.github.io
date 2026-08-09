@@ -10,6 +10,7 @@
  *     실제로는 noindex 가 걸린 적이 없다. 소스만 보면 반대로 읽는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-actors.json';
 
@@ -102,7 +103,7 @@ const jsonLd = {
       cannot be measured this way at all. We use no photographs; the only images on this site are
       charts we built from numbers we counted.
     </p>
-    <p class="note">Counts from the Wikimedia Pageviews API. Updated {data.generated} KST.</p>
+    <p class="note">Counts from the Wikimedia Pageviews API. {지은날글(data.generated)}</p>
   </section>
 
   <p class="back"><a href="/">&larr; Back to the front page</a></p>

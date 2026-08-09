@@ -11,7 +11,7 @@ pages:
   - "/webtoon"
 sources:
   - org: "Korea Creative Content Agency (한국콘텐츠진흥원)"
-    api: "웹툰산업실태조사 (Webtoon Industry Survey), tables DT_467002_A005 and DT_467002_A004, reference year 2024, via KOSIS open API"
+    api: "Webtoon Industry Survey (웹툰산업실태조사), tables DT_467002_A005 and DT_467002_A004, reference year 2024, via KOSIS open API"
     url: "https://kosis.kr"
 crossChecks:
   - "Both tables come from the same survey and the same 396 responding businesses, so the revenue split and the webtoon-share split describe one population, not two"
@@ -79,7 +79,7 @@ Counting the businesses rather than the market is the difference between knowing
 
 ---
 
-**출처: 국가데이터처 KOSIS, 한국콘텐츠진흥원 「웹툰산업실태조사」, 기준 2024년.**
+**Sources: KOSIS (국가데이터처) and the Webtoon Industry Survey (한국콘텐츠진흥원 「웹툰산업실태조사」), reference year 2024.**
 
 ---
 

@@ -131,7 +131,14 @@ fs.writeFileSync(산출, JSON.stringify({
   갱신: new Date().toLocaleString('ko-KR'),
   출처: 'Wikidata P161 (cast member) × P27=Q884 (Korean citizenship), on Korean titles that appeared in a Netflix Top 10. '
     + 'English Wikipedia article required for both the title and the person.',
-  주의: '⚠ 국제 공동제작의 외국 배우는 P27 로 걸러진다. 국적이 안 적힌 한국 배우도 함께 빠진다.',
+  /*
+   * 🔴 2026-08-10 03:1x — **이 글이 손님 화면(/actor-reach)에 그대로 나가고 있었다.**
+   *   5번 손님은 영어권이다. 지면에 나가는 글은 영어라야 한다 — 주석은 한국어라야 맞고, **나가는 글은 아니다.**
+   *   ⛔ check-english-only.mjs 가 이제 이걸 잡는다.
+   */
+  주의: 'Foreign actors in international co-productions are removed by the country-of-citizenship '
+    + 'filter (P27), and so are Korean actors whose citizenship Wikidata does not record. The hole runs '
+    + 'in both directions and we cannot size it.',
   작품수: 작품.length,
   출연진이붙은작품: 붙은작품.size,
   배우수: 사람.size,

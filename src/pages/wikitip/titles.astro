@@ -10,6 +10,7 @@
  *     kculturewire.com 은 살아 있다. 소스만 보면 반대로 읽는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
 import titlePages from '../../data/wikitip-title-pages.json';
@@ -187,7 +188,7 @@ const jsonLd = {
         Counted from {korea.panelTitles} panel titles across every country Netflix publishes. Weeks are
         counted once per country per week: the source repeats {korea.duplicateRows.toLocaleString()} of
         its {korea.scannedRowsForPanel.toLocaleString()} rows for these titles, and counting rows would
-        overstate them. Updated {korea.generated} KST · {korea.sourceKo} ({korea.source}).
+        overstate them. {지은날글(korea.generated)} {korea.source}.
       </span>
     </p>
   </section>
@@ -358,7 +359,7 @@ const jsonLd = {
     </p>
     <p class="note">
       The front page shows this week’s new entries. Counts derived from Netflix’s published lists;
-      we do not republish the lists themselves. Updated {data.generated} KST.
+      we do not republish the lists themselves. {지은날글(data.generated)}
     </p>
   </section>
 
