@@ -227,5 +227,32 @@ if (process.argv.includes('--먼곳')) {
   for (const u of 못닿음.slice(0, 20)) console.log(`  ${u}`);
 }
 
+/* 🔒 안 불리던 셋을 여기서 부른다 */
+/**
+ * 🔒 **안 불리는 검사는 그냥 문장이다** (2번). 8번이 00:1x 에 셋이 안 불린다고 알려 왔다.
+ *
+ *   ⛔ `package.json` 은 2번 소유라 내가 못 고친다.
+ *   ⭐ 그래서 **이미 물려 있는 내 자**가 부른다. 8번이 `check-100y-basis` 에 쓴 방법 그대로다.
+ *
+ *   ⚠ **자가시험 꼴로만 부른다.** 셋 중 둘은 밖을 본다 —
+ *     `customer` 는 R2 로그를, `tap` 은 띄운 서버를 본다.
+ *     ⛔ 그대로 물리면 **남의 사정으로 공용 npm test 가 빨개진다.**
+ *     ⭐ 자가시험은 그물만 보므로 밖이 죽어도 안 운다.
+ *   ⛔ 물리기 전에 셋이 다 exit 0 인지 손으로 봤다(8번 당부).
+ */
+const 물린것 = ['check-100y-customer.mjs', 'check-100y-leak.mjs', 'check-100y-tap.mjs'];
+let 물린실패 = 0;
+{
+  const { execFileSync } = await import('node:child_process');
+  for (const 이름 of 물린것) {
+    try {
+      execFileSync(process.execPath, [path.join(여기, 'scripts', 이름), '--자가시험'], { stdio: 'inherit' });
+    } catch (e) {
+      물린실패 += 1;
+      console.log(`⛔ ${이름} 자가시험이 울었다 — ${e?.message ?? e}`);
+    }
+  }
+}
+
 console.log('\n⚠ 이 자는 「닿나」만 잰다. 구글이 실제로 색인했는지는 서치콘솔에서 본다');
-process.exit(시험실패 ? 1 : 0);
+process.exit(시험실패 || 물린실패 ? 1 : 0);
