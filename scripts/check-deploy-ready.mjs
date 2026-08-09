@@ -55,6 +55,19 @@ export function 나가는파일인가(길) {
   if (p.startsWith('docs/')) return false;
   if (p.startsWith('archive/')) return false;
   if (/^[^/]+\.md$/.test(p)) return false;          // 뿌리의 메모 파일
+  /* 🔴 scripts/ 는 **빌드에 안 들어간다.** 클라우드타입은 밀린 저장소로 빌드하므로
+   *   커밋 안 된 자 하나가 라이브에 닿을 길이 없다.
+   *
+   * ⚠ 다만 **배포하는 자 자신**은 뺀다 — 고친 배포기로 밀면 관문 자체가 딴것이 된다.
+   *   그건 커밋하고 밀어야 한다.
+   *
+   * 왜 가르나 — 2026-08-09 밤에 관문이 **세 번 내리** 남의 손이 올라간 파일 하나로
+   *   막혔다(메모 · og.png · check-100y-nps-coverage.mjs). 여덟 자리가 한 저장소를 쓴다.
+   *   ⛔ 남의 일하는 파일을 대신 커밋하지 않는다. 그러면 배포가 영영 못 나간다.
+   *   ⭐ 막는 자리를 **라이브에 닿는 것**으로 좁힌다. 느슨하게 하는 것이 아니다 */
+  if (/^scripts\/(deploy|check-deploy)/.test(p)) return true;
+  if (p.startsWith('scripts/')) return false;
+  if (p.startsWith('tools/')) return false;
   return true;
 }
 
@@ -151,6 +164,13 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   자가('⛔ 뿌리 메모(.md)도 안 나간다', 나가는파일인가('README.md') === false);
   자가('⛔ archive/ 도 안 나간다', 나가는파일인가('archive/log/x.log') === false);
   자가('src 밑 .md 는 나간다', 나가는파일인가('src/content/글.md') === true);
+  // 🔴 scripts/ 는 빌드에 안 들어간다 — 단, 배포하는 자 자신은 뺀다
+  자가('⛔ 남의 자(scripts/)는 안 막는다', 나가는파일인가('scripts/check-100y-nps-coverage.mjs') === false);
+  자가('⛔ tools/ 도 안 막는다', 나가는파일인가('tools/pdf-look.js') === false);
+  자가('🔴 배포하는 자는 막는다', 나가는파일인가('scripts/deploy.mjs') === true);
+  자가('🔴 관문 자신도 막는다', 나가는파일인가('scripts/check-deploy-ready.mjs') === true);
+  자가('🔴 server.mjs 는 나간다', 나가는파일인가('server.mjs') === true);
+  자가('🔴 package.json 은 나간다', 나가는파일인가('package.json') === true);
   자가('빈 길은 안 나가는 것', 나가는파일인가('') === false);
   자가('따옴표 붙은 길도 읽는다', 나가는파일인가('"docs/한글.md"') === false);
 
