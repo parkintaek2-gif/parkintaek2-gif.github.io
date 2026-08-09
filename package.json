@@ -63,6 +63,7 @@
     "check:100y:tap": "node scripts/check-100y-tap.mjs",
     "build:100y:style": "node scripts/build-100y-style.mjs",
     "check:100y:leak": "node scripts/check-100y-leak.mjs",
+    "quiz:100y": "node scripts/deploy-quiz-100y.mjs",
     "build:100y:research": "node scripts/build-100yearmap-research.mjs",
     "build:100y:closed": "node scripts/build-100yearmap-closed.mjs",
     "check:index": "node scripts/check-search-index.mjs",
