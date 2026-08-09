@@ -16,3 +16,6 @@
 6번	src/layouts/WikiTip.astro	Please cite as	2026-08-09	계정 없이 손님이 오는 유일한 길. 사장님 경고 뒤에 넣음
 6번	public/ads.txt	pub-5113515144381167	2026-08-09	광고 게시자 번호. 지워지면 광고 수입이 0이 됨
 3번	src/layouts/HundredYear.astro	naver-site-verification	2026-08-09	네이버 소유확인. 지워지면 네이버 등록이 풀림
+6번	src/consts.ts	ca-pub-5113515144381167	2026-08-09	애드센스 client. 빈 문자열로 되돌아가면 광고 수입 전부 0(오늘 붙임)
+6번	public/robots.txt	Allow: /	2026-08-09	색인 허용. 막히면 검색 유입·광고 수입 0
+6번	src/consts.ts	Not investment advice	2026-08-09	강령. 지워지면 투자자문 아님 표시가 사라져 신뢰·법무 위험
