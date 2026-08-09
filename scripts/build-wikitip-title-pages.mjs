@@ -81,6 +81,8 @@ export async function 만들기() {
 
   /** 제목 → 자료 */
   const T = new Map();
+  /** 나라 → 그 나라 차트가 있는 주. ⛔ 「주 사이가 7일」로 구간을 가르지 않는다 */
+  const 나라주 = new Map();
   let 첫주 = null; let 끝주 = null;
   const 주전체 = new Set();
 
@@ -93,9 +95,24 @@ export async function 만들기() {
     주전체.add(r.주);
     if (!첫주 || r.주 < 첫주) 첫주 = r.주;
     if (!끝주 || r.주 > 끝주) 끝주 = r.주;
+    if (!나라주.has(r.iso2)) 나라주.set(r.iso2, new Set());
+    나라주.get(r.iso2).add(r.주);
     if (!ko.keepTitle(r.제목)) continue;
-    if (!T.has(r.제목)) T.set(r.제목, { 구분: r.구분, 시장: new Map(), 주: new Set(), 해: new Map() });
+    if (!T.has(r.제목)) {
+      T.set(r.제목, { 구분: r.구분, 시장: new Map(), 주: new Set(), 해: new Map(), 주별나라: new Map(), 구간감: new Map() });
+    }
     const t = T.get(r.제목);
+    /* ⭐ 한 주에 몇 나라였나 — 「35개 나라」는 *동시에* 와 *차례로* 가 전혀 다른 이야기다 */
+    if (!t.주별나라.has(r.주)) t.주별나라.set(r.주, new Set());
+    t.주별나라.get(r.주).add(r.iso2);
+    /*
+     * ⭐ 나가는 자리를 재려면 **구간**이 필요하다(/exit 와 같은 셈).
+     * ⛔ 열쇠에 `구분`과 `시즌`이 들어가야 한다 — 오늘 /exit 에서 이것이 빠져
+     *    한 주 top10 에 나란히 앉은 시즌 1·2 가 뭉개지며 **25,987줄이 사라졌다.**
+     */
+    const 구간열쇠 = `${r.iso2}|${r.구분}|${r.시즌 ?? ''}`;
+    if (!t.구간감.has(구간열쇠)) t.구간감.set(구간열쇠, { iso2: r.iso2, 순위: new Map() });
+    t.구간감.get(구간열쇠).순위.set(r.주, r.순위);
     t.주.add(r.주);
     const 해 = r.주.slice(0, 4);
     t.해.set(해, (t.해.get(해) || 0) + 1);
@@ -168,6 +185,42 @@ export async function 만들기() {
     const rows = 시장.length + 붙은회사.length + 붙은배우.length;
     const s = 슬러그(제목);
     const 겹침 = 겹친제목.has(제목);
+
+    /*
+     * ⭐ 2026-08-10 00:2x — 작품 지면에 **두 칸을 더한다.** 짐작이 아니라 잰 것이다.
+     *   ① 한 주에 가장 넓었을 때 몇 나라였나 — 여정표에서 값어치가 증명된 칸인데
+     *      작품 지면에는 `markets`(차례로 다닌 나라 수)만 있었다. **둘은 전혀 다른 이야기다.**
+     *   ② 차트에서 **어느 자리에서 나갔나** — /exit 에서 오늘 잰 것. 10위에서 미끄러진 것과
+     *      3위에서 밀려난 것은 다른 일이다.
+     * ⛔ 같은 넓이면 **이른 주**를 잡는다. 늦은 주를 잡으면 작품마다 답이 달라진다.
+     */
+    let 넓은주 = null; let 넓은수 = 0;
+    for (const w of [...t.주별나라.keys()].sort()) {
+      const n = t.주별나라.get(w).size;
+      if (n > 넓은수) { 넓은수 = n; 넓은주 = w; }
+    }
+    /* 구간을 갈라 **정말 나간 것**만 센다. ⛔ 자료 끝에 아직 있던 것은 나간 게 아니다 */
+    const 나간자리 = [];
+    let 아직 = 0;
+    for (const g of t.구간감.values()) {
+      const 정 = [...나라주.get(g.iso2)].sort();
+      const 차례 = new Map(정.map((w, i) => [w, i]));
+      const 있는주 = [...g.순위.keys()].sort();
+      let 지금 = null;
+      const 구간 = [];
+      for (const w of 있는주) {
+        const i = 차례.get(w);
+        if (i == null) continue;
+        if (지금 && i === 지금.끝차례 + 1) { 지금.끝 = w; 지금.끝차례 = i; }
+        else { 지금 = { 끝: w, 끝차례: i }; 구간.push(지금); }
+      }
+      for (const c of 구간) {
+        if (c.끝차례 >= 정.length - 1) { 아직 += 1; continue; }  /* 자료가 끝난 것이다 */
+        const 순 = g.순위.get(c.끝);
+        if (순 >= 1 && 순 <= 10) 나간자리.push(순);
+      }
+    }
+    const 아래셋 = 나간자리.filter((n) => n >= 8).length;
     titles.push({
       title: 제목,
       slug: s,
@@ -186,6 +239,15 @@ export async function 만들기() {
       noPageReason: 겹침
         ? 'another charting title resolves to the same address, so neither is published rather than showing one title\'s numbers under the other\'s name'
         : (rows >= 지면낼최소줄 ? null : `only ${rows} data rows — below the ${지면낼최소줄} this site requires before it publishes a page`),
+      /* ⭐ 동시에 몇 나라였나 — `markets` 와 나란히 놔야 「차례로」와 「한꺼번에」가 갈린다 */
+      atOnce: 넓은수,
+      atOnceWeek: 넓은주,
+      /* ⭐ 나가는 자리. ⛔ 아직 차트에 있는 구간은 나간 것이 아니다 — 갈라서 센다 */
+      departures: 나간자리.length,
+      stillOnChart: 아직,
+      exitBottomThree: 아래셋,
+      exitMedian: 나간자리.length
+        ? [...나간자리].sort((a, b) => a - b)[Math.floor(나간자리.length / 2)] : null,
       byMarket: 시장,
       firms: 붙은회사,
       cast: 붙은배우,
@@ -206,6 +268,15 @@ export async function 만들기() {
     if (x.byYear.reduce((s, y) => s + y.places, 0) !== x.places) throw new Error(`${x.title}: 해별 자리 합이 전체와 다르다`);
     if (!x.hasPage && !x.noPageReason) throw new Error(`${x.title}: 지면을 안 내는데 까닭이 없다`);
     if (x.hasPage && x.noPageReason) throw new Error(`${x.title}: 지면을 내는데 안 내는 까닭이 적혀 있다`);
+    /* ⛔ 새로 더한 두 칸도 스스로 본다 — 안 보면 조용히 틀린다 */
+    if (x.atOnce > x.markets) throw new Error(`${x.title}: 한 주 넓이(${x.atOnce})가 전체 시장(${x.markets})보다 크다`);
+    if (x.atOnce < 1) throw new Error(`${x.title}: 한 주 넓이가 ${x.atOnce} 다`);
+    if (x.exitBottomThree > x.departures) throw new Error(`${x.title}: 아래 셋이 나간 것보다 많다`);
+    if (x.exitMedian != null && (x.exitMedian < 1 || x.exitMedian > 10)) {
+      throw new Error(`${x.title}: 나간 자리 가운데값이 ${x.exitMedian} 다`);
+    }
+    /* 🔴 나간 구간이 하나도 없는데 아직 있는 것도 없으면 구간을 못 가른 것이다 */
+    if (!x.departures && !x.stillOnChart) throw new Error(`${x.title}: 구간을 하나도 못 갈랐다`);
   }
   /* ⛔ 주소가 겹친 채로 나가면 남의 수를 보여 준다. 하나라도 있으면 멈춘다 */
   const 낼주소 = new Set();

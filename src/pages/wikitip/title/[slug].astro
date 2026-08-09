@@ -89,6 +89,42 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    ⭐ 2026-08-10 00:3x — **두 칸을 더했다.** 짐작이 아니라 오늘 잰 것이다.
+      ① 「몇 나라」와 「한 주에 몇 나라」는 전혀 다른 이야기인데 이 지면엔 앞엣것만 있었다.
+         여정표(파는 물건)에서는 이미 갈라 적고 있었고, 공개 지면만 안 갈라져 있었다.
+      ② 나가는 자리 — /exit 에서 오늘 처음 쟀다. 10위에서 미끄러진 것과 3위에서 밀린 것은 다른 일이다.
+    ⛔ 「좋다/나쁘다」로 안 쓴다. 다닌 자취만 적는다.
+  */}
+  <section>
+    <h2>All at once, or one country at a time</h2>
+    <p class="q">
+      It reached <b>{t.markets}</b> markets in all. The most that held it in the <em>same week</em> was
+      {' '}<b>{t.atOnce}</b>{t.atOnceWeek && <> — the week of {t.atOnceWeek}</>}.
+    </p>
+    <p class="note">
+      {t.markets === t.atOnce
+        ? <>Every market it ever reached held it at the same time, which is what a simultaneous opening
+          looks like in this data.</>
+        : <><b>Those two figures are different achievements.</b> Reaching {t.markets} markets over
+          {' '}{t.weeks} weeks and holding {t.atOnce} of them in one week are not the same event, and a
+          single "markets" column cannot tell them apart. Netflix publishes neither figure; both are
+          counted here from the weekly country lists.</>}
+    </p>
+    {t.departures > 0 && (
+      <p class="note">
+        <b>How it left.</b> Counting each country separately, it ended{' '}
+        {t.departures === 1 ? 'one run' : `${t.departures} runs`} on a chart
+        {t.stillOnChart > 0 && <> ({t.stillOnChart} more {t.stillOnChart === 1 ? 'is' : 'are'} still
+          on a chart in the last week we hold, so {t.stillOnChart === 1 ? 'it has' : 'they have'} not
+          left)</>}. The middle one ended from <b>position {t.exitMedian}</b>, and{' '}
+        <b>{t.exitBottomThree} of {t.departures}</b> ended from positions 8 to 10. Across all Korean
+        titles that figure is 56.8%, and it would be 30% if leaving had nothing to do with position —
+        <a href="/exit"> how a title leaves</a> has the whole table.
+      </p>
+    )}
+  </section>
+
   <section>
     <h2>Where it charted — all {t.markets} markets</h2>
     <div class="scroll-x">
