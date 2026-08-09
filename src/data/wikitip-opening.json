@@ -1,0 +1,378 @@
+{
+  "generated": "2026-08-09T17:08:19.062Z",
+  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
+  "question": "A title appears on a country chart at some position. That is the one fact anyone has on the first Monday. Does it say anything about how long the title will be there?",
+  "unit": "A run is one title in one country across consecutive chart weeks. The entry position is where it sat in the first week of that run; the length is how many weeks the run lasted.",
+  "whySlopeNotRegression": "Positions run from 1 to 10 and nothing else, so the difference between the two ends divided by the nine steps between them is the whole relationship. A regression would hide the assumptions inside a coefficient; this way the table is the argument.",
+  "whyBothFormats": "Korean films and Korean series behave differently on these charts, so they are never mixed. Every non-Korean title is measured the same way, because \"entering higher lasts longer\" could be true of every chart everywhere.",
+  "whyTruncatedRemoved": "A run still on a chart in the last week we hold has no finished length and is removed rather than counted as short.",
+  "rowsRead": 493600,
+  "rowsOverwritten": 25,
+  "byGroup": [
+    {
+      "group": "한국 시리즈",
+      "runs": 7926,
+      "truncated": 144,
+      "byEntry": [
+        {
+          "entry": 1,
+          "runs": 488,
+          "medianWeeks": 6,
+          "meanWeeks": 6.78,
+          "fourPlusPc": 90.4,
+          "oneWeekPc": 0.4
+        },
+        {
+          "entry": 2,
+          "runs": 460,
+          "medianWeeks": 5,
+          "meanWeeks": 6.11,
+          "fourPlusPc": 76.5,
+          "oneWeekPc": 3.7
+        },
+        {
+          "entry": 3,
+          "runs": 604,
+          "medianWeeks": 4,
+          "meanWeeks": 5.22,
+          "fourPlusPc": 63.6,
+          "oneWeekPc": 6.8
+        },
+        {
+          "entry": 4,
+          "runs": 715,
+          "medianWeeks": 4,
+          "meanWeeks": 4.38,
+          "fourPlusPc": 50.8,
+          "oneWeekPc": 12.3
+        },
+        {
+          "entry": 5,
+          "runs": 788,
+          "medianWeeks": 3,
+          "meanWeeks": 4.2,
+          "fourPlusPc": 44.7,
+          "oneWeekPc": 19.7
+        },
+        {
+          "entry": 6,
+          "runs": 837,
+          "medianWeeks": 2,
+          "meanWeeks": 3.45,
+          "fourPlusPc": 33.9,
+          "oneWeekPc": 28.3
+        },
+        {
+          "entry": 7,
+          "runs": 873,
+          "medianWeeks": 2,
+          "meanWeeks": 3.11,
+          "fourPlusPc": 26.5,
+          "oneWeekPc": 36.9
+        },
+        {
+          "entry": 8,
+          "runs": 1014,
+          "medianWeeks": 2,
+          "meanWeeks": 2.82,
+          "fourPlusPc": 24,
+          "oneWeekPc": 42.4
+        },
+        {
+          "entry": 9,
+          "runs": 1008,
+          "medianWeeks": 1,
+          "meanWeeks": 2.6,
+          "fourPlusPc": 20.9,
+          "oneWeekPc": 50.8
+        },
+        {
+          "entry": 10,
+          "runs": 1139,
+          "medianWeeks": 1,
+          "meanWeeks": 2.34,
+          "fourPlusPc": 16.6,
+          "oneWeekPc": 56.2
+        }
+      ],
+      "weeksPerStep": 0.56,
+      "topEntryMedian": 6,
+      "bottomEntryMedian": 1
+    },
+    {
+      "group": "그 밖 시리즈",
+      "runs": 78981,
+      "truncated": 786,
+      "byEntry": [
+        {
+          "entry": 1,
+          "runs": 7017,
+          "medianWeeks": 5,
+          "meanWeeks": 5.45,
+          "fourPlusPc": 74.3,
+          "oneWeekPc": 1.8
+        },
+        {
+          "entry": 2,
+          "runs": 6982,
+          "medianWeeks": 4,
+          "meanWeeks": 3.99,
+          "fourPlusPc": 51.4,
+          "oneWeekPc": 3.8
+        },
+        {
+          "entry": 3,
+          "runs": 6867,
+          "medianWeeks": 3,
+          "meanWeeks": 3.27,
+          "fourPlusPc": 34.2,
+          "oneWeekPc": 8.6
+        },
+        {
+          "entry": 4,
+          "runs": 7005,
+          "medianWeeks": 2,
+          "meanWeeks": 2.91,
+          "fourPlusPc": 24.4,
+          "oneWeekPc": 16.1
+        },
+        {
+          "entry": 5,
+          "runs": 7414,
+          "medianWeeks": 2,
+          "meanWeeks": 2.67,
+          "fourPlusPc": 19.3,
+          "oneWeekPc": 24.7
+        },
+        {
+          "entry": 6,
+          "runs": 7514,
+          "medianWeeks": 2,
+          "meanWeeks": 2.31,
+          "fourPlusPc": 14,
+          "oneWeekPc": 35.4
+        },
+        {
+          "entry": 7,
+          "runs": 8049,
+          "medianWeeks": 2,
+          "meanWeeks": 2.13,
+          "fourPlusPc": 11,
+          "oneWeekPc": 43.6
+        },
+        {
+          "entry": 8,
+          "runs": 8585,
+          "medianWeeks": 1,
+          "meanWeeks": 1.94,
+          "fourPlusPc": 9.3,
+          "oneWeekPc": 52.3
+        },
+        {
+          "entry": 9,
+          "runs": 9299,
+          "medianWeeks": 1,
+          "meanWeeks": 1.83,
+          "fourPlusPc": 7.7,
+          "oneWeekPc": 58.5
+        },
+        {
+          "entry": 10,
+          "runs": 10249,
+          "medianWeeks": 1,
+          "meanWeeks": 1.68,
+          "fourPlusPc": 6.6,
+          "oneWeekPc": 66.8
+        }
+      ],
+      "weeksPerStep": 0.44,
+      "topEntryMedian": 5,
+      "bottomEntryMedian": 1
+    },
+    {
+      "group": "한국 영화",
+      "runs": 3853,
+      "truncated": 103,
+      "byEntry": [
+        {
+          "entry": 1,
+          "runs": 290,
+          "medianWeeks": 4,
+          "meanWeeks": 4.15,
+          "fourPlusPc": 58.3,
+          "oneWeekPc": 2.1
+        },
+        {
+          "entry": 2,
+          "runs": 268,
+          "medianWeeks": 3,
+          "meanWeeks": 2.85,
+          "fourPlusPc": 22.8,
+          "oneWeekPc": 9
+        },
+        {
+          "entry": 3,
+          "runs": 303,
+          "medianWeeks": 2,
+          "meanWeeks": 2.27,
+          "fourPlusPc": 11.2,
+          "oneWeekPc": 20.5
+        },
+        {
+          "entry": 4,
+          "runs": 362,
+          "medianWeeks": 2,
+          "meanWeeks": 1.93,
+          "fourPlusPc": 6.1,
+          "oneWeekPc": 34.8
+        },
+        {
+          "entry": 5,
+          "runs": 423,
+          "medianWeeks": 2,
+          "meanWeeks": 1.93,
+          "fourPlusPc": 4.3,
+          "oneWeekPc": 34.3
+        },
+        {
+          "entry": 6,
+          "runs": 390,
+          "medianWeeks": 2,
+          "meanWeeks": 1.64,
+          "fourPlusPc": 2.3,
+          "oneWeekPc": 49
+        },
+        {
+          "entry": 7,
+          "runs": 439,
+          "medianWeeks": 1,
+          "meanWeeks": 1.58,
+          "fourPlusPc": 2.7,
+          "oneWeekPc": 55.4
+        },
+        {
+          "entry": 8,
+          "runs": 452,
+          "medianWeeks": 1,
+          "meanWeeks": 1.56,
+          "fourPlusPc": 1.3,
+          "oneWeekPc": 55.3
+        },
+        {
+          "entry": 9,
+          "runs": 457,
+          "medianWeeks": 1,
+          "meanWeeks": 1.49,
+          "fourPlusPc": 0.9,
+          "oneWeekPc": 58.2
+        },
+        {
+          "entry": 10,
+          "runs": 469,
+          "medianWeeks": 1,
+          "meanWeeks": 1.41,
+          "fourPlusPc": 0.6,
+          "oneWeekPc": 65.2
+        }
+      ],
+      "weeksPerStep": 0.33,
+      "topEntryMedian": 4,
+      "bottomEntryMedian": 1
+    },
+    {
+      "group": "그 밖 영화",
+      "runs": 117293,
+      "truncated": 827,
+      "byEntry": [
+        {
+          "entry": 1,
+          "runs": 11480,
+          "medianWeeks": 3,
+          "meanWeeks": 3.73,
+          "fourPlusPc": 46.9,
+          "oneWeekPc": 2.4
+        },
+        {
+          "entry": 2,
+          "runs": 11216,
+          "medianWeeks": 2,
+          "meanWeeks": 2.77,
+          "fourPlusPc": 20,
+          "oneWeekPc": 10.3
+        },
+        {
+          "entry": 3,
+          "runs": 11289,
+          "medianWeeks": 2,
+          "meanWeeks": 2.31,
+          "fourPlusPc": 10.1,
+          "oneWeekPc": 20.7
+        },
+        {
+          "entry": 4,
+          "runs": 11526,
+          "medianWeeks": 2,
+          "meanWeeks": 2.03,
+          "fourPlusPc": 6.5,
+          "oneWeekPc": 33
+        },
+        {
+          "entry": 5,
+          "runs": 11561,
+          "medianWeeks": 2,
+          "meanWeeks": 1.85,
+          "fourPlusPc": 4.6,
+          "oneWeekPc": 41.7
+        },
+        {
+          "entry": 6,
+          "runs": 11681,
+          "medianWeeks": 2,
+          "meanWeeks": 1.72,
+          "fourPlusPc": 3.6,
+          "oneWeekPc": 49.8
+        },
+        {
+          "entry": 7,
+          "runs": 11605,
+          "medianWeeks": 1,
+          "meanWeeks": 1.59,
+          "fourPlusPc": 2.8,
+          "oneWeekPc": 57.2
+        },
+        {
+          "entry": 8,
+          "runs": 11934,
+          "medianWeeks": 1,
+          "meanWeeks": 1.52,
+          "fourPlusPc": 2.6,
+          "oneWeekPc": 62.2
+        },
+        {
+          "entry": 9,
+          "runs": 12236,
+          "medianWeeks": 1,
+          "meanWeeks": 1.45,
+          "fourPlusPc": 2.4,
+          "oneWeekPc": 67.7
+        },
+        {
+          "entry": 10,
+          "runs": 12765,
+          "medianWeeks": 1,
+          "meanWeeks": 1.39,
+          "fourPlusPc": 2.1,
+          "oneWeekPc": 71.8
+        }
+      ],
+      "weeksPerStep": 0.22,
+      "topEntryMedian": 3,
+      "bottomEntryMedian": 1
+    }
+  ],
+  "koreanSeriesSlope": 0.56,
+  "otherSeriesSlope": 0.44,
+  "koreanFilmSlope": 0.33,
+  "otherFilmSlope": 0.22,
+  "cannotAnswer": "This is what happened on average to runs that opened at each position; it is not a forecast for any one title, and the spread inside every position is wide. It also says nothing about viewing — a top 10 is a rank list, and Netflix publishes no country-level viewing figures."
+}

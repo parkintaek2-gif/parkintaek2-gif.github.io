@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "what-the-opening-position-buys": {
+   "figure": "6",
+   "label": "weeks if it opens at No.1 — one week at No.10",
+   "왜": "자동은 「7,926 — Korean series runs it moves expected」로 표본 크기를 집고 문장 한가운데서 끊었다. 기사의 요점은 1위와 10위의 거리다"
+  },
   "korean-films-leave-like-everyone-else": {
    "figure": "3.72",
    "label": "weeks a Korean series holds a chart — films 1.96",
