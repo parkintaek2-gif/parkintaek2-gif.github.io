@@ -58,9 +58,12 @@ const 상품들 = {
     blurb: 'women officers, owner-led firms, CEO tenure and boardroom age, by sector' },
   attention: { href: '/data/analyst-attention', name: 'analyst attention by sector',
     blurb: 'where equity research piles up and where it thins, from our broker-report archive' },
+  candour: { href: '/data/broker-candour', name: 'broker candour, the vanishing Sell',
+    blurb: 'each brokerage’s Buy/Hold/Sell mix — the Sell rating has all but disappeared' },
 };
-const 관련상품 = /attention|coverage|unwritten|piles-up|ignored/.test(entry.id) ? 상품들.attention
-  : /sell-rating|hold|research|broker|price-target|aim-high/.test(entry.id) ? 상품들.target
+const 관련상품 = /candour|vanish|sell-rating|stopped-saying|buy-rating|rating/.test(entry.id) ? 상품들.candour
+  : /attention|coverage|unwritten|piles-up|ignored/.test(entry.id) ? 상품들.attention
+  : /research|broker|price-target|aim-high|hit-less/.test(entry.id) ? 상품들.target
   : /board|officer|governance|director|owner-led/.test(entry.id) ? 상품들.board
   : /pension|wage|churn|separation|workers-concentrate|bigger-firms|small-firms|oldest-workplace|pension-map/.test(entry.id) ? 상품들.wage
   : /tenure|gender|headcount|workforce|market-cap-per-worker|pay-holding|how-long-industries/.test(entry.id) ? 상품들.sector

@@ -1,0 +1,263 @@
+---
+/*
+ * Broker candour — B2B 상품 지면. (seoulmarkets.com/data/broker-candour)
+ *
+ * 왜 (사장님 데이터 상품 사업): 대형 벤더는 「리포트」를 판다. 우리가 파는 것은 「의견 인플레이션의
+ *   구조」 — 매도의견이 사라졌고, 그게 증권사마다 어떻게 다른가. 퀀트·리스크·미디어·규제가 산다.
+ *   ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다. ⛔ noAds(자료 지면).
+ *
+ * ⚠ 투자자문 아님: 등급 분포라는 **사실**이다. 「어느 증권사를 믿어라/피하라」가 아니다.
+ *   목표주가가 맞았나는 P7(target-price accuracy)이 따로 잰다 — 여긴 등급만. 그 경계를 화면에 못박는다.
+ *
+ * 자료: src/data/broker-candour.json (scripts/build-broker-candour.mjs 산출).
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/broker-candour.json';
+
+const m = data.market;
+const rows = data.by_house;
+const years = data.sell_by_year;
+const TITLE = 'The Sell rating that vanished';
+const SAMPLE = `${m.reports.toLocaleString()} broker reports · ${m.houses_shown} houses · ${data.year}`;
+const DESC =
+  'Korean broker research by rating, house by house: Buy on four in five reports, Sell on almost none. '
+  + 'Of the houses we track, most issued no Sell rating at all this year. Ratings as filed — not advice.';
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean broker rating distribution by house',
+  description: DESC, url: `${SITE_URL}/data/broker-candour`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['Buy share', 'Hold share', 'Sell share', 'by brokerage'],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>The Sell rating that vanished</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Korean brokerages rate the stocks they cover, and the rating is almost always the same one.
+        Across {m.reports.toLocaleString()} reports in {data.year} the market ran <b>Buy on
+        {' '}{m.buy_pct}%</b> and <b>Sell on {m.sell_pct}%</b>. House by house it barely moves: of the
+        {' '}{m.houses_shown} brokerages that rated at least 200 reports, <b>{m.houses_with_zero_sell}
+        issued not a single Sell all year.</b>
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>Read this first.</b> This is the distribution of ratings <i>as filed</i> — a market-structure
+        fact, not investment advice. It is not a verdict on any brokerage, and it is neither a buy nor a
+        sell signal. Whether a house's price targets actually came true is a <i>different</i> dataset —
+        our <a href="/data/target-price-accuracy">target-price accuracy</a> panel. This page is about
+        the rating, not whether it was right.
+      </aside>
+
+      <ol class="five">
+        <li><b>What it is</b> — for each brokerage, the share of its reports rated Buy, Hold and Sell,
+          plus the market total and the Sell rate by year.</li>
+        <li><b>Why trust it</b> — every rating is read from a filed, dated broker note we archived, and
+          grouped by the words the house itself used.</li>
+        <li><b>How big</b> — {m.reports.toLocaleString()} rated reports across {m.houses_shown} houses in
+          {data.year}, and a Sell-rate series back more than a decade.</li>
+        <li><b>The honest caveat</b> — houses that issue no rating at all (IR bulletins) are excluded;
+          shown houses filed at least 200 reports and rate the majority of them.</li>
+        <li><b>The form</b> — one CSV: house · reports · Buy% · Hold% · Sell% · rated share. Plus the
+          market total and the by-year Sell series.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>① Rating mix, by house</h2>
+        <p>Ranked by Sell rate. It is a short axis: the busiest houses cluster at Buy nine-in-ten, and
+          the Sell column is a row of zeros.</p>
+        <div class="scroll-x">
+          <table class="press">
+            <thead>
+              <tr><th>Brokerage</th><th class="r">Reports</th><th class="r">Buy</th>
+                <th class="r">Hold</th><th class="r">Sell</th></tr>
+            </thead>
+            <tbody>
+              {rows.map((r) => (
+                <tr>
+                  <td class="axis">{r.house}</td>
+                  <td class="r">{r.reports}</td>
+                  <td class="r">{r.buy_pct}%</td>
+                  <td class="r">{r.hold_pct}%</td>
+                  <td class="r"><b>{r.sell_pct}%</b></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The most Buy-heavy house rated {rows[0]?.buy_pct}% of its reports Buy with no Sell at all. The
+          few non-zero Sell rates in the table round to a fraction of one percent. Hold, the polite
+          alternative to Sell, has all but disappeared too.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>② The Sell rate did not fall — it was already gone</h2>
+        <p>Across the whole archive the market Sell rate has sat near zero for over a decade. This is
+          not a recent shift; it is the standing shape of Korean retail research.</p>
+        <div class="scroll-x">
+          <table class="press">
+            <thead>
+              <tr><th>Year</th><th class="r">Reports</th><th class="r">Sell rate</th></tr>
+            </thead>
+            <tbody>
+              {years.map((y) => (
+                <tr class={y.year === data.year ? 'edge' : ''}>
+                  <td class="axis">{y.year}</td>
+                  <td class="r">{y.reports.toLocaleString()}</td>
+                  <td class="r">{y.sell_pct}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>③ What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">One CSV — house · reports · Buy% · Hold% · Sell% · rated
+              share. Plus the market total and the by-year Sell series back more than a decade.</td></tr>
+            <tr><th>The grouping</th><td colspan="2">Ratings grouped Buy / Hold / Sell from the words each
+              house filed (매수·중립·매도 and their English equivalents). Notes with no rating fall to
+              "other" and are not counted as any of the three.</td></tr>
+            <tr><th>Who is shown</th><td colspan="2">Houses with at least 200 reports in the year that
+              rate the majority of them. Rating-free IR bulletins are excluded.</td></tr>
+            <tr><th>Not accuracy</th><td colspan="2">This is the rating, not whether it was right. Target
+              accuracy is our separate <a href="/data/target-price-accuracy">price-target panel</a>.</td></tr>
+            <tr><th>Source</th><td colspan="2">Our own daily archive of broker research boards.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the dataset</h2>
+        <p class="cta__lead">
+          Want the full by-house rating table, or the Sell-rate series over time? Leave a work email and
+          we send a sample and the current licensing terms. It reaches us directly — no account, and
+          this is not the newsletter.
+        </p>
+        <form class="ask" method="post" action="/v1/subscribe" data-source="broker-candour">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input id="ask-email" type="email" name="email" required autocomplete="email"
+              inputmode="email" placeholder="you@company.com" aria-describedby="ask-note" />
+            <button type="submit">Request the dataset</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the broker
+            rating dataset. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="fine bottom">
+        From our own broker-research archive · Ratings as filed, grouped Buy/Hold/Sell · Rating, not
+        accuracy (see the <a href="/data/target-price-accuracy">price-target panel</a>) · Not investment
+        advice. See our <a href="/terms">terms of use</a> and <a href="/refund">refund policy</a>.
+      </p>
+    </article>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true; const was = btn.textContent; btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'broker-candour' }),
+          });
+          const d = await res.json().catch(() => ({}));
+          if (res.ok && d.ok) { say('ok', 'Thanks — we have your address and will email you the sample and the terms.'); form.reset(); }
+          else { say('error', d?.error?.message || d?.message || 'Could not send. Please try again.'); }
+        } catch { say('error', 'Network error. Please try again.'); }
+        finally { btn.disabled = false; btn.textContent = was; }
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .pp .lead b { font-weight: 650; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--accent-soft, var(--card)); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  .scroll-x { overflow-x: auto; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; font-variant-numeric: normal; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.press tr.edge td { background: var(--accent-soft, var(--card)); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>

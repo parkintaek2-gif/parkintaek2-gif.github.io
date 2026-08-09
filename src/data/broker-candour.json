@@ -1,0 +1,202 @@
+{
+  "generated": "2026-08-09",
+  "year": "2026",
+  "source": "SeoulMarkets broker-research archive — opinion (rating) as filed, grouped Buy/Hold/Sell",
+  "disclaimer": "This is the distribution of ratings as filed, a market-structure fact. It is not investment advice, not a verdict on any brokerage, and neither a buy nor a sell signal. Whether targets came true is a separate dataset (target-price accuracy).",
+  "sample_note": "Counts reports in our own archive of the retail research boards; a house may publish more than we hold. Houses with at least 200 reports in the year are shown.",
+  "market": {
+    "reports": 6372,
+    "buy_pct": 79.7,
+    "hold_pct": 2.7,
+    "sell_pct": 0.06,
+    "other_pct": 17.5,
+    "houses_shown": 13,
+    "houses_with_zero_sell": 10
+  },
+  "by_house": [
+    {
+      "house": "한화투자증권",
+      "reports": 413,
+      "buy_pct": 92,
+      "hold_pct": 6.8,
+      "sell_pct": 0,
+      "other_pct": 1.2,
+      "rated_pct": 98.8
+    },
+    {
+      "house": "하나증권",
+      "reports": 740,
+      "buy_pct": 91.2,
+      "hold_pct": 1.9,
+      "sell_pct": 0,
+      "other_pct": 6.9,
+      "rated_pct": 93.1
+    },
+    {
+      "house": "교보증권",
+      "reports": 349,
+      "buy_pct": 90.5,
+      "hold_pct": 0.6,
+      "sell_pct": 0,
+      "other_pct": 8.9,
+      "rated_pct": 91.1
+    },
+    {
+      "house": "대신증권",
+      "reports": 460,
+      "buy_pct": 88.3,
+      "hold_pct": 3.7,
+      "sell_pct": 0,
+      "other_pct": 8,
+      "rated_pct": 92
+    },
+    {
+      "house": "IBK투자증권",
+      "reports": 268,
+      "buy_pct": 87.7,
+      "hold_pct": 0.4,
+      "sell_pct": 0,
+      "other_pct": 11.9,
+      "rated_pct": 88.1
+    },
+    {
+      "house": "유진투자증권",
+      "reports": 446,
+      "buy_pct": 86.5,
+      "hold_pct": 3.4,
+      "sell_pct": 0,
+      "other_pct": 10.1,
+      "rated_pct": 89.9
+    },
+    {
+      "house": "iM증권",
+      "reports": 376,
+      "buy_pct": 83.8,
+      "hold_pct": 4,
+      "sell_pct": 0,
+      "other_pct": 12.2,
+      "rated_pct": 87.8
+    },
+    {
+      "house": "신한투자증권",
+      "reports": 703,
+      "buy_pct": 83.6,
+      "hold_pct": 2.7,
+      "sell_pct": 0,
+      "other_pct": 13.7,
+      "rated_pct": 86.3
+    },
+    {
+      "house": "SK증권",
+      "reports": 409,
+      "buy_pct": 80.7,
+      "hold_pct": 1.7,
+      "sell_pct": 0,
+      "other_pct": 17.6,
+      "rated_pct": 82.4
+    },
+    {
+      "house": "유안타증권",
+      "reports": 416,
+      "buy_pct": 77.6,
+      "hold_pct": 1.9,
+      "sell_pct": 0,
+      "other_pct": 20.4,
+      "rated_pct": 79.6
+    },
+    {
+      "house": "키움증권",
+      "reports": 548,
+      "buy_pct": 77.6,
+      "hold_pct": 0.9,
+      "sell_pct": 0.18,
+      "other_pct": 21.4,
+      "rated_pct": 78.6
+    },
+    {
+      "house": "미래에셋증권",
+      "reports": 501,
+      "buy_pct": 74.3,
+      "hold_pct": 8.4,
+      "sell_pct": 0.2,
+      "other_pct": 17.2,
+      "rated_pct": 82.8
+    },
+    {
+      "house": "DS투자증권",
+      "reports": 254,
+      "buy_pct": 94.1,
+      "hold_pct": 0.8,
+      "sell_pct": 0.79,
+      "other_pct": 4.3,
+      "rated_pct": 95.7
+    }
+  ],
+  "sell_by_year": [
+    {
+      "year": "2014",
+      "reports": 1872,
+      "sell_pct": 0.05
+    },
+    {
+      "year": "2015",
+      "reports": 3983,
+      "sell_pct": 0.53
+    },
+    {
+      "year": "2016",
+      "reports": 4446,
+      "sell_pct": 0.04
+    },
+    {
+      "year": "2017",
+      "reports": 4556,
+      "sell_pct": 0.04
+    },
+    {
+      "year": "2018",
+      "reports": 4574,
+      "sell_pct": 0.09
+    },
+    {
+      "year": "2019",
+      "reports": 4162,
+      "sell_pct": 0.1
+    },
+    {
+      "year": "2020",
+      "reports": 3450,
+      "sell_pct": 0.29
+    },
+    {
+      "year": "2021",
+      "reports": 2406,
+      "sell_pct": 0.12
+    },
+    {
+      "year": "2022",
+      "reports": 3636,
+      "sell_pct": 0.08
+    },
+    {
+      "year": "2023",
+      "reports": 8473,
+      "sell_pct": 0.15
+    },
+    {
+      "year": "2024",
+      "reports": 9159,
+      "sell_pct": 0.09
+    },
+    {
+      "year": "2025",
+      "reports": 9325,
+      "sell_pct": 0.04
+    },
+    {
+      "year": "2026",
+      "reports": 6372,
+      "sell_pct": 0.06
+    }
+  ]
+}
