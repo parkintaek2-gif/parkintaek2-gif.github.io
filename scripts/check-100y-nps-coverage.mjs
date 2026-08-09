@@ -214,11 +214,28 @@ if (알림.length) {
   for (const x of 알림) console.log(`   ${x}`);
 }
 console.log(`국민연금 자료 ${본것}개를 봤다`);
-if (운다.length === 0) {
+
+/* ── 🔒 기준 자물쇠를 여기서 같이 부른다 (2026-08-10 8번) ─────────────────
+ *
+ *  ⚠ 왜 여기냐 — `check-100y-basis.mjs` 는 8/9 에 내가 만든 **내** 자물쇠인데
+ *     `npm test` 에 안 물려 있었다. 안 불리는 검사는 **문장일 뿐**이다.
+ *  ⛔ `package.json` 은 2번 소유라 내가 못 고친다. 그래서 **이미 물려 있는 내 자**가 부른다.
+ *  ✅ 둘 다 내 것이라, 남의 사정으로 공용 npm test 가 빨개지지 않는다.
+ */
+let 기준실패 = 0;
+try {
+  const { execFileSync } = await import('node:child_process');
+  execFileSync(process.execPath, [path.join(여기, 'scripts', 'check-100y-basis.mjs')], { stdio: 'inherit' });
+} catch (e) {
+  기준실패 = 1;
+  console.log(`⛔ 기준 자물쇠(check-100y-basis.mjs)가 울었다 — ${e?.message ?? e}`);
+}
+
+if (운다.length === 0 && 기준실패 === 0) {
   console.log('✅ 덮는범위·대조 다 있음 · 없는 것을 가리키는 이름표 0 · 넘겨 말하는 문구 0');
   console.log('⚠ 이 자는 숫자가 맞나를 못 본다. 자료가 **자기 한계를 말하고 있나**만 본다');
   process.exit(시험실패 ? 1 : 0);
 }
 for (const x of 운다) console.log(`⛔ ${x}`);
-console.log(`\n⛔ ${운다.length}건`);
+console.log(`\n⛔ 덮는범위 ${운다.length}건${기준실패 ? ' · 기준 자물쇠도 울었다(위를 보라)' : ''}`);
 process.exit(1);
