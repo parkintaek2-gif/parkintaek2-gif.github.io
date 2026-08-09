@@ -1,0 +1,49 @@
+---
+/**
+ * /100y/y/[key] — **밖에 적는 짧은 주소**. 여기서 진짜 지면으로 보낸다.
+ *
+ * ⛔ 이 지면은 **읽으라고 만든 것이 아니다.** 손님은 여기서 0.1초 머문다.
+ *   그래서 글자를 최소로 두고, **자바스크립트가 막혀도** 가게 두 가지 길을 놓는다 —
+ *   ① `<meta http-equiv="refresh">` ② 손으로 누를 수 있는 링크
+ *
+ * ⚠ **301 이 아니다.** 정적 빌드라 상태코드를 못 바꾼다. 손님에게는 같은 값이고,
+ *   크롤러에게는 `noindex` 로 「여기 담지 마라」고 말한다.
+ * ⛔ 검색에 이 주소가 뜨면 진짜 지면과 겨룬다. 그래서 사이트맵에도 안 넣는다.
+ *
+ * 🔴 이 지면이 있는 진짜 까닭 — **경로는 우리 로그가 적는다.**
+ *   `?from=` 은 서버가 물음표 뒤를 안 적어 못 세는데, `/y/jongno` 는 **오늘부터 세어진다.**
+ */
+import { 짧은주소들 } from '../../../lib/short-links';
+
+export async function getStaticPaths() {
+  return 짧은주소들.map((x) => ({ params: { key: x.키 }, props: { 것: x } }));
+}
+
+const { 것 } = Astro.props as { 것: (typeof 짧은주소들)[number] };
+const 갈곳 = 것.가는곳;
+---
+
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    {/* ⛔ 검색에 담지 않는다 — 진짜 지면과 겨루면 안 된다 */}
+    <meta name="robots" content="noindex, nofollow" />
+    <meta http-equiv="refresh" content={`0; url=${갈곳}`} />
+    <link rel="canonical" href={`https://100yearmap.com${갈곳.split('?')[0]}`} />
+    <title>{것.말} — 백년지도</title>
+    <style>
+      body {
+        margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+        background: #12151c; color: #e9e9ee;
+        font-family: 'Malgun Gothic', '맑은 고딕', system-ui, sans-serif; padding: 24px;
+      }
+      a { color: #c9a84c; font-size: 18px; line-height: 1.6; display: inline-flex; min-height: 44px; align-items: center; }
+    </style>
+  </head>
+  <body>
+    {/* 자바스크립트가 막혀도, 새로고침이 막혀도 이 링크는 남는다 */}
+    <a href={갈곳}>{것.말} →</a>
+    <script is:inline set:html={`location.replace(${JSON.stringify(갈곳)});`} />
+  </body>
+</html>
