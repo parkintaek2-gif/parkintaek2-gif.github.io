@@ -1,0 +1,48 @@
+{
+  "generated": "2026-08-09T08:10:11.573Z",
+  "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series, joined to production company (P272), first broadcaster (P449) and distributor (P750) from Wikidata. Netflix's own \"weeks in top 10\" column is used to hold a title's age fixed.",
+  "question": "When two series from the same Korean company are on a country's chart in the same week, do they sit lower than when either is there alone?",
+  "unit": "One pair = one series in one country at one age in weeks, with its average rank on the weeks it was alone set against its average rank on the weeks a series from the same company was also on that chart. Rank 1 is the top of the chart, so a higher number is worse.",
+  "whyAgeFixed": "A title's rank falls as its run goes on, and a company's second title usually arrives later. Comparing without holding age fixed would credit the decline to the sibling instead of to time. Every comparison here is between weeks at the same \"weeks in top 10\" value.",
+  "rowsRead": 493600,
+  "koreanRowsWithCompany": 25598,
+  "weeksSpanned": 265,
+  "weeksWithASibling": 5431,
+  "titleMarketCellsCompared": 648,
+  "pairs": 803,
+  "weeksDroppedNoMatchingAge": 22529,
+  "aloneRank": 5.21,
+  "withSiblingRank": 5.71,
+  "difference": 0.5,
+  "byAge": [
+    {
+      "band": "Weeks 1–2",
+      "pairs": 272,
+      "aloneRank": 5.1,
+      "withSiblingRank": 5.57,
+      "difference": 0.47
+    },
+    {
+      "band": "Weeks 3–4",
+      "pairs": 190,
+      "aloneRank": 5.04,
+      "withSiblingRank": 5.17,
+      "difference": 0.13
+    },
+    {
+      "band": "Weeks 5–8",
+      "pairs": 260,
+      "aloneRank": 5.31,
+      "withSiblingRank": 6.07,
+      "difference": 0.76
+    },
+    {
+      "band": "Week 9 and later",
+      "pairs": 81,
+      "aloneRank": 5.69,
+      "withSiblingRank": 6.29,
+      "difference": 0.6
+    }
+  ],
+  "cannotAnswer": "This cannot say whether a sibling took the other title's place or whether both rose together. Netflix publishes a rank, not the viewing that produced it, and never publishes what was not watched."
+}

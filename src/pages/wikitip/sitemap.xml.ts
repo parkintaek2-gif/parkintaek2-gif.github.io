@@ -88,6 +88,8 @@ export const GET: APIRoute = async () => {
      *   「Google에는 아직 알려지지 않은 URL」이 바로 이 상태에서 나온다.
      */
     { path: '/foothold', priority: '0.9', changefreq: 'weekly' },
+    /* 62편째 기사의 표. 2026-08-09 18:0x — 같은 회사 작품 둘이 한 차트에 서면 반 칸 내려간다 */
+    { path: '/siblings', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*
