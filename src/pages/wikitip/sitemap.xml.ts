@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import markets from '../../data/wikitip-markets.json';
 import titlePages from '../../data/wikitip-title-pages.json';
+import firmPages from '../../data/wikitip-firm-pages.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -132,6 +133,14 @@ export const GET: APIRoute = async () => {
    */
   for (const m of markets.markets.filter((x) => x.hasPage)) {
     entries.push({ path: `/market/${m.slug}`, priority: '0.8', changefreq: 'weekly' });
+  }
+
+  /*
+   * 회사 지면 8장. 2026-08-09 21:5x — 2번 지시(「지면 8장」).
+   * ⛔ 손으로 안 적는다. 시장·작품과 **같은 방식으로 자료에서 뽑는다** — 늘거나 줄면 저절로 따라온다.
+   */
+  for (const x of firmPages.firms) {
+    entries.push({ path: `/firm/${x.slug}`, priority: '0.8', changefreq: 'weekly' });
   }
 
   /* 작품 지면. 2026-08-09 09:0x — 시장과 **같은 방식으로 자료에서 뽑는다.**

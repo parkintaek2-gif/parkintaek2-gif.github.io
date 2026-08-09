@@ -1,0 +1,213 @@
+#!/usr/bin/env node
+/**
+ * 회사 지면 — **우리가 파는 여정표의 미리보기.**
+ *
+ * ⛔ 왜 이걸 내나 ─────────────────────────────────────────────
+ *   우리가 파는 물건은 **회사별 여정표 한 장**이다(docs/상품안/여정표-*.md 17장).
+ *   ⚠ 그런데 그 물건을 설명하는 지면이 웹에 **한 장도 없다.**
+ *      그 회사 사람이 「우리 작품이 어느 나라에서 떴나」를 검색해도 우리를 못 만난다.
+ *   ⭐ 이 지면들이 그 문이다. 2번(21:4x) 「물건을 넓히는 것이 5번이 스스로 낸 답」의 첫 걸음.
+ *
+ * ⛔ 이 자가 지키는 것 ───────────────────────────────────────────
+ * ⛔ **파는 것을 다 내주지 않는다.** 지면은 **한 회사가 어디까지 갔나**까지다.
+ *    작품 하나하나의 주별 자취·순위·시장별 자리 수는 **여정표에만** 있다.
+ *    ⚠ 그 경계를 지면이 스스로 말한다 — 감추는 것이 아니라 **무엇이 더 있는지 적는다.**
+ * ⛔ **회사끼리 줄세우지 않는다.** 지면마다 그 회사 것만 담는다. 이름 차례로 낸다.
+ * ⛔ **취향을 평가하지 않는다.** 「좋은 작품」이라 안 쓴다. 다닌 자취만 적는다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
+const 회사파일 = 'archive/raw/netflix-top10/firm-works.json';
+const 낼파일 = 'src/data/wikitip-firm-pages.json';
+
+/** 몇 장을 내나. ⛔ 2번 지시가 여덟 장이다 */
+export const 낼장수 = 8;
+
+/** 주소에 쓸 이름. ⛔ 빈 슬러그를 내지 않는다 */
+export function 슬러그(이름) {
+  const s = String(이름).toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  return s || null;
+}
+
+/** 몫. 밑이 0 이면 **0 이 아니라 null** */
+export function 몫(a, b) {
+  if (!b) return null;
+  return +((100 * a) / b).toFixed(1);
+}
+
+/**
+ * 한 주에 가장 넓게 퍼졌을 때 몇 나라였나.
+ * ⛔ 「35개 나라」는 *동시에* 와 *차례로* 가 전혀 다른 이야기다. 여정표와 같은 셈을 쓴다.
+ * ⛔ 같은 넓이면 **이른 주**를 잡는다 — 늦은 주를 잡으면 회사마다 답이 달라진다.
+ */
+export function 가장넓은주(줄들) {
+  const 주별 = new Map();
+  for (const r of 줄들) {
+    if (!주별.has(r.주)) 주별.set(r.주, new Set());
+    주별.get(r.주).add(r.iso2);
+  }
+  let 주 = null; let 수 = 0;
+  for (const w of [...주별.keys()].sort()) {
+    const n = 주별.get(w).size;
+    if (n > 수) { 수 = n; 주 = w; }
+  }
+  return { week: 주, countries: 수 };
+}
+
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가실행됐다 && process.argv.includes('--selftest')) {
+  let 통 = 0; let 실 = 0;
+  const 재본다 = (이름, 실제, 바람) => {
+    if (JSON.stringify(실제) === JSON.stringify(바람)) 통 += 1;
+    else { 실 += 1; console.error(`  ⛔ ${이름}\n     받은 것: ${JSON.stringify(실제)}`); }
+  };
+  재본다('슬러그', 슬러그('SHOWBOX Co., Ltd.'), 'showbox-co-ltd');
+  재본다('슬러그 — 앞뒤 줄표를 뗀다', 슬러그('--tvN--'), 'tvn');
+  /* ⛔ 빈 슬러그를 내면 주소가 겹친다. 작품 지면에서 한 번 물렸던 자리다 */
+  재본다('슬러그 — 라틴이 없으면 null', 슬러그('오징어'), null);
+  재본다('몫 — 밑이 0 이면 null', 몫(1, 0), null);
+  const ㅈ = (주, iso2) => ({ 주, iso2 });
+  재본다('가장 넓은 주', 가장넓은주([ㅈ('w1', 'KR'), ㅈ('w2', 'KR'), ㅈ('w2', 'JP')]),
+    { week: 'w2', countries: 2 });
+  /* ⛔ 같은 넓이면 이른 주 */
+  재본다('같은 넓이면 이른 주', 가장넓은주([ㅈ('w2', 'KR'), ㅈ('w1', 'JP')]),
+    { week: 'w1', countries: 1 });
+  재본다('빈 것', 가장넓은주([]), { week: null, countries: 0 });
+  console.log(`회사 지면 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
+  process.exit(실 ? 1 : 0);
+}
+
+if (내가실행됐다) {
+  for (const p of [나라파일, 회사파일]) {
+    if (!fs.existsSync(p)) {
+      console.log(`⛔ 원자료가 없다 — ${p}`);
+      console.log('   ⚠ archive/ 는 git 에 안 올라간다. 「안 됐다」가 아니라 **못 쟀다**.');
+      process.exit(1);
+    }
+  }
+  const 회사자료 = JSON.parse(fs.readFileSync(회사파일, 'utf8'));
+
+  /* 제목(소문자) → 그 제목이 나온 줄들 */
+  const 제목줄 = new Map();
+  let 줄 = 0;
+  const 주모음 = new Set();
+  for (const l of fs.readFileSync(나라파일, 'utf8').split('\n')) {
+    if (!l) continue;
+    줄 += 1;
+    let r;
+    try { r = JSON.parse(l); } catch { continue; }
+    const iso2 = String(r.iso2).toUpperCase();
+    if (iso2 === 'RU') continue;
+    주모음.add(r.주);
+    const k = String(r.제목 || '').toLowerCase();
+    if (!제목줄.has(k)) 제목줄.set(k, []);
+    제목줄.get(k).push({ 주: r.주, iso2, 국가: r.국가, 순위: r.순위, 제목: r.제목 });
+  }
+
+  /*
+   * ⛔ 어느 여덟 곳인가 — **A등급에서 이름 차례로** 고른다.
+   *   A등급은 「카탈로그를 가장 온전히 볼 수 있는 곳」이지 **잘하는 순서가 아니다.**
+   *   ⭐ 이름 차례로 골라 「우리가 고른 여덟」이 순위로 안 읽히게 한다. 그 까닭을 지면이 말한다.
+   */
+  const 후보 = 회사자료.firms
+    .filter((f) => f.grade === 'A' && 슬러그(f.firm))
+    .sort((a, b) => a.firm.localeCompare(b.firm));
+
+  const 지면들 = [];
+  for (const f of 후보) {
+    const 줄들 = [];
+    const 작품 = new Map();
+    for (const w of f.works) {
+      const k = String(w.title || '').toLowerCase();
+      const rows = 제목줄.get(k);
+      if (!rows || !rows.length) continue;
+      줄들.push(...rows);
+      작품.set(w.title, rows);
+    }
+    if (작품.size < 3) continue;                 /* ⛔ 얇으면 안 낸다 */
+    const 나라 = new Set(줄들.map((r) => r.iso2));
+    const 나라별 = new Map();
+    for (const r of 줄들) 나라별.set(r.국가, (나라별.get(r.국가) ?? 0) + 1);
+    const 넓 = 가장넓은주(줄들);
+    /* ⛔ 작품 목록은 **다섯 편까지**만. 나머지는 여정표에 있다 */
+    const 작품줄 = [...작품].map(([title, rows]) => {
+      const n = 가장넓은주(rows);
+      return {
+        title,
+        places: rows.length,
+        countries: new Set(rows.map((r) => r.iso2)).size,
+        atOnce: n.countries,
+        peak: Math.min(...rows.map((r) => r.순위)),
+      };
+    }).sort((a, b) => b.places - a.places);
+
+    지면들.push({
+      firm: f.firm,
+      slug: 슬러그(f.firm),
+      grade: f.grade,
+      titlesInCatalogue: f.works.length,
+      titlesThatCharted: 작품.size,
+      places: 줄들.length,
+      markets: 나라.size,
+      weeks: new Set(줄들.map((r) => r.주)).size,
+      widestWeek: 넓.week,
+      widestWeekCountries: 넓.countries,
+      topMarket: [...나라별].sort((a, b) => b[1] - a[1])[0][0],
+      topMarketPlaces: [...나라별].sort((a, b) => b[1] - a[1])[0][1],
+      shown: 작품줄.slice(0, 5),
+      titlesNotShown: Math.max(0, 작품.size - 5),
+    });
+    if (지면들.length >= 낼장수) break;
+  }
+
+  /* ── 스스로 본다 ── */
+  if (지면들.length !== 낼장수) {
+    throw new Error(`지면이 ${지면들.length}장이다 — ${낼장수}장이라야 한다`);
+  }
+  const 슬러그모음 = new Set(지면들.map((x) => x.slug));
+  if (슬러그모음.size !== 지면들.length) throw new Error('주소가 겹친다');
+  for (const x of 지면들) {
+    if (!x.slug) throw new Error(`${x.firm} — 주소가 비었다`);
+    if (x.widestWeekCountries > x.markets) {
+      throw new Error(`${x.firm} — 한 주 넓이(${x.widestWeekCountries})가 전체 시장(${x.markets})보다 크다`);
+    }
+    if (x.titlesThatCharted > x.titlesInCatalogue) {
+      throw new Error(`${x.firm} — 차트에 오른 작품이 카탈로그보다 많다`);
+    }
+    for (const t of x.shown) {
+      if (t.atOnce > t.countries) throw new Error(`${x.firm}/${t.title} — 동시가 전체보다 크다`);
+      if (t.peak < 1 || t.peak > 10) throw new Error(`${x.firm}/${t.title} — 순위가 1~10 밖이다`);
+    }
+  }
+
+  const out = {
+    generated: new Date().toISOString(),
+    source: 'Netflix Top 10 (Tudum) weekly country lists, joined to production company (P272), original '
+      + 'broadcaster (P449) and distributor (P750) from Wikidata.',
+    whatIsHere: 'How far one company\'s titles travelled: how many markets, how many at once, and where the '
+      + 'places fell.',
+    whatIsNotHere: 'The week-by-week path of each title, its rank in each market, the full market table and the '
+      + 'titles that never charted are in the company sheet, not on this page.',
+    whyTheseEight: 'These are eight of the companies whose catalogue we can see most completely, taken in '
+      + 'alphabetical order. It is not a ranking and the order carries no judgement.',
+    weeksSpanned: 주모음.size,
+    rowsRead: 줄,
+    pages: 지면들.length,
+    firms: 지면들,
+  };
+  fs.writeFileSync(낼파일, `${JSON.stringify(out, null, 2)}\n`, 'utf8');
+
+  console.log(`줄 ${줄.toLocaleString('en-US')} · 주 ${주모음.size} · 지면 ${지면들.length}장`);
+  for (const x of 지면들) {
+    console.log(`  /firm/${x.slug.padEnd(24)} 작품 ${String(x.titlesThatCharted).padStart(3)} · 시장 ${String(x.markets).padStart(2)} · 한 주 최대 ${String(x.widestWeekCountries).padStart(2)}곳 · 자리 ${x.places}`);
+  }
+  console.log(`→ ${낼파일}`);
+}

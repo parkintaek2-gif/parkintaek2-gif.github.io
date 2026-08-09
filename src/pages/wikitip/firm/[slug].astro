@@ -1,0 +1,125 @@
+---
+/**
+ * K Culture Wire — **회사 한 곳이 어디까지 갔나.** (`/firm/<slug>`)
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **파는 것을 다 내주지 않는다.** 여기까지는 「어디까지 갔나」다.
+ *    주별 자취·시장별 자리 표·안 오른 작품은 **여정표 한 장**에만 있다.
+ *    ⚠ 감추는 것이 아니라 **무엇이 더 있는지 화면에 적는다.**
+ * ⛔ **회사끼리 줄세우지 않는다.** 이 지면은 그 회사 것만 담는다. 여덟 곳은 이름 차례다.
+ * ⛔ **취향을 평가하지 않는다.** 「좋은 작품」이라 안 쓴다. 다닌 자취만 적는다.
+ * ⛔ 광고 자리를 만들지 않았다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-firm-pages.json` 에서 읽는다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-firm-pages.json';
+
+export function getStaticPaths() {
+  return data.firms.map((f) => ({ params: { slug: f.slug }, props: { f } }));
+}
+const { f } = Astro.props;
+
+const TITLE = `${f.firm} — where its titles travelled on Netflix`;
+const DESC =
+  `${f.titlesThatCharted} titles from ${f.firm} reached a Netflix country top 10 across ${f.markets} markets `
+  + `and ${f.weeks} weeks, taking ${f.places.toLocaleString('en-US')} chart places. At its widest, `
+  + `${f.widestWeekCountries} countries held one of them in the same week.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical={`https://www.kculturewire.com/firm/${f.slug}`}>
+  <h1>{TITLE}</h1>
+  <p class="lead">
+    Netflix gives a supplier global hours. It does not give countries. This page is the country
+    column for {f.firm}, counted from the weekly lists Netflix publishes for each market.
+  </p>
+
+  <section>
+    <h2>How far these titles went</h2>
+    <div class="scroll-x">
+      <table>
+        <tbody>
+          <tr><td class="nm">Titles Wikidata attaches to this company</td><td class="tot">{f.titlesInCatalogue}</td></tr>
+          <tr class="edge"><td class="nm">Of those, titles that reached a country top 10</td>
+            <td class="tot">{f.titlesThatCharted}</td></tr>
+          <tr><td class="nm">Markets reached</td><td class="tot">{f.markets}</td></tr>
+          <tr><td class="nm">Weeks with at least one title on a chart</td><td class="tot">{f.weeks}</td></tr>
+          <tr><td class="nm">Chart places taken</td><td class="tot">{f.places.toLocaleString('en-US')}</td></tr>
+          <tr class="edge"><td class="nm">Most countries holding one of them in the same week</td>
+            <td class="tot">{f.widestWeekCountries} — week of {f.widestWeek}</td></tr>
+          <tr><td class="nm">Market with the most places</td>
+            <td class="tot">{f.topMarket} ({f.topMarketPlaces})</td></tr>
+          <tr><td class="nm">Weeks of Netflix country charts read</td><td class="tot">{data.weeksSpanned}</td></tr>
+          <tr><td class="nm">Chart rows read to build this</td><td class="tot">{data.rowsRead.toLocaleString('en-US')}</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>A place is one title, in one country, in one week.</b> A title in three countries for four
+      weeks takes twelve places. The last-but-one row is the one worth reading twice: reaching
+      {' '}{f.markets} markets over five years and holding {f.widestWeekCountries} of them
+      <em>at once</em> are different achievements, and only the second one is a launch.
+    </p>
+  </section>
+
+  <section>
+    <h2>The five that took the most places</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Title</th><th>Markets</th><th>At once</th><th>Places</th><th>Best position</th></tr></thead>
+        <tbody>
+          {f.shown.map((t) => (
+            <tr>
+              <td class="nm">{t.title}</td>
+              <td>{t.countries}</td>
+              <td>{t.atOnce}</td>
+              <td class="tot">{t.places}</td>
+              <td>{t.peak}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>Ordered by places taken, not by quality.</b> Nothing on this page is a judgement about the
+      titles — it is a record of where they were listed.
+      {f.titlesNotShown > 0 && (
+        <> <b>{f.titlesNotShown} more of this company's titles charted</b> and are not shown here.</>
+      )}
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>What is on this page, and what is not</h2>
+    <ul>
+      <li><b>Here</b> — {data.whatIsHere}</li>
+      <li><b>Not here</b> — {data.whatIsNotHere}</li>
+      <li>
+        <b>Why these {data.pages} companies</b> — {data.whyTheseEight}
+        {' '}<a href="/for-industry">All {data.pages} are listed here</a>.
+      </li>
+      <li>
+        <b>Netflix and Wikidata</b> — {data.source} A company "covers" a title if Wikidata lists it as
+        producer, first broadcaster or distributor, so a title can belong to more than one company.
+      </li>
+      <li>
+        <b>Russia is excluded</b> throughout this site, because Netflix withdrew from it and the
+        remaining weeks are not comparable with the others.
+      </li>
+    </ul>
+    <p class="note">
+      <a href="/for-industry">What a company sheet contains, and what it cannot tell you</a> ·{' '}
+      <a href="/who-makes-it">How many companies fill half the shelf</a> ·{' '}
+      <a href="/about">How we count</a>
+    </p>
+  </section>
+</WikiTip>

@@ -20,6 +20,7 @@ import titles from '../../data/wikitip-title-pages.json';
 import markets from '../../data/wikitip-markets.json';
 import firms from '../../data/wikitip-catalogue-reach.json';
 import world from '../../data/wikitip-world-share.json';
+import firmPages from '../../data/wikitip-firm-pages.json';
 
 const MAIL = 'parkintaek2@gmail.com';
 const 편지 = (s: string) => `mailto:${MAIL}?subject=${encodeURIComponent(s)}`;
@@ -177,6 +178,38 @@ const jsonLd = {
       <a href="/two-pipelines">broadcast and streaming as two pipelines</a> ·{' '}
       <a href="/returns">titles that came back</a>. If those look wrong to you, say so in the same
       email — that is a better first conversation than a price.
+    </p>
+  </section>
+
+  {/*
+    🔴 2026-08-09 21:5x — 회사 지면 여덟 장을 냈는데 **여기서 가는 길이 없으면 없는 것과 같다.**
+      ⛔ 파는 자리(/for-industry)가 미리보기로 못 데려가면 손님이 물건을 못 본다.
+  */}
+  <section>
+    <h2>See it before you ask for it</h2>
+    <p class="note lead-in">
+      Eight companies have a public page showing how far their titles travelled — markets reached,
+      how many held a title in the same week, and where the places fell. The sheet goes further; the
+      page is enough to see whether the measurement is the one you need.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Company</th><th>Titles that charted</th><th>Markets</th><th>Most at once</th></tr></thead>
+        <tbody>
+          {firmPages.firms.map((x) => (
+            <tr>
+              <td class="nm"><a href={`/firm/${x.slug}`}>{x.firm}</a></td>
+              <td>{x.titlesThatCharted}</td>
+              <td>{x.markets}</td>
+              <td class="tot">{x.widestWeekCountries}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note fine">
+      {firmPages.whyTheseEight} If your company is not among them, the same sheet can be built from
+      the same data — <a href="/contact">tell us the name</a>.
     </p>
   </section>
 
