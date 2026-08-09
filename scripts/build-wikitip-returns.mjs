@@ -53,6 +53,15 @@ export function 몫(a, b) {
   return +((100 * a) / b).toFixed(1);
 }
 
+/**
+ * 잔몫 — 두 자리까지. 기회당 복귀는 1% 언저리라 한 자리로 깎으면
+ * ⛔ 1.00 과 1.02 가 **똑같은 「1%」로 보인다.** 평평하다는 말의 근거가 화면에서 사라진다.
+ */
+export function 잔몫(a, b) {
+  if (!b) return null;
+  return +((100 * a) / b).toFixed(2);
+}
+
 /** 두 시즌 이름이 같은가. 둘 중 하나라도 비면 **못 가림(null)** */
 export function 같은시즌(a, b) {
   if (a == null || b == null || a === '' || b === '') return null;
@@ -78,6 +87,10 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('같은시즌 — 빈 글자도 null', 같은시즌('', 'S1'), null);
   재본다('몫', 몫(310, 940), 33);
   재본다('몫 — 밑이 0 이면 null', 몫(1, 0), null);
+  /* ⛔ 한 자리로 깎으면 두 띠가 같아 보인다 — 그래서 잔몫이 따로 있다 */
+  재본다('몫은 1.00 과 1.02 를 못 가른다', [몫(43, 4290), 몫(69, 6750)], [1, 1]);
+  재본다('잔몫은 가른다', [잔몫(43, 4290), 잔몫(69, 6750)], [1, 1.02]);
+  재본다('잔몫 — 밑이 0 이면 null', 잔몫(1, 0), null);
   console.log(`자가시험 ${통과} 통과 · ${실패} 실패`);
   process.exit(실패 ? 1 : 0);
 }
@@ -172,6 +185,46 @@ export async function 만들기() {
     }
   }
 
+  /*
+   * ⛔ **「어디서 돌아오나」의 함정** (2026-08-09 15:1x).
+   *   시장을 한국 몫으로 갈라 세면 1.4 → 2.5 → 4.8 → 4.4% 로 기울기가 보인다.
+   *   ⚠ 그런데 한국 몫이 큰 시장은 **칸이 길다.** 칸이 길면 틈이 생길 **기회**가 많다.
+   *   ⭐ 그래서 기회(이웃한 주 짝)로 나눠 본다. 나눠 보면 기울기가 **거의 사라진다.**
+   *   ⛔ 이걸 안 나누고 냈으면 「큰 시장이 카탈로그를 되살린다」는 없는 이야기를 팔 뻔했다.
+   */
+  const 몫맵 = (() => {
+    const 길 = 'src/data/wikitip-markets.json';
+    if (!fs.existsSync(길)) return null;
+    const m = JSON.parse(fs.readFileSync(길, 'utf8'));
+    return new Map(m.markets.map((x) => [x.iso2, x.koreanPc]));
+  })();
+  const 띠이름 = (p) => (p < 5 ? 'under5' : p < 10 ? '5to10' : p < 20 ? '10to20' : 'over20');
+  const 띠라벨 = { under5: 'Under 5%', '5to10': '5–10%', '10to20': '10–20%', over20: '20% and over' };
+  const 띠셈 = new Map();
+  if (몫맵) {
+    for (const [k, rows] of 칸) {
+      const iso2 = k.split('|')[1];
+      const pc = 몫맵.get(iso2);
+      if (pc == null) continue;
+      const b = 띠이름(pc);
+      if (!띠셈.has(b)) 띠셈.set(b, { markets: new Set(), cells: 0, chances: 0, returns: 0 });
+      const s = 띠셈.get(b);
+      s.markets.add(iso2); s.cells += 1; s.chances += rows.length - 1;
+      for (let i = 1; i < rows.length; i += 1) {
+        const 사이 = rows[i].주 - rows[i - 1].주 - 1;
+        if (사이 < 문턱주) continue;
+        if (같은시즌(rows[i - 1].시즌, rows[i].시즌) === true) s.returns += 1;
+      }
+    }
+  }
+  const byMarketBand = 몫맵 ? ['under5', '5to10', '10to20', 'over20'].filter((b) => 띠셈.has(b)).map((b) => {
+    const s = 띠셈.get(b);
+    return {
+      band: 띠라벨[b], markets: s.markets.size, cells: s.cells, chances: s.chances, returns: s.returns,
+      perCellPc: 몫(s.returns, s.cells), perChancePc: 잔몫(s.returns, s.chances),
+    };
+  }) : null;
+
   const 잰칸 = [...칸.values()].filter((r) => r.length >= 2).length;
 
   /* ── 스스로 본다 ── */
@@ -186,6 +239,16 @@ export async function 만들기() {
   if (!(시즌바뀜 > 시즌같음)) throw new Error('새 시즌이 진짜 복귀보다 적다 — 「첫 눈에 보인 것이 함정」이 안 선다');
   if (!(혼자 > 곁에새시즌 * 5)) throw new Error(`혼자 ${혼자} 대 곁에 ${곁에새시즌} — 「혼자 돌아온다」가 안 선다`);
 
+  if (byMarketBand) {
+    const 합 = byMarketBand.reduce((s, x) => s + x.returns, 0);
+    if (합 !== 시즌같음) {
+      throw new Error(`띠로 가른 복귀 합 ${합} 이 같은시즌 ${시즌같음} 과 다르다 — 몫을 못 구한 시장이 있다`);
+    }
+    const 기회들 = byMarketBand.map((x) => x.perChancePc);
+    if (Math.max(...기회들) - Math.min(...기회들) > 1.5) {
+      throw new Error('기회당 복귀가 띠마다 1.5%p 넘게 벌어진다 — 「평평하다」를 못 쓴다');
+    }
+  }
   const out = {
     generated: new Date().toISOString(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number',
@@ -219,6 +282,8 @@ export async function 만들기() {
     /** ⛔ 가나다순. 「가장 오래」로 줄세우지 않는다 */
     longestReturns: [...복귀들].sort((a, b) => b.gapWeeks - a.gapWeeks).slice(0, 10)
       .sort((a, b) => a.title.localeCompare(b.title) || a.market.localeCompare(b.market)),
+    /** ⛔ 기회로 나누면 기울기가 사라진다. 그 사실 자체가 이 칸의 값이다 */
+    byMarketBand,
     returnTitles: [...new Set(복귀들.map((x) => x.title))].sort((a, b) => a.localeCompare(b)),
   };
   fs.writeFileSync(낼곳, JSON.stringify(out, null, 1));

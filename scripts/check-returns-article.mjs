@@ -134,6 +134,25 @@ if (내가실행됐다) {
   본다('드문 일이라고 적었나', /Returning is the exception/i.test(민본), '트렌드로 안 읽히게');
 
   본다('표 지면이 있나', fs.existsSync(지면길), 지면길);
+
+  /* ── 시장 띠 절. ⛔ 기울기를 혼자 내보내지 않는다 ── */
+  if (fs.existsSync(지면길) && Array.isArray(d.byMarketBand)) {
+    const 면 = fs.readFileSync(지면길, 'utf8').replace(/\r\n/g, '\n');
+    const 민면 = 면.replace(/\s+/g, ' ');
+    본다('띠 절이 자료를 읽나', /data\.byMarketBand\.map/.test(면), `띠 ${d.byMarketBand.length}개`);
+    본다('띠 절이 칸당·기회당을 같이 내나',
+      /b\.perCellPc/.test(면) && /b\.perChancePc/.test(면), '두 열이 나란히');
+    본다('기회당이 없으면 기울기를 안 판다',
+      /per opportunity/i.test(민면) && /artefact of run length/i.test(민면), '착시라고 적었다');
+    본다('자가 막는다고 적었나', /1\.5 points/.test(민면), '수집기가 1.5%p 넘으면 거부');
+    for (const b of d.byMarketBand) {
+      const 손 = new RegExp(`>\\s*${String(b.perChancePc).replace('.', '\\.')}\\s*%`).test(면);
+      본다(`띠 「${b.band}」 를 손으로 안 박았나`, !손, `${b.perCellPc}% / ${b.perChancePc}%`);
+    }
+    const 벌어짐 = Math.max(...d.byMarketBand.map((x) => x.perChancePc))
+      - Math.min(...d.byMarketBand.map((x) => x.perChancePc));
+    본다('기회당이 평평한가', 벌어짐 <= 1.5, `가장 벌어진 것 ${벌어짐.toFixed(2)}%p`);
+  }
   본다('기사가 표로 가는 길을 가졌나', 본.includes('/returns'), 'markdown 링크');
   본다('앞말의 pages 에 걸었나',
     /^pages:[\s\S]*?- "\/returns"/m.test(원.replace(/\r\n/g, '\n')),

@@ -139,6 +139,57 @@ const jsonLd = {
     </p>
   </section>
 
+  {data.byMarketBand && (
+    <section>
+      <h2>Where returns happen — and the gradient that dissolved</h2>
+      <p class="note lead-in">
+        The obvious follow-up is whether comebacks cluster in the markets where Korean titles are
+        already common. Counted per cell, they appear to: the rate roughly triples from the smallest
+        Korean charts to the largest. <b>That reading does not survive one control.</b>
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Korean share of the market</th><th>Markets</th><th>Cells</th>
+              <th>Returns per cell</th><th>Returns per opportunity</th></tr>
+          </thead>
+          <tbody>
+            {data.byMarketBand.map((b) => (
+              <tr>
+                <td class="nm">{b.band}</td>
+                <td>{b.markets}</td>
+                <td>{b.cells.toLocaleString('en-US')}</td>
+                <td>{b.perCellPc.toFixed(1)}%</td>
+                <td class="tot">{b.perChancePc.toFixed(2)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">
+        A market where Korean titles are common holds them on its chart for longer, and a longer run
+        has more weeks in it — more <b>opportunities</b> for a gap to open. Divide by the number of
+        adjacent week pairs rather than by the number of cells and the fourth column, which ranged
+        from {Math.min(...data.byMarketBand.map((b) => b.perCellPc)).toFixed(1)}% to
+        {' '}{Math.max(...data.byMarketBand.map((b) => b.perCellPc)).toFixed(1)}%, flattens to between
+        {' '}{Math.min(...data.byMarketBand.map((b) => b.perChancePc)).toFixed(2)}% and
+        {' '}{Math.max(...data.byMarketBand.map((b) => b.perChancePc)).toFixed(2)}%.
+      </p>
+      <p class="note fine">
+        The last column is printed to two decimal places on purpose. Rounded to one, the first two
+        bands both read <b>1.0%</b> and the flatness would look like a rounding accident rather than
+        a measurement — the same collapse we are warning about, one digit further along.
+      </p>
+      <p class="note">
+        <b>Returning is about as likely per opportunity everywhere.</b> Had we published the per-cell
+        column alone we would have sold a story about big markets reviving catalogues, and it would
+        have been an artefact of run length. The collector now refuses to write if the per-opportunity
+        figures spread by more than 1.5 points, so if that ever stops being true this page will stop
+        building rather than quietly change its mind.
+      </p>
+    </section>
+  )}
+
   <section>
     <h2>The longest gaps that were genuine returns</h2>
     <div class="scroll-x">

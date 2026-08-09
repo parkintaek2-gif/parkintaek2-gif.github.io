@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-09T03:08:17.974Z",
+ "generated": "2026-08-09T06:13:13.322Z",
  "source": "Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number",
  "question": "A Korean title leaves a country's top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?",
  "unit": "One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market's top 10, between two weeks in which it is present.",
@@ -150,6 +150,44 @@
    "gapWeeks": 223,
    "season": "Juvenile Justice: Season 1",
    "pulledByOtherSeason": false
+  }
+ ],
+ "byMarketBand": [
+  {
+   "band": "Under 5%",
+   "markets": 49,
+   "cells": 3050,
+   "chances": 4320,
+   "returns": 43,
+   "perCellPc": 1.4,
+   "perChancePc": 1
+  },
+  {
+   "band": "5–10%",
+   "markets": 23,
+   "cells": 2728,
+   "chances": 6762,
+   "returns": 69,
+   "perCellPc": 2.5,
+   "perChancePc": 1.02
+  },
+  {
+   "band": "10–20%",
+   "markets": 11,
+   "cells": 1592,
+   "chances": 5155,
+   "returns": 76,
+   "perCellPc": 4.8,
+   "perChancePc": 1.47
+  },
+  {
+   "band": "20% and over",
+   "markets": 10,
+   "cells": 2792,
+   "chances": 11351,
+   "returns": 122,
+   "perCellPc": 4.4,
+   "perChancePc": 1.07
   }
  ],
  "returnTitles": [
