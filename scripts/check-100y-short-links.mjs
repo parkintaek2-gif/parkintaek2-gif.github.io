@@ -37,11 +37,26 @@ export function 아스키냐(주소) {
   return /^[\x21-\x7e]+$/.test(주소);
 }
 
+/**
+ * 🔴 **`&amp;` 를 먼저 푼다** — 안 풀면 자가 거짓으로 「어긋남」을 낸다.
+ *
+ *   ```
+ *   글자    href="/age/32?from=yt-100y&amp;at=age"      ← HTML 은 이게 맞다
+ *   자바    location.replace("/age/32?…&at=age")        ← 여기는 안 감싼다
+ *   ```
+ *   ⚠ 브라우저는 속성값의 `&amp;` 를 `&` 로 풀어 읽는다. **손님에게는 같은 주소다.**
+ *   이걸 안 풀고 견주면 넷 다 「어긋남」으로 나온다 — 실제로 그렇게 나왔다.
+ */
+export function 글자풀기(s) {
+  return String(s).replace(/&amp;/g, '&').replace(/&#38;/g, '&');
+}
+
 /** 지면 글자에서 **진짜 가는 곳**을 도로 캐낸다 — 우리가 적어 둔 값을 믿지 않는다 */
 export function 가는곳캐기(글) {
-  const 새로고침 = 글.match(/http-equiv=["']refresh["'][^>]*content=["']\s*\d+\s*;\s*url=([^"']+)["']/i)?.[1];
-  const 링크 = 글.match(/<a[^>]+href=["']([^"']+)["']/i)?.[1];
-  const 자바 = 글.match(/location\.replace\(\s*["']([^"']+)["']\s*\)/)?.[1];
+  const 뽑 = (m) => (m == null ? undefined : 글자풀기(m));
+  const 새로고침 = 뽑(글.match(/http-equiv=["']refresh["'][^>]*content=["']\s*\d+\s*;\s*url=([^"']+)["']/i)?.[1]);
+  const 링크 = 뽑(글.match(/<a[^>]+href=["']([^"']+)["']/i)?.[1]);
+  const 자바 = 뽑(글.match(/location\.replace\(\s*["']([^"']+)["']\s*\)/)?.[1]);
   return { 새로고침, 링크, 자바 };
 }
 
@@ -96,6 +111,14 @@ function 자가시험() {
   );
   잰다('⑮ 밖에 적은 자리를 다 적어 뒀다', 짧은주소들.every((x) => x.적은곳 && x.말));
 
+  /* 🔴 자가 두 번째로 거짓말한 자리 — `&amp;` 를 안 풀어 넷 다 「어긋남」이 나왔다 */
+  잰다('⑲ &amp; 를 & 로 푼다', 글자풀기('/age/32?from=yt-100y&amp;at=age') === '/age/32?from=yt-100y&at=age');
+  잰다(
+    '⑳ 푼 뒤에는 href 와 자바가 같아진다',
+    셋이같나(가는곳캐기(`<meta http-equiv="refresh" content="0; url=/a?x=1&amp;y=2" />
+      <a href="/a?x=1&amp;y=2">가기</a><script>location.replace("/a?x=1&y=2");</script>`)),
+  );
+
   for (const r of 결과) console.log(`  ${r.참 ? '✅' : '🔴'} ${r.이름}`);
   const 진 = 결과.filter((r) => !r.참).length;
   console.log(`\n자가시험 ${결과.length - 진}/${결과.length}`);
@@ -120,9 +143,17 @@ export function 한번만감싸기(길) {
   return encodeURI(s);
 }
 
-async function 두드리기(주소) {
+/**
+ * @param {string} 주소
+ * @param {'manual'|'follow'} 따라가나
+ *
+ * ⚠ **목적지를 잴 때는 따라간다.** 손님이 겪는 것이 그것이다 —
+ *   `/` 가 301 로 한 칸 옮겨 가도 손님은 지면을 본다. 301 을 실패로 세면 거짓으로 운다.
+ * ⚠ 짧은 주소 자신은 `manual` 로 잰다. 거기서 3xx 가 나오면 그건 우리가 안 만든 것이다.
+ */
+async function 두드리기(주소, 따라가나 = 'manual') {
   try {
-    const r = await fetch(주소, { redirect: 'manual', headers: { 'User-Agent': '100yearmap-selfcheck' } });
+    const r = await fetch(주소, { redirect: 따라가나, headers: { 'User-Agent': '100yearmap-selfcheck' } });
     return { 상태: r.status, 글: r.status === 200 ? await r.text() : '' };
   } catch (e) {
     return { 상태: 0, 글: '', 탈: String(e?.message ?? e) };
@@ -143,7 +174,7 @@ async function 라이브(여기) {
     const 맞나 = 산다 && 셋이같나(캔것) && 캔것.새로고침 === 것.가는곳;
     /* ③ 목적지가 진짜 있는가 — ⛔ 이걸 안 재면 「200 인 빈 방」을 못 잡는다 */
     const 곳 = 물음표뗀곳(것.가는곳);
-    const b = await 두드리기(`${여기}${한번만감싸기(곳)}`);
+    const b = await 두드리기(`${여기}${한번만감싸기(곳)}`, 'follow');
     const 방있나 = b.상태 === 200;
     const 안담나 = 산다 && 담지말라했나(a.글);
 
@@ -165,4 +196,7 @@ async function 라이브(여기) {
 const 인자 = process.argv.slice(2);
 const 여기 = 인자[인자.indexOf('--여기') + 1] ?? 'https://100yearmap.com';
 const 좋나 = 인자.includes('--자가시험') ? 자가시험() : await 라이브(여기.replace(/\/$/, ''));
-process.exit(좋나 ? 0 : 1);
+/* ⚠ `process.exit()` 로 끊으면 아직 열린 fetch 때문에 윈도에서 libuv 가 죽는다
+ *   (「Assertion failed: !(handle->flags & UV_HANDLE_CLOSING)」 · 종료코드 127).
+ *   ⛔ 그러면 npm test 가 **재지도 못한 채** 빨개진다. 값만 놓고 스스로 끝나게 둔다 */
+process.exitCode = 좋나 ? 0 : 1;

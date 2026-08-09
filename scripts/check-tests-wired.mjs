@@ -70,18 +70,39 @@ export const 주석빼기 = (글) =>
 
 export function 갈라내기(파일들, 부름, 봐줄것 = 봐준다, 읽기 = 소스읽기) {
   const 검사 = 파일들.filter((f) => 검사무늬.test(f));
-  const 물림 = new Set(검사.filter((f) => String(부름 ?? '').includes(f)));
 
-  const 볼것 = [...물림];
+  /**
+   * 🔴 2026-08-10 05:5x — **여기서 같은 실수를 한 번 더 하고 있었다.**
+   *
+   *   8/8 에 고친 것은 「`check-` 로 시작하는 **모아 부르는 자**를 따라간다」였다.
+   *   그런데 씨앗을 여전히 **검사 이름을 가진 파일**에서만 뿌리고 있었다. 그래서
+   *   ```
+   *   npm test  →  build-100y-style.mjs --확인  →  check-100y-customer·leak·tap --자가시험
+   *   ```
+   *   이 셋이 **진짜로 매번 도는데도** 「안 불림」으로 세어졌다. 이름이 `check-` 가
+   *   아니라는 이유 하나로 길이 끊겼다.
+   *
+   * ⛔ 「불린다」는 이름이 예쁘다는 뜻이 아니라 **실제로 돈다**는 뜻이다.
+   *   그래서 씨앗을 **package.json 이 부르는 모든 스크립트**로 넓힌다.
+   *   ⚠ 세는 대상(`검사`)은 그대로다 — 검사가 아닌 파일이 「검사 수」에 끼지는 않는다.
+   */
+  const 씨앗 = 파일들.filter((f) => String(부름 ?? '').includes(f));
+
+  /* ⚠ **본 것**과 **검사로 센 것**을 가른다. 길은 검사가 아닌 파일도 이어 준다
+   *   (npm test → build-x.mjs → build-y.mjs → check-z.mjs 도 세 단계 다 따라간다).
+   *   ⛔ 「본 것」이 곧 돌고 도는 것을 막는 자물쇠다 — 한 파일이 두 번 줄에 서지 않는다 */
+  const 본것 = new Set(씨앗);
+  const 볼것 = [...씨앗];
   while (볼것.length) {
     const 이번 = 볼것.pop();
     let 글 = '';
     try { 글 = 주석빼기(읽기(이번)); } catch { 글 = ''; }   // 못 읽으면 안 부르는 것으로 본다. 죽지 않는다
-    for (const f of 검사) {
-      if (f === 이번 || 물림.has(f)) continue;
-      if (글.includes(f)) { 물림.add(f); 볼것.push(f); }
+    for (const f of 파일들) {
+      if (f === 이번 || 본것.has(f)) continue;
+      if (글.includes(f)) { 본것.add(f); 볼것.push(f); }
     }
   }
+  const 물림 = new Set(검사.filter((f) => 본것.has(f)));
 
   const 안불림 = 검사.filter((f) => !물림.has(f) && !(f in 봐줄것));
   return { 검사수: 검사.length, 안불림 };
@@ -124,6 +145,23 @@ if (process.argv.includes('--selftest')) {
   재본다('한 줄 주석도 안 센다',
     갈라내기(['check-a.mjs', 'check-b.mjs'], 'node scripts/check-a.mjs', {},
       글판({ 'check-a.mjs': '// check-b.mjs 는 나중에' })).안불림, ['check-b.mjs']);
+  /* ── 🔴 검사 이름이 **아닌** 모아 부르는 자도 따라가나 (8/10 고침) ── */
+  재본다('검사 이름이 아닌 자가 부르면 물린 것이다',
+    갈라내기(['build-style.mjs', 'check-b.mjs'], 'node scripts/build-style.mjs --확인', {},
+      글판({ 'build-style.mjs': "execFileSync(node,['scripts/check-b.mjs','--자가시험'])" })).안불림, []);
+  재본다('검사 아닌 자를 두 단계 따라간다',
+    갈라내기(['build-a.mjs', 'build-b.mjs', 'check-c.mjs'], 'node scripts/build-a.mjs', {},
+      글판({ 'build-a.mjs': "'build-b.mjs'", 'build-b.mjs': "'check-c.mjs'" })).안불림, []);
+  재본다('안 불리는 자가 부르는 것은 그대로 안 물린 것이다 (검사 아닌 자도 같다)',
+    갈라내기(['build-x.mjs', 'check-d.mjs'], '', {},
+      글판({ 'build-x.mjs': "'check-d.mjs'" })).안불림, ['check-d.mjs']);
+  재본다('검사 아닌 자는 「검사 수」에 안 낀다',
+    갈라내기(['build-style.mjs', 'check-b.mjs'], 'node scripts/build-style.mjs', {},
+      글판({ 'build-style.mjs': "'check-b.mjs'" })).검사수, 1);
+  재본다('검사 아닌 자의 주석에 적힌 이름은 안 센다',
+    갈라내기(['build-style.mjs', 'check-b.mjs'], 'node scripts/build-style.mjs', {},
+      글판({ 'build-style.mjs': '/* check-b.mjs 는 느려서 뺐다 */' })).안불림, ['check-b.mjs']);
+
   재본다('읽기가 터져도 안 죽는다',
     갈라내기(['check-a.mjs'], 'node scripts/check-a.mjs', {}, () => { throw new Error('x'); }).안불림, []);
   console.log(실패 ? `\n⛔ ${실패}개 틀렸다 (통과 ${통과})` : `✅ 검사 ${통과}개 통과`);
@@ -142,10 +180,16 @@ const { 검사수, 안불림 } = 갈라내기(파일들, j.scripts?.test ?? '');
  *   ⭐ 42개는 새로 물려서 준 것이 아니다. **원래 돌고 있었는데 내가 못 세고 있었다** —
  *     `check-wikitip-all.mjs` 가 부르는 것을 이 자가 안 따라갔다.
  *     세는 자를 고치고, 그 자를 `npm test` 에 물렸다.
- *   ⛔ 남은 11개는 대개 **인터넷·라이브·크롬**을 탄다. 물리면 npm test 가 남의 사정으로 죽는다.
+ *   ⛔ 남은 것은 대개 **인터넷·라이브·크롬**을 탄다. 물리면 npm test 가 남의 사정으로 죽는다.
  *     각자 봐준다 에 까닭을 적고 넣든지, 상시로 돌게 고치든지 주인이 정한다.
+ *
+ * 11 → **10** (8/10 06:0x)
+ *   ⭐ 여기서도 **하나는 새로 물려서 준 것이 아니다.** 씨앗을 검사 이름을 가진 파일에서만
+ *     뿌리고 있어서, `build-100y-style.mjs --확인` 이 매번 부르는 검사 셋이 「안 불림」에
+ *     들어가 있었다. 위 `갈라내기` 를 고쳐 길이 이어졌다.
+ *   ⚠ 그래서 이 수가 줄었다고 검사가 늘어난 것이 아니다 — **세는 자가 덜 세고 있었다.**
  */
-const 오늘까지봐주는수 = 11;
+const 오늘까지봐주는수 = 10;
 
 console.log(`검사 파일 ${검사수}개 · npm test 가 부르는 것 ${검사수 - 안불림.length}개 · 안 부르는 것 ${안불림.length}개`);
 if (안불림.length > 오늘까지봐주는수) {
