@@ -1,6 +1,6 @@
 ---
 title: "Most of Korea's listed companies are young; nine are older than the republic"
-dek: "The median listed company was incorporated 27 years ago, and four in ten within the last 25. But nine reach back over a century — banks and drugmakers whose filed founding dates land around 1900, before the Republic of Korea existed. Not advice."
+dek: "The median listed company was incorporated 27 years ago, four in ten within the last 25. But nine reach back over a century — banks and drugmakers whose filed founding dates land near 1900, before the Republic of Korea. Not advice."
 category: equities
 pubDate: 2026-08-10
 dataAsOf: 2026-08-05T00:00:00+09:00
