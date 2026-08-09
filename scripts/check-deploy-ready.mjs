@@ -71,9 +71,21 @@ export function 나가는파일인가(길) {
   return true;
 }
 
-/** 포슬린 한 줄에서 길만 뽑는다. `R  옛 -> 새` 는 새 쪽을 본다. */
+/**
+ * 포슬린 한 줄에서 길만 뽑는다. `R  옛 -> 새` 는 새 쪽을 본다.
+ *
+ * ⛔ **세 글자를 잘라내면 안 된다.** 2026-08-09 밤에 이걸로 한 시간을 잃었다 —
+ *   부르는 쪽이 `execFileSync(...).trim()` 을 하는 바람에 **첫 줄의 앞 빈칸이 날아갔다.**
+ *   ` M scripts/x.mjs` 가 `M scripts/x.mjs` 가 되고, 세 글자를 자르니 `cripts/x.mjs` 가 됐다.
+ *   그래서 `scripts/` 로 시작하는지 보는 자가 **전부 헛돌았다.** 자가시험은 통과했다 —
+ *   시험이 언제나 앞 빈칸이 있는 줄만 줬기 때문이다.
+ * ⭐ 그래서 **상태 글자를 세지 말고 이름으로 알아본다.**
+ */
 export function 길뽑기(줄) {
-  const 뒤 = String(줄 ?? '').slice(3).trim();
+  const 글 = String(줄 ?? '').replace(/\r$/, '');
+  /* 상태는 글자 한둘(M·A·D·R·??·MM…) 뒤에 빈칸. 앞 빈칸은 있어도 없어도 된다 */
+  const m = /^\s*[MADRCU?!]{1,2}\s+(.*)$/.exec(글);
+  const 뒤 = (m ? m[1] : 글).trim();
   const i = 뒤.indexOf(' -> ');
   return i >= 0 ? 뒤.slice(i + 4).trim() : 뒤;
 }
@@ -176,6 +188,16 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   자가('길만 뽑는다', 길뽑기(' M src/a.astro') === 'src/a.astro');
   자가('이름 바뀐 것은 새 쪽을 본다', 길뽑기('R  옛.md -> src/새.astro') === 'src/새.astro');
+  // 🔴 앞 빈칸이 날아간 줄 — 부르는 쪽이 .trim() 을 하면 첫 줄이 이렇게 온다
+  자가('🔴 앞 빈칸이 날아가도 길을 옳게 뽑는다',
+       길뽑기('M scripts/check-100y-nps-coverage.mjs') === 'scripts/check-100y-nps-coverage.mjs');
+  자가('🔴 그래서 안 막는다',
+       깨끗한가('M scripts/check-100y-nps-coverage.mjs').깨끗하다 === true);
+  자가('🔴 앞 빈칸 없는 src 는 그대로 막는다',
+       깨끗한가('M src/pages/a.astro').깨끗하다 === false);
+  자가('두 글자 상태(MM)도 읽는다', 길뽑기('MM src/a.astro') === 'src/a.astro');
+  자가('새 파일(??)도 길을 뽑는다', 길뽑기('?? scripts/새.mjs') === 'scripts/새.mjs');
+  자가('지운 것(D)도 읽는다', 길뽑기(' D public/og.png') === 'public/og.png');
 
   자가('🔴 문서만 더러우면 통과시킨다', 깨끗한가(' M docs/세션간-메모.md').깨끗하다 === true);
   자가('그래도 따로 세어 알려 준다', 깨끗한가(' M docs/세션간-메모.md').안나가는줄.length === 1);
