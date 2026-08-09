@@ -19,6 +19,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 학과연구, 전체편수 } from '../../../lib/research';
+import { 조사 } from '../../../lib/josa';
 import majors from '../../../data/100yearmap/pages-major.json';
 import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
 import NextQuestion from '../../../components/NextQuestion.astro';
@@ -100,9 +101,9 @@ const 학과제목 = 수치
   : `${major.title} 개설 고등학교`;
 
 const desc = 수치
-  ? `${major.title}는 전국 ${학교수.toLocaleString()}개 고등학교에 있습니다. ` +
+  ? `${major.title}${조사(major.title, '은는', '는')} 전국 ${학교수.toLocaleString()}개 고등학교에 있습니다. ` +
     `이 길로 간 사람들이 졸업 1년 뒤에도 그 자리에 남아 있는 비율은 ${pct(수치['1차유지취업률'])}, 2년 뒤에는 ${pct(수치['2차유지취업률'])}입니다.`
-  : `${major.title}가 개설된 전국 ${학교수.toLocaleString()}개 고등학교와 지역 분포를 정리했습니다.`;
+  : `${major.title}${조사(major.title, '이가', '가')} 개설된 전국 ${학교수.toLocaleString()}개 고등학교와 지역 분포를 정리했습니다.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -355,7 +356,7 @@ const jsonLd = {
         문구와 주소를 `components/NextQuestion.astro` · `lib/klifemap.ts` 한 곳에서 관리한다. */}
   <hr class="rule" />
   <NextQuestion
-    본것={`${major.title}가 있는 고등학교 ${학교수.toLocaleString()}곳`}
+    본것={`${major.title}${조사(major.title, '이가', '가')} 있는 고등학교 ${학교수.toLocaleString()}곳`}
     무리={`이 학과가 속한 학교유형 전체를 묶은 값`}
   />
 

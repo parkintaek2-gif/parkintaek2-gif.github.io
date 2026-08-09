@@ -16,6 +16,7 @@ import { 공학말 } from '../../../lib/school-label';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import { 권할만한 } from '../../../lib/university';
+import { 조사 } from '../../../lib/josa';
 import schools from '../../../data/100yearmap/pages-school.json';
 import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
@@ -696,7 +697,7 @@ const 이지역 = (() => {
             </>
           ) : (
             <>
-              {이지역.이름}은 학교가 {이지역.곳}곳이라 <strong>무료로 열어 둔 지면</strong>입니다.
+              {이지역.이름}{조사(이지역.이름, '은는', '은')} 학교가 {이지역.곳}곳이라 <strong>무료로 열어 둔 지면</strong>입니다.
             </>
           )}
         </p>

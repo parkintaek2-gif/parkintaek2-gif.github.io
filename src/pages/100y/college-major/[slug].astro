@@ -20,6 +20,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { 학과슬러그 } from '../../../lib/college-major';
+import { 조사 } from '../../../lib/josa';
 import NextQuestion from '../../../components/NextQuestion.astro';
 import 성과 from '../../../data/100yearmap/major-outcomes.json';
 import 묶음 from '../../../data/100yearmap/major-merged.json';
@@ -115,7 +116,7 @@ const 전공맞춤 = 맞춤남 && 맞춤여 ? { 남: 맞춤남, 여: 맞춤여 }
  */
 const 제목 = `${과.학과} 취업률 · 진학률`;
 const desc =
-  `${과.학과}를 나온 사람들이 졸업 뒤 어떻게 됐는지 공공데이터로 정리했습니다. ` +
+  `${과.학과}${조사(과.학과, '을를', '를')} 나온 사람들이 졸업 뒤 어떻게 됐는지 공공데이터로 정리했습니다. ` +
   `취업률 ${과.취업률}% · 진학률 ${과.진학률}% · 졸업자 ${과.졸업자.toLocaleString()}명 기준입니다.`;
 ---
 
