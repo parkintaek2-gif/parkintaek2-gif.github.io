@@ -66,6 +66,11 @@
       "figure": "0.06%",
       "label": "of Korean broker reports rated Sell this year",
       "왜": "자동은 6,372(리포트). 요점은 Sell 0.06%·10/13 하우스 0건"
+    },
+    "korean-sector-leaders-pay-more": {
+      "figure": "1.43x",
+      "label": "more pay at a sector’s biggest firms (materials)",
+      "왜": "자동은 20(퍼센트류). 요점은 주도주 급여배수 1.2~1.43x·8업종 전부"
     }
   }
 }

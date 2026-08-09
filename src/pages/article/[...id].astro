@@ -60,8 +60,11 @@ const 상품들 = {
     blurb: 'where equity research piles up and where it thins, from our broker-report archive' },
   candour: { href: '/data/broker-candour', name: 'broker candour, the vanishing Sell',
     blurb: 'each brokerage’s Buy/Hold/Sell mix — the Sell rating has all but disappeared' },
+  leaders: { href: '/data/sector-leaders', name: 'sector leaders vs the rest',
+    blurb: 'how a sector’s biggest companies pay, retain and staff their top differently' },
 };
-const 관련상품 = /candour|vanish|sell-rating|stopped-saying|buy-rating|rating/.test(entry.id) ? 상품들.candour
+const 관련상품 = /leader|biggest-companies|market-cap-leaders|pay-more/.test(entry.id) ? 상품들.leaders
+  : /candour|vanish|sell-rating|stopped-saying|buy-rating|rating/.test(entry.id) ? 상품들.candour
   : /attention|coverage|unwritten|piles-up|ignored/.test(entry.id) ? 상품들.attention
   : /research|broker|price-target|aim-high|hit-less/.test(entry.id) ? 상품들.target
   : /board|officer|governance|director|owner-led/.test(entry.id) ? 상품들.board

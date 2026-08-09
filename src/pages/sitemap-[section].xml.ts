@@ -45,6 +45,7 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/board-composition', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/analyst-attention', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/broker-candour', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/sector-leaders', changefreq: 'weekly', priority: '0.8' },
       // 파는 조건 지면 — 사는 쪽 법무가 본다.
       { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
       { loc: '/refund', changefreq: 'monthly', priority: '0.3' },

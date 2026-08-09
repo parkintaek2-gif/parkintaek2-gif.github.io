@@ -1,0 +1,243 @@
+---
+/*
+ * Sector leaders vs the rest — B2B 상품 지면. (seoulmarkets.com/data/sector-leaders)
+ *
+ * 왜 (사장님 원래 비전): 업종의 주도주(시총 상위)와 나머지를 갈라 우리 노동데이터(급여·근속·여성비)를
+ *   나란히 놓는다. 대형 벤더는 「같은 업종 안 대장주 대 나머지의 노동」 축을 안 판다. 퀀트·팩터·HR·정책이 산다.
+ *   ⛔ 값은 지면에 안 넣는다(사장님 확정 대기). 결제 안 붙인다 — 살 뜻만 센다. ⛔ noAds(자료 지면).
+ *
+ * ⚠ 투자자문 아님: 「큰 회사가 더 준다」는 서술적 사실이다. 주도주 = 시총 상위 20%(기계적 정의)이지
+ *   「좋은 주식」이 아니다. 대장주를 사라는 신호가 아니다. 그 경계를 화면에 못박는다.
+ *
+ * 자료: src/data/sector-leaders.json (scripts/build-sector-leaders.mjs 산출).
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/sector-leaders.json';
+
+// 잔여 버킷(Unclassified)은 본 표에서 빼고 주석으로만 둔다 — 업종이 아니라 「못 분류」다.
+const rows = data.sectors.filter((s) => s.sector !== 'Unclassified');
+const residual = data.sectors.find((s) => s.sector === 'Unclassified');
+const TITLE = 'In every sector, the biggest companies pay more';
+const SAMPLE = `${data.sectors_where_leaders_pay_more} of ${data.sectors_total} sectors · leaders vs the rest`;
+const DESC =
+  'Split each sector into its market-cap leaders and the rest, and the labour data separates: in every '
+  + 'sector the leaders pay more and mostly retain longer — and in heavy industry and finance, employ fewer women at the top.';
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean sector leaders vs the rest — labour metrics',
+  description: DESC, url: `${SITE_URL}/data/sector-leaders`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['pay ratio leaders/rest', 'tenure gap', 'female share by leader status', 'by sector'],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>In every sector, the biggest companies pay more</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Split each sector into its <b>market-cap leaders</b> — the top fifth by size — and everyone
+        else, and our labour data pulls apart. In <b>all {rows.length}</b> classified sectors the
+        leaders pay more, from <b>1.2x</b> in technology to <b>1.43x</b> in materials, and in most they
+        keep their people longer too.
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>Read this first.</b> "Leaders" means the top 20% of a sector by market capitalisation — a
+        mechanical split by size, not a stock pick. This is a descriptive fact about how the largest
+        companies pay and retain; it is <b>not investment advice</b> and not a signal to buy leaders.
+      </aside>
+
+      <ol class="five">
+        <li><b>What it is</b> — for each sector, the median pay ratio of leaders to the rest, the tenure
+          gap in years, and the female-officer share on each side.</li>
+        <li><b>Why trust it</b> — pay, tenure and gender are from each company's own filing; leaders are
+          ranked by market cap from the exchange close.</li>
+        <li><b>How big</b> — {data.sectors_total} sectors; leaders are the top fifth by market cap, at
+          least three companies.</li>
+        <li><b>The honest caveat</b> — a residual "unclassified" bucket (holding companies and the like)
+          is set aside; medians, not means, so one giant does not swing a row.</li>
+        <li><b>The form</b> — one CSV: sector · companies · leaders · leader &amp; rest pay · pay ratio ·
+          tenure gap · female share each side.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>① Leaders vs the rest, by sector</h2>
+        <p>Ranked by pay ratio. Positive tenure gaps mean leaders keep people longer; the women columns
+          show the opposite pattern in the heavy sectors.</p>
+        <div class="scroll-x">
+          <table class="press">
+            <thead>
+              <tr><th>Sector</th><th class="r">Cos.</th><th class="r">Leaders</th>
+                <th class="r">Pay ×</th><th class="r">Tenure gap</th>
+                <th class="r">Women: lead / rest</th></tr>
+            </thead>
+            <tbody>
+              {rows.map((s) => (
+                <tr>
+                  <td class="axis">{s.sector}</td>
+                  <td class="r">{s.companies}</td>
+                  <td class="r">{s.leaders}</td>
+                  <td class="r"><b>{s.pay_ratio}x</b></td>
+                  <td class="r">{s.tenure_gap_years > 0 ? `+${s.tenure_gap_years}` : s.tenure_gap_years}y</td>
+                  <td class="r">{s.leader_female_pct}% / {s.rest_female_pct}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The pay premium is everywhere; the tenure premium is largest in consumer staples ({rows.find((s) => s.sector === 'Consumer Staples')?.tenure_gap_years}y)
+          and consumer discretionary. But in materials, industrials, finance and technology the leaders
+          employ <b>fewer</b> women at officer level than the smaller firms below them — size buys pay
+          and tenure, not a more mixed top.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>② What you get</h2>
+        <table class="kv">
+          <tbody>
+            <tr><th>Files</th><td colspan="2">One CSV — sector · companies · number of leaders · leader
+              and rest median pay · pay ratio · tenure gap (years) · female-officer share on each
+              side.</td></tr>
+            <tr><th>Who is a leader</th><td colspan="2">The top <b>20%</b> of a sector's listed companies
+              by market capitalisation (at least three). A transparent split by size, refreshed with the
+              close — not a judgement of quality.</td></tr>
+            <tr><th>The residual</th><td colspan="2">Companies whose industry code does not map to a
+              sector (many are holding companies) sit in an "unclassified" bucket, shown in the file but
+              kept out of the sector rows.</td></tr>
+            <tr><th>Not advice</th><td colspan="2">A description of how large companies pay and retain,
+              not a recommendation. Whether leaders outperform as investments is not in this data.</td></tr>
+            <tr><th>Source</th><td colspan="2">Company filings (pay, tenure, officers) joined to exchange
+              market cap and our public-KSIC sector scheme.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="cta">
+        <h2>Ask for the dataset</h2>
+        <p class="cta__lead">
+          Want the full leaders-vs-rest table, or the company-level split behind it? Leave a work email
+          and we send a sample and the current licensing terms. It reaches us directly — no account, and
+          this is not the newsletter.
+        </p>
+        <form class="ask" method="post" action="/v1/subscribe" data-source="sector-leaders">
+          <label class="vh" for="ask-email">Work email</label>
+          <div class="ask__row">
+            <input id="ask-email" type="email" name="email" required autocomplete="email"
+              inputmode="email" placeholder="you@company.com" aria-describedby="ask-note" />
+            <button type="submit">Request the dataset</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="ask-hp">Leave this field empty</label>
+            <input id="ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="ask-note">We store your address and that you asked about the sector
+            leaders dataset. We never sell or share it.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <p class="fine bottom">
+        Leaders = top 20% by market cap (a size split, not a pick) · Medians from company filings ·
+        Not investment advice. See our <a href="/terms">terms of use</a> and{' '}
+        <a href="/refund">refund policy</a>.
+      </p>
+    </article>
+  </div>
+
+  <script is:inline>
+    (() => {
+      const form = document.querySelector('form.ask');
+      if (!form) return;
+      const input = form.querySelector('input[name="email"]');
+      const hp = form.querySelector('input[name="hp"]');
+      const btn = form.querySelector('button[type="submit"]');
+      const msg = form.querySelector('.ask__msg');
+      const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = input.value.trim();
+        if (!email) return;
+        btn.disabled = true; const was = btn.textContent; btn.textContent = 'Sending…';
+        delete msg.dataset.state;
+        try {
+          const res = await fetch('/v1/subscribe', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'sector-leaders' }),
+          });
+          const d = await res.json().catch(() => ({}));
+          if (res.ok && d.ok) { say('ok', 'Thanks — we have your address and will email you the sample and the terms.'); form.reset(); }
+          else { say('error', d?.error?.message || d?.message || 'Could not send. Please try again.'); }
+        } catch { say('error', 'Network error. Please try again.'); }
+        finally { btn.disabled = false; btn.textContent = was; }
+      });
+    })();
+  </script>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .pp .lead b { font-weight: 650; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--accent-soft, var(--card)); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  .scroll-x { overflow-x: auto; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.kv td[colspan] { white-space: normal; line-height: 1.6; font-variant-numeric: normal; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .86em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+  .cta { margin: 2.4rem 0 0; padding: 1.3rem 1.3rem; border: 1px solid var(--line);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>
