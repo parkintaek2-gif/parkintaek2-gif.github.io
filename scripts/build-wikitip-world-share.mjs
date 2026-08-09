@@ -49,6 +49,16 @@ const 주전체 = new Map();
 /** 무엇이 줄었나를 가르려면 **편수**와 **편당 자리**를 따로 세야 한다 */
 const 아홉해 = new Map();
 
+/**
+ * ⛔ **조용히 들어온 것**을 센다 (2026-08-09).
+ *   규칙 ②는 「영어 차트로 확인된 제목을 뺀다」인데, 글로벌 Top10 에 한 번도 안 뜬 제목에는
+ *   **언어 딱지가 없다.** 그런 제목은 거를 근거가 없어 **남긴다** — 확인해서 남기는 것이 아니다.
+ *   ⚠ 그 몫을 **작품 수가 아니라 자리 수**로 센다. 편수로는 작아 보이고 자리로는 안 작다.
+ */
+/** ⛔ 나라마다 따로 센다. 아래에서 **온전한 나라만** 더한다 —
+ *  처음엔 전부 세었다가 자가 「합이 다르다」고 울었다. 자가 옳았다 */
+const 확인나라 = new Map();
+
 const rl = readline.createInterface({
   input: fs.createReadStream('archive/raw/netflix-top10/countries.ndjson'),
   crlfDelay: Infinity,
@@ -62,6 +72,14 @@ for await (const line of rl) {
   let a = 나라.get(r.iso2);
   if (!a) { a = { iso2: r.iso2, name: r.국가, rows: 0, korean: 0, weeks: new Set(), byYear: new Map() }; 나라.set(r.iso2, a); }
   a.rows++; a.weeks.add(r.주); if (한) a.korean++;
+  if (한) {
+    let c = 확인나라.get(r.iso2);
+    if (!c) { c = { labelled: 0, unlabelled: 0, both: 0 }; 확인나라.set(r.iso2, c); }
+    const 딱지 = ko.lang.get(r.제목);
+    if (딱지 === undefined) c.unlabelled += 1;
+    else if (딱지 === 'both') c.both += 1;
+    else c.labelled += 1;
+  }
   let ay = a.byYear.get(y);
   if (!ay) { ay = { rows: 0, korean: 0 }; a.byYear.set(y, ay); }
   ay.rows++; if (한) ay.korean++;
@@ -138,6 +156,11 @@ const 주작 = (x) => {
 
 const 전체줄 = 온전.reduce((s, a) => s + a.rows, 0);
 const 전체한 = 온전.reduce((s, a) => s + a.korean, 0);
+/** 확인 갈래도 **같은 범위**(온전한 나라)로 더한다 */
+const 확인 = 온전.reduce((s, a) => {
+  const c = 확인나라.get(a.iso2) ?? { labelled: 0, unlabelled: 0, both: 0 };
+  return { labelled: s.labelled + c.labelled, unlabelled: s.unlabelled + c.unlabelled, both: s.both + c.both };
+}, { labelled: 0, unlabelled: 0, both: 0 });
 const 비들 = 온전.map((a) => 비율(a.korean, a.rows)).sort((a, b) => a - b);
 
 const out = {
@@ -153,6 +176,22 @@ const out = {
   totalSlots: 전체줄,
   koreanSlots: 전체한,
   worldPc: 비율(전체한, 전체줄),
+  /**
+   * ⛔ 위 한국 자리 가운데 **무엇으로 확인된 것인가.** 8번이 13:30 에 짚어 준 자리다 —
+   *   조용히 버리는 것만 세고 조용히 **들이는** 것은 안 세고 있었다.
+   */
+  confirmation: {
+    labelledSlots: 확인.labelled,
+    labelledPc: 비율(확인.labelled, 전체한),
+    unlabelledSlots: 확인.unlabelled,
+    unlabelledPc: 비율(확인.unlabelled, 전체한),
+    bothSlots: 확인.both,
+    bothPc: 비율(확인.both, 전체한),
+    note: 'Netflix labels a title Non-English on its global charts, and that is the label we use to '
+      + 'exclude English-language works with the same name. Country charts carry no such label, so a '
+      + 'title that never reached a global top 10 has nothing to check against. We keep those rather '
+      + 'than drop them, and this is how much of the total rests on them.',
+  },
   medianCountryPc: 비들[Math.floor(비들.length / 2)],
   /** 한국 자신 — 위 주석의 대조군이다 */
   home: {
@@ -228,6 +267,10 @@ for (const y of out.byYear) {
 fs.writeFileSync('src/data/wikitip-world-share.json', JSON.stringify(out, null, 2));
 
 console.log(`${out.countryCount}개국 × ${out.weekCount}주 · 나라마다 ${out.slotsPerCountry}줄로 같다 ✅`);
+if (확인.labelled + 확인.unlabelled + 확인.both !== 전체한) {
+  throw new Error('확인 갈래 셋의 합이 한국 자리 수와 다르다');
+}
+console.log(`  확인 갈래 — 딱지로 확인 ${out.confirmation.labelledPc}% · 딱지 없음 ${out.confirmation.unlabelledPc}%(자리 ${out.confirmation.unlabelledSlots.toLocaleString()}) · both ${out.confirmation.bothPc}%`);
 console.log(`세계의 Top10 자리 중 한국 작품 ${out.worldPc}% (${out.koreanSlots.toLocaleString()}/${out.totalSlots.toLocaleString()}) · 나라 중앙값 ${out.medianCountryPc}%`);
 console.log(`해마다  ${out.byYear.map((y) => `${y.year} ${y.pc}%`).join(' · ')}`);
 for (const g of out.groups) console.log(`  ${g.group.slice(0, 46).padEnd(48)} ${g.byYear.map((y) => `${y.pc}%`).join(' → ')}`);

@@ -21,6 +21,8 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-world-share.json';
 import season from '../../data/wikitip-season.json';
+/* ⛔ 197 을 손으로 박았다가 자에 걸렸다. 이 수는 여기서 읽는다 */
+import reach from '../../data/wikitip-reach.json';
 
 const TITLE = "How much of the world's Netflix top 10 is Korean";
 
@@ -325,6 +327,45 @@ const jsonLd = {
       The calendar is not what moves this number.
       {' '}<a href="/article/there-is-no-k-drama-season">The full story &rarr;</a>
     </p>
+  </section>
+
+  {/*
+    🔴 2026-08-09 14:0x — 8번이 자기 자에서 「조용히 **들어온** 것」을 찾은 것을 보고 내 것을 쟀다.
+       우리는 「언어 딱지가 없는 작품 197편」을 적어 왔다. **작품 수만** 적었다.
+       그 197편이 우리가 파는 수의 얼마를 떠받치는지는 한 번도 안 적었다 — **자리의 16.1%** 다.
+    ⛔ 편수로는 작아 보이고 자리로는 안 작다. 그래서 자리로 낸다.
+  */}
+  <section>
+    <h2>How much of this figure is confirmed, and how much is only unrefuted</h2>
+    <p class="warn">
+      A title enters this count because its name matches a Korean work in Wikidata. The rule that
+      keeps foreign works of the same name out is Netflix's own <b>Non-English</b> label — but that
+      label exists only on the global charts. A title that never reached a global top 10 has nothing
+      to check against, so we <b>keep</b> it. That is not the same as confirming it.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Of the {data.koreanSlots.toLocaleString('en-US')} Korean chart places</th><th>Places</th><th>Share</th></tr></thead>
+        <tbody>
+          <tr><td class="nm">Carry Netflix's Non-English label — checked</td>
+            <td>{data.confirmation.labelledSlots.toLocaleString('en-US')}</td>
+            <td class="tot">{data.confirmation.labelledPc}%</td></tr>
+          <tr class="edge"><td class="nm">No label at all — kept because we could not check</td>
+            <td>{data.confirmation.unlabelledSlots.toLocaleString('en-US')}</td>
+            <td class="tot">{data.confirmation.unlabelledPc}%</td></tr>
+          <tr><td class="nm">Label says both — the name is on an English chart too</td>
+            <td>{data.confirmation.bothSlots.toLocaleString('en-US')}</td>
+            <td class="tot">{data.confirmation.bothPc}%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>We had published the title count for years and never this one.</b> Saying "{reach.unlabelledTitles} titles carry
+      no label" sounds like a rounding error; saying {data.confirmation.unlabelledPc}% of the places
+      behind our headline figure rest on titles we could not check does not. Both are true, and the
+      second is the one that matters when you are deciding whether to use the number.
+    </p>
+    <p class="note">{data.confirmation.note}</p>
   </section>
 
   <KcwRelatedArticles page="/world-share" />
