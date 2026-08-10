@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-09T20:06:25.577Z",
+  "generated": "2026-08-10T00:08:46.008Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
-  "titles": 234,
-  "titlesAssessed": 915,
-  "totalHours": 23711970000,
+  "titles": 232,
+  "titlesAssessed": 902,
+  "totalHours": 23676360000,
   "koreaOnly": {
     "titles": 154,
     "hours": 19607060000,
-    "sharePc": 82.7
+    "sharePc": 82.8
   },
   "shared": {
     "titles": 76,
@@ -15,9 +15,9 @@
     "sharePc": 16.8
   },
   "koreaUnconfirmed": {
-    "titles": 2,
-    "hours": 35610000,
-    "sharePc": 0.2
+    "titles": 0,
+    "hours": 0,
+    "sharePc": 0
   },
   "unknown": {
     "titles": 2,
@@ -1645,27 +1645,6 @@
       ]
     },
     {
-      "title": "Undercover",
-      "hours": 28900000,
-      "places": 48,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Australia",
-        "Belgium",
-        "Bulgaria",
-        "Denmark",
-        "France",
-        "Hong Kong",
-        "Netherlands",
-        "People's Republic of China",
-        "Philippines",
-        "Spain",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "First Love",
       "hours": 28580000,
       "places": 47,
@@ -2314,19 +2293,6 @@
         "Poland",
         "South Korea",
         "Taiwan"
-      ]
-    },
-    {
-      "title": "UFO",
-      "hours": 6710000,
-      "places": 17,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Denmark",
-        "Turkey",
-        "United Kingdom",
-        "United States"
       ]
     },
     {
@@ -6869,22 +6835,6 @@
       ]
     },
     {
-      "title": "Let's Dance",
-      "hours": 0,
-      "places": 4,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Australia",
-        "Canada",
-        "France",
-        "India",
-        "Netherlands",
-        "Slovakia",
-        "United States"
-      ]
-    },
-    {
       "title": "The Outlaws",
       "hours": 0,
       "places": 4,
@@ -7850,8 +7800,8 @@
       "title": "V.I.P.",
       "hours": 0,
       "places": 3,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
+      "q": "Q27964479",
+      "verdict": "shared",
       "countries": [
         "Belgium",
         "Canada",
@@ -8390,30 +8340,6 @@
       ]
     },
     {
-      "title": "Motherland",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Canada",
-        "Germany",
-        "Greece",
-        "Iran",
-        "Israel",
-        "Latvia",
-        "Lithuania",
-        "Norway",
-        "Peru",
-        "Philippines",
-        "Sweden",
-        "Turkey",
-        "Ukraine",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "Between Walls",
       "hours": 0,
       "places": 2,
@@ -8455,24 +8381,6 @@
         "South Korea",
         "Soviet Union",
         "Yugoslavia"
-      ]
-    },
-    {
-      "title": "Black Jack",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "France",
-        "Germany",
-        "Israel",
-        "Italy",
-        "Japan",
-        "Spain",
-        "Sweden",
-        "United Kingdom",
-        "United States"
       ]
     },
     {
@@ -8621,18 +8529,6 @@
       ]
     },
     {
-      "title": "Whistleblower",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Ireland",
-        "Japan",
-        "United States"
-      ]
-    },
-    {
       "title": "Exit",
       "hours": 0,
       "places": 2,
@@ -8671,16 +8567,6 @@
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
-      ]
-    },
-    {
-      "title": "Bigman",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Netherlands"
       ]
     },
     {
@@ -9721,24 +9607,6 @@
       ]
     },
     {
-      "title": "Superstar",
-      "hours": 0,
-      "places": 2,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Brazil",
-        "France",
-        "India",
-        "Nigeria",
-        "Pakistan",
-        "Philippines",
-        "Sri Lanka",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "Rebirth",
       "hours": 0,
       "places": 2,
@@ -9919,17 +9787,6 @@
       ]
     },
     {
-      "title": "#Iamhere",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Belgium",
-        "France"
-      ]
-    },
-    {
       "title": "Clean With Passion For Now",
       "hours": 0,
       "places": 1,
@@ -10002,19 +9859,6 @@
       ]
     },
     {
-      "title": "Oh My God",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Indonesia",
-        "Japan",
-        "People's Republic of China",
-        "United States"
-      ]
-    },
-    {
       "title": "Siren",
       "hours": 0,
       "places": 1,
@@ -10046,16 +9890,6 @@
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
-      ]
-    },
-    {
-      "title": "#Manhole",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Japan"
       ]
     },
     {
@@ -10209,26 +10043,6 @@
         "Latvia",
         "Poland",
         "South Korea",
-        "United States"
-      ]
-    },
-    {
-      "title": "Supernova",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Argentina",
-        "France",
-        "Indonesia",
-        "Italy",
-        "Latvia",
-        "Netherlands",
-        "Poland",
-        "Spain",
-        "Switzerland",
-        "United Kingdom",
         "United States"
       ]
     },
@@ -11002,17 +10816,6 @@
       ]
     },
     {
-      "title": "StartUp",
-      "hours": 0,
-      "places": 1,
-      "q": null,
-      "verdict": "koreaUnconfirmed",
-      "countries": [
-        "Netherlands",
-        "United States"
-      ]
-    },
-    {
       "title": "A Girl at My Door",
       "hours": 0,
       "places": 1,
@@ -11178,192 +10981,7 @@
       ]
     }
   ],
-  "koreaUnconfirmedQueue": [
-    {
-      "title": "Undercover",
-      "places": 48,
-      "hours": 28900000,
-      "countries": [
-        "Australia",
-        "Belgium",
-        "Bulgaria",
-        "Denmark",
-        "France",
-        "Hong Kong",
-        "Netherlands",
-        "People's Republic of China",
-        "Philippines",
-        "Spain",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "UFO",
-      "places": 17,
-      "hours": 6710000,
-      "countries": [
-        "Denmark",
-        "Turkey",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "Let's Dance",
-      "places": 4,
-      "hours": 0,
-      "countries": [
-        "Australia",
-        "Canada",
-        "France",
-        "India",
-        "Netherlands",
-        "Slovakia",
-        "United States"
-      ]
-    },
-    {
-      "title": "V.I.P.",
-      "places": 3,
-      "hours": 0,
-      "countries": [
-        "Belgium",
-        "Canada",
-        "France",
-        "India",
-        "Poland",
-        "United States"
-      ]
-    },
-    {
-      "title": "Motherland",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "Canada",
-        "Germany",
-        "Greece",
-        "Iran",
-        "Israel",
-        "Latvia",
-        "Lithuania",
-        "Norway",
-        "Peru",
-        "Philippines",
-        "Sweden",
-        "Turkey",
-        "Ukraine",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "Black Jack",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "France",
-        "Germany",
-        "Israel",
-        "Italy",
-        "Japan",
-        "Spain",
-        "Sweden",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "Whistleblower",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "Ireland",
-        "Japan",
-        "United States"
-      ]
-    },
-    {
-      "title": "Bigman",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "Netherlands"
-      ]
-    },
-    {
-      "title": "Superstar",
-      "places": 2,
-      "hours": 0,
-      "countries": [
-        "Brazil",
-        "France",
-        "India",
-        "Nigeria",
-        "Pakistan",
-        "Philippines",
-        "Sri Lanka",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "#Iamhere",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Belgium",
-        "France"
-      ]
-    },
-    {
-      "title": "Oh My God",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Indonesia",
-        "Japan",
-        "People's Republic of China",
-        "United States"
-      ]
-    },
-    {
-      "title": "#Manhole",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Japan"
-      ]
-    },
-    {
-      "title": "Supernova",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Argentina",
-        "France",
-        "Indonesia",
-        "Italy",
-        "Latvia",
-        "Netherlands",
-        "Poland",
-        "Spain",
-        "Switzerland",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
-      "title": "StartUp",
-      "places": 1,
-      "hours": 0,
-      "countries": [
-        "Netherlands",
-        "United States"
-      ]
-    }
-  ],
+  "koreaUnconfirmedQueue": [],
   "keyedNotLabelled": [
     {
       "title": "Destined with You",
@@ -11493,6 +11111,11 @@
     {
       "title": "Only God knows Everything",
       "q": "Q135486575",
+      "places": 3
+    },
+    {
+      "title": "V.I.P.",
+      "q": "Q27964479",
       "places": 3
     },
     {
