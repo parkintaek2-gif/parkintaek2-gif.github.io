@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "two-in-three-koreans": {
+   "figure": "62.3%",
+   "label": "of Koreans have had their fortune read",
+   "왜": "자동은 1,047(띠 붙은 사람)을 집는다. 외국 독자를 멈춰 세우는 수는 62.3% 다"
+  },
   "one-korean-slot": {
    "figure": "68%",
    "label": "of the crowding was the starting level",

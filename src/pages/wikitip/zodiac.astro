@@ -1,0 +1,128 @@
+---
+/**
+ * K Culture Wire — **차트에 오른 한국 배우들의 띠.** (`/zodiac`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   영어권이 사주에 대해 가장 자주 묻는 것이 「is this real」이다(4번이 6,743줄에서 잼).
+ *   ⭐ 우리는 그 물음에 **우리 자로** 답할 수 있다 — 우리 명단의 배우 띠를 세면 된다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **한 사람을 판정하지 않는다.** 태어난 시각이 없다. 분포만 낸다.
+ * ⛔ **어느 띠가 낫다고 안 쓴다.** 표를 **띠 차례대로** 낸다 — 크기 순이면 줄세우기가 된다.
+ * ⛔ 「고르다」를 「사주가 가짜다」로 넓히지 않는다. 우리가 잰 것은 **배우가 되는 것**뿐이다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-zodiac.json` 에서 읽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-zodiac.json';
+
+const 가장많은 = [...d.counts].sort((a, b) => b.people - a.people)[0];
+const 가장적은 = [...d.counts].sort((a, b) => a.people - b.people)[0];
+
+const TITLE = 'The animal years of Korean actors who reached a Netflix chart';
+const DESC =
+  `${d.withZodiac} Korean actors with a usable birth year, counted by animal sign. Chance would put `
+  + `${d.expectedPerSign} in each; the spread runs ${가장적은.people} to ${가장많은.people}. `
+  + `Chi-square ${d.chiSquare} against a threshold of ${d.chiSquareThreshold}.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://www.netflix.com/tudum/top10'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/zodiac">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    <b>{d.withZodiac}</b> actors. Chance would put <b>{d.expectedPerSign}</b> in each sign.
+    {' '}The count runs from <b>{가장적은.people}</b> to <b>{가장많은.people}</b>.
+  </p>
+  {/* 🔴 공유 카드가 62.3% 를 내걸었는데 이 지면에 그 수가 없어 `check-table-promises` 가 섰다.
+      ⛔ 카드가 약속한 수는 **지면에 표로** 있어야 한다. 그 약속이 이 사이트의 값이다. */}
+  <p class="note">
+    Why it is worth counting at all: in a 2026 national survey of 1,200 people aged 13 to 69,
+    {' '}<b>62.3%</b> of Koreans said they had had their fortune read at least once, and the country
+    has <b>15,853</b> registered fortune-telling businesses.{' '}
+    <a href="/article/two-in-three-koreans">The article explains what they are looking at</a>.
+  </p>
+
+  <section>
+    <h2>Every sign, in order</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Animal year</th><th>Actors</th><th>Share</th>
+          <th>Against {d.expectedPerSign} expected</th></tr></thead>
+        <tbody>
+          {d.counts.map((c) => (
+            <tr>
+              <td class="nm">{c.sign}</td>
+              <td class="tot">{c.people}</td>
+              <td>{c.sharePc}%</td>
+              <td>{c.people - d.expectedPerSign > 0 ? '+' : ''}{(c.people - d.expectedPerSign).toFixed(1)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>{d.unit}</b> Listed in the order of the cycle, not by size.</p>
+    <p class="q">
+      Chi-square <b>{d.chiSquare}</b> against a 5% threshold of <b>{d.chiSquareThreshold}</b>.
+      {' '}{d.indistinguishableFromChance
+        ? 'The distribution is indistinguishable from chance.'
+        : 'The distribution is further from flat than chance would give.'}
+    </p>
+  </section>
+
+  <section class="warn-box">
+    <h2>What this does not say</h2>
+    <p class="warn">{d.cannotAnswer}</p>
+    <p class="note">{d.whyNoIndividualReading}</p>
+    <p class="note fine">{d.whyJanFebExcluded}</p>
+  </section>
+
+  {d.debutAge && (
+    <section>
+      <h2>When they started</h2>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Age at first credited work</th><th>Actors</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">Lower quarter begins</td><td class="tot">{d.debutAge.lowerQuartile}</td></tr>
+            <tr><td class="nm">Median</td><td class="tot">{d.debutAge.median}</td></tr>
+            <tr><td class="nm">Upper quarter begins</td><td class="tot">{d.debutAge.upperQuartile}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Measured on {d.debutAge.people} actors whose first working year is recorded. Half of them
+        started between {d.debutAge.lowerQuartile} and {d.debutAge.upperQuartile}.
+      </p>
+    </section>
+  )}
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Panel</b> — {d.peopleKeyed} actors carry an item number; {d.withBirthDate} have a
+        usable birth date; {d.withZodiac} have a birth year we can turn into a sign.</li>
+    </ul>
+    <p class="note">
+      <a href="/actor-reach">How far an actor's titles travel</a> ·{' '}
+      <a href="/actors">Who gets looked up</a> · <a href="/about">How we count</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/zodiac" />
+</WikiTip>
+
+<style>
+  .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
+</style>

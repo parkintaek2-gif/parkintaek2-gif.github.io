@@ -117,6 +117,8 @@ export const GET: APIRoute = async () => {
     { path: '/section/stars', priority: '0.8', changefreq: 'weekly' },
     { path: '/section/titles', priority: '0.8', changefreq: 'weekly' },
     { path: '/section/industry', priority: '0.8', changefreq: 'weekly' },
+    { path: '/section/tradition', priority: '0.8', changefreq: 'weekly' },
+    { path: '/zodiac', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*
