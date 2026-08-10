@@ -1,19 +1,19 @@
 {
-  "generated": "2026-08-10 13:25:43 KST",
+  "generated": "2026-08-10 16:54:24 KST",
   "source": "KLifeMap 4번 — 외국어 사주 물음 수집 (구글 자동완성 · Quora · 유튜브)",
   "what_this_is": "외국인이 사주에 대해 실제로 무엇을 궁금해하는지 — 주제로 묶은 표. 기사 주제를 짐작하지 말고 여기서 고를 것.",
-  "method_note": "원자료 6743줄(파일 16개) → 같은 물음을 하나로 묶어 2692가지. 갈래는 klifemap `tools/foreign-topic-rules.js` 한 벌이 정한다. 여기서 다시 가르지 않는다. `other`(아직 못 가른 것)와 `offtopic`(씨앗이 샌 것 — 리그오브레전드·빅뱅이론 따위)은 주제로 넘기지 않고 수만 적는다.",
+  "method_note": "원자료 6752줄(파일 16개) → 같은 물음을 하나로 묶어 2701가지. 갈래는 klifemap `tools/foreign-topic-rules.js` 한 벌이 정한다. 여기서 다시 가르지 않는다. `other`(아직 못 가른 것)와 `offtopic`(씨앗이 샌 것 — 리그오브레전드·빅뱅이론 따위)은 주제로 넘기지 않고 수만 적는다.",
   "privacy_note": "⛔ 본보기 물음은 **숫자가 없고 · 40자 이하이고 · 간지가 안 적힌** 것에서만 골랐다. 손님이 자기 사주·생년월일을 적어 놓은 줄이 356가지 있는데, 그것들은 **수로만 세고 글자는 안 넘긴다.** 원자료 자체는 넘기지 않는다(OneDrive, 4번 자리).",
   "totals": {
-    "raw_lines": 6743,
-    "unique_questions": 2692,
+    "raw_lines": 6752,
+    "unique_questions": 2701,
     "by_lang": {
-      "en": 1594,
+      "en": 1603,
       "ja": 382,
       "zh": 716
     },
-    "grouped_into_topics": 1956,
-    "ungrouped_other": 564,
+    "grouped_into_topics": 1962,
+    "ungrouped_other": 567,
     "dropped_offtopic": 172,
     "questions_with_personal_details": 356
   },
@@ -22,9 +22,9 @@
       "topic": "naming",
       "name_ko": "이름·작명",
       "name_en": "Names and naming",
-      "questions": 447,
+      "questions": 448,
       "by_lang": {
-        "en": 192,
+        "en": 193,
         "ja": 172,
         "zh": 83
       },
@@ -47,9 +47,9 @@
       "topic": "method",
       "name_ko": "보는 법",
       "name_en": "How to read a chart",
-      "questions": 406,
+      "questions": 407,
       "by_lang": {
-        "en": 224,
+        "en": 225,
         "ja": 41,
         "zh": 141
       },
@@ -373,20 +373,24 @@
       "topic": "relationship",
       "name_ko": "연애",
       "name_en": "Love and dating",
-      "questions": 27,
+      "questions": 31,
       "by_lang": {
-        "en": 27,
+        "en": 31,
         "ja": 0,
         "zh": 0
       },
       "samples": [
         {
           "lang": "en",
-          "q": "what does yin yang mean in love"
+          "q": "what is peach blossom luck"
         },
         {
           "lang": "en",
-          "q": "Is there any way to boost poor tao hua?"
+          "q": "what is peach blossom star"
+        },
+        {
+          "lang": "en",
+          "q": "what does yin yang mean in love"
         }
       ]
     },
