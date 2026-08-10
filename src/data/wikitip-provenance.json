@@ -1,0 +1,170 @@
+{
+  "generated": "2026-08-10T00:15:57.661Z",
+  "source": "Netflix Top 10 (Tudum) per-country weekly lists, and Wikidata for country of origin",
+  "question": "Two works can share a title. Which one charted?",
+  "unit": "Chart places. One place is one title in one country in one week.",
+  "panelTitles": 902,
+  "koreanPlaces": 37666,
+  "removedTitles": 13,
+  "removedPlaces": 84,
+  "removedPlacesPc": 0.22,
+  "neverChartedAtHome": 342,
+  "neverChartedAtHomePc": 37.9,
+  "removed": [
+    {
+      "title": "Undercover",
+      "places": 48,
+      "markets": 24,
+      "topMarket": "Netherlands",
+      "topMarketPlaces": 16,
+      "topMarketSharePc": 33.3,
+      "homePlaces": 0,
+      "attributedTo": "벨기에"
+    },
+    {
+      "title": "UFO",
+      "places": 17,
+      "markets": 12,
+      "topMarket": "Turkey",
+      "topMarketPlaces": 5,
+      "topMarketSharePc": 29.4,
+      "homePlaces": 0,
+      "attributedTo": "터키"
+    },
+    {
+      "title": "Let's Dance",
+      "places": 4,
+      "markets": 3,
+      "topMarket": "France",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 50,
+      "homePlaces": 0,
+      "attributedTo": "프랑스"
+    },
+    {
+      "title": "Motherland",
+      "places": 2,
+      "markets": 2,
+      "topMarket": "United Kingdom",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 50,
+      "homePlaces": 0,
+      "attributedTo": "영국"
+    },
+    {
+      "title": "Black Jack",
+      "places": 2,
+      "markets": 1,
+      "topMarket": "Japan",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "일본"
+    },
+    {
+      "title": "Whistleblower",
+      "places": 2,
+      "markets": 1,
+      "topMarket": "Japan",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "일본"
+    },
+    {
+      "title": "Bigman",
+      "places": 2,
+      "markets": 1,
+      "topMarket": "Netherlands",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "네덜란드"
+    },
+    {
+      "title": "Superstar",
+      "places": 2,
+      "markets": 1,
+      "topMarket": "Spain",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "스페인"
+    },
+    {
+      "title": "#Iamhere",
+      "places": 1,
+      "markets": 1,
+      "topMarket": "France",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "프랑스"
+    },
+    {
+      "title": "#Manhole",
+      "places": 1,
+      "markets": 1,
+      "topMarket": "Japan",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "일본"
+    },
+    {
+      "title": "Supernova",
+      "places": 1,
+      "markets": 1,
+      "topMarket": "Poland",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "폴란드"
+    },
+    {
+      "title": "Oh My God",
+      "places": 1,
+      "markets": 1,
+      "topMarket": "India",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "인도"
+    },
+    {
+      "title": "StartUp",
+      "places": 1,
+      "markets": 1,
+      "topMarket": "Sweden",
+      "topMarketPlaces": 1,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": "스웨덴"
+    }
+  ],
+  "couldNotSeparate": [
+    {
+      "title": "Keys to the Heart",
+      "places": 3,
+      "markets": 1,
+      "topMarket": "Philippines",
+      "topMarketPlaces": 3,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": null
+    },
+    {
+      "title": "Life Is Beautiful",
+      "places": 2,
+      "markets": 1,
+      "topMarket": "Italy",
+      "topMarketPlaces": 2,
+      "topMarketSharePc": 100,
+      "homePlaces": 0,
+      "attributedTo": null
+    }
+  ],
+  "whyNotHomeChartAlone": "342 of 902 Korean titles (37.9%) never charted in Korea at all, because a drama that airs on Korean television does not appear on Netflix Korea. Absence from the home chart proves nothing on its own.",
+  "whatThisCannotDo": "It cannot separate two works when a Korean work genuinely shares the name and the foreign one dominates the same market. Two titles failed here and were kept.",
+  "cannotAnswer": "It says which work the chart row belongs to, not whether the other work exists, and it needs a foreign work Wikidata already knows about."
+}
