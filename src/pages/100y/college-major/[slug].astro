@@ -21,6 +21,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { 학과슬러그 } from '../../../lib/college-major';
 import { 조사 } from '../../../lib/josa';
+import { 퍼센트 } from '../../../lib/number-format';
 import NextQuestion from '../../../components/NextQuestion.astro';
 import 성과 from '../../../data/100yearmap/major-outcomes.json';
 import 묶음 from '../../../data/100yearmap/major-merged.json';
@@ -169,7 +170,7 @@ const desc =
         <div class="tablewrap">
           <table>
             <tbody>
-              <tr><th>여성 비율</th><td>{묶인것.여성비}%</td></tr>
+              <tr><th>여성 비율</th><td>{퍼센트(묶인것.여성비)}</td></tr>
               <tr><th>남성 취업률</th><td>{묶인것.남취업률}%</td></tr>
               <tr><th>여성 취업률</th><td>{묶인것.여취업률}%</td></tr>
               {남녀차 != null && (

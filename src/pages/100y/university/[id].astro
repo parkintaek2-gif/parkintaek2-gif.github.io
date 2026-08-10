@@ -27,6 +27,7 @@
  *    처음엔 우리가 중앙값을 냈었는데, 공식 평균이 있는 걸 알고 전부 바꿨다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import { 퍼센트 } from '../../../lib/number-format';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href, lastSegment } from '../../../lib/hundredyear';
 import { 수치있음, 캠퍼스인가, 본교찾기, 권할만한, 폐교정보, 폐교출처 } from '../../../lib/university';
@@ -352,7 +353,7 @@ const 칸 = [
           {이웃.map((u) => (
             <li>
               <a href={href(u.url)}>{u.표시명}</a>
-              {u.취업률 && <span class="note"> 취업 {u.취업률.값}%</span>}
+              {u.취업률 && <span class="note"> 취업 {퍼센트(u.취업률.값)}</span>}
             </li>
           ))}
         </ul>

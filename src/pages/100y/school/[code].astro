@@ -17,6 +17,7 @@ import { href, lastSegment } from '../../../lib/hundredyear';
 import { 고교지역_대학지역, 짧은지역명 } from '../../../lib/region';
 import { 권할만한 } from '../../../lib/university';
 import { 조사 } from '../../../lib/josa';
+import { 퍼센트, 명 } from '../../../lib/number-format';
 import schools from '../../../data/100yearmap/pages-school.json';
 import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
@@ -257,10 +258,10 @@ const 앞머리 = `${school.title}(${school.지역} · ${school.고교유형})`;
  *   ⚠ 검색 결과는 앞쪽 여든 자쯤만 보인다. **숫자를 앞에 놓는다.**
  */
 const 수조각: string[] = [];
-if (진학률있나) 수조각.push(`진학률 ${진로.진학률}%`);
+if (진학률있나) 수조각.push(`진학률 ${퍼센트(진로.진학률)}`);
 if (진로?.졸업자 != null) 수조각.push(`졸업자 ${진로.졸업자.toLocaleString()}명`);
-if (학급?.학급당학생 != null) 수조각.push(`학급당 ${학급.학급당학생}명`);
-if (중단?.학업중단률 != null) 수조각.push(`학업중단 ${중단.학업중단률}%`);
+if (학급?.학급당학생 != null) 수조각.push(`학급당 ${명(학급.학급당학생)}`);
+if (중단?.학업중단률 != null) 수조각.push(`학업중단 ${퍼센트(중단.학업중단률)}`);
 
 const desc = 수조각.length
   ? `${앞머리} — ${수조각.slice(0, 3).join(' · ')}입니다. ` +
@@ -493,7 +494,7 @@ const 이지역 = (() => {
               {이학교계열.map((c: any) => (
                 <tr>
                   <td>{c.계열}</td>
-                  <td>{c.진학률}%</td>
+                  <td>{퍼센트(c.진학률)}</td>
                   <td>
                     {c.취업률 != null ? (
                       `${c.취업률}%`
@@ -566,7 +567,7 @@ const 이지역 = (() => {
         {진로.진학률 != null ? (
           <div class="answer">
             <p class="answer-label">졸업생 {진로.졸업자.toLocaleString()}명 가운데 진학한 학생</p>
-            <p class="answer-num">{진로.진학률}%</p>
+            <p class="answer-num">{퍼센트(진로.진학률)}</p>
             <p class="answer-sub">
               {진로.진학.toLocaleString()}명 · 그 밖 {진로.그밖.toLocaleString()}명 ({진로.그밖율}%)
             </p>
@@ -729,7 +730,7 @@ const 이지역 = (() => {
             </p>
             <p class="answer-num">{중단.학업중단}명</p>
             <p class="answer-sub">
-              {중단.학업중단률}%
+              {퍼센트(중단.학업중단률)}
               {중단.전입 != null && <> · 같은 해에 전학 온 학생은 {중단.전입}명</>}
             </p>
           </div>
@@ -951,7 +952,7 @@ const 이지역 = (() => {
               <a href={href(u.url)}>{u.표시명}</a>
               <span class="note">
                 {' '}{u.종류}
-                {u.취업률 && <> · 취업 {u.취업률.값}%</>}
+                {u.취업률 && <> · 취업 {퍼센트(u.취업률.값)}</>}
               </span>
             </li>
           ))}

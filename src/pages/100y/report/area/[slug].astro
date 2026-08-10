@@ -40,6 +40,7 @@ import NextQuestionAfterPick from '../../../../components/NextQuestionAfterPick.
 import schools from '../../../../data/100yearmap/pages-school.json';
 import 진로자료 from '../../../../data/100yearmap/school-career.json';
 import { 지역가르기, 슬러그풀기, 한벌로팔만한가, 열쇠만들기 } from '../../../../lib/school-area';
+import { 퍼센트, 한자리 } from '../../../../lib/number-format';
 /* 🔴 값과 다음 칸은 **한 곳**에서 온다 — 지면마다 9,900 을 적으면 값이 바뀔 때 일부만 고쳐진다 */
 import {
   값글자, 한벌에드는것, 다음칸, 알림메일주소, 파는지면알림, 무료지면알림, 파는지면검색, 미리보기, 사는주소,
@@ -263,7 +264,7 @@ const 제목 = 진학률잰곳있나
 
 const desc = 진학률잰곳있나
   ? `${시도} ${구} 고등학교 ${곳들.length}곳의 진학률을 한 장에 모았습니다. ` +
-    `잰 곳 ${잰곳.length}곳 · ${낮은값}% ~ ${높은값}%. ` +
+    `잰 곳 ${잰곳.length}곳 · ${퍼센트(낮은값)} ~ ${퍼센트(높은값)}. ` +
     `줄 세우지 않고 퍼짐 안에서 어디쯤인지만 보여드립니다.`
   : `${시도} ${구} 고등학교 ${곳들.length}곳입니다. 진학률을 잰 학교가 없어 이름과 갈래만 있습니다.`;
 ---
@@ -387,9 +388,9 @@ const desc = 진학률잰곳있나
         <h2>이 지역은 이렇게 퍼져 있습니다</h2>
         <div class="answer">
           <p class="answer-label">진학률이 가장 낮은 곳부터 가장 높은 곳까지</p>
-          <p class="answer-num">{낮은값}% ~ {높은값}%</p>
+          <p class="answer-num">{퍼센트(낮은값)} ~ {퍼센트(높은값)}</p>
           <p class="answer-sub">
-            퍼진 폭 {퍼짐}%p · 가운데값 {가운데}% · 잰 곳 {잰곳.length}곳
+            퍼진 폭 {한자리(퍼짐)}%p · 가운데값 {퍼센트(가운데)} · 잰 곳 {잰곳.length}곳
           </p>
         </div>
 
@@ -403,13 +404,13 @@ const desc = 진학률잰곳있나
               <span
                 class="spread-dot"
                 style={`left:${자리(x.진로.진학률)}%`}
-                title={보이나(x) ? `${x.title} ${x.진로.진학률}%` : undefined}
+                title={보이나(x) ? `${x.title} ${퍼센트(x.진로.진학률)}` : undefined}
               />
             ))}
           </div>
           <div class="spread-ends">
-            <span>{낮은값}%</span>
-            <span>{높은값}%</span>
+            <span>{퍼센트(낮은값)}</span>
+            <span>{퍼센트(높은값)}</span>
           </div>
         </div>
         <p class="note">
@@ -465,8 +466,8 @@ const desc = 진학률잰곳있나
                       「돈 내면 준다」는 뜻이 되어 거짓말이다. 위와 **같은 실수**가 여기로도 나왔었다 */}
               {보이나(x) || x.진로?.진학률 == null ? (
                 <>
-                  <td>{x.진로?.진학률 != null ? <strong>{x.진로.진학률}%</strong> : '—'}</td>
-                  <td>{x.진로?.그밖율 != null ? `${x.진로.그밖율}%` : '—'}</td>
+                  <td>{x.진로?.진학률 != null ? <strong>{퍼센트(x.진로.진학률)}</strong> : '—'}</td>
+                  <td>{x.진로?.그밖율 != null ? 퍼센트(x.진로.그밖율) : '—'}</td>
                 </>
               ) : (
                 <>
@@ -518,7 +519,7 @@ const desc = 진학률잰곳있나
                   return (
                     <tr>
                       <th>{k}</th>
-                      <td>{v?.가운데 != null ? `${v.가운데}%` : '—'}</td>
+                      <td>{v?.가운데 != null ? 퍼센트(v.가운데) : '—'}</td>
                       <td>{v?.곳 != null ? `${v.곳.toLocaleString()}곳` : '—'}</td>
                     </tr>
                   );
@@ -533,8 +534,8 @@ const desc = 진학률잰곳있나
         </p>
         {보이나(제일낮은) && 제일낮은.진로?.그밖율 != null && 갈래그밖.get(제일낮은.고교유형)?.가운데 != null && (
           <p class="note">
-            ⛔ 다만 {제일낮은.title}의 「그 밖」은 <strong>{제일낮은.진로.그밖율}%</strong>로
-            전국 {제일낮은.고교유형} 가운데값({갈래그밖.get(제일낮은.고교유형)!.가운데}%)<strong>보다도 큽니다.</strong>{' '}
+            ⛔ 다만 {제일낮은.title}의 「그 밖」은 <strong>{퍼센트(제일낮은.진로.그밖율)}</strong>로
+            전국 {제일낮은.고교유형} 가운데값({퍼센트(갈래그밖.get(제일낮은.고교유형)!.가운데)})<strong>보다도 큽니다.</strong>{' '}
             <strong>왜 그런지는 저희 자료로 못 잽니다.</strong> 못 잰 것을 「재수 때문」으로
             메우지 않겠습니다.
           </p>

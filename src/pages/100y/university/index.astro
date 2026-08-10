@@ -9,6 +9,7 @@
  *   「숨긴 내용」으로 낮게 볼 수 있다(2번 지적, 2026-08-04). 아직 실측한 적은 없다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import { 퍼센트 } from '../../../lib/number-format';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import { 수치있음, 폐교정보 } from '../../../lib/university';
@@ -69,7 +70,7 @@ const desc =
               <a href={href(u.url)}>{u.표시명}</a>
               <span class="note">
                 {' '}{u.종류}
-                {u.취업률 && <> · 취업 {u.취업률.값}%</>}
+                {u.취업률 && <> · 취업 {퍼센트(u.취업률.값)}</>}
                 {/* ⚠ 찾기 지면에서는 **빼지 않는다.** 검색해서 온 사람에게는
                     「수치가 없다」는 것 자체가 답이다. 대신 눌러 보기 전에 알려 준다.
                     ⛔ 「나쁜 학교」 표시가 아니다 — 캠퍼스는 본교에 수치가 몰려 있을 뿐이다
