@@ -24,6 +24,8 @@ $갈래 = @(
   'raw\nps','raw\netflix-top10','raw\funds','raw\dart','raw\dart-company','raw\dart-corpcode',
   'raw\dart-employment','raw\dart-executives','raw\dart-issuance','raw\neis','raw\kosis',
   'raw\alimi','raw\univ','raw\work24','raw\star-pageviews','raw\kasfo',
+  # 2026-08-10 8번이 더함 — 로컬에만 있던 다섯. 백업 목록에서 통째로 빠져 있었다
+  'raw\kedi','raw\kosis-expl','raw\procure','raw\traffic','raw\wikidata',
   'index','meta','manifest','report','100yearmap','outreach','probe'
 )
 
