@@ -1,19 +1,19 @@
 {
-  "generated": "2026-08-10 11:55:41 KST",
+  "generated": "2026-08-10 13:25:43 KST",
   "source": "KLifeMap 4번 — 외국어 사주 물음 수집 (구글 자동완성 · Quora · 유튜브)",
   "what_this_is": "외국인이 사주에 대해 실제로 무엇을 궁금해하는지 — 주제로 묶은 표. 기사 주제를 짐작하지 말고 여기서 고를 것.",
-  "method_note": "원자료 6729줄(파일 16개) → 같은 물음을 하나로 묶어 2680가지. 갈래는 klifemap `tools/foreign-topic-rules.js` 한 벌이 정한다. 여기서 다시 가르지 않는다. `other`(아직 못 가른 것)와 `offtopic`(씨앗이 샌 것 — 리그오브레전드·빅뱅이론 따위)은 주제로 넘기지 않고 수만 적는다.",
+  "method_note": "원자료 6743줄(파일 16개) → 같은 물음을 하나로 묶어 2692가지. 갈래는 klifemap `tools/foreign-topic-rules.js` 한 벌이 정한다. 여기서 다시 가르지 않는다. `other`(아직 못 가른 것)와 `offtopic`(씨앗이 샌 것 — 리그오브레전드·빅뱅이론 따위)은 주제로 넘기지 않고 수만 적는다.",
   "privacy_note": "⛔ 본보기 물음은 **숫자가 없고 · 40자 이하이고 · 간지가 안 적힌** 것에서만 골랐다. 손님이 자기 사주·생년월일을 적어 놓은 줄이 356가지 있는데, 그것들은 **수로만 세고 글자는 안 넘긴다.** 원자료 자체는 넘기지 않는다(OneDrive, 4번 자리).",
   "totals": {
-    "raw_lines": 6729,
-    "unique_questions": 2680,
+    "raw_lines": 6743,
+    "unique_questions": 2692,
     "by_lang": {
-      "en": 1582,
+      "en": 1594,
       "ja": 382,
       "zh": 716
     },
-    "grouped_into_topics": 1914,
-    "ungrouped_other": 594,
+    "grouped_into_topics": 1956,
+    "ungrouped_other": 564,
     "dropped_offtopic": 172,
     "questions_with_personal_details": 356
   },
@@ -97,9 +97,9 @@
       "topic": "saju",
       "name_ko": "내 사주를 봐 달라",
       "name_en": "Read my own chart",
-      "questions": 173,
+      "questions": 172,
       "by_lang": {
-        "en": 168,
+        "en": 167,
         "ja": 0,
         "zh": 5
       },
@@ -122,9 +122,9 @@
       "topic": "zodiac",
       "name_ko": "띠·별자리",
       "name_en": "Zodiac animals and signs",
-      "questions": 117,
+      "questions": 120,
       "by_lang": {
-        "en": 111,
+        "en": 114,
         "ja": 0,
         "zh": 6
       },
@@ -147,9 +147,9 @@
       "topic": "compatibility",
       "name_ko": "궁합·결혼",
       "name_en": "Compatibility and marriage",
-      "questions": 112,
+      "questions": 116,
       "by_lang": {
-        "en": 87,
+        "en": 91,
         "ja": 12,
         "zh": 13
       },
@@ -294,6 +294,31 @@
       ]
     },
     {
+      "topic": "career",
+      "name_ko": "일·직업",
+      "name_en": "Work and career",
+      "questions": 35,
+      "by_lang": {
+        "en": 30,
+        "ja": 2,
+        "zh": 3
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "How is gemini + aries good working?😭😭"
+        },
+        {
+          "lang": "zh",
+          "q": "Hi 伟权，哪要怎么利用知己的八字了解知己适合的工作或行业呢？"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 仕事運 見方"
+        }
+      ]
+    },
+    {
       "topic": "otherschool",
       "name_ko": "다른 유파(算命学·九星気学 등)",
       "name_en": "Other schools of divination",
@@ -320,37 +345,12 @@
       "note": "⚠ 우리 유파가 아니다 — 算命学·九星気学 등"
     },
     {
-      "topic": "career",
-      "name_ko": "일·직업",
-      "name_en": "Work and career",
-      "questions": 31,
-      "by_lang": {
-        "en": 26,
-        "ja": 2,
-        "zh": 3
-      },
-      "samples": [
-        {
-          "lang": "en",
-          "q": "How is gemini + aries good working?😭😭"
-        },
-        {
-          "lang": "zh",
-          "q": "Hi 伟权，哪要怎么利用知己的八字了解知己适合的工作或行业呢？"
-        },
-        {
-          "lang": "ja",
-          "q": "四柱推命 仕事運 見方"
-        }
-      ]
-    },
-    {
       "topic": "birthtime",
       "name_ko": "출생시각·쌍둥이",
       "name_en": "Birth time, twins, C-section",
-      "questions": 30,
+      "questions": 32,
       "by_lang": {
-        "en": 11,
+        "en": 13,
         "ja": 1,
         "zh": 18
       },
@@ -370,19 +370,40 @@
       ]
     },
     {
+      "topic": "relationship",
+      "name_ko": "연애",
+      "name_en": "Love and dating",
+      "questions": 27,
+      "by_lang": {
+        "en": 27,
+        "ja": 0,
+        "zh": 0
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "what does yin yang mean in love"
+        },
+        {
+          "lang": "en",
+          "q": "Is there any way to boost poor tao hua?"
+        }
+      ]
+    },
+    {
       "topic": "consult",
       "name_ko": "봐 주실 수 있나요(상담)",
       "name_en": "Asking for a reading",
-      "questions": 21,
+      "questions": 26,
       "by_lang": {
-        "en": 1,
+        "en": 6,
         "ja": 0,
         "zh": 20
       },
       "samples": [
         {
           "lang": "en",
-          "q": "How much do you charge?"
+          "q": "can you read bazi"
         },
         {
           "lang": "zh",
@@ -391,23 +412,6 @@
         {
           "lang": "zh",
           "q": "请问如何联系您呢？"
-        }
-      ]
-    },
-    {
-      "topic": "relationship",
-      "name_ko": "연애",
-      "name_en": "Love and dating",
-      "questions": 18,
-      "by_lang": {
-        "en": 18,
-        "ja": 0,
-        "zh": 0
-      },
-      "samples": [
-        {
-          "lang": "en",
-          "q": "what does yin yang mean in love"
         }
       ]
     },
@@ -456,6 +460,32 @@
           "q": "健康运看哪一个柱呢？"
         }
       ]
+    },
+    {
+      "topic": "chatter",
+      "name_ko": "띠 부름·잡담(물음이 아니다)",
+      "name_en": "Zodiac roll-call chatter (not questions)",
+      "questions": 16,
+      "by_lang": {
+        "en": 16,
+        "ja": 0,
+        "zh": 0
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "Where ma dragons at?"
+        },
+        {
+          "lang": "en",
+          "q": "Who else is a rabbit?"
+        },
+        {
+          "lang": "en",
+          "q": "Anyone else a rooster?"
+        }
+      ],
+      "note": "⚠ 물음이 아니다 — 같은 띠를 부르는 인사다. 수요로 세지 말 것(다만 띠 콘텐츠의 반응이 뜨겁다는 표시다)"
     }
   ]
 }
