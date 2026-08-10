@@ -1,6 +1,6 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-07. Ten files. Start here.
+Sample bundle, 2026-08-10. Ten files. Start here.
 
 ## What this is, in five lines
 
@@ -49,7 +49,7 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 | What | How much | Can it be filled? |
 | --- | ---: | --- |
 | Titles whose name is shared with a foreign work, so the name alone cannot say which one charted | 149 of 397 rows (37.5%) | **Partly, and this changed on 8 August 2026.** We used to say no. Netflix still publishes no country of production, but its Korean chart is a second signal: 76 of these never appear on it and 20 charted in one country only. That narrows it to a readable queue; it does not close it |
-| Titles Wikidata gives no country for | 21 rows (5.3%) | **Partly** — by a per-title human check we have not done |
+| Titles Wikidata gives no country for | 7 rows (1.8%) | **Partly** — by a per-title human check we have not done |
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
 | Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
@@ -58,7 +58,7 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 
 The same thing is in `coverage.csv` in a form you can filter.
 
-**Weighted by viewing rather than by title count, the picture is better** — 79.9% of hours
+**Weighted by viewing rather than by title count, the picture is better** — 82.8% of hours
 sit on titles only Korean works carry. The ambiguity is concentrated in small titles. Both numbers are
 below and neither is the real one on its own.
 
@@ -69,7 +69,7 @@ below and neither is the real one on its own.
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3413 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
-| `corrections.csv` | Every figure we have published and had to change | 17 |
+| `corrections.csv` | Every figure we have published and had to change | 13 |
 | `coverage.csv` | What is empty, how much, and whether it can be filled | 18 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 
@@ -114,8 +114,8 @@ Two different numbers, and both matter.
 
 | | Only Korean | Shared name | No country |
 | --- | ---: | ---: | ---: |
-| This panel, by titles | 227 | 149 | 21 |
-| Global catalogue, by viewing hours | 79.9% | 16.9% | 3.2% |
+| This panel, by titles | 241 | 149 | 7 |
+| Global catalogue, by viewing hours | 82.8% | 16.8% | 0.4% |
 
 **The panel has a much higher share of shared names than the global catalogue does.** That is not a
 different standard — it is the same test on a different population. Titles that chart in Southeast
@@ -139,7 +139,7 @@ If you put one of our numbers in a report, this file tells you whether it still 
 
 Stated plainly, because you will hit these:
 
-1. **16.9% of viewing sits on titles a foreign work shares a name with.** We mark them; we do not
+1. **16.8% of viewing sits on titles a foreign work shares a name with.** We mark them; we do not
    resolve them. Nothing in the published data resolves them.
 2. **Country charts carry no hours.** `countries_reached` is chart entry, not viewing. There is no
    viewing figure per market anywhere in Netflix's country data.

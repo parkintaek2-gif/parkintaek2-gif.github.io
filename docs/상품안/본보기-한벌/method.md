@@ -21,9 +21,9 @@ countries made a film or series with exactly that name.
 
 | Verdict | Titles | Share of viewing |
 | --- | ---: | ---: |
-| Only Korean works carry this title | 143 | 79.9% |
-| A foreign work shares the title | 78 | 16.9% |
-| Wikidata gives no country | 14 | 3.2% |
+| Only Korean works carry this title | 154 | 82.8% |
+| A foreign work shares the title | 76 | 16.8% |
+| Wikidata gives no country | 2 | 0.4% |
 
 The `attribution` column in `korean-title-panel.csv` carries that verdict per title. A shared title
 is **not an error** — it is a case we cannot settle from text alone, and it is marked rather than

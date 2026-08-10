@@ -1,4 +1,4 @@
 measure,titles,share_of_viewing_pc,what_it_means
-korea_only,143,79.9,Only Korean works carry this exact title. A title-text rule cannot mismatch it.
-shared_title,78,16.9,A non-Korean work shares the exact title. We cannot tell from text alone which one charted. Not an error — an unresolved case.
-no_country_on_wikidata,14,3.2,Wikidata records no country of origin for any work with this title. No basis to judge.
+korea_only,154,82.8,Only Korean works carry this exact title. A title-text rule cannot mismatch it.
+shared_title,76,16.8,A non-Korean work shares the exact title. We cannot tell from text alone which one charted. Not an error — an unresolved case.
+no_country_on_wikidata,2,0.4,Wikidata records no country of origin for any work with this title. No basis to judge.
