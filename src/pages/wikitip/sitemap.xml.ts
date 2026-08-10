@@ -113,6 +113,10 @@ export const GET: APIRoute = async () => {
     { path: '/hard-markets', priority: '0.9', changefreq: 'weekly' },
     { path: '/provenance', priority: '0.9', changefreq: 'weekly' },
     { path: '/crowding', priority: '0.9', changefreq: 'weekly' },
+    /* 갈래 목록 — ⛔ 기사가 없는 갈래(tradition)는 지면이 안 생기므로 여기 안 넣는다 */
+    { path: '/section/stars', priority: '0.8', changefreq: 'weekly' },
+    { path: '/section/titles', priority: '0.8', changefreq: 'weekly' },
+    { path: '/section/industry', priority: '0.8', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

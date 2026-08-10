@@ -88,7 +88,12 @@ const jsonLd = {
 <WikiTip title={d.title} description={d.dek} canonical={url} jsonLd={jsonLd}
   ogImage={카드}>
   <article>
-    <p class="kicker">{CATEGORY[d.category] ?? d.category}</p>
+    {/* 🔴 2026-08-10 — 갈래가 **글자로만** 있어서 눌러 볼 수가 없었다. 2번이 짚어 주셨다.
+        ⛔ `/stars` 가 아니라 `/section/stars` 다 — `/titles`·`/industry` 는 자료 지면이 이미 쓴다. */}
+    <p class="kicker">
+      <a href={`/section/${d.category}`}>{CATEGORY[d.category] ?? d.category}</a>
+      {d.genre && <span class="fine"> · {d.genre}</span>}
+    </p>
     <h1>{d.title}</h1>
     <p class="dek">{d.dek}</p>
     <p class="byline">
