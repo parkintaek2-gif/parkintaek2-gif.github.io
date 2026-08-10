@@ -86,6 +86,20 @@ async function 물기(q) {
   return null;
 }
 
+/**
+ * 🔴 위키데이터는 **연도만 아는 생일**을 `1993-01-01` 로 적어 둔다(정밀도 9).
+ *   그대로 읽었더니 1월 1일이 34명 — 하루 평균의 **9.3배**였다.
+ *   ⛔ 그 34명은 「1월 1일생」이 아니라 「날을 모르는 사람」이다.
+ *   ⚠ 진짜 1월 1일생도 몇은 있겠지만, **가짜가 아홉 배**라 가릴 수 없다. 통째로 「모름」으로 둔다.
+ *   ⭐ 자를 안 고치고 지면에 냈으면 「한국 배우는 1월에 많이 난다」는 거짓이 나갔다.
+ */
+export function 날짜믿을만한가(값) {
+  const d = 날짜(값);
+  if (!d) return null;
+  if (d.slice(5) === '01-01') return null;   /* 연도만 아는 것 — 날을 모른다 */
+  return d;
+}
+
 export function 질의(큐들) {
   const v = 큐들.map((q) => `wd:${q}`).join(' ');
   return `SELECT ?p ?born ?started ?agencyLabel ?jobLabel WHERE {
@@ -116,6 +130,9 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('띠 — 2월생은 모름', 띠('1993-02-20'), null);
   재본다('띠 — 날짜가 없으면 null', 띠(null), null);
   재본다('시작나이', 시작나이('1993-05-04', '2011-07-01'), 18);
+  /* 🔴 1월 1일이 하루 평균의 9.3배였다 — 위키데이터가 연도만 알 때 쓰는 자리다 */
+  재본다('01-01 은 안 믿는다', 날짜믿을만한가('1993-01-01T00:00:00Z'), null);
+  재본다('다른 날은 믿는다', 날짜믿을만한가('1993-01-02T00:00:00Z'), '1993-01-02');
   재본다('시작나이 — 하나가 없으면 null', 시작나이('1993-05-04', null), null);
   재본다('시작나이 — 말이 안 되면 null', 시작나이('1993-05-04', '1995-01-01'), null);
   재본다('질의에 열쇠가 들어간다', 질의(['Q1', 'Q2']).includes('wd:Q1 wd:Q2'), true);
@@ -142,7 +159,7 @@ if (내가실행됐다) {
     for (const b of rows) {
       const q = b.p.value.split('/').pop();
       const 것 = 받은것.get(q) ?? { q, 태어난날: null, 시작한날: null, 소속: new Set(), 하는일: new Set() };
-      것.태어난날 ??= 날짜(b.born?.value);
+      것.태어난날 ??= 날짜믿을만한가(b.born?.value);
       것.시작한날 ??= 날짜(b.started?.value);
       if (b.agencyLabel?.value) 것.소속.add(b.agencyLabel.value);
       if (b.jobLabel?.value) 것.하는일.add(b.jobLabel.value);
