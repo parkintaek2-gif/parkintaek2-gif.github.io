@@ -1,0 +1,461 @@
+{
+  "generated": "2026-08-10 11:55:41 KST",
+  "source": "KLifeMap 4번 — 외국어 사주 물음 수집 (구글 자동완성 · Quora · 유튜브)",
+  "what_this_is": "외국인이 사주에 대해 실제로 무엇을 궁금해하는지 — 주제로 묶은 표. 기사 주제를 짐작하지 말고 여기서 고를 것.",
+  "method_note": "원자료 6729줄(파일 16개) → 같은 물음을 하나로 묶어 2680가지. 갈래는 klifemap `tools/foreign-topic-rules.js` 한 벌이 정한다. 여기서 다시 가르지 않는다. `other`(아직 못 가른 것)와 `offtopic`(씨앗이 샌 것 — 리그오브레전드·빅뱅이론 따위)은 주제로 넘기지 않고 수만 적는다.",
+  "privacy_note": "⛔ 본보기 물음은 **숫자가 없고 · 40자 이하이고 · 간지가 안 적힌** 것에서만 골랐다. 손님이 자기 사주·생년월일을 적어 놓은 줄이 356가지 있는데, 그것들은 **수로만 세고 글자는 안 넘긴다.** 원자료 자체는 넘기지 않는다(OneDrive, 4번 자리).",
+  "totals": {
+    "raw_lines": 6729,
+    "unique_questions": 2680,
+    "by_lang": {
+      "en": 1582,
+      "ja": 382,
+      "zh": 716
+    },
+    "grouped_into_topics": 1914,
+    "ungrouped_other": 594,
+    "dropped_offtopic": 172,
+    "questions_with_personal_details": 356
+  },
+  "topics": [
+    {
+      "topic": "naming",
+      "name_ko": "이름·작명",
+      "name_en": "Names and naming",
+      "questions": 447,
+      "by_lang": {
+        "en": 192,
+        "ja": 172,
+        "zh": 83
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "what is name number"
+        },
+        {
+          "lang": "zh",
+          "q": "改名怎么改"
+        },
+        {
+          "lang": "ja",
+          "q": "改名とは"
+        }
+      ]
+    },
+    {
+      "topic": "method",
+      "name_ko": "보는 법",
+      "name_en": "How to read a chart",
+      "questions": 406,
+      "by_lang": {
+        "en": 224,
+        "ja": 41,
+        "zh": 141
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "how to see bazi"
+        },
+        {
+          "lang": "zh",
+          "q": "八字怎么看"
+        },
+        {
+          "lang": "ja",
+          "q": "運勢 見方"
+        }
+      ]
+    },
+    {
+      "topic": "chart",
+      "name_ko": "명식(사주 네 기둥)",
+      "name_en": "The chart itself — four pillars",
+      "questions": 183,
+      "by_lang": {
+        "en": 0,
+        "ja": 45,
+        "zh": 138
+      },
+      "samples": [
+        {
+          "lang": "zh",
+          "q": "八字如何排盘"
+        },
+        {
+          "lang": "ja",
+          "q": "命式とは"
+        },
+        {
+          "lang": "ja",
+          "q": "命式 とは"
+        }
+      ]
+    },
+    {
+      "topic": "saju",
+      "name_ko": "내 사주를 봐 달라",
+      "name_en": "Read my own chart",
+      "questions": 173,
+      "by_lang": {
+        "en": 168,
+        "ja": 0,
+        "zh": 5
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "why is my bazi"
+        },
+        {
+          "lang": "zh",
+          "q": "为什么生辰八字不能给别人"
+        },
+        {
+          "lang": "en",
+          "q": "what is my bazi"
+        }
+      ]
+    },
+    {
+      "topic": "zodiac",
+      "name_ko": "띠·별자리",
+      "name_en": "Zodiac animals and signs",
+      "questions": 117,
+      "by_lang": {
+        "en": 111,
+        "ja": 0,
+        "zh": 6
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "What. Zodiac Is he??"
+        },
+        {
+          "lang": "zh",
+          "q": "生肖 是 什么 时候 开始 的"
+        },
+        {
+          "lang": "en",
+          "q": "No sagittarius what?"
+        }
+      ]
+    },
+    {
+      "topic": "compatibility",
+      "name_ko": "궁합·결혼",
+      "name_en": "Compatibility and marriage",
+      "questions": 112,
+      "by_lang": {
+        "en": 87,
+        "ja": 12,
+        "zh": 13
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "Compatibility on what?"
+        },
+        {
+          "lang": "zh",
+          "q": "八字合婚怎么看"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 結婚運 見方"
+        }
+      ]
+    },
+    {
+      "topic": "tenstar",
+      "name_ko": "십신(십성)",
+      "name_en": "Ten gods",
+      "questions": 97,
+      "by_lang": {
+        "en": 1,
+        "ja": 18,
+        "zh": 78
+      },
+      "samples": [
+        {
+          "lang": "zh",
+          "q": "八字怎么看十神"
+        },
+        {
+          "lang": "ja",
+          "q": "偏印 とは"
+        },
+        {
+          "lang": "ja",
+          "q": "倒食(偏印)とは"
+        }
+      ]
+    },
+    {
+      "topic": "doubt",
+      "name_ko": "맞나·믿을 만한가",
+      "name_en": "Is it accurate?",
+      "questions": 94,
+      "by_lang": {
+        "en": 84,
+        "ja": 4,
+        "zh": 6
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "is bazi real"
+        },
+        {
+          "lang": "zh",
+          "q": "八字准不准"
+        },
+        {
+          "lang": "ja",
+          "q": "算命学 なぜ当たる"
+        }
+      ]
+    },
+    {
+      "topic": "numerology",
+      "name_ko": "수리(數理)",
+      "name_en": "Numerology",
+      "questions": 41,
+      "by_lang": {
+        "en": 31,
+        "ja": 10,
+        "zh": 0
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "is numerology real"
+        },
+        {
+          "lang": "ja",
+          "q": "数秘術 とは"
+        },
+        {
+          "lang": "ja",
+          "q": "数秘術 占い とは"
+        }
+      ]
+    },
+    {
+      "topic": "strength",
+      "name_ko": "신강·신약",
+      "name_en": "Strong or weak day master",
+      "questions": 41,
+      "by_lang": {
+        "en": 0,
+        "ja": 2,
+        "zh": 39
+      },
+      "samples": [
+        {
+          "lang": "zh",
+          "q": "为什么 八字 轻"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 身強とは"
+        },
+        {
+          "lang": "zh",
+          "q": "八字硬是什么意思"
+        }
+      ]
+    },
+    {
+      "topic": "intro",
+      "name_ko": "사주란 무엇인가",
+      "name_en": "What is it? (beginners)",
+      "questions": 36,
+      "by_lang": {
+        "en": 23,
+        "ja": 10,
+        "zh": 3
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "what is bazi"
+        },
+        {
+          "lang": "zh",
+          "q": "八字是什么"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命とは"
+        }
+      ]
+    },
+    {
+      "topic": "otherschool",
+      "name_ko": "다른 유파(算命学·九星気学 등)",
+      "name_en": "Other schools of divination",
+      "questions": 33,
+      "by_lang": {
+        "en": 0,
+        "ja": 31,
+        "zh": 2
+      },
+      "samples": [
+        {
+          "lang": "zh",
+          "q": "很赞成老师对“算命”的哲学。老师除了八字有看紫微斗数吗？"
+        },
+        {
+          "lang": "ja",
+          "q": "算命学とは"
+        },
+        {
+          "lang": "ja",
+          "q": "算命学 とは"
+        }
+      ],
+      "note": "⚠ 우리 유파가 아니다 — 算命学·九星気学 등"
+    },
+    {
+      "topic": "career",
+      "name_ko": "일·직업",
+      "name_en": "Work and career",
+      "questions": 31,
+      "by_lang": {
+        "en": 26,
+        "ja": 2,
+        "zh": 3
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "How is gemini + aries good working?😭😭"
+        },
+        {
+          "lang": "zh",
+          "q": "Hi 伟权，哪要怎么利用知己的八字了解知己适合的工作或行业呢？"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 仕事運 見方"
+        }
+      ]
+    },
+    {
+      "topic": "birthtime",
+      "name_ko": "출생시각·쌍둥이",
+      "name_en": "Birth time, twins, C-section",
+      "questions": 30,
+      "by_lang": {
+        "en": 11,
+        "ja": 1,
+        "zh": 18
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "how to find birth time astrology"
+        },
+        {
+          "lang": "zh",
+          "q": "同时辰出生的八字怎么解？"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 出生時間 わからない"
+        }
+      ]
+    },
+    {
+      "topic": "consult",
+      "name_ko": "봐 주실 수 있나요(상담)",
+      "name_en": "Asking for a reading",
+      "questions": 21,
+      "by_lang": {
+        "en": 1,
+        "ja": 0,
+        "zh": 20
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "How much do you charge?"
+        },
+        {
+          "lang": "zh",
+          "q": "请问你给算命吗？"
+        },
+        {
+          "lang": "zh",
+          "q": "请问如何联系您呢？"
+        }
+      ]
+    },
+    {
+      "topic": "relationship",
+      "name_ko": "연애",
+      "name_en": "Love and dating",
+      "questions": 18,
+      "by_lang": {
+        "en": 18,
+        "ja": 0,
+        "zh": 0
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "what does yin yang mean in love"
+        }
+      ]
+    },
+    {
+      "topic": "wealth",
+      "name_ko": "돈·재물",
+      "name_en": "Money and wealth",
+      "questions": 17,
+      "by_lang": {
+        "en": 13,
+        "ja": 1,
+        "zh": 3
+      },
+      "samples": [
+        {
+          "lang": "en",
+          "q": "what is rob wealth in bazi"
+        },
+        {
+          "lang": "zh",
+          "q": "八字 财运 怎么 看"
+        }
+      ]
+    },
+    {
+      "topic": "health",
+      "name_ko": "건강",
+      "name_en": "Health",
+      "questions": 17,
+      "by_lang": {
+        "en": 8,
+        "ja": 3,
+        "zh": 6
+      },
+      "samples": [
+        {
+          "lang": "zh",
+          "q": "八字 如何 看 健康"
+        },
+        {
+          "lang": "ja",
+          "q": "四柱推命 健康運 見方"
+        },
+        {
+          "lang": "zh",
+          "q": "健康运看哪一个柱呢？"
+        }
+      ]
+    }
+  ]
+}
