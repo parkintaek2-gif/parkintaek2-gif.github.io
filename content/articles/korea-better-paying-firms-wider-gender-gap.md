@@ -1,6 +1,6 @@
 ---
 title: "The better a Korean company pays, the wider its gender gap"
-dek: "Rank listed companies by average pay and the gender gap widens as you climb. Firms paying under 50m won a head give women 75% of men's pay; those paying over 120m give 70%. The reward for a high-paying employer is a steeper ladder. Not advice."
+dek: "Rank listed companies by average pay and the gender gap widens as you climb. Firms paying under 50m won a head give women 75% of men's; those over 120m give 70%. A high-paying employer comes with a steeper ladder. Not advice."
 category: equities
 pubDate: 2026-08-10
 dataAsOf: 2026-08-05T00:00:00+09:00
