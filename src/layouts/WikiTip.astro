@@ -110,7 +110,12 @@ const 인용연도 = 2026;
     /* ⚠ 긴 낱말·URL 이 좁은 화면을 가로로 밀지 않게. 이 사이트에서 한 번 크게 데였다 */
     p, li, td, th, dd, dt, a { overflow-wrap: break-word; }
     .wrap { max-width: 46rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
-    .site { display: flex; align-items: baseline; gap: .6rem; padding: 0 0 1.5rem; }
+    .site { display: flex; align-items: baseline; gap: .6rem; padding: 0 0 .5rem; }
+    /* 갈래 줄 — 이름표가 아니라 **길**이다. 로고 바로 아래, 첫 화면에서 바로 보이는 자리 */
+    .sections { font-size: .86rem; padding: 0 0 1.4rem; border-bottom: 1px solid var(--line);
+                margin-bottom: 1.6rem; }
+    .sections a { color: var(--ink); text-decoration: none; font-weight: 600; }
+    .sections a:hover { text-decoration: underline; }
     .logo { font-size: 1.05rem; font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--ink); }
     .logo span { color: var(--accent); }
     .tag { font-size: .78rem; color: var(--muted); }
@@ -136,6 +141,20 @@ const 인용연도 = 2026;
       <a class="logo" href="/">K Culture <span>Wire</span></a>
       <span class="tag">Korean pop culture, in numbers</span>
     </div>
+    {/*
+      🔴 2026-08-10 — 갈래 지면(`/section/…`)을 만들어 놓고 **기사 안에서만** 갈 수 있게 뒀다.
+        처음 온 손님은 갈래를 못 봤다. 2번이 짚어 주셨다 — 「지면만 만들고 차림표를 안 고치면
+        사장님 지시가 반만 된 것」.
+      ⛔ 전통문화는 아직 안 단다. 기사가 0편이라 **눌렀는데 404 면 더 나쁘다.**
+        첫 글이 들어오면 그때 한 줄 더한다.
+      ⛔ 옛 주소(`/titles`·`/industry`·`/esports`)는 자료 지면이 쓴다. 그래서 `/section/` 이다.
+    */}
+    <nav class="sections" aria-label="Sections">
+      <a href="/section/stars">Stars</a>
+      <span aria-hidden="true"> · </span><a href="/section/titles">Titles</a>
+      <span aria-hidden="true"> · </span><a href="/section/industry">Industry</a>
+      <span aria-hidden="true"> · </span><a href="/articles">All articles</a>
+    </nav>
 
     <slot />
 
