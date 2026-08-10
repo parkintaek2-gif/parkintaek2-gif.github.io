@@ -90,6 +90,14 @@ function 자가시험() {
 }
 
 if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 1 : 0);
+
+/* ⚠ 2026-08-10 13:1x — **곧바로 부를 때만 아래를 돈다.**
+ *   그 전에는 `import` 만 해도 본문이 통째로 돌고 process.exit 까지 했다.
+ *   그래서 다른 자가 이 자의 함수를 빌려 쓸 수 없었다(자끼리 견주려다 막혔다).
+ *   ⛔ 곧바로 부르는 쪽 동작은 하나도 안 바뀐다. */
+const { pathToFileURL: 길을주소로 } = await import('node:url');
+if (!!process.argv[1] && import.meta.url === 길을주소로(process.argv[1]).href) {
+
 const 시험실패 = 자가시험();
 
 /* ───────────────────────── 진짜로 잰다 ───────────────────────── */
@@ -147,3 +155,5 @@ if (운다.length === 0) {
 for (const x of 운다) console.log(`⛔ ${x}`);
 console.log(`\n⛔ ${운다.length}건`);
 process.exit(1);
+
+} /* ── 곧바로부름 끝 ── */

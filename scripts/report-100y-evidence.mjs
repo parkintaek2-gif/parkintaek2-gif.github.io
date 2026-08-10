@@ -34,17 +34,28 @@ export function 첫글월(값) {
   return '';
 }
 
-/** 출처에서 기관·데이터셋·이용허락범위를 뽑는다 */
+/** 출처에서 기관·데이터셋·이용허락범위를 뽑는다
+ *
+ *  🔴 2026-08-10 13:1x 넓혔다 — 처음엔 `이름`·`데이터셋` 칸만 봤다.
+ *     그런데 `기관`·`서비스`·`표` 로 적은 자료가 셋 있었고, 이 자가 그것들을
+ *     **말없이 건너뛰었다.** 그 셋은 전부 대조가 없는 자료였는데,
+ *     그래서 내가 「아무 말 없는 것 0」이라고 잘못 알리게 됐다(04:05 · 08:30 보고).
+ *  ⛔ **못 읽는 것을 조용히 빼면 대장이 아니라 거짓말이 된다.**
+ *     그래서 ① 알아보는 칸을 넓히고 ② 그래도 못 읽은 것은 **세어서 찍는다**(아래 본문).
+ */
+export const 출처칸꼴 = /^(이름|데이터셋|기관|서비스|표|포털|공시항목)$/;
+
 export function 출처뽑기(출처) {
   if (!출처) return null;
   const 하나 = (o) => ({
-    기관: o?.이름 ?? '',
-    데이터셋: o?.데이터셋 ?? '',
-    이용허락범위: o?.이용허락범위 ?? '',
+    기관: o?.이름 ?? o?.기관 ?? o?.서비스 ?? '',
+    데이터셋: o?.데이터셋 ?? o?.표 ?? o?.id ?? '',
+    이용허락범위: o?.이용허락범위 ?? o?.이용허락 ?? o?.공공누리 ?? '',
   });
-  if (출처.이름 || 출처.데이터셋) return [하나(출처)];
+  const 알아보나 = (o) => o && typeof o === 'object' && Object.keys(o).some((k) => 출처칸꼴.test(k));
+  if (알아보나(출처)) return [하나(출처)];
   if (typeof 출처 === 'object') {
-    const 목 = Object.values(출처).filter((v) => v && typeof v === 'object' && (v.이름 || v.데이터셋));
+    const 목 = Object.values(출처).filter(알아보나);
     if (목.length) return 목.map(하나);
   }
   return null;
@@ -84,6 +95,10 @@ function 자가시험() {
     ['출처 하나를 뽑는다', () => 출처뽑기({ 이름: '국민연금', 데이터셋: '15083277' })[0].데이터셋 === '15083277'],
     ['출처 둘도 뽑는다', () => 출처뽑기({ a: { 이름: 'ㄱ' }, b: { 이름: 'ㄴ' } }).length === 2],
     ['출처 없으면 null', () => 출처뽑기(null) === null],
+    ['🔴 「기관」으로 적은 것도 읽는다', () => 출처뽑기({ 기관: '국가데이터처 KOSIS', 서비스: '통계설명' })[0].기관 === '국가데이터처 KOSIS'],
+    ['🔴 겹으로 든 「기관」도 읽는다', () => 출처뽑기({ 임금: { 기관: '고용노동부', 표: '118/x' } })[0].데이터셋 === '118/x'],
+    ['「이용허락」만 적어도 읽는다', () => 출처뽑기({ 기관: 'ㄱ', 이용허락: '약관 제8조' })[0].이용허락범위 === '약관 제8조'],
+    ['⛔ 알 수 없는 꼴이면 null', () => 출처뽑기({ 아무거나: 1 }) === null],
     ['대조 칸을 찾는다', () => 대조요약({ 대조: '공표와 0.03%' }).includes('0.03%')],
     ['⭐ 「못 맞췄다」도 말한 것', () => 대조요약({ x: '공표에 같은 칸이 없다' }).startsWith('⛔')],
     ['아무 말 없으면 빈 글', () => 대조요약({ 자료: [1, 2] }) === ''],
@@ -103,6 +118,14 @@ function 자가시험() {
 
 if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 1 : 0);
 
+/* ⚠ 2026-08-10 13:0x — **직접 부를 때만 아래를 돈다.**
+ *   그 전에는 `import` 만 해도 대장이 통째로 찍혔다. 그래서 다른 자가 이 자의 함수를
+ *   빌려 쓸 수가 없었다(자를 자로 재려다 알았다). 자는 빌려 쓸 수 있어야 한다. */
+const { pathToFileURL } = await import('node:url');
+const 곧바로부름 = !!process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
+
+if (곧바로부름) {
+
 const 여기 = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
   '..',
@@ -110,11 +133,14 @@ const 여기 = path.resolve(
 const 자료방 = path.join(여기, 'src', 'data', '100yearmap');
 
 const 대장 = [];
+/* 🔴 못 읽은 것을 **세어 둔다.** 조용히 건너뛰면 대장이 거짓말이 된다(8/10 13:1x 에 그랬다) */
+const 못읽음 = [];
+const 깨진파일 = [];
 for (const f of fs.readdirSync(자료방).filter((x) => x.endsWith('.json')).sort()) {
   let j;
-  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { 깨진파일.push(f); continue; }
   const 출처 = 출처뽑기(j.출처);
-  if (!출처) continue;
+  if (!출처) { if (j.출처) 못읽음.push(f); continue; }
   대장.push({
     파일: f,
     이름: j.이름 ?? '',
@@ -147,5 +173,13 @@ for (const r of 대장) {
   console.log(`   경고문 ${r.경고수}줄`);
 }
 console.log(`\n자료 ${대장.length}개 — 공표치와 맞춘 것 ${맞춘것} · 「못 맞췄다」고 적은 것 ${못맞춘것} · 아무 말 없는 것 ${말없음}`);
+if (못읽음.length || 깨진파일.length) {
+  console.log(`🔴 이 자가 **못 읽어서 위 셈에 안 들어간 것** ${못읽음.length + 깨진파일.length}개 — ${[...못읽음, ...깨진파일].join(' · ')}`);
+  console.log('   ⛔ 못 읽은 것을 조용히 빼면 대장이 아니라 거짓말이 된다. 출처 칸 이름을 맞추거나 이 자를 넓혀야 한다');
+} else {
+  console.log('✅ 출처가 있는데 못 읽은 자료 0 — 위 셈이 전부다');
+}
 console.log('⛔ 이 자는 판정하지 않는다. **자료에 적힌 것을 모아 보여줄 뿐이다**');
 console.log('⚠ 「아무 말 없는 것」이 0 이 될 때까지가 파는 물건의 완성이다');
+
+} /* ── 곧바로부름 끝 ── */
