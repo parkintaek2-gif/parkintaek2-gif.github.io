@@ -169,10 +169,13 @@ const 운다 = [];
 const 이미운것 = new Set();
 let 본파일 = 0;
 let 본배수 = 0;
+/* 🔴 못 본 것을 세어 둔다 — 조용히 빼면 셈이 거짓말이 된다(8/10 13:0x 에 그랬다) */
+const 못읽음 = [];
+const 일부러뺀것 = fs.readdirSync(자료방).filter((x) => x.endsWith(".json") && !볼파일인가(x));
 
 for (const f of fs.readdirSync(자료방).filter((x) => x.endsWith('.json') && 볼파일인가(x))) {
   let j;
-  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch (e) { 못읽음.push(f + ' (' + e.message.slice(0, 40) + ')'); continue; }
   본파일++;
 
   /* ① 배수·프리미엄·몫·격차 — 그 자리에 기준이 있어야 한다 */
@@ -210,6 +213,9 @@ for (const f of fs.readdirSync(자료방).filter((x) => x.endsWith('.json') && �
 }
 
 console.log(`자료 ${본파일}개 · 기준이 필요한 수 ${본배수}개를 봤다`);
+if (일부러뺀것.length) console.log(`⬜ 일부러 뺀 것 ${일부러뺀것.length}개 — ${일부러뺀것.join(" · ")} (pages- 는 지면 밑자료라 안 본다)`);
+if (못읽음.length) console.log(`🔴 못 읽어서 위 셈에 안 들어간 것 ${못읽음.length}개 — ${못읽음.join(" · ")}`);
+else console.log("✅ 못 읽은 자료 0 — 위 셈이 전부다");
 if (운다.length === 0) {
   console.log('✅ 기준 없는 배수 0 · 분모 안 밝힌 파일 0');
   console.log('⚠ 이 자는 숫자가 맞나를 못 본다. **기준이 적혀 있나**만 본다');

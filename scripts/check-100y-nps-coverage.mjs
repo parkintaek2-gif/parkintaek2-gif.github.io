@@ -289,10 +289,12 @@ const 운다 = [];
 const 알림 = [];
 const 파일들 = fs.readdirSync(자료방).filter((f) => f.endsWith('.json'));
 let 본것 = 0;
+/* 🔴 못 본 것을 세어 둔다 — 조용히 빼면 셈이 거짓말이 된다(8/10 13:0x) */
+const 못읽음 = [];
 
 for (const f of 파일들) {
   let j;
-  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+  try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch (e) { 못읽음.push(f + ' (' + e.message.slice(0, 40) + ')'); continue; }
   /* ⬜ 밖에서 온 자료인데 대조를 한 마디도 안 한 것 — 내 것이면 울고, 남의 것이면 알림만 */
   if (밖에서온것인가(j) && !대조를말했나(j)) {
     const 말 = `${f} — 밖에서 받은 자료인데 **공표치와 맞춰 봤다는 말이 없다**(못 맞췄으면 「못 맞췄다」라고 적으면 된다)`;
@@ -343,7 +345,9 @@ if (알림.length) {
   console.log(`⬜ 남의 자료 ${알림.length}건 — **안 잠급니다. 주인이 보시라고 적습니다**`);
   for (const x of 알림) console.log(`   ${x}`);
 }
-console.log(`국민연금 자료 ${본것}개를 봤다`);
+console.log(`국민연금 자료 ${본것}개를 봤다 (자료방 전체 ${파일들.length}개 중)`);
+if (못읽음.length) console.log(`🔴 못 읽어서 위 셈에 안 들어간 것 ${못읽음.length}개 — ${못읽음.join(" · ")}`);
+else console.log("✅ 못 읽은 자료 0 — 위 셈이 전부다");
 
 /* ── 🔒 기준 자물쇠를 여기서 같이 부른다 (2026-08-10 8번) ─────────────────
  *
