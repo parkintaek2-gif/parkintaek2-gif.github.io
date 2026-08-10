@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-10T00:15:57.661Z",
+  "generated": "2026-08-10T01:08:07.258Z",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists, and Wikidata for country of origin",
   "question": "Two works can share a title. Which one charted?",
   "unit": "Chart places. One place is one title in one country in one week.",
@@ -19,7 +19,7 @@
       "topMarketPlaces": 16,
       "topMarketSharePc": 33.3,
       "homePlaces": 0,
-      "attributedTo": "벨기에"
+      "attributedTo": "Belgium"
     },
     {
       "title": "UFO",
@@ -29,7 +29,7 @@
       "topMarketPlaces": 5,
       "topMarketSharePc": 29.4,
       "homePlaces": 0,
-      "attributedTo": "터키"
+      "attributedTo": "Turkey"
     },
     {
       "title": "Let's Dance",
@@ -39,7 +39,7 @@
       "topMarketPlaces": 2,
       "topMarketSharePc": 50,
       "homePlaces": 0,
-      "attributedTo": "프랑스"
+      "attributedTo": "France"
     },
     {
       "title": "Motherland",
@@ -49,7 +49,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 50,
       "homePlaces": 0,
-      "attributedTo": "영국"
+      "attributedTo": "United Kingdom"
     },
     {
       "title": "Black Jack",
@@ -59,7 +59,7 @@
       "topMarketPlaces": 2,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "일본"
+      "attributedTo": "Japan"
     },
     {
       "title": "Whistleblower",
@@ -69,7 +69,7 @@
       "topMarketPlaces": 2,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "일본"
+      "attributedTo": "Japan"
     },
     {
       "title": "Bigman",
@@ -79,7 +79,7 @@
       "topMarketPlaces": 2,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "네덜란드"
+      "attributedTo": "Netherlands"
     },
     {
       "title": "Superstar",
@@ -89,7 +89,7 @@
       "topMarketPlaces": 2,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "스페인"
+      "attributedTo": "Spain"
     },
     {
       "title": "#Iamhere",
@@ -99,7 +99,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "프랑스"
+      "attributedTo": "France"
     },
     {
       "title": "#Manhole",
@@ -109,7 +109,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "일본"
+      "attributedTo": "Japan"
     },
     {
       "title": "Supernova",
@@ -119,7 +119,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "폴란드"
+      "attributedTo": "Poland"
     },
     {
       "title": "Oh My God",
@@ -129,7 +129,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "인도"
+      "attributedTo": "India"
     },
     {
       "title": "StartUp",
@@ -139,7 +139,7 @@
       "topMarketPlaces": 1,
       "topMarketSharePc": 100,
       "homePlaces": 0,
-      "attributedTo": "스웨덴"
+      "attributedTo": "Sweden"
     }
   ],
   "couldNotSeparate": [

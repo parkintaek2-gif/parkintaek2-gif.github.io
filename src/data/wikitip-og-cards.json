@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "a-title-is-not-a-key": {
+   "figure": "48",
+   "label": "chart places that were not Korean at all",
+   "왜": "자동은 13(뺀 편수)을 집는다. 이 기사의 요점은 한 편이 48자리를 가져갔다는 크기다"
+  },
   "which-markets-only-take-the-big-ones": {
    "figure": "2",
    "label": "markets a Korean title needs, at home. Estonia 78",

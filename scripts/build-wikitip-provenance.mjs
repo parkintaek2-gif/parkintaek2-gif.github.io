@@ -132,7 +132,9 @@ if (내가실행됐다) {
       topMarketPlaces: s ? s.자리 : 0,
       topMarketSharePc: s ? s.몫 : 0,
       homePlaces: 한국자리.get(제목) ?? 0,
-      attributedTo: 근거,
+      /* 🔴 2026-08-10 — 여기에 **한글 나라 이름**을 담았다가 영어 지면에 한국어가 떴다.
+         손님은 영어권이다. 화면에 나가는 칸은 영어라야 한다. 한글은 자 안에만 둔다. */
+      attributedTo: 영어나라(근거),
     };
   };
   const 뺀것 = [...BY_MARKETS.entries()]
@@ -145,6 +147,13 @@ if (내가실행됐다) {
   /* ⛔ 「한국 차트에 한 자리도 없다」가 왜 혼자서는 못 쓰는 규칙인지 — 수로 낸다 */
   const 집없는몫 = +((100 * 집.neverChartedAtHome) / 집.titles).toFixed(1);
 
+  /* ⛔ 옮김표에 없는 나라가 생기면 **화면에 빈칸**이 나간다 — 그 전에 선다.
+     ⚠ 이 줄을 셸로 쓰다가 `${…}` 를 셸이 먹어 `throw new Error()` 빈 것이 됐다.
+       ⛔ 긴 문자열은 셸로 안 쓴다. Write 나 Edit 으로 쓴다. */
+  const 못옮긴것 = 뺀것.filter((x) => !x.attributedTo);
+  if (못옮긴것.length) {
+    throw new Error(`나라를 영어로 못 옮긴 편 ${못옮긴것.length}편 — 나라옮김에 넣어야 한다`);
+  }
   /* 🔴 뺀 편 중 한국 차트에 뜬 것이 하나라도 있으면 규칙 ①이 깨진 것이다 */
   const 집에뜬것 = 뺀것.filter((x) => x.homePlaces > 0);
   if (집에뜬것.length) {
