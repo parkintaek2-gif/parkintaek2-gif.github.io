@@ -1,6 +1,6 @@
 ---
 title: "Korean drama costs rose 27-fold. The chart concentration the argument predicts did not appear"
-category: screen
+category: titles
 purpose: both
 dek: "The case that Netflix gained leverage over Korean drama runs through cost: $360,000 an episode in 2015 against $9.8m in 2024. We hold no budgets. We do hold the charts, and from 2022 to 2025 concentration fell rather than rose."
 pubDate: 2026-08-09

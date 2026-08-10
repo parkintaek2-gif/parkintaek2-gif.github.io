@@ -41,9 +41,14 @@ const 기사 = (await getCollection('kcwArticles'))
 const 날짜 = (v: Date) =>
   new Date(v).toLocaleDateString('en-GB', { timeZone: 'Asia/Seoul', day: 'numeric', month: 'long', year: 'numeric' });
 
+/* 🔴 2026-08-10 사장님 — 「기존 카테고리는 촌스럽다. 스타·작품·전통문화·산업으로 하라」
+   screen·people 은 우리끼리 쓰던 말이었다. 손님이 찾을 때 쓰는 말로 바꾼다. */
 const CATEGORY: Record<string, string> = {
-  screen: 'Screen', music: 'Music', esports: 'Esports',
-  people: 'People', industry: 'Industry',
+  stars: 'Stars', titles: 'Titles', industry: 'Industry', tradition: 'Tradition',
+};
+/** 2층 — 없는 기사가 더 많다. 영화와 드라마를 같이 재는 글에는 안 붙인다 */
+const GENRE: Record<string, string> = {
+  music: 'Music', drama: 'Drama', film: 'Film', esports: 'Esports',
 };
 
 /** 갈래별 편수. **손으로 적지 않는다** — 기사가 늘면 저절로 따라온다. */

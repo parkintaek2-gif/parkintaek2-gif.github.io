@@ -63,9 +63,10 @@ const 전체기사수 = 산기사.length;
 const 기사 = 산기사.slice(0, Math.max(8, Math.ceil(산기사.length * 0.25)));
 /* 그리고 **넓이**를 보여 준다 — 최신 여섯은 대개 같은 날 쓴 것이라 한쪽으로 쏠린다.
    갈래마다 몇 편이고 가장 새것이 무엇인지 한 줄씩 낸다. 편수는 **여기서 센다.** */
+/* 🔴 2026-08-10 사장님 — 「기존 카테고리는 촌스럽다. **스타·작품·전통문화·산업**으로 하라.
+   전통문화는 one depth 로 가라」. screen·people 은 우리끼리 쓰던 말이었다. */
 const 갈래이름: Record<string, string> = {
-  screen: 'Film & television', music: 'Music', esports: 'Esports',
-  people: 'People', industry: 'Industry',
+  stars: 'Stars', titles: 'Titles', industry: 'Industry', tradition: 'Tradition',
 };
 const 갈래별 = Object.keys(갈래이름)
   .map((k) => ({ 열쇠: k, 이름: 갈래이름[k], 편: 산기사.filter((a) => a.data.category === k) }))

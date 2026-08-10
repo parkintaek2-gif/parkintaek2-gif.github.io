@@ -1,7 +1,8 @@
 ---
 title: "The same rank costs 2.5 times as much in Europe as in Southeast Asia"
 dek: "Being in League of Legends' top 300 means 2,623 LP in Europe West and 1,061 in Southeast Asia. The distance between the top two tiers barely moves — 484 to 618 LP everywhere. The ladder's height varies; its step does not."
-category: esports
+category: titles
+genre: esports
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-06T22:00:01+09:00

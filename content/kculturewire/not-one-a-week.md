@@ -1,6 +1,6 @@
 ---
 title: "Our headline 7.6% is not one place a week — it is nothing, and then several at once"
-category: screen
+category: titles
 purpose: both
 dek: "Korean titles hold 7.6% of Netflix country chart places. Spread evenly that would put at least one on 54.8% of country-weeks; the real figure is 40.8%. Empty weeks run 59.2% against 45.2%, and crowded weeks 4.5% against 0.4%."
 pubDate: 2026-08-09

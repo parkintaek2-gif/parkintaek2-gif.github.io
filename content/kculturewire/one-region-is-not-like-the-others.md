@@ -1,7 +1,8 @@
 ---
 title: "Five of six League regions agree on how many top players are on a hot streak. North America is ten points out."
 dek: "Riot flags a player on a winning run. Across Korea, Vietnam, Europe West, Japan and Southeast Asia the share sits between 18.7% and 20.0%. North America is 30.8%, on all four days — and the obvious explanation fails."
-category: esports
+category: titles
+genre: esports
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-06T22:00:00+09:00

@@ -1,6 +1,6 @@
 ---
 title: "On Korea's own chart a Korean title needs no other market. In Estonia the median one had 78"
-category: screen
+category: titles
 purpose: both
 dek: "For each of 93 markets we took the median breadth of the Korean titles that reached it. Korea's own chart: 2. Estonia, Slovenia, Switzerland: 78, 76, 72. Most of that gap is how often a market plays Korean titles at all — but not all of it."
 pubDate: 2026-08-10

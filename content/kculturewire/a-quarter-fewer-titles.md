@@ -1,6 +1,6 @@
 ---
 title: "A quarter fewer Korean titles reach a Netflix top 10 than in 2022. The space they hold did not shrink"
-category: screen
+category: titles
 purpose: both
 dek: "272 Korean titles charted somewhere in 2022 and 201 in 2025, while the places they held rose 2.3%. Remove each year's biggest title and the ten largest gained just 3.5 points — most of the concentration is one show returning."
 pubDate: 2026-08-10

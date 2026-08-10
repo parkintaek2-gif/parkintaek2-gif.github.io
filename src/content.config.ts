@@ -84,8 +84,19 @@ const kcwArticles = defineCollection({
   schema: z.object({
     title: z.string().max(120),
     dek: z.string().max(240),
-    /** K컬처 축. 금융 축과 섞지 않는다 */
-    category: z.enum(['screen', 'music', 'esports', 'people', 'industry']),
+    /**
+     * K컬처 1층 갈래. 금융 축과 섞지 않는다.
+     * 🔴 2026-08-10 사장님 — 「기존 카테고리는 촌스럽다. **스타·작품·전통문화·산업**으로 하라」
+     *   `screen`·`people` 은 **우리끼리 쓰던 말**이었다. 손님이 찾을 때 쓰는 말로 바꾼다.
+     * ⛔ `tradition` 은 **하위가 없다**(사장님 못 박으심). 아래 `genre` 를 붙이지 않는다.
+     */
+    category: z.enum(['stars', 'titles', 'industry', 'tradition']),
+    /**
+     * 2층 — 대중문화 갈래. **없어도 된다.**
+     * ⚠ 우리 넷플릭스 기사 서른 편은 **영화와 드라마를 같이 잰다.** 한쪽에 넣으면 거짓이 된다.
+     *   그런 편은 2층 없이 1층에만 선다. 억지로 채우지 않는다.
+     */
+    genre: z.enum(['music', 'drama', 'film', 'esports']).optional(),
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     dataAsOf: z.coerce.date(),

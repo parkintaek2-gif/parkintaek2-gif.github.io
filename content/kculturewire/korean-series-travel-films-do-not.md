@@ -1,7 +1,7 @@
 ---
 title: "Korean series reach three times as many countries as Korean films, and the gap is not about runtime"
 dek: "Among the 232 Korean titles Netflix has verifiably filed as Non-English, the median series charted in 35 countries and the median film in 11. Series also last longer — but the country gap is the one runtime cannot explain."
-category: screen
+category: titles
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-07T00:00:00+09:00

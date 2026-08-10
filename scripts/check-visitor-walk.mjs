@@ -154,7 +154,12 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
       const m = fs.readFileSync(path.join('content/kculturewire', f), 'utf8').match(/^category:\s*(\w+)/m);
       if (m) 갈래.add(m[1]);
     }
-    const 표기 = { screen: 'Film & television', music: 'Music', esports: 'Esports', people: 'People', industry: 'Industry' };
+    /* 🔴 2026-08-10 — 갈래를 새로 짰다(사장님: 「기존 카테고리는 촌스럽다」).
+       이 표가 옛 이름을 들고 있어서 **첫 화면에 있는 Stars 를 없다고** 말했다.
+       ⛔ 자에 이름을 손으로 적으면 이렇게 낡는다. 스키마와 같은 말을 쓴다. */
+    const 표기 = {
+      stars: 'Stars', titles: 'Titles', industry: 'Industry', tradition: 'Tradition',
+    };
     const 본문첫 = 본문(첫);
     for (const g of 갈래) {
       const 말 = 표기[g] ?? g;

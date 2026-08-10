@@ -1,7 +1,8 @@
 ---
 title: "K-pop members outdraw their own groups nearly four to one — and the one exception turned out to be a hole in Wikidata"
 dek: "Across 86 groups whose full membership can be measured, the members' pages were opened 3.88 times as often as the group's. Newer groups looked like the opposite until we checked why: Wikidata lists two members for Fromis 9."
-category: music
+category: titles
+genre: music
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-06T00:00:00+09:00

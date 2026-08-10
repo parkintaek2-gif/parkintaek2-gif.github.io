@@ -1,6 +1,6 @@
 ---
 title: "No country's Netflix chart is a signal for another's — 58 markets are standing in one queue"
-category: screen
+category: titles
 purpose: both
 dek: "Of 134,279 times a Korean series reached two countries charts, 57.6% arrived in both the same week. Where one did come first, only 2 of 8,593 country triples contradict each other — the markets form one stable order."
 pubDate: 2026-08-09

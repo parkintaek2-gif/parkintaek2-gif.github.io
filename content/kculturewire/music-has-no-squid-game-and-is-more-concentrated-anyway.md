@@ -1,7 +1,8 @@
 ---
 title: "Korean music attention has no Squid Game — and it is still the more concentrated of the two"
 dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.3% of titles on screen. No giant, steeper slope."
-category: music
+category: titles
+genre: music
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-06T00:00:00+09:00

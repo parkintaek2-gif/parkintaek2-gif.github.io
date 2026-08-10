@@ -1,7 +1,8 @@
 ---
 title: "Rank Korean musicians by how often people look them up, and the person at the top is there for his acting"
 dek: "154 of the 1,545 individuals in our K-pop panel also appear in Korean titles that reached a Netflix Top 10. They are 10% of the names and 32.6% of the attention. Removing them does not correct the list. It produces a second one."
-category: music
+category: titles
+genre: music
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-06T00:00:00+09:00

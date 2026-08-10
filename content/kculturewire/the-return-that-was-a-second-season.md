@@ -1,7 +1,7 @@
 ---
 title: "Korean titles do come back to charts they had left. Most of the comebacks are second seasons."
 dek: "Of 938 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all. Of the 310 genuine returns, 94.8% happen with no other season nearby."
-category: screen
+category: titles
 purpose: both
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00

@@ -1,7 +1,8 @@
 ---
 title: "Korean challengers win less than any other region's. That is what a deep ladder looks like."
 dek: "Korea's top 300 League of Legends players win 53.65% of their ranked games — the lowest of six regions, on all four days we have measured. A win rate at the top is set by who you have to play, and in Korea that is everybody else."
-category: esports
+category: titles
+genre: esports
 purpose: both
 pubDate: 2026-08-06
 dataAsOf: 2026-08-06T21:50:00+09:00

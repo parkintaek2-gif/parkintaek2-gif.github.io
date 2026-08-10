@@ -1,7 +1,7 @@
 ---
 title: "The panel is mostly television. The people who appear in it most are film actors."
 dek: "Korean series account for more casting slots than films here — 1,804 against 1,611. But among the 30 actors with ten or more charting titles, film outnumbers series 263 to 109."
-category: people
+category: stars
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-07T00:00:00+09:00

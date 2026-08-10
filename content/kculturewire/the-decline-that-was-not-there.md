@@ -1,7 +1,8 @@
 ---
 title: "New K-pop groups look 69% down since 2017. So do American, Japanese and British ones."
 dek: "We set out to count Korean group debuts by year and the query returned a clean decline. Then we ran it for three other countries and got the same decline. What we had measured was how fast Wikidata records new groups."
-category: music
+category: titles
+genre: music
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00

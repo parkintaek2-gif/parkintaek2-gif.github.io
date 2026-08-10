@@ -1,6 +1,6 @@
 ---
 title: "Korean series are at their widest in week one only 20% of the time. For everyone else it is 45%"
-category: screen
+category: titles
 purpose: both
 dek: "Hold run length fixed and most of that gap closes — among titles that lasted five to eight weeks it is 26.6% against 28.6%. Among those that lasted nine weeks or more it does not close: 9.7% against 24%."
 pubDate: 2026-08-10

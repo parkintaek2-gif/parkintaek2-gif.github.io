@@ -1,7 +1,7 @@
 ---
 title: "A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more."
 dek: "Titles with six to ten weeks on Korea's own Netflix chart reached ten countries 56.5% of the time, against 11.4% for those with one or two. But 29 reached twenty countries without ever charting in Korea."
-category: screen
+category: titles
 purpose: both
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00

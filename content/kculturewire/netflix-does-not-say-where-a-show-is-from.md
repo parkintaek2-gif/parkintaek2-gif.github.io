@@ -1,7 +1,7 @@
 ---
 title: "Netflix never says where a show is from. Every count of Korean content on it is an inference — including ours."
 dek: "The weekly charts carry nine columns and none is country of production. Match titles by name, as everyone must, and 17% of Korean viewing sits on names another country also uses. We measured the gap and publish its size."
-category: screen
+category: titles
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-07-26T00:00:00+09:00

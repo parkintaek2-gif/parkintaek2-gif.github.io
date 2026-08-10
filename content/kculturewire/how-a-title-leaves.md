@@ -1,6 +1,6 @@
 ---
 title: "At number one a Korean title has a 1.2% chance of being gone next week. At number ten it is 70.2%"
-category: screen
+category: titles
 purpose: both
 dek: "Everything written about a chart is about getting on it. We measured 11,722 departures instead — the position a Korean title held the week before it vanished, against the 10.0% each rank would take if position did not matter."
 pubDate: 2026-08-09
