@@ -72,7 +72,10 @@ console.log(`\n── NEIS — 우리 ${학교.length.toLocaleString()}곳 · �
 
 const 짝 = {
   title: 'SCHUL_NM', titleEn: 'ENG_SCHUL_NM', 종류: 'SCHUL_KND_SC_NM', 고교유형: 'HS_SC_NM',
-  지역: 'LCTN_SC_NM', 교육청: 'JU_ORG_NM', 설립: 'FOND_SC_NM', 공학: 'COEDU_SC_NM',
+  // ⚠ 교육청은 원본에 **두 칸**이 있다 — JU_ORG_NM(직속 기관)과 ATPT_OFCDC_SC_NM(관할 시도교육청).
+  //    우리 파일은 뒤엣것을 쓴다(국립대 부설고는 JU 가 「교육부」라 지역 지면에 안 맞는다).
+  //    앞엣것과 맞추면 243곳이 「다르다」로 나온다 — 자가 틀린 것이다.
+  지역: 'LCTN_SC_NM', 교육청: 'ATPT_OFCDC_SC_NM', 설립: 'FOND_SC_NM', 공학: 'COEDU_SC_NM',
   홈페이지: 'HMPG_ADRES', 설립일: 'FOND_YMD',
 }
 
@@ -110,13 +113,26 @@ for (const s of 학교) {
     if (!학교별학과.has(코드)) 학교별학과.set(코드, new Set())
     학교별학과.get(코드).add(다듬(m.DDDEP_NM ?? m.MAJOR_NM ?? m.ORD_SC_NM))
   }
-  let 학과어긋남 = 0
+  // ⚠ 우리는 원본 학과 이름 중 **일반과정 이름들을 일부러 뺀다**(공통과정·인문사회과정·일반학과 …).
+  //    그래서 「수가 같나」로는 못 잰다. 대신 두 가지를 본다 —
+  //      ① 우리가 적은 학과 이름이 **원본에 다 있나**(없으면 우리가 지어낸 것이다)
+  //      ② 우리가 뺀 이름이 무엇무엇인가 — 세어서 화면에 적는다(숨기지 않는다)
+  const 뺀이름 = new Map()
+  let 지어낸것 = 0
   for (const s of 학교) {
-    const 다시 = 학교별학과.get(String(s.code))?.size ?? 0
-    if (s.학과수 === 다시) 같은칸++
-    else { 학과어긋남++; if (학과어긋남 <= 3) 다른칸.push(`${s.title} 학과수 — 적힌 것 ${s.학과수} · 원본에서 세니 ${다시}`) }
+    const 원 = 학교별학과.get(String(s.code)) ?? new Set()
+    for (const a of s.학과 ?? []) {
+      if (원.has(다듬(a.name))) 같은칸++
+      else { 지어낸것++; if (지어낸것 <= 3) 다른칸.push(`${s.title} 학과 「${a.name}」 — 원본에 없는 이름이다`) }
+    }
+    if (s.학과수 !== (s.학과 ?? []).length) 다른칸.push(`${s.title} 학과수 ${s.학과수} — 실제 실린 학과는 ${(s.학과 ?? []).length}개다`)
+    for (const n of 원) if (!(s.학과 ?? []).some((a) => 다듬(a.name) === n)) 뺀이름.set(n, (뺀이름.get(n) ?? 0) + 1)
   }
-  if (학과어긋남 > 3) 다른칸.push(`학과수 — 그 밖에 ${학과어긋남 - 3}곳 더 어긋난다`)
+  if (지어낸것 > 3) 다른칸.push(`학과 이름 — 그 밖에 ${지어낸것 - 3}개가 원본에 없다`)
+  if (뺀이름.size) {
+    const 큰것 = [...뺀이름.entries()].sort((a, b) => b[1] - a[1]).slice(0, 6).map(([n, c]) => `${n} ${c.toLocaleString()}곳`)
+    말할것.push(`⬜ 원본에 있는데 우리가 안 실은 학과 이름 ${뺀이름.size}가지 — 많은 것부터: ${큰것.join(' · ')}`)
+  }
 }
 
 if (겹친코드.length) 말할것.push(`⬜ 원본에 학교코드가 겹치는 줄 ${겹친코드.length}개 — 먼저 나온 줄을 썼다: ${겹친코드.join(' · ')}`)
