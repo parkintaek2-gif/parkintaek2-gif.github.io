@@ -2,7 +2,7 @@
 title: "One Korean footballer is read more in Southeast Asia than any Korean actor"
 category: stars
 purpose: both
-dek: "We measured 1,948 Koreans with one instrument. Son Heung-min sits above all 1,023 entertainers. But 22 entertainers clear 100 against two athletes, and the two groups are read in different countries."
+dek: "We measured 1,948 Koreans with one instrument. Son Heung-min sits above all 1,023 actors. But 22 actors clear 100 against two athletes, and the two groups are read in different countries. Musicians who never acted are not in this panel."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
@@ -50,9 +50,11 @@ The entertainers spread across Indonesia, Vietnam and Thailand within eight poin
 
 Thailand is where the two diverge most. It supplies 28.3% of entertainer reading and 10.1% of athlete reading. Go Youn-jung is read more in Thai than in Vietnamese, and so is Im Yoon-ah — the reverse of what every athlete in the data does.
 
-## What this panel is
+## What this panel is, stated plainly
 
-The entertainer list is not every Korean celebrity. It is the cast of Korean titles that reached a Netflix country chart — the panel the rest of our data is built on. A singer or idol who never appeared in one of those titles is not here. That constraint runs one way: it can only make the entertainer numbers too low, never too high, which is worth knowing given the direction of the finding.
+The entertainer list is the cast of Korean titles that reached a Netflix country chart — the panel the rest of our data is built on. **It is therefore an actor panel, not a music one.** IU, Jisoo, Cha Eun-woo and Bae Suzy appear here because they have acted; a singer or idol who never appeared in one of those titles is absent entirely, and that includes most of the acts a reader would name first.
+
+That constraint runs one way. It can only make this panel's numbers too low, never too high, which matters given the direction of the finding — but it also means the ceiling above is the ceiling over Korean *actors*, not over Korean fame. We are measuring the music side separately and will publish it whether or not it changes the answer.
 
 Reading an encyclopaedia article is not liking someone. It counts people looking someone up, usually after a match, a release, or a headline. Readers in all four countries also use the English Wikipedia, 82 billion reads in this window and not splittable by country, so every figure here is a floor on interest rather than a measure of it.
 

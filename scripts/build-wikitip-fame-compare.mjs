@@ -15,6 +15,13 @@ import { fileURLToPath } from 'node:url';
 
 const 선수길 = 'archive/raw/wikipedia/sea-athletes.json';
 const 배우길 = 'archive/raw/wikipedia/sea-actors.json';
+/**
+ * 🔴 사장님 지적(8/13) — 「가수는 순위에 없는 건 아닐텐데」.
+ *   맞았다. 배우 명단이 넷플릭스 차트 작품 출연진이라 **드라마에 안 나온 가수가 통째로 빠졌다.**
+ *   ⛔ 그 상태로 「연예인」이라 부른 것이 잘못이었다. 가수를 따로 모아 같은 자로 견준다.
+ *   ⚠ 가수 자료가 아직 없으면 **없는 대로 짓는다.** 있으면 무리에 더한다.
+ */
+const 가수길 = 'archive/raw/wikipedia/sea-musicians.json';
 const 결과 = 'src/data/wikitip-fame-compare.json';
 const 나라이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
 const 판들 = Object.keys(나라이름);
@@ -113,8 +120,29 @@ if (내가실행됐다) {
   const 감독 = 선수자료.people.filter((x) => x.role === 'both');
   const 배우 = 배우자료.people;
 
+  /* 🔴 가수 — 사장님 지적으로 뒤에 붙였다. 아직 없으면 없는 대로 짓되 **그 사실을 적는다** */
+  let 가수솔로 = [];
+  let 가수무리 = [];
+  let 가수자료 = null;
+  if (fs.existsSync(가수길)) {
+    가수자료 = JSON.parse(fs.readFileSync(가수길, 'utf8'));
+    const 잴수있나2 = 견줄수있나(선수자료, 가수자료);
+    if (!잴수있나2.ok) {
+      console.error('🔴 가수 자료가 **같은 자로 잰 것이 아니다**:');
+      for (const t of 잴수있나2.탈) console.error(`   · ${t}`);
+      process.exit(1);
+    }
+    가수솔로 = 가수자료.people.filter((x) => !x.isGroup);
+    가수무리 = 가수자료.people.filter((x) => x.isGroup);
+    console.log('✅ 가수 자료도 같은 자로 쟀다\n');
+  } else {
+    console.log('⚠ 가수 자료가 아직 없다 — 없는 대로 짓고 지면에 그 사실을 적는다\n');
+  }
+
   const 무리 = [
-    { key: 'actors', label: 'Actors and singers', 줄들: 배우 },
+    { key: 'actors', label: 'Actors', 줄들: 배우 },
+    ...(가수솔로.length ? [{ key: 'musicians', label: 'Musicians', 줄들: 가수솔로 }] : []),
+    ...(가수무리.length ? [{ key: 'groups', label: 'Groups and bands', 줄들: 가수무리 }] : []),
     { key: 'athletes', label: 'Athletes', 줄들: 선수 },
     { key: 'managers', label: 'Managers who also played', 줄들: 감독 },
   ];
@@ -137,12 +165,15 @@ if (내가실행됐다) {
     total: x.seaPerMillionTotal,
   }));
 
-  /* 🔴 사장님 물음에 대한 답 — 눈으로 보지 않고 센다 */
-  const 배우맨위 = 배우[0]?.seaPerMillionTotal ?? 0;
+  /* 🔴 사장님 물음에 대한 답 — 눈으로 보지 않고 센다. **가수까지 넣어서** 센다 */
+  const 연예전부 = [...배우, ...가수솔로, ...가수무리]
+    .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal);
+  const 배우맨위 = 연예전부[0]?.seaPerMillionTotal ?? 0;
+  const 배우맨위이름 = 연예전부[0]?.name ?? '';
   const 선수맨위 = 선수[0]?.seaPerMillionTotal ?? 0;
   const 선수맨위이름 = 선수[0]?.name ?? '';
   const 배우가더높나 = 배우맨위 > 선수맨위;
-  const 선수맨위보다높은배우 = 배우.filter((x) => x.seaPerMillionTotal > 선수맨위).length;
+  const 선수맨위보다높은배우 = 연예전부.filter((x) => x.seaPerMillionTotal > 선수맨위).length;
 
   const out = {
     generated: new Date().toISOString(),
@@ -153,21 +184,31 @@ if (내가실행됐다) {
     editions: 판들.map((p) => ({ code: p, country: 나라이름[p], editionReads: 선수자료.editionTotals[p] })),
     question: 'Are Korean entertainers looked up far more than Korean athletes in Southeast Asia?',
     groups: 요약,
-    topActors: 열(배우, 12),
+    topActors: 열(연예전부, 14),
     topAthletes: 열(선수, 8),
     /** 🔴 한 줄 답 */
     entertainerLeadsOverall: 배우가더높나,
     actorsAboveTopAthlete: 선수맨위보다높은배우,
+    entertainersCounted: 연예전부.length,
     topAthleteName: 선수맨위이름,
     topAthleteTotal: 선수맨위,
+    topActorName: 배우맨위이름,
     topActorTotal: 배우맨위,
     answer: 배우가더높나
-      ? `The most-read entertainer scores ${배우맨위} against the most-read athlete's ${선수맨위}.`
+      ? `Yes, at the very top. ${배우맨위이름} scores ${배우맨위} against ${선수맨위이름}'s ${선수맨위}, `
+        + `and ${선수맨위보다높은배우} of the ${연예전부.length.toLocaleString('en-US')} entertainers `
+        + 'measured are above the most-read athlete.'
       : `No. The most-read athlete, ${선수맨위이름}, scores ${선수맨위}, and not one of the `
-        + `${배우.length.toLocaleString('en-US')} entertainers in this panel is above him. What differs `
+        + `${연예전부.length.toLocaleString('en-US')} entertainers measured is above him. What differs `
         + 'is the band beneath: the entertainers fill it and the athletes do not.',
     actorPanel: 배우자료.panel,
     actorPanelCaveat: 배우자료.panelCaveat,
+    musicPanel: 가수자료?.panel ?? null,
+    musicPanelNote: 가수자료
+      ? 가수자료.whyGroupsToo
+      : 'Musicians who never acted are not yet in this comparison. The actor panel is the cast of '
+        + 'Netflix-charting titles, so it reaches singers only through their acting credits. That '
+        + 'measurement is running and will be added here.',
     cannotAnswer: 'Reading an encyclopaedia article is not liking someone. This counts people '
       + 'looking someone up. Readers in these four countries also use the English Wikipedia, which '
       + 'cannot be split by country, so every figure here is a floor on interest, not a measure of it.',
