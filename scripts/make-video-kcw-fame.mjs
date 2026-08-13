@@ -105,11 +105,21 @@ export function 칸HTML(초) {
   const 끝 = 술술(끼(11.4, 12.0));
   const 끝맥 = 1 + 0.012 * Math.sin((초 - 11.4) * 3.1);
 
+  /**
+   * 🔴 사장님(8/13): 「이건 **외부유입용** 콘텐트 역할도 하고, 우리를 알리는 거니까」
+   *   → 그러면 주소가 **끝에만 있으면 안 된다.** 끊고 나가는 사람이 대부분인데
+   *     그 사람들은 우리를 못 찾는다. 1.6초부터 위에 작게 띄워 **내내 붙여 둔다.**
+   */
+  const 머리띠 = 술술(끼(1.6, 2.2)) * (1 - 끝);
+
   return `<style>
     *{margin:0;padding:0;box-sizing:border-box}
     body{width:${폭}px;height:${높}px;background:#0e0c14;overflow:hidden;
          font-family:'Segoe UI',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
     .판{position:absolute;inset:0}
+    /* 🔴 외부유입용이다 — 주소를 끝에만 두면 끊고 나간 사람이 우리를 못 찾는다 */
+    .띠{position:absolute;left:84px;top:96px;font-size:26px;font-weight:800;letter-spacing:.16em;
+        color:#8f7ab5;opacity:${머리띠.toFixed(2)}}
     .큰수{position:absolute;left:84px;top:190px;opacity:${큰수등장.toFixed(2)};
           transform:scale(${(0.86 + 0.14 * 큰수등장).toFixed(3)});transform-origin:left top}
     .큰수 b{display:block;font-size:300px;font-weight:900;color:#e9e6dd;line-height:.86;
@@ -145,6 +155,7 @@ export function 칸HTML(초) {
     .끝 .ㄱ{font-size:30px;color:#a49bb8;text-align:center;line-height:1.4}
   </style>
   <div class="판">
+    <div class="띠">K CULTURE WIRE · kculturewire.com</div>
     <div class="큰수">
       <b>${큰수값}</b>
       <div class="밑">Korean act reads more than<br>${선수이름} in Southeast Asia</div>
@@ -196,6 +207,16 @@ if (process.argv.includes('--selftest')) {
   재본다('⛔ 인기가 아니라고 적혀 있다', 글자만(칸HTML(10)), (s) => s.includes('Not popularity'));
   재본다('⛔ 필리핀을 못 잰다고 적혀 있다', 글자만(칸HTML(10)), (s) => s.includes('Philippines'));
   재본다('끝에 주소가 있다', 글자만(칸HTML(13)), (s) => s.includes('kculturewire.com'));
+  /* 🔴 사장님(8/13) — 외부유입용이다. 주소가 **끝에만** 있으면 끊고 나간 사람이 못 찾는다 */
+  /* ⚠ 글자가 HTML 에 있는 것과 **보이는 것**은 다르다. opacity 를 본다 */
+  const 띠투명도 = (t) => {
+    const m = 칸HTML(t).match(/\.띠\{[^}]*opacity:([0-9.]+)/);
+    return m ? Number(m[1]) : null;
+  };
+  재본다('⭐ 주소가 가운데에도 **보인다** — 끊고 나가는 사람이 대부분이다',
+    [3, 6, 9, 11].map((t) => 띠투명도(t)), (xs) => xs.every((v) => v > 0.9));
+  재본다('⭐ 첫 화면엔 안 보인다 — 숫자가 먼저다', 띠투명도(0.6), 0);
+  재본다('끝 화면에선 띠를 끈다 — 큰 주소가 이미 있다', 띠투명도(13), 0);
   재본다('끝에 무엇으로 쟀는지 있다', 글자만(칸HTML(13)), (s) => s.includes('Wikipedia reads'));
   재본다('막대 수가 보일것 수와 같다', (칸HTML(6).match(/class="줄/g) ?? []).length, 보일것.length);
   재본다('⛔ 보일것에 빈 이름이 없다', 보일것.every((r) => r.name && r.v > 0), true);
