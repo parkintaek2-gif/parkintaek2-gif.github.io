@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 
 const require = createRequire('C:\\Users\\USER\\Documents\\GitHub\\klifemap\\package.json');
@@ -224,7 +225,15 @@ if (process.argv.includes('--selftest')) {
   process.exit(실패 ? 1 : 0);
 }
 
-/* ── 뽑기 ── */
+/* ── 뽑기 ──
+ * 🔴 8/13 — 목소리 자가 이 파일을 `import` 했더니 **영상이 실제로 뽑혔다.**
+ *   가져다 쓰는 쪽은 `칸HTML` 만 필요하다. 직접 부른 것이 아니면 여기서 멈춘다.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (!내가실행됐다) {
+  /* 가져다 쓰는 쪽이다 — 아무것도 뽑지 않는다 */
+} else {
 const i = process.argv.indexOf('--out');
 const 낼길 = i >= 0 ? process.argv[i + 1] : 'kcw-shorts-fame.mp4';
 const 임시 = path.join(path.dirname(낼길), '_칸kcwfame');
@@ -256,3 +265,4 @@ execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(임시, '%
 
 fs.rmSync(임시, { recursive: true, force: true });
 console.log(`✅ ${낼길}  ${총초}초 · ${폭}×${높} · ${(fs.statSync(낼길).size / 1024).toFixed(0)}KB`);
+}
