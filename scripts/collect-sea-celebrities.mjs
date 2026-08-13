@@ -60,13 +60,26 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
  *   작은 응답은 조각이 하나라 멀쩡해 보이고, 224KB 쯤에서 JSON 이 터진다.
  *   → Buffer 로 모아 **끝에 한 번만** 글자로 바꾼다.
  */
+/**
+ * 🔴 8/13 — 세 번째로 여기서 죽었다(exit 13, 안 풀린 약속).
+ *   `req.setTimeout` 은 **소켓이 조용할 때만** 걸린다. 서버가 찔끔찔끔 보내면
+ *   영영 안 걸리고 `end` 도 영영 안 온다. → **밖에서 하드 시한**을 건다.
+ * ⛔ 한 번만 풀리게 잠근다. 두 번 resolve 하면 조용히 앞의 값이 이긴다.
+ */
+const 하드시한 = 100000;
 function 받기(host, 길) {
   return new Promise((resolve) => {
+    let 끝났나 = false;
+    const 한번만 = (v) => { if (!끝났나) { 끝났나 = true; clearTimeout(시한); resolve(v); } };
+    const 시한 = setTimeout(() => {
+      try { req.destroy(); } catch { /* 이미 죽었다 */ }
+      한번만({ code: 0, body: 'hard-timeout', 온전한가: false });
+    }, 하드시한);
     const req = https.request({ host, path: 길, headers: { 'User-Agent': UA, Accept: 'application/json' } },
       (res) => {
         const 조각 = [];
         res.on('data', (c) => { 조각.push(c); });
-        res.on('end', () => resolve({
+        res.on('end', () => 한번만({
           code: res.statusCode,
           body: Buffer.concat(조각).toString('utf8'),
           /**
@@ -77,8 +90,8 @@ function 받기(host, 길) {
           온전한가: res.complete,
         }));
       });
-    req.on('error', (e) => resolve({ code: 0, body: e.message }));
-    req.setTimeout(90000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
+    req.on('error', (e) => 한번만({ code: 0, body: e.message, 온전한가: false }));
+    req.setTimeout(45000, () => { req.destroy(); 한번만({ code: 0, body: 'idle-timeout', 온전한가: false }); });
     req.end();
   });
 }
