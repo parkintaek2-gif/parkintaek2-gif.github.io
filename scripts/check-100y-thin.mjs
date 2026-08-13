@@ -48,6 +48,26 @@ const 빌드 = path.join(뿌리, 'dist', '100y');
 export const 기본문턱 = { 글자: 700, 숫자: 8 };
 
 /**
+ * **일부러 얇게 만든 것** — 이것까지 세면 자가 늘 운다. 늘 우는 자는 아무도 안 본다.
+ * ⛔ 「얇아서 봐준다」가 아니라 **「얇은 것이 그 지면의 일」**인 것만 넣는다. 까닭을 같이 적는다.
+ */
+export const 일부러얇은것 = [
+  { 자: /^100y[\\/]y[\\/]/, 왜: '짧은 주소 — 곧바로 넘기는 것이 일이다. noindex 다' },
+  { 자: /^100y[\\/]404\.html$/, 왜: '못 찾음 지면' },
+  { 자: /^100y[\\/]naver[0-9a-f]+\.html$/, 왜: '네이버 소유확인 파일 — 우리가 쓰는 글이 아니다' },
+  { 자: /^100y[\\/](privacy|terms|refund)\.html$/, 왜: '약관 — 숫자가 적은 것이 맞다' },
+];
+
+/** 그 길이 «일부러 얇은 것»인가. 맞으면 까닭을, 아니면 null */
+export function 일부러인가(길) {
+  const 곧은길 = String(길).replace(/\\/g, '/');
+  for (const x of 일부러얇은것) {
+    if (x.자.test(길) || x.자.test(곧은길)) return x.왜;
+  }
+  return null;
+}
+
+/**
  * 본문만 남긴다 — `</nav>` 다음부터 `<footer` 앞까지.
  * ⚠ 그 표가 없으면 **통째로 돌려준다.** 조용히 0 을 내지 않는다.
  */
@@ -119,6 +139,13 @@ function 자가시험() {
   잰다('⑭ 주석을 안 센다', !글자만('<!-- 숨은 글 --><p>나</p>').includes('숨은'));
   잰다('⑮ 문턱이 한 곳에 있다', 기본문턱.글자 > 0 && 기본문턱.숫자 > 0);
 
+  // 봐줄 목록이 «넓어지지 않았나» — 넓어지면 자가 조용해지고 흠이 숨는다
+  잰다('⑯ 짧은 주소는 봐준다', 일부러인가('100y/y/home.html') !== null);
+  잰다('⑰ 약관은 봐준다', 일부러인가('100y/privacy.html') !== null);
+  잰다('⑱ ⛔ 진짜 지면은 안 봐준다', 일부러인가('100y/school/7010125.html') === null);
+  잰다('⑲ ⛔ 지역 지면도 안 봐준다', 일부러인가('100y/report/area/서울특별시-노원구.html') === null);
+  잰다('⑳ ⛔ 이름이 비슷해도 안 봐준다', 일부러인가('100y/yearly/2025.html') === null);
+
   const 진 = 결과.filter((x) => !x).length;
   console.log(`\n자가시험 ${결과.length - 진}/${결과.length}`);
   return 진 === 0;
@@ -156,7 +183,9 @@ function 전수(문턱) {
   }
   잰것.sort((a, b) => a.글자 - b.글자);
 
-  const 얇은 = 잰것.filter((x) => x.글자 < 문턱.글자 || x.숫자 < 문턱.숫자);
+  const 얇다 = (x) => x.글자 < 문턱.글자 || x.숫자 < 문턱.숫자;
+  const 봐준것 = 잰것.filter((x) => 얇다(x) && 일부러인가(x.길));
+  const 얇은 = 잰것.filter((x) => 얇다(x) && !일부러인가(x.길));
   const 갈래 = (길) => {
     const 조각 = 길.split(path.sep);
     return 조각.length > 2 ? 조각[1] : (조각[1] ?? '').replace(/\.html$/, '') || '(첫 화면)';
@@ -168,6 +197,14 @@ function 전수(문턱) {
   console.log(`   자: 본문 글자 < ${문턱.글자} **또는** 손님이 읽는 숫자 < ${문턱.숫자}\n`);
   console.log(`   🔴 얇은 장 ${얇은.length.toLocaleString()}장 (${((100 * 얇은.length) / 것들.length).toFixed(1)}%)`);
   if (껍데기못뗀장) console.log(`   ⚠ 껍데기를 못 뗀 장 ${껍데기못뗀장}장 — 그 장은 값이 부풀어 있다`);
+
+  // ⭐ 봐준 것을 숨기지 않는다. 몇 장을 왜 뺐는지 화면에 적는다
+  if (봐준것.length) {
+    console.log(`\n   ⬜ 일부러 얇은 것 ${봐준것.length}장은 세지 않았다 —`);
+    for (const x of 봐준것) {
+      console.log(`     ${decodeURIComponent(x.길).padEnd(46)} ${일부러인가(x.길)}`);
+    }
+  }
 
   console.log('\n   갈래별 —');
   for (const [g, n] of [...갈래별.entries()].sort((a, b) => b[1] - a[1])) {
