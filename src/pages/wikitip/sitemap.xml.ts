@@ -133,6 +133,8 @@ export const GET: APIRoute = async () => {
     /* 82·83편째 기사의 표. 2026-08-13 — 연예인이 선수보다 높나(사장님 물음).
        배우만 볼 땐 아니었는데 가수를 넣으니 BTS 하나가 손흥민을 넘었다. 브랜드·자동차도 같이 잰다 */
     { path: '/fame-compare', priority: '0.9', changefreq: 'weekly' },
+    /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
+    { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

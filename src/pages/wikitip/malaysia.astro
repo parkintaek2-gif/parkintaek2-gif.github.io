@@ -1,0 +1,141 @@
+---
+/**
+ * K Culture Wire — **말레이시아만 다르다.** (`/malaysia`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   무리 다섯을 나란히 놓으니 말레이시아 칸만 계속 어긋났다.
+ *   사람은 어느 무리든 7.5~8.6% 인데 **브랜드만 23%** 다.
+ *   ⭐ 「작은 나라라 다 작다」가 아니다 — 작은 것이 아니라 **다른 것을 본다.**
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ 「왜 그런가」를 지어내지 않는다. 우리가 잰 것은 **그렇다**까지다.
+ * ⛔ 말레이시아를 「작은 시장」으로 부르지 않는다. 우리가 잰 것은 **읽는 결**이다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-malaysia.json` 에서 읽는다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-malaysia.json';
+
+const TITLE = 'Malaysia reads Korean brands nearly three times as readily as it reads Korean people';
+const DESC =
+  `Across groups, solo musicians, actors and athletes, the Malay Wikipedia takes `
+  + `${d.peopleShareRangePc[0]}% to ${d.peopleShareRangePc[1]}% of the four-country reading. `
+  + `For luxury, fashion and car brands it takes ${d.brandSharePc}%. Four categories of people, one `
+  + 'narrow band; one category of things, well outside it.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/malaysia">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    Four categories of people land between <b>{d.peopleShareRangePc[0]}%</b> and{' '}
+    <b>{d.peopleShareRangePc[1]}%</b>. Brands land at <b>{d.brandSharePc}%</b> —{' '}
+    <b>{d.brandOverPeopleRatio}×</b> the average of the four.
+  </p>
+
+  <section>
+    <h2>The same country, five categories</h2>
+    <p class="note">
+      <b>{d.unit}</b> Every figure is already divided by the size of each Wikipedia, so this is not
+      measuring how many people can read Malay.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Category</th><th>Subjects</th><th>Malaysia's share</th></tr></thead>
+        <tbody>
+          {d.sharesByGroup.map((g) => (
+            <tr>
+              <td class="nm">{g.label}</td>
+              <td class="fine">{g.people.toLocaleString('en-US')}</td>
+              <td class="tot">{g.malaysiaSharePc}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">{d.whyNotPopulation}</p>
+  </section>
+
+  <section>
+    <h2>Which brands lean Malaysian</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Brand</th>{d.editions.map((e) => <th>{e.country}</th>)}
+          <th>Total</th><th>Malaysia</th></tr></thead>
+        <tbody>
+          {d.brandsMalaysiaLeans.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => <td>{x.perMillion[e.code] ?? '—'}</td>)}
+              <td>{x.total}</td>
+              <td class="tot">{x.malaysiaSharePc}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>And which people</h2>
+    <p class="note">
+      Subjects below {d.minimumTotal} in total are left out — at that size a single burst of reading
+      turns into a large-looking share.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Name</th>{d.editions.map((e) => <th>{e.country}</th>)}
+          <th>Total</th><th>Malaysia</th></tr></thead>
+        <tbody>
+          {d.peopleMalaysiaLeans.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => <td>{x.perMillion[e.code] ?? '—'}</td>)}
+              <td>{x.total}</td>
+              <td class="tot">{x.malaysiaSharePc}%</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="warn-box">
+    <h2>What this cannot say</h2>
+    <p class="warn">{d.cannotAnswer}</p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      {d.editions.map((e) => (
+        <li>{e.country} — {(e.editionReads / 1e6).toFixed(0)}M reads of the whole edition</li>
+      ))}
+    </ul>
+    <p class="note">
+      <a href="/fame-compare">All six groups, side by side</a> ·{' '}
+      <a href="/sea-athletes">The athletes in full</a> · <a href="/about">How we count</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/malaysia" />
+</WikiTip>
+
+<style>
+  .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
+</style>
