@@ -31,7 +31,26 @@ const 갈곳 = 것.가는곳;
     <meta name="robots" content="noindex, nofollow" />
     <meta http-equiv="refresh" content={`0; url=${갈곳}`} />
     <link rel="canonical" href={`https://100yearmap.com${갈곳.split('?')[0]}`} />
-    <title>{것.말} — 백년지도</title>
+    {/*
+      ⚠ 제목을 「{것.말} — 백년지도」로 두었더니 **진짜 지면과 글자가 똑같았다**
+        (/y/age32 와 /age/32 가 둘 다 「서른둘 — 남들은 어떻게 하고 있나 — 백년지도」).
+        개봉 자(check-100yearmap-launch)가 「제목이 겹친다」로 잡았다. 맞는 지적이다 —
+        noindex 라 검색에는 안 뜨지만, **탭 이름·기록·공유에 같은 글자가 두 벌** 생긴다.
+        그래서 「넘어갑니다」를 앞에 두어 갈랐다. 손님은 0.1초 보고 지나간다.
+    */}
+    <title>넘어갑니다 — {것.말}</title>
+    {/*
+      ⭐ 이 주소는 **유튜브 설명에 들어간다**. 손님이 그것을 카카오톡에 붙이면 카드가 뜬다.
+        그래서 noindex 라도 OG 는 붙인다. 없으면 카드가 허옇게 뜬다.
+        (개봉 자가 「OG 카드가 4장 빠짐」으로 잡아 준 것이다)
+    */}
+    <meta name="description" content={`${것.말} 지면으로 넘어갑니다 — 백년지도`} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="백년지도" />
+    <meta property="og:title" content={`${것.말} — 백년지도`} />
+    <meta property="og:description" content={`${것.말} 지면으로 넘어갑니다.`} />
+    <meta property="og:image" content="https://100yearmap.com/og.png" />
+    <meta property="og:url" content={`https://100yearmap.com${갈곳.split('?')[0]}`} />
     <style>
       body {
         margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
