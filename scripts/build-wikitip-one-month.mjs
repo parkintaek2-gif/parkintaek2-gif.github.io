@@ -20,6 +20,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes-monthly.json';
+const 해자료 = 'archive/raw/wikipedia/worlds-years.json';
 const 결과 = 'src/data/wikitip-one-month.json';
 
 /**
@@ -120,6 +121,20 @@ if (내가실행됐다) {
     people: 줄들,
     bySport: 몰림표,
     calendar: 달력,
+    ...(fs.existsSync(해자료) ? (() => {
+      const y = JSON.parse(fs.readFileSync(해자료, 'utf8'));
+      /* ⛔ 잰 사람이 없는 해는 아예 안 낸다. 「0명이 만장일치」는 말이 안 된다 */
+      const 쓸해 = y.byYear.filter((r) => r.esports || r.football);
+      return {
+        acrossYears: 쓸해,
+        acrossYearsWindow: y.window,
+        acrossYearsMinReads: y.minReadsPerYear,
+        /** 🔴 이 구멍이 8/13 에 자료를 거짓으로 만들었다 */
+        whyPartialYearsAreExcluded: y.whyPartialYearsAreExcluded,
+        /** ⭐ 축구가 다섯 해 내내 만장일치를 한 번도 못 만든다 — 이것이 대조다 */
+        footballNeverUnanimous: 쓸해.every((r) => !r.football?.allSame),
+      };
+    })() : {}),
     /** 🔴 이 문장이 이 자료의 울타리다. 지면이 반드시 보여 준다 */
     correlationNotCause: 'We measured when reads arrived. The tournament dates come from the '
       + 'calendar, not from our data. The two are printed side by side because that is the honest '

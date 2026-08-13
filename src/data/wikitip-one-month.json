@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T03:13:20.870Z",
+  "generated": "2026-08-13T05:05:10.398Z",
   "source": "Wikimedia Pageviews API, monthly, human traffic only",
   "window": "2025-08 through 2026-07",
   "unit": "Reads of that person's article, summed across the Indonesian, Vietnamese, Thai and Malay Wikipedias, one row per month.",
@@ -223,6 +223,72 @@
       "note": "The tournament opened on 11 June 2026 and runs to 19 July."
     }
   ],
+  "acrossYears": [
+    {
+      "year": 2022,
+      "esports": {
+        "month": "11",
+        "people": 1,
+        "sharing": 1,
+        "allSame": true
+      },
+      "football": {
+        "month": "11",
+        "people": 9,
+        "sharing": 4,
+        "allSame": false
+      }
+    },
+    {
+      "year": 2023,
+      "esports": {
+        "month": "11",
+        "people": 2,
+        "sharing": 2,
+        "allSame": true
+      },
+      "football": {
+        "month": "10",
+        "people": 9,
+        "sharing": 4,
+        "allSame": false
+      }
+    },
+    {
+      "year": 2024,
+      "esports": {
+        "month": "11",
+        "people": 5,
+        "sharing": 4,
+        "allSame": false
+      },
+      "football": {
+        "month": "02",
+        "people": 9,
+        "sharing": 4,
+        "allSame": false
+      }
+    },
+    {
+      "year": 2025,
+      "esports": {
+        "month": "11",
+        "people": 9,
+        "sharing": 9,
+        "allSame": true
+      },
+      "football": {
+        "month": "01",
+        "people": 9,
+        "sharing": 3,
+        "allSame": false
+      }
+    }
+  ],
+  "acrossYearsWindow": "2021 through 2025, calendar years",
+  "acrossYearsMinReads": 300,
+  "whyPartialYearsAreExcluded": "An article created midway through a year shows all of its reads in the months after it existed, which our measure would read as a spike. Four people showed exactly 100% in December 2024 for that reason. A year is only counted for someone whose article was already being read before that year began.",
+  "footballNeverUnanimous": true,
   "correlationNotCause": "We measured when reads arrived. The tournament dates come from the calendar, not from our data. The two are printed side by side because that is the honest shape of what we know: a month is crowded, and something happened that month. We did not measure that one caused the other.",
   "cannotAnswer": "A month with more reads is a month with more reads. This does not say what caused it. Where we name a cause we name the source for it separately."
 }

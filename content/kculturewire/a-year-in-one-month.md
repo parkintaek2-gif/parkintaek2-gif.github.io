@@ -3,7 +3,7 @@ title: "For a Korean esports player, a year of Southeast Asian readers arrives i
 category: stars
 genre: esports
 purpose: both
-dek: "Split twelve months of Indonesian, Vietnamese, Thai and Malay Wikipedia reads by month. All eleven esports players in the panel peak in the same month. Three of nine footballers share theirs, and a retired one is almost flat."
+dek: "Split Indonesian, Vietnamese, Thai and Malay Wikipedia reads by month. All eleven esports players in the panel peak in the same month, and they agree in three of the four years we measured. The footballers never once agree."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
@@ -51,6 +51,21 @@ That footballer is Park Ji-sung, who retired in 2014. He is the useful control h
 | Park Ji-sung | Football | August 2025 | 10.7% | 42,654 |
 
 Son Heung-min is read more over the year than any esports player here — 194,608 against Faker's 153,241 — and reads him spread across the calendar rather than pooling. Two different shapes of attention, at similar volume.
+
+## One year is one point
+
+A single year proves nothing about a sport. So we ran the same measure back through 2022, counting a person for a year only if their article was already being read before that year started.
+
+| Year | Esports sharing a peak month | Football sharing a peak month |
+|---|---|---|
+| 2022 | 1 of 1 — all | 4 of 9 |
+| 2023 | 2 of 2 — all | 4 of 9 |
+| 2024 | 4 of 5 | 4 of 9 |
+| 2025 | 9 of 9 — all | 3 of 9 |
+
+The footballers reach agreement in 0 of those 4 years; their best is 4 of 9. The esports players reach it in 3 of 4, and in the fourth, 4 of 5 still land on November.
+
+That rule about articles already being read matters more than it sounds. On the first pass, four esports players showed exactly **100%** of their 2024 reads in December. That was not a spike in attention — their articles were created that month, and a measure that cannot tell "no article yet" from "nobody read it" turns a birth date into a surge. Those four are now excluded from 2024 and the year reads 4 of 5 rather than 4 of 9.
 
 ## What was on those months
 

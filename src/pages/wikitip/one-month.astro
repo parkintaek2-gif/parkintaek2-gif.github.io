@@ -111,6 +111,58 @@ const jsonLd = {
     </div>
   </section>
 
+  {d.acrossYears && (
+    <section>
+      <h2>Does the same month come back every year?</h2>
+      <p class="note">
+        One year is one point. To see whether this is a property of the sport rather than of 2025,
+        we ran the same measure back to {d.acrossYearsWindow?.split(' ')[0]}. A person is counted
+        for a year only if their article was already being read before that year began, and only if
+        it drew at least {d.acrossYearsMinReads} reads that year.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Year</th><th>Esports: sharing a peak month</th>
+            <th>Football: sharing a peak month</th></tr></thead>
+          <tbody>
+            {d.acrossYears.map((r) => (
+              <tr>
+                <td class="nm">{r.year}</td>
+                <td class={r.esports?.allSame ? 'tot' : ''}>
+                  {r.esports
+                    ? `${r.esports.sharing} of ${r.esports.people} in ${달이름(`${r.year}${r.esports.month}`)}`
+                    : '—'}
+                  {r.esports?.allSame ? ' — all of them' : ''}
+                </td>
+                <td>
+                  {r.football
+                    ? `${r.football.sharing} of ${r.football.people} in ${달이름(`${r.year}${r.football.month}`)}`
+                    : '—'}
+                  {r.football?.allSame ? ' — all of them' : ''}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    <p class="note">
+      {d.footballNeverUnanimous ? (
+        <span>
+          The footballers reach agreement in <b>0</b> of the {d.acrossYears.length} years measured;
+          their best is{' '}
+          {Math.max(...d.acrossYears.map((r) => r.football?.sharing ?? 0))} of{' '}
+          {Math.max(...d.acrossYears.map((r) => r.football?.people ?? 0))}. The esports players
+          reach it in <b>{d.acrossYears.filter((r) => r.esports?.allSame).length}</b> of{' '}
+          {d.acrossYears.filter((r) => r.esports).length}.
+        </span>
+      ) : (
+        <span>Both groups reach agreement in at least one year.</span>
+      )}
+    </p>
+      <p class="warn">{d.whyPartialYearsAreExcluded}</p>
+    </section>
+  )}
+
   <section class="warn-box">
     <h2>The last column is a calendar, not a cause</h2>
     <p class="warn">{d.correlationNotCause}</p>
