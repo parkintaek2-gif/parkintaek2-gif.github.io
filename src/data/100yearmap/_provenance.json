@@ -40,7 +40,8 @@
       "출처": "pages-school.json 에서 센 것",
       "url": null,
       "url이없는까닭": "밖에서 받은 것이 아니라 **우리가 센 것**이다. 밑자료는 pages-school.json 이고 그 출처는 위에 있다",
-      "만든것": "scripts/count-100y-areas.mjs"
+      "만든것": "scripts/count-100y-areas.mjs",
+      "대조": "✅ 다시 세기 (8번 2026-08-13 · scripts/check-100y-areas-recount.mjs · 자가시험 6). 밖에서 받은 것이 아니라 우리가 센 값이라 원본이 없다 — 학교 지면 2,525곳에서 **src/lib/school-area.ts 의 가르는 함수를 그대로 불러** 다시 셌다: 단위 258 · 한 벌 114 · 못 가른 학교 4 · **521값 다른 칸 0**. ⛔ 규칙을 흉내 내어 다시 짜면 자가 틀린다(그렇게 했더니 46단위가 거짓 빨강으로 떴다)."
     },
     "summary.json": {
       "무엇": "전체 건수 요약",
