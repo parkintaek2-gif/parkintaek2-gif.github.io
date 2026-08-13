@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T22:07:30.220Z",
+  "generated": "2026-08-13T23:02:52.427Z",
   "source": "Wikidata (CC0) for article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Share of a subject's four-country total that sits in the Malay Wikipedia. An evenly-read subject lands at 25%.",
@@ -48,8 +48,8 @@
     {
       "group": "athletes",
       "label": "Athletes",
-      "people": 877,
-      "malaysiaSharePc": 7.5
+      "people": 900,
+      "malaysiaSharePc": 7.6
     },
     {
       "group": "brands",
@@ -59,7 +59,7 @@
     }
   ],
   "peopleShareRangePc": [
-    7.5,
+    7.6,
     8.6
   ],
   "brandSharePc": 23,

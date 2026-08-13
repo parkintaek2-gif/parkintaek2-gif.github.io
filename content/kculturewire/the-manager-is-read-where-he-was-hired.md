@@ -2,7 +2,7 @@
 title: "In Indonesia and Malaysia, the most-read Korean in football is not a player"
 category: stars
 purpose: both
-dek: "A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him. Median concentration in a single country: 50.6% for the players, 80.3% for the managers."
+dek: "A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him. Median concentration in a single country: 50.6% for the players, 82.4% for the managers."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
@@ -30,7 +30,7 @@ Call that concentration. A person read evenly across the region lands near 25%. 
 | | Median concentration |
 |---|---|
 | Players | 50.6% |
-| Managers | 80.3% |
+| Managers | 82.4% |
 
 Both groups lean towards Vietnam, which is why neither sits at 25%. The gap between them is the finding.
 

@@ -2,7 +2,7 @@
 title: "Malaysia reads Korean brands three times as readily as it reads Korean people"
 category: industry
 purpose: both
-dek: "Groups, solo musicians, actors, athletes — the Malay Wikipedia takes 7.5% to 8.6% of the four-country reading for each. For luxury and car brands it takes 23%. Four categories in a narrow band, one well outside it."
+dek: "Groups, solo musicians, actors, athletes — the Malay Wikipedia takes 7.6% to 8.6% of the four-country reading for each. For luxury and car brands it takes 23%. Four categories in a narrow band, one well outside it."
 pubDate: 2026-08-14
 dataAsOf: 2026-08-14T00:00:00+09:00
 author: Newsroom
@@ -25,10 +25,10 @@ Take everything we have measured across Indonesia, Vietnam, Thailand and Malaysi
 | Groups and bands | 255 | 8.6% |
 | Solo musicians | 1,446 | 8.5% |
 | Actors | 1,023 | 7.8% |
-| Athletes | 877 | 7.5% |
+| Athletes | 900 | 7.6% |
 | Luxury, fashion and car brands | 22 | **23.0%** |
 
-Four categories of people sit inside a 1.1-point band. Brands sit at 2.8 times their average.
+Four categories of people sit inside a 1.0-point band. Brands sit at 2.8 times their average.
 
 That is worth stating carefully, because the obvious reading is wrong. This is not "Malaysia is a small market so everything is small there." Every figure above is already divided by the size of each Wikipedia. Malaysia's share of *people* is low. Its share of *brands* is not.
 

@@ -61,16 +61,27 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   process.exit(실 ? 1 : 0);
 }
 
+/** 🔴 하드 시한 — `req.setTimeout` 은 소켓이 조용할 때만 걸린다. 그것만 믿다 죽은 적이 있다 */
 function 받기(host, 길) {
   return new Promise((resolve) => {
+    let 끝났나 = false;
+    const 한번만 = (v) => { if (!끝났나) { 끝났나 = true; clearTimeout(시한); resolve(v); } };
+    const 시한 = setTimeout(() => {
+      try { req.destroy(); } catch { /* 이미 죽었다 */ }
+      한번만({ code: 0, body: '', 온전한가: false });
+    }, 60000);
     const req = https.request({ host, path: 길, headers: { 'User-Agent': UA, Accept: 'application/json' } },
       (res) => {
         const 조각 = [];
         res.on('data', (c) => { 조각.push(c); });
-        res.on('end', () => resolve({ code: res.statusCode, body: Buffer.concat(조각).toString('utf8') }));
+        res.on('end', () => 한번만({
+          code: res.statusCode,
+          body: Buffer.concat(조각).toString('utf8'),
+          온전한가: res.complete,        /* ⛔ 잘린 응답을 받아 쓰지 않는다 */
+        }));
       });
-    req.on('error', (e) => resolve({ code: 0, body: e.message }));
-    req.setTimeout(60000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
+    req.on('error', () => 한번만({ code: 0, body: '', 온전한가: false }));
+    req.setTimeout(30000, () => { req.destroy(); 한번만({ code: 0, body: '', 온전한가: false }); });
     req.end();
   });
 }
@@ -81,7 +92,7 @@ async function 조회수(판, 제목) {
   for (let 번 = 0; 번 < 6; 번 += 1) {          /* ⭐ 본 수집보다 더 참는다. 스물넷뿐이다 */
     const r = await 받기('wikimedia.org', 길);
     if (r.code === 404) return null;
-    if (r.code === 200) {
+    if (r.code === 200 && r.온전한가) {          /* ⛔ 잘린 응답은 안 쓴다 */
       try { return 합치기(JSON.parse(r.body).items ?? []); } catch { /* 다시 */ }
     }
     await new Promise((s) => { setTimeout(s, 1500 * (번 + 1)); });
@@ -95,11 +106,38 @@ if (내가실행됐다) {
   if (!못잰.length) { console.log('✅ 못 잰 사람이 없다'); process.exit(0); }
   console.log(`못 잰 ${못잰.length}명을 다시 잰다 — ${못잰.slice(0, 6).map((x) => x.name).join(', ')} …\n`);
 
-  /* 제목은 어디 있나 — 못잰목록에는 이름만 있다. 원래 줄에서 가져와야 한다 */
+  /**
+   * ⭐ 제목이 없으면 **여기서 받아 온다.**
+   *   처음엔 「수집기를 다시 돌려라」로 끝냈는데, 그건 950명을 40분 다시 재는 일이다.
+   *   스물넷의 Q번호를 아는데 전부를 다시 잴 까닭이 없다. 한 번 물으면 된다.
+   */
   if (!못잰[0].titles) {
-    console.log('⚠ 못잰목록에 문서 제목이 없다. 다시 수집기를 돌려야 한다 — 여기서는 못 한다');
-    console.log('   node scripts/collect-sea-athletes.mjs');
-    process.exit(0);
+    console.log('⚠ 못잰목록에 제목이 없다 — 스물넷 것만 받아 온다(전체를 다시 안 돈다)\n');
+    const 고리 = 모든판.map((p) => `
+    OPTIONAL { ?a_${p} schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> . }`).join('');
+    const r = await 받기('query.wikidata.org', `/sparql?format=json&query=${encodeURIComponent(
+      `SELECT ?p ${모든판.map((p) => `?a_${p}`).join(' ')} WHERE {
+        VALUES ?p { ${못잰.map((x) => `wd:${x.q}`).join(' ')} }${고리}
+      }`)}`);
+    if (r.code !== 200 || !r.온전한가) { console.error(`⛔ 제목을 못 받았다 — ${r.code}`); process.exit(1); }
+    const 줄들 = JSON.parse(r.body).results.bindings;
+    const 제목 = new Map();
+    for (const 줄 of 줄들) {
+      const q = 줄.p.value.split('/').pop();
+      if (!제목.has(q)) 제목.set(q, {});
+      for (const p of 모든판) {
+        const url = 줄[`a_${p}`]?.value;
+        if (!url) continue;
+        const 앞 = `https://${p}.wikipedia.org/wiki/`;
+        if (url.startsWith(앞)) 제목.get(q)[p] = decodeURIComponent(url.slice(앞.length));
+      }
+    }
+    let 붙은 = 0;
+    for (const x of 못잰) {
+      x.titles = 제목.get(x.q) ?? {};
+      if (Object.keys(x.titles).length) 붙은 += 1;
+    }
+    console.log(`   제목을 붙인 사람 ${붙은}/${못잰.length}\n`);
   }
 
   const 다시 = [];

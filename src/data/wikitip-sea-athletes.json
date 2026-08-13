@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T10:05:11.999Z",
+  "generated": "2026-08-13T23:02:51.682Z",
   "source": "Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, 12 months. One row is one person.",
@@ -9,33 +9,33 @@
       "country": "Indonesia",
       "language": "Indonesian",
       "editionReads": 838471174,
-      "koreanAthletesWithArticle": 346
+      "koreanAthletesWithArticle": 360
     },
     {
       "code": "vi",
       "country": "Vietnam",
       "language": "Vietnamese",
       "editionReads": 595288447,
-      "koreanAthletesWithArticle": 644
+      "koreanAthletesWithArticle": 663
     },
     {
       "code": "th",
       "country": "Thailand",
       "language": "Thai",
       "editionReads": 368636347,
-      "koreanAthletesWithArticle": 65
+      "koreanAthletesWithArticle": 67
     },
     {
       "code": "ms",
       "country": "Malaysia",
       "language": "Malay",
       "editionReads": 162947106,
-      "koreanAthletesWithArticle": 356
+      "koreanAthletesWithArticle": 370
     }
   ],
   "peopleFound": 8917,
-  "peopleMeasured": 926,
-  "peopleNotMeasured": 24,
+  "peopleMeasured": 950,
+  "peopleNotMeasured": 0,
   "esportsMeasured": 24,
   "topByEdition": {
     "id": [
@@ -743,6 +743,26 @@
       "topSharePc": 82.4
     },
     {
+      "name": "Cha Bum-kun",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": 27.42,
+        "th": null,
+        "ms": 2.26
+      },
+      "views": {
+        "id": null,
+        "vi": 16320,
+        "th": null,
+        "ms": 369
+      },
+      "seaPerMillionTotal": 29.68,
+      "topEdition": "vi",
+      "topSharePc": 92.4
+    },
+    {
       "name": "Hong Myung-bo",
       "role": "both",
       "sport": "football",
@@ -901,26 +921,6 @@
       "seaPerMillionTotal": 1.33,
       "topEdition": "vi",
       "topSharePc": 78.2
-    },
-    {
-      "name": "Yoo Sang-chul",
-      "role": "both",
-      "sport": "football",
-      "perMillion": {
-        "id": 0.33,
-        "vi": 0.72,
-        "th": null,
-        "ms": 0.23
-      },
-      "views": {
-        "id": 277,
-        "vi": 431,
-        "th": null,
-        "ms": 37
-      },
-      "seaPerMillionTotal": 1.28,
-      "topEdition": "vi",
-      "topSharePc": 56.3
     }
   ],
   "managersBeatingPlayers": 13,
@@ -928,7 +928,7 @@
   "topPlayerTotal": 342.3,
   "topManagerTotal": 137.78,
   "medianTopSharePlayers": 50.6,
-  "medianTopShareManagers": 80.3,
+  "medianTopShareManagers": 82.4,
   "playerVsManager": "The most-read Korean manager scores 137.78 against the most-read player's 342.3. Of the 14 players listed, 13 score below the top manager. A manager is read in one country and a player in several, which is why the two are in separate tables and not one ranking.",
   "roleCounts": {
     "player": 900,
@@ -941,13 +941,13 @@
     "id": [
       {
         "sport": "football",
-        "perMillion": 290.96,
+        "perMillion": 293.4,
         "sharePc": 98.7
       },
       {
         "sport": "baseball",
         "perMillion": 3.11,
-        "sharePc": 1.1
+        "sharePc": 1
       },
       {
         "sport": "esports",
@@ -964,12 +964,12 @@
       {
         "sport": "esports",
         "perMillion": 943.02,
-        "sharePc": 60.6
+        "sharePc": 59.4
       },
       {
         "sport": "football",
-        "perMillion": 609.12,
-        "sharePc": 39.1
+        "perMillion": 640.65,
+        "sharePc": 40.3
       },
       {
         "sport": "baseball",
@@ -985,7 +985,7 @@
     "th": [
       {
         "sport": "football",
-        "perMillion": 192.63,
+        "perMillion": 194.13,
         "sharePc": 93.4
       },
       {
@@ -996,7 +996,7 @@
       {
         "sport": "golf",
         "perMillion": 2.58,
-        "sharePc": 1.3
+        "sharePc": 1.2
       },
       {
         "sport": "baseball",
@@ -1012,13 +1012,13 @@
     "ms": [
       {
         "sport": "football",
-        "perMillion": 145.9,
-        "sharePc": 89
+        "perMillion": 150.76,
+        "sharePc": 89.4
       },
       {
         "sport": "baseball",
         "perMillion": 14.33,
-        "sharePc": 8.7
+        "sharePc": 8.5
       },
       {
         "sport": "esports",

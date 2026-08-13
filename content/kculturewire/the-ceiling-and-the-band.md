@@ -2,7 +2,7 @@
 title: "One Korean footballer is read more in Southeast Asia than any Korean actor"
 category: stars
 purpose: both
-dek: "We measured 1,948 Koreans with one instrument. Son Heung-min sits above all 1,023 actors. But 22 actors clear 100 against two athletes, and the two groups are read in different countries. Musicians who never acted are not in this panel."
+dek: "We measured 1,972 Koreans with one instrument. Son Heung-min sits above all 1,023 actors. But 22 actors clear 100 against two athletes, and the two groups are read in different countries. Musicians who never acted are not in this panel."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
@@ -29,8 +29,8 @@ One thing had to hold for this comparison to mean anything: both groups measured
 | Group | People | Most read | Their total | Median | Above 50 | Above 100 | Above 200 | Above 300 |
 |---|---|---|---|---|---|---|---|---|
 | Actors and singers | 1,023 | Go Youn-jung | 273.1 | 2.95 | 83 | 22 | 7 | 0 |
-| Athletes | 877 | Son Heung-min | 342.3 | 0.15 | 9 | 2 | 2 | 1 |
-| Managers who also played | 48 | Kim Sang-sik | 137.8 | 0.44 | 3 | 1 | 0 | 0 |
+| Athletes | 900 | Son Heung-min | 342.3 | 0.15 | 9 | 2 | 2 | 1 |
+| Managers who also played | 49 | Kim Sang-sik | 137.8 | 0.44 | 3 | 1 | 0 | 0 |
 
 Read the "most read" column and the "median" column against each other. They point in opposite directions. One athlete is above every entertainer; the median entertainer is read twenty times as often as the median athlete.
 
@@ -41,7 +41,7 @@ The athletes' presence in Southeast Asia is Son Heung-min, Faker, and then a ste
 | Group | Indonesia | Vietnam | Thailand | Malaysia |
 |---|---|---|---|---|
 | Actors and singers | 36.0% | 27.9% | 28.3% | 7.8% |
-| Athletes | 10.9% | 71.5% | 10.1% | 7.5% |
+| Athletes | 11.0% | 71.3% | 10.1% | 7.6% |
 | Managers who also played | 25.0% | 62.9% | 5.1% | 7.0% |
 
 Nearly three quarters of all reading about Korean athletes in these four countries happens in Vietnamese. Two things drive it: Faker and the League of Legends players around him, and Kim Sang-sik and Park Hang-seo, the Korean managers of Vietnam's national side.

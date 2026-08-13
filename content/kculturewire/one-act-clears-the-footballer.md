@@ -2,7 +2,7 @@
 title: "Exactly one Korean act is read more than Son Heung-min in Southeast Asia"
 category: stars
 purpose: both
-dek: "We put 2,511 Korean entertainers, 877 athletes and 22 luxury and car brands on one scale. BTS clears the footballer. Of everyone else measured, nobody does — and the most-read brand sits at a sixth of the leaders."
+dek: "We put 2,511 Korean entertainers, 900 athletes and 22 luxury and car brands on one scale. BTS clears the footballer. Of everyone else measured, nobody does — and the most-read brand sits at a sixth of the leaders."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
@@ -29,8 +29,8 @@ BTS is the only Korean act above him. Of 2,511 entertainers measured — 255 gro
 | Groups and bands | 255 | BTS | 380.8 | 0.78 | 15 | 7 | 3 | 2 |
 | Solo musicians | 1,446 | V | 233.3 | 1.13 | 57 | 16 | 4 | 0 |
 | Actors | 1,023 | Go Youn-jung | 273.1 | 2.95 | 83 | 22 | 7 | 0 |
-| Athletes | 877 | Son Heung-min | 342.3 | 0.15 | 9 | 2 | 2 | 1 |
-| Managers who also played | 48 | Kim Sang-sik | 137.8 | 0.44 | 3 | 1 | 0 | 0 |
+| Athletes | 900 | Son Heung-min | 342.3 | 0.15 | 9 | 2 | 2 | 1 |
+| Managers who also played | 49 | Kim Sang-sik | 137.8 | 0.44 | 3 | 1 | 0 | 0 |
 | Luxury, fashion and car brands | 22 | BMW | 66.8 | 28.02 | 3 | 0 | 0 | 0 |
 
 Three figures clear 300: BTS, Son Heung-min, and Babymonster at 314.6. Below that the shape changes by group rather than the ranking. The athletes are top-heavy — one name, then a cliff, and a median of 0.15. The actors are the opposite: nobody at the very top, but 83 of them clear 50 and their median is twenty times the athletes'.
@@ -61,9 +61,9 @@ Malaysia is the exception worth noting. It supplies 7 to 8.6% of the reading for
 | Groups and bands | 28.0% | 34.7% | 28.7% | 8.6% |
 | Solo musicians | 34.7% | 28.7% | 28.1% | 8.5% |
 | Actors | 36.0% | 27.9% | 28.3% | 7.8% |
-| Athletes | 10.9% | 71.5% | 10.1% | 7.5% |
+| Athletes | 11.0% | 71.3% | 10.1% | 7.6% |
 
-Every entertainment row spreads across Indonesia, Vietnam and Thailand within eight points. The athlete row does not: 71.5% of all reading about Korean athletes in these four countries happens in Vietnamese, driven by Faker and the League of Legends players, and by the Korean managers of Vietnam's national football side.
+Every entertainment row spreads across Indonesia, Vietnam and Thailand within eight points. The athlete row does not: 71.3% of all reading about Korean athletes in these four countries happens in Vietnamese, driven by Faker and the League of Legends players, and by the Korean managers of Vietnam's national football side.
 
 Korean sport in Southeast Asia is close to a Vietnamese phenomenon. Korean entertainment is a regional one.
 

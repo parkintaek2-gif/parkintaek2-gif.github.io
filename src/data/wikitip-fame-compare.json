@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T11:36:39.681Z",
+  "generated": "2026-08-13T23:02:52.052Z",
   "source": "Wikidata (CC0) for article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, summed across the four editions, 12 months. One row is one person.",
@@ -150,7 +150,7 @@
     {
       "group": "athletes",
       "label": "Athletes",
-      "people": 877,
+      "people": 900,
       "top": "Son Heung-min",
       "topTotal": 342.3,
       "median": 0.15,
@@ -164,33 +164,33 @@
         {
           "edition": "id",
           "country": "Indonesia",
-          "perMillion": 201.7,
-          "sharePc": 10.9
+          "perMillion": 204.1,
+          "sharePc": 11
         },
         {
           "edition": "vi",
           "country": "Vietnam",
-          "perMillion": 1321.4,
-          "sharePc": 71.5
+          "perMillion": 1325.5,
+          "sharePc": 71.3
         },
         {
           "edition": "th",
           "country": "Thailand",
-          "perMillion": 187,
+          "perMillion": 188.5,
           "sharePc": 10.1
         },
         {
           "edition": "ms",
           "country": "Malaysia",
-          "perMillion": 137.8,
-          "sharePc": 7.5
+          "perMillion": 140.4,
+          "sharePc": 7.6
         }
       ]
     },
     {
       "group": "managers",
       "label": "Managers who also played",
-      "people": 48,
+      "people": 49,
       "top": "Kim Sang-sik",
       "topTotal": 137.78,
       "median": 0.44,
@@ -205,24 +205,24 @@
           "edition": "id",
           "country": "Indonesia",
           "perMillion": 93.3,
-          "sharePc": 25
+          "sharePc": 23.1
         },
         {
           "edition": "vi",
           "country": "Vietnam",
-          "perMillion": 234.9,
-          "sharePc": 62.9
+          "perMillion": 262.4,
+          "sharePc": 65.1
         },
         {
           "edition": "th",
           "country": "Thailand",
           "perMillion": 19.2,
-          "sharePc": 5.1
+          "sharePc": 4.8
         },
         {
           "edition": "ms",
           "country": "Malaysia",
-          "perMillion": 26.1,
+          "perMillion": 28.3,
           "sharePc": 7
         }
       ]
