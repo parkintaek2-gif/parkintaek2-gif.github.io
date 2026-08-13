@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 /**
- * **가수를 채운다.** — 사장님 지적(8/13) 「가수는 순위에 없는 건 아닐텐데」.
+ * **동남아는 한국의 어디를 찾아보나** — 사장님 지시(8/13).
+ *   「스타들이 가는 곳(맛집·카페·여행지·촬영지)의 정보가 필요한 지도 시장 조사」
  *
- * 🔴 맞는 지적이었다. 82편의 배우 명단은 **넷플릭스 차트 작품 출연진**이라
- *   드라마에 안 나온 가수가 통째로 빠졌다. 아이유·지수·차은우가 든 것은 **배우 겸업**이라서다.
- *   ⛔ 그 상태로 「연예인」이라 부른 것이 잘못이었다. 가수를 따로 모아 다시 견준다.
+ * ── 왜 이걸 먼저 하나 ──────────────────────────────────────────
+ *   촬영지·맛집 정본은 한국관광공사 TourAPI 에 있는데 **키가 필요하다**(사장님 손).
+ *   ⭐ 그 사이에 **키 없이 지금 잴 수 있는 것**이 있다 — 그 사람들이 한국의 어느 장소를
+ *      위키백과에서 찾아보는가. 「지도가 필요한 시장인가」의 첫 자국이다.
  *
- * ── 어떻게 — 두 걸음으로 나눈다 ────────────────────────────────
- *   ① Q번호만 받는다(가볍다). 문서고리를 같이 달라 하면 응답이 커져 **네 번 죽었다**.
- *   ② Q번호를 **주고** 문서 제목을 받는다. 이 방향은 통했다(배우 1,355명 전부 받았다).
+ * 🔴 선수·배우·가수와 **같은 자**를 쓴다 — 같은 언어판 넷, 같은 12개월, 같은 백만분율.
+ *   그래야 「손흥민 342.3」 옆에 「명동 얼마」를 놓을 수 있다.
  *
- * 🔴 선수·배우와 **같은 자**를 쓴다 — 같은 언어판 넷, 같은 12개월, 같은 백만분율.
+ * ⛔ 이 수집기가 지키는 것
+ * ⛔ 장소를 줄세우지 않는다. **어느 나라가 어디를 보나**를 나란히 놓는다.
+ * ⛔ 조회수는 관심이지 방문이 아니다. 그 말을 자료에 담는다.
+ * ⛔ 못 잰 것을 0 으로 세지 않는다.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -18,45 +22,36 @@ import https from 'node:https';
 import { fileURLToPath } from 'node:url';
 import { 동남아, 백만분율, 합치기, 문서있는판 } from './collect-sea-athletes.mjs';
 
-const 결과길 = 'archive/raw/wikipedia/sea-musicians.json';
-const 중간길 = 'archive/raw/wikipedia/sea-musicians.partial.json';
+const 결과길 = 'archive/raw/wikipedia/sea-places.json';
+const 중간길 = 'archive/raw/wikipedia/sea-places.partial.json';
 const UA = 'KCultureWire/1.0 (https://www.kculturewire.com) node';
 const 처음 = '20250801';
 const 끝 = '20260731';
 const 하드시한 = 60000;
 
-/** 갈래 — 노래하는 쪽. ⚠ 배우(Q33999)는 안 넣는다. 그쪽은 이미 잰 자료가 있다 */
-export const 갈래 = [
-  { key: 'singer', label: 'Singer', q: 'Q177220' },
-  { key: 'rapper', label: 'Rapper', q: 'Q2252262' },
-  { key: 'idol', label: 'Idol', q: 'Q108163588' },
-  { key: 'songwriter', label: 'Songwriter', q: 'Q753110' },
-];
-
-/** ⭐ 사람만이 아니라 **무리**도 잰다. BTS·블랙핑크는 사람이 아니라 그룹이다 */
-export const 무리갈래 = [
-  { key: 'band', label: 'Band', q: 'Q215380' },
-  { key: 'girlgroup', label: 'Girl group', q: 'Q4187955' },
-  { key: 'boyband', label: 'Boy band', q: 'Q5741069' },
+/**
+ * 무엇을 장소로 보나 — Wikidata 종류(P31) Q번호.
+ * ⚠ 「맛집·카페」는 위키백과에 거의 없다. 있는 것은 **동네·거리·궁궐·섬·산·역**이다.
+ *   그래서 이 자료는 「어느 동네가 궁금한가」를 재지 「어느 가게가 궁금한가」를 재지 못한다.
+ *   ⛔ 그 한계를 자료에 적는다. TourAPI 키가 나오면 가게 층을 그 위에 얹는다.
+ */
+export const 장소갈래 = [
+  { key: 'neighbourhood', label: 'Neighbourhood', q: 'Q1499928' },   /* 동 (행정동) */
+  { key: 'district', label: 'District', q: 'Q26283' },               /* 구 */
+  { key: 'city', label: 'City', q: 'Q515' },
+  { key: 'island', label: 'Island', q: 'Q23442' },
+  { key: 'mountain', label: 'Mountain', q: 'Q8502' },
+  { key: 'palace', label: 'Palace', q: 'Q16560' },
+  { key: 'temple', label: 'Temple', q: 'Q44539' },
+  { key: 'museum', label: 'Museum', q: 'Q33506' },
+  { key: 'park', label: 'Park', q: 'Q22698' },
+  { key: 'station', label: 'Station', q: 'Q55488' },
+  { key: 'market', label: 'Market', q: 'Q330284' },
+  { key: 'tower', label: 'Tower', q: 'Q12518' },
 ];
 
 export const 쪽크기 = 500;
 export const 덩이 = 120;
-
-/**
- * 🔴 8/13 — **Wikidata 이름표는 훼손될 수 있다.**
- *   TXT(Tomorrow X Together)가 영문 이름표에 「Tacos de asada y cebollin」으로 적혀 있었다.
- *   문서고리는 멀쩡했다. 그러니 **이름은 문서 제목에서 가져온다.**
- *   ⛔ 이름표를 버리지는 않는다 — 자료에 같이 남겨 무엇이 어긋났는지 볼 수 있게 한다.
- * ⚠ 문서 제목도 언어판마다 다르다. 로마자 판(id·ms·vi)을 먼저 보고 없으면 이름표를 쓴다.
- */
-export function 이름고르기(이름표, 제목들) {
-  for (const p of ['id', 'ms', 'vi']) {
-    const t = 제목들?.[p];
-    if (t && /^[\x20-\x7E]+$/.test(t)) return t.replace(/_/g, ' ').replace(/\s*\([^)]*\)$/, '');
-  }
-  return 이름표 ?? null;
-}
 
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -67,23 +62,17 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     if (JSON.stringify(실제) === JSON.stringify(바람)) 통 += 1;
     else { 실 += 1; console.error(`  ⛔ ${이름}\n     받은 것: ${JSON.stringify(실제)}`); }
   };
-  재본다('🔴 선수·배우와 같은 언어판', 동남아, ['id', 'vi', 'th', 'ms']);
+  재본다('🔴 사람 자료와 같은 언어판 — 아니면 나란히 못 놓는다', 동남아, ['id', 'vi', 'th', 'ms']);
   재본다('🔴 같은 백만분율 셈', 백만분율(5086, 50430364), 100.85);
-  재본다('⛔ 배우는 안 넣는다 — 그쪽은 이미 쟀다', 갈래.some((g) => g.q === 'Q33999'), false);
-  재본다('가수가 들어 있다', 갈래.some((g) => g.key === 'singer'), true);
-  재본다('⭐ 무리도 잰다 — BTS 는 사람이 아니다', 무리갈래.length, 3);
-  재본다('덩이가 너무 크지 않다', 덩이 <= 200, true);
+  재본다('장소 갈래가 여럿', 장소갈래.length >= 10, true);
+  재본다('시장이 들어 있다 — 스타가 가는 곳에 가깝다',
+    장소갈래.some((g) => g.key === 'market'), true);
+  재본다('갈래 Q번호가 안 겹친다',
+    장소갈래.length, new Set(장소갈래.map((g) => g.q)).size);
   재본다('못 잰 것은 0 이 아니다', 백만분율(null, 1000), null);
-  /* 🔴 8/13 — Wikidata 이름표가 훼손돼 TXT 가 「Tacos de asada y cebollin」이었다 */
-  재본다('이름고르기 — 훼손된 이름표 대신 문서 제목을 쓴다',
-    이름고르기('Tacos de asada y cebollin', { id: 'Tomorrow_X_Together', th: 'ทีบายที' }),
-    'Tomorrow X Together');
-  재본다('이름고르기 — 로마자 제목이 없으면 이름표를 쓴다',
-    이름고르기('BTS', { th: 'บีทีเอส' }), 'BTS');
-  재본다('이름고르기 — 괄호 꼬리를 뗀다',
-    이름고르기('X', { id: 'Rain_(penyanyi)' }), 'Rain');
-  재본다('이름고르기 — 둘 다 없으면 null', 이름고르기(null, {}), null);
-  console.log(`가수 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
+  재본다('문서 없음과 0 을 안 섞는다',
+    문서있는판({ views: { id: 0, vi: null, th: 5, ms: undefined } }), 2);
+  console.log(`장소 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
 
@@ -152,27 +141,22 @@ async function 떼로(일들, 폭 = 3) {
 }
 
 if (내가실행됐다) {
-  console.log('① 언어판 밑값 — 🔴 선수·배우와 같은 창\n');
+  console.log('① 언어판 밑값 — 🔴 사람 자료와 같은 창\n');
   const 밑 = {};
   for (const p of 동남아) {
     밑[p] = await 밑값(p);
     console.log(`   ${p.padEnd(3)} ${밑[p] ? 밑[p].toLocaleString('en-US') : '⛔ 못 쟀다'}`);
   }
 
-  /* ① Q번호만 받는다 — 문서고리를 같이 달라 하면 응답이 커져 죽는다 */
-  console.log('\n② Q번호만 받는다 (가볍다)');
+  console.log('\n② 한국에 있는 장소의 Q번호만 받는다 (가볍다)');
   const 갈래맵 = new Map();
   const 이름맵 = new Map();
-  for (const g of [...갈래, ...무리갈래]) {
-    const 사람인가 = 갈래.includes(g);
+  for (const g of 장소갈래) {
     let 받은 = 0;
-    for (let 쪽 = 0; 쪽 < 30; 쪽 += 1) {
-      /* 사람은 국적(P27)으로, 무리는 어디서 났나(P495)로 고른다 — 무리에는 국적이 없다 */
-      const 몸 = 사람인가
-        ? `?p wdt:P31 wd:Q5 ; wdt:P27 wd:Q884 ; wdt:P106 wd:${g.q} .`
-        : `?p wdt:P31 wd:${g.q} ; wdt:P495 wd:Q884 .`;
+    for (let 쪽 = 0; 쪽 < 20; 쪽 += 1) {
+      /* P17 = 어느 나라에 있나. 한국(Q884) 안의 그 갈래 */
       const 줄들 = await 스파클(`SELECT ?p ?pLabel WHERE {
-        ${몸}
+        ?p wdt:P31 wd:${g.q} ; wdt:P17 wd:Q884 .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
       } ORDER BY ?p LIMIT ${쪽크기} OFFSET ${쪽 * 쪽크기}`);
       if (줄들 === null) break;
@@ -185,12 +169,11 @@ if (내가실행됐다) {
       받은 += 줄들.length;
       if (줄들.length < 쪽크기) break;
     }
-    console.log(`   ${g.label.padEnd(12)} ${받은}`);
+    console.log(`   ${g.label.padEnd(16)} ${받은}`);
   }
   const 모든q = [...갈래맵.keys()];
   console.log(`   → 모두 ${모든q.length}`);
 
-  /* ② Q번호를 **주고** 문서 제목을 받는다 — 이 방향은 가볍다 */
   console.log('\n③ Q번호를 주고 문서 제목을 받는다');
   const 제목 = new Map();
   let 막힌덩이 = 0;
@@ -214,7 +197,7 @@ if (내가실행됐다) {
     }
     if ((i / 덩이) % 5 === 0) process.stdout.write(`   ${Math.min(i + 덩이, 모든q.length)}/${모든q.length}\n`);
   }
-  if (막힌덩이) console.log(`   ⚠ 못 받은 덩이 ${막힌덩이}개 — 그 사람들은 「문서 없음」이 아니라 **모른다**`);
+  if (막힌덩이) console.log(`   ⚠ 못 받은 덩이 ${막힌덩이}개`);
 
   const 잴것 = 모든q.filter((q) => 동남아.some((p) => 제목.get(q)?.[p]));
   console.log(`\n④ ${모든q.length} 중 동남아 판에 문서가 있는 **${잴것.length}**`);
@@ -228,18 +211,7 @@ if (내가실행됐다) {
   const 모은것 = new Map(이미);
   const 적어두기 = () => fs.writeFileSync(중간길, JSON.stringify(Object.fromEntries(모은것)));
   const 줄들 = await 떼로(잴것.map((q) => async () => {
-    if (모은것.has(q)) {
-      센 += 1;
-      /* ⚠ 이어받은 줄도 **이름은 다시 고른다.** 이름 고르는 법이 8/13 에 바뀌었다 */
-      const 옛 = 모은것.get(q);
-      const 새이름 = 이름고르기(옛.wikidataLabel ?? 이름맵.get(q), 옛.titles ?? 제목.get(q));
-      if (새이름 && 새이름 !== 옛.name) {
-        옛.wikidataLabel = 옛.wikidataLabel ?? 옛.name;
-        옛.name = 새이름;
-        모은것.set(q, 옛);
-      }
-      return 옛;
-    }
+    if (모은것.has(q)) { 센 += 1; return 모은것.get(q); }
     const t = 제목.get(q);
     const views = {};
     for (const p of 동남아) views[p] = t[p] ? await 조회수(p, t[p]) : null;
@@ -247,13 +219,10 @@ if (내가실행됐다) {
     const perMillion = {};
     for (const p of 동남아) perMillion[p] = views[p] === undefined ? undefined : 백만분율(views[p], 밑[p]);
     const 못잰것있나 = 동남아.some((p) => views[p] === undefined);
-    const 갈래들 = 갈래맵.get(q) ?? [];
     const 줄 = {
       q,
-      name: 이름고르기(이름맵.get(q), t),
-      wikidataLabel: 이름맵.get(q) ?? null,
-      kinds: 갈래들,
-      isGroup: 갈래들.some((k) => 무리갈래.some((g) => g.key === k)),
+      name: 이름맵.get(q) ?? q,
+      kinds: 갈래맵.get(q) ?? [],
       titles: t,
       views,
       perMillion,
@@ -273,14 +242,21 @@ if (내가실행됐다) {
 
   fs.writeFileSync(결과길, `${JSON.stringify({
     generated: new Date().toISOString(),
-    source: 'Wikidata (CC0) for article links; Wikimedia Pageviews API for reads',
+    source: 'Wikidata (CC0) for places and article links; Wikimedia Pageviews API for reads',
     window: '2025-08 through 2026-07, 12 months, human traffic only',
-    comparableWith: 'sea-athletes.json and sea-actors.json — same editions, same window, same unit',
-    panel: 'Korean singers, rappers, idols and songwriters, plus Korean bands and groups',
-    whyGroupsToo: 'A group is not a person and Wikipedia gives it its own article. Leaving groups '
-      + 'out would drop the acts most people name first, so they are counted and flagged.',
+    comparableWith: 'sea-athletes.json · sea-actors.json · sea-musicians.json — same editions, '
+      + 'same window, same unit',
+    panel: 'Places in South Korea that carry a Wikidata type we counted as a destination',
+    panelCaveat: 'Wikipedia has articles on neighbourhoods, districts, islands, palaces, markets '
+      + 'and stations. It does not have articles on individual restaurants and cafes. So this '
+      + 'measures which parts of Korea are looked up, not which venues. The venue layer needs the '
+      + 'Korea Tourism Organization API, which requires a key.',
+    readingIsNotVisiting: 'A read is curiosity, not a trip. It cannot say who came, only who looked. '
+      + 'Arrival counts by nationality are published separately by the Korea Tourism Organization '
+      + 'and are the right instrument for visits.',
     editionsSea: 동남아,
     editionTotals: 밑,
+    kinds: 장소갈래.map((g) => ({ key: g.key, label: g.label })),
     candidates: 모든q.length,
     withArticle: 잴것.length,
     peopleMeasured: 잰것.length,
@@ -292,10 +268,9 @@ if (내가실행됐다) {
 
   console.log(`\n⭐ ${결과길}`);
   console.log(`   잰 것 ${잰것.length} · 못 잰 것 ${못잰것.length}`);
-  console.log('\n🔴 견줄 자리 — 손흥민 342.3 · 고윤정 273.1 · 김상식 137.8\n');
+  console.log('\n🔴 견줄 자리 — 손흥민 342.3 · 고윤정 273.1\n');
   for (const x of 잰것.slice(0, 30)) {
-    console.log(`   ${x.name.padEnd(24)} ${String(x.seaPerMillionTotal).padStart(8)}  `
-      + `${동남아.map((p) => `${p} ${x.perMillion[p] ?? '—'}`).join(' · ')}`
-      + `  ${x.isGroup ? '[무리]' : ''}`);
+    console.log(`   ${x.name.padEnd(26)} ${String(x.seaPerMillionTotal).padStart(8)}  `
+      + `${동남아.map((p) => `${p} ${x.perMillion[p] ?? '—'}`).join(' · ')}  [${x.kinds.join(',')}]`);
   }
 }

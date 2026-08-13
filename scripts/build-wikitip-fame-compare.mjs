@@ -22,6 +22,12 @@ const 배우길 = 'archive/raw/wikipedia/sea-actors.json';
  *   ⚠ 가수 자료가 아직 없으면 **없는 대로 짓는다.** 있으면 무리에 더한다.
  */
 const 가수길 = 'archive/raw/wikipedia/sea-musicians.json';
+/**
+ * 사장님 지시(8/13) — 「패션 브랜드, 명품 엠베서더 등도 먹히는 콘텐트인지」·「자동차까지」
+ * 🔴 못 재는 것을 먼저 적는다: Wikidata 에 **앰배서더 관계가 없다**(실물로 찾아 0건).
+ *   그래서 「누가 어느 브랜드 얼굴인가」가 아니라 **브랜드가 얼마나 읽히나**를 스타 옆에 놓는다.
+ */
+const 브랜드길 = 'archive/raw/wikipedia/sea-brands.json';
 const 결과 = 'src/data/wikitip-fame-compare.json';
 const 나라이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
 const 판들 = Object.keys(나라이름);
@@ -139,12 +145,28 @@ if (내가실행됐다) {
     console.log('⚠ 가수 자료가 아직 없다 — 없는 대로 짓고 지면에 그 사실을 적는다\n');
   }
 
+  /* 🔴 브랜드 — 사장님 ②③. 없으면 없는 대로 짓는다 */
+  let 브랜드줄 = [];
+  let 브랜드자료 = null;
+  if (fs.existsSync(브랜드길)) {
+    브랜드자료 = JSON.parse(fs.readFileSync(브랜드길, 'utf8'));
+    const 잴수있나3 = 견줄수있나(선수자료, 브랜드자료);
+    if (!잴수있나3.ok) {
+      console.error('🔴 브랜드 자료가 같은 자로 잰 것이 아니다:');
+      for (const t of 잴수있나3.탈) console.error(`   · ${t}`);
+      process.exit(1);
+    }
+    브랜드줄 = 브랜드자료.people;
+    console.log('✅ 브랜드 자료도 같은 자로 쟀다\n');
+  }
+
   const 무리 = [
-    { key: 'actors', label: 'Actors', 줄들: 배우 },
-    ...(가수솔로.length ? [{ key: 'musicians', label: 'Musicians', 줄들: 가수솔로 }] : []),
     ...(가수무리.length ? [{ key: 'groups', label: 'Groups and bands', 줄들: 가수무리 }] : []),
+    ...(가수솔로.length ? [{ key: 'musicians', label: 'Solo musicians', 줄들: 가수솔로 }] : []),
+    { key: 'actors', label: 'Actors', 줄들: 배우 },
     { key: 'athletes', label: 'Athletes', 줄들: 선수 },
     { key: 'managers', label: 'Managers who also played', 줄들: 감독 },
+    ...(브랜드줄.length ? [{ key: 'brands', label: 'Luxury, fashion and car brands', 줄들: 브랜드줄 }] : []),
   ];
 
   const 요약 = 무리.map((g) => ({
@@ -165,9 +187,16 @@ if (내가실행됐다) {
     total: x.seaPerMillionTotal,
   }));
 
-  /* 🔴 사장님 물음에 대한 답 — 눈으로 보지 않고 센다. **가수까지 넣어서** 센다 */
-  const 연예전부 = [...배우, ...가수솔로, ...가수무리]
+  /**
+   * 🔴 사장님 물음에 대한 답 — 눈으로 보지 않고 센다. **가수까지 넣어서** 센다.
+   * ⛔ 겹치는 사람을 두 번 세지 않는다. 아이유·차은우·임윤아는 **배우 명단과 가수 명단에 둘 다** 있다.
+   *   Q번호로 하나만 남긴다. 안 그러면 「연예인 2,724명」이 부풀고 상위 표에 같은 이름이 두 번 선다.
+   */
+  const 본것 = new Set();
+  const 연예전부 = [...가수무리, ...가수솔로, ...배우]
+    .filter((x) => { if (본것.has(x.q)) return false; 본것.add(x.q); return true; })
     .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal);
+  const 겹친사람 = (가수무리.length + 가수솔로.length + 배우.length) - 연예전부.length;
   const 배우맨위 = 연예전부[0]?.seaPerMillionTotal ?? 0;
   const 배우맨위이름 = 연예전부[0]?.name ?? '';
   const 선수맨위 = 선수[0]?.seaPerMillionTotal ?? 0;
@@ -190,19 +219,35 @@ if (내가실행됐다) {
     entertainerLeadsOverall: 배우가더높나,
     actorsAboveTopAthlete: 선수맨위보다높은배우,
     entertainersCounted: 연예전부.length,
+    /** ⛔ 겹친 사람 — 배우이면서 가수인 사람. 한 번만 센다 */
+    countedInBothPanels: 겹친사람,
+    overlapNote: `${겹친사람} people appear in both the acting and the music panel — IU, Cha Eun-woo, `
+      + 'Im Yoon-ah and others who do both. They are counted once in the combined figure and once in '
+      + 'each group table, which is why the group rows do not sum to the combined total.',
     topAthleteName: 선수맨위이름,
     topAthleteTotal: 선수맨위,
     topActorName: 배우맨위이름,
     topActorTotal: 배우맨위,
     answer: 배우가더높나
-      ? `Yes, at the very top. ${배우맨위이름} scores ${배우맨위} against ${선수맨위이름}'s ${선수맨위}, `
-        + `and ${선수맨위보다높은배우} of the ${연예전부.length.toLocaleString('en-US')} entertainers `
-        + 'measured are above the most-read athlete.'
+      ? `Yes, at the very top. ${배우맨위이름} scores ${배우맨위} against ${선수맨위이름}'s ${선수맨위}. `
+        + `But only ${선수맨위보다높은배우} of the ${연예전부.length.toLocaleString('en-US')} entertainers `
+        + 'measured clears the most-read athlete, so the lead is one act wide, not a category-wide gap.'
       : `No. The most-read athlete, ${선수맨위이름}, scores ${선수맨위}, and not one of the `
         + `${연예전부.length.toLocaleString('en-US')} entertainers measured is above him. What differs `
         + 'is the band beneath: the entertainers fill it and the athletes do not.',
     actorPanel: 배우자료.panel,
     actorPanelCaveat: 배우자료.panelCaveat,
+    /** ⭐ 사장님 ②③ — 브랜드가 스타만큼 읽히나 */
+    topBrands: 열(브랜드줄, 12),
+    topBrandName: 브랜드줄[0]?.name ?? null,
+    topBrandTotal: 브랜드줄[0]?.seaPerMillionTotal ?? null,
+    brandVsPerson: 브랜드줄.length
+      ? `The most-read brand, ${브랜드줄[0].name}, scores ${브랜드줄[0].seaPerMillionTotal} — about `
+        + `${(배우맨위 / 브랜드줄[0].seaPerMillionTotal).toFixed(1)} times less than the most-read `
+        + 'Korean act. A house is not read about the way a person is. What travels is the person '
+        + 'wearing it, which is where the ambassador announcements land.'
+      : null,
+    brandCannotAnswer: 브랜드자료?.cannotAnswer ?? null,
     musicPanel: 가수자료?.panel ?? null,
     musicPanelNote: 가수자료
       ? 가수자료.whyGroupsToo

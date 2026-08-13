@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T10:48:09.918Z",
+  "generated": "2026-08-13T11:36:39.681Z",
   "source": "Wikidata (CC0) for article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, summed across the four editions, 12 months. One row is one person.",
@@ -28,8 +28,88 @@
   "question": "Are Korean entertainers looked up far more than Korean athletes in Southeast Asia?",
   "groups": [
     {
+      "group": "groups",
+      "label": "Groups and bands",
+      "people": 255,
+      "top": "BTS",
+      "topTotal": 380.76,
+      "median": 0.78,
+      "aboveThreshold": {
+        "50": 15,
+        "100": 7,
+        "200": 3,
+        "300": 2
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 834.7,
+          "sharePc": 28
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 1035.3,
+          "sharePc": 34.7
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 855.9,
+          "sharePc": 28.7
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 257.6,
+          "sharePc": 8.6
+        }
+      ]
+    },
+    {
+      "group": "musicians",
+      "label": "Solo musicians",
+      "people": 1446,
+      "top": "V",
+      "topTotal": 233.29,
+      "median": 1.13,
+      "aboveThreshold": {
+        "50": 57,
+        "100": 16,
+        "200": 4,
+        "300": 0
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 4270.3,
+          "sharePc": 34.7
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 3534.3,
+          "sharePc": 28.7
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 3464.8,
+          "sharePc": 28.1
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 1053,
+          "sharePc": 8.5
+        }
+      ]
+    },
+    {
       "group": "actors",
-      "label": "Actors and singers",
+      "label": "Actors",
       "people": 1023,
       "top": "Go Youn-jung",
       "topTotal": 273.06,
@@ -146,9 +226,81 @@
           "sharePc": 7
         }
       ]
+    },
+    {
+      "group": "brands",
+      "label": "Luxury, fashion and car brands",
+      "people": 22,
+      "top": "BMW",
+      "topTotal": 66.76,
+      "median": 28.02,
+      "aboveThreshold": {
+        "50": 3,
+        "100": 0,
+        "200": 0,
+        "300": 0
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 169,
+          "sharePc": 27
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 188.2,
+          "sharePc": 30
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 125.2,
+          "sharePc": 20
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 144.3,
+          "sharePc": 23
+        }
+      ]
     }
   ],
   "topActors": [
+    {
+      "name": "BTS",
+      "perMillion": {
+        "id": 83.29,
+        "vi": 133.45,
+        "th": 130.09,
+        "ms": 33.93
+      },
+      "views": {
+        "id": 69836,
+        "vi": 79442,
+        "th": 47957,
+        "ms": 5528
+      },
+      "total": 380.76
+    },
+    {
+      "name": "Babymonster",
+      "perMillion": {
+        "id": 94.02,
+        "vi": 117.3,
+        "th": 87.36,
+        "ms": 15.89
+      },
+      "views": {
+        "id": 78836,
+        "vi": 69830,
+        "th": 32204,
+        "ms": 2590
+      },
+      "total": 314.57
+    },
     {
       "name": "Go Youn-jung",
       "perMillion": {
@@ -182,6 +334,22 @@
       "total": 263.86
     },
     {
+      "name": "V",
+      "perMillion": {
+        "id": 79.18,
+        "vi": 85.14,
+        "th": 53.35,
+        "ms": 15.62
+      },
+      "views": {
+        "id": 66387,
+        "vi": 50681,
+        "th": 19668,
+        "ms": 2545
+      },
+      "total": 233.29
+    },
+    {
       "name": "Kim Seon-ho",
       "perMillion": {
         "id": 53.85,
@@ -196,6 +364,22 @@
         "ms": 2290
       },
       "total": 220.56
+    },
+    {
+      "name": "Exo",
+      "perMillion": {
+        "id": 53.91,
+        "vi": 71.29,
+        "th": 77.27,
+        "ms": 11.68
+      },
+      "views": {
+        "id": 45204,
+        "vi": 42438,
+        "th": 28485,
+        "ms": 1903
+      },
+      "total": 214.15
     },
     {
       "name": "IU",
@@ -262,6 +446,22 @@
       "total": 200.18
     },
     {
+      "name": "Rosé",
+      "perMillion": {
+        "id": 40.33,
+        "vi": 69.49,
+        "th": 51.54,
+        "ms": 5.4
+      },
+      "views": {
+        "id": 33818,
+        "vi": 41366,
+        "th": 19001,
+        "ms": 880
+      },
+      "total": 166.76
+    },
+    {
       "name": "Bae Suzy",
       "perMillion": {
         "id": 34.21,
@@ -278,68 +478,20 @@
       "total": 165.9
     },
     {
-      "name": "Song Hye-kyo",
+      "name": "Jennie",
       "perMillion": {
-        "id": 46.05,
-        "vi": 43.04,
-        "th": 55.09,
-        "ms": 10.28
+        "id": 36.04,
+        "vi": 53.89,
+        "th": 55.42,
+        "ms": 14.59
       },
       "views": {
-        "id": 38610,
-        "vi": 25622,
-        "th": 20308,
-        "ms": 1675
+        "id": 30220,
+        "vi": 32081,
+        "th": 20429,
+        "ms": 2378
       },
-      "total": 154.46
-    },
-    {
-      "name": "Jisoo",
-      "perMillion": {
-        "id": 33.68,
-        "vi": 53.13,
-        "th": 53.39,
-        "ms": 8.58
-      },
-      "views": {
-        "id": 28236,
-        "vi": 31629,
-        "th": 19682,
-        "ms": 1398
-      },
-      "total": 148.78
-    },
-    {
-      "name": "Park Ji-hoon",
-      "perMillion": {
-        "id": 46.55,
-        "vi": 48.07,
-        "th": 19.22,
-        "ms": 14.58
-      },
-      "views": {
-        "id": 39030,
-        "vi": 28613,
-        "th": 7084,
-        "ms": 2375
-      },
-      "total": 128.42
-    },
-    {
-      "name": "Lee Min-ho",
-      "perMillion": {
-        "id": 38.24,
-        "vi": 36.31,
-        "th": 41.32,
-        "ms": 12.24
-      },
-      "views": {
-        "id": 32059,
-        "vi": 21617,
-        "th": 15233,
-        "ms": 1994
-      },
-      "total": 128.11
+      "total": 159.94
     }
   ],
   "topAthletes": [
@@ -472,14 +624,218 @@
       "total": 68.31
     }
   ],
-  "entertainerLeadsOverall": false,
-  "actorsAboveTopAthlete": 0,
+  "entertainerLeadsOverall": true,
+  "actorsAboveTopAthlete": 1,
+  "entertainersCounted": 2511,
+  "countedInBothPanels": 213,
+  "overlapNote": "213 people appear in both the acting and the music panel — IU, Cha Eun-woo, Im Yoon-ah and others who do both. They are counted once in the combined figure and once in each group table, which is why the group rows do not sum to the combined total.",
   "topAthleteName": "Son Heung-min",
   "topAthleteTotal": 342.3,
-  "topActorTotal": 273.06,
-  "answer": "No. The most-read athlete, Son Heung-min, scores 342.3, and not one of the 1,023 entertainers in this panel is above him. What differs is the band beneath: the entertainers fill it and the athletes do not.",
+  "topActorName": "BTS",
+  "topActorTotal": 380.76,
+  "answer": "Yes, at the very top. BTS scores 380.76 against Son Heung-min's 342.3. But only 1 of the 2,511 entertainers measured clears the most-read athlete, so the lead is one act wide, not a category-wide gap.",
   "actorPanel": "Korean actors credited on a title that reached a Netflix country chart",
   "actorPanelCaveat": "This is not every Korean celebrity. It is the cast of Korean titles that reached a Netflix country chart, which is the panel the rest of our data is built on. A singer or idol who never appeared in one of those titles is not here.",
+  "topBrands": [
+    {
+      "name": "BMW",
+      "perMillion": {
+        "id": 24.63,
+        "vi": 19.25,
+        "th": 15.22,
+        "ms": 7.66
+      },
+      "views": {
+        "id": 20651,
+        "vi": 11457,
+        "th": 5609,
+        "ms": 1248
+      },
+      "total": 66.76
+    },
+    {
+      "name": "Mercedes-Benz",
+      "perMillion": {
+        "id": 19.62,
+        "vi": 19.68,
+        "th": 19.19,
+        "ms": 6.5
+      },
+      "views": {
+        "id": 16452,
+        "vi": 11718,
+        "th": 7074,
+        "ms": 1059
+      },
+      "total": 64.99
+    },
+    {
+      "name": "Gucci",
+      "perMillion": {
+        "id": 6.04,
+        "vi": 11.23,
+        "th": 20.75,
+        "ms": 20.31
+      },
+      "views": {
+        "id": 5063,
+        "vi": 6686,
+        "th": 7649,
+        "ms": 3309
+      },
+      "total": 58.33
+    },
+    {
+      "name": "Chanel",
+      "perMillion": {
+        "id": 7.47,
+        "vi": 14.01,
+        "th": 6.24,
+        "ms": 19
+      },
+      "views": {
+        "id": 6261,
+        "vi": 8342,
+        "th": 2302,
+        "ms": 3096
+      },
+      "total": 46.72
+    },
+    {
+      "name": "Louis Vuitton",
+      "perMillion": {
+        "id": 4.82,
+        "vi": 17.95,
+        "th": 16.26,
+        "ms": 2.72
+      },
+      "views": {
+        "id": 4038,
+        "vi": 10686,
+        "th": 5994,
+        "ms": 444
+      },
+      "total": 41.75
+    },
+    {
+      "name": "Balenciaga",
+      "perMillion": {
+        "id": 3.65,
+        "vi": 9.83,
+        "th": 5.65,
+        "ms": 20.36
+      },
+      "views": {
+        "id": 3064,
+        "vi": 5853,
+        "th": 2083,
+        "ms": 3318
+      },
+      "total": 39.49
+    },
+    {
+      "name": "Calvin Klein",
+      "perMillion": {
+        "id": 35.68,
+        "vi": null,
+        "th": null,
+        "ms": 3.1
+      },
+      "views": {
+        "id": 29917,
+        "vi": null,
+        "th": null,
+        "ms": 505
+      },
+      "total": 38.78
+    },
+    {
+      "name": "Prada",
+      "perMillion": {
+        "id": 7.69,
+        "vi": 8.18,
+        "th": 2.28,
+        "ms": 18.35
+      },
+      "views": {
+        "id": 6446,
+        "vi": 4872,
+        "th": 842,
+        "ms": 2990
+      },
+      "total": 36.5
+    },
+    {
+      "name": "Porsche",
+      "perMillion": {
+        "id": 9.54,
+        "vi": 12.16,
+        "th": 8.73,
+        "ms": 3.16
+      },
+      "views": {
+        "id": 8001,
+        "vi": 7240,
+        "th": 3219,
+        "ms": 515
+      },
+      "total": 33.59
+    },
+    {
+      "name": "Fendi",
+      "perMillion": {
+        "id": 5.65,
+        "vi": 6.9,
+        "th": null,
+        "ms": 18.24
+      },
+      "views": {
+        "id": 4735,
+        "vi": 4108,
+        "th": null,
+        "ms": 2972
+      },
+      "total": 30.79
+    },
+    {
+      "name": "Dior",
+      "perMillion": {
+        "id": 4.73,
+        "vi": 12.7,
+        "th": 5.95,
+        "ms": 4.64
+      },
+      "views": {
+        "id": 3967,
+        "vi": 7563,
+        "th": 2193,
+        "ms": 756
+      },
+      "total": 28.02
+    },
+    {
+      "name": "Hyundai Motor Company",
+      "perMillion": {
+        "id": 10.09,
+        "vi": 12.61,
+        "th": null,
+        "ms": 1.72
+      },
+      "views": {
+        "id": 8463,
+        "vi": 7506,
+        "th": null,
+        "ms": 280
+      },
+      "total": 24.42
+    }
+  ],
+  "topBrandName": "BMW",
+  "topBrandTotal": 66.76,
+  "brandVsPerson": "The most-read brand, BMW, scores 66.76 — about 5.7 times less than the most-read Korean act. A house is not read about the way a person is. What travels is the person wearing it, which is where the ambassador announcements land.",
+  "brandCannotAnswer": "Wikidata records no ambassador or endorsement relation between people and brands. We checked and found none in use. So this cannot say who fronts which house. It measures how much a brand is read about, next to how much a person is read about, on one scale.",
+  "musicPanel": "Korean singers, rappers, idols and songwriters, plus Korean bands and groups",
+  "musicPanelNote": "A group is not a person and Wikipedia gives it its own article. Leaving groups out would drop the acts most people name first, so they are counted and flagged.",
   "cannotAnswer": "Reading an encyclopaedia article is not liking someone. This counts people looking someone up. Readers in these four countries also use the English Wikipedia, which cannot be split by country, so every figure here is a floor on interest, not a measure of it.",
   "whyNotPhilippines": "Tagalog Wikipedia is too small to measure with — the whole edition draws fewer reads in a year than a single popular article does elsewhere, and Filipino readers largely use the English edition. We do not report a Philippines number rather than report a weak one."
 }

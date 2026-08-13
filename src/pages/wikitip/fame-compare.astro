@@ -20,12 +20,13 @@ import d from '../../data/wikitip-fame-compare.json';
 
 const 문턱 = [50, 100, 200, 300];
 
-const TITLE = 'Korean entertainers are not read more than Korean athletes in Southeast Asia — they are read more widely';
+const TITLE = 'One Korean act outreads Son Heung-min in Southeast Asia, and it is BTS';
 const DESC =
-  `We measured ${d.groups.map((g) => g.people).reduce((a, b) => a + b, 0).toLocaleString('en-US')} Koreans `
-  + 'with the same instrument: reads of their Wikipedia article in the Indonesian, Vietnamese, Thai '
-  + `and Malay editions over twelve months. ${d.topAthleteName} outscores every entertainer in the `
-  + 'panel. The difference is in the band beneath him, and in which country does the reading.';
+  `We measured ${d.entertainersCounted.toLocaleString('en-US')} Korean entertainers, `
+  + `${d.groups.find((g) => g.group === 'athletes')?.people ?? 0} athletes and `
+  + `${d.topBrands?.length ?? 0} brands with one instrument: reads of their Wikipedia article in the `
+  + `Indonesian, Vietnamese, Thai and Malay editions over twelve months. ${d.topActorName} clears `
+  + `${d.topAthleteName}. Nothing else does, and no brand comes close to either.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -145,10 +146,40 @@ const jsonLd = {
     </div>
   </section>
 
+  {d.topBrands && d.topBrands.length > 0 && (
+    <section>
+      <h2>And the brands they front</h2>
+      <p class="q">
+        The most-read brand here is <b>{d.topBrandName}</b> at <b>{d.topBrandTotal}</b>, against{' '}
+        <b>{d.topActorTotal}</b> for the most-read Korean act.
+      </p>
+      <p class="note">{d.brandVsPerson}</p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Brand</th>{d.editions.map((e) => <th>{e.country}</th>)}<th>Total</th></tr></thead>
+          <tbody>
+            {d.topBrands.map((x) => (
+              <tr>
+                <td class="nm">{x.name}</td>
+                {d.editions.map((e) => <td>{x.perMillion[e.code] ?? '—'}</td>)}
+                <td class="tot">{x.total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="warn">{d.brandCannotAnswer}</p>
+    </section>
+  )}
+
   <section class="warn-box">
     <h2>What this panel is, and is not</h2>
     <p class="warn">{d.actorPanelCaveat}</p>
     <p class="note"><b>Panel</b> — {d.actorPanel}.</p>
+    {d.musicPanel && <p class="note"><b>Music panel</b> — {d.musicPanel}. {d.musicPanelNote}</p>}
+    <p class="note">
+      <b>{d.countedInBothPanels}</b> people sit in both the acting and the music panel. {d.overlapNote}
+    </p>
     <p class="warn">{d.cannotAnswer}</p>
     <p class="warn">{d.whyNotPhilippines}</p>
   </section>
