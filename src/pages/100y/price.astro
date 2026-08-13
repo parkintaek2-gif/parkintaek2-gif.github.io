@@ -35,7 +35,7 @@ import { href } from '../../lib/hundredyear';
 import schools from '../../data/100yearmap/pages-school.json';
 import areas from '../../data/100yearmap/areas.json';
 import { 한벌로팔만한가, 한벌최소 } from '../../lib/school-area';
-import { 값글자, 한벌에드는것, 다음칸, 알림메일주소, 지역한벌값, 사는주소 } from '../../lib/price';
+import { 값글자, 한벌에드는것, 다음칸, 알림메일주소, 지역한벌값, 사는주소, 사기전안내 } from '../../lib/price';
 
 /** ⛔ 손으로 세지 않는다 — 파는 단위를 정하는 그 자로 여기서도 가른다 */
 const 단위 = ((areas as any).단위 ?? []) as any[];
@@ -103,6 +103,11 @@ const jsonLd = {
           가는 곳은 KLifeMap 결제(`사는주소()`)이고, 딱지를 셋 다 달고 간다.
         ⚠ 지금은 `살수있나: false` 라 아래 「곧 엽니다」가 그대로 나온다.
           켜기 전에 **KLifeMap 요금표에 지역 한 벌 한 줄**이 있어야 한다(1번 손). */}
+    {/* 🔴 **누르기 전에** 보이게 둔다 (2026-08-13 사장님 결정).
+        ⛔ 단추 «뒤»에 두면 값을 보고 누른 뒤에야 알게 된다 — 그것이 고치려던 것이다.
+        ⚠ 지금은 PG 가 꺼져 있어 살 수 없지만, 켜지는 날 이 줄이 이미 자리에 있어야 한다. */}
+    <p class="note">⚠ {사기전안내}</p>
+
     {
       다음칸.살수있나 ? (
         <>
