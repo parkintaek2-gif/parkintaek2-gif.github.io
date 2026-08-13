@@ -1,0 +1,82 @@
+---
+/**
+ * /100y/video — **짧은 영상**
+ *
+ * 🔴 왜 있나 — 사장님 지시(2026-08-14):
+ *   *「텍스트 말고도 카드, 카드뉴스, 숏동영상은 **하루에 하나씩 만들어 배포까지 완료**하도록」*
+ *
+ *   ⛔ 그전까지 영상은 `out/` 에만 있었다. **out/ 은 gitignore 라 배포에 안 실린다** —
+ *     만들기만 하고 «배포»가 없었다. 파일을 `public/100y/video/` 로 옮기고 이 지면을 낸다.
+ *   ⭐ 밖(유튜브·인스타)에 올리는 것은 사장님 계정이지만, **우리 자리에 서는 것은 내 몫**이다.
+ *     그래야 카드·영상이 «데려올 데」를 갖는다.
+ *
+ * ⛔ 수를 손으로 적지 않는다. `src/data/100yearmap/videos.json` 한 곳에서 온다.
+ * ⛔ 등수·순위를 쓰지 않는다. 영상마다 **출처**와 **그 수가 있는 지면**을 같이 건다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import 대장 from '../../../data/100yearmap/videos.json';
+
+const 영상들 = (대장 as any).영상 as any[];
+
+const desc =
+  '백년지도가 만든 짧은 영상입니다. 나이별 월급·초혼·학교 숫자를 14초로 보여 드립니다. ' +
+  '영상에 나오는 수는 모두 그 수가 있는 지면을 함께 겁니다.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: '백년지도 짧은 영상',
+  numberOfItems: 영상들.length,
+  itemListElement: 영상들.map((v, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'VideoObject',
+      name: v.이름,
+      description: v.한줄,
+      contentUrl: `https://100yearmap.com${v.파일}`,
+      uploadDate: v.만든날,
+    },
+  })),
+};
+---
+
+<HundredYear title="짧은 영상" description={desc} jsonLd={jsonLd}>
+  <h1>짧은 영상</h1>
+  <p class="lead">
+    숫자 하나를 <strong>14초</strong>에 담았습니다. 영상에 나오는 수는 모두{' '}
+    <strong>그 수가 있는 지면</strong>을 함께 겁니다 — 못 대는 숫자는 영상에서 뺍니다.
+  </p>
+
+  {
+    영상들.map((v) => (
+      <section class="영상">
+        <h2>{v.이름}</h2>
+        <p class="note">{v.한줄}</p>
+        {/* ⚠ preload="none" — 목록에 여럿이 있어 다 받으면 폰에서 느리다 */}
+        <video controls preload="none" playsinline width="270" height="480" src={v.파일}>
+          이 브라우저는 영상을 재생하지 못합니다. <a href={v.파일}>내려받아 보실 수 있습니다.</a>
+        </video>
+        <p class="note">
+          <a class="gotoarea" href={v.댈지면}>이 숫자가 있는 지면으로 →</a>
+        </p>
+        <p class="note small">
+          {v.몇살손님} · {v.초}초 · 만든 날 {v.만든날}
+          <br />출처 — {v.출처}
+        </p>
+      </section>
+    ))
+  }
+
+  <hr class="rule" />
+  <p class="note">
+    ⛔ 등수를 매기지 않습니다. 영상은 <strong>퍼짐</strong>을 먼저 보여 주고, 가운데값이 곧
+    「맞는 값」이 아니라는 것을 같이 적습니다.
+  </p>
+</HundredYear>
+
+<style>
+  .영상 { margin: 40px 0; }
+  .영상 video { max-width: 100%; height: auto; border-radius: 10px; background: #12151c; }
+  .small { font-size: 0.9em; opacity: 0.8; }
+</style>

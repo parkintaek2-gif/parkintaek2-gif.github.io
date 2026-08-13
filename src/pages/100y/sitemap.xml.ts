@@ -117,6 +117,11 @@ export const GET: APIRoute = () => {
     { path: '/university', priority: '0.9', changefreq: 'weekly' },
     { path: '/research', priority: '0.7', changefreq: 'monthly' },
     { path: '/data', priority: '0.8', changefreq: 'weekly' },
+    /* 짧은 영상 — 사장님 지시(2026-08-14)로 **하루에 하나씩 내고 배포까지** 한다.
+       ⚠ 또 잊을 뻔했다. 지면을 만들자마자 `check:100y:launch` 가
+          「검색엔 열렸는데 사이트맵에 없다 — /video」로 세웠다.
+          `/after` · `/region` 때와 **세 번째 같은 실수**다. 고정 지면을 만들면 여기부터 온다. */
+    { path: '/video', priority: '0.7', changefreq: 'daily' },
     /* 지역으로 보기 — 「경기도 고등학교」처럼 **지역으로 찾는 검색**을 받는 자리다.
        ⭐ 이번에도 검사가 먼저 잡았다(2026-08-06 17:0x). 지면을 만들고 이 줄을 잊었더니
           `check:100y:launch` 가 「검색엔 열렸는데 사이트맵에 없다 — /region」으로 세웠다.
