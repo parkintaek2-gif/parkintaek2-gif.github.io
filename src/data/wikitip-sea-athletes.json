@@ -1,0 +1,602 @@
+{
+  "generated": "2026-08-12T22:51:22.474Z",
+  "source": "Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads",
+  "window": "2025-08 through 2026-07, 12 months, human traffic only",
+  "unit": "Reads per million reads of the whole language edition, 12 months. One row is one person.",
+  "editions": [
+    {
+      "code": "id",
+      "country": "Indonesia",
+      "language": "Indonesian",
+      "editionReads": 838471174,
+      "koreanAthletesWithArticle": 346
+    },
+    {
+      "code": "vi",
+      "country": "Vietnam",
+      "language": "Vietnamese",
+      "editionReads": 595288447,
+      "koreanAthletesWithArticle": 644
+    },
+    {
+      "code": "th",
+      "country": "Thailand",
+      "language": "Thai",
+      "editionReads": 368636347,
+      "koreanAthletesWithArticle": 65
+    },
+    {
+      "code": "ms",
+      "country": "Malaysia",
+      "language": "Malay",
+      "editionReads": 162947106,
+      "koreanAthletesWithArticle": 356
+    }
+  ],
+  "peopleFound": 8917,
+  "peopleMeasured": 926,
+  "peopleNotMeasured": 24,
+  "esportsMeasured": 24,
+  "topByEdition": {
+    "id": [
+      {
+        "name": "Son Heung-min",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 80.98,
+        "views": 67903
+      },
+      {
+        "name": "Park Ji-Sung",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 20.82,
+        "views": 17453
+      },
+      {
+        "name": "Lee Kang-in",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 12.37,
+        "views": 10372
+      },
+      {
+        "name": "Kim Min-jae",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 7.89,
+        "views": 6613
+      },
+      {
+        "name": "Jens Castrop",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 6.84,
+        "views": 5737
+      },
+      {
+        "name": "Ahn Jung-hwan",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 5.98,
+        "views": 5014
+      },
+      {
+        "name": "Yoo Jae-hoon",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 5.44,
+        "views": 4565
+      },
+      {
+        "name": "Hwang Hee-chan",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 4.23,
+        "views": 3549
+      }
+    ],
+    "vi": [
+      {
+        "name": "Faker",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 250.45,
+        "views": 149088
+      },
+      {
+        "name": "Son Heung-min",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 144.63,
+        "views": 86094
+      },
+      {
+        "name": "Peanut",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 96.19,
+        "views": 57263
+      },
+      {
+        "name": "Lee Min-hyung",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 88.57,
+        "views": 52724
+      },
+      {
+        "name": "Jung Ji-hun",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 78.48,
+        "views": 46718
+      },
+      {
+        "name": "Kim Soo-hwan",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 72.5,
+        "views": 43161
+      },
+      {
+        "name": "Ryu Min-seok",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 68.31,
+        "views": 40665
+      },
+      {
+        "name": "Doran",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 59.48,
+        "views": 35408
+      }
+    ],
+    "th": [
+      {
+        "name": "Son Heung-min",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 104.99,
+        "views": 38704
+      },
+      {
+        "name": "Park Ji-Sung",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 17.9,
+        "views": 6599
+      },
+      {
+        "name": "Kim Min-jae",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 10.15,
+        "views": 3740
+      },
+      {
+        "name": "Faker",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 9.66,
+        "views": 3562
+      },
+      {
+        "name": "Go Seul-ki",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 5.21,
+        "views": 1922
+      },
+      {
+        "name": "Hwang Hee-chan",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 4.91,
+        "views": 1810
+      },
+      {
+        "name": "Lee Kang-in",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 4.78,
+        "views": 1762
+      },
+      {
+        "name": "Cho Gue-sung",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 3.15,
+        "views": 1160
+      }
+    ],
+    "ms": [
+      {
+        "name": "Bergson Gustavo Silveira da Silva",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 32.46,
+        "views": 5289
+      },
+      {
+        "name": "Son Heung-min",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 11.7,
+        "views": 1907
+      },
+      {
+        "name": "Park Ji-Sung",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 6.16,
+        "views": 1004
+      },
+      {
+        "name": "Park Tae-soo",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 5.9,
+        "views": 961
+      },
+      {
+        "name": "Faker",
+        "sports": [
+          "esports"
+        ],
+        "role": "player",
+        "perMillion": 3.63,
+        "views": 591
+      },
+      {
+        "name": "Park Jun-heong",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 2.83,
+        "views": 461
+      },
+      {
+        "name": "Lee Kang-in",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 2.62,
+        "views": 427
+      },
+      {
+        "name": "Kim Young-kwang",
+        "sports": [
+          "football"
+        ],
+        "role": "player",
+        "perMillion": 2.04,
+        "views": 333
+      }
+    ]
+  },
+  "topCoachesByEdition": {
+    "id": [
+      {
+        "name": "Shin Tae-yong",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 74.72,
+        "views": 62647
+      },
+      {
+        "name": "Hong Myung-bo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 7.52,
+        "views": 6306
+      },
+      {
+        "name": "Park Hang-seo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 3.22,
+        "views": 2704
+      },
+      {
+        "name": "Kim Sang-sik",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 1.84,
+        "views": 1542
+      }
+    ],
+    "vi": [
+      {
+        "name": "Kim Sang-sik",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 132.71,
+        "views": 79001
+      },
+      {
+        "name": "Park Hang-seo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 60.77,
+        "views": 36177
+      },
+      {
+        "name": "Hong Myung-bo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 14.19,
+        "views": 8450
+      },
+      {
+        "name": "Shin Tae-yong",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 9.58,
+        "views": 5700
+      }
+    ],
+    "th": [
+      {
+        "name": "Park Hang-seo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 7.31,
+        "views": 2696
+      },
+      {
+        "name": "Hong Myung-bo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 4.32,
+        "views": 1593
+      },
+      {
+        "name": "Shin Tae-yong",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 2.7,
+        "views": 995
+      },
+      {
+        "name": "Kim Sang-sik",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 2.57,
+        "views": 947
+      }
+    ],
+    "ms": [
+      {
+        "name": "Kim Pan-gon",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 10.08,
+        "views": 1642
+      },
+      {
+        "name": "Shin Tae-yong",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 6.05,
+        "views": 986
+      },
+      {
+        "name": "Park Hang-seo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 2.44,
+        "views": 397
+      },
+      {
+        "name": "Hong Myung-bo",
+        "sports": [
+          "football"
+        ],
+        "role": "both",
+        "perMillion": 1.54,
+        "views": 251
+      }
+    ]
+  },
+  "roleCounts": {
+    "player": 900,
+    "coach": 0,
+    "both": 49,
+    "other": 1
+  },
+  "whyCoachesAreSeparate": "Wikidata records both roles for anyone who played before managing, so it cannot say which one a reader came for. We keep them in their own table rather than rank a national-team manager against a player. In two of these four countries the most-read Korean is a manager, and that is the finding, not a nuisance.",
+  "sportMixByEdition": {
+    "id": [
+      {
+        "sport": "football",
+        "perMillion": 290.96,
+        "sharePc": 98.7
+      },
+      {
+        "sport": "baseball",
+        "perMillion": 3.11,
+        "sharePc": 1.1
+      },
+      {
+        "sport": "esports",
+        "perMillion": 0.7,
+        "sharePc": 0.2
+      },
+      {
+        "sport": "golf",
+        "perMillion": 0.13,
+        "sharePc": 0
+      }
+    ],
+    "vi": [
+      {
+        "sport": "esports",
+        "perMillion": 943.02,
+        "sharePc": 60.6
+      },
+      {
+        "sport": "football",
+        "perMillion": 609.12,
+        "sharePc": 39.1
+      },
+      {
+        "sport": "baseball",
+        "perMillion": 3.89,
+        "sharePc": 0.2
+      },
+      {
+        "sport": "golf",
+        "perMillion": 0.33,
+        "sharePc": 0
+      }
+    ],
+    "th": [
+      {
+        "sport": "football",
+        "perMillion": 192.63,
+        "sharePc": 93.4
+      },
+      {
+        "sport": "esports",
+        "perMillion": 9.93,
+        "sharePc": 4.8
+      },
+      {
+        "sport": "golf",
+        "perMillion": 2.58,
+        "sharePc": 1.3
+      },
+      {
+        "sport": "baseball",
+        "perMillion": 1.04,
+        "sharePc": 0.5
+      },
+      {
+        "sport": "mma",
+        "perMillion": 0.09,
+        "sharePc": 0
+      }
+    ],
+    "ms": [
+      {
+        "sport": "football",
+        "perMillion": 145.9,
+        "sharePc": 89
+      },
+      {
+        "sport": "baseball",
+        "perMillion": 14.33,
+        "sharePc": 8.7
+      },
+      {
+        "sport": "esports",
+        "perMillion": 3.63,
+        "sharePc": 2.2
+      }
+    ]
+  },
+  "topNamesAcrossEditions": [
+    "Son Heung-min",
+    "Faker",
+    "Son Heung-min",
+    "Bergson Gustavo Silveira da Silva"
+  ],
+  "sameFaceEverywhere": false,
+  "distinctTopFaces": 3,
+  "question": "Four Southeast Asian Wikipedias, four different Korean athletes at the top. The question is not who is biggest but why the four lists disagree.",
+  "whyNotPhilippines": "Tagalog Wikipedia is too small to measure with — the whole edition draws fewer reads in a year than a single popular article does elsewhere, and Filipino readers largely use the English edition. We do not report a Philippines number rather than report a weak one.",
+  "whyThisIsAFloor": "Readers in Southeast Asia also use the English edition, so a language-edition count is a floor on interest in that country, not a measure of it.",
+  "cannotAnswer": "Reading an encyclopaedia article is not the same as following a sport. This counts people looking someone up. It cannot say who is liked, only who is looked up.",
+  "noArticleIsNotNoInterest": "Of 8,917 Korean athletes on Wikidata, 7,967 have no article in any of these four editions. That is an absence of an article, not an absence of interest, and we do not count it as a zero."
+}

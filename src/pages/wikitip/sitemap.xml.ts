@@ -119,6 +119,10 @@ export const GET: APIRoute = async () => {
     { path: '/section/industry', priority: '0.8', changefreq: 'weekly' },
     { path: '/section/tradition', priority: '0.8', changefreq: 'weekly' },
     { path: '/zodiac', priority: '0.9', changefreq: 'weekly' },
+    /* 77편째 기사의 표. 2026-08-13 — 동남아 넷이 서로 다른 한국 선수를 찾아본다(사장님 지시) */
+    { path: '/sea-athletes', priority: '0.9', changefreq: 'weekly' },
+    /* 76편째 기사의 표. 2026-08-13 — 배우 절반이 차트 작품 한 편뿐. 음성 결과를 같이 낸다 */
+    { path: '/one-title', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

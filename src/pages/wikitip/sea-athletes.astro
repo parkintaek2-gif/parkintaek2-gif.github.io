@@ -1,0 +1,165 @@
+---
+/**
+ * K Culture Wire — **동남아 넷은 서로 다른 한국 선수를 찾아본다.** (`/sea-athletes`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   사장님 지시(8/13) — 「동남아에서 인기 있는 한국인 프로스포츠선수, 이스포츠 포함」.
+ *   ⛔ 「동남아」를 한 덩어리로 묻지 않는다. 나라 넷을 **나란히 놓고 왜 다른지**를 적는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ 순위표를 만들지 않는다. 넷을 나란히 놓는다.
+ * ⛔ 필리핀을 0 으로 적지 않는다. **못 잰다**고 같은 크기로 적는다.
+ * ⛔ 「인기」라고 쓰지 않는다. 잰 것은 **찾아본 횟수**다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-sea-athletes.json` 에서 읽는다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-sea-athletes.json';
+
+const 종목이름: Record<string, string> = {
+  football: 'Football', esports: 'Esports', baseball: 'Baseball',
+  golf: 'Golf', mma: 'MMA', other: 'Other',
+};
+
+const TITLE = 'Four Southeast Asian Wikipedias look up four different Korean athletes';
+const DESC =
+  `We counted how often ${d.peopleMeasured.toLocaleString('en-US')} Korean athletes were looked up in the `
+  + `Indonesian, Vietnamese, Thai and Malay Wikipedias over twelve months. The four editions do not `
+  + `agree on who to look up — ${d.distinctTopFaces} different names sit at the top. `
+  + `This counts reads, not popularity.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/sea-athletes">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    The most-read Korean athlete, taken one edition at a time, is{' '}
+    {d.topNamesAcrossEditions.join(', ')} — {d.distinctTopFaces} different people across four
+    countries.{' '}
+    {d.sameFaceEverywhere
+      ? 'The four editions agree.'
+      : 'The four editions do not agree, and this page is about why.'}
+  </p>
+  {d.roleCounts && (
+    <p class="note">
+      Of the {d.peopleMeasured.toLocaleString('en-US')} people measured,{' '}
+      <b>{d.roleCounts.player}</b> are recorded only as players and <b>{d.roleCounts.both}</b> as
+      both player and manager. Those {d.roleCounts.both} are kept in a separate table below rather
+      than ranked against current players.
+    </p>
+  )}
+
+  <section>
+    <h2>The four editions, side by side</h2>
+    <p class="note">
+      <b>{d.unit}</b> Dividing by the size of each edition is what makes the four comparable —
+      the Indonesian Wikipedia draws several times the reads the Malay one does, so raw counts
+      would only measure the encyclopaedias, not the readers.
+    </p>
+    <div class="cols">
+      {d.editions.map((e) => (
+        <div class="col">
+          <h3>{e.country}</h3>
+          <p class="fine">{e.language} Wikipedia · {(e.editionReads / 1e6).toFixed(0)}M reads in the window
+            · <b>{e.koreanAthletesWithArticle}</b> Korean athletes have an article here</p>
+          <table>
+            <thead><tr><th>Athlete</th><th>Per million</th><th>Sport</th></tr></thead>
+            <tbody>
+              {d.topByEdition[e.code].map((x) => (
+                <tr>
+                  <td class="nm">{x.name}</td>
+                  <td class="tot">{x.perMillion}</td>
+                  <td class="fine">{종목이름[x.sports[0]] ?? x.sports[0]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="fine">
+            {d.sportMixByEdition[e.code].slice(0, 3).map((s) => (
+              <span>{종목이름[s.sport] ?? s.sport} {s.sharePc}% · </span>
+            ))}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section>
+    <h2>The Koreans who played, then managed</h2>
+    <p class="note">{d.whyCoachesAreSeparate}</p>
+    <div class="cols">
+      {d.editions.map((e) => (
+        <div class="col">
+          <h3>{e.country}</h3>
+          <table>
+            <thead><tr><th>Name</th><th>Per million</th></tr></thead>
+            <tbody>
+              {d.topCoachesByEdition[e.code].map((x) => (
+                <tr><td class="nm">{x.name}</td><td class="tot">{x.perMillion}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+    <p class="note">
+      Read the four columns across a row rather than down one. The same four names appear in every
+      country and the numbers move by a factor of tens between them — each is read where he took
+      the job, and almost nowhere else.
+    </p>
+  </section>
+
+  <section class="warn-box">
+    <h2>What a read is not</h2>
+    <p class="warn">{d.cannotAnswer}</p>
+    <p class="warn">{d.whyThisIsAFloor}</p>
+    <p class="note">{d.noArticleIsNotNoInterest}</p>
+  </section>
+
+  <section class="warn-box">
+    <h2>The country we did not measure</h2>
+    <p class="warn">{d.whyNotPhilippines}</p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Panel</b> — {d.peopleFound.toLocaleString('en-US')} Korean athletes on Wikidata
+        (football, esports, baseball, golf, MMA);
+        {' '}{d.peopleMeasured.toLocaleString('en-US')} of them have an article in at least one of
+        these four editions and could be measured.
+        {d.peopleNotMeasured > 0 && (
+          <span> {d.peopleNotMeasured} could not be measured and are left out rather than counted as zero.</span>
+        )}</li>
+      <li><b>Esports</b> — {d.esportsMeasured} of the measured athletes are esports players.</li>
+    </ul>
+    <p class="note">
+      <a href="/esports">How esports titles travel</a> ·{' '}
+      <a href="/about">How we count</a> · <a href="/corrections">What we have corrected</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/sea-athletes" />
+</WikiTip>
+
+<style>
+  .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; }
+  .col table { width: 100%; font-size: 0.92rem; }
+  .col h3 { margin-bottom: 0.15rem; }
+</style>
