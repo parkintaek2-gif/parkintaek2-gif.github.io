@@ -93,9 +93,7 @@ if (내가실행됐다) {
   execFileSync(ff, 인자, { stdio: 'ignore' });
 
   const 크기 = (fs.statSync(낼길).size / 1024).toFixed(0);
-  console.log(`${대본.neural ? '✅' : '⚠'} ${낼길}  ${크기}KB · ${줄들.length}줄`);
-  if (!대본.neural) {
-    console.log('⚠ 이것은 **뼈대**다. 목소리가 사장님이 말씀하신 「젊고 멋진」이 아니다.');
-    console.log('   Azure 열쇠가 오면 make-voice-kcw.mjs 만 다시 돌리고 이 명령을 그대로 쓴다.');
-  }
+  console.log(`✅ ${낼길}  ${크기}KB · ${줄들.length}줄`);
+  console.log(`   ${대본.engine ?? '?'} · ${대본.license ?? '라이선스 안 적힘'}`);
+  console.log(`   남 ${대본.voices?.남?.piper ?? '?'} · 여 ${대본.voices?.여?.piper ?? '?'}`);
 }

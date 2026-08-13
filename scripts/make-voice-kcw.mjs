@@ -4,14 +4,15 @@
  *
  * 🔴 사장님(2026-08-13) — 「숏영상에 목소리를 넣도록. **젊고 멋진 남성과 여성**의 목소리로」
  *
- * ── ⛔ 먼저 못 하는 것을 적는다 ────────────────────────────────
- *   이 기계에 있는 영어 목소리는 **Zira(어른 여자) 하나**다. 남성이 없고, 낡았다.
- *   실물로 확인했다 — edge-tts·piper·espeak 전부 없고, 윈도 신경망 목소리는 한국어뿐이다.
- *   ⭐ 그래서 **두 갈래로 짓는다** —
- *     ① Azure 열쇠가 있으면 신경망 목소리(Andrew·Emma). 이것이 사장님이 말씀하신 그것이다
- *     ② 없으면 Zira 로 **뼈대만** 만든다. 대본·길이·섞기를 미리 맞춰 두면
- *        열쇠가 오는 날 목소리만 갈아끼우면 된다
- *   ⛔ 라이선스가 회색인 우회로(비공식 edge-tts)는 **안 쓴다.** 우리는 상업 매체다.
+ * ── 어떻게 풀었나 ──────────────────────────────────────────────
+ *   이 기계에 있던 영어 목소리는 **Zira(어른 여자) 하나**였다. 남성이 없고 낡았다.
+ *   ⛔ 라이선스가 회색인 우회로(비공식 edge-tts)는 안 썼다. 우리는 상업 매체다.
+ *   ⛔ 남의 열쇠를 기다리지도 않았다 — 사장님이 「네가 해결해」 하셨다.
+ *   ⭐ **Piper** 로 풀었다 — 프로그램도 목소리 모델도 **MIT**, 열쇠 없이 이 기계에서 돈다.
+ *      받기 전에 라이선스를 확인했고, 남녀 넷을 받아 **들어 보고** 골랐다.
+ *
+ * ⚠ Piper 는 저장소 밖(`_tools/piper`)에 둔다. 모델 하나가 60MB 라 깃에 넣으면 안 된다.
+ *   없으면 `node scripts/_get-piper.mjs` 가 다시 받아 온다.
  *
  * ── ⛔ 대본이 지키는 것 ──────────────────────────────────────
  * ⛔ 화면에 없는 수를 **말하지 않는다.** 귀로 들은 수를 눈으로 못 찾으면 거짓말이 된다.
@@ -36,9 +37,12 @@ const require = createRequire('C:\\Users\\USER\\Documents\\GitHub\\klifemap\\pac
  * ⛔ 자리마다 바꾸지 않는다. K Culture Wire 의 목소리는 이 둘이다.
  */
 export const 목소리 = {
-  남: { azure: 'en-US-AndrewMultilingualNeural', 대체: null, 결: '젊은 남성 · 낮고 차분' },
-  여: { azure: 'en-US-EmmaMultilingualNeural', 대체: 'Microsoft Zira Desktop', 결: '젊은 여성 · 밝고 또렷' },
+  남: { piper: 'en_US-hfc_male-medium', 결: '젊은 남성 · 낮고 차분' },
+  여: { piper: 'en_US-hfc_female-medium', 결: '젊은 여성 · 밝고 또렷' },
 };
+
+/** Piper 가 있는 곳. ⛔ 저장소 안에 안 둔다 — 모델 하나가 60MB 다 */
+export const 파이퍼방 = 'C:\\Users\\USER\\Documents\\GitHub\\_tools\\piper\\piper';
 
 /** 1초에 몇 낱말. ⚠ 밖에서 폰으로 본다. 빠르면 안 들린다 */
 export const 초당낱말 = 2.6;
@@ -92,6 +96,19 @@ export function 대본검사(대본, 총초 = 14) {
   return 탈;
 }
 
+/**
+ * ⭐ **실제 소리 길이를 잰다.** 글자로 어림잡은 값이 틀리면 겹치거나 잘린다.
+ *   WAV 는 머리 44바이트 뒤가 소리다. 초당 바이트로 나누면 길이가 나온다.
+ */
+export function 소리길이(wav길) {
+  if (!fs.existsSync(wav길)) return null;
+  const b = fs.readFileSync(wav길);
+  if (b.length < 44 || b.toString('ascii', 0, 4) !== 'RIFF') return null;
+  const 초당바이트 = b.readUInt32LE(28);
+  if (!초당바이트) return null;
+  return +((b.length - 44) / 초당바이트).toFixed(2);
+}
+
 /** ⛔ 화면에 없는 수를 말하지 않는다 — 대본의 수가 전부 화면 HTML 에 있나 */
 export function 수가화면에있나(대본, 화면글) {
   const 없는것 = [];
@@ -113,6 +130,9 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     if (ok) 통 += 1; else { 실 += 1; console.error(`  ⛔ ${이름}\n     받은 것: ${JSON.stringify(실제)}`); }
   };
   재본다('목소리가 둘 — 사장님이 남녀를 말씀하셨다', Object.keys(목소리), ['남', '여']);
+  재본다('⭐ 열쇠 없이 도는 것으로 골랐다', 목소리.남.piper, (s) => s.startsWith('en_US-'));
+  재본다('남녀가 다른 모델이다', 목소리.남.piper !== 목소리.여.piper, true);
+  재본다('소리길이 — 없는 파일은 null(0 이 아니다)', 소리길이('없는파일.wav'), null);
   재본다('걸리는초 — 열세 낱말이면 다섯 초쯤', 걸리는초('one two three four five six seven eight nine ten eleven twelve thirteen'), 5);
   재본다('걸리는초 — 빈 글은 0', 걸리는초('   '), 0);
   const d = JSON.parse(fs.readFileSync('src/data/wikitip-fame-compare.json', 'utf8'));
@@ -153,47 +173,25 @@ const env = fs.existsSync('.env')
     .map((l) => [l.slice(0, l.indexOf('=')).trim(), l.slice(l.indexOf('=') + 1).trim()]))
   : {};
 
-const 아주르열쇠 = env.AZURE_SPEECH_KEY;
-const 아주르지역 = env.AZURE_SPEECH_REGION || 'koreacentral';
-
-function 아주르로(글, 목소리이름, 낼길) {
-  return new Promise((resolve, reject) => {
-    const ssml = `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="en-US">`
-      + `<voice name="${목소리이름}"><prosody rate="+4%">${글.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</prosody></voice></speak>`;
-    const req = https.request({
-      host: `${아주르지역}.tts.speech.microsoft.com`,
-      path: '/cognitiveservices/v1',
-      method: 'POST',
-      headers: {
-        'Ocp-Apim-Subscription-Key': 아주르열쇠,
-        'Content-Type': 'application/ssml+xml',
-        'X-Microsoft-OutputFormat': 'riff-48khz-16bit-mono-pcm',
-        'User-Agent': 'KCultureWire',
-      },
-    }, (res) => {
-      const 조각 = [];
-      res.on('data', (c) => 조각.push(c));
-      res.on('end', () => {
-        if (res.statusCode !== 200) { reject(new Error(`Azure ${res.statusCode}`)); return; }
-        fs.writeFileSync(낼길, Buffer.concat(조각));
-        resolve(낼길);
-      });
-    });
-    req.on('error', reject);
-    req.write(ssml);
-    req.end();
+/**
+ * Piper 로 소리를 낸다. ⛔ 인터넷을 안 탄다 — 이 기계에서 돈다.
+ * ⚠ `--length_scale` 이 빠르기다. 1.0 이 보통, 낮을수록 빠르다.
+ *   0.95 로 살짝 당긴다 — 쇼츠는 늘어지면 안 넘긴다.
+ */
+function 파이퍼로(글, 목소리이름, 낼길) {
+  const exe = path.join(파이퍼방, 'piper.exe');
+  const 모델 = path.join(파이퍼방, `${목소리이름}.onnx`);
+  for (const p of [exe, 모델]) {
+    if (!fs.existsSync(p)) {
+      throw new Error(`없다 — ${p}\n   node scripts/_get-piper.mjs 로 받는다`);
+    }
+  }
+  const r = spawnSync(exe, ['-m', 모델, '-f', path.resolve(낼길), '--length_scale', '0.95'], {
+    input: 글, timeout: 120000, cwd: 파이퍼방,
   });
-}
-
-function 지라로(글, 낼길) {
-  /* ⚠ 뼈대용이다. 사장님이 말씀하신 「젊고 멋진」이 아니다 */
-  const ps = `Add-Type -AssemblyName System.Speech;`
-    + `$s=New-Object System.Speech.Synthesis.SpeechSynthesizer;`
-    + `$s.SelectVoice('Microsoft Zira Desktop');$s.Rate=1;`
-    + `$s.SetOutputToWaveFile('${낼길.replace(/\\/g, '\\\\')}');`
-    + `$s.Speak(@'\n${글}\n'@);$s.Dispose()`;
-  const r = spawnSync('powershell', ['-NoProfile', '-Command', ps], { encoding: 'utf8', timeout: 60000 });
-  if (r.status !== 0) throw new Error(`Zira 실패: ${(r.stderr ?? '').slice(0, 200)}`);
+  if (!fs.existsSync(낼길) || fs.statSync(낼길).size < 1000) {
+    throw new Error(`Piper 실패: ${String(r.stderr ?? '').slice(0, 200)}`);
+  }
   return 낼길;
 }
 
@@ -207,40 +205,48 @@ if (내가실행됐다) {
   const 탈 = 대본검사(대본);
   if (탈.length) { console.error('⛔ 대본이 안 맞는다:'); for (const t of 탈) console.error(`   · ${t}`); process.exit(1); }
 
-  const 신경망 = Boolean(아주르열쇠);
-  console.log(신경망
-    ? '⭐ Azure 열쇠가 있다 — **젊고 멋진 신경망 목소리**로 만든다'
-    : '⚠ Azure 열쇠가 없다 — **뼈대만** 만든다(Zira 여자 하나). 열쇠가 오면 목소리만 갈아끼운다');
-  console.log(`   남 ${목소리.남.azure} · 여 ${목소리.여.azure}\n`);
+  console.log(`⭐ Piper — 남 ${목소리.남.piper} · 여 ${목소리.여.piper}`);
+  console.log('   열쇠 없이 이 기계에서 돈다. 프로그램도 모델도 MIT 다.\n');
 
   const 낸것 = [];
   for (let n = 0; n < 대본.length; n += 1) {
     const 줄 = 대본[n];
     const 길 = path.join(낼방, `${String(n).padStart(2, '0')}-${줄.누가}.wav`);
     try {
-      if (신경망) await 아주르로(줄.말, 목소리[줄.누가].azure, 길);
-      else 지라로(줄.말, 길);
-      낸것.push({ ...줄, 길, 초: 걸리는초(줄.말) });
-      console.log(`   ${String(줄.때).padStart(5)}초 [${줄.누가}] ${줄.말.slice(0, 62)}`);
+      파이퍼로(줄.말, 목소리[줄.누가].piper, 길);
+      /* ⭐ 글자로 어림잡지 않고 **실제 소리 길이**를 잰다 — 어림값이 틀리면 겹친다 */
+      const 참길이 = 소리길이(길);
+      낸것.push({ ...줄, 길, 초: 참길이 ?? 걸리는초(줄.말), 어림: 걸리는초(줄.말) });
+      console.log(`   ${String(줄.때).padStart(5)}초 [${줄.누가}] ${(참길이 ?? 0).toFixed(2)}초 (어림 ${걸리는초(줄.말)})  ${줄.말.slice(0, 52)}`);
     } catch (e) {
       console.error(`   ⛔ ${n}번째 실패 — ${e.message}`);
       process.exit(1);
     }
   }
 
+  /* 🔴 실제 길이로 다시 재 본다. 어림보다 길면 겹치거나 잘린다 */
+  const 넘은것 = [];
+  for (let i = 0; i < 낸것.length; i += 1) {
+    const 끝 = 낸것[i].때 + 낸것[i].초;
+    if (끝 > 14) 넘은것.push(`${i}번째가 ${끝.toFixed(2)}초에 끝난다`);
+    if (i + 1 < 낸것.length && 끝 > 낸것[i + 1].때 + 0.15) {
+      넘은것.push(`${i}번째(${끝.toFixed(2)}초)와 ${i + 1}번째(${낸것[i + 1].때}초)가 겹친다`);
+    }
+  }
+  if (넘은것.length) {
+    console.error('\n🔴 **실제 소리 길이로 재니 안 맞는다** — 어림값이 틀렸다:');
+    for (const t of 넘은것) console.error(`   · ${t}`);
+    console.error('⛔ 대본의 말이나 쉼을 고쳐라. 이대로 얹으면 겹치거나 잘린다.');
+    process.exit(1);
+  }
+
   fs.writeFileSync(path.join(낼방, 'script.json'), `${JSON.stringify({
     generated: new Date().toISOString(),
-    neural: 신경망,
+    engine: 'piper',
+    license: 'Piper MIT; voice models MIT (rhasspy/piper-voices)',
     voices: 목소리,
-    note: 신경망 ? null
-      : 'Built with the one English voice on this machine (Zira). This is scaffolding — the timing '
-        + 'and mix are correct, the voice is not what was asked for. An Azure Speech key swaps it.',
     lines: 낸것,
   }, null, 2)}\n`);
 
-  console.log(`\n${신경망 ? '✅' : '⚠'} ${낼방} — ${낸것.length}줄`);
-  if (!신경망) {
-    console.log('🖐 사장님 손 — Azure Speech 무료 열쇠(월 50만 자). .env 에 AZURE_SPEECH_KEY 로 넣으면');
-    console.log('   같은 명령이 en-US-Andrew(젊은 남성)·en-US-Emma(젊은 여성)로 다시 만든다');
-  }
+  console.log(`\n✅ ${낼방} — ${낸것.length}줄 · 실제 길이로 검산까지 맞다`);
 }
