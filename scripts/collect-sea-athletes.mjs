@@ -125,7 +125,12 @@ function 받기(host, 길) {
     }, (res) => {
       const 조각 = [];
       res.on('data', (c) => { 조각.push(c); });
-      res.on('end', () => resolve({ code: res.statusCode, body: Buffer.concat(조각).toString('utf8') }));
+      res.on('end', () => resolve({
+        code: res.statusCode,
+        body: Buffer.concat(조각).toString('utf8'),
+        /** 🔴 연결이 중간에 끊겨도 `end` 는 불린다. 그걸 안 보면 **반쪽 자료를 받아 쓴다** */
+        온전한가: res.complete,
+      }));
     });
     req.on('error', (e) => resolve({ code: 0, body: String(e.message) }));
     req.setTimeout(60000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
@@ -133,12 +138,20 @@ function 받기(host, 길) {
   });
 }
 
+/**
+ * 🔴 8/13 — `JSON.parse` 가 `try` 밖에 있어 잘린 응답 하나에 재시도 없이 죽었다.
+ *   그리고 잘렸는지를 안 봤다. ⛔ 반쪽 자료를 받아 쓰느니 못 받았다고 하는 것이 낫다.
+ */
 async function 스파클(질의) {
   const 길 = `/sparql?format=json&query=${encodeURIComponent(질의)}`;
-  for (let 번 = 0; 번 < 3; 번 += 1) {
+  for (let 번 = 0; 번 < 5; 번 += 1) {
     const r = await 받기('query.wikidata.org', 길);
-    if (r.code === 200) return JSON.parse(r.body).results.bindings;
-    await new Promise((s) => { setTimeout(s, 3000 * (번 + 1)); });
+    if (r.code === 200 && r.온전한가) {
+      try { return JSON.parse(r.body).results.bindings; } catch { /* 다시 묻는다 */ }
+    } else if (r.code === 200) {
+      console.log(`   ⚠ ${번 + 1}번째 — 응답이 잘려서 왔다(${r.body.length}자). 버리고 다시 묻는다`);
+    }
+    await new Promise((s) => { setTimeout(s, 4000 * (번 + 1)); });
   }
   return null;
 }
@@ -177,7 +190,7 @@ async function 조회수(판, 제목) {
   for (let 번 = 0; 번 < 4; 번 += 1) {
     const r = await 받기('wikimedia.org', 길);
     if (r.code === 404) return null;                 /* 문서는 있는데 조회 기록이 없다 */
-    if (r.code === 200) {
+    if (r.code === 200 && r.온전한가) {               /* ⛔ 잘린 응답은 안 쓴다 */
       try { return 합치기(JSON.parse(r.body).items ?? []); } catch { /* 다시 묻는다 */ }
     }
     실패셈.set(r.code, (실패셈.get(r.code) ?? 0) + 1);

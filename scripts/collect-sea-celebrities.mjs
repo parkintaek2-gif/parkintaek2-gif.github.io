@@ -66,7 +66,16 @@ function 받기(host, 길) {
       (res) => {
         const 조각 = [];
         res.on('data', (c) => { 조각.push(c); });
-        res.on('end', () => resolve({ code: res.statusCode, body: Buffer.concat(조각).toString('utf8') }));
+        res.on('end', () => resolve({
+          code: res.statusCode,
+          body: Buffer.concat(조각).toString('utf8'),
+          /**
+           * 🔴 8/13 — 96KB 에서 JSON 이 잘렸다. 조각 이어붙이기 문제가 아니라
+           *   **연결이 중간에 끊기고도 `end` 가 불린 것**이다. node 는 그것을
+           *   `res.complete === false` 로 알려 준다. 이걸 안 보면 **반쪽 자료를 받아 쓴다.**
+           */
+          온전한가: res.complete,
+        }));
       });
     req.on('error', (e) => resolve({ code: 0, body: e.message }));
     req.setTimeout(90000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
@@ -74,11 +83,23 @@ function 받기(host, 길) {
   });
 }
 
+/**
+ * 🔴 8/13 — 여기서 두 번 죽었다. 고친 것 둘:
+ *   ① `JSON.parse` 를 `try` 밖에 두어서, 잘린 응답 하나에 **재시도 없이 전부 죽었다**
+ *   ② 잘렸는지를 안 봤다. `res.complete` 가 거짓이면 **버리고 다시 묻는다**
+ * ⛔ 반쪽 자료를 받아 쓰느니 못 받았다고 하는 것이 낫다.
+ */
 async function 스파클(질의) {
-  for (let 번 = 0; 번 < 3; 번 += 1) {
+  for (let 번 = 0; 번 < 5; 번 += 1) {
     const r = await 받기('query.wikidata.org', `/sparql?format=json&query=${encodeURIComponent(질의)}`);
-    if (r.code === 200) return JSON.parse(r.body).results.bindings;
-    await new Promise((s) => { setTimeout(s, 3000 * (번 + 1)); });
+    if (r.code === 200 && r.온전한가) {
+      try { return JSON.parse(r.body).results.bindings; } catch (e) {
+        console.log(`   ⚠ ${번 + 1}번째 — 200 이고 온전하다는데 JSON 이 안 풀린다: ${e.message.slice(0, 60)}`);
+      }
+    } else if (r.code === 200) {
+      console.log(`   ⚠ ${번 + 1}번째 — 응답이 **잘려서** 왔다(${r.body.length}자). 버리고 다시 묻는다`);
+    }
+    await new Promise((s) => { setTimeout(s, 4000 * (번 + 1)); });
   }
   return null;
 }
@@ -88,12 +109,18 @@ async function 스파클(질의) {
  *   (unsettled top-level await, exit 13). 판마다 따로 묻는다. 하나하나는 가볍다.
  * ⭐ 덤으로 결과가 작아진다 — 그 판에 문서가 **있는 사람만** 돌아오기 때문이다.
  */
-function 질의만들기(직업Q, 판) {
+/**
+ * ⚠ 한 번에 다 받으면 응답이 커서 잘린다(8/13 에 96KB 에서 잘렸다).
+ *   **쪽으로 나눠 묻는다.** ⛔ `ORDER BY` 없이 `OFFSET` 을 쓰면 쪽마다 순서가 달라져
+ *   어떤 사람은 두 번 오고 어떤 사람은 아예 안 온다. 반드시 정렬한다.
+ */
+const 쪽크기 = 500;
+function 질의만들기(직업Q, 판, 쪽 = 0) {
   return `SELECT ?p ?pLabel ?a WHERE {
   ?p wdt:P31 wd:Q5 ; wdt:P27 wd:Q884 ; wdt:P106 wd:${직업Q} .
   ?a schema:about ?p ; schema:isPartOf <https://${판}.wikipedia.org/> .
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
-}`;
+} ORDER BY ?p LIMIT ${쪽크기} OFFSET ${쪽 * 쪽크기}`;
 }
 
 const 제목뽑기 = (url, 판) => {
@@ -112,10 +139,11 @@ async function 조회수(판, 제목) {
   for (let 번 = 0; 번 < 4; 번 += 1) {
     const r = await 받기('wikimedia.org', 길);
     if (r.code === 404) return null;
-    if (r.code === 200) {
+    if (r.code === 200 && r.온전한가) {          /* ⛔ 잘린 응답은 안 쓴다 */
       try { return 합치기(JSON.parse(r.body).items ?? []); } catch { /* 다시 */ }
     }
-    실패셈.set(r.code, (실패셈.get(r.code) ?? 0) + 1);
+    실패셈.set(r.온전한가 === false ? '잘림' : r.code,
+      (실패셈.get(r.온전한가 === false ? '잘림' : r.code) ?? 0) + 1);
     await new Promise((s) => { setTimeout(s, 800 * (2 ** 번)); });
   }
   return undefined;
@@ -158,17 +186,23 @@ if (내가실행됐다) {
   for (const g of 갈래) {
     const 셈 = [];
     for (const p of 잴판) {
-      const 줄들 = await 스파클(질의만들기(g.q, p));
-      if (줄들 === null) { 셈.push(`${p} ⛔`); continue; }
-      for (const 줄 of 줄들) {
-        const q = 줄.p.value.split('/').pop();
-        if (!사람.has(q)) 사람.set(q, { q, name: 줄.pLabel?.value ?? q, kinds: [], titles: {} });
-        const 그 = 사람.get(q);
-        if (!그.kinds.includes(g.key)) 그.kinds.push(g.key);
-        const t = 제목뽑기(줄.a?.value, p);
-        if (t) 그.titles[p] = t;
+      let 받은 = 0;
+      let 막힘 = false;
+      for (let 쪽 = 0; 쪽 < 40; 쪽 += 1) {          /* 40쪽 = 최대 20,000명. 넉넉하다 */
+        const 줄들 = await 스파클(질의만들기(g.q, p, 쪽));
+        if (줄들 === null) { 막힘 = true; break; }
+        for (const 줄 of 줄들) {
+          const q = 줄.p.value.split('/').pop();
+          if (!사람.has(q)) 사람.set(q, { q, name: 줄.pLabel?.value ?? q, kinds: [], titles: {} });
+          const 그 = 사람.get(q);
+          if (!그.kinds.includes(g.key)) 그.kinds.push(g.key);
+          const t = 제목뽑기(줄.a?.value, p);
+          if (t) 그.titles[p] = t;
+        }
+        받은 += 줄들.length;
+        if (줄들.length < 쪽크기) break;            /* 마지막 쪽이다 */
       }
-      셈.push(`${p} ${줄들.length}`);
+      셈.push(`${p} ${받은}${막힘 ? '⛔' : ''}`);
     }
     console.log(`   ${g.label.padEnd(12)} ${셈.join(' · ')}`);
   }
