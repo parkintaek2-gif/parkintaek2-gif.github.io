@@ -112,15 +112,20 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
 
 /* ────────────────────────── 실제 수집 ────────────────────────── */
 
+/**
+ * 🔴 8/13 — 조각을 **문자열로 이어붙이면** 태국어·베트남어처럼 여러 바이트인 글자가
+ *   조각 경계에서 두 동강 난다. 작은 응답은 멀쩡해 보이고 큰 응답에서 JSON 이 터진다
+ *   (연예인 수집기가 224KB 지점에서 그렇게 죽었다). Buffer 로 모아 끝에 한 번만 바꾼다.
+ */
 function 받기(host, 길) {
   return new Promise((resolve) => {
     const req = https.request({
       host, path: 길, method: 'GET',
       headers: { 'User-Agent': UA, Accept: 'application/json' },
     }, (res) => {
-      let b = '';
-      res.on('data', (c) => { b += c; });
-      res.on('end', () => resolve({ code: res.statusCode, body: b }));
+      const 조각 = [];
+      res.on('data', (c) => { 조각.push(c); });
+      res.on('end', () => resolve({ code: res.statusCode, body: Buffer.concat(조각).toString('utf8') }));
     });
     req.on('error', (e) => resolve({ code: 0, body: String(e.message) }));
     req.setTimeout(60000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
@@ -282,8 +287,14 @@ if (내가실행됐다) {
     peopleMeasured: 잰것.length,
     peopleNotMeasured: 못잰것.length,
     people: 잰것,
-    /** 🔴 못 잰 사람은 「안 읽힌 사람」이 아니다. 갈라서 남긴다 */
-    couldNotMeasure: 못잰것.map((x) => ({ q: x.q, name: x.name, sports: x.sports })),
+    /**
+     * 🔴 못 잰 사람은 「안 읽힌 사람」이 아니다. 갈라서 남긴다.
+     * ⚠ 8/13 — 처음에 이름만 남겼더니 **다시 재려 할 때 문서 제목이 없어 못 쟀다.**
+     *   제목을 같이 남긴다. 다시 재는 자가 그것으로 산다.
+     */
+    couldNotMeasure: 못잰것.map((x) => ({
+      q: x.q, name: x.name, sports: x.sports, role: x.role, titles: x.titles,
+    })),
     whyNotPhilippines: 'Tagalog Wikipedia is too small to measure with — the whole edition draws '
       + 'fewer reads in a year than a single popular article does elsewhere, and Filipino readers '
       + 'largely use the English edition. We do not report a Philippines number rather than report '

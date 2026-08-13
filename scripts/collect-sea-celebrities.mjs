@@ -19,14 +19,19 @@ import { 동남아, 견줄판, 모든판, 백만분율, 합치기, 문서있는�
 const 결과길 = 'archive/raw/wikipedia/sea-celebrities.json';
 const UA = 'KCultureWire/1.0 (https://www.kculturewire.com) node';
 
-/** 갈래 — Wikidata 직업 Q번호. ⚠ 선수 자료와 겹치는 사람은 뒤에서 갈라 표시한다 */
+/**
+ * 갈래 — Wikidata 직업 Q번호.
+ * ⚠ 8/13 — 다섯 갈래로 돌렸더니 시간을 넘겨 죽었다. **둘로 줄인다.**
+ *   아이돌·래퍼·모델은 대부분 가수(Q177220)와 같은 사람이라 얻는 것에 비해 비싸다.
+ *   ⛔ 「빼도 된다」가 아니라 **뺐다고 자료에 적는다.**
+ */
 export const 갈래 = [
   { key: 'actor', label: 'Actor', q: 'Q33999' },
   { key: 'singer', label: 'Singer', q: 'Q177220' },
-  { key: 'idol', label: 'K-pop idol', q: 'Q108163588' },
-  { key: 'rapper', label: 'Rapper', q: 'Q2252262' },
-  { key: 'model', label: 'Model', q: 'Q4610556' },
 ];
+
+/** 🔴 조회수는 **동남아 넷만** 잰다. en·ko 까지 재면 호출이 세 배가 되고 시간을 넘긴다 */
+export const 잴판 = 동남아;
 
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -39,18 +44,30 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   };
   재본다('🔴 선수와 **같은 언어판**을 쓴다 — 아니면 비교가 안 된다', 동남아, ['id', 'vi', 'th', 'ms']);
   재본다('🔴 선수와 같은 백만분율 셈', 백만분율(5086, 50430364), 100.85);
-  재본다('갈래 다섯', 갈래.length, 5);
+  재본다('갈래 둘 — 8/13 에 다섯에서 줄였다(시간 초과)', 갈래.length, 2);
   재본다('배우가 들어 있다', 갈래.some((x) => x.key === 'actor'), true);
-  재본다('아이돌이 들어 있다', 갈래.some((x) => x.key === 'idol'), true);
+  재본다('가수가 들어 있다', 갈래.some((x) => x.key === 'singer'), true);
+  재본다('🔴 조회수는 동남아 넷만 잰다 — 여섯을 재면 시간을 넘긴다', 잴판.length, 4);
+  재본다('⛔ 견줄판(en·ko)은 조회수를 안 잰다', 잴판.some((p) => 견줄판.includes(p)), false);
   재본다('못 잰 것은 0 이 아니다', 백만분율(null, 1000), null);
   console.log(`연예인 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
 
+/**
+ * 🔴 8/13 — 여기서 자료가 깨졌다. 조각을 **문자열로 이어붙이면**
+ *   태국어·베트남어 같은 여러 바이트 글자가 **조각 경계에서 두 동강** 난다.
+ *   작은 응답은 조각이 하나라 멀쩡해 보이고, 224KB 쯤에서 JSON 이 터진다.
+ *   → Buffer 로 모아 **끝에 한 번만** 글자로 바꾼다.
+ */
 function 받기(host, 길) {
   return new Promise((resolve) => {
     const req = https.request({ host, path: 길, headers: { 'User-Agent': UA, Accept: 'application/json' } },
-      (res) => { let b = ''; res.on('data', (c) => { b += c; }); res.on('end', () => resolve({ code: res.statusCode, body: b })); });
+      (res) => {
+        const 조각 = [];
+        res.on('data', (c) => { 조각.push(c); });
+        res.on('end', () => resolve({ code: res.statusCode, body: Buffer.concat(조각).toString('utf8') }));
+      });
     req.on('error', (e) => resolve({ code: 0, body: e.message }));
     req.setTimeout(90000, () => { req.destroy(); resolve({ code: 0, body: 'timeout' }); });
     req.end();
@@ -122,9 +139,16 @@ async function 떼로(일들, 폭 = 3) {
 if (내가실행됐다) {
   fs.mkdirSync(path.dirname(결과길), { recursive: true });
 
+  /** 🔴 8/13 — 두 번 죽었다(질의 매달림 · 시간 초과). **가다 죽어도 이어서 하게** 중간에 적는다 */
+  const 중간길 = 'archive/raw/wikipedia/sea-celebrities.partial.json';
+  const 이미 = fs.existsSync(중간길)
+    ? new Map(Object.entries(JSON.parse(fs.readFileSync(중간길, 'utf8'))))
+    : new Map();
+  if (이미.size) console.log(`⭐ 지난번에 잰 ${이미.size}명을 이어받는다\n`);
+
   console.log('① 언어판 밑값 — 🔴 선수 자료와 같은 창을 쓴다');
   const 밑 = {};
-  for (const p of 모든판) {
+  for (const p of 잴판) {
     밑[p] = await 밑값(p);
     console.log(`   ${p.padEnd(3)} ${밑[p] ? 밑[p].toLocaleString('en-US') : '⛔ 못 쟀다'}`);
   }
@@ -133,7 +157,7 @@ if (내가실행됐다) {
   const 사람 = new Map();
   for (const g of 갈래) {
     const 셈 = [];
-    for (const p of 모든판) {
+    for (const p of 잴판) {
       const 줄들 = await 스파클(질의만들기(g.q, p));
       if (줄들 === null) { 셈.push(`${p} ⛔`); continue; }
       for (const 줄 of 줄들) {
@@ -152,19 +176,21 @@ if (내가실행됐다) {
   const 잴사람 = [...사람.values()].filter((x) => 동남아.some((p) => x.titles[p]));
   console.log(`\n③ 어느 판에든 문서가 있는 ${사람.size}명 중 **동남아 판**에 있는 ${잴사람.length}명`);
 
-  console.log('\n④ 조회수 — 12개월');
+  console.log('\n④ 조회수 — 12개월 · 동남아 넷만');
   let 센 = 0;
+  const 새로잰것 = new Map(이미);
+  const 적어두기 = () => fs.writeFileSync(중간길, JSON.stringify(Object.fromEntries(새로잰것)));
   const 줄들 = await 떼로(잴사람.map((x) => async () => {
+    if (새로잰것.has(x.q)) { 센 += 1; return 새로잰것.get(x.q); }
     const views = {};
-    for (const p of 모든판) views[p] = x.titles[p] ? await 조회수(p, x.titles[p]) : null;
+    for (const p of 잴판) views[p] = x.titles[p] ? await 조회수(p, x.titles[p]) : null;
     센 += 1;
-    if (센 % 50 === 0) process.stdout.write(`   ${센}/${잴사람.length}\n`);
     const perMillion = {};
-    for (const p of 모든판) {
+    for (const p of 잴판) {
       perMillion[p] = views[p] === undefined ? undefined : 백만분율(views[p], 밑[p]);
     }
     const 못잰것있나 = 동남아.some((p) => views[p] === undefined);
-    return {
+    const 줄 = {
       q: x.q,
       name: x.name,
       kinds: x.kinds,
@@ -175,7 +201,11 @@ if (내가실행됐다) {
       seaPerMillionTotal: 못잰것있나 ? null
         : +동남아.reduce((a, p) => a + (perMillion[p] ?? 0), 0).toFixed(2),
     };
+    새로잰것.set(x.q, 줄);
+    if (센 % 50 === 0) { 적어두기(); process.stdout.write(`   ${센}/${잴사람.length} (적어 뒀다)\n`); }
+    return 줄;
   }), 3);
+  적어두기();
 
   const 잰것 = 줄들.filter((x) => x.seaPerMillionTotal !== null);
   const 못잰것 = 줄들.filter((x) => x.seaPerMillionTotal === null);
@@ -187,8 +217,12 @@ if (내가실행됐다) {
     window: '2025-08 through 2026-07, 12 months, human traffic only',
     comparableWith: 'archive/raw/wikipedia/sea-athletes.json — same editions, same window, same unit',
     editionsSea: 동남아,
-    editionsCompare: 견줄판,
     editionTotals: 밑,
+    kindsCounted: 갈래.map((g) => g.key),
+    whatWasLeftOut: 'Idol, rapper and model were dropped as separate Wikidata occupations. Almost '
+      + 'everyone carrying them also carries singer, so they cost query time without adding people. '
+      + 'A Korean celebrity who is recorded only as an idol and never as a singer or actor is '
+      + 'therefore absent from this panel.',
     peopleFound: 사람.size,
     peopleMeasured: 잰것.length,
     peopleNotMeasured: 못잰것.length,
