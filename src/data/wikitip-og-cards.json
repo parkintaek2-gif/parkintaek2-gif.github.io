@@ -254,6 +254,10 @@
     "one-title-is-the-median-career": {
       "figure": "49.5%",
       "label": "of Korean actors on a Netflix chart have exactly one charting title"
+    },
+    "a-year-in-one-month": {
+      "figure": "11 of 11",
+      "label": "Korean esports players in our Southeast Asian panel peak in the same single month"
     }
   }
 }

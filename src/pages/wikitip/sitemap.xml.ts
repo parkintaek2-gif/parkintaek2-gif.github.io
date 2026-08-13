@@ -123,6 +123,8 @@ export const GET: APIRoute = async () => {
     { path: '/sea-athletes', priority: '0.9', changefreq: 'weekly' },
     /* 76편째 기사의 표. 2026-08-13 — 배우 절반이 차트 작품 한 편뿐. 음성 결과를 같이 낸다 */
     { path: '/one-title', priority: '0.9', changefreq: 'weekly' },
+    /* 78편째 기사의 표. 2026-08-13 — 이스포츠 열한 명이 전원 같은 한 달에 몰린다 */
+    { path: '/one-month', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
     { path: '/for-industry', priority: '0.9', changefreq: 'monthly' },
     /*

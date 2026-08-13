@@ -1,0 +1,228 @@
+{
+  "generated": "2026-08-13T03:13:20.870Z",
+  "source": "Wikimedia Pageviews API, monthly, human traffic only",
+  "window": "2025-08 through 2026-07",
+  "unit": "Reads of that person's article, summed across the Indonesian, Vietnamese, Thai and Malay Wikipedias, one row per month.",
+  "evenMonthSharePc": 8.3,
+  "question": "Reads of an esports player and reads of a footballer do not arrive the same way. One arrives in a single month.",
+  "people": [
+    {
+      "name": "Hong Myung-bo",
+      "sport": "football",
+      "role": "both",
+      "peakMonth": "202606",
+      "peakSharePc": 60.3,
+      "totalReads": 16600,
+      "whatElseWasThatMonth": "2026 FIFA World Cup"
+    },
+    {
+      "name": "Kim Soo-hwan",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 58.4,
+      "totalReads": 43161,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Lee Min-hyung",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 53.2,
+      "totalReads": 52724,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Jung Ji-hun",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 48.2,
+      "totalReads": 46718,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Kim Sang-sik",
+      "sport": "football",
+      "role": "both",
+      "peakMonth": "202601",
+      "peakSharePc": 46.3,
+      "totalReads": 81597,
+      "whatElseWasThatMonth": null
+    },
+    {
+      "name": "Faker",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 40.5,
+      "totalReads": 153241,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Ryu Min-seok",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 39.9,
+      "totalReads": 40665,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Doran",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 36.6,
+      "totalReads": 35408,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Oner",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 35.9,
+      "totalReads": 25594,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Choi Woo-je",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 34.7,
+      "totalReads": 26649,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Park Jae-hyuk",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 33,
+      "totalReads": 20000,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Park Do-hyeon",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 31.7,
+      "totalReads": 25554,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Bergson Gustavo Silveira da Silva",
+      "sport": "football",
+      "role": "player",
+      "peakMonth": "202605",
+      "peakSharePc": 31,
+      "totalReads": 5587,
+      "whatElseWasThatMonth": null
+    },
+    {
+      "name": "Peanut",
+      "sport": "esports",
+      "role": "player",
+      "peakMonth": "202511",
+      "peakSharePc": 30.1,
+      "totalReads": 57263,
+      "whatElseWasThatMonth": "2025 League of Legends World Championship"
+    },
+    {
+      "name": "Shin Tae-yong",
+      "sport": "football",
+      "role": "both",
+      "peakMonth": "202510",
+      "peakSharePc": 27.7,
+      "totalReads": 70328,
+      "whatElseWasThatMonth": null
+    },
+    {
+      "name": "Lee Kang-in",
+      "sport": "football",
+      "role": "player",
+      "peakMonth": "202606",
+      "peakSharePc": 26.5,
+      "totalReads": 29433,
+      "whatElseWasThatMonth": "2026 FIFA World Cup"
+    },
+    {
+      "name": "Park Hang-seo",
+      "sport": "football",
+      "role": "both",
+      "peakMonth": "202601",
+      "peakSharePc": 23.1,
+      "totalReads": 41974,
+      "whatElseWasThatMonth": null
+    },
+    {
+      "name": "Son Heung-min",
+      "sport": "football",
+      "role": "player",
+      "peakMonth": "202508",
+      "peakSharePc": 22.6,
+      "totalReads": 194608,
+      "whatElseWasThatMonth": null
+    },
+    {
+      "name": "Kim Min-jae",
+      "sport": "football",
+      "role": "player",
+      "peakMonth": "202606",
+      "peakSharePc": 16,
+      "totalReads": 22088,
+      "whatElseWasThatMonth": "2026 FIFA World Cup"
+    },
+    {
+      "name": "Park Ji-Sung",
+      "sport": "football",
+      "role": "player",
+      "peakMonth": "202508",
+      "peakSharePc": 10.7,
+      "totalReads": 42654,
+      "whatElseWasThatMonth": null
+    }
+  ],
+  "bySport": [
+    {
+      "sport": "football",
+      "people": 9,
+      "medianPeakSharePc": 26.5,
+      "minPeakSharePc": 10.7,
+      "maxPeakSharePc": 60.3,
+      "commonestPeakMonth": "202606",
+      "peopleSharingThatMonth": 3,
+      "allSameMonth": false
+    },
+    {
+      "sport": "esports",
+      "people": 11,
+      "medianPeakSharePc": 36.6,
+      "minPeakSharePc": 30.1,
+      "maxPeakSharePc": 58.4,
+      "commonestPeakMonth": "202511",
+      "peopleSharingThatMonth": 11,
+      "allSameMonth": true
+    }
+  ],
+  "calendar": [
+    {
+      "month": "202511",
+      "event": "2025 League of Legends World Championship",
+      "ended": "2025-11-09",
+      "note": "The tournament ran 14 October to 9 November; the final fell in November."
+    },
+    {
+      "month": "202606",
+      "event": "2026 FIFA World Cup",
+      "started": "2026-06-11",
+      "note": "The tournament opened on 11 June 2026 and runs to 19 July."
+    }
+  ],
+  "correlationNotCause": "We measured when reads arrived. The tournament dates come from the calendar, not from our data. The two are printed side by side because that is the honest shape of what we know: a month is crowded, and something happened that month. We did not measure that one caused the other.",
+  "cannotAnswer": "A month with more reads is a month with more reads. This does not say what caused it. Where we name a cause we name the source for it separately."
+}
