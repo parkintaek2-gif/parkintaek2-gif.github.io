@@ -80,6 +80,8 @@ What can be said without that leap: the November concentration is unanimous acro
 
 ## What this cannot say
 
+**Narrowed after publication.** Splitting these players by game shows that 85.7% of the ones we could measure play League of Legends, so "esports players" is wider than the evidence. The honest scope is League of Legends players. We could not test the other games because too few of their Korean players are read in these editions at all — see [what we called an esports pattern was one game](/article/it-was-one-game).
+
 A month with more reads is a month with more reads. It does not say why someone opened the page.
 
 This counts only the Indonesian, Vietnamese, Thai and Malay Wikipedias. Readers in those countries also use the English edition, which cannot be split by country, so every count here is a floor. The panel is the twenty most-read Korean athletes in those four editions, not a sample of Korean sport.

@@ -262,6 +262,10 @@
     "no-one-to-compare-against": {
       "figure": "71.4%",
       "label": "of Korean esports players with a Southeast Asian article are read enough to measure. For China, Sweden and the US together: 9.1%"
+    },
+    "it-was-one-game": {
+      "figure": "85.7%",
+      "label": "of the Korean esports players we could measure in Southeast Asian Wikipedias play one game"
     }
   }
 }
