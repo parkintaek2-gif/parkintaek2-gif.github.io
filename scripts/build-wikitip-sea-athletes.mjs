@@ -37,7 +37,9 @@ export function 판으뜸(사람들, 판, n = 몇명, 역할 = null) {
     .slice(0, n)
     .map((x) => ({
       name: x.name, sports: x.sports, role: x.role ?? 'player',
+      /* ⚠ 백만분율만 내면 읽는 사람이 「이게 뭐지」가 된다. **원래 횟수를 옆에 둔다** */
       perMillion: x.perMillion[판], views: x.views[판],
+      ...(쏠림(x) ?? {}),
     }));
 }
 
@@ -45,6 +47,21 @@ export function 판으뜸(사람들, 판, n = 몇명, 역할 = null) {
 export function 얼굴이같나(으뜸모음) {
   const 첫째들 = Object.values(으뜸모음).map((v) => v[0]?.name).filter(Boolean);
   return { names: 첫째들, allSame: new Set(첫째들).size === 1, distinct: new Set(첫째들).size };
+}
+
+/**
+ * ⭐ **한 나라에 얼마나 쏠렸나.** 감독이 선수와 다른 점이 여기다 —
+ *   선수는 여러 나라에서 고루 읽히고, 감독은 **자기가 맡은 한 나라에서만** 읽힌다.
+ *   ⛔ 「쏠렸다」를 눈으로 보고 쓰지 않는다. 으뜸 나라 몫으로 잰다.
+ */
+export function 쏠림(줄) {
+  const 판들 = Object.keys(나라이름);
+  const 값 = 판들.map((p) => 줄.perMillion?.[p]).filter((v) => typeof v === 'number');
+  const 합 = 값.reduce((a, b) => a + b, 0);
+  if (!합) return null;
+  const 으뜸 = Math.max(...값);
+  const 어디 = 판들.find((p) => 줄.perMillion?.[p] === 으뜸);
+  return { topEdition: 어디, topSharePc: +((100 * 으뜸) / 합).toFixed(1) };
 }
 
 /**
@@ -101,6 +118,12 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('문서수 — 판마다 다르다', 문서수([
     { titles: { id: 'A' } }, { titles: { id: 'B', vi: 'B' } }, { titles: {} },
   ], 'vi'), 1);
+  재본다('쏠림 — 한 나라에 다 몰리면 100%',
+    쏠림({ perMillion: { id: 0, vi: 50, th: 0, ms: 0 } }), { topEdition: 'vi', topSharePc: 100 });
+  재본다('쏠림 — 고루 퍼지면 낮다',
+    쏠림({ perMillion: { id: 25, vi: 25, th: 25, ms: 25 } }).topSharePc, 25);
+  재본다('쏠림 — 아무 값도 없으면 null(0 이 아니다)',
+    쏠림({ perMillion: { id: null, vi: undefined } }), null);
   재본다('나라 넷', Object.keys(나라이름).length, 4);
   재본다('⛔ 필리핀은 나라 목록에 없다', Object.keys(나라이름).includes('ph'), false);
   console.log(`동남아 지면 짓는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
@@ -117,10 +140,39 @@ if (내가실행됐다) {
   const 종목 = {};
   for (const p of 판들) {
     으뜸[p] = 판으뜸(d.people, p, 몇명, 'player');
-    겸직으뜸[p] = 판으뜸(d.people, p, 4, 'both');
+    겸직으뜸[p] = 판으뜸(d.people, p, 8, 'both');
     종목[p] = 종목몫(d.people, p);
   }
   const 얼굴 = 얼굴이같나(으뜸);
+
+  /**
+   * ⭐ 사장님 물음(8/13) — 「손흥민 외 이강인 등에 전혀 무관심? 감독은 쓸만한 데이터가 있니」
+   *   손흥민 하나로 지면을 채운 것은 내 잘못이다. **선수와 감독을 나란히 놓고 넷을 다 낸다.**
+   */
+  const 줄만들기 = (x) => ({
+    name: x.name,
+    role: x.role ?? 'player',
+    sport: x.sports[0],
+    perMillion: Object.fromEntries(판들.map((p) => [p, x.perMillion[p] ?? null])),
+    views: Object.fromEntries(판들.map((p) => [p, x.views[p] ?? null])),
+    seaPerMillionTotal: x.seaPerMillionTotal,
+    ...(쏠림(x) ?? {}),
+  });
+  const 축구 = d.people.filter((x) => x.sports.includes('football') && x.seaPerMillionTotal > 0);
+  const 선수줄 = 축구.filter((x) => (x.role ?? 'player') === 'player')
+    .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal).slice(0, 14).map(줄만들기);
+  const 감독줄 = 축구.filter((x) => x.role === 'both')
+    .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal).slice(0, 12).map(줄만들기);
+
+  /* 🔴 감독이 선수를 이기나 — 눈으로 보지 않고 센다 */
+  const 선수맨위 = 선수줄[0]?.seaPerMillionTotal ?? 0;
+  const 감독맨위 = 감독줄[0]?.seaPerMillionTotal ?? 0;
+  const 감독이이긴선수 = 선수줄.filter((x) => x.seaPerMillionTotal < 감독맨위).length;
+  /** 쏠림 가운데값 — 감독이 선수보다 한 나라에 몰리나 */
+  const 가운데쏠림 = (줄들) => {
+    const v = 줄들.map((x) => x.topSharePc).filter((x) => typeof x === 'number').sort((a, b) => a - b);
+    return v.length ? v[v.length >> 1] : null;
+  };
 
   /* 한 판에서라도 잰 사람이 몇인가 · 이스포츠가 든 사람이 몇인가 */
   const 이스포츠 = d.people.filter((x) => x.sports.includes('esports'));
@@ -143,8 +195,19 @@ if (내가실행됐다) {
     peopleNotMeasured: d.peopleNotMeasured,
     esportsMeasured: 이스포츠.length,
     topByEdition: 으뜸,
-    /** ⭐ 갈라 둔 까닭 — 인도네시아·말레이시아에서 제일 많이 읽히는 한국인은 선수가 아니다 */
-    topCoachesByEdition: 겸직으뜸,
+    /** ⭐ 사장님 물음(8/13) — 선수와 감독을 나란히, 나라 넷을 다 낸다 */
+    footballPlayers: 선수줄,
+    footballManagers: 감독줄,
+    managersBeatingPlayers: 감독이이긴선수,
+    playersListed: 선수줄.length,
+    topPlayerTotal: 선수맨위,
+    topManagerTotal: 감독맨위,
+    medianTopSharePlayers: 가운데쏠림(선수줄),
+    medianTopShareManagers: 가운데쏠림(감독줄),
+    playerVsManager: `The most-read Korean manager scores ${감독맨위} against the most-read player's `
+      + `${선수맨위}. Of the ${선수줄.length} players listed, ${감독이이긴선수} score below the top manager. `
+      + 'A manager is read in one country and a player in several, which is why the two are in '
+      + 'separate tables and not one ranking.',
     roleCounts: d.roleCounts ?? null,
     whyCoachesAreSeparate: 'Wikidata records both roles for anyone who played before managing, so '
       + 'it cannot say which one a reader came for. We keep them in their own table rather than '

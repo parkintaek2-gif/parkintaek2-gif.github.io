@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-12T22:51:22.474Z",
+  "generated": "2026-08-13T10:05:11.999Z",
   "source": "Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, 12 months. One row is one person.",
@@ -46,7 +46,9 @@
         ],
         "role": "player",
         "perMillion": 80.98,
-        "views": 67903
+        "views": 67903,
+        "topEdition": "vi",
+        "topSharePc": 42.3
       },
       {
         "name": "Park Ji-Sung",
@@ -55,7 +57,9 @@
         ],
         "role": "player",
         "perMillion": 20.82,
-        "views": 17453
+        "views": 17453,
+        "topEdition": "vi",
+        "topSharePc": 39.7
       },
       {
         "name": "Lee Kang-in",
@@ -64,7 +68,9 @@
         ],
         "role": "player",
         "perMillion": 12.37,
-        "views": 10372
+        "views": 10372,
+        "topEdition": "vi",
+        "topSharePc": 58.9
       },
       {
         "name": "Kim Min-jae",
@@ -73,7 +79,9 @@
         ],
         "role": "player",
         "perMillion": 7.89,
-        "views": 6613
+        "views": 6613,
+        "topEdition": "vi",
+        "topSharePc": 50
       },
       {
         "name": "Jens Castrop",
@@ -82,7 +90,9 @@
         ],
         "role": "player",
         "perMillion": 6.84,
-        "views": 5737
+        "views": 5737,
+        "topEdition": "id",
+        "topSharePc": 52.5
       },
       {
         "name": "Ahn Jung-hwan",
@@ -91,7 +101,9 @@
         ],
         "role": "player",
         "perMillion": 5.98,
-        "views": 5014
+        "views": 5014,
+        "topEdition": "id",
+        "topSharePc": 49.1
       },
       {
         "name": "Yoo Jae-hoon",
@@ -100,7 +112,9 @@
         ],
         "role": "player",
         "perMillion": 5.44,
-        "views": 4565
+        "views": 4565,
+        "topEdition": "id",
+        "topSharePc": 98
       },
       {
         "name": "Hwang Hee-chan",
@@ -109,7 +123,9 @@
         ],
         "role": "player",
         "perMillion": 4.23,
-        "views": 3549
+        "views": 3549,
+        "topEdition": "vi",
+        "topSharePc": 48.3
       }
     ],
     "vi": [
@@ -120,7 +136,9 @@
         ],
         "role": "player",
         "perMillion": 250.45,
-        "views": 149088
+        "views": 149088,
+        "topEdition": "vi",
+        "topSharePc": 95
       },
       {
         "name": "Son Heung-min",
@@ -129,7 +147,9 @@
         ],
         "role": "player",
         "perMillion": 144.63,
-        "views": 86094
+        "views": 86094,
+        "topEdition": "vi",
+        "topSharePc": 42.3
       },
       {
         "name": "Peanut",
@@ -138,7 +158,9 @@
         ],
         "role": "player",
         "perMillion": 96.19,
-        "views": 57263
+        "views": 57263,
+        "topEdition": "vi",
+        "topSharePc": 100
       },
       {
         "name": "Lee Min-hyung",
@@ -147,7 +169,9 @@
         ],
         "role": "player",
         "perMillion": 88.57,
-        "views": 52724
+        "views": 52724,
+        "topEdition": "vi",
+        "topSharePc": 100
       },
       {
         "name": "Jung Ji-hun",
@@ -156,7 +180,9 @@
         ],
         "role": "player",
         "perMillion": 78.48,
-        "views": 46718
+        "views": 46718,
+        "topEdition": "vi",
+        "topSharePc": 100
       },
       {
         "name": "Kim Soo-hwan",
@@ -165,7 +191,9 @@
         ],
         "role": "player",
         "perMillion": 72.5,
-        "views": 43161
+        "views": 43161,
+        "topEdition": "vi",
+        "topSharePc": 100
       },
       {
         "name": "Ryu Min-seok",
@@ -174,7 +202,9 @@
         ],
         "role": "player",
         "perMillion": 68.31,
-        "views": 40665
+        "views": 40665,
+        "topEdition": "vi",
+        "topSharePc": 100
       },
       {
         "name": "Doran",
@@ -183,7 +213,9 @@
         ],
         "role": "player",
         "perMillion": 59.48,
-        "views": 35408
+        "views": 35408,
+        "topEdition": "vi",
+        "topSharePc": 100
       }
     ],
     "th": [
@@ -194,7 +226,9 @@
         ],
         "role": "player",
         "perMillion": 104.99,
-        "views": 38704
+        "views": 38704,
+        "topEdition": "vi",
+        "topSharePc": 42.3
       },
       {
         "name": "Park Ji-Sung",
@@ -203,7 +237,9 @@
         ],
         "role": "player",
         "perMillion": 17.9,
-        "views": 6599
+        "views": 6599,
+        "topEdition": "vi",
+        "topSharePc": 39.7
       },
       {
         "name": "Kim Min-jae",
@@ -212,7 +248,9 @@
         ],
         "role": "player",
         "perMillion": 10.15,
-        "views": 3740
+        "views": 3740,
+        "topEdition": "vi",
+        "topSharePc": 50
       },
       {
         "name": "Faker",
@@ -221,7 +259,9 @@
         ],
         "role": "player",
         "perMillion": 9.66,
-        "views": 3562
+        "views": 3562,
+        "topEdition": "vi",
+        "topSharePc": 95
       },
       {
         "name": "Go Seul-ki",
@@ -230,7 +270,9 @@
         ],
         "role": "player",
         "perMillion": 5.21,
-        "views": 1922
+        "views": 1922,
+        "topEdition": "th",
+        "topSharePc": 97.9
       },
       {
         "name": "Hwang Hee-chan",
@@ -239,7 +281,9 @@
         ],
         "role": "player",
         "perMillion": 4.91,
-        "views": 1810
+        "views": 1810,
+        "topEdition": "vi",
+        "topSharePc": 48.3
       },
       {
         "name": "Lee Kang-in",
@@ -248,7 +292,9 @@
         ],
         "role": "player",
         "perMillion": 4.78,
-        "views": 1762
+        "views": 1762,
+        "topEdition": "vi",
+        "topSharePc": 58.9
       },
       {
         "name": "Cho Gue-sung",
@@ -257,7 +303,9 @@
         ],
         "role": "player",
         "perMillion": 3.15,
-        "views": 1160
+        "views": 1160,
+        "topEdition": "vi",
+        "topSharePc": 50.4
       }
     ],
     "ms": [
@@ -268,7 +316,9 @@
         ],
         "role": "player",
         "perMillion": 32.46,
-        "views": 5289
+        "views": 5289,
+        "topEdition": "ms",
+        "topSharePc": 98.5
       },
       {
         "name": "Son Heung-min",
@@ -277,7 +327,9 @@
         ],
         "role": "player",
         "perMillion": 11.7,
-        "views": 1907
+        "views": 1907,
+        "topEdition": "vi",
+        "topSharePc": 42.3
       },
       {
         "name": "Park Ji-Sung",
@@ -286,7 +338,9 @@
         ],
         "role": "player",
         "perMillion": 6.16,
-        "views": 1004
+        "views": 1004,
+        "topEdition": "vi",
+        "topSharePc": 39.7
       },
       {
         "name": "Park Tae-soo",
@@ -295,7 +349,9 @@
         ],
         "role": "player",
         "perMillion": 5.9,
-        "views": 961
+        "views": 961,
+        "topEdition": "ms",
+        "topSharePc": 100
       },
       {
         "name": "Faker",
@@ -304,7 +360,9 @@
         ],
         "role": "player",
         "perMillion": 3.63,
-        "views": 591
+        "views": 591,
+        "topEdition": "vi",
+        "topSharePc": 95
       },
       {
         "name": "Park Jun-heong",
@@ -313,7 +371,9 @@
         ],
         "role": "player",
         "perMillion": 2.83,
-        "views": 461
+        "views": 461,
+        "topEdition": "ms",
+        "topSharePc": 93.4
       },
       {
         "name": "Lee Kang-in",
@@ -322,7 +382,9 @@
         ],
         "role": "player",
         "perMillion": 2.62,
-        "views": 427
+        "views": 427,
+        "topEdition": "vi",
+        "topSharePc": 58.9
       },
       {
         "name": "Kim Young-kwang",
@@ -331,164 +393,543 @@
         ],
         "role": "player",
         "perMillion": 2.04,
-        "views": 333
+        "views": 333,
+        "topEdition": "ms",
+        "topSharePc": 76.7
       }
     ]
   },
-  "topCoachesByEdition": {
-    "id": [
-      {
-        "name": "Shin Tae-yong",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 74.72,
-        "views": 62647
+  "footballPlayers": [
+    {
+      "name": "Son Heung-min",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 80.98,
+        "vi": 144.63,
+        "th": 104.99,
+        "ms": 11.7
       },
-      {
-        "name": "Hong Myung-bo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 7.52,
-        "views": 6306
+      "views": {
+        "id": 67903,
+        "vi": 86094,
+        "th": 38704,
+        "ms": 1907
       },
-      {
-        "name": "Park Hang-seo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 3.22,
-        "views": 2704
+      "seaPerMillionTotal": 342.3,
+      "topEdition": "vi",
+      "topSharePc": 42.3
+    },
+    {
+      "name": "Park Ji-Sung",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 20.82,
+        "vi": 29.56,
+        "th": 17.9,
+        "ms": 6.16
       },
-      {
-        "name": "Kim Sang-sik",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 1.84,
-        "views": 1542
-      }
-    ],
-    "vi": [
-      {
-        "name": "Kim Sang-sik",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 132.71,
-        "views": 79001
+      "views": {
+        "id": 17453,
+        "vi": 17598,
+        "th": 6599,
+        "ms": 1004
       },
-      {
-        "name": "Park Hang-seo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 60.77,
-        "views": 36177
+      "seaPerMillionTotal": 74.44,
+      "topEdition": "vi",
+      "topSharePc": 39.7
+    },
+    {
+      "name": "Lee Kang-in",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 12.37,
+        "vi": 28.34,
+        "th": 4.78,
+        "ms": 2.62
       },
-      {
-        "name": "Hong Myung-bo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 14.19,
-        "views": 8450
+      "views": {
+        "id": 10372,
+        "vi": 16872,
+        "th": 1762,
+        "ms": 427
       },
-      {
-        "name": "Shin Tae-yong",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 9.58,
-        "views": 5700
-      }
-    ],
-    "th": [
-      {
-        "name": "Park Hang-seo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 7.31,
-        "views": 2696
+      "seaPerMillionTotal": 48.11,
+      "topEdition": "vi",
+      "topSharePc": 58.9
+    },
+    {
+      "name": "Kim Min-jae",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 7.89,
+        "vi": 19.36,
+        "th": 10.15,
+        "ms": 1.29
       },
-      {
-        "name": "Hong Myung-bo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 4.32,
-        "views": 1593
+      "views": {
+        "id": 6613,
+        "vi": 11525,
+        "th": 3740,
+        "ms": 210
       },
-      {
-        "name": "Shin Tae-yong",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 2.7,
-        "views": 995
+      "seaPerMillionTotal": 38.69,
+      "topEdition": "vi",
+      "topSharePc": 50
+    },
+    {
+      "name": "Bergson Gustavo Silveira da Silva",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": 0.5,
+        "th": null,
+        "ms": 32.46
       },
-      {
-        "name": "Kim Sang-sik",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 2.57,
-        "views": 947
-      }
-    ],
-    "ms": [
-      {
-        "name": "Kim Pan-gon",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 10.08,
-        "views": 1642
+      "views": {
+        "id": null,
+        "vi": 298,
+        "th": null,
+        "ms": 5289
       },
-      {
-        "name": "Shin Tae-yong",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 6.05,
-        "views": 986
+      "seaPerMillionTotal": 32.96,
+      "topEdition": "ms",
+      "topSharePc": 98.5
+    },
+    {
+      "name": "Hwang Hee-chan",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 4.23,
+        "vi": 8.53,
+        "th": 4.91,
+        "ms": null
       },
-      {
-        "name": "Park Hang-seo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 2.44,
-        "views": 397
+      "views": {
+        "id": 3549,
+        "vi": 5078,
+        "th": 1810,
+        "ms": null
       },
-      {
-        "name": "Hong Myung-bo",
-        "sports": [
-          "football"
-        ],
-        "role": "both",
-        "perMillion": 1.54,
-        "views": 251
-      }
-    ]
-  },
+      "seaPerMillionTotal": 17.67,
+      "topEdition": "vi",
+      "topSharePc": 48.3
+    },
+    {
+      "name": "Jens Castrop",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 6.84,
+        "vi": 5.26,
+        "th": null,
+        "ms": 0.92
+      },
+      "views": {
+        "id": 5737,
+        "vi": 3131,
+        "th": null,
+        "ms": 150
+      },
+      "seaPerMillionTotal": 13.02,
+      "topEdition": "id",
+      "topSharePc": 52.5
+    },
+    {
+      "name": "Ahn Jung-hwan",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 5.98,
+        "vi": 5.28,
+        "th": null,
+        "ms": 0.93
+      },
+      "views": {
+        "id": 5014,
+        "vi": 3142,
+        "th": null,
+        "ms": 152
+      },
+      "seaPerMillionTotal": 12.19,
+      "topEdition": "id",
+      "topSharePc": 49.1
+    },
+    {
+      "name": "Hwang Ui-jo",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.65,
+        "vi": 9.11,
+        "th": 0.58,
+        "ms": 0.93
+      },
+      "views": {
+        "id": 549,
+        "vi": 5422,
+        "th": 215,
+        "ms": 151
+      },
+      "seaPerMillionTotal": 11.27,
+      "topEdition": "vi",
+      "topSharePc": 80.8
+    },
+    {
+      "name": "Cho Gue-sung",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 2.15,
+        "vi": 5.38,
+        "th": 3.15,
+        "ms": null
+      },
+      "views": {
+        "id": 1802,
+        "vi": 3202,
+        "th": 1160,
+        "ms": null
+      },
+      "seaPerMillionTotal": 10.68,
+      "topEdition": "vi",
+      "topSharePc": 50.4
+    },
+    {
+      "name": "Ki Sung-yueng",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 1.17,
+        "vi": 4,
+        "th": 1.72,
+        "ms": 1.03
+      },
+      "views": {
+        "id": 982,
+        "vi": 2381,
+        "th": 634,
+        "ms": 168
+      },
+      "seaPerMillionTotal": 7.92,
+      "topEdition": "vi",
+      "topSharePc": 50.5
+    },
+    {
+      "name": "Gong O-kyun",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": 6.96,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 4144,
+        "th": null,
+        "ms": null
+      },
+      "seaPerMillionTotal": 6.96,
+      "topEdition": "vi",
+      "topSharePc": 100
+    },
+    {
+      "name": "Hwang In-beom",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 2.32,
+        "vi": 4.46,
+        "th": 0.17,
+        "ms": null
+      },
+      "views": {
+        "id": 1946,
+        "vi": 2656,
+        "th": 62,
+        "ms": null
+      },
+      "seaPerMillionTotal": 6.95,
+      "topEdition": "vi",
+      "topSharePc": 64.2
+    },
+    {
+      "name": "Lee Seung-woo",
+      "role": "player",
+      "sport": "football",
+      "perMillion": {
+        "id": 1.34,
+        "vi": 3.37,
+        "th": null,
+        "ms": 1.95
+      },
+      "views": {
+        "id": 1123,
+        "vi": 2008,
+        "th": null,
+        "ms": 318
+      },
+      "seaPerMillionTotal": 6.66,
+      "topEdition": "vi",
+      "topSharePc": 50.6
+    }
+  ],
+  "footballManagers": [
+    {
+      "name": "Kim Sang-sik",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 1.84,
+        "vi": 132.71,
+        "th": 2.57,
+        "ms": 0.66
+      },
+      "views": {
+        "id": 1542,
+        "vi": 79001,
+        "th": 947,
+        "ms": 107
+      },
+      "seaPerMillionTotal": 137.78,
+      "topEdition": "vi",
+      "topSharePc": 96.3
+    },
+    {
+      "name": "Shin Tae-yong",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 74.72,
+        "vi": 9.58,
+        "th": 2.7,
+        "ms": 6.05
+      },
+      "views": {
+        "id": 62647,
+        "vi": 5700,
+        "th": 995,
+        "ms": 986
+      },
+      "seaPerMillionTotal": 93.05,
+      "topEdition": "id",
+      "topSharePc": 80.3
+    },
+    {
+      "name": "Park Hang-seo",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 3.22,
+        "vi": 60.77,
+        "th": 7.31,
+        "ms": 2.44
+      },
+      "views": {
+        "id": 2704,
+        "vi": 36177,
+        "th": 2696,
+        "ms": 397
+      },
+      "seaPerMillionTotal": 73.74,
+      "topEdition": "vi",
+      "topSharePc": 82.4
+    },
+    {
+      "name": "Hong Myung-bo",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 7.52,
+        "vi": 14.19,
+        "th": 4.32,
+        "ms": 1.54
+      },
+      "views": {
+        "id": 6306,
+        "vi": 8450,
+        "th": 1593,
+        "ms": 251
+      },
+      "seaPerMillionTotal": 27.57,
+      "topEdition": "vi",
+      "topSharePc": 51.5
+    },
+    {
+      "name": "Kim Pan-gon",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": null,
+        "th": null,
+        "ms": 10.08
+      },
+      "views": {
+        "id": null,
+        "vi": null,
+        "th": null,
+        "ms": 1642
+      },
+      "seaPerMillionTotal": 10.08,
+      "topEdition": "ms",
+      "topSharePc": 100
+    },
+    {
+      "name": "Lee Jung-soo",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.23,
+        "vi": 5.54,
+        "th": 0.46,
+        "ms": 0.2
+      },
+      "views": {
+        "id": 197,
+        "vi": 3296,
+        "th": 168,
+        "ms": 32
+      },
+      "seaPerMillionTotal": 6.43,
+      "topEdition": "vi",
+      "topSharePc": 86.2
+    },
+    {
+      "name": "Kim Do-hoon",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.93,
+        "vi": 1.59,
+        "th": null,
+        "ms": 0.2
+      },
+      "views": {
+        "id": 781,
+        "vi": 946,
+        "th": null,
+        "ms": 33
+      },
+      "seaPerMillionTotal": 2.72,
+      "topEdition": "vi",
+      "topSharePc": 58.5
+    },
+    {
+      "name": "Hwang Sun-hong",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.65,
+        "vi": 1.6,
+        "th": null,
+        "ms": 0.29
+      },
+      "views": {
+        "id": 545,
+        "vi": 950,
+        "th": null,
+        "ms": 48
+      },
+      "seaPerMillionTotal": 2.54,
+      "topEdition": "vi",
+      "topSharePc": 63
+    },
+    {
+      "name": "Lee Young-jin",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": 1.7,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 1011,
+        "th": null,
+        "ms": null
+      },
+      "seaPerMillionTotal": 1.7,
+      "topEdition": "vi",
+      "topSharePc": 100
+    },
+    {
+      "name": "Huh Jung-moo",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.54,
+        "vi": 0.97,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": 453,
+        "vi": 578,
+        "th": null,
+        "ms": null
+      },
+      "seaPerMillionTotal": 1.51,
+      "topEdition": "vi",
+      "topSharePc": 64.2
+    },
+    {
+      "name": "Kim Do-heon",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": null,
+        "vi": 1.04,
+        "th": null,
+        "ms": 0.29
+      },
+      "views": {
+        "id": null,
+        "vi": 618,
+        "th": null,
+        "ms": 48
+      },
+      "seaPerMillionTotal": 1.33,
+      "topEdition": "vi",
+      "topSharePc": 78.2
+    },
+    {
+      "name": "Yoo Sang-chul",
+      "role": "both",
+      "sport": "football",
+      "perMillion": {
+        "id": 0.33,
+        "vi": 0.72,
+        "th": null,
+        "ms": 0.23
+      },
+      "views": {
+        "id": 277,
+        "vi": 431,
+        "th": null,
+        "ms": 37
+      },
+      "seaPerMillionTotal": 1.28,
+      "topEdition": "vi",
+      "topSharePc": 56.3
+    }
+  ],
+  "managersBeatingPlayers": 13,
+  "playersListed": 14,
+  "topPlayerTotal": 342.3,
+  "topManagerTotal": 137.78,
+  "medianTopSharePlayers": 50.6,
+  "medianTopShareManagers": 80.3,
+  "playerVsManager": "The most-read Korean manager scores 137.78 against the most-read player's 342.3. Of the 14 players listed, 13 score below the top manager. A manager is read in one country and a player in several, which is why the two are in separate tables and not one ranking.",
   "roleCounts": {
     "player": 900,
     "coach": 0,

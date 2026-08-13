@@ -98,28 +98,73 @@ const jsonLd = {
   </section>
 
   <section>
+    <h2>Korean footballers, all four countries at once</h2>
+    <p class="note">
+      One row per person, all four editions on the row. Reads per million first, then the raw count
+      of times the article was opened, so the scaling can be checked against the thing it scales.
+      <b>Concentration</b> is the share of that person's four-country total that sits in their
+      largest single country — a player read everywhere lands near 25%, a player read in one place
+      lands near 100%.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Player</th>
+          {d.editions.map((e) => <th>{e.country}</th>)}
+          <th>Total</th><th>Concentration</th></tr></thead>
+        <tbody>
+          {d.footballPlayers.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => (
+                <td>{x.perMillion[e.code] ?? '—'}
+                  <span class="fine">{x.views[e.code] !== null && x.views[e.code] !== undefined
+                    ? ` (${x.views[e.code].toLocaleString('en-US')})` : ''}</span></td>
+              ))}
+              <td class="tot">{x.seaPerMillionTotal}</td>
+              <td class="fine">{x.topSharePc}% {x.topEdition}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
     <h2>The Koreans who played, then managed</h2>
     <p class="note">{d.whyCoachesAreSeparate}</p>
-    <div class="cols">
-      {d.editions.map((e) => (
-        <div class="col">
-          <h3>{e.country}</h3>
-          <table>
-            <thead><tr><th>Name</th><th>Per million</th></tr></thead>
-            <tbody>
-              {d.topCoachesByEdition[e.code].map((x) => (
-                <tr><td class="nm">{x.name}</td><td class="tot">{x.perMillion}</td></tr>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Manager</th>
+          {d.editions.map((e) => <th>{e.country}</th>)}
+          <th>Total</th><th>Concentration</th></tr></thead>
+        <tbody>
+          {d.footballManagers.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => (
+                <td>{x.perMillion[e.code] ?? '—'}
+                  <span class="fine">{x.views[e.code] !== null && x.views[e.code] !== undefined
+                    ? ` (${x.views[e.code].toLocaleString('en-US')})` : ''}</span></td>
               ))}
-            </tbody>
-          </table>
-        </div>
-      ))}
+              <td class="tot">{x.seaPerMillionTotal}</td>
+              <td class="fine">{x.topSharePc}% {x.topEdition}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
-    <p class="note">
-      Read the four columns across a row rather than down one. The same four names appear in every
-      country and the numbers move by a factor of tens between them — each is read where he took
-      the job, and almost nowhere else.
+    <p class="q">
+      Median concentration is <b>{d.medianTopSharePlayers}%</b> for the players and{' '}
+      <b>{d.medianTopShareManagers}%</b> for the managers. A player's readership is spread across
+      the region; a manager's sits in the country that hired him.
     </p>
+    <p class="q">
+      The top manager scores <b>{d.topManagerTotal}</b> against the top player's{' '}
+      <b>{d.topPlayerTotal}</b>. Of the <b>{d.playersListed}</b> players listed above,{' '}
+      <b>{d.managersBeatingPlayers}</b> score below that one manager — who earns it in a single
+      country while they are spread over four.
+    </p>
+    <p class="note">{d.playerVsManager}</p>
   </section>
 
   <section class="warn-box">
