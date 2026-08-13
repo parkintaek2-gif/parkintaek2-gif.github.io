@@ -14,6 +14,10 @@ import { 파는지면검색 } from '../../lib/price';
 import { 짧은지역명 } from '../../lib/region';
 /* 🔴 층 목록은 **한 곳**에서 온다 — 지면과 사이트맵이 두 벌을 두면 갈라진다 */
 import { 낼층 } from '../../lib/age-layer';
+/* 🔴 `<lastmod>` — **git 이 아는 진짜 날**만 담긴다. `scripts/build-100y-lastmod.mjs` 가 만든다.
+   ⛔ 빌드한 날을 4,772장에 다 박지 않는다. 그건 「매일 전부 바뀌었다」는 거짓말이고,
+     크롤러가 알아채면 lastmod 를 통째로 무시한다. **모르는 갈래는 빈칸으로 둔다** */
+import 날대장 from '../../data/100yearmap/lastmod.json';
 
 /** ⚠ `school/[code].astro` 의 `noindex` 조건과 **한 글자도 다르면 안 된다** */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
@@ -70,6 +74,28 @@ const loc = (path: string) =>
     .join('/');
 
 type Entry = { path: string; priority: string; changefreq: string };
+
+/**
+ * 그 길이 어느 갈래인가 → `lastmod.json` 의 열쇠.
+ *
+ * ⚠ `scripts/build-100y-lastmod.mjs` 의 `갈래찾기()` 와 **같은 규칙**이다.
+ *   한쪽만 고치면 그 갈래가 조용히 날을 잃는다(빌드는 그대로 지나간다).
+ */
+const 갈래열쇠 = (길: string): string => {
+  if (길 === '/') return '/';
+  const 마디 = 길.split('/').filter(Boolean);
+  if (마디.length === 1) return '/' + 마디[0];
+  if (마디[0] === 'report' && 마디[1] === 'area') return '갈래:area';
+  if (마디[0] === 'report') return '갈래:report';
+  return '갈래:' + 마디[0];
+};
+
+const 날들 = ((날대장 as any).날 ?? {}) as Record<string, string>;
+/** ⛔ 모르면 빈 글자 — 아무 날이나 지어내지 않는다 */
+const lastmod = (길: string): string => {
+  const d = 날들[갈래열쇠(길)];
+  return /^\d{4}-\d{2}-\d{2}$/.test(String(d ?? '')) ? `<lastmod>${d}</lastmod>` : '';
+};
 
 export const GET: APIRoute = () => {
   const entries: Entry[] = [
@@ -221,7 +247,7 @@ export const GET: APIRoute = () => {
 ${entries
   .map(
     (e) =>
-      `  <url><loc>${loc(e.path)}</loc><changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`,
+      `  <url><loc>${loc(e.path)}</loc>${lastmod(e.path)}<changefreq>${e.changefreq}</changefreq><priority>${e.priority}</priority></url>`,
   )
   .join('\n')}
 </urlset>
