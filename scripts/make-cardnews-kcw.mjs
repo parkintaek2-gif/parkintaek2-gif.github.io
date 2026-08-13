@@ -34,6 +34,15 @@ export const 높 = 1350;
 export const 최대장수 = 5;
 export const 주소 = 'kculturewire.com';
 
+/**
+ * 어느 벌을 지을 수 있나. ⚠ 사장님 지시는 「**매일** 낸다」이므로 한 벌만 박아 두면 안 된다.
+ * ⛔ 벌마다 **자기 자료**를 가진다. 남의 자료에서 수를 빌려 오지 않는다.
+ */
+export const 벌목록 = {
+  fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
+  manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
+};
+
 /** 자료에서 한 벌을 짓는다. ⛔ 수를 손으로 적지 않는다 */
 export function 한벌짓기(d) {
   const 무리 = (k) => d.groups.find((g) => g.group === k);
@@ -96,6 +105,69 @@ export function 한벌짓기(d) {
           + 'a fraction of the acts that front them.\n'
           + '**An ambassador announcement travels because\na Korean act is attached to it.**',
         길: `${주소}/fame-compare`,
+        곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
+ * 감독 벌 — 81편째 기사의 표(`/sea-athletes`).
+ * ⭐ 이야기 한 줄: **한국인 감독은 자기를 뽑은 나라에서만 읽힌다.**
+ */
+export function 감독벌짓기(d) {
+  const 나라 = Object.fromEntries(d.editions.map((e) => [e.code, e.country]));
+  const 감독 = d.footballManagers.slice(0, 5);
+  const 선수 = d.footballPlayers.slice(0, 5);
+  const 맨위 = 감독[0];
+
+  return {
+    갈피: 'sea-athletes',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Southeast Asia · 12 months',
+        큰: 'A Korean manager\nis read in exactly\none country',
+        아래: `${맨위.name} takes **${맨위.topSharePc}%** of his four-country readership in `
+          + `${나라[맨위.topEdition]} alone.`,
+      },
+      {
+        꼴: '수',
+        제목: 'Players spread.\nManagers do not',
+        큰: `${d.medianTopSharePlayers}% vs ${d.medianTopShareManagers}%`,
+        곁: 'Median share sitting in one country — players, then managers',
+        아래: 'A person read evenly across the four lands near **25%**.\n'
+          + 'A person read in one country only lands at **100%**.',
+      },
+      {
+        꼴: '표',
+        제목: 'Read where\nhe was hired',
+        머리: ['Manager', ...d.editions.map((e) => e.country.slice(0, 9))],
+        줄: 감독.slice(0, 4).map((m) => [m.name,
+          ...d.editions.map((e) => (m.perMillion[e.code] === null ? '—' : String(m.perMillion[e.code])))]),
+        아래: 'Read the columns across a row, not down one. The same names appear everywhere and '
+          + 'the numbers move by a factor of tens between countries.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Which role a reader came for — Wikidata records both for anyone who played then managed',
+          'Popularity — this counts people looking someone up',
+          'The Philippines — the Tagalog Wikipedia is too small to measure with',
+        ],
+        아래: `That is why managers sit in their own table and are not ranked\n`
+          + `against the ${선수.length ? 선수[0].name : 'players'} of this world.`,
+      },
+      {
+        꼴: '끝',
+        제목: 'In two of these\nfour countries,\nthe most-read Korean\nin football never\nplayed there',
+        글: `**${감독.map((m) => m.name).slice(0, 3).join(' · ')}** —\n`
+          + 'each read in the country whose national team he took,\nand almost nowhere else.',
+        길: `${주소}/sea-athletes`,
         곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
       },
     ],
@@ -189,7 +261,6 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const d = JSON.parse(fs.readFileSync('src/data/wikitip-fame-compare.json', 'utf8'));
   const 벌 = 한벌짓기(d);
   const 그린것 = 벌.카드.map((c, i) => 카드HTML(c, i, 벌.카드.length, 벌));
-  const 글자만 = (s) => s.replace(/<[^>]+>/g, ' ');
 
   재본다('⚠ 다섯 장까지', 벌.카드.length, (n) => n <= 최대장수);
   재본다('✅ 「없는 것」 장이 있다 — 우리가 파는 것이다',
@@ -225,17 +296,39 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   재본다('마지막 장에 들어올 주소가 크게 있다', '끝 장',
     () => 본문만(그린것[4]).includes('/fame-compare'));
   재본다('출처를 적었다', '끝 장', () => 본문만(그린것[4]).includes('Wikidata'));
+
+  /* 🔴 사장님 지시는 「**매일** 낸다」다. 벌이 하나뿐이면 내일 낼 것이 없다 */
+  재본다('벌이 하나가 아니다', Object.keys(벌목록).length, (n) => n >= 2);
+  for (const [이름, 재료] of Object.entries(벌목록)) {
+    const 그자료 = JSON.parse(fs.readFileSync(재료.자료, 'utf8'));
+    const 그벌 = 재료.만들기(그자료);
+    const 그린 = 그벌.카드.map((c, i) => 카드HTML(c, i, 그벌.카드.length, 그벌));
+    재본다(`${이름} — 다섯 장까지`, 그벌.카드.length, (n) => n <= 최대장수);
+    재본다(`${이름} — 「없는 것」 장이 있다`, 그벌.카드.some((c) => c.꼴 === '없는것'), true);
+    재본다(`${이름} — 주소가 모든 장에`, 주소빠진장(그벌, 그린), []);
+    재본다(`${이름} — 빈 칸이 안 샌다`, 본문만(그린.join(' ')),
+      (s) => !/undefined|NaN|\[object/.test(s));
+  }
   console.log(`카드뉴스 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
 
 if (내가실행됐다) {
-  const i = process.argv.indexOf('--out');
-  const 낼방 = i >= 0 ? process.argv[i + 1] : 'public/wikitip/cardnews/fame';
+  const 값 = (깃발, 기본) => {
+    const i = process.argv.indexOf(깃발);
+    return i >= 0 ? process.argv[i + 1] : 기본;
+  };
+  const 벌이름 = 값('--벌', 'fame');
+  if (!벌목록[벌이름]) {
+    console.error(`⛔ 그런 벌이 없다 — ${벌이름}. 있는 것: ${Object.keys(벌목록).join(' · ')}`);
+    process.exit(1);
+  }
+  const 낼방 = 값('--out', `public/wikitip/cardnews/${벌이름}`);
   fs.mkdirSync(낼방, { recursive: true });
 
-  const d = JSON.parse(fs.readFileSync('src/data/wikitip-fame-compare.json', 'utf8'));
-  const 벌 = 한벌짓기(d);
+  const 재료 = 벌목록[벌이름];
+  const d = JSON.parse(fs.readFileSync(재료.자료, 'utf8'));
+  const 벌 = 재료.만들기(d);
   if (벌.카드.length > 최대장수) { console.error(`⛔ ${벌.카드.length}장 — ${최대장수}장까지다`); process.exit(1); }
 
   const puppeteer = require('puppeteer-core');
