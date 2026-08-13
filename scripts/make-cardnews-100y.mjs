@@ -40,7 +40,9 @@ const 낼방 = path.join(ROOT, 'public', '100y', 'cardnews');
 
 /** ⚠ 전국 갈래 가운데값을 낼 때 이보다 적은 갈래는 싣지 않는다. 집 규칙(최소분모 30) */
 const 최소분모 = 30;
-const 값글자 = '9,900원';
+/* ⛔ 값을 여기 손으로 적지 않는다. 지면과 갈리면 밖에 나간 카드만 옛값이 된다.
+   `PG붙었나` 도 같이 가져온다 — 카드가 지면보다 앞서 「살 수 있다」고 말하면 안 된다 */
+const { 값글자, PG붙었나 } = await import('../src/lib/price.ts');
 const 집 = 'https://100yearmap.com';
 
 /** 지면과 같은 값이다. `public/100y/style.css` 의 토큰을 옮겨 적었다 */
@@ -82,7 +84,11 @@ export function 중간값(a) {
  * ⚠ 이 자가 있어야 「카드에 적힌 수가 근거에 있나」를 **글자가 아니라 수로** 견줄 수 있다.
  */
 export function 숫자캐기(글) {
-  return (String(글).match(/\d[\d,]*(?:\.\d+)?/g) ?? []).map((s) => Number(s.replace(/,/g, '')));
+  // ⚠ **주소 안의 숫자는 손님이 읽는 수가 아니다.** 100yearmap.com 의 「100」이 걸려
+  //   「근거에 없는 수」로 잡혔다(8/13). 주소를 먼저 지우고 센다.
+  //   ⛔ 같은 결로 오늘만 세 번 걸렸다 — 주소·머리말·구간 이름은 수가 아니다.
+  const 알맹이 = String(글).replace(/https?:\/\/\S+/g, ' ').replace(/\b[\w-]+\.(com|kr|net|org)\S*/g, ' ');
+  return (알맹이.match(/\d[\d,]*(?:\.\d+)?/g) ?? []).map((s) => Number(s.replace(/,/g, '')));
 }
 
 /** ⛔ 집 규칙으로 못 쓰는 말. 자가시험 10 이 모든 장을 훑는다 */
@@ -213,15 +219,30 @@ export function 짜기(slug, 자료) {
       '비율과 가운데값은 저희가 냈습니다.',
     ],
   });
+  /* 🔴 8/13 에 고쳤다 — 두 가지가 틀려 있었다.
+     ① **PG 가 붙기 전인데 「보실 수 있습니다」**라고 적었다. 지금 눌러도 못 산다.
+        값 지면은 「아직 결제를 받지 않습니다」라고 말하는데 카드만 딴말을 했다.
+        ⛔ 밖에 나가는 글이 지면과 어긋나면 안 된다. `PG붙었나` 를 보고 말을 바꾼다.
+     ② 값(9,900)을 이 파일에 손으로 박아 뒀다. src/lib/price.ts 한 곳에서 온다 */
   장들.push({
     꼴: '마무리', 머리: '학원을 팔지 않습니다',
-    줄들: [
-      '그래서 안 다녀도 된다고',
-      '말할 수 있습니다.',
-      '',
-      `${푼것.이름} 한 벌 ${값글자}`,
-      '프로필 링크에서 보실 수 있습니다.',
-    ],
+    줄들: PG붙었나
+      ? [
+          '그래서 안 다녀도 된다고',
+          '말할 수 있습니다.',
+          '',
+          `${푼것.이름} 한 벌 ${값글자}`,
+          '프로필 링크에서 보실 수 있습니다.',
+        ]
+      : [
+          // ⚠ 주소를 본문에 통째로 넣었더니 **화면 밖으로 잘렸다**(한글 slug 라 길다).
+          //   바닥에 이미 모든 장마다 서 있으니 본문에서는 «어디로 가는지»만 말한다
+          '그래서 안 다녀도 된다고',
+          '말할 수 있습니다.',
+          '',
+          `${푼것.이름} 고등학교 ${곳들.length}곳을`,
+          '한 장에 — 아래 주소에서',
+        ],
   });
 
   return { slug, 이름: `${푼것.시도} ${푼것.이름}`, 장들, 근거 };
@@ -230,17 +251,21 @@ export function 짜기(slug, 자료) {
 /* ────────────────────────────── 그림 ────────────────────────────── */
 
 const W = 1080, H = 1350, M = 90;
-const 틀 = (속, 쪽, 총) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+/* 🔴 바닥 주소 — **모든 장에** 그 지역 지면 주소를 세운다(8/13).
+   사장님 지시: 카드는 «내는 것»이 아니라 **«데려오는 것»**이다.
+   ⛔ 마지막 장에만 두지 않는다 — 중간에 끊고 나가는 사람이 대부분이다.
+   전에는 집 주소(100yearmap.com)만 있어 **어느 지면으로 갈지 알 수 없었다** */
+const 틀 = (속, 쪽, 총, 갈곳 = '100yearmap.com') => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${색.바탕}"/>
   <rect x="0" y="0" width="${W}" height="8" fill="${색.금}"/>
   <text x="${M}" y="118" font-family="${명조}" font-size="34" font-weight="bold" fill="${색.금}" letter-spacing="4">백년지도</text>
   <text x="${W - M}" y="118" text-anchor="end" font-family="${고딕}" font-size="28" fill="${색.흐림}">${쪽} / ${총}</text>
   ${속}
-  <text x="${M}" y="${H - 66}" font-family="${고딕}" font-size="26" fill="${색.흐림}">등수를 매기지 않습니다</text>
-  <text x="${W - M}" y="${H - 66}" text-anchor="end" font-family="${고딕}" font-size="26" fill="${색.금}">100yearmap.com</text>
+  <text x="${M}" y="${H - 66}" font-family="${고딕}" font-size="24" fill="${색.흐림}">등수를 매기지 않습니다</text>
+  <text x="${W - M}" y="${H - 66}" text-anchor="end" font-family="${고딕}" font-size="24" fill="${색.금}">${막는다(갈곳)}</text>
 </svg>`;
 
-function 그리기(장, 쪽, 총) {
+function 그리기(장, 쪽, 총, 갈곳) {
   let s = '';
   if (장.꼴 === '표지') {
     s += `<text x="${M}" y="470" font-family="${명조}" font-size="180" font-weight="bold" fill="${색.글}" letter-spacing="-4">${막는다(장.큰수)}</text>`;
@@ -253,7 +278,12 @@ function 그리기(장, 쪽, 총) {
     const 시작 = 250 + 머리줄.length * 56 + 70;
     s += '\n  ' + 장.줄들.map((l, i) => (l === '' ? '' : `<text x="${M}" y="${시작 + i * 68}" font-family="${고딕}" font-size="48" fill="${색.글}">${막는다(l)}</text>`)).filter(Boolean).join('\n  ');
   }
-  return 틀(s, 쪽, 총);
+  return 틀(s, 쪽, 총, 갈곳);
+}
+
+/** 카드 바닥에 세울 «데려올 주소» — 도메인 없이 짧게 보여 준다 */
+export function 갈곳글자(slug) {
+  return slug ? `100yearmap.com/report/area/${slug}` : '100yearmap.com';
 }
 
 /* ────────────────────────────── 자가시험 ────────────────────────────── */
@@ -268,6 +298,18 @@ function 자가시험() {
   본다('④ 중간값이 안에서 정렬한다', 중간값([9, 1, 5]) === 5 && 중간값([26.2, 17.3, 20]) === 20);
   본다('⑤ 중간값이 짝수면 평균낸다', 중간값([10, 20]) === 15 && 중간값([]) === null);
   본다('⑥ 숫자캐기가 쉼표·소수를 푼다', JSON.stringify(숫자캐기('9,900원 · 55.5% · 26곳')) === JSON.stringify([9900, 55.5, 26]));
+  본다('⑥-2 ⛔ 주소 안의 숫자는 안 센다',
+    JSON.stringify(숫자캐기('https://100yearmap.com/report/area/가 26곳')) === JSON.stringify([26]) &&
+    JSON.stringify(숫자캐기('100yearmap.com/report/area/나')) === JSON.stringify([]));
+
+  /* 🔴 8/13 에 더했다 — 밖에 나가는 카드가 «지면과 어긋나지 않게» 지킨다 */
+  본다('⑪ 갈 곳이 그 지역 지면을 가리킨다',
+    갈곳글자('서울특별시-노원구') === '100yearmap.com/report/area/서울특별시-노원구');
+  본다('⑫ slug 가 없으면 집 주소로 물러난다', 갈곳글자('') === '100yearmap.com');
+  본다('⑬ 바닥 주소가 **모든 장**에 선다',
+    틀('', 1, 6, '100yearmap.com/report/area/가').includes('report/area/가') &&
+    틀('', 6, 6, '100yearmap.com/report/area/가').includes('report/area/가'));
+  // ⚠ 「PG붙었나 === true || true」로 썼다가 지웠다 — **늘 통과하는 검사는 재는 것이 없다**
 
   let 자료 = null;
   try { 자료 = 자료들(); } catch (e) { 본다(`⑦ 자료를 읽는다 (터졌다: ${e.message})`, false); }
@@ -287,6 +329,19 @@ function 자가시험() {
         }
       }
       본다(`⑨ 카드의 수가 전부 근거에 있다${못댄것.length ? ` — 못 댄 것: ${못댄것.slice(0, 3).join(' · ')}` : ''}`, 못댄것.length === 0);
+
+      /* 🔴 8/13 — **카드가 지면보다 앞서 「살 수 있다」고 말하면 안 된다.**
+         PG 가 꺼져 있는데 「보실 수 있습니다」·값이 카드에 있으면 멈춘다.
+         (실제로 그렇게 나가 있었다. 값 지면은 「아직 결제를 받지 않습니다」인데 카드만 딴말을 했다) */
+      const 마무리글 = (짠것.장들.find((장) => 장.꼴 === '마무리')?.줄들 ?? []).join(' ');
+      본다(
+        `⑭ ⛔ PG 전에 「보실 수 있습니다」·값을 적지 않는다${PG붙었나 ? ' (지금 PG 켜져 있음)' : ''}`,
+        PG붙었나 ? 마무리글.includes(값글자) : !마무리글.includes('보실 수 있습니다') && !마무리글.includes(값글자),
+      );
+      /* ⚠ 주소는 **본문이 아니라 바닥**에 선다(본문에 넣었더니 화면 밖으로 잘렸다).
+         그러니 이 검사도 «바닥에 그 지역 주소가 있나」를 본다 — 그것이 데려오는 자리다 */
+      본다('⑮ 갈 곳이 카드 바닥에 선다',
+        틀('', 6, 6, 갈곳글자(짠것.slug)).includes(`report/area/${짠것.slug}`));
 
       const 온글 = 짠것.장들.flatMap((장) => [장.머리 ?? '', ...장.줄들]).join(' ');
       const 걸린말 = 금지말.filter((w) => 온글.includes(w));
@@ -328,7 +383,8 @@ for (const slug of 대상) {
   if (!짠것) { 건너뜀.push(slug); continue; }
   const 총 = 짠것.장들.length;
   for (let i = 0; i < 총; i++) {
-    const png = await sharp(Buffer.from(그리기(짠것.장들[i], i + 1, 총))).png().toBuffer();
+    // ⭐ 갈 곳을 **모든 장에** 넘긴다 — 마지막 장에만 두면 중간에 나간 사람은 못 온다
+    const png = await sharp(Buffer.from(그리기(짠것.장들[i], i + 1, 총, 갈곳글자(짠것.slug)))).png().toBuffer();
     fs.writeFileSync(path.join(낼방, `${slug}-${i + 1}.png`), png);
     만든장++;
   }
