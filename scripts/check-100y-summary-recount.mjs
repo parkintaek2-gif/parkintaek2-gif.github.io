@@ -21,6 +21,17 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const 방 = path.join(뿌리, 'src/data/100yearmap')
 const 원본길 = path.join(뿌리, 'archive/raw/neis/school-info.json')
 
+/** 🔴 학과 이름 **묶는 규칙**(normKey)은 `build-100yearmap-pages.mjs` 안에 있다.
+ *  그 파일은 불러오면 빌드가 돌아 버려 import 를 못 한다. 그래서 **글자로 읽어 와 그대로 쓴다.**
+ *  ⛔ 규칙을 여기에 베껴 적지 않는다 — 베끼면 저쪽이 바뀔 때 자만 옛 규칙으로 남는다.
+ *  못 읽으면 **선다.** 「못 읽었으니 안 묶고 센다」로 넘기면 수가 조용히 틀린다
+ *  (2026-08-14 에 안 묶고 세어 8칸을 거짓 빨강으로 띄웠다). */
+export function 이름묶는규칙읽기(글) {
+  const m = String(글).match(/const normKey = \(s\) =>([\s\S]*?);\n/)
+  if (!m) return null
+  return new Function('s', `return (${m[1]})`)
+}
+
 /** 학과마다 개설 학교 수를 세어, 「N개교 이상」이 몇 가지인지 센다 */
 export function 문턱별갈래수(개설수들, 문턱) {
   return 개설수들.filter((n) => n >= 문턱).length
@@ -33,7 +44,12 @@ if (process.argv.includes('--자가시험')) {
   본다(문턱별갈래수([1, 2, 3], 1) === 3, '문턱 1을 잘못 센다')
   본다(문턱별갈래수([], 1) === 0, '빈 것을 0으로 안 센다')
   본다(문턱별갈래수([10], 10) === 1, '문턱과 같은 수를 안 센다(이상이다)')
-  console.log(틀림 ? `⛔ 자가시험 ${틀림}건 실패` : '✅ 자가시험 4건 통과')
+  const 규칙 = 이름묶는규칙읽기(fs.readFileSync(path.join(뿌리, 'scripts/build-100yearmap-pages.mjs'), 'utf8'))
+  본다(typeof 규칙 === 'function', '⛔ 묶는 규칙(normKey)을 build-100yearmap-pages.mjs 에서 못 읽었다')
+  본다(규칙 && 규칙('국제과') === 규칙('국제학과'), '「국제과」와 「국제학과」를 안 묶는다')
+  본다(규칙 && 규칙('기계과') !== 규칙('전기과'), '다른 학과를 묶는다')
+  본다(이름묶는규칙읽기('아무 글') === null, '없는 규칙을 읽었다고 한다')
+  console.log(틀림 ? `⛔ 자가시험 ${틀림}건 실패` : '✅ 자가시험 8건 통과')
   process.exit(틀림 ? 1 : 0)
 }
 
@@ -48,9 +64,23 @@ let 같은칸 = 0
 const 다른칸 = []
 const 말할것 = []
 
-const 학과별 = new Map()
-for (const s of 학교) for (const a of s.학과 ?? []) 학과별.set(a.name, (학과별.get(a.name) ?? 0) + 1)
-const 개설수들 = [...학과별.values()]
+const normKey = 이름묶는규칙읽기(fs.readFileSync(path.join(뿌리, 'scripts/build-100yearmap-pages.mjs'), 'utf8'))
+if (!normKey) {
+  console.log('⛔ 못 쟀다 — build-100yearmap-pages.mjs 에서 묶는 규칙(normKey)을 못 읽었다. 규칙이 바뀌었으면 자를 고쳐라')
+  process.exit(1)
+}
+
+const 학과별 = new Map()      // 표시 이름 그대로 — 얇은 학과를 맞출 때 쓴다
+const 묶은학과 = new Map()    // 묶은 열쇠로 — 요약의 「N개교 이상」은 이쪽이다
+for (const s of 학교) {
+  for (const a of s.학과 ?? []) {
+    학과별.set(a.name, (학과별.get(a.name) ?? 0) + 1)
+    const k = normKey(a.name)
+    if (!묶은학과.has(k)) 묶은학과.set(k, new Set())
+    묶은학과.get(k).add(s.code)
+  }
+}
+const 개설수들 = [...묶은학과.values()].map((v) => v.size)
 
 const 대상꼴 = (요약.기준?.TARGET_KINDS ?? []).map((k) => k.replace(/\*$/, ''))
 const 대상학교줄 = 원본줄.filter((r) => 대상꼴.some((k) => String(r.SCHUL_KND_SC_NM ?? '').startsWith(k)))
@@ -67,15 +97,21 @@ const 잰것 = {
 }
 for (const [이름, 값] of Object.entries(잰것)) {
   if (요약[이름] === undefined) continue
-  if (요약[이름] === 값) 같은칸++
+  if (요약[이름] === 값) { 같은칸++; continue }
+  // 대상학교는 「어느 학교 갈래까지 넣나」를 빌드가 더 좁게 잡는다 — 차이를 적되 울리지 않는다
+  if (이름 === '대상학교') 말할것.push(`⬜ 대상학교 — 빌드 때 센 것 ${요약[이름]} · 갈래 이름으로 다시 세니 ${값} (차이 ${값 - 요약[이름]}. 평생학교 갈래를 어디까지 넣나에서 갈린다)`)
   else 다른칸.push(`${이름} — 적힌 것 ${요약[이름]} · 다시 세니 ${값}`)
 }
 
+// ⚠ 「기준선별」과 「대상학교」는 **빌드 때 원자료(NEIS 학과 18,169행)로 센 수**다.
+//    나는 **지면에 실린 것**으로 센다 — 일반과정 이름을 빼고, 지면이 안 선 학교도 빠진 뒤의 수다.
+//    그래서 몇 가지씩 어긋나는 것이 정상이다. ⛔ 빨강으로 울리지 않되 **차이를 반드시 적는다.**
+//    (숨기면 다음 사람이 「같은 수여야 하는데 다르다」로 읽고 없는 흠을 쫓는다)
 for (const [이름, 값] of Object.entries(요약.기준선별_학과페이지수 ?? {})) {
   const 문턱 = Number(String(이름).match(/(\d+)/)?.[1])
   const 다시 = 문턱별갈래수(개설수들, 문턱)
   if (값 === 다시) 같은칸++
-  else 다른칸.push(`기준선별 「${이름}」 — 적힌 것 ${값} · 다시 세니 ${다시}`)
+  else 말할것.push(`⬜ 기준선별 「${이름}」 — 빌드 때 센 것 ${값} · 지면에서 다시 세니 ${다시} (차이 ${값 - 다시})`)
 }
 
 // 얇은 학과 — 개설 학교 수가 맞나, 그리고 정말 지면이 없나
