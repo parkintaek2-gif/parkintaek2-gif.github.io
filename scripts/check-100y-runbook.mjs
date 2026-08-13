@@ -98,6 +98,26 @@ const 잰것 = [];
   if (값 !== 'false') 흠.push('PG붙었나 가 켜져 있다. PG 와 1번 요금표가 먼저다 — 켜면 손님이 「잘못된 주문」을 본다');
 }
 
+// ⑤ 살림 나이띠가 «겹치는 쌍»이 늘지 않았나
+//    8/13 에 셋을 쟀다. 늘면 지면에서 두 번 세어질 위험이 커진 것이다 — 알고 지나가야 한다
+{
+  const 구간 = (이름) => {
+    let m;
+    if ((m = /^(\d+)세 이하$/.exec(이름))) return [0, Number(m[1])];
+    if ((m = /^(\d+)세 이상$/.exec(이름))) return [Number(m[1]), 200];
+    if ((m = /^(\d+)~(\d+)세$/.exec(이름))) return [Number(m[1]), Number(m[2])];
+    return null;
+  };
+  const 자료 = JSON.parse(읽기('src/data/100yearmap/age-axis.json'));
+  const 띠 = Object.keys(자료.살림 ?? {}).map((이름) => ({ 이름, 구간: 구간(이름) })).filter((x) => x.구간);
+  let 겹침 = 0;
+  for (let i = 0; i < 띠.length; i++)
+    for (let k = i + 1; k < 띠.length; k++)
+      if (Math.max(띠[i].구간[0], 띠[k].구간[0]) <= Math.min(띠[i].구간[1], 띠[k].구간[1])) 겹침++;
+  잰것.push('⑤ 살림 나이띠 겹친 쌍 — ' + 겹침 + '개' + (겹침 === 3 ? '  ✅ 8/13 에 잰 그대로' : '  🔴 바뀌었다'));
+  if (겹침 !== 3) 흠.push('살림 나이띠 겹친 쌍이 3 에서 ' + 겹침 + ' 로 바뀌었다 — 더하는 곳이 없는지 본다');
+}
+
 console.log('# 개봉 차례표 ↔ 코드');
 for (const 줄 of 잰것) console.log('  ' + 줄);
 
