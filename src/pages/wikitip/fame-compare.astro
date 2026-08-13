@@ -1,0 +1,176 @@
+---
+/**
+ * K Culture Wire — **연예인이 선수보다 높은가.** (`/fame-compare`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   사장님 물음(8/13) — 「연예인들은 수치가 어떻게 돼? 스포츠스타보다 비교가 안되게 높나?」
+ *   ⭐ 답은 **아니다**. 그런데 재 보니 다른 것이 셋 나왔다 — 꼭대기가 아니라 **층·나라·모양**이다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ 한 줄 순위표로 섞지 않는다. 무리를 **나란히** 놓고 모양이 어떻게 다른지를 낸다.
+ * ⛔ 배우 명단이 무엇인지 감추지 않는다 — **넷플릭스 차트 작품의 출연진**이지 연예인 전부가 아니다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-fame-compare.json` 에서 읽는다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-fame-compare.json';
+
+const 문턱 = [50, 100, 200, 300];
+
+const TITLE = 'Korean entertainers are not read more than Korean athletes in Southeast Asia — they are read more widely';
+const DESC =
+  `We measured ${d.groups.map((g) => g.people).reduce((a, b) => a + b, 0).toLocaleString('en-US')} Koreans `
+  + 'with the same instrument: reads of their Wikipedia article in the Indonesian, Vietnamese, Thai '
+  + `and Malay editions over twelve months. ${d.topAthleteName} outscores every entertainer in the `
+  + 'panel. The difference is in the band beneath him, and in which country does the reading.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/fame-compare">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">{d.answer}</p>
+  <p class="q">
+    Most-read athlete <b>{d.topAthleteTotal}</b> · most-read entertainer <b>{d.topActorTotal}</b>.
+    Entertainers above the top athlete: <b>{d.actorsAboveTopAthlete}</b>.
+    {d.entertainerLeadsOverall
+      ? ' On this measure the entertainers lead outright.'
+      : ' So the ceiling belongs to sport, and everything interesting is underneath it.'}
+  </p>
+
+  <section>
+    <h2>Three groups, one instrument</h2>
+    <p class="note">
+      <b>{d.unit}</b> The same four editions, the same twelve months, the same scaling for all three
+      groups — otherwise the comparison would be measuring the encyclopaedias rather than the people.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Group</th><th>People</th><th>Most read</th><th>Their total</th>
+          <th>Median</th>{문턱.map((t) => <th>Above {t}</th>)}</tr></thead>
+        <tbody>
+          {d.groups.map((g) => (
+            <tr>
+              <td class="nm">{g.label}</td>
+              <td>{g.people.toLocaleString('en-US')}</td>
+              <td class="nm">{g.top}</td>
+              <td class="tot">{g.topTotal}</td>
+              <td>{g.median}</td>
+              {문턱.map((t) => <td>{g.aboveThreshold[String(t)]}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The ceiling belongs to the athletes and the band beneath belongs to the entertainers. Compare
+      the median column against the "most read" column: they point in opposite directions.
+    </p>
+  </section>
+
+  <section>
+    <h2>Which country does the reading</h2>
+    <p class="note">
+      Each group's four-country total, split by country. This is where the two shapes separate most
+      sharply.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Group</th>{d.editions.map((e) => <th>{e.country}</th>)}</tr></thead>
+        <tbody>
+          {d.groups.map((g) => (
+            <tr>
+              <td class="nm">{g.label}</td>
+              {g.byCountry.map((c) => <td>{c.sharePc}%</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The most-read entertainers</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Name</th>{d.editions.map((e) => <th>{e.country}</th>)}<th>Total</th></tr></thead>
+        <tbody>
+          {d.topActors.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => (
+                <td>{x.perMillion[e.code] ?? '—'}
+                  <span class="fine">{x.views[e.code] !== null
+                    ? ` (${x.views[e.code].toLocaleString('en-US')})` : ''}</span></td>
+              ))}
+              <td class="tot">{x.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The most-read athletes</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Name</th>{d.editions.map((e) => <th>{e.country}</th>)}<th>Total</th></tr></thead>
+        <tbody>
+          {d.topAthletes.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              {d.editions.map((e) => (
+                <td>{x.perMillion[e.code] ?? '—'}
+                  <span class="fine">{x.views[e.code] !== null
+                    ? ` (${x.views[e.code].toLocaleString('en-US')})` : ''}</span></td>
+              ))}
+              <td class="tot">{x.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="warn-box">
+    <h2>What this panel is, and is not</h2>
+    <p class="warn">{d.actorPanelCaveat}</p>
+    <p class="note"><b>Panel</b> — {d.actorPanel}.</p>
+    <p class="warn">{d.cannotAnswer}</p>
+    <p class="warn">{d.whyNotPhilippines}</p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      {d.editions.map((e) => (
+        <li>{e.country} — {(e.editionReads / 1e6).toFixed(0)}M reads of the whole edition in the window</li>
+      ))}
+    </ul>
+    <p class="note">
+      <a href="/sea-athletes">The athletes in full</a> · <a href="/about">How we count</a> ·{' '}
+      <a href="/corrections">What we have corrected</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/fame-compare" />
+</WikiTip>
+
+<style>
+  .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
+</style>

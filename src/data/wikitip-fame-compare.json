@@ -1,0 +1,485 @@
+{
+  "generated": "2026-08-13T10:48:09.918Z",
+  "source": "Wikidata (CC0) for article links; Wikimedia Pageviews API for reads",
+  "window": "2025-08 through 2026-07, 12 months, human traffic only",
+  "unit": "Reads per million reads of the whole language edition, summed across the four editions, 12 months. One row is one person.",
+  "editions": [
+    {
+      "code": "id",
+      "country": "Indonesia",
+      "editionReads": 838471174
+    },
+    {
+      "code": "vi",
+      "country": "Vietnam",
+      "editionReads": 595288447
+    },
+    {
+      "code": "th",
+      "country": "Thailand",
+      "editionReads": 368636347
+    },
+    {
+      "code": "ms",
+      "country": "Malaysia",
+      "editionReads": 162947106
+    }
+  ],
+  "question": "Are Korean entertainers looked up far more than Korean athletes in Southeast Asia?",
+  "groups": [
+    {
+      "group": "actors",
+      "label": "Actors and singers",
+      "people": 1023,
+      "top": "Go Youn-jung",
+      "topTotal": 273.06,
+      "median": 2.95,
+      "aboveThreshold": {
+        "50": 83,
+        "100": 22,
+        "200": 7,
+        "300": 0
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 5198.7,
+          "sharePc": 36
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 4031.9,
+          "sharePc": 27.9
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 4085.9,
+          "sharePc": 28.3
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 1125.1,
+          "sharePc": 7.8
+        }
+      ]
+    },
+    {
+      "group": "athletes",
+      "label": "Athletes",
+      "people": 877,
+      "top": "Son Heung-min",
+      "topTotal": 342.3,
+      "median": 0.15,
+      "aboveThreshold": {
+        "50": 9,
+        "100": 2,
+        "200": 2,
+        "300": 1
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 201.7,
+          "sharePc": 10.9
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 1321.4,
+          "sharePc": 71.5
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 187,
+          "sharePc": 10.1
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 137.8,
+          "sharePc": 7.5
+        }
+      ]
+    },
+    {
+      "group": "managers",
+      "label": "Managers who also played",
+      "people": 48,
+      "top": "Kim Sang-sik",
+      "topTotal": 137.78,
+      "median": 0.44,
+      "aboveThreshold": {
+        "50": 3,
+        "100": 1,
+        "200": 0,
+        "300": 0
+      },
+      "byCountry": [
+        {
+          "edition": "id",
+          "country": "Indonesia",
+          "perMillion": 93.3,
+          "sharePc": 25
+        },
+        {
+          "edition": "vi",
+          "country": "Vietnam",
+          "perMillion": 234.9,
+          "sharePc": 62.9
+        },
+        {
+          "edition": "th",
+          "country": "Thailand",
+          "perMillion": 19.2,
+          "sharePc": 5.1
+        },
+        {
+          "edition": "ms",
+          "country": "Malaysia",
+          "perMillion": 26.1,
+          "sharePc": 7
+        }
+      ]
+    }
+  ],
+  "topActors": [
+    {
+      "name": "Go Youn-jung",
+      "perMillion": {
+        "id": 65.88,
+        "vi": 96.35,
+        "th": 110.83,
+        "ms": null
+      },
+      "views": {
+        "id": 55235,
+        "vi": 57354,
+        "th": 40856,
+        "ms": null
+      },
+      "total": 273.06
+    },
+    {
+      "name": "Byeon Woo-seok",
+      "perMillion": {
+        "id": 75.98,
+        "vi": 59.79,
+        "th": 106.46,
+        "ms": 21.63
+      },
+      "views": {
+        "id": 63705,
+        "vi": 35593,
+        "th": 39246,
+        "ms": 3524
+      },
+      "total": 263.86
+    },
+    {
+      "name": "Kim Seon-ho",
+      "perMillion": {
+        "id": 53.85,
+        "vi": 60.86,
+        "th": 91.8,
+        "ms": 14.05
+      },
+      "views": {
+        "id": 45155,
+        "vi": 36231,
+        "th": 33840,
+        "ms": 2290
+      },
+      "total": 220.56
+    },
+    {
+      "name": "IU",
+      "perMillion": {
+        "id": 46.4,
+        "vi": 68.06,
+        "th": 82.08,
+        "ms": 12.03
+      },
+      "views": {
+        "id": 38902,
+        "vi": 40517,
+        "th": 30258,
+        "ms": 1961
+      },
+      "total": 208.57
+    },
+    {
+      "name": "Im Yoon-ah",
+      "perMillion": {
+        "id": 48.75,
+        "vi": 47.2,
+        "th": 96.6,
+        "ms": 13.14
+      },
+      "views": {
+        "id": 40877,
+        "vi": 28098,
+        "th": 35609,
+        "ms": 2141
+      },
+      "total": 205.69
+    },
+    {
+      "name": "Cha Eun-woo",
+      "perMillion": {
+        "id": 51.85,
+        "vi": 55.8,
+        "th": 68.57,
+        "ms": 24.11
+      },
+      "views": {
+        "id": 43478,
+        "vi": 33215,
+        "th": 25276,
+        "ms": 3928
+      },
+      "total": 200.33
+    },
+    {
+      "name": "Lee Chae-min",
+      "perMillion": {
+        "id": 79.66,
+        "vi": 21.72,
+        "th": 98.8,
+        "ms": null
+      },
+      "views": {
+        "id": 66789,
+        "vi": 12931,
+        "th": 36423,
+        "ms": null
+      },
+      "total": 200.18
+    },
+    {
+      "name": "Bae Suzy",
+      "perMillion": {
+        "id": 34.21,
+        "vi": 60.81,
+        "th": 59.14,
+        "ms": 11.74
+      },
+      "views": {
+        "id": 28685,
+        "vi": 36197,
+        "th": 21801,
+        "ms": 1913
+      },
+      "total": 165.9
+    },
+    {
+      "name": "Song Hye-kyo",
+      "perMillion": {
+        "id": 46.05,
+        "vi": 43.04,
+        "th": 55.09,
+        "ms": 10.28
+      },
+      "views": {
+        "id": 38610,
+        "vi": 25622,
+        "th": 20308,
+        "ms": 1675
+      },
+      "total": 154.46
+    },
+    {
+      "name": "Jisoo",
+      "perMillion": {
+        "id": 33.68,
+        "vi": 53.13,
+        "th": 53.39,
+        "ms": 8.58
+      },
+      "views": {
+        "id": 28236,
+        "vi": 31629,
+        "th": 19682,
+        "ms": 1398
+      },
+      "total": 148.78
+    },
+    {
+      "name": "Park Ji-hoon",
+      "perMillion": {
+        "id": 46.55,
+        "vi": 48.07,
+        "th": 19.22,
+        "ms": 14.58
+      },
+      "views": {
+        "id": 39030,
+        "vi": 28613,
+        "th": 7084,
+        "ms": 2375
+      },
+      "total": 128.42
+    },
+    {
+      "name": "Lee Min-ho",
+      "perMillion": {
+        "id": 38.24,
+        "vi": 36.31,
+        "th": 41.32,
+        "ms": 12.24
+      },
+      "views": {
+        "id": 32059,
+        "vi": 21617,
+        "th": 15233,
+        "ms": 1994
+      },
+      "total": 128.11
+    }
+  ],
+  "topAthletes": [
+    {
+      "name": "Son Heung-min",
+      "perMillion": {
+        "id": 80.98,
+        "vi": 144.63,
+        "th": 104.99,
+        "ms": 11.7
+      },
+      "views": {
+        "id": 67903,
+        "vi": 86094,
+        "th": 38704,
+        "ms": 1907
+      },
+      "total": 342.3
+    },
+    {
+      "name": "Faker",
+      "perMillion": {
+        "id": null,
+        "vi": 250.45,
+        "th": 9.66,
+        "ms": 3.63
+      },
+      "views": {
+        "id": null,
+        "vi": 149088,
+        "th": 3562,
+        "ms": 591
+      },
+      "total": 263.74
+    },
+    {
+      "name": "Peanut",
+      "perMillion": {
+        "id": null,
+        "vi": 96.19,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 57263,
+        "th": null,
+        "ms": null
+      },
+      "total": 96.19
+    },
+    {
+      "name": "Lee Min-hyung",
+      "perMillion": {
+        "id": null,
+        "vi": 88.57,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 52724,
+        "th": null,
+        "ms": null
+      },
+      "total": 88.57
+    },
+    {
+      "name": "Jung Ji-hun",
+      "perMillion": {
+        "id": null,
+        "vi": 78.48,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 46718,
+        "th": null,
+        "ms": null
+      },
+      "total": 78.48
+    },
+    {
+      "name": "Park Ji-Sung",
+      "perMillion": {
+        "id": 20.82,
+        "vi": 29.56,
+        "th": 17.9,
+        "ms": 6.16
+      },
+      "views": {
+        "id": 17453,
+        "vi": 17598,
+        "th": 6599,
+        "ms": 1004
+      },
+      "total": 74.44
+    },
+    {
+      "name": "Kim Soo-hwan",
+      "perMillion": {
+        "id": null,
+        "vi": 72.5,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 43161,
+        "th": null,
+        "ms": null
+      },
+      "total": 72.5
+    },
+    {
+      "name": "Ryu Min-seok",
+      "perMillion": {
+        "id": null,
+        "vi": 68.31,
+        "th": null,
+        "ms": null
+      },
+      "views": {
+        "id": null,
+        "vi": 40665,
+        "th": null,
+        "ms": null
+      },
+      "total": 68.31
+    }
+  ],
+  "entertainerLeadsOverall": false,
+  "actorsAboveTopAthlete": 0,
+  "topAthleteName": "Son Heung-min",
+  "topAthleteTotal": 342.3,
+  "topActorTotal": 273.06,
+  "answer": "No. The most-read athlete, Son Heung-min, scores 342.3, and not one of the 1,023 entertainers in this panel is above him. What differs is the band beneath: the entertainers fill it and the athletes do not.",
+  "actorPanel": "Korean actors credited on a title that reached a Netflix country chart",
+  "actorPanelCaveat": "This is not every Korean celebrity. It is the cast of Korean titles that reached a Netflix country chart, which is the panel the rest of our data is built on. A singer or idol who never appeared in one of those titles is not here.",
+  "cannotAnswer": "Reading an encyclopaedia article is not liking someone. This counts people looking someone up. Readers in these four countries also use the English Wikipedia, which cannot be split by country, so every figure here is a floor on interest, not a measure of it.",
+  "whyNotPhilippines": "Tagalog Wikipedia is too small to measure with — the whole edition draws fewer reads in a year than a single popular article does elsewhere, and Filipino readers largely use the English edition. We do not report a Philippines number rather than report a weak one."
+}
