@@ -181,6 +181,9 @@ export const GET: APIRoute = async () => {
     /* 86편째 기사의 표. 2026-08-14 — 사장님 지도 시장 조사 지시.
        ⛔ 가게는 못 잰다(위키에 식당 문서가 없다). TourAPI 열쇠가 있어야 얹힌다 */
     { path: '/places', priority: '0.9', changefreq: 'weekly' },
+    /* 87편째 기사의 표. 2026-08-14 — 76편이 못 읽은 것을 자를 바꿔 읽었다.
+       ⚠ 76편을 안 지운다. 76편이 옳았고 여기서 자를 바꿨다 */
+    { path: '/titles-to-name', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
