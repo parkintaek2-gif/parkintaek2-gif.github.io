@@ -147,6 +147,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'They agree on the quiet month, not the busy one',
     caption: 'Five cards: when Southeast Asia looks up a Korean trip, and when the planes fill.',
   },
+  {
+    set: 'control',
+    page: '/what-actually-fell',
+    count: 5,
+    title: 'A number fell by a third. It was the wrong story',
+    caption: 'Five cards: what a control group did to a headline we had already written.',
+  },
 ];
 
 /**
@@ -189,6 +196,13 @@ const videoSets = [
     title: 'They agree on the quiet month, not the busy one',
     description: '14 seconds on when Southeast Asia looks up a Korean trip, when the planes fill, '
       + 'and the one month both fall lowest.',
+  },
+  {
+    set: 'control',
+    page: '/what-actually-fell',
+    title: 'A number fell by a third. It was the wrong story',
+    description: '14 seconds on what a control group did to a headline about Korea that had '
+      + 'already been written, and on the one figure in the table that rose.',
   },
 ];
 

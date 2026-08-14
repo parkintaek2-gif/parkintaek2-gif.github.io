@@ -145,6 +145,33 @@ export function 철대본만들기(d) {
   ]);
 }
 
+/**
+ * 91편 대본 — 「무엇이 떨어졌나」(`/what-actually-fell`).
+ *
+ * ⭐ 열네 초에 들어가는 것은 **네 수 중 둘**뿐이다. 고른 둘은
+ *   「한국 여행이 떨어졌다」와 **「일본·대만 문화는 올랐다」**이다.
+ *   ⛔ 앞의 것만 말하면 우리가 안 쓰기로 한 헤드라인이 **소리로** 나간다. 둘은 붙어 다녀야 한다.
+ * ⚠ Piper 는 큰 수를 풀어 읽어 시간을 먹는다. 수는 둘만 말하고 나머지는 화면에 맡긴다.
+ */
+export function 대조대본만들기(d) {
+  /**
+   * 🔴 처음엔 「fell 30 percent」·「up 7 percent」로 읽혔다. 자료는 30.4 와 6.8 이다.
+   *   ⛔ **반올림한 수를 소리로 내면 화면의 표와 어긋난다.** 8/14 에 같은 자리에서 걸렸다.
+   *   ⭐ 그래서 소리는 **방향과 크기**만 말하고, 정확한 수는 화면에 맡긴다.
+   *     「a third」는 기사 제목과 같은 말이라 어긋날 것이 없다.
+   * ⚠ 마지막 줄이 오르내림의 부호를 뒤집어 말하면 안 되므로, 자료에서 부호를 직접 읽는다.
+   */
+  const 올랐나 = d.axes.culture.control > 0;
+  return 때매기기([
+    { 누가: '여', 말: 'Korean travel articles fell by a third.', 쉼: 0.5 },
+    { 누가: '남', 말: 'We nearly called that cooling interest.', 쉼: 0.5 },
+    /* ⭐ 이 줄이 기사의 뼈다 — 넷 중 유일하게 떨어지지 않은 칸 */
+    { 누가: '여', 말: `Japanese culture articles went ${올랐나 ? 'up' : 'down'} instead.`, 쉼: 0.6 },
+    /* ⚠ 마지막 줄은 짧게. 넘치면 잘려 반쪽이 된다 */
+    { 누가: '남', 말: 'It was travel, not Korea.', 쉼: 0 },
+  ]);
+}
+
 export function 대본만들기(d) {
   /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다
      🔴 8/14 실제 소리로 다시 매니 14.43초였다. Piper 가 큰 수(213)를 풀어 읽는다.
@@ -287,6 +314,7 @@ if (내가실행됐다) {
     brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: 브랜드대본만들기 },
     counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: 셈대본만들기 },
     season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: 철대본만들기 },
+    control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: 대조대본만들기 },
   };
   const j = process.argv.indexOf('--대본');
   const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';

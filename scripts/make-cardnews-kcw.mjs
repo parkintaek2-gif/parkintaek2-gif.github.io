@@ -47,6 +47,7 @@ export const 벌목록 = {
   brands: { 자료: 'src/data/wikitip-brand-kinds.json', 만들기: (d) => 브랜드벌짓기(d) },
   counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 만들기: (d) => 셈벌짓기(d) },
   season: { 자료: 'src/data/wikitip-look-vs-fly.json', 만들기: (d) => 철벌짓기(d) },
+  control: { 자료: 'src/data/wikitip-what-fell.json', 만들기: (d) => 대조벌짓기(d) },
 };
 
 /**
@@ -300,6 +301,88 @@ export function 한벌짓기(d) {
           + '**An ambassador announcement travels because\na Korean act is attached to it.**',
         길: `${주소}/fame-compare`,
         곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
+ * 대조 벌 — 91편째 기사의 표(`/what-actually-fell`).
+ *
+ * ⭐ 이야기 한 줄: **떨어진 수 하나로는 아무 말도 못 한다. 옆에 놓을 것이 있어야 한다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ 표지에 「−30%」만 크게 놓지 않는다. 그건 우리가 **안 쓰기로 한 헤드라인**이다.
+ *     ⭐ 큰 자리에는 **두 수를 나란히** 놓는다. 그래야 카드 한 장만 본 사람도 안 속는다.
+ *   ⛔ 「한국이 일본보다 더 떨어졌다」를 넣지 않는다. 우리 검사가 그 견줌을 뺏었다.
+ *   ⚠ 카드가 기사보다 앞서면 안 된다. 기사가 본문에서 버린 말은 카드에서도 버린다.
+ */
+export function 대조벌짓기(d) {
+  const 여 = d.axes.trip;
+  const 문 = d.axes.culture;
+  const 안 = d.axisAgainstAxis;
+  const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
+  const 뒤집힘 = d.rulerMatters.signFlips[0];
+
+  return {
+    갈피: 'what-actually-fell',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Four Southeast Asian Wikipedias · 12 months against 12',
+        큰: 'A number fell\nby a third.\nIt was the wrong\nstory.',
+        아래: `Korean travel articles fell **${몫(여.korea)}**. We nearly published that as `
+          + 'cooling interest in Korea. Then we measured something to put beside it.',
+      },
+      {
+        꼴: '수',
+        제목: 'The control group\nis the whole story',
+        큰: `${몫(여.korea)} vs ${몫(문.control)}`,
+        곁: 'Korean travel articles, then Japanese and Taiwanese culture articles',
+        아래: 'Travel articles fell for every country we measured.\nCulture articles about '
+          + 'Japan and Taiwan did not fall at all.',
+      },
+      {
+        꼴: '표',
+        제목: 'Two axes,\nfour numbers',
+        머리: ['Articles about', 'Korea', 'Japan & Taiwan'],
+        줄: [
+          ['Travelling there', 몫(여.korea), 몫(여.control)],
+          ['The place, its culture', 몫(문.korea), 몫(문.control)],
+        ],
+        아래: 'Reads per million reads of that edition, so an encyclopaedia shrinking overall '
+          + 'is already divided out. Read down the columns, not across the rows — the next '
+          + 'card says why.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          'Not that Korea fell further than Japan — matched for starting height that gap '
+            + `shrinks from ${Math.abs(d.heightCheck.culture.rawGap)} points to `
+            + `${Math.abs(d.heightCheck.culture.matchedGap)}`,
+          'Not that Southeast Asians stopped coming — Asian route passengers moved '
+            + `${몫(d.flights.asia.change)} over the same months`,
+          뒤집힘
+            ? `Not a one-month reading — ${뒤집힘.region} is ${몫(뒤집힘.oneMonth)} on one month `
+              + `and ${몫(뒤집힘.twelveMonths)} on twelve`
+            : 'Not a one-month reading — every figure here is twelve months against twelve',
+        ],
+        아래: 'A gap that survives only until both sides start from\nthe same place was the '
+          + 'starting place.',
+      },
+      {
+        꼴: '끝',
+        제목: 'What is left\nis inside Korea',
+        글: `Korea's travel pages fell **${몫(안.trip.change)}**, its culture pages `
+          + `**${몫(안.culture.change)}**. The culture pages start about `
+          + `**${안.verdict.startLevelRatio}× higher** and still fell less — the opposite of `
+          + 'what height would do.',
+        길: `${주소}/what-actually-fell`,
+        곁: 'Wikimedia Pageviews · KOSIS (Korea Airports Corporation)',
       },
     ],
   };

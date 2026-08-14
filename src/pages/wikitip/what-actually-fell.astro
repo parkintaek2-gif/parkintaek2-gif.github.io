@@ -26,6 +26,8 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-what-fell.json';
 
 const 여행 = d.axes.trip;
@@ -246,6 +248,12 @@ const jsonLd = {
     {d.cannotSay.map((s) => <p class="note">{s}</p>)}
     <p class="note">Flights — {d.flights.source}. Reads — Wikimedia pageviews, human traffic only.</p>
   </section>
+
+  <KcwCardnews set="control" count={5} />
+
+  <KcwShorts set="control"
+    says={`A man and a woman read out the four numbers, and the one that is not negative — `
+      + `the Japanese and Taiwanese culture articles, which rose.`} />
 
   <KcwRelatedArticles page="/what-actually-fell" />
 </WikiTip>
