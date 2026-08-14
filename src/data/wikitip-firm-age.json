@@ -1,7 +1,7 @@
 {
   "generated": "2026. 8. 8. 오후 3:08:42",
   "source": "Financial Supervisory Service (Korea), DART annual report employee disclosures — tenure, headcount and years since incorporation, for every listed company that discloses them",
-  "sourceKo": "DART (금융감독원 전자공시)(DART) — 근속·인원·설립 후 연수",
+  "sourceKo": "DART (금융감독원 전자공시) — 근속·인원·설립 후 연수",
   "method": "Tenure is weighted by headcount, so each figure is the average tenure of a person working in that group rather than of a company. Companies are then banded by their own age, so the comparison holds firm age roughly fixed.",
   "limit": "Listed companies only. Much of Korean content production is unlisted and files none of this, so nothing here describes those firms.",
   "thinThreshold": 5,
