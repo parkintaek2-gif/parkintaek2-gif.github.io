@@ -169,6 +169,13 @@ const videoSets = [
     description: '14 seconds on how four Southeast Asian Wikipedias read German car makers and '
       + 'luxury houses in opposite orders.',
   },
+  {
+    set: 'counting',
+    page: '/read-vs-visited',
+    title: 'Seoul has 25 districts. The tourist count can speak for five of them',
+    description: '14 seconds on what Korea\'s public admissions table can and cannot see about '
+      + 'its own capital.',
+  },
 ];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */

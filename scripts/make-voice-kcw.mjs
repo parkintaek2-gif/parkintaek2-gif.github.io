@@ -111,6 +111,21 @@ export function 브랜드대본만들기(d) {
   ]);
 }
 
+/**
+ * 89편 대본 — 「관광 집계가 다섯 구밖에 못 말한다」(`/read-vs-visited`).
+ * ⛔ 화면에 없는 수를 말하지 않는다.
+ * ⚠ Piper 가 큰 수를 풀어 읽어 오래 걸린다. 1,683,727 은 **말하지 않고** 화면에만 둔다.
+ */
+export function 셈대본만들기(d) {
+  return 때매기기([
+    { 누가: '여', 말: `Seoul has ${d.seoulDistrictsAll} districts.`, 쉼: 0.5 },
+    { 누가: '남', 말: `The tourist count can speak for ${d.districtsCompared}.`, 쉼: 0.6 },
+    { 누가: '여', 말: `In ${d.districtsWithNoCountedSite} of them, nothing is counted.`, 쉼: 0.5 },
+    /* ⚠ 마지막 줄은 짧게 */
+    { 누가: '남', 말: 'That is where counting stops.', 쉼: 0 },
+  ]);
+}
+
 export function 대본만들기(d) {
   /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다
      🔴 8/14 실제 소리로 다시 매니 14.43초였다. Piper 가 큰 수(213)를 풀어 읽는다.
@@ -251,6 +266,7 @@ if (내가실행됐다) {
     fame: { 자료: 'src/data/wikitip-fame-compare.json', 짓기: 대본만들기 },
     instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: 자대본만들기 },
     brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: 브랜드대본만들기 },
+    counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: 셈대본만들기 },
   };
   const j = process.argv.indexOf('--대본');
   const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';
