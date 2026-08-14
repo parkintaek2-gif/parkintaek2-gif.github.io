@@ -45,8 +45,14 @@ const 하드시한 = 60000;
  */
 export const 장소조건 = 'wdt:P17 wd:Q884 ; wdt:P625 ?좌표';
 
-export const 쪽크기 = 500;
+/**
+ * ⚠ 8/14 — 500씩 받다가 **태국판에서 세 번 죽었다.** 그 판 질의가 무겁다.
+ *   200으로 줄인다. 호출은 늘지만 하나하나가 가벼워 끝까지 간다.
+ */
+export const 쪽크기 = 200;
 export const 덩이 = 120;
+/** 🔴 제목 받은 것도 적어 둔다. 안 그러면 죽을 때마다 처음부터 다시 받는다 */
+export const 제목중간길 = 'archive/raw/wikipedia/sea-places.titles.json';
 
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -160,11 +166,23 @@ if (내가실행됐다) {
    *   ⛔ 「못 받았다」와 「없다」를 섞은 것이다. 내가 늘 금지하는 그것을 내가 했다.
    *   → 못 받은 판을 **표시하고 자료에 남긴다.** 그 판은 「0」이 아니라 **모른다**이다.
    */
+  /* 🔴 지난번에 받아 둔 제목을 이어받는다. 죽을 때마다 처음부터 받으면 영영 못 끝낸다 */
+  const 제목이미 = fs.existsSync(제목중간길)
+    ? JSON.parse(fs.readFileSync(제목중간길, 'utf8')) : { 제목: {}, 이름: {}, 끝난판: [] };
+  for (const [q, t] of Object.entries(제목이미.제목 ?? {})) 제목.set(q, t);
+  for (const [q, n] of Object.entries(제목이미.이름 ?? {})) 이름맵.set(q, n);
+  const 끝난판 = new Set(제목이미.끝난판 ?? []);
+  if (끝난판.size) console.log(`   ⭐ 지난번에 끝낸 판 ${[...끝난판].join(', ')} — 제목 ${제목.size}개를 이어받는다`);
+  const 제목적어두기 = () => fs.writeFileSync(제목중간길, JSON.stringify({
+    제목: Object.fromEntries(제목), 이름: Object.fromEntries(이름맵), 끝난판: [...끝난판],
+  }));
+
   const 막힌판 = [];
   for (const p of 동남아) {
+    if (끝난판.has(p)) { console.log(`   ${p.padEnd(4)} 이미 받았다`); continue; }
     let 받은 = 0;
     let 막혔나 = false;
-    for (let 쪽 = 0; 쪽 < 30; 쪽 += 1) {
+    for (let 쪽 = 0; 쪽 < 80; 쪽 += 1) {
       const 줄들 = await 스파클(`SELECT ?p ?pLabel ?a WHERE {
         ?p ${장소조건} .
         ?a schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> .
@@ -180,9 +198,11 @@ if (내가실행됐다) {
         if (줄.pLabel?.value) 이름맵.set(q, 줄.pLabel.value);
       }
       받은 += 줄들.length;
+      제목적어두기();                       /* 쪽마다 적어 둔다 — 죽어도 여기까지는 남는다 */
       if (줄들.length < 쪽크기) break;
     }
     if (막혔나) 막힌판.push(p);
+    else { 끝난판.add(p); 제목적어두기(); }
     console.log(`   ${p.padEnd(4)} ${받은}${막혔나 ? '  🔴 **못 받았다** — 0 이 아니라 모른다' : ''}`);
   }
   if (막힌판.length) {

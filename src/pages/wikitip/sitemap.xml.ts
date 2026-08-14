@@ -32,7 +32,42 @@ type Entry = {
   lastmod?: string;
   /** 그 지면을 대표하는 그림. 기사에만 붙는다 — 위 ⛔ 를 볼 것 */
   image?: { loc: string; title: string; caption: string };
+  /**
+   * 카드뉴스 여러 장. 2026-08-14 —
+   * 🔴 카드뉴스 15장을 서버에 올려 놓고 **사이트맵에도 어느 지면에도 안 걸어** 두었다.
+   *   서버에 있는 것과 걸린 것은 다르다. 안 걸면 검색이 못 보고, 만든 값이 0이다.
+   * ⛔ 손으로 적지 않는다. `cardnewsSets` 에서 뽑는다 — 벌이 늘면 저절로 따라온다.
+   */
+  images?: { loc: string; title: string; caption: string }[];
 };
+
+/**
+ * 카드뉴스 벌. `public/wikitip/cardnews/<이름>/01..05.png` 와 짝이 맞아야 한다.
+ * ⚠ 벌을 새로 만들면 여기 한 줄을 같이 넣는다 — 안 넣으면 검색이 그 벌을 모른다.
+ */
+const cardnewsSets: { set: string; page: string; count: number; title: string; caption: string }[] = [
+  {
+    set: 'fame',
+    page: '/fame-compare',
+    count: 5,
+    title: 'One Korean act outreads Son Heung-min in Southeast Asia',
+    caption: 'Five cards: BTS, Son Heung-min and the brands they front, on one scale.',
+  },
+  {
+    set: 'manager',
+    page: '/sea-athletes',
+    count: 5,
+    title: 'A Korean football manager is read where he was hired',
+    caption: 'Five cards: players spread across the region, managers concentrate in one country.',
+  },
+  {
+    set: 'malaysia',
+    page: '/malaysia',
+    count: 5,
+    title: 'Malaysia reads Korean brands more readily than Korean people',
+    caption: 'Five cards: four groups in a narrow band, one well outside it.',
+  },
+];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */
 const xml = (s: string) =>
@@ -205,6 +240,22 @@ export const GET: APIRoute = async () => {
     });
   }
 
+  /**
+   * 🔴 2026-08-14 — 카드뉴스를 그 지면 줄에 **그림으로 붙인다.**
+   *   지면은 이미 목록에 있으니 새 줄을 만들지 않는다. 그림만 얹는다.
+   * ⛔ 짝이 되는 지면이 목록에 없으면 **조용히 넘기지 않고 던진다** —
+   *   조용히 넘기면 오늘 겪은 그 일(만들어 놓고 안 걸림)이 그대로 되풀이된다.
+   */
+  for (const c of cardnewsSets) {
+    const 줄 = entries.find((e) => e.path === c.page);
+    if (!줄) throw new Error(`카드뉴스 ${c.set} 의 짝 지면 ${c.page} 이 사이트맵에 없다`);
+    줄.images = Array.from({ length: c.count }, (_, i) => ({
+      loc: `${ORIGIN}/cardnews/${c.set}/${String(i + 1).padStart(2, '0')}.png`,
+      title: c.title,
+      caption: c.caption,
+    }));
+  }
+
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
@@ -214,11 +265,11 @@ ${entries
     if (e.lastmod) 줄.push(`    <lastmod>${e.lastmod}</lastmod>`);
     줄.push(`    <changefreq>${e.changefreq}</changefreq>`);
     줄.push(`    <priority>${e.priority}</priority>`);
-    if (e.image) {
+    for (const img of [...(e.image ? [e.image] : []), ...(e.images ?? [])]) {
       줄.push('    <image:image>');
-      줄.push(`      <image:loc>${e.image.loc}</image:loc>`);
-      줄.push(`      <image:title>${xml(e.image.title)}</image:title>`);
-      줄.push(`      <image:caption>${xml(e.image.caption)}</image:caption>`);
+      줄.push(`      <image:loc>${img.loc}</image:loc>`);
+      줄.push(`      <image:title>${xml(img.title)}</image:title>`);
+      줄.push(`      <image:caption>${xml(img.caption)}</image:caption>`);
       줄.push('    </image:image>');
     }
     return `  <url>\n${줄.join('\n')}\n  </url>`;

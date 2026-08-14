@@ -1,0 +1,52 @@
+---
+/**
+ * K Culture Wire — **카드뉴스로 가는 문.**
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ * 🔴 2026-08-14 에 세어 보니 카드뉴스 15장이 서버에 올라가 있는데
+ *   **사이트맵에도 어느 지면에도 안 걸려 있었다.** 만든 값이 0이었다.
+ * 🔴 사장님(8/13): 「이건 **외부유입용** 콘텐트 역할도 하고, 우리를 알리는 거니까」
+ *   → 그러면 사람이 **집어 갈 수 있어야** 한다. 서버에 있는 것과 걸린 것은 다르다.
+ *
+ * ── ⛔ 지키는 것 ──────────────────────────────────────────────
+ * ⛔ 벌이 없으면 **아무것도 안 그린다.** 빈 「카드뉴스」 상자는 없는 것만 못하다.
+ * ⚠ 넘겨 보게 하지 않는다 — 다섯 장을 **한 줄로 늘어놓고** 옆으로 밀게 한다.
+ *   넘김 단추를 만들면 자바스크립트가 필요하고, 정적 지면에서 그것은 값이 안 맞는다.
+ */
+interface Props {
+  /** 벌 이름. `public/wikitip/cardnews/<벌>/01.png` 다 */
+  set: string;
+  /** 몇 장인가. ⚠ 손으로 적지 않게 부르는 쪽에서 넘긴다 */
+  count?: number;
+  heading?: string;
+}
+const { set, count = 5, heading = 'Card set — free to share' } = Astro.props;
+const 장 = Array.from({ length: count }, (_, i) => `/cardnews/${set}/${String(i + 1).padStart(2, '0')}.png`);
+---
+
+<section class="kcw-cards">
+  <h2>{heading}</h2>
+  <p class="note">
+    Five cards, 1080×1350. Every figure on them is in the table on this page. Take them.
+  </p>
+  <div class="strip">
+    {장.map((src, i) => (
+      <a href={src} target="_blank" rel="noopener">
+        <img src={src} alt={`Card ${i + 1} of ${count}`} width="216" height="270" loading="lazy" />
+      </a>
+    ))}
+  </div>
+</section>
+
+<style>
+  .kcw-cards { margin: 2.5rem 0; }
+  .strip {
+    display: flex; gap: 0.75rem; overflow-x: auto; padding-bottom: 0.5rem;
+    scroll-snap-type: x mandatory;
+  }
+  .strip a { flex: none; scroll-snap-align: start; }
+  .strip img {
+    display: block; width: 216px; height: auto; border-radius: 6px;
+    border: 1px solid #2a2438;
+  }
+</style>

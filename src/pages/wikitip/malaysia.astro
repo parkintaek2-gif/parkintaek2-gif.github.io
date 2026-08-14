@@ -17,6 +17,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-malaysia.json';
 
 const TITLE = 'Malaysia reads Korean brands nearly three times as readily as it reads Korean people';
@@ -133,6 +134,7 @@ const jsonLd = {
     </p>
   </section>
 
+  <KcwCardnews set="malaysia" count={5} />
   <KcwRelatedArticles page="/malaysia" />
 </WikiTip>
 

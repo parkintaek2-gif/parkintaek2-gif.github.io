@@ -123,10 +123,28 @@ if (process.argv[1] && process.argv[1].endsWith('check-search-readiness.mjs')) {
     if (그림들.length && new Set(그림들).size < 그림들.length) {
       문제.push(`🔴 사이트맵의 그림 ${그림들.length}개가 ${new Set(그림들).size}가지뿐이다 — 같은 그림을 나눠 쓴다`);
     }
-    /* ⚠ 자료 지면에는 일부러 안 단다. 그런데 **실수로 붙었는지**도 본다 */
-    const 지면에붙은 = 지면.map((f) => `/${f.replace('.html', '')}`).filter((p) => (짝.get(p) || []).length);
-    if (지면에붙은.length) {
-      문제.push(`⚠ 자료 지면에 그림이 붙었다 ${지면에붙은.length}장: ${지면에붙은.slice(0, 3).join(' · ')} — 그 지면에 없는 그림을 있다고 말하게 된다`);
+    /**
+     * ⚠ 자료 지면에 그림이 붙었나.
+     *
+     * 🔴 2026-08-14 — 처음엔 「자료 지면이면 무조건 안 된다」로 잡았다. 그런데 그 규칙의
+     *   **원래 뜻은 「없는 그림을 있다고 하지 마라」**다. 기본 카드를 스물몇 장에 똑같이
+     *   달던 것을 막으려던 자였다.
+     * ⭐ 그날 카드뉴스를 지면에 **실제로 걸었다.** 그림이 그 지면 HTML 안에 있는데도
+     *   이 자가 섰다 — 자가 뜻보다 넓었다. 그래서 **HTML 안에 정말 있는지**로 좁힌다.
+     * ⛔ 그래도 「HTML 에 없는데 사이트맵에만 있는 그림」은 그대로 잡는다. 그게 거짓 신호다.
+     */
+    const 거짓말하는지면 = [];
+    for (const f of 지면) {
+      const p = `/${f.replace('.html', '')}`;
+      const gs = 짝.get(p) || [];
+      if (!gs.length) continue;
+      const html = fs.readFileSync(path.join(D, f), 'utf8');
+      const 없는것 = gs.filter((g) => !html.includes(g.replace(ORIGIN, '')));
+      if (없는것.length) 거짓말하는지면.push(`${p}(${없는것.length}장)`);
+    }
+    if (거짓말하는지면.length) {
+      문제.push(`⚠ 자료 지면이 **지면에 없는 그림**을 사이트맵에 실었다 ${거짓말하는지면.length}장: `
+        + `${거짓말하는지면.slice(0, 3).join(' · ')}`);
     }
     console.log(`사이트맵 ${실린주소.length}줄 · 그림 ${그림들.length}개(${new Set(그림들).size}가지) · 기사 ${기사.length}편 · 지면 ${지면.length}장`);
   }

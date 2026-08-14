@@ -17,6 +17,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-sea-athletes.json';
 
 const 종목이름: Record<string, string> = {
@@ -199,6 +200,7 @@ const jsonLd = {
     </p>
   </section>
 
+  <KcwCardnews set="manager" count={5} />
   <KcwRelatedArticles page="/sea-athletes" />
 </WikiTip>
 
