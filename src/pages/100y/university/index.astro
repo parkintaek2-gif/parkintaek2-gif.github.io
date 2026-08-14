@@ -42,7 +42,10 @@ const desc =
 <HundredYear title="대학 찾기" description={desc}>
   <h1>대학 찾기</h1>
   <p class="sub">
-    전국 <strong>{전체}곳</strong>입니다 —
+    {/* 🔴 2026-08-14 — `—` 뒤에 빈칸이 사라져 「377곳입니다 —대학교 222」로 붙어 있었다.
+        줄 끝 빈칸은 JSX 가 지운다. **{' '} 로 또렷이 적어야** 남는다.
+        폰으로 넘겨 보고 잡았다. 2번이 같은 날 SeoulMarkets 에서 잡은 「KOSPI's06/22」와 같은 결이다 */}
+    전국 <strong>{전체}곳</strong>입니다 —{' '}
     {[...종류별.entries()].map(([k, v], i) => (
       <>{i > 0 && ' · '}{k} {v}</>
     ))}
