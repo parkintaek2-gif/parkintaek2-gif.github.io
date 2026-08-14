@@ -16,6 +16,6 @@
 15	사기 전 안내가 단추보다 앞에 선다	src/lib/price.ts	사기전안내	2026-08-13	사장님
 16	대표 메일 — 회사 도메인	src/consts.ts	cs@klifedesign.net	2026-08-13	사장님
 17	첫 화면 한 줄	src/pages/100y/index.astro	한 점일 뿐입니다	2026-08-06	사장님
-18	가운데 칸만 다른 서체·다른 색	src/pages/100y/index.astro	brand-cell.mid	2026-08-05	사장님
+18	브랜드 판은 하나 — 세로줄 없음·서체 하나 (8/05 「가운데만 다른 서체·색」을 사장님이 8/14 에 직접 뒤집으심)	src/pages/100y/index.astro	brand-cell	2026-08-14	사장님
 19	화면에 등수를 쓰지 않는다	src/pages/100y/major/[slug].astro	전국 몇 위」를 절대 화면에 쓰지 않는다	2026-08-04	사장님
 20	글자 아닌 것을 하루 하나씩 — 숏영상 대장	src/data/100yearmap/videos.json	"영상"	2026-08-14	사장님

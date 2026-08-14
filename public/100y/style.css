@@ -16,9 +16,9 @@
       --accent: #c9a84c;
       --warn: #d3a24a;
 
-      --fs-title: clamp(27px, 6.2vw, 46px);
-      --fs-sub1: clamp(21px, 4.6vw, 30px);
-      --fs-sub2: 16px;
+      --fs-title: clamp(24px, 5.0vw, 34px);
+      --fs-sub1: clamp(19px, 3.8vw, 25px);
+      --fs-sub2: clamp(16px, 2.6vw, 18px);
       --fs-body: 15px;
       --fs-note: 13px;
 
