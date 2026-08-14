@@ -45,6 +45,7 @@ export const 벌목록 = {
   places: { 자료: 'src/data/wikitip-places.json', 만들기: (d) => 장소벌짓기(d) },
   instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 만들기: (d) => 자벌짓기(d) },
   brands: { 자료: 'src/data/wikitip-brand-kinds.json', 만들기: (d) => 브랜드벌짓기(d) },
+  counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 만들기: (d) => 셈벌짓기(d) },
 };
 
 /**
@@ -298,6 +299,74 @@ export function 한벌짓기(d) {
           + '**An ambassador announcement travels because\na Korean act is attached to it.**',
         길: `${주소}/fame-compare`,
         곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
+ * 셈 벌 — 89편째 기사의 표(`/read-vs-visited`).
+ * ⭐ 이야기 한 줄: **서울은 스물다섯 구인데 관광 집계는 다섯 구밖에 못 말한다.**
+ *
+ * ⚠ 이 벌은 다른 벌과 결이 다르다 — **못 잰 것이 내용**이다.
+ *   그래서 넷째 장(없는것)이 덤이 아니라 **이 벌의 중심**이다.
+ * ⛔ 「강남이 인기 없다」로 읽히면 거짓이다. 유료 관광지 자라는 말을 표 밑에 박는다.
+ */
+export function 셈벌짓기(d) {
+  const 종로 = d.rows.find((r) => r.nameEn.startsWith('Jongno'));
+  const 노원 = d.rows.find((r) => r.nameEn.startsWith('Nowon'));
+
+  return {
+    갈피: 'read-vs-visited',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Seoul · public admissions data',
+        큰: 'Seoul has\n25 districts.\nThe tourist count\nsees five.',
+        아래: `In **${d.districtsWithNoCountedSite}** of them the table counts no tourist site at all. `
+          + `In **${d.districtsWithForeignZero}** more it records foreign visitors as zero.`,
+      },
+      {
+        꼴: '수',
+        제목: 'One district\ntakes almost\nall of it',
+        큰: `${종로.foreignVisitors.toLocaleString('en-US')}`,
+        곁: `Foreign admissions in ${종로.nameEn.replace(' District', '')}, of the five we can measure`,
+        아래: `${노원.nameEn.replace(' District', '')} is read almost as often and records `
+          + `**${노원.foreignVisitors}**.\nThat distance is about ticket gates, not interest.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The five both\nrulers can see',
+        머리: ['District', 'Read', 'Foreign', 'Share'],
+        줄: d.rows.map((r) => [r.nameEn.replace(' District', ''), String(r.read),
+          r.foreignVisitors.toLocaleString('en-US'), `${r.foreignSharePc}%`]),
+        아래: 'These are not the five most visited districts in Seoul. They are the five where '
+          + 'both numbers exist. The table counts paid admissions, so a district whose draw is a '
+          + 'street has nothing to sell a ticket to.',
+      },
+      {
+        /* ⭐ 이 벌에서는 이 장이 중심이다 */
+        꼴: '없는것',
+        제목: 'What is not counted',
+        목록: [
+          `Jung — the district that holds Myeongdong. No counted tourist site`,
+          `Mapo — Hongdae. No counted tourist site`,
+          `Songpa — 7,706,775 admissions, and foreign visitors recorded as zero`,
+        ],
+        아래: 'We did not replace those zeros with a guess.\nA zero we invent over is worse than a '
+          + 'zero we mark and leave.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Neither ruler\nsees the whole city',
+        글: `The four Southeast Asian Wikipedias hold an article for **${d.districtsInWiki}** of `
+          + `Seoul's ${d.seoulDistrictsAll} districts.\nThe admissions table can be asked about `
+          + `**${d.districtsCompared}**.`,
+        길: `${주소}/read-vs-visited`,
+        곁: 'KOSIS · Wikidata · Wikimedia Pageviews',
       },
     ],
   };

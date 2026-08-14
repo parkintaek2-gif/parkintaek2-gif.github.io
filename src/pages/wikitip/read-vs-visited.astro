@@ -20,6 +20,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-read-vs-visited.json';
 
 const TITLE = 'Seoul has 25 districts. The tourist count can speak for five of them';
@@ -110,6 +111,8 @@ const jsonLd = {
       Reading — {d.readSource}, {d.readWindow}. Visiting — {d.visitSource}, {d.visitYear}.
     </p>
   </section>
+
+  <KcwCardnews set="counting" count={5} />
 
   <KcwRelatedArticles page="/read-vs-visited" />
 </WikiTip>

@@ -133,6 +133,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     caption: 'Five cards: Indonesia leads on German cars and trails on luxury houses, '
       + 'and one comparison we could not make.',
   },
+  {
+    set: 'counting',
+    page: '/read-vs-visited',
+    count: 5,
+    title: 'Seoul has 25 districts. The tourist count can speak for five of them',
+    caption: 'Five cards: what the public admissions table can and cannot see about Seoul.',
+  },
 ];
 
 /**
