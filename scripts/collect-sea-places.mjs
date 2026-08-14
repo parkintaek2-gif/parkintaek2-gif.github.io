@@ -65,6 +65,11 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('못 잰 것은 0 이 아니다', 백만분율(null, 1000), null);
   재본다('문서 없음과 0 을 안 섞는다',
     문서있는판({ views: { id: 0, vi: null, th: 5, ms: undefined } }), 2);
+  /* 🔴 8/14 — 태국판이 0 으로 찍혔는데 실물엔 350곳이 있었다. 「못 받았다」를 0 으로 넘겼다 */
+  재본다('⛔ 못 받은 판을 표시하는 자리가 있다',
+    fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('editionsNotFetched'), true);
+  재본다('⛔ 못 받으면 그냥 넘어가지 않는다',
+    fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('막혔나 = true'), true);
   console.log(`장소 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -149,15 +154,23 @@ if (내가실행됐다) {
   console.log('\n② 판마다 「그 판에 문서가 있는 한국 장소」를 바로 받는다');
   const 제목 = new Map();
   const 이름맵 = new Map();
+  /**
+   * 🔴 8/14 — 여기서 크게 틀렸다. `if (줄들 === null) break` 로 **못 받은 것을 0 으로 넘겼다.**
+   *   태국판이 0 으로 찍혔는데 실물에 물어보니 **350곳이 있었다.**
+   *   ⛔ 「못 받았다」와 「없다」를 섞은 것이다. 내가 늘 금지하는 그것을 내가 했다.
+   *   → 못 받은 판을 **표시하고 자료에 남긴다.** 그 판은 「0」이 아니라 **모른다**이다.
+   */
+  const 막힌판 = [];
   for (const p of 동남아) {
     let 받은 = 0;
+    let 막혔나 = false;
     for (let 쪽 = 0; 쪽 < 30; 쪽 += 1) {
       const 줄들 = await 스파클(`SELECT ?p ?pLabel ?a WHERE {
         ?p ${장소조건} .
         ?a schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
       } ORDER BY ?p LIMIT ${쪽크기} OFFSET ${쪽 * 쪽크기}`);
-      if (줄들 === null) break;
+      if (줄들 === null) { 막혔나 = true; break; }
       for (const 줄 of 줄들) {
         const q = 줄.p.value.split('/').pop();
         if (!제목.has(q)) 제목.set(q, {});
@@ -169,7 +182,12 @@ if (내가실행됐다) {
       받은 += 줄들.length;
       if (줄들.length < 쪽크기) break;
     }
-    console.log(`   ${p.padEnd(4)} ${받은}`);
+    if (막혔나) 막힌판.push(p);
+    console.log(`   ${p.padEnd(4)} ${받은}${막혔나 ? '  🔴 **못 받았다** — 0 이 아니라 모른다' : ''}`);
+  }
+  if (막힌판.length) {
+    console.log(`\n🔴 못 받은 판 ${막힌판.join(', ')} — 이 판은 자료에서 **0 이 아니라 「모른다」**로 적는다`);
+    console.log('   ⛔ 이대로 지면을 지으면 그 나라가 「한국에 관심 없다」로 읽힌다. 다시 돌려라.');
   }
   const 잴것 = [...제목.keys()].filter((q) => 동남아.some((p) => 제목.get(q)?.[p]));
   console.log(`\n③ 동남아 판에 문서가 있는 한국 장소 **${잴것.length}**`);
@@ -237,6 +255,16 @@ if (내가실행됐다) {
     comparableWith: 'sea-athletes.json · sea-actors.json · sea-musicians.json — same editions, '
       + 'same window, same unit',
     panel: 'Places in South Korea that carry a Wikidata type we counted as a destination',
+    /**
+     * 🔴 못 받은 판은 **0 이 아니라 「모른다」**다. 8/14 에 태국판이 0 으로 찍혔는데
+     *   실물에는 350곳이 있었다. 그 판이 여기 있으면 지면은 그 나라를 **빼고** 지어야 한다.
+     */
+    editionsNotFetched: 막힌판,
+    whyEditionsMayBeMissing: 막힌판.length
+      ? `The ${막힌판.join(', ')} edition query did not return. Those editions are unknown here, `
+        + 'not empty. Reading a zero for them would say a country is uninterested when we simply '
+        + 'failed to ask.'
+      : null,
     panelCaveat: 'Wikipedia has articles on neighbourhoods, districts, islands, palaces, markets '
       + 'and stations. It does not have articles on individual restaurants and cafes. So this '
       + 'measures which parts of Korea are looked up, not which venues. The venue layer needs the '
