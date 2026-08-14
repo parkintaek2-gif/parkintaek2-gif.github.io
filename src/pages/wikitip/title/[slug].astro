@@ -33,6 +33,15 @@ export function getStaticPaths() {
 const { t } = Astro.props;
 const 중 = data.medians;
 const 갈래 = t.type === 'Films' ? 'film' : 'series';
+
+/**
+ * 🔴 2026-08-14 — 폰으로 넘기다 **「1 markets」·「1 weeks」·「1 chart places」**를 봤다.
+ *   얇은 작품 지면 140장에 그렇게 나가고 있었다. 영문 매체가 영어를 틀리면
+ *   그 옆의 수도 안 믿긴다.
+ * ⚠ 수가 1 이 될 때만 나는 흠이라 여느 때는 안 보인다. 그래서 자를 따로 만들었다
+ *   (`scripts/check-kcw-plural.mjs`).
+ */
+const 셈 = (n: number, 하나: string, 여럿 = `${하나}s`) => (n === 1 ? 하나 : 여럿);
 /* ⛔ 없으면 `undefined` 다 — 그 지면은 예전 그대로 나간다. 그게 이 실험의 대조군이다 */
 const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
 
@@ -58,8 +67,9 @@ const jsonLd = {
   <h1>{t.title}</h1>
   <p class="lead">
     A Korean {갈래} that reached a Netflix weekly top 10 in <b>{t.markets}</b> of
-    {' '}{data.marketCount} markets, holding <b>{t.places.toLocaleString('en-US')}</b> chart places
-    across {t.weeks} weeks between {t.firstWeek} and {t.lastWeek}. Its best position anywhere was
+    {' '}{data.marketCount} markets, holding <b>{t.places.toLocaleString('en-US')}</b>{' '}
+    {셈(t.places, 'chart place')} across {t.weeks} {셈(t.weeks, 'week')} between {t.firstWeek} and{' '}
+    {t.lastWeek}. Its best position anywhere was
     {' '}<b>number {t.peak}</b>.
   </p>
   <p class="note lead-in"><b>What a place is.</b> {data.unit}</p>
@@ -103,15 +113,16 @@ const jsonLd = {
   <section>
     <h2>All at once, or one country at a time</h2>
     <p class="q">
-      It reached <b>{t.markets}</b> markets in all. The most that held it in the <em>same week</em> was
-      {' '}<b>{t.atOnce}</b>{t.atOnceWeek && <> — the week of {t.atOnceWeek}</>}.
+      It reached <b>{t.markets}</b> {셈(t.markets, 'market')} in all. The most that held it in the{' '}
+      <em>same week</em> was <b>{t.atOnce}</b>{t.atOnceWeek && <> — the week of {t.atOnceWeek}</>}.
     </p>
     <p class="note">
       {t.markets === t.atOnce
         ? <>Every market it ever reached held it at the same time, which is what a simultaneous opening
           looks like in this data.</>
-        : <><b>Those two figures are different achievements.</b> Reaching {t.markets} markets over
-          {' '}{t.weeks} weeks and holding {t.atOnce} of them in one week are not the same event, and a
+        : <><b>Those two figures are different achievements.</b> Reaching {t.markets}{' '}
+          {셈(t.markets, 'market')} over {t.weeks} {셈(t.weeks, 'week')} and holding {t.atOnce} of
+          them in one week are not the same event, and a
           single "markets" column cannot tell them apart. Netflix publishes neither figure; both are
           counted here from the weekly country lists.</>}
     </p>
@@ -145,7 +156,8 @@ const jsonLd = {
         A run is a stretch of consecutive weeks on one country's chart. A title that leaves and comes
         back later has two runs there, because those are two separate events — and{' '}
         {깊은것.marketsWithReturn > 0
-          ? <>this one did that in <b>{깊은것.marketsWithReturn}</b> of its {t.markets} markets.</>
+          ? <>this one did that in <b>{깊은것.marketsWithReturn}</b> of its {t.markets}{' '}
+            {셈(t.markets, 'market')}.</>
           : <>this one never did: every market held it once and then it was gone.</>}
       </p>
       <div class="scroll-x">
@@ -186,7 +198,7 @@ const jsonLd = {
   )}
 
   <section>
-    <h2>Where it charted — all {t.markets} markets</h2>
+    <h2>Where it charted — all {t.markets} {셈(t.markets, 'market')}</h2>
     <div class="scroll-x">
       <table>
         <thead>

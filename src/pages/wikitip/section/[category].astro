@@ -51,7 +51,13 @@ const { 편 } = Astro.props;
 const 라벨 = 이름[category] ?? category;
 
 const TITLE = `${라벨} — K Culture Wire`;
-const DESC = `${설명[category] ?? ''} ${편.length} articles, every figure measured from a named source.`;
+/**
+ * 🔴 2026-08-14 — 폰으로 넘기다 **「1 articles.」**를 봤다. 전통문화 갈래에 기사가 하나였다.
+ *   ⚠ 갈래가 새로 생기면 처음엔 반드시 하나다. 그러니 이 흠은 **새 갈래마다 다시 난다.**
+ */
+const 셈 = (n: number, 하나: string, 여럿 = `${하나}s`) => (n === 1 ? 하나 : 여럿);
+const DESC = `${설명[category] ?? ''} ${편.length} ${셈(편.length, 'article')}, `
+  + 'every figure measured from a named source.';
 
 /* 🔴 `check-search-readiness` 가 「구조화 데이터가 없다」로 섰다. 목록 지면에는 목록을 적는다 —
    ⛔ Dataset 이라고 하면 거짓이다. 여기 있는 것은 자료가 아니라 **기사 목록**이다. */
@@ -78,7 +84,7 @@ const jsonLd = {
   canonical={`https://www.kculturewire.com/section/${category}`}>
   <h1>{라벨}</h1>
   <p class="lead">{설명[category]}</p>
-  <p class="note">{편.length} articles.</p>
+  <p class="note">{편.length} {셈(편.length, 'article')}.</p>
 
   <section>
     <ul class="list">
