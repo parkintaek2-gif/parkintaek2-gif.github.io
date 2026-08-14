@@ -39,6 +39,12 @@ type Entry = {
    * ⛔ 손으로 적지 않는다. `cardnewsSets` 에서 뽑는다 — 벌이 늘면 저절로 따라온다.
    */
   images?: { loc: string; title: string; caption: string }[];
+  /**
+   * 🔴 2026-08-14 — 숏영상 다섯 편이 **어디에도 안 걸려** 있었다. 사이트맵도 몰랐다.
+   *   ⛔ 아침에 카드뉴스 15장에서 겪은 「만든 값이 0」을 영상에서 그대로 되풀이했다.
+   *   ⭐ 검색이 영상을 찾아 주는 자리가 여기다. 그림과 같은 대접을 한다.
+   */
+  video?: { loc: string; thumb: string; title: string; description: string; seconds: number };
 };
 
 /**
@@ -88,6 +94,35 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'The same country is first and last, depending on what you count',
     caption: 'Five cards: Indonesia leads on German cars and trails on luxury houses, '
       + 'and one comparison we could not make.',
+  },
+];
+
+/**
+ * 🔴 2026-08-14 — **목소리 얹은 숏영상만 여기 적는다.**
+ *   목소리 없는 편은 사장님 지시(「젊고 멋진 남성과 여성의 목소리로」) 이전 것이라 안 낸다.
+ * ⚠ 벌 이름은 `public/wikitip/video/<벌>.mp4` 이자 카드뉴스 벌 이름이다. 둘이 같아야 한다.
+ */
+const videoSets = [
+  {
+    set: 'fame',
+    page: '/fame-compare',
+    title: 'One Korean act is read more than any Korean athlete in Southeast Asia',
+    description: '14 seconds, with a male and female voice reading out the figures from the table '
+      + 'on the page.',
+  },
+  {
+    set: 'instrument',
+    page: '/titles-to-name',
+    title: 'The question was fine. The instrument was not.',
+    description: '14 seconds on a measurement that came out flat one day and read clearly the next, '
+      + 'because the ruler changed and the panel did not.',
+  },
+  {
+    set: 'brands',
+    page: '/brand-kinds',
+    title: 'The same country is first and last, depending on what you count',
+    description: '14 seconds on how four Southeast Asian Wikipedias read German car makers and '
+      + 'luxury houses in opposite orders.',
   },
 ];
 
@@ -288,9 +323,28 @@ export const GET: APIRoute = async () => {
     }));
   }
 
+  /**
+   * 🔴 2026-08-14 — 숏영상도 같은 자리에 붙인다. 그러지 않아서 다섯 편이 묻혀 있었다.
+   * ⚠ 미리보기 그림은 그 벌 카드뉴스 첫 장을 쓴다 — 영상에서 따로 뽑으면 또 어긋난다.
+   * ⛔ 짝 지면이 없으면 던진다. 조용히 넘기는 것이 이 사고의 뿌리였다.
+   */
+  for (const v of videoSets) {
+    const 줄 = entries.find((e) => e.path === v.page);
+    if (!줄) throw new Error(`숏영상 ${v.set} 의 짝 지면 ${v.page} 이 사이트맵에 없다`);
+    if (!줄.images?.length) throw new Error(`숏영상 ${v.set} 의 미리보기로 쓸 카드뉴스가 없다`);
+    줄.video = {
+      loc: `${ORIGIN}/video/${v.set}.mp4`,
+      thumb: 줄.images[0].loc,
+      title: v.title,
+      description: v.description,
+      seconds: 14,
+    };
+  }
+
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 ${entries
   .map((e) => {
     const 줄 = [`    <loc>${ORIGIN}${e.path}</loc>`];
@@ -303,6 +357,15 @@ ${entries
       줄.push(`      <image:title>${xml(img.title)}</image:title>`);
       줄.push(`      <image:caption>${xml(img.caption)}</image:caption>`);
       줄.push('    </image:image>');
+    }
+    if (e.video) {
+      줄.push('    <video:video>');
+      줄.push(`      <video:thumbnail_loc>${e.video.thumb}</video:thumbnail_loc>`);
+      줄.push(`      <video:title>${xml(e.video.title)}</video:title>`);
+      줄.push(`      <video:description>${xml(e.video.description)}</video:description>`);
+      줄.push(`      <video:content_loc>${e.video.loc}</video:content_loc>`);
+      줄.push(`      <video:duration>${e.video.seconds}</video:duration>`);
+      줄.push('    </video:video>');
     }
     return `  <url>\n${줄.join('\n')}\n  </url>`;
   })

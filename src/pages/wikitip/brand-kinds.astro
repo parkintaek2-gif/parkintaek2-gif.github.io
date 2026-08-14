@@ -22,6 +22,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-brand-kinds.json';
 
 const 명품 = d.kinds.find((k) => k.key === 'luxury');
@@ -123,6 +124,11 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="brands" count={5} />
+
+  <KcwShorts set="brands"
+    says={`A man and a woman read out the two figures in the table above — `
+      + `${독일차.판별[d.positionSwing.제일]} and ${명품.판별[d.positionSwing.제일]}, `
+      + `both for ${흔들린나라}.`} />
 
   <KcwRelatedArticles page="/brand-kinds" />
 </WikiTip>

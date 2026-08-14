@@ -1,0 +1,43 @@
+---
+/**
+ * K Culture Wire — **숏영상을 지면에 건다.** (`/video/<벌>.mp4`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ * 🔴 2026-08-14 — 세어 보니 **영상 다섯 편이 어디에도 안 걸려** 있었다.
+ *   `archive/video` 에만 있고 `public` 에도 없었다. 손님이 볼 길이 하나도 없었다.
+ *   ⛔ 오늘 아침 카드뉴스 15장에서 똑같은 일을 겪고도 영상에서 다시 했다.
+ *   ⭐ **만들고 문을 안 내면 없는 것과 같다.** 사장님 지시는 「외부유입용」이다.
+ *
+ * ── ⛔ 지키는 것 ──────────────────────────────────────────────
+ * ⛔ 자동재생하지 않는다. 소리가 있는 영상이다 — 손님이 눌러서 켠다.
+ * ⛔ `preload="none"` — 안 볼 사람에게 1.3MB 를 안 내려받게 한다.
+ * ⚠ 목소리가 있으니 **무슨 말을 하는지 글로도 적는다.** 소리를 못 듣는 자리에서도 읽힌다.
+ * ⛔ 벌이 없으면 아무것도 안 그린다. 빈 상자는 없는 것만 못하다.
+ */
+interface Props {
+  /** 벌 이름. `public/wikitip/video/<벌>.mp4` 다 */
+  set: string;
+  /** 이 영상이 하는 말. ⚠ 화면에 있는 수만 적는다 */
+  says: string;
+  heading?: string;
+}
+const { set, says, heading = 'Fourteen seconds, with sound' } = Astro.props;
+---
+
+<section class="kcw-shorts">
+  <h2>{heading}</h2>
+  <video controls preload="none" playsinline width="270" height="480"
+    src={`/video/${set}.mp4`}>
+    Your browser cannot play this file. It is a 14-second MP4.
+  </video>
+  <p class="note">{says} Free to repost with the address on it.</p>
+</section>
+
+<style>
+  .kcw-shorts { margin: 2.6rem 0; }
+  .kcw-shorts video {
+    width: 270px; max-width: 100%; height: auto; border-radius: 10px;
+    background: #0e0c14; display: block;
+  }
+  .kcw-shorts .note { margin-top: .7rem; max-width: 46ch; }
+</style>

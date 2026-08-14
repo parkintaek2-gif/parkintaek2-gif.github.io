@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-titles-to-name.json';
 
 const TITLE = 'An actor with five charting titles is looked up ten times as often as one with a single title';
@@ -106,6 +107,8 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="instrument" count={5} />
+
+  <KcwShorts set="instrument" says={`A man and a woman read the multiple out — ${d.multiple} times more reads between the ends.`} />
   <KcwRelatedArticles page="/titles-to-name" />
 </WikiTip>
 
