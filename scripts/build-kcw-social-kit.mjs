@@ -71,6 +71,11 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const my = 읽기('src/data/wikitip-malaysia.json');
   const inst = 읽기('src/data/wikitip-titles-to-name.json');
   const br = 읽기('src/data/wikitip-brand-kinds.json');
+  const cn = 읽기('src/data/wikitip-read-vs-visited.json');
+  const se = 읽기('src/data/wikitip-look-vs-fly.json');
+  const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+  const 달말 = (mm) => 달이름[Number(mm) - 1] ?? mm;
   const 장 = (벌) => Array.from({ length: 5 }, (_, i) => `public/wikitip/cardnews/${벌}/${String(i + 1).padStart(2, '0')}.png`);
 
   return [
@@ -146,6 +151,40 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `${주소}/brand-kinds`,
       alt: 'Five cards comparing how much four Southeast Asian Wikipedias are read about luxury '
         + 'houses, German car makers and jewellers.',
+    },
+    {
+      /**
+       * 89편. ⛔ 「강남이 인기 없다」로 읽히면 거짓이다 — 유료 관광지 자다.
+       * ⛔ 원본의 0 을 그럴듯한 수로 안 고쳤다는 말을 나가는 글에도 넣는다.
+       */
+      key: 'counting',
+      page: `${주소}/read-vs-visited`,
+      images: 장('counting'),
+      /* ⚠ 287자로 넘쳐 검사가 막았다. 뜻을 안 깎고 군말을 줄였다 — 주소는 23자로 센다 */
+      x: `Seoul has ${cn.seoulDistrictsAll} districts. Korea's public admissions table can be `
+        + `asked about ${cn.districtsCompared}.\n\n`
+        + `In ${cn.districtsWithNoCountedSite} it counts no tourist site at all — including Jung, `
+        + `which holds Myeongdong. In ${cn.districtsWithForeignZero} more it records zero foreign `
+        + `visitors.\n\nWe marked those rows instead of guessing.\n\n`
+        + `${주소}/read-vs-visited`,
+      alt: 'Five cards on what Korea\'s public tourist-admissions table can and cannot see about '
+        + 'Seoul\'s districts.',
+    },
+    {
+      /**
+       * 90편. ⛔ 「12월에 알아보고 1월에 간다」로 읽히면 거짓이다.
+       *   기사가 본문에서 그것을 부정했으니 나가는 글도 **바닥을 앞에 세운다.**
+       */
+      key: 'season',
+      page: `${주소}/look-vs-fly`,
+      images: 장('season'),
+      x: `Southeast Asia looks up a Korean trip most in ${달말(se.lookPeak.peak)}. Planes on the `
+        + `Asia routes fill most in ${달말(se.flyPeak.peak)}.\n\n`
+        + `The steadier signal is the other end: both fall to their lowest in `
+        + `${달말(se.lookPeak.trough)}.\n\nWe are not calling that a cause.\n\n`
+        + `${주소}/look-vs-fly`,
+      alt: 'Five cards comparing the months Southeast Asia reads about Korean travel with the '
+        + 'months flights on the Asia routes are busiest.',
     },
   ];
 }
