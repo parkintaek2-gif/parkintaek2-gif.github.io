@@ -29,6 +29,7 @@ import https from 'node:https';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import { execFileSync, spawnSync } from 'node:child_process';
+import { 지금 } from './_kst.mjs';
 
 const require = createRequire('C:\\Users\\USER\\Documents\\GitHub\\klifemap\\package.json');
 
@@ -351,7 +352,7 @@ if (내가실행됐다) {
   for (const 줄 of 낸것) console.log(`   ${String(줄.때).padStart(6)}초 [${줄.누가}] ${줄.초}초  ${줄.말}`);
 
   fs.writeFileSync(path.join(낼방, 'script.json'), `${JSON.stringify({
-    generated: new Date().toISOString(),
+    generated: 지금(),
     /**
      * 🔴 2026-08-14 — **어느 대본인지 안 적어서 사고가 났다.**
      *   대본 만들기가 실패해 옛 소리가 방에 남았는데, 얹기는 그것을 그냥 얹었다.
