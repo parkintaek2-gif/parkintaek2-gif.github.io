@@ -85,14 +85,42 @@ export function 자대본만들기(d) {
   ]);
 }
 
+/**
+ * 88편 대본 — 「같은 나라가 갈래마다 자리를 바꾼다」(`/brand-kinds`).
+ * ⛔ 화면에 없는 수를 말하지 않는다. 한국 차 배수는 **기사도 안 냈다** — 여기서도 없다.
+ * ⛔ 「어느 나라가 관심이 많다」로 들리면 거짓이다. 그래서 두 수를 나란히만 놓는다.
+ */
+export function 브랜드대본만들기(d) {
+  const 흔 = d.positionSwing.제일;
+  const 나라 = d.countryNames[흔];
+  const 차 = d.kinds.find((k) => k.key === 'car').판별[흔];
+  const 명 = d.kinds.find((k) => k.key === 'luxury').판별[흔];
+  /**
+   * ⚠ 넷이다. 다섯째 줄(「Same country, opposite appetites」)을 **뺐다** —
+   *   실제 소리로 재니 다섯이면 15.19초로 넘쳤다. Piper 가 숫자를 풀어 읽어서
+   *   「${차} against ${명}」 한 줄이 3.6초를 먹는다.
+   *   ⛔ 수를 반올림해 짧게 만들지 않았다. 그러면 화면과 어긋난다.
+   *   ⭐ 뺀 줄의 뜻은 화면이 이미 하고 있다 — 「Not that one country cares more」.
+   */
+  return 때매기기([
+    { 누가: '여', 말: `${나라} reads German cars the most.`, 쉼: 0.5 },
+    { 누가: '남', 말: 'And luxury houses the least.', 쉼: 0.6 },
+    { 누가: '여', 말: `${차} against ${명}.`, 쉼: 0.6 },
+    /* ⚠ 마지막 줄은 짧게. 끝에서 넘치면 반쪽 문장이 나간다 */
+    { 누가: '남', 말: 'One ranking would hide that.', 쉼: 0 },
+  ]);
+}
+
 export function 대본만들기(d) {
-  /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다 */
+  /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다
+     🔴 8/14 실제 소리로 다시 매니 14.43초였다. Piper 가 큰 수(213)를 풀어 읽는다.
+        ⛔ 수를 반올림하지 않았다 — 화면과 어긋난다. 대신 그 줄의 **군말**을 뺐다 */
   return 때매기기([
     { 누가: '여', 말: `One Korean act reads more than ${d.topAthleteName}.`, 쉼: 0.5 },
     { 누가: '남', 말: 'It is BTS.', 쉼: 0.5 },
     /* ⛔ 화면에 없는 수는 말하지 않는다. 선수 수(877)는 화면에 없어서 뺐다 — 자가시험이 잡았다 */
-    { 누가: '여', 말: `Out of ${d.entertainersCounted.toLocaleString('en-US')} we measured.`, 쉼: 0.7 },
-    { 누가: '남', 말: 'Readers follow the person, not the label.', 쉼: 0.5 },
+    { 누가: '여', 말: `Out of ${d.entertainersCounted.toLocaleString('en-US')}.`, 쉼: 0.6 },
+    { 누가: '남', 말: 'Readers follow the person.', 쉼: 0.5 },
     /* ⚠ 마지막 줄은 짧게. 끝에서 넘치면 잘려 나가 문장이 반쪽이 된다 */
     { 누가: '여', 말: 'Every figure has a table.', 쉼: 0 },
   ]);
@@ -222,6 +250,7 @@ if (내가실행됐다) {
   const 대본목록 = {
     fame: { 자료: 'src/data/wikitip-fame-compare.json', 짓기: 대본만들기 },
     instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: 자대본만들기 },
+    brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: 브랜드대본만들기 },
   };
   const j = process.argv.indexOf('--대본');
   const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';
@@ -254,24 +283,48 @@ if (내가실행됐다) {
     }
   }
 
-  /* 🔴 실제 길이로 다시 재 본다. 어림보다 길면 겹치거나 잘린다 */
+  /**
+   * 🔴 2026-08-14 — 어림이 **틀리는 것이 정상**이라는 것을 알았다.
+   *   「53.79 against 38.45.」는 어림 1.15초인데 실제 3.56초다 — Piper 가 숫자를
+   *   「fifty-three point seven nine」로 풀어 읽기 때문이다. 글자 수로는 못 맞힌다.
+   *
+   *   ⛔ 그때마다 대본을 깎는 것은 **자를 자료에 맞추는 짓**이다. 말이 옳으면 말을 안 고친다.
+   *   ⭐ **실제 길이가 나온 뒤에 때를 다시 맨다.** 어림은 첫 짐작일 뿐이다.
+   */
+  let 때 = 0.5;
+  for (const 줄 of 낸것) {
+    줄.때 = +때.toFixed(2);
+    때 += 줄.초 + (줄.쉼 ?? 0.45);
+  }
+
+  /* 다시 맨 뒤에도 14초를 넘으면 그건 **말이 정말 많은 것**이다. 그때는 막는다 */
   const 넘은것 = [];
   for (let i = 0; i < 낸것.length; i += 1) {
     const 끝 = 낸것[i].때 + 낸것[i].초;
-    if (끝 > 14) 넘은것.push(`${i}번째가 ${끝.toFixed(2)}초에 끝난다`);
+    if (끝 > 14) 넘은것.push(`${i}번째가 ${끝.toFixed(2)}초에 끝난다 — 말이 길다`);
     if (i + 1 < 낸것.length && 끝 > 낸것[i + 1].때 + 0.15) {
       넘은것.push(`${i}번째(${끝.toFixed(2)}초)와 ${i + 1}번째(${낸것[i + 1].때}초)가 겹친다`);
     }
   }
   if (넘은것.length) {
-    console.error('\n🔴 **실제 소리 길이로 재니 안 맞는다** — 어림값이 틀렸다:');
+    console.error('\n🔴 **실제 길이로 다시 매도 안 들어간다** — 말이 14초보다 길다:');
     for (const t of 넘은것) console.error(`   · ${t}`);
-    console.error('⛔ 대본의 말이나 쉼을 고쳐라. 이대로 얹으면 겹치거나 잘린다.');
+    console.error('⛔ 대본의 말을 줄여라. 때를 옮겨서는 못 푼다.');
     process.exit(1);
   }
+  console.log('\n⭐ 실제 소리 길이로 때를 다시 맸다 (어림은 첫 짐작일 뿐이다)');
+  for (const 줄 of 낸것) console.log(`   ${String(줄.때).padStart(6)}초 [${줄.누가}] ${줄.초}초  ${줄.말}`);
 
   fs.writeFileSync(path.join(낼방, 'script.json'), `${JSON.stringify({
     generated: new Date().toISOString(),
+    /**
+     * 🔴 2026-08-14 — **어느 대본인지 안 적어서 사고가 났다.**
+     *   대본 만들기가 실패해 옛 소리가 방에 남았는데, 얹기는 그것을 그냥 얹었다.
+     *   fame 영상에 brands 목소리가 올라갔다 — 화면과 소리가 딴말을 했다.
+     *   ⛔ 그것이 **제일 조용한 거짓말**이다. 아무도 안 죽고 아무 오류도 안 난다.
+     *   ⭐ 이름을 적어 둔다. 얹는 쪽이 영상 이름과 맞춰 보고 다르면 멈춘다.
+     */
+    set: 고른,
     engine: 'piper',
     license: 'Piper MIT; voice models MIT (rhasspy/piper-voices)',
     voices: 목소리,
