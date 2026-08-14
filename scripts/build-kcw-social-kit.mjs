@@ -69,6 +69,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const places = 읽기('src/data/wikitip-places.json');
   const spread = 읽기('src/data/wikitip-spread.json');
   const my = 읽기('src/data/wikitip-malaysia.json');
+  const inst = 읽기('src/data/wikitip-titles-to-name.json');
   const 장 = (벌) => Array.from({ length: 5 }, (_, i) => `public/wikitip/cardnews/${벌}/${String(i + 1).padStart(2, '0')}.png`);
 
   return [
@@ -116,6 +117,18 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `${주소}/sea-athletes`,
       alt: 'Five cards on Korean footballers and managers read across four Southeast Asian Wikipedias.',
     },
+    {
+      key: 'instrument',
+      page: `${주소}/titles-to-name`,
+      images: 장('instrument'),
+      x: `Yesterday this came out flat. Today it reads.\n\n`
+        + `Median reads of a Korean actor's own Wikipedia article, by how many of their titles `
+        + `reached a Netflix chart: ${inst.bands.map((b) => b.medianRead).filter(Boolean).join(', ')}. `
+        + `${inst.multiple}× between the ends.\n\nWe changed the ruler, not the panel.\n\n`
+        + `${주소}/titles-to-name`,
+      alt: 'Five cards showing median Wikipedia reads for Korean actors grouped by how many of '
+        + 'their titles reached a Netflix chart.',
+    },
   ];
 }
 
@@ -136,7 +149,7 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     벌검사({ x: `${'a'.repeat(300)} ${주소}`, images: ['a'], page: 'p' }),
     (x) => x.some((s) => s.includes('넘는다')));
   const 벌들 = 벌들짓기();
-  재본다('벌이 넷', 벌들.length, 4);
+  재본다('벌이 다섯', 벌들.length, 5);
   for (const 벌 of 벌들) 재본다(`벌 ${벌.key} 가 온전하다`, 벌검사(벌), []);
   재본다('벌마다 그림이 다섯', 벌들.every((b) => b.images.length === 5), true);
   재본다('⛔ 그림 파일이 실제로 있다',

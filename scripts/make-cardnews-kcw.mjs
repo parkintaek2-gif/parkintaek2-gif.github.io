@@ -43,7 +43,68 @@ export const 벌목록 = {
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
   malaysia: { 자료: 'src/data/wikitip-malaysia.json', 만들기: (d) => 말레이벌짓기(d) },
   places: { 자료: 'src/data/wikitip-places.json', 만들기: (d) => 장소벌짓기(d) },
+  instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 만들기: (d) => 자벌짓기(d) },
 };
+
+/**
+ * 자 벌 — 87편째 기사(2026-08-14).
+ * ⭐ 뼈는 **어제 못 읽은 것을 자를 바꿔 읽었다**는 것이다. 우리가 파는 것이 그 태도다.
+ * ⛔ 인과로 읽히게 두지 않는다 — 넷째 장 첫 줄이 「어느 쪽이 먼저인지 모른다」다.
+ */
+export function 자벌짓기(d) {
+  const 띠 = d.bands;
+  const 첫 = 띠[0];
+  const 끝 = 띠[띠.length - 1];
+  return {
+    갈피: 'instrument',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Method · 12 months',
+        큰: `Yesterday this question\nread as nothing.\nToday it reads`,
+        아래: `Same ${d.actorsCounted.toLocaleString('en-US')} actors, same panel. We changed what we measured, not who.`,
+      },
+      {
+        꼴: '수',
+        제목: 'Titles, and the\nname itself',
+        큰: `${첫.medianRead} → ${끝.medianRead}`,
+        곁: 'Median reads of an actor\'s own article, by charting titles',
+        아래: `The four bands run one way and do not turn back. The top is **${d.multiple}×** the bottom.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Four bands',
+        머리: ['Charting titles', 'Actors', 'Median reads'],
+        줄: 띠.map((b) => [b.band, String(b.actors), String(b.medianRead ?? '—')]),
+        아래: `Yesterday we asked how far their **titles** travelled and got 19, 11, 18, 7 — no `
+          + 'direction. That figure belonged to the show. This one belongs to the name.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we cannot say',
+        목록: [
+          'Which way the arrow points — casting follows attention as readily as the reverse',
+          `The ceiling — the most-read one-title actor scores ${첫.topRead}, above the top band's median`,
+          'Anything about affection — this counts people opening a page',
+        ],
+        아래: '**We did not delete the earlier piece.** It was right about why the first '
+          + 'instrument failed, and that is why this one works.',
+      },
+      {
+        꼴: '끝',
+        제목: 'The question was fine.\nThe instrument\nwas not.',
+        글: 'A measurement that comes out flat is worth publishing.\n'
+          + 'Sometimes it is telling you to change the ruler.\n\n'
+          + '**Every figure has a table behind it.**',
+        길: `${주소}/titles-to-name`,
+        곁: 'Netflix Tudum · Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
 
 /**
  * 장소 벌 — 86편째 기사(2026-08-14). 사장님 「지도 시장 조사」 지시의 첫 답.

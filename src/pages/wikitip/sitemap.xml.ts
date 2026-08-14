@@ -74,6 +74,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'A Korean record label is looked up more than Seoul is',
     caption: 'Five cards: where reading about Korea sits, and what this cannot see.',
   },
+  {
+    set: 'instrument',
+    page: '/titles-to-name',
+    count: 5,
+    title: 'The question was fine. The instrument was not.',
+    caption: 'Five cards: a flat result, a changed ruler, and the same actors reading clearly.',
+  },
 ];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */
