@@ -1,0 +1,13 @@
+번호	무엇	어디서 확인하나	있어야 할 글자	컨펌한 날	누가
+1	리포트 전문 용어 안내 부록	C:/Users/USER/Documents/GitHub/klifemap/public/term-glossary.js	buildTermAppendix	2026-08-02	사장님
+2	용어 부록 자리 — 사주	C:/Users/USER/Documents/GitHub/klifemap/public/saju.html	termAppendix	2026-08-02	사장님
+3	용어 부록 자리 — 궁합	C:/Users/USER/Documents/GitHub/klifemap/public/mingli-gunghap.html	termAppendix	2026-08-02	사장님
+4	용어 부록 자리 — 택일	C:/Users/USER/Documents/GitHub/klifemap/public/mingli-taekil.html	termAppendix	2026-08-02	사장님
+5	용어 부록 자리 — 성명학	C:/Users/USER/Documents/GitHub/klifemap/public/mingli-sungmyung.html	termAppendix	2026-08-02	사장님
+6	용어 부록 네 나라말	C:/Users/USER/Documents/GitHub/klifemap/public/i18n-glossary.js	glossary	2026-08-02	사장님
+7	궁합에 사주 감정서 끼워 주기	C:/Users/USER/Documents/GitHub/klifemap/billing/pricing.json	_includesNote	2026-08-07	사장님
+8	사주 정가 29,000 문턱 규칙	C:/Users/USER/Documents/GitHub/klifemap/billing/pricing.json	_사주끼워주기규칙	2026-08-07	사장님
+9	택일 값 54,000 (39,000 으로 되돌리지 않는다)	C:/Users/USER/Documents/GitHub/klifemap/billing/pricing.json	54000	2026-08-04	사장님
+10	묻기 전 히스토리 검사	scripts/before-asking.mjs	끝난줄인가	2026-08-14	사장님
+11	사장님 지시 대장	C:/Users/USER/Documents/GitHub/klifemap/docs/사장님지시-대장.tsv	맡은자리	2026-08-14	사장님
+12	소통 주기 자	scripts/sotong-watch.mjs	늦었나	2026-08-14	사장님
