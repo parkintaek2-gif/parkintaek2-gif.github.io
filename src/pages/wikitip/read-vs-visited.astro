@@ -1,0 +1,115 @@
+---
+/**
+ * K Culture Wire — **읽는 곳과 가는 곳.** (`/read-vs-visited`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   86편이 화면에 「읽는 것은 가는 것이 아니다」를 **말로만** 적어 두었다. 재려고 했다.
+ *   ⭐ 재 보니 **못 쟀다.** 그리고 못 잰 까닭이 물음보다 큰 답이었다 —
+ *     서울 스물다섯 구 중 열여섯에 집계된 유료 관광지가 **하나도 없다.**
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **다섯으로 「같은가」에 답하지 않는다.** 화면 맨 위에 「못 한다」를 적는다.
+ * ⛔ **「강남이 실제로는 인기 없다」로 쓰지 않는다.** 이 자는 유료 관광지 입장권만 센다.
+ * ⛔ **자료를 탓하지 않는다.** 그 표는 입장권을 세려고 만든 것이다. 자가 무엇을 재는지만 적는다.
+ * ⛔ 순위표로 줄세우지 않는다. 다섯 줄을 나란히 놓고 자리 차이를 **실마리로만** 쓴다.
+ * ⚠ 24 를 25 인 척 쓰지 않는다. 양천구는 동남아 네 판 어디에도 문서가 없다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다. 붙여 써야 할 곳은 `{' '}` 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-read-vs-visited.json';
+
+const TITLE = 'Seoul has 25 districts. The tourist count can speak for five of them';
+const DESC =
+  `We tried to put what Southeast Asia reads about Seoul next to where foreign visitors actually `
+  + `walk. In ${d.districtsWithNoCountedSite} of ${d.districtsInWiki} districts the public admissions `
+  + `table counts no tourist site at all, and in ${d.districtsWithForeignZero} more it records foreign `
+  + `visitors as zero. So we are not answering the question — we are showing where the counting stops.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: `${d.readWindow} / ${d.visitYear}`,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/', 'https://kosis.kr'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/read-vs-visited">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">{d.answer}</p>
+
+  <section>
+    <h2>Where the counting stops</h2>
+    <p>{d.finding}</p>
+    <p class="note">{d.bothRulersAreIncomplete}</p>
+  </section>
+
+  <section>
+    <h2>The five districts both rulers can see</h2>
+    <p class="note">
+      <b>{d.unit}</b> These are not the five most visited districts in Seoul. They are the five
+      where both numbers exist. Read the rows, not the order.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>District</th><th>Read (per million)</th><th>Foreign admissions</th>
+            <th>Foreign share</th></tr>
+        </thead>
+        <tbody>
+          {d.rows.map((r) => (
+            <tr>
+              <td class="nm">{r.nameEn.replace(' District', '')}</td>
+              <td>{r.read}</td>
+              <td class="tot">{r.foreignVisitors.toLocaleString('en-US')}</td>
+              <td class="fine">{r.foreignSharePc === null ? '—' : `${r.foreignSharePc}%`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Jongno takes {d.rows.find((r) => r.nameEn.startsWith('Jongno'))?.foreignVisitors.toLocaleString('en-US')}
+      {' '}of these admissions — the palaces sell tickets, and a ticket is what this table counts.
+      Nowon, with a comparable amount of reading, records
+      {' '}{d.rows.find((r) => r.nameEn.startsWith('Nowon'))?.foreignVisitors.toLocaleString('en-US')}.
+      That distance is about ticket gates, not about interest.
+    </p>
+  </section>
+
+  <section>
+    <h2>The districts we had to leave out</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>District</th><th>Why it is not in the table above</th></tr></thead>
+        <tbody>
+          {d.excluded.map((x) => (
+            <tr><td class="nm">{x.nameEn.replace(' District', '')}</td><td class="fine">{x.why}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Gangnam, Songpa and Gangseo each record admissions and then a foreign-visitor count of zero.
+      We did not correct those rows to something we think is likelier. We left them out and said so.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">
+      Reading — {d.readSource}, {d.readWindow}. Visiting — {d.visitSource}, {d.visitYear}.
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/read-vs-visited" />
+</WikiTip>

@@ -179,6 +179,11 @@
   ],
   "readingIsNotVisiting": "A read is curiosity, not a trip. It cannot say who came, only who looked. Arrival counts by nationality are published separately by the Korea Tourism Organization and are the right instrument for visits.",
   "finding": "Korea's public admissions table can speak for 5 of Seoul's 24 districts. In 16 of them it counts no tourist site at all — among them Jung (Myeongdong) and Mapo (Hongdae). In 3 more it counts admissions but records foreign visitors as zero: Gangnam, Songpa, Gangseo.",
+  "seoulDistrictsAll": 25,
+  "notInWikiAtAll": [
+    "Yangcheon"
+  ],
+  "bothRulersAreIncomplete": "Seoul has 25 districts. The Southeast Asian Wikipedias hold an article for 24 of them — Yangcheon has none in any of the four. The admissions table can be asked about 5. Neither ruler sees the whole city.",
   "districtsWithNoCountedSite": 16,
   "districtsWithForeignZero": 3,
   "tooThinToAnswer": true

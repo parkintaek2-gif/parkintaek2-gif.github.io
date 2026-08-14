@@ -273,6 +273,9 @@ export const GET: APIRoute = async () => {
        ⚠ 76편을 안 지운다. 76편이 옳았고 여기서 자를 바꿨다 */
     { path: '/titles-to-name', priority: '0.9', changefreq: 'weekly' },
     { path: '/brand-kinds', priority: '0.9', changefreq: 'weekly' },
+    /* 89편째 기사의 표. 2026-08-15 — 사장님 관광 자료 지시. 재려다 못 쟀고, 못 잰 까닭을 냈다.
+       ⛔ 서울 스물다섯 중 열여섯 구에 집계된 유료 관광지가 하나도 없다 */
+    { path: '/read-vs-visited', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

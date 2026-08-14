@@ -164,6 +164,17 @@ const 예 = 아는곳.length
   : `Not closely. Of ${합친.length} districts we could measure on both, ${같은자리} sit at the same `
     + `place on the two lists.`;
 
+/**
+ * ⚠ **서울은 스물다섯 구다. 우리 위키 자료는 스물넷이다.**
+ *   양천구는 동남아 네 판 **어디에도 문서가 없다**(원본에 역 둘과 강 하나뿐).
+ *   ⛔ 24 를 25 인 척 쓰지 않는다. 두 자가 **양쪽 다** 빈다는 것이 이 지면의 요점이다.
+ */
+나감.seoulDistrictsAll = 25;
+나감.notInWikiAtAll = ['Yangcheon'];
+나감.bothRulersAreIncomplete = `Seoul has ${나감.seoulDistrictsAll} districts. The Southeast Asian `
+  + `Wikipedias hold an article for ${위키.districts.length} of them — Yangcheon has none in any of `
+  + `the four. The admissions table can be asked about ${합친.length}. Neither ruler sees the whole city.`;
+
 나감.districtsWithNoCountedSite = 관광지없음.length;
 나감.districtsWithForeignZero = 외국인0.length;
 나감.tooThinToAnswer = 합친.length < 8;
@@ -205,6 +216,10 @@ if (process.argv.includes('--selftest')) {
   /* 🔴 8/15 — 「Mapo, Seocho, Gangbuk 이 명동을 품는다」로 나갈 뻔했다. 명동은 중구다 */
   참('예로 든 구가 정말 그 목록에 있다',
     아는곳.every((x) => 관광지없음.some((y) => y.nameEn.replace(' District', '') === x.구)));
+  /* ⚠ 24 를 25 인 척 쓰면 안 된다. 양천구가 위키에 아예 없다 */
+  참('서울이 스물다섯이라고 적는다', 나감.seoulDistrictsAll === 25);
+  참('위키에 없는 구를 밝힌다', 나감.notInWikiAtAll.length === 25 - 위키.districts.length);
+  참('두 자가 다 빈다고 적는다', /Neither ruler sees the whole city/.test(나감.bothRulersAreIncomplete));
   참('명동을 중구 아닌 곳에 붙이지 않는다',
     !/Myeongdong/.test(나감.finding) || /Jung \(Myeongdong\)/.test(나감.finding));
   참('홍대를 마포 아닌 곳에 붙이지 않는다',
