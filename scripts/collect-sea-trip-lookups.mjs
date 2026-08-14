@@ -142,7 +142,14 @@ if (process.argv.includes('--selftest')) {
     달접기({ '2025-06': 10, '2026-06': null })['06'] === 10);
   참('볼 문서에 배우·노래를 안 넣는다',
     볼문서.every((t) => !/BTS|Blackpink|Squid/i.test(t)));
-  참('볼 문서가 열 개다', 볼문서.length === 10);
+  /**
+   * 🔴 처음엔 `볼문서.length === 10` 이라 적었다. 그러면 **문서를 늘릴 때 검사가 선다** —
+   *   자물쇠지 검사가 아니다. 어제 소셜 킷에서 「벌이 다섯」으로 같은 짓을 했다.
+   * ⭐ 물어야 할 것은 「몇 개인가」가 아니라 **「제대로 된 목록인가」**다.
+   */
+  참('볼 문서가 하나 이상이다', 볼문서.length > 0);
+  참('⛔ 같은 문서를 두 번 안 센다', new Set(볼문서).size === 볼문서.length);
+  참('빈 이름이 없다', 볼문서.every((t) => typeof t === 'string' && t.trim().length > 0));
   /* 🔴 8/15 — redirects=1 을 안 넣어 세 문서가 「없음」으로 나왔다. 넘김이었다 */
   참('⛔ 제목 호출이 넘김을 따라간다',
     fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').includes('&redirects=1&prop=langlinks'));
