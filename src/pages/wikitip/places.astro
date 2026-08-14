@@ -1,0 +1,148 @@
+---
+/**
+ * K Culture Wire — **동남아는 한국의 어디를 찾아보나.** (`/places`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   사장님 지시(8/13) — 「스타들이 가는 곳(맛집·카페·여행지·촬영지) 지도 시장 조사」
+ *   ⭐ 재 보니 뜻밖의 것이 나왔다 — **소속사가 서울보다 많이 읽힌다.**
+ *
+ * ── ⛔ 이 지면이 못 하는 것을 먼저 적는다 ─────────────────────
+ * ⛔ **가게를 못 잰다.** 위키백과에 식당·카페 문서가 없다. TourAPI 열쇠가 있어야 얹힌다.
+ * ⛔ 조회수는 **관심이지 방문이 아니다.**
+ * ⛔ 장소를 줄세우지 않는다. **나라마다 어디를 보나**를 나란히 놓는다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-places.json';
+
+const TITLE = 'An entertainment company is looked up more than Seoul is';
+const DESC =
+  `We measured ${d.placesMeasured.toLocaleString('en-US')} places in Korea against the Indonesian, `
+  + `Vietnamese, Thai and Malay Wikipedias over twelve months. ${d.topCompany.name} scores `
+  + `${d.topCompany.total}, above every one of the ${d.citiesCounted} Korean cities and districts `
+  + 'in the panel. This counts curiosity, not visits, and it cannot see a single restaurant.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/places">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    <b>{d.topCompany.name}</b> scores <b>{d.topCompany.total}</b>. The most-read place of any kind
+    is <b>{d.topCity.name}</b> at <b>{d.topCity.total}</b>, and{' '}
+    <b>{d.citiesBelowTopCompany}</b> of the {d.citiesCounted} cities and districts we measured sit
+    below that one company.
+  </p>
+  <p class="note">{d.companyFinding}</p>
+
+  <section class="warn-box">
+    <h2>Read this first — what this cannot see</h2>
+    <p class="warn">{d.cannotMeasureVenues}</p>
+    <p class="warn">{d.readingIsNotVisiting}</p>
+  </section>
+
+  <section>
+    <h2>Seven kinds of place</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Kind</th><th>Places</th><th>Total per million</th><th>Median place</th>
+          {d.editions.map((e) => <th>{e.country}</th>)}</tr></thead>
+        <tbody>
+          {d.groups.map((g) => (
+            <tr>
+              <td class="nm">{g.label}</td>
+              <td>{g.places}</td>
+              <td class="tot">{g.perMillion}</td>
+              <td>{g.medianPlace}</td>
+              {g.byCountry.map((c) => <td class="fine">{c.perMillion}</td>)}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Stations are the largest group by count and nearly the smallest by reading — 879 of them draw
+      less than 53 heritage sites do. Companies are the reverse: twelve places, and the highest
+      median of any kind.
+    </p>
+  </section>
+
+  <section>
+    <h2>The fifteen most-read places</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Place</th><th>Kind</th>
+          {d.editions.map((e) => <th>{e.country}</th>)}<th>Total</th></tr></thead>
+        <tbody>
+          {d.topOverall.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              <td class="fine">{d.groups.find((g) => g.group === x.group)?.label ?? x.group}</td>
+              {d.editions.map((e) => <td>{x.perMillion[e.code] ?? '—'}</td>)}
+              <td class="tot">{x.total}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Each country's own top eight</h2>
+    <p class="note">
+      Read across, not down. The four columns do not hold the same names, and that is the point.
+    </p>
+    <div class="cols">
+      {d.editions.map((e) => (
+        <div class="col">
+          <h3>{e.country}</h3>
+          <table>
+            <thead><tr><th>Place</th><th>Per million</th></tr></thead>
+            <tbody>
+              {d.topByEdition[e.code].map((x) => (
+                <tr><td class="nm">{x.name}</td><td class="tot">{x.perMillion}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Panel</b> — {d.placesMeasured.toLocaleString('en-US')} places measured;
+        {' '}{d.placesNotMeasured} could not be measured and are left out rather than counted as zero.</li>
+      <li><b>Grouping</b> — {d.howGroupsWereMade}</li>
+    </ul>
+    <p class="warn">{d.whyNotPhilippines}</p>
+    <p class="note">
+      <a href="/fame-compare">The people, on the same scale</a> ·{' '}
+      <a href="/spread">What gets read across all four</a> · <a href="/about">How we count</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/places" />
+</WikiTip>
+
+<style>
+  .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
+  .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+  .col table { width: 100%; font-size: 0.9rem; }
+  .col h3 { margin-bottom: 0.3rem; }
+</style>

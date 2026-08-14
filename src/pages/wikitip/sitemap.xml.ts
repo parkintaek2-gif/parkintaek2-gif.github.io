@@ -171,6 +171,9 @@ export const GET: APIRoute = async () => {
     /* 85편째 기사의 표. 2026-08-14 — 무엇이 나라를 안 가리나. K팝 그룹이 가장 고르다.
        ⚠ 이스포츠 100% 는 관심이 아니라 **문서가 한 판에만 있어서**다. 지면에 그 말을 적었다 */
     { path: '/spread', priority: '0.9', changefreq: 'weekly' },
+    /* 86편째 기사의 표. 2026-08-14 — 사장님 지도 시장 조사 지시.
+       ⛔ 가게는 못 잰다(위키에 식당 문서가 없다). TourAPI 열쇠가 있어야 얹힌다 */
+    { path: '/places', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
