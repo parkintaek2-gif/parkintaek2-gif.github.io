@@ -1,5 +1,7 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
+import fs from 'node:fs';
+import path from 'node:path';
 import markets from '../../data/wikitip-markets.json';
 import titlePages from '../../data/wikitip-title-pages.json';
 import firmPages from '../../data/wikitip-firm-pages.json';
@@ -25,6 +27,42 @@ import firmPages from '../../data/wikitip-firm-pages.json';
  *   `check-search-readiness.mjs` 가 빌드된 지면과 사이트맵을 맞대 보고 빠지면 선다.
  */
 const ORIGIN = 'https://www.kculturewire.com';
+
+/**
+ * 🔴 2026-08-15 — **786장 중 88장에만 `lastmod` 가 있었다.** 기사에만 붙고 자료 지면엔 없었다.
+ *   검색엔진은 그것으로 「무엇이 새 것인가」를 안다. 없으면 다시 안 와 본다.
+ *   ⭐ 3번이 백년지도에서 lastmod 를 붙이고 네이버 수집을 얻었다. 같은 자리다.
+ *
+ * ⛔ **날짜를 지어내지 않는다.** 지면이 읽는 자료의 `generated` 를 그대로 쓴다.
+ *   지면 → 자료는 그 지면 소스의 `import … from '…json'` 줄에서 읽는다. 손으로 짝을 적으면
+ *   지면이 늘 때마다 빠진다 — 이 파일에서 이미 두 번 겪은 일이다.
+ * ⚠ 자료가 없거나 `generated` 가 없으면 **안 붙인다.** 빈 것보다 틀린 날짜가 나쁘다.
+ */
+const 지면방 = path.resolve('src/pages/wikitip');
+const 자료방 = path.resolve('src/data');
+
+function 지어진날(지면길: string): string | undefined {
+  const 소스 = path.join(지면방, `${지면길.replace(/^\//, '') || 'index'}.astro`);
+  if (!fs.existsSync(소스)) return undefined;
+  const 글 = fs.readFileSync(소스, 'utf8');
+  /**
+   * 🔴 처음엔 자료의 `generated` 만 봤다. 그랬더니 작품 지면 530장이 **08-09** 로 나왔다.
+   *   그런데 그 530장은 8/14 에 내가 고쳤다(표의 한국어를 옮겼다). 자료는 안 바뀌고
+   *   **지면이 바뀐** 것이다. ⛔ 자료만 보면 「안 바뀌었다」는 거짓 신호를 보낸다.
+   *   ⭐ 지면이 바뀐 때도 같이 본다. 둘 중 **늦은 쪽**이 그 지면이 마지막으로 바뀐 날이다.
+   */
+  const 날들: string[] = [new Date(fs.statSync(소스).mtime).toISOString().slice(0, 10)];
+  for (const m of 글.matchAll(/from\s+'[^']*\/data\/([A-Za-z0-9._-]+\.json)'/g)) {
+    const j = path.join(자료방, m[1]);
+    if (!fs.existsSync(j)) continue;
+    try {
+      const g = JSON.parse(fs.readFileSync(j, 'utf8')).generated;
+      if (typeof g === 'string' && /^\d{4}-\d{2}-\d{2}/.test(g)) 날들.push(g.slice(0, 10));
+    } catch { /* 자료가 깨졌으면 날짜를 안 만든다 */ }
+  }
+  /* 지면 하나가 자료 여럿을 읽으면 **늦은 쪽**이 그 지면이 바뀐 날이다 */
+  return 날들.length ? 날들.sort().at(-1) : undefined;
+}
 type Entry = {
   path: string;
   priority: string;
@@ -339,6 +377,22 @@ export const GET: APIRoute = async () => {
       description: v.description,
       seconds: 14,
     };
+  }
+
+  /**
+   * 🔴 lastmod 가 없는 줄에 붙인다. **기사에는 이미 있으니 덮어쓰지 않는다.**
+   * ⚠ `/title/<slug>` 530장은 한 소스에서 나오므로 같은 날이 된다. 그것이 맞다 —
+   *   그 지면들은 실제로 같은 자료가 바뀔 때 같이 바뀐다.
+   */
+  for (const e of entries) {
+    if (e.lastmod) continue;
+    /* ⚠ 자리표(`[slug]`)로 나오는 지면은 소스 이름이 주소와 다르다. 넷 다 적는다 —
+       하나라도 빠뜨리면 그 지면만 조용히 날짜 없이 나간다(section 이 실제로 그랬다) */
+    const 날 = 지어진날(e.path.startsWith('/title/') ? '/title/[slug]'
+      : e.path.startsWith('/firm/') ? '/firm/[slug]'
+        : e.path.startsWith('/market/') ? '/market/[slug]'
+          : e.path.startsWith('/section/') ? '/section/[category]' : e.path);
+    if (날) e.lastmod = 날;
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
