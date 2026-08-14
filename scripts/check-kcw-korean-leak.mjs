@@ -86,6 +86,15 @@ for (const f of 지면들) {
 }
 
 console.log(`영어 지면 ${지면들.length}장에서 **뜻 없는 한국어**를 찾는다`);
+/**
+ * 🔴 2026-08-14 — 빌드가 중간에 죽어 지면이 0장일 때 이 검사가 **✅ 를 냈다.**
+ *   ⛔ 「볼 것이 없었다」와 「봤는데 없었다」는 다른 말이다. 오늘 「만든 값이 0」을 겪고도
+ *     내 검사가 같은 거짓말을 했다. 아무것도 안 본 검사는 통과가 아니다.
+ */
+if (지면들.length < 100) {
+  console.log(`🔴 지면이 ${지면들.length}장뿐이다 — 빌드가 덜 됐다. **아무것도 안 보고 통과시키지 않는다**`);
+  process.exit(1);
+}
 if (!빨강.length) { console.log('✅ 빨강 0건'); process.exit(0); }
 console.log(`🔴 빨강 ${빨강.length}장`);
 for (const [f, 낱] of 빨강.slice(0, 25)) console.log(`   ${f.padEnd(46)} ${낱.slice(0, 4).join(' / ')}`);

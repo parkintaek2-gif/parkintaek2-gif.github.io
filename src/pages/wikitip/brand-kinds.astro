@@ -1,0 +1,125 @@
+---
+/**
+ * K Culture Wire — **브랜드는 한 덩어리가 아니다.** (`/brand-kinds`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   사장님 지시: 「패션 브랜드, 명품 엠베서더 등도 먹히는 콘텐트인지 분석하고」
+ *                「자동차까지 스타들의 일거수일투족이 모두 팬들은 궁금해할 테니까」
+ *   82편이 이미 「BMW 가 제일 읽히는 한국 가수보다 5.7배 적다」를 냈다.
+ *   ⛔ 그것을 되풀이하지 않는다. 여기서는 **브랜드 안을 가른다.**
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **줄세우지 않는다.** 갈래를 나란히 놓고 **왜 다른지**를 같이 적는다.
+ * ⛔ **읽힘은 팔림이 아니다.** 판매 자료가 우리에게 없다. 표 바로 아래 같은 크기로 적는다.
+ * ⛔ 한국 차 배수를 **내지 않는다** — 네 판에 다 있는 것이 기아 하나뿐이라 견줄 수 없다.
+ *    ⭐ 못 견준 까닭(태국판에 현대 글이 없다)이 이 지면의 **발견**이다.
+ * ⚠ 브랜드가 셋 미만인 갈래는 「얇다」고 표에 적는다. 무늬로 읽히면 안 된다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다. 붙여 써야 할 곳은 `{' '}` 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-brand-kinds.json';
+
+const 명품 = d.kinds.find((k) => k.key === 'luxury');
+const 독일차 = d.kinds.find((k) => k.key === 'car');
+const 흔들린나라 = d.countryNames[d.positionSwing.제일];
+
+const TITLE = 'Southeast Asia does not read brands as one thing';
+const DESC =
+  `Split 22 fashion, luxury, jewellery and car brands by kind and the four countries change places. `
+  + `${흔들린나라} is first among ${독일차.label.toLowerCase()} and last among ${명품.label.toLowerCase()}. `
+  + `Read as a single ranking, that disappears.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: d.window,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/brand-kinds">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">{d.answer}</p>
+
+  <section>
+    <h2>Five kinds, and where each one is read</h2>
+    <p class="note">
+      <b>{d.unit}.</b> Reading is divided by the size of each Wikipedia edition, so a country with
+      fewer readers is not pushed to the bottom for being small. Window — {d.window}.
+      A brand enters a kind's total only if it has an article in all four editions; brands missing
+      one are shown in the panel but left out of the sum, because counting a missing article as zero
+      would make an encyclopaedia gap look like disinterest.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Kind</th><th>Brands</th><th>Counted</th>
+            {d.editionsSea.map((p) => <th>{d.countryNames[p]}</th>)}
+            <th>Read most in</th></tr>
+        </thead>
+        <tbody>
+          {d.kinds.map((k) => (
+            <tr>
+              <td class="nm">{k.label}{k.얇은가 && <span class="fine">{' '}⚠ thin</span>}</td>
+              <td class="tot">{k.브랜드수}</td>
+              <td class="fine">{k.온전수}</td>
+              {d.editionsSea.map((p) => <td>{k.판별[p]}</td>)}
+              <td class="fine">{d.countryNames[k.차례[0]]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      ⚠ {d.thinNote} The thin kinds here are {d.thinKinds.join(' and ')}.
+    </p>
+  </section>
+
+  <section>
+    <h2>The same country changes place depending on the kind</h2>
+    <p>
+      {흔들린나라} sits {d.positionSwing.자리[d.positionSwing.제일].join(', ')} across the kinds that
+      are thick enough to read — first in one, last in another. That is the whole point of splitting
+      them. A single ranking of 22 brands would have given {흔들린나라} one position and hidden the
+      rest.
+    </p>
+    <p class="note">
+      This is not a statement that one country cares more than another. It says the four countries
+      are interested in <b>different kinds of thing</b>, and a page that ranks brands together cannot
+      show that.
+    </p>
+  </section>
+
+  <section>
+    <h2>The car comparison we could not make</h2>
+    <p>
+      We set out to put the {d.carsCompared.germanNames.join(', ')} total against
+      {' '}{d.carsCompared.koreanNames.join(', ')}. We are not publishing a multiple.
+      {' '}{d.carsCompared.whyNotComparable}
+    </p>
+    <p class="q">{d.carsCompared.finding}</p>
+    <p class="note">
+      ⛔ {d.carsCompared.notSales}
+    </p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    <p class="note">{d.cannotAnswer}</p>
+    <p class="note">
+      Measured: {d.brandsMeasured} brands. Source — {d.source}.
+      Countries: {d.editionsSea.map((p) => d.countryNames[p]).join(', ')}.
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/brand-kinds" />
+</WikiTip>

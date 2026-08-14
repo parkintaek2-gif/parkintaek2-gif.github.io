@@ -1,0 +1,226 @@
+{
+  "generated": "2026-08-14",
+  "source": "Wikimedia Pageviews API, human traffic only; brand identity from Wikidata",
+  "window": "2025-08 through 2026-07, 12 months, human traffic only",
+  "unit": "reads per million reads of that edition (백만분율)",
+  "editionsSea": [
+    "id",
+    "vi",
+    "th",
+    "ms"
+  ],
+  "editionTotals": {
+    "id": 838471174,
+    "vi": 595288447,
+    "th": 368636347,
+    "ms": 162947106
+  },
+  "question": "Does it change anything to split brands by kind instead of ranking them together?",
+  "answer": "Yes. Indonesia sits 1st in one kind and 4th in another. Read as one lump, that disappears.",
+  "kinds": [
+    {
+      "key": "luxury",
+      "label": "Luxury houses",
+      "브랜드수": 10,
+      "온전수": 7,
+      "뺀것": 3,
+      "얇은가": false,
+      "판별": {
+        "id": 38.45,
+        "vi": 78.53,
+        "th": 61.46,
+        "ms": 86.3
+      },
+      "합": 264.74,
+      "차례": [
+        "ms",
+        "vi",
+        "th",
+        "id"
+      ],
+      "이름들": [
+        "Balenciaga",
+        "Bottega Veneta",
+        "Burberry",
+        "Chanel",
+        "Dior",
+        "Fendi",
+        "Gucci",
+        "Hermès",
+        "Louis Vuitton",
+        "Prada"
+      ]
+    },
+    {
+      "key": "car",
+      "label": "German car makers",
+      "브랜드수": 3,
+      "온전수": 3,
+      "뺀것": 0,
+      "얇은가": false,
+      "판별": {
+        "id": 53.79,
+        "vi": 51.09,
+        "th": 43.14,
+        "ms": 17.32
+      },
+      "합": 165.34,
+      "차례": [
+        "id",
+        "vi",
+        "th",
+        "ms"
+      ],
+      "이름들": [
+        "BMW",
+        "Mercedes-Benz",
+        "Porsche"
+      ]
+    },
+    {
+      "key": "jewellery",
+      "label": "Jewellers and watchmakers",
+      "브랜드수": 4,
+      "온전수": 4,
+      "뺀것": 0,
+      "얇은가": false,
+      "판별": {
+        "id": 11.11,
+        "vi": 13.98,
+        "th": 16.3,
+        "ms": 11.91
+      },
+      "합": 53.3,
+      "차례": [
+        "th",
+        "vi",
+        "ms",
+        "id"
+      ],
+      "이름들": [
+        "Bulgari",
+        "Cartier",
+        "Rolex",
+        "Tiffany & Co."
+      ]
+    },
+    {
+      "key": "car-korean",
+      "label": "Korean car makers",
+      "브랜드수": 3,
+      "온전수": 1,
+      "뺀것": 2,
+      "얇은가": true,
+      "판별": {
+        "id": 6.2,
+        "vi": 10.72,
+        "th": 2.86,
+        "ms": 3.35
+      },
+      "합": 23.13,
+      "차례": [
+        "vi",
+        "id",
+        "ms",
+        "th"
+      ],
+      "이름들": [
+        "Genesis Motor",
+        "Hyundai Motor Company",
+        "Kia"
+      ]
+    },
+    {
+      "key": "fashion",
+      "label": "Everyday fashion labels",
+      "브랜드수": 2,
+      "온전수": 1,
+      "뺀것": 1,
+      "얇은가": true,
+      "판별": {
+        "id": 2.75,
+        "vi": 3.51,
+        "th": 1.43,
+        "ms": 1.06
+      },
+      "합": 8.75,
+      "차례": [
+        "vi",
+        "id",
+        "th",
+        "ms"
+      ],
+      "이름들": [
+        "Calvin Klein",
+        "Tommy Hilfiger"
+      ]
+    }
+  ],
+  "countryNames": {
+    "id": "Indonesia",
+    "vi": "Vietnam",
+    "th": "Thailand",
+    "ms": "Malaysia"
+  },
+  "positionSwing": {
+    "자리": {
+      "ms": [
+        1,
+        4,
+        3
+      ],
+      "vi": [
+        2,
+        2,
+        2
+      ],
+      "th": [
+        3,
+        3,
+        1
+      ],
+      "id": [
+        4,
+        1,
+        4
+      ]
+    },
+    "폭": {
+      "id": 3,
+      "vi": 0,
+      "th": 2,
+      "ms": 3
+    },
+    "제일": "id",
+    "바뀌나": true
+  },
+  "carsCompared": {
+    "comparable": false,
+    "german": 165.34,
+    "germanFull": 3,
+    "germanNames": [
+      "BMW",
+      "Mercedes-Benz",
+      "Porsche"
+    ],
+    "korean": 23.13,
+    "koreanFull": 1,
+    "koreanNames": [
+      "Genesis Motor",
+      "Hyundai Motor Company",
+      "Kia"
+    ],
+    "ratio": null,
+    "whyNotComparable": "Only 1 of the 3 Korean marques has an article in all four editions. Hyundai has none in the Thai Wikipedia, and Genesis has one only in Indonesian. Putting a one-marque total against a three-marque total would not be a comparison between kinds; it would be a comparison between how many articles happen to exist. So no multiple is given here.",
+    "finding": "The gap that stopped the comparison is itself the thing worth reporting: the Thai Wikipedia has an article on BMW, Mercedes-Benz and Porsche, and none on Hyundai.",
+    "notSales": "This is how often an encyclopaedia article is opened, not how many cars are sold. We hold no sales figures here, so this page says nothing about who buys what, and a missing article is not a missing market. A marque with a century of motorsport carries model-by-model articles that a reader falls into; that alone can move reading without moving a single sale."
+  },
+  "brandsMeasured": 22,
+  "brandsNotMeasured": 0,
+  "cannotAnswer": "Wikidata records no ambassador or endorsement relation between people and brands. We checked and found none in use. So this cannot say who fronts which house. It measures how much a brand is read about, next to how much a person is read about, on one scale.",
+  "thinKinds": [
+    "Korean car makers",
+    "Everyday fashion labels"
+  ],
+  "thinNote": "A kind holding fewer than 3 brands is too thin to call a pattern. It is shown so the panel is complete, and marked so it is not read as one."
+}
