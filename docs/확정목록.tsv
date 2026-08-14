@@ -11,3 +11,11 @@
 10	묻기 전 히스토리 검사	scripts/before-asking.mjs	끝난줄인가	2026-08-14	사장님
 11	사장님 지시 대장	C:/Users/USER/Documents/GitHub/klifemap/docs/사장님지시-대장.tsv	맡은자리	2026-08-14	사장님
 12	소통 주기 자	scripts/sotong-watch.mjs	늦었나	2026-08-14	사장님
+13	백년지도 값 9,900원 (지역 한 벌)	src/lib/price.ts	9900	2026-08-06	사장님
+14	PG 스위치 한 곳 — 이름이 PG붙었나	src/lib/price.ts	export const PG붙었나	2026-08-12	사장님
+15	사기 전 안내가 단추보다 앞에 선다	src/lib/price.ts	사기전안내	2026-08-13	사장님
+16	대표 메일 — 회사 도메인	src/consts.ts	cs@klifedesign.net	2026-08-13	사장님
+17	첫 화면 한 줄	src/pages/100y/index.astro	한 점일 뿐입니다	2026-08-06	사장님
+18	가운데 칸만 다른 서체·다른 색	src/pages/100y/index.astro	brand-cell.mid	2026-08-05	사장님
+19	화면에 등수를 쓰지 않는다	src/pages/100y/major/[slug].astro	전국 몇 위」를 절대 화면에 쓰지 않는다	2026-08-04	사장님
+20	글자 아닌 것을 하루 하나씩 — 숏영상 대장	src/data/100yearmap/videos.json	"영상"	2026-08-14	사장님
