@@ -1,6 +1,6 @@
 ---
 title: "Korea's $188bn trade surplus comes from a handful of partners — and drains into a different set"
-dek: "Twelve months of customs data: Korea's goods surplus rests on the U.S. (+$73bn), Hong Kong, Vietnam and Taiwan, and drains to where it buys energy and parts — Saudi Arabia, Japan, Australia. China, the biggest partner, nearly balances. Not advice."
+dek: "Twelve months of customs data: Korea's goods surplus rests on the U.S., Hong Kong, Vietnam and Taiwan, and drains to where it buys energy and parts — Saudi Arabia, Japan, Australia. China, the biggest partner, nearly balances. Not advice."
 category: macro
 pubDate: 2026-08-15
 dataAsOf: 2026-06-30T00:00:00+09:00
