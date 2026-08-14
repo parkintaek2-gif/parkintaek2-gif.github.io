@@ -59,6 +59,14 @@ const jsonLd = {
         </video>
         <p class="note">
           <a class="gotoarea" href={v.댈지면}>이 숫자가 있는 지면으로 →</a>
+          {/* 🔴 2026-08-15 — 사장님 지시 「올린 주소를 자기 지면에 겁니다 — **서로 오가게**」.
+              ⛔ 안 올린 영상에는 안 건다. 대장의 「유튜브」 칸이 있을 때만 나온다 */}
+          {v.유튜브 && (
+            <>
+              {' · '}
+              <a class="gotoarea" href={v.유튜브} rel="noopener">유튜브에서 보기 →</a>
+            </>
+          )}
         </p>
         <p class="note small">
           {v.몇살손님} · {v.초}초 · 만든 날 {v.만든날}
