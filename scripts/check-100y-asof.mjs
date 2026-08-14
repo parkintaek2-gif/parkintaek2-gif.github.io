@@ -33,9 +33,12 @@ export function 주석걷기(글) {
 
 /** 날짜를 화면에 찍고 있나 — 글자든 값이든 */
 export function 날짜를찍나(글) {
-  if (/\d{4}-\d{2}-\d{2}/.test(글)) return true
-  if (/\d{4}년\s*\d{1,2}월/.test(글)) return true
-  return /기준일|기준시각|받은\s*날|수집시각|원천수집시각|공시연도|만든날|기준연도|해\b/.test(글)
+  // ⚠ 날은 여러 꼴로 찍힌다 — 「2024-12-31 조사」·「2024년 공시」·「(2025)」·「기준 2026-06」.
+  //    ⛔ 「년 월」까지 있어야 날로 치면 **355장이 거짓 빨강**이 된다(2026-08-14 에 그랬다).
+  if (/20\d{2}-\d{2}/.test(글)) return true          // 2026-06 · 2024-12-31
+  if (/20\d{2}\s*년/.test(글)) return true            // 2024년 공시 · 2025년
+  if (/[(（]\s*20\d{2}\s*[)）]/.test(글)) return true  // (2025)
+  return /기준일|기준시각|받은\s*날|수집시각|원천수집시각|공시연도|만든날|기준연도/.test(글)
 }
 
 export const 출처를찍나 = (글) => /출처/.test(글)
@@ -53,15 +56,24 @@ if (process.argv.includes('--자가시험')) {
   process.exit(틀림 ? 1 : 0)
 }
 
+// 🔴 2026-08-14 14:5x 정정 — **틀(.astro)이 아니라 빌드된 지면(dist)을 본다.**
+//    틀에 날이 안 적혀 있어도 **자료에서 날이 실려 오는 자리**가 있다(「(2025)」·「2024-12-31 조사」).
+//    틀만 보고 11장이라 했는데 실물은 다섯 자리였다 — 3번이 실물을 찍어 보여 주어 알았다.
+//    ⛔ 빌드가 없으면 **못 쟀다고 하고 선다.** 틀로 대신 재지 않는다.
+const 빌드방 = path.join(뿌리, 'dist/100y')
+if (!fs.existsSync(빌드방)) {
+  console.log('⛔ 못 쟀다 — dist/100y 가 없다. `npm run build` 뒤에 다시 돌려라. ⛔ 틀(.astro)로 대신 재지 않는다')
+  process.exit(1)
+}
 const 지면들 = []
 const 훑기 = (방) => {
   for (const f of fs.readdirSync(방)) {
     const 길 = path.join(방, f)
     if (fs.statSync(길).isDirectory()) 훑기(길)
-    else if (/\.astro$/.test(f)) 지면들.push(길)
+    else if (/\.html$/.test(f)) 지면들.push(길)
   }
 }
-훑기(지면방)
+훑기(빌드방)
 
 const 운다 = []
 let 봤다 = 0
