@@ -74,6 +74,9 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const br = 읽기('src/data/wikitip-brand-kinds.json');
   const cn = 읽기('src/data/wikitip-read-vs-visited.json');
   const se = 읽기('src/data/wikitip-look-vs-fly.json');
+  const wf = 읽기('src/data/wikitip-what-fell.json');
+  /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
+  const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December'];
   const 달말 = (mm) => 달이름[Number(mm) - 1] ?? mm;
@@ -187,6 +190,25 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
       alt: 'Five cards comparing the months Southeast Asia reads about Korean travel with the '
         + 'months flights on the Asia routes are busiest.',
     },
+    {
+      /**
+       * 91편. ⛔ **첫 줄에 「−30%」만 두지 않는다.**
+       *   타임라인에서 첫 줄만 읽고 지나가는 사람이 대부분이다. 그 사람에게
+       *   우리가 안 쓰기로 한 헤드라인이 그대로 가면, 카드 다섯 장을 만든 뜻이 없다.
+       *   ⭐ 그래서 첫 줄이 **두 수를 같이** 든다.
+       */
+      key: 'control',
+      page: `${주소}/what-actually-fell`,
+      images: 장('control'),
+      x: `Korean travel articles in four Southeast Asian Wikipedias: ${몫(wf.axes.trip.korea)} `
+        + `in a year.\nJapanese and Taiwanese culture articles, same editions, same months: `
+        + `${몫(wf.axes.culture.control)}.\n\n`
+        + `Air passengers on the Asia routes moved ${몫(wf.flights.asia.change)}.\n\n`
+        + `It was travel, not Korea.\n\n${주소}/what-actually-fell`,
+      alt: 'Five cards showing that Korean travel articles fell across four Southeast Asian '
+        + 'Wikipedias while Japanese and Taiwanese culture articles did not, and that air '
+        + 'passengers on the Asia routes barely moved over the same months.',
+    },
   ];
 }
 
@@ -263,5 +285,10 @@ if (내가실행됐다) {
   for (const b of 벌들) {
     console.log(`   ${b.key.padEnd(10)} 그림 ${b.images.length}장 · X ${X길이(b.x)}자 · → ${b.page}`);
   }
-  console.log('\n🖐 계정과 올릴 곳만 사장님이 정해 주시면 그대로 나갑니다.');
+  /**
+   * 🔴 8/15 — 여기 「사장님이 정해 주시면」이라고 적혀 있었다. **사장님께서 그것을 금하셨다** —
+   *   「내 손을 빌리지마」·「실무적인 데는 내가 없다고 생각해라」.
+   * ⭐ 계정과 올릴 곳은 **2번의 판단 몫**으로 옮겼다. 자가 사장님을 부르지 않는다.
+   */
+  console.log('\n⏳ 계정과 올릴 곳이 정해지면 그대로 나갑니다 — 2번 판단 몫입니다.');
 }
