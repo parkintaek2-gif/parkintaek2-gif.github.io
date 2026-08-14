@@ -42,7 +42,75 @@ export const 벌목록 = {
   fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
   malaysia: { 자료: 'src/data/wikitip-malaysia.json', 만들기: (d) => 말레이벌짓기(d) },
+  places: { 자료: 'src/data/wikitip-places.json', 만들기: (d) => 장소벌짓기(d) },
 };
+
+/**
+ * 장소 벌 — 86편째 기사(2026-08-14). 사장님 「지도 시장 조사」 지시의 첫 답.
+ * ⭐ 뼈는 **소속사가 서울보다 위**라는 것이다. 지도 시장이 장소만이 아니라는 뜻이다.
+ * ⛔ 「가게를 못 잰다」를 넷째 장 맨 앞에 둔다 — 그것이 이 자료의 가장 큰 구멍이다.
+ */
+export function 장소벌짓기(d) {
+  const 무리 = (k) => d.groups.find((g) => g.group === k);
+  const 회사 = 무리('company');
+  const 도시 = 무리('admin');
+  const 역 = 무리('station');
+  const 유산 = 무리('heritage');
+  return {
+    갈피: 'places',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Four Wikipedias · 12 months',
+        큰: `A Korean record label\nis looked up more\nthan Seoul is`,
+        아래: `${d.placesMeasured.toLocaleString('en-US')} places in Korea, measured the same way as the people who come from them.`,
+      },
+      {
+        꼴: '수',
+        제목: 'The label and\nthe capital',
+        큰: `${d.topCompany.total} vs ${d.topCity.total}`,
+        곁: `${d.topCompany.name} against ${d.topCity.name}, reads per million`,
+        아래: `**${d.citiesBelowTopCompany}** of the ${d.citiesCounted} Korean cities and districts `
+          + 'we measured sit below that one company.',
+      },
+      {
+        꼴: '표',
+        제목: 'Where the\nreading sits',
+        머리: ['Kind', 'Places', 'Total', 'Median'],
+        줄: [
+          [도시.label, String(도시.places), String(도시.perMillion), String(도시.medianPlace)],
+          [회사.label, String(회사.places), String(회사.perMillion), String(회사.medianPlace)],
+          [유산.label, String(유산.places), String(유산.perMillion), String(유산.medianPlace)],
+          [역.label, String(역.places), String(역.perMillion), String(역.medianPlace)],
+        ],
+        아래: `${역.places} stations draw less than ${유산.places} heritage sites do. `
+          + `**${회사.places} companies have the highest median of any kind.**`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What this cannot see',
+        목록: [
+          'A single restaurant or cafe — Wikipedia has no articles on venues',
+          'Visits — a read is curiosity, not a trip',
+          'The Philippines — the Tagalog edition is too small to measure with',
+        ],
+        아래: 'The venue layer needs the Korea Tourism Organization API.\n'
+          + '**We say what we cannot see before we say what we can.**',
+      },
+      {
+        꼴: '끝',
+        제목: 'The four countries\ndo not agree',
+        글: 'Indonesia opens with two record labels.\nMalaysia opens with a palace.\n\n'
+          + '**Read the columns across, not down.**',
+        길: `${주소}/places`,
+        곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
 
 /**
  * 말레이시아 벌 — 84편째 기사(2026-08-14).

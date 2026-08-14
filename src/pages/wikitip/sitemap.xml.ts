@@ -67,6 +67,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'Malaysia reads Korean brands more readily than Korean people',
     caption: 'Five cards: four groups in a narrow band, one well outside it.',
   },
+  {
+    set: 'places',
+    page: '/places',
+    count: 5,
+    title: 'A Korean record label is looked up more than Seoul is',
+    caption: 'Five cards: where reading about Korea sits, and what this cannot see.',
+  },
 ];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */

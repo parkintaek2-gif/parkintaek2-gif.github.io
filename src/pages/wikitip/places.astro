@@ -16,6 +16,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-places.json';
 
 const TITLE = 'An entertainment company is looked up more than Seoul is';
@@ -137,6 +138,7 @@ const jsonLd = {
     </p>
   </section>
 
+  <KcwCardnews set="places" count={5} />
   <KcwRelatedArticles page="/places" />
 </WikiTip>
 

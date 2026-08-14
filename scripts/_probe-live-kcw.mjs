@@ -29,8 +29,16 @@ const 볼것 = [
   ['/sea-athletes', ['82.4', '50.6', '137.78']],
   ['/article/the-manager-is-read-where-he-was-hired', ['82.4', '50.6']],
   ['/one-title', ['49.5', '1,329']],
+  /* 85편 — ⚠ 이스포츠 100% 가 「문서의 쏠림」이라는 말이 화면에 있어야 한다 */
+  ['/spread', ['41.7', '25', 'Vietnamese Wikipedia']],
+  ['/article/k-pop-groups-travel-widest', ['41.7', '50.4', '100']],
+  /* 86편 — ⚠ 「가게를 못 잰다」가 화면에 있어야 한다 */
+  ['/places', ['111.47', '106.54', 'restaurants and cafes']],
+  ['/article/a-label-outreads-the-capital', ['111.47', '106.54', '1.55']],
+  /* 카드뉴스가 지면에 걸렸나 — 서버에만 있고 안 걸려 있던 자리다 */
+  ['/cardnews/fame/01.png', []],
   ['/', ['K Culture Wire']],
-  ['/sitemap.xml', ['/malaysia', '/fame-compare']],
+  ['/sitemap.xml', ['/malaysia', '/fame-compare', '/spread', '/places', 'cardnews']],
 ];
 
 let 나쁨 = 0;
