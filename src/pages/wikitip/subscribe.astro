@@ -28,12 +28,24 @@ const 기사 = (await getCollection('kcwArticles')).filter((e) => !e.data.draft)
 /**
  * 자료 지면 수는 **세어서** 적는다. 손으로 적으면 지면이 늘 때 어긋난다.
  *
- * ⛔ 「.astro 개수 − 404 − subscribe」로 셌더니 **19장**이 나왔다. 틀렸다 —
- *    첫 화면·방법론·기사 목록·정정은 **자료 지면이 아니다.** 그것까지 세면
- *    사는 사람에게 없는 것을 있다고 말하는 것이다. 자료 지면이 아닌 것을 이름으로 뺀다.
+ * ⛔ 「.astro 개수 − 404 − subscribe」로 셌더니 19장이 나왔다. 틀렸다 —
+ *    첫 화면·방법론·기사 목록·정정은 **자료 지면이 아니다.**
+ * 🔴 2026-08-14 — 그 뒤로도 **여섯 장이 부풀어 있었다.** 폰으로 넘기다 봤다.
+ *    문의·약관·개인정보·환불·파는 자리·자료 목록까지 「data pages」로 세고 있었다.
+ *    56 이라 적혀 있었지만 표가 있는 지면은 **50장**이다.
+ *    ⭐ 사는 사람에게 없는 것을 있다고 말하는 것이다. 8번이 같은 날 찾은 「43장 부풀림」과 한 뿌리다.
+ *
+ * ⚠ 「자료를 읽는다」만으로도 모자랐다 — 첫 화면·약관·정정목록·파는 자리도 자료를 읽는다.
+ *   그래서 **둘 다** 만족해야 센다.
+ *     ① `src/data/wikitip-*.json` 을 읽어 표를 그린다
+ *     ② 이름이 아래 목록에 없다 (손님이 「자료 지면」이라 부르지 않을 것들)
+ *   ⛔ 어느 하나만으로는 계속 샜다. 8/14 에 두 번 고쳤다.
  */
-const 자료아님 = /\/(404|index|about|articles|subscribe|corrections)\.astro$/;
-const 지면수 = Object.keys(import.meta.glob('./*.astro')).filter((p) => !자료아님.test(p)).length;
+const 자료아님 = /\/(404|index|about|articles|subscribe|corrections|contact|terms|privacy|refund|cookies|data|for-industry)\.astro$/;
+const 지면글 = import.meta.glob('./*.astro', { query: '?raw', import: 'default', eager: true });
+const 자료를읽나 = (글: unknown) => typeof 글 === 'string' && /from '\.\.\/\.\.\/data\/wikitip-/.test(글);
+const 지면수 = Object.entries(지면글)
+  .filter(([길, 글]) => 자료를읽나(글) && !자료아님.test(길)).length;
 
 /**
  * 파는 한 벌의 크기.
