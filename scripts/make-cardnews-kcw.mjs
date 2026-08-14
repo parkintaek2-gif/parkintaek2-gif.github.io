@@ -41,7 +41,69 @@ export const 주소 = 'kculturewire.com';
 export const 벌목록 = {
   fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
+  malaysia: { 자료: 'src/data/wikitip-malaysia.json', 만들기: (d) => 말레이벌짓기(d) },
 };
+
+/**
+ * 말레이시아 벌 — 84편째 기사(2026-08-14).
+ * ⭐ 이 벌의 뼈는 **하나가 줄에서 벗어났다**는 것이다. 다섯 줄을 나란히 놓으면 눈이 알아본다.
+ * ⛔ 「말레이시아 사람이 명품을 좋아한다」로 읽지 않는다 — 우리가 잰 것은 **읽힌 몫**이다.
+ */
+export function 말레이벌짓기(d) {
+  const 사람무리 = d.sharesByGroup.filter((g) => g.group !== 'brands');
+  const 브랜드 = d.sharesByGroup.find((g) => g.group === 'brands');
+  const [낮, 높음] = d.peopleShareRangePc;
+  return {
+    갈피: 'malaysia',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Malay Wikipedia · 12 months',
+        큰: `Malaysia reads Korean\nbrands ${d.brandOverPeopleRatio}× as readily\nas it reads Korean people`,
+        아래: 'Four kinds of people sit in a narrow band. One kind of thing sits well outside it.',
+      },
+      {
+        꼴: '수',
+        제목: 'One row is not\nlike the others',
+        큰: `${낮}–${높음}% vs ${d.brandSharePc}%`,
+        곁: "Malaysia's share of all four-country reading, by group",
+        아래: `Groups, solo musicians, actors and athletes land within **${(높음 - 낮).toFixed(1)} points** `
+          + `of each other. Luxury and car brands land at **${d.brandSharePc}%**.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The five rows',
+        머리: ['Group', 'Counted', "Malaysia's share"],
+        줄: [
+          ...사람무리.map((g) => [g.label, String(g.people), `${g.malaysiaSharePc}%`]),
+          [브랜드.label, String(브랜드.people), `${브랜드.malaysiaSharePc}%`],
+        ],
+        아래: 'Read the last column down. Four numbers agree and the fifth does not.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Why — a share is not a reason, and we did not measure one',
+          'Population — we divide by the size of each Wikipedia, not by how many people live there',
+          'Malaysia alone — Malay is read outside Malaysia, and many Malaysians read in English',
+        ],
+        아래: 'Popularity is not what this counts. **It counts people looking something up.**',
+      },
+      {
+        꼴: '끝',
+        제목: 'Four agree.\nOne does not.',
+        글: 'That is the whole finding, and it is worth more\nthan a guess about why.\n\n'
+          + '**We publish the gap and leave the reason open.**',
+        길: `${주소}/malaysia`,
+        곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
 
 /** 자료에서 한 벌을 짓는다. ⛔ 수를 손으로 적지 않는다 */
 export function 한벌짓기(d) {
