@@ -146,6 +146,23 @@ export function 철대본만들기(d) {
 }
 
 /**
+ * 어느 대본인가. ⚠ 벌이 늘면 여기 한 줄을 같이 넣는다 —
+ *   안 넣으면 새 영상에 **옛 영상의 목소리**가 얹힌다. 그것이 제일 조용한 거짓말이다.
+ *
+ * 🔴 8/15 — 이 표가 실행부 안에 있어서 **자가시험이 못 봤다.** 검사는 `fame` 대본 하나만
+ *   재고 있었고, 뒤에 붙은 다섯 벌은 「남녀가 번갈아 나오나」·「끝에서 잘리지 않나」를
+ *   **한 번도 통과한 적이 없었다.** 검사가 볼 수 있는 자리로 뺀다.
+ */
+export const 대본목록 = {
+  fame: { 자료: 'src/data/wikitip-fame-compare.json', 짓기: (d) => 대본만들기(d) },
+  instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: (d) => 자대본만들기(d) },
+  brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: (d) => 브랜드대본만들기(d) },
+  counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: (d) => 셈대본만들기(d) },
+  season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: (d) => 철대본만들기(d) },
+  control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: (d) => 대조대본만들기(d) },
+};
+
+/**
  * 91편 대본 — 「무엇이 떨어졌나」(`/what-actually-fell`).
  *
  * ⭐ 열네 초에 들어가는 것은 **네 수 중 둘**뿐이다. 고른 둘은
@@ -241,7 +258,13 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   재본다('걸리는초 — 빈 글은 0', 걸리는초('   '), 0);
   const d = JSON.parse(fs.readFileSync('src/data/wikitip-fame-compare.json', 'utf8'));
   const 대본 = 대본만들기(d);
-  재본다('대본이 다섯 줄', 대본.length, 5);
+  /**
+   * 🔴 여기 「대본이 다섯 줄」이라 박혀 있었다. **자물쇠였다** —
+   *   91편 대본은 넉 줄인데, 넉 줄이 옳다(말이 길어 다섯이면 14초를 넘는다).
+   * ⭐ 「몇 줄인가」가 아니라 **「제대로 된 대본인가」**를 묻는다.
+   */
+  재본다('대본에 줄이 있다', 대본.length > 0, true);
+  재본다('⛔ 빈 말이 없다', 대본.filter((x) => !String(x.말).trim()), []);
   /* 🔴 때를 손으로 적었다가 세 번 어긋났다. 자가 세는지 확인한다 */
   재본다('때매기기 — 앞줄이 끝난 뒤에 선다',
     때매기기([{ 말: 'one two three four five six', 쉼: 0.5 }, { 말: 'seven' }], 0).map((x) => x.때),
@@ -265,6 +288,42 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   재본다('⛔ 대본의 수가 전부 화면에 있다', 수가화면에있나(대본, 화면), []);
   재본다('수가화면에있나 — 없으면 잡는다',
     수가화면에있나([{ 말: 'nine hundred and 9999 more' }], '<b>1</b>'), ['9999']);
+
+  /**
+   * 🔴 **여기까지가 `fame` 대본 하나만 잰 것이다.**
+   *   대본이 여섯 벌인데 검사는 하나만 봤다. 나머지 다섯은 「남녀가 번갈아 나오나」도
+   *   「끝에서 잘리지 않나」도 한 번도 통과한 적이 없었다.
+   * ⭐ **벌마다 다 잰다.** 벌이 늘면 검사도 저절로 늘어난다 — 손으로 한 줄 더 안 적는다.
+   * ⚠ 자료가 없는 벌은 **없다고 잡는다.** 조용히 건너뛰면 검사가 없는 것과 같다.
+   */
+  for (const [이름, 벌] of Object.entries(대본목록)) {
+    if (!fs.existsSync(벌.자료)) { 재본다(`⛔ ${이름} 의 자료가 있다`, 벌.자료, () => false); continue; }
+    const 짠것 = 벌.짓기(JSON.parse(fs.readFileSync(벌.자료, 'utf8')));
+    재본다(`[${이름}] 줄이 있다`, 짠것.length > 0, true);
+    재본다(`[${이름}] 남녀가 번갈아 나온다`, 짠것.map((x) => x.누가).join(''), (s) => !/(남남|여여)/.test(s));
+    재본다(`[${이름}] ⛔ 14초를 안 넘고 안 겹친다`, 대본검사(짠것), []);
+    재본다(`[${이름}] ⛔ 「인기」라고 말하지 않는다`,
+      짠것.map((x) => x.말).join(' ').toLowerCase(), (s) => !s.includes('popular'));
+    /**
+     * ⚠ **여기서 13.6 같은 여유 문턱을 재지 않는다.**
+     *   `걸리는초` 는 낱말 수로 잡는 **어림**이고, Piper 실제와 ±30% 어긋난다
+     *   (오늘도 3.08 어림이 2.85 로, 1.15 어림이 1.56 으로 나왔다).
+     *   🔴 어림으로 13.6 을 재니 `instrument` 가 13.74 로 걸렸는데, 얹은 영상은 14초 그대로였다.
+     *     **헛경보였다.** 헛경보를 내는 검사는 없는 것만 못하다.
+     * ⭐ 진짜 여유는 **실제 소리를 만든 뒤** 실행부가 잰다(위 「실제 길이로 다시 매도 안 들어간다」).
+     *   여기서는 어림으로 잴 수 있는 것 — **14초를 넘나·겹치나**까지만 본다.
+     */
+    재본다(`[${이름}] 어림으로도 14초 안에 든다`,
+      짠것[짠것.length - 1].때 + 걸리는초(짠것[짠것.length - 1].말), (v) => v <= 14);
+    /* 🔴 화면에 없는 수를 말하면 거짓말이 된다 — 벌 이름이 곧 영상 자 이름이다 */
+    const 영상길 = `./make-video-kcw-${이름}.mjs`;
+    if (!fs.existsSync(path.join(path.dirname(fileURLToPath(import.meta.url)), `make-video-kcw-${이름}.mjs`))) {
+      재본다(`⛔ ${이름} 의 영상 자가 있다`, 영상길, () => false); continue;
+    }
+    const 그영상 = await import(영상길);
+    const 그화면 = [0.6, 3.4, 4.6, 8, 11.6, 13].map((t) => 그영상.칸HTML(t)).join(' ');
+    재본다(`[${이름}] ⛔ 대본의 수가 전부 화면에 있다`, 수가화면에있나(짠것, 그화면), []);
+  }
   console.log(`목소리 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -304,18 +363,6 @@ if (내가실행됐다) {
   const 낼방 = i >= 0 ? process.argv[i + 1] : 'archive/video/voice';
   fs.mkdirSync(낼방, { recursive: true });
 
-  /**
-   * 어느 대본인가. ⚠ 벌이 늘면 여기 한 줄을 같이 넣는다 —
-   *   안 넣으면 새 영상에 **옛 영상의 목소리**가 얹힌다. 그것이 제일 조용한 거짓말이다.
-   */
-  const 대본목록 = {
-    fame: { 자료: 'src/data/wikitip-fame-compare.json', 짓기: 대본만들기 },
-    instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: 자대본만들기 },
-    brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: 브랜드대본만들기 },
-    counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: 셈대본만들기 },
-    season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: 철대본만들기 },
-    control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: 대조대본만들기 },
-  };
   const j = process.argv.indexOf('--대본');
   const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';
   if (!대본목록[고른]) {
