@@ -70,6 +70,21 @@ export function 때매기기(줄들, 처음 = 0.5) {
   });
 }
 
+/**
+ * 87편 대본 — 「자를 바꿔 읽었다」.
+ * ⛔ 화면에 없는 수를 말하지 않는다. ⛔ 인과로 말하지 않는다.
+ */
+export function 자대본만들기(d) {
+  return 때매기기([
+    /* ⚠ 14초에 맞춘다. 말이 길면 잘려서 반쪽 문장이 나간다 */
+    { 누가: '여', 말: 'Yesterday this came out flat.', 쉼: 0.5 },
+    { 누가: '남', 말: 'Today it reads.', 쉼: 0.5 },
+    { 누가: '여', 말: `${d.multiple} times more reads at five titles.`, 쉼: 0.6 },
+    { 누가: '남', 말: 'We changed the ruler, not the panel.', 쉼: 0.5 },
+    { 누가: '여', 말: 'Which way it points, we cannot say.', 쉼: 0 },
+  ]);
+}
+
 export function 대본만들기(d) {
   /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다 */
   return 때매기기([
@@ -200,8 +215,23 @@ if (내가실행됐다) {
   const 낼방 = i >= 0 ? process.argv[i + 1] : 'archive/video/voice';
   fs.mkdirSync(낼방, { recursive: true });
 
-  const d = JSON.parse(fs.readFileSync('src/data/wikitip-fame-compare.json', 'utf8'));
-  const 대본 = 대본만들기(d);
+  /**
+   * 어느 대본인가. ⚠ 벌이 늘면 여기 한 줄을 같이 넣는다 —
+   *   안 넣으면 새 영상에 **옛 영상의 목소리**가 얹힌다. 그것이 제일 조용한 거짓말이다.
+   */
+  const 대본목록 = {
+    fame: { 자료: 'src/data/wikitip-fame-compare.json', 짓기: 대본만들기 },
+    instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: 자대본만들기 },
+  };
+  const j = process.argv.indexOf('--대본');
+  const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';
+  if (!대본목록[고른]) {
+    console.error(`⛔ 모르는 대본 ${고른} — 있는 것: ${Object.keys(대본목록).join(', ')}`);
+    process.exit(1);
+  }
+  const d = JSON.parse(fs.readFileSync(대본목록[고른].자료, 'utf8'));
+  const 대본 = 대본목록[고른].짓기(d);
+  console.log(`대본 ${고른} · ${대본목록[고른].자료}`);
   const 탈 = 대본검사(대본);
   if (탈.length) { console.error('⛔ 대본이 안 맞는다:'); for (const t of 탈) console.error(`   · ${t}`); process.exit(1); }
 
