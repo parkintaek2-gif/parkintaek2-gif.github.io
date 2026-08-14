@@ -59,7 +59,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" v
 
   <!-- 사장님이 정하신 첫 문장 -->
   <text x="80" y="392" font-family="${고딕}" font-size="46" font-weight="bold"
-        fill="${색.글}">대학은 100년 중 한 점일뿐 입니다.</text>
+        fill="${색.글}">대학은 100년 중 한 점일 뿐입니다.</text>
 
   <text x="80" y="462" font-family="${고딕}" font-size="30" fill="${색.흐림}">
     그 길로 간 사람들이 졸업 뒤에 어떻게 됐는지, 공공데이터로 봅니다.</text>

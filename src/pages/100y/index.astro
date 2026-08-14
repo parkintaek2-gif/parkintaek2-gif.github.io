@@ -57,26 +57,46 @@ const jsonLd = {
 ---
 
 <HundredYear title="대학 다음까지 보는 진로 지도" description={DESC} jsonLd={jsonLd}>
-  {/* ⭐ 브랜드 표 — 사장님 지시(2026-08-05): 「백년대계, 백년지도 · **가운데에 교육**」
-      왼쪽에 물음(백년대계), 가운데에 그 대상(교육), 오른쪽에 우리가 하는 일(백년지도).
-      ⚠ 로고 그림을 쓰지 않는다. 글자만으로 세운다 —
-        이미지가 안 뜨는 자리(메일·요약·저사양)에서도 브랜드가 살아 있어야 한다. */}
-  <div class="brand">
-    <div class="brand-cell">
-      <span class="ko">백년대계</span>
-      <span class="hanja">百年大計</span>
-    </div>
-    <div class="brand-cell mid">
-      <span class="ko">교육</span>
-      <span class="hanja">敎育</span>
-    </div>
-    <div class="brand-cell">
-      <span class="ko">백년지도</span>
-      <span class="hanja">百年之圖</span>
-    </div>
-  </div>
+  {/**
+   * 🔴 브랜드 판 — 사장님 수용(2026-08-14) 「이미지로 디자인 해. **위아래로 텍스트가 너무 많아**」
+   *
+   * ```
+   * 8/05   백년대계 · 교육 · 백년지도   글자 여덟 덩어리(한글3 + 한자3 + 문장 2줄)
+   * 8/14   한자를 **뒤로 보내 바탕**으로 깔고, 앞에는 한글 셋. 문장은 한 줄  → 넷
+   * ```
+   * ⭐ 글자는 여섯인데 **눈에는 셋**으로 보인다. 고전의 결을 안 버리고 글자만 줄였다.
+   *
+   * 🔴🔴 **인라인 SVG 다. `<img src="brand.svg">` 로 걸지 않는다.** 까닭 셋 —
+   *   ① 검색엔진이 `<img>` 안의 글자를 못 읽는다
+   *   ② 필수품 검사(`pilsupum-check`)는 지면 글자를 센다. 외부 파일이면 「없다」로 나온다
+   *   ③ 그림이 안 뜨면 브랜드가 통째로 사라진다 — 원래 「글자만으로 세운다」고 정했던 까닭이다
+   *   ⭐ 인라인이면 셋 다 풀린다. 글자가 지면 안에 남는다.
+   */}
+  {/**
+   * ⚠ 2번이 미리 짚어 준 두 자리를 **찍어 보고 둘 다 고쳤다**(8/14 18:3x).
+   * ```
+   * ① 폰에서 한글이 **12.7px** 이었다 — 760 viewBox 가 358px 로 줄면 27 × 0.47 이다
+   *    → viewBox 를 620 으로 좁히고 글자를 31 로 키웠다. 폰에서 **17.9px** 이 된다
+   * ② 바탕 한자가 **판 밖으로 잘려** 「年大計 方向 百年之」만 보였다(76px × 자간 10 = 760 초과)
+   *    → `textLength` 로 폭을 못 박는다. 크기를 어떻게 잡아도 판 안에 든다
+   * ```
+   * ⛔ 「viewBox 니까 알아서 맞겠지」로 두지 않았다. **잘린 것은 찍어 봐야 보였다.**
+   */}
+  <svg viewBox="0 0 620 172" role="img" aria-label="백년대계 · 삶의 방향 · 백년지도" class="brand-svg">
+    <text x="310" y="104" text-anchor="middle" font-family="var(--serif)"
+          font-size="62" textLength="548" lengthAdjust="spacingAndGlyphs"
+          fill="var(--gold)" class="brand-back">百年大計 方向 百年之圖</text>
+    <line x1="36" y1="40" x2="584" y2="40" stroke="var(--line)" stroke-width="1" />
+    <text x="150" y="96" text-anchor="middle" font-family="var(--serif)"
+          font-size="31" font-weight="700" letter-spacing="1" fill="var(--muted)">백년대계</text>
+    <text x="310" y="96" text-anchor="middle" font-family="var(--serif)"
+          font-size="31" font-weight="700" letter-spacing="1" fill="var(--gold)">삶의 방향</text>
+    <text x="470" y="96" text-anchor="middle" font-family="var(--serif)"
+          font-size="31" font-weight="700" letter-spacing="1" fill="var(--muted)">백년지도</text>
+    <line x1="36" y1="132" x2="584" y2="132" stroke="var(--line)" stroke-width="1" />
+  </svg>
   <p class="brand-line">
-    교육은 <strong>백년대계</strong>입니다.<br class="pcbr" /> 그 백 년을 그리는 것이 <strong>백년지도</strong>입니다.
+    그 백 년을 그리는 것이 <strong>백년지도</strong>입니다.
   </p>
 
   {/* ⚠ 줄바꿈을 넣지 않는다 (사장님 지시 2026-08-05) — 한 줄로 읽힌다.
@@ -217,95 +237,28 @@ const jsonLd = {
 
 <style>
   /* ─────────────────────────────────────────────────────────
-     브랜드 표 — 百年大計 · 敎育 · 百年之圖
-     ⭐ 가운데(교육)만 **다른 서체·다른 색**이다 (사장님 지시 2026-08-05).
-        양옆은 세리프 · 흐린 색으로 물러나고, 가운데는 산세리프 · 금색으로 나선다.
-        같은 서체에서 색만 바꾸면 「강조」로 보이고, 서체가 갈리면 「다른 것」으로 보인다.
-        교육은 우리가 다루는 대상이지 우리 주장이 아니라서, 그 자리를 따로 세운다.
-     ⚠ 로고 이미지가 아니다. 글자만으로 만든다 — 이미지가 안 뜨는 자리에서도 살아 있어야 한다.
-     ───────────────────────────────────────────────────────── */
-  .brand {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: clamp(0.6rem, 4vw, 1.6rem);
-    margin: 0.5rem 0 0.9rem;
-    padding: clamp(0.9rem, 4vw, 1.4rem) 0.6rem;
-    border-top: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-  }
-  .brand-cell {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    min-width: 0;
-  }
-  /* ⭐ 2026-08-05 사장님 지시 — **한글이 위, 한자가 아래.** 크기도 맞바꿨다.
-     읽는 사람은 학부모와 아이다. 한자를 크게 세우면 읽기 전에 물러선다.
-     한자는 뜻을 받쳐 주는 자리로 내리고, 앞에 서는 것은 한글이다. */
+     브랜드 판 — **인라인 SVG 하나**. 사장님 수용(2026-08-14)
 
-  /* 양옆 — 세리프, 물러선 색 */
-  .brand-cell .ko {
-    font-family: var(--serif);
-    font-weight: 700;
-    font-size: clamp(15px, 4.6vw, 22px);
-    letter-spacing: 0.02em;
-    color: var(--muted);
-    white-space: nowrap;
+     8/05 에는 칸 셋(.brand-cell)에 한글·한자를 나눠 담았다. 글자가 여덟 덩어리였다.
+     사장님 「이미지로 디자인 해. **위아래로 텍스트가 너무 많아**」 →
+     한자를 **뒤로 보내 바탕**으로 깔고 앞에는 한글 셋만 세운다.
+     ⭐ 글자는 여섯인데 눈에는 셋으로 보인다.
+
+     ⛔ 옛 마크업(.brand / .brand-cell / .mid / 세로줄 / --sans)은 지웠다.
+       남겨 두면 다음 사람이 「둘 중 어느 쪽이 사는가」를 못 가른다.
+     ───────────────────────────────────────────────────────── */
+  .brand-svg {
+    width: 100%;
+    height: auto;
+    display: block;
+    max-width: 760px;
+    margin: 0.5rem auto 0.9rem;
   }
-  .brand-cell .hanja {
-    font-family: var(--serif);
-    font-size: clamp(10px, 2.6vw, 12px);
-    letter-spacing: 0.22em;
-    color: var(--faint);
-    margin-top: 0.35rem;
-    white-space: nowrap;
-    text-indent: 0.22em; /* 자간 때문에 오른쪽으로 쏠리는 것을 되돌린다 */
-  }
-  /**
-   * 🔴 2026-08-14 — 사장님 「**백년대계 방향 백년지도 >>> 이 전체를 하나의 디자인으로 만들어**」
-   *                「단 **서체를 바꿔라, 디자인을 해**」
-   *
-   * ```
-   * 8/05 결정   가운데만 다른 서체 · 다른 색   ← 사장님이 오늘 직접 뒤집으셨다
-   * 8/14 결정   셋이 한 판. 세로줄 없음 · 서체 하나
-   * ```
-   * 왜 셋으로 보였나 — 위아래 가로선이 이미 셋을 감싸는데 **세로줄 둘이 그 안을 다시 쪼갰다.**
-   *   ⭐ 가르는 것은 선이 아니라 **여백**이다. 세로줄을 빼고 여백을 키운다.
-   *
-   * 위계는 **색 하나로만** 준다. 전에는 서체·색·크기 셋으로 줬고, 그래서 가운데가 따로 놀았다.
-   *   ⛔ 가운데를 크게 키우지 않는다. 키우면 다시 셋으로 갈라진다(22 → 26까지만).
-   */
-  .brand-cell.mid {
-    padding: 0 clamp(1.1rem, 6vw, 2.4rem);   /* 선 대신 여백이 가른다 */
-  }
-  .brand-cell.mid .ko {
-    font-family: var(--serif);   /* ⛔ 셋 다 세리프. 고전을 다루는 곳이라 이것이 우리 결이다 */
-    font-weight: 700;
-    font-size: clamp(17px, 5.2vw, 26px);
-    letter-spacing: 0.02em;      /* 양옆과 같게 — 자간까지 달라야 할 까닭이 없다 */
-    color: var(--gold);          /* ⭐ 다른 것은 **색 하나뿐**이다 */
-  }
-  /* 🔴 2026-08-14 — **한자 자간이 칸마다 달랐다.** 2번이 짚었고 실물로 재서 확인했다.
-     ```
-     百年大計   자간 2.23px · 한 자당 12.9px      ← 양옆
-     敎育      자간 3.28px · 한 자당 15.8px      ← 가운데. 혼자 벌어져 있었다
-     ```
-     셋을 나란히 놓은 판인데 가운데만 따로 놀았다. **0.22em 으로 맞춘다.**
-     ⚠ 크기·서체·색은 그대로 둔다 — 가운데를 따로 세우는 것은 사장님 지시(8/05)다.
-       달라야 하는 것은 «무게»이지 «자간»이 아니다. */
-  .brand-cell.mid .hanja {
-    /* 🔴 8/14 — 여기도 세리프로 통일한다(사장님 「서체를 바꿔라」). 다른 것은 색뿐이다 */
-    font-family: var(--serif);
-    /* ⚠ 크기도 양옆과 같은 2.6vw 다. 0.22em 으로 맞춰도 **글자가 크면 자간도 커진다** —
-       고치고 다시 재 보니 敎育 만 2.40px, 양옆은 2.23px 이었다(2.8vw 였던 탓).
-       한자 줄은 셋이 **한 줄로 읽혀야 하는 받침**이라 크기까지 맞춘다.
-       ⛔ 서체·색은 그대로 다르다 — 사장님 지시(8/05)는 서체와 색이었지 크기가 아니었다 */
-    font-size: clamp(10px, 2.6vw, 12px);
-    letter-spacing: 0.22em;
-    color: var(--gold-text);
-    text-indent: 0.22em;
+  /* 🔴 바탕에 깔리는 한자. **어두운 화면 기준 0.09** 다 */
+  .brand-back { opacity: 0.09; }
+  /* ⚠ 밝은 화면에서는 0.09 가 흰 바탕에 묻힌다 — 2번이 미리 짚어 준 자리다. 올려 준다 */
+  @media (prefers-color-scheme: light) {
+    .brand-back { opacity: 0.16; }
   }
   .brand-line {
     font-size: var(--fs-note);
