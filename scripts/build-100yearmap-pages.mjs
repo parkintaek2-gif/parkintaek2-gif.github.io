@@ -185,7 +185,23 @@ async function main() {
     console.log(`↔ 같은 코드 학교 ${합쳐진.length}건 합침: ${합쳐진.map((s) => `${s.SCHUL_NM}(+${s._별칭.join(',')})`).join(' · ')}`);
   }
 
-  const schoolPages = [...byCode.values()].map((s) => {
+  /**
+   * 🔴 2026-08-14 — **「같은 지역 N곳」이 지면 수와 어긋났다.** 8번이 잡았다.
+   *
+   * ```
+   * 경기도   지면 520장  ·  화면에 적힌 수 521곳
+   * ```
+   * 까닭 — 세는 목록은 `target`(**합치기 전**)이었고, 지면은 `byCode`(**합친 뒤**)였다.
+   *   같은 코드를 쓰는 학교를 위에서 한 곳으로 합치는데, 세는 쪽이 그걸 몰랐다.
+   *   ⚠ 17개 시·도 가운데 어긋난 곳은 **경기도 하나뿐**이었다(합쳐진 짝이 거기 있었다).
+   *
+   * ⭐ 그래서 **지면이 되는 목록에서 센다.** 두 목록을 두지 않는다 — 두면 또 갈린다.
+   */
+  const 낼학교들 = [...byCode.values()];
+  const 지역별학교수 = new Map();
+  for (const s of 낼학교들) 지역별학교수.set(s.LCTN_SC_NM, (지역별학교수.get(s.LCTN_SC_NM) ?? 0) + 1);
+
+  const schoolPages = 낼학교들.map((s) => {
     const mine = [...(majorsBySchool.get(s.SD_SCHUL_CODE) || [])].sort((a, b) => a.localeCompare(b, 'ko'));
     return {
       url: `/school/${s.SD_SCHUL_CODE}`,
@@ -216,7 +232,8 @@ async function main() {
         };
       }),
       학과수: mine.length,
-      같은지역_고교수: target.filter((t) => t.LCTN_SC_NM === s.LCTN_SC_NM).length,
+      /* ⛔ target(합치기 전)에서 세지 않는다. 위 주석 참조 — 그래서 경기가 521/520 으로 갈렸다 */
+      같은지역_고교수: 지역별학교수.get(s.LCTN_SC_NM) ?? 0,
       출처: 'NEIS 교육정보 개방 포털',
       기준시각: null, // 수집 시각은 summary 에 둔다
     };

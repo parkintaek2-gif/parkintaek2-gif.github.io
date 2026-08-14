@@ -40,6 +40,10 @@ const 계열목록 = [...묶음.entries()]
 const desc =
   `전국 고등학교의 나이스 학과정보에 등록된 학과 ${(majors as any[]).length.toLocaleString()}개를 계열별로 정리했습니다. ` +
   `학과를 고르면 어느 지역 어느 학교에 있는지, 그 길로 간 사람들이 졸업 뒤에 어떻게 됐는지 볼 수 있습니다.`;
+import 요약 from '../../../data/100yearmap/summary.json';
+/* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
+   ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
+const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
 ---
 
 <HundredYear title="학과 찾기" description={desc}>
@@ -182,7 +186,7 @@ const desc =
 
   <hr class="rule" />
   <p class="note">
-    출처 — 교육부 NEIS 교육정보 개방 포털. 계열 구분은 학과 이름을 보고 저희가 추정한 것으로,
+    출처 — 교육부 NEIS 교육정보 개방 포털({받은날}에 받았습니다). 계열 구분은 학과 이름을 보고 저희가 추정한 것으로,
     원자료에 있던 값이 아닙니다. 이름만으로 정하기 어려운 학과는 「미분류」로 남겨 두었습니다.
   </p>
   <NextQuestionBrief 모은것="4년제 학과 자료" />

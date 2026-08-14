@@ -39,6 +39,10 @@ const 학과있는곳 = (schools as any[]).filter((s) => s.학과수 > 0).length
 const desc =
   `전국 고등학교 ${전체.toLocaleString()}곳을 지역별로 정리했습니다. ` +
   `학교를 고르면 어떤 학과가 있는지, 그 학과가 전국에 몇 곳이나 있는지 볼 수 있습니다.`;
+import 요약 from '../../../data/100yearmap/summary.json';
+/* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
+   ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
+const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
 ---
 
 <HundredYear title="학교 찾기" description={desc}>
@@ -97,7 +101,7 @@ const desc =
 
   <hr class="rule" />
   <p class="note">
-    출처 — 교육부 NEIS 교육정보 개방 포털. 지역은 학교를 관할하는 교육청 기준입니다.
+    출처 — 교육부 NEIS 교육정보 개방 포털({받은날}에 받았습니다). 지역은 학교를 관할하는 교육청 기준입니다.
     학과가 「0개」인 곳은 학과가 없는 것이 아니라, 학과를 나누지 않는 일반고입니다.
   </p>
   <NextQuestionBrief 모은것="고등학교 자료" />
