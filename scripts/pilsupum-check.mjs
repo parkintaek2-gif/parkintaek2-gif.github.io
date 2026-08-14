@@ -1,0 +1,117 @@
+#!/usr/bin/env node
+/**
+ * pilsupum-check.mjs — **결과물에서 「몇 개인가」를 센다.** 네 유닛이 함께 쓴다.
+ *
+ * 🔴 사장님(2026-08-14): 「모든 세션의 의견을 모아 **제일 좋은 안**을 제시해.
+ *                        **모든 유닛에 같이 적용**할 수 있는 방법을 찾아봐」
+ *
+ * ⭐ 1번이 커밋 1,460개를 훑어 여덟 건을 찾아 줬다. 그 여덟을 다시 갈라 보면
+ *    **소스로는 하나도 못 잡는다** —
+ *      · 밖으로 안 나갔다(⑤⑥⑧)    라이브가 500 · 도구를 한 번도 안 돌림 · 검색엔진엔 한 장
+ *      · 나중에 죽었다(①③)        인쇄 CSS display:none · return 이 하나 더
+ *      · 껍데기만 남았다(⑦)        부록이 켜져도 사전이 비어 빈 칸
+ *      · 새로 지었다(②④)          있는 부품을 못 찾아 손으로 다시 만듦
+ *
+ * ⭐⭐ 그래서 이 자의 핵심은 하나다 —
+ *     **「있나」가 아니라 「몇 개인가」를 센다.**
+ *     「있나」는 껍데기에 속는다. 개수는 안 속는다.
+ *
+ * ⛔ 그리고 재는 곳은 **손님이 실제로 받는 것**이다. 내 컴퓨터의 빌드가 아니다.
+ *
+ * 쓰는 법
+ *   node scripts/pilsupum-check.mjs                 docs/필수품-표.tsv 를 다 잰다
+ *   node scripts/pilsupum-check.mjs --유닛 3번       한 유닛만
+ *   node scripts/pilsupum-check.mjs --selftest
+ */
+import fs from 'node:fs';
+
+/** 글에서 표식이 몇 번 나오나 — 겹치지 않게 센다 */
+export function 세기(글, 표식) {
+  if (!글 || !표식) return 0;
+  let 수 = 0, i = 0;
+  for (;;) {
+    const j = 글.indexOf(표식, i);
+    if (j < 0) return 수;
+    수++; i = j + 표식.length;
+  }
+}
+
+/** 한 줄을 판정한다 — 최소 개수를 못 채우면 빨간불 */
+export function 재기(글, 줄) {
+  const 최소 = Number(줄['최소 개수'] || 1);
+  if (글 == null) return { 됐나: false, 센것: 0, 최소, 까닭: '결과물을 못 가져왔다' };
+  const 센것 = 세기(글, 줄['세는 표식']);
+  if (센것 < 최소) return { 됐나: false, 센것, 최소, 까닭: 센것 === 0 ? '아예 없다' : '모자란다' };
+  return { 됐나: true, 센것, 최소, 까닭: '' };
+}
+
+if (process.argv.includes('--selftest')) {
+  const 시험 = [
+    [세기('가나다가나', '가나'), 2, '두 번 나오면 2 로 센다'],
+    [세기('aaaa', 'aa'), 2, '겹치지 않게 센다'],
+    [세기('', '가'), 0, '빈 글은 0'],
+    [재기('전문 용어 안내', { '세는 표식': '전문 용어 안내', '최소 개수': '1' }).됐나,
+      true, '최소를 채우면 초록불'],
+    [재기('그래프 그래프', { '세는 표식': '그래프', '최소 개수': '3' }),
+      { 됐나: false, 센것: 2, 최소: 3, 까닭: '모자란다' },
+      '⭐ 있기는 한데 **모자라면** 빨간불 — 「있나」로는 못 잡는 자리'],
+    [재기('아무것도 없다', { '세는 표식': '부록', '최소 개수': '1' }).까닭,
+      '아예 없다', '없으면 없다고 한다'],
+    [재기(null, { '세는 표식': '부록', '최소 개수': '1' }).까닭,
+      '결과물을 못 가져왔다', '⛔ 라이브가 죽어 못 가져와도 빨간불 — 「안 나간 것」이 이렇게 잡힌다'],
+  ];
+  let 틀림 = 0;
+  for (const [잰것, 맞는것, 이름] of 시험) {
+    if (JSON.stringify(잰것) !== JSON.stringify(맞는것)) {
+      console.error(`❌ ${이름}  — 잰 것 ${JSON.stringify(잰것)}`);
+      틀림++;
+    }
+  }
+  if (틀림) { console.error(`❌ ${틀림}건 틀렸다`); process.exit(1); }
+  console.log(`✅ 필수품 자 자가시험 ${시험.length}건 통과`);
+  process.exit(0);
+}
+
+/** 결과물을 가져온다 — 주소면 두드리고, 아니면 파일을 읽는다 */
+async function 가져오기(곳) {
+  if (/^https?:\/\//.test(곳)) {
+    try {
+      const r = await fetch(곳, { redirect: 'follow' });
+      if (!r.ok) return null;              // 500·404 면 「안 나간 것」이다
+      return await r.text();
+    } catch { return null; }
+  }
+  try { return fs.readFileSync(곳, 'utf8'); } catch { return null; }
+}
+
+const 고른유닛 = (() => {
+  const i = process.argv.indexOf('--유닛');
+  return i > 0 ? process.argv[i + 1] : null;
+})();
+
+const 글 = fs.readFileSync('docs/필수품-표.tsv', 'utf8').trim().split('\n');
+const 머리 = 글[0].split('\t');
+let 줄들 = 글.slice(1)
+  .filter((l) => l.trim() && !l.startsWith('#'))
+  .map((l) => Object.fromEntries(l.split('\t').map((v, i) => [머리[i], v])));
+if (고른유닛) 줄들 = 줄들.filter((r) => r.유닛 === 고른유닛);
+
+console.log(`\n필수품 ${줄들.length}가지 — **결과물에서** 셉니다\n`);
+let 빨강 = 0;
+let 앞유닛 = '';
+for (const 줄 of 줄들) {
+  if (줄.유닛 !== 앞유닛) { console.log(`  ── ${줄.유닛} ──`); 앞유닛 = 줄.유닛; }
+  const 결과물 = await 가져오기(줄['어디서 세나']);
+  const r = 재기(결과물, 줄);
+  if (!r.됐나) 빨강++;
+  const 수 = `${r.센것}/${r.최소}`;
+  console.log(`  ${r.됐나 ? '✅' : '🔴'} ${줄.무엇.padEnd(22)} ${수.padStart(6)}${r.됐나 ? '' : `   ⛔ ${r.까닭}`}`);
+}
+
+if (빨강) {
+  console.log(`\n🔴🔴 **${빨강}가지가 결과물에 없거나 모자랍니다.**`);
+  console.log('⛔ 배포하지 마십시오. 소스에 글자가 있어도 손님에게는 안 갑니다.');
+} else {
+  console.log(`\n✅ ${줄들.length}가지가 모두 결과물에 있습니다.`);
+}
+process.exit(빨강 ? 2 : 0);
