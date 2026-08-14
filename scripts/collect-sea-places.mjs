@@ -76,6 +76,11 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('editionsNotFetched'), true);
   재본다('⛔ 못 받으면 그냥 넘어가지 않는다',
     fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('막혔나 = true'), true);
+  /* 🔴 8/14 — 쪽 번호를 안 적어 베트남판이 매번 0쪽부터 다시 시작해 780에서 죽기를 되풀이했다 */
+  재본다('⛔ 어느 쪽까지 받았는지 적어 둔다',
+    fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('받은쪽[p] = 쪽 + 1'), true);
+  재본다('⛔ 덜 받은 판은 그 쪽에서 잇는다',
+    fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('const 첫쪽 = 받은쪽[p]'), true);
   console.log(`장소 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -172,9 +177,17 @@ if (내가실행됐다) {
   for (const [q, t] of Object.entries(제목이미.제목 ?? {})) 제목.set(q, t);
   for (const [q, n] of Object.entries(제목이미.이름 ?? {})) 이름맵.set(q, n);
   const 끝난판 = new Set(제목이미.끝난판 ?? []);
+  /**
+   * 🔴 8/14 — 제목만 적어 두고 **어느 쪽까지 받았는지는 안 적었다.**
+   *   그래서 베트남판이 매번 0쪽부터 다시 시작해 780에서 죽기를 되풀이했다.
+   *   → 쪽 번호도 적어 둔다. 이어받아야 끝까지 간다.
+   */
+  const 받은쪽 = { ...(제목이미.받은쪽 ?? {}) };
   if (끝난판.size) console.log(`   ⭐ 지난번에 끝낸 판 ${[...끝난판].join(', ')} — 제목 ${제목.size}개를 이어받는다`);
+  const 덜받은 = Object.entries(받은쪽).filter(([p]) => !끝난판.has(p));
+  if (덜받은.length) console.log(`   ⭐ 덜 받은 판 ${덜받은.map(([p, n]) => `${p} ${n}쪽까지`).join(' · ')} — 거기서 잇는다`);
   const 제목적어두기 = () => fs.writeFileSync(제목중간길, JSON.stringify({
-    제목: Object.fromEntries(제목), 이름: Object.fromEntries(이름맵), 끝난판: [...끝난판],
+    제목: Object.fromEntries(제목), 이름: Object.fromEntries(이름맵), 끝난판: [...끝난판], 받은쪽,
   }));
 
   const 막힌판 = [];
@@ -182,7 +195,8 @@ if (내가실행됐다) {
     if (끝난판.has(p)) { console.log(`   ${p.padEnd(4)} 이미 받았다`); continue; }
     let 받은 = 0;
     let 막혔나 = false;
-    for (let 쪽 = 0; 쪽 < 80; 쪽 += 1) {
+    const 첫쪽 = 받은쪽[p] ?? 0;              /* 🔴 덜 받았으면 거기서 잇는다 */
+    for (let 쪽 = 첫쪽; 쪽 < 80; 쪽 += 1) {
       const 줄들 = await 스파클(`SELECT ?p ?pLabel ?a WHERE {
         ?p ${장소조건} .
         ?a schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> .
@@ -198,6 +212,7 @@ if (내가실행됐다) {
         if (줄.pLabel?.value) 이름맵.set(q, 줄.pLabel.value);
       }
       받은 += 줄들.length;
+      받은쪽[p] = 쪽 + 1;                    /* 이 쪽까지 받았다 */
       제목적어두기();                       /* 쪽마다 적어 둔다 — 죽어도 여기까지는 남는다 */
       if (줄들.length < 쪽크기) break;
     }
@@ -300,7 +315,9 @@ if (내가실행됐다) {
       + 'an earlier version listed twelve Wikidata types and returned zero neighbourhoods and zero '
       + 'districts, because Korean administrative units carry their own type items. Types here are '
       + 'read back from the data, not chosen.',
-    candidates: 모든q.length,
+    /* ⚠ 8/14 — 여기 옛 변수 이름(`모든q`)이 남아 조회수를 1,293곳 다 재고 **마지막 줄에서 죽었다.**
+       질의 방식을 바꾸면서 이름이 바뀌었는데 이 줄만 안 따라왔다. 두 시간치 호출이 날아갈 뻔했다
+       — 중간 저장이 있어서 안 날아갔다. */
     withArticle: 잴것.length,
     peopleMeasured: 잰것.length,
     peopleNotMeasured: 못잰것.length,
