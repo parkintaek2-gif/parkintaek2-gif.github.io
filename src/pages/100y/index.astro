@@ -288,7 +288,11 @@ const jsonLd = {
   .brand-cell.mid .hanja {
     font-family: var(--sans);
     font-weight: 500;
-    font-size: clamp(10px, 2.8vw, 12px);
+    /* ⚠ 크기도 양옆과 같은 2.6vw 다. 0.22em 으로 맞춰도 **글자가 크면 자간도 커진다** —
+       고치고 다시 재 보니 敎育 만 2.40px, 양옆은 2.23px 이었다(2.8vw 였던 탓).
+       한자 줄은 셋이 **한 줄로 읽혀야 하는 받침**이라 크기까지 맞춘다.
+       ⛔ 서체·색은 그대로 다르다 — 사장님 지시(8/05)는 서체와 색이었지 크기가 아니었다 */
+    font-size: clamp(10px, 2.6vw, 12px);
     letter-spacing: 0.22em;
     color: var(--gold-text);
     text-indent: 0.22em;
