@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T23:02:52.052Z",
+  "generated": "2026-08-14T06:30:45.709Z",
   "source": "Wikidata (CC0) for article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, summed across the four editions, 12 months. One row is one person.",
@@ -366,7 +366,7 @@
       "total": 220.56
     },
     {
-      "name": "Exo",
+      "name": "EXO",
       "perMillion": {
         "id": 53.91,
         "vi": 71.29,
@@ -446,7 +446,7 @@
       "total": 200.18
     },
     {
-      "name": "Rosé",
+      "name": "Q27655344",
       "perMillion": {
         "id": 40.33,
         "vi": 69.49,

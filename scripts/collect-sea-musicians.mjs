@@ -51,11 +51,23 @@ export const 덩이 = 120;
  * ⚠ 문서 제목도 언어판마다 다르다. 로마자 판(id·ms·vi)을 먼저 보고 없으면 이름표를 쓴다.
  */
 export function 이름고르기(이름표, 제목들) {
+  let 제목이름 = null;
   for (const p of ['id', 'ms', 'vi']) {
     const t = 제목들?.[p];
-    if (t && /^[\x20-\x7E]+$/.test(t)) return t.replace(/_/g, ' ').replace(/\s*\([^)]*\)$/, '');
+    if (t && /^[\x20-\x7E]+$/.test(t)) {
+      제목이름 = t.replace(/_/g, ' ').replace(/\s*\([^)]*\)$/, '');
+      break;
+    }
   }
-  return 이름표 ?? null;
+  if (!제목이름) return 이름표 ?? null;
+  /**
+   * ⭐ 8/14 — 제목만 쓰면 **대문자가 깎인다**(EXO→Exo, KARD→Kard).
+   *   이름표와 제목이 **같은 말이면** 이름표를 쓴다 — 거기에 대문자가 살아 있다.
+   *   글자가 아주 다르면 이름표가 훼손된 것이니 제목을 쓴다(TXT 가 그랬다).
+   */
+  const 다듬 = (s) => String(s ?? '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  if (이름표 && 다듬(이름표) === 다듬(제목이름)) return 이름표;
+  return 제목이름;
 }
 
 const 내가실행됐다 = process.argv[1]
@@ -82,6 +94,13 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     이름고르기('BTS', { th: 'บีทีเอส' }), 'BTS');
   재본다('이름고르기 — 괄호 꼬리를 뗀다',
     이름고르기('X', { id: 'Rain_(penyanyi)' }), 'Rain');
+  /* ⭐ 8/14 — 제목만 쓰면 대문자가 깎인다. 같은 말이면 이름표를 쓴다 */
+  재본다('이름고르기 — 같은 말이면 이름표의 대문자를 살린다',
+    이름고르기('EXO', { id: 'Exo' }), 'EXO');
+  재본다('이름고르기 — 괄호가 있어도 같은 말이면 이름표',
+    이름고르기('KARD', { id: 'Kard_(grup_musik)' }), 'KARD');
+  재본다('⛔ 그래도 아주 다르면 제목을 쓴다 — 이름표가 훼손된 것이다',
+    이름고르기('Tacos de asada y cebollin', { id: 'Tomorrow_X_Together' }), 'Tomorrow X Together');
   재본다('이름고르기 — 둘 다 없으면 null', 이름고르기(null, {}), null);
   console.log(`가수 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
