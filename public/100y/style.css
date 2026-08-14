@@ -182,7 +182,12 @@
       .tablewrap th, .tablewrap td { padding: 7px 4px; }
       .tablewrap th { font-size: 10px; letter-spacing: 0.5px; }
 
-      .tablewrap th:first-child, .tablewrap td:first-child { overflow-wrap: anywhere; }
+      .tablewrap th:first-child, .tablewrap td:first-child {
+        overflow-wrap: anywhere;
+        min-width: 5.4em;
+      }
+
+      .tablewrap th, .tablewrap td { word-break: keep-all; }
     }
 
     @media print {
