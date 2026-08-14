@@ -277,13 +277,21 @@ const jsonLd = {
     color: var(--gold);
     text-indent: 0.14em;
   }
+  /* 🔴 2026-08-14 — **한자 자간이 칸마다 달랐다.** 2번이 짚었고 실물로 재서 확인했다.
+     ```
+     百年大計   자간 2.23px · 한 자당 12.9px      ← 양옆
+     敎育      자간 3.28px · 한 자당 15.8px      ← 가운데. 혼자 벌어져 있었다
+     ```
+     셋을 나란히 놓은 판인데 가운데만 따로 놀았다. **0.22em 으로 맞춘다.**
+     ⚠ 크기·서체·색은 그대로 둔다 — 가운데를 따로 세우는 것은 사장님 지시(8/05)다.
+       달라야 하는 것은 «무게»이지 «자간»이 아니다. */
   .brand-cell.mid .hanja {
     font-family: var(--sans);
     font-weight: 500;
     font-size: clamp(10px, 2.8vw, 12px);
-    letter-spacing: 0.3em;
+    letter-spacing: 0.22em;
     color: var(--gold-text);
-    text-indent: 0.3em;
+    text-indent: 0.22em;
   }
   .brand-line {
     font-size: var(--fs-note);
