@@ -29,6 +29,7 @@
  * ⚠ 개별 방송사(KBS·MBC·EBS·SBS·기타)는 **지상파 방송의 내역**이라 더하지 않는다. 두 번 세게 된다.
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 
 const RAW = 'archive/raw/kosis/broadcast-export-2012-2024.json';
 const raw = JSON.parse(fs.readFileSync(RAW, 'utf8')).filter((r) => r.ITM_NM === '수출액');
@@ -80,7 +81,7 @@ const 최대차 = Math.max(...rows.map((r) => Math.abs(r.residual)));
 if (최대차 > 5) throw new Error(`합계와 ${최대차}천달러 벌어졌다 — 분류를 다시 본다`);
 
 const out = {
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Korea Creative Content Agency, 콘텐츠산업조사 (Content Industry Survey), via KOSIS table DT_113_STBL_1025706. Each company type is the sum of every export form the survey publishes for it — finished programmes, format sales, video and DVD, time blocks, overseas Korean-broadcast support and other.',
   sourceKo: '국가데이터처 KOSIS, 한국콘텐츠진흥원 「콘텐츠산업조사」',
   unit: 'thousand USD',

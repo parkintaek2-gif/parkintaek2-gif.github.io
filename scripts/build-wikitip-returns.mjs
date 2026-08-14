@@ -30,6 +30,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼곳 = 'src/data/wikitip-returns.json';
@@ -250,7 +251,7 @@ export async function 만들기() {
     }
   }
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number',
     question: 'A Korean title leaves a country\'s top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?',
     unit: 'One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market\'s top 10, between two weeks in which it is present.',

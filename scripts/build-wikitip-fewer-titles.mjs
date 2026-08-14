@@ -22,6 +22,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-fewer-titles.json';
@@ -148,7 +149,7 @@ if (내가실행됐다) {
   const 첫 = 온전[0]; const 끝 = 온전[온전.length - 1];
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'Netflix has announced a larger Korean slate for 2026. On its own charts the number of Korean '
       + 'titles reaching any country top 10 has been falling since 2022, while the number of places they '

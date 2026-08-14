@@ -26,6 +26,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 출연 = 'archive/raw/netflix-top10/korean-cast-joined.json';
@@ -165,7 +166,7 @@ if (내가실행됐다) {
   if (!(전체.times > Math.min(...맞춘것들))) throw new Error(`날것 ${전체.times} 이 맞춘 것의 최솟값보다 크지 않다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists joined to English Wikipedia page views (Wikimedia Pageviews API, human traffic) through Wikidata cast lists (P161) filtered to Korean citizenship (P27)',
     question: 'If an actor’s title reached twenty countries, do more people look the actor up?',
     unit: 'Views are one actor’s English Wikipedia page views over 30 days. Reach is the largest number of countries any of that actor’s charting titles reached.',

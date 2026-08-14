@@ -20,6 +20,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 
@@ -194,7 +195,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists. One cell is one country, one week, one of the two '
       + 'charts (films or series).',
     question: 'Our headline figure is an average. Is a Korean title on a country chart most weeks, or absent '

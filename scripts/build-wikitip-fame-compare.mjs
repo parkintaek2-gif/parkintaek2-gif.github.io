@@ -12,6 +12,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 선수길 = 'archive/raw/wikipedia/sea-athletes.json';
 const 배우길 = 'archive/raw/wikipedia/sea-actors.json';
@@ -205,7 +206,7 @@ if (내가실행됐다) {
   const 선수맨위보다높은배우 = 연예전부.filter((x) => x.seaPerMillionTotal > 선수맨위).length;
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata (CC0) for article links; Wikimedia Pageviews API for reads',
     window: 선수자료.window,
     unit: 'Reads per million reads of the whole language edition, summed across the four editions, '

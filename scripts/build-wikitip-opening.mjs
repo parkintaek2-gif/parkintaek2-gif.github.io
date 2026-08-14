@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-opening.json';
@@ -186,7 +187,7 @@ if (내가실행됐다) {
   const 한영 = 찾('한국 영화'); const 밖영 = 찾('그 밖 영화');
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'A title appears on a country chart at some position. That is the one fact anyone has on '
       + 'the first Monday. Does it say anything about how long the title will be there?',

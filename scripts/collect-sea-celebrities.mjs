@@ -15,6 +15,7 @@ import path from 'node:path';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
 import { 동남아, 견줄판, 모든판, 백만분율, 합치기, 문서있는판 } from './collect-sea-athletes.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 결과길 = 'archive/raw/wikipedia/sea-celebrities.json';
 const UA = 'KCultureWire/1.0 (https://www.kculturewire.com) node';
@@ -259,7 +260,7 @@ if (내가실행됐다) {
   잰것.sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads',
     window: '2025-08 through 2026-07, 12 months, human traffic only',
     comparableWith: 'archive/raw/wikipedia/sea-athletes.json — same editions, same window, same unit',

@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes-monthly.json';
 const 해자료 = 'archive/raw/wikipedia/worlds-years.json';
@@ -111,7 +112,7 @@ if (내가실행됐다) {
   const 몰림표 = 종목들.map((s) => 종목별몰림(d.people, s)).filter(Boolean);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: d.source,
     window: d.window,
     unit: d.unit,

@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/esports-games.json';
 const 결과 = 'src/data/wikitip-esports-games.json';
@@ -101,7 +102,7 @@ if (내가실행됐다) {
   const 쏠림 = 한게임쏠림(d.games);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: d.source,
     unit: d.unit,
     minReadsPerYear: d.minReadsPerYear,

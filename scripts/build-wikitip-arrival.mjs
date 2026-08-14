@@ -26,6 +26,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼곳 = 'src/data/wikitip-arrival.json';
@@ -143,7 +144,7 @@ if (내가실행됐다) {
   if (제일큰띠 > 60) throw new Error(`한 띠에 ${제일큰띠}% 가 몰렸다 — 「두 갈래」라는 요지가 안 선다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one',
     question: 'When a Korean title reaches many countries, does it start in one and spread, or appear in many at once?',
     unit: 'A title’s first week is the earliest week it appears on any country list. First-week share is how many of its eventual countries were already there in that week.',

@@ -15,6 +15,7 @@
  *    그래도 숫자는 전부 바뀌었으므로 기사에 정정을 붙인다.
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 
 const t = JSON.parse(fs.readFileSync('src/data/wikitip-titles.json', 'utf8'));
 const rows = t.rows;
@@ -48,7 +49,7 @@ const fmt = (label, f) => {
 };
 
 const out = {
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: t.source,
   region: t.region,
   countries: t.countries,

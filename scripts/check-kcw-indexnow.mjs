@@ -24,6 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘, 지금 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 기록길 = path.join(뿌리, 'archive/indexnow-kcw.json');
@@ -33,10 +34,9 @@ export const ORIGIN = 'https://www.kculturewire.com';
  * 🔴 2026-08-15 — 기록에 날짜가 **하루 앞서** 적혔다. `toISOString()` 은 UTC 라
  *   한국 새벽 3시가 UTC 로는 전날 저녁이다. 우리는 한국에서 일하고 한국 시각으로 적는다.
  * ⚠ 이 흠은 조용하다 — 하루 어긋난 기록을 나중에 아무도 못 알아본다.
+ * ⭐ 셈은 `_kst.mjs` 하나에 둔다. 여기 또 적으면 둘이 갈라질 때 아무도 모른다.
  */
-export function 오늘KST() {
-  return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
-}
+export const 오늘KST = 오늘;
 
 /** 기록을 읽는다. 없으면 빈 것 — ⛔ 없다고 던지지 않는다. 첫날이 있다 */
 export function 기록읽기(길 = 기록길) {
@@ -79,11 +79,18 @@ if (process.argv.includes('--selftest')) {
    */
   const 들여온것 = [...fs.readFileSync(fileURLToPath(import.meta.url), 'utf8')
     .matchAll(/^import\s[^\n]*?from\s+'([^']+)'/gm)].map((m) => m[1]);
-  참('⛔ 밖으로 나가는 문을 안 들여온다', 들여온것.every((m) => ['node:fs', 'node:path', 'node:url'].includes(m)));
+  /**
+   * ⚠ 「밖으로 나가는 문」은 **망으로 나가는 것**이다. 우리 저장소 안의 자를 들여오는 것은
+   *   나가는 것이 아니다. 처음엔 허용 목록을 세 개로 굳혀 놨는데, `_kst.mjs` 를 들여오자
+   *   검사가 섰다 — **옳은 변화를 막는 자물쇠**가 됐다. 나가는 문만 이름으로 막는다.
+   */
+  const 나가는문 = 들여온것.filter((m) => /^(node:)?(https?|net|dgram|dns)$/.test(m) || /^https?:/.test(m));
+  참('⛔ 밖으로 나가는 문을 안 들여온다', 나가는문.length === 0);
+  참('⚠ 우리 저장소 안의 자는 들여와도 된다', 들여온것.includes('./_kst.mjs'));
   /* 🔴 8/15 — UTC 로 적어 기록이 하루 앞섰다. 우리는 한국에서 일한다 */
   참('날짜를 한국 시각으로 적는다', /^\d{4}-\d{2}-\d{2}$/.test(오늘KST()));
-  참('UTC 와 다를 수 있다 — 새벽에 하루 앞서지 않는다',
-    오늘KST() >= new Date().toISOString().slice(0, 10));
+  참('KST 가 UTC 보다 앞서거나 같다',
+    오늘KST() >= 지금().slice(0, 10));
   const 진 = 잼.filter(([, ok]) => !ok);
   console.log(`자가시험 ${잼.length}개 · ${진.length ? `🔴 ${진.length}개 실패` : '✅ 전부 통과'}`);
   for (const [n] of 진) console.log(`   🔴 ${n}`);

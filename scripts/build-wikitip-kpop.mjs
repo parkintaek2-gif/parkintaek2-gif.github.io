@@ -19,6 +19,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 지금 } from './_kst.mjs';
 
 const DIR = 'archive/raw/star-pageviews';
 const files = fs.readdirSync(DIR).filter((f) => /^kpop-\d+\.json$/.test(f)).sort();
@@ -78,7 +79,7 @@ const 쏠림 = [1, 10, 50].map((n) => {
 const 무게 = (arr) => (arr.length ? Math.round(arr.reduce((s, p) => s + p.합, 0) / arr.length) : 0);
 
 const out = {
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: j.출처,
   rosterSource: j.명단출처,
   period: j.기간,

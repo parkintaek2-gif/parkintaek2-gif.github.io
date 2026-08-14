@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/esports-nations.json';
 const 결과 = 'src/data/wikitip-esports-nations.json';
@@ -82,7 +83,7 @@ if (내가실행됐다) {
   const 남들 = 나라줄.filter((x) => x.country !== 'South Korea' && x.withSeaArticle >= 5);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: d.source,
     unit: d.unit,
     minReadsPerYear: d.minReadsPerYear,

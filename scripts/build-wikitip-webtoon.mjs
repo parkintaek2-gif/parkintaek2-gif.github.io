@@ -18,6 +18,7 @@
  * ⛔ 사업체 수가 아니라 **사례수(응답한 곳)** 다. 조사에 답한 396곳이지 한국 웹툰 사업체 전부가 아니다.
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 
 const raw = JSON.parse(fs.readFileSync('archive/raw/kosis/webtoon-2024.json', 'utf8'));
 const A5 = raw.DT_467002_A005.rows;  // 매출액
@@ -80,7 +81,7 @@ const groups = {
 };
 
 fs.writeFileSync('src/data/wikitip-webtoon.json', JSON.stringify({
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Korea Creative Content Agency, 웹툰산업실태조사 (Webtoon Industry Survey), reference year 2024, via KOSIS tables DT_467002_A005 and DT_467002_A004',
   sourceKo: '국가데이터처 KOSIS, 한국콘텐츠진흥원 「웹툰산업실태조사」',
   year: 2024,

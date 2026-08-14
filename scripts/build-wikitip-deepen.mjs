@@ -14,6 +14,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 고른파일 = 'docs/5번-두껍게-열장.json';
@@ -207,7 +208,7 @@ if (내가실행됐다) {
    * ⛔ `titles` 배열도 안 담는다 — `bySlug` 와 같은 것을 두 번 담는 꼴이라 언젠가 둘이 어긋난다.
    */
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     whatIsStillOnlyInTheSheet: 'The week-by-week path of a title, the full company catalogue table and the '
       + 'titles that never charted remain in the company sheet. What is here is the per-market summary: '
       + 'how many separate runs, the longest, and the position each run ended from.',

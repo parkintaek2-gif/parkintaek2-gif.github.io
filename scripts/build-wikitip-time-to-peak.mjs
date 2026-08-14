@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-time-to-peak.json';
@@ -175,7 +176,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'A title that travels is on several country charts at once, and that number rises and then '
       + 'falls. The week it is highest is the week the title is at its widest. When does that happen — '

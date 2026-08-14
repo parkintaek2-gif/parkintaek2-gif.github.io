@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 한국열쇠 = 'archive/raw/netflix-top10/korean-titles-keyed.json';
@@ -222,7 +223,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists for Korean series. A title\'s "arrival" in a country '
       + 'is the first week it appears on that country\'s chart.',
     question: 'Does one country\'s chart lead another\'s, so that a scheduler could watch a neighbour and know '

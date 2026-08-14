@@ -18,6 +18,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 지금 } from './_kst.mjs';
 
 const DIR = 'archive/raw/riot-ladder';
 const 날짜들 = fs.readdirSync(DIR)
@@ -71,7 +72,7 @@ const gapRows = 지역목록.map((c) => {
 }).sort((a, b) => a.gap - b.gap);
 
 fs.writeFileSync('src/data/wikitip-ladder-gap.json', JSON.stringify({
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Riot Games Developer API — /lol/league/v4/challengerleagues and /grandmasterleagues, queue RANKED_SOLO_5x5',
   collectedAt: 최신.collected_at_kst,
   day: 최신.day,
@@ -97,7 +98,7 @@ const churnRows = 지역목록.map((c) => {
 }).sort((a, b) => b.vetPc - a.vetPc);
 
 fs.writeFileSync('src/data/wikitip-ladder-churn.json', JSON.stringify({
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Riot Games Developer API — challenger and grandmaster league entries, queue RANKED_SOLO_5x5. “Veteran” and “hot streak” are Riot’s own per-player flags.',
   endpoints: '/lol/league/v4/challengerleagues and /grandmasterleagues, queue RANKED_SOLO_5x5',
   collectedAt: 최신.collected_at_kst,

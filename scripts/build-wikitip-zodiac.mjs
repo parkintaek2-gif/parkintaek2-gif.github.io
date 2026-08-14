@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 사람길 = 'archive/raw/wikidata/korean-people.json';
 const 결과 = 'src/data/wikitip-zodiac.json';
@@ -83,7 +84,7 @@ if (내가실행됐다) {
   const 고른가 = 카 < 문턱;
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata public profiles for the Korean actors already keyed in our Netflix cast panel',
     question: 'Does the year someone was born pick out who ends up on a Netflix chart?',
     unit: 'People. One row is one actor, counted once.',

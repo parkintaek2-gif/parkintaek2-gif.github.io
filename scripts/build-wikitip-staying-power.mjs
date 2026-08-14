@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
 import { koreanTitleFilter, AUDITED } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const ko = koreanTitleFilter();
 const agg = new Map();
@@ -125,7 +126,7 @@ const 주분포 = [...all.reduce((m, r) => m.set(r.weeks, (m.get(r.weeks) || 0) 
 const weeks = [...weeksAll].sort();
 const st = ko.stats();
 const out = {
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts',
   weekFrom: weeks[0],
   weekTo: weeks[weeks.length - 1],

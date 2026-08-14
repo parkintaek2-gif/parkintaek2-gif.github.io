@@ -24,6 +24,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 회사판 = 'archive/raw/netflix-top10/firm-works.json';
@@ -177,7 +178,7 @@ export async function 만들기() {
   if (폭 > 6) throw new Error(`띠별 편당 가운데값이 ${폭.toFixed(1)} 만큼 벌어진다 — 「평평하다」가 안 선다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists for reach; Wikidata production, broadcaster and distributor credits for which company is attached to which title, retrieved by item number rather than by name',
     question: 'Does a company with more charting titles get more countries out of each one?',
     unit: 'Reach is the number of markets in which a title appeared in a weekly top 10 at least once, out of 93. Per-title reach is a company\'s mean across its own charting titles; total reach is the union of the markets its titles reached, so it cannot exceed 93.',

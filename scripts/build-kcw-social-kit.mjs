@@ -22,6 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 낼방 = 'archive/social';
 const 주소 = 'https://www.kculturewire.com';
@@ -241,7 +242,7 @@ if (내가실행됐다) {
   }
 
   fs.writeFileSync(path.join(낼방, 'kit.json'), `${JSON.stringify({
-    generated: new Date().toISOString(),
+    generated: 지금(),
     note: 'Ready to post. Account and destination are the owner\'s call; everything else is here.',
     rules: [
       'Numbers speak. No promotional voice.',

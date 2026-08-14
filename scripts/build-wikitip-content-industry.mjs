@@ -21,6 +21,7 @@
  * ⛔ 회사 이름을 담지 않는다. 줄세우기가 된다.
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 
 const R = JSON.parse(fs.readFileSync('src/data/rankings.json', 'utf8'));
 const C = Object.fromEntries(R.cols.map((c, i) => [c, i]));
@@ -91,7 +92,7 @@ if (nl !== content.n) throw new Error(`세 묶음 회사 수 합 ${nl} ≠ 콘�
 if (content.staff > market.staff) throw new Error('콘텐츠 인원이 시장 전체보다 많다');
 
 fs.writeFileSync('src/data/wikitip-content-industry.json', JSON.stringify({
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: `Financial Supervisory Service (Korea), DART annual report employee disclosures, filing year ${R.year}`,
   sourceKo: '금융감독원 전자공시(DART) 「직원 등의 현황」',
   year: R.year,

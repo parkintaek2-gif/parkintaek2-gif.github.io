@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 결과 = 'src/data/wikitip-spread.json';
 const 나라이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
@@ -146,7 +147,7 @@ if (내가실행됐다) {
   const 쏠린것 = [...다].sort((a, b) => b.topSharePc - a.topSharePc || b.total - a.total).slice(0, 10);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata (CC0) for article links; Wikimedia Pageviews API for reads',
     window: 선수자료.window,
     unit: 'Concentration — the share of a name\'s four-country total that sits in its single largest '

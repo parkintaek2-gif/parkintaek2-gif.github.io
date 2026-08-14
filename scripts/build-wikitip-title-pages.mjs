@@ -23,6 +23,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 회사판 = 'archive/raw/netflix-top10/firm-works.json';
@@ -290,7 +291,7 @@ export async function 만들기() {
   if (가운데값(낼줄) < 10) throw new Error(`낼 지면의 가운데 줄 수가 ${가운데값(낼줄)} 다 — 얇게 찍어 내는 것이다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name',
     weekFrom: 첫주,
     weekTo: 끝주,

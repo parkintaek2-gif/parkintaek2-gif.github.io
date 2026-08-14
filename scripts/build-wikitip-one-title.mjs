@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 붙은길 = 'archive/raw/netflix-top10/korean-cast-joined.json';
 const 사람길 = 'archive/raw/wikidata/korean-people.json';
@@ -132,7 +133,7 @@ if (내가실행됐다) {
     || 넓이들.every((v, i) => i === 0 || v >= 넓이들[i - 1]);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata cast lists for Korean titles that reached a Netflix country chart, joined to '
       + 'public profile birth and start dates',
     question: 'How many charting titles does one Korean actor have, and does starting young buy more?',

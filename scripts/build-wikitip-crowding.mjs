@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 표 = 'archive/raw/netflix-top10/countries.ndjson';
 const 판정 = 'src/data/wikitip-title-ambiguity.json';
@@ -174,7 +175,7 @@ if (내가실행됐다) {
   });
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) per-country weekly lists, Films and TV counted as separate charts',
     question: 'When a Korean title arrives at the top of a market, do the other Korean titles there lose their places?',
     unit: 'Titles. The count is of *other* Korean titles on that chart, with the arriving title removed.',

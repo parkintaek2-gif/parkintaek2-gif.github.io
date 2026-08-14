@@ -25,6 +25,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 회사파일 = 'archive/raw/netflix-top10/firm-works.json';
 const 열쇠파일 = 'archive/raw/netflix-top10/korean-titles-keyed.json';
@@ -135,7 +136,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata production company (P272), original broadcaster (P449) and distributor (P750) on the Korean titles that appear in Netflix country top 10 lists, 2021–2026',
     question: 'How many companies does it take to account for half the Korean series that chart?',
     unit: 'A company “covers” a series if Wikidata lists it as producer, first broadcaster or distributor. Titles are counted as a set, so a series credited to several companies is still one series.',

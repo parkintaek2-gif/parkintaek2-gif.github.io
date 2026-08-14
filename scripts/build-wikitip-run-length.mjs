@@ -24,6 +24,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-run-length.json';
@@ -198,7 +199,7 @@ if (내가실행됐다) {
   const 갈래차그밖 = +(밖시.meanWeeks - 밖영.meanWeeks).toFixed(2);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'A series has another episode coming; a film does not. If that changes how long something '
       + 'holds a chart place, the two should part company — and Netflix publishes films and series as two '

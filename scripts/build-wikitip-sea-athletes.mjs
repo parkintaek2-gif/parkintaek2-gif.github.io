@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes.json';
 const 결과 = 'src/data/wikitip-sea-athletes.json';
@@ -178,7 +179,7 @@ if (내가실행됐다) {
   const 이스포츠 = d.people.filter((x) => x.sports.includes('esports'));
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: d.source,
     window: d.window,
     unit: 'Reads per million reads of the whole language edition, 12 months. One row is one person.',

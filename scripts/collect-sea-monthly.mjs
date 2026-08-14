@@ -17,6 +17,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes.json';
 const 결과 = 'archive/raw/wikipedia/sea-athletes-monthly.json';
@@ -124,7 +125,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikimedia Pageviews API, monthly, human traffic only',
     window: '2025-08 through 2026-07',
     unit: 'Reads of that person\'s article, summed across the Indonesian, Vietnamese, Thai and '

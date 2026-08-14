@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 세계파일 = 'archive/raw/netflix-top10/global.ndjson';
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
@@ -265,7 +266,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum). The global weekly lists carry hours viewed; the per-country lists do not.',
     question: 'If you know a title\'s rank, how much do you know about how much it was watched?',
     unit: 'Spread is the 90th percentile divided by the 10th — how many times bigger a high week is than a low '

@@ -22,6 +22,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 깊이 = 'src/data/wikitip-catalogue-depth.json';
@@ -142,7 +143,7 @@ if (내가실행됐다) {
   if (!(평균(밖) > 0)) throw new Error(`아시아 밖 평균이 ${평균(밖)}p 다 — 「옮겨 갔다」가 안 선다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one',
     question: `Korean titles lost chart share across Asia between ${앞해} and ${뒷해}. Where did that share go?`,
     unit: `Each market gives out ${주당칸} places a week — ten films and ten series. Share is Korean places divided by that year's places in that market.`,

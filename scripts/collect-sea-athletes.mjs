@@ -29,6 +29,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 결과길 = 'archive/raw/wikipedia/sea-athletes.json';
 const UA = 'KCultureWire/1.0 (https://www.kculturewire.com) node';
@@ -288,7 +289,7 @@ if (내가실행됐다) {
   console.log(`⚠ 끝내 못 잰 사람 ${못잰것.length}명 — **0 으로 안 센다**`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads',
     window: '2025-08 through 2026-07, 12 months, human traffic only',
     unit: 'Reads of that person\'s article in that language edition, and reads per million reads '

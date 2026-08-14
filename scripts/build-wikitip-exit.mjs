@@ -27,6 +27,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-exit.json';
@@ -259,7 +260,7 @@ if (내가실행됐다) {
     .sort((a, b) => b.아래셋몫 - a.아래셋몫);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'Everything published about a chart is about getting on it. This asks the other question: '
       + 'when a title leaves, what position was it in the week before it went?',

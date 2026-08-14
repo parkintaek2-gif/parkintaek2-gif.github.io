@@ -25,6 +25,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 작품판 = 'src/data/wikitip-title-pages.json';
 const 낼곳 = 'src/data/wikitip-two-pipelines.json';
@@ -134,7 +135,7 @@ export function 만들기() {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists for reach; Wikidata original broadcaster (P449), production company (P272) and distributor (P750) for the credits, retrieved by item number rather than by name',
     question: 'Korean series that aired on a Korean television network and Korean series that did not — do they travel the same way?',
     unit: 'Reach is the number of markets a title appeared in at least once, out of 93. A place is one appearance in one country\'s weekly top 10.',

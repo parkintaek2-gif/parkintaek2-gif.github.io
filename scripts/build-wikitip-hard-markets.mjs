@@ -21,6 +21,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼파일 = 'src/data/wikitip-hard-markets.json';
@@ -166,7 +167,7 @@ if (내가실행됐다) {
   const 좁은쪽 = markets.slice(-5).reverse();
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.',
     question: 'Some markets carry Korean titles that went almost nowhere else. Others only ever show the '
       + 'ones that went everywhere. Knowing which is which is how a release order gets built.',

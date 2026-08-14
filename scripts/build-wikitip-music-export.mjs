@@ -18,6 +18,7 @@
  * ⛔ 「분류못함」을 다른 지역에 나눠 넣지 않는다. 조사가 못 가른 것을 우리가 가르면 그건 추정이다.
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 
 const RAW = 'archive/raw/kosis/music-export-2005-2024.json';
 const rows0 = JSON.parse(fs.readFileSync(RAW, 'utf8')).filter((r) => r.ITM_NM === '수출액');
@@ -74,7 +75,7 @@ if (최대차 > 2) throw new Error(`지역 합이 총계와 ${최대차}천달�
 const 어긋난해 = rows.filter((r) => !r.checksum).map((r) => r.year);
 
 const out = {
-  generated: new Date().toISOString(),
+  generated: 지금(),
   source: 'Korea Creative Content Agency, 콘텐츠산업조사 (Content Industry Survey), via KOSIS table DT_113_STBL_1020468 — music industry exports by region',
   sourceKo: '국가데이터처 KOSIS, 한국콘텐츠진흥원 「콘텐츠산업조사」',
   unit: 'thousand USD',

@@ -24,6 +24,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 깊이 = 'src/data/wikitip-catalogue-depth.json';
@@ -170,7 +171,7 @@ if (내가실행됐다) {
   if (슬롯합 !== 깊이합) throw new Error(`자리 합 ${슬롯합} 이 /catalogue-depth 의 ${깊이합} 과 다르다 — 두 지면이 다른 말을 하게 된다`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one',
     weekFrom: 창첫,
     weekTo: 창끝,

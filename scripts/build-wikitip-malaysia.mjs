@@ -16,6 +16,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 견줌길 = 'src/data/wikitip-fame-compare.json';
 const 선수길 = 'archive/raw/wikipedia/sea-athletes.json';
@@ -141,7 +142,7 @@ if (내가실행됐다) {
   const 겹안친사람 = 사람전부.filter((x) => { if (본것.has(x.q)) return false; 본것.add(x.q); return true; });
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 견줌.source,
     window: 견줌.window,
     unit: 'Share of a subject\'s four-country total that sits in the Malay Wikipedia. '

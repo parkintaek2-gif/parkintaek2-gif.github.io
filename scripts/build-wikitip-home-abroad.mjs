@@ -26,6 +26,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+import { 지금 } from './_kst.mjs';
 
 const 나라판 = 'archive/raw/netflix-top10/countries.ndjson';
 const 낼곳 = 'src/data/wikitip-home-abroad.json';
@@ -145,7 +146,7 @@ if (내가실행됐다) {
   if (!(둘째띠 > 첫띠 && 둘째띠 < 셋째띠)) throw new Error(`가운데 띠가 사이값이 아니다 — 기울기라 못 쓴다 (${첫띠}·${둘째띠}·${셋째띠})`);
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, 2021–2026; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one',
     question: 'Does how long a Korean title stays on Korea’s own Netflix chart tell you whether it will travel?',
     unit: 'One place is one title on one country’s weekly top 10. A title on the list for six weeks in Korea has six home places.',

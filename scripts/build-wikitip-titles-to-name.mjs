@@ -17,6 +17,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 배우길 = 'archive/raw/wikipedia/sea-actors.json';
 const 결과 = 'src/data/wikitip-titles-to-name.json';
@@ -93,7 +94,7 @@ if (내가실행됐다) {
   const 끝 = [...값들].reverse().find((v) => typeof v === 'number');
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Wikidata cast lists for Korean titles that reached a Netflix country chart, joined to '
       + 'Wikimedia pageviews in four Southeast Asian editions',
     window: d.window,

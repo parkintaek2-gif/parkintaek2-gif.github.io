@@ -14,6 +14,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-places.json';
 const 결과 = 'src/data/wikitip-places.json';
@@ -133,7 +134,7 @@ if (내가실행됐다) {
   const 회사가이긴도시 = 회사맨위 ? 도시.filter((x) => x.seaPerMillionTotal < 회사맨위.seaPerMillionTotal).length : 0;
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: d.source,
     window: d.window,
     unit: d.unit ?? 'Reads per million reads of the whole language edition, summed across four '

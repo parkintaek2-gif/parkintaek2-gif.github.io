@@ -19,6 +19,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 지금 } from './_kst.mjs';
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 회사파일 = 'archive/raw/netflix-top10/firm-works.json';
@@ -189,7 +190,7 @@ if (내가실행됐다) {
   }
 
   const out = {
-    generated: new Date().toISOString(),
+    generated: 지금(),
     source: 'Netflix Top 10 (Tudum) weekly country lists, joined to production company (P272), original '
       + 'broadcaster (P449) and distributor (P750) from Wikidata.',
     whatIsHere: 'How far one company\'s titles travelled: how many markets, how many at once, and where the '
