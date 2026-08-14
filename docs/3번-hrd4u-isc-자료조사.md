@@ -359,3 +359,65 @@ data.go.kr/robots.txt  =  「User-agent: *」 한 줄뿐 · Disallow 없음 → 
   ⚠ 다만 명세 문서(첨부 파일)는 로그인 없이 열릴 수 있다. 다음에 잰다
 · 「다음에 할 것 ⑤」 ISC zip 안에 무슨 표가 들었나 — 아직이다
 ```
+
+
+---
+
+## ⓓ **명세를 «키 없이» 다 받아 읽었다 — 무슨 칸이 오는지 안다** (2026-08-15 02:5x)
+
+ⓒ 에서 「키가 없어 무슨 칸을 주는지 못 쟀다」고 적었는데, **틀렸다 — 잴 수 있었다.**
+활용가이드(참고문서)는 **로그인·키 없이** 내려받힌다. 8종을 받아 표를 다 읽었다.
+
+```
+받는 법  /data/<번호>/openapi.do 안의  fileDownload('FILE_...','0')
+        → GET /cmm/cmm/fileDownload.do?atchFileId=<그것>&fileSn=0   (referer 를 붙인다)
+둔 곳   C:\Users\USER\Desktop\작업공유\자료\data-go-kr-명세\   docx 7 · pdf 1
+⚠ 이름이 깨져 온다(EUC-KR↔UTF-8). 앞 4바이트로 «진짜 파일인가»를 보고 저장했다 — 200 이라고 믿지 않았다
+```
+
+### 공통
+
+```
+주소   http://openapi.q-net.or.kr/api/service/rest/<서비스영문명>/<오퍼레이션>
+꼴     REST GET · **응답은 XML**(JSON 칸이 명세에 없다) · serviceKey · pageNo · numOfRows
+갱신   **여덟 종 다 「연 1회」** — 자주 도는 자료가 아니다. 한 해 한 번 받아 두면 된다
+한도   최대 1000K bytes · 30 tps · 평균 500ms
+제약   여덟 종 다 「N/A」 — 사용 제약 없음
+```
+
+### 학과를 잇는 세 종 — **이 셋이 한 벌이다** ⭐⭐⭐
+
+| 서비스 | 오퍼 | 오는 칸 |
+|---|---|---|
+| **InquiryUnivUdeptSVC** (15029006) | getList | `univcd 학교코드` · `univnm 학교명` · `udeptcd 학과코드` · `udeptnm 학과명` |
+| **InquirySeriesUdeptSVC** (15037355) | getList | `seriescd 계열코드` · `seriesnm 계열명` · `udeptcd` · `udeptnm` |
+| **InquiryUdeptObligSVC** (15037356) | getList | `udeptcd` · `udeptnm` · `udeptobligcd/nm 학과직무` · `udeptmdobligcd/nm 학과중직무` |
+
+⭐ **`udeptcd` 하나로 셋이 이어진다** — 계열 → 학과 → **그 학과가 하는 직무** → 그 학과를 둔 대학.
+  백년지도의 /major·/university 가 지금 못 대답하는 것이 바로 **「그래서 무슨 일을 하나」**다.
+
+### 나이·지역·학력 — 우리 지면에 그대로 붙는다 ⭐⭐
+
+| 서비스 | 오퍼 | 눈여겨볼 칸 |
+|---|---|---|
+| **InquiryRgnQualSVC** (15040841) | getAgeList · getGenList · getYearList | `rgnnm 지역` × `acquCnt1~5` **10대이하·20대·30대·40대·50대이상** · `quart 분기` |
+| **InquiryQualRelaPtcondSVC** (15039800) | **9개** — getQualYearList(성별·연령별·학력별) · getAdminZoneList(행정구역×연도×성별) · getEhstList(학력별) · **getQualTimeList(자격 취득에 걸린 기간)** · getNewJmcdList(신설종목) … | `ageGb 연령` · `genderNm 성별` · `euhistNm 학력` · `sido` · `accumAcquAvgTermDays 누계취득평균소요기간일` |
+| **InquiryAcquStatisSVC** (15037521) | getEuhistLIst(학력별) · getAgeList(연령별) · getSangSiList(상시검정) | 필기/실기 접수·응시·합격·합격률이 다 갈려 있다 |
+| **InquiryMjrQualSVC** (15089357) | getList | `mjrYnNm **관련전공여부**` — **전공을 하고 딴 자격인가 아닌가**. ⚠ 운영키는 심의 |
+
+⭐ **`accumAcquAvgTermDays`(취득에 걸린 날수)** 는 우리 «백년»과 결이 같다 —
+  「그 자격을 따는 데 사람들은 얼마나 걸렸나」. 아직 어느 지면에도 없는 이야기다.
+
+### ⛔ 조심할 것 — 명세에 `rank(순위)` 칸이 있다
+
+```
+InquiryRgnQualSVC 의 응답에 **`rank 순위`** 와 「종목 TOP 10」이 들어 있다.
+⛔ 우리 지면에 **「몇 위」를 쓰지 않는다.** 받아도 그 칸은 버리거나 «분포»로 바꿔 낸다.
+```
+
+### 남은 것
+
+```
+· 실제 호출 — **키가 있어야 한다.** 그것뿐이다. 명세·이용조건·칸은 다 쟀다
+· ⑤ ISC zip 속에 무슨 표가 들었나 — 아직
+```
