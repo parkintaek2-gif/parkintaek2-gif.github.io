@@ -24,6 +24,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 판들 = ['id', 'vi', 'th', 'ms'];
@@ -225,7 +226,7 @@ for (const t of 볼문서) {
 }
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   source: 'Wikimedia Pageviews API, human traffic only; titles resolved via Wikipedia langlinks',
   window: `${달목록[0]} through ${달목록.at(-1)}, ${달수} months`,
   unit: 'reads per million reads of that edition (백만분율)',

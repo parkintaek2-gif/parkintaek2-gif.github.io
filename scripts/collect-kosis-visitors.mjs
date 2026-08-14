@@ -23,6 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ORG = '110';
@@ -146,7 +147,7 @@ const 시군구 = 줄들.filter((r) => r.kind === '시군구' && r.year === 늦�
 const 광역 = 줄들.filter((r) => r.kind === '광역' && r.year === 늦은해);
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   source: '국가데이터처 KOSIS, 유료 주요관광지점 입장객 수 (행정안전부)',
   sourceEn: 'KOSIS, paid tourist-site admissions, Ministry of the Interior and Safety',
   orgId: ORG,

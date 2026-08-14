@@ -23,6 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -87,7 +88,7 @@ const 더간 = [...합친].sort((a, b) => a.gap - b.gap)[0];     // 발걸음은
 const 같은자리 = 합친.filter((r) => r.gap === 0).length;
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   question: 'Do people read about the same parts of Seoul that foreign visitors actually walk into?',
   unit: 'Reading is reads per million reads of that Wikipedia edition. Visiting is foreign '
     + 'admissions to counted paid tourist sites.',

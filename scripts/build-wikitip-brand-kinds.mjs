@@ -24,6 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 판들 = ['id', 'vi', 'th', 'ms'];
@@ -137,7 +138,7 @@ const 차견줌 = 독 && 한 ? {
 } : null;
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   source: 'Wikimedia Pageviews API, human traffic only; brand identity from Wikidata',
   window: 원.window,
   unit: 'reads per million reads of that edition (백만분율)',

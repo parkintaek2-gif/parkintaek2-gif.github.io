@@ -22,6 +22,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ORG = '381';
@@ -105,7 +106,7 @@ const 달들 = [...new Set(원.map((r) => 달꼴(r.PRD_DE)))].sort();
 const 지역들 = [...방.keys()].filter((k) => k !== 합계말);
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   source: '국가데이터처 KOSIS, 국제선 지역별 통계 (한국공항공사)',
   sourceEn: 'KOSIS, international air routes by region, Korea Airports Corporation',
   orgId: ORG,

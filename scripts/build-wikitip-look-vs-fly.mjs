@@ -18,6 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -92,7 +93,7 @@ const 비봉 = 봉우리와바닥(비접);
 const 떨어짐 = 읽봉 && 비봉 ? 달거리(읽봉.peak, 비봉.peak) : null;
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   question: 'Does Southeast Asia look up a Korean trip in the same months that planes actually fill?',
   readSource: 읽.source,
   flySource: 항.sourceEn,

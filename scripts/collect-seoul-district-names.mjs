@@ -15,6 +15,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -87,7 +88,7 @@ for (const b of 답.results.bindings) {
 }
 
 const 나감 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   source: 'Wikidata labels (CC0), Korean label of each Seoul district',
   districts: 구들.map((r) => ({
     q: r.q,
