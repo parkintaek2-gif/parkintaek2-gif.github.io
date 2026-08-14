@@ -29,7 +29,19 @@ import { 오늘 } from './_kst.mjs';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 판들 = ['id', 'vi', 'th', 'ms'];
 export const 판이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
-export const 달수 = 24;
+/**
+ * ⭐ **25 달을 받는다. 24 가 아니다.**
+ *
+ * 항공 자료는 늘 한 달 늦다 — 조회는 7월까지 있는데 항공은 6월까지다. 겹치는 달만 쓰면
+ * 23 이 되고, 23 으로는 **열두 달 대 열두 달**이 안 선다. 한 달이 모자라 계절을 못 뺀다.
+ *
+ * 🔴 한 달 하나로 재면 답이 뒤집힌다 — 대양주는 6월만 보면 **-25%**, 열두 달로 보면 **+2%** 다.
+ *   같은 자료다. **자를 바꾸면 답이 바뀐다.** 그래서 열두 달 대 열두 달을 고집한다.
+ *
+ * ⚠ 창은 「지난달까지」로 잡으므로 이건 개수지 날짜가 아니다. 항공이 더 늦어지면 겹달이
+ *   또 줄 수 있다 — 그때는 **모자라다고 말하지, 짧은 자로 재지 않는다.**
+ */
+export const 달수 = 25;
 
 /**
  * ⭐ **여행을 준비할 때 여는 문서**만 고른다. 배우·노래는 안 넣는다 — 그건 이미 잰다.
@@ -168,6 +180,17 @@ if (process.argv.includes('--selftest')) {
  *   ⛔ 「문서가 없다」가 아니라 **내 호출이 넘김을 안 따라간 것**이었다.
  *     그대로 냈으면 「동남아 백과사전에 명동 문서가 없다」는 거짓을 낼 뻔했다.
  */
+/**
+ * ⛔ **여기부터는 직접 실행할 때만 돈다.**
+ *
+ * 🔴 8/15 에 물렸다. `collect-sea-trip-control.mjs` 가 이 자에서 `판들`·`달수` 만
+ *   가져다 쓰려고 import 했는데, **이 자가 통째로 돌아** 위키미디어를 백 번 두드리고
+ *   원본 파일까지 다시 썼다. 내가 만든 훑기의 ②번(임포트 부수효과)에 내가 걸렸다.
+ * ⚠ 이번엔 값이 같아 해가 없었다. 다음엔 아니다 — **남의 자가 내 파일을 덮어쓴다.**
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가실행됐다) {
 const 제목 = {};
 for (const t of 볼문서) {
   제목[t] = {};
@@ -255,3 +278,5 @@ fs.mkdirSync(path.dirname(길), { recursive: true });
 fs.writeFileSync(길, `${JSON.stringify(나감, null, 2)}\n`);
 console.log(`\n✅ ${path.relative(뿌리, 길)}`);
 console.log(`   문서 ${자료.length} · 달 ${달수} (${달목록[0]} ~ ${달목록.at(-1)}) · 못 잰 칸 ${못잰것}`);
+
+}
