@@ -81,6 +81,10 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('받은쪽[p] = 쪽 + 1'), true);
   재본다('⛔ 덜 받은 판은 그 쪽에서 잇는다',
     fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('const 첫쪽 = 받은쪽[p]'), true);
+  /* 🔴 8/14 — 이어받기가 「이미 쟀다」로만 보고 제목이 늘어난 것을 안 봐서
+     서울·부산의 태국 칸이 통째로 빈칸이었다. 「태국은 서울을 안 찾는다」로 읽힌다 */
+  재본다('⛔ 이어받을 때 제목이 늘었는지 본다',
+    fs.readFileSync('scripts/collect-sea-places.mjs', 'utf8').includes('제목이 늘었다'), true);
   console.log(`장소 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -253,9 +257,33 @@ if (내가실행됐다) {
   let 센 = 0;
   const 모은것 = new Map(이미);
   const 적어두기 = () => fs.writeFileSync(중간길, JSON.stringify(Object.fromEntries(모은것)));
+  /**
+   * 🔴 8/14 — 여기서 또 조용히 틀렸다.
+   *   이어받기가 「이 곳은 이미 쟀다」로만 보고 **제목이 그 뒤에 늘어난 것을 안 봤다.**
+   *   서울은 태국 제목이 없던 때 저장됐고, 나중에 `โซล` 이 생겼는데도 다시 안 쟀다.
+   *   → 결과 자료에서 서울·부산의 태국 칸이 **전부 빈칸**이었다. 「태국은 서울을 안 찾는다」로 읽힌다.
+   *   ⛔ 이어받을 때는 **제목이 늘었는지 먼저 본다.** 늘었으면 그 판만 다시 잰다.
+   */
   const 줄들 = await 떼로(잴것.map((q) => async () => {
-    if (모은것.has(q)) { 센 += 1; return 모은것.get(q); }
     const t = 제목.get(q);
+    const 옛 = 모은것.get(q);
+    if (옛) {
+      const 새판 = 동남아.filter((p) => t[p] && (옛.views?.[p] === null || 옛.views?.[p] === undefined)
+        && !옛.titles?.[p]);
+      if (!새판.length) { 센 += 1; return 옛; }
+      /* 제목이 늘었다 — 그 판만 새로 잰다 */
+      for (const p of 새판) {
+        옛.views[p] = await 조회수(p, t[p]);
+        옛.perMillion[p] = 옛.views[p] === undefined ? undefined : 백만분율(옛.views[p], 밑[p]);
+      }
+      옛.titles = t;
+      옛.seaEditionsWithArticle = 문서있는판({ views: 옛.views });
+      옛.seaPerMillionTotal = 동남아.some((p) => 옛.views[p] === undefined) ? null
+        : +동남아.reduce((a, p) => a + (옛.perMillion[p] ?? 0), 0).toFixed(2);
+      모은것.set(q, 옛);
+      센 += 1;
+      return 옛;
+    }
     const views = {};
     for (const p of 동남아) views[p] = t[p] ? await 조회수(p, t[p]) : null;
     센 += 1;
