@@ -17,6 +17,9 @@
  *   node scripts/check-kcw-indexnow.mjs            안 알린 것을 센다
  *   node scripts/check-kcw-indexnow.mjs --적는다 /a /b   방금 알린 것을 적는다
  *   node scripts/check-kcw-indexnow.mjs --selftest
+ *
+ * ⚠ **PowerShell 에서 부른다.** Git Bash 는 `/read-vs-visited` 를 윈도 경로로 바꿔
+ *   `c:/Program Files/Git/read-vs-visited` 로 넘긴다(MSYS 경로 변환). 8/15 에 그걸로 한 번 섰다.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -25,6 +28,15 @@ import { fileURLToPath } from 'node:url';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 기록길 = path.join(뿌리, 'archive/indexnow-kcw.json');
 export const ORIGIN = 'https://www.kculturewire.com';
+
+/**
+ * 🔴 2026-08-15 — 기록에 날짜가 **하루 앞서** 적혔다. `toISOString()` 은 UTC 라
+ *   한국 새벽 3시가 UTC 로는 전날 저녁이다. 우리는 한국에서 일하고 한국 시각으로 적는다.
+ * ⚠ 이 흠은 조용하다 — 하루 어긋난 기록을 나중에 아무도 못 알아본다.
+ */
+export function 오늘KST() {
+  return new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
+}
 
 /** 기록을 읽는다. 없으면 빈 것 — ⛔ 없다고 던지지 않는다. 첫날이 있다 */
 export function 기록읽기(길 = 기록길) {
@@ -68,17 +80,31 @@ if (process.argv.includes('--selftest')) {
   const 들여온것 = [...fs.readFileSync(fileURLToPath(import.meta.url), 'utf8')
     .matchAll(/^import\s[^\n]*?from\s+'([^']+)'/gm)].map((m) => m[1]);
   참('⛔ 밖으로 나가는 문을 안 들여온다', 들여온것.every((m) => ['node:fs', 'node:path', 'node:url'].includes(m)));
+  /* 🔴 8/15 — UTC 로 적어 기록이 하루 앞섰다. 우리는 한국에서 일한다 */
+  참('날짜를 한국 시각으로 적는다', /^\d{4}-\d{2}-\d{2}$/.test(오늘KST()));
+  참('UTC 와 다를 수 있다 — 새벽에 하루 앞서지 않는다',
+    오늘KST() >= new Date().toISOString().slice(0, 10));
   const 진 = 잼.filter(([, ok]) => !ok);
   console.log(`자가시험 ${잼.length}개 · ${진.length ? `🔴 ${진.length}개 실패` : '✅ 전부 통과'}`);
   for (const [n] of 진) console.log(`   🔴 ${n}`);
   process.exit(진.length ? 1 : 0);
 }
 
+/**
+ * 🔴 2026-08-15 — **임포트만 해도 본문이 돌았다.** 다른 자에서 이 자의 `오늘KST` 를
+ *   가져다 쓰려 했더니 지면 790장을 세는 출력이 딸려 나왔다.
+ *   ⛔ 어제 영상 자에서 똑같은 것을 고쳐 놓고 여기엔 안 달았다.
+ *   ⚠ 부수효과가 있는 자는 **불렸을 때만** 돈다.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (!내가실행됐다) { /* 남이 가져다 쓰는 중이다. 아무것도 하지 않는다 */ } else {
+
 const 적을자리 = process.argv.indexOf('--적는다');
 if (적을자리 >= 0) {
   const 길들 = process.argv.slice(적을자리 + 1).filter((a) => a.startsWith('/'));
   if (!길들.length) { console.error('⛔ 적을 지면 주소를 주십시오'); process.exit(1); }
-  const 날 = new Date().toISOString().slice(0, 10);
+  const 날 = 오늘KST();
   fs.mkdirSync(path.dirname(기록길), { recursive: true });
   fs.writeFileSync(기록길, `${JSON.stringify(적기(길들, 날, 기록읽기()), null, 2)}\n`);
   console.log(`✅ ${길들.length}장을 알린 것으로 적었다 (${날})`);
@@ -101,4 +127,6 @@ for (const p of 안알린.slice(0, 12)) console.log(`   · ${p}`);
 if (안알린.length > 12) console.log(`   … 그리고 ${안알린.length - 12}장 더`);
 console.log('\n알리려면 — node scripts/ping-indexnow.mjs --host www.kculturewire.com <주소들>');
 console.log('알린 뒤  — node scripts/check-kcw-indexnow.mjs --적는다 <주소들>');
-/* ⛔ 실패로 끝내지 않는다. 786장을 하루에 다 알릴 수는 없고, 알림에는 하루 한도가 있다 */
+/* ⛔ 실패로 끝내지 않는다. 790장을 하루에 다 알릴 수는 없고, 알림에는 하루 한도가 있다 */
+
+} /* 내가실행됐다 */
