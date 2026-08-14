@@ -140,6 +140,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'Seoul has 25 districts. The tourist count can speak for five of them',
     caption: 'Five cards: what the public admissions table can and cannot see about Seoul.',
   },
+  {
+    set: 'season',
+    page: '/look-vs-fly',
+    count: 5,
+    title: 'They agree on the quiet month, not the busy one',
+    caption: 'Five cards: when Southeast Asia looks up a Korean trip, and when the planes fill.',
+  },
 ];
 
 /**
@@ -175,6 +182,13 @@ const videoSets = [
     title: 'Seoul has 25 districts. The tourist count can speak for five of them',
     description: '14 seconds on what Korea\'s public admissions table can and cannot see about '
       + 'its own capital.',
+  },
+  {
+    set: 'season',
+    page: '/look-vs-fly',
+    title: 'They agree on the quiet month, not the busy one',
+    description: '14 seconds on when Southeast Asia looks up a Korean trip, when the planes fill, '
+      + 'and the one month both fall lowest.',
   },
 ];
 

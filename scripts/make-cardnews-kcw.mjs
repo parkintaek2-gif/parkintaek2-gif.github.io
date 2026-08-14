@@ -46,6 +46,7 @@ export const 벌목록 = {
   instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 만들기: (d) => 자벌짓기(d) },
   brands: { 자료: 'src/data/wikitip-brand-kinds.json', 만들기: (d) => 브랜드벌짓기(d) },
   counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 만들기: (d) => 셈벌짓기(d) },
+  season: { 자료: 'src/data/wikitip-look-vs-fly.json', 만들기: (d) => 철벌짓기(d) },
 };
 
 /**
@@ -299,6 +300,73 @@ export function 한벌짓기(d) {
           + '**An ambassador announcement travels because\na Korean act is attached to it.**',
         길: `${주소}/fame-compare`,
         곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
+ * 철 벌 — 90편째 기사의 표(`/look-vs-fly`).
+ * ⭐ 이야기 한 줄: **두 자가 만나는 자리는 봉우리가 아니라 바닥이다.**
+ *
+ * ⛔ 「12월에 알아보고 1월에 간다」로 읽히면 거짓이다. 카드에서 **그 읽기를 직접 부정한다.**
+ *   ⚠ 기사가 본문 한가운데서 부정했으니 카드도 같아야 한다 — 카드가 기사보다 앞서면 안 된다.
+ */
+export function 철벌짓기(d) {
+  const 이름 = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+  const 말 = (mm) => 이름[Number(mm) - 1] ?? mm;
+  /* 표는 열두 줄이 너무 기니 봉우리·바닥 둘레만 보인다 */
+  const 볼달 = ['12', '01', '05', '06'];
+
+  return {
+    갈피: 'look-vs-fly',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Southeast Asia · 23 months',
+        큰: `They agree on\nthe quiet month,\nnot the busy one.`,
+        아래: `Looking about a Korean trip peaks in **${말(d.lookPeak.peak)}**. Flights peak in `
+          + `**${말(d.flyPeak.peak)}**. Both fall lowest in **${말(d.lookPeak.trough)}**.`,
+      },
+      {
+        꼴: '수',
+        제목: 'The year swings\nmore in the reading\nthan in the flying',
+        큰: `${d.lookPeak.ratio}× vs ${d.flyPeak.ratio}×`,
+        곁: 'Peak month over lowest month — looking, then flying',
+        아래: 'Reading moves further across the year than seats do.\nPlanes are scheduled; '
+          + 'curiosity is not.',
+      },
+      {
+        꼴: '표',
+        제목: 'Four months\nof the twelve',
+        머리: ['Month', 'Looking', 'Flying', 'Years'],
+        줄: 볼달.map((m) => [말(m), String(d.lookFolded[m]),
+          Math.round(d.flyFolded[m]).toLocaleString('en-US'), String(d.yearsPerFoldedMonth[m])]),
+        아래: `Looking is reads per million reads of that Wikipedia across `
+          + `${d.articlesUsed.length} travel articles and ${d.editionsSea.length} editions. `
+          + `The "Years" column is how many years sit behind each average — two, and one for July.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          'Not that December looking causes January flying — we never see one reader board one plane',
+          'Not a correlation — over 23 months a single shared season would produce a large one',
+          'Not Southeast Asia in the air figures — that row holds India and Central Asia too',
+        ],
+        아래: 'Looking is not going. Some of these reads are homework,\nand some never become a trip.',
+      },
+      {
+        꼴: '끝',
+        제목: `The steadier signal\nis the empty month`,
+        글: `Both the reading and the seats fall to their lowest in **${말(d.lookPeak.trough)}**.\n`
+          + 'That is where the two rulers meet without a story about cause.',
+        길: `${주소}/look-vs-fly`,
+        곁: 'Wikimedia Pageviews · KOSIS (Korea Airports Corporation)',
       },
     ],
   };

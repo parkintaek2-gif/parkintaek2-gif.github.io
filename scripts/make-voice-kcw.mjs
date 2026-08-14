@@ -126,6 +126,24 @@ export function 셈대본만들기(d) {
   ]);
 }
 
+/**
+ * 90편 대본 — 「두 자가 만나는 자리는 바닥이다」(`/look-vs-fly`).
+ * ⛔ 「12월에 알아보고 1월에 간다」로 들리면 거짓이다. **바닥을 먼저** 말한다.
+ * ⚠ 달 이름은 Piper 가 잘 읽는다. 수는 두 개만 — 진폭은 화면에 있다.
+ */
+export function 철대본만들기(d) {
+  const 이름 = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'];
+  const 말 = (mm) => 이름[Number(mm) - 1] ?? mm;
+  return 때매기기([
+    { 누가: '여', 말: `Looking peaks in ${말(d.lookPeak.peak)}.`, 쉼: 0.5 },
+    { 누가: '남', 말: `Flying peaks in ${말(d.flyPeak.peak)}.`, 쉼: 0.6 },
+    { 누가: '여', 말: 'That gap is the weakest thing here.', 쉼: 0.5 },
+    /* ⚠ 마지막 줄이 요점이다. 짧게 */
+    { 누가: '남', 말: `Both fall lowest in ${말(d.lookPeak.trough)}.`, 쉼: 0 },
+  ]);
+}
+
 export function 대본만들기(d) {
   /* ⚠ 14초에 다 넣으려다 두 번 넘쳤다. **말수를 줄였다** — 화면이 이미 표를 보이고 있다
      🔴 8/14 실제 소리로 다시 매니 14.43초였다. Piper 가 큰 수(213)를 풀어 읽는다.
@@ -267,6 +285,7 @@ if (내가실행됐다) {
     instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 짓기: 자대본만들기 },
     brands: { 자료: 'src/data/wikitip-brand-kinds.json', 짓기: 브랜드대본만들기 },
     counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: 셈대본만들기 },
+    season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: 철대본만들기 },
   };
   const j = process.argv.indexOf('--대본');
   const 고른 = j >= 0 ? process.argv[j + 1] : 'fame';

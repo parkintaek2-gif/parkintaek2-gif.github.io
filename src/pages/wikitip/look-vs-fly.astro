@@ -20,6 +20,8 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-look-vs-fly.json';
 
 const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -109,6 +111,12 @@ const jsonLd = {
       Looking — {d.readSource}. Flying — {d.flySource}.
     </p>
   </section>
+
+  <KcwCardnews set="season" count={5} />
+
+  <KcwShorts set="season"
+    says={`A man and a woman read out the two peak months and the one month both sides `
+      + `fall lowest — ${달말(d.lookPeak.trough)}.`} />
 
   <KcwRelatedArticles page="/look-vs-fly" />
 </WikiTip>
