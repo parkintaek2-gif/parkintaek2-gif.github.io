@@ -70,6 +70,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const spread = 읽기('src/data/wikitip-spread.json');
   const my = 읽기('src/data/wikitip-malaysia.json');
   const inst = 읽기('src/data/wikitip-titles-to-name.json');
+  const br = 읽기('src/data/wikitip-brand-kinds.json');
   const 장 = (벌) => Array.from({ length: 5 }, (_, i) => `public/wikitip/cardnews/${벌}/${String(i + 1).padStart(2, '0')}.png`);
 
   return [
@@ -129,6 +130,23 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
       alt: 'Five cards showing median Wikipedia reads for Korean actors grouped by how many of '
         + 'their titles reached a Netflix chart.',
     },
+    {
+      /**
+       * 88편. ⛔ 「어느 나라가 관심이 많다」로 읽히면 거짓이다 — 두 수를 나란히만 놓는다.
+       * ⛔ 한국 차 배수를 안 쓴다. 기사도 안 냈다. 나가는 글이 기사보다 앞서면 안 된다.
+       */
+      key: 'brands',
+      page: `${주소}/brand-kinds`,
+      images: 장('brands'),
+      x: `${br.countryNames[br.positionSwing.제일]} reads more about German cars than its three `
+        + `neighbours, and less about luxury houses than any of them.\n\n`
+        + `${br.kinds.find((k) => k.key === 'car').판별[br.positionSwing.제일]} against `
+        + `${br.kinds.find((k) => k.key === 'luxury').판별[br.positionSwing.제일]}, `
+        + `per million reads of that Wikipedia.\n\nRank 22 brands together and this disappears.\n\n`
+        + `${주소}/brand-kinds`,
+      alt: 'Five cards comparing how much four Southeast Asian Wikipedias are read about luxury '
+        + 'houses, German car makers and jewellers.',
+    },
   ];
 }
 
@@ -149,7 +167,16 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     벌검사({ x: `${'a'.repeat(300)} ${주소}`, images: ['a'], page: 'p' }),
     (x) => x.some((s) => s.includes('넘는다')));
   const 벌들 = 벌들짓기();
-  재본다('벌이 다섯', 벌들.length, 5);
+  /**
+   * 🔴 2026-08-14 — 여기 「5」가 손으로 박혀 있어서, 여섯째 벌을 넣자 검사가 **실패**했다.
+   *   ⛔ 늘어나는 것을 막는 검사는 검사가 아니라 자물쇠다.
+   *   ⭐ 물어야 할 것은 「몇 벌인가」가 아니라 **「만든 카드뉴스마다 나갈 글이 있나」**다.
+   *     카드뉴스는 있는데 글이 없으면 그 카드는 어디에도 안 나간다 — 그것이 진짜 흠이다.
+   */
+  const 카드뉴스벌 = fs.readdirSync('public/wikitip/cardnews', { withFileTypes: true })
+    .filter((e) => e.isDirectory()).map((e) => e.name).sort();
+  재본다('카드뉴스 벌마다 나갈 글이 있다', 카드뉴스벌.filter((v) => !벌들.some((b) => b.key === v)), []);
+  재본다('나갈 글마다 카드뉴스가 있다', 벌들.filter((b) => !카드뉴스벌.includes(b.key)).map((b) => b.key), []);
   for (const 벌 of 벌들) 재본다(`벌 ${벌.key} 가 온전하다`, 벌검사(벌), []);
   재본다('벌마다 그림이 다섯', 벌들.every((b) => b.images.length === 5), true);
   재본다('⛔ 그림 파일이 실제로 있다',
