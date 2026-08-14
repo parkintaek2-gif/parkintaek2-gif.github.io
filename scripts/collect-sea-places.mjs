@@ -30,25 +30,20 @@ const 끝 = '20260731';
 const 하드시한 = 60000;
 
 /**
- * 무엇을 장소로 보나 — Wikidata 종류(P31) Q번호.
- * ⚠ 「맛집·카페」는 위키백과에 거의 없다. 있는 것은 **동네·거리·궁궐·섬·산·역**이다.
- *   그래서 이 자료는 「어느 동네가 궁금한가」를 재지 「어느 가게가 궁금한가」를 재지 못한다.
- *   ⛔ 그 한계를 자료에 적는다. TourAPI 키가 나오면 가게 층을 그 위에 얹는다.
+ * 무엇을 장소로 보나 — 🔴 **종류(P31)로 고르지 않는다.**
+ *
+ *   처음엔 동·구·궁궐… 열두 갈래의 Q번호를 적어 뒀다가 **동 0개·구 0개**가 나왔다.
+ *   강남구는 「district of Seoul」이라는 제 종류를 갖고, 내가 적은 Q26283 이 아니었다.
+ *   ⛔ 종류를 하나씩 맞히려 들면 한국 행정구역 체계를 내가 다 알아야 한다. 계속 틀린다.
+ *
+ * ⭐ 대신 **좌표(P625)가 있으면 장소**로 본다. 좌표는 장소만 갖는다.
+ *    종류는 받아 온 뒤에 **읽어서** 붙인다 — 내가 정하지 않는다.
+ *
+ * ⚠ 「맛집·카페」는 위키백과에 거의 없다. 있는 것은 동네·거리·궁궐·섬·산·역이다.
+ *   그래서 이 자료는 「어느 동네가 궁금한가」를 재지 「어느 가게가 궁금한가」를 못 잰다.
+ *   ⛔ 그 한계를 자료에 적는다. TourAPI 열쇠가 나오면 가게 층을 그 위에 얹는다.
  */
-export const 장소갈래 = [
-  { key: 'neighbourhood', label: 'Neighbourhood', q: 'Q1499928' },   /* 동 (행정동) */
-  { key: 'district', label: 'District', q: 'Q26283' },               /* 구 */
-  { key: 'city', label: 'City', q: 'Q515' },
-  { key: 'island', label: 'Island', q: 'Q23442' },
-  { key: 'mountain', label: 'Mountain', q: 'Q8502' },
-  { key: 'palace', label: 'Palace', q: 'Q16560' },
-  { key: 'temple', label: 'Temple', q: 'Q44539' },
-  { key: 'museum', label: 'Museum', q: 'Q33506' },
-  { key: 'park', label: 'Park', q: 'Q22698' },
-  { key: 'station', label: 'Station', q: 'Q55488' },
-  { key: 'market', label: 'Market', q: 'Q330284' },
-  { key: 'tower', label: 'Tower', q: 'Q12518' },
-];
+export const 장소조건 = 'wdt:P17 wd:Q884 ; wdt:P625 ?좌표';
 
 export const 쪽크기 = 500;
 export const 덩이 = 120;
@@ -64,11 +59,9 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   };
   재본다('🔴 사람 자료와 같은 언어판 — 아니면 나란히 못 놓는다', 동남아, ['id', 'vi', 'th', 'ms']);
   재본다('🔴 같은 백만분율 셈', 백만분율(5086, 50430364), 100.85);
-  재본다('장소 갈래가 여럿', 장소갈래.length >= 10, true);
-  재본다('시장이 들어 있다 — 스타가 가는 곳에 가깝다',
-    장소갈래.some((g) => g.key === 'market'), true);
-  재본다('갈래 Q번호가 안 겹친다',
-    장소갈래.length, new Set(장소갈래.map((g) => g.q)).size);
+  /* 🔴 8/14 — 종류 Q번호를 열두 개 적어 뒀다가 동 0개·구 0개가 나왔다. 좌표로 바꿨다 */
+  재본다('⛔ 종류 Q번호를 손으로 적지 않는다', 장소조건.includes('P625'), true);
+  재본다('한국 것만 고른다', 장소조건.includes('wd:Q884'), true);
   재본다('못 잰 것은 0 이 아니다', 백만분율(null, 1000), null);
   재본다('문서 없음과 0 을 안 섞는다',
     문서있는판({ views: { id: 0, vi: null, th: 5, ms: undefined } }), 2);
@@ -148,59 +141,56 @@ if (내가실행됐다) {
     console.log(`   ${p.padEnd(3)} ${밑[p] ? 밑[p].toLocaleString('en-US') : '⛔ 못 쟀다'}`);
   }
 
-  console.log('\n② 한국에 있는 장소의 Q번호만 받는다 (가볍다)');
-  const 갈래맵 = new Map();
+  /**
+   * ⭐ 판별로 「그 판에 문서가 있는 한국 장소」를 바로 받는다.
+   *   ⛔ 「한국 장소 전부」를 받고 거르지 않는다 — 수만 개라 무겁고, 대부분 버린다.
+   *      물음을 좁히면 질의가 가벼워지고 결과가 곧 잴 것이 된다.
+   */
+  console.log('\n② 판마다 「그 판에 문서가 있는 한국 장소」를 바로 받는다');
+  const 제목 = new Map();
   const 이름맵 = new Map();
-  for (const g of 장소갈래) {
+  for (const p of 동남아) {
     let 받은 = 0;
-    for (let 쪽 = 0; 쪽 < 20; 쪽 += 1) {
-      /* P17 = 어느 나라에 있나. 한국(Q884) 안의 그 갈래 */
-      const 줄들 = await 스파클(`SELECT ?p ?pLabel WHERE {
-        ?p wdt:P31 wd:${g.q} ; wdt:P17 wd:Q884 .
+    for (let 쪽 = 0; 쪽 < 30; 쪽 += 1) {
+      const 줄들 = await 스파클(`SELECT ?p ?pLabel ?a WHERE {
+        ?p ${장소조건} .
+        ?a schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> .
         SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
       } ORDER BY ?p LIMIT ${쪽크기} OFFSET ${쪽 * 쪽크기}`);
       if (줄들 === null) break;
       for (const 줄 of 줄들) {
         const q = 줄.p.value.split('/').pop();
-        if (!갈래맵.has(q)) 갈래맵.set(q, []);
-        if (!갈래맵.get(q).includes(g.key)) 갈래맵.get(q).push(g.key);
+        if (!제목.has(q)) 제목.set(q, {});
+        const 앞 = `https://${p}.wikipedia.org/wiki/`;
+        const url = 줄.a?.value;
+        if (url && url.startsWith(앞)) 제목.get(q)[p] = decodeURIComponent(url.slice(앞.length));
         if (줄.pLabel?.value) 이름맵.set(q, 줄.pLabel.value);
       }
       받은 += 줄들.length;
       if (줄들.length < 쪽크기) break;
     }
-    console.log(`   ${g.label.padEnd(16)} ${받은}`);
+    console.log(`   ${p.padEnd(4)} ${받은}`);
   }
-  const 모든q = [...갈래맵.keys()];
-  console.log(`   → 모두 ${모든q.length}`);
+  const 잴것 = [...제목.keys()].filter((q) => 동남아.some((p) => 제목.get(q)?.[p]));
+  console.log(`\n③ 동남아 판에 문서가 있는 한국 장소 **${잴것.length}**`);
 
-  console.log('\n③ Q번호를 주고 문서 제목을 받는다');
-  const 제목 = new Map();
+  /* 종류는 **받아 온 뒤에 읽는다.** ⛔ 내가 정하지 않는다 */
+  console.log('\n④ 종류를 읽어 붙인다 (내가 정하지 않는다)');
+  const 갈래맵 = new Map();
   let 막힌덩이 = 0;
-  for (let i = 0; i < 모든q.length; i += 덩이) {
-    const 이번 = 모든q.slice(i, i + 덩이);
-    const 고리 = 동남아.map((p) => `
-    OPTIONAL { ?a_${p} schema:about ?p ; schema:isPartOf <https://${p}.wikipedia.org/> . }`).join('');
-    const 줄들 = await 스파클(`SELECT ?p ${동남아.map((p) => `?a_${p}`).join(' ')} WHERE {
-      VALUES ?p { ${이번.map((q) => `wd:${q}`).join(' ')} }${고리}
-    }`);
+  for (let i = 0; i < 잴것.length; i += 덩이) {
+    const 이번 = 잴것.slice(i, i + 덩이);
+    const 줄들 = await 스파클(`SELECT ?p (GROUP_CONCAT(DISTINCT ?tL; separator="|") AS ?ts) WHERE {
+      VALUES ?p { ${이번.map((q) => `wd:${q}`).join(' ')} }
+      ?p wdt:P31 ?t . ?t rdfs:label ?tL . FILTER(lang(?tL)="en")
+    } GROUP BY ?p`);
     if (줄들 === null) { 막힌덩이 += 1; continue; }
-    for (const 줄 of 줄들) {
-      const q = 줄.p.value.split('/').pop();
-      if (!제목.has(q)) 제목.set(q, {});
-      for (const p of 동남아) {
-        const url = 줄[`a_${p}`]?.value;
-        if (!url) continue;
-        const 앞 = `https://${p}.wikipedia.org/wiki/`;
-        if (url.startsWith(앞)) 제목.get(q)[p] = decodeURIComponent(url.slice(앞.length));
-      }
-    }
-    if ((i / 덩이) % 5 === 0) process.stdout.write(`   ${Math.min(i + 덩이, 모든q.length)}/${모든q.length}\n`);
+    for (const 줄 of 줄들) 갈래맵.set(줄.p.value.split('/').pop(), 줄.ts.value.split('|'));
   }
-  if (막힌덩이) console.log(`   ⚠ 못 받은 덩이 ${막힌덩이}개`);
-
-  const 잴것 = 모든q.filter((q) => 동남아.some((p) => 제목.get(q)?.[p]));
-  console.log(`\n④ ${모든q.length} 중 동남아 판에 문서가 있는 **${잴것.length}**`);
+  if (막힌덩이) console.log(`   ⚠ 종류를 못 받은 덩이 ${막힌덩이}개 — 그 장소는 갈래가 빈다`);
+  const 갈래셈 = new Map();
+  for (const ts of 갈래맵.values()) for (const t of ts) 갈래셈.set(t, (갈래셈.get(t) ?? 0) + 1);
+  console.log(`   많은 갈래: ${[...갈래셈].sort((a, b) => b[1] - a[1]).slice(0, 8).map(([t, n]) => `${t} ${n}`).join(' · ')}`);
 
   const 이미 = fs.existsSync(중간길)
     ? new Map(Object.entries(JSON.parse(fs.readFileSync(중간길, 'utf8')))) : new Map();
@@ -256,7 +246,12 @@ if (내가실행됐다) {
       + 'and are the right instrument for visits.',
     editionsSea: 동남아,
     editionTotals: 밑,
-    kinds: 장소갈래.map((g) => ({ key: g.key, label: g.label })),
+    /** ⭐ 갈래는 **읽어 온 것**이다. 내가 정한 목록이 아니다 */
+    kindsSeen: [...갈래셈].sort((a, b) => b[1] - a[1]).slice(0, 20).map(([kind, n]) => ({ kind, n })),
+    howPlacesWereChosen: 'Anything in South Korea with coordinates. We do not pick types by hand — '
+      + 'an earlier version listed twelve Wikidata types and returned zero neighbourhoods and zero '
+      + 'districts, because Korean administrative units carry their own type items. Types here are '
+      + 'read back from the data, not chosen.',
     candidates: 모든q.length,
     withArticle: 잴것.length,
     peopleMeasured: 잰것.length,
