@@ -115,11 +115,33 @@ for (const [이름, 값] of Object.entries(요약.기준선별_학과페이지�
 }
 
 // 얇은 학과 — 개설 학교 수가 맞나, 그리고 정말 지면이 없나
+// 🔴 2026-08-14 15:5x 정정 — 개설교수는 **NEIS 원본 학교 수**로 센다.
+//    지면 쪽으로 세면 방송통신고·특수학교처럼 지면 없는 학교가 빠져 0 이 나온다
+//    (양잠과·주말과정 둘이 그렇게 거짓 빨강으로 떴다. 손님 지면에는 아무 흠이 없다).
+const 원본학과 = new Map()
+{
+  const 길 = path.join(뿌리, 'archive/raw/neis/school-major.json')
+  if (fs.existsSync(길)) {
+    for (const m of JSON.parse(fs.readFileSync(길, 'utf8').replace(/^﻿/, '')).rows ?? []) {
+      const 이름 = String(m.DDDEP_NM ?? '').trim()
+      const 코드 = String(m.SD_SCHUL_CODE ?? '').trim()
+      if (!이름 || !코드) continue
+      if (!원본학과.has(이름)) 원본학과.set(이름, new Set())
+      원본학과.get(이름).add(코드)
+    }
+  } else 말할것.push('⬜ archive/raw/neis/school-major.json 이 없어 얇은 학과 개설교수는 지면 쪽으로만 셌다')
+}
+// ⛔ **개설교수는 이 자로 못 잰다.** 빌드는 자기 학교 범위(TARGET_KINDS·이름 거르개) 안에서 센다 —
+//    원본으로 세면 많이 나오고(간호행정과 2 ↔ 1), 지면으로 세면 적게 나온다(양잠과 0 ↔ 1).
+//    그 범위를 자에서 되살리려면 빌드를 다시 돌리는 수밖에 없다. ⛔ 못 재는 것은 **못 잰다고 적는다.**
 let 얇은어긋남 = 0
 for (const t of 얇은) {
-  const 다시 = 학과별.get(t.title) ?? 0
-  if (t.개설교수 === 다시) 같은칸++
-  else { 얇은어긋남++; if (얇은어긋남 <= 3) 다른칸.push(`얇은 학과 ${t.title} 개설교수 — 적힌 것 ${t.개설교수} · 다시 세니 ${다시}`) }
+  const 원 = 원본학과.get(t.title)?.size ?? 0
+  const 면 = 학과별.get(t.title) ?? 0
+  if (t.개설교수 < 면 || t.개설교수 > 원) {
+    얇은어긋남++
+    if (얇은어긋남 <= 3) 다른칸.push(`얇은 학과 ${t.title} 개설교수 ${t.개설교수} — 지면 ${면} ~ 원본 ${원} 사이를 벗어났다`)
+  } else 같은칸++
   if (!학과.some((m) => m.title === t.title)) 같은칸++
   else 다른칸.push(`얇은 학과 ${t.title} — 얇다고 해 놓고 학과 지면이 서 있다`)
 }
