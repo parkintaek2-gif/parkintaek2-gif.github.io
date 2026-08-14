@@ -21,6 +21,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-brand-kinds.json';
 
 const 명품 = d.kinds.find((k) => k.key === 'luxury');
@@ -120,6 +121,8 @@ const jsonLd = {
       Countries: {d.editionsSea.map((p) => d.countryNames[p]).join(', ')}.
     </p>
   </section>
+
+  <KcwCardnews set="brands" count={5} />
 
   <KcwRelatedArticles page="/brand-kinds" />
 </WikiTip>

@@ -81,6 +81,14 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'The question was fine. The instrument was not.',
     caption: 'Five cards: a flat result, a changed ruler, and the same actors reading clearly.',
   },
+  {
+    set: 'brands',
+    page: '/brand-kinds',
+    count: 5,
+    title: 'The same country is first and last, depending on what you count',
+    caption: 'Five cards: Indonesia leads on German cars and trails on luxury houses, '
+      + 'and one comparison we could not make.',
+  },
 ];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */

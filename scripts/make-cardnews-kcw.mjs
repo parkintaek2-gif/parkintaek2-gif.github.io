@@ -44,6 +44,7 @@ export const 벌목록 = {
   malaysia: { 자료: 'src/data/wikitip-malaysia.json', 만들기: (d) => 말레이벌짓기(d) },
   places: { 자료: 'src/data/wikitip-places.json', 만들기: (d) => 장소벌짓기(d) },
   instrument: { 자료: 'src/data/wikitip-titles-to-name.json', 만들기: (d) => 자벌짓기(d) },
+  brands: { 자료: 'src/data/wikitip-brand-kinds.json', 만들기: (d) => 브랜드벌짓기(d) },
 };
 
 /**
@@ -303,6 +304,79 @@ export function 한벌짓기(d) {
 }
 
 /**
+ * 브랜드 벌 — 88편째 기사의 표(`/brand-kinds`).
+ * ⭐ 이야기 한 줄: **같은 나라가 갈래마다 자리를 바꾼다.**
+ *
+ * ⛔ 「어느 나라가 관심이 많다」로 읽히면 거짓이다. 넷째 장(없는것)에 못 박는다.
+ * ⛔ 한국 차 배수를 카드에 **넣지 않는다.** 기사가 안 낸 수를 카드가 내면 안 된다 —
+ *    카드가 기사보다 앞서 나가는 것이 오늘 공유 카드에서 한 번 막힌 자리다.
+ */
+export function 브랜드벌짓기(d) {
+  const 나라 = d.countryNames;
+  const 흔 = d.positionSwing.제일;
+  const 차 = d.kinds.find((k) => k.key === 'car');
+  const 명 = d.kinds.find((k) => k.key === 'luxury');
+  /* 표에는 **두꺼운 갈래만** 올린다. 얇은 것을 무늬로 보여 주지 않는다 */
+  const 두꺼운 = d.kinds.filter((k) => !k.얇은가);
+
+  return {
+    갈피: 'brand-kinds',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Southeast Asia · 12 months',
+        큰: 'The same country\nis first and last,\ndepending on\nwhat you count',
+        아래: `${나라[흔]} reads more about German cars than its three neighbours — `
+          + 'and less about luxury houses than any of them.',
+      },
+      {
+        꼴: '수',
+        제목: 'One country,\ntwo opposite\nappetites',
+        큰: `${차.판별[흔]} vs ${명.판별[흔]}`,
+        곁: `${나라[흔]} — German car makers, then luxury houses`,
+        아래: 'Reads per million reads of that edition, so a smaller country\n'
+          + 'is not pushed down for being smaller.',
+      },
+      {
+        꼴: '표',
+        /* 🔴 처음에 「Five kinds」라 적었다. 표에는 두꺼운 **셋**만 올렸으니 거짓이었다.
+           ⛔ 제목이 표보다 커지면 안 된다. 카드는 표를 설명하는 자리다 */
+        제목: `${두꺼운.length === 3 ? 'Three' : 두꺼운.length} kinds thick\nenough to read`,
+        머리: ['Kind', ...d.editionsSea.map((p) => 나라[p].slice(0, 9))],
+        /* ⚠ ' makers' 를 그냥 자르면 「German car」가 된다. 말이 되게 바꾼다 */
+        줄: 두꺼운.map((k) => [k.label.replace(' car makers', ' cars').replace(' and watchmakers', ''),
+          ...d.editionsSea.map((p) => String(k.판별[p]))]),
+        아래: `Read across a row, not down a column. The other ${d.kinds.length - 두꺼운.length} kinds `
+          + 'hold too few fully-covered brands to show here. The order of the four countries '
+          + 'changes from row to row, and that is the finding.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Who buys what — this counts encyclopaedia reads, not sales',
+          'Who fronts which house — Wikidata records no ambassador relation at all',
+          'A Korean-vs-German car multiple — only one Korean marque has all four articles',
+        ],
+        아래: 'The Thai Wikipedia has an article on BMW, Mercedes-Benz and Porsche,\n'
+          + 'and none on Hyundai. That is a gap in an encyclopaedia, not in a market.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Rank 22 brands\ntogether and each\ncountry gets one\nposition — an average\nof two opposite\nbehaviours',
+        글: `**${나라[흔]}** first on cars, last on luxury.\n`
+          + `**${나라[d.kinds.find((k) => k.key === 'luxury').차례[0]]}** does the reverse.`,
+        길: `${주소}/brand-kinds`,
+        곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
  * 감독 벌 — 81편째 기사의 표(`/sea-athletes`).
  * ⭐ 이야기 한 줄: **한국인 감독은 자기를 뽑은 나라에서만 읽힌다.**
  */
@@ -490,6 +564,21 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   /* 🔴 사장님 지시는 「**매일** 낸다」다. 벌이 하나뿐이면 내일 낼 것이 없다 */
   재본다('벌이 하나가 아니다', Object.keys(벌목록).length, (n) => n >= 2);
+  /**
+   * 🔴 2026-08-14 — 브랜드 벌의 표 제목이 「Five kinds」인데 표에는 **셋**만 있었다.
+   *   얇은 갈래를 뺀 것은 옳았는데 제목을 안 고쳤다. ⛔ 제목이 표보다 크면 그 자체가 거짓말이다.
+   *   여기서 **모든 벌**의 표 제목에 든 수를 실제 줄 수와 견준다.
+   */
+  for (const [이름, 재료] of Object.entries(벌목록)) {
+    const 벌 = 재료.만들기(JSON.parse(fs.readFileSync(재료.자료, 'utf8')));
+    for (const 장 of 벌.카드.filter((c) => c.꼴 === '표')) {
+      const 셈말 = { two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7 };
+      const 든수 = String(장.제목).toLowerCase().match(/\b(two|three|four|five|six|seven|\d+)\b/);
+      if (!든수) continue;
+      const 말한값 = 셈말[든수[1]] ?? +든수[1];
+      재본다(`${이름} 표 제목의 수가 줄 수와 같다`, 말한값, (n) => n === 장.줄.length);
+    }
+  }
   for (const [이름, 재료] of Object.entries(벌목록)) {
     const 그자료 = JSON.parse(fs.readFileSync(재료.자료, 'utf8'));
     const 그벌 = 재료.만들기(그자료);
