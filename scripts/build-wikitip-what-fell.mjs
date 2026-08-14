@@ -154,6 +154,54 @@ export function 축끼리견줌(높은쪽, 낮은쪽) {
   };
 }
 
+/**
+ * ⭐⭐ **기사가 낸 설명을 우리가 직접 시험한다.**
+ *
+ * 🔴 91편을 내고 나서 본문에 이렇게 적혀 있는 것을 봤다 —
+ *   「비자·환승·교통카드처럼 **답이 정해진 물음**이 백과사전 밖으로 나갔다」.
+ *   ⛔ 그건 **재지 않고 쓴 설명**이었다. 재 보니 자료가 안 받쳐 준다:
+ *     답이 정해진 쪽 −33.5% · 구경하는 쪽 −29.2% — 차이가 4.3 포인트뿐이고,
+ *     정작 **비자 문서가 한국 여행 문서 중 제일 덜 떨어졌다**(−15%).
+ *   ⭐ 그래서 설명을 지우고 **이 갈라 재기를 자료에 박는다.** 다음에 누가 같은 설명을
+ *     떠올리면 이 표가 먼저 막는다.
+ *
+ * ⚠ 가르는 잣대는 **우리가 정한 것**이다. 자료에서 나온 것이 아니다. 그래서 목록을 그대로 낸다 —
+ *   다르게 가르고 싶은 사람이 다시 가를 수 있어야 한다.
+ */
+export const 답이정해진 = ['Visa policy', 'Transit card', 'Main airport', 'High-speed rail', 'Capital subway'];
+export const 구경하는 = ['Shopping district', 'Nightlife district', 'Resort island', 'National cuisine', 'Country tourism'];
+
+/**
+ * ⛔ **「비자가 제일 덜 떨어졌다」를 손으로 박지 않는다.** 자료가 바뀌면 그 말이 거짓이 된다.
+ * ⭐ 여행 축 한국 문서를 종류별로 접어 **제일 덜 떨어진 종류**를 찾는다.
+ * ⚠ 되찾을 것이 없으면 null 을 돌려준다 — 없는 것을 지어내지 않는다.
+ */
+export function 제일덜떨어진종류(칸들) {
+  const 접음 = new Map();
+  for (const c of 칸들) {
+    if (c.axis !== 'trip') continue;
+    if (!접음.has(c.kind)) 접음.set(c.kind, new Map());
+    접음.get(c.kind).set(`${c.korea}|${c.edition}`, c.koreaChange);
+  }
+  const 줄들 = [...접음.entries()].map(([kind, m]) => ({ kind, change: 평균([...m.values()]) }));
+  if (!줄들.length) return null;
+  return 줄들.sort((a, b) => b.change - a.change)[0];
+}
+
+export function 물음종류로가르기(칸들, 종류목록) {
+  const 고른 = 칸들.filter((c) => c.axis === 'trip' && 종류목록.includes(c.kind));
+  /* ⛔ 한국 쪽은 대조군 수만큼 겹쳐 세지 않는다 */
+  const 한쪽 = new Map();
+  for (const c of 고른) 한쪽.set(`${c.korea}|${c.edition}`, c.koreaChange);
+  return {
+    kinds: 종류목록,
+    koreaPairs: 한쪽.size,
+    korea: 평균([...한쪽.values()]),
+    controlCells: 고른.length,
+    control: 평균(고른.map((c) => c.controlChange)),
+  };
+}
+
 /** 한 축의 **한국 문서만** — 문서·판 짝마다 한 번씩. ⛔ 대조군 수만큼 겹쳐 세면 안 된다 */
 export function 한국쪽만(칸들, 축) {
   const 본것 = new Map();
@@ -243,6 +291,30 @@ if (process.argv.includes('--selftest')) {
     높이탓인가({ korea: -5, control: -20, matchedKorea: -5, matchedControl: -20 }) === null);
 
   참('⭐ 열두 달 대 열두 달이다', 반창 === 12);
+
+  /**
+   * 🔴 **우리가 이미 쓴 설명을 무르는 자리다.** 91편 본문이 「답이 정해진 물음이 백과사전
+   *   밖으로 나갔다」고 적었는데, 재지 않고 쓴 말이었다. 여기서 잰다.
+   * ⛔ 「몇 개인가」를 안 묻는다 — 종류를 늘리거나 다르게 갈라도 검사가 서지 않아야 한다.
+   */
+  참('⛔ 두 묶음이 겹치지 않는다', !답이정해진.some((k) => 구경하는.includes(k)));
+  참('두 묶음이 비어 있지 않다', 답이정해진.length > 0 && 구경하는.length > 0);
+  const 갈칸 = [
+    { axis: 'trip', kind: 'Visa policy', korea: 'V', edition: 'id', koreaChange: -10, controlChange: -20 },
+    { axis: 'trip', kind: 'Visa policy', korea: 'V', edition: 'id', koreaChange: -10, controlChange: -30 },
+    { axis: 'trip', kind: 'Resort island', korea: 'R', edition: 'id', koreaChange: -40, controlChange: -5 },
+    { axis: 'culture', kind: 'Pop music', korea: 'K', edition: 'id', koreaChange: -1, controlChange: -1 },
+  ];
+  const 정해 = 물음종류로가르기(갈칸, 답이정해진);
+  참('⛔ 한국 쪽을 대조군 수만큼 겹쳐 세지 않는다', 정해.koreaPairs === 1);
+  참('대조 칸은 그대로 다 센다', 정해.controlCells === 2);
+  참('⛔ 문화 축은 안 섞인다', 물음종류로가르기(갈칸, ['Pop music']).koreaPairs === 0);
+  참('한국 평균을 낸다', 정해.korea === -10);
+  참('대조 평균을 낸다', 정해.control === -25);
+  /* ⭐ 제일 덜 떨어진 종류는 **자료가 정한다** — 손으로 박으면 자료가 바뀔 때 거짓이 된다 */
+  참('제일 덜 떨어진 종류를 찾는다', 제일덜떨어진종류(갈칸).kind === 'Visa policy');
+  참('그 값도 같이 낸다', 제일덜떨어진종류(갈칸).change === -10);
+  참('⛔ 여행 축이 없으면 null', 제일덜떨어진종류([갈칸[3]]) === null);
 
   /**
    * 🔴 **영문 지면에 한국어가 나가면 안 된다.** 작품 지면 530장이 이 자리에서 새어 나갔다.
@@ -344,6 +416,8 @@ if (내가실행됐다) {
   });
   const 여행높이 = 높이내기(여행한국);
   const 문화높이 = 높이내기(문화한국);
+  /* ⛔ 기사가 낸 설명을 시험하는 자리. 「제일 덜 떨어진 종류」는 자료가 정한다 */
+  const 덜떨어진 = 제일덜떨어진종류(칸들);
 
   /* ── 항공 쪽 ─────────────────────────────────────────────── */
   /**
@@ -446,6 +520,44 @@ if (내가실행됐다) {
       signFlips: 부호가뒤집힌곳,
     },
     heightCheck: { trip: 높이탓인가(여행), culture: 높이탓인가(문화) },
+
+    /**
+     * 🔴 이 칸은 **우리가 이미 쓴 설명을 무르려고** 만들었다. 8/15 아침에 낸 91편이
+     *   「답이 정해진 물음이 백과사전 밖으로 나갔다」고 적었는데, 재지 않은 말이었다.
+     */
+    settledVsCurious: {
+      note: 'A tempting explanation for the travel fall is that questions with one settled '
+        + 'answer — the visa rule, how the transit card works, which airport — have been leaving '
+        + 'encyclopaedias, while the pages you browse for pleasure have not. We split the travel '
+        + 'articles that way and measured. The split does not hold.',
+      settled: 물음종류로가르기(칸들, 답이정해진),
+      curious: 물음종류로가르기(칸들, 구경하는),
+      /* ⛔ 제일 덜 떨어진 종류를 **자료에서 찾는다.** 손으로 박으면 자료가 바뀔 때 거짓이 된다 */
+      leastFallen: 덜떨어진,
+      verdict: (() => {
+        const a = 물음종류로가르기(칸들, 답이정해진);
+        const b = 물음종류로가르기(칸들, 구경하는);
+        const 차 = 한자리(a.korea - b.korea);
+        const 축차 = 한자리(여행.korea - 문화.korea);
+        /* ⭐ 설명이 서려면 갈라 잰 격차가 **축 사이 격차의 절반**은 돼야 한다 */
+        const 선다 = Math.abs(차) >= Math.abs(축차) / 2;
+        const 정해진쪽인가 = 덜떨어진 ? 답이정해진.includes(덜떨어진.kind) : null;
+        return {
+          gapBetweenSplits: 차,
+          gapBetweenAxes: 축차,
+          holds: 선다,
+          why: `The two halves of the travel axis are ${Math.abs(차)} points apart, against `
+            + `${Math.abs(축차)} points between travel and culture. `
+            + (덜떨어진
+              ? `And the kind that fell least of all — ${덜떨어진.kind.toLowerCase()}, at `
+                + `${덜떨어진.change.toFixed(1)}% — sits on the `
+                + `${정해진쪽인가 ? 'settled-answer' : 'browsing'} side, which is `
+                + `${정해진쪽인가 ? 'exactly where this explanation says the steepest falls belong'
+                  : 'at least the direction the explanation predicts'}.`
+              : ''),
+        };
+      })(),
+    },
 
     /**
      * ⭐⭐ 이 기사가 실제로 기대는 자리. 위의 `heightCheck` 가 문화 축에서 「높이 탓」을

@@ -5,6 +5,9 @@ purpose: both
 dek: "Reads of Korean travel articles in four Southeast Asian Wikipedias fell 30% in a year. Korean culture articles fell 14%, Japanese and Taiwanese culture articles rose, and air passengers on the Asia routes barely moved."
 pubDate: 2026-08-15
 dataAsOf: 2026-08-15T00:00:00+09:00
+corrections:
+  - date: 2026-08-15
+    note: "As first published, this article explained the fall in travel articles by saying that questions with one settled answer — the visa rule, the transit card, which airport — have been draining out of encyclopaedias while pages you browse for pleasure have not. No figure in the article was wrong, but that sentence was not measured before it was written, which is the thing this newsroom exists not to do. We have since split the travel articles into those two halves and measured: the settled-answer half fell 33.5% and the browsing half 29.2%, a gap of 4.3 points against the 18.6 points that separate travel articles from culture articles. The kind that fell least of all was the nightlife district page at −10.7%, which is on the browsing side — the direction the explanation predicts, at about a quarter of the size it would need. The explanation is now reported as one we tried and could not keep, with the table behind it, and the article no longer offers any account of why the travel pages fell."
 author: Newsroom
 tags: ["korea", "industry", "tourism", "aviation", "method"]
 pages:
@@ -66,7 +69,20 @@ Over exactly the same twenty-four months, passengers on the Asia routes into and
 
 Nobody stopped going. They stopped opening an encyclopaedia article about the visa rule first.
 
-That is the shape of it. Visa policy, airport transfers, what a transit card is — questions with one settled answer, the kind that have been draining out of encyclopaedias everywhere as the answer arrives some other way. The Korean pages that held up are the ones you open because you want to, not because you need a fact before Tuesday.
+## The explanation we tried, and could not keep
+
+The obvious reading of all this is that questions with one settled answer — the visa rule, how the transit card works, which airport — have been draining out of encyclopaedias as the answer arrives some other way, while the pages you browse for pleasure have not. It is tidy, and we wrote it into an earlier version of this article before measuring it.
+
+Then we split the travel articles into those two halves and measured.
+
+| Korean travel articles | Change | Article–edition pairs |
+| --- | --- | --- |
+| Settled answer — visa, transit card, airport, rail, subway | −33.5% | 11 |
+| Browsing — shopping, nightlife, island, food, tourism | −29.2% | 15 |
+
+Four points apart. The gap between travel and culture articles is eighteen. And the single kind that fell least of all was the nightlife district page at −10.7%, which is on the browsing side — the right direction for the explanation, and nowhere near enough of it.
+
+So the split is real but far too small to carry the fall. Something took about thirty percent off Korean travel pages and about seventeen off Japanese and Taiwanese ones, and it did not care much whether the page answered a question or showed you a neighbourhood. We do not know what it was.
 
 ## The same table, two rulers
 
@@ -88,6 +104,6 @@ These reads are not travellers. Some are homework, some are curiosity, and some 
 
 The pairings are article-kind against edition, so the same article appears in several of them. They are not independent observations and we do not treat them as a sample.
 
-And we cannot tell you why the culture pages held. We can tell you that the fall was not about Korea, was not about the encyclopaedia shrinking, and was not about where the articles started — because we checked all three, and each check took something away from us.
+And we cannot tell you why the culture pages held. We can tell you that the fall was not about Korea, was not about the encyclopaedia shrinking, was not about where the articles started, and was not mostly about settled answers leaving encyclopaedias — because we checked all four, and each check took something away from us. The last one took away a paragraph we had already written.
 
 The full tables, including every article kind and every edition, are on [what actually fell](/what-actually-fell).

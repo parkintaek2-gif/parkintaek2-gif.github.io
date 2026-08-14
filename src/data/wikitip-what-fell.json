@@ -1273,6 +1273,45 @@
       "shrankByHalf": true
     }
   },
+  "settledVsCurious": {
+    "note": "A tempting explanation for the travel fall is that questions with one settled answer — the visa rule, how the transit card works, which airport — have been leaving encyclopaedias, while the pages you browse for pleasure have not. We split the travel articles that way and measured. The split does not hold.",
+    "settled": {
+      "kinds": [
+        "Visa policy",
+        "Transit card",
+        "Main airport",
+        "High-speed rail",
+        "Capital subway"
+      ],
+      "koreaPairs": 11,
+      "korea": -33.45454545454545,
+      "controlCells": 20,
+      "control": -17.139999999999997
+    },
+    "curious": {
+      "kinds": [
+        "Shopping district",
+        "Nightlife district",
+        "Resort island",
+        "National cuisine",
+        "Country tourism"
+      ],
+      "koreaPairs": 15,
+      "korea": -29.180000000000003,
+      "controlCells": 23,
+      "control": -16.74347826086956
+    },
+    "leastFallen": {
+      "kind": "Nightlife district",
+      "change": -10.7
+    },
+    "verdict": {
+      "gapBetweenSplits": -4.3,
+      "gapBetweenAxes": -18.6,
+      "holds": false,
+      "why": "The two halves of the travel axis are 4.3 points apart, against 18.6 points between travel and culture. And the kind that fell least of all — nightlife district, at -10.7% — sits on the browsing side, which is at least the direction the explanation predicts."
+    }
+  },
   "axisAgainstAxis": {
     "note": "Both axes are Korean articles, in the same four editions, over the same months. The culture articles start far higher and still fell less. A high starting level makes a steeper fall easier, not harder — so this gap is not the starting level.",
     "trip": {
