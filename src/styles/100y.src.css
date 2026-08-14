@@ -276,8 +276,31 @@
       .tablewrap table { font-size: 13px; }
       .tablewrap th, .tablewrap td { padding: 7px 4px; }
       .tablewrap th { font-size: 10px; letter-spacing: 0.5px; }
-      /* 이름 칸만 낱말 가운데서 접는다. 숫자 칸은 접히면 못 읽는다 */
-      .tablewrap th:first-child, .tablewrap td:first-child { overflow-wrap: anywhere; }
+      /* 이름 칸만 낱말 가운데서 접는다. 숫자 칸은 접히면 못 읽는다.
+         🔴 2026-08-14 — **이 줄이 짧은 이름까지 갈랐다.** 폰(390px)으로 `/after` 를 넘겨 보고 잡았다.
+         ```
+         「대학교」가 「대학 / 교」로,  「전문대학」이 「전문대 / 학」으로 갈려 있었다
+         ```
+         ⚠ 검사기는 조용했다 — `overflow-x:auto` 라 지면은 안 넘쳤고, 「가로 넘침 0」은 정직하게 초록이었다.
+           **셈은 맞고 뜻이 틀린** 그 결이다. 8/08 에 표가 잘렸던 것과 같은 자리다.
+         ✅ 그래서 **최소 너비**를 준다. 4.6em 이면 한글 넉 자가 한 줄에 선다 —
+           「대학교」·「전문대학」·「교육대학」이 안 갈린다.
+           ⛔ 긴 학교 이름(단국대학교부속소프트웨어고등학교)은 **그대로 접힌다.** 그건 접는 편이 낫다 */
+      .tablewrap th:first-child, .tablewrap td:first-child {
+        overflow-wrap: anywhere;
+        min-width: 5.4em;
+      }
+      /* 🔴 **숫자가 세로로 갈리고 있었다.** 이름이 갈리는 것보다 나쁘다.
+         ```
+         /report/area/노원구   「63.4%」가 「63.4 / %」로
+         /size                「60만명 (5.2%)」가 세 줄로
+         ```
+         까닭 — 한글 지면이라 브라우저가 **CJK 줄바꿈 규칙**을 쓴다. 그 규칙은 숫자와 % 사이,
+         낱말 가운데를 자유롭게 끊는다. `overflow-wrap` 과 상관없이 끊긴다.
+         ✅ `word-break: keep-all` 로 막는다 — 낱말·숫자를 통째로 둔다.
+         ⚠ 대신 칸이 좁으면 표가 옆으로 넓어진다. `.tablewrap` 이 옆으로 밀리게 돼 있으니 괜찮다
+           (오른쪽 끝을 흐려 「더 있다」를 보인다). **못 읽는 것보다 미는 편이 낫다** */
+      .tablewrap th, .tablewrap td { word-break: keep-all; }
     }
 
     /* ─────────────────────────────────────────────────────────
