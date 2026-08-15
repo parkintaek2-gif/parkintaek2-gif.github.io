@@ -75,6 +75,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const cn = 읽기('src/data/wikitip-read-vs-visited.json');
   const se = 읽기('src/data/wikitip-look-vs-fly.json');
   const wf = 읽기('src/data/wikitip-what-fell.json');
+  const wv = 읽기('src/data/wikitip-wave-floor.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -208,6 +209,27 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
       alt: 'Five cards showing that Korean travel articles fell across four Southeast Asian '
         + 'Wikipedias while Japanese and Taiwanese culture articles did not, and that air '
         + 'passengers on the Asia routes barely moved over the same months.',
+    },
+    {
+      /**
+       * 92편. ⛔ **첫 줄에 「35배」를 두지 않는다.**
+       *   오징어게임은 표에서 **뺀** 편이다 — 뒤바닥에 시즌 3 이 들어앉아 있었다.
+       *   타임라인에서 첫 줄만 읽는 사람에게 그 수가 가면, 우리가 못 쓴다고 한 수를
+       *   가장 크게 내보내는 셈이 된다.
+       * ⛔ 평균(+0.8%)도 쓰지 않는다. 기사가 고른 쪽을 나가는 글도 고른다.
+       */
+      key: 'wave',
+      page: `${주소}/wave-and-floor`,
+      images: 장('wave'),
+      x: `A Korean title lands, four Southeast Asian Wikipedias fill with it, and then they empty.\n\n`
+        + `Across the ${wv.answer.measured} titles we could measure on both sides of their peak: `
+        + `median wave ${wv.answer.peakOverFloorMedian}×, median floor afterwards `
+        + `${몫(wv.answer.floorChangeMedianPc)}.\n\n`
+        + `${wv.answer.floorsThatRose} of ${wv.answer.measured} ended higher.\n\n`
+        + `${주소}/wave-and-floor`,
+      alt: 'Five cards showing five Korean titles measured in four Southeast Asian Wikipedias '
+        + 'before and after the month each one peaked, and the fifteen titles that could not be '
+        + 'measured at all.',
     },
   ];
 }

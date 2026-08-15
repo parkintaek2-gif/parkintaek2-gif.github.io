@@ -263,6 +263,11 @@ if (내가실행됐다) {
      * 🔴 **덜 찬 달을 자료에 적어 둔다.** 쓰는 쪽이 모르고 넣으면 「관심이 사라졌다」가 된다.
      * ⚠ 지우지 않는다 — 자료는 남기고 「쓰지 마라」를 붙인다.
      */
+    /**
+     * ⚠ 여기서 `?? 0` 은 **정당하다.** 어느 판에 문서가 없으면 그 판은 **모든 달에서**
+     *   똑같이 빠진다. 이 합은 밑값이 아니라 **달끼리 견주는 잣대**뿐이므로 견줌이 흔들리지 않는다.
+     *   ⛔ 조회수를 더하는 자리에 이 꼴을 쓰면 8/13 사고가 된다 — 거기서는 null 로 둔다.
+     */
     incompleteLastMonth: 덜찬달인가(Object.fromEntries(달목록.map((m) => [m,
       자료.reduce((a, x) => a + 판들.reduce((b, p) => b + (x.views[p]?.[m] ?? 0), 0), 0)]))),
     incompleteNote: 'Wikimedia\'s monthly totals for the most recent month can still be filling '
