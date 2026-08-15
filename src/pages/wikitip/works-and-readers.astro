@@ -19,6 +19,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-works-and-readers.json';
 
 const 아래 = d.bands[0];
@@ -162,6 +163,8 @@ const jsonLd = {
       so a small Wikipedia is not penalised for being small.
     </p>
   </section>
+
+  <KcwCardnews set="works" count={5} />
 
   <KcwRelatedArticles page="/works-and-readers" />
 </WikiTip>

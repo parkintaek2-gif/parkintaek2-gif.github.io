@@ -19,8 +19,12 @@
  *   다섯 장까지. ⛔ 길면 마지막 「어디로 오라」 장을 아무도 안 본다.
  *
  * 쓰는 법
- *   node scripts/make-cardnews-kcw.mjs --out public/wikitip/cardnews/fame
+ *   node scripts/make-cardnews-kcw.mjs --벌 fame        ⭐ **벌을 고르는 것은 `--벌` 이다**
  *   node scripts/make-cardnews-kcw.mjs --자가시험
+ *
+ * 🔴 예전 보기가 `--out <폴더>` 뿐이라 **그것이 벌을 고르는 줄 알기 쉽다. 아니다.**
+ *   `--out` 은 낼 자리만 정하고, 벌을 안 주면 기본값 `fame` 이 그려진다.
+ *   8/16 에 그렇게 해서 `wave` 폴더에 `fame` 카드를 덮었다. 지금은 폴더와 벌이 어긋나면 멈춘다.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -53,7 +57,81 @@ export const 벌목록 = {
   oneout: { 자료: 'src/data/wikitip-one-out.json', 만들기: (d) => 하나빼기벌짓기(d) },
   first: { 자료: 'src/data/wikitip-written-down-first.json', 만들기: (d) => 먼저적기벌짓기(d) },
   shelf: { 자료: 'src/data/wikitip-what-kind-fell.json', 만들기: (d) => 선반벌짓기(d) },
+  works: { 자료: 'src/data/wikitip-works-and-readers.json', 만들기: (d) => 작품수벌짓기(d) },
 };
+
+/**
+ * 작품수 벌 — 97편째 기사의 표(`/works-and-readers`).
+ *
+ * ⭐ 이야기 한 줄: **일곱 배는 무리의 수다. 한 사람에 대해서는 82%밖에 말하지 못한다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **사다리만 보이지 않는다.** 표지에 이미 82% 를 같이 둔다. 넘기다 만 사람도
+ *     「일곱 배」만 들고 가면 안 된다 — 그게 이 기사에서 제일 조심한 자리다.
+ *   ⛔ **겹침을 뺄 수 없다.** 43/390 이 없으면 사다리가 규칙으로 읽힌다.
+ *   ⛔ **방향을 말하지 않는다.** 「많이 나와서 읽힌다」로 쓰지 않는다.
+ *   ⛔ **수를 손으로 안 박는다.** 전부 자료에서 읽는다.
+ */
+export function 작품수벌짓기(d) {
+  const 아래띠 = d.bands[0];
+  const 위띠 = d.bands[d.bands.length - 1];
+  const 확률 = (v) => `${(100 * v).toFixed(1)}%`;
+  const 겹 = d.overlap.oneEdition;
+
+  return {
+    갈피: 'works-and-readers',
+    빛: '#7fd1c4',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Wikipedias · ${d.actorsMeasured} Korean actors`,
+        큰: 'Five charting shows,\nseven times the\nreaders—and still\nno way to guess',
+        아래: `Actors with five or more charting titles are read **${d.ladder.oneEdition.fromTo}×** `
+          + `as often as actors with one. Pick one from each group and the busier one wins `
+          + `**${확률(d.personLevel.oneEdition)}** of the time.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The ladder rises\nat every step',
+        머리: ['Charting titles', 'Actors', 'Reads per million'],
+        줄: d.bands.map((b) => [b.label, String(b.actors), String(b.oneEdition.median)]),
+        아래: 'Counted on one Wikipedia edition, not summed across four. Summing rewards actors '
+          + 'who simply **have more articles**, and that is coverage, not reading.',
+      },
+      {
+        꼴: '수',
+        제목: 'What that means\nfor one actor',
+        큰: 확률(d.personLevel.oneEdition),
+        곁: 'Chance the busier of two randomly picked actors is the more-read one',
+        아래: `Fifty per cent would mean the groups tell you **nothing** about a person. A hundred `
+          + `would make it a rule. This is neither — and of the ${겹.lowBandN} actors with a `
+          + `single charting title, **${겹.lowBandAboveHighMedian}** are read more than the `
+          + `median actor with five or more.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not cause — more shows may bring readers, or readers may bring more casting',
+          'Not every Korean actor — only casts of titles that reached a Netflix chart',
+          'Not size of gap — the 82% counts who wins, never by how much',
+        ],
+        아래: `The four bands are **ours**. We cut at one, two, three-or-four and five-or-more, `
+          + `and a different cut would give different medians.`,
+      },
+      {
+        꼴: '끝',
+        제목: 'A group average is\nnot a fact about\na person',
+        글: 'So we publish both numbers on the same page, every time.\n\n'
+          + '**The one that flatters the finding is never the only one shown.**',
+        길: `${주소}/works-and-readers`,
+        곁: 'Wikimedia Pageviews · human traffic only · 12 months to 2026-07',
+      },
+    ],
+  };
+}
 
 /**
  * 선반 벌 — 96편째 기사의 표(`/what-kind-fell`).
@@ -669,7 +747,12 @@ export function 파도벌짓기(d) {
       },
       {
         꼴: '표',
-        제목: 'Five titles,\nbefore and after',
+        /**
+         * 🔴 8/16 — 「Five titles」로 박혀 있었다. 자료가 아홉으로 늘었는데 제목은 다섯이었다.
+         *   ⛔ 제목의 수는 **손으로 안 적는다.** 자료가 늘면 제목이 따라 늘어야 한다.
+         *   (8/14 브랜드 벌에서 같은 일이 있어 만든 검사가 이번에 이걸 잡았다)
+         */
+        제목: `${d.titlesMeasured.length} titles,\nbefore and after`,
         머리: ['Title', 'Peak ÷ floor', 'Change in floor'],
         줄: d.titlesMeasured.map((t) => [
           t.title.replace(/\s*\(.*\)$/, ''),
@@ -1228,6 +1311,19 @@ if (내가실행됐다) {
     process.exit(1);
   }
   const 낼방 = 값('--out', `public/wikitip/cardnews/${벌이름}`);
+  /**
+   * 🔴🔴 2026-08-16 — 머리 주석의 보기가 `--out <폴더>` 뿐이라 **그것이 벌을 고르는 줄 알았다.**
+   *   벌을 고르는 것은 `--벌` 이고 기본값은 `fame` 이다. 그래서
+   *   `--out .../wave` 가 **wave 폴더에 fame 카드를 덮었다.** 이미 나간 벌이 조용히 바뀌었다.
+   *   ⛔ 폴더 이름과 벌 이름이 어긋나면 **그리기 전에 멈춘다.** 일부러 그럴 때만 `--막지마라`.
+   */
+  const 폴더이름 = path.basename(path.resolve(낼방));
+  if (폴더이름 !== 벌이름 && !process.argv.includes('--막지마라')) {
+    console.error(`⛔ 폴더는 「${폴더이름}」인데 벌은 「${벌이름}」이다 — 남의 벌을 덮을 참이었다.`);
+    console.error(`   벌을 고르는 것은 --out 이 아니라 **--벌** 이다: node ${path.basename(process.argv[1])} --벌 ${폴더이름}`);
+    console.error('   일부러 다른 폴더에 내려면 --막지마라 를 붙인다.');
+    process.exit(1);
+  }
   fs.mkdirSync(낼방, { recursive: true });
 
   const 재료 = 벌목록[벌이름];
