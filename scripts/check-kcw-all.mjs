@@ -44,6 +44,9 @@ export const 막는검사 = [
  * ⚠ 옛 자에는 이미 굳은 것이 있다. **새로 생기는 것**을 보라고 센다.
  */
 export const 보는검사 = [
+  /* 🔴 8/15 22:35 — 사장님이 「왜 메모를 안 보나」 하셨다. memo-inbox 는 「나에게 온 것」만
+     본다. 2번의 전체 공지는 그 그물에 안 걸려 하루 리듬을 통째로 놓쳤다. 이 자가 그것을 잡는다 */
+  { 자: 'check-kcw-new-orders.mjs', 뭘: '🔴 내가 마지막으로 움직인 뒤 올라온 새 공지·지시' },
   { 자: 'check-kcw-script-habits.mjs', 뭘: '내 자들이 같은 버릇으로 틀리나' },
   { 자: 'check-kcw-median-stability.mjs', 뭘: '작은 표본의 중앙값이 답으로 실렸나' },
   { 자: 'check-kcw-article-numbers.mjs', 뭘: '기사에 박힌 수가 자료보다 얼마나 낡았나' },
