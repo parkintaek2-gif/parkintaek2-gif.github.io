@@ -29,6 +29,21 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 학교자료 from '../../../data/100yearmap/pages-school.json';
 /* 🔴 자격 걸린 날 — scripts/build-100y-qual-duration.mjs 가 만든다. 출처·셈과한계가 자료 안에 있다 */
 import 자격 from '../../../data/100yearmap/qual-duration.json';
+/* 🔴 계열별 진학 — 카드뉴스가 쓰는 것과 **같은 자료**를 지면도 읽는다. 손으로 옮기지 않는다 */
+import 계열자료 from '../../../data/100yearmap/voc-series-outcomes.json';
+
+/** ⛔ 최소분모 30 — 카드뉴스(make-cardnews-100y-voc.mjs)와 같은 값이다 */
+const 최소분모 = 30;
+const 계열줄 = (계열자료 as any).자료
+  .filter((r: any) => r.졸업자 >= 최소분모 && typeof r.진학률 === 'number')
+  .sort((a: any, b: any) => b.졸업자 - a.졸업자);
+const 계열 = {
+  기준연도: (계열자료 as any).통계.기준연도,
+  졸업자: (계열자료 as any).통계.총계.졸업자,
+  진학자: (계열자료 as any).통계.총계.진학자,
+  줄들: 계열줄,
+  뺀갈래: (계열자료 as any).자료.length - 계열줄.length,
+};
 
 type S = any;
 const 학교들: S[] = 학교자료 as any;
@@ -153,6 +168,55 @@ const desc =
       <strong>이 숫자로 학교를 고르실 수는 없습니다.</strong> 「이 길이 대체로 어떤 길인가」까지입니다.
     </p>
   </div>
+
+  <hr class="rule" />
+
+  {/* 🔴 2026-08-16 — 계열별 진학률. **카드뉴스가 먼저 나가 있었는데 지면에 이 수가 없었다.**
+      우리 규칙은 「화면에 뜨는 수는 전부 그 수가 있는 지면을 댈 수 있어야 한다」인데,
+      개봉 카드(8/15)의 열한 수 중 **열 개를 어느 지면도 갖고 있지 않았다.**
+      ⇒ 카드에서 빼는 대신 지면에 싣는다. 중3·고1 학부모가 실제로 묻는 수다.
+
+      ⛔ 진학률과 취업률을 **더하지 않는다** — 분모가 다르다(진학률은 졸업자, 취업률은 취업대상자).
+         그래서 이 표에는 진학률만 놓는다. 카드도 같은 까닭으로 그렇게 했다.
+      ⛔ 순위가 아니다. 계열마다 다르다는 것만 적는다.
+      ⚠ 졸업자 30명 미만 계열은 뺀다 — 적은 수로는 말할 수 없다 */}
+  <h2>직업계고를 나오면<br class="pcbr" /> 어디로 가나요?</h2>
+  <p>
+    「직업계고는 취업, 일반고는 대학」이라고 갈라 말합니다. 그런데{' '}
+    <strong>{계열.기준연도}년 직업계고 졸업자 {계열.졸업자.toLocaleString()}명 가운데{' '}
+    {계열.진학자.toLocaleString()}명이 대학에 갔습니다.</strong> 절반입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>계열</th><th>진학률</th><th>졸업자</th></tr>
+      </thead>
+      <tbody>
+        {계열.줄들.map((r: any) => (
+          <tr>
+            <td>{r.계열}</td>
+            <td>{r.진학률}%</td>
+            <td>{r.졸업자.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 졸업자가 서른 명이 안 되는 계열 {계열.뺀갈래}갈래는 뺐습니다. 적은 수로는 말할 수 없습니다.
+  </p>
+  <div class="warn">
+    <p><strong>⛔ 이것은 등수가 아닙니다.</strong></p>
+    <p class="note">
+      계열마다 다르다는 것만 적습니다. 어느 쪽이 낫다고 말하지 않습니다.{' '}
+      그리고 <strong>진학률과 취업률을 더하지 마십시오</strong> — 진학률은 졸업자로 나누고,
+      취업률은 취업대상자로 나눕니다. 취업대상자에서는 진학한 사람이 빠지기 때문에
+      두 비율을 더하면 100을 넘습니다.
+    </p>
+  </div>
+  <p class="note">
+    출처 — {계열자료.출처.이름} · {계열.기준연도}년 기준 · {계열자료.출처.이용허락범위}
+  </p>
 
   <hr class="rule" />
 
