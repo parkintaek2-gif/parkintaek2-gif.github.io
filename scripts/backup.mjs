@@ -43,10 +43,43 @@ export const 저장소들 = [
   'C:/Users/USER/Documents/GitHub/dataeconomics',
 ];
 
+/**
+ * 🔴 [2026-08-15 22:5x] 사장님이 **폴더째 「중요 보관소」로 옮기셨다.**
+ *
+ * ⛔ 그대로 두면 다음 백업이 **조용히 사고**를 낸다 —
+ *    같은 이름 폴더를 **보관소 밖에** 새로 만들어 열쇠를 거기 둔다.
+ *    사장님은 잠긴 줄 아시는데 안 잠겨 있다. **제일 나쁜 종류의 실패**다.
+ *
+ * ⭐ 그래서 이렇게 한다
+ *    · 보관소가 **열려 있으면** 거기에 바로 쓴다
+ *    · 잠겨 있으면 **이름으로 소리치는 자리**에 둔다 — 「보관소로-옮기세요」
+ *      (보관소는 잠겨 있으면 자동으로 못 쓴다. 그것이 잠금의 뜻이다)
+ */
+export const 보관소자리들 = [
+  'C:/Users/USER/OneDrive/Personal Vault',
+  'C:/Users/USER/OneDrive/중요 보관소',
+];
+
+export function 보관소찾기(있나 = (p) => fs.existsSync(p)) {
+  for (const p of 보관소자리들) if (있나(p)) return p;
+  return null;
+}
+
+/**
+ * ⭐ 사장님이 정하신 모양(22:5x) — **폴더는 밖에, 압축파일만 보관소에.**
+ *    「그럼 다시 옮기고 **압축파일만 중요보관소**」
+ *
+ * 왜 이것이 옳은가 —
+ *    · 보관소는 잠기면 자동으로 못 쓴다. 그것이 잠금의 뜻이다
+ *    · 그러니 **자는 밖에 쓰고**, 사장님이 **한 덩이만** 안으로 옮기신다
+ *    · 손이 한 번만 가고, 잠긴 사본은 진짜로 잠긴다
+ */
+export const 사장님폴더 = 'C:/Users/USER/OneDrive/백업-사장님전용';
+
 /** 셋째 자리(아이클라우드)는 있을 때만 쓴다 */
 export const 둘자리 = [
   { 이름: '① 원드라이브(공용)', 길: 'C:/Users/USER/OneDrive/백업', 열쇠도: false },
-  { 이름: '② 원드라이브(사장님 전용)', 길: 'C:/Users/USER/OneDrive/백업-사장님전용', 열쇠도: true },
+  { 이름: '② 사장님 전용', 길: 사장님폴더, 열쇠도: true },
   { 이름: '③ 아이클라우드', 길: 'C:/Users/USER/iCloudDrive/백업', 열쇠도: false, 없어도됨: true },
 ];
 
@@ -221,7 +254,8 @@ for (const 자리 of 둘자리) {
         `Compress-Archive -Path '${갈곳.replace(/\\/g, '/')}\\*' -DestinationPath '${한덩이.replace(/\\/g, '/')}' -Force`]);
       fs.rmSync(갈곳, { recursive: true, force: true }); // 묶었으니 편 것은 치운다
       console.log(`  📦 한 덩이로 묶었습니다 — ${path.basename(한덩이)} (${사람크기(fs.statSync(한덩이).size)})`);
-      console.log('     ⭐ 이 **파일 하나**를 원드라이브 「중요 보관소」로 옮기시면 됩니다');
+      console.log('     🖐 사장님: **이 파일 하나만** 「중요 보관소」로 옮기십시오. 열쇠가 들어 있습니다');
+      console.log(`        ${보관소찾기() ? '보관소가 지금 열려 있습니다' : '보관소는 잠겨 있습니다 — 여실 때 옮기시면 됩니다'}`);
     } catch {
       console.log('  ⚠ 한 덩이로 못 묶었습니다 — 편 채로 둡니다');
     }
