@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-09T20:51:06.906Z",
+  "generated": "2026-08-15T22:20+09:00",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-07-26",
@@ -214,6 +214,8 @@
     }
   ],
   "oneWeekOnly": 51,
+  "method": "We report the median rather than the mean. A handful of very large values would pull a mean away from where most of the sample actually sits, and in reads-per-title data those large values are the norm, not an error. Correlations are Pearson coefficients. Where hours are involved they are taken on the logarithm of hours, because viewing hours span several orders of magnitude and a handful of enormous titles would otherwise decide the coefficient on their own. Titles are ranked by total viewing hours across the whole window, and staying power is the number of distinct weeks a title appeared on any country chart, so a title that returns after a gap is credited for both spells.",
+  "limitation": "A median tells you where the middle sits and nothing about the shape around it, so it should be read next to the range or the full distribution, not alone. A correlation is not a cause, and it only detects the straight-line part of a relationship — two things can move together tightly in a curve and still score near zero. Taking logs changes what is being correlated: it is the ranking-like structure of hours, not hours themselves. A coefficient from a chosen sample also inherits that choice; ours are titles that reached a chart, which is not a sample of titles. A week on a chart is not a week of watching — a title can be watched steadily and never chart, and the chart cuts off at ten. The window opens in 2021, so titles already running before then start mid-life. And every title here reached a chart at least once, so nothing on this page speaks for titles that never did.",
   "correlations": {
     "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
     "weeksVsLogHours": 0.733,

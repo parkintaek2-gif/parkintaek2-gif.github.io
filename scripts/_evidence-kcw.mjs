@@ -60,6 +60,24 @@ export const 백만분율 = {
     + 'how many people read something.',
 };
 
+/**
+ * ⭐⭐ 상관 — **가장 오해받는 자다.** 그래서 한계를 가장 길게 적는다.
+ *
+ * 🔴 8/15 — `staying-power` 가 상관계수 셋(0.733 · −0.753 · −0.473)을 내면서
+ *   **그 방법이 왜 옳은지도, 무엇을 못 하는지도 안 적고** 있었다.
+ * ⚠ 로그를 씌운 것도 방법의 일부다 — 안 밝히면 독자가 원래 값의 상관으로 읽는다.
+ */
+export const 상관 = {
+  방법: 'Correlations are Pearson coefficients. Where hours are involved they are taken on the '
+    + 'logarithm of hours, because viewing hours span several orders of magnitude and a handful '
+    + 'of enormous titles would otherwise decide the coefficient on their own.',
+  한계: 'A correlation is not a cause, and it only detects the straight-line part of a '
+    + 'relationship — two things can move together tightly in a curve and still score near '
+    + 'zero. Taking logs changes what is being correlated: it is the ranking-like structure of '
+    + 'hours, not hours themselves. A coefficient from a chosen sample also inherits that '
+    + 'choice; ours are titles that reached a chart, which is not a sample of titles.',
+};
+
 /** ⭐ 대조군 — 91편에서 배운 것. 대조가 없으면 「한국이 특별하다」를 말할 수 없다 */
 export const 대조군 = {
   방법: 'The Korean figure is read against a control drawn the same way, because a movement that '

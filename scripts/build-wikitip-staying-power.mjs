@@ -17,6 +17,8 @@ import fs from 'node:fs';
 import readline from 'node:readline';
 import { koreanTitleFilter, AUDITED } from './lib/korean-netflix-titles.mjs';
 import { 지금 } from './_kst.mjs';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 아래에서 덧붙인다 */
+import { 근거, 중앙값 as 중앙값자, 상관 as 상관자 } from './_evidence-kcw.mjs';
 
 const ko = koreanTitleFilter();
 const agg = new Map();
@@ -142,6 +144,20 @@ const out = {
   weeksBands: 띠,
   weeksDistribution: 주분포,
   oneWeekOnly: all.filter((r) => r.weeks === 1).length,
+  /**
+   * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 이 자료 고유의 한계를 덧붙인다.
+   * 🔴 이 자료는 상관계수 셋을 내면서 **그 방법이 왜 옳은지도, 무엇을 못 하는지도**
+   *   안 적고 있었다. 상관은 가장 오해받는 자라 한계를 가장 길게 적는다.
+   */
+  ...근거([중앙값자, 상관자], {
+    방법: 'Titles are ranked by total viewing hours across the whole window, and staying '
+      + 'power is the number of distinct weeks a title appeared on any country chart, so a '
+      + 'title that returns after a gap is credited for both spells.',
+    한계: 'A week on a chart is not a week of watching — a title can be watched steadily and '
+      + 'never chart, and the chart cuts off at ten. The window opens in 2021, so titles '
+      + 'already running before then start mid-life. And every title here reached a chart at '
+      + 'least once, so nothing on this page speaks for titles that never did.',
+  }),
   correlations: {
     note: 'Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.',
     weeksVsLogHours: 상관(all.map((r) => r.weeks), 로그시간),
