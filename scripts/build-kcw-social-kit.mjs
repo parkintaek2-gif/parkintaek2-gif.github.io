@@ -76,6 +76,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const se = 읽기('src/data/wikitip-look-vs-fly.json');
   const wf = 읽기('src/data/wikitip-what-fell.json');
   const wv = 읽기('src/data/wikitip-wave-floor.json');
+  const hl = 읽기('src/data/wikitip-half-life.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -230,6 +231,26 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
       alt: 'Five cards showing five Korean titles measured in four Southeast Asian Wikipedias '
         + 'before and after the month each one peaked, and the fifteen titles that could not be '
         + 'measured at all.',
+    },
+    {
+      /**
+       * 93편. ⛔ **첫 줄에 「두 달」만 두지 않는다.**
+       *   타임라인에서 첫 줄만 읽는 사람에게 그 수만 가면 「두 달이면 끝」이 되는데,
+       *   그것은 이 기사가 통째로 부정하는 말이다. 첫 줄이 **두 수를 같이** 든다.
+       * ⛔ 평균(2.9달)도 쓰지 않는다 — 열여섯 중 아홉보다 길다.
+       */
+      key: 'halflife',
+      page: `${주소}/half-life`,
+      images: 장('halflife'),
+      x: `A Korean title loses half its Southeast Asian readers in a median `
+        + `${hl.answer.halfLifeMedianMonths} months. `
+        + `${hl.answer.halvedWithinOneMonth} of ${hl.answer.measured} did it in one.\n\n`
+        + `Then ${hl.titles.filter((t) => t.roseAboveHalfAgain).length} of them rose back above `
+        + `half — a median ${hl.answer.returnWavesMedian} times each.\n\n`
+        + `It recurs. It does not recede.\n\n${주소}/half-life`,
+      alt: 'Five cards showing how many months sixteen Korean titles took to lose half their '
+        + 'readers in four Southeast Asian Wikipedias, and how many of them later rose above '
+        + 'half again.',
     },
   ];
 }
