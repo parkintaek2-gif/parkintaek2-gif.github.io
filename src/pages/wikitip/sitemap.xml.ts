@@ -169,6 +169,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'Half of it is gone in two months. Most of it comes back',
     caption: 'Five cards: how long a Korean title holds half its readers, and how often it returns.',
   },
+  {
+    set: 'oneout',
+    page: '/one-out',
+    count: 5,
+    title: 'Remove one. Look again',
+    caption: 'Five cards: the one-line check that told our two findings apart before we did.',
+  },
 ];
 
 /**
@@ -232,6 +239,13 @@ const videoSets = [
     title: 'Half of it is gone in two months. Most of it comes back',
     description: '14 seconds on how long sixteen Korean titles held half their readers after '
       + 'peaking, and how many of them later rose above half again.',
+  },
+  {
+    set: 'oneout',
+    page: '/one-out',
+    title: 'Remove one. Look again',
+    description: '14 seconds on the one-line check that separated a finding we could keep from '
+      + 'one we had to correct, using our own two published medians.',
   },
 ];
 
@@ -362,6 +376,10 @@ export const GET: APIRoute = async () => {
        전이 필요 없는 물음으로 바꿨다. 봉우리 뒤 반감기.
        ⭐ 중앙값 두 달인데 열여섯 중 열둘이 뒤에 다시 올랐다 — 파도는 되풀이된다 */
     { path: '/half-life', priority: '0.9', changefreq: 'weekly' },
+    /* 94편째 기사의 표. 2026-08-15 — 하루에 답 둘을 내고 하나를 두 번 정정한 뒤,
+       어느 답이 흔들릴지 미리 아는 자를 만들었다. 표본에서 한 편씩 빼 본다.
+       ⭐ 사분위로 재면 1.5 대 1.8 로 같아 보인다. 하나 빼기로 재면 0 대 0.89 다 */
+    { path: '/one-out', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

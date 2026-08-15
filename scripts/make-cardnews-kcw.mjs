@@ -50,7 +50,89 @@ export const 벌목록 = {
   control: { 자료: 'src/data/wikitip-what-fell.json', 만들기: (d) => 대조벌짓기(d) },
   wave: { 자료: 'src/data/wikitip-wave-floor.json', 만들기: (d) => 파도벌짓기(d) },
   halflife: { 자료: 'src/data/wikitip-half-life.json', 만들기: (d) => 반감기벌짓기(d) },
+  oneout: { 자료: 'src/data/wikitip-one-out.json', 만들기: (d) => 하나빼기벌짓기(d) },
 };
+
+/**
+ * 하나 빼기 벌 — 94편째 기사의 표(`/one-out`).
+ *
+ * ⭐ 이야기 한 줄: **하나를 빼 보면 어느 답이 답인지 알 수 있다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **「우리가 틀렸다」로 팔지 않는다.** 흔들리는 답은 아직 답이 아닌 것이지 거짓이 아니다.
+ *     넷째 장 첫 줄이 그 말이다.
+ *   ⛔ **사분위가 못 가른다는 것을 셋째 장에 넣는다.** 그게 이 기사의 값어치다 —
+ *     흔히 쓰는 자로는 두 답이 1.5 대 1.8 로 같아 보인다.
+ */
+export function 하나빼기벌짓기(d) {
+  const 단단 = d.findings.find((f) => f.atFirstPublication.verdict?.steady);
+  const 흔들 = d.findings.find((f) => f.atFirstPublication.verdict?.steady === false);
+  const 몫 = (v, u) => `${v}${u === 'per cent' ? '%' : ''}`;
+
+  return {
+    갈피: 'one-out',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Method · our own two findings, same day',
+        큰: 'Remove one.\nLook again.',
+        아래: `We published two medians this morning and corrected one by evening. Taking a `
+          + `single title out moved one of them **0×** and the other `
+          + `**${흔들.atFirstPublication.oneOut.swingOverMedian}×** its own size. We ran the `
+          + 'check afterwards.',
+      },
+      {
+        꼴: '수',
+        제목: 'What one title\ncan do',
+        큰: `0× vs ${흔들.atFirstPublication.oneOut.swingOverMedian}×`,
+        곁: 'How far each median travels when any single title is removed',
+        아래: `The half-life median stayed at ${단단.atFirstPublication.oneOut.median} months `
+          + `for all ${단단.atFirstPublication.n} removals. The floor-change median could be `
+          + `pushed from ${몫(흔들.atFirstPublication.oneOut.lowestWithoutOne, 흔들.unit)} to `
+          + `${몫(흔들.atFirstPublication.oneOut.highestWithoutOne, 흔들.unit)} by dropping one of `
+          + `${흔들.atFirstPublication.n}.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The usual check\ncannot tell them apart',
+        머리: ['Finding', 'IQR ÷ median', 'One-out ÷ median'],
+        줄: d.findings.map((f) => [
+          f.what.replace(/^(Months|Percentage change)/, (m) => m).slice(0, 34),
+          `${f.atFirstPublication.iqr?.overMedian ??0}×`,
+          `${f.atFirstPublication.oneOut.swingOverMedian}×`,
+        ]),
+        아래: 'The interquartile range is built from the middle of the list, so it never has to '
+          + 'look at the one extreme value. Leave-one-out asks what happens when that value is '
+          + 'the one removed.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          'Not that the corrected figure was false — it was a real median of five real values '
+            + 'that happened not to be stable',
+          'Not that a steady median is a true one — a biased sample can be very steady and '
+            + 'still wrong',
+          'Not a study of findings — this is two of our own, on one day',
+        ],
+        아래: 'It works on medians. A share, a total or a correlation\nneeds a different check, '
+          + 'and we do not have one.',
+      },
+      {
+        꼴: '끝',
+        제목: 'It cost one line.\nWe ran it too late.',
+        글: 'Take the numbers. Remove one. Recompute. Do it for each.\n\n'
+          + 'No simulation, no random seed, no assumption about the distribution — '
+          + '**the same numbers always give the same answer.**',
+        길: `${주소}/one-out`,
+        곁: 'Wikimedia Pageviews · our own two findings',
+      },
+    ],
+  };
+}
 
 /**
  * 반감기 벌 — 93편째 기사의 표(`/half-life`).

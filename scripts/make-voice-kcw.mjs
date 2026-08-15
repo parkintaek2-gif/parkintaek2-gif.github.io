@@ -162,7 +162,26 @@ export const 대본목록 = {
   control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: (d) => 대조대본만들기(d) },
   wave: { 자료: 'src/data/wikitip-wave-floor.json', 짓기: (d) => 파도대본만들기(d) },
   halflife: { 자료: 'src/data/wikitip-half-life.json', 짓기: (d) => 반감기대본만들기(d) },
+  oneout: { 자료: 'src/data/wikitip-one-out.json', 짓기: (d) => 하나빼기대본만들기(d) },
 };
+
+/**
+ * 94편 대본 — 「하나를 빼면」(`/one-out`).
+ *
+ * ⛔ **「우리가 틀렸다」로 들리게 두지 않는다.** 흔들리는 답은 아직 답이 아닌 것이다.
+ * ⚠ 수는 둘만 말한다 — 0 배와 그 배수. 나머지는 화면에 맡긴다.
+ */
+export function 하나빼기대본만들기(d) {
+  const 흔들 = d.findings.find((f) => f.atFirstPublication.verdict?.steady === false);
+  return 때매기기([
+    { 누가: '여', 말: 'We published two findings this morning.', 쉼: 0.5 },
+    { 누가: '남', 말: 'By evening we had corrected one.', 쉼: 0.5 },
+    /* ⭐ 이 줄이 기사의 뼈다 */
+    { 누가: '여', 말: 'Removing one title moved it, and not the other.', 쉼: 0.5 },
+    /* ⚠ 마지막 줄은 짧게 */
+    { 누가: '남', 말: 'That check costs one line.', 쉼: 0 },
+  ]);
+}
 
 /**
  * 93편 대본 — 「반감기」(`/half-life`).

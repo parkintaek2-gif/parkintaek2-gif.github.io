@@ -314,6 +314,11 @@
    "figure": "19",
    "label": "of 26 Korean titles came back above half. Median half-life: two months",
    "왜": "자동이 글머리에서 수를 못 찾아 빌드를 세웠다. ⛔ 「two months」만 카드에 박으면 「두 달이면 끝」으로 읽힌다 — 그건 이 기사가 통째로 부정하는 말이다. / 🔴 8/15 두 번째 — 작품을 35→59 로 늘리자 12/16 이 19/26 이 됐는데 카드는 옛 수 그대로였다. 손으로 적은 값은 자료가 늘어도 안 따라온다. 자료를 늘리면 이 칸을 같이 본다"
+  },
+  "one-title-out": {
+   "figure": "0 against 0.89",
+   "label": "how far two of our own medians moved when one title was removed",
+   "왜": "자동이 「89% — of itself」로 집어 무엇의 89%인지가 잘렸다. 이 기사의 요점은 한 수가 아니라 **두 수의 대비**다 — 하나는 꿈쩍 않고 하나는 제 크기만큼 움직였다. / ⛔ 「0× vs 0.89×」로 적었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 본문에 그대로 있는 「0 against 0.89」를 쓴다"
   }
  }
 }
