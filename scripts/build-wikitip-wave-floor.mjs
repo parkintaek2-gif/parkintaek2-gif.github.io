@@ -25,6 +25,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 아래에서 덧붙인다 */
+import {
+  근거, 중앙값 as 중앙값자, 하나빼기 as 하나빼기자, 백만분율 as 백만분율자,
+} from './_evidence-kcw.mjs';
 import { 오늘 } from './_kst.mjs';
 import { 파도재기, 얇은가, 얇음문턱, 또파도문턱 } from './collect-sea-title-waves.mjs';
 /**
@@ -374,6 +378,22 @@ if (내가실행됐다) {
     question: 'A Korean title lands, the encyclopaedia fills with it, and then it empties again. '
       + 'When the wave has passed, is the floor higher than it was before it arrived?',
     window: `${쓸달[0]} through ${쓸달.at(-1)}, ${쓸달.length} months`,
+    /* ⭐ ① 잰 데이터 — 자료 파일 자체에 적는다. 지면이 바뀌면 손으로 적은 출처는 안 따라온다 */
+    source: 'Wikimedia Pageviews API, human traffic only, monthly, per Wikipedia edition; '
+      + 'titles resolved across editions through Wikipedia langlinks',
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+     * 🔴 이 자료가 하루에 두 번 정정된 그 자료다. 고유 한계 첫 줄이 그것이다.
+     */
+    ...근거([중앙값자, 하나빼기자, 백만분율자], {
+      방법: 'A peak is the highest month in the window and the floor after it is the mean of the '
+        + 'months that follow, so that one quiet month cannot stand in for a floor.',
+      한계: 'A new title has no floor before its wave at all, because the encyclopaedia article '
+        + 'is created when the title arrives — those titles are excluded rather than counted as '
+        + 'flat. This page was corrected twice on the day it was published, once because a '
+        + '48-month window made its own highest month look like a peak, and once because '
+        + 'widening the title set moved the answer; both are recorded on the article.',
+    }),
     droppedLastMonth: 끝달이덜찼나 ? { month: 끝달, value: 한자리(달합[끝달]), previousTwelveMean: 한자리(앞선평) } : null,
     editions: 원.editionsSea,
     editionNames: 원.editionNames,

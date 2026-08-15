@@ -45,6 +45,10 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 하나빼기, 단단한가 } from './build-wikitip-one-out.mjs';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 아래에서 덧붙인다 */
+import {
+  근거, 중앙값 as 중앙값자, 하나빼기 as 하나빼기자, 대조군 as 대조군자,
+} from './_evidence-kcw.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 생일길 = path.join(뿌리, 'archive', 'raw', 'wikipedia', 'sea-title-birth.json');
@@ -300,6 +304,20 @@ if (내가실행됐다) {
     editions: 판들,
     editionNames: 판이름,
     countryNames: 나라이름,
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+     * ⛔ 고유 한계를 안 주면 `근거()` 가 던진다 — 붙여넣기만 있는 칸은 찬 척하는 것이다.
+     */
+    ...근거([중앙값자, 하나빼기자, 대조군자], {
+      방법: 'The order itself is measured by the median place each edition takes across the '
+        + 'titles, not only by how often it is first, because counting firsts alone cannot tell '
+        + 'a queue from noise.',
+      한계: 'A first-revision date records when an article has existed under its current name, '
+        + 'so moving or merging an article erases the earlier one; we test every date against '
+        + 'the months that article was read and drop any edition we cannot test that way. '
+        + 'Twenty-five titles is a small sample, and every one of them reached a Netflix chart, '
+        + 'so this says nothing about Korean titles that did not.',
+    }),
     question: 'When the same Korean title is written up on four Southeast Asian Wikipedias, '
       + 'which one gets there first — and how long do the others take?',
     totalTitles: 생일.titles.length,

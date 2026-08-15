@@ -165,7 +165,13 @@ if (내가실행됐다) {
   /* ⛔ ② ③ 이 빈 것을 먼저 보인다 — 통계를 쓰면서 방법을 안 밝힌 자리다 */
   const 방법빔 = 표.filter((x) => x.칸.usesStatistics && (x.칸.method === false || x.칸.limits === false));
   if (방법빔.length) {
-    console.log(`── 통계를 쓰면서 방법을 안 밝힌 자료 ${방법빔.length}개 ──`);
+    /**
+     * ⭐ **진도를 같이 낸다.** 「33개 남았다」만 보이면 줄고 있는지 알 수 없다.
+     * 🔴 실제로 셋을 채우고도 화면이 「33개」 그대로여서, 셈이 틀린 줄 알고 다시 셌다.
+     *   틀린 것은 셈이 아니라 **보여 주는 방식**이었다.
+     */
+    console.log(`── 통계를 쓰면서 방법을 안 밝힌 자료 ${방법빔.length}개 `
+      + `(통계 쓰는 ${통계쓰는것}개 중 ${통계쓰는것 - 방법빔.length}개는 채웠다) ──`);
     for (const { f, 빈 } of 방법빔.slice(0, 12)) {
       console.log(`   ⚠ ${f.replace('wikitip-', '').replace('.json', '').padEnd(26)} ${빈.join(' · ')}`);
     }

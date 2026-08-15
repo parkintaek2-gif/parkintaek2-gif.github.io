@@ -2,6 +2,15 @@
   "generated": "2026-08-15",
   "question": "A Korean title lands, the encyclopaedia fills with it, and then it empties again. When the wave has passed, is the floor higher than it was before it arrived?",
   "window": "2020-08 through 2026-06, 71 months",
+  "source": "Wikimedia Pageviews API, human traffic only, monthly, per Wikipedia edition; titles resolved across editions through Wikipedia langlinks",
+  "method": {
+    "floorMonths": 6,
+    "waveMonths": 2,
+    "thinFloorBelow": 10,
+    "secondWaveAbove": 3,
+    "note": "For each title we find its highest month, then average the six months before it and the six after, skipping two months either side of the peak because those are still the wave. A title is only reported if both sides fit inside the window, if the floor before the wave is thick enough for a percentage to mean anything, and if no month in the after-floor is more than three times the before-floor — that last one is a second wave, not a floor."
+  },
+  "limitation": "A median tells you where the middle sits and nothing about the shape around it, so it should be read next to the range or the full distribution, not alone. The jackknife understates how much a median varies, because removing one observation barely moves a median, and it is not consistent for the median (Miller 1974). A swing it finds is therefore real; a swing it misses is not evidence of stability. Establishing stability would need a delete-d jackknife or a bootstrap (Efron 1979), which we have not built. Dividing by an edition's own total means a month when that edition was unusually busy lowers every article in it. The ratio measures share of attention inside an edition, not how many people read something. A new title has no floor before its wave at all, because the encyclopaedia article is created when the title arrives — those titles are excluded rather than counted as flat. This page was corrected twice on the day it was published, once because a 48-month window made its own highest month look like a peak, and once because widening the title set moved the answer; both are recorded on the article.",
   "droppedLastMonth": {
     "month": "2026-07",
     "value": 3919,
@@ -20,13 +29,6 @@
     "ms": "Malaysia"
   },
   "unit": "reads per million reads of that edition, summed across the four editions",
-  "method": {
-    "floorMonths": 6,
-    "waveMonths": 2,
-    "thinFloorBelow": 10,
-    "secondWaveAbove": 3,
-    "note": "For each title we find its highest month, then average the six months before it and the six after, skipping two months either side of the peak because those are still the wave. A title is only reported if both sides fit inside the window, if the floor before the wave is thick enough for a percentage to mean anything, and if no month in the after-floor is more than three times the before-floor — that last one is a second wave, not a floor."
-  },
   "titlesMeasured": [
     {
       "title": "Kingdom (South Korean TV series)",
