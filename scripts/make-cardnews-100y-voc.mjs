@@ -130,7 +130,12 @@ export function 짜기() {
   ];
 }
 
-const 틀 = (속, 쪽, 총) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+/* 🔴 2026-08-16 — 바닥 한 줄이 **여기에 박혀** 있었다(「직업계고 졸업자 취업통계」).
+   다른 카드가 이 자를 가져다 쓰면 **남의 출처가 그대로 찍힌다.** 자격 카드에서 실제로 그렇게 나왔다.
+   ⇒ 바닥을 밖에서 넣을 수 있게 연다. 안 넣으면 예전 그대로다 — 개봉 카드는 바뀌지 않는다 */
+export const 기본바닥 = `${자료.통계.기준연도}년 · 직업계고 졸업자 취업통계 · 등수를 매기지 않습니다`;
+
+const 틀 = (속, 쪽, 총, 바닥 = 기본바닥) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${색.바탕}"/>
   <rect x="0" y="0" width="${W}" height="8" fill="${색.금}"/>
   <text x="${M}" y="118" font-family="${명조}" font-size="34" font-weight="bold" fill="${색.금}" letter-spacing="4">백년지도</text>
@@ -139,11 +144,11 @@ const 틀 = (속, 쪽, 총) => `<svg xmlns="http://www.w3.org/2000/svg" width="$
   <!-- 🔴 2026-08-14 — 한 줄에 출처와 주소를 나란히 뒀더니 **겹쳤다.** 실물을 열어 보고 잡았다.
        자가시험은 조용했다 — 글자는 다 «있었고», 겹친 것은 그림이라 세는 자로는 안 보인다.
        ⭐ 두 줄로 내린다. 출처가 위, 데려올 주소가 아래다 -->
-  <text x="${M}" y="${H - 96}" font-family="${고딕}" font-size="24" fill="${색.흐림}">${자료.통계.기준연도}년 · 직업계고 졸업자 취업통계 · 등수를 매기지 않습니다</text>
+  <text x="${M}" y="${H - 96}" font-family="${고딕}" font-size="24" fill="${색.흐림}">${막는다(바닥)}</text>
   <text x="${M}" y="${H - 56}" font-family="${고딕}" font-size="26" fill="${색.금}">${막는다(갈곳)}</text>
 </svg>`;
 
-export function 그리기(장, 쪽, 총) {
+export function 그리기(장, 쪽, 총, 바닥 = 기본바닥) {
   let s = '';
   if (장.꼴 === '표지') {
     s += `<text x="${M}" y="470" font-family="${명조}" font-size="180" font-weight="bold" fill="${색.글}" letter-spacing="-4">${막는다(장.큰수)}</text>`;
@@ -156,7 +161,7 @@ export function 그리기(장, 쪽, 총) {
     const 시작 = 250 + 머리줄.length * 56 + 70;
     s += '\n  ' + 장.줄들.map((l, i) => (l === '' ? '' : `<text x="${M}" y="${시작 + i * 62}" font-family="${고딕}" font-size="42" fill="${색.글}">${막는다(l)}</text>`)).filter(Boolean).join('\n  ');
   }
-  return 틀(s, 쪽, 총);
+  return 틀(s, 쪽, 총, 바닥);
 }
 
 /* ── 자가시험 ────────────────────────────────────────────── */

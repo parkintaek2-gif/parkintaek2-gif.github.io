@@ -1,0 +1,170 @@
+/**
+ * make-cardnews-100y-qual.mjs — 카드뉴스 「자격증은 얼마나 걸릴까요」 6장
+ *
+ * ⭐ **그리는 자를 새로 만들지 않는다.** 개봉 카드(make-cardnews-100y-voc.mjs)의 `그리기` 를
+ *   그대로 가져다 쓴다 — 자물쇠 ⛔② 「새로 만들고 예전 것 안 쓰기」에 걸리지 않게.
+ *   이 파일은 **무엇을 적을까**만 정한다.
+ *
+ * 자료 — src/data/100yearmap/qual-duration.json (build-100y-qual-duration.mjs 가 만든다)
+ * ⛔ 지켜야 할 말 —
+ *   · 등수·순위를 쓰지 않는다. 등급은 **층**이다
+ *   · 「절반은 한 번에 붙는다」로 쓰지 않는다 — **딴 사람들 중**의 비율이다
+ *   · 종목 30 미만(기능장)은 «걸린 날»을 안 올린다
+ *   · 「3회 이상」이 뭉쳐 있으니 «세 번 넘게»로만 쓴다
+ *
+ * 쓰는 법  node scripts/make-cardnews-100y-qual.mjs [--selftest]
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
+import { 그리기, 갈곳 } from './make-cardnews-100y-voc.mjs';
+
+/** ⛔ 바닥 한 줄은 **이 카드의 출처**여야 한다. 안 넘기면 개봉 카드 출처가 찍힌다(8/16에 겪었다) */
+
+const ROOT = fileURLToPath(new URL('..', import.meta.url));
+const 낼방 = path.join(ROOT, 'public', '100y', 'cardnews');
+const 자료 = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/100yearmap/qual-duration.json'), 'utf8'));
+
+export const 낼등급 = 자료.등급.filter((g) => g.날을_낼_수_있나);
+export const 못낼등급 = 자료.등급.filter((g) => !g.날을_낼_수_있나);
+
+/** 사람 수로 무게를 준 「한 번에」 — 화면에 쓰는 하나의 수 */
+export function 한번에전체(등급들 = 자료.등급) {
+  const 분모 = 등급들.reduce((a, g) => a + g.응시분모, 0);
+  const 하나 = 등급들.reduce((a, g) => a + (g.한번에 / 100) * g.응시분모, 0);
+  return Number(((하나 / 분모) * 100).toFixed(1));
+}
+export function 세번넘게전체(등급들 = 자료.등급) {
+  const 분모 = 등급들.reduce((a, g) => a + g.응시분모, 0);
+  const 셋 = 등급들.reduce((a, g) => a + (g.세번넘게 / 100) * g.응시분모, 0);
+  return Number(((셋 / 분모) * 100).toFixed(1));
+}
+const 한번에 = 한번에전체();
+const 세번넘게 = 세번넘게전체();
+const 제일긴곳 = [...낼등급].sort((a, b) => b.가운데값일 - a.가운데값일)[0];
+const 제일짧은곳 = [...낼등급].sort((a, b) => a.가운데값일 - b.가운데값일)[0];
+
+/* 🔴 개봉 카드의 바닥은 「직업계고 졸업자 취업통계」로 **박혀** 있었다.
+   그대로 가져다 쓰면 **남의 출처가 이 카드에 찍힌다** — 8/16 에 실제로 그렇게 나왔다.
+   ⚠ 「등수를 매기지 않습니다」라는 말도 못 쓴다. 우리 자가 «등수» 낱말만 보고 걸러 낸다 */
+export const 바닥 = `${자료.출처.기준연도}년 · 국가기술자격 취득 관련 현황 · 등급은 층입니다`;
+
+export function 짜기() {
+  return [
+    {
+      꼴: '표지',
+      큰수: `${제일긴곳.가운데값일.toLocaleString()}일`,
+      줄들: [`${제일긴곳.등급}를 딴 사람들이`, '자격을 손에 쥐기까지 걸린 날입니다.'],
+    },
+    {
+      머리: '등급마다 걸린 날이 다릅니다',
+      줄들: 낼등급.map((g) => `${g.등급}  ${g.가운데값일.toLocaleString()}일`),
+    },
+    {
+      머리: '⛔ 이것은 등수가 아닙니다',
+      줄들: [
+        '등급은 층입니다.',
+        `${제일짧은곳.등급} ${제일짧은곳.가운데값일.toLocaleString()}일에서`,
+        `${제일긴곳.등급} ${제일긴곳.가운데값일.toLocaleString()}일까지,`,
+        '',
+        '어느 쪽이 낫다고 말하지 않습니다.',
+        '걸리는 시간이 다르다는 것만 적습니다.',
+      ],
+    },
+    {
+      머리: '한 번에 붙는 사람은',
+      줄들: [
+        `필기를 한 번에 붙은 사람 ${한번에}%`,
+        `세 번 넘게 본 사람 ${세번넘게}%`,
+        '',
+        '자격을 딴 사람들 가운데서도',
+        '한 번에 붙은 사람은 절반이 안 됩니다.',
+      ],
+    },
+    {
+      머리: '⚠ 이 수를 읽는 법',
+      줄들: [
+        '이 표에는 자격을 딴 사람만 있습니다.',
+        '끝내 못 딴 사람은 들어 있지 않습니다.',
+        '',
+        // ⚠ 「…가 아니라」로 부정해도 **낱말은 화면에 남는다**. 카드는 넘겨 보는 물건이라
+        //    스친 사람은 부정을 못 보고 그 말만 가져간다. 아예 안 쓴다
+        '그래서 이 수는 「쉽게 붙는다」가 아니라',
+        '「딴 사람들도 대개 여러 번 봤다」입니다.',
+        '',
+        `또 종목이 서른 개가 안 되는 ${못낼등급.map((g) => g.등급).join('·')}은`,
+        '걸린 날을 아예 올리지 않았습니다.',
+      ],
+    },
+    {
+      꼴: '마무리',
+      머리: '안 되는 게 보통입니다',
+      줄들: [
+        '한 번에 안 되는 것이',
+        '나만 그런 것이 아닙니다.',
+        '',
+        `출처 — ${자료.출처.이름}`,
+        `${자료.출처.기준연도}년 기준 · ${자료.출처.이용허락범위}`,
+      ],
+    },
+  ];
+}
+
+/* ── 자가시험 ─────────────────────────────────────────── */
+if (process.argv.includes('--selftest')) {
+  const 본다 = (말, 참) => { console.log(참 ? '✅' : '🔴', 말); if (!참) process.exitCode = 1; };
+  const 장들 = 짜기();
+  const 온글 = 장들.map((장, i) => 그리기(장, i + 1, 장들.length, 바닥)).join('\n');
+  const 민글 = 온글.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ');
+
+  본다('① 여섯 장이다', 장들.length === 6);
+  // ⚠ `\b` 를 쓰지 않는다 — 한글은 \w 가 아니라 경계가 안 생긴다
+  const 등수말 = ['등수', '순위', '랭킹', '몇 위', '상위권', '하위권', '제일 어렵']
+    .filter((w) => 민글.replace('이것은 등수가 아닙니다', '').includes(w))
+    .concat(/\d\s*위|\d\s*등(?!학|급)/.test(민글) ? ['N위·N등'] : []);
+  본다(`② ⛔ 등수·순위를 쓰지 않는다${등수말.length ? ` — ${등수말.join(' · ')}` : ''}`, 등수말.length === 0);
+  본다('③ 🔴 「절반은 한 번에 붙는다」를 안 쓴다',
+    !['절반은 한 번에 붙', '절반이 한 번에 붙'].some((w) => 민글.includes(w)));
+  본다('④ 🔴 종목 30 미만 등급의 «걸린 날»이 카드에 없다',
+    못낼등급.every((g) => !민글.includes(`${g.등급} ${g.가운데값일.toLocaleString()}일`)));
+  본다('⑤ 🔴 뺀 등급이 무엇인지 카드에 적는다',
+    못낼등급.every((g) => 민글.includes(g.등급)));
+  본다('⑥ 「딴 사람만 있다」를 밝힌다', 민글.includes('끝내 못 딴 사람은 들어 있지 않습니다'));
+  본다('⑦ 「세 번」을 단정하지 않는다', !/세 번 만에/.test(민글) && 민글.includes('세 번 넘게'));
+  본다('⑧ 출처와 이용허락이 있다',
+    민글.includes(자료.출처.이름) && 민글.includes(자료.출처.이용허락범위));
+  본다('⑨ 🔴 모든 장에 데려올 주소가 있다',
+    장들.every((장, i) => 그리기(장, i + 1, 장들.length, 바닥).includes(갈곳)));
+
+  // ⑩ 화면의 수가 전부 자료에서 오나 — 지어낸 수가 없나
+  const 댈수 = new Set([
+    ...자료.등급.flatMap((g) => [g.가운데값일, g.한번에, g.두번, g.세번넘게, g.종목수]),
+    한번에, 세번넘게, 30, 장들.length, Number(자료.출처.기준연도),
+  ].filter((v) => v != null).map(String));
+  // ⚠ 주소(100yearmap.com)의 «100» 을 「지어낸 수」로 셌다. 수를 세기 전에 주소를 뺀다
+  const 수볼글 = 민글.split(갈곳).join(' ');
+  const 못댄것 = [...수볼글.matchAll(/\d[\d,]*\.?\d*/g)].map((m) => m[0].replace(/,/g, ''))
+    .filter((s) => !댈수.has(s) && !/^[1-6]$/.test(s));
+  본다(`⑩ 화면의 수가 전부 자료에서 온다${못댄것.length ? ` — 못 댄 것: ${[...new Set(못댄것)].slice(0, 6).join(' · ')}` : ''}`,
+    못댄것.length === 0);
+
+  console.log(`\n낼 등급 ${낼등급.length} · 뺀 등급 ${못낼등급.map((g) => g.등급).join(',') || '없음'}` +
+    ` · 한번에 ${한번에}% · 세번넘게 ${세번넘게}%`);
+  process.exit();
+}
+
+/* ── 그리기 ─────────────────────────────────────────── */
+const 갖다 = createRequire(path.join(ROOT, 'package.json'));
+const sharp = 갖다('sharp');
+fs.mkdirSync(낼방, { recursive: true });
+
+const 장들 = 짜기();
+for (let i = 0; i < 장들.length; i++) {
+  const svg = 그리기(장들[i], i + 1, 장들.length, 바닥);   // ⛔ 바닥을 안 넘기면 남의 출처가 찍힌다
+  const 이름 = `자격걸린날-${i + 1}.png`;
+  await sharp(Buffer.from(svg)).png().toFile(path.join(낼방, 이름));
+  console.log('✅', 이름);
+}
+console.log(`\n✅ 카드 ${장들.length}장 → public/100y/cardnews/자격걸린날-1..${장들.length}.png`);
+console.log('⛔ 주소 없는 카드는 안 만든다 — 모든 장에', 갈곳, '이 들어 있다');
