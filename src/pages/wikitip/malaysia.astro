@@ -18,6 +18,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-malaysia.json';
 
 const TITLE = 'Malaysia reads Korean brands nearly three times as readily as it reads Korean people';
@@ -135,6 +136,12 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="malaysia" count={5} />
+
+  {/* 🔴 8/15 — 카드뉴스는 12벌인데 영상이 9편이었다. 이 지면이 그 빈 자리 하나였다 */}
+  <KcwShorts set="malaysia"
+    says={`A man and a woman read out the band the four groups of people fall inside, `
+      + `the one figure that sits outside it, and how few brands that figure rests on.`} />
+
   <KcwRelatedArticles page="/malaysia" />
 </WikiTip>
 
