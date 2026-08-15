@@ -123,6 +123,50 @@ const jsonLd = {
     </div>
   </section>
 
+  {/*
+    🔴 2026-08-16 — 이 지면이 「베트남어판에서 가장 많이 읽힌 한국 장소」로 **케산 전투**를
+      싣고 있었다. 베트남에서 있었던 일이다. ⛔ 뺐다고만 적고 넘어가지 않는다 —
+      뺀 열아홉을 이름과 좌표까지 싣는다. 조용한 제외는 정정이 아니다.
+  */}
+  <section>
+    <h2>Nineteen places we removed, and why</h2>
+    <p class="warn">
+      <strong>Corrected 2026-08-16.</strong> Until this date the most-read Korean place on the
+      Vietnamese Wikipedia was given here as the Battle of Khe Sanh. That battle was fought in
+      Vietnam. It is out of the panel, and the Vietnamese column now opens with
+      {' '}{d.topByEdition.vi[0].name} at {d.topByEdition.vi[0].perMillion}.
+    </p>
+    <p>{d.outsideKorea.why}</p>
+    <p>
+      We re-tested all {d.outsideKorea.checked.toLocaleString('en-US')} places against their
+      coordinates. <b>{d.outsideKorea.outsideCount}</b> fall outside Korea, and together they were
+      {' '}<b>{d.outsideKorea.shareOfReads}%</b> of every read in the panel. Here they are.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Removed</th><th>Kind</th><th>Reads per million</th><th>Where it actually is</th></tr>
+        </thead>
+        <tbody>
+          {d.outsideKorea.outside.map((x) => (
+            <tr>
+              <td class="nm">{x.name}</td>
+              <td class="fine">{x.kind}</td>
+              <td>{x.perMillion}</td>
+              <td class="fine">{x.lat}, {x.lon}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">{d.outsideKorea.boxIsOurs}</p>
+    <p class="note">
+      Our first attempt at this check used the same country property the panel was built on, and
+      reported that nothing was wrong. A check that reuses the ruler being checked will always
+      agree with it. {d.outsideKorea.notMeasuredMeans}
+    </p>
+  </section>
+
   <section class="src">
     <h2>How this was counted</h2>
     <ul>

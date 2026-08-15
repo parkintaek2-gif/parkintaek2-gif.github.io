@@ -20,6 +20,15 @@ import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-places.json';
 const 결과 = 'src/data/wikitip-places.json';
+/**
+ * 🔴🔴 2026-08-16 — 이 지면이 **「베트남어판에서 가장 많이 읽힌 한국 장소」로 케산 전투**를
+ *   싣고 있었다. 케산 전투는 베트남에서 있었다.
+ *   수집기가 위키데이터의 P17(나라)로 골랐는데, P17 은 「어디에 있나」만이 아니라
+ *   「누가 얽혔나」도 담는다 — 한국이 참전국이라 그 전투에 대한민국이 붙어 있었다.
+ *   ⭐ `check-kcw-places-in-korea.mjs` 가 **좌표로** 다시 재어 19곳을 갈라냈다(읽힘의 4.61%).
+ *   ⛔ 조용히 빼지 않는다. 뺀 곳을 지면에 이름까지 싣는다.
+ */
+const 밖길 = 'src/data/wikitip-places-outside.json';
 const 나라이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
 const 판들 = Object.keys(나라이름);
 
@@ -112,7 +121,18 @@ if (내가실행됐다) {
     process.exit(1);
   }
 
-  const 곳 = d.people.map((x) => ({ ...x, 묶: 묶기(x.kinds) }));
+  /* 🔴 한국 밖으로 판정된 곳을 뺀다. ⛔ 목록 파일이 없으면 짓지 않는다 — 조용히 옛날 수로 돌아간다 */
+  if (!fs.existsSync(밖길)) {
+    console.error(`⛔ 없다 — ${밖길}. 먼저 node scripts/check-kcw-places-in-korea.mjs 를 돌려라.`);
+    console.error('   이 파일 없이 지으면 케산 전투가 다시 「한국 장소」로 실린다.');
+    process.exit(1);
+  }
+  const 밖 = JSON.parse(fs.readFileSync(밖길, 'utf8'));
+  const 밖큐 = new Set(밖.outside.map((x) => x.q));
+
+  const 곳 = d.people
+    .filter((x) => !밖큐.has(x.q))
+    .map((x) => ({ ...x, 묶: 묶기(x.kinds) }));
 
   /* 묶음별 — 몇 곳이고 얼마나 읽히나 */
   const 묶음표 = [...묶음, { key: 'other', label: 'Other' }].map((m) => {
@@ -159,8 +179,11 @@ if (내가실행됐다) {
       + 'editions, 12 months. One row is one place.',
     editions: 판들.map((p) => ({ code: p, country: 나라이름[p] })),
     question: 'Which parts of Korea do Southeast Asian readers look up?',
-    placesMeasured: d.peopleMeasured,
+    /* ⛔ 뺀 뒤의 수를 쓴다. 원본의 수를 그대로 두면 표와 머릿수가 어긋난다 */
+    placesMeasured: 곳.length,
     placesNotMeasured: d.peopleNotMeasured,
+    /** 🔴 뺀 곳을 지면이 보이게 통째로 들고 간다 — 조용한 제외는 하지 않는다 */
+    outsideKorea: 밖,
     groups: 묶음표,
     howGroupsWereMade: 'Wikidata gives dozens of place types. We fold them into seven readable '
       + 'groups by keyword, first match winning. The mapping is ours, so it is stated here rather '

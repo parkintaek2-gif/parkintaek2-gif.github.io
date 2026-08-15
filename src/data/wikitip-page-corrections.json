@@ -120,6 +120,16 @@
    "to": "Non-Latin labels are ignored, because Netflix does not translate titles in these lists. 37,750 Korean chart places; both figures round to 7.7% of the world chart, so the headline did not move. Figures moved in eight articles — the-share-that-did-not-grow, six-titles-or-forty-nine, korean-titles-climb, home-chart-is-not-a-gate, land-or-spread, it-moved-it-did-not-shrink, reaching-number-one-is-mostly-length and music-has-no-squid-game-and-is-more-concentrated-anyway — and all eight were rewritten from the data rather than by hand where a table was involved.",
    "why": "Our rule for deciding which Netflix titles are Korean matched title text against Wikidata labels in any language, so 23 titles written in Arabic, Hebrew, Cyrillic and Japanese script were counted as Korean. They are local works: Netflix does not translate titles in these lists — Squid Game holds 445 places across ten Arab markets under its Latin name, and only 10 of the 1,530 distinct titles on Egypt's chart are written in Arabic script. The rule now ignores non-Latin labels. Across the whole site this moved Korea's share of world chart places from 37,962 places to 37,750, both of which round to 7.7%.",
    "cause": "ruler-fixed-upstream"
+  },
+  {
+   "date": "2026-08-16",
+   "where": "/places",
+   "path": "/places",
+   "what": "Nineteen of the 2,238 places we called Korean are not in Korea, and one of them led a column",
+   "from": "The most-read Korean place on the Vietnamese Wikipedia was given as the Battle of Khe Sanh, at 62.52 reads per million. The panel held 2,238 places.",
+   "to": "The Battle of Khe Sanh is fought in Vietnam and is no longer in the panel. The Vietnamese column now opens with President of South Korea at 46.88. The panel holds 2,219 places, and the nineteen we removed are listed on the page with their coordinates.",
+   "why": "The places were selected on Wikidata's country property (P17). That property records involvement as well as location: the Battle of Khe Sanh carries South Korea because South Korea fought there, and the Order of Friars Minor, two Korean Air crash sites, and the Antarctic Jang Bogo Station entered the same way. We re-tested every place against its coordinates instead, because a location does not follow a belligerent. The nineteen accounted for 4.61% of all reads in the panel. Our first attempt at this check also used the country property and reported no problem at all — a check that reuses the ruler being checked always agrees with it.",
+   "cause": "selector-not-location"
   }
  ],
  "causes": {
@@ -131,7 +141,8 @@
   "attribution-contradiction": "Our own attribution query returned no Korean work for a title that was nonetheless in our Korean panel — the list and the instrument we publish disagreed",
   "selected-on-outcome": "A comparison was computed on the fifty largest titles by hours — a group selected on the very outcome being explained — and reported as if it described the whole panel",
   "limit-never-tested": "A limitation was written down as unmeasurable and never tested — the number turned out to be reachable from a source we already query",
-  "ruler-fixed-upstream": "A rule that decides which titles count was corrected, and every number measured through it moved. The article was right about what it was given; what it was given was wrong."
+  "ruler-fixed-upstream": "A rule that decides which titles count was corrected, and every number measured through it moved. The article was right about what it was given; what it was given was wrong.",
+  "selector-not-location": "A panel of places was selected on Wikidata's country property, which records who was involved as well as where a thing is. Places entered the list because Korea took part in something that happened elsewhere."
  },
  "articleCauses": [
   {
