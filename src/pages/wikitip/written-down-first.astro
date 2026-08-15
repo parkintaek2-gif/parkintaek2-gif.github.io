@@ -1,6 +1,6 @@
 ---
 /**
- * K Culture Wire — **같은 작품이 네 위키피디아에 도착하는 차례.** (`/arrival-order`)
+ * K Culture Wire — **같은 작품이 네 위키피디아에 도착하는 차례.** (`/written-down-first`)
  *
  * ── 접었다가 되살린 지면 ──────────────────────────────────────
  *   이 각도를 한 번 접었다. 한국어판을 기준으로 「몇 달 뒤에 적혔나」를 재려다,
@@ -23,7 +23,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
-import d from '../../data/wikitip-arrival-order.json';
+import d from '../../data/wikitip-written-down-first.json';
 
 const 셈 = d.arrivedFirst;
 const 크 = d.sizeControl;
@@ -51,7 +51,7 @@ const jsonLd = {
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
-  canonical="https://www.kculturewire.com/arrival-order">
+  canonical="https://www.kculturewire.com/written-down-first">
   <h1>{TITLE}</h1>
   <p class="lead">{d.question}</p>
   <p class="q">
@@ -178,7 +178,7 @@ const jsonLd = {
     </p>
   </section>
 
-  <KcwRelatedArticles page="/arrival-order" />
+  <KcwRelatedArticles page="/written-down-first" />
 </WikiTip>
 
 <style>
