@@ -256,33 +256,41 @@ if (process.argv.includes('--자가시험')) {
 }
 
 /* ── 뽑기 ── */
-const i = process.argv.indexOf('--out');
-const 낼길 = i >= 0 ? process.argv[i + 1] : '종로.mp4';
-const 임시 = path.join(path.dirname(낼길), '_칸100y');
-fs.mkdirSync(임시, { recursive: true });
+/* 🔴 2026-08-16 — 여기부터가 «부르면 도는 몸»이다. 재려고 import 했다가 이 자가 곧바로
+   렌더링을 시작해 영상을 다시 만들어 버렸다(puppeteer 가 떴다).
+   ⇒ **내가 직접 불렸을 때만** 돈다. 남이 불러 화면 글만 얻어 갈 수 있게 한다.
+   ⚠ import.meta.url 로 견주면 윈도에서 조용히 안 돈다. 파일 이름으로 견딘다 */
+const 내가직접불렸나 = !!process.argv[1] && path.basename(process.argv[1]) === 'make-video-100y-jongno.mjs';
+if (내가직접불렸나) {
+  const i = process.argv.indexOf('--out');
+  const 낼길 = i >= 0 ? process.argv[i + 1] : '종로.mp4';
+  const 임시 = path.join(path.dirname(낼길), '_칸100y');
+  fs.mkdirSync(임시, { recursive: true });
 
-const puppeteer = require('puppeteer-core');
-const b = await puppeteer.launch({
-  executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
-  args: ['--no-sandbox', '--font-render-hinting=none'],
-});
-const p = await b.newPage();
-await p.setViewport({ width: 폭, height: 높, deviceScaleFactor: 1 });
+  const puppeteer = require('puppeteer-core');
+  const b = await puppeteer.launch({
+    executablePath: 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+    args: ['--no-sandbox', '--font-render-hinting=none'],
+  });
+  const p = await b.newPage();
+  await p.setViewport({ width: 폭, height: 높, deviceScaleFactor: 1 });
 
-const 칸수 = Math.round(총초 * 초당);
-for (let n = 0; n < 칸수; n += 1) {
-  await p.setContent(칸HTML(n / 초당), { waitUntil: 'load' });
-  await p.screenshot({ path: path.join(임시, `${String(n).padStart(4, '0')}.png`) });
-  if (n % 60 === 0) console.log(`  ${n}/${칸수}`);
+  const 칸수 = Math.round(총초 * 초당);
+  for (let n = 0; n < 칸수; n += 1) {
+    await p.setContent(칸HTML(n / 초당), { waitUntil: 'load' });
+    await p.screenshot({ path: path.join(임시, `${String(n).padStart(4, '0')}.png`) });
+    if (n % 60 === 0) console.log(`  ${n}/${칸수}`);
+  }
+  await b.close();
+
+  const ff = require('ffmpeg-static');
+  execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(임시, '%04d.png'),
+    '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
+    '-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.1', '-pix_fmt', 'yuv420p',
+    '-crf', '20', '-c:a', 'aac', '-b:a', '64k', '-shortest',
+    '-movflags', '+faststart', 낼길], { stdio: 'ignore' });
+
+  fs.rmSync(임시, { recursive: true, force: true });
+  console.log(`✅ ${낼길}  ${총초}초 · ${폭}×${높} · ${(fs.statSync(낼길).size / 1024).toFixed(0)}KB`);
+
 }
-await b.close();
-
-const ff = require('ffmpeg-static');
-execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(임시, '%04d.png'),
-  '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
-  '-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.1', '-pix_fmt', 'yuv420p',
-  '-crf', '20', '-c:a', 'aac', '-b:a', '64k', '-shortest',
-  '-movflags', '+faststart', 낼길], { stdio: 'ignore' });
-
-fs.rmSync(임시, { recursive: true, force: true });
-console.log(`✅ ${낼길}  ${총초}초 · ${폭}×${높} · ${(fs.statSync(낼길).size / 1024).toFixed(0)}KB`);
