@@ -16,6 +16,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-what-kind-fell.json';
 
 const 쓸것 = d.usable[0];
@@ -153,6 +154,8 @@ const jsonLd = {
       dropped because Wikimedia's monthly totals can still be filling when we fetch.
     </p>
   </section>
+
+  <KcwCardnews set="shelf" count={5} />
 
   <KcwRelatedArticles page="/what-kind-fell" />
 </WikiTip>

@@ -52,7 +52,80 @@ export const 벌목록 = {
   halflife: { 자료: 'src/data/wikitip-half-life.json', 만들기: (d) => 반감기벌짓기(d) },
   oneout: { 자료: 'src/data/wikitip-one-out.json', 만들기: (d) => 하나빼기벌짓기(d) },
   first: { 자료: 'src/data/wikitip-written-down-first.json', 만들기: (d) => 먼저적기벌짓기(d) },
+  shelf: { 자료: 'src/data/wikitip-what-kind-fell.json', 만들기: (d) => 선반벌짓기(d) },
 };
+
+/**
+ * 선반 벌 — 96편째 기사의 표(`/what-kind-fell`).
+ *
+ * ⭐ 이야기 한 줄: **한글이 무엇인지 찾아보는 사람이 줄었다. 가나도 마찬가지다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **「일본에 졌다」로 팔지 않는다.** 일본은 대조군이지 경쟁자가 아니다.
+ *     둘 다 떨어졌다는 것이 이 기사의 전부다.
+ *   ⛔ **못 쓴 두 갈래를 카드에서 빼지 않는다.** 빼면 「한국만 떨어졌다」로 읽힌다 —
+ *     기사에서 가장 조심한 자리라 카드에서도 조심한다.
+ *   ⛔ **수를 손으로 안 박는다.** 전부 자료에서 읽는다.
+ */
+export function 선반벌짓기(d) {
+  const u = d.usable[0];
+  const 큰것부터 = (줄) => [...줄].sort((a, b) => a.changePc - b.changePc);
+  const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
+
+  return {
+    갈피: 'what-kind-fell',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Four Wikipedias · 24 months',
+        큰: 'Fewer people are\nlooking up what\nhangul is—\nand what kana is',
+        아래: `Korean language, hangul, hanbok and taekwondo fell **${몫(u.korea.medianChangePc)}**. `
+          + `The Japanese articles beside them fell **${몫(u.japan.medianChangePc)}**. `
+          + 'Both fell. That points away from Korea, not at it.',
+      },
+      {
+        꼴: '표',
+        제목: 'The shelf you open\nto find out what\nsomething is',
+        머리: ['Article', 'Change'],
+        줄: [...큰것부터(u.korea.articles).map((a) => [a.title, 몫(a.changePc)]),
+          ['— control —', ''],
+          ...큰것부터(u.japan.articles).slice(0, 3).map((a) => [a.title, 몫(a.changePc)])],
+        아래: 'Nobody opens **Hangul** because they are a fan of hangul. They open it to find out '
+          + 'what it is. That is the shelf being opened less — for Korea and Japan alike.',
+      },
+      {
+        꼴: '표',
+        제목: 'Two genres we\ncould not use',
+        머리: ['Genre', 'Korea', 'Japan'],
+        줄: d.notUsable.map((g) => [g.name, 몫(g.korea.medianChangePc), 몫(g.japan.medianChangePc)]),
+        아래: 'Korean music down while Japanese music is up **writes its own headline**. It rests '
+          + 'on four articles and three, and removing one moves the answer far enough to reverse it.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not a contest — Japan is a control group, not a competitor',
+          'Not learning — reads of "Korean language" are not people studying it',
+          'Not why — a control removes an explanation, it does not supply one',
+        ],
+        아래: 'The genres are **ours**, not Wikipedia\'s. A different grouping would give '
+          + 'different medians, and we say so on the page.',
+      },
+      {
+        꼴: '끝',
+        제목: 'We looked, and our\nsample is not good\nenough to say',
+        글: 'That sentence is the honest version of two of the three genres here.\n\n'
+          + '**We show those rows rather than dropping them.**',
+        길: `${주소}/what-kind-fell`,
+        곁: 'Wikimedia Pageviews · human traffic only · 2024-07 – 2026-06',
+      },
+    ],
+  };
+}
 
 /**
  * 먼저 적기 벌 — 95편째 기사의 표(`/written-down-first`).
