@@ -51,7 +51,89 @@ export const 벌목록 = {
   wave: { 자료: 'src/data/wikitip-wave-floor.json', 만들기: (d) => 파도벌짓기(d) },
   halflife: { 자료: 'src/data/wikitip-half-life.json', 만들기: (d) => 반감기벌짓기(d) },
   oneout: { 자료: 'src/data/wikitip-one-out.json', 만들기: (d) => 하나빼기벌짓기(d) },
+  first: { 자료: 'src/data/wikitip-written-down-first.json', 만들기: (d) => 먼저적기벌짓기(d) },
 };
+
+/**
+ * 먼저 적기 벌 — 95편째 기사의 표(`/written-down-first`).
+ *
+ * ⭐ 이야기 한 줄: **한 위키피디아가 늘 먼저 적는데, 그게 가장 큰 곳이 아니다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **순위표로 줄세우지 않는다.** 넷에 등수를 매기는 게 아니라 「몇 편에서 먼저였나」와
+ *     「몇 번 마지막이었나」를 나란히 낸다. ⭐ 인도네시아어판은 **한 번도 마지막이 아니다** —
+ *     그게 이 벌에서 제일 센 한 칸이다.
+ *   ⛔ **크기 표를 빼지 않는다.** 가장 흔한 설명을 죽이는 것이 이 기사의 값어치다.
+ *     베트남어판이 문서·편집자·판 수 셋 다 앞서는데도 먼저 적는 것은 인도네시아어판이다.
+ *   ⛔ **「왜」를 넣지 않는다.** 크기가 아니라는 것까지만.
+ *   ⛔ **우리 날짜를 검증했다는 것을 넣는다.** 이 기사가 서 있는 바닥이다.
+ */
+export function 먼저적기벌짓기(d) {
+  const 셈 = d.arrivedFirst;
+  const 자리 = d.places;
+  const 크 = d.sizeControl;
+  const 차례 = [...d.editions].sort((a, b) => 셈.counts[b] - 셈.counts[a]);
+  const 가장긴 = [...d.titles].sort((a, b) => b.spreadMonths - a.spreadMonths)[0];
+
+  return {
+    갈피: 'written-down-first',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Four Wikipedias · first revisions',
+        큰: 'One Wikipedia\nwrites it down first—\nand it is not\nthe biggest one',
+        아래: `Of ${d.measured} Korean titles with an article on all four Southeast Asian `
+          + `editions, the ${d.editionNames[크.writesFirstMost]} one was first or joint-first `
+          + `**${셈.counts[크.writesFirstMost]}** times, and last **not once**.`,
+      },
+      {
+        꼴: '표',
+        제목: 'First, last,\nand in between',
+        머리: ['Wikipedia', 'First', 'Last', 'Median place'],
+        줄: 차례.map((p) => [d.editionNames[p], `${셈.counts[p]}`, `${자리.lastCount[p]}`,
+          `${자리.medianPlace[p]}`]),
+        아래: `${셈.tied} of the ${셈.outOf} are ties, which is why the first column adds up to `
+          + `more than ${셈.outOf}. **Read the last column: the order is not only about who is first.**`,
+      },
+      {
+        꼴: '표',
+        제목: 'The obvious\nexplanation fails',
+        머리: ['Wikipedia', 'Articles', 'Editors'],
+        줄: [...d.editions]
+          .sort((a, b) => 크.sizes[b].articles - 크.sizes[a].articles)
+          .map((p) => [d.editionNames[p],
+            크.sizes[p].articles.toLocaleString('en-US'),
+            크.sizes[p].activeEditors.toLocaleString('en-US')]),
+        아래: `The ${d.editionNames[크.largestBy.articles]} Wikipedia leads on articles, on `
+          + 'editors and on total edits — and writes about Korean titles first '
+          + `**${셈.counts[크.largestBy.articles]}** times out of ${셈.outOf}.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Why — we ruled out one explanation, we did not find one',
+          'Readers — this counts when an article was written, not when anyone read it',
+          'The Korean Wikipedia — its dates fail our check and we cannot test the rest',
+        ],
+        아래: 'We tested every date against the months that article was read. '
+          + `**${d.moveCheck.checked} could be tested and ${d.moveCheck.moved} failed.**`,
+      },
+      {
+        꼴: '끝',
+        제목: `The last edition\narrives a median\n${d.spreadMedianMonths} months later`,
+        글: `Longest gap — **${가장긴.title.replace(/\s*\(.*\)$/, '')}**, `
+          + `${가장긴.spreadMonths} months from the first edition to the last.\n\n`
+          + '**Remove any single title and the median stays where it is.**',
+        길: `${주소}/written-down-first`,
+        곁: 'Wikipedia first revisions · Wikimedia Pageviews · Wikidata (CC0)',
+      },
+    ],
+  };
+}
 
 /**
  * 하나 빼기 벌 — 94편째 기사의 표(`/one-out`).

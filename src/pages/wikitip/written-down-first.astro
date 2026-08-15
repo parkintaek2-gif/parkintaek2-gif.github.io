@@ -23,6 +23,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-written-down-first.json';
 
 const 셈 = d.arrivedFirst;
@@ -177,6 +178,8 @@ const jsonLd = {
       monthly. Edition sizes — Wikimedia <code>siteinfo</code>, read {d.sizeControl.measuredOn}.
     </p>
   </section>
+
+  <KcwCardnews set="first" count={5} />
 
   <KcwRelatedArticles page="/written-down-first" />
 </WikiTip>
