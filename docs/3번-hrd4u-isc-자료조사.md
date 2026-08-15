@@ -1429,3 +1429,16 @@ EducationResearchService   교원·연구 현황
 ⚠ 오퍼 이름이 `getComparison*` · `getRegional*` 꼴이다. 기존 수집기 주석에 «getComparison* 는
   svyYr 와 schlId 를 둘 다 줘야 한다. 하나만 주면 조용히 0건이 온다»고 적혀 있다 — 그대로 따른다.
 ⛔ 오늘은 **찾은 것까지만** 적는다. 수집기는 기존 것의 결을 따라 다음에 붙인다(겹치게 만들지 않는다).
+
+#### ⚠ 그 셋은 «신청»이 안 돼 있다 — 실제로 눌러 보고 알았다 (18:3x)
+
+```
+이미 쓰는 것   BasicInformationService_2/getUniversityCode  →  **200 · resultCode 00** ✅ 열쇠는 살아 있다
+새로 찾은 셋   EducationCondition·Finances·IndustryAcademicCooperation
+              →  **403 SERVICE_KEY_IS_NOT_REGISTERED_ERROR**
+```
+🔴 열쇠가 죽은 것이 아니라 **그 세 서비스에 «활용신청»이 안 붙어 있는 것**이다.
+  (5번이 8/14 에 TourAPI 에서 겪은 것과 똑같은 꼴이다 — 「열쇠는 살아 있고 서비스가 안 붙었다」)
+⛔ 활용신청은 포털 로그인이 있어야 한다. **비밀번호·캡차는 내 손이 아니다.**
+⭐ 로그인만 살아 있으면 **활용신청 세 번은 내가 누른다** — 개발단계 자동승인이면 바로 열린다.
+⚠ 「열쇠가 있으니 되겠지」로 적지 않았다. **눌러 보고 403 을 받고 나서** 적는다.
