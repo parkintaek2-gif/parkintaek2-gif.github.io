@@ -27,6 +27,8 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 학교자료 from '../../../data/100yearmap/pages-school.json';
+/* 🔴 자격 걸린 날 — scripts/build-100y-qual-duration.mjs 가 만든다. 출처·셈과한계가 자료 안에 있다 */
+import 자격 from '../../../data/100yearmap/qual-duration.json';
 
 type S = any;
 const 학교들: S[] = 학교자료 as any;
@@ -151,6 +153,63 @@ const desc =
       <strong>이 숫자로 학교를 고르실 수는 없습니다.</strong> 「이 길이 대체로 어떤 길인가」까지입니다.
     </p>
   </div>
+
+  <hr class="rule" />
+
+  {/* 🔴 2026-08-16 — 자격 이야기. 사장님 「추측으로 말하기 금지 · 데이터로만」.
+      ⛔ 등수가 아니다. 등급은 **층**이다. 「몇 위」·「제일 어렵다」를 쓰지 않는다.
+      ⛔ 「몇 번 만에」는 **딴 사람들 중의 비율**이다 — 끝내 못 딴 사람은 그 표에 없다.
+         「절반은 한 번에 붙는다」로 쓰면 거짓이 된다. 말을 그대로 지킨다. */}
+  <h2>자격증은 따는 데<br class="pcbr" /> 얼마나 걸리나요?</h2>
+  <p>
+    국가기술자격을 딴 사람들이 <strong>처음 시험을 본 날부터 딴 날까지</strong> 걸린 날입니다.
+    등급마다 다릅니다 — <strong>순서가 아니라 층입니다.</strong>
+  </p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>등급</th><th>걸린 날(가운데값)</th><th>필기를 한 번에</th><th>세 번 넘게</th></tr>
+      </thead>
+      <tbody>
+        {자격.등급.map((g: any) => (
+          <tr>
+            <td>{g.등급}</td>
+            {/* ⛔ 종목이 서른 개가 안 되는 등급은 «걸린 날»을 내지 않는다 */}
+            <td>{g.날을_낼_수_있나 ? `${g.가운데값일.toLocaleString()}일` : '—'}</td>
+            <td>{g.한번에}%</td>
+            <td>{g.세번넘게}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>「걸린 날」이 빈 칸인 등급</strong>은 종목이 서른 개가 안 됩니다. 저희는 그럴 때 값을 내지 않습니다.
+  </p>
+  <p>
+    <strong>자격을 딴 사람들 가운데 필기를 한 번에 붙은 사람은 절반이 안 됩니다.</strong>{' '}
+    세 번 넘게 본 사람도 셋에 하나쯤 됩니다.
+  </p>
+
+  <div class="warn">
+    <p><strong>🔴 이 수는 「딴 사람들」의 수입니다.</strong></p>
+    <p class="note">
+      끝내 못 딴 사람은 이 표에 없습니다. 그러니 <strong>「절반은 한 번에 붙는다」로 읽으시면 안 됩니다.</strong>
+      「딴 사람들도 대개 여러 번 봤다」까지가 이 표가 말하는 것입니다.
+    </p>
+  </div>
+
+  <p class="note">
+    출처 — {자격.출처.이름} · {자격.출처.기준연도}년 기준 · {자격.출처.이용허락범위} ·
+    저희가 받은 날 {자격.출처.받은때}
+  </p>
+  <p class="note small">
+    ⚠ 어떻게 셌나 — 종목마다 있는 평균 소요일수를 등급별로 모아 <strong>가운데값</strong>을 냈습니다.
+    퍼짐이 커서(가장 짧은 것 17일, 가장 긴 것 3,224일) 평균은 끝값에 끌립니다.
+    ⚠ <strong>종목 하나가 한 표</strong>입니다 — 사람 수로 무게를 주지 않았습니다.
+  </p>
 
   <hr class="rule" />
 
