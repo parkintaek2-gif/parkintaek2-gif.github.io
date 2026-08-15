@@ -27,6 +27,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 오늘 } from './_kst.mjs';
 import { 파도재기, 얇은가, 얇음문턱, 또파도문턱 } from './collect-sea-title-waves.mjs';
+/**
+ * ⚠ **되돌아 참조다.** `build-wikitip-one-out.mjs` 가 이 파일에서 `중앙값`·`한자리`를
+ *   가져가고, 이 파일이 거기서 `하나빼기`를 가져온다. ESM 은 이 꼴을 견딘다 —
+ *   둘 다 함수 선언이라 부를 때는 이미 서 있다.
+ * ⛔ 여기서 값(상수)을 가져오면 안 된다. 그건 아직 안 만들어져 있을 수 있다.
+ */
+import { 하나빼기, 단단한가 } from './build-wikitip-one-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -397,6 +404,15 @@ if (내가실행됐다) {
       floorChangeMeanPc: 한자리(평균(바닥변화들)),
       peakOverFloorMedian: 한자리(중앙값(봉우리배수들)),
       floorsThatRose: 오른것.length,
+      /**
+       * ⭐ **94편에서 만든 자.** 이 답이 오늘 두 번 움직인 자리다 —
+       *   5편일 때 0.89배, 6편일 때 1.4배, 9편일 때 2.86배.
+       *   ⛔ 「흔들린다」는 「틀렸다」가 아니다. 그 말은 판정에 붙어 나온다.
+       */
+      stability: (() => {
+        const 잼 = 하나빼기(바닥변화들);
+        return 잼 ? { ...잼, verdict: 단단한가(잼) } : null;
+      })(),
       biggestWave: 가장큰파도 ? {
         title: 가장큰파도.title,
         peakMonth: 가장큰파도.wave.peakMonth,
@@ -447,5 +463,10 @@ if (내가실행됐다) {
   console.log(`   말할 수 있는 작품 ${말할수있는.length}/${잰것들.length}`);
   console.log(`   봉우리 중앙값 ${나감.answer.peakOverFloorMedian}배 · 바닥변화 중앙값 ${나감.answer.floorChangeMedianPc}%`);
   console.log(`   바닥이 오른 것 ${오른것.length}개`);
+  const 잼 = 나감.answer.stability;
+  if (잼) {
+    console.log(`   ⭐ 하나 빼기 — 흔들림 ${잼.swingOverMedian}배 · `
+      + `${잼.verdict.steady ? '단단하다' : '🔴 아직 답이 아니다'}`);
+  }
   console.log(`   가장 큰 파도 — ${가장큰파도?.title} ${가장큰파도?.wave.peakOverBeforeFloor}배 (낼 수 있나: ${나감.answer.biggestWave?.reportable})`);
 }

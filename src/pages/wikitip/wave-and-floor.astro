@@ -134,6 +134,16 @@ const jsonLd = {
       These are not hits arriving. They are back catalogue rising again, which is the only kind of
       title that can answer this question at all.
     </p>
+    {답.stability && !답.stability.verdict.steady && (
+      <p class="note">
+        ⚠ <strong>Do not lean on that median.</strong> Remove any single title from the
+        {' '}{답.measured} above and it moves to somewhere between
+        {' '}{몫(답.stability.lowestWithoutOne)} and {몫(답.stability.highestWithoutOne)} — a swing
+        of {답.stability.swingOverMedian} times its own size. {답.stability.verdict.note}. We ran
+        this check on this page after correcting it twice in one day; the
+        {' '}<a href="/one-out">method is here</a>.
+      </p>
+    )}
   </section>
 
   <section>

@@ -27,6 +27,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 오늘 } from './_kst.mjs';
 import { 달별합, 중앙값, 평균, 한자리 } from './build-wikitip-wave-floor.mjs';
+import { 하나빼기, 단단한가 } from './build-wikitip-one-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -253,6 +254,15 @@ if (내가실행됐다) {
       halvedWithinOneMonth: 반들.filter((v) => v <= 1).length,
       neverHalved: 안떨어진것.length,
       roseAboveHalfAgain: 다시오른것.length,
+      /**
+       * ⭐ **94편에서 만든 자를 여기 붙인다.** 자를 만들고 안 쓰면 기사 한 편으로 끝난다.
+       *   중앙값을 내는 자리마다 「한 편을 빼면 얼마나 움직이나」를 같이 낸다.
+       * ⚠ 이 답은 8/15 에 16편에서도 26편에서도 흔들림 0 이었다.
+       */
+      stability: (() => {
+        const 잼 = 하나빼기(반들);
+        return 잼 ? { ...잼, verdict: 단단한가(잼) } : null;
+      })(),
       /* ⭐ 되풀이의 모양 — 몇 번 오나, 처음 오기까지 얼마나 기다리나 */
       returnWavesMedian: 중앙값(다시오른것.map((r) => r.half.returnWaves)),
       firstReturnMedianMonths: 중앙값(다시오른것.map((r) => r.half.firstReturnAfterMonths)),
@@ -280,4 +290,9 @@ if (내가실행됐다) {
   console.log(`   중앙값 ${나감.answer.halfLifeMedianMonths}달 · 평균 ${나감.answer.halfLifeMeanMonths}달`);
   console.log(`   한 달 안에 반토막 ${나감.answer.halvedWithinOneMonth}편 · 끝내 안 떨어진 것 ${안떨어진것.length}편`);
   console.log(`   반감기 뒤 다시 오른 것 ${다시오른것.length}편`);
+  const 잼 = 나감.answer.stability;
+  if (잼) {
+    console.log(`   ⭐ 하나 빼기 — 흔들림 ${잼.swingOverMedian}배 · `
+      + `${잼.verdict.steady ? '단단하다' : '🔴 아직 답이 아니다'}`);
+  }
 }

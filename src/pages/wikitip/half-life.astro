@@ -100,6 +100,14 @@ const jsonLd = {
       {' '}{답.halfLifeMeanMonths} months, which is longer than {d.titles.filter((t) => t.halfLifeMonths < Math.ceil(답.halfLifeMeanMonths)).length}
       {' '}of the {답.measured} titles actually lasted.
     </p>
+    {답.stability && 답.stability.verdict.steady && (
+      <p class="note">
+        ⭐ This median holds. Remove any single title from the {답.measured} above and it stays at
+        {' '}{답.stability.median} months — a swing of {답.stability.swingOverMedian}. We check
+        every median we publish this way now, after one of ours moved by most of its own size and
+        had to be corrected twice in a day; the <a href="/one-out">method is here</a>.
+      </p>
+    )}
   </section>
 
   <section>

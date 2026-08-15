@@ -1055,6 +1055,19 @@
     "halvedWithinOneMonth": 9,
     "neverHalved": 1,
     "roseAboveHalfAgain": 19,
+    "stability": {
+      "n": 26,
+      "median": 2,
+      "lowestWithoutOne": 2,
+      "highestWithoutOne": 2,
+      "swing": 0,
+      "swingOverMedian": 0,
+      "verdict": {
+        "steady": true,
+        "threshold": 0.5,
+        "note": "removing any single item leaves the answer where it was"
+      }
+    },
     "returnWavesMedian": 1,
     "firstReturnMedianMonths": 8
   },

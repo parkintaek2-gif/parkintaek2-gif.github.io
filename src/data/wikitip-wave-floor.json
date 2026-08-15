@@ -404,6 +404,19 @@
     "floorChangeMeanPc": -9.4,
     "peakOverFloorMedian": 2.2,
     "floorsThatRose": 3,
+    "stability": {
+      "n": 9,
+      "median": -4.5,
+      "lowestWithoutOne": -15.1,
+      "highestWithoutOne": -2.3,
+      "swing": 12.8,
+      "swingOverMedian": 2.86,
+      "verdict": {
+        "steady": false,
+        "threshold": 0.5,
+        "note": "removing a single item moves the answer by a large fraction of itself, which means the sample is not yet large enough for this median to be reported as a finding — not that the figure is wrong"
+      }
+    },
     "biggestWave": {
       "title": "Physical: 100",
       "peakMonth": "2024-03",
