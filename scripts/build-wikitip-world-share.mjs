@@ -26,6 +26,8 @@
 import fs from 'node:fs';
 import readline from 'node:readline';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 위에서 덧붙인다 */
+import { 근거, 중앙값 as 중앙값자, 백만분율 as 백만분율자 } from './_evidence-kcw.mjs';
 
 const ko = koreanTitleFilter();
 
@@ -185,6 +187,14 @@ const 열쇠셈 = 열쇠집합 ? 온전.reduce((s, a) => {
 const 비들 = 온전.map((a) => 비율(a.korean, a.rows)).sort((a, b) => a - b);
 
 const out = {
+  /**
+   * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+   * ⛔ 고유 한계를 안 주면 `근거()` 가 던진다 — 붙여넣기만 있는 칸은 찬 척하는 것이다.
+   */
+  ...근거([중앙값자, 백만분율자], {
+    방법: "A country's share is its reads divided by the reads of all countries counted, so the shares sum to a hundred and a large country cannot dominate by population.",
+    한계: "A share moves when any country moves, so a rise here can mean one country grew or that every other country shrank — the two are indistinguishable in a share. Only editions large enough to measure are in the denominator, so the hundred per cent is a hundred per cent of what we could count, not of the world.",
+  }),
   generated: new Date().toLocaleString('ko-KR'),
   source: 'Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded',
   sourceKo: '넷플릭스 Tudum 주간 나라별 Top10 — 넷플릭스가 목록을 내는 나라 전부',

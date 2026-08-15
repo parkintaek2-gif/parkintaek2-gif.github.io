@@ -13,6 +13,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 지금 } from './_kst.mjs';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 위에서 덧붙인다 */
+import { 근거, 중앙값 as 중앙값자, 백만분율 as 백만분율자 } from './_evidence-kcw.mjs';
 
 const 선수길 = 'archive/raw/wikipedia/sea-athletes.json';
 const 배우길 = 'archive/raw/wikipedia/sea-actors.json';
@@ -206,6 +208,14 @@ if (내가실행됐다) {
   const 선수맨위보다높은배우 = 연예전부.filter((x) => x.seaPerMillionTotal > 선수맨위).length;
 
   const out = {
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+     * ⛔ 고유 한계를 안 주면 `근거()` 가 던진다 — 붙여넣기만 있는 칸은 찬 척하는 것이다.
+     */
+    ...근거([중앙값자, 백만분율자], {
+      방법: "Each panel is summarised by its median person rather than its total, so that a panel with more names in it cannot outrank a smaller one by size alone.",
+      한계: "The panels were assembled from different Wikidata queries and are not the same kind of list — one is drawn from chart appearances, another from occupation alone — so a gap between panels can be a gap between how the two lists were built. Reading about someone is not liking them, and it is not watching anything.",
+    }),
     generated: 지금(),
     source: 'Wikidata (CC0) for article links; Wikimedia Pageviews API for reads',
     window: 선수자료.window,

@@ -19,6 +19,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 지금 } from './_kst.mjs';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 위에서 덧붙인다 */
+import { 근거, 중앙값 as 중앙값자, 상관 as 상관자 } from './_evidence-kcw.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes-monthly.json';
 const 해자료 = 'archive/raw/wikipedia/worlds-years.json';
@@ -112,6 +114,14 @@ if (내가실행됐다) {
   const 몰림표 = 종목들.map((s) => 종목별몰림(d.people, s)).filter(Boolean);
 
   const out = {
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+     * ⛔ 고유 한계를 안 주면 `근거()` 가 던진다 — 붙여넣기만 있는 칸은 찬 척하는 것이다.
+     */
+    ...근거([중앙값자, 상관자], {
+      방법: "A person's peak month is the month with their highest reads in the window, and the question is whether those peaks land together or scatter.",
+      한계: "With eleven people a shared peak month can happen by chance, and this page cannot separate that from a shared cause. A month with more reads is a month with more reads — nothing here identifies why, and a single event that lifted an entire edition would look identical to eleven separate reasons.",
+    }),
     generated: 지금(),
     source: d.source,
     window: d.window,
