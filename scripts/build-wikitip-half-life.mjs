@@ -255,6 +255,9 @@ if (내가실행됐다) {
       + 'This asks the question that needs no before — after the peak, how long until half of it '
       + 'is gone?',
     window: `${쓸달[0]} through ${쓸달.at(-1)}, ${쓸달.length} months`,
+    /* ⭐ ① 잰 데이터 — 자료 파일 자체에 적는다. 지면이 바뀌면 손으로 적은 출처는 안 따라온다 */
+    source: 'Wikimedia Pageviews API, human traffic only, monthly, per Wikipedia edition; '
+      + 'reads expressed per million reads of that edition in that month',
     editions: 원.editionsSea,
     editionNames: 원.editionNames,
     unit: 원.unit,
@@ -288,6 +291,24 @@ if (내가실행됐다) {
       why: r.half ? r.half.why : 'not enough months in the four editions',
       peakMonth: r.half?.peakMonth ?? null,
     })),
+
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(2026-08-15)를 자로 바꾼다.
+     *   「판단 장치는 추측이 아니라 <데이터, 검증된 과학기술, 학술적 근거>」
+     *
+     * ⛔ ③ 은 「인용이 있나」가 아니라 **「그 방법의 알려진 한계가 적혀 있나」**다.
+     *   학술적 근거를 쓴다는 것은 권위를 빌리는 것이 아니라 **한계를 물려받는 것**이다.
+     * ⚠ 이 자료가 그 본보기다. 나머지 서른셋도 이 모양으로 채운다.
+     */
+    method: 'Median of the per-title half-life, not the mean. The mean is pulled up by a long '
+      + 'right tail — a few titles that never fell — and would read longer than most titles '
+      + 'actually lasted. Stability of that median is checked by a jackknife (leave-one-out; '
+      + 'Quenouille 1949, Tukey 1958).',
+    limitation: 'A median says where the middle title sits and nothing about the shape around '
+      + 'it, so we publish the full distribution beside it. The jackknife understates how much '
+      + 'a median varies and is not consistent for the median (Miller 1974): a swing it finds '
+      + 'is real, a swing it misses is not evidence of stability. Monthly data also puts a '
+      + 'floor under every half-life — ten days and thirty both read as one month.',
 
     answer: {
       measured: 반감기있는.length,

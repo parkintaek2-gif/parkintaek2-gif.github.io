@@ -2,6 +2,7 @@
   "generated": "2026-08-15",
   "question": "92 asked what a Korean title leaves behind, and could not answer for new titles: the encyclopaedia article is created when the title arrives, so there is no before. This asks the question that needs no before — after the peak, how long until half of it is gone?",
   "window": "2020-08 through 2026-06, 71 months",
+  "source": "Wikimedia Pageviews API, human traffic only, monthly, per Wikipedia edition; reads expressed per million reads of that edition in that month",
   "editions": [
     "id",
     "vi",
@@ -15,11 +16,7 @@
     "ms": "Malaysia"
   },
   "unit": "reads per million reads of that edition, summed across the four editions",
-  "method": {
-    "thinPeakBelow": 50,
-    "monthsWatchedAtLeast": 6,
-    "note": "For each title we find its highest month and count forward to the first month below half that value. A title is only reported if its peak is thick enough that halving is not noise, and if we have watched it for at least six months afterwards — a title that peaked last month has not failed to fall, we simply do not know yet."
-  },
+  "method": "Median of the per-title half-life, not the mean. The mean is pulled up by a long right tail — a few titles that never fell — and would read longer than most titles actually lasted. Stability of that median is checked by a jackknife (leave-one-out; Quenouille 1949, Tukey 1958).",
   "titles": [
     {
       "title": "Queen of Tears",
@@ -1039,6 +1036,7 @@
       "peakMonth": "2025-03"
     }
   ],
+  "limitation": "A median says where the middle title sits and nothing about the shape around it, so we publish the full distribution beside it. The jackknife understates how much a median varies and is not consistent for the median (Miller 1974): a swing it finds is real, a swing it misses is not evidence of stability. Monthly data also puts a floor under every half-life — ten days and thirty both read as one month.",
   "answer": {
     "measured": 26,
     "outOf": 59,
