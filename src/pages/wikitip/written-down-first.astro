@@ -24,6 +24,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-written-down-first.json';
 
 const 셈 = d.arrivedFirst;
@@ -186,6 +187,10 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="first" count={5} />
+
+  <KcwShorts set="first"
+    says={`A man and a woman read out how often the Indonesian Wikipedia was first, how often `
+      + `it was last, and why the largest edition is not the one that writes first.`} />
 
   <KcwRelatedArticles page="/written-down-first" />
 </WikiTip>
