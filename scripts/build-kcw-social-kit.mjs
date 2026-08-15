@@ -80,6 +80,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const oo = 읽기('src/data/wikitip-one-out.json');
   const wd = 읽기('src/data/wikitip-written-down-first.json');
   const wk = 읽기('src/data/wikitip-what-kind-fell.json');
+  const wr = 읽기('src/data/wikitip-works-and-readers.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -304,6 +305,24 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `Both fell. That points away from Korea, not at it.\n\n${주소}/what-kind-fell`,
       alt: 'Five cards on which kinds of Korean article are being opened less in Southeast Asia, '
         + 'with Japanese articles of the same kind as a control.',
+    },
+    {
+      /**
+       * ⛔⛔ 「일곱 배」만 쓰면 한 사람 이야기로 읽힌다. **82% 를 같은 글에** 둔다.
+       *   그리고 겹침(43/390)까지 넣는다 — 그것이 없으면 사다리가 규칙으로 읽힌다.
+       */
+      key: 'works',
+      page: `${주소}/works-and-readers`,
+      images: 장('works'),
+      x: `Korean actors with five or more charting titles are read `
+        + `${wr.ladder.oneEdition.fromTo}× as often as actors with one.\n\n`
+        + `Pick one from each group: the busier one wins `
+        + `${(100 * wr.personLevel.oneEdition).toFixed(1)}% of the time. `
+        + `${wr.overlap.oneEdition.lowBandAboveHighMedian} of the `
+        + `${wr.overlap.oneEdition.lowBandN} one-title actors beat the top group's median.\n\n`
+        + `${주소}/works-and-readers`,
+      alt: 'Five cards on how much more often Korean actors with many charting titles are read, '
+        + 'and how little that says about any one actor.',
     },
   ];
 }

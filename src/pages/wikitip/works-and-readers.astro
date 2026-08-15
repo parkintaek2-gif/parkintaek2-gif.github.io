@@ -20,6 +20,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-works-and-readers.json';
 
 const 아래 = d.bands[0];
@@ -165,6 +166,11 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="works" count={5} />
+
+  <KcwShorts set="works"
+    says={`Fourteen seconds: the ladder of median reads by number of charting titles, the `
+      + `chance one actor from the top band outreads one from the bottom, and where the two `
+      + `bands overlap.`} />
 
   <KcwRelatedArticles page="/works-and-readers" />
 </WikiTip>
