@@ -19,3 +19,12 @@ hrd4u·ISC/RSC	-	보고서 PDF 4.3GB · 표 34,602개 대장	hrd4u.or.kr /isc /r
 krivet·KEEP	-	설문지·코드북 (변수 16,102줄)	krivet.re.kr/kor/sub.do?menuSn=20	🟡 공공누리 표시 없음	데이터는 동의서	읽는 데까지	2026-08-15	
 keis·고용조사	-	GOMS·YP·KLoSA·KLoEE 227벌 (변수 84,903줄)	survey.keis.or.kr /cmm/fms/asaproFileDown.do	🟡 공공누리 표시 없음	원자료는 이용목적 설문	읽는 데까지	2026-08-15	YP 에 성장지·학교소재지·현직장소재지가 다 있다
 q-net	-	국가기술자격 통계연보 (엑셀)	q-net.or.kr/crf012.do	🟡 표시 없음	-	읽는 데까지	2026-08-13	같은 것이 포털에 「제한 없음」으로 있다
+받아 본 것·qnet	15037356	학과별직무 (받았다)	InquiryUdeptObligSVC/getList	제한 없음	개발·운영 자동	🟢 /major	2026-08-15	13,698줄 · totalCount 와 일치 · 학과 8,202 · 직무 24갈래 · 37.8%가 여러 갈래에 걸친다
+받아 본 것·qnet	15029006	대학별학과 (받았다)	InquiryUnivUdeptSVC/getList	제한 없음	개발·운영 자동	🟢 /university	2026-08-15	692줄 · totalCount 와 일치
+받아 본 것·qnet	15037355	계열별학과 (받았다)	InquirySeriesUdeptSVC/getList	제한 없음	개발·운영 자동	🟡 쓸 데 적음	2026-08-15	53줄뿐 · pageNo·numOfRows·seriesCd 를 다 무시한다(청소년상담사 한 계열만 온다)
+받아 본 것·qnet	15039800	취득 소요기간 (받았다)	InquiryQualRelaPtcondSVC/getQualTimeList	제한 없음	개발·운영 자동	🟢 /age /work	2026-08-15	471줄 · 가운데값 기능사 250일·기사 480·기술사 1,108 · ⚠ 기능장 28종목이라 최소분모 30 미달
+받아 본 것·qnet	15039800	취득 연령·성별 (받았다)	InquiryQualRelaPtcondSVC/getQualYearList	제한 없음	개발·운영 자동	🟢 /age	2026-08-15	962줄 · 나이는 미상 0(20~24세 39.6%) · 성별 여자 58.2% · 🔴 같은 표의 «학력»은 미상 97%라 못 쓴다
+받아 본 것·qnet	15039800	취득 행정구역별 (받았다)	InquiryQualRelaPtcondSVC/getAdminZoneList	제한 없음	개발·운영 자동	🔴 안 쓴다	2026-08-15	313줄 · **행정구역미상 554,225 vs 열일곱 시도 합 6만** — 90%가 지역 없음 · 제주/제주특별자치도 두 이름
+받아 본 것·qnet	15039800	취득 학력별 (받았다)	InquiryQualRelaPtcondSVC/getEhstList	제한 없음	개발·운영 자동	🔴 안 쓴다	2026-08-15	2,800/4,101 (28쪽부터 코드 99 · 깊이 제한) · 미상 73% · 「고졸이하 0.0%」는 안 적힌 것이다
+받아 본 것·qnet	15039800	신설종목 취득 (받았다)	InquiryQualRelaPtcondSVC/getNewJmcdList	제한 없음	개발·운영 자동	🟢 시계열	2026-08-15	7,912줄 = 280종목 × 2001~2023 · 2018년 133,856이 꼭대기 · 2020년 113,060으로 꺾인다
+⛔ 안 간다·워크넷	15003549 외	워크넷 학과정보·직업전망·공통코드	work24 213L01 등	🔴 공공누리 **4유형**(상업적 이용금지)	-	⛔ 안 쓴다	2026-08-15	.env 의 WORK24_KEY_MAJOR 등 여섯 열쇠는 뚫어도 못 쓴다 · 213L01 은 「계열ID」에서 막히는데 뚫을 까닭이 없다
