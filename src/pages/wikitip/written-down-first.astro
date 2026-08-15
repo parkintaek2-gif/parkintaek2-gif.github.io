@@ -107,12 +107,18 @@ const jsonLd = {
       {' '}<b>{d.spreadMedianMonths} months</b>, and it runs from {d.spreadRange[0]} to
       {' '}{d.spreadRange[1]} months.
     </p>
-    {d.stability && d.stability.verdict.steady && (
+    {/*
+      🔴 8/15 — 「This median holds」로 실었다가 고쳤다. 이 검사는 jackknife 이고,
+        중앙값의 변동성을 과소평가한다는 것이 이미 알려져 있다(Miller 1974).
+        못 잡은 것을 「버틴다」로 실으면 안 된다.
+    */}
+    {d.stability && !d.stability.verdict.swingDetected && (
       <p class="note">
-        ⭐ This median holds. Remove any single title from the {d.measured} and it stays at
-        {' '}{d.stability.median} months — a swing of {d.stability.swingOverMedian}. We check every
-        median we publish this way now, after one of ours moved by most of its own size and had to
-        be corrected twice in a day; the <a href="/one-out">method is here</a>.
+        Removing any single title from the {d.measured} leaves this median at
+        {' '}{d.stability.median} months. That rules out one way it could be fragile — it does not
+        show that it is stable. The check is a jackknife, which is known to understate how much a
+        median moves, so a swing it finds is real while a swing it misses may be one it cannot
+        see. The <a href="/one-out">method and its limits are here</a>.
       </p>
     )}
     <div class="scroll-x">

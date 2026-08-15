@@ -80,14 +80,43 @@ export const 흔들림문턱 = 0.5;
 
 export function 단단한가(재본것, 문턱 = 흔들림문턱) {
   if (!재본것 || 재본것.swingOverMedian == null) return null;
+  const 흔들림잡힘 = 재본것.swingOverMedian >= 문턱;
   return {
-    steady: 재본것.swingOverMedian < 문턱,
+    /**
+     * 🔴🔴🔴 **`steady: true` 를 「이 중앙값은 안 흔들린다」로 읽으면 안 된다.**
+     *
+     * 사장님 지시(8/15): 「판단 장치는 추측이 아니라 데이터·검증된 과학기술·학술적 근거다」.
+     * 그 말씀을 받고 이 자의 **학명부터** 찾았다 — **jackknife**
+     * (Quenouille 1949 · Tukey 1958). 그리고 학계가 이미 밝혀 둔 한계가 나를 뒤집었다:
+     * ```
+     *   중앙값은 하나를 빼도 거의 안 움직인다.
+     *   그래서 jackknife 는 분위수의 변동성을 **과소평가**하고,
+     *   중앙값에 대해서는 **일관적이지 않다** (Miller 1974).
+     * ```
+     * ⭐⭐ 그러니 이 자는 **한쪽으로만** 쓸 수 있다 —
+     *   흔들림을 **잡으면** 진짜다. 과소평가하는 자가 그래도 잡아냈기 때문이다.
+     *   흔들림을 **못 잡아도** 안전하다는 뜻이 아니다. 그저 이 자가 못 본 것이다.
+     *
+     * ⛔ 그래서 `steady` 를 「안 흔들린다」로 쓰지 않는다. **「이 자로는 못 봤다」**이다.
+     * ⚠ 제대로 재려면 delete-d jackknife(여럿을 빼며 d 를 표본과 함께 키운다)나
+     *   bootstrap(Efron 1979)이 필요하다. 아직 안 만들었다 — **안 만든 것을 만든 척하지 않는다.**
+     */
+    steady: !흔들림잡힘,
+    /* ⭐ 이름을 바꿔 뜻을 분명히 한다. `steady` 만 보고 쓰던 곳이 있어 둘 다 낸다 */
+    swingDetected: 흔들림잡힘,
     threshold: 문턱,
-    note: 재본것.swingOverMedian < 문턱
-      ? 'removing any single item leaves the answer where it was'
-      : 'removing a single item moves the answer by a large fraction of itself, which means '
+    method: 'jackknife (leave-one-out; Quenouille 1949, Tukey 1958)',
+    /* ⛔ 한계를 같이 낸다 — 학술적 근거를 쓴다는 것은 **한계를 물려받는 것**이다 */
+    limitation: 'The jackknife is known to underestimate variability for the median and is not '
+      + 'consistent for it (Miller 1974), because removing one observation barely moves a '
+      + 'median. A detected swing is therefore real; an undetected one is not evidence of '
+      + 'stability. A delete-d jackknife or a bootstrap would be needed to claim that.',
+    note: 흔들림잡힘
+      ? 'removing a single item moves the answer by a large fraction of itself, which means '
         + 'the sample is not yet large enough for this median to be reported as a finding — '
-        + 'not that the figure is wrong',
+        + 'not that the figure is wrong'
+      : 'removing any single item leaves the answer where it was — which rules out one way this '
+        + 'median could be fragile, and does not establish that it is stable',
   };
 }
 
@@ -135,7 +164,21 @@ if (내가돌려졌다 && process.argv.includes('--selftest')) {
   const 촘촘 = 하나빼기([1, 1, 1, 2, 2, 2, 3, 3, 4]);
   참('촘촘하면 안 움직인다', 촘촘.swing === 0);
   참('흔들림이 0 이다', 촘촘.swingOverMedian === 0);
-  참('⭐ 단단하다고 낸다', 단단한가(촘촘).steady === true);
+  참('⭐ 흔들림을 못 봤다고 낸다', 단단한가(촘촘).steady === true);
+  /**
+   * 🔴🔴 사장님 지시(8/15) 뒤에 이 자의 학명을 찾고서 박은 것들.
+   *   jackknife 는 중앙값의 변동성을 **과소평가**한다(Miller 1974). 그러니
+   *   **못 잡은 것을 「안전하다」로 읽으면 안 된다.**
+   */
+  참('⛔⛔ 못 잡은 것을 「안정」으로 안 적는다',
+    /does not establish that it is stable/.test(단단한가(촘촘).note));
+  참('⭐⭐ 학명을 밝힌다', /jackknife/.test(단단한가(촘촘).method));
+  참('⭐⭐ 한계를 같이 낸다',
+    /not consistent for it \(Miller 1974\)/.test(단단한가(촘촘).limitation));
+  참('⭐ 안 잡았으면 그렇게 낸다', 단단한가(촘촘).swingDetected === false);
+  /* ⛔ 안 만든 것을 만든 척하지 않는다 */
+  참('⚠ 제대로 재려면 무엇이 필요한지 적는다',
+    /delete-d jackknife or a bootstrap/.test(단단한가(촘촘).limitation));
 
   /* 🔴 92편 첫 발행의 실제 값 — 하나 빼면 중앙값이 그만큼 움직였다 */
   const 흩어짐 = 하나빼기([-27.8, -16.9, -6.7, -5, 60.2]);
@@ -150,6 +193,8 @@ if (내가돌려졌다 && process.argv.includes('--selftest')) {
    */
   참('⭐ 배수를 둘째 자리까지 낸다', 흩어짐.swingOverMedian === 0.89);
   참('⛔ 단단하지 않다고 낸다', 단단한가(흩어짐).steady === false);
+  /* ⭐⭐ **잡은 흔들림은 진짜다** — 과소평가하는 자가 그래도 잡아냈기 때문이다 */
+  참('⭐ 잡았으면 그렇게 낸다', 단단한가(흩어짐).swingDetected === true);
   /* ⛔ 「틀렸다」가 아니라 「아직 답이 아니다」라고 적는다 */
   참('⛔ 「틀렸다」로 적지 않는다', /not that the figure is wrong/.test(단단한가(흩어짐).note));
 

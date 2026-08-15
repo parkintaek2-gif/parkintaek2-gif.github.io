@@ -5,6 +5,9 @@ purpose: both
 dek: "Removing a single title left one of our medians exactly where it was and moved the other by 89% of itself. The interquartile range rated the two almost identically. We ran neither before publishing."
 pubDate: 2026-08-15
 dataAsOf: 2026-08-15T00:00:00+09:00
+corrections:
+  - date: 2026-08-15
+    note: "Published without naming the method or its limits. The check described here is a jackknife — leave one observation out, recompute, repeat — introduced by Quenouille in 1949 and named by Tukey in 1958. That matters, because the literature already establishes what it can and cannot do for a median: removing one observation barely moves a median, so the jackknife understates how much a median varies, and Miller showed in 1974 that it is not consistent for the median at all. The consequence runs one way. A swing this check finds is real, because a method that understates variation found it anyway. A swing it does not find is not evidence of stability — it may simply be one this method cannot see. We had been publishing that second case as a result, with the words 'this median holds' on two pages. Those pages now say what the check actually establishes, and this article now names the method, its origin and its known failure for medians. Measuring stability properly would need a delete-d jackknife or a bootstrap (Efron 1979); we have built neither, and we will not imply otherwise."
 author: Newsroom
 tags: ["method", "corrections", "wikipedia", "korea"]
 pages:
@@ -69,6 +72,14 @@ This is not an argument against the interquartile range. It is an argument that 
 It does not tell you a finding is wrong. It tells you the sample is not yet large enough for that median to be reported as a finding. We have conflated those two things before, and the distinction matters: our −15.1% was not a false number, it was a real median of five real values that happened not to be stable.
 
 It works on medians. A share, a total or a correlation needs a different check, and we do not have one.
+
+**And it only works in one direction.** This check is a jackknife, a method from 1949, and the
+literature is clear about where it fails: because removing one observation barely moves a median,
+the jackknife understates how much a median varies, and it is not consistent for the median at all
+(Miller, 1974). So a swing it finds is real — a method that understates variation found one anyway.
+A swing it does not find is not evidence of stability. It may be a swing this method cannot see.
+Establishing stability, rather than failing to disprove it, would take a delete-d jackknife or a
+bootstrap (Efron, 1979). We have built neither.
 
 And a steady median is not a true one. Every title in these samples was chosen by us, on the expectation that it had a wave worth measuring. A biased sample can produce a very steady wrong answer, and this check is blind to that entirely.
 

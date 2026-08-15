@@ -413,7 +413,10 @@
       "swingOverMedian": 2.86,
       "verdict": {
         "steady": false,
+        "swingDetected": true,
         "threshold": 0.5,
+        "method": "jackknife (leave-one-out; Quenouille 1949, Tukey 1958)",
+        "limitation": "The jackknife is known to underestimate variability for the median and is not consistent for it (Miller 1974), because removing one observation barely moves a median. A detected swing is therefore real; an undetected one is not evidence of stability. A delete-d jackknife or a bootstrap would be needed to claim that.",
         "note": "removing a single item moves the answer by a large fraction of itself, which means the sample is not yet large enough for this median to be reported as a finding — not that the figure is wrong"
       }
     },
