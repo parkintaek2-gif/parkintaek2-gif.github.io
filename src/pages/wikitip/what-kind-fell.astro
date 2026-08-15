@@ -17,6 +17,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-what-kind-fell.json';
 
 const 쓸것 = d.usable[0];
@@ -156,6 +157,10 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="shelf" count={5} />
+
+  <KcwShorts set="shelf"
+    says={`A man and a woman read out the two medians side by side — the Korean articles and `
+      + `the Japanese ones beside them — and say plainly that both fell.`} />
 
   <KcwRelatedArticles page="/what-kind-fell" />
 </WikiTip>
