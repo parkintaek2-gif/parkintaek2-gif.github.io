@@ -114,12 +114,21 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-content-ev
       줄.push(['⬜', `카드 ${이름}`, `근거 json 의 꼴을 모른다(칸: ${Object.keys(날 || {}).join(',')}) — 못 쟀다`]);
       continue;
     }
-    const 나쁜 = [];
+    /* 🔴 2026-08-16 — dist 가 비어 있던 때(다른 자리가 배포 중이었다) 이 자가
+       카드 211벌을 **전부 「못 댄다」로 셌다.** 영상 쪽은 같은 상황을 「못 쟀다」로 적었는데
+       카드 쪽만 빨강을 냈다. **빌드가 없는 것과 수가 없는 것은 다르다.**
+       ⛔ 지면 파일이 아예 없으면 「못 쟀다」다. 「없다」는 화면으로 잰 것만 말한다 */
+    const 나쁜 = [], 못본지면 = [];
     for (const r of 근거) {
       const 지면 = 지면파일(r.지면);
-      if (!지면) { 나쁜.push(`${r.수}: 지면을 못 찾음(${r.지면})`); continue; }
+      if (!지면) { 못본지면.push(r.지면); continue; }
       const 지면글 = 민들기(fs.readFileSync(path.join(뿌리, 지면), 'utf8'));
       if (!지면에있나(지면글, r.수)) 나쁜.push(`${r.수}(${r.뜻})`);
+    }
+    if (!나쁜.length && 못본지면.length) {
+      못잼++;
+      줄.push(['⬜', `카드 ${이름}`, `댈지면을 dist 에서 못 찾았다(${[...new Set(못본지면)].join(' · ')}) — 못 쟀다`]);
+      continue;
     }
     if (나쁜.length) 빨강++;
     줄.push([나쁜.length ? '🔴' : '✅', `카드 ${이름}`,
