@@ -70,12 +70,24 @@ export function 재기(글) {
 //   처음에 그렇게 써서 아무것도 안 찍혔다. 파일 이름으로 견딘다.
 if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-evidence.mjs') {
   const 것들 = fs.readdirSync(방).filter((f) => f.endsWith('.json'));
+
+  /* 🔴 2026-08-16 — 자가 배열 파일을 영원히 빨강으로 셌다.
+     `_provenance.json` 이 스스로 적어 둔 규칙: *「배열로 된 데이터 파일은 안에 출처 칸을
+     못 넣는다(모양을 바꾸면 지면이 깨진다). 그런 파일은 여기서 찾는다」*
+     ⇒ 배열이면 대장의 그 항목을 **함께 읽는다.** 안 그러면 「칸을 넣어라」가 지면을 깨는 지시가 된다.
+     ⛔ 대장 자신은 자료가 아니라 대장이므로 셈 대상에서 뺀다 */
+  const 대장 = (() => {
+    try { return JSON.parse(fs.readFileSync(path.join(방, '_provenance.json'), 'utf8')).파일 || {}; }
+    catch { return {}; }
+  })();
   let 셈쓰는것 = 0, 빈방법 = 0, 빈한계 = 0, 빈출처 = 0;
   const 모자란 = [];
 
   for (const f of 것들) {
+    if (f === '_provenance.json') continue;   // 대장이지 자료가 아니다
     // ⛔ 자르지 않는다(8/16 에 자르다 틀렸다). 큰 배열만 걷어내고 **설명은 다 본다**
-    const 글 = 설명만(fs.readFileSync(path.join(방, f), 'utf8'));
+    let 글 = 설명만(fs.readFileSync(path.join(방, f), 'utf8'));
+    if (글.trimStart().startsWith('[') && 대장[f]) 글 += '\n' + JSON.stringify(대장[f]);  // 배열은 대장에서 찾는다
     const r = 재기(글);
     if (!r.출처) 빈출처++;
     if (!r.셈) continue;
