@@ -77,6 +77,9 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const wf = 읽기('src/data/wikitip-what-fell.json');
   const wv = 읽기('src/data/wikitip-wave-floor.json');
   const hl = 읽기('src/data/wikitip-half-life.json');
+  const oo = 읽기('src/data/wikitip-one-out.json');
+  const wd = 읽기('src/data/wikitip-written-down-first.json');
+  const wk = 읽기('src/data/wikitip-what-kind-fell.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -251,6 +254,56 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
       alt: 'Five cards showing how many months sixteen Korean titles took to lose half their '
         + 'readers in four Southeast Asian Wikipedias, and how many of them later rose above '
         + 'half again.',
+    },
+    {
+      /**
+       * ⛔ 「우리가 틀렸다」로 팔지 않는다. 흔들리는 답은 **아직 답이 아닌 것**이지 거짓이 아니다.
+       * ⛔ 그리고 **방법의 이름과 한계**를 넣는다 — 사장님 지시(8/15)를 소셜 글에서도 지킨다.
+       */
+      key: 'oneout',
+      page: `${주소}/one-out`,
+      images: 장('oneout'),
+      /*
+       * ⚠ 「moved them 0× and 0.89×」로 줄였다가 되돌렸다 — 앞의 수가 **0** 이라
+       *   「둘 다 조금 움직였다」로 읽힌다. 하나는 **안 움직였고** 하나는 제 크기만큼 움직였다.
+       *   길이를 줄이려고 뜻을 흐리면 줄인 값이 없다.
+       */
+      x: `Two medians published in a morning. One corrected by evening.\n\n`
+        + `Removing one title moved one of them ${oo.findings[0].atFirstPublication.oneOut.swingOverMedian}× its own size `
+        + `and the other ${oo.findings[1].atFirstPublication.oneOut.swingOverMedian}×.\n\n`
+        + `A jackknife, from 1949: it understates how a median moves, so a swing it finds is real `
+        + `and a miss proves nothing.\n\n${주소}/one-out`,
+      alt: 'Five cards on a one-line check that separated a finding we could keep from one we '
+        + 'had to correct.',
+    },
+    {
+      /**
+       * ⛔⛔ 「먼저 24」만 쓰면 순위표다. **「마지막 0」과 크기 표**가 같이 있어야 뜻이 선다.
+       */
+      key: 'first',
+      page: `${주소}/written-down-first`,
+      images: 장('first'),
+      x: `${wd.measured} Korean titles, four Southeast Asian Wikipedias.\n\n`
+        + `The Indonesian one wrote first ${wd.arrivedFirst.counts.id} times and was last ${wd.places.lastCount.id}.\n\n`
+        + `The Vietnamese edition is larger — ${wd.sizeControl.sizes.vi.articles.toLocaleString('en-US')} `
+        + `articles against ${wd.sizeControl.sizes.id.articles.toLocaleString('en-US')}. Size does not explain it, `
+        + `and we do not know what does.\n\n${주소}/written-down-first`,
+      alt: 'Five cards on which Southeast Asian Wikipedia writes about a Korean title first, and '
+        + 'why the largest edition is not the one that does.',
+    },
+    {
+      /**
+       * ⛔⛔ 「한국만 떨어졌다」로 읽히면 안 된다. **일본 수를 같은 문장에** 둔다.
+       */
+      key: 'shelf',
+      page: `${주소}/what-kind-fell`,
+      images: 장('shelf'),
+      x: `Korean language, hangul, hanbok, taekwondo: `
+        + `−${Math.abs(wk.usable[0].korea.medianChangePc)}% across four Southeast Asian Wikipedias.\n\n`
+        + `Japanese language, kana, kimono, karate: −${Math.abs(wk.usable[0].japan.medianChangePc)}%.\n\n`
+        + `Both fell. That points away from Korea, not at it.\n\n${주소}/what-kind-fell`,
+      alt: 'Five cards on which kinds of Korean article are being opened less in Southeast Asia, '
+        + 'with Japanese articles of the same kind as a control.',
     },
   ];
 }
