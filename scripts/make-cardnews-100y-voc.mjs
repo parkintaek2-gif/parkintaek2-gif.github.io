@@ -135,7 +135,11 @@ export function 짜기() {
    ⇒ 바닥을 밖에서 넣을 수 있게 연다. 안 넣으면 예전 그대로다 — 개봉 카드는 바뀌지 않는다 */
 export const 기본바닥 = `${자료.통계.기준연도}년 · 직업계고 졸업자 취업통계 · 등수를 매기지 않습니다`;
 
-const 틀 = (속, 쪽, 총, 바닥 = 기본바닥) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+/* 🔴 2026-08-16 — 바닥에 이어 **데려올 주소**도 박혀 있었다(`100yearmap.com/work`).
+   대학 지면을 가리키는 카드를 만들면서야 보였다 — 주소가 틀리면 그 카드는 **손님을 엉뚱한 곳에
+   데려간다.** 「주소 없는 카드는 안 만든다」와 같은 무게의 흠이다.
+   ⇒ 갈곳도 밖에서 넣게 연다. 안 넣으면 예전 그대로다(개봉 카드·자격 카드는 안 바뀐다) */
+const 틀 = (속, 쪽, 총, 바닥 = 기본바닥, 갈곳쓸 = 갈곳) => `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <rect width="${W}" height="${H}" fill="${색.바탕}"/>
   <rect x="0" y="0" width="${W}" height="8" fill="${색.금}"/>
   <text x="${M}" y="118" font-family="${명조}" font-size="34" font-weight="bold" fill="${색.금}" letter-spacing="4">백년지도</text>
@@ -145,10 +149,10 @@ const 틀 = (속, 쪽, 총, 바닥 = 기본바닥) => `<svg xmlns="http://www.w3
        자가시험은 조용했다 — 글자는 다 «있었고», 겹친 것은 그림이라 세는 자로는 안 보인다.
        ⭐ 두 줄로 내린다. 출처가 위, 데려올 주소가 아래다 -->
   <text x="${M}" y="${H - 96}" font-family="${고딕}" font-size="24" fill="${색.흐림}">${막는다(바닥)}</text>
-  <text x="${M}" y="${H - 56}" font-family="${고딕}" font-size="26" fill="${색.금}">${막는다(갈곳)}</text>
+  <text x="${M}" y="${H - 56}" font-family="${고딕}" font-size="26" fill="${색.금}">${막는다(갈곳쓸)}</text>
 </svg>`;
 
-export function 그리기(장, 쪽, 총, 바닥 = 기본바닥) {
+export function 그리기(장, 쪽, 총, 바닥 = 기본바닥, 갈곳쓸 = 갈곳) {
   let s = '';
   if (장.꼴 === '표지') {
     s += `<text x="${M}" y="470" font-family="${명조}" font-size="180" font-weight="bold" fill="${색.글}" letter-spacing="-4">${막는다(장.큰수)}</text>`;
@@ -161,7 +165,7 @@ export function 그리기(장, 쪽, 총, 바닥 = 기본바닥) {
     const 시작 = 250 + 머리줄.length * 56 + 70;
     s += '\n  ' + 장.줄들.map((l, i) => (l === '' ? '' : `<text x="${M}" y="${시작 + i * 62}" font-family="${고딕}" font-size="42" fill="${색.글}">${막는다(l)}</text>`)).filter(Boolean).join('\n  ');
   }
-  return 틀(s, 쪽, 총, 바닥);
+  return 틀(s, 쪽, 총, 바닥, 갈곳쓸);
 }
 
 /* ── 자가시험 ────────────────────────────────────────────── */
