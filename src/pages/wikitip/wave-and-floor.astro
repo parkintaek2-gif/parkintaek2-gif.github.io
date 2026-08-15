@@ -1,0 +1,179 @@
+---
+/**
+ * K Culture Wire — **파도가 지나간 자리.** (`/wave-and-floor`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   91편 뒤에 갈래를 열다가 「Screen」 묶음이 **평균 +88.7% · 중앙값 −29.1%** 인 것을 봤다.
+ *   문서 하나가 끌고 있었다. 그 하나를 열어 보니 파도였다 — 오징어게임 문서가 앞바닥의 35배.
+ *   ⭐ 그래서 물었다. **파도가 지나간 뒤, 바닥은 전보다 높은가.**
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **평균을 앞세우지 않는다.** 중앙값을 먼저 놓는다 — 다섯 편에서 하나가 튀면 평균이 끌린다.
+ * ⛔ **못 잰 열다섯 편을 감추지 않는다.** 까닭까지 표로 낸다. 그것이 이 자료의 성질이다.
+ * ⛔ **오징어게임을 「바닥이 올랐다」로 안 쓴다.** 그 뒤바닥에 시즌 3 이 들어앉아 있었다.
+ * ⛔ **봉우리가 몰린 것을 숨기지 않는다.** 다섯 봉우리가 세 덩어리다 —
+ *    그러면 우리가 잰 것이 작품이 아니라 그 몇 달일 수 있다. 그 말을 지면에 그대로 싣는다.
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 앞말에서 `export function` 을 쓰지 않는다 — Astro 가 딴 스코프로 옮긴다.
+ * 🔴 JSX 는 끝 공백을 버린다. 붙여 써야 할 곳은 `{' '}` 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
+import d from '../../data/wikitip-wave-floor.json';
+
+const 답 = d.answer;
+const 몫 = (v: number) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
+
+/* 못 잰 까닭을 묶어 센다 — 열다섯 줄을 그대로 늘어놓으면 안 읽힌다 */
+const 까닭별 = [...new Set(d.titlesNotMeasured.map((t) => t.why))]
+  .map((why) => ({ why, titles: d.titlesNotMeasured.filter((t) => t.why === why).map((t) => t.title) }))
+  .sort((a, b) => b.titles.length - a.titles.length);
+
+const TITLE = 'A Korean series fills the encyclopaedia, then empties it. The floor it leaves is a little lower than before';
+const DESC =
+  `Across four Southeast Asian Wikipedias, ${답.measured} Korean titles could be measured before `
+  + `and after their peak month. The median peak was ${답.peakOverFloorMedian} times the floor `
+  + `before it, and the median floor afterwards was ${몫(답.floorChangeMedianPc)}.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: d.window,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/wave-and-floor">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    Of twenty titles we fetched, {답.measured} could be measured on both sides of their peak. Their
+    median peak was {답.peakOverFloorMedian} times the floor before it. Their median floor
+    afterwards was {몫(답.floorChangeMedianPc)} — {답.floorsThatRose} of the {답.measured} ended
+    higher than they started.
+  </p>
+
+  <section>
+    <h2>Five titles, before and after</h2>
+    <p class="note">
+      Reads are per million reads of that Wikipedia, summed across
+      {' '}{d.editions.map((e) => d.editionNames[e]).join(', ')}. The floor is the six months
+      before the peak and the six after it, skipping two months either side because those are
+      still the wave. Window — {d.window}.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Title</th><th>Peak</th><th>Peak ÷ floor</th><th>Floor before</th>
+            <th>Floor after</th><th>Change</th></tr>
+        </thead>
+        <tbody>
+          {d.titlesMeasured.map((t) => (
+            <tr>
+              <td class="nm">{t.title}</td>
+              <td class="fine">{t.peakMonth}</td>
+              <td>{t.peakOverFloor}×</td>
+              <td>{t.beforeFloor}</td>
+              <td>{t.afterFloor}</td>
+              <td>{몫(t.floorChangePc)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      The waves are real and mostly modest — a median of {답.peakOverFloorMedian} times the
+      surrounding months. What happens after them is smaller still, and points down rather than up.
+      We are reporting the median rather than the mean because with five titles one of them moves
+      the mean on its own; the mean here is {몫(답.floorChangeMeanPc)}.
+    </p>
+  </section>
+
+  {답.biggestWave && !답.biggestWave.reportable && (
+    <section>
+      <h2>The biggest wave is the one we cannot use</h2>
+      <p>
+        <strong>{답.biggestWave.title}</strong> peaked in {답.biggestWave.peakMonth} at
+        {' '}{답.biggestWave.peakOverFloor} times the floor before it — far larger than anything
+        else here, and the reason this question was worth asking. Its floor afterwards looked like
+        it had risen enormously. Then we read the months that floor was made of.
+      </p>
+      {d.titlesNotMeasured.filter((t) => t.secondWaveMonths).map((t) => (
+        <p>
+          {t.secondWaveMonths.map((m) => m.month).join(', ')} are each more than three times the
+          floor before the peak. That is not a floor settling higher, it is the next season
+          arriving inside the window we were using to measure the aftermath. So this title is out
+          of the table above, and the largest wave in the data tells us nothing about what waves
+          leave behind.
+        </p>
+      ))}
+    </section>
+  )}
+
+  <section>
+    <h2>Fifteen titles we could not measure, and why</h2>
+    <p>
+      This is most of what we fetched. A question about before-and-after needs a peak with room on
+      both sides of it, and most titles do not have that inside a four-year window.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Why not</th><th>Titles</th><th>How many</th></tr></thead>
+        <tbody>
+          {까닭별.map((g) => (
+            <tr>
+              <td class="nm">{g.why}</td>
+              <td class="fine">{g.titles.join(', ')}</td>
+              <td>{g.titles.length}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  {d.peakClustering && (
+    <section>
+      <h2>The peaks are not spread out, which is a problem for the question</h2>
+      <p>{d.peakClustering.note}</p>
+      <p class="note">
+        The clusters — {d.peakClustering.clusterMonths.map((c) => c.join(' and ')).join(' · ')}.
+        {' '}{d.peakClustering.largestCluster} of the {d.peakClustering.peaks} titles peaked in
+        neighbouring months. A title that peaks when another title peaks may be riding something
+        those months did to these editions rather than anything of its own. We cannot separate the
+        two, and it is the largest reason to treat the table above as a first look rather than an
+        answer.
+      </p>
+    </section>
+  )}
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    {d.droppedLastMonth && (
+      <p class="note">
+        ⚠ {d.droppedLastMonth.month} is excluded. It arrived at {d.droppedLastMonth.value} against
+        a mean of {d.droppedLastMonth.previousTwelveMean} over the twelve months before it —
+        Wikimedia's monthly totals were still filling when we fetched, and reading that month as a
+        collapse in attention would have been wrong.
+      </p>
+    )}
+    <p class="note">Reads — Wikimedia Pageviews API, human traffic only, monthly.</p>
+  </section>
+
+  <KcwCardnews set="wave" count={5} />
+
+  <KcwShorts set="wave"
+    says={`A man and a woman read out how many titles could be measured on both sides of their `
+      + `peak, and what the floor did afterwards.`} />
+
+  <KcwRelatedArticles page="/wave-and-floor" />
+</WikiTip>

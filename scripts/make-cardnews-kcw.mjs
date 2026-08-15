@@ -48,6 +48,7 @@ export const 벌목록 = {
   counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 만들기: (d) => 셈벌짓기(d) },
   season: { 자료: 'src/data/wikitip-look-vs-fly.json', 만들기: (d) => 철벌짓기(d) },
   control: { 자료: 'src/data/wikitip-what-fell.json', 만들기: (d) => 대조벌짓기(d) },
+  wave: { 자료: 'src/data/wikitip-wave-floor.json', 만들기: (d) => 파도벌짓기(d) },
 };
 
 /**
@@ -301,6 +302,89 @@ export function 한벌짓기(d) {
           + '**An ambassador announcement travels because\na Korean act is attached to it.**',
         길: `${주소}/fame-compare`,
         곁: 'Wikidata (CC0) · Wikimedia Pageviews · Aug 2025 – Jul 2026',
+      },
+    ],
+  };
+}
+
+/**
+ * 파도 벌 — 92편째 기사의 표(`/wave-and-floor`).
+ *
+ * ⭐ 이야기 한 줄: **파도는 크고, 자국은 없다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **오징어게임 35배를 표지에 크게 놓지 않는다.** 그 작품은 뒤바닥에 시즌 3 이
+ *     들어앉아 **표에서 뺀 편**이다. 카드가 기사보다 앞서면 안 된다.
+ *   ⛔ **평균을 쓰지 않는다.** 다섯 편에서 평균은 +0.8% 로 「그대로다」가 되고,
+ *     중앙값은 −6.7% 로 「조금 낮아졌다」가 된다. 기사가 고른 쪽을 카드도 고른다.
+ *   ⭐ **못 잰 열다섯 편을 카드에 넣는다.** 다섯이라는 수가 얼마나 얇은지 같이 보여야 한다.
+ */
+export function 파도벌짓기(d) {
+  const 답 = d.answer;
+  const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
+  const 큰 = 답.biggestWave;
+  const 못잰수 = d.titlesNotMeasured.length;
+
+  return {
+    갈피: 'wave-and-floor',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Southeast Asian Wikipedias · ${d.window}`,
+        큰: 'The wave is real.\nWhat it leaves\nbehind is not.',
+        아래: `A Korean title peaks, the encyclopaedia fills, and then it empties. Across `
+          + `**${답.measured} titles** we could measure on both sides, the floor afterwards is a `
+          + `median **${몫(답.floorChangeMedianPc)}**.`,
+      },
+      {
+        꼴: '수',
+        제목: 'The peak, and\nwhat is left of it',
+        큰: `${답.peakOverFloorMedian}× → ${몫(답.floorChangeMedianPc)}`,
+        곁: 'Median peak against the surrounding months, then the median change in floor',
+        아래: 'The median, not the mean. With five titles the mean is moved by one of them '
+          + `on its own — it reads ${몫(답.floorChangeMeanPc)}, which describes none of them.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Five titles,\nbefore and after',
+        머리: ['Title', 'Peak ÷ floor', 'Change in floor'],
+        줄: d.titlesMeasured.map((t) => [
+          t.title.replace(/\s*\(.*\)$/, ''),
+          `${t.peakOverFloor}×`,
+          몫(t.floorChangePc),
+        ]),
+        아래: 'Reads per million reads of that Wikipedia, summed across four editions. The floor '
+          + `is the ${d.method.floorMonths} months either side of the peak, skipping `
+          + `${d.method.waveMonths} months next to it because those are still the wave.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          큰
+            ? `Not that ${큰.title} proves it — its peak is the biggest here at `
+              + `${큰.peakOverFloor}×, and it is out of the table because the next season sits `
+              + 'where its floor should be'
+            : 'Not that the biggest wave proves it',
+          `Not a survey — ${못잰수} of the ${답.measured + 못잰수} titles we fetched could not be `
+            + 'measured at all, and every reason is published',
+          `Not titles rising on their own — ${d.peakClustering?.largestCluster ?? 2} of the `
+            + `${답.measured} peaked in neighbouring months, so we may be measuring those months`,
+        ],
+        아래: 'A read is not a viewer. Some of these are people deciding\nwhether to watch, '
+          + 'and some never do.',
+      },
+      {
+        꼴: '끝',
+        제목: 'The floor after\nis a little lower',
+        글: `Across the ${답.measured} Korean titles where the question could be asked cleanly, `
+          + `the months after the wave are a median **${몫(답.floorChangeMedianPc)}** on the `
+          + `months before it. **${답.floorsThatRose} of ${답.measured}** ended higher.`,
+        길: `${주소}/wave-and-floor`,
+        곁: 'Wikimedia Pageviews · human traffic only',
       },
     ],
   };

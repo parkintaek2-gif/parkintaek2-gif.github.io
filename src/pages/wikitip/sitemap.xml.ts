@@ -154,6 +154,13 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     title: 'A number fell by a third. It was the wrong story',
     caption: 'Five cards: what a control group did to a headline we had already written.',
   },
+  {
+    set: 'wave',
+    page: '/wave-and-floor',
+    count: 5,
+    title: 'The wave is real. What it leaves behind is not',
+    caption: 'Five cards: five Korean titles measured before and after their peak month.',
+  },
 ];
 
 /**
@@ -203,6 +210,13 @@ const videoSets = [
     title: 'A number fell by a third. It was the wrong story',
     description: '14 seconds on what a control group did to a headline about Korea that had '
       + 'already been written, and on the one figure in the table that rose.',
+  },
+  {
+    set: 'wave',
+    page: '/wave-and-floor',
+    title: 'The wave is real. What it leaves behind is not',
+    description: '14 seconds on five Korean titles measured before and after their peak month, '
+      + 'and on the biggest wave of all, which had to be thrown out.',
   },
 ];
 
@@ -325,6 +339,10 @@ export const GET: APIRoute = async () => {
        낼 뻔했다. 대조군(일본·대만)과 문화 축을 놓으니 아니었다.
        ⭐ 실린 것은 같은 나라 안 두 축이다 — 여행 -31% · 문화 -14% · 비행기 -0.7% */
     { path: '/what-actually-fell', priority: '0.9', changefreq: 'weekly' },
+    /* 92편째 기사의 표. 2026-08-15 — 파도가 지나간 자리에 무엇이 남는가.
+       ⭐ 스무 편 중 다섯 편만 말할 수 있다. 못 잰 열다섯의 까닭을 표로 낸다
+       🔴 제일 큰 파도(오징어게임 35배)는 뒤바닥에 시즌3 이 들어앉아 못 쓴다 */
+    { path: '/wave-and-floor', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

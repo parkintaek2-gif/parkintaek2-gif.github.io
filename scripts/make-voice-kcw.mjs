@@ -160,7 +160,28 @@ export const 대본목록 = {
   counting: { 자료: 'src/data/wikitip-read-vs-visited.json', 짓기: (d) => 셈대본만들기(d) },
   season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: (d) => 철대본만들기(d) },
   control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: (d) => 대조대본만들기(d) },
+  wave: { 자료: 'src/data/wikitip-wave-floor.json', 짓기: (d) => 파도대본만들기(d) },
 };
+
+/**
+ * 92편 대본 — 「파도가 지나간 자리」(`/wave-and-floor`).
+ *
+ * ⛔ **오징어게임 35배를 소리로 내지 않는다.** 그 편은 표에서 뺀 것이다 — 뒤바닥에
+ *   시즌 3 이 들어앉아 있었다. 소리가 기사보다 앞서면 안 된다.
+ * ⛔ **평균을 말하지 않는다.** 다섯 편에서 평균은 +0.8% 로 「그대로다」가 된다.
+ * ⚠ Piper 는 큰 수를 풀어 읽는다. 수는 둘만 말하고 나머지는 화면에 맡긴다.
+ */
+export function 파도대본만들기(d) {
+  const 답 = d.answer;
+  return 때매기기([
+    { 누가: '여', 말: 'A Korean series lands, and the encyclopaedia fills up.', 쉼: 0.5 },
+    { 누가: '남', 말: 'Then it empties again.', 쉼: 0.5 },
+    /* ⭐ 이 줄이 기사의 뼈다 */
+    { 누가: '여', 말: `We could measure ${답.measured} titles on both sides.`, 쉼: 0.5 },
+    /* ⚠ 마지막 줄은 짧게. 넘치면 잘려 반쪽이 된다 */
+    { 누가: '남', 말: 'The floor after is a little lower.', 쉼: 0 },
+  ]);
+}
 
 /**
  * 91편 대본 — 「무엇이 떨어졌나」(`/what-actually-fell`).
