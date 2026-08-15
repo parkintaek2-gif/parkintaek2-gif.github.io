@@ -38,6 +38,25 @@ export const 방법말 = /어떻게 냈|어떻게 셌|왜 이 방법|왜 가운�
 /** ③ 무엇을 못 보나 */
 export const 한계말 = /한계|못 보|안 보|주의|조심|⚠|읽으면 안|오해/;
 
+/**
+ * 🔴 2026-08-16 — 이 자가 **머리쪽 6,000자만** 봤다. 그런데 우리 자료는 큰 배열(837줄·12,990줄)이
+ *   중간에 끼는 모양이라, 설명 칸(정의·⚠·잰이)이 통째로 6,000자 **밖으로 밀린다**.
+ *   major-outcomes.json 은 ⚠ 가 여럿인데도 「③ 한계 없음」으로 셌다. **자가 거짓말을 했다.**
+ *
+ *   ⇒ 자르지 않는다. 대신 **큰 배열을 걷어낸다** — 배열은 첫 한 개만 남기고 길이만 적는다.
+ *     설명은 배열이 아니라 칸에 있으므로, 이렇게 하면 글이 짧아지면서 설명은 하나도 안 잃는다.
+ */
+export function 설명만(글) {
+  let j;
+  try { j = JSON.parse(글); } catch { return 글.slice(0, 200000); }  // 못 읽으면 통째로(자르되 넉넉히)
+  const 줄이기 = (v) => {
+    if (Array.isArray(v)) return v.length <= 1 ? v.map(줄이기) : [줄이기(v[0]), `…앞의 것과 같은 모양 ${v.length - 1}개 더`];
+    if (v && typeof v === 'object') return Object.fromEntries(Object.entries(v).map(([k, x]) => [k, 줄이기(x)]));
+    return v;
+  };
+  return JSON.stringify(줄이기(j), null, 1);
+}
+
 export function 재기(글) {
   return {
     셈: 셈말.test(글),
@@ -55,9 +74,8 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-evidence.m
   const 모자란 = [];
 
   for (const f of 것들) {
-    // ⚠ 자료 본문이 크다. «머리쪽 6천 자»만 본다 — 설명은 대개 위에 있다.
-    //   ⛔ 그래서 이 자는 «없다»를 단정하지 못한다. 「안 보인다」로만 말한다
-    const 글 = fs.readFileSync(path.join(방, f), 'utf8').slice(0, 6000);
+    // ⛔ 자르지 않는다(8/16 에 자르다 틀렸다). 큰 배열만 걷어내고 **설명은 다 본다**
+    const 글 = 설명만(fs.readFileSync(path.join(방, f), 'utf8'));
     const r = 재기(글);
     if (!r.출처) 빈출처++;
     if (!r.셈) continue;
