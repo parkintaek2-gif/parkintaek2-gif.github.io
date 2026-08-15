@@ -46,6 +46,7 @@ export const 막는검사 = [
 export const 보는검사 = [
   { 자: 'check-kcw-script-habits.mjs', 뭘: '내 자들이 같은 버릇으로 틀리나' },
   { 자: 'check-kcw-median-stability.mjs', 뭘: '작은 표본의 중앙값이 답으로 실렸나' },
+  { 자: 'check-kcw-article-numbers.mjs', 뭘: '기사에 박힌 수가 자료보다 얼마나 낡았나' },
   { 자: 'check-kcw-indexnow.mjs', 뭘: '아직 안 알린 지면이 있나', 빌드필요: true },
 ];
 
