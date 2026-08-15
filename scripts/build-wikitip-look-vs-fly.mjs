@@ -140,19 +140,44 @@ const 나감 = {
     읽.lookingIsNotGoing,
   ],
   /** ⚠ 접었을 때 달마다 표본이 둘뿐이다. 그 말을 화면에 적는다 */
-  foldingCaveat: `Twenty-three months folded into twelve leaves two years for most months and one `
-    + `for the rest. A "monthly average" here rests on two readings, sometimes one.`,
+  /**
+   * 🔴 8/15 — 여기 「Twenty-three」와 「two readings」가 **글자로 굳어** 있었다.
+   *   원본이 24달로 자라자 그 문장이 거짓이 됐다. ⛔ 지면에 나가는 수는 자료에서 센다.
+   * ⭐ 몇 해치인지는 `yearsPerFoldedMonth` 가 이미 알고 있다 — 거기서 가장 얇은 칸을 찾는다.
+   */
+  foldingCaveat: (() => {
+    const 해치 = Object.values(몇해치(알아봄));
+    const 적음 = Math.min(...해치); const 많음 = Math.max(...해치);
+    return `${겹달.length} months folded into twelve leaves ${많음} `
+      + `${많음 === 1 ? 'reading' : 'readings'} for most months`
+      + `${적음 === 많음 ? '' : ` and ${적음} for the rest`}. A "monthly average" here rests on `
+      + `${적음} ${적음 === 1 ? 'reading' : 'readings'} at its thinnest.`;
+  })(),
 };
 
+/**
+ * 🔴🔴 **`--selftest` 로 돌릴 때 자료를 쓰지 않는다.**
+ *   8/15 — 자가시험 블록이 파일 **끝**에 있고 이 쓰기가 그 **위**에 있어서,
+ *   `--selftest` 를 돌릴 때마다 자료가 조용히 다시 지어졌다. 원본이 바뀐 날
+ *   자가시험 한 번에 지면 자료가 갈아엎혔다. **시험은 재기만 해야 한다.**
+ */
 const 길 = path.join(뿌리, 'src/data/wikitip-look-vs-fly.json');
-fs.writeFileSync(길, `${JSON.stringify(나감, null, 2)}\n`);
+if (!process.argv.includes('--selftest')) {
+  fs.writeFileSync(길, `${JSON.stringify(나감, null, 2)}\n`);
+}
 console.log(`✅ ${path.relative(뿌리, 길)}`);
 console.log(`   겹친 달 ${겹달.length} (${겹달[0]} ~ ${겹달.at(-1)}) · 쓴 문서 ${쓸문서.length}/${읽.articles.length}`);
 console.log(`   알아봄 봉우리 ${읽봉 ? `${달말(읽봉.peak)} (바닥 ${달말(읽봉.trough)}, ${읽봉.ratio}배)` : '—'}`);
 console.log(`   비행   봉우리 ${비봉 ? `${달말(비봉.peak)} (바닥 ${달말(비봉.trough)}, ${비봉.ratio}배)` : '—'}`);
 console.log(`   ⭐ ${나감.answer}`);
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('달을 접어 평균낸다', 달접기({ '2025-06': 10, '2026-06': 20 })['06'] === 15);
   참('🔴 못 잰 달은 접을 때 뺀다', 달접기({ '2025-06': 10, '2026-06': null })['06'] === 10);
@@ -180,7 +205,12 @@ if (process.argv.includes('--selftest')) {
     나감.cannotSay.some((s) => /does not mean the first caused the second/.test(s)));
   참('⭐ 바닥이 같다는 쪽이 더 단단하다고 적는다',
     나감.cannotSay.some((s) => /lowest point in the same month/.test(s)));
-  참('⚠ 접은 표본이 얇다는 말을 적는다', /rests on two readings/.test(나감.foldingCaveat));
+  /* 🔴 8/15 — 이 시험도 「two readings」를 **글자로** 보고 있었다. 창이 자라면 깨진다.
+     ⛔ 굳은 글자가 아니라 **자료에서 센 수와 맞는지**를 본다 */
+  참('⚠ 접은 표본이 얇다는 말을 적는다', /rests on \d+ reading/.test(나감.foldingCaveat));
+  참('⭐ 그 수가 자료와 맞다', 나감.foldingCaveat
+    .includes(`rests on ${Math.min(...Object.values(나감.yearsPerFoldedMonth))} `));
+  참('⛔ 굳은 달수가 안 남아 있다', !/Twenty-three|Twenty-four/.test(나감.foldingCaveat));
   참('접은 달마다 몇 해치인지 남긴다', Object.keys(나감.yearsPerFoldedMonth).length === 12);
   참('바닥이 정말 같은 달인가 자료로 확인', !읽봉 || !비봉 || 읽봉.trough === 비봉.trough
     || 나감.answer.length > 0);

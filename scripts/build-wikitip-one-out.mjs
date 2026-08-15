@@ -114,7 +114,21 @@ export function 사분위폭(값들) {
   return { iqr: 한자리(폭), overMedian: Math.abs(중) > 0 ? +(폭 / Math.abs(중)).toFixed(2) : null };
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴🔴🔴 **`--selftest` 만 보고 돌면 안 된다. 남의 자가시험을 가로챈다.**
+ *
+ * 8/15 에 92·93·95 빌더가 이 자를 import 했다. 그 빌더를 `--selftest` 로 돌리면
+ * **이 자가 그 argv 를 제 것으로 알고** 제 자가시험을 돌린 뒤 `process.exit` 했다.
+ * 그래서 세 빌더의 자가시험이 **한 줄도 안 돌았다.** 화면엔 「30개 · ✅ 전부 통과」가
+ * 떴는데, 그 30 은 **이 자의 셈**이었다.
+ *
+ * ⭐ 셈은 맞고 뜻이 틀렸다 — 일부러 하나를 깨뜨려 보고서야 알았다.
+ * ⛔ 그러니 **내가 직접 실행됐을 때만** 자가시험을 돈다.
+ */
+const 내가돌려졌다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가돌려졌다 && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
 
   /* ⭐ 반감기처럼 촘촘한 것 — 하나를 빼도 안 움직인다 */
@@ -128,8 +142,13 @@ if (process.argv.includes('--selftest')) {
   참('중앙값을 낸다', 흩어짐.median === -6.7);
   참('하나 빼면 어디까지 가는지 낸다', 흩어짐.lowestWithoutOne === -11.8 && 흩어짐.highestWithoutOne === -5.8);
   참('🔴 흔들림이 크다', 흩어짐.swingOverMedian > 0.5);
-  /* ⚠ 한 자리로 자르면 0.88 이 0.9 가 된다 — 기사와 어긋난 자리다 */
-  참('⭐ 배수를 둘째 자리까지 낸다', 흩어짐.swingOverMedian === 0.88);
+  /**
+   * ⚠ 한 자리로 자르면 0.89 가 0.9 가 된다 — 기사와 어긋난 자리다.
+   * 🔴 8/15 — 여기 기댓값이 0.88 로 적혀 있었다. 실제는 0.89 다.
+   *   ⚠ 그리고 **이 시험은 한 줄도 안 돌고 있었다** — import 된 자가 argv 를 가로챘다.
+   *   그러니 이 틀린 기댓값도 여태 안 걸렸다. 셈은 맞고 뜻이 틀렸던 그 자리다.
+   */
+  참('⭐ 배수를 둘째 자리까지 낸다', 흩어짐.swingOverMedian === 0.89);
   참('⛔ 단단하지 않다고 낸다', 단단한가(흩어짐).steady === false);
   /* ⛔ 「틀렸다」가 아니라 「아직 답이 아니다」라고 적는다 */
   참('⛔ 「틀렸다」로 적지 않는다', /not that the figure is wrong/.test(단단한가(흩어짐).note));

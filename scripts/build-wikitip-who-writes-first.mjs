@@ -36,6 +36,22 @@ export const 낼길 = path.join(뿌리, 'src', 'data', 'wikitip-who-writes-first
 /** ⛔ 이보다 적게 잰 판은 답으로 내지 않는다. 다섯 편으로 나라를 말할 수 없다 */
 export const 적어도잰것 = 8;
 
+/**
+ * ⛔⛔ **다 안 받은 원본으로 짓지 않는다.**
+ * 🔴 8/15 에 수집기가 스물한 편에서 죽었다. 그 파일로 지으면 숫자가 다 나오고 **그럴듯하다** —
+ *   틀렸다는 표가 어디에도 안 뜬다. 그래서 자료가 스스로 「다 받았다」를 말하게 했다.
+ */
+export function 다받았나(원본, 셈한작품수) {
+  if (원본?.complete === true) return { ok: true };
+  return {
+    ok: false,
+    why: 원본?.complete === false
+      ? `원본이 스스로 「아직 다 못 받았다」고 적고 있다 (받은 것 ${셈한작품수}편`
+        + `${원본.couldNotFetch ? ` · 못 받은 것 ${원본.couldNotFetch}건` : ''})`
+      : '원본에 `complete` 칸이 없다 — 언제 적 자가 만든 것인지 알 수 없다',
+  };
+}
+
 export function 중앙값(값들) {
   const s = [...값들].filter((v) => typeof v === 'number').sort((a, b) => a - b);
   if (!s.length) return null;
@@ -117,7 +133,13 @@ export function 한국이늘먼저인가(작품들, 판들) {
   };
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   const 판들 = ['id', 'vi'];
   const 짓기 = (n, 값, 나머지 = {}) => ({
@@ -179,7 +201,12 @@ if (process.argv.includes('--selftest')) {
     아님.titles[0].title === 'T1' && 아님.titles[0].earlier[0].monthsEarlier === 4);
   참('⛔ 못 잰 작품은 분모에 안 넣는다', 한국이늘먼저인가([짓기(1, {})], 판들).outOf === 0);
 
-  참('⭐ 원본이 있다', fs.existsSync(원본길) || true);   // 수집 전에도 자가시험은 돈다
+  /* 🔴🔴 8/15 — 수집기가 스물한 편에서 죽었고, 그 파일로 지으면 숫자가 그럴듯하게 다 나온다 */
+  참('⛔⛔ 다 안 받은 원본을 안 쓴다', 다받았나({ complete: false, couldNotFetch: 5 }, 21).ok === false);
+  참('⛔ 왜 안 쓰는지 적는다', /21편/.test(다받았나({ complete: false }, 21).why));
+  참('⛔ `complete` 칸이 없으면 안 쓴다', 다받았나({}, 21).ok === false);
+  참('⛔ 원본이 아예 없어도 안 쓴다', 다받았나(null, 0).ok === false);
+  참('⭐ 다 받았으면 쓴다', 다받았나({ complete: true }, 59).ok === true);
 
   const 진 = 잼.filter(([, ok]) => !ok);
   console.log(`자가시험 ${잼.length}개 · ${진.length ? `🔴 ${진.length}개 실패` : '✅ 전부 통과'}`);
@@ -197,7 +224,15 @@ if (내가실행됐다) {
   }
   const 원본 = JSON.parse(fs.readFileSync(원본길, 'utf8'));
   const 판들 = 원본.editions;
-  const 작품들 = 원본.titles;
+  const 작품들 = 원본.titles ?? [];
+
+  /* ⛔⛔ 반쪽 원본으로 짓지 않는다. 지으면 숫자가 그럴듯하게 다 나온다 */
+  const 다받음 = 다받았나(원본, 작품들.length);
+  if (!다받음.ok) {
+    console.error(`🔴 ${다받음.why}`);
+    console.error('   `node scripts/collect-sea-title-birth.mjs` 를 다시 돌린다 — 빈 것만 묻는다.');
+    process.exit(1);
+  }
 
   const 판별 = 판들.map((p) => 한판재기(작품들, p));
   const 쓸판 = 판별.filter((x) => x.usable);

@@ -214,6 +214,21 @@ if (내가실행됐다) {
     : {};
   if (Object.keys(이전).length) console.log(`⭐ 앞서 받은 ${Object.keys(이전).length}편이 있다 — 빈 것만 묻는다`);
 
+  /** ⭐ 지금까지 받은 것을 그대로 쓴다. 죽어도 여기까지는 남는다 */
+  const 저장하기 = (받은것, 못받은수) => {
+    fs.mkdirSync(path.dirname(원본길), { recursive: true });
+    fs.writeFileSync(원본길, `${JSON.stringify({
+      generatedAt: new Date().toISOString().slice(0, 10),
+      source: 'Wikipedia API — first revision of each article (action=query&prop=revisions&rvdir=newer)',
+      baseEdition: 기준판,
+      editions: 볼판들,
+      editionNames: 판이름,
+      complete: 받은것.length === 파도.articles.length && 못받은수 === 0,
+      titles: 받은것,
+      couldNotFetch: 못받은수,
+    }, null, 1)}\n`);
+  };
+
   const 나온것 = []; let 못받은수 = 0; let 물은수 = 0;
   for (const a of 파도.articles) {
     const 생일들 = {};
@@ -229,24 +244,20 @@ if (내가실행됐다) {
       /* ⛔⛔ 못 받은 것을 「문서 없음(null)」으로 적지 않는다 */
       생일들[판] = 답 === 못받음 ? 못받음 : 첫판꺼내기(답);
       if (답 === 못받음) 못받은수 += 1;
-      await 잠깐(600);   // ⚠ 120ms 로 돌렸다가 429 에 막혔다. 초당 두 번을 넘기지 않는다
+      await 잠깐(1100);   // ⚠ 120ms·600ms 로 돌렸다가 둘 다 429 에 막혔다. 초당 한 번 아래로 둔다
     }
     나온것.push({ titleEn: a.titleEn, titles: 제목들, births: 생일들, ...한작품재기(생일들) });
     process.stdout.write(Object.values(생일들).includes(못받음) ? '!' : '.');
+    /**
+     * 🔴🔴 **작품마다 저장한다.** 8/15 에 스물한 편을 받고 죽었는데 파일이 없었다 —
+     *   이어받기를 만들어 놓고 **중간 저장을 안 해서** 이어받을 것이 없었다.
+     *   ⛔ 이어받기는 저장 없이는 아무것도 아니다.
+     */
+    저장하기(나온것, 못받은수);
   }
   console.log(`\n물은 것 ${물은수}건 · 못 받은 것 ${못받은수}건`);
 
-  const 자료 = {
-    generatedAt: new Date().toISOString().slice(0, 10),
-    source: 'Wikipedia API — first revision of each article (action=query&prop=revisions&rvdir=newer)',
-    baseEdition: 기준판,
-    editions: 볼판들,
-    editionNames: 판이름,
-    titles: 나온것,
-    couldNotFetch: 못받은수,
-  };
-  fs.mkdirSync(path.dirname(원본길), { recursive: true });
-  fs.writeFileSync(원본길, `${JSON.stringify(자료, null, 1)}\n`);
+  저장하기(나온것, 못받은수);
 
   const 잰것 = 나온것.filter((t) => t.measuredEditions > 0);
   console.log(`\n한국어판 생일을 아는 작품 ${나온것.filter((t) => t.koreanFirstWritten).length}편`);

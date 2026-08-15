@@ -190,7 +190,13 @@ for (const r of 나감.rows.slice(0, 8)) {
     + `  외국인 ${String(r.foreignVisitors).padStart(9)}(${r.visitRank}위)  차 ${r.gap > 0 ? '+' : ''}${r.gap}`);
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('한글 이름이 없으면 짝이 아니다', !짝인가({ nameKo: null }, { foreign: 1, visitors: 2 }));
   참('입장객이 없으면 짝이 아니다', !짝인가({ nameKo: '가구' }, { foreign: 1, visitors: null }));

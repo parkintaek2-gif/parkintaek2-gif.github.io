@@ -44,7 +44,13 @@ export function 넘친것(글, 표) {
   return 탈;
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   const 표 = 한도읽기('title: z.string().max(120),\n dek: z.string().max(240),');
   참('스키마에서 한도를 읽는다', 표.title === 120 && 표.dek === 240);

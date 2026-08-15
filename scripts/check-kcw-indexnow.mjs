@@ -60,7 +60,13 @@ export function 안알린것(사이트맵길들, 기록) {
   return 사이트맵길들.filter((p) => !기록.pinged[p]);
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('기록이 없으면 빈 것을 준다', 기록읽기('없는파일').pinged && Object.keys(기록읽기('없는파일').pinged).length === 0);
   참('적으면 들어간다', 적기(['/a'], '2026-08-14').pinged['/a'] === '2026-08-14');

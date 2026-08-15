@@ -220,7 +220,15 @@ export function 봉우리몰렸나(봉우리달들) {
   };
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴🔴 **`--selftest` 만 보고 돌면 안 된다. 남의 자가시험을 가로챈다.**
+ *   8/15 — 이 자를 import 하는 빌더를 `--selftest` 로 돌렸더니 **이 자가 그 argv 를
+ *   제 것으로 알고** 제 자가시험을 돌린 뒤 `process.exit` 했다. 부르는 쪽 자가시험은
+ *   **한 줄도 안 돌았는데** 화면엔 「✅ 전부 통과」가 떴다. 셈은 맞고 뜻이 틀렸다.
+ * ⛔ 내가 직접 실행됐을 때만 돈다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
 
   /* 🔴 봉우리가 몰려 있으면 우리가 잰 것은 작품이 아니라 그 몇 달이다 */

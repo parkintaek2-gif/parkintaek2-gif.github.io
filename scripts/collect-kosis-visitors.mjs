@@ -100,7 +100,13 @@ export function 외국인몫(줄) {
   return +((100 * 줄.foreign) / 줄.visitors).toFixed(2);
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('총계는 합계로 가른다', 갈래('총계') === '합계');
   참('특별시는 광역으로 가른다', 갈래('서울특별시') === '광역');

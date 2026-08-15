@@ -58,7 +58,13 @@ export function 건너뛸것(검사들, 지었나) {
   return 지었나 ? [] : 검사들.filter((c) => c.빌드필요).map((c) => c.자);
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('막는 검사가 있다', 막는검사.length > 0);
   참('보는 검사가 있다', 보는검사.length > 0);

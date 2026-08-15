@@ -128,11 +128,44 @@ export function 영으로메우나(글) {
   return false;
 }
 
+/**
+ * 🔴🔴🔴 **자가시험이 남의 `--selftest` 를 가로채나.**
+ *
+ * 8/15 — 92·93·95 빌더가 `build-wikitip-one-out.mjs` 를 import 했다. 그 빌더를
+ * `--selftest` 로 돌리자 **import 된 자가 그 argv 를 제 것으로 알고** 제 자가시험을
+ * 돌린 뒤 `process.exit` 했다. 부르는 쪽 자가시험은 **한 줄도 안 돌았는데**
+ * 화면엔 「자가시험 30개 · ✅ 전부 통과」가 떴다.
+ *
+ * ⭐ 그래서 셋의 셈이 똑같이 30 이었다. 그게 유일한 표였고, 나는 그것을 **한참 뒤에** 봤다.
+ * ⛔ 이 병은 조용하다 — 초록이 뜨기 때문이다. 그러니 검사로 둔다.
+ *
+ * ⚠ 「import 되는 자만」이 아니라 **전부** 본다. 오늘 안 불려도 내일 불린다.
+ */
+export function 셀프테스트가드없나(글) {
+  if (!/process\.argv\.includes\('--selftest'\)/.test(글)) return false;   // 자가시험이 없는 자
+  /**
+   * ⭐ 어느 꼴이든 「내가 직접 실행됐나」를 같이 보면 된다.
+   * ⚠ **순서를 따지지 않는다** — 가드가 앞에 있든 뒤에 있든 가드다.
+   *   🔴 처음엔 앞에 오는 것만 봤고, 제 자가시험이 그것을 잡았다.
+   */
+  /* 🔴 처음엔 `import.meta.url === path.resolve` 로 찾았는데, 실제 글은
+       `fileURLToPath(import.meta.url) === path.resolve` 라 **닫는 괄호에서 빗나갔다.**
+       ⭐ 고친 자까지 빨강으로 나왔고, 그것을 보고 알았다. */
+  const 가드표 = [
+    'import\\.meta\\.url\\)? === path\\.resolve\\(process\\.argv\\[1\\]\\)',
+    '내가실행됐다', '내가돌려졌다',
+  ];
+  return !가드표.some((표) => new RegExp(`${표}[\\s\\S]{0,140}--selftest`).test(글)
+    || new RegExp(`--selftest[\\s\\S]{0,140}${표}`).test(글));
+}
+
 export const 버릇들 = [
   { key: 'utc', 이름: 'UTC 날짜', 잰다: UTC날짜쓰나, 왜: '새벽에 지으면 하루 앞선다 — _kst.mjs 를 쓴다' },
   { key: 'guard', 이름: '임포트 부수효과', 잰다: 가드없나, 왜: '남이 함수를 가져다 쓰면 파일 쓰기가 딸려 돈다' },
   { key: 'frozen', 이름: '굳은 개수', 잰다: 굳은수있나, 왜: '늘어나면 옳은 변화를 막는 자물쇠가 된다' },
   { key: 'zero', 이름: '빈 값을 0 으로', 잰다: 영으로메우나, 왜: '못 잰 것이 0 이 되면 바닥에 깔린다' },
+  { key: 'selftest', 이름: '자가시험 가로채기', 잰다: 셀프테스트가드없나,
+    왜: '🔴 import 되면 남의 --selftest 를 제 것으로 알고 돌고 exit 한다 — 남의 시험이 통째로 안 돈다' },
 ];
 
 export function 훑기(파일들, 읽기) {
@@ -144,8 +177,25 @@ export function 훑기(파일들, 읽기) {
   return 표;
 }
 
-if (process.argv.includes('--selftest')) {
+/* 🔴 이 자부터 제 규칙을 지킨다 — 안 그러면 저를 고발한다 */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
+
+  /* 🔴🔴 8/15 — 세 빌더의 자가시험이 하루 종일 한 줄도 안 돌았다 */
+  참('⛔⛔ 가드 없는 자가시험을 잡는다',
+    셀프테스트가드없나("if (process.argv.includes('--selftest')) {\n  const 잼 = [];\n}"));
+  참('⭐ import.meta.url 로 막은 것은 통과',
+    !셀프테스트가드없나("if (process.argv[1] && import.meta.url === path.resolve(process.argv[1])\n"
+      + "  && process.argv.includes('--selftest')) {"));
+  참('⭐ 이름 붙인 가드도 알아본다',
+    !셀프테스트가드없나("const 내가실행됐다 = 1;\nif (내가실행됐다 && process.argv.includes('--selftest')) {")
+    && !셀프테스트가드없나("const 내가돌려졌다 = 1;\nif (내가돌려졌다 && process.argv.includes('--selftest')) {"));
+  참('⛔ 자가시험이 없는 자는 고발하지 않는다', !셀프테스트가드없나('export const x = 1;'));
+  /* ⚠ 순서가 뒤바뀌어도 가드는 가드다 */
+  참('⭐ 순서가 달라도 알아본다',
+    !셀프테스트가드없나("if (process.argv.includes('--selftest') && 내가실행됐다) {"));
+
   참('내 자를 알아본다', 내자인가('build-wikitip-spread.mjs') && 내자인가('check-kcw-indexnow.mjs'));
   참('⛔ 남의 자는 안 본다', !내자인가('build-100y-map.mjs') && !내자인가('collect-kosis-seoulmarkets.mjs'));
   /* 🔴 자기 몸을 글자로 뒤지면 자기에게 걸린다 — KST 를 다루는 둘은 뺀다 */

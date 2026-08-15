@@ -50,32 +50,60 @@ export const 지켜본달 = 6;
  * ⭐ 그리고 반감기 뒤에 **다시 오른 적이 있나**를 같이 낸다 —
  *   반감기는 「한 번 내려간 때」지 「끝난 때」가 아니다.
  */
+/**
+ * ⭐ 첫 달부터 끝 달까지 **빠짐없이** 늘어놓는다. 못 잰 달은 값이 null 인 채로 자리를 지킨다.
+ *
+ * 🔴🔴 8/15 — 예전에는 못 잰 달을 줄에서 **빼 버렸다.** 그러면 칸 사이 거리가 달력과
+ *   어긋난다. 봉우리 다음 달을 못 쟀고 그 다음 달에 반토막이 났으면 **두 달**인데
+ *   **한 달**로 셌다. 반감기는 시간의 길이다 — 못 잰 달이 있다고 시간이 줄지 않는다.
+ *   ⚠ 자가시험이 이것을 잡고 있었는데, 그 시험이 **한 줄도 안 돌고 있었다.**
+ */
+export function 달력으로펴기(달값) {
+  const 있는것 = Object.entries(달값).filter(([, v]) => v != null)
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  if (!있는것.length) return [];
+  const [첫해, 첫달] = 있는것[0][0].split('-').map(Number);
+  const [끝해, 끝달] = 있는것.at(-1)[0].split('-').map(Number);
+  const 칸수 = (끝해 - 첫해) * 12 + (끝달 - 첫달) + 1;
+  const 값맵 = new Map(있는것);
+  return Array.from({ length: 칸수 }, (_, i) => {
+    const y = 첫해 + Math.floor((첫달 - 1 + i) / 12);
+    const m = ((첫달 - 1 + i) % 12) + 1;
+    const 이름 = `${y}-${String(m).padStart(2, '0')}`;
+    return [이름, 값맵.has(이름) ? 값맵.get(이름) : null];
+  });
+}
+
 export function 반감기재기(달값, 옵션 = {}) {
   const 얇음 = 옵션.얇은봉우리 ?? 얇은봉우리;
   const 지켜봄 = 옵션.지켜본달 ?? 지켜본달;
-  const 줄 = Object.entries(달값)
-    .filter(([, v]) => v != null)
-    .sort((a, b) => a[0].localeCompare(b[0]));
-  if (줄.length < 2) return null;
+  /* ⛔ 못 잰 달을 빼지 않는다 — 자리는 지키고 값만 null 이다 */
+  const 줄 = 달력으로펴기(달값);
+  if (줄.filter(([, v]) => v != null).length < 2) return null;
 
-  let 봉 = 0;
-  for (let i = 1; i < 줄.length; i += 1) if (줄[i][1] > 줄[봉][1]) 봉 = i;
+  let 봉 = 줄.findIndex(([, v]) => v != null);
+  for (let i = 봉 + 1; i < 줄.length; i += 1) {
+    if (줄[i][1] != null && 줄[i][1] > 줄[봉][1]) 봉 = i;
+  }
   const 봉값 = 줄[봉][1];
   const 뒤달수 = 줄.length - 1 - 봉;
+  /* ⚠ 「본 달」과 「잰 달」을 가른다. 빈 달로 채워 문턱을 넘기면 안 된다 */
+  const 뒤잰달수 = 줄.slice(봉 + 1).filter(([, v]) => v != null).length;
 
   if (봉값 < 얇음) {
     return { peakMonth: 줄[봉][0], peak: 한자리(봉값), measurable: false,
       why: `the peak was only ${한자리(봉값)} per million, thin enough that halving is noise` };
   }
-  if (뒤달수 < 지켜봄) {
-    return { peakMonth: 줄[봉][0], peak: 한자리(봉값), measurable: false, monthsWatched: 뒤달수,
-      why: `only ${뒤달수} months follow the peak, which is not long enough to say it has not `
+  if (뒤잰달수 < 지켜봄) {
+    return { peakMonth: 줄[봉][0], peak: 한자리(봉값), measurable: false,
+      monthsWatched: 뒤달수, monthsMeasured: 뒤잰달수,
+      why: `only ${뒤잰달수} months follow the peak, which is not long enough to say it has not `
         + 'fallen — that is unknown, not slow' };
   }
 
   let 반 = null;
   for (let i = 봉 + 1; i < 줄.length; i += 1) {
-    if (줄[i][1] < 봉값 / 2) { 반 = i - 봉; break; }
+    if (줄[i][1] != null && 줄[i][1] < 봉값 / 2) { 반 = i - 봉; break; }
   }
   if (반 === null) {
     return { peakMonth: 줄[봉][0], peak: 한자리(봉값), measurable: true, halfLifeMonths: null,
@@ -91,11 +119,13 @@ export function 반감기재기(달값, 옵션 = {}) {
    * ⚠ 「몇 번 왔나」와 「처음 언제 왔나」를 둘 다 낸다 — 앞은 잦음, 뒤는 기다림이다.
    */
   const 뒤에 = 줄.slice(봉 + 반);
-  const 다시오름 = 뒤에.filter(([, v]) => v >= 봉값 / 2).map(([m, v]) => ({ month: m, value: 한자리(v) }));
+  const 다시오름 = 뒤에.filter(([, v]) => v != null && v >= 봉값 / 2)
+    .map(([m, v]) => ({ month: m, value: 한자리(v) }));
   const 덩어리 = [];
   for (let i = 0; i < 뒤에.length; i += 1) {
     const [m, v] = 뒤에[i];
-    if (v < 봉값 / 2) continue;
+    /* ⛔ 못 잰 달은 덩어리를 잇지도, 끊지도 않는다 — 그냥 모르는 달이다 */
+    if (v == null || v < 봉값 / 2) continue;
     const 앞 = 덩어리.at(-1);
     if (앞 && 앞.끝index === i - 1) { 앞.끝index = i; 앞.months.push(m); } else {
       덩어리.push({ 끝index: i, months: [m], firstMonth: m, monthsAfterHalving: i });
@@ -117,7 +147,12 @@ export function 반감기재기(달값, 옵션 = {}) {
   };
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자를 import 하는 쪽이 있으면 argv 를
+ *   가로채고, 반대로 이 자가 import 한 자에게 가로채인다. 8/15 에 실제로 그랬다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   const 만들기 = (값들) => Object.fromEntries(값들.map((v, i) => [`2024-${String(i + 1).padStart(2, '0')}`, v]));
 
@@ -148,16 +183,25 @@ if (process.argv.includes('--selftest')) {
   참('⛔ 반감기가 없으면 null 이지 0 이 아니다', e.halfLifeMonths === null);
   참('몇 달 봤는지 적는다', /in the 6 months we watched/.test(e.why));
 
-  /* ⭐⭐ 반감기 뒤에 다시 오르는 것 — 시즌 2 */
-  const f = 반감기재기(만들기([10, 100, 40, 30, 20, 300, 100, 50]));
+  /**
+   * ⭐⭐ 반감기 뒤에 다시 오르는 것 — 시즌 2
+   * 🔴🔴 8/15 — 이 보기 셋이 **틀려 있었다.** 재상승을 원 봉우리보다 **크게**(300) 적어서
+   *   봉우리가 그리로 옮겨 갔고, 뒤에 두 달밖에 안 남아 `measurable:false` 가 됐다.
+   *   그래서 `f.roseAgainMonths` 가 아예 없었고 시험이 터졌다.
+   *   ⚠ 그런데 **터지는 줄도 몰랐다** — 이 자가 import 한 다른 자가 `--selftest` 를
+   *   제 것으로 알고 가로채, 이 시험은 **한 줄도 안 돌고 있었다.**
+   * ⛔ 재상승은 원 봉우리보다 **작아야** 이 자를 시험한다.
+   */
+  const f = 반감기재기(만들기([10, 100, 40, 30, 20, 80, 60, 50]));
   참('다시 오른 것을 잡는다', f.roseAboveHalfAgain === true);
   참('언제 다시 올랐는지 적는다', f.roseAgainMonths.some((x) => x.month === '2024-06'));
   참('⛔ 그래도 반감기는 첫 하락으로 센다', f.halfLifeMonths === 1);
+  참('⛔ 봉우리가 재상승으로 옮겨 가지 않았다', f.peakMonth === '2024-02');
   /* ⭐ 이어진 달은 한 덩어리다 — 석 달 내리 절반 위였으면 파도 하나지 셋이 아니다 */
-  const g = 반감기재기(만들기([10, 100, 40, 300, 280, 260, 30, 20]));
+  const g = 반감기재기(만들기([10, 100, 40, 80, 75, 70, 30, 20]));
   참('⭐ 이어진 재상승은 한 덩어리로 센다', g.returnWaves === 1);
   참('덩어리에 든 달을 그대로 낸다', g.returnWaveMonths[0].length === 3);
-  const h = 반감기재기(만들기([10, 100, 40, 300, 30, 20, 280, 20, 15]));
+  const h = 반감기재기(만들기([10, 100, 40, 80, 30, 20, 75, 20, 15]));
   참('⭐ 끊어진 재상승은 따로 센다', h.returnWaves === 2);
   참('첫 재상승까지 몇 달인지 낸다', h.firstReturnAfterMonths === 2);
   참('⛔ 다시 안 오르면 null 이지 0 이 아니다', a.firstReturnAfterMonths === null);

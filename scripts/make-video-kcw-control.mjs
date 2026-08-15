@@ -179,7 +179,13 @@ export function 칸HTML(초) {
   </div>`;
 }
 
-if (process.argv.includes('--selftest')) {
+/**
+ * 🔴 **`--selftest` 만 보고 돌면 안 된다.** 이 자가 import 되면 부르는 쪽의 argv 를
+ *   제 것으로 알고 제 자가시험을 돌린 뒤 `process.exit` 한다 — **남의 시험이 통째로
+ *   안 돈다.** 8/15 에 세 빌더가 하루 종일 그랬고, 화면엔 초록이 떴다.
+ */
+if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])
+  && process.argv.includes('--selftest')) {
   let 통과 = 0; let 실패 = 0;
   const 재본다 = (이름, 실제, 바람) => {
     const ok = typeof 바람 === 'function' ? 바람(실제) : 실제 === 바람;
