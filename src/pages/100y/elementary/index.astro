@@ -43,6 +43,9 @@ const 시도별 = (() => {
   return [...통.values()].sort((a, b) => b.곳 - a.곳);
 })();
 
+/** 시·군·구 261칸 전부 — 찾기로 여는다. ⛔ 잘라내지 않는다. 손님이 찾는 것은 자기 동네 한 칸이다 */
+const 동네 = [...자료.지역].sort((a: any, b: any) => b.곳 - a.곳);
+
 const 백년몫 = Number(((자료.백년넘은곳수 / 자료.낸곳) * 100).toFixed(1));
 const 맨오래 = 자료.가장오래된[0];
 
@@ -131,6 +134,40 @@ const desc =
     </table>
   </div>
 
+  {/**
+    * 🔴 **지면을 늘리지 않고 261칸을 연다.**
+    *   시·군·구가 261칸인데 지면을 261장 만들면 대입 쪽으로 기운 비율이 또 흔들리고,
+    *   무엇보다 손님이 원하는 것은 «우리 동네» 한 칸뿐이다.
+    *   ⇒ /university 가 쓰는 찾기 방식을 그대로 가져온다. 새로 짓지 않는다.
+    * ⛔ 순위로 늘어놓지 않는다. **곳 수가 많은 차례**로 놓고, 그것이 순위가 아님을 아래에 적는다.
+    */}
+  <h2>우리 동네로 찾기</h2>
+  <input
+    id="q"
+    type="search"
+    placeholder="시·군·구를 입력하세요 (예: 화성, 종로, 제주)"
+    autocomplete="off"
+    aria-label="시·군·구 검색"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·군·구</th><th>초등학교</th><th>백 년 넘은 곳</th></tr></thead>
+      <tbody id="지역몸">
+        {동네.map((r: any) => (
+          <tr data-name={`${r.시도} ${r.구}`}>
+            <td>{r.시도} {r.구}</td>
+            <td>{r.곳}곳</td>
+            <td>{r.백년}곳</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ 학교가 많은 차례로 놓았을 뿐, <strong>순위가 아닙니다.</strong> 시·군·구 {자료.지역수}칸을 다 실었습니다.
+  </p>
+
   <div class="warn">
     <p><strong>⚠ 이 지면에 없는 것</strong></p>
     <p class="note">
@@ -153,3 +190,49 @@ const desc =
 
   <NextQuestionBrief 모은것="초등학교 자료" />
 </HundredYear>
+
+<style>
+  #q {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+    font-size: var(--fs-body);
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  [hidden] { display: none !important; }
+</style>
+
+<script is:inline>
+  /* ⚠ /university 의 찾기와 같은 방식이다. 새로 짓지 않았다.
+     ⛔ 자바스크립트가 꺼져 있어도 표는 그대로 보인다 — 찾기만 안 될 뿐이다 */
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var 몸 = document.getElementById('지역몸');
+    if (!q || !몸) return;
+    var 줄들 = Array.prototype.slice.call(몸.querySelectorAll('tr'));
+
+    function 적용() {
+      var v = q.value.trim();
+      if (!v) {
+        줄들.forEach(function (tr) { tr.hidden = false; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      줄들.forEach(function (tr) {
+        var 맞나 = tr.getAttribute('data-name').indexOf(v) >= 0;
+        tr.hidden = !맞나;
+        if (맞나) n++;
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '칸' : '「' + v + '」 로 찾은 곳이 없습니다';
+    }
+    q.addEventListener('input', 적용);
+  })();
+</script>
