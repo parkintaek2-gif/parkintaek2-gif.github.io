@@ -26,6 +26,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 학교자료 from '../../../data/100yearmap/pages-school.json';
 /* 🔴 자격 걸린 날 — scripts/build-100y-qual-duration.mjs 가 만든다. 출처·셈과한계가 자료 안에 있다 */
 import 자격 from '../../../data/100yearmap/qual-duration.json';
@@ -321,5 +322,10 @@ const desc =
   <p class="note">
     숫자는 <strong>{출처}</strong>가 낸 {기준연도}년 값입니다. 저희가 계산한 값이 아닙니다.
   </p>
+  {/* 🔴 이 지면을 대는 카드가 **두 벌**이다 — 개봉(계열별 진학)과 자격(걸린 날).
+      둘 다 근거 json 이 이 지면을 가리킨다. 한 벌만 걸면 나머지는 여전히 못 닿는다 */}
+  <HundredCardnews 벌="개봉-길은갈라지지않았습니다" 장수={6} 머리="직업계고와 대학, 카드 여섯 장" />
+  <HundredCardnews 벌="자격걸린날" 장수={6} 머리="자격증에 걸린 날, 카드 여섯 장" />
+
   <NextQuestionBrief 모은것="일자리 자료" />
 </HundredYear>
