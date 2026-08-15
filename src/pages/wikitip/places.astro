@@ -17,6 +17,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-places.json';
 
 const TITLE = 'An entertainment company is looked up more than Seoul is';
@@ -139,6 +140,12 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="places" count={5} />
+
+  {/* 🔴 8/15 — 카드뉴스는 12벌인데 영상이 9편이었다. 이 지면이 그 빈 자리 하나였다 */}
+  <KcwShorts set="places"
+    says={`A man and a woman read out the two figures — one record label against the capital — `
+      + `and how many of the cities we measured sit below that one company.`} />
+
   <KcwRelatedArticles page="/places" />
 </WikiTip>
 
