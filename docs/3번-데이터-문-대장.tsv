@@ -2,7 +2,7 @@
 공공데이터포털·산업인력공단	15029006	국가기술자격 대학별 학과 데이터	openapi.q-net.or.kr/api/service/rest/InquiryUnivUdeptSVC/getList	제한 없음	개발·운영 자동	/university /major	2026-08-15	
 공공데이터포털·산업인력공단	15037355	국가자격 계열별 학과 정보	InquirySeriesUdeptSVC/getList	제한 없음	개발·운영 자동	/major	2026-08-15	
 공공데이터포털·산업인력공단	15037356	국가기술자격 학과별 직무정보	InquiryUdeptObligSVC/getList	제한 없음	개발·운영 자동	/major	2026-08-15	학과코드로 위 둘과 이어진다
-공공데이터포털·산업인력공단	15040841	국가기술자격 지역별 자격취득	InquiryRgnQualSVC/getAgeList·getGenList·getYearList	제한 없음	개발·운영 자동	/report/area	2026-08-15	⛔ rank(순위) 칸은 쓰지 않는다
+공공데이터포털·산업인력공단	15040841	국가기술자격 지역별 자격취득	InquiryRgnQualSVC/getAgeList·getGenList·getYearList	제한 없음	개발·운영 자동	/report/area	2026-08-15	⛔ rank(순위) 칸은 쓰지 않는다 ⚠ 2026-08-16 08:2x 3번이 열어 보려다 **못 열었다** — 서비스는 code 00 인데 items 가 빈다. baseYY·quart 를 네 가지로 바꿔 봐도 0줄. 인자 이름을 모른다. ⛔ 「자료가 없다」가 아니라 **못 열었다**로 적는다. 다음엔 포털 명세부터 받는다
 공공데이터포털·산업인력공단	15039800	국가기술자격 취득 관련 현황	InquiryQualRelaPtcondSVC (오퍼 9개)	제한 없음	개발·운영 자동	/age /work	2026-08-15	취득 소요일수 · 성별·연령·학력·행정구역
 공공데이터포털·산업인력공단	15037521	국가자격 취득자 관련 통계	InquiryAcquStatisSVC/getEuhistLIst·getAgeList	제한 없음	개발·운영 자동	/age	2026-08-15	
 공공데이터포털·산업인력공단	15025329	산업인력 국가기술자격 통계	(pdf 명세)	제한 없음	개발·운영 자동	총괄	2026-08-15	
