@@ -133,39 +133,47 @@ if (process.argv.includes('--selftest')) {
   process.exit();
 }
 
-/* ── 그리기 ─────────────────────────────────────────── */
-const 인자 = process.argv.slice(2);
-const 낼이름 = 인자.includes('--out') ? 인자[인자.indexOf('--out') + 1] : '자격걸린날.mp4';
-const 낼곳 = path.join(여기, 'public/100y/video');
-fs.mkdirSync(낼곳, { recursive: true });
-const 칸방 = path.join(여기, 'out', '_칸-qual');
-fs.rmSync(칸방, { recursive: true, force: true });
-fs.mkdirSync(칸방, { recursive: true });
+/* 🔴 2026-08-16 — 여기부터가 «부르면 도는 몸»이다. 재려고 import 했다가
+   이 자가 곧바로 렌더링을 시작해 영상을 다시 만들어 버렸다(puppeteer 가 떴다).
+   ⇒ **내가 직접 불렸을 때만** 돈다. 남이 불러 화면 글만 얻어 갈 수 있게 한다.
+   ⚠ `import.meta.url === file://…` 로 견주면 윈도에서 조용히 안 돈다. 파일 이름으로 견딘다 */
+const 내가직접불렸나 = !!process.argv[1] && path.basename(process.argv[1]) === 'make-video-100y-qual.mjs';
+if (내가직접불렸나) {
+  /* ── 그리기 ─────────────────────────────────────────── */
+  const 인자 = process.argv.slice(2);
+  const 낼이름 = 인자.includes('--out') ? 인자[인자.indexOf('--out') + 1] : '자격걸린날.mp4';
+  const 낼곳 = path.join(여기, 'public/100y/video');
+  fs.mkdirSync(낼곳, { recursive: true });
+  const 칸방 = path.join(여기, 'out', '_칸-qual');
+  fs.rmSync(칸방, { recursive: true, force: true });
+  fs.mkdirSync(칸방, { recursive: true });
 
-const { default: puppeteer } = await import(
-  'file:///C:/Users/USER/Documents/GitHub/klifemap/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js'
-);
-const 브라우저 = await puppeteer.launch({
-  executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
-  headless: 'new', args: ['--no-sandbox', '--font-render-hinting=none'],
-});
-const 쪽 = await 브라우저.newPage();
-await 쪽.setViewport({ width: 폭, height: 높, deviceScaleFactor: 1 });
+  const { default: puppeteer } = await import(
+    'file:///C:/Users/USER/Documents/GitHub/klifemap/node_modules/puppeteer-core/lib/esm/puppeteer/puppeteer-core.js'
+  );
+  const 브라우저 = await puppeteer.launch({
+    executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe',
+    headless: 'new', args: ['--no-sandbox', '--font-render-hinting=none'],
+  });
+  const 쪽 = await 브라우저.newPage();
+  await 쪽.setViewport({ width: 폭, height: 높, deviceScaleFactor: 1 });
 
-const 전체칸 = 길이 * 초당;
-for (let n = 0; n < 전체칸; n++) {
-  await 쪽.setContent(칸HTML(n / 초당), { waitUntil: 'load' });
-  await 쪽.screenshot({ path: path.join(칸방, `${String(n).padStart(4, '0')}.png`) });
-  if (n % 60 === 0) console.log(`   … ${n}/${전체칸}`);
+  const 전체칸 = 길이 * 초당;
+  for (let n = 0; n < 전체칸; n++) {
+    await 쪽.setContent(칸HTML(n / 초당), { waitUntil: 'load' });
+    await 쪽.screenshot({ path: path.join(칸방, `${String(n).padStart(4, '0')}.png`) });
+    if (n % 60 === 0) console.log(`   … ${n}/${전체칸}`);
+  }
+  await 브라우저.close();   // ⛔ puppeteer 만 닫는다. 사장님 크롬 창은 건드리지 않는다
+
+  const 갖다 = createRequire('C:/Users/USER/Documents/GitHub/klifemap/package.json');
+  const ff = 갖다('ffmpeg-static');
+  execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(칸방, '%04d.png'),
+    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'medium', '-crf', '20',
+    path.join(낼곳, 낼이름)], { stdio: 'inherit' });
+
+  const 크기 = fs.statSync(path.join(낼곳, 낼이름)).size;
+  console.log(`\n✅ ${낼이름} · ${(크기 / 1024 / 1024).toFixed(2)}MB · ${길이}초`);
+  console.log('🔴 ⛔ videos.json 에 줄을 넣어야 /video 지면에 실린다');
+
 }
-await 브라우저.close();   // ⛔ puppeteer 만 닫는다. 사장님 크롬 창은 건드리지 않는다
-
-const 갖다 = createRequire('C:/Users/USER/Documents/GitHub/klifemap/package.json');
-const ff = 갖다('ffmpeg-static');
-execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(칸방, '%04d.png'),
-  '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'medium', '-crf', '20',
-  path.join(낼곳, 낼이름)], { stdio: 'inherit' });
-
-const 크기 = fs.statSync(path.join(낼곳, 낼이름)).size;
-console.log(`\n✅ ${낼이름} · ${(크기 / 1024 / 1024).toFixed(2)}MB · ${길이}초`);
-console.log('🔴 ⛔ videos.json 에 줄을 넣어야 /video 지면에 실린다');
