@@ -161,17 +161,25 @@ if (process.argv.includes('--selftest')) {
   process.exit();
 }
 
-/* ── 그리기 ─────────────────────────────────────────── */
-const 갖다 = createRequire(path.join(ROOT, 'package.json'));
-const sharp = 갖다('sharp');
-fs.mkdirSync(낼방, { recursive: true });
+/* 🔴 2026-08-16 — 여기부터가 «부르면 도는 몸»이다. 근거를 대 보려고 import 했다가
+   이 자가 곧바로 카드를 다시 그렸다. 영상 자에서 겪은 것과 같은 병이다.
+   ⇒ **내가 직접 불렸을 때만** 돈다. 남이 불러 화면 글만 얻어 갈 수 있게 한다.
+   ⚠ import.meta.url 로 견주면 윈도에서 조용히 안 돈다. 파일 이름으로 견딘다 */
+const 내가직접불렸나 = !!process.argv[1] && path.basename(process.argv[1]) === 'make-cardnews-100y-qual.mjs';
+if (내가직접불렸나) {
+  /* ── 그리기 ─────────────────────────────────────────── */
+  const 갖다 = createRequire(path.join(ROOT, 'package.json'));
+  const sharp = 갖다('sharp');
+  fs.mkdirSync(낼방, { recursive: true });
 
-const 장들 = 짜기();
-for (let i = 0; i < 장들.length; i++) {
-  const svg = 그리기(장들[i], i + 1, 장들.length, 바닥);   // ⛔ 바닥을 안 넘기면 남의 출처가 찍힌다
-  const 이름 = `자격걸린날-${i + 1}.png`;
-  await sharp(Buffer.from(svg)).png().toFile(path.join(낼방, 이름));
-  console.log('✅', 이름);
+  const 장들 = 짜기();
+  for (let i = 0; i < 장들.length; i++) {
+    const svg = 그리기(장들[i], i + 1, 장들.length, 바닥);   // ⛔ 바닥을 안 넘기면 남의 출처가 찍힌다
+    const 이름 = `자격걸린날-${i + 1}.png`;
+    await sharp(Buffer.from(svg)).png().toFile(path.join(낼방, 이름));
+    console.log('✅', 이름);
+  }
+  console.log(`\n✅ 카드 ${장들.length}장 → public/100y/cardnews/자격걸린날-1..${장들.length}.png`);
+  console.log('⛔ 주소 없는 카드는 안 만든다 — 모든 장에', 갈곳, '이 들어 있다');
+
 }
-console.log(`\n✅ 카드 ${장들.length}장 → public/100y/cardnews/자격걸린날-1..${장들.length}.png`);
-console.log('⛔ 주소 없는 카드는 안 만든다 — 모든 장에', 갈곳, '이 들어 있다');

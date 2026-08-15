@@ -58,6 +58,12 @@ const 자격뺀띠 = (자격나이 as any).나이.filter((r: any) => r.나이 ==
 const 예순위 = 자격줄.filter((r: any) => /^(6\d|65세)/.test(r.나이));
 const 예순위응시 = 예순위.reduce((a: number, r: any) => a + r.응시, 0);
 const 예순위합격 = 예순위.reduce((a: number, r: any) => a + r.합격, 0);
+/* ⚠ 카드뉴스가 「쉰 넘어 본 것이 18.9%」를 쓰는데 지면에 그 수가 없었다.
+   콘텐트 검사자가 만들자마자 잡아 줬다 — 그래서 지면에도 낸다 */
+const 온응시 = 자격줄.reduce((a: number, r: any) => a + r.응시, 0);
+const 쉰위몫 = Number(
+  ((자격줄.filter((r: any) => /^(5\d|6\d|65세)/.test(r.나이)).reduce((a: number, r: any) => a + r.응시, 0) / 온응시) * 100).toFixed(1),
+);
 
 const 살림띠 = ['29세 이하', '30~39세', '40~49세', '50~59세', '60세 이상'];
 const 살림줄 = 살림띠
@@ -133,7 +139,8 @@ const desc =
   <h2>몇 살에도 자격을 따나요?</h2>
   <p>
     {(자격나이 as any).출처.기준연도}년 한 해 동안 국가기술자격 시험을 본 나이띠입니다.{' '}
-    <strong>예순 넘어 본 것만 {예순위응시.toLocaleString()}건, 그중 {예순위합격.toLocaleString()}건이 붙었습니다.</strong>
+    <strong>예순 넘어 본 것만 {예순위응시.toLocaleString()}건, 그중 {예순위합격.toLocaleString()}건이 붙었습니다.</strong>{' '}
+    쉰을 넘겨 본 것은 전체 응시의 <strong>{쉰위몫}%</strong>입니다.
   </p>
   <div class="tablewrap">
     <table>
