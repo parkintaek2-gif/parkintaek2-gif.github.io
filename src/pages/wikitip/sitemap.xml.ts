@@ -158,8 +158,16 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
     set: 'wave',
     page: '/wave-and-floor',
     count: 5,
-    title: 'The wave is real. What it leaves behind is not',
-    caption: 'Five cards: five Korean titles measured before and after their peak month.',
+    /* ⚠ 8/15 정정으로 기사 축이 바뀌었다 — 카드 제목도 같이 바꾼다 */
+    title: 'The article is born with the show',
+    caption: 'Five cards: why what a Korean hit leaves behind cannot be asked of a new title.',
+  },
+  {
+    set: 'halflife',
+    page: '/half-life',
+    count: 5,
+    title: 'Half of it is gone in two months. Most of it comes back',
+    caption: 'Five cards: how long a Korean title holds half its readers, and how often it returns.',
   },
 ];
 
@@ -214,9 +222,16 @@ const videoSets = [
   {
     set: 'wave',
     page: '/wave-and-floor',
-    title: 'The wave is real. What it leaves behind is not',
-    description: '14 seconds on five Korean titles measured before and after their peak month, '
-      + 'and on the biggest wave of all, which had to be thrown out.',
+    title: 'The article is born with the show',
+    description: '14 seconds on why what a Korean hit leaves behind cannot be asked of a new '
+      + 'title at all, and on the six older ones that could answer.',
+  },
+  {
+    set: 'halflife',
+    page: '/half-life',
+    title: 'Half of it is gone in two months. Most of it comes back',
+    description: '14 seconds on how long sixteen Korean titles held half their readers after '
+      + 'peaking, and how many of them later rose above half again.',
   },
 ];
 
@@ -343,6 +358,10 @@ export const GET: APIRoute = async () => {
        ⭐ 스무 편 중 다섯 편만 말할 수 있다. 못 잰 열다섯의 까닭을 표로 낸다
        🔴 제일 큰 파도(오징어게임 35배)는 뒤바닥에 시즌3 이 들어앉아 못 쓴다 */
     { path: '/wave-and-floor', priority: '0.9', changefreq: 'weekly' },
+    /* 93편째 기사의 표. 2026-08-15 — 92편이 「신작에는 전이 없다」로 막힌 자리에서,
+       전이 필요 없는 물음으로 바꿨다. 봉우리 뒤 반감기.
+       ⭐ 중앙값 두 달인데 열여섯 중 열둘이 뒤에 다시 올랐다 — 파도는 되풀이된다 */
+    { path: '/half-life', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

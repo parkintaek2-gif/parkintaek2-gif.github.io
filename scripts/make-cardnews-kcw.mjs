@@ -49,7 +49,87 @@ export const 벌목록 = {
   season: { 자료: 'src/data/wikitip-look-vs-fly.json', 만들기: (d) => 철벌짓기(d) },
   control: { 자료: 'src/data/wikitip-what-fell.json', 만들기: (d) => 대조벌짓기(d) },
   wave: { 자료: 'src/data/wikitip-wave-floor.json', 만들기: (d) => 파도벌짓기(d) },
+  halflife: { 자료: 'src/data/wikitip-half-life.json', 만들기: (d) => 반감기벌짓기(d) },
 };
+
+/**
+ * 반감기 벌 — 93편째 기사의 표(`/half-life`).
+ *
+ * ⭐ 이야기 한 줄: **두 달이면 절반이 사라진다. 그런데 대부분 한 번은 돌아온다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **반감기를 「끝」으로 읽히게 두지 않는다.** 열여섯 중 열둘이 다시 올랐다.
+ *     그 사실이 둘째 장에 이미 있어야 한다 — 표지만 보고 지나가는 사람이 대부분이다.
+ *   ⛔ 평균을 쓰지 않는다. 2.9달은 열여섯 중 아홉보다 길다.
+ *   ⛔ 「아직 안 떨어졌다」를 「오래 간다」로 적지 않는다. 넷째 장에 그 말을 넣는다.
+ */
+export function 반감기벌짓기(d) {
+  const 답 = d.answer;
+  const 되풀이 = d.titles.filter((t) => t.roseAboveHalfAgain);
+  const 아직 = d.notMeasured.filter((t) => /months follow/.test(t.why));
+
+  return {
+    갈피: 'half-life',
+    빛: '#c9a6ff',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Southeast Asian Wikipedias · ${d.window}`,
+        큰: 'Half of it\nis gone in\ntwo months.',
+        아래: `Across **${답.measured} Korean titles** we could time from their peak, the median `
+          + `fell below half in **${답.halfLifeMedianMonths} months**. `
+          + `${답.halvedWithinOneMonth} of them did it in one.`,
+      },
+      {
+        꼴: '수',
+        제목: 'But it is not\nan ending',
+        큰: `${되풀이.length} of ${답.measured}`,
+        곁: 'Titles that later rose back above half their peak',
+        아래: `A median of **${답.returnWavesMedian} separate returns** each, the first arriving `
+          + `a median **${답.firstReturnMedianMonths} months** after the peak. Some are new `
+          + 'seasons. Some are not.',
+      },
+      {
+        꼴: '표',
+        제목: 'How long half\nof it lasts',
+        머리: ['Title', 'Peak reads', 'Half-life'],
+        줄: d.titles.slice(0, 8).map((t) => [
+          t.title.replace(/\s*\(.*\)$/, ''),
+          String(t.peak),
+          `${t.halfLifeMonths} ${t.halfLifeMonths === 1 ? 'month' : 'months'}`,
+        ]),
+        아래: 'Reads per million reads of that Wikipedia, four editions. The two biggest waves '
+          + 'in the whole set are both gone by half within thirty days. Whatever makes '
+          + 'attention last, it is not size.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          `Not that ${아직.length} recent titles are lasting — their peaks are months old, `
+            + 'which is unknown, not slow',
+          `Not the mean — it reads ${답.halfLifeMeanMonths} months, longer than most of these `
+            + 'titles actually lasted',
+          'Not a viewer count — a read is someone opening a page, which may or may not '
+            + 'become watching',
+        ],
+        아래: 'Monthly data puts a floor under this. Ten days and thirty days\nboth read as '
+          + 'one month here.',
+      },
+      {
+        꼴: '끝',
+        제목: 'A wave that recurs,\nnot one that recedes',
+        글: `Half gone in **${답.halfLifeMedianMonths} months**, and **${되풀이.length} of `
+          + `${답.measured}** back above half at least once. Briefly, repeatedly, and not on `
+          + 'any schedule a release calendar would predict.',
+        길: `${주소}/half-life`,
+        곁: 'Wikimedia Pageviews · human traffic only',
+      },
+    ],
+  };
+}
 
 /**
  * 자 벌 — 87편째 기사(2026-08-14).

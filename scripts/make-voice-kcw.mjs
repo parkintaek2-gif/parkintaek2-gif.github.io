@@ -161,7 +161,28 @@ export const 대본목록 = {
   season: { 자료: 'src/data/wikitip-look-vs-fly.json', 짓기: (d) => 철대본만들기(d) },
   control: { 자료: 'src/data/wikitip-what-fell.json', 짓기: (d) => 대조대본만들기(d) },
   wave: { 자료: 'src/data/wikitip-wave-floor.json', 짓기: (d) => 파도대본만들기(d) },
+  halflife: { 자료: 'src/data/wikitip-half-life.json', 짓기: (d) => 반감기대본만들기(d) },
 };
+
+/**
+ * 93편 대본 — 「반감기」(`/half-life`).
+ *
+ * ⛔ **「두 달이면 끝」으로 들리게 두지 않는다.** 열여섯 중 열둘이 다시 올랐다.
+ *   그 줄이 없으면 소리가 기사보다 앞선 말을 하는 셈이 된다.
+ * ⚠ Piper 는 큰 수를 풀어 읽는다. 수는 셋만 말하고 나머지는 화면에 맡긴다.
+ */
+export function 반감기대본만들기(d) {
+  const 답 = d.answer;
+  const 되풀이 = d.titles.filter((t) => t.roseAboveHalfAgain).length;
+  return 때매기기([
+    { 누가: '여', 말: `Half the readers are gone in ${답.halfLifeMedianMonths} months.`, 쉼: 0.5 },
+    { 누가: '남', 말: 'The two biggest waves went in one.', 쉼: 0.5 },
+    /* ⭐ 이 줄이 없으면 「두 달이면 끝」으로 들린다 */
+    { 누가: '여', 말: `But ${되풀이} of ${답.measured} came back.`, 쉼: 0.5 },
+    /* ⚠ 마지막 줄은 짧게 */
+    { 누가: '남', 말: 'It recurs. It does not recede.', 쉼: 0 },
+  ]);
+}
 
 /**
  * 92편 대본 — 「파도가 지나간 자리」(`/wave-and-floor`).
