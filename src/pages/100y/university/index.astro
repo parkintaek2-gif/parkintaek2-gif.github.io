@@ -11,6 +11,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import { 퍼센트 } from '../../../lib/number-format';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import { href } from '../../../lib/hundredyear';
 import { 수치있음, 폐교정보 } from '../../../lib/university';
 import universities from '../../../data/100yearmap/pages-university.json';
@@ -151,7 +152,8 @@ const desc =
     않는 학교입니다. 지면은 지우지 않았습니다. 그 학교를 나오신 분에게는 <strong>모교</strong>이고,
     졸업증명서를 어디서 떼는지가 필요하실 수 있습니다.
     출처 — 한국사학진흥재단 「폐교 및 법인 해산 현황」.
-  </p>
+  </p>  <HundredCardnews 벌="전국평균두개" 장수={6} 머리="「전국 평균」 카드 여섯 장" />
+
   <NextQuestionBrief 모은것="대학 자료" />
 </HundredYear>
 

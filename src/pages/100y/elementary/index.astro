@@ -20,6 +20,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/elementary.json';
 
 const 자료 = 원본 as any;
@@ -148,6 +149,7 @@ const desc =
   <p class="note">
     출처 — NEIS 교육정보 개방 포털(한국교육학술정보원) · 공식 OpenAPI 로 받았습니다. 사이트를 긁지 않았습니다.
   </p>
+  <HundredCardnews 벌="우리학교는몇살" 장수={6} 머리="초등학교 카드 여섯 장" />
 
   <NextQuestionBrief 모은것="초등학교 자료" />
 </HundredYear>
