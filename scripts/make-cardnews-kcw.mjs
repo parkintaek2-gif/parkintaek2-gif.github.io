@@ -58,7 +58,78 @@ export const 벌목록 = {
   first: { 자료: 'src/data/wikitip-written-down-first.json', 만들기: (d) => 먼저적기벌짓기(d) },
   shelf: { 자료: 'src/data/wikitip-what-kind-fell.json', 만들기: (d) => 선반벌짓기(d) },
   works: { 자료: 'src/data/wikitip-works-and-readers.json', 만들기: (d) => 작품수벌짓기(d) },
+  outside: { 자료: 'src/data/wikitip-places-outside.json', 만들기: (d) => 밖벌짓기(d) },
 };
+
+/**
+ * 밖 벌 — 98편째 기사(`/places` 정정).
+ *
+ * ⭐ 이야기 한 줄: **가장 많이 읽힌 「한국 장소」가 베트남의 전투였다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔ **정정을 자랑으로 팔지 않는다.** 「우리는 정직하다」가 아니라 「무엇이 틀렸나」를 적는다.
+ *   ⛔⛔ **뺀 것을 이름으로 보인다.** 「열아홉을 뺐다」만 쓰면 조용한 제외와 같아진다.
+ *   ⛔⛔ **내 첫 검사가 못 잡았다는 것을 넣는다.** 그게 이 편의 알맹이다.
+ *   ⛔ **크게 부풀리지 않는다.** 지면의 머리 결론은 안 움직였다고 적는다.
+ *   ⛔ **수를 손으로 안 박는다.** 전부 자료에서 읽는다.
+ */
+export function 밖벌짓기(d) {
+  const 위 = d.outside.slice(0, 7);
+
+  return {
+    갈피: 'places',
+    빛: '#e08a5b',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `A correction · ${d.checkedOn}`,
+        큰: 'The most-read\nKorean place in\nVietnamese was a\nbattle in Vietnam',
+        아래: `We listed **${d.checked.toLocaleString('en-US')}** Korean places. `
+          + `**${d.outsideCount}** of them are not in Korea, and together they were `
+          + `**${d.shareOfReads}%** of every read on the page.`,
+      },
+      {
+        꼴: '표',
+        제목: 'What was in the\nlist that should\nnot have been',
+        머리: ['Removed', 'Reads per million', 'Actually at'],
+        줄: 위.map((x) => [x.name, String(x.perMillion), `${x.lat.toFixed(1)}, ${x.lon.toFixed(1)}`]),
+        아래: 'The Battle of Khe Sanh carries South Korea on Wikidata because South Korean troops '
+          + '**fought there**. The country field records who was involved, not only where a thing is.',
+      },
+      {
+        꼴: '수',
+        제목: 'Our own check\nfound nothing',
+        큰: '0',
+        곁: 'Problems reported by the first check we wrote for exactly this',
+        아래: 'We asked Wikidata for the **country** of all '
+          + `${d.checked.toLocaleString('en-US')} places — the same field the list was built `
+          + 'from. It agreed with the list, because it was the same question asked twice. '
+          + '**A check that cannot fail is not evidence.**',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we will not claim',
+        목록: [
+          'Not a big correction — the page’s headline finding did not move',
+          'Not a clean boundary — the box around Korea is ours, and we drew it wide',
+          'Not settled — Socotra Rock, claimed by two countries, sits just outside it',
+        ],
+        아래: 'A place with no coordinate is **not counted as outside Korea**. Not measured and '
+          + 'outside are different things. On this panel there were none.',
+      },
+      {
+        꼴: '끝',
+        제목: 'The instrument that\nworks is the one that\ncould have said no',
+        글: 'A location does not follow a belligerent. So we tested coordinates instead.\n\n'
+          + '**All nineteen are listed on the page, with where they actually are.**',
+        길: `${주소}/places`,
+        곁: `Wikidata coordinates · re-tested ${d.checkedOn} · ${d.outsideCount} removed`,
+      },
+    ],
+  };
+}
 
 /**
  * 작품수 벌 — 97편째 기사의 표(`/works-and-readers`).

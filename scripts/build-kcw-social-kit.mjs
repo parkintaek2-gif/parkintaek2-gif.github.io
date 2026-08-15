@@ -81,6 +81,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const wd = 읽기('src/data/wikitip-written-down-first.json');
   const wk = 읽기('src/data/wikitip-what-kind-fell.json');
   const wr = 읽기('src/data/wikitip-works-and-readers.json');
+  const ou = 읽기('src/data/wikitip-places-outside.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -323,6 +324,23 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `${주소}/works-and-readers`,
       alt: 'Five cards on how much more often Korean actors with many charting titles are read, '
         + 'and how little that says about any one actor.',
+    },
+    {
+      /**
+       * ⛔ 정정을 「우리는 정직합니다」로 팔지 않는다. **무엇이 틀렸나**를 먼저 쓴다.
+       * ⛔ 그리고 **내 첫 검사가 못 잡았다**는 것을 같은 글에 둔다 — 그게 알맹이다.
+       */
+      key: 'outside',
+      page: `${주소}/places`,
+      images: 장('outside'),
+      /* ⚠ 281자로 한 자 넘겨 검사가 막았다. 뜻은 안 깎고 군말만 뺐다 */
+      x: `Correction: the most-read "Korean place" in Vietnamese was the Battle of Khe Sanh, `
+        + `fought in Vietnam.\n\n`
+        + `${ou.outsideCount} of our ${ou.checked.toLocaleString('en-US')} places are not in `
+        + `Korea — ${ou.shareOfReads}% of all reads. Wikidata's country field records who was `
+        + `involved, not only where a thing is.\n\n${주소}/places`,
+      alt: 'Five cards on a correction: nineteen places that were not in Korea, why the country '
+        + 'field let them in, and why our own first check found nothing.',
     },
   ];
 }
