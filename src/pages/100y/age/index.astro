@@ -12,6 +12,9 @@ import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import { href } from '../../../lib/hundredyear';
 import 원본 from '../../../data/100yearmap/age-axis.json';
+/* 🔴 나이띠별 자격 응시·합격 — build-100y-qual-age.mjs 가 만든다.
+   사장님 「왜 자꾸 대입에 머물러있니」. 이 표가 **위쪽 나이를 연다** */
+import 자격나이 from '../../../data/100yearmap/qual-age.json';
 import { 나이말, 임금값, 혼인누적, 임금꼭대기, type 나이자료 } from '../../../lib/age-page';
 
 const 자료 = 원본 as unknown as 나이자료;
@@ -45,6 +48,16 @@ const 줄들 = 낼나이.map((나이) => {
 const 임금줄 = Object.entries(자료.임금)
   .filter(([띠]) => 띠 !== '전체')
   .map(([띠, v]: any) => ({ 띠, 월급만원: Math.round(v.월급여천원 / 10), 근속년: v.근속년 }));
+
+/**
+ * 🔴 나이띠별 자격 — «비율을 낼 수 있는» 띠만 낸다(응시 30건 미만은 자료가 비워 둔다).
+ * ⛔ 「미상」 띠는 사람이 아니라 자료의 빈칸이라 표에서 뺀다. 뺐다는 것은 아래에 적는다.
+ */
+const 자격줄 = (자격나이 as any).나이.filter((r: any) => r.나이 !== '미상' && r.비율을_낼_수_있나);
+const 자격뺀띠 = (자격나이 as any).나이.filter((r: any) => r.나이 === '미상' || !r.비율을_낼_수_있나);
+const 예순위 = 자격줄.filter((r: any) => /^(6\d|65세)/.test(r.나이));
+const 예순위응시 = 예순위.reduce((a: number, r: any) => a + r.응시, 0);
+const 예순위합격 = 예순위.reduce((a: number, r: any) => a + r.합격, 0);
 
 const 살림띠 = ['29세 이하', '30~39세', '40~49세', '50~59세', '60세 이상'];
 const 살림줄 = 살림띠
@@ -113,6 +126,45 @@ const desc =
     옮기면 다시 0부터 셉니다. 출처 — {자료.출처.임금.기관} 「{자료.출처.임금.표}」 {자료.출처.임금.해}년 ·{' '}
     {자료.출처.임금.조건}.
   </p>
+
+  {/* 🔴 2026-08-16 — 사장님 「왜 자꾸 대입에 머물러있니」. 8/15 에 자로 재 보니
+      지면 4,970장 중 4,927장(99.1%)이 대입 쪽이었다. 이 표가 **위쪽 나이를 연다** —
+      예순에도 자격을 따는 사람이 몇 명인지 세어 준다. */}
+  <h2>몇 살에도 자격을 따나요?</h2>
+  <p>
+    {(자격나이 as any).출처.기준연도}년 한 해 동안 국가기술자격 시험을 본 나이띠입니다.{' '}
+    <strong>예순 넘어 본 것만 {예순위응시.toLocaleString()}건, 그중 {예순위합격.toLocaleString()}건이 붙었습니다.</strong>
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>응시</th><th>합격</th><th>가장 많이 본 등급</th></tr></thead>
+      <tbody>
+        {자격줄.map((r: any) => (
+          <tr>
+            <td>{r.나이}</td>
+            <td>{r.응시.toLocaleString()}건</td>
+            <td>{r.합격.toLocaleString()}건</td>
+            <td>{r.가장많이본등급 ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="warn">
+    <p><strong>⛔ 합격률을 나이끼리 견주지 마십시오.</strong></p>
+    <p class="note">
+      나이마다 <strong>보는 등급이 다릅니다</strong> — 그래서 합격률만 놓고 「이 나이가 잘한다」로 읽으면 틀립니다.
+      그래서 이 표에는 비율 대신 <strong>건수와 등급</strong>을 냈습니다.
+      그리고 이것은 <strong>사람이 아니라 응시 건수</strong>입니다 — 한 사람이 세 번 봤으면 세 건입니다.
+      {자격뺀띠.length > 0 && (
+        <> 응시가 서른 건이 안 되거나 나이를 모르는 {자격뺀띠.length}줄은 뺐습니다.</>
+      )}
+    </p>
+    <p class="note">
+      출처 — {(자격나이 as any).출처.이름} · {(자격나이 as any).출처.기준연도}년 기준 ·{' '}
+      {(자격나이 as any).출처.이용허락범위}.
+    </p>
+  </div>
 
   <h2>빚은 얼마나 지고 있나요?</h2>
   <div class="tablewrap">
