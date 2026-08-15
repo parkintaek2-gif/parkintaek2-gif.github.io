@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-13T23:02:51.682Z",
+  "generated": "2026-08-15T17:38+09:00",
   "source": "Wikidata (CC0) for people and article links; Wikimedia Pageviews API for reads",
   "window": "2025-08 through 2026-07, 12 months, human traffic only",
   "unit": "Reads per million reads of the whole language edition, 12 months. One row is one person.",
@@ -927,8 +927,34 @@
   "playersListed": 14,
   "topPlayerTotal": 342.3,
   "topManagerTotal": 137.78,
-  "medianTopSharePlayers": 50.6,
-  "medianTopShareManagers": 82.4,
+  "medianTopSharePlayers": 50.55,
+  "medianTopShareManagers": 81.35,
+  "stabilityPlayers": {
+    "n": 14,
+    "median": 50.5,
+    "lowestWithoutOne": 50.5,
+    "highestWithoutOne": 50.6,
+    "swing": 0.1,
+    "swingOverMedian": 0,
+    "verdict": {
+      "steady": true,
+      "threshold": 0.5,
+      "note": "removing any single item leaves the answer where it was"
+    }
+  },
+  "stabilityManagers": {
+    "n": 12,
+    "median": 81.3,
+    "lowestWithoutOne": 80.3,
+    "highestWithoutOne": 82.4,
+    "swing": 2.1,
+    "swingOverMedian": 0.03,
+    "verdict": {
+      "steady": true,
+      "threshold": 0.5,
+      "note": "removing any single item leaves the answer where it was"
+    }
+  },
   "playerVsManager": "The most-read Korean manager scores 137.78 against the most-read player's 342.3. Of the 14 players listed, 13 score below the top manager. A manager is read in one country and a player in several, which is why the two are in separate tables and not one ranking.",
   "roleCounts": {
     "player": 900,

@@ -2,9 +2,12 @@
 title: "In Indonesia and Malaysia, the most-read Korean in football is not a player"
 category: stars
 purpose: both
-dek: "A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him. Median concentration in a single country: 50.6% for the players, 82.4% for the managers."
+dek: "A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him. Median concentration in a single country: 50.55% for the players, 81.35% for the managers."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
+corrections:
+  - date: 2026-08-15
+    note: "The two medians here were computed by taking the upper of the two middle values rather than their average. Both samples are even-numbered, so this mattered: the managers' median was published as 82.4% when the middle two values are 80.3% and 82.4%, and the players' as 50.6% when the middle two are 50.5% and 50.6%. They are now 81.35% and 50.55%. Taking the upper middle value is a defensible definition, but every other figure we publish uses the average of the two, and a reader comparing two of our pages has no way to know the word meant different things on each. The gap between managers and players, which is the finding, is unchanged. We attached our leave-one-out check to both figures at the same time: removing any single person moves the players' median not at all and the managers' by 0.03 times its own size, so both hold."
 author: Newsroom
 tags: ["korea", "sport", "football", "southeast-asia", "measurement"]
 pages:
@@ -27,12 +30,17 @@ Take every Korean footballer and football manager with an article in the Indones
 
 Call that concentration. A person read evenly across the region lands near 25%. A person read in one country only lands at 100%.
 
-| | Median concentration |
-|---|---|
-| Players | 50.6% |
-| Managers | 82.4% |
+| | Median concentration | Counted |
+|---|---|---|
+| Players | 50.55% | 14 |
+| Managers | 81.35% | 12 |
 
 Both groups lean towards Vietnam, which is why neither sits at 25%. The gap between them is the finding.
+
+Twelve and fourteen are small samples, so we checked whether either median depends on any one person
+in it. Remove any single player and the players' median does not move; remove any single manager and
+the managers' median moves by 0.03 times its own size. Both hold. The
+[method is here](/one-out).
 
 ## The players
 

@@ -52,13 +52,43 @@ export function 작은중앙값인가(o, 문턱 = 작은표본) {
   return { n: 크기, medians: 중키 };
 }
 
+/**
+ * ⭐⭐ **곁에 늘어선 줄이 표본 크기다.**
+ *
+ * 🔴🔴 8/15 — `wikitip-sea-athletes.json` 이 이 그물을 빠져나갔다. 중앙값 두 개가
+ *   **뿌리에** 있고, 표본 크기는 수 칸이 아니라 `footballManagers` 배열의 **길이**(12)였다.
+ *   지면과 기사가 그 중앙값을 답으로 싣고 있었는데 이 검사는 초록이었다.
+ *   ⛔ 검사가 못 잡았다고 안전한 것이 아니다. 그물을 넓힌다.
+ *
+ * ⚠ 중앙값 이름과 배열 이름이 늘 맞아떨어지지는 않는다. 그래서 **같은 객체에서 가장 짧은
+ *   배열**을 표본으로 본다 — 넘겨짚는 것이니 사람이 열어 보라고만 한다.
+ */
+export function 곁의줄길이(o) {
+  const 길이들 = Object.values(o)
+    .filter((v) => Array.isArray(v) && v.length > 0)
+    .map((v) => v.length);
+  return 길이들.length ? Math.min(...길이들) : null;
+}
+
+/** ⭐ 배열 길이를 표본으로 보는 자리 */
+export function 줄로잰중앙값인가(o, 문턱 = 작은표본) {
+  if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
+  /* ⛔ 수 칸으로 이미 잡히는 것은 안 본다 — 두 번 알리면 거짓 빨강이다 */
+  if (작은중앙값인가(o, 문턱)) return null;
+  const 중키 = Object.keys(o).filter((k) => /^median/i.test(k) && typeof o[k] === 'number');
+  if (!중키.length) return null;
+  const 크기 = 곁의줄길이(o);
+  if (typeof 크기 !== 'number' || 크기 >= 문턱) return null;
+  return { n: 크기, medians: 중키, 줄로잼: true };
+}
+
 /** 자료 하나를 통째로 훑는다 */
 export function 훑기(자료, 문턱 = 작은표본) {
   const 걸린것 = [];
   (function 파고들기(o, 길) {
     if (!o || typeof o !== 'object') return;
-    const 잡힘 = 작은중앙값인가(o, 문턱);
-    if (잡힘) 걸린것.push({ ...잡힘, where: 길 || '(뿌리)' });
+    const 잡힘 = 작은중앙값인가(o, 문턱) ?? 줄로잰중앙값인가(o, 문턱);
+    if (잡힘) 걸린것.push({ ...잡힘, where: 길 || '(뿌리)', 그객체: o });
     for (const [k, v] of Object.entries(o)) 파고들기(v, `${길}.${k}`);
   }(자료, ''));
   return 걸린것;
@@ -69,8 +99,16 @@ export function 훑기(자료, 문턱 = 작은표본) {
  *   그건 이미 본 자리이고, 다시 알리면 거짓 빨강이 된다.
  * 🔴 오늘 훑기에서 배운 그대로다. 거짓이 많은 검사는 아무도 안 본다.
  */
-export function 이미잰것인가(길) {
-  return /\.stability$|\.oneOut$/.test(길);
+export function 이미잰것인가(길, 객체 = null) {
+  if (/\.stability|\.oneOut$/.test(길)) return true;
+  /**
+   * ⭐ 칸 이름이 `stability` 로 **시작**하기만 해도 이미 잰 것이다.
+   * 🔴 8/15 — `sea-athletes` 에 `stabilityPlayers`·`stabilityManagers` 를 붙였는데도
+   *   이 자가 계속 알렸다. 정확히 `stability` 인 칸만 봤기 때문이다.
+   *   ⛔ 붙여 놓은 것을 못 알아보는 검사는 거짓 빨강을 낸다.
+   */
+  return !!객체 && typeof 객체 === 'object'
+    && Object.keys(객체).some((k) => /^stability/i.test(k) || /^oneOut/i.test(k));
 }
 
 /**
@@ -101,6 +139,27 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   참('⛔ 큰 표본은 안 걸린다', !걸.some((x) => x.where.includes('.b.c')));
   참('배열 속도 찾는다', 걸.some((x) => x.where === '.d.0'));
 
+  /**
+   * 🔴🔴 8/15 — `sea-athletes` 가 그물을 빠져나갔다. 중앙값이 뿌리에 있고 표본은
+   *   배열 **길이**였다. 지면이 그 중앙값을 답으로 싣는데 검사는 초록이었다.
+   */
+  참('⭐⭐ 곁에 늘어선 줄을 표본으로 본다',
+    줄로잰중앙값인가({ medianA: 8, 줄: [1, 2, 3] })?.n === 3);
+  참('⭐ 가장 짧은 배열을 택한다',
+    곁의줄길이({ a: [1, 2, 3], b: [1, 2] }) === 2);
+  참('⛔ 긴 배열만 있으면 안 잡는다',
+    줄로잰중앙값인가({ medianA: 8, 줄: Array(30).fill(0) }) === null);
+  참('⛔ 배열이 없으면 못 잰다', 곁의줄길이({ a: 1 }) === null);
+  참('⛔ 빈 배열은 표본이 아니다', 곁의줄길이({ a: [], b: [1, 2, 3] }) === 3);
+  참('⛔ 중앙값이 없으면 안 잡는다', 줄로잰중앙값인가({ 줄: [1, 2] }) === null);
+  /* ⛔ 수 칸으로 이미 잡히는 것을 두 번 알리면 거짓 빨강이다 */
+  참('⛔ 수 칸으로 잡히는 것은 이 자가 안 본다',
+    줄로잰중앙값인가({ n: 5, medianA: 8, 줄: [1, 2, 3] }) === null);
+  참('⭐ 훑기가 둘 다 잡는다', (() => {
+    const r = 훑기({ 뿌: { medianX: 1, 줄: [1, 2] }, 딴: { n: 4, medianY: 2 } });
+    return r.length === 2 && r.some((x) => x.줄로잼) && r.some((x) => !x.줄로잼);
+  })());
+
   /* 🔴 이미 잰 자리를 다시 알리면 거짓 빨강이다 */
   참('⭐ 이미 잰 자리를 알아본다',
     이미잰것인가('.answer.stability') && 이미잰것인가('.findings.1.now.oneOut'));
@@ -123,21 +182,41 @@ if (내가실행됐다) {
   for (const f of 파일들) {
     let 자료;
     try { 자료 = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
-    const 걸린것 = 훑기(자료).filter((x) => !이미잰것인가(x.where));
+    const 걸린것 = 훑기(자료).filter((x) => !이미잰것인가(x.where, x.그객체));
     if (걸린것.length) { 표.push({ f, 걸린것 }); 모두 += 걸린것.length; }
   }
 
   console.log(`내 자료 ${파일들.length}개를 훑는다 — 표본이 ${작은표본} 미만인데 중앙값을 낸 자리\n`);
-  for (const { f, 걸린것 } of 표) {
-    console.log(`⚠ ${f}  (${걸린것.length}곳)`);
-    for (const x of 걸린것.slice(0, 4)) {
-      console.log(`      n=${String(x.n).padStart(2)}  ${x.medians.join(', ').slice(0, 44).padEnd(46)}${x.where.slice(0, 44)}`);
-    }
-    if (걸린것.length > 4) console.log(`      … 그리고 ${걸린것.length - 4}곳 더`);
-  }
-  if (!모두) console.log('✅ 없다');
 
-  console.log(`\n모두 ${모두}곳.`);
+  /**
+   * ⛔⛔ **확실한 것과 짐작을 가른다.**
+   * 🔴 8/15 — 그물을 넓히자 5곳이 33곳이 됐다. 늘어난 것은 대부분 **배열 길이를
+   *   표본으로 넘겨짚은 것**이다(판 넷을 담은 `byCountry[4]` 를 「표본 4」로 읽는 식).
+   *   ⛔ 거짓이 많은 검사는 아무도 안 본다. 없애는 대신 **어느 것이 짐작인지 밝힌다.**
+   */
+  const 낸다 = (것들, 머리, 꼬리) => {
+    const 줄들 = 표.map(({ f, 걸린것 }) => ({ f, 걸린것: 걸린것.filter(것들) }))
+      .filter((x) => x.걸린것.length);
+    const 셈 = 줄들.reduce((a, x) => a + x.걸린것.length, 0);
+    console.log(`${머리} — ${셈}곳`);
+    if (꼬리) console.log(`   ${꼬리}`);
+    for (const { f, 걸린것 } of 줄들) {
+      console.log(`⚠ ${f}  (${걸린것.length}곳)`);
+      for (const x of 걸린것.slice(0, 3)) {
+        console.log(`      n=${String(x.n).padStart(2)}  ${x.medians.join(', ').slice(0, 40).padEnd(42)}${x.where.slice(0, 40)}`);
+      }
+      if (걸린것.length > 3) console.log(`      … 그리고 ${걸린것.length - 3}곳 더`);
+    }
+    console.log('');
+    return 셈;
+  };
+
+  const 확실 = 낸다((x) => !x.줄로잼, '── 표본 크기가 자료에 적혀 있다 (확실하다)');
+  const 짐작 = 낸다((x) => x.줄로잼, '── 곁의 배열 길이를 표본으로 본 것 (짐작이다)',
+    '⚠ 판 넷을 담은 배열을 「표본 4」로 읽었을 수 있다. 열어 보고 가른다.');
+
+  if (!모두) console.log('✅ 없다');
+  console.log(`모두 ${모두}곳 — 확실한 것 ${확실} · 짐작 ${짐작}.`);
   console.log('⚠ 이 자는 세기만 한다. 열어 보고 물을 것 — **이 중앙값이 지면에 답으로 실렸나.**');
   console.log('   표의 한 칸이면 둬도 된다. 답이면 `build-wikitip-one-out.mjs` 의 하나빼기를 붙인다.');
 }

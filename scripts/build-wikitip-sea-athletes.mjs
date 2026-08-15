@@ -18,6 +18,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 지금 } from './_kst.mjs';
+/* 🔴 **함수만** 가져온다. 값(상수)은 아직 안 만들어져 있을 수 있다 — ESM 되돌아 참조 */
+import { 하나빼기, 단단한가 } from './build-wikitip-one-out.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-athletes.json';
 const 결과 = 'src/data/wikitip-sea-athletes.json';
@@ -169,10 +171,24 @@ if (내가실행됐다) {
   const 선수맨위 = 선수줄[0]?.seaPerMillionTotal ?? 0;
   const 감독맨위 = 감독줄[0]?.seaPerMillionTotal ?? 0;
   const 감독이이긴선수 = 선수줄.filter((x) => x.seaPerMillionTotal < 감독맨위).length;
-  /** 쏠림 가운데값 — 감독이 선수보다 한 나라에 몰리나 */
+  /**
+   * 쏠림 가운데값 — 감독이 선수보다 한 나라에 몰리나.
+   *
+   * 🔴🔴 8/15 — 여기가 `v[v.length >> 1]` 이었다. 짝수일 때 **위쪽 값**을 택하는 셈이다.
+   *   틀린 정의는 아니지만, **우리 다른 여덟 자는 전부 두 값의 평균**을 낸다.
+   *   ⛔ 같은 곳에서 「중앙값」이 두 가지 뜻이면 독자가 두 지면을 견줄 때 어긋난다.
+   *   ⭐ 일관성이 우리 대원칙이다. 관례로 통일한다.
+   * ```
+   *   감독 12명   80.3 과 82.4 사이  →  82.4 였던 것이 81.35 로
+   *   선수 14명   50.5 와 50.6 사이  →  50.6 이었던 것이 50.55 로
+   * ```
+   * ⚠ 결론은 안 바뀐다(감독이 훨씬 몰린다). 그래도 **수가 바뀌었으니 정정을 낸다.**
+   */
   const 가운데쏠림 = (줄들) => {
     const v = 줄들.map((x) => x.topSharePc).filter((x) => typeof x === 'number').sort((a, b) => a - b);
-    return v.length ? v[v.length >> 1] : null;
+    if (!v.length) return null;
+    const n = v.length;
+    return n % 2 ? v[(n - 1) / 2] : +((v[n / 2 - 1] + v[n / 2]) / 2).toFixed(2);
   };
 
   /* 한 판에서라도 잰 사람이 몇인가 · 이스포츠가 든 사람이 몇인가 */
@@ -205,6 +221,22 @@ if (내가실행됐다) {
     topManagerTotal: 감독맨위,
     medianTopSharePlayers: 가운데쏠림(선수줄),
     medianTopShareManagers: 가운데쏠림(감독줄),
+    /**
+     * ⭐⭐ **하나 빼기** — 94편의 자를 여기에 붙인다.
+     *   감독 12명 · 선수 14명은 작은 표본이고, 그 **중앙값이 이 지면의 답**이다.
+     * 🔴 8/15 에 자료 75개를 훑는 검사를 돌렸는데 이 자리를 못 잡았다 —
+     *   그 검사는 「같은 객체에 중앙값 칸과 크기 칸이 같이 있을 때」만 본다.
+     *   여기선 중앙값이 뿌리에 있고 크기는 배열 길이라 그물을 빠져나갔다.
+     *   ⛔ 검사가 못 잡았다고 안전한 것이 아니다. 손으로 붙인다.
+     */
+    stabilityPlayers: (() => {
+      const 잼 = 하나빼기(선수줄.map((x) => x.topSharePc).filter((x) => typeof x === 'number'));
+      return 잼 ? { ...잼, verdict: 단단한가(잼) } : null;
+    })(),
+    stabilityManagers: (() => {
+      const 잼 = 하나빼기(감독줄.map((x) => x.topSharePc).filter((x) => typeof x === 'number'));
+      return 잼 ? { ...잼, verdict: 단단한가(잼) } : null;
+    })(),
     playerVsManager: `The most-read Korean manager scores ${감독맨위} against the most-read player's `
       + `${선수맨위}. Of the ${선수줄.length} players listed, ${감독이이긴선수} score below the top manager. `
       + 'A manager is read in one country and a player in several, which is why the two are in '
