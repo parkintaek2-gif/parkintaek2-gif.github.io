@@ -18,6 +18,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-sea-athletes.json';
 
 const 종목이름: Record<string, string> = {
@@ -201,6 +202,12 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="manager" count={5} />
+
+  {/* 🔴 8/15 — 카드뉴스 12벌에 영상 9편이었다. 이 지면이 마지막 빈 자리였다 */}
+  <KcwShorts set="manager"
+    says={`A man and a woman read out the two medians — how much of a player's reading sits in `
+      + `one country, and how much of a manager's does — and name the countries that hired them.`} />
+
   <KcwRelatedArticles page="/sea-athletes" />
 </WikiTip>
 
