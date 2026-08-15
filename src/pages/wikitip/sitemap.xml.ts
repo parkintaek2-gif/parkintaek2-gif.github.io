@@ -388,6 +388,10 @@ export const GET: APIRoute = async () => {
          153개 중 0개가 어긋났음을 지면에 적었고, 검증 못 하는 한국어판은 아예 뺐다.
        ⚠ 이름을 `/arrival-order` 로 지었다가 바꿨다 — 이미 있는 `/arrival` 과 헷갈린다 */
     { path: '/written-down-first', priority: '0.9', changefreq: 'weekly' },
+    /* 96편째 기사의 표. 2026-08-16 — 무엇이 덜 읽히나, 그리고 그게 한국 일인가.
+       ⭐ 갈래 셋 중 **하나만** 썼다. 나머지 둘은 하나빼기로 무너져 「못 쓴다」를 같이 실었다.
+       ⛔ 언어·공예는 한국도 일본도 −25~−28%. 둘 다 떨어졌으니 한국에 일어난 일이 아니다 */
+    { path: '/what-kind-fell', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
