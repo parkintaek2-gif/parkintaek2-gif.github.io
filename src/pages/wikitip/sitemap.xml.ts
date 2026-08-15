@@ -392,6 +392,13 @@ export const GET: APIRoute = async () => {
        ⭐ 갈래 셋 중 **하나만** 썼다. 나머지 둘은 하나빼기로 무너져 「못 쓴다」를 같이 실었다.
        ⛔ 언어·공예는 한국도 일본도 −25~−28%. 둘 다 떨어졌으니 한국에 일어난 일이 아니다 */
     { path: '/what-kind-fell', priority: '0.9', changefreq: 'weekly' },
+    /* 97편째 기사의 표. 2026-08-16 — 작품이 많으면 더 읽히나, 그게 **한 사람**에 대해 뭘 말하나.
+       ⭐ 사다리는 넷 다 오른다(한 판 기준 7.1배). ⛔ 그 옆에 **한 사람 확률 81.8%** 를 둔다 —
+         가운데값은 무리의 성질이고, 손님이 알고 싶은 것은 대개 한 사람이다.
+         (common-language effect size · McGraw & Wong 1992 = Mann–Whitney U ÷ 짝 수)
+       🔴 날것의 합계는 「문서가 있는 판만 더한 수」라 판 수가 섞여 있다(9.99배 → 7.1배).
+         한 판만 보아 갈랐다. ⛔ 「네 판 다 있는 사람끼리」로 맞추는 길은 collider 라 안 썼다 */
+    { path: '/works-and-readers', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
