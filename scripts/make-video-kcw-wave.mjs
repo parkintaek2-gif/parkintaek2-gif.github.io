@@ -35,6 +35,8 @@ export const 답 = d.answer;
 export const 잰것 = d.titlesMeasured;
 export const 큰파도 = 답.biggestWave;
 export const 못잰수 = d.titlesNotMeasured.length;
+/** ⭐ 이 편의 요점 — 신작에는 「전」이 없다. 문서가 작품과 함께 생긴다 */
+export const 태어난것 = d.titlesNotMeasured.filter((t) => /did not exist/.test(t.why));
 
 /** ⛔ 부호를 손으로 안 박는다 */
 export const 몫 = (v) => `${v > 0 ? '+' : '\u2212'}${Math.abs(v).toFixed(1)}%`;
@@ -86,12 +88,12 @@ export function 칸HTML(초) {
   const 없는것 = 끼(8.2, 8.6);
   const 없는줄 = [
     큰파도
-      ? `Not ${짧은제목(큰파도.title)} \u2014 the biggest wave here at ${큰파도.peakOverFloor}×, `
-        + 'and out of the table because the next season sits where its floor should be'
+      ? `Not ${짧은제목(큰파도.title)} \u2014 the biggest ratio here at ${큰파도.peakOverFloor}×, `
+        + 'and unusable because its floor before the wave was almost nobody'
       : 'Not the biggest wave \u2014 it could not be measured',
     `Not a survey \u2014 ${못잰수} of the ${답.measured + 못잰수} titles could not be measured at all`,
-    `Not titles rising alone \u2014 ${d.peakClustering?.largestCluster ?? 2} of the ${답.measured} `
-      + 'peaked in neighbouring months',
+    'Not new hits \u2014 the measured titles are back catalogue rising again, the only kind '
+      + 'with a floor to compare against',
   ].map((s, i) => {
     const o = 술술(끼(8.6 + i * 0.3, 9.2 + i * 0.3));
     return `<li style="opacity:${o.toFixed(2)};transform:translateX(${((1 - o) * 26).toFixed(1)}px)">${s}</li>`;
@@ -149,12 +151,12 @@ export function 칸HTML(초) {
     <div class="띠">K CULTURE WIRE &middot; kculturewire.com</div>
     <div class="큰">
       <div class="둘">
-        <b class="ㄴ">${답.peakOverFloorMedian}&times;</b><i>then</i><b class="ㅇ">${몫(답.floorChangeMedianPc)}</b>
+        <b class="ㄴ">${답.measured}</b><i>of</i><b class="ㅇ">${답.measured + 못잰수}</b>
       </div>
-      <span>The median wave across ${답.measured} Korean titles,<br>and the median floor it left behind</span>
+      <span>Korean titles with a floor on both sides of their peak.<br>${태어난것.length} have no floor because the article is born with the show.</span>
     </div>
-    <div class="밑">A title lands, the encyclopaedia fills with it,
-      and then it empties again.</div>
+    <div class="밑">A percentage change from nothing is not a small number.
+      It is not a number.</div>
 
     <div class="표">
       <table>
@@ -163,7 +165,7 @@ export function 칸HTML(초) {
       </table>
       <div class="범">Reads per million reads of that Wikipedia, four editions.<br>Median, not mean &mdash; with five titles one moves the mean alone.</div>
     </div>
-    <div class="짚"><em>${답.floorsThatRose} of ${답.measured} ended higher<br>than they started.</em></div>
+    <div class="짚"><em>Median floor afterwards ${몫(답.floorChangeMedianPc)}.<br>${답.floorsThatRose} of ${답.measured} ended higher.</em></div>
 
     <div class="없">
       <h3>What we are not saying</h3>
@@ -171,7 +173,7 @@ export function 칸HTML(초) {
     </div>
   </div>
   <div class="끝">
-    <div class="ㅈ">The wave is real.<br>What it leaves is not.</div>
+    <div class="ㅈ">Only back catalogue<br>can answer this.</div>
     <div class="ㅅ2">kculturewire.com<br>/wave-and-floor</div>
     <div class="ㄱ">Wikimedia Pageviews &middot; human traffic only<br>Every figure has a table behind it</div>
   </div>`;
@@ -189,15 +191,14 @@ if (process.argv.includes('--selftest')) {
    * 🔴 **이 편에서 제일 조심하는 자리.** 첫 화면에 「2.2배」만 뜨면 「파도가 컸다」로만 읽힌다.
    *   요점은 그 뒤에 남은 것이 없다는 쪽이다. 두 수가 **어느 프레임에서도 같이** 있어야 한다.
    */
-  재본다('⛔ 첫 화면에 파도와 남은 것이 같이 있다', 글자만(칸HTML(0.6)),
-    (s) => s.includes(String(답.peakOverFloorMedian)) && s.includes(몫(답.floorChangeMedianPc)));
-  재본다('⛔ 한쪽만 뜨는 프레임이 없다',
-    [0.1, 0.2, 0.3, 0.4, 0.5, 0.8, 1.2, 2.0].map((t) => {
-      const s = 글자만(칸HTML(t));
-      return s.includes(String(답.peakOverFloorMedian)) === s.includes(몫(답.floorChangeMedianPc));
-    }), (xs) => xs.every(Boolean));
-  재본다('⭐ 몇 편을 쟀는지 첫 화면에 있다', 글자만(칸HTML(1.6)),
-    (s) => s.includes(String(답.measured)));
+  /**
+   * 🔴 첫 화면이 「몇 편만 물을 수 있나」다. 잰 수만 크게 뜨면 「여섯 편을 쟀다」로 읽히고,
+   *   **왜 여섯뿐인지**가 요점인데 그것이 빠진다. 둘이 늘 같이 있어야 한다.
+   */
+  재본다('⛔ 첫 화면에 잰 수와 전체가 같이 있다', 글자만(칸HTML(0.6)),
+    (s) => s.includes(String(답.measured)) && s.includes(String(답.measured + 못잰수)));
+  재본다('⭐ 첫 화면에 왜 못 재는지가 있다', 글자만(칸HTML(1.6)),
+    (s) => /born with the show/.test(s) && s.includes(String(태어난것.length)));
 
   재본다('⛔ 슬라이드쇼가 아니다', [1, 2.5, 3.5, 5, 7, 9, 12].map((t) => 칸HTML(t)),
     (xs) => new Set(xs).size === xs.length);
@@ -218,16 +219,18 @@ if (process.argv.includes('--selftest')) {
   재본다('⛔ 표에 오징어게임이 없다', 표만(칸HTML(7)), (s) => !/Squid/.test(s));
   재본다('⭐ 표에는 잰 작품만 있다', 표만(칸HTML(7)),
     (s) => 잰것.every((t) => s.includes(짧은제목(t.title))));
-  재본다('⛔ 왜 뺐는지는 적는다', 글자만(칸HTML(10)),
-    (s) => /where its floor should be/.test(s));
+  재본다('⛔ 가장 큰 파도를 왜 못 쓰는지 적는다', 글자만(칸HTML(10)),
+    (s) => /almost nobody/.test(s));
   재본다('⛔ 못 잰 편수를 적는다', 글자만(칸HTML(10)), (s) => s.includes(String(못잰수)));
-  재본다('⛔ 봉우리가 몰린 것을 적는다', 글자만(칸HTML(10)), (s) => /neighbouring months/.test(s));
+  /* ⭐ 몰림은 창을 넓혀 풀렸다. 이제 적어야 할 유보는 **신작은 잴 수 없다**는 쪽이다 */
+  재본다('⛔ 신작은 못 잰다고 적는다', 글자만(칸HTML(10)), (s) => /back catalogue/.test(s));
   /* ⛔ 평균을 쓰지 않는다 — 평균은 +0.8% 라 「그대로다」가 된다 */
   재본다('⛔ 평균값이 화면에 없다', 글자만(칸HTML(7)),
     (s) => !s.includes(몫(답.floorChangeMeanPc)));
+  재본다('⭐ 끝에 세우는 것이 「옛 작품만 답할 수 있다」', 글자만(칸HTML(13)),
+    (s) => /Only back catalogue\s*can answer this/.test(s.replace(/\s+/g, ' ')));
   재본다('⭐ 중앙값이라고 화면에 적는다', 글자만(칸HTML(7)), (s) => /Median, not mean/.test(s));
-  재본다('⭐ 끝에 세우는 것이 「남은 것이 없다」', 글자만(칸HTML(13)),
-    (s) => /The wave is real\.\s*What it leaves is not/.test(s.replace(/\s+/g, ' ')));
+
 
   /* 🔴 외부유입용 */
   const 띠투명도 = (t) => {

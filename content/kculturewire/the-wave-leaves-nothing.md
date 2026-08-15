@@ -1,10 +1,13 @@
 ---
-title: "A Korean series fills the encyclopaedia, then empties it. What it leaves behind is a slightly lower floor"
+title: "You cannot ask what a Korean hit leaves behind. The article is born with the show"
 category: industry
 purpose: both
-dek: "Five Korean titles could be measured before and after their peak month in four Southeast Asian Wikipedias. The median peak was 2.2 times the surrounding months. The median floor afterwards was 6.7% lower than before."
+dek: "Of 35 Korean titles fetched across four Southeast Asian Wikipedias, six could be measured before and after their peak. Twelve were disqualified because their article did not exist before the title arrived."
 pubDate: 2026-08-15
 dataAsOf: 2026-08-15T00:00:00+09:00
+corrections:
+  - date: 2026-08-15
+    note: "This article was first published with a 48-month window and five measured titles, reporting a median peak of 2.2 times the surrounding months and a median floor afterwards of −6.7%. Re-fetching the same titles over 72 months moved six of the peaks, because a window that is too short makes its own highest month look like a peak. Squid Game's true peak is October 2021 at 2,440 per million, not January 2025 at 2,046; All of Us Are Dead peaked at 1,268 in February 2022, not 186 in July 2025; Vincenzo at 772 in June 2021, not 158 in April 2024. Three of the five titles in the original table were sitting on peaks that were not their peaks. The wider window also exposed the real limit, which the first version missed entirely: for a new title there is no floor before the wave at all, because the encyclopaedia article is created when the title arrives. Twelve of the thirty-five titles are disqualified for that reason, and the question can only be put to titles that already existed and rose again. The article has been rewritten around that. The measured set is now six titles, median peak 1.6 times, median floor afterwards −15.1%."
 author: Newsroom
 tags: ["korean drama", "wikipedia", "attention", "squid game", "korea", "method"]
 pages:
@@ -12,78 +15,78 @@ pages:
   - "/what-actually-fell"
 sources:
   - org: "Wikimedia"
-    api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, August 2022 to June 2026"
+    api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, August 2020 to June 2026"
 draft: false
 ---
 
-Yesterday's article ended without an explanation, which is an uncomfortable place to leave a reader. Going back through the same editions for something we had missed, we found one number behaving unlike all the others: reads of Korean screen articles, averaged, were up 88.7% over the year. The median for the same group was down 29.1%.
+A Korean series lands, four Southeast Asian Wikipedias fill up with it, and then they empty again. Squid Game's article was read 2,440 times per million reads of those editions in October 2021. By mid-2026 it sits under a hundred.
 
-Both figures are correct. One article was doing all the work.
+The question a studio would want answered is what the wave leaves behind. Is the floor higher after a hit than it was before?
 
-That article is worth knowing about on its own. In January 2025, reads of the Squid Game article across the Indonesian, Vietnamese, Thai and Malay Wikipedias came to 2,046 per million reads of those editions — **thirty-five times** the six months before it. Nothing else in this dataset comes close.
+For Squid Game, and for most of what Korea has exported in the last five years, that question has no answer. Not because the data is thin — because there is no *before*. The Indonesian, Vietnamese, Thai and Malay articles about Squid Game were created in September 2021, one month before the peak. The article is born with the show.
 
-Which raises a question a Korean studio might actually want answered. When a title lands like that and then recedes, does it leave the floor higher than it found it?
+This is the whole finding, and it took a second attempt to see it.
 
-## What we measured
+## What we could measure, and what it cost
 
-For each title: find its highest month, average the six months before it and the six after, and skip two months either side of the peak because those are still the wave. Then compare the two floors.
+We fetched 35 Korean titles over 72 months. Six survived to the table.
 
 | Title | Peak | Peak ÷ floor | Floor before | Floor after | Change |
 | --- | --- | --- | --- | --- | --- |
 | Kingdom | 2025-02 | 4.6× | 43.2 | 69.3 | +60.2% |
-| Train to Busan | 2025-01 | 1.9× | 84.1 | 79.9 | −5.0% |
-| Crash Landing on You | 2024-04 | 2.4× | 128.8 | 120.1 | −6.7% |
-| Vincenzo | 2024-04 | 2.2× | 72.5 | 60.3 | −16.9% |
-| All of Us Are Dead | 2025-07 | 1.8× | 101 | 72.9 | −27.8% |
+| Descendants of the Sun | 2025-04 | 1.5× | 138.1 | 146.3 | +6.0% |
+| Crash Landing on You | 2021-08 | 2.7× | 222.5 | 212.4 | −4.5% |
+| My Name | 2024-01 | 1.8× | 45.0 | 33.5 | −25.7% |
+| Goblin | 2021-10 | 1.2× | 224.0 | 159.1 | −29.0% |
+| The Handmaiden | 2022-09 | 1.5× | 116.1 | 61.1 | −47.4% |
 
-Reads are per million reads of that Wikipedia, summed across the four editions.
+Reads are per million reads of that Wikipedia, summed across the four editions. The floor is the six months before the peak and the six after, skipping two months either side because those are still the wave.
 
-The median wave is 2.2 times the surrounding months. The median floor afterwards is 6.7% lower than before. One title of five ended higher.
+Median peak: 1.6 times the surrounding months. Median floor afterwards: −15.1%. Two of six ended higher.
 
-We are reporting the median and not the mean because with five titles a single one moves the mean by itself — the mean change here is +0.8%, which would let us write that the floor holds steady. It does not describe any of these five titles.
+Notice what these six have in common. Goblin is from 2016, Descendants of the Sun from 2016, The Handmaiden from 2016, Crash Landing from 2019, Kingdom from 2019. These are not hits arriving — they are back catalogue rising again. The only titles that can answer this question are the ones that already had a floor.
 
-## The biggest wave is the one we cannot use
+## The twenty-nine we could not use
 
-Squid Game is missing from that table, and the reason is the most interesting thing on this page.
+| Why not | How many |
+| --- | --- |
+| The article did not exist for the first part of the window | 12 |
+| Not enough months across the four editions | 9 |
+| The peak sits too close to the end of the window | 4 |
+| The peak sits too close to the start of the window | 2 |
+| The floor before the wave was too thin to take a percentage | 2 |
 
-Its floor after the peak looked like it had risen 366%. Then we read the six months that floor was made of:
+The first row is the one that matters. Twelve titles — Squid Game, All of Us Are Dead, Hellbound, Alchemy of Souls and others — have no measurable floor because their articles were created as the titles launched. A percentage change from nothing is not a small number, it is not a number.
 
-| 2025-04 | 2025-05 | 2025-06 | 2025-07 | 2025-08 | 2025-09 |
-| --- | --- | --- | --- | --- | --- |
-| 211 | 144 | 386 | 617 | 169 | 96 |
+The last row is worth a sentence too. Physical: 100 has the biggest peak-to-floor ratio in the entire dataset at 15.2 times, and we cannot report it: its floor before the wave was 1.3 per million. That is a rise between two quantities that are both, in practice, nobody.
 
-June and July are not a floor. They are the next season, arriving inside the window we were using to measure the aftermath of the last one. Three of those six months are more than triple the floor before the peak.
+## What the first version of this article got wrong
 
-So the largest wave in the data tells us nothing about what waves leave behind, and the check that caught it is now part of the tool: if any month in the after-floor is more than three times the before-floor, it is not a floor.
+We published this yesterday with a 48-month window and five titles. Re-fetching over 72 months moved six of the peaks.
 
-## Fifteen titles we could not measure
-
-This is most of what we fetched, and pretending otherwise would misrepresent how thin the answer is.
-
-| Why not | Titles | How many |
+| Title | 48-month peak | 72-month peak |
 | --- | --- | --- |
-| The peak sits too close to the start of the window | Alchemy of Souls, Itaewon Class, Queen of Tears, Mask Girl | 4 |
-| Not enough months in the four editions | Sweet Home, Hellbound, The Glory, Extraordinary Attorney Woo, Moving, The8 Show | 6 |
-| The peak sits too close to the end of the window | Parasite, Oldboy, Culinary Class Wars | 3 |
-| A second wave sits where the floor should be | Squid Game | 1 |
-| The floor before the wave was too thin to take a percentage | Physical: 100 | 1 |
+| Squid Game | 2025-01, 2,046 | 2021-10, 2,440 |
+| All of Us Are Dead | 2025-07, 186 | 2022-02, 1,268 |
+| Vincenzo | 2024-04, 158 | 2021-06, 772 |
+| Crash Landing on You | 2024-04, 303 | 2021-08, 605 |
 
-Physical: 100 is the clearest case of why the last rule exists. Its floor before the peak was 1.3 per million and afterwards 2.4 — an 82.7% rise between two numbers that are both, in practice, nobody.
+A window that is too short makes its own highest month look like a peak. Three of the five titles in the first table were sitting on peaks that were not their peaks, and every figure that followed was built on them.
 
-## The peaks are not spread out, which is the real problem
+There is no check that catches this from inside the data — the window cannot see outside itself. The only defences are a window wide enough that peaks land in the middle of it, and saying so when they do not. Both are now in the tool.
 
-Five peaks, three clusters: April 2024, January and February 2025, July 2025. Two of the five titles peaked in neighbouring months.
+## The one thing that did improve
 
-If each of these titles had risen in its own month, we would be measuring titles. Sharing months means we may be measuring those months — something that happened across these four editions in early 2025 and lifted several Korean articles at once. Reads per million already divides out an edition getting busier overall. It does not divide out a season when Korean drama in general was being looked up.
-
-We cannot separate the two here. Five titles is not enough to try.
+The first version reported five peaks falling into three clusters of neighbouring months, which meant we might have been measuring those months rather than those titles. With the wider window, the six peaks fall in six separate months: August 2021, October 2021, September 2022, January 2024, February 2025, April 2025. Each title rose in its own month. That objection is answered.
 
 ## What this cannot tell you
 
-A read is not a viewer. Someone opening an encyclopaedia article about a series may have watched it, may be deciding whether to, or may have seen the name and been curious.
+Six titles is a small number, and it is a small number for a reason that will not go away: the question excludes new titles by construction. Anything that arrives and creates its own article is unmeasurable here forever.
 
-The titles were chosen as ones we expected to have had a wave, not the most-read Korean titles and not a random sample. A set chosen that way leans toward titles that travelled.
+The titles were chosen as ones we expected to have had a wave, not the most-read Korean titles and not a random sample.
 
-And we are not saying the wave caused the floor to move in either direction. Twelve months either side of a peak contain everything else that happened in those months.
+A read is not a viewer. And we are not saying the wave caused the floor to move in either direction — twelve months either side of a peak contain everything else that happened in those months.
 
-What we can say is narrower and, for anyone counting on a hit to build something durable, worth knowing: across the five Korean titles where the question could be asked cleanly, the months after the wave look slightly quieter than the months before it. The full tables, including every title we had to drop and why, are on [wave and floor](/wave-and-floor).
+What we can say is this. Among Korean titles old enough to have a floor, the months after a wave run a median 15% below the months before it. Back catalogue that gets rediscovered does not settle higher afterwards. It settles lower.
+
+The full tables, including every title we had to drop and why, are on [wave and floor](/wave-and-floor).

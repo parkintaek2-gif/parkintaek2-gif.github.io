@@ -173,13 +173,14 @@ export const 대본목록 = {
  */
 export function 파도대본만들기(d) {
   const 답 = d.answer;
+  const 태어난것 = d.titlesNotMeasured.filter((t) => /did not exist/.test(t.why)).length;
   return 때매기기([
     { 누가: '여', 말: 'A Korean series lands, and the encyclopaedia fills up.', 쉼: 0.5 },
-    { 누가: '남', 말: 'Then it empties again.', 쉼: 0.5 },
-    /* ⭐ 이 줄이 기사의 뼈다 */
-    { 누가: '여', 말: `We could measure ${답.measured} titles on both sides.`, 쉼: 0.5 },
+    /* ⭐ 이 줄이 기사의 뼈다 — 신작에는 물음 자체가 안 선다 */
+    { 누가: '남', 말: 'But the article is born with the show.', 쉼: 0.5 },
+    { 누가: '여', 말: `So ${태어난것} of them have no before.`, 쉼: 0.5 },
     /* ⚠ 마지막 줄은 짧게. 넘치면 잘려 반쪽이 된다 */
-    { 누가: '남', 말: 'The floor after is a little lower.', 쉼: 0 },
+    { 누가: '남', 말: 'Only old titles can answer.', 쉼: 0 },
   ]);
 }
 

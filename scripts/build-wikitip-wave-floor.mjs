@@ -80,7 +80,19 @@ export function 갈라내기(잰것들) {
   const 못말하는 = [];
   for (const r of 잰것들) {
     if (!r.wave) { 못말하는.push({ title: r.title, why: 'not enough months in the four editions' }); continue; }
-    if (!r.wave.comparable) { 못말하는.push({ title: r.title, why: r.wave.why, peakMonth: r.wave.peakMonth }); continue; }
+    /**
+     * ⛔ **「문서가 그때 생겼다」를 「창이 짧다」로 적지 않는다.** 창을 늘려도 안 풀린다.
+     *   신작은 이 물음 자체를 받을 수 없다 — 파도 전 바닥이 세상에 없다.
+     */
+    if (!r.wave.comparable) {
+      못말하는.push({
+        title: r.title,
+        why: (r.birth?.bornInWindow && /start of the window/.test(r.wave.why)) ? r.birth.why : r.wave.why,
+        peakMonth: r.wave.peakMonth,
+        articleFirstSeen: r.birth?.firstMonth ?? null,
+      });
+      continue;
+    }
     if (r.wave.afterIsFloor.isFloor === false) {
       못말하는.push({ title: r.title,
         why: 'a second wave sits where the floor should be',
@@ -104,6 +116,70 @@ export function 갈라내기(잰것들) {
     말할수있는.push(r);
   }
   return { 말할수있는, 못말하는 };
+}
+
+/**
+ * ⛔⛔ **창이 짧으면 창 안의 최고가 봉우리인 척한다.**
+ *
+ * 🔴 8/15 — 48 달 창으로 92편을 내고 나서 72 달로 다시 받아 보니
+ *   **여섯 편의 봉우리가 달라졌다.**
+ * ```
+ *   Squid Game          2025-01 (2046)  →  2021-10 (2440)     시즌 1 이 진짜 봉우리였다
+ *   All of Us Are Dead  2025-07  (186)  →  2022-02 (1268)     일곱 배
+ *   Vincenzo            2024-04  (158)  →  2021-06  (772)     다섯 배
+ * ```
+ *   ⛔ 92편 표에 실린 다섯 편 중 셋이 **가짜 봉우리**였다. 창 밖에 더 큰 것이 있었다.
+ *
+ * ⭐ 창 밖은 자로 못 본다. 막을 길은 **창을 넉넉히 잡는 것**뿐이고, 그래도 남는 위험은
+ *   **적어 두는 것**이다. 봉우리가 창 가장자리에서 몇 달 안쪽이면 표시한다 —
+ *   그런 봉우리는 「창 안의 최고」일 뿐 진짜 최고가 아닐 수 있다.
+ * ⚠ 이건 걸러 내는 자가 아니라 **적어 두는 자**다. 걸러 내면 창 끝의 진짜 봉우리도 버린다.
+ */
+export const 가장자리달 = 6;
+
+/**
+ * ⛔⛔⛔ **신작에는 「파도 전 바닥」이 없다. 문서가 작품과 함께 생기기 때문이다.**
+ *
+ * 🔴 8/15 — 창을 72 달로 늘렸더니 오징어게임이 「봉우리가 창 시작에 붙었다」로 빠졌다.
+ *   까닭을 열어 보니 창 시작이 문제가 아니었다 — **문서가 2021-09 에 생겼다.**
+ *   그 앞 열세 달은 「조회가 적었던 달」이 아니라 **문서가 없던 달**이다.
+ * ```
+ *   Squid Game   창 2020-08 시작 · 문서 2021-09 생김 · 봉우리 2021-10
+ *                → 파도 전 바닥으로 쓸 달이 하나뿐이다
+ * ```
+ *   ⛔ 그러면 창을 아무리 늘려도 이 물음을 **신작에는 못 던진다.** 창의 문제가 아니라
+ *     물음의 문제다. 남는 것은 **이미 있던 작품이 다시 뜬 경우**뿐이다.
+ *
+ * ⭐ 그래서 「문서가 창 안에서 생겼나」를 따로 잰다. 「달이 모자라다」와 뜻이 아주 다르다 —
+ *   앞은 **우리가 못 받은 것**이고, 뒤는 **세상에 없던 것**이다.
+ */
+export function 창안에서생겼나(달값, 달들) {
+  const 있는달 = Object.entries(달값).filter(([, v]) => v != null).map(([m]) => m).sort();
+  if (!있는달.length) return { bornInWindow: null, why: 'no month could be measured at all' };
+  const 첫달 = 있는달[0];
+  if (첫달 === 달들[0]) return { bornInWindow: false, firstMonth: 첫달 };
+  return {
+    bornInWindow: true,
+    firstMonth: 첫달,
+    monthsBefore: 달들.indexOf(첫달),
+    why: 'the article did not exist for the first part of the window, so there is no floor '
+      + 'from before the title arrived — a new title cannot be asked this question at all',
+  };
+}
+
+export function 창가장자리인가(봉우리달, 달들, 문턱 = 가장자리달) {
+  const i = 달들.indexOf(봉우리달);
+  if (i < 0) return null;
+  const 앞에서 = i;
+  const 뒤에서 = 달들.length - 1 - i;
+  if (앞에서 >= 문턱 && 뒤에서 >= 문턱) return null;
+  return {
+    monthsFromStart: 앞에서,
+    monthsFromEnd: 뒤에서,
+    why: 앞에서 < 문턱
+      ? 'the peak is near the start of the window, so a larger one may sit outside it'
+      : 'the peak is near the end of the window, so a larger one may still be coming',
+  };
 }
 
 /**
@@ -155,6 +231,34 @@ if (process.argv.includes('--selftest')) {
   참('덩어리마다 달을 그대로 낸다',
     봉우리몰렸나(['2025-01', '2025-02']).clusterMonths[0].join(',') === '2025-01,2025-02');
   참('⛔ 빈 목록은 null', 봉우리몰렸나([]) === null);
+
+  /* 🔴 48 달 창이 여섯 편의 봉우리를 잘못 잡았다. 창 밖은 자로 못 본다 — 적어 둔다 */
+  const 달들 = Array.from({ length: 24 }, (_, i) => '2024-' + String(i + 1).padStart(2, '0'));
+  참('⛔ 창 시작 가까운 봉우리를 표시한다', 창가장자리인가('2024-02', 달들)?.monthsFromStart === 1);
+  참('⛔ 창 끝 가까운 봉우리도 표시한다', 창가장자리인가('2024-23', 달들)?.monthsFromEnd === 1);
+  참('⭐ 가운데 봉우리는 표시하지 않는다', 창가장자리인가('2024-12', 달들) === null);
+  참('까닭이 앞뒤로 다르다',
+    /outside it/.test(창가장자리인가('2024-02', 달들).why)
+    && /still be coming/.test(창가장자리인가('2024-23', 달들).why));
+  참('⛔ 창에 없는 달은 null', 창가장자리인가('1999-01', 달들) === null);
+
+  /**
+   * 🔴🔴 **신작에는 파도 전 바닥이 없다.** 문서가 작품과 함께 생기기 때문이다.
+   *   「우리가 못 받았다」와 「세상에 없었다」는 다른 말이고, 기사에서 다르게 적어야 한다.
+   */
+  const 창달 = ['2024-01', '2024-02', '2024-03', '2024-04'];
+  참('⭐ 창 첫 달부터 있으면 창 안에서 생긴 것이 아니다',
+    창안에서생겼나({ '2024-01': 5, '2024-02': 6, '2024-03': 7, '2024-04': 8 }, 창달).bornInWindow === false);
+  참('⛔ 창 도중에 생긴 문서를 잡는다',
+    창안에서생겼나({ '2024-01': null, '2024-02': null, '2024-03': 7, '2024-04': 8 }, 창달).bornInWindow === true);
+  참('언제 생겼는지 적는다',
+    창안에서생겼나({ '2024-01': null, '2024-02': null, '2024-03': 7, '2024-04': 8 }, 창달).firstMonth === '2024-03');
+  참('앞에 몇 달이 비었는지 적는다',
+    창안에서생겼나({ '2024-01': null, '2024-02': null, '2024-03': 7, '2024-04': 8 }, 창달).monthsBefore === 2);
+  참('⛔ 아무 달도 못 재면 그렇게 적는다',
+    창안에서생겼나({ '2024-01': null }, 창달).bornInWindow === null);
+  참('⭐ 「못 받았다」와 「없었다」를 다른 말로 낸다',
+    /did not exist/.test(창안에서생겼나({ '2024-01': null, '2024-02': null, '2024-03': 7, '2024-04': 8 }, 창달).why));
 
   참('중앙값 — 홀수', 중앙값([3, 1, 2]) === 2);
   참('중앙값 — 짝수', 중앙값([1, 2, 3, 4]) === 2.5);
@@ -232,6 +336,8 @@ if (내가실행됐다) {
       editionsWithArticle: 있는판.length,
       editions: 있는판,
       wave: 파도재기(표),
+      /* ⛔ 「우리가 못 받았다」와 「세상에 없었다」를 가른다 */
+      birth: 창안에서생겼나(표, 쓸달),
       /* 지면이 줄을 그릴 수 있게 달별 값을 그대로 낸다 */
       byMonth: Object.fromEntries(Object.entries(표).map(([m, v]) => [m, 한자리(v)])),
     };
@@ -278,6 +384,8 @@ if (내가실행됐다) {
       beforeFloor: r.wave.beforeFloor,
       afterFloor: r.wave.afterFloor,
       floorChangePc: r.wave.floorChangePc,
+      /* ⛔ 이 봉우리가 창 안의 최고일 뿐일 수 있다 — 걸러 내지 않고 적어 둔다 */
+      nearWindowEdge: 창가장자리인가(r.wave.peakMonth, 쓸달),
     })).sort((a, b) => b.floorChangePc - a.floorChangePc),
     titlesNotMeasured: 못말하는,
 

@@ -324,6 +324,9 @@ export function 파도벌짓기(d) {
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 큰 = 답.biggestWave;
   const 못잰수 = d.titlesNotMeasured.length;
+  /* ⭐ 이 벌의 요점이 바뀌었다 — 「파도가 자국을 안 남긴다」가 아니라
+     **「신작에는 이 물음을 못 던진다」**가 앞이다. 문서가 작품과 함께 생긴다 */
+  const 태어난것 = d.titlesNotMeasured.filter((t) => /did not exist/.test(t.why));
 
   return {
     갈피: 'wave-and-floor',
@@ -334,18 +337,18 @@ export function 파도벌짓기(d) {
       {
         꼴: '표지',
         위: `Four Southeast Asian Wikipedias · ${d.window}`,
-        큰: 'The wave is real.\nWhat it leaves\nbehind is not.',
-        아래: `A Korean title peaks, the encyclopaedia fills, and then it empties. Across `
-          + `**${답.measured} titles** we could measure on both sides, the floor afterwards is a `
-          + `median **${몫(답.floorChangeMedianPc)}**.`,
+        큰: 'The article is\nborn with\nthe show.',
+        아래: `A Korean title peaks and the encyclopaedia fills. What the wave leaves behind `
+          + `cannot be asked of a new title at all — **${태어난것.length} of 35** have no floor `
+          + 'from before, because they had no article from before.',
       },
       {
         꼴: '수',
-        제목: 'The peak, and\nwhat is left of it',
-        큰: `${답.peakOverFloorMedian}× → ${몫(답.floorChangeMedianPc)}`,
-        곁: 'Median peak against the surrounding months, then the median change in floor',
-        아래: 'The median, not the mean. With five titles the mean is moved by one of them '
-          + `on its own — it reads ${몫(답.floorChangeMeanPc)}, which describes none of them.`,
+        제목: 'How many titles\ncan answer at all',
+        큰: `${답.measured} of ${답.measured + 못잰수}`,
+        곁: 'Titles with a measurable floor on both sides of their peak',
+        아래: `${태어난것.length} were disqualified because the article did not exist before the `
+          + 'title did. A percentage change from nothing is not a small number, it is not a number.',
       },
       {
         꼴: '표',
@@ -365,24 +368,24 @@ export function 파도벌짓기(d) {
         제목: 'What we are not saying',
         목록: [
           큰
-            ? `Not that ${큰.title} proves it — its peak is the biggest here at `
-              + `${큰.peakOverFloor}×, and it is out of the table because the next season sits `
-              + 'where its floor should be'
-            : 'Not that the biggest wave proves it',
-          `Not a survey — ${못잰수} of the ${답.measured + 못잰수} titles we fetched could not be `
-            + 'measured at all, and every reason is published',
-          `Not titles rising on their own — ${d.peakClustering?.largestCluster ?? 2} of the `
-            + `${답.measured} peaked in neighbouring months, so we may be measuring those months`,
+            ? `Not that ${큰.title} proves anything — the biggest ratio here at `
+              + `${큰.peakOverFloor}×, and unusable because its floor before the wave was `
+              + 'almost nobody'
+            : 'Not that the biggest wave proves anything',
+          `Not a survey — ${못잰수} of the ${답.measured + 못잰수} titles could not be measured `
+            + 'at all, and every reason is published',
+          'Not new hits — the measured titles are back catalogue rising again, which is the '
+            + 'only kind that has a floor to compare against',
         ],
         아래: 'A read is not a viewer. Some of these are people deciding\nwhether to watch, '
           + 'and some never do.',
       },
       {
         꼴: '끝',
-        제목: 'The floor after\nis a little lower',
-        글: `Across the ${답.measured} Korean titles where the question could be asked cleanly, `
-          + `the months after the wave are a median **${몫(답.floorChangeMedianPc)}** on the `
-          + `months before it. **${답.floorsThatRose} of ${답.measured}** ended higher.`,
+        제목: 'Back catalogue\nsettles lower',
+        글: `Among the ${답.measured} Korean titles old enough to have a floor, the months after `
+          + `the wave run a median **${몫(답.floorChangeMedianPc)}** on the months before it. `
+          + `**${답.floorsThatRose} of ${답.measured}** ended higher.`,
         길: `${주소}/wave-and-floor`,
         곁: 'Wikimedia Pageviews · human traffic only',
       },

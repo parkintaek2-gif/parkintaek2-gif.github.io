@@ -1,11 +1,11 @@
 {
   "generated": "2026-08-15",
   "question": "A Korean title lands, the encyclopaedia fills with it, and then it empties again. When the wave has passed, is the floor higher than it was before it arrived?",
-  "window": "2022-08 through 2026-06, 47 months",
+  "window": "2020-08 through 2026-06, 71 months",
   "droppedLastMonth": {
     "month": "2026-07",
-    "value": 1745,
-    "previousTwelveMean": 51374.8
+    "value": 2812,
+    "previousTwelveMean": 81649.5
   },
   "editions": [
     "id",
@@ -36,79 +36,87 @@
       "peakOverFloor": 4.6,
       "beforeFloor": 43.2,
       "afterFloor": 69.3,
-      "floorChangePc": 60.2
+      "floorChangePc": 60.2,
+      "nearWindowEdge": null
     },
     {
-      "title": "Train to Busan",
+      "title": "Descendants of the Sun",
       "editions": 4,
-      "peakMonth": "2025-01",
-      "peak": 156.4,
-      "peakOverFloor": 1.9,
-      "beforeFloor": 84.1,
-      "afterFloor": 79.9,
-      "floorChangePc": -5
+      "peakMonth": "2025-04",
+      "peak": 202,
+      "peakOverFloor": 1.5,
+      "beforeFloor": 138.1,
+      "afterFloor": 146.3,
+      "floorChangePc": 6,
+      "nearWindowEdge": null
     },
     {
       "title": "Crash Landing on You",
       "editions": 4,
-      "peakMonth": "2024-04",
-      "peak": 303.2,
-      "peakOverFloor": 2.4,
-      "beforeFloor": 128.8,
-      "afterFloor": 120.1,
-      "floorChangePc": -6.7
+      "peakMonth": "2021-08",
+      "peak": 604.6,
+      "peakOverFloor": 2.7,
+      "beforeFloor": 222.5,
+      "afterFloor": 212.4,
+      "floorChangePc": -4.5,
+      "nearWindowEdge": null
     },
     {
-      "title": "Vincenzo (TV series)",
-      "editions": 4,
-      "peakMonth": "2024-04",
-      "peak": 158.3,
-      "peakOverFloor": 2.2,
-      "beforeFloor": 72.5,
-      "afterFloor": 60.3,
-      "floorChangePc": -16.9
-    },
-    {
-      "title": "All of Us Are Dead",
-      "editions": 4,
-      "peakMonth": "2025-07",
-      "peak": 186.5,
+      "title": "My Name (TV series)",
+      "editions": 3,
+      "peakMonth": "2024-01",
+      "peak": 79,
       "peakOverFloor": 1.8,
-      "beforeFloor": 101,
-      "afterFloor": 72.9,
-      "floorChangePc": -27.8
+      "beforeFloor": 45,
+      "afterFloor": 33.5,
+      "floorChangePc": -25.7,
+      "nearWindowEdge": null
+    },
+    {
+      "title": "Goblin (TV series)",
+      "editions": 4,
+      "peakMonth": "2021-10",
+      "peak": 279,
+      "peakOverFloor": 1.2,
+      "beforeFloor": 224,
+      "afterFloor": 159.1,
+      "floorChangePc": -29,
+      "nearWindowEdge": null
+    },
+    {
+      "title": "The Handmaiden",
+      "editions": 2,
+      "peakMonth": "2022-09",
+      "peak": 172,
+      "peakOverFloor": 1.5,
+      "beforeFloor": 116.1,
+      "afterFloor": 61.1,
+      "floorChangePc": -47.4,
+      "nearWindowEdge": null
     }
   ],
   "titlesNotMeasured": [
     {
       "title": "Squid Game",
-      "why": "a second wave sits where the floor should be",
-      "peakMonth": "2025-01",
-      "peakOverFloor": 35.3,
-      "secondWaveMonths": [
-        {
-          "month": "2025-04",
-          "value": 211.2
-        },
-        {
-          "month": "2025-06",
-          "value": 386.1
-        },
-        {
-          "month": "2025-07",
-          "value": 616.8
-        }
-      ],
-      "misleadingFloorChangePc": 366.3
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-10",
+      "articleFirstSeen": "2021-09"
     },
     {
       "title": "Parasite (2019 film)",
-      "why": "the peak sits too close to the end of the window",
-      "peakMonth": "2026-05"
+      "why": "the peak sits too close to the start of the window",
+      "peakMonth": "2020-09",
+      "articleFirstSeen": "2020-08"
     },
     {
       "title": "Sweet Home (South Korean TV series)",
       "why": "not enough months in the four editions"
+    },
+    {
+      "title": "All of Us Are Dead",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2022-02",
+      "articleFirstSeen": "2022-02"
     },
     {
       "title": "Hellbound",
@@ -124,8 +132,9 @@
     },
     {
       "title": "Alchemy of Souls",
-      "why": "the peak sits too close to the start of the window",
-      "peakMonth": "2023-01"
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2023-01",
+      "articleFirstSeen": "2022-12"
     },
     {
       "title": "Physical: 100",
@@ -134,13 +143,21 @@
     },
     {
       "title": "Itaewon Class",
-      "why": "the peak sits too close to the start of the window",
-      "peakMonth": "2022-10"
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2022-10",
+      "articleFirstSeen": "2022-05"
+    },
+    {
+      "title": "Vincenzo (TV series)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-06",
+      "articleFirstSeen": "2021-06"
     },
     {
       "title": "Queen of Tears",
-      "why": "the peak sits too close to the start of the window",
-      "peakMonth": "2024-04"
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-04",
+      "articleFirstSeen": "2024-04"
     },
     {
       "title": "Moving (TV series)",
@@ -148,13 +165,21 @@
     },
     {
       "title": "Mask Girl",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2023-09",
+      "articleFirstSeen": "2023-08"
+    },
+    {
+      "title": "Train to Busan",
       "why": "the peak sits too close to the start of the window",
-      "peakMonth": "2023-09"
+      "peakMonth": "2020-08",
+      "articleFirstSeen": "2020-08"
     },
     {
       "title": "Oldboy (2003 film)",
       "why": "the peak sits too close to the end of the window",
-      "peakMonth": "2026-05"
+      "peakMonth": "2026-05",
+      "articleFirstSeen": "2020-08"
     },
     {
       "title": "The8 Show",
@@ -163,44 +188,112 @@
     {
       "title": "Culinary Class Wars",
       "why": "the peak sits too close to the end of the window",
-      "peakMonth": "2026-01"
+      "peakMonth": "2026-01",
+      "articleFirstSeen": "2024-10"
+    },
+    {
+      "title": "Business Proposal (TV series)",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Twenty-Five Twenty-One",
+      "why": "the peak sits too close to the end of the window",
+      "peakMonth": "2026-06",
+      "articleFirstSeen": "2022-07"
+    },
+    {
+      "title": "Reborn Rich",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "The King: Eternal Monarch",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2022-04",
+      "articleFirstSeen": "2022-04"
+    },
+    {
+      "title": "Hotel del Luna",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-11",
+      "articleFirstSeen": "2021-11"
+    },
+    {
+      "title": "Start-Up (South Korean TV series)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-10",
+      "articleFirstSeen": "2021-10"
+    },
+    {
+      "title": "Mr. Sunshine (TV series)",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Signal (South Korean TV series)",
+      "why": "the peak sits too close to the end of the window",
+      "peakMonth": "2025-12",
+      "articleFirstSeen": "2023-03"
+    },
+    {
+      "title": "Burning (2018 film)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-09",
+      "articleFirstSeen": "2024-02"
+    },
+    {
+      "title": "Minari (film)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-04",
+      "articleFirstSeen": "2021-04"
+    },
+    {
+      "title": "Broker (2022 film)",
+      "why": "the floor before the wave was only 3.9 per million, too thin for a percentage to mean anything",
+      "peakMonth": "2025-09"
     }
   ],
   "answer": {
-    "measured": 5,
-    "outOf": 20,
-    "floorChangeMedianPc": -6.7,
-    "floorChangeMeanPc": 0.8,
-    "peakOverFloorMedian": 2.2,
-    "floorsThatRose": 1,
+    "measured": 6,
+    "outOf": 35,
+    "floorChangeMedianPc": -15.1,
+    "floorChangeMeanPc": -6.7,
+    "peakOverFloorMedian": 1.6,
+    "floorsThatRose": 2,
     "biggestWave": {
-      "title": "Squid Game",
-      "peakMonth": "2025-01",
-      "peakOverFloor": 35.3,
+      "title": "Physical: 100",
+      "peakMonth": "2024-03",
+      "peakOverFloor": 15.2,
       "reportable": false
     }
   },
   "peakClustering": {
-    "peaks": 5,
-    "distinctMonths": 4,
-    "clusters": 3,
-    "largestCluster": 2,
+    "peaks": 6,
+    "distinctMonths": 6,
+    "clusters": 6,
+    "largestCluster": 1,
     "clusterMonths": [
       [
-        "2024-04"
+        "2021-08"
       ],
       [
-        "2025-01",
+        "2021-10"
+      ],
+      [
+        "2022-09"
+      ],
+      [
+        "2024-01"
+      ],
+      [
         "2025-02"
       ],
       [
-        "2025-07"
+        "2025-04"
       ]
     ],
-    "note": "5 peaks fall into 3 clusters of neighbouring months, the largest holding 2 of them. If these titles had each risen in their own month we would be measuring titles. Sharing months means we may be measuring those months."
+    "note": "Each title peaked in its own month, which is what measuring titles rather than months requires."
   },
   "cannotSay": [
-    "We measured 5 titles. That is a small number and it is the number we have: of the twenty we fetched, some have no article in these editions, some peaked too near the edge of the window to have a floor on both sides, one had a second wave sitting where its floor should be, and one had a floor too thin to take a percentage. Every one of them is listed with its reason.",
+    "We measured 6 titles. That is a small number and it is the number we have: of the twenty we fetched, some have no article in these editions, some peaked too near the edge of the window to have a floor on both sides, one had a second wave sitting where its floor should be, and one had a floor too thin to take a percentage. Every one of them is listed with its reason.",
     "The titles are ones we expected to have had a wave, not the most-read Korean titles and not a random sample. A set chosen this way leans toward titles that travelled.",
     "A read is not a viewer. Someone opening an encyclopaedia article about a series may have watched it, may be deciding whether to, or may have seen the name somewhere and been curious. What this dates is when the looking happened.",
     "We are not saying the wave caused the floor to move, in either direction. Twelve months either side of a peak contain everything else that happened in those months too."

@@ -38,7 +38,20 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 export const 판들 = ['id', 'vi', 'th', 'ms'];
 export const 판이름 = { id: 'Indonesia', vi: 'Vietnam', th: 'Thailand', ms: 'Malaysia' };
-export const 달수 = 48;
+/**
+ * ⭐ **72 달(여섯 해)을 받는다. 48 이 아니다.**
+ *
+ * 🔴 48 달로는 스무 편 중 **다섯 편**밖에 못 쟀다. 못 잰 까닭 중 넷이
+ *   「봉우리가 창 **시작**에 붙었다」였다 — 2020~2022 년에 뜬 작품들이다.
+ *   ⭐ 창을 앞으로 늘리면 그 넷의 앞바닥이 창 안에 들어온다.
+ *
+ * 🔴 그리고 더 큰 까닭이 있다. 잰 다섯 편의 봉우리가 **세 덩어리에 몰려 있었다**
+ *   (2024-04 에 둘 · 2025-01·02 에 둘 · 2025-07). 그러면 우리가 잰 것이 작품인지
+ *   그 몇 달인지 가를 수 없다. **창이 넓어지면 봉우리가 흩어진다.**
+ *
+ * ⚠ 위키미디어 per-article 은 2015-07 부터 있다. 72 달은 넉넉히 안쪽이다.
+ */
+export const 달수 = 72;
 
 /** 봉우리 앞뒤로 바닥을 잴 달수. ⚠ 봉우리 달 자체와 그 둘레는 파도라 뺀다 */
 export const 바닥달수 = 6;
@@ -57,6 +70,18 @@ export const 작품들 = [
   'Physical: 100', 'Crash Landing on You', 'Itaewon Class', 'Vincenzo (TV series)',
   'Queen of Tears', 'Moving (TV series)', 'Mask Girl', 'Train to Busan',
   'Oldboy (2003 film)', 'The8 Show', 'Culinary Class Wars',
+  /**
+   * ⭐ **2019~2023 년에 뜬 것을 더 넣는다.** 창을 72 달로 늘렸으니 이들의 봉우리가
+   *   창 **가운데**에 온다 — 앞뒤로 바닥을 잴 수 있다.
+   * ⭐⭐ 그리고 이것이 「봉우리가 몰렸다」는 유보를 푸는 길이다. 뜬 해가 흩어져 있으면
+   *   봉우리도 흩어지고, 그때 비로소 **작품을 잰 것**이 된다.
+   * ⚠ 여전히 「파도가 있었을 법한 것」으로 고른 것이다. 그 치우침은 그대로 남는다.
+   */
+  'Business Proposal (TV series)', 'Twenty-Five Twenty-One', 'Reborn Rich',
+  'My Name (TV series)', 'The King: Eternal Monarch', 'Hotel del Luna',
+  'Start-Up (South Korean TV series)', 'Mr. Sunshine (TV series)',
+  'Descendants of the Sun', 'Goblin (TV series)', 'Signal (South Korean TV series)',
+  'Burning (2018 film)', 'The Handmaiden', 'Minari (film)', 'Broker (2022 film)',
 ];
 
 export const 못받음 = Symbol('못받음');
