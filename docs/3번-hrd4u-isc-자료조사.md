@@ -1049,3 +1049,40 @@ svcCode   MAJOR(목록) | MAJOR_VIEW(상세)   ·   majorSeq 학과코드   ·  
 ⭐ 우리 /major 925장은 지금 **NEIS 학교 수**만 이야기한다. 여기에
   「졸업 후 임금 · 취업률 · 관련 고교 과목」이 붙으면 **지면의 뼈대가 바뀐다.**
 ⛔ 다만 공공누리 1유형이라 **출처를 반드시 적는다**(교육부·한국직업능력연구원 커리어넷).
+
+
+### ⓥ **커리어넷 나머지 명세도 읽었다 — 직업·학교·진로상담** (2026-08-15 11:0x)
+
+```
+직업   /cnet/front/openapi/openApiJobCenter.do
+학교   /cnet/front/openapi/openApiSchoolCenter.do
+상담   /cnet/front/openapi/openApiCounselCenter.do
+⚠ openApiEduCenter 는 **404** 다 — 「진로자료」는 이 이름이 아니다. 지어내지 않고 «못 찾았다»로 둔다
+```
+
+#### 직업정보 — ⭐ **/work 에 그대로 붙는다**
+
+```
+job 직업명 · profession 직업분야 · similarJob **유사직업** · summary 직업설명
+**salery 연봉** · **prospect 일자리전망** · **possibility 발전가능성** · equalemployment 고용평등
+job_ctg_code 직업분류코드 · aptd_type_code 적성유형별코드
+```
+🔴 **「그 일은 앞으로 어떻게 되나(일자리전망)」와 「비슷한 일은 무엇인가(유사직업)」가 칸으로 온다.**
+  ISC 보고서에서 「앞날 수요」 표를 1,535개 찾아 놓았는데, 그건 **PDF 라 못 옮긴다.**
+  ⇒ 같은 결의 이야기를 **1유형으로 열려 있는 이 API 로** 할 수 있다.
+
+#### 학교정보 — 우리 학교 지면의 «빠진 칸»
+
+```
+schoolName 학교명 · schoolGubun 학교종류 · schoolType 학교유형 · estType 설립유형
+region 지역 · adres 주소 · campusName 캠퍼스명 · link 상세지면
+```
+⚠ NEIS 와 겹친다. **겹치는 것을 두 번 싣지 않는다** — 우리에게 없는 것은 «대학 캠퍼스»다.
+
+#### 진로상담 사례 — ⛔ 우리 결이 아니다
+
+```
+question 질문 · answer 답변 · gubun 분류
+```
+⛔ 「보호자 동석이 구조다. 아이가 혼자 AI 와 대화하는 경로는 만들지 않는다」에 걸린다.
+  상담 문답을 지면에 옮기면 그 경로를 만드는 셈이다. **받지 않는다.**
