@@ -23,6 +23,7 @@ import majors from '../../data/100yearmap/pages-major.json';
 import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 연구 from '../../data/100yearmap/pages-research.json';
+import 초등 from '../../data/100yearmap/elementary.json';
 
 const 학과수 = (majors as any[]).length;
 const 학교수 = (schools as any[]).length;
@@ -32,6 +33,10 @@ const 대학수 = (universities as any[]).length;
  *  `/after` 지면이 세는 수와 **같은 수여야 한다.** 다르면 둘 중 하나가 거짓말이 된다. */
 const 셀수있는대학 = (universities as any[]).filter((u) => u.취업률 && u.취업대상자 !== 0).length;
 const 연구수 = ((연구 as any).자료 as any[]).length;
+
+/* 🔴 초등 자료에서 읽는다 — ⛔ 첫 화면에 수를 손으로 박지 않는다.
+   박으면 자료가 바뀔 때 여기만 옛 수로 남는다(voc 카드 바닥에서 그렇게 당했다) */
+const 백년넘은초등 = (초등 as any).백년넘은곳수 as number;
 
 /** 칩에 넣을 학과. ⛔ 「인기 순위」가 아니다 — **계열을 골고루** 섞어 고른 예시다.
  *  개설 학교가 많은 순으로 놓으면 그 줄 자체가 순위표가 된다. */
@@ -176,6 +181,18 @@ const jsonLd = {
   </p>
   <p class="note">
     <a href="/major">학과 {학과수.toLocaleString()}개 전부 보기 →</a>
+  </p>
+
+  {/**
+    * 🔴 **걸어 두지 않으면 지면이 있어도 아무도 못 닿는다** — 2026-08-08 에 /region 18장이
+    *   「한 번도 못 닿는」 자리에 있었다. 8/16 에 연 /elementary 도 같을 뻔했다(첫 화면에서 0번).
+    * ⛔ 메뉴에는 안 더한다 — 이미 일곱 칸이고, 폰에서 「가로로 426px 밀어야 보인다」는 실측이
+    *   레이아웃 주석에 남아 있다. 그래서 첫 화면에 건다.
+    * ⭐ 왜 이 자리인가 — 사장님 「왜 자꾸 대입에 머물러있니」.
+    *   첫 화면에 **가장 어린 손님에게 닿는 문이 하나도 없었다.**
+    */}
+  <p class="note">
+    <a href="/elementary">초등학교는 몇 살인가요 — 백 년 넘은 학교 {백년넘은초등.toLocaleString()}곳 →</a>
   </p>
 
   {/**

@@ -161,6 +161,10 @@ export const GET: APIRoute = () => {
     /* 나이로 보기 — 「32살 평균 연봉」·「결혼 적령기」처럼 **나이로 찾는 검색**을 받는 자리다.
        ⚠ 나이 목록은 `age/[age].astro` 의 getStaticPaths 와 **같아야 한다.** 늘릴 때 두 곳을 함께 고친다. */
     { path: '/age', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 초등학교 — 「○○초등학교 몇 년도」·「우리 학교 개교」처럼 **학교 나이로 찾는 검색**을 받는다.
+       ⚠ 이 자 안에 「/after · /region 때와 **세 번째 같은 실수**」라고 적혀 있다.
+         지면을 만들고 여기 한 줄을 안 넣으면 **네 번째**가 된다. 만든 날(8/16)에 같이 넣는다. */
+    { path: '/elementary', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
