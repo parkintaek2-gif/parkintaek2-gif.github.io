@@ -14,6 +14,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* ⭐ 근거 칸의 표준 문구 — 자료 고유의 한계는 아래에서 덧붙인다 */
+import { 근거, 중앙값 as 중앙값자, 백만분율 as 백만분율자 } from './_evidence-kcw.mjs';
 import { 지금 } from './_kst.mjs';
 
 const 원자료 = 'archive/raw/wikipedia/sea-places.json';
@@ -137,6 +139,22 @@ if (내가실행됐다) {
     generated: 지금(),
     source: d.source,
     window: d.window,
+    /**
+     * ⭐⭐ **근거 칸** — 사장님 지시(8/15). 표준 문구에 **이 자료 고유의 한계**를 덧붙인다.
+     *
+     * ⚠ 이 자료에는 이미 `cannotMeasureVenues` 가 있다. 그건 **자료가 못 보는 것**이고,
+     *   ③ 은 **그 방법의 알려진 한계**다 — 다른 것이라 둘 다 낸다.
+     */
+    ...근거([중앙값자, 백만분율자], {
+      방법: 'Places are grouped by kind — cities and districts, companies, heritage sites, '
+        + 'stations — and each kind is summarised by its median place rather than its total, '
+        + 'so that a kind with many entries cannot outrank one with few by count alone.',
+      한계: 'Wikipedia has no article for an individual restaurant or cafe, so a whole layer of '
+        + 'places is missing rather than measured as small. Reading about a place is not '
+        + 'visiting it. And the four editions do not agree with each other — Indonesia opens '
+        + 'with record labels where Malaysia opens with a palace — so the combined figure hides '
+        + 'a disagreement that the per-country columns show.',
+    }),
     unit: d.unit ?? 'Reads per million reads of the whole language edition, summed across four '
       + 'editions, 12 months. One row is one place.',
     editions: 판들.map((p) => ({ code: p, country: 나라이름[p] })),
