@@ -54,6 +54,27 @@ export const 판이름 = {
 /** ⛔ 「못 받았다」의 표. **`null`(문서 없음)과 절대 섞지 않는다** */
 export const 못받음 = '못받음';
 
+/**
+ * ⭐ 영어 문서에서 **다른 언어판 제목**을 묻는 주소.
+ * 🔴 이것이 없어 첫 수집이 헛것이 됐다 — 영어 제목을 그대로 ko 위키에 물었다.
+ * ⛔ `redirects=1` 이 없으면 넘김 문서는 langlinks 가 빈 채로 온다. 8/14 에 물렸다.
+ */
+export function 언어판제목주소(제목, 판 = 기준판) {
+  const q = new URLSearchParams({
+    action: 'query', format: 'json', formatversion: '2',
+    prop: 'langlinks', lllang: 판, lllimit: '1', redirects: '1', titles: 제목,
+  });
+  return `https://en.wikipedia.org/w/api.php?${q}`;
+}
+
+/** ⭐ langlinks 답에서 그 판의 제목만 꺼낸다 */
+export function 언어판제목꺼내기(답) {
+  const p = 답?.query?.pages?.[0];
+  if (!p || p.missing || p.invalid) return null;
+  const t = p.langlinks?.[0]?.title;
+  return typeof t === 'string' && t.length ? t : null;
+}
+
 /** 첫 판 날짜를 묻는 주소. ⛔ `redirects=1` 을 빼면 넘김 문서가 빈 것으로 온다 */
 export function 첫판주소(판, 제목) {
   const q = new URLSearchParams({
@@ -123,6 +144,21 @@ export function 중앙값(값들) {
 
 if (process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
+
+  /* 🔴🔴 이 자리가 없어 첫 수집이 헛것이 됐다 — 59편 중 1편만 쟀다 */
+  참('⭐ 영어 문서에서 한국어 제목을 묻는다',
+    언어판제목주소('Squid Game').startsWith('https://en.wikipedia.org/')
+    && 언어판제목주소('Squid Game').includes('lllang=ko'));
+  참('🔴 langlinks 도 넘김을 따라간다', 언어판제목주소('X').includes('redirects=1'));
+  참('⚠ `&` 가 든 제목이 새지 않는다',
+    언어판제목주소('Johnny & Associates').includes('Johnny+%26+Associates'));
+  참('한국어 제목을 꺼낸다',
+    언어판제목꺼내기({ query: { pages: [{ langlinks: [{ title: '오징어 게임' }] }] } }) === '오징어 게임');
+  참('⛔ langlink 가 없으면 null',
+    언어판제목꺼내기({ query: { pages: [{ langlinks: [] }] } }) === null
+    && 언어판제목꺼내기({ query: { pages: [{}] } }) === null);
+  참('⛔ 없는 문서면 null', 언어판제목꺼내기({ query: { pages: [{ missing: true }] } }) === null);
+  참('⛔ 빈 답도 null', 언어판제목꺼내기({}) === null && 언어판제목꺼내기(null) === null);
 
   참('🔴 넘김을 따라간다', 첫판주소('id', 'X').includes('redirects=1'));
   참('첫 판부터 하나만 받는다',
@@ -227,7 +263,7 @@ if (내가실행됐다) {
    */
   const 이전 = fs.existsSync(원본길)
     ? Object.fromEntries((JSON.parse(fs.readFileSync(원본길, 'utf8')).titles ?? [])
-      .map((t) => [t.titleEn, t.births ?? {}]))
+      .map((t) => [t.titleEn, { births: t.births ?? {}, titles: t.titles ?? {} }]))
     : {};
   if (Object.keys(이전).length) console.log(`⭐ 앞서 받은 ${Object.keys(이전).length}편이 있다 — 빈 것만 묻는다`);
 
@@ -249,12 +285,26 @@ if (내가실행됐다) {
   const 나온것 = []; let 못받은수 = 0; let 물은수 = 0;
   for (const a of 파도.articles) {
     const 생일들 = {};
-    /* ⚠ 한국어판 제목은 파도 자료에 없다 — 영어 제목으로 묻는다.
-       ko 위키가 영어 제목을 넘김으로 갖고 있으면 `redirects=1` 이 따라간다 */
-    const 제목들 = { [기준판]: a.titleEn, ...a.titles };
+    /**
+     * 🔴🔴🔴 **한국어판 제목을 먼저 받는다.**
+     *   파도 자료에는 `titles.ko` 가 없다. 첫 수집은 영어 제목 `Squid Game` 을 그대로
+     *   ko 위키에 물었고, 59편 중 **1편**만 잡혔다. 기준이 없으니 시차도 없었다.
+     * ⚠ 앞서 받아 둔 것이 있으면 다시 안 묻는다.
+     */
+    let ko제목 = 이전[a.titleEn]?.titles?.[기준판] ?? null;
+    if (!ko제목) {
+      const 답 = await 받기(언어판제목주소(a.titleEn));
+      물은수 += 1;
+      ko제목 = 답 === 못받음 ? null : 언어판제목꺼내기(답);
+      await 잠깐(1100);
+    }
+
+    const 제목들 = { ...(ko제목 ? { [기준판]: ko제목 } : {}), ...a.titles };
     for (const [판, 제목] of Object.entries(제목들)) {
       if (!제목) continue;
-      const 앞것 = 이전[a.titleEn]?.[판];
+      /* ⛔ 제목이 그때와 다르면 딴 문서다 — 이어받지 않고 다시 묻는다 */
+      const 같은제목 = 이전[a.titleEn]?.titles?.[판] === 제목;
+      const 앞것 = 같은제목 ? 이전[a.titleEn]?.births?.[판] : undefined;
       if (앞것 !== undefined && 앞것 !== 못받음) { 생일들[판] = 앞것; continue; }
       const 답 = await 받기(첫판주소(판, 제목));
       물은수 += 1;
