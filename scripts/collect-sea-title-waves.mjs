@@ -82,6 +82,22 @@ export const 작품들 = [
   'Start-Up (South Korean TV series)', 'Mr. Sunshine (TV series)',
   'Descendants of the Sun', 'Goblin (TV series)', 'Signal (South Korean TV series)',
   'Burning (2018 film)', 'The Handmaiden', 'Minari (film)', 'Broker (2022 film)',
+
+  /**
+   * ⭐ 8/15 두 번째 늘림 — **되풀이가 어느 철에 오나**를 물으려니 자료가 얇았다.
+   *   93편에서 되풀이를 낸 작품이 **열둘**뿐이었고, 작품 편향을 빼고 세면 열두 칸이 됐다.
+   *   열두 칸으로 「1~4월에 몰린다」를 말하면 우연과 못 가른다.
+   * ⚠ 여전히 우리가 고른 목록이다. 늘려도 **치우침의 방향은 그대로** 남는다 —
+   *   「파도가 있었을 법한 것」으로 골랐다는 사실이 편수로 지워지지 않는다.
+   */
+  'Hospital Playlist', 'Prison Playbook', 'Reply 1988', 'My Mister', 'Misaeng',
+  'Stranger (South Korean TV series)', 'Move to Heaven', 'D.P. (TV series)',
+  'Juvenile Justice (TV series)', 'The Silent Sea', 'Little Women (South Korean TV series)',
+  'Big Mouth (South Korean TV series)', 'Doctor Slump', 'Lovely Runner',
+  'The Atypical Family', 'Marry My Husband', 'A Killer Paradox', 'Gyeongseong Creature',
+  /* ⚠ `Sweet Home` 은 위에 정식 제목으로 이미 있다. 두 번 넣으면 그 작품이 두 배 무게를 갖는다 */
+  'Memories of Murder', 'The Wailing (film)', 'A Taxi Driver',
+  'Extreme Job', 'The Roundup (2022 film)', 'Exhuma',
 ];
 
 export const 못받음 = Symbol('못받음');
@@ -209,6 +225,15 @@ if (process.argv.includes('--selftest')) {
   const 잼 = []; const 참 = (n, v) => 잼.push([n, !!v]);
   참('작품이 하나 이상이다', 작품들.length > 0);
   참('⛔ 작품 제목이 겹치지 않는다', new Set(작품들).size === 작품들.length);
+  /**
+   * 🔴 8/15 — `Sweet Home` 과 `Sweet Home (South Korean TV series)` 를 둘 다 넣었다.
+   *   글자로는 다르니 위 검사가 통과했다. ⛔ **같은 작품이 두 배 무게를 갖는다.**
+   * ⭐ 괄호 설명을 떼고 다시 센다 — 그것이 「겹치나」의 진짜 뜻이다.
+   */
+  참('⛔ 괄호를 떼도 겹치지 않는다', (() => {
+    const 벗긴것 = 작품들.map((t) => t.replace(/\s*\(.*\)$/, '').toLowerCase());
+    return new Set(벗긴것).size === 벗긴것.length;
+  })());
   참('⛔ 빈 제목이 없다', 작품들.every((t) => t.trim().length > 0));
   참('넘겨주기를 따라간다', 주소만들기('Squid Game').includes('redirects=1'));
   참('⛔ & 가 주소를 자르지 못한다', 주소만들기('A & B').includes('%26'));

@@ -70,6 +70,19 @@
       "returnWaveMonths": []
     },
     {
+      "title": "A Killer Paradox",
+      "editions": 4,
+      "peakMonth": "2024-02",
+      "peak": 539.6,
+      "halfLifeMonths": 1,
+      "monthsWatched": 28,
+      "roseAboveHalfAgain": false,
+      "roseAgainMonths": [],
+      "returnWaves": 0,
+      "firstReturnAfterMonths": null,
+      "returnWaveMonths": []
+    },
+    {
       "title": "Alchemy of Souls",
       "editions": 4,
       "peakMonth": "2023-01",
@@ -119,6 +132,63 @@
       ]
     },
     {
+      "title": "Exhuma",
+      "editions": 3,
+      "peakMonth": "2024-05",
+      "peak": 279.8,
+      "halfLifeMonths": 1,
+      "monthsWatched": 25,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2026-01",
+          "value": 204.2
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 20,
+      "returnWaveMonths": [
+        [
+          "2026-01"
+        ]
+      ]
+    },
+    {
+      "title": "The Atypical Family",
+      "editions": 3,
+      "peakMonth": "2024-06",
+      "peak": 185.8,
+      "halfLifeMonths": 1,
+      "monthsWatched": 24,
+      "roseAboveHalfAgain": false,
+      "roseAgainMonths": [],
+      "returnWaves": 0,
+      "firstReturnAfterMonths": null,
+      "returnWaveMonths": []
+    },
+    {
+      "title": "The Roundup (2022 film)",
+      "editions": 2,
+      "peakMonth": "2024-05",
+      "peak": 53.5,
+      "halfLifeMonths": 1,
+      "monthsWatched": 25,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2024-07",
+          "value": 27.1
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 2,
+      "returnWaveMonths": [
+        [
+          "2024-07"
+        ]
+      ]
+    },
+    {
       "title": "Crash Landing on You",
       "editions": 4,
       "peakMonth": "2021-08",
@@ -139,6 +209,19 @@
           "2024-04"
         ]
       ]
+    },
+    {
+      "title": "Little Women (South Korean TV series)",
+      "editions": 4,
+      "peakMonth": "2022-09",
+      "peak": 470.7,
+      "halfLifeMonths": 2,
+      "monthsWatched": 45,
+      "roseAboveHalfAgain": false,
+      "roseAgainMonths": [],
+      "returnWaves": 0,
+      "firstReturnAfterMonths": null,
+      "returnWaveMonths": []
     },
     {
       "title": "Train to Busan",
@@ -269,6 +352,135 @@
         ],
         [
           "2026-02"
+        ]
+      ]
+    },
+    {
+      "title": "Marry My Husband",
+      "editions": 4,
+      "peakMonth": "2025-07",
+      "peak": 150.3,
+      "halfLifeMonths": 2,
+      "monthsWatched": 11,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2025-11",
+          "value": 94
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 4,
+      "returnWaveMonths": [
+        [
+          "2025-11"
+        ]
+      ]
+    },
+    {
+      "title": "Hospital Playlist",
+      "editions": 4,
+      "peakMonth": "2021-07",
+      "peak": 478.2,
+      "halfLifeMonths": 3,
+      "monthsWatched": 59,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2025-04",
+          "value": 355.4
+        },
+        {
+          "month": "2025-05",
+          "value": 389.5
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 45,
+      "returnWaveMonths": [
+        [
+          "2025-04",
+          "2025-05"
+        ]
+      ]
+    },
+    {
+      "title": "Lovely Runner",
+      "editions": 4,
+      "peakMonth": "2024-06",
+      "peak": 379.3,
+      "halfLifeMonths": 3,
+      "monthsWatched": 24,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2026-04",
+          "value": 236.6
+        },
+        {
+          "month": "2026-05",
+          "value": 254.6
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 22,
+      "returnWaveMonths": [
+        [
+          "2026-04",
+          "2026-05"
+        ]
+      ]
+    },
+    {
+      "title": "Reply 1988",
+      "editions": 4,
+      "peakMonth": "2021-08",
+      "peak": 267,
+      "halfLifeMonths": 3,
+      "monthsWatched": 58,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2022-01",
+          "value": 140.8
+        },
+        {
+          "month": "2024-03",
+          "value": 180
+        },
+        {
+          "month": "2024-04",
+          "value": 137
+        },
+        {
+          "month": "2025-03",
+          "value": 140.8
+        },
+        {
+          "month": "2025-12",
+          "value": 155.9
+        },
+        {
+          "month": "2026-01",
+          "value": 141.5
+        }
+      ],
+      "returnWaves": 4,
+      "firstReturnAfterMonths": 5,
+      "returnWaveMonths": [
+        [
+          "2022-01"
+        ],
+        [
+          "2024-03",
+          "2024-04"
+        ],
+        [
+          "2025-03"
+        ],
+        [
+          "2025-12",
+          "2026-01"
         ]
       ]
     },
@@ -515,6 +727,33 @@
       ]
     },
     {
+      "title": "My Mister",
+      "editions": 2,
+      "peakMonth": "2021-06",
+      "peak": 68.6,
+      "halfLifeMonths": 5,
+      "monthsWatched": 60,
+      "roseAboveHalfAgain": true,
+      "roseAgainMonths": [
+        {
+          "month": "2023-12",
+          "value": 59.9
+        },
+        {
+          "month": "2024-01",
+          "value": 38.2
+        }
+      ],
+      "returnWaves": 1,
+      "firstReturnAfterMonths": 30,
+      "returnWaveMonths": [
+        [
+          "2023-12",
+          "2024-01"
+        ]
+      ]
+    },
+    {
       "title": "Goblin (TV series)",
       "editions": 4,
       "peakMonth": "2021-10",
@@ -630,7 +869,14 @@
       ]
     }
   ],
-  "neverHalved": [],
+  "neverHalved": [
+    {
+      "title": "Big Mouth (South Korean TV series)",
+      "peakMonth": "2024-04",
+      "peak": 83.4,
+      "monthsWatched": 26
+    }
+  ],
   "notMeasured": [
     {
       "title": "Sweet Home (South Korean TV series)",
@@ -726,26 +972,91 @@
       "title": "Broker (2022 film)",
       "why": "the peak was only 10.1 per million, thin enough that halving is noise",
       "peakMonth": "2025-09"
+    },
+    {
+      "title": "Prison Playbook",
+      "why": "the peak was only 46 per million, thin enough that halving is noise",
+      "peakMonth": "2020-08"
+    },
+    {
+      "title": "Misaeng",
+      "why": "not enough months in the four editions",
+      "peakMonth": null
+    },
+    {
+      "title": "Stranger (South Korean TV series)",
+      "why": "not enough months in the four editions",
+      "peakMonth": null
+    },
+    {
+      "title": "Move to Heaven",
+      "why": "only 5 months follow the peak, which is not long enough to say it has not fallen — that is unknown, not slow",
+      "peakMonth": "2026-01"
+    },
+    {
+      "title": "D.P. (TV series)",
+      "why": "the peak was only 49.5 per million, thin enough that halving is noise",
+      "peakMonth": "2025-05"
+    },
+    {
+      "title": "Juvenile Justice (TV series)",
+      "why": "only 0 months follow the peak, which is not long enough to say it has not fallen — that is unknown, not slow",
+      "peakMonth": "2026-06"
+    },
+    {
+      "title": "The Silent Sea",
+      "why": "not enough months in the four editions",
+      "peakMonth": null
+    },
+    {
+      "title": "Doctor Slump",
+      "why": "not enough months in the four editions",
+      "peakMonth": null
+    },
+    {
+      "title": "Gyeongseong Creature",
+      "why": "the peak was only 40.3 per million, thin enough that halving is noise",
+      "peakMonth": "2025-09"
+    },
+    {
+      "title": "Memories of Murder",
+      "why": "only 1 months follow the peak, which is not long enough to say it has not fallen — that is unknown, not slow",
+      "peakMonth": "2026-05"
+    },
+    {
+      "title": "The Wailing (film)",
+      "why": "not enough months in the four editions",
+      "peakMonth": null
+    },
+    {
+      "title": "A Taxi Driver",
+      "why": "the peak was only 26.9 per million, thin enough that halving is noise",
+      "peakMonth": "2025-03"
+    },
+    {
+      "title": "Extreme Job",
+      "why": "the peak was only 18.4 per million, thin enough that halving is noise",
+      "peakMonth": "2025-03"
     }
   ],
   "answer": {
-    "measured": 16,
-    "outOf": 35,
+    "measured": 26,
+    "outOf": 59,
     "halfLifeMedianMonths": 2,
-    "halfLifeMeanMonths": 2.9,
+    "halfLifeMeanMonths": 2.6,
     "byMonth": {
-      "1": 5,
-      "2": 4,
-      "3": 2,
+      "1": 9,
+      "2": 6,
+      "3": 5,
       "4": 2,
-      "5": 1,
+      "5": 2,
       "7": 2
     },
-    "halvedWithinOneMonth": 5,
-    "neverHalved": 0,
-    "roseAboveHalfAgain": 12,
-    "returnWavesMedian": 3,
-    "firstReturnMedianMonths": 7
+    "halvedWithinOneMonth": 9,
+    "neverHalved": 1,
+    "roseAboveHalfAgain": 19,
+    "returnWavesMedian": 1,
+    "firstReturnMedianMonths": 8
   },
   "cannotSay": [
     "A half-life is not an ending. Where a title rose back above half its peak later — usually a new season — we say so beside it. The number counts the first fall, not the last.",

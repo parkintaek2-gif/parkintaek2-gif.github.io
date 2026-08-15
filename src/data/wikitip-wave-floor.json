@@ -4,8 +4,8 @@
   "window": "2020-08 through 2026-06, 71 months",
   "droppedLastMonth": {
     "month": "2026-07",
-    "value": 2812,
-    "previousTwelveMean": 81649.5
+    "value": 3919,
+    "previousTwelveMean": 119640.7
   },
   "editions": [
     "id",
@@ -51,6 +51,28 @@
       "nearWindowEdge": null
     },
     {
+      "title": "Marry My Husband",
+      "editions": 4,
+      "peakMonth": "2025-07",
+      "peak": 150.3,
+      "peakOverFloor": 2.2,
+      "beforeFloor": 67.7,
+      "afterFloor": 69.1,
+      "floorChangePc": 2,
+      "nearWindowEdge": null
+    },
+    {
+      "title": "Reply 1988",
+      "editions": 4,
+      "peakMonth": "2021-08",
+      "peak": 267,
+      "peakOverFloor": 2.3,
+      "beforeFloor": 117.2,
+      "afterFloor": 117.2,
+      "floorChangePc": 0,
+      "nearWindowEdge": null
+    },
+    {
       "title": "Crash Landing on You",
       "editions": 4,
       "peakMonth": "2021-08",
@@ -81,6 +103,17 @@
       "beforeFloor": 224,
       "afterFloor": 159.1,
       "floorChangePc": -29,
+      "nearWindowEdge": null
+    },
+    {
+      "title": "The Roundup (2022 film)",
+      "editions": 2,
+      "peakMonth": "2024-05",
+      "peak": 53.5,
+      "peakOverFloor": 2.2,
+      "beforeFloor": 23.9,
+      "afterFloor": 13,
+      "floorChangePc": -45.8,
       "nearWindowEdge": null
     },
     {
@@ -249,15 +282,128 @@
       "title": "Broker (2022 film)",
       "why": "the floor before the wave was only 3.9 per million, too thin for a percentage to mean anything",
       "peakMonth": "2025-09"
+    },
+    {
+      "title": "Hospital Playlist",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-07",
+      "articleFirstSeen": "2021-06"
+    },
+    {
+      "title": "Prison Playbook",
+      "why": "the peak sits too close to the start of the window",
+      "peakMonth": "2020-08",
+      "articleFirstSeen": "2020-08"
+    },
+    {
+      "title": "My Mister",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2021-06",
+      "articleFirstSeen": "2021-02"
+    },
+    {
+      "title": "Misaeng",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Stranger (South Korean TV series)",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Move to Heaven",
+      "why": "the peak sits too close to the end of the window",
+      "peakMonth": "2026-01",
+      "articleFirstSeen": "2022-01"
+    },
+    {
+      "title": "D.P. (TV series)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2025-05",
+      "articleFirstSeen": "2024-11"
+    },
+    {
+      "title": "Juvenile Justice (TV series)",
+      "why": "the peak sits too close to the end of the window",
+      "peakMonth": "2026-06",
+      "articleFirstSeen": "2023-04"
+    },
+    {
+      "title": "The Silent Sea",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Little Women (South Korean TV series)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2022-09",
+      "articleFirstSeen": "2022-09"
+    },
+    {
+      "title": "Big Mouth (South Korean TV series)",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-04",
+      "articleFirstSeen": "2023-11"
+    },
+    {
+      "title": "Doctor Slump",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Lovely Runner",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-06",
+      "articleFirstSeen": "2024-06"
+    },
+    {
+      "title": "The Atypical Family",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-06",
+      "articleFirstSeen": "2024-06"
+    },
+    {
+      "title": "A Killer Paradox",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-02",
+      "articleFirstSeen": "2024-02"
+    },
+    {
+      "title": "Gyeongseong Creature",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "Memories of Murder",
+      "why": "the peak sits too close to the end of the window",
+      "peakMonth": "2026-05",
+      "articleFirstSeen": "2023-06"
+    },
+    {
+      "title": "The Wailing (film)",
+      "why": "not enough months in the four editions"
+    },
+    {
+      "title": "A Taxi Driver",
+      "why": "the floor before the wave was only 8.4 per million, too thin for a percentage to mean anything",
+      "peakMonth": "2025-03"
+    },
+    {
+      "title": "Extreme Job",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2025-03",
+      "articleFirstSeen": "2024-11"
+    },
+    {
+      "title": "Exhuma",
+      "why": "the article did not exist for the first part of the window, so there is no floor from before the title arrived — a new title cannot be asked this question at all",
+      "peakMonth": "2024-05",
+      "articleFirstSeen": "2024-05"
     }
   ],
   "answer": {
-    "measured": 6,
-    "outOf": 35,
-    "floorChangeMedianPc": -15.1,
-    "floorChangeMeanPc": -6.7,
-    "peakOverFloorMedian": 1.6,
-    "floorsThatRose": 2,
+    "measured": 9,
+    "outOf": 59,
+    "floorChangeMedianPc": -4.5,
+    "floorChangeMeanPc": -9.4,
+    "peakOverFloorMedian": 2.2,
+    "floorsThatRose": 3,
     "biggestWave": {
       "title": "Physical: 100",
       "peakMonth": "2024-03",
@@ -266,9 +412,9 @@
     }
   },
   "peakClustering": {
-    "peaks": 6,
-    "distinctMonths": 6,
-    "clusters": 6,
+    "peaks": 9,
+    "distinctMonths": 8,
+    "clusters": 8,
     "largestCluster": 1,
     "clusterMonths": [
       [
@@ -284,16 +430,22 @@
         "2024-01"
       ],
       [
+        "2024-05"
+      ],
+      [
         "2025-02"
       ],
       [
         "2025-04"
+      ],
+      [
+        "2025-07"
       ]
     ],
     "note": "Each title peaked in its own month, which is what measuring titles rather than months requires."
   },
   "cannotSay": [
-    "We measured 6 titles. That is a small number and it is the number we have: of the twenty we fetched, some have no article in these editions, some peaked too near the edge of the window to have a floor on both sides, one had a second wave sitting where its floor should be, and one had a floor too thin to take a percentage. Every one of them is listed with its reason.",
+    "We measured 9 titles. That is a small number and it is the number we have: of the twenty we fetched, some have no article in these editions, some peaked too near the edge of the window to have a floor on both sides, one had a second wave sitting where its floor should be, and one had a floor too thin to take a percentage. Every one of them is listed with its reason.",
     "The titles are ones we expected to have had a wave, not the most-read Korean titles and not a random sample. A set chosen this way leans toward titles that travelled.",
     "A read is not a viewer. Someone opening an encyclopaedia article about a series may have watched it, may be deciding whether to, or may have seen the name somewhere and been curious. What this dates is when the looking happened.",
     "We are not saying the wave caused the floor to move, in either direction. Twelve months either side of a peak contain everything else that happened in those months too."
