@@ -16,6 +16,8 @@ import 원본 from '../../../data/100yearmap/age-axis.json';
 /* 🔴 나이띠별 자격 응시·합격 — build-100y-qual-age.mjs 가 만든다.
    사장님 「왜 자꾸 대입에 머물러있니」. 이 표가 **위쪽 나이를 연다** */
 import 자격나이 from '../../../data/100yearmap/qual-age.json';
+/* 🔴 8/20 예약분 — 카드가 이 지면을 대는데 지면에 그 수가 없었다(콘텐트 검사자가 잡았다) */
+import 사업장 from '../../../data/100yearmap/business-lifespan.json';
 import { 나이말, 임금값, 혼인누적, 임금꼭대기, type 나이자료 } from '../../../lib/age-page';
 
 const 자료 = 원본 as unknown as 나이자료;
@@ -174,6 +176,27 @@ const desc =
     </p>
   </div>
 
+
+  {/* 🔴 2026-08-20 — 카드 「직원을 두고 몇 해를 갔나」가 이 지면을 대는데 그 수가 없었다.
+      ⛔ 자료가 못박은 대로 «생존율·폐업률·장사가 몇 년»으로 쓰지 않는다.
+      ⛔ 이 표에는 **닫힌 곳만** 있다 — 오래 갈 곳은 아직 안 닫혀서 여기 없다 */}
+  <h2>직원을 두고 몇 해를 갔나요?</h2>
+  <p>
+    국민연금 사업장 자격이 없어진 곳이 <strong>직원을 두고 있던 기간</strong>입니다.
+    한가운데가 <strong>{(사업장 as any).전체.수명중앙값}년</strong>이고,
+    한 해 안이 <strong>{(사업장 as any).전체.일년내}%</strong>,
+    세 해 안이 <strong>{(사업장 as any).전체.삼년내}%</strong>입니다.
+  </p>
+  <div class="warn">
+    <p><strong>⛔ 폐업률이 아닙니다.</strong></p>
+    <p class="note">
+      가입자가 0이 되면 자격이 없어집니다 — <strong>직원을 내보내고 혼자 계속하는 곳</strong>도 여기 들어옵니다.
+      그리고 이 표에는 <strong>닫힌 곳만</strong> 있습니다. 오래 갈 곳은 아직 안 닫혀서 들어 있지 않습니다.
+      그러니 「사업체는 보통 이만큼 간다」로 읽으시면 안 됩니다.
+      {(사업장 as any).전체.닫은곳.toLocaleString()}곳을 세었습니다.
+    </p>
+    <p class="note">출처 — {(사업장 as any).출처.이름} · {(사업장 as any).출처.기준월} · {(사업장 as any).출처.이용허락범위}.</p>
+  </div>
   <h2>빚은 얼마나 지고 있나요?</h2>
   <div class="tablewrap">
     <table>
