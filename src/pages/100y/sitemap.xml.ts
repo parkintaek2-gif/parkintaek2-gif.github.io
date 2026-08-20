@@ -189,6 +189,9 @@ export const GET: APIRoute = () => {
     /* 🔴 키즈 — 「맡길 데」 다음은 「아플 때 갈 데」다(2번 8/21 04:2x).
        ⛔ 제목·주소 어디에도 「소아과가 없다」로 쓰지 않는다. 이 표는 «의원»만 센다 */
     { path: '/pediatrics', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 밤새 낸 여덟 장이 서로 모르고 있었다(2번 8/21 06:2x). 한 자리에 모으는 문이다.
+       들어오게 하는 것과 머물게 하는 것은 다른 일이다 */
+    { path: '/ages', priority: '0.9', changefreq: 'weekly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
