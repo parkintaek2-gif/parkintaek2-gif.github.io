@@ -413,6 +413,10 @@ export const GET: APIRoute = async () => {
        ⭐ 사장님 지시(8/16): 손님은 「V」와 「BTS」를 친다. 「가수 1,446명」을 안 친다.
        ⛔ 「멤버가 그룹을 이겼다」로 안 쓴다 — 두 문서는 손님에게 다른 물음에 답한다 */
     { path: '/member-vs-group', priority: '0.9', changefreq: 'weekly' },
+    /* 자료 지면. 2026-08-20 — 띠마다 어느 스타가 있나, 이름으로.
+       ⭐ 3번의 한국어 사주 지면(100yearmap.com/saju)에 대한 영어판 유입구다.
+       ⛔⛔ 점을 치지 않는다 — 우리가 이미 카이제곱 7.77(문턱 19.68)로 반대를 발행했다 */
+    { path: '/star-signs', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

@@ -1,0 +1,105 @@
+---
+/**
+ * K Culture Wire — **띠마다 어느 스타가 있나, 이름으로.** (`/star-signs`)
+ *
+ * ⭐⭐ 사장님 지시(8/16·8/20) — 제목과 본문에 스타의 이름을 넣는다. 손님은 이름을 친다.
+ * ⭐ 3번의 한국어판(100yearmap.com/saju)에 대한 **영어판 유입구**다.
+ *
+ * ── ⛔⛔ 이 지면이 절대 안 하는 것 ───────────────────────────
+ * ⛔ **점을 치지 않는다.** 「이 띠라서 떴다」를 한 줄도 안 쓴다.
+ *    우리가 이미 반대를 발행했다 — 카이제곱 7.77 · 문턱 19.68 (`/zodiac`).
+ * ⛔ **사주를 풀지 않는다.** 태어난 시가 공개 자료에 없다.
+ * ⛔ **띠끼리 줄세우지 않는다.** 띠마다 사람 수가 76~103 으로 다르다 — 그 말을 같은 화면에 둔다.
+ * ⛔ 광고 자리를 만들지 않는다.
+ *
+ * 🔴 Astro 앞말은 TypeScript 다. 🔴 JSX 는 끝 공백을 버린다 — {' '} 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-star-signs.json';
+
+const 첫줄 = (s: string) => d.rows.find((r) => r.sign === s)!.names[0]?.name ?? '';
+
+const TITLE = `IU is a Rooster, Bae Suzy a Dog, Cha Eun-woo an Ox: `
+  + `${d.peopleWithSign} Korean stars by Chinese zodiac year`;
+const DESC =
+  `Which Korean actors and singers share your zodiac sign? ${첫줄('Rooster')}, ${첫줄('Dog')}, `
+  + `${첫줄('Dragon')} and ${첫줄('Goat')} lead their years. This is a list of birthdays, not a `
+  + `reading — we measured that the sign does not pick out who reaches a Netflix chart.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org/', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/star-signs">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+
+  <p class="q">
+    We hold birth dates for <b>{d.peopleWithSign}</b> Korean actors and singers, and read counts
+    for <b>{d.withReads}</b> of them across the Indonesian, Vietnamese, Thai and Malay Wikipedias.
+    Below, each zodiac year lists the names in that year, most-read first.
+  </p>
+
+  <section class="warn-box">
+    <h2>Read this first — this is a list, not a reading</h2>
+    <p class="warn">{d.notAForecast}</p>
+    <p class="warn">{d.whyNoSaju}</p>
+  </section>
+
+  {d.rows.map((r) => (
+    <section>
+      <h2>Year of the {r.sign}</h2>
+      <p class="note">
+        {r.inPanel} of our stars were born in a {r.sign} year; {r.withReads} of them have a read
+        count. Ordered by reads per million.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Star</th><th>Born</th><th>Reads per million</th></tr></thead>
+          <tbody>
+            {r.names.map((n) => (
+              <tr>
+                <td class="nm">
+                  <a href={`https://www.wikidata.org/wiki/${n.q}`} rel="noopener">{n.name}</a>
+                </td>
+                <td class="fine">{n.born}</td>
+                <td>{n.perMillion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  ))}
+
+  <section>
+    <h2>Why one year has more stars than another</h2>
+    <p>
+      The years are not equal in our data: the smallest holds {d.evenness.min} people and the
+      largest {d.evenness.max}, a spread of {d.evenness.spread}. That is a fact about who we could
+      find a birth date for, not about the years. <strong>Do not read a longer list as a luckier
+      sign.</strong> We tested that directly and it did not hold —
+      {' '}<a href="/zodiac">the test and its numbers are here</a>.
+    </p>
+    <p class="note">{d.whyJanFebExcluded}</p>
+    <p class="note">{d.orderIsReads}</p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">
+      <b>Source</b> — {d.source} <b>Window</b> — {d.window}
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/star-signs" />
+</WikiTip>

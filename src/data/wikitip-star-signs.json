@@ -1,0 +1,698 @@
+{
+ "generated": "2026-08-10",
+ "source": "Birth dates from Wikidata (CC0). Reads from the Wikimedia Pageviews API, human traffic only, across the Indonesian, Vietnamese, Thai and Malay Wikipedias.",
+ "window": "2025-08 through 2026-07, 12 months",
+ "question": "Which Korean stars were born in your Chinese zodiac year?",
+ "signs": [
+  "Rat",
+  "Ox",
+  "Tiger",
+  "Rabbit",
+  "Dragon",
+  "Snake",
+  "Horse",
+  "Goat",
+  "Monkey",
+  "Rooster",
+  "Dog",
+  "Pig"
+ ],
+ "peopleWithSign": 1047,
+ "withReads": 804,
+ "rows": [
+  {
+   "sign": "Rat",
+   "inPanel": 89,
+   "withReads": 72,
+   "names": [
+    {
+     "q": "Q97210760",
+     "name": "Go Youn-jung",
+     "born": "1996-04-22",
+     "perMillion": 273.06
+    },
+    {
+     "q": "Q496314",
+     "name": "Lee Je-hoon",
+     "born": "1984-07-04",
+     "perMillion": 92.01
+    },
+    {
+     "q": "Q22911780",
+     "name": "Kim Se-jeong",
+     "born": "1996-08-28",
+     "perMillion": 80.16
+    },
+    {
+     "q": "Q12968338",
+     "name": "Moon Ga-young",
+     "born": "1996-07-10",
+     "perMillion": 75.1
+    },
+    {
+     "q": "Q464569",
+     "name": "Shin Min-a",
+     "born": "1984-04-05",
+     "perMillion": 66.81
+    },
+    {
+     "q": "Q77621",
+     "name": "Yoo Yeon-seok",
+     "born": "1984-04-11",
+     "perMillion": 51.89
+    },
+    {
+     "q": "Q59378341",
+     "name": "Kim Young-dae",
+     "born": "1996-03-02",
+     "perMillion": 50.73
+    },
+    {
+     "q": "Q28790332",
+     "name": "Ro Woon",
+     "born": "1996-08-07",
+     "perMillion": 36.09
+    }
+   ]
+  },
+  {
+   "sign": "Ox",
+   "inPanel": 82,
+   "withReads": 57,
+   "names": [
+    {
+     "q": "Q21060390",
+     "name": "Cha Eun-woo",
+     "born": "1997-03-30",
+     "perMillion": 200.33
+    },
+    {
+     "q": "Q485517",
+     "name": "Song Joong-ki",
+     "born": "1985-09-19",
+     "perMillion": 106.36
+    },
+    {
+     "q": "Q488090",
+     "name": "Lee Kwang-soo",
+     "born": "1985-07-14",
+     "perMillion": 70.94
+    },
+    {
+     "q": "Q53334919",
+     "name": "Jang Gyu-ri",
+     "born": "1997-12-27",
+     "perMillion": 54.99
+    },
+    {
+     "q": "Q24959134",
+     "name": "Jung Chae-yeon",
+     "born": "1997-12-01",
+     "perMillion": 44.66
+    },
+    {
+     "q": "Q7226922",
+     "name": "Lee Da-hee",
+     "born": "1985-03-15",
+     "perMillion": 29.29
+    },
+    {
+     "q": "Q486338",
+     "name": "Yeo Jin-goo",
+     "born": "1997-08-13",
+     "perMillion": 21.27
+    },
+    {
+     "q": "Q12584846",
+     "name": "Kwak Dong-yeon",
+     "born": "1997-03-19",
+     "perMillion": 16.54
+    }
+   ]
+  },
+  {
+   "sign": "Tiger",
+   "inPanel": 78,
+   "withReads": 55,
+   "names": [
+    {
+     "q": "Q37565564",
+     "name": "Kim Seon-ho",
+     "born": "1986-05-08",
+     "perMillion": 220.56
+    },
+    {
+     "q": "Q242673",
+     "name": "Park Min-young",
+     "born": "1986-03-04",
+     "perMillion": 78.7
+    },
+    {
+     "q": "Q64515469",
+     "name": "Lee Jae-wook",
+     "born": "1998-05-10",
+     "perMillion": 44.73
+    },
+    {
+     "q": "Q153657",
+     "name": "Choi Siwon",
+     "born": "1986-04-07",
+     "perMillion": 41.3
+    },
+    {
+     "q": "Q489854",
+     "name": "Kim Hyun-joong",
+     "born": "1986-06-06",
+     "perMillion": 28.07
+    },
+    {
+     "q": "Q18605168",
+     "name": "Byun Yo-han",
+     "born": "1986-04-29",
+     "perMillion": 28.05
+    },
+    {
+     "q": "Q20063575",
+     "name": "Ryu Jun-yeol",
+     "born": "1986-09-25",
+     "perMillion": 24.43
+    },
+    {
+     "q": "Q85865459",
+     "name": "Bae In-hyuk",
+     "born": "1998-04-04",
+     "perMillion": 22.15
+    }
+   ]
+  },
+  {
+   "sign": "Rabbit",
+   "inPanel": 86,
+   "withReads": 70,
+   "names": [
+    {
+     "q": "Q30114466",
+     "name": "Park Ji-hoon",
+     "born": "1999-05-29",
+     "perMillion": 128.42
+    },
+    {
+     "q": "Q80758",
+     "name": "Lee Min-ho",
+     "born": "1987-06-22",
+     "perMillion": 128.11
+    },
+    {
+     "q": "Q625128",
+     "name": "Ji Chang-wook",
+     "born": "1987-07-05",
+     "perMillion": 127.62
+    },
+    {
+     "q": "Q495571",
+     "name": "T.O.P",
+     "born": "1987-11-04",
+     "perMillion": 123.27
+    },
+    {
+     "q": "Q486320",
+     "name": "Kim You-jung",
+     "born": "1999-09-22",
+     "perMillion": 116.4
+    },
+    {
+     "q": "Q491648",
+     "name": "Seo In-guk",
+     "born": "1987-10-23",
+     "perMillion": 67.55
+    },
+    {
+     "q": "Q65345",
+     "name": "Kim So-hyun",
+     "born": "1999-06-04",
+     "perMillion": 55.04
+    },
+    {
+     "q": "Q55730015",
+     "name": "Lomon",
+     "born": "1999-11-11",
+     "perMillion": 54.67
+    }
+   ]
+  },
+  {
+   "sign": "Dragon",
+   "inPanel": 90,
+   "withReads": 72,
+   "names": [
+    {
+     "q": "Q107109595",
+     "name": "Lee Chae-min",
+     "born": "2000-09-15",
+     "perMillion": 200.18
+    },
+    {
+     "q": "Q101161002",
+     "name": "Karina",
+     "born": "2000-04-11",
+     "perMillion": 115.02
+    },
+    {
+     "q": "Q486959",
+     "name": "Kim Sae-ron",
+     "born": "2000-07-31",
+     "perMillion": 102.61
+    },
+    {
+     "q": "Q5116234",
+     "name": "Park Seo-joon",
+     "born": "1988-12-16",
+     "perMillion": 75.36
+    },
+    {
+     "q": "Q17504174",
+     "name": "Jung Hae-in",
+     "born": "1988-04-01",
+     "perMillion": 58.54
+    },
+    {
+     "q": "Q486455",
+     "name": "Song Seung-heon",
+     "born": "1976-10-05",
+     "perMillion": 58.52
+    },
+    {
+     "q": "Q483363",
+     "name": "Ok Taec-yeon",
+     "born": "1988-12-27",
+     "perMillion": 42.83
+    },
+    {
+     "q": "Q115796660",
+     "name": "Cha Woo-min",
+     "born": "2000-10-24",
+     "perMillion": 39.35
+    }
+   ]
+  },
+  {
+   "sign": "Snake",
+   "inPanel": 76,
+   "withReads": 56,
+   "names": [
+    {
+     "q": "Q5356443",
+     "name": "Kim Woo-bin",
+     "born": "1989-07-16",
+     "perMillion": 125.07
+    },
+    {
+     "q": "Q484859",
+     "name": "So Ji-sub",
+     "born": "1977-11-04",
+     "perMillion": 90.22
+    },
+    {
+     "q": "Q486582",
+     "name": "Lee Jong-suk",
+     "born": "1989-09-14",
+     "perMillion": 80.01
+    },
+    {
+     "q": "Q16162831",
+     "name": "Shin Hae-sun",
+     "born": "1989-08-31",
+     "perMillion": 65.92
+    },
+    {
+     "q": "Q170001",
+     "name": "Jung So-min",
+     "born": "1989-03-16",
+     "perMillion": 59.21
+    },
+    {
+     "q": "Q496324",
+     "name": "Kim Bum",
+     "born": "1989-07-07",
+     "perMillion": 58.24
+    },
+    {
+     "q": "Q236355",
+     "name": "Tiffany Young",
+     "born": "1989-08-01",
+     "perMillion": 38.71
+    },
+    {
+     "q": "Q12590448",
+     "name": "Roh Jeong-eui",
+     "born": "2001-07-31",
+     "perMillion": 33.48
+    }
+   ]
+  },
+  {
+   "sign": "Horse",
+   "inPanel": 77,
+   "withReads": 63,
+   "names": [
+    {
+     "q": "Q466975",
+     "name": "Im Yoon-ah",
+     "born": "1990-05-30",
+     "perMillion": 205.69
+    },
+    {
+     "q": "Q15977222",
+     "name": "Park Bo-gum",
+     "born": "1990-06-16",
+     "perMillion": 97.64
+    },
+    {
+     "q": "Q16865262",
+     "name": "Lim Ji-yeon",
+     "born": "1990-06-23",
+     "perMillion": 83.71
+    },
+    {
+     "q": "Q492701",
+     "name": "Choi Woo-shik",
+     "born": "1990-03-26",
+     "perMillion": 70.4
+    },
+    {
+     "q": "Q494342",
+     "name": "Shin Sae-kyeong",
+     "born": "1990-07-29",
+     "perMillion": 57.89
+    },
+    {
+     "q": "Q44260",
+     "name": "Ha Ji-won",
+     "born": "1978-06-28",
+     "perMillion": 57.51
+    },
+    {
+     "q": "Q16182344",
+     "name": "Lee Sung-kyoung",
+     "born": "1990-08-10",
+     "perMillion": 45.68
+    },
+    {
+     "q": "Q412342",
+     "name": "Namkoong Min",
+     "born": "1978-03-12",
+     "perMillion": 39.02
+    }
+   ]
+  },
+  {
+   "sign": "Goat",
+   "inPanel": 91,
+   "withReads": 71,
+   "names": [
+    {
+     "q": "Q55730330",
+     "name": "Byeon Woo-seok",
+     "born": "1991-10-31",
+     "perMillion": 263.86
+    },
+    {
+     "q": "Q6408653",
+     "name": "Kim Go-eun",
+     "born": "1991-07-02",
+     "perMillion": 91.11
+    },
+    {
+     "q": "Q623436",
+     "name": "Gong Yoo",
+     "born": "1979-07-10",
+     "perMillion": 65.37
+    },
+    {
+     "q": "Q491515",
+     "name": "Nana",
+     "born": "1991-09-14",
+     "perMillion": 52.62
+    },
+    {
+     "q": "Q6757073",
+     "name": "Park Hyung-sik",
+     "born": "1991-11-16",
+     "perMillion": 45.28
+    },
+    {
+     "q": "Q240082",
+     "name": "Seo Joo-hyun",
+     "born": "1991-06-28",
+     "perMillion": 41.62
+    },
+    {
+     "q": "Q493597",
+     "name": "Choi Tae-joon",
+     "born": "1991-07-07",
+     "perMillion": 30.93
+    },
+    {
+     "q": "Q80563990",
+     "name": "Ahn Eun-jin",
+     "born": "1991-05-06",
+     "perMillion": 24.15
+    }
+   ]
+  },
+  {
+   "sign": "Monkey",
+   "inPanel": 91,
+   "withReads": 67,
+   "names": [
+    {
+     "q": "Q2680695",
+     "name": "Kim Ji-won",
+     "born": "1992-10-19",
+     "perMillion": 110.19
+    },
+    {
+     "q": "Q464574",
+     "name": "Kim Tae-hee",
+     "born": "1980-03-29",
+     "perMillion": 90.62
+    },
+    {
+     "q": "Q18444419",
+     "name": "Jang Ki-Yong",
+     "born": "1992-08-07",
+     "perMillion": 73.44
+    },
+    {
+     "q": "Q491387",
+     "name": "Park Eun-bin",
+     "born": "1992-09-04",
+     "perMillion": 55.98
+    },
+    {
+     "q": "Q281931",
+     "name": "Kim Nam-gil",
+     "born": "1980-03-13",
+     "perMillion": 46.42
+    },
+    {
+     "q": "Q483633",
+     "name": "Sohee",
+     "born": "1992-06-27",
+     "perMillion": 37.03
+    },
+    {
+     "q": "Q623735",
+     "name": "Lee Se-young",
+     "born": "1992-12-20",
+     "perMillion": 27.8
+    },
+    {
+     "q": "Q27954033",
+     "name": "Woo Do-hwan",
+     "born": "1992-07-12",
+     "perMillion": 24.98
+    }
+   ]
+  },
+  {
+   "sign": "Rooster",
+   "inPanel": 92,
+   "withReads": 67,
+   "names": [
+    {
+     "q": "Q20145",
+     "name": "IU",
+     "born": "1993-05-16",
+     "perMillion": 208.57
+    },
+    {
+     "q": "Q1080180",
+     "name": "Song Hye-kyo",
+     "born": "1981-11-22",
+     "perMillion": 154.46
+    },
+    {
+     "q": "Q253626",
+     "name": "Jun Ji-hyun",
+     "born": "1981-10-30",
+     "perMillion": 114.48
+    },
+    {
+     "q": "Q484965",
+     "name": "Song Ji-hyo",
+     "born": "1981-08-15",
+     "perMillion": 69.28
+    },
+    {
+     "q": "Q41864388",
+     "name": "Han So-hee",
+     "born": "1993-11-18",
+     "perMillion": 67.98
+    },
+    {
+     "q": "Q494714",
+     "name": "Lee Dong-wook",
+     "born": "1981-11-06",
+     "perMillion": 62.47
+    },
+    {
+     "q": "Q107109848",
+     "name": "Heo Nam-jun",
+     "born": "1993-06-09",
+     "perMillion": 59.03
+    },
+    {
+     "q": "Q484021",
+     "name": "Lee Jin-uk",
+     "born": "1981-09-16",
+     "perMillion": 43.78
+    }
+   ]
+  },
+  {
+   "sign": "Dog",
+   "inPanel": 103,
+   "withReads": 80,
+   "names": [
+    {
+     "q": "Q464645",
+     "name": "Bae Suzy",
+     "born": "1994-10-10",
+     "perMillion": 165.9
+    },
+    {
+     "q": "Q380118",
+     "name": "Hyun Bin",
+     "born": "1982-09-25",
+     "perMillion": 96.94
+    },
+    {
+     "q": "Q318485",
+     "name": "Rain",
+     "born": "1982-06-25",
+     "perMillion": 93.57
+    },
+    {
+     "q": "Q494734",
+     "name": "Ju Ji-hoon",
+     "born": "1982-05-16",
+     "perMillion": 80.49
+    },
+    {
+     "q": "Q11073341",
+     "name": "Lee Hye-ri",
+     "born": "1994-06-09",
+     "perMillion": 64.74
+    },
+    {
+     "q": "Q380121",
+     "name": "Lee Byung-hun",
+     "born": "1970-07-12",
+     "perMillion": 64.54
+    },
+    {
+     "q": "Q483668",
+     "name": "Lee Soon-jae",
+     "born": "1934-11-16",
+     "perMillion": 63.89
+    },
+    {
+     "q": "Q41777221",
+     "name": "Song Kang",
+     "born": "1994-04-23",
+     "perMillion": 61.24
+    }
+   ]
+  },
+  {
+   "sign": "Pig",
+   "inPanel": 92,
+   "withReads": 74,
+   "names": [
+    {
+     "q": "Q498374",
+     "name": "Ma Dong-seok",
+     "born": "1971-03-01",
+     "perMillion": 59.84
+    },
+    {
+     "q": "Q56327848",
+     "name": "Kim Da-mi",
+     "born": "1995-04-09",
+     "perMillion": 59.76
+    },
+    {
+     "q": "Q66737132",
+     "name": "Lee Do-hyun",
+     "born": "1995-04-11",
+     "perMillion": 58.08
+    },
+    {
+     "q": "Q30014912",
+     "name": "Hwang Min-hyun",
+     "born": "1995-08-09",
+     "perMillion": 56.55
+    },
+    {
+     "q": "Q16171180",
+     "name": "Yook Sung-jae",
+     "born": "1995-05-02",
+     "perMillion": 25.24
+    },
+    {
+     "q": "Q483283",
+     "name": "J.Y. Park",
+     "born": "1971-12-13",
+     "perMillion": 24.14
+    },
+    {
+     "q": "Q6312637",
+     "name": "Jung Kyung-ho",
+     "born": "1983-08-31",
+     "perMillion": 23.89
+    },
+    {
+     "q": "Q380123",
+     "name": "Kim Hee-chul",
+     "born": "1983-07-10",
+     "perMillion": 22.99
+    }
+   ]
+  }
+ ],
+ "evenness": {
+  "min": 76,
+  "max": 103,
+  "spread": 27
+ },
+ "notAForecast": "This is a list of birthdays, not a reading. We tested whether the zodiac year picks out who reaches a Netflix chart and it does not: across 1047 Korean actors the chi-square statistic was 7.77 against a threshold of 19.68, which is indistinguishable from chance. Nothing on this page says a sign made anyone successful, because our own measurement says it did not.",
+ "whyNoSaju": "A full saju needs the hour of birth. Public profiles carry dates and almost never hours, so we can count how a thousand actors are distributed and we cannot produce any one of their charts.",
+ "whyJanFebExcluded": "The Korean year turns in early February, not on 1 January, so anyone born in January or February may belong to the previous animal. Those people are left without a sign rather than given the wrong one.",
+ "orderIsReads": "Within each sign the names are ordered by how often their Wikipedia articles were opened in the four Southeast Asian editions, per million reads of each edition. That is a measure of being looked up, not of popularity, and a star we could not measure is left out of the list rather than placed last.",
+ "cannotSay": [
+  "Not a forecast. A birth year is not a prediction, and we measured that it does not pick out who charts.",
+  "Not a full saju. The four pillars need the hour of birth, and public profiles almost never carry it.",
+  "Not popularity. The order inside each sign counts encyclopaedia article opens."
+ ]
+}
