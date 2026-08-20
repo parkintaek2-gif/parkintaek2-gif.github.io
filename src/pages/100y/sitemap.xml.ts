@@ -195,6 +195,8 @@ export const GET: APIRoute = () => {
     /* 🔴 /ages 가 스스로 「70대 뒤가 얇습니다」라 적어 둔 자리를 채운다.
        /longest-job(53세에 그만둔다) 바로 다음 물음이다 */
     { path: '/keep-working', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 /longest-job 의 짝 — 몇 살에 그만두었나의 반대쪽. 20~40대가 비어 있던 자리다(2번 07:2x) */
+    { path: '/first-job', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
