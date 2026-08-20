@@ -20,8 +20,12 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/nursery-none.json';
+/* 🔴 2번 지시(01:2x) — 이 지면이 적어 둔 한계를 닫으려고 유치원 자료를 여기서도 읽는다 */
+import 유치원원본 from '../../../data/100yearmap/kindergarten.json';
 
 const 자료 = 원본 as any;
+const 유치원 = 유치원원본 as any;
+const 유치원전국 = 유치원.전국 as { 곳: number; 원아: number };
 const 최신 = 자료.최신 as string;
 const 해들 = 자료.해들 as string[];
 const 이번 = 자료.해별[최신];
@@ -32,13 +36,26 @@ const 시도 = 이번.시도 as { 시도: string; 곳: number }[];
 const 가장많은 = 시도[0];
 const 늘어난곳 = (이번.전국 as number) - (처음.전국 as number);
 
-/** 세로 막대 — ⛔ 라이브러리를 쓰지 않는다. 세 해뿐이라 손으로 그린다 */
-const 막대 = (() => {
+/**
+ * 🔴 8/21 02:1x — 처음엔 **세 해만** 받아 놓고 「세 점으로 흐름을 말하기는 이르다」고 적었다.
+ *   표를 다시 물어 보니 **2009년부터 있었다.** 자료가 모자란 게 아니라 내가 덜 받은 것이었다.
+ *   ⇒ 열일곱 해를 다 받았다. 이제 흐름을 말할 수 있다.
+ * ⛔ 라이브러리를 쓰지 않는다. 선 하나라 손으로 그린다.
+ */
+const 흐름 = (() => {
   const 값들 = 해들.map((해) => ({ 해, 곳: 자료.해별[해].전국 as number }));
   const 최대 = Math.max(...값들.map((v) => v.곳));
-  const 높 = 120, 폭 = 64, 사이 = 40;
-  return { 값들, 최대, 높, 폭, 사이, 전체폭: 값들.length * (폭 + 사이) };
+  const 최소 = Math.min(...값들.map((v) => v.곳));
+  const 폭 = 640, 높 = 190, 왼 = 10, 오 = 10, 위 = 26, 아래 = 30;
+  const x = (i: number) => 왼 + (i * (폭 - 왼 - 오)) / (값들.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  const 선 = 값들.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v.곳).toFixed(1)}`).join(' ');
+  return { 값들, 최대, 최소, 폭, 높, 선, x, y };
 })();
+/** 바닥이 언제였나 — ⛔ 짐작이 아니라 값에서 찾는다 */
+const 바닥 = 흐름.값들.reduce((a, b) => (b.곳 < a.곳 ? b : a));
+const 바닥뒤햇수 = Number(최신) - Number(바닥.해);
+const 바닥뒤늘어난 = (이번.전국 as number) - 바닥.곳;
 const desc =
   `${최신}년 기준 어린이집이 한 곳도 없는 지역이 전국 ${이번.전국}곳입니다. ` +
   `${해들[0]}년 ${처음.전국}곳에서 ${늘어난곳}곳 늘었습니다. 시·도별로 어디에 몰려 있는지 적었습니다.`;
@@ -53,6 +70,8 @@ const desc =
 
   <p class="note">
     ⚠ 여기서 「{자료.단위}」는 <strong>{자료.정의}</strong>
+    {' '}<strong>⛔ 그리고 저희는 이 「지역」이 읍·면·동인지 무엇인지 모릅니다</strong> —
+    {' '}표가 밝혀 놓지 않았습니다. 그래서 다른 표의 지역 수와 견주지 않습니다.
     {' '}그리고 저희는 어디가 낫고 못하다고 쓰지 않습니다. <strong>어디에 없는지</strong>만 적습니다.
   </p>
 
@@ -64,26 +83,35 @@ const desc =
     </p>
   </div>
 
-  <h2>세 해 동안 어떻게 움직였나</h2>
+  <h2>{해들.length}해 동안 어떻게 움직였나</h2>
+  <p>
+    {바닥.해}년에 <strong>{바닥.곳}곳</strong>으로 가장 적었습니다.
+    {' '}그 뒤로 <strong>{바닥뒤햇수}해</strong> 동안 {바닥뒤늘어난}곳이 늘어 지금 {이번.전국}곳입니다.
+  </p>
   <div class="tablewrap">
-    <svg viewBox={`0 0 ${막대.전체폭} 190`} width="100%" style="max-width:360px" role="img"
-         aria-label={`전국 미설치 지역 수 ${막대.값들.map((v) => `${v.해}년 ${v.곳}곳`).join(', ')}`}>
-      {막대.값들.map((v, i) => {
-        const h = Math.round((v.곳 / 막대.최대) * 막대.높);
-        const x = i * (막대.폭 + 막대.사이) + 막대.사이 / 2;
-        return (
-          <g>
-            <rect x={x} y={150 - h} width={막대.폭} height={h} rx="4"
-                  fill={i === 막대.값들.length - 1 ? '#c9a84c' : '#8b8b96'} />
-            <text x={x + 막대.폭 / 2} y={150 - h - 8} text-anchor="middle" font-size="16" fill="currentColor">{v.곳}</text>
-            <text x={x + 막대.폭 / 2} y={172} text-anchor="middle" font-size="14" fill="currentColor">{v.해}</text>
-          </g>
-        );
-      })}
+    <svg viewBox={`0 0 ${흐름.폭} ${흐름.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`어린이집이 없는 지역 수 — ${흐름.값들.map((v) => `${v.해}년 ${v.곳}곳`).join(', ')}`}>
+      <path d={흐름.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
+      {흐름.값들.map((v, i) => (
+        <g>
+          <circle cx={흐름.x(i)} cy={흐름.y(v.곳)} r={v.해 === 바닥.해 || v.해 === 최신 ? 4.5 : 2.5}
+                  fill={v.해 === 바닥.해 || v.해 === 최신 ? '#c9a84c' : '#8b8b96'} />
+          {(v.해 === 바닥.해 || v.해 === 최신) && (
+            <text x={흐름.x(i)} y={흐름.y(v.곳) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.곳}</text>
+          )}
+          {(i % 4 === 0 || i === 흐름.값들.length - 1) && (
+            <text x={흐름.x(i)} y={흐름.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{v.해}</text>
+          )}
+        </g>
+      ))}
     </svg>
   </div>
+  {/* 🔴 처음엔 세 해만 받아 놓고 「흐름을 말하기 이르다」고 적었다. 자료가 모자란 게 아니라
+      내가 덜 받은 것이었다 — 표에는 2009년부터 있었다. 그 일을 지면에도 적어 둔다 */}
   <p class="note">
-    ⚠ 세 해뿐입니다. 세 점으로 «흐름»을 말하기는 이릅니다 — 저희는 <strong>세 해의 값</strong>만 적습니다.
+    ⚠ 이 표는 {해들[0]}년부터 있습니다. 저희가 처음엔 세 해만 받아 두고
+    {' '}「세 점으로 흐름을 말하기는 이르다」고 적었는데, <strong>자료가 모자란 것이 아니라 저희가 덜 받은 것</strong>이었습니다.
+    {' '}지금은 {해들.length}해를 다 실었습니다.
   </p>
 
   <h2>시·도별로 어디에 있나</h2>
@@ -122,11 +150,26 @@ const desc =
     {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
   </p>
 
+  {/* 🔴 2번 지시(01:2x) — 이 지면이 스스로 적어 둔 「유치원은 이 표에 없습니다」를 닫는다.
+      ⛔ 옛 문장을 그대로 인용해 두면 화면에 그 말이 그냥 남는다(오늘 세 번 겪은 것).
+         ⇒ 인용하지 않고 **유치원 수·출처·연도를 여기에 적는다.** */}
+  <h2>유치원은 이렇습니다</h2>
+  <p>
+    {유치원.해}년 기준 전국 유치원은 <strong>{유치원전국.곳.toLocaleString()}곳</strong>,
+    {' '}원아는 <strong>{유치원전국.원아.toLocaleString()}명</strong>입니다.
+    {' '}시·군·구 {유치원.동네수}칸까지 <a href="/kindergarten">따로 실어 두었습니다</a>.
+    {' '}출처는 {유치원.출처.기관} 「{유치원.출처.표}」({유치원.출처.창구})입니다.
+  </p>
   <p class="note">
-    ⭐ 위 한계 가운데 「유치원은 이 표에 없습니다」는 닫았습니다 —
-    {' '}<a href="/kindergarten">우리 동네에 유치원이 몇 곳인가</a> 를 따로 냈습니다.
-    {' '}⛔ 다만 두 수를 <strong>더하지 마십시오.</strong> 유치원은 학교, 어린이집은 보육시설이고
-    {' '}이 지면의 634 는 «지역»의 수, 그 지면의 수는 «시설»의 수입니다.
+    ⛔ 두 수를 <strong>더하지 마십시오.</strong> 유치원은 학교, 어린이집은 보육시설이라 세는 대상이 다릅니다.
+    {' '}이 지면의 {이번.전국}은 <strong>«지역»의 수</strong>이고 유치원 {유치원전국.곳.toLocaleString()}은
+    {' '}<strong>«시설»의 수</strong>입니다.
+  </p>
+  <p class="note">
+    ⬜ <strong>아직 못 쟀습니다</strong> — 「어린이집도 유치원도 없는 곳이 몇 곳인가」.
+    {' '}두 표를 겹치려면 <strong>같은 단위의 지역 목록</strong>이 있어야 하는데,
+    {' '}어린이집 표는 시·도까지만 있고 <strong>지역 «목록»을 주지 않습니다</strong>(같은 기관의 네 표를 다 열어 보았습니다).
+    {' '}시설마다 주소가 붙은 자료가 있어야 셀 수 있습니다. 그 문은 아직 못 열었습니다.
   </p>
 
   <NextQuestionBrief 모은것="어린이집 미설치 지역 자료" />
