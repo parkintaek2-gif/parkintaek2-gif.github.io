@@ -183,6 +183,9 @@ export const GET: APIRoute = () => {
     /* 🔴 0~100세 전부 — 우리 이름값에 가장 맞는 자료다(완전생명표 1세별).
        「기대수명」·「65세 기대여명」·「몇 살까지 사나」로 찾는 검색을 받는다 */
     { path: '/years-left', priority: '0.9', changefreq: 'monthly' },
+    /* 🔴 /years-left 의 다음 물음 — 남은 해가 다 건강한 해는 아니다.
+       「건강수명」으로 찾는 검색을 받는다. ⛔ 한 수로 말하지 않는다(잣대에 따라 8.3년 다르다) */
+    { path: '/healthy-years', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
