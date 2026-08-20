@@ -18,11 +18,12 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/pediatrics.json';
 
 const 자료 = 원본 as any;
-const 없는곳 = 자료.없는곳 as { 시도: string; 이름: string }[];
+const 없는곳 = 자료.없는곳 as any[];
 const 없는시도 = Object.entries(자료.없는시도 as Record<string, number>)
   .sort((a, b) => b[1] - a[1]);
 const 대조 = 자료.자가대조;
 const 흐름 = 자료.흐름 as any[];
+const 병원 = 자료.병원급 as any;
 const 값들 = 흐름.map((r) => r.없는곳);
 const 최소 = Math.min(...값들), 최대 = Math.max(...값들);
 const 흐름끝 = 흐름[흐름.length - 1];
@@ -68,6 +69,7 @@ const desc =
     ⛔ <strong>「소아과가 아예 없다」는 뜻이 아닙니다.</strong> 이 표가 세는 것은 <strong>「의원」</strong>뿐입니다 —
     {' '}표시과목은 의원에 붙는 간판이라, 병원·종합병원 안의 소아청소년과는 이 표에 들어 있지 않습니다.
     {' '}그리고 간판에 안 걸고 아이를 보는 의원도 있습니다.
+    {' '}<strong>병원급까지 세어 보면 이 가운데 {자료.병원급.아예없는곳}곳은 병원도 한 곳도 없습니다</strong> — 아래에 적었습니다.
   </p>
 
   <div class="answer">
@@ -126,6 +128,20 @@ const desc =
     {' '}「몇 %가 없다」로는 쓰지 않습니다. <strong>곳수로만 읽어 주십시오.</strong>
   </p>
 
+  {/* 🔴 2번 지시(05:2x) — 「의원만」을 닫아라. 병원급을 같은 단위·같은 분기·같은 코드로 이었다 */}
+  <h2>그럼 병원은 있나</h2>
+  <p>
+    이 {자료.없는곳수}곳 가운데 <strong>{병원.아예없는곳}곳</strong>은
+    {' '}상급종합병원·종합병원·병원도 <strong>한 곳도 없습니다.</strong>
+    {' '}그곳은 병원 안 소아청소년과도 <strong>있을 수 없습니다.</strong>
+  </p>
+  <p class="note">
+    ⛔ 나머지 {자료.없는곳수 - 병원.아예없는곳}곳은 병원급이 있지만,
+    {' '}<strong>그 병원 안에 소아청소년과가 있는지는 저희가 못 쟀습니다.</strong> {병원['⛔ 못 쟀다']}
+    {' '}그래서 「있다」고도 「없다」고도 쓰지 않고 <strong>병원 수만</strong> 적습니다.
+    {' '}{병원.맞춘법}
+  </p>
+
   <h2>{자료.없는곳수}곳을 다 적습니다</h2>
   <p class="note">
     ⚠ 이름이 겹치는 곳이 많아 <strong>시·도를 함께 적었습니다</strong> —
@@ -133,14 +149,22 @@ const desc =
   </p>
   <div class="tablewrap">
     <table>
-      <thead><tr><th>시·도</th><th>시·군·구</th></tr></thead>
+      <thead><tr><th>시·도</th><th>시·군·구</th><th>병원급</th></tr></thead>
       <tbody>
-        {없는곳.map((r) => (
-          <tr><td>{r.시도}</td><td>{r.이름}</td></tr>
+        {없는곳.map((r: any) => (
+          <tr>
+            <td>{r.시도}</td>
+            <td>{r.이름}</td>
+            <td>{r.병원급 == null ? '못 맞춤' : r.병원급 === 0 ? '없다' : `${r.병원급}곳`}</td>
+          </tr>
         ))}
       </tbody>
     </table>
   </div>
+  <p class="note">
+    병원급은 {병원.센것} 를 더한 값입니다({병원.표} · {때말} 기준).
+    {' '}코드로 맞추지 못한 곳은 {병원.못맞춘곳}곳입니다.
+  </p>
 
   <h2>저희가 맞춰 본 것</h2>
   <p class="note">
