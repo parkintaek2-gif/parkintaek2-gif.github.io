@@ -18,6 +18,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-actors-first.json';
 
 const 인니 = d.firstByEdition.id;
@@ -134,6 +135,10 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="actors" count={5} />
+
+  <KcwShorts set="actors"
+    says={`Fourteen seconds: the three actors at the top of four Southeast Asian Wikipedias, `
+      + `and the three names on every list that lead none of them.`} />
 
   <KcwRelatedArticles page="/actors-first" />
 </WikiTip>
