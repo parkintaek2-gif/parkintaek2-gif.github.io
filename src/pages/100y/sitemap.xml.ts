@@ -192,6 +192,9 @@ export const GET: APIRoute = () => {
     /* 🔴 밤새 낸 여덟 장이 서로 모르고 있었다(2번 8/21 06:2x). 한 자리에 모으는 문이다.
        들어오게 하는 것과 머물게 하는 것은 다른 일이다 */
     { path: '/ages', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 /ages 가 스스로 「70대 뒤가 얇습니다」라 적어 둔 자리를 채운다.
+       /longest-job(53세에 그만둔다) 바로 다음 물음이다 */
+    { path: '/keep-working', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

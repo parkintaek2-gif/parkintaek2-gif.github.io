@@ -20,9 +20,11 @@ import 초등 from '../../../data/100yearmap/elementary.json';
 import 직장 from '../../../data/100yearmap/longest-job.json';
 import 남은해 from '../../../data/100yearmap/years-left.json';
 import 건강한해 from '../../../data/100yearmap/healthy-years.json';
+import 계속일 from '../../../data/100yearmap/keep-working.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
+const i = 계속일 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -73,6 +75,12 @@ const 문들 = [
     수: `${(f.넓게.나이 as any).평균}세`,
     한줄: `그만둔 까닭 맨 위는 사업 부진·휴업·폐업 ${(f.넓게.까닭.까닭별 as any[])[0].몫}%입니다.`,
     기간: `${f.해} 조사`,
+  },
+  {
+    나이: '55~79세', 주소: '/keep-working', 이름: '그만두고도 계속 일하고 싶은가',
+    수: `${i.원함몫}%`,
+    한줄: `까닭 맨 위는 ${i.까닭[0].까닭}(${i.까닭[0].몫}%). ⚠ 두 수의 분모가 다릅니다.`,
+    기간: `${i.흐름[0].해}~${i.흐름[i.흐름.length-1].해} · ${i.조사수}번 조사`,
   },
   {
     나이: '0~100세', 주소: '/years-left', 이름: '앞으로 몇 해가 남았나',
