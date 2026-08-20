@@ -1,0 +1,167 @@
+---
+/**
+ * K Culture Wire — **멤버의 이름과 그룹의 이름을 한 줄에.** (`/member-vs-group`)
+ *
+ * ⭐⭐ 사장님 지시(8/16) — 스타의 이름과 **소속 그룹명**을 제목과 본문에 넣는다.
+ *    손님은 「V」와 「BTS」를 친다. 「가수 1,446명」을 치지 않는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **「멤버가 그룹을 이겼다」로 팔지 않는다.** 두 수를 나란히 놓기만 한다.
+ *    문서 둘은 손님에게 **다른 물음**에 답한다 — 어느 쪽이 더 유명한가가 아니다.
+ * ⛔ **둘 다 문서가 있는 판만** 견준다. 없는 문서를 0 으로 안 메운다.
+ * ⛔ **못 받은 소속을 「무소속」으로 안 센다.**
+ * ⛔ 위에서 60명만 본 것은 **돈 때문**이지 뜻이 있어서가 아니라고 적는다.
+ * ⛔ 광고 자리를 만들지 않는다.
+ *
+ * 🔴 Astro 앞말은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다 — 붙여 쓸 곳에 {' '} 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-member-vs-group.json';
+
+const 늘위 = d.pairs.filter((p) => p.memberHigherIn === p.editions.length);
+const 늘아래 = d.pairs.filter((p) => p.memberHigherIn === 0);
+const 섞임 = d.pairs.filter((p) => p.memberHigherIn > 0 && p.memberHigherIn < p.editions.length);
+
+const TITLE = 'V and Jungkook are read less than BTS. Jay Park and Lee Hye-ri are read more '
+  + 'than 2PM and Girl\'s Day';
+const DESC =
+  `Across the Indonesian, Vietnamese, Thai and Malay Wikipedias we put ${d.pairs.length} K-pop `
+  + `soloists beside the group they belong to. For ${늘아래.length} the group is read more in `
+  + `every country; for ${늘위.length} — including Jay Park, Lee Hye-ri, Mark Lee and Kai — the `
+  + 'member is.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org/', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/member-vs-group">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    We took the {d.soloLooked} most-read Korean soloists, read who they belong to, and put each one
+    beside their group on the four Southeast Asian Wikipedias. {d.pairs.length} pairs can be
+    compared. In <b>{늘아래.length}</b> of them the group is read more in every country. In
+    {' '}<b>{늘위.length}</b> the member is. The remaining {섞임.length} disagree from one country
+    to the next.
+  </p>
+
+  <section>
+    <h2>Where the member is read more than the group, everywhere</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Member</th><th>Group</th>{d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
+        </thead>
+        <tbody>
+          {늘위.map((p) => (
+            <tr>
+              <td class="nm">{p.member}</td>
+              <td class="nm">{p.group}</td>
+              {d.editions.map((e) => {
+                const r = p.rows.find((x) => x.edition === e);
+                return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Each cell is <b>member / group</b>, in reads per million reads of that Wikipedia. A dash means
+      one of the two has no article on that edition, so we do not compare there rather than
+      counting a missing article as zero.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where the group is read more, everywhere</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Member</th><th>Group</th>{d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
+        </thead>
+        <tbody>
+          {늘아래.map((p) => (
+            <tr>
+              <td class="nm">{p.member}</td>
+              <td class="nm">{p.group}</td>
+              {d.editions.map((e) => {
+                const r = p.rows.find((x) => x.edition === e);
+                return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  {섞임.length > 0 && (
+    <section>
+      <h2>Where it depends on the country</h2>
+      <p>
+        These are the interesting ones. The same member sits above their group in one country and
+        below it in another, which is a fact about the reader rather than about the act.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Member</th><th>Group</th><th>Member higher in</th>
+              {d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
+          </thead>
+          <tbody>
+            {섞임.map((p) => (
+              <tr>
+                <td class="nm">{p.member}</td>
+                <td class="nm">{p.group}</td>
+                <td>{p.memberHigherIn} of {p.editions.length}</td>
+                {d.editions.map((e) => {
+                  const r = p.rows.find((x) => x.edition === e);
+                  return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        T.O.P sits above BigBang only on the Vietnamese Wikipedia, at 76.81 against 38.70, and below
+        it on the other three.
+      </p>
+    </section>
+  )}
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    <p class="warn">
+      <strong>This is not a contest.</strong> A member's article and their group's article answer
+      different questions for a reader, and one being opened more is not evidence that it is better
+      known.
+    </p>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">{d.notMeasuredMeans} Of the {d.soloLooked} soloists we looked at,
+      {' '}{d.withGroup} belong to a group, {d.noGroup} belong to none, and {d.notMeasured} could
+      not be read.</p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Method</b> — {d.method}</li>
+      <li><b>Limits</b> — {d.limitation}</li>
+    </ul>
+  </section>
+
+  <KcwRelatedArticles page="/member-vs-group" />
+</WikiTip>

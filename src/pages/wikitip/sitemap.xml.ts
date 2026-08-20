@@ -409,6 +409,10 @@ export const GET: APIRoute = async () => {
        🔴 날것의 합계는 「문서가 있는 판만 더한 수」라 판 수가 섞여 있다(9.99배 → 7.1배).
          한 판만 보아 갈랐다. ⛔ 「네 판 다 있는 사람끼리」로 맞추는 길은 collider 라 안 썼다 */
     { path: '/works-and-readers', priority: '0.9', changefreq: 'weekly' },
+    /* 101편째 자료 지면. 2026-08-20 — 멤버의 이름과 그룹의 이름을 한 줄에.
+       ⭐ 사장님 지시(8/16): 손님은 「V」와 「BTS」를 친다. 「가수 1,446명」을 안 친다.
+       ⛔ 「멤버가 그룹을 이겼다」로 안 쓴다 — 두 문서는 손님에게 다른 물음에 답한다 */
+    { path: '/member-vs-group', priority: '0.9', changefreq: 'weekly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
