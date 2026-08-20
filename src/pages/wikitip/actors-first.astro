@@ -1,0 +1,136 @@
+---
+/**
+ * K Culture Wire — **배우는 넷 다 1등인 이름이 없다.** (`/actors-first`)
+ *
+ * 🔴 사장님 지시(8/16) — 「스타의 이름을 제목과 본문에」 → 제목이 Go Youn-jung ·
+ *   Lee Chae-min · Moon Ga-young 이다. 표의 첫 칸도 이름이다.
+ *
+ * ⭐ 이 지면의 값은 순위표가 아니라 **음악판과 모양이 다르다는 것**이다.
+ *   음악 1등 두 명 · 넷 다에 든 이름 하나 / 배우 1등 세 명 · 넷 다에 든 이름 셋.
+ *
+ * ⛔ 네 나라를 합치지 않는다 · Q번호를 이름인 척 안 싣는다 · 읽힘을 인기로 안 판다
+ * ⛔ 가수와 배우를 갈랐다고 말하지 않는다 — 명단이 출연진이라 IU·T.O.P·Jisoo 가 섞여 있다
+ * ⛔ 광고 자리를 만들지 않는다. Riot Production(App 866800) 승인 전이다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 **TypeScript 다.** JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다. 붙여 써야 할 곳은 `{' '}` 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-actors-first.json';
+
+const 인니 = d.firstByEdition.id;
+const 베트 = d.firstByEdition.vi;
+const 태국 = d.firstByEdition.th;
+const 말레 = d.firstByEdition.ms;
+
+const TITLE = `${베트.name} tops two Southeast Asian Wikipedias, `
+  + `${인니.name} tops Indonesia and ${말레.name} tops Malaysia`;
+const DESC =
+  `Across the Indonesian, Vietnamese, Thai and Malay Wikipedias, ${d.firsts.distinct} different `
+  + `Korean actors sit at the top of the four lists. ${d.inAllFour.join(', ')} are the names on `
+  + `all four. Measured the same way, the music lists have a single leader and only one shared `
+  + 'name — the two shapes are different.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org/', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/actors-first">
+  <h1>{TITLE}</h1>
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    No. Four editions, <b>{d.firsts.distinct}</b> different names at the top:
+    {' '}<b>{베트.name}</b> leads Vietnam ({베트.perMillion}) and Thailand ({태국.perMillion}),
+    {' '}<b>{인니.name}</b> leads Indonesia ({인니.perMillion}), and <b>{말레.name}</b> leads
+    Malaysia ({말레.perMillion}).
+  </p>
+
+  {d.versusMusic && (
+    <section class="warn-box">
+      <h2>The music lists do not look like this</h2>
+      <p>
+        We measured Korean music acts the same way, over the same twelve months, with the same
+        ranking code. There, <b>{d.versusMusic.musicDistinctFirsts}</b> names take the four top
+        places and exactly <b>{d.versusMusic.musicInAllFour.length}</b> name —
+        {' '}<b>{d.versusMusic.musicInAllFour.join(', ')}</b> — appears on every list. Here it is
+        {' '}<b>{d.firsts.distinct}</b> names at the top and <b>{d.inAllFour.length}</b> shared by
+        all four.
+      </p>
+      <p class="note">{d.versusMusic.reading}</p>
+      <p class="note">
+        The music tables are at <a href={d.versusMusic.musicPage}>who each country reads first</a>.
+      </p>
+    </section>
+  )}
+
+  {d.editions.map((p) => (
+    <section>
+      <h2>{d.countryNames[p]} — the {d.rowsPerEdition} most-read Korean actors</h2>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>#</th><th>Name</th><th>Reads per million</th></tr></thead>
+          <tbody>
+            {d.topByEdition[p].map((x) => (
+              <tr>
+                <td class="fine">{x.rank}</td>
+                <td class="nm">{x.name}</td>
+                <td>{x.perMillion}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {d.onlyInOne.find((o) => o.edition === p)?.only.length > 0 && (
+        <p class="note">
+          Read here and nowhere else in this table:
+          {' '}<b>{d.onlyInOne.find((o) => o.edition === p).only.join(', ')}</b>.
+        </p>
+      )}
+    </section>
+  ))}
+
+  <section>
+    <h2>{d.inAllFour.join(', ')} are on every list</h2>
+    <p>
+      Of the {d.rowsPerEdition * 4} places across the four tables,
+      {' '}<b>{d.inAllFour.length}</b> names fill a place in all of them:
+      {' '}<b>{d.inAllFour.join(', ')}</b>. None of the three is first anywhere except
+      {' '}{d.countryNames.ms}, where {말레.name} is. Travelling widely and topping a list are not
+      the same thing here.
+    </p>
+  </section>
+
+  <section>
+    <h2>This is not a split between singers and actors</h2>
+    <p class="warn">{d.panelCaveat}</p>
+    <p>
+      The panel is a cast list, so people who both sing and act are on it — IU, T.O.P and Jisoo
+      appear in these tables and on the music page too. We are not claiming a clean line between
+      the two, and the overlap is the reason the two pages can be compared at all.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">
+      Reads — Wikimedia Pageviews API, human traffic only, {d.window}, expressed per million reads
+      of that edition so a small Wikipedia is not penalised for being small. Cast and charting
+      titles — Wikidata and Netflix country charts.
+    </p>
+    <p class="note">
+      Entries arriving as a bare Wikidata identifier are dropped rather than printed as a name.
+      On this panel there were <b>{d.unresolvedNames.count}</b>.
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/actors-first" />
+</WikiTip>
