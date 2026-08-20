@@ -1,5 +1,5 @@
 ---
-title: "We could not read this question yesterday. Today we changed the instrument and it reads"
+title: "Go Youn-jung and Byeon Woo-seok read clearly today and read as nothing yesterday. We changed the ruler"
 category: stars
 purpose: both
 dek: "Median reads of a Korean actor's own Wikipedia article, by how many of their titles reached a Netflix chart: 1.21, 2.15, 4.72, 11.94. Yesterday the same panel gave us nothing, because we were measuring the wrong thing."

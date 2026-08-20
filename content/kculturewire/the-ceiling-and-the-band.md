@@ -1,5 +1,5 @@
 ---
-title: "One Korean footballer is read more in Southeast Asia than any Korean actor"
+title: "Son Heung-min is read more in Southeast Asia than all 1,023 Korean actors we measured"
 category: stars
 purpose: both
 dek: "We measured 1,972 Koreans with one instrument. Son Heung-min sits above all 1,023 actors. But 22 actors clear 100 against two athletes, and the two groups are read in different countries. Musicians who never acted are not in this panel."

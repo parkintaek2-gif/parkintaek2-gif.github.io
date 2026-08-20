@@ -1,5 +1,5 @@
 ---
-title: "Almost every Korean title on Netflix shares an actor with almost every other. Removing the 100 busiest barely dents it."
+title: "Remove Lee Byung-hun, Ma Dong-seok and 98 more, and Korean Netflix is still one connected body"
 dek: "Of 660 Korean titles with a recorded cast, 639 form a single connected body through shared actors. We expected a few very busy people to be holding it together. Take out the 100 busiest and 93.5% is still one piece."
 category: titles
 purpose: both

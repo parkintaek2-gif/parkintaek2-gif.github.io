@@ -1,5 +1,5 @@
 ---
-title: "For a Korean esports player, a year of Southeast Asian readers arrives in one month"
+title: "Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does"
 category: stars
 genre: esports
 purpose: both

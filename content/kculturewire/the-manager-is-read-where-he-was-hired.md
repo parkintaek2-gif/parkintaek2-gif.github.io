@@ -1,5 +1,5 @@
 ---
-title: "In Indonesia and Malaysia, the most-read Korean in football is not a player"
+title: "Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min in the countries that hired them"
 category: stars
 purpose: both
 dek: "A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him. Median concentration in a single country: 50.55% for the players, 81.35% for the managers."

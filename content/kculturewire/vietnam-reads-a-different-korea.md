@@ -1,5 +1,5 @@
 ---
-title: "Vietnam looks up a different Korea than its neighbours do"
+title: "Vietnam reads Faker and Kim Sang-sik where its neighbours read Son Heung-min"
 category: stars
 genre: esports
 purpose: both
