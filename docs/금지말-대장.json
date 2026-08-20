@@ -1,0 +1,11670 @@
+{
+ "무엇": "지면마다 화면에 있는 «안 쓰기로 한 낱말» — 이 대장이 기준선이다",
+ "⛔": "대장에 있는 것은 잘못이 아니다. 우리 지면은 「등수를 매기지 않습니다」처럼 약속으로 쓴다. 새로 생긴 것만 본다",
+ "만든날": "2026-08-20",
+ "지면수": 4973,
+ "든지면수": 3188,
+ "지면별": {
+  "about.html": [
+   "등수",
+   "순위",
+   "몇 위",
+   "명문"
+  ],
+  "after.html": [
+   "등수",
+   "순위"
+  ],
+  "college-major.html": [
+   "등수"
+  ],
+  "data.html": [
+   "등수",
+   "순위"
+  ],
+  "elementary.html": [
+   "등수",
+   "순위"
+  ],
+  "how-long.html": [
+   "순위"
+  ],
+  "price.html": [
+   "등수"
+  ],
+  "region/강원.html": [
+   "등수"
+  ],
+  "region/경기.html": [
+   "등수"
+  ],
+  "region/경남.html": [
+   "등수"
+  ],
+  "region/경북.html": [
+   "등수"
+  ],
+  "region/광주.html": [
+   "등수"
+  ],
+  "region/대구.html": [
+   "등수"
+  ],
+  "region/대전.html": [
+   "등수"
+  ],
+  "region/부산.html": [
+   "등수"
+  ],
+  "region/서울.html": [
+   "등수"
+  ],
+  "region/세종.html": [
+   "등수"
+  ],
+  "region/울산.html": [
+   "등수"
+  ],
+  "region/인천.html": [
+   "등수"
+  ],
+  "region/전남.html": [
+   "등수"
+  ],
+  "region/전북.html": [
+   "등수"
+  ],
+  "region/제주.html": [
+   "등수"
+  ],
+  "region/충남.html": [
+   "등수"
+  ],
+  "region/충북.html": [
+   "등수"
+  ],
+  "region.html": [
+   "등수"
+  ],
+  "report/7010057.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-강릉시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-고성군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-동해시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-삼척시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-속초시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-양구군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-양양군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-영월군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-원주시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-인제군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-정선군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-철원군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-춘천시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-태백시.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-평창군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-홍천군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-화천군.html": [
+   "등수"
+  ],
+  "report/area/강원특별자치도-횡성군.html": [
+   "등수"
+  ],
+  "report/area/경기도-가평군.html": [
+   "등수"
+  ],
+  "report/area/경기도-고양시-덕양구.html": [
+   "등수"
+  ],
+  "report/area/경기도-고양시-일산동구.html": [
+   "등수"
+  ],
+  "report/area/경기도-고양시-일산서구.html": [
+   "등수"
+  ],
+  "report/area/경기도-과천시.html": [
+   "등수"
+  ],
+  "report/area/경기도-광명시.html": [
+   "등수",
+   "명문"
+  ],
+  "report/area/경기도-광주시.html": [
+   "등수"
+  ],
+  "report/area/경기도-구리시.html": [
+   "등수"
+  ],
+  "report/area/경기도-군포시.html": [
+   "등수"
+  ],
+  "report/area/경기도-김포시.html": [
+   "등수"
+  ],
+  "report/area/경기도-남양주시.html": [
+   "등수"
+  ],
+  "report/area/경기도-동두천시.html": [
+   "등수"
+  ],
+  "report/area/경기도-부천시-소사구.html": [
+   "등수"
+  ],
+  "report/area/경기도-부천시-오정구.html": [
+   "등수"
+  ],
+  "report/area/경기도-부천시-원미구.html": [
+   "등수"
+  ],
+  "report/area/경기도-부천시.html": [
+   "등수"
+  ],
+  "report/area/경기도-성남시-분당구.html": [
+   "등수"
+  ],
+  "report/area/경기도-성남시-수정구.html": [
+   "등수"
+  ],
+  "report/area/경기도-성남시-중원구.html": [
+   "등수"
+  ],
+  "report/area/경기도-수원시-권선구.html": [
+   "등수"
+  ],
+  "report/area/경기도-수원시-영통구.html": [
+   "등수"
+  ],
+  "report/area/경기도-수원시-장안구.html": [
+   "등수"
+  ],
+  "report/area/경기도-수원시-팔달구.html": [
+   "등수"
+  ],
+  "report/area/경기도-시흥시.html": [
+   "등수"
+  ],
+  "report/area/경기도-안산시-단원구.html": [
+   "등수"
+  ],
+  "report/area/경기도-안산시-상록구.html": [
+   "등수"
+  ],
+  "report/area/경기도-안성시.html": [
+   "등수"
+  ],
+  "report/area/경기도-안양시-동안구.html": [
+   "등수"
+  ],
+  "report/area/경기도-안양시-만안구.html": [
+   "등수"
+  ],
+  "report/area/경기도-양주시.html": [
+   "등수"
+  ],
+  "report/area/경기도-양평군.html": [
+   "등수"
+  ],
+  "report/area/경기도-여주시.html": [
+   "등수"
+  ],
+  "report/area/경기도-연천군.html": [
+   "등수"
+  ],
+  "report/area/경기도-오산시.html": [
+   "등수"
+  ],
+  "report/area/경기도-용인시-기흥구.html": [
+   "등수"
+  ],
+  "report/area/경기도-용인시-수지구.html": [
+   "등수"
+  ],
+  "report/area/경기도-용인시-처인구.html": [
+   "등수"
+  ],
+  "report/area/경기도-의왕시.html": [
+   "등수"
+  ],
+  "report/area/경기도-의정부시.html": [
+   "등수"
+  ],
+  "report/area/경기도-이천시.html": [
+   "등수"
+  ],
+  "report/area/경기도-파주시.html": [
+   "등수"
+  ],
+  "report/area/경기도-평택시.html": [
+   "등수"
+  ],
+  "report/area/경기도-포천시.html": [
+   "등수"
+  ],
+  "report/area/경기도-하남시.html": [
+   "등수"
+  ],
+  "report/area/경기도-화성시-동탄구.html": [
+   "등수"
+  ],
+  "report/area/경기도-화성시-만세구.html": [
+   "등수"
+  ],
+  "report/area/경기도-화성시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-거제시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-거창군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-고성군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-김해시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-남해군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-밀양시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-사천시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-산청군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-양산시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-의령군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-진주시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창녕군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창원시-마산합포구.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창원시-마산회원구.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창원시-성산구.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창원시-의창구.html": [
+   "등수"
+  ],
+  "report/area/경상남도-창원시-진해구.html": [
+   "등수"
+  ],
+  "report/area/경상남도-통영시.html": [
+   "등수"
+  ],
+  "report/area/경상남도-하동군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-함안군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-함양군.html": [
+   "등수"
+  ],
+  "report/area/경상남도-합천군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-경산시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-경주시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-고령군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-구미시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-김천시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-문경시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-봉화군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-상주시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-성주군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-안동시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-영덕군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-영양군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-영주시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-영천시.html": [
+   "등수"
+  ],
+  "report/area/경상북도-예천군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-울진군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-의성군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-청도군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-칠곡군.html": [
+   "등수"
+  ],
+  "report/area/경상북도-포항시-남구.html": [
+   "등수"
+  ],
+  "report/area/경상북도-포항시-북구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-군위군.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-남구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-달서구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-달성군.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-동구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-북구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-서구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-수성구.html": [
+   "등수"
+  ],
+  "report/area/대구광역시-중구.html": [
+   "등수"
+  ],
+  "report/area/대전광역시-대덕구.html": [
+   "등수"
+  ],
+  "report/area/대전광역시-동구.html": [
+   "등수"
+  ],
+  "report/area/대전광역시-서구.html": [
+   "등수"
+  ],
+  "report/area/대전광역시-유성구.html": [
+   "등수"
+  ],
+  "report/area/대전광역시-중구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-강서구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-금정구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-기장군.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-남구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-동구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-동래구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-부산진구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-북구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-사상구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-사하구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-서구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-수영구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-연제구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-영도구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-중구.html": [
+   "등수"
+  ],
+  "report/area/부산광역시-해운대구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-강남구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-강동구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-강북구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-강서구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-관악구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-광진구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-구로구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-금천구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-노원구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-도봉구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-동대문구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-동작구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-마포구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-서대문구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-서초구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-성동구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-성북구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-송파구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-양천구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-영등포구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-용산구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-은평구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-종로구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-중구.html": [
+   "등수"
+  ],
+  "report/area/서울특별시-중랑구.html": [
+   "등수"
+  ],
+  "report/area/세종특별자치시.html": [
+   "등수"
+  ],
+  "report/area/울산광역시-남구.html": [
+   "등수"
+  ],
+  "report/area/울산광역시-동구.html": [
+   "등수"
+  ],
+  "report/area/울산광역시-북구.html": [
+   "등수"
+  ],
+  "report/area/울산광역시-울주군.html": [
+   "등수"
+  ],
+  "report/area/울산광역시-중구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-강화군.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-검단구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-계양구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-남동구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-미추홀구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-부평구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-서해구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-연수구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-영종구.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-옹진군.html": [
+   "등수"
+  ],
+  "report/area/인천광역시-제물포구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-강진군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-고흥군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-곡성군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-광산구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-광양시.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-구례군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-나주시.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-남구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-담양군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-동구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-목포시.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-무안군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-보성군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-북구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-서구.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-순천시.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-신안군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-여수시.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-영광군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-영암군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-완도군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-장성군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-장흥군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-진도군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-함평군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-해남군.html": [
+   "등수"
+  ],
+  "report/area/전남광주통합특별시-화순군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-고창군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-군산시.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-김제시.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-남원시.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-무주군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-부안군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-순창군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-완주군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-익산시.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-임실군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-장수군.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-전주시-덕진구.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-전주시-완산구.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-정읍시.html": [
+   "등수"
+  ],
+  "report/area/전북특별자치도-진안군.html": [
+   "등수"
+  ],
+  "report/area/제주특별자치도-서귀포시.html": [
+   "등수"
+  ],
+  "report/area/제주특별자치도-제주시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-계룡시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-공주시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-금산군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-논산시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-당진시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-보령시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-부여군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-서산시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-서천군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-아산시.html": [
+   "등수"
+  ],
+  "report/area/충청남도-예산군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-천안시-동남구.html": [
+   "등수"
+  ],
+  "report/area/충청남도-천안시-서북구.html": [
+   "등수"
+  ],
+  "report/area/충청남도-청양군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-태안군.html": [
+   "등수"
+  ],
+  "report/area/충청남도-홍성군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-괴산군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-단양군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-보은군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-영동군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-옥천군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-음성군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-제천시.html": [
+   "등수"
+  ],
+  "report/area/충청북도-증평군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-진천군.html": [
+   "등수"
+  ],
+  "report/area/충청북도-청주시-상당구.html": [
+   "등수"
+  ],
+  "report/area/충청북도-청주시-서원구.html": [
+   "등수"
+  ],
+  "report/area/충청북도-청주시-청원구.html": [
+   "등수"
+  ],
+  "report/area/충청북도-청주시-흥덕구.html": [
+   "등수"
+  ],
+  "report/area/충청북도-충주시.html": [
+   "등수"
+  ],
+  "research.html": [
+   "순위"
+  ],
+  "school/1192068.html": [
+   "순위"
+  ],
+  "school/1192069.html": [
+   "순위"
+  ],
+  "school/1371661.html": [
+   "등수",
+   "순위"
+  ],
+  "school/1371663.html": [
+   "등수",
+   "순위"
+  ],
+  "school/1421116.html": [
+   "순위"
+  ],
+  "school/1421117.html": [
+   "순위"
+  ],
+  "school/1421118.html": [
+   "순위"
+  ],
+  "school/7003713.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7003851.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7003892.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7003982.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7004180.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7004207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7005103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010067.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010088.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010112.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010118.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010122.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010125.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010126.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010127.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010131.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010134.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010135.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010139.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010142.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010143.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010144.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010147.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010148.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010151.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010152.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010153.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010154.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010155.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010156.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010157.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010166.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010167.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010168.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010170.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010172.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010173.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010174.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010178.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010181.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010182.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010185.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010186.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010187.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010188.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010190.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010192.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010193.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010194.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010195.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010196.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010197.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010198.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010199.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010202.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010204.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010205.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010206.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010212.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010215.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010217.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010218.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010220.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010221.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010222.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010223.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010226.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010227.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010230.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010231.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010232.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010233.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010234.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010235.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010236.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010238.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010239.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010240.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010241.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010243.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010244.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010245.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010246.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010247.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010248.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010250.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010251.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010252.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010253.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010254.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010255.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010258.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010259.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010260.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010261.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010262.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010263.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010264.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010265.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010266.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010267.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010268.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010271.html": [
+   "순위"
+  ],
+  "school/7010272.html": [
+   "순위"
+  ],
+  "school/7010278.html": [
+   "순위"
+  ],
+  "school/7010317.html": [
+   "순위"
+  ],
+  "school/7010340.html": [
+   "순위"
+  ],
+  "school/7010346.html": [
+   "순위"
+  ],
+  "school/7010356.html": [
+   "순위"
+  ],
+  "school/7010365.html": [
+   "순위"
+  ],
+  "school/7010370.html": [
+   "순위"
+  ],
+  "school/7010536.html": [
+   "순위"
+  ],
+  "school/7010537.html": [
+   "순위"
+  ],
+  "school/7010544.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010547.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010552.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010559.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010560.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010562.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010563.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010564.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010565.html": [
+   "순위"
+  ],
+  "school/7010566.html": [
+   "순위"
+  ],
+  "school/7010567.html": [
+   "순위"
+  ],
+  "school/7010572.html": [
+   "순위"
+  ],
+  "school/7010589.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010590.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010591.html": [
+   "순위"
+  ],
+  "school/7010593.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010594.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010697.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010698.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010700.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010701.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010702.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010703.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010712.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010721.html": [
+   "순위"
+  ],
+  "school/7010722.html": [
+   "순위"
+  ],
+  "school/7010734.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010735.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010736.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010737.html": [
+   "순위"
+  ],
+  "school/7010738.html": [
+   "순위"
+  ],
+  "school/7010739.html": [
+   "순위"
+  ],
+  "school/7010740.html": [
+   "순위"
+  ],
+  "school/7010741.html": [
+   "순위"
+  ],
+  "school/7010744.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010747.html": [
+   "순위"
+  ],
+  "school/7010764.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010765.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010766.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010793.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010795.html": [
+   "순위"
+  ],
+  "school/7010797.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010805.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010806.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010808.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010810.html": [
+   "순위"
+  ],
+  "school/7010811.html": [
+   "순위"
+  ],
+  "school/7010813.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010816.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010817.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010818.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010827.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010828.html": [
+   "순위"
+  ],
+  "school/7010833.html": [
+   "순위"
+  ],
+  "school/7010835.html": [
+   "순위"
+  ],
+  "school/7010836.html": [
+   "순위"
+  ],
+  "school/7010837.html": [
+   "순위"
+  ],
+  "school/7010882.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010883.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010884.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010885.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010886.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010888.html": [
+   "순위"
+  ],
+  "school/7010889.html": [
+   "순위"
+  ],
+  "school/7010906.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010908.html": [
+   "순위"
+  ],
+  "school/7010911.html": [
+   "순위"
+  ],
+  "school/7010916.html": [
+   "순위"
+  ],
+  "school/7010917.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010918.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010958.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010959.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010960.html": [
+   "순위"
+  ],
+  "school/7010962.html": [
+   "순위"
+  ],
+  "school/7010964.html": [
+   "순위"
+  ],
+  "school/7010965.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010966.html": [
+   "순위"
+  ],
+  "school/7010983.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010984.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7010985.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011084.html": [
+   "순위"
+  ],
+  "school/7011085.html": [
+   "순위"
+  ],
+  "school/7011087.html": [
+   "순위"
+  ],
+  "school/7011088.html": [
+   "순위"
+  ],
+  "school/7011096.html": [
+   "순위"
+  ],
+  "school/7011109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011112.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011118.html": [
+   "순위"
+  ],
+  "school/7011120.html": [
+   "순위"
+  ],
+  "school/7011122.html": [
+   "순위"
+  ],
+  "school/7011125.html": [
+   "순위"
+  ],
+  "school/7011138.html": [
+   "순위"
+  ],
+  "school/7011140.html": [
+   "순위"
+  ],
+  "school/7011142.html": [
+   "순위"
+  ],
+  "school/7011144.html": [
+   "순위"
+  ],
+  "school/7011148.html": [
+   "순위"
+  ],
+  "school/7011149.html": [
+   "순위"
+  ],
+  "school/7011150.html": [
+   "순위"
+  ],
+  "school/7011169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011180.html": [
+   "순위"
+  ],
+  "school/7011184.html": [
+   "순위"
+  ],
+  "school/7011186.html": [
+   "순위"
+  ],
+  "school/7011207.html": [
+   "순위"
+  ],
+  "school/7011208.html": [
+   "순위"
+  ],
+  "school/7011213.html": [
+   "순위"
+  ],
+  "school/7011216.html": [
+   "순위"
+  ],
+  "school/7011310.html": [
+   "순위"
+  ],
+  "school/7011312.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011315.html": [
+   "순위"
+  ],
+  "school/7011316.html": [
+   "순위"
+  ],
+  "school/7011317.html": [
+   "순위"
+  ],
+  "school/7011318.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011319.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011320.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011457.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011482.html": [
+   "순위"
+  ],
+  "school/7011486.html": [
+   "순위"
+  ],
+  "school/7011487.html": [
+   "순위"
+  ],
+  "school/7011488.html": [
+   "순위"
+  ],
+  "school/7011489.html": [
+   "순위"
+  ],
+  "school/7011490.html": [
+   "순위"
+  ],
+  "school/7011491.html": [
+   "순위"
+  ],
+  "school/7011492.html": [
+   "순위"
+  ],
+  "school/7011493.html": [
+   "순위"
+  ],
+  "school/7011494.html": [
+   "순위"
+  ],
+  "school/7011495.html": [
+   "순위"
+  ],
+  "school/7011498.html": [
+   "순위"
+  ],
+  "school/7011505.html": [
+   "순위"
+  ],
+  "school/7011506.html": [
+   "순위"
+  ],
+  "school/7011507.html": [
+   "순위"
+  ],
+  "school/7011508.html": [
+   "순위"
+  ],
+  "school/7011513.html": [
+   "순위"
+  ],
+  "school/7011539.html": [
+   "순위"
+  ],
+  "school/7011540.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011558.html": [
+   "순위"
+  ],
+  "school/7011568.html": [
+   "순위"
+  ],
+  "school/7011569.html": [
+   "순위"
+  ],
+  "school/7011575.html": [
+   "순위"
+  ],
+  "school/7011583.html": [
+   "순위"
+  ],
+  "school/7011584.html": [
+   "순위"
+  ],
+  "school/7011585.html": [
+   "순위"
+  ],
+  "school/7011586.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7011649.html": [
+   "순위"
+  ],
+  "school/7011650.html": [
+   "순위"
+  ],
+  "school/7011651.html": [
+   "순위"
+  ],
+  "school/7041275.html": [
+   "순위"
+  ],
+  "school/7140158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140161.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140162.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140164.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140165.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140166.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140167.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140168.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140170.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140171.html": [
+   "순위"
+  ],
+  "school/7140172.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140173.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140174.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140175.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140176.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140178.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140180.html": [
+   "순위"
+  ],
+  "school/7140181.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140182.html": [
+   "순위"
+  ],
+  "school/7140183.html": [
+   "등수",
+   "순위",
+   "명문"
+  ],
+  "school/7140184.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140185.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140186.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140187.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140188.html": [
+   "순위"
+  ],
+  "school/7140189.html": [
+   "순위"
+  ],
+  "school/7140190.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140191.html": [
+   "순위"
+  ],
+  "school/7140192.html": [
+   "순위"
+  ],
+  "school/7140193.html": [
+   "순위"
+  ],
+  "school/7140194.html": [
+   "순위"
+  ],
+  "school/7140195.html": [
+   "순위"
+  ],
+  "school/7140196.html": [
+   "순위"
+  ],
+  "school/7140197.html": [
+   "순위"
+  ],
+  "school/7140198.html": [
+   "순위"
+  ],
+  "school/7140199.html": [
+   "순위"
+  ],
+  "school/7140200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140201.html": [
+   "순위"
+  ],
+  "school/7140202.html": [
+   "순위"
+  ],
+  "school/7140203.html": [
+   "순위"
+  ],
+  "school/7140204.html": [
+   "순위"
+  ],
+  "school/7140205.html": [
+   "순위"
+  ],
+  "school/7140206.html": [
+   "순위"
+  ],
+  "school/7140207.html": [
+   "순위"
+  ],
+  "school/7140208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140210.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140211.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140212.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140215.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140217.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140218.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140220.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140221.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140222.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140223.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140224.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140225.html": [
+   "순위"
+  ],
+  "school/7140226.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140227.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140228.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140229.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140230.html": [
+   "순위"
+  ],
+  "school/7140231.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140232.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140233.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140234.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140235.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140236.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140238.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140239.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140240.html": [
+   "순위"
+  ],
+  "school/7140241.html": [
+   "순위"
+  ],
+  "school/7140242.html": [
+   "순위"
+  ],
+  "school/7140243.html": [
+   "순위"
+  ],
+  "school/7140244.html": [
+   "순위"
+  ],
+  "school/7140245.html": [
+   "순위"
+  ],
+  "school/7140246.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140247.html": [
+   "순위"
+  ],
+  "school/7140248.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140249.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140250.html": [
+   "순위"
+  ],
+  "school/7140251.html": [
+   "순위"
+  ],
+  "school/7140252.html": [
+   "순위"
+  ],
+  "school/7140262.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140263.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140264.html": [
+   "순위"
+  ],
+  "school/7140265.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140266.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140267.html": [
+   "순위"
+  ],
+  "school/7140268.html": [
+   "순위"
+  ],
+  "school/7140269.html": [
+   "순위"
+  ],
+  "school/7140270.html": [
+   "순위"
+  ],
+  "school/7140271.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140272.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140273.html": [
+   "순위"
+  ],
+  "school/7140274.html": [
+   "순위"
+  ],
+  "school/7140275.html": [
+   "순위"
+  ],
+  "school/7140276.html": [
+   "순위"
+  ],
+  "school/7140277.html": [
+   "순위"
+  ],
+  "school/7140278.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140279.html": [
+   "순위"
+  ],
+  "school/7140280.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140281.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140282.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140283.html": [
+   "순위"
+  ],
+  "school/7140284.html": [
+   "순위"
+  ],
+  "school/7140285.html": [
+   "순위"
+  ],
+  "school/7140286.html": [
+   "순위"
+  ],
+  "school/7140287.html": [
+   "순위"
+  ],
+  "school/7140288.html": [
+   "순위"
+  ],
+  "school/7140289.html": [
+   "순위"
+  ],
+  "school/7140290.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140291.html": [
+   "순위"
+  ],
+  "school/7140292.html": [
+   "순위"
+  ],
+  "school/7140293.html": [
+   "순위"
+  ],
+  "school/7140294.html": [
+   "순위"
+  ],
+  "school/7140295.html": [
+   "순위"
+  ],
+  "school/7140296.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140297.html": [
+   "순위"
+  ],
+  "school/7140298.html": [
+   "순위"
+  ],
+  "school/7140299.html": [
+   "순위"
+  ],
+  "school/7140300.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140301.html": [
+   "순위"
+  ],
+  "school/7140302.html": [
+   "순위"
+  ],
+  "school/7140303.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140304.html": [
+   "순위"
+  ],
+  "school/7140305.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140306.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140307.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140308.html": [
+   "순위"
+  ],
+  "school/7140309.html": [
+   "순위"
+  ],
+  "school/7140310.html": [
+   "순위"
+  ],
+  "school/7140311.html": [
+   "순위"
+  ],
+  "school/7140312.html": [
+   "순위"
+  ],
+  "school/7140313.html": [
+   "순위"
+  ],
+  "school/7140314.html": [
+   "순위"
+  ],
+  "school/7140315.html": [
+   "순위"
+  ],
+  "school/7140316.html": [
+   "순위"
+  ],
+  "school/7140319.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140320.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140321.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140322.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140323.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140324.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140325.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140326.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140327.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140328.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140329.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140330.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140331.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140332.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140333.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140334.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140335.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140336.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140337.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140338.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140339.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140340.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140341.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140342.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140343.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140344.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140345.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140346.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140347.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140348.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140349.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140350.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140351.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140352.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140353.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140354.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140355.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140356.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140357.html": [
+   "순위"
+  ],
+  "school/7140358.html": [
+   "순위"
+  ],
+  "school/7140359.html": [
+   "순위"
+  ],
+  "school/7140360.html": [
+   "순위"
+  ],
+  "school/7140361.html": [
+   "순위"
+  ],
+  "school/7140368.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140369.html": [
+   "순위"
+  ],
+  "school/7140370.html": [
+   "순위"
+  ],
+  "school/7140371.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140372.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140373.html": [
+   "순위"
+  ],
+  "school/7140374.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140375.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140376.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140377.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140378.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140379.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140380.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140381.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140382.html": [
+   "순위"
+  ],
+  "school/7140383.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140384.html": [
+   "순위"
+  ],
+  "school/7140385.html": [
+   "순위"
+  ],
+  "school/7140386.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140388.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140389.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140390.html": [
+   "순위"
+  ],
+  "school/7140391.html": [
+   "순위"
+  ],
+  "school/7140392.html": [
+   "순위"
+  ],
+  "school/7140393.html": [
+   "순위"
+  ],
+  "school/7140394.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7140395.html": [
+   "순위"
+  ],
+  "school/7140396.html": [
+   "순위"
+  ],
+  "school/7140399.html": [
+   "순위"
+  ],
+  "school/7150084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150112.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150118.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150121.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150122.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150123.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150125.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150126.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150127.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150128.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150129.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150130.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150131.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150134.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150135.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150139.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150142.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150144.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150147.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150148.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150152.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150153.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150154.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150157.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150161.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150162.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150166.html": [
+   "순위"
+  ],
+  "school/7150170.html": [
+   "순위"
+  ],
+  "school/7150171.html": [
+   "순위"
+  ],
+  "school/7150177.html": [
+   "순위"
+  ],
+  "school/7150178.html": [
+   "순위"
+  ],
+  "school/7150198.html": [
+   "순위"
+  ],
+  "school/7150208.html": [
+   "순위"
+  ],
+  "school/7150238.html": [
+   "순위"
+  ],
+  "school/7150337.html": [
+   "순위"
+  ],
+  "school/7150341.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150344.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150345.html": [
+   "순위"
+  ],
+  "school/7150346.html": [
+   "순위"
+  ],
+  "school/7150348.html": [
+   "순위"
+  ],
+  "school/7150351.html": [
+   "순위"
+  ],
+  "school/7150363.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150364.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150365.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150367.html": [
+   "순위"
+  ],
+  "school/7150369.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150371.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150372.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150383.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150396.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150397.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150400.html": [
+   "순위"
+  ],
+  "school/7150404.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150405.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150406.html": [
+   "순위"
+  ],
+  "school/7150408.html": [
+   "순위"
+  ],
+  "school/7150409.html": [
+   "순위"
+  ],
+  "school/7150412.html": [
+   "순위"
+  ],
+  "school/7150420.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150421.html": [
+   "순위"
+  ],
+  "school/7150422.html": [
+   "순위"
+  ],
+  "school/7150423.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150424.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150425.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150426.html": [
+   "순위"
+  ],
+  "school/7150428.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150429.html": [
+   "순위"
+  ],
+  "school/7150430.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150431.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150439.html": [
+   "순위"
+  ],
+  "school/7150440.html": [
+   "순위"
+  ],
+  "school/7150443.html": [
+   "순위"
+  ],
+  "school/7150451.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150452.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150455.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150456.html": [
+   "순위"
+  ],
+  "school/7150459.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150463.html": [
+   "순위"
+  ],
+  "school/7150532.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150533.html": [
+   "순위"
+  ],
+  "school/7150579.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150580.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150592.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150597.html": [
+   "순위"
+  ],
+  "school/7150598.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150599.html": [
+   "순위"
+  ],
+  "school/7150620.html": [
+   "순위"
+  ],
+  "school/7150621.html": [
+   "순위"
+  ],
+  "school/7150622.html": [
+   "순위"
+  ],
+  "school/7150623.html": [
+   "순위"
+  ],
+  "school/7150624.html": [
+   "순위"
+  ],
+  "school/7150625.html": [
+   "순위"
+  ],
+  "school/7150626.html": [
+   "순위"
+  ],
+  "school/7150658.html": [
+   "순위"
+  ],
+  "school/7150659.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150660.html": [
+   "순위"
+  ],
+  "school/7150673.html": [
+   "순위"
+  ],
+  "school/7150676.html": [
+   "순위"
+  ],
+  "school/7150737.html": [
+   "순위"
+  ],
+  "school/7150738.html": [
+   "순위"
+  ],
+  "school/7150739.html": [
+   "순위"
+  ],
+  "school/7150740.html": [
+   "순위"
+  ],
+  "school/7150744.html": [
+   "순위"
+  ],
+  "school/7150746.html": [
+   "순위"
+  ],
+  "school/7150747.html": [
+   "순위"
+  ],
+  "school/7150755.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7150756.html": [
+   "순위"
+  ],
+  "school/7240053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240055.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240056.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240107.html": [
+   "순위"
+  ],
+  "school/7240111.html": [
+   "순위"
+  ],
+  "school/7240123.html": [
+   "순위"
+  ],
+  "school/7240126.html": [
+   "순위"
+  ],
+  "school/7240144.html": [
+   "순위"
+  ],
+  "school/7240182.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240187.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240188.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240204.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240205.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240206.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240215.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240217.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240218.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240219.html": [
+   "순위"
+  ],
+  "school/7240222.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240223.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240224.html": [
+   "순위"
+  ],
+  "school/7240259.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240270.html": [
+   "순위"
+  ],
+  "school/7240271.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240272.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240273.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240276.html": [
+   "순위"
+  ],
+  "school/7240282.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240283.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240293.html": [
+   "순위"
+  ],
+  "school/7240294.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240296.html": [
+   "순위"
+  ],
+  "school/7240331.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240356.html": [
+   "순위"
+  ],
+  "school/7240372.html": [
+   "순위"
+  ],
+  "school/7240394.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240395.html": [
+   "순위"
+  ],
+  "school/7240400.html": [
+   "순위"
+  ],
+  "school/7240401.html": [
+   "순위"
+  ],
+  "school/7240402.html": [
+   "순위"
+  ],
+  "school/7240445.html": [
+   "순위"
+  ],
+  "school/7240450.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240452.html": [
+   "순위"
+  ],
+  "school/7240453.html": [
+   "순위"
+  ],
+  "school/7240454.html": [
+   "순위"
+  ],
+  "school/7240458.html": [
+   "순위"
+  ],
+  "school/7240459.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7240462.html": [
+   "순위"
+  ],
+  "school/7240496.html": [
+   "순위"
+  ],
+  "school/7240514.html": [
+   "순위"
+  ],
+  "school/7240516.html": [
+   "순위"
+  ],
+  "school/7240517.html": [
+   "순위"
+  ],
+  "school/7310035.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310036.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310037.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310038.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310039.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310041.html": [
+   "순위"
+  ],
+  "school/7310042.html": [
+   "순위"
+  ],
+  "school/7310043.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310044.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310045.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310047.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310050.html": [
+   "순위"
+  ],
+  "school/7310051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310052.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310055.html": [
+   "순위"
+  ],
+  "school/7310056.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310067.html": [
+   "순위"
+  ],
+  "school/7310068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310090.html": [
+   "순위"
+  ],
+  "school/7310093.html": [
+   "순위"
+  ],
+  "school/7310100.html": [
+   "순위"
+  ],
+  "school/7310104.html": [
+   "순위"
+  ],
+  "school/7310109.html": [
+   "순위"
+  ],
+  "school/7310189.html": [
+   "순위"
+  ],
+  "school/7310190.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310191.html": [
+   "순위"
+  ],
+  "school/7310192.html": [
+   "순위"
+  ],
+  "school/7310193.html": [
+   "순위"
+  ],
+  "school/7310201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310204.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310205.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310212.html": [
+   "순위"
+  ],
+  "school/7310213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310217.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310220.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310241.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310242.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310245.html": [
+   "순위"
+  ],
+  "school/7310246.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310248.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310250.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310252.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310253.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310256.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310257.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310259.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310260.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310261.html": [
+   "순위"
+  ],
+  "school/7310332.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310333.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310334.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310339.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310342.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310345.html": [
+   "순위"
+  ],
+  "school/7310346.html": [
+   "순위"
+  ],
+  "school/7310348.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310349.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310350.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310369.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310370.html": [
+   "순위"
+  ],
+  "school/7310371.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310372.html": [
+   "순위"
+  ],
+  "school/7310373.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310374.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310375.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310383.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310387.html": [
+   "순위"
+  ],
+  "school/7310394.html": [
+   "순위"
+  ],
+  "school/7310403.html": [
+   "순위"
+  ],
+  "school/7310404.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310405.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310422.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310423.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310427.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310446.html": [
+   "순위"
+  ],
+  "school/7310447.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310449.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310452.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310453.html": [
+   "순위"
+  ],
+  "school/7310454.html": [
+   "순위"
+  ],
+  "school/7310455.html": [
+   "순위"
+  ],
+  "school/7310475.html": [
+   "순위"
+  ],
+  "school/7310476.html": [
+   "순위"
+  ],
+  "school/7310479.html": [
+   "순위"
+  ],
+  "school/7310480.html": [
+   "순위"
+  ],
+  "school/7310560.html": [
+   "순위"
+  ],
+  "school/7310562.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7310563.html": [
+   "순위"
+  ],
+  "school/7310592.html": [
+   "순위"
+  ],
+  "school/7310593.html": [
+   "순위"
+  ],
+  "school/7310598.html": [
+   "순위"
+  ],
+  "school/7310601.html": [
+   "순위"
+  ],
+  "school/7310620.html": [
+   "순위"
+  ],
+  "school/7310624.html": [
+   "순위"
+  ],
+  "school/7310625.html": [
+   "순위"
+  ],
+  "school/7310626.html": [
+   "순위"
+  ],
+  "school/7310627.html": [
+   "순위"
+  ],
+  "school/7310628.html": [
+   "순위"
+  ],
+  "school/7310629.html": [
+   "순위"
+  ],
+  "school/7310630.html": [
+   "순위"
+  ],
+  "school/7310642.html": [
+   "순위"
+  ],
+  "school/7380029.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430030.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430031.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430032.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430033.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430034.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430035.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430036.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430037.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430038.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430039.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430041.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430042.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430043.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430044.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430045.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430052.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430056.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430067.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430073.html": [
+   "순위"
+  ],
+  "school/7430083.html": [
+   "순위"
+  ],
+  "school/7430132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430133.html": [
+   "순위"
+  ],
+  "school/7430135.html": [
+   "순위"
+  ],
+  "school/7430138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430142.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430143.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430148.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430238.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430239.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430240.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430241.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430242.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430244.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430252.html": [
+   "순위"
+  ],
+  "school/7430253.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430256.html": [
+   "순위"
+  ],
+  "school/7430290.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430295.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430310.html": [
+   "순위"
+  ],
+  "school/7430311.html": [
+   "순위"
+  ],
+  "school/7430322.html": [
+   "순위"
+  ],
+  "school/7430324.html": [
+   "순위"
+  ],
+  "school/7430325.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7430326.html": [
+   "순위"
+  ],
+  "school/7430329.html": [
+   "순위"
+  ],
+  "school/7430330.html": [
+   "순위"
+  ],
+  "school/7430341.html": [
+   "순위"
+  ],
+  "school/7430351.html": [
+   "순위"
+  ],
+  "school/7430357.html": [
+   "순위"
+  ],
+  "school/7430368.html": [
+   "순위"
+  ],
+  "school/7480023.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480024.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480026.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480027.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480029.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480030.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480033.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480034.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480035.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480036.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480037.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480039.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480044.html": [
+   "순위"
+  ],
+  "school/7480047.html": [
+   "순위"
+  ],
+  "school/7480048.html": [
+   "순위"
+  ],
+  "school/7480069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480087.html": [
+   "순위"
+  ],
+  "school/7480088.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480125.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480126.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480135.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480142.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480143.html": [
+   "순위"
+  ],
+  "school/7480171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480172.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480173.html": [
+   "순위"
+  ],
+  "school/7480183.html": [
+   "순위"
+  ],
+  "school/7480186.html": [
+   "순위"
+  ],
+  "school/7480188.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480190.html": [
+   "순위"
+  ],
+  "school/7480191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480198.html": [
+   "순위"
+  ],
+  "school/7480199.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480205.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480208.html": [
+   "순위"
+  ],
+  "school/7480209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480252.html": [
+   "순위"
+  ],
+  "school/7480253.html": [
+   "순위"
+  ],
+  "school/7480254.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7480256.html": [
+   "순위"
+  ],
+  "school/7530045.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530047.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530050.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530055.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530067.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530088.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530112.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530113.html": [
+   "순위"
+  ],
+  "school/7530114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530122.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530123.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530125.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530126.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530127.html": [
+   "순위"
+  ],
+  "school/7530128.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530129.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530130.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530131.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530134.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530135.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530139.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530143.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530144.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530148.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530151.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530153.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530154.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530156.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530157.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530164.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530167.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530170.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530174.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530176.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530178.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530180.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530181.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530182.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530184.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530185.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530187.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530190.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530194.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530195.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530197.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530198.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530202.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530204.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530210.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530215.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530254.html": [
+   "순위"
+  ],
+  "school/7530256.html": [
+   "순위"
+  ],
+  "school/7530262.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530265.html": [
+   "순위"
+  ],
+  "school/7530270.html": [
+   "순위"
+  ],
+  "school/7530278.html": [
+   "순위"
+  ],
+  "school/7530327.html": [
+   "순위"
+  ],
+  "school/7530335.html": [
+   "순위"
+  ],
+  "school/7530344.html": [
+   "순위"
+  ],
+  "school/7530348.html": [
+   "순위"
+  ],
+  "school/7530410.html": [
+   "순위"
+  ],
+  "school/7530415.html": [
+   "순위"
+  ],
+  "school/7530469.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530470.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530471.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530472.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530474.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530475.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530476.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530477.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530478.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530479.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530480.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530481.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530482.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530483.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530484.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530485.html": [
+   "순위"
+  ],
+  "school/7530486.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530488.html": [
+   "순위"
+  ],
+  "school/7530495.html": [
+   "순위"
+  ],
+  "school/7530497.html": [
+   "순위"
+  ],
+  "school/7530506.html": [
+   "순위"
+  ],
+  "school/7530520.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530521.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530522.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530523.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530524.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530525.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530526.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530527.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530528.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530531.html": [
+   "순위"
+  ],
+  "school/7530535.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530538.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530539.html": [
+   "순위"
+  ],
+  "school/7530542.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530544.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530546.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530548.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530550.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530551.html": [
+   "순위"
+  ],
+  "school/7530552.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530553.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530554.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530555.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530557.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530558.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530559.html": [
+   "순위"
+  ],
+  "school/7530560.html": [
+   "순위"
+  ],
+  "school/7530569.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530570.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530571.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530572.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530573.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530574.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530575.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530576.html": [
+   "순위"
+  ],
+  "school/7530577.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530578.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530579.html": [
+   "순위"
+  ],
+  "school/7530580.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530581.html": [
+   "순위"
+  ],
+  "school/7530582.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530583.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530584.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530586.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530587.html": [
+   "순위"
+  ],
+  "school/7530588.html": [
+   "순위"
+  ],
+  "school/7530591.html": [
+   "순위"
+  ],
+  "school/7530594.html": [
+   "순위"
+  ],
+  "school/7530595.html": [
+   "순위"
+  ],
+  "school/7530598.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530600.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530601.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530603.html": [
+   "순위"
+  ],
+  "school/7530604.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530605.html": [
+   "순위"
+  ],
+  "school/7530606.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530607.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530608.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530609.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530611.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530612.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530613.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530616.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530617.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530619.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530620.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530621.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530625.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530626.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530627.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530628.html": [
+   "등수",
+   "순위",
+   "명문"
+  ],
+  "school/7530629.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530630.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530632.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530633.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530648.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530649.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530650.html": [
+   "순위"
+  ],
+  "school/7530651.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530652.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530654.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530655.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530656.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530657.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530658.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530660.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530661.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530663.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530664.html": [
+   "순위"
+  ],
+  "school/7530665.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530745.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530746.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530761.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530762.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530763.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530764.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530765.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530766.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530767.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530769.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530770.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530771.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530772.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530773.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530774.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530775.html": [
+   "순위"
+  ],
+  "school/7530776.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530777.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530778.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530782.html": [
+   "순위"
+  ],
+  "school/7530783.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530784.html": [
+   "순위"
+  ],
+  "school/7530785.html": [
+   "순위"
+  ],
+  "school/7530786.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530789.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530790.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530791.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530806.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530818.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530819.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530820.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530821.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530822.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530823.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530824.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530825.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530836.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530838.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530840.html": [
+   "순위"
+  ],
+  "school/7530841.html": [
+   "순위"
+  ],
+  "school/7530842.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530844.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530845.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530846.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530847.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530848.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530849.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530851.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530852.html": [
+   "순위"
+  ],
+  "school/7530854.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530855.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530856.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530857.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530858.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530869.html": [
+   "순위"
+  ],
+  "school/7530870.html": [
+   "순위"
+  ],
+  "school/7530871.html": [
+   "순위"
+  ],
+  "school/7530878.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530879.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530880.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530881.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530882.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530883.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530884.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530885.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530886.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530887.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530889.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530890.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530891.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530892.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530893.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530894.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530898.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530899.html": [
+   "순위"
+  ],
+  "school/7530900.html": [
+   "순위"
+  ],
+  "school/7530902.html": [
+   "순위"
+  ],
+  "school/7530903.html": [
+   "순위"
+  ],
+  "school/7530904.html": [
+   "순위"
+  ],
+  "school/7530905.html": [
+   "순위"
+  ],
+  "school/7530907.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530908.html": [
+   "순위"
+  ],
+  "school/7530909.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530910.html": [
+   "순위"
+  ],
+  "school/7530912.html": [
+   "순위"
+  ],
+  "school/7530921.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530924.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530929.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530930.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530932.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530933.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530934.html": [
+   "순위"
+  ],
+  "school/7530936.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530937.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530940.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530941.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530942.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530943.html": [
+   "순위"
+  ],
+  "school/7530944.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530945.html": [
+   "순위"
+  ],
+  "school/7530947.html": [
+   "순위"
+  ],
+  "school/7530969.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530972.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530973.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530974.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530976.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530977.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530979.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530980.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530981.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530982.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530983.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530989.html": [
+   "순위"
+  ],
+  "school/7530990.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7530991.html": [
+   "순위"
+  ],
+  "school/7530992.html": [
+   "순위"
+  ],
+  "school/7530993.html": [
+   "순위"
+  ],
+  "school/7530995.html": [
+   "순위"
+  ],
+  "school/7530998.html": [
+   "순위"
+  ],
+  "school/7530999.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531000.html": [
+   "순위"
+  ],
+  "school/7531010.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531012.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531013.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531014.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531040.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531041.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531042.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531043.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531044.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531045.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531047.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531049.html": [
+   "순위"
+  ],
+  "school/7531050.html": [
+   "순위"
+  ],
+  "school/7531051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531053.html": [
+   "순위"
+  ],
+  "school/7531054.html": [
+   "순위"
+  ],
+  "school/7531056.html": [
+   "순위"
+  ],
+  "school/7531057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531060.html": [
+   "순위"
+  ],
+  "school/7531061.html": [
+   "순위"
+  ],
+  "school/7531096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531114.html": [
+   "순위"
+  ],
+  "school/7531116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531117.html": [
+   "순위"
+  ],
+  "school/7531119.html": [
+   "순위"
+  ],
+  "school/7531134.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531139.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531143.html": [
+   "순위"
+  ],
+  "school/7531144.html": [
+   "순위"
+  ],
+  "school/7531146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531161.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531162.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531164.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531165.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531166.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531167.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531236.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531239.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531240.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531241.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531242.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531243.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531244.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531245.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531246.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531247.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531248.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531255.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531256.html": [
+   "순위"
+  ],
+  "school/7531257.html": [
+   "순위"
+  ],
+  "school/7531270.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531272.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531275.html": [
+   "순위"
+  ],
+  "school/7531276.html": [
+   "순위"
+  ],
+  "school/7531289.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531290.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531291.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531292.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531293.html": [
+   "순위"
+  ],
+  "school/7531294.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531295.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531327.html": [
+   "순위"
+  ],
+  "school/7531328.html": [
+   "순위"
+  ],
+  "school/7531330.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531360.html": [
+   "순위"
+  ],
+  "school/7531370.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531371.html": [
+   "순위"
+  ],
+  "school/7531372.html": [
+   "순위"
+  ],
+  "school/7531373.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531374.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531375.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531376.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531377.html": [
+   "순위"
+  ],
+  "school/7531378.html": [
+   "순위"
+  ],
+  "school/7531379.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531380.html": [
+   "순위"
+  ],
+  "school/7531381.html": [
+   "순위"
+  ],
+  "school/7531382.html": [
+   "순위"
+  ],
+  "school/7531389.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531390.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531393.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531394.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531395.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531400.html": [
+   "순위"
+  ],
+  "school/7531405.html": [
+   "순위"
+  ],
+  "school/7531406.html": [
+   "순위"
+  ],
+  "school/7531407.html": [
+   "순위"
+  ],
+  "school/7531408.html": [
+   "순위"
+  ],
+  "school/7531409.html": [
+   "순위"
+  ],
+  "school/7531423.html": [
+   "순위"
+  ],
+  "school/7531424.html": [
+   "순위"
+  ],
+  "school/7531425.html": [
+   "순위"
+  ],
+  "school/7531426.html": [
+   "순위"
+  ],
+  "school/7531427.html": [
+   "순위"
+  ],
+  "school/7531428.html": [
+   "순위"
+  ],
+  "school/7531463.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531467.html": [
+   "순위"
+  ],
+  "school/7531468.html": [
+   "순위"
+  ],
+  "school/7531469.html": [
+   "순위"
+  ],
+  "school/7531516.html": [
+   "순위"
+  ],
+  "school/7531517.html": [
+   "순위"
+  ],
+  "school/7531527.html": [
+   "순위"
+  ],
+  "school/7531528.html": [
+   "순위"
+  ],
+  "school/7531529.html": [
+   "순위"
+  ],
+  "school/7531530.html": [
+   "순위"
+  ],
+  "school/7531531.html": [
+   "순위"
+  ],
+  "school/7531533.html": [
+   "순위"
+  ],
+  "school/7531598.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531599.html": [
+   "순위"
+  ],
+  "school/7531600.html": [
+   "순위"
+  ],
+  "school/7531601.html": [
+   "순위"
+  ],
+  "school/7531602.html": [
+   "순위"
+  ],
+  "school/7531603.html": [
+   "순위"
+  ],
+  "school/7531604.html": [
+   "순위"
+  ],
+  "school/7531605.html": [
+   "순위"
+  ],
+  "school/7531606.html": [
+   "순위"
+  ],
+  "school/7531607.html": [
+   "순위"
+  ],
+  "school/7531615.html": [
+   "순위"
+  ],
+  "school/7531616.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7531617.html": [
+   "순위"
+  ],
+  "school/7531618.html": [
+   "순위"
+  ],
+  "school/7801089.html": [
+   "순위"
+  ],
+  "school/7801090.html": [
+   "순위"
+  ],
+  "school/7801091.html": [
+   "순위"
+  ],
+  "school/7801092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801094.html": [
+   "순위"
+  ],
+  "school/7801095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801096.html": [
+   "순위"
+  ],
+  "school/7801097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801099.html": [
+   "순위"
+  ],
+  "school/7801100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801102.html": [
+   "순위"
+  ],
+  "school/7801103.html": [
+   "순위"
+  ],
+  "school/7801104.html": [
+   "순위"
+  ],
+  "school/7801105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801109.html": [
+   "순위"
+  ],
+  "school/7801110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801112.html": [
+   "순위"
+  ],
+  "school/7801113.html": [
+   "순위"
+  ],
+  "school/7801114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801116.html": [
+   "순위"
+  ],
+  "school/7801117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801118.html": [
+   "순위"
+  ],
+  "school/7801119.html": [
+   "순위"
+  ],
+  "school/7801120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801121.html": [
+   "순위"
+  ],
+  "school/7801122.html": [
+   "순위"
+  ],
+  "school/7801123.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801125.html": [
+   "순위"
+  ],
+  "school/7801126.html": [
+   "순위"
+  ],
+  "school/7801127.html": [
+   "순위"
+  ],
+  "school/7801128.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801130.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801131.html": [
+   "순위"
+  ],
+  "school/7801132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801134.html": [
+   "순위"
+  ],
+  "school/7801135.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801138.html": [
+   "순위"
+  ],
+  "school/7801139.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801142.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801143.html": [
+   "순위"
+  ],
+  "school/7801144.html": [
+   "순위"
+  ],
+  "school/7801145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801146.html": [
+   "순위"
+  ],
+  "school/7801147.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801148.html": [
+   "순위"
+  ],
+  "school/7801150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801151.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801152.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801153.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801154.html": [
+   "순위"
+  ],
+  "school/7801155.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801156.html": [
+   "순위"
+  ],
+  "school/7801157.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801160.html": [
+   "순위"
+  ],
+  "school/7801161.html": [
+   "순위"
+  ],
+  "school/7801162.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801163.html": [
+   "순위"
+  ],
+  "school/7801164.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801166.html": [
+   "순위"
+  ],
+  "school/7801167.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801168.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801170.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801172.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801173.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801174.html": [
+   "순위"
+  ],
+  "school/7801175.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801176.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801177.html": [
+   "순위"
+  ],
+  "school/7801178.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801179.html": [
+   "순위"
+  ],
+  "school/7801180.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801181.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801182.html": [
+   "순위"
+  ],
+  "school/7801183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801184.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801185.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801187.html": [
+   "순위"
+  ],
+  "school/7801188.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801190.html": [
+   "순위"
+  ],
+  "school/7801191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801193.html": [
+   "순위"
+  ],
+  "school/7801194.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801195.html": [
+   "순위"
+  ],
+  "school/7801196.html": [
+   "순위"
+  ],
+  "school/7801197.html": [
+   "순위"
+  ],
+  "school/7801198.html": [
+   "순위"
+  ],
+  "school/7801199.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801200.html": [
+   "순위"
+  ],
+  "school/7801201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801202.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801203.html": [
+   "순위"
+  ],
+  "school/7801204.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801206.html": [
+   "순위"
+  ],
+  "school/7801207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/7801209.html": [
+   "순위"
+  ],
+  "school/7801210.html": [
+   "순위"
+  ],
+  "school/7801211.html": [
+   "순위"
+  ],
+  "school/7801228.html": [
+   "순위"
+  ],
+  "school/7801232.html": [
+   "순위"
+  ],
+  "school/7801233.html": [
+   "순위"
+  ],
+  "school/7801239.html": [
+   "순위"
+  ],
+  "school/7801240.html": [
+   "순위"
+  ],
+  "school/8000032.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000033.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000038.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000040.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000047.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000050.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000064.html": [
+   "순위"
+  ],
+  "school/8000066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000082.html": [
+   "순위"
+  ],
+  "school/8000085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000090.html": [
+   "순위"
+  ],
+  "school/8000091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000117.html": [
+   "순위"
+  ],
+  "school/8000121.html": [
+   "순위"
+  ],
+  "school/8000122.html": [
+   "순위"
+  ],
+  "school/8000125.html": [
+   "순위"
+  ],
+  "school/8000127.html": [
+   "순위"
+  ],
+  "school/8000129.html": [
+   "순위"
+  ],
+  "school/8000135.html": [
+   "순위"
+  ],
+  "school/8000140.html": [
+   "순위"
+  ],
+  "school/8000141.html": [
+   "순위"
+  ],
+  "school/8000183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000195.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000199.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000202.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000207.html": [
+   "순위"
+  ],
+  "school/8000210.html": [
+   "순위"
+  ],
+  "school/8000211.html": [
+   "순위"
+  ],
+  "school/8000212.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000215.html": [
+   "순위"
+  ],
+  "school/8000216.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000237.html": [
+   "순위"
+  ],
+  "school/8000268.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000269.html": [
+   "순위"
+  ],
+  "school/8000279.html": [
+   "순위"
+  ],
+  "school/8000280.html": [
+   "순위"
+  ],
+  "school/8000281.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000283.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000287.html": [
+   "순위"
+  ],
+  "school/8000308.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000309.html": [
+   "순위"
+  ],
+  "school/8000310.html": [
+   "순위"
+  ],
+  "school/8000311.html": [
+   "순위"
+  ],
+  "school/8000335.html": [
+   "순위"
+  ],
+  "school/8000375.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000376.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000383.html": [
+   "순위"
+  ],
+  "school/8000384.html": [
+   "순위"
+  ],
+  "school/8000430.html": [
+   "순위"
+  ],
+  "school/8000431.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000507.html": [
+   "순위"
+  ],
+  "school/8000508.html": [
+   "순위"
+  ],
+  "school/8000520.html": [
+   "순위"
+  ],
+  "school/8000527.html": [
+   "순위"
+  ],
+  "school/8000530.html": [
+   "순위"
+  ],
+  "school/8000531.html": [
+   "순위"
+  ],
+  "school/8000532.html": [
+   "순위"
+  ],
+  "school/8000549.html": [
+   "순위"
+  ],
+  "school/8000550.html": [
+   "순위"
+  ],
+  "school/8000551.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8000552.html": [
+   "순위"
+  ],
+  "school/8140032.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140034.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140036.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140037.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140038.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140039.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140040.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140041.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140042.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140044.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140045.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140050.html": [
+   "순위"
+  ],
+  "school/8140051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140052.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140053.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140055.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140056.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140062.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140088.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140115.html": [
+   "순위"
+  ],
+  "school/8140118.html": [
+   "순위"
+  ],
+  "school/8140120.html": [
+   "순위"
+  ],
+  "school/8140134.html": [
+   "순위"
+  ],
+  "school/8140136.html": [
+   "순위"
+  ],
+  "school/8140139.html": [
+   "순위"
+  ],
+  "school/8140152.html": [
+   "순위"
+  ],
+  "school/8140160.html": [
+   "순위"
+  ],
+  "school/8140169.html": [
+   "순위"
+  ],
+  "school/8140192.html": [
+   "순위"
+  ],
+  "school/8140193.html": [
+   "순위"
+  ],
+  "school/8140196.html": [
+   "순위"
+  ],
+  "school/8140197.html": [
+   "순위"
+  ],
+  "school/8140200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140206.html": [
+   "순위"
+  ],
+  "school/8140209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140213.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140220.html": [
+   "순위"
+  ],
+  "school/8140229.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140236.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140238.html": [
+   "순위"
+  ],
+  "school/8140246.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140252.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140253.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140254.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140256.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140259.html": [
+   "순위"
+  ],
+  "school/8140260.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140262.html": [
+   "순위"
+  ],
+  "school/8140265.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140266.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140267.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140270.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140271.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140343.html": [
+   "순위"
+  ],
+  "school/8140344.html": [
+   "순위"
+  ],
+  "school/8140347.html": [
+   "순위"
+  ],
+  "school/8140354.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140358.html": [
+   "순위"
+  ],
+  "school/8140359.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140360.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140366.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140377.html": [
+   "순위"
+  ],
+  "school/8140378.html": [
+   "순위"
+  ],
+  "school/8140387.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8140391.html": [
+   "순위"
+  ],
+  "school/8140457.html": [
+   "순위"
+  ],
+  "school/8140459.html": [
+   "순위"
+  ],
+  "school/8140460.html": [
+   "순위"
+  ],
+  "school/8140461.html": [
+   "순위"
+  ],
+  "school/8140472.html": [
+   "순위"
+  ],
+  "school/8140473.html": [
+   "순위"
+  ],
+  "school/8140482.html": [
+   "순위"
+  ],
+  "school/8140491.html": [
+   "순위"
+  ],
+  "school/8140497.html": [
+   "순위"
+  ],
+  "school/8140498.html": [
+   "순위"
+  ],
+  "school/8140499.html": [
+   "순위"
+  ],
+  "school/8140500.html": [
+   "순위"
+  ],
+  "school/8140501.html": [
+   "순위"
+  ],
+  "school/8140503.html": [
+   "순위"
+  ],
+  "school/8140508.html": [
+   "순위"
+  ],
+  "school/8140509.html": [
+   "순위"
+  ],
+  "school/8140510.html": [
+   "순위"
+  ],
+  "school/8321079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321084.html": [
+   "순위"
+  ],
+  "school/8321085.html": [
+   "순위"
+  ],
+  "school/8321086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321088.html": [
+   "순위"
+  ],
+  "school/8321089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321093.html": [
+   "순위"
+  ],
+  "school/8321094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321109.html": [
+   "순위"
+  ],
+  "school/8321110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321112.html": [
+   "순위"
+  ],
+  "school/8321113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321118.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321121.html": [
+   "순위"
+  ],
+  "school/8321122.html": [
+   "순위"
+  ],
+  "school/8321123.html": [
+   "순위"
+  ],
+  "school/8321124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321125.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321126.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321127.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321128.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321129.html": [
+   "순위"
+  ],
+  "school/8321130.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321131.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321132.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321134.html": [
+   "순위"
+  ],
+  "school/8321135.html": [
+   "순위"
+  ],
+  "school/8321136.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321137.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321138.html": [
+   "순위"
+  ],
+  "school/8321139.html": [
+   "순위"
+  ],
+  "school/8321140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321141.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321142.html": [
+   "순위"
+  ],
+  "school/8321143.html": [
+   "순위"
+  ],
+  "school/8321144.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321148.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321149.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321150.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321151.html": [
+   "순위"
+  ],
+  "school/8321152.html": [
+   "순위"
+  ],
+  "school/8321153.html": [
+   "순위"
+  ],
+  "school/8321155.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321156.html": [
+   "순위"
+  ],
+  "school/8321157.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321158.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321160.html": [
+   "순위"
+  ],
+  "school/8321161.html": [
+   "순위"
+  ],
+  "school/8321162.html": [
+   "순위"
+  ],
+  "school/8321163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321164.html": [
+   "순위"
+  ],
+  "school/8321165.html": [
+   "순위"
+  ],
+  "school/8321166.html": [
+   "순위"
+  ],
+  "school/8321167.html": [
+   "순위"
+  ],
+  "school/8321168.html": [
+   "순위"
+  ],
+  "school/8321169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321172.html": [
+   "순위"
+  ],
+  "school/8321173.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321174.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321175.html": [
+   "순위"
+  ],
+  "school/8321177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321178.html": [
+   "순위"
+  ],
+  "school/8321179.html": [
+   "순위"
+  ],
+  "school/8321180.html": [
+   "순위"
+  ],
+  "school/8321181.html": [
+   "순위"
+  ],
+  "school/8321182.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321184.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321185.html": [
+   "순위"
+  ],
+  "school/8321186.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321187.html": [
+   "순위"
+  ],
+  "school/8321188.html": [
+   "순위"
+  ],
+  "school/8321190.html": [
+   "순위"
+  ],
+  "school/8321191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321193.html": [
+   "순위"
+  ],
+  "school/8321194.html": [
+   "순위"
+  ],
+  "school/8321195.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321196.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321197.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321198.html": [
+   "순위"
+  ],
+  "school/8321199.html": [
+   "순위"
+  ],
+  "school/8321200.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321205.html": [
+   "순위"
+  ],
+  "school/8321207.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321217.html": [
+   "순위"
+  ],
+  "school/8321232.html": [
+   "순위"
+  ],
+  "school/8321233.html": [
+   "순위"
+  ],
+  "school/8321234.html": [
+   "순위"
+  ],
+  "school/8321235.html": [
+   "순위"
+  ],
+  "school/8321236.html": [
+   "순위"
+  ],
+  "school/8321237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8321238.html": [
+   "순위"
+  ],
+  "school/8321241.html": [
+   "순위"
+  ],
+  "school/8321242.html": [
+   "순위"
+  ],
+  "school/8321243.html": [
+   "순위"
+  ],
+  "school/8321268.html": [
+   "순위"
+  ],
+  "school/8321270.html": [
+   "순위"
+  ],
+  "school/8321272.html": [
+   "순위"
+  ],
+  "school/8321273.html": [
+   "순위"
+  ],
+  "school/8321275.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750075.html": [
+   "순위"
+  ],
+  "school/8750078.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750088.html": [
+   "순위"
+  ],
+  "school/8750090.html": [
+   "순위"
+  ],
+  "school/8750092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750095.html": [
+   "순위"
+  ],
+  "school/8750097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750104.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750105.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750107.html": [
+   "순위"
+  ],
+  "school/8750113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750118.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750121.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750122.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750124.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750127.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750130.html": [
+   "순위"
+  ],
+  "school/8750133.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750134.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750136.html": [
+   "순위"
+  ],
+  "school/8750138.html": [
+   "순위"
+  ],
+  "school/8750140.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750143.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750144.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750145.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750146.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750147.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750148.html": [
+   "순위"
+  ],
+  "school/8750151.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750154.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750155.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750156.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750159.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750161.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750162.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750163.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750165.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750166.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750167.html": [
+   "순위"
+  ],
+  "school/8750169.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750170.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750171.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750172.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750174.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750178.html": [
+   "순위"
+  ],
+  "school/8750179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750180.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750182.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750183.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750184.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750186.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750188.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750190.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750192.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750198.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750201.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750202.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750203.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750205.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750208.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750209.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750210.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750211.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750212.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750214.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750217.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750218.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750234.html": [
+   "순위"
+  ],
+  "school/8750237.html": [
+   "순위"
+  ],
+  "school/8750246.html": [
+   "순위"
+  ],
+  "school/8750292.html": [
+   "순위"
+  ],
+  "school/8750315.html": [
+   "순위"
+  ],
+  "school/8750323.html": [
+   "순위"
+  ],
+  "school/8750325.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750337.html": [
+   "순위"
+  ],
+  "school/8750419.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750433.html": [
+   "순위"
+  ],
+  "school/8750444.html": [
+   "순위"
+  ],
+  "school/8750446.html": [
+   "순위"
+  ],
+  "school/8750447.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750449.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750450.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750451.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750456.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750457.html": [
+   "순위"
+  ],
+  "school/8750465.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750467.html": [
+   "순위"
+  ],
+  "school/8750468.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750473.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750475.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750476.html": [
+   "순위"
+  ],
+  "school/8750480.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750486.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750487.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750518.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750519.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750525.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750534.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750535.html": [
+   "순위"
+  ],
+  "school/8750536.html": [
+   "순위"
+  ],
+  "school/8750539.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750541.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750542.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750546.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750555.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750556.html": [
+   "순위"
+  ],
+  "school/8750557.html": [
+   "순위"
+  ],
+  "school/8750558.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750559.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750566.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750568.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750581.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750587.html": [
+   "순위"
+  ],
+  "school/8750588.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750589.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750594.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750611.html": [
+   "순위"
+  ],
+  "school/8750625.html": [
+   "순위"
+  ],
+  "school/8750626.html": [
+   "순위"
+  ],
+  "school/8750627.html": [
+   "순위"
+  ],
+  "school/8750630.html": [
+   "순위"
+  ],
+  "school/8750632.html": [
+   "순위"
+  ],
+  "school/8750634.html": [
+   "순위"
+  ],
+  "school/8750637.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750642.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750644.html": [
+   "순위"
+  ],
+  "school/8750652.html": [
+   "순위"
+  ],
+  "school/8750654.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750655.html": [
+   "순위"
+  ],
+  "school/8750656.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750667.html": [
+   "순위"
+  ],
+  "school/8750669.html": [
+   "순위"
+  ],
+  "school/8750670.html": [
+   "순위"
+  ],
+  "school/8750724.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750726.html": [
+   "순위"
+  ],
+  "school/8750730.html": [
+   "순위"
+  ],
+  "school/8750731.html": [
+   "순위"
+  ],
+  "school/8750732.html": [
+   "순위"
+  ],
+  "school/8750733.html": [
+   "순위"
+  ],
+  "school/8750754.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750757.html": [
+   "순위"
+  ],
+  "school/8750758.html": [
+   "순위"
+  ],
+  "school/8750761.html": [
+   "순위"
+  ],
+  "school/8750762.html": [
+   "순위"
+  ],
+  "school/8750763.html": [
+   "순위"
+  ],
+  "school/8750766.html": [
+   "순위"
+  ],
+  "school/8750768.html": [
+   "순위"
+  ],
+  "school/8750769.html": [
+   "순위"
+  ],
+  "school/8750770.html": [
+   "순위"
+  ],
+  "school/8750771.html": [
+   "순위"
+  ],
+  "school/8750772.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750775.html": [
+   "순위"
+  ],
+  "school/8750776.html": [
+   "순위"
+  ],
+  "school/8750804.html": [
+   "순위"
+  ],
+  "school/8750805.html": [
+   "순위"
+  ],
+  "school/8750806.html": [
+   "순위"
+  ],
+  "school/8750807.html": [
+   "순위"
+  ],
+  "school/8750810.html": [
+   "순위"
+  ],
+  "school/8750811.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750812.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750813.html": [
+   "순위"
+  ],
+  "school/8750818.html": [
+   "순위"
+  ],
+  "school/8750829.html": [
+   "순위"
+  ],
+  "school/8750830.html": [
+   "순위"
+  ],
+  "school/8750831.html": [
+   "순위"
+  ],
+  "school/8750832.html": [
+   "등수",
+   "순위"
+  ],
+  "school/8750834.html": [
+   "순위"
+  ],
+  "school/8750835.html": [
+   "순위"
+  ],
+  "school/8750836.html": [
+   "순위"
+  ],
+  "school/8750837.html": [
+   "순위"
+  ],
+  "school/9010031.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010032.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010033.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010034.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010037.html": [
+   "순위"
+  ],
+  "school/9010038.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010039.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010040.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010041.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010042.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010044.html": [
+   "순위"
+  ],
+  "school/9010045.html": [
+   "순위"
+  ],
+  "school/9010046.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010047.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010048.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010050.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010051.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010052.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010053.html": [
+   "순위"
+  ],
+  "school/9010054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010056.html": [
+   "순위"
+  ],
+  "school/9010057.html": [
+   "순위"
+  ],
+  "school/9010058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010060.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010061.html": [
+   "순위"
+  ],
+  "school/9010062.html": [
+   "순위"
+  ],
+  "school/9010063.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010065.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010067.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010070.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010077.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010079.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010080.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010081.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010082.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010083.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010084.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010085.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010088.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010089.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010090.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010091.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010092.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010093.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010094.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010095.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010096.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010097.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010098.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010099.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010100.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010101.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010106.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010109.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010110.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010111.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010112.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010113.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010114.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010115.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010116.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010118.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010119.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010120.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010121.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010123.html": [
+   "순위"
+  ],
+  "school/9010128.html": [
+   "순위"
+  ],
+  "school/9010129.html": [
+   "순위"
+  ],
+  "school/9010130.html": [
+   "순위"
+  ],
+  "school/9010132.html": [
+   "순위"
+  ],
+  "school/9010135.html": [
+   "순위"
+  ],
+  "school/9010138.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010139.html": [
+   "순위"
+  ],
+  "school/9010147.html": [
+   "순위"
+  ],
+  "school/9010151.html": [
+   "순위"
+  ],
+  "school/9010156.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010160.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010165.html": [
+   "순위"
+  ],
+  "school/9010172.html": [
+   "순위"
+  ],
+  "school/9010177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010183.html": [
+   "순위"
+  ],
+  "school/9010189.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010194.html": [
+   "순위"
+  ],
+  "school/9010221.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010222.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010223.html": [
+   "순위"
+  ],
+  "school/9010224.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010226.html": [
+   "순위"
+  ],
+  "school/9010227.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010229.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010230.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010231.html": [
+   "순위"
+  ],
+  "school/9010232.html": [
+   "순위"
+  ],
+  "school/9010233.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010234.html": [
+   "순위"
+  ],
+  "school/9010237.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010240.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010241.html": [
+   "순위"
+  ],
+  "school/9010242.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010244.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010247.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010252.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010253.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010254.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010255.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010256.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010259.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010260.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010261.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010262.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010265.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010267.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010273.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010275.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010276.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010277.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010278.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010279.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010280.html": [
+   "순위"
+  ],
+  "school/9010281.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010282.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010283.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010293.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010294.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010295.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010296.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010297.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010298.html": [
+   "순위"
+  ],
+  "school/9010299.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010300.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010301.html": [
+   "순위"
+  ],
+  "school/9010305.html": [
+   "순위"
+  ],
+  "school/9010306.html": [
+   "순위"
+  ],
+  "school/9010309.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010319.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010320.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010321.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010322.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010323.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010327.html": [
+   "순위"
+  ],
+  "school/9010328.html": [
+   "순위"
+  ],
+  "school/9010329.html": [
+   "순위"
+  ],
+  "school/9010330.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010332.html": [
+   "순위"
+  ],
+  "school/9010333.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010334.html": [
+   "순위"
+  ],
+  "school/9010335.html": [
+   "순위"
+  ],
+  "school/9010337.html": [
+   "순위"
+  ],
+  "school/9010346.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010347.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010350.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010387.html": [
+   "순위"
+  ],
+  "school/9010388.html": [
+   "순위"
+  ],
+  "school/9010398.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010405.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010406.html": [
+   "순위"
+  ],
+  "school/9010429.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010430.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010431.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010432.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010433.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010437.html": [
+   "순위"
+  ],
+  "school/9010438.html": [
+   "순위"
+  ],
+  "school/9010462.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010463.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010464.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010479.html": [
+   "순위"
+  ],
+  "school/9010480.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010505.html": [
+   "순위"
+  ],
+  "school/9010516.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010531.html": [
+   "순위"
+  ],
+  "school/9010537.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9010538.html": [
+   "순위"
+  ],
+  "school/9010539.html": [
+   "순위"
+  ],
+  "school/9010569.html": [
+   "순위"
+  ],
+  "school/9010570.html": [
+   "순위"
+  ],
+  "school/9010655.html": [
+   "순위"
+  ],
+  "school/9010659.html": [
+   "순위"
+  ],
+  "school/9010668.html": [
+   "순위"
+  ],
+  "school/9010672.html": [
+   "순위"
+  ],
+  "school/9010690.html": [
+   "순위"
+  ],
+  "school/9010696.html": [
+   "순위"
+  ],
+  "school/9010697.html": [
+   "순위"
+  ],
+  "school/9010698.html": [
+   "순위"
+  ],
+  "school/9010699.html": [
+   "순위"
+  ],
+  "school/9010700.html": [
+   "순위"
+  ],
+  "school/9010728.html": [
+   "순위"
+  ],
+  "school/9010730.html": [
+   "순위"
+  ],
+  "school/9290049.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290050.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290051.html": [
+   "순위"
+  ],
+  "school/9290055.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290056.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290057.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290059.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290060.html": [
+   "순위"
+  ],
+  "school/9290061.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290064.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290066.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290068.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290069.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290071.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290072.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290073.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290074.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290075.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290076.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290086.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290087.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290088.html": [
+   "순위"
+  ],
+  "school/9290089.html": [
+   "순위"
+  ],
+  "school/9290096.html": [
+   "순위"
+  ],
+  "school/9290102.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290103.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9290104.html": [
+   "순위"
+  ],
+  "school/9290128.html": [
+   "순위"
+  ],
+  "school/9290204.html": [
+   "순위"
+  ],
+  "school/9290226.html": [
+   "순위"
+  ],
+  "school/9300054.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300058.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300107.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300108.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300117.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300177.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300178.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300179.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300180.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300181.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300185.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300191.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300219.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300220.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300233.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300235.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300265.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300266.html": [
+   "순위"
+  ],
+  "school/9300270.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300278.html": [
+   "등수",
+   "순위"
+  ],
+  "school/9300329.html": [
+   "순위"
+  ],
+  "school/9300357.html": [
+   "순위"
+  ],
+  "school/9300362.html": [
+   "순위"
+  ],
+  "school/C020714.html": [
+   "등수",
+   "순위"
+  ],
+  "school/C035903.html": [
+   "등수",
+   "순위"
+  ],
+  "school.html": [
+   "명문"
+  ],
+  "terms.html": [
+   "등수"
+  ],
+  "university/0000001.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000002.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000003.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000004.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000005.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000007.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000008.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000009.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000010.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000011.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000012.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000013.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000014.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000019.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000020.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000021.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000023.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000024.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000025.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000027.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000028.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000029.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000030.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000031.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000032.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000033.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000034.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000035.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000036.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000037.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000039.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000040.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000046.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000048.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000049.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000050.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000051.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000052.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000053.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000054.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000055.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000056.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000058.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000059.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000060.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000061.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000062.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000063.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000064.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000065.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000066.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000068.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000069.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000070.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000071.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000072.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000073.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000074.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000075.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000076.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000078.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000079.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000080.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000081.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000082.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000084.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000087.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000088.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000092.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000093.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000094.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000095.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000097.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000098.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000099.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000100.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000101.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000102.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000103.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000104.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000105.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000106.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000107.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000108.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000109.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000111.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000112.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000113.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000114.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000115.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000116.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000117.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000119.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000120.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000121.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000122.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000124.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000125.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000126.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000127.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000128.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000129.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000131.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000132.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000133.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000136.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000137.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000138.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000139.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000140.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000141.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000142.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000143.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000144.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000145.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000146.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000147.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000148.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000149.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000150.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000151.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000153.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000154.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000155.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000156.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000157.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000158.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000159.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000160.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000161.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000162.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000163.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000164.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000166.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000167.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000168.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000169.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000170.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000171.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000172.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000173.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000174.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000175.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000177.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000178.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000179.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000180.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000181.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000182.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000184.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000185.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000186.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000187.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000188.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000189.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000191.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000192.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000194.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000195.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000196.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000197.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000198.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000199.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000200.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000201.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000202.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000203.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000204.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000205.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000206.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000207.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000208.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000209.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000211.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000212.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000215.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000216.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000218.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000219.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000220.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000221.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000222.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000224.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000225.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000228.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000231.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000233.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000235.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000238.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000239.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000240.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000241.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000242.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000243.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000244.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000245.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000246.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000247.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000248.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000249.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000250.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000251.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000252.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000253.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000254.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000255.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000256.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000257.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000258.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000260.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000261.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000262.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000374.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000381.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000382.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000402.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000403.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000405.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000406.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000410.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000412.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000415.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000416.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000418.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000422.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000425.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000426.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000428.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000429.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000430.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000431.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000432.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000433.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000435.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000437.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000438.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000440.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000441.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000442.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000443.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000444.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000446.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000447.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000448.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000449.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000450.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000451.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000452.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000453.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000454.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000455.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000456.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000457.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000459.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000460.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000461.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000462.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000463.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000464.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000465.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000466.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000467.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000469.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000470.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000473.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000474.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000475.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000476.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000477.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000479.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000480.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000481.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000482.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000483.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000485.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000489.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000490.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000493.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000496.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000497.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000498.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000500.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000501.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000502.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000503.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000506.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000507.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000509.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000510.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000512.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000513.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000514.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000515.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000517.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000520.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000521.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000522.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000523.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000524.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000525.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000527.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000528.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000529.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000530.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000531.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000532.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000533.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000534.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000536.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000539.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000541.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000542.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000543.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000544.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000545.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000546.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000547.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000548.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000549.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000550.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000553.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000554.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000555.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000556.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000560.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000561.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000562.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000564.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000565.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000566.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000567.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000568.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000569.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000570.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0000578.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002573.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002574.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002639.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002640.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002641.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002642.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002644.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002645.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002646.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002647.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002649.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002650.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002651.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002652.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002653.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002654.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002655.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002656.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002657.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002658.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002659.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002660.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002712.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002726.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002744.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002748.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002749.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002800.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002911.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002949.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002959.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002971.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002972.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002973.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0002974.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003019.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003022.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003139.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003193.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003194.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003297.html": [
+   "등수",
+   "순위"
+  ],
+  "university/0003298.html": [
+   "등수",
+   "순위"
+  ],
+  "university.html": [
+   "순위"
+  ],
+  "video.html": [
+   "등수"
+  ],
+  "work.html": [
+   "등수",
+   "순위"
+  ]
+ }
+}
