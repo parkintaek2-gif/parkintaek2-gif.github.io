@@ -1,0 +1,119 @@
+{
+  "source": "국가데이터처 KOSIS · 관세청 국가별 수출액 수입액 360/DT_1R11006_FRM101",
+  "window": "2025-07 ~ 2026-06",
+  "monthly": [
+    {
+      "month": "202507",
+      "exports": 60.7,
+      "imports": 54.2,
+      "balance": 6.5
+    },
+    {
+      "month": "202508",
+      "exports": 58.3,
+      "imports": 51.9,
+      "balance": 6.4
+    },
+    {
+      "month": "202509",
+      "exports": 65.9,
+      "imports": 56.4,
+      "balance": 9.5
+    },
+    {
+      "month": "202510",
+      "exports": 59.5,
+      "imports": 53.5,
+      "balance": 6
+    },
+    {
+      "month": "202511",
+      "exports": 60.8,
+      "imports": 51.3,
+      "balance": 9.5
+    },
+    {
+      "month": "202512",
+      "exports": 69.5,
+      "imports": 57.4,
+      "balance": 12.1
+    },
+    {
+      "month": "202601",
+      "exports": 65.8,
+      "imports": 57.1,
+      "balance": 8.7
+    },
+    {
+      "month": "202602",
+      "exports": 67.7,
+      "imports": 51.9,
+      "balance": 15.7
+    },
+    {
+      "month": "202603",
+      "exports": 87.3,
+      "imports": 60.7,
+      "balance": 26.7
+    },
+    {
+      "month": "202604",
+      "exports": 85.7,
+      "imports": 62.1,
+      "balance": 23.6
+    },
+    {
+      "month": "202605",
+      "exports": 87.6,
+      "imports": 60.8,
+      "balance": 26.8
+    },
+    {
+      "month": "202606",
+      "exports": 102.2,
+      "imports": 66.1,
+      "balance": 36.1
+    }
+  ],
+  "half": {
+    "h1_sum": 50,
+    "h2_sum": 137.7
+  },
+  "year": {
+    "exports": 871,
+    "imports": 683,
+    "balance": 187.7
+  },
+  "swing": [
+    {
+      "name": "United States",
+      "h1": 23.222740999999992,
+      "h2": 49.95805000000001,
+      "dz": 26.735309000000015
+    },
+    {
+      "name": "Hong Kong",
+      "h1": 17.420598999999996,
+      "h2": 36.483543,
+      "dz": 19.062944
+    },
+    {
+      "name": "China",
+      "h1": -4.264619000000007,
+      "h2": 13.49574999999999,
+      "dz": 17.760368999999997
+    },
+    {
+      "name": "Vietnam",
+      "h1": 16.71715499999999,
+      "h2": 26.484613999999997,
+      "dz": 9.767459000000006
+    },
+    {
+      "name": "Taiwan",
+      "h1": 11.430991000000002,
+      "h2": 16.500388999999995,
+      "dz": 5.0693979999999925
+    }
+  ]
+}
