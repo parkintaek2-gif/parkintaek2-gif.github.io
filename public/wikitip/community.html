@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Star rooms &mdash; K Culture Wire community</title>
+<meta name="description" content="Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.">
+<meta name="robots" content="noindex">
+<style>
+  :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
+         --accent:#b4472a; --accent-soft:#fdf3f0; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216; --card:#181b21;
+    --accent:#e8825f; --accent-soft:#261915; } }
+  :root[data-theme="dark"]{ --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216;
+    --card:#181b21; --accent:#e8825f; --accent-soft:#261915; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
+  .lead{color:var(--ink-2);margin:0 0 8px;max-width:62ch}
+  .note{color:var(--ink-2);font-size:14px;margin:0 0 32px;max-width:62ch}
+  .warn{background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:14px 16px;border-radius:6px;margin:0 0 36px;max-width:62ch;font-size:14px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
+  .room{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
+  .sign{margin:0 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--accent);font-weight:700}
+  .room h2{margin:0 0 6px;font-size:21px;letter-spacing:-.01em}
+  .born,.also,.count{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
+  .count{margin-bottom:14px}
+  .cta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed}
+  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--ink-2);font-size:13px;max-width:62ch}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Star rooms</h1>
+    <p class="lead">Twelve rooms, one for each Chinese zodiac year. Each is named for the Korean
+      star born in that year who is read most across the Indonesian, Vietnamese, Thai and Malay
+      Wikipedias.</p>
+    <p class="note">Names and birth dates come from Wikidata; read counts from the Wikimedia
+      Pageviews API, 2025-08 through 2026-07, 12 months, human traffic only.</p>
+
+    <p class="warn"><strong>A room name is not a reading.</strong> We tested whether the zodiac
+      year picks out who reaches a Netflix chart, and it does not &mdash; the result was
+      indistinguishable from chance. The years are here to divide 1047 stars into
+      twelve rooms, nothing more.</p>
+
+    <div class="grid">
+      <article class="room">
+        <p class="sign">Year of the Rat</p>
+        <h2>Go Youn-jung</h2>
+        <p class="born">Born 1996-04-22 &middot; 273.06 reads per million</p>
+        <p class="also">Also here: Lee Je-hoon, Kim Se-jeong</p>
+        <p class="count">89 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Ox</p>
+        <h2>Cha Eun-woo</h2>
+        <p class="born">Born 1997-03-30 &middot; 200.33 reads per million</p>
+        <p class="also">Also here: Song Joong-ki, Lee Kwang-soo</p>
+        <p class="count">82 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Tiger</p>
+        <h2>Kim Seon-ho</h2>
+        <p class="born">Born 1986-05-08 &middot; 220.56 reads per million</p>
+        <p class="also">Also here: Park Min-young, Lee Jae-wook</p>
+        <p class="count">78 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Rabbit</p>
+        <h2>Park Ji-hoon</h2>
+        <p class="born">Born 1999-05-29 &middot; 128.42 reads per million</p>
+        <p class="also">Also here: Lee Min-ho, Ji Chang-wook</p>
+        <p class="count">86 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Dragon</p>
+        <h2>Lee Chae-min</h2>
+        <p class="born">Born 2000-09-15 &middot; 200.18 reads per million</p>
+        <p class="also">Also here: Karina, Kim Sae-ron</p>
+        <p class="count">90 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Snake</p>
+        <h2>Kim Woo-bin</h2>
+        <p class="born">Born 1989-07-16 &middot; 125.07 reads per million</p>
+        <p class="also">Also here: So Ji-sub, Lee Jong-suk</p>
+        <p class="count">76 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Horse</p>
+        <h2>Im Yoon-ah</h2>
+        <p class="born">Born 1990-05-30 &middot; 205.69 reads per million</p>
+        <p class="also">Also here: Park Bo-gum, Lim Ji-yeon</p>
+        <p class="count">77 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Goat</p>
+        <h2>Byeon Woo-seok</h2>
+        <p class="born">Born 1991-10-31 &middot; 263.86 reads per million</p>
+        <p class="also">Also here: Kim Go-eun, Gong Yoo</p>
+        <p class="count">91 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Monkey</p>
+        <h2>Kim Ji-won</h2>
+        <p class="born">Born 1992-10-19 &middot; 110.19 reads per million</p>
+        <p class="also">Also here: Kim Tae-hee, Jang Ki-Yong</p>
+        <p class="count">91 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Rooster</p>
+        <h2>IU</h2>
+        <p class="born">Born 1993-05-16 &middot; 208.57 reads per million</p>
+        <p class="also">Also here: Song Hye-kyo, Jun Ji-hyun</p>
+        <p class="count">92 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Dog</p>
+        <h2>Bae Suzy</h2>
+        <p class="born">Born 1994-10-10 &middot; 165.9 reads per million</p>
+        <p class="also">Also here: Park Ji-hoon, Hyun Bin</p>
+        <p class="count">103 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+      <article class="room">
+        <p class="sign">Year of the Pig</p>
+        <h2>Ma Dong-seok</h2>
+        <p class="born">Born 1971-03-01 &middot; 59.84 reads per million</p>
+        <p class="also">Also here: Kim Da-mi, Lee Do-hyun</p>
+        <p class="count">92 Korean stars share this year</p>
+        <button class="cta" disabled aria-disabled="true">Join the room</button>
+      </article>
+    </div>
+
+    <footer>
+      <p><strong>This is a first draft of a shell.</strong> There is no server, no sign-in and no
+      posting yet, so every button above is deliberately inert. Nothing is ranked and there is no
+      feed.</p>
+      <p>K Culture Wire &middot; kculturewire.com</p>
+    </footer>
+  </div>
+</body>
+</html>
