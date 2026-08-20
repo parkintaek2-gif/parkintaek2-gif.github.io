@@ -38,6 +38,14 @@ export const TBL = 'DT_HIRA4G';
 export const 기간꼴 = 'Q';
 export const 과목 = '소아청소년과';
 export const 전체말 = '전체';
+/**
+ * 🔴 8/21 05:3x — 처음엔 **한 분기만** 받았다. 표에는 2009년부터 있었다.
+ *   어제 /nursery 에서 똑같이 헛디디고 2번에게 규칙까지 받아 놓고 또 그랬다 —
+ *   **「자료가 없다」고 적기 전에 「내가 다 받았나」를 먼저 묻는다.**
+ * ⚠ 이 표는 285칸 × 29과목이라 한 번에 다 받으면 40,000칸을 넘어 거절당한다.
+ *   ⇒ **과목 하나로 좁혀** 받는다(objL2). 그러면 분기 일흔 개가 한 번에 들어온다.
+ */
+export const 과목코드 = '1535413102140068HD0.B';
 
 export function 수로(v) {
   if (v === null || v === undefined) return null;
@@ -82,6 +90,13 @@ if (내가직접불렸나) {
     if (w.갈래 === '시도') 시도이름.set(w.시도코드, x.ITM_NM);
   }
 
+  /* 흐름 — 과목 하나로 좁혀 분기 전부를 받는다.
+     ⚠ 이 두 줄을 셸로 옮기다 백틱 안이 통째로 먹혔다(오늘만 세 번째다). Edit 로 쓴다 */
+  const 흐름날 = await (await fetch(
+    `https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=${KEY}`
+    + `&itmId=ALL&objL1=ALL&objL2=${encodeURIComponent(과목코드)}&format=json&jsonVD=Y`
+    + `&orgId=${ORG}&tblId=${TBL}&prdSe=${기간꼴}&newEstPrdCnt=70`)).json();
+
   const 날 = await (await fetch(
     `https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=${KEY}`
     + `&itmId=ALL&objL1=ALL&objL2=ALL&format=json&jsonVD=Y&orgId=${ORG}&tblId=${TBL}&prdSe=${기간꼴}&newEstPrdCnt=1`)).json();
@@ -123,6 +138,20 @@ if (내가직접불렸나) {
     '⚠ 이름이 겹친다': '중구가 여섯, 동구가 여섯, 서구가 다섯입니다. 이름만으로는 어디인지 알 수 없어 시·도를 함께 적었습니다 — 코드로 갈랐습니다.',
     전체곳, 시군구수: 동네.length, 없는곳수: 없는곳.length,
     없는곳, 없는시도, 시도별,
+    /* 🔴 흐름 — 해마다 마지막으로 잰 분기 하나씩. ⛔ 분기를 섞어 그리면 계절이 섞인다 */
+    흐름: (() => {
+      const 때들 = [...new Set(흐름날.map((x) => x.PRD_DE))].sort();
+      const 해별 = {};
+      for (const t of 때들) 해별[t.slice(0, 4)] = t;   // 그 해의 마지막 분기
+      return Object.entries(해별).map(([해, t]) => {
+        const 그때 = 흐름날.filter((x) => x.PRD_DE === t);
+        const 없는 = 그때.filter((x) => 무엇인가(x.C1).갈래 === '시군구' && 수로(x.DT) === 0).length;
+        return {
+          해, 분기: t, 없는곳: 없는,
+          전국: 수로(그때.find((x) => x.C1_NM === 전체말)?.DT),
+        };
+      });
+    })(),
     자가대조: {
       시도합, 전체: 전체곳, 맞나: 시도합 === 전체곳,
       동네합, 동네맞나: 동네합 === 전체곳,

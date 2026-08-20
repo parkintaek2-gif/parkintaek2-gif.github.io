@@ -22,6 +22,29 @@ const 없는곳 = 자료.없는곳 as { 시도: string; 이름: string }[];
 const 없는시도 = Object.entries(자료.없는시도 as Record<string, number>)
   .sort((a, b) => b[1] - a[1]);
 const 대조 = 자료.자가대조;
+const 흐름 = 자료.흐름 as any[];
+const 값들 = 흐름.map((r) => r.없는곳);
+const 최소 = Math.min(...값들), 최대 = Math.max(...값들);
+const 흐름끝 = 흐름[흐름.length - 1];
+/** ⛔ 짐작이 아니라 값에서 찾는다 */
+const 가장적은해 = 흐름.find((r) => r.없는곳 === 최소).해;
+/** 지금 값이 처음 나타난 뒤로 안 바뀐 첫 해 */
+const 고정된해 = (() => {
+  let i = 흐름.length - 1;
+  while (i > 0 && 흐름[i - 1].없는곳 === 흐름끝.없는곳) i--;
+  return 흐름[i].해;
+})();
+const 전국들 = 흐름.map((r) => r.전국).filter((v) => v != null);
+const 흐름최소전국 = Math.min(...전국들), 흐름최대전국 = Math.max(...전국들);
+
+/** 선 — ⛔ 라이브러리를 쓰지 않는다 */
+const 그림 = (() => {
+  const 폭 = 640, 높 = 190, 왼 = 10, 오 = 10, 위 = 26, 아래 = 30;
+  const x = (i: number) => 왼 + (i * (폭 - 왼 - 오)) / (흐름.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  const 선 = 흐름.map((r, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(r.없는곳).toFixed(1)}`).join(' ');
+  return { 폭, 높, x, y, 선 };
+})();
 /** 「202602」 → 「2026년 2분기」 — ⛔ 표의 글자를 그대로 내보내지 않는다 */
 const 때말 = (() => {
   const s = String(자료.때);
@@ -54,6 +77,38 @@ const desc =
       전국 소아청소년과 의원은 {자료.전체곳.toLocaleString()}곳입니다
     </p>
   </div>
+
+  {/* 🔴 8/21 05:3x — 처음엔 한 분기만 받아 놓고 이 절이 없었다. 표에는 2009년부터 있었다.
+      어제 /nursery 에서 똑같이 헛디디고 규칙까지 받아 놓고 또 그랬다. 그 일도 지면에 적는다 */}
+  <h2>{흐름[0].해}년부터 어떻게 움직였나</h2>
+  <p>
+    <strong>거의 움직이지 않았습니다.</strong> 열여덟 해 동안 {최소}곳({가장적은해}년)에서
+    {' '}{최대}곳 사이였고, {고정된해}년부터는 {흐름끝.없는곳}곳 그대로입니다.
+    {' '}그 사이 전국 의원 수는 {흐름최소전국.toLocaleString()}곳에서 {흐름최대전국.toLocaleString()}곳까지 오르내렸습니다.
+  </p>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${그림.폭} ${그림.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`소아청소년과 의원이 없는 시·군·구 수 — ${흐름.map((v: any) => `${v.해}년 ${v.없는곳}곳`).join(', ')}`}>
+      <path d={그림.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
+      {흐름.map((v: any, i: number) => (
+        <g>
+          <circle cx={그림.x(i)} cy={그림.y(v.없는곳)} r={v.없는곳 === 최소 || i === 흐름.length - 1 ? 4.5 : 2.5}
+                  fill={v.없는곳 === 최소 || i === 흐름.length - 1 ? '#c9a84c' : '#8b8b96'} />
+          {(v.없는곳 === 최소 || i === 흐름.length - 1) && (
+            <text x={그림.x(i)} y={그림.y(v.없는곳) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.없는곳}</text>
+          )}
+          {(i % 4 === 0 || i === 흐름.length - 1) && (
+            <text x={그림.x(i)} y={그림.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{v.해}</text>
+          )}
+        </g>
+      ))}
+    </svg>
+  </div>
+  <p class="note">
+    ⚠ 해마다 <strong>그 해에 마지막으로 잰 분기</strong> 하나씩만 찍었습니다 — 분기를 섞으면 계절이 섞입니다.
+    {' '}그리고 저희가 처음엔 <strong>한 분기만 받아 두고</strong> 이 절을 못 썼습니다.
+    {' '}자료가 모자란 것이 아니라 저희가 덜 받은 것이었습니다.
+  </p>
 
   <h2>어디에 몰려 있나</h2>
   <div class="tablewrap">
