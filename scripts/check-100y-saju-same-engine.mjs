@@ -20,6 +20,13 @@ import { 천간, 천간한자, 지지, 지지한자, 오행, 음양, 일주 } fr
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const 지면길 = path.join(ROOT, 'src/pages/100y/saju/index.astro');
+/* ⛔ 2026-08-21 사장님 지시로 /saju 를 내렸다. 지면이 없으면 볼 것이 없다 —
+   「어긋났다」가 아니라 **「볼 것이 없다」**로 끝낸다. 자가 없는 것을 빨강으로 만들지 않는다.
+   이 자와 scripts/lib/일주.mjs 는 1번·4번에게 넘기는 꾸러미다(docs/스타사주-넘김.md). */
+if (!fs.existsSync(지면길)) {
+  console.log('⬜ /saju 지면이 없다 — 내렸다(8/21 사장님 지시). 볼 것이 없다');
+  process.exit(0);
+}
 const 글 = fs.readFileSync(지면길, 'utf8');
 
 let 빨강 = 0;
