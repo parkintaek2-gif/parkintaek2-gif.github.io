@@ -175,6 +175,9 @@ export const GET: APIRoute = () => {
     /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
        /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
     { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 «그 다음» — 학과 뒤 40년의 끝자락. 「몇 살에 퇴직」·「평균 퇴직 나이」로 찾는 검색을 받는다.
+       사장님 「대입이 전혀 중요하지 않다. 그 다음, 그 전이 중요한 거다」 */
+    { path: '/longest-job', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
