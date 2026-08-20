@@ -82,6 +82,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const wk = 읽기('src/data/wikitip-what-kind-fell.json');
   const wr = 읽기('src/data/wikitip-works-and-readers.json');
   const ou = 읽기('src/data/wikitip-places-outside.json');
+  const ss = 읽기('src/data/wikitip-star-signs.json');
   const af = 읽기('src/data/wikitip-actors-first.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -358,6 +359,23 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `anywhere.\n\n${주소}/actors-first`,
       alt: 'Five cards on which Korean actor each Southeast Asian Wikipedia reads most, and the '
         + 'three names that appear on every list without leading any of them.',
+    },
+    {
+      /**
+       * ⛔⛔ 이 글은 **점을 치지 않는다.** 「이 띠가 좋다」로 읽히면 안 된다.
+       *   그래서 이름 뒤에 곧바로 「우연과 구분되지 않는다」를 붙인다 —
+       *   글이 잘려도 그 문장이 살아 있도록 **주소 바로 앞**에 둔다.
+       */
+      key: 'signs',
+      page: `${주소}/star-signs`,
+      images: 장('signs'),
+      x: `IU and Song Hye-kyo are Roosters. Cha Eun-woo and Song Joong-ki are Oxen. `
+        + `Byeon Woo-seok is a Goat.\n\n`
+        + `${ss.peopleWithSign.toLocaleString('en-US')} Korean stars by zodiac sign. The spread `
+        + `across the twelve is indistinguishable from chance, so this is a list of names and not `
+        + `a prediction.\n\n${주소}/star-signs`,
+      alt: 'Five cards listing Korean stars by Chinese zodiac sign, with the measurement that says '
+        + 'the spread across signs is indistinguishable from chance.',
     },
   ];
 }

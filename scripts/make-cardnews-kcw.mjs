@@ -60,7 +60,80 @@ export const 벌목록 = {
   works: { 자료: 'src/data/wikitip-works-and-readers.json', 만들기: (d) => 작품수벌짓기(d) },
   outside: { 자료: 'src/data/wikitip-places-outside.json', 만들기: (d) => 밖벌짓기(d) },
   actors: { 자료: 'src/data/wikitip-actors-first.json', 만들기: (d) => 배우벌짓기(d) },
+  signs: { 자료: 'src/data/wikitip-star-signs.json', 만들기: (d) => 띠벌짓기(d) },
 };
+
+/**
+ * 띠 벌 — `/star-signs`.
+ *
+ * ⭐ 이야기 한 줄: **같은 띠에 누가 있나. 그뿐이다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **점을 치지 않는다.** 「이 띠라서 떴다」를 안 쓴다 — 우리가 이미 그 반대를 냈다.
+ *     그래서 **세 번째 장이 경고**다. 넷째로 미루면 손님이 이름표만 들고 간다.
+ *   ⛔ **띠끼리 줄세우지 않는다.** 「어느 띠가 세다」로 읽히면 그게 점이다.
+ *   ⛔ 수를 손으로 안 박는다. 전부 자료에서 읽는다.
+ */
+export function 띠벌짓기(d) {
+  /* ⚠ 열두 띠를 다 못 싣는다. **자료가 정한 차례**(읽힘 으뜸)로 여섯만 보인다 */
+  const 여섯 = [...d.signs]
+    .sort((a, b) => (b.top[0]?.perMillion ?? 0) - (a.top[0]?.perMillion ?? 0))
+    .slice(0, 6);
+
+  return {
+    갈피: 'star-signs',
+    빛: '#d8a657',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `${d.peopleWithSign.toLocaleString('en-US')} Korean stars · twelve signs`,
+        큰: 'Which Korean\nstars share your\nzodiac sign?',
+        아래: `**IU** and **Song Hye-kyo** are Roosters. **Cha Eun-woo** and **Song Joong-ki** are `
+          + `Oxen. **Byeon Woo-seok** is a Goat. Sorted by year of birth, ordered by how often each `
+          + 'name is looked up in Southeast Asia.',
+      },
+      {
+        꼴: '표',
+        제목: 'The name you\nknow, and who\nshares it',
+        머리: ['Sign', 'Most-read stars'],
+        줄: 여섯.map((s) => [s.sign, s.top.slice(0, 3).map((p) => p.name).join(', ')]),
+        아래: 'Six of the twelve signs, in the order the data put them — by how much the top name in '
+          + 'each is read. **This is not a ranking of signs.**',
+      },
+      {
+        /* ⛔⛔ 여기가 셋째인 것이 중요하다. 뒤로 밀면 앞의 두 장만 퍼진다 */
+        꼴: '수',
+        제목: 'Before you\nread anything\ninto this',
+        큰: `${d.notAPrediction.chiSquare} vs ${d.notAPrediction.threshold}`,
+        곁: 'Chi-square for how 1,047 chart-reaching Korean actors spread across the twelve signs',
+        아래: 'Below the threshold means the spread is **indistinguishable from chance**. Being born '
+          + 'in one year rather than another does not pick out who reaches a chart. We measured that '
+          + 'ourselves, and we are not going to say otherwise on the next card.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'No reading for anyone — a full chart needs the hour of birth, which profiles do not carry',
+          'No ranking of signs — the largest sign has 103 people and the smallest 76',
+          'No zeros — a star we could not match to a read count keeps their name, not a 0',
+        ],
+        아래: `Of the ${d.peopleWithSign.toLocaleString('en-US')} stars with a sign, `
+          + `**${d.withReads}** could be matched to a read count. The rest are still named.`,
+      },
+      {
+        꼴: '끝',
+        제목: 'Same sign. That\nis the whole\nclaim.',
+        글: 'Who shares a birth year with whom is a fact.\n\n'
+          + '**What it means about them is not something a count can reach.**',
+        길: `${주소}/star-signs`,
+        곁: 'Wikidata dates of birth · Wikimedia Pageviews · 12 months to 2026-07',
+      },
+    ],
+  };
+}
 
 /**
  * 배우 벌 — `/actors-first`.
