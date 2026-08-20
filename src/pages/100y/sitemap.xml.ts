@@ -172,6 +172,9 @@ export const GET: APIRoute = () => {
        ⚠ 지면을 만든 그 자리에서 이 줄을 넣는다 — /after·/region·/elementary·/saju 에 이어
          **다섯 번째** 같은 실수를 하지 않으려고. */
     { path: '/nursery', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
+       /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
+    { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

@@ -1,0 +1,156 @@
+---
+/**
+ * /100y/kindergarten — 우리 동네에 유치원이 몇 곳인가
+ *
+ * 🔴 왜 만드나 — /nursery 가 스스로 적어 둔 한계를 닫는다.
+ *   그 지면은 「유치원은 이 표에 없습니다」라고 밝혀 두었다.
+ *   ⛔ 새 물음을 벌이기 전에 **내가 적어 둔 한계부터 닫는다.**
+ *
+ * ⭐ 사장님 8/21 「대입에 몰입하지마, 한 점에 불과해」 · 8/9 「영 세에서 백 세까지」.
+ *   이 지면은 **0~5세** 자리이고, 시·군·구까지 있어 「우리 동네」로 답한다.
+ *
+ * ⛔ 지켜야 할 것 —
+ *   · 유치원과 어린이집을 **더하지 않는다.** 학교와 보육시설이라 세는 대상이 다르다
+ *   · /nursery 의 634 는 «지역»의 수, 여기는 «시설»의 수다. 견주지 않는다
+ *   · 「한 유치원에 몇 명」은 **반 크기가 아니다.** 지역 원아를 지역 유치원 수로 나눈 값이다
+ *   · 줄을 세우지 않는다. 많은 쪽·적은 쪽을 「좋다·나쁘다」로 적지 않는다
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/kindergarten.json';
+
+const 자료 = 원본 as any;
+const 전국 = 자료.전국 as { 곳: number; 원아: number; 한곳당: number };
+const 시도 = [...(자료.시도 as any[])].sort((a, b) => (b.곳 ?? 0) - (a.곳 ?? 0));
+/** ⛔ 자르지 않는다. 손님이 찾는 것은 자기 동네 한 칸이다(/elementary 에서 배운 것) */
+const 동네 = [...(자료.동네 as any[])].sort((a, b) => (b.곳 ?? 0) - (a.곳 ?? 0));
+
+/** 「한 곳에 몇 명」이 퍼진 모양 — ⛔ 등수가 아니라 퍼짐이다 */
+const 한곳당있는곳 = 동네.filter((r) => r.한곳당 != null);
+const 적은쪽 = [...한곳당있는곳].sort((a, b) => a.한곳당 - b.한곳당).slice(0, 5);
+const 많은쪽 = [...한곳당있는곳].sort((a, b) => b.한곳당 - a.한곳당).slice(0, 5);
+
+const desc =
+  `${자료.해}년 기준 전국 유치원 ${전국.곳.toLocaleString()}곳, 원아 ${전국.원아.toLocaleString()}명입니다. ` +
+  `시·군·구 ${자료.동네수}칸을 전부 실었습니다 — 우리 동네에 몇 곳인지 찾아보실 수 있습니다.`;
+---
+
+<HundredYear title={`우리 동네에 유치원이 몇 곳인가 — ${자료.해}년 전국 ${전국.곳.toLocaleString()}곳`} description={desc}>
+  <h1>우리 동네에 유치원이 몇 곳인가</h1>
+  <p class="sub">
+    {자료.해}년 기준 전국 <strong>{전국.곳.toLocaleString()}곳</strong>,
+    {' '}원아는 <strong>{전국.원아.toLocaleString()}명</strong>입니다.
+    {' '}시·군·구 <strong>{자료.동네수}칸을 전부</strong> 실었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{자료.해}년, 유치원 한 곳에 아이가</p>
+    <p class="answer-num">{전국.한곳당}명</p>
+    <p class="answer-sub">
+      전국 원아를 전국 유치원 수로 나눈 값입니다 — 반 크기가 아닙니다
+    </p>
+  </div>
+
+  <h2>우리 동네로 찾기</h2>
+  <p class="note">
+    시·군·구 이름을 넣어 보십시오. <strong>{자료.동네수}칸을 자르지 않고 다 실었습니다.</strong>
+  </p>
+  <p>
+    <label for="q">동네 </label>
+    <input type="search" id="q" placeholder="예: 종로구 · 수원시 · 남해군" autocomplete="off" />
+    <span id="cnt" class="note"></span>
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·군·구</th><th>유치원</th><th>원아</th><th>한 곳에</th></tr></thead>
+      <tbody id="동네몸">
+        {동네.map((r) => (
+          <tr data-name={r.이름}>
+            <td>{r.이름}</td>
+            <td>{r.곳 == null ? '—' : `${r.곳.toLocaleString()}곳`}</td>
+            <td>{r.원아 == null ? '—' : `${r.원아.toLocaleString()}명`}</td>
+            <td>{r.한곳당 == null ? '—' : `${r.한곳당}명`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>시·도별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>유치원</th><th>원아</th><th>한 곳에</th></tr></thead>
+      <tbody>
+        {시도.map((r) => (
+          <tr>
+            <td>{r.이름}</td>
+            <td>{r.곳.toLocaleString()}곳</td>
+            <td>{r.원아 == null ? '—' : r.원아.toLocaleString() + '명'}</td>
+            <td>{r.한곳당 == null ? '—' : r.한곳당 + '명'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    시·도 열일곱을 더하면 {전국.곳.toLocaleString()}곳으로 표의 전국 값과 같습니다 — 저희가 맞춰 보았습니다.
+  </p>
+
+  <h2>한 곳에 몇 명인지는 동네마다 많이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>적은 쪽</th><th>한 곳에</th><th>많은 쪽</th><th>한 곳에</th></tr></thead>
+      <tbody>
+        {적은쪽.map((r, i) => (
+          <tr>
+            <td>{r.이름}</td>
+            <td>{r.한곳당}명</td>
+            <td>{많은쪽[i]?.이름 ?? '—'}</td>
+            <td>{많은쪽[i] ? `${많은쪽[i].한곳당}명` : '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    퍼진 모양을 보여드리는 것입니다. 적은 쪽이 더 좋고 많은 쪽이 더 나쁘다는 뜻이 아닙니다 —
+    {' '}동네마다 아이 수와 유치원이 선 자리가 다릅니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+    {' '}<a href="/nursery">어린이집이 한 곳도 없는 지역 →</a>
+  </p>
+
+  <NextQuestionBrief 모은것="유치원 자료" />
+</HundredYear>
+
+<script is:inline>
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var 몸 = document.getElementById('동네몸');
+    if (!q || !몸) return;
+    var 줄들 = Array.prototype.slice.call(몸.querySelectorAll('tr'));
+    q.addEventListener('input', function () {
+      var v = q.value.trim();
+      if (!v) {
+        줄들.forEach(function (tr) { tr.hidden = false; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      줄들.forEach(function (tr) {
+        var 맞나 = tr.getAttribute('data-name').indexOf(v) >= 0;
+        tr.hidden = !맞나;
+        if (맞나) n++;
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '칸' : '「' + v + '」 로 찾은 곳이 없습니다';
+    });
+  })();
+</script>
