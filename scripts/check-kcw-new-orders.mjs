@@ -75,16 +75,25 @@ export function 열쇠(줄) {
   return String(줄 ?? '').replace(/^##\s*/, '').trim();
 }
 
-export function 본것읽기(길 = 본것길) {
+/**
+ * ⛔ **바닥을 같이 읽고 같이 쓴다.** 바닥을 안 적었더니 두 번째 실행이 십만 줄을 다 띄웠고,
+ *   내가 `--봤다` 로 4,739건을 읽지도 않고 「봤다」로 만들었다(8/21). 그 자리다.
+ */
+export function 상태읽기(길 = 본것길) {
   try {
     const j = JSON.parse(fs.readFileSync(길, 'utf8'));
-    return new Set(Array.isArray(j.본것) ? j.본것 : []);
-  } catch { return new Set(); }
+    return {
+      본것: new Set(Array.isArray(j.본것) ? j.본것 : []),
+      바닥: Number.isInteger(j.바닥) ? j.바닥 : null,
+    };
+  } catch { return { 본것: new Set(), 바닥: null }; }
 }
 
-export function 본것쓰기(본것, 길 = 본것길) {
+export function 상태쓰기(본것, 바닥, 길 = 본것길) {
   fs.writeFileSync(길, `${JSON.stringify({
     설명: '5번이 「봤다」고 표시한 지시 제목. ⛔ 저절로 안 채워진다 — --봤다 로만 채운다.',
+    바닥설명: '이 줄 번호 아래의 옛 제목은 안 본다. 처음 한 번만 정하고 다시 안 움직인다.',
+    바닥,
     갱신: new Date().toISOString().slice(0, 19),
     본것: [...본것],
   }, null, 1)}\n`);
@@ -175,30 +184,40 @@ if (내가실행됐다) {
   const 글 = fs.readFileSync(메모길, 'utf8');
   const 줄수 = 글.split(/\r?\n/).length;
   const 처음인가 = !fs.existsSync(본것길);
-  const 본것 = 본것읽기();
+  const { 본것, 바닥: 적힌바닥 } = 상태읽기();
 
   /**
-   * ⚠ 처음 한 번만 바닥을 놓는다 — 십만 줄의 옛 제목을 다 띄우면 아무도 못 읽는다.
-   * ⛔ 그 뒤로 바닥은 안 움직인다. **표시하지 않는 한 아무것도 조용히 지나가지 않는다.**
+   * 🔴🔴 2026-08-21 08:0x — **바닥을 파일에 안 적어서 두 번째 실행이 십만 줄을 다 띄웠고,
+   *   내가 `--봤다` 를 눌러 4,739건을 통째로 「봤다」로 만들었다.** 읽지도 않은 것을.
+   *   ⛔ 이 자를 만든 까닭이 「조용히 지나가는 것을 없앤다」였는데, 고치면서 더 크게 되풀이했다.
+   *   ⭐ 바닥을 **파일에 적는다.** 한 번 정해지면 다시 안 센다.
    */
-  let 바닥 = -1;
-  if (처음인가) {
+  let 바닥 = 적힌바닥;
+  if (바닥 == null) {
     const 줄들 = 글.split(/\r?\n/);
     바닥 = Math.max(0, 내마지막(줄들) - 400);
-    console.log(`⚠ 처음 도는 것이라 **바닥을 ${바닥}번 줄에 한 번만** 놓는다(메모 ${줄수}줄).`);
-    console.log('   그 뒤로 바닥은 안 움직인다 — 표시 안 하면 계속 뜬다.\n');
+    console.log(`⚠ 바닥을 **${바닥}번 줄에 한 번만** 놓는다(메모 ${줄수}줄). 다시 안 움직인다.\n`);
+    상태쓰기(본것, 바닥);
   }
 
   const { 것들 } = 새공지(글, 나, 본것, 바닥);
 
   if (process.argv.includes('--봤다')) {
+    /**
+     * ⛔ 한 번에 스무 건 넘게 표시하려 하면 멈춘다. 그만큼은 **읽고 누른 것이 아니다.**
+     *   8/21 에 4,739건을 눌러 버린 자리다. `--진짜다` 를 붙여야만 지나간다.
+     */
+    if (것들.length > 20 && !process.argv.includes('--진짜다')) {
+      console.error(`⛔ ${것들.length}건을 한 번에 「봤다」로 만들려 한다. 그만큼은 읽고 누른 것이 아니다.`);
+      console.error('   정말 다 읽었으면 --진짜다 를 붙인다. 8/21 에 4,739건을 눌러 버린 자리다.');
+      process.exit(1);
+    }
     for (const x of 것들) 본것.add(x.줄);
-    본것쓰기(본것);
+    상태쓰기(본것, 바닥);
     console.log(`✅ ${것들.length}건을 「봤다」로 표시했다 (누적 ${본것.size}건)`);
     console.log(`   → ${path.relative(뿌리, 본것길)}`);
     process.exit(0);
   }
-  if (처음인가) 본것쓰기(본것);
 
   /* ⛔ 0건이면 조용히 있지 않는다. 「없다」를 말해야 봤다는 뜻이 된다 */
   if (!것들.length) {
