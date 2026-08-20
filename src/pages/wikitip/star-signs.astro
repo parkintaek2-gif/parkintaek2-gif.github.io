@@ -16,6 +16,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-star-signs.json';
 
 const 큰띠 = [...d.signs].sort((a, b) => (b.top[0]?.perMillion ?? 0) - (a.top[0]?.perMillion ?? 0));
@@ -112,6 +113,10 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="signs" count={5} />
+
+  <KcwShorts set="signs"
+    says={`Fourteen seconds: the names in six of the twelve signs, and the measurement that says `
+      + `the spread across signs is indistinguishable from chance.`} />
 
   <KcwRelatedArticles page="/star-signs" />
 </WikiTip>
