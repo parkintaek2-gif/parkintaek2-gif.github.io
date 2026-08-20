@@ -58,6 +58,7 @@ import {
 } from './institutions.mjs';
 import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
+import { TRADE } from './trade-data.mjs';
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -406,6 +407,75 @@ async function research(params, tier = 'free') {
   });
 }
 
+/**
+ * GET /v1/trade/exports — 관세청 국가별 월 수출입.
+ *
+ * 직접 관세청 품목별 피드(nitemtrade)가 나오기 전까지의 **국가×월** 서비스다.
+ * 데이터는 KOSIS 360(관세청 통관통계)에서 받아 git 에 번들했다(trade-data.mjs) —
+ * R2 없이도 라이브가 실제 데이터를 준다. 「키 나올 때까지 손놓는다」를 하지 않는다.
+ *
+ * 설계원칙 3 그대로: 필터로 0건인 것은 200·count 0(정상). 안 모은 것만 오류다.
+ */
+function tradeExports(params, tier = 'free') {
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const since = params.get('since'); // YYYY-MM
+  const wantCountry = (params.get('country') || '').trim().toLowerCase();
+
+  const bySince = (m) => (since ? m.month >= since : true);
+
+  let scope, rows, matchedCountry = null;
+  if (wantCountry) {
+    // 영문 국가명 부분일치(대소문자 무시). 사전에 없는 값이면 200·count 0 + 힌트.
+    const hit = TRADE.countries.find(
+      (c) => c.name_en.toLowerCase() === wantCountry || c.name_en.toLowerCase().includes(wantCountry),
+    );
+    if (!hit) {
+      return json(200, {
+        count: 0,
+        results: [],
+        coverage: tradeCoverage(),
+        note: `No partner matched "${params.get('country')}". Use /v1/countries or try a name like "vietnam", "u.s.a", "china".`,
+      });
+    }
+    matchedCountry = hit.name_en;
+    scope = 'partner_country';
+    rows = hit.months.filter(bySince);
+  } else {
+    scope = 'national_total';
+    rows = TRADE.national.filter(bySince);
+  }
+
+  const sliced = rows.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    scope,
+    ...(matchedCountry ? { partner: matchedCountry } : {}),
+    results: sliced.map((m) => ({
+      month: m.month,
+      exports_usd_thousand: m.exports,
+      imports_usd_thousand: m.imports,
+      balance_usd_thousand: m.balance,
+    })),
+    coverage: { ...tradeCoverage(), returned_of: rows.length, partners_available: TRADE.countries.length },
+  });
+}
+
+/** /v1/trade/exports 응답에 붙는 출처·한계. 숨기지 않는다. */
+function tradeCoverage() {
+  return {
+    source: `${TRADE.source.org} — ${TRADE.source.dataset}`,
+    unit: TRADE.source.unit,
+    licence: TRADE.source.licence,
+    granularity: TRADE.granularity,
+    window: TRADE.window,
+    as_of: TRADE.as_of,
+    hs_note: TRADE.hs_note,
+    caveat:
+      'Customs figures are provisional and get revised; the latest month is the least settled. Hong Kong includes entrepôt re-exports trans-shipped onward to mainland China, so its bilateral balance overstates final demand. This is goods trade on a customs basis, not the current account.',
+  };
+}
+
 /* ── 라우트 ─────────────────────────────────────────────────── */
 
 /** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
@@ -427,7 +497,8 @@ async function root() {
       'GET /v1/research':
         'Brokerage target prices and ratings — facts only, no report text. Filter by Korean name, English name or entity id',
       'GET /v1/trade/flash': "Korea's 10-day provisional trade figures (1st, 11th, 21st, 09:00 KST)",
-      'GET /v1/trade/exports': 'Exports and imports by HS code and partner country',
+      'GET /v1/trade/exports':
+        'Exports, imports and balance by partner country and month (customs basis). National totals by default; ?country= for one partner, ?since=YYYY-MM to trim. HS-code granularity arrives with the direct customs feed.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
     contact: 'sibcheongan@gmail.com',
@@ -865,7 +936,7 @@ async function 라우팅(pathname, searchParams, tier) {
   }
   if (pathname === '/v1/trade/exports') {
     meter('trade.exports');
-    return tradeNotReady('nitemtrade');
+    return tradeExports(searchParams, tier);
   }
 
   return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');

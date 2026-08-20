@@ -445,10 +445,16 @@ export function openapi(baseUrl) {
         get: {
           tags: ['Trade'],
           operationId: 'getTradeExports',
-          summary: 'Exports and imports by HS code and partner country',
+          summary: 'Exports, imports and balance by partner country and month',
+          description:
+            'Monthly customs figures (thousand USD). National totals by default; `country` returns one partner, `since` (YYYY-MM) trims the window. Source: Korea Customs Service via KOSIS (table DT_1R11006). HS-code (product) granularity arrives when the direct customs item-trade feed is live; country totals here are authoritative.',
+          parameters: [
+            { name: 'country', in: 'query', required: false, schema: { type: 'string' }, description: 'English partner name, e.g. "vietnam", "u.s.a", "china". Substring match.' },
+            { name: 'since', in: 'query', required: false, schema: { type: 'string', pattern: '^\\d{4}-\\d{2}$' }, description: 'Return months on or after this YYYY-MM.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
           responses: {
-            200: { description: 'Trade series' },
-            404: { description: 'Collection has not started', content: { 'application/json': { schema: ERROR_SCHEMA } } },
+            200: { description: 'Monthly trade series with source, window and caveats' },
           },
         },
       },
