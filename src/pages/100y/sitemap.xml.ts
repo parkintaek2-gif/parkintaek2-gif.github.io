@@ -167,6 +167,11 @@ export const GET: APIRoute = () => {
     { path: '/elementary', priority: '0.8', changefreq: 'monthly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
+    /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이
+       4,773장 중 24장(0.5%)이었다. 그 24장에 한 장을 더한다.
+       ⚠ 지면을 만든 그 자리에서 이 줄을 넣는다 — /after·/region·/elementary·/saju 에 이어
+         **다섯 번째** 같은 실수를 하지 않으려고. */
+    { path: '/nursery', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

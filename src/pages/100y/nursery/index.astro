@@ -1,0 +1,123 @@
+---
+/**
+ * /100y/nursery — 어린이집이 한 곳도 없는 지역
+ *
+ * 🔴 왜 만드나 — 8/21 00:14 에 라이브 사이트맵을 열어 재 보니 4,773장 중
+ *   **대입이 아닌 것이 24장(0.5%)**이었다. 8/15 에 5번이 잰 99.1% 가 99.5% 로 더 나빠졌다.
+ *   사장님 8/21: 「대입에 몰입하지마, **한 점에 불과해**」 · 8/9: 「영 세에서 백 세까지」
+ *
+ * ⛔ 되새김 문서가 못박은 것 — 「«우리가 만들 수 있는 것»에서 새것을 찾지 않는다.
+ *   그게 오늘까지 한 방식이고 천장이 나왔다」
+ *   ⇒ /age 를 마흔 장으로 늘리는 것은 딱 그 짓이다. **0~5세 자리의 자료를 새로 가져왔다.**
+ *
+ * ⭐ 우리 모토 — 「지형을 그려 놓고 바늘은 보는 사람이 세운다」.
+ *   그래서 이 지면은 「어디가 나쁘다」를 말하지 않는다. **어디에 없는가**만 그린다.
+ *
+ * ⛔ 이 자료가 못 가르는 것을 지면에도 그대로 적는다 —
+ *   분모(그 시·도의 지역이 모두 몇인가)가 표에 없다. 그러니 「몇 %가 없다」를 쓰지 않는다.
+ *   지역에 어린이집이 없다는 것이 「그곳 아이가 멀리 다닌다」는 뜻도 아니다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/nursery-none.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 해들 = 자료.해들 as string[];
+const 이번 = 자료.해별[최신];
+const 처음 = 자료.해별[해들[0]];
+const 시도 = 이번.시도 as { 시도: string; 곳: number }[];
+
+/** ⛔ 등수를 매기지 않는다. «어디에 몰려 있나»를 보이려고 많은 쪽부터 늘어놓을 뿐이다 */
+const 가장많은 = 시도[0];
+const 늘어난곳 = (이번.전국 as number) - (처음.전국 as number);
+
+/** 세로 막대 — ⛔ 라이브러리를 쓰지 않는다. 세 해뿐이라 손으로 그린다 */
+const 막대 = (() => {
+  const 값들 = 해들.map((해) => ({ 해, 곳: 자료.해별[해].전국 as number }));
+  const 최대 = Math.max(...값들.map((v) => v.곳));
+  const 높 = 120, 폭 = 64, 사이 = 40;
+  return { 값들, 최대, 높, 폭, 사이, 전체폭: 값들.length * (폭 + 사이) };
+})();
+const desc =
+  `${최신}년 기준 어린이집이 한 곳도 없는 지역이 전국 ${이번.전국}곳입니다. ` +
+  `${해들[0]}년 ${처음.전국}곳에서 ${늘어난곳}곳 늘었습니다. 시·도별로 어디에 몰려 있는지 적었습니다.`;
+---
+
+<HundredYear title={`어린이집이 한 곳도 없는 지역 — ${최신}년 전국 ${이번.전국}곳`} description={desc}>
+  <h1>어린이집이 한 곳도 없는 지역</h1>
+  <p class="sub">
+    <strong>{최신}년 기준 전국 {이번.전국}곳</strong>입니다.
+    {' '}{해들[0]}년에는 {처음.전국}곳이었으니 <strong>{늘어난곳}곳 늘었습니다.</strong>
+  </p>
+
+  <p class="note">
+    ⚠ 여기서 「{자료.단위}」는 <strong>{자료.정의}</strong>
+    {' '}그리고 저희는 어디가 낫고 못하다고 쓰지 않습니다. <strong>어디에 없는지</strong>만 적습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년, 어린이집이 한 곳도 없는 지역</p>
+    <p class="answer-num">{이번.전국.toLocaleString()}곳</p>
+    <p class="answer-sub">
+      시·도 열일곱 칸을 더한 값과 표의 전국 값이 같습니다 — 저희가 맞춰 보았습니다
+    </p>
+  </div>
+
+  <h2>세 해 동안 어떻게 움직였나</h2>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${막대.전체폭} 190`} width="100%" style="max-width:360px" role="img"
+         aria-label={`전국 미설치 지역 수 ${막대.값들.map((v) => `${v.해}년 ${v.곳}곳`).join(', ')}`}>
+      {막대.값들.map((v, i) => {
+        const h = Math.round((v.곳 / 막대.최대) * 막대.높);
+        const x = i * (막대.폭 + 막대.사이) + 막대.사이 / 2;
+        return (
+          <g>
+            <rect x={x} y={150 - h} width={막대.폭} height={h} rx="4"
+                  fill={i === 막대.값들.length - 1 ? '#c9a84c' : '#8b8b96'} />
+            <text x={x + 막대.폭 / 2} y={150 - h - 8} text-anchor="middle" font-size="16" fill="currentColor">{v.곳}</text>
+            <text x={x + 막대.폭 / 2} y={172} text-anchor="middle" font-size="14" fill="currentColor">{v.해}</text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+  <p class="note">
+    ⚠ 세 해뿐입니다. 세 점으로 «흐름»을 말하기는 이릅니다 — 저희는 <strong>세 해의 값</strong>만 적습니다.
+  </p>
+
+  <h2>시·도별로 어디에 있나</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>{최신}년</th><th>{해들[0]}년</th></tr></thead>
+      <tbody>
+        {시도.map((r) => {
+          const 옛 = (처음.시도 as any[]).find((x) => x.시도 === r.시도);
+          return (
+            <tr>
+              <td>{r.시도}</td>
+              <td>{r.곳}곳</td>
+              <td>{옛 ? `${옛.곳}곳` : '—'}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ <strong>이것은 등수가 아닙니다.</strong> 많은 쪽부터 늘어놓았을 뿐입니다.
+    {' '}{가장많은.시도}가 {가장많은.곳}곳으로 가장 많지만, 그 시·도에 지역이 몇인지가
+    {' '}<strong>이 표에 없습니다.</strong> 그래서 「몇 %가 없다」를 저희는 쓰지 못합니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <NextQuestionBrief 모은것="어린이집 미설치 지역 자료" />
+</HundredYear>
