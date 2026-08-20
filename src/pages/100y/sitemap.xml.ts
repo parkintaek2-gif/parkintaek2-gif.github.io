@@ -180,6 +180,9 @@ export const GET: APIRoute = () => {
     { path: '/longest-job', priority: '0.8', changefreq: 'monthly' },
     /* 🔴 초등 저학년(6~9) — 어린이집(0~5)·유치원(3~5) 다음 문. 「방과후학교 참여율」·「늘봄학교」로 찾는 검색을 받는다 */
     { path: '/afterschool', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 0~100세 전부 — 우리 이름값에 가장 맞는 자료다(완전생명표 1세별).
+       「기대수명」·「65세 기대여명」·「몇 살까지 사나」로 찾는 검색을 받는다 */
+    { path: '/years-left', priority: '0.9', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
