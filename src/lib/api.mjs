@@ -416,6 +416,31 @@ async function research(params, tier = 'free') {
  *
  * 설계원칙 3 그대로: 필터로 0건인 것은 200·count 0(정상). 안 모은 것만 오류다.
  */
+/** 국가 질의어 정규화. 대소문자·점·공백을 지운다("U.S.A"→"usa"). */
+const 국가정규화 = (s) => String(s).toLowerCase().replace(/[^a-z0-9]/g, '');
+
+/** ISO 별칭 → KOSIS 국명에 든 조각. "CN"·"CHN"·"united states" 를 잇는다. */
+const 국가별칭 = {
+  cn: 'china', chn: 'china',
+  us: 'usa', usa: 'usa', unitedstates: 'usa', unitedstatesofamerica: 'usa',
+  uk: 'unitedkingdom', gb: 'unitedkingdom', gbr: 'unitedkingdom',
+  jp: 'japan', jpn: 'japan', vn: 'vietnam', vnm: 'vietnam',
+  hk: 'hongkong', hkg: 'hongkong', tw: 'taiwan', twn: 'taiwan',
+  de: 'germany', deu: 'germany', sg: 'singapore', sgp: 'singapore',
+  my: 'malaysia', mys: 'malaysia', in: 'india', ind: 'india',
+  au: 'australia', aus: 'australia', sa: 'saudiarabia', sau: 'saudiarabia',
+  id: 'indonesia', idn: 'indonesia', th: 'thailand', tha: 'thailand',
+  ph: 'philippines', phl: 'philippines', ae: 'unitedarabemirates', are: 'unitedarabemirates',
+};
+
+/** 질의어를 TRADE.countries 의 한 나라로 잇는다. 못 이으면 null(→ 400). */
+function 국가찾기(q) {
+  const n0 = 국가정규화(q);
+  if (!n0) return null;
+  const target = 국가별칭[n0] || n0;
+  return TRADE.countries.find((c) => 국가정규화(c.name_en).includes(target)) || null;
+}
+
 function tradeExports(params, tier = 'free') {
   const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
   const limit = Math.min(Number(params.get('limit')) || 50, 최대);
@@ -426,17 +451,16 @@ function tradeExports(params, tier = 'free') {
 
   let scope, rows, matchedCountry = null;
   if (wantCountry) {
-    // 영문 국가명 부분일치(대소문자 무시). 사전에 없는 값이면 200·count 0 + 힌트.
-    const hit = TRADE.countries.find(
-      (c) => c.name_en.toLowerCase() === wantCountry || c.name_en.toLowerCase().includes(wantCountry),
-    );
+    // 영문 국명·ISO 코드(CN·CHN·US·USA…)를 잇는다. 못 알아듣는 이름은 200·0 이 아니라 오류다 —
+    // 243개국이 다 있는데 0 을 「자료 없음」으로 읽고 떠나는 자리이기 때문이다(2번 지시 8/21).
+    const hit = 국가찾기(params.get('country'));
     if (!hit) {
-      return json(200, {
-        count: 0,
-        results: [],
-        coverage: tradeCoverage(),
-        note: `No partner matched "${params.get('country')}". Use /v1/countries or try a name like "vietnam", "u.s.a", "china".`,
-      });
+      return err(
+        400,
+        'unknown_country',
+        `No partner matched "${params.get('country')}".`,
+        'Use an English name or ISO code — e.g. country=china | CN | vietnam | VN | US | "u.s.a". All 243 partners are present; see /v1/countries.',
+      );
     }
     matchedCountry = hit.name_en;
     scope = 'partner_country';
