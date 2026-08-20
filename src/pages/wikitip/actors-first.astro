@@ -17,6 +17,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-actors-first.json';
 
 const 인니 = d.firstByEdition.id;
@@ -102,9 +103,9 @@ const jsonLd = {
     <p>
       Of the {d.rowsPerEdition * 4} places across the four tables,
       {' '}<b>{d.inAllFour.length}</b> names fill a place in all of them:
-      {' '}<b>{d.inAllFour.join(', ')}</b>. None of the three is first anywhere except
-      {' '}{d.countryNames.ms}, where {말레.name} is. Travelling widely and topping a list are not
-      the same thing here.
+      {' '}<b>{d.inAllFour.join(', ')}</b>. Not one of them is first in any of the four columns —
+      the names at the top are {인니.name}, {베트.name} and {말레.name}, and none of those three
+      is on every list. Travelling widely and topping a list are not the same thing here.
     </p>
   </section>
 
@@ -131,6 +132,8 @@ const jsonLd = {
       On this panel there were <b>{d.unresolvedNames.count}</b>.
     </p>
   </section>
+
+  <KcwCardnews set="actors" count={5} />
 
   <KcwRelatedArticles page="/actors-first" />
 </WikiTip>

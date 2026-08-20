@@ -59,7 +59,99 @@ export const 벌목록 = {
   shelf: { 자료: 'src/data/wikitip-what-kind-fell.json', 만들기: (d) => 선반벌짓기(d) },
   works: { 자료: 'src/data/wikitip-works-and-readers.json', 만들기: (d) => 작품수벌짓기(d) },
   outside: { 자료: 'src/data/wikitip-places-outside.json', 만들기: (d) => 밖벌짓기(d) },
+  actors: { 자료: 'src/data/wikitip-actors-first.json', 만들기: (d) => 배우벌짓기(d) },
 };
+
+/**
+ * 배우 벌 — `/actors-first`.
+ *
+ * 🔴 사장님 지시(8/16) — 「스타의 이름을 넣는다」. 그래서 **표지가 이름 셋**이다.
+ *   수는 이름 뒤에 선다. 「배우 1,023명」으로 시작하면 아무도 안 멈춘다.
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **한 이름만 크게 띄우지 않는다.** 이 편의 요점은 1등이 **셋**이라는 것이다.
+ *   ⛔ 넷 다에 든 셋이 **어디서도 1등이 아니라는 것**을 같이 적는다 —
+ *     안 적으면 「이 셋이 제일 인기」로 읽힌다.
+ *   ⛔ 가수와 배우를 갈랐다고 말하지 않는다. 명단이 출연진이라 IU·T.O.P 가 섞여 있다.
+ *   ⛔ 수를 손으로 안 박는다. 전부 자료에서 읽는다.
+ */
+export function 배우벌짓기(d) {
+  const 판 = d.editions;
+  const 첫 = (p) => d.firstByEdition[p];
+  const 나라 = (p) => d.countryNames[p];
+
+  return {
+    갈피: 'actors-first',
+    빛: '#f0b6c8',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Wikipedias · ${d.actorsMeasured.toLocaleString('en-US')} Korean actors`,
+        큰: `${첫('vi').name},\n${첫('id').name},\n${첫('ms').name}`,
+        아래: `Four Southeast Asian reading lists, **${d.firsts.distinct} different names** at the `
+          + `top. ${첫('vi').name} leads ${나라('vi')} and ${나라('th')}; `
+          + `${첫('id').name} leads ${나라('id')}; ${첫('ms').name} leads ${나라('ms')}.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Who is first,\ncountry by country',
+        머리: ['Country', 'First', 'Reads per million'],
+        줄: 판.map((p) => [나라(p), 첫(p).name, String(첫(p).perMillion)]),
+        아래: 'Reads are per million reads of that whole Wikipedia, so a small edition is not '
+          + '**penalised for being small**. We never add the four together — that would let the '
+          + 'largest edition decide the answer.',
+      },
+      {
+        꼴: '표',
+        제목: `The ${d.inAllFour.length} names on\nevery list`,
+        머리: ['Name', nagara(d, 'id'), nagara(d, 'vi'), nagara(d, 'th'), nagara(d, 'ms')],
+        줄: d.inAllFour.map((n) => [n, ...판.map((p) => {
+          const 자리 = d.topByEdition[p].find((x) => x.name === n);
+          return 자리 ? `#${자리.rank}` : '—';
+        })]),
+        /**
+         * 🔴 8/20 — 처음에 「Only Moon Ga-young is both」이라고 **손으로 적었다가** 카드를
+         *   눈으로 보고 잡았다. Moon Ga-young 은 넷 다에 든 셋에 **없다.**
+         *   ⛔ 겹치는지는 세어서 말한다. 지어내지 않는다.
+         */
+        아래: (() => {
+          const 겹 = d.inAllFour.filter((n) => 판.some((p) => 첫(p).name === n));
+          return 'Travelling everywhere and topping a list are **not the same thing**. '
+            + (겹.length
+              ? `${겹.join(', ')} manages both.`
+              : `**None of these ${d.inAllFour.length} is first anywhere.** The names at the top `
+                + `of each list are different names again.`);
+        })(),
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not popularity — this counts people opening an encyclopaedia article',
+          'Not a singer/actor split — the panel is a cast list, so IU and T.O.P are on it',
+          'Not why — the music lists have one leader and these have three, and we did not measure that',
+        ],
+        아래: `An entry arriving as a bare Wikidata number is dropped rather than printed as a `
+          + `name. On this panel there were **${d.unresolvedNames.count}**.`,
+      },
+      {
+        꼴: '끝',
+        제목: 'Four countries,\nfour different\nfirst names',
+        글: 'We rank each edition on its own, because the useful thing here is that they disagree.'
+          + '\n\n**Pooling them would have deleted it.**',
+        길: `${주소}/actors-first`,
+        곁: `Wikimedia Pageviews · human traffic only · ${String(d.window).split(',')[0]}`,
+      },
+    ],
+  };
+}
+
+/** 표 머리에 쓸 짧은 나라 이름 */
+function nagara(d, p) {
+  return d.countryNames[p];
+}
 
 /**
  * 밖 벌 — 98편째 기사(`/places` 정정).

@@ -82,6 +82,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const wk = 읽기('src/data/wikitip-what-kind-fell.json');
   const wr = 읽기('src/data/wikitip-works-and-readers.json');
   const ou = 읽기('src/data/wikitip-places-outside.json');
+  const af = 읽기('src/data/wikitip-actors-first.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
   const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -341,6 +342,22 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `involved, not only where a thing is.\n\n${주소}/places`,
       alt: 'Five cards on a correction: nineteen places that were not in Korea, why the country '
         + 'field let them in, and why our own first check found nothing.',
+    },
+    {
+      /**
+       * 🔴 사장님(8/16) — 스타 이름이 검색어다. 그래서 **첫 줄이 이름 셋**이다.
+       * ⛔ 한 이름만 크게 쓰지 않는다 — 이 편의 요점은 1등이 **셋**이라는 것이다.
+       */
+      key: 'actors',
+      page: `${주소}/actors-first`,
+      images: 장('actors'),
+      x: `${af.firstByEdition.vi.name}, ${af.firstByEdition.id.name}, `
+        + `${af.firstByEdition.ms.name}.\n\n`
+        + `Four Southeast Asian Wikipedias, ${af.firsts.distinct} different Korean actors at the `
+        + `top. ${af.inAllFour.join(', ')} are on all four lists — and none of them is first `
+        + `anywhere.\n\n${주소}/actors-first`,
+      alt: 'Five cards on which Korean actor each Southeast Asian Wikipedia reads most, and the '
+        + 'three names that appear on every list without leading any of them.',
     },
   ];
 }
