@@ -165,12 +165,8 @@ export const GET: APIRoute = () => {
        ⚠ 이 자 안에 「/after · /region 때와 **세 번째 같은 실수**」라고 적혀 있다.
          지면을 만들고 여기 한 줄을 안 넣으면 **네 번째**가 된다. 만든 날(8/16)에 같이 넣는다. */
     { path: '/elementary', priority: '0.8', changefreq: 'monthly' },
-    /* 🔴 스타 사주 — 「(스타 이름) 사주」로 찾는 검색을 받는 자리다(8/20 실측 15명 중 14명).
-       ⚠ 8/20 에 지면을 내고 여기 한 줄을 안 넣어 **네 번째 같은 실수**를 할 뻔했다 —
-         /after · /region · /elementary 에 이어서다. 기사판(/saju/iu)도 함께 넣는다.
-       ⭐ 카드·영상은 검색에 안 걸린다. 밖에서 사람을 데려오는 것은 **글자**다(2번 8/20). */
-    { path: '/saju', priority: '0.8', changefreq: 'monthly' },
-    { path: '/saju/iu', priority: '0.7', changefreq: 'monthly' },
+    /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
+       「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
