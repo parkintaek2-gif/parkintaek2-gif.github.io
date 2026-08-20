@@ -1,0 +1,165 @@
+<!-- ⛔ 이것은 «본»이다. 5번(K Culture Wire)이 만들 커뮤니티의 자리를 데워 두는 것뿐이다.
+     2번이 2026-08-21 07:0x 에 만들었다. 5번이 돌아오면 이 위에 5번 것으로 갈아엎는다.
+     ⭐ 이름 열두 개는 지어낸 것이 아니다 — src/data/wikitip-star-signs.json 에서 뽑았다
+        (띠마다 perMillion 이 가장 큰 사람). 사람 수도 그 자료의 withReads+withoutReads 다.
+     ⛔ 서버·글쓰기·로그인이 없다. 단추는 일부러 아무 데도 안 간다(disabled). -->
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>스타 방 — 커뮤니티 첫 본</title>
+<style>
+  :root{
+    --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc;
+    --card:#ffffff; --accent:#b4472a; --accent-soft:#fdf3f0; --shadow:0 1px 2px rgba(20,22,26,.05),0 8px 24px rgba(20,22,26,.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216;
+      --card:#181b21; --accent:#e8825f; --accent-soft:#261915; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216;
+    --card:#181b21; --accent:#e8825f; --accent-soft:#261915; --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.65 'Pretendard','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:56px 20px 96px}
+  header{margin-bottom:40px;max-width:60ch}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);font-weight:700;margin:0 0 12px}
+  h1{font-size:clamp(30px,5vw,46px);line-height:1.18;letter-spacing:-.02em;margin:0 0 14px;font-weight:800}
+  .lede{color:var(--ink-2);font-size:17px;margin:0}
+  .rooms{display:grid;gap:18px;grid-template-columns:repeat(auto-fill,minmax(248px,1fr))}
+  .room{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 20px 20px;
+    box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;
+    transition:transform .18s ease, box-shadow .18s ease}
+  .room:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(20,22,26,.06),0 16px 36px rgba(20,22,26,.10)}
+  .room-sign{display:flex;align-items:center;gap:9px;margin-bottom:6px}
+  /* ⛔ width 를 34px 로 굳히면 「호랑이」·「원숭이」가 두 줄로 넘친다.
+     2번이 지면을 열어 보고 잡았다 — 셈으로는 안 잡히는 흠이다.
+     min-width 로 두고 글자가 길면 옆으로 늘어나게 한다. */
+  .glyph{min-width:34px;height:34px;padding:0 10px;border-radius:11px;background:var(--accent-soft);
+    color:var(--accent);display:inline-flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;white-space:nowrap;flex:none}
+  .sign-en{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);font-weight:700}
+  .room-star{font-size:21px;line-height:1.25;letter-spacing:-.01em;margin:0;font-weight:750}
+  .room-meta{margin:0;color:var(--ink-2);font-size:13.5px}
+  .room-meta b{color:var(--ink);font-variant-numeric:tabular-nums}
+  .room-also{margin:2px 0 14px;color:var(--ink-2);font-size:13px;opacity:.85}
+  .room-cta{margin-top:auto;width:100%;padding:11px 14px;border-radius:11px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;font-weight:600;cursor:not-allowed}
+  .note{margin-top:44px;padding:20px 22px;border-left:3px solid var(--accent);background:var(--accent-soft);
+    border-radius:0 12px 12px 0;color:var(--ink);font-size:14.5px}
+  .note p{margin:0 0 8px} .note p:last-child{margin:0}
+  .note b{font-weight:750}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Community · 본</p>
+    <h1>스타 방</h1>
+    <p class="lede">열두 띠에서 한 사람씩. 방마다 같은 띠로 묶인 사람이 몇인지 함께 적었습니다.
+      글을 줄로 세우지 않고 <b>방을 카드로</b> 보입니다.</p>
+  </header>
+  <main class="rooms">
+      <article class="room">
+        <div class="room-sign"><span class="glyph">쥐</span><span class="sign-en">Rat</span></div>
+        <h2 class="room-star">Go Youn-jung</h2>
+        <p class="room-meta">1996년생 · 같은 띠 <b>89</b>명</p>
+        <p class="room-also">Lee Je-hoon · Kim Se-jeong</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">소</span><span class="sign-en">Ox</span></div>
+        <h2 class="room-star">Cha Eun-woo</h2>
+        <p class="room-meta">1997년생 · 같은 띠 <b>82</b>명</p>
+        <p class="room-also">Song Joong-ki · Lee Kwang-soo</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">호랑이</span><span class="sign-en">Tiger</span></div>
+        <h2 class="room-star">Kim Seon-ho</h2>
+        <p class="room-meta">1986년생 · 같은 띠 <b>78</b>명</p>
+        <p class="room-also">Park Min-young · Lee Jae-wook</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">토끼</span><span class="sign-en">Rabbit</span></div>
+        <h2 class="room-star">Park Ji-hoon</h2>
+        <p class="room-meta">1999년생 · 같은 띠 <b>86</b>명</p>
+        <p class="room-also">Lee Min-ho · Ji Chang-wook</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">용</span><span class="sign-en">Dragon</span></div>
+        <h2 class="room-star">Lee Chae-min</h2>
+        <p class="room-meta">2000년생 · 같은 띠 <b>90</b>명</p>
+        <p class="room-also">Karina · Kim Sae-ron</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">뱀</span><span class="sign-en">Snake</span></div>
+        <h2 class="room-star">Kim Woo-bin</h2>
+        <p class="room-meta">1989년생 · 같은 띠 <b>76</b>명</p>
+        <p class="room-also">So Ji-sub · Lee Jong-suk</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">말</span><span class="sign-en">Horse</span></div>
+        <h2 class="room-star">Im Yoon-ah</h2>
+        <p class="room-meta">1990년생 · 같은 띠 <b>77</b>명</p>
+        <p class="room-also">Park Bo-gum · Lim Ji-yeon</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">양</span><span class="sign-en">Goat</span></div>
+        <h2 class="room-star">Byeon Woo-seok</h2>
+        <p class="room-meta">1991년생 · 같은 띠 <b>91</b>명</p>
+        <p class="room-also">Kim Go-eun · Gong Yoo</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">원숭이</span><span class="sign-en">Monkey</span></div>
+        <h2 class="room-star">Kim Ji-won</h2>
+        <p class="room-meta">1992년생 · 같은 띠 <b>91</b>명</p>
+        <p class="room-also">Kim Tae-hee · Jang Ki-Yong</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">닭</span><span class="sign-en">Rooster</span></div>
+        <h2 class="room-star">IU</h2>
+        <p class="room-meta">1993년생 · 같은 띠 <b>92</b>명</p>
+        <p class="room-also">Song Hye-kyo · Jun Ji-hyun</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">개</span><span class="sign-en">Dog</span></div>
+        <h2 class="room-star">Bae Suzy</h2>
+        <p class="room-meta">1994년생 · 같은 띠 <b>103</b>명</p>
+        <p class="room-also">Park Ji-hoon · Hyun Bin</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+      <article class="room">
+        <div class="room-sign"><span class="glyph">돼지</span><span class="sign-en">Pig</span></div>
+        <h2 class="room-star">Ma Dong-seok</h2>
+        <p class="room-meta">1971년생 · 같은 띠 <b>92</b>명</p>
+        <p class="room-also">Kim Da-mi · Lee Do-hyun</p>
+        <button class="room-cta" type="button" disabled>이야기 나누기</button>
+      </article>
+  </main>
+  <aside class="note">
+    <p><b>이것은 «본»입니다.</b> 5번(K Culture Wire)이 만들 커뮤니티의 자리를 데워 두는 것입니다.
+       5번이 돌아오면 이 위에 5번 것으로 갈아엎습니다.</p>
+    <p>이름 열두 개는 지어낸 것이 아닙니다 — <b>/star-signs 자료에서 뽑았습니다</b>
+       (띠마다 perMillion 이 가장 큰 사람). 사람 수도 그 자료의 수입니다.</p>
+    <p>⛔ 서버·글쓰기·로그인이 없습니다. 「이야기 나누기」는 <b>일부러 아무 데도 안 갑니다.</b>
+       다른 자리가 베낄 <b>모양</b>이 필요한 것이지 완성품이 필요한 것이 아니기 때문입니다.</p>
+  </aside>
+</div>
+</body>
+</html>
