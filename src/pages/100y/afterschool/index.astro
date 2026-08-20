@@ -1,0 +1,164 @@
+---
+/**
+ * /100y/afterschool — 학교가 한 시에 끝나면 아이는 어디로 가나
+ *
+ * 🔴 2번 지시(8/21 02:2x) — 0~5세 다음 문. 어린이집(0~5) → 유치원(3~5) → **초등 저학년(6~9)**.
+ *   사장님 「0세~100세다. 키즈부터」.
+ *
+ * ⛔ 2번이 3번 자리 규칙으로 못박아 준 것 —
+ *   **「자료가 없다」고 적기 전에 「내가 다 받았나」를 먼저 묻는다.**
+ *   그래서 기간부터 물어보고 2007년부터 다 받았다(어제 세 해만 받고 헛디뎠다).
+ *
+ * ⛔ 이 지면이 조심할 자리 셋 —
+ *   ① 2020년은 참여율 «값»이 없다. 선을 이으면 거짓이 된다 — 끊어 그린다
+ *   ② 부모·지역 표는 **학교급을 안 가른다.** 초등 52%와 같은 칸에 놓고 견주지 않는다
+ *   ③ 「지역」이 시·도가 아니라 대도시·중소도시·읍면이다. 열일곱 합 대조를 쓸 수 없다 —
+ *      대신 표 셋의 「평균」이 같은 값인지 맞대 본다(그것이 이 지면의 자가 대조다)
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/afterschool.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 흐름값 = 자료.초등흐름 as { 해: string; 참여율: number }[];
+const 초등 = (자료.학교급 as any[])[0];
+const 없는해 = (자료['⛔ 참여율 값이 없는 해'] as string[]);
+const 대조 = 자료.자가대조;
+
+/** 가장 높았던 해 — ⛔ 짐작이 아니라 값에서 찾는다 */
+const 꼭대기 = 흐름값.reduce((a, b) => (b.참여율 > a.참여율 ? b : a));
+const 바닥 = 흐름값.reduce((a, b) => (b.참여율 < a.참여율 ? b : a));
+
+/**
+ * 선 — ⛔ 라이브러리를 쓰지 않는다.
+ * ⚠ 값이 없는 해에서 **선을 끊는다.** 이어 버리면 그 해에도 잰 것처럼 보인다.
+ */
+const 그림 = (() => {
+  const 해전부 = 자료.해들 as string[];
+  const 폭 = 640, 높 = 200, 왼 = 10, 오 = 10, 위 = 26, 아래 = 32;
+  const 최대 = Math.max(...흐름값.map((v) => v.참여율));
+  const 최소 = Math.min(...흐름값.map((v) => v.참여율));
+  const x = (해: string) => 왼 + (해전부.indexOf(해) * (폭 - 왼 - 오)) / (해전부.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  /* 값이 있는 해가 이어질 때만 잇는다 */
+  const 토막: string[] = [];
+  let 현재: string[] = [];
+  for (const 해 of 해전부) {
+    const r = 흐름값.find((v) => v.해 === 해);
+    if (!r) { if (현재.length > 1) 토막.push(현재.join(' ')); 현재 = []; continue; }
+    현재.push(`${현재.length ? 'L' : 'M'}${x(해).toFixed(1)},${y(r.참여율).toFixed(1)}`);
+  }
+  if (현재.length > 1) 토막.push(현재.join(' '));
+  return { 폭, 높, x, y, 토막, 해전부 };
+})();
+
+const desc =
+  `${최신}년 초등학교 늘봄학교·방과후학교 참여율은 ${초등.참여율}%입니다. ` +
+  `읍면지역이 ${(자료.지역 as any[])[4].참여율}%로 대도시 ${(자료.지역 as any[])[0].참여율}%보다 높고, ` +
+  `맞벌이와 외벌이의 참여율은 거의 같습니다. 출처와 한계를 함께 적었습니다.`;
+---
+
+<HundredYear title={`학교가 한 시에 끝나면 — 초등 방과후 참여율 ${초등.참여율}%`} description={desc}>
+  <h1>학교가 한 시에 끝나면 아이는 어디로 가나</h1>
+  <p class="sub">
+    {최신}년 기준 초등학교 학생의 <strong>{초등.참여율}%</strong>가
+    {' '}늘봄학교·방과후학교에 참여합니다. 절반쯤입니다.
+  </p>
+
+  <p class="note">
+    ⚠ 여기서 참여율은 <strong>「{자료.유형}」</strong> 기준입니다.
+    {' '}유상·무상을 함께 센 값이라, 무상만 세는 다른 발표와 수가 다를 수 있습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년 초등학교 참여율</p>
+    <p class="answer-num">{초등.참여율}%</p>
+    <p class="answer-sub">
+      중학교 {(자료.학교급 as any[])[1].참여율}% · 고등학교 {(자료.학교급 as any[])[2].참여율}%
+    </p>
+  </div>
+
+  <h2>{자료.해들[0]}년부터 어떻게 움직였나</h2>
+  <p>
+    {꼭대기.해}년 <strong>{꼭대기.참여율}%</strong>가 가장 높았고, {바닥.해}년 <strong>{바닥.참여율}%</strong>가 가장 낮았습니다.
+    {' '}지금은 {초등.참여율}%입니다.
+  </p>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${그림.폭} ${그림.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`초등학교 방과후 참여율 — ${흐름값.map((v) => `${v.해}년 ${v.참여율}%`).join(', ')}`}>
+      {그림.토막.map((d) => <path d={d} fill="none" stroke="#c9a84c" stroke-width="2.5" />)}
+      {흐름값.map((v) => (
+        <g>
+          <circle cx={그림.x(v.해)} cy={그림.y(v.참여율)} r={v.해 === 꼭대기.해 || v.해 === 바닥.해 || v.해 === 최신 ? 4.5 : 2.5}
+                  fill={v.해 === 꼭대기.해 || v.해 === 바닥.해 || v.해 === 최신 ? '#c9a84c' : '#8b8b96'} />
+          {(v.해 === 꼭대기.해 || v.해 === 바닥.해 || v.해 === 최신) && (
+            <text x={그림.x(v.해)} y={그림.y(v.참여율) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.참여율}</text>
+          )}
+        </g>
+      ))}
+      {그림.해전부.map((해, i) => (i % 4 === 0 || i === 그림.해전부.length - 1) && (
+        <text x={그림.x(해)} y={그림.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{해}</text>
+      ))}
+    </svg>
+  </div>
+  <p class="note">
+    ⛔ <strong>{없는해.join(' · ')}년 자리에서 선이 끊겨 있습니다.</strong> 그 해에는 이 표에 참여율 값이 없습니다
+    {' '}(EBS 교재 칸만 있습니다). 저희가 못 받은 것이 아니고, 왜 그 해만 없는지는 표가 말하지 않습니다.
+    {' '}<strong>이어서 그리면 그 해에도 잰 것처럼 보이기 때문에 끊었습니다.</strong>
+  </p>
+
+  <h2>읍면이 대도시보다 높습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>어디</th><th>참여율</th></tr></thead>
+      <tbody>
+        {(자료.지역 as any[]).map((r) => (
+          <tr><td>{r.이름}</td><td>{r.참여율}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 이 표는 <strong>학교급을 가르지 않습니다</strong> — 초·중·고를 합친 값입니다.
+    {' '}그래서 위의 초등학교 {초등.참여율}%와 <strong>같은 칸에 놓고 견주면 안 됩니다.</strong>
+    {' '}그리고 여기서 「지역」은 시·도가 아니라 대도시·중소도시·읍면지역입니다.
+  </p>
+
+  <h2>맞벌이라고 더 쓰지는 않습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>부모가</th><th>참여율</th></tr></thead>
+      <tbody>
+        {(자료.부모 as any[]).map((r) => (
+          <tr><td>{r.이름}</td><td>{r.참여율}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    맞벌이 {(자료.부모 as any[])[0].참여율}% 와 외벌이 {(자료.부모 as any[])[1].참여율}% 가 거의 같습니다.
+    {' '}<strong>이 표는 왜 그런지는 말하지 않습니다.</strong> 저희도 모릅니다 — 값만 적습니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    이 표에는 시·도가 없어 「열일곱을 더해 전국과 맞추기」를 쓸 수 없었습니다.
+    {' '}대신 <strong>표 셋의 「평균」 칸이 같은 값인지</strong> 맞대 보았습니다 —
+    {' '}학교급표 {대조.평균들.학교급표}% · 부모표 {대조.평균들.부모표}% · 지역표 {대조.평균들.지역표}%
+    {' '}로 <strong>{대조.맞나 ? '셋이 같습니다' : '셋이 다릅니다'}</strong>.
+    {' '}{대조.맞나 ? '그래서 세 표를 한 지면에 놓았습니다.' : '달라서 한 지면에 놓을 수 없습니다.'}
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+    {' '}<a href="/kindergarten">유치원</a> · <a href="/nursery">어린이집</a> · <a href="/elementary">초등학교는 몇 살인가요</a>
+  </p>
+
+  <NextQuestionBrief 모은것="늘봄·방과후 참여율 자료" />
+</HundredYear>
