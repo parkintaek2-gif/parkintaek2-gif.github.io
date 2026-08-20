@@ -26,8 +26,14 @@ function cell(v: unknown): string {
 }
 
 export const GET: APIRoute = () => {
+  // ⚠ 무료는 **미리보기**다 — 전국 합 + 큰 상대국 20국. 값을 부르기 전에 물건을 보인다.
+  //   전체 243개국은 파는 지면(/data/korea-trade-dataset)에서 판다.
+  const PREVIEW = 20;
+  const preview = TRADE.countries.slice(0, PREVIEW);
+
   const head = [
-    '# Korea trade balance — exports, imports and balance by partner country and month',
+    '# Korea trade balance — FREE PREVIEW (national totals + the 20 largest partners)',
+    `# Full dataset: all ${TRADE.countries.length} partner countries — https://seoulmarkets.com/data/korea-trade-dataset`,
     `# Window ${TRADE.window.first_month} to ${TRADE.window.latest_month} (${TRADE.window.months} months). Unit: ${TRADE.source.unit}.`,
     `# Source: ${TRADE.source.org} — ${TRADE.source.dataset}.`,
     `# Licence: ${TRADE.source.licence}. We parsed, normalised and translated.`,
@@ -35,7 +41,7 @@ export const GET: APIRoute = () => {
     '# country = "TOTAL" rows are Korea\'s national totals across all partners.',
     '# Customs figures are provisional and get revised; the latest month is least settled.',
     '# Hong Kong includes entrepot re-exports onward to mainland China. Goods trade, customs basis.',
-    '# Not investment advice. https://seoulmarkets.com/v1/trade/exports',
+    '# Not investment advice.',
   ].join('\n');
 
   const cols = ['country_en', 'month', 'exports_usd_thousand', 'imports_usd_thousand', 'balance_usd_thousand'];
@@ -44,7 +50,7 @@ export const GET: APIRoute = () => {
   for (const m of TRADE.national) {
     lines.push([cell('TOTAL'), m.month, m.exports, m.imports, m.balance].map(cell).join(','));
   }
-  for (const c of TRADE.countries) {
+  for (const c of preview) {
     for (const m of c.months) {
       lines.push([c.name_en, m.month, m.exports, m.imports, m.balance].map(cell).join(','));
     }

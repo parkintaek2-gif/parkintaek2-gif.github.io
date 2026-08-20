@@ -1,0 +1,53 @@
+---
+/**
+ * `/pricing` — 값을 묻는 손님이 처음 치는 주소. 404 였다(2번 8/21). 카탈로그로 잇는다.
+ * 파는 지면들은 /data 에 있고, 첫 유료 상품은 /data/korea-trade-dataset 다.
+ */
+import Base from '../layouts/Base.astro';
+
+const TITLE = 'Pricing';
+const DESC = 'What SeoulMarkets sells and what it costs. Datasets built from Korean official data, '
+  + 'normalised to English. Company-level tables are free; packaged datasets are one-time buys.';
+---
+
+<Base title={TITLE} description={DESC} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets</p>
+      <h1>Pricing</h1>
+      <p class="lead">
+        We build datasets from Korean official filings and hand them over in English. Company-level
+        tables are free. Packaged datasets are a one-time buy — no subscription.
+      </p>
+      <ul class="list">
+        <li>
+          <a href="/data/korea-trade-dataset"><b>Korea trade dataset</b></a> — every partner country,
+          every month, exports/imports/balance. <b>$29, one time.</b>
+          <span class="free"><a href="/data/korea-trade-balance.csv">free preview CSV</a></span>
+        </li>
+        <li>
+          <a href="/data"><b>The full data catalogue →</b></a> — sector workforce panel, broker
+          target-price accuracy, board composition and more (licensing).
+        </li>
+      </ul>
+      <p class="fine">Source data is published by Korean agencies under an unrestricted-use licence. We
+        parse, normalise and translate. Not investment advice.</p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { padding: 0 1rem; }
+  .pp { max-width: 42rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .6rem; }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.6rem; }
+  .list { list-style: none; padding: 0; margin: 0 0 2rem; }
+  .list li { padding: 1rem 1.1rem; margin: 0 0 .8rem; background: var(--card);
+             border: 1px solid var(--line); border-radius: 8px; line-height: 1.6; font-size: .95rem; }
+  .list .free { display: block; margin-top: .3rem; font-size: .85rem; color: var(--muted); }
+  .pp a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+  .pp a:hover { color: var(--ink); }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+</style>

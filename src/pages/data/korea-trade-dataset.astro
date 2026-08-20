@@ -1,0 +1,205 @@
+---
+/**
+ * **Korea trade dataset** — 파는 지면(첫 유료 상품). (seoulmarkets.com/data/korea-trade-dataset)
+ *
+ * ── 왜 (2번 결정 2026-08-21) ────────────────────────────────────
+ *   ① 무엇을 파나 = 한국 무역 데이터셋 CSV 단건(전체 243개국×12달).
+ *   ② 값 = **견줘서** 매긴다(사장님 「값도 데이터로」). 아래 비교표 참조. 단건 $29.
+ *   ③ 레일 = PayPal 단건. 사장님 지시. ⛔ 열쇠 값은 여기 안 적는다 — 이름(PAYPAL_CLIENT_ID)만.
+ *
+ * 값을 부르기 전에 물건을 보인다 — 무료 미리보기 CSV(전국+상위20국)로 잇는다.
+ * 데이터는 유료 API /v1/trade/exports 와 **같은 번들 소스**(src/lib/trade-data.mjs)라 어긋날 수 없다.
+ *
+ * ⚠ 결제 단추는 **PAYPAL_CLIENT_ID 가 있을 때만** 그린다. 없으면 정직하게 「곧 엽니다」.
+ *   가짜 단추를 그리지 않는다. 열쇠를 꽂고 CSP 에 paypal.com 을 열면 그때 단추가 산다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import { TRADE } from '../../lib/trade-data.mjs';
+
+const PRICE = '29';
+const COUNTRIES = TRADE.countries.length;
+const MONTHS = TRADE.window.months;
+const WINDOW = `${TRADE.window.first_month} to ${TRADE.window.latest_month}`;
+const CLIENT_ID = process.env.PAYPAL_CLIENT_ID || '';
+
+const TITLE = 'Korea trade dataset — every partner, every month';
+const SAMPLE = `${COUNTRIES} partner countries · ${MONTHS} months (${WINDOW}) · CSV`;
+const DESC =
+  `Korea's exports, imports and trade balance with all ${COUNTRIES} partner countries, month by month, `
+  + 'on a customs basis — normalised to English and delivered as one clean CSV. The raw source is Korean, '
+  + 'un-normalised and awkward; this is the ready extract. One-time purchase, yours to keep.';
+
+/** 견준 값 — 실제로 열어 적음(2026-08-21). 화면과 하나의 출처로 묶는다. */
+const 비교 = [
+  ['data.go.kr / KOSIS (the raw source)', 'Free', 'Korean, un-normalised, one query at a time'],
+  ['Trading Economics — website', '$29–199 / month', 'Whole platform, subscription, not this dataset'],
+  ['Trading Economics — API', '$149–299 / month', 'Subscription, billed yearly'],
+  ['Statista', '$199+ / month (billed yearly)', 'No one-off; subscription only'],
+  ['Nasdaq Data Link premium', 'Contact sales', 'À la carte, no public price'],
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea trade dataset — exports, imports and balance by partner country and month',
+  description: DESC,
+  url: `${SITE_URL}/data/korea-trade-dataset`,
+  temporalCoverage: WINDOW.replace(' to ', '/'),
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isAccessibleForFree: false,
+  license: 'https://www.data.go.kr',
+  variableMeasured: ['exports (USD thousand)', 'imports (USD thousand)', 'trade balance (USD thousand)'],
+  offers: { '@type': 'Offer', price: PRICE, priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  {CLIENT_ID && (
+    <script is:inline src={`https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture`}></script>
+  )}
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>Korea trade dataset — every partner, every month</h1>
+      <p class="sample">{SAMPLE}</p>
+      <p class="lead">
+        Korea's customs office publishes what the country sells to, and buys from, <b>every partner on
+        earth</b>, month by month. It publishes it in Korean, un-normalised, one awkward query at a time.
+        We take the same official figures and hand you <b>one clean CSV</b>: {COUNTRIES} partner
+        countries × {MONTHS} months of exports, imports and the balance, in English, with the source
+        named on the first line. A one-time purchase — no subscription, yours to keep.
+      </p>
+
+      <ol class="five">
+        <li><b>What it is</b> — exports, imports and trade balance (USD thousand) for all {COUNTRIES}
+          partner countries, for each of {MONTHS} months, {WINDOW}. Plus national totals. One CSV.</li>
+        <li><b>Why trust it</b> — every figure is the customs value as filed, taken from Statistics
+          Korea (KOSIS table DT_1R11006, source: Korea Customs Service). We parse, normalise and
+          translate; we do not adjust the numbers.</li>
+        <li><b>How current</b> — monthly, following the customs release. Figures are provisional and get
+          revised; the latest month is the least settled. We say so, in the file.</li>
+        <li><b>The honest limits</b> — this is partner-country × month, not HS-code (product) level.
+          Hong Kong includes entrepôt re-exports onward to mainland China. Goods trade, customs basis —
+          not the current account.</li>
+        <li><b>What it is not</b> — not investment advice, and not a forecast. It is the record.</li>
+      </ol>
+
+      <div class="blk">
+        <h2>What you get</h2>
+        <table class="kv">
+          <tr><th>Rows</th><td>{(COUNTRIES + 1) * MONTHS} — {COUNTRIES} partners + national total, × {MONTHS} months</td></tr>
+          <tr><th>Columns</th><td><code>country_en, month, exports_usd_thousand, imports_usd_thousand, balance_usd_thousand</code></td></tr>
+          <tr><th>Window</th><td>{WINDOW} ({MONTHS} months)</td></tr>
+          <tr><th>Format</th><td>UTF-8 CSV, source and licence on the header lines</td></tr>
+          <tr><th>Same data as</th><td>our API <code>/v1/trade/exports</code> — one source, they cannot disagree</td></tr>
+        </table>
+      </div>
+
+      <div class="blk">
+        <h2>How we priced it</h2>
+        <p>Nobody sells this as a one-off. The people who carry Korean trade data sell a whole platform,
+          by subscription, or ask you to call. We opened them and wrote down the numbers:</p>
+        <table class="press">
+          <thead><tr><th>Where</th><th>Price</th><th>What that buys</th></tr></thead>
+          <tbody>
+            {비교.map(([w, p, n]) => (
+              <tr><td class="axis">{w}</td><td class="r">{p}</td><td>{n}</td></tr>
+            ))}
+          </tbody>
+        </table>
+        <p>So we set a price a first-time buyer can say yes to without a meeting: <b>${PRICE}, once</b> —
+          about one month of the cheapest platform subscription, except you keep this dataset forever and
+          it is already normalised. The raw source stays free; you are paying for the clean extract.</p>
+      </div>
+
+      <div class="cta">
+        <h2>Buy the full dataset — ${PRICE}, one time</h2>
+        <p class="cta__lead">All {COUNTRIES} partner countries × {MONTHS} months, one CSV, delivered on
+          purchase. Secure checkout by PayPal.</p>
+        {CLIENT_ID ? (
+          <Fragment>
+            <div id="paypal-button-container"></div>
+            <script is:inline define:vars={{ PRICE }}>
+              paypal.Buttons({
+                style: { layout: 'vertical', label: 'pay' },
+                createOrder: (data, actions) => actions.order.create({
+                  purchase_units: [{
+                    amount: { value: PRICE, currency_code: 'USD' },
+                    description: 'SeoulMarkets — Korea trade dataset (full CSV)',
+                  }],
+                }),
+                onApprove: (data, actions) => actions.order.capture().then(() => {
+                  window.location = '/data/korea-trade-dataset/thanks';
+                }),
+              }).render('#paypal-button-container');
+            </script>
+          </Fragment>
+        ) : (
+          <p class="fine">Secure PayPal checkout opens shortly — the payment button appears here once it is
+            live. In the meantime, take the free preview below, or email
+            <a href="mailto:sibcheongan@gmail.com?subject=Korea%20trade%20dataset">sibcheongan@gmail.com</a>
+            to buy now.</p>
+        )}
+        <p class="cta__also">See it before you buy — <a href="/data/korea-trade-balance.csv">free preview
+          CSV</a> (national totals and the 20 largest partners), or query it live at
+          <a href="/v1/trade/exports?country=vietnam">/v1/trade/exports</a>.</p>
+      </div>
+
+      <p class="fine bottom">
+        Source: Statistics Korea (KOSIS), table DT_1R11006 — Korea Customs Service. Licence: Korea Public
+        Data Portal, commercial use permitted with attribution. We parse, normalise and translate; figures
+        are the customs values as filed. Not investment advice.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { padding: 0 1rem; }
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.8rem; }
+  .pp .lead b { font-weight: 650; }
+
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .five li b { color: var(--ink); }
+
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .8rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; }
+  table.press td.axis { font-weight: 600; color: var(--ink); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: var(--mono, ui-monospace, monospace); font-size: .84em;
+         background: var(--card); padding: .1em .35em; border-radius: 4px; }
+
+  .cta { margin: 2.4rem 0 0; padding: 1.4rem 1.3rem; border: 2px solid var(--accent);
+         border-radius: 10px; background: var(--card); }
+  .cta h2 { font-size: 1.25rem; margin: 0 0 .5rem; }
+  .cta p { line-height: 1.7; font-size: .95rem; }
+  .cta__lead { margin: 0 0 1rem; }
+  .cta__also { margin: 1.1rem 0 0; font-size: .88rem; color: var(--muted); }
+  #paypal-button-container { max-width: 24rem; margin: .4rem 0; }
+  .cta a, .pp a { color: var(--accent); text-decoration: none;
+                  border-bottom: 1px solid currentColor; padding-bottom: 1px; }
+  .cta a:hover, .pp a:hover { color: var(--ink); }
+
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+  .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+
+  @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
+</style>
