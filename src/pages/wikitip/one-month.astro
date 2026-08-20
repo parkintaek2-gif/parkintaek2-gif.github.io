@@ -35,7 +35,12 @@ const 달이름 = (m: string) =>
 const 이스포츠 = d.bySport.find((x) => x.sport === 'esports');
 const 축구 = d.bySport.find((x) => x.sport === 'football');
 
-const TITLE = 'For an esports player, a year of readers arrives in one month';
+/* ⛔ 이름을 손으로 안 박는다 — 자료에서 뽑는다. 자료가 바뀌면 제목이 따라 바뀐다 */
+const e스포츠 = (d.people ?? []).filter((p) => /esport/i.test(p.sport ?? "")).sort((a, b) => b.totalReads - a.totalReads);
+const 축구사람 = (d.people ?? []).filter((p) => /foot/i.test(p.sport ?? "")).sort((a, b) => b.totalReads - a.totalReads);
+
+const TITLE = `${e스포츠[0].name} and ${e스포츠[1].name} get a year of readers in one month. `
+  + `${축구사람[0].name} never does`;
 const DESC =
   `We split twelve months of Southeast Asian Wikipedia reads by month. All ${이스포츠?.people} `
   + `esports players in the panel peak in the same month; only ${축구?.peopleSharingThatMonth} of `

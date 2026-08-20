@@ -22,7 +22,8 @@ import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-titles-to-name.json';
 
-const TITLE = 'An actor with five charting titles is looked up ten times as often as one with a single title';
+const TITLE = `${d.bands[d.bands.length - 1].topName} against ${d.bands[0].topName}: `
+  + `more charting titles goes with ${d.multiple}× the look-ups`;
 const DESC =
   `Grouping ${d.actorsCounted.toLocaleString('en-US')} Korean actors by how many of their titles `
   + `reached a Netflix chart, the median reads of their own Wikipedia article run `
