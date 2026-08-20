@@ -22,7 +22,8 @@ const fmt = (yyyymmdd) => {
 const [from, to] = data.period.split('~');
 const span = `${fmt(from)} – ${fmt(to)} ${String(to).slice(0, 4)}`;
 
-const TITLE = 'Which Korean actors English readers looked up most';
+const TITLE = `${data.rows[0].name}, ${data.rows[1].name} and ${data.rows[2].name} — `
+  + `the Korean actors English readers looked up most`;
 const DESC =
   `Over 30 days, English Wikipedia readers looked up ${data.measured.toLocaleString()} Korean actors `
   + `${data.totalViews.toLocaleString()} times. This is who they read about most — measured, sourced, `

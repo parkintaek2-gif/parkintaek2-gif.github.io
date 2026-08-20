@@ -26,7 +26,8 @@ const 종목이름: Record<string, string> = {
   golf: 'Golf', mma: 'MMA', other: 'Other',
 };
 
-const TITLE = 'Four Southeast Asian Wikipedias look up four different Korean athletes';
+const TITLE = `Indonesia and Thailand look up ${d.topByEdition.id[0].name}. `
+  + `Vietnam looks up ${d.topByEdition.vi[0].name}`;
 const DESC =
   `We counted how often ${d.peopleMeasured.toLocaleString('en-US')} Korean athletes were looked up in the `
   + `Indonesian, Vietnamese, Thai and Malay Wikipedias over twelve months. The four editions do not `
