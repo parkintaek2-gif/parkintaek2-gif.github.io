@@ -186,6 +186,9 @@ export const GET: APIRoute = () => {
     /* 🔴 /years-left 의 다음 물음 — 남은 해가 다 건강한 해는 아니다.
        「건강수명」으로 찾는 검색을 받는다. ⛔ 한 수로 말하지 않는다(잣대에 따라 8.3년 다르다) */
     { path: '/healthy-years', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 키즈 — 「맡길 데」 다음은 「아플 때 갈 데」다(2번 8/21 04:2x).
+       ⛔ 제목·주소 어디에도 「소아과가 없다」로 쓰지 않는다. 이 표는 «의원»만 센다 */
+    { path: '/pediatrics', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
