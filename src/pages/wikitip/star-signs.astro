@@ -1,31 +1,32 @@
 ---
 /**
- * K Culture Wire — **띠마다 어느 스타가 있나, 이름으로.** (`/star-signs`)
+ * K Culture Wire — **띠별로 스타의 이름.** (`/star-signs`)
  *
- * ⭐⭐ 사장님 지시(8/16·8/20) — 제목과 본문에 스타의 이름을 넣는다. 손님은 이름을 친다.
- * ⭐ 3번의 한국어판(100yearmap.com/saju)에 대한 **영어판 유입구**다.
+ * ⭐⭐ 사장님 지시(8/16·8/20) — 스타의 이름을 제목과 본문에. 손님은 이름을 검색한다.
  *
- * ── ⛔⛔ 이 지면이 절대 안 하는 것 ───────────────────────────
- * ⛔ **점을 치지 않는다.** 「이 띠라서 떴다」를 한 줄도 안 쓴다.
- *    우리가 이미 반대를 발행했다 — 카이제곱 7.77 · 문턱 19.68 (`/zodiac`).
- * ⛔ **사주를 풀지 않는다.** 태어난 시가 공개 자료에 없다.
- * ⛔ **띠끼리 줄세우지 않는다.** 띠마다 사람 수가 76~103 으로 다르다 — 그 말을 같은 화면에 둔다.
- * ⛔ 광고 자리를 만들지 않는다.
+ * ── 🔴 이 지면이 절대 안 하는 것 ─────────────────────────────
+ * ⛔ **점을 치지 않는다.** 우리는 이미 재서 발행했다 — 배우 1,047명의 띠 분포는
+ *    카이제곱 7.77(문턱 19.68)로 **우연과 구분되지 않는다.** 첫 화면에 그 말을 둔다.
+ * ⛔ **개별 풀이를 안 한다.** 사주 원국은 태어난 **시**가 필요하고 공개 프로필에 없다.
+ * ⛔ **못 이은 사람을 0 으로 안 쓴다.** 이름은 싣고 수 자리를 비운다.
+ * ⭐ 우리가 하는 것은 하나 — **누가 같은 띠인지 이름으로 보여 주는 것.**
  *
- * 🔴 Astro 앞말은 TypeScript 다. 🔴 JSX 는 끝 공백을 버린다 — {' '} 를 넣는다.
+ * 🔴 Astro 앞말은 TypeScript 다. 🔴 JSX 는 끝 공백을 버린다 — {' '} 를 쓴다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-star-signs.json';
 
-const 첫줄 = (s: string) => d.rows.find((r) => r.sign === s)!.names[0]?.name ?? '';
+const 큰띠 = [...d.signs].sort((a, b) => (b.top[0]?.perMillion ?? 0) - (a.top[0]?.perMillion ?? 0));
+const 으뜸 = 큰띠[0];
 
-const TITLE = `IU is a Rooster, Bae Suzy a Dog, Cha Eun-woo an Ox: `
-  + `${d.peopleWithSign} Korean stars by Chinese zodiac year`;
+const TITLE = 'Which Korean stars share your Chinese zodiac sign? '
+  + 'IU, Cha Eun-woo, Byeon Woo-seok and 1,044 more';
 const DESC =
-  `Which Korean actors and singers share your zodiac sign? ${첫줄('Rooster')}, ${첫줄('Dog')}, `
-  + `${첫줄('Dragon')} and ${첫줄('Goat')} lead their years. This is a list of birthdays, not a `
-  + `reading — we measured that the sign does not pick out who reaches a Netflix chart.`;
+  `We placed ${d.peopleWithSign} Korean actors and singers into the twelve zodiac signs by year of `
+  + `birth — IU and Song Hye-kyo in the Rooster, Cha Eun-woo and Song Joong-ki in the Ox, `
+  + `Byeon Woo-seok in the Goat. The spread across signs is indistinguishable from chance, and we `
+  + 'say so on the page.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -41,65 +42,77 @@ const jsonLd = {
   canonical="https://www.kculturewire.com/star-signs">
   <h1>{TITLE}</h1>
   <p class="lead">{d.question}</p>
-
   <p class="q">
-    We hold birth dates for <b>{d.peopleWithSign}</b> Korean actors and singers, and read counts
-    for <b>{d.withReads}</b> of them across the Indonesian, Vietnamese, Thai and Malay Wikipedias.
-    Below, each zodiac year lists the names in that year, most-read first.
+    {d.peopleWithSign} Korean actors and singers, sorted into the twelve signs by the year they
+    were born. Within each sign the names are ordered by how often their own Wikipedia article is
+    opened in Indonesia, Vietnam, Thailand and Malaysia — so the name you are most likely to know
+    comes first.
   </p>
 
+  {/*
+    🔴 이 상자가 이 지면의 뼈대다. 이름을 늘어놓기 **전에** 못을 박는다.
+      뒤에 두면 손님이 표부터 읽고 「이 띠가 좋구나」로 가져간다.
+  */}
   <section class="warn-box">
-    <h2>Read this first — this is a list, not a reading</h2>
-    <p class="warn">{d.notAForecast}</p>
-    <p class="warn">{d.whyNoSaju}</p>
+    <h2>Read this first — this is not a prediction</h2>
+    <p class="warn">{d.notAPrediction.says}</p>
+    <p class="warn">{d.notAPrediction.whyNoReading}</p>
   </section>
 
-  {d.rows.map((r) => (
+  {d.signs.map((s) => (
     <section>
-      <h2>Year of the {r.sign}</h2>
-      <p class="note">
-        {r.inPanel} of our stars were born in a {r.sign} year; {r.withReads} of them have a read
-        count. Ordered by reads per million.
+      <h2>{s.sign} — {s.people} Korean stars</h2>
+      <p>
+        {s.top.map((p) => p.name).join(', ')}
+        {s.withReads > s.top.length ? ` and ${s.withReads - s.top.length} more we can measure` : ''}.
       </p>
       <div class="scroll-x">
         <table>
-          <thead><tr><th>Star</th><th>Born</th><th>Reads per million</th></tr></thead>
+          <thead><tr><th>Name</th><th>Born</th><th>Reads per million</th></tr></thead>
           <tbody>
-            {r.names.map((n) => (
+            {s.top.map((p) => (
               <tr>
-                <td class="nm">
-                  <a href={`https://www.wikidata.org/wiki/${n.q}`} rel="noopener">{n.name}</a>
-                </td>
-                <td class="fine">{n.born}</td>
-                <td>{n.perMillion}</td>
+                <td class="nm">{p.name}</td>
+                <td class="fine">{p.born}</td>
+                <td>{p.perMillion ?? '—'}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+      {s.withoutReads > 0 && (
+        <p class="note">
+          Another {s.withoutReads} people in this sign have a date of birth but no read count we
+          could match. They are counted in the {s.people}, and we leave their figure empty rather
+          than writing zero.
+        </p>
+      )}
     </section>
   ))}
 
   <section>
-    <h2>Why one year has more stars than another</h2>
-    <p>
-      The years are not equal in our data: the smallest holds {d.evenness.min} people and the
-      largest {d.evenness.max}, a spread of {d.evenness.spread}. That is a fact about who we could
-      find a birth date for, not about the years. <strong>Do not read a longer list as a luckier
-      sign.</strong> We tested that directly and it did not hold —
-      {' '}<a href="/zodiac">the test and its numbers are here</a>.
-    </p>
-    <p class="note">{d.whyJanFebExcluded}</p>
-    <p class="note">{d.orderIsReads}</p>
-  </section>
-
-  <section>
     <h2>What this page cannot tell you</h2>
     {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">{d.limitation}</p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Method</b> — {d.method}</li>
+    </ul>
     <p class="note">
-      <b>Source</b> — {d.source} <b>Window</b> — {d.window}
+      <a href="/zodiac">The count that says the spread is chance</a> ·{' '}
+      <a href="/member-vs-group">Members and their groups</a> ·{' '}
+      <a href="/about">How we count</a>
     </p>
   </section>
 
   <KcwRelatedArticles page="/star-signs" />
 </WikiTip>
+
+<style>
+  .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: 0.5rem 1rem; }
+</style>
