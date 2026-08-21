@@ -24,6 +24,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* ⭐ 방 안에 실린 수는 «방을 짓는 자»에게 물어 온다 — 두 벌로 적으면 갈라진다 */
+import { 모으기 } from './build-100y-room-0to5.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 낼길 = path.join(뿌리, 'public', '100y', 'community.html');
@@ -37,6 +39,11 @@ export const 단추말 = '이 방에 들어가기';
  * 방 — **나이·처지**로 가른다. 수는 그 지면의 자료에서 읽는다.
  * ⛔ 방을 지어내지 않는다. 지면이 있는 자리만 방이 된다.
  */
+/** 「0~5세」 방에 실린 것이 몇 개인가 — ⛔ 방을 짓는 자에게 물어 온다. 손으로 안 박는다 */
+function 실린것() {
+  return 모으기().실린것;
+}
+
 export function 방들() {
   const 어린이집 = 읽기('nursery-none.json');
   const 유치원 = 읽기('kindergarten.json');
@@ -54,6 +61,9 @@ export function 방들() {
       수: `어린이집이 한 곳도 없는 지역 ${어린이집.해별[어린이집.최신].전국}곳`,
       곁말: `유치원은 전국 ${유치원.전국.곳.toLocaleString()}곳`,
       지면: '/nursery', 지면말: '어린이집이 없는 지역 보기',
+      /* ⭐ 2번 10:2x — 「한 방을 골라 그 «안»을 채우십시오」. 이 방만 안이 있다.
+         ⛔ 실린 수를 손으로 안 박는다. 방을 짓는 자에게 물어 온다 */
+      방: '/community/0to5', 실린것: 실린것(),
     },
     {
       나이: '아플 때', 이름: '밤에 아이가 열이 난 사람',
@@ -107,7 +117,11 @@ export function 판짓기(방) {
         <p class="born">${r.수}</p>
         <p class="also">${r.곁말}</p>
         <p class="count"><a href="${r.지면}">${r.지면말} →</a></p>
-        <button class="cta" disabled aria-disabled="true">${단추말}</button>
+${r.방
+    /* ⭐ 안이 채워진 방만 진짜로 들어가진다. 나머지는 그대로 눌리지 않는다 —
+       빈 방을 열어 놓는 것이 「없는 것을 있는 척」이다(2번 10:2x) */
+    ? `        <a class="cta live" href="${r.방}">${단추말} · ${r.실린것}개</a>`
+    : `        <button class="cta" disabled aria-disabled="true">${단추말}</button>`}
       </article>`).join('\n');
 
   return `<!doctype html>
@@ -144,8 +158,12 @@ export function 판짓기(방) {
   .born,.also,.count{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
   .count{margin-bottom:14px}
   .count a{color:var(--accent)}
-  .cta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
-    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed}
+  .cta{display:block;width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed;
+    text-align:center}
+  /* ⭐ 안이 채워진 방만 이 꼴이 된다 — 눌러 보고 빈 방이면 다시 안 온다(2번 10:2x) */
+  .cta.live{border-color:var(--accent);color:var(--accent);cursor:pointer;
+    text-decoration:none;font-weight:600}
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:62ch}
 </style>
@@ -156,7 +174,9 @@ export function 판짓기(방) {
     <p class="lead">방을 나이와 처지로 나눴습니다. 0~5세 아이를 맡길 데를 찾는 사람부터,
       오래 다닌 곳을 그만둔 사람까지 ${방.length}개입니다.</p>
     <p class="note">방마다 적힌 수는 저희가 공공데이터로 잰 것입니다. 각 방의 링크를 누르면
-      그 수를 낸 지면으로 갑니다.</p>
+      그 수를 낸 지면으로 갑니다.
+      ${방.length}개 가운데 <strong>${방.filter((r) => r.방).length}개</strong>는 <strong>안이 채워져 있어 들어가실 수 있습니다</strong> —
+      나머지는 아직 문패뿐이라 <strong>일부러 눌리지 않게</strong> 두었습니다.</p>
 
     <p class="warn"><strong>백년지도는 스타를 다루지 않습니다.</strong> 그래서 방을 사람 이름이 아니라
       <strong>나이와 처지</strong>로 갈랐습니다. 같은 자리에 있는 사람끼리 모이는 것이 이 방의 뜻입니다.
@@ -167,9 +187,10 @@ ${칸}
     </div>
 
     <footer>
-      <p><strong>이것은 첫 본입니다.</strong> 서버도, 로그인도, 글쓰기도 아직 없습니다 —
-      그래서 위의 「${단추말}」 단추는 <strong>일부러 눌리지 않게</strong> 두었습니다.
-      없는 것을 있는 척하지 않습니다. 다만 <strong>지면으로 가는 길은 진짜</strong>입니다.</p>
+      <p><strong>이것은 첫 본입니다.</strong> 서버도, 로그인도, 글쓰기도 아직 없습니다.
+      그래서 <strong>안이 아직 빈 방의 「${단추말}」 단추는 일부러 눌리지 않게</strong> 두었습니다 —
+      눌러 보고 빈 방이면 안 하느니만 못합니다. 없는 것을 있는 척하지 않습니다.
+      다만 <strong>지면으로 가는 길과, 안이 채워진 방으로 들어가는 길은 진짜</strong>입니다.</p>
       <p>백년지도 &middot; 100yearmap.com</p>
     </footer>
   </div>
@@ -191,15 +212,19 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     !/<ol[\s>]/.test(판) && !['순위', '등수', '랭킹', '몇 위'].some((w) => 민.includes(w)));
   본다('③ ⛔ 스타 이름이 없다 — 백년지도는 스타를 안 다룬다',
     !['아이유', '정국', '카리나', '손흥민', '방탄'].some((w) => 민.includes(w)));
-  본다('④ ⛔ 단추가 아무 데도 안 간다', (판.match(/<button class="cta" disabled/g) || []).length === 방.length);
-  본다('⑤ ⭐ 방마다 그 나이의 지면으로 가는 길이 있다',
+  const 찬방 = 방.filter((r) => r.방);
+  본다(`④ ⛔ 안이 빈 방 ${방.length - 찬방.length}개의 단추는 안 눌린다`,
+    (판.match(/<button class="cta" disabled/g) || []).length === 방.length - 찬방.length);
+  본다(`⑤ ⭐ 안이 찬 방 ${찬방.length}개만 진짜로 들어가진다 — 실린 수를 단추에 적었다`,
+    찬방.length > 0 && 찬방.every((r) => 판.includes(`href="${r.방}"`) && 판.includes(`${r.실린것}개`)));
+  본다('⑥ ⭐ 방마다 그 나이의 지면으로 가는 길이 있다',
     방.every((r) => 판.includes(`href="${r.지면}"`)));
-  본다('⑥ 5번 본의 짜임을 그대로 썼다 — .grid · .room · .warn · .cta',
+  본다('⑦ 5번 본의 짜임을 그대로 썼다 — .grid · .room · .warn · .cta',
     ['class="grid"', 'class="room"', 'class="warn"', 'class="cta"'].every((c) => 판.includes(c)));
-  본다('⑦ 없는 것을 있는 척하지 않는다고 적었다', 민.includes('없는 것을 있는 척하지 않습니다'));
-  본다('⑧ 스타를 안 다룬다고 맨 위 상자에 적었다', 민.includes('백년지도는 스타를 다루지 않습니다'));
+  본다('⑧ 없는 것을 있는 척하지 않는다고 적었다', 민.includes('없는 것을 있는 척하지 않습니다'));
+  본다('⑨ 스타를 안 다룬다고 맨 위 상자에 적었다', 민.includes('백년지도는 스타를 다루지 않습니다'));
 
-  console.log(`\n방 ${방.length}장 · 지면으로 가는 길 ${방.length}개 · 눌리는 단추 0개`);
+  console.log(`\n방 ${방.length}장 · 안이 찬 방 ${찬방.length}개 · 지면으로 가는 길 ${방.length}개`);
   process.exit();
 }
 
@@ -208,5 +233,5 @@ if (내가실행됐다) {
   fs.mkdirSync(path.dirname(낼길), { recursive: true });
   fs.writeFileSync(낼길, 판짓기(방), 'utf8');
   console.log(`✅ ${path.relative(뿌리, 낼길)} — 방 ${방.length}장`);
-  console.log(`   지면으로 가는 길 ${방.length}개 · 눌리는 단추 0개(서버가 없다)`);
+  console.log(`   안이 찬 방 ${방.filter((r) => r.방).length}개 · 지면으로 가는 길 ${방.length}개 · 안이 빈 방의 단추는 안 눌린다`);
 }

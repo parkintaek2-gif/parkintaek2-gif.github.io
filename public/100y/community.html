@@ -32,8 +32,12 @@
   .born,.also,.count{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
   .count{margin-bottom:14px}
   .count a{color:var(--accent)}
-  .cta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
-    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed}
+  .cta{display:block;width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed;
+    text-align:center}
+  /* ⭐ 안이 채워진 방만 이 꼴이 된다 — 눌러 보고 빈 방이면 다시 안 온다(2번 10:2x) */
+  .cta.live{border-color:var(--accent);color:var(--accent);cursor:pointer;
+    text-decoration:none;font-weight:600}
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:62ch}
 </style>
@@ -44,7 +48,9 @@
     <p class="lead">방을 나이와 처지로 나눴습니다. 0~5세 아이를 맡길 데를 찾는 사람부터,
       오래 다닌 곳을 그만둔 사람까지 8개입니다.</p>
     <p class="note">방마다 적힌 수는 저희가 공공데이터로 잰 것입니다. 각 방의 링크를 누르면
-      그 수를 낸 지면으로 갑니다.</p>
+      그 수를 낸 지면으로 갑니다.
+      8개 가운데 <strong>1개</strong>는 <strong>안이 채워져 있어 들어가실 수 있습니다</strong> —
+      나머지는 아직 문패뿐이라 <strong>일부러 눌리지 않게</strong> 두었습니다.</p>
 
     <p class="warn"><strong>백년지도는 스타를 다루지 않습니다.</strong> 그래서 방을 사람 이름이 아니라
       <strong>나이와 처지</strong>로 갈랐습니다. 같은 자리에 있는 사람끼리 모이는 것이 이 방의 뜻입니다.
@@ -57,7 +63,7 @@
         <p class="born">어린이집이 한 곳도 없는 지역 634곳</p>
         <p class="also">유치원은 전국 8,140곳</p>
         <p class="count"><a href="/nursery">어린이집이 없는 지역 보기 →</a></p>
-        <button class="cta" disabled aria-disabled="true">이 방에 들어가기</button>
+        <a class="cta live" href="/community/0to5">이 방에 들어가기 · 303개</a>
       </article>
       <article class="room">
         <p class="sign">아플 때</p>
@@ -118,9 +124,10 @@
     </div>
 
     <footer>
-      <p><strong>이것은 첫 본입니다.</strong> 서버도, 로그인도, 글쓰기도 아직 없습니다 —
-      그래서 위의 「이 방에 들어가기」 단추는 <strong>일부러 눌리지 않게</strong> 두었습니다.
-      없는 것을 있는 척하지 않습니다. 다만 <strong>지면으로 가는 길은 진짜</strong>입니다.</p>
+      <p><strong>이것은 첫 본입니다.</strong> 서버도, 로그인도, 글쓰기도 아직 없습니다.
+      그래서 <strong>안이 아직 빈 방의 「이 방에 들어가기」 단추는 일부러 눌리지 않게</strong> 두었습니다 —
+      눌러 보고 빈 방이면 안 하느니만 못합니다. 없는 것을 있는 척하지 않습니다.
+      다만 <strong>지면으로 가는 길과, 안이 채워진 방으로 들어가는 길은 진짜</strong>입니다.</p>
       <p>백년지도 &middot; 100yearmap.com</p>
     </footer>
   </div>

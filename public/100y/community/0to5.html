@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>0~5세 아이를 키우는 사람 &mdash; 백년지도 커뮤니티</title>
+<meta name="description" content="0~5세 아이를 키우는 사람의 방. 우리 동네 유치원 228칸, 소아청소년과 의원이 없는 시·군·구 58곳, 어린이집이 한 곳도 없는 지역을 시·도 17칸으로 실었습니다.">
+<meta name="robots" content="noindex">
+<style>
+  :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
+         --accent:#b4472a; --accent-soft:#fdf3f0; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+    --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216; --card:#181b21;
+    --accent:#e8825f; --accent-soft:#261915; } }
+  :root[data-theme="dark"]{ --ink:#eceef2; --ink-2:#9aa2b1; --line:#2a2e37; --bg:#101216;
+    --card:#181b21; --accent:#e8825f; --accent-soft:#261915; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;word-break:keep-all}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 20px 80px}
+  .back{display:inline-block;margin-bottom:20px;color:var(--accent);font-size:14px;text-decoration:none}
+  h1{font-size:clamp(26px,4vw,36px);line-height:1.2;margin:0 0 12px;letter-spacing:-.02em}
+  h2{font-size:22px;margin:44px 0 8px;letter-spacing:-.01em}
+  .lead{color:var(--ink-2);margin:0 0 8px;max-width:62ch}
+  .note{color:var(--ink-2);font-size:14px;margin:0 0 16px;max-width:64ch}
+  .warn{background:var(--accent-soft);border-left:3px solid var(--accent);
+    padding:14px 16px;border-radius:6px;margin:0 0 28px;max-width:64ch;font-size:14px}
+  .years{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px;padding:0;list-style:none}
+  .years li{background:var(--card);border:1px solid var(--line);border-radius:999px;
+    padding:5px 12px;font-size:13px;color:var(--ink-2)}
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:340px}
+  th,td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{color:var(--ink-2);font-weight:600;position:sticky;top:0;background:var(--card)}
+  tr:last-child td{border-bottom:none}
+  .tall{max-height:460px;overflow-y:auto}
+  .go{margin:12px 0 0;font-size:14px}
+  .go a{color:var(--accent)}
+  footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--ink-2);font-size:13px;max-width:64ch}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="back" href="/community">&larr; 커뮤니티 &mdash; 나이로 나눈 방</a>
+    <h1>0~5세 아이를 키우는 사람</h1>
+    <p class="lead">이 방에는 <strong>303개</strong>가 실려 있습니다 &mdash;
+      동네별 유치원 228칸, 소아청소년과 &laquo;의원&raquo;이 없는 시&middot;군&middot;구 58곳,
+      어린이집이 한 곳도 없는 지역을 시&middot;도 17칸으로 나눈 것입니다.</p>
+    <p class="note">모두 저희가 공공데이터로 잰 것입니다. 각 표 아래의 링크를 누르면
+      그 수를 낸 지면으로 가고, 그 지면에서 다시 이 방으로 돌아올 수 있습니다.</p>
+
+    <p class="warn"><strong>&#9940; 세 표를 이어 붙이지 않았습니다.</strong>
+      유치원 표에는 동네 이름만 있고 시&middot;도가 없습니다. 그런데 같은 이름이 여럿입니다 &mdash;
+      <strong>강서구 2곳 · 고성군 2곳 · 남구 4곳 · 동구 6곳 · 북구 4곳 · 서구 5곳 · 중구 6곳</strong>. 이름만으로 이으면 딴 동네가 붙습니다.
+      그래서 「우리 동네는 유치원 몇 곳이고 소아과가 있나」를 <strong>한 줄로 못 보여 드립니다.</strong>
+      없는 것을 있는 척하지 않습니다.</p>
+
+    <p class="note"><strong>&#9888; 표마다 몇 해치인지 먼저 보십시오.</strong>
+      한 해짜리와 열일곱 해짜리는 다른 말을 합니다.</p>
+    <ul class="years">
+      <li>유치원 &mdash; 2025년 한 해</li>
+      <li>어린이집 없는 지역 &mdash; 2009~2025 · 17해</li>
+      <li>소아과 &mdash; 2009~2026 · 18해</li>
+    </ul>
+
+    <h2>우리 동네 유치원 &mdash; 228칸</h2>
+    <p class="note">2025년 기준. <strong>가나다순입니다</strong> &mdash;
+      수로 줄을 세우지 않습니다. 「한 곳당 원아」는 저희가 원아를 곳수로 나눈 값입니다.</p>
+    <div class="tablewrap tall">
+      <table>
+        <thead><tr><th>동네</th><th>유치원</th><th>원아</th><th>한 곳당</th></tr></thead>
+        <tbody>
+        <tr><td>가평군</td><td>14곳</td><td>203명</td><td>14.5명</td></tr>
+        <tr><td>강남구</td><td>37곳</td><td>3,092명</td><td>83.6명</td></tr>
+        <tr><td>강동구</td><td>35곳</td><td>3,962명</td><td>113.2명</td></tr>
+        <tr><td>강릉시</td><td>36곳</td><td>1,414명</td><td>39.3명</td></tr>
+        <tr><td>강북구</td><td>16곳</td><td>1,201명</td><td>75.1명</td></tr>
+        <tr><td>강서구</td><td>46곳</td><td>3,147명</td><td>68.4명</td></tr>
+        <tr><td>강서구</td><td>22곳</td><td>3,147명</td><td>143명</td></tr>
+        <tr><td>강진군</td><td>13곳</td><td>103명</td><td>7.9명</td></tr>
+        <tr><td>강화군</td><td>18곳</td><td>340명</td><td>18.9명</td></tr>
+        <tr><td>거제시</td><td>56곳</td><td>3,201명</td><td>57.2명</td></tr>
+        <tr><td>거창군</td><td>16곳</td><td>374명</td><td>23.4명</td></tr>
+        <tr><td>경산시</td><td>54곳</td><td>2,974명</td><td>55.1명</td></tr>
+        <tr><td>경주시</td><td>54곳</td><td>1,979명</td><td>36.6명</td></tr>
+        <tr><td>계룡시</td><td>7곳</td><td>518명</td><td>74명</td></tr>
+        <tr><td>계양구</td><td>33곳</td><td>2,098명</td><td>63.6명</td></tr>
+        <tr><td>고령군</td><td>8곳</td><td>54명</td><td>6.8명</td></tr>
+        <tr><td>고성군</td><td>10곳</td><td>126명</td><td>12.6명</td></tr>
+        <tr><td>고성군</td><td>18곳</td><td>126명</td><td>7명</td></tr>
+        <tr><td>고양시</td><td>148곳</td><td>9,919명</td><td>67명</td></tr>
+        <tr><td>고창군</td><td>19곳</td><td>217명</td><td>11.4명</td></tr>
+        <tr><td>고흥군</td><td>18곳</td><td>172명</td><td>9.6명</td></tr>
+        <tr><td>곡성군</td><td>8곳</td><td>85명</td><td>10.6명</td></tr>
+        <tr><td>공주시</td><td>33곳</td><td>616명</td><td>18.7명</td></tr>
+        <tr><td>과천시</td><td>9곳</td><td>833명</td><td>92.6명</td></tr>
+        <tr><td>관악구</td><td>29곳</td><td>1,698명</td><td>58.6명</td></tr>
+        <tr><td>광명시</td><td>41곳</td><td>2,004명</td><td>48.9명</td></tr>
+        <tr><td>광산구</td><td>77곳</td><td>5,770명</td><td>74.9명</td></tr>
+        <tr><td>광양시</td><td>35곳</td><td>970명</td><td>27.7명</td></tr>
+        <tr><td>광주시</td><td>45곳</td><td>2,339명</td><td>52명</td></tr>
+        <tr><td>광진구</td><td>24곳</td><td>1,874명</td><td>78.1명</td></tr>
+        <tr><td>괴산군</td><td>15곳</td><td>126명</td><td>8.4명</td></tr>
+        <tr><td>구례군</td><td>11곳</td><td>115명</td><td>10.5명</td></tr>
+        <tr><td>구로구</td><td>30곳</td><td>2,162명</td><td>72.1명</td></tr>
+        <tr><td>구리시</td><td>27곳</td><td>1,350명</td><td>50명</td></tr>
+        <tr><td>구미시</td><td>93곳</td><td>6,703명</td><td>72.1명</td></tr>
+        <tr><td>군산시</td><td>60곳</td><td>2,706명</td><td>45.1명</td></tr>
+        <tr><td>군위군</td><td>8곳</td><td>22명</td><td>2.8명</td></tr>
+        <tr><td>군포시</td><td>40곳</td><td>1,711명</td><td>42.8명</td></tr>
+        <tr><td>금산군</td><td>15곳</td><td>170명</td><td>11.3명</td></tr>
+        <tr><td>금정구</td><td>20곳</td><td>1,899명</td><td>95명</td></tr>
+        <tr><td>금천구</td><td>16곳</td><td>1,296명</td><td>81명</td></tr>
+        <tr><td>기장군</td><td>35곳</td><td>2,296명</td><td>65.6명</td></tr>
+        <tr><td>김제시</td><td>34곳</td><td>424명</td><td>12.5명</td></tr>
+        <tr><td>김천시</td><td>32곳</td><td>1,543명</td><td>48.2명</td></tr>
+        <tr><td>김포시</td><td>92곳</td><td>7,957명</td><td>86.5명</td></tr>
+        <tr><td>김해시</td><td>86곳</td><td>7,043명</td><td>81.9명</td></tr>
+        <tr><td>나주시</td><td>29곳</td><td>1,498명</td><td>51.7명</td></tr>
+        <tr><td>남구</td><td>38곳</td><td>3,339명</td><td>87.9명</td></tr>
+        <tr><td>남구</td><td>25곳</td><td>3,339명</td><td>133.6명</td></tr>
+        <tr><td>남구</td><td>11곳</td><td>3,339명</td><td>303.5명</td></tr>
+        <tr><td>남구</td><td>43곳</td><td>3,339명</td><td>77.7명</td></tr>
+        <tr><td>남동구</td><td>61곳</td><td>5,579명</td><td>91.5명</td></tr>
+        <tr><td>남양주시</td><td>108곳</td><td>7,388명</td><td>68.4명</td></tr>
+        <tr><td>남원시</td><td>26곳</td><td>203명</td><td>7.8명</td></tr>
+        <tr><td>남해군</td><td>11곳</td><td>141명</td><td>12.8명</td></tr>
+        <tr><td>노원구</td><td>56곳</td><td>4,247명</td><td>75.8명</td></tr>
+        <tr><td>논산시</td><td>26곳</td><td>353명</td><td>13.6명</td></tr>
+        <tr><td>단양군</td><td>11곳</td><td>88명</td><td>8명</td></tr>
+        <tr><td>달서구</td><td>60곳</td><td>6,151명</td><td>102.5명</td></tr>
+        <tr><td>달성군</td><td>46곳</td><td>4,986명</td><td>108.4명</td></tr>
+        <tr><td>담양군</td><td>15곳</td><td>185명</td><td>12.3명</td></tr>
+        <tr><td>당진시</td><td>38곳</td><td>1,368명</td><td>36명</td></tr>
+        <tr><td>대덕구</td><td>28곳</td><td>1,877명</td><td>67명</td></tr>
+        <tr><td>도봉구</td><td>28곳</td><td>1,785명</td><td>63.8명</td></tr>
+        <tr><td>동구</td><td>17곳</td><td>1,542명</td><td>90.7명</td></tr>
+        <tr><td>동구</td><td>7곳</td><td>1,542명</td><td>220.3명</td></tr>
+        <tr><td>동구</td><td>46곳</td><td>1,542명</td><td>33.5명</td></tr>
+        <tr><td>동구</td><td>12곳</td><td>1,542명</td><td>128.5명</td></tr>
+        <tr><td>동구</td><td>32곳</td><td>1,542명</td><td>48.2명</td></tr>
+        <tr><td>동구</td><td>23곳</td><td>1,542명</td><td>67명</td></tr>
+        <tr><td>동대문구</td><td>26곳</td><td>2,365명</td><td>91명</td></tr>
+        <tr><td>동두천시</td><td>14곳</td><td>327명</td><td>23.4명</td></tr>
+        <tr><td>동래구</td><td>28곳</td><td>2,819명</td><td>100.7명</td></tr>
+        <tr><td>동작구</td><td>26곳</td><td>2,015명</td><td>77.5명</td></tr>
+        <tr><td>동해시</td><td>13곳</td><td>688명</td><td>52.9명</td></tr>
+        <tr><td>마포구</td><td>27곳</td><td>2,458명</td><td>91명</td></tr>
+        <tr><td>목포시</td><td>46곳</td><td>2,274명</td><td>49.4명</td></tr>
+        <tr><td>무안군</td><td>21곳</td><td>859명</td><td>40.9명</td></tr>
+        <tr><td>무주군</td><td>9곳</td><td>99명</td><td>11명</td></tr>
+        <tr><td>문경시</td><td>20곳</td><td>443명</td><td>22.2명</td></tr>
+        <tr><td>미추홀구</td><td>40곳</td><td>3,159명</td><td>79명</td></tr>
+        <tr><td>밀양시</td><td>25곳</td><td>600명</td><td>24명</td></tr>
+        <tr><td>보령시</td><td>30곳</td><td>679명</td><td>22.6명</td></tr>
+        <tr><td>보성군</td><td>14곳</td><td>67명</td><td>4.8명</td></tr>
+        <tr><td>보은군</td><td>16곳</td><td>164명</td><td>10.3명</td></tr>
+        <tr><td>봉화군</td><td>14곳</td><td>93명</td><td>6.6명</td></tr>
+        <tr><td>부산진구</td><td>42곳</td><td>3,604명</td><td>85.8명</td></tr>
+        <tr><td>부안군</td><td>17곳</td><td>200명</td><td>11.8명</td></tr>
+        <tr><td>부여군</td><td>24곳</td><td>274명</td><td>11.4명</td></tr>
+        <tr><td>부천시</td><td>110곳</td><td>7,081명</td><td>64.4명</td></tr>
+        <tr><td>부평구</td><td>62곳</td><td>4,123명</td><td>66.5명</td></tr>
+        <tr><td>북구</td><td>84곳</td><td>3,488명</td><td>41.5명</td></tr>
+        <tr><td>북구</td><td>37곳</td><td>3,488명</td><td>94.3명</td></tr>
+        <tr><td>북구</td><td>61곳</td><td>3,488명</td><td>57.2명</td></tr>
+        <tr><td>북구</td><td>41곳</td><td>3,488명</td><td>85.1명</td></tr>
+        <tr><td>사상구</td><td>27곳</td><td>1,793명</td><td>66.4명</td></tr>
+        <tr><td>사천시</td><td>12곳</td><td>503명</td><td>41.9명</td></tr>
+        <tr><td>사하구</td><td>37곳</td><td>2,399명</td><td>64.8명</td></tr>
+        <tr><td>산청군</td><td>11곳</td><td>110명</td><td>10명</td></tr>
+        <tr><td>삼척시</td><td>16곳</td><td>555명</td><td>34.7명</td></tr>
+        <tr><td>상주시</td><td>34곳</td><td>731명</td><td>21.5명</td></tr>
+        <tr><td>서구</td><td>50곳</td><td>5,517명</td><td>110.3명</td></tr>
+        <tr><td>서구</td><td>10곳</td><td>5,517명</td><td>551.7명</td></tr>
+        <tr><td>서구</td><td>17곳</td><td>5,517명</td><td>324.5명</td></tr>
+        <tr><td>서구</td><td>86곳</td><td>5,517명</td><td>64.2명</td></tr>
+        <tr><td>서구</td><td>69곳</td><td>5,517명</td><td>80명</td></tr>
+        <tr><td>서귀포시</td><td>45곳</td><td>1,010명</td><td>22.4명</td></tr>
+        <tr><td>서대문구</td><td>19곳</td><td>1,761명</td><td>92.7명</td></tr>
+        <tr><td>서산시</td><td>40곳</td><td>1,392명</td><td>34.8명</td></tr>
+        <tr><td>서천군</td><td>16곳</td><td>134명</td><td>8.4명</td></tr>
+        <tr><td>서초구</td><td>23곳</td><td>1,793명</td><td>78명</td></tr>
+        <tr><td>성남시</td><td>108곳</td><td>7,131명</td><td>66명</td></tr>
+        <tr><td>성동구</td><td>27곳</td><td>1,554명</td><td>57.6명</td></tr>
+        <tr><td>성북구</td><td>45곳</td><td>3,580명</td><td>79.6명</td></tr>
+        <tr><td>성주군</td><td>14곳</td><td>90명</td><td>6.4명</td></tr>
+        <tr><td>속초시</td><td>8곳</td><td>381명</td><td>47.6명</td></tr>
+        <tr><td>송파구</td><td>46곳</td><td>4,929명</td><td>107.2명</td></tr>
+        <tr><td>수성구</td><td>45곳</td><td>5,038명</td><td>112명</td></tr>
+        <tr><td>수영구</td><td>19곳</td><td>1,345명</td><td>70.8명</td></tr>
+        <tr><td>수원시</td><td>176곳</td><td>12,755명</td><td>72.5명</td></tr>
+        <tr><td>순창군</td><td>15곳</td><td>143명</td><td>9.5명</td></tr>
+        <tr><td>순천시</td><td>53곳</td><td>2,678명</td><td>50.5명</td></tr>
+        <tr><td>시흥시</td><td>76곳</td><td>5,692명</td><td>74.9명</td></tr>
+        <tr><td>신안군</td><td>21곳</td><td>117명</td><td>5.6명</td></tr>
+        <tr><td>아산시</td><td>66곳</td><td>4,890명</td><td>74.1명</td></tr>
+        <tr><td>안동시</td><td>40곳</td><td>1,526명</td><td>38.2명</td></tr>
+        <tr><td>안산시</td><td>81곳</td><td>5,069명</td><td>62.6명</td></tr>
+        <tr><td>안성시</td><td>43곳</td><td>1,861명</td><td>43.3명</td></tr>
+        <tr><td>안양시</td><td>71곳</td><td>4,978명</td><td>70.1명</td></tr>
+        <tr><td>양구군</td><td>10곳</td><td>97명</td><td>9.7명</td></tr>
+        <tr><td>양산시</td><td>67곳</td><td>5,900명</td><td>88.1명</td></tr>
+        <tr><td>양양군</td><td>14곳</td><td>142명</td><td>10.1명</td></tr>
+        <tr><td>양주시</td><td>44곳</td><td>3,057명</td><td>69.5명</td></tr>
+        <tr><td>양천구</td><td>37곳</td><td>3,168명</td><td>85.6명</td></tr>
+        <tr><td>양평군</td><td>25곳</td><td>385명</td><td>15.4명</td></tr>
+        <tr><td>여수시</td><td>63곳</td><td>2,595명</td><td>41.2명</td></tr>
+        <tr><td>여주시</td><td>32곳</td><td>725명</td><td>22.7명</td></tr>
+        <tr><td>연수구</td><td>50곳</td><td>6,096명</td><td>121.9명</td></tr>
+        <tr><td>연제구</td><td>17곳</td><td>1,354명</td><td>79.6명</td></tr>
+        <tr><td>연천군</td><td>13곳</td><td>286명</td><td>22명</td></tr>
+        <tr><td>영광군</td><td>15곳</td><td>299명</td><td>19.9명</td></tr>
+        <tr><td>영덕군</td><td>9곳</td><td>36명</td><td>4명</td></tr>
+        <tr><td>영도구</td><td>10곳</td><td>438명</td><td>43.8명</td></tr>
+        <tr><td>영동군</td><td>13곳</td><td>186명</td><td>14.3명</td></tr>
+        <tr><td>영등포구</td><td>38곳</td><td>2,826명</td><td>74.4명</td></tr>
+        <tr><td>영암군</td><td>15곳</td><td>232명</td><td>15.5명</td></tr>
+        <tr><td>영양군</td><td>7곳</td><td>40명</td><td>5.7명</td></tr>
+        <tr><td>영월군</td><td>14곳</td><td>194명</td><td>13.9명</td></tr>
+        <tr><td>영주시</td><td>23곳</td><td>415명</td><td>18명</td></tr>
+        <tr><td>영천시</td><td>22곳</td><td>561명</td><td>25.5명</td></tr>
+        <tr><td>예산군</td><td>25곳</td><td>445명</td><td>17.8명</td></tr>
+        <tr><td>예천군</td><td>15곳</td><td>571명</td><td>38.1명</td></tr>
+        <tr><td>오산시</td><td>49곳</td><td>4,080명</td><td>83.3명</td></tr>
+        <tr><td>옥천군</td><td>15곳</td><td>200명</td><td>13.3명</td></tr>
+        <tr><td>옹진군</td><td>10곳</td><td>50명</td><td>5명</td></tr>
+        <tr><td>완도군</td><td>24곳</td><td>370명</td><td>15.4명</td></tr>
+        <tr><td>완주군</td><td>34곳</td><td>1,121명</td><td>33명</td></tr>
+        <tr><td>용산구</td><td>13곳</td><td>1,198명</td><td>92.2명</td></tr>
+        <tr><td>용인시</td><td>156곳</td><td>10,313명</td><td>66.1명</td></tr>
+        <tr><td>울릉군</td><td>5곳</td><td>53명</td><td>10.6명</td></tr>
+        <tr><td>울주군</td><td>41곳</td><td>1,856명</td><td>45.3명</td></tr>
+        <tr><td>울진군</td><td>13곳</td><td>135명</td><td>10.4명</td></tr>
+        <tr><td>원주시</td><td>72곳</td><td>4,243명</td><td>58.9명</td></tr>
+        <tr><td>유성구</td><td>75곳</td><td>5,728명</td><td>76.4명</td></tr>
+        <tr><td>은평구</td><td>37곳</td><td>2,707명</td><td>73.2명</td></tr>
+        <tr><td>음성군</td><td>23곳</td><td>640명</td><td>27.8명</td></tr>
+        <tr><td>의령군</td><td>9곳</td><td>135명</td><td>15명</td></tr>
+        <tr><td>의성군</td><td>16곳</td><td>82명</td><td>5.1명</td></tr>
+        <tr><td>의왕시</td><td>18곳</td><td>823명</td><td>45.7명</td></tr>
+        <tr><td>의정부시</td><td>62곳</td><td>3,990명</td><td>64.4명</td></tr>
+        <tr><td>이천시</td><td>44곳</td><td>1,544명</td><td>35.1명</td></tr>
+        <tr><td>익산시</td><td>73곳</td><td>2,263명</td><td>31명</td></tr>
+        <tr><td>인제군</td><td>12곳</td><td>201명</td><td>16.8명</td></tr>
+        <tr><td>임실군</td><td>13곳</td><td>82명</td><td>6.3명</td></tr>
+        <tr><td>장성군</td><td>15곳</td><td>339명</td><td>22.6명</td></tr>
+        <tr><td>장수군</td><td>8곳</td><td>80명</td><td>10명</td></tr>
+        <tr><td>장흥군</td><td>15곳</td><td>185명</td><td>12.3명</td></tr>
+        <tr><td>전주시</td><td>103곳</td><td>6,939명</td><td>67.4명</td></tr>
+        <tr><td>정선군</td><td>14곳</td><td>129명</td><td>9.2명</td></tr>
+        <tr><td>정읍시</td><td>37곳</td><td>615명</td><td>16.6명</td></tr>
+        <tr><td>제주시</td><td>75곳</td><td>4,025명</td><td>53.7명</td></tr>
+        <tr><td>제천시</td><td>30곳</td><td>1,061명</td><td>35.4명</td></tr>
+        <tr><td>종로구</td><td>15곳</td><td>877명</td><td>58.5명</td></tr>
+        <tr><td>중구</td><td>13곳</td><td>2,165명</td><td>166.5명</td></tr>
+        <tr><td>중구</td><td>3곳</td><td>2,165명</td><td>721.7명</td></tr>
+        <tr><td>중구</td><td>12곳</td><td>2,165명</td><td>180.4명</td></tr>
+        <tr><td>중구</td><td>19곳</td><td>2,165명</td><td>113.9명</td></tr>
+        <tr><td>중구</td><td>36곳</td><td>2,165명</td><td>60.1명</td></tr>
+        <tr><td>중구</td><td>34곳</td><td>2,165명</td><td>63.7명</td></tr>
+        <tr><td>중랑구</td><td>31곳</td><td>2,281명</td><td>73.6명</td></tr>
+        <tr><td>증평군</td><td>5곳</td><td>237명</td><td>47.4명</td></tr>
+        <tr><td>진도군</td><td>13곳</td><td>172명</td><td>13.2명</td></tr>
+        <tr><td>진안군</td><td>11곳</td><td>72명</td><td>6.5명</td></tr>
+        <tr><td>진주시</td><td>50곳</td><td>3,203명</td><td>64.1명</td></tr>
+        <tr><td>진천군</td><td>17곳</td><td>892명</td><td>52.5명</td></tr>
+        <tr><td>창녕군</td><td>18곳</td><td>263명</td><td>14.6명</td></tr>
+        <tr><td>창원시</td><td>184곳</td><td>11,757명</td><td>63.9명</td></tr>
+        <tr><td>천안시</td><td>108곳</td><td>7,342명</td><td>68명</td></tr>
+        <tr><td>철원군</td><td>11곳</td><td>232명</td><td>21.1명</td></tr>
+        <tr><td>청도군</td><td>13곳</td><td>108명</td><td>8.3명</td></tr>
+        <tr><td>청송군</td><td>8곳</td><td>128명</td><td>16명</td></tr>
+        <tr><td>청양군</td><td>11곳</td><td>105명</td><td>9.5명</td></tr>
+        <tr><td>청주시</td><td>126곳</td><td>7,864명</td><td>62.4명</td></tr>
+        <tr><td>춘천시</td><td>44곳</td><td>2,962명</td><td>67.3명</td></tr>
+        <tr><td>충주시</td><td>41곳</td><td>1,876명</td><td>45.8명</td></tr>
+        <tr><td>칠곡군</td><td>30곳</td><td>1,019명</td><td>34명</td></tr>
+        <tr><td>태백시</td><td>9곳</td><td>108명</td><td>12명</td></tr>
+        <tr><td>태안군</td><td>18곳</td><td>202명</td><td>11.2명</td></tr>
+        <tr><td>통영시</td><td>25곳</td><td>750명</td><td>30명</td></tr>
+        <tr><td>파주시</td><td>85곳</td><td>6,142명</td><td>72.3명</td></tr>
+        <tr><td>평창군</td><td>15곳</td><td>128명</td><td>8.5명</td></tr>
+        <tr><td>평택시</td><td>115곳</td><td>7,593명</td><td>66명</td></tr>
+        <tr><td>포천시</td><td>23곳</td><td>799명</td><td>34.7명</td></tr>
+        <tr><td>포항시</td><td>108곳</td><td>5,532명</td><td>51.2명</td></tr>
+        <tr><td>하남시</td><td>38곳</td><td>3,004명</td><td>79.1명</td></tr>
+        <tr><td>하동군</td><td>14곳</td><td>134명</td><td>9.6명</td></tr>
+        <tr><td>함안군</td><td>17곳</td><td>365명</td><td>21.5명</td></tr>
+        <tr><td>함양군</td><td>12곳</td><td>204명</td><td>17명</td></tr>
+        <tr><td>함평군</td><td>11곳</td><td>38명</td><td>3.5명</td></tr>
+        <tr><td>합천군</td><td>15곳</td><td>189명</td><td>12.6명</td></tr>
+        <tr><td>해남군</td><td>20곳</td><td>358명</td><td>17.9명</td></tr>
+        <tr><td>해운대구</td><td>33곳</td><td>3,440명</td><td>104.2명</td></tr>
+        <tr><td>홍성군</td><td>25곳</td><td>1,286명</td><td>51.4명</td></tr>
+        <tr><td>홍천군</td><td>25곳</td><td>342명</td><td>13.7명</td></tr>
+        <tr><td>화성시</td><td>177곳</td><td>14,812명</td><td>83.7명</td></tr>
+        <tr><td>화순군</td><td>19곳</td><td>279명</td><td>14.7명</td></tr>
+        <tr><td>화천군</td><td>11곳</td><td>187명</td><td>17명</td></tr>
+        <tr><td>횡성군</td><td>14곳</td><td>200명</td><td>14.3명</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="go"><a href="/kindergarten">전국 8,140곳 &middot; 원아 481,613명 &mdash; 유치원 지면으로 &rarr;</a></p>
+
+    <h2>소아청소년과 &laquo;의원&raquo;이 한 곳도 없는 시&middot;군&middot;구 &mdash; 58곳</h2>
+    <p class="note">&#9940; 이 표가 세는 것은 <strong>&laquo;의원&raquo;뿐입니다.</strong>
+      「소아과가 아예 없다」는 뜻이 아닙니다 &mdash; 그래서 병원급까지 함께 적었습니다.
+      그 58곳 가운데 <strong>16곳은 병원급도 없습니다.</strong></p>
+    <div class="tablewrap tall">
+      <table>
+        <thead><tr><th>시&middot;도</th><th>시&middot;군&middot;구</th><th>병원급</th></tr></thead>
+        <tbody>
+        <tr><td>강원</td><td>고성군</td><td>병원급도 없음</td></tr>
+        <tr><td>강원</td><td>양양군</td><td>병원급도 없음</td></tr>
+        <tr><td>강원</td><td>영월군</td><td>병원급은 있음</td></tr>
+        <tr><td>강원</td><td>인제군</td><td>병원급은 있음</td></tr>
+        <tr><td>강원</td><td>정선군</td><td>병원급은 있음</td></tr>
+        <tr><td>강원</td><td>철원군</td><td>병원급은 있음</td></tr>
+        <tr><td>강원</td><td>평창군</td><td>병원급도 없음</td></tr>
+        <tr><td>강원</td><td>화천군</td><td>병원급도 없음</td></tr>
+        <tr><td>경기</td><td>가평군</td><td>병원급은 있음</td></tr>
+        <tr><td>경기</td><td>연천군</td><td>병원급도 없음</td></tr>
+        <tr><td>경남</td><td>고성군</td><td>병원급은 있음</td></tr>
+        <tr><td>경남</td><td>남해군</td><td>병원급은 있음</td></tr>
+        <tr><td>경남</td><td>산청군</td><td>병원급도 없음</td></tr>
+        <tr><td>경남</td><td>의령군</td><td>병원급은 있음</td></tr>
+        <tr><td>경남</td><td>창녕군</td><td>병원급은 있음</td></tr>
+        <tr><td>경남</td><td>하동군</td><td>병원급도 없음</td></tr>
+        <tr><td>경남</td><td>함안군</td><td>병원급은 있음</td></tr>
+        <tr><td>경남</td><td>합천군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>고령군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>봉화군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>성주군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>영덕군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>영양군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>울릉군</td><td>병원급도 없음</td></tr>
+        <tr><td>경북</td><td>울진군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>의성군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>청도군</td><td>병원급은 있음</td></tr>
+        <tr><td>경북</td><td>청송군</td><td>병원급도 없음</td></tr>
+        <tr><td>대구</td><td>군위군</td><td>병원급도 없음</td></tr>
+        <tr><td>인천</td><td>옹진군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>강진군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>고흥군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>곡성군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>구례군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>담양군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>보성군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>신안군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>영광군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>영암군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>완도군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>장성군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>장흥군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>진도군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>함평군</td><td>병원급은 있음</td></tr>
+        <tr><td>전남</td><td>해남군</td><td>병원급은 있음</td></tr>
+        <tr><td>전북</td><td>고창군</td><td>병원급은 있음</td></tr>
+        <tr><td>전북</td><td>무주군</td><td>병원급도 없음</td></tr>
+        <tr><td>전북</td><td>순창군</td><td>병원급은 있음</td></tr>
+        <tr><td>전북</td><td>임실군</td><td>병원급도 없음</td></tr>
+        <tr><td>전북</td><td>장수군</td><td>병원급도 없음</td></tr>
+        <tr><td>전북</td><td>진안군</td><td>병원급은 있음</td></tr>
+        <tr><td>충남</td><td>부여군</td><td>병원급은 있음</td></tr>
+        <tr><td>충남</td><td>청양군</td><td>병원급도 없음</td></tr>
+        <tr><td>충남</td><td>태안군</td><td>병원급도 없음</td></tr>
+        <tr><td>충북</td><td>괴산군</td><td>병원급은 있음</td></tr>
+        <tr><td>충북</td><td>단양군</td><td>병원급도 없음</td></tr>
+        <tr><td>충북</td><td>보은군</td><td>병원급은 있음</td></tr>
+        <tr><td>충북</td><td>영동군</td><td>병원급은 있음</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="go"><a href="/pediatrics">어디에 몰려 있는지, 2009~2026 · 18해 어떻게 움직였는지 &mdash; 소아과 지면으로 &rarr;</a></p>
+
+    <h2>어린이집이 한 곳도 없는 지역 &mdash; 634곳</h2>
+    <p class="note">2025년 기준. 시&middot;도 17칸으로 나눈 것입니다.
+      &#9888; 이 수는 <strong>지역의 수이지 아이의 수가 아닙니다.</strong></p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>시&middot;도</th><th>어린이집이 없는 지역</th></tr></thead>
+        <tbody>
+        <tr><td>강원특별자치도</td><td>40곳</td></tr>
+        <tr><td>경기도</td><td>20곳</td></tr>
+        <tr><td>경상남도</td><td>113곳</td></tr>
+        <tr><td>경상북도</td><td>120곳</td></tr>
+        <tr><td>광주광역시</td><td>5곳</td></tr>
+        <tr><td>대구광역시</td><td>7곳</td></tr>
+        <tr><td>대전광역시</td><td>1곳</td></tr>
+        <tr><td>부산광역시</td><td>11곳</td></tr>
+        <tr><td>서울특별시</td><td>3곳</td></tr>
+        <tr><td>세종특별자치시</td><td>3곳</td></tr>
+        <tr><td>울산광역시</td><td>3곳</td></tr>
+        <tr><td>인천광역시</td><td>9곳</td></tr>
+        <tr><td>전라남도</td><td>109곳</td></tr>
+        <tr><td>전북특별자치도</td><td>80곳</td></tr>
+        <tr><td>제주특별자치도</td><td>2곳</td></tr>
+        <tr><td>충청남도</td><td>62곳</td></tr>
+        <tr><td>충청북도</td><td>46곳</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="go"><a href="/nursery">2009~2025 · 17해 어떻게 늘었는지 &mdash; 어린이집 지면으로 &rarr;</a></p>
+
+    <footer>
+      <p><strong>이 방에는 글쓰기가 없습니다.</strong> 서버도 로그인도 아직 없습니다 &mdash;
+      없는 것을 있는 척하지 않습니다. 지금 이 방이 하는 일은
+      <strong>흩어진 세 지면을 한 자리에 놓는 것</strong>입니다.</p>
+      <p>출처 &mdash; 한국교육개발원 &middot; 보건복지부 &middot; 건강보험심사평가원.
+      저희가 받아 세었습니다.</p>
+      <p><a href="/community">&larr; 커뮤니티로 돌아가기</a> &middot;
+      <a href="/ages">나이로 보는 문 &mdash; 0세부터 100세까지</a></p>
+    </footer>
+  </div>
+</body>
+</html>
