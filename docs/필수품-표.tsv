@@ -17,10 +17,21 @@
 1번	전문용어 부록 — mingli-sungmyung	https://klifemap.ai/mingli-sungmyung.html	termAppendix	1	1번	7번	
 1번	용어 사전 부품	https://klifemap.ai/term-glossary.js	buildTermAppendix	1	1번	7번	
 1번	대운 그래프가 바로 보인다	https://klifemap.ai/saju.html	대운	1	1번	4번	보여야
-1번	궁으로 본 가족운 — 일반에서도	https://klifemap.ai/saju.html	배우자궁	1	1번	4번	보여야
-1번	세운 3년치 — 일반에서도	https://klifemap.ai/saju.html	세운	1	1번	4번	보여야
+# ⛔⛔ [2026-08-21 13:0x · 2번 결정 ㉮ — 잠시 뺀 줄. **없앤 것이 아니다.**]
+#   4번이 실측: 이 두 줄은 saju.html 을 «그냥 열어» 셉니다. 그런데 그때 손님 눈에 있는 것은
+#   **입력 폼 1,721자**뿐입니다 — 배우자궁·세운은 감명을 돌려야 그려집니다. 즉 이 자는
+#   무엇을 고쳐도 영영 0을 냅니다. 「지키는 척하며 3번 배포만 막는 줄」이었습니다.
+#   ⭐ 되넣는 조건 — 4번의 tools/check-report-sections-visible.mjs(감명을 실제로 돌려 세는 자)가
+#      돌아가면 그 자로 옮겨 **최소 개수 1 그대로** 되넣습니다. 무르게 낮추지 않습니다.
+#   ⛔ 대장에 적어 뒀습니다: docs/완성된것-대장.md
+# 1번	궁으로 본 가족운 — 일반에서도	https://klifemap.ai/saju.html	배우자궁	1	1번	4번	보여야
+# 1번	세운 3년치 — 일반에서도	https://klifemap.ai/saju.html	세운	1	1번	4번	보여야
 4번	부록 부품을 지면이 실제로 불러온다	https://klifemap.ai/saju.html	term-glossary.js	1	4번	7번	
-1번	감명근거는 꺼져 있으면 안 보인다	https://klifemap.ai/saju.html	감명 근거	0	1번	4번	없어야
+# ⛔⛔ [2026-08-21 13:0x · 2번 결정 ㉮ — 잠시 뺀 줄. **없앤 것이 아니다.**]
+#   4번이 실측: 이 줄이 잡는 「감명 근거」는 새어 나온 근거가 아니라 **체크박스의 이름표**입니다
+#   (「🖨 인쇄·PDF 저장 / 감명 근거 포함 / 끄면 고객용으로 인쇄됩니다」). 그 체크박스는
+#   사장님이 요구하신 기능이라 **지워야만 0이 되는 자**였습니다. 되넣는 조건은 위와 같습니다.
+# 1번	감명근거는 꺼져 있으면 안 보인다	https://klifemap.ai/saju.html	감명 근거	0	1번	4번	없어야
 4번	성명학 감정 지면이 살아 있다	https://klifemap.ai/mingli-sungmyung.html	성명학	1	4번	1번	보여야
 4번	이름을 넣을 자리가 있다	https://klifemap.ai/mingli-sungmyung.html	생년월일	1	4번	1번	보여야
 4번	사주에서 뽑은 용신을 싣는다	https://klifemap.ai/mingli-sungmyung.html	용신	1	4번	1번	보여야
