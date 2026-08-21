@@ -197,6 +197,10 @@ export const GET: APIRoute = () => {
     { path: '/keep-working', priority: '0.8', changefreq: 'monthly' },
     /* 🔴 /longest-job 의 짝 — 몇 살에 그만두었나의 반대쪽. 20~40대가 비어 있던 자리다(2번 07:2x) */
     { path: '/first-job', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 /first-job 다음이 30대다 — 2번이 「20~40대가 비어 있다」 한 자리를 마저 채운다.
+       ⛔ 이 지면의 뜻은 수 하나가 아니라 **두 수가 갈리는 까닭**이다 —
+          평균 초혼 33.9세인데 30~34세 미혼이 67.4%다. 재는 것이 다르다 */
+    { path: '/marriage-age', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
