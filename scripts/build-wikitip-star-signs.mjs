@@ -59,6 +59,8 @@ export function 띠하나(사람들, 띠, 몇 = 보일이름) {
     withReads: 잰것.length,
     withoutReads: 이것.length - 잰것.length,
     top: 잰것.slice(0, 몇),
+    /* ⭐ 방(/room/<띠>)이 쓸 **전부**. ⛔ 읽힘 모르는 사람도 이름은 남긴다 */
+    all: [...잰것, ...이것.filter((p) => p.perMillion == null)],
   };
 }
 

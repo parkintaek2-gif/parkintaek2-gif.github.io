@@ -417,6 +417,22 @@ export const GET: APIRoute = async () => {
        ⭐ 3번의 한국어 사주 지면(100yearmap.com/saju)에 대한 영어판 유입구다.
        ⛔⛔ 점을 치지 않는다 — 우리가 이미 카이제곱 7.77(문턱 19.68)로 반대를 발행했다 */
     { path: '/star-signs', priority: '0.9', changefreq: 'weekly' },
+    /* 별 방 열둘. 2026-08-21 — 2번 지시로 커뮤니티 카드가 갈 곳을 만들었다.
+       ⭐ 방마다 그 띠 스타의 **이름이 전부** 있다(가장 큰 개띠 103명).
+       ⛔ 글쓰기·로그인은 없다 — 읽는 자리까지다. 눌러도 안 되는 단추가 오늘의 병이었다.
+       ⛔ 방 목록을 손으로 안 적는다. 자료가 정한 띠 그대로다 */
+    { path: '/room/rat', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/ox', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/tiger', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/rabbit', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/dragon', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/snake', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/horse', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/goat', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/monkey', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/rooster', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/dog', priority: '0.7', changefreq: 'monthly' },
+    { path: '/room/pig', priority: '0.7', changefreq: 'monthly' },
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */

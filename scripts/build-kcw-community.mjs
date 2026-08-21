@@ -13,8 +13,16 @@
  * ⛔ **점을 치지 않는다.** 띠는 방을 가르는 이름표일 뿐이다 —
  *    우리가 이미 「우연과 구분되지 않는다」를 발행했다(카이제곱 7.77 · 문턱 19.68).
  * ⛔ **줄 세운 목록을 안 만든다.** 2번 확인 항목이다.
- * ⛔ **단추가 아무 데도 안 간다.** 서버가 없다. 없는 것을 있는 척하지 않는다.
- * ⛔ 화면에 한국어를 안 쓴다.
+ * ⛔ 글쓰기·로그인은 아직 안 넣는다. **읽는 자리**까지다.
+ * ⛔ **화면에 한국어를 안 쓴다** — 주석도 마찬가지다. 우리 사정은 이 자에 적고 지면에서 뺀다.
+ *   ⚠ 8/21 에 까닭을 HTML 주석으로 지면에 넣었다가 자가시험 넷이 한꺼번에 걸렸다.
+ *     나가는 글에 우리말이 섞였고, 그 주석 안의 낱말이 다른 시험까지 헛걸리게 했다.
+ *
+ * ── 🔴 noindex 를 뺀 까닭 (2026-08-21) ────────────────────────
+ * 처음엔 `noindex` 를 달았다. 그런데 사이트맵에는 방 열둘이 실려 있었다 —
+ * 사이트맵 머리글이 금지한 **모순된 신호**다(「noindex 인 지면은 넣지 않는다」).
+ * ⭐ 뺀 쪽은 noindex 다. 이 지면들은 스타 이름 1,047개를 담은 진짜 지면이고,
+ *   사장님 지시가 「이름으로 검색 유입」이다. 숨길 까닭이 없다.
  *
  * 쓰는 법
  *   node scripts/build-kcw-community.mjs
@@ -71,7 +79,6 @@ export function 판짓기(방, 자료) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Star rooms &mdash; K Culture Wire community</title>
 <meta name="description" content="Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.">
-<meta name="robots" content="noindex">
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }
@@ -160,7 +167,6 @@ export function 방짓기(칸, 자료) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Year of the ${칸.sign} &mdash; K Culture Wire star rooms</title>
 <meta name="description" content="The ${칸.people} Korean stars born in a ${칸.sign} year, including ${잰것.slice(0, 3).map((p) => p.name).join(', ')}.">
-<meta name="robots" content="noindex">
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }
@@ -262,6 +268,8 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('⛔ 화면에 한국어가 없다', /[가-힣]/.test(판), false);
   재본다('⛔ 점을 안 친다는 말이 있다', /indistinguishable from chance/.test(판), true);
   재본다('영문 지면이다', /<html lang="en">/.test(판), true);
+  /* 🔴 사이트맵에 실린 지면에 noindex 를 달면 모순된 신호다 */
+  재본다('⛔⛔ noindex 가 없다 — 사이트맵과 어긋나면 안 된다', /noindex/.test(판), false);
 
   /* ── 방 한 곳 ── */
   const 닭 = 자료.signs.find((s) => s.sign === 'Rooster');
@@ -282,6 +290,7 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     붙여(방판).includes('indistinguishable from chance'), true);
   재본다('⛔ 방에 한국어가 없다', /[가-힣]/.test(방판), false);
   재본다('⛔ 아직 글쓰기가 없다고 적는다', /no sign-in and no\s+posting/.test(방판), true);
+  재본다('⛔⛔ 방에도 noindex 가 없다', /noindex/.test(방판), false);
   재본다('방 주소를 소문자로 만든다', 방주소('Rooster'), '/room/rooster');
 
   console.log(`커뮤니티 첫 본 짓는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
