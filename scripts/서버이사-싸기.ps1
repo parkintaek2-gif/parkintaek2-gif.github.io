@@ -123,8 +123,14 @@ if (-not $대화록) {
   # ⭐ 그래서 짐 뿌리에 풀기 자와 차례표를 그냥 놓는다. 원드라이브 폴더만 열면 바로 보인다.
   foreach ($pair in @(
       @('C:\Users\USER\Documents\GitHub\dataeconomics\scripts\서버이사-풀기.ps1', '서버이사-풀기.ps1'),
-      @('C:\Users\USER\Documents\GitHub\dataeconomics\docs\서버이사-차례표.md',   '서버이사-차례표.md'))) {
+      @('C:\Users\USER\Documents\GitHub\dataeconomics\docs\서버이사-차례표.md',   '서버이사-차례표.md'),
+      @('C:\Users\USER\Documents\GitHub\dataeconomics\scripts\이사-두번클릭\1_클라우드코드-설치.cmd', '1_클라우드코드-설치.cmd'),
+      @('C:\Users\USER\Documents\GitHub\dataeconomics\scripts\이사-두번클릭\2_짐풀기.cmd',           '2_짐풀기.cmd'))) {
     if (Test-Path $pair[0]) { Copy-Item $pair[0] (Join-Path $짐 $pair[1]) -Force; Say ('짐 뿌리에 놓음: ' + $pair[1]) }
+    # ⛔ [2026-08-21 20:5x] 사장님이 새 PC 에서 명령을 세 번 헛되게 치셨다. 내 잘못이다 —
+    #    나는 새 PC 를 «못 본다». 그런데 재지도 않고 명령을 드렸다(실행 정책이라 짚었는데
+    #    irm|iex 는 애초에 정책과 무관했다). ⭐ 그래서 새 PC 쪽은 **두 번 클릭**으로만 드린다.
+    #    scripts/이사-두번클릭/ 의 .cmd 둘을 짐 뿌리에 같이 놓는다. 사장님은 아무것도 안 치신다.
     else { Say ('🔴 없다: ' + $pair[0]) }
   }
 
