@@ -86,6 +86,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   /* ⚠ 이름을 ow 로 둔다 — oo 는 one-out 이 이미 쓴다. 겹치면 조용히 딴 자료를 읽는다 */
   const ow = 읽기('src/data/wikitip-only-one-wikipedia.json');
   const lp = 읽기('src/data/wikitip-last-place.json');
+  const da = 읽기('src/data/wikitip-debut-age.json');
   const af = 읽기('src/data/wikitip-actors-first.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -412,6 +413,22 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `${주소}/who-reads-least`,
       alt: 'Five cards on which Southeast Asian Wikipedia reads each Korean star most and least, '
         + 'with the objection we cannot rule out on the second card.',
+    },
+    {
+      /**
+       * ⛔⛔ 「일찍 시작해야 한다」는 훈계로 읽히면 안 된다.
+       *   그래서 사다리와 **반례(고윤정)**를 같은 글에 둔다. 글자가 아까워도 못 뺀다.
+       */
+      key: 'debut',
+      page: `${주소}/debut-age`,
+      images: 장('debut'),
+      x: `IU started at 15. Ma Dong-seok at 32. Go Youn-jung started at 23 and is read more `
+        + `than either.\n\n`
+        + `Stars who debuted before 18 are read ${da.bands[0].all.median} per million; those from `
+        + `26, ${da.bands[3].all.median}. Median career is 20-22 years in every band, so it is not `
+        + `just time.\n\n${주소}/debut-age`,
+      alt: 'Five cards on how old Korean stars were when they started and how much they are read '
+        + 'now, with the counterexample that sits above everyone.',
     },
   ];
 }

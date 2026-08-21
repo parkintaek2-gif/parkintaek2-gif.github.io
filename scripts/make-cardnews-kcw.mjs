@@ -63,7 +63,86 @@ export const 벌목록 = {
   signs: { 자료: 'src/data/wikitip-star-signs.json', 만들기: (d) => 띠벌짓기(d) },
   onlyone: { 자료: 'src/data/wikitip-only-one-wikipedia.json', 만들기: (d) => 한판벌짓기(d) },
   least: { 자료: 'src/data/wikitip-last-place.json', 만들기: (d) => 꼴찌벌짓기(d) },
+  debut: { 자료: 'src/data/wikitip-debut-age.json', 만들기: (d) => 데뷔벌짓기(d) },
 };
+
+/**
+ * 데뷔 벌 — 106편째 짝(`/debut-age`).
+ *
+ * ⭐ 이야기 한 줄: **IU 는 열다섯에, 마동석은 서른둘에 시작했다.
+ *    그런데 스물셋에 시작한 고윤정이 둘보다 많이 읽힌다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **사다리만 보이지 않는다.** 셋째 장이 「한 사람 확률 72.7%」와 반례(고윤정)다.
+ *     사다리만 내면 「일찍 시작해야 한다」는 훈계가 된다 — 우리 자리가 아니다.
+ *   ⛔⛔ **뻔한 반론을 카드 안에서 죽인다** — 경력 길이가 네 띠 다 20~22년이다.
+ *     그걸 안 넣으면 「오래 했으니 많이 읽히지」로 끝난다.
+ *   ⛔ 표 첫 칸은 이름·띠다. ⛔ 수를 손으로 안 박는다.
+ */
+export function 데뷔벌짓기(d) {
+  const 띠 = d.bands;
+  const 위 = 띠.map((b) => ({ 띠: b.label, ...b.all.topNames[0] }));
+  const 반례 = 띠[2].all.topNames[0];
+  const 확률 = `${(100 * d.personLevel.value).toFixed(1)}%`;
+
+  return {
+    갈피: 'debut-age',
+    빛: '#c8a2d8',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Wikipedias · ${d.measured} Korean stars`,
+        큰: `IU started at 15.\nMa Dong-seok at 32.\nGo Youn-jung at 23\nand outreads both`,
+        아래: `Stars who debuted before 18 are read **${띠[0].all.median}** per million; those who `
+          + `started at 26 or later, **${띠[3].all.median}**. Every step in between falls. `
+          + `And it still does not tell you about one person.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The ladder, and\nwho sits on top\nof each rung',
+        머리: ['Debut age', 'Stars', 'Median reads', 'Most-read there'],
+        줄: 띠.map((b, i) => [b.label, String(b.all.measured), String(b.all.median),
+          `${위[i].name} (${위[i].debutAge}) ${위[i].perMillion}`]),
+        아래: 'Reads per million reads of that Wikipedia. The most-read person in the whole panel '
+          + `is **${반례.name}**, who started at ${반례.debutAge} — in the second-lowest band.`,
+      },
+      {
+        꼴: '수',
+        제목: 'What it says about\none person',
+        큰: 확률,
+        곁: 'Chance the earlier starter of two randomly picked stars is the more-read one',
+        아래: `Fifty per cent would mean debut age tells you **nothing** about an individual. `
+          + `A hundred would make it a rule. ${반례.name} started at ${반례.debutAge} and is read `
+          + `${반례.perMillion} — more than IU, more than anyone here.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'The obvious objection, tested',
+        목록: [
+          `"They started early, so they have had longer" — median career is `
+            + `${Object.values(d.theObviousObjection.careerMedians).join(', ')} years across the four bands`,
+          `Held career length inside ${d.theObviousObjection.careerWindow.부터}–`
+            + `${d.theObviousObjection.careerWindow.까지} years, the ladder survives at `
+            + `${d.theObviousObjection.ladderWithCareerHeld.fromTo}×`,
+          'But the two youngest bands then merge — four steps become three',
+        ],
+        아래: 'These are people who have all been working about as long, who **started at different '
+          + 'ages**. Not young stars against veterans.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Which way it runs,\nwe do not know',
+        글: 'Starting young may build a readership. Or the kind of person put on stage at 15 may '
+          + 'already be the kind a company backs for twenty years.\n\n'
+          + '**Nothing here separates them, so we say so.**',
+        길: `${주소}/debut-age`,
+        곁: `Wikidata birth and start dates \u00b7 Wikimedia Pageviews \u00b7 ${d.window.split(',')[0]}`,
+      },
+    ],
+  };
+}
 
 /**
  * 꼴찌 벌 — 108편째 짝(`/who-reads-least`).
