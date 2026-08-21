@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-last-place.json';
 
 const 꼴 = d.mostOftenLast;
@@ -150,6 +151,10 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="least" count={5} />
+
+  <KcwShorts set="least"
+    says={`Fourteen seconds: which country reads BTS and Byeon Woo-seok most, the one that comes `
+      + `last for all twenty, and the objection we cannot rule out — shown before the table.`} />
 
   <KcwRelatedArticles page="/who-reads-least" />
 </WikiTip>
