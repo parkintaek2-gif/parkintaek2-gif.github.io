@@ -16,6 +16,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/marriage-age.json';
 /* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 첫일원본 from '../../../data/100yearmap/first-job.json';
@@ -191,6 +192,8 @@ const desc =
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
   </p>
+
+  <HundredCardnews 벌="서른에결혼했을까" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="혼인 상태 자료" />
 </HundredYear>
