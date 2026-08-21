@@ -28,6 +28,7 @@ import 아침 from '../../../data/100yearmap/breakfast.json';
 import 집 from '../../../data/100yearmap/home.json';
 import 지출 from '../../../data/100yearmap/spending.json';
 import 반려동물 from '../../../data/100yearmap/pets.json';
+import 여행 from '../../../data/100yearmap/travel.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -38,6 +39,7 @@ const m = 돌봄 as any;
 const n = 아침 as any;
 const o = 집 as any;
 const p = 반려동물 as any;
+const q = 여행 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -112,6 +114,12 @@ const 문들 = [
     수: `${p.전체.양육몫}%`,
     한줄: `기르는 가구 안에서는 나이가 들수록 개 비중이 오르고 고양이 비중이 내립니다(20대 개${(p.연령별 as any[])[0].개몫}%→60대 이상 개${(p.연령별 as any[])[4].개몫}%).`,
     기간: `${p.최신} · ${p.해수}해(표본 ${p.전체.사례수.toLocaleString()}가구)`,
+  },
+  {
+    나이: '전 연령', 주소: '/travel', 이름: '1년에 국내여행을 며칠이나 갈까, 나이대로 다른가',
+    수: `${q.최신칸.국내전체}일`,
+    한줄: `${q.가장많은연령.칸}가 ${q.가장많은연령.국내전체}일로 가장 많습니다. ⚠ ${q.회복.회복 ? '' : '아직 '}코로나 전(2018~2019) 평균 ${q.회복.코로나전평균}일에 ${q.회복.회복 ? '넘었습니다' : '못 미칩니다'}.`,
+    기간: `${q.해들[0]}~${q.최신} · ${q.해수}해`,
   },
   {
     나이: '20~60대', 주소: '/age', 이름: '나이로 보기 — 월급 · 근속 · 살림',
