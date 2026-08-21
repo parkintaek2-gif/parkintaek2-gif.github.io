@@ -1,0 +1,46 @@
+{
+  "source": "한국은행 예금은행 대출 고정·변동금리 비중(잔액 기준) · KOSIS 301/DT_121Y011",
+  "unit": "%",
+  "basis": "outstanding loan balances",
+  "window": {
+    "first": "202507",
+    "last": "202606"
+  },
+  "trend": [
+    {
+      "type": "corporate",
+      "first": 39.2,
+      "last": 31.4
+    },
+    {
+      "type": "household",
+      "first": 46.9,
+      "last": 43.9
+    },
+    {
+      "type": "mortgage",
+      "first": 66,
+      "last": 63.1
+    }
+  ],
+  "latest": [
+    {
+      "key": "corporate",
+      "ko": "기업",
+      "fixed": 31.4,
+      "floating": 68.6
+    },
+    {
+      "key": "household",
+      "ko": "가계",
+      "fixed": 43.9,
+      "floating": 56.1
+    },
+    {
+      "key": "mortgage",
+      "ko": "주택담보",
+      "fixed": 63.1,
+      "floating": 36.9
+    }
+  ]
+}
