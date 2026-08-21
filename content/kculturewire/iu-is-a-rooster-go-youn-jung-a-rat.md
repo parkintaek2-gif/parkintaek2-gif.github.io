@@ -7,7 +7,8 @@ dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["wikipedia", "southeast asia", "actors", "k-pop", "zodiac", "method"]
 pages:
-  - "/community"
+  - "/zodiac"
+  - "/star-signs"
 sources:
   - org: "Wikidata"
     api: "Dates of birth (CC0)"
