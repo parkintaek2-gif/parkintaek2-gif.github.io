@@ -140,8 +140,26 @@ for (const [번호, 파일] of Object.entries(단추)) {
       '1) 가장 먼저 **매시 예약을 다시 건다**(CronCreate). 안 걸면 이 창은 또 조용해진다.\n' +
       '2) git pull 후 docs/세션간-메모.md 꼬리에서 [2번 → ' + 번호 + '번] 을 읽고 이어서 한다.\n' +
       '3) 끝나면 [진행] ' + 번호 + '번 HH:MM 한 줄을 메모에 적고 커밋한다.';
-    execFile('claude', ['-p', '--resume', id, 깨움],
-      { env: { ...process.env, CLAUDE_SEAT: String(번호) }, shell: true, windowsHide: true }, () => {});
+    /* 🔴 [2026-08-21 14:2x · 2번] 사장님이 「얘는 뭐지?」 하고 **떠돌이 창 셋**을 보여 주셨다.
+       셋 다 같은 것이었다 —
+       ```
+       ~\Desktop\00_세션입구           ← 자리 .cmd 는 전부 Desktop 으로 이동해 연다. 자리가 아니다
+       Transcript saving is off
+         — inherited CLAUDE_CODE_CHILD_SESSION marker   ← «다른 claude 의 자식»이라는 표다
+       ```
+       그 표는 이 줄이 붙인다. 여기서 claude 를 자식으로 띄우면 부모의 환경이 통째로 넘어간다.
+       ⛔ 그러면 **그 창은 대화를 기록하지 않는다.** 기록이 없으면 다음 걷기 때 또 「죽었다」로
+          보이고, 15분 뒤 또 깨운다 — **자기가 만든 유령을 자기가 다시 깨우는 고리**다.
+       ⛔ 그리고 유령 하나가 램을 먹는다. 14:2x 실측 claude 27개 · 5.8GB. 이 기계는 램이 병목이다.
+       고친 것 셋 —
+         ① 자식 표식을 지운다 → 깨어난 창이 제 대화록에 남는다(그래야 다음에 안 깨운다)
+         ② cwd 를 Desktop 으로 못 박는다 → 지킴이를 어디서 돌리든 자리와 같은 길에서 열린다
+         ③ 들어오는 글을 비운다(< NUL) → 물음이 떠도 붙잡혀 서 있지 않는다 */
+    const 깨끗한환경 = { ...process.env, CLAUDE_SEAT: String(번호) };
+    delete 깨끗한환경.CLAUDE_CODE_CHILD_SESSION;
+    delete 깨끗한환경.CLAUDE_CODE_ENTRYPOINT;
+    execFile('claude', ['-p', '--resume', id, 깨움, '<', 'NUL'],
+      { env: 깨끗한환경, cwd: 'C:/Users/USER/Desktop', shell: true, windowsHide: true }, () => {});
     찍기(`${번호}번 🔴 ${상태} — 깨운다(예약 다시 걸라고만 말한다)`);
     continue;
   }
