@@ -21,6 +21,7 @@ import 원본 from '../../../data/100yearmap/care.json';
 import 남은해원본 from '../../../data/100yearmap/years-left.json';
 import 계속일원본 from '../../../data/100yearmap/keep-working.json';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 
 const 자료 = 원본 as any;
 const 남은해 = 남은해원본 as any;
@@ -126,9 +127,19 @@ const desc =
     </table>
   </div>
   <p>
-    {자료.해수}해 동안 {첫흐름.인정.toLocaleString()}명에서 {끝흐름.인정.toLocaleString()}명이 되었습니다 —
+    {/* ⛔ 「표에 몇 해가 있나」와 「내가 몇 해를 냈나」는 다르다. 흐름의 해수를 쓴다 —
+        자료.해수 를 쓰면 「12해 동안 2014→2024」처럼 자기와 모순된 말이 된다 */}
+    {자료.흐름해수}해 동안 {첫흐름.인정.toLocaleString()}명에서 {끝흐름.인정.toLocaleString()}명이 되었습니다 —
     {' '}<strong>{Math.round((끝흐름.인정 / 첫흐름.인정) * 10) / 10}배</strong>입니다.
   </p>
+  {자료.등급외를더해살린해.length > 0 && (
+    <p class="note">
+      ⭐ <strong>{자료['⚠ 옛 해는 등급외 합계 칸이 없다']}</strong>
+      {' '}처음에 저희 것도 한 해가 빠져 있었습니다 — <strong>「자료가 없다」고 적기 전에
+      「내가 다 받았나」를 먼저 물어</strong> 찾았습니다.
+      {' '}지금은 표의 {자료.해수}해를 <strong>하나도 빠뜨리지 않았습니다.</strong>
+    </p>
+  )}
 
   <h2>그 나이의 다른 자리</h2>
   <p>
@@ -174,6 +185,8 @@ const desc =
     {/* 🔴 2번 10:2x — 지면에서도 «방으로» 가게 한다 */}
     <a href="/community">← 커뮤니티 — 「0~100세 · 남은 해를 세어 보는 사람」 방</a>
   </p>
+
+  <HundredCardnews 벌="몇살부터돌봄" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="장기요양 자료" />
 </HundredYear>
