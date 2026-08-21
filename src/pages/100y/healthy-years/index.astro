@@ -19,6 +19,7 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/healthy-years.json';
 /* 🔴 「남은 해」는 저쪽 지면이 이미 냈다. 두 벌로 적지 않고 여기서 읽어 온다 */
 import 여명원본 from '../../../data/100yearmap/years-left.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 여명 = 여명원본 as any;
@@ -138,6 +139,9 @@ const desc =
   </p>
 
   {/* 🔴 2번 지시(06:2x) — 한 장에 들어온 손님이 그 한 장만 보고 나간다. 돌아오는 길을 낸다 */}
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="healthy-years" />
+
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
     <br />

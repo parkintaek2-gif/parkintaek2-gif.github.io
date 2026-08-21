@@ -15,6 +15,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/years-left.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 나이별 = 자료.나이별 as any[];
@@ -141,6 +142,9 @@ const desc =
   </p>
 
   {/* 🔴 2번 지시(06:2x) — 한 장에 들어온 손님이 그 한 장만 보고 나간다. 돌아오는 길을 낸다 */}
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="years-left" />
+
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
     <br />

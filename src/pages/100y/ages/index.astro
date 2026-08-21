@@ -23,12 +23,14 @@ import 건강한해 from '../../../data/100yearmap/healthy-years.json';
 import 계속일 from '../../../data/100yearmap/keep-working.json';
 import 첫일 from '../../../data/100yearmap/first-job.json';
 import 혼인 from '../../../data/100yearmap/marriage-age.json';
+import 돌봄 from '../../../data/100yearmap/care.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
 const i = 계속일 as any;
 const j = 첫일 as any;
 const k = 혼인 as any;
+const m = 돌봄 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -97,6 +99,12 @@ const 문들 = [
     수: `${i.원함몫}%`,
     한줄: `까닭 맨 위는 ${i.까닭[0].까닭}(${i.까닭[0].몫}%). ⚠ 두 수의 분모가 다릅니다.`,
     기간: `${i.흐름[0].해}~${i.흐름[i.흐름.length-1].해} · ${i.조사수}번 조사`,
+  },
+  {
+    나이: '65세~', 주소: '/care', 이름: '몇 살부터 돌봄이 필요해지나',
+    수: `${(m.나이별 as any[]).find((r: any) => r.칸 === '85세이상').몫}%`,
+    한줄: `85세 이상이 받은 장기요양 인정입니다. 65~69세는 ${(m.나이별 as any[]).find((r: any) => r.칸 === '65~69세').몫}% — ⛔ 등급외를 뺀 수입니다.`,
+    기간: `${m.해들[0]}~${m.최신} · ${m.해수}해`,
   },
   {
     나이: '0~100세', 주소: '/years-left', 이름: '앞으로 몇 해가 남았나',

@@ -22,6 +22,7 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/nursery-none.json';
 /* 🔴 2번 지시(01:2x) — 이 지면이 적어 둔 한계를 닫으려고 유치원 자료를 여기서도 읽는다 */
 import 유치원원본 from '../../../data/100yearmap/kindergarten.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 유치원 = 유치원원본 as any;
@@ -171,6 +172,9 @@ const desc =
     {' '}어린이집 표는 시·도까지만 있고 <strong>지역 «목록»을 주지 않습니다</strong>(같은 기관의 네 표를 다 열어 보았습니다).
     {' '}시설마다 주소가 붙은 자료가 있어야 셀 수 있습니다. 그 문은 아직 못 열었습니다.
   </p>
+
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="nursery" />
 
   {/* 🔴 2번 지시(06:2x) — 한 장에 들어온 손님이 그 한 장만 보고 나간다. 돌아오는 길을 낸다 */}
   <p class="note">

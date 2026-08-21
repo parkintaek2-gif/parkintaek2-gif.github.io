@@ -18,6 +18,7 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/keep-working.json';
 /* 🔴 앞 물음의 수는 저쪽 자료에서 읽어 온다 — 두 벌로 적으면 갈라진다 */
 import 직장원본 from '../../../data/100yearmap/longest-job.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 직장 = 직장원본 as any;
@@ -143,6 +144,9 @@ const desc =
     {' '}({자료.출처.orgId} · {자료.출처.tblId}). {때말(자료.최신)} 조사 · 받은 날 {자료.만든날}.
     {' '}<a href="/longest-job">가장 오래 다닌 직장</a> · <a href="/years-left">몇 해가 남았나</a>
   </p>
+
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="keep-working" />
 
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>

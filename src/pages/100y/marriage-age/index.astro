@@ -20,6 +20,7 @@ import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/marriage-age.json';
 /* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 첫일원본 from '../../../data/100yearmap/first-job.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 첫일 = 첫일원본 as any;
@@ -188,6 +189,9 @@ const desc =
     {' '}({자료.출처.orgId} · {자료.출처.tblId}).
     {' '}받은 날 {자료.만든날}.
   </p>
+
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="marriage-age" />
 
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>

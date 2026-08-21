@@ -19,6 +19,7 @@ import 자격나이 from '../../../data/100yearmap/qual-age.json';
 /* 🔴 8/20 예약분 — 카드가 이 지면을 대는데 지면에 그 수가 없었다(콘텐트 검사자가 잡았다) */
 import 사업장 from '../../../data/100yearmap/business-lifespan.json';
 import { 나이말, 임금값, 혼인누적, 임금꼭대기, type 나이자료 } from '../../../lib/age-page';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as unknown as 나이자료;
 const 낼나이 = [25, 32, 40, 55, 68];
@@ -254,6 +255,9 @@ const desc =
   <HundredCardnews 벌="예순에도딴다" 장수={6} 머리="나이와 자격, 카드 여섯 장" />
 
   <NextQuestionBrief 모은것="나이마다 사람들이 무엇을 했는지 모은 자료" />
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="age" />
+
 </HundredYear>
 
 <style>

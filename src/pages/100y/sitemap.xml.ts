@@ -201,6 +201,10 @@ export const GET: APIRoute = () => {
        ⛔ 이 지면의 뜻은 수 하나가 아니라 **두 수가 갈리는 까닭**이다 —
           평균 초혼 33.9세인데 30~34세 미혼이 67.4%다. 재는 것이 다르다 */
     { path: '/marriage-age', priority: '0.8', changefreq: 'monthly' },
+
+    /* 🔴 /ages 가 스스로 「70대 뒤가 얇습니다」라 적어 둔 자리다.
+       /keep-working 이 55~79세까지고 그 뒤가 통째로 비어 있었다 */
+    { path: '/care', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

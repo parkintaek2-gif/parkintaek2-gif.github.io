@@ -18,6 +18,7 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/first-job.json';
 /* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
 import 그만둠원본 from '../../../data/100yearmap/longest-job.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 
 const 자료 = 원본 as any;
 const 그만둠 = 그만둠원본 as any;
@@ -174,6 +175,9 @@ const desc =
     출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
     {' '}({자료.출처.orgId} · {자료.출처.tblId}). {때말(자료.최신)} 조사 · 받은 날 {자료.만든날}.
   </p>
+
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="first-job" />
 
   <p class="note">
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>

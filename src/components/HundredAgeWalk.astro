@@ -1,0 +1,102 @@
+---
+/**
+ * HundredAgeWalk — **나이 지면들을 서로 잇는다.** 앞 나이 한 길, 다음 나이 한 길.
+ *
+ * 🔴 2번 지시(8/21 11:2x): 「밖에서 들어오는 손님은 **방이 아니라 지면 하나**로 떨어집니다
+ *   (검색으로 옵니다). 거기서 옆 문이 안 보이면 한 장 읽고 나갑니다」
+ *   사장님이 매기신 자리가 「9월에 검색으로 하루 1,000명」이다 — **들어오는 문이 지면**이다.
+ *
+ * ⛔ 차례를 **한 자리에만** 둔다. 지면마다 「앞은 여기, 뒤는 여기」를 손으로 적으면
+ *    새 지면이 하나 끼어들 때마다 열세 장을 다 고쳐야 하고, 한 장이라도 놓치면 길이 끊긴다.
+ *    ⇒ 아래 `차례` 하나가 정본이다. 지면은 자기 이름만 넘긴다.
+ *
+ * ⛔ 「0~100세」 지면(/years-left · /healthy-years)은 **줄 위의 한 점이 아니다.**
+ *    나이 차례에 억지로 끼우면 「일흔 다음이 0세」가 된다. 그래서 줄 끝에 따로 둔다.
+ */
+export interface Props {
+  /** 이 지면의 이름 — 아래 차례의 `키` 와 같아야 한다 */
+  키: string;
+}
+const { 키 } = Astro.props;
+
+/**
+ * ⭐ 나이 차례 — **이 배열 하나가 정본이다.**
+ * `나이` 는 줄 위의 자리(시작 나이)다. 같은 자리면 `결` 로 가른다.
+ */
+export const 차례 = [
+  { 키: 'nursery', 나이: 0, 주소: '/nursery', 말: '0~5세 · 어린이집이 없는 지역' },
+  { 키: 'kindergarten', 나이: 3, 주소: '/kindergarten', 말: '3~5세 · 우리 동네 유치원' },
+  { 키: 'pediatrics', 나이: 5, 주소: '/pediatrics', 말: '아플 때 · 소아과가 없는 곳' },
+  { 키: 'afterschool', 나이: 6, 주소: '/afterschool', 말: '6~9세 · 학교가 끝난 뒤' },
+  { 키: 'elementary', 나이: 7, 주소: '/elementary', 말: '초등 · 학교는 몇 살인가' },
+  { 키: 'major', 나이: 18, 주소: '/major', 말: '10대 · 학과 찾기' },
+  { 키: 'first-job', 나이: 20, 주소: '/first-job', 말: '20대 · 처음 일자리' },
+  { 키: 'marriage-age', 나이: 30, 주소: '/marriage-age', 말: '30대 · 아직 결혼하지 않은 사람' },
+  { 키: 'age', 나이: 40, 주소: '/age', 말: '20~60대 · 나이로 보기' },
+  { 키: 'longest-job', 나이: 50, 주소: '/longest-job', 말: '50대 · 오래 다닌 직장' },
+  { 키: 'keep-working', 나이: 55, 주소: '/keep-working', 말: '55~79세 · 계속 일하고 싶은가' },
+  { 키: 'care', 나이: 65, 주소: '/care', 말: '65세~ · 돌봄이 필요해지나' },
+];
+/** ⛔ 줄 위의 한 점이 아닌 것들 — 나이 전체를 한 살씩 재는 지면이다 */
+export const 온줄 = [
+  { 키: 'years-left', 주소: '/years-left', 말: '0~100세 · 앞으로 몇 해가 남았나' },
+  { 키: 'healthy-years', 주소: '/healthy-years', 말: '0~100세 · 그 가운데 건강한 해' },
+];
+
+const 자리 = 차례.findIndex((r) => r.키 === 키);
+const 앞 = 자리 > 0 ? 차례[자리 - 1] : null;
+const 뒤 = 자리 >= 0 && 자리 < 차례.length - 1 ? 차례[자리 + 1] : null;
+/** 온줄 지면에 서 있으면 — 앞뒤가 없다. 대신 줄의 처음과 끝을 준다 */
+const 온줄인가 = 온줄.some((r) => r.키 === 키);
+const 곁 = 온줄.filter((r) => r.키 !== 키);
+---
+
+{(앞 || 뒤 || 온줄인가) && (
+  <nav class="agewalk" aria-label="나이 차례로 옆 지면">
+    <p class="agewalk-title">나이 차례로 옆 지면</p>
+    {온줄인가 ? (
+      <p class="agewalk-row">
+        이 지면은 <strong>0세부터 100세까지 한 살씩</strong> 잽니다 — 줄 위의 한 점이 아닙니다.
+        {' '}줄의 처음은 <a href={차례[0].주소}>{차례[0].말}</a>이고,
+        {' '}끝은 <a href={차례[차례.length - 1].주소}>{차례[차례.length - 1].말}</a>입니다.
+      </p>
+    ) : (
+      <p class="agewalk-row">
+        {앞 ? <span class="agewalk-prev">← 앞 나이 <a href={앞.주소}>{앞.말}</a></span>
+          : <span class="agewalk-edge">← 여기가 줄의 처음입니다</span>}
+        {' '}
+        {뒤 ? <span class="agewalk-next">다음 나이 <a href={뒤.주소}>{뒤.말}</a> →</span>
+          : <span class="agewalk-edge">여기가 줄의 끝입니다 →</span>}
+      </p>
+    )}
+    {곁.length > 0 && (
+      <p class="agewalk-row agewalk-side">
+        나이 전체를 한 살씩 보려면 —
+        {곁.map((r, i) => (<>{i > 0 ? ' · ' : ' '}<a href={r.주소}>{r.말}</a></>))}
+      </p>
+    )}
+  </nav>
+)}
+
+<style>
+  .agewalk {
+    margin: 2.4rem 0 1.2rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--line, #e6e8ec);
+    border-radius: 10px;
+    font-size: 0.94rem;
+    line-height: 1.7;
+  }
+  .agewalk-title {
+    margin: 0 0 0.4rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    opacity: 0.7;
+  }
+  .agewalk-row { margin: 0.2rem 0; word-break: keep-all; }
+  .agewalk-prev { display: inline-block; margin-right: 0.9rem; }
+  .agewalk-next { display: inline-block; }
+  .agewalk-edge { display: inline-block; margin-right: 0.9rem; opacity: 0.6; }
+  .agewalk-side { margin-top: 0.5rem; font-size: 0.88rem; opacity: 0.85; }
+</style>

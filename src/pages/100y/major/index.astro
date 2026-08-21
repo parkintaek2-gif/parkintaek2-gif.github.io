@@ -41,6 +41,7 @@ const desc =
   `전국 고등학교의 나이스 학과정보에 등록된 학과 ${(majors as any[]).length.toLocaleString()}개를 계열별로 정리했습니다. ` +
   `학과를 고르면 어느 지역 어느 학교에 있는지, 그 길로 간 사람들이 졸업 뒤에 어떻게 됐는지 볼 수 있습니다.`;
 import 요약 from '../../../data/100yearmap/summary.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 /* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
    ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
 const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
@@ -190,6 +191,9 @@ const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
     원자료에 있던 값이 아닙니다. 이름만으로 정하기 어려운 학과는 「미분류」로 남겨 두었습니다.
   </p>
   <NextQuestionBrief 모은것="4년제 학과 자료" />
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="major" />
+
 </HundredYear>
 
 <style>

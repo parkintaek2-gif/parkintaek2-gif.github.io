@@ -1,0 +1,179 @@
+---
+/**
+ * /100y/care — 몇 살부터 돌봄이 필요해지나
+ *
+ * 🔴 `/ages` 가 스스로 「70대 뒤가 얇습니다」라 적어 둔 자리를 채운다.
+ *   /keep-working 이 55~79세까지고 그 뒤가 통째로 비어 있었다.
+ *
+ * ⛔⛔ 이 지면의 핵심 위험 둘 —
+ *   ① 「판정」과 「인정」이 다르다. 표의 「계」에 **등급외**가 들어 있다.
+ *      안 빼면 돌봄 받는 사람이 부풀어 오른다. 저희는 빼고 세었고, 화면에 그 셈을 보인다
+ *   ② 몫의 밑수가 **다른 표**에서 온다(장기요양=건강보험 가입자 · 인구총조사=내국인 18세 이상).
+ *      딱 안 겹친다 ⇒ 「대강 이만큼」이라고 화면에 적는다
+ *
+ * ⛔ 「몇 살에」로 못 쓴다. 나이칸이 다섯 살 묶음이다 — 칸 이름 그대로만.
+ * ⛔ 시도를 늘어놓지 않는다. 줄을 세우게 된다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/care.json';
+/* 🔴 짝이 되는 지면의 수는 저쪽 자료에서 읽는다 — 두 벌로 적으면 갈라진다 */
+import 남은해원본 from '../../../data/100yearmap/years-left.json';
+import 계속일원본 from '../../../data/100yearmap/keep-working.json';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+
+const 자료 = 원본 as any;
+const 남은해 = 남은해원본 as any;
+const 계속일 = 계속일원본 as any;
+const 나이별 = 자료.나이별 as any[];
+const 전체 = 자료.전체;
+const 대조 = 자료.자가대조;
+const 흐름 = 자료.흐름 as any[];
+const 넘는칸 = 자료.열에하나넘는첫칸;
+
+/** ⛔ 짐작으로 고르지 않는다 — 칸 이름으로 찾는다 */
+const 칸 = (이름: string) => 나이별.find((r) => r.칸 === 이름);
+const 예순다섯 = 칸('65~69세');
+const 여든다섯 = 칸('85세이상');
+const 미만 = 칸('65세미만');
+const 몫있는칸 = 나이별.filter((r) => r.몫 != null);
+const 첫흐름 = 흐름[0], 끝흐름 = 흐름[흐름.length - 1];
+/** 일흔다섯에 남은 해 — 저쪽 자료에서 읽는다 */
+const 일흔다섯남은해 = (남은해.나이별 as any[]).find((r) => r.나이 === 75)?.전체;
+
+const desc =
+  `${자료.최신}년 노인장기요양 인정을 받은 사람은 ${전체.인정.toLocaleString()}명입니다. ` +
+  `65~69세에서는 그 나이 인구의 ${예순다섯.몫}%인데 85세 이상에서는 ${여든다섯.몫}%입니다. ` +
+  `⛔ 판정받은 ${전체.판정.toLocaleString()}명에서 등급외 ${전체.등급외.toLocaleString()}명을 뺀 수입니다.`;
+---
+
+<HundredYear title={`몇 살부터 돌봄이 필요해지나 — 85세 이상 ${여든다섯.몫}%`} description={desc}>
+  <h1>몇 살부터<br />돌봄이 필요해질까요</h1>
+  <p class="sub">
+    {자료.최신}년 노인장기요양 <strong>인정을 받은 사람이 {전체.인정.toLocaleString()}명</strong>입니다.
+    {' '}그런데 나이칸마다 아주 다릅니다 —
+    {' '}<strong>65~69세는 {예순다섯.몫}%</strong>, <strong>85세 이상은 {여든다섯.몫}%</strong>입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">85세 이상 · 장기요양 인정</p>
+    <p class="answer-num">{여든다섯.몫}%</p>
+    <p class="answer-sub">
+      {여든다섯.인정.toLocaleString()}명 — {자료.최신}년 · 같은 해 인구총조사로 나눈 값
+    </p>
+  </div>
+
+  {/* ⛔ 이 지면에서 제일 먼저 짚어야 하는 것. 나중에 놓으면 이미 부푼 수로 읽힌 뒤다 */}
+  <h2>⛔ 먼저 짚습니다 — 「판정」과 「인정」은 다릅니다</h2>
+  <p>
+    이 표의 「계」에는 <strong>등급외</strong>가 들어 있습니다.
+    {' '}등급외는 <strong>신청했지만 인정되지 않은 사람</strong>입니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>사람</th></tr></thead>
+      <tbody>
+        <tr><td>판정을 받은 사람(표의 「계」)</td><td>{전체.판정.toLocaleString()}명</td></tr>
+        <tr><td>그 가운데 등급외</td><td>−{전체.등급외.toLocaleString()}명</td></tr>
+        <tr><td><strong>인정받은 사람</strong></td><td><strong>{전체.인정.toLocaleString()}명</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    저희는 <strong>빼고 세었습니다.</strong> 안 빼면 {(전체.판정 - 전체.인정).toLocaleString()}명이 더 얹혀
+    {' '}「돌봄 받는 사람」이 부풀어 오릅니다.
+    {' '}이 아래의 모든 수는 <strong>등급외를 뺀 수</strong>입니다.
+  </p>
+
+  <h2>나이칸마다 몇 %가 인정을 받나</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>인정받은 사람</th><th>그 나이 인구의</th></tr></thead>
+      <tbody>
+        {몫있는칸.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.인정.toLocaleString()}명</td>
+            <td><strong>{r.몫}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    <strong>{예순다섯.칸}에서는 {예순다섯.몫}%</strong>입니다 — 쉰 명에 한 명꼴입니다.
+    {' '}열에 하나를 <strong>처음 넘는 칸은 {넘는칸.칸}({넘는칸.몫}%)</strong>이고,
+    {' '}{여든다섯.칸}에서는 <strong>{여든다섯.몫}%</strong>가 됩니다.
+  </p>
+  <p class="note">
+    ⛔ <strong>몫의 밑수는 다른 표에서 왔습니다.</strong> {자료['⛔ 몫의 밑수가 다른 표에서 온다']}
+    {' '}다만 <strong>해는 맞췄습니다</strong> — 둘 다 {자료.밑수해}년입니다.
+  </p>
+  <p class="note">
+    ⚠ {미만.칸}도 {미만.인정.toLocaleString()}명 있습니다. 노인성 질병이면 65세 미만도 신청할 수 있습니다.
+    {' '}다만 그 칸은 <strong>몫을 내지 않았습니다</strong> — 밑수로 삼을 나이칸이 표에 없습니다.
+  </p>
+
+  <h2>{첫흐름.해}년부터 {끝흐름.해}년까지</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>인정받은 사람</th></tr></thead>
+      <tbody>
+        {흐름.filter((_, i, a) => i % 3 === 0 || i === a.length - 1).map((r) => (
+          <tr><td>{r.해}년</td><td>{r.인정.toLocaleString()}명</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    {자료.해수}해 동안 {첫흐름.인정.toLocaleString()}명에서 {끝흐름.인정.toLocaleString()}명이 되었습니다 —
+    {' '}<strong>{Math.round((끝흐름.인정 / 첫흐름.인정) * 10) / 10}배</strong>입니다.
+  </p>
+
+  <h2>그 나이의 다른 자리</h2>
+  <p>
+    {일흔다섯남은해 == null ? '' : `일흔다섯에 남은 해가 평균 ${일흔다섯남은해}년입니다. `}
+    {' '}<a href="/years-left">앞으로 몇 해가 남았는지</a>는 나이 한 살마다 적어 두었고,
+    {' '}그 가운데 <a href="/healthy-years">건강한 해가 몇 해인지</a>도 따로 잽니다.
+    {' '}그리고 그 앞자리에서는 <a href="/keep-working">{계속일.원함몫}%가 계속 일하고 싶다</a>고 답했습니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    ⭐ <strong>등급 1~5등급과 인지지원등급을 다 더하니 {대조['등급 1~5·인지지원을 다 더하면 인정'].합.toLocaleString()}명</strong>으로
+    {' '}저희가 뺀 「인정」 {대조['등급 1~5·인지지원을 다 더하면 인정'].인정.toLocaleString()}명과
+    {' '}<strong>{대조['등급 1~5·인지지원을 다 더하면 인정'].맞나 ? '같습니다' : '어긋납니다'}</strong>.
+    {' '}{대조.뜻}
+  </p>
+  <p class="note">
+    그리고 나이칸을 다 더하면 표의 계와
+    {' '}<strong>{대조['나이칸을 다 더하면 계'].맞나 ? '같고' : '어긋나고'}</strong>,
+    {' '}남자와 여자를 더한 것도
+    {' '}<strong>{대조['남자+여자 = 인정'].맞나 ? '같습니다' : '어긋납니다'}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 몇 살이면 어떻게 된다고 쓰지 않습니다.
+    {' '}{여든다섯.칸}에서도 <strong>{Math.round((100 - 여든다섯.몫) * 10) / 10}%</strong>는 인정을 받지 않았습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  {/* 🔴 2번 11:2x — 밖에서 들어온 손님은 지면 하나로 떨어진다. 여기서 옆 문이 보여야 한다 */}
+  <HundredAgeWalk 키="care" />
+
+  <p class="note">
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    {/* 🔴 2번 10:2x — 지면에서도 «방으로» 가게 한다 */}
+    <a href="/community">← 커뮤니티 — 「0~100세 · 남은 해를 세어 보는 사람」 방</a>
+  </p>
+
+  <NextQuestionBrief 모은것="장기요양 자료" />
+</HundredYear>
