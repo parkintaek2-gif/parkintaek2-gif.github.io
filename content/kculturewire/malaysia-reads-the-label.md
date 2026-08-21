@@ -1,5 +1,5 @@
 ---
-title: "Malaysia reads Korean brands three times as readily as it reads Korean people"
+title: "Malaysia over-reads SISTAR and Ahn So-hee while the region leads with BTS"
 category: industry
 purpose: both
 dek: "Groups, solo musicians, actors, athletes — the Malay Wikipedia takes 7.6% to 8.6% of the four-country reading for each. For luxury and car brands it takes 23%. Four categories in a narrow band, one well outside it."

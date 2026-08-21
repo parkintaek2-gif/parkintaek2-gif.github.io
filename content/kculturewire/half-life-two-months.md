@@ -1,5 +1,5 @@
 ---
-title: "A Korean title loses half its readers in two months. Most of them come back at least once"
+title: "Squid Game lost half its readers in one month. Goblin took seven"
 category: industry
 purpose: both
 dek: "Twenty-six Korean titles could be timed from their peak across four Southeast Asian Wikipedias. The median fell below half in two months, nine of them in a single month, and nineteen later rose above half again."
