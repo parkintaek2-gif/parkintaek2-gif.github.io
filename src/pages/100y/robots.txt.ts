@@ -24,6 +24,7 @@ User-agent: *
 Allow: /
 
 Sitemap: https://100yearmap.com/sitemap.xml
+Sitemap: https://100yearmap.com/sitemap-image.xml
 `,
     { headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
   );
