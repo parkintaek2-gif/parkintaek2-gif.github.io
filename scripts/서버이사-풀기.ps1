@@ -146,6 +146,14 @@ if (Test-Path $g) {
     $t = 'C:\Users\USER\Documents\GitHub\_tools'; 챠 $t
     Copy-Item (Join-Path $g '_tools\*') $t -Recurse -Force; Say '_tools 풀기'
   }
+  # 🔴 wikitip — GitHub 에 없는 저장소다. clone 이 아니라 **짐에서 되돌린다**.
+  if (Test-Path (Join-Path $g 'wikitip')) {
+    $t = 'C:\Users\USER\Documents\GitHub\wikitip'; 챠 $t
+    robocopy (Join-Path $g 'wikitip') $t /E /NFL /NDL /NJH /NJS /NP | Out-Null
+    $ok = Test-Path (Join-Path $t '.git')
+    # ⛔ PowerShell 5.1 은 «(if …)» 를 값으로 못 읽는다. $( ) 로 감싼다.
+    Say ('wikitip 풀기 — .git ' + $(if ($ok) { '있다 ✅ 이력 살았다' } else { '🔴 없다 — 이력을 잃었다' }))
+  }
 }
 
 # ── ⑤ 🔴 지킴이를 «윈도 예약작업»으로 — 추가 조치 ───────────────────
@@ -166,7 +174,7 @@ if (Test-Path $wd) {
 } else { Say "⚠ 지킴이 자를 못 찾았다: $wd  (저장소를 먼저 clone 하라)" }
 
 Say '════ 끝 ════'
-Say '남은 것: ① git clone 넷 → npm ci  ② Chrome 로그인 다섯 · Cloudtype 로그인'
+Say '남은 것: ① git clone 둘(dataeconomics=seoulmarkets.git · klifemap) → npm ci  ② Chrome 로그인 다섯 · Cloudtype 로그인'
 Say '        ③ 창 여섯을 00_세션입구 에서 연다  ④ 각 자리가 매시 예약을 다시 건다'
 Say '        ⑤ 「auto mode 를 기본으로?」 물으면 **2**(keep bypass)'
 

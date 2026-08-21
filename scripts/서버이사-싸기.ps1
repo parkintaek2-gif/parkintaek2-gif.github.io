@@ -95,6 +95,20 @@ if (-not $대화록) {
     if (Test-Path $pair[0]) { Copy-Item $pair[0] (Join-Path $d $pair[1]) -Force; Say ('열쇠 싸기: ' + $pair[1]) }
     else { Say ('🔴 없다: ' + $pair[0]) }
   }
+  # 🔴🔴 wikitip — **GitHub 에 없다.** [2026-08-21 20:2x 실측] remote 가 아예 비어 있다.
+  #    사장님 「3, 코드는 어떻게 해야 하지?」 물으셔서 clone 할 저장소를 세다가 잡았다.
+  #    차례표에 「git clone 넷」이라 적혀 있었는데 실제로 remote 가 있는 것은 **둘**뿐이다
+  #    (dataeconomics=seoulmarkets.git · klifemap). wikitip 은 clone 할 데가 없다.
+  # ⛔ 이걸 안 싸면 커밋 이력까지 통째로 사라진다. 되살릴 데가 없다.
+  #    node_modules·.next 는 뺀다(npm ci 로 다시 만든다). .git 은 **반드시** 넣는다.
+  $wiki = 'C:\Users\USER\Documents\GitHub\wikitip'
+  if (Test-Path $wiki) {
+    $t = Join-Path $d 'wikitip'; 챠 $t
+    robocopy $wiki $t /E /XD node_modules .next /NFL /NDL /NJH /NJS /NP | Out-Null
+    $c = (Get-ChildItem $t -File -Recurse -Force -EA SilentlyContinue)
+    Say ("wikitip 싸기 {0}개 {1:N1} MB — ⛔ 이건 GitHub 에 없다. 잃으면 끝이다" -f $c.Count, (($c|Measure-Object Length -Sum).Sum/1MB))
+  } else { Say '🔴 wikitip 이 없다' }
+
   $tools = 'C:\Users\USER\Documents\GitHub\_tools'
   if (Test-Path $tools) {
     $t = Join-Path $d '_tools'; 챠 $t
