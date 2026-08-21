@@ -25,6 +25,7 @@ import 첫일 from '../../../data/100yearmap/first-job.json';
 import 혼인 from '../../../data/100yearmap/marriage-age.json';
 import 돌봄 from '../../../data/100yearmap/care.json';
 import 아침 from '../../../data/100yearmap/breakfast.json';
+import 집 from '../../../data/100yearmap/home.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -33,6 +34,7 @@ const j = 첫일 as any;
 const k = 혼인 as any;
 const m = 돌봄 as any;
 const n = 아침 as any;
+const o = 집 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -89,6 +91,12 @@ const 문들 = [
     수: `${k.서른칸.전체.미혼몫}%`,
     한줄: `30~34세가 아직 미혼입니다. 같은 해 평균 초혼은 ${k.초혼.끝.남편}세 — 재는 것이 달라 두 수가 갈립니다.`,
     기간: `${k.해들[0]}~${k.최신} · ${k.해수}해 · 평균 초혼은 ${k.초혼.첫.해}년부터 ${k.초혼.해수}해`,
+  },
+  {
+    나이: '40~50대', 주소: '/home', 이름: '집을 가진 가구는 몇 살일까',
+    수: `${o.가장많은칸.몫}%`,
+    한줄: `집을 가진 가구 가운데 가구주가 ${o.가장많은칸.칸}인 집. ⛔ 소유율이 아니라 구성비입니다.`,
+    기간: `${o.흐름첫.해}~${o.최신} · ${o.흐름해수}해`,
   },
   {
     나이: '20~60대', 주소: '/age', 이름: '나이로 보기 — 월급 · 근속 · 살림',
