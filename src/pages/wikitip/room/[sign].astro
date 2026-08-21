@@ -1,0 +1,119 @@
+---
+/**
+ * K Culture Wire — **별 방.** (`/room/<띠>`) 띠 하나에 속한 스타의 이름을 다 보인다.
+ *
+ * 🔴 2번 지시(8/21 08:2x): 「방 카드를 눌렀을 때 **갈 곳**을 만드십시오.
+ *    그 방에 그 띠 사람들의 이름이 다 보이고,
+ *    ⛔ 글쓰기·로그인은 아직 넣지 마십시오. **읽는 자리**까지만」
+ *   까닭도 같이 주셨다 — 「손님이 한 번 눌러 보고 안 되면 다시 안 옵니다」.
+ *
+ * ── ⛔ 이 방이 지키는 것 ──────────────────────────────────────
+ * ⛔ **글쓰기·로그인 없다.** 단추를 그리지 않는다 — 눌러도 안 되는 단추가 오늘의 병이다.
+ * ⛔ **점을 치지 않는다.** 첫 화면에 카이제곱 7.77(문턱 19.68)을 그대로 둔다.
+ * ⛔ **못 이은 사람을 0 으로 안 쓴다.** 이름은 싣고 수 자리를 비운다.
+ * ⛔ **띠끼리 줄세우지 않는다.** 옆 방으로 가는 길은 자료 차례(띠 순서) 그대로다.
+ * ⛔ 광고 자리를 만들지 않는다.
+ *
+ * 🔴 Astro 앞말은 TypeScript 다. 🔴 JSX 는 끝 공백을 버린다 — {' '} 를 쓴다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import d from '../../../data/wikitip-star-signs.json';
+
+export function getStaticPaths() {
+  /* ⛔ 방 이름을 손으로 안 적는다 — 자료가 정한다. 띠가 늘면 방도 는다 */
+  return d.signs.map((s) => ({ params: { sign: s.sign.toLowerCase() }, props: { s } }));
+}
+
+const { s } = Astro.props;
+const 차례 = d.signs.findIndex((x) => x.sign === s.sign);
+const 앞 = d.signs[(차례 - 1 + d.signs.length) % d.signs.length];
+const 뒤 = d.signs[(차례 + 1) % d.signs.length];
+const 길 = (x: { sign: string }) => `/room/${x.sign.toLowerCase()}`;
+
+const 첫셋 = s.all.slice(0, 3).map((p: { name: string }) => p.name).join(', ');
+const TITLE = `${첫셋} — the ${s.sign} room, ${s.people} Korean stars born in the same year`;
+const DESC = `Every Korean actor and singer we hold who was born in a ${s.sign} year: `
+  + `${s.people} names, ${s.withReads} of them with a Southeast Asian read count. `
+  + 'The spread across the twelve signs is indistinguishable from chance, and we say so here.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: TITLE,
+  numberOfItems: s.people,
+  itemListElement: s.all.slice(0, 20).map((p: { name: string }, i: number) => ({
+    '@type': 'ListItem', position: i + 1, name: p.name,
+  })),
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical={`https://www.kculturewire.com/room/${s.sign.toLowerCase()}`}>
+  <h1>The {s.sign} room</h1>
+  <p class="lead">
+    {s.people} Korean actors and singers were born in a {s.sign} year. Here they all are.
+  </p>
+
+  {/* 🔴 이름을 늘어놓기 **전에** 못을 박는다. 뒤에 두면 표부터 읽고 「이 띠가 좋구나」로 간다 */}
+  <section class="warn-box">
+    <h2>This room is a list, not a reading</h2>
+    <p class="warn">{d.notAPrediction.says}</p>
+    <p class="warn">{d.notAPrediction.whyNoReading}</p>
+  </section>
+
+  <section>
+    <h2>Everyone in the {s.sign} room</h2>
+    <p class="note">
+      Ordered by how often each person's own Wikipedia article is opened in Indonesia, Vietnam,
+      Thailand and Malaysia, per million reads of each edition. {s.withoutReads} of the
+      {' '}{s.people} have a date of birth but no read count we could match — they are at the
+      bottom with an empty figure, not a zero.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>#</th><th>Name</th><th>Born</th><th>Reads per million</th></tr></thead>
+        <tbody>
+          {s.all.map((p: { name: string; born: string | null; perMillion: number | null },
+            i: number) => (
+            <tr>
+              <td class="fine">{i + 1}</td>
+              <td class="nm">{p.name}</td>
+              <td class="fine">{p.born ?? '—'}</td>
+              <td>{p.perMillion ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The other eleven rooms</h2>
+    <p class="rooms">
+      {d.signs.map((x) => (
+        <a href={길(x)} class={x.sign === s.sign ? 'here' : ''}>{x.sign} ({x.people})</a>
+      ))}
+    </p>
+    <p class="note">
+      Previous room: <a href={길(앞)}>{앞.sign}</a> · Next room: <a href={길(뒤)}>{뒤.sign}</a> ·
+      {' '}<a href="/star-signs">All twelve at a glance</a> ·{' '}
+      <a href="/community">Back to the rooms</a>
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Method</b> — {d.method}</li>
+      <li><b>Limits</b> — {d.limitation}</li>
+    </ul>
+  </section>
+</WikiTip>
+
+<style>
+  .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: 0.5rem 1rem; }
+  .rooms { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+  .rooms a.here { font-weight: 700; text-decoration: none; }
+</style>
