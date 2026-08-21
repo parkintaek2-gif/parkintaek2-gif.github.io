@@ -142,7 +142,11 @@ else {
     delete env.CLAUDE_CODE_CHILD_SESSION;
     delete env.CLAUDE_CODE_ENTRYPOINT;
     if (설정폴더) env.CLAUDE_CONFIG_DIR = 설정폴더.replace(/\//g, '\\');
-    execFile('claude', ['-p', '--resume', id2, 말, '<', 'NUL'],
+    /* 🔴 같은 흠이 여기에도 있었다 — 6번이 지킴이에서 잡아 준 것과 한 뿌리다.
+       `shell: true` 는 인자를 따옴표 없이 이어 붙여서, 여러 줄 말이 첫 공백에서 잘린다.
+       ⛔ 이 자는 «사장님 말씀»을 넘기는 자리다. 여기서 잘리면 사장님 한 줄이 토막으로 간다. */
+    const 한줄말 = '"' + 말.replace(/\s+/g, ' ').replace(/"/g, "'").trim() + '"';
+    execFile('claude', ['-p', '--resume', id2, 한줄말, '<', 'NUL'],
       { env, cwd: 'C:/Users/USER/Desktop', shell: true, windowsHide: true }, () => {});
     찍기(`2번을 깨웠다 (설정폴더=${설정폴더 || '기본'})`);
   }

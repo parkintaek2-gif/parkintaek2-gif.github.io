@@ -167,7 +167,15 @@ for (const [번호, 파일] of Object.entries(단추)) {
     const 깨끗한환경 = { ...process.env, CLAUDE_SEAT: String(번호) };
     delete 깨끗한환경.CLAUDE_CODE_CHILD_SESSION;
     delete 깨끗한환경.CLAUDE_CODE_ENTRYPOINT;
-    execFile('claude', ['-p', '--resume', id, 깨움, '<', 'NUL'],
+    /* 🔴🔴 [2026-08-21 17:5x · **6번이 잡아 준 것**] 깨움이 「[자리」에서 토막 나 있었다.
+         6번: 「사장님 메시지가 계속 「[자리」에서 끊깁니다」
+       까닭 — `shell: true` 로 넘기면 node 가 인자를 **따옴표 없이 이어 붙인다.**
+              그래서 여러 줄짜리 말이 첫 공백에서 잘려 `[자리` 한 토막만 들어갔다.
+              (node 가 띄우는 DEP0190 경고가 바로 이 말이었다 — 내가 그 경고를 흘려 읽었다)
+       ⛔ 오류가 안 난다. 깨어난 자리는 뜻 모를 한 토막을 받고 아무것도 못 한다.
+       ⭐ 고침 셋 — ① 여러 줄을 한 줄로 접는다 ② 큰따옴표를 홑따옴표로 바꾼다 ③ 통째로 싼다 */
+    const 한줄깨움 = '"' + 깨움.replace(/\s+/g, ' ').replace(/"/g, "'").trim() + '"';
+    execFile('claude', ['-p', '--resume', id, 한줄깨움, '<', 'NUL'],
       { env: 깨끗한환경, cwd: 'C:/Users/USER/Desktop', shell: true, windowsHide: true }, () => {});
     찍기(`${번호}번 🔴 ${상태} — 깨운다(예약 다시 걸라고만 말한다)`);
     continue;
