@@ -116,6 +116,18 @@ if (-not $대화록) {
     Say '_tools(piper) 싸기 — ⛔ 이건 git 저장소가 아니다'
   }
 
+  # 🔴🔴 풀기 자를 «짐 안»에 같이 넣는다 — 닭과 달걀이었다.
+  # [2026-08-21 20:3x] 사장님이 「원드라이브 폴더를 어떻게 하면 되나」 물으셔서 잡혔다.
+  #   풀기 자는 dataeconomics 저장소 안에 있다. 그런데 새 PC 엔 저장소가 아직 없다 —
+  #   저장소를 받으려면 git·clone 을 해야 하고, 그것을 하려면 차례표를 봐야 한다.
+  # ⭐ 그래서 짐 뿌리에 풀기 자와 차례표를 그냥 놓는다. 원드라이브 폴더만 열면 바로 보인다.
+  foreach ($pair in @(
+      @('C:\Users\USER\Documents\GitHub\dataeconomics\scripts\서버이사-풀기.ps1', '서버이사-풀기.ps1'),
+      @('C:\Users\USER\Documents\GitHub\dataeconomics\docs\서버이사-차례표.md',   '서버이사-차례표.md'))) {
+    if (Test-Path $pair[0]) { Copy-Item $pair[0] (Join-Path $짐 $pair[1]) -Force; Say ('짐 뿌리에 놓음: ' + $pair[1]) }
+    else { Say ('🔴 없다: ' + $pair[0]) }
+  }
+
   # 터미널 글자크기 — 사장님 (2026-08-21) 「글자를 크게 내가 볼 수 있게 해줘」 → 20 으로 맞췄다.
   # ⛔ 이걸 안 싸면 새 PC 에서 기본 12 로 돌아간다. 사장님이 화면을 못 읽으신다.
   $wt = 'C:\Users\USER\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json'
