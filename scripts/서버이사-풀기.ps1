@@ -51,7 +51,18 @@ Say '✅ 길 확인 — C:\Users\USER\... 로 박힌 코드가 이 PC 에서 그
 #    ⭐ 그래서 셋에 다 깔아 둔다. 어느 쪽으로 열려도 대화를 찾는다. 파일 하나 더 쓰는 값이 싸다.
 #  ⛔ 여기서 «+» 를 쓰면 PowerShell 이 배열 이어붙임으로 읽어 세 토막으로 갈린다.
 #     8/21 실측 —  C--Users- , USER , -Desktop   ← 시험을 돌려서 잡았다. 글자 끼움으로 쓴다.
-$슬러그들 = @('C--Users-USER-Desktop', "C--Users-$진짜이름-Desktop") | Select-Object -Unique
+# 2026-08-22 01:5x (5번) — 여기가 `Select-Object -Unique` 였다. 그것은 대소문자를 안 가려서
+#   C--Users-USER-Desktop 과 C--Users-User-Desktop 중 하나를 버린다.
+#   ⚠ **처음엔 이것을 흠으로 봤는데, 모의로 돌려 보니 흠이 아니었다.**
+#      윈도는 경로에서 대소문자를 안 가리므로 두 이름이 **같은 폴더로 풀린다.**
+#      새 PC 가 어느 쪽 이름으로 찾아도 그 폴더를 연다 — 「대화가 없다」는 안 생긴다.
+#   ⭐ 그래도 글자 그대로 가리는 셈으로 둔다. 대소문자를 가리는 파일시스템으로 옮길 때를 위한
+#      여벌일 뿐이고, 지금 무엇을 고치는 것은 아니다. **고친 척하지 않는다.**
+function 겹빼기($것들) {
+  $본 = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::Ordinal)
+  $남 = @(); foreach ($x in $것들) { if ($본.Add($x)) { $남 += $x } }; return $남
+}
+$슬러그들 = 겹빼기 @('C--Users-USER-Desktop', "C--Users-$진짜이름-Desktop")
 Say ('대화록을 깔 폴더 이름: ' + ($슬러그들 -join ' , '))
 if (-not (Test-Path $짐)) { Say "🔴 짐이 없다: $짐  (원드라이브 동기화가 끝났나?)"; exit 1 }
 
@@ -114,20 +125,40 @@ if (Test-Path $차) {
   foreach ($row in (Get-Content $차 | Select-Object -Skip 1)) {
     $c = $row -split "`t"; if ($c.Count -lt 4) { continue }
     $n = ($c[0] -replace '번',''); $id = $c[1]; $slug = $c[2]
-    $src = Join-Path $짐 ("04_대화록\$n" + "_" + $slug + "_" + $id + ".jsonl")
+    # 🔴🔴 2026-08-22 01:3x (5번) — 차림표에 **한 자리가 두 줄**일 수 있다.
+    #   싸기 자가 「제일 새것」과 「제일 큰 것」이 다르면 둘 다 싸고, 둘째 파일 이름 끝에
+    #   __큰것 을 붙인다. 그걸 모르는 이 자는 둘째 줄을 「짐이 없다」로 흘려 버렸다.
+    # ⭐ 여벌은 **projects 안에 넣지 않는다.** 거기 두면 세션으로 잘못 잡힐 수 있다.
+    #   바탕화면 00_세션입구\_대화록-여벌\ 에 둔다. 새것이 짧아 보이면 사람이 여기서 꺼낸다.
+    $왜 = if ($c.Count -ge 6) { $c[5] } else { '제일 새것' }
+    $여벌인가 = ($왜 -like '제일 큰*')
+    $꼬리 = if ($여벌인가) { '__큰것' } else { '' }
+    $src = Join-Path $짐 ("04_대화록\$n" + "_" + $slug + "_" + $id + $꼬리 + ".jsonl")
     if (-not (Test-Path $src)) { Say "🔴 ${n}번 짐이 없다: $src"; continue }
+    if ($여벌인가) {
+      $여벌방 = Join-Path $ent '_대화록-여벌'; 챠 $여벌방
+      $때 = if ($c.Count -ge 5) { ($c[4] -replace '[: ]','-') } else { 'unknown' }
+      Copy-Item $src (Join-Path $여벌방 "$n`_$id`_$때`_큰것.jsonl") -Force
+      Say "⚠ ${n}번 여벌(제일 큰 것 · $때)을 _대화록-여벌 에 뒀다 — projects 에는 안 넣었다"
+      continue
+    }
     # 자리폴더: 1번은 .claude(9/2 에 옮긴다) · 나머지는 .claude-uN
-    $home = if ($n -eq '1') { 'C:\Users\USER\.claude' } else { "C:\Users\USER\.claude-u$n" }
+    # 🔴🔴 2026-08-22 01:4x (5번) — 여기가 `$home` 이었다. PowerShell 의 **$HOME 은 읽기전용**이다.
+    #   대입이 조용히 실패하고 내장값(C:\Users\User)이 그대로 쓰여, 대화록이
+    #   «C:\Users\User\projects\…» 로 갔다. 새 PC 에서 「대화가 없다」가 될 자리였다.
+    #   ⭐ 모의로 떼어 돌려 보고 잡았다 — 「Cannot overwrite variable HOME」이 찍혔다.
+    #   ⛔ 자동변수 이름($home·$host·$args·$input·$error·$pwd)을 변수로 쓰지 않는다.
+    $자리방 = if ($n -eq '1') { 'C:\Users\USER\.claude' } else { "C:\Users\USER\.claude-u$n" }
     # ⭐ 슬러그를 다 넣는다 — USER · User(이 PC 이름) · 원래 있던 것 · **그것의 이름 갈아끼운 것**
     #    🔴 1번은 원래 슬러그가 C--Users-USER-Documents-GitHub-klifemap 이다(8/21 · 386MB).
     #       그 안의 USER 도 갈아끼워 둬야 새 PC 에서 찾는다.
     $slug2 = $slug -replace '-USER(?=-|$)', "-$진짜이름"
-    foreach ($s in ($슬러그들 + $slug + $slug2) | Select-Object -Unique) {
-      $d = Join-Path $home "projects\$s"; 챠 $d
+    foreach ($s in (겹빼기 ($슬러그들 + $slug + $slug2))) {
+      $d = Join-Path $자리방 "projects\$s"; 챠 $d
       Copy-Item $src (Join-Path $d "$id.jsonl") -Force
     }
     Set-Content -Path (Join-Path $ent "_현재\$n.id") -Value $id -NoNewline -Encoding ascii
-    Say "${n}번 대화록 풀기 → $home  (슬러그 두 자리 · id 이름표까지)"
+    Say "${n}번 대화록 풀기 → $자리방  (슬러그 두 자리 · id 이름표까지)"
   }
 } else { Say '⚠ 대화록 차림표가 없다 — 옮기는 날 -대화록 으로 다시 싸라' }
 

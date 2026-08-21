@@ -171,14 +171,30 @@ foreach ($n in $자리) {
     if (Test-Path $root) { $cands += Get-ChildItem $root -Recurse -Filter "$id.jsonl" -ErrorAction SilentlyContinue }
   }
   if (-not $cands) { Say "🔴 ${n}번 대화록을 못 찾았다: $id"; continue }
-  $best = $cands | Sort-Object Length -Descending | Select-Object -First 1
-  $slug = Split-Path (Split-Path $best.FullName -Parent) -Leaf
-  $out = Join-Path $d "$n`_$slug`_$id.jsonl"
-  Copy-Item $best.FullName $out -Force
-  $표 += "${n}번`t$id`t$slug`t$($best.Length)"
-  Say ("${n}번 싸기 " + $best.Length + " B  (슬러그 $slug)")
+  # 🔴🔴 2026-08-22 01:2x (5번) — **주석과 코드가 어긋나 있었다.**
+  #   위 주석은 「제일 새것을 고른다」인데 코드는 Sort-Object Length 로 **제일 큰 것**을 집었다.
+  #   실측: 3번은 제일 큰 사본이 08-21 19:20 자, 살아 있는 것은 08-22 00:50 자였다.
+  #         그대로 옮기면 3번이 네 시간 반을 잃는다. (5번이 8/21 에 같은 병으로 529KB 를 몰랐다)
+  # ⭐ 그래서 **고르지 않는다.** 사본이 서로 다른 슬러그 폴더에 갈려 있고 어느 쪽이 온전한지
+  #    이 자리에서 알 길이 없다 — 제일 새것과 제일 큰 것이 다르면 **둘 다 싼다.**
+  #    푸는 쪽이 차림표를 보고 고른다. 여기서 버리면 되돌릴 데가 없다.
+  $새것 = $cands | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+  $큰것 = $cands | Sort-Object Length -Descending | Select-Object -First 1
+  $쌀것 = @(@{f=$새것; 왜='제일 새것'})
+  if ($큰것.FullName -ne $새것.FullName) { $쌀것 += @{f=$큰것; 왜='제일 큰 것(새것과 다르다)'} }
+  foreach ($것 in $쌀것) {
+    $f = $것.f
+    $slug = Split-Path (Split-Path $f.FullName -Parent) -Leaf
+    if ($것.왜 -eq '제일 새것') { $꼬리 = '' } else { $꼬리 = '__큰것' }
+    $out = Join-Path $d "$n`_$slug`_$id$꼬리.jsonl"
+    Copy-Item $f.FullName $out -Force
+    $때 = $f.LastWriteTime.ToString('yyyy-MM-dd HH:mm')
+    $표 += "${n}번`t$id`t$slug`t$($f.Length)`t$때`t$($것.왜)"
+    Say ("${n}번 싸기 " + $f.Length + " B  $때  (슬러그 $slug · " + $것.왜 + ")")
+  }
+  if ($쌀것.Count -gt 1) { Say "⚠ ${n}번 — 새것과 큰것이 달라 **둘 다** 쌌다. 푸는 쪽이 차림표를 보고 고른다" }
 }
-Set-Content -Path (Join-Path $d '차림표.tsv') -Value (@("자리`t세션id`t슬러그`t바이트") + $표) -Encoding utf8
+Set-Content -Path (Join-Path $d '차림표.tsv') -Value (@("자리`t세션id`t슬러그`t바이트`t언제`t왜") + $표) -Encoding utf8
 Say '════ 대화록 끝. 차림표.tsv 를 풀기 쪽이 읽는다 ════'
 
 
