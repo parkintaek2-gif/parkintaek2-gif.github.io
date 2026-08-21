@@ -49,10 +49,22 @@ const 찍기 = (s) => {
 
 /** 사장님이 쓰신 줄만 센다. 머리글·주석·자리들이 단 답(↳)은 안 센다 */
 export function 사장님줄들(글) {
-  return (글 || '')
-    .split('\n')
+  /* ⛔ [2026-08-21 16:3x] 처음엔 «- [» 로 시작하는 줄만 셌다. 그런데 사장님께는
+     「양식 없이 한 줄만 쓰시면 됩니다」라고 말씀드렸다. 시험해 보니 「- 시험입니다」가
+     안 잡혔다 — **내가 정한 양식을 사장님께 떠넘긴 자**였다.
+     그래서 «표식 아래의 모든 글줄»을 세고, «우리가 쓴 것»만 뺀다. */
+  const 본 = String(글 || "");
+  const 표식 = 본.lastIndexOf("⬇⬇");
+  const 아래 = 표식 >= 0 ? 본.slice(본.indexOf("-->", 표식) + 3) : 본;
+  return 아래
+    .split(String.fromCharCode(10))
     .map((l) => l.trim())
-    .filter((l) => l.startsWith('- [') && !l.startsWith('- [↳'));
+    .filter(Boolean)
+    .filter((l) => !l.startsWith("#"))          // 머리글
+    .filter((l) => !l.startsWith("<!--"))       // 주석
+    .filter((l) => !l.startsWith("```"))        // 상자
+    .filter((l) => l.indexOf("↳") !== 0 && l.indexOf("- ↳") !== 0 && l.indexOf("- [↳") !== 0) // 자리들이 단 답
+    .filter((l) => !/· *[0-9]+번 *]/.test(l));  // 자리가 쓴 줄(「· N번]」)
 }
 
 /* ── 자가시험: 자를 먼저 시험한다 ───────────────────────────────────── */
@@ -65,8 +77,8 @@ if (process.argv.includes('--시험')) {
     '- [사장님] 카드 먼저 내라',
   ].join('\n');
   const r = 사장님줄들(본);
-  const 맞나 = r.length === 2 && r[1].includes('카드 먼저');
-  console.log(맞나 ? '✅ 자가시험 통과 (2줄)' : `🔴 자가시험 실패: ${JSON.stringify(r)}`);
+  const 맞나 = r.length === 1 && r[0].includes('카드 먼저');   // 자리(· N번])가 쓴 줄은 안 센다
+  console.log(맞나 ? '✅ 자가시험 통과 — 자리 줄은 빼고 사장님 줄 1개만 셌다' : `🔴 자가시험 실패: ${JSON.stringify(r)}`);
   process.exit(맞나 ? 0 : 1);
 }
 
