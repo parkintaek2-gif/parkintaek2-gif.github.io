@@ -1,10 +1,9 @@
 @echo off
-chcp 65001 >nul
-title Claude Code Л└╓Л╧≤
+title Claude Code ╪Ёд║
 echo.
-echo  ==== Claude Code К╔╪ Л└╓Л╧≤М∙╘К▀┬К▀╓ ====
+echo  ==== Claude Code ╦╕ ╪Ёд║гу╢о╢ы ====
 echo.
-echo  1) winget Л°╪К║° Л└╓Л╧≤К╔╪ Л▀°К▐└М∙╘К▀┬К▀╓
+echo  [1/2] winget ю╦╥н ╪Ёд║╦╕ ╫ц╣╣гу╢о╢ы...
 echo.
 winget install --id Anthropic.ClaudeCode --accept-source-agreements --accept-package-agreements
 if errorlevel 1 goto NPM
@@ -12,7 +11,7 @@ goto DONE
 
 :NPM
 echo.
-echo  winget Л²╢ Л∙┬ К░░Л┼╣К▀┬К▀╓. npm Л°╪К║° К▀╓Л▀° Л▀°К▐└М∙╘К▀┬К▀╓.
+echo  winget юл ╬х ╣ф╫ю╢о╢ы. npm ю╦╥н ╢ы╫ц ╫ц╣╣гу╢о╢ы...
 echo.
 call npm i -g @anthropic-ai/claude-code
 if errorlevel 1 goto FAIL
@@ -20,18 +19,19 @@ powershell -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy -ExecutionPolic
 
 :DONE
 echo.
-echo  ==== Л└╓Л╧≤Й╟─ К│²К┌╛Л┼╣К▀┬К▀╓. М≥∙Л²╦М∙╘К▀┬К▀╓ ====
+echo  ==== ╪Ёд║╟║ Ё║Ё╣╫ю╢о╢ы. х╝юнгу╢о╢ы ====
 set "PATH=%PATH%;%USERPROFILE%\.local\bin"
 call claude --version
 echo.
-echo  Л°└Л≈░ К╡┬М≤╦(2.1.xxx)Й╟─ КЁ╢Л²╢К╘╢ Л└╠ЙЁ╣Л·┘К▀┬К▀╓.
-echo  Л²╢ Л╟╫Л²└ К▀╚ЙЁ═ 2К╡┬Л≈░Й╡▄ Ц─▄Л└╓Л╧≤ К│²Ц─█Л²╢К²╪ЙЁ═ Л∙▄К═╓ Лё╪Л▀╜Л▀°Л≤╓.
+echo  ю╖©║ 2.1 ╥н ╫цюшго╢б ╧Ьхё╟║ ╨╦юл╦И ╪╨╟Ьют╢о╢ы.
+echo  ц╒ю╩ ╢щ╟М 2╧Ь©║╟т "╪Ёд║ Ё║" юл╤С╟М ╬к╥а аж╫й╫ц©ю.
 goto END
 
 :FAIL
 echo.
-echo  [X] К▒≤ К▀╓ Л∙┬ К░░Л┼╣К▀┬К▀╓. Л²╢ Л╟╫Л²≤ Й╦─Л·░К╔╪ Й╥╦К▄─К║° 2К╡┬Л≈░Й╡▄ КЁ╢Л≈╛ Лё╪Л▀╜Л▀°Л≤╓.
+echo  [X] ╣я ╢ы ╬х ╣ф╫ю╢о╢ы. юл ц╒юг ╠шюз╦╕ ╠в╢К╥н 2╧Ь©║╟т ╨╦©╘ аж╫й╫ц©ю.
 
 :END
 echo.
 pause
+
