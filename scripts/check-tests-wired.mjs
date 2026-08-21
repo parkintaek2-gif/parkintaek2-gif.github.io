@@ -37,6 +37,12 @@ export const 봐준다 = {
   'check-100y-live-sale.mjs': '라이브를 받아 잰다. 인터넷이 끊기면 npm test 가 통째로 죽고, 배포 전에는 옛 지면을 보고 운다',
   'check-analytics-fires.mjs': '진짜 크롬으로 라이브를 열어 GA 가 쏘는지 잰다. 크롬·인터넷이 둘 다 있어야 돈다 — npm run check:ga',
   'check-100yearmap-launch.mjs': 'dist 5,000장을 훑는다. 빌드가 없으면 잴 것이 없고, 여섯이 dist 를 같이 써서 남이 빌드하는 사이에 ENOENT 가 난다 — npm run check:100y:launch',
+
+  /* 3번(백년지도) — 2026-08-21 8/10 이후 새로 생긴 44개를 다시 훑으며 둘만 남겼다.
+     나머지 열넷은 --자가시험/--selftest 로 npm test 에 그대로 물렸다(자가시험만으로 충분히 지킨다).
+     이 둘은 자가시험 자체가 없다 — 재는 것 전부가 라이브·dist 라 자가시험을 만들 수가 없다 */
+  'check-100y-live.mjs': '항상 100yearmap.com 라이브를 받아 잰다. 자가시험이 없다 — npm run check:100y:live',
+  'check-100y-content-evidence.mjs': 'dist 를 읽어 콘텐트 수치가 지면에 있나 본다. 빌드가 없으면 잴 것이 없다 — npm run check:100y:content-evidence',
 };
 
 /**
@@ -188,8 +194,18 @@ const { 검사수, 안불림 } = 갈라내기(파일들, j.scripts?.test ?? '');
  *     뿌리고 있어서, `build-100y-style.mjs --확인` 이 매번 부르는 검사 셋이 「안 불림」에
  *     들어가 있었다. 위 `갈라내기` 를 고쳐 길이 이어졌다.
  *   ⚠ 그래서 이 수가 줄었다고 검사가 늘어난 것이 아니다 — **세는 자가 덜 세고 있었다.**
+ *
+ * 10 → **44** (그 사이 늘어난 채 아무도 안 봄) → **30** (2026-08-21 3번이 다시 훑음)
+ *   5번이 「44개가 전부 check-100y-*(3번 몫)」이라 짚었는데 **세어 보니 틀렸다** — 실은
+ *   check-100y-* 14개 · check-kcw-*(5번 것) 18개 · 나머지(check-clock·check-mail-dns·
+ *   check-tls·check-riot-key 등 공유·타 유닛 것) 12개였다. ⛔ 출처를 못 믿으면 옳은 것도
+ *   같이 의심받는다 — 그래서 셈만 고치고 넘긴다(품평 아니다).
+ *   3번 몫 14개는 이번에 닫았다 — 12개는 `--자가시험`/`--selftest` 로 `npm test` 에 물리고
+ *   (전부 dist·라이브 없이 도는 자가시험만 있다), 자가시험이 아예 없는 둘(check-100y-live·
+ *   check-100y-content-evidence)만 위 `봐준다` 에 까닭을 적어 넣었다.
+ *   남은 30개는 각 자리 몫이다 — **3번이 남의 검사를 대신 물리지 않는다.**
  */
-const 오늘까지봐주는수 = 10;
+const 오늘까지봐주는수 = 30;
 
 console.log(`검사 파일 ${검사수}개 · npm test 가 부르는 것 ${검사수 - 안불림.length}개 · 안 부르는 것 ${안불림.length}개`);
 if (안불림.length > 오늘까지봐주는수) {
