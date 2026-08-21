@@ -48,13 +48,36 @@ if (-not $대화록) {
     Say "설정 싸기: $d"
   }
 
-  # 🔴 메모리 — 이것이 없으면 새 서버의 우리는 «사장님 지시를 하나도 모른다»
-  $mem = 'C:\Users\USER\.claude\projects\C--Users-USER-Desktop\memory'
-  if (Test-Path $mem) {
-    $d = Join-Path $짐 '01_설정\memory'; 챠 $d
-    Copy-Item "$mem\*" $d -Recurse -Force
-    Say ('메모리 싸기: ' + (Get-ChildItem $d -File -Recurse).Count + '개')
-  } else { Say '🔴 메모리 폴더를 못 찾았다 — 손으로 확인하라' }
+  # 🔴🔴 메모리 — 이것이 없으면 새 서버의 우리는 «사장님 지시를 하나도 모른다»
+  #
+  # [2026-08-21 20:0x] 사장님 「참 1번도 서버이전 확실히 준비해라」 — 그 한마디가 이걸 잡았다.
+  # 나는 C--Users-USER-Desktop\memory (61개) 하나만 싸고 있었다. 그런데 재 보니 —
+  #   C--Users-USER-Documents-GitHub-klifemap\memory      52개  ← 🔴 **1번 것**
+  #   C--Users-USER-Documents-GitHub-dataeconomics\memory 28개
+  #   C--Users-USER-Desktop-00-----\memory                20개
+  #   C--Users-USER-Desktop-----\memory                    8개
+  #   C--Users-USER\memory                                 3개
+  # ⛔ **메모리는 슬러그마다 따로 있다.** 하나만 싸면 나머지 111개를 통째로 잃는다.
+  #    오류가 안 난다 — 새 서버의 그 자리가 「지시를 모르는 채로」 조용히 일한다.
+  # ⭐ 그래서 «있는 대로 다» 싼다. 슬러그 이름을 그대로 살려 둔다(풀 때 제자리로 돌려야 한다).
+  $memRoots = @('C:\Users\USER\.claude\projects') +
+              ($자리 | Where-Object { $_ -ne 1 } | ForEach-Object { "C:\Users\USER\.claude-u$_\projects" })
+  $memN = 0; $memDirs = 0
+  foreach ($root in $memRoots) {
+    if (-not (Test-Path $root)) { continue }
+    Get-ChildItem $root -Directory -ErrorAction SilentlyContinue | ForEach-Object {
+      $m = Join-Path $_.FullName 'memory'
+      if (-not (Test-Path $m)) { return }
+      $설정이름 = Split-Path (Split-Path $root -Parent) -Leaf      # .claude 또는 .claude-uN
+      $d = Join-Path $짐 "01_설정\_memory\$설정이름\$($_.Name)"; 챠 $d
+      Copy-Item "$m\*" $d -Recurse -Force
+      $c = (Get-ChildItem $d -File -Recurse).Count
+      $memN += $c; $memDirs++
+      Say ("메모리 싸기: $설정이름 \ $($_.Name)  ${c}개")
+    }
+  }
+  if ($memDirs -eq 0) { Say '🔴 메모리 폴더를 하나도 못 찾았다 — 손으로 확인하라' }
+  else { Say "메모리 합계: 폴더 ${memDirs}곳 · 파일 ${memN}개" }
 
   # 세션 접속 폴더 — 사장님이 콕 집어 말씀하신 것
   $ent = 'C:\Users\USER\Desktop\00_세션입구'
@@ -106,4 +129,5 @@ foreach ($n in $자리) {
 }
 Set-Content -Path (Join-Path $d '차림표.tsv') -Value (@("자리`t세션id`t슬러그`t바이트") + $표) -Encoding utf8
 Say '════ 대화록 끝. 차림표.tsv 를 풀기 쪽이 읽는다 ════'
+
 

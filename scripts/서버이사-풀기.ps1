@@ -62,12 +62,28 @@ Get-ChildItem (Join-Path $짐 '01_설정') -Directory -ErrorAction SilentlyConti
   Copy-Item "$($_.FullName)\*" $dst -Recurse -Force
   Say "설정 풀기: $($_.Name)"
 }
-$mem = Join-Path $짐 '01_설정\memory'
-if (Test-Path $mem) {
-  $d = 'C:\Users\USER\.claude\projects\C--Users-USER-Desktop\memory'; 챠 $d
-  Copy-Item "$mem\*" $d -Recurse -Force
-  Say ('메모리 풀기: ' + (Get-ChildItem $d -File -Recurse).Count + '개  ← 이게 없으면 우리는 지시를 다 잊는다')
-}
+# 🔴🔴 메모리 — 슬러그마다 따로 있다. 여섯 곳 172개였다(8/21 실측).
+#    ⛔ 한 곳만 풀면 나머지가 「지시를 모르는 채로」 조용히 일한다. 있는 대로 다 되돌린다.
+#    ⭐ 그리고 슬러그 이름에 든 «USER» 를 이 PC 이름으로 바꾼 자리에도 같이 깐다.
+#       1번 것이 C--Users-USER-Documents-GitHub-klifemap 에 있어 이 갈아끼움이 꼭 필요하다.
+$memRoot = Join-Path $짐 '01_설정\_memory'
+if (Test-Path $memRoot) {
+  $합 = 0
+  Get-ChildItem $memRoot -Directory | ForEach-Object {      # .claude / .claude-uN
+    $설정 = $_.Name
+    Get-ChildItem $_.FullName -Directory | ForEach-Object {  # 슬러그
+      $이름들 = @($_.Name, ($_.Name -replace '-USER(?=-|$)', "-$진짜이름")) | Select-Object -Unique
+      foreach ($nm in $이름들) {
+        $d = "C:\Users\USER\$설정\projects\$nm\memory"; 챠 $d
+        Copy-Item "$($_.FullName)\*" $d -Recurse -Force
+      }
+      $c = (Get-ChildItem $_.FullName -File -Recurse).Count
+      $합 += $c
+      Say ("메모리 풀기: $설정 \ " + ($이름들 -join ' + ') + "  ${c}개")
+    }
+  }
+  Say "메모리 합계 ${합}개  ← 이게 없으면 우리는 사장님 지시를 다 잊는다"
+} else { Say '🔴 메모리 짐이 없다 — 싸기를 다시 돌려라' }
 
 # ── ② 세션 접속 폴더 ────────────────────────────────────────────────
 $ent = 'C:\Users\USER\Desktop\00_세션입구'; 챠 $ent
@@ -86,8 +102,11 @@ if (Test-Path $차) {
     if (-not (Test-Path $src)) { Say "🔴 ${n}번 짐이 없다: $src"; continue }
     # 자리폴더: 1번은 .claude(9/2 에 옮긴다) · 나머지는 .claude-uN
     $home = if ($n -eq '1') { 'C:\Users\USER\.claude' } else { "C:\Users\USER\.claude-u$n" }
-    # ⭐ 슬러그를 다 넣는다 — USER · User(이 PC 이름) · 원래 있던 것. 어느 쪽으로 열려도 찾는다
-    foreach ($s in ($슬러그들 + $slug) | Select-Object -Unique) {
+    # ⭐ 슬러그를 다 넣는다 — USER · User(이 PC 이름) · 원래 있던 것 · **그것의 이름 갈아끼운 것**
+    #    🔴 1번은 원래 슬러그가 C--Users-USER-Documents-GitHub-klifemap 이다(8/21 · 386MB).
+    #       그 안의 USER 도 갈아끼워 둬야 새 PC 에서 찾는다.
+    $slug2 = $slug -replace '-USER(?=-|$)', "-$진짜이름"
+    foreach ($s in ($슬러그들 + $slug + $slug2) | Select-Object -Unique) {
       $d = Join-Path $home "projects\$s"; 챠 $d
       Copy-Item $src (Join-Path $d "$id.jsonl") -Force
     }
@@ -134,6 +153,7 @@ Say '════ 끝 ════'
 Say '남은 것: ① git clone 넷 → npm ci  ② Chrome 로그인 다섯 · Cloudtype 로그인'
 Say '        ③ 창 여섯을 00_세션입구 에서 연다  ④ 각 자리가 매시 예약을 다시 건다'
 Say '        ⑤ 「auto mode 를 기본으로?」 물으면 **2**(keep bypass)'
+
 
 
 
