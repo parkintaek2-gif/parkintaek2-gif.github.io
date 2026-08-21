@@ -1,0 +1,161 @@
+---
+/**
+ * K Culture Wire — **가장 많이 읽히는 한국 스타는 어디서 태어났나.** (`/hometowns`)
+ *
+ * 🔴 사장님 지시(2026-08-20): 「관광지 소개할 때도 **스타의 작품 배경 장소, 고향 등 연고지**,
+ *    스타가 방문하거나 좋아하는 장소 등이 중심이 되는 게 좋겠지. 이때도 **스타의 이름,
+ *    아이돌 등 소속그룹의 그룹명을 꼭 넣도록**」
+ *
+ * ⭐⭐ 그래서 이 지면은 **도시마다 사람 이름을 다 적는다.** 「배우 9명」은 아무도 안 찾는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔⛔ **「고향」이라 안 쓴다.** P19 는 태어난 곳이고, 병원이 있는 도시가 적히기도 한다.
+ * ⛔⛔ **「밖」을 「외국」으로 안 읽는다.** 우리 상자는 북위 39.0 까지라 북한 대부분이 밖이다 —
+ *    이순재(회령)는 외국에서 태어난 것이 아니다. 그래서 칸을 따로 뒀다.
+ * ⛔ 나라만 적힌 사람을 도시에 안 섞는다(변우석·김선호 등 9명).
+ * ⛔ 못 잰 것을 0 으로 안 적는다.
+ * ⛔ 광고 자리를 만들지 않는다.
+ *
+ * 🔴 Astro 앞말은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다 — 붙여 쓸 곳에 {' '} 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-hometowns.json';
+
+const 서울 = d.cities[0];
+const 서울몫 = ((100 * 서울.count) / d.inBox).toFixed(0);
+
+const TITLE = 'Where Korea\'s most-read stars were born: 50 of 123 in Seoul, '
+  + 'but not one BTS member';
+const DESC =
+  `Go Youn-jung, Faker, IU and Lee Min-ho were all born in Seoul — ${서울.count} of the `
+  + `${d.inBox} most-read Korean names we could place, or ${서울몫}%. V and Suga were born in `
+  + 'Daegu, Jungkook and Jimin in Busan, RM in Goyang and J-Hope in Gwangju. Wikidata place of '
+  + 'birth, checked against coordinates.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org/', 'https://wikimedia.org/api/rest_v1/'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/hometowns">
+  <h1>{TITLE}</h1>
+
+  <p class="lead">
+    <b>Go Youn-jung</b>, <b>Faker</b>, <b>IU</b>, <b>Jang Won-young</b> and <b>Lee Min-ho</b> were
+    all born in Seoul. So were {서울.count - 5} more of the {d.inBox} most-read Korean names we
+    could place on a map — <b>{서울몫}%</b> of them, from one city.
+  </p>
+  <p class="q">
+    And then there is BTS. <b>V</b> and <b>Suga</b> were born in <b>Daegu</b>, <b>Jungkook</b> and
+    {' '}<b>Jimin</b> in <b>Busan</b>, <b>RM</b> in <b>Goyang</b> and <b>J-Hope</b> in
+    {' '}<b>Gwangju</b>. Six of the seven members are in our panel and <b>not one of them is from
+    Seoul</b>. Jin is not read widely enough in Southeast Asia to enter the panel, so we cannot
+    place him here.
+  </p>
+
+  <section class="warn-box">
+    <h2>Read this first: born in, not from</h2>
+    <p class="warn">
+      Wikidata records <b>place of birth</b>. That is not the same as where someone is from. A
+      hospital city is often recorded instead of the town a person grew up in. Every figure on this
+      page says <b>born in</b>, and we never write <b>hometown</b>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Every city, and everyone born there</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Born in</th><th>Stars</th><th>Who</th></tr>
+        </thead>
+        <tbody>
+          {d.cities.map((c) => (
+            <tr>
+              <td class="nm">{c.place}</td>
+              <td>{c.count}</td>
+              <td class="who">{c.people.map((p) => p.name).join(' · ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Order is by how many stars, then by their combined reads. Reads are per million reads of each
+      of the four Southeast Asian Wikipedias, so the size of each edition is already divided out.
+    </p>
+  </section>
+
+  <section>
+    <h2>The {서울.count} born in Seoul, most read first</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>#</th><th>Star</th><th>Reads per million, four editions</th></tr></thead>
+        <tbody>
+          {서울.people.map((p, i) => (
+            <tr><td class="fine">{i + 1}</td><td class="nm">{p.name}</td>
+              <td class="fine">{p.perMillionTotal}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>The ones we did not put in a city — and why</h2>
+    <p class="note">
+      These {d.countryOnly + d.northOfBox + d.elsewhere + d.notRecorded} are not missing from the
+      count above by accident. Each is here for a stated reason.
+    </p>
+
+    <h3>Wikidata records a country, not a city ({d.countryOnly})</h3>
+    <p>
+      {d.countryOnlyPeople.map((p) => `${p.name} (${p.place})`).join(' · ')}
+    </p>
+    <p class="note">
+      <b>Byeon Woo-seok</b> and <b>Kim Seon-ho</b> are among the most-read names in the whole panel,
+      and we still cannot place them. Putting them in Seoul because that is the likeliest answer
+      would be a guess, and a guess in a table reads exactly like a measurement.
+    </p>
+
+    <h3>North of the box we test against ({d.northOfBox})</h3>
+    <p>{d.northOfBoxPeople.map((p) => `${p.name} (${p.place})`).join(' · ')}</p>
+    <p class="note">
+      ⚠ Our box reaches {d.box.북} degrees north, so most of North Korea falls outside it.
+      {' '}<b>Lee Soon-jae</b> was born in Hoeryong. He was not born abroad — our ruler stops short
+      of where he was born, and saying &quot;outside Korea&quot; would be wrong.
+    </p>
+
+    <h3>Born elsewhere ({d.elsewhere})</h3>
+    <p>{d.elsewherePeople.map((p) => `${p.name} (${p.place})`).join(' · ')}</p>
+
+    <h3>No place of birth recorded ({d.notRecorded})</h3>
+    <p>{d.missing.map((p) => p.name).join(' · ')}</p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">{d.limitation}</p>
+    <p class="note">
+      Source — {d.source}. Window — {d.window}. Panel — the {d.looked} most-read individual Korean
+      names of {d.peopleTotal} we hold; groups are excluded because a group has no place of birth.
+      Related: <a href="/own-star">every country has its own star</a> ·
+      {' '}<a href="/who-reads-least">who reads least</a>.
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/hometowns" />
+</WikiTip>
+
+<style>
+  .who { font-size: 0.86rem; line-height: 1.5; }
+</style>
