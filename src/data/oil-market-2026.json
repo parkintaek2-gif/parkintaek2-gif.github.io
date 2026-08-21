@@ -1,0 +1,48 @@
+{
+  "Diesel": {
+    "days": 1624,
+    "comp_empty_days": 67,
+    "comp_empty_pct": 4.1,
+    "spread_mean_won": 3.64,
+    "spread_median_won": 5.01,
+    "spread_min": -102.27,
+    "spread_max": 132.77,
+    "dearer_days": 977,
+    "cheaper_days": 578,
+    "dearer_pct": 62.8,
+    "vol_2020_ML": 3457,
+    "vol_2025_ML": 2665,
+    "vol_change_pct": -22.9
+  },
+  "Kerosene": {
+    "days": 1622,
+    "comp_empty_days": 266,
+    "comp_empty_pct": 16.4,
+    "spread_mean_won": -7.37,
+    "spread_median_won": 0.94,
+    "spread_min": -98.61,
+    "spread_max": 100.1,
+    "dearer_days": 724,
+    "cheaper_days": 621,
+    "dearer_pct": 53.8,
+    "vol_2020_ML": 640,
+    "vol_2025_ML": 614,
+    "vol_change_pct": -4.1
+  },
+  "Petrol": {
+    "days": 1623,
+    "comp_empty_days": 83,
+    "comp_empty_pct": 5.1,
+    "spread_mean_won": -3.83,
+    "spread_median_won": 1.58,
+    "spread_min": -153.64,
+    "spread_max": 93.2,
+    "dearer_days": 850,
+    "cheaper_days": 688,
+    "dearer_pct": 55.3,
+    "vol_2020_ML": 1707,
+    "vol_2025_ML": 1801,
+    "vol_change_pct": 5.5
+  },
+  "_source": "Korea Exchange oil market (daily), archive/raw/commodities, 2020-01 to 2026-08"
+}
