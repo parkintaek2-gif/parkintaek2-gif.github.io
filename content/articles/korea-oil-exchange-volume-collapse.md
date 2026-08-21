@@ -28,7 +28,7 @@ excluded:
 draft: false
 ---
 
-Korea Exchange's petroleum market prints a volume figure every trading day for diesel, petrol and kerosene, alongside the two weighted-average prices [this desk wrote about earlier](/article/korea-oil-exchange-two-prices). Read across six and a half years, that volume figure tells its own story: 2026 has been quieter than any year on record, and on a growing share of days the exchange's competitive auction has stopped printing a price at all.
+Korea Exchange's petroleum market prints a volume figure every trading day for diesel, petrol and kerosene, alongside the two weighted-average prices [this desk wrote about earlier](/article/korea-oil-exchange-two-prices). A companion piece on this desk has already tracked [diesel's volume sliding through 2025](/article/korea-oil-exchange-diesel-decline-spread) — down 22.9% from 2020 to 2025, year over year. This piece picks the story up where that one stops: what has happened since, inside 2026 itself.
 
 ## Half the fuel changed hands
 
