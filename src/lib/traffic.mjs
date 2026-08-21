@@ -54,7 +54,7 @@ let 마지막flush = Date.now();
 let flush중 = false;
 
 /** ⚠ 봇 판별은 **참고용**이다. 정확할 수 없다 — 그래서 거르지 않고 **따로 센다.** */
-const 봇패턴 = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|headless|curl|wget|python-requests|node-fetch|axios|go-http|monitor|uptime|pingdom/i;
+const 봇패턴 = /bot|crawl|spider|slurp|bingpreview|facebookexternalhit|headless|curl|wget|python-requests|node-fetch|axios|go-http|monitor|uptime|pingdom|^node$|^undici/i;
 
 /**
  * ⚠ **스캐너는 브라우저 UA 를 흉내 낸다.** UA 만 보면 사람으로 세어진다.
