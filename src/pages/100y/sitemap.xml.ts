@@ -214,6 +214,10 @@ export const GET: APIRoute = () => {
        ⛔⛔ 이것은 «소유율»이 아니라 «구성비»다 — 그 나이대의 몇 %가 집을 가졌나가 아니라
           집을 가진 가구 가운데 그 나이대가 몇 %인가다. 지면·카드·영상 셋 다 그 말을 박았다 */
     { path: '/home', priority: '0.8', changefreq: 'monthly' },
+
+    /* 🔴 2번 17시·19시 — 「40대 자리」. /home 은 맨 위 칸이 50대라 «제목까지 40대인 문»을 따로 지었다.
+       ⛔ /age 가 이미 빚을 다루므로 빚은 안 건드린다 */
+    { path: '/spending', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
