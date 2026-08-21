@@ -57,7 +57,9 @@ if (-not (Test-Path $짐)) { Say "🔴 짐이 없다: $짐  (원드라이브 동
 
 # ── ① 설정폴더 ──────────────────────────────────────────────────────
 Get-ChildItem (Join-Path $짐 '01_설정') -Directory -ErrorAction SilentlyContinue | ForEach-Object {
-  if ($_.Name -eq 'memory') { return }
+  # ⛔ 짐 안의 이름은 «_memory» 다(밑줄 붙은 것). 'memory' 라고 적으면 이 걸름이 안 걸려
+  #    메모리 300개가 C:\Users\USER\_memory 라는 엉뚱한 자리에 한 번 더 깔린다.
+  if ($_.Name -eq '_memory') { return }
   $dst = "C:\Users\USER\$($_.Name)"; 챠 $dst
   Copy-Item "$($_.FullName)\*" $dst -Recurse -Force
   Say "설정 풀기: $($_.Name)"
@@ -84,6 +86,20 @@ if (Test-Path $memRoot) {
   }
   Say "메모리 합계 ${합}개  ← 이게 없으면 우리는 사장님 지시를 다 잊는다"
 } else { Say '🔴 메모리 짐이 없다 — 싸기를 다시 돌려라' }
+
+# ── ①-2 터미널 글자크기 ────────────────────────────────────────────
+# 사장님 (2026-08-21) 「글자를 크게 내가 볼 수 있게 해줘」 → 20 으로 맞춘 것을 그대로 옮긴다.
+# ⛔ 이걸 빠뜨리면 새 PC 는 기본 12 다. 화면을 못 읽으시면 우리가 한 일이 안 보인다.
+$wtDir = 'C:\Users\USER\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState'
+$wtSrc = Join-Path $짐 '05_터미널\settings.json'
+if (Test-Path $wtSrc) {
+  if (Test-Path $wtDir) {
+    $wtDst = Join-Path $wtDir 'settings.json'
+    if (Test-Path $wtDst) { Copy-Item $wtDst "$wtDst.bak-이사전" -Force }
+    Copy-Item $wtSrc $wtDst -Force
+    Say '✅ 터미널 글자크기 20 되돌렸다 (원래 것은 settings.json.bak-이사전)'
+  } else { Say '🔴 윈도 터미널이 아직 안 깔렸다 — 깔고 나서 이 자를 한 번 더 돌려라' }
+}
 
 # ── ② 세션 접속 폴더 ────────────────────────────────────────────────
 $ent = 'C:\Users\USER\Desktop\00_세션입구'; 챠 $ent

@@ -102,6 +102,25 @@ if (-not $대화록) {
     Say '_tools(piper) 싸기 — ⛔ 이건 git 저장소가 아니다'
   }
 
+  # 터미널 글자크기 — 사장님 (2026-08-21) 「글자를 크게 내가 볼 수 있게 해줘」 → 20 으로 맞췄다.
+  # ⛔ 이걸 안 싸면 새 PC 에서 기본 12 로 돌아간다. 사장님이 화면을 못 읽으신다.
+  $wt = 'C:\Users\USER\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json'
+  if (Test-Path $wt) {
+    $d = Join-Path $짐 '05_터미널'; 챠 $d
+    Copy-Item $wt (Join-Path $d 'settings.json') -Force
+    Say '터미널 설정 싸기 (글자크기 20)'
+  } else { Say '🔴 터미널 settings.json 이 없다' }
+
+  # sessions — 자리마다 든 작은 열쇠(83B). 값이 싸서 그냥 같이 싼다.
+  # ⛔ file-history 는 뺀다: .claude 것만 376MB 인데 되살릴 수 있는 것(편집 되돌리기)이다.
+  foreach ($d0 in @('.claude') + ($자리 | Where-Object { $_ -ne 1 } | ForEach-Object { ".claude-u$_" })) {
+    $src = "C:\Users\USER\$d0\sessions"
+    if (-not (Test-Path $src)) { continue }
+    $dst = Join-Path $짐 "01_설정\$d0\sessions"; 챠 $dst
+    Copy-Item "$src\*" $dst -Recurse -Force -ErrorAction SilentlyContinue
+  }
+  Say 'sessions 열쇠 싸기'
+
   Say '════ 굳은 짐 끝. 대화록은 «옮기는 날» -대화록 으로 싼다 ════'
   exit 0
 }
