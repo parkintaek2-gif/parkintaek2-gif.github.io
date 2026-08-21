@@ -66,7 +66,9 @@ export function 키(email) {
 }
 
 // 'panel' — B2B 임금패널 지면(/data/pension-wage-panel)의 「신청」 폼. 뉴스레터와 갈라 센다.
-const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel', 'unknown']);
+// 'trade-sample' — 무역 데이터셋 지면(/data/korea-trade-dataset)의 가공본 견본 「받아보기 신청」.
+//   2번 결정(2026-08-21 23:2x): 결제 단추 대신 신청으로 수요를 먼저 잰다. panel 과 갈라 센다.
+const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel', 'trade-sample', 'unknown']);
 
 /**
  * 구독 접수.

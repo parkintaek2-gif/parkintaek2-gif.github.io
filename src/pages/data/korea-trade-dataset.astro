@@ -1,27 +1,25 @@
 ---
 /**
- * **Korea trade dataset** — 파는 지면(첫 유료 상품). (seoulmarkets.com/data/korea-trade-dataset)
+ * **Korea trade dataset** — CSV 는 무료, 파는 것은 «가공본»(예정). (seoulmarkets.com/data/korea-trade-dataset)
  *
- * ── 왜 (2번 결정 2026-08-21) ────────────────────────────────────
- *   ① 무엇을 파나 = 한국 무역 데이터셋 CSV 단건(전체 243개국×12달).
- *   ② 값 = **견줘서** 매긴다(사장님 「값도 데이터로」). 아래 비교표 참조. 단건 $29.
- *   ③ 레일 = PayPal 단건. 사장님 지시. ⛔ 열쇠 값은 여기 안 적는다 — 이름(PAYPAL_CLIENT_ID)만.
+ * ── 왜 지금 이 꼴인가 (2번 결정 2026-08-21 23:2x) ─────────────────
+ *   ① 원자료(이 CSV)는 계속 무료. 가리지 않는다.
+ *   ② 파는 것은 **가공본** — 품목(HS코드) 상세·더 긴 시계열·월별 해설. 아직 없다.
+ *   ③ ⛔ 결제 단추는 안 올린다. 그 지면 실측 「구매·$29」 0건 · 무료 6건(2026-08-21) —
+ *      수요가 안 잡힌 채 단추를 올리면 무료를 가린 값만 치른다.
+ *   ④ 대신 **견본 + 「받아보기 신청」(이메일, /v1/subscribe, source=trade-sample)** 으로
+ *      수요를 먼저 잰다. 신청 수가 곧 답이다. (PayPal 레일은 이전 안 — 지금은 안 쓴다)
  *
- * 값을 부르기 전에 물건을 보인다 — 무료 미리보기 CSV(전국+상위20국)로 잇는다.
+ * 값을 부르기 전에 물건을 보인다 — 무료 CSV 로 잇는다.
  * 데이터는 유료 API /v1/trade/exports 와 **같은 번들 소스**(src/lib/trade-data.mjs)라 어긋날 수 없다.
- *
- * ⚠ 결제 단추는 **PAYPAL_CLIENT_ID 가 있을 때만** 그린다. 없으면 정직하게 「곧 엽니다」.
- *   가짜 단추를 그리지 않는다. 열쇠를 꽂고 CSP 에 paypal.com 을 열면 그때 단추가 산다.
  */
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import { TRADE } from '../../lib/trade-data.mjs';
 
-const PRICE = '29';
 const COUNTRIES = TRADE.countries.length;
 const MONTHS = TRADE.window.months;
 const WINDOW = `${TRADE.window.first_month} to ${TRADE.window.latest_month}`;
-const CLIENT_ID = process.env.PAYPAL_CLIENT_ID || '';
 
 const TITLE = 'Korea trade dataset — every partner, every month';
 const SAMPLE = `${COUNTRIES} partner countries · ${MONTHS} months (${WINDOW}) · CSV`;
@@ -113,6 +111,33 @@ const jsonLd = {
           is the market we will price it against. We will not name a price until that product exists.</p>
       </div>
 
+      <div class="blk">
+        <h2>What is already done for you, versus doing it yourself</h2>
+        <p>The CSV above is free, and it stays free. But it did not arrive that way — KOSIS publishes
+          this as Korean-language tables, one country and one month at a time. Here is what that work
+          looks like, counted:</p>
+        <table class="press">
+          <thead><tr><th>Task</th><th>Doing it yourself from KOSIS</th><th>Already done in this CSV</th></tr></thead>
+          <tbody>
+            <tr><td class="axis">Country names</td><td>Korean names, official codes — {COUNTRIES}
+              separate lookups to get English</td><td>{COUNTRIES} partner countries pre-mapped to
+              English names</td></tr>
+            <tr><td class="axis">Assembling the series</td><td>One query per country per month —
+              {(COUNTRIES + 1) * MONTHS} queries to match this file's row count</td><td>One file,
+              already joined</td></tr>
+            <tr><td class="axis">Column names</td><td>Korean field labels, several table layouts across
+              releases</td><td>One fixed schema: <code>country_en, month, exports_usd_thousand,
+              imports_usd_thousand, balance_usd_thousand</code></td></tr>
+            <tr><td class="axis">Keeping it current</td><td>Re-pull and re-join by hand every month</td>
+              <td>Refreshed on the customs release, same schema each time</td></tr>
+          </tbody>
+        </table>
+        <p class="fine">What is not yet built is the next layer — product (HS-code) detail, a longer
+          back-series, and written month-to-month analysis on top of these figures. That is the{' '}
+          <b>processed product</b> below, and it does not exist yet — we are not describing a sample of
+          something we have not made.</p>
+      </div>
+
       <div class="cta">
         <h2>Take the data — it is free</h2>
         <p class="cta__lead">All {COUNTRIES} partner countries × {MONTHS} months, one CSV, or query it
@@ -121,11 +146,83 @@ const jsonLd = {
           <a class="btn" href="/data/korea-trade-balance.csv">Download the CSV — free</a>
           <a class="btn ghost" href="/v1/trade/exports?country=vietnam">Query the live API →</a>
         </p>
-        <p class="fine">A packaged, <b>value-added</b> product — curated time series, charts and written
-          analysis on top of this data — is <b>in preparation</b>. It is not on sale yet; we will price it
-          once it exists. Questions:
-          <a href="mailto:sibcheongan@gmail.com?subject=Korea%20trade%20data">sibcheongan@gmail.com</a>.</p>
       </div>
+
+      <section class="cta">
+        <h2>Ask to be notified — the processed product</h2>
+        <p class="cta__lead">A packaged, value-added layer on top of this free data — product (HS-code)
+          detail, a longer back-series, and written analysis — is <b>in preparation</b>. It is not on
+          sale, and there is no button to press. Leave an email and we send the sample the day it
+          exists, plus the terms at that time. No account, and this is not the newsletter.</p>
+        {
+          /* ⚠ 사는 길. 죽은 mailto 대신 실제로 도는 /v1/subscribe 로 접수한다(panel 지면과 같은 길).
+             source='trade-sample' 로 임금패널·뉴스레터와 갈라 센다 — 신청 수가 곧 수요 판정이다. */
+        }
+        <form class="ask" method="post" action="/v1/subscribe" data-source="trade-sample">
+          <label class="vh" for="trade-ask-email">Email address</label>
+          <div class="ask__row">
+            <input
+              id="trade-ask-email"
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              inputmode="email"
+              placeholder="you@company.com"
+              aria-describedby="trade-ask-note"
+            />
+            <button type="submit">Notify me</button>
+          </div>
+          <div class="hp" aria-hidden="true">
+            <label for="trade-ask-hp">Leave this field empty</label>
+            <input id="trade-ask-hp" type="text" name="hp" tabindex="-1" autocomplete="off" />
+          </div>
+          <p class="ask__note" id="trade-ask-note">We store your address and that you asked about this
+            product. We never sell or share it. Questions:{' '}
+            <a href="mailto:sibcheongan@gmail.com?subject=Korea%20trade%20data">sibcheongan@gmail.com</a>.</p>
+          <p class="ask__msg" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <script is:inline>
+        (() => {
+          const form = document.querySelector('form.ask[data-source="trade-sample"]');
+          if (!form) return;
+          const input = form.querySelector('input[name="email"]');
+          const hp = form.querySelector('input[name="hp"]');
+          const btn = form.querySelector('button[type="submit"]');
+          const msg = form.querySelector('.ask__msg');
+          const say = (state, text) => { msg.dataset.state = state; msg.textContent = text; };
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = input.value.trim();
+            if (!email) return;
+            btn.disabled = true;
+            const was = btn.textContent;
+            btn.textContent = 'Sending…';
+            delete msg.dataset.state;
+            try {
+              const res = await fetch('/v1/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, hp: hp.value, source: form.dataset.source || 'trade-sample' }),
+              });
+              const data = await res.json().catch(() => ({}));
+              if (res.ok && data.ok) {
+                say('ok', 'Thanks — we will email you when the sample is ready.');
+                form.reset();
+              } else {
+                say('error', data?.error?.message || data?.message || 'Could not send. Please try again.');
+              }
+            } catch {
+              say('error', 'Network error. Please try again.');
+            } finally {
+              btn.disabled = false;
+              btn.textContent = was;
+            }
+          });
+        })();
+      </script>
 
       <p class="fine bottom">
         Source: Statistics Korea (KOSIS), table DT_1R11006 — Korea Customs Service. Licence: Korea Public
@@ -174,13 +271,31 @@ const jsonLd = {
   .cta p { line-height: 1.7; font-size: .95rem; }
   .cta__lead { margin: 0 0 1rem; }
   .cta__also { margin: 1.1rem 0 0; font-size: .88rem; color: var(--muted); }
-  #paypal-button-container { max-width: 24rem; margin: .4rem 0; }
   .cta a, .pp a { color: var(--accent); text-decoration: none;
                   border-bottom: 1px solid currentColor; padding-bottom: 1px; }
   .cta a:hover, .pp a:hover { color: var(--ink); }
 
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; }
   .fine.bottom { margin: 2.4rem 0 1rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+
+  /* 받아보기 신청 폼 — pension-wage-panel.astro 와 같은 결(라벨 숨김·봇 덫·aria-live) */
+  .vh { position: absolute; width: 1px; height: 1px; overflow: hidden;
+        clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
+  .ask__row { display: flex; gap: .5rem; max-width: 30rem; }
+  .ask__row input { flex: 1 1 auto; min-width: 0; font: inherit; font-size: .95rem; padding: .6rem .7rem;
+    color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+  .ask__row input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+  .ask__row button { flex: 0 0 auto; font: inherit; font-size: .92rem; font-weight: 650; cursor: pointer;
+    padding: .6rem 1rem; color: var(--bg); background: var(--ink); border: 1px solid var(--ink); border-radius: 6px; }
+  .ask__row button:hover { opacity: .9; }
+  .ask__row button[disabled] { opacity: .6; cursor: default; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .ask__note { margin: .6rem 0 0; font-size: .8rem; color: var(--muted); line-height: 1.55; }
+  .ask__msg { margin: .6rem 0 0; font-size: .88rem; line-height: 1.55; display: none; }
+  .ask__msg[data-state] { display: block; }
+  .ask__msg[data-state='ok'] { color: var(--up, #1a7f37); }
+  .ask__msg[data-state='error'] { color: var(--down, #c0392b); }
+  @media (max-width: 30rem) { .ask__row { flex-direction: column; } .ask__row button { width: 100%; } }
 
   @media (max-width: 560px) { table.kv th { white-space: normal; } .pp .sample { white-space: normal; } }
 </style>
