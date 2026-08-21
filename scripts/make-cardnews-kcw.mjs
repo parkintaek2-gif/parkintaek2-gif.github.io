@@ -62,7 +62,79 @@ export const 벌목록 = {
   actors: { 자료: 'src/data/wikitip-actors-first.json', 만들기: (d) => 배우벌짓기(d) },
   signs: { 자료: 'src/data/wikitip-star-signs.json', 만들기: (d) => 띠벌짓기(d) },
   onlyone: { 자료: 'src/data/wikitip-only-one-wikipedia.json', 만들기: (d) => 한판벌짓기(d) },
+  least: { 자료: 'src/data/wikitip-last-place.json', 만들기: (d) => 꼴찌벌짓기(d) },
 };
+
+/**
+ * 꼴찌 벌 — 108편째 짝(`/who-reads-least`).
+ *
+ * ⭐ 이야기 한 줄: **1등은 바뀌는데 꼴찌는 안 바뀐다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **「말레이시아가 관심 없다」로 읽히면 안 된다.** 말레이어와 인도네시아어는 서로 통한다 —
+ *     그 문장을 **둘째 장**에 둔다. 넷째 장까지 미루면 그 전에 다 퍼진다.
+ *   ⛔ **「판이 작아서」가 아니다.** 백만분율이라 판 크기는 이미 나눠져 있다고 적는다.
+ *   ⛔⛔ 표 첫 칸은 **이름**이다(사장님 8/16).
+ *   ⛔ 수를 손으로 안 박는다.
+ */
+export function 꼴찌벌짓기(d) {
+  const 꼴 = d.mostOftenLast;
+  const 위 = d.topOfList.people.slice(0, 6);
+
+  return {
+    갈피: 'who-reads-least',
+    빛: '#e0b25b',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Wikipedias · ${d.peopleInAllFour} Korean stars`,
+        큰: 'BTS peaks in\nVietnam. Byeon\nWoo-seok in Thai.\nAll 20 end the same',
+        아래: `First place is shared three ways. Last place is not: the ${d.editionNames[꼴]} `
+          + `edition comes last for **${d.last[꼴]}** of ${d.peopleInAllFour} stars, and for `
+          + `**all ${d.topOfList.looked}** of the most-read.`,
+      },
+      {
+        /* ⛔⛔ 이 장을 뒤로 미루면 「관심 없다」가 먼저 퍼진다. 둘째 장에 둔다 */
+        꼴: '없는것',
+        제목: 'Before the tables — what we cannot rule out',
+        목록: [
+          'Malay and Indonesian are close enough to read across',
+          'A reader in Kuala Lumpur can open the Indonesian article and understand it',
+          'If they do, their reading lands in the Indonesian column, not the Malay one',
+        ],
+        아래: 'Nothing here separates **"read the Indonesian article"** from **"did not look"**. '
+          + 'Both produce the same table. We are not picking the one with the better headline.',
+      },
+      {
+        꼴: '표',
+        제목: 'How often each\nedition is first,\nand last',
+        머리: ['Wikipedia', 'First for', 'Last for'],
+        줄: d.editions.map((e) => [d.editionNames[e], String(d.first[e]), String(d.last[e])]),
+        아래: `Reads are **per million** reads of that whole edition, so the size of each `
+          + `encyclopaedia is already divided out. "It is a small edition" is not the answer.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The most-read six,\ncountry by country',
+        머리: ['Star', ...d.editions.map((e) => d.countryNames[e])],
+        줄: 위.map((p) => [p.name, ...d.editions.map((e) => String(p.byEdition[e]))]),
+        아래: `Within one person the spread is large — ${위[1].name} is read `
+          + `**${위[1].mostOverLeast}×** more in the strongest country than the weakest. `
+          + 'These are ratios between countries for the same star.',
+      },
+      {
+        꼴: '끝',
+        제목: 'The argument is\nonly ever about\nfirst place',
+        글: 'Every one of the six most common orderings ends the same way.\n\n'
+          + '**We publish the ordering and the objection on the same page.**',
+        길: `${주소}/who-reads-least`,
+        곁: `Wikimedia Pageviews \u00b7 human traffic only \u00b7 ${d.window.split(',')[0]}`,
+      },
+    ],
+  };
+}
 
 /**
  * 한판 벌 — 107편째 짝(`/only-one-wikipedia`).

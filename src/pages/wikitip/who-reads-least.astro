@@ -18,6 +18,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-last-place.json';
 
 const 꼴 = d.mostOftenLast;
@@ -147,6 +148,8 @@ const jsonLd = {
       {' '}<a href="/malaysia">Malaysia reads Korean brands more readily than Korean people</a>.
     </p>
   </section>
+
+  <KcwCardnews set="least" count={5} />
 
   <KcwRelatedArticles page="/who-reads-least" />
 </WikiTip>

@@ -85,6 +85,7 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const ss = 읽기('src/data/wikitip-star-signs.json');
   /* ⚠ 이름을 ow 로 둔다 — oo 는 one-out 이 이미 쓴다. 겹치면 조용히 딴 자료를 읽는다 */
   const ow = 읽기('src/data/wikitip-only-one-wikipedia.json');
+  const lp = 읽기('src/data/wikitip-last-place.json');
   const af = 읽기('src/data/wikitip-actors-first.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -395,6 +396,22 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `${주소}/only-one-wikipedia`,
       alt: 'Five cards naming Korean stars who appear on only one of the four Southeast Asian '
         + 'Wikipedias, and the size comparison that rules out the obvious explanation.',
+    },
+    {
+      /**
+       * ⛔⛔ 첫 줄에 이름. ⛔⛔ 그리고 **못 가른다는 말을 같은 글에** 둔다 —
+       *   글자 수가 아까워서 그것을 빼면 「말레이시아가 관심 없다」가 나간다.
+       */
+      key: 'least',
+      page: `${주소}/who-reads-least`,
+      images: 장('least'),
+      x: `BTS peaks on the Vietnamese Wikipedia. Byeon Woo-seok on the Thai one.\n\n`
+        + `Of ${lp.peopleInAllFour} Korean stars, the Malay edition is last for `
+        + `${lp.last.ms} — and for all ${lp.topOfList.looked} of the most-read.\n\n`
+        + `Malay and Indonesian read across, so we cannot separate that from not looking.\n\n`
+        + `${주소}/who-reads-least`,
+      alt: 'Five cards on which Southeast Asian Wikipedia reads each Korean star most and least, '
+        + 'with the objection we cannot rule out on the second card.',
     },
   ];
 }
