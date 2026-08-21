@@ -28,7 +28,7 @@ const SAMPLE = `${COUNTRIES} partner countries · ${MONTHS} months (${WINDOW}) �
 const DESC =
   `Korea's exports, imports and trade balance with all ${COUNTRIES} partner countries, month by month, `
   + 'on a customs basis — normalised to English and delivered as one clean CSV. The raw source is Korean, '
-  + 'un-normalised and awkward; this is the ready extract. One-time purchase, yours to keep.';
+  + 'un-normalised and awkward; this is the ready extract. Free to download, yours to keep.';
 
 /** 견준 값 — 실제로 열어 적음(2026-08-21). 화면과 하나의 출처로 묶는다. */
 const 비교 = [
@@ -47,20 +47,19 @@ const jsonLd = {
   url: `${SITE_URL}/data/korea-trade-dataset`,
   temporalCoverage: WINDOW.replace(' to ', '/'),
   creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
-  isAccessibleForFree: false,
+  isAccessibleForFree: true,
   license: 'https://www.data.go.kr',
   variableMeasured: ['exports (USD thousand)', 'imports (USD thousand)', 'trade balance (USD thousand)'],
-  offers: { '@type': 'Offer', price: PRICE, priceCurrency: 'USD', availability: 'https://schema.org/InStock' },
+  distribution: { '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE_URL}/data/korea-trade-balance.csv` },
 };
 ---
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
-  {CLIENT_ID && (
-    <script is:inline src={`https://www.paypal.com/sdk/js?client-id=${CLIENT_ID}&currency=USD&intent=capture`}></script>
-  )}
+  {/* 2번 지시(8/21 ㉯): 원자료는 무료로 둔다. 가공물이 생기기 전엔 결제 단추를 그리지 않는다.
+      PayPal SDK·단추를 뺀다 — 「팔린다」로 읽히는 것을 0 으로. 가공물이 나오면 그때 되살린다. */}
   <div class="wrap">
     <article class="pp">
-      <p class="kicker">SeoulMarkets · data for licence</p>
+      <p class="kicker">SeoulMarkets · open trade data</p>
       <h1>Korea trade dataset — every partner, every month</h1>
       <p class="sample">{SAMPLE}</p>
       <p class="lead">
@@ -68,7 +67,8 @@ const jsonLd = {
         earth</b>, month by month. It publishes it in Korean, un-normalised, one awkward query at a time.
         We take the same official figures and hand you <b>one clean CSV</b>: {COUNTRIES} partner
         countries × {MONTHS} months of exports, imports and the balance, in English, with the source
-        named on the first line. A one-time purchase — no subscription, yours to keep.
+        named on the first line. It is <b>free to download and yours to keep</b> — the raw customs
+        record stays free.
       </p>
 
       <ol class="five">
@@ -97,7 +97,7 @@ const jsonLd = {
       </div>
 
       <div class="blk">
-        <h2>How we priced it</h2>
+        <h2>What this kind of data costs elsewhere</h2>
         <p>Nobody sells this as a one-off. The people who carry Korean trade data sell a whole platform,
           by subscription, or ask you to call. We opened them and wrote down the numbers:</p>
         <table class="press">
@@ -108,42 +108,23 @@ const jsonLd = {
             ))}
           </tbody>
         </table>
-        <p>So we set a price a first-time buyer can say yes to without a meeting: <b>${PRICE}, once</b> —
-          about one month of the cheapest platform subscription, except you keep this dataset forever and
-          it is already normalised. The raw source stays free; you are paying for the clean extract.</p>
+        <p>The raw source is free, and so is our clean extract — you can take it right now, below. When we
+          package the <b>value-added product</b> (curated time series, charts and written analysis), this
+          is the market we will price it against. We will not name a price until that product exists.</p>
       </div>
 
       <div class="cta">
-        <h2>Buy the full dataset — ${PRICE}, one time</h2>
-        <p class="cta__lead">All {COUNTRIES} partner countries × {MONTHS} months, one CSV, delivered on
-          purchase. Secure checkout by PayPal.</p>
-        {CLIENT_ID ? (
-          <Fragment>
-            <div id="paypal-button-container"></div>
-            <script is:inline define:vars={{ PRICE }}>
-              paypal.Buttons({
-                style: { layout: 'vertical', label: 'pay' },
-                createOrder: (data, actions) => actions.order.create({
-                  purchase_units: [{
-                    amount: { value: PRICE, currency_code: 'USD' },
-                    description: 'SeoulMarkets — Korea trade dataset (full CSV)',
-                  }],
-                }),
-                onApprove: (data, actions) => actions.order.capture().then(() => {
-                  window.location = '/data/korea-trade-dataset/thanks';
-                }),
-              }).render('#paypal-button-container');
-            </script>
-          </Fragment>
-        ) : (
-          <p class="fine">Secure PayPal checkout opens shortly — the payment button appears here once it is
-            live. In the meantime, take the free preview below, or email
-            <a href="mailto:sibcheongan@gmail.com?subject=Korea%20trade%20dataset">sibcheongan@gmail.com</a>
-            to buy now.</p>
-        )}
-        <p class="cta__also">See it before you buy — <a href="/data/korea-trade-balance.csv">free preview
-          CSV</a> (national totals and the 20 largest partners), or query it live at
-          <a href="/v1/trade/exports?country=vietnam">/v1/trade/exports</a>.</p>
+        <h2>Take the data — it is free</h2>
+        <p class="cta__lead">All {COUNTRIES} partner countries × {MONTHS} months, one CSV, or query it
+          live through the API. No charge, no subscription.</p>
+        <p class="cta__buttons">
+          <a class="btn" href="/data/korea-trade-balance.csv">Download the CSV — free</a>
+          <a class="btn ghost" href="/v1/trade/exports?country=vietnam">Query the live API →</a>
+        </p>
+        <p class="fine">A packaged, <b>value-added</b> product — curated time series, charts and written
+          analysis on top of this data — is <b>in preparation</b>. It is not on sale yet; we will price it
+          once it exists. Questions:
+          <a href="mailto:sibcheongan@gmail.com?subject=Korea%20trade%20data">sibcheongan@gmail.com</a>.</p>
       </div>
 
       <p class="fine bottom">

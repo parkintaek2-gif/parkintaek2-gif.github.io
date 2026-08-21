@@ -83,6 +83,8 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
   const wr = 읽기('src/data/wikitip-works-and-readers.json');
   const ou = 읽기('src/data/wikitip-places-outside.json');
   const ss = 읽기('src/data/wikitip-star-signs.json');
+  /* ⚠ 이름을 ow 로 둔다 — oo 는 one-out 이 이미 쓴다. 겹치면 조용히 딴 자료를 읽는다 */
+  const ow = 읽기('src/data/wikitip-only-one-wikipedia.json');
   const af = 읽기('src/data/wikitip-actors-first.json');
   /** ⛔ 부호를 손으로 안 박는다. 자료가 양수면 +, 음수면 − 다 */
   const 몫 = (v) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -376,6 +378,23 @@ export function 벌들짓기(읽기 = (p) => JSON.parse(fs.readFileSync(p, 'utf8
         + `a prediction.\n\n${주소}/star-signs`,
       alt: 'Five cards listing Korean stars by Chinese zodiac sign, with the measurement that says '
         + 'the spread across signs is indistinguishable from chance.',
+    },
+    {
+      /**
+       * ⛔⛔ 첫 줄에 **이름**을 둔다. 검색과 추천이 거기서 걸린다(사장님 8/16).
+       * ⛔ 「인기 없다」로 읽히지 않게 「문서 유무는 편집자가 정한다」를 같은 글에 둔다.
+       */
+      key: 'onlyone',
+      page: `${주소}/only-one-wikipedia`,
+      images: 장('onlyone'),
+      x: `Ahn Sung-ki has 130+ films. Choi Jiwoo was in Winter Sonata. Only one of four `
+        + `Southeast Asian Wikipedias has written about either.\n\n`
+        + `${ow.groups.find((g) => g.key === 'actors').onlyOne} actors and `
+        + `${ow.groups.find((g) => g.key === 'music').onlyOne} music acts sit on one edition alone. `
+        + `Existing is an editing decision, not a measure of interest.\n\n`
+        + `${주소}/only-one-wikipedia`,
+      alt: 'Five cards naming Korean stars who appear on only one of the four Southeast Asian '
+        + 'Wikipedias, and the size comparison that rules out the obvious explanation.',
     },
   ];
 }

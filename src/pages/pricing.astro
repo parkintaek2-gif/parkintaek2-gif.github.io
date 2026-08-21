@@ -6,8 +6,8 @@
 import Base from '../layouts/Base.astro';
 
 const TITLE = 'Pricing';
-const DESC = 'What SeoulMarkets sells and what it costs. Datasets built from Korean official data, '
-  + 'normalised to English. Company-level tables are free; packaged datasets are one-time buys.';
+const DESC = 'What SeoulMarkets offers. Datasets built from Korean official data, normalised to English. '
+  + 'The data is free to download; packaged value-added products are in preparation.';
 ---
 
 <Base title={TITLE} description={DESC} noAds>
@@ -16,14 +16,15 @@ const DESC = 'What SeoulMarkets sells and what it costs. Datasets built from Kor
       <p class="kicker">SeoulMarkets</p>
       <h1>Pricing</h1>
       <p class="lead">
-        We build datasets from Korean official filings and hand them over in English. Company-level
-        tables are free. Packaged datasets are a one-time buy — no subscription.
+        We build datasets from Korean official filings and hand them over in English. Right now the data
+        itself is <b>free</b> to download and query. Packaged, value-added products — curated time series,
+        charts and analysis — are <b>in preparation</b>; we will price them once they exist.
       </p>
       <ul class="list">
         <li>
           <a href="/data/korea-trade-dataset"><b>Korea trade dataset</b></a> — every partner country,
-          every month, exports/imports/balance. <b>$29, one time.</b>
-          <span class="free"><a href="/data/korea-trade-balance.csv">free preview CSV</a></span>
+          every month, exports/imports/balance. <b>Free</b> — CSV and live API.
+          <span class="free"><a href="/data/korea-trade-balance.csv">download the CSV</a> · <a href="/v1/trade/exports?country=vietnam">query the API</a></span>
         </li>
         <li>
           <a href="/data"><b>The full data catalogue →</b></a> — sector workforce panel, broker

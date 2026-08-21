@@ -61,7 +61,90 @@ export const 벌목록 = {
   outside: { 자료: 'src/data/wikitip-places-outside.json', 만들기: (d) => 밖벌짓기(d) },
   actors: { 자료: 'src/data/wikitip-actors-first.json', 만들기: (d) => 배우벌짓기(d) },
   signs: { 자료: 'src/data/wikitip-star-signs.json', 만들기: (d) => 띠벌짓기(d) },
+  onlyone: { 자료: 'src/data/wikitip-only-one-wikipedia.json', 만들기: (d) => 한판벌짓기(d) },
 };
+
+/**
+ * 한판 벌 — 107편째 짝(`/only-one-wikipedia`).
+ *
+ * ⭐ 이야기 한 줄: **안성기와 최지우를 적어 둔 판은 넷 중 하나뿐이다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **표 첫 칸이 수가 아니라 이름이다**(사장님 8/16). 손님은 이름을 검색한다.
+ *   ⛔⛔ **「인기 없다」로 읽히면 안 된다.** 문서가 있고 없고는 편집자가 정한다.
+ *     넷째 장이 그 말을 한다 — 안 적힌 것과 안 알려진 것은 다른 일이다.
+ *   ⛔ **크기 반론을 카드 안에서 죽인다.** 베트남어판이 더 큰데 31개뿐이다.
+ *   ⛔ 수를 손으로 안 박는다.
+ */
+export function 한판벌짓기(d) {
+  const 음 = d.groups.find((g) => g.key === 'music');
+  const 배 = d.groups.find((g) => g.key === 'actors');
+  const 크 = 음.size;
+  const 이름들 = (g, p, n) => g.byEdition[p].names.slice(0, n);
+
+  return {
+    갈피: 'only-one-wikipedia',
+    빛: '#9ab8e8',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Four Wikipedias · ${(음.measured + 배.measured).toLocaleString('en-US')} Korean names`,
+        큰: 'Only one of the\nfour has written\nabout Ahn Sung-ki\nand Choi Jiwoo',
+        아래: `**${배.onlyOne}** of ${배.measured.toLocaleString('en-US')} actors and `
+          + `**${음.onlyOne}** of ${음.measured.toLocaleString('en-US')} music acts appear on `
+          + `exactly one edition. The Indonesian one holds `
+          + `**${배.byEdition.id.count + 음.byEdition.id.count}** of them.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Who only one\nedition has\nwritten about',
+        머리: ['Name', 'Reads per million', 'The edition that has them'],
+        줄: [
+          ...이름들(배, 'id', 3).map((x) => [x.name, String(x.perMillion), 'Indonesian']),
+          ...이름들(음, 'id', 2).map((x) => [x.name, String(x.perMillion), 'Indonesian']),
+          ...이름들(음, 'th', 1).map((x) => [x.name, String(x.perMillion), 'Thai']),
+          ...이름들(음, 'ms', 1).map((x) => [x.name, String(x.perMillion), 'Malay']),
+        ],
+        아래: 'Reads per million reads of that Wikipedia. Ahn Sung-ki has more than a hundred and '
+          + 'thirty films; Choi Jiwoo was in **Winter Sonata**. One edition each.',
+      },
+      {
+        꼴: '표',
+        제목: 'It is not that\nthe Indonesian one\nis the biggest',
+        머리: ['Wikipedia', 'Articles', 'Names held alone'],
+        줄: d.editions.map((e) => [
+          d.editionNames[e],
+           크.sizes[e].articles.toLocaleString('en-US'),
+          String(음.byEdition[e].count + 배.byEdition[e].count),
+        ]),
+        아래: 'The **Vietnamese** edition is larger on articles and on active editors, and holds '
+          + 'thirty-one of these names. We can rule size out. We did not measure what replaces it.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What this is not',
+        목록: [
+          'Not popularity — whether an article exists is an editing decision',
+          'Not "unknown there" — a star unwritten in Thai may be well known in Thailand',
+          'Not everyone — the panel is built from titles that reached a Netflix chart',
+        ],
+        아래: 'We counted coverage **twice**, from two different fields, and they agree for all '
+          + `${(음.measured + 배.measured).toLocaleString('en-US')} people. A check that reuses `
+          + 'the field it is checking always agrees with itself.',
+      },
+      {
+        꼴: '끝',
+        제목: 'An encyclopaedia is\nwritten by people who\ndecided to write it',
+        글: 'So a gap in it is a fact about editors before it is a fact about readers.\n\n'
+          + '**Both figures are on the page, with the names.**',
+        길: `${주소}/only-one-wikipedia`,
+        곁: `Wikidata + Wikimedia Pageviews · ${d.window}`,
+      },
+    ],
+  };
+}
 
 /**
  * 띠 벌 — `/star-signs`.
