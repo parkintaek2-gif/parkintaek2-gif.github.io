@@ -29,6 +29,7 @@ import 집 from '../../../data/100yearmap/home.json';
 import 지출 from '../../../data/100yearmap/spending.json';
 import 반려동물 from '../../../data/100yearmap/pets.json';
 import 여행 from '../../../data/100yearmap/travel.json';
+import 승진 from '../../../data/100yearmap/promotion.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -40,6 +41,7 @@ const n = 아침 as any;
 const o = 집 as any;
 const p = 반려동물 as any;
 const q = 여행 as any;
+const r = 승진 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -120,6 +122,12 @@ const 문들 = [
     수: `${q.최신칸.국내전체}일`,
     한줄: `${q.가장많은연령.칸}가 ${q.가장많은연령.국내전체}일로 가장 많습니다. ⚠ ${q.회복.회복 ? '' : '아직 '}코로나 전(2018~2019) 평균 ${q.회복.코로나전평균}일에 ${q.회복.회복 ? '넘었습니다' : '못 미칩니다'}.`,
     기간: `${q.해들[0]}~${q.최신} · ${q.해수}해`,
+  },
+  {
+    나이: '직장인', 주소: '/promotion', 이름: '승진에 만족하는 사람은 몇 %일까',
+    수: `${r.맨위차.맨위}점 차`,
+    한줄: `임원급에서 성별 평균 차이(남−여)가 다른 직급(최대 ${r.맨위차.나머지최대}점)보다 뚜렷이 큽니다. ⚠ 여성관리자패널(100인 이상 사업체 위주)입니다.`,
+    기간: `${r.해들[0]}~${r.최신} · ${r.해수}번 조사(격년)`,
   },
   {
     나이: '20~60대', 주소: '/age', 이름: '나이로 보기 — 월급 · 근속 · 살림',
