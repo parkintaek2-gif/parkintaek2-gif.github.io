@@ -29,10 +29,11 @@ const isDirectiveToMe = (line) => {
   // 내가 쓴 것·남의 [진행]/[보고]/[실적] 진도줄은 지시가 아니다(발신자 무관하게 뺀다)
   if (/\[\s*(진행|실적|보고|요청)\s*\]/.test(line)) return false;
   if (/\[\s*6번\s*[→-]/.test(line)) return false;
-  // 지시 머리글 모양: ① 마크다운 머리글(#~####) ② [2번 → …] 대괄호 ③ **[2번 …]** 굵은 머리글
+  // 지시 머리글 «모양». ⚠ 본문에서 「[2번 → 6번]」을 인용만 한 줄이 걸리지 않게,
+  //   대괄호 지시는 **줄 맨 앞**(굵게 포함)일 때만 잡는다. 머리글(##)은 그대로.
   const heading = /^\s{0,3}#{1,4}\s/.test(line);
-  const bracketArrow = /\[[^\]]*2번[^\]]*[→-][^\]]*\]/.test(line) || /\*\*\[[^\]]*2번/.test(line);
-  return heading || bracketArrow;
+  const bracketStart = /^\s{0,3}(\*\*)?\[[^\]]*2번/.test(line);
+  return heading || bracketStart;
 };
 
 // 내가 마지막으로 [진행]/[실적]/[6번→…] 를 쓴 줄 — 그 뒤로 온 지시가 "미완" 후보.
