@@ -63,6 +63,9 @@ console.log('\n헛돌았나 — ctype 이 「파일이 없다」를 조용히 �
   헛돌았나('file "C:\\Users\\USER\\Desktop\\00_세션입구\\.cloudtype\\app.yaml" not found'), true);
 봄('대소문자를 가리지 않는다', 헛돌았나('File Not Found'), true);
 봄('no such file 도 잡는다', 헛돌았나('no such file or directory'), true);
+봄('⭐ 로그인이 안 돼 있어도 헛돈 것이다(2026-08-22 실측)', 헛돌았나('Login required.'), true);
+봄('not logged in 도 잡는다', 헛돌았나('Error: not logged in'), true);
+봄('unauthorized 도 잡는다', 헛돌았나('401 Unauthorized'), true);
 봄('⭐ 멀쩡한 출력은 헛돈 것이 아니다', 헛돌았나('deployment applied\nRunning'), false);
 봄('빈 출력도 아니다', 헛돌았나(''), false);
 봄('없는 값도 아니다', 헛돌았나(undefined), false);

@@ -138,9 +138,14 @@ function ctype(args) {
 /**
  * ⛔ **ctype 이 「파일이 없다」를 조용히 넘긴다.** 그러면 안 나간 것을 나갔다고 적게 된다.
  *    그 말이 보이면 성공으로 읽지 않는다.
+ *
+ * ⭐ 2026-08-22 03:4x 추가 — **로그인이 안 돼 있어도 exit 0 이다.**
+ *   데스크톱 이사 뒤 `.cloudtype` 계정이 새 PC 에 없는데 `ctype apply` 가
+ *   "Login required." 만 찍고 조용히 성공으로 끝났다(6번 실측 — 35편 라이브 404).
+ *   이 말도 헛돎이다.
  */
 export function 헛돌았나(출력) {
-  return /not found|no such file/i.test(String(출력 ?? ''));
+  return /not found|no such file|login required|not logged in|unauthorized/i.test(String(출력 ?? ''));
 }
 
 /** 스테이지의 앱 상태를 읽는다. 색코드가 섞여 오므로 지운다. */
