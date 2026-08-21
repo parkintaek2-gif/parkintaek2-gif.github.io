@@ -885,7 +885,25 @@ async function main() {
         //   몇 시간째 거짓 경보했다(2번 지적). 200~399 면 라이브다. 404·5xx·0(지문불일치)만 못 뜬 것.
         const 뜬것 = 새주소.filter((_, k) => 잰것[k] >= 200 && 잰것[k] < 400);
         console.log(`  ${(i + 1) * 20}초 · ${결과} · 새 지면 ${잰것.join('/')}`);
-        if (뜬것.length) { 내용확인 = { 뜬것: 뜬것.map((x)=>x.url), 안뜬것: 새주소.filter((x) => !뜬것.includes(x)).map((x)=>x.url) }; break; }
+        if (뜬것.length) {
+          // ⚠ 2026-08-21 (2번 두 번째 지적) — 「안 뜬 것」을 **실제 HTTP 상태로 재확인**한다.
+          //   지문(해시) 불일치는 잰것=0 이지만 **라이브는 200 일 수 있다**(CDN·동적 조각으로 빌드본과
+          //   글자가 한 끗 다르면 해시가 어긋난다). 그건 「내용이 아직 안 바뀜」이지 「404」가 아니다.
+          //   /newsletter 가 HEAD·GET 다 200 인데도 「안 뜬 것」에 실려 몇 시간째 거짓 경보한 까닭이 이것.
+          //   ⇒ 2xx·3xx 면 뜬 것으로 보고 목록에서 뺀다. 진짜 못 뜬 것(≥400·접속실패)만 남긴다.
+          const 안뜬후보 = 새주소.filter((x) => !뜬것.includes(x));
+          const 진짜안뜬 = [];
+          for (const x of 안뜬후보) {
+            let 살아있나 = false;
+            try {
+              const st = (await fetch(x.url, { method: 'HEAD', redirect: 'manual' })).status;
+              살아있나 = st >= 200 && st < 400;
+            } catch { 살아있나 = false; }
+            if (!살아있나) 진짜안뜬.push(x.url);
+          }
+          내용확인 = { 뜬것: 뜬것.map((x) => x.url), 안뜬것: 진짜안뜬 };
+          break;
+        }
       } else {
         console.log(`  ${(i + 1) * 20}초 · ${결과}`);
       }
