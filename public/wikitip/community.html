@@ -31,8 +31,10 @@
   .room h2{margin:0 0 6px;font-size:21px;letter-spacing:-.01em}
   .born,.also,.count{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
   .count{margin-bottom:14px}
-  .cta{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
-    background:transparent;color:var(--ink-2);font:inherit;font-size:14px;cursor:not-allowed}
+  .cta{display:block;width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
+    background:transparent;color:var(--accent);font:inherit;font-size:14px;text-align:center;
+    text-decoration:none;font-weight:600}
+  .cta:hover{background:var(--accent-soft)}
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:62ch}
 </style>
@@ -58,7 +60,7 @@
         <p class="born">Born 1996-04-22 &middot; 273.06 reads per million</p>
         <p class="also">Also here: Lee Je-hoon, Kim Se-jeong</p>
         <p class="count">89 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/rat">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Ox</p>
@@ -66,7 +68,7 @@
         <p class="born">Born 1997-03-30 &middot; 200.33 reads per million</p>
         <p class="also">Also here: Song Joong-ki, Lee Kwang-soo</p>
         <p class="count">82 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/ox">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Tiger</p>
@@ -74,7 +76,7 @@
         <p class="born">Born 1986-05-08 &middot; 220.56 reads per million</p>
         <p class="also">Also here: Park Min-young, Lee Jae-wook</p>
         <p class="count">78 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/tiger">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Rabbit</p>
@@ -82,7 +84,7 @@
         <p class="born">Born 1999-05-29 &middot; 128.42 reads per million</p>
         <p class="also">Also here: Lee Min-ho, Ji Chang-wook</p>
         <p class="count">86 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/rabbit">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Dragon</p>
@@ -90,7 +92,7 @@
         <p class="born">Born 2000-09-15 &middot; 200.18 reads per million</p>
         <p class="also">Also here: Karina, Kim Sae-ron</p>
         <p class="count">90 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/dragon">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Snake</p>
@@ -98,7 +100,7 @@
         <p class="born">Born 1989-07-16 &middot; 125.07 reads per million</p>
         <p class="also">Also here: So Ji-sub, Lee Jong-suk</p>
         <p class="count">76 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/snake">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Horse</p>
@@ -106,7 +108,7 @@
         <p class="born">Born 1990-05-30 &middot; 205.69 reads per million</p>
         <p class="also">Also here: Park Bo-gum, Lim Ji-yeon</p>
         <p class="count">77 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/horse">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Goat</p>
@@ -114,7 +116,7 @@
         <p class="born">Born 1991-10-31 &middot; 263.86 reads per million</p>
         <p class="also">Also here: Kim Go-eun, Gong Yoo</p>
         <p class="count">91 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/goat">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Monkey</p>
@@ -122,7 +124,7 @@
         <p class="born">Born 1992-10-19 &middot; 110.19 reads per million</p>
         <p class="also">Also here: Kim Tae-hee, Jang Ki-Yong</p>
         <p class="count">91 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/monkey">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Rooster</p>
@@ -130,7 +132,7 @@
         <p class="born">Born 1993-05-16 &middot; 208.57 reads per million</p>
         <p class="also">Also here: Song Hye-kyo, Jun Ji-hyun</p>
         <p class="count">92 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/rooster">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Dog</p>
@@ -138,7 +140,7 @@
         <p class="born">Born 1994-10-10 &middot; 165.9 reads per million</p>
         <p class="also">Also here: Park Ji-hoon, Hyun Bin</p>
         <p class="count">103 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/dog">Open the room</a>
       </article>
       <article class="room">
         <p class="sign">Year of the Pig</p>
@@ -146,7 +148,7 @@
         <p class="born">Born 1971-03-01 &middot; 59.84 reads per million</p>
         <p class="also">Also here: Kim Da-mi, Lee Do-hyun</p>
         <p class="count">92 Korean stars share this year</p>
-        <button class="cta" disabled aria-disabled="true">Join the room</button>
+        <a class="cta" href="/room/pig">Open the room</a>
       </article>
     </div>
 
