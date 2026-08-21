@@ -39,7 +39,11 @@ export const 낸방 = path.join(뿌리, 'dist', 'wikitip');
 export const 부딪힘 = new Set(['Since', 'June', 'Seven', 'Monday', 'Love', 'Lady', 'Luna', 'Solo',
   'Key', 'Rain', 'Sun', 'Kid', 'Boy', 'Girl', 'One', 'Ten', 'Now', 'Home', 'Free', 'Real',
   'Sunday', 'April', 'May', 'August', 'Winter', 'Summer', 'Chart', 'Star', 'Space', 'Gold',
-  'Point', 'Base', 'Line', 'Data', 'Fact', 'Up', 'Ha', 'Zero', 'Hope', 'Dream']);
+  'Point', 'Base', 'Line', 'Data', 'Fact', 'Up', 'Ha', 'Zero', 'Hope', 'Dream',
+  /* 2026-08-21 에 더했다 — 우리 표·작품명 안에서 걸렸다.
+     ⛔ Joy 는 실제 Red Velvet 멤버다. 빼면 그 사람을 영구히 못 센다 — 그것을 알고 뺀다.
+     걸린 자리: 「Win rate」 표머리 · 「Dynamite Kiss」 작품명 · 「Secret Royal Inspector & Joy」 작품명 */
+  'Win', 'Kiss', 'Joy']);
 
 /** ⭐ 낱말 경계로 본다. 아포스트로피는 경계다 — 소유격도 이름이다 */
 export function 자만들기(이름) {

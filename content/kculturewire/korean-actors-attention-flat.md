@@ -1,5 +1,5 @@
 ---
-title: "Korean viewing is winner-take-all. Attention on the people in it is not."
+title: "So Ji-sub is 3.1% of all attention on Korean actors. Squid Game is 21.3% of the viewing"
 dek: "One Netflix title is 21.3% of all Korean viewing. The most looked-up Korean actor is 3.1% of all attention. And within the fifty most-searched, appearing in more charting titles does not predict being looked up more."
 category: stars
 purpose: both
@@ -38,7 +38,7 @@ excluded:
 draft: false
 ---
 
-We publish two counts that describe the same industry: how much Korean content the world watches, and how many people look up the performers in it. They do not have the same shape.
+**So Ji-sub** is the most looked-up Korean performer in our panel, and he holds 3.1% of all the attention we can measure. *Squid Game* holds 21.3% of all Korean viewing on Netflix. Those are two counts of the same industry — how much Korean content the world watches, and how many people look up the performers in it — and they do not have the same shape.
 
 ## Viewing is a spike
 

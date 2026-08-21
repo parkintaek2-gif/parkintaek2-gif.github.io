@@ -1,5 +1,5 @@
 ---
-title: "Korean music attention has no Squid Game — and it is still the more concentrated of the two"
+title: "Squid Game is 21.3% of Korean viewing. BTS is 3.9% of K-pop — and K-pop is still more unequal"
 dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.3% of titles on screen. No giant, steeper slope."
 category: titles
 genre: music
@@ -31,9 +31,10 @@ excluded:
   - "Revenue, streams and sales. Nothing here is a money figure and none of these numbers should be read as one"
 ---
 
-Two Korean cultural exports, measured on the two instruments we have: **232 titles** carrying five
-years of Netflix viewing hours, and **2,361 K-pop acts and members** carrying thirty days of English
-Wikipedia lookups.
+*Squid Game* is a fifth of everything Korea has put on Netflix's global chart in five years. **BTS**
+is a twenty-fifth of the attention its own field receives. Both figures come off the two instruments
+we have: **232 titles** carrying five years of Netflix viewing hours, and **2,361 K-pop acts and
+members** carrying thirty days of English Wikipedia lookups.
 
 The obvious comparison says screen is the concentrated one:
 

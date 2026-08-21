@@ -1,5 +1,5 @@
 ---
-title: "Only 1.8% of Korean casting pairs ever work together twice — barely more than chance would give you"
+title: "Ma Dong-seok and Park Ji-hwan share four Netflix Top 10 titles. Only 1.8% of Korean pairs ever repeat"
 dek: "Across 635 charting Korean titles there are 13,558 pairs of actors who have shared a production. 250 of them have done it more than once. Shuffle the same casts at random and you get about 208. The repertory company is mostly not there."
 category: stars
 purpose: both
@@ -26,6 +26,10 @@ excluded:
   - "Any claim that Wikidata's cast lists are complete. They are not, and the direction of that error is stated below"
   - "Titles with no recorded cast. 266 of the 901 matched Korean titles carry no P161 statement and are absent from this entirely"
 ---
+
+**Ma Dong-seok** and **Park Ji-hwan** have appeared in four of the same Netflix Top 10 titles.
+**Jo Woo-jin** and **Kim Eui-sung** have too. In this data they are the only two pairs who have done
+it four times — and they are the exception, not the rule.
 
 Take every Korean film and series that has reached a Netflix Top 10 and has a cast recorded in
 Wikidata — **635 titles, 1,355 people, 3,413 credited roles**. Draw a line between two people every

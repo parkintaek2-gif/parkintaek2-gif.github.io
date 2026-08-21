@@ -1,5 +1,5 @@
 ---
-title: "K-pop groups are the most evenly read Korean names in Southeast Asia"
+title: "Kim Jong-kook is the most evenly read Korean name in Southeast Asia. K-pop groups are the most even category"
 category: stars
 purpose: both
 dek: "We measured concentration — the share of a name's four-country reading that sits in its biggest country. K-pop groups come closest to even at 41.7%. The most concentrated row turned out to be an artefact of Wikipedia, not of attention."
@@ -18,7 +18,7 @@ sources:
 draft: false
 ---
 
-A Korean name read equally in Indonesia, Vietnam, Thailand and Malaysia would have 25% of its reading in each. None do. The question is which come close.
+A Korean name read equally in Indonesia, Vietnam, Thailand and Malaysia would have 25% of its reading in each. None do. **Kim Jong-kook** comes closest at 27.5%, with **Kim Seol-hyun**, **Ji Seong**, **Goo Ha-ra**, **Lee Hyori** and **Lee Sun-kyun** all within a point of him.
 
 K-pop groups come closest: a median of 41.7% of their four-country reading sits in their largest single country. Actors follow at 42.1%, solo musicians at 42.8%, brands at 45.3%, footballers at 50.4%. Korean football managers sit at 92.4% — each is read in the country that hired him, which we measured separately last week.
 
