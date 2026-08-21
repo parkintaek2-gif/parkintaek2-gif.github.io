@@ -1,0 +1,102 @@
+---
+/**
+ * /community — SeoulMarkets 커뮤니티 «첫 본».
+ *
+ * 2번 지시(2026-08-21 19:5x): 5→3→6→4 차례에서 6번만 안 났다. 순방문자 575명(목표 57%)이
+ * 「들어와서 갈 곳이 적은」 탓이 크다 → 손님이 갈 방을 만든다. 본은 docs/커뮤니티-첫본.html.
+ *
+ * ⚠ 서버·글쓰기·로그인이 아직 없다(스타 첫 본과 같다). 그래서 방 단추를 죽은 채로 두지 않고
+ *   **각 방을 우리 지면으로 잇는다** — 그게 「갈 곳」을 진짜로 만드는 길이다. 토론은 그 뒤에 연다.
+ * ⛔ 지어낸 숫자를 쓰지 않는다. 방마다 «그 갈래에 실제로 있는 기사 수»를 세어 박는다.
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL, CATEGORIES } from '../consts';
+import { publishedArticles } from '../lib/articles';
+
+const articles = await publishedArticles();
+const countBy: Record<string, number> = {};
+for (const a of articles) countBy[a.data.category] = (countBy[a.data.category] ?? 0) + 1;
+
+// 갈래 방 + 데이터 방 하나(관세청 무역 — 무료 CSV·라이브 API 로 이어진다).
+const rooms = [
+  ...CATEGORIES.map((c) => ({
+    tag: c.label,
+    title: c.label,
+    blurb: c.blurb,
+    meta: `${countBy[c.slug] ?? 0} ${(countBy[c.slug] ?? 0) === 1 ? 'story' : 'stories'}`,
+    href: `/${c.slug}`,
+    cta: 'Read the room',
+  })),
+  {
+    tag: 'Data',
+    title: 'Trade desk',
+    blurb: 'Korea’s exports, imports and balance by partner country and month — free CSV and a live API.',
+    meta: '243 partners · 12 months',
+    href: '/data/korea-trade.csv',
+    cta: 'Open the data',
+  },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'SeoulMarkets Community',
+  description: 'Reading rooms by market — equities, FX, rates, commodities, funds, the macro economy and the trade desk.',
+  url: `${SITE_URL}/community`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title="Community — reading rooms by market" description="Reading rooms by market: equities, FX, rates, commodities, funds, the macro economy and Korea's trade desk. Every room opens onto data with its source and timestamp." jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="page-head">
+      <p class="kicker">Community</p>
+      <h1>Rooms, one per market</h1>
+      <p>
+        We don’t stack posts in a feed. We keep a room for each corner of the Korean market — and every
+        room opens onto data that names its source and the timestamp of its figures. Pick where you read.
+        Threaded discussion opens next; for now each door leads to the numbers.
+      </p>
+    </div>
+
+    <main class="rooms">
+      {rooms.map((r) => (
+        <a class="room" href={r.href}>
+          <div class="room-tag">{r.tag}</div>
+          <h2 class="room-title">{r.title}</h2>
+          <p class="room-blurb">{r.blurb}</p>
+          <p class="room-meta">{r.meta}</p>
+          <span class="room-cta">{r.cta} →</span>
+        </a>
+      ))}
+    </main>
+
+    <p class="note">
+      A room is a place to read, not a leaderboard. No tips and no targets — just what the official
+      Korean data shows and what it does not. Sign-in and threads are on the way.
+    </p>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 40px 20px 80px; }
+  .page-head { max-width: 62ch; margin-bottom: 34px; }
+  .kicker { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent, #b4472a); font-weight: 700; margin: 0 0 10px; }
+  .page-head h1 { font-size: clamp(28px, 5vw, 42px); line-height: 1.18; letter-spacing: -.02em; margin: 0 0 12px; }
+  .page-head p { color: var(--muted, #5b6270); margin: 0; }
+  .rooms { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(252px, 1fr)); }
+  .room { display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: inherit;
+    background: var(--card, #fff); border: 1px solid var(--line, #e6e8ec); border-radius: 16px;
+    padding: 20px; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease; }
+  .room:hover { transform: translateY(-3px); border-color: var(--accent, #b4472a);
+    box-shadow: 0 16px 36px rgba(20,22,26,.10); }
+  .room-tag { font-size: 11px; letter-spacing: .13em; text-transform: uppercase; font-weight: 700;
+    color: var(--accent, #b4472a); }
+  .room-title { font-size: 20px; margin: 2px 0 0; letter-spacing: -.01em; }
+  .room-blurb { color: var(--muted, #5b6270); font-size: 14px; margin: 0; }
+  .room-meta { color: var(--muted, #5b6270); font-size: 13px; margin: 4px 0 0; font-variant-numeric: tabular-nums; }
+  .room-cta { margin-top: auto; padding-top: 12px; font-size: 14px; font-weight: 600; color: var(--accent, #b4472a); }
+  .note { margin-top: 40px; padding: 16px 20px; border-left: 3px solid var(--accent, #b4472a);
+    background: var(--accent-soft, #fdf3f0); border-radius: 0 12px 12px 0; color: var(--ink, #14161a);
+    font-size: 14px; max-width: 70ch; }
+</style>
