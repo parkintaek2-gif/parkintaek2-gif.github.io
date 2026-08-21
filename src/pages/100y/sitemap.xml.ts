@@ -205,6 +205,10 @@ export const GET: APIRoute = () => {
     /* 🔴 /ages 가 스스로 「70대 뒤가 얇습니다」라 적어 둔 자리다.
        /keep-working 이 55~79세까지고 그 뒤가 통째로 비어 있었다 */
     { path: '/care', priority: '0.8', changefreq: 'monthly' },
+
+    /* 🔴 사장님 「대입에 몰입하지 마」 — 그런데 10대 문이 /major 하나뿐이었다.
+       ⛔ 제목은 10대인데 맨 위 칸은 20대다(19~29세 62.1%). 한 칸만 떼면 거짓이 된다 */
+    { path: '/breakfast', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

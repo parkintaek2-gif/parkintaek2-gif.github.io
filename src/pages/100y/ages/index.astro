@@ -24,6 +24,7 @@ import 계속일 from '../../../data/100yearmap/keep-working.json';
 import 첫일 from '../../../data/100yearmap/first-job.json';
 import 혼인 from '../../../data/100yearmap/marriage-age.json';
 import 돌봄 from '../../../data/100yearmap/care.json';
+import 아침 from '../../../data/100yearmap/breakfast.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -31,6 +32,7 @@ const i = 계속일 as any;
 const j = 첫일 as any;
 const k = 혼인 as any;
 const m = 돌봄 as any;
+const n = 아침 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -63,6 +65,12 @@ const 문들 = [
     수: `${e.백년넘은곳수.toLocaleString()}곳`,
     한줄: `문 연 지 백 년이 넘은 학교. 전국 ${e.낸곳.toLocaleString()}곳을 세었습니다.`,
     기간: `${e.올해}년 기준`,
+  },
+  {
+    나이: '10대', 주소: '/breakfast', 이름: '아침을 거르는 건 몇 살일까',
+    수: `${n.열대.몫}%`,
+    한줄: `10~18세가 조사 전날 아침을 걸렀습니다. ⛔ 맨 위 칸은 10대가 아니라 ${n.가장많이거르는칸.칸}(${n.가장많이거르는칸.몫}%)입니다.`,
+    기간: `${n.흐름첫.해}~${n.최신} · 값이 있는 해 ${n.흐름해수}해`,
   },
   {
     나이: '10대', 주소: '/major', 이름: '학과 찾기 — 그 길로 간 사람들은 어떻게 됐나',
