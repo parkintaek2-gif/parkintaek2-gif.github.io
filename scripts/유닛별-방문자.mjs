@@ -30,11 +30,30 @@ const 유닛 = [
   { 이름: '6번 SeoulMarkets',  주소: ['seoulmarkets.com', 'www.seoulmarkets.com'] },
   { 이름: '5번 K Culture Wire',주소: ['kculturewire.com', 'www.kculturewire.com'] },
 ];
-/** 이 곳간에 안 들어오는 것 — 0 으로 적지 않고 «못 쟀다»로 적는다 */
-const 못재는유닛 = [
-  { 이름: '1번/4번 KLifeMap', 주소: 'klifemap.ai',
-    까닭: '제 서버가 따로 센다. tools/check-visit-counter.mjs 가 127.0.0.1:4415 를 봐야 한다' },
-];
+/**
+ * KLifeMap 은 이 곳간에 안 들어온다 — 제 서버가 따로 센다.
+ * [2026-08-21 19:20] 4번이 밖에서 읽는 자를 냈다: klifemap/tools/klifemap-visitors.mjs
+ *   실측 「klifemap.ai   **431명** (사람) · 봇 523」
+ * ⛔ 그래도 규칙은 그대로다 — 못 읽으면 **0 이 아니라 「못 쟀음」**이다.
+ *    ⚠ 이 수는 쿠키를 안 심어 «같은 사람이 여러 번»을 한 명으로 못 묶는다. 그 말을 같이 적는다.
+ */
+const 클라이프맵자 = 'C:/Users/USER/Documents/GitHub/klifemap';
+
+/** 4번 자의 글에서 사람 수를 뽑는다. 못 뽑으면 null — 0 이 아니다 */
+export function 클라이프맵뽑기(글) {
+  const m = /klifemap\.ai\s+\*\*([\d,]+)\s*명\*\*/.exec(String(글 || ''));
+  return m ? Number(m[1].replace(/,/g, '')) : null;
+}
+
+function 클라이프맵읽기() {
+  try {
+    const 글 = execFileSync('node', ['tools/klifemap-visitors.mjs'],
+      { cwd: 클라이프맵자, encoding: 'utf8', timeout: 120000 });
+    return 클라이프맵뽑기(글);
+  } catch {
+    return null;
+  }
+}
 const 목표 = 1000;
 
 /** traffic-report 의 「■ 사이트별 (사람)」 토막에서 «주소 → 사람 수»를 뽑는다 */
@@ -67,8 +86,10 @@ if (process.argv.includes('--시험')) {
   ].join('\n');
   const t = 사이트별뽑기(본);
   const 합 = (t?.get('100yearmap.com') ?? 0) + (t?.get('www.100yearmap.com') ?? 0);
-  const 빈것 = 사이트별뽑기('아무 표도 없는 글');
-  const 맞나 = t && t.size === 3 && 합 === 639 && 빈것 === null;
+  const 빈것 = 사이트별뽑기("아무 표도 없는 글");
+  const 맵본 = 클라이프맵뽑기("  klifemap.ai   **431명** (사람) · 봇 523");
+  const 맵빈 = 클라이프맵뽑기("아무 것도 없는 글");
+  const 맞나 = t && t.size === 3 && 합 === 639 && 빈것 === null && 맵본 === 431 && 맵빈 === null;
   console.log(맞나
     ? '✅ 자가시험 통과 — www 를 합쳐 639, 표가 없으면 null(0 이 아니다)'
     : `🔴 자가시험 실패: size=${t?.size} 합=${합} 빈것=${빈것}`);
@@ -107,7 +128,12 @@ for (const u of 유닛) {
   const 낱 = u.주소.map((d) => `${d} ${(표.get(d) ?? 0).toLocaleString()}`).join(' + ');
   console.log(`  ${u.이름.padEnd(20)} ${String(쪽.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (${낱})`);
 }
-for (const u of 못재는유닛) {
-  console.log(`  ${u.이름.padEnd(20)} ${'못 쟀음'.padStart(7)}      ⛔ ${u.까닭}`);
+const 맵 = 클라이프맵읽기();
+if (맵 === null) {
+  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${'못 쟀음'.padStart(7)}      ⛔ klifemap/tools/klifemap-visitors.mjs 가 안 돌았다`);
+} else {
+  const 몫 = Math.round((맵 / 목표) * 100);
+  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · 4번 자로 따로 셈)`);
+  console.log(`  ${''.padEnd(20)} ${''.padStart(7)}      ⚠ 쿠키를 안 심어 같은 사람 여러 번을 한 명으로 못 묶습니다`);
 }
 console.log('\n⛔ 「못 쟀음」을 0 으로 옮겨 적지 마십시오 — 「손님이 없다」와 「안 세서 모른다」는 다릅니다.');
