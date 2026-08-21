@@ -20,15 +20,19 @@ import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const memo = readFileSync(path.join(ROOT, 'docs', '세션간-메모.md'), 'utf8').split('\n');
 
-// 6번에게 온 지시 머리글: [2번 … 6번 …] 또는 「2번 → … 6번」. 6번이 대상에 들어야 한다.
+// 6번에게 온 지시. 2번(발신)과 6번(대상)이 한 줄에 있고, «지시 머리글» 모양이어야 한다.
+// ⚠ 2026-08-21 보강 — 19:5x 지시가 「## [2번] … 3·5·6번」 형식이라 옛 정규식(「[2번 → 6번]」)에
+//   안 걸려 놓칠 뻔했다. 그래서 대괄호 안에 화살표가 없어도, «머리글(##)»이면 잡는다.
 const isDirectiveToMe = (line) => {
   if (!/6번/.test(line)) return false;
-  // 지시 머리글 표식: [ … ] 대괄호 안에 2번(발신)과 6번(대상)이 함께, 또는 "→ 6번"
-  const bracket = /\[[^\]]*2번[^\]]*6번[^\]]*\]/.test(line) || /\[[^\]]*→[^\]]*6번[^\]]*\]/.test(line);
-  const arrow = /2번\s*[→-]+\s*[^\n]*6번/.test(line);
-  // 내가 쓴 [진행] 6번 / [실적] 6번 / [6번→2번] 은 지시가 아니다
-  const mine = /\[\s*(진행|실적|보고|요청)\s*\]\s*6번/.test(line) || /\[\s*6번\s*[→-]/.test(line);
-  return (bracket || arrow) && !mine;
+  if (!/2번/.test(line)) return false;
+  // 내가 쓴 것·남의 [진행]/[보고]/[실적] 진도줄은 지시가 아니다(발신자 무관하게 뺀다)
+  if (/\[\s*(진행|실적|보고|요청)\s*\]/.test(line)) return false;
+  if (/\[\s*6번\s*[→-]/.test(line)) return false;
+  // 지시 머리글 모양: ① 마크다운 머리글(#~####) ② [2번 → …] 대괄호 ③ **[2번 …]** 굵은 머리글
+  const heading = /^\s{0,3}#{1,4}\s/.test(line);
+  const bracketArrow = /\[[^\]]*2번[^\]]*[→-][^\]]*\]/.test(line) || /\*\*\[[^\]]*2번/.test(line);
+  return heading || bracketArrow;
 };
 
 // 내가 마지막으로 [진행]/[실적]/[6번→…] 를 쓴 줄 — 그 뒤로 온 지시가 "미완" 후보.
