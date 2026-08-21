@@ -180,3 +180,19 @@ for (const [번호, 파일] of Object.entries(단추)) {
   execFile('cmd.exe', ['/c', 'start', '', 단추길], { windowsHide: false }, () => {});
   찍기(`${번호}번 🔴 ${상태} — 창을 연다`);
 }
+
+/* 📱 [2026-08-21 16:2x · 2번] **사장님 한 줄을 15분 안에 받는다**
+     사장님: 「난 휴대폰에서 어떻게 해야 너희랑 소통 가능?」 → 「**이게 중요하지**」
+     휴대폰에서 쓰신 한 줄은 «매시 걷기»에 걸려 최악 60분을 기다리시게 된다.
+     이 자는 이미 15분마다 도니까 여기에 얹는다 — 새 장치를 안 만든다.
+   ⛔ 이 한 칸이 죽어도 지킴이 본래 일(자리 살리기)은 계속돼야 한다. 그래서 try 로 감싼다. */
+if (!마른실행) {
+  try {
+    const 저장소 = 'C:/Users/USER/Documents/GitHub/dataeconomics';
+    execFile('node', [path.join(저장소, 'scripts/boss-line-watch.mjs')],
+      { cwd: 저장소, shell: true, windowsHide: true }, () => {});
+    찍기('📱 사장님 한 줄 확인을 걸었다');
+  } catch (e) {
+    찍기(`⚠ 사장님 한 줄 확인이 안 걸렸다(지킴이 본래 일에는 지장 없다): ${e.message}`);
+  }
+}
