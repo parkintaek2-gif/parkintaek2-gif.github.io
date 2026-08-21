@@ -33,7 +33,19 @@ import path from 'node:path';
 const 입구 = 'C:/Users/USER/Desktop/00_세션입구';
 const 현재 = path.join(입구, '_현재');
 const 로그 = path.join(현재, '지킴이.log');
-const 대화록뿌리 = 'C:/Users/USER/.claude/projects';
+/* 🔴 [2026-08-21 · 2번] **뿌리가 하나면 팀 자리로 옮긴 자리를 영영 못 찾는다.**
+   그날 5번을 u5@klifedesign.net 자리로 옮겼다. 그 창은 이제
+   `.claude-u5/projects` 에 대화록을 쓴다. 그런데 이 자는 `.claude/projects` 만 봤다
+   → 5번이 멀쩡히 일하는데 **15분마다 「42분째 조용하다」며 깨웠다.**
+   ⛔ 오류가 안 난다. 로그는 초록도 빨강도 아닌 «깨운다»만 찍는다.
+   3·4·6번도 창을 교체하면 같은 병에 걸린다 — 그 전에 고친다. */
+const 대화록뿌리들 = [
+  'C:/Users/USER/.claude/projects',
+  'C:/Users/USER/.claude-u3/projects',
+  'C:/Users/USER/.claude-u4/projects',
+  'C:/Users/USER/.claude-u5/projects',
+  'C:/Users/USER/.claude-u6/projects',
+];
 
 const 단추 = {
   1: '1번_KLifeMap.cmd',
@@ -80,12 +92,20 @@ function 자리ID(번호) {
 /** 대화록 파일의 마지막 수정 시각. ID 를 알면 그 파일만, 모르면 못 잰다 */
 function 마지막흔적(id) {
   if (!id) return null;
-  for (const d of readdirSync(대화록뿌리, { withFileTypes: true })) {
-    if (!d.isDirectory()) continue;
-    const p = path.join(대화록뿌리, d.name, `${id}.jsonl`);
-    if (existsSync(p)) return statSync(p).mtimeMs;
+  // ⭐ 뿌리 다섯을 다 뒤지고 **제일 새것**을 쓴다. 옮기는 도중에는 같은 id 가 두 곳에 있다
+  //    (옛 폴더에 원본, 새 폴더에 복사본). 낡은 쪽을 집으면 산 자리를 죽었다고 한다.
+  let 제일새것 = null;
+  for (const 뿌리 of 대화록뿌리들) {
+    if (!existsSync(뿌리)) continue;
+    for (const d of readdirSync(뿌리, { withFileTypes: true })) {
+      if (!d.isDirectory()) continue;
+      const p = path.join(뿌리, d.name, `${id}.jsonl`);
+      if (!existsSync(p)) continue;
+      const t = statSync(p).mtimeMs;
+      if (제일새것 === null || t > 제일새것) 제일새것 = t;
+    }
   }
-  return null;
+  return 제일새것;
 }
 
 const 마른실행 = process.argv.includes('--dry');
