@@ -45,14 +45,29 @@ export function 클라이프맵뽑기(글) {
   return m ? Number(m[1].replace(/,/g, '')) : null;
 }
 
-function 클라이프맵읽기() {
-  try {
-    const 글 = execFileSync('node', ['tools/klifemap-visitors.mjs'],
-      { cwd: 클라이프맵자, encoding: 'utf8', timeout: 120000 });
-    return 클라이프맵뽑기(글);
-  } catch {
-    return null;
+/* 🔴 [2026-08-22 · 4번] **다른 세 유닛과 셈법이 달랐다.** 3·5·6번은 traffic-report 에서
+   지정한 일수만큼(기본 2일=오늘+어제) 평균을 낸다. 그런데 klifemap 은 늘 **오늘 하루치만**
+   읽고 있었다 — 이른 아침에 돌리면 오늘치가 얼마 안 쌓여 다른 유닛과 견줄 수 없는 낮은 수가
+   나온다(실측: 이 자를 08시경 돌리니 klifemap 만 "10%"로 나왔는데, 어제 하루치는 50%였다).
+   같은 일수만큼 klifemap-visitors 를 여러 날로 불러 평균 낸다 — 셈법을 맞춘다. */
+function 클라이프맵읽기(일수) {
+  const 날들 = [];
+  for (let i = 0; i < 일수; i++) {
+    const d = new Date(Date.now() + 9 * 3600 * 1000); d.setUTCDate(d.getUTCDate() - i);
+    날들.push(d.toISOString().slice(0, 10));
   }
+  const 값들 = [];
+  for (const 날 of 날들) {
+    try {
+      const 글 = execFileSync('node', ['tools/klifemap-visitors.mjs', '--날', 날],
+        { cwd: 클라이프맵자, encoding: 'utf8', timeout: 120000 });
+      const v = 클라이프맵뽑기(글);
+      if (v !== null) 값들.push(v);
+    } catch { /* 그 날은 건너뛴다 — 못 잰 날 하나가 전체를 죽이지 않는다 */ }
+  }
+  if (!값들.length) return null; // 하루도 못 읽었으면 못쟀다
+  const 합 = 값들.reduce((a, b) => a + b, 0);
+  return { 평균: Math.round(합 / 값들.length), 잰날수: 값들.length, 요청날수: 일수 };
 }
 const 목표 = 1000;
 
@@ -98,7 +113,10 @@ if (process.argv.includes('--시험')) {
 
 /* ── 잰다 ──────────────────────────────────────────────────────────── */
 const i = process.argv.indexOf('--days');
-const 일수 = i > -1 ? Number(process.argv[i + 1]) || 1 : 1;
+/* 🔴 [2026-08-22 · 4번] 예전 기본값(1일)이 「오늘 이르면 아직 안 올라온 것」을
+   「표 꼴이 바뀌었다」는 자 고장으로 잘못 읽고 있었다 — 오전에 이 자를 돌리면 매번 걸렸다.
+   traffic-report.mjs 자체 기본값(2일=오늘+어제)과 맞춘다 — 어제치는 자정이 지나면 반드시 있다. */
+const 일수 = i > -1 ? Number(process.argv[i + 1]) || 2 : 2;
 
 let 글;
 try {
@@ -112,8 +130,16 @@ try {
 
 const 표 = 사이트별뽑기(글);
 if (!표) {
-  console.log('🔴 traffic-report 의 「사이트별」 표를 못 찾았습니다 — 표 꼴이 바뀐 것으로 봅니다.');
-  console.log('⛔ 0 을 내지 않고 멈춥니다. 자를 고쳐야 합니다(scripts/유닛별-방문자.mjs).');
+  /* ⛔ 「쌓인 것이 없다」는 traffic-report.mjs 가 그 기간에 R2 파일이 하나도 없을 때 내는
+     정상 문구다(예: --days 1 로 이른 아침에 돌리면 오늘치가 아직 안 올라온 게 정상).
+     이것과 "표 형식 자체가 바뀌어 못 찾는 것"은 다른 사고이니 갈라서 말한다. */
+  if (/쌓인 것이 없다/.test(글)) {
+    console.log(`⚠ 이 ${일수}일 안에는 아직 쌓인 자료가 없습니다 — 자 고장이 아니라 **이른 시각**일 수 있습니다.`);
+    console.log('   서버가 10분마다 R2 로 올립니다. --days 를 늘리거나(예: 2 이상) 나중에 다시 돌리십시오.');
+  } else {
+    console.log('🔴 traffic-report 의 「사이트별」 표를 못 찾았습니다 — 표 꼴이 바뀐 것으로 봅니다.');
+    console.log('⛔ 0 을 내지 않고 멈춥니다. 자를 고쳐야 합니다(scripts/유닛별-방문자.mjs).');
+  }
   process.exit(1);
 }
 
@@ -128,12 +154,13 @@ for (const u of 유닛) {
   const 낱 = u.주소.map((d) => `${d} ${(표.get(d) ?? 0).toLocaleString()}`).join(' + ');
   console.log(`  ${u.이름.padEnd(20)} ${String(쪽.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (${낱})`);
 }
-const 맵 = 클라이프맵읽기();
+const 맵 = 클라이프맵읽기(일수);
 if (맵 === null) {
   console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${'못 쟀음'.padStart(7)}      ⛔ klifemap/tools/klifemap-visitors.mjs 가 안 돌았다`);
 } else {
-  const 몫 = Math.round((맵 / 목표) * 100);
-  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · 4번 자로 따로 셈)`);
+  const 몫 = Math.round((맵.평균 / 목표) * 100);
+  const 날치 = 맵.잰날수 < 맵.요청날수 ? ` (요청 ${맵.요청날수}일 중 ${맵.잰날수}일만 잼)` : '';
+  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.평균.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · ${맵.잰날수}일 평균${날치})`);
   console.log(`  ${''.padEnd(20)} ${''.padStart(7)}      ⚠ 쿠키를 안 심어 같은 사람 여러 번을 한 명으로 못 묶습니다`);
 }
 console.log('\n⛔ 「못 쟀음」을 0 으로 옮겨 적지 마십시오 — 「손님이 없다」와 「안 세서 모른다」는 다릅니다.');
