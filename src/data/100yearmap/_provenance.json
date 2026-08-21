@@ -160,26 +160,78 @@
       "왜 만들었나": "2번 지시 2026-08-10 08:0x — 격 여덟에 붙일 직업 이름 목록. ⛔ 격 배정은 1번 몫",
       "근거": "파일 안 「출처」 칸에 기관·표·해·이용허락범위가 다 들어 있다",
       "대조": "✅ 자료 파일 안 「대조」 칸에 있다 — ⛔ **맞춰 볼 바깥 공표치가 없다 — 이 자료가 공표표 그 자체다.** KOSIS 118/DT_118N_PAYM41 을 옮겨 적은 것이다(8번 · 2026-08 …"
+    },
+    "lastmod.json": {
+      "무엇": "sitemap 이 쓰는 지면별 lastmod 시각",
+      "출처": "빌드마다 우리가 스스로 찍는 시각이다",
+      "url": null,
+      "url이없는까닭": "밖에서 받은 자료가 아니다. 빌드 시각을 우리가 재서 적은 것뿐이다",
+      "만든것": "scripts/build-100y-lastmod.mjs"
+    },
+    "videos.json": {
+      "무엇": "지면에 올리는 영상들의 규칙과 목록",
+      "출처": "우리가 정한 규칙이다(시각·썸네일을 지어내지 않는다)",
+      "url": null,
+      "url이없는까닭": "영상 자체는 우리가 만든 것이라 밖에서 받은 자료가 없다. 영상 안 숫자의 출처는 그 숫자가 나온 원자료 파일에 있다"
+    },
+    "star-saju-demand.json": {
+      "무엇": "「(스타 이름) 사주」가 자동완성에 실재하는지 잰 것 — 5번에서 넘어온 자료",
+      "출처": "네이버 자동완성(공개된 끝점)",
+      "url": "https://ac.search.naver.com",
+      "받은법": "공개 자동완성 끝점을 직접 불러 잰 것. 검색량이 아니라 «그 말이 떠 있나»만 잰다",
+      "⚠ 조심": "자동완성은 때에 따라 바뀐다 — 이 수는 잰 그때(2026-08-20)의 수다. 인기로 옮겨 적지 않는다"
+    },
+    "pipeline-a-bundle.json": {
+      "무엇": "파이프라인 A(이직·연봉)가 쓸 자료 세 벌을 가리키는 꾸러미 — 지면 아님",
+      "출처": "새로 만들지 않는다. 가리키기만 한다",
+      "url": null,
+      "url이없는까닭": "이 파일 자체는 자료가 아니라 자료 세 벌(industry-region-cells.json·major-outcomes.json·rankings.json)을 가리키는 꾸러미다. 각 원본의 출처는 그 파일 안에 있다",
+      "만든것": "scripts/build-100y-pipeline-a-bundle.mjs · 3번 2026-08-22"
+    },
+    "pipeline-a-bundle.근거.json": {
+      "무엇": "위 꾸러미가 가리키는 세 자료의 근거(.근거.json) 모음",
+      "출처": "pipeline-a-bundle.json 과 같다 — 가리키기만 한다",
+      "url": null,
+      "url이없는까닭": "pipeline-a-bundle.json 의 짝 파일이다. 출처는 그 파일 항목과 같다",
+      "만든것": "scripts/build-100y-pipeline-a-bundle.mjs · 3번 2026-08-22"
     }
   },
   "이미_파일_안에_출처가_있는_것": [
+    "afterschool.json",
+    "breakfast.json",
     "business-lifespan.json",
+    "care.json",
     "closed-universities.json",
     "field-outcomes.json",
+    "first-job.json",
+    "healthy-years.json",
+    "home.json",
     "industry-axis.json",
     "industry-life.json",
     "industry-region-cross.json",
     "industry-size-cross.json",
+    "keep-working.json",
+    "kindergarten.json",
+    "longest-job.json",
     "major-inflation.json",
     "major-merged.json",
     "major-outcomes.json",
+    "marriage-age.json",
+    "nursery-none.json",
     "occupation-names.json",
+    "pediatrics.json",
+    "pets.json",
+    "qual-age.json",
+    "qual-duration.json",
     "region-axis.json",
     "school-career.json",
     "school-class-size.json",
     "school-dropout.json",
     "size-axis.json",
-    "work-map.json"
+    "spending.json",
+    "star-birth.json",
+    "work-map.json",
+    "years-left.json"
   ],
   "3번감수": {
     "언제": "2026-08-08 14:5x",

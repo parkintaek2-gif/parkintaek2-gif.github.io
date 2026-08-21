@@ -1,0 +1,164 @@
+---
+/**
+ * /100y/pets — 몇 %가 반려동물을 기르나, 나이대로 다른가
+ *
+ * 🔴 사장님 「열두 고민」(2026-08-07, docs/백년지도-남들은-어떻게.md) 가운데
+ *   반려견·반려묘 자리. 표 id는 문서가 적어 둔 것을 그대로 못 썼다 — 실제로 받아 보니
+ *   달랐다(scripts/collect-100y-pets.mjs 머리말 참고). 받아보지 않고 문서만 옮기면 헛일이 된다.
+ *
+ * ⛔⛔ 이 지면의 핵심 위험 — **두 표가 다른 모집단을 잰다.**
+ *   ① 양육 여부(전체 3,000가구 중)와 ② 종류 비중(기르는 867가구 안에서)을 같은 분모로
+ *   읽으면 거짓이 된다. ①을 먼저 놓고 ②를 「다른 것을 재는 자」로 뒤에 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/pets.json';
+/* ⚠ 카드뉴스는 아직 안 만들었다 — HundredCardnews 는 파일 존재를 확인 안 하고 <img> 를
+   무조건 낸다. 벌을 만들기 전엔 붙이지 않는다(깨진 이미지를 내느니 안 내는 게 낫다) */
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 연령별 = 자료.연령별 as any[];
+const 성별 = 자료.성별 as any[];
+const 지역별 = 자료.지역별 as any[];
+const 가구원수별 = 자료.가구원수별 as any[];
+const 권역별 = 자료.권역별 as any[];
+const 자가대조 = 자료.자가대조;
+const 뒤집힘 = 자료.뒤집힘;
+
+const 스물대 = 연령별.find((r) => r.칸 === '20대');
+const 예순이상 = 연령별.find((r) => r.칸 === '60대 이상');
+
+const desc =
+  `${자료.최신}년 기준 ${전체.양육몫}%(${전체.사례수.toLocaleString()}가구 표본)가 반려동물을 기릅니다. ` +
+  `기르는 가구 안에서는 20대가 개 ${스물대.개몫}%·고양이 ${스물대.고양이몫}%인데, 60대 이상은 개 ${예순이상.개몫}%·고양이 ${예순이상.고양이몫}%로 갈립니다.`;
+---
+
+<HundredYear title={`반려동물 기르는 비율 ${전체.양육몫}% — 나이대로 개·고양이가 갈린다`} description={desc}>
+  <h1>반려동물을<br />몇 %가 기르고 있을까요</h1>
+  <p class="sub">
+    {자료.최신}년 기준, <strong>{전체.양육몫}%가 지금 반려동물을 기르고 있다</strong>고 답했습니다.
+    {' '}표본 {전체.사례수.toLocaleString()}가구 조사입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">지금 반려동물을 기른다</p>
+    <p class="answer-num">{전체.양육몫}%</p>
+    <p class="answer-sub">
+      기르지 않는다 {전체.안기름몫}% — {자료.최신}년 · 농림축산식품부
+    </p>
+  </div>
+
+  <p class="note">
+    ⚠ 표본조사입니다(전수조사가 아닙니다). 전체 {전체.사례수.toLocaleString()}가구 가운데
+    {' '}나이대별로는 {Math.min(...연령별.map((r) => r.사례수)).toLocaleString()}~{Math.max(...연령별.map((r) => r.사례수)).toLocaleString()}가구로
+    {' '}갈립니다 — <strong>가구 수가 적은 칸일수록 오차가 큽니다.</strong>
+  </p>
+
+  <h2>나이대마다 양육률이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>양육률</th><th>표본 가구</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.양육몫}%</strong></td>
+            <td>{r.사례수.toLocaleString()}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    가장 높은 나이대는 <strong>{[...연령별].sort((a, b) => b.양육몫 - a.양육몫)[0].칸}({[...연령별].sort((a, b) => b.양육몫 - a.양육몫)[0].양육몫}%)</strong>이고,
+    {' '}가장 낮은 나이대는 <strong>{[...연령별].sort((a, b) => a.양육몫 - b.양육몫)[0].칸}({[...연령별].sort((a, b) => a.양육몫 - b.양육몫)[0].양육몫}%)</strong>입니다.
+    {' '}차이는 <strong>{Math.round(([...연령별].sort((a, b) => b.양육몫 - a.양육몫)[0].양육몫 - [...연령별].sort((a, b) => a.양육몫 - b.양육몫)[0].양육몫) * 10) / 10}%p</strong>로,
+    {' '}나이대만으로는 크게 갈리지 않습니다.
+  </p>
+
+  <h2>⛔ 「기르는 가구 안에서」는 다른 물음입니다</h2>
+  <p class="note">
+    ⛔⛔ {자료['⛔⛔ 두 표를 같은 분모로 읽으면 거짓이 된다']}
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">기르는 가구 안에서 — 개 vs 고양이</p>
+    <p class="answer-num">{전체.개몫}% · {전체.고양이몫}%</p>
+    <p class="answer-sub">중복응답이라 둘을 더해도 100이 안 됩니다(어류·조류 등도 있습니다)</p>
+  </div>
+
+  <h2>나이대로 개·고양이 비중이 갈립니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>개</th><th>고양이</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.개몫}%</strong></td>
+            <td><strong>{r.고양이몫}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    {스물대.칸}는 개 {스물대.개몫}% · 고양이 {스물대.고양이몫}%인데,
+    {' '}{예순이상.칸}는 개 {예순이상.개몫}% · 고양이 {예순이상.고양이몫}%입니다.
+    {' '}{뒤집힘?.뒤집힘
+      ? <>나이가 들수록 <strong>개 비중은 오르고 고양이 비중은 내립니다</strong> — 20대에서 60대 이상까지 다섯 칸이 전부 그렇습니다.</>
+      : <>나이대별로 뚜렷한 한 방향은 못 찾았습니다.</>}
+  </p>
+  <p class="note">
+    ⚠ 이것은 <strong>기르는 가구 안에서의 비중</strong>입니다. 「젊을수록 고양이를 많이 기른다」가 아니라
+    {' '}「기르는 사람들 가운데, 젊을수록 개보다 고양이를 고른 비중이 높다」입니다.
+  </p>
+
+  <h2>그 밖의 갈래</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래</th><th>양육률</th></tr></thead>
+      <tbody>
+        {성별.map((r) => <tr><td>{r.칸}</td><td>{r.양육몫}%</td></tr>)}
+        {지역별.map((r) => <tr><td>{r.칸}</td><td>{r.양육몫}%</td></tr>)}
+        {가구원수별.map((r) => <tr><td>{r.칸} 가구</td><td>{r.양육몫}%</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 권역별({권역별.map((r) => `${r.칸} ${r.양육몫}%`).join(' · ')})은
+    {' '}가장 작은 칸이 {Math.min(...권역별.map((r) => r.사례수)).toLocaleString()}가구뿐이라
+    {' '}<strong>줄을 세우지 않습니다.</strong> 표본이 작은 갈래일수록 오차가 큽니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    성별을 더하면 {자가대조['성별 합 = 전체'].합.toLocaleString()}가구로 전체
+    {' '}{자가대조['성별 합 = 전체'].전체.toLocaleString()}가구와 <strong>{자가대조['성별 합 = 전체'].맞나 ? '같습니다' : '어긋납니다'}</strong>.
+    {' '}연령대를 더한 것도 <strong>{자가대조['연령대 합 = 전체'].맞나 ? '같고' : '어긋나고'}</strong>,
+    {' '}권역을 더한 것도 <strong>{자가대조['권역 합 = 전체'].맞나 ? '같습니다' : '어긋납니다'}</strong>.
+    {' '}{자가대조.뜻}
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 반려동물을 길러야 한다거나
+    {' '}개나 고양이 가운데 무엇이 낫다고 쓰지 않습니다 — {자료.최신}년에 {전체.양육몫}%가 그렇게 답했다는 것이
+    {' '}저희가 셀 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="반려동물 양육 자료" />
+</HundredYear>
