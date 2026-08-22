@@ -62,8 +62,11 @@ const 상품들 = {
     blurb: 'each brokerage’s Buy/Hold/Sell mix — the Sell rating has all but disappeared' },
   leaders: { href: '/data/sector-leaders', name: 'sector leaders vs the rest',
     blurb: 'how a sector’s biggest companies pay, retain and staff their top differently' },
+  concentration: { href: '/data/concentration', name: 'the Korea Concentration Index',
+    blurb: 'how top-heavy Korea’s market and trade are — Samsung’s KOSPI weight, top partners, updated daily' },
 };
-const 관련상품 = /leader|biggest-companies|market-cap-leaders|pay-more/.test(entry.id) ? 상품들.leaders
+const 관련상품 = /comes-down-to-four|four-stocks|kosdaq-trades|trade-partners|two-giants|concentration|half-the-market/.test(entry.id) ? 상품들.concentration
+  : /leader|biggest-companies|market-cap-leaders|pay-more/.test(entry.id) ? 상품들.leaders
   : /candour|vanish|sell-rating|stopped-saying|buy-rating|rating/.test(entry.id) ? 상품들.candour
   : /attention|coverage|unwritten|piles-up|ignored/.test(entry.id) ? 상품들.attention
   : /research|broker|price-target|aim-high|hit-less/.test(entry.id) ? 상품들.target
