@@ -51,6 +51,53 @@ const 중 = data.medians;
    ⛔ 지면마다 다시 세지 않는다 — 이 줄은 모듈이 한 번 읽힐 때 한 번 돈다(528장이 같이 쓴다).
    ⚠ 지면이 나는 제목만 센다. 얇아서 지면을 안 낸 것을 분모에 넣으면 우리가 안 보여 준 것으로 자리를 매긴다 */
 const 지면나는것 = data.titles.filter((x: any) => x.hasPage);
+
+/**
+ * ⭐⭐ 2026-08-22 — **작품에서 작품으로 걸어가는 길.** 두 가지를 한 번에 푼다.
+ *
+ * ① 색인 — 그날 구글에 직접 물어(URL Inspection API) 알아낸 것: 작품 지면 표본에서
+ *   **9장이 「발견만 하고 안 넣음」**이었다. 나간 지면을 다 훑어 세니 528장 중 **519장이
+ *   들어오는 링크가 딱 하나**였다. 「발견만」은 보통 안쪽 링크가 얇을 때 난다.
+ * ② 머무는 것 — 사장님: 「어떻게 하면 사람들을 우리 안에서 **머물도록** 하냐」.
+ *   이레 실측에서 걸어서 닿는 지면은 **0장**이었다. 손님은 이름에서 이름으로 걷는다 —
+ *   배우와 제작사가 그 이름이다.
+ *
+ * ⛔ 지어내지 않는다. 같은 배우가 나온 작품·같은 회사가 크레딧에 있는 작품만 잇는다.
+ * ⛔ 지면이 없는 작품은 안 잇는다(죽은 링크가 된다).
+ * ⚠ 겹치는 것이 많은 작품이 있어 **여섯 편으로 끊는다** — 스무 편을 늘어놓으면 목록이 되고
+ *   목록은 손님이 안 읽는다.
+ */
+const 배우별 = new Map<string, string[]>();
+const 회사별 = new Map<string, string[]>();
+for (const x of 지면나는것) {
+  for (const c of (x.cast ?? [])) {
+    if (!배우별.has(c.name)) 배우별.set(c.name, []);
+    배우별.get(c.name)!.push(x.slug);
+  }
+  for (const f of (x.firms ?? [])) {
+    if (!회사별.has(f.firm)) 회사별.set(f.firm, []);
+    회사별.get(f.firm)!.push(x.slug);
+  }
+}
+const 제목찾기 = new Map<string, string>(지면나는것.map((x: any) => [x.slug, x.title]));
+
+/** 이 작품과 사람·회사를 나눠 가진 다른 작품. 왜 이어졌는지를 같이 준다 */
+function 이웃작품(작품: any, 최대 = 6) {
+  const 모음 = new Map<string, Set<string>>();
+  const 담기 = (slug: string, 까닭: string) => {
+    if (slug === 작품.slug) return;
+    if (!모음.has(slug)) 모음.set(slug, new Set());
+    모음.get(slug)!.add(까닭);
+  };
+  for (const c of (작품.cast ?? [])) for (const s of (배우별.get(c.name) ?? [])) 담기(s, c.name);
+  for (const f of (작품.firms ?? [])) for (const s of (회사별.get(f.firm) ?? [])) 담기(s, f.firm);
+  /* 까닭이 많은 것부터 — 배우 셋을 나눠 가진 작품이 하나를 나눠 가진 것보다 가깝다 */
+  return [...모음.entries()]
+    .map(([slug, 까닭들]) => ({ slug, title: 제목찾기.get(slug), 까닭: [...까닭들] }))
+    .sort((a, b) => b.까닭.length - a.까닭.length || String(a.title).localeCompare(String(b.title)))
+    .slice(0, 최대);
+}
+const 이웃 = 이웃작품(t);
 const 지면수 = 지면나는것.length;
 const 더넓게 = 지면나는것.filter((x: any) => x.markets > t.markets).length;
 const 덜넓게 = 지면나는것.filter((x: any) => x.markets < t.markets).length;
@@ -305,6 +352,25 @@ const jsonLd = {
         country lists start {data.weekFrom} and our copy ends {data.weekTo}, so those two rows cover
         fewer weeks than the others and cannot be compared with them.
       </p>
+    </section>
+  )}
+
+  {이웃.length > 0 && (
+    <section>
+      <h2>Where to walk from here</h2>
+      <p class="note">
+        Other Korean titles on this site that share a named person or a credited company with
+        {' '}{t.title}. The reason is given beside each one, because a shared name is the only claim
+        being made — not that the two are alike.
+      </p>
+      <ul class="walk">
+        {이웃.map((x: any) => (
+          <li>
+            <a href={`/title/${x.slug}`}>{x.title}</a>{' '}
+            <span class="fine">— {x.까닭.slice(0, 3).join(', ')}{x.까닭.length > 3 ? ` and ${x.까닭.length - 3} more` : ''}</span>
+          </li>
+        ))}
+      </ul>
     </section>
   )}
 
