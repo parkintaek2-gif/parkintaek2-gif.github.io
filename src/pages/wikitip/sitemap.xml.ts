@@ -270,6 +270,7 @@ export const GET: APIRoute = async () => {
     { path: '/underrated', priority: '0.9', changefreq: 'weekly' },
     { path: '/by-country', priority: '0.9', changefreq: 'weekly' },
     { path: '/firms', priority: '0.9', changefreq: 'weekly' },
+    { path: '/where-to-watch', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-gap', priority: '0.9', changefreq: 'daily' },
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },

@@ -76,6 +76,14 @@ export function 방들(자료) {
 
   return [
     {
+      phrase: 'where to watch korean drama',
+      name: 'Where could you actually watch it?',
+      line: 'Netflix publishes no availability anywhere. It does publish a weekly top 10 per country — '
+        + 'and a title on that list was watchable there that week. That floor is the honest answer.',
+      href: '/where-to-watch',
+      cta: 'See the floor',
+    },
+    {
       phrase: 'netflix top 10 by country',
       name: 'Every country, and how Korean its chart is',
       line: `${m.countryCount} countries counted week by week, from ${m.weekFrom} to ${m.weekTo}. `
@@ -223,7 +231,7 @@ export function 판짓기(방, 자료) {
 <body>
   <div class="wrap">
     <h1>Rooms</h1>
-    <p class="lead">Nine rooms about Korean film, television, music and esports. Each one exists
+    <p class="lead">Ten rooms about Korean film, television, music and esports. Each one exists
       because people search for it, and each one is answered with counts rather than opinion.</p>
     <p class="note">The small red line on every card is the phrase people actually type. We checked
       each one against Google&rsquo;s own autocomplete before building the room.</p>
@@ -281,7 +289,7 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 방 = 방들(자료);
   const 판 = 판짓기(방, 자료);
 
-  검('방이 아홉이다', 방.length === 9);
+  검('방이 열이다', 방.length === 10);
   검('⛔ 방마다 갈 곳이 있다', 방.every((r) => typeof r.href === 'string' && r.href.startsWith('/')));
   검('⛔ 방마다 잰 말이 붙어 있다', 방.every((r) => r.phrase && r.phrase.length > 3));
   검('단추 수가 방 수와 같다', (판.match(/class="cta"/g) ?? []).length === 방.length);
@@ -296,6 +304,8 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   검('⭐ 일간 방이 첫 화면을 차지하지 않는다', (판.match(/href="\/stem\//g) ?? []).length === 0);
   검('⭐ 넷플릭스 축이 있다', 판.includes('/by-country') && 판.includes('/underrated'));
   검('⭐ e스포츠 축이 있다', 판.includes('/esports'));
+  검('⭐ 가장 센 잰 말이 첫 카드다', 방[0].phrase === 'where to watch korean drama');
+  검('⭐ 그 방으로 가는 문이 있다', 판.includes('/where-to-watch'));
   검('스타 축은 카드 한 장으로 남는다', (판.match(/href="\/star-signs"/g) ?? []).length === 1);
 
   /* ⛔ 자동완성을 검색량이라고 부르면 안 된다 */
@@ -313,7 +323,7 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패\n${실패.map((s) => `   · ${s}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ build-kcw-community-front 자가시험 통과 (18)');
+  console.log('✅ build-kcw-community-front 자가시험 통과 (20)');
   process.exit(0);
 }
 
