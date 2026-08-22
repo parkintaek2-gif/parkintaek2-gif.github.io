@@ -26,11 +26,25 @@ export function getStaticPaths() {
 const { m } = Astro.props;
 const 중 = data.medians;
 
-const TITLE = `Korean titles on Netflix in ${m.name}`;
+/**
+ * 🔴 2026-08-22 — 이 제목이 **아흔세 장에 똑같은 꼴**로 붙어 있었다(「Korean titles on Netflix in X」).
+ *   4주 실측: 시장 지면 29장이 **1페이지에 있으면서 클릭 0** 이고 노출이 349개다.
+ *   `/market/japan` 은 **순위 1위인데 클릭이 0** 이었다.
+ *   ⛔ 검색 결과에서 아흔세 장이 서로 구별되지 않고, 손님이 묻는 꼴도 아니다.
+ *
+ * ⭐ 물음으로 바꾼다 — 카피 규칙 ②(묻고, 답은 부제가 한다)·①(제목에 숫자를 안 넣는다) 그대로다.
+ *   숫자(20.1% 같은 것)는 설명 자리에 이미 있다.
+ * ⚠ 나라 이름을 앞쪽에 둔다 — 손님이 치는 말이 나라 이름이다.
+ * ⛔ 낚지 않는다. 이 지면은 실제로 그 물음에 답한다(자리 수·몫·작품 수·해마다).
+ */
+const TITLE = `How much of ${m.name}'s Netflix top 10 is Korean?`;
+/* ⭐ 답을 첫 낱말로 당긴다. 검색 결과에서 손님이 읽는 것은 앞쪽 한 줄이다 —
+   「Korean shows and films took…」로 시작하면 몫이 뒤에 묻힌다 */
 const DESC =
-  `Korean shows and films took ${m.koreanSlots.toLocaleString('en-US')} of ${m.name}'s Netflix top 10 `
-  + `places over ${data.weekCount} weeks — ${m.koreanPc}% of the chart, spread across `
-  + `${m.distinctTitles} different titles. Counted from Netflix's own weekly lists.`;
+  `${m.koreanPc}% of it, over ${data.weekCount} weeks: Korean shows and films took `
+  + `${m.koreanSlots.toLocaleString('en-US')} of ${m.name}'s Netflix top 10 places, spread across `
+  + `${m.distinctTitles} different titles. Counted week by week from Netflix's own country lists, `
+  + `with the years and the titles listed.`;
 
 const 해 = m.byYear.filter((y) => y.places > 0);
 const 큰해 = 해.reduce((a, y) => (y.places > a.places ? y : a), 해[0]);
