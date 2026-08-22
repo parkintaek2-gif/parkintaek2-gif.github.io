@@ -16,11 +16,12 @@ import { SITE_URL } from '../../consts';
 import cross from '../../data/concentration-cross.json';
 import hist from '../../data/krx-daily-history.json';
 
-const TITLE = 'Korea Concentration Index';
+const TITLE = 'Korea stock market & trade concentration — KOSPI, KOSDAQ, exports';
 const DESC =
-  'How concentrated Korea really is — its stock market and its trade, measured with one lens (Gini and '
-  + 'top-four share). Whatever you measure, the top four are about half, and every Gini clears 0.9. '
-  + 'A cross of KRX and Korea Customs data no single-feed vendor builds. Not investment advice.';
+  'How concentrated the Korean stock market and trade are: Samsung and SK hynix as a share of KOSPI '
+  + 'market cap, KOSDAQ vs KOSPI, and South Korea’s biggest export and import partners (China, US). '
+  + 'The top four are about half by every measure, with Gini above 0.9. Free daily data from KRX and '
+  + 'Korea Customs. Not investment advice.';
 
 const dims = (cross as any).dims as Array<{ key: string; units: string; gini: number; top4: number; top10: number; half: number }>;
 const stockAsOf = (cross as any).stockAsOf as string;
@@ -80,15 +81,44 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
         <a class="dl" href="/data/korea-concentration.csv" download>Download the daily index (CSV) →</a>
         <p class="note">
           {days > 0 ? `${days} trading day${days > 1 ? 's' : ''} so far` : 'seeding'} — the series grows every
-          trading day. Full multi-year history, per-sector breakdowns and a queryable API are licensed;
-          <a href="/contact">ask us</a> for access.
+          trading day. The download here is free.
         </p>
+        <ul class="tiers">
+          <li><b>Free</b> — this page and the daily CSV, latest snapshot and running history.</li>
+          <li><b>Pro — from $99/mo</b> (or $990/yr): full multi-year history, per-sector and per-issue breakdowns, and a queryable API.</li>
+          <li><b>Enterprise — from $2,500</b>: custom cuts, redistribution rights and bespoke concentration research.</li>
+        </ul>
+        <p class="note"><a href="/contact">Contact us</a> to licence the Pro feed or discuss enterprise access.</p>
       </div>
 
       <p class="read">
         The full write-up:
         <a href="/article/korea-everything-comes-down-to-four">Measure Korea any way you like — the top four are half of it</a>.
       </p>
+
+      <section class="faq">
+        <h2>Korea market &amp; trade concentration — the questions people ask</h2>
+
+        <h3>How much of the KOSPI is Samsung?</h3>
+        <p>Samsung Electronics is about <b>26.7%</b> of the entire Korean stock market (KOSPI + KOSDAQ) by
+        market cap; with SK hynix, the two chipmakers are close to <b>half</b>. See
+        <a href="/article/korea-four-stocks-half-the-market">four stocks are half of Korea's market</a>.</p>
+
+        <h3>How concentrated is the Korean stock market?</h3>
+        <p>The four largest stocks are <b>{dims[0].top4}%</b> of total market cap and the top ten are about 60%;
+        the concentration Gini is <b>{dims[0].gini}</b>. KOSDAQ holds only ~7% of value but a much larger share
+        of daily trading — see <a href="/article/korea-kosdaq-trades-above-its-weight">KOSDAQ trades above its weight</a>.</p>
+
+        <h3>Who are South Korea's biggest trading partners?</h3>
+        <p>Korea's top export markets are <b>the United States and China</b>, nearly tied near 20% each; its
+        single biggest import source is <b>China</b>, about a quarter of all imports. The top four partners are
+        roughly half of trade either way — see
+        <a href="/article/korea-trade-partners-two-giants-one-supplier">two giants, one supplier</a>.</p>
+
+        <h3>What is the KOSPI vs KOSDAQ market cap split?</h3>
+        <p>KOSPI holds about <b>93%</b> of total listed market value; KOSDAQ, with nearly twice as many
+        companies, holds about <b>7%</b>.</p>
+      </section>
 
       <p class="fine">
         Built from Korea Exchange OPEN API (KOSPI + KOSDAQ daily) and Korea Customs Service partner-country
@@ -126,6 +156,17 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
   .dl { font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
   .dl:hover { color: var(--ink); }
   .get .note { font-size: .86rem; color: var(--muted); line-height: 1.6; margin: .8rem 0 0; }
+
+  .tiers { list-style: none; margin: 1rem 0 .4rem; padding: 0; display: grid; gap: .5rem; }
+  .tiers li { font-size: .9rem; line-height: 1.55; padding-left: 1rem; position: relative; }
+  .tiers li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+  .tiers b { font-weight: 650; }
+
+  .faq { margin: 2rem 0 1rem; }
+  .faq h2 { font-size: 1.2rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .faq h3 { font-size: 1rem; margin: 1.1rem 0 .3rem; }
+  .faq p { font-size: .93rem; line-height: 1.65; margin: 0; color: var(--ink-2, var(--ink)); }
+  .faq b { font-weight: 650; }
 
   .read { font-size: .95rem; margin: 1.4rem 0; }
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 2rem 0 1rem;
