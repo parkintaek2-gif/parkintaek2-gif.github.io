@@ -1,0 +1,80 @@
+{
+  "source": "한국은행 수입물가지수(기본분류) · KOSIS 301/DT_401Y015 · 2020=100",
+  "window": {
+    "first": "202508",
+    "last": "202607"
+  },
+  "total": {
+    "won": {
+      "first": 135.21,
+      "last": 160.09,
+      "pct": 18.4
+    },
+    "contract": {
+      "first": 117.22,
+      "last": 130.21,
+      "pct": 11.1
+    },
+    "usd": {
+      "first": 114.75,
+      "last": 126.07,
+      "pct": 9.9
+    }
+  },
+  "movers": {
+    "top": [
+      {
+        "ko": "합성고무",
+        "en": "Synthetic rubber",
+        "ch": 96
+      },
+      {
+        "ko": "경유",
+        "en": "Diesel",
+        "ch": 77.6
+      },
+      {
+        "ko": "제트유",
+        "en": "Jet fuel",
+        "ch": 76.8
+      },
+      {
+        "ko": "컴퓨터기억장치",
+        "en": "Computer memory",
+        "ch": 67.3
+      },
+      {
+        "ko": "인쇄회로기판및실장기판",
+        "en": "Printed circuit boards",
+        "ch": 66.5
+      },
+      {
+        "ko": "인쇄회로기판",
+        "en": "Bare circuit boards",
+        "ch": 66.5
+      },
+      {
+        "ko": "기타기초유기화합물",
+        "en": "Basic organic chemicals",
+        "ch": 61.6
+      }
+    ],
+    "bottom": [
+      {
+        "ko": "제당및전분",
+        "en": "Refined sugar & starch",
+        "ch": -11.5
+      },
+      {
+        "ko": "원당",
+        "en": "Raw sugar",
+        "ch": -11.5
+      },
+      {
+        "ko": "육가공품및낙농품",
+        "en": "Processed meat & dairy",
+        "ch": -6.4
+      }
+    ]
+  }
+}
