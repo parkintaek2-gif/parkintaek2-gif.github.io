@@ -31,14 +31,25 @@ for (const s of signs.signs ?? []) {
   for (const p of (s as any).top ?? []) 방주소.set(p.name, `/room/${String((s as any).sign).toLowerCase()}`);
 }
 
+/**
+ * 🔴 2026-08-22 15:2x — 라이브에 **한글 이름이 하나 나갔다**(「카리나」 73위).
+ *   위키데이터에 영문 이름표가 없는 사람이라 한국어 이름표로 떨어진 것이다. 5번 손님은 영어권이다.
+ * ⛔ 그렇다고 순위에서 빼지 않는다 — 그 사람은 실제로 73번째로 많이 읽혔다.
+ * ✅ **영문 위키백과 문서 제목**이 이미 자료에 있다(Karina (South Korean singer)).
+ *   괄호 설명만 떼고 그것을 쓴다. 지어낸 이름이 아니라 위키백과가 쓰는 이름이다.
+ */
+const 라틴 = (t: string) => /^[A-Za-z0-9À-ɏḀ-ỿ' .,\-()&+/]+$/.test(t);
+const 보일이름 = (p: any) => (라틴(p.name) ? p.name
+  : (p.enTitle ? String(p.enTitle).replace(/\s*\([^)]*\)\s*$/, '') : p.name));
+
 const 줄 = (d.people ?? []).slice(0, 100);
 const 창 = `${d.window.시작.slice(0, 4)}-${d.window.시작.slice(4, 6)}-${d.window.시작.slice(6)} → ${d.window.끝.slice(0, 4)}-${d.window.끝.slice(4, 6)}-${d.window.끝.slice(6)}`;
 const 합 = 줄.reduce((a, p: any) => a + p.reads, 0);
 const 으뜸 = 줄[0] as any;
-const 셋 = 줄.slice(0, 3).map((p: any) => p.name).join(', ');
+const 셋 = 줄.slice(0, 3).map((p: any) => 보일이름(p)).join(', ');
 
 const TITLE = `The 100 most-read Korean stars right now — ${셋} lead`;
-const DESC = `Who the world actually opened an article about in the last 30 days: ${d.measured.toLocaleString('en-US')} Korean actors and singers measured, ${으뜸.name} first with ${으뜸.reads.toLocaleString('en-US')} readers. Reads, not searches, and we say which is which.`;
+const DESC = `Who the world actually opened an article about in the last 30 days: ${d.measured.toLocaleString('en-US')} Korean actors and singers measured, ${보일이름(으뜸)} first with ${으뜸.reads.toLocaleString('en-US')} readers. Reads, not searches, and we say which is which.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -88,12 +99,12 @@ const jsonLd = {
           {줄.map((p: any, i: number) => (
             <tr>
               <td class="fine">{i + 1}</td>
-              <td class="nm">{p.name}</td>
+              <td class="nm">{보일이름(p)}</td>
               <td>{p.reads.toLocaleString('en-US')}</td>
               <td class="fine">{p.born}</td>
               <td class="fine">
-                {방주소.has(p.name)
-                  ? <a href={방주소.get(p.name)}>born-year room</a>
+                {방주소.has(보일이름(p))
+                  ? <a href={방주소.get(보일이름(p))}>born-year room</a>
                   : <span>—</span>}
               </td>
             </tr>
@@ -109,6 +120,11 @@ const jsonLd = {
       An English Wikipedia article is not the whole world. Someone read mostly in Indonesian or
       Vietnamese is under-counted here — we publish that other axis separately, and the two disagree
       more often than you would think.
+    </p>
+    <p class="note">
+      Where Wikidata carries no English label for a person, we show the title of their English
+      Wikipedia article instead (Karina, Winter, Kai). That is the name Wikipedia uses, not one we
+      invented, and nobody is dropped from the ranking for it.
     </p>
     <p class="note">
       A name with no English article cannot appear at all. {(d.measured - 줄.length).toLocaleString('en-US')} more
