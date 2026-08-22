@@ -160,4 +160,9 @@ export const SISTER_SITES = [
     url: 'https://100yearmap.com/',
     what: 'Korean schools and majors, by the numbers',
   },
+  {
+    name: 'K Culture Wire',
+    url: 'https://www.kculturewire.com/',
+    what: 'K-pop, drama and film, counted with the numbers behind them',
+  },
 ] as const;
