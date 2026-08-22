@@ -13,7 +13,10 @@ const KRX = path.join(ROOT, 'archive/raw/krx');
 const CHARTS = path.join(ROOT, 'public/charts');
 fs.mkdirSync(CHARTS, { recursive: true });
 
+// ⚠ archive/raw/krx 는 git 미추적 — 서버 이동 때 안 따라온다. 「못 쟀다」와 「깨졌다」를 가른다.
+if (!fs.existsSync(KRX)) { console.log('⚠ 못 쟀다 — archive/raw/krx 폴더 없음(서버 이동 때 정상). 커밋된 기존 차트·데이터 유지, 아무것도 덮어쓰지 않음.'); process.exit(0); }
 const files = fs.readdirSync(KRX).filter((f) => f.endsWith('.json'));
+if (!files.length) { console.log('⚠ 못 쟀다 — archive/raw/krx 에 KRX json 없음. 기존 출력 유지.'); process.exit(0); }
 const dd = files.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
 const EN = { '삼성전자': 'Samsung Electronics', 'SK하이닉스': 'SK hynix', '삼성전자우': 'Samsung Elec. (pref)', '삼성전기': 'Samsung Electro-Mech.', 'SK스퀘어': 'SK Square', '카카오': 'Kakao', '금호건설': 'Kumho E&C' };
 let all = [];

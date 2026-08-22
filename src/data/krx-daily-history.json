@@ -1,0 +1,24 @@
+{
+ "_왜": "KRX 하루치 집계(비율만). archive 는 미추적이라 여기 커밋본으로 시계열을 쌓는다.",
+ "days": [
+  {
+   "date": "2026-08-21",
+   "issues": 2764,
+   "zeroTrade": 137,
+   "kospiCapPct": 92.8,
+   "kosdaqCapPct": 7.2,
+   "kospiValPct": 84.13,
+   "kosdaqValPct": 15.87,
+   "kospiVel": 5.06,
+   "kosdaqVel": 12.31,
+   "capTop1": 26.73,
+   "capTop5": 53.96,
+   "capTop10": 59.93,
+   "valTop1": 22.43,
+   "valTop5": 55.04,
+   "valTop10": 60.53
+  }
+ ],
+ "asOf": "2026-08-21",
+ "count": 1
+}
