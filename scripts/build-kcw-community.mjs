@@ -62,6 +62,12 @@ export function 방들(자료) {
 export const 단추말 = 'Open the room';
 export const 방주소 = (띠) => `/room/${String(띠).toLowerCase()}`;
 
+/*
+ * 방 열둘은 태어난 «해»로, 일간 열 장은 같은 사람을 태어난 «날»로 가른다.
+ * 두 축은 같은 것을 두 번 세는 것이 아니다 — 한 축으로 들어온 손님이 다른 축으로 갈 수 있어야 한다.
+ * ⛔ 이 사정을 **HTML 주석으로 지면에 싣지 않는다.** 2026-08-22 에 그렇게 했다가
+ *   check-no-internal-leak 이 잡았다 — 손님 지면에 우리 사정을 적는 자리는 없다.
+ */
 export function 판짓기(방, 자료) {
   const 칸 = 방.map((r) => `      <article class="room">
         <p class="sign">Year of the ${r.sign}</p>
@@ -134,9 +140,6 @@ export function 판짓기(방, 자료) {
 ${칸}
     </div>
 
-    <!-- The rooms above split people by birth YEAR. The day-stem pages split the same kind of
-         people by birth DAY. Two axes, not the same count twice — a reader who came for one
-         should be able to reach the other. -->
     <section class="axis">
       <h2>The other axis &mdash; by the day, not the year</h2>
       <p>These twelve rooms sort people by the year they were born. There is a second axis almost

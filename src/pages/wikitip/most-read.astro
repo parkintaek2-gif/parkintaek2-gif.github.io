@@ -93,7 +93,7 @@ const jsonLd = {
     <div class="scroll-x">
       <table>
         <thead>
-          <tr><th>#</th><th>Name</th><th>Readers, 30 days</th><th>Born</th><th>Also on this site</th></tr>
+          <tr><th>#</th><th>Name</th><th>Readers, 30 days</th><th>Born</th><th>Who shares this birthday</th><th>Born-year room</th></tr>
         </thead>
         <tbody>
           {줄.map((p: any, i: number) => (
@@ -102,11 +102,8 @@ const jsonLd = {
               <td class="nm">{보일이름(p)}</td>
               <td>{p.reads.toLocaleString('en-US')}</td>
               <td class="fine">{p.born}</td>
-              <td class="fine">
-                {방주소.has(보일이름(p))
-                  ? <a href={방주소.get(보일이름(p))}>born-year room</a>
-                  : <span>—</span>}
-              </td>
+              <td class="fine"><a href={`/born-on/${String(p.born).slice(5)}`}>same day</a></td>
+              <td class="fine">{방주소.has(보일이름(p)) ? <a href={방주소.get(보일이름(p))}>room</a> : <span>—</span>}</td>
             </tr>
           ))}
         </tbody>

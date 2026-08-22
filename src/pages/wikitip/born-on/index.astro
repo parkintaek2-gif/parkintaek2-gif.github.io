@@ -1,0 +1,116 @@
+---
+/**
+ * K Culture Wire — **생일 지면 366장으로 가는 첫 장.** (`/born-on`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ * 사장님: 「온 사람들한테는 **잊지 못할 콘텐트와 커뮤니티**를 주면 계속 재방문하겠지?」
+ * 재서 고른 축이다 — 자동완성에서 「iu birthday」 10줄 · 「kpop birthdays」 10줄 ·
+ * 「bts birthdays」 9줄. 반대로 내가 그 전날 쓴 「byeong day stem」은 **0줄**이었다.
+ *
+ * ⭐ 이 축은 **모두에게 있다.** 상위 100명에 붙일 수 있는 축을 세 보니
+ *   동남아 읽힘 49/100 · 배우 작품 41/100 인데, 같은 날 태어난 사람은 100/100 이었다.
+ * ⛔ 점을 치지 않는다. 「같은 날 태어났다」는 그 말뿐이라고 각 장에 적었다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
+import d from '../../../data/wikitip-birthday-pages.json';
+
+const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December'];
+
+const 달별 = 달이름.map((이름, i) => ({
+  이름,
+  날들: (d.days ?? []).filter((x: any) => x.day.startsWith(String(i + 1).padStart(2, '0'))),
+}));
+const 붐비는 = [...(d.days ?? [])].sort((a: any, b: any) => b.people - a.people).slice(0, 5);
+const 사람합 = d.peopleListed;
+
+const TITLE = `Which Korean stars share your birthday — all 366 days`;
+const DESC = `${사람합.toLocaleString('en-US')} Korean actors and singers sorted into the day they were born. `
+  + `Pick a date and see who shares it. Birth dates from Wikidata, readers from Wikipedia — not a horoscope.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/born-on">
+  <h1>{TITLE}</h1>
+  <p class="lead">
+    {사람합.toLocaleString('en-US')} Korean actors, singers and songwriters, one page per calendar day.
+    Each page puts the most-read name first, so you land on someone you know and can walk from there.
+  </p>
+
+  <section class="warn-box">
+    <h2>Sharing a birthday means sharing a birthday</h2>
+    <p class="warn">{d.whatThisIsNot}</p>
+    <p class="note">
+      We tested the nearest thing to a claim and it failed: across 1,047 Korean actors who reached a
+      Netflix chart, the spread across birth years is indistinguishable from chance.
+      {' '}<a href="/star-signs">That test is here</a>.
+    </p>
+  </section>
+
+  <section>
+    <h2>The five busiest birthdays in our roster</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Date</th><th>People</th><th>Best known</th></tr></thead>
+        <tbody>
+          {붐비는.map((x: any) => (
+            <tr>
+              <td class="nm"><a href={x.url}>{Number(x.day.slice(3))} {달이름[Number(x.day.slice(0, 2)) - 1]}</a></td>
+              <td>{x.people}</td>
+              <td class="fine">{x.top.join(', ')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      1 January is crowded for a reason that is not astrology: it is what gets written down when the
+      exact day is not recorded. We say so rather than treating it as a real cluster.
+    </p>
+  </section>
+
+  {달별.map((m) => (
+    <section>
+      <h2>{m.이름}</h2>
+      <p class="days">
+        {m.날들.map((x: any) => (
+          <span><a href={x.url}>{Number(x.day.slice(3))}</a>{' '}<span class="fine">({x.people})</span>{' '}</span>
+        ))}
+      </p>
+    </section>
+  ))}
+
+  <section class="src">
+    <h2>How this was built</h2>
+    <ul>
+      <li><b>What it is</b> — {d.whatThisIs}</li>
+      <li><b>Roster</b> — {d.peopleTotal.toLocaleString('en-US')} people; {사람합.toLocaleString('en-US')} are listed by name</li>
+      <li>
+        <b>Not listed</b> — {(d.peopleTotal - 사람합).toLocaleString('en-US')} people whose only name on
+        Wikidata is Korean. They are counted on their day's page and we say so there; this is an
+        English-language site and a name our readers cannot read would help nobody.
+      </li>
+    </ul>
+    <p class="note">
+      <a href="/most-read">The 100 most-read Korean stars this month</a> ·{' '}
+      <a href="/community">The twelve birth-year rooms</a>
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/born-on" />
+</WikiTip>
+
+<style>
+  .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: 0.5rem 1rem; }
+  .days { line-height: 2.1; }
+  .days a { font-weight: 700; }
+</style>
