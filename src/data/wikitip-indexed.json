@@ -1,9 +1,9 @@
 {
  "generated": "2026-08-22",
- "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 60 taken evenly across the 1223 pages in our sitemap, asked through the Search Console URL Inspection API.",
+ "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 11 taken evenly across the 1234 pages in our sitemap, asked through the Search Console URL Inspection API.",
  "whatThisIsNot": "Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.",
- "sitemapPages": 1223,
- "sampled": 60,
+ "sitemapPages": 1234,
+ "sampled": 11,
  "control": {
   "url": "https://www.kculturewire.com/this-page-must-not-exist-zzz-5beon-control",
   "꼴": "구글이모른다",
@@ -12,81 +12,67 @@
  "byState": [
   {
    "state": "들어갔다",
-   "pages": 26
+   "pages": 6
+  },
+  {
+   "state": "크롤했는데안넣음",
+   "pages": 2
   },
   {
    "state": "발견만",
-   "pages": 10
+   "pages": 2
   },
   {
    "state": "구글이모른다",
-   "pages": 24
+   "pages": 1
   }
  ],
  "byKind": [
   {
-   "kind": "home",
-   "states": {
-    "들어갔다": 1
-   }
-  },
-  {
    "kind": "dataset",
    "states": {
-    "발견만": 1,
-    "들어갔다": 2
-   }
-  },
-  {
-   "kind": "birthday",
-   "states": {
-    "구글이모른다": 18
-   }
-  },
-  {
-   "kind": "saju",
-   "states": {
+    "들어갔다": 6,
+    "크롤했는데안넣음": 2,
+    "발견만": 2,
     "구글이모른다": 1
-   }
-  },
-  {
-   "kind": "community",
-   "states": {
-    "들어갔다": 1
-   }
-  },
-  {
-   "kind": "market",
-   "states": {
-    "들어갔다": 5
-   }
-  },
-  {
-   "kind": "title",
-   "states": {
-    "들어갔다": 12,
-    "발견만": 9,
-    "구글이모른다": 5
-   }
-  },
-  {
-   "kind": "article",
-   "states": {
-    "들어갔다": 5
    }
   }
  ],
  "rows": [
   {
-   "주소": "https://www.kculturewire.com/",
-   "갈래": "home",
+   "주소": "https://www.kculturewire.com/underrated",
+   "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-21T16:16:24Z"
+   "마지막크롤": "2026-08-22T21:46:42Z"
   },
   {
-   "주소": "https://www.kculturewire.com/arrival",
+   "주소": "https://www.kculturewire.com/by-country",
+   "갈래": "dataset",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-22T21:43:39Z"
+  },
+  {
+   "주소": "https://www.kculturewire.com/firms",
+   "갈래": "dataset",
+   "꼴": "크롤했는데안넣음",
+   "상태": "Crawled - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": "2026-08-22T21:53:49Z"
+  },
+  {
+   "주소": "https://www.kculturewire.com/where-to-watch",
+   "갈래": "dataset",
+   "꼴": "크롤했는데안넣음",
+   "상태": "Crawled - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": "2026-08-22T21:49:53Z"
+  },
+  {
+   "주소": "https://www.kculturewire.com/most-popular",
    "갈래": "dataset",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -94,444 +80,51 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://www.kculturewire.com/provenance",
+   "주소": "https://www.kculturewire.com/year/2026",
+   "갈래": "dataset",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://www.kculturewire.com/year/2025",
+   "갈래": "dataset",
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
+  },
+  {
+   "주소": "https://www.kculturewire.com/year/2024",
    "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-10T13:10:42Z"
+   "마지막크롤": "2026-08-22T22:20:40Z"
   },
   {
-   "주소": "https://www.kculturewire.com/half-life",
+   "주소": "https://www.kculturewire.com/year/2023",
    "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-15T15:04:30Z"
+   "마지막크롤": "2026-08-22T22:23:01Z"
   },
   {
-   "주소": "https://www.kculturewire.com/born-on/01-03",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/01-23",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/02-13",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/03-04",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/03-25",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/04-14",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/05-04",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/05-25",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/06-14",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/07-04",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/07-25",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/08-14",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/09-04",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/09-24",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/10-14",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/11-04",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/11-24",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/born-on/12-15",
-   "갈래": "birthday",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/stem/jeong",
-   "갈래": "saju",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/room/pig",
-   "갈래": "community",
+   "주소": "https://www.kculturewire.com/year/2022",
+   "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-21T15:34:19Z"
+   "마지막크롤": "2026-08-22T22:12:43Z"
   },
   {
-   "주소": "https://www.kculturewire.com/market/brazil",
-   "갈래": "market",
+   "주소": "https://www.kculturewire.com/year/2021",
+   "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-09T19:20:10Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/market/guatemala",
-   "갈래": "market",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-14T10:33:17Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/market/maldives",
-   "갈래": "market",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-19T00:39:49Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/market/r-union",
-   "갈래": "market",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-13T12:04:45Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/market/united-states",
-   "갈래": "market",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-10T04:16:02Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/a-killer-paradox",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-11T07:52:45Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/amazon-bullseye",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/believer",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-21T14:14:59Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/bulgasal-immortal-souls",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-16T09:29:18Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/commitment",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/divorce-attorney-shin",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/family-business",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-09T10:04:20Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/gossip-girl",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/hospital-playlist",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/jo-pil-ho-the-dawning-rage",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-20T10:36:30Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/love-and-leashes",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/midnight-runners",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-09T11:33:38Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/moving-on",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/my-royal-nemesis",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-19T10:40:45Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/once-upon-a-small-town",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-13T12:29:16Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/phantom-lawyer",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/recalled",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/sell-your-haunted-house",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-09T08:28:42Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/spy",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/the-assassin",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/the-fabulous",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/the-matchmakers",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/the-silent-sea",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-10T04:02:46Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/the-witch",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-09T03:27:45Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/unstoppable",
-   "갈래": "title",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/whispering-corridors-6-the-humming",
-   "갈래": "title",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-16T13:08:53Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/article/bts-babymonster-four-lists",
-   "갈래": "article",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-21T20:41:43Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/article/jay-b-is-a-thai-star",
-   "갈래": "article",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-21T23:31:04Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/article/kpop-export-left-japan-behind",
-   "갈래": "article",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-21T17:49:11Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/article/reaching-number-one-is-mostly-length",
-   "갈래": "article",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T12:08:25Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/article/there-is-no-k-drama-season",
-   "갈래": "article",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-09T08:42:27Z"
+   "마지막크롤": "2026-08-22T21:58:04Z"
   }
  ]
 }
