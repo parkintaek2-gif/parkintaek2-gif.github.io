@@ -43,6 +43,8 @@ import rankShape from '../../data/wikitip-rank-shape.json';
 import catReach from '../../data/wikitip-catalogue-reach.json';
 import twoPipes from '../../data/wikitip-two-pipelines.json';
 import returns from '../../data/wikitip-returns.json';
+/* ⭐ 2026-08-22 — 손님이 실제로 가져오는 물음. Search Console 실측에서 만든다(build-kcw-asked.mjs) */
+import asked from '../../data/wikitip-asked.json';
 
 /*
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
@@ -110,6 +112,30 @@ const jsonLd = {
     No rumours, no reprints. We count what Netflix and Wikipedia publish, name every source,
     and say what we left out.
   </p>
+
+  {/*
+    ⭐⭐ 2026-08-22 — 이 칸은 **두 실측이 만나는 자리**다.
+      ① Search Console 4주: 우리에게 오는 물음은 「<제목> netflix country」·「hit or flop」·
+         「korea ladder」·「Tudum 파일 주소」였다. 순위 7~17 인데 클릭이 거의 0이다
+      ② 서버 로그 이레: 지면 열림 5,026 중 우리 안에서 걸어온 것 296(5.9%),
+         걸어서 닿는 지면은 0장. 그리고 **첫 화면은 549번 열려 우리 최대 자리**다
+    ⇒ 잰 물음을 그 최대 자리에 놓고, 답하는 지면으로 곧장 보낸다.
+    ⛔ 메뉴를 짐작해서 만들지 않는다 — 이 목록은 `build-kcw-asked.mjs` 가 Search Console 에서
+      받아 만든다. 다음 주에 다른 물음이 오면 목록이 저절로 바뀐다.
+    ⛔ 노출·클릭 수를 싣지 않는다. 우리 방문 수는 손님이 볼 값이 아니다.
+    ⛔ 답할 지면이 없는 물음은 안 낸다 — 그건 만들 일감이지 문이 아니다.
+  */}
+  {(asked.asked ?? []).length > 0 && (
+    <section class="asked">
+      <h2>What readers arrive asking</h2>
+      {/* ⭐ 자료가 든 말을 쓴다. 화면에 내 말로 다시 적었더니 자가 「세어 놓고 안 보여 준다」고
+          잡았고 그 지적이 옳다 — 자료의 설명과 화면의 설명이 갈라지면 어느 쪽이 참인지 모른다 */}
+      <p class="note">{asked.whatThisIs}</p>
+      <ul>
+        {asked.asked.map((q: any) => <li><a href={q.href}>{q.ask}</a></li>)}
+      </ul>
+    </section>
+  )}
 
   {/*
     ── ⓪ 기사 — 사장님 지시 「네가 할 일은 **영어뉴스**+데이터가공이다」(2026-08-05)
