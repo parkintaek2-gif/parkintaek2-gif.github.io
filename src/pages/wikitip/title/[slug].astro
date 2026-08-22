@@ -46,6 +46,14 @@ export function getStaticPaths() {
 
 const { t } = Astro.props;
 const 중 = data.medians;
+
+/* ⭐ 2026-08-22 — 「hit or flop」을 묻는 손님에게 **자리**를 알려 주려면 분모가 필요하다.
+   ⛔ 지면마다 다시 세지 않는다 — 이 줄은 모듈이 한 번 읽힐 때 한 번 돈다(528장이 같이 쓴다).
+   ⚠ 지면이 나는 제목만 센다. 얇아서 지면을 안 낸 것을 분모에 넣으면 우리가 안 보여 준 것으로 자리를 매긴다 */
+const 지면나는것 = data.titles.filter((x: any) => x.hasPage);
+const 지면수 = 지면나는것.length;
+const 더넓게 = 지면나는것.filter((x: any) => x.markets > t.markets).length;
+const 덜넓게 = 지면나는것.filter((x: any) => x.markets < t.markets).length;
 const 갈래 = t.type === 'Films' ? 'film' : 'series';
 
 /**
@@ -60,10 +68,18 @@ const 셈 = (n: number, 하나: string, 여럿 = `${하나}s`) => (n === 1 ? 하
 const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
 
 const TITLE = `${t.title} — every country it charted in`;
+/**
+ * ⭐ 2026-08-22 — 설명에 **손님이 치는 말**을 넣는다. Search Console 실측에서 우리에게 오는
+ *   물음은 두 꼴이었다 — 「<제목> netflix country」와 「<제목> hit or flop」.
+ *   앞엣것은 답하고 있었고, 뒤엣것은 지면에도 설명에도 없었다(순위 7~10 · 클릭 0).
+ * ⛔ 「hit 이다」라고 쓰지 않는다. **그 물음에 우리가 무엇을 줄 수 있는지**를 적는다 —
+ *   그것이 답이 아닌 척하지 않으면서 그 검색을 받는 유일한 정직한 길이다.
+ */
 const DESC =
   `${t.title} took ${t.places.toLocaleString('en-US')} Netflix top 10 places across ${t.markets} of `
   + `${data.marketCount} markets between ${t.firstWeek} and ${t.lastWeek}, peaking at number ${t.peak}. `
-  + `Counted week by week from Netflix's own country lists.`;
+  + `Hit or flop is not something a chart file can answer — here is where it sits among `
+  + `${지면수} Korean titles instead, counted week by week from Netflix's own country lists.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -96,6 +112,39 @@ const jsonLd = {
       page. Whatever charted under that spelling is not counted here.
     </p>
   )}
+
+  {/*
+    ⭐ 2026-08-22 — **손님이 실제로 치는 말**로 칸 하나를 세운다. Search Console 실측:
+      「a model family hit or flop」·「confidential assignment 2 international hit or flop」·
+      「delightfully deceitful hit or flop」 — 순위 7~10 인데 클릭 0.
+      우리 지면은 「every country it charted in」이라 그 물음에 **답을 안 하고** 있었다.
+    ⛔ 그렇다고 「hit 이다/flop 이다」라고 쓰지 않는다. 우리에겐 그럴 자격도 자료도 없다.
+    ⭐ 우리 방식으로 답한다 — **판정을 거절하고, 어디에 앉아 있는지를 보여 준다.**
+      모토: 「우리가 바늘을 세우지 않는다. 지형을 그려 놓고 바늘은 보는 사람이 세운다.」
+    ⚠ 순위표를 만들지 않는다. 「몇 편이 더 넓게 갔나」는 자리를 알려 주는 수이고
+      제목을 줄세운 표가 아니다.
+  */}
+  <section class="warn-box">
+    <h2>Was it a hit or a flop?</h2>
+    <p class="warn">
+      We will not say, and neither can the chart. Netflix's country lists record that a title held a
+      top-ten place in a country in a week. They do not record how many people watched it, what it
+      cost, or what anyone expected of it — and those are the three things the words hit and flop are
+      actually about.
+    </p>
+    <p>
+      What we can tell you is where it sits. Of the {지면수} Korean titles with a page here,
+      {' '}<b>{더넓게}</b> reached more markets than {t.title} and <b>{덜넓게}</b> reached fewer.
+      {t.markets >= 중.markets
+        ? ` It travelled further than the typical Korean title that charted at all, which reached ${중.markets}.`
+        : ` The typical Korean title that charted at all reached ${중.markets} markets, so this one stayed narrower.`}
+    </p>
+    <p class="note">
+      That is a position, not a verdict. A title can hold a hundred chart places in small markets and
+      a title can hold four in the largest ones; the file does not say which of those a person means
+      by success. You have the shape — the judgement is yours.
+    </p>
+  </section>
 
   <section>
     <h2>Beside the median charting Korean title</h2>
