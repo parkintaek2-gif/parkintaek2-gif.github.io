@@ -1,0 +1,107 @@
+---
+/**
+ * /100y/retire-income — 나이대별 가구 소득, 은퇴 후 소득은 얼마나 줄어드나
+ *
+ * 🔴 「0~100세 × 다섯 분야」 기획서(2026-08-22) 1단계 로드맵 4번째 — 경제(노후) 첫 지면.
+ *   scripts/collect-100y-retire-income.mjs 참고.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/retire-income.json';
+
+const 자료 = 원본 as any;
+const 나이별 = 자료.나이별 as any[];
+const 소득낙차 = 자료['⭐ 소득이 가장 크게 떨어지는 구간'];
+const 자산낙차 = 자료['⭐ 자산이 떨어지는 구간(비교용)'];
+const 만원 = (n: number) => n.toLocaleString();
+
+const desc =
+  `${자료.최신}년 기준 가구 소득은 ${소득낙차.전칸}에서 ${소득낙차.후칸}으로 넘어갈 때 ${소득낙차.변화율}% 줄어 가장 크게 떨어지지만, ` +
+  `같은 구간 자산은 ${자산낙차.변화율}%만 줄어듭니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 가구 경상소득', '나이대별 가구 자산·부채'],
+};
+---
+
+<HundredYear title={`나이대별 가구 소득 — ${소득낙차.전칸}→${소득낙차.후칸} ${소득낙차.변화율}%`} description={desc} jsonLd={jsonLd}>
+  <h1>은퇴 후 소득은<br />얼마나 줄어들까요</h1>
+  <p class="sub">
+    {자료.최신}년 기준, 가구 소득은 <strong>{소득낙차.전칸}에서 {소득낙차.후칸}으로 넘어갈 때
+    {소득낙차.변화율}%</strong> 줄어 어느 나이 구간 전환보다 크게 떨어집니다.
+  </p>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>경상소득</th><th>처분가능소득</th><th>자산</th><th>부채</th><th>순자산</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{만원(r.경상소득)}만원</strong></td>
+            <td>{만원(r.처분가능소득)}만원</td>
+            <td>{만원(r.자산)}만원</td>
+            <td>{만원(r.부채)}만원</td>
+            <td>{만원(r.순자산)}만원</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⭐ 소득은 절벽처럼 줄지만 자산은 그렇지 않습니다</h2>
+  <p class="note">
+    {소득낙차.전칸} 가구 평균 경상소득 {만원(나이별.find((r) => r.칸 === 소득낙차.전칸).경상소득)}만원이
+    {소득낙차.후칸}에서 {만원(나이별.find((r) => r.칸 === 소득낙차.후칸).경상소득)}만원으로
+    <strong>{소득낙차.변화율}%</strong> 떨어집니다. 그런데 같은 두 구간의 자산은
+    {만원(나이별.find((r) => r.칸 === 소득낙차.전칸).자산)}만원에서
+    {만원(나이별.find((r) => r.칸 === 소득낙차.후칸).자산)}만원으로
+    <strong>{자산낙차.변화율}%</strong>만 줄어듭니다 — 소득은 급격히 줄어도 자산(주로 부동산)은
+    상대적으로 유지되는 모습입니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    처분가능소득(세금·이자 등을 뺀 뒤)은 경상소득(세전)을 넘어설 수 없어야 합니다 —
+    <strong>{자료.자가대조['처분가능소득 ≤ 경상소득'].맞나 ? '전부 맞습니다' : `어긋난 칸 ${자료.자가대조['처분가능소득 ≤ 경상소득'].어긋난칸수}개`}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 노후를 어떻게 준비해야 한다고
+    쓰지 않습니다 — {자료.최신}년에 나이대별 가구주 평균이 얼마였는지가 저희가 셀 수 있는
+    전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/lifelong">← 성인은 몇 %가 계속 배우고 있을까, 나이 들수록 한 번도 안 꺾이고 내려간다</a>
+    <br />
+    <a href="/oneperson">← 1인가구는 어느 나이대에 가장 많을까, 짐작과 달랐다</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「은퇴 앞둔·은퇴한 사람」 방</a>
+  </p>
+
+  <HundredCardnews 벌="은퇴후소득" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <NextQuestionBrief 모은것="나이대별 가구 소득·자산 자료" />
+</HundredYear>
