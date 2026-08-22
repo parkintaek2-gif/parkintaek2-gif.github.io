@@ -81,7 +81,11 @@ export function 둘레(글, 말, 폭 = 34) {
 export function 지면들(방) {
   const 낸다 = [];
   const 훑기 = (곳) => {
-    for (const f of fs.readdirSync(곳, { withFileTypes: true })) {
+    /* ⚠ 다른 세션이 빌드 중이면 이 갈래가 훑는 순간 사라질 수 있다 — 그러면 «없다»가 아니라
+       **이번 판에서 못 훑었다**로 조용히 건너뛴다(check-100y-banned-words.mjs 참고 사례) */
+    let 목록;
+    try { 목록 = fs.readdirSync(곳, { withFileTypes: true }); } catch { return; }
+    for (const f of 목록) {
       const p = path.join(곳, f.name);
       if (f.isDirectory()) 훑기(p);
       else if (f.name.endsWith('.html')) 낸다.push(p);
@@ -101,6 +105,7 @@ if (process.argv.includes('--selftest')) {
   본다('⑥ 낱말마다 까닭이 적혀 있다 — 까닭 없는 금지어를 늘리지 않는다',
     금지말.every((w) => w.까닭 && w.자 instanceof RegExp));
   본다('④ 둘레를 보여 준다', 둘레('앞 이것은 등수가 아닙니다 뒤', '등수').includes('등수'));
+  본다('⑦ 🔴 없는 갈래를 훑어도 안 죽는다(동시 빌드 방어)', 지면들(path.join(뿌리, '없는-갈래-xyz')).length === 0);
   process.exit();
 }
 
@@ -114,8 +119,14 @@ const 자세히 = process.argv.includes('--자세히');
 const 지면 = 지면들(방);
 const 이제 = {};
 const 글모음 = {};
+let 못읽은것 = 0;
 for (const p of 지면) {
-  const 글 = 민글(fs.readFileSync(p, 'utf8'));
+  /* ⚠ 다른 세션이 같은 dist 를 동시에 빌드하면, astro 가 지우고 다시 쓰는 그 짧은 순간에
+     여기서 목록엔 있었는데 읽으려는 순간 파일이 없을 수 있다(2026-08-22 실제로 겪음).
+     그 지면이 "죽었다"가 아니라 **이번 판에서 못 읽었다**로 조용히 건너뛴다 */
+  let 원문;
+  try { 원문 = fs.readFileSync(p, 'utf8'); } catch { 못읽은것++; continue; }
+  const 글 = 민글(원문);
   /* ⚠ 윈도는 길을 역슬래시로 준다. 대장은 빗금으로 적어 두어 맞춰 준다.
      정규식을 셸로 옮기면 역슬래시가 먹혀 오늘만 두 번 죽었다 — 셈 없이 나눠 잇는다 */
   const 이름 = path.relative(방, p).split(path.sep).join('/');
@@ -149,6 +160,7 @@ for (const [이름, 든것] of Object.entries(이제)) {
 }
 
 console.log(`  지면 ${지면.length}장 · 낱말 ${금지말.length}개 · 기준선 ${대장.만든날}`);
+if (못읽은것) console.log(`  ⬜ 동시 빌드로 못 읽은 지면 ${못읽은것}개 — 이번 판에서 못 쟀다(잘못이 아니다)`);
 console.log(`  🔴 새로 생긴 지면 ${새로.length}장\n`);
 for (const r of 새로.slice(0, 자세히 ? 999 : 20)) {
   for (const 말 of r.늘어난) {

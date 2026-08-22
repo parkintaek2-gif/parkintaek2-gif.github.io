@@ -81,7 +81,13 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-content-ev
     } catch { /* 못 부르면 대장 글만 본다 */ }
 
     const 대장글 = [영상.이름, 영상.한줄].filter(Boolean).join(' ');
-    const 지면글 = 민들기(fs.readFileSync(path.join(뿌리, 지면), 'utf8'));
+    /* ⚠ 다른 세션이 동시에 빌드하면 지면파일()이 있다고 본 순간과 여기서 읽는 순간 사이에
+       astro 가 dist 를 비웠다 다시 쓸 수 있다(2026-08-22 실제로 겪음) — 그러면 «못 댄다»가
+       아니라 **못 쟀다**로 적는다 */
+    let 지면원문;
+    try { 지면원문 = fs.readFileSync(path.join(뿌리, 지면), 'utf8'); }
+    catch { 못잼++; 줄.push(['⬜', `영상 ${영상.슬러그}`, `동시 빌드로 지면을 못 읽었다(${영상.댈지면}) — 못 쟀다`]); continue; }
+    const 지면글 = 민들기(지면원문);
     const 못댐 = 볼수들(대장글, 칸들).filter((s) => !지면에있나(지면글, s));
     if (못댐.length) 빨강++;
     줄.push([못댐.length ? '🔴' : '✅', `영상 ${영상.슬러그}`,
@@ -91,7 +97,7 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-content-ev
   /* ── ② 카드뉴스 ── «.근거.json» 이 있나, 그 안의 수가 지면에 있나 ── */
   const 카드방 = path.join(뿌리, 'public/100y/cardnews');
   const 벌 = new Map();
-  for (const f of fs.readdirSync(카드방)) {
+  for (const f of fs.readdirSync(카드방)) { // ⚠ public/ 은 dist 처럼 통째로 지워지지 않으니 여기는 안전하다
     const m = f.match(/^(.+?)-\d+\.png$/);
     if (m) 벌.set(m[1], (벌.get(m[1]) || 0) + 1);
   }
@@ -122,7 +128,11 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'check-100y-content-ev
     for (const r of 근거) {
       const 지면 = 지면파일(r.지면);
       if (!지면) { 못본지면.push(r.지면); continue; }
-      const 지면글 = 민들기(fs.readFileSync(path.join(뿌리, 지면), 'utf8'));
+      /* ⚠ 여기도 동시 빌드 경합이 있을 수 있다 — 위 영상 쪽과 같은 방어 */
+      let 지면원문;
+      try { 지면원문 = fs.readFileSync(path.join(뿌리, 지면), 'utf8'); }
+      catch { 못본지면.push(r.지면); continue; }
+      const 지면글 = 민들기(지면원문);
       if (!지면에있나(지면글, r.수)) 나쁜.push(`${r.수}(${r.뜻})`);
     }
     if (!나쁜.length && 못본지면.length) {
