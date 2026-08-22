@@ -11,7 +11,7 @@
  ],
  "daysMissing": [],
  "whatThisIs": "Pages opened on kculturewire.com over the days listed, split by whether the visitor arrived from somewhere else on this site or from outside it. Counted on our own server, bots removed.",
- "whatThisIsNot": "Not a session count and not a bounce rate. We keep no cookie, no IP and no session, so we cannot tell how many pages one person saw, or which page they came from — only whether the previous page was ours.",
+ "whatThisIsNot": "Not a session count and not a bounce rate. We keep no cookie, no IP and no session, so we cannot tell how many pages one person saw, or which page they came from — only whether the previous page was ours. It is also a floor rather than a total: the counter lives in memory and is written out every ten minutes, so every deploy discards up to ten minutes of it.",
  "views": 5026,
  "fromInside": 296,
  "pagesOpened": 840,

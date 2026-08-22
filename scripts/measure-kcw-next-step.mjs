@@ -22,6 +22,13 @@
  *   그러니 이 자는 「이탈률」을 말하지 않는다. **말할 수 있는 말만 한다.**
  * ⚠ 봇은 뺀다. 봇을 넣으면 크롤러가 많이 온 지면이 「인기 지면」이 된다.
  *
+ * ⚠⚠ 2026-08-22 실측으로 알아낸 한계 — **배포하면 세던 것이 사라진다.**
+ *   서버는 메모리에 세고 10분마다 R2 로 흘려 쓴다(`src/lib/traffic.mjs` FLUSH_MS).
+ *   배포는 컨테이너를 새로 띄우므로, 아직 안 흘린 **최대 10분치가 그대로 없어진다.**
+ *   내가 딱지를 붙여 놓고 확인하려 했을 때 실제로 그렇게 사라졌다.
+ *   ⇒ 그래서 이 자가 내는 수는 **바닥값**이다. 배포가 잦은 날은 더 낮게 나온다.
+ *   ⛔ 「손님이 이만큼 걸었다」고 딱 잘라 말하지 않는다 — 「적어도 이만큼」이다.
+ *
  * 쓰는 법  node scripts/measure-kcw-next-step.mjs --자가시험
  *          node scripts/measure-kcw-next-step.mjs --잰다 [--날수=7] [--쓴다]
  */
@@ -244,7 +251,7 @@ if (process.argv.includes('--쓴다')) {
     daysRead: 읽은날,
     daysMissing: 못읽은날,
     whatThisIs: 'Pages opened on kculturewire.com over the days listed, split by whether the visitor arrived from somewhere else on this site or from outside it. Counted on our own server, bots removed.',
-    whatThisIsNot: 'Not a session count and not a bounce rate. We keep no cookie, no IP and no session, so we cannot tell how many pages one person saw, or which page they came from — only whether the previous page was ours.',
+    whatThisIsNot: 'Not a session count and not a bounce rate. We keep no cookie, no IP and no session, so we cannot tell how many pages one person saw, or which page they came from — only whether the previous page was ours. It is also a floor rather than a total: the counter lives in memory and is written out every ten minutes, so every deploy discards up to ten minutes of it.',
     views: 총열림,
     fromInside: 총안쪽,
     pagesOpened: 열린지면,
