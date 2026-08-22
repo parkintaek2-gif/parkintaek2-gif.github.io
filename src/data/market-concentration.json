@@ -1,0 +1,61 @@
+{
+ "asOf": "20260821",
+ "stocks": 2764,
+ "top1": 26.7,
+ "top5": 54,
+ "top10": 59.9,
+ "top30": 72.4,
+ "top100": 86,
+ "stocksForHalf": 4,
+ "stocksFor80": 57,
+ "kospi": {
+  "n": 942,
+  "sharePct": 92.8
+ },
+ "kosdaq": {
+  "n": 1822,
+  "sharePct": 7.2
+ },
+ "top10list": [
+  {
+   "en": "Samsung Electronics",
+   "share": 26.7
+  },
+  {
+   "en": "SK hynix",
+   "share": 20.5
+  },
+  {
+   "en": "Samsung Elec. (pref)",
+   "share": 2.7
+  },
+  {
+   "en": "SK Square",
+   "share": 2.4
+  },
+  {
+   "en": "Samsung Electro-Mech.",
+   "share": 1.6
+  },
+  {
+   "en": "Hyundai Motor",
+   "share": 1.4
+  },
+  {
+   "en": "LG Energy Solution",
+   "share": 1.3
+  },
+  {
+   "en": "Samsung Biologics",
+   "share": 1.2
+  },
+  {
+   "en": "Samsung Life",
+   "share": 1.1
+  },
+  {
+   "en": "Samsung C&T",
+   "share": 1
+  }
+ ]
+}
