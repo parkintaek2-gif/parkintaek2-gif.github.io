@@ -152,6 +152,14 @@ const 검사 = [
        말하게** 하고 그것을 자가 지킨다. 실제로 「counted every day」·「Daily snapshot」이
        열엿새째 거짓으로 나가 있었다 */
   ['낡은 수를 지금 수인 척 내놓고 있나', 'check-kcw-stale-stamp.mjs'],
+  /**
+   * ⛔ `check-kcw-indexed.mjs` 는 여기에 **일부러 안 넣는다.**
+   *   구글 URL Inspection API 는 하루 2,000건 한도이고 한 번 돌 때 표본 61건을 쓴다.
+   *   이 묶음은 하루에 여러 번 도니까 물리면 **한도를 태우고 다른 자리도 못 재게 된다.**
+   *   그리고 한 번에 1~2분이 걸려 묶음 전체가 느려진다.
+   *   ⭐ 그래서 따로 부른다 — `node scripts/check-kcw-indexed.mjs --잰다 --n=60 --쓴다` (하루 한 번).
+   *   ⚠ 안 물린 까닭은 `check-tests-wired.mjs` 의 «봐준다» 에도 적어 두었다.
+   */
 ];
 
 /**
