@@ -1,0 +1,133 @@
+---
+/*
+ * Korea Concentration Index — 무료 지면(미끼·나침반) + 유료 피드로 가는 깔때기.
+ *   (seoulmarkets.com/data/concentration)
+ *
+ * 왜 (사장님 2026-08-22): 「주가로 남들이 생각도 못할 것 + 관세청 엮어라 / 저가로 팔지 마라」
+ *   주가(KRX)×무역(관세청)을 «같은 잣대»(Gini·상위4)로 엮은 교차 — 단일피드 벤더가 못 만든다.
+ *   무료로 나침반(핵심 숫자·차트·CSV)을 열어 유입을 만들고, 파는 것은 전체 시계열·API(가치기반 高가격).
+ *
+ * 자료: src/data/concentration-cross.json(교차 스냅샷) · src/data/krx-daily-history.json(일일 지수).
+ *   ⚠ 전부 비율/Gini — 시세 스케일 무관·검증가능. 절대 시세는 안 낸다.
+ *   ⛔ 값(유료가)은 화면에 안 박는다 — 사장님 확정 대기. 살 뜻만 센다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import cross from '../../data/concentration-cross.json';
+import hist from '../../data/krx-daily-history.json';
+
+const TITLE = 'Korea Concentration Index';
+const DESC =
+  'How concentrated Korea really is — its stock market and its trade, measured with one lens (Gini and '
+  + 'top-four share). Whatever you measure, the top four are about half, and every Gini clears 0.9. '
+  + 'A cross of KRX and Korea Customs data no single-feed vendor builds. Not investment advice.';
+
+const dims = (cross as any).dims as Array<{ key: string; units: string; gini: number; top4: number; top10: number; half: number }>;
+const stockAsOf = (cross as any).stockAsOf as string;
+const tradeMonth = (cross as any).tradeMonth as string;
+const days = ((hist as any).days || []).length;
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korea Concentration Index',
+  description: DESC, url: `${SITE_URL}/data/concentration`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['market-cap Gini', 'trading-value Gini', 'export-partner Gini', 'import-partner Gini', 'top-four share'],
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE_URL}/data/korea-concentration.csv` }],
+};
+const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : s);
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>Korea Concentration Index</h1>
+      <p class="sample">Stocks as of {fmtDd(stockAsOf)} · trade {tradeMonth} · updated every trading day</p>
+      <p class="lead">
+        Rank Korea's listed stocks by value or by trading, or rank its trading partners by exports or
+        imports. Each time, the four largest are <b>about half of the total</b> — and every concentration
+        Gini clears <b>0.9</b>, past any nation's income gap. It is one of the most top-heavy major
+        economies on earth, whether you weigh it by its market or by its trade. This is the compass,
+        free. The full daily history and API are what we licence.
+      </p>
+
+      <table class="tbl">
+        <thead>
+          <tr><th>Measured by</th><th>Across</th><th class="n">Top 4 share</th><th class="n">Half at</th><th class="n">Gini</th></tr>
+        </thead>
+        <tbody>
+          {dims.map((d) => (
+            <tr>
+              <td class="k">{d.key}</td>
+              <td class="u">{d.units}</td>
+              <td class="n"><b>{d.top4}%</b></td>
+              <td class="n">{d.half}</td>
+              <td class="n g">{d.gini}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <figure class="fig">
+        <img src="/charts/concentration-top4.svg" alt="The top four are about half of Korea's market cap, stock trading, exports and imports alike." loading="lazy" />
+      </figure>
+      <figure class="fig">
+        <img src="/charts/concentration-gini.svg" alt="Gini concentration of Korea's market and trade, all above 0.9, versus income Gini reference lines." loading="lazy" />
+      </figure>
+
+      <div class="get">
+        <a class="dl" href="/data/korea-concentration.csv" download>Download the daily index (CSV) →</a>
+        <p class="note">
+          {days > 0 ? `${days} trading day${days > 1 ? 's' : ''} so far` : 'seeding'} — the series grows every
+          trading day. Full multi-year history, per-sector breakdowns and a queryable API are licensed;
+          <a href="/contact">ask us</a> for access.
+        </p>
+      </div>
+
+      <p class="read">
+        The full write-up:
+        <a href="/article/korea-everything-comes-down-to-four">Measure Korea any way you like — the top four are half of it</a>.
+      </p>
+
+      <p class="fine">
+        Built from Korea Exchange OPEN API (KOSPI + KOSDAQ daily) and Korea Customs Service partner-country
+        trade via KOSIS. Every figure is a <b>share or a Gini</b> — scale-invariant, so it does not depend
+        on the price or dollar levels in the raw feeds; absolute prices are not published. The Gini here
+        measures concentration across issues or partner countries — the income-Gini comparison is an
+        intuition anchor, not an identical calculation. Not investment advice. See our
+        <a href="/terms">terms</a>.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -.02em; }
+  .sample { font-size: .84rem; color: var(--muted); margin: 0 0 1rem; }
+  .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.6rem; }
+  .lead b, .fine b { font-weight: 650; }
+
+  .tbl { width: 100%; border-collapse: collapse; margin: 0 0 1.8rem; font-size: .94rem; }
+  .tbl th, .tbl td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--line); }
+  .tbl th.n, .tbl td.n { text-align: right; }
+  .tbl thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .tbl .k { font-weight: 650; }
+  .tbl .u { color: var(--muted); font-size: .86rem; }
+  .tbl .g { color: #b45309; font-weight: 650; }
+
+  .fig { margin: 1.2rem 0; }
+  .fig img { width: 100%; height: auto; max-width: 100%; border: 1px solid var(--line); border-radius: 8px; }
+
+  .get { border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.3rem; background: var(--card); margin: 1.8rem 0; }
+  .dl { font-size: 1rem; font-weight: 700; color: var(--accent); text-decoration: none; border-bottom: 2px solid currentColor; padding-bottom: 1px; }
+  .dl:hover { color: var(--ink); }
+  .get .note { font-size: .86rem; color: var(--muted); line-height: 1.6; margin: .8rem 0 0; }
+
+  .read { font-size: .95rem; margin: 1.4rem 0; }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 2rem 0 1rem;
+          padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>
