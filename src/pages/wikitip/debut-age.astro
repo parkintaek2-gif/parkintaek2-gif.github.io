@@ -20,6 +20,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-debut-age.json';
 
 const 위 = d.bands[0];
@@ -150,6 +151,11 @@ const jsonLd = {
   </section>
 
   <KcwCardnews set="debut" count={5} />
+
+  <KcwShorts set="debut"
+    says={`Fourteen seconds: IU started at 15 and Ma Dong-seok at 32, the ladder of median `
+      + `reads by debut age, and the objection that they simply had longer — tested against `
+      + `career length.`} />
 
   <KcwRelatedArticles page="/debut-age" />
 </WikiTip>
