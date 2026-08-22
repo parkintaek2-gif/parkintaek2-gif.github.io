@@ -210,6 +210,39 @@ const jsonLd = {
       + `one country, and how much of a manager's does — and name the countries that hired them.`} />
 
   <KcwRelatedArticles page="/sea-athletes" />
+  {/* 🔴 2026-08-22 — 두 중앙값의 «흔들림 검사»를 돌려 놓고 결과를 손님에게 안 보여 주고 있었다.
+      ⭐ 그리고 이 검사의 한계까지 같이 적는다 — 잭나이프는 중앙값의 변동을 «작게» 본다.
+        찾아낸 흔들림은 참이지만, 못 찾은 것은 안정의 증거가 아니다(2026-08-15 정정에서 배운 것) */}
+  <section class="src">
+    <h2>What happens if we remove one person</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Group</th><th>People</th><th>Median</th><th>Lowest without one</th><th>Highest without one</th><th>Swing</th></tr></thead>
+        <tbody>
+          {[['Players', d.stabilityPlayers], ['Managers', d.stabilityManagers]].map(([이름, s]: any) => (
+            <tr>
+              <td class="nm">{이름}</td>
+              <td>{s.n}</td>
+              <td>{s.median}%</td>
+              <td>{s.lowestWithoutOne}%</td>
+              <td>{s.highestWithoutOne}%</td>
+              <td>{s.swing} pt</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Removing any single person moves the players' median by{' '}
+      {d.stabilityPlayers.swing} points and the managers' by {d.stabilityManagers.swing}. The gap
+      between the two groups, which is the finding, survives both.
+    </p>
+    <p class="warn">
+      This check is a jackknife, and a jackknife understates how much a median moves — it is not
+      consistent for a median at all. So a swing it finds is real, but a swing it does not find is
+      not evidence of stability. We publish it as the weaker statement it is.
+    </p>
+  </section>
 </WikiTip>
 
 <style>

@@ -853,6 +853,10 @@ export const GET: APIRoute = async () => {
        ⭐ 방마다 그 띠 스타의 **이름이 전부** 있다(가장 큰 개띠 103명).
        ⛔ 글쓰기·로그인은 없다 — 읽는 자리까지다. 눌러도 안 되는 단추가 오늘의 병이었다.
        ⛔ 방 목록을 손으로 안 적는다. 자료가 정한 띠 그대로다 */
+    /* 🔴 2026-08-22 — 방 열둘은 여기 있는데 **그 방들의 현관(`/community`)이 빠져 있었다.**
+       `check-search-readiness` 가 「빌드됐는데 사이트맵에 없는 것 1장」으로 잡았다.
+       ⭐ 방을 다 적고 현관을 빼면, 검색은 방을 서로 무관한 열두 장으로 본다 */
+    { path: '/community', priority: '0.8', changefreq: 'weekly' },
     { path: '/room/rat', priority: '0.7', changefreq: 'monthly' },
     { path: '/room/ox', priority: '0.7', changefreq: 'monthly' },
     { path: '/room/tiger', priority: '0.7', changefreq: 'monthly' },

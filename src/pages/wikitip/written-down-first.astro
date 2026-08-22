@@ -195,6 +195,33 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/written-down-first" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — 순서 자료(places)를 세어 두고 안 보여 주고 있었다.
+      ⭐ 「한 판이 한 번도 꼴찌가 아니었다」는 이 지면의 요점인데 화면에 없었다 */}
+  <section class="src">
+    <h2>The order, edition by edition</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Edition</th><th>Median place</th><th>Times last</th></tr></thead>
+        <tbody>
+          {Object.keys(d.places.medianPlace).map((k) => (
+            <tr>
+              <td class="nm">{String(k).toUpperCase()}</td>
+              <td>{d.places.medianPlace[k]}</td>
+              <td>{d.places.lastCount[k]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      {d.places.neverLast.length > 0 && (
+        <span><b>{d.places.neverLast.map((x: string) => String(x).toUpperCase()).join(', ')} was never last.</b>{' '}</span>
+      )}
+      The commonest order was {d.places.commonestOrder[0]}, which happened {d.places.commonestOrder[1]} times
+      out of {d.places.distinctOrders} distinct orders seen. One order being commonest is not the same
+      as it being the rule, so we give the count beside it.
+    </p>
+  </section>
 </WikiTip>
 
 <style>

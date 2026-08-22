@@ -97,6 +97,16 @@ if (process.argv[1] && process.argv[1].endsWith('check-eight-ways-article.mjs'))
 
   /* ── ④ 🔴 자가 없는 것 — 이 검사의 핵심 ── */
   {
+    /**
+     * 🔴🔴 2026-08-22 — 원인 하나(`selector-not-location`)가 기록표(`guards`)에 **칸이 아예 없었다.**
+     *   그래서 「자가 없는 것」을 셀 때 목록에 **안 들어왔고**, 자가 없는데도 「다 막았다」쪽
+     *   가지로 넘어갔다. 없는 것을 세려면 **칸이 있어야 세어진다.**
+     *   ⭐ 조용히 빠지는 길을 먼저 막는다 — 원인마다 칸이 있는지부터 본다.
+     */
+    const 칸없는원인 = Object.keys(c.causes ?? {}).filter((k) => !(k in (c.guards ?? {})));
+    본다('원인마다 기록표에 칸이 있나', 칸없는원인.length === 0,
+      칸없는원인.length ? `칸이 없다: ${칸없는원인.join(', ')}` : '다 있다');
+
     const 있는것 = Object.values(c.guards).filter(Boolean);
     const 없는것 = Object.entries(c.guards).filter(([, v]) => !v).map(([k]) => k);
     /*
@@ -112,11 +122,21 @@ if (process.argv[1] && process.argv[1].endsWith('check-eight-ways-article.mjs'))
       `all ${낱[원인수]} now`);
     if (없는것.length) {
       본다('자가 없다고 적은 수', 소문자.includes(`${낱[없는것.length]} do not`), `${없는것.length}가지`);
+      /**
+       * ⭐ 2026-08-22 — 원인 넷이 새로 들어왔다(8/15 정정 여섯 건을 읽어 이름 붙인 셋과,
+       *   기록표에 칸이 아예 없어 「자 없는 것」으로도 안 세어지던 selector-not-location).
+       *   ⛔ 목록에 적을 말이 안 정해진 원인은 이 자가 **말이 안 정해졌다**고 세운다.
+       *     그래야 원인을 새로 만들고 기사에 안 적는 길이 막힌다.
+       */
       const 짧은말 = {
         'attribution-contradiction': 'attribution query contradicting',
         'kosis-two-level': 'Two-level classification',
         'unmeasured-sentence': 'never measured',
         'pay-denominator': 'Denominators that quietly include',
+        'roster-widened': 'the set of titles a figure was measured over',
+        'definition-inconsistent': 'the same word computed two ways',
+        'window-too-short': 'a window short enough to make its own highest month',
+        'selector-not-location': 'a property that records who took part',
       };
       for (const k of 없는것) {
         본다(`  «${k}» 를 목록에 적었나`, !!짧은말[k] && 한줄.includes(짧은말[k]), 짧은말[k] ?? '말이 안 정해졌다');

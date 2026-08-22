@@ -165,6 +165,20 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/what-kind-fell" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — `droppedLastMonth`·`japanIsControl` 을 세어 두고 안 보여 주고 있었다.
+      앞은 «자료가 아직 안 찬 달을 우리가 버렸다»는 사실이고, 뒤는 «일본은 경쟁자가 아니라 대조군»이라는
+      읽는 법이다. 둘 다 없으면 손님은 이 표를 다르게 읽는다 */}
+  <section class="src">
+    <h2>Two things to know before reading the table</h2>
+    <p class="note">
+      <b>The last month is not in it.</b> {d.droppedLastMonth.month} came back at{' '}
+      {d.droppedLastMonth.value.toLocaleString('en-US')} against a running mean of{' '}
+      {Math.round(d.droppedLastMonth.previousMean).toLocaleString('en-US')} — a month that had not
+      finished filling when we read it. We dropped it rather than publishing a collapse that was an
+      artefact of when we asked.
+    </p>
+    <p class="note"><b>Japan is a control.</b> {d.japanIsControl}</p>
+  </section>
 </WikiTip>
 
 <style>

@@ -23,6 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 본문떼기, 본문에링크있나 } from './lib/kcw-body-links.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CD = path.join(뿌리, 'content/kculturewire');
@@ -34,19 +35,9 @@ export const pages읽기 = (원본) => {
   return [...m[1].matchAll(/-[^\S\r\n]+"?([^"\r\n]+?)"?[^\S\r\n]*\r?$/gm)].map((x) => x[1].trim());
 };
 
-export const 본문떼기 = (원본) => 원본.replace(/^---[\s\S]*?\r?\n---/, '');
-/**
- * 🔴🔴 2026-08-22 — 이 줄이 **`](/경로)` 만** 링크로 셌다. 그래서 전체 주소로 문을 걸어 둔 편을
- *   「문이 0개」로 보고 **같은 문을 하나 더 붙였다** — 그 줄이 붙은 11편 중 10편이 겹쳤다(실측).
- *   `[how many languages](https://www.kculturewire.com/how-many-languages)` 가 안 세어졌다.
- *   ⭐ 우리 집 주소로 건 링크도 문이다. 둘 다 센다 — 그래야 「다시 돌려도 같다」가 참이 된다.
- */
-export const 본문에링크있나 = (원본) => {
-  const 본문 = 본문떼기(원본);
-  const 상대 = [...본문.matchAll(/\]\((\/[^)]*)\)/g)].length;
-  const 절대 = [...본문.matchAll(/\]\(https?:\/\/(?:www\.)?kculturewire\.com(\/[^)]*)?\)/g)].length;
-  return 상대 + 절대 > 0;
-};
+/* ⭐ 2026-08-22 — 이 규칙이 여기와 check-visitor-walk 두 곳에 베껴져 있었고,
+   한쪽만 고쳐서 멀쩡한 기사 열 편이 거짓으로 울렸다. 이제 공용 자리 하나에 둔다 */
+export { 본문떼기, 본문에링크있나 } from './lib/kcw-body-links.mjs';
 
 /**
  * 낼 한 줄. 지면이 둘이면 둘 다 건다 — 하나만 걸면 나머지가 또 문 없는 지면이 된다.

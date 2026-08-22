@@ -20,6 +20,9 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+/* ⭐ 「본문에 문이 있나」의 무늬는 **한 곳에만** 둔다. 2026-08-22 에 그 규칙을 저쪽에서만
+   고쳐 이 자가 열 편을 거짓으로 울렸다(전체 주소로 건 문을 못 셌다). 가져다 쓴다 */
+import { 본문에링크있나 } from './lib/kcw-body-links.mjs';
 
 const D = 'dist/wikitip';
 /** ⛔ 빌드 format 이 `file` 이라 첫 화면은 `dist/wikitip/index.html` 이 아니라 **`dist/wikitip.html`** 이다.
@@ -176,10 +179,19 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   {
     const CD = 'content/kculturewire';
     if (fs.existsSync(CD)) {
+      /**
+       * 🔴🔴 2026-08-22 — 이 자가 기사 10편을 「본문에 문이 없다」고 불렀는데, 세 편을 열어 보니
+       *   **전부 전체 주소로 문이 있었다**(`](https://www.kculturewire.com/…)`).
+       *   같은 날 `fix-kcw-body-doors.mjs` 에서 똑같은 흠을 고치고 이렇게 적어 뒀다 —
+       *   「⭐ 우리 집 주소로 건 링크도 문이다. 둘 다 센다」. **그 고침이 이 자까지 안 따라왔다.**
+       *   ⭐ 회사 규칙 ⑤ — 하나를 고치면 인용한 곳까지 따라간다. 이번엔 자가 두 곳이었다.
+       *   ⛔ 그래서 무늬를 여기 또 적지 않고 **그 파일에서 가져다 쓴다.** 한 곳만 고치면 둘이 같이 산다.
+       * ⚠ CRLF 로 저장된 편이 섞여 있어 앞말 떼기도 그쪽 함수를 쓴다(`\n` 만 보면 한 편을 놓친다).
+       */
       const 없는 = [];
       for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
-        const 본문md = fs.readFileSync(path.join(CD, f), 'utf8').replace(/^---[\s\S]*?\n---\n/, '');
-        if (![...본문md.matchAll(/\]\((\/[^)]*)\)/g)].length) 없는.push(f.replace('.md', ''));
+        const 원본 = fs.readFileSync(path.join(CD, f), 'utf8');
+        if (!본문에링크있나(원본)) 없는.push(f.replace('.md', ''));
       }
       if (없는.length) {
         문제.push(`🔴 기사 ${없는.length}편의 **본문**에 나가는 길이 하나도 없다: ${없는.slice(0, 3).join(' · ')}${없는.length > 3 ? ` 외 ${없는.length - 3}편` : ''}`);

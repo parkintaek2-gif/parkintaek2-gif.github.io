@@ -122,4 +122,11 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/who-is-first" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — 명단이 무엇인지(panel)를 세어 두고 안 보여 주고 있었다.
+      누구를 넣고 누구를 뺐는지 모르면 이 표는 검증이 불가능하다 */}
+  <section class="src">
+    <h2>Who is in this panel</h2>
+    <p class="note">{d.panel}. That is the whole rule — nobody was added by hand for being famous, and
+      nobody was dropped for being unfamiliar.</p>
+  </section>
 </WikiTip>

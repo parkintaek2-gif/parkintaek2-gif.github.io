@@ -159,6 +159,16 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/who-reads-least" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — 분모(peopleLooked)와 «가장 자주 1위였던 판»(mostOftenFirst)을
+      세어 두고 안 보여 주고 있었다. 분모 없는 순위는 손님이 확인할 수 없다 */}
+  <section class="src">
+    <h2>How many we looked at</h2>
+    <p class="note">
+      {d.peopleLooked.toLocaleString('en-US')} people were looked up to build this page, not only the
+      ones listed. The edition that came first most often is {String(d.mostOftenFirst).toUpperCase()} —
+      worth knowing before reading any single row as a fact about a person rather than about an edition.
+    </p>
+  </section>
 </WikiTip>
 
 <style>

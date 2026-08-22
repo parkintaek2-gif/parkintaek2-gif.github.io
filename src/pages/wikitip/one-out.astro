@@ -172,4 +172,19 @@ const jsonLd = {
       + `was removed.`} />
 
   <KcwRelatedArticles page="/one-out" />
+  {/* 🔴 2026-08-22 — 이 지면의 결론(answer)을 세어 두고 안 보여 주고 있었다.
+      ⛔ 결론을 감추면 검사만 보이고 무엇을 배웠는지가 안 남는다 */}
+  <section class="src">
+    <h2>What the check actually answered</h2>
+    <p class="note">
+      <b>Could we have known beforehand?</b> {d.answer.couldWeHaveKnown ? 'Yes.' : 'No.'}
+      {' '}Of the two medians put through it, the one that held was the {d.answer.steadyOne} figure and
+      the one that moved was the {d.answer.shakyOne} figure.
+    </p>
+    <p class="warn">
+      A median that moves under this check is genuinely unstable. A median that does not move is not
+      thereby proven stable — this method understates how much a median varies. We publish the
+      asymmetry rather than the reassurance.
+    </p>
+  </section>
 </WikiTip>

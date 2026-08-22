@@ -31,6 +31,21 @@ export const 면제 = {
   'wikitip-debut-counts.json':
     '이 자료의 결론이 「추이로 쓰면 안 된다」다. 지면에 내면 그 표가 다시 남을 속인다. '
     + '지우지 않고 남긴 까닭은 다음 사람이 같은 질의를 하고 같은 착각을 하기 때문이다.',
+  /* ── 2026-08-22 에 늘어난 셋. 낱낱이 까닭을 적는다 ── */
+  'wikitip-next-step.json':
+    '**우리 손님이 우리 안에서 걷는지**를 우리 서버 로그로 잰 것이다(쿠키·IP 없이). '
+    + '이것은 지면에 낼 표가 아니라 **일을 정하는 자**다 — 「문을 더 낼 것인가 옮길 것인가」를 '
+    + '이 수로 정한다. 손님이 우리 지면에서 볼 것은 한국 대중문화의 수이고, 우리 주간 방문 수가 아니다. '
+    + '⛔ 「아직 지면을 안 만들었다」가 아니다. 낼 자리가 아니라고 정한 것이다.',
+  'wikitip-keyword-demand.json':
+    '무엇을 만들지 고를 때 쓰는 자다(자동완성에 그 말이 나오나 · 위키백과를 몇 명이 열었나). '
+    + '⛔ 이것을 지면에 내면 손님이 **검색량**으로 읽는다. 우리는 유료 검색량 자료가 없고 '
+    + '이 수는 검색량이 아니다. 못 하는 말을 하게 만드는 표는 내지 않는다. '
+    + '이 자로 고른 결과는 /most-read · /born-on 으로 이미 나가 있다.',
+  'wikitip-places-outside.json':
+    '「우리 한국 장소 목록에 한국이 아닌 곳이 19곳 있었다」는 **정정의 근거 자료**다. '
+    + '지면이 아니라 카드·영상·사회관계망 꾸러미와 `check-kcw-places-in-korea.mjs` 가 읽는다. '
+    + '그 결론은 /corrections 에 사람 말로 실려 있다 — 근거 파일을 표로 또 내면 같은 말이 두 번이 된다.',
   'the-decline-that-was-not-there':
     '낼 표가 없어서 지면을 안 만들었다. 이 기사의 결론이 「이 수는 추이로 쓰면 안 된다」인데, '
     + '못 믿는 수로 표를 만들면 그 표가 다시 남을 속인다. pages 를 비운 것이 이 기사의 정직이다.',
@@ -94,6 +109,29 @@ export function 받을꼴(v) {
 }
 
 /**
+ * **대표값에 수가 없는 편**을 위한 꼴. 카드의 대표값이 「June」·「Five」처럼 낱말일 때가 있다.
+ *
+ * 🔴🔴 2026-08-22 — 그런 편 둘을 자가 「약속이 비었다」로 불렀다. **약속은 지켜져 있었다** —
+ *   `/look-vs-fly` 지면에 「June」이 두 번 있었다. 까닭은 `맨수('June') → null` 이고
+ *   `받을꼴(null) → []` 이라 **볼 것이 없어 늘 거짓**이 되는 것이었다.
+ *   ⭐ 수가 없다는 것은 「약속이 비었다」가 아니다. 자가 볼 것을 못 만든 것이다.
+ *   ⛔ 자가 못 다루는 꼴을 만나면 **글을 탓하기 전에 자를 넓힌다.**
+ * ⚠ 낱말 수는 지면이 숫자로 적었을 수 있다(「Five」 ↔ 「5」). 둘 다 받는다.
+ */
+const 낱말수 = {
+  one: '1', two: '2', three: '3', four: '4', five: '5', six: '6',
+  seven: '7', eight: '8', nine: '9', ten: '10', eleven: '11', twelve: '12',
+};
+export function 낱말꼴(v) {
+  if (typeof v !== 'string' || !v.trim().length) return [];
+  const 말 = v.trim();
+  const 꼴 = new Set([말]);
+  const 숫 = 낱말수[말.toLowerCase()];
+  if (숫) 꼴.add(숫);
+  return [...꼴];
+}
+
+/**
  * frontmatter 의 pages 를 읽는다.
  *
  * 🔴 2026-08-08 20:2x — 자가 `korean-netflix-titles-one-body` 를 「건 지면이 없다」고 불렀다.
@@ -124,6 +162,12 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
   자가('19 는 19.0 으로도 받는다', 받을꼴('19').includes('19.0'));
   자가('1.2 는 1.20 으로도 받는다', 받을꼴('1.2').includes('1.20'));
   자가('빈 것은 빈 배열', 받을꼴('').length === 0);
+  /* 🔴 2026-08-22 — 낱말 대표값이 늘 「약속이 비었다」가 되던 자리. 자가 볼 것을 못 만들었을 뿐이었다 */
+  자가('⭐ 낱말 대표값은 그 낱말로 본다', 낱말꼴('June').includes('June'));
+  자가('⭐ 낱말 수는 숫자로도 받는다', 낱말꼴('Five').includes('5'));
+  자가('큰 글자를 가리지 않는다', 낱말꼴('FIVE').includes('5'));
+  자가('⛔ 낱말꼴도 빈 것은 빈 배열', 낱말꼴('  ').length === 0);
+  자가('⛔ 수가 있는 대표값은 낱말꼴이 아니다', 맨수('2.2×') === '2.2');
   자가('pages 를 읽는다',
     걸린지면('a: 1\npages:\n  - "/x"\n  - "/y"\nb: 2\n').join() === '/x,/y');
   자가('pages 가 비면 빈 배열', 걸린지면('a: 1\nb: 2\n').length === 0);
@@ -178,7 +222,9 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
     /* 지면 파일이 dist 에 없는 것과, 있는데 수가 없는 것은 **다른 말**이다 */
     const 있는지면 = 지면.filter((p) => fs.existsSync(`dist/wikitip${p}.html`));
     if (!있는지면.length) { 못잼.push(`${slug} → ${지면.join(',')}`); continue; }
-    const 꼴들 = 받을꼴(수);
+    /* ⭐ 수가 있으면 수로, 없으면 낱말로 본다. 자가 볼 것이 아예 없는 상태를 만들지 않는다 */
+    const 꼴들 = 수 ? 받을꼴(수) : 낱말꼴(fig);
+    if (!꼴들.length) { 못잼.push(`${slug} → 대표값 «${fig}» 에서 볼 것을 못 만들었다`); continue; }
     const 보임 = 있는지면.some((p) => {
       const t = fs.readFileSync(`dist/wikitip${p}.html`, 'utf8')
         .replace(/<[^>]+>/g, ' ').replace(/,/g, '');

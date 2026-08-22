@@ -77,6 +77,16 @@ export function 방짓기(한자, 사람들, 잼) {
 <link rel="canonical" href="https://www.kculturewire.com${칸주소(rom)}">
 <title>${한자} (${rom}) day stem &mdash; ${사람들.length} Korean entertainers | K Culture Wire</title>
 <meta name="description" content="The ${사람달수(사람들)} Korean actors and singers born on a ${한자} (${rom}) day, including ${벗기기(이름셋)}. A count, not a reading.">
+<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `Korean stars born on a ${한자} (${rom}) day`,
+  description: `The ${사람달수(사람들)} Korean actors and singers born on a ${한자} (${rom}) day. A count, not a reading.`,
+  url: `https://www.kculturewire.com/stem/${rom.toLowerCase()}`,
+  isPartOf: { '@type': 'WebSite', name: 'K Culture Wire', url: 'https://www.kculturewire.com' },
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org'],
+})}</script>
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff; --accent:#b4472a; --accent-soft:#fdf3f0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){

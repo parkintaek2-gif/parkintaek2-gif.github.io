@@ -99,6 +99,44 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    🔴 2026-08-22 — 이 지면은 **접기 전의 달별 줄을 세어 두고 안 보여** 주고 있었다
+      (`lookByMonth`·`flyByMonth`·`monthsCompared`·`peakGapMonths`).
+    ⭐ 접은 표만 보이면 손님은 접기가 무엇을 지웠는지 확인할 수 없다. 위 표의 「12달」은
+      우리가 두 해를 겹쳐 만든 것이고, **원래 줄은 여기 있다.** 확인할 수 있게 둔다.
+    ⛔ 값을 다시 계산해서 적지 않는다 — 자료가 들고 있는 그 수를 그대로 낸다.
+  */}
+  <section>
+    <h2>Before we folded it: every month we measured</h2>
+    <p class="note">
+      The table above folds {d.monthsCompared} months into twelve. This is the unfolded run, so you
+      can see what the folding smoothed away — including that the two peaks sit
+      {' '}{d.peakGapMonths === 1 ? 'one month' : `${d.peakGapMonths} months`} apart rather than on top
+      of each other.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Month</th><th>Reads per million</th><th>Passengers on the Asia routes</th></tr></thead>
+        <tbody>
+          {Object.keys(d.lookByMonth).sort().map((m) => (
+            <tr>
+              <td class="nm">{m}</td>
+              <td>{d.lookByMonth[m]}</td>
+              <td class="tot">
+                {d.flyByMonth[m] === undefined
+                  ? <span class="fine">not measured</span>
+                  : Math.round(d.flyByMonth[m]).toLocaleString('en-US')}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Where a month has a reading figure but no passenger figure we say so rather than writing a zero.
+    </p>
+  </section>
+
   <section>
     <h2>Which articles, and which we left out</h2>
     <p>

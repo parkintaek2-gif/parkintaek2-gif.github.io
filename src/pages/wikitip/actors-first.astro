@@ -145,4 +145,12 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/actors-first" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — 분모(actorsMeasured)를 세어 두고 안 보여 주고 있었다. 분모 없는 순위는 확인이 안 된다 */}
+  <section class="src">
+    <h2>How many people this was measured over</h2>
+    <p class="note">
+      {d.actorsMeasured.toLocaleString('en-US')} people were measured to build this page, not only the
+      ones named on it. Nobody was recorded as zero for want of a measurement.
+    </p>
+  </section>
 </WikiTip>

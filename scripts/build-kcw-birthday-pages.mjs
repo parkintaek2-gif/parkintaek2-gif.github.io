@@ -105,6 +105,23 @@ export function 지면짓기(mmdd, 사람들) {
 <link rel="canonical" href="https://www.kculturewire.com/born-on/${mmdd}">
 <title>${제목} | K Culture Wire</title>
 <meta name="description" content="${실을것.length} Korean actors and singers were born on ${날}${으뜸 ? `, including ${벗(으뜸.보일)}` : ''}. Birth dates from Wikidata; readers counted from English Wikipedia. Not a horoscope.">
+<script type="application/ld+json">${JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: 제목,
+    description: `${실을것.length} Korean actors and singers born on ${날}, counted from Wikidata birth dates.`,
+    url: `https://www.kculturewire.com/born-on/${mmdd}`,
+    isPartOf: { '@type': 'WebSite', name: 'K Culture Wire', url: 'https://www.kculturewire.com' },
+    creator: { '@type': 'Organization', name: 'K Culture Wire' },
+    isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: 실을것.length,
+      itemListElement: 실을것.slice(0, 10).map((p, i) => ({
+        '@type': 'ListItem', position: i + 1, name: p.보일,
+      })),
+    },
+  }).replace(/</g, '\\u003c')}</script>
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --accent:#b4472a; --accent-soft:#fdf3f0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
@@ -191,6 +208,22 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 한글 이름을 목록에 안 싣는다', !h.includes('홍길동'));
   검('안 실은 수를 적는다', h.includes('1 more people born on this day are counted but not listed'));
   검('canonical 이 있다', h.includes('rel="canonical" href="https://www.kculturewire.com/born-on/05-16"'));
+  /* 🔴 2026-08-22 — check-search-readiness 가 이 366장을 「구조화 데이터가 없다」고 잡았다.
+     손으로 짓는 자리는 Astro 지면이 저절로 넣어 주던 것이 다 빠진다 — 그게 손으로 짓는 값이다 */
+  검('⭐ 구조화 데이터가 있다', h.includes('application/ld+json'));
+  /* ⚠ 자(정규식)로 뜯지 않는다 — 셸을 거쳐 이 파일을 쓸 때 백슬래시가 먹혀 자가 깨졌다.
+     여는 표와 닫는 표를 문자열로 찾는다. 뜻은 같고 깨질 자리가 없다 */
+  검('구조화 데이터가 깨지지 않았다', (() => {
+    const 여는 = '<script type="application/ld+json">';
+    const i = h.indexOf(여는);
+    if (i < 0) return false;
+    const j = h.indexOf('</' + 'script>', i);
+    if (j < 0) return false;
+    try {
+      const o = JSON.parse(h.slice(i + 여는.length, j).split(String.fromCharCode(92) + 'u003c').join('<'));
+      return o['@type'] === 'CollectionPage' && o.mainEntity.numberOfItems > 0;
+    } catch { return false; }
+  })());
   검('어제·내일로 걷는다', h.includes('/born-on/05-15') && h.includes('/born-on/05-17'));
   검('⛔ 점을 안 친다는 말을 싣는다', h.includes('Sharing a birthday means sharing a birthday'));
   검('⛔ 화면에 우리말이 없다', !/[가-힣]/.test(h.replace(/홍길동/g, '')));

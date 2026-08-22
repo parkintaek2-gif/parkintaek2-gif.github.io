@@ -1,6 +1,6 @@
 ---
-title: "Twenty-three corrections, and nine distinct ways of being wrong. All nine now fail the build."
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the twenty-four. This piece went out with four kinds untested; every kind now fails the build, including the one found today."
+title: "Fourteen distinct ways of being wrong. Ten of them now fail the build; four do not."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the thirty-two. Four kinds still have no test, and this piece names them rather than reporting the coverage."
 category: titles
 purpose: ads
 pubDate: 2026-08-08
@@ -20,33 +20,42 @@ crossChecks:
   - "The four unguarded causes are counted from the same file, so the gap cannot be understated by leaving one out"
 excluded:
   - "Mistakes we caught before publishing. This record starts at the moment a wrong figure was readable by someone else; the ones we caught in drafting are not corrections and counting them would flatter us"
-  - "Any claim that nine is the number of ways we can be wrong. It is the number we have met so far, and the ninth appeared on 9 August while we were building something unrelated"
+  - "Any claim that fourteen is the number of ways we can be wrong. It is the number we have met so far, and four of the thirteen were named only on 22 August, when we read six corrections that had been recorded without a cause"
   - "Severity ranking. A one-word label error and a 14% overcount are both listed as one correction each, because we have no honest way to weigh them against each other"
+corrections:
+  - date: 2026-08-22
+    note: "This article said there were nine kinds of mistake and that all nine failed the build. Both numbers were out of date, and the second was the worse of the two. Six corrections recorded on 15 August had never been given a cause, and reading them produced three kinds we had not named — a title set widened after publication, the word median computed two ways, and a measuring window short enough to make its own highest month look like a peak. A fourth kind, a Wikidata property that records who took part being read as where a thing is, had a cause but no entry in the guard table at all, which is why our own check counted it as neither guarded nor unguarded. There are fourteen kinds; ten fail the build and four do not, and the four are now named in the article rather than counted. The check behind this piece now also fails if a cause exists with no row in the guard table, which is the hole that let this go quiet."
 ---
 
 We keep a record of every figure we have published and had to change. As of today it holds
-**24 corrections** — 12 on data pages and 12 in articles.
+**32 corrections** — 13 on data pages and 19 in articles.
 
-Counting them was never the interesting part. What we wanted to know was whether they were 23
+Counting them was never the interesting part. What we wanted to know was whether they were thirty-two
 separate accidents or a few repeating shapes. So each one carries a tag for the **kind** of mistake
 that produced it.
 
-There are nine kinds.
+There are fourteen kinds.
 
 ## What went wrong, and how often
 
 | Cause | Pages | Articles | Guarded by a test |
 | --- | ---: | ---: | :--- |
 | Matched a Korean title by name alone | 5 | 3 | yes |
+| A sentence about the data that was never measured | 1 | 2 | yes |
 | Our attribution query contradicted our own panel | 1 | 2 | yes |
+| A limitation written down and never tested | 1 | 2 | yes |
+| A rule deciding which titles count was fixed upstream | 1 | 2 | yes |
 | A KOSIS table classifies on two levels, we read one | 1 | 1 | yes |
-| A sentence about the data was never measured | 1 | 1 | yes |
-| Companies without pay data left in the denominator | 1 | 0 | yes |
-| Our corrections article miscounted the corrections | 0 | 1 | yes |
 | A comparison computed on a group selected by the outcome | 1 | 1 | yes |
-| A limitation written down and never tested | 1 | 1 | yes |
+| The set of titles a figure was measured over was widened | 0 | 2 | not yet |
+| Companies without pay data left in the denominator | 1 | 0 | yes |
+| A property that records who took part, read as where a thing is | 1 | 0 | not yet |
+| Our corrections article miscounted the corrections | 0 | 1 | yes |
+| A value with no row in the table that counts it | 0 | 1 | yes |
+| The same word computed two ways — median | 0 | 1 | not yet |
+| A window short enough to make its own highest month the peak | 0 | 1 | not yet |
 
-**One cause produced eight of the twenty-four.** Titles entered our Korean panel because their English
+**One cause produced eight of the thirty-two.** Titles entered our Korean panel because their English
 name matched a Korean work, and foreign works with the same name came in with them. That single flaw
 moved figures on five pages and in three articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).
@@ -77,11 +86,26 @@ kind of error that survives a long time if nobody checks the rule itself rather 
 This kind is different from the eight above it in one way worth naming: **the articles were not wrong
 about what they were given.** The writing was faithful to a measurement that was not.
 
+## Where the tests are, and where they are not
+
+Ten of the fourteen kinds now fail the build if they recur. **Four do not**, and naming them is the
+point of this section:
+
+- **the set of titles a figure was measured over** being widened after publication, which moved every
+  count measured through it;
+- **the same word computed two ways** — median as the upper-middle value on one page and the average of
+  the two middle values everywhere else;
+- **a window short enough to make its own highest month** look like a peak;
+- **a property that records who took part** being read as a record of where a thing is.
+
+We are publishing the gap rather than the coverage, because a list of missing tests is worth more to
+someone deciding whether to trust these numbers than a sentence about taking accuracy seriously. The
+four above are a work list, not a claim.
+
 ## The half that had no test now has one
 
-When this piece first went out, four of the eight kinds failed the build if they recurred and four
-did not. We published the gap rather than the coverage, because a list of missing tests is worth more
-to someone deciding whether to trust these numbers than a sentence about taking accuracy seriously.
+When this piece first went out, four of the eight kinds then known failed the build if they recurred
+and four did not.
 
 **The four missing tests were written the same afternoon.** Here is what each one actually does, which
 matters more than the fact that it exists.

@@ -105,6 +105,38 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    🔴 2026-08-22 — `check-data-keys-shown` 을 끝까지 돌려 보니 이 지면이 자기 자료에서 여섯 값을
+      **세어 두고 손님에게 안 보여** 주고 있었다: 두 줄세우기가 같은 자리인 곳의 수, 가장 크게
+      어긋난 두 구, 「읽는 것은 가는 것이 아니다」 한 문장, 위키에 아예 없는 구, 그리고
+      **이 표가 답하기엔 얇다는 판정**(tooThinToAnswer).
+    ⭐ 마지막 것을 안 보여 준 것이 가장 나쁘다 — 얇다는 판정을 감추면 손님은 이 표를 답으로 읽는다.
+      「재 보고 안 된다고 적는 것도 결과다」가 그 자리에서 지켜지지 않았다.
+  */}
+  <section class="warn-box">
+    <h2>How far apart the two rankings actually are</h2>
+    {d.tooThinToAnswer && (
+      <p class="warn">
+        <b>Not far enough to answer the question.</b> Across the districts we can compare, the biggest
+        disagreement between reading order and visiting order is one place: {d.mostReadLeastWalked.nameEn}
+        {' '}is read {d.mostReadLeastWalked.readRank}
+        {d.mostReadLeastWalked.readRank === 1 ? 'st' : 'nd'} and visited {d.mostReadLeastWalked.visitRank}
+        {d.mostReadLeastWalked.visitRank === 1 ? 'st' : 'nd'}, while {d.mostWalkedLeastRead.nameEn} is the
+        pair the other way round. {d.sameRank} district holds the same position on both. With gaps this
+        small and a table this short, we cannot say that curiosity and arrival disagree. We are saying
+        the count is too thin to tell — not that they agree.
+      </p>
+    )}
+    <p class="note">{d.readingIsNotVisiting}</p>
+    {(d.notInWikiAtAll ?? []).length > 0 && (
+      <p class="note">
+        <b>Absent, not zero.</b> {d.notInWikiAtAll.join(', ')} has no encyclopaedia article we could
+        read at all, so it carries no reading figure here. We list it rather than letting it vanish
+        from the denominator.
+      </p>
+    )}
+  </section>
+
   <section>
     <h2>What this page cannot tell you</h2>
     {d.cannotSay.map((s) => <p class="note">{s}</p>)}

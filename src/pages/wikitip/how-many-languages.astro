@@ -146,6 +146,15 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/how-many-languages" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — 가장 많은 판 수(max)를 세어 두고 안 보여 주고 있었다.
+      중앙값만 보이면 손님은 「최대가 얼마인가」를 물을 수밖에 없다 */}
+  <section class="src">
+    <h2>The far end of this count</h2>
+    <p class="note">
+      The most editions any one person has an article in is {d.max}. The median sits far below that,
+      which is the shape this page is about: a very long tail, not a typical case.
+    </p>
+  </section>
 </WikiTip>
 
 <style>

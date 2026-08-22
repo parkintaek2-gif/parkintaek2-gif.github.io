@@ -212,4 +212,33 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/half-life" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — «한 번도 절반 밑으로 안 떨어진 작품»(neverHalved)을 세어 두고 안 보여 주고 있었다.
+      ⭐ 이것이 중앙값을 평균으로 안 쓴 까닭 그 자체다 — 꼬리에 이런 작품이 앉아 있다 */}
+  <section class="src">
+    <h2>The titles that never halved</h2>
+    <p class="note">
+      {d.neverHalved.length === 0
+        ? 'Every title measured here eventually fell below half its peak.'
+        : `${d.neverHalved.length} title${d.neverHalved.length === 1 ? '' : 's'} never did.`}
+      {' '}They have no half-life at all, so they sit outside the median rather than being counted as a
+      very long one — which is exactly why this page reports a median and not a mean.
+    </p>
+    {d.neverHalved.length > 0 && (
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Title</th><th>Peak month</th><th>Peak</th><th>Months still above half</th></tr></thead>
+          <tbody>
+            {d.neverHalved.map((x: any) => (
+              <tr>
+                <td class="nm">{x.title}</td>
+                <td class="fine">{x.peakMonth}</td>
+                <td>{x.peak}</td>
+                <td>{x.monthsWatched}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )}
+  </section>
 </WikiTip>

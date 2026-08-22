@@ -156,6 +156,17 @@ const jsonLd = {
   </section>
 
   <KcwRelatedArticles page="/hometowns" />
+  {/* 🔴 2026-08-22 — 이름이 없어 버린 사람 수(droppedNoName)를 세어 두고 안 보여 주고 있었다.
+      ⭐ 버린 수를 안 적으면 분모가 조용히 달라진다 */}
+  <section class="src">
+    <h2>Who is not in this count</h2>
+    <p class="note">
+      {d.droppedNoName === 0
+        ? 'Everyone in the roster carried a name we could read.'
+        : `${d.droppedNoName} person in the roster carried no readable name, so they could not be placed and are not counted here.`}
+      {' '}We say the number rather than letting the denominator move quietly.
+    </p>
+  </section>
 </WikiTip>
 
 <style>

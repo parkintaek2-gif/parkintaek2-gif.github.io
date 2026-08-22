@@ -175,4 +175,14 @@ const jsonLd = {
 
   <KcwRelatedArticles page="/works-and-readers" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />
+  {/* 🔴 2026-08-22 — «왜 판별로 갈랐나»(whySplitByEdition)와 어느 판을 썼나(editions)를
+      세어 두고 안 보여 주고 있었다. 갈라 센 까닭을 안 적으면 이 표는 그냥 순위표로 읽힌다 */}
+  <section class="src">
+    <h2>Why this is split by Wikipedia edition</h2>
+    <p class="note">{d.whySplitByEdition}</p>
+    <p class="note">
+      The editions used here are {d.editions.join(', ')} — {d.editions.length} of them, each counted
+      on its own so that an actor is not rewarded for simply appearing in more of them.
+    </p>
+  </section>
 </WikiTip>

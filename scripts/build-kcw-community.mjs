@@ -86,6 +86,7 @@ export function 판짓기(방, 자료) {
 <link rel="canonical" href="https://www.kculturewire.com/community">
 <title>Star rooms &mdash; K Culture Wire community</title>
 <meta name="description" content="Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Star rooms — K Culture Wire community","description":"Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.","url":"https://www.kculturewire.com/community","isPartOf":{"@type":"WebSite","name":"K Culture Wire","url":"https://www.kculturewire.com"},"creator":{"@type":"Organization","name":"K Culture Wire"},"isBasedOn":["https://www.wikidata.org","https://wikimedia.org/api/rest_v1/"]}</script>
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }
@@ -190,6 +191,21 @@ export function 방짓기(칸, 자료) {
 <link rel="canonical" href="https://www.kculturewire.com${방주소(칸.sign)}">
 <title>Year of the ${칸.sign} &mdash; K Culture Wire star rooms</title>
 <meta name="description" content="The ${칸.people} Korean stars born in a ${칸.sign} year, including ${잰것.slice(0, 3).map((p) => p.name).join(', ')}.">
+<script type="application/ld+json">${JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `Year of the ${칸.sign} — K Culture Wire star rooms`,
+  description: `The ${칸.people} Korean stars born in a ${칸.sign} year.`,
+  url: `https://www.kculturewire.com${방주소(칸.sign)}`,
+  isPartOf: { '@type': 'WebSite', name: 'K Culture Wire', url: 'https://www.kculturewire.com' },
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.wikidata.org', 'https://wikimedia.org/api/rest_v1/'],
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: 칸.people,
+    itemListElement: 잰것.slice(0, 10).map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name })),
+  },
+})}</script>
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }

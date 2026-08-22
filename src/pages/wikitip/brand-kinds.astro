@@ -131,4 +131,24 @@ const jsonLd = {
       + `both for ${흔들린나라}.`} />
 
   <KcwRelatedArticles page="/brand-kinds" />
+  {/* 🔴 2026-08-22 — 분모(editionTotals)와 «못 잰 브랜드 수»(brandsNotMeasured)를
+      세어 두고 안 보여 주고 있었다. ⭐ 못 잰 것이 0 이라는 것도 보여 줄 값이다 */}
+  <section class="src">
+    <h2>The denominators behind the shares</h2>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Wikipedia edition</th><th>All reads in the window</th></tr></thead>
+        <tbody>
+          {Object.entries(d.editionTotals).map(([k, v]: any) => (
+            <tr><td class="nm">{String(k).toUpperCase()}</td><td class="tot">{Number(v).toLocaleString('en-US')}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Every share on this page is measured against those totals, so a big edition does not win by
+      being big. Brands we could not measure at all: {d.brandsNotMeasured}
+      {d.brandsNotMeasured === 0 ? ' — every brand in the list returned a figure.' : '.'}
+    </p>
+  </section>
 </WikiTip>
