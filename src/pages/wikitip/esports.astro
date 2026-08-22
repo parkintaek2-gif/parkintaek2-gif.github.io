@@ -80,8 +80,12 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
   name: 'League of Legends ranked ladder, by region',
+  /* ⭐ 2026-08-22 — 「Daily snapshot」이라 적혀 있었다. 우리는 지금 날마다 안 잰다(키가 하루짜리고
+     프로덕션 승인 전이다). 안 하는 것을 한다고 적어 두면 그 한 줄이 나머지를 다 의심받게 한다.
+     ⛔ 「매일」을 지우고 **잰 날**을 적는다. 자(check-kcw-stale-stamp)가 이것을 지킨다 */
   description:
-    'Daily snapshot of Challenger and Grandmaster ladder distributions across six regional servers. Aggregate statistics only; no player identifiers are stored.',
+    `Challenger and Grandmaster ladder distributions across six regional servers, as measured on ${날짜}. `
+    + 'Aggregate statistics only; no player identifiers are stored.',
   url: `${SITE_URL}/esports`,
   temporalCoverage: 날짜,
   creator: { '@id': `${SITE_URL}/#organization` },
@@ -91,8 +95,14 @@ const jsonLd = {
 ---
 
 <WikiTip
-  title="Why Korea's ladder looks different"
-  description="A daily cross-region comparison of the League of Legends Challenger ladder — Korea, Southeast Asia, Vietnam, Japan, North America and Europe West. Aggregate distributions only, no player data."
+  {/*
+    ⭐ 2026-08-22 — 제목을 손님이 치는 말로 바꿨다. 실측된 검색어는 「korea ladder」·
+      「korean challenger ladder」·「challenger cutoff korea」·「korea lol rank」다.
+      「Why Korea's ladder looks different」는 **우리 논지**이고, 아무도 그 말로 검색하지 않는다.
+    ⛔ 낚지 않는다 — 지면이 실제로 주는 것(컷오프·중간값·여섯 서버)을 그대로 적는다.
+  */}
+  title="Korea's League of Legends ladder: the Challenger cutoff, six servers compared"
+  description="What it took to sit in Challenger on the Korean server, next to Southeast Asia, Vietnam, Japan, North America and Europe West: the cutoff LP, the median inside Challenger, and how many games those players had played. Aggregate distributions only, dated, no player data."
   jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/esports"
   noAds
@@ -101,10 +111,18 @@ const jsonLd = {
     <article class="article">
       <div class="article__head">
         <p class="kicker">Esports data</p>
-        <h1>Why Korea's ladder looks different</h1>
+        {/*
+          ⭐ 2026-08-22 — 큰 제목도 손님이 치는 말로 바꾼다. 실측 검색어는 「korea ladder」·
+            「korean challenger ladder」·「challenger cutoff korea」다. 「Why Korea's ladder looks
+            different」는 우리 논지이고, 그 말로 검색하는 사람은 없다.
+          ⛔ 부제에 있던 「counted the same way every day」를 지운다 — 지금 날마다 안 잰다.
+            안 하는 것을 한다고 적으면 그 한 줄이 나머지 수를 다 의심받게 한다.
+        */}
+        <h1>Korea's League of Legends ladder, counted next to five other servers</h1>
         <p class="article__dek">
           Everyone says Korean solo queue is harder. Almost nobody measures it. This is the
-          Challenger ladder of six regional servers, side by side, counted the same way every day.
+          Challenger ladder of six regional servers, side by side, counted the same way on the
+          same day — {날짜}.
         </p>
       </div>
 
@@ -112,6 +130,50 @@ const jsonLd = {
         <p class="stamp">
           Snapshot of <strong>{날짜}</strong> · collected {ladder.collected_at_kst} KST ·
           queue RANKED_SOLO_5x5
+        </p>
+
+        {/*
+          ⭐ 2026-08-22 — 손님이 실제로 치는 말로 칸을 하나 세운다. Search Console 실측:
+            「korea ladder」13노출 순위 17.2 · 「korean challenger ladder」·「challenger cutoff korea」·
+            「korea lol rank」… 열두 꼴. 지면 쪽으로는 e스포츠 기사 둘이 **253노출**을 받는데
+            클릭이 1이다. 우리에게 오는 가장 큰 노출 덩이가 여기다.
+          ⛔ 그런데 이 지면은 「Why Korea's ladder looks different」라는 **우리 논지**로 시작한다.
+            손님이 묻는 것은 논지가 아니라 **수 하나**다 — 「컷오프가 얼마냐」.
+          ⭐ 그 수는 이미 자료에 있었다(챌린저 최저 LP). 맨 앞에 내놓고, **잰 날을 같이 적는다.**
+          ⚠ 이 수는 날마다 움직인다. 우리는 지금 날마다 갱신할 수 없다(키가 하루짜리고
+            프로덕션 승인 전이다). 그러니 「지금 얼마」라고 말하지 않고 **「그날 얼마였다」**고 적는다.
+            ⛔ 오래된 수를 지금 수인 척 내놓는 것이 이 자리에서 할 수 있는 가장 나쁜 일이다.
+        */}
+        <h2>What the Challenger cutoff was, region by region</h2>
+        <p>
+          If you came here asking what it takes to be Challenger, this is the number: the lowest LP
+          held by anyone inside Challenger on the day we counted. On <strong>{날짜}</strong>, Korea's
+          was <strong>{ladder.regions.kr.challenger.lp.min.toLocaleString('en-US')} LP</strong> across
+          {' '}{ladder.regions.kr.challenger.players} players.
+        </p>
+        <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th>Server</th><th>Challenger cutoff, {날짜}</th><th>Median in Challenger</th><th>Players</th></tr>
+            </thead>
+            <tbody>
+              {Object.entries(ladder.regions).map(([k, r]: any) => (
+                <tr>
+                  <td>{r.region_name}</td>
+                  <td><strong>{r.challenger.lp.min.toLocaleString('en-US')}</strong></td>
+                  <td>{r.challenger.lp.median.toLocaleString('en-US')}</td>
+                  <td>{r.challenger.players}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="note">
+          <strong>This is that day's number, not today's.</strong> A cutoff moves every few hours as
+          people climb and decay, so anyone quoting one without a date is quoting nothing. Ours is
+          stamped {날짜} and we are not collecting daily at the moment — our developer key lasts
+          24 hours and production approval is still pending, so we would rather say the date than
+          imply a freshness we do not have.
         </p>
 
         <h2>The ladder, side by side</h2>
@@ -183,12 +245,24 @@ const jsonLd = {
           shape is not.
         </p>
 
-        <h2>Why this is a daily series</h2>
+        {/*
+          🔴 2026-08-22 — 이 칸이 「하루에 한 장씩 찍는다」고 적고 있었다. **지금은 참말이 아니다.**
+            개발자 키가 24시간짜리고 프로덕션 승인 전이라 8월 6일 이후로 못 재고 있다.
+            ⛔ 안 하는 것을 한다고 적어 두는 것이 이 자리에서 할 수 있는 가장 나쁜 일이다.
+            ⭐ 하려던 것과 지금 상태를 갈라 적는다. 「했으면 좋겠다」를 「하고 있다」로 쓰지 않는다.
+        */}
+        <h2>Why a ladder has to be written down at the time</h2>
         <p>
           A ladder cannot be reconstructed after the fact. There is no endpoint that returns what
-          Challenger looked like last Tuesday — the API answers only for right now. So the record
-          only exists if somebody was writing it down at the time. We started on {날짜} and take
-          one snapshot a day, at the same hour, whether or not anything interesting happened.
+          Challenger looked like last Tuesday — the API answers only for the present moment. So the
+          record only exists if somebody was writing it down at the time.
+        </p>
+        <p>
+          <strong>We are not writing it down at the moment, and this is what that costs.</strong> Our
+          developer key expires every 24 hours and production approval is still pending, so the last
+          snapshot we hold is {날짜}. The gap since then is gone for good — nobody can go back and
+          measure it. We would rather show you one dated day than a page that implies a series we are
+          not currently keeping.
         </p>
         <p>
           That is the same reason we archive provisional trade figures the day they are published:
