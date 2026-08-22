@@ -109,6 +109,9 @@ export function 판짓기(방, 자료) {
     background:transparent;color:var(--accent);font:inherit;font-size:14px;text-align:center;
     text-decoration:none;font-weight:600}
   .cta:hover{background:var(--accent-soft)}
+  .axis{margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
+  .axis h2{font-size:1.05rem;margin:0 0 .4rem}
+  .axis p{margin:.4rem 0}
   footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:62ch}
 </style>
@@ -130,6 +133,21 @@ export function 판짓기(방, 자료) {
     <div class="grid">
 ${칸}
     </div>
+
+    <!-- The rooms above split people by birth YEAR. The day-stem pages split the same kind of
+         people by birth DAY. Two axes, not the same count twice — a reader who came for one
+         should be able to reach the other. -->
+    <section class="axis">
+      <h2>The other axis &mdash; by the day, not the year</h2>
+      <p>These twelve rooms sort people by the year they were born. There is a second axis almost
+      nobody counts: the day. We built the day pillar for 9,249 Korean entertainers and split them
+      into <a href="/day-pillar">ten day-stem pages</a> &mdash; IU on
+      <a href="/stem/jeong">丁 jeong</a>, Jungkook on <a href="/stem/byeong">丙 byeong</a>,
+      Suga on <a href="/stem/gi">己 gi</a>, ROSÉ on <a href="/stem/gap">甲 gap</a>.</p>
+      <p class="fine"><strong>Neither axis is a reading.</strong> The birth-year spread is
+      indistinguishable from chance, and the day-stem spread crossed the 0.05 line by a hair &mdash;
+      we tried four ways to kill that and still do not call it a finding.</p>
+    </section>
 
     <footer>
       <p><strong>This is a first draft of a shell.</strong> There is no server, no sign-in and no
@@ -198,6 +216,9 @@ export function 방짓기(칸, 자료) {
   .fine{color:var(--ink-2)}
   .num{text-align:right;white-space:nowrap}
   .names{color:var(--ink-2);font-size:14px;line-height:1.9;max-width:62ch}
+  .axis{margin-top:36px;padding-top:16px;border-top:1px solid var(--line)}
+  .axis h2{font-size:1.02rem;margin:0 0 .4rem}
+  .axis p{margin:.4rem 0}
   footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:62ch}
 </style>
@@ -224,6 +245,15 @@ ${줄}
     </table>
 
 ${못잰줄}
+
+    <section class="axis">
+      <h2>The same people, split by the day instead of the year</h2>
+      <p>This room is a birth <em>year</em>. Every name in it also has a birth <em>day</em>, and the
+      day has its own ten pages &mdash; <a href="/day-pillar">the count is here</a>, and the names
+      are on the ten day-stem pages (<a href="/stem/gyeong">庚 gyeong</a>,
+      <a href="/stem/jeong">丁 jeong</a>, <a href="/stem/byeong">丙 byeong</a> and seven more).</p>
+      <p class="fine"><strong>A room name is not a reading</strong>, and neither is a day stem.</p>
+    </section>
 
     <footer>
       <p><strong>This room is read-only for now.</strong> There is no server, no sign-in and no

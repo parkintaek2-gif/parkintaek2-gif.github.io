@@ -54,10 +54,21 @@ export function 칸나누기(사람들) {
 
 const 벗기기 = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+/**
+ * 🔴 2026-08-22 13:2x — 첫 판이 **영어 지면에 한글 이름을 내보냈다**(`check-english-only` 가 열 장을 잡았다).
+ *   위키데이터에 영문 이름표도 영문 별칭도 없는 사람이 **2,246명**이고, 그 사람들은 한국어 이름표로
+ *   떨어져 있었다. 5번 손님은 영어권이라 화면에 한국어가 있으면 거기서 끝난다.
+ * ⛔ 그렇다고 그 사람들을 **셈에서 빼지 않는다** — 못 잰 것을 없는 것으로 만드는 짓이다.
+ *   셈에는 넣고 **목록에서만 빼고, 몇 명을 왜 안 실었는지 지면에 적는다.**
+ */
+export const 라틴이름 = (이름) => /^[A-Za-z0-9À-ɏḀ-ỿ' .,\-()&+/]+$/.test(이름);
+
 export function 방짓기(한자, 사람들, 잼) {
   const rom = 로마자.get(한자);
-  const 이름셋 = 사람들.slice(0, 3).map((p) => p.name).join(', ');
-  const 줄 = 사람들.map((p) => `<tr><td>${벗기기(p.name)}</td><td class="fine">${p.born}</td><td>${p.dayPillar}</td><td class="fine">${p.sitelinks}</td></tr>`).join('\n');
+  const 실을것 = 사람들.filter((p) => 라틴이름(p.name));
+  const 안실은수 = 사람들.length - 실을것.length;
+  const 이름셋 = 실을것.slice(0, 3).map((p) => p.name).join(', ');
+  const 줄 = 실을것.map((p) => `<tr><td>${벗기기(p.name)}</td><td class="fine">${p.born}</td><td>${p.dayPillar}</td><td class="fine">${p.sitelinks}</td></tr>`).join('\n');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -90,7 +101,8 @@ export function 방짓기(한자, 사람들, 잼) {
 <div class="wrap">
   <p class="kicker">K Culture Wire &middot; day stem</p>
   <h1>${한자} (${rom}) &mdash; ${사람들.length} Korean entertainers were born on this day stem</h1>
-  <p>${벗기기(이름셋)} and ${사람들.length - 3} others. Ordered by how many Wikipedia editions carry an article about them, so the name you are most likely to know comes first.</p>
+  <p>${벗기기(이름셋)} and ${실을것.length - 3} others. Ordered by how many Wikipedia editions carry an article about them, so the name you are most likely to know comes first.</p>
+  ${안실은수 ? `<p class="fine"><strong>${안실은수} of these ${사람들.length} people are counted but not listed.</strong> Wikidata holds no English name for them, only a Korean one. This is an English-language site, so putting a name our readers cannot read next to a date would help nobody &mdash; but dropping them from the count would be worse. They are inside every figure on this page and in <a href="/day-pillar">the totals</a>.</p>` : ''}
 
   <div class="warn">
     <p><strong>This is a count, not a reading.</strong> A day stem is one character of the four pillars, and the hour pillar cannot be built for anyone here: public records carry birth dates and almost never birth hours.</p>
@@ -172,9 +184,17 @@ if (process.argv.includes('--자가시험')) {
   검('나가는 문이 있다', h.includes('href="/day-pillar"'));
   검('⛔ 화면에 우리말이 없다', !/[가-힣]/.test(h));
   검('문덩어리에 열 줄이 있다', (문덩어리(칸).match(/href="\/stem\//g) ?? []).length === 10);
+  /* 🔴 영어 지면에 한글이 나가면 손님이 거기서 끝난다 — 셈에는 넣고 목록에서만 뺀다 */
+  const 한글든것 = [{ name: '홍길동', born: '1993-05-16', sitelinks: 1, dayPillar: '丁酉' },
+    { name: 'IU', born: '1993-05-16', sitelinks: 9, dayPillar: '丁酉' }];
+  const h2 = 방짓기('丁', 한글든것, 잼);
+  검('라틴 이름만 가른다', 라틴이름('Go Youn-jung') && !라틴이름('고윤정'));
+  검('한글 이름을 목록에 안 싣는다', !h2.includes('홍길동'));
+  검('안 실은 수를 지면에 적는다', h2.includes('counted but not listed'));
+  검('⛔ 셈에서는 안 뺀다 — 전체 수를 그대로 적는다', h2.includes('of these 2 people'));
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ build-kcw-stem-rooms 자가시험 통과 (12)');
+  console.log('✅ build-kcw-stem-rooms 자가시험 통과 (16)');
   process.exit(0);
 }
 
@@ -198,7 +218,12 @@ for (const [한자, rom] of 간) {
 fs.writeFileSync(path.join(뿌리, 'src/data/wikitip-stem-rooms.json'), JSON.stringify({
   generated: new Date().toISOString(),
   measured: 사람들.length,
-  rooms: 간.map(([h, r]) => ({ stem: h, slug: r, url: 칸주소(r), people: 칸.get(h).length, top: 칸.get(h).slice(0, 3).map((p) => p.name) })),
+  /* ⚠ top 은 `/day-pillar`(영문 지면)에 그대로 찍힌다 — **라틴 이름만** 넣는다.
+     오늘은 우연히 열 칸 다 라틴이었지만, 자료가 바뀌면 한글이 새어 나갈 자리다 */
+  rooms: 간.map(([h, r]) => ({
+    stem: h, slug: r, url: 칸주소(r), people: 칸.get(h).length,
+    top: 칸.get(h).filter((p) => 라틴이름(p.name)).slice(0, 3).map((p) => p.name),
+  })),
 }, null, 1));
 console.log(`\n방 ${간.length}장 · 이름 합계 ${합}`);
 console.log(`⚠ 들어오는 문을 아직 안 냈다 — /day-pillar 에 넣을 덩어리는 문덩어리() 로 뽑아 쓴다`);
