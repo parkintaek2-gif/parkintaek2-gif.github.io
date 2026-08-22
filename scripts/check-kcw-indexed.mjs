@@ -208,7 +208,18 @@ if (!fs.existsSync(사이트맵길)) {
 }
 const 전체 = [...fs.readFileSync(사이트맵길, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 const n = Number((process.argv.find((a) => a.startsWith('--n='))?.split('=')[1]) ?? 60);
-const 표본 = 고르게뽑기(전체, n);
+/**
+ * 2026-08-23 — **고를 지면을 직접 줄 수 있게** 했다. 2번이 「B2B 문의 0건의 까닭을 구분할
+ *   방법이 있나」고 물으셨는데, 그 답은 그 세 지면이 색인에 있는지부터 봐야 나온다.
+ *   표본으로 뽑으면 하필 그 셋이 안 들어온다. ⛔ 인자를 안 주면 예전처럼 표본이다.
+ *   쓰는 법  --주소=/for-industry,/data,/provenance
+ */
+const 준주소 = process.argv.find((a) => a.startsWith('--주소='))?.split('=').slice(1).join('=');
+const 고른것 = 준주소
+  ? 준주소.split(',').map((s) => s.trim()).filter(Boolean).map((s) => (s.startsWith('http') ? s : 집 + s))
+  : null;
+if (고른것 && !고른것.length) { console.error('⛔ --주소 에 아무것도 없다'); process.exit(1); }
+const 표본 = 고른것 ?? 고르게뽑기(전체, n);
 
 console.log(`사이트맵 ${전체.length}장 중 ${표본.length}장을 고르게 뽑아 묻는다 (하루 한도 2,000건)`);
 
