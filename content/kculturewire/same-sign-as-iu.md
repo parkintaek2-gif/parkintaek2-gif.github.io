@@ -90,3 +90,5 @@ than guessing which.
 The full list, all twelve signs, is on
 [which Korean stars share your zodiac sign](https://www.kculturewire.com/star-signs). The count
 that says the spread is chance is on [the year you were born](https://www.kculturewire.com/zodiac).
+
+The tables behind this are at [kculturewire.com/star-signs](/star-signs) and [kculturewire.com/zodiac](/zodiac).

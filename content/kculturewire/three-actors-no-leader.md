@@ -100,3 +100,5 @@ article in that language rather than no readers. We do not separate those two.
 
 The four tables and the comparison with the music lists are at
 [which actor each country reads first](https://www.kculturewire.com/actors-first).
+
+The tables behind this are at [kculturewire.com/actors-first](/actors-first) and [kculturewire.com/who-is-first](/who-is-first).

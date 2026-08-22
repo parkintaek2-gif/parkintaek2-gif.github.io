@@ -89,3 +89,5 @@ without a number beside it, because a person we could not match is not a person 
 times.
 
 The twelve rooms are at [the star rooms](https://www.kculturewire.com/community).
+
+The tables behind this are at [kculturewire.com/zodiac](/zodiac) and [kculturewire.com/star-signs](/star-signs).

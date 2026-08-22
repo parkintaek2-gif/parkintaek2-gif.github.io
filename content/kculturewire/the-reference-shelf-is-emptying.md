@@ -100,3 +100,5 @@ we can see is how often someone opened a page to find out what something was.
 
 And a control removes an explanation without supplying one. We know this is not a fall that
 singles Korea out. We do not know what it is.
+
+The table behind this is at [kculturewire.com/what-kind-fell](/what-kind-fell).

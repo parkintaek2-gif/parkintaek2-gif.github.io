@@ -51,3 +51,5 @@ Wikidata records no ambassador or endorsement relation between people and brands
 Three luxury houses (Fendi, Burberry, Bottega Veneta) are in the panel but out of the luxury total for the same reason as Hyundai: they are missing an edition, and counting a missing article as zero would dress an encyclopaedia gap as disinterest.
 
 Two kinds here hold fewer than three fully-covered brands. They are printed so the panel is complete and marked so they are not read as a pattern.
+
+The tables behind this are at [kculturewire.com/brand-kinds](/brand-kinds) and [kculturewire.com/fame-compare](/fame-compare).

@@ -84,3 +84,5 @@ say why, and we are not going to guess.
 
 The four country lists, the even-reader table and the workings are on
 [whose star is whose](https://www.kculturewire.com/own-star).
+
+The table behind this is at [kculturewire.com/own-star](/own-star).

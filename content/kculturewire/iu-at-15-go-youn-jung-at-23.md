@@ -92,3 +92,5 @@ of a first credited work, which is not always the date someone would name themse
 
 The four bands, the career-length control and the workings are on
 [when they started](https://www.kculturewire.com/debut-age).
+
+The table behind this is at [kculturewire.com/debut-age](/debut-age).

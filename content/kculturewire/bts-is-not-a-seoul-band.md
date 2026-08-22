@@ -101,3 +101,5 @@ quietly dropped.
 
 The full table — all 37 cities, every name in each, and the 26 we would not place — is at
 [where Korea's most-read stars were born](https://www.kculturewire.com/hometowns).
+
+The table behind this is at [kculturewire.com/hometowns](/hometowns).

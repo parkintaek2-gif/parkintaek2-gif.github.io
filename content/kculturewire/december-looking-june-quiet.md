@@ -54,3 +54,5 @@ We are not publishing a correlation coefficient. Over twenty-three months, a sha
 Folding twenty-three months into twelve leaves two years behind most rows and one behind July. A monthly average here rests on two readings.
 
 And looking is not going. Some of these reads are homework, some are idle curiosity, and some never become a trip. What the data can show is when the looking happens — and that it stops happening in June.
+
+The tables behind this are at [kculturewire.com/look-vs-fly](/look-vs-fly) and [kculturewire.com/read-vs-visited](/read-vs-visited).
