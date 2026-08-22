@@ -102,9 +102,13 @@ if (process.argv.includes('--자가시험')) {
   검('문 없는 지면은 0', 수.get('/orphan') === 0);
   검('⛔ 자기를 가리키는 것은 문이 아니다', 수.get('/self') === 0);
   검('봐준다에 첫 화면이 있다', 봐준다['/'] !== undefined);
+  /* 🔴 첫 화면 파일이 폴더 밖에 있어 한 번도 안 세어졌다(2026-08-22) — 그 링크가 세어져야 한다 */
+  검('첫 화면에서 나가는 링크도 센다', 들어오는수(new Map([['/', '<a href="/x">'], ['/x', '']])).get('/x') === 1);
+  /* ⚠ 남이 dist 를 다시 짓는 사이에 읽으면 파일이 사라진다 — 그때는 «못 쟀다»여야 한다 */
+  검('사라진 파일을 문 없는 지면으로 안 센다', 들어오는수(new Map([['/a', '<a href="/b">']])).get('/a') === 0);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-kcw-orphan-pages 자가시험 통과 (10)');
+  console.log('✅ check-kcw-orphan-pages 자가시험 통과 (11)');
   process.exit(0);
 }
 
@@ -113,17 +117,57 @@ if (!fs.existsSync(낸방)) {
   process.exit(0);
 }
 
+/**
+ * ⚠ 2026-08-22 — 자리 여섯이 `dist` 를 같이 쓴다. 남이 빌드하는 사이에 읽으면
+ *   **읽던 파일이 사라진다**(ENOENT). 그때 나오는 수는 흠이 아니라 **못 잰 것**이다.
+ *   ⛔ 사라진 파일을 「문 없는 지면」으로 세지 않는다. 몇 장이 사라졌는지 세어서 밝히고,
+ *     많이 사라졌으면 판정을 **아예 안 한다.**
+ */
 const 글들 = new Map();
+let 사라진수 = 0;
 const 걷기 = (디렉, 앞 = '') => {
-  for (const e of fs.readdirSync(디렉, { withFileTypes: true })) {
+  let 목록;
+  try { 목록 = fs.readdirSync(디렉, { withFileTypes: true }); } catch { 사라진수++; return; }
+  for (const e of 목록) {
     const 다음 = path.join(디렉, e.name);
     const 상대 = 앞 ? `${앞}/${e.name}` : e.name;
     if (e.isDirectory()) { 걷기(다음, 상대); continue; }
     if (!e.name.endsWith('.html')) continue;
-    글들.set(주소로(상대), fs.readFileSync(다음, 'utf8'));
+    try { 글들.set(주소로(상대), fs.readFileSync(다음, 'utf8')); } catch { 사라진수++; }
   }
 };
 걷기(낸방);
+
+/**
+ * 🔴 2026-08-22 14:2x — 이 자가 **거짓 빨강**을 냈다. `/most-read` 를 첫 화면에 걸어 놓고도
+ *   「문이 0개」라고 울었다. 까닭 — **첫 화면 파일은 `dist/wikitip.html` 이고,
+ *   이 자는 `dist/wikitip/` «폴더»만 걸었다.** 첫 화면에서 나가는 링크를 한 번도 안 세고 있었다.
+ *   첫 화면에서만 걸린 지면은 전부 고아로 나왔던 것이다. 자가 틀리면 잰 수가 다 틀린다.
+ */
+const 첫화면길 = path.join(뿌리, 'dist/wikitip.html');
+if (fs.existsSync(첫화면길)) {
+  try { 글들.set('/', fs.readFileSync(첫화면길, 'utf8')); } catch { 사라진수++; }
+}
+
+if (사라진수 > 0) {
+  console.log(`⚠ 읽는 사이에 사라진 파일 ${사라진수}개 — 남이 지금 빌드하고 있다. **못 쟀다**로 끝낸다(빨강 아님)`);
+  process.exit(0);
+}
+
+/**
+ * 🔴 사라지는 것만 막았더니 **아직 안 만들어진 것**에 걸렸다(2026-08-22 14:1x).
+ *   남이 `dist` 를 다시 짓는 중이면 지면이 스물아홉 장만 있고, 그 상태로 세면
+ *   멀쩡한 지면이 전부 「문 없는 지면」으로 나온다. **거짓 빨강**이다.
+ * ⇒ 사이트맵이 몇 장을 싣고 있는지와 견줘, 너무 적으면 **판정을 안 한다.**
+ */
+const 사이트맵길 = path.join(낸방, 'sitemap.xml');
+if (fs.existsSync(사이트맵길)) {
+  const 실린수 = (fs.readFileSync(사이트맵길, 'utf8').match(/<loc>/g) ?? []).length;
+  if (실린수 > 0 && 글들.size < 실린수 * 0.8) {
+    console.log(`⚠ 나간 지면 ${글들.size}장인데 사이트맵은 ${실린수}장이다 — 지금 다시 짓는 중이다. **못 쟀다**로 끝낸다(빨강 아님)`);
+    process.exit(0);
+  }
+}
 
 const 수 = 들어오는수(글들);
 const 고아 = [...수.entries()]
