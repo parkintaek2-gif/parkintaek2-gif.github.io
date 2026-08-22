@@ -31,6 +31,7 @@ import 반려동물 from '../../../data/100yearmap/pets.json';
 import 여행 from '../../../data/100yearmap/travel.json';
 import 승진 from '../../../data/100yearmap/promotion.json';
 import 운동 from '../../../data/100yearmap/exercise.json';
+import 혼자 from '../../../data/100yearmap/oneperson.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -44,6 +45,7 @@ const p = 반려동물 as any;
 const q = 여행 as any;
 const r = 승진 as any;
 const s = 운동 as any;
+const t = 혼자 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -136,6 +138,12 @@ const 문들 = [
     수: `${s.동호회최고.최고칸} ${s.동호회최고.최고값}%`,
     한줄: `동호회 참여율은 ${s.동호회최고.최고칸}까지 오르다 70세 이상에서 다시 낮아집니다 — "나이 들수록 계속 는다"는 절반만 맞습니다.`,
     기간: `${s.최신} · 국민생활체육조사`,
+  },
+  {
+    나이: '전 연령', 주소: '/oneperson', 이름: '1인가구는 어느 나이대에 가장 많을까',
+    수: `${t['⭐ 40대가 움푹 꺼진다'].최고칸.칸} ${t['⭐ 40대가 움푹 꺼진다'].최고칸.비중}%`,
+    한줄: `${t['⭐ 40대가 움푹 꺼진다'].최저칸.칸}이 가장 적고(${t['⭐ 40대가 움푹 꺼진다'].최저칸.비중}%) 그 앞뒤가 더 높습니다 — "청년·노년 두 봉우리"라는 짐작과는 달랐습니다.`,
+    기간: `${t.최신} · KOSIS`,
   },
   {
     나이: '20~60대', 주소: '/age', 이름: '나이로 보기 — 월급 · 근속 · 살림',

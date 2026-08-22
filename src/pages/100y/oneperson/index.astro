@@ -1,0 +1,125 @@
+---
+/**
+ * /100y/oneperson — 나이대별 1인가구 비중, 어느 나이대에 가장 몰려 있나
+ *
+ * 🔴 「0~100세 × 다섯 분야」 기획서(2026-08-22) 1단계 로드맵 2번째 — 사회 분야 첫 지면.
+ *   scripts/collect-100y-oneperson.mjs 참고.
+ *
+ * ⛔ 처음엔 "청년·노년 두 봉우리"일 거라 짐작했으나, 사이트 전체가 쓰는 열 살 단위로 묶으니
+ *   40대가 가장 적고 그 앞뒤(30대·70세 이상)가 높은 그림이 나왔다. 짐작을 자료로 고쳤다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/oneperson.json';
+
+const 자료 = 원본 as any;
+const 나이별 = 자료.나이별 as any[];
+const 최고칸 = 자료['⭐ 40대가 움푹 꺼진다'].최고칸;
+const 최저칸 = 자료['⭐ 40대가 움푹 꺼진다'].최저칸;
+const 남녀뒤집힘 = 자료.남녀뒤집힘 as any[];
+const 뒤집히는나이 = 남녀뒤집힘.find((r, i) => i > 0 && r.많은쪽 !== 남녀뒤집힘[i - 1].많은쪽);
+
+const desc =
+  `${자료.최신}년 기준 1인가구는 ${최고칸.칸}에 가장 많이 몰려 있고(전체의 ${최고칸.비중}%) ` +
+  `${최저칸.칸}이 가장 적습니다(${최저칸.비중}%). 성비는 ${뒤집히는나이?.칸 ?? '60대'}부터 여자가 더 많아집니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 1인가구 수', '나이대별 1인가구 성비'],
+};
+---
+
+<HundredYear title={`나이대별 1인가구 비중 — ${최고칸.칸}에 가장 많다(${최고칸.비중}%)`} description={desc} jsonLd={jsonLd}>
+  <h1>1인가구는<br />어느 나이대에 가장 많을까요</h1>
+  <p class="sub">
+    {자료.최신}년 기준, 전국 1인가구 <strong>{자료.합계.toLocaleString()}가구</strong> 중
+    <strong>{최고칸.칸}이 {최고칸.비중}%</strong>로 가장 많고
+    <strong>{최저칸.칸}은 {최저칸.비중}%</strong>로 가장 적습니다.
+  </p>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>1인가구 수</th><th>전체 중 비중</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.가구수.toLocaleString()}</td>
+            <td><strong>{r.비중}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⛔ 짐작과 달랐습니다</h2>
+  <p class="note">
+    5세 단위 원자료만 보면 20대 후반과 60대 후반, 두 나이대가 유독 높아 "청년과 노년,
+    두 봉우리"로 보일 수 있습니다. 그런데 열 살 단위로 묶어 보면 그림이 달라집니다 —
+    <strong>{최저칸.칸}이 오히려 가장 적고({최저칸.비중}%)</strong>, 그 앞(30대)과
+    뒤({최고칸.칸})가 더 높습니다. "나이 들수록 점점 늘어난다"도 아니고 "청년·노년 두 봉우리"도
+    아닙니다 — {최저칸.칸}에서 한 번 꺼졌다가 다시 오르는 모양입니다.
+  </p>
+
+  <h2>⭐ 성비도 나이대마다 뒤집힙니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>남자</th><th>여자</th><th>더 많은 쪽</th></tr></thead>
+      <tbody>
+        {나이별.filter((r) => r.칸 !== '20세 미만').map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.남자.toLocaleString()}</td>
+            <td>{r.여자.toLocaleString()}</td>
+            <td><strong>{r.남자 > r.여자 ? '남자' : '여자'}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    20대부터 50대까지는 남자 1인가구가 더 많다가, {뒤집히는나이?.칸 ?? '60대'}부터 여자가
+    더 많아집니다. 왜 그런지(사별·평균수명 차이 등)는 이 표가 답하지 않습니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    나이대별 1인가구 수를 다 더하면 전국 합계와 같아야 합니다 —
+    <strong>{자료.자가대조['나이 일곱 칸 합 = 전국 합계'].맞나 ? `맞습니다(차이 ${자료.자가대조['나이 일곱 칸 합 = 전국 합계'].차이})` : '어긋납니다'}</strong>.
+    {' '}나이대마다 남자+여자를 더한 것도 <strong>{자료.자가대조['칸마다 남자+여자 = 가구수'].맞나 ? '전부 맞습니다' : `어긋난 칸 ${자료.자가대조['칸마다 남자+여자 = 가구수'].어긋난칸수}개`}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 혼자 사는 것이 좋다거나
+    나쁘다고 쓰지 않습니다 — {자료.최신}년에 나이대별로 몇 가구였는지가 저희가 셀 수 있는
+    전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「혼자 사는 사람」 방</a>
+  </p>
+
+  <HundredCardnews 벌="1인가구비중" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <NextQuestionBrief 모은것="나이대별 1인가구 자료" />
+</HundredYear>
