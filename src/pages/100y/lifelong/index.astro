@@ -1,0 +1,105 @@
+---
+/**
+ * /100y/lifelong — 나이대별 평생학습 참여율, 성인은 몇 %가 계속 배우나
+ *
+ * 🔴 「0~100세 × 다섯 분야」 기획서(2026-08-22) 1단계 로드맵 3번째 — 교육(성인) 첫 지면.
+ *   scripts/collect-100y-lifelong.mjs 참고.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/lifelong.json';
+
+const 자료 = 원본 as any;
+const 나이별 = 자료.나이별 as any[];
+const 흐름 = 자료['⭐ 나이 들수록 계속 낮아지나'];
+
+const desc =
+  `${자료.최신}년 기준 평생학습 참여율은 ${흐름.최고칸}에서 ${흐름.최고값}%로 가장 높고 ` +
+  `나이 들수록 한 번도 안 꺾이고 내려가 ${흐름.최저칸}에서 ${흐름.최저값}%입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 평생학습 참여율', '유형별(형식·비형식·직업관련) 참여율'],
+};
+---
+
+<HundredYear title={`나이대별 평생학습 참여율 — ${흐름.최고칸} ${흐름.최고값}%로 가장 높다`} description={desc} jsonLd={jsonLd}>
+  <h1>성인은 몇 %가<br />계속 배우고 있을까요</h1>
+  <p class="sub">
+    {자료.최신}년 기준, 평생학습 참여율은 <strong>{흐름.최고칸}에서 {흐름.최고값}%</strong>로
+    가장 높고 <strong>{흐름.최저칸}에서 {흐름.최저값}%</strong>로 가장 낮습니다.
+  </p>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>전체 참여율</th><th>비형식교육</th><th>직업관련 목적</th><th>형식교육</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.참여율}%</strong></td>
+            <td>{r.비형식교육 ?? '못 잼'}%</td>
+            <td>{r.직업관련 ?? '못 잼'}%</td>
+            <td>{r.형식교육 != null ? `${r.형식교육}%` : '⚠ 못 잼(표본 없음)'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⭐ 이번엔 짐작과 어긋나지 않았습니다</h2>
+  <p class="note">
+    앞서 저희가 낸 다른 지면(동호회 참여율·1인가구 비중)에서는 "나이 들수록 계속 는다/줄어든다"는
+    짐작이 절반만 맞거나 아예 틀렸습니다. 이번 평생학습은 다릅니다 — {흐름.최고칸}
+    {흐름.최고값}%에서 {흐름.최저칸} {흐름.최저값}%까지 <strong>한 번도 안 꺾이고 내려갑니다</strong>.
+  </p>
+  <p class="note">
+    유형별로 나누면 거의 전부가 «비형식교육»(직업훈련·평생교육원·온라인강좌 등)입니다.
+    «형식교육»(학위과정)은 어느 나이대든 1% 안팎으로 작고, 70대는 표본이 아예 없어(X)
+    이 표로는 못 쟀습니다 — 없는 것을 0으로 채우지 않고 «못 잼»으로 그대로 둡니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    비형식교육 참여율은 전체 참여율의 일부이니 전체를 넘어설 수 없어야 합니다 —
+    <strong>{자료.자가대조['비형식교육 참여율 ≤ 전체 참여율'].맞나 ? '전부 맞습니다' : `어긋난 칸 ${자료.자가대조['비형식교육 참여율 ≤ 전체 참여율'].어긋난칸수}개`}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 평생학습을 더 해야 한다고
+    쓰지 않습니다 — {자료.최신}년에 나이대별로 몇 %가 그렇게 답했는지가 저희가 셀 수 있는
+    전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/oneperson">← 1인가구는 어느 나이대에 가장 많을까, 짐작과 달랐다</a>
+    <br />
+    <a href="/exercise">← 몇 %가 규칙적으로 운동하나, 동호회로 하는 사람은 얼마나 되나</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「계속 배우는 사람」 방</a>
+  </p>
+
+  <HundredCardnews 벌="평생학습참여율" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <NextQuestionBrief 모은것="나이대별 평생학습 참여율 자료" />
+</HundredYear>
