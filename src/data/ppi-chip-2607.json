@@ -1,0 +1,81 @@
+{
+  "source": "한국은행 생산자물가지수(기본분류) · KOSIS 301/DT_404Y014 · 2020=100",
+  "window": {
+    "first": "202508",
+    "last": "202607"
+  },
+  "total": {
+    "first": 120.11,
+    "last": 129.39,
+    "pct": 7.7
+  },
+  "ic": {
+    "first": 92.64,
+    "last": 384.48,
+    "pct": 315
+  },
+  "memory": {
+    "first": 77.44,
+    "last": 302.57,
+    "pct": 290.7
+  },
+  "semiconductor": {
+    "first": 98.61,
+    "last": 240.83,
+    "pct": 144.2
+  },
+  "top": [
+    {
+      "ko": "집적회로",
+      "en": "Integrated circuits",
+      "ch": 315
+    },
+    {
+      "ko": "컴퓨터기억장치",
+      "en": "Computer memory",
+      "ch": 290.7
+    },
+    {
+      "ko": "기타석유정제제품",
+      "en": "Other refined petroleum",
+      "ch": 177.9
+    },
+    {
+      "ko": "반도체",
+      "en": "Semiconductors",
+      "ch": 144.2
+    },
+    {
+      "ko": "윤활유및기타석유정제품",
+      "en": "Lubricants & refined oil",
+      "ch": 143.2
+    },
+    {
+      "ko": "컴퓨터및주변기기",
+      "en": "Computers & peripherals",
+      "ch": 142.8
+    }
+  ],
+  "bottom": [
+    {
+      "ko": "식용임산물",
+      "en": "Edible forest products",
+      "ch": -34.9
+    },
+    {
+      "ko": "임산물",
+      "en": "Forest products",
+      "ch": -25.7
+    },
+    {
+      "ko": "채소",
+      "en": "Vegetables",
+      "ch": -25.5
+    },
+    {
+      "ko": "채소및과실",
+      "en": "Vegetables & fruit",
+      "ch": -19.4
+    }
+  ]
+}
