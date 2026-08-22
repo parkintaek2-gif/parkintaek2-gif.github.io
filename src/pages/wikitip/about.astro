@@ -33,10 +33,19 @@ const 최신기사 = (await getCollection('kcwArticles'))
   .sort((a, b) => +new Date(b.data.pubDate) - +new Date(a.data.pubDate));
 const 보일것 = 최신기사.slice(0, 4);
 
-const TITLE = 'About & methodology';
+/**
+ * 🔴 2026-08-22 — 4주 실측에서 이 지면이 **노출 102 · 순위 11.5 · 클릭 0** 이었다.
+ *   우리 지면 중 노출이 세 번째로 큰 자리인데 한 번도 안 눌렸다.
+ *   ⛔ 「About & methodology」는 **우리를 가리키는 말**이지 손님이 찾는 말이 아니다.
+ *     이 자리에 오는 까닭은 「이 수를 어디서 어떻게 세었나」를 묻기 때문이다.
+ * ⭐ 제목이 그 물음에 답하게 바꾼다. 카피 규칙 ①(제목에 숫자 없음)·③(사람이 쓰는 말) 그대로다.
+ * ⚠ 메뉴에 걸리는 이름(About)은 그대로다 — 검색 결과에 나가는 제목만 바꾼 것이다.
+ */
+const TITLE = 'Where every number here comes from, and what we could not count';
 const DESC =
-  'Who publishes K Culture Wire, exactly which public datasets each number comes from, '
-  + 'how we decide what counts as a Korean production, and what we deliberately leave out.';
+  'The public datasets behind each figure, the rule that decides what counts as a Korean '
+  + 'production, and the gaps we leave open rather than fill — including the two Netflix files '
+  + 'most of this rests on and what is missing from them.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -106,6 +115,14 @@ const jsonLd = {
         and every week since July 2021. Netflix publishes hours viewed and country rank itself;
         we do not estimate either.{' '}
         <a href="https://www.netflix.com/tudum/top10" rel="external noopener" target="_blank">netflix.com/tudum/top10</a>
+        {/* ⭐ 2026-08-22 — 이 지면에 오는 노출 102개가 「이 수를 어떻게 세었나」를 묻는 자리다.
+            그 물음의 절반은 넷플릭스 파일 자체에 대한 것이고, 우리는 그 답을 이제 갖고 있다 */}
+        <br />
+        <span class="fine">
+          We measured both of those files column by column, including the two things they do not
+          tell you: <a href="/netflix-top10-data">what is inside them, and what is missing from
+          them</a>.
+        </span>
       </li>
       <li>
         <b>Wikidata</b> — country of origin (property P495), cast member (P161) and country of
