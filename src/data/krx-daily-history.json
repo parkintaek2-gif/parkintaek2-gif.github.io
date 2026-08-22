@@ -5,6 +5,8 @@
    "date": "2026-08-21",
    "issues": 2764,
    "zeroTrade": 137,
+   "giniCap": 0.9452,
+   "giniTurnover": 0.9533,
    "kospiCapPct": 92.8,
    "kosdaqCapPct": 7.2,
    "kospiValPct": 84.13,
