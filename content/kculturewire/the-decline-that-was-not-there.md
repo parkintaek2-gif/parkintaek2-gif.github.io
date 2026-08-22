@@ -1,6 +1,6 @@
 ---
 title: "New K-pop groups look 69% down. So does every other kind"
-dek: "We set out to count Korean group debuts by year and the query returned a clean decline. Then we ran it for three other countries and got the same decline. What we had measured was how fast Wikidata records new groups."
+dek: "Four countries, one identical decline: new group debuts look 69% down since 2017 in Korea, and just as far down in Japan, America and Britain. What we had measured was not the industry but how fast Wikidata records a new group."
 category: titles
 genre: music
 purpose: both

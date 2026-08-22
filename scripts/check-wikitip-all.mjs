@@ -164,6 +164,8 @@ const 검사 = [
      넷 다 1페이지에 있으면서 클릭이 0이었다. ⭐ 눈으로 찾으면 다음 장에서 또 샌다 — 자로 만든다.
      ⛔ 이 자는 「좋은 제목인가」를 판정하지 않는다. 어긋난 자리만 짚고 사람이 정한다 */
   ['제목이 지면보다 좁게·우리 말로 말하나', 'check-kcw-title-promise.mjs'],
+  ['제목이 잘려 논점이 사라지나', 'check-kcw-title-length.mjs'],
+  ['설명이 잘려 아무 말도 안 하나', 'check-kcw-description-length.mjs'],
   /**
    * ⛔ `check-kcw-indexed.mjs` 는 여기에 **일부러 안 넣는다.**
    *   구글 URL Inspection API 는 하루 2,000건 한도이고 한 번 돌 때 표본 61건을 쓴다.
