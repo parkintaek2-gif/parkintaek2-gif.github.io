@@ -10,6 +10,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/travel.json';
 
 const 자료 = 원본 as any;
@@ -135,6 +136,8 @@ const desc =
     <br />
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
   </p>
+
+  <HundredCardnews 벌="국내여행일수" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
 
   <NextQuestionBrief 모은것="국내여행 자료" />
 </HundredYear>

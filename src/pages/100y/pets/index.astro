@@ -12,9 +12,9 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/pets.json';
-/* ⚠ 카드뉴스는 아직 안 만들었다 — HundredCardnews 는 파일 존재를 확인 안 하고 <img> 를
-   무조건 낸다. 벌을 만들기 전엔 붙이지 않는다(깨진 이미지를 내느니 안 내는 게 낫다) */
+/* ⭐ scripts/make-cardnews-100y-pets.mjs 로 다섯 장 만들어 public/100y/cardnews/ 에 냈다 */
 
 const 자료 = 원본 as any;
 const 전체 = 자료.전체;
@@ -161,6 +161,8 @@ const desc =
     <br />
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
   </p>
+
+  <HundredCardnews 벌="반려동물기르는비율" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
 
   <NextQuestionBrief 모은것="반려동물 양육 자료" />
 </HundredYear>

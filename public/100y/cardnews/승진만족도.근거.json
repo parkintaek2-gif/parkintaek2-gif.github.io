@@ -1,0 +1,15 @@
+[
+ { "수": 30.9, "뜻": "2024년 승진 만족(「만족」+「매우 만족」) 여성 비율(%)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 37.3, "뜻": "2024년 승진 만족(「만족」+「매우 만족」) 남성 비율(%)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 2.8, "뜻": "2024년 과장급(이하) 여성 승진 만족도 평균(5점 척도)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3, "뜻": "2024년 과장급(이하) 남성 평균 · 전체 평균(여성)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.2, "뜻": "2024년 차장급 여성 평균 · 전체 평균(남성)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.1, "뜻": "2024년 차장급 남성 평균", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.4, "뜻": "2024년 부장급 여성 평균", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.5, "뜻": "2024년 부장급 남성 평균", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.3, "뜻": "2024년 임원급 여성 평균", "지면": "https://100yearmap.com/promotion" },
+ { "수": 3.9, "뜻": "2024년 임원급 남성 평균", "지면": "https://100yearmap.com/promotion" },
+ { "수": 0.6, "뜻": "임원급 성별 평균 차이(남−여)", "지면": "https://100yearmap.com/promotion" },
+ { "수": 0.2, "뜻": "임원급을 뺀 나머지 직급의 성별 평균 차이 중 최댓값", "지면": "https://100yearmap.com/promotion" },
+ { "수": 2024, "뜻": "최신 조사 연도", "지면": "https://100yearmap.com/promotion" }
+]
