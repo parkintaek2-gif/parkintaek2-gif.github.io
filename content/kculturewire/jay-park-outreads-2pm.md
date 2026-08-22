@@ -93,5 +93,3 @@ the table repeatedly. We collapsed duplicates so each person appears once per gr
 
 The full table, including the thirteen where the group leads everywhere, is on
 [members and their groups](https://www.kculturewire.com/member-vs-group).
-
-The table behind this is at [kculturewire.com/member-vs-group](/member-vs-group).

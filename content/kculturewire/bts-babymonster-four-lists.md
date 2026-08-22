@@ -102,5 +102,3 @@ name the other three share, and we did not measure what put it there.
 
 The four full tables are at
 [who each country reads first](https://www.kculturewire.com/who-is-first).
-
-The table behind this is at [kculturewire.com/who-is-first](/who-is-first).

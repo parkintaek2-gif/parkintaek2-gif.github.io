@@ -35,7 +35,18 @@ export const pages읽기 = (원본) => {
 };
 
 export const 본문떼기 = (원본) => 원본.replace(/^---[\s\S]*?\r?\n---/, '');
-export const 본문에링크있나 = (원본) => [...본문떼기(원본).matchAll(/\]\((\/[^)]*)\)/g)].length > 0;
+/**
+ * 🔴🔴 2026-08-22 — 이 줄이 **`](/경로)` 만** 링크로 셌다. 그래서 전체 주소로 문을 걸어 둔 편을
+ *   「문이 0개」로 보고 **같은 문을 하나 더 붙였다** — 그 줄이 붙은 11편 중 10편이 겹쳤다(실측).
+ *   `[how many languages](https://www.kculturewire.com/how-many-languages)` 가 안 세어졌다.
+ *   ⭐ 우리 집 주소로 건 링크도 문이다. 둘 다 센다 — 그래야 「다시 돌려도 같다」가 참이 된다.
+ */
+export const 본문에링크있나 = (원본) => {
+  const 본문 = 본문떼기(원본);
+  const 상대 = [...본문.matchAll(/\]\((\/[^)]*)\)/g)].length;
+  const 절대 = [...본문.matchAll(/\]\(https?:\/\/(?:www\.)?kculturewire\.com(\/[^)]*)?\)/g)].length;
+  return 상대 + 절대 > 0;
+};
 
 /** 낼 한 줄. 지면이 둘이면 둘 다 건다 — 하나만 걸면 나머지가 또 문 없는 지면이 된다 */
 export function 문장만들기(지면들) {
@@ -75,9 +86,20 @@ if (process.argv.includes('--자가시험')) {
   /* ⚠ CRLF 로 저장된 편이 섞여 있다 — 줄끝을 지켜야 한 파일이 통째로 바뀐 것처럼 보이지 않는다 */
   검('CRLF 파일은 CRLF 로 붙인다', 한편고치기(앞말(['/x']).replace(/\n/g, '\r\n')).새것.endsWith('\r\n'));
   검('앞말 안의 링크를 본문 링크로 안 센다', 본문에링크있나('---\nx: "[a](/b)"\n---\n\nplain\n') === false);
+  /**
+   * 🔴🔴 이 칸이 없어서 흠이 조용히 지나갔다 — 자가시험 10개가 다 통과하는데
+   *   10편에 같은 문이 두 번 붙었다. 시험이 **안 보던 자리**가 여기였다.
+   */
+  const 절대문 = (주소) => `---\nx: 1\n---\n\nsee [it](${주소}).\n`;
+  검('⭐⭐ 전체 주소로 건 문도 문으로 센다',
+    본문에링크있나(절대문('https://www.kculturewire.com/places')) === true);
+  검('⭐ www 없는 주소도 센다',
+    본문에링크있나(절대문('https://kculturewire.com/places')) === true);
+  검('⛔ 남의 집 주소는 문이 아니다',
+    본문에링크있나(절대문('https://example.com/places')) === false);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ fix-kcw-body-doors 자가시험 통과 (10)');
+  console.log('✅ fix-kcw-body-doors 자가시험 통과 (13)');
   process.exit(0);
 }
 

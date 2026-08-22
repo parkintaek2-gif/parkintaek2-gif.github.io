@@ -107,5 +107,3 @@ old one could never have seen.
 
 The full list, the box, and the page it corrects are at
 [which parts of Korea get looked up](https://www.kculturewire.com/places).
-
-The table behind this is at [kculturewire.com/places](/places).

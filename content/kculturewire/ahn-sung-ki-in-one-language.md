@@ -79,5 +79,3 @@ produce the table at all.
 
 The full lists, the size comparison and the limits are on
 [held by one edition](https://www.kculturewire.com/only-one-wikipedia).
-
-The table behind this is at [kculturewire.com/only-one-wikipedia](/only-one-wikipedia).

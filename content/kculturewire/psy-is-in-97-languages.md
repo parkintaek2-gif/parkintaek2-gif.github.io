@@ -96,5 +96,3 @@ how many.
 
 The full table, the thresholds and the birth-decade control are on
 [how many languages](https://www.kculturewire.com/how-many-languages).
-
-The table behind this is at [kculturewire.com/how-many-languages](/how-many-languages).

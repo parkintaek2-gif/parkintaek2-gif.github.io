@@ -85,5 +85,3 @@ The tables, the six orderings and the limits are on
 [who reads least](https://www.kculturewire.com/who-reads-least). The neighbouring finding — that
 Malaysia reads Korean brands more readily than Korean people — is on
 [Malaysia](https://www.kculturewire.com/malaysia).
-
-The table behind this is at [kculturewire.com/who-reads-least](/who-reads-least).

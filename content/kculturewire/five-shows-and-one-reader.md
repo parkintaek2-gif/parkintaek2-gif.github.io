@@ -111,5 +111,3 @@ goes with more lookups. It came out at about three times, with the same limit on
 
 The table and the workings are on
 [how much a second role tells you](https://www.kculturewire.com/works-and-readers).
-
-The table behind this is at [kculturewire.com/works-and-readers](/works-and-readers).
