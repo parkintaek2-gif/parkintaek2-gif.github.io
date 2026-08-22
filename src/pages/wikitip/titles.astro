@@ -18,11 +18,22 @@ import ambiguity from '../../data/wikitip-title-ambiguity.json';
 import key from '../../data/wikitip-key-integrity.json';
 import korea from '../../data/wikitip-korea-signal.json';
 
-const TITLE = 'Korean titles in Southeast Asia’s Netflix Top 10';
+/**
+ * 🔴 2026-08-22 — 4주 실측에서 이 지면이 **노출 67 · 순위 7.9 · 클릭 0** 이었다.
+ *   자료 지면 무리에서 가장 큰 자리인데 한 번도 안 눌렸다.
+ *
+ * ⛔ 까닭을 찾았다: 제목이 **이 지면이 주는 것보다 좁게** 말한다. 표는 동남아 여섯 나라지만
+ *   이 지면은 **93개국을 담은 작품 지면 528장으로 링크**한다(실측: 링크 528개).
+ *   손님은 검색 결과에서 「Southeast Asia」만 읽고 자기 나라 이야기가 아니라고 판단한다.
+ * ⭐ 좁게도 넓게도 말하지 않는다 — **가진 그대로** 적는다. 93개국 지면과 여섯 나라 표 둘 다.
+ * ⚠ 「모든 나라」라고 쓰지 않는다. 넷플릭스가 수를 내는 나라가 93개이고 그것이 세상 전부는 아니다.
+ */
+const TITLE = `Every Korean title that reached a Netflix top 10 — ${titlePages.pageCount} with a page of their own`;
 const DESC =
-  `The ${data.titleCount} Korean shows and films that reached the Netflix Top 10 across Southeast Asia `
-  + `since 2021 — how many of the six countries each charted in, how high it went, and how many weeks it stayed. `
-  + `Counted from Netflix’s own weekly lists.`;
+  `${titlePages.titleCount} Korean shows and films have reached at least one country's Netflix top 10 `
+  + `since ${titlePages.weekFrom}, and ${titlePages.pageCount} of them have a page here showing every `
+  + `market they charted in. The table below ranks the ${data.titleCount} that charted in Southeast Asia `
+  + `by how many of those six countries took them. Counted from Netflix's own weekly lists.`;
 
 const rows = data.rows;
 const reachedNo1 = rows.filter((r) => r.peak === 1).length;
