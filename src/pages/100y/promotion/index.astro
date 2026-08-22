@@ -31,9 +31,21 @@ const 임원급 = 직급별[직급별.length - 1];
 const desc =
   `${자료.최신}년 기준 승진에 «만족» 이상으로 답한 사람은 여성 ${여만족}% · 남성 ${남만족}%입니다. ` +
   `직급별로는 임원급에서 성별 평균 차이(${맨위차.맨위}점)가 다른 직급(최대 ${맨위차.나머지최대}점)보다 뚜렷이 큽니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: `${흐름[0].해}/${자료.최신}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['승진 만족도(5점 척도)', '직급별 성별 차이', '연도별 흐름'],
+};
 ---
 
-<HundredYear title={`승진 만족 — 여성 ${여만족}% · 남성 ${남만족}%, 임원급에서 차가 제일 크다`} description={desc}>
+<HundredYear title={`승진 만족 — 여성 ${여만족}% · 남성 ${남만족}%, 임원급에서 차가 제일 크다`} description={desc} jsonLd={jsonLd}>
   <h1>승진에<br />만족하는 사람은 몇 %일까요</h1>
   <p class="sub">
     {자료.최신}년 기준, 승진에 <strong>「만족」 이상으로 답한 사람은 여성 {여만족}% · 남성 {남만족}%</strong>입니다.

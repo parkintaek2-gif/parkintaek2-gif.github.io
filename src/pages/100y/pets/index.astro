@@ -32,9 +32,21 @@ const 예순이상 = 연령별.find((r) => r.칸 === '60대 이상');
 const desc =
   `${자료.최신}년 기준 ${전체.양육몫}%(${전체.사례수.toLocaleString()}가구 표본)가 반려동물을 기릅니다. ` +
   `기르는 가구 안에서는 20대가 개 ${스물대.개몫}%·고양이 ${스물대.고양이몫}%인데, 60대 이상은 개 ${예순이상.개몫}%·고양이 ${예순이상.고양이몫}%로 갈립니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['반려동물 양육 여부', '나이대별 양육률', '기르는 가구 안 종류별 비중'],
+};
 ---
 
-<HundredYear title={`반려동물 기르는 비율 ${전체.양육몫}% — 나이대로 개·고양이가 갈린다`} description={desc}>
+<HundredYear title={`반려동물 기르는 비율 ${전체.양육몫}% — 나이대로 개·고양이가 갈린다`} description={desc} jsonLd={jsonLd}>
   <h1>반려동물을<br />몇 %가 기르고 있을까요</h1>
   <p class="sub">
     {자료.최신}년 기준, <strong>{전체.양육몫}%가 지금 반려동물을 기르고 있다</strong>고 답했습니다.

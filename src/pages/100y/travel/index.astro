@@ -28,9 +28,21 @@ const desc =
   `${자료.최신}년 기준 1인 평균 국내여행 일수는 ${최신칸.국내전체}일입니다. ` +
   `30대가 ${가장많은연령.국내전체}일로 가장 많고 70세 이상이 ${가장적은연령.국내전체}일로 가장 적습니다. ` +
   `코로나 전(2018~2019) 평균 ${회복.코로나전평균}일에는 아직 못 미쳤습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: `${흐름[0].해}/${자료.최신}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['1인 평균 국내여행 일수', '나이대별 여행 일수', '코로나 전후 비교'],
+};
 ---
 
-<HundredYear title={`1년에 국내여행 ${최신칸.국내전체}일 — 나이대로 갈린다`} description={desc}>
+<HundredYear title={`1년에 국내여행 ${최신칸.국내전체}일 — 나이대로 갈린다`} description={desc} jsonLd={jsonLd}>
   <h1>1년에 국내여행을<br />며칠이나 갈까요</h1>
   <p class="sub">
     {자료.최신}년 기준, <strong>만 15세 이상 1인 평균 국내여행 일수는 {최신칸.국내전체}일</strong>입니다.
