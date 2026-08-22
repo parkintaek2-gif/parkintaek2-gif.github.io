@@ -1,5 +1,5 @@
 ---
-title: "Korean series that never aired on Korean television reach ten times as many countries"
+title: "Korean series that never aired at home reach ten times more countries"
 dek: "Of 287 charting Korean series with a company credit, the 238 that aired on a Korean network reach a median 4 markets. The 49 with no broadcaster on record reach 39. They are 17.1% of the titles and 39.4% of the chart places."
 category: industry
 purpose: both

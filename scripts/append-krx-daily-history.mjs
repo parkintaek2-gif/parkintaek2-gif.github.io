@@ -31,10 +31,13 @@ const kospi = all.filter((x) => x.mkt === 'KOSPI'), kosdaq = all.filter((x) => x
 const byCap = [...all].sort((a, b) => b.cap - a.cap), byVal = [...all].sort((a, b) => b.val - a.val);
 const capTop = (n) => p(byCap.slice(0, n).reduce((s, x) => s + x.cap, 0), totCap);
 const valTop = (n) => p(byVal.slice(0, n).reduce((s, x) => s + x.val, 0), totVal);
+// Gini(집중도 지수 본체) — 비율/스케일 불변. 0=고름, 1=한 곳에 몰림.
+const gini = (a2) => { const x = a2.filter((v) => v > 0).sort((m, n) => m - n); const n = x.length; if (!n) return null; let cum = 0, s = 0; for (let i = 0; i < n; i++) { cum += x[i]; s += cum; } return +((n + 1 - 2 * (s / cum)) / n).toFixed(4); };
 
 const row = {
   date: `${dd.slice(0, 4)}-${dd.slice(4, 6)}-${dd.slice(6, 8)}`,
   issues: all.length, zeroTrade: all.filter((x) => x.val === 0).length,
+  giniCap: gini(all.map((x) => x.cap)), giniTurnover: gini(all.map((x) => x.val)),
   kospiCapPct: p(sum(kospi, 'cap'), totCap), kosdaqCapPct: p(sum(kosdaq, 'cap'), totCap),
   kospiValPct: p(sum(kospi, 'val'), totVal), kosdaqValPct: p(sum(kosdaq, 'val'), totVal),
   kospiVel: +(sum(kospi, 'val') / sum(kospi, 'cap') * 1000).toFixed(2),

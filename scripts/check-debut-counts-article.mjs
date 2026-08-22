@@ -70,7 +70,14 @@ if (process.argv[1] && process.argv[1].endsWith('check-debut-counts-article.mjs'
       `| ${r.name} | ${r.groups.toLocaleString('en-US')} | ${r.earlier} | ${r.recent.toFixed(1)} | ${r.remainingPc}% |`);
   }
   본다('대조군이 셋 이상인가', d.rows.length >= 4, `${d.rows.length}개국`);
-  있나('제목의 69%', `New K-pop groups look ${d.koreaFallPc}% down since ${d.earlierWindow[2]}`);
+  /**
+   * ⚠ 2026-08-22 — 이 칸이 **제목 글귀를 통째로 못박고** 있었다. 제목을 60자로 줄이려니 자가 울었다
+   *   (구글은 제목을 60자 안팎에서 자른다 — 우리 기사 113편 중 112편이 그보다 길었다).
+   *   ⛔ 자가 지킬 것은 「그 수와 그 해가 기사에 있나」다. **어느 문장에 있나**는 자가 정할 일이 아니다.
+   *   ⭐ 수와 해를 따로 본다. 뜻은 같고 제목을 묶지 않는다.
+   */
+  있나('69% 라는 수가 기사에 있나', `${d.koreaFallPc}% down`);
+  있나('어느 해부터인지 적었나', `since ${d.earlierWindow[2]}`);
   있나('한국만 본 표', `| South Korea | ${d.rows[0].earlier} | ${d.rows[0].recent.toFixed(1)} | ${d.rows[0].remainingPc}% |`);
 
   /* ── ③ 판정을 적었나 ── */

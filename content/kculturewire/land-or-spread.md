@@ -1,5 +1,5 @@
 ---
-title: "Korean titles reach the world two ways, and the average of them describes neither"
+title: "Korean titles travel two ways, and the average describes neither"
 dek: "Among 165 Korean titles that reached 20 countries or more, the first week already holds a median 39.1% of the countries they ever reach. But 57 of them started under 25% and 33 were nearly everywhere at once."
 category: titles
 purpose: both
