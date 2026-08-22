@@ -52,6 +52,7 @@
     "collect:funds": "node scripts/collect-fund-codes.mjs",
     "subjects:renames": "node scripts/fill-subjects-from-renames.mjs",
     "traffic": "node scripts/traffic-report.mjs",
+    "search-console": "node scripts/search-console-report.mjs",
     "collect:issuance": "node scripts/collect-issuance-dart.mjs",
     "check:100y": "node scripts/check-100yearmap-copy.mjs",
     "check:space": "node scripts/check-jsx-space.mjs",
