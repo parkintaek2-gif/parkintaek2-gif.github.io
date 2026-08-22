@@ -101,11 +101,11 @@ export function 방들(자료) {
     },
     {
       phrase: 'most popular korean drama',
-      name: 'The titles the whole world charted',
-      line: `Of ${t.pageCount} titles with a page here, a handful reached most of the ${t.marketCount} `
-        + 'countries. The rest reached one or two. The gap is the story.',
-      href: '/world-share',
-      cta: 'See the spread',
+      name: 'Which one did best? Three answers that disagree',
+      line: 'Reach, staying power and total chart places name three different winners, and only one '
+        + 'title is on all three lists. We give you the rulers instead of a verdict.',
+      href: '/most-popular',
+      cta: 'See all three',
     },
     {
       phrase: 'korean drama ranking',

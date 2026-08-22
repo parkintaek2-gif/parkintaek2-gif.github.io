@@ -271,6 +271,7 @@ export const GET: APIRoute = async () => {
     { path: '/by-country', priority: '0.9', changefreq: 'weekly' },
     { path: '/firms', priority: '0.9', changefreq: 'weekly' },
     { path: '/where-to-watch', priority: '0.9', changefreq: 'weekly' },
+    { path: '/most-popular', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-23 — 잰 연도 축. 열 개가 전부 자동완성 1번째였다 */
     { path: '/year/2026', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2025', priority: '0.8', changefreq: 'weekly' },
