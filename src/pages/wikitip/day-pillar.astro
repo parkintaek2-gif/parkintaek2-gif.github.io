@@ -18,6 +18,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-star-daypillar.json';
+import 방자료 from '../../data/wikitip-stem-rooms.json';
 
 /** 로마자 — 읽는 사람이 소리 낼 수 있게. ⚠ 판정이 아니라 표기다 */
 const 간읽기: Record<string, string> = {
@@ -46,6 +47,7 @@ const 간문턱 = (d.thresholds as Record<string, number>)['9'];
 const 지문턱 = (d.thresholds as Record<string, number>)['11'];
 const 넘었나 = (χ2: number, 문턱: number) => (χ2 > 문턱 ? 'above' : 'below');
 
+const 방들 = 방자료.rooms ?? [];
 const 그룹들 = Object.entries(d.groupSpotChecks?.groups ?? {});
 const bts = (d.groupSpotChecks?.groups as any)?.BTS;
 
@@ -223,6 +225,31 @@ const jsonLd = {
           )}
         </div>
       ))}
+    </section>
+  )}
+
+  {방들.length > 0 && (
+    <section>
+      <h2>The ten stems, with every name in them</h2>
+      <p>
+        The tables above are the count. If you want the names, they are split into ten pages, one
+        per day stem, ordered by how many Wikipedia editions carry an article about the person — so
+        the name you are most likely to know comes first.
+      </p>
+      <ul>
+        {방들.map((r: any) => (
+          <li>
+            <a href={r.url}>{r.stem} {r.slug}</a> — {r.people.toLocaleString('en-US')} names
+            {r.top.length > 0 && <span class="fine">, including {r.top.slice(0, 2).join(', ')}</span>}
+          </li>
+        ))}
+      </ul>
+      <p class="note">
+        <strong>A page name is not a reading.</strong> The pages exist because a list of
+        {' '}{d.measured.toLocaleString('en-US')} names is not a page anyone finishes and ten pages
+        of about nine hundred are. Sharing a day stem with IU means being born on one of the same
+        ten kinds of day, and nothing else.
+      </p>
     </section>
   )}
 

@@ -447,6 +447,19 @@ export const GET: APIRoute = async () => {
        ⭐ 영문권 여덟 곳이 «한 사람을 풀어 주는» 자리라 아무도 분모를 만들지 않았다. 그 분모다.
        ⛔ 점을 치지 않는다 — 이 지면이 하는 말은 「고른가 안 고른가」 하나다 */
     { path: '/day-pillar', priority: '0.9', changefreq: 'weekly' },
+    /* 일간 열 칸을 이름으로 걷는 지면. 2026-08-22 — 9,249명을 열 장으로 갈랐다.
+       ⭐ 띠 방 열둘에서 배운 것 — 이름 천 개를 한 장에 두면 아무도 안 읽고, 갈라 놓으면 읽힌다.
+       ⛔ 점을 치지 않는다. 각 장 머리에 «발견이라 부르지 않는다»를 그대로 싣는다 */
+    { path: '/stem/gap', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/eul', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/byeong', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/jeong', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/mu', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/gi', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/gyeong', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/sin', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/im', priority: '0.8', changefreq: 'monthly' },
+    { path: '/stem/gye', priority: '0.8', changefreq: 'monthly' },
     /* 데뷔 나이 지면. 2026-08-21 — 일찍 시작한 스타가 지금 더 읽힌다(4.89배).
        ⭐ 가장 뻔한 반론(경력이 길어 쌓인 것)을 표보다 **먼저** 죽인다 — 띠마다 경력 20~22년.
        ⛔ 경력을 붙들면 위 두 띠가 붙어 사다리가 넷에서 셋이 된다. 그것을 지면에 적었다.

@@ -5,6 +5,8 @@ dek: "Wikidata records 691 Korean musical groups with a formation year. The 2023
 pubDate: 2026-08-22
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom
+pages:
+  - "/what-actually-fell"
 tags: ["korea", "k-pop", "industry", "method", "limits"]
 sources:
   - org: "Wikidata"
@@ -48,7 +50,7 @@ is the kind of thing that gets repeated once someone prints it. The control cost
 This is the same instrument we used on a different question two weeks ago: a fall of a third in
 reads of Korean pages turned out to be a fall in reads of *everything*, and the story changed from
 "Korea is fading" to "this is what a quiet quarter looks like". That one is on
-[what actually fell](https://www.kculturewire.com/what-actually-fell).
+[what actually fell](/what-actually-fell).
 
 ## The second question this source cannot answer either
 
