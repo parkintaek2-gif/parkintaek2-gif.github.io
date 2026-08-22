@@ -246,7 +246,11 @@ const handle = async (req, res) => {
    *   그래서 파일 하나를 막는 게 아니라 **경로 규칙**으로 막는다.
    *   새 빌드 도구를 붙일 때 그것이 만드는 공유 경로가 있으면 **여기에 더한다.**
    */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\//;
+  /* ⚠ 2026-08-22 — 5번이 잡은 사고. /admin 도 세 사이트가 «편집국 하나»를 공유해야
+   *   하는데(같은 계정, 같은 서버), 접두사가 붙으면 /admin → /wikitip/admin 이 되어
+   *   316줄의 /admin 분기에 안 닿는다. seoulmarkets(접두사 없음)만 401(정상)이 뜨고
+   *   나머지 둘은 404 였다. /admin(/…) 도 공유 경로에 넣는다. */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
