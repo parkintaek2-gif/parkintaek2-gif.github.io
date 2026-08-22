@@ -77,6 +77,7 @@ export function 판짓기(방, 자료) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.kculturewire.com/community">
 <title>Star rooms &mdash; K Culture Wire community</title>
 <meta name="description" content="Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.">
 <style>
@@ -165,6 +166,7 @@ export function 방짓기(칸, 자료) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://www.kculturewire.com${방주소(칸.sign)}">
 <title>Year of the ${칸.sign} &mdash; K Culture Wire star rooms</title>
 <meta name="description" content="The ${칸.people} Korean stars born in a ${칸.sign} year, including ${잰것.slice(0, 3).map((p) => p.name).join(', ')}.">
 <style>
