@@ -20,7 +20,24 @@
  */
 import fs from 'node:fs';
 
-const GLOBAL_TSV = 'archive/raw/netflix-top10/global-2026-08-04.tsv';
+const 글로벌방 = 'archive/raw/netflix-top10';
+
+/**
+ * 가장 최근 글로벌 표를 고른다.
+ * 🔴 2026-08-23 — 전에는 `global-2026-08-04.tsv` 가 **이름으로 박혀** 있었다. 그날 자료를
+ *   새로 받자 이름이 `global-2026-08-23.tsv` 로 바뀌어 규칙이 못 돌게 됐다. 자료를 갱신할
+ *   때마다 같은 일이 난다 — 그리고 이 규칙이 못 돌면 「어느 작품이 한국 것인가」가 흔들린다.
+ * ⛔ 없으면 **못 쟀다고 말하고 선다.** 빈 지도를 돌려주면 영어 차트로 거르는 ②가 조용히
+ *   사라지고, 한국 것이 아닌 작품이 한국 표에 남는다.
+ */
+export function 가장최근글로벌(방 = 글로벌방, 읽기 = fs.readdirSync) {
+  let 것들 = [];
+  try { 것들 = 읽기(방); } catch { 것들 = []; }
+  const 후보 = 것들
+    .filter((f) => /^global-\d{4}-\d{2}-\d{2}\.tsv$/.test(f))
+    .sort();
+  return 후보.length ? `${방}/${후보[후보.length - 1]}` : null;
+}
 const KOREAN_JSON = 'archive/raw/netflix-top10/korean-titles.json';
 
 /**
@@ -149,7 +166,12 @@ export function 비라틴글자(제목) {
 export function buildLanguageMap() {
   const 원제목 = JSON.parse(fs.readFileSync(KOREAN_JSON, 'utf8')).제목;
   const korean = new Set(원제목.filter((t) => !비라틴글자(t)));
-  const lines = fs.readFileSync(GLOBAL_TSV, 'utf8').trim().split(/\r?\n/);
+  const 글로벌길 = 가장최근글로벌();
+  if (!글로벌길) {
+    throw new Error(`⛔ 못 쟀다 — ${글로벌방} 에 global-<날짜>.tsv 가 없다. `
+      + '`npm run collect:netflix` 로 받은 뒤 다시 부른다. (빈 지도를 돌려주지 않는다)');
+  }
+  const lines = fs.readFileSync(글로벌길, 'utf8').trim().split(/\r?\n/);
   const head = lines[0].split('\t');
   const iTitle = head.indexOf('show_title');
   const iCat = head.indexOf('category');
