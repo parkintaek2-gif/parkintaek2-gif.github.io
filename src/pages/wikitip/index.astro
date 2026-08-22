@@ -457,6 +457,35 @@ const jsonLd = {
     </p>
   </section>
 
+  {/*
+    🔴 2026-08-22 실측 — **첫 화면에서 커뮤니티·방으로 가는 문이 0개였다.**
+      `check-two-clicks` 가 스물세 장(커뮤니티 1 · 띠 방 12 · 일간 방 10)을 「두 번 안에 못 닿음」으로
+      셌고, 실제로 `kculturewire.com/community` 를 이틀 동안 **0명**이 읽었다.
+      같은 날 `seoulmarkets.com/community` 는 18명이 읽었다 — 그쪽은 문이 있었다.
+      ⛔ 만들고 문을 안 내면 없는 것과 같다. 첫 화면이 kcw 에서 가장 많이 읽히는 지면이라 여기가 문이다.
+    ⚠ 이름을 넣어 건다 — 사장님 상시 지시(「스타 이름을 항상 제목과 본문에」).
+  */}
+  <section>
+    <h2>Rooms: Korean stars sorted by the year and by the day they were born</h2>
+    <p>
+      Two axes, and neither is a reading. By birth <b>year</b> there are
+      {' '}<a href="/community">twelve rooms</a> holding 1,047 names — IU in the
+      {' '}<a href="/room/rooster">Rooster room</a>, Bae Suzy in the
+      {' '}<a href="/room/dog">Dog room</a>, Go Youn-jung in the
+      {' '}<a href="/room/rat">Rat room</a>. By birth <b>day</b> there are ten more:
+      {' '}<a href="/day-pillar">the day-pillar count</a> across 9,249 Korean entertainers, with the
+      names on ten pages — Jungkook on <a href="/stem/byeong">丙 byeong</a>, Suga on
+      {' '}<a href="/stem/gi">己 gi</a>, IU on <a href="/stem/jeong">丁 jeong</a>.
+    </p>
+    <p class="note">
+      <b>We counted whether any of it picks out who gets famous. It does not.</b> The birth-year
+      spread across 1,047 charting actors is indistinguishable from chance — chi-square 7.77 against
+      a threshold of 19.68, and <a href="/star-signs">the names and the test are here</a>. The
+      day-stem spread crossed the 0.05 line by a hair, and we tried four ways to kill it before
+      deciding not to call it a finding.
+    </p>
+  </section>
+
   {/* ── 출처 · 제외 — 기사와 같은 기준을 첫 화면에도 건다 ──────── */}
   <section class="src">
     <h2>Where these numbers come from</h2>
