@@ -1,6 +1,6 @@
 ---
 title: "Korea's stock market and trade: the top four are half of everything"
-dek: "Rank Korea's stocks by value or trading, or its partners by exports or imports — each time the top four are about half, and every Gini clears 0.9, past any nation's income gap. One country, four of everything. Not advice."
+dek: "How concentrated is the Korean stock market? Rank Korea's stocks, or its export and import partners, and the top four are about half every time — every Gini past 0.9. KOSPI, KOSDAQ and trade, one pattern. Not advice."
 category: macro
 pubDate: 2026-08-22
 dataAsOf: 2026-08-21T00:00:00+09:00
