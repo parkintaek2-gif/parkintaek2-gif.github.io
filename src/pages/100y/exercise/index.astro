@@ -1,0 +1,137 @@
+---
+/**
+ * /100y/exercise — 몇 %가 규칙적으로 운동하나, 동호회로 하는 사람은 얼마나 되나
+ *
+ * 🔴 「0~100세 × 다섯 분야」 기획서(2026-08-22) 예체능 1번 지면 — 사이트 전체에 예체능
+ *   지면이 0장이었다. scripts/collect-100y-exercise.mjs 참고.
+ *
+ * ⭐ 사장님: 「예체능 실기는 많은 동호회들이 활동한다. 나이들수록 더. 참조해」
+ *   ⛔ 실제로 재 보니 절반만 맞았다 — 동호회 참여는 50대(12.2%)까지 오르고 그 뒤로
+ *   내려가 70대 이상(6.3%)은 20대보다도 낮다. 가설을 검증하고, 안 맞는 부분은 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
+import 원본 from '../../../data/100yearmap/exercise.json';
+
+const 자료 = 원본 as any;
+const 운동나이별 = 자료.운동나이별 as any[];
+const 동호회나이별 = 자료.동호회나이별 as any[];
+const 운동최고 = 자료.운동최고;
+const 동호회최고 = 자료.동호회최고;
+const 자가대조 = 자료.자가대조;
+
+const 최고운동칸 = 운동나이별.reduce((a: any, b: any) => (b.주1회이상 > a.주1회이상 ? b : a));
+const 최저운동칸 = 운동나이별.reduce((a: any, b: any) => (b.주1회이상 < a.주1회이상 ? b : a));
+
+const desc =
+  `${자료.최신}년 기준 주1회 이상 운동하는 사람은 ${최고운동칸.칸} ${최고운동칸.주1회이상}%로 가장 많고 ${최저운동칸.칸} ${최저운동칸.주1회이상}%로 가장 적습니다. ` +
+  `동호회 참여는 ${동호회최고.최고칸}(${동호회최고.최고값}%)까지 오르다 70대 이상(${동호회나이별[동호회나이별.length - 1].참여율}%)에서 다시 낮아집니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.무엇,
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 운동 참여율', '나이대별 동호회 참여율'],
+};
+---
+
+<HundredYear title={`나이대별 운동 참여율 · 동호회 참여율 — ${최고운동칸.칸} ${최고운동칸.주1회이상}%`} description={desc} jsonLd={jsonLd}>
+  <h1>몇 %가 규칙적으로<br />운동하고 있을까요</h1>
+  <p class="sub">
+    {자료.최신}년 기준, 주1회 이상 운동하는 사람은 <strong>{최고운동칸.칸}에서 {최고운동칸.주1회이상}%</strong>로
+    가장 많고 <strong>{최저운동칸.칸}에서 {최저운동칸.주1회이상}%</strong>로 가장 적습니다.
+  </p>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>주1회 이상 운동</th><th>전혀 안 함</th></tr></thead>
+      <tbody>
+        {운동나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.주1회이상}%</strong></td>
+            <td>{r.전혀안함}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 20대부터 60대까지는 64~68% 사이로 크게 안 갈립니다. 눈에 띄는 것은
+    <strong>10대(43.2%)</strong>와 <strong>70세 이상(59.5%)</strong>— 둘 다 «전혀 안 함»도
+    30%대 후반으로 다른 나이대보다 높습니다.
+  </p>
+
+  <h2>⭐ 동호회로 하는 사람은 얼마나 될까요</h2>
+  <div class="answer">
+    <p class="answer-label">동호회 참여율이 가장 높은 나이대</p>
+    <p class="answer-num">{동호회최고.최고칸} · {동호회최고.최고값}%</p>
+    <p class="answer-sub">문화체육관광부 「동호회 활동 참여 경험 여부」 — 스포츠·문화예술·취미오락을 합친 수입니다</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>동호회 참여율</th></tr></thead>
+      <tbody>
+        {동호회나이별.map((r) => (
+          <tr><td>{r.칸}</td><td><strong>{r.참여율}%</strong></td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⛔ {자료['⛔ 사장님 가설 검증']}
+  </p>
+  <p>
+    10대 {동호회나이별[0].참여율}%에서 시작해 {동호회최고.최고칸} {동호회최고.최고값}%까지는
+    또렷이 오릅니다 — 여기까지는 "나이 들수록 동호회가 활발해진다"가 맞습니다.
+    {' '}그런데 60대 {동호회나이별.find((r: any) => r.칸 === '60대').참여율}%, 70세 이상{' '}
+    {동호회나이별[동호회나이별.length - 1].참여율}%로 다시 낮아집니다.
+  </p>
+  <p class="note">
+    ⚠ "동호회"는 스포츠·문화예술·취미오락을 다 합친 수입니다 — 예체능 실기(악기·미술 등)
+    참여만 따로 가르는 표는 이번에 못 찾았습니다. 찾으면 다시 잇겠습니다.
+  </p>
+
+  <h2>저희가 맞춰 본 것</h2>
+  <p class="note">
+    운동 참여를 세 조각(전혀 안 함·월 3회 이하·주1회 이상)으로 나누면 나이대마다
+    합이 100이어야 합니다 — <strong>{자가대조['운동 세 조각 합 = 100'].맞나 ? '전부 맞습니다' : `어긋난 칸 ${자가대조['운동 세 조각 합 = 100'].어긋난칸수}개`}</strong>.
+    {' '}동호회 참여율(예/아니오)을 더한 것도 <strong>{자가대조['동호회 예+아니오 = 100'].맞나 ? '전부 맞습니다' : `어긋난 칸 ${자가대조['동호회 예+아니오 = 100'].어긋난칸수}개`}</strong>.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 운동을 더 해야 한다거나
+    동호회에 들어야 한다고 쓰지 않습니다 — {자료.최신}년에 이렇게 답했다는 것이
+    저희가 셀 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}).
+    {' '}받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/promotion">← 승진에 만족하는 사람은 몇 %일까, 임원급에서 성별 차가 제일 크다</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「운동·동호회로 몸을 움직이는 사람」 방</a>
+  </p>
+
+  <HundredCardnews 벌="운동참여율" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
+
+  <NextQuestionBrief 모은것="운동·동호회 참여 자료" />
+</HundredYear>
