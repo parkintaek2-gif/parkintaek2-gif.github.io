@@ -23,6 +23,7 @@ import data from '../../data/wikitip-world-share.json';
 import season from '../../data/wikitip-season.json';
 /* ⛔ 197 을 손으로 박았다가 자에 걸렸다. 이 수는 여기서 읽는다 */
 import reach from '../../data/wikitip-reach.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const TITLE = "How much of the world's Netflix top 10 is Korean";
 
@@ -421,6 +422,7 @@ const jsonLd = {
   </section>
 
   <p class="back"><a href="/">&larr; Back to the front page</a></p>
+  <KcwMethodLimits method={data.method} limitation={data.limitation} />
 </WikiTip>
 
 <style>

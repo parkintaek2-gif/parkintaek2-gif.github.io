@@ -128,6 +128,19 @@ const jsonLd = {
       people were measured and are not shown on this page; nobody was recorded as zero for want of a
       measurement.
     </p>
+    {/*
+      🔴 2026-08-22 — 자(`check-data-keys-shown`)를 끝까지 돌려 보니 이 지면이 **못 잰 사람 수를
+         세어 두고 손님에게 안 보여** 주고 있었다. 오늘 내가 낸 지면이다.
+         ⭐ 지금 그 수는 0 이다. **0 이라는 것도 보여 줄 값이다** — 안 보여 주면 손님은
+           우리가 몇 명을 조용히 버렸는지 알 길이 없다. 0 이 아니게 되는 날에는 더 그렇다.
+    */}
+    <p class="note">
+      <b>How many we could not measure: {d.unmeasured.toLocaleString('en-US')}</b> of
+      {' '}{d.measured.toLocaleString('en-US')}.
+      {d.unmeasured === 0
+        ? ' Every person in the roster returned a reader count, so nothing here is standing in for a missing number.'
+        : ` Those are people whose article could not be resolved${(d.unmeasuredExamples ?? []).length ? ` — for example ${(d.unmeasuredExamples ?? []).slice(0, 3).join(', ')}` : ''}. They are absent, not zero.`}
+    </p>
   </section>
 
   <section class="src">

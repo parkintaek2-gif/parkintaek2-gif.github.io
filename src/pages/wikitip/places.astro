@@ -19,6 +19,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-places.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const TITLE = 'An entertainment company is looked up more than Seoul is';
 const DESC =
@@ -197,6 +198,7 @@ const jsonLd = {
       + `and how many of the cities we measured sit below that one company.`} />
 
   <KcwRelatedArticles page="/places" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

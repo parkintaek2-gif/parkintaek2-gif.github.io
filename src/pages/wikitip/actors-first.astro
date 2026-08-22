@@ -20,6 +20,8 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-actors-first.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 인니 = d.firstByEdition.id;
 const 베트 = d.firstByEdition.vi;
@@ -47,6 +49,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/actors-first">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
   <p class="lead">{d.question}</p>
   <p class="q">
     No. Four editions, <b>{d.firsts.distinct}</b> different names at the top:
@@ -141,4 +144,5 @@ const jsonLd = {
       + `and the three names on every list that lead none of them.`} />
 
   <KcwRelatedArticles page="/actors-first" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

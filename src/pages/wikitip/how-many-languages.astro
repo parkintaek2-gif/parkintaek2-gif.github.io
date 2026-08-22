@@ -18,6 +18,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-how-many-languages.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 맨위 = d.top[0];
 const 스물 = d.thresholds.find((t) => t.atLeast === 20);
@@ -144,6 +145,7 @@ const jsonLd = {
   </section>
 
   <KcwRelatedArticles page="/how-many-languages" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

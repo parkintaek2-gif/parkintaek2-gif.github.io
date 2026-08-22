@@ -22,6 +22,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-works-and-readers.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 아래 = d.bands[0];
 const 위 = d.bands[d.bands.length - 1];
@@ -173,4 +174,5 @@ const jsonLd = {
       + `bands overlap.`} />
 
   <KcwRelatedArticles page="/works-and-readers" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

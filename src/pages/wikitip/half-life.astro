@@ -23,6 +23,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-half-life.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 답 = d.answer;
 const 되풀이한것 = d.titles.filter((t) => t.roseAboveHalfAgain);
@@ -210,4 +211,5 @@ const jsonLd = {
       + `above half at least once.`} />
 
   <KcwRelatedArticles page="/half-life" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

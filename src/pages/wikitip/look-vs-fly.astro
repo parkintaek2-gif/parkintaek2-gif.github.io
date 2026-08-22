@@ -23,6 +23,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-look-vs-fly.json';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
@@ -50,6 +51,10 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/look-vs-fly">
   <h1>{TITLE}</h1>
+  {/* ⚠ 이 자료에는 나라표(`countryNames`)가 없고 `editionNames` 에 **나라 이름**이 들어 있다.
+      없는 칸을 넘기면 `check-wikitip-data` 가 「조용히 빈칸이 된다」고 잡는다 — 옳은 지적이다.
+      그래서 여기서는 판 이름만 넘긴다. 조각이 문장을 바꿔 쓴다 */}
+  <KcwPanel editionNames={d.editionNames} />
   <p class="lead">{d.question}</p>
   <p class="q">{d.answer}</p>
 

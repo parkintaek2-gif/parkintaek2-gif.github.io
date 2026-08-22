@@ -1,0 +1,46 @@
+---
+/**
+ * K Culture Wire — **어떻게 쟀나 · 무엇을 못 말하나** 두 칸.
+ *
+ * ── 왜 이 조각이 생겼나 (2026-08-22) ─────────────────────────
+ * `check-data-keys-shown` 을 끝까지 돌려 보니 **70건**이 걸렸고, 그중 26건이
+ * `method`(14) 와 `limitation`(12) 이었다 — 지면 열다섯 장이 **어떻게 쟀는지도,
+ * 무엇을 못 말하는지도 손님에게 안 알려 주고** 있었다. 자료 파일 안에만 있었다.
+ *
+ * ⭐ 이것은 곁가지가 아니라 우리 일의 본체다. 모토와-철학 ③ —
+ *   「못 잰 것은 못 쟀다고 적는다」. 잰 한계를 안 적으면 그 지면의 수는 규범으로 읽힌다.
+ * ⭐ 리스크관리의 자리이기도 하다 — 「그것이 틀렸을 때 무엇을 잃는가」를 손님 화면에 둔다.
+ *
+ * ⛔ 조각으로 뽑는 까닭: 열다섯 장에 손으로 적으면 열여섯 번째 장에서 또 빠진다.
+ * ⚠ 값이 비면 **그 칸을 아예 안 낸다.** 「한계 없음」이라고 쓰지 않는다 —
+ *   재 보지 않은 것과 한계가 없는 것은 다른 말이다.
+ */
+interface Props {
+  method?: string | null;
+  limitation?: string | null;
+  /** 이 지면의 자를 쓰는 다른 지면·조각으로 보내는 줄. 없으면 안 낸다 */
+  note?: string | null;
+}
+const { method, limitation, note } = Astro.props as Props;
+const 쓸것 = [
+  method ? { 제목: 'How this was measured', 글: String(method) } : null,
+  limitation ? { 제목: 'What this cannot tell you', 글: String(limitation) } : null,
+].filter(Boolean) as { 제목: string; 글: string }[];
+---
+
+{쓸것.length > 0 && (
+  <section class="src method-limits">
+    {쓸것.map((x) => (
+      <div>
+        <h2>{x.제목}</h2>
+        <p class="note">{x.글}</p>
+      </div>
+    ))}
+    {note && <p class="note">{note}</p>}
+  </section>
+)}
+
+<style>
+  .method-limits h2 { margin-top: 1.1rem; }
+  .method-limits p { max-width: 46rem; }
+</style>

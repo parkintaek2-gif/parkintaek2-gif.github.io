@@ -26,6 +26,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-written-down-first.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 셈 = d.arrivedFirst;
 const 크 = d.sizeControl;
@@ -193,6 +194,7 @@ const jsonLd = {
       + `it was last, and why the largest edition is not the one that writes first.`} />
 
   <KcwRelatedArticles page="/written-down-first" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

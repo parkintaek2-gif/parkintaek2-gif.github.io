@@ -19,6 +19,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-fame-compare.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 문턱 = [50, 100, 200, 300];
 
@@ -205,6 +206,7 @@ const jsonLd = {
 
   <KcwShorts set="fame" says={`A man and a woman read the headline out — BTS above ${d.topAthleteName}, out of ${d.entertainersCounted.toLocaleString('en-US')} names we measured.`} />
   <KcwRelatedArticles page="/fame-compare" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

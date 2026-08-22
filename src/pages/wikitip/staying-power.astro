@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-staying-power.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const TITLE = 'Staying power and force — two different things';
 const DESC =
@@ -237,6 +238,7 @@ const jsonLd = {
   </section>
 
   <p class="back"><a href="/">&larr; Back to the front page</a></p>
+  <KcwMethodLimits method={data.method} limitation={data.limitation} />
 </WikiTip>
 
 <style>

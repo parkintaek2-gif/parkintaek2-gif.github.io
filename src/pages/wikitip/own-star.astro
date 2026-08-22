@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-own-star.json';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 /** ⚠ 소속은 위키데이터 P463 에서 받아 적은 것이다. 기억으로 쓰지 않는다 */
 const 소속: Record<string, string> = {
@@ -60,6 +61,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/own-star">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
   <p class="lead">{d.question}</p>
   <p class="q">
     They do not read the same ones. Of the {d.measured} Korean stars we can compare,

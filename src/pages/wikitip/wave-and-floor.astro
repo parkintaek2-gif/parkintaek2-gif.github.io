@@ -25,6 +25,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-wave-floor.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 답 = d.answer;
 const 몫 = (v: number) => `${v > 0 ? '+' : '−'}${Math.abs(v).toFixed(1)}%`;
@@ -208,4 +209,5 @@ const jsonLd = {
       + `peak, and why most of them could not be.`} />
 
   <KcwRelatedArticles page="/wave-and-floor" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

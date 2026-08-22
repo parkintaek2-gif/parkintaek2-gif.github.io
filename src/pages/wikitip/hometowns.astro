@@ -22,6 +22,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-hometowns.json';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 서울 = d.cities[0];
 const 서울몫 = ((100 * 서울.count) / d.inBox).toFixed(0);
@@ -47,6 +48,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/hometowns">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
 
   <p class="lead">
     <b>Go Youn-jung</b>, <b>Faker</b>, <b>IU</b>, <b>Jang Won-young</b> and <b>Lee Min-ho</b> were

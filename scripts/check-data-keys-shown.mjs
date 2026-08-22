@@ -24,8 +24,12 @@ import path from 'node:path';
 const DATA = 'src/data';
 const 읽는곳 = ['src/pages/wikitip', 'src/components', 'src/layouts'];
 
-/** ① 기록용 — 만든 때·출처·단위. 값이 아니라 꼬리표다. */
-const 기록용 = /^(generated|source|sourceKo|unit|unitKo|unitMean|privacy|note|주의|갱신|출처)$/;
+/** ① 기록용 — 만든 때·출처·단위. 값이 아니라 꼬리표다.
+ * ⭐ 2026-08-22 — `generatedAt` 이 다섯 파일에서 걸려 있었다. `generated` 와 **같은 것**인데
+ *   이름만 달라 빠져 있었다. 만든 때는 지면에 낼 값이 아니라 꼬리표다 — 여기 넣는다.
+ * ⛔ 이 줄을 넓힐 때 보는 것은 「값이냐 꼬리표냐」 하나뿐이다.
+ *   보여 주기 싫은 값을 여기에 숨기면 이 검사가 죽는다. */
+const 기록용 = /^(generated|generatedAt|source|sourceKo|unit|unitKo|unitMean|privacy|note|주의|갱신|출처)$/;
 
 /**
  * ② ③ 면제표. **까닭 없이 못 들어온다.**

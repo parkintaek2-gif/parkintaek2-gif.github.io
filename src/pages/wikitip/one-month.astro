@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-one-month.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 종목이름: Record<string, string> = {
   football: 'Football', esports: 'Esports', baseball: 'Baseball', golf: 'Golf', mma: 'MMA',
@@ -193,6 +194,7 @@ const jsonLd = {
   </section>
 
   <KcwRelatedArticles page="/one-month" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

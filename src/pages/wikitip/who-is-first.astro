@@ -19,6 +19,8 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-who-is-first.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 인니 = d.firstByEdition.id;
 const 베트 = d.firstByEdition.vi;
@@ -47,6 +49,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/who-is-first">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
   <p class="lead">{d.question}</p>
   <p class="q">
     <b>{베트.name}</b> is the most-read Korean act on {BTS나라.length} of the four Southeast Asian
@@ -118,4 +121,5 @@ const jsonLd = {
   </section>
 
   <KcwRelatedArticles page="/who-is-first" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

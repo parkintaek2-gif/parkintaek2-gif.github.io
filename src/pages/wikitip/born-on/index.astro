@@ -92,6 +92,10 @@ const jsonLd = {
   <section class="src">
     <h2>How this was built</h2>
     <ul>
+      {/* 🔴 2026-08-22 — 자를 끝까지 돌리니 `pages`(366)를 세어 두고 안 보여 주고 있었다.
+          몇 장인지는 손님이 「빠진 날이 있나」를 스스로 확인할 수 있게 하는 수다 */}
+      <li><b>How many pages</b> — {d.pages} of them, one per calendar day including 29 February, so no
+        date is missing and none is doubled up</li>
       <li><b>What it is</b> — {d.whatThisIs}</li>
       <li><b>Roster</b> — {d.peopleTotal.toLocaleString('en-US')} people; {사람합.toLocaleString('en-US')} are listed by name</li>
       <li>

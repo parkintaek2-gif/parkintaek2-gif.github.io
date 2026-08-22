@@ -21,6 +21,8 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-only-one-wikipedia.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 음 = d.groups.find((g) => g.key === 'music');
 const 배 = d.groups.find((g) => g.key === 'actors');
@@ -46,6 +48,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/only-one-wikipedia">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
   <p class="lead">{d.question}</p>
   <p class="q">
     <b>{배.onlyOne}</b> of {배.measured.toLocaleString('en-US')} Korean actors and
@@ -140,4 +143,5 @@ const jsonLd = {
       + `rules out the obvious explanation, and why a gap here is a fact about editors.`} />
 
   <KcwRelatedArticles page="/only-one-wikipedia" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>

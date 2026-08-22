@@ -21,6 +21,7 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-last-place.json';
+import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
 const 꼴 = d.mostOftenLast;
 const 위 = d.topOfList;
@@ -157,6 +158,7 @@ const jsonLd = {
       + `last for all twenty, and the objection we cannot rule out — shown before the table.`} />
 
   <KcwRelatedArticles page="/who-reads-least" />
+  <KcwMethodLimits method={d.method} limitation={d.limitation} />
 </WikiTip>
 
 <style>

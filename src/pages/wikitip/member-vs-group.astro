@@ -19,6 +19,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-member-vs-group.json';
+import KcwPanel from '../../components/KcwPanel.astro';
 
 const 늘위 = d.pairs.filter((p) => p.memberHigherIn === p.editions.length);
 const 늘아래 = d.pairs.filter((p) => p.memberHigherIn === 0);
@@ -45,6 +46,7 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/member-vs-group">
   <h1>{TITLE}</h1>
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
   <p class="lead">{d.question}</p>
   <p class="q">
     We took the {d.soloLooked} most-read Korean soloists, read who they belong to, and put each one
