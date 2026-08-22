@@ -269,6 +269,7 @@ export const GET: APIRoute = async () => {
        (「underrated korean drama」·「netflix top 10 by country」 둘 다 자동완성 1번째) */
     { path: '/underrated', priority: '0.9', changefreq: 'weekly' },
     { path: '/by-country', priority: '0.9', changefreq: 'weekly' },
+    { path: '/firms', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-gap', priority: '0.9', changefreq: 'daily' },
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },

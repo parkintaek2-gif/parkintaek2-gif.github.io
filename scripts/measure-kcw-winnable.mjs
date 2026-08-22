@@ -43,7 +43,7 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 사이트 = 'sc-domain:kculturewire.com';
 const ORIGIN = 'https://www.kculturewire.com';
 const 큐길 = path.join(뿌리, 'src/data/wikitip-ctr-gap.json');
-const 낼길 = path.join(뿌리, 'src/data/wikitip-winnable.json');
+const 낼길 = path.join(뿌리, 'archive/measure/wikitip-winnable.json');
 
 /**
  * 검색어가 **주소를 치는 말**인가.
@@ -257,6 +257,7 @@ if (process.argv.includes('--쓴다')) {
     unmeasuredPages: 못잰장,
     rows: 낼것,
   };
+  fs.mkdirSync(path.dirname(낼길), { recursive: true });
   fs.writeFileSync(낼길, `${JSON.stringify(몸, null, 1)}\n`);
   console.log(`\n✅ 적었다 — ${path.relative(뿌리, 낼길)}`);
 } else {

@@ -112,8 +112,8 @@ export function 방들(자료) {
       name: 'Who actually made it',
       line: `We hold production and distribution credits for ${t.withFirms} of ${t.titleCount} titles. `
         + 'Half the Korean series that chart anywhere come from three companies.',
-      href: '/who-makes-it',
-      cta: 'Follow the companies',
+      href: '/firms',
+      cta: 'Find a company',
     },
     {
       phrase: 'korean movies on netflix',
