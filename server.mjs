@@ -38,7 +38,7 @@ const PORT = Number(process.env.PORT) || 3000;
 const ADMIN_USER = process.env.ADMIN_USER || 'parkintaek2@gmail.com';
 const ADMIN_HASH =
   process.env.ADMIN_HASH ||
-  '2273764935c8a11ee5b2a7b496768d9e:ce262494dfb09753cb45a77cfc4f4beb90f151f49169f50d9c15db2973049fe2b3e982898354f24fccc791c69e88e923bfe1ecb3810dd66d36514505dfa8c51e';
+  'daceff10a29712f7bd1007f45a98760f:b0acb5bbe58c61361c951da2b4b5c9b163b45b0048f19a55bc287b5323887ca735d479d8d02948640721f6c10ddc521928714466d48a008e9481a26efb57a21c';
 const ADMIN_ENABLED = ADMIN_USER !== '' && ADMIN_HASH.includes(':');
 
 /** 길이 노출 없이 상수시간 비교. 타이밍으로 한 글자씩 알아내는 걸 막는다. */
