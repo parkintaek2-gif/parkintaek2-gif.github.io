@@ -14,6 +14,7 @@ import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-titles.json';
 import titlePages from '../../data/wikitip-title-pages.json';
+import 해자료 from '../../data/wikitip-years.json';
 import ambiguity from '../../data/wikitip-title-ambiguity.json';
 import key from '../../data/wikitip-key-integrity.json';
 import korea from '../../data/wikitip-korea-signal.json';
@@ -86,6 +87,9 @@ const jsonLd = {
   temporalCoverage: `${data.weekFrom}/${data.weekTo}`,
   isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://query.wikidata.org/'],
 };
+
+/* 연도 지면 여섯 장으로 가는 문. ⛔ 편수 순으로 안 세운다 — 최근 해가 앞이다 */
+const 연도들 = 해자료.years;
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/titles">
@@ -371,6 +375,28 @@ const jsonLd = {
     <p class="note">
       The front page shows this week’s new entries. Counts derived from Netflix’s published lists;
       we do not republish the lists themselves. {지은날글(data.generated)}
+    </p>
+  </section>
+
+  <section>
+    <h2>By the year it charted</h2>
+    <p class="note">
+      Every title above also sits in the year it held its places. This is the one axis every
+      title has &mdash; some carry no cast or company data at all, but all of them have a year.
+    </p>
+    <p class="years">
+      {연도들.map((y, i) => (
+        <span>
+          {i > 0 ? ' · ' : ''}
+          <a href={`/year/${y.year}`}>{y.year}</a>
+          <span class="fine"> {y.titles} titles{y.partialYear ? ' (part year)' : ''}</span>
+        </span>
+      ))}
+    </p>
+    <p class="note">
+      <b>Two of those years are half years.</b> Our data begins in July 2021 and ends in July
+      2026, so those two hold about half the weeks the others do. Comparing their totals with a
+      full year would show a rise and a fall that belong to the window, not to the industry.
     </p>
   </section>
 

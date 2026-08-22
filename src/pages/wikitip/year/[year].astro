@@ -1,0 +1,174 @@
+---
+/**
+ * K Culture Wire — **한 해에 차트에 든 한국 작품.** (`/year/<연도>`)
+ *
+ * ── 왜 (2026-08-23) ───────────────────────────────────────────
+ * 제가 잰 말에 연도가 거의 전부 붙어 있었습니다. 따로 열 개를 재니 **열 개가 전부
+ * 자동완성 1번째**이고 여덟 개가 제안 10줄이었습니다 —
+ * `korean drama 2026` · `best korean drama 2026` · `top 10 korean drama 2026` ·
+ * `korean series 2026` · `new korean drama 2026` · `korean drama 2024` …
+ * 이만큼 고른 신호가 나온 축이 없었습니다.
+ *
+ * ⭐ 그리고 이 축은 **모든 작품에 있습니다.** 배우·회사 자료가 둘 다 없는 작품 50장은
+ *   지금 걷는 축(배우·제작사)으로 닿을 길이 없는데, 그 50장 전부가 연도를 갖고 있습니다.
+ *
+ * ── ⛔ 이 지면이 하지 않는 것 ─────────────────────────────────
+ * 🔴 **두 해가 반토막입니다**(2021 26주 · 2026 30주). 그 사실을 그 해 지면 맨 위에 박습니다.
+ *   ⛔ 안 적으면 105편 대 184편이 **없던 성장**으로 읽힙니다. 「없던 하락」 기사에서 겪은 흠입니다.
+ * ⛔ 「그 해 최고」라고 쓰지 않습니다. 차트 자리가 많은 순일 뿐이고 자리는 시청시간이 아닙니다.
+ * ⛔ 해끼리 견주라고 부추기지 않습니다. 반토막 두 해가 섞여 있으므로 위험합니다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwMethodLimits from '../../../components/KcwMethodLimits.astro';
+import data from '../../../data/wikitip-years.json';
+
+export function getStaticPaths() {
+  return data.years.map((y) => ({ params: { year: String(y.year) }, props: { y } }));
+}
+const { y } = Astro.props;
+
+const 다른해 = data.years.filter((x) => x.year !== y.year);
+const 온해 = data.years.filter((x) => !x.partialYear);
+/**
+ * ⛔ 반토막 해를 셈에 넣지 않는다. 넣으면 「가장 적은 해」가 자료 창 때문에 생긴다.
+ * ⚠ 온 해가 둘도 안 되면 아무 말도 안 한다 — 견줄 것이 없으면 없다고 둔다.
+ */
+const 온해작품 = 온해.map((x) => x.titles);
+const 견줄말 = (!y.partialYear && 온해작품.length >= 2)
+  ? (y.titles === Math.max(...온해작품)
+    ? ` That is the most of any full year we hold (${온해작품.length} of them).`
+    : (y.titles === Math.min(...온해작품)
+      ? ` That is the fewest of the ${온해작품.length} full years we hold.`
+      : ''))
+  : '';
+
+const TITLE = y.partialYear
+  ? `Korean titles on Netflix in ${y.year} — a part-year count`
+  : `Every Korean title that charted on Netflix in ${y.year}`;
+const DESC = y.partialYear
+  ? `${y.titles} Korean titles held a place on a Netflix weekly top 10 during ${y.year}, but our data `
+    + `covers only ${y.weeksInData} weeks of that year, so this count is not comparable with a full one.`
+  : `${y.titles} Korean titles held places on Netflix weekly top 10 lists during ${y.year} — `
+    + `${y.series} series and ${y.films} films, ${y.places.toLocaleString('en-US')} chart places across `
+    + `${data.marketCount} countries.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  temporalCoverage: String(y.year),
+  spatialCoverage: `${data.marketCount} countries`,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://www.netflix.com/tudum/top10'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical={`https://www.kculturewire.com/year/${y.year}`}>
+  <h1>{TITLE}</h1>
+
+  {y.partialYear && (
+    <p class="warn">
+      <b>Read this year with care.</b> Our data runs from {data.weekFrom} to {data.weekTo}, so
+      {' '}{y.year} holds only <b>{y.weeksInData} weeks</b> here, not fifty-two. Putting its
+      {' '}{y.titles} titles beside a full year would show a rise or a fall that belongs to our
+      window and not to anything that happened.
+    </p>
+  )}
+
+  <p class="lead">
+    {y.titles} Korean titles held at least one place on a Netflix weekly top 10 somewhere during
+    {' '}{y.year} &mdash; <b>{y.series} series and {y.films} films</b>, taking
+    {' '}{y.places.toLocaleString('en-US')} places in total across {data.marketCount} countries.
+    {견줄말}
+  </p>
+
+  <section>
+    <h2>The titles</h2>
+    <p class="sub">
+      Ordered by how many chart places each held <b>in {y.year}</b> &mdash; not by how good they are,
+      and not by how many people watched. A place on a list is a place on a list.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Title</th><th>Kind</th><th class="num">Places in {y.year}</th>
+          <th class="num">Countries</th><th class="num">Weeks</th>
+        </tr>
+      </thead>
+      <tbody>
+        {y.rows.map((t) => (
+          <tr>
+            <td class="nm"><a href={`/title/${t.slug}`}>{t.title}</a></td>
+            <td class="fine">{t.type === 'TV' ? 'Series' : 'Film'}</td>
+            <td class="num">{t.places}</td>
+            <td class="num">{t.markets ?? '—'}</td>
+            <td class="num">{t.weeks ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="fine">
+      A dash means we hold no figure for that title across its whole run, not a zero.
+      Countries and weeks count the title&rsquo;s <b>entire</b> run, which may reach outside {y.year}.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this page is, and what it is not</h2>
+    <p class="sub">
+      Drawn from {data.titlesConsidered} Korean titles across {data.yearCount} years.
+      {data.partialYears.length > 0 && (
+        <span> Of those years, {data.partialYears.join(' and ')}
+          {data.partialYears.length > 1 ? ' hold' : ' holds'} only part of a year in our data.</span>
+      )}
+    </p>
+    <p class="fine">{data.whatThisIs}</p>
+    <p class="fine"><b>Not this.</b> {data.whatThisIsNot}</p>
+  </section>
+
+  <section>
+    <h2>Other years</h2>
+    <p class="row">
+      {다른해.map((x, i) => (
+        <span>
+          {i > 0 ? ' · ' : ''}
+          <a href={`/year/${x.year}`}>{x.year}</a>
+          <span class="fine"> {x.titles} titles{x.partialYear ? ' (part year)' : ''}</span>
+        </span>
+      ))}
+    </p>
+  </section>
+
+  <section>
+    <h2>Where to walk from here</h2>
+    <p>
+      <a href="/where-to-watch">Where each title could actually be watched</a> &middot;{' '}
+      <a href="/underrated">The ones that ran and ran, almost nowhere</a> &middot;{' '}
+      <a href="/by-country">Every country and how Korean its chart is</a> &middot;{' '}
+      <a href="/firms">Who made them</a> &middot;{' '}
+      <a href="/titles">Every Korean title we hold</a>
+    </p>
+  </section>
+
+  <KcwMethodLimits
+    method={`Netflix's own weekly top 10 files, ${data.weekCount} weeks across ${data.marketCount} countries, ${data.weekFrom} to ${data.weekTo}. A title appears on this page if it held at least one place on a weekly list dated within ${y.year}, and the places column counts only that year. Titles are ordered by places held in ${y.year}; the countries and weeks columns describe the whole run, which is why they can be larger than this year alone.`}
+    limitation={`${y.partialYear ? `This year holds only ${y.weeksInData} weeks of our data, so its totals are not comparable with a full year. ` : ''}A chart place is not a viewing figure and not a measure of quality — Netflix publishes neither by country. Netflix also states no country of production, so which titles count as Korean is our inference. A title watched widely without entering a top 10 does not appear here at all.`}
+  />
+
+  <style>
+    .lead { font-size: 1.06rem; }
+    .warn { border-left: 3px solid var(--accent); padding: .7rem 1rem; margin: 0 0 1.6rem;
+      font-size: .95rem; }
+    h2 { font-size: 1.12rem; margin: 2.4rem 0 .3rem; }
+    .sub { color: var(--muted); font-size: .92rem; margin: 0 0 .8rem; }
+    table { width: 100%; border-collapse: collapse; font-size: .92rem; }
+    th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); }
+    th.num, td.num { text-align: right; }
+    .nm { font-weight: 600; }
+    .row { margin: .2rem 0; line-height: 2; }
+    .fine { color: var(--muted); font-size: .84rem; font-weight: 400; }
+  </style>
+</WikiTip>
+
