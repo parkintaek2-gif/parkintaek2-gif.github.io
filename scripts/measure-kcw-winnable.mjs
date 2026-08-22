@@ -201,24 +201,34 @@ console.log(`  ${날짜(시작)} ~ ${날짜(끝)}\n`);
 const 낼것 = [];
 let 될합 = 0;
 let 안될합 = 0;
+let 감춘합 = 0;
 let 못잰장 = 0;
 for (const p of 대상) {
   const res = await 검색어받기(p.주소);
   if (res.못쟀다) { 못잰장 += 1; console.log(`⚠ 못 쟀다 · ${p.주소} — ${res.못쟀다}`); continue; }
   const g = 가르기(res.행);
-  될합 += g.될노출; 안될합 += g.안될노출;
+  /**
+   * 🔴 2026-08-22 — /for-industry 는 지면 기준 노출 9인데 **검색어 줄이 0개**로 왔다.
+   *   구글은 드문 검색어를 개인정보 때문에 감춘다(anonymized queries). 그래서
+   *   **검색어별 합은 지면 합보다 늘 작다.**
+   *   ⛔ 그 차이를 0으로 두면 「닿는 말이 없다」로 잘못 읽혀 그 지면이 큐에서 지워진다.
+   *   ⭐ 차이를 «구글이 안 알려 준 노출»로 따로 세서 적는다. 못 잰 것은 못 쟀다고 적는다.
+   */
+  const 감춘것 = Math.max(0, (p.노출 ?? 0) - g.될노출 - g.안될노출);
+  될합 += g.될노출; 안될합 += g.안될노출; 감춘합 += 감춘것;
   낼것.push({
     page: p.주소,
     impressions: p.노출,
     position: p.순위,
     winnableImpressions: g.될노출,
     addressQueryImpressions: g.안될노출,
+    impressionsGoogleWithheld: 감춘것,
     topWinnableQueries: g.될것.sort((a, b) => b.노출 - a.노출).slice(0, 5)
       .map((r) => ({ query: r.검색어, impressions: r.노출, position: r.순위 })),
   });
   const 몫 = (g.될노출 + g.안될노출) ? Math.round((100 * g.안될노출) / (g.될노출 + g.안될노출)) : null;
-  console.log(`${g.될노출 === 0 ? '⛔' : '  '} ${p.주소}`);
-  console.log(`     노출 ${p.노출} · 순위 ${p.순위} · 바꿀 수 있는 것 ${g.될노출} · 남의 주소를 찾는 것 ${g.안될노출}${몫 === null ? '' : ` (${몫}%)`}`);
+  console.log(`${g.될노출 === 0 && 감춘것 === 0 ? '⛔' : '  '} ${p.주소}`);
+  console.log(`     노출 ${p.노출} · 순위 ${p.순위} · 바꿀 수 있는 것 ${g.될노출} · 남의 주소 ${g.안될노출}${몫 === null ? '' : ` (${몫}%)`}· 구글이 안 알려 준 것 ${감춘것}`);
   for (const r of g.될것.sort((a, b) => b.노출 - a.노출).slice(0, 4)) {
     console.log(`       «${r.검색어}» 노출 ${r.노출} · ${r.순위}위`);
   }
@@ -227,6 +237,8 @@ for (const p of 대상) {
 console.log('\n## 합');
 console.log(`  바꿀 수 있는 노출        ${될합}`);
 console.log(`  남의 주소를 찾는 노출    ${안될합}   ⛔ 제목을 고쳐도 안 눌린다`);
+console.log(`  구글이 안 알려 준 노출   ${감춘합}   ⚠ 못 쟀다. 0 이 아니다 — 드문 검색어를 구글이 감춘다`);
+console.log();
 if (못잰장) console.log(`  ⚠ 못 잰 지면 ${못잰장}장 — 0이 아니다`);
 
 if (process.argv.includes('--쓴다')) {
@@ -241,6 +253,7 @@ if (process.argv.includes('--쓴다')) {
       + 'as zero.',
     winnableImpressions: 될합,
     addressQueryImpressions: 안될합,
+    impressionsGoogleWithheld: 감춘합,
     unmeasuredPages: 못잰장,
     rows: 낼것,
   };
