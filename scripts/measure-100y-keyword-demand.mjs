@@ -125,20 +125,26 @@ if (process.argv.includes('--자가시험')) {
 }
 
 /* ── 실제로 잰다 ─────────────────────────────────────────── */
-const 잰것 = [];
-for (const 말 of 후보) {
-  const r = 자리재기(말, await 자동완성(말));
-  잰것.push({ 말, ...r });
-  const 표 = r.물음실패 ? '못 물었다'
-    : `${r.그대로있나 ? `있다(${r.몇번째}번째)` : '없다'} · 그 말로 시작 ${r.그말로시작}줄 · 보기: ${(r.보기 ?? []).slice(0, 3).join(' / ')}`;
-  console.log(`  ${말.padEnd(20)} ${표}`);
-  await 쉼(400);
-}
+/* 🔴 다른 자(measure-100y-culture-retry.mjs 등)가 이 파일의 자동완성()·자리재기() 만
+   빌려 쓰려고 import 했는데, 이 가드가 없어서 매번 15개 후보를 다시 다 재는 부작용이
+   있었다(2026-08-22 발견) — 「내가 직접 불렸나」로 감싸 막는다 */
+const 내가직접불렸나 = !!process.argv[1] && path.basename(process.argv[1]) === 'measure-100y-keyword-demand.mjs';
+if (내가직접불렸나) {
+  const 잰것 = [];
+  for (const 말 of 후보) {
+    const r = 자리재기(말, await 자동완성(말));
+    잰것.push({ 말, ...r });
+    const 표 = r.물음실패 ? '못 물었다'
+      : `${r.그대로있나 ? `있다(${r.몇번째}번째)` : '없다'} · 그 말로 시작 ${r.그말로시작}줄 · 보기: ${(r.보기 ?? []).slice(0, 3).join(' / ')}`;
+    console.log(`  ${말.padEnd(20)} ${표}`);
+    await 쉼(400);
+  }
 
-fs.writeFileSync(낼곳, JSON.stringify({
-  generated: new Date().toISOString(),
-  whatThisIs: 'Korean Google Suggest autocomplete presence (client=firefox&hl=ko, EUC-KR decoded). A trace that someone types this phrase — not a volume figure.',
-  whatThisIsNot: '월간 검색량이 아니다. 유료 키워드 자료가 없다. 자동완성에 뜨는 것은 흔적이지 몇 명인지가 아니다.',
-  phrases: 잰것,
-}, null, 1));
-console.log(`\n냈다 — ${path.relative(뿌리, 낼곳)}`);
+  fs.writeFileSync(낼곳, JSON.stringify({
+    generated: new Date().toISOString(),
+    whatThisIs: 'Korean Google Suggest autocomplete presence (client=firefox&hl=ko, EUC-KR decoded). A trace that someone types this phrase — not a volume figure.',
+    whatThisIsNot: '월간 검색량이 아니다. 유료 키워드 자료가 없다. 자동완성에 뜨는 것은 흔적이지 몇 명인지가 아니다.',
+    phrases: 잰것,
+  }, null, 1));
+  console.log(`\n냈다 — ${path.relative(뿌리, 낼곳)}`);
+}
