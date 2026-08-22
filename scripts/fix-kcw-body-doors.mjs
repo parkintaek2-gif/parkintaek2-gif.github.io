@@ -48,9 +48,18 @@ export const 본문에링크있나 = (원본) => {
   return 상대 + 절대 > 0;
 };
 
-/** 낼 한 줄. 지면이 둘이면 둘 다 건다 — 하나만 걸면 나머지가 또 문 없는 지면이 된다 */
+/**
+ * 낼 한 줄. 지면이 둘이면 둘 다 건다 — 하나만 걸면 나머지가 또 문 없는 지면이 된다.
+ *
+ * ⭐ 2026-08-22 — 주소에 `?from=body` 딱지를 붙인다. 서버가 `from` 하나만 남긴다.
+ *   까닭: 이레 실측에서 지면 열림 5,026 중 **안쪽 걸음이 296(5.9%)** 이고 「방」은 **0장**이었다.
+ *   문을 111편에 냈는데 **어느 자리의 문이 안 눌리는지**를 모르고 있었다. 자리마다 갈라 센다.
+ * ⚠ 딱지가 붙어도 링크로 세어진다(`](/`로 시작한다) — `본문에링크있나` 가 그대로 잡는다.
+ * ⚠ 보이는 글자에는 딱지를 안 쓴다. 손님 눈에 `?from=body` 를 보일 이유가 없다.
+ */
+export const 딱지 = '?from=body';
 export function 문장만들기(지면들) {
-  const 걸이 = 지면들.map((p) => `[kculturewire.com${p}](${p})`);
+  const 걸이 = 지면들.map((p) => `[kculturewire.com${p}](${p}${딱지})`);
   if (!걸이.length) return null;
   if (걸이.length === 1) return `The table behind this is at ${걸이[0]}.`;
   const 마지막 = 걸이.pop();
@@ -73,12 +82,17 @@ if (process.argv.includes('--자가시험')) {
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
   const 앞말 = (지면) => `---\ntitle: "x"\npages:\n${지면.map((p) => `  - "${p}"`).join('\n')}\n---\n\nBody text.\n`;
 
-  검('지면 하나면 한 줄', 문장만들기(['/places']) === 'The table behind this is at [kculturewire.com/places](/places).');
-  검('지면 둘이면 둘 다 건다', 문장만들기(['/a', '/b']).includes('](/a)') && 문장만들기(['/a', '/b']).includes('](/b)'));
+  검('지면 하나면 한 줄',
+    문장만들기(['/places']) === 'The table behind this is at [kculturewire.com/places](/places?from=body).');
+  검('지면 둘이면 둘 다 건다',
+    문장만들기(['/a', '/b']).includes('](/a?from=body)') && 문장만들기(['/a', '/b']).includes('](/b?from=body)'));
+  /* ⭐ 보이는 글자에는 딱지가 없다 — 손님 눈에 `?from=body` 를 보일 이유가 없다 */
+  검('⛔ 보이는 글자에 딱지를 안 쓴다', 문장만들기(['/places']).includes('[kculturewire.com/places]'));
+  검('⭐ 딱지가 붙어도 본문 링크로 세어진다', 본문에링크있나(`---\nx: 1\n---\n\n${문장만들기(['/places'])}\n`));
   검('빈 지면은 문장을 안 만든다', 문장만들기([]) === null);
 
   const r = 한편고치기(앞말(['/places']));
-  검('본문 끝에 붙인다', r.꼴 === '고쳤다' && r.새것.trim().endsWith('](/places).'));
+  검('본문 끝에 붙인다', r.꼴 === '고쳤다' && r.새것.trim().endsWith('](/places?from=body).'));
   검('앞말을 안 건드린다', r.새것.startsWith('---\ntitle: "x"'));
   검('고친 뒤에는 본문에 링크가 있다', 본문에링크있나(r.새것) === true);
   검('두 번 돌려도 한 번만 붙는다', 한편고치기(r.새것).꼴 === '그대로');
@@ -99,7 +113,7 @@ if (process.argv.includes('--자가시험')) {
     본문에링크있나(절대문('https://example.com/places')) === false);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ fix-kcw-body-doors 자가시험 통과 (13)');
+  console.log('✅ fix-kcw-body-doors 자가시험 통과 (15)');
   process.exit(0);
 }
 

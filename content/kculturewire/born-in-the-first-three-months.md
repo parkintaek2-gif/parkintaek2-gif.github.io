@@ -95,4 +95,4 @@ The names, the twelve signs, and the other count that came out as chance are on
 [which Korean stars share your zodiac sign](https://www.kculturewire.com/star-signs) and
 [the year you were born](https://www.kculturewire.com/zodiac).
 
-The tables behind this are at [kculturewire.com/star-signs](/star-signs) and [kculturewire.com/zodiac](/zodiac).
+The tables behind this are at [kculturewire.com/star-signs](/star-signs?from=body) and [kculturewire.com/zodiac](/zodiac?from=body).

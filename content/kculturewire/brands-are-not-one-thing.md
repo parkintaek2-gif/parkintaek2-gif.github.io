@@ -52,4 +52,4 @@ Three luxury houses (Fendi, Burberry, Bottega Veneta) are in the panel but out o
 
 Two kinds here hold fewer than three fully-covered brands. They are printed so the panel is complete and marked so they are not read as a pattern.
 
-The tables behind this are at [kculturewire.com/brand-kinds](/brand-kinds) and [kculturewire.com/fame-compare](/fame-compare).
+The tables behind this are at [kculturewire.com/brand-kinds](/brand-kinds?from=body) and [kculturewire.com/fame-compare](/fame-compare?from=body).

@@ -39,7 +39,16 @@ const 날짜 = (v: Date) =>
     <ul>
       {기사.map((a) => (
         <li>
-          <a href={`/article/${a.id}`}>{a.data.title}</a>
+          {/*
+            ⭐ 2026-08-22 — `?from=related` 딱지를 붙인다. 서버는 물음표 뒤에서 `from` 하나만
+              흰 목록으로 남긴다(`src/lib/traffic.mjs` 유입표).
+              까닭: 이레를 실측하니 지면 열림 5,026 중 **우리 안에서 온 것이 296(5.9%)** 이고,
+              「열림 20 이상 · 안쪽 50% 이상」인 지면은 **0장**이었다. 문은 다 냈는데 안 눌린다.
+              ⛔ 어느 자리의 문이 안 눌리는지 모르면 고칠 데를 모른다. 자리마다 딱지를 붙여 잰다.
+            ⚠ 딱지가 주소를 바꾼다 — 지면마다 canonical 이 딱지 없는 주소를 가리키므로
+              색인은 하나로 남는다. 그것을 안 지키면 같은 지면이 둘로 색인된다.
+          */}
+          <a href={`/article/${a.id}?from=related`}>{a.data.title}</a>
           <p class="dek">{a.data.dek}</p>
           <p class="when">
             {날짜(a.data.pubDate)}

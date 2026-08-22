@@ -56,4 +56,4 @@ Because the shape of the gap is itself the finding, and because anyone who reach
 
 It also names precisely what we are missing. The reading data can see every district and cannot see a single restaurant. The admissions data can see a turnstile and cannot see a street. Between them there is no public source that says where a visitor actually spent an afternoon in Mapo.
 
-The tables behind this are at [kculturewire.com/read-vs-visited](/read-vs-visited) and [kculturewire.com/places](/places).
+The tables behind this are at [kculturewire.com/read-vs-visited](/read-vs-visited?from=body) and [kculturewire.com/places](/places?from=body).

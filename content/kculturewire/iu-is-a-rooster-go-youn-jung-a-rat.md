@@ -90,4 +90,4 @@ times.
 
 The twelve rooms are at [the star rooms](https://www.kculturewire.com/community).
 
-The tables behind this are at [kculturewire.com/zodiac](/zodiac) and [kculturewire.com/star-signs](/star-signs).
+The tables behind this are at [kculturewire.com/zodiac](/zodiac?from=body) and [kculturewire.com/star-signs](/star-signs?from=body).
