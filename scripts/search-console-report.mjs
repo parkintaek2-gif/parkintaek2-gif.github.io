@@ -77,6 +77,11 @@ async function 토큰받기() {
 }
 
 async function main() {
+  /* 2026-08-22 5번 — 선택 인자를 더했다. ⛔ 기본값은 그대로라 다른 자리 출력은 안 바뀐다.
+     --행수=1000  더 많이 본다(구글 최대 25,000)
+     --축=page    검색어 대신 «어느 지면이 노출됐나»를 본다 */
+  const 행수 = Number((process.argv.find((a) => a.startsWith('--행수='))?.split('=')[1]) ?? 25);
+  const 축 = (process.argv.find((a) => a.startsWith('--축='))?.split('=')[1]) ?? 'query';
   const 토큰 = await 토큰받기();
   const 끝 = new Date(); 끝.setDate(끝.getDate() - 2);           // 구글은 최근 2~3일치가 아직 안 갖춰졌다
   const 시작 = new Date(끝); 시작.setDate(시작.getDate() - 일수);
@@ -90,15 +95,15 @@ async function main() {
       body: JSON.stringify({
         startDate: 날짜문자(시작),
         endDate: 날짜문자(끝),
-        dimensions: ['query'],
-        rowLimit: 25,
+        dimensions: [축],
+        rowLimit: 행수,
       }),
     },
   );
   const j = await r.json();
   if (j.error) { console.error(`🔴 ${사이트}: ${j.error.message}`); process.exit(1); }
   const 행 = j.rows ?? [];
-  console.log(`${사이트} — ${날짜문자(시작)} ~ ${날짜문자(끝)} · 검색어 ${행.length}개(있으면 최대 25)`);
+  console.log(`${사이트} — ${날짜문자(시작)} ~ ${날짜문자(끝)} · ${축 === 'page' ? '지면' : '검색어'} ${행.length}개(최대 ${행수})`);
   if (!행.length) { console.log('   (아직 자료 없음 — 등록 직후면 정상이다. 며칠 걸린다)'); return; }
   for (const row of 행) {
     console.log(`   노출 ${String(row.impressions).padStart(6)} · 클릭 ${String(row.clicks).padStart(4)} · 순위 ${row.position.toFixed(1)}   ${row.keys[0]}`);

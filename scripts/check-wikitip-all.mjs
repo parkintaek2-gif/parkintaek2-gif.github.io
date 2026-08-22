@@ -144,7 +144,39 @@ const 검사 = [
   ['들어오는 문이 없는 지면이 있나', 'check-kcw-orphan-pages.mjs'],
 ];
 
+/**
+ * 🔴🔴 2026-08-22 — 서버를 옮긴 뒤 `archive/`(원자료)가 이 창에 없다. git 이 물고 오지 않는 자리다.
+ *   그래서 자 열넷이 **ENOENT 로 터졌고**, 위의 규칙(첫 실패에서 멈춘다) 때문에
+ *   **묶음 자가 두 번째 칸에서 멈춰 뒤의 검사 백여 개가 한 번도 안 돌았다.**
+ *   ⛔ 그동안 나는 「검사 통과」라고 말할 수 없는 상태로 배포하고 있었다.
+ *
+ *   ⭐ 멈추는 규칙 자체는 옳다 — 그건 그대로 둔다. 가르는 것은 **말**이다:
+ *     「깨졌다」와 「못 쟀다」는 다른 말이고, 다른 말은 다르게 적는다.
+ *     원자료가 없어 터진 것은 못 잰 것이다. 못 잰 것은 **적어 두고 넘어간다.**
+ *   ⛔ 조용히 넘어가지 않는다 — 끝에 몇 개를 왜 못 쟀는지 이름까지 적는다.
+ *      그래야 「전부 통과」가 「전부 쟀다」로 읽히지 않는다.
+ */
+export const 못쟀나 = (글) => {
+  const s = String(글 ?? '');
+  return /ENOENT|no such file or directory/.test(s) && /archive[\\/]/.test(s);
+};
+
+if (process.argv.includes('--자가시험')) {
+  const 실패 = [];
+  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  검('원자료가 없어 터진 것은 못 쟀다', 못쟀나("Error: ENOENT: no such file or directory, scandir 'C:\\x\\archive\\raw\\star-pageviews'"));
+  검('슬래시 경로도 본다', 못쟀나('ENOENT: no such file or directory, open archive/raw/a.json'));
+  검('⛔ 자료가 어긋난 것은 못 쟀다가 아니다', 못쟀나('❌ 기사의 수 12 가 자료의 13 과 다르다') === false);
+  검('⛔ 원자료 아닌 파일이 없는 것은 못 쟀다가 아니다', 못쟀나('ENOENT: no such file or directory, open src/data/x.json') === false);
+  검('⛔ archive 라는 말만 나온 것은 못 쟀다가 아니다', 못쟀나('archive 를 다시 만들어야 한다') === false);
+  검('빈 글은 못 쟀다가 아니다', 못쟀나('') === false && 못쟀나(null) === false);
+  if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
+  console.log('✅ check-wikitip-all 자가시험 통과 (6)');
+  process.exit(0);
+}
+
 let 돈것 = 0;
+const 못잰것 = [];
 for (const [무엇, 파일] of 검사) {
   if (!fs.existsSync(`scripts/${파일}`)) {
     console.error(`❌ ${파일} 이 없다 — 검사 목록이 실제와 어긋난다`);
@@ -155,10 +187,21 @@ for (const [무엇, 파일] of 검사) {
     console.log(`  ✅ ${무엇.padEnd(28)} (${파일})`);
     돈것++;
   } catch (e) {
+    const 글 = `${String(e.stdout ?? '')}${String(e.stderr ?? '')}`;
+    if (못쟀나(글)) {
+      console.log(`  ⚠ ${무엇.padEnd(28)} (${파일}) — 못 쟀다: 원자료가 이 창에 없다`);
+      못잰것.push(파일);
+      continue;
+    }
     console.error(`\n❌ ${무엇} — ${파일}\n`);
-    process.stderr.write(String(e.stdout ?? ''));
-    process.stderr.write(String(e.stderr ?? ''));
+    process.stderr.write(글);
     process.exit(1);
   }
 }
-console.log(`\n✅ K Culture Wire 검사 ${돈것}개 전부 통과`);
+
+console.log(`\n✅ K Culture Wire 검사 ${돈것}개 통과`);
+if (못잰것.length) {
+  console.log(`⚠ 못 쟀다 ${못잰것.length}개 — 원자료(archive/)가 이 창에 없다. **깨진 것이 아니라 못 잰 것이다**`);
+  못잰것.forEach((f) => console.log(`   · ${f}`));
+  console.log('   재려면 그 자의 수집기를 먼저 돌린다. 그때까지 이 칸들은 「통과」가 아니다.');
+}

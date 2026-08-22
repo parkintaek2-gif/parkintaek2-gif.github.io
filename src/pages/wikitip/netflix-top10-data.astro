@@ -1,0 +1,219 @@
+---
+/**
+ * K Culture Wire — **넷플릭스 Top 10 파일 두 개의 설명서.** (`/netflix-top10-data`)
+ *
+ * ── 왜 이 지면이 생겼나 (2026-08-22) ──────────────────────────
+ * Search Console 실측. 우리에게 오는 검색어 76개 중 **노출 185개가 파일 주소 그 자체**였다 —
+ *   "…/tudum/top10?week=2024-11-03"                36노출 · 순위 7.7 · 클릭 0
+ *   "…/tudum/top10/data/all-weeks-countries.tsv"   31+22노출 · 순위 9.5~9.8 · 클릭 0
+ *   "…/tudum/top10/data/all-weeks-global.tsv"      11+13노출 · 순위 11.2~11.5 · 클릭 0
+ * 반대로 스타 이름으로 온 노출은 **1개**였다.
+ *
+ * ⛔ 순위 7~11 에 있는데 클릭이 0이었다. 자리는 이미 있었고, **그 사람이 물은 것에
+ *   우리 지면이 답을 안 하고 있었다.** 그 사람은 기사를 찾는 게 아니다 —
+ *   **파일 안에 무엇이 들어 있느냐**를 찾는다. 그 답이 우리 집에 없었다.
+ *
+ * ── 무엇을 내놓나 ────────────────────────────────────────────
+ * ✅ 두 파일을 그날 받아서 직접 센 값(`scripts/measure-netflix-top10-files.mjs`)
+ * ✅ **파일이 안 알려 주는 것** — views 가 102주 비어 있는 것, 두 파일이 안 붙는 것
+ * ⛔ 파일을 다시 배포하지 않는다. 넷플릭스 주소로 보낸다
+ * ⛔ 「이 자료로 이렇게 하세요」라고 안 쓴다. 무엇이 있고 무엇이 없는지만 적는다
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/wikitip-netflix-files.json';
+import titlePages from '../../data/wikitip-title-pages.json';
+
+const 나라파일: any = (d.files ?? []).find((f: any) => f.name.includes('countries'));
+const 세계파일: any = (d.files ?? []).find((f: any) => f.name.includes('global'));
+const j: any = d.join;
+
+const 빈주 = 세계파일.weeksWithoutAnyViews;
+const 빈몫 = ((빈주 / 세계파일.weeks) * 100).toFixed(0);
+const 안붙는몫 = ((j.notInGlobal / j.countryTitles) * 100).toFixed(1);
+const 으뜸 = j.examples?.[0];
+
+/* ⭐ 파일을 찾아온 사람에게 보여 줄 것 — 우리가 그 파일로 만든 지면. 가장 넓게 퍼진 한국 작품 셋 */
+const 우리것 = (titlePages.titles ?? [])
+  .filter((t: any) => t.hasPage)
+  .sort((a: any, b: any) => b.markets - a.markets)
+  .slice(0, 3);
+
+const TITLE = `Inside Netflix's Top 10 files: all-weeks-countries.tsv and all-weeks-global.tsv`;
+const DESC =
+  `What is actually in the two files Netflix publishes, counted on ${d.measuredAt}: `
+  + `${나라파일.rows.toLocaleString('en-US')} country rows across ${나라파일.countries} countries, `
+  + `${세계파일.rows.toLocaleString('en-US')} global rows, both covering ${나라파일.weeks} weeks from `
+  + `${나라파일.firstWeek} to ${나라파일.lastWeek}. Including the two things the files do not tell you: `
+  + `weekly_views is empty for ${빈주} of those weeks, and ${안붙는몫}% of the titles in the country file `
+  + `have no row in the global file at all.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: TITLE,
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: (d.files ?? []).map((f: any) => f.url),
+  temporalCoverage: `${나라파일.firstWeek}/${나라파일.lastWeek}`,
+  variableMeasured: [...나라파일.columns, ...세계파일.columns].filter((c: string, i: number, a: string[]) => a.indexOf(c) === i),
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/netflix-top10-data">
+  <h1>Inside Netflix's two Top 10 files</h1>
+  <p class="lead">
+    Netflix publishes its weekly Top 10 as two tab-separated files. If you came here after pasting one
+    of their addresses into a search box, this page is the thing that address does not come with:
+    what is in each file, what each column means, and where each file stops carrying a number.
+    Everything below was counted by downloading both files on {d.measuredAt}.
+  </p>
+
+  <section class="scroll-x">
+    <table>
+      <thead>
+        <tr><th>File</th><th>Rows</th><th>Weeks</th><th>Covers</th><th>Countries</th><th>Categories</th></tr>
+      </thead>
+      <tbody>
+        {(d.files ?? []).map((f: any) => (
+          <tr>
+            <td class="nm"><a href={f.url} rel="nofollow noopener">{f.name}</a></td>
+            <td>{f.rows.toLocaleString('en-US')}</td>
+            <td>{f.weeks}</td>
+            <td class="fine">{f.firstWeek} → {f.lastWeek}</td>
+            <td>{f.countries === null ? <span class="fine">none — global only</span> : f.countries}</td>
+            <td class="fine">{f.categories.join(', ')}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="warn-box">
+    <h2>The two files do not join</h2>
+    <p class="warn">
+      This is the first thing to know and it is not written anywhere on the files themselves.
+      The country file carries no viewing figure — no hours, no views, only a rank. The global file
+      carries the viewing figures but no country. And they do not even label their categories the
+      same way: the country file says <code>Films</code> and <code>TV</code>, the global file splits
+      the same world into {세계파일.categories.map((c: string, i: number) => (
+        <span>{i > 0 ? ', ' : ''}<code>{c}</code></span>
+      ))}. A title that was
+      number one in forty countries cannot be converted into a number of views by joining these
+      two tables, because the row you would need does not exist.
+    </p>
+  </section>
+
+  <section>
+    <h2>{j.notInGlobal.toLocaleString('en-US')} of the titles have no view count anywhere</h2>
+    <p>
+      We took every title in the country file — {j.countryTitles.toLocaleString('en-US')} of them,
+      counting a season as its own title — and looked for it in the global file.
+      {' '}{j.inGlobal.toLocaleString('en-US')} were there. {j.notInGlobal.toLocaleString('en-US')} were
+      not, which is {안붙는몫}% of them. Those titles reached a national top ten and Netflix has
+      published no viewing figure for them, in this file or any other.
+    </p>
+    <p>
+      It is tempting to assume the missing ones are the small ones. {j.notInGlobalWide} of them charted
+      in {j.wideCut} countries or more.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>Charted in a national top 10, no global row</th><th>Countries</th></tr></thead>
+        <tbody>
+          {(j.examples ?? []).map((x: any) => (
+            <tr><td class="nm">{x.title}</td><td>{x.countries} of {나라파일.countries}</td></tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    {으뜸 && (
+      <p class="note">
+        <b>{으뜸.title}</b> is the widest of them: {으뜸.countries} of the {나라파일.countries} countries
+        Netflix reports, and not one row in the global file. Anyone ranking titles by views is ranking
+        the {((j.inGlobal / j.countryTitles) * 100).toFixed(0)}% that happen to have one.
+      </p>
+    )}
+  </section>
+
+  <section>
+    <h2>The view count starts in the middle of the file</h2>
+    <p>
+      <code>weekly_views</code> is empty for {빈주} of the {세계파일.weeks} weeks in the global file —
+      {' '}{빈몫}% of it. The last week with no views at all is {세계파일.lastWeekWithoutViews};
+      the first week where every row has one is {세계파일.firstWeekWithViews}.
+      {' '}<code>runtime</code> is empty on exactly the same {세계파일.emptyRuntime.toLocaleString('en-US')} rows.
+      {' '}<code>weekly_hours_viewed</code> runs the whole way through.
+    </p>
+    <p class="warn">
+      So a chart of <code>weekly_views</code> over the full history silently begins in mid-2023 and
+      drops {세계파일.emptyViews.toLocaleString('en-US')} rows on the way. Nothing in the file marks
+      this; the cells are simply empty. We say it here because an empty cell read as a zero is how a
+      real drop gets invented.
+    </p>
+  </section>
+
+  <section>
+    <h2>Every column, both files</h2>
+    {(d.files ?? []).map((f: any) => (
+      <div>
+        <h3>{f.name}</h3>
+        <p class="fine">{f.columns.map((c: string) => <span><code>{c}</code>{' '}</span>)}</p>
+      </div>
+    ))}
+    <p class="note">
+      <code>week</code> is the Sunday that ends the week, written as a date.
+      {' '}<code>cumulative_weeks_in_top_10</code> counts that title's weeks in that chart, not its
+      weeks on Netflix. <code>season_title</code> is empty for films, which is why a title key has to
+      be the pair of them: two seasons of one show are two different rows.
+    </p>
+  </section>
+
+  <section>
+    <h2>Where the files are</h2>
+    <ul>
+      {(d.files ?? []).map((f: any) => (
+        <li><a href={f.url} rel="nofollow noopener">{f.url}</a></li>
+      ))}
+      <li><a href="https://www.netflix.com/tudum/top10" rel="nofollow noopener">https://www.netflix.com/tudum/top10</a> — the weekly page the files sit behind</li>
+    </ul>
+    <p class="note">
+      We do not re-host them. They are Netflix's files, they change every week, and a copy of ours
+      would be a stale copy within days. The links above go to the originals.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>What we built out of them</h2>
+    <p>
+      We read these files every week for Korean titles, one country at a time — the part the global
+      file cannot tell you. {titlePages.titles.filter((t: any) => t.hasPage).length} titles have a page
+      of their own showing every market they charted in, week by week.
+    </p>
+    <ul>
+      {우리것.map((t: any) => (
+        <li>
+          <a href={`/title/${t.slug}`}>{t.title}</a> — {t.markets} of {titlePages.marketCount} markets,
+          {' '}{t.places.toLocaleString('en-US')} chart places
+        </li>
+      ))}
+    </ul>
+    <p class="note">
+      <a href="/watched">What the whole Korean catalogue did, week by week</a> ·{' '}
+      <a href="/exports">Where it travelled</a> ·{' '}
+      <a href="/data">Every dataset we keep and how it was built</a>
+    </p>
+    <p class="note">
+      <b>What this is</b> — {d.whatThisIs}<br />
+      <b>What this is not</b> — {d.whatThisIsNot}
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/netflix-top10-data" />
+</WikiTip>
+
+<style>
+  .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: 0.5rem 1rem; }
+  code { font-size: 0.92em; }
+</style>

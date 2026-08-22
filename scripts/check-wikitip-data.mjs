@@ -41,11 +41,32 @@ const 문제 = [];
  * 손으로 쓰는 파일은 **검사 스크립트가 지키고 있을 때만** 허용한다.
  * 지키는 검사가 없으면 그건 그냥 손으로 만든 파일이고, 오늘 우리가 고친 바로 그 결함이다.
  */
+/**
+ * 🔴🔴 2026-08-22 — 이 자가 **거짓 빨강**을 냈다. 다섯 파일을 「만드는 스크립트가 없다」고
+ *   불렀는데 다섯 다 만드는 스크립트가 있었다(`build-wikitip-hometowns.mjs` 등).
+ *   까닭은 하나다 — 자가 `src/data/파일명` **한 덩어리 문자열만** 찾았고, 그 스크립트들은
+ *   `path.join(뿌리, 'src', 'data', 'wikitip-hometowns.json')` 처럼 **토막으로 나눠** 쓴다.
+ *   ⭐ 경로를 어떻게 조립했는지는 자가 물을 일이 아니다. **파일 이름으로 찾는다.**
+ *   ⚠ 거짓 빨강은 거짓 초록보다 눈에 덜 나쁘게 보이지만, 묶음 자를 첫 실패에서 멈춰
+ *     **뒤의 검사 전부를 못 돌게** 만들었다. 그게 이 흠이 값이 큰 까닭이다.
+ */
+export const 파일을쓰나 = (본문, 파일) => {
+  if (!/writeFileSync/.test(본문)) return false;
+  /* 파일 이름이 나오는 줄 중에 **읽는 줄이 아닌 것**이 하나라도 있으면 만드는 쪽으로 본다.
+     ⛔ 남의 자료를 읽어다 자기 것을 쓰는 스크립트를 만든 이로 잘못 세지 않으려고 읽는 줄을 뺀다 */
+  return 본문.split(/\r?\n/).some((줄) => {
+    if (!줄.includes(파일)) return false;
+    if (/readFileSync|^\s*import\b|require\(/.test(줄)) return false;
+    return true;
+  });
+};
+
+/** 지키는 검사가 있나 — 검사는 읽기만 하니 이름이 나오면 그것으로 족하다 */
+export const 검사가지키나 = (이름, 본문, 파일) => /^check-/.test(이름) && 본문.includes(파일);
+
 for (const f of 자료) {
-  const 만드는곳 = 스크립트.filter((s) => s.body.includes(`${DATA_DIR}/${f}`) && /writeFileSync/.test(s.body));
-  if (만드는곳.length) continue;
-  const 지키는검사 = 스크립트.filter((s) => /^check-/.test(s.name) && s.body.includes(`${DATA_DIR}/${f}`));
-  if (지키는검사.length) continue;
+  if (스크립트.some((s) => 파일을쓰나(s.body, f))) continue;
+  if (스크립트.some((s) => 검사가지키나(s.name, s.body, f))) continue;
   문제.push(`${f} — 만드는 스크립트도, 지키는 검사도 없다. 고쳐도 안 따라온다`);
 }
 
@@ -95,6 +116,28 @@ if (process.argv.includes('--selftest')) {
     if (걸림 === 걸려야하나) 통과++;
     else console.log(`  ❌ 자가시험 실패: ${이름}`);
   }
+
+  /* ⭐ 2026-08-22 에 낸 거짓 빨강을 여기서 막는다. 위의 다섯 칸은 이 흠을 못 봤다 */
+  const 경로시험 = [
+    ['한 덩어리로 쓴 경로를 본다',
+      `const p = 'src/data/wikitip-x.json'; fs.writeFileSync(p, s);`, true],
+    ['⭐ 토막으로 나눈 경로도 본다',
+      `const 낼곳 = path.join(뿌리, 'src', 'data', 'wikitip-x.json');\nfs.writeFileSync(낼곳, s);`, true],
+    ['⛔ 읽기만 하는 스크립트는 만든 이가 아니다',
+      `const d = JSON.parse(fs.readFileSync('src/data/wikitip-x.json'));\nfs.writeFileSync(다른곳, s);`, false],
+    ['⛔ import 만 한 것도 만든 이가 아니다',
+      `import x from '../src/data/wikitip-x.json';\nfs.writeFileSync(다른곳, s);`, false],
+    ['⛔ writeFileSync 가 아예 없으면 만든 이가 아니다',
+      `const 낼곳 = path.join(뿌리, 'src', 'data', 'wikitip-x.json');\nconsole.log(낼곳);`, false],
+    ['다른 파일 이름에는 안 걸린다',
+      `fs.writeFileSync(path.join('src', 'data', 'wikitip-y.json'), s);`, false],
+  ];
+  for (const [이름, 본문, 참] of 경로시험) {
+    시험.push([이름]);
+    if (파일을쓰나(본문, 'wikitip-x.json') === 참) 통과++;
+    else console.log(`  ❌ 자가시험 실패: ${이름}`);
+  }
+
   console.log(`되짚기 검사 — 자가시험 ${시험.length}건 중 ${통과}건 통과`);
   if (통과 !== 시험.length) process.exit(1);
 }

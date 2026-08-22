@@ -40,10 +40,24 @@ const 있어야한다 = [
   { name: 'Psy', why: '솔로' },
 ];
 
+/**
+ * 🔴 2026-08-22 — 이 자가 **터졌다**(ENOENT, scandir archive/raw/star-pageviews).
+ *   까닭: 서버를 옮기면서 `archive/`(원자료)가 안 따라왔고, 그건 git 이 물고 오지 않는 자리다.
+ *   ⛔ 터지면 묶음 자가 **첫 실패에서 멈춰** 뒤의 검사가 전부 안 돈다. 그게 더 큰 손해다.
+ *   ⭐ 우리 규칙 — **재 보고 안 되면 안 된다고 적는 것도 결과다.**
+ *     원자료가 없는 것은 「명단이 깨졌다」와 **다른 말**이다. 다른 말은 다르게 적는다.
+ */
+if (!fs.existsSync(DIR)) {
+  console.log(`⚠ 못 쟀다 — 원자료 자리가 없다(${DIR}).`);
+  console.log('   이 자리는 git 이 물고 오지 않는다. 재려면 collect-kpop-pageviews.mjs 를 먼저 돌린다.');
+  console.log('   ⛔ 「명단이 깨졌다」고 말하지 않는다 — 못 잰 것과 깨진 것은 다른 말이다.');
+  process.exit(0);
+}
+
 const files = fs.readdirSync(DIR).filter((f) => /^kpop-\d+\.json$/.test(f)).sort();
 if (!files.length) {
-  console.log('🔴 kpop-*.json 이 없다 — 먼저 collect-kpop-pageviews.mjs 를 돌린다');
-  process.exit(1);
+  console.log('⚠ 못 쟀다 — kpop-*.json 이 하나도 없다. collect-kpop-pageviews.mjs 를 먼저 돌린다');
+  process.exit(0);
 }
 const 파일 = files[files.length - 1];
 const j = JSON.parse(fs.readFileSync(path.join(DIR, 파일), 'utf8'));

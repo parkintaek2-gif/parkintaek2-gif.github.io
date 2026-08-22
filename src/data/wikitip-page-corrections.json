@@ -142,9 +142,22 @@
   "selected-on-outcome": "A comparison was computed on the fifty largest titles by hours — a group selected on the very outcome being explained — and reported as if it described the whole panel",
   "limit-never-tested": "A limitation was written down as unmeasurable and never tested — the number turned out to be reachable from a source we already query",
   "ruler-fixed-upstream": "A rule that decides which titles count was corrected, and every number measured through it moved. The article was right about what it was given; what it was given was wrong.",
-  "selector-not-location": "A panel of places was selected on Wikidata's country property, which records who was involved as well as where a thing is. Places entered the list because Korea took part in something that happened elsewhere."
+  "selector-not-location": "A panel of places was selected on Wikidata's country property, which records who was involved as well as where a thing is. Places entered the list because Korea took part in something that happened elsewhere.",
+  "roster-widened": "The set of titles a figure was measured over was widened after publication, and every count measured through it moved. Nothing in the earlier figures was wrong for the set they described; the set was too small for a median to hold still.",
+  "definition-inconsistent": "A word we publish on many pages — median — was computed one way here and another way everywhere else. A reader comparing two of our pages had no way to know the same word meant two different things.",
+  "window-too-short": "A measurement window was short enough that its own highest month became the peak. Widening the window moved the peaks and exposed a limit the first version could not see at all."
  },
  "articleCauses": [
+  {
+   "slug": "kpop-export-left-japan-behind",
+   "date": "2026-08-06",
+   "cause": "unmeasured-sentence"
+  },
+  {
+   "slug": "korea-tv-export-shift-tenure",
+   "date": "2026-08-07",
+   "cause": "kosis-two-level"
+  },
   {
    "slug": "korean-actors-attention-flat",
    "date": "2026-08-07",
@@ -161,14 +174,9 @@
    "cause": "title-text"
   },
   {
-   "slug": "korea-tv-export-shift-tenure",
-   "date": "2026-08-07",
-   "cause": "kosis-two-level"
-  },
-  {
-   "slug": "kpop-export-left-japan-behind",
-   "date": "2026-08-06",
-   "cause": "unmeasured-sentence"
+   "slug": "korean-titles-southeast-asia-all-or-nothing",
+   "date": "2026-08-08",
+   "cause": "attribution-contradiction"
   },
   {
    "slug": "one-flaw-twelve-corrections",
@@ -176,19 +184,14 @@
    "cause": "miscounted-corrections"
   },
   {
-   "slug": "short-titles-are-where-we-cannot-check-ourselves",
-   "date": "2026-08-08",
-   "cause": "attribution-contradiction"
-  },
-  {
-   "slug": "korean-titles-southeast-asia-all-or-nothing",
-   "date": "2026-08-08",
-   "cause": "attribution-contradiction"
-  },
-  {
    "slug": "reaching-number-one-is-mostly-length",
    "date": "2026-08-08",
    "cause": "selected-on-outcome"
+  },
+  {
+   "slug": "short-titles-are-where-we-cannot-check-ourselves",
+   "date": "2026-08-08",
+   "cause": "attribution-contradiction"
   },
   {
    "slug": "the-acts-our-k-pop-panel-cannot-see",
@@ -204,6 +207,36 @@
    "slug": "which-markets-only-take-the-big-ones",
    "date": "2026-08-10",
    "cause": "ruler-fixed-upstream"
+  },
+  {
+   "slug": "half-life-two-months",
+   "date": "2026-08-15",
+   "cause": "roster-widened"
+  },
+  {
+   "slug": "one-title-out",
+   "date": "2026-08-15",
+   "cause": "limit-never-tested"
+  },
+  {
+   "slug": "the-manager-is-read-where-he-was-hired",
+   "date": "2026-08-15",
+   "cause": "definition-inconsistent"
+  },
+  {
+   "slug": "the-wave-leaves-nothing",
+   "date": "2026-08-15",
+   "cause": "window-too-short"
+  },
+  {
+   "slug": "the-wave-leaves-nothing",
+   "date": "2026-08-15",
+   "cause": "roster-widened"
+  },
+  {
+   "slug": "travel-pages-fell-culture-pages-didnt",
+   "date": "2026-08-15",
+   "cause": "unmeasured-sentence"
   }
  ],
  "guards": {
