@@ -1,11 +1,11 @@
 ---
-title: "Measure Korea any way you like — the top four are half of it"
+title: "Korea's stock market and trade: the top four are half of everything"
 dek: "Rank Korea's stocks by value or trading, or its partners by exports or imports — each time the top four are about half, and every Gini clears 0.9, past any nation's income gap. One country, four of everything. Not advice."
 category: macro
 pubDate: 2026-08-22
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["concentration", "gini", "stocks", "trade", "exports", "imports", "korea"]
+tags: ["korea stock market", "kospi", "kosdaq", "samsung", "korea exports", "trade partners", "concentration", "gini"]
 tickers: []
 sources:
   - org: "Korea Exchange (KRX OPEN API)"

@@ -1,11 +1,11 @@
 ---
-title: "Korea sells to two giants but buys mostly from one"
+title: "South Korea's biggest trading partners: two giants, one supplier"
 dek: "Korea's two biggest export markets — the US and China — are nearly tied near 20% each. But its single biggest supplier is China alone, a quarter of all imports. Four partners are half the trade, either way. Shares, not dollars. Not advice."
 category: macro
 pubDate: 2026-08-22
 dataAsOf: 2026-06-30T00:00:00+09:00
 author: Newsroom
-tags: ["trade", "exports", "imports", "china", "usa", "concentration", "korea"]
+tags: ["korea trade partners", "south korea exports", "korea exports", "korea trade with china", "china", "usa", "imports"]
 tickers: []
 sources:
   - org: "Korea Customs Service (via KOSIS, Statistics Korea)"
