@@ -1,5 +1,5 @@
 ---
-title: "Korea's top League players are not the ones grinding hardest. Europe's are."
+title: "The Korean ladder is not the hardest grind. Europe West is."
 dek: "Europe West's challengers average 921 ranked games to Korea's 770 and Southeast Asia's 410. In five of six regions you play more to reach the top tier. In Vietnam you play less, on all four days measured."
 category: titles
 genre: esports
