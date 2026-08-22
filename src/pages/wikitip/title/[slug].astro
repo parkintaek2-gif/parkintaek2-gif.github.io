@@ -98,6 +98,13 @@ function 이웃작품(작품: any, 최대 = 6) {
     .slice(0, 최대);
 }
 const 이웃 = 이웃작품(t);
+/**
+ * 그 작품이 처음 자리를 잡은 해 — 연도 지면으로 가는 길이다.
+ * ⛔ 주 문자열이 없으면 만들지 않는다. 그 줄을 아예 안 낸다.
+ */
+const 첫해 = (typeof t.firstWeek === 'string' && /^\d{4}/.test(t.firstWeek))
+  ? t.firstWeek.slice(0, 4)
+  : null;
 const 지면수 = 지면나는것.length;
 const 더넓게 = 지면나는것.filter((x: any) => x.markets > t.markets).length;
 const 덜넓게 = 지면나는것.filter((x: any) => x.markets < t.markets).length;
@@ -373,6 +380,30 @@ const jsonLd = {
       </ul>
     </section>
   )}
+
+  <section>
+    <h2>Put this title in context</h2>
+    <p class="note">
+      The same weekly files, cut five other ways. Each of these answers a question this page
+      cannot: not what happened to <b>{t.title}</b>, but what happened around it.
+    </p>
+    <ul class="walk">
+      <li><a href="/where-to-watch">Where Korean titles could actually be watched</a>
+        <span class="fine">&mdash; charting is the floor on availability, and Netflix publishes nothing else</span></li>
+      <li><a href="/most-popular">Which one did best &mdash; three rulers that disagree</a>
+        <span class="fine">&mdash; reach, staying power and total places name three different winners</span></li>
+      <li><a href="/underrated">The ones that ran and ran, almost nowhere</a>
+        <span class="fine">&mdash; long runs in one or two countries, measured rather than guessed</span></li>
+      {첫해 && (
+        <li><a href={`/year/${첫해}`}>Everything that charted in {첫해}</a>
+          <span class="fine">&mdash; the year this title first held a place</span></li>
+      )}
+      <li><a href="/firms">Every company behind a charting Korean title</a>
+        <span class="fine">&mdash; 188 of them, and the 147 titles with no credit at all</span></li>
+      <li><a href="/by-country">Every country, and how Korean its chart is</a>
+        <span class="fine">&mdash; from 51% in Korea to 1.4% in Iceland</span></li>
+    </ul>
+  </section>
 
   {t.firms.length > 0 && (
     <section>
