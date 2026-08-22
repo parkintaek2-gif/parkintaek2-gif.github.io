@@ -123,8 +123,34 @@ if (process.argv.includes('--자가시험')) {
   process.exit(0);
 }
 
+/**
+ * 2026-08-22 5번 — **잴 말을 밖에서 줄 수 있게** 했다.
+ * 사장님: 「왜 너의 커뮤니티인데 케이라이프맵의 커뮤니티 같지? 수정하자...검색량」
+ * 기본 후보가 온통 사주·생일 말이었다 — 그건 4번(KLifeMap)의 주제다.
+ * 내 유닛 말로 재려면 목록을 갈아야 하는데, 기본값을 갈아 버리면 이 자로 잰 옛 기록과
+ * 견줄 수 없다. ⛔ 그래서 기본값은 그대로 두고 **파일로 주는 길**만 낸다.
+ *
+ *   node scripts/measure-keyword-demand.mjs --말파일=<한 줄에 한 말>
+ *   node scripts/measure-keyword-demand.mjs --말파일=... --사람은건너뛴다
+ *
+ * ⚠ 빈 줄과 # 로 시작하는 줄은 건너뛴다. 파일이 없으면 **선다** — 0건으로 안 넘어간다.
+ */
+const 말파일 = process.argv.find((a) => a.startsWith('--말파일='))?.split('=').slice(1).join('=');
+let 잴말 = 후보;
+if (말파일) {
+  if (!fs.existsSync(말파일)) {
+    console.error(`⛔ --말파일 이 없다 — ${말파일}. 못 잰 것을 0으로 안 적는다`);
+    process.exit(1);
+  }
+  잴말 = fs.readFileSync(말파일, 'utf8').split(String.fromCharCode(10))
+    .map((x) => x.trim()).filter((x) => x && !x.startsWith('#'));
+  if (!잴말.length) { console.error('⛔ --말파일 에 잴 말이 없다'); process.exit(1); }
+  console.log(`■ 밖에서 준 말 ${잴말.length}개를 잰다 — ${말파일}
+`);
+}
+
 const 잰것 = [];
-for (const 말 of 후보) {
+for (const 말 of 잴말) {
   const r = 자리재기(말, await 자동완성(말));
   잰것.push({ 말, ...r });
   const 표 = r.물음실패 ? '못 물었다'
@@ -133,20 +159,31 @@ for (const 말 of 후보) {
   await 쉼(400);
 }
 
-console.log('\n■ 위키백과 사람 트래픽 (지난 30일 합)');
+const 사람은건너뛴다 = process.argv.includes('--사람은건너뛴다');
+if (!사람은건너뛴다) console.log('\n■ 위키백과 사람 트래픽 (지난 30일 합)');
 const 사람잰것 = [];
-for (const 이름 of 사람후보) {
+for (const 이름 of (사람은건너뛴다 ? [] : 사람후보)) {
   const v = await 위키읽힘(이름);
   사람잰것.push({ 이름, 지난30일읽힘: v });
   console.log(`  ${이름.padEnd(20)} ${v === null ? '못 물었다' : v.toLocaleString('en-US')}`);
   await 쉼(300);
 }
 
-fs.writeFileSync(낼곳, JSON.stringify({
+/**
+ * 🔴 2026-08-22 — 밖에서 말을 주고 돌리자 **기본 후보로 잰 옛 기록을 덮어썼다.**
+ *   물음이 다른 두 측정이 한 파일을 쓰면 나중 것이 앞 것을 조용히 지운다.
+ *   ⭐ 밖에서 준 말로 잰 것은 **딴 파일**에 적는다. 이름에 물음이 남게 한다.
+ */
+const 물음이름 = 말파일 ? (path.basename(말파일, path.extname(말파일)) || "given") : null;
+const 낼파일 = 물음이름
+  ? path.join(뿌리, "archive", "keyword-demand", 물음이름 + ".json")
+  : 낼곳;
+if (물음이름) fs.mkdirSync(path.dirname(낼파일), { recursive: true });
+fs.writeFileSync(낼파일, JSON.stringify({
   generated: new Date().toISOString(),
   whatThisIs: 'Autocomplete presence (Google Suggest) and English Wikipedia article reads. Neither is a search-volume figure and we do not call them one.',
   whatThisIsNot: 'Monthly search volume. We have no paid keyword data. A phrase that autocompletes is a phrase people type; how many people type it is not measured here.',
   phrases: 잰것,
   people: 사람잰것,
 }, null, 1));
-console.log(`\n냈다 — ${path.relative(뿌리, 낼곳)}`);
+console.log(`\n냈다 — ${path.relative(뿌리, 낼파일)}`);

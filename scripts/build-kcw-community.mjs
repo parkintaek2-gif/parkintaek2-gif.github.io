@@ -355,9 +355,14 @@ if (내가실행됐다) {
     console.error(`⛔ 방이 ${방.length}개다 — ${카드수}개여야 한다. 짓지 않는다.`);
     process.exit(1);
   }
-  fs.mkdirSync(path.dirname(낼길), { recursive: true });
-  fs.writeFileSync(낼길, 판짓기(방, 자료));
-  console.log(`✅ ${path.relative(뿌리, 낼길)} — 방 ${방.length}개`);
+  /**
+   * 🔴 2026-08-22 — 사장님: 「왜 너의 커뮤니티인데 케이라이프맵의 커뮤니티 같지?」
+   *   첫 화면이 띠 카드 열둘이었다. 사주는 4번(KLifeMap)의 주제다.
+   *   ⭐ 첫 화면은 이제 build-kcw-community-front.mjs 가 K컬처 방으로 짓는다.
+   *   ⛔ 이 자는 첫 화면을 **더 쓰지 않는다** — 두 자가 한 파일을 쓰면 나중 것이 앞 것을 지운다.
+   *   이 자가 계속 하는 일은 띠 방 열두 장이다. 그 방들은 살아 있고 /star-signs 에서 닿는다.
+   */
+  console.log(`⛔ 첫 화면은 안 쓴다 — build-kcw-community-front.mjs 몫이다`);
 
   /* 🔴 열두 방을 다 만든다 — 하나만 열면 나머지 열하나가 죽은 단추다 */
   const 방방 = path.join(뿌리, 'public', 'wikitip', 'room');

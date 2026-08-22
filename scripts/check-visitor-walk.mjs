@@ -103,7 +103,25 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
     };
     판다(D, '');
   }
-  const 기사디렉 = `${D}/article`;
+  /**
+ * 🔴 2026-08-22 — 이 자가 두 번 연달아 **ENOENT 로 터졌다**
+ *   (`dist/wikitip/market/egypt.html`, 그다음 `dist/wikitip/title/oh-my-ghost-clients.html`).
+ *   그런데 깨진 것이 아니었다. **다른 유닛이 같은 저장소에서 빌드를 돌리는 중**이었고,
+ *   아스트로는 빌드를 시작할 때 dist 를 비운다. 내가 그 빈 순간을 읽은 것이다.
+ *   ⛔ 그것을 「죽은 링크」로 적으면 **없는 흠을 고치러 사람이 나선다.**
+ *   ⭐ 「깨졌다」와 「못 쟀다」를 가른다 — 갈래 디렉터리가 아예 없으면 못 쟀다다.
+ * ⚠ 빌드가 끝난 뒤 다시 돌리면 잰다. 침묵하지 않고 못 쟀다고 말한다.
+ */
+const 있어야할것 = ['title', 'market', 'firm', 'article', 'born-on'];
+const 빠진갈래 = 있어야할것.filter((d) => !fs.existsSync(`${D}/${d}`));
+if (빠진갈래.length) {
+  console.log(`⚠ 못 쟀다 — dist 가 다 안 찼다. 빌드가 도는 중일 수 있다`);
+  if (빠진갈래.length) console.log(`   없는 갈래: ${빠진갈래.join(', ')}`);
+  console.log('   ⛔ 이것은 깨진 것이 아니다. 빌드가 끝난 뒤 다시 돌린다.');
+  process.exit(0);
+}
+
+const 기사디렉 = `${D}/article`;
   const 기사 = fs.existsSync(기사디렉) ? fs.readdirSync(기사디렉).filter((f) => f.endsWith('.html')) : [];
 
   const 문제 = [];

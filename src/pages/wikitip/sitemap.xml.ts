@@ -265,6 +265,10 @@ export const GET: APIRoute = async () => {
     { path: '/webtoon', priority: '0.9', changefreq: 'yearly' },
     { path: '/industry', priority: '0.9', changefreq: 'yearly' },
     { path: '/staying-power', priority: '0.9', changefreq: 'weekly' },
+    /* 2026-08-22 — 잰 검색 수요로 낸 두 장. 커뮤니티 방이 이 둘을 가리킨다
+       (「underrated korean drama」·「netflix top 10 by country」 둘 다 자동완성 1번째) */
+    { path: '/underrated', priority: '0.9', changefreq: 'weekly' },
+    { path: '/by-country', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-gap', priority: '0.9', changefreq: 'daily' },
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
     { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },

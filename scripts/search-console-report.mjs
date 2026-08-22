@@ -82,6 +82,25 @@ async function main() {
      --축=page    검색어 대신 «어느 지면이 노출됐나»를 본다 */
   const 행수 = Number((process.argv.find((a) => a.startsWith('--행수='))?.split('=')[1]) ?? 25);
   const 축 = (process.argv.find((a) => a.startsWith('--축='))?.split('=')[1]) ?? 'query';
+  /* 2026-08-22 5번 — «어느 검색어가 이 한 지면에 닿았나»를 보려고 걸름을 더했다.
+     ⛔ 인자를 안 주면 걸름이 아예 안 들어간다 — 6번·3번이 쓰는 기본 출력은 그대로다.
+     ⚠ contains 라 부분 일치다. /market/japan 은 /market/japan 하나지만
+       /title/the-moon 처럼 짧은 조각은 남의 지면까지 잡을 수 있다. 그럴 땐 전체 주소를 준다.
+     쓰는 법  --지면=/market/nicaragua */
+  const 지면 = (process.argv.find((a) => a.startsWith('--지면='))?.split('=')[1]) ?? null;
+  /**
+   * 🔴 2026-08-22 실측 — Git Bash 가 `--지면=/market/nicaragua` 를 윈도 경로로 바꿔
+   *   `C:/Program Files/Git/market/nicaragua` 로 넘겼다(MSYS 경로 변환).
+   *   그러면 걸름에 아무것도 안 맞아 **0건이 조용히 나온다** — 「닿는 검색어가 없다」로 잘못 읽힌다.
+   *   ⭐ 그래서 여기서 세운다. **못 잰 것을 없는 것으로 적지 않는다.**
+   *   앞에 `MSYS_NO_PATHCONV=1` 을 붙이거나 PowerShell 에서 돌린다.
+   */
+  if (지면 && /^[A-Za-z]:[\/]/.test(지면)) {
+    console.error(`⛔ --지면 값이 윈도 경로로 바뀌었다 — ${지면}`);
+    console.error('   MSYS_NO_PATHCONV=1 을 앞에 붙이거나 PowerShell 에서 돌린다. 0건은 「없다」가 아니다.');
+    process.exit(1);
+  }
+  const 걸름 = 지면 ? [{ filters: [{ dimension: 'page', operator: 'contains', expression: 지면 }] }] : undefined;
   const 토큰 = await 토큰받기();
   const 끝 = new Date(); 끝.setDate(끝.getDate() - 2);           // 구글은 최근 2~3일치가 아직 안 갖춰졌다
   const 시작 = new Date(끝); 시작.setDate(시작.getDate() - 일수);
@@ -97,6 +116,7 @@ async function main() {
         endDate: 날짜문자(끝),
         dimensions: [축],
         rowLimit: 행수,
+        ...(걸름 ? { dimensionFilterGroups: 걸름 } : {}),
       }),
     },
   );

@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/community">
-<title>Star rooms &mdash; K Culture Wire community</title>
-<meta name="description" content="Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Star rooms — K Culture Wire community","description":"Twelve rooms, one for each Chinese zodiac year, named for the Korean star most read in that year across four Southeast Asian Wikipedias.","url":"https://www.kculturewire.com/community","isPartOf":{"@type":"WebSite","name":"K Culture Wire","url":"https://www.kculturewire.com"},"creator":{"@type":"Organization","name":"K Culture Wire"},"isBasedOn":["https://www.wikidata.org","https://wikimedia.org/api/rest_v1/"]}</script>
+<title>Rooms — K Culture Wire community</title>
+<meta name="description" content="Rooms built on what people actually search for about Korean film, television, music and esports: which countries charted a title, which titles ran for weeks almost nowhere, who made them, and how the Korean ladder compares with five other regions.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"Rooms — K Culture Wire community","description":"Rooms built on what people actually search for about Korean film, television, music and esports: which countries charted a title, which titles ran for weeks almost nowhere, who made them, and how the Korean ladder compares with five other regions.","url":"https://www.kculturewire.com/community","isPartOf":{"@type":"WebSite","name":"K Culture Wire","url":"https://www.kculturewire.com"},"creator":{"@type":"Organization","name":"K Culture Wire"},"isBasedOn":["https://www.netflix.com/tudum/top10","https://www.wikidata.org"],"hasPart":[{"@type":"WebPage","name":"Every country, and how Korean its chart is","url":"https://www.kculturewire.com/by-country"},{"@type":"WebPage","name":"The ones that ran and ran, almost nowhere","url":"https://www.kculturewire.com/underrated"},{"@type":"WebPage","name":"The titles the whole world charted","url":"https://www.kculturewire.com/world-share"},{"@type":"WebPage","name":"Longest run, hardest landing","url":"https://www.kculturewire.com/staying-power"},{"@type":"WebPage","name":"Who actually made it","url":"https://www.kculturewire.com/who-makes-it"},{"@type":"WebPage","name":"Films and series are not the same shelf","url":"https://www.kculturewire.com/titles"},{"@type":"WebPage","name":"The Korean ladder against five other regions","url":"https://www.kculturewire.com/esports"},{"@type":"WebPage","name":"How many groups debut, and what really fell","url":"https://www.kculturewire.com/kpop-attention"},{"@type":"WebPage","name":"Stars by the year they were born","url":"https://www.kculturewire.com/star-signs"}]}</script>
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --card:#fff;
          --accent:#b4472a; --accent-soft:#fdf3f0; }
@@ -21,158 +21,114 @@
     -webkit-font-smoothing:antialiased}
   .wrap{max-width:1080px;margin:0 auto;padding:48px 20px 80px}
   h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:0 0 12px;letter-spacing:-.02em}
-  .lead{color:var(--ink-2);margin:0 0 8px;max-width:62ch}
-  .note{color:var(--ink-2);font-size:14px;margin:0 0 32px;max-width:62ch}
+  .lead{color:var(--ink-2);margin:0 0 8px;max-width:64ch}
+  .note{color:var(--ink-2);font-size:14px;margin:0 0 32px;max-width:64ch}
   .warn{background:var(--accent-soft);border-left:3px solid var(--accent);
-    padding:14px 16px;border-radius:6px;margin:0 0 36px;max-width:62ch;font-size:14px}
-  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(240px,1fr))}
-  .room{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px}
-  .sign{margin:0 0 6px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;
-    color:var(--accent);font-weight:700}
-  .room h2{margin:0 0 6px;font-size:21px;letter-spacing:-.01em}
-  .born,.also,.count{margin:0 0 6px;font-size:13px;color:var(--ink-2)}
-  .count{margin-bottom:14px}
+    padding:14px 16px;border-radius:6px;margin:0 0 36px;max-width:64ch;font-size:14px}
+  .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .room{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;
+    display:flex;flex-direction:column}
+  .phrase{margin:0 0 8px;font-size:12px;letter-spacing:.04em;color:var(--accent);font-weight:700}
+  .room h2{margin:0 0 8px;font-size:20px;line-height:1.25;letter-spacing:-.01em}
+  .line{margin:0 0 16px;font-size:14px;color:var(--ink-2);flex:1}
   .cta{display:block;width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--line);
     background:transparent;color:var(--accent);font:inherit;font-size:14px;text-align:center;
     text-decoration:none;font-weight:600}
   .cta:hover{background:var(--accent-soft)}
-  .axis{margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
-  .axis h2{font-size:1.05rem;margin:0 0 .4rem}
-  .axis p{margin:.4rem 0}
-  footer{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
-    color:var(--ink-2);font-size:13px;max-width:62ch}
+  .how{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);max-width:64ch}
+  .how h2{font-size:1.05rem;margin:0 0 .4rem}
+  .how p{margin:.5rem 0;font-size:14px;color:var(--ink-2)}
+  footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
+    color:var(--ink-2);font-size:13px;max-width:64ch}
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Star rooms</h1>
-    <p class="lead">Twelve rooms, one for each Chinese zodiac year. Each is named for the Korean
-      star born in that year who is read most across the Indonesian, Vietnamese, Thai and Malay
-      Wikipedias.</p>
-    <p class="note">Names and birth dates come from Wikidata; read counts from the Wikimedia
-      Pageviews API, 2025-08 through 2026-07, 12 months, human traffic only.</p>
+    <h1>Rooms</h1>
+    <p class="lead">Nine rooms about Korean film, television, music and esports. Each one exists
+      because people search for it, and each one is answered with counts rather than opinion.</p>
+    <p class="note">The small red line on every card is the phrase people actually type. We checked
+      each one against Google&rsquo;s own autocomplete before building the room.</p>
 
-    <p class="warn"><strong>A room name is not a reading.</strong> We tested whether the zodiac
-      year picks out who reaches a Netflix chart, and it does not &mdash; the result was
-      indistinguishable from chance. The years are here to divide 1047 stars into
-      twelve rooms, nothing more.</p>
+    <p class="warn"><strong>Autocomplete is not a search volume.</strong> It tells us a phrase is
+      being typed, not how often. We have no paid keyword data and we do not pretend otherwise.
+      Where a phrase did not autocomplete at all, we did not build a room for it &mdash; even when
+      we hold the data.</p>
 
     <div class="grid">
       <article class="room">
-        <p class="sign">Year of the Rat</p>
-        <h2>Go Youn-jung</h2>
-        <p class="born">Born 1996-04-22 &middot; 273.06 reads per million</p>
-        <p class="also">Also here: Lee Je-hoon, Kim Se-jeong</p>
-        <p class="count">89 Korean stars share this year</p>
-        <a class="cta" href="/room/rat">Open the room</a>
+        <p class="phrase">netflix top 10 by country</p>
+        <h2>Every country, and how Korean its chart is</h2>
+        <p class="line">93 countries counted week by week, from 2021-07-04 to 2026-07-26. Vietnam gives them 29% of its slots, Iceland 1.4%, and the middle country 4.5%.</p>
+        <a class="cta" href="/by-country">Pick a country</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Ox</p>
-        <h2>Cha Eun-woo</h2>
-        <p class="born">Born 1997-03-30 &middot; 200.33 reads per million</p>
-        <p class="also">Also here: Song Joong-ki, Lee Kwang-soo</p>
-        <p class="count">82 Korean stars share this year</p>
-        <a class="cta" href="/room/ox">Open the room</a>
+        <p class="phrase">underrated korean drama</p>
+        <h2>The ones that ran and ran, almost nowhere</h2>
+        <p class="line">75 titles stayed on a top 10 for 6 weeks or more while charting in fewer countries than most. Both lines come from the measured spread, not from taste.</p>
+        <a class="cta" href="/underrated">See what the world missed</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Tiger</p>
-        <h2>Kim Seon-ho</h2>
-        <p class="born">Born 1986-05-08 &middot; 220.56 reads per million</p>
-        <p class="also">Also here: Park Min-young, Lee Jae-wook</p>
-        <p class="count">78 Korean stars share this year</p>
-        <a class="cta" href="/room/tiger">Open the room</a>
+        <p class="phrase">most popular korean drama</p>
+        <h2>The titles the whole world charted</h2>
+        <p class="line">Of 528 titles with a page here, a handful reached most of the 93 countries. The rest reached one or two. The gap is the story.</p>
+        <a class="cta" href="/world-share">See the spread</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Rabbit</p>
-        <h2>Park Ji-hoon</h2>
-        <p class="born">Born 1999-05-29 &middot; 128.42 reads per million</p>
-        <p class="also">Also here: Lee Min-ho, Ji Chang-wook</p>
-        <p class="count">86 Korean stars share this year</p>
-        <a class="cta" href="/room/rabbit">Open the room</a>
+        <p class="phrase">korean drama ranking</p>
+        <h2>Longest run, hardest landing</h2>
+        <p class="line">How long a title lasted and how hard it hit are two different measures, and the two lists barely overlap.</p>
+        <a class="cta" href="/staying-power">Compare the two</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Dragon</p>
-        <h2>Lee Chae-min</h2>
-        <p class="born">Born 2000-09-15 &middot; 200.18 reads per million</p>
-        <p class="also">Also here: Karina, Kim Sae-ron</p>
-        <p class="count">90 Korean stars share this year</p>
-        <a class="cta" href="/room/dragon">Open the room</a>
+        <p class="phrase">studio dragon dramas</p>
+        <h2>Who actually made it</h2>
+        <p class="line">We hold production and distribution credits for 515 of 902 titles. Half the Korean series that chart anywhere come from three companies.</p>
+        <a class="cta" href="/who-makes-it">Follow the companies</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Snake</p>
-        <h2>Kim Woo-bin</h2>
-        <p class="born">Born 1989-07-16 &middot; 125.07 reads per million</p>
-        <p class="also">Also here: So Ji-sub, Lee Jong-suk</p>
-        <p class="count">76 Korean stars share this year</p>
-        <a class="cta" href="/room/snake">Open the room</a>
+        <p class="phrase">korean movies on netflix</p>
+        <h2>Films and series are not the same shelf</h2>
+        <p class="line">Every Korean title that has entered a Netflix weekly top 10 anywhere — 528 of them with a page, out of 902 we can see.</p>
+        <a class="cta" href="/titles">Open the shelf</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Horse</p>
-        <h2>Im Yoon-ah</h2>
-        <p class="born">Born 1990-05-30 &middot; 205.69 reads per million</p>
-        <p class="also">Also here: Park Bo-gum, Lim Ji-yeon</p>
-        <p class="count">77 Korean stars share this year</p>
-        <a class="cta" href="/room/horse">Open the room</a>
+        <p class="phrase">korean challenger ladder</p>
+        <h2>The Korean ladder against five other regions</h2>
+        <p class="line">Korea has the lowest win rate at the top of any region we measure, and Europe West plays more ranked games to get there.</p>
+        <a class="cta" href="/esports">See the ladder</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Goat</p>
-        <h2>Byeon Woo-seok</h2>
-        <p class="born">Born 1991-10-31 &middot; 263.86 reads per million</p>
-        <p class="also">Also here: Kim Go-eun, Gong Yoo</p>
-        <p class="count">91 Korean stars share this year</p>
-        <a class="cta" href="/room/goat">Open the room</a>
+        <p class="phrase">kpop group debuts</p>
+        <h2>How many groups debut, and what really fell</h2>
+        <p class="line">New K-pop groups look 69% down since 2017 — and so do American, Japanese and every other kind. What fell was the record, not the industry.</p>
+        <a class="cta" href="/kpop-attention">See what fell</a>
       </article>
       <article class="room">
-        <p class="sign">Year of the Monkey</p>
-        <h2>Kim Ji-won</h2>
-        <p class="born">Born 1992-10-19 &middot; 110.19 reads per million</p>
-        <p class="also">Also here: Kim Tae-hee, Jang Ki-Yong</p>
-        <p class="count">91 Korean stars share this year</p>
-        <a class="cta" href="/room/monkey">Open the room</a>
-      </article>
-      <article class="room">
-        <p class="sign">Year of the Rooster</p>
-        <h2>IU</h2>
-        <p class="born">Born 1993-05-16 &middot; 208.57 reads per million</p>
-        <p class="also">Also here: Song Hye-kyo, Jun Ji-hyun</p>
-        <p class="count">92 Korean stars share this year</p>
-        <a class="cta" href="/room/rooster">Open the room</a>
-      </article>
-      <article class="room">
-        <p class="sign">Year of the Dog</p>
-        <h2>Bae Suzy</h2>
-        <p class="born">Born 1994-10-10 &middot; 165.9 reads per million</p>
-        <p class="also">Also here: Park Ji-hoon, Hyun Bin</p>
-        <p class="count">103 Korean stars share this year</p>
-        <a class="cta" href="/room/dog">Open the room</a>
-      </article>
-      <article class="room">
-        <p class="sign">Year of the Pig</p>
-        <h2>Ma Dong-seok</h2>
-        <p class="born">Born 1971-03-01 &middot; 59.84 reads per million</p>
-        <p class="also">Also here: Kim Da-mi, Lee Do-hyun</p>
-        <p class="count">92 Korean stars share this year</p>
-        <a class="cta" href="/room/pig">Open the room</a>
+        <p class="phrase">korean zodiac</p>
+        <h2>Stars by the year they were born</h2>
+        <p class="line">1047 Korean stars sorted into twelve birth-year rooms. The spread is indistinguishable from chance, so the years are a way to divide names and nothing more.</p>
+        <a class="cta" href="/star-signs">Open the star rooms</a>
       </article>
     </div>
 
-    <section class="axis">
-      <h2>The other axis &mdash; by the day, not the year</h2>
-      <p>These twelve rooms sort people by the year they were born. There is a second axis almost
-      nobody counts: the day. We built the day pillar for 9,249 Korean entertainers and split them
-      into <a href="/day-pillar">ten day-stem pages</a> &mdash; IU on
-      <a href="/stem/jeong">丁 jeong</a>, Jungkook on <a href="/stem/byeong">丙 byeong</a>,
-      Suga on <a href="/stem/gi">己 gi</a>, ROSÉ on <a href="/stem/gap">甲 gap</a>.</p>
-      <p class="fine"><strong>Neither axis is a reading.</strong> The birth-year spread is
-      indistinguishable from chance, and the day-stem spread crossed the 0.05 line by a hair &mdash;
-      we tried four ways to kill that and still do not call it a finding.</p>
+    <section class="how">
+      <h2>What is behind these rooms</h2>
+      <p>Netflix&rsquo;s own weekly top 10 files, 265 weeks across
+      93 countries, plus Wikidata for names and credits and the Wikimedia
+      Pageviews API for how often a person is looked up.</p>
+      <p><strong>Charting is not the same as being available</strong>, and not charting is not the
+      same as not being watched &mdash; Netflix publishes only the top 10, so a title that is huge
+      at home can be missing here entirely. Every room says so on its own page.</p>
+      <p>Where a figure could not be measured we leave it unmeasured and say which one. We do not
+      write a zero in place of a blank.</p>
     </section>
 
     <footer>
-      <p><strong>This is a first draft of a shell.</strong> There is no server, no sign-in and no
-      posting yet, so every button above is deliberately inert. Nothing is ranked and there is no
-      feed.</p>
-      <p>K Culture Wire &middot; kculturewire.com</p>
+      <p><strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and
+      to walk from one name to the next. Nothing here is ranked by us and there is no feed.</p>
+      <p>K Culture Wire &middot; <a href="/about">How we make these numbers</a> &middot;
+      <a href="/contact">Tell us a number here looks wrong</a></p>
     </footer>
   </div>
 </body>
