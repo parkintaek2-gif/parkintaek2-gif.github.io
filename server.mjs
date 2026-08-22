@@ -476,3 +476,39 @@ const server = createServer((req, res) => {
 server.listen(PORT, () => {
   console.log(`serving dist/ on http://0.0.0.0:${PORT}`);
 });
+
+/**
+ * 🔴🔴 2026-08-22 (5번) — **유입 집계가 오늘 하루 통째로 새고 있었다.**
+ *
+ * R2 의 그날치 파일을 열어 보니 마지막 갱신이 **오전 10:26** 이었다. 재 본 시각은 19:40 이다.
+ * 어제까지는 매일 23:5x 까지 적혀 있었다 —
+ *   8/18 23:58 · 8/19 23:55 · 8/20 23:50 · 8/21 23:52 · **8/22 10:26**
+ *
+ * 까닭: 집계는 메모리에 쌓이고 **10분마다** R2 로 흘려 쓴다(traffic.mjs FLUSH_MS).
+ * 그런데 이 서버 하나가 네 집(seoulmarkets·100yearmap·kculturewire·klifemap)을 낸다.
+ * 오늘은 여섯 자리가 오후 내내 배포했고, **배포는 컨테이너를 새로 띄운다.**
+ * 10분이 차기 전에 프로세스가 죽으면 그때까지 센 것이 **그냥 사라진다.**
+ * 종료 신호를 받아 마지막으로 흘려 쓰는 자리가 **없었다.**
+ *
+ * ⭐ 그래서 여기 둔다. 배포가 잦은 날일수록 이 자리가 하는 일이 크다.
+ * ⛔ 여기서 던지지 않는다 — 종료 경로에서 던지면 컨테이너가 이상하게 죽는다.
+ * ⚠ 오래 붙들지 않는다. 2초 안에 못 쓰면 포기하고 나간다 — 배포를 늦추는 것이 더 나쁘다.
+ * ⚠ 이 파일은 네 집이 같이 쓴다. 그래서 하는 일을 **흘려 쓰기 하나로만** 좁혔다.
+ */
+let 끝내는중 = false;
+async function 끝낼때흘려쓴다(신호) {
+  if (끝내는중) return;
+  끝내는중 = true;
+  try {
+    const { flush } = await import('./src/lib/traffic.mjs');
+    const 결과 = await Promise.race([
+      flush(),
+      new Promise((풀기) => { setTimeout(() => 풀기({ timeout: true }), 2000); }),
+    ]);
+    console.log(`[${신호}] 유입 집계 마지막 흘려쓰기 — ${JSON.stringify(결과)}`);
+  } catch (e) {
+    console.error(`[${신호}] 흘려쓰기 실패(무시하고 나간다) — ${e?.message ?? e}`);
+  }
+  process.exit(0);
+}
+for (const 신호 of ['SIGTERM', 'SIGINT']) process.on(신호, () => { 끝낼때흘려쓴다(신호); });
