@@ -37,6 +37,7 @@ export const 봐준다 = {
   'check-100y-live-sale.mjs': '라이브를 받아 잰다. 인터넷이 끊기면 npm test 가 통째로 죽고, 배포 전에는 옛 지면을 보고 운다',
   'check-analytics-fires.mjs': '진짜 크롬으로 라이브를 열어 GA 가 쏘는지 잰다. 크롬·인터넷이 둘 다 있어야 돈다 — npm run check:ga',
   'check-100yearmap-launch.mjs': 'dist 5,000장을 훑는다. 빌드가 없으면 잴 것이 없고, 여섯이 dist 를 같이 써서 남이 빌드하는 사이에 ENOENT 가 난다 — npm run check:100y:launch',
+  'check-100y-indexed.mjs': '구글 URL Inspection API 한도(하루 2,000건)를 쓴다. 5번 check-kcw-indexed.mjs 와 같은 까닭 — 상시로 물리면 한도를 태운다 — node scripts/check-100y-indexed.mjs --잰다 --n=60 --쓴다 (하루 한 번)',
 
   /* 3번(백년지도) — 2026-08-21 8/10 이후 새로 생긴 44개를 다시 훑으며 둘만 남겼다.
      나머지 열넷은 --자가시험/--selftest 로 npm test 에 그대로 물렸다(자가시험만으로 충분히 지킨다).
