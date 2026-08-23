@@ -2,7 +2,7 @@
 title: "We wrote that a market has one Korean slot. Measured, two-thirds of that was arithmetic"
 category: titles
 purpose: both
-dek: "When a Korean title reaches a market's top three, the other Korean titles there fall by 0.395. Non-Korean arrivals cost 0.014. That looks decisive until you notice the two groups start from different heights."
+dek: "When a Korean title reaches a market's top three, the other Korean titles there fall by 0.403. Non-Korean arrivals cost 0.013. That looks decisive until you notice the two groups start from different heights."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -38,8 +38,8 @@ against four weeks from the arrival. Then do exactly the same for arrivals that 
 
 | Arrivals at the top 3 | Cases | Other Korean titles before | Change after |
 |---|---:|---:|---:|
-| Korean title arrives | 2,258 | 1.916 | **-0.395** |
-| Any other title arrives | 36,654 | 0.563 | **-0.014** |
+| Korean title arrives | 2,479 | 1.904 | **-0.403** |
+| Any other title arrives | 36,972 | 0.589 | **-0.013** |
 
 A twenty-eight-fold difference. Published on its own it would have looked like proof.
 
@@ -55,15 +55,15 @@ like with like:
 
 | Other Korean titles before | Korean arrivals | Change | Other arrivals | Change | Difference |
 |---|---:|---:|---:|---:|---:|
-| 0 | 643 | +0.130 | 21,459 | +0.157 | **-0.027** |
-| 1 | 527 | -0.237 | 10,634 | -0.188 | -0.049 |
-| 2 | 347 | -0.519 | 2,808 | -0.296 | -0.222 |
-| 3 | 357 | -0.617 | 1,294 | -0.503 | -0.114 |
-| 4 or more | 384 | -1.173 | 459 | -0.875 | -0.298 |
+| 0 | 745 | +0.111 | 21,007 | +0.165 | **-0.055** |
+| 1 | 565 | -0.247 | 11,170 | -0.186 | -0.061 |
+| 2 | 382 | -0.535 | 2,907 | -0.273 | -0.262 |
+| 3 | 364 | -0.620 | 1,398 | -0.478 | -0.142 |
+| 4 or more | 423 | -1.208 | 490 | -0.883 | -0.325 |
 
 The control falls almost as far in every band. Weighted to the same starting levels, a non-Korean
-arrival would have cost **-0.273**; the Korean arrivals cost **-0.395**. What is left is
-**-0.122**, and **68% of the raw gap was the starting level rather than the arrival.**
+arrival would have cost **-0.255**; the Korean arrivals cost **-0.403**. What is left is
+**-0.147**, and **62% of the raw gap was the starting level rather than the arrival.**
 
 ## What survives
 
