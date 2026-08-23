@@ -183,6 +183,50 @@ if (내가실행됐다) {
     console.log('      나머지가 낮으면 손님이 **속으로 걸어 들어오지 못하는** 것이다.');
   }
 
+  /**
+   * ⭐ `--적는다=<파일>` — 「보였는데 방문 0」 목록을 자료로 남긴다.
+   *   🔴 2026-08-24 00:2x — 이 목록을 화면으로만 보면 **내일 아침에 다시 재야 한다.**
+   *     내일 첫 덩어리가 「이 320장부터 본다」인데, 집을 것이 파일로 없으면 그 시간이
+   *     또 재는 데 든다. 잰 것은 남긴다.
+   *   ⛔ 갈래(작품·시장·기사·목록)를 같이 적는다 — 320장을 한 덩어리로 보면 손을 못 댄다.
+   */
+  const 적을곳 = process.argv.find((a) => a.startsWith('--적는다='))?.split('=')[1];
+  if (적을곳) {
+    const 갈래 = (p) => (p.startsWith('/title/') ? '작품'
+      : p.startsWith('/market/') ? '시장'
+        : p.startsWith('/article/') ? '기사'
+          : p.startsWith('/week/') ? '주'
+            : p.startsWith('/firm/') ? '회사'
+              : p.startsWith('/room/') ? '방' : '그밖');
+    const 줄 = 안온것.map(([p, v]) => ({ path: p, impressions: v, kind: 갈래(p) }));
+    const 갈래별 = {};
+    for (const x of 줄) {
+      갈래별[x.kind] = 갈래별[x.kind] ?? { 지면: 0, 노출: 0 };
+      갈래별[x.kind].지면 += 1; 갈래별[x.kind].노출 += x.impressions;
+    }
+    fs.mkdirSync(path.dirname(적을곳), { recursive: true });
+    fs.writeFileSync(적을곳, `${JSON.stringify({
+      generated: 방문자료.note ?? null,
+      window: { 방문일수: 방문자료.days, 검색: 노출자료.window },
+      /* ⚠ 「방문 0」은 「아무도 안 왔다」가 아니다 — GA4 가 덜 센다 */
+      whatThisIs: 'Pages that got search impressions but zero visits we could count. '
+        + 'GA4 undercounts (ad blockers, cookie refusal), so zero counted is not zero people.',
+      낸지면: 낸것.size,
+      견줄지면: 견줄것.length,
+      보인지면: 보인것.length,
+      온지면: 온것.length,
+      안온지면: 안온것.length,
+      안온노출: 안온노출,
+      갈래별,
+      rows: 줄,
+    }, null, 2)}\n`);
+    console.log(`\n✅ 적었다 — ${적을곳} (${줄.length}줄)`);
+    console.log('   갈래별:');
+    for (const [k, v] of Object.entries(갈래별).sort((a, b) => b[1].노출 - a[1].노출)) {
+      console.log(`      ${k.padEnd(4)} ${String(v.지면).padStart(4)}장 · 노출 ${v.노출}`);
+    }
+  }
+
   console.log('\n⚠ 이 자는 세기만 한다. 다만 이 수는 일감 순서를 바꾼다 —');
   console.log('   낸 지면 대비 온 지면이 낮으면 **더 내는 것이 답이 아니다.**');
   console.log('   이미 보이고 있는 노출을 방문으로 바꾸는 쪽이 먼저다.');
