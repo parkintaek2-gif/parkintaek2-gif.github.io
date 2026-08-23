@@ -237,6 +237,77 @@ if (내가실행됐다) {
   }
 
   /**
+   * ⭐ `--지면적는다=<파일>` — **어느 지면에 사람이 실제로 들어왔나**를 자료로 남긴다.
+   *
+   * 🔴 왜 (2026-08-23 23:2x) — 나는 지면을 1,537장 냈다. 그런데 **그중 몇 장에 사람이
+   *   실제로 들어왔는지 모른다.** 노출(검색에 보인 것)은 재고 있었지만 방문은 못 쟀다.
+   *   ⛔ 이것을 모르면 「지면을 더 내야 하나」와 「있는 지면을 고쳐야 하나」를 못 가른다.
+   *     1,537장 중 50장에만 사람이 온다면 더 내는 것은 답이 아니다.
+   * ⚠ 내 사이트만 걸러 잰다 — 속성이 공용이라 안 걸면 남의 지면이 섞인다.
+   */
+  const 지면적을곳 = process.argv.find((a) => a.startsWith('--지면적는다='))?.split('=')[1];
+  if (지면적을곳) {
+    const 일 = Number(process.argv[process.argv.indexOf('--days') + 1]) || 28;
+    /**
+     * ⭐ 2026-08-23 23:3x 사장님 지시 — 「다들 하라고 해」.
+     *   말로 「하라」고 하면 안 한다. **호스트를 인자로 받아 여섯 자리가 다 쓰게** 한다.
+     *   ⛔ 기본값은 내 것이지만, 남의 유닛이 --호스트= 하나만 바꾸면 그대로 쓴다.
+     */
+    const 호스트 = process.argv.find((a) => a.startsWith('--호스트='))?.split('=')[1] ?? 'kculturewire';
+    const 모은것 = [];
+    let 시작줄 = 0;
+    /* ⚠ GA4 는 한 번에 최대 10만 줄이지만, 우리는 넉넉히 나눠 받는다 */
+    for (let 회 = 0; 회 < 20; 회 += 1) {
+      const r = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dateRanges: [{ startDate: `${일}daysAgo`, endDate: 'yesterday' }],
+            dimensions: [{ name: 'pagePath' }],
+            metrics: [{ name: 'totalUsers' }, { name: 'screenPageViews' }],
+            /* ⛔ 내 호스트만. 안 걸면 남의 유닛 지면이 섞인다 */
+            dimensionFilter: {
+              filter: {
+                fieldName: 'hostName',
+                stringFilter: { matchType: 'CONTAINS', value: 호스트 },
+              },
+            },
+            orderBys: [{ desc: true, metric: { metricName: 'totalUsers' } }],
+            limit: 5000,
+            offset: 시작줄,
+          }),
+        },
+      );
+      const j = await r.json();
+      if (j.error) {
+        console.log(`🔴 지면별로 **못 쟀다** — ${String(j.error.message).slice(0, 160)}`);
+        process.exit(0);
+      }
+      const 줄 = (j.rows ?? []).map((x) => ({
+        path: x.dimensionValues?.[0]?.value ?? '',
+        users: Number(x.metricValues?.[0]?.value ?? 0),
+        views: Number(x.metricValues?.[1]?.value ?? 0),
+      }));
+      모은것.push(...줄);
+      if (줄.length < 5000) break;
+      시작줄 += 5000;
+    }
+    const { writeFileSync, mkdirSync } = await import('node:fs');
+    mkdirSync(path.dirname(지면적을곳), { recursive: true });
+    writeFileSync(지면적을곳, `${JSON.stringify({
+      site: 호스트, property: 속성, days: 일,
+      /* ⚠ 「어제까지」다. 오늘은 안 들었다 — 하루가 안 끝났다 */
+      note: `GA4 totalUsers by pagePath, host contains ${호스트}, to yesterday`,
+      rows: 모은것,
+    }, null, 2)}\n`);
+    console.log(`✅ 지면별 방문을 적었다 — ${지면적을곳} (${모은것.length}줄)`);
+    console.log(`   사람이 한 명이라도 들어온 지면 ${모은것.filter((x) => x.users > 0).length}장`);
+    process.exit(0);
+  }
+
+  /**
    * ⭐ `--유닛` — 유닛별로 한 줄씩. 사장님 물음(「다른 유닛도 측정해야 하는 거 아냐?」)에
    *   답하는 자리다. 창을 여럿 놓고 한 번에 낸다 — 하루치만 보면 흔들린다.
    */
