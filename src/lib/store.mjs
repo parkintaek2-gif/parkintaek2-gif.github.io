@@ -29,7 +29,7 @@
  */
 
 import { createHash, createHmac } from 'node:crypto';
-import { mkdir, writeFile, readFile } from 'node:fs/promises';
+import { mkdir, writeFile, readFile, readdir } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
@@ -225,6 +225,88 @@ export async function put(key, body, contentType = 'application/octet-stream') {
  * **없으면 null 이다.** 「없다」는 정상 상태다 — 아직 안 모은 데이터가 있는 게 당연하다.
  * 부르는 쪽이 그걸 보고 응답을 정한다.
  */
+/**
+ * **접두사로 열쇠 목록을 뽑는다.** (2026-08-23 · 5번)
+ *
+ * ── 왜 필요했나 ───────────────────────────────────────────────
+ * 오늘 `/subscribe` 를 원클릭으로 고쳤다. 그런데 **몇 명이 들어왔는지 셀 길이 없었다** —
+ * `put`·`get` 만 있고 목록이 없다. 세는 길이 없으면 「가입이 늘었나」를 영원히 짐작으로
+ * 말하게 된다. 그건 우리가 밖으로는 안 하는 짓이다.
+ *
+ * ── ⛔ 서명 길을 따로 둔 까닭 ─────────────────────────────────
+ * `signedFetch` 는 **쿼리스트링이 없다고 못박고** 정경로를 만든다(`'', // 쿼리스트링 없음`).
+ * 목록은 `?list-type=2&prefix=…` 가 필요하니 그 자리를 고쳐야 하는데, 그 함수는
+ * `put`·`get` 이 같이 쓴다 — 넷 사이트의 모든 저장이 거기에 걸려 있다.
+ * ⛔ 세러 왔다가 저장을 깨뜨리지 않는다. 그래서 **여기서만 쓰는 서명**을 따로 짠다.
+ * ⚠ 나중에 둘을 합칠 수는 있다. 다만 그건 세는 일이 아니라 고치는 일이고, 오늘 할 일이 아니다.
+ *
+ * ── 돌려주는 것 ───────────────────────────────────────────────
+ * 열쇠 문자열의 배열. **없으면 빈 배열**이고, 원격이 없으면 로컬 폴더를 훑는다.
+ * ⛔ 못 물었을 때 빈 배열을 돌려주지 않는다 — 던진다. 「없다」와 「못 봤다」는 다른 말이고,
+ *   부르는 쪽이 그 둘을 갈라 적어야 한다.
+ */
+export async function list(prefix = '', { timeout = 30_000, max = 5_000 } = {}) {
+  if (!remoteEnabled) {
+    /* 원격이 없으면 로컬 거울을 훑는다. ⚠ 운영 통에는 영구 디스크가 없어 로컬이 비어 있다 —
+       그래서 이 길로 센 수는 «이 기계가 아는 것»이지 전부가 아니다. 부르는 쪽이 그걸 안다. */
+    const 뿌리 = path.join(CFG.dir, prefix);
+    const 것들 = [];
+    const 걷는다 = async (방, 앞) => {
+      let 줄;
+      try { 줄 = await readdir(방, { withFileTypes: true }); } catch { return; }
+      for (const e of 줄) {
+        const 안 = 앞 ? `${앞}/${e.name}` : e.name;
+        if (e.isDirectory()) await 걷는다(path.join(방, e.name), 안);
+        else 것들.push(prefix ? `${prefix.replace(/\/$/, '')}/${안}` : 안);
+      }
+    };
+    await 걷는다(뿌리, '');
+    return 것들.slice(0, max);
+  }
+
+  const 열쇠들 = [];
+  let 이어서 = null;
+  do {
+    const q = new URLSearchParams({ 'list-type': '2', 'max-keys': '1000' });
+    if (prefix) q.set('prefix', prefix);
+    if (이어서) q.set('continuation-token', 이어서);
+
+    const url = new URL(`${CFG.endpoint.replace(/\/$/, '')}/${CFG.bucket}?${q.toString()}`);
+    const payloadHash = createHash('sha256').update(Buffer.alloc(0)).digest('hex');
+    const now = new Date();
+    const amzDate = now.toISOString().replace(/[:-]|\.\d{3}/g, '');
+    const date = amzDate.slice(0, 8);
+    const headers = { host: url.host, 'x-amz-content-sha256': payloadHash, 'x-amz-date': amzDate };
+    const signedHeaders = Object.keys(headers).sort().join(';');
+    const canonicalHeaders = Object.keys(headers).sort().map((h) => `${h}:${headers[h]}\n`).join('');
+    /* ⚠ 정경로 쿼리는 **이름 순으로 정렬**해야 한다. URLSearchParams 순서 그대로 쓰면 서명이 깨진다 */
+    const canonicalQuery = [...q.entries()]
+      .map(([k, v]) => [encodeURIComponent(k), encodeURIComponent(v)])
+      .sort((a, b) => (a[0] < b[0] ? -1 : a[0] > b[0] ? 1 : 0))
+      .map(([k, v]) => `${k}=${v}`).join('&');
+    const canonicalRequest = ['GET', '/' + CFG.bucket, canonicalQuery, canonicalHeaders, signedHeaders, payloadHash].join('\n');
+    const scope = `${date}/${CFG.region}/s3/aws4_request`;
+    const stringToSign = ['AWS4-HMAC-SHA256', amzDate, scope, sha256hex(canonicalRequest)].join('\n');
+    const signature = hmac(signingKey(CFG.secret, date, CFG.region, 's3'), stringToSign).toString('hex');
+
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: { ...headers, authorization: `AWS4-HMAC-SHA256 Credential=${CFG.keyId}/${scope}, SignedHeaders=${signedHeaders}, Signature=${signature}` },
+      signal: AbortSignal.timeout(timeout),
+    });
+    if (!res.ok) {
+      const detail = (await res.text().catch(() => '')).slice(0, 300);
+      throw new Error(`S3 LIST ${res.status}: ${detail}`);
+    }
+    const xml = await res.text();
+    for (const m of xml.matchAll(/<Key>([^<]*)<\/Key>/g)) 열쇠들.push(m[1]);
+    const t = xml.match(/<NextContinuationToken>([^<]*)<\/NextContinuationToken>/);
+    이어서 = xml.includes('<IsTruncated>true</IsTruncated>') && t ? t[1] : null;
+  } while (이어서 && 열쇠들.length < max);
+
+  return 열쇠들.slice(0, max);
+}
+
 export async function get(key) {
   try {
     return await readFile(path.join(CFG.dir, key));
