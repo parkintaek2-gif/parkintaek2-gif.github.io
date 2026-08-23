@@ -222,7 +222,7 @@ if (내가실행됐다) {
 
   const 값 = (j2.rows?.[0]?.metricValues ?? []).map((x) => Number(x.value));
   const [순방문, 세션, 지면열림] = 값;
-  console.log(`\n📊 최근 ${일수}일 (어제까지) — 속성 ${속성}`);
+  console.log(`\n📊 최근 ${일수}일 (어제까지) — 속성 ${속성} · **네 사이트 합계**`);
   console.log(`   순방문자수(totalUsers)  ${Number.isFinite(순방문) ? 순방문.toLocaleString('en-US') : '못 쟀다'}`);
   console.log(`   세션(sessions)          ${Number.isFinite(세션) ? 세션.toLocaleString('en-US') : '못 쟀다'}`);
   console.log(`   지면 열림(pageViews)    ${Number.isFinite(지면열림) ? 지면열림.toLocaleString('en-US') : '못 쟀다'}`);
@@ -230,6 +230,62 @@ if (내가실행됐다) {
     console.log(`   ⭐ 하루 평균 순방문자  ${(순방문 / 일수).toFixed(1)}명`
       + `  (9월 목표 1,000명)`);
   }
+  /**
+   * 🔴 2026-08-23 21:0x — 속성이 **네 사이트 공용**이었다(「케이라이프디자인 — 네 사이트」).
+   *   합계 536명을 그대로 「내 방문자수」로 적으면 **남의 유닛 손님을 내 것으로 세는 것**이다.
+   *   ⭐ 그래서 `hostName` 으로 갈라 잰다. 갈라 놓으면 여섯 자리가 다 이 자를 쓸 수 있다.
+   *   ⛔ 갈라 재지 못하면 「합계뿐」이라고 적는다. 합계를 내 수로 적지 않는다.
+   */
+  const r3 = await fetch(
+    `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+    {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        dateRanges: [{ startDate: `${일수}daysAgo`, endDate: 'yesterday' }],
+        dimensions: [{ name: 'hostName' }],
+        metrics: [{ name: 'totalUsers' }, { name: 'sessions' }, { name: 'screenPageViews' }],
+        orderBys: [{ desc: true, metric: { metricName: 'totalUsers' } }],
+        limit: 50,
+      }),
+    },
+  );
+  const j3 = await r3.json();
+  if (j3.error) {
+    console.log(`\n⚠ 사이트별로 **못 갈랐다** — ${String(j3.error.message).slice(0, 160)}`);
+    console.log('   ⛔ 위 합계는 네 사이트 것이다. 내 수로 적지 않는다.');
+  } else {
+    const 줄 = (j3.rows ?? []).map((r) => ({
+      호스트: r.dimensionValues?.[0]?.value ?? '(모름)',
+      순방문: Number(r.metricValues?.[0]?.value ?? 0),
+      세션: Number(r.metricValues?.[1]?.value ?? 0),
+      열림: Number(r.metricValues?.[2]?.value ?? 0),
+    }));
+    console.log('\n📊 사이트별로 갈라 잰 것 — ⭐ **이 줄이 유닛별 방문자수다**');
+    console.log('   호스트                          순방문  세션  지면열림  하루평균');
+    for (const x of 줄) {
+      console.log(`   ${x.호스트.padEnd(30)}${String(x.순방문).padStart(6)}`
+        + `${String(x.세션).padStart(6)}${String(x.열림).padStart(9)}`
+        + `${(x.순방문 / 일수).toFixed(1).padStart(10)}`);
+    }
+    const 내것 = 줄.filter((x) => /kculturewire/i.test(x.호스트));
+    const 내순방문 = 내것.reduce((s, x) => s + x.순방문, 0);
+    if (!내것.length) {
+      console.log('\n🔴 kculturewire 줄이 **없다** — 이 창에서는 내 방문자수를 **못 쟀다.**');
+      console.log('   ⛔ 합계를 내 수로 적지 않는다.');
+    } else {
+      console.log(`\n⭐ K Culture Wire — 순방문 ${내순방문}명 · 하루 평균`
+        + ` **${(내순방문 / 일수).toFixed(1)}명** (9월 목표 1,000명)`);
+      console.log(`   전체 ${순방문}명 가운데 ${((100 * 내순방문) / (순방문 || 1)).toFixed(0)}% 다.`);
+      /* ⛔ 합계와 갈라 낸 합이 어긋나면 그것을 적는다 — GA4 는 표본·기수 처리로 어긋날 수 있다 */
+      const 갈라낸합 = 줄.reduce((s, x) => s + x.순방문, 0);
+      if (갈라낸합 !== 순방문) {
+        console.log(`   ⚠ 갈라 낸 합 ${갈라낸합} 이 전체 ${순방문} 과 다르다 —`
+          + ' GA4 가 차원을 붙일 때 사람을 중복 없이 다시 세기 때문이다(정상). 비율은 대략으로 읽는다.');
+      }
+    }
+  }
+
   console.log('\n⚠ GA4 는 광고차단·쿠키거부로 **덜 세는 쪽**이다. 바닥값으로 읽는다 —');
   console.log('   실제 방문자는 이보다 많을 수 있다. 「이보다 적을 수는 없다」가 우리가 말할 수 있는 것이다.');
 }
