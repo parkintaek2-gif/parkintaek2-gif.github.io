@@ -4,14 +4,14 @@ category: titles
 purpose: both
 dek: "Hold run length fixed and most of that gap closes — among titles that lasted five to eight weeks it is 26.6% against 28.6%. Among those that lasted nine weeks or more it does not close: 9.7% against 24%."
 pubDate: 2026-08-10
-dataAsOf: 2026-07-26T00:00:00+09:00
+dataAsOf: 2026-08-16T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "limits"]
 pages:
   - "/time-to-peak"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists, 493,600 rows read, 2021-07-04 to 2026-07-26, 93 markets, Russia excluded"
+    api: "Tudum weekly Top 10 country lists, 499,180 rows read, 2021-07-04 to 2026-08-16, 93 markets, Russia excluded"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Korean titles identified by item number and country of origin, using the same single rule as the rest of this publication"
@@ -23,7 +23,7 @@ crossChecks:
   - "Every non-Korean title on the same charts is measured the same way, and films and series are never mixed"
 excluded:
   - "Russia, excluded across this publication because Netflix withdrew and the remaining weeks are not comparable"
-  - "7,614 titles that reached fewer than five countries, and 129 still on a chart in the last week we hold"
+  - "7,677 titles that reached fewer than five countries, and 159 still on a chart in the last week we hold"
 ---
 
 A title that travels sits on several country charts at once, and that number rises and then falls.
@@ -38,10 +38,10 @@ there anything left to push after that?**
 
 | | Titles | Median peak week | Widest in week 1 | Widest by week 4 |
 |---|---:|---:|---:|---:|
-| Korean series | 207 | 2 | **20.3%** | 80.7% |
-| Every other series | 1,992 | 2 | **44.7%** | 91.9% |
-| Korean films | 108 | 2 | 28.7% | 82.4% |
-| Every other film | 3,232 | 2 | 36.5% | 78.6% |
+| Korean series | 215 | 2 | **20.9%** | 80.9% |
+| Every other series | 2,004 | 2 | **44.7%** | 91.9% |
+| Korean films | 119 | 2 | 29.4% | 84% |
+| Every other film | 3,231 | 2 | 36.7% | 78.7% |
 
 Other series are at their widest on the first Monday **44.7%** of the time. Korean series manage it
 **20.1%** of the time — less than half as often.
@@ -57,10 +57,10 @@ So the same measurement, inside bands of equal run length:
 
 | Weeks on a chart | Korean series | Every other series |
 |---|---:|---:|
-| 1–2 weeks | 50% *(6 titles)* | 83.5% *(461)* |
-| 3–4 weeks | 40% *(20)* | 46.1% *(505)* |
-| 5–8 weeks | 26.6% *(79)* | 28.6% *(567)* |
-| 9 weeks or more | **9.8%** *(102)* | **24%** *(459)* |
+| 1–2 weeks | 50% *(6 titles)* | 83.5% *(467)* |
+| 3–4 weeks | 39.1% *(23)* | 45.9% *(510)* |
+| 5–8 weeks | 25.9% *(81)* | 28.5% *(568)* |
+| 9 weeks or more | **11.4%** *(105)* | **23.7%** *(459)* |
 
 **The gap narrows sharply, and in the middle it nearly disappears.** Among titles that lasted five to
 eight weeks, Korean series peak in week one 26.6% of the time and other series 28.6% — a difference

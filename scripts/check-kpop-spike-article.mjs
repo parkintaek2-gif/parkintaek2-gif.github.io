@@ -13,13 +13,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const D = 'archive/raw/star-pageviews';
+/*
+ * 🔴 2026-08-23 — 이 자가 **던져서** npm test 를 통째로 세우고 있었다.
+ *   곳간(archive/)은 git 에 없다. 자료를 아직 안 받은 기계에서는 이 파일이 없고,
+ *   그때 던지면 **뒤의 검사 백여 개가 한 개도 안 돈다.**
+ * ⛔ 「못 쟀다」와 「깨졌다」는 다른 말이다. 자료가 없는 것은 기사가 틀린 것이 아니다.
+ * ⚠ 「통과」로 읽히면 안 되므로 경고 표를 붙여 찍고 나간다.
+ */
+const 없는것 = [];
 const 최신 = (re) => {
-  const f = fs.readdirSync(D).filter((x) => re.test(x)).sort().pop();
-  if (!f) throw new Error(`${re} 에 맞는 파일이 없다`);
+  let f = null;
+  try { f = fs.readdirSync(D).filter((x) => re.test(x)).sort().pop() ?? null; } catch { f = null; }
+  if (!f) { 없는것.push(String(re)); return null; }
   return JSON.parse(fs.readFileSync(path.join(D, f), 'utf8'));
+};
+const 못쟀으면나간다 = () => {
+  if (!없는것.length) return;
+  console.log(`⚠ 못 쟀다 — ${D} 에 ${없는것.join(', ')} 가 없다. 곳간은 git 에 없으니 먼저 받는다.`);
+  console.log('   ⛔ 이것은 「통과」가 아니다. 재 보지 못했다는 뜻이다.');
+  process.exit(0);
 };
 const k = 최신(/^kpop-\d+\.json$/);
 const m = 최신(/^kpop-members-\d+\.json$/);
+못쟀으면나간다();
 const 본문 = fs.readFileSync('content/kculturewire/kpop-attention-level-or-event.md', 'utf8');
 
 /* 걸러내기 조건을 **본문에서 읽는다.** 기사가 조건을 고치면 검사도 따라간다. */

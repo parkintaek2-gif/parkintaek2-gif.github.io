@@ -46,8 +46,9 @@ const 가나다 = [...data.all].sort((a, b) => a.name.localeCompare(b.name));
   <p class="lead">
     Korean titles held 7.7% of the world’s Netflix top 10 places over five years and that figure
     barely moved. Underneath it, the map did. Comparing two whole years — {data.beforeYear} against
-    {' '}{data.afterYear}, {data.beforeWeeks} weeks each — Korean share fell in every Asian market we
-    track and rose in {data.elsewhere.roseCount} of the other {data.elsewhere.markets}.
+    {' '}{data.afterYear}, {data.beforeWeeks} weeks each — Korean share fell in {data.asianTen.fellCount} of the
+    {' '}{data.asianTen.markets} Asian markets we track and rose in {data.elsewhere.roseCount} of the other
+    {' '}{data.elsewhere.markets}. The one Asian market that rose is {data.asianTen.homeMarket.name} itself.
   </p>
   <p class="q">{data.question}</p>
 
@@ -74,8 +75,11 @@ const 가나다 = [...data.all].sort((a, b) => a.name.localeCompare(b.name));
       </table>
     </div>
     <p class="note">
-      <b>Not one Asian market rose.</b> {data.roseCount} markets of {data.markets} gained share and
-      {' '}{data.fellCount} lost it, and every one of the losses that matters is in the same region.
+      <b>One Asian market rose, and it is the home one.</b> Korean share of {data.asianTen.homeMarket.name}’s
+      own chart went {data.asianTen.homeMarket.beforePc}% → {data.asianTen.homeMarket.afterPc}%
+      {' '}({data.asianTen.homeMarket.changePp > 0 ? '+' : ''}{data.asianTen.homeMarket.changePp}p) while the other
+      {' '}{data.asianTen.fellCount} fell. Across all markets, {data.roseCount} of {data.markets} gained share and
+      {' '}{data.fellCount} lost it — and every one of the losses that matters is in the same region.
     </p>
   </section>
 

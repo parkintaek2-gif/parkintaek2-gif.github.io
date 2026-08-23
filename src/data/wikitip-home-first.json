@@ -1,35 +1,35 @@
 {
-  "generated": "2026. 8. 10. 오전 5:50:31",
+  "generated": "2026. 8. 23. 오후 2:38:27",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korea and the six Southeast Asian markets; Korean titles identified via Wikidata country of origin (P495 = Q884)",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한국과 동남아 여섯 나라",
   "question": "For Korean titles that charted in Southeast Asia, did Korea's own chart get there first?",
   "home": "Korea",
   "region": "Singapore, Malaysia, the Philippines, Thailand, Indonesia, Vietnam",
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-07-26",
-  "weekCount": 265,
-  "slotsPerCountry": 5300,
-  "titleCount": 397,
-  "neverAtHome": 140,
-  "neverAtHomePc": 35.3,
-  "bothCharted": 257,
+  "weekTo": "2026-08-16",
+  "weekCount": 268,
+  "slotsPerCountry": 5360,
+  "titleCount": 421,
+  "neverAtHome": 151,
+  "neverAtHomePc": 35.9,
+  "bothCharted": 270,
   "all": {
-    "n": 257,
-    "homeFirst": 46,
-    "sameWeek": 160,
-    "awayFirst": 51,
-    "homeFirstPc": 17.9,
-    "sameWeekPc": 62.3,
-    "awayFirstPc": 19.8
+    "n": 270,
+    "homeFirst": 51,
+    "sameWeek": 165,
+    "awayFirst": 54,
+    "homeFirstPc": 18.9,
+    "sameWeekPc": 61.1,
+    "awayFirstPc": 20
   },
   "censoredExcluded": {
-    "n": 246,
-    "homeFirst": 45,
-    "sameWeek": 154,
-    "awayFirst": 47,
-    "homeFirstPc": 18.3,
-    "sameWeekPc": 62.6,
-    "awayFirstPc": 19.1
+    "n": 259,
+    "homeFirst": 50,
+    "sameWeek": 159,
+    "awayFirst": 50,
+    "homeFirstPc": 19.3,
+    "sameWeekPc": 61.4,
+    "awayFirstPc": 19.3
   },
   "censoredCount": 11,
   "sharedNameCount": 9,
@@ -46,40 +46,40 @@
     "Tunnel"
   ],
   "cleanest": {
-    "n": 241,
-    "homeFirst": 43,
-    "sameWeek": 154,
-    "awayFirst": 44,
-    "homeFirstPc": 17.8,
-    "sameWeekPc": 63.9,
-    "awayFirstPc": 18.3
+    "n": 254,
+    "homeFirst": 48,
+    "sameWeek": 159,
+    "awayFirst": 47,
+    "homeFirstPc": 18.9,
+    "sameWeekPc": 62.6,
+    "awayFirstPc": 18.5
   },
   "byFormat": [
     {
       "format": "Series",
-      "n": 171,
-      "homeFirst": 24,
-      "sameWeek": 124,
-      "awayFirst": 23,
-      "homeFirstPc": 14,
-      "sameWeekPc": 72.5,
-      "awayFirstPc": 13.5
+      "n": 179,
+      "homeFirst": 27,
+      "sameWeek": 127,
+      "awayFirst": 25,
+      "homeFirstPc": 15.1,
+      "sameWeekPc": 70.9,
+      "awayFirstPc": 14
     },
     {
       "format": "Films",
-      "n": 75,
-      "homeFirst": 21,
-      "sameWeek": 30,
-      "awayFirst": 24,
-      "homeFirstPc": 28,
+      "n": 80,
+      "homeFirst": 23,
+      "sameWeek": 32,
+      "awayFirst": 25,
+      "homeFirstPc": 28.8,
       "sameWeekPc": 40,
-      "awayFirstPc": 32
+      "awayFirstPc": 31.3
     }
   ],
   "leadWeeks": {
-    "homeFirstMedian": 7,
-    "homeFirstMax": 100,
-    "homeFirstOneWeek": 14,
+    "homeFirstMedian": 10,
+    "homeFirstMax": 173,
+    "homeFirstOneWeek": 15,
     "awayFirstMedian": 86,
     "awayFirstMax": 205,
     "awayFirstOneWeek": 8
@@ -162,35 +162,40 @@
     }
   ],
   "neverAtHomeByFormat": {
-    "series": 57,
-    "films": 83
+    "series": 60,
+    "films": 91
   },
   "broadcasterTest": {
     "property": "Wikidata P449 (original broadcaster)",
     "mixedNever": {
-      "n": 136,
-      "withBroadcaster": 53,
-      "pc": 39
+      "n": 149,
+      "withBroadcaster": 55,
+      "pc": 36.9
     },
     "mixedCharted": {
-      "n": 253,
-      "withBroadcaster": 168,
-      "pc": 66.4
+      "n": 264,
+      "withBroadcaster": 176,
+      "pc": 66.7
     },
     "seriesNever": {
-      "n": 57,
-      "withBroadcaster": 46,
-      "pc": 80.7
+      "n": 60,
+      "withBroadcaster": 47,
+      "pc": 78.3
     },
     "seriesCharted": {
-      "n": 175,
-      "withBroadcaster": 163,
-      "pc": 93.1
+      "n": 182,
+      "withBroadcaster": 170,
+      "pc": 93.4
     },
     "verdict": "not supported"
   },
   "examples": {
     "homeFirst": [
+      {
+        "title": "Christmas Carol",
+        "type": "Films",
+        "weeks": 173
+      },
       {
         "title": "Cobweb",
         "type": "Films",
@@ -210,11 +215,6 @@
         "title": "The Prison",
         "type": "Films",
         "weeks": 49
-      },
-      {
-        "title": "Inside Men",
-        "type": "Films",
-        "weeks": 47
       }
     ],
     "awayFirst": [
@@ -239,9 +239,9 @@
         "weeks": 150
       },
       {
-        "title": "One the Woman",
-        "type": "TV",
-        "weeks": 149
+        "title": "The Battle of Jangsari",
+        "type": "Films",
+        "weeks": 150
       }
     ]
   }

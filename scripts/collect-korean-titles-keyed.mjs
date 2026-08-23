@@ -31,7 +31,7 @@ import path from 'node:path';
  *   Hunger(태국) · Teach You a Lesson(중국) · Friends(미국) 가 한국 작품으로 들어왔다.
  *   새 스크립트가 **기존 규칙을 물려받지 않는 것**이 오늘 세 번째다. 손 규칙은 여기서 가져다 쓴다.
  */
-import { NOT_KOREAN } from './lib/korean-netflix-titles.mjs';
+import { NOT_KOREAN , 열쇠못믿는것 } from './lib/korean-netflix-titles.mjs';
 
 const DIR = path.resolve('archive/raw/netflix-top10');
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) korean titles keyed';
@@ -58,28 +58,58 @@ function 넷플릭스제목() {
 /** 한국 작품 전체를 Q번호와 함께 받는다. 한 번에 다 받으면 502 가 난다 — 나눠 받는다. */
 async function 한국작품() {
   const 모음 = new Map();          // 소문자 이름 → { q, 이름, 문서, 갈래 }
+  /* 🔴 2026-08-23 — 별칭은 열쇠로만 들어가 값에 안 담겼다. 판정 규칙이 읽는 이름 목록에서
+     빠지므로, **대소문자 그대로의 이름**을 따로 모은다. 규칙은 글자를 그대로 맞춘다. */
+  const 쓰인이름 = new Set();
+  let 같은근거로부딪침 = 0;   // ⚠ 같은 근거 둘이 한 이름을 다툰 횟수 — 못 가린 자리다
   const 갈래 = [['film', 'wd:Q11424'], ['series', 'wd:Q5398426']];
   for (const [이름, cls] of 갈래) {
     for (let off = 0; ; off += 5000) {
-      const q = `SELECT ?w ?label ?an WHERE {
+      const q = `SELECT ?w ?label ?an ?alt WHERE {
         ?w wdt:P31/wdt:P279* ${cls} ; wdt:P495 wd:Q884 ; rdfs:label ?label .
         FILTER(LANG(?label) = 'en')
         OPTIONAL { ?s schema:about ?w ; schema:isPartOf <https://en.wikipedia.org/> ; schema:name ?an . }
-      } LIMIT 5000 OFFSET ${off}`;
+        OPTIONAL { ?w skos:altLabel ?alt . FILTER(LANG(?alt) = 'en') }
+      } ORDER BY ?w LIMIT 5000 OFFSET ${off}`;
       const rows = await 물기(q);
       if (rows === null) throw new Error(`${이름} off=${off} 를 못 받았다 — 반쯤 받은 명단을 쓰지 않는다`);
       for (const b of rows) {
-        for (const n of [b.label.value, b.an?.value].filter(Boolean)) {
+        /*
+         * 이름표 · 문서명 · 별칭 셋 다 열쇠로 쓴다 — 넷플릭스가 어느 것을 쓸지 모른다.
+         *
+         * ── 🔴 2026-08-23 · 먼저 온 것이 이기게 두면 안 된다 ──────────
+         * 앞서는 `if (!모음.has(k))` 로 **먼저 온 것**이 열쇠를 차지했다. 그런데 오는 차례는
+         * Q번호 순이지 맞음새 순이 아니다. 그래서 남의 작품의 **별칭**이 진짜 작품의
+         * **이름표**보다 먼저 와서 자리를 뺏었다 —
+         * ```
+         *   차트 'Voice'    → 「On the Line (2021)」    (별칭이 먼저 왔다)
+         *   차트 'Stranger' → 「The Stranger (1984)」   (별칭이 먼저 왔다)
+         * ```
+         * 둘 다 한국 작품이라 나라 거르개에는 안 걸린다. **이름만 맞고 작품은 남의 것**이다.
+         * 그 열쇠로 출연진·회사를 붙이면 지면이 남의 배우를 이 작품 이름으로 보여 준다.
+         * ⭐ 그래서 **근거에 차례를 매긴다** — 이름표 > 문서명 > 별칭. 별칭은 이름표를 못 이긴다.
+         * ⚠ 같은 근거끼리 부딪치면 먼저 온 것을 둔다. 그건 여전히 못 가리는 자리다 — 세어 둔다.
+         */
+        const 근거순위 = { label: 3, article: 2, alias: 1 };
+        const 이름들 = [[b.label.value, 'label'], [b.an?.value, 'article'], [b.alt?.value, 'alias']];
+        for (const [n, 근거] of 이름들) {
+          if (!n) continue;
+          쓰인이름.add(n);
           const k = n.toLowerCase();
-          if (!모음.has(k)) 모음.set(k, { q: b.w.value.split('/').pop(), 이름: b.label.value, 문서: b.an?.value ?? null, 갈래: 이름 });
+          const 앞 = 모음.get(k);
+          if (앞 && 근거순위[앞.근거] >= 근거순위[근거]) { if (근거순위[앞.근거] === 근거순위[근거]) 같은근거로부딪침 += 1; continue; }
+          모음.set(k, { q: b.w.value.split('/').pop(), 이름: b.label.value, 문서: b.an?.value ?? null, 갈래: 이름, 근거 });
         }
-      }
+        }
       process.stdout.write('.');
       if (rows.length < 5000) break;
       await new Promise((s) => setTimeout(s, 400));
     }
   }
   process.stdout.write('\n');
+  모음.쓰인이름 = 쓰인이름;   // ⚠ Map 에 얹는다 — 부르는 쪽 셋을 안 바꾸려고 그렇게 한다
+  모음.같은근거로부딪침 = 같은근거로부딪침;
+  console.log(`이름 열쇠 ${모음.size}개 · ⚠ 같은 근거끼리 한 이름을 다툰 자리 ${같은근거로부딪침}건 — 먼저 온 것을 뒀다`);
   return 모음;
 }
 
@@ -130,7 +160,7 @@ const 언어 = new Map();
 
 const 맞춘것 = new Map();          // Q → 정보
 const 못맞춘것 = [];
-const 뺀것 = { 영어차트: [], 손으로: [], 이름겹침: [], 딱지없음: [] };
+const 뺀것 = { 영어차트: [], 손으로: [], 이름겹침: [], 딱지없음: [], 못믿을열쇠: [] };
 for (const t of 표제목) {
   const v = 위키.get(t.toLowerCase());
   if (!v) { 못맞춘것.push(t); continue; }
@@ -140,13 +170,20 @@ for (const t of 표제목) {
   /* ⛔ 'both' 는 **못 가른 것**이다. 남기되 세어서 파일에 적는다 — 지면이 그 수를 밝힌다. */
   if (l === 'both') 뺀것.이름겹침.push(t);
   if (l === undefined) 뺀것.딱지없음.push(t);
+  /* ⛔ 별칭으로 붙었지만 남의 작품임을 눈으로 확인한 것은 안 담는다.
+     담으면 출연진·회사가 남의 것으로 붙어 지면이 틀린 말을 한다. */
+  if (열쇠못믿는것.has(t)) { 뺀것.못믿을열쇠.push(`${t} — ${열쇠못믿는것.get(t)}`); continue; }
   맞춘것.set(v.q, { ...v, 넷플릭스제목: t, 언어딱지: l ?? null });
 }
 console.log(`영어 차트로 확인돼 뺀 제목 ${뺀것.영어차트.length}개 · 손으로 뺀 것 ${뺀것.손으로.length}개`);
 console.log(`남겼지만 못 가른 것 — 이름 겹침 ${뺀것.이름겹침.length}개 · 언어 딱지 없음 ${뺀것.딱지없음.length}개`);
 
-const 옛길 = path.join(DIR, 'korean-titles.json');
-const 옛수 = fs.existsSync(옛길) ? JSON.parse(fs.readFileSync(옛길, 'utf8')).제목.length : 0;
+/* 지난번에 «맞춘 작품 수»와 견준다. ⛔ 후보 이름 수와 견주지 않는다 — 뜻이 다른 두 수다 */
+const 옛열쇠길 = path.join(DIR, 'korean-titles-keyed.json');
+let 옛수 = 0;
+try {
+  옛수 = JSON.parse(fs.readFileSync(옛열쇠길, 'utf8')).맞춘작품수 ?? 0;
+} catch { 옛수 = 0; }   // 첫 실행이면 견줄 것이 없다. 세우지 않는다
 console.log(`맞춘 한국 작품 ${맞춘것.size}편 · 옛 파일 ${옛수}편 · 못 맞춘 제목 ${못맞춘것.length}개(대부분 한국 작품이 아니다)`);
 
 if (옛수 && 맞춘것.size < 옛수 * 0.8) {
@@ -195,7 +232,7 @@ console.log(`저장 ${산출}`);
  *   거르는 일은 규칙(영어 차트 딱지·손으로 뺀 목록)이 한다. 이 파일은 거르지 않는다.
  */
 const 이름산출 = path.join(DIR, 'korean-titles.json');
-const 이름들 = [...new Set([...위키.values()].flatMap((v) => [v.이름, v.문서]).filter(Boolean))].sort();
+const 이름들 = [...(위키.쓰인이름 ?? new Set())].sort();
 fs.writeFileSync(이름산출, JSON.stringify({
   받은날: new Date().toISOString().slice(0, 10),
   출처: 'Wikidata: works with country of origin (P495) = South Korea (Q884), English labels and English Wikipedia article names.',

@@ -34,14 +34,14 @@ actor with — and the Korean catalogue closes up fast.
 | Hops from *Squid Game* | Titles |
 | --- | ---: |
 | 0 (itself) | 1 |
-| 1 | 69 |
-| 2 | 432 |
+| 1 | 74 |
+| 2 | 462 |
 | 3 | 112 |
-| 4 | 4 |
+| 4 | 2 |
 | never reached | 17 |
 
-**502 of the 635 titles — 79.1% — are within two hops.** Take one more step and you have 614, or
-96.7%. Four steps exhausts everything the walk can reach.
+**537 of the 668 titles — 80.4% — are within two hops.** Take one more step and you have 649, or
+97.2%. Four steps exhausts everything the walk can reach.
 
 ## What this does and does not mean
 
@@ -70,7 +70,7 @@ say why the number should not be read as a count of self-contained productions.
 
 ## The bigger absence
 
-**266 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
+**277 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
 they are outside the walk entirely. Every figure above describes the 635 that could be walked, and
 the true structure of the whole 906 is something this data cannot show.
 

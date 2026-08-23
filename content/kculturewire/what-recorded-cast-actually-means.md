@@ -33,21 +33,21 @@ actually made of.
 
 | | Titles | Median cast recorded |
 | --- | ---: | ---: |
-| Films | 351 | 4 |
-| Series | 284 | 5 |
+| Films | 371 | 4 |
+| Series | 297 | 4 |
 
-**A sixteen-episode drama is represented here by a median of five names.** Seventy-five titles have
-exactly one person recorded. And 266 of the 901 Korean titles we matched carry no cast statement at
+**A sixteen-episode drama is represented here by a median of four names.** Seventy-seven titles have
+exactly one person recorded. And 277 of the 945 Korean titles we matched carry no cast statement at
 all, so they are not in the join in any form.
 
-That is the whole foundation: **3,413 casting slots**, 1,355 people, 635 titles.
+That is the whole foundation: **3,588 casting slots**, 1,395 people, 668 titles.
 
 ## What thin records do to each figure
 
 The useful thing about this particular gap is that its direction is knowable even where its size is
 not.
 
-**"48.3% of people appear in exactly one title" is a ceiling, not an estimate.** Every missing credit
+**"48.5% of people appear in exactly one title" is a ceiling, not an estimate.** Every missing credit
 turns a repeat worker into a one-timer. It cannot work the other way. The true share of one-timers is
 lower, by an amount we cannot compute.
 
@@ -81,8 +81,7 @@ unanswerable, and rebuilding the link took a full day of re-querying.
 
 The join is now keyed on Wikidata Q-numbers for both the person and the title, not on names, because
 names change and identifiers do not. Matching these two sources on title text attaches cast to only
-317 of 1,005 titles — chart names and article titles disagree constantly. On Q-numbers it reaches
-635 of 901.
+317 of 1,005 titles — chart names and article titles disagree constantly. On Q-numbers it reaches 668 of 945.
 
 The file is in our data bundle as `cast-title-join.csv`, with a column dictionary that says what a
 blank cell means in each column, and a coverage file that carries every number above.

@@ -14,13 +14,29 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const D = 'archive/raw/star-pageviews';
+/*
+ * 🔴 2026-08-23 — 이 자가 **던져서** npm test 를 통째로 세우고 있었다.
+ *   곳간(archive/)은 git 에 없다. 자료를 아직 안 받은 기계에서는 이 파일이 없고,
+ *   그때 던지면 **뒤의 검사 백여 개가 한 개도 안 돈다.**
+ * ⛔ 「못 쟀다」와 「깨졌다」는 다른 말이다. 자료가 없는 것은 기사가 틀린 것이 아니다.
+ * ⚠ 「통과」로 읽히면 안 되므로 경고 표를 붙여 찍고 나간다.
+ */
+const 없는것 = [];
 const 최신 = (re) => {
-  const f = fs.readdirSync(D).filter((x) => re.test(x)).sort().pop();
-  if (!f) throw new Error(`${re} 에 맞는 파일이 없다`);
+  let f = null;
+  try { f = fs.readdirSync(D).filter((x) => re.test(x)).sort().pop() ?? null; } catch { f = null; }
+  if (!f) { 없는것.push(String(re)); return null; }
   return JSON.parse(fs.readFileSync(path.join(D, f), 'utf8'));
+};
+const 못쟀으면나간다 = () => {
+  if (!없는것.length) return;
+  console.log(`⚠ 못 쟀다 — ${D} 에 ${없는것.join(', ')} 가 없다. 곳간은 git 에 없으니 먼저 받는다.`);
+  console.log('   ⛔ 이것은 「통과」가 아니다. 재 보지 못했다는 뜻이다.');
+  process.exit(0);
 };
 const k = 최신(/^kpop-\d+\.json$/);
 const a = 최신(/^actors-\d+\.json$/);
+못쟀으면나간다();
 const 본문 = fs.readFileSync('content/kculturewire/kpop-attention-top-is-actors.md', 'utf8');
 
 const 배우 = new Set(a.사람.map((p) => p.이름));
@@ -56,12 +72,16 @@ const 자리 = [
 for (const [무엇, re] of 자리) 본다(무엇, re.test(본문), re.source);
 
 /* ── ② 상위 n 안의 배우 수와 조회 몫 ── */
-for (const [n, 문구] of [[10, `${'\\*\\*'}46% of the top ten`], [20, '9 of the top 20'], [50, '23 of the top 50']]) {
+/* 🔴 2026-08-23 — 이 줄에 '46%'·'9 of the top 20'·'Four' 가 **박혀 있었다.**
+   ⛔ 검사가 자기 안에 값을 들고 있으면 자료를 못 따라온다 — 기사를 맞게 고쳐도 계속 빨강이 난다.
+   ⚠ 문구는 안 쓰이고 있었다(아래에서 다시 만든다). 낱말도 자료에서 만든다. */
+const 셈낱말 = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+for (const n of [10, 20, 50]) {
   const s = 정렬(개인).slice(0, n);
   const 배우수 = s.filter((p) => 배우.has(p.이름)).length;
   const 몫 = Math.round((100 * S(s.filter((p) => 배우.has(p.이름)))) / S(s));
   const re = n === 10
-    ? new RegExp(`Four of the top ten carry the flag[\\s\\S]{0,60}\\*\\*${몫}% of the top ten`)
+    ? new RegExp(`${셈낱말[배우수] ?? 배우수} of the top ten carry the flag[\\s\\S]{0,60}\\*\\*${몫}% of the top ten`)
     : new RegExp(`${배우수} of the top ${n} and ${몫}% of views`);
   본다(`상위 ${n} (배우 ${배우수}명 · ${몫}%)`, re.test(본문), re.source);
 }

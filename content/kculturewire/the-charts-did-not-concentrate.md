@@ -11,7 +11,7 @@ pages:
   - "/leverage"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists, 493,600 rows read, 2021-07-04 to 2026-07-26, 93 markets"
+    api: "Tudum weekly Top 10 country lists, 499,180 rows read, 2021-07-04 to 2026-08-16, 93 markets"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Production company (P272), original broadcaster (P449) and distributor (P750) credits for Korean titles"
@@ -41,7 +41,7 @@ that we can measure. So we did.
 ## What we counted
 
 Every Korean series that reached any country's Netflix top 10 between July 2021 and July 2026:
-493,600 chart rows across 93 markets, each title joined to the companies Wikidata credits as its
+499,180 chart rows across 93 markets, each title joined to the companies Wikidata credits as its
 producer, first broadcaster or distributor. Then, year by year, one question: **how few companies
 does it take to cover half of that year's titles?**
 
@@ -52,21 +52,21 @@ part years, is at [did the charts concentrate?](/leverage).
 
 | Year | Titles charting | Companies | Half covered by | If shared equally |
 |---|---|---|---|---|
-| 2021 *(part year)* | 59 | 32 | 3 | 16 |
-| 2022 | 107 | 55 | 3 | 28 |
-| 2023 | 87 | 81 | 5 | 41 |
+| 2021 *(part year)* | 61 | 32 | 3 | 16 |
+| 2022 | 109 | 58 | 3 | 29 |
+| 2023 | 95 | 86 | 5 | 43 |
 | 2024 | 59 | 51 | 4 | 26 |
-| 2025 | 65 | 52 | 3 | 26 |
-| 2026 *(part year)* | 35 | 35 | 3 | 18 |
+| 2025 | 67 | 54 | 3 | 27 |
+| 2026 *(part year)* | 39 | 38 | 3 | 19 |
 
-Three companies covering half of 107 titles is an extraordinary degree of concentration — the
-right-hand column is what an even spread would need, and it is 28. But **the extraordinary part was
-already there in 2022**, and it is the same three-against-26 in 2025. Across the four full years the
+Three companies covering half of 109 titles is an extraordinary degree of concentration — the
+right-hand column is what an even spread would need, and it is 29. But **the extraordinary part was
+already there in 2022**, and it is the same three-against-27 in 2025. Across the four full years the
 figure does not move.
 
 That column has a defect worth saying out loud: it can only change **one whole company at a time**.
 A measure that moves in steps of one is too blunt to read a four-year trend from, and quoting
-89.3% against 88.5% off the back of it would be dressing up a rounding artefact as a finding.
+89.7% against 88.9% off the back of it would be dressing up a rounding artefact as a finding.
 
 So here is the same question asked with a measure that moves continuously — the share of each
 year's titles covered by the three largest companies, divided by what those same three would cover
@@ -74,10 +74,10 @@ if every company held an equal number:
 
 | Year | Top three cover | Even split would give | Ratio |
 |---|---|---|---|
-| 2022 | 63.6% | 5.5% | **11.56×** |
-| 2023 | 42.5% | 3.7% | **11.49×** |
+| 2022 | 63.3% | 5.2% | **12.17×** |
+| 2023 | 43.2% | 3.5% | **12.34×** |
 | 2024 | 47.5% | 5.9% | **8.05×** |
-| 2025 | 56.9% | 5.8% | **9.81×** |
+| 2025 | 55.2% | 5.6% | **9.86×** |
 
 The three largest companies cover roughly **ten times** what an even split would give them. The
 Korean chart is heavily concentrated, and it always has been in the years we can see.
@@ -89,7 +89,7 @@ cost rise did, it did not show up here as the charts closing around fewer compan
 
 One other thing moved, and we are not reporting it as a result.
 
-The share of charting titles that passed through a broadcaster falls from 88.8% in 2022 to 80.0% in
+The share of charting titles that passed through a broadcaster falls from 88.1% in 2022 to 79.1% in
 2025 — the shape you would expect if commissioning were shifting away from Korean networks. It is
 the more interesting number on this page and we are leaving it on the floor, because **recorded
 credits per title fall across exactly the same years**, from 1.85 to 1.60. In our data a title

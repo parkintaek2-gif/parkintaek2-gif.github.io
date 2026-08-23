@@ -30,8 +30,8 @@ excluded:
 ---
 
 We set out to find the gateway market: the country a Korean title shows up in before it shows up
-anywhere else. The answer was that there is not one. Among the **165 Korean titles** that reached 20
-countries or more on Netflix's weekly lists, the middle title is already in **14 countries** in its
+anywhere else. The answer was that there is not one. Among the **173 Korean titles** that reached 20
+countries or more on Netflix's weekly lists, the middle title is already in **16 countries** in its
 first charting week.
 
 So the question changed. Not *where does it start* but *how much of the journey is already over when
@@ -42,8 +42,8 @@ it starts*.
 | | Median |
 | --- | ---: |
 | Countries reached in the end | 43 |
-| Countries in the first week | **14** |
-| Share of the footprint already there | **39.1%** |
+| Countries in the first week | **16** |
+| Share of the footprint already there | **40.7%** |
 
 Two fifths of everywhere, in week one. That is a fact about how Netflix charts move, and on its own
 it would suggest a single pattern: titles land, then top up.
@@ -52,13 +52,13 @@ it would suggest a single pattern: titles land, then top up.
 
 | Share of countries reached in week one | Titles | Share |
 | --- | ---: | ---: |
-| under 25% | **57** | 34.5% |
-| 25–49% | 42 | 25.5% |
-| 50–74% | 33 | 20% |
-| 75% or more | **33** | 20% |
+| under 25% | **58** | 33.5% |
+| 25–49% | 42 | 24.3% |
+| 50–74% | 35 | 20.2% |
+| 75% or more | **38** | 22% |
 
-The two ends are nearly the same size. **58 titles built their footprint over weeks; 33 had it
-almost immediately.** The median of 39.1% sits between two groups and describes neither of them —
+The two ends are nearly the same size. **58 titles built their footprint over weeks; 38 had it
+almost immediately.** The median of 40.7% sits between two groups and describes neither of them —
 which is what a median does when the thing underneath is not one thing.
 
 ## Built week by week
@@ -77,7 +77,7 @@ of these five started in the same place.
 
 An obvious objection is that our archive might simply have carried fewer countries in the early
 weeks, making an old title look like it began alone. It did not: **the archive holds the same 93
-markets in every one of the 265 weeks**, minimum 93 and maximum 93. A one-country first week is a
+markets in every one of the 268 weeks**, minimum 93 and maximum 93. A one-country first week is a
 fact about the title.
 
 ## Everywhere at once
@@ -88,6 +88,7 @@ fact about the title.
 | *Outlaw* | 53 | 53 | 100% | 2024-09-15 |
 | *Dynamite Kiss* | 52 | 52 | 100% | 2025-11-16 |
 | *Physical: Asia* | 44 | 44 | 100% | 2025-11-02 |
+| *Last Knights* | 20 | 20 | 100% | 2022-07-03 |
 | *The Devil's Plan* | 23 | 23 | 100% | 2023-10-01 |
 
 These titles never added a country after week one. Every market they were ever going to reach was
@@ -95,8 +96,8 @@ reached in the same seven days.
 
 ## Films land; series accumulate
 
-Across the 54 films in this set the first week holds a median **50.0%** of the eventual footprint.
-Across the 111 series it is **37.8%**. A film has one week to be found. A series can pick up a market
+Across the 57 films in this set the first week holds a median **50.8%** of the eventual footprint.
+Across the 116 series it is **38.1%**. A film has one week to be found. A series can pick up a market
 in its third week, and often does.
 
 ## What this changes for someone shipping a title
@@ -105,7 +106,7 @@ If a catalogue is mostly films, the marketing question is *are all the markets r
 day*, because a film that misses week one has largely missed. If it is mostly series, the first week
 is a start rather than a verdict, and a market that stays quiet for a fortnight has not yet said no.
 
-The dangerous move is to plan against the median. **39.1% is a number no title in this set behaves
+The dangerous move is to plan against the median. **40.7% is a number no title in this set behaves
 like.** The full band table, both tails, and the format split are on
 **[the arrival table](/arrival)**. Whether a title's run at home says anything about any of this is
 a separate question, and we measured that too:

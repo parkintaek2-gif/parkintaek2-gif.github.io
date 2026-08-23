@@ -1,6 +1,6 @@
 ---
 title: "Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one."
-dek: "Across 93 markets, 57.5% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
+dek: "Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -31,15 +31,15 @@ A title enters a country's Netflix top 10 at some rank. The interesting question
 next: is that week the highest it will ever sit, or does it move up?
 
 Netflix publishes a rank per title per country per week, so this is answerable for every run on the
-chart. We read **108,403 runs** — a run being one title, in one country, on one list — and asked
+chart. We read **109,618 runs** — a run being one title, in one country, on one list — and asked
 whether any later week beat the opening week.
 
 ## Korean titles climb. Most titles do not.
 
 | | Runs | Climbed after week one | Peaked in week one |
 | --- | ---: | ---: | ---: |
-| Korean titles | 7,009 | **57.5%** | 42.5% |
-| Everything else | 101,394 | **40.5%** | 59.5% |
+| Korean titles | 7,414 | **57.4%** | 42.6% |
+| Everything else | 102,204 | **40.5%** | 59.5% |
 
 A Korean title's opening week is its best week 42.7% of the time. For everything else on the same
 charts, in the same weeks, it is 59.5%. **The typical non-Korean title arrives at its peak; the
@@ -53,11 +53,11 @@ same length.
 
 | Run length | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| 2 weeks | 39.8% | 30.7% | +9.1 |
-| 3 weeks | 65.2% | 49.8% | +15.4 |
-| 4–5 weeks | 63.4% | 47.1% | +16.3 |
-| 6–10 weeks | 69.2% | 50.0% | +19.2 |
-| 11 weeks or more | 81.9% | 58.0% | +23.9 |
+| 2 weeks | 40.4% | 30.7% | +9.7 |
+| 3 weeks | 64.2% | 49.7% | +14.5 |
+| 4–5 weeks | 60.9% | 47.2% | +13.7 |
+| 6–10 weeks | 70.4% | 49.9% | +20.5 |
+| 11 weeks or more | 81.3% | 58.1% | +23.2 |
 
 It does not vanish in any band. The smallest gap is 8.8 points among two-week runs and the largest
 is 23.5 points among the longest. **Length is not the explanation**, and among runs long enough for
@@ -68,8 +68,8 @@ more heavily series than the field is:
 
 | Format | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| Series | 62.6% | 46.6% | +16.0 |
-| Films | 47.2% | 37.1% | +10.1 |
+| Series | 62.8% | 46.5% | +16.3 |
+| Films | 46.1% | 37.2% | +8.9 |
 
 Korean films climb less often than Korean series — 46.9% against 62.4% — but still more often than
 non-Korean films. The gap is not an artefact of what Korea puts on the chart.

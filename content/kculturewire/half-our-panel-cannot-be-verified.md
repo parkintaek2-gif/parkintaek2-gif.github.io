@@ -1,6 +1,6 @@
 ---
 title: "Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is."
-dek: "197 of 397 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them. They are also the small ones."
+dek: "214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them. They are also the small ones."
 category: titles
 purpose: ads
 pubDate: 2026-08-07
@@ -37,7 +37,7 @@ There is one thing in the published data that settles it. Netflix splits its **g
 title's primary language, and a Korean work belongs on the Non-English side. If a title has reached
 the global chart, the label tells you which work charted.
 
-**Country charts carry no language field.** And 197 of the 397 titles in our Southeast Asia panel
+**Country charts carry no language field.** And 214 of the 421 titles in our Southeast Asia panel
 have never reached a global Top 10. For those, the check cannot be run at all. They are in the panel
 on a name match and nothing else.
 
@@ -45,7 +45,7 @@ on a name match and nothing else.
 
 Two numbers, and they point in different directions.
 
-**By title count it is half the panel.** 197 of 397 — 49.6%.
+**By title count it is half the panel.** 214 of 421 — 50.8%.
 
 **By size it is small.** The median title in that unverified group charted in **one country for
 three weeks**. The verified group's median is 28 countries and 8 weeks. Whatever is wrong in the
@@ -70,7 +70,7 @@ gap it papers over.
 
 On the titles that can be checked, it removes real errors rather than hypothetical ones.
 
-**36 titles** matched a Korean work by name and turned out to sit on Netflix's English charts — so
+**38 titles** matched a Korean work by name and turned out to sit on Netflix's English charts — so
 they are the English-language work, not the Korean one. **Seven more** came out of this panel by
 hand after being read one at a time: *Teach You a Lesson* is Chinese, *Hunger* is Thai, *The
 Empress* is German.
@@ -81,7 +81,7 @@ addition, on 7 August 2026, was *Friends*: Wikidata carries a 2002 Korean drama 
 the title charting for 108 weeks across 36 markets is the American sitcom. It never charted in these
 six countries, so it is not among the seven above.
 
-On 8 August 2026 **eight more** came out, and not by reading them. They came out because our own
+On 8 August 2026 **10 more** came out, and not by reading them. They came out because our own
 attribution query — the one that produces the shared/unambiguous split above — returned **no Korean
 work at all** for those exact titles. *Waterworld*, *Re/Member*, *Into the Storm*, *Wildflower*,
 *Feng Shui*, *Glorious Days*, *Long Live Love!* and *You and Me* were sitting in a Korean panel while

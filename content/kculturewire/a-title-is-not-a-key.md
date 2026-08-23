@@ -17,7 +17,7 @@ sources:
     api: "Country of origin and original language for every film and television series carrying each English title"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 342 of 902 Korean titles never chart in Korea at all"
+  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 384 of 976 Korean titles never chart in Korea at all"
   - "Every removed title was checked to have zero places on Korea's own chart, and the builder fails if any of them has one"
   - "Two titles met the market test but were kept, because a Korean work genuinely shares their name and we cannot tell which one charted"
   - "The removed places are reported as a share of the panel so the size of the error is visible rather than described"
@@ -53,7 +53,7 @@ origin of a same-titled foreign work.
 ## The obvious test does not work
 
 The first rule we tried was "if it never charts in Korea, it is not Korean." It is wrong, and the
-size of the error is the point: **342 of our 902 Korean titles — 37.9% — never chart in Korea at
+size of the error is the point: **384 of our 982 Korean titles — 39.3% — never chart in Korea at
 all.** A drama that airs on KBS or tvN is on Korean television, not on Netflix Korea, so it can
 travel to sixty countries without ever appearing at home. Applying that rule alone would have thrown
 out 342 genuine titles to catch thirteen foreign ones.
@@ -79,7 +79,7 @@ which work charted, and we would rather carry two uncertain rows than delete two
 
 ## How large the error was
 
-The 13 titles held **84 chart places out of 37,750, which is 0.22%.** They were spread across 38 of
+The 13 titles held **84 chart places out of 39,844, which is 0.21%.** They were spread across 38 of
 the 93 markets, and
 the largest effect on anything we publish was that Malta left the top five of
 [the markets that only take wide titles](/hard-markets) and Croatia entered it.

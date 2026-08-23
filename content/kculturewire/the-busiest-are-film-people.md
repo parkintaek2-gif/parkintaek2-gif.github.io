@@ -17,7 +17,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "A casting slot is one person in one title. The panel holds 3,413 of them across 635 titles and 1,355 people"
+  - "A casting slot is one person in one title. The panel holds 3,413 of them across 668 titles and 1,355 people"
   - "The comparison is slot against slot, not title against title, so it is not distorted by films and series having different cast sizes on average"
   - "The 30 are everyone with ten or more titles in this set, not a hand-picked list"
   - "No pageview data is used. Nothing here depends on whether a person has an English Wikipedia article"
@@ -27,21 +27,20 @@ excluded:
   - "Anything that did not chart. A prolific television actor whose work never reached a Netflix Top 10 is absent"
 ---
 
-Count casting slots — one person in one title — and this panel leans television. **1,804 series slots
-against 1,609 film slots**, across 635 titles.
+Count casting slots — one person in one title — and this panel leans television. **1,854 series slots against 1,734 film slots**, across 635 titles.
 
-Now look at the thirty people who appear in ten or more of these titles. Their slots split the other
+Now look at the 39 people who appear in ten or more of these titles. Their slots split the other
 way, and not narrowly.
 
-**263 film. 109 series.**
+**341 film. 138 series.**
 
 | | Titles | Film | Series |
 | --- | ---: | ---: | ---: |
-| Hwang Jung-min | 21 | 20 | 1 |
-| Ma Dong-seok | 18 | 17 | 1 |
+| Hwang Jung-min | 20 | 19 | 1 |
+| Ma Dong-seok | 21 | 20 | 1 |
 | Sul Kyung-gu | 17 | 17 | 0 |
-| Lee Byung-hun | 17 | 12 | 5 |
-| Ha Jung-woo | 16 | 15 | 1 |
+| Lee Byung-hun | 18 | 13 | 5 |
+| Ha Jung-woo | 17 | 16 | 1 |
 | Kim Eui-sung | 15 | 9 | 6 |
 | Kim Hae-suk | 14 | 6 | 8 |
 | Jin Seon-kyu | 14 | 11 | 3 |
@@ -72,7 +71,7 @@ the arithmetic above says should be rare.
 ## What could be producing this instead
 
 **Series casts are long and recorded thinly.** A sixteen-episode drama may credit forty people;
-Wikidata records the median series here with five. If the missing names are disproportionately
+Wikidata records the median series here with 4. If the missing names are disproportionately
 series supporting cast, the true series slot count is higher and this gap narrows. We cannot measure
 how much, and we are not going to model it.
 

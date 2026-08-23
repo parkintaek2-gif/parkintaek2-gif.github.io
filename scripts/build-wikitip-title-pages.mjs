@@ -166,6 +166,8 @@ export async function 만들기() {
     return new Map(Object.values(k.작품).map((x) => [x.넷플릭스제목, x.q]));
   })();
   const 겹친제목 = new Set();
+  /** 열쇠로 한쪽을 **가려낸** 주소. 가려낸 것과 못 가려낸 것은 까닭이 다르다 */
+  const 가려낸주소 = new Set();
   /** 낼 쪽 제목 → 안 내는 다른 철자 */
   const 다른철자 = new Map();
   for (const [, v] of 겹친주소) {
@@ -173,6 +175,7 @@ export async function 만들기() {
     if (열쇠있는것.length === 1) {
       for (const t of v) if (t !== 열쇠있는것[0]) 겹친제목.add(t);
       다른철자.set(열쇠있는것[0], v.filter((t) => t !== 열쇠있는것[0]));
+      가려낸주소.add(슬러그(열쇠있는것[0]));
     } else {
       for (const t of v) 겹친제목.add(t);
     }
@@ -237,8 +240,14 @@ export async function 만들기() {
       /* ⛔ 합치지 않은 다른 철자. 지면이 이것을 화면에 적는다 */
       otherSpellings: 다른철자.get(제목) || null,
       /* ⛔ 지면을 안 내는 까닭을 **작품마다** 적는다. 「없다」로 두면 다음 사람이 못 고친다 */
+      /* 🔴 2026-08-23 — 겹친 까닭을 **두 갈래로 갈라 적는다.**
+         앞서는 겹치기만 하면 「둘 다 안 낸다」로 적었는데, 열쇠로 한쪽을 가려낸 경우에는
+         그 문장이 **사실이 아니다** — 다른 철자가 지면을 받고 있는데도 안 받았다고 말한다.
+         ⛔ 우리 지면이 스스로에 대해 틀린 말을 하게 두지 않는다. */
       noPageReason: 겹침
-        ? 'another charting title resolves to the same address, so neither is published rather than showing one title\'s numbers under the other\'s name'
+        ? (가려낸주소.has(슬러그(제목))
+          ? 'another spelling of this address was identified in Wikidata and published instead; the rows under this spelling are not merged into it'
+          : 'another charting title resolves to the same address and neither could be identified, so neither is published rather than showing one title numbers under the other name')
         : (rows >= 지면낼최소줄 ? null : `only ${rows} data rows — below the ${지면낼최소줄} this site requires before it publishes a page`),
       /* ⭐ 동시에 몇 나라였나 — `markets` 와 나란히 놔야 「차례로」와 「한꺼번에」가 갈린다 */
       atOnce: 넓은수,
@@ -306,7 +315,7 @@ export async function 만들기() {
     rowsMedianAll: 가운데값(titles.map((x) => x.rows)),
     rowsMedianPublished: 가운데값(낼줄),
     rowsTotalPublished: 낼줄.reduce((s, x) => s + x, 0),
-    clashingSlugs: 겹친주소.map(([s, v]) => ({ slug: s, titles: v })),
+    clashingSlugs: 겹친주소.map(([s, v]) => ({ slug: s, titles: v, resolved: 가려낸주소.has(s) })),
     withFirms: titles.filter((x) => x.firms.length).length,
     withCast: titles.filter((x) => x.cast.length).length,
     medians: {
@@ -324,8 +333,17 @@ export async function 만들기() {
   console.log(`  회사가 붙은 작품 ${out.withFirms}편 · 배우가 붙은 작품 ${out.withCast}편`);
   console.log(`  가운데 작품 — 시장 ${out.medians.markets}곳 · 주 ${out.medians.weeks} · 자리 ${out.medians.places}`);
   if (out.clashingSlugs.length) {
-    console.log(`  ⚠ 주소가 겹쳐 **둘 다 안 낸** 것 ${out.clashingSlugs.length}쌍 —`);
-    for (const c of out.clashingSlugs) console.log(`     ${c.slug}: ${c.titles.join(' · ')}`);
+    /* ⛔ 겹친 것을 다 「둘 다 안 낸다」로 세지 않는다. 열쇠로 가려낸 쪽은 한 편만 안 낸 것이다 */
+    const 가려낸것 = out.clashingSlugs.filter((c) => c.resolved);
+    const 못가린것 = out.clashingSlugs.filter((c) => !c.resolved);
+    if (가려낸것.length) {
+      console.log(`  ⭐ 주소가 겹쳤으나 **열쇠로 가려낸** 것 ${가려낸것.length}쌍 — 한쪽만 안 낸다`);
+      for (const c of 가려낸것) console.log(`     ${c.slug}: ${c.titles.join(' · ')}`);
+    }
+    if (못가린것.length) {
+      console.log(`  ⚠ 주소가 겹치고 **못 가려** 둘 다 안 낸 것 ${못가린것.length}쌍 —`);
+      for (const c of 못가린것) console.log(`     ${c.slug}: ${c.titles.join(' · ')}`);
+    }
   }
   console.log(`→ ${낼곳}`);
 }

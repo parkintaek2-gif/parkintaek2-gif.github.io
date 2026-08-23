@@ -1,6 +1,6 @@
 ---
-title: "Every credited name in Parasite appears in another charting Korean title. In The Influencer, none of them do."
-dek: "Across 297 Korean productions with five or more recorded cast, the median has 16.7% of its cast appearing in nothing else that charted. The spread runs from 0% to 100%, and it separates prestige work from reality and youth casting."
+title: "Every credited name in Parasite appears in another charting Korean title. In The Influencer, one does."
+dek: "Across 312 Korean productions with five or more recorded cast, the median has 16.7% of its cast appearing in nothing else that charted. The spread runs from 0% to 89%, and it separates prestige work from reality and youth casting."
 category: titles
 purpose: both
 pubDate: 2026-08-07
@@ -18,9 +18,9 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 635 of 901"
-  - "This piece uses no pageview data, so it does not depend on whether anyone has an English Wikipedia article. 265 of the 1,355 people here have no article and are counted the same as everyone else"
-  - "The comparison is restricted to the 297 productions with at least five recorded cast members, because a title with two recorded names produces a 0% or 50% that means nothing"
+  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 668 of 945"
+  - "This piece uses no pageview data, so it does not depend on whether anyone has an English Wikipedia article. 289 of the 1,395 people here have no article and are counted the same as everyone else"
+  - "The comparison is restricted to the 312 productions with at least five recorded cast members, because a title with two recorded names produces a 0% or 50% that means nothing"
   - "'Appears in nothing else' means nothing else in this set — Korean titles that reached a Netflix Top 10. It is not a claim about a person's career"
 excluded:
   - "Any claim that Wikidata's cast lists are complete. They are not. A person credited in five of these titles may have one recorded, which inflates the share we report as appearing only once"
@@ -33,7 +33,7 @@ Join every Korean title that has reached a Netflix Top 10 to its recorded cast, 
 becomes answerable that no single title can answer: **how much of this production's cast turns up
 anywhere else?**
 
-Across the 297 productions with at least five recorded cast members, the median has **16.7%** of its
+Across the 312 productions with at least five recorded cast members, the median has **16.7%** of its
 cast appearing in nothing else in the set. The spread around that median is the interesting part.
 
 | Nobody appears only here | Cast recorded |
@@ -50,7 +50,7 @@ the other end:
 
 | Almost everyone appears only here | Cast recorded | Only here |
 | --- | ---: | ---: |
-| The Influencer | 9 | 9 (100%) |
+| The Influencer | 9 | 8 (89%) |
 | Welcome to Wedding Hell | 5 | 4 (80%) |
 | Island | 5 | 4 (80%) |
 | Resident Playbook | 10 | 7 (70%) |
@@ -58,9 +58,11 @@ the other end:
 
 ## What the two ends have in common
 
-The 0% group is prestige feature film and flagship drama. The 100% end is reality television and
+The 0% group is prestige feature film and flagship drama. The other end is reality television and
 youth casting. *The Influencer* is a competition show whose participants are influencers, not
-working screen actors, so of course none of them turn up in a Korean drama. *My ID is Gangnam
+working screen actors, so it is no surprise that eight of its nine recorded names turn up in
+nothing else here. One does — when we first published this piece it was nine of nine, and the
+ninth arrived with three more weeks of chart data. *My ID is Gangnam
 Beauty* is a campus series that cast a lot of newcomers, and seventeen of its twenty-seven recorded
 names appear in nothing else here.
 
@@ -68,7 +70,7 @@ That is not a judgement about either. A production that draws entirely on the es
 one that brings in twenty new faces are doing different jobs. What the join makes visible is that
 **the difference is enormous and completely invisible from any one title**.
 
-Across the whole set, **655 of 1,355 people — 48.3% — appear in exactly one** of these titles.
+Across the whole set, **676 of 1,395 people — 48.5% — appear in exactly one** of these titles.
 Nearly half of everyone credited in Korean titles that reached a Netflix Top 10 did so once.
 
 ## The limit that matters most here
@@ -83,7 +85,7 @@ people, so the productions that look most self-contained are the ones cast with 
 names — which is the same population the measure is trying to describe. We report the figure and
 the flaw together because separating them would make the number look better than it is.
 
-Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 901 Korean titles
+Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 945 Korean titles
 that reached a Netflix Top 10, not a career. And reality formats list participants under the same
 cast property as actors, which is why *The Influencer* sits where it does; that is Wikidata's
 modelling, not a finding about casting.

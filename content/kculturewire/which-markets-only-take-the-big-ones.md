@@ -1,8 +1,8 @@
 ---
-title: "On Korea's own chart a Korean title needs no other market. In Estonia the median one had 78"
+title: "On Korea's own chart a Korean title needs no other market. In Estonia the median one had 77"
 category: titles
 purpose: both
-dek: "For each of 93 markets we took the median breadth of the Korean titles that reached it. Korea's own chart: 2. Estonia, Slovenia, Switzerland: 78, 76, 72. Most of that gap is how often a market plays Korean titles at all — but not all of it."
+dek: "For each of 93 markets we took the median breadth of the Korean titles that reached it. Korea's own chart: 2. Estonia, Slovenia, Switzerland: 77, 76, 72. Most of that gap is how often a market plays Korean titles at all — but not all of it."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -40,24 +40,24 @@ market, the **median breadth of the Korean titles that appeared there**.
 
 | Only the widest titles get in | Median breadth | Korean share of that chart |
 |---|---:|---:|
-| Estonia | 78 | 1.8% |
+| Estonia | 77 | 1.9% |
 | Slovenia | 76 | 2.2% |
-| Switzerland | 72 | 2.6% |
+| Switzerland | 72 | 2.7% |
 | Croatia | 71 | 2.1% |
-| Lithuania | 71 | 2.1% |
+| Belgium | 70 | 2.9% |
 
 | Narrow titles get in too | Median breadth | Korean share of that chart |
 |---|---:|---:|
-| South Korea | 2 | 51.4% |
-| Japan | 18 | 20.1% |
-| Vietnam | 21 | 29.3% |
-| Thailand | 21 | 23.4% |
-| Taiwan | 21 | 23.6% |
+| South Korea | 2 | 53.6% |
+| Japan | 18 | 20.4% |
+| Vietnam | 20 | 30.2% |
+| Thailand | 20 | 24% |
+| Taiwan | 21 | 24.2% |
 
 **On Korea's own chart the median Korean title reached two countries in total** — its own and one
-other. 63% of the Korean titles that chart in Korea reached five markets or fewer. Nowhere else
-comes close: in Estonia, not one of the 36 Korean titles that charted there had a breadth of five or
-under.
+other. 64.1% of the Korean titles that chart in Korea reached five markets or fewer. Nowhere else
+comes close: in Estonia, exactly one of the 38 Korean titles that charted there had a breadth of
+five or under.
 
 We are not publishing the other 83 markets in order. A league table of countries invites a reading
 this data cannot support, and the figure that explains most of the difference is in the second
@@ -73,10 +73,10 @@ So the same measurement, with markets grouped by how much of their chart is Kore
 
 | Korean share of the chart | Markets | Median breadth | Range within the band |
 |---|---:|---:|---:|
-| Under 5% | 49 | 63 | 48.5 |
-| 5–8% | 12 | 52 | 6 |
-| 8–12% | 18 | 46 | 9 |
-| 12% or more | 14 | 21 | 43 |
+| Under 5% | 48 | 64.8 | 49 |
+| 5–8% | 11 | 52 | 3 |
+| 8–12% | 17 | 47 | 9 |
+| 12% or more | 17 | 21 | 46 |
 
 **It falls straight down: 63, 52, 46, 21.** The more of a chart is Korean, the narrower the titles
 that get onto it. Most of what looks like "hard to reach" is "rarely plays Korean titles".

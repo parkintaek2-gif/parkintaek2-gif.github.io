@@ -1,6 +1,6 @@
 ---
 title: "Korean titles do come back to charts they had left. Most of the comebacks are second seasons."
-dek: "Of 938 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all. Of the 310 genuine returns, 94.8% happen with no other season nearby."
+dek: "Of 957 gaps of four weeks or more that end with a Korean title back on a country chart, 45.5% carry a different season label — not a return at all. Of the 316 genuine returns, 94.3% happen with no other season nearby."
 category: titles
 purpose: both
 pubDate: 2026-08-09
@@ -11,7 +11,7 @@ pages:
   - "/returns"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists, 2021-07-04 to 2026-07-26, including the season label attached to each chart row"
+    api: "Tudum weekly Top 10 country lists, 2021-07-04 to 2026-08-16, including the season label attached to each chart row"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Country of origin (P495 = Q884) on charting titles, retrieved by item number rather than by name"
@@ -32,7 +32,7 @@ It is not always one run. A title leaves a country's top 10 and, sometimes, come
 
 ## The first thing we saw was wrong
 
-Across 6,978 title-and-market cells, 938 gaps of four weeks or more end with the title back on that
+Across 7,383 title-and-market cells, 957 gaps of four weeks or more end with the title back on that
 country's chart. The longest was **223 weeks** — more than four years — and it belonged to *Juvenile
 Justice* in several markets at once.
 
@@ -43,15 +43,15 @@ our own reading:
 
 | Gaps of four weeks or more | Cells | Share |
 |---|---:|---:|
-| Season label changed — a new season, not a return | 424 | **45.2%** |
-| Same season — the title genuinely came back | 310 | **33.0%** |
-| No season label on one side — we cannot tell | 204 | 21.7% |
+| Season label changed — a new season, not a return | 435 | **45.5%** |
+| Same season — the title genuinely came back | 316 | **33.0%** |
+| No season label on one side — we cannot tell | 206 | 21.5% |
 
 Nearly half of what looks like a Korean title returning to a chart is a different season of that
 title arriving. Had we not split on the label, we would have published a number about catalogue
 revival that was largely a number about sequels.
 
-The third row is not small print. Netflix carries a season label on 79% of Korean chart rows, so a
+The third row is not small print. Netflix carries a season label on 78.7% of Korean chart rows, so a
 fifth of the gaps cannot be classified at all. They stay in their own row.
 
 ## The explanation we had, and had to drop
@@ -59,12 +59,12 @@ fifth of the gaps cannot be classified at all. They stay in their own row.
 The obvious reading of a genuine return is that a new season arrived and pulled the old one back up
 with it. Everyone has seen a streaming service do this.
 
-We checked. For each of the 310 genuine returns, was another season of the same title on that same
+We checked. For each of the 316 genuine returns, was another season of the same title on that same
 country's chart within four weeks either side?
 
-**16 of them. 5.2%.**
+**18 of them. 5.7%.**
 
-The other **94.8% came back alone** — no new season on that chart, in that market, anywhere near the
+The other **94.3% came back alone** — no new season on that chart, in that market, anywhere near the
 week they reappeared. The two cases that do fit the pattern are the ones you would guess: *Squid
 Game* season one and *Alchemy of Souls* part one.
 
@@ -76,12 +76,12 @@ Four weeks is our choice, not Netflix's, so here is what happens at other thresh
 
 | Gap of at least | Gaps | Season changed | Same season | Cannot tell |
 |---|---:|---:|---:|---:|
-| 2 weeks | 1,094 | 429 | 444 | 221 |
-| 3 weeks | 987 | 424 | 353 | 210 |
-| 4 weeks | 938 | 424 | 310 | 204 |
-| 6 weeks | 896 | 424 | 275 | 197 |
-| 8 weeks | 847 | 423 | 234 | 190 |
-| 12 weeks | 774 | 411 | 187 | 176 |
+| 2 weeks | 1,155 | 477 | 454 | 224 |
+| 3 weeks | 1,020 | 447 | 361 | 212 |
+| 4 weeks | 957 | 435 | 316 | 206 |
+| 6 weeks | 911 | 433 | 279 | 199 |
+| 8 weeks | 862 | 432 | 238 | 192 |
+| 12 weeks | 787 | 419 | 190 | 178 |
 
 Read the season-changed column down: 429 at two weeks, 411 at twelve. It barely moves. A gap between
 two seasons is long by construction, so raising the bar does not remove those cases. The same-season
@@ -93,7 +93,7 @@ worth doing, and it is why we are more confident in the classification than in t
 ## How common is any of this
 
 Returning is the exception, and we would rather say so than let a mechanism read as a trend. Of the
-6,978 title-and-market cells, 5,895 are a single unbroken run with no gap at all. Only 54 distinct
+7,383 title-and-market cells, 6,215 are a single unbroken run with no gap at all. Only 59 distinct
 titles came back anywhere across 93 markets and five years.
 
 ## What this cannot tell you
@@ -106,7 +106,7 @@ the position and the season label. It does not publish the reason, and neither w
 
 Because it changes what a catalogue is worth. If old seasons only chart again when a sequel drags
 them up, a back catalogue is an accessory to new commissioning. If they come back on their own —
-which is what 94.8% of the genuine returns say — then a title that stopped charting three years ago
+which is what 94.3% of the genuine returns say — then a title that stopped charting three years ago
 is not finished, and the rights to it are not either.
 
 The full table, all six thresholds, the ten longest genuine returns and the coverage limit on the

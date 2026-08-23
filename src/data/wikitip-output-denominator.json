@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 8. 오후 12:14:49",
+  "generated": "2026. 8. 23. 오후 2:46:38",
   "source": "Wikidata — works with country of origin P495 = Q884, by type (film Q11424, television series Q5398426), counted whole and from the chart era",
   "sourceKo": "위키데이터 — 한국 작품 수를 갈래별로",
   "panelSource": "src/data/wikitip-titles.json — our Southeast Asia chart panel",
@@ -11,25 +11,25 @@
     {
       "key": "film",
       "label": "Films",
-      "recorded": 10233,
-      "withReleaseYear": 9526,
-      "recordedWithoutYear": 707,
-      "sinceChartEra": 1120,
-      "ourPanel": 160,
-      "coveragePc": 1.6,
-      "coverageSinceChartEraPc": 14.3
+      "recorded": 10247,
+      "withReleaseYear": 9533,
+      "recordedWithoutYear": 714,
+      "sinceChartEra": 1122,
+      "ourPanel": 173,
+      "coveragePc": 1.7,
+      "coverageSinceChartEraPc": 15.4
     },
     {
       "key": "series",
       "label": "Television series",
-      "recorded": 4752,
-      "withReleaseYear": 3792,
+      "recorded": 4755,
+      "withReleaseYear": 3795,
       "recordedWithoutYear": 960,
-      "sinceChartEra": 782,
-      "ourPanel": 237,
-      "coveragePc": 5,
-      "coverageSinceChartEraPc": 30.3
+      "sinceChartEra": 784,
+      "ourPanel": 248,
+      "coveragePc": 5.2,
+      "coverageSinceChartEraPc": 31.6
     }
   ],
-  "panelTitles": 397
+  "panelTitles": 421
 }

@@ -40,48 +40,48 @@ other 83**.
 
 | | Markets | Mean change | Markets that rose |
 | --- | ---: | ---: | ---: |
-| The ten Asian markets | 10 | **−9.68p** | **0** |
-| Everywhere else | 83 | **+1.37p** | 68 |
+| The ten Asian markets | 10 | **−8.57p** | **1** |
+| Everywhere else | 83 | **+1.71p** | 68 |
 
-Not one Asian market went up. Not one.
+One Asian market went up, and it is Korea itself: 51.2% of its own chart in 2022, 53.3% in 2025. The other nine all fell. That the only riser is the home market is the shape of the finding, not an exception to it.
 
 ## Where it left
 
 | Market | 2022 | 2025 | Change | Korean places | Different titles |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Japan | 32.6% | 11.2% | **−21.4p** | 339 → 116 | 62 → 38 |
-| Thailand | 30.4% | 18.9% | −11.5p | 316 → 197 | 65 → 52 |
-| Malaysia | 31.3% | 20.1% | −11.2p | 325 → 209 | 60 → 48 |
-| Vietnam | 34.1% | 24.2% | −9.9p | 355 → 252 | 66 → 50 |
-| Singapore | 27.8% | 18.3% | −9.5p | 289 → 190 | 60 → 49 |
-| Indonesia | 34.1% | 24.9% | −9.2p | 355 → 259 | 69 → 51 |
-| Hong Kong | 27.5% | 18.6% | −8.9p | 286 → 193 | 63 → 44 |
-| Philippines | 27.6% | 19.3% | −8.3p | 287 → 201 | 70 → 49 |
+| Japan | 32.8% | 11.9% | **-20.9p** | 341 → 124 | 63 → 41 |
+| Thailand | 30.8% | 20.3% | -10.5p | 320 → 211 | 67 → 55 |
+| Malaysia | 31.4% | 21.5% | -9.9p | 327 → 224 | 61 → 51 |
+| Vietnam | 34.4% | 25.8% | -8.6p | 358 → 268 | 68 → 53 |
+| Singapore | 27.8% | 19.2% | -8.6p | 289 → 200 | 60 → 52 |
+| Indonesia | 34.4% | 26.7% | -7.7p | 358 → 278 | 70 → 55 |
+| Hong Kong | 27.9% | 19.4% | -8.5p | 290 → 202 | 64 → 47 |
+| Philippines | 27.9% | 20.6% | -7.3p | 290 → 214 | 71 → 51 |
 
 **Japan is the steepest fall anywhere on this site.** A third of the chart down to a ninth of it. And
 the two columns on the right move together: 339 Korean places became 116, and the number of
-*different* Korean titles charting fell from 62 to 38. That is not one franchise ending. It is a
+*different* Korean titles charting fell from 63 to 41. That is not one franchise ending. It is a
 shelf getting shorter.
 
 ## Where it went
 
 | Market | 2022 | 2025 | Change | Korean places | Different titles |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Guatemala | 4.2% | 10.4% | **+6.2p** | 44 → 108 | 14 → 26 |
-| Nicaragua | 5.5% | 11.6% | +6.1p | 57 → 121 | 18 → 27 |
-| Venezuela | 3.8% | 9.9% | +6.1p | 39 → 103 | 12 → 29 |
-| Ecuador | 5.2% | 10.6% | +5.4p | 54 → 110 | 18 → 25 |
-| Colombia | 4.2% | 9.4% | +5.2p | 44 → 98 | 15 → 24 |
-| El Salvador | 6.1% | 11.1% | +5.0p | 63 → 115 | 16 → 28 |
-| Honduras | 6.4% | 11.4% | +5.0p | 67 → 119 | 19 → 29 |
-| Paraguay | 3.9% | 8.5% | +4.6p | 41 → 88 | 14 → 24 |
+| Guatemala | 4.3% | 11% | **+6.7p** | 45 → 114 | 15 → 28 |
+| Nicaragua | 5.6% | 12.3% | +6.7p | 58 → 128 | 19 → 29 |
+| Venezuela | 3.8% | 10.5% | +6.7p | 40 → 109 | 13 → 31 |
+| Ecuador | 5.3% | 11.3% | +6p | 55 → 117 | 19 → 27 |
+| Colombia | 4.4% | 10% | +5.6p | 46 → 104 | 16 → 26 |
+| El Salvador | 6.2% | 11.6% | +5.4p | 64 → 121 | 17 → 30 |
+| Honduras | 6.5% | 12.1% | +5.6p | 68 → 126 | 20 → 31 |
+| Paraguay | 4% | 9% | +5p | 42 → 94 | 15 → 26 |
 
 Every one of the eight largest gains is in Latin America.
 
 The obvious objection is that these are small bases: going from 4% to 10% is easier than holding 33%.
 True, and worth saying. But the right-hand column answers the version of that objection that matters
 — **the number of different Korean titles charting roughly doubled in each of them.** Venezuela went
-from 12 Korean titles to 29. This is not one hit repeated; it is a catalogue arriving.
+from 13 Korean titles to 31. This is not one hit repeated; it is a catalogue arriving.
 
 ## What a share cannot tell you
 

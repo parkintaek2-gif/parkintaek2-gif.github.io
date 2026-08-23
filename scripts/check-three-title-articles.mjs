@@ -110,7 +110,9 @@ const 작품줄 = Object.entries(t.작품).map(([q, v]) => {
     const 하나 = a.filter((x) => x.작품.length === 1).length;
     본다(`③ 0% 표 ${nm}`, a.length === n && 하나 === 0 && new RegExp(`\\|\\s*${nm}\\s*\\|\\s*${n}\\s*\\|`).test(원), `${a.length}명 · 이 작품뿐 ${하나}`);
   }
-  for (const [nm, n, h] of [['The Influencer', 9, 9], ['Welcome to Wedding Hell', 5, 4],
+  /* 🔴 2026-08-23 — 여기 The Influencer 가 9명 전부로 박혀 있었다. 새 자료에서는 여덟이다.
+     ⛔ 검사 안의 값은 자료를 못 따라온다. 기사와 함께 고친다. */
+  for (const [nm, n, h] of [['The Influencer', 9, 8], ['Welcome to Wedding Hell', 5, 4],
     ['Island', 5, 4], ['Resident Playbook', 10, 7], ['My ID is Gangnam Beauty', 27, 17]]) {
     const q = 이름으로(nm); const a = 작품출연.get(q) ?? [];
     const 하나 = a.filter((x) => x.작품.length === 1).length;

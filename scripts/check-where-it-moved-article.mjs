@@ -69,7 +69,18 @@ if (내가실행됐다) {
   본다('주 수', 있나(본, d.beforeWeeks), `${d.beforeWeeks}주`);
   본다('시장 수', 있나(본, d.markets), d.markets);
   본다('아시아 열 평균', 있나(본, d.asianTen.meanChangePp), `${d.asianTen.meanChangePp}p`);
-  본다('아시아 열에서 오른 곳 0', /\b0\b/.test(본) && /Not one/i.test(본), `${d.asianTen.roseCount}곳`);
+  /* 🔴 2026-08-23 — 이 자가 「하나도 안 올랐다」를 **박아 놓고** 있었다. 자료가 바뀌어 한 곳이
+     올랐는데(안방인 한국이다) 자는 여전히 0을 요구했다. 기사를 사실대로 고치니 자가 울었다.
+   ⛔ 자가 **옛 결론을 지키는 쪽**이 되면 안 된다. 잰 수를 그대로 요구하게 바꾼다.
+   ⚠ 0이면 「Not one」을 요구한다 — 그때는 그 말이 사실이다. 0이 아니면 그 수를 적었나만 본다. */
+  /* ⚠ 「Not one」을 글 아무 데서나 찾으면 안 된다. 기사에 「That is not one franchise ending」
+     처럼 딴 뜻으로 쓰인 자리가 있다. **아시아 시장을 두고 한 말**만 본다. */
+  본다('아시아 열에서 오른 곳',
+    d.asianTen.roseCount === 0
+      ? /Not one Asian market/i.test(본)
+      : 있나(본, d.asianTen.roseCount) && !/Not one Asian market/i.test(본)
+        && (!d.asianTen.homeMarket || 본.includes(d.asianTen.homeMarket.name) || /Korea itself/i.test(본)),
+    `${d.asianTen.roseCount}곳`);
   본다('밖 평균', 있나(본, d.elsewhere.meanChangePp), `+${d.elsewhere.meanChangePp}p`);
   본다('밖에서 오른 곳', 있나(본, d.elsewhere.roseCount), d.elsewhere.roseCount);
   본다('밖 시장 수', 있나(본, d.elsewhere.markets), d.elsewhere.markets);

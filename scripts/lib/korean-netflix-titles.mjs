@@ -88,6 +88,26 @@ export const BY_ATTRIBUTION = new Map([
   ['Into the Storm', '호주·페루·영국·미국 (한국 없음) — 11나라'],
   ['You and Me', '호주·이란·뉴질랜드·중국·소련·영국·미국 (한국 없음) — 필리핀에서만 1주'],
   ['Feng Shui', '중국·필리핀 (한국 없음) — 필리핀에서만 1주'],
+  /* 2026-08-23 추가 — 같은 근거로 둘 더. 자료를 새로 캐자 판정 질의가 이 둘에 대해서도
+     한국을 하나도 안 돌려줬다. ⛔ 우리 질의가 우리 명단과 다른 말을 하게 두지 않는다. */
+  ['Money Heist', '스페인 (한국 없음) — 한국판은 「Money Heist: Korea」라는 다른 이름으로 뜬다'],
+  ['Shooting Stars', '캐나다·프랑스·싱가포르·영국·미국 (한국 없음) — 한국 드라마는 「Sh**ting Stars」로 뜬다'],
+  /*
+   * 2026-08-23 추가 — **별칭으로 들어왔다가 판정 질의에 걸린 다섯 편.**
+   * 별칭(`skos:altLabel`)을 열쇠로 쓰기 시작하니 `Restless` → 「The Restless」처럼
+   * 「The」만 다른 한국 작품에 붙는 것이 많이 잡혔다. 이득이 크지만 값이 따라온다 —
+   * **차트에 적힌 그 이름 자체**는 남의 나라 작품의 이름인 경우가 있다.
+   * ⭐ 그것을 가리는 자가 이미 있었다. 판정 질의(`check-title-ambiguity.mjs`)에 그 이름을
+   *   물으면 나라 목록이 나온다. 아래 다섯은 그 목록에 **한국이 아예 없다.**
+   * ⛔ 우리 질의가 「한국 작품 아님」이라 답한 것을 한국 작품 명단에 두지 않는다.
+   * ⚠ 그 이름의 한국 작품이 실제로 있을 수는 있다. 그때는 우리가 **못 가린 것**이고,
+   *   못 가린 것을 있다고 세지 않는 쪽을 고른다.
+   */
+  ['Restless', '벨기에·캐나다·핀란드·프랑스·독일·이스라엘·중국·영국·미국 (한국 없음)'],
+  ['Uninvited', '이탈리아·필리핀·미국 (한국 없음)'],
+  ['Rain or Shine', '미국 (한국 없음)'],
+  ['Our House', '호주·캐나다·독일·일본·소련·영국·미국 (한국 없음)'],
+  ['Fake', '호주·일본·타이 (한국 없음)'],
 ]);
 
 /**
@@ -163,9 +183,120 @@ export function 비라틴글자(제목) {
  * 제목 → 'ne'(Non-English) | 'en'(English) 딱지. 넷플릭스 글로벌 표가 붙인 것이지 우리가 정한 게 아니다.
  * 글로벌 표에 없는 제목은 이 지도에 없다 — 「모른다」이지 「한국 것이 아니다」가 아니다.
  */
+/**
+ * 제목을 맞출 때 쓰는 열쇠. **대소문자만 지운다.**
+ *
+ * ── 🔴 2026-08-23 · 왜 필요했나 ──────────────────────────────
+ * 새 자료를 넣자 어제까지 있던 한국 작품 44편이 사라졌다. 자료가 없어진 게 아니었다 —
+ * 넷플릭스 표와 위키데이터가 **같은 작품을 다르게 적고 있었을 뿐**이다.
+ * ```
+ *   표: 'Escape From Mogadishu'   위키데이터: 'Escape from Mogadishu'   (F 하나)
+ *   표: 'Bad And Crazy'           위키데이터: 'Bad and Crazy'
+ *   표: 'FENGSHUI'                위키데이터: 'Fengshui'
+ * ```
+ *   글자 그대로 맞추는 자에게 이것은 「없는 작품」이다.
+ *
+ * ── ⛔ 여기서 멈추는 까닭 ────────────────────────────────────
+ * 처음에는 문장부호·빈칸까지 다 지워서 맞추려 했다. **그러면 자가 망가진다** —
+ * 라틴 글자가 아닌 제목은 지우고 나면 **빈 문자열**이 되어 서로 다 같아진다.
+ *   `'비상선언'` → `''` · `'أصحاب ...ولا أعزّ'` → `''`  → 둘이 서로 같고, 175편과도 같다.
+ * 그리고 라틴 글자에서도 남의 작품을 끌어온다 —
+ *   `'Re/Member'`(일본) → `'Remember'`(한국) · `'The Out-Laws'`(미국) → `'The Outlaws'`(한국)
+ * ⚠ 그래서 **대소문자까지만** 지운다. 그 선을 넘으면 얻는 것보다 잃는 것이 크다.
+ *   빈칸·문장부호만 다른 것들은 이 자가 **못 잡는다** — 못 잡는 것이지 없는 것이 아니다.
+ */
+export const 맞춤열쇠 = (제목) => String(제목 ?? '').toLowerCase();
+
+/** 두 제목이 대소문자만 다른가. ⛔ 같은 글자면 false — 「다르다」를 묻는 자다. */
+export function 글자모양만다른가(가, 나) {
+  return 가 !== 나 && 맞춤열쇠(가) === 맞춤열쇠(나) && 맞춤열쇠(가) !== '';
+}
+
+/**
+ * 집합을 **대소문자 안 가리고** 묻는 자로 감싼다.
+ * `has(t)` 는 그대로 참/거짓, `찾기(t)` 는 집합에 적힌 원래 철자를 돌려준다(없으면 null).
+ */
+export function 대소문자안가리는집합(집합) {
+  const 소 = new Map();
+  for (const v of 집합) { const k = 맞춤열쇠(v); if (k && !소.has(k)) 소.set(k, v); }
+  return {
+    has: (t) => 집합.has(t) || 소.has(맞춤열쇠(t)),
+    찾기: (t) => (집합.has(t) ? t : (소.get(맞춤열쇠(t)) ?? null)),
+    get size() { return 집합.size; },
+    [Symbol.iterator]: () => 집합[Symbol.iterator](),
+  };
+}
+
+/**
+ * **빈칸·문장부호만 다른 철자를 손으로 이어 붙인 표.** (넷플릭스 표 철자 → 위키데이터 철자)
+ *
+ * ── 🔴 왜 손으로 하나 (2026-08-23) ────────────────────────────
+ * 자동으로 문장부호를 다 지워서 맞추면 **남의 작품을 끌어온다.**
+ *   `'Re/Member'`(일본 2022) → `'Remember'`(한국 2015)
+ *   `'The Out-Laws'`(미국 2023) → `'The Outlaws'`(한국 2017)
+ * 그리고 라틴 글자가 아닌 제목은 다 지우면 빈 문자열이 되어 서로 같아진다 —
+ *   `'비상선언'` 하나가 다른 175편과 같은 작품이 된다.
+ * ⛔ 그래서 규칙으로 넓히지 않는다. **한 편씩 눈으로 보고 적는다.**
+ *
+ * ── ⚠ 이 표를 늘릴 때 ────────────────────────────────────────
+ * `scripts/check-title-spelling-match.mjs` 가 여기 없는 것을 찍어 준다.
+ * 넣기 전에 **두 철자가 정말 같은 작품인지 확인한다.** 확인 못 하면 넣지 않는다 —
+ * 안 넣으면 지면 한 장을 잃지만, 잘못 넣으면 남의 수를 그 작품 이름으로 보여 준다.
+ *
+ * 아래 열여섯 편은 2026-08-23 에 한 편씩 확인했다. 새 자료를 넣자 이 철자들이 어제까지
+ * 있던 지면에서 사라져, **살아 있던 주소 네 개가 없어질 뻔했다.**
+ */
+export const 철자다름 = new Map([
+  ["(Girl)Friend", "Girlfriend"],
+  ["Check in Hanyang", "Check-in Hanyang"],
+  ["Hear Me : Our Summer", "Hear Me: Our Summer"],
+  ["Holi-Day", "Holiday"],
+  ["Idol I", "I Dol I"],
+  ["KATURI the Movie The Big City Adventure", "KATURI the Movie: The Big City Adventure"],
+  ["Miracle in Cell No.7", "Miracle in Cell No. 7"],
+  ["Nevertheless,", "Nevertheless"],
+  ["One-Line", "One Line"],
+  ["Search WWW", "Search: WWW"],
+  ["sorry? not sorry!", "Sorry Not Sorry"],
+  ["Steel Rain2: Summit", "Steel Rain 2: Summit"],
+  ["The Echoes of Survivors: Inside Korea’s Tragedies", "The Echoes of Survivors: Inside Korea's Tragedies"],
+  ["The Witch : Part2. The Other One", "The Witch: Part 2. The Other One"],
+  ["The Witch: Part 1 - The Subversion", "The Witch: Part 1. The Subversion"],
+  ["V.I.P.", "VIP"],
+]);
+
+/**
+ * **별칭으로 붙었지만 남의 작품인 열쇠.** (차트 제목 → 왜 아닌가)
+ *
+ * ── 🔴 2026-08-23 · 왜 필요했나 ────────────────────────────────
+ * 별칭(`skos:altLabel`)까지 열쇠로 쓰면 못 찾던 작품을 많이 찾는다. 그런데 **이름만 맞고**
+ * 작품은 남의 것인 경우가 섞인다. 둘 다 한국 작품이라 나라 거르개에는 안 걸린다.
+ * 그 열쇠로 출연진·회사를 붙이면 지면이 **남의 배우를 이 작품 이름으로 보여 준다.**
+ *
+ * ⭐ 먼저 자를 고쳤다 — 근거에 차례를 매겨(이름표 > 문서명 > 별칭) 별칭이 이름표를 못 이기게
+ *   했다. 그것으로 `Voice`·`Stranger`·`Metamorphosis` 가 제 작품으로 돌아왔다.
+ * ⚠ 그래도 **별칭만으로 붙은 것 52편**이 남는다. 그중 아래 여섯은 눈으로 보고 남의 작품임을
+ *   확인했다. 나머지는 맞아 보이지만 **확인하지 않았다** — 그건 지면이 말해야 할 몫이다.
+ *
+ * ⛔ 규칙으로 넓혀 지우지 않는다. 글자가 닮은 정도로 자르면 옳은 짝(`Casino` → `Big Bet`,
+ *   `Dazzling` → `The Light in Your Eyes`)까지 같이 버린다. 그래서 **한 편씩 적는다.**
+ */
+export const 열쇠못믿는것 = new Map([
+  ['Emergency', 'Flight (2009 film) 로 붙었다. 차트의 Emergency 는 비상선언(2021)이다'],
+  ['Outback', 'Koala Kid(오스트레일리아 만화영화) 로 붙었다'],
+  ['The Rewrite', 'One More Happy Ending 으로 붙었다. The Rewrite 는 2014년 미국 영화다'],
+  ['Witness', 'The Witness(2015, 중국 영화) 로 붙었다'],
+  ['Possession', 'Dr. Cheon and Lost Talisman 으로 붙었다 — 다른 작품이다'],
+  ['Never Give Up', 'Kung Fu Fever 로 붙었다 — 다른 작품이다'],
+]);
 export function buildLanguageMap() {
   const 원제목 = JSON.parse(fs.readFileSync(KOREAN_JSON, 'utf8')).제목;
   const korean = new Set(원제목.filter((t) => !비라틴글자(t)));
+  /* 손으로 확인한 철자를 후보에 이어 붙인다 — 표 쪽 철자로도 찾히게 한다 */
+  for (const [표기, 위키] of 철자다름) if (korean.has(위키)) korean.add(표기);
+  /* 🔴 2026-08-23 — 여기서도 대소문자를 안 가려야 한다. 안 그러면 표가 다르게 적은 작품이
+     언어 딱지를 못 받고, 나라별 표에서 '딱지 없음'으로 새어 나간다. `Escape From Mogadishu` 가 그랬다. */
+  const 후보 = 대소문자안가리는집합(korean);
   const 글로벌길 = 가장최근글로벌();
   if (!글로벌길) {
     throw new Error(`⛔ 못 쟀다 — ${글로벌방} 에 global-<날짜>.tsv 가 없다. `
@@ -179,7 +310,7 @@ export function buildLanguageMap() {
   for (const line of lines.slice(1)) {
     const c = line.split('\t');
     const t = c[iTitle];
-    if (!korean.has(t)) continue;
+    if (!후보.has(t)) continue;
     const l = /Non-English/i.test(c[iCat]) ? 'ne' : 'en';
     const prev = lang.get(t);
     /* 한 제목이 양쪽 차트에 다 나오면 **서로 다른 두 작품이 이름만 같은 것**이다.
@@ -197,6 +328,20 @@ export function buildLanguageMap() {
  */
 export function koreanTitleFilter() {
   const { korean, lang } = buildLanguageMap();
+  /* 🔴 2026-08-23 — 표와 위키데이터가 같은 작품을 다르게 적는다(`맞춤열쇠` 주석을 본다).
+     ⛔ 손 목록도 같이 안 가려야 한다. 안 그러면 손으로 뺀 작품이 철자만 바꿔 다시 들어온다. */
+  const 한국후보 = 대소문자안가리는집합(korean);
+  const 손으로뺀것 = 대소문자안가리는집합(NOT_KOREAN);
+  /* 언어 딱지도 대소문자를 안 가리고 찾는다. 한 열쇠에 'en'·'ne' 가 다 걸리면 'both' 다 —
+     그건 이름이 같은 두 작품이라는 뜻이고, 나라별 표에서는 못 가른다(원래 규칙 그대로). */
+  const 소문자딱지 = new Map();
+  for (const [k, v] of lang) {
+    const 열쇠 = 맞춤열쇠(k);
+    if (!열쇠) continue;
+    const 앞 = 소문자딱지.get(열쇠);
+    소문자딱지.set(열쇠, 앞 && 앞 !== v ? 'both' : v);
+  }
+  const 딱지 = (t) => lang.get(t) ?? 소문자딱지.get(맞춤열쇠(t));
   const droppedEn = new Set();
   const droppedHand = new Set();
   const unlabelled = new Set();
@@ -207,8 +352,8 @@ export function koreanTitleFilter() {
    * 이름이 같은 두 작품이 섞여 있어도 한국 쪽 줄만 남으므로 잃는 것이 없다.
    */
   const keepRow = (title, category) => {
-    if (!korean.has(title)) return false;
-    if (NOT_KOREAN.has(title)) { droppedHand.add(title); return false; }
+    if (!한국후보.has(title)) return false;
+    if (손으로뺀것.has(title)) { droppedHand.add(title); return false; }
     if (!/Non-English/i.test(category || '')) { droppedEn.add(title); return false; }
     return true;
   };
@@ -219,9 +364,9 @@ export function koreanTitleFilter() {
    * 'both' 는 이름이 같은 두 작품이라 나라별 표에서는 **못 가른다.** 남기고 세어 둔다.
    */
   const keepTitle = (title) => {
-    if (!korean.has(title)) return false;
-    if (NOT_KOREAN.has(title)) { droppedHand.add(title); return false; }
-    const l = lang.get(title);
+    if (!한국후보.has(title)) return false;
+    if (손으로뺀것.has(title)) { droppedHand.add(title); return false; }
+    const l = 딱지(title);
     if (l === 'en') { droppedEn.add(title); return false; }
     if (l === 'both') both.add(title);
     if (l === undefined) unlabelled.add(title);

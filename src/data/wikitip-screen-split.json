@@ -1,19 +1,19 @@
 {
-  "generated": "2026. 8. 10. 오전 5:50:23",
+  "generated": "2026. 8. 23. 오후 2:38:03",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-07-26",
-  "weekCount": 265,
+  "weekTo": "2026-08-16",
+  "weekCount": 268,
   "series": {
     "kind": "series",
-    "titles": 149,
-    "hours": 22168830000,
-    "weeks": 794,
-    "hoursPerTitle": 148784094,
-    "weeksPerTitle": 5.33,
-    "hoursPerWeek": 27920441,
-    "numberOnes": 41,
+    "titles": 150,
+    "hours": 22621640000,
+    "weeks": 810,
+    "hoursPerTitle": 150810933,
+    "weeksPerTitle": 5.4,
+    "hoursPerWeek": 27927951,
+    "numberOnes": 42,
     "top": [
       {
         "title": "Squid Game",
@@ -70,22 +70,22 @@
         "peak": 3
       },
       {
-        "title": "Bloodhounds",
-        "hours": 353170000,
-        "weeks": 10,
+        "title": "Agent Kim Reactivated",
+        "hours": 365200000,
+        "weeks": 8,
         "peak": 1
       }
     ]
   },
   "film": {
     "kind": "film",
-    "titles": 83,
-    "hours": 1507530000,
-    "weeks": 201,
-    "hoursPerTitle": 18163012,
-    "weeksPerTitle": 2.42,
-    "hoursPerWeek": 7500149,
-    "numberOnes": 22,
+    "titles": 90,
+    "hours": 1599750000,
+    "weeks": 224,
+    "hoursPerTitle": 17775000,
+    "weeksPerTitle": 2.49,
+    "hoursPerWeek": 7141741,
+    "numberOnes": 24,
     "top": [
       {
         "title": "The Great Flood",
@@ -112,6 +112,12 @@
         "peak": 1
       },
       {
+        "title": "Desire",
+        "hours": 58600000,
+        "weeks": 5,
+        "peak": 1
+      },
+      {
         "title": "Officer Black Belt",
         "hours": 57000000,
         "weeks": 4,
@@ -121,12 +127,6 @@
         "title": "Ballerina",
         "hours": 50600000,
         "weeks": 5,
-        "peak": 1
-      },
-      {
-        "title": "Desire",
-        "hours": 45300000,
-        "weeks": 2,
         "peak": 1
       },
       {
@@ -149,19 +149,19 @@
       }
     ]
   },
-  "seriesAboveTopFilm": 33,
-  "ratioHours": 14.7,
-  "ratioTitles": 1.8,
-  "ratioPerTitle": 8.2,
+  "seriesAboveTopFilm": 34,
+  "ratioHours": 14.1,
+  "ratioTitles": 1.67,
+  "ratioPerTitle": 8.5,
   "withoutSquidGame": {
-    "titles": 148,
-    "hours": 17120530000,
-    "hoursPerTitle": 115679257,
-    "ratioPerTitle": 6.4
+    "titles": 149,
+    "hours": 17573340000,
+    "hoursPerTitle": 117941879,
+    "ratioPerTitle": 6.6
   },
   "before": {
-    "titles": 293,
-    "hours": 27707210000
+    "titles": 298,
+    "hours": 29899600000
   },
   "audited": {
     "tv": 30,
@@ -169,24 +169,24 @@
   },
   "excludedByHand": {
     "titles": 11,
-    "hours": 1403560000,
+    "hours": 2595430000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
+      "Uninvited",
       "The Empress",
       "Fighter",
       "Animal",
-      "Forgotten Love",
+      "Money Heist",
       "Paradise",
       "Hunger",
-      "Re/Member",
-      "UFO",
+      "Restless",
       "Undercover"
     ]
   },
   "excludedEnglishChart": {
-    "titles": 52,
-    "hours": 2627290000
+    "titles": 49,
+    "hours": 3082780000
   },
   "bothCharts": {
     "titles": 2,

@@ -1,27 +1,29 @@
 {
-  "generated": "2026. 8. 10. 오전 5:51:38",
+  "generated": "2026. 8. 23. 오후 2:38:23",
   "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
-  "excludedEnglishChart": 36,
+  "excludedEnglishChart": 38,
   "excludedByHand": [
-    "The East Palace",
     "Teach You a Lesson",
+    "The East Palace",
     "The Empress",
     "Fighter",
     "Paradise",
     "Hunger",
-    "Re/Member",
+    "Money Heist",
     "Glorious Days",
+    "Restless",
+    "Rain or Shine",
     "Animal",
     "Into the Storm",
+    "Uninvited",
+    "Shooting Stars",
     "You and Me",
-    "Wildflower",
-    "Feng Shui",
-    "Waterworld",
-    "Long Live Love!"
+    "Our House",
+    "Fake"
   ],
   "excludedByHandRead": [
-    "The East Palace",
     "Teach You a Lesson",
+    "The East Palace",
     "The Empress",
     "Fighter",
     "Paradise",
@@ -29,22 +31,24 @@
     "Animal"
   ],
   "excludedByAttribution": [
-    "Re/Member",
+    "Money Heist",
     "Glorious Days",
+    "Restless",
+    "Rain or Shine",
     "Into the Storm",
+    "Uninvited",
+    "Shooting Stars",
     "You and Me",
-    "Wildflower",
-    "Feng Shui",
-    "Waterworld",
-    "Long Live Love!"
+    "Our House",
+    "Fake"
   ],
-  "unlabelledTitles": 197,
+  "unlabelledTitles": 214,
   "region": "Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam",
   "countries": 6,
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-07-26",
-  "weekCount": 265,
-  "titleCount": 397,
+  "weekTo": "2026-08-16",
+  "weekCount": 268,
+  "titleCount": 421,
   "rows": [
     {
       "title": "Alchemy of Souls",
@@ -103,18 +107,18 @@
       "weeks": 25
     },
     {
-      "title": "The Glory",
+      "title": "Can This Love Be Translated?",
       "type": "TV",
       "countries": 6,
       "peak": 1,
       "weeks": 21
     },
     {
-      "title": "Can This Love Be Translated?",
+      "title": "The Glory",
       "type": "TV",
       "countries": 6,
       "peak": 1,
-      "weeks": 18
+      "weeks": 21
     },
     {
       "title": "Hospital Playlist",
@@ -222,6 +226,13 @@
       "weeks": 13
     },
     {
+      "title": "Mercy For None",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 12
+    },
+    {
       "title": "Sweet Home",
       "type": "TV",
       "countries": 6,
@@ -292,6 +303,13 @@
       "weeks": 11
     },
     {
+      "title": "Doctor Cha",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 11
+    },
+    {
       "title": "Mr. Queen",
       "type": "TV",
       "countries": 6,
@@ -318,13 +336,6 @@
       "countries": 6,
       "peak": 1,
       "weeks": 11
-    },
-    {
-      "title": "Mercy For None",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 10
     },
     {
       "title": "My Royal Nemesis",
@@ -404,6 +415,13 @@
       "weeks": 9
     },
     {
+      "title": "Weak Hero",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 9
+    },
+    {
       "title": "Miss Night and Day",
       "type": "TV",
       "countries": 6,
@@ -430,6 +448,13 @@
       "countries": 6,
       "peak": 1,
       "weeks": 9
+    },
+    {
+      "title": "Agent Kim Reactivated",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 8
     },
     {
       "title": "If Wishes Could Kill",
@@ -628,7 +653,7 @@
       "weeks": 6
     },
     {
-      "title": "Agent Kim Reactivated",
+      "title": "Spooky in Love",
       "type": "TV",
       "countries": 6,
       "peak": 1,
@@ -810,6 +835,13 @@
       "weeks": 3
     },
     {
+      "title": "Bogotá: City of the Lost",
+      "type": "Films",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 3
+    },
+    {
       "title": "Uprising",
       "type": "Films",
       "countries": 6,
@@ -864,6 +896,13 @@
       "countries": 6,
       "peak": 1,
       "weeks": 3
+    },
+    {
+      "title": "Our Sticky Love",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 2
     },
     {
       "title": "City Hunter",
@@ -1111,6 +1150,13 @@
       "weeks": 7
     },
     {
+      "title": "The Apartment Job",
+      "type": "TV",
+      "countries": 6,
+      "peak": 3,
+      "weeks": 6
+    },
+    {
       "title": "Captivating the King",
       "type": "TV",
       "countries": 6,
@@ -1167,13 +1213,6 @@
       "weeks": 4
     },
     {
-      "title": "The Apartment Job",
-      "type": "TV",
-      "countries": 6,
-      "peak": 3,
-      "weeks": 3
-    },
-    {
       "title": "Tarot",
       "type": "Films",
       "countries": 6,
@@ -1195,8 +1234,8 @@
       "weeks": 2
     },
     {
-      "title": "Spooky in Love",
-      "type": "TV",
+      "title": "Pavane",
+      "type": "Films",
       "countries": 6,
       "peak": 3,
       "weeks": 2
@@ -1291,6 +1330,13 @@
       "countries": 6,
       "peak": 5,
       "weeks": 2
+    },
+    {
+      "title": "Bitch and Rich",
+      "type": "TV",
+      "countries": 6,
+      "peak": 6,
+      "weeks": 7
     },
     {
       "title": "Check in Hanyang",
@@ -1412,6 +1458,13 @@
       "weeks": 2
     },
     {
+      "title": "Dali & Cocky Prince",
+      "type": "TV",
+      "countries": 5,
+      "peak": 6,
+      "weeks": 4
+    },
+    {
       "title": "Lookism",
       "type": "TV",
       "countries": 5,
@@ -1448,6 +1501,13 @@
     },
     {
       "title": "The Match",
+      "type": "Films",
+      "countries": 4,
+      "peak": 1,
+      "weeks": 3
+    },
+    {
+      "title": "Flu",
       "type": "Films",
       "countries": 4,
       "peak": 1,
@@ -1545,6 +1605,13 @@
       "weeks": 2
     },
     {
+      "title": "Miraculous Brothers",
+      "type": "TV",
+      "countries": 4,
+      "peak": 6,
+      "weeks": 2
+    },
+    {
       "title": "Aema",
       "type": "TV",
       "countries": 4,
@@ -1561,6 +1628,13 @@
     {
       "title": "The Swindlers",
       "type": "Films",
+      "countries": 4,
+      "peak": 7,
+      "weeks": 2
+    },
+    {
+      "title": "Witch at Court",
+      "type": "TV",
       "countries": 4,
       "peak": 7,
       "weeks": 2
@@ -1706,6 +1780,13 @@
       "weeks": 2
     },
     {
+      "title": "The Battleship Island",
+      "type": "Films",
+      "countries": 3,
+      "peak": 5,
+      "weeks": 4
+    },
+    {
       "title": "All In",
       "type": "Films",
       "countries": 3,
@@ -1746,6 +1827,13 @@
       "countries": 2,
       "peak": 1,
       "weeks": 7
+    },
+    {
+      "title": "A Business Proposal",
+      "type": "Films",
+      "countries": 2,
+      "peak": 1,
+      "weeks": 4
     },
     {
       "title": "My Annoying Brother",
@@ -2014,6 +2102,13 @@
       "weeks": 5
     },
     {
+      "title": "Wonderful Nightmare",
+      "type": "Films",
+      "countries": 1,
+      "peak": 1,
+      "weeks": 4
+    },
+    {
       "title": "A Journey",
       "type": "Films",
       "countries": 1,
@@ -2026,13 +2121,6 @@
       "countries": 1,
       "peak": 1,
       "weeks": 4
-    },
-    {
-      "title": "Wonderful Nightmare",
-      "type": "Films",
-      "countries": 1,
-      "peak": 1,
-      "weeks": 3
     },
     {
       "title": "PROJECT SILENCE",
@@ -2071,6 +2159,13 @@
     },
     {
       "title": "Concrete Utopia",
+      "type": "Films",
+      "countries": 1,
+      "peak": 1,
+      "weeks": 2
+    },
+    {
+      "title": "Hotel Lake",
       "type": "Films",
       "countries": 1,
       "peak": 1,
@@ -2301,6 +2396,13 @@
       "weeks": 3
     },
     {
+      "title": "Beauty Inside",
+      "type": "TV",
+      "countries": 1,
+      "peak": 4,
+      "weeks": 3
+    },
+    {
       "title": "Take Point",
       "type": "Films",
       "countries": 1,
@@ -2313,6 +2415,13 @@
       "countries": 1,
       "peak": 4,
       "weeks": 2
+    },
+    {
+      "title": "Number One",
+      "type": "Films",
+      "countries": 1,
+      "peak": 4,
+      "weeks": 1
     },
     {
       "title": "Seobok",
@@ -2348,6 +2457,13 @@
       "countries": 1,
       "peak": 5,
       "weeks": 4
+    },
+    {
+      "title": "Strong Girl Bong-soon",
+      "type": "TV",
+      "countries": 1,
+      "peak": 5,
+      "weeks": 3
     },
     {
       "title": "In Between",
@@ -2386,6 +2502,13 @@
     },
     {
       "title": "The Lord Musang King",
+      "type": "Films",
+      "countries": 1,
+      "peak": 5,
+      "weeks": 1
+    },
+    {
+      "title": "Spring Garden",
       "type": "Films",
       "countries": 1,
       "peak": 5,
@@ -2455,6 +2578,13 @@
       "weeks": 1
     },
     {
+      "title": "Christmas Carol",
+      "type": "Films",
+      "countries": 1,
+      "peak": 6,
+      "weeks": 1
+    },
+    {
       "title": "Persona: Sulli",
       "type": "Films",
       "countries": 1,
@@ -2504,6 +2634,13 @@
       "weeks": 2
     },
     {
+      "title": "The Battle of Jangsari",
+      "type": "Films",
+      "countries": 1,
+      "peak": 7,
+      "weeks": 2
+    },
+    {
       "title": "Respect",
       "type": "Films",
       "countries": 1,
@@ -2533,6 +2670,13 @@
     },
     {
       "title": "While You Were Sleeping",
+      "type": "Films",
+      "countries": 1,
+      "peak": 7,
+      "weeks": 1
+    },
+    {
+      "title": "The Accidental Detective 2: In Action",
       "type": "Films",
       "countries": 1,
       "peak": 7,
@@ -2602,6 +2746,13 @@
       "weeks": 1
     },
     {
+      "title": "8MM",
+      "type": "Films",
+      "countries": 1,
+      "peak": 8,
+      "weeks": 1
+    },
+    {
       "title": "Along with the Gods: The Two Worlds",
       "type": "Films",
       "countries": 1,
@@ -2631,6 +2782,13 @@
     },
     {
       "title": "The Echoes of Survivors: Inside Korea’s Tragedies",
+      "type": "TV",
+      "countries": 1,
+      "peak": 9,
+      "weeks": 2
+    },
+    {
+      "title": "Chef & My Fridge",
       "type": "TV",
       "countries": 1,
       "peak": 9,
@@ -2784,7 +2942,21 @@
       "weeks": 1
     },
     {
+      "title": "Remember You",
+      "type": "TV",
+      "countries": 1,
+      "peak": 10,
+      "weeks": 1
+    },
+    {
       "title": "A Werewolf Boy",
+      "type": "Films",
+      "countries": 1,
+      "peak": 10,
+      "weeks": 1
+    },
+    {
+      "title": "Tie A Yellow Ribbon",
       "type": "Films",
       "countries": 1,
       "peak": 10,

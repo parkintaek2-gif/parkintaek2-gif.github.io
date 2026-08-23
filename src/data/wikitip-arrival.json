@@ -1,34 +1,34 @@
 {
- "generated": "2026-08-09T20:50:02.233Z",
+ "generated": "2026-08-23T14:37+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "When a Korean title reaches many countries, does it start in one and spread, or appear in many at once?",
  "unit": "A title’s first week is the earliest week it appears on any country list. First-week share is how many of its eventual countries were already there in that week.",
  "notRelease": "We observe when a title appears on a country’s top 10, not when Netflix made it available there. A title released everywhere on the same day can still take weeks to chart in some markets, and that is what this measures.",
  "minCountries": 20,
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
- "titlesAll": 902,
- "titles": 165,
+ "weekTo": "2026-08-16",
+ "weekCount": 268,
+ "titlesAll": 976,
+ "titles": 173,
  "medianCountries": 43,
- "medianFirstWeekCountries": 14,
- "medianFirstWeekSharePc": 39.1,
+ "medianFirstWeekCountries": 16,
+ "medianFirstWeekSharePc": 40.7,
  "bands": [
   {
    "band": "under 25%",
    "shape": "spread",
-   "titles": 57,
-   "sharePc": 34.5,
-   "medianCountries": 37,
-   "medianFirstWeekCountries": 2,
+   "titles": 58,
+   "sharePc": 33.5,
+   "medianCountries": 38,
+   "medianFirstWeekCountries": 3,
    "films": 19,
-   "series": 38
+   "series": 39
   },
   {
    "band": "25–49%",
    "shape": "mixed",
    "titles": 42,
-   "sharePc": 25.5,
+   "sharePc": 24.3,
    "medianCountries": 41,
    "medianFirstWeekCountries": 12,
    "films": 7,
@@ -37,32 +37,32 @@
   {
    "band": "50–74%",
    "shape": "mostly at once",
-   "titles": 33,
-   "sharePc": 20,
+   "titles": 35,
+   "sharePc": 20.2,
    "medianCountries": 59,
    "medianFirstWeekCountries": 37,
    "films": 16,
-   "series": 17
+   "series": 19
   },
   {
    "band": "75% or more",
    "shape": "landed",
-   "titles": 33,
-   "sharePc": 20,
+   "titles": 38,
+   "sharePc": 22,
    "medianCountries": 52,
    "medianFirstWeekCountries": 52,
-   "films": 12,
-   "series": 21
+   "films": 15,
+   "series": 23
   }
  ],
  "byFormat": {
   "film": {
-   "titles": 54,
-   "medianFirstWeekSharePc": 50
+   "titles": 57,
+   "medianFirstWeekSharePc": 50.8
   },
   "series": {
-   "titles": 111,
-   "medianFirstWeekSharePc": 37.8
+   "titles": 116,
+   "medianFirstWeekSharePc": 38.1
   }
  },
  "slowest": [
@@ -157,6 +157,14 @@
  ],
  "fastest": [
   {
+   "title": "Last Knights",
+   "countries": 20,
+   "firstWeekCountries": 20,
+   "firstWeekSharePc": 100,
+   "firstWeek": "2022-07-03",
+   "film": true
+  },
+  {
    "title": "The Devil's Plan",
    "countries": 23,
    "firstWeekCountries": 23,
@@ -197,28 +205,20 @@
    "film": true
   },
   {
+   "title": "Bogotá: City of the Lost",
+   "countries": 73,
+   "firstWeekCountries": 73,
+   "firstWeekSharePc": 100,
+   "firstWeek": "2025-02-09",
+   "film": true
+  },
+  {
    "title": "The Great Flood",
    "countries": 93,
    "firstWeekCountries": 93,
    "firstWeekSharePc": 100,
    "firstWeek": "2025-12-21",
    "film": true
-  },
-  {
-   "title": "The Pirates: The Last Royal Treasure",
-   "countries": 67,
-   "firstWeekCountries": 66,
-   "firstWeekSharePc": 98.5,
-   "firstWeek": "2022-03-06",
-   "film": true
-  },
-  {
-   "title": "Tastefully Yours",
-   "countries": 54,
-   "firstWeekCountries": 53,
-   "firstWeekSharePc": 98.1,
-   "firstWeek": "2025-05-18",
-   "film": false
   }
  ]
 }

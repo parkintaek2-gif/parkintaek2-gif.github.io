@@ -1,5 +1,5 @@
 ---
-title: "Korean titles hold 7.6% of the world's top-10 places. Where they were strongest, the share fell by a third."
+title: "Korean titles hold 7.9% of the world's top-10 places. Where they were strongest, the share fell by a third."
 dek: "Across 93 countries and 265 weeks the global share has not moved since 2022. That average hides nine Asian markets where Korean titles held 30.3% of places and now hold 19.5% — all nine fell, and Korea's own chart did not."
 category: titles
 purpose: both
@@ -11,7 +11,7 @@ pages:
   - "/world-share"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists for every country Netflix publishes — 93 markets with a complete record, 265 weeks from 2021-07-04 to 2026-07-26"
+    api: "Tudum weekly Top 10 country lists for every country Netflix publishes — 93 markets with a complete record, 268 weeks from 2021-07-04 to 2026-08-16"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Country of origin (P495 = Q884) to identify Korean titles, with titles Netflix classes on its English-language global charts excluded"
@@ -30,15 +30,15 @@ excluded:
 Netflix publishes twenty places per country per week — ten films, ten series. It is a fixed pie, and
 that makes it one of the few things about the Korean wave that can be counted rather than asserted.
 
-We counted all of it: 93 countries with a complete record, 265 weeks, **492,900 places**. Korean
-titles hold **37,666** of them.
+We counted all of it: 93 countries with a complete record, 268 weeks, **498,480 places**. Korean
+titles hold **39,612** of them.
 
 ## 7.6% of the world, and half of Korea
 
 | | Korean share of top-10 places |
 | --- | ---: |
 | All 93 markets | **7.7%** |
-| The median country | 4.5% |
+| The median country | 4.7% |
 | South Korea itself | **49.7%** in 2025 |
 
 Korea's own figure is the one that surprises people first. Even at home, in the market where every
@@ -63,10 +63,10 @@ the English-speaking world.
 
 | Year | Weeks | Korean share |
 | --- | ---: | ---: |
-| 2022 | 52 | 7.5% |
-| 2023 | 53 | 7.9% |
-| 2024 | 52 | 7.0% |
-| 2025 | 52 | 7.7% |
+| 2022 | 52 | 7.6% |
+| 2023 | 53 | 8.3% |
+| 2024 | 52 | 7.1% |
+| 2025 | 52 | 8.2% |
 
 Four complete years, and the share ends where it started. If the Korean wave has been growing since
 2022, it has not been growing into these places.
@@ -78,11 +78,11 @@ countries and it hides the only movement in the data.
 
 | Group | 2022 | 2023 | 2024 | 2025 |
 | --- | ---: | ---: | ---: | ---: |
-| South Korea | 49.8% | 54.3% | 51.2% | 49.7% |
-| The nine Asian markets that were once above 20% | **30.3%** | 25.9% | 19.7% | **19.5%** |
-| The five largest English-speaking markets | 1.8% | 1.3% | 1.9% | 2.0% |
+| South Korea | 51.2% | 58.3% | 52.0% | 53.3% |
+| The nine Asian markets that were once above 20% | **30.5%** | 26.9% | 19.9% | **20.8%** |
+| The five largest English-speaking markets | 1.9% | 1.4% | 2.0% | 2.0% |
 
-The nine markets where Korean titles were strongest gave up **10.8 points in four years** — better
+The nine markets where Korean titles were strongest gave up **9.7 points in four years** — better
 than a third of the share they held. The English-speaking markets did not pick it up; they are
 where they were. The global average stayed flat because nine countries falling is a small thing
 inside an average of 93.
@@ -91,15 +91,15 @@ inside an average of 93.
 
 | Market | 2022 | 2025 | Change |
 | --- | ---: | ---: | ---: |
-| Vietnam | 34.1% | 24.2% | −9.9 |
-| Indonesia | 34.1% | 24.9% | −9.2 |
-| Malaysia | 31.3% | 20.1% | −11.2 |
-| Taiwan | 27.1% | 20.3% | −6.8 |
-| Thailand | 30.4% | 18.9% | −11.5 |
-| Hong Kong | 27.5% | 18.6% | −8.9 |
-| Philippines | 27.6% | 19.3% | −8.3 |
-| Singapore | 27.8% | 18.3% | −9.5 |
-| Japan | 32.6% | 11.2% | −21.4 |
+| Vietnam | 34.4% | 25.8% | −8.6 |
+| Indonesia | 34.4% | 26.7% | −7.7 |
+| Malaysia | 31.4% | 21.5% | −9.9 |
+| Taiwan | 27.1% | 21.3% | −5.8 |
+| Thailand | 30.8% | 20.3% | −10.5 |
+| Hong Kong | 27.9% | 19.4% | −8.5 |
+| Philippines | 27.9% | 20.6% | −7.3 |
+| Singapore | 27.8% | 19.2% | −8.6 |
+| Japan | 32.8% | 11.9% | −20.9 |
 
 We are not putting these in an order of merit and the ranking is not the point. **The point is that
 there is no exception.** One market falling is a market. Nine out of nine falling, across a range of
@@ -112,13 +112,13 @@ These are different problems and the data separates them cleanly.
 
 | Year | Korean share | Korean titles charting | Places per Korean title | All titles charting |
 | --- | ---: | ---: | ---: | ---: |
-| 2022 | 30.3% | **161** | 17.6 | 1,127 |
-| 2023 | 25.9% | 138 | 17.8 | 1,158 |
-| 2024 | 19.7% | 100 | 18.5 | 1,248 |
-| 2025 | 19.5% | **102** | 17.9 | 1,247 |
+| 2022 | 30.5% | **166** | 17.2 | 1,127 |
+| 2023 | 26.9% | 145 | 17.7 | 1,158 |
+| 2024 | 19.9% | 102 | 18.3 | 1,248 |
+| 2025 | 20.8% | **110** | 17.7 | 1,247 |
 
-The number of distinct Korean titles reaching these charts fell from 161 to 102. What each one did
-once it arrived barely changed — 17.6 places to 17.9. **A Korean title that charts in these markets
+The number of distinct Korean titles reaching these charts fell from 166 to 110. What each one did
+once it arrived barely changed — 17.2 places to 17.7. **A Korean title that charts in these markets
 performs as well as it did in 2022. There are simply far fewer of them.**
 
 Meanwhile the total number of distinct titles charting rose from 1,127 to 1,247. The lists got

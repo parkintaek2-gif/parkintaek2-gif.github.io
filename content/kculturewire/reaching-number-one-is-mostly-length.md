@@ -1,6 +1,6 @@
 ---
 title: "We said reaching number one doubles a title's hours. Most of that gap was run length."
-dek: "Measured on all 232 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two. Hold length fixed and the gap that is left is 1.2× among titles that lasted six to ten weeks."
+dek: "Measured on all 246 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two. Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -24,7 +24,7 @@ crossChecks:
   - "The banded comparison uses the same peak definition as the headline one, so the shrinking gap is not a change of measure"
 excluded:
   - "Any claim about causation. Nothing here says reaching number one produces hours or that hours produce a number one; both are measured after the fact from the same weekly rows"
-  - "The 1–2 week band as evidence. Exactly one title in it reached number one, so the 6.9× there rests on a single row and we do not read it"
+  - "The 1–2 week band as evidence. Exactly one title in it reached number one, so the 19.7× there rests on a single row and we do not read it"
   - "Country-level runs. Netflix publishes hours for the global lists only, so every figure here is global"
   - "Any ordering of titles by how well they did. The ranks are groups here, not a league table"
 corrections:
@@ -49,10 +49,10 @@ Here is the same comparison over the whole panel.
 
 | Peaked at | Titles | Median hours | Median weeks | Mean hours |
 | --- | ---: | ---: | ---: | ---: |
-| **#1** | 63 | **103.4m** | **5** | 236.4m |
-| Below #1 | 169 | 24.1m | 2 | 52.0m |
+| **#1** | 67 | **103.4m** | **5** | 229.3m |
+| Below #1 | 179 | 23.3m | 2 | 51.0m |
 
-The gap in hours is larger than we said — **4.3× on medians**, against the 2.5× we reported on means
+The gap in hours is larger than we said — **4.4× on medians**, against the 2.5× we reported on means
 of the top fifty. And the claim that it adds no weeks is simply false: the median number-one title
 runs **five weeks against two**.
 
@@ -61,17 +61,17 @@ group containing *Squid Game* is substantially a description of *Squid Game*.
 
 ## Then most of the gap turns out to be length
 
-If number-one titles run longer, part of that 4.3× is just more weeks in which to accumulate hours.
+If number-one titles run longer, part of that 4.4× is just more weeks in which to accumulate hours.
 So hold the length roughly fixed and look again.
 
 | Titles that lasted | Reached #1 | Median hours | Did not | Median hours | Ratio |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 1–2 weeks | 1 | 45.3m | 87 | 6.5m | — |
-| 3–5 weeks | 41 | 80.7m | 52 | 47.3m | 1.71× |
-| 6–10 weeks | 14 | 154.3m | 24 | 128.9m | **1.20×** |
+| 1–2 weeks | 1 | 125.9m | 91 | 6.4m | — |
+| 3–5 weeks | 43 | 74.6m | 57 | 46.0m | 1.62× |
+| 6–10 weeks | 16 | 162.8m | 25 | 128.9m | **1.26×** |
 | 11 weeks or more | 7 | 653.9m | 6 | 331.1m | 1.97× |
 
-Among titles that lasted six to ten weeks, reaching number one goes with **1.20×** the median hours —
+Among titles that lasted six to ten weeks, reaching number one goes with **1.26×** the median hours —
 not 4.3×, and not 2.5×. The 1–2 week row has one title on the left of it and we do not read it.
 
 **Most of what we had attributed to the peak was length.**
@@ -82,10 +82,10 @@ If the top spot were a ladder, median hours would fall as the peak rank rises. T
 
 | Peaked at | Titles | Median hours | Median weeks |
 | --- | ---: | ---: | ---: |
-| #1 | 63 | 103.4m | 5 |
-| #2 | 24 | **128.0m** | 5 |
-| #3 | 30 | 66.7m | 4 |
-| #4 | 23 | 46.8m | 3 |
+| #1 | 67 | 103.4m | 5 |
+| #2 | 27 | **123.4m** | 5 |
+| #3 | 30 | 67.8m | 5 |
+| #4 | 24 | 46.8m | 3 |
 
 A title that peaked at number two has a **higher** median than one that peaked at number one. That is
 not a paradox and it is not a ranking: reaching number one in a quiet week is easier than reaching
@@ -94,13 +94,13 @@ the audience.
 
 ## Neither column is the cause of the other
 
-Against log hours, weeks on chart correlates at **0.733** and peak rank at **−0.753**. They are the
+Against log hours, weeks on chart correlates at **0.731** and peak rank at **−0.753**. They are the
 same strength. And they correlate with each other at **−0.473**, so a table showing one is partly
 showing the other. There is no version of this data in which we can hand you a single number and call
 it the driver, and we are not going to invent one.
 
-What the panel does say plainly is that **22.0% of Korean titles that reached a global Non-English
-Top 10 were there for exactly one week** — 51 of 232. The most common outcome for a title that
+What the panel does say plainly is that **21.5% of Korean titles that reached a global Non-English
+Top 10 were there for exactly one week** — 53 of 246. The most common outcome for a title that
 charts at all is to chart once.
 
 ## What we changed

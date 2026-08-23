@@ -1,73 +1,73 @@
 {
- "generated": "2026-08-09T20:50:51.779Z",
+ "generated": "2026-08-23T14:38+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number",
  "question": "A Korean title leaves a country's top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?",
  "unit": "One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market's top 10, between two weeks in which it is present.",
  "thresholdNote": "Four weeks is our threshold, not Netflix's. The table of other thresholds is published beside the result so the choice can be judged rather than trusted.",
  "cannotAnswer": "Nothing here says why a title came back. A local holiday, a cast member in the news, a promotion slot, or simply a slow week in that market would all look identical. Netflix publishes the position and the season label, not the reason.",
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
+ "weekTo": "2026-08-16",
  "marketCount": 93,
- "koreanRows": 37666,
- "seasonLabelledRows": 29738,
- "seasonLabelPc": 79,
- "cellsMeasured": 6978,
- "contiguousCells": 5895,
+ "koreanRows": 39612,
+ "seasonLabelledRows": 31169,
+ "seasonLabelPc": 78.7,
+ "cellsMeasured": 7383,
+ "contiguousCells": 6215,
  "thresholdWeeks": 4,
  "nearbyWeeks": 4,
- "gaps": 938,
- "seasonChanged": 424,
- "seasonChangedPc": 45.2,
- "sameSeason": 310,
+ "gaps": 957,
+ "seasonChanged": 435,
+ "seasonChangedPc": 45.5,
+ "sameSeason": 316,
  "sameSeasonPc": 33,
- "unknownSeason": 204,
- "unknownSeasonPc": 21.7,
- "pulledByOtherSeason": 16,
- "pulledByOtherSeasonPc": 5.2,
- "alone": 294,
- "alonePc": 94.8,
+ "unknownSeason": 206,
+ "unknownSeasonPc": 21.5,
+ "pulledByOtherSeason": 18,
+ "pulledByOtherSeasonPc": 5.7,
+ "alone": 298,
+ "alonePc": 94.3,
  "thresholds": [
   {
    "weeks": 2,
-   "gaps": 1094,
-   "sameSeason": 444,
-   "seasonChanged": 429,
-   "unknown": 221
+   "gaps": 1155,
+   "sameSeason": 454,
+   "seasonChanged": 477,
+   "unknown": 224
   },
   {
    "weeks": 3,
-   "gaps": 987,
-   "sameSeason": 353,
-   "seasonChanged": 424,
-   "unknown": 210
+   "gaps": 1020,
+   "sameSeason": 361,
+   "seasonChanged": 447,
+   "unknown": 212
   },
   {
    "weeks": 4,
-   "gaps": 938,
-   "sameSeason": 310,
-   "seasonChanged": 424,
-   "unknown": 204
+   "gaps": 957,
+   "sameSeason": 316,
+   "seasonChanged": 435,
+   "unknown": 206
   },
   {
    "weeks": 6,
-   "gaps": 896,
-   "sameSeason": 275,
-   "seasonChanged": 424,
-   "unknown": 197
+   "gaps": 911,
+   "sameSeason": 279,
+   "seasonChanged": 433,
+   "unknown": 199
   },
   {
    "weeks": 8,
-   "gaps": 847,
-   "sameSeason": 234,
-   "seasonChanged": 423,
-   "unknown": 190
+   "gaps": 862,
+   "sameSeason": 238,
+   "seasonChanged": 432,
+   "unknown": 192
   },
   {
    "weeks": 12,
-   "gaps": 774,
-   "sameSeason": 187,
-   "seasonChanged": 411,
-   "unknown": 176
+   "gaps": 787,
+   "sameSeason": 190,
+   "seasonChanged": 419,
+   "unknown": 178
   }
  ],
  "longestReturns": [
@@ -155,39 +155,39 @@
  "byMarketBand": [
   {
    "band": "Under 5%",
-   "markets": 49,
-   "cells": 3013,
-   "chances": 4293,
-   "returns": 43,
-   "perCellPc": 1.4,
-   "perChancePc": 1
+   "markets": 48,
+   "cells": 3110,
+   "chances": 4370,
+   "returns": 41,
+   "perCellPc": 1.3,
+   "perChancePc": 0.94
   },
   {
    "band": "5–10%",
-   "markets": 23,
-   "cells": 2720,
-   "chances": 6757,
-   "returns": 69,
-   "perCellPc": 2.5,
-   "perChancePc": 1.02
+   "markets": 20,
+   "cells": 2477,
+   "chances": 5671,
+   "returns": 49,
+   "perCellPc": 2,
+   "perChancePc": 0.86
   },
   {
    "band": "10–20%",
-   "markets": 11,
-   "cells": 1590,
-   "chances": 5155,
-   "returns": 76,
-   "perCellPc": 4.8,
-   "perChancePc": 1.47
+   "markets": 15,
+   "cells": 2215,
+   "chances": 7063,
+   "returns": 99,
+   "perCellPc": 4.5,
+   "perChancePc": 1.4
   },
   {
    "band": "20% and over",
    "markets": 10,
-   "cells": 2789,
-   "chances": 11349,
-   "returns": 122,
-   "perCellPc": 4.4,
-   "perChancePc": 1.07
+   "cells": 2922,
+   "chances": 11784,
+   "returns": 127,
+   "perCellPc": 4.3,
+   "perChancePc": 1.08
   }
  ],
  "returnTitles": [
@@ -195,11 +195,14 @@
   "Alchemy of Souls",
   "All For Love",
   "All of Us Are Dead",
+  "Bitch and Rich",
   "Black Knight",
   "Bloodhounds",
   "Boys Over Flowers",
   "Breathless",
   "Business Proposal",
+  "Can This Love Be Translated?",
+  "CAT",
   "Crash Landing on You",
   "D.P.",
   "Extraordinary Attorney Woo",
@@ -215,6 +218,7 @@
   "Little Women",
   "Love (ft. Marriage and Divorce)",
   "Mad for Each Other",
+  "Men on a Mission",
   "Mercy For None",
   "Miss Night and Day",
   "Money Heist: Korea - Joint Economic Area",
@@ -244,6 +248,7 @@
   "Thirty-Nine",
   "True Beauty",
   "Undercover Miss Hong",
-  "Vincenzo"
+  "Vincenzo",
+  "Weak Hero"
  ]
 }

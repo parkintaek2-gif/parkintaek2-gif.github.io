@@ -139,7 +139,20 @@ if (내가실행됐다) {
   }
   /* ⛔ 기사 요지 — 아시아 열은 하나도 안 늘어야 하고, 밖은 평균이 플러스여야 한다.
      뒤집히면 기사를 다시 쓴다 */
-  if (아시아.some((x) => x.changePp > 0)) throw new Error('아시아 열 중 늘어난 곳이 있다 — 「예외 없이」를 못 쓴다');
+  /*
+   * 🔴 2026-08-23 — 이 자가 섰다. 아시아 열 중 **한 곳이 늘었다.**
+   *   그 한 곳은 **한국 자신**이었다(안방 51.3% → 53.3%, +2.0p).
+   * ⛔ 문턱을 지우지 않았다. 예외가 무엇인지 보고 **지면을 고쳤다** —
+   *   「아시아 어디도 안 늘었다」는 이제 거짓이고, 「안방 말고는 다 줄었다」가 사실이다.
+   *   그리고 그 예외는 기사를 약하게 하지 않는다. 오히려 더 또렷하게 만든다:
+   *   한국 몫이 아시아에서 늘어난 유일한 곳이 한국이다.
+   * ⚠ 안방 말고 또 한 곳이 늘면 이 자가 다시 선다. 그때도 문턱이 아니라 문장을 고친다.
+   */
+  const 안방 = 아시아.find((x) => x.iso2 === 'KR') ?? null;
+  const 안방빼고늘어난곳 = 아시아.filter((x) => x.changePp > 0 && x.iso2 !== 'KR');
+  if (안방빼고늘어난곳.length) {
+    throw new Error(`아시아에서 안방 말고 늘어난 곳이 있다(${안방빼고늘어난곳.map((x) => x.name).join(", ")}) — 문장을 다시 쓴다`);
+  }
   if (!(평균(밖) > 0)) throw new Error(`아시아 밖 평균이 ${평균(밖)}p 다 — 「옮겨 갔다」가 안 선다`);
 
   const out = {
@@ -159,7 +172,14 @@ if (내가실행됐다) {
     markets: 줄.length,
     roseCount: 늘.length,
     fellCount: 줄어.length,
-    asianTen: { markets: 아시아.length, meanChangePp: 평균(아시아), roseCount: 아시아.filter((x) => x.changePp > 0).length },
+    asianTen: {
+      markets: 아시아.length,
+      meanChangePp: 평균(아시아),
+      roseCount: 아시아.filter((x) => x.changePp > 0).length,
+      fellCount: 아시아.filter((x) => x.changePp < 0).length,
+      /* ⭐ 아시아에서 한국 몫이 늘어난 유일한 곳 — 안방이다. 지면이 이것을 그대로 싣는다 */
+      homeMarket: 안방 && { name: 안방.name, beforePc: 안방.beforePc, afterPc: 안방.afterPc, changePp: 안방.changePp },
+    },
     elsewhere: { markets: 밖.length, meanChangePp: 평균(밖), roseCount: 밖.filter((x) => x.changePp > 0).length },
     topRisers: 줄.slice(0, 8),
     topFallers: 줄.slice(-8).reverse(),

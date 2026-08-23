@@ -1,76 +1,76 @@
 {
- "generated": "2026-08-09T20:50:28.916Z",
+ "generated": "2026-08-23T14:38+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists, 2021–2026; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "Does how long a Korean title stays on Korea’s own Netflix chart tell you whether it will travel?",
  "unit": "One place is one title on one country’s weekly top 10. A title on the list for six weeks in Korea has six home places.",
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
- "titles": 902,
- "chartedAtHome": 560,
- "neverChartedAtHome": 342,
+ "weekTo": "2026-08-16",
+ "weekCount": 268,
+ "titles": 976,
+ "chartedAtHome": 592,
+ "neverChartedAtHome": 384,
  "whyNotCompared": "Titles that never charted in Korea are, by definition, titles we only know about because they charted somewhere else. Comparing the two groups directly would answer a question we have already decided.",
  "bands": [
   {
    "band": "1–2",
-   "titles": 219,
-   "reachedTenPc": 11.4,
-   "reachedTwentyPc": 5.5,
-   "neverLeftPc": 67.6,
+   "titles": 233,
+   "reachedTenPc": 10.7,
+   "reachedTwentyPc": 5.2,
+   "neverLeftPc": 67.8,
    "medianCountries": 0,
    "medianAbroadPlaces": 0,
    "film": {
-    "titles": 168,
-    "reachedTenPc": 6.5
+    "titles": 174,
+    "reachedTenPc": 6.3
    },
    "series": {
-    "titles": 51,
-    "reachedTenPc": 27.5
+    "titles": 59,
+    "reachedTenPc": 23.7
    },
-   "medianFirstWeek": "2023-06-04"
+   "medianFirstWeek": "2023-07-09"
   },
   {
    "band": "3–5",
-   "titles": 165,
-   "reachedTenPc": 25.5,
-   "reachedTwentyPc": 20,
-   "neverLeftPc": 47.3,
+   "titles": 173,
+   "reachedTenPc": 24.9,
+   "reachedTwentyPc": 19.7,
+   "neverLeftPc": 45.7,
    "medianCountries": 1,
    "medianAbroadPlaces": 1,
    "film": {
-    "titles": 100,
-    "reachedTenPc": 8
+    "titles": 107,
+    "reachedTenPc": 9.3
    },
    "series": {
-    "titles": 65,
-    "reachedTenPc": 52.3
+    "titles": 66,
+    "reachedTenPc": 50
    },
-   "medianFirstWeek": "2023-12-03"
+   "medianFirstWeek": "2023-12-10"
   },
   {
    "band": "6–10",
-   "titles": 138,
-   "reachedTenPc": 56.5,
-   "reachedTwentyPc": 49.3,
-   "neverLeftPc": 17.4,
-   "medianCountries": 19,
-   "medianAbroadPlaces": 66,
+   "titles": 147,
+   "reachedTenPc": 55.8,
+   "reachedTwentyPc": 47.6,
+   "neverLeftPc": 19,
+   "medianCountries": 18,
+   "medianAbroadPlaces": 61,
    "film": {
-    "titles": 41,
-    "reachedTenPc": 39
+    "titles": 42,
+    "reachedTenPc": 38.1
    },
    "series": {
-    "titles": 97,
-    "reachedTenPc": 63.9
+    "titles": 105,
+    "reachedTenPc": 62.9
    },
-   "medianFirstWeek": "2024-04-07"
+   "medianFirstWeek": "2024-03-17"
   },
   {
    "band": "11 or more",
-   "titles": 38,
-   "reachedTenPc": 63.2,
-   "reachedTwentyPc": 47.4,
-   "neverLeftPc": 23.7,
+   "titles": 39,
+   "reachedTenPc": 64.1,
+   "reachedTwentyPc": 48.7,
+   "neverLeftPc": 23.1,
    "medianCountries": 17,
    "medianAbroadPlaces": 123,
    "film": {
@@ -78,8 +78,8 @@
     "reachedTenPc": 40
    },
    "series": {
-    "titles": 28,
-    "reachedTenPc": 71.4
+    "titles": 29,
+    "reachedTenPc": 72.4
    },
    "medianFirstWeek": "2023-01-01"
   }
@@ -88,7 +88,7 @@
   {
    "title": "Oasis",
    "countries": 82,
-   "places": 239,
+   "places": 253,
    "film": false
   },
   {
@@ -116,6 +116,12 @@
    "film": true
   },
   {
+   "title": "That Night",
+   "countries": 50,
+   "places": 115,
+   "film": false
+  },
+  {
    "title": "Happy Ending",
    "countries": 47,
    "places": 60,
@@ -125,6 +131,12 @@
    "title": "Gossip Girl",
    "countries": 45,
    "places": 137,
+   "film": false
+  },
+  {
+   "title": "Wrath",
+   "countries": 43,
+   "places": 80,
    "film": false
   },
   {
@@ -218,6 +230,12 @@
    "film": false
   },
   {
+   "title": "The Great Seduction",
+   "countries": 21,
+   "places": 39,
+   "film": true
+  },
+  {
    "title": "Stepmom",
    "countries": 21,
    "places": 33,
@@ -248,11 +266,17 @@
    "film": true
   },
   {
+   "title": "Last Knights",
+   "countries": 20,
+   "places": 28,
+   "film": true
+  },
+  {
    "title": "Sh**ting Stars",
    "countries": 20,
    "places": 70,
    "film": false
   }
  ],
- "travelledWithoutHomeCount": 28
+ "travelledWithoutHomeCount": 32
 }

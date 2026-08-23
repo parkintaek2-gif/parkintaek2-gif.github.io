@@ -1,6 +1,6 @@
 ---
-title: "Netflix's Southeast Asia charts reach 30% of Korean series made since 2021, and 14% of the films"
-dek: "Our panel never had a denominator. Wikidata records 782 Korean series and 1,120 Korean films from the chart era; 237 series and 160 films reached a Top 10. Series are twice as likely to be seen at all."
+title: "Netflix's Southeast Asia charts reach 32% of Korean series made since 2021, and 15% of the films"
+dek: "Our panel never had a denominator. Wikidata records 784 Korean series and 1,122 Korean films from the chart era; 248 series and 173 films reached a Top 10. Series are twice as likely to be seen at all."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -19,7 +19,7 @@ sources:
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
   - "The panel side of every ratio is read from the same file the site is built from, not recounted, so the numerator here cannot drift from the numerator on our other pages"
-  - "The first version of this count used publication date alone and returned 84 chart-era series, fewer than the 237 in our own panel. A coverage share above 100% is impossible, which is how we found that series carry start time instead"
+  - "The first version of this count used publication date alone and returned 84 chart-era series, fewer than the 248 in our own panel. A coverage share above 100% is impossible, which is how we found that series carry start time instead"
   - "The collector now refuses to publish any share above 100% and records it as empty, so the same error cannot reach a page silently"
 excluded:
   - "Any claim that these are production totals. Wikidata records what someone wrote down; if more was made than is recorded, our share is lower than shown and never higher"
@@ -28,8 +28,8 @@ excluded:
   - "Documentaries, shorts, web series and anything Wikidata files under another class. Two classes are counted here and nothing else"
 ---
 
-Every figure we publish about Korean titles on Netflix starts from the same place: **397 titles that
-reached a Top 10** in six Southeast Asian markets. Until today we had never said what that is 397
+Every figure we publish about Korean titles on Netflix starts from the same place: **421 titles that
+reached a Top 10** in six Southeast Asian markets. Until today we had never said what that is 421
 *out of*.
 
 A share without a denominator is not a share. So we counted one.
@@ -38,13 +38,13 @@ A share without a denominator is not a share. So we counted one.
 
 | | Recorded in Wikidata | Made since 2021 | Reached a Top 10 | Share of the chart era |
 | --- | ---: | ---: | ---: | ---: |
-| Television series | 4,752 | 782 | 237 | **30.3%** |
-| Films | 10,233 | 1,120 | 160 | **14.3%** |
+| Television series | 4,755 | 784 | 248 | **31.6%** |
+| Films | 10,247 | 1,122 | 173 | **15.4%** |
 
 Roughly **three in ten** Korean series made since the charts began have appeared on one in Southeast
-Asia. For films it is **fewer than one and a half in ten**.
+Asia. For films it is **about one and a half in ten**.
 
-Against the whole recorded catalogue the shares are 5.0% and 1.6%, but those numbers describe an
+Against the whole recorded catalogue the shares are 5.2% and 1.7%, but those numbers describe an
 archive rather than a market: most of what Wikidata holds was made long before Netflix published a
 weekly list, and a 1979 film had no chance to appear on one.
 

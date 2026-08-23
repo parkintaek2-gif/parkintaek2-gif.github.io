@@ -1,77 +1,77 @@
 {
-  "generated": "2026-08-15T22:20+09:00",
+  "generated": "2026-08-23T14:38+09:00",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-07-26",
-  "weekCount": 265,
-  "titleCount": 232,
+  "weekTo": "2026-08-16",
+  "weekCount": 268,
+  "titleCount": 246,
   "shown": 50,
-  "totalHours": 23676360000,
+  "totalHours": 24500150000,
   "peakGroups": [
     {
       "label": "Peaked at #1",
-      "n": 63,
-      "avgHours": 236440476,
+      "n": 67,
+      "avgHours": 229333582,
       "medianHours": 103400000,
       "avgWeeks": 6.4,
       "medianWeeks": 5,
-      "avgPerWeek": 25025742
+      "avgPerWeek": 24803793
     },
     {
       "label": "Peaked below #1",
-      "n": 169,
-      "avgHours": 51956272,
-      "medianHours": 24100000,
+      "n": 179,
+      "avgHours": 51032402,
+      "medianHours": 23340000,
       "avgWeeks": 3.5,
       "medianWeeks": 2,
-      "avgPerWeek": 11157143
+      "avgPerWeek": 10956550
     }
   ],
   "peakGroupsTop50Only": [
     {
       "label": "Peaked at #1",
-      "n": 26,
-      "avgHours": 484597692,
-      "avgWeeks": 9.8,
-      "avgPerWeek": 38246175
+      "n": 28,
+      "avgHours": 464512143,
+      "avgWeeks": 9.5,
+      "avgPerWeek": 38412367
     },
     {
       "label": "Peaked below #1",
-      "n": 24,
-      "avgHours": 196302083,
-      "avgWeeks": 9,
-      "avgPerWeek": 23531518
+      "n": 22,
+      "avgHours": 204118636,
+      "avgWeeks": 9.4,
+      "avgPerWeek": 23307273
     }
   ],
   "peakByRank": [
     {
       "peak": 1,
-      "n": 63,
+      "n": 67,
       "medianHours": 103400000,
       "medianWeeks": 5
     },
     {
       "peak": 2,
-      "n": 24,
-      "medianHours": 128000000,
+      "n": 27,
+      "medianHours": 123400000,
       "medianWeeks": 5
     },
     {
       "peak": 3,
-      "n": 29,
-      "medianHours": 66700000,
-      "medianWeeks": 4
+      "n": 30,
+      "medianHours": 67850000,
+      "medianWeeks": 5
     },
     {
       "peak": 4,
-      "n": 23,
+      "n": 24,
       "medianHours": 46800000,
       "medianWeeks": 3
     },
     {
       "peak": 5,
       "n": 28,
-      "medianHours": 24530000,
+      "medianHours": 25100000,
       "medianWeeks": 2
     },
     {
@@ -82,20 +82,20 @@
     },
     {
       "peak": 7,
-      "n": 9,
-      "medianHours": 8600000,
+      "n": 12,
+      "medianHours": 8000000,
       "medianWeeks": 2
     },
     {
       "peak": 8,
-      "n": 23,
+      "n": 24,
       "medianHours": 6700000,
       "medianWeeks": 1
     },
     {
       "peak": 9,
-      "n": 14,
-      "medianHours": 5000000,
+      "n": 15,
+      "medianHours": 4200000,
       "medianWeeks": 1
     },
     {
@@ -108,30 +108,30 @@
   "weeksBands": [
     {
       "label": "1–2 weeks",
-      "n": 88,
+      "n": 92,
       "topN": 1,
-      "topMedianHours": 45300000,
-      "restN": 87,
-      "restMedianHours": 6500000,
-      "ratio": 6.97
+      "topMedianHours": 125900000,
+      "restN": 91,
+      "restMedianHours": 6400000,
+      "ratio": 19.67
     },
     {
       "label": "3–5 weeks",
-      "n": 93,
-      "topN": 41,
-      "topMedianHours": 80700000,
-      "restN": 52,
-      "restMedianHours": 47270000,
-      "ratio": 1.71
+      "n": 100,
+      "topN": 43,
+      "topMedianHours": 74600000,
+      "restN": 57,
+      "restMedianHours": 46000000,
+      "ratio": 1.62
     },
     {
       "label": "6–10 weeks",
-      "n": 38,
-      "topN": 14,
-      "topMedianHours": 154300000,
-      "restN": 24,
+      "n": 41,
+      "topN": 16,
+      "topMedianHours": 162850000,
+      "restN": 25,
       "restMedianHours": 128890000,
-      "ratio": 1.2
+      "ratio": 1.26
     },
     {
       "label": "11 weeks or more",
@@ -146,23 +146,23 @@
   "weeksDistribution": [
     {
       "weeks": 1,
-      "n": 51
+      "n": 53
     },
     {
       "weeks": 2,
-      "n": 37
+      "n": 39
     },
     {
       "weeks": 3,
-      "n": 32
+      "n": 35
     },
     {
       "weeks": 4,
-      "n": 36
+      "n": 39
     },
     {
       "weeks": 5,
-      "n": 25
+      "n": 26
     },
     {
       "weeks": 6,
@@ -170,11 +170,11 @@
     },
     {
       "weeks": 7,
-      "n": 11
+      "n": 13
     },
     {
       "weeks": 8,
-      "n": 11
+      "n": 12
     },
     {
       "weeks": 9,
@@ -213,12 +213,12 @@
       "n": 1
     }
   ],
-  "oneWeekOnly": 51,
+  "oneWeekOnly": 53,
   "method": "We report the median rather than the mean. A handful of very large values would pull a mean away from where most of the sample actually sits, and in reads-per-title data those large values are the norm, not an error. Correlations are Pearson coefficients. Where hours are involved they are taken on the logarithm of hours, because viewing hours span several orders of magnitude and a handful of enormous titles would otherwise decide the coefficient on their own. Titles are ranked by total viewing hours across the whole window, and staying power is the number of distinct weeks a title appeared on any country chart, so a title that returns after a gap is credited for both spells.",
   "limitation": "A median tells you where the middle sits and nothing about the shape around it, so it should be read next to the range or the full distribution, not alone. A correlation is not a cause, and it only detects the straight-line part of a relationship — two things can move together tightly in a curve and still score near zero. Taking logs changes what is being correlated: it is the ranking-like structure of hours, not hours themselves. A coefficient from a chosen sample also inherits that choice; ours are titles that reached a chart, which is not a sample of titles. A week on a chart is not a week of watching — a title can be watched steadily and never chart, and the chart cuts off at ten. The window opens in 2021, so titles already running before then start mid-life. And every title here reached a chart at least once, so nothing on this page speaks for titles that never did.",
   "correlations": {
     "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
-    "weeksVsLogHours": 0.733,
+    "weeksVsLogHours": 0.731,
     "peakVsLogHours": -0.753,
     "weeksVsPeak": -0.473
   },
@@ -314,6 +314,14 @@
       "perWeek": 120197619
     },
     {
+      "title": "Our Sticky Love",
+      "kind": "series",
+      "hours": 125900000,
+      "peak": 1,
+      "weeks": 2,
+      "perWeek": 62950000
+    },
+    {
       "title": "All of Us Are Dead",
       "kind": "series",
       "hours": 659510000,
@@ -328,14 +336,6 @@
       "peak": 1,
       "weeks": 5,
       "perWeek": 54200000
-    },
-    {
-      "title": "Agent Kim Reactivated",
-      "kind": "series",
-      "hours": 269700000,
-      "peak": 1,
-      "weeks": 5,
-      "perWeek": 53940000
     },
     {
       "title": "When Life Gives You Tangerines",
@@ -362,6 +362,14 @@
       "perWeek": 48380000
     },
     {
+      "title": "Agent Kim Reactivated",
+      "kind": "series",
+      "hours": 365200000,
+      "peak": 1,
+      "weeks": 8,
+      "perWeek": 45650000
+    },
+    {
       "title": "Queen of Tears",
       "kind": "series",
       "hours": 653900000,
@@ -376,14 +384,6 @@
       "peak": 1,
       "weeks": 13,
       "perWeek": 43153077
-    },
-    {
-      "title": "King the Land",
-      "kind": "series",
-      "hours": 446900000,
-      "peak": 1,
-      "weeks": 11,
-      "perWeek": 40627273
     }
   ],
   "rows": [
@@ -460,6 +460,14 @@
       "perWeek": 15519630
     },
     {
+      "title": "Agent Kim Reactivated",
+      "kind": "series",
+      "hours": 365200000,
+      "peak": 1,
+      "weeks": 8,
+      "perWeek": 45650000
+    },
+    {
       "title": "Bloodhounds",
       "kind": "series",
       "hours": 353170000,
@@ -524,14 +532,6 @@
       "perWeek": 54200000
     },
     {
-      "title": "Agent Kim Reactivated",
-      "kind": "series",
-      "hours": 269700000,
-      "peak": 1,
-      "weeks": 5,
-      "perWeek": 53940000
-    },
-    {
       "title": "My Royal Nemesis",
       "kind": "series",
       "hours": 247500000,
@@ -578,6 +578,14 @@
       "peak": 2,
       "weeks": 5,
       "perWeek": 38828000
+    },
+    {
+      "title": "Weak Hero",
+      "kind": "series",
+      "hours": 185400000,
+      "peak": 1,
+      "weeks": 7,
+      "perWeek": 26485714
     },
     {
       "title": "The Trauma Code: Heroes on Call",
@@ -642,6 +650,14 @@
       "peak": 1,
       "weeks": 9,
       "perWeek": 17144444
+    },
+    {
+      "title": "Doctor Cha",
+      "kind": "series",
+      "hours": 150910000,
+      "peak": 2,
+      "weeks": 7,
+      "perWeek": 21558571
     },
     {
       "title": "Welcome to Samdal-ri",
@@ -764,42 +780,27 @@
       "perWeek": 31875000
     },
     {
-      "title": "The Guest",
+      "title": "Our Sticky Love",
       "kind": "series",
-      "hours": 125300000,
-      "peak": 6,
-      "weeks": 4,
-      "perWeek": 31325000
-    },
-    {
-      "title": "Sweet Home",
-      "kind": "series",
-      "hours": 123400000,
-      "peak": 2,
-      "weeks": 5,
-      "perWeek": 24680000
-    },
-    {
-      "title": "The Good Bad Mother",
-      "kind": "series",
-      "hours": 122850000,
-      "peak": 3,
-      "weeks": 7,
-      "perWeek": 17550000
+      "hours": 125900000,
+      "peak": 1,
+      "weeks": 2,
+      "perWeek": 62950000
     }
   ],
-  "excludedEnglishChart": 52,
+  "excludedEnglishChart": 53,
   "excludedByHand": [
     "The East Palace",
     "Teach You a Lesson",
+    "Uninvited",
     "The Empress",
     "Fighter",
     "Animal",
+    "Money Heist",
     "Forgotten Love",
     "Paradise",
     "Hunger",
-    "Re/Member",
-    "UFO",
+    "Restless",
     "Undercover"
   ],
   "audited": {

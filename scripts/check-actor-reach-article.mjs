@@ -95,7 +95,22 @@ if (내가실행됐다) {
     '5편+ 의 3.74 는 시기였다');
   본다('얇은 칸을 못 낸다고 적었나', /too thin to say|not a finding; it is what noise/i.test(민본),
     '열두 명 미만은 배수를 안 낸다');
-  본다('거꾸로 간 칸을 감추지 않았나', 있나(본, d.bands[1].recent.times), `${d.bands[1].recent.times}×`);
+  /* 🔴 2026-08-23 — 이 자가 「거꾸로 간 칸은 두 편 띠다」를 **박아 놓고** 있었다.
+     자료가 바뀌자 거꾸로 간 칸이 한 편 띠로 옮겨 갔고, 자는 옛 자리만 보고 울었다.
+   ⭐ 어느 띠인지는 자료가 정한다. **1보다 작은 칸을 다 찾아** 기사가 그것들을 적었나 본다.
+   ⚠ 거꾸로 간 칸이 없으면 이 검사는 할 일이 없다 — 그때는 통과다(숨긴 것이 없으므로).
+     그건 「좋다」가 아니라 「이번엔 그런 칸이 안 나왔다」는 뜻이다. */
+  {
+    const 거꾸로 = [];
+    for (const b of d.bands) {
+      for (const [언제, c] of [['recent', b.recent], ['older', b.older]]) {
+        if (c && !c.thin && typeof c.times === 'number' && c.times < 1) 거꾸로.push({ 띠: b.band, 언제, 배수: c.times });
+      }
+    }
+    본다('거꾸로 간 칸을 감추지 않았나',
+      거꾸로.every((x) => 있나(본, x.배수)),
+      거꾸로.length ? 거꾸로.map((x) => `${x.띠}/${x.언제} ${x.배수}×`).join(' · ') : '거꾸로 간 칸 없음');
+  }
   본다('방향을 안 세웠다고 적었나', /Direction is not established|cannot be/i.test(민본), '인과를 안 말한다');
   본다('좋아함이 아니라고 적었나', /never the reason|not that these actors are liked/i.test(민본), '조회는 좋아함이 아니다');
 

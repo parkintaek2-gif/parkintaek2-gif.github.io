@@ -1,6 +1,6 @@
 ---
 title: "We publish one figure more than any other. A sixth of it rests on titles we could not check."
-dek: "Korean titles hold 7.6% of the world's Netflix top 10 places — 37,666 of 492,900. Of those, 82.5% carry the label we use to exclude same-name foreign works. 16.1% carry no label at all, and we keep them because we cannot check them."
+dek: "Korean titles hold 7.9% of the world's Netflix top 10 places — 39,612 of 498,480. Of those, 82.3% carry the label we use to exclude same-name foreign works. 16.4% carry no label at all, and we keep them because we cannot check them."
 category: industry
 purpose: ads
 pubDate: 2026-08-09
@@ -26,7 +26,7 @@ excluded:
 ---
 
 The number we publish most often is **7.7%** — the share of the world's Netflix top-10 places held by
-Korean titles, 37,666 of 492,900 across 93 markets and five years. It is on our front page, in our
+Korean titles, 39,612 of 498,480 across 93 markets and five years. It is on our front page, in our
 articles, and in the sheets we offer to companies.
 
 This week we finally asked how much of it we have actually checked.
@@ -47,11 +47,11 @@ would quietly delete real Korean shows.
 
 Keeping is not the same as confirming. Here is the size of the difference:
 
-| Of the 37,666 Korean chart places | Places | Share |
+| Of the 39,612 Korean chart places | Places | Share |
 |---|---:|---:|
-| Carry Netflix's Non-English label — checked | 31,078 | **82.5%** |
-| No label at all — kept because we could not check | 6,059 | **16.1%** |
-| Label says both — the name is on an English chart too | 529 | 1.4% |
+| Carry Netflix's Non-English label — checked | 32,602 | **82.3%** |
+| No label at all — kept because we could not check | 6,481 | **16.4%** |
+| Label says both — the name is on an English chart too | 529 | 1.3% |
 
 ## Why we had never published this
 
@@ -72,8 +72,8 @@ that we hold a Wikidata item number, matched by number rather than by name — t
 August after discovering that name matching is case-sensitive and was silently dropping Korean films
 filed as *LAND* and *DETOUR*.
 
-By that measure the picture is much better: **99.2%** of the places sit on titles with an item
-number. Only **295 places — 0.8%** entered on a name match alone.
+By that measure the picture is much better: **97.6%** of the places sit on titles with an item
+number. Only **934 places — 2.4%** entered on a name match alone.
 
 Neither check is a superset of the other. A title can carry a Wikidata number and still have no
 language label; the reverse happens too. So we publish both rather than the flattering one.
@@ -100,7 +100,7 @@ our collectors throw away, confirmed it was nothing, and never asked what they w
 
 ## What this means for the figure
 
-7.6% stands. What changes is the sentence around it: of the places it counts, 82.5% are confirmed
+7.9% stands. What changes is the sentence around it: of the places it counts, 82.3% are confirmed
 not to be English-language works of the same name, 1.4% are known to be ambiguous, and 16.1% are
 unverified in that specific way. On the other axis, 99.2% are identified by a database number rather
 than by their name.

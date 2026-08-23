@@ -1,33 +1,33 @@
 {
-  "generated": "2026. 8. 10. 오전 5:50:23",
+  "generated": "2026. 8. 23. 오후 2:38:03",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-07-26",
-  "weekCount": 265,
-  "titleCount": 232,
-  "totalHours": 23676360000,
+  "weekTo": "2026-08-16",
+  "weekCount": 268,
+  "titleCount": 240,
+  "totalHours": 24221390000,
   "before": {
-    "titles": 293,
-    "hours": 27707210000
+    "titles": 298,
+    "hours": 29899600000
   },
   "excludedEnglishChart": {
-    "titles": 52,
-    "hours": 2627290000
+    "titles": 49,
+    "hours": 3082780000
   },
   "excludedByHand": {
     "titles": 11,
-    "hours": 1403560000,
+    "hours": 2595430000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
+      "Uninvited",
       "The Empress",
       "Fighter",
       "Animal",
-      "Forgotten Love",
+      "Money Heist",
       "Paradise",
       "Hunger",
-      "Re/Member",
-      "UFO",
+      "Restless",
       "Undercover"
     ]
   },
@@ -103,6 +103,13 @@
       "weeks": 27
     },
     {
+      "title": "Agent Kim Reactivated",
+      "kind": "series",
+      "hours": 365200000,
+      "peak": 1,
+      "weeks": 8
+    },
+    {
       "title": "Bloodhounds",
       "kind": "series",
       "hours": 353170000,
@@ -159,13 +166,6 @@
       "weeks": 5
     },
     {
-      "title": "Agent Kim Reactivated",
-      "kind": "series",
-      "hours": 269700000,
-      "peak": 1,
-      "weeks": 5
-    },
-    {
       "title": "My Royal Nemesis",
       "kind": "series",
       "hours": 247500000,
@@ -208,6 +208,13 @@
       "weeks": 5
     },
     {
+      "title": "Weak Hero",
+      "kind": "series",
+      "hours": 185400000,
+      "peak": 1,
+      "weeks": 7
+    },
+    {
       "title": "The Trauma Code: Heroes on Call",
       "kind": "series",
       "hours": 184500000,
@@ -227,13 +234,6 @@
       "hours": 174400000,
       "peak": 3,
       "weeks": 9
-    },
-    {
-      "title": "The WONDERfools",
-      "kind": "series",
-      "hours": 170800000,
-      "peak": 2,
-      "weeks": 5
     },
     {
       "title": "Little Women",
@@ -262,6 +262,13 @@
       "hours": 154300000,
       "peak": 1,
       "weeks": 9
+    },
+    {
+      "title": "Doctor Cha",
+      "kind": "series",
+      "hours": 150910000,
+      "peak": 2,
+      "weeks": 7
     },
     {
       "title": "Welcome to Samdal-ri",
@@ -369,25 +376,18 @@
       "weeks": 4
     },
     {
+      "title": "Our Sticky Love",
+      "kind": "series",
+      "hours": 125900000,
+      "peak": 1,
+      "weeks": 2
+    },
+    {
       "title": "The Guest",
       "kind": "series",
       "hours": 125300000,
       "peak": 6,
       "weeks": 4
-    },
-    {
-      "title": "Sweet Home",
-      "kind": "series",
-      "hours": 123400000,
-      "peak": 2,
-      "weeks": 5
-    },
-    {
-      "title": "The Good Bad Mother",
-      "kind": "series",
-      "hours": 122850000,
-      "peak": 3,
-      "weeks": 7
     }
   ]
 }

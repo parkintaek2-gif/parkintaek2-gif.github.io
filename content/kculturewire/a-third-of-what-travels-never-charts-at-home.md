@@ -34,8 +34,8 @@ That is 35% of the panel, and it is not a rounding of the tail. It is a structur
 
 | | Titles | Avg. markets reached | Avg. weeks | Reached #1 |
 | --- | ---: | ---: | ---: | ---: |
-| Also charted in Korea | 257 | **4.67** | 6.9 | 50.2% |
-| Never charted in Korea | 140 | **2.21** | 3.4 | **14.3%** |
+| Also charted in Korea | 257 | **4.67** | 7.0 | 50.6% |
+| Never charted in Korea | 140 | **2.21** | 3.5 | **14.3%** |
 
 A title that plays at home reaches more than twice as many Southeast Asian markets and is three and a
 half times as likely to reach number one in one of them.

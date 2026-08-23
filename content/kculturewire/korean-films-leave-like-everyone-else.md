@@ -2,7 +2,7 @@
 title: "Korean films leave a Netflix chart exactly as fast as everyone else's. Korean series do not"
 category: titles
 purpose: both
-dek: "Across 208,053 finished runs, a Korean film holds a country chart for 1.96 weeks on average and every other film for 2.02. Korean series run 3.72 weeks against 2.71 — and removing each group's biggest title barely moves it."
+dek: "Across 210,355 finished runs, a Korean film holds a country chart for 1.96 weeks on average and every other film for 2.02. Korean series run 3.7 weeks against 2.71 — and removing each group's biggest title barely moves it."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -40,10 +40,10 @@ was in the week before it vanished — is at [how a title leaves](/exit).
 
 | | Runs | Median weeks | Mean weeks | Gone after one week | Lasting 4+ weeks |
 |---|---:|---:|---:|---:|---:|
-| Korean films | 3,830 | 2 | **1.96** | 41.8% | 8.8% |
-| Every other film | 117,316 | 2 | **2.02** | 42.4% | 9.9% |
-| Korean series | 7,892 | 3 | **3.73** | 30.6% | 38.6% |
-| Every other series | 79,015 | 2 | **2.71** | 34.1% | 23.3% |
+| Korean films | 4,197 | 2 | **1.96** | 42.1% | 8.8% |
+| Every other film | 118,252 | 2 | **2.02** | 42.4% | 9.9% |
+| Korean series | 8,324 | 3 | **3.7** | 30.3% | 38.2% |
+| Every other series | 79,582 | 2 | **2.71** | 34.1% | 23.3% |
 
 Read the first two rows and there is nothing to report. A Korean film holds a country's top 10 for
 1.96 weeks on average; every other film on the same charts holds it for 2.02. Four in ten of each are
@@ -62,9 +62,9 @@ between the two formats. The number worth having is what is left after removing 
 
 | | Series minus films, mean weeks |
 |---|---:|
-| Korean titles | **1.77 weeks** |
+| Korean titles | **1.74 weeks** |
 | Every other title | **0.69 weeks** |
-| Difference | **1.08 weeks** |
+| Difference | **1.05 weeks** |
 
 Korean series pull away from Korean films by a week more than other series pull away from other
 films. That extra week is the Korean part, and it sits entirely on the series side.
@@ -77,9 +77,9 @@ measured again with its single most-charting title taken out:
 
 | | Mean weeks | Without the biggest title | 4+ weeks | Without the biggest title |
 |---|---:|---:|---:|---:|
-| Korean series | 3.73 | **3.57** | 38.6% | **36.6%** |
+| Korean series | 3.7 | **3.55** | 38.2% | **36.2%** |
 | Every other series | 2.71 | **2.67** | 23.3% | **23%** |
-| Korean films | 1.96 | 1.96 | 8.8% | 8.7% |
+| Korean films | 1.96 | 1.95 | 8.8% | 8.7% |
 | Every other film | 2.02 | 2.02 | 9.9% | 9.9% |
 
 The gap narrows and stays. Korean series still run about nine tenths of a week longer than other
@@ -87,13 +87,13 @@ series with their biggest contributor removed, and still reach four weeks half a
 
 ## How they leave
 
-There is one more asymmetry, and it runs the other way. Of Korean series runs that ended, **62.9%**
-ended from positions 8, 9 or 10 — against 57.5% for other series and 44.3% for Korean films. A
+There is one more asymmetry, and it runs the other way. Of Korean series runs that ended, **62.5%**
+ended from positions 8, 9 or 10 — against 57.5% for other series and 44.2% for Korean films. A
 Korean series is on the chart longer and then slides off the bottom of it; a Korean film is more
 often simply gone.
 
 That is consistent with where the two sit while they are there. Korean series spend 28.2% of their
-chart weeks in the bottom three positions and other series 30.2%, so Korean series are not sitting
+chart weeks in the bottom three positions and other series 30.3%, so Korean series are not sitting
 lower — they climb, hold, and then slide.
 
 ## What this cannot tell you

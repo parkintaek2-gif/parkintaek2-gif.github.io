@@ -1,10 +1,10 @@
 ---
-title: "Remove Lee Byung-hun, Ma Dong-seok and 98 more, and Korean Netflix is still one connected body"
-dek: "Of 660 Korean titles with a recorded cast, 639 form a single connected body through shared actors. We expected a few very busy people to be holding it together. Take out the 100 busiest and 93.5% is still one piece."
+title: "Remove Ma Dong-seok, Hwang Jung-min and 98 more, and Korean Netflix is still one connected body"
+dek: "Of 668 Korean titles with a recorded cast, 651 form a single connected body through shared actors. We expected a few very busy people to be holding it together. Take out the 100 busiest and 94.6% is still one piece."
 category: titles
 purpose: both
 pubDate: 2026-08-07
-dataAsOf: 2026-08-07T00:00:00+09:00
+dataAsOf: 2026-08-23T00:00:00+09:00
 author: Newsroom
 tags: ["korean drama", "korean film", "netflix", "wikidata", "casting", "korea"]
 pages:
@@ -18,11 +18,11 @@ sources:
     api: "Country of origin (P495 = Q884) to identify Korean titles; cast member (P161) with citizenship (P27 = Q884) for the cast of each"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Titles and people are joined on Wikidata Q-numbers, not on title text. Matching by text put cast on only 317 of 1,005 titles because article names differ from chart names; matching on Q-numbers reaches 635 of 901"
+  - "Titles and people are joined on Wikidata Q-numbers, not on title text. Matching by text put cast on only 317 of 1,005 titles because article names differ from chart names; matching on Q-numbers reaches 668 of 945"
   - "This piece uses no pageview data at all. Nothing here depends on whether a person has an English Wikipedia article, so the selection bias that shapes our attention panels is absent"
   - "A link means two titles share at least one credited actor. That is a weak relation on purpose, and it is why we report the median number of links per title (16) beside the size of the connected body, rather than the body alone"
   - "The robustness test removes actors in order of how many titles they appear in, and is reported against the mirror-image test that removes the same number of the least busy actors. Both are shown"
-  - "901 of the titles Netflix has charted are matched to a Korean Wikidata item. 635 of those have at least one cast member recorded. The 266 with none are absent from this analysis and counted here"
+  - "945 of the titles Netflix has charted are matched to a Korean Wikidata item. 668 of those have at least one cast member recorded. The 277 with none are absent from this analysis and counted here"
 excluded:
   - "Any claim about the whole Korean industry. This is what reached a Netflix Top 10, which is a small and unrepresentative slice of what Korea makes"
   - "Directors, writers, producers, studios and agencies. The link here is cast only. The industry may be far more connected through people we did not measure"
@@ -33,42 +33,42 @@ excluded:
 Join every Korean film and series that has reached a Netflix Top 10 to the actors credited in it, and
 a shape appears that is hard to see from any one title.
 
-**635 titles. 1,355 actors. 3,413 casting slots.** Draw a line between two titles whenever they share
-a credited actor, and the median title is connected to **15** others. *12.12: The Day* is connected to
-110. Only 17 titles — 2.7% — share nobody with anything else.
+**668 titles. 1,395 actors. 3,588 casting slots.** Draw a line between two titles whenever they share
+a credited actor, and the median title is connected to **16** others. *12.12: The Day* is connected to
+115. Only 15 titles — 2.2% — share nobody with anything else.
 
-Follow those lines and **618 of the 635 titles, 97.3%, form a single connected body.** There are 18
-separate groups in total: one containing almost everything, and 17 titles sitting alone.
+Follow those lines and **651 of the 668 titles, 97.5%, form a single connected body.** There are 17
+separate groups in total: one containing almost everything, and 15 titles sitting alone.
 
 ## We assumed a few people were holding it together. They are not.
 
-The obvious explanation is a small repertory of very busy actors. Hwang Jung-min appears in 21 of
-these titles, Ma Dong-seok in 18, Lee Byung-hun and Sul Kyung-gu in 17 each. Thirty
-actors appear in ten or more. Pull those people out and the whole thing should fall apart.
+The obvious explanation is a small repertory of very busy actors. Ma Dong-seok appears in 21 of
+these titles, Hwang Jung-min in 20, Lee Byung-hun in 18, Sul Kyung-gu and Ha Jung-woo in 17 each.
+Thirty-nine actors appear in ten or more. Pull those people out and the whole thing should fall apart.
 
 We tested it. It does not.
 
 | Actors removed | Titles left | Largest connected body | Median links per title |
 | --- | ---: | ---: | ---: |
-| none | 635 | 618 (97.3%) | 15 |
-| 10 busiest | 625 | 607 (97.1%) | 13 |
-| 20 busiest | 625 | 606 (97.0%) | 11 |
-| 30 busiest (everyone with 10+ titles) | 619 | 598 (96.6%) | 11 |
-| 50 busiest | 612 | 586 (95.8%) | 9 |
-| 100 busiest | 590 | 556 (**94.2%**) | 7 |
+| none | 668 | 651 (97.5%) | 16 |
+| 10 busiest | 656 | 638 (97.3%) | 14 |
+| 20 busiest | 656 | 636 (97.0%) | 12 |
+| 39 busiest (everyone with 10+ titles) | 647 | 626 (96.8%) | 11 |
+| 50 busiest | 641 | 619 (96.6%) | 10 |
+| 100 busiest | 615 | 582 (**94.6%**) | 7 |
 
-Remove the hundred busiest actors in Korean Netflix-charting film and television — a seventh of
-everyone in the set — and the remaining 590 titles are still 94.2% one connected body.
+Remove the hundred busiest actors in Korean Netflix-charting film and television — one in fourteen of
+everyone in the set — and the remaining 615 titles are still 94.6% one connected body.
 
-The median number of links does fall, from 15 to 7. Busy actors do a great deal of the connecting.
+The median number of links does fall, from 16 to 7. Busy actors do a great deal of the connecting.
 They are simply not load-bearing: take them out and the structure stands on everyone else.
 
 For comparison, removing the hundred *least* busy actors changes almost nothing, as you would expect:
-618 of 633 titles, 97.6%.
+651 of 667 titles, 97.6%.
 
 ## Where the connection actually comes from
 
-**Half the actors in this set appear in exactly one title.** 655 of 1,355 — 48.3%. Only 195 appear in
+**Half the actors in this set appear in exactly one title.** 676 of 1,395 — 48.5%. Only 205 appear in
 five or more.
 
 So the connectivity is not the work of a famous few. It is the accumulated effect of a very large
@@ -78,27 +78,27 @@ before.
 
 | Title | Linked to | Cast recorded |
 | --- | ---: | ---: |
-| 12.12: The Day | 110 titles | 28 |
-| Mr. Sunshine | 104 | 32 |
-| Squid Game | 69 | 16 |
-| The Thieves | 67 | 11 |
-| Pinocchio | 64 | 43 |
+| 12.12: The Day | 115 titles | 28 |
+| Mr. Sunshine | 110 | 32 |
+| Squid Game | 74 | 16 |
+| The Thieves | 69 | 11 |
+| Pinocchio | 70 | 43 |
 
-Note that *The Thieves* reaches 67 titles on eleven recorded cast members while *Pinocchio* reaches 64 on
-forty-three. How connected a title is has little to do with how large its cast is.
+Note that *The Thieves* reaches 69 titles on eleven recorded cast members while *Pinocchio* reaches 70 — one on eleven recorded cast
+members, the other on forty-three. How connected a title is has little to do with how large its cast is.
 
 ## What would change this number
 
 **A link is one shared actor.** That is deliberately weak. A single character actor with a scene in
 two unrelated films joins them here. The median-links figure is the honest companion to the
-97.3%: it says the typical title is not hanging on by one thread but sitting in a mesh of fifteen.
+97.5%: it says the typical title is not hanging on by one thread but sitting in a mesh of sixteen.
 
 **Wikidata's cast lists are incomplete**, and they skew towards names someone thought worth writing
 down. That cuts both ways: the true number of links is higher than we measure, and the share of
 linking done by famous people is lower than it looks here.
 
-**266 titles have no cast recorded at all** — 901 Korean titles are matched to Wikidata items and only
-635 carry a P161 statement. Those 266 are not counted as isolated; they are absent.
+**277 titles have no cast recorded at all** — 945 Korean titles are matched to Wikidata items and only
+668 carry a P161 statement. Those 277 are not counted as isolated; they are absent.
 
 **Only Korean citizens are counted.** International co-productions lose their non-Korean cast, and
 with them the links to everything else those people have been in.

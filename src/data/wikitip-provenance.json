@@ -1,15 +1,15 @@
 {
-  "generated": "2026-08-10T01:08:07.258Z",
+  "generated": "2026-08-23T14:38+09:00",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists, and Wikidata for country of origin",
   "question": "Two works can share a title. Which one charted?",
   "unit": "Chart places. One place is one title in one country in one week.",
-  "panelTitles": 902,
-  "koreanPlaces": 37666,
+  "panelTitles": 982,
+  "koreanPlaces": 39844,
   "removedTitles": 13,
   "removedPlaces": 84,
-  "removedPlacesPc": 0.22,
-  "neverChartedAtHome": 342,
-  "neverChartedAtHomePc": 37.9,
+  "removedPlacesPc": 0.21,
+  "neverChartedAtHome": 384,
+  "neverChartedAtHomePc": 39.3,
   "removed": [
     {
       "title": "Undercover",
@@ -164,7 +164,7 @@
       "attributedTo": null
     }
   ],
-  "whyNotHomeChartAlone": "342 of 902 Korean titles (37.9%) never charted in Korea at all, because a drama that airs on Korean television does not appear on Netflix Korea. Absence from the home chart proves nothing on its own.",
+  "whyNotHomeChartAlone": "384 of 976 Korean titles (39.3%) never charted in Korea at all, because a drama that airs on Korean television does not appear on Netflix Korea. Absence from the home chart proves nothing on its own.",
   "whatThisCannotDo": "It cannot separate two works when a Korean work genuinely shares the name and the foreign one dominates the same market. Two titles failed here and were kept.",
   "cannotAnswer": "It says which work the chart row belongs to, not whether the other work exists, and it needs a foreign work Wikidata already knows about."
 }

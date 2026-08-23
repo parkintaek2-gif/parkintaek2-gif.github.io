@@ -146,7 +146,8 @@
   "roster-widened": "The set of titles a figure was measured over was widened after publication, and every count measured through it moved. Nothing in the earlier figures was wrong for the set they described; the set was too small for a median to hold still.",
   "definition-inconsistent": "A word we publish on many pages — median — was computed one way here and another way everywhere else. A reader comparing two of our pages had no way to know the same word meant two different things.",
   "window-too-short": "A measurement window was short enough that its own highest month became the peak. Widening the window moved the peaks and exposed a limit the first version could not see at all.",
-  "no-row-to-be-counted-in": "A value existed but had no row in the table that counts it, so our own check could report it as neither present nor missing. Not a miscount — an absence of the place where the count happens."
+  "no-row-to-be-counted-in": "A value existed but had no row in the table that counts it, so our own check could report it as neither present nor missing. Not a miscount — an absence of the place where the count happens.",
+  "spelling-case": "Netflix chart text and Wikidata labels write the same work with different letter case, and matching them exactly dropped Korean titles out of the set as though they did not exist"
  },
  "articleCauses": [
   {
@@ -243,6 +244,11 @@
    "slug": "eight-ways-we-have-been-wrong",
    "date": "2026-08-22",
    "cause": "no-row-to-be-counted-in"
+  },
+  {
+   "slug": "korean-actors-more-titles-buys-a-floor",
+   "date": "2026-08-23",
+   "cause": "spelling-case"
   }
  ],
  "guards": {
@@ -259,7 +265,8 @@
   "definition-inconsistent": null,
   "window-too-short": null,
   "selector-not-location": null,
-  "no-row-to-be-counted-in": "scripts/check-eight-ways-article.mjs"
+  "no-row-to-be-counted-in": "scripts/check-eight-ways-article.mjs",
+  "spelling-case": "scripts/check-title-spelling-match.mjs"
  },
  "guardNote": "A guard is a check that fails the build if this kind of mistake recurs. Null means we have not written one yet — it is a work list, not a claim of coverage."
 }

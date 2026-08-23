@@ -1,31 +1,31 @@
 {
- "generated": "2026-08-09T20:50:37.155Z",
+ "generated": "2026-08-23T14:38+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
+ "weekTo": "2026-08-16",
+ "weekCount": 268,
  "countryCount": 93,
  "pageCount": 93,
  "titlesPerPage": 20,
  "minTitlesForPage": 8,
  "medians": {
-  "koreanPc": 4.5,
-  "distinctTitles": 97,
-  "halfTakes": 19
+  "koreanPc": 4.7,
+  "distinctTitles": 104,
+  "halfTakes": 21
  },
  "markets": [
   {
    "iso2": "AR",
    "name": "Argentina",
    "slug": "argentina",
-   "koreanSlots": 208,
-   "koreanPc": 3.9,
-   "distinctTitles": 78,
-   "halfTakes": 15,
+   "koreanSlots": 227,
+   "koreanPc": 4.2,
+   "distinctTitles": 85,
+   "halfTakes": 17,
    "topTitle": "Squid Game",
-   "topTitlePc": 14.4,
+   "topTitlePc": 13.2,
    "inAsianTen": false,
-   "weeksWithKorean": 153,
+   "weeksWithKorean": 160,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -34,11 +34,11 @@
     },
     {
      "year": 2022,
-     "places": 25
+     "places": 27
     },
     {
      "year": 2023,
-     "places": 43
+     "places": 44
     },
     {
      "year": 2024,
@@ -46,11 +46,11 @@
     },
     {
      "year": 2025,
-     "places": 55
+     "places": 61
     },
     {
      "year": 2026,
-     "places": 24
+     "places": 34
     }
    ],
    "titles": [
@@ -79,6 +79,14 @@
      "last": "2026-04-19"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 6,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 6,
      "peak": 2,
@@ -93,14 +101,6 @@
      "weeks": 6,
      "first": "2025-08-31",
      "last": "2025-10-05"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 6,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -143,6 +143,14 @@
      "last": "2024-01-14"
     },
     {
+     "title": "Weak Hero",
+     "places": 5,
+     "peak": 3,
+     "weeks": 5,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
      "title": "When the Phone Rings",
      "places": 5,
      "peak": 9,
@@ -175,6 +183,14 @@
      "last": "2025-06-08"
     },
     {
+     "title": "That Night",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-03-15",
+     "last": "2026-04-05"
+    },
+    {
      "title": "The Great Flood",
      "places": 4,
      "peak": 1,
@@ -191,28 +207,12 @@
      "last": "2024-03-03"
     },
     {
-     "title": "Hellbound",
+     "title": "Desire",
      "places": 3,
-     "peak": 3,
+     "peak": 2,
      "weeks": 3,
-     "first": "2021-11-21",
-     "last": "2021-12-05"
-    },
-    {
-     "title": "My Name",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2021-10-17",
-     "last": "2021-10-31"
-    },
-    {
-     "title": "Noise",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2023-01-15",
-     "last": "2023-03-26"
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     }
    ],
    "titlesShown": 20,
@@ -227,27 +227,27 @@
    "iso2": "AU",
    "name": "Australia",
    "slug": "australia",
-   "koreanSlots": 120,
+   "koreanSlots": 125,
    "koreanPc": 2.3,
-   "distinctTitles": 55,
-   "halfTakes": 11,
+   "distinctTitles": 59,
+   "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 20.8,
+   "topTitlePc": 20,
    "inAsianTen": false,
-   "weeksWithKorean": 98,
+   "weeksWithKorean": 100,
    "firstKoreanWeek": "2021-09-19",
    "byYear": [
     {
      "year": 2021,
-     "places": 13
+     "places": 14
     },
     {
      "year": 2022,
-     "places": 30
+     "places": 32
     },
     {
      "year": 2023,
-     "places": 18
+     "places": 20
     },
     {
      "year": 2024,
@@ -408,20 +408,20 @@
      "last": "2024-10-13"
     },
     {
+     "title": "Outback",
+     "places": 2,
+     "peak": 10,
+     "weeks": 2,
+     "first": "2023-07-30",
+     "last": "2023-08-06"
+    },
+    {
      "title": "Queen of Tears",
      "places": 2,
      "peak": 7,
      "weeks": 2,
      "first": "2024-03-17",
      "last": "2024-03-24"
-    },
-    {
-     "title": "Revolver",
-     "places": 2,
-     "peak": 9,
-     "weeks": 2,
-     "first": "2022-05-22",
-     "last": "2026-06-14"
     }
    ],
    "titlesShown": 20,
@@ -436,14 +436,14 @@
    "iso2": "AT",
    "name": "Austria",
    "slug": "austria",
-   "koreanSlots": 140,
-   "koreanPc": 2.6,
-   "distinctTitles": 61,
-   "halfTakes": 11,
+   "koreanSlots": 146,
+   "koreanPc": 2.7,
+   "distinctTitles": 64,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 20,
+   "topTitlePc": 19.2,
    "inAsianTen": false,
-   "weeksWithKorean": 110,
+   "weeksWithKorean": 115,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -464,11 +464,11 @@
     },
     {
      "year": 2025,
-     "places": 28
+     "places": 29
     },
     {
      "year": 2026,
-     "places": 15
+     "places": 20
     }
    ],
    "titles": [
@@ -535,6 +535,14 @@
      "weeks": 4,
      "first": "2021-09-19",
      "last": "2021-10-10"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "My Name",
@@ -609,14 +617,6 @@
      "last": "2022-08-14"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 2,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Hellbound",
      "places": 2,
      "peak": 3,
@@ -645,23 +645,23 @@
    "iso2": "BS",
    "name": "Bahamas",
    "slug": "bahamas",
-   "koreanSlots": 143,
-   "koreanPc": 2.7,
-   "distinctTitles": 69,
-   "halfTakes": 18,
+   "koreanSlots": 150,
+   "koreanPc": 2.8,
+   "distinctTitles": 74,
+   "halfTakes": 20,
    "topTitle": "Squid Game",
-   "topTitlePc": 12.6,
+   "topTitlePc": 12,
    "inAsianTen": false,
-   "weeksWithKorean": 110,
+   "weeksWithKorean": 113,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
      "year": 2021,
-     "places": 21
+     "places": 23
     },
     {
      "year": 2022,
-     "places": 31
+     "places": 33
     },
     {
      "year": 2023,
@@ -673,11 +673,11 @@
     },
     {
      "year": 2025,
-     "places": 22
+     "places": 24
     },
     {
      "year": 2026,
-     "places": 15
+     "places": 16
     }
    ],
    "titles": [
@@ -854,14 +854,14 @@
    "iso2": "BH",
    "name": "Bahrain",
    "slug": "bahrain",
-   "koreanSlots": 487,
-   "koreanPc": 9.2,
-   "distinctTitles": 139,
-   "halfTakes": 29,
+   "koreanSlots": 515,
+   "koreanPc": 9.6,
+   "distinctTitles": 147,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.2,
+   "topTitlePc": 7.8,
    "inAsianTen": false,
-   "weeksWithKorean": 240,
+   "weeksWithKorean": 247,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -870,23 +870,23 @@
     },
     {
      "year": 2022,
-     "places": 93
+     "places": 95
     },
     {
      "year": 2023,
-     "places": 106
+     "places": 113
     },
     {
      "year": 2024,
-     "places": 85
+     "places": 87
     },
     {
      "year": 2025,
-     "places": 92
+     "places": 99
     },
     {
      "year": 2026,
-     "places": 61
+     "places": 71
     }
    ],
    "titles": [
@@ -947,6 +947,14 @@
      "last": "2022-05-08"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Extraordinary Attorney Woo",
      "places": 8,
      "peak": 1,
@@ -1003,6 +1011,14 @@
      "last": "2025-10-05"
     },
     {
+     "title": "Doctor Cha",
+     "places": 7,
+     "peak": 3,
+     "weeks": 7,
+     "first": "2023-04-30",
+     "last": "2023-06-11"
+    },
+    {
      "title": "My Royal Nemesis",
      "places": 7,
      "peak": 3,
@@ -1033,29 +1049,13 @@
      "weeks": 6,
      "first": "2025-11-16",
      "last": "2025-12-28"
-    },
-    {
-     "title": "Mimi",
-     "places": 6,
-     "peak": 1,
-     "weeks": 6,
-     "first": "2021-08-01",
-     "last": "2021-09-05"
-    },
-    {
-     "title": "Mr. Queen",
-     "places": 6,
-     "peak": 1,
-     "weeks": 6,
-     "first": "2023-02-19",
-     "last": "2023-04-02"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "well above"
+    "halfTakes": "above"
    },
    "hasPage": true
   },
@@ -1063,14 +1063,14 @@
    "iso2": "BD",
    "name": "Bangladesh",
    "slug": "bangladesh",
-   "koreanSlots": 731,
-   "koreanPc": 13.8,
-   "distinctTitles": 139,
-   "halfTakes": 23,
+   "koreanSlots": 767,
+   "koreanPc": 14.3,
+   "distinctTitles": 146,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 9,
+   "topTitlePc": 8.6,
    "inAsianTen": false,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -1079,11 +1079,11 @@
     },
     {
      "year": 2022,
-     "places": 153
+     "places": 156
     },
     {
      "year": 2023,
-     "places": 150
+     "places": 156
     },
     {
      "year": 2024,
@@ -1091,11 +1091,11 @@
     },
     {
      "year": 2025,
-     "places": 138
+     "places": 154
     },
     {
      "year": 2026,
-     "places": 79
+     "places": 90
     }
    ],
    "titles": [
@@ -1212,6 +1212,14 @@
      "last": "2025-11-09"
     },
     {
+     "title": "Weak Hero",
+     "places": 11,
+     "peak": 2,
+     "weeks": 8,
+     "first": "2025-03-30",
+     "last": "2025-06-01"
+    },
+    {
      "title": "Gyeongseong Creature",
      "places": 10,
      "peak": 2,
@@ -1250,14 +1258,6 @@
      "weeks": 9,
      "first": "2026-04-26",
      "last": "2026-06-21"
-    },
-    {
-     "title": "Little Women",
-     "places": 9,
-     "peak": 2,
-     "weeks": 9,
-     "first": "2022-05-01",
-     "last": "2022-10-30"
     }
    ],
    "titlesShown": 20,
@@ -1272,14 +1272,14 @@
    "iso2": "BE",
    "name": "Belgium",
    "slug": "belgium",
-   "koreanSlots": 144,
-   "koreanPc": 2.7,
-   "distinctTitles": 54,
-   "halfTakes": 10,
+   "koreanSlots": 153,
+   "koreanPc": 2.9,
+   "distinctTitles": 58,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 20.1,
+   "topTitlePc": 19,
    "inAsianTen": false,
-   "weeksWithKorean": 110,
+   "weeksWithKorean": 117,
    "firstKoreanWeek": "2021-08-15",
    "byYear": [
     {
@@ -1300,11 +1300,11 @@
     },
     {
      "year": 2025,
-     "places": 27
+     "places": 32
     },
     {
      "year": 2026,
-     "places": 18
+     "places": 22
     }
    ],
    "titles": [
@@ -1317,20 +1317,20 @@
      "last": "2025-08-10"
     },
     {
+     "title": "Oasis",
+     "places": 7,
+     "peak": 2,
+     "weeks": 7,
+     "first": "2026-06-21",
+     "last": "2026-08-02"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 6,
      "peak": 1,
      "weeks": 6,
      "first": "2022-01-30",
      "last": "2022-03-06"
-    },
-    {
-     "title": "Oasis",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
     },
     {
      "title": "Breathless",
@@ -1397,12 +1397,28 @@
      "last": "2023-03-26"
     },
     {
+     "title": "Weak Hero",
+     "places": 4,
+     "peak": 5,
+     "weeks": 4,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
      "title": "Dangerous Liaisons",
      "places": 3,
      "peak": 3,
      "weeks": 3,
      "first": "2022-07-10",
      "last": "2022-07-24"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "Hellbound",
@@ -1451,22 +1467,6 @@
      "weeks": 2,
      "first": "2024-04-28",
      "last": "2024-05-05"
-    },
-    {
-     "title": "Crush",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2022-04-03",
-     "last": "2022-04-10"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
@@ -1481,14 +1481,14 @@
    "iso2": "BO",
    "name": "Bolivia",
    "slug": "bolivia",
-   "koreanSlots": 625,
-   "koreanPc": 11.8,
-   "distinctTitles": 126,
-   "halfTakes": 22,
+   "koreanSlots": 656,
+   "koreanPc": 12.2,
+   "distinctTitles": 133,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.3,
+   "topTitlePc": 7.9,
    "inAsianTen": false,
-   "weeksWithKorean": 257,
+   "weeksWithKorean": 260,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -1497,11 +1497,11 @@
     },
     {
      "year": 2022,
-     "places": 110
+     "places": 111
     },
     {
      "year": 2023,
-     "places": 144
+     "places": 153
     },
     {
      "year": 2024,
@@ -1509,11 +1509,11 @@
     },
     {
      "year": 2025,
-     "places": 121
+     "places": 130
     },
     {
      "year": 2026,
-     "places": 76
+     "places": 88
     }
    ],
    "titles": [
@@ -1638,6 +1638,14 @@
      "last": "2025-10-19"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Alchemy of Souls",
      "places": 8,
      "peak": 5,
@@ -1668,14 +1676,6 @@
      "weeks": 8,
      "first": "2022-03-06",
      "last": "2026-07-05"
-    },
-    {
-     "title": "My Royal Nemesis",
-     "places": 8,
-     "peak": 1,
-     "weeks": 8,
-     "first": "2026-05-10",
-     "last": "2026-06-28"
     }
    ],
    "titlesShown": 20,
@@ -1690,19 +1690,19 @@
    "iso2": "BR",
    "name": "Brazil",
    "slug": "brazil",
-   "koreanSlots": 364,
-   "koreanPc": 6.9,
-   "distinctTitles": 116,
-   "halfTakes": 23,
+   "koreanSlots": 386,
+   "koreanPc": 7.2,
+   "distinctTitles": 124,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.1,
+   "topTitlePc": 6.7,
    "inAsianTen": false,
-   "weeksWithKorean": 215,
+   "weeksWithKorean": 222,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
      "year": 2021,
-     "places": 23
+     "places": 24
     },
     {
      "year": 2022,
@@ -1710,7 +1710,7 @@
     },
     {
      "year": 2023,
-     "places": 72
+     "places": 77
     },
     {
      "year": 2024,
@@ -1718,11 +1718,11 @@
     },
     {
      "year": 2025,
-     "places": 85
+     "places": 90
     },
     {
      "year": 2026,
-     "places": 52
+     "places": 63
     }
    ],
    "titles": [
@@ -1899,14 +1899,14 @@
    "iso2": "BG",
    "name": "Bulgaria",
    "slug": "bulgaria",
-   "koreanSlots": 169,
-   "koreanPc": 3.2,
-   "distinctTitles": 60,
-   "halfTakes": 7,
+   "koreanSlots": 177,
+   "koreanPc": 3.3,
+   "distinctTitles": 65,
+   "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 30.2,
+   "topTitlePc": 28.8,
    "inAsianTen": false,
-   "weeksWithKorean": 123,
+   "weeksWithKorean": 129,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -1915,11 +1915,11 @@
     },
     {
      "year": 2022,
-     "places": 22
+     "places": 23
     },
     {
      "year": 2023,
-     "places": 34
+     "places": 36
     },
     {
      "year": 2024,
@@ -1927,11 +1927,11 @@
     },
     {
      "year": 2025,
-     "places": 45
+     "places": 49
     },
     {
      "year": 2026,
-     "places": 25
+     "places": 26
     }
    ],
    "titles": [
@@ -2032,6 +2032,22 @@
      "last": "2022-01-09"
     },
     {
+     "title": "Weak Hero",
+     "places": 3,
+     "peak": 6,
+     "weeks": 3,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
+     "title": "8MM",
+     "places": 2,
+     "peak": 10,
+     "weeks": 2,
+     "first": "2023-07-02",
+     "last": "2023-07-09"
+    },
+    {
      "title": "Agent Kim Reactivated",
      "places": 2,
      "peak": 7,
@@ -2078,22 +2094,6 @@
      "weeks": 2,
      "first": "2022-08-07",
      "last": "2022-08-14"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 4,
-     "weeks": 2,
-     "first": "2022-07-17",
-     "last": "2022-07-24"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
@@ -2108,14 +2108,14 @@
    "iso2": "CA",
    "name": "Canada",
    "slug": "canada",
-   "koreanSlots": 106,
-   "koreanPc": 2,
-   "distinctTitles": 52,
-   "halfTakes": 10,
+   "koreanSlots": 112,
+   "koreanPc": 2.1,
+   "distinctTitles": 56,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.6,
+   "topTitlePc": 22.3,
    "inAsianTen": false,
-   "weeksWithKorean": 83,
+   "weeksWithKorean": 89,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -2132,15 +2132,15 @@
     },
     {
      "year": 2024,
-     "places": 17
+     "places": 20
     },
     {
      "year": 2025,
-     "places": 21
+     "places": 22
     },
     {
      "year": 2026,
-     "places": 11
+     "places": 13
     }
    ],
    "titles": [
@@ -2265,6 +2265,14 @@
      "last": "2023-01-29"
     },
     {
+     "title": "Long Distance",
+     "places": 2,
+     "peak": 7,
+     "weeks": 2,
+     "first": "2026-06-14",
+     "last": "2026-06-21"
+    },
+    {
      "title": "Spy",
      "places": 2,
      "peak": 5,
@@ -2289,20 +2297,12 @@
      "last": "2025-01-19"
     },
     {
-     "title": "The Way Back",
+     "title": "The Rewrite",
      "places": 2,
-     "peak": 4,
+     "peak": 5,
      "weeks": 2,
-     "first": "2021-12-05",
-     "last": "2022-06-12"
-    },
-    {
-     "title": "Watcher",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2024-01-28",
-     "last": "2024-02-04"
+     "first": "2024-03-24",
+     "last": "2024-03-31"
     }
    ],
    "titlesShown": 20,
@@ -2317,27 +2317,27 @@
    "iso2": "CL",
    "name": "Chile",
    "slug": "chile",
-   "koreanSlots": 402,
-   "koreanPc": 7.6,
-   "distinctTitles": 119,
-   "halfTakes": 24,
+   "koreanSlots": 428,
+   "koreanPc": 8,
+   "distinctTitles": 128,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 8,
+   "topTitlePc": 7.5,
    "inAsianTen": false,
-   "weeksWithKorean": 227,
+   "weeksWithKorean": 232,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 34
+     "places": 35
     },
     {
      "year": 2022,
-     "places": 57
+     "places": 58
     },
     {
      "year": 2023,
-     "places": 74
+     "places": 81
     },
     {
      "year": 2024,
@@ -2345,11 +2345,11 @@
     },
     {
      "year": 2025,
-     "places": 94
+     "places": 100
     },
     {
      "year": 2026,
-     "places": 53
+     "places": 64
     }
    ],
    "titles": [
@@ -2442,6 +2442,14 @@
      "last": "2025-01-12"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 3,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 7,
      "peak": 2,
@@ -2504,14 +2512,6 @@
      "weeks": 6,
      "first": "2021-11-07",
      "last": "2021-12-12"
-    },
-    {
-     "title": "Sold Out on You",
-     "places": 6,
-     "peak": 4,
-     "weeks": 6,
-     "first": "2026-04-26",
-     "last": "2026-05-31"
     }
    ],
    "titlesShown": 20,
@@ -2526,27 +2526,27 @@
    "iso2": "CO",
    "name": "Colombia",
    "slug": "colombia",
-   "koreanSlots": 390,
-   "koreanPc": 7.4,
-   "distinctTitles": 110,
-   "halfTakes": 21,
+   "koreanSlots": 413,
+   "koreanPc": 7.7,
+   "distinctTitles": 118,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.5,
+   "topTitlePc": 9,
    "inAsianTen": false,
-   "weeksWithKorean": 218,
+   "weeksWithKorean": 223,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 19
+     "places": 20
     },
     {
      "year": 2022,
-     "places": 44
+     "places": 46
     },
     {
      "year": 2023,
-     "places": 75
+     "places": 78
     },
     {
      "year": 2024,
@@ -2554,11 +2554,11 @@
     },
     {
      "year": 2025,
-     "places": 98
+     "places": 104
     },
     {
      "year": 2026,
-     "places": 54
+     "places": 65
     }
    ],
    "titles": [
@@ -2707,20 +2707,20 @@
      "last": "2025-11-09"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Beyond the Bar",
      "places": 6,
      "peak": 5,
      "weeks": 6,
      "first": "2025-08-10",
      "last": "2025-09-14"
-    },
-    {
-     "title": "The Influencer",
-     "places": 6,
-     "peak": 4,
-     "weeks": 6,
-     "first": "2023-12-17",
-     "last": "2024-01-21"
     }
    ],
    "titlesShown": 20,
@@ -2735,27 +2735,27 @@
    "iso2": "CR",
    "name": "Costa Rica",
    "slug": "costa-rica",
-   "koreanSlots": 300,
-   "koreanPc": 5.7,
-   "distinctTitles": 97,
-   "halfTakes": 19,
+   "koreanSlots": 322,
+   "koreanPc": 6,
+   "distinctTitles": 106,
+   "halfTakes": 21,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.7,
+   "topTitlePc": 9,
    "inAsianTen": false,
-   "weeksWithKorean": 193,
+   "weeksWithKorean": 199,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 25
+     "places": 26
     },
     {
      "year": 2022,
-     "places": 33
+     "places": 34
     },
     {
      "year": 2023,
-     "places": 58
+     "places": 61
     },
     {
      "year": 2024,
@@ -2763,11 +2763,11 @@
     },
     {
      "year": 2025,
-     "places": 74
+     "places": 79
     },
     {
      "year": 2026,
-     "places": 40
+     "places": 52
     }
    ],
    "titles": [
@@ -2852,6 +2852,14 @@
      "last": "2026-06-21"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Beyond the Bar",
      "places": 6,
      "peak": 5,
@@ -2908,14 +2916,6 @@
      "last": "2022-10-09"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 4,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
-    },
-    {
      "title": "All of Us Are Dead",
      "places": 5,
      "peak": 2,
@@ -2944,14 +2944,14 @@
    "iso2": "HR",
    "name": "Croatia",
    "slug": "croatia",
-   "koreanSlots": 112,
+   "koreanSlots": 115,
    "koreanPc": 2.1,
-   "distinctTitles": 48,
+   "distinctTitles": 49,
    "halfTakes": 7,
    "topTitle": "Squid Game",
-   "topTitlePc": 28.6,
+   "topTitlePc": 27.8,
    "inAsianTen": false,
-   "weeksWithKorean": 95,
+   "weeksWithKorean": 98,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -2976,7 +2976,7 @@
     },
     {
      "year": 2026,
-     "places": 14
+     "places": 17
     }
    ],
    "titles": [
@@ -3019,6 +3019,14 @@
      "weeks": 4,
      "first": "2024-09-01",
      "last": "2025-11-09"
+    },
+    {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "The Great Flood",
@@ -3075,14 +3083,6 @@
      "weeks": 2,
      "first": "2022-07-17",
      "last": "2022-07-24"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     },
     {
      "title": "Dog Days Out",
@@ -3153,14 +3153,14 @@
    "iso2": "CY",
    "name": "Cyprus",
    "slug": "cyprus",
-   "koreanSlots": 134,
-   "koreanPc": 2.5,
-   "distinctTitles": 59,
-   "halfTakes": 11,
+   "koreanSlots": 143,
+   "koreanPc": 2.7,
+   "distinctTitles": 65,
+   "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.1,
+   "topTitlePc": 21.7,
    "inAsianTen": false,
-   "weeksWithKorean": 108,
+   "weeksWithKorean": 116,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -3173,7 +3173,7 @@
     },
     {
      "year": 2023,
-     "places": 22
+     "places": 23
     },
     {
      "year": 2024,
@@ -3181,11 +3181,11 @@
     },
     {
      "year": 2025,
-     "places": 39
+     "places": 43
     },
     {
      "year": 2026,
-     "places": 20
+     "places": 24
     }
    ],
    "titles": [
@@ -3252,6 +3252,14 @@
      "weeks": 3,
      "first": "2026-06-21",
      "last": "2026-07-05"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 3,
+     "peak": 6,
+     "weeks": 3,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
     },
     {
      "title": "Angel Eyes",
@@ -3340,14 +3348,6 @@
      "weeks": 2,
      "first": "2023-01-22",
      "last": "2023-01-29"
-    },
-    {
-     "title": "Kill Boksoon",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2023-04-02",
-     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -3362,14 +3362,14 @@
    "iso2": "CZ",
    "name": "Czech Republic",
    "slug": "czech-republic",
-   "koreanSlots": 175,
-   "koreanPc": 3.3,
-   "distinctTitles": 59,
+   "koreanSlots": 197,
+   "koreanPc": 3.7,
+   "distinctTitles": 66,
    "halfTakes": 9,
    "topTitle": "Squid Game",
-   "topTitlePc": 27.4,
+   "topTitlePc": 24.4,
    "inAsianTen": false,
-   "weeksWithKorean": 130,
+   "weeksWithKorean": 148,
    "firstKoreanWeek": "2021-09-19",
    "byYear": [
     {
@@ -3378,7 +3378,7 @@
     },
     {
      "year": 2022,
-     "places": 25
+     "places": 39
     },
     {
      "year": 2023,
@@ -3390,11 +3390,11 @@
     },
     {
      "year": 2025,
-     "places": 46
+     "places": 48
     },
     {
      "year": 2026,
-     "places": 20
+     "places": 26
     }
    ],
    "titles": [
@@ -3405,6 +3405,14 @@
      "weeks": 37,
      "first": "2021-09-19",
      "last": "2025-08-10"
+    },
+    {
+     "title": "Jackpot",
+     "places": 12,
+     "peak": 1,
+     "weeks": 12,
+     "first": "2022-08-14",
+     "last": "2022-10-30"
     },
     {
      "title": "Sweethearts",
@@ -3495,6 +3503,14 @@
      "last": "2022-07-24"
     },
     {
+     "title": "Desire",
+     "places": 3,
+     "peak": 3,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Grand Prix",
      "places": 3,
      "peak": 1,
@@ -3541,22 +3557,6 @@
      "weeks": 2,
      "first": "2023-06-18",
      "last": "2023-06-25"
-    },
-    {
-     "title": "Awake",
-     "places": 2,
-     "peak": 2,
-     "weeks": 2,
-     "first": "2023-09-03",
-     "last": "2023-09-10"
-    },
-    {
-     "title": "Badland Hunters",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2024-01-28",
-     "last": "2024-02-04"
     }
    ],
    "titlesShown": 20,
@@ -3571,14 +3571,14 @@
    "iso2": "DK",
    "name": "Denmark",
    "slug": "denmark",
-   "koreanSlots": 88,
+   "koreanSlots": 92,
    "koreanPc": 1.7,
-   "distinctTitles": 41,
-   "halfTakes": 5,
+   "distinctTitles": 43,
+   "halfTakes": 6,
    "topTitle": "Squid Game",
-   "topTitlePc": 34.1,
+   "topTitlePc": 32.6,
    "inAsianTen": false,
-   "weeksWithKorean": 75,
+   "weeksWithKorean": 79,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -3587,7 +3587,7 @@
     },
     {
      "year": 2022,
-     "places": 17
+     "places": 18
     },
     {
      "year": 2023,
@@ -3599,7 +3599,7 @@
     },
     {
      "year": 2025,
-     "places": 24
+     "places": 27
     },
     {
      "year": 2026,
@@ -3638,6 +3638,14 @@
      "weeks": 3,
      "first": "2023-09-24",
      "last": "2023-10-08"
+    },
+    {
+     "title": "Way Home",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2025-06-01",
+     "last": "2025-06-15"
     },
     {
      "title": "Badland Hunters",
@@ -3758,14 +3766,6 @@
      "weeks": 1,
      "first": "2025-02-23",
      "last": "2025-02-23"
-    },
-    {
-     "title": "Hellbound",
-     "places": 1,
-     "peak": 6,
-     "weeks": 1,
-     "first": "2021-11-28",
-     "last": "2021-11-28"
     }
    ],
    "titlesShown": 20,
@@ -3780,27 +3780,27 @@
    "iso2": "DO",
    "name": "Dominican Republic",
    "slug": "dominican-republic",
-   "koreanSlots": 439,
-   "koreanPc": 8.3,
-   "distinctTitles": 129,
-   "halfTakes": 28,
+   "koreanSlots": 469,
+   "koreanPc": 8.8,
+   "distinctTitles": 138,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 5.7,
+   "topTitlePc": 5.3,
    "inAsianTen": false,
-   "weeksWithKorean": 224,
+   "weeksWithKorean": 231,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
      "year": 2021,
-     "places": 34
+     "places": 35
     },
     {
      "year": 2022,
-     "places": 60
+     "places": 62
     },
     {
      "year": 2023,
-     "places": 87
+     "places": 92
     },
     {
      "year": 2024,
@@ -3808,11 +3808,11 @@
     },
     {
      "year": 2025,
-     "places": 93
+     "places": 101
     },
     {
      "year": 2026,
-     "places": 63
+     "places": 77
     }
    ],
    "titles": [
@@ -3969,12 +3969,12 @@
      "last": "2024-08-04"
     },
     {
-     "title": "All of Us Are Dead",
-     "places": 6,
+     "title": "Weak Hero",
+     "places": 7,
      "peak": 2,
      "weeks": 6,
-     "first": "2022-01-30",
-     "last": "2022-03-06"
+     "first": "2025-03-30",
+     "last": "2025-05-04"
     }
    ],
    "titlesShown": 20,
@@ -3989,27 +3989,27 @@
    "iso2": "EC",
    "name": "Ecuador",
    "slug": "ecuador",
-   "koreanSlots": 458,
-   "koreanPc": 8.6,
-   "distinctTitles": 116,
-   "halfTakes": 24,
+   "koreanSlots": 487,
+   "koreanPc": 9.1,
+   "distinctTitles": 125,
+   "halfTakes": 27,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.3,
+   "topTitlePc": 7.8,
    "inAsianTen": false,
-   "weeksWithKorean": 226,
+   "weeksWithKorean": 231,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 35
+     "places": 36
     },
     {
      "year": 2022,
-     "places": 54
+     "places": 55
     },
     {
      "year": 2023,
-     "places": 87
+     "places": 95
     },
     {
      "year": 2024,
@@ -4017,11 +4017,11 @@
     },
     {
      "year": 2025,
-     "places": 110
+     "places": 117
     },
     {
      "year": 2026,
-     "places": 60
+     "places": 72
     }
    ],
    "titles": [
@@ -4198,14 +4198,14 @@
    "iso2": "EG",
    "name": "Egypt",
    "slug": "egypt",
-   "koreanSlots": 312,
-   "koreanPc": 5.9,
-   "distinctTitles": 103,
-   "halfTakes": 18,
+   "koreanSlots": 335,
+   "koreanPc": 6.3,
+   "distinctTitles": 109,
+   "halfTakes": 20,
    "topTitle": "Squid Game",
-   "topTitlePc": 16,
+   "topTitlePc": 14.9,
    "inAsianTen": false,
-   "weeksWithKorean": 190,
+   "weeksWithKorean": 199,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -4218,19 +4218,19 @@
     },
     {
      "year": 2023,
-     "places": 55
+     "places": 58
     },
     {
      "year": 2024,
-     "places": 48
+     "places": 50
     },
     {
      "year": 2025,
-     "places": 73
+     "places": 77
     },
     {
      "year": 2026,
-     "places": 59
+     "places": 73
     }
    ],
    "titles": [
@@ -4249,6 +4249,22 @@
      "weeks": 8,
      "first": "2023-06-18",
      "last": "2026-05-03"
+    },
+    {
+     "title": "Family Business",
+     "places": 9,
+     "peak": 1,
+     "weeks": 9,
+     "first": "2026-06-21",
+     "last": "2026-08-16"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 2,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
     },
     {
      "title": "King the Land",
@@ -4291,14 +4307,6 @@
      "last": "2022-03-06"
     },
     {
-     "title": "Family Business",
-     "places": 6,
-     "peak": 1,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
-    },
-    {
      "title": "My Royal Nemesis",
      "places": 6,
      "peak": 6,
@@ -4339,20 +4347,20 @@
      "last": "2025-01-05"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 2,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Business Proposal",
      "places": 5,
      "peak": 3,
      "weeks": 5,
      "first": "2022-03-20",
      "last": "2022-04-17"
+    },
+    {
+     "title": "Desire",
+     "places": 5,
+     "peak": 1,
+     "weeks": 5,
+     "first": "2026-07-19",
+     "last": "2026-08-16"
     },
     {
      "title": "Dynamite Kiss",
@@ -4385,14 +4393,6 @@
      "weeks": 4,
      "first": "2024-02-04",
      "last": "2024-03-10"
-    },
-    {
-     "title": "Fireworks",
-     "places": 4,
-     "peak": 1,
-     "weeks": 4,
-     "first": "2024-06-23",
-     "last": "2024-07-14"
     }
    ],
    "titlesShown": 20,
@@ -4407,27 +4407,27 @@
    "iso2": "SV",
    "name": "El Salvador",
    "slug": "el-salvador",
-   "koreanSlots": 501,
-   "koreanPc": 9.5,
-   "distinctTitles": 126,
-   "halfTakes": 27,
+   "koreanSlots": 529,
+   "koreanPc": 9.9,
+   "distinctTitles": 134,
+   "halfTakes": 29,
    "topTitle": "Squid Game",
-   "topTitlePc": 7,
+   "topTitlePc": 6.6,
    "inAsianTen": false,
-   "weeksWithKorean": 240,
+   "weeksWithKorean": 244,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 39
+     "places": 40
     },
     {
      "year": 2022,
-     "places": 63
+     "places": 64
     },
     {
      "year": 2023,
-     "places": 106
+     "places": 115
     },
     {
      "year": 2024,
@@ -4435,11 +4435,11 @@
     },
     {
      "year": 2025,
-     "places": 115
+     "places": 121
     },
     {
      "year": 2026,
-     "places": 61
+     "places": 72
     }
    ],
    "titles": [
@@ -4616,14 +4616,14 @@
    "iso2": "EE",
    "name": "Estonia",
    "slug": "estonia",
-   "koreanSlots": 98,
-   "koreanPc": 1.8,
-   "distinctTitles": 34,
+   "koreanSlots": 101,
+   "koreanPc": 1.9,
+   "distinctTitles": 36,
    "halfTakes": 3,
    "topTitle": "Squid Game",
-   "topTitlePc": 43.9,
+   "topTitlePc": 42.6,
    "inAsianTen": false,
-   "weeksWithKorean": 82,
+   "weeksWithKorean": 85,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -4632,7 +4632,7 @@
     },
     {
      "year": 2022,
-     "places": 13
+     "places": 15
     },
     {
      "year": 2023,
@@ -4644,7 +4644,7 @@
     },
     {
      "year": 2025,
-     "places": 31
+     "places": 32
     },
     {
      "year": 2026,
@@ -4725,6 +4725,14 @@
      "last": "2022-08-14"
     },
     {
+     "title": "Contact",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2022-12-11",
+     "last": "2022-12-18"
+    },
+    {
      "title": "Desire",
      "places": 2,
      "peak": 4,
@@ -4803,14 +4811,6 @@
      "weeks": 1,
      "first": "2026-04-12",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Bon Appétit, Your Majesty",
-     "places": 1,
-     "peak": 10,
-     "weeks": 1,
-     "first": "2025-09-14",
-     "last": "2025-09-14"
     }
    ],
    "titlesShown": 20,
@@ -4825,27 +4825,27 @@
    "iso2": "FI",
    "name": "Finland",
    "slug": "finland",
-   "koreanSlots": 141,
-   "koreanPc": 2.7,
-   "distinctTitles": 57,
-   "halfTakes": 9,
+   "koreanSlots": 148,
+   "koreanPc": 2.8,
+   "distinctTitles": 62,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 27,
+   "topTitlePc": 25.7,
    "inAsianTen": false,
-   "weeksWithKorean": 113,
+   "weeksWithKorean": 118,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 24
+     "places": 25
     },
     {
      "year": 2022,
-     "places": 28
+     "places": 29
     },
     {
      "year": 2023,
-     "places": 30
+     "places": 32
     },
     {
      "year": 2024,
@@ -4853,7 +4853,7 @@
     },
     {
      "year": 2025,
-     "places": 32
+     "places": 35
     },
     {
      "year": 2026,
@@ -5034,27 +5034,27 @@
    "iso2": "FR",
    "name": "France",
    "slug": "france",
-   "koreanSlots": 184,
-   "koreanPc": 3.5,
-   "distinctTitles": 76,
-   "halfTakes": 15,
+   "koreanSlots": 202,
+   "koreanPc": 3.8,
+   "distinctTitles": 83,
+   "halfTakes": 16,
    "topTitle": "Squid Game",
-   "topTitlePc": 16.8,
+   "topTitlePc": 15.3,
    "inAsianTen": false,
-   "weeksWithKorean": 134,
+   "weeksWithKorean": 144,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 26
+     "places": 27
     },
     {
      "year": 2022,
-     "places": 24
+     "places": 25
     },
     {
      "year": 2023,
-     "places": 37
+     "places": 39
     },
     {
      "year": 2024,
@@ -5062,11 +5062,11 @@
     },
     {
      "year": 2025,
-     "places": 39
+     "places": 43
     },
     {
      "year": 2026,
-     "places": 25
+     "places": 35
     }
    ],
    "titles": [
@@ -5077,6 +5077,22 @@
      "weeks": 24,
      "first": "2021-09-19",
      "last": "2025-08-10"
+    },
+    {
+     "title": "Oasis",
+     "places": 8,
+     "peak": 2,
+     "weeks": 8,
+     "first": "2026-06-21",
+     "last": "2026-08-09"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 5,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
     },
     {
      "title": "The Glory",
@@ -5101,22 +5117,6 @@
      "weeks": 6,
      "first": "2023-06-11",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Oasis",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 5,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Ballerina",
@@ -5157,6 +5157,22 @@
      "weeks": 4,
      "first": "2021-10-10",
      "last": "2025-04-06"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 4,
+     "peak": 5,
+     "weeks": 4,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "Hellbound",
@@ -5213,22 +5229,6 @@
      "weeks": 2,
      "first": "2023-08-27",
      "last": "2023-09-03"
-    },
-    {
-     "title": "Badland Hunters",
-     "places": 2,
-     "peak": 2,
-     "weeks": 2,
-     "first": "2024-01-28",
-     "last": "2024-02-04"
-    },
-    {
-     "title": "Bon Appétit, Your Majesty",
-     "places": 2,
-     "peak": 9,
-     "weeks": 2,
-     "first": "2025-08-31",
-     "last": "2025-09-07"
     }
    ],
    "titlesShown": 20,
@@ -5243,14 +5243,14 @@
    "iso2": "DE",
    "name": "Germany",
    "slug": "germany",
-   "koreanSlots": 146,
-   "koreanPc": 2.8,
-   "distinctTitles": 58,
-   "halfTakes": 11,
+   "koreanSlots": 154,
+   "koreanPc": 2.9,
+   "distinctTitles": 63,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 21.2,
+   "topTitlePc": 20.1,
    "inAsianTen": false,
-   "weeksWithKorean": 110,
+   "weeksWithKorean": 115,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -5271,11 +5271,11 @@
     },
     {
      "year": 2025,
-     "places": 32
+     "places": 33
     },
     {
      "year": 2026,
-     "places": 16
+     "places": 23
     }
    ],
    "titles": [
@@ -5350,6 +5350,14 @@
      "weeks": 4,
      "first": "2023-01-08",
      "last": "2023-03-26"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 3,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "My Name",
@@ -5430,14 +5438,6 @@
      "weeks": 2,
      "first": "2022-04-03",
      "last": "2022-04-10"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
@@ -5452,14 +5452,14 @@
    "iso2": "GR",
    "name": "Greece",
    "slug": "greece",
-   "koreanSlots": 220,
-   "koreanPc": 4.2,
-   "distinctTitles": 93,
-   "halfTakes": 18,
+   "koreanSlots": 234,
+   "koreanPc": 4.4,
+   "distinctTitles": 99,
+   "halfTakes": 20,
    "topTitle": "Squid Game",
-   "topTitlePc": 15.9,
+   "topTitlePc": 15,
    "inAsianTen": false,
-   "weeksWithKorean": 163,
+   "weeksWithKorean": 169,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -5472,7 +5472,7 @@
     },
     {
      "year": 2023,
-     "places": 48
+     "places": 49
     },
     {
      "year": 2024,
@@ -5480,11 +5480,11 @@
     },
     {
      "year": 2025,
-     "places": 47
+     "places": 52
     },
     {
      "year": 2026,
-     "places": 34
+     "places": 42
     }
    ],
    "titles": [
@@ -5505,20 +5505,20 @@
      "last": "2023-02-19"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 6,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "places": 6,
      "peak": 3,
      "weeks": 6,
      "first": "2025-08-31",
      "last": "2025-10-05"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 6,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "All of Us Are Dead",
@@ -5593,6 +5593,14 @@
      "last": "2023-03-26"
     },
     {
+     "title": "Weak Hero",
+     "places": 4,
+     "peak": 5,
+     "weeks": 4,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
      "title": "When the Phone Rings",
      "places": 4,
      "peak": 8,
@@ -5633,20 +5641,12 @@
      "last": "2022-07-24"
     },
     {
-     "title": "Dynamite Kiss",
+     "title": "Desire",
      "places": 3,
-     "peak": 4,
+     "peak": 1,
      "weeks": 3,
-     "first": "2025-11-16",
-     "last": "2025-11-30"
-    },
-    {
-     "title": "Extraordinary Attorney Woo",
-     "places": 3,
-     "peak": 9,
-     "weeks": 3,
-     "first": "2022-08-14",
-     "last": "2022-09-04"
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     }
    ],
    "titlesShown": 20,
@@ -5661,14 +5661,14 @@
    "iso2": "GP",
    "name": "Guadeloupe",
    "slug": "guadeloupe",
-   "koreanSlots": 222,
-   "koreanPc": 4.2,
-   "distinctTitles": 96,
-   "halfTakes": 23,
+   "koreanSlots": 239,
+   "koreanPc": 4.5,
+   "distinctTitles": 102,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.5,
+   "topTitlePc": 8.8,
    "inAsianTen": false,
-   "weeksWithKorean": 159,
+   "weeksWithKorean": 168,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -5677,7 +5677,7 @@
     },
     {
      "year": 2022,
-     "places": 42
+     "places": 43
     },
     {
      "year": 2023,
@@ -5689,11 +5689,11 @@
     },
     {
      "year": 2025,
-     "places": 41
+     "places": 47
     },
     {
      "year": 2026,
-     "places": 36
+     "places": 46
     }
    ],
    "titles": [
@@ -5712,6 +5712,14 @@
      "weeks": 9,
      "first": "2023-01-08",
      "last": "2023-04-16"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
     },
     {
      "title": "All of Us Are Dead",
@@ -5738,14 +5746,6 @@
      "last": "2022-10-09"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 1,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Black Knight",
      "places": 5,
      "peak": 1,
@@ -5768,6 +5768,14 @@
      "weeks": 5,
      "first": "2025-09-28",
      "last": "2025-10-26"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 5,
+     "peak": 3,
+     "weeks": 5,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
     },
     {
      "title": "Ballerina",
@@ -5826,6 +5834,14 @@
      "last": "2023-07-16"
     },
     {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Hierarchy",
      "places": 3,
      "peak": 2,
@@ -5840,22 +5856,6 @@
      "weeks": 3,
      "first": "2023-04-02",
      "last": "2023-04-16"
-    },
-    {
-     "title": "Money Heist: Korea - Joint Economic Area",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2022-06-26",
-     "last": "2022-12-18"
-    },
-    {
-     "title": "My Name",
-     "places": 3,
-     "peak": 5,
-     "weeks": 3,
-     "first": "2021-10-17",
-     "last": "2021-10-31"
     }
    ],
    "titlesShown": 20,
@@ -5870,27 +5870,27 @@
    "iso2": "GT",
    "name": "Guatemala",
    "slug": "guatemala",
-   "koreanSlots": 432,
-   "koreanPc": 8.2,
-   "distinctTitles": 112,
-   "halfTakes": 23,
+   "koreanSlots": 462,
+   "koreanPc": 8.6,
+   "distinctTitles": 121,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.3,
+   "topTitlePc": 8.7,
    "inAsianTen": false,
-   "weeksWithKorean": 230,
+   "weeksWithKorean": 234,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 31
+     "places": 32
     },
     {
      "year": 2022,
-     "places": 44
+     "places": 45
     },
     {
      "year": 2023,
-     "places": 91
+     "places": 101
     },
     {
      "year": 2024,
@@ -5898,11 +5898,11 @@
     },
     {
      "year": 2025,
-     "places": 108
+     "places": 114
     },
     {
      "year": 2026,
-     "places": 60
+     "places": 72
     }
    ],
    "titles": [
@@ -6027,6 +6027,14 @@
      "last": "2026-04-19"
     },
     {
+     "title": "Doctor Cha",
+     "places": 7,
+     "peak": 4,
+     "weeks": 7,
+     "first": "2023-05-28",
+     "last": "2023-07-09"
+    },
+    {
      "title": "Dynamite Kiss",
      "places": 7,
      "peak": 1,
@@ -6043,28 +6051,20 @@
      "last": "2026-06-07"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Beyond the Bar",
      "places": 6,
      "peak": 4,
      "weeks": 6,
      "first": "2025-08-10",
      "last": "2025-09-14"
-    },
-    {
-     "title": "Business Proposal",
-     "places": 6,
-     "peak": 5,
-     "weeks": 6,
-     "first": "2022-04-17",
-     "last": "2022-05-22"
-    },
-    {
-     "title": "Doctor Slump",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2024-03-03",
-     "last": "2024-04-14"
     }
    ],
    "titlesShown": 20,
@@ -6079,27 +6079,27 @@
    "iso2": "HN",
    "name": "Honduras",
    "slug": "honduras",
-   "koreanSlots": 511,
-   "koreanPc": 9.6,
-   "distinctTitles": 133,
-   "halfTakes": 27,
+   "koreanSlots": 539,
+   "koreanPc": 10.1,
+   "distinctTitles": 142,
+   "halfTakes": 29,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.2,
+   "topTitlePc": 6.9,
    "inAsianTen": false,
-   "weeksWithKorean": 239,
+   "weeksWithKorean": 243,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 35
+     "places": 36
     },
     {
      "year": 2022,
-     "places": 67
+     "places": 68
     },
     {
      "year": 2023,
-     "places": 106
+     "places": 114
     },
     {
      "year": 2024,
@@ -6107,11 +6107,11 @@
     },
     {
      "year": 2025,
-     "places": 119
+     "places": 126
     },
     {
      "year": 2026,
-     "places": 68
+     "places": 79
     }
    ],
    "titles": [
@@ -6288,14 +6288,14 @@
    "iso2": "HK",
    "name": "Hong Kong",
    "slug": "hong-kong",
-   "koreanSlots": 1197,
-   "koreanPc": 22.6,
-   "distinctTitles": 238,
-   "halfTakes": 54,
+   "koreanSlots": 1229,
+   "koreanPc": 22.9,
+   "distinctTitles": 246,
+   "halfTakes": 56,
    "topTitle": "Squid Game",
-   "topTitlePc": 2.5,
+   "topTitlePc": 2.4,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -6304,11 +6304,11 @@
     },
     {
      "year": 2022,
-     "places": 286
+     "places": 290
     },
     {
      "year": 2023,
-     "places": 279
+     "places": 286
     },
     {
      "year": 2024,
@@ -6316,11 +6316,11 @@
     },
     {
      "year": 2025,
-     "places": 193
+     "places": 202
     },
     {
      "year": 2026,
-     "places": 95
+     "places": 107
     }
    ],
    "titles": [
@@ -6497,14 +6497,14 @@
    "iso2": "HU",
    "name": "Hungary",
    "slug": "hungary",
-   "koreanSlots": 155,
-   "koreanPc": 2.9,
-   "distinctTitles": 60,
-   "halfTakes": 10,
+   "koreanSlots": 166,
+   "koreanPc": 3.1,
+   "distinctTitles": 66,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.9,
+   "topTitlePc": 22.3,
    "inAsianTen": false,
-   "weeksWithKorean": 117,
+   "weeksWithKorean": 124,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -6517,7 +6517,7 @@
     },
     {
      "year": 2023,
-     "places": 35
+     "places": 38
     },
     {
      "year": 2024,
@@ -6525,11 +6525,11 @@
     },
     {
      "year": 2025,
-     "places": 40
+     "places": 41
     },
     {
      "year": 2026,
-     "places": 21
+     "places": 28
     }
    ],
    "titles": [
@@ -6580,6 +6580,14 @@
      "weeks": 4,
      "first": "2022-07-10",
      "last": "2022-07-31"
+    },
+    {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "The Glory",
@@ -6678,14 +6686,6 @@
      "last": "2026-01-04"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Gyeongseong Creature",
      "places": 2,
      "peak": 4,
@@ -6706,14 +6706,14 @@
    "iso2": "IS",
    "name": "Iceland",
    "slug": "iceland",
-   "koreanSlots": 76,
-   "koreanPc": 1.4,
-   "distinctTitles": 42,
+   "koreanSlots": 78,
+   "koreanPc": 1.5,
+   "distinctTitles": 44,
    "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 30.3,
+   "topTitlePc": 29.5,
    "inAsianTen": false,
-   "weeksWithKorean": 66,
+   "weeksWithKorean": 68,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -6722,7 +6722,7 @@
     },
     {
      "year": 2022,
-     "places": 14
+     "places": 15
     },
     {
      "year": 2023,
@@ -6734,7 +6734,7 @@
     },
     {
      "year": 2025,
-     "places": 18
+     "places": 19
     },
     {
      "year": 2026,
@@ -6831,6 +6831,14 @@
      "last": "2024-08-18"
     },
     {
+     "title": "8MM",
+     "places": 1,
+     "peak": 8,
+     "weeks": 1,
+     "first": "2025-05-11",
+     "last": "2025-05-11"
+    },
+    {
      "title": "Agent Kim Reactivated",
      "places": 1,
      "peak": 9,
@@ -6893,14 +6901,6 @@
      "weeks": 1,
      "first": "2023-01-29",
      "last": "2023-01-29"
-    },
-    {
-     "title": "Kill Boksoon",
-     "places": 1,
-     "peak": 5,
-     "weeks": 1,
-     "first": "2023-04-02",
-     "last": "2023-04-02"
     }
    ],
    "titlesShown": 20,
@@ -6915,14 +6915,14 @@
    "iso2": "IN",
    "name": "India",
    "slug": "india",
-   "koreanSlots": 510,
-   "koreanPc": 9.6,
-   "distinctTitles": 111,
-   "halfTakes": 17,
+   "koreanSlots": 539,
+   "koreanPc": 10.1,
+   "distinctTitles": 117,
+   "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.5,
+   "topTitlePc": 12.8,
    "inAsianTen": false,
-   "weeksWithKorean": 252,
+   "weeksWithKorean": 255,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -6931,11 +6931,11 @@
     },
     {
      "year": 2022,
-     "places": 101
+     "places": 104
     },
     {
      "year": 2023,
-     "places": 109
+     "places": 117
     },
     {
      "year": 2024,
@@ -6943,11 +6943,11 @@
     },
     {
      "year": 2025,
-     "places": 106
+     "places": 118
     },
     {
      "year": 2026,
-     "places": 67
+     "places": 73
     }
    ],
    "titles": [
@@ -7104,19 +7104,19 @@
      "last": "2023-04-16"
     },
     {
-     "title": "Extraordinary Attorney Woo",
+     "title": "CAT",
      "places": 7,
-     "peak": 3,
+     "peak": 2,
      "weeks": 7,
-     "first": "2022-07-24",
-     "last": "2022-09-04"
+     "first": "2022-12-11",
+     "last": "2023-08-06"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "below"
+    "halfTakes": "near"
    },
    "hasPage": true
   },
@@ -7124,14 +7124,14 @@
    "iso2": "ID",
    "name": "Indonesia",
    "slug": "indonesia",
-   "koreanSlots": 1494,
-   "koreanPc": 28.2,
-   "distinctTitles": 267,
-   "halfTakes": 55,
+   "koreanSlots": 1551,
+   "koreanPc": 28.9,
+   "distinctTitles": 276,
+   "halfTakes": 57,
    "topTitle": "Squid Game",
-   "topTitlePc": 2.4,
+   "topTitlePc": 2.3,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -7140,23 +7140,23 @@
     },
     {
      "year": 2022,
-     "places": 355
+     "places": 358
     },
     {
      "year": 2023,
-     "places": 333
+     "places": 346
     },
     {
      "year": 2024,
-     "places": 232
+     "places": 236
     },
     {
      "year": 2025,
-     "places": 259
+     "places": 278
     },
     {
      "year": 2026,
-     "places": 125
+     "places": 143
     }
    ],
    "titles": [
@@ -7333,14 +7333,14 @@
    "iso2": "IE",
    "name": "Ireland",
    "slug": "ireland",
-   "koreanSlots": 84,
-   "koreanPc": 1.6,
-   "distinctTitles": 37,
-   "halfTakes": 7,
+   "koreanSlots": 90,
+   "koreanPc": 1.7,
+   "distinctTitles": 39,
+   "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.8,
+   "topTitlePc": 22.2,
    "inAsianTen": false,
-   "weeksWithKorean": 72,
+   "weeksWithKorean": 77,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -7349,7 +7349,7 @@
     },
     {
      "year": 2022,
-     "places": 14
+     "places": 17
     },
     {
      "year": 2023,
@@ -7357,7 +7357,7 @@
     },
     {
      "year": 2024,
-     "places": 30
+     "places": 33
     },
     {
      "year": 2025,
@@ -7426,12 +7426,28 @@
      "last": "2023-07-30"
     },
     {
+     "title": "Liar",
+     "places": 3,
+     "peak": 5,
+     "weeks": 3,
+     "first": "2022-05-01",
+     "last": "2022-05-15"
+    },
+    {
      "title": "Modern Family",
      "places": 3,
      "peak": 5,
      "weeks": 3,
      "first": "2021-10-03",
      "last": "2021-10-17"
+    },
+    {
+     "title": "Suspect",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2024-08-04",
+     "last": "2024-08-18"
     },
     {
      "title": "Angel Eyes",
@@ -7512,22 +7528,6 @@
      "weeks": 1,
      "first": "2024-12-01",
      "last": "2024-12-01"
-    },
-    {
-     "title": "Blood",
-     "places": 1,
-     "peak": 5,
-     "weeks": 1,
-     "first": "2025-10-26",
-     "last": "2025-10-26"
-    },
-    {
-     "title": "Carter",
-     "places": 1,
-     "peak": 9,
-     "weeks": 1,
-     "first": "2022-08-14",
-     "last": "2022-08-14"
     }
    ],
    "titlesShown": 20,
@@ -7542,14 +7542,14 @@
    "iso2": "IL",
    "name": "Israel",
    "slug": "israel",
-   "koreanSlots": 138,
-   "koreanPc": 2.6,
-   "distinctTitles": 59,
-   "halfTakes": 11,
+   "koreanSlots": 149,
+   "koreanPc": 2.8,
+   "distinctTitles": 64,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 20.3,
+   "topTitlePc": 18.8,
    "inAsianTen": false,
-   "weeksWithKorean": 104,
+   "weeksWithKorean": 113,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -7558,7 +7558,7 @@
     },
     {
      "year": 2022,
-     "places": 26
+     "places": 27
     },
     {
      "year": 2023,
@@ -7566,15 +7566,15 @@
     },
     {
      "year": 2024,
-     "places": 22
+     "places": 28
     },
     {
      "year": 2025,
-     "places": 41
+     "places": 44
     },
     {
      "year": 2026,
-     "places": 16
+     "places": 17
     }
    ],
    "titles": [
@@ -7601,6 +7601,14 @@
      "weeks": 6,
      "first": "2025-08-31",
      "last": "2025-10-05"
+    },
+    {
+     "title": "Bros",
+     "places": 6,
+     "peak": 1,
+     "weeks": 6,
+     "first": "2024-04-21",
+     "last": "2024-05-26"
     },
     {
      "title": "Agent Kim Reactivated",
@@ -7729,14 +7737,6 @@
      "weeks": 2,
      "first": "2023-07-16",
      "last": "2023-07-23"
-    },
-    {
-     "title": "Happy Ending",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2023-09-03",
-     "last": "2023-09-10"
     }
    ],
    "titlesShown": 20,
@@ -7751,14 +7751,14 @@
    "iso2": "IT",
    "name": "Italy",
    "slug": "italy",
-   "koreanSlots": 160,
-   "koreanPc": 3,
-   "distinctTitles": 63,
-   "halfTakes": 10,
+   "koreanSlots": 173,
+   "koreanPc": 3.2,
+   "distinctTitles": 68,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.1,
+   "topTitlePc": 21.4,
    "inAsianTen": false,
-   "weeksWithKorean": 112,
+   "weeksWithKorean": 118,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -7779,11 +7779,11 @@
     },
     {
      "year": 2025,
-     "places": 42
+     "places": 43
     },
     {
      "year": 2026,
-     "places": 30
+     "places": 42
     }
    ],
    "titles": [
@@ -7796,20 +7796,20 @@
      "last": "2025-08-10"
     },
     {
+     "title": "Oasis",
+     "places": 9,
+     "peak": 3,
+     "weeks": 9,
+     "first": "2026-06-21",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Breathless",
      "places": 6,
      "peak": 2,
      "weeks": 6,
      "first": "2024-09-01",
      "last": "2025-11-09"
-    },
-    {
-     "title": "Oasis",
-     "places": 6,
-     "peak": 3,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
     },
     {
      "title": "Real Men",
@@ -7876,12 +7876,28 @@
      "last": "2022-07-24"
     },
     {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Summertime",
      "places": 3,
      "peak": 1,
      "weeks": 3,
      "first": "2022-05-08",
      "last": "2022-05-22"
+    },
+    {
+     "title": "That Night",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-03-15",
+     "last": "2026-03-29"
     },
     {
      "title": "The 8 Show",
@@ -7900,6 +7916,14 @@
      "last": "2026-01-04"
     },
     {
+     "title": "Wrath",
+     "places": 3,
+     "peak": 3,
+     "weeks": 3,
+     "first": "2026-08-02",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Badland Hunters",
      "places": 2,
      "peak": 2,
@@ -7916,36 +7940,12 @@
      "last": "2023-10-15"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Happy Ending",
      "places": 2,
      "peak": 2,
      "weeks": 2,
      "first": "2023-09-03",
      "last": "2023-09-10"
-    },
-    {
-     "title": "JUNG_E",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2023-01-22",
-     "last": "2023-01-29"
-    },
-    {
-     "title": "Kill Boksoon",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2023-04-02",
-     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -7960,23 +7960,23 @@
    "iso2": "JM",
    "name": "Jamaica",
    "slug": "jamaica",
-   "koreanSlots": 195,
-   "koreanPc": 3.7,
-   "distinctTitles": 82,
-   "halfTakes": 20,
+   "koreanSlots": 206,
+   "koreanPc": 3.8,
+   "distinctTitles": 88,
+   "halfTakes": 22,
    "topTitle": "Squid Game",
-   "topTitlePc": 11.3,
+   "topTitlePc": 10.7,
    "inAsianTen": false,
-   "weeksWithKorean": 146,
+   "weeksWithKorean": 154,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 24
+     "places": 26
     },
     {
      "year": 2022,
-     "places": 41
+     "places": 43
     },
     {
      "year": 2023,
@@ -7988,11 +7988,11 @@
     },
     {
      "year": 2025,
-     "places": 29
+     "places": 33
     },
     {
      "year": 2026,
-     "places": 27
+     "places": 30
     }
    ],
    "titles": [
@@ -8005,20 +8005,20 @@
      "last": "2025-07-13"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "places": 6,
      "peak": 5,
      "weeks": 6,
      "first": "2025-08-24",
      "last": "2025-09-28"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "All of Us Are Dead",
@@ -8169,14 +8169,14 @@
    "iso2": "JP",
    "name": "Japan",
    "slug": "japan",
-   "koreanSlots": 1065,
-   "koreanPc": 20.1,
-   "distinctTitles": 234,
-   "halfTakes": 33,
+   "koreanSlots": 1096,
+   "koreanPc": 20.4,
+   "distinctTitles": 245,
+   "halfTakes": 35,
    "topTitle": "Crash Landing on You",
-   "topTitlePc": 6.8,
+   "topTitlePc": 6.6,
    "inAsianTen": true,
-   "weeksWithKorean": 258,
+   "weeksWithKorean": 262,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -8185,11 +8185,11 @@
     },
     {
      "year": 2022,
-     "places": 339
+     "places": 341
     },
     {
      "year": 2023,
-     "places": 219
+     "places": 228
     },
     {
      "year": 2024,
@@ -8197,11 +8197,11 @@
     },
     {
      "year": 2025,
-     "places": 116
+     "places": 124
     },
     {
      "year": 2026,
-     "places": 51
+     "places": 63
     }
    ],
    "titles": [
@@ -8378,14 +8378,14 @@
    "iso2": "JO",
    "name": "Jordan",
    "slug": "jordan",
-   "koreanSlots": 401,
-   "koreanPc": 7.6,
-   "distinctTitles": 122,
-   "halfTakes": 24,
+   "koreanSlots": 427,
+   "koreanPc": 8,
+   "distinctTitles": 128,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 12.5,
+   "topTitlePc": 11.7,
    "inAsianTen": false,
-   "weeksWithKorean": 220,
+   "weeksWithKorean": 226,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -8398,19 +8398,19 @@
     },
     {
      "year": 2023,
-     "places": 80
+     "places": 85
     },
     {
      "year": 2024,
-     "places": 79
+     "places": 81
     },
     {
      "year": 2025,
-     "places": 93
+     "places": 100
     },
     {
      "year": 2026,
-     "places": 63
+     "places": 75
     }
    ],
    "titles": [
@@ -8437,6 +8437,22 @@
      "weeks": 10,
      "first": "2023-11-26",
      "last": "2024-01-28"
+    },
+    {
+     "title": "Family Business",
+     "places": 9,
+     "peak": 1,
+     "weeks": 9,
+     "first": "2026-06-21",
+     "last": "2026-08-16"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 2,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
     },
     {
      "title": "Bon Appétit, Your Majesty",
@@ -8519,14 +8535,6 @@
      "last": "2022-04-17"
     },
     {
-     "title": "Family Business",
-     "places": 6,
-     "peak": 1,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
-    },
-    {
      "title": "True Beauty",
      "places": 6,
      "peak": 1,
@@ -8535,12 +8543,12 @@
      "last": "2023-03-19"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
+     "title": "Weak Hero",
+     "places": 6,
      "peak": 2,
      "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
+     "first": "2025-03-30",
+     "last": "2025-05-11"
     },
     {
      "title": "All of Us Are Dead",
@@ -8551,28 +8559,20 @@
      "last": "2022-02-27"
     },
     {
+     "title": "Doctor Cha",
+     "places": 5,
+     "peak": 5,
+     "weeks": 5,
+     "first": "2023-05-14",
+     "last": "2023-06-11"
+    },
+    {
      "title": "Doctor Slump",
      "places": 5,
      "peak": 6,
      "weeks": 5,
      "first": "2024-02-04",
      "last": "2024-03-10"
-    },
-    {
-     "title": "Love Next Door",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2024-08-25",
-     "last": "2024-09-22"
-    },
-    {
-     "title": "My Name",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2021-10-17",
-     "last": "2021-11-14"
     }
    ],
    "titlesShown": 20,
@@ -8587,14 +8587,14 @@
    "iso2": "KE",
    "name": "Kenya",
    "slug": "kenya",
-   "koreanSlots": 247,
-   "koreanPc": 4.7,
-   "distinctTitles": 94,
-   "halfTakes": 21,
+   "koreanSlots": 258,
+   "koreanPc": 4.8,
+   "distinctTitles": 100,
+   "halfTakes": 22,
    "topTitle": "Squid Game",
-   "topTitlePc": 12.1,
+   "topTitlePc": 11.6,
    "inAsianTen": false,
-   "weeksWithKorean": 166,
+   "weeksWithKorean": 173,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -8615,11 +8615,11 @@
     },
     {
      "year": 2025,
-     "places": 46
+     "places": 50
     },
     {
      "year": 2026,
-     "places": 29
+     "places": 36
     }
    ],
    "titles": [
@@ -8630,6 +8630,14 @@
      "weeks": 24,
      "first": "2021-09-19",
      "last": "2025-08-03"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 2,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
     },
     {
      "title": "All of Us Are Dead",
@@ -8678,14 +8686,6 @@
      "weeks": 6,
      "first": "2024-12-01",
      "last": "2025-01-05"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 2,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Bloodhounds",
@@ -8788,7 +8788,7 @@
    "vsMedian": {
     "koreanPc": "near",
     "distinctTitles": "near",
-    "halfTakes": "above"
+    "halfTakes": "near"
    },
    "hasPage": true
   },
@@ -8796,14 +8796,14 @@
    "iso2": "KW",
    "name": "Kuwait",
    "slug": "kuwait",
-   "koreanSlots": 536,
-   "koreanPc": 10.1,
-   "distinctTitles": 148,
-   "halfTakes": 30,
+   "koreanSlots": 564,
+   "koreanPc": 10.5,
+   "distinctTitles": 156,
+   "halfTakes": 32,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.8,
+   "topTitlePc": 8.3,
    "inAsianTen": false,
-   "weeksWithKorean": 247,
+   "weeksWithKorean": 253,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -8812,23 +8812,23 @@
     },
     {
      "year": 2022,
-     "places": 95
+     "places": 96
     },
     {
      "year": 2023,
-     "places": 123
+     "places": 130
     },
     {
      "year": 2024,
-     "places": 99
+     "places": 102
     },
     {
      "year": 2025,
-     "places": 104
+     "places": 111
     },
     {
      "year": 2026,
-     "places": 68
+     "places": 78
     }
    ],
    "titles": [
@@ -8897,6 +8897,14 @@
      "last": "2022-10-30"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 8,
      "peak": 1,
@@ -8953,6 +8961,14 @@
      "last": "2025-01-12"
     },
     {
+     "title": "Doctor Cha",
+     "places": 7,
+     "peak": 3,
+     "weeks": 7,
+     "first": "2023-04-30",
+     "last": "2023-06-11"
+    },
+    {
      "title": "My Royal Nemesis",
      "places": 7,
      "peak": 4,
@@ -8975,22 +8991,6 @@
      "weeks": 6,
      "first": "2025-08-10",
      "last": "2025-09-14"
-    },
-    {
-     "title": "Doctor Slump",
-     "places": 6,
-     "peak": 3,
-     "weeks": 6,
-     "first": "2024-02-04",
-     "last": "2024-03-17"
-    },
-    {
-     "title": "Gyeongseong Creature",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2023-12-24",
-     "last": "2024-10-06"
     }
    ],
    "titlesShown": 20,
@@ -9005,14 +9005,14 @@
    "iso2": "LV",
    "name": "Latvia",
    "slug": "latvia",
-   "koreanSlots": 102,
+   "koreanSlots": 103,
    "koreanPc": 1.9,
-   "distinctTitles": 33,
+   "distinctTitles": 34,
    "halfTakes": 2,
    "topTitle": "Squid Game",
-   "topTitlePc": 46.1,
+   "topTitlePc": 45.6,
    "inAsianTen": false,
-   "weeksWithKorean": 78,
+   "weeksWithKorean": 79,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -9021,7 +9021,7 @@
     },
     {
      "year": 2022,
-     "places": 19
+     "places": 20
     },
     {
      "year": 2023,
@@ -9214,14 +9214,14 @@
    "iso2": "LB",
    "name": "Lebanon",
    "slug": "lebanon",
-   "koreanSlots": 237,
-   "koreanPc": 4.5,
-   "distinctTitles": 85,
-   "halfTakes": 15,
+   "koreanSlots": 250,
+   "koreanPc": 4.7,
+   "distinctTitles": 92,
+   "halfTakes": 16,
    "topTitle": "Squid Game",
-   "topTitlePc": 19.4,
+   "topTitlePc": 18.4,
    "inAsianTen": false,
-   "weeksWithKorean": 159,
+   "weeksWithKorean": 168,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -9238,15 +9238,15 @@
     },
     {
      "year": 2024,
-     "places": 35
+     "places": 38
     },
     {
      "year": 2025,
-     "places": 54
+     "places": 58
     },
     {
      "year": 2026,
-     "places": 39
+     "places": 45
     }
    ],
    "titles": [
@@ -9265,6 +9265,14 @@
      "weeks": 7,
      "first": "2023-07-16",
      "last": "2023-09-03"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
     },
     {
      "title": "Bloodhounds",
@@ -9289,14 +9297,6 @@
      "weeks": 6,
      "first": "2024-12-01",
      "last": "2025-01-05"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "All of Us Are Dead",
@@ -9329,6 +9329,14 @@
      "weeks": 5,
      "first": "2022-09-04",
      "last": "2022-10-09"
+    },
+    {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "Family Business",
@@ -9401,14 +9409,6 @@
      "weeks": 3,
      "first": "2022-08-07",
      "last": "2022-08-21"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     }
    ],
    "titlesShown": 20,
@@ -9423,14 +9423,14 @@
    "iso2": "LT",
    "name": "Lithuania",
    "slug": "lithuania",
-   "koreanSlots": 110,
+   "koreanSlots": 113,
    "koreanPc": 2.1,
-   "distinctTitles": 41,
+   "distinctTitles": 43,
    "halfTakes": 4,
    "topTitle": "Squid Game",
-   "topTitlePc": 37.3,
+   "topTitlePc": 36.3,
    "inAsianTen": false,
-   "weeksWithKorean": 89,
+   "weeksWithKorean": 92,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -9439,7 +9439,7 @@
     },
     {
      "year": 2022,
-     "places": 14
+     "places": 15
     },
     {
      "year": 2023,
@@ -9451,7 +9451,7 @@
     },
     {
      "year": 2025,
-     "places": 32
+     "places": 34
     },
     {
      "year": 2026,
@@ -9604,20 +9604,20 @@
      "last": "2024-06-16"
     },
     {
+     "title": "Weak Hero",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2025-03-30",
+     "last": "2025-04-27"
+    },
+    {
      "title": "Badland Hunters",
      "places": 1,
      "peak": 8,
      "weeks": 1,
      "first": "2024-02-04",
      "last": "2024-02-04"
-    },
-    {
-     "title": "Ballerina",
-     "places": 1,
-     "peak": 7,
-     "weeks": 1,
-     "first": "2023-10-15",
-     "last": "2023-10-15"
     }
    ],
    "titlesShown": 20,
@@ -9632,14 +9632,14 @@
    "iso2": "LU",
    "name": "Luxembourg",
    "slug": "luxembourg",
-   "koreanSlots": 144,
-   "koreanPc": 2.7,
-   "distinctTitles": 61,
-   "halfTakes": 12,
+   "koreanSlots": 157,
+   "koreanPc": 2.9,
+   "distinctTitles": 67,
+   "halfTakes": 14,
    "topTitle": "Squid Game",
-   "topTitlePc": 18.1,
+   "topTitlePc": 16.6,
    "inAsianTen": false,
-   "weeksWithKorean": 114,
+   "weeksWithKorean": 120,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -9660,11 +9660,11 @@
     },
     {
      "year": 2025,
-     "places": 30
+     "places": 33
     },
     {
      "year": 2026,
-     "places": 22
+     "places": 32
     }
    ],
    "titles": [
@@ -9675,6 +9675,14 @@
      "weeks": 22,
      "first": "2021-09-19",
      "last": "2025-08-03"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
     },
     {
      "title": "Breathless",
@@ -9690,14 +9698,6 @@
      "peak": 2,
      "weeks": 6,
      "first": "2026-06-21",
-     "last": "2026-07-26"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 4,
-     "weeks": 5,
-     "first": "2026-06-28",
      "last": "2026-07-26"
     },
     {
@@ -9723,6 +9723,14 @@
      "weeks": 4,
      "first": "2022-07-10",
      "last": "2022-07-31"
+    },
+    {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "Red Eye",
@@ -9773,6 +9781,14 @@
      "last": "2023-03-26"
     },
     {
+     "title": "Wrath",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2026-08-02",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Yaksha: Ruthless Operations",
      "places": 3,
      "peak": 5,
@@ -9811,29 +9827,13 @@
      "weeks": 2,
      "first": "2025-08-31",
      "last": "2025-09-07"
-    },
-    {
-     "title": "Carter",
-     "places": 2,
-     "peak": 4,
-     "weeks": 2,
-     "first": "2022-08-07",
-     "last": "2022-08-14"
-    },
-    {
-     "title": "City Hunter",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2024-04-28",
-     "last": "2024-05-05"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well below",
     "distinctTitles": "well below",
-    "halfTakes": "well below"
+    "halfTakes": "below"
    },
    "hasPage": true
   },
@@ -9841,39 +9841,39 @@
    "iso2": "MY",
    "name": "Malaysia",
    "slug": "malaysia",
-   "koreanSlots": 1295,
-   "koreanPc": 24.4,
-   "distinctTitles": 248,
-   "halfTakes": 53,
+   "koreanSlots": 1346,
+   "koreanPc": 25.1,
+   "distinctTitles": 259,
+   "halfTakes": 55,
    "topTitle": "Squid Game",
-   "topTitlePc": 2.8,
+   "topTitlePc": 2.7,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 161
+     "places": 162
     },
     {
      "year": 2022,
-     "places": 325
+     "places": 327
     },
     {
      "year": 2023,
-     "places": 283
+     "places": 298
     },
     {
      "year": 2024,
-     "places": 197
+     "places": 200
     },
     {
      "year": 2025,
-     "places": 209
+     "places": 224
     },
     {
      "year": 2026,
-     "places": 120
+     "places": 135
     }
    ],
    "titles": [
@@ -10050,14 +10050,14 @@
    "iso2": "MV",
    "name": "Maldives",
    "slug": "maldives",
-   "koreanSlots": 620,
-   "koreanPc": 11.7,
-   "distinctTitles": 146,
-   "halfTakes": 29,
+   "koreanSlots": 648,
+   "koreanPc": 12.1,
+   "distinctTitles": 154,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 5.2,
+   "topTitlePc": 4.9,
    "inAsianTen": false,
-   "weeksWithKorean": 255,
+   "weeksWithKorean": 258,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -10066,23 +10066,23 @@
     },
     {
      "year": 2022,
-     "places": 132
+     "places": 137
     },
     {
      "year": 2023,
-     "places": 134
+     "places": 141
     },
     {
      "year": 2024,
-     "places": 116
+     "places": 117
     },
     {
      "year": 2025,
-     "places": 114
+     "places": 122
     },
     {
      "year": 2026,
-     "places": 62
+     "places": 69
     }
    ],
    "titles": [
@@ -10250,8 +10250,8 @@
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
-    "distinctTitles": "well above",
-    "halfTakes": "well above"
+    "distinctTitles": "above",
+    "halfTakes": "above"
    },
    "hasPage": true
   },
@@ -10259,14 +10259,14 @@
    "iso2": "MT",
    "name": "Malta",
    "slug": "malta",
-   "koreanSlots": 108,
-   "koreanPc": 2,
-   "distinctTitles": 50,
-   "halfTakes": 11,
+   "koreanSlots": 115,
+   "koreanPc": 2.1,
+   "distinctTitles": 55,
+   "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.1,
+   "topTitlePc": 21.7,
    "inAsianTen": false,
-   "weeksWithKorean": 89,
+   "weeksWithKorean": 93,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -10279,7 +10279,7 @@
     },
     {
      "year": 2023,
-     "places": 16
+     "places": 17
     },
     {
      "year": 2024,
@@ -10287,11 +10287,11 @@
     },
     {
      "year": 2025,
-     "places": 21
+     "places": 22
     },
     {
      "year": 2026,
-     "places": 13
+     "places": 18
     }
    ],
    "titles": [
@@ -10334,6 +10334,14 @@
      "weeks": 3,
      "first": "2024-09-01",
      "last": "2024-09-15"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "Memory",
@@ -10408,14 +10416,6 @@
      "last": "2022-08-14"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 2,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Happy Ending",
      "places": 2,
      "peak": 8,
@@ -10468,14 +10468,14 @@
    "iso2": "MQ",
    "name": "Martinique",
    "slug": "martinique",
-   "koreanSlots": 233,
-   "koreanPc": 4.4,
-   "distinctTitles": 98,
-   "halfTakes": 24,
+   "koreanSlots": 251,
+   "koreanPc": 4.7,
+   "distinctTitles": 104,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.6,
+   "topTitlePc": 8,
    "inAsianTen": false,
-   "weeksWithKorean": 167,
+   "weeksWithKorean": 177,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -10496,11 +10496,11 @@
     },
     {
      "year": 2025,
-     "places": 39
+     "places": 46
     },
     {
      "year": 2026,
-     "places": 39
+     "places": 50
     }
    ],
    "titles": [
@@ -10521,6 +10521,14 @@
      "last": "2023-04-16"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
+    },
+    {
      "title": "Bloodhounds",
      "places": 7,
      "peak": 2,
@@ -10535,14 +10543,6 @@
      "weeks": 6,
      "first": "2022-09-04",
      "last": "2022-10-09"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 1,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "All of Us Are Dead",
@@ -10575,6 +10575,14 @@
      "weeks": 5,
      "first": "2025-09-28",
      "last": "2025-10-26"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 5,
+     "peak": 3,
+     "weeks": 5,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
     },
     {
      "title": "Champion",
@@ -10655,14 +10663,6 @@
      "weeks": 3,
      "first": "2023-07-02",
      "last": "2023-07-16"
-    },
-    {
-     "title": "Hierarchy",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2024-06-09",
-     "last": "2024-06-23"
     }
    ],
    "titlesShown": 20,
@@ -10677,14 +10677,14 @@
    "iso2": "MU",
    "name": "Mauritius",
    "slug": "mauritius",
-   "koreanSlots": 271,
-   "koreanPc": 5.1,
-   "distinctTitles": 104,
-   "halfTakes": 22,
+   "koreanSlots": 292,
+   "koreanPc": 5.4,
+   "distinctTitles": 111,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 11.4,
+   "topTitlePc": 10.6,
    "inAsianTen": false,
-   "weeksWithKorean": 180,
+   "weeksWithKorean": 189,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -10693,7 +10693,7 @@
     },
     {
      "year": 2022,
-     "places": 53
+     "places": 54
     },
     {
      "year": 2023,
@@ -10705,11 +10705,11 @@
     },
     {
      "year": 2025,
-     "places": 58
+     "places": 67
     },
     {
      "year": 2026,
-     "places": 45
+     "places": 56
     }
    ],
    "titles": [
@@ -10728,6 +10728,14 @@
      "weeks": 8,
      "first": "2023-06-11",
      "last": "2026-04-26"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
     },
     {
      "title": "Bon Appétit, Your Majesty",
@@ -10770,20 +10778,20 @@
      "last": "2023-04-09"
     },
     {
+     "title": "Weak Hero",
+     "places": 6,
+     "peak": 2,
+     "weeks": 5,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
+    },
+    {
      "title": "When the Phone Rings",
      "places": 6,
      "peak": 7,
      "weeks": 6,
      "first": "2024-12-01",
      "last": "2025-01-05"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 1,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Black Knight",
@@ -10864,14 +10872,6 @@
      "weeks": 4,
      "first": "2025-12-21",
      "last": "2026-01-11"
-    },
-    {
-     "title": "True Beauty",
-     "places": 4,
-     "peak": 2,
-     "weeks": 4,
-     "first": "2023-02-12",
-     "last": "2023-03-05"
     }
    ],
    "titlesShown": 20,
@@ -10886,27 +10886,27 @@
    "iso2": "MX",
    "name": "Mexico",
    "slug": "mexico",
-   "koreanSlots": 428,
-   "koreanPc": 8.1,
-   "distinctTitles": 116,
-   "halfTakes": 21,
+   "koreanSlots": 455,
+   "koreanPc": 8.5,
+   "distinctTitles": 125,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.6,
+   "topTitlePc": 9,
    "inAsianTen": false,
-   "weeksWithKorean": 239,
+   "weeksWithKorean": 242,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 31
+     "places": 32
     },
     {
      "year": 2022,
-     "places": 74
+     "places": 75
     },
     {
      "year": 2023,
-     "places": 85
+     "places": 93
     },
     {
      "year": 2024,
@@ -10914,11 +10914,11 @@
     },
     {
      "year": 2025,
-     "places": 92
+     "places": 98
     },
     {
      "year": 2026,
-     "places": 55
+     "places": 66
     }
    ],
    "titles": [
@@ -11059,6 +11059,14 @@
      "last": "2026-06-21"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Destined with You",
      "places": 6,
      "peak": 5,
@@ -11073,14 +11081,6 @@
      "weeks": 6,
      "first": "2024-06-09",
      "last": "2026-03-08"
-    },
-    {
-     "title": "Juvenile Justice",
-     "places": 6,
-     "peak": 6,
-     "weeks": 6,
-     "first": "2022-03-06",
-     "last": "2022-04-10"
     }
    ],
    "titlesShown": 20,
@@ -11095,14 +11095,14 @@
    "iso2": "MA",
    "name": "Morocco",
    "slug": "morocco",
-   "koreanSlots": 496,
-   "koreanPc": 9.4,
-   "distinctTitles": 135,
-   "halfTakes": 30,
+   "koreanSlots": 520,
+   "koreanPc": 9.7,
+   "distinctTitles": 141,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.3,
+   "topTitlePc": 8.8,
    "inAsianTen": false,
-   "weeksWithKorean": 241,
+   "weeksWithKorean": 246,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -11123,11 +11123,11 @@
     },
     {
      "year": 2025,
-     "places": 106
+     "places": 115
     },
     {
      "year": 2026,
-     "places": 79
+     "places": 94
     }
    ],
    "titles": [
@@ -11178,6 +11178,14 @@
      "weeks": 9,
      "first": "2022-09-04",
      "last": "2022-10-30"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
     },
     {
      "title": "All of Us Are Dead",
@@ -11260,6 +11268,14 @@
      "last": "2026-02-01"
     },
     {
+     "title": "Weak Hero",
+     "places": 7,
+     "peak": 2,
+     "weeks": 5,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
+    },
+    {
      "title": "When the Phone Rings",
      "places": 7,
      "peak": 1,
@@ -11274,29 +11290,13 @@
      "weeks": 6,
      "first": "2025-08-10",
      "last": "2025-09-14"
-    },
-    {
-     "title": "Dynamite Kiss",
-     "places": 6,
-     "peak": 3,
-     "weeks": 6,
-     "first": "2025-11-16",
-     "last": "2025-12-28"
-    },
-    {
-     "title": "Oasis",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "well above"
+    "halfTakes": "above"
    },
    "hasPage": true
   },
@@ -11304,14 +11304,14 @@
    "iso2": "NL",
    "name": "Netherlands",
    "slug": "netherlands",
-   "koreanSlots": 95,
+   "koreanSlots": 96,
    "koreanPc": 1.8,
-   "distinctTitles": 42,
+   "distinctTitles": 43,
    "halfTakes": 7,
    "topTitle": "Squid Game",
-   "topTitlePc": 26.3,
+   "topTitlePc": 26,
    "inAsianTen": false,
-   "weeksWithKorean": 77,
+   "weeksWithKorean": 78,
    "firstKoreanWeek": "2021-09-19",
    "byYear": [
     {
@@ -11336,7 +11336,7 @@
     },
     {
      "year": 2026,
-     "places": 11
+     "places": 12
     }
    ],
    "titles": [
@@ -11513,14 +11513,14 @@
    "iso2": "NC",
    "name": "New Caledonia",
    "slug": "new-caledonia",
-   "koreanSlots": 234,
-   "koreanPc": 4.4,
-   "distinctTitles": 105,
-   "halfTakes": 23,
+   "koreanSlots": 253,
+   "koreanPc": 4.7,
+   "distinctTitles": 112,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.8,
+   "topTitlePc": 9.1,
    "inAsianTen": false,
-   "weeksWithKorean": 170,
+   "weeksWithKorean": 180,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -11529,7 +11529,7 @@
     },
     {
      "year": 2022,
-     "places": 40
+     "places": 41
     },
     {
      "year": 2023,
@@ -11541,11 +11541,11 @@
     },
     {
      "year": 2025,
-     "places": 51
+     "places": 61
     },
     {
      "year": 2026,
-     "places": 36
+     "places": 44
     }
    ],
    "titles": [
@@ -11564,6 +11564,22 @@
      "weeks": 8,
      "first": "2023-06-11",
      "last": "2026-04-19"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 8,
+     "peak": 2,
+     "weeks": 7,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
     },
     {
      "title": "Bon Appétit, Your Majesty",
@@ -11596,14 +11612,6 @@
      "weeks": 6,
      "first": "2022-09-04",
      "last": "2022-10-09"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 1,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Black Knight",
@@ -11700,14 +11708,6 @@
      "weeks": 3,
      "first": "2024-09-15",
      "last": "2024-09-29"
-    },
-    {
-     "title": "Parasyte: The Grey",
-     "places": 3,
-     "peak": 1,
-     "weeks": 3,
-     "first": "2024-04-07",
-     "last": "2024-04-21"
     }
    ],
    "titlesShown": 20,
@@ -11722,19 +11722,19 @@
    "iso2": "NZ",
    "name": "New Zealand",
    "slug": "new-zealand",
-   "koreanSlots": 156,
-   "koreanPc": 2.9,
-   "distinctTitles": 72,
-   "halfTakes": 15,
+   "koreanSlots": 159,
+   "koreanPc": 3,
+   "distinctTitles": 74,
+   "halfTakes": 16,
    "topTitle": "Squid Game",
-   "topTitlePc": 16.7,
+   "topTitlePc": 16.4,
    "inAsianTen": false,
-   "weeksWithKorean": 120,
+   "weeksWithKorean": 122,
    "firstKoreanWeek": "2021-07-18",
    "byYear": [
     {
      "year": 2021,
-     "places": 18
+     "places": 19
     },
     {
      "year": 2022,
@@ -11750,7 +11750,7 @@
     },
     {
      "year": 2025,
-     "places": 40
+     "places": 42
     },
     {
      "year": 2026,
@@ -11931,27 +11931,27 @@
    "iso2": "NI",
    "name": "Nicaragua",
    "slug": "nicaragua",
-   "koreanSlots": 526,
-   "koreanPc": 9.9,
-   "distinctTitles": 131,
-   "halfTakes": 25,
+   "koreanSlots": 554,
+   "koreanPc": 10.3,
+   "distinctTitles": 140,
+   "halfTakes": 28,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.4,
+   "topTitlePc": 7.9,
    "inAsianTen": false,
-   "weeksWithKorean": 243,
+   "weeksWithKorean": 247,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 39
+     "places": 40
     },
     {
      "year": 2022,
-     "places": 57
+     "places": 58
     },
     {
      "year": 2023,
-     "places": 115
+     "places": 123
     },
     {
      "year": 2024,
@@ -11959,11 +11959,11 @@
     },
     {
      "year": 2025,
-     "places": 121
+     "places": 128
     },
     {
      "year": 2026,
-     "places": 68
+     "places": 79
     }
    ],
    "titles": [
@@ -12140,14 +12140,14 @@
    "iso2": "NG",
    "name": "Nigeria",
    "slug": "nigeria",
-   "koreanSlots": 624,
-   "koreanPc": 11.8,
-   "distinctTitles": 153,
-   "halfTakes": 28,
+   "koreanSlots": 656,
+   "koreanPc": 12.2,
+   "distinctTitles": 160,
+   "halfTakes": 30,
    "topTitle": "Alchemy of Souls",
-   "topTitlePc": 7.7,
+   "topTitlePc": 7.3,
    "inAsianTen": false,
-   "weeksWithKorean": 250,
+   "weeksWithKorean": 256,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -12156,23 +12156,23 @@
     },
     {
      "year": 2022,
-     "places": 153
+     "places": 156
     },
     {
      "year": 2023,
-     "places": 144
+     "places": 149
     },
     {
      "year": 2024,
-     "places": 113
+     "places": 115
     },
     {
      "year": 2025,
-     "places": 87
+     "places": 98
     },
     {
      "year": 2026,
-     "places": 65
+     "places": 76
     }
    ],
    "titles": [
@@ -12289,6 +12289,22 @@
      "last": "2023-04-16"
     },
     {
+     "title": "Weak Hero",
+     "places": 9,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2025-03-30",
+     "last": "2025-05-11"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "places": 8,
      "peak": 2,
@@ -12319,22 +12335,6 @@
      "weeks": 8,
      "first": "2023-10-15",
      "last": "2023-12-03"
-    },
-    {
-     "title": "The Glory",
-     "places": 8,
-     "peak": 1,
-     "weeks": 8,
-     "first": "2023-01-08",
-     "last": "2023-04-16"
-    },
-    {
-     "title": "Under the Queen's Umbrella",
-     "places": 8,
-     "peak": 3,
-     "weeks": 8,
-     "first": "2022-11-06",
-     "last": "2022-12-25"
     }
    ],
    "titlesShown": 20,
@@ -12349,27 +12349,27 @@
    "iso2": "NO",
    "name": "Norway",
    "slug": "norway",
-   "koreanSlots": 101,
-   "koreanPc": 1.9,
-   "distinctTitles": 48,
-   "halfTakes": 9,
+   "koreanSlots": 108,
+   "koreanPc": 2,
+   "distinctTitles": 52,
+   "halfTakes": 10,
    "topTitle": "Squid Game",
-   "topTitlePc": 26.7,
+   "topTitlePc": 25,
    "inAsianTen": false,
-   "weeksWithKorean": 87,
+   "weeksWithKorean": 92,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 16
+     "places": 18
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 21
     },
     {
      "year": 2023,
-     "places": 20
+     "places": 22
     },
     {
      "year": 2024,
@@ -12377,7 +12377,7 @@
     },
     {
      "year": 2025,
-     "places": 22
+     "places": 24
     },
     {
      "year": 2026,
@@ -12432,6 +12432,14 @@
      "weeks": 2,
      "first": "2024-02-11",
      "last": "2024-02-18"
+    },
+    {
+     "title": "8MM",
+     "places": 2,
+     "peak": 9,
+     "weeks": 2,
+     "first": "2021-09-05",
+     "last": "2021-09-12"
     },
     {
      "title": "Badland Hunters",
@@ -12514,6 +12522,14 @@
      "last": "2025-11-09"
     },
     {
+     "title": "Possession",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2023-04-23",
+     "last": "2023-04-30"
+    },
+    {
      "title": "The Great Flood",
      "places": 2,
      "peak": 7,
@@ -12528,22 +12544,6 @@
      "weeks": 2,
      "first": "2022-03-06",
      "last": "2022-03-13"
-    },
-    {
-     "title": "Uprising",
-     "places": 2,
-     "peak": 10,
-     "weeks": 2,
-     "first": "2024-10-13",
-     "last": "2024-10-20"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 1,
-     "peak": 10,
-     "weeks": 1,
-     "first": "2026-07-05",
-     "last": "2026-07-05"
     }
    ],
    "titlesShown": 20,
@@ -12558,14 +12558,14 @@
    "iso2": "OM",
    "name": "Oman",
    "slug": "oman",
-   "koreanSlots": 561,
-   "koreanPc": 10.6,
-   "distinctTitles": 141,
-   "halfTakes": 30,
+   "koreanSlots": 596,
+   "koreanPc": 11.1,
+   "distinctTitles": 151,
+   "halfTakes": 32,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.8,
+   "topTitlePc": 7.4,
    "inAsianTen": false,
-   "weeksWithKorean": 249,
+   "weeksWithKorean": 253,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -12574,23 +12574,23 @@
     },
     {
      "year": 2022,
-     "places": 95
+     "places": 97
     },
     {
      "year": 2023,
-     "places": 134
+     "places": 141
     },
     {
      "year": 2024,
-     "places": 100
+     "places": 103
     },
     {
      "year": 2025,
-     "places": 113
+     "places": 126
     },
     {
      "year": 2026,
-     "places": 77
+     "places": 87
     }
    ],
    "titles": [
@@ -12643,6 +12643,14 @@
      "last": "2024-01-28"
     },
     {
+     "title": "Weak Hero",
+     "places": 10,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2025-03-30",
+     "last": "2025-05-18"
+    },
+    {
      "title": "Young Lady and Gentleman",
      "places": 10,
      "peak": 1,
@@ -12673,6 +12681,14 @@
      "weeks": 9,
      "first": "2025-03-09",
      "last": "2025-05-11"
+    },
+    {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
     },
     {
      "title": "Bon Appétit, Your Majesty",
@@ -12723,36 +12739,20 @@
      "last": "2024-05-05"
     },
     {
+     "title": "Doctor Cha",
+     "places": 7,
+     "peak": 3,
+     "weeks": 7,
+     "first": "2023-04-30",
+     "last": "2023-06-11"
+    },
+    {
      "title": "Dynamite Kiss",
      "places": 7,
      "peak": 4,
      "weeks": 7,
      "first": "2025-11-16",
      "last": "2025-12-28"
-    },
-    {
-     "title": "Strong Girl Nam-soon",
-     "places": 7,
-     "peak": 4,
-     "weeks": 7,
-     "first": "2023-10-15",
-     "last": "2023-11-26"
-    },
-    {
-     "title": "When the Phone Rings",
-     "places": 7,
-     "peak": 1,
-     "weeks": 7,
-     "first": "2024-11-24",
-     "last": "2025-01-05"
-    },
-    {
-     "title": "All of Us Are Dead",
-     "places": 6,
-     "peak": 1,
-     "weeks": 6,
-     "first": "2022-01-30",
-     "last": "2022-03-06"
     }
    ],
    "titlesShown": 20,
@@ -12767,14 +12767,14 @@
    "iso2": "PK",
    "name": "Pakistan",
    "slug": "pakistan",
-   "koreanSlots": 541,
-   "koreanPc": 10.2,
-   "distinctTitles": 107,
-   "halfTakes": 14,
+   "koreanSlots": 573,
+   "koreanPc": 10.7,
+   "distinctTitles": 112,
+   "halfTakes": 15,
    "topTitle": "Squid Game",
-   "topTitlePc": 12.2,
+   "topTitlePc": 11.5,
    "inAsianTen": false,
-   "weeksWithKorean": 261,
+   "weeksWithKorean": 264,
    "firstKoreanWeek": "2021-07-18",
    "byYear": [
     {
@@ -12783,11 +12783,11 @@
     },
     {
      "year": 2022,
-     "places": 102
+     "places": 105
     },
     {
      "year": 2023,
-     "places": 120
+     "places": 121
     },
     {
      "year": 2024,
@@ -12795,11 +12795,11 @@
     },
     {
      "year": 2025,
-     "places": 114
+     "places": 135
     },
     {
      "year": 2026,
-     "places": 66
+     "places": 73
     }
    ],
    "titles": [
@@ -12834,6 +12834,14 @@
      "weeks": 18,
      "first": "2022-03-13",
      "last": "2022-12-18"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 17,
+     "peak": 2,
+     "weeks": 11,
+     "first": "2025-03-30",
+     "last": "2025-06-08"
     },
     {
      "title": "My Demon",
@@ -12954,20 +12962,12 @@
      "weeks": 7,
      "first": "2023-08-27",
      "last": "2023-10-08"
-    },
-    {
-     "title": "Strong Girl Nam-soon",
-     "places": 7,
-     "peak": 4,
-     "weeks": 7,
-     "first": "2023-10-15",
-     "last": "2023-12-03"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
-    "distinctTitles": "above",
+    "distinctTitles": "near",
     "halfTakes": "below"
    },
    "hasPage": true
@@ -12976,27 +12976,27 @@
    "iso2": "PA",
    "name": "Panama",
    "slug": "panama",
-   "koreanSlots": 353,
-   "koreanPc": 6.7,
-   "distinctTitles": 115,
-   "halfTakes": 24,
+   "koreanSlots": 380,
+   "koreanPc": 7.1,
+   "distinctTitles": 124,
+   "halfTakes": 27,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.8,
+   "topTitlePc": 6.3,
    "inAsianTen": false,
-   "weeksWithKorean": 214,
+   "weeksWithKorean": 222,
    "firstKoreanWeek": "2021-07-18",
    "byYear": [
     {
      "year": 2021,
-     "places": 26
+     "places": 27
     },
     {
      "year": 2022,
-     "places": 58
+     "places": 59
     },
     {
      "year": 2023,
-     "places": 64
+     "places": 71
     },
     {
      "year": 2024,
@@ -13004,11 +13004,11 @@
     },
     {
      "year": 2025,
-     "places": 71
+     "places": 77
     },
     {
      "year": 2026,
-     "places": 50
+     "places": 62
     }
    ],
    "titles": [
@@ -13117,6 +13117,14 @@
      "last": "2025-01-05"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 6,
      "peak": 2,
@@ -13157,14 +13165,6 @@
      "last": "2024-01-21"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Bloodhounds",
      "places": 5,
      "peak": 4,
@@ -13175,7 +13175,7 @@
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "above",
+    "koreanPc": "well above",
     "distinctTitles": "above",
     "halfTakes": "above"
    },
@@ -13185,14 +13185,14 @@
    "iso2": "PY",
    "name": "Paraguay",
    "slug": "paraguay",
-   "koreanSlots": 386,
-   "koreanPc": 7.3,
-   "distinctTitles": 117,
-   "halfTakes": 24,
+   "koreanSlots": 411,
+   "koreanPc": 7.7,
+   "distinctTitles": 125,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.1,
+   "topTitlePc": 8.5,
    "inAsianTen": false,
-   "weeksWithKorean": 214,
+   "weeksWithKorean": 220,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -13201,11 +13201,11 @@
     },
     {
      "year": 2022,
-     "places": 41
+     "places": 42
     },
     {
      "year": 2023,
-     "places": 80
+     "places": 85
     },
     {
      "year": 2024,
@@ -13213,11 +13213,11 @@
     },
     {
      "year": 2025,
-     "places": 88
+     "places": 94
     },
     {
      "year": 2026,
-     "places": 58
+     "places": 71
     }
    ],
    "titles": [
@@ -13350,6 +13350,14 @@
      "last": "2024-02-04"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 2,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 6,
      "peak": 2,
@@ -13372,14 +13380,6 @@
      "weeks": 6,
      "first": "2023-10-15",
      "last": "2023-11-19"
-    },
-    {
-     "title": "The Atypical Family",
-     "places": 6,
-     "peak": 6,
-     "weeks": 6,
-     "first": "2024-06-02",
-     "last": "2024-07-07"
     }
    ],
    "titlesShown": 20,
@@ -13394,27 +13394,27 @@
    "iso2": "PE",
    "name": "Peru",
    "slug": "peru",
-   "koreanSlots": 658,
-   "koreanPc": 12.4,
-   "distinctTitles": 150,
-   "halfTakes": 30,
+   "koreanSlots": 695,
+   "koreanPc": 13,
+   "distinctTitles": 158,
+   "halfTakes": 32,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.8,
+   "topTitlePc": 6.5,
    "inAsianTen": false,
-   "weeksWithKorean": 251,
+   "weeksWithKorean": 254,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 37
+     "places": 38
     },
     {
      "year": 2022,
-     "places": 103
+     "places": 105
     },
     {
      "year": 2023,
-     "places": 140
+     "places": 149
     },
     {
      "year": 2024,
@@ -13422,11 +13422,11 @@
     },
     {
      "year": 2025,
-     "places": 145
+     "places": 157
     },
     {
      "year": 2026,
-     "places": 93
+     "places": 106
     }
    ],
    "titles": [
@@ -13551,6 +13551,14 @@
      "last": "2024-02-04"
     },
     {
+     "title": "Weak Hero",
+     "places": 10,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2025-03-30",
+     "last": "2025-05-18"
+    },
+    {
      "title": "Dynamite Kiss",
      "places": 9,
      "peak": 1,
@@ -13581,14 +13589,6 @@
      "weeks": 9,
      "first": "2023-10-08",
      "last": "2023-12-03"
-    },
-    {
-     "title": "Crash Course in Romance",
-     "places": 8,
-     "peak": 2,
-     "weeks": 8,
-     "first": "2023-02-26",
-     "last": "2023-04-16"
     }
    ],
    "titlesShown": 20,
@@ -13603,39 +13603,39 @@
    "iso2": "PH",
    "name": "Philippines",
    "slug": "philippines",
-   "koreanSlots": 1171,
-   "koreanPc": 22.1,
-   "distinctTitles": 246,
-   "halfTakes": 47,
+   "koreanSlots": 1222,
+   "koreanPc": 22.8,
+   "distinctTitles": 257,
+   "halfTakes": 50,
    "topTitle": "The Promise",
-   "topTitlePc": 3.1,
+   "topTitlePc": 2.9,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 118
+     "places": 122
     },
     {
      "year": 2022,
-     "places": 287
+     "places": 290
     },
     {
      "year": 2023,
-     "places": 255
+     "places": 265
     },
     {
      "year": 2024,
-     "places": 199
+     "places": 202
     },
     {
      "year": 2025,
-     "places": 201
+     "places": 214
     },
     {
      "year": 2026,
-     "places": 111
+     "places": 129
     }
    ],
    "titles": [
@@ -13812,14 +13812,14 @@
    "iso2": "PL",
    "name": "Poland",
    "slug": "poland",
-   "koreanSlots": 157,
+   "koreanSlots": 163,
    "koreanPc": 3,
-   "distinctTitles": 71,
-   "halfTakes": 17,
+   "distinctTitles": 74,
+   "halfTakes": 18,
    "topTitle": "Squid Game",
-   "topTitlePc": 18.5,
+   "topTitlePc": 17.8,
    "inAsianTen": false,
-   "weeksWithKorean": 118,
+   "weeksWithKorean": 121,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -13840,11 +13840,11 @@
     },
     {
      "year": 2025,
-     "places": 34
+     "places": 35
     },
     {
      "year": 2026,
-     "places": 18
+     "places": 23
     }
    ],
    "titles": [
@@ -13921,6 +13921,14 @@
      "last": "2024-09-15"
     },
     {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
      "title": "Queen",
      "places": 3,
      "peak": 3,
@@ -13969,14 +13977,6 @@
      "last": "2022-12-11"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Dog Days Out",
      "places": 2,
      "peak": 8,
@@ -14011,7 +14011,7 @@
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "below",
+    "koreanPc": "well below",
     "distinctTitles": "below",
     "halfTakes": "below"
    },
@@ -14021,14 +14021,14 @@
    "iso2": "PT",
    "name": "Portugal",
    "slug": "portugal",
-   "koreanSlots": 199,
-   "koreanPc": 3.8,
-   "distinctTitles": 85,
-   "halfTakes": 17,
+   "koreanSlots": 214,
+   "koreanPc": 4,
+   "distinctTitles": 91,
+   "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 14.6,
+   "topTitlePc": 13.6,
    "inAsianTen": false,
-   "weeksWithKorean": 145,
+   "weeksWithKorean": 152,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -14041,7 +14041,7 @@
     },
     {
      "year": 2023,
-     "places": 37
+     "places": 38
     },
     {
      "year": 2024,
@@ -14049,11 +14049,11 @@
     },
     {
      "year": 2025,
-     "places": 58
+     "places": 62
     },
     {
      "year": 2026,
-     "places": 32
+     "places": 42
     }
    ],
    "titles": [
@@ -14130,6 +14130,14 @@
      "last": "2026-04-12"
     },
     {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
+    },
+    {
      "title": "Dynamite Kiss",
      "places": 4,
      "peak": 4,
@@ -14194,35 +14202,27 @@
      "last": "2023-12-10"
     },
     {
-     "title": "Badland Hunters",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2024-01-28",
-     "last": "2024-02-04"
+     "title": "That Night",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-03-15",
+     "last": "2026-03-29"
     },
     {
-     "title": "Ballerina",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2023-10-08",
-     "last": "2023-10-15"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2026-01-18",
-     "last": "2026-01-25"
+     "title": "Weak Hero",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "below",
     "distinctTitles": "below",
-    "halfTakes": "below"
+    "halfTakes": "near"
    },
    "hasPage": true
   },
@@ -14230,14 +14230,14 @@
    "iso2": "QA",
    "name": "Qatar",
    "slug": "qatar",
-   "koreanSlots": 658,
-   "koreanPc": 12.4,
-   "distinctTitles": 167,
-   "halfTakes": 36,
+   "koreanSlots": 690,
+   "koreanPc": 12.9,
+   "distinctTitles": 177,
+   "halfTakes": 38,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.1,
+   "topTitlePc": 5.8,
    "inAsianTen": false,
-   "weeksWithKorean": 256,
+   "weeksWithKorean": 260,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -14246,23 +14246,23 @@
     },
     {
      "year": 2022,
-     "places": 135
+     "places": 139
     },
     {
      "year": 2023,
-     "places": 146
+     "places": 153
     },
     {
      "year": 2024,
-     "places": 118
+     "places": 121
     },
     {
      "year": 2025,
-     "places": 116
+     "places": 125
     },
     {
      "year": 2026,
-     "places": 78
+     "places": 87
     }
    ],
    "titles": [
@@ -14379,6 +14379,14 @@
      "last": "2023-04-16"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Doctor Slump",
      "places": 8,
      "peak": 2,
@@ -14417,14 +14425,6 @@
      "weeks": 8,
      "first": "2026-05-10",
      "last": "2026-06-28"
-    },
-    {
-     "title": "Strong Girl Nam-soon",
-     "places": 8,
-     "peak": 3,
-     "weeks": 8,
-     "first": "2023-10-08",
-     "last": "2023-11-26"
     }
    ],
    "titlesShown": 20,
@@ -14439,23 +14439,23 @@
    "iso2": "RE",
    "name": "Réunion",
    "slug": "r-union",
-   "koreanSlots": 260,
-   "koreanPc": 4.9,
-   "distinctTitles": 111,
-   "halfTakes": 26,
+   "koreanSlots": 283,
+   "koreanPc": 5.3,
+   "distinctTitles": 119,
+   "halfTakes": 28,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.6,
+   "topTitlePc": 8.8,
    "inAsianTen": false,
-   "weeksWithKorean": 179,
+   "weeksWithKorean": 187,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
      "year": 2021,
-     "places": 25
+     "places": 26
     },
     {
      "year": 2022,
-     "places": 40
+     "places": 42
     },
     {
      "year": 2023,
@@ -14467,11 +14467,11 @@
     },
     {
      "year": 2025,
-     "places": 51
+     "places": 58
     },
     {
      "year": 2026,
-     "places": 46
+     "places": 59
     }
    ],
    "titles": [
@@ -14500,6 +14500,14 @@
      "last": "2023-04-16"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 7,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2026-06-28",
+     "last": "2026-08-09"
+    },
+    {
      "title": "Young Lady and Gentleman",
      "places": 7,
      "peak": 5,
@@ -14516,12 +14524,12 @@
      "last": "2022-03-06"
     },
     {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
+     "title": "Weak Hero",
+     "places": 6,
      "peak": 1,
      "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
+     "first": "2025-03-30",
+     "last": "2025-05-11"
     },
     {
      "title": "Black Knight",
@@ -14580,6 +14588,14 @@
      "last": "2026-07-19"
     },
     {
+     "title": "Spooky in Love",
+     "places": 4,
+     "peak": 8,
+     "weeks": 4,
+     "first": "2026-07-26",
+     "last": "2026-08-16"
+    },
+    {
      "title": "The Guest",
      "places": 4,
      "peak": 5,
@@ -14618,27 +14634,11 @@
      "weeks": 3,
      "first": "2025-12-28",
      "last": "2026-01-11"
-    },
-    {
-     "title": "City Hunter",
-     "places": 3,
-     "peak": 1,
-     "weeks": 3,
-     "first": "2024-04-28",
-     "last": "2024-05-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "near",
+    "koreanPc": "above",
     "distinctTitles": "above",
     "halfTakes": "above"
    },
@@ -14648,14 +14648,14 @@
    "iso2": "RO",
    "name": "Romania",
    "slug": "romania",
-   "koreanSlots": 276,
-   "koreanPc": 5.2,
-   "distinctTitles": 113,
-   "halfTakes": 21,
+   "koreanSlots": 288,
+   "koreanPc": 5.4,
+   "distinctTitles": 118,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 14.1,
+   "topTitlePc": 13.5,
    "inAsianTen": false,
-   "weeksWithKorean": 173,
+   "weeksWithKorean": 179,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -14676,11 +14676,11 @@
     },
     {
      "year": 2025,
-     "places": 64
+     "places": 68
     },
     {
      "year": 2026,
-     "places": 45
+     "places": 53
     }
    ],
    "titles": [
@@ -14733,20 +14733,20 @@
      "last": "2025-01-05"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "My Demon",
      "places": 6,
      "peak": 5,
      "weeks": 6,
      "first": "2023-11-26",
      "last": "2023-12-31"
-    },
-    {
-     "title": "Agent Kim Reactivated",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2026-06-28",
-     "last": "2026-07-26"
     },
     {
      "title": "Awake",
@@ -14849,7 +14849,7 @@
    "vsMedian": {
     "koreanPc": "above",
     "distinctTitles": "above",
-    "halfTakes": "above"
+    "halfTakes": "near"
    },
    "hasPage": true
   },
@@ -14857,14 +14857,14 @@
    "iso2": "SA",
    "name": "Saudi Arabia",
    "slug": "saudi-arabia",
-   "koreanSlots": 636,
-   "koreanPc": 12,
-   "distinctTitles": 157,
-   "halfTakes": 32,
+   "koreanSlots": 674,
+   "koreanPc": 12.6,
+   "distinctTitles": 165,
+   "halfTakes": 34,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.1,
+   "topTitlePc": 6.7,
    "inAsianTen": false,
-   "weeksWithKorean": 254,
+   "weeksWithKorean": 260,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -14877,19 +14877,19 @@
     },
     {
      "year": 2023,
-     "places": 154
+     "places": 162
     },
     {
      "year": 2024,
-     "places": 113
+     "places": 117
     },
     {
      "year": 2025,
-     "places": 114
+     "places": 126
     },
     {
      "year": 2026,
-     "places": 72
+     "places": 86
     }
    ],
    "titles": [
@@ -14948,6 +14948,14 @@
      "weeks": 8,
      "first": "2023-06-11",
      "last": "2026-04-19"
+    },
+    {
+     "title": "Weak Hero",
+     "places": 10,
+     "peak": 1,
+     "weeks": 7,
+     "first": "2025-03-30",
+     "last": "2025-05-18"
     },
     {
      "title": "All of Us Are Dead",
@@ -15022,6 +15030,14 @@
      "last": "2022-10-30"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "places": 8,
      "peak": 1,
@@ -15030,28 +15046,12 @@
      "last": "2025-10-12"
     },
     {
-     "title": "Doctor Slump",
-     "places": 8,
-     "peak": 2,
-     "weeks": 8,
-     "first": "2024-01-28",
-     "last": "2024-03-17"
-    },
-    {
-     "title": "Love Next Door",
+     "title": "Doctor Cha",
      "places": 8,
      "peak": 1,
      "weeks": 8,
-     "first": "2024-08-18",
-     "last": "2024-10-06"
-    },
-    {
-     "title": "My Demon",
-     "places": 8,
-     "peak": 3,
-     "weeks": 8,
-     "first": "2023-11-26",
-     "last": "2024-01-21"
+     "first": "2023-04-23",
+     "last": "2023-06-11"
     }
    ],
    "titlesShown": 20,
@@ -15066,14 +15066,14 @@
    "iso2": "RS",
    "name": "Serbia",
    "slug": "serbia",
-   "koreanSlots": 157,
-   "koreanPc": 3,
-   "distinctTitles": 55,
-   "halfTakes": 6,
+   "koreanSlots": 168,
+   "koreanPc": 3.1,
+   "distinctTitles": 59,
+   "halfTakes": 7,
    "topTitle": "Squid Game",
-   "topTitlePc": 31.8,
+   "topTitlePc": 29.8,
    "inAsianTen": false,
-   "weeksWithKorean": 118,
+   "weeksWithKorean": 124,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15094,11 +15094,11 @@
     },
     {
      "year": 2025,
-     "places": 40
+     "places": 42
     },
     {
      "year": 2026,
-     "places": 22
+     "places": 31
     }
    ],
    "titles": [
@@ -15119,20 +15119,20 @@
      "last": "2023-08-20"
     },
     {
+     "title": "Oasis",
+     "places": 8,
+     "peak": 2,
+     "weeks": 8,
+     "first": "2026-06-21",
+     "last": "2026-08-09"
+    },
+    {
      "title": "Awake",
      "places": 6,
      "peak": 1,
      "weeks": 6,
      "first": "2023-09-03",
      "last": "2026-02-08"
-    },
-    {
-     "title": "Oasis",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2026-06-21",
-     "last": "2026-07-26"
     },
     {
      "title": "Agent Kim Reactivated",
@@ -15159,6 +15159,14 @@
      "last": "2025-11-09"
     },
     {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
+    },
+    {
      "title": "The Great Flood",
      "places": 4,
      "peak": 2,
@@ -15181,6 +15189,14 @@
      "weeks": 3,
      "first": "2025-08-31",
      "last": "2025-09-14"
+    },
+    {
+     "title": "That Night",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-03-15",
+     "last": "2026-03-29"
     },
     {
      "title": "Addicted",
@@ -15239,33 +15255,17 @@
      "last": "2022-07-24"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Humint",
      "places": 2,
      "peak": 3,
      "weeks": 2,
      "first": "2026-04-05",
      "last": "2026-04-12"
-    },
-    {
-     "title": "JUNG_E",
-     "places": 2,
-     "peak": 7,
-     "weeks": 2,
-     "first": "2023-01-22",
-     "last": "2023-01-29"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "below",
+    "koreanPc": "well below",
     "distinctTitles": "well below",
     "halfTakes": "well below"
    },
@@ -15275,19 +15275,19 @@
    "iso2": "SG",
    "name": "Singapore",
    "slug": "singapore",
-   "koreanSlots": 1148,
-   "koreanPc": 21.7,
-   "distinctTitles": 243,
-   "halfTakes": 54,
+   "koreanSlots": 1186,
+   "koreanPc": 22.1,
+   "distinctTitles": 253,
+   "halfTakes": 56,
    "topTitle": "Squid Game",
-   "topTitlePc": 2.4,
+   "topTitlePc": 2.3,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 120
+     "places": 125
     },
     {
      "year": 2022,
@@ -15295,19 +15295,19 @@
     },
     {
      "year": 2023,
-     "places": 249
+     "places": 258
     },
     {
      "year": 2024,
-     "places": 199
+     "places": 201
     },
     {
      "year": 2025,
-     "places": 190
+     "places": 200
     },
     {
      "year": 2026,
-     "places": 101
+     "places": 113
     }
    ],
    "titles": [
@@ -15484,14 +15484,14 @@
    "iso2": "SK",
    "name": "Slovakia",
    "slug": "slovakia",
-   "koreanSlots": 167,
-   "koreanPc": 3.2,
-   "distinctTitles": 55,
-   "halfTakes": 9,
+   "koreanSlots": 179,
+   "koreanPc": 3.3,
+   "distinctTitles": 61,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 26.3,
+   "topTitlePc": 24.6,
    "inAsianTen": false,
-   "weeksWithKorean": 123,
+   "weeksWithKorean": 130,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -15500,7 +15500,7 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 24
     },
     {
      "year": 2023,
@@ -15512,11 +15512,11 @@
     },
     {
      "year": 2025,
-     "places": 44
+     "places": 45
     },
     {
      "year": 2026,
-     "places": 23
+     "places": 30
     }
    ],
    "titles": [
@@ -15593,12 +15593,28 @@
      "last": "2022-07-31"
     },
     {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
+    },
+    {
      "title": "Black Knight",
      "places": 3,
      "peak": 2,
      "weeks": 3,
      "first": "2023-05-14",
      "last": "2023-05-28"
+    },
+    {
+     "title": "Jackpot",
+     "places": 3,
+     "peak": 5,
+     "weeks": 3,
+     "first": "2022-08-14",
+     "last": "2022-08-28"
     },
     {
      "title": "The Glory",
@@ -15657,28 +15673,12 @@
      "last": "2022-08-14"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Dog Days Out",
      "places": 2,
      "peak": 6,
      "weeks": 2,
      "first": "2025-02-16",
      "last": "2025-02-23"
-    },
-    {
-     "title": "Grand Prix",
-     "places": 2,
-     "peak": 7,
-     "weeks": 2,
-     "first": "2024-04-21",
-     "last": "2024-04-28"
     }
    ],
    "titlesShown": 20,
@@ -15693,14 +15693,14 @@
    "iso2": "SI",
    "name": "Slovenia",
    "slug": "slovenia",
-   "koreanSlots": 116,
+   "koreanSlots": 118,
    "koreanPc": 2.2,
-   "distinctTitles": 47,
+   "distinctTitles": 48,
    "halfTakes": 5,
    "topTitle": "Squid Game",
-   "topTitlePc": 32.8,
+   "topTitlePc": 32.2,
    "inAsianTen": false,
-   "weeksWithKorean": 92,
+   "weeksWithKorean": 93,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15725,7 +15725,7 @@
     },
     {
      "year": 2026,
-     "places": 17
+     "places": 19
     }
    ],
    "titles": [
@@ -15768,6 +15768,14 @@
      "weeks": 4,
      "first": "2022-01-30",
      "last": "2022-02-20"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     },
     {
      "title": "The Great Flood",
@@ -15816,14 +15824,6 @@
      "weeks": 2,
      "first": "2022-07-17",
      "last": "2022-07-24"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     },
     {
      "title": "JUNG_E",
@@ -15902,14 +15902,14 @@
    "iso2": "ZA",
    "name": "South Africa",
    "slug": "south-africa",
-   "koreanSlots": 142,
+   "koreanSlots": 147,
    "koreanPc": 2.7,
-   "distinctTitles": 64,
-   "halfTakes": 12,
+   "distinctTitles": 67,
+   "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 21.1,
+   "topTitlePc": 20.4,
    "inAsianTen": false,
-   "weeksWithKorean": 113,
+   "weeksWithKorean": 118,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15930,11 +15930,11 @@
     },
     {
      "year": 2025,
-     "places": 32
+     "places": 36
     },
     {
      "year": 2026,
-     "places": 17
+     "places": 18
     }
    ],
    "titles": [
@@ -16043,6 +16043,14 @@
      "last": "2023-02-26"
     },
     {
+     "title": "Weak Hero",
+     "places": 3,
+     "peak": 8,
+     "weeks": 3,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
      "title": "As You Stood By",
      "places": 2,
      "peak": 3,
@@ -16089,14 +16097,6 @@
      "weeks": 2,
      "first": "2022-08-07",
      "last": "2022-08-14"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
@@ -16111,49 +16111,49 @@
    "iso2": "KR",
    "name": "South Korea",
    "slug": "south-korea",
-   "koreanSlots": 2722,
-   "koreanPc": 51.4,
-   "distinctTitles": 560,
-   "halfTakes": 117,
+   "koreanSlots": 2871,
+   "koreanPc": 53.6,
+   "distinctTitles": 592,
+   "halfTakes": 124,
    "topTitle": "I am Solo",
-   "topTitlePc": 4,
+   "topTitlePc": 3.9,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 284
+     "places": 292
     },
     {
      "year": 2022,
-     "places": 518
-    },
-    {
-     "year": 2023,
-     "places": 576
-    },
-    {
-     "year": 2024,
      "places": 532
     },
     {
+     "year": 2023,
+     "places": 618
+    },
+    {
+     "year": 2024,
+     "places": 541
+    },
+    {
      "year": 2025,
-     "places": 517
+     "places": 554
     },
     {
      "year": 2026,
-     "places": 295
+     "places": 334
     }
    ],
    "titles": [
     {
      "title": "I am Solo",
-     "places": 110,
+     "places": 112,
      "peak": 1,
-     "weeks": 109,
+     "weeks": 111,
      "first": "2021-11-21",
-     "last": "2026-05-17"
+     "last": "2026-08-16"
     },
     {
      "title": "Hospital Playlist",
@@ -16228,6 +16228,14 @@
      "last": "2022-05-08"
     },
     {
+     "title": "Weak Hero",
+     "places": 17,
+     "peak": 1,
+     "weeks": 11,
+     "first": "2025-03-30",
+     "last": "2026-03-08"
+    },
+    {
      "title": "Extraordinary Attorney Woo",
      "places": 16,
      "peak": 1,
@@ -16298,14 +16306,6 @@
      "weeks": 13,
      "first": "2024-07-21",
      "last": "2025-02-02"
-    },
-    {
-     "title": "Night in Paradise",
-     "places": 13,
-     "peak": 5,
-     "weeks": 13,
-     "first": "2021-07-11",
-     "last": "2022-04-24"
     }
    ],
    "titlesShown": 20,
@@ -16320,14 +16320,14 @@
    "iso2": "ES",
    "name": "Spain",
    "slug": "spain",
-   "koreanSlots": 164,
-   "koreanPc": 3.1,
-   "distinctTitles": 71,
-   "halfTakes": 15,
+   "koreanSlots": 183,
+   "koreanPc": 3.4,
+   "distinctTitles": 78,
+   "halfTakes": 16,
    "topTitle": "Squid Game",
-   "topTitlePc": 16.5,
+   "topTitlePc": 14.8,
    "inAsianTen": false,
-   "weeksWithKorean": 128,
+   "weeksWithKorean": 139,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -16336,7 +16336,7 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 24
     },
     {
      "year": 2023,
@@ -16344,15 +16344,15 @@
     },
     {
      "year": 2024,
-     "places": 27
+     "places": 29
     },
     {
      "year": 2025,
-     "places": 44
+     "places": 46
     },
     {
      "year": 2026,
-     "places": 27
+     "places": 39
     }
    ],
    "titles": [
@@ -16374,11 +16374,19 @@
     },
     {
      "title": "Oasis",
-     "places": 6,
+     "places": 8,
      "peak": 2,
-     "weeks": 6,
+     "weeks": 8,
      "first": "2026-06-21",
-     "last": "2026-07-26"
+     "last": "2026-08-09"
+    },
+    {
+     "title": "That Night",
+     "places": 5,
+     "peak": 1,
+     "weeks": 5,
+     "first": "2026-03-15",
+     "last": "2026-04-12"
     },
     {
      "title": "All of Us Are Dead",
@@ -16395,6 +16403,14 @@
      "weeks": 4,
      "first": "2025-08-31",
      "last": "2025-09-28"
+    },
+    {
+     "title": "Desire",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "Bloodhounds",
@@ -16461,6 +16477,14 @@
      "last": "2022-10-16"
     },
     {
+     "title": "Sleepless",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2022-06-12",
+     "last": "2024-06-23"
+    },
+    {
      "title": "Solace",
      "places": 3,
      "peak": 5,
@@ -16491,30 +16515,6 @@
      "weeks": 2,
      "first": "2026-05-10",
      "last": "2026-05-17"
-    },
-    {
-     "title": "Awake",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-02-01",
-     "last": "2026-02-08"
-    },
-    {
-     "title": "Badland Hunters",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2024-01-28",
-     "last": "2024-02-04"
-    },
-    {
-     "title": "Ballerina",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2023-10-08",
-     "last": "2023-10-15"
     }
    ],
    "titlesShown": 20,
@@ -16529,14 +16529,14 @@
    "iso2": "LK",
    "name": "Sri Lanka",
    "slug": "sri-lanka",
-   "koreanSlots": 522,
-   "koreanPc": 9.8,
-   "distinctTitles": 134,
-   "halfTakes": 24,
+   "koreanSlots": 543,
+   "koreanPc": 10.1,
+   "distinctTitles": 140,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.2,
+   "topTitlePc": 7.9,
    "inAsianTen": false,
-   "weeksWithKorean": 246,
+   "weeksWithKorean": 250,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -16545,11 +16545,11 @@
     },
     {
      "year": 2022,
-     "places": 114
+     "places": 115
     },
     {
      "year": 2023,
-     "places": 101
+     "places": 107
     },
     {
      "year": 2024,
@@ -16557,11 +16557,11 @@
     },
     {
      "year": 2025,
-     "places": 100
+     "places": 106
     },
     {
      "year": 2026,
-     "places": 61
+     "places": 69
     }
    ],
    "titles": [
@@ -16686,6 +16686,14 @@
      "last": "2022-10-23"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 8,
      "peak": 1,
@@ -16716,14 +16724,6 @@
      "weeks": 8,
      "first": "2021-11-07",
      "last": "2021-12-26"
-    },
-    {
-     "title": "Welcome to Samdal-ri",
-     "places": 8,
-     "peak": 5,
-     "weeks": 8,
-     "first": "2023-12-10",
-     "last": "2024-01-28"
     }
    ],
    "titlesShown": 20,
@@ -16738,27 +16738,27 @@
    "iso2": "SE",
    "name": "Sweden",
    "slug": "sweden",
-   "koreanSlots": 111,
-   "koreanPc": 2.1,
-   "distinctTitles": 49,
-   "halfTakes": 8,
+   "koreanSlots": 117,
+   "koreanPc": 2.2,
+   "distinctTitles": 53,
+   "halfTakes": 9,
    "topTitle": "Squid Game",
-   "topTitlePc": 25.2,
+   "topTitlePc": 23.9,
    "inAsianTen": false,
-   "weeksWithKorean": 92,
+   "weeksWithKorean": 97,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
      "year": 2021,
-     "places": 17
+     "places": 19
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 21
     },
     {
      "year": 2023,
-     "places": 23
+     "places": 24
     },
     {
      "year": 2024,
@@ -16766,7 +16766,7 @@
     },
     {
      "year": 2025,
-     "places": 25
+     "places": 27
     },
     {
      "year": 2026,
@@ -16837,6 +16837,14 @@
      "weeks": 3,
      "first": "2023-04-23",
      "last": "2023-05-07"
+    },
+    {
+     "title": "8MM",
+     "places": 2,
+     "peak": 9,
+     "weeks": 2,
+     "first": "2021-09-05",
+     "last": "2021-09-12"
     },
     {
      "title": "Badland Hunters",
@@ -16925,14 +16933,6 @@
      "weeks": 2,
      "first": "2021-12-26",
      "last": "2022-01-02"
-    },
-    {
-     "title": "Uprising",
-     "places": 2,
-     "peak": 8,
-     "weeks": 2,
-     "first": "2024-10-13",
-     "last": "2024-10-20"
     }
    ],
    "titlesShown": 20,
@@ -16947,14 +16947,14 @@
    "iso2": "CH",
    "name": "Switzerland",
    "slug": "switzerland",
-   "koreanSlots": 136,
-   "koreanPc": 2.6,
-   "distinctTitles": 53,
-   "halfTakes": 10,
+   "koreanSlots": 145,
+   "koreanPc": 2.7,
+   "distinctTitles": 57,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 19.9,
+   "topTitlePc": 18.6,
    "inAsianTen": false,
-   "weeksWithKorean": 109,
+   "weeksWithKorean": 116,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -16975,11 +16975,11 @@
     },
     {
      "year": 2025,
-     "places": 28
+     "places": 29
     },
     {
      "year": 2026,
-     "places": 20
+     "places": 28
     }
    ],
    "titles": [
@@ -16993,11 +16993,11 @@
     },
     {
      "title": "Oasis",
-     "places": 6,
+     "places": 7,
      "peak": 2,
-     "weeks": 6,
+     "weeks": 7,
      "first": "2026-06-21",
-     "last": "2026-07-26"
+     "last": "2026-08-02"
     },
     {
      "title": "Red Eye",
@@ -17064,12 +17064,28 @@
      "last": "2026-01-11"
     },
     {
+     "title": "Desire",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
      "title": "My Name",
      "places": 3,
      "peak": 4,
      "weeks": 3,
      "first": "2021-10-17",
      "last": "2021-10-31"
+    },
+    {
+     "title": "That Night",
+     "places": 3,
+     "peak": 3,
+     "weeks": 3,
+     "first": "2026-03-15",
+     "last": "2026-03-29"
     },
     {
      "title": "Awake",
@@ -17120,28 +17136,12 @@
      "last": "2024-05-05"
     },
     {
-     "title": "Desire",
-     "places": 2,
-     "peak": 2,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
-    },
-    {
      "title": "Happy Ending",
      "places": 2,
      "peak": 5,
      "weeks": 2,
      "first": "2023-09-03",
      "last": "2023-09-10"
-    },
-    {
-     "title": "JUNG_E",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2023-01-22",
-     "last": "2023-01-29"
     }
    ],
    "titlesShown": 20,
@@ -17156,19 +17156,19 @@
    "iso2": "TW",
    "name": "Taiwan",
    "slug": "taiwan",
-   "koreanSlots": 1251,
-   "koreanPc": 23.6,
-   "distinctTitles": 246,
-   "halfTakes": 54,
+   "koreanSlots": 1299,
+   "koreanPc": 24.2,
+   "distinctTitles": 258,
+   "halfTakes": 57,
    "topTitle": "Hospital Playlist",
-   "topTitlePc": 2.7,
+   "topTitlePc": 2.6,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 178
+     "places": 180
     },
     {
      "year": 2022,
@@ -17176,19 +17176,19 @@
     },
     {
      "year": 2023,
-     "places": 259
+     "places": 270
     },
     {
      "year": 2024,
-     "places": 211
+     "places": 213
     },
     {
      "year": 2025,
-     "places": 211
+     "places": 222
     },
     {
      "year": 2026,
-     "places": 110
+     "places": 132
     }
    ],
    "titles": [
@@ -17365,39 +17365,39 @@
    "iso2": "TH",
    "name": "Thailand",
    "slug": "thailand",
-   "koreanSlots": 1240,
-   "koreanPc": 23.4,
-   "distinctTitles": 260,
-   "halfTakes": 49,
+   "koreanSlots": 1289,
+   "koreanPc": 24,
+   "distinctTitles": 275,
+   "halfTakes": 52,
    "topTitle": "Alchemy of Souls",
-   "topTitlePc": 4.4,
+   "topTitlePc": 4.2,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 159
+     "places": 164
     },
     {
      "year": 2022,
-     "places": 316
+     "places": 320
     },
     {
      "year": 2023,
-     "places": 282
+     "places": 291
     },
     {
      "year": 2024,
-     "places": 192
+     "places": 195
     },
     {
      "year": 2025,
-     "places": 197
+     "places": 211
     },
     {
      "year": 2026,
-     "places": 94
+     "places": 108
     }
    ],
    "titles": [
@@ -17546,20 +17546,20 @@
      "last": "2023-08-27"
     },
     {
+     "title": "Weak Hero",
+     "places": 11,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2025-03-30",
+     "last": "2025-05-18"
+    },
+    {
      "title": "Nevertheless,",
      "places": 10,
      "peak": 1,
      "weeks": 10,
      "first": "2021-07-04",
      "last": "2021-09-05"
-    },
-    {
-     "title": "Our Beloved Summer",
-     "places": 10,
-     "peak": 2,
-     "weeks": 10,
-     "first": "2021-12-12",
-     "last": "2022-02-13"
     }
    ],
    "titlesShown": 20,
@@ -17574,23 +17574,23 @@
    "iso2": "TT",
    "name": "Trinidad and Tobago",
    "slug": "trinidad-and-tobago",
-   "koreanSlots": 150,
-   "koreanPc": 2.8,
-   "distinctTitles": 68,
-   "halfTakes": 16,
+   "koreanSlots": 157,
+   "koreanPc": 2.9,
+   "distinctTitles": 73,
+   "halfTakes": 18,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.3,
+   "topTitlePc": 12.7,
    "inAsianTen": false,
-   "weeksWithKorean": 121,
+   "weeksWithKorean": 123,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
      "year": 2021,
-     "places": 19
+     "places": 20
     },
     {
      "year": 2022,
-     "places": 34
+     "places": 37
     },
     {
      "year": 2023,
@@ -17602,11 +17602,11 @@
     },
     {
      "year": 2025,
-     "places": 25
+     "places": 27
     },
     {
      "year": 2026,
-     "places": 15
+     "places": 16
     }
    ],
    "titles": [
@@ -17681,6 +17681,14 @@
      "weeks": 3,
      "first": "2022-07-10",
      "last": "2022-07-24"
+    },
+    {
+     "title": "Last Knights",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2022-07-03",
+     "last": "2022-07-17"
     },
     {
      "title": "Officer Black Belt",
@@ -17761,14 +17769,6 @@
      "weeks": 2,
      "first": "2024-01-21",
      "last": "2024-01-28"
-    },
-    {
-     "title": "City Hunter",
-     "places": 2,
-     "peak": 8,
-     "weeks": 2,
-     "first": "2024-04-28",
-     "last": "2024-05-05"
     }
    ],
    "titlesShown": 20,
@@ -17783,14 +17783,14 @@
    "iso2": "TR",
    "name": "Turkey",
    "slug": "turkey",
-   "koreanSlots": 325,
-   "koreanPc": 6.1,
-   "distinctTitles": 110,
-   "halfTakes": 20,
+   "koreanSlots": 334,
+   "koreanPc": 6.2,
+   "distinctTitles": 115,
+   "halfTakes": 21,
    "topTitle": "Squid Game",
-   "topTitlePc": 16,
+   "topTitlePc": 15.6,
    "inAsianTen": false,
-   "weeksWithKorean": 202,
+   "weeksWithKorean": 208,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -17811,11 +17811,11 @@
     },
     {
      "year": 2025,
-     "places": 77
+     "places": 82
     },
     {
      "year": 2026,
-     "places": 43
+     "places": 47
     }
    ],
    "titles": [
@@ -17992,14 +17992,14 @@
    "iso2": "UA",
    "name": "Ukraine",
    "slug": "ukraine",
-   "koreanSlots": 93,
-   "koreanPc": 1.8,
-   "distinctTitles": 19,
+   "koreanSlots": 100,
+   "koreanPc": 1.9,
+   "distinctTitles": 21,
    "halfTakes": 2,
    "topTitle": "Squid Game",
-   "topTitlePc": 46.2,
+   "topTitlePc": 43,
    "inAsianTen": false,
-   "weeksWithKorean": 78,
+   "weeksWithKorean": 85,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -18008,7 +18008,7 @@
     },
     {
      "year": 2022,
-     "places": 19
+     "places": 21
     },
     {
      "year": 2023,
@@ -18024,7 +18024,7 @@
     },
     {
      "year": 2026,
-     "places": 8
+     "places": 13
     }
    ],
    "titles": [
@@ -18046,11 +18046,11 @@
     },
     {
      "title": "Oasis",
-     "places": 6,
+     "places": 8,
      "peak": 2,
-     "weeks": 6,
+     "weeks": 8,
      "first": "2026-06-21",
-     "last": "2026-07-26"
+     "last": "2026-08-09"
     },
     {
      "title": "Breathless",
@@ -18085,6 +18085,14 @@
      "last": "2023-03-05"
     },
     {
+     "title": "That Night",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-03-15",
+     "last": "2026-03-29"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 2,
      "peak": 3,
@@ -18115,6 +18123,14 @@
      "weeks": 2,
      "first": "2024-04-21",
      "last": "2024-04-28"
+    },
+    {
+     "title": "The Game",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2022-05-29",
+     "last": "2022-06-05"
     },
     {
      "title": "Uprising",
@@ -18171,17 +18187,9 @@
      "weeks": 1,
      "first": "2024-04-14",
      "last": "2024-04-14"
-    },
-    {
-     "title": "The Silent Sea",
-     "places": 1,
-     "peak": 10,
-     "weeks": 1,
-     "first": "2022-01-02",
-     "last": "2022-01-02"
     }
    ],
-   "titlesShown": 19,
+   "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well below",
     "distinctTitles": "well below",
@@ -18193,14 +18201,14 @@
    "iso2": "AE",
    "name": "United Arab Emirates",
    "slug": "united-arab-emirates",
-   "koreanSlots": 555,
-   "koreanPc": 10.5,
-   "distinctTitles": 156,
-   "halfTakes": 32,
+   "koreanSlots": 584,
+   "koreanPc": 10.9,
+   "distinctTitles": 164,
+   "halfTakes": 34,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.7,
+   "topTitlePc": 6.3,
    "inAsianTen": false,
-   "weeksWithKorean": 250,
+   "weeksWithKorean": 255,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -18209,23 +18217,23 @@
     },
     {
      "year": 2022,
-     "places": 115
+     "places": 117
     },
     {
      "year": 2023,
-     "places": 115
+     "places": 122
     },
     {
      "year": 2024,
-     "places": 102
+     "places": 104
     },
     {
      "year": 2025,
-     "places": 100
+     "places": 109
     },
     {
      "year": 2026,
-     "places": 66
+     "places": 75
     }
    ],
    "titles": [
@@ -18310,6 +18318,14 @@
      "last": "2024-05-12"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 8,
+     "peak": 1,
+     "weeks": 8,
+     "first": "2026-06-28",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Bloodhounds",
      "places": 8,
      "peak": 2,
@@ -18374,20 +18390,12 @@
      "last": "2025-04-27"
     },
     {
-     "title": "Love Next Door",
+     "title": "Doctor Cha",
      "places": 7,
-     "peak": 3,
+     "peak": 2,
      "weeks": 7,
-     "first": "2024-08-18",
-     "last": "2024-10-06"
-    },
-    {
-     "title": "Strong Girl Nam-soon",
-     "places": 7,
-     "peak": 3,
-     "weeks": 7,
-     "first": "2023-10-08",
-     "last": "2023-11-26"
+     "first": "2023-04-30",
+     "last": "2023-06-11"
     }
    ],
    "titlesShown": 20,
@@ -18402,14 +18410,14 @@
    "iso2": "GB",
    "name": "United Kingdom",
    "slug": "united-kingdom",
-   "koreanSlots": 92,
-   "koreanPc": 1.7,
-   "distinctTitles": 44,
-   "halfTakes": 9,
+   "koreanSlots": 95,
+   "koreanPc": 1.8,
+   "distinctTitles": 47,
+   "halfTakes": 10,
    "topTitle": "Squid Game",
-   "topTitlePc": 25,
+   "topTitlePc": 24.2,
    "inAsianTen": false,
-   "weeksWithKorean": 80,
+   "weeksWithKorean": 82,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -18418,7 +18426,7 @@
     },
     {
      "year": 2022,
-     "places": 17
+     "places": 18
     },
     {
      "year": 2023,
@@ -18426,7 +18434,7 @@
     },
     {
      "year": 2024,
-     "places": 26
+     "places": 27
     },
     {
      "year": 2025,
@@ -18434,7 +18442,7 @@
     },
     {
      "year": 2026,
-     "places": 6
+     "places": 7
     }
    ],
    "titles": [
@@ -18611,12 +18619,12 @@
    "iso2": "US",
    "name": "United States",
    "slug": "united-states",
-   "koreanSlots": 84,
+   "koreanSlots": 85,
    "koreanPc": 1.6,
-   "distinctTitles": 38,
-   "halfTakes": 6,
+   "distinctTitles": 39,
+   "halfTakes": 7,
    "topTitle": "Squid Game",
-   "topTitlePc": 32.1,
+   "topTitlePc": 31.8,
    "inAsianTen": false,
    "weeksWithKorean": 67,
    "firstKoreanWeek": "2021-08-15",
@@ -18639,7 +18647,7 @@
     },
     {
      "year": 2025,
-     "places": 24
+     "places": 25
     },
     {
      "year": 2026,
@@ -18792,20 +18800,20 @@
      "last": "2023-06-18"
     },
     {
+     "title": "Bogotá: City of the Lost",
+     "places": 1,
+     "peak": 10,
+     "weeks": 1,
+     "first": "2025-02-09",
+     "last": "2025-02-09"
+    },
+    {
      "title": "Bugonia",
      "places": 1,
      "peak": 7,
      "weeks": 1,
      "first": "2026-05-03",
      "last": "2026-05-03"
-    },
-    {
-     "title": "Cobweb",
-     "places": 1,
-     "peak": 10,
-     "weeks": 1,
-     "first": "2025-09-28",
-     "last": "2025-09-28"
     }
    ],
    "titlesShown": 20,
@@ -18820,14 +18828,14 @@
    "iso2": "UY",
    "name": "Uruguay",
    "slug": "uruguay",
-   "koreanSlots": 153,
-   "koreanPc": 2.9,
-   "distinctTitles": 61,
-   "halfTakes": 12,
+   "koreanSlots": 169,
+   "koreanPc": 3.2,
+   "distinctTitles": 68,
+   "halfTakes": 14,
    "topTitle": "Squid Game",
-   "topTitlePc": 15,
+   "topTitlePc": 13.6,
    "inAsianTen": false,
-   "weeksWithKorean": 126,
+   "weeksWithKorean": 132,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -18836,11 +18844,11 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 21
     },
     {
      "year": 2023,
-     "places": 35
+     "places": 37
     },
     {
      "year": 2024,
@@ -18848,11 +18856,11 @@
     },
     {
      "year": 2025,
-     "places": 35
+     "places": 38
     },
     {
      "year": 2026,
-     "places": 17
+     "places": 27
     }
    ],
    "titles": [
@@ -18874,11 +18882,11 @@
     },
     {
      "title": "Oasis",
-     "places": 6,
+     "places": 7,
      "peak": 2,
-     "weeks": 6,
+     "weeks": 7,
      "first": "2026-06-21",
-     "last": "2026-07-26"
+     "last": "2026-08-02"
     },
     {
      "title": "Bloodhounds",
@@ -18937,12 +18945,28 @@
      "last": "2024-09-08"
     },
     {
+     "title": "That Night",
+     "places": 4,
+     "peak": 1,
+     "weeks": 4,
+     "first": "2026-03-15",
+     "last": "2026-04-05"
+    },
+    {
      "title": "The Great Flood",
      "places": 4,
      "peak": 1,
      "weeks": 4,
      "first": "2025-12-21",
      "last": "2026-01-11"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-09"
     },
     {
      "title": "My Name",
@@ -18969,6 +18993,14 @@
      "last": "2024-09-29"
     },
     {
+     "title": "Wrath",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-08-02",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Badland Hunters",
      "places": 2,
      "peak": 3,
@@ -18991,37 +19023,13 @@
      "weeks": 2,
      "first": "2023-09-17",
      "last": "2023-09-24"
-    },
-    {
-     "title": "Carter",
-     "places": 2,
-     "peak": 5,
-     "weeks": 2,
-     "first": "2022-08-07",
-     "last": "2022-08-14"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 3,
-     "weeks": 2,
-     "first": "2022-07-10",
-     "last": "2022-07-17"
-    },
-    {
-     "title": "Desire",
-     "places": 2,
-     "peak": 1,
-     "weeks": 2,
-     "first": "2026-07-19",
-     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "well below",
+    "koreanPc": "below",
     "distinctTitles": "well below",
-    "halfTakes": "well below"
+    "halfTakes": "below"
    },
    "hasPage": true
   },
@@ -19029,14 +19037,14 @@
    "iso2": "VE",
    "name": "Venezuela",
    "slug": "venezuela",
-   "koreanSlots": 387,
-   "koreanPc": 7.3,
-   "distinctTitles": 112,
-   "halfTakes": 23,
+   "koreanSlots": 412,
+   "koreanPc": 7.7,
+   "distinctTitles": 121,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.2,
+   "topTitlePc": 6.8,
    "inAsianTen": false,
-   "weeksWithKorean": 210,
+   "weeksWithKorean": 215,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -19045,11 +19053,11 @@
     },
     {
      "year": 2022,
-     "places": 39
+     "places": 40
     },
     {
      "year": 2023,
-     "places": 67
+     "places": 72
     },
     {
      "year": 2024,
@@ -19057,11 +19065,11 @@
     },
     {
      "year": 2025,
-     "places": 103
+     "places": 109
     },
     {
      "year": 2026,
-     "places": 64
+     "places": 77
     }
    ],
    "titles": [
@@ -19202,6 +19210,14 @@
      "last": "2026-06-07"
     },
     {
+     "title": "Agent Kim Reactivated",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2026-06-28",
+     "last": "2026-08-02"
+    },
+    {
      "title": "All of Us Are Dead",
      "places": 6,
      "peak": 2,
@@ -19216,14 +19232,6 @@
      "weeks": 6,
      "first": "2025-06-01",
      "last": "2025-07-06"
-    },
-    {
-     "title": "Romance in the House",
-     "places": 6,
-     "peak": 3,
-     "weeks": 6,
-     "first": "2024-08-11",
-     "last": "2024-09-15"
     }
    ],
    "titlesShown": 20,
@@ -19238,39 +19246,39 @@
    "iso2": "VN",
    "name": "Vietnam",
    "slug": "vietnam",
-   "koreanSlots": 1555,
-   "koreanPc": 29.3,
-   "distinctTitles": 247,
-   "halfTakes": 49,
+   "koreanSlots": 1617,
+   "koreanPc": 30.2,
+   "distinctTitles": 261,
+   "halfTakes": 52,
    "topTitle": "Reply 1988",
-   "topTitlePc": 2.5,
+   "topTitlePc": 2.4,
    "inAsianTen": true,
-   "weeksWithKorean": 265,
+   "weeksWithKorean": 268,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
      "year": 2021,
-     "places": 222
+     "places": 229
     },
     {
      "year": 2022,
-     "places": 355
+     "places": 358
     },
     {
      "year": 2023,
-     "places": 316
+     "places": 328
     },
     {
      "year": 2024,
-     "places": 258
+     "places": 261
     },
     {
      "year": 2025,
-     "places": 252
+     "places": 268
     },
     {
      "year": 2026,
-     "places": 152
+     "places": 173
     }
    ],
    "titles": [
@@ -19355,6 +19363,14 @@
      "last": "2023-09-24"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "places": 21,
+     "peak": 1,
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-08-16"
+    },
+    {
      "title": "Prison Playbook",
      "places": 21,
      "peak": 2,
@@ -19393,14 +19409,6 @@
      "weeks": 15,
      "first": "2023-12-24",
      "last": "2024-10-27"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "places": 18,
-     "peak": 1,
-     "weeks": 18,
-     "first": "2026-01-18",
-     "last": "2026-06-21"
     },
     {
      "title": "Hometown Cha-Cha-Cha",

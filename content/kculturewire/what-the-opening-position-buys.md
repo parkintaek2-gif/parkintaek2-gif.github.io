@@ -2,7 +2,7 @@
 title: "A Korean series that opens at number one lasts six weeks. One that opens at ten lasts one"
 category: titles
 purpose: both
-dek: "Opening position is the only fact anyone has on the first Monday. Across 7,926 Korean series runs it moves expected length by 0.56 weeks a step — against 0.44 for other series, 0.33 for Korean films and 0.22 for other films."
+dek: "Opening position is the only fact anyone has on the first Monday. Across 8,324 Korean series runs it moves expected length by 0.56 weeks a step — against 0.44 for other series, 0.33 for Korean films and 0.22 for other films."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -36,16 +36,16 @@ connected the two ends. So: **does the opening position say anything about the l
 
 | Opened at | Runs | Median weeks | Lasting 4+ weeks | Gone after one week |
 |---|---:|---:|---:|---:|
-| 1 | 487 | **6** | 90.3% | 0.4% |
-| 2 | 459 | 5 | 76.7% | 3.5% |
-| 3 | 603 | 4 | 63.7% | 6.8% |
-| 4 | 710 | 4 | 51% | 12.1% |
-| 5 | 787 | 3 | 44.7% | 19.6% |
-| 6 | 836 | 2 | 34% | 28.2% |
-| 7 | 868 | 2 | 26.6% | 36.6% |
-| 8 | 1,007 | 2 | 24.1.1% | 42.1% |
-| 9 | 1,002 | 1 | 21.1% | 50.5% |
-| 10 | 1,133 | **1** | 16.7% | 56% |
+| 1 | 506 | **6** | 89.9% | 0.4% |
+| 2 | 496 | 5 | 73.8% | 3.2% |
+| 3 | 642 | 4 | 61.4% | 6.5% |
+| 4 | 745 | 3 | 49.5% | 12.2% |
+| 5 | 831 | 3 | 44.6% | 19.1% |
+| 6 | 892 | 2 | 34.1% | 28.1% |
+| 7 | 916 | 2 | 26.9% | 36.4% |
+| 8 | 1,058 | 2 | 24.6% | 41.5% |
+| 9 | 1,057 | 2 | 21% | 49.9% |
+| 10 | 1,181 | **1** | 16.4% | 56.1% |
 
 A Korean series that opens at number one runs a median of **six weeks**, and nine in ten of them last
 a month or more. One that opens at number ten runs **one week**, and more than half are gone the
@@ -62,10 +62,10 @@ taken as the gap between the two ends of the table divided by the nine steps bet
 
 | | Runs | Median weeks opening at 1 | Opening at 10 | Weeks per position |
 |---|---:|---:|---:|---:|
-| Korean series | 7,892 | 6 | 1 | **0.56** |
-| Every other series | 79,015 | 5 | 1 | **0.44** |
-| Korean films | 3,830 | 4 | 1 | **0.33** |
-| Every other film | 117,316 | 3 | 1 | **0.22** |
+| Korean series | 8,324 | 6 | 1 | **0.56** |
+| Every other series | 79,582 | 5 | 1 | **0.44** |
+| Korean films | 4,197 | 4 | 1 | **0.33** |
+| Every other film | 118,252 | 3 | 1 | **0.22** |
 
 Two things fall out of that column.
 

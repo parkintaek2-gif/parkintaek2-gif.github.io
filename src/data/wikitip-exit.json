@@ -1,227 +1,227 @@
 {
-  "generated": "2026-08-09T20:50:20.277Z",
+  "generated": "2026-08-23T14:38+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "Everything published about a chart is about getting on it. This asks the other question: when a title leaves, what position was it in the week before it went?",
   "unit": "A run is one title in one country across consecutive chart weeks. A title that leaves and comes back later has two runs, because the two departures are two separate events.",
   "whyTheBaselineIsFree": "Every country-week has exactly one title at each position from 1 to 10. If leaving had nothing to do with position, departures would fall at 10.0% on each rank. Nothing has to be simulated: the chart itself is the control.",
   "whatWasExcluded": "A run still on the chart in the last week we hold has not left — our data ended, the run did not. Those runs are counted and set aside rather than treated as departures, because including them would import the final week's whole position table into the answer.",
-  "rowsRead": 493600,
+  "rowsRead": 499180,
   "rowsOverwritten": 25,
   "marketCount": 93,
-  "weekCount": 265,
+  "weekCount": 268,
   "korean": {
-    "runs": 11969,
-    "departures": 11722,
-    "stillOnChart": 247,
-    "singleWeekRuns": 4059,
+    "runs": 12698,
+    "departures": 12521,
+    "stillOnChart": 177,
+    "singleWeekRuns": 4325,
     "byRank": [
       {
         "rank": 1,
-        "exits": 45,
+        "exits": 51,
         "exitPc": 0.4,
         "exitPcMultiWeek": 0.5,
-        "entriesPc": 6.6,
-        "weeksPc": 10.2,
-        "weeksAtRank": 3856,
-        "endRatePc": 1.2
+        "entriesPc": 6.7,
+        "weeksPc": 10.1,
+        "weeksAtRank": 4017,
+        "endRatePc": 1.3
       },
       {
         "rank": 2,
-        "exits": 182,
-        "exitPc": 1.6,
-        "exitPcMultiWeek": 1.9,
-        "entriesPc": 6.2,
-        "weeksPc": 10.1,
-        "weeksAtRank": 3792,
-        "endRatePc": 4.8
+        "exits": 214,
+        "exitPc": 1.7,
+        "exitPcMultiWeek": 2,
+        "entriesPc": 6.5,
+        "weeksPc": 10,
+        "weeksAtRank": 3980,
+        "endRatePc": 5.4
       },
       {
         "rank": 3,
-        "exits": 371,
-        "exitPc": 3.2,
-        "exitPcMultiWeek": 3.5,
-        "entriesPc": 7.7,
+        "exits": 417,
+        "exitPc": 3.3,
+        "exitPcMultiWeek": 3.7,
+        "entriesPc": 7.9,
         "weeksPc": 10.3,
-        "weeksAtRank": 3867,
-        "endRatePc": 9.6
+        "weeksAtRank": 4069,
+        "endRatePc": 10.2
       },
       {
         "rank": 4,
-        "exits": 660,
-        "exitPc": 5.6,
-        "exitPcMultiWeek": 5.8,
+        "exits": 723,
+        "exitPc": 5.8,
+        "exitPcMultiWeek": 6,
         "entriesPc": 9.1,
         "weeksPc": 10.3,
-        "weeksAtRank": 3893,
-        "endRatePc": 17
+        "weeksAtRank": 4072,
+        "endRatePc": 17.8
       },
       {
         "rank": 5,
-        "exits": 947,
+        "exits": 1014,
         "exitPc": 8.1,
         "exitPcMultiWeek": 8.4,
         "entriesPc": 10.3,
         "weeksPc": 10.5,
-        "weeksAtRank": 3957,
-        "endRatePc": 23.9
+        "weeksAtRank": 4157,
+        "endRatePc": 24.4
       },
       {
         "rank": 6,
-        "exits": 1215,
+        "exits": 1304,
         "exitPc": 10.4,
         "exitPcMultiWeek": 10.3,
-        "entriesPc": 10.4,
-        "weeksPc": 9.9,
-        "weeksAtRank": 3740,
-        "endRatePc": 32.5
+        "entriesPc": 10.5,
+        "weeksPc": 10,
+        "weeksAtRank": 3947,
+        "endRatePc": 33
       },
       {
         "rank": 7,
-        "exits": 1640,
-        "exitPc": 14,
+        "exits": 1741,
+        "exitPc": 13.9,
         "exitPcMultiWeek": 14,
-        "entriesPc": 11.1,
+        "entriesPc": 11,
         "weeksPc": 10,
-        "weeksAtRank": 3761,
-        "endRatePc": 43.6
+        "weeksAtRank": 3974,
+        "endRatePc": 43.8
       },
       {
         "rank": 8,
-        "exits": 1984,
-        "exitPc": 16.9,
+        "exits": 2105,
+        "exitPc": 16.8,
         "exitPcMultiWeek": 17,
-        "entriesPc": 12.4,
+        "entriesPc": 12.3,
         "weeksPc": 9.9,
-        "weeksAtRank": 3723,
-        "endRatePc": 53.3
+        "weeksAtRank": 3941,
+        "endRatePc": 53.4
       },
       {
         "rank": 9,
-        "exits": 2237,
-        "exitPc": 19.1,
-        "exitPcMultiWeek": 19.1,
-        "entriesPc": 12.4,
+        "exits": 2364,
+        "exitPc": 18.9,
+        "exitPcMultiWeek": 18.9,
+        "entriesPc": 12.3,
         "weeksPc": 9.6,
-        "weeksAtRank": 3601,
-        "endRatePc": 62.1
+        "weeksAtRank": 3792,
+        "endRatePc": 62.3
       },
       {
         "rank": 10,
-        "exits": 2441,
-        "exitPc": 20.8,
-        "exitPcMultiWeek": 19.5,
-        "entriesPc": 13.6,
+        "exits": 2588,
+        "exitPc": 20.7,
+        "exitPcMultiWeek": 19.3,
+        "entriesPc": 13.5,
         "weeksPc": 9.2,
-        "weeksAtRank": 3476,
-        "endRatePc": 70.2
+        "weeksAtRank": 3663,
+        "endRatePc": 70.7
       }
     ],
-    "bottomThreePc": 56.8,
-    "topThreePc": 5.2,
+    "bottomThreePc": 56.4,
+    "topThreePc": 5.4,
     "weeksBottomThreePc": 28.7
   },
   "allTitles": {
-    "runs": 209913,
-    "departures": 208053,
+    "runs": 212215,
+    "departures": 210355,
     "byRank": [
       {
         "rank": 1,
-        "exits": 1303,
+        "exits": 1313,
         "exitPc": 0.6,
         "exitPcMultiWeek": 0.7,
-        "entriesPc": 9.3,
+        "entriesPc": 9.2,
         "weeksPc": 10,
-        "weeksAtRank": 49289,
+        "weeksAtRank": 49847,
         "endRatePc": 2.6
       },
       {
         "rank": 2,
-        "exits": 4752,
+        "exits": 4798,
         "exitPc": 2.3,
         "exitPcMultiWeek": 2.6,
         "entriesPc": 9.1,
         "weeksPc": 10,
-        "weeksAtRank": 49278,
+        "weeksAtRank": 49836,
         "endRatePc": 9.6
       },
       {
         "rank": 3,
-        "exits": 9143,
+        "exits": 9239,
         "exitPc": 4.4,
         "exitPcMultiWeek": 4.8,
         "entriesPc": 9.2,
         "weeksPc": 10,
-        "weeksAtRank": 49287,
-        "endRatePc": 18.6
+        "weeksAtRank": 49845,
+        "endRatePc": 18.5
       },
       {
         "rank": 4,
-        "exits": 14346,
+        "exits": 14528,
         "exitPc": 6.9,
         "exitPcMultiWeek": 7.2,
         "entriesPc": 9.4,
         "weeksPc": 10,
-        "weeksAtRank": 49286,
+        "weeksAtRank": 49844,
         "endRatePc": 29.1
       },
       {
         "rank": 5,
-        "exits": 19117,
+        "exits": 19354,
         "exitPc": 9.2,
         "exitPcMultiWeek": 9.6,
         "entriesPc": 9.7,
         "weeksPc": 10,
-        "weeksAtRank": 49287,
+        "weeksAtRank": 49845,
         "endRatePc": 38.8
       },
       {
         "rank": 6,
-        "exits": 24032,
-        "exitPc": 11.6,
+        "exits": 24295,
+        "exitPc": 11.5,
         "exitPcMultiWeek": 11.9,
         "entriesPc": 9.8,
         "weeksPc": 10,
-        "weeksAtRank": 49289,
-        "endRatePc": 48.8
+        "weeksAtRank": 49847,
+        "endRatePc": 48.7
       },
       {
         "rank": 7,
-        "exits": 28664,
+        "exits": 28972,
         "exitPc": 13.8,
         "exitPcMultiWeek": 14.1,
         "entriesPc": 10.1,
         "weeksPc": 10,
-        "weeksAtRank": 49290,
-        "endRatePc": 58.2
+        "weeksAtRank": 49848,
+        "endRatePc": 58.1
       },
       {
         "rank": 8,
-        "exits": 32311,
+        "exits": 32649,
         "exitPc": 15.5,
         "exitPcMultiWeek": 15.5,
         "entriesPc": 10.6,
         "weeksPc": 10,
-        "weeksAtRank": 49289,
-        "endRatePc": 65.6
+        "weeksAtRank": 49847,
+        "endRatePc": 65.5
       },
       {
         "rank": 9,
-        "exits": 35793,
+        "exits": 36189,
         "exitPc": 17.2,
         "exitPcMultiWeek": 16.7,
         "entriesPc": 11.1,
         "weeksPc": 10,
-        "weeksAtRank": 49290,
+        "weeksAtRank": 49848,
         "endRatePc": 72.6
       },
       {
         "rank": 10,
-        "exits": 38592,
+        "exits": 39018,
         "exitPc": 18.5,
         "exitPcMultiWeek": 17,
         "entriesPc": 11.8,
         "weeksPc": 10,
-        "weeksAtRank": 49290,
+        "weeksAtRank": 49848,
         "endRatePc": 78.3
       }
     ],
@@ -231,69 +231,69 @@
   },
   "whyWeeksColumnIsHere": "Korean titles do not sit evenly across a chart, so departures could look bottom-heavy simply because Korean weeks are bottom-heavy. Each group is therefore also shown against the positions its own titles actually occupied, which is the comparison that survives.",
   "marketMinDepartures": 40,
-  "marketsMeasured": 91,
+  "marketsMeasured": 92,
   "marketsHigh": [
     {
       "국가": "Indonesia",
-      "나간것": 316,
-      "아래셋": 217,
-      "아래셋몫": 68.7
+      "나간것": 329,
+      "아래셋": 225,
+      "아래셋몫": 68.4
     },
     {
       "국가": "Argentina",
-      "나간것": 89,
-      "아래셋": 61,
-      "아래셋몫": 68.5
-    },
-    {
-      "국가": "Norway",
-      "나간것": 53,
-      "아래셋": 35,
-      "아래셋몫": 66
-    },
-    {
-      "국가": "Nicaragua",
-      "나간것": 155,
-      "아래셋": 101,
-      "아래셋몫": 65.2
+      "나간것": 98,
+      "아래셋": 65,
+      "아래셋몫": 66.3
     },
     {
       "국가": "Guatemala",
-      "나간것": 131,
-      "아래셋": 85,
-      "아래셋몫": 64.9
+      "나간것": 142,
+      "아래셋": 91,
+      "아래셋몫": 64.1
+    },
+    {
+      "국가": "Hong Kong",
+      "나간것": 285,
+      "아래셋": 182,
+      "아래셋몫": 63.9
+    },
+    {
+      "국가": "Denmark",
+      "나간것": 47,
+      "아래셋": 30,
+      "아래셋몫": 63.8
     }
   ],
   "marketsLow": [
     {
-      "국가": "Iceland",
-      "나간것": 44,
-      "아래셋": 20,
-      "아래셋몫": 45.5
+      "국가": "Bahrain",
+      "나간것": 167,
+      "아래셋": 78,
+      "아래셋몫": 46.7
     },
     {
-      "국가": "Luxembourg",
-      "나간것": 66,
-      "아래셋": 30,
-      "아래셋몫": 45.5
-    },
-    {
-      "국가": "Canada",
-      "나간것": 58,
-      "아래셋": 26,
-      "아래셋몫": 44.8
+      "국가": "United Kingdom",
+      "나간것": 51,
+      "아래셋": 23,
+      "아래셋몫": 45.1
     },
     {
       "국가": "France",
-      "나간것": 85,
-      "아래셋": 37,
-      "아래셋몫": 43.5
+      "나간것": 96,
+      "아래셋": 43,
+      "아래셋몫": 44.8
     },
     {
       "국가": "Slovakia",
-      "나간것": 65,
+      "나간것": 71,
+      "아래셋": 31,
+      "아래셋몫": 43.7
+    },
+    {
+      "국가": "Canada",
+      "나간것": 63,
       "아래셋": 27,
-      "아래셋몫": 41.5
+      "아래셋몫": 42.9
     }
   ],
   "whyMarketsDiffer": "A market where departures cluster at the bottom is one where a title slides out. A market where they are spread further up is one where titles are pushed out while still ranking well, which happens where the chart turns over quickly. The two ends of this table are not better and worse markets; they are different rates of replacement.",

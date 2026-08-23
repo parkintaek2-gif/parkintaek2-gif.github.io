@@ -54,7 +54,13 @@ if (process.argv[1] && process.argv[1].endsWith('check-peak-length-article.mjs')
   본다('무리를 전체로 셌나', p1.n + pn.n === d.titleCount,
     `${p1.n} + ${pn.n} = ${p1.n + pn.n} · 전체 ${d.titleCount}`);
   본다('상위 50편으로 안 셌나', p1.n + pn.n !== d.shown, `표본 ${p1.n + pn.n} · 상위 ${d.shown}`);
-  본다('옛 값을 지웠나 남겼나', Array.isArray(d.peakGroupsTop50Only) && d.peakGroupsTop50Only[0].n === 26,
+  /* 🔴 2026-08-23 — 여기 26 이 박혀 있었다. 옛 값은 **해마다 다시 셈해지는 값**이라
+     자료가 늘면 따라 움직인다(오늘 28). 그 수를 박아 두면 자가 매번 헛울린다.
+   ⭐ 이 자가 지켜야 하는 것은 「그 수가 26이다」가 아니라 **「되짚을 자리가 남아 있다」**다 —
+     상위 50편만 본 옛 자리가 두 줄로 살아 있고, 전체를 본 수와 **다르다**는 것.
+     같아지면 그건 되짚을 자리가 아니라 같은 것을 두 번 적은 것이다. */
+  본다('옛 값을 지웠나 남겼나', Array.isArray(d.peakGroupsTop50Only) && d.peakGroupsTop50Only.length === 2
+    && d.peakGroupsTop50Only[0].n !== p1.n,
     '되짚을 수 있게 남아 있다');
   본다('지면이 옛 키를 안 쓴다', !지면.includes('peakGroupsTop50Only'), '지면은 새 키만 쓴다');
 

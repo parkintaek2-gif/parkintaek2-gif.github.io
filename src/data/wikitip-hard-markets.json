@@ -1,28 +1,28 @@
 {
-  "generated": "2026-08-09T20:50:25.985Z",
+  "generated": "2026-08-23T14:38+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "Some markets carry Korean titles that went almost nowhere else. Others only ever show the ones that went everywhere. Knowing which is which is how a release order gets built.",
   "unit": "Breadth is the total number of countries a title reached at any point. For each market we take the median breadth of the Korean titles that appeared there: a high number means only wide titles get in, a low number means narrow ones do too.",
   "whyNotARanking": "The full order of 93 markets is not published, because a league table of countries invites a reading this data cannot support. The two ends are shown with the figure that explains most of the difference beside them.",
   "whatCannotBeSeparated": "A market that carries few Korean titles at all will mechanically show only the biggest ones, so \"hard to reach\" and \"rarely plays Korean titles\" are entangled. The Korean share of each market is printed beside its breadth so the two can be read apart, and the markets are also grouped into bands of similar Korean share. What we cannot do is separate them completely.",
-  "rowsRead": 493600,
-  "titlesMeasured": 973,
+  "rowsRead": 499180,
+  "titlesMeasured": 1054,
   "marketMinTitles": 10,
   "marketsMeasured": 93,
   "widestOnly": [
     {
       "iso2": "EE",
       "name": "Estonia",
-      "koreanTitles": 36,
-      "medianBreadth": 78,
-      "narrowTitlePc": 0,
-      "koreanSharePc": 1.8,
+      "koreanTitles": 38,
+      "medianBreadth": 77,
+      "narrowTitlePc": 2.6,
+      "koreanSharePc": 1.9,
       "band": "5% 미만"
     },
     {
       "iso2": "SI",
       "name": "Slovenia",
-      "koreanTitles": 50,
+      "koreanTitles": 51,
       "medianBreadth": 76,
       "narrowTitlePc": 0,
       "koreanSharePc": 2.2,
@@ -31,28 +31,28 @@
     {
       "iso2": "CH",
       "name": "Switzerland",
-      "koreanTitles": 58,
+      "koreanTitles": 62,
       "medianBreadth": 72,
-      "narrowTitlePc": 5.2,
-      "koreanSharePc": 2.6,
+      "narrowTitlePc": 4.8,
+      "koreanSharePc": 2.7,
       "band": "5% 미만"
     },
     {
       "iso2": "HR",
       "name": "Croatia",
-      "koreanTitles": 51,
+      "koreanTitles": 52,
       "medianBreadth": 71,
-      "narrowTitlePc": 3.9,
+      "narrowTitlePc": 3.8,
       "koreanSharePc": 2.1,
       "band": "5% 미만"
     },
     {
-      "iso2": "LT",
-      "name": "Lithuania",
-      "koreanTitles": 44,
-      "medianBreadth": 71,
-      "narrowTitlePc": 0,
-      "koreanSharePc": 2.1,
+      "iso2": "BE",
+      "name": "Belgium",
+      "koreanTitles": 65,
+      "medianBreadth": 70,
+      "narrowTitlePc": 7.7,
+      "koreanSharePc": 2.9,
       "band": "5% 미만"
     }
   ],
@@ -60,73 +60,73 @@
     {
       "iso2": "KR",
       "name": "South Korea",
-      "koreanTitles": 586,
+      "koreanTitles": 624,
       "medianBreadth": 2,
-      "narrowTitlePc": 63,
-      "koreanSharePc": 51.4,
+      "narrowTitlePc": 64.1,
+      "koreanSharePc": 53.6,
       "band": "12% 이상"
     },
     {
       "iso2": "JP",
       "name": "Japan",
-      "koreanTitles": 247,
+      "koreanTitles": 259,
       "medianBreadth": 18,
       "narrowTitlePc": 33.2,
-      "koreanSharePc": 20.1,
+      "koreanSharePc": 20.4,
       "band": "12% 이상"
     },
     {
       "iso2": "VN",
       "name": "Vietnam",
-      "koreanTitles": 261,
-      "medianBreadth": 21,
-      "narrowTitlePc": 17.6,
-      "koreanSharePc": 29.3,
+      "koreanTitles": 277,
+      "medianBreadth": 20,
+      "narrowTitlePc": 19.1,
+      "koreanSharePc": 30.2,
       "band": "12% 이상"
     },
     {
       "iso2": "TH",
       "name": "Thailand",
-      "koreanTitles": 275,
-      "medianBreadth": 21,
-      "narrowTitlePc": 22.2,
-      "koreanSharePc": 23.4,
+      "koreanTitles": 291,
+      "medianBreadth": 20,
+      "narrowTitlePc": 23.7,
+      "koreanSharePc": 24,
       "band": "12% 이상"
     },
     {
       "iso2": "TW",
       "name": "Taiwan",
-      "koreanTitles": 258,
+      "koreanTitles": 271,
       "medianBreadth": 21,
-      "narrowTitlePc": 19.8,
-      "koreanSharePc": 23.6,
+      "narrowTitlePc": 20.7,
+      "koreanSharePc": 24.2,
       "band": "12% 이상"
     }
   ],
   "byBand": [
     {
       "band": "5% 미만",
-      "markets": 49,
-      "medianBreadth": 63,
-      "spread": 48.5
+      "markets": 48,
+      "medianBreadth": 64.8,
+      "spread": 49
     },
     {
       "band": "5–8%",
-      "markets": 12,
+      "markets": 11,
       "medianBreadth": 52,
-      "spread": 6
+      "spread": 3
     },
     {
       "band": "8–12%",
-      "markets": 18,
-      "medianBreadth": 46,
+      "markets": 17,
+      "medianBreadth": 47,
       "spread": 9
     },
     {
       "band": "12% 이상",
-      "markets": 14,
+      "markets": 17,
       "medianBreadth": 21,
-      "spread": 43
+      "spread": 46
     }
   ],
   "cannotAnswer": "This says which titles appeared, not why. Licensing windows, dubbing, local release dates and how crowded a chart is would all produce this pattern, and none of them is in a rank table. It is also not viewing: a title outside a top 10 is invisible here at any level."

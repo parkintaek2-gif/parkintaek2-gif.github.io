@@ -1,5 +1,5 @@
 ---
-title: "Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 49."
+title: "Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 52."
 dek: "Across 93 markets the typical Asian one has charted 247 different Korean titles and the typical market elsewhere 85. Matching markets by how many Korean places they hold removes a third of that gap. Two-thirds of it survives."
 category: titles
 purpose: both
@@ -39,8 +39,8 @@ has each one actually seen, and how few of them carry half of it?
 
 | | Markets | Korean places | Different Korean titles | Titles that fill half | Largest single title |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| The ten Asian markets | 10 | 1,251 | **247** | **54** | 2.8% |
-| The other markets | 83 | 208 | **85** | **17** | 14.6% |
+| The ten Asian markets | 10 | 1,299 | **259** | **56** | 2.7% |
+| The other markets | 83 | 227 | **91** | **19** | 13.6% |
 
 All figures are medians of the markets in each group.
 
@@ -52,23 +52,23 @@ places in the median Asian market against **14.4%** elsewhere.
 
 | Market | Different titles | Fill half | Largest title | Its share |
 | --- | ---: | ---: | --- | ---: |
-| South Korea | 560 | 117 | *I am Solo* | 4.0% |
-| Indonesia | 267 | 55 | *Squid Game* | 2.4% |
-| Thailand | 260 | 49 | *Alchemy of Souls* | 4.4% |
-| Malaysia | 248 | 53 | *Squid Game* | 2.8% |
-| Vietnam | 247 | 49 | *Reply 1988* | 2.5% |
-| Ireland | 37 | 7 | *Squid Game* | 23.8% |
-| United States | 38 | 6 | *Squid Game* | 32.1% |
-| Estonia | 34 | 3 | *Squid Game* | 43.9% |
-| Latvia | 33 | 2 | *Squid Game* | 46.1% |
-| Ukraine | 19 | 2 | *Squid Game* | 46.2% |
+| South Korea | 592 | 124 | *I am Solo* | 3.9% |
+| Indonesia | 276 | 57 | *Squid Game* | 2.3% |
+| Thailand | 275 | 52 | *Alchemy of Souls* | 4.2% |
+| Vietnam | 261 | 52 | *Reply 1988* | 2.4% |
+| Malaysia | 259 | 55 | *Squid Game* | 2.7% |
+| Ukraine | 21 | 2 | *Squid Game* | 43.0% |
+| Latvia | 34 | 2 | *Squid Game* | 45.6% |
+| Estonia | 36 | 3 | *Squid Game* | 42.6% |
+| Ireland | 39 | 8 | *Squid Game* | 22.2% |
+| United States | 39 | 7 | *Squid Game* | 31.8% |
 
 Twenty Korean titles have ever entered Ukraine's top 10 across five years. Two of them account for
 half of all Korean chart appearances there.
 
 There is a second thing in that table, and it is not the one we expected to write. *Squid Game* is
 the largest Korean title in Indonesia and Malaysia too. **The difference is not which title leads —
-it is how much of the market that title is.** It leads Indonesia with 2.4% and Latvia with 46.1%,
+it is how much of the market that title is.** It leads Indonesia with 2.3% and Latvia with 45.6%,
 and those two numbers describe completely different viewing experiences of the same show.
 
 Where the leader is a different title, it is a different kind of title. Korea's own most persistent
@@ -88,22 +88,22 @@ both groups have members — and compare within it.
 
 | Matched on Korean places (600–1,200) | Markets | Korean places | Different titles | Titles that fill half | Largest title |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Asian | 4 | 1,171 | 243 | **54** | 3.1% |
-| Other | 7 | 636 | 150 | **29** | 7.1% |
+| Asian | 2 | 1,186 | 253 | **56** | 6.6% |
+| Other | 7 | 674 | 158 | **31** | 6.7% |
 
-The Asian markets in that band are Hong Kong, Japan, the Philippines and Singapore. The others are
+The Asian markets in that band are Japan and Singapore. The others are
 Bangladesh, Bolivia, the Maldives, Nigeria, Peru, Qatar and Saudi Arabia.
 
-The raw gap in titles-to-fill-half was **37** (54 against 17). Inside the matched band it is
-**25** (54 against 29). So **about a third of the gap was volume, and two-thirds of it is not.**
+The raw gap in titles-to-fill-half was **37** (56 against 19). Inside the matched band it is
+**25** (56 against 31). So **about a third of the gap was volume, and two-thirds of it is not.**
 That is the honest size of the finding: smaller than the first table suggests, and not zero.
 
 ## Japan is the shallowest of the ten
 
-Within the ten Asian markets, the number of titles needed to fill half runs from **33 to 117**.
-The low end is Japan: 234 different Korean titles have charted there, as many as its neighbours,
-but 33 of them carry half the places and its largest single title holds 6.7% — closer to the
-non-Asian pattern than to Vietnam's 49 and 2.5%.
+Within the ten Asian markets, the number of titles needed to fill half runs from **35 to 124**.
+The low end is Japan: 245 different Korean titles have charted there, as many as its neighbours,
+but 35 of them carry half the places and its largest single title holds 6.6% — closer to the
+non-Asian pattern than to Vietnam's 52 and 2.4%.
 
 We are not going to explain that here. Japan has a large domestic catalogue of its own and a
 separate history with Korean television, and this data can distinguish none of it. We are naming it

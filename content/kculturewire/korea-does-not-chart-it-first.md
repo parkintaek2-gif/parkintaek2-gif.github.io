@@ -1,6 +1,6 @@
 ---
-title: "Korea's Netflix chart led Southeast Asia for 46 of 397 Korean titles. Usually they enter the same week."
-dek: "Of the 397 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 46 and in the same week for 160 — and never charted 140 of them at all. Series enter together; films scatter."
+title: "Korea's Netflix chart led Southeast Asia for 51 of 421 Korean titles. Usually they enter the same week."
+dek: "Of the 421 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 51 and in the same week for 165 — and never charted 151 of them at all. Series enter together; films scatter."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -43,14 +43,14 @@ first week it charted in Korea.
 
 | | Titles | Korea first | Same week | Korea later |
 | --- | ---: | ---: | ---: | ---: |
-| Charted in both | 257 | 46 (17.9%) | **160 (62.3%)** | 51 (19.8%) |
-| Panel's first week removed | 246 | 45 | 154 | 47 |
-| Shared names also removed | 241 | 43 (17.8%) | **154 (63.9%)** | 44 (18.3%) |
+| Charted in both | 270 | 51 (18.9%) | **165 (61.1%)** | 54 (20%) |
+| Panel's first week removed | 259 | 50 | 159 | 50 |
+| Shared names also removed | 254 | 48 (18.9%) | **159 (62.6%)** | 47 (18.5%) |
 
 The three rows are the same measurement under progressively stricter conditions, and the answer does
 not move: **around five titles in eight enter Korea and Southeast Asia in the same week.**
 
-The remaining 140 titles never charted in Korea at all — 35.3% of everything that reached Southeast
+The remaining 151 titles never charted in Korea at all — 35.9% of everything that reached Southeast
 Asia. Set against the whole panel, Korea's chart led for 46 titles in 397. **About one in nine.**
 
 ## "Same week" is not "same day", and we cannot tell the difference
@@ -62,8 +62,8 @@ So the 62% is not evidence that these titles arrived at the same moment. It is e
 lead they had was shorter than the smallest unit our source publishes.** That is a limit of the
 data, not a finding, and a reader deciding whether to watch Korea's chart should treat it as one.
 
-What we can say is the size of the leads we *can* see. When Korea led, the median lead was **7
-weeks**, and 14 of the 43 led by exactly one week. When Southeast Asia led, the median was **86
+What we can say is the size of the leads we *can* see. When Korea led, the median lead was **10
+weeks**, and 15 of the 48 led by exactly one week. When Southeast Asia led, the median was **86
 weeks** — those are catalogue titles finding a second audience abroad a year or two later, not
 releases running ahead of Korea.
 
@@ -71,8 +71,8 @@ releases running ahead of Korea.
 
 | | Titles | Korea first | Same week | Korea later |
 | --- | ---: | ---: | ---: | ---: |
-| Series | 171 | 24 (14.0%) | **124 (72.5%)** | 23 (13.5%) |
-| Films | 75 | 21 (28.0%) | **30 (40.0%)** | 24 (32.0%) |
+| Series | 179 | 27 (15.1%) | **127 (70.9%)** | 25 (14.0%) |
+| Films | 80 | 23 (28.8%) | **32 (40.0%)** | 25 (31.3%) |
 
 Nearly three-quarters of Korean series enter both charts in the same week. Korean films do so
 40% of the time, and the rest split almost evenly between arriving in Korea first and arriving
@@ -106,7 +106,7 @@ Not "charted lower in Korea". Never appeared.
 | The Stone | Films | 2025-08-03 |
 
 It is worth being precise about what this is not. Korea's list has exactly the same number of places
-as Singapore's — **5,300 rows each**, ten titles times two lists times 265 weeks. These titles did
+as Singapore's — **5,360 rows each**, ten titles times two lists times 268 weeks. These titles did
 not miss Korea's chart because Korea's chart is smaller.
 
 ## The explanation we had, and why we dropped it
@@ -120,14 +120,14 @@ We tested it with Wikidata's original-broadcaster field, and among series it goe
 
 | Series | With a recorded Korean broadcaster |
 | --- | ---: |
-| Never charted in Korea (57) | 46 — **80.7%** |
-| Charted in Korea (175) | 163 — **93.1%** |
+| Never charted in Korea (60) | 47 — **78.3%** |
+| Charted in Korea (182) | 170 — **93.4%** |
 
 The titles that *did* chart in Korea are the ones more likely to have aired on Korean television.
 The explanation does not hold, and we do not have a replacement for it.
 
 One detail is worth keeping, because it nearly fooled us. Ignoring format, the same comparison reads
-**39.0% against 66.4%** — a gap three times larger, pointing the way we expected. That gap is
+**36.9% against 66.7%** — a gap three times larger, pointing the way we expected. That gap is
 format mix: the never-charted group is 83 films and 57 series, films rarely carry a broadcaster
 field at all, and the number was measuring how many films were in each group. Had we not split by
 format we would have published a confirmation of a hypothesis that is false.

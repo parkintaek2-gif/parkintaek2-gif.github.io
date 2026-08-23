@@ -23,7 +23,7 @@ crossChecks:
   - "Film and series come from Wikidata's own instance-of statement, not from our reading of a title"
   - "Medians are used throughout. Squid Game distorts a mean of 144 series and tells you nothing about the typical one"
 excluded:
-  - "The 669 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
+  - "The 707 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
   - "Hours viewed by country. Netflix publishes hours for the global chart only, so nothing here says how much anything was watched in any single market"
   - "Any claim about production budgets, licensing terms or how Netflix decides what to promote. None of that is published"
   - "Any claim that this is Korean output. It is Korean output that charted, which is a small and self-selected slice"
@@ -31,16 +31,16 @@ excluded:
 
 Netflix files its global Top 10 by a title's primary language, so a Korean work belongs on the
 Non-English side. That label is the only thing in the published data that verifies a title is the
-Korean work and not a foreign one with the same name. **232 Korean titles carry it.** Split them by
+Korean work and not a foreign one with the same name. **238 Korean titles carry it.** Split them by
 Wikidata's own film-or-series statement and the two halves behave very differently.
 
 | | Films | Series |
 | --- | ---: | ---: |
-| Titles | 88 | 144 |
+| Titles | 93 | 145 |
 | Median weeks on a chart | 6 | 9 |
 | Median countries reached | 11 | **35** |
-| Reached 25 countries or more | 39.8% | **61.1%** |
-| Lasted 10 weeks or more | 25.0% | 44.4% |
+| Reached 25 countries or more | 38.7% | **60.7%** |
+| Lasted 10 weeks or more | 24.7% | 43.4% |
 
 The staying-power gap has an easy explanation, and we have printed it on `/reach` for weeks: a film
 is one sitting and a series is sixteen episodes, so a series holds a chart slot longer almost by
@@ -59,7 +59,7 @@ We do not know how Netflix promotes titles, in which markets, or with what dubbi
 coverage. A series may travel further because a serial hooks a viewer for weeks and is therefore
 worth pushing in more places — that is a plausible mechanism and it is not in the published data.
 
-We also do not know what the 669 excluded titles would do. They are the ones that never reached a
+We also do not know what the 707 excluded titles would do. They are the ones that never reached a
 global Top 10, so they carry no language label and we cannot confirm they are Korean at all. They
 are small — the median charted in a single country for three weeks — but they are three-quarters of
 the names our roster matched, and a comparison built on them would be a comparison built on

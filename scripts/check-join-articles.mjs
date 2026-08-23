@@ -119,8 +119,15 @@ for (const p of 사람) for (const q of p.작품) 작품출연.set(q, (작품출
   const 시 = [...작품출연].filter(([q]) => 갈래(q) === 'series');
   본다('④ 표 Films', new RegExp(`\\|\\s*Films\\s*\\|\\s*${영.length}\\s*\\|\\s*${중간(영.map(([, n]) => n))}\\s*\\|`).test(원), `${영.length} · ${중간(영.map(([, n]) => n))}`);
   본다('④ 표 Series', new RegExp(`\\|\\s*Series\\s*\\|\\s*${시.length}\\s*\\|\\s*${중간(시.map(([, n]) => n))}\\s*\\|`).test(원), `${시.length} · ${중간(시.map(([, n]) => n))}`);
-  본다('④ 한 명뿐인 작품', new RegExp(`(Seventy-five|${[...작품출연.values()].filter((n) => n === 1).length}) titles have exactly one person`, 'i').test(한줄),
-    [...작품출연.values()].filter((n) => n === 1).length);
+  /* 🔴 2026-08-23 — 여기 'Seventy-five' 가 박혀 있었다. 자료가 일흔일곱이 되자 기사를 맞게
+     고쳐도 이 자가 계속 빨강을 냈다. ⛔ 낱말도 자료에서 만든다. */
+  const 십 = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+  const 일 = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  const 영어수 = (n) => (n < 20 || n > 99 ? String(n)
+    : 십[Math.floor(n / 10)] + (n % 10 ? '-' + 일[n % 10] : ''));
+  const 한명뿐 = [...작품출연.values()].filter((n) => n === 1).length;
+  본다('④ 한 명뿐인 작품',
+    new RegExp(`(${영어수(한명뿐)}|${한명뿐}) titles have\\s+exactly one person`, 'i').test(한줄), 한명뿐);
   본다('④ 없는 작품', new RegExp(`${t.맞춘작품수 - 작품출연.size} of the ${t.맞춘작품수} Korean titles we matched carry no cast statement`).test(한줄),
     t.맞춘작품수 - 작품출연.size);
   const 자리 = 사람.reduce((s, p) => s + p.n, 0);

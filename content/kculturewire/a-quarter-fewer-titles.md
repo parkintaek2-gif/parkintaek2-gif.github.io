@@ -2,7 +2,7 @@
 title: "A quarter fewer Korean titles reach a Netflix top 10 than in 2022. The space they hold did not shrink"
 category: titles
 purpose: both
-dek: "272 Korean titles charted somewhere in 2022 and 201 in 2025, while the places they held rose 2.3%. Remove each year's biggest title and the ten largest gained just 3.5 points — most of the concentration is one show returning."
+dek: "289 Korean titles charted somewhere in 2022 and 216 in 2025, while the places they held rose 7.9%. Remove each year's biggest title and the ten largest gained just 3.6 points — most of the concentration is one show returning."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -11,7 +11,7 @@ pages:
   - "/fewer-titles"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists, 493,600 rows read, 2021-07-04 to 2026-07-26, 93 markets, Russia excluded"
+    api: "Tudum weekly Top 10 country lists, 499,180 rows read, 2021-07-04 to 2026-08-16, 93 markets, Russia excluded"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Korean titles identified by item number and country of origin, using the same single rule as the rest of this publication"
@@ -27,8 +27,8 @@ excluded:
 ---
 
 Netflix has announced a larger Korean slate for 2026. Its own charts have been moving the other way:
-**272 Korean titles reached a country top 10 somewhere in 2022, and 201 did in 2025** — a fall of
-26.1% across the four full years we hold.
+**289 Korean titles reached a country top 10 somewhere in 2022, and 216 did in 2025** — a fall of
+25.3% across the four full years we hold.
 
 The obvious reading is that Korean titles are losing ground. They are not. **The places those titles
 held went up.** The full table, every year including the part years, is at
@@ -37,12 +37,12 @@ held went up.** The full table, every year including the part years, is at
 
 | Year | Titles that charted | Chart places held | Places per title |
 |---|---:|---:|---:|
-| 2021 *(part year)* | 165 | 4,072 | 24.7 |
-| 2022 | 272 | 7,250 | 26.7 |
-| 2023 | 269 | 7,830 | 29.1 |
-| 2024 | 227 | 6,775 | 29.8 |
-| 2025 | 201 | 7,420 | 36.9 |
-| 2026 *(part year)* | 141 | 4,319 | 30.6 |
+| 2021 *(part year)* | 177 | 4,131 | 23.3 |
+| 2022 | 289 | 7,388 | 25.6 |
+| 2023 | 292 | 8,181 | 28 |
+| 2024 | 237 | 6,846 | 28.9 |
+| 2025 | 216 | 7,972 | 36.9 |
+| 2026 *(part year)* | 167 | 5,094 | 30.5 |
 
 Same shelf, a quarter fewer titles on it. Places per title rose from 26.5 to 36.6.
 
@@ -53,32 +53,32 @@ and on its own it cannot say which. So we took it apart.
 
 | Year | Ten biggest titles hold | Same, biggest title removed | Everyone outside the top ten, per title |
 |---|---:|---:|---:|
-| 2022 | 45.7% | 43.1% | 15 |
-| 2023 | 39.7% | 37.7% | 18.2.2 |
-| 2024 | 41.2% | 40.2% | 18.4 |
-| 2025 | 57.4% | 46.6% | 16.6 |
+| 2022 | 44.9% | 42.3% | 14.6 |
+| 2023 | 38.4% | 36.3% | 17.9 |
+| 2024 | 40.7% | 39.8% | 17.9 |
+| 2025 | 56% | 45.9% | 17 |
 
-The first column looks like a field closing up: the ten biggest titles went from holding 45.7% of
-every Korean chart place to 57.4%.
+The first column looks like a field closing up: the ten biggest titles went from holding 44.9% of
+every Korean chart place to 56%.
 
 The second column is the same measurement with **each year's single biggest title taken out**, and
-it tells a much smaller story — 43.1% to 46.6%, a gain of 3.5 points rather than 11.7.
+it tells a much smaller story — 42.3% to 45.9%, a gain of 3.6 points rather than 11.1.
 
-The third says the rest of the field barely moved at all. A title outside the top ten held 15
-places in 2022 and 16.4 in 2025.
+The third says the rest of the field barely moved at all. A title outside the top ten held 14.6
+places in 2022 and 17 in 2025.
 
 So the concentration is not a thicker head. It is one title:
 
 | Year | Biggest single title | Its share of all Korean chart places |
 |---|---|---:|
-| 2021 *(part year)* | Squid Game | 27.5% |
-| 2022 | All of Us Are Dead | 8.4% |
-| 2023 | The Glory | 7.6% |
+| 2021 *(part year)* | Squid Game | 27.1% |
+| 2022 | All of Us Are Dead | 8.2% |
+| 2023 | The Glory | 7.2% |
 | 2024 | Queen of Tears | 6.5% |
-| 2025 | Squid Game | **24.6%** |
+| 2025 | Squid Game | **22.9%** |
 
 Between 2022 and 2024 the largest Korean title of the year took 6.6% to 8.4% of all Korean chart
-places. In 2025 one show took **a quarter of them**, and it is the same show that took 27.5% in 2021.
+places. In 2025 one show took **a quarter of them**, and it is the same show that took 27.1% in 2021.
 
 **We are not naming a second or a third.** One title holding a quarter of a year's places is a fact
 about the shape of the chart; a list of the ones behind it would be a ranking, and we do not publish
@@ -88,11 +88,11 @@ those.
 
 Strip out the year that Squid Game returned and what is left is narrow but real:
 
-- **71 fewer Korean titles reached a top 10** in 2025 than in 2022, and the number falling into the
-  smallest band — five chart places or fewer across an entire year — went from 165 to 115.
-- **The places did not follow them out.** Korean titles held 7,250 places in 2022 and 7,420 in 2025.
-- **The middle did not absorb them either.** Places per title outside the top ten went from 15 to
-  16.4, which is a 9% rise across four years.
+- **73 fewer Korean titles reached a top 10** in 2025 than in 2022, and the number falling into the
+  smallest band — five chart places or fewer across an entire year — went from 175 to 123.
+- **The places did not follow them out.** Korean titles held 7,388 places in 2022 and 7,972 in 2025.
+- **The middle did not absorb them either.** Places per title outside the top ten went from 14.6 to
+  17, which is a 16% rise across four years.
 
 Fewer titles, the same shelf space, and no obvious beneficiary among the titles that are still
 there. The one place the arithmetic lands is the top: 2025's biggest title held roughly 1,800 chart

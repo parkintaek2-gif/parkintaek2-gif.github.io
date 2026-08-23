@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 10. 오전 5:52:09",
+  "generated": "2026. 8. 23. 오후 2:38:29",
   "source": "Netflix Top 10 (Tudum) weekly country lists for every country Netflix publishes; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 달마다 묶어 센 것",
   "question": "Does the Korean share of the world's top-10 places have a season?",
@@ -9,131 +9,131 @@
       "name": "January",
       "weeks": 22,
       "slots": 40920,
-      "korean": 3393,
-      "pc": 8.3,
+      "korean": 3442,
+      "pc": 8.4,
       "topTitle": "Squid Game",
       "topTitleSlots": 697,
-      "topTitleShareOfKorean": 20.5,
-      "pcWithoutTop": 6.7
+      "topTitleShareOfKorean": 20.2,
+      "pcWithoutTop": 6.8
     },
     {
       "month": 2,
       "name": "February",
       "weeks": 20,
       "slots": 37200,
-      "korean": 2804,
-      "pc": 7.5,
+      "korean": 2923,
+      "pc": 7.9,
       "topTitle": "All of Us Are Dead",
       "topTitleSlots": 355,
-      "topTitleShareOfKorean": 12.7,
-      "pcWithoutTop": 6.6
+      "topTitleShareOfKorean": 12.1,
+      "pcWithoutTop": 7
     },
     {
       "month": 3,
       "name": "March",
       "weeks": 23,
       "slots": 42780,
-      "korean": 3150,
-      "pc": 7.4,
+      "korean": 3386,
+      "pc": 7.9,
       "topTitle": "The Glory",
       "topTitleSlots": 247,
-      "topTitleShareOfKorean": 7.8,
-      "pcWithoutTop": 6.8
+      "topTitleShareOfKorean": 7.3,
+      "pcWithoutTop": 7.4
     },
     {
       "month": 4,
       "name": "April",
       "weeks": 21,
       "slots": 39060,
-      "korean": 3064,
-      "pc": 7.8,
+      "korean": 3283,
+      "pc": 8.4,
       "topTitle": "Bloodhounds",
       "topTitleSlots": 306,
-      "topTitleShareOfKorean": 10,
-      "pcWithoutTop": 7.1
+      "topTitleShareOfKorean": 9.3,
+      "pcWithoutTop": 7.7
     },
     {
       "month": 5,
       "name": "May",
       "weeks": 22,
       "slots": 40920,
-      "korean": 2842,
-      "pc": 6.9,
+      "korean": 3117,
+      "pc": 7.6,
       "topTitle": "My Royal Nemesis",
       "topTitleSlots": 181,
-      "topTitleShareOfKorean": 6.4,
-      "pcWithoutTop": 6.5
+      "topTitleShareOfKorean": 5.8,
+      "pcWithoutTop": 7.2
     },
     {
       "month": 6,
       "name": "June",
       "weeks": 22,
       "slots": 40920,
-      "korean": 2731,
-      "pc": 6.7,
+      "korean": 2910,
+      "pc": 7.1,
       "topTitle": "Hierarchy",
       "topTitleSlots": 202,
-      "topTitleShareOfKorean": 7.4,
-      "pcWithoutTop": 6.2
+      "topTitleShareOfKorean": 6.9,
+      "pcWithoutTop": 6.7
     },
     {
       "month": 7,
       "name": "July",
       "weeks": 26,
       "slots": 48360,
-      "korean": 4108,
-      "pc": 8.5,
+      "korean": 4178,
+      "pc": 8.6,
       "topTitle": "Squid Game",
       "topTitleSlots": 641,
-      "topTitleShareOfKorean": 15.6,
-      "pcWithoutTop": 7.3
+      "topTitleShareOfKorean": 15.3,
+      "pcWithoutTop": 7.4
     },
     {
       "month": 8,
       "name": "August",
-      "weeks": 22,
-      "slots": 40920,
-      "korean": 3150,
-      "pc": 7.7,
+      "weeks": 25,
+      "slots": 46500,
+      "korean": 3779,
+      "pc": 8.1,
       "topTitle": "Extraordinary Attorney Woo",
       "topTitleSlots": 200,
-      "topTitleShareOfKorean": 6.3,
-      "pcWithoutTop": 7.2
+      "topTitleShareOfKorean": 5.3,
+      "pcWithoutTop": 7.7
     },
     {
       "month": 9,
       "name": "September",
       "weeks": 21,
       "slots": 39060,
-      "korean": 3448,
-      "pc": 8.8,
+      "korean": 3538,
+      "pc": 9.1,
       "topTitle": "Bon Appétit, Your Majesty",
       "topTitleSlots": 257,
-      "topTitleShareOfKorean": 7.5,
-      "pcWithoutTop": 8.2
+      "topTitleShareOfKorean": 7.3,
+      "pcWithoutTop": 8.5
     },
     {
       "month": 10,
       "name": "October",
       "weeks": 23,
       "slots": 42780,
-      "korean": 3378,
-      "pc": 7.9,
+      "korean": 3408,
+      "pc": 8,
       "topTitle": "Squid Game",
       "topTitleSlots": 465,
-      "topTitleShareOfKorean": 13.8,
-      "pcWithoutTop": 6.9
+      "topTitleShareOfKorean": 13.6,
+      "pcWithoutTop": 7
     },
     {
       "month": 11,
       "name": "November",
       "weeks": 21,
       "slots": 39060,
-      "korean": 2574,
+      "korean": 2580,
       "pc": 6.6,
       "topTitle": "Squid Game",
       "topTitleSlots": 347,
-      "topTitleShareOfKorean": 13.5,
+      "topTitleShareOfKorean": 13.4,
       "pcWithoutTop": 5.8
     },
     {
@@ -141,33 +141,33 @@
       "name": "December",
       "weeks": 22,
       "slots": 40920,
-      "korean": 3024,
-      "pc": 7.4,
+      "korean": 3068,
+      "pc": 7.5,
       "topTitle": "Squid Game",
       "topTitleSlots": 351,
-      "topTitleShareOfKorean": 11.6,
-      "pcWithoutTop": 6.6
+      "topTitleShareOfKorean": 11.4,
+      "pcWithoutTop": 6.7
     }
   ],
-  "monthRange": 2.2,
-  "monthRangeWithoutTop": 2.4,
+  "monthRange": 2.5,
+  "monthRangeWithoutTop": 2.7,
   "highest": {
     "name": "September",
-    "pc": 8.8
+    "pc": 9.1
   },
   "lowest": {
     "name": "November",
     "pc": 6.6
   },
-  "yearPc": 7.6,
-  "weekRange": 14.1,
+  "yearPc": 7.9,
+  "weekRange": 14.2,
   "weekHigh": {
     "week": "2025-07-06",
-    "pc": 16.1,
-    "koreanSlots": 300,
+    "pc": 16.2,
+    "koreanSlots": 302,
     "topTitle": "Squid Game",
     "topTitleSlots": 240,
-    "topTitleShare": 80
+    "topTitleShare": 79.5
   },
   "weekLow": {
     "week": "2024-11-10",
@@ -177,7 +177,7 @@
     "topTitleSlots": 8,
     "topTitleShare": 21.6
   },
-  "timesWeekBeatsMonth": 6.4,
+  "timesWeekBeatsMonth": 5.7,
   "verdict": "the swing is not one title",
   "mostFrequentTopTitle": {
     "title": "Squid Game",

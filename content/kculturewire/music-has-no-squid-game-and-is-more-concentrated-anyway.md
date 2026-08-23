@@ -31,39 +31,38 @@ excluded:
   - "Revenue, streams and sales. Nothing here is a money figure and none of these numbers should be read as one"
 ---
 
-*Squid Game* is a fifth of everything Korea has put on Netflix's global chart in five years. **BTS**
-is a twenty-fifth of the attention its own field receives. Both figures come off the two instruments
-we have: **232 titles** carrying five years of Netflix viewing hours, and **2,361 K-pop acts and
+*Squid Game* is a fifth of everything Korea has put on Netflix's global chart in five years. **BTS** is under three per cent of the attention its own field receives. Both figures come off the two instruments
+we have: **246 titles** carrying five years of Netflix viewing hours, and **2,372 K-pop acts and
 members** carrying thirty days of English Wikipedia lookups.
 
 The obvious comparison says screen is the concentrated one:
 
 | | Biggest single unit | Share it holds |
 | --- | --- | ---: |
-| Screen (viewing hours) | *Squid Game* | **21.3%** |
-| Music (page lookups) | BTS | **3.9%** |
+| Screen (viewing hours) | *Squid Game* | **20.6%** |
+| Music (page lookups) | BTS | **2.6%** |
 
 One drama is a fifth of everything Korea has put on Netflix's global chart in five years. The biggest
-act in K-pop is a twenty-fifth of the attention its own field receives.
+act in K-pop is under three per cent of the attention its own field receives.
 
 **That comparison is unfair, and correcting it reverses the answer.**
 
 ## The panels are ten times different in size
 
-232 against 2,361. A top-50 share means something completely different in each. So ask the question
+246 against 2,372. A top-50 share means something completely different in each. So ask the question
 that does not depend on panel size: **how much of the field do you need before you have half the
 total?**
 
 | | Half the total comes from | As a share of the panel | Top 10% of the panel holds |
 | --- | ---: | ---: | ---: |
-| Screen | 17 titles | **7.3%** | 56.3% |
-| Music | 107 acts | **4.5%** | **67.0%** |
+| Screen | 18 titles | **7.3%** | 56.3% |
+| Music | 118 acts | **5.0%** | **66.1%** |
 
-**Music is the steeper distribution.** Its top tenth holds ten points more of its field's attention
-than screen's top tenth holds of viewing. Half of all K-pop lookups sit on 107 of 2,361 acts.
+**Music is the steeper distribution.** Its top tenth holds nearly ten points more of its field's attention
+than screen's top tenth holds of viewing. Half of all K-pop lookups sit on 118 of 2,372 acts.
 
 So both statements are true and they are about different things. **Screen has one giant; music has a
-steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.5%** — flatter still against music's 67.0%.
+steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.9%** — flatter still against music's 66.1%.
 Nothing in music is remotely as large as *Squid Game* relative to its field — and the field beneath
 it is still more unequal.
 
@@ -73,8 +72,8 @@ A drama is a single object that everyone watches at the same time. A chart posit
 by construction: there are ten slots a week, globally, and one show can hold the top one for months.
 
 An act is a person or a group with a permanent presence. Attention to them accumulates in small
-amounts continuously — the median act in this panel drew **872 lookups in thirty days**, which is
-about 29 a day, and not one of the 2,361 drew zero. There is no mechanism by which one act absorbs a
+amounts continuously — the median act in this panel drew **875 lookups in thirty days**, which is
+about 29 a day, and not one of the 2,372 drew zero. There is no mechanism by which one act absorbs a
 fifth of that, because nobody stops looking up everyone else.
 
 **The shapes come from the measurement, not only from the culture**, and we would rather say that than

@@ -157,6 +157,30 @@ fs.writeFileSync(산출, JSON.stringify({
 
 const 편수 = [...사람.values()].map((v) => v.작품.size).sort((a, b) => a - b);
 console.log(`저장 ${산출}`);
+
+/**
+ * 🔴 2026-08-23 — **이름별 편수 표도 같이 낸다.**
+ *   `scripts/collect-star-pageviews.mjs` 가 `korean-cast.json` 을 읽는데,
+ *   **그것을 만드는 자가 저장소에 없었다.** 그래서 조회수 곳간이 안 차고,
+ *   `build-wikitip-actor-reach` 가 「자료 없음」으로 계속 섰다.
+ * ⭐ 오늘 같은 흠을 `korean-titles.json` 에서도 찾았다 — **읽는 파일은 있는데 쓰는 자가 없는 것.**
+ *   따로 수집기를 만들지 않는다. 두 파일이 다른 날의 위키데이터를 보면 언젠가 조용히 갈라진다.
+ * ⚠ 여기 담기는 편수는 «우리가 센 작품 안에서»의 편수다. 그 사람의 전체 작품 수가 아니다.
+ */
+const 이름산출 = path.join(DIR, 'korean-cast.json');
+const 편수표 = {};
+/* ⚠ 열쇠는 Q번호다. 조회수 자는 **이름**으로 위키백과를 묻는다 — 문서명이 있는 사람만 담는다 */
+for (const v of 사람.values()) if (v.문서) 편수표[v.문서] = v.작품.size;
+/* 편수 많은 사람부터 — 부르는 쪽이 `--top` 으로 앞에서 자른다 */
+const 정렬된 = Object.fromEntries(Object.entries(편수표).sort((a, b) => b[1] - a[1]));
+fs.writeFileSync(이름산출, JSON.stringify({
+  받은날: new Date().toISOString().slice(0, 10),
+  출처: 'Wikidata: cast member (P161) of Korean works that reached a Netflix Top 10, filtered to Korean citizenship (P27 = Q884).',
+  주의: '⚠ 편수는 우리가 센 작품 안에서의 편수다. 그 사람의 전체 출연작 수가 아니다.',
+  배우수: Object.keys(정렬된).length,
+  배우: 정렬된,
+}, null, 1) + String.fromCharCode(10));
+console.log(`저장 ${이름산출} — 배우 ${Object.keys(정렬된).length}명`);
 console.log(`  작품 ${작품.length}편 · 배우 ${사람.size}명 · 사람당 작품 중앙값 ${편수[Math.floor(편수.length / 2)]}편`);
 for (const n of 온도계) {
   const v = [...사람.values()].find((x) => x.이름 === n || x.문서 === n);

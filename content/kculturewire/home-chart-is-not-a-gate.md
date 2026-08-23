@@ -33,17 +33,17 @@ Anyone selling a Korean show abroad has heard the same shorthand: it did well at
 travel. Anyone buying has heard it too. It is a testable claim, and Netflix publishes enough to test
 it — a weekly top 10 for 93 markets, including Korea's own.
 
-We took the **902 Korean titles** that appear on any of those lists between 2021-07-04 and
-2026-07-26, counted how many places each took on Korea's chart, and asked how far it went afterwards.
+We took the **976 Korean titles** that appear on any of those lists between 2021-07-04 and
+2026-08-16, counted how many places each took on Korea's chart, and asked how far it went afterwards.
 
 ## The home run does lean the odds
 
 | Weeks on Korea's chart | Titles | Reached 10+ countries | Never left Korea |
 | --- | ---: | ---: | ---: |
-| 1–2 | 219 | **11.4%** | 67.6% |
-| 3–5 | 165 | **25.5%** | 47.3% |
-| 6–10 | 138 | **56.5%** | 17.4% |
-| 11 or more | 38 | **63.2%** | 23.7% |
+| 1–2 | 233 | **10.7%** | 67.8% |
+| 3–5 | 173 | **24.9%** | 45.7% |
+| 6–10 | 147 | **55.8%** | 19.0% |
+| 11 or more | 39 | **64.1%** | 23.1% |
 
 A title with one or two weeks at home reached ten countries about one time in nine. A title with six
 to ten weeks did it more than half the time. That is a real difference and it is worth knowing.
@@ -57,7 +57,7 @@ The median number of foreign countries per title goes **1 → 19** between the 3
 band. That looks like a door swinging open at six weeks. But the median only records where the
 middle title sits; when a group crosses from "most titles go nowhere" to "most titles go somewhere",
 the median leaps while the underlying distribution barely changes pace. The share reaching ten
-countries tells the honest version: **11.4% → 25.5% → 56.5% → 63.2%**. Nothing snaps. It leans.
+countries tells the honest version: **10.7% → 24.9% → 55.8% → 64.1%**. Nothing snaps. It leans.
 
 ## And format leans harder
 
@@ -66,10 +66,10 @@ sorting formats under another name. We split every band rather than argue about 
 
 | Weeks on Korea's chart | Films | Reached 10+ | Series | Reached 10+ |
 | --- | ---: | ---: | ---: | ---: |
-| 1–2 | 168 | 6.5% | 51 | 27.5% |
-| 3–5 | 100 | 8.0% | 65 | **52.3%** |
-| 6–10 | 41 | 39.0% | 97 | 63.9% |
-| 11 or more | 10 | 40.0% | 28 | 71.4% |
+| 1–2 | 174 | 6.3% | 59 | 23.7% |
+| 3–5 | 107 | 9.3% | 66 | **50.0%** |
+| 6–10 | 42 | 38.1% | 105 | 62.9% |
+| 11 or more | 10 | 40.0% | 29 | 72.4% |
 
 Both effects are real, and the format effect is the bigger one. In the 3–5 band a series reached ten
 countries **52.3%** of the time against **8.0%** for a film — a wider gap than the entire home-chart
@@ -77,16 +77,16 @@ range for films. A film that ran six weeks in Korea travelled less often than a 
 three. If you are going to read one column, read the format.
 
 We also checked whether long home runs simply belong to older titles, which would make this a story
-about the calendar. They do not: the median first week is 2023-06-04 for the 1–2 band, 2023-12-03 for
-3–5 and **2024-04-07** for 6–10. The band that travels most is the newest of the three.
+about the calendar. They do not: the median first week is 2023-07-09 for the 1–2 band, 2023-12-10 for
+3–5 and **2024-03-17** for 6–10. The band that travels most is the newest of the three.
 
 ## The home chart is not a gate
 
-**29 titles reached twenty or more countries without ever appearing on Korea's own top 10.**
+**32 titles reached twenty or more countries without ever appearing on Korea's own top 10.**
 
 | Title | Countries | Chart places abroad | Format |
 | --- | ---: | ---: | --- |
-| *Oasis* | 82 | 239 | Series |
+| *Oasis* | 82 | 253 | Series |
 | *Dangerous Liaisons* | 70 | 165 | Film |
 | *Breathless* | 69 | 250 | Series |
 | *Young Lady and Gentleman* | 54 | 351 | Series |
@@ -99,14 +99,14 @@ perfectly well elsewhere.
 
 ## The comparison we did not make
 
-Of the 902 titles, **560 charted in Korea and 342 never did**. The obvious move is to put those two
+Of the 976 titles, **592 charted in Korea and 384 never did**. The obvious move is to put those two
 groups side by side and report which travels further. We did not, and the reason is worth stating
-rather than burying: the 342 are in our data **only by virtue of** having charted somewhere abroad.
+rather than burying: the 384 are in our data **only by virtue of** having charted somewhere abroad.
 A title that charted in neither place is invisible to us entirely. Comparing the two groups would
 answer a question we had already decided by the way we built the list.
 
 So the bands above are cut **inside** the 560 that did chart at home, where the comparison is honest,
-and the 342 appear only in the section above — as named cases, not as an average.
+and the 384 appear only in the section above — as named cases, not as an average.
 
 ## What a seller can take from this
 

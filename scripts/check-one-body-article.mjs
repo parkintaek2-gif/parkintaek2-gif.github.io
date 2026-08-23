@@ -114,13 +114,18 @@ for (const 이름 of ['Hwang Jung-min', 'Ma Dong-seok']) {
 
 /* ── ④ 이어진 작품 표 ── */
 const 이름으로 = (nm) => Object.entries(t.작품).find(([, v]) => v.이름 === nm || v.넷플릭스제목 === nm)?.[0];
-for (const [nm, 링크, 출연] of [['12.12: The Day', 110, 28], ['Mr. Sunshine', 104, 32],
-  ['Squid Game', 69, 16], ['The Thieves', 67, 11], ['Pinocchio', 64, 43]]) {
+/* 🔴 2026-08-23 — 자료를 새로 캐서(작품 676편) 이 수들이 다 올라갔다. 기사와 함께 고친다 */
+/* 🔴 2026-08-23 — 여기 표의 값이 **두 번 적혀** 있었다. 기사에도 있고 이 자 안에도 있었다.
+   자료를 새로 캘 때마다 둘을 같이 고쳐야 하고, 한쪽만 고치면 자가 헛울린다.
+   ⭐ 이 자가 지켜야 하는 것은 「기사가 자료와 같은 수를 말하나」다. 그러면 **자료에서 세고
+   기사에 그 수가 그 줄에 있나**만 보면 된다. 자 안의 사본은 지운다.
+ ⚠ 대신 이름 목록은 남긴다 — 어느 작품을 기사가 표로 냈는지는 편집 판단이라 자료에서 안 나온다. */
+for (const nm of ['12.12: The Day', 'Mr. Sunshine', 'Squid Game', 'The Thieves', 'Pinocchio']) {
   const q = 이름으로(nm);
   const 실링크 = q ? 전부.이웃.get(q)?.size : undefined;
   const 실출연 = q ? Object.values(c.배우).filter((v) => v.작품.includes(q)).length : undefined;
   const re = new RegExp(`\\|\\s*\\*?${nm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\*?\\s*\\|\\s*${실링크}( titles)?\\s*\\|\\s*${실출연}\\s*\\|`);
-  본다(`표 ${nm}`, 실링크 === 링크 && 실출연 === 출연 && re.test(줄본문), `${실링크}편 · 출연 ${실출연}`);
+  본다(`표 ${nm}`, typeof 실링크 === 'number' && re.test(줄본문), `${실링크}편 · 출연 ${실출연}`);
 }
 본다('붙은 작품 / 열쇠 작품',
   new RegExp(`${t.맞춘작품수} Korean titles are matched to Wikidata items and only\\s+${전부.작품수} carry a P161`).test(본문)

@@ -83,7 +83,7 @@ and more common pool — one-word abstractions, single names, ordinary nouns.
 
 **This means our film panel is the part of our data most likely to contain something that is not
 Korean, and it is the part we can least easily check.** It is also the smaller side: 160 titles against
-237, and 449 chart-weeks against 1,810.
+237, and 476 chart-weeks against 1,870.
 
 ## A second ruler we had not used
 

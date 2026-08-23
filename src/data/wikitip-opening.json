@@ -1,98 +1,98 @@
 {
-  "generated": "2026-08-09T20:50:41.218Z",
+  "generated": "2026-08-23T14:38+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "A title appears on a country chart at some position. That is the one fact anyone has on the first Monday. Does it say anything about how long the title will be there?",
   "unit": "A run is one title in one country across consecutive chart weeks. The entry position is where it sat in the first week of that run; the length is how many weeks the run lasted.",
   "whySlopeNotRegression": "Positions run from 1 to 10 and nothing else, so the difference between the two ends divided by the nine steps between them is the whole relationship. A regression would hide the assumptions inside a coefficient; this way the table is the argument.",
   "whyBothFormats": "Korean films and Korean series behave differently on these charts, so they are never mixed. Every non-Korean title is measured the same way, because \"entering higher lasts longer\" could be true of every chart everywhere.",
   "whyTruncatedRemoved": "A run still on a chart in the last week we hold has no finished length and is removed rather than counted as short.",
-  "rowsRead": 493600,
+  "rowsRead": 499180,
   "rowsOverwritten": 25,
   "byGroup": [
     {
       "group": "한국 시리즈",
-      "runs": 7892,
-      "truncated": 144,
+      "runs": 8324,
+      "truncated": 169,
       "byEntry": [
         {
           "entry": 1,
-          "runs": 487,
+          "runs": 506,
           "medianWeeks": 6,
-          "meanWeeks": 6.77,
-          "fourPlusPc": 90.3,
+          "meanWeeks": 6.69,
+          "fourPlusPc": 89.9,
           "oneWeekPc": 0.4
         },
         {
           "entry": 2,
-          "runs": 459,
+          "runs": 496,
           "medianWeeks": 5,
-          "meanWeeks": 6.12,
-          "fourPlusPc": 76.7,
-          "oneWeekPc": 3.5
+          "meanWeeks": 5.97,
+          "fourPlusPc": 73.8,
+          "oneWeekPc": 3.2
         },
         {
           "entry": 3,
-          "runs": 603,
+          "runs": 642,
           "medianWeeks": 4,
-          "meanWeeks": 5.23,
-          "fourPlusPc": 63.7,
-          "oneWeekPc": 6.8
+          "meanWeeks": 5.13,
+          "fourPlusPc": 61.4,
+          "oneWeekPc": 6.5
         },
         {
           "entry": 4,
-          "runs": 710,
-          "medianWeeks": 4,
-          "meanWeeks": 4.4,
-          "fourPlusPc": 51,
-          "oneWeekPc": 12.1
+          "runs": 745,
+          "medianWeeks": 3,
+          "meanWeeks": 4.33,
+          "fourPlusPc": 49.5,
+          "oneWeekPc": 12.2
         },
         {
           "entry": 5,
-          "runs": 787,
+          "runs": 831,
           "medianWeeks": 3,
-          "meanWeeks": 4.2,
-          "fourPlusPc": 44.7,
-          "oneWeekPc": 19.6
+          "meanWeeks": 4.18,
+          "fourPlusPc": 44.6,
+          "oneWeekPc": 19.1
         },
         {
           "entry": 6,
-          "runs": 836,
+          "runs": 892,
           "medianWeeks": 2,
-          "meanWeeks": 3.45,
-          "fourPlusPc": 34,
-          "oneWeekPc": 28.2
+          "meanWeeks": 3.44,
+          "fourPlusPc": 34.1,
+          "oneWeekPc": 28.1
         },
         {
           "entry": 7,
-          "runs": 868,
+          "runs": 916,
           "medianWeeks": 2,
-          "meanWeeks": 3.12,
-          "fourPlusPc": 26.6,
-          "oneWeekPc": 36.6
+          "meanWeeks": 3.11,
+          "fourPlusPc": 26.9,
+          "oneWeekPc": 36.4
         },
         {
           "entry": 8,
-          "runs": 1007,
+          "runs": 1058,
           "medianWeeks": 2,
-          "meanWeeks": 2.83,
-          "fourPlusPc": 24.1,
-          "oneWeekPc": 42.1
+          "meanWeeks": 2.85,
+          "fourPlusPc": 24.6,
+          "oneWeekPc": 41.5
         },
         {
           "entry": 9,
-          "runs": 1002,
-          "medianWeeks": 1,
-          "meanWeeks": 2.61,
-          "fourPlusPc": 21.1,
-          "oneWeekPc": 50.5
+          "runs": 1057,
+          "medianWeeks": 2,
+          "meanWeeks": 2.6,
+          "fourPlusPc": 21,
+          "oneWeekPc": 49.9
         },
         {
           "entry": 10,
-          "runs": 1133,
+          "runs": 1181,
           "medianWeeks": 1,
-          "meanWeeks": 2.35,
-          "fourPlusPc": 16.7,
-          "oneWeekPc": 56
+          "meanWeeks": 2.33,
+          "fourPlusPc": 16.4,
+          "oneWeekPc": 56.1
         }
       ],
       "weeksPerStep": 0.56,
@@ -101,20 +101,20 @@
     },
     {
       "group": "그 밖 시리즈",
-      "runs": 79015,
-      "truncated": 786,
+      "runs": 79582,
+      "truncated": 761,
       "byEntry": [
         {
           "entry": 1,
-          "runs": 7018,
+          "runs": 7065,
           "medianWeeks": 5,
           "meanWeeks": 5.45,
-          "fourPlusPc": 74.3,
+          "fourPlusPc": 74,
           "oneWeekPc": 1.8
         },
         {
           "entry": 2,
-          "runs": 6983,
+          "runs": 7042,
           "medianWeeks": 4,
           "meanWeeks": 3.99,
           "fourPlusPc": 51.4,
@@ -122,39 +122,39 @@
         },
         {
           "entry": 3,
-          "runs": 6868,
+          "runs": 6925,
           "medianWeeks": 3,
-          "meanWeeks": 3.27,
-          "fourPlusPc": 34.2,
+          "meanWeeks": 3.28,
+          "fourPlusPc": 34.4,
           "oneWeekPc": 8.6
         },
         {
           "entry": 4,
-          "runs": 7010,
+          "runs": 7071,
           "medianWeeks": 2,
           "meanWeeks": 2.91,
-          "fourPlusPc": 24.4,
+          "fourPlusPc": 24.5,
           "oneWeekPc": 16.2
         },
         {
           "entry": 5,
-          "runs": 7415,
+          "runs": 7476,
           "medianWeeks": 2,
           "meanWeeks": 2.67,
           "fourPlusPc": 19.3,
-          "oneWeekPc": 24.7
+          "oneWeekPc": 24.9
         },
         {
           "entry": 6,
-          "runs": 7515,
+          "runs": 7562,
           "medianWeeks": 2,
           "meanWeeks": 2.31,
-          "fourPlusPc": 14,
-          "oneWeekPc": 35.4
+          "fourPlusPc": 14.1,
+          "oneWeekPc": 35.5
         },
         {
           "entry": 7,
-          "runs": 8054,
+          "runs": 8115,
           "medianWeeks": 2,
           "meanWeeks": 2.13,
           "fourPlusPc": 11,
@@ -162,27 +162,27 @@
         },
         {
           "entry": 8,
-          "runs": 8592,
+          "runs": 8643,
           "medianWeeks": 1,
           "meanWeeks": 1.94,
-          "fourPlusPc": 9.3,
-          "oneWeekPc": 52.3
+          "fourPlusPc": 9.2,
+          "oneWeekPc": 52.4
         },
         {
           "entry": 9,
-          "runs": 9305,
+          "runs": 9356,
           "medianWeeks": 1,
           "meanWeeks": 1.83,
-          "fourPlusPc": 7.7,
-          "oneWeekPc": 58.6
+          "fourPlusPc": 7.6,
+          "oneWeekPc": 58.8
         },
         {
           "entry": 10,
-          "runs": 10255,
+          "runs": 10327,
           "medianWeeks": 1,
           "meanWeeks": 1.67,
           "fourPlusPc": 6.6,
-          "oneWeekPc": 66.8
+          "oneWeekPc": 66.9
         }
       ],
       "weeksPerStep": 0.44,
@@ -191,88 +191,88 @@
     },
     {
       "group": "한국 영화",
-      "runs": 3830,
-      "truncated": 103,
+      "runs": 4197,
+      "truncated": 8,
       "byEntry": [
         {
           "entry": 1,
-          "runs": 289,
+          "runs": 336,
           "medianWeeks": 4,
-          "meanWeeks": 4.15,
-          "fourPlusPc": 58.1,
+          "meanWeeks": 4.04,
+          "fourPlusPc": 55.7,
           "oneWeekPc": 2.1
         },
         {
           "entry": 2,
-          "runs": 267,
+          "runs": 319,
           "medianWeeks": 3,
-          "meanWeeks": 2.85,
-          "fourPlusPc": 22.8,
-          "oneWeekPc": 8.6
+          "meanWeeks": 2.79,
+          "fourPlusPc": 22.3,
+          "oneWeekPc": 10
         },
         {
           "entry": 3,
-          "runs": 303,
+          "runs": 342,
           "medianWeeks": 2,
-          "meanWeeks": 2.27,
-          "fourPlusPc": 11.2,
-          "oneWeekPc": 20.5
+          "meanWeeks": 2.24,
+          "fourPlusPc": 10.5,
+          "oneWeekPc": 21.1
         },
         {
           "entry": 4,
-          "runs": 360,
+          "runs": 391,
           "medianWeeks": 2,
-          "meanWeeks": 1.93,
-          "fourPlusPc": 6.1,
-          "oneWeekPc": 34.7
+          "meanWeeks": 1.9,
+          "fourPlusPc": 5.6,
+          "oneWeekPc": 35.8
         },
         {
           "entry": 5,
-          "runs": 422,
+          "runs": 457,
           "medianWeeks": 2,
-          "meanWeeks": 1.94,
-          "fourPlusPc": 4.3,
-          "oneWeekPc": 34.1
+          "meanWeeks": 1.9,
+          "fourPlusPc": 3.9,
+          "oneWeekPc": 36.1
         },
         {
           "entry": 6,
-          "runs": 387,
+          "runs": 417,
           "medianWeeks": 2,
-          "meanWeeks": 1.64,
-          "fourPlusPc": 2.3,
-          "oneWeekPc": 48.6
+          "meanWeeks": 1.63,
+          "fourPlusPc": 2.2,
+          "oneWeekPc": 48.9
         },
         {
           "entry": 7,
-          "runs": 434,
+          "runs": 462,
           "medianWeeks": 1,
-          "meanWeeks": 1.58,
-          "fourPlusPc": 2.8,
-          "oneWeekPc": 55.3
+          "meanWeeks": 1.57,
+          "fourPlusPc": 2.6,
+          "oneWeekPc": 56.1
         },
         {
           "entry": 8,
-          "runs": 450,
+          "runs": 478,
           "medianWeeks": 1,
-          "meanWeeks": 1.56,
+          "meanWeeks": 1.55,
           "fourPlusPc": 1.3,
-          "oneWeekPc": 55.1
+          "oneWeekPc": 55.9
         },
         {
           "entry": 9,
-          "runs": 452,
+          "runs": 483,
           "medianWeeks": 1,
-          "meanWeeks": 1.49,
-          "fourPlusPc": 0.9,
-          "oneWeekPc": 58.2
+          "meanWeeks": 1.48,
+          "fourPlusPc": 0.8,
+          "oneWeekPc": 58.8
         },
         {
           "entry": 10,
-          "runs": 466,
+          "runs": 512,
           "medianWeeks": 1,
-          "meanWeeks": 1.41,
+          "meanWeeks": 1.4,
           "fourPlusPc": 0.6,
-          "oneWeekPc": 65
+          "oneWeekPc": 66
         }
       ],
       "weeksPerStep": 0.33,
@@ -281,44 +281,44 @@
     },
     {
       "group": "그 밖 영화",
-      "runs": 117316,
-      "truncated": 827,
+      "runs": 118252,
+      "truncated": 922,
       "byEntry": [
         {
           "entry": 1,
-          "runs": 11481,
+          "runs": 11546,
           "medianWeeks": 3,
-          "meanWeeks": 3.73,
-          "fourPlusPc": 46.9,
+          "meanWeeks": 3.74,
+          "fourPlusPc": 47,
           "oneWeekPc": 2.4
         },
         {
           "entry": 2,
-          "runs": 11217,
+          "runs": 11276,
           "medianWeeks": 2,
           "meanWeeks": 2.77,
-          "fourPlusPc": 20,
-          "oneWeekPc": 10.3
+          "fourPlusPc": 20.1,
+          "oneWeekPc": 10.2
         },
         {
           "entry": 3,
-          "runs": 11289,
+          "runs": 11358,
           "medianWeeks": 2,
-          "meanWeeks": 2.31,
-          "fourPlusPc": 10.1,
-          "oneWeekPc": 20.7
+          "meanWeeks": 2.32,
+          "fourPlusPc": 10.2,
+          "oneWeekPc": 20.6
         },
         {
           "entry": 4,
-          "runs": 11528,
+          "runs": 11622,
           "medianWeeks": 2,
           "meanWeeks": 2.03,
           "fourPlusPc": 6.5,
-          "oneWeekPc": 33
+          "oneWeekPc": 32.9
         },
         {
           "entry": 5,
-          "runs": 11562,
+          "runs": 11654,
           "medianWeeks": 2,
           "meanWeeks": 1.85,
           "fourPlusPc": 4.6,
@@ -326,7 +326,7 @@
         },
         {
           "entry": 6,
-          "runs": 11684,
+          "runs": 11796,
           "medianWeeks": 2,
           "meanWeeks": 1.72,
           "fourPlusPc": 3.6,
@@ -334,15 +334,15 @@
         },
         {
           "entry": 7,
-          "runs": 11610,
+          "runs": 11711,
           "medianWeeks": 1,
           "meanWeeks": 1.59,
-          "fourPlusPc": 2.8,
+          "fourPlusPc": 2.7,
           "oneWeekPc": 57.2
         },
         {
           "entry": 8,
-          "runs": 11936,
+          "runs": 12041,
           "medianWeeks": 1,
           "meanWeeks": 1.52,
           "fourPlusPc": 2.6,
@@ -350,7 +350,7 @@
         },
         {
           "entry": 9,
-          "runs": 12241,
+          "runs": 12370,
           "medianWeeks": 1,
           "meanWeeks": 1.45,
           "fourPlusPc": 2.4,
@@ -358,7 +358,7 @@
         },
         {
           "entry": 10,
-          "runs": 12768,
+          "runs": 12878,
           "medianWeeks": 1,
           "meanWeeks": 1.39,
           "fourPlusPc": 2.1,

@@ -1,6 +1,6 @@
 ---
 title: "Fourteen distinct ways of being wrong. Ten of them now fail the build; four do not."
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the thirty-two. Four kinds still have no test, and this piece names them rather than reporting the coverage."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the thirty-three. Four kinds still have no test, and this piece names them rather than reporting the coverage."
 category: titles
 purpose: ads
 pubDate: 2026-08-08
@@ -28,13 +28,13 @@ corrections:
 ---
 
 We keep a record of every figure we have published and had to change. As of today it holds
-**32 corrections** — 13 on data pages and 19 in articles.
+**33 corrections** — 13 on data pages and 20 in articles.
 
 Counting them was never the interesting part. What we wanted to know was whether they were thirty-two
 separate accidents or a few repeating shapes. So each one carries a tag for the **kind** of mistake
 that produced it.
 
-There are fourteen kinds.
+There are fifteen kinds.
 
 ## What went wrong, and how often
 
@@ -54,8 +54,9 @@ There are fourteen kinds.
 | A value with no row in the table that counts it | 0 | 1 | yes |
 | The same word computed two ways — median | 0 | 1 | not yet |
 | A window short enough to make its own highest month the peak | 0 | 1 | not yet |
+| Netflix and Wikidata spell the same title with different letter case | 0 | 1 | yes |
 
-**One cause produced eight of the thirty-two.** Titles entered our Korean panel because their English
+**One cause produced eight of the thirty-three.** Titles entered our Korean panel because their English
 name matched a Korean work, and foreign works with the same name came in with them. That single flaw
 moved figures on five pages and in three articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).
@@ -88,7 +89,7 @@ about what they were given.** The writing was faithful to a measurement that was
 
 ## Where the tests are, and where they are not
 
-Ten of the fourteen kinds now fail the build if they recur. **Four do not**, and naming them is the
+Eleven of the fifteen kinds now fail the build if they recur. **Four do not**, and naming them is the
 point of this section:
 
 - **the set of titles a figure was measured over** being widened after publication, which moved every

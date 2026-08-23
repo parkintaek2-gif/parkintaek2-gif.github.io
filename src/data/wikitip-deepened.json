@@ -1,7 +1,7 @@
 {
-  "generated": "2026-08-09T20:50:16.039Z",
+  "generated": "2026-08-23T14:38+09:00",
   "whatIsStillOnlyInTheSheet": "The week-by-week path of a title, the full company catalogue table and the titles that never charted remain in the company sheet. What is here is the per-market summary: how many separate runs, the longest, and the position each run ended from.",
-  "rowsRead": 493600,
+  "rowsRead": 499180,
   "bySlug": {
     "addicted": {
       "slug": "addicted",
@@ -346,7 +346,7 @@
       "marketsWithReturn": 0,
       "exitsCounted": 21,
       "exitBottomThree": 11,
-      "companionAvg": 4.07,
+      "companionAvg": 4.12,
       "companionWeeksAlone": 7
     },
     "aloners": {
@@ -388,7 +388,7 @@
       "marketsWithReturn": 1,
       "exitsCounted": 4,
       "exitBottomThree": 3,
-      "companionAvg": 10.25,
+      "companionAvg": 10.63,
       "companionWeeksAlone": 0
     },
     "ghost-ship": {
@@ -569,7 +569,7 @@
       "marketsWithReturn": 0,
       "exitsCounted": 21,
       "exitBottomThree": 8,
-      "companionAvg": 2.35,
+      "companionAvg": 2.39,
       "companionWeeksAlone": 8.7
     },
     "1987-when-the-day-comes": {
@@ -720,7 +720,7 @@
       "marketsWithReturn": 0,
       "exitsCounted": 1,
       "exitBottomThree": 0,
-      "companionAvg": 9.75,
+      "companionAvg": 9.92,
       "companionWeeksAlone": 0
     },
     "snowpiercer": {
@@ -925,7 +925,7 @@
       "marketsWithReturn": 12,
       "exitsCounted": 36,
       "exitBottomThree": 29,
-      "companionAvg": 0.65,
+      "companionAvg": 0.67,
       "companionWeeksAlone": 55
     },
     "the-trauma-code-heroes-on-call": {
@@ -1442,8 +1442,8 @@
       "marketsWithReturn": 2,
       "exitsCounted": 69,
       "exitBottomThree": 33,
-      "companionAvg": 2.42,
-      "companionWeeksAlone": 8.1
+      "companionAvg": 2.82,
+      "companionWeeksAlone": 5.7
     }
   }
 }
