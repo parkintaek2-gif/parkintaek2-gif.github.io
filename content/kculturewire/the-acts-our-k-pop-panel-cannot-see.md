@@ -32,7 +32,7 @@ corrections:
     note: "Our /data page said of acts with no English Wikipedia article: 'they are invisible — and we cannot say how many there are.' That was true of the panel and false of what we could reach: Wikidata records the same acts and can be counted directly. The page now carries the figures below. Nothing in the attention panel changes; what changes is that the size of its blind spot is now stated instead of waved at."
 ---
 
-Our K-pop attention panel has **2,362 rows** — 816 groups and 1,545 people. It is built from English
+Our K-pop attention panel has **2,372 rows** — 822 groups and 1,550 people. It is built from English
 Wikipedia pageviews, so an act with no English Wikipedia article produces no row at all.
 
 Until today [our data page](/data) said of that gap: *"they are invisible — and we cannot say how
@@ -45,11 +45,11 @@ not English Wikipedia does, and it can be counted.
 
 | In Wikidata | Exists | We measure | We miss | Share missed |
 | --- | ---: | ---: | ---: | ---: |
-| Musical groups | 2,128 | 816 | **1,312** | 61.7% |
-| Singers | 5,408 | 1,421 | **3,987** | 73.7% |
-| Rappers | 357 | 248 | 109 | 30.5% |
-| Composers | 243 | 96 | 147 | 60.5% |
-| Musicians | 311 | 270 | 41 | 13.2% |
+| Musical groups | 2,133 | 822 | **1,311** | 61.5% |
+| Singers | 5,415 | 1,425 | **3,990** | 73.7% |
+| Rappers | 362 | 251 | 111 | 30.7% |
+| Composers | 242 | 95 | 147 | 60.7% |
+| Musicians | 316 | 274 | 42 | 13.3% |
 
 The group row is the cleanest test of the method, because our panel's own group count is **816** —
 the same number, arrived at independently by the query that builds the panel. The two agree without
@@ -60,9 +60,9 @@ added together. Each row is its own comparison.
 
 ## Most of the missing are not obscure to Koreans
 
-Of the 3,987 singers we cannot see, **3,572 have a Korean Wikipedia article.** They are documented,
+Of the 3,990 singers we cannot see, **3,570 have a Korean Wikipedia article.** They are documented,
 they are just documented in Korean. The same holds for 110 of the 147 missing composers and 79 of
-the 109 missing rappers.
+the 111 missing rappers.
 
 That matters for what our attention numbers mean. A panel built on English pageviews is not a panel
 of Korean music; it is a panel of **Korean music that has been written up in English**, and the two
@@ -73,9 +73,9 @@ diverge most exactly where a reader might most want the difference explained.
 | | Share we miss |
 | --- | ---: |
 | Singers | 73.7% |
-| Musical groups | 61.7% |
-| Composers | 60.5% |
-| Rappers | 30.5% |
+| Musical groups | 61.5% |
+| Composers | 60.7% |
+| Rappers | 30.7% |
 | Musicians | 13.2% |
 
 Rappers and musicians are covered two to five times better than singers. **We can show that and we

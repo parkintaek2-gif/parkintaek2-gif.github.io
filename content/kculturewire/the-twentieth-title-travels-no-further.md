@@ -1,6 +1,6 @@
 ---
 title: "A bigger Korean catalogue reaches more countries. Each title in it does not."
-dek: "Across 207 companies with a charting Korean title, catalogue size tracks total reach (r = 0.536) and not reach per title (r = −0.101). Firms with 20 or more titles get 13 markets from the median title; firms with two get 10.8."
+dek: "Across 220 companies with a charting Korean title, catalogue size tracks total reach (r = 0.516) and not reach per title (r = −0.118). Firms with 20 or more titles get 11.1 markets from the median title; firms with two get 13.5."
 category: industry
 purpose: both
 pubDate: 2026-08-09
@@ -31,19 +31,19 @@ It cannot. That turns out to be the finding.
 
 ## Two numbers that behave differently
 
-Take the 207 companies with at least one Korean title that reached a Netflix country top 10, and
+Take the 220 companies with at least one Korean title that reached a Netflix country top 10, and
 measure two things about each: how many markets its titles reached **between them**, and how many
 markets the average one of its titles reached **on its own**.
 
 | Catalogue size against… | Correlation |
 |---|---|
-| Total markets the catalogue reached | **0.536** |
-| Markets per title | **−0.101** |
+| Total markets the catalogue reached | **0.516** |
+| Markets per title | **−0.118** |
 
 The first is close to unavoidable. Put more titles into more charts and the union of the countries
 you have touched gets larger; it would be strange if it did not.
 
-The second is the one worth stopping at. Across the 96 companies with two or more charting titles,
+The second is the one worth stopping at. Across the 106 companies with two or more charting titles,
 knowing how big a catalogue is tells you essentially nothing about how far any single title in it
 goes — and the faint lean it does have points down, not up.
 
@@ -51,11 +51,11 @@ goes — and the faint lean it does have points down, not up.
 
 | Charting titles | Companies | Markets per title (median) | Markets per title (mean) | Total markets (median) |
 |---|---|---|---|---|
-| 2 titles | 28 | 10.8 | 17.8 | 19.5 |
-| 3–4 titles | 36 | 10 | 14.4 | 26 |
-| 5–9 titles | 15 | 11.1 | 14 | 50 |
-| 10–19 titles | 6 | 9.3 | 14.9 | 64 |
-| 20 or more | 11 | 13 | 12.1 | 73 |
+| 2 titles | 31 | 13.5 | 18 | 23 |
+| 3–4 titles | 35 | 9.7 | 14.6 | 23 |
+| 5–9 titles | 21 | 8.3 | 11.8 | 35 |
+| 10–19 titles | 7 | 10.1 | 17.7 | 61 |
+| 20 or more | 12 | 11.1 | 11.7 | 81 |
 
 Read down the last column and a catalogue is clearly working: 19.5 markets to 73. Read down the
 median per-title column and nothing is happening at all. A company with twenty-plus charting titles
@@ -75,11 +75,11 @@ that.
 
 ## The one-title companies, and why they are not in the bands
 
-There are 111 companies here with exactly one charting title — more than half of everybody. Their
-median title reached 3 markets. Thirty-nine of them reached exactly one market. One of them reached
+There are 114 companies here with exactly one charting title — more than half of everybody. Their
+median title reached 2 markets. Thirty-nine of them reached exactly one market. One of them reached
 87.
 
-It is tempting to put that 3 next to the 10.8 above and conclude that a second title is worth seven
+It is tempting to put that 2 next to the 13.5 above and conclude that a second title is worth seven
 markets. We are not going to, and the reason matters more than the number.
 
 A company only appears in this table once something of its own has charted. A company with two
@@ -90,9 +90,9 @@ flat line starts at two, and the 111 sit outside it with their own row.
 ## Our own grades say the same thing by accident
 
 We grade companies by how much of their catalogue we can see. Grade A companies hold 25 charting
-titles at the median against 6 for grade B, and reach 71 markets against 50.
+titles at the median against 6 for grade B, and reach 72 markets against 35.
 
-Per title, grade A is at 10.8 and grade B is at 11.1.
+Per title, grade A is at 10.7 and grade B is at 8.3.
 
 The grades measure how much of a company is visible to us. They do not measure how far it travels,
 and it is worth saying so plainly on a page where the temptation to treat our own A as a quality
@@ -108,8 +108,8 @@ Nor does any of this explain **why** a catalogue travels. Budget, cast, release 
 the licensing deal — none of it is in this data, and a company that reads a low per-title number as a
 verdict on its work is reading something we did not measure.
 
-And every figure above rests on the 59.4% of Korean titles that carry a company credit at all: 535
-of the 901 we hold. A company whose titles sit in the missing 40.6% is absent from this table, not
+And every figure above rests on the 63.3% of Korean titles that carry a company credit at all: 598
+of the 945 we hold. A company whose titles sit in the missing 36.7% is absent from this table, not
 small in it.
 
 ## Why we bothered

@@ -1,20 +1,20 @@
 {
- "generated": "2026-08-08T21:13:41.370Z",
+ "generated": "2026-08-23T16:04+09:00",
  "source": "Wikidata production company (P272), original broadcaster (P449) and distributor (P750) on the Korean titles that appear in Netflix country top 10 lists, 2021–2026",
  "question": "How many companies does it take to account for half the Korean series that chart?",
  "unit": "A company “covers” a series if Wikidata lists it as producer, first broadcaster or distributor. Titles are counted as a set, so a series credited to several companies is still one series.",
- "whySeriesOnly": "Companies are attached to 92% of series but only 37.7% of films, and measuring concentration on a half-empty list makes the missing companies look small rather than missing. Films are left out rather than half-counted.",
- "seriesTotal": 362,
- "filmsTotal": 539,
- "filmsWithFirm": 203,
- "filmCoveragePc": 37.7,
+ "whySeriesOnly": "Companies are attached to 92% of series but only 44.4% of films, and measuring concentration on a half-empty list makes the missing companies look small rather than missing. Films are left out rather than half-counted.",
+ "seriesTotal": 375,
+ "filmsTotal": 570,
+ "filmsWithFirm": 253,
+ "filmCoveragePc": 44.4,
  "roles": [
   {
    "key": "any",
    "label": "Any credit",
-   "firms": 129,
-   "series": 332,
-   "seriesCoveragePc": 91.7,
+   "firms": 131,
+   "series": 345,
+   "seriesCoveragePc": 92,
    "halfTakesFirms": 3,
    "namesInHalf": [
     "JTBC",
@@ -25,24 +25,24 @@
   {
    "key": "production",
    "label": "Production company",
-   "firms": 99,
-   "series": 151,
-   "seriesCoveragePc": 41.7,
+   "firms": 101,
+   "series": 156,
+   "seriesCoveragePc": 41.6,
    "halfTakesFirms": 5,
    "namesInHalf": [
-    "Chorokbaem Media",
     "Kakao Entertainment",
     "SLL",
     "Studio Dragon",
-    "Studio N"
+    "Studio N",
+    "Studio S"
    ]
   },
   {
    "key": "broadcaster",
    "label": "First broadcaster",
    "firms": 28,
-   "series": 291,
-   "seriesCoveragePc": 80.4,
+   "series": 303,
+   "seriesCoveragePc": 80.8,
    "halfTakesFirms": 3,
    "namesInHalf": [
     "JTBC",
@@ -54,11 +54,12 @@
    "key": "distributor",
    "label": "Distributor",
    "firms": 25,
-   "series": 130,
-   "seriesCoveragePc": 35.9,
-   "halfTakesFirms": 3,
+   "series": 139,
+   "seriesCoveragePc": 37.1,
+   "halfTakesFirms": 4,
    "namesInHalf": [
     "CJ ENM Entertainment Division",
+    "JTBC",
     "SLL",
     "tvN"
    ]
@@ -71,15 +72,15 @@
   },
   {
    "band": "2–4",
-   "firms": 51
+   "firms": 52
   },
   {
    "band": "5 or more",
-   "firms": 19
+   "firms": 20
   }
  ],
- "marketHalfTakesMedian": 20,
- "marketHalfTakesUS": 6,
- "marketHalfTakesVN": 49,
+ "marketHalfTakesMedian": 21,
+ "marketHalfTakesUS": 7,
+ "marketHalfTakesVN": 52,
  "marketCount": 93
 }

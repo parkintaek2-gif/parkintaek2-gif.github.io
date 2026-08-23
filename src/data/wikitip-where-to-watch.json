@@ -1,13 +1,13 @@
 {
- "generated": "2026-08-22",
+ "generated": "2026-08-23",
  "whatThisIs": "A floor on where a Korean title could be watched. If a title held a place on a country’s weekly Netflix top 10 in a given week, it was available in that country that week. That is arithmetic, not an estimate.",
  "whatThisIsNot": "Not a list of what you can watch today, and not a completeness claim. Netflix publishes no availability data at all, and it publishes only the weekly top 10 — so a title absent from a country here may still have been available there without charting. Never read the absence as a no.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
+ "weekTo": "2026-08-16",
+ "weekCount": 268,
  "marketCount": 93,
- "titlesConsidered": 528,
+ "titlesConsidered": 559,
  "countryCount": 93,
  "countriesWithoutSlug": 0,
  "perCountryShown": 12,
@@ -149,10 +149,10 @@
    "title": "Desire",
    "slug": "desire",
    "type": "Films",
-   "weeks": 2,
+   "weeks": 5,
    "countries": 90,
    "firstWeek": "2026-07-19",
-   "lastWeek": "2026-07-26",
+   "lastWeek": "2026-08-16",
    "someCountries": [
     "Argentina",
     "Australia",
@@ -320,10 +320,10 @@
    "title": "Oasis",
    "slug": "oasis",
    "type": "TV",
-   "weeks": 6,
+   "weeks": 9,
    "countries": 82,
    "firstWeek": "2026-06-21",
-   "lastWeek": "2026-07-26",
+   "lastWeek": "2026-08-16",
    "someCountries": [
     "Argentina",
     "Australia",
@@ -339,10 +339,10 @@
    "title": "Agent Kim Reactivated",
    "slug": "agent-kim-reactivated",
    "type": "TV",
-   "weeks": 5,
+   "weeks": 8,
    "countries": 81,
    "firstWeek": "2026-06-28",
-   "lastWeek": "2026-07-26",
+   "lastWeek": "2026-08-16",
    "someCountries": [
     "Argentina",
     "Australia",
@@ -555,20 +555,20 @@
      "last": "2024-05-12"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "When Life Gives You Tangerines",
      "slug": "when-life-gives-you-tangerines",
      "type": "TV",
      "weeks": 21,
      "first": "2025-04-06",
      "last": "2025-04-13"
-    },
-    {
-     "title": "My Demon",
-     "slug": "my-demon",
-     "type": "TV",
-     "weeks": 20,
-     "first": "2023-12-03",
-     "last": "2023-12-31"
     }
    ]
   },
@@ -767,12 +767,12 @@
      "last": "2021-08-01"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
+     "title": "Mercy For None",
+     "slug": "mercy-for-none",
      "type": "TV",
      "weeks": 12,
-     "first": "2024-03-24",
-     "last": "2024-09-15"
+     "first": "2025-06-15",
+     "last": "2025-06-15"
     }
    ]
   },
@@ -1143,6 +1143,30 @@
      "last": "2026-04-12"
     },
     {
+     "title": "Family Business",
+     "slug": "family-business",
+     "type": "Films",
+     "weeks": 13,
+     "first": "2021-10-17",
+     "last": "2021-10-17"
+    },
+    {
+     "title": "Weak Hero",
+     "slug": "weak-hero",
+     "type": "TV",
+     "weeks": 13,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
+    },
+    {
+     "title": "Mercy For None",
+     "slug": "mercy-for-none",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-06-15",
+     "last": "2025-06-15"
+    },
+    {
      "title": "Red Eye",
      "slug": "red-eye",
      "type": "TV",
@@ -1157,30 +1181,6 @@
      "weeks": 12,
      "first": "2022-02-27",
      "last": "2022-04-03"
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "weeks": 11,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
-     "title": "Hierarchy",
-     "slug": "hierarchy",
-     "type": "Films",
-     "weeks": 11,
-     "first": "2024-06-16",
-     "last": "2024-06-16"
-    },
-    {
-     "title": "Kill Boksoon",
-     "slug": "kill-boksoon",
-     "type": "Films",
-     "weeks": 11,
-     "first": "2023-04-02",
-     "last": "2023-04-09"
     }
    ]
   },
@@ -1787,12 +1787,12 @@
      "last": "2024-05-19"
     },
     {
-     "title": "When Life Gives You Tangerines",
-     "slug": "when-life-gives-you-tangerines",
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
      "type": "TV",
      "weeks": 21,
-     "first": "2025-03-23",
-     "last": "2025-04-20"
+     "first": "2026-01-18",
+     "last": "2026-02-08"
     }
    ]
   },
@@ -2045,6 +2045,14 @@
      "last": "2025-02-02"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -2067,14 +2075,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2023-10-15"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "Bloodhounds",
@@ -2195,12 +2195,12 @@
      "last": "2024-10-06"
     },
     {
-     "title": "Addicted",
-     "slug": "addicted",
-     "type": "Films",
-     "weeks": 12,
-     "first": "2023-06-18",
-     "last": "2023-06-25"
+     "title": "Weak Hero",
+     "slug": "weak-hero",
+     "type": "TV",
+     "weeks": 13,
+     "first": "2025-04-27",
+     "last": "2025-04-27"
     }
    ]
   },
@@ -2799,20 +2799,20 @@
      "last": "2026-04-12"
     },
     {
+     "title": "Weak Hero",
+     "slug": "weak-hero",
+     "type": "TV",
+     "weeks": 13,
+     "first": "2025-04-27",
+     "last": "2025-04-27"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "slug": "bon-appetit-your-majesty",
      "type": "TV",
      "weeks": 12,
      "first": "2025-09-14",
      "last": "2025-09-14"
-    },
-    {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2022-03-06",
-     "last": "2022-04-03"
     }
    ]
   },
@@ -2979,6 +2979,14 @@
      "last": "2025-02-02"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -2993,14 +3001,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2025-03-23"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -3105,20 +3105,20 @@
      "last": "2021-08-01"
     },
     {
+     "title": "Mercy For None",
+     "slug": "mercy-for-none",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-06-15",
+     "last": "2025-06-15"
+    },
+    {
      "title": "Red Eye",
      "slug": "red-eye",
      "type": "TV",
      "weeks": 12,
      "first": "2024-03-31",
      "last": "2024-09-22"
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "weeks": 11,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     }
    ]
   },
@@ -3215,12 +3215,12 @@
      "last": "2024-04-07"
     },
     {
-     "title": "My Demon",
-     "slug": "my-demon",
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
      "type": "TV",
-     "weeks": 20,
-     "first": "2023-11-26",
-     "last": "2023-12-17"
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
     }
    ]
   },
@@ -3269,6 +3269,14 @@
      "last": "2025-02-02"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -3291,14 +3299,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2025-03-23"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -3693,6 +3693,14 @@
      "last": "2024-07-21"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -3707,14 +3715,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2023-10-15"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -4203,6 +4203,14 @@
      "last": "2023-03-05"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -4217,14 +4225,6 @@
      "weeks": 18,
      "first": "2023-10-15",
      "last": "2023-10-22"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "Bloodhounds",
@@ -4305,6 +4305,14 @@
      "last": "2024-08-25"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -4319,14 +4327,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2023-10-15"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -5043,20 +5043,20 @@
      "last": "2024-03-17"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "Memory",
      "slug": "memory",
      "type": "Films",
      "weeks": 20,
      "first": "2026-02-08",
      "last": "2026-03-01"
-    },
-    {
-     "title": "My Demon",
-     "slug": "my-demon",
-     "type": "TV",
-     "weeks": 20,
-     "first": "2023-11-26",
-     "last": "2023-12-17"
     }
    ]
   },
@@ -5153,12 +5153,12 @@
      "last": "2023-12-31"
     },
     {
-     "title": "Bon Appétit, Your Majesty",
-     "slug": "bon-appetit-your-majesty",
+     "title": "Weak Hero",
+     "slug": "weak-hero",
      "type": "TV",
-     "weeks": 12,
-     "first": "2025-09-14",
-     "last": "2025-09-14"
+     "weeks": 13,
+     "first": "2025-03-30",
+     "last": "2025-04-27"
     }
    ]
   },
@@ -5207,6 +5207,14 @@
      "last": "2025-02-02"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -5221,14 +5229,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2023-10-22"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "Bloodhounds",
@@ -5247,20 +5247,20 @@
      "last": "2023-12-31"
     },
     {
-     "title": "Bon Appétit, Your Majesty",
-     "slug": "bon-appetit-your-majesty",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2025-08-31",
-     "last": "2025-09-07"
+     "title": "Family Business",
+     "slug": "family-business",
+     "type": "Films",
+     "weeks": 13,
+     "first": "2021-10-17",
+     "last": "2021-10-17"
     },
     {
-     "title": "Kingdom: Ashin of the North",
-     "slug": "kingdom-ashin-of-the-north",
-     "type": "Films",
-     "weeks": 12,
-     "first": "2021-08-01",
-     "last": "2021-08-01"
+     "title": "Weak Hero",
+     "slug": "weak-hero",
+     "type": "TV",
+     "weeks": 13,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
     }
    ]
   },
@@ -5639,6 +5639,14 @@
      "last": "2023-06-25"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -5661,14 +5669,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2025-03-23"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     }
    ]
   },
@@ -6149,6 +6149,14 @@
      "last": "2023-06-25"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -6163,14 +6171,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2025-03-23"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -7279,6 +7279,14 @@
      "last": "2025-01-26"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -7293,14 +7301,6 @@
      "weeks": 19,
      "first": "2024-12-22",
      "last": "2024-12-22"
-    },
-    {
-     "title": "Ballerina",
-     "slug": "ballerina",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2023-10-15",
-     "last": "2023-10-15"
     }
    ]
   },
@@ -7585,6 +7585,14 @@
      "last": "2023-06-25"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-02-01"
+    },
+    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -7599,14 +7607,6 @@
      "weeks": 19,
      "first": "2026-07-26",
      "last": "2026-07-26"
-    },
-    {
-     "title": "Ballerina",
-     "slug": "ballerina",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2023-10-08",
-     "last": "2025-03-23"
     }
    ]
   },
@@ -8487,6 +8487,14 @@
      "last": "2025-01-12"
     },
     {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
+    },
+    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -8501,14 +8509,6 @@
      "weeks": 18,
      "first": "2023-10-08",
      "last": "2023-10-15"
-    },
-    {
-     "title": "Can This Love Be Translated?",
-     "slug": "can-this-love-be-translated",
-     "type": "TV",
-     "weeks": 18,
-     "first": "2026-01-25",
-     "last": "2026-01-25"
     },
     {
      "title": "The Cursed",
@@ -8809,6 +8809,14 @@
      "last": "2021-08-01"
     },
     {
+     "title": "Mercy For None",
+     "slug": "mercy-for-none",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-06-15",
+     "last": "2025-06-15"
+    },
+    {
      "title": "Red Eye",
      "slug": "red-eye",
      "type": "TV",
@@ -8823,14 +8831,6 @@
      "weeks": 12,
      "first": "2022-03-06",
      "last": "2022-04-03"
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "weeks": 11,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     }
    ]
   },
@@ -9335,12 +9335,12 @@
      "last": "2021-10-24"
     },
     {
-     "title": "Uprising",
-     "slug": "uprising",
-     "type": "Films",
+     "title": "Oasis",
+     "slug": "oasis",
+     "type": "TV",
      "weeks": 9,
-     "first": "2024-10-13",
-     "last": "2024-10-20"
+     "first": "2026-06-21",
+     "last": "2026-08-09"
     }
    ]
   },

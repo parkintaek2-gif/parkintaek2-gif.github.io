@@ -2,7 +2,7 @@
 title: "Two shows from one Korean company on the same chart cost each other half a place"
 category: industry
 purpose: both
-dek: "Across 803 matched pairs, a Korean series sits at rank 5.71 on the weeks a stablemate shares the chart and 5.21 on the weeks it is alone. The direction is the one schedulers fear. The size is half of one place out of ten."
+dek: "Across 801 matched pairs, a Korean series sits at rank 5.73 on the weeks a stablemate shares the chart and 5.2 on the weeks it is alone. The direction is the one schedulers fear. The size is half of one place out of ten."
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -40,9 +40,9 @@ The answer is **half a place**.
 
 | A Korean series on a country's chart | Average rank |
 |---|---:|
-| On the weeks it was there alone | 5.21 |
-| On the weeks a series from the same company was also there | 5.71 |
-| Difference | 0.5 |
+| On the weeks it was there alone | 5.2 |
+| On the weeks a series from the same company was also there | 5.73 |
+| Difference | 0.53 |
 
 Rank 1 is the top of the chart, so a bigger number is a worse position: a series **sits lower** when
 its stablemate is beside it. The direction is the one schedulers fear. The size is half of one rank
@@ -64,13 +64,13 @@ the same way:
 
 | Age of the title | Pairs | Alone | With a sibling | Difference |
 |---|---:|---:|---:|---:|
-| Weeks 1–2 | 272 | 5.1 | 5.57 | 0.47 |
-| Weeks 3–4 | 190 | 5.04 | 5.17 | 0.13 |
-| Weeks 5–8 | 260 | 5.31 | 6.07 | 0.76 |
-| Week 9 and later | 81 | 5.69 | 6.29 | 0.6 |
+| Weeks 1–2 | 275 | 5.12 | 5.64 | 0.52 |
+| Weeks 3–4 | 189 | 5.05 | 5.14 | 0.09 |
+| Weeks 5–8 | 261 | 5.29 | 6.13 | 0.84 |
+| Week 9 and later | 76 | 5.53 | 6.17 | 0.64 |
 
 No band reaches a whole place. The largest gap is in weeks 5–8, and the smallest is in weeks 3–4,
-and we are not going to build a story on the difference between 0.13 and 0.76 across a few hundred
+and we are not going to build a story on the difference between 0.09 and 0.84 across a few hundred
 pairs — the honest summary is that all four are small and all four have the same sign.
 
 ## The version of this that was wrong
@@ -81,7 +81,7 @@ same country. That produced 205 pairs, and it looked like a small sample.
 It was not a small sample. It was a **strange** one. A title does not reach week 4 twice in one
 country, so an exact-age match is impossible by construction — the only pairs that survived were
 runs where Netflix's week counter had reset, which is not a random subset of anything. Matching
-inside age bands instead gives 803 pairs across 648 title-and-country runs, at the cost of allowing
+inside age bands instead gives 801 pairs across 647 title-and-country runs, at the cost of allowing
 up to a week of slack within a band. That is the trade we made, and it is the reason the numbers
 above exist at all.
 
@@ -89,11 +89,11 @@ above exist at all.
 
 | | |
 |---|---:|
-| Chart rows read | 493,600 |
-| Korean series rows with a company attached | 25,598 |
-| Of those, rows with a sibling on the same chart | 5,431 |
-| Weeks discarded — no comparable week to match against | 22,529 |
-| Pairs that survived | 803 |
+| Chart rows read | 499,180 |
+| Korean series rows with a company attached | 25,701 |
+| Of those, rows with a sibling on the same chart | 5,585 |
+| Weeks discarded — no comparable week to match against | 22,684 |
+| Pairs that survived | 801 |
 
 Far more was discarded than kept, and that is not a footnote. A week only counts if the same series,
 in the same country, at a comparable age, also spent a week without a stablemate. Most runs never

@@ -1,17 +1,17 @@
 {
- "generated": "2026-08-22",
+ "generated": "2026-08-23",
  "whatThisIs": "Every company credited on a Korean title that has entered a Netflix weekly top 10, with the titles we hold for it. Companies are in alphabetical order so the list cannot be read as a ranking.",
  "whatThisIsNot": "Not a measure of how good or how big a company is, and not a complete filmography. Credits come from Wikidata, which is incomplete: of the titles with a page here, some carry no company credit at all. That is a gap in the record, not a title without a maker.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
  "weekFrom": "2021-07-04",
- "weekTo": "2026-07-26",
- "weekCount": 265,
+ "weekTo": "2026-08-16",
+ "weekCount": 268,
  "marketCount": 93,
- "titlesConsidered": 528,
- "titlesWithNoCredit": 147,
- "companyCount": 188,
- "companiesWithTwoOrMore": 85,
- "companiesWithOne": 103,
+ "titlesConsidered": 559,
+ "titlesWithNoCredit": 139,
+ "companyCount": 199,
+ "companiesWithTwoOrMore": 98,
+ "companiesWithOne": 101,
  "detailPageCount": 8,
  "roleWords": [
   "produced",
@@ -25,7 +25,7 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 2,
+   "titleCount": 3,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -35,6 +35,13 @@
      "type": "Films",
      "weeks": 13,
      "markets": 6
+    },
+    {
+     "slug": "anchor",
+     "title": "Anchor",
+     "type": "Films",
+     "weeks": 1,
+     "markets": 1
     },
     {
      "slug": "secret-zoo",
@@ -77,7 +84,7 @@
    "roles": [
     "distributed"
    ],
-   "titleCount": 3,
+   "titleCount": 4,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -101,6 +108,13 @@
      "type": "Films",
      "weeks": 8,
      "markets": 2
+    },
+    {
+     "slug": "sleepless",
+     "title": "Sleepless",
+     "type": "Films",
+     "weeks": 8,
+     "markets": 19
     }
    ]
   },
@@ -235,10 +249,31 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 4,
+   "titleCount": 9,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
+    {
+     "slug": "unstoppable",
+     "title": "Unstoppable",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 5
+    },
+    {
+     "slug": "men-of-plastic",
+     "title": "Men of Plastic",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 1
+    },
+    {
+     "slug": "rebound",
+     "title": "Rebound",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 1
+    },
     {
      "slug": "the-roundup",
      "title": "The Roundup",
@@ -254,8 +289,22 @@
      "markets": 1
     },
     {
+     "slug": "the-devil-s-deal",
+     "title": "The Devil's Deal",
+     "type": "Films",
+     "weeks": 2,
+     "markets": 1
+    },
+    {
      "slug": "the-roundup-no-way-out",
      "title": "The Roundup: No Way Out",
+     "type": "Films",
+     "weeks": 2,
+     "markets": 1
+    },
+    {
+     "slug": "the-roundup-punishment",
+     "title": "The Roundup: Punishment",
      "type": "Films",
      "weeks": 2,
      "markets": 1
@@ -330,7 +379,7 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 2,
+   "titleCount": 3,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -347,6 +396,46 @@
      "type": "Films",
      "weeks": 7,
      "markets": 7
+    },
+    {
+     "slug": "summertime",
+     "title": "Summertime",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 3
+    }
+   ]
+  },
+  {
+   "firm": "BH Entertainment",
+   "slug": "bh-entertainment",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 3,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "the-match",
+     "title": "The Match",
+     "type": "Films",
+     "weeks": 10,
+     "markets": 8
+    },
+    {
+     "slug": "concrete-utopia",
+     "title": "Concrete Utopia",
+     "type": "Films",
+     "weeks": 9,
+     "markets": 2
+    },
+    {
+     "slug": "money-heist-korea-joint-economic-area",
+     "title": "Money Heist: Korea - Joint Economic Area",
+     "type": "TV",
+     "weeks": 7,
+     "markets": 77
     }
    ]
   },
@@ -380,6 +469,33 @@
      "type": "TV",
      "weeks": 8,
      "markets": 72
+    }
+   ]
+  },
+  {
+   "firm": "BY4M STUDIO",
+   "slug": "by4m-studio",
+   "roles": [
+    "produced",
+    "distributed"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "king-the-land",
+     "title": "King the Land",
+     "type": "TV",
+     "weeks": 22,
+     "markets": 55
+    },
+    {
+     "slug": "the-match",
+     "title": "The Match",
+     "type": "Films",
+     "weeks": 10,
+     "markets": 8
     }
    ]
   },
@@ -562,11 +678,11 @@
      "markets": 3
     },
     {
-     "slug": "my-son",
-     "title": "My Son",
-     "type": "Films",
-     "weeks": 4,
-     "markets": 10
+     "slug": "summertime",
+     "title": "Summertime",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 3
     },
     {
      "slug": "voice",
@@ -621,10 +737,10 @@
    "firm": "CJ ENM Entertainment Division",
    "slug": "cj-enm-entertainment-division",
    "roles": [
-    "distributed",
-    "produced"
+    "produced",
+    "distributed"
    ],
-   "titleCount": 22,
+   "titleCount": 25,
    "detailSlug": "cj-enm-entertainment-division",
    "hasDetailPage": true,
    "titles": [
@@ -662,6 +778,13 @@
      "type": "TV",
      "weeks": 13,
      "markets": 53
+    },
+    {
+     "slug": "confidential-assignment-2-international",
+     "title": "Confidential Assignment 2: International",
+     "type": "Films",
+     "weeks": 11,
+     "markets": 3
     },
     {
      "slug": "undercover-miss-hong",
@@ -720,8 +843,36 @@
      "markets": 20
     },
     {
+     "slug": "amazon-bullseye",
+     "title": "Amazon Bullseye",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 1
+    },
+    {
      "slug": "broker",
      "title": "Broker",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 1
+    },
+    {
+     "slug": "spooky-in-love",
+     "title": "Spooky in Love",
+     "type": "TV",
+     "weeks": 5,
+     "markets": 48
+    },
+    {
+     "slug": "the-auditors",
+     "title": "The Auditors",
+     "type": "TV",
+     "weeks": 5,
+     "markets": 5
+    },
+    {
+     "slug": "the-boys",
+     "title": "The Boys",
      "type": "Films",
      "weeks": 5,
      "markets": 1
@@ -732,13 +883,6 @@
      "type": "Films",
      "weeks": 4,
      "markets": 2
-    },
-    {
-     "slug": "the-auditors",
-     "title": "The Auditors",
-     "type": "TV",
-     "weeks": 4,
-     "markets": 4
     },
     {
      "slug": "delightfully-deceitful",
@@ -760,13 +904,6 @@
      "type": "TV",
      "weeks": 2,
      "markets": 3
-    },
-    {
-     "slug": "spooky-in-love",
-     "title": "Spooky in Love",
-     "type": "TV",
-     "weeks": 2,
-     "markets": 47
     },
     {
      "slug": "the-spy-gone-north",
@@ -791,7 +928,7 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 30,
+   "titleCount": 36,
    "detailSlug": "cj-enm-films-television",
    "hasDetailPage": true,
    "titles": [
@@ -810,11 +947,25 @@
      "markets": 27
     },
     {
+     "slug": "confidential-assignment-2-international",
+     "title": "Confidential Assignment 2: International",
+     "type": "Films",
+     "weeks": 11,
+     "markets": 3
+    },
+    {
      "slug": "parasite",
      "title": "Parasite",
      "type": "Films",
      "weeks": 11,
      "markets": 4
+    },
+    {
+     "slug": "oasis",
+     "title": "Oasis",
+     "type": "TV",
+     "weeks": 9,
+     "markets": 82
     },
     {
      "slug": "project-silence",
@@ -831,6 +982,13 @@
      "markets": 12
     },
     {
+     "slug": "believer-2",
+     "title": "Believer 2",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 37
+    },
+    {
      "slug": "decision-to-leave",
      "title": "Decision to Leave",
      "type": "Films",
@@ -845,13 +1003,6 @@
      "markets": 1
     },
     {
-     "slug": "oasis",
-     "title": "Oasis",
-     "type": "TV",
-     "weeks": 6,
-     "markets": 82
-    },
-    {
      "slug": "boomerang-family",
      "title": "Boomerang Family",
      "type": "Films",
@@ -859,8 +1010,36 @@
      "markets": 1
     },
     {
+     "slug": "midnight",
+     "title": "Midnight",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 2
+    },
+    {
+     "slug": "the-moon",
+     "title": "The Moon",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 3
+    },
+    {
+     "slug": "way-home",
+     "title": "Way Home",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 6
+    },
+    {
      "slug": "my-annoying-brother",
      "title": "My Annoying Brother",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 2
+    },
+    {
+     "slug": "phantom",
+     "title": "Phantom",
      "type": "Films",
      "weeks": 4,
      "markets": 2
@@ -899,6 +1078,13 @@
      "type": "TV",
      "weeks": 3,
      "markets": 2
+    },
+    {
+     "slug": "hindsight",
+     "title": "Hindsight",
+     "type": "Films",
+     "weeks": 2,
+     "markets": 1
     },
     {
      "slug": "operation-chromite",
@@ -992,13 +1178,6 @@
      "markets": 3
     },
     {
-     "slug": "the-uninvited",
-     "title": "The Uninvited",
-     "type": "Films",
-     "weeks": 1,
-     "markets": 1
-    },
-    {
      "slug": "tidal-wave",
      "title": "Tidal Wave",
      "type": "Films",
@@ -1050,8 +1229,8 @@
      "slug": "spooky-in-love",
      "title": "Spooky in Love",
      "type": "TV",
-     "weeks": 2,
-     "markets": 47
+     "weeks": 5,
+     "markets": 48
     }
    ]
   },
@@ -1061,9 +1240,9 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 6,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "titleCount": 10,
+   "detailSlug": "climax-studio",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "ballerina",
@@ -1087,11 +1266,39 @@
      "markets": 89
     },
     {
+     "slug": "concrete-utopia",
+     "title": "Concrete Utopia",
+     "type": "Films",
+     "weeks": 9,
+     "markets": 2
+    },
+    {
      "slug": "hellbound",
      "title": "Hellbound",
      "type": "TV",
      "weeks": 9,
      "markets": 92
+    },
+    {
+     "slug": "officer-black-belt",
+     "title": "Officer Black Belt",
+     "type": "Films",
+     "weeks": 7,
+     "markets": 89
+    },
+    {
+     "slug": "jung-e",
+     "title": "JUNG_E",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 87
+    },
+    {
+     "slug": "project-y",
+     "title": "Project Y",
+     "type": "Films",
+     "weeks": 3,
+     "markets": 1
     },
     {
      "slug": "lost-in-starlight",
@@ -1106,6 +1313,32 @@
      "type": "Films",
      "weeks": 2,
      "markets": 3
+    }
+   ]
+  },
+  {
+   "firm": "Copus Korea",
+   "slug": "copus-korea",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "the-tale-of-lady-ok",
+     "title": "The Tale of Lady Ok",
+     "type": "TV",
+     "weeks": 11,
+     "markets": 12
+    },
+    {
+     "slug": "dali-cocky-prince",
+     "title": "Dali & Cocky Prince",
+     "type": "TV",
+     "weeks": 4,
+     "markets": 8
     }
    ]
   },
@@ -1137,6 +1370,58 @@
      "slug": "the-legend-of-the-blue-sea",
      "title": "The Legend of the Blue Sea",
      "type": "TV",
+     "weeks": 3,
+     "markets": 2
+    }
+   ]
+  },
+  {
+   "firm": "Daou Technology Inc.",
+   "slug": "daou-technology-inc",
+   "roles": [
+    "distributed"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "my-love-my-bride",
+     "title": "My Love, My Bride",
+     "type": "Films",
+     "weeks": 1,
+     "markets": 1
+    },
+    {
+     "slug": "the-tooth-and-the-nail",
+     "title": "The Tooth and the Nail",
+     "type": "Films",
+     "weeks": 1,
+     "markets": 1
+    }
+   ]
+  },
+  {
+   "firm": "Dexter Studios",
+   "slug": "dexter-studios",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "the-moon",
+     "title": "The Moon",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 3
+    },
+    {
+     "slug": "along-with-the-gods-the-two-worlds",
+     "title": "Along with the Gods: The Two Worlds",
+     "type": "Films",
      "weeks": 3,
      "markets": 2
     }
@@ -1230,7 +1515,7 @@
     "first broadcast",
     "distributed"
    ],
-   "titleCount": 8,
+   "titleCount": 9,
    "detailSlug": "ena",
    "hasDetailPage": true,
    "titles": [
@@ -1247,6 +1532,13 @@
      "type": "TV",
      "weeks": 8,
      "markets": 54
+    },
+    {
+     "slug": "pale-moon",
+     "title": "Pale Moon",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 1
     },
     {
      "slug": "brewing-love",
@@ -1303,18 +1595,18 @@
    "hasDetailPage": false,
    "titles": [
     {
+     "slug": "blade-of-the-immortal",
+     "title": "Blade of the Immortal",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 2
+    },
+    {
      "slug": "along-with-the-gods-the-two-worlds",
      "title": "Along with the Gods: The Two Worlds",
      "type": "Films",
      "weeks": 3,
      "markets": 2
-    },
-    {
-     "slug": "blade-of-the-immortal",
-     "title": "Blade of the Immortal",
-     "type": "Films",
-     "weeks": 3,
-     "markets": 1
     },
     {
      "slug": "the-handmaiden",
@@ -1484,7 +1776,7 @@
    "roles": [
     "first broadcast"
    ],
-   "titleCount": 4,
+   "titleCount": 5,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -1494,6 +1786,13 @@
      "type": "TV",
      "weeks": 8,
      "markets": 54
+    },
+    {
+     "slug": "pale-moon",
+     "title": "Pale Moon",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 1
     },
     {
      "slug": "brewing-love",
@@ -1697,7 +1996,7 @@
     "distributed",
     "first broadcast"
    ],
-   "titleCount": 5,
+   "titleCount": 6,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -1709,6 +2008,13 @@
      "markets": 7
     },
     {
+     "slug": "blade-of-the-immortal",
+     "title": "Blade of the Immortal",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 2
+    },
+    {
      "slug": "along-with-the-gods-the-two-worlds",
      "title": "Along with the Gods: The Two Worlds",
      "type": "Films",
@@ -1716,11 +2022,11 @@
      "markets": 2
     },
     {
-     "slug": "blade-of-the-immortal",
-     "title": "Blade of the Immortal",
+     "slug": "last-knights",
+     "title": "Last Knights",
      "type": "Films",
      "weeks": 3,
-     "markets": 1
+     "markets": 20
     },
     {
      "slug": "the-legend-of-the-blue-sea",
@@ -1779,6 +2085,39 @@
    ]
   },
   {
+   "firm": "IHQ",
+   "slug": "ihq",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 3,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "6-45",
+     "title": "6/45",
+     "type": "Films",
+     "weeks": 7,
+     "markets": 2
+    },
+    {
+     "slug": "the-people-upstairs",
+     "title": "The People Upstairs",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 1
+    },
+    {
+     "slug": "summertime",
+     "title": "Summertime",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 3
+    }
+   ]
+  },
+  {
    "firm": "iQIYI",
    "slug": "iqiyi",
    "roles": [
@@ -1812,10 +2151,17 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 3,
+   "titleCount": 4,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
+    {
+     "slug": "confidential-assignment-2-international",
+     "title": "Confidential Assignment 2: International",
+     "type": "Films",
+     "weeks": 11,
+     "markets": 3
+    },
     {
      "slug": "the-negotiation",
      "title": "The Negotiation",
@@ -1846,7 +2192,7 @@
     "first broadcast",
     "distributed"
    ],
-   "titleCount": 42,
+   "titleCount": 44,
    "detailSlug": "jtbc",
    "hasDetailPage": true,
    "titles": [
@@ -1898,6 +2244,13 @@
      "type": "TV",
      "weeks": 13,
      "markets": 2
+    },
+    {
+     "slug": "doctor-cha",
+     "title": "Doctor Cha",
+     "type": "TV",
+     "weeks": 12,
+     "markets": 39
     },
     {
      "slug": "welcome-to-samdal-ri",
@@ -2082,6 +2435,13 @@
      "markets": 9
     },
     {
+     "slug": "the-apartment-job",
+     "title": "The Apartment Job",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 19
+    },
+    {
      "slug": "still-shining",
      "title": "Still Shining",
      "type": "TV",
@@ -2103,6 +2463,13 @@
      "markets": 10
     },
     {
+     "slug": "miraculous-brothers",
+     "title": "Miraculous Brothers",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 5
+    },
+    {
      "slug": "misty",
      "title": "Misty",
      "type": "TV",
@@ -2122,13 +2489,6 @@
      "type": "TV",
      "weeks": 3,
      "markets": 1
-    },
-    {
-     "slug": "the-apartment-job",
-     "title": "The Apartment Job",
-     "type": "TV",
-     "weeks": 3,
-     "markets": 19
     },
     {
      "slug": "law-school",
@@ -2249,7 +2609,7 @@
     "first broadcast",
     "produced"
    ],
-   "titleCount": 24,
+   "titleCount": 25,
    "detailSlug": "kbs",
    "hasDetailPage": true,
    "titles": [
@@ -2336,6 +2696,13 @@
      "type": "Films",
      "weeks": 5,
      "markets": 30
+    },
+    {
+     "slug": "dali-cocky-prince",
+     "title": "Dali & Cocky Prince",
+     "type": "TV",
+     "weeks": 4,
+     "markets": 8
     },
     {
      "slug": "descendants-of-the-sun",
@@ -2549,16 +2916,49 @@
    ]
   },
   {
+   "firm": "Lotte Cultureworks",
+   "slug": "lotte-cultureworks",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "the-8-show",
+     "title": "The 8 Show",
+     "type": "TV",
+     "weeks": 10,
+     "markets": 68
+    },
+    {
+     "slug": "pale-moon",
+     "title": "Pale Moon",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 1
+    }
+   ]
+  },
+  {
    "firm": "Lotte Entertainment",
    "slug": "lotte-entertainment",
    "roles": [
     "distributed",
     "produced"
    ],
-   "titleCount": 7,
-   "detailSlug": "lotte-entertainment",
-   "hasDetailPage": true,
+   "titleCount": 11,
+   "detailSlug": null,
+   "hasDetailPage": false,
    "titles": [
+    {
+     "slug": "switch",
+     "title": "Switch",
+     "type": "Films",
+     "weeks": 11,
+     "markets": 3
+    },
     {
      "slug": "thirty-nine",
      "title": "Thirty-Nine",
@@ -2586,6 +2986,27 @@
      "type": "Films",
      "weeks": 9,
      "markets": 4
+    },
+    {
+     "slug": "sleepless",
+     "title": "Sleepless",
+     "type": "Films",
+     "weeks": 8,
+     "markets": 19
+    },
+    {
+     "slug": "the-pirates-the-last-royal-treasure",
+     "title": "The Pirates: The Last Royal Treasure",
+     "type": "Films",
+     "weeks": 7,
+     "markets": 67
+    },
+    {
+     "slug": "confession",
+     "title": "Confession",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 2
     },
     {
      "slug": "midnight-runners",
@@ -2703,13 +3124,6 @@
      "markets": 7
     },
     {
-     "slug": "fireworks",
-     "title": "Fireworks",
-     "type": "Films",
-     "weeks": 7,
-     "markets": 5
-    },
-    {
      "slug": "oh-my-ghost-clients",
      "title": "Oh My Ghost Clients",
      "type": "TV",
@@ -2752,6 +3166,13 @@
      "markets": 5
     },
     {
+     "slug": "the-great-seduction",
+     "title": "The Great Seduction",
+     "type": "Films",
+     "weeks": 3,
+     "markets": 21
+    },
+    {
      "slug": "knight-flower",
      "title": "Knight Flower",
      "type": "TV",
@@ -2773,10 +3194,17 @@
    "roles": [
     "distributed"
    ],
-   "titleCount": 2,
+   "titleCount": 3,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
+    {
+     "slug": "bogota-city-of-the-lost",
+     "title": "Bogotá: City of the Lost",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 73
+    },
     {
      "slug": "the-outlaws",
      "title": "The Outlaws",
@@ -2816,6 +3244,32 @@
      "type": "Films",
      "weeks": 1,
      "markets": 1
+    }
+   ]
+  },
+  {
+   "firm": "MI.Inc",
+   "slug": "mi-inc",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "welcome-to-samdal-ri",
+     "title": "Welcome to Samdal-ri",
+     "type": "TV",
+     "weeks": 12,
+     "markets": 35
+    },
+    {
+     "slug": "miraculous-brothers",
+     "title": "Miraculous Brothers",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 5
     }
    ]
   },
@@ -2891,7 +3345,7 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 3,
+   "titleCount": 4,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -2908,6 +3362,13 @@
      "type": "TV",
      "weeks": 5,
      "markets": 1
+    },
+    {
+     "slug": "dali-cocky-prince",
+     "title": "Dali & Cocky Prince",
+     "type": "TV",
+     "weeks": 4,
+     "markets": 8
     },
     {
      "slug": "spring-of-youth",
@@ -2991,7 +3452,7 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 13,
+   "titleCount": 14,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -3036,6 +3497,13 @@
      "type": "Films",
      "weeks": 7,
      "markets": 8
+    },
+    {
+     "slug": "cat",
+     "title": "CAT",
+     "type": "TV",
+     "weeks": 7,
+     "markets": 11
     },
     {
      "slug": "train-to-busan",
@@ -3202,10 +3670,17 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 8,
+   "titleCount": 11,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
+    {
+     "slug": "escape",
+     "title": "Escape",
+     "type": "Films",
+     "weeks": 16,
+     "markets": 3
+    },
     {
      "slug": "12-12-the-day",
      "title": "12.12: The Day",
@@ -3228,6 +3703,13 @@
      "markets": 4
     },
     {
+     "slug": "the-match",
+     "title": "The Match",
+     "type": "Films",
+     "weeks": 10,
+     "markets": 8
+    },
+    {
      "slug": "the-point-men",
      "title": "The Point Men",
      "type": "Films",
@@ -3240,6 +3722,13 @@
      "type": "Films",
      "weeks": 7,
      "markets": 1
+    },
+    {
+     "slug": "dream",
+     "title": "Dream",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 21
     },
     {
      "slug": "project-y",
@@ -3297,24 +3786,10 @@
     "first broadcast",
     "distributed"
    ],
-   "titleCount": 37,
+   "titleCount": 36,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
-    {
-     "slug": "business-proposal",
-     "title": "Business Proposal",
-     "type": "TV",
-     "weeks": 44,
-     "markets": 58
-    },
-    {
-     "slug": "little-women",
-     "title": "Little Women",
-     "type": "Films",
-     "weeks": 40,
-     "markets": 72
-    },
     {
      "slug": "the-penthouse-war-in-life",
      "title": "The Penthouse: War in Life",
@@ -3400,6 +3875,13 @@
      "markets": 52
     },
     {
+     "slug": "agent-kim-reactivated",
+     "title": "Agent Kim Reactivated",
+     "type": "TV",
+     "weeks": 8,
+     "markets": 81
+    },
+    {
      "slug": "no-tail-to-tell",
      "title": "No Tail to Tell",
      "type": "TV",
@@ -3412,6 +3894,13 @@
      "type": "TV",
      "weeks": 8,
      "markets": 46
+    },
+    {
+     "slug": "fireworks",
+     "title": "Fireworks",
+     "type": "Films",
+     "weeks": 7,
+     "markets": 5
     },
     {
      "slug": "one-the-woman",
@@ -3447,13 +3936,6 @@
      "type": "TV",
      "weeks": 6,
      "markets": 5
-    },
-    {
-     "slug": "agent-kim-reactivated",
-     "title": "Agent Kim Reactivated",
-     "type": "TV",
-     "weeks": 5,
-     "markets": 81
     },
     {
      "slug": "backstreet-rookie",
@@ -3563,13 +4045,39 @@
    ]
   },
   {
+   "firm": "Shotcake",
+   "slug": "shotcake",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "weak-hero",
+     "title": "Weak Hero",
+     "type": "TV",
+     "weeks": 13,
+     "markets": 72
+    },
+    {
+     "slug": "tastefully-yours",
+     "title": "Tastefully Yours",
+     "type": "TV",
+     "weeks": 8,
+     "markets": 54
+    }
+   ]
+  },
+  {
    "firm": "SHOWBOX Co., Ltd.",
    "slug": "showbox-co-ltd",
    "roles": [
     "distributed",
     "produced"
    ],
-   "titleCount": 21,
+   "titleCount": 23,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -3679,6 +4187,13 @@
      "markets": 1
     },
     {
+     "slug": "beauty-and-the-beast",
+     "title": "Beauty and the Beast",
+     "type": "Films",
+     "weeks": 2,
+     "markets": 13
+    },
+    {
      "slug": "commitment",
      "title": "Commitment",
      "type": "Films",
@@ -3719,6 +4234,13 @@
      "type": "Films",
      "weeks": 1,
      "markets": 1
+    },
+    {
+     "slug": "sunflower",
+     "title": "Sunflower",
+     "type": "Films",
+     "weeks": 1,
+     "markets": 1
     }
    ]
   },
@@ -3729,7 +4251,7 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 3,
+   "titleCount": 4,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -3752,6 +4274,13 @@
      "title": "Tazza: The High Rollers",
      "type": "Films",
      "weeks": 2,
+     "markets": 1
+    },
+    {
+     "slug": "the-housemaid",
+     "title": "The Housemaid",
+     "type": "Films",
+     "weeks": 1,
      "markets": 1
     }
    ]
@@ -3789,7 +4318,7 @@
     "distributed",
     "produced"
    ],
-   "titleCount": 34,
+   "titleCount": 36,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -3841,6 +4370,13 @@
      "type": "TV",
      "weeks": 13,
      "markets": 2
+    },
+    {
+     "slug": "doctor-cha",
+     "title": "Doctor Cha",
+     "type": "TV",
+     "weeks": 12,
+     "markets": 39
     },
     {
      "slug": "welcome-to-samdal-ri",
@@ -3976,6 +4512,13 @@
      "markets": 9
     },
     {
+     "slug": "the-apartment-job",
+     "title": "The Apartment Job",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 19
+    },
+    {
      "slug": "the-frog",
      "title": "The Frog",
      "type": "TV",
@@ -4011,18 +4554,18 @@
      "markets": 1
     },
     {
+     "slug": "miraculous-brothers",
+     "title": "Miraculous Brothers",
+     "type": "TV",
+     "weeks": 3,
+     "markets": 5
+    },
+    {
      "slug": "queen-of-divorce",
      "title": "Queen of Divorce",
      "type": "TV",
      "weeks": 3,
      "markets": 1
-    },
-    {
-     "slug": "the-apartment-job",
-     "title": "The Apartment Job",
-     "type": "TV",
-     "weeks": 3,
-     "markets": 19
     },
     {
      "slug": "the-sound-of-magic",
@@ -4072,7 +4615,7 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 27,
+   "titleCount": 28,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -4089,6 +4632,13 @@
      "type": "TV",
      "weeks": 45,
      "markets": 45
+    },
+    {
+     "slug": "little-women",
+     "title": "Little Women",
+     "type": "Films",
+     "weeks": 40,
+     "markets": 72
     },
     {
      "slug": "the-glory",
@@ -4358,18 +4908,18 @@
      "markets": 52
     },
     {
+     "slug": "mercy-for-none",
+     "title": "Mercy For None",
+     "type": "TV",
+     "weeks": 12,
+     "markets": 75
+    },
+    {
      "slug": "sweet-home",
      "title": "Sweet Home",
      "type": "TV",
      "weeks": 12,
      "markets": 42
-    },
-    {
-     "slug": "mercy-for-none",
-     "title": "Mercy For None",
-     "type": "TV",
-     "weeks": 10,
-     "markets": 75
     },
     {
      "slug": "the-8-show",
@@ -4447,7 +4997,7 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 7,
+   "titleCount": 8,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -4494,6 +5044,13 @@
      "markets": 7
     },
     {
+     "slug": "our-sticky-love",
+     "title": "Our Sticky Love",
+     "type": "TV",
+     "weeks": 2,
+     "markets": 68
+    },
+    {
      "slug": "spring-of-youth",
      "title": "Spring of Youth",
      "type": "TV",
@@ -4503,12 +5060,38 @@
    ]
   },
   {
+   "firm": "Studio&NEW",
+   "slug": "studio-and-new",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 2,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "doctor-cha",
+     "title": "Doctor Cha",
+     "type": "TV",
+     "weeks": 12,
+     "markets": 39
+    },
+    {
+     "slug": "the-childe",
+     "title": "The Childe",
+     "type": "Films",
+     "weeks": 8,
+     "markets": 2
+    }
+   ]
+  },
+  {
    "firm": "TME Group",
    "slug": "tme-group",
    "roles": [
     "produced"
    ],
-   "titleCount": 3,
+   "titleCount": 4,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -4532,6 +5115,13 @@
      "type": "Films",
      "weeks": 4,
      "markets": 20
+    },
+    {
+     "slug": "a-normal-family",
+     "title": "A Normal Family",
+     "type": "Films",
+     "weeks": 2,
+     "markets": 1
     }
    ]
   },
@@ -4583,7 +5173,7 @@
     "distributed",
     "first broadcast"
    ],
-   "titleCount": 9,
+   "titleCount": 10,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -4614,6 +5204,13 @@
      "type": "TV",
      "weeks": 7,
      "markets": 35
+    },
+    {
+     "slug": "pale-moon",
+     "title": "Pale Moon",
+     "type": "TV",
+     "weeks": 6,
+     "markets": 1
     },
     {
      "slug": "poong-the-joseon-psychiatrist",
@@ -4660,7 +5257,7 @@
     "first broadcast",
     "produced"
    ],
-   "titleCount": 65,
+   "titleCount": 66,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
@@ -4684,6 +5281,13 @@
      "type": "TV",
      "weeks": 45,
      "markets": 45
+    },
+    {
+     "slug": "little-women",
+     "title": "Little Women",
+     "type": "Films",
+     "weeks": 40,
+     "markets": 72
     },
     {
      "slug": "reply-1988",
@@ -4994,6 +5598,20 @@
      "markets": 11
     },
     {
+     "slug": "spooky-in-love",
+     "title": "Spooky in Love",
+     "type": "TV",
+     "weeks": 5,
+     "markets": 48
+    },
+    {
+     "slug": "the-auditors",
+     "title": "The Auditors",
+     "type": "TV",
+     "weeks": 5,
+     "markets": 5
+    },
+    {
      "slug": "when-my-love-blooms",
      "title": "When My Love Blooms",
      "type": "TV",
@@ -5013,13 +5631,6 @@
      "type": "TV",
      "weeks": 4,
      "markets": 18
-    },
-    {
-     "slug": "the-auditors",
-     "title": "The Auditors",
-     "type": "TV",
-     "weeks": 4,
-     "markets": 4
     },
     {
      "slug": "abyss",
@@ -5076,13 +5687,6 @@
      "type": "TV",
      "weeks": 2,
      "markets": 5
-    },
-    {
-     "slug": "spooky-in-love",
-     "title": "Spooky in Love",
-     "type": "TV",
-     "weeks": 2,
-     "markets": 47
     },
     {
      "slug": "the-three-musketeers",
@@ -5207,8 +5811,75 @@
    ]
   },
   {
-   "firm": "Yong Film",
-   "slug": "yong-film",
+   "firm": "Warner Bros. Entertainment",
+   "slug": "warner-bros-entertainment",
+   "roles": [
+    "distributed"
+   ],
+   "titleCount": 3,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "champion",
+     "title": "Champion",
+     "type": "TV",
+     "weeks": 7,
+     "markets": 15
+    },
+    {
+     "slug": "confession",
+     "title": "Confession",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 2
+    },
+    {
+     "slug": "blade-of-the-immortal",
+     "title": "Blade of the Immortal",
+     "type": "Films",
+     "weeks": 4,
+     "markets": 2
+    }
+   ]
+  },
+  {
+   "firm": "WAVVE",
+   "slug": "wavve",
+   "roles": [
+    "distributed",
+    "first broadcast"
+   ],
+   "titleCount": 3,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
+     "slug": "bitch-and-rich",
+     "title": "Bitch and Rich",
+     "type": "TV",
+     "weeks": 16,
+     "markets": 13
+    },
+    {
+     "slug": "weak-hero",
+     "title": "Weak Hero",
+     "type": "TV",
+     "weeks": 13,
+     "markets": 72
+    },
+    {
+     "slug": "payback-money-and-power",
+     "title": "Payback: Money and Power",
+     "type": "TV",
+     "weeks": 1,
+     "markets": 1
+    }
+   ]
+  },
+  {
+   "firm": "WHYNOT Media",
+   "slug": "whynot-media",
    "roles": [
     "produced"
    ],
@@ -5217,11 +5888,58 @@
    "hasDetailPage": false,
    "titles": [
     {
+     "slug": "bitch-and-rich",
+     "title": "Bitch and Rich",
+     "type": "TV",
+     "weeks": 16,
+     "markets": 13
+    },
+    {
+     "slug": "boyfriend-on-demand",
+     "title": "Boyfriend on Demand",
+     "type": "TV",
+     "weeks": 5,
+     "markets": 47
+    }
+   ]
+  },
+  {
+   "firm": "Yong Film",
+   "slug": "yong-film",
+   "roles": [
+    "produced"
+   ],
+   "titleCount": 5,
+   "detailSlug": null,
+   "hasDetailPage": false,
+   "titles": [
+    {
      "slug": "mercy-for-none",
      "title": "Mercy For None",
      "type": "TV",
-     "weeks": 10,
+     "weeks": 12,
      "markets": 75
+    },
+    {
+     "slug": "believer",
+     "title": "Believer",
+     "type": "Films",
+     "weeks": 7,
+     "markets": 8
+    },
+    {
+     "slug": "20th-century-girl",
+     "title": "20th Century Girl",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 46
+    },
+    {
+     "slug": "believer-2",
+     "title": "Believer 2",
+     "type": "Films",
+     "weeks": 6,
+     "markets": 37
     },
     {
      "slug": "my-name-is-loh-kiwan",
@@ -5259,6 +5977,12 @@
    "titleSlug": "cobweb"
   },
   {
+   "firm": "Arte",
+   "slug": "arte",
+   "title": "Way Home",
+   "titleSlug": "way-home"
+  },
+  {
    "firm": "B. A. Entertainment",
    "slug": "b-a-entertainment",
    "title": "Kingdom: Ashin of the North",
@@ -5289,22 +6013,16 @@
    "titleSlug": "sold-out-on-you"
   },
   {
-   "firm": "BH Entertainment",
-   "slug": "bh-entertainment",
-   "title": "Money Heist: Korea - Joint Economic Area",
-   "titleSlug": "money-heist-korea-joint-economic-area"
-  },
-  {
    "firm": "Big Ocean ENM",
    "slug": "big-ocean-enm",
    "title": "My Lovely Liar",
    "titleSlug": "my-lovely-liar"
   },
   {
-   "firm": "BY4M STUDIO",
-   "slug": "by4m-studio",
-   "title": "King the Land",
-   "titleSlug": "king-the-land"
+   "firm": "CANVAS N",
+   "slug": "canvas-n",
+   "title": "The Real Has Come!",
+   "titleSlug": "the-real-has-come"
   },
   {
    "firm": "Cineju Limited",
@@ -5323,24 +6041,6 @@
    "slug": "cj-e-and-m-media",
    "title": "Blade of the Immortal",
    "titleSlug": "blade-of-the-immortal"
-  },
-  {
-   "firm": "Copus Korea",
-   "slug": "copus-korea",
-   "title": "The Tale of Lady Ok",
-   "titleSlug": "the-tale-of-lady-ok"
-  },
-  {
-   "firm": "Daou Technology Inc.",
-   "slug": "daou-technology-inc",
-   "title": "The Tooth and the Nail",
-   "titleSlug": "the-tooth-and-the-nail"
-  },
-  {
-   "firm": "Dexter Studios",
-   "slug": "dexter-studios",
-   "title": "Along with the Gods: The Two Worlds",
-   "titleSlug": "along-with-the-gods-the-two-worlds"
   },
   {
    "firm": "Diaphana Films",
@@ -5367,6 +6067,12 @@
    "titleSlug": "love-scout"
   },
   {
+   "firm": "Epic Pictures Group",
+   "slug": "epic-pictures-group",
+   "title": "A Man of Reason",
+   "titleSlug": "a-man-of-reason"
+  },
+  {
    "firm": "Esperanto Filmoj",
    "slug": "esperanto-filmoj",
    "title": "Revelations",
@@ -5379,6 +6085,12 @@
    "titleSlug": "bugonia"
   },
   {
+   "firm": "Gaga Corporation",
+   "slug": "gaga-corporation",
+   "title": "Broker",
+   "titleSlug": "broker"
+  },
+  {
    "firm": "Golden Scene",
    "slug": "golden-scene",
    "title": "1987: When the Day Comes",
@@ -5389,6 +6101,12 @@
    "slug": "goldmedalist",
    "title": "It's Okay to Not Be Okay",
    "titleSlug": "it-s-okay-to-not-be-okay"
+  },
+  {
+   "firm": "Goldmoon Film",
+   "slug": "goldmoon-film",
+   "title": "The Childe",
+   "titleSlug": "the-childe"
   },
   {
    "firm": "Group 8",
@@ -5481,12 +6199,6 @@
    "titleSlug": "the-8th-night"
   },
   {
-   "firm": "Lotte Cultureworks",
-   "slug": "lotte-cultureworks",
-   "title": "The 8 Show",
-   "titleSlug": "the-8-show"
-  },
-  {
    "firm": "Luz y Sonidos",
    "slug": "luz-y-sonidos",
    "title": "Cobweb",
@@ -5505,12 +6217,6 @@
    "titleSlug": "oldboy"
   },
   {
-   "firm": "MI.Inc",
-   "slug": "mi-inc",
-   "title": "Welcome to Samdal-ri",
-   "titleSlug": "welcome-to-samdal-ri"
-  },
-  {
    "firm": "Mikado Film",
    "slug": "mikado-film",
    "title": "Time",
@@ -5521,6 +6227,12 @@
    "slug": "mym-entertainment",
    "title": "When the Stars Gossip",
    "titleSlug": "when-the-stars-gossip"
+  },
+  {
+   "firm": "Myung Films",
+   "slug": "myung-films",
+   "title": "Single in Seoul",
+   "titleSlug": "single-in-seoul"
   },
   {
    "firm": "Nangmancrew",
@@ -5589,6 +6301,12 @@
    "titleSlug": "mickey-17"
   },
   {
+   "firm": "Playlist Studio",
+   "slug": "playlist-studio",
+   "title": "Weak Hero",
+   "titleSlug": "weak-hero"
+  },
+  {
    "firm": "Plus Media Entertainment",
    "slug": "plus-media-entertainment",
    "title": "Chicken Nugget",
@@ -5655,12 +6373,6 @@
    "titleSlug": "bloodhounds"
   },
   {
-   "firm": "Shotcake",
-   "slug": "shotcake",
-   "title": "Tastefully Yours",
-   "titleSlug": "tastefully-yours"
-  },
-  {
    "firm": "Show Runners",
    "slug": "show-runners",
    "title": "Doona!",
@@ -5695,6 +6407,12 @@
    "slug": "star",
    "title": "Rookie Cops",
    "titleSlug": "rookie-cops"
+  },
+  {
+   "firm": "Starz Entertainment",
+   "slug": "starz-entertainment",
+   "title": "Last Knights",
+   "titleSlug": "last-knights"
   },
   {
    "firm": "Stone Music Entertainment",
@@ -5743,6 +6461,12 @@
    "slug": "studio-x-u",
    "title": "High Cookie",
    "titleSlug": "high-cookie"
+  },
+  {
+   "firm": "Super Moon Pictures",
+   "slug": "super-moon-pictures",
+   "title": "Pale Moon",
+   "titleSlug": "pale-moon"
   },
   {
    "firm": "TAEWON Entertainment",
@@ -5799,12 +6523,6 @@
    "titleSlug": "bugonia"
   },
   {
-   "firm": "Victory Contents",
-   "slug": "victory-contents",
-   "title": "The Real Has Come!",
-   "titleSlug": "the-real-has-come"
-  },
-  {
    "firm": "Vidio",
    "slug": "vidio",
    "title": "It’s Okay!",
@@ -5823,12 +6541,6 @@
    "titleSlug": "project-silence"
   },
   {
-   "firm": "Warner Bros. Entertainment",
-   "slug": "warner-bros-entertainment",
-   "title": "Blade of the Immortal",
-   "titleSlug": "blade-of-the-immortal"
-  },
-  {
    "firm": "Warner Bros. Japan",
    "slug": "warner-bros-japan",
    "title": "Blade of the Immortal",
@@ -5841,16 +6553,10 @@
    "titleSlug": "mickey-17"
   },
   {
-   "firm": "WAVVE",
-   "slug": "wavve",
-   "title": "Payback: Money and Power",
-   "titleSlug": "payback-money-and-power"
-  },
-  {
-   "firm": "WHYNOT Media",
-   "slug": "whynot-media",
-   "title": "Boyfriend on Demand",
-   "titleSlug": "boyfriend-on-demand"
+   "firm": "West World Story",
+   "slug": "west-world-story",
+   "title": "Hope",
+   "titleSlug": "hope"
   }
  ]
 }

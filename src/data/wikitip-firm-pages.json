@@ -1,11 +1,11 @@
 {
-  "generated": "2026-08-09T12:55:56.401Z",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, joined to production company (P272), original broadcaster (P449) and distributor (P750) from Wikidata.",
   "whatIsHere": "How far one company's titles travelled: how many markets, how many at once, and where the places fell.",
   "whatIsNotHere": "The week-by-week path of each title, its rank in each market, the full market table and the titles that never charted are in the company sheet, not on this page.",
   "whyTheseEight": "These are eight of the companies whose catalogue we can see most completely, taken in alphabetical order. It is not a ranking and the order carries no judgement.",
-  "weeksSpanned": 265,
-  "rowsRead": 493600,
+  "weeksSpanned": 268,
+  "rowsRead": 499180,
   "pages": 8,
   "firms": [
     {
@@ -14,9 +14,9 @@
       "grade": "A",
       "titlesInCatalogue": 10,
       "titlesThatCharted": 10,
-      "places": 65,
+      "places": 50,
       "markets": 23,
-      "weeks": 33,
+      "weeks": 32,
       "widestWeek": "2026-02-15",
       "widestWeekCountries": 9,
       "topMarket": "South Korea",
@@ -28,13 +28,6 @@
           "countries": 13,
           "atOnce": 9,
           "peak": 2
-        },
-        {
-          "title": "My Son",
-          "places": 20,
-          "countries": 10,
-          "atOnce": 7,
-          "peak": 1
         },
         {
           "title": "Solace",
@@ -51,6 +44,13 @@
           "peak": 2
         },
         {
+          "title": "Summertime",
+          "places": 5,
+          "countries": 3,
+          "atOnce": 3,
+          "peak": 1
+        },
+        {
           "title": "My Sassy Girl",
           "places": 4,
           "countries": 2,
@@ -64,15 +64,15 @@
       "firm": "CJ ENM Entertainment Division",
       "slug": "cj-enm-entertainment-division",
       "grade": "A",
-      "titlesInCatalogue": 25,
-      "titlesThatCharted": 25,
-      "places": 2082,
+      "titlesInCatalogue": 29,
+      "titlesThatCharted": 29,
+      "places": 2236,
       "markets": 56,
-      "weeks": 197,
+      "weeks": 204,
       "widestWeek": "2026-07-26",
       "widestWeekCountries": 47,
       "topMarket": "South Korea",
-      "topMarketPlaces": 135,
+      "topMarketPlaces": 160,
       "shown": [
         {
           "title": "Queen of Tears",
@@ -103,35 +103,42 @@
           "peak": 1
         },
         {
-          "title": "Our Unwritten Seoul",
-          "places": 176,
-          "countries": 40,
-          "atOnce": 40,
+          "title": "Spooky in Love",
+          "places": 191,
+          "countries": 48,
+          "atOnce": 47,
           "peak": 1
         }
       ],
-      "titlesNotShown": 20
+      "titlesNotShown": 24
     },
     {
       "firm": "CJ ENM Films & Television",
       "slug": "cj-enm-films-television",
       "grade": "A",
-      "titlesInCatalogue": 48,
-      "titlesThatCharted": 48,
-      "places": 447,
+      "titlesInCatalogue": 56,
+      "titlesThatCharted": 56,
+      "places": 565,
       "markets": 92,
-      "weeks": 115,
+      "weeks": 134,
       "widestWeek": "2026-06-28",
       "widestWeekCountries": 82,
       "topMarket": "South Korea",
-      "topMarketPlaces": 71,
+      "topMarketPlaces": 92,
       "shown": [
         {
           "title": "Oasis",
-          "places": 239,
+          "places": 253,
           "countries": 82,
           "atOnce": 82,
           "peak": 2
+        },
+        {
+          "title": "Believer 2",
+          "places": 68,
+          "countries": 37,
+          "atOnce": 35,
+          "peak": 1
         },
         {
           "title": "Monster",
@@ -153,30 +160,75 @@
           "countries": 12,
           "atOnce": 4,
           "peak": 4
-        },
-        {
-          "title": "Parasite",
-          "places": 11,
-          "countries": 4,
-          "atOnce": 1,
-          "peak": 3
         }
       ],
-      "titlesNotShown": 43
+      "titlesNotShown": 51
+    },
+    {
+      "firm": "Climax Studio",
+      "slug": "climax-studio",
+      "grade": "A",
+      "titlesInCatalogue": 10,
+      "titlesThatCharted": 10,
+      "places": 1193,
+      "markets": 92,
+      "weeks": 75,
+      "widestWeek": "2021-11-28",
+      "widestWeekCountries": 92,
+      "topMarket": "South Korea",
+      "topMarketPlaces": 68,
+      "shown": [
+        {
+          "title": "Hellbound",
+          "places": 261,
+          "countries": 92,
+          "atOnce": 92,
+          "peak": 1
+        },
+        {
+          "title": "Ballerina",
+          "places": 241,
+          "countries": 89,
+          "atOnce": 89,
+          "peak": 1
+        },
+        {
+          "title": "Badland Hunters",
+          "places": 226,
+          "countries": 89,
+          "atOnce": 89,
+          "peak": 1
+        },
+        {
+          "title": "Officer Black Belt",
+          "places": 205,
+          "countries": 89,
+          "atOnce": 89,
+          "peak": 1
+        },
+        {
+          "title": "JUNG_E",
+          "places": 172,
+          "countries": 87,
+          "atOnce": 87,
+          "peak": 1
+        }
+      ],
+      "titlesNotShown": 5
     },
     {
       "firm": "ENA",
       "slug": "ena",
       "grade": "A",
-      "titlesInCatalogue": 13,
-      "titlesThatCharted": 13,
-      "places": 848,
+      "titlesInCatalogue": 14,
+      "titlesThatCharted": 14,
+      "places": 854,
       "markets": 61,
-      "weeks": 69,
+      "weeks": 71,
       "widestWeek": "2022-08-21",
       "widestWeekCountries": 54,
       "topMarket": "South Korea",
-      "topMarketPlaces": 44,
+      "topMarketPlaces": 50,
       "shown": [
         {
           "title": "Extraordinary Attorney Woo",
@@ -214,21 +266,21 @@
           "peak": 1
         }
       ],
-      "titlesNotShown": 8
+      "titlesNotShown": 9
     },
     {
       "firm": "Filmmaker R&K",
       "slug": "filmmaker-r-k",
       "grade": "A",
-      "titlesInCatalogue": 12,
-      "titlesThatCharted": 12,
-      "places": 175,
+      "titlesInCatalogue": 14,
+      "titlesThatCharted": 14,
+      "places": 183,
       "markets": 67,
-      "weeks": 56,
+      "weeks": 64,
       "widestWeek": "2026-04-05",
       "widestWeekCountries": 67,
       "topMarket": "South Korea",
-      "topMarketPlaces": 41,
+      "topMarketPlaces": 49,
       "shown": [
         {
           "title": "Humint",
@@ -252,35 +304,35 @@
           "peak": 1
         },
         {
+          "title": "Pretty Crazy",
+          "places": 6,
+          "countries": 1,
+          "atOnce": 1,
+          "peak": 1
+        },
+        {
           "title": "The Battleship Island",
           "places": 6,
           "countries": 3,
           "atOnce": 2,
           "peak": 5
-        },
-        {
-          "title": "Start-Up",
-          "places": 4,
-          "countries": 2,
-          "atOnce": 1,
-          "peak": 5
         }
       ],
-      "titlesNotShown": 7
+      "titlesNotShown": 9
     },
     {
       "firm": "JTBC",
       "slug": "jtbc",
       "grade": "A",
-      "titlesInCatalogue": 59,
-      "titlesThatCharted": 59,
-      "places": 3996,
+      "titlesInCatalogue": 63,
+      "titlesThatCharted": 63,
+      "places": 4050,
       "markets": 73,
-      "weeks": 240,
+      "weeks": 247,
       "widestWeek": "2025-08-10",
       "widestWeekCountries": 51,
       "topMarket": "South Korea",
-      "topMarketPlaces": 311,
+      "topMarketPlaces": 330,
       "shown": [
         {
           "title": "King the Land",
@@ -318,7 +370,7 @@
           "peak": 1
         }
       ],
-      "titlesNotShown": 54
+      "titlesNotShown": 58
     },
     {
       "firm": "KBS",
@@ -371,58 +423,6 @@
         }
       ],
       "titlesNotShown": 32
-    },
-    {
-      "firm": "Lotte Entertainment",
-      "slug": "lotte-entertainment",
-      "grade": "A",
-      "titlesInCatalogue": 17,
-      "titlesThatCharted": 17,
-      "places": 405,
-      "markets": 89,
-      "weeks": 67,
-      "widestWeek": "2024-02-04",
-      "widestWeekCountries": 89,
-      "topMarket": "South Korea",
-      "topMarketPlaces": 53,
-      "shown": [
-        {
-          "title": "Badland Hunters",
-          "places": 226,
-          "countries": 89,
-          "atOnce": 89,
-          "peak": 1
-        },
-        {
-          "title": "Thirty-Nine",
-          "places": 107,
-          "countries": 16,
-          "atOnce": 16,
-          "peak": 1
-        },
-        {
-          "title": "Escape From Mogadishu",
-          "places": 10,
-          "countries": 2,
-          "atOnce": 1,
-          "peak": 1
-        },
-        {
-          "title": "Concrete Utopia",
-          "places": 9,
-          "countries": 2,
-          "atOnce": 1,
-          "peak": 1
-        },
-        {
-          "title": "The Divine Fury",
-          "places": 9,
-          "countries": 4,
-          "atOnce": 1,
-          "peak": 2
-        }
-      ],
-      "titlesNotShown": 12
     }
   ]
 }

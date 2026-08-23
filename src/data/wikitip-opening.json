@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T14:38+09:00",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "A title appears on a country chart at some position. That is the one fact anyone has on the first Monday. Does it say anything about how long the title will be there?",
   "unit": "A run is one title in one country across consecutive chart weeks. The entry position is where it sat in the first week of that run; the length is how many weeks the run lasted.",

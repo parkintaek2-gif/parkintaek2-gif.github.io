@@ -22,11 +22,30 @@ import { fileURLToPath } from 'node:url';
 
 const 규칙 = 'korean-netflix-titles';
 
-/** 규칙을 쓰는 짓는 자를 찾는다. **손 목록을 안 만든다.** */
+/**
+ * ⚠ **내 곳간만** 적는다. `archive/raw` 로 넓게 잡으면 6번·3번의 짓는 자까지 같이 돌아
+ *   내 보고에 남의 실패가 섞인다. 자기 자리를 넘지 않는다.
+ */
+const 곳간들 = ['archive/raw/netflix-top10', 'archive/raw/star-pageviews'];
+
+/**
+ * 다시 지어야 할 짓는 자를 **찾아낸다.** 손 목록을 안 만든다.
+ *
+ * ── 🔴 2026-08-23 · 하나만 따라가고 있었다 ──────────────────────
+ *   앞서는 「한국 작품 판정 규칙을 import 하는 것」만 찾았다. 오늘 자료를 새로 캘 때
+ *   **바뀐 입력이 둘**이었다 — 판정 규칙이 읽는 작품 목록, 그리고 위키 조회수 곳간.
+ *   조회수를 쓰는 자(`build-wikitip-actors` 등)는 규칙을 import 하지 않으므로 안 돌았고,
+ *   `/actors` 지면이 옛 창(2026-07-05~08-03)을 그대로 싣고 있었다.
+ *   기사와 지면이 서로 다른 날의 자료를 말하는 상태였고, 그것을 다른 자가 잡아 줬다.
+ * ⭐ 그래서 **곳간을 읽는 자도 같이 돈다.** 곳간이 바뀌면 그 자의 산출도 낡는다.
+ */
 export function 돌릴자들(읽기 = fs, 방 = 'scripts') {
   return 읽기.readdirSync(방)
     .filter((f) => /^build-.*\.mjs$/.test(f))
-    .filter((f) => 읽기.readFileSync(path.join(방, f), 'utf8').includes(규칙))
+    .filter((f) => {
+      const s = 읽기.readFileSync(path.join(방, f), 'utf8');
+      return s.includes(규칙) || 곳간들.some((c) => s.includes(c));
+    })
     .sort();
 }
 
@@ -45,6 +64,11 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
       ? `import x from './lib/${규칙}.mjs'` : 'nothing'),
   };
   재본다('규칙을 쓰는 짓는 자만', 돌릴자들(가짜), ['build-a.mjs', 'build-z.mjs']);
+  /* 🔴 곳간을 읽는 자도 잡히나 — 이것이 없어서 /actors 가 옛 자료를 실었다 */
+  재본다('곳간을 읽는 자도 잡는다', 돌릴자들({
+    readdirSync: () => ['build-p.mjs', 'build-q.mjs'],
+    readFileSync: (x) => (String(x).includes('build-p') ? 'reads archive/raw/star-pageviews' : 'nothing'),
+  }), ['build-p.mjs']);
   재본다('검사하는 자는 안 돈다', 돌릴자들({
     ...가짜, readFileSync: () => `import x from './lib/${규칙}.mjs'`,
   }).includes('check-c.mjs'), false);
@@ -93,9 +117,23 @@ if (내가실행됐다) {
   }
   const 총초 = Number(process.hrtime.bigint() - 시작) / 1e9;
   console.log(`\n${자들.length}개 중 ${자들.length - 죽은것.length}개 지었다 · ${(총초 / 60).toFixed(1)}분`);
-  if (죽은것.length) {
-    console.log(`⛔ 죽은 것 ${죽은것.length}개:`);
-    for (const x of 죽은것) console.log(`   ${x.f} — ${x.끝줄}`);
+  /*
+   * 🔴 2026-08-23 — 「못 쟀다」와 「깨졌다」를 갈라 센다. 곳간을 읽는 자까지 돌리면
+   *   이 기계에 없는 원자료를 읽는 자가 같이 걸린다. 그건 자료가 없는 것이지 고장이 아니다.
+   * ⛔ 둘을 한 덩어리로 세면 진짜 고장이 여러 줄에 묻힌다.
+   * ⚠ 「못 쟀다」는 통과가 아니다 — 그 지면은 옛 자료를 그대로 싣고 있다.
+   */
+  const 자료없나 = (s) => /ENOENT|없다 — archive|자료가 없다|곳간이 없다|레코드가 0건/.test(String(s));
+  const 못잰것 = 죽은것.filter((x) => 자료없나(x.끝줄));
+  const 깨진것 = 죽은것.filter((x) => !자료없나(x.끝줄));
+  if (못잰것.length) {
+    console.log(`⚠ 못 쟀다 ${못잰것.length}개 — 이 기계에 원자료가 없다(곳간은 git 에 없다)`);
+    console.log('   ⛔ 이것은 「지었다」가 아니다. 그 지면은 옛 자료를 그대로 싣고 있다.');
+    for (const x of 못잰것) console.log(`   ${x.f} — ${x.끝줄}`);
+  }
+  if (깨진것.length) {
+    console.log(`⛔ 깨진 것 ${깨진것.length}개:`);
+    for (const x of 깨진것) console.log(`   ${x.f} — ${x.끝줄}`);
     process.exit(1);
   }
   console.log('⛔ 배포하지 않았다. 검사 80개를 돌린 뒤에 사람이 판단한다.');

@@ -134,7 +134,12 @@ if (내가실행됐다) {
   본다('쏠림 중앙값', 낱수있나(본, d.medianSkew), d.medianSkew);
   본다('문턱', 낱수있나(본, d.minimumTitlesPerPair), `${d.minimumTitlesPerPair}편`);
   본다('주 수', 낱수있나(본, d.weeksSpanned), d.weeksSpanned);
-  본다('고리 수를 적었나', /Two form a loop|two form a loop/.test(민본) && 고리 === 2, `${고리}개`);
+  /* 🔴 2026-08-23 — 여기 「Two」가 박혀 있었다. 고리가 둘에서 하나로 줄자 기사를 사실대로
+     고쳤는데 자가 옛 수를 요구해 울었다. **낱말도 자료에서 만든다.** */
+  const 고리낱말 = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five'];
+  본다('고리 수를 적었나',
+    new RegExp(`(${고리낱말[고리] ?? 고리}|${고리}) forms? a loop`, 'i').test(민본),
+    `${고리}개`);
 
   /* ⛔ 지켜야 할 말 */
   본다('🔴 성립하는지부터 적었나',

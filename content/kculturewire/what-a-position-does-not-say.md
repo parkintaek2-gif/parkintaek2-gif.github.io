@@ -2,7 +2,7 @@
 title: "What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on"
 category: titles
 purpose: both
-dek: "Netflix attaches hours viewed to 10,600 global chart rows and to 0 of its 493,600 country rows. Knowing a rank narrows the possible hours by 45.8% on the non-English series chart — least of the four, and the one Korean titles sit on."
+dek: "Netflix attaches hours viewed to 10,720 global chart rows and to 0 of its 499,180 country rows. Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on."
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -11,10 +11,10 @@ pages:
   - "/rank-tells"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 lists, 265 weeks to 2026-07-26 — 10,600 global rows carrying hours viewed and 493,600 country rows carrying none"
+    api: "Tudum weekly Top 10 lists, 268 weeks to 2026-08-16 — 10,720 global rows carrying hours viewed and 499,180 country rows carrying none"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "The count of country rows carrying hours viewed was measured rather than assumed, by reading all 493,600 rows and counting non-null viewing fields"
+  - "The count of country rows carrying hours viewed was measured rather than assumed, by reading all 499,180 rows and counting non-null viewing fields"
   - "The four global charts are measured separately, because films and series and English and non-English are different sizes and mixing them would let a chart difference read as a rank difference"
   - "Spread is the 90th percentile divided by the 10th rather than a standard deviation, because hours viewed have a long upper tail and a mean sits above most of the weeks it describes"
   - "The collector refuses to write if the median at rank 1 is not above the median at rank 10, which would mean the rank column had been read backwards"
@@ -32,8 +32,8 @@ two kinds: one global list and one list per country. We read all of both.
 
 | Netflix Top 10 lists | Rows | Rows carrying hours viewed |
 |---|---:|---:|
-| Per-country weekly lists | 493,600 | **0** |
-| Global weekly lists | 10,600 | 10,600 |
+| Per-country weekly lists | 499,180 | **0** |
+| Global weekly lists | 10,720 | 10,720 |
 
 Zero is not a sample problem or a lag. Netflix simply does not say how many hours any country
 watched anything. Every country figure we publish therefore rests on a position, and the honest
@@ -51,16 +51,16 @@ ten rank positions separately. The difference between the two is what the rank b
 | Chart | Spread knowing nothing | Spread knowing the rank | Narrowed by |
 |---|---:|---:|---:|
 | Films (English) | 5.94× | 2.19× | 63.1% |
-| Films (Non-English) | 7.62× | 3× | 60.6% |
-| TV (English) | 9.19× | 4.24× | 53.9% |
-| TV (Non-English) | 6.74× | 3.65× | **45.8%** |
+| Films (Non-English) | 7.54× | 2.94× | 61% |
+| TV (English) | 9.16× | 4.27× | 53.4% |
+| TV (Non-English) | 6.68× | 3.52× | **47.3%** |
 
 Films and series, English and non-English, are four charts of different sizes; mixing them would let
 a difference between charts be read as a difference between ranks, so they are kept apart.
 
 **The last row is ours.** Korean series appear on the non-English television chart, and that is
 where a rank narrows the range least of the four. Two weeks at the same rank on that chart are still
-3.65 times apart in hours.
+3.52 times apart in hours.
 
 ## A rank is not nothing
 
@@ -68,13 +68,13 @@ It would be as dishonest to undersell this as to oversell it.
 
 | Chart | Median hours at rank 1 | At rank 10 | Ratio |
 |---|---:|---:|---:|
-| Films (English) | 42.4m | 5.4m | 7.85× |
+| Films (English) | 42.4m | 5.4m | 7.86× |
 | Films (Non-English) | 16.6m | 2.1m | 7.9× |
-| TV (English) | 78.2m | 11.0m | 7.1× |
-| TV (Non-English) | 45.8m | 7.4m | 6.19× |
+| TV (English) | 77.7m | 11.0m | 7.04× |
+| TV (Non-English) | 45.7m | 7.4m | 6.17× |
 
 A typical week at rank 1 is six to eight times the hours of a typical week at rank 10, and the
-ordering never inverts on any chart in 265 weeks. Rank carries real information about where a title
+ordering never inverts on any chart in 268 weeks. Rank carries real information about where a title
 sits against the other nine.
 
 What it does not carry is the size of the audience. A number one in a quiet week and a number one in

@@ -1,96 +1,96 @@
 {
-  "generated": "2026-08-09T09:10:15.965Z",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series. A title's \"arrival\" in a country is the first week it appears on that country's chart.",
   "question": "Does one country's chart lead another's, so that a scheduler could watch a neighbour and know what is coming?",
   "unit": "One observation = one Korean series that reached the charts of both countries in a pair. It is \"same week\" if it first appeared in both on the same week, otherwise one of the two came first.",
   "whySameWeekFirst": "If Netflix releases worldwide on one day, most titles arrive everywhere at once and there is no lead to find. That number has to come before any talk of leading indicators.",
   "minimumTitlesPerPair": 20,
-  "rowsRead": 493600,
-  "koreanRows": 28354,
-  "weeksSpanned": 265,
-  "titlesInTwoOrMoreMarkets": 235,
+  "rowsRead": 499180,
+  "koreanRows": 28366,
+  "weeksSpanned": 268,
+  "titlesInTwoOrMoreMarkets": 239,
   "countryPairsObserved": 4278,
-  "observations": 134279,
-  "sameWeek": 77385,
-  "sameWeekPc": 57.6,
-  "pairsMeasured": 946,
-  "medianSkew": 42.3,
-  "triangles": 8593,
-  "transitiveTriangles": 8591,
+  "observations": 135036,
+  "sameWeek": 78428,
+  "sameWeekPc": 58.1,
+  "pairsMeasured": 934,
+  "medianSkew": 42.1,
+  "triangles": 8333,
+  "transitiveTriangles": 8332,
   "transitivePc": 100,
   "whyTransitivity": "If one country simply charts a title sooner than another every time, the pairs line up into a single order and there is no neighbour to watch — a scheduler only needs to know whether their own market is an early one. Cycles in the pairs would mean the lead really is pair-specific.",
   "skewBands": [
     {
       "band": "Under 10 points from even",
-      "pairs": 78
+      "pairs": 86
     },
     {
       "band": "10–20 points",
-      "pairs": 92
+      "pairs": 88
     },
     {
       "band": "20–30 points",
-      "pairs": 102
+      "pairs": 96
     },
     {
       "band": "30 points or more",
-      "pairs": 674
+      "pairs": 664
     }
   ],
   "pairs": [
     {
       "pair": "AE–AR",
-      "titles": 39,
-      "differentWeek": 24,
+      "titles": 40,
+      "differentWeek": 25,
       "skew": 50
     },
     {
       "pair": "AE–BD",
       "titles": 91,
-      "differentWeek": 24,
-      "skew": 12.5
+      "differentWeek": 23,
+      "skew": 15.2
     },
     {
       "pair": "AE–BO",
       "titles": 76,
-      "differentWeek": 33,
-      "skew": 34.8
+      "differentWeek": 32,
+      "skew": 34.4
     },
     {
       "pair": "AE–BR",
       "titles": 69,
-      "differentWeek": 38,
-      "skew": 36.8
+      "differentWeek": 37,
+      "skew": 36.5
     },
     {
       "pair": "AE–CL",
       "titles": 69,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "AE–CO",
       "titles": 67,
-      "differentWeek": 33,
-      "skew": 47
+      "differentWeek": 32,
+      "skew": 46.9
     },
     {
       "pair": "AE–CR",
       "titles": 60,
-      "differentWeek": 31,
+      "differentWeek": 30,
       "skew": 50
     },
     {
       "pair": "AE–DO",
       "titles": 74,
-      "differentWeek": 33,
-      "skew": 34.8
+      "differentWeek": 32,
+      "skew": 34.4
     },
     {
       "pair": "AE–EC",
       "titles": 68,
-      "differentWeek": 34,
-      "skew": 38.2
+      "differentWeek": 33,
+      "skew": 37.9
     },
     {
       "pair": "AE–EG",
@@ -101,26 +101,26 @@
     {
       "pair": "AE–GT",
       "titles": 71,
-      "differentWeek": 35,
-      "skew": 41.4
+      "differentWeek": 34,
+      "skew": 41.2
     },
     {
       "pair": "AE–HK",
       "titles": 99,
-      "differentWeek": 33,
-      "skew": 43.9
+      "differentWeek": 32,
+      "skew": 43.7
     },
     {
       "pair": "AE–HN",
       "titles": 78,
-      "differentWeek": 35,
-      "skew": 38.6
+      "differentWeek": 34,
+      "skew": 38.2
     },
     {
       "pair": "AE–ID",
       "titles": 106,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "AE–IN",
@@ -136,15 +136,15 @@
     },
     {
       "pair": "AE–JP",
-      "titles": 84,
-      "differentWeek": 44,
-      "skew": 6.8
+      "titles": 85,
+      "differentWeek": 45,
+      "skew": 10
     },
     {
       "pair": "AE–KR",
       "titles": 102,
-      "differentWeek": 49,
-      "skew": 41.8
+      "differentWeek": 48,
+      "skew": 41.7
     },
     {
       "pair": "AE–LB",
@@ -173,20 +173,20 @@
     {
       "pair": "AE–MV",
       "titles": 92,
-      "differentWeek": 24,
-      "skew": 12.5
+      "differentWeek": 23,
+      "skew": 15.2
     },
     {
       "pair": "AE–MX",
       "titles": 73,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "AE–MY",
       "titles": 106,
-      "differentWeek": 41,
-      "skew": 47.6
+      "differentWeek": 40,
+      "skew": 47.5
     },
     {
       "pair": "AE–NC",
@@ -203,8 +203,8 @@
     {
       "pair": "AE–NI",
       "titles": 77,
-      "differentWeek": 35,
-      "skew": 35.7
+      "differentWeek": 34,
+      "skew": 35.3
     },
     {
       "pair": "AE–OM",
@@ -215,19 +215,19 @@
     {
       "pair": "AE–PA",
       "titles": 70,
-      "differentWeek": 36,
-      "skew": 47.2
+      "differentWeek": 35,
+      "skew": 47.1
     },
     {
       "pair": "AE–PE",
       "titles": 84,
-      "differentWeek": 37,
-      "skew": 36.5
+      "differentWeek": 36,
+      "skew": 36.1
     },
     {
       "pair": "AE–PH",
       "titles": 106,
-      "differentWeek": 33,
+      "differentWeek": 32,
       "skew": 50
     },
     {
@@ -239,7 +239,7 @@
     {
       "pair": "AE–PY",
       "titles": 67,
-      "differentWeek": 35,
+      "differentWeek": 34,
       "skew": 47.1
     },
     {
@@ -251,26 +251,26 @@
     {
       "pair": "AE–SA",
       "titles": 93,
-      "differentWeek": 28,
-      "skew": 17.9
+      "differentWeek": 27,
+      "skew": 20.4
     },
     {
       "pair": "AE–SG",
       "titles": 106,
-      "differentWeek": 39,
-      "skew": 39.7
+      "differentWeek": 38,
+      "skew": 39.5
     },
     {
       "pair": "AE–SV",
       "titles": 75,
-      "differentWeek": 33,
-      "skew": 40.9
+      "differentWeek": 32,
+      "skew": 40.6
     },
     {
       "pair": "AE–TH",
       "titles": 106,
-      "differentWeek": 42,
-      "skew": 45.2
+      "differentWeek": 41,
+      "skew": 45.1
     },
     {
       "pair": "AE–TR",
@@ -281,206 +281,212 @@
     {
       "pair": "AE–TW",
       "titles": 101,
-      "differentWeek": 35,
-      "skew": 32.9
+      "differentWeek": 34,
+      "skew": 32.4
     },
     {
       "pair": "AE–VE",
       "titles": 67,
-      "differentWeek": 34,
-      "skew": 38.2
+      "differentWeek": 33,
+      "skew": 37.9
     },
     {
       "pair": "AE–VN",
       "titles": 102,
-      "differentWeek": 40,
-      "skew": 42.5
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "AR–BD",
-      "titles": 38,
-      "differentWeek": 20,
+      "titles": 39,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "AR–BH",
-      "titles": 38,
-      "differentWeek": 21,
-      "skew": 50
-    },
-    {
-      "pair": "AR–BO",
-      "titles": 40,
-      "differentWeek": 21,
-      "skew": 45.2
-    },
-    {
-      "pair": "AR–DO",
-      "titles": 39,
-      "differentWeek": 20,
-      "skew": 50
-    },
-    {
-      "pair": "AR–HK",
-      "titles": 40,
-      "differentWeek": 28,
-      "skew": 46.4
-    },
-    {
-      "pair": "AR–HN",
-      "titles": 39,
-      "differentWeek": 20,
-      "skew": 50
-    },
-    {
-      "pair": "AR–ID",
-      "titles": 41,
-      "differentWeek": 30,
-      "skew": 43.3
-    },
-    {
-      "pair": "AR–KR",
-      "titles": 39,
-      "differentWeek": 29,
-      "skew": 46.6
-    },
-    {
-      "pair": "AR–KW",
       "titles": 39,
       "differentWeek": 22,
       "skew": 50
     },
     {
+      "pair": "AR–BO",
+      "titles": 41,
+      "differentWeek": 22,
+      "skew": 45.5
+    },
+    {
+      "pair": "AR–DO",
+      "titles": 40,
+      "differentWeek": 21,
+      "skew": 50
+    },
+    {
+      "pair": "AR–HK",
+      "titles": 41,
+      "differentWeek": 29,
+      "skew": 46.6
+    },
+    {
+      "pair": "AR–HN",
+      "titles": 40,
+      "differentWeek": 21,
+      "skew": 50
+    },
+    {
+      "pair": "AR–ID",
+      "titles": 42,
+      "differentWeek": 31,
+      "skew": 43.5
+    },
+    {
+      "pair": "AR–KR",
+      "titles": 40,
+      "differentWeek": 30,
+      "skew": 46.7
+    },
+    {
+      "pair": "AR–KW",
+      "titles": 40,
+      "differentWeek": 23,
+      "skew": 50
+    },
+    {
       "pair": "AR–MA",
-      "titles": 38,
+      "titles": 39,
       "differentWeek": 22,
       "skew": 45.5
     },
     {
       "pair": "AR–MV",
-      "titles": 37,
-      "differentWeek": 21,
+      "titles": 38,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "AR–MY",
-      "titles": 40,
-      "differentWeek": 29,
-      "skew": 46.6
+      "titles": 41,
+      "differentWeek": 30,
+      "skew": 46.7
     },
     {
       "pair": "AR–NG",
-      "titles": 37,
+      "titles": 38,
+      "differentWeek": 21,
+      "skew": 45.2
+    },
+    {
+      "pair": "AR–NI",
+      "titles": 40,
       "differentWeek": 20,
-      "skew": 45
+      "skew": 50
     },
     {
       "pair": "AR–OM",
-      "titles": 38,
-      "differentWeek": 20,
+      "titles": 39,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "AR–PE",
-      "titles": 41,
-      "differentWeek": 23,
-      "skew": 45.7
+      "titles": 42,
+      "differentWeek": 24,
+      "skew": 45.8
     },
     {
       "pair": "AR–PH",
+      "titles": 41,
+      "differentWeek": 28,
+      "skew": 50
+    },
+    {
+      "pair": "AR–PK",
+      "titles": 38,
+      "differentWeek": 22,
+      "skew": 36.4
+    },
+    {
+      "pair": "AR–QA",
       "titles": 40,
       "differentWeek": 27,
       "skew": 50
     },
     {
-      "pair": "AR–PK",
-      "titles": 37,
-      "differentWeek": 21,
-      "skew": 35.7
-    },
-    {
-      "pair": "AR–QA",
-      "titles": 39,
-      "differentWeek": 26,
-      "skew": 50
-    },
-    {
       "pair": "AR–SA",
-      "titles": 38,
-      "differentWeek": 20,
+      "titles": 39,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "AR–SG",
-      "titles": 41,
-      "differentWeek": 29,
-      "skew": 46.6
+      "titles": 42,
+      "differentWeek": 30,
+      "skew": 46.7
     },
     {
       "pair": "AR–TH",
-      "titles": 39,
-      "differentWeek": 28,
+      "titles": 40,
+      "differentWeek": 29,
       "skew": 50
     },
     {
       "pair": "AR–TW",
-      "titles": 41,
-      "differentWeek": 27,
-      "skew": 42.6
+      "titles": 42,
+      "differentWeek": 28,
+      "skew": 42.9
     },
     {
       "pair": "AR–VN",
-      "titles": 39,
-      "differentWeek": 29,
-      "skew": 43.1
+      "titles": 40,
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "BD–BH",
       "titles": 84,
-      "differentWeek": 23,
-      "skew": 19.6
+      "differentWeek": 22,
+      "skew": 18.2
     },
     {
       "pair": "BD–BO",
       "titles": 72,
-      "differentWeek": 28,
-      "skew": 28.6
+      "differentWeek": 27,
+      "skew": 27.8
     },
     {
       "pair": "BD–BR",
       "titles": 63,
-      "differentWeek": 31,
-      "skew": 30.6
+      "differentWeek": 30,
+      "skew": 30
     },
     {
       "pair": "BD–CL",
       "titles": 65,
-      "differentWeek": 31,
-      "skew": 43.5
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "BD–CO",
       "titles": 62,
-      "differentWeek": 27,
+      "differentWeek": 26,
       "skew": 50
     },
     {
       "pair": "BD–CR",
       "titles": 55,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "BD–DO",
       "titles": 68,
-      "differentWeek": 25,
-      "skew": 30
+      "differentWeek": 24,
+      "skew": 29.2
     },
     {
       "pair": "BD–EC",
       "titles": 65,
-      "differentWeek": 30,
-      "skew": 40
+      "differentWeek": 29,
+      "skew": 39.7
     },
     {
       "pair": "BD–EG",
@@ -491,8 +497,8 @@
     {
       "pair": "BD–GT",
       "titles": 66,
-      "differentWeek": 27,
-      "skew": 42.6
+      "differentWeek": 26,
+      "skew": 42.3
     },
     {
       "pair": "BD–HK",
@@ -503,8 +509,8 @@
     {
       "pair": "BD–HN",
       "titles": 74,
-      "differentWeek": 30,
-      "skew": 33.3
+      "differentWeek": 29,
+      "skew": 32.8
     },
     {
       "pair": "BD–ID",
@@ -515,20 +521,20 @@
     {
       "pair": "BD–IN",
       "titles": 80,
-      "differentWeek": 21,
-      "skew": 45.2
+      "differentWeek": 20,
+      "skew": 45
     },
     {
       "pair": "BD–JO",
       "titles": 73,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "BD–JP",
-      "titles": 85,
-      "differentWeek": 42,
-      "skew": 7.1
+      "titles": 86,
+      "differentWeek": 44,
+      "skew": 9.1
     },
     {
       "pair": "BD–KR",
@@ -539,8 +545,8 @@
     {
       "pair": "BD–KW",
       "titles": 83,
-      "differentWeek": 22,
-      "skew": 18.2
+      "differentWeek": 21,
+      "skew": 16.7
     },
     {
       "pair": "BD–LB",
@@ -551,8 +557,8 @@
     {
       "pair": "BD–LK",
       "titles": 82,
-      "differentWeek": 28,
-      "skew": 17.9
+      "differentWeek": 27,
+      "skew": 16.7
     },
     {
       "pair": "BD–MA",
@@ -569,8 +575,8 @@
     {
       "pair": "BD–MX",
       "titles": 68,
-      "differentWeek": 31,
-      "skew": 40.3
+      "differentWeek": 30,
+      "skew": 40
     },
     {
       "pair": "BD–MY",
@@ -581,26 +587,26 @@
     {
       "pair": "BD–NG",
       "titles": 81,
-      "differentWeek": 26,
-      "skew": 19.2
+      "differentWeek": 25,
+      "skew": 18
     },
     {
       "pair": "BD–NI",
       "titles": 73,
-      "differentWeek": 26,
-      "skew": 34.6
+      "differentWeek": 25,
+      "skew": 34
     },
     {
       "pair": "BD–PA",
       "titles": 64,
-      "differentWeek": 30,
-      "skew": 43.3
+      "differentWeek": 29,
+      "skew": 43.1
     },
     {
       "pair": "BD–PE",
       "titles": 82,
-      "differentWeek": 32,
-      "skew": 28.1
+      "differentWeek": 31,
+      "skew": 27.4
     },
     {
       "pair": "BD–PH",
@@ -611,20 +617,20 @@
     {
       "pair": "BD–PK",
       "titles": 69,
-      "differentWeek": 21,
-      "skew": 45.2
+      "differentWeek": 20,
+      "skew": 45
     },
     {
       "pair": "BD–PY",
       "titles": 64,
-      "differentWeek": 28,
-      "skew": 42.9
+      "differentWeek": 27,
+      "skew": 42.6
     },
     {
       "pair": "BD–QA",
       "titles": 93,
-      "differentWeek": 29,
-      "skew": 32.8
+      "differentWeek": 28,
+      "skew": 35.7
     },
     {
       "pair": "BD–SG",
@@ -635,8 +641,8 @@
     {
       "pair": "BD–SV",
       "titles": 69,
-      "differentWeek": 30,
-      "skew": 33.3
+      "differentWeek": 29,
+      "skew": 32.8
     },
     {
       "pair": "BD–TH",
@@ -659,8 +665,8 @@
     {
       "pair": "BD–VE",
       "titles": 62,
-      "differentWeek": 28,
-      "skew": 35.7
+      "differentWeek": 27,
+      "skew": 35.2
     },
     {
       "pair": "BD–VN",
@@ -671,44 +677,44 @@
     {
       "pair": "BH–BO",
       "titles": 75,
-      "differentWeek": 33,
-      "skew": 25.8
+      "differentWeek": 32,
+      "skew": 25
     },
     {
       "pair": "BH–BR",
       "titles": 68,
-      "differentWeek": 37,
-      "skew": 28.4
+      "differentWeek": 36,
+      "skew": 27.8
     },
     {
       "pair": "BH–CL",
       "titles": 69,
-      "differentWeek": 33,
-      "skew": 40.9
+      "differentWeek": 32,
+      "skew": 40.6
     },
     {
       "pair": "BH–CO",
       "titles": 65,
-      "differentWeek": 28,
-      "skew": 46.4
+      "differentWeek": 27,
+      "skew": 46.3
     },
     {
       "pair": "BH–CR",
       "titles": 60,
-      "differentWeek": 28,
-      "skew": 46.4
+      "differentWeek": 27,
+      "skew": 46.3
     },
     {
       "pair": "BH–DO",
       "titles": 72,
-      "differentWeek": 31,
-      "skew": 27.4
+      "differentWeek": 30,
+      "skew": 26.7
     },
     {
       "pair": "BH–EC",
       "titles": 67,
-      "differentWeek": 30,
-      "skew": 36.7
+      "differentWeek": 29,
+      "skew": 36.2
     },
     {
       "pair": "BH–EG",
@@ -719,25 +725,25 @@
     {
       "pair": "BH–GT",
       "titles": 70,
-      "differentWeek": 29,
-      "skew": 39.7
+      "differentWeek": 28,
+      "skew": 39.3
     },
     {
       "pair": "BH–HK",
       "titles": 87,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "BH–HN",
       "titles": 76,
-      "differentWeek": 33,
-      "skew": 31.8
+      "differentWeek": 32,
+      "skew": 31.3
     },
     {
       "pair": "BH–ID",
       "titles": 92,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 47.9
     },
     {
@@ -748,15 +754,15 @@
     },
     {
       "pair": "BH–JP",
-      "titles": 78,
-      "differentWeek": 36,
-      "skew": 0
+      "titles": 79,
+      "differentWeek": 37,
+      "skew": 4.1
     },
     {
       "pair": "BH–KR",
       "titles": 90,
-      "differentWeek": 50,
-      "skew": 44
+      "differentWeek": 49,
+      "skew": 43.9
     },
     {
       "pair": "BH–LK",
@@ -773,19 +779,19 @@
     {
       "pair": "BH–MV",
       "titles": 86,
-      "differentWeek": 23,
-      "skew": 15.2
+      "differentWeek": 22,
+      "skew": 13.6
     },
     {
       "pair": "BH–MX",
       "titles": 72,
-      "differentWeek": 33,
-      "skew": 37.9
+      "differentWeek": 32,
+      "skew": 37.5
     },
     {
       "pair": "BH–MY",
       "titles": 92,
-      "differentWeek": 42,
+      "differentWeek": 41,
       "skew": 50
     },
     {
@@ -797,32 +803,32 @@
     {
       "pair": "BH–NI",
       "titles": 75,
-      "differentWeek": 33,
-      "skew": 28.8
+      "differentWeek": 32,
+      "skew": 28.1
     },
     {
       "pair": "BH–PA",
       "titles": 69,
-      "differentWeek": 33,
-      "skew": 40.9
+      "differentWeek": 32,
+      "skew": 40.6
     },
     {
       "pair": "BH–PE",
       "titles": 80,
-      "differentWeek": 35,
-      "skew": 24.3
+      "differentWeek": 34,
+      "skew": 23.5
     },
     {
       "pair": "BH–PH",
       "titles": 92,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 50
     },
     {
       "pair": "BH–PY",
       "titles": 66,
-      "differentWeek": 32,
-      "skew": 40.6
+      "differentWeek": 31,
+      "skew": 40.3
     },
     {
       "pair": "BH–QA",
@@ -833,19 +839,19 @@
     {
       "pair": "BH–SG",
       "titles": 92,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "BH–SV",
       "titles": 74,
-      "differentWeek": 31,
-      "skew": 33.9
+      "differentWeek": 30,
+      "skew": 33.3
     },
     {
       "pair": "BH–TH",
       "titles": 92,
-      "differentWeek": 40,
+      "differentWeek": 39,
       "skew": 50
     },
     {
@@ -857,128 +863,128 @@
     {
       "pair": "BH–TW",
       "titles": 88,
-      "differentWeek": 34,
-      "skew": 41.2
+      "differentWeek": 33,
+      "skew": 40.9
     },
     {
       "pair": "BH–VE",
       "titles": 65,
-      "differentWeek": 31,
-      "skew": 33.9
+      "differentWeek": 30,
+      "skew": 33.3
     },
     {
       "pair": "BH–VN",
       "titles": 89,
-      "differentWeek": 40,
-      "skew": 45
+      "differentWeek": 39,
+      "skew": 44.9
     },
     {
       "pair": "BO–CL",
       "titles": 79,
-      "differentWeek": 25,
-      "skew": 42
+      "differentWeek": 24,
+      "skew": 41.7
     },
     {
       "pair": "BO–CO",
       "titles": 71,
-      "differentWeek": 25,
-      "skew": 46
+      "differentWeek": 24,
+      "skew": 45.8
     },
     {
       "pair": "BO–CR",
       "titles": 66,
-      "differentWeek": 26,
+      "differentWeek": 25,
       "skew": 50
     },
     {
       "pair": "BO–EG",
       "titles": 59,
       "differentWeek": 34,
-      "skew": 8.8
+      "skew": 11.8
     },
     {
       "pair": "BO–GR",
       "titles": 43,
-      "differentWeek": 21,
-      "skew": 21.4
+      "differentWeek": 20,
+      "skew": 20
     },
     {
       "pair": "BO–HK",
       "titles": 86,
-      "differentWeek": 39,
-      "skew": 42.3
+      "differentWeek": 38,
+      "skew": 42.1
     },
     {
       "pair": "BO–ID",
       "titles": 88,
-      "differentWeek": 42,
+      "differentWeek": 41,
       "skew": 50
     },
     {
       "pair": "BO–IN",
       "titles": 68,
-      "differentWeek": 25,
-      "skew": 14
+      "differentWeek": 24,
+      "skew": 12.5
     },
     {
       "pair": "BO–JO",
       "titles": 69,
-      "differentWeek": 32,
-      "skew": 0
+      "differentWeek": 31,
+      "skew": 1.6
     },
     {
       "pair": "BO–JP",
-      "titles": 76,
-      "differentWeek": 44,
-      "skew": 6.8
+      "titles": 77,
+      "differentWeek": 45,
+      "skew": 3.3
     },
     {
       "pair": "BO–KR",
       "titles": 88,
-      "differentWeek": 45,
+      "differentWeek": 44,
       "skew": 50
     },
     {
       "pair": "BO–KW",
       "titles": 78,
-      "differentWeek": 34,
-      "skew": 23.5
+      "differentWeek": 33,
+      "skew": 22.7
     },
     {
       "pair": "BO–LB",
       "titles": 37,
       "differentWeek": 24,
-      "skew": 25
+      "skew": 29.2
     },
     {
       "pair": "BO–LK",
       "titles": 71,
-      "differentWeek": 40,
-      "skew": 7.5
+      "differentWeek": 39,
+      "skew": 6.4
     },
     {
       "pair": "BO–MA",
       "titles": 66,
       "differentWeek": 24,
-      "skew": 8.3
+      "skew": 4.2
     },
     {
       "pair": "BO–MU",
       "titles": 50,
       "differentWeek": 22,
-      "skew": 9.1
+      "skew": 13.6
     },
     {
       "pair": "BO–MV",
       "titles": 74,
-      "differentWeek": 34,
-      "skew": 20.6
+      "differentWeek": 33,
+      "skew": 19.7
     },
     {
       "pair": "BO–MY",
       "titles": 87,
-      "differentWeek": 41,
-      "skew": 47.6
+      "differentWeek": 40,
+      "skew": 47.5
     },
     {
       "pair": "BO–NC",
@@ -989,14 +995,14 @@
     {
       "pair": "BO–NG",
       "titles": 70,
-      "differentWeek": 30,
-      "skew": 13.3
+      "differentWeek": 29,
+      "skew": 12.1
     },
     {
       "pair": "BO–OM",
       "titles": 78,
-      "differentWeek": 33,
-      "skew": 22.7
+      "differentWeek": 32,
+      "skew": 21.9
     },
     {
       "pair": "BO–PA",
@@ -1007,56 +1013,44 @@
     {
       "pair": "BO–PH",
       "titles": 86,
-      "differentWeek": 40,
-      "skew": 42.5
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "BO–PK",
       "titles": 58,
-      "differentWeek": 26,
-      "skew": 3.8
-    },
-    {
-      "pair": "BO–PY",
-      "titles": 73,
-      "differentWeek": 20,
-      "skew": 50
+      "differentWeek": 25,
+      "skew": 6
     },
     {
       "pair": "BO–QA",
       "titles": 80,
-      "differentWeek": 31,
-      "skew": 43.5
-    },
-    {
-      "pair": "BO–RE",
-      "titles": 47,
-      "differentWeek": 20,
-      "skew": 20
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "BO–RO",
-      "titles": 50,
+      "titles": 51,
       "differentWeek": 24,
       "skew": 8.3
     },
     {
       "pair": "BO–SA",
       "titles": 79,
-      "differentWeek": 30,
-      "skew": 30
+      "differentWeek": 29,
+      "skew": 29.3
     },
     {
       "pair": "BO–SG",
       "titles": 86,
-      "differentWeek": 40,
-      "skew": 45
+      "differentWeek": 39,
+      "skew": 44.9
     },
     {
       "pair": "BO–TH",
       "titles": 85,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "BO–TR",
@@ -1067,20 +1061,20 @@
     {
       "pair": "BO–TW",
       "titles": 85,
-      "differentWeek": 40,
-      "skew": 37.5
+      "differentWeek": 39,
+      "skew": 37.2
     },
     {
       "pair": "BO–VE",
       "titles": 70,
-      "differentWeek": 21,
-      "skew": 35.7
+      "differentWeek": 20,
+      "skew": 35
     },
     {
       "pair": "BO–VN",
       "titles": 84,
-      "differentWeek": 40,
-      "skew": 42.5
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "BR–EG",
@@ -1091,746 +1085,722 @@
     {
       "pair": "BR–GR",
       "titles": 45,
-      "differentWeek": 22,
-      "skew": 13.6
+      "differentWeek": 21,
+      "skew": 11.9
     },
     {
       "pair": "BR–HK",
       "titles": 74,
-      "differentWeek": 42,
-      "skew": 38.1
+      "differentWeek": 41,
+      "skew": 37.8
     },
     {
       "pair": "BR–ID",
       "titles": 77,
-      "differentWeek": 46,
-      "skew": 45.7
-    },
-    {
-      "pair": "BR–IN",
-      "titles": 62,
-      "differentWeek": 26,
-      "skew": 19.2
-    },
-    {
-      "pair": "BR–JO",
-      "titles": 64,
-      "differentWeek": 27,
-      "skew": 13
-    },
-    {
-      "pair": "BR–JP",
-      "titles": 67,
-      "differentWeek": 37,
-      "skew": 12.2
-    },
-    {
-      "pair": "BR–KR",
-      "titles": 78,
       "differentWeek": 45,
       "skew": 45.6
     },
     {
+      "pair": "BR–IN",
+      "titles": 62,
+      "differentWeek": 25,
+      "skew": 18
+    },
+    {
+      "pair": "BR–JO",
+      "titles": 64,
+      "differentWeek": 26,
+      "skew": 11.5
+    },
+    {
+      "pair": "BR–JP",
+      "titles": 68,
+      "differentWeek": 38,
+      "skew": 7.9
+    },
+    {
+      "pair": "BR–KR",
+      "titles": 78,
+      "differentWeek": 44,
+      "skew": 45.5
+    },
+    {
       "pair": "BR–KW",
       "titles": 70,
-      "differentWeek": 38,
-      "skew": 28.9
+      "differentWeek": 37,
+      "skew": 28.4
     },
     {
       "pair": "BR–LK",
       "titles": 65,
-      "differentWeek": 34,
-      "skew": 17.6
+      "differentWeek": 33,
+      "skew": 16.7
     },
     {
       "pair": "BR–MA",
       "titles": 61,
       "differentWeek": 25,
-      "skew": 22
+      "skew": 18
     },
     {
       "pair": "BR–MV",
       "titles": 68,
-      "differentWeek": 33,
-      "skew": 28.8
+      "differentWeek": 32,
+      "skew": 28.1
     },
     {
       "pair": "BR–MY",
       "titles": 76,
-      "differentWeek": 45,
-      "skew": 43.3
+      "differentWeek": 44,
+      "skew": 43.2
     },
     {
       "pair": "BR–NG",
       "titles": 67,
-      "differentWeek": 33,
-      "skew": 25.8
+      "differentWeek": 32,
+      "skew": 25
     },
     {
       "pair": "BR–OM",
       "titles": 69,
-      "differentWeek": 33,
-      "skew": 28.8
+      "differentWeek": 32,
+      "skew": 28.1
     },
     {
       "pair": "BR–PE",
       "titles": 75,
-      "differentWeek": 21,
-      "skew": 26.2
+      "differentWeek": 20,
+      "skew": 25
     },
     {
       "pair": "BR–PH",
       "titles": 74,
-      "differentWeek": 42,
-      "skew": 40.5
+      "differentWeek": 41,
+      "skew": 40.2
     },
     {
       "pair": "BR–PK",
       "titles": 54,
-      "differentWeek": 22,
-      "skew": 9.1
+      "differentWeek": 21,
+      "skew": 7.1
     },
     {
       "pair": "BR–QA",
       "titles": 71,
-      "differentWeek": 38,
-      "skew": 39.5
+      "differentWeek": 37,
+      "skew": 39.2
     },
     {
       "pair": "BR–RO",
-      "titles": 53,
+      "titles": 54,
       "differentWeek": 24,
       "skew": 0
     },
     {
       "pair": "BR–SA",
       "titles": 69,
-      "differentWeek": 33,
-      "skew": 28.8
+      "differentWeek": 32,
+      "skew": 28.1
     },
     {
       "pair": "BR–SG",
       "titles": 75,
-      "differentWeek": 40,
-      "skew": 42.5
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "BR–TH",
       "titles": 76,
-      "differentWeek": 46,
-      "skew": 41.3
+      "differentWeek": 45,
+      "skew": 41.1
     },
     {
       "pair": "BR–TW",
       "titles": 74,
-      "differentWeek": 44,
-      "skew": 36.4
+      "differentWeek": 43,
+      "skew": 36
     },
     {
       "pair": "BR–VN",
       "titles": 74,
-      "differentWeek": 44,
-      "skew": 36.4
-    },
-    {
-      "pair": "CL–DO",
-      "titles": 72,
-      "differentWeek": 20,
-      "skew": 35
-    },
-    {
-      "pair": "CL–EC",
-      "titles": 73,
-      "differentWeek": 20,
-      "skew": 20
+      "differentWeek": 43,
+      "skew": 36
     },
     {
       "pair": "CL–EG",
       "titles": 57,
       "differentWeek": 31,
-      "skew": 11.3
+      "skew": 8.1
     },
     {
       "pair": "CL–GT",
       "titles": 76,
-      "differentWeek": 22,
-      "skew": 13.6
+      "differentWeek": 21,
+      "skew": 11.9
     },
     {
       "pair": "CL–HK",
       "titles": 77,
-      "differentWeek": 46,
-      "skew": 43.5
+      "differentWeek": 45,
+      "skew": 43.3
     },
     {
       "pair": "CL–HN",
       "titles": 79,
-      "differentWeek": 24,
-      "skew": 41.7
+      "differentWeek": 23,
+      "skew": 41.3
     },
     {
       "pair": "CL–ID",
       "titles": 79,
-      "differentWeek": 51,
-      "skew": 46.1
+      "differentWeek": 50,
+      "skew": 46
     },
     {
       "pair": "CL–IN",
       "titles": 63,
-      "differentWeek": 23,
-      "skew": 37
+      "differentWeek": 22,
+      "skew": 36.4
     },
     {
       "pair": "CL–JO",
       "titles": 63,
-      "differentWeek": 23,
-      "skew": 28.3
+      "differentWeek": 22,
+      "skew": 27.3
     },
     {
       "pair": "CL–JP",
-      "titles": 70,
-      "differentWeek": 40,
-      "skew": 20
+      "titles": 71,
+      "differentWeek": 41,
+      "skew": 15.9
     },
     {
       "pair": "CL–KR",
       "titles": 77,
-      "differentWeek": 49,
-      "skew": 48
+      "differentWeek": 48,
+      "skew": 47.9
     },
     {
       "pair": "CL–KW",
       "titles": 71,
-      "differentWeek": 33,
-      "skew": 40.9
+      "differentWeek": 32,
+      "skew": 40.6
     },
     {
       "pair": "CL–LB",
       "titles": 37,
       "differentWeek": 20,
-      "skew": 15
+      "skew": 20
     },
     {
       "pair": "CL–LK",
       "titles": 65,
-      "differentWeek": 29,
-      "skew": 29.3
+      "differentWeek": 28,
+      "skew": 28.6
     },
     {
       "pair": "CL–MA",
       "titles": 60,
       "differentWeek": 25,
-      "skew": 34
+      "skew": 30
     },
     {
       "pair": "CL–MV",
       "titles": 68,
-      "differentWeek": 30,
-      "skew": 40
+      "differentWeek": 29,
+      "skew": 39.7
     },
     {
       "pair": "CL–MY",
       "titles": 78,
-      "differentWeek": 51,
-      "skew": 44.1
+      "differentWeek": 50,
+      "skew": 44
     },
     {
       "pair": "CL–NG",
       "titles": 66,
-      "differentWeek": 29,
-      "skew": 32.8
+      "differentWeek": 28,
+      "skew": 32.1
     },
     {
       "pair": "CL–NI",
       "titles": 78,
-      "differentWeek": 24,
-      "skew": 37.5
+      "differentWeek": 23,
+      "skew": 37
     },
     {
       "pair": "CL–OM",
       "titles": 70,
-      "differentWeek": 32,
-      "skew": 40.6
+      "differentWeek": 31,
+      "skew": 40.3
     },
     {
       "pair": "CL–PE",
       "titles": 82,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "CL–PH",
       "titles": 76,
-      "differentWeek": 46,
-      "skew": 45.7
+      "differentWeek": 45,
+      "skew": 45.6
     },
     {
       "pair": "CL–PK",
       "titles": 54,
-      "differentWeek": 24,
-      "skew": 20.8
+      "differentWeek": 23,
+      "skew": 19.6
     },
     {
       "pair": "CL–QA",
       "titles": 71,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "CL–SA",
       "titles": 71,
-      "differentWeek": 33,
-      "skew": 43.9
+      "differentWeek": 32,
+      "skew": 43.7
     },
     {
       "pair": "CL–SG",
       "titles": 76,
-      "differentWeek": 48,
-      "skew": 45.8
+      "differentWeek": 47,
+      "skew": 45.7
     },
     {
       "pair": "CL–SV",
       "titles": 77,
-      "differentWeek": 22,
-      "skew": 40.9
+      "differentWeek": 21,
+      "skew": 40.5
     },
     {
       "pair": "CL–TH",
       "titles": 74,
-      "differentWeek": 46,
+      "differentWeek": 45,
       "skew": 47.8
+    },
+    {
+      "pair": "CL–TR",
+      "titles": 50,
+      "differentWeek": 20,
+      "skew": 5
     },
     {
       "pair": "CL–TW",
       "titles": 78,
-      "differentWeek": 47,
-      "skew": 41.5
+      "differentWeek": 46,
+      "skew": 41.3
     },
     {
       "pair": "CL–VN",
       "titles": 74,
-      "differentWeek": 45,
-      "skew": 43.3
+      "differentWeek": 44,
+      "skew": 43.2
     },
     {
       "pair": "CO–DO",
       "titles": 74,
-      "differentWeek": 21,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "CO–EG",
       "titles": 55,
       "differentWeek": 23,
-      "skew": 15.2
+      "skew": 10.9
     },
     {
       "pair": "CO–HK",
       "titles": 70,
-      "differentWeek": 41,
-      "skew": 47.6
+      "differentWeek": 40,
+      "skew": 47.5
     },
     {
       "pair": "CO–HN",
       "titles": 74,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "CO–ID",
       "titles": 73,
-      "differentWeek": 49,
-      "skew": 45.9
+      "differentWeek": 48,
+      "skew": 45.8
     },
     {
       "pair": "CO–IN",
       "titles": 60,
-      "differentWeek": 22,
-      "skew": 45.5
+      "differentWeek": 21,
+      "skew": 45.2
     },
     {
       "pair": "CO–JP",
-      "titles": 65,
-      "differentWeek": 31,
-      "skew": 21
+      "titles": 66,
+      "differentWeek": 32,
+      "skew": 15.6
     },
     {
       "pair": "CO–KR",
       "titles": 73,
-      "differentWeek": 47,
+      "differentWeek": 46,
       "skew": 45.7
     },
     {
       "pair": "CO–KW",
       "titles": 66,
-      "differentWeek": 30,
-      "skew": 43.3
+      "differentWeek": 29,
+      "skew": 43.1
     },
     {
       "pair": "CO–LK",
       "titles": 62,
-      "differentWeek": 23,
-      "skew": 32.6
+      "differentWeek": 22,
+      "skew": 31.8
     },
     {
       "pair": "CO–MA",
       "titles": 61,
       "differentWeek": 26,
-      "skew": 42.3
+      "skew": 38.5
     },
     {
       "pair": "CO–MV",
       "titles": 66,
-      "differentWeek": 25,
+      "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "CO–MY",
       "titles": 73,
-      "differentWeek": 47,
+      "differentWeek": 46,
       "skew": 45.7
     },
     {
       "pair": "CO–NG",
       "titles": 63,
-      "differentWeek": 27,
-      "skew": 42.6
+      "differentWeek": 26,
+      "skew": 42.3
     },
     {
       "pair": "CO–NI",
       "titles": 73,
-      "differentWeek": 22,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "CO–OM",
       "titles": 65,
-      "differentWeek": 25,
+      "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "CO–PE",
       "titles": 73,
-      "differentWeek": 29,
-      "skew": 39.7
+      "differentWeek": 28,
+      "skew": 39.3
     },
     {
       "pair": "CO–PH",
       "titles": 70,
-      "differentWeek": 41,
-      "skew": 47.6
+      "differentWeek": 40,
+      "skew": 47.5
     },
     {
       "pair": "CO–PK",
       "titles": 53,
-      "differentWeek": 22,
-      "skew": 31.8
+      "differentWeek": 21,
+      "skew": 31
     },
     {
       "pair": "CO–QA",
       "titles": 68,
-      "differentWeek": 35,
+      "differentWeek": 34,
       "skew": 50
     },
     {
       "pair": "CO–SA",
       "titles": 65,
-      "differentWeek": 29,
-      "skew": 46.6
+      "differentWeek": 28,
+      "skew": 46.4
     },
     {
       "pair": "CO–SG",
       "titles": 71,
-      "differentWeek": 44,
-      "skew": 45.5
-    },
-    {
-      "pair": "CO–SV",
-      "titles": 73,
-      "differentWeek": 20,
-      "skew": 50
+      "differentWeek": 43,
+      "skew": 45.3
     },
     {
       "pair": "CO–TH",
       "titles": 71,
-      "differentWeek": 44,
+      "differentWeek": 43,
       "skew": 47.7
     },
     {
       "pair": "CO–TR",
       "titles": 53,
-      "differentWeek": 20,
-      "skew": 20
+      "differentWeek": 21,
+      "skew": 16.7
     },
     {
       "pair": "CO–TW",
       "titles": 71,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "CO–VN",
       "titles": 69,
-      "differentWeek": 42,
-      "skew": 45.2
+      "differentWeek": 41,
+      "skew": 45.1
     },
     {
       "pair": "CR–DO",
       "titles": 66,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "CR–EG",
       "titles": 50,
       "differentWeek": 24,
-      "skew": 16.7
-    },
-    {
-      "pair": "CR–GT",
-      "titles": 67,
-      "differentWeek": 20,
-      "skew": 45
+      "skew": 12.5
     },
     {
       "pair": "CR–HK",
       "titles": 64,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 47.4
     },
     {
       "pair": "CR–HN",
       "titles": 68,
-      "differentWeek": 31,
+      "differentWeek": 30,
       "skew": 50
     },
     {
       "pair": "CR–ID",
       "titles": 66,
-      "differentWeek": 45,
-      "skew": 47.8
+      "differentWeek": 44,
+      "skew": 47.7
     },
     {
       "pair": "CR–IN",
       "titles": 54,
-      "differentWeek": 21,
-      "skew": 45.2
+      "differentWeek": 20,
+      "skew": 45
     },
     {
       "pair": "CR–JP",
-      "titles": 59,
-      "differentWeek": 31,
-      "skew": 27.4
+      "titles": 60,
+      "differentWeek": 32,
+      "skew": 21.9
     },
     {
       "pair": "CR–KR",
       "titles": 66,
-      "differentWeek": 44,
+      "differentWeek": 43,
       "skew": 47.7
     },
     {
       "pair": "CR–KW",
       "titles": 62,
-      "differentWeek": 31,
-      "skew": 43.5
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "CR–LK",
       "titles": 56,
-      "differentWeek": 24,
-      "skew": 37.5
+      "differentWeek": 23,
+      "skew": 37
     },
     {
       "pair": "CR–MA",
       "titles": 53,
       "differentWeek": 21,
-      "skew": 40.5
+      "skew": 35.7
     },
     {
       "pair": "CR–MV",
       "titles": 60,
-      "differentWeek": 25,
-      "skew": 46
+      "differentWeek": 24,
+      "skew": 45.8
     },
     {
       "pair": "CR–MX",
       "titles": 66,
-      "differentWeek": 21,
-      "skew": 40.5
+      "differentWeek": 20,
+      "skew": 40
     },
     {
       "pair": "CR–MY",
       "titles": 66,
-      "differentWeek": 43,
-      "skew": 47.7
+      "differentWeek": 42,
+      "skew": 47.6
     },
     {
       "pair": "CR–NG",
       "titles": 57,
-      "differentWeek": 27,
-      "skew": 42.6
+      "differentWeek": 26,
+      "skew": 42.3
     },
     {
       "pair": "CR–NI",
       "titles": 67,
-      "differentWeek": 26,
+      "differentWeek": 25,
       "skew": 50
     },
     {
       "pair": "CR–OM",
       "titles": 61,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "CR–PE",
       "titles": 67,
-      "differentWeek": 29,
+      "differentWeek": 28,
       "skew": 50
     },
     {
       "pair": "CR–PH",
       "titles": 63,
-      "differentWeek": 38,
+      "differentWeek": 37,
       "skew": 50
     },
     {
       "pair": "CR–QA",
       "titles": 62,
-      "differentWeek": 35,
+      "differentWeek": 34,
       "skew": 50
     },
     {
       "pair": "CR–SA",
       "titles": 61,
-      "differentWeek": 27,
-      "skew": 46.3
+      "differentWeek": 26,
+      "skew": 46.2
     },
     {
       "pair": "CR–SG",
       "titles": 64,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 47.4
     },
     {
       "pair": "CR–SV",
       "titles": 69,
-      "differentWeek": 28,
+      "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "CR–TH",
       "titles": 64,
-      "differentWeek": 40,
+      "differentWeek": 39,
       "skew": 50
     },
     {
       "pair": "CR–TW",
       "titles": 65,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "CR–VN",
       "titles": 62,
-      "differentWeek": 38,
-      "skew": 44.7
+      "differentWeek": 37,
+      "skew": 44.6
     },
     {
       "pair": "DO–EG",
       "titles": 60,
       "differentWeek": 33,
-      "skew": 7.6
-    },
-    {
-      "pair": "DO–GR",
-      "titles": 45,
-      "differentWeek": 20,
-      "skew": 20
+      "skew": 10.6
     },
     {
       "pair": "DO–HK",
       "titles": 78,
-      "differentWeek": 40,
-      "skew": 40
+      "differentWeek": 39,
+      "skew": 39.7
     },
     {
       "pair": "DO–ID",
       "titles": 82,
-      "differentWeek": 47,
-      "skew": 43.6
+      "differentWeek": 46,
+      "skew": 43.5
     },
     {
       "pair": "DO–IN",
       "titles": 67,
-      "differentWeek": 23,
-      "skew": 15.2
+      "differentWeek": 22,
+      "skew": 13.6
     },
     {
       "pair": "DO–JO",
       "titles": 66,
-      "differentWeek": 29,
-      "skew": 1.7
+      "differentWeek": 28,
+      "skew": 0
     },
     {
       "pair": "DO–JP",
-      "titles": 72,
-      "differentWeek": 42,
-      "skew": 7.1
+      "titles": 73,
+      "differentWeek": 43,
+      "skew": 3.5
     },
     {
       "pair": "DO–KR",
       "titles": 82,
-      "differentWeek": 43,
-      "skew": 45.3
+      "differentWeek": 42,
+      "skew": 45.2
     },
     {
       "pair": "DO–KW",
       "titles": 74,
-      "differentWeek": 32,
-      "skew": 25
+      "differentWeek": 31,
+      "skew": 24.2
     },
     {
       "pair": "DO–LB",
       "titles": 38,
       "differentWeek": 23,
-      "skew": 23.9
+      "skew": 28.3
     },
     {
       "pair": "DO–LK",
       "titles": 69,
-      "differentWeek": 37,
-      "skew": 6.8
+      "differentWeek": 36,
+      "skew": 5.6
     },
     {
       "pair": "DO–MA",
       "titles": 66,
       "differentWeek": 24,
-      "skew": 12.5
+      "skew": 8.3
     },
     {
       "pair": "DO–MV",
       "titles": 72,
-      "differentWeek": 29,
-      "skew": 19
+      "differentWeek": 28,
+      "skew": 17.9
     },
     {
       "pair": "DO–MY",
       "titles": 82,
-      "differentWeek": 47,
-      "skew": 41.5
+      "differentWeek": 46,
+      "skew": 41.3
     },
     {
       "pair": "DO–NG",
       "titles": 71,
-      "differentWeek": 28,
-      "skew": 21.4
+      "differentWeek": 27,
+      "skew": 20.4
     },
     {
       "pair": "DO–OM",
       "titles": 72,
-      "differentWeek": 30,
-      "skew": 20
+      "differentWeek": 29,
+      "skew": 19
     },
     {
       "pair": "DO–PA",
@@ -1841,44 +1811,38 @@
     {
       "pair": "DO–PH",
       "titles": 79,
-      "differentWeek": 42,
-      "skew": 40.5
-    },
-    {
-      "pair": "DO–PK",
-      "titles": 58,
-      "differentWeek": 20,
-      "skew": 5
+      "differentWeek": 41,
+      "skew": 40.2
     },
     {
       "pair": "DO–QA",
       "titles": 76,
-      "differentWeek": 34,
-      "skew": 41.2
+      "differentWeek": 33,
+      "skew": 40.9
     },
     {
       "pair": "DO–RO",
-      "titles": 54,
+      "titles": 55,
       "differentWeek": 21,
       "skew": 7.1
     },
     {
       "pair": "DO–SA",
       "titles": 72,
-      "differentWeek": 26,
-      "skew": 26.9
+      "differentWeek": 25,
+      "skew": 26
     },
     {
       "pair": "DO–SG",
       "titles": 80,
-      "differentWeek": 39,
-      "skew": 42.3
+      "differentWeek": 38,
+      "skew": 42.1
     },
     {
       "pair": "DO–TH",
       "titles": 80,
-      "differentWeek": 47,
-      "skew": 41.5
+      "differentWeek": 46,
+      "skew": 41.3
     },
     {
       "pair": "DO–TR",
@@ -1889,86 +1853,86 @@
     {
       "pair": "DO–TW",
       "titles": 79,
-      "differentWeek": 43,
-      "skew": 36
+      "differentWeek": 42,
+      "skew": 35.7
     },
     {
       "pair": "DO–VN",
       "titles": 79,
-      "differentWeek": 41,
-      "skew": 40.2
+      "differentWeek": 40,
+      "skew": 40
     },
     {
       "pair": "EC–EG",
       "titles": 58,
       "differentWeek": 29,
-      "skew": 8.6
+      "skew": 5.2
     },
     {
       "pair": "EC–HK",
       "titles": 72,
-      "differentWeek": 38,
-      "skew": 42.1
+      "differentWeek": 37,
+      "skew": 41.9
     },
     {
       "pair": "EC–ID",
       "titles": 75,
-      "differentWeek": 42,
+      "differentWeek": 41,
       "skew": 47.6
     },
     {
       "pair": "EC–IN",
       "titles": 64,
-      "differentWeek": 28,
-      "skew": 28.6
+      "differentWeek": 27,
+      "skew": 27.8
     },
     {
       "pair": "EC–JO",
       "titles": 63,
-      "differentWeek": 28,
-      "skew": 21.4
+      "differentWeek": 27,
+      "skew": 20.4
     },
     {
       "pair": "EC–JP",
-      "titles": 68,
-      "differentWeek": 38,
-      "skew": 13.2
+      "titles": 69,
+      "differentWeek": 39,
+      "skew": 9
     },
     {
       "pair": "EC–KR",
       "titles": 75,
-      "differentWeek": 43,
-      "skew": 47.7
+      "differentWeek": 42,
+      "skew": 47.6
     },
     {
       "pair": "EC–KW",
       "titles": 69,
-      "differentWeek": 32,
-      "skew": 34.4
+      "differentWeek": 31,
+      "skew": 33.9
     },
     {
       "pair": "EC–LK",
       "titles": 63,
-      "differentWeek": 31,
-      "skew": 17.7
+      "differentWeek": 30,
+      "skew": 16.7
     },
     {
       "pair": "EC–MA",
       "titles": 59,
       "differentWeek": 26,
-      "skew": 26.9
+      "skew": 23.1
     },
     {
       "pair": "EC–MV",
       "titles": 68,
-      "differentWeek": 29,
-      "skew": 36.2
+      "differentWeek": 28,
+      "skew": 35.7
     },
     {
       "pair": "EC–MY",
       "titles": 75,
-      "differentWeek": 42,
-      "skew": 45.2
+      "differentWeek": 41,
+      "skew": 45.1
     },
     {
       "pair": "EC–NC",
@@ -1979,14 +1943,14 @@
     {
       "pair": "EC–NG",
       "titles": 64,
-      "differentWeek": 29,
-      "skew": 25.9
+      "differentWeek": 28,
+      "skew": 25
     },
     {
       "pair": "EC–OM",
       "titles": 68,
-      "differentWeek": 32,
-      "skew": 34.4
+      "differentWeek": 31,
+      "skew": 33.9
     },
     {
       "pair": "EC–PA",
@@ -2003,44 +1967,38 @@
     {
       "pair": "EC–PH",
       "titles": 72,
-      "differentWeek": 39,
-      "skew": 42.3
-    },
-    {
-      "pair": "EC–PK",
-      "titles": 53,
-      "differentWeek": 24,
-      "skew": 16.7
-    },
-    {
-      "pair": "EC–QA",
-      "titles": 70,
-      "differentWeek": 34,
-      "skew": 44.1
-    },
-    {
-      "pair": "EC–RE",
-      "titles": 41,
-      "differentWeek": 20,
-      "skew": 0
-    },
-    {
-      "pair": "EC–SA",
-      "titles": 68,
-      "differentWeek": 30,
-      "skew": 40
-    },
-    {
-      "pair": "EC–SG",
-      "titles": 73,
       "differentWeek": 38,
       "skew": 42.1
     },
     {
+      "pair": "EC–PK",
+      "titles": 53,
+      "differentWeek": 23,
+      "skew": 15.2
+    },
+    {
+      "pair": "EC–QA",
+      "titles": 70,
+      "differentWeek": 33,
+      "skew": 43.9
+    },
+    {
+      "pair": "EC–SA",
+      "titles": 68,
+      "differentWeek": 29,
+      "skew": 39.7
+    },
+    {
+      "pair": "EC–SG",
+      "titles": 73,
+      "differentWeek": 37,
+      "skew": 41.9
+    },
+    {
       "pair": "EC–TH",
       "titles": 73,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "EC–TR",
@@ -2051,14 +2009,14 @@
     {
       "pair": "EC–TW",
       "titles": 72,
-      "differentWeek": 39,
-      "skew": 39.7
+      "differentWeek": 38,
+      "skew": 39.5
     },
     {
       "pair": "EC–VN",
       "titles": 72,
-      "differentWeek": 39,
-      "skew": 42.3
+      "differentWeek": 38,
+      "skew": 42.1
     },
     {
       "pair": "EG–GT",
@@ -2076,7 +2034,7 @@
       "pair": "EG–HN",
       "titles": 62,
       "differentWeek": 33,
-      "skew": 4.5
+      "skew": 7.6
     },
     {
       "pair": "EG–ID",
@@ -2092,9 +2050,9 @@
     },
     {
       "pair": "EG–JP",
-      "titles": 58,
+      "titles": 59,
       "differentWeek": 26,
-      "skew": 26.9
+      "skew": 23.1
     },
     {
       "pair": "EG–KR",
@@ -2117,8 +2075,8 @@
     {
       "pair": "EG–MA",
       "titles": 61,
-      "differentWeek": 24,
-      "skew": 33.3
+      "differentWeek": 23,
+      "skew": 37
     },
     {
       "pair": "EG–MV",
@@ -2130,7 +2088,7 @@
       "pair": "EG–MX",
       "titles": 60,
       "differentWeek": 30,
-      "skew": 0
+      "skew": 3.3
     },
     {
       "pair": "EG–MY",
@@ -2148,7 +2106,7 @@
       "pair": "EG–NI",
       "titles": 60,
       "differentWeek": 33,
-      "skew": 4.5
+      "skew": 7.6
     },
     {
       "pair": "EG–OM",
@@ -2160,13 +2118,13 @@
       "pair": "EG–PA",
       "titles": 55,
       "differentWeek": 28,
-      "skew": 10.7
+      "skew": 7.1
     },
     {
       "pair": "EG–PE",
       "titles": 62,
       "differentWeek": 35,
-      "skew": 12.9
+      "skew": 15.7
     },
     {
       "pair": "EG–PH",
@@ -2178,7 +2136,7 @@
       "pair": "EG–PY",
       "titles": 56,
       "differentWeek": 25,
-      "skew": 10
+      "skew": 6
     },
     {
       "pair": "EG–QA",
@@ -2202,7 +2160,7 @@
       "pair": "EG–SV",
       "titles": 59,
       "differentWeek": 32,
-      "skew": 3.1
+      "skew": 6.2
     },
     {
       "pair": "EG–TH",
@@ -2220,7 +2178,7 @@
       "pair": "EG–VE",
       "titles": 55,
       "differentWeek": 29,
-      "skew": 5.2
+      "skew": 1.7
     },
     {
       "pair": "EG–VN",
@@ -2230,333 +2188,345 @@
     },
     {
       "pair": "ES–HK",
-      "titles": 25,
-      "differentWeek": 21,
-      "skew": 50
-    },
-    {
-      "pair": "ES–ID",
-      "titles": 25,
-      "differentWeek": 21,
-      "skew": 50
-    },
-    {
-      "pair": "ES–KR",
-      "titles": 25,
+      "titles": 26,
       "differentWeek": 22,
       "skew": 50
     },
     {
+      "pair": "ES–ID",
+      "titles": 26,
+      "differentWeek": 22,
+      "skew": 50
+    },
+    {
+      "pair": "ES–KR",
+      "titles": 26,
+      "differentWeek": 23,
+      "skew": 50
+    },
+    {
       "pair": "ES–MY",
-      "titles": 25,
-      "differentWeek": 21,
+      "titles": 26,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "ES–PH",
-      "titles": 25,
+      "titles": 26,
+      "differentWeek": 21,
+      "skew": 50
+    },
+    {
+      "pair": "ES–QA",
+      "titles": 26,
       "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "ES–SG",
-      "titles": 25,
-      "differentWeek": 21,
+      "titles": 26,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "ES–TH",
-      "titles": 25,
-      "differentWeek": 21,
+      "titles": 26,
+      "differentWeek": 22,
+      "skew": 50
+    },
+    {
+      "pair": "ES–TW",
+      "titles": 26,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "ES–VN",
-      "titles": 25,
-      "differentWeek": 21,
-      "skew": 45.2
+      "titles": 26,
+      "differentWeek": 22,
+      "skew": 45.5
     },
     {
       "pair": "FR–HK",
-      "titles": 31,
-      "differentWeek": 22,
+      "titles": 32,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "FR–ID",
-      "titles": 32,
-      "differentWeek": 23,
+      "titles": 33,
+      "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "FR–KR",
-      "titles": 31,
-      "differentWeek": 22,
+      "titles": 32,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "FR–MY",
-      "titles": 32,
-      "differentWeek": 23,
+      "titles": 33,
+      "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "FR–PH",
-      "titles": 32,
-      "differentWeek": 22,
+      "titles": 33,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "FR–QA",
-      "titles": 32,
-      "differentWeek": 21,
-      "skew": 50
-    },
-    {
-      "pair": "FR–SG",
-      "titles": 32,
+      "titles": 33,
       "differentWeek": 22,
       "skew": 50
     },
     {
-      "pair": "FR–TH",
-      "titles": 32,
+      "pair": "FR–SG",
+      "titles": 33,
       "differentWeek": 23,
       "skew": 50
     },
     {
+      "pair": "FR–TH",
+      "titles": 33,
+      "differentWeek": 24,
+      "skew": 50
+    },
+    {
       "pair": "FR–TW",
-      "titles": 32,
-      "differentWeek": 23,
-      "skew": 45.7
+      "titles": 33,
+      "differentWeek": 24,
+      "skew": 45.8
     },
     {
       "pair": "FR–VN",
-      "titles": 32,
-      "differentWeek": 23,
-      "skew": 45.7
+      "titles": 33,
+      "differentWeek": 24,
+      "skew": 45.8
     },
     {
       "pair": "GP–HK",
-      "titles": 42,
+      "titles": 43,
       "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "GP–ID",
-      "titles": 44,
+      "titles": 45,
       "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "GP–KR",
-      "titles": 42,
+      "titles": 43,
       "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "GP–MY",
-      "titles": 44,
+      "titles": 45,
       "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "GP–PH",
-      "titles": 44,
+      "titles": 45,
       "differentWeek": 23,
       "skew": 45.7
     },
     {
       "pair": "GP–SG",
-      "titles": 43,
+      "titles": 44,
       "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "GP–TH",
-      "titles": 44,
+      "titles": 45,
       "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "GP–TW",
-      "titles": 43,
+      "titles": 44,
       "differentWeek": 24,
       "skew": 41.7
     },
     {
       "pair": "GP–VN",
-      "titles": 43,
+      "titles": 44,
       "differentWeek": 21,
       "skew": 45.2
     },
     {
       "pair": "GR–HK",
       "titles": 46,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
-      "pair": "GR–HN",
+      "pair": "GR–ID",
+      "titles": 47,
+      "differentWeek": 28,
+      "skew": 50
+    },
+    {
+      "pair": "GR–JP",
       "titles": 44,
       "differentWeek": 20,
       "skew": 20
     },
     {
-      "pair": "GR–ID",
-      "titles": 47,
-      "differentWeek": 29,
-      "skew": 50
-    },
-    {
       "pair": "GR–KR",
       "titles": 47,
-      "differentWeek": 29,
+      "differentWeek": 28,
       "skew": 50
     },
     {
       "pair": "GR–MX",
       "titles": 44,
-      "differentWeek": 22,
-      "skew": 13.6
+      "differentWeek": 21,
+      "skew": 11.9
     },
     {
       "pair": "GR–MY",
       "titles": 46,
-      "differentWeek": 28,
+      "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "GR–PE",
       "titles": 45,
-      "differentWeek": 23,
-      "skew": 23.9
+      "differentWeek": 22,
+      "skew": 22.7
     },
     {
       "pair": "GR–PH",
       "titles": 46,
-      "differentWeek": 25,
+      "differentWeek": 24,
       "skew": 50
     },
     {
       "pair": "GR–QA",
       "titles": 46,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "GR–SG",
       "titles": 46,
-      "differentWeek": 26,
+      "differentWeek": 25,
       "skew": 50
     },
     {
       "pair": "GR–SV",
       "titles": 44,
-      "differentWeek": 22,
-      "skew": 13.6
+      "differentWeek": 21,
+      "skew": 11.9
     },
     {
       "pair": "GR–TH",
       "titles": 47,
-      "differentWeek": 27,
+      "differentWeek": 26,
       "skew": 50
     },
     {
       "pair": "GR–TW",
       "titles": 46,
-      "differentWeek": 24,
-      "skew": 45.8
+      "differentWeek": 23,
+      "skew": 45.7
     },
     {
       "pair": "GR–VN",
       "titles": 46,
-      "differentWeek": 26,
-      "skew": 46.2
+      "differentWeek": 25,
+      "skew": 46
     },
     {
       "pair": "GT–HK",
       "titles": 78,
-      "differentWeek": 42,
-      "skew": 42.9
+      "differentWeek": 41,
+      "skew": 42.7
     },
     {
       "pair": "GT–ID",
       "titles": 81,
-      "differentWeek": 46,
+      "differentWeek": 45,
       "skew": 47.8
     },
     {
       "pair": "GT–IN",
       "titles": 64,
-      "differentWeek": 21,
-      "skew": 31
+      "differentWeek": 20,
+      "skew": 30
     },
     {
       "pair": "GT–JO",
       "titles": 63,
-      "differentWeek": 28,
-      "skew": 17.9
+      "differentWeek": 27,
+      "skew": 16.7
     },
     {
       "pair": "GT–JP",
-      "titles": 72,
-      "differentWeek": 39,
-      "skew": 14.1
+      "titles": 73,
+      "differentWeek": 40,
+      "skew": 10
     },
     {
       "pair": "GT–KR",
       "titles": 81,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 47.9
     },
     {
       "pair": "GT–KW",
       "titles": 72,
-      "differentWeek": 31,
-      "skew": 37.1
+      "differentWeek": 30,
+      "skew": 36.7
     },
     {
       "pair": "GT–LB",
       "titles": 37,
       "differentWeek": 20,
-      "skew": 20
+      "skew": 25
     },
     {
       "pair": "GT–LK",
       "titles": 65,
-      "differentWeek": 32,
-      "skew": 18.7
+      "differentWeek": 31,
+      "skew": 17.7
     },
     {
       "pair": "GT–MA",
       "titles": 61,
       "differentWeek": 27,
-      "skew": 27.8
+      "skew": 24.1
     },
     {
       "pair": "GT–MV",
       "titles": 70,
-      "differentWeek": 34,
-      "skew": 29.4
+      "differentWeek": 33,
+      "skew": 28.8
     },
     {
       "pair": "GT–MY",
       "titles": 81,
-      "differentWeek": 46,
-      "skew": 45.7
+      "differentWeek": 45,
+      "skew": 45.6
     },
     {
       "pair": "GT–NG",
       "titles": 66,
-      "differentWeek": 31,
-      "skew": 27.4
+      "differentWeek": 30,
+      "skew": 26.7
     },
     {
       "pair": "GT–OM",
       "titles": 71,
-      "differentWeek": 31,
-      "skew": 37.1
+      "differentWeek": 30,
+      "skew": 36.7
     },
     {
       "pair": "GT–PE",
@@ -2567,62 +2537,62 @@
     {
       "pair": "GT–PH",
       "titles": 78,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "GT–PK",
       "titles": 54,
-      "differentWeek": 23,
-      "skew": 6.5
+      "differentWeek": 22,
+      "skew": 4.5
     },
     {
       "pair": "GT–QA",
       "titles": 73,
-      "differentWeek": 37,
-      "skew": 44.6
+      "differentWeek": 36,
+      "skew": 44.4
     },
     {
       "pair": "GT–RO",
-      "titles": 48,
+      "titles": 49,
       "differentWeek": 20,
       "skew": 0
     },
     {
       "pair": "GT–SA",
       "titles": 72,
-      "differentWeek": 33,
-      "skew": 37.9
+      "differentWeek": 32,
+      "skew": 37.5
     },
     {
       "pair": "GT–SG",
       "titles": 79,
-      "differentWeek": 42,
-      "skew": 42.9
+      "differentWeek": 41,
+      "skew": 42.7
     },
     {
       "pair": "GT–TH",
       "titles": 78,
-      "differentWeek": 45,
-      "skew": 43.3
+      "differentWeek": 44,
+      "skew": 43.2
     },
     {
       "pair": "GT–TW",
       "titles": 78,
-      "differentWeek": 44,
-      "skew": 38.6
+      "differentWeek": 43,
+      "skew": 38.4
     },
     {
       "pair": "GT–VN",
       "titles": 77,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "HK–HN",
       "titles": 88,
-      "differentWeek": 46,
-      "skew": 37
+      "differentWeek": 45,
+      "skew": 36.7
     },
     {
       "pair": "HK–ID",
@@ -2633,20 +2603,20 @@
     {
       "pair": "HK–IN",
       "titles": 77,
-      "differentWeek": 35,
+      "differentWeek": 34,
       "skew": 47.1
     },
     {
       "pair": "HK–JO",
       "titles": 73,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "HK–JP",
-      "titles": 115,
-      "differentWeek": 57,
-      "skew": 30.7
+      "titles": 116,
+      "differentWeek": 59,
+      "skew": 31.4
     },
     {
       "pair": "HK–KE",
@@ -2663,8 +2633,8 @@
     {
       "pair": "HK–KW",
       "titles": 88,
-      "differentWeek": 31,
-      "skew": 46.8
+      "differentWeek": 30,
+      "skew": 46.7
     },
     {
       "pair": "HK–LB",
@@ -2675,8 +2645,8 @@
     {
       "pair": "HK–LK",
       "titles": 84,
-      "differentWeek": 41,
-      "skew": 40.2
+      "differentWeek": 40,
+      "skew": 40
     },
     {
       "pair": "HK–MA",
@@ -2687,8 +2657,8 @@
     {
       "pair": "HK–MQ",
       "titles": 46,
-      "differentWeek": 24,
-      "skew": 45.8
+      "differentWeek": 23,
+      "skew": 45.7
     },
     {
       "pair": "HK–MU",
@@ -2705,8 +2675,8 @@
     {
       "pair": "HK–MX",
       "titles": 78,
-      "differentWeek": 44,
-      "skew": 45.5
+      "differentWeek": 43,
+      "skew": 45.3
     },
     {
       "pair": "HK–MY",
@@ -2723,38 +2693,38 @@
     {
       "pair": "HK–NG",
       "titles": 90,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "HK–NI",
       "titles": 87,
-      "differentWeek": 44,
-      "skew": 38.6
+      "differentWeek": 43,
+      "skew": 38.4
     },
     {
       "pair": "HK–NZ",
-      "titles": 33,
-      "differentWeek": 21,
+      "titles": 32,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "HK–OM",
       "titles": 88,
-      "differentWeek": 34,
-      "skew": 47.1
+      "differentWeek": 33,
+      "skew": 47
     },
     {
       "pair": "HK–PA",
       "titles": 74,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "HK–PE",
       "titles": 99,
-      "differentWeek": 49,
-      "skew": 39.8
+      "differentWeek": 48,
+      "skew": 39.6
     },
     {
       "pair": "HK–PH",
@@ -2765,36 +2735,36 @@
     {
       "pair": "HK–PK",
       "titles": 68,
-      "differentWeek": 32,
-      "skew": 46.9
+      "differentWeek": 31,
+      "skew": 46.8
     },
     {
       "pair": "HK–PT",
       "titles": 41,
-      "differentWeek": 21,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "HK–PY",
       "titles": 72,
-      "differentWeek": 44,
-      "skew": 45.5
+      "differentWeek": 43,
+      "skew": 45.3
     },
     {
       "pair": "HK–QA",
       "titles": 107,
-      "differentWeek": 26,
-      "skew": 38.5
+      "differentWeek": 25,
+      "skew": 38
     },
     {
       "pair": "HK–RE",
       "titles": 54,
-      "differentWeek": 28,
+      "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "HK–RO",
-      "titles": 55,
+      "titles": 56,
       "differentWeek": 25,
       "skew": 46
     },
@@ -2813,8 +2783,8 @@
     {
       "pair": "HK–SV",
       "titles": 84,
-      "differentWeek": 43,
-      "skew": 40.7
+      "differentWeek": 42,
+      "skew": 40.5
     },
     {
       "pair": "HK–TH",
@@ -2830,21 +2800,21 @@
     },
     {
       "pair": "HK–TW",
-      "titles": 141,
-      "differentWeek": 22,
-      "skew": 4.5
+      "titles": 142,
+      "differentWeek": 23,
+      "skew": 2.2
     },
     {
       "pair": "HK–UY",
-      "titles": 27,
-      "differentWeek": 20,
-      "skew": 45
+      "titles": 28,
+      "differentWeek": 21,
+      "skew": 45.2
     },
     {
       "pair": "HK–VE",
       "titles": 72,
-      "differentWeek": 43,
-      "skew": 38.4
+      "differentWeek": 42,
+      "skew": 38.1
     },
     {
       "pair": "HK–VN",
@@ -2855,74 +2825,74 @@
     {
       "pair": "HN–ID",
       "titles": 91,
-      "differentWeek": 53,
-      "skew": 42.5
+      "differentWeek": 52,
+      "skew": 42.3
     },
     {
       "pair": "HN–IN",
       "titles": 72,
-      "differentWeek": 29,
-      "skew": 19
+      "differentWeek": 28,
+      "skew": 17.9
     },
     {
       "pair": "HN–JO",
       "titles": 68,
-      "differentWeek": 30,
-      "skew": 6.7
+      "differentWeek": 29,
+      "skew": 5.2
     },
     {
       "pair": "HN–JP",
-      "titles": 79,
-      "differentWeek": 44,
-      "skew": 11.4
+      "titles": 80,
+      "differentWeek": 45,
+      "skew": 7.8
     },
     {
       "pair": "HN–KR",
       "titles": 91,
-      "differentWeek": 51,
-      "skew": 46.1
+      "differentWeek": 50,
+      "skew": 46
     },
     {
       "pair": "HN–KW",
       "titles": 77,
-      "differentWeek": 33,
-      "skew": 28.8
+      "differentWeek": 32,
+      "skew": 28.1
     },
     {
       "pair": "HN–LB",
       "titles": 38,
       "differentWeek": 23,
-      "skew": 23.9
+      "skew": 28.3
     },
     {
       "pair": "HN–LK",
       "titles": 73,
-      "differentWeek": 39,
-      "skew": 11.5
+      "differentWeek": 38,
+      "skew": 10.5
     },
     {
       "pair": "HN–MA",
       "titles": 66,
       "differentWeek": 28,
-      "skew": 14.3
+      "skew": 10.7
     },
     {
       "pair": "HN–MU",
       "titles": 50,
       "differentWeek": 22,
-      "skew": 0
+      "skew": 4.5
     },
     {
       "pair": "HN–MV",
       "titles": 78,
-      "differentWeek": 32,
-      "skew": 25
+      "differentWeek": 31,
+      "skew": 24.2
     },
     {
       "pair": "HN–MY",
       "titles": 91,
-      "differentWeek": 53,
-      "skew": 40.6
+      "differentWeek": 52,
+      "skew": 40.4
     },
     {
       "pair": "HN–NC",
@@ -2933,14 +2903,14 @@
     {
       "pair": "HN–NG",
       "titles": 74,
-      "differentWeek": 35,
-      "skew": 21.4
+      "differentWeek": 34,
+      "skew": 20.6
     },
     {
       "pair": "HN–OM",
       "titles": 76,
-      "differentWeek": 32,
-      "skew": 25
+      "differentWeek": 31,
+      "skew": 24.2
     },
     {
       "pair": "HN–PA",
@@ -2951,50 +2921,50 @@
     {
       "pair": "HN–PH",
       "titles": 87,
-      "differentWeek": 48,
-      "skew": 39.6
+      "differentWeek": 47,
+      "skew": 39.4
     },
     {
       "pair": "HN–PK",
       "titles": 59,
-      "differentWeek": 26,
-      "skew": 3.8
+      "differentWeek": 25,
+      "skew": 2
     },
     {
       "pair": "HN–PY",
       "titles": 76,
-      "differentWeek": 23,
-      "skew": 45.7
+      "differentWeek": 22,
+      "skew": 45.5
     },
     {
       "pair": "HN–QA",
       "titles": 80,
-      "differentWeek": 38,
-      "skew": 42.1
+      "differentWeek": 37,
+      "skew": 41.9
     },
     {
       "pair": "HN–RO",
-      "titles": 52,
+      "titles": 53,
       "differentWeek": 21,
       "skew": 7.1
     },
     {
       "pair": "HN–SA",
       "titles": 77,
-      "differentWeek": 31,
-      "skew": 30.6
+      "differentWeek": 30,
+      "skew": 30
     },
     {
       "pair": "HN–SG",
       "titles": 88,
-      "differentWeek": 44,
-      "skew": 43.2
+      "differentWeek": 43,
+      "skew": 43
     },
     {
       "pair": "HN–TH",
       "titles": 86,
-      "differentWeek": 49,
-      "skew": 41.8
+      "differentWeek": 48,
+      "skew": 41.7
     },
     {
       "pair": "HN–TR",
@@ -3005,32 +2975,32 @@
     {
       "pair": "HN–TW",
       "titles": 88,
-      "differentWeek": 50,
-      "skew": 36
+      "differentWeek": 49,
+      "skew": 35.7
     },
     {
       "pair": "HN–VN",
       "titles": 87,
-      "differentWeek": 46,
-      "skew": 39.1
+      "differentWeek": 45,
+      "skew": 38.9
     },
     {
       "pair": "ID–IN",
       "titles": 81,
-      "differentWeek": 43,
+      "differentWeek": 42,
       "skew": 50
     },
     {
       "pair": "ID–JO",
       "titles": 76,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 50
     },
     {
       "pair": "ID–JP",
-      "titles": 117,
-      "differentWeek": 69,
-      "skew": 39.9
+      "titles": 118,
+      "differentWeek": 71,
+      "skew": 40.1
     },
     {
       "pair": "ID–KE",
@@ -3040,13 +3010,13 @@
     },
     {
       "pair": "ID–KR",
-      "titles": 161,
-      "differentWeek": 45,
-      "skew": 16.7
+      "titles": 163,
+      "differentWeek": 47,
+      "skew": 16
     },
     {
       "pair": "ID–KW",
-      "titles": 96,
+      "titles": 97,
       "differentWeek": 47,
       "skew": 50
     },
@@ -3059,8 +3029,8 @@
     {
       "pair": "ID–LK",
       "titles": 93,
-      "differentWeek": 49,
-      "skew": 45.9
+      "differentWeek": 48,
+      "skew": 45.8
     },
     {
       "pair": "ID–MA",
@@ -3071,7 +3041,7 @@
     {
       "pair": "ID–MQ",
       "titles": 48,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
@@ -3082,19 +3052,19 @@
     },
     {
       "pair": "ID–MV",
-      "titles": 100,
-      "differentWeek": 48,
-      "skew": 45.8
+      "titles": 101,
+      "differentWeek": 49,
+      "skew": 45.9
     },
     {
       "pair": "ID–MX",
       "titles": 81,
-      "differentWeek": 51,
+      "differentWeek": 50,
       "skew": 48
     },
     {
       "pair": "ID–MY",
-      "titles": 170,
+      "titles": 171,
       "differentWeek": 27,
       "skew": 9.3
     },
@@ -3106,103 +3076,103 @@
     },
     {
       "pair": "ID–NG",
-      "titles": 98,
+      "titles": 99,
       "differentWeek": 47,
       "skew": 43.6
     },
     {
       "pair": "ID–NI",
       "titles": 88,
-      "differentWeek": 47,
-      "skew": 43.6
+      "differentWeek": 46,
+      "skew": 43.5
     },
     {
       "pair": "ID–NZ",
-      "titles": 34,
-      "differentWeek": 21,
+      "titles": 33,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "ID–OM",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 50,
       "skew": 50
     },
     {
       "pair": "ID–PA",
       "titles": 77,
-      "differentWeek": 50,
+      "differentWeek": 49,
       "skew": 48
     },
     {
       "pair": "ID–PE",
       "titles": 103,
-      "differentWeek": 56,
+      "differentWeek": 55,
       "skew": 46.4
     },
     {
       "pair": "ID–PH",
-      "titles": 157,
+      "titles": 158,
       "differentWeek": 42,
       "skew": 28.6
     },
     {
       "pair": "ID–PK",
       "titles": 70,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 50
     },
     {
       "pair": "ID–PT",
       "titles": 41,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "ID–PY",
       "titles": 75,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 47.9
     },
     {
       "pair": "ID–QA",
-      "titles": 118,
+      "titles": 119,
       "differentWeek": 40,
       "skew": 45
     },
     {
       "pair": "ID–RE",
       "titles": 55,
-      "differentWeek": 32,
+      "differentWeek": 31,
       "skew": 50
     },
     {
       "pair": "ID–RO",
-      "titles": 58,
+      "titles": 59,
       "differentWeek": 31,
       "skew": 46.8
     },
     {
       "pair": "ID–SA",
-      "titles": 99,
-      "differentWeek": 50,
+      "titles": 100,
+      "differentWeek": 51,
       "skew": 50
     },
     {
       "pair": "ID–SG",
-      "titles": 163,
-      "differentWeek": 39,
-      "skew": 19.2
+      "titles": 164,
+      "differentWeek": 40,
+      "skew": 20
     },
     {
       "pair": "ID–SV",
       "titles": 88,
-      "differentWeek": 50,
-      "skew": 44
+      "differentWeek": 49,
+      "skew": 43.9
     },
     {
       "pair": "ID–TH",
-      "titles": 155,
+      "titles": 156,
       "differentWeek": 35,
       "skew": 18.6
     },
@@ -3220,33 +3190,33 @@
     },
     {
       "pair": "ID–UY",
-      "titles": 27,
-      "differentWeek": 21,
-      "skew": 40.5
+      "titles": 28,
+      "differentWeek": 22,
+      "skew": 40.9
     },
     {
       "pair": "ID–VE",
       "titles": 74,
-      "differentWeek": 45,
-      "skew": 43.3
+      "differentWeek": 44,
+      "skew": 43.2
     },
     {
       "pair": "ID–VN",
-      "titles": 158,
+      "titles": 159,
       "differentWeek": 32,
       "skew": 31.3
     },
     {
       "pair": "IN–JP",
-      "titles": 73,
-      "differentWeek": 34,
-      "skew": 2.9
+      "titles": 74,
+      "differentWeek": 35,
+      "skew": 1.4
     },
     {
       "pair": "IN–KR",
       "titles": 79,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "IN–KW",
@@ -3269,19 +3239,19 @@
     {
       "pair": "IN–MV",
       "titles": 77,
-      "differentWeek": 24,
-      "skew": 29.2
+      "differentWeek": 23,
+      "skew": 28.3
     },
     {
       "pair": "IN–MX",
       "titles": 66,
-      "differentWeek": 23,
-      "skew": 32.6
+      "differentWeek": 22,
+      "skew": 31.8
     },
     {
       "pair": "IN–MY",
       "titles": 81,
-      "differentWeek": 42,
+      "differentWeek": 41,
       "skew": 50
     },
     {
@@ -3293,8 +3263,8 @@
     {
       "pair": "IN–NI",
       "titles": 71,
-      "differentWeek": 28,
-      "skew": 17.9
+      "differentWeek": 27,
+      "skew": 16.7
     },
     {
       "pair": "IN–OM",
@@ -3305,26 +3275,20 @@
     {
       "pair": "IN–PA",
       "titles": 62,
-      "differentWeek": 23,
-      "skew": 41.3
+      "differentWeek": 22,
+      "skew": 40.9
     },
     {
       "pair": "IN–PE",
       "titles": 75,
-      "differentWeek": 27,
-      "skew": 13
+      "differentWeek": 26,
+      "skew": 11.5
     },
     {
       "pair": "IN–PH",
       "titles": 81,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 50
-    },
-    {
-      "pair": "IN–PY",
-      "titles": 62,
-      "differentWeek": 20,
-      "skew": 40
     },
     {
       "pair": "IN–QA",
@@ -3335,26 +3299,26 @@
     {
       "pair": "IN–SA",
       "titles": 76,
-      "differentWeek": 22,
-      "skew": 27.3
+      "differentWeek": 21,
+      "skew": 26.2
     },
     {
       "pair": "IN–SG",
       "titles": 81,
-      "differentWeek": 41,
-      "skew": 45.1
+      "differentWeek": 40,
+      "skew": 45
     },
     {
       "pair": "IN–SV",
       "titles": 68,
-      "differentWeek": 27,
-      "skew": 20.4
+      "differentWeek": 26,
+      "skew": 19.2
     },
     {
       "pair": "IN–TH",
       "titles": 81,
-      "differentWeek": 43,
-      "skew": 47.7
+      "differentWeek": 42,
+      "skew": 47.6
     },
     {
       "pair": "IN–TR",
@@ -3365,20 +3329,20 @@
     {
       "pair": "IN–TW",
       "titles": 78,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "IN–VE",
       "titles": 60,
-      "differentWeek": 24,
-      "skew": 25
+      "differentWeek": 23,
+      "skew": 23.9
     },
     {
       "pair": "IN–VN",
       "titles": 81,
-      "differentWeek": 40,
-      "skew": 45
+      "differentWeek": 39,
+      "skew": 44.9
     },
     {
       "pair": "JM–KR",
@@ -3400,14 +3364,14 @@
     },
     {
       "pair": "JO–JP",
-      "titles": 67,
-      "differentWeek": 22,
-      "skew": 18.2
+      "titles": 68,
+      "differentWeek": 23,
+      "skew": 10.9
     },
     {
       "pair": "JO–KR",
       "titles": 75,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 47.9
     },
     {
@@ -3423,52 +3387,40 @@
       "skew": 31.8
     },
     {
-      "pair": "JO–MV",
-      "titles": 73,
-      "differentWeek": 20,
-      "skew": 50
-    },
-    {
       "pair": "JO–MX",
       "titles": 65,
-      "differentWeek": 24,
-      "skew": 20.8
+      "differentWeek": 23,
+      "skew": 19.6
     },
     {
       "pair": "JO–MY",
       "titles": 76,
-      "differentWeek": 46,
+      "differentWeek": 45,
       "skew": 50
     },
     {
       "pair": "JO–NI",
       "titles": 67,
-      "differentWeek": 29,
-      "skew": 5.2
+      "differentWeek": 28,
+      "skew": 3.6
     },
     {
       "pair": "JO–PA",
       "titles": 61,
-      "differentWeek": 22,
-      "skew": 27.3
+      "differentWeek": 21,
+      "skew": 26.2
     },
     {
       "pair": "JO–PE",
       "titles": 71,
-      "differentWeek": 31,
-      "skew": 4.8
+      "differentWeek": 30,
+      "skew": 6.7
     },
     {
       "pair": "JO–PH",
       "titles": 76,
-      "differentWeek": 42,
+      "differentWeek": 41,
       "skew": 50
-    },
-    {
-      "pair": "JO–PY",
-      "titles": 63,
-      "differentWeek": 20,
-      "skew": 30
     },
     {
       "pair": "JO–QA",
@@ -3479,206 +3431,206 @@
     {
       "pair": "JO–SA",
       "titles": 75,
-      "differentWeek": 21,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "JO–SG",
       "titles": 76,
-      "differentWeek": 47,
-      "skew": 47.9
+      "differentWeek": 46,
+      "skew": 47.8
     },
     {
       "pair": "JO–SV",
       "titles": 65,
-      "differentWeek": 29,
-      "skew": 8.6
+      "differentWeek": 28,
+      "skew": 7.1
     },
     {
       "pair": "JO–TH",
       "titles": 76,
-      "differentWeek": 44,
+      "differentWeek": 43,
       "skew": 50
     },
     {
       "pair": "JO–TW",
       "titles": 73,
-      "differentWeek": 37,
-      "skew": 47.3
+      "differentWeek": 36,
+      "skew": 47.2
     },
     {
       "pair": "JO–VE",
       "titles": 61,
-      "differentWeek": 24,
-      "skew": 16.7
+      "differentWeek": 23,
+      "skew": 15.2
     },
     {
       "pair": "JO–VN",
       "titles": 75,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "JP–KR",
-      "titles": 120,
-      "differentWeek": 79,
-      "skew": 43.7
+      "titles": 121,
+      "differentWeek": 81,
+      "skew": 43.8
     },
     {
       "pair": "JP–KW",
-      "titles": 78,
-      "differentWeek": 36,
-      "skew": 2.8
+      "titles": 79,
+      "differentWeek": 37,
+      "skew": 6.8
     },
     {
       "pair": "JP–LK",
-      "titles": 78,
-      "differentWeek": 37,
-      "skew": 1.4
-    },
-    {
-      "pair": "JP–MA",
-      "titles": 70,
-      "differentWeek": 29,
-      "skew": 5.2
-    },
-    {
-      "pair": "JP–MU",
-      "titles": 51,
-      "differentWeek": 22,
-      "skew": 4.5
-    },
-    {
-      "pair": "JP–MV",
-      "titles": 86,
-      "differentWeek": 40,
-      "skew": 7.5
-    },
-    {
-      "pair": "JP–MX",
-      "titles": 74,
-      "differentWeek": 43,
-      "skew": 19.8
-    },
-    {
-      "pair": "JP–MY",
-      "titles": 111,
-      "differentWeek": 61,
-      "skew": 41.8
-    },
-    {
-      "pair": "JP–NG",
-      "titles": 80,
+      "titles": 79,
       "differentWeek": 38,
       "skew": 2.6
     },
     {
-      "pair": "JP–NI",
-      "titles": 77,
+      "pair": "JP–MA",
+      "titles": 71,
+      "differentWeek": 29,
+      "skew": 1.7
+    },
+    {
+      "pair": "JP–MU",
+      "titles": 52,
+      "differentWeek": 22,
+      "skew": 0
+    },
+    {
+      "pair": "JP–MV",
+      "titles": 87,
+      "differentWeek": 42,
+      "skew": 9.5
+    },
+    {
+      "pair": "JP–MX",
+      "titles": 75,
       "differentWeek": 44,
-      "skew": 9.1
+      "skew": 15.9
+    },
+    {
+      "pair": "JP–MY",
+      "titles": 112,
+      "differentWeek": 63,
+      "skew": 42.1
+    },
+    {
+      "pair": "JP–NG",
+      "titles": 81,
+      "differentWeek": 39,
+      "skew": 6.4
+    },
+    {
+      "pair": "JP–NI",
+      "titles": 78,
+      "differentWeek": 45,
+      "skew": 5.6
     },
     {
       "pair": "JP–OM",
-      "titles": 79,
-      "differentWeek": 31,
-      "skew": 1.6
+      "titles": 80,
+      "differentWeek": 32,
+      "skew": 6.2
     },
     {
       "pair": "JP–PA",
-      "titles": 70,
-      "differentWeek": 40,
-      "skew": 22.5
+      "titles": 71,
+      "differentWeek": 41,
+      "skew": 18.3
     },
     {
       "pair": "JP–PE",
-      "titles": 86,
-      "differentWeek": 48,
-      "skew": 10.4
+      "titles": 87,
+      "differentWeek": 49,
+      "skew": 7.1
     },
     {
       "pair": "JP–PH",
-      "titles": 111,
-      "differentWeek": 59,
-      "skew": 34.7
+      "titles": 112,
+      "differentWeek": 61,
+      "skew": 35.2
     },
     {
       "pair": "JP–PK",
-      "titles": 61,
-      "differentWeek": 29,
-      "skew": 5.2
+      "titles": 62,
+      "differentWeek": 30,
+      "skew": 0
     },
     {
       "pair": "JP–PY",
-      "titles": 66,
-      "differentWeek": 33,
-      "skew": 19.7
+      "titles": 67,
+      "differentWeek": 34,
+      "skew": 14.7
     },
     {
       "pair": "JP–QA",
-      "titles": 93,
-      "differentWeek": 49,
-      "skew": 19.4
+      "titles": 94,
+      "differentWeek": 50,
+      "skew": 22
     },
     {
       "pair": "JP–RE",
-      "titles": 48,
-      "differentWeek": 20,
-      "skew": 10
+      "titles": 49,
+      "differentWeek": 21,
+      "skew": 2.4
     },
     {
       "pair": "JP–RO",
-      "titles": 50,
-      "differentWeek": 22,
-      "skew": 13.6
+      "titles": 52,
+      "differentWeek": 24,
+      "skew": 8.3
     },
     {
       "pair": "JP–SA",
-      "titles": 82,
-      "differentWeek": 35,
-      "skew": 10
+      "titles": 83,
+      "differentWeek": 37,
+      "skew": 12.2
     },
     {
       "pair": "JP–SG",
-      "titles": 109,
-      "differentWeek": 55,
-      "skew": 39.1
+      "titles": 110,
+      "differentWeek": 57,
+      "skew": 39.5
     },
     {
       "pair": "JP–SV",
-      "titles": 76,
-      "differentWeek": 44,
-      "skew": 13.6
+      "titles": 77,
+      "differentWeek": 45,
+      "skew": 10
     },
     {
       "pair": "JP–TH",
-      "titles": 113,
-      "differentWeek": 63,
-      "skew": 38.9
+      "titles": 114,
+      "differentWeek": 65,
+      "skew": 39.2
     },
     {
       "pair": "JP–TR",
       "titles": 55,
-      "differentWeek": 23,
-      "skew": 10.9
+      "differentWeek": 22,
+      "skew": 9.1
     },
     {
       "pair": "JP–TW",
-      "titles": 111,
-      "differentWeek": 52,
-      "skew": 30.8
+      "titles": 112,
+      "differentWeek": 54,
+      "skew": 31.5
     },
     {
       "pair": "JP–VE",
-      "titles": 65,
-      "differentWeek": 34,
-      "skew": 11.8
+      "titles": 66,
+      "differentWeek": 35,
+      "skew": 7.1
     },
     {
       "pair": "JP–VN",
-      "titles": 110,
-      "differentWeek": 60,
-      "skew": 31.7
+      "titles": 111,
+      "differentWeek": 62,
+      "skew": 32.3
     },
     {
       "pair": "KE–KR",
@@ -3730,7 +3682,7 @@
     },
     {
       "pair": "KR–KW",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 51,
       "skew": 44.1
     },
@@ -3743,8 +3695,8 @@
     {
       "pair": "KR–LK",
       "titles": 87,
-      "differentWeek": 52,
-      "skew": 40.4
+      "differentWeek": 51,
+      "skew": 40.2
     },
     {
       "pair": "KR–MA",
@@ -3755,8 +3707,8 @@
     {
       "pair": "KR–MQ",
       "titles": 46,
-      "differentWeek": 26,
-      "skew": 46.2
+      "differentWeek": 25,
+      "skew": 46
     },
     {
       "pair": "KR–MU",
@@ -3766,21 +3718,21 @@
     },
     {
       "pair": "KR–MV",
-      "titles": 97,
-      "differentWeek": 51,
-      "skew": 40.2
+      "titles": 98,
+      "differentWeek": 52,
+      "skew": 40.4
     },
     {
       "pair": "KR–MX",
       "titles": 80,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 50
     },
     {
       "pair": "KR–MY",
-      "titles": 153,
-      "differentWeek": 41,
-      "skew": 20.7
+      "titles": 155,
+      "differentWeek": 43,
+      "skew": 19.8
     },
     {
       "pair": "KR–NC",
@@ -3790,105 +3742,105 @@
     },
     {
       "pair": "KR–NG",
-      "titles": 94,
+      "titles": 95,
       "differentWeek": 50,
       "skew": 40
     },
     {
       "pair": "KR–NI",
       "titles": 89,
-      "differentWeek": 48,
-      "skew": 45.8
+      "differentWeek": 47,
+      "skew": 45.7
     },
     {
       "pair": "KR–NZ",
-      "titles": 33,
-      "differentWeek": 22,
+      "titles": 32,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "KR–OM",
-      "titles": 91,
+      "titles": 92,
       "differentWeek": 54,
       "skew": 46.3
     },
     {
       "pair": "KR–PA",
       "titles": 77,
-      "differentWeek": 48,
+      "differentWeek": 47,
       "skew": 47.9
     },
     {
       "pair": "KR–PE",
       "titles": 102,
-      "differentWeek": 59,
+      "differentWeek": 58,
       "skew": 48.3
     },
     {
       "pair": "KR–PH",
-      "titles": 139,
-      "differentWeek": 54,
-      "skew": 27.8
+      "titles": 140,
+      "differentWeek": 55,
+      "skew": 28.2
     },
     {
       "pair": "KR–PK",
       "titles": 69,
-      "differentWeek": 40,
-      "skew": 47.5
+      "differentWeek": 39,
+      "skew": 47.4
     },
     {
       "pair": "KR–PT",
       "titles": 41,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "KR–PY",
       "titles": 74,
-      "differentWeek": 47,
-      "skew": 47.9
+      "differentWeek": 46,
+      "skew": 47.8
     },
     {
       "pair": "KR–QA",
-      "titles": 110,
+      "titles": 111,
       "differentWeek": 47,
       "skew": 39.4
     },
     {
       "pair": "KR–RE",
       "titles": 54,
-      "differentWeek": 32,
+      "differentWeek": 31,
       "skew": 50
     },
     {
       "pair": "KR–RO",
-      "titles": 57,
+      "titles": 58,
       "differentWeek": 32,
       "skew": 43.8
     },
     {
       "pair": "KR–SA",
-      "titles": 98,
-      "differentWeek": 53,
-      "skew": 42.5
+      "titles": 99,
+      "differentWeek": 54,
+      "skew": 42.6
     },
     {
       "pair": "KR–SG",
-      "titles": 149,
-      "differentWeek": 48,
-      "skew": 31.3
+      "titles": 152,
+      "differentWeek": 51,
+      "skew": 30.4
     },
     {
       "pair": "KR–SV",
       "titles": 87,
-      "differentWeek": 50,
-      "skew": 46
+      "differentWeek": 49,
+      "skew": 45.9
     },
     {
       "pair": "KR–TH",
-      "titles": 141,
-      "differentWeek": 46,
-      "skew": 19.6
+      "titles": 142,
+      "differentWeek": 47,
+      "skew": 20.2
     },
     {
       "pair": "KR–TR",
@@ -3904,21 +3856,21 @@
     },
     {
       "pair": "KR–UY",
-      "titles": 26,
-      "differentWeek": 20,
-      "skew": 45
+      "titles": 27,
+      "differentWeek": 21,
+      "skew": 45.2
     },
     {
       "pair": "KR–VE",
       "titles": 75,
-      "differentWeek": 44,
-      "skew": 45.5
+      "differentWeek": 43,
+      "skew": 45.3
     },
     {
       "pair": "KR–VN",
-      "titles": 145,
-      "differentWeek": 48,
-      "skew": 25
+      "titles": 147,
+      "differentWeek": 50,
+      "skew": 24
     },
     {
       "pair": "KW–LK",
@@ -3934,79 +3886,79 @@
     },
     {
       "pair": "KW–MV",
-      "titles": 83,
-      "differentWeek": 21,
-      "skew": 11.9
+      "titles": 84,
+      "differentWeek": 20,
+      "skew": 10
     },
     {
       "pair": "KW–MX",
       "titles": 73,
-      "differentWeek": 33,
-      "skew": 37.9
+      "differentWeek": 32,
+      "skew": 37.5
     },
     {
       "pair": "KW–MY",
-      "titles": 96,
+      "titles": 97,
       "differentWeek": 43,
       "skew": 50
     },
     {
       "pair": "KW–NG",
-      "titles": 83,
+      "titles": 84,
       "differentWeek": 23,
       "skew": 2.2
     },
     {
       "pair": "KW–NI",
       "titles": 76,
-      "differentWeek": 33,
-      "skew": 25.8
-    },
-    {
-      "pair": "KW–PA",
-      "titles": 70,
-      "differentWeek": 32,
-      "skew": 40.6
-    },
-    {
-      "pair": "KW–PE",
-      "titles": 82,
       "differentWeek": 32,
       "skew": 25
     },
     {
+      "pair": "KW–PA",
+      "titles": 70,
+      "differentWeek": 31,
+      "skew": 40.3
+    },
+    {
+      "pair": "KW–PE",
+      "titles": 82,
+      "differentWeek": 31,
+      "skew": 24.2
+    },
+    {
       "pair": "KW–PH",
-      "titles": 95,
+      "titles": 96,
       "differentWeek": 36,
       "skew": 50
     },
     {
       "pair": "KW–PY",
       "titles": 67,
-      "differentWeek": 32,
-      "skew": 40.6
+      "differentWeek": 31,
+      "skew": 40.3
     },
     {
       "pair": "KW–QA",
-      "titles": 95,
+      "titles": 96,
       "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "KW–SG",
-      "titles": 96,
-      "differentWeek": 39,
+      "titles": 97,
+      "differentWeek": 38,
       "skew": 47.4
     },
     {
       "pair": "KW–SV",
       "titles": 75,
-      "differentWeek": 32,
-      "skew": 31.3
+      "differentWeek": 31,
+      "skew": 30.6
     },
     {
       "pair": "KW–TH",
-      "titles": 95,
+      "titles": 96,
       "differentWeek": 42,
       "skew": 50
     },
@@ -4019,18 +3971,18 @@
     {
       "pair": "KW–TW",
       "titles": 90,
-      "differentWeek": 31,
-      "skew": 43.5
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "KW–VE",
       "titles": 66,
-      "differentWeek": 33,
-      "skew": 31.8
+      "differentWeek": 32,
+      "skew": 31.3
     },
     {
       "pair": "KW–VN",
-      "titles": 94,
+      "titles": 95,
       "differentWeek": 40,
       "skew": 45
     },
@@ -4044,7 +3996,7 @@
       "pair": "LB–MX",
       "titles": 38,
       "differentWeek": 22,
-      "skew": 22.7
+      "skew": 27.3
     },
     {
       "pair": "LB–MY",
@@ -4062,13 +4014,13 @@
       "pair": "LB–NI",
       "titles": 37,
       "differentWeek": 22,
-      "skew": 22.7
+      "skew": 27.3
     },
     {
       "pair": "LB–PE",
       "titles": 39,
       "differentWeek": 24,
-      "skew": 25
+      "skew": 29.2
     },
     {
       "pair": "LB–PH",
@@ -4092,7 +4044,7 @@
       "pair": "LB–SV",
       "titles": 35,
       "differentWeek": 21,
-      "skew": 21.4
+      "skew": 26.2
     },
     {
       "pair": "LB–TH",
@@ -4121,20 +4073,20 @@
     {
       "pair": "LK–MV",
       "titles": 87,
-      "differentWeek": 23,
-      "skew": 19.6
+      "differentWeek": 22,
+      "skew": 18.2
     },
     {
       "pair": "LK–MX",
       "titles": 69,
-      "differentWeek": 31,
-      "skew": 24.2
+      "differentWeek": 30,
+      "skew": 23.3
     },
     {
       "pair": "LK–MY",
       "titles": 92,
-      "differentWeek": 45,
-      "skew": 47.8
+      "differentWeek": 44,
+      "skew": 47.7
     },
     {
       "pair": "LK–NG",
@@ -4145,8 +4097,8 @@
     {
       "pair": "LK–NI",
       "titles": 72,
-      "differentWeek": 39,
-      "skew": 9
+      "differentWeek": 38,
+      "skew": 7.9
     },
     {
       "pair": "LK–OM",
@@ -4157,19 +4109,19 @@
     {
       "pair": "LK–PA",
       "titles": 66,
-      "differentWeek": 32,
-      "skew": 25
+      "differentWeek": 31,
+      "skew": 24.2
     },
     {
       "pair": "LK–PE",
       "titles": 79,
-      "differentWeek": 46,
-      "skew": 13
+      "differentWeek": 45,
+      "skew": 12.2
     },
     {
       "pair": "LK–PH",
       "titles": 93,
-      "differentWeek": 40,
+      "differentWeek": 39,
       "skew": 50
     },
     {
@@ -4181,8 +4133,8 @@
     {
       "pair": "LK–PY",
       "titles": 65,
-      "differentWeek": 25,
-      "skew": 26
+      "differentWeek": 24,
+      "skew": 25
     },
     {
       "pair": "LK–QA",
@@ -4193,44 +4145,44 @@
     {
       "pair": "LK–SA",
       "titles": 81,
-      "differentWeek": 30,
-      "skew": 6.7
+      "differentWeek": 29,
+      "skew": 5.2
     },
     {
       "pair": "LK–SG",
       "titles": 92,
-      "differentWeek": 48,
-      "skew": 41.7
+      "differentWeek": 47,
+      "skew": 41.5
     },
     {
       "pair": "LK–SV",
       "titles": 69,
-      "differentWeek": 36,
-      "skew": 16.7
+      "differentWeek": 35,
+      "skew": 15.7
     },
     {
       "pair": "LK–TH",
       "titles": 92,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "LK–TW",
       "titles": 86,
-      "differentWeek": 42,
-      "skew": 35.7
+      "differentWeek": 41,
+      "skew": 35.4
     },
     {
       "pair": "LK–VE",
       "titles": 62,
-      "differentWeek": 32,
-      "skew": 15.6
+      "differentWeek": 31,
+      "skew": 14.5
     },
     {
       "pair": "LK–VN",
       "titles": 90,
-      "differentWeek": 46,
-      "skew": 43.5
+      "differentWeek": 45,
+      "skew": 43.3
     },
     {
       "pair": "MA–MV",
@@ -4242,7 +4194,7 @@
       "pair": "MA–MX",
       "titles": 65,
       "differentWeek": 25,
-      "skew": 30
+      "skew": 26
     },
     {
       "pair": "MA–MY",
@@ -4254,19 +4206,19 @@
       "pair": "MA–NI",
       "titles": 65,
       "differentWeek": 26,
-      "skew": 15.4
+      "skew": 11.5
     },
     {
       "pair": "MA–PA",
       "titles": 63,
       "differentWeek": 24,
-      "skew": 37.5
+      "skew": 33.3
     },
     {
       "pair": "MA–PE",
       "titles": 69,
       "differentWeek": 26,
-      "skew": 3.8
+      "skew": 0
     },
     {
       "pair": "MA–PH",
@@ -4284,7 +4236,7 @@
       "pair": "MA–PY",
       "titles": 60,
       "differentWeek": 22,
-      "skew": 36.4
+      "skew": 31.8
     },
     {
       "pair": "MA–QA",
@@ -4302,7 +4254,7 @@
       "pair": "MA–SV",
       "titles": 63,
       "differentWeek": 29,
-      "skew": 15.5
+      "skew": 12.1
     },
     {
       "pair": "MA–TH",
@@ -4320,7 +4272,7 @@
       "pair": "MA–VE",
       "titles": 60,
       "differentWeek": 26,
-      "skew": 26.9
+      "skew": 23.1
     },
     {
       "pair": "MA–VN",
@@ -4331,50 +4283,50 @@
     {
       "pair": "MQ–MY",
       "titles": 48,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "MQ–PH",
       "titles": 48,
-      "differentWeek": 24,
-      "skew": 41.7
+      "differentWeek": 23,
+      "skew": 41.3
     },
     {
       "pair": "MQ–QA",
       "titles": 47,
-      "differentWeek": 21,
-      "skew": 40.5
+      "differentWeek": 20,
+      "skew": 40
     },
     {
       "pair": "MQ–SG",
       "titles": 47,
-      "differentWeek": 22,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "MQ–TH",
       "titles": 48,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "MQ–TW",
       "titles": 47,
-      "differentWeek": 27,
-      "skew": 38.9
+      "differentWeek": 26,
+      "skew": 38.5
     },
     {
       "pair": "MQ–VN",
       "titles": 47,
-      "differentWeek": 26,
-      "skew": 38.5
+      "differentWeek": 25,
+      "skew": 38
     },
     {
       "pair": "MU–MX",
       "titles": 50,
       "differentWeek": 21,
-      "skew": 7.1
+      "skew": 2.4
     },
     {
       "pair": "MU–MY",
@@ -4386,7 +4338,7 @@
       "pair": "MU–PE",
       "titles": 52,
       "differentWeek": 21,
-      "skew": 11.9
+      "skew": 16.7
     },
     {
       "pair": "MU–PH",
@@ -4433,14 +4385,14 @@
     {
       "pair": "MV–MX",
       "titles": 71,
-      "differentWeek": 31,
-      "skew": 37.1
+      "differentWeek": 30,
+      "skew": 36.7
     },
     {
       "pair": "MV–MY",
-      "titles": 100,
-      "differentWeek": 42,
-      "skew": 47.6
+      "titles": 101,
+      "differentWeek": 43,
+      "skew": 47.7
     },
     {
       "pair": "MV–NC",
@@ -4450,75 +4402,75 @@
     },
     {
       "pair": "MV–NG",
-      "titles": 87,
-      "differentWeek": 28,
-      "skew": 14.3
+      "titles": 88,
+      "differentWeek": 27,
+      "skew": 13
     },
     {
       "pair": "MV–NI",
       "titles": 77,
-      "differentWeek": 30,
-      "skew": 23.3
+      "differentWeek": 29,
+      "skew": 22.4
     },
     {
       "pair": "MV–PA",
       "titles": 68,
-      "differentWeek": 29,
-      "skew": 39.7
+      "differentWeek": 28,
+      "skew": 39.3
     },
     {
       "pair": "MV–PE",
       "titles": 82,
-      "differentWeek": 37,
-      "skew": 23
+      "differentWeek": 36,
+      "skew": 22.2
     },
     {
       "pair": "MV–PH",
-      "titles": 100,
-      "differentWeek": 38,
+      "titles": 101,
+      "differentWeek": 39,
       "skew": 50
     },
     {
       "pair": "MV–PK",
       "titles": 64,
-      "differentWeek": 23,
-      "skew": 28.3
+      "differentWeek": 22,
+      "skew": 27.3
     },
     {
       "pair": "MV–PY",
       "titles": 67,
-      "differentWeek": 26,
-      "skew": 42.3
+      "differentWeek": 25,
+      "skew": 42
     },
     {
       "pair": "MV–QA",
-      "titles": 97,
-      "differentWeek": 28,
-      "skew": 35.7
+      "titles": 98,
+      "differentWeek": 27,
+      "skew": 38.9
     },
     {
       "pair": "MV–SA",
-      "titles": 88,
+      "titles": 89,
       "differentWeek": 22,
       "skew": 4.5
     },
     {
       "pair": "MV–SG",
-      "titles": 98,
+      "titles": 99,
       "differentWeek": 39,
       "skew": 42.3
     },
     {
       "pair": "MV–SV",
       "titles": 74,
-      "differentWeek": 33,
-      "skew": 25.8
+      "differentWeek": 32,
+      "skew": 25
     },
     {
       "pair": "MV–TH",
-      "titles": 100,
-      "differentWeek": 44,
-      "skew": 43.2
+      "titles": 101,
+      "differentWeek": 45,
+      "skew": 43.3
     },
     {
       "pair": "MV–TR",
@@ -4535,26 +4487,26 @@
     {
       "pair": "MV–VE",
       "titles": 66,
-      "differentWeek": 26,
-      "skew": 30.8
+      "differentWeek": 25,
+      "skew": 30
     },
     {
       "pair": "MV–VN",
-      "titles": 97,
-      "differentWeek": 39,
-      "skew": 44.9
+      "titles": 98,
+      "differentWeek": 40,
+      "skew": 45
     },
     {
       "pair": "MX–MY",
       "titles": 81,
-      "differentWeek": 49,
-      "skew": 48
+      "differentWeek": 48,
+      "skew": 47.9
     },
     {
       "pair": "MX–NG",
       "titles": 70,
-      "differentWeek": 29,
-      "skew": 36.2
+      "differentWeek": 28,
+      "skew": 35.7
     },
     {
       "pair": "MX–NI",
@@ -4565,62 +4517,62 @@
     {
       "pair": "MX–OM",
       "titles": 72,
-      "differentWeek": 31,
-      "skew": 37.1
+      "differentWeek": 30,
+      "skew": 36.7
     },
     {
       "pair": "MX–PH",
       "titles": 79,
-      "differentWeek": 45,
-      "skew": 43.3
+      "differentWeek": 44,
+      "skew": 43.2
     },
     {
       "pair": "MX–PK",
       "titles": 56,
-      "differentWeek": 23,
-      "skew": 10.9
+      "differentWeek": 22,
+      "skew": 9.1
     },
     {
       "pair": "MX–QA",
       "titles": 75,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "MX–RO",
-      "titles": 52,
+      "titles": 53,
       "differentWeek": 24,
       "skew": 8.3
     },
     {
       "pair": "MX–SA",
       "titles": 72,
-      "differentWeek": 32,
-      "skew": 37.5
+      "differentWeek": 31,
+      "skew": 37.1
     },
     {
       "pair": "MX–SG",
       "titles": 78,
-      "differentWeek": 45,
-      "skew": 47.8
+      "differentWeek": 44,
+      "skew": 47.7
     },
     {
       "pair": "MX–TH",
       "titles": 79,
-      "differentWeek": 49,
-      "skew": 45.9
+      "differentWeek": 48,
+      "skew": 45.8
     },
     {
       "pair": "MX–TW",
       "titles": 78,
-      "differentWeek": 48,
-      "skew": 41.7
+      "differentWeek": 47,
+      "skew": 41.5
     },
     {
       "pair": "MX–VN",
       "titles": 78,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "MY–NC",
@@ -4630,103 +4582,103 @@
     },
     {
       "pair": "MY–NG",
-      "titles": 98,
+      "titles": 99,
       "differentWeek": 42,
       "skew": 50
     },
     {
       "pair": "MY–NI",
       "titles": 88,
-      "differentWeek": 47,
-      "skew": 41.5
+      "differentWeek": 46,
+      "skew": 41.3
     },
     {
       "pair": "MY–NZ",
-      "titles": 34,
-      "differentWeek": 21,
+      "titles": 33,
+      "differentWeek": 20,
       "skew": 50
     },
     {
       "pair": "MY–OM",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 45,
       "skew": 50
     },
     {
       "pair": "MY–PA",
       "titles": 77,
-      "differentWeek": 50,
-      "skew": 46
+      "differentWeek": 49,
+      "skew": 45.9
     },
     {
       "pair": "MY–PE",
       "titles": 101,
-      "differentWeek": 55,
-      "skew": 44.5
+      "differentWeek": 54,
+      "skew": 44.4
     },
     {
       "pair": "MY–PH",
-      "titles": 155,
+      "titles": 156,
       "differentWeek": 35,
       "skew": 30
     },
     {
       "pair": "MY–PK",
       "titles": 70,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 50
     },
     {
       "pair": "MY–PT",
       "titles": 41,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "MY–PY",
       "titles": 74,
-      "differentWeek": 46,
+      "differentWeek": 45,
       "skew": 47.8
     },
     {
       "pair": "MY–QA",
-      "titles": 118,
+      "titles": 119,
       "differentWeek": 34,
       "skew": 47.1
     },
     {
       "pair": "MY–RE",
       "titles": 55,
-      "differentWeek": 32,
+      "differentWeek": 31,
       "skew": 50
     },
     {
       "pair": "MY–RO",
-      "titles": 56,
+      "titles": 57,
       "differentWeek": 28,
       "skew": 46.4
     },
     {
       "pair": "MY–SA",
-      "titles": 100,
-      "differentWeek": 44,
+      "titles": 101,
+      "differentWeek": 45,
       "skew": 50
     },
     {
       "pair": "MY–SG",
-      "titles": 159,
-      "differentWeek": 29,
-      "skew": 19
+      "titles": 160,
+      "differentWeek": 30,
+      "skew": 20
     },
     {
       "pair": "MY–SV",
       "titles": 88,
-      "differentWeek": 50,
-      "skew": 42
+      "differentWeek": 49,
+      "skew": 41.8
     },
     {
       "pair": "MY–TH",
-      "titles": 154,
+      "titles": 155,
       "differentWeek": 27,
       "skew": 13
     },
@@ -4744,19 +4696,19 @@
     },
     {
       "pair": "MY–UY",
-      "titles": 26,
-      "differentWeek": 20,
-      "skew": 45
+      "titles": 27,
+      "differentWeek": 21,
+      "skew": 45.2
     },
     {
       "pair": "MY–VE",
       "titles": 74,
-      "differentWeek": 45,
-      "skew": 41.1
+      "differentWeek": 44,
+      "skew": 40.9
     },
     {
       "pair": "MY–VN",
-      "titles": 154,
+      "titles": 155,
       "differentWeek": 28,
       "skew": 21.4
     },
@@ -4811,66 +4763,66 @@
     {
       "pair": "NG–NI",
       "titles": 73,
-      "differentWeek": 34,
-      "skew": 20.6
+      "differentWeek": 33,
+      "skew": 19.7
     },
     {
       "pair": "NG–OM",
-      "titles": 80,
+      "titles": 81,
       "differentWeek": 25,
       "skew": 2
     },
     {
       "pair": "NG–PA",
       "titles": 67,
-      "differentWeek": 32,
-      "skew": 34.4
+      "differentWeek": 31,
+      "skew": 33.9
     },
     {
       "pair": "NG–PE",
       "titles": 77,
-      "differentWeek": 38,
-      "skew": 13.2
+      "differentWeek": 37,
+      "skew": 12.2
     },
     {
       "pair": "NG–PH",
-      "titles": 99,
+      "titles": 100,
       "differentWeek": 37,
       "skew": 50
     },
     {
       "pair": "NG–PY",
       "titles": 64,
-      "differentWeek": 27,
-      "skew": 35.2
+      "differentWeek": 26,
+      "skew": 34.6
     },
     {
       "pair": "NG–QA",
-      "titles": 94,
+      "titles": 95,
       "differentWeek": 29,
       "skew": 36.2
     },
     {
       "pair": "NG–SA",
-      "titles": 82,
-      "differentWeek": 27,
-      "skew": 9.3
+      "titles": 83,
+      "differentWeek": 26,
+      "skew": 7.7
     },
     {
       "pair": "NG–SG",
-      "titles": 98,
-      "differentWeek": 41,
-      "skew": 42.7
+      "titles": 99,
+      "differentWeek": 40,
+      "skew": 42.5
     },
     {
       "pair": "NG–SV",
       "titles": 70,
-      "differentWeek": 36,
-      "skew": 22.2
+      "differentWeek": 35,
+      "skew": 21.4
     },
     {
       "pair": "NG–TH",
-      "titles": 98,
+      "titles": 99,
       "differentWeek": 43,
       "skew": 47.7
     },
@@ -4883,26 +4835,26 @@
     {
       "pair": "NG–TW",
       "titles": 92,
-      "differentWeek": 35,
-      "skew": 38.6
+      "differentWeek": 34,
+      "skew": 38.2
     },
     {
       "pair": "NG–VE",
       "titles": 63,
-      "differentWeek": 32,
-      "skew": 28.1
+      "differentWeek": 31,
+      "skew": 27.4
     },
     {
       "pair": "NG–VN",
-      "titles": 96,
+      "titles": 97,
       "differentWeek": 42,
       "skew": 40.5
     },
     {
       "pair": "NI–OM",
       "titles": 75,
-      "differentWeek": 31,
-      "skew": 24.2
+      "differentWeek": 30,
+      "skew": 23.3
     },
     {
       "pair": "NI–PA",
@@ -4913,50 +4865,44 @@
     {
       "pair": "NI–PH",
       "titles": 85,
-      "differentWeek": 43,
-      "skew": 40.7
+      "differentWeek": 42,
+      "skew": 40.5
     },
     {
       "pair": "NI–PK",
       "titles": 58,
-      "differentWeek": 24,
-      "skew": 0
-    },
-    {
-      "pair": "NI–PY",
-      "titles": 76,
-      "differentWeek": 20,
-      "skew": 45
+      "differentWeek": 23,
+      "skew": 2.2
     },
     {
       "pair": "NI–QA",
       "titles": 79,
-      "differentWeek": 36,
-      "skew": 41.7
+      "differentWeek": 35,
+      "skew": 41.4
     },
     {
       "pair": "NI–RO",
-      "titles": 52,
+      "titles": 53,
       "differentWeek": 20,
       "skew": 5
     },
     {
       "pair": "NI–SA",
       "titles": 76,
-      "differentWeek": 30,
-      "skew": 30
+      "differentWeek": 29,
+      "skew": 29.3
     },
     {
       "pair": "NI–SG",
       "titles": 85,
-      "differentWeek": 41,
-      "skew": 42.7
+      "differentWeek": 40,
+      "skew": 42.5
     },
     {
       "pair": "NI–TH",
       "titles": 86,
-      "differentWeek": 46,
-      "skew": 43.5
+      "differentWeek": 45,
+      "skew": 43.3
     },
     {
       "pair": "NI–TR",
@@ -4967,47 +4913,23 @@
     {
       "pair": "NI–TW",
       "titles": 87,
-      "differentWeek": 47,
-      "skew": 37.2
+      "differentWeek": 46,
+      "skew": 37
     },
     {
       "pair": "NI–VN",
       "titles": 84,
-      "differentWeek": 40,
-      "skew": 42.5
-    },
-    {
-      "pair": "NZ–PH",
-      "titles": 34,
-      "differentWeek": 20,
-      "skew": 50
-    },
-    {
-      "pair": "NZ–QA",
-      "titles": 34,
-      "differentWeek": 20,
-      "skew": 50
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "NZ–SG",
-      "titles": 34,
-      "differentWeek": 22,
-      "skew": 50
-    },
-    {
-      "pair": "NZ–TH",
-      "titles": 34,
-      "differentWeek": 20,
+      "titles": 33,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "NZ–TW",
-      "titles": 34,
-      "differentWeek": 21,
-      "skew": 45.2
-    },
-    {
-      "pair": "NZ–VN",
       "titles": 33,
       "differentWeek": 20,
       "skew": 45
@@ -5015,48 +4937,48 @@
     {
       "pair": "OM–PA",
       "titles": 69,
-      "differentWeek": 32,
-      "skew": 40.6
+      "differentWeek": 31,
+      "skew": 40.3
     },
     {
       "pair": "OM–PE",
       "titles": 83,
-      "differentWeek": 36,
-      "skew": 19.4
+      "differentWeek": 35,
+      "skew": 18.6
     },
     {
       "pair": "OM–PH",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 38,
       "skew": 50
     },
     {
       "pair": "OM–PY",
       "titles": 66,
-      "differentWeek": 28,
-      "skew": 42.9
+      "differentWeek": 27,
+      "skew": 42.6
     },
     {
       "pair": "OM–QA",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 29,
       "skew": 46.6
     },
     {
       "pair": "OM–SG",
-      "titles": 93,
-      "differentWeek": 40,
-      "skew": 47.5
+      "titles": 94,
+      "differentWeek": 39,
+      "skew": 47.4
     },
     {
       "pair": "OM–SV",
       "titles": 73,
-      "differentWeek": 32,
-      "skew": 25
+      "differentWeek": 31,
+      "skew": 24.2
     },
     {
       "pair": "OM–TH",
-      "titles": 93,
+      "titles": 94,
       "differentWeek": 45,
       "skew": 50
     },
@@ -5069,18 +4991,18 @@
     {
       "pair": "OM–TW",
       "titles": 89,
-      "differentWeek": 35,
-      "skew": 44.3
+      "differentWeek": 34,
+      "skew": 44.1
     },
     {
       "pair": "OM–VE",
       "titles": 65,
-      "differentWeek": 29,
-      "skew": 32.8
+      "differentWeek": 28,
+      "skew": 32.1
     },
     {
       "pair": "OM–VN",
-      "titles": 91,
+      "titles": 92,
       "differentWeek": 44,
       "skew": 45.5
     },
@@ -5093,32 +5015,32 @@
     {
       "pair": "PA–PH",
       "titles": 74,
-      "differentWeek": 44,
-      "skew": 45.5
+      "differentWeek": 43,
+      "skew": 45.3
     },
     {
       "pair": "PA–PK",
       "titles": 52,
-      "differentWeek": 21,
-      "skew": 21.4
+      "differentWeek": 20,
+      "skew": 20
     },
     {
       "pair": "PA–QA",
       "titles": 72,
-      "differentWeek": 41,
-      "skew": 47.6
+      "differentWeek": 40,
+      "skew": 47.5
     },
     {
       "pair": "PA–SA",
       "titles": 69,
-      "differentWeek": 31,
-      "skew": 43.5
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "PA–SG",
       "titles": 75,
-      "differentWeek": 48,
-      "skew": 43.7
+      "differentWeek": 47,
+      "skew": 43.6
     },
     {
       "pair": "PA–SV",
@@ -5129,74 +5051,68 @@
     {
       "pair": "PA–TH",
       "titles": 75,
-      "differentWeek": 48,
-      "skew": 45.8
+      "differentWeek": 47,
+      "skew": 45.7
     },
     {
       "pair": "PA–TW",
       "titles": 75,
-      "differentWeek": 45,
-      "skew": 43.3
-    },
-    {
-      "pair": "PA–VE",
-      "titles": 66,
-      "differentWeek": 20,
-      "skew": 10
-    },
-    {
-      "pair": "PA–VN",
-      "titles": 73,
       "differentWeek": 44,
       "skew": 43.2
     },
     {
+      "pair": "PA–VN",
+      "titles": 73,
+      "differentWeek": 43,
+      "skew": 43
+    },
+    {
       "pair": "PE–PH",
       "titles": 99,
-      "differentWeek": 51,
-      "skew": 42.2
+      "differentWeek": 50,
+      "skew": 42
     },
     {
       "pair": "PE–PK",
       "titles": 63,
-      "differentWeek": 25,
-      "skew": 6
+      "differentWeek": 24,
+      "skew": 8.3
     },
     {
       "pair": "PE–PY",
       "titles": 77,
-      "differentWeek": 23,
-      "skew": 45.7
+      "differentWeek": 22,
+      "skew": 45.5
     },
     {
       "pair": "PE–QA",
       "titles": 89,
-      "differentWeek": 39,
-      "skew": 44.9
+      "differentWeek": 38,
+      "skew": 44.7
     },
     {
       "pair": "PE–RO",
-      "titles": 54,
+      "titles": 55,
       "differentWeek": 26,
       "skew": 11.5
     },
     {
       "pair": "PE–SA",
       "titles": 85,
-      "differentWeek": 34,
-      "skew": 23.5
+      "differentWeek": 33,
+      "skew": 22.7
     },
     {
       "pair": "PE–SG",
       "titles": 99,
-      "differentWeek": 51,
-      "skew": 44.1
+      "differentWeek": 50,
+      "skew": 44
     },
     {
       "pair": "PE–TH",
       "titles": 96,
-      "differentWeek": 56,
-      "skew": 42.9
+      "differentWeek": 55,
+      "skew": 42.7
     },
     {
       "pair": "PE–TR",
@@ -5207,78 +5123,78 @@
     {
       "pair": "PE–TW",
       "titles": 99,
-      "differentWeek": 51,
-      "skew": 38.2
+      "differentWeek": 50,
+      "skew": 38
     },
     {
       "pair": "PE–VE",
       "titles": 75,
-      "differentWeek": 22,
-      "skew": 36.4
+      "differentWeek": 21,
+      "skew": 35.7
     },
     {
       "pair": "PE–VN",
       "titles": 97,
-      "differentWeek": 52,
-      "skew": 42.3
+      "differentWeek": 51,
+      "skew": 42.2
     },
     {
       "pair": "PH–PK",
       "titles": 70,
-      "differentWeek": 36,
+      "differentWeek": 35,
       "skew": 50
     },
     {
       "pair": "PH–PT",
       "titles": 41,
-      "differentWeek": 22,
+      "differentWeek": 21,
       "skew": 50
     },
     {
       "pair": "PH–PY",
       "titles": 72,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "PH–QA",
-      "titles": 118,
+      "titles": 119,
       "differentWeek": 25,
       "skew": 46
     },
     {
       "pair": "PH–RE",
       "titles": 55,
-      "differentWeek": 28,
+      "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "PH–RO",
-      "titles": 56,
+      "titles": 57,
       "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "PH–SA",
-      "titles": 99,
-      "differentWeek": 34,
+      "titles": 100,
+      "differentWeek": 35,
       "skew": 47.1
     },
     {
       "pair": "PH–SG",
-      "titles": 148,
-      "differentWeek": 34,
-      "skew": 2.9
+      "titles": 149,
+      "differentWeek": 35,
+      "skew": 1.4
     },
     {
       "pair": "PH–SV",
       "titles": 84,
-      "differentWeek": 46,
-      "skew": 41.3
+      "differentWeek": 45,
+      "skew": 41.1
     },
     {
       "pair": "PH–TH",
-      "titles": 150,
+      "titles": 151,
       "differentWeek": 33,
       "skew": 16.7
     },
@@ -5297,20 +5213,14 @@
     {
       "pair": "PH–VE",
       "titles": 72,
-      "differentWeek": 42,
-      "skew": 40.5
+      "differentWeek": 41,
+      "skew": 40.2
     },
     {
       "pair": "PH–VN",
-      "titles": 146,
+      "titles": 147,
       "differentWeek": 35,
       "skew": 18.6
-    },
-    {
-      "pair": "PK–PY",
-      "titles": 54,
-      "differentWeek": 20,
-      "skew": 25
     },
     {
       "pair": "PK–QA",
@@ -5321,156 +5231,150 @@
     {
       "pair": "PK–SA",
       "titles": 66,
-      "differentWeek": 21,
-      "skew": 31
+      "differentWeek": 20,
+      "skew": 30
     },
     {
       "pair": "PK–SG",
       "titles": 70,
-      "differentWeek": 36,
-      "skew": 47.2
+      "differentWeek": 35,
+      "skew": 47.1
     },
     {
       "pair": "PK–SV",
       "titles": 55,
-      "differentWeek": 25,
-      "skew": 2
+      "differentWeek": 24,
+      "skew": 0
     },
     {
       "pair": "PK–TH",
       "titles": 70,
-      "differentWeek": 39,
+      "differentWeek": 38,
       "skew": 50
     },
     {
       "pair": "PK–TW",
       "titles": 68,
-      "differentWeek": 32,
-      "skew": 43.7
+      "differentWeek": 31,
+      "skew": 43.5
     },
     {
       "pair": "PK–VE",
       "titles": 54,
-      "differentWeek": 24,
-      "skew": 16.7
+      "differentWeek": 23,
+      "skew": 15.2
     },
     {
       "pair": "PK–VN",
       "titles": 70,
-      "differentWeek": 36,
-      "skew": 47.2
-    },
-    {
-      "pair": "PT–QA",
-      "titles": 41,
-      "differentWeek": 20,
-      "skew": 50
+      "differentWeek": 35,
+      "skew": 47.1
     },
     {
       "pair": "PT–SG",
       "titles": 41,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "PT–TH",
       "titles": 41,
-      "differentWeek": 23,
+      "differentWeek": 22,
       "skew": 50
     },
     {
       "pair": "PT–TW",
       "titles": 41,
-      "differentWeek": 21,
-      "skew": 45.2
+      "differentWeek": 20,
+      "skew": 45
     },
     {
       "pair": "PT–VN",
       "titles": 41,
-      "differentWeek": 23,
-      "skew": 45.7
+      "differentWeek": 22,
+      "skew": 45.5
     },
     {
       "pair": "PY–QA",
       "titles": 68,
-      "differentWeek": 38,
-      "skew": 47.4
+      "differentWeek": 37,
+      "skew": 47.3
     },
     {
       "pair": "PY–RO",
-      "titles": 50,
+      "titles": 51,
       "differentWeek": 20,
       "skew": 10
     },
     {
       "pair": "PY–SA",
       "titles": 66,
-      "differentWeek": 28,
-      "skew": 42.9
+      "differentWeek": 27,
+      "skew": 42.6
     },
     {
       "pair": "PY–SG",
       "titles": 73,
-      "differentWeek": 45,
-      "skew": 45.6
+      "differentWeek": 44,
+      "skew": 45.5
     },
     {
       "pair": "PY–SV",
       "titles": 73,
-      "differentWeek": 21,
-      "skew": 45.2
+      "differentWeek": 20,
+      "skew": 45
     },
     {
       "pair": "PY–TH",
       "titles": 72,
-      "differentWeek": 46,
-      "skew": 45.7
+      "differentWeek": 45,
+      "skew": 45.6
     },
     {
       "pair": "PY–TW",
       "titles": 73,
-      "differentWeek": 43,
-      "skew": 43
+      "differentWeek": 42,
+      "skew": 42.9
     },
     {
       "pair": "PY–VN",
       "titles": 71,
-      "differentWeek": 42,
-      "skew": 45.2
+      "differentWeek": 41,
+      "skew": 45.1
     },
     {
       "pair": "QA–RE",
       "titles": 55,
-      "differentWeek": 24,
+      "differentWeek": 23,
       "skew": 50
     },
     {
       "pair": "QA–RO",
-      "titles": 53,
+      "titles": 54,
       "differentWeek": 22,
       "skew": 45.5
     },
     {
       "pair": "QA–SA",
-      "titles": 97,
-      "differentWeek": 33,
-      "skew": 37.9
+      "titles": 98,
+      "differentWeek": 32,
+      "skew": 40.6
     },
     {
       "pair": "QA–SG",
-      "titles": 116,
-      "differentWeek": 33,
-      "skew": 34.8
+      "titles": 117,
+      "differentWeek": 32,
+      "skew": 34.4
     },
     {
       "pair": "QA–SV",
       "titles": 77,
-      "differentWeek": 36,
-      "skew": 44.4
+      "differentWeek": 35,
+      "skew": 44.3
     },
     {
       "pair": "QA–TH",
-      "titles": 118,
+      "titles": 119,
       "differentWeek": 37,
       "skew": 41.9
     },
@@ -5483,91 +5387,91 @@
     {
       "pair": "QA–TW",
       "titles": 110,
-      "differentWeek": 31,
-      "skew": 21
+      "differentWeek": 30,
+      "skew": 20
     },
     {
       "pair": "QA–VE",
       "titles": 68,
-      "differentWeek": 36,
-      "skew": 41.7
+      "differentWeek": 35,
+      "skew": 41.4
     },
     {
       "pair": "QA–VN",
-      "titles": 114,
+      "titles": 115,
       "differentWeek": 34,
       "skew": 38.2
     },
     {
       "pair": "RE–SG",
       "titles": 55,
-      "differentWeek": 28,
+      "differentWeek": 27,
       "skew": 50
     },
     {
       "pair": "RE–TH",
       "titles": 55,
-      "differentWeek": 32,
+      "differentWeek": 31,
       "skew": 50
     },
     {
       "pair": "RE–TW",
       "titles": 54,
-      "differentWeek": 31,
-      "skew": 43.5
+      "differentWeek": 30,
+      "skew": 43.3
     },
     {
       "pair": "RE–VN",
       "titles": 54,
-      "differentWeek": 31,
-      "skew": 46.8
+      "differentWeek": 30,
+      "skew": 46.7
     },
     {
       "pair": "RO–SG",
-      "titles": 56,
+      "titles": 57,
       "differentWeek": 26,
       "skew": 50
     },
     {
       "pair": "RO–SV",
-      "titles": 51,
+      "titles": 52,
       "differentWeek": 22,
       "skew": 4.5
     },
     {
       "pair": "RO–TH",
-      "titles": 56,
+      "titles": 57,
       "differentWeek": 25,
       "skew": 50
     },
     {
       "pair": "RO–TW",
-      "titles": 55,
+      "titles": 56,
       "differentWeek": 24,
       "skew": 41.7
     },
     {
       "pair": "RO–VN",
-      "titles": 55,
+      "titles": 56,
       "differentWeek": 27,
       "skew": 42.6
     },
     {
       "pair": "SA–SG",
-      "titles": 99,
+      "titles": 100,
       "differentWeek": 39,
       "skew": 44.9
     },
     {
       "pair": "SA–SV",
       "titles": 74,
-      "differentWeek": 31,
-      "skew": 30.6
+      "differentWeek": 30,
+      "skew": 30
     },
     {
       "pair": "SA–TH",
-      "titles": 98,
-      "differentWeek": 41,
+      "titles": 99,
+      "differentWeek": 42,
       "skew": 50
     },
     {
@@ -5585,26 +5489,26 @@
     {
       "pair": "SA–VE",
       "titles": 66,
-      "differentWeek": 30,
-      "skew": 33.3
+      "differentWeek": 29,
+      "skew": 32.8
     },
     {
       "pair": "SA–VN",
-      "titles": 97,
-      "differentWeek": 44,
-      "skew": 43.2
+      "titles": 98,
+      "differentWeek": 45,
+      "skew": 43.3
     },
     {
       "pair": "SG–SV",
       "titles": 85,
-      "differentWeek": 44,
-      "skew": 43.2
+      "differentWeek": 43,
+      "skew": 43
     },
     {
       "pair": "SG–TH",
-      "titles": 146,
-      "differentWeek": 28,
-      "skew": 10.7
+      "titles": 147,
+      "differentWeek": 29,
+      "skew": 12.1
     },
     {
       "pair": "SG–TR",
@@ -5619,22 +5523,28 @@
       "skew": 28.8
     },
     {
+      "pair": "SG–UY",
+      "titles": 28,
+      "differentWeek": 20,
+      "skew": 45
+    },
+    {
       "pair": "SG–VE",
       "titles": 73,
-      "differentWeek": 40,
-      "skew": 42.5
+      "differentWeek": 39,
+      "skew": 42.3
     },
     {
       "pair": "SG–VN",
-      "titles": 147,
-      "differentWeek": 31,
-      "skew": 1.6
+      "titles": 148,
+      "differentWeek": 32,
+      "skew": 3.1
     },
     {
       "pair": "SV–TH",
       "titles": 83,
-      "differentWeek": 48,
-      "skew": 41.7
+      "differentWeek": 47,
+      "skew": 41.5
     },
     {
       "pair": "SV–TR",
@@ -5645,14 +5555,14 @@
     {
       "pair": "SV–TW",
       "titles": 86,
-      "differentWeek": 48,
-      "skew": 37.5
+      "differentWeek": 47,
+      "skew": 37.2
     },
     {
       "pair": "SV–VN",
       "titles": 83,
-      "differentWeek": 45,
-      "skew": 38.9
+      "differentWeek": 44,
+      "skew": 38.6
     },
     {
       "pair": "TH–TR",
@@ -5667,14 +5577,20 @@
       "skew": 31.8
     },
     {
+      "pair": "TH–UY",
+      "titles": 26,
+      "differentWeek": 20,
+      "skew": 50
+    },
+    {
       "pair": "TH–VE",
       "titles": 71,
-      "differentWeek": 43,
-      "skew": 40.7
+      "differentWeek": 42,
+      "skew": 40.5
     },
     {
       "pair": "TH–VN",
-      "titles": 145,
+      "titles": 146,
       "differentWeek": 33,
       "skew": 1.5
     },
@@ -5688,7 +5604,7 @@
       "pair": "TR–VE",
       "titles": 50,
       "differentWeek": 22,
-      "skew": 9.1
+      "skew": 4.5
     },
     {
       "pair": "TR–VN",
@@ -5697,10 +5613,16 @@
       "skew": 44.6
     },
     {
+      "pair": "TW–UY",
+      "titles": 28,
+      "differentWeek": 20,
+      "skew": 40
+    },
+    {
       "pair": "TW–VE",
       "titles": 72,
-      "differentWeek": 44,
-      "skew": 36.4
+      "differentWeek": 43,
+      "skew": 36
     },
     {
       "pair": "TW–VN",
@@ -5709,10 +5631,16 @@
       "skew": 15
     },
     {
+      "pair": "UY–VN",
+      "titles": 26,
+      "differentWeek": 20,
+      "skew": 50
+    },
+    {
       "pair": "VE–VN",
       "titles": 72,
-      "differentWeek": 41,
-      "skew": 40.2
+      "differentWeek": 40,
+      "skew": 40
     }
   ],
   "cannotAnswer": "This cannot say why a title reached one chart before another. Netflix publishes neither its release dates by country nor what it promoted where, and a chart entry is an outcome, not a launch."

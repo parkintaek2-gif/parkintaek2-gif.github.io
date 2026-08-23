@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T14:37+09:00",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists. One cell is one country, one week, one of the two charts (films or series).",
   "question": "Our headline figure is an average. Is a Korean title on a country chart most weeks, or absent most weeks and several at once when it is there?",
   "unit": "A cell is one country-week-chart. \"Any\" means at least one Korean title held a place in that cell. The even comparison is what the same overall share would produce if places fell independently.",

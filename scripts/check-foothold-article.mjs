@@ -148,7 +148,13 @@ if (내가실행됐다) {
   본다('때를 죽였다고 적었나',
     /later series/i.test(민본) && /inside that single series/i.test(민본), '작품 안에서 견줬다');
   본다('나라를 죽였다고 적었나', /same Vietnam/i.test(민본), '나라 안에서 견줬다');
-  본다('뒤집힌 곳을 안 숨겼나', /Five do not/i.test(민본), '다섯 곳을 냈다');
+  /* 🔴 2026-08-23 — 여기 「Five」가 박혀 있었다. 뒤집힌 곳이 다섯에서 일곱으로 늘자
+     기사를 사실대로 고쳤는데 자가 옛 수를 요구해 울었다. **낱말도 자료에서 만든다.** */
+  const 셈낱말 = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+  const 뒤집힌수 = d.marketsWhereItReverses;
+  본다('뒤집힌 곳을 안 숨겼나',
+    new RegExp(`(${셈낱말[뒤집힌수] ?? 뒤집힌수}|${뒤집힌수}) do not`, 'i').test(민본),
+    `${뒤집힌수}곳을 냈다`);
   본다('줄세우지 않는다고 적었나', /Alphabetical, not ranked/i.test(민본), '순위표 아님');
   본다('왜인지는 못 답한다고 적었나',
     /cannot tell you why/i.test(민본) && /symptom rather than a cause/i.test(민본), '까닭은 없다');

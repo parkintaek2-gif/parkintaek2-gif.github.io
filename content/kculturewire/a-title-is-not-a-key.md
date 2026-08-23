@@ -53,7 +53,7 @@ origin of a same-titled foreign work.
 ## The obvious test does not work
 
 The first rule we tried was "if it never charts in Korea, it is not Korean." It is wrong, and the
-size of the error is the point: **384 of our 982 Korean titles — 39.3% — never chart in Korea at
+size of the error is the point: **384 of our 977 Korean titles — 39.3% — never chart in Korea at
 all.** A drama that airs on KBS or tvN is on Korean television, not on Netflix Korea, so it can
 travel to sixty countries without ever appearing at home. Applying that rule alone would have thrown
 out 342 genuine titles to catch thirteen foreign ones.

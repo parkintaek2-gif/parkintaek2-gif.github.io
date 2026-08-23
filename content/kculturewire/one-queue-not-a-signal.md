@@ -2,7 +2,7 @@
 title: "No country's Netflix chart is a signal for another's — 58 markets are standing in one queue"
 category: titles
 purpose: both
-dek: "Of 134,279 times a Korean series reached two countries charts, 57.6% arrived in both the same week. Where one did come first, only 2 of 8,593 country triples contradict each other — the markets form one stable order."
+dek: "Of 135,036 times a Korean series reached two countries charts, 58.1% arrived in both the same week. Where one did come first, only 1 of 8,333 country triples contradict each other — the markets form one stable order."
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -11,7 +11,7 @@ pages:
   - "/lead-lag"
 sources:
   - org: "Netflix"
-    api: "Tudum weekly Top 10 country lists, series only, 265 weeks to 2026-07-26, 493,600 chart rows across 93 markets"
+    api: "Tudum weekly Top 10 country lists, series only, 268 weeks to 2026-08-16, 499,180 chart rows across 93 markets"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Korean titles identified by item number rather than by name, using country of origin, and restricted to series"
@@ -31,39 +31,39 @@ Somewhere in a distribution office there is a second monitor with a neighbouring
 chart on it. The reasoning is old and reasonable: if a Korean series is climbing in Thailand this
 week, Vietnam is worth watching next week.
 
-We can test that against 265 weeks of country charts. The answer is no, and the interesting part is
+We can test that against 268 weeks of country charts. The answer is no, and the interesting part is
 *why* no.
 
 ## Most of the time there is no "first"
 
 Before asking who leads, we have to ask whether anybody does.
 
-Take every occasion a Korean series reached the charts of two countries — 134,279 of them across 235
+Take every occasion a Korean series reached the charts of two countries — 135,036 of them across 239
 series. Compare the week it first appeared in each.
 
 | A Korean series that reached both countries' charts | Times | Share |
 |---|---:|---:|
-| Arrived in both the same week | 77,385 | 57.6% |
-| One came first | 56,894 | 42.4% |
+| Arrived in both the same week | 78,428 | 58.1% |
+| One came first | 56,608 | 41.9% |
 
 **Netflix releases worldwide, and it shows.** More than half the time a series lands on both charts
 in the same week, and there is nothing to lead. Whatever a leading indicator could be, it is
-confined to the remaining 42.4% from the outset.
+confined to the remaining 41.9% from the outset.
 
 ## Where one does come first, the direction is almost fixed
 
 For the pairs where a gap exists, we measured how lopsided the ordering is. Zero means the two
-countries trade the lead evenly; 50 means one of them is always first. 946 pairs had at least 20
+countries trade the lead evenly; 50 means one of them is always first. 934 pairs had at least 20
 titles arriving in different weeks.
 
 | How lopsided the pair is | Pairs |
 |---|---:|
-| Under 10 points from even | 78 |
-| 10–20 points | 92 |
-| 20–30 points | 102 |
-| 30 points or more | 674 |
+| Under 10 points from even | 86 |
+| 10–20 points | 88 |
+| 20–30 points | 96 |
+| 30 points or more | 664 |
 
-The median pair sits **42.3 points from even**, out of a possible 50. When one of two countries takes
+The median pair sits **42.1 points from even**, out of a possible 50. When one of two countries takes
 a Korean series first, it is nearly always the same one of the two.
 
 That looks, at first, like exactly the signal the second monitor was bought for.
@@ -79,10 +79,10 @@ If instead the markets simply differ in speed — some reach a top 10 within day
 others take weeks to accumulate enough viewing — then every pair is just two positions in one line,
 and loops should be impossible.
 
-We checked every triple of countries where all three pairs have a direction. There are 8,593 of them
+We checked every triple of countries where all three pairs have a direction. There are 8,333 of them
 across 58 markets.
 
-**8,591 are consistent. Two form a loop.**
+**8,332 are consistent. One forms a loop.**
 
 If A takes a title before B and B before C, then A takes it before C — essentially always. That is
 not a web of neighbours signalling to each other. That is 58 markets standing in a single line, in
@@ -111,7 +111,7 @@ series available from day one and simply taken three weeks to accumulate enough 
 big country's top 10 moves on a different number of viewers than a small one's, and none of that is
 in these lists.
 
-Two limits are worth naming. Of 4,278 country pairs that appear in the data at all, only **946**
+Two limits are worth naming. Of 4,278 country pairs that appear in the data at all, only **934**
 could be measured — a pair needs 20 titles that arrived in different weeks, and most pairs of
 countries have never shared that many Korean series with a gap between them. And the 20 is our
 threshold, not a property of the data.

@@ -21,8 +21,8 @@ countries made a film or series with exactly that name.
 
 | Verdict | Titles | Share of viewing |
 | --- | ---: | ---: |
-| Only Korean works carry this title | 154 | 82.8% |
-| A foreign work shares the title | 76 | 16.8% |
+| Only Korean works carry this title | 163 | 82.9% |
+| A foreign work shares the title | 79 | 16.6% |
 | Wikidata gives no country | 2 | 0.4% |
 
 The `attribution` column in `korean-title-panel.csv` carries that verdict per title. A shared title
@@ -32,7 +32,7 @@ guessed at or dropped.
 ## Reach and weeks
 
 `countries_reached` is how many of six Southeast Asian markets (Singapore, Malaysia, the
-Philippines, Thailand, Indonesia, Vietnam) a title charted in **at any point** across 265
+Philippines, Thailand, Indonesia, Vietnam) a title charted in **at any point** across 268
 weeks. It is not simultaneous. A title that hit Vietnam in 2022 and Thailand in 2024 counts as two.
 
 `weeks_on_chart` counts distinct weeks, once per title however many countries it appeared in.
@@ -41,8 +41,8 @@ weeks. It is not simultaneous. A title that hit Vietnam in 2022 and Thailand in 
 
 ## K-pop attention
 
-`kpop-attention-panel.csv` carries 2,361 acts — 816 groups and
-1545 individuals — measured over 30 days (20260708~20260806).
+`kpop-attention-panel.csv` carries 2,372 acts — 822 groups and
+1550 individuals — measured over 30 days (20260724~20260822).
 
 **The number is English Wikipedia article opens, and nothing else.** Not streams, not sales, not chart
 position, not attention inside Korea. We use it because it is the only per-artist demand signal
@@ -59,10 +59,10 @@ no error, no zero, and no warning. Walking subclasses (`P31/P279*`) is why they 
 Groups and individuals are **counted apart and never added.** A group's article and its members'
 articles are different pages, and summing them counts the same interest twice.
 
-154 of these acts (6.5%) also appear on our screen-actor roster, because
+232 of these acts (9.8%) also appear on our screen-actor roster, because
 Wikidata records both occupations for them — Jisoo and Cha Eun-woo really are both. We do not remove
 them; we flag them in `also_on_screen_actor_roster` and report the size, which is larger than it
-sounds: **23.1% of all views in this panel.** Filter that column out and the ranking changes
+sounds: **29.3% of all views in this panel.** Filter that column out and the ranking changes
 substantially. Both versions are defensible; the undisclosed one is not.
 
 ## Exports

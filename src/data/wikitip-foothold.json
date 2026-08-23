@@ -1,149 +1,154 @@
 {
-  "generated": "2026-08-09T07:13:56.639Z",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series, joined to production company (P272), first broadcaster (P449) and distributor (P750) from Wikidata",
   "question": "If a company has already put a series on a country's Netflix top 10, is its next series more likely to chart there?",
   "unit": "One chance = one company, one country, one of that company's series other than its first. A chance is \"with a foothold\" if an earlier series by the same company had already charted in that country.",
   "whyWithinFirm": "Big companies have more series and reach more countries, so comparing companies to each other would measure company size. Every comparison here is inside one company: the same company's countries where it had already charted, against its countries where it had not.",
   "whySeriesOnly": "Wikidata attaches a company to 92% of Korean series but only 37.7% of films. Measuring on a half-empty list would make less-documented companies look smaller.",
-  "firmsCompared": 72,
-  "firmsDroppedSingleWork": 59,
+  "firmsCompared": 74,
+  "firmsDroppedSingleWork": 64,
   "marketCount": 93,
-  "rowsRead": 493600,
-  "weeksSpanned": 265,
-  "withFoothold": 5568,
-  "withFootholdChances": 16955,
-  "withFootholdPc": 32.8,
-  "withoutFoothold": 2099,
-  "withoutFootholdChances": 24523,
+  "rowsRead": 499180,
+  "weeksSpanned": 268,
+  "withFoothold": 5644,
+  "withFootholdChances": 17418,
+  "withFootholdPc": 32.4,
+  "withoutFoothold": 2223,
+  "withoutFootholdChances": 25827,
   "withoutFootholdPc": 8.6,
-  "liftPoints": 24.2,
+  "liftPoints": 23.8,
   "liftTimes": 3.8,
   "withinTitle": {
     "how": "Each of these is one series compared against itself: on the day it charted, the countries where its company had already charted, against the countries where it had not. Same series, same week, same company — so age, title strength and company size cannot explain the gap.",
-    "titles": 436,
-    "withFoothold": 5350,
-    "withFootholdChances": 16025,
-    "withFootholdPc": 33.4,
-    "withoutFoothold": 2099,
-    "withoutFootholdChances": 24523,
+    "titles": 455,
+    "withFoothold": 5426,
+    "withFootholdChances": 16488,
+    "withFootholdPc": 32.9,
+    "withoutFoothold": 2223,
+    "withoutFootholdChances": 25827,
     "withoutFootholdPc": 8.6,
-    "liftPoints": 24.8,
-    "liftTimes": 3.9
+    "liftPoints": 24.3,
+    "liftTimes": 3.8
   },
   "byFirmSize": [
     {
       "band": "2–3 series",
-      "firms": 44,
-      "withFootholdPc": 45,
-      "withoutFootholdPc": 15.7,
-      "withChances": 953,
-      "withoutChances": 4999
+      "firms": 43,
+      "withFootholdPc": 44.4,
+      "withoutFootholdPc": 16.6,
+      "withChances": 993,
+      "withoutChances": 4680
     },
     {
       "band": "4–6 series",
-      "firms": 15,
-      "withFootholdPc": 45.2,
-      "withoutFootholdPc": 12.7,
-      "withChances": 973,
-      "withoutChances": 4049
+      "firms": 17,
+      "withFootholdPc": 43.2,
+      "withoutFootholdPc": 12.4,
+      "withChances": 1024,
+      "withoutChances": 4463
     },
     {
       "band": "7–12 series",
-      "firms": 4,
-      "withFootholdPc": 51.3,
-      "withoutFootholdPc": 12.3,
-      "withChances": 1340,
-      "withoutChances": 1450
+      "firms": 5,
+      "withFootholdPc": 49.7,
+      "withoutFootholdPc": 12.8,
+      "withChances": 1518,
+      "withoutChances": 2109
     },
     {
       "band": "13 or more",
       "firms": 9,
-      "withFootholdPc": 29.3,
-      "withoutFootholdPc": 4.4,
-      "withChances": 13689,
-      "withoutChances": 14025
+      "withFootholdPc": 28.9,
+      "withoutFootholdPc": 4.3,
+      "withChances": 13883,
+      "withoutChances": 14575
     }
   ],
   "byMarket": [
     {
       "iso2": "AE",
-      "withFootholdPc": 34.8,
-      "withoutFootholdPc": 25.6
+      "withFootholdPc": 34.3,
+      "withoutFootholdPc": 24.8
     },
     {
       "iso2": "AR",
-      "withFootholdPc": 14.1,
-      "withoutFootholdPc": 9.7
+      "withFootholdPc": 14.3,
+      "withoutFootholdPc": 9.5
     },
     {
       "iso2": "AU",
-      "withFootholdPc": 6.1,
-      "withoutFootholdPc": 5.4
+      "withFootholdPc": 5.7,
+      "withoutFootholdPc": 5
     },
     {
       "iso2": "BD",
-      "withFootholdPc": 37.9,
-      "withoutFootholdPc": 19.9
+      "withFootholdPc": 37.4,
+      "withoutFootholdPc": 19.6
     },
     {
       "iso2": "BG",
-      "withFootholdPc": 12.5,
-      "withoutFootholdPc": 4.7
+      "withFootholdPc": 10.4,
+      "withoutFootholdPc": 5
     },
     {
       "iso2": "BH",
-      "withFootholdPc": 32.8,
-      "withoutFootholdPc": 20.7
+      "withFootholdPc": 32.5,
+      "withoutFootholdPc": 20.2
     },
     {
       "iso2": "BO",
-      "withFootholdPc": 36.1,
-      "withoutFootholdPc": 21.9
+      "withFootholdPc": 35.9,
+      "withoutFootholdPc": 21.2
     },
     {
       "iso2": "BR",
-      "withFootholdPc": 30.7,
-      "withoutFootholdPc": 17.8
+      "withFootholdPc": 30.6,
+      "withoutFootholdPc": 17.4
     },
     {
       "iso2": "BS",
-      "withFootholdPc": 8.2,
-      "withoutFootholdPc": 4.5
+      "withFootholdPc": 8,
+      "withoutFootholdPc": 4.3
     },
     {
       "iso2": "CA",
-      "withFootholdPc": 1.1,
-      "withoutFootholdPc": 3.4
+      "withFootholdPc": 0,
+      "withoutFootholdPc": 3.1
+    },
+    {
+      "iso2": "CH",
+      "withFootholdPc": 10,
+      "withoutFootholdPc": 3
     },
     {
       "iso2": "CL",
       "withFootholdPc": 29.9,
-      "withoutFootholdPc": 20.6
+      "withoutFootholdPc": 19.9
     },
     {
       "iso2": "CO",
-      "withFootholdPc": 29.1,
-      "withoutFootholdPc": 15.4
+      "withFootholdPc": 28.2,
+      "withoutFootholdPc": 15.6
     },
     {
       "iso2": "CR",
-      "withFootholdPc": 27,
+      "withFootholdPc": 26.4,
       "withoutFootholdPc": 17
     },
     {
       "iso2": "CY",
-      "withFootholdPc": 11.7,
-      "withoutFootholdPc": 4.9
+      "withFootholdPc": 12.3,
+      "withoutFootholdPc": 4.8
     },
     {
       "iso2": "CZ",
-      "withFootholdPc": 8.2,
-      "withoutFootholdPc": 4
+      "withFootholdPc": 8,
+      "withoutFootholdPc": 4.4
     },
     {
       "iso2": "DO",
-      "withFootholdPc": 29.9,
-      "withoutFootholdPc": 20
+      "withFootholdPc": 29.7,
+      "withoutFootholdPc": 19.6
     },
     {
       "iso2": "EC",
@@ -152,322 +157,329 @@
     },
     {
       "iso2": "EE",
-      "withFootholdPc": 3.9,
-      "withoutFootholdPc": 3
+      "withFootholdPc": 3.8,
+      "withoutFootholdPc": 3.2
     },
     {
       "iso2": "EG",
       "withFootholdPc": 25.3,
-      "withoutFootholdPc": 13.4
+      "withoutFootholdPc": 12.9
     },
     {
       "iso2": "ES",
-      "withFootholdPc": 10.2,
-      "withoutFootholdPc": 4.5
-    },
-    {
-      "iso2": "FI",
-      "withFootholdPc": 3.3,
-      "withoutFootholdPc": 3.1
-    },
-    {
-      "iso2": "FR",
-      "withFootholdPc": 17.5,
+      "withFootholdPc": 9.3,
       "withoutFootholdPc": 4.9
     },
     {
+      "iso2": "FI",
+      "withFootholdPc": 3.2,
+      "withoutFootholdPc": 3.2
+    },
+    {
+      "iso2": "FR",
+      "withFootholdPc": 16.9,
+      "withoutFootholdPc": 5.2
+    },
+    {
       "iso2": "GB",
-      "withFootholdPc": 1.9,
-      "withoutFootholdPc": 3.6
+      "withFootholdPc": 1.3,
+      "withoutFootholdPc": 3.8
     },
     {
       "iso2": "GP",
-      "withFootholdPc": 17.3,
-      "withoutFootholdPc": 6
+      "withFootholdPc": 16.5,
+      "withoutFootholdPc": 6.6
     },
     {
       "iso2": "GR",
-      "withFootholdPc": 16.9,
-      "withoutFootholdPc": 11.7
+      "withFootholdPc": 16.4,
+      "withoutFootholdPc": 12
     },
     {
       "iso2": "GT",
       "withFootholdPc": 31.3,
-      "withoutFootholdPc": 19
+      "withoutFootholdPc": 18.4
     },
     {
       "iso2": "HK",
-      "withFootholdPc": 54.1,
-      "withoutFootholdPc": 36.3
+      "withFootholdPc": 52.8,
+      "withoutFootholdPc": 36
     },
     {
       "iso2": "HN",
-      "withFootholdPc": 34.8,
-      "withoutFootholdPc": 23.5
+      "withFootholdPc": 34.7,
+      "withoutFootholdPc": 22.5
     },
     {
       "iso2": "HU",
-      "withFootholdPc": 10.5,
-      "withoutFootholdPc": 3.9
+      "withFootholdPc": 10.3,
+      "withoutFootholdPc": 4.2
     },
     {
       "iso2": "ID",
-      "withFootholdPc": 62.4,
-      "withoutFootholdPc": 46
+      "withFootholdPc": 60.8,
+      "withoutFootholdPc": 46.3
     },
     {
       "iso2": "IE",
-      "withFootholdPc": 1.9,
-      "withoutFootholdPc": 2.8
+      "withFootholdPc": 1.3,
+      "withoutFootholdPc": 3.1
     },
     {
       "iso2": "IL",
-      "withFootholdPc": 9.6,
-      "withoutFootholdPc": 5.1
+      "withFootholdPc": 10.1,
+      "withoutFootholdPc": 4.9
     },
     {
       "iso2": "IN",
-      "withFootholdPc": 28.9,
-      "withoutFootholdPc": 17.2
+      "withFootholdPc": 28.8,
+      "withoutFootholdPc": 17
     },
     {
       "iso2": "IT",
-      "withFootholdPc": 14.3,
-      "withoutFootholdPc": 3.4
+      "withFootholdPc": 13.2,
+      "withoutFootholdPc": 4
     },
     {
       "iso2": "JM",
-      "withFootholdPc": 8.4,
+      "withFootholdPc": 7.6,
       "withoutFootholdPc": 7.5
     },
     {
       "iso2": "JO",
-      "withFootholdPc": 30.7,
-      "withoutFootholdPc": 14.9
+      "withFootholdPc": 30.6,
+      "withoutFootholdPc": 14.3
     },
     {
       "iso2": "JP",
-      "withFootholdPc": 44,
-      "withoutFootholdPc": 39
+      "withFootholdPc": 43.8,
+      "withoutFootholdPc": 37.5
     },
     {
       "iso2": "KE",
-      "withFootholdPc": 12.2,
-      "withoutFootholdPc": 10.5
+      "withFootholdPc": 11.8,
+      "withoutFootholdPc": 10.4
     },
     {
       "iso2": "KR",
-      "withFootholdPc": 77.3,
-      "withoutFootholdPc": 61.3
+      "withFootholdPc": 78.1,
+      "withoutFootholdPc": 55.6
     },
     {
       "iso2": "KW",
-      "withFootholdPc": 34.7,
-      "withoutFootholdPc": 20.5
+      "withFootholdPc": 35.2,
+      "withoutFootholdPc": 20
     },
     {
       "iso2": "LB",
-      "withFootholdPc": 12,
-      "withoutFootholdPc": 9
+      "withFootholdPc": 11.6,
+      "withoutFootholdPc": 8.9
     },
     {
       "iso2": "LK",
-      "withFootholdPc": 33.9,
-      "withoutFootholdPc": 22.3
+      "withFootholdPc": 33.4,
+      "withoutFootholdPc": 21.2
     },
     {
       "iso2": "LT",
-      "withFootholdPc": 3.5,
-      "withoutFootholdPc": 4.1
+      "withFootholdPc": 3.4,
+      "withoutFootholdPc": 4.2
     },
     {
       "iso2": "LU",
-      "withFootholdPc": 15.2,
-      "withoutFootholdPc": 4.1
+      "withFootholdPc": 14.3,
+      "withoutFootholdPc": 4.4
     },
     {
       "iso2": "MA",
-      "withFootholdPc": 27.8,
-      "withoutFootholdPc": 17.2
+      "withFootholdPc": 27.7,
+      "withoutFootholdPc": 16.5
     },
     {
       "iso2": "MQ",
-      "withFootholdPc": 15.8,
-      "withoutFootholdPc": 7.1
+      "withFootholdPc": 14.4,
+      "withoutFootholdPc": 7.4
     },
     {
       "iso2": "MU",
-      "withFootholdPc": 16.8,
-      "withoutFootholdPc": 11.2
+      "withFootholdPc": 16.2,
+      "withoutFootholdPc": 11.5
     },
     {
       "iso2": "MV",
-      "withFootholdPc": 36,
-      "withoutFootholdPc": 24.4
+      "withFootholdPc": 36.2,
+      "withoutFootholdPc": 23.8
     },
     {
       "iso2": "MX",
       "withFootholdPc": 28.9,
-      "withoutFootholdPc": 19.7
+      "withoutFootholdPc": 19.1
     },
     {
       "iso2": "MY",
-      "withFootholdPc": 60.5,
-      "withoutFootholdPc": 42.3
+      "withFootholdPc": 59.4,
+      "withoutFootholdPc": 39.7
     },
     {
       "iso2": "NC",
-      "withFootholdPc": 19.7,
-      "withoutFootholdPc": 8.5
+      "withFootholdPc": 18.7,
+      "withoutFootholdPc": 8.7
     },
     {
       "iso2": "NG",
-      "withFootholdPc": 32.8,
-      "withoutFootholdPc": 32.7
+      "withFootholdPc": 32.7,
+      "withoutFootholdPc": 30.8
     },
     {
       "iso2": "NI",
-      "withFootholdPc": 34.3,
-      "withoutFootholdPc": 21.6
-    },
-    {
-      "iso2": "NZ",
-      "withFootholdPc": 11.8,
-      "withoutFootholdPc": 8.4
-    },
-    {
-      "iso2": "OM",
-      "withFootholdPc": 35.4,
-      "withoutFootholdPc": 18.9
-    },
-    {
-      "iso2": "PA",
-      "withFootholdPc": 26.6,
+      "withFootholdPc": 34.2,
       "withoutFootholdPc": 20.8
     },
     {
+      "iso2": "NZ",
+      "withFootholdPc": 11.7,
+      "withoutFootholdPc": 7.7
+    },
+    {
+      "iso2": "OM",
+      "withFootholdPc": 35.8,
+      "withoutFootholdPc": 18.6
+    },
+    {
+      "iso2": "PA",
+      "withFootholdPc": 26.5,
+      "withoutFootholdPc": 19.8
+    },
+    {
       "iso2": "PE",
-      "withFootholdPc": 39.5,
-      "withoutFootholdPc": 23.7
+      "withFootholdPc": 39.4,
+      "withoutFootholdPc": 22.7
     },
     {
       "iso2": "PH",
-      "withFootholdPc": 55,
-      "withoutFootholdPc": 41.3
+      "withFootholdPc": 54,
+      "withoutFootholdPc": 39
     },
     {
       "iso2": "PK",
-      "withFootholdPc": 26.2,
-      "withoutFootholdPc": 14
+      "withFootholdPc": 25.6,
+      "withoutFootholdPc": 14.3
     },
     {
       "iso2": "PL",
       "withFootholdPc": 9.3,
-      "withoutFootholdPc": 3.3
+      "withoutFootholdPc": 3.4
     },
     {
       "iso2": "PT",
-      "withFootholdPc": 16.6,
-      "withoutFootholdPc": 8.9
+      "withFootholdPc": 16,
+      "withoutFootholdPc": 8.8
     },
     {
       "iso2": "PY",
-      "withFootholdPc": 29.1,
-      "withoutFootholdPc": 16.5
+      "withFootholdPc": 28.6,
+      "withoutFootholdPc": 16.6
     },
     {
       "iso2": "QA",
       "withFootholdPc": 40.2,
-      "withoutFootholdPc": 30.6
+      "withoutFootholdPc": 29.4
     },
     {
       "iso2": "RE",
-      "withFootholdPc": 18.1,
-      "withoutFootholdPc": 10.4
+      "withFootholdPc": 17.6,
+      "withoutFootholdPc": 10.2
     },
     {
       "iso2": "RO",
-      "withFootholdPc": 19.3,
-      "withoutFootholdPc": 14.8
+      "withFootholdPc": 19.1,
+      "withoutFootholdPc": 14.5
     },
     {
       "iso2": "RS",
-      "withFootholdPc": 9.1,
-      "withoutFootholdPc": 3.3
+      "withFootholdPc": 7,
+      "withoutFootholdPc": 3.7
     },
     {
       "iso2": "SA",
-      "withFootholdPc": 34.9,
-      "withoutFootholdPc": 25.4
+      "withFootholdPc": 35.3,
+      "withoutFootholdPc": 23.6
+    },
+    {
+      "iso2": "SE",
+      "withFootholdPc": 3.3,
+      "withoutFootholdPc": 2.3
     },
     {
       "iso2": "SG",
-      "withFootholdPc": 55.6,
-      "withoutFootholdPc": 39.5
+      "withFootholdPc": 54.6,
+      "withoutFootholdPc": 38.4
     },
     {
       "iso2": "SK",
       "withFootholdPc": 6.8,
-      "withoutFootholdPc": 3.5
+      "withoutFootholdPc": 3.8
     },
     {
       "iso2": "SV",
-      "withFootholdPc": 33.8,
-      "withoutFootholdPc": 22.5
+      "withFootholdPc": 33.7,
+      "withoutFootholdPc": 21.6
     },
     {
       "iso2": "TH",
-      "withFootholdPc": 55.6,
-      "withoutFootholdPc": 37.1
+      "withFootholdPc": 54.8,
+      "withoutFootholdPc": 35.5
     },
     {
       "iso2": "TR",
-      "withFootholdPc": 18.3,
-      "withoutFootholdPc": 14.9
+      "withFootholdPc": 17.7,
+      "withoutFootholdPc": 14.6
     },
     {
       "iso2": "TT",
-      "withFootholdPc": 5.9,
+      "withFootholdPc": 5,
       "withoutFootholdPc": 5.2
     },
     {
       "iso2": "TW",
-      "withFootholdPc": 55.8,
-      "withoutFootholdPc": 34.7
+      "withFootholdPc": 54.1,
+      "withoutFootholdPc": 35.4
     },
     {
       "iso2": "US",
       "withFootholdPc": 0,
-      "withoutFootholdPc": 2.4
+      "withoutFootholdPc": 2.3
     },
     {
       "iso2": "UY",
-      "withFootholdPc": 9.1,
-      "withoutFootholdPc": 5.2
+      "withFootholdPc": 8.7,
+      "withoutFootholdPc": 5.5
     },
     {
       "iso2": "VE",
-      "withFootholdPc": 34.2,
-      "withoutFootholdPc": 13.3
+      "withFootholdPc": 32.4,
+      "withoutFootholdPc": 13.6
     },
     {
       "iso2": "VN",
-      "withFootholdPc": 56.4,
-      "withoutFootholdPc": 40.7
+      "withFootholdPc": 55.4,
+      "withoutFootholdPc": 39.8
     },
     {
       "iso2": "ZA",
-      "withFootholdPc": 8.5,
-      "withoutFootholdPc": 3.1
+      "withFootholdPc": 6.6,
+      "withoutFootholdPc": 3
     }
   ],
-  "marketsMeasured": 79,
-  "marketsWhereItReverses": 5,
+  "marketsMeasured": 81,
+  "marketsWhereItReverses": 7,
   "marketsWhereItReversesNames": [
     "CA",
+    "FI",
     "GB",
     "IE",
     "LT",
+    "TT",
     "US"
   ],
   "cannotAnswer": "This cannot say why. A foothold may help the next title, or a company that suits one country's taste may simply keep suiting it. Netflix publishes neither promotion nor commissioning decisions."

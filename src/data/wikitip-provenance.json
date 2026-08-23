@@ -1,10 +1,10 @@
 {
-  "generated": "2026-08-23T14:38+09:00",
+  "generated": "2026-08-23T16:04+09:00",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists, and Wikidata for country of origin",
   "question": "Two works can share a title. Which one charted?",
   "unit": "Chart places. One place is one title in one country in one week.",
-  "panelTitles": 982,
-  "koreanPlaces": 39844,
+  "panelTitles": 977,
+  "koreanPlaces": 39612,
   "removedTitles": 13,
   "removedPlaces": 84,
   "removedPlacesPc": 0.21,

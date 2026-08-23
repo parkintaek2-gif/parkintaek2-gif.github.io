@@ -5,7 +5,7 @@ which is the whole point of it: it can be used today without waiting on anything
 
 ## What this is, in four lines
 
-1. **How often each K-pop act was looked up** on English Wikipedia — 2361 acts and members,
+1. **How often each K-pop act was looked up** on English Wikipedia — 2372 acts and members,
    30 days, daily. Groups and individuals are marked separately, and so are the ones who are
    also screen actors.
 2. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed

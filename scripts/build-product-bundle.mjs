@@ -187,7 +187,12 @@ const 기사정정 = [];
 const CD = 'content/kculturewire';
 for (const f of fs.readdirSync(CD).filter((x) => x.endsWith('.md'))) {
   const src = fs.readFileSync(path.join(CD, f), 'utf8');
-  const block = src.match(/^corrections:\n((?:\s{2}- date:[\s\S]*?)(?=^\w|^---$))/m);
+  /*
+   * 🔴 2026-08-23 — 이 정규식이 줄바꿈을 `\n` 하나로만 봐서 **CRLF 파일에서 하나도 못 읽었다.**
+   *   기사 파일은 CRLF 다. 정정이 0건이 되어 아래 자물쇠가 「앞말 파싱이 깨졌다」로 섰다.
+   * ⛔ 줄바꿈 한 글자로 자료가 통째로 사라지는 자리다. 안 보이게 사라지는 것이 더 나쁘다.
+   */
+  const block = src.match(/^corrections:\r?\n((?:\s{2}- date:[\s\S]*?)(?=^\w|^---$))/m);
   if (!block) continue;
   for (const m of block[1].matchAll(/- date:\s*(\S+)\s*\n\s*note:\s*"([\s\S]*?)"\s*(?=\n\s*- date:|\n\S|$)/g)) {
     기사정정.push({ date: m[1], where: f.replace(/\.md$/, ''), kind: 'article', note: m[2].replace(/\s+/g, ' ').trim() });

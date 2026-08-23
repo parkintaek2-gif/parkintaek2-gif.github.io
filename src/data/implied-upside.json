@@ -1,0 +1,263 @@
+{
+ "_왜": "브로커 목표가(팩트) vs KRX 현재종가. 개별 추천 아님 — 시장·업종 집계.",
+ "asOf": "20260821",
+ "since": "2026-05-01",
+ "stocks": 78,
+ "brokerReports": 200,
+ "marketMedian": 43.7,
+ "sectorMed": [],
+ "top": [
+  {
+   "subject": "인텔리안테크",
+   "subjectEn": "Intellian Technologies",
+   "sector": null,
+   "brokers": 1,
+   "target": 161000,
+   "close": 62900,
+   "upside": 156,
+   "mktcap": 675388561300
+  },
+  {
+   "subject": "현대로템",
+   "subjectEn": "Hyundai Rotem",
+   "sector": null,
+   "brokers": 1,
+   "target": 295000,
+   "close": 130100,
+   "upside": 126.7,
+   "mktcap": 14199412319300
+  },
+  {
+   "subject": "한컴",
+   "subjectEn": "HANCOM INC.",
+   "sector": null,
+   "brokers": 1,
+   "target": 35000,
+   "close": 17110,
+   "upside": 104.6,
+   "mktcap": 413715419840
+  },
+  {
+   "subject": "대한전선",
+   "subjectEn": "Taihan Cable & Solution",
+   "sector": null,
+   "brokers": 2,
+   "target": 54250,
+   "close": 26650,
+   "upside": 103.6,
+   "mktcap": 5223202683400
+  },
+  {
+   "subject": "SK하이닉스",
+   "subjectEn": "SK hynix",
+   "sector": null,
+   "brokers": 4,
+   "target": 3475000,
+   "close": 1730000,
+   "upside": 100.9,
+   "mktcap": 1263751791450000
+  },
+  {
+   "subject": "클래시스",
+   "subjectEn": "Classys",
+   "sector": null,
+   "brokers": 1,
+   "target": 62000,
+   "close": 32150,
+   "upside": 92.8,
+   "mktcap": 2097326436850
+  },
+  {
+   "subject": "HD현대중공업",
+   "subjectEn": "HD Hyundai Heavy Industries",
+   "sector": null,
+   "brokers": 2,
+   "target": 870000,
+   "close": 453000,
+   "upside": 92.1,
+   "mktcap": 47547434925000
+  },
+  {
+   "subject": "포스코인터내셔널",
+   "subjectEn": "POSCO International",
+   "sector": null,
+   "brokers": 6,
+   "target": 94833,
+   "close": 50600,
+   "upside": 87.4,
+   "mktcap": 8901693072800
+  },
+  {
+   "subject": "HD건설기계",
+   "subjectEn": "HD Construction Equipment Co.,Ltd.",
+   "sector": null,
+   "brokers": 1,
+   "target": 214000,
+   "close": 115500,
+   "upside": 85.3,
+   "mktcap": 5534979103500
+  },
+  {
+   "subject": "HD한국조선해양",
+   "subjectEn": "HD Korea Shipbuilding & Offshore Engineering",
+   "sector": null,
+   "brokers": 1,
+   "target": 640000,
+   "close": 348500,
+   "upside": 83.6,
+   "mktcap": 24664430926000
+  },
+  {
+   "subject": "삼성전기",
+   "subjectEn": "Samsung Electro-Mechanics",
+   "sector": null,
+   "brokers": 11,
+   "target": 2386364,
+   "close": 1316000,
+   "upside": 81.3,
+   "mktcap": 98296903936000
+  },
+  {
+   "subject": "LG디스플레이",
+   "subjectEn": "LG Display",
+   "sector": null,
+   "brokers": 1,
+   "target": 17000,
+   "close": 9500,
+   "upside": 78.9,
+   "mktcap": 4750000000000
+  },
+  {
+   "subject": "POSCO홀딩스",
+   "subjectEn": "POSCO Holdings",
+   "sector": null,
+   "brokers": 4,
+   "target": 552500,
+   "close": 310000,
+   "upside": 78.2,
+   "mktcap": 24564873370000
+  },
+  {
+   "subject": "삼성전자",
+   "subjectEn": "Samsung Electronics",
+   "sector": null,
+   "brokers": 9,
+   "target": 501111,
+   "close": 281500,
+   "upside": 78,
+   "mktcap": 1645727428152000
+  },
+  {
+   "subject": "호텔신라",
+   "subjectEn": "Hotel Shilla",
+   "sector": null,
+   "brokers": 2,
+   "target": 73000,
+   "close": 42300,
+   "upside": 72.6,
+   "mktcap": 1660195518300
+  }
+ ],
+ "bottom": [
+  {
+   "subject": "기가비스",
+   "subjectEn": "GigaVis Co., Ltd.",
+   "sector": null,
+   "brokers": 1,
+   "target": 120000,
+   "close": 105300,
+   "upside": 14,
+   "mktcap": 1334757317400
+  },
+  {
+   "subject": "SK텔레콤",
+   "subjectEn": "SK Telecom",
+   "sector": null,
+   "brokers": 1,
+   "target": 115000,
+   "close": 102200,
+   "upside": 12.5,
+   "mktcap": 21951543416600
+  },
+  {
+   "subject": "LG전자",
+   "subjectEn": "LG Electronics",
+   "sector": null,
+   "brokers": 6,
+   "target": 218333,
+   "close": 194500,
+   "upside": 12.3,
+   "mktcap": 31681062091000
+  },
+  {
+   "subject": "LG",
+   "subjectEn": "LG",
+   "sector": null,
+   "brokers": 1,
+   "target": 120000,
+   "close": 107700,
+   "upside": 11.4,
+   "mktcap": 16283378830800
+  },
+  {
+   "subject": "삼성에스디에스",
+   "subjectEn": "Samsung SDS",
+   "sector": null,
+   "brokers": 3,
+   "target": 250000,
+   "close": 228000,
+   "upside": 9.6,
+   "mktcap": 17642138400000
+  },
+  {
+   "subject": "LS",
+   "subjectEn": "LS Corp",
+   "sector": null,
+   "brokers": 1,
+   "target": 316000,
+   "close": 293500,
+   "upside": 7.7,
+   "mktcap": 9157200000000
+  },
+  {
+   "subject": "LG생활건강",
+   "subjectEn": "LG H&H",
+   "sector": null,
+   "brokers": 1,
+   "target": 335000,
+   "close": 313000,
+   "upside": 7,
+   "mktcap": 4687338699000
+  },
+  {
+   "subject": "SK아이이테크놀로지",
+   "subjectEn": "SK IE Technology",
+   "sector": null,
+   "brokers": 2,
+   "target": 14500,
+   "close": 13950,
+   "upside": 3.9,
+   "mktcap": 1140930045000
+  },
+  {
+   "subject": "에코프로비엠",
+   "subjectEn": "EcoPro BM",
+   "sector": null,
+   "brokers": 2,
+   "target": 107500,
+   "close": 105600,
+   "upside": 1.8,
+   "mktcap": 10330893830400
+  },
+  {
+   "subject": "현대오토에버",
+   "subjectEn": "Hyundai AutoEver",
+   "sector": null,
+   "brokers": 2,
+   "target": 440000,
+   "close": 448000,
+   "upside": -1.8,
+   "mktcap": 12285943936000
+  }
+ ]
+}

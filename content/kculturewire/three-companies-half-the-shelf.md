@@ -19,7 +19,7 @@ sources:
 crossChecks:
   - "Titles are counted as a set rather than added up, because a series credited to several companies would otherwise be counted several times and reach half too early"
   - "Every figure is repeated for production, broadcaster and distributor credits separately, so the objection that networks cover everything by definition is answered inside the table rather than argued around"
-  - "Films are excluded and the coverage figures for both formats are printed, because companies attach to 92% of series and 37.7% of films"
+  - "Films are excluded and the coverage figures for both formats are printed, because companies attach to 92% of series and 44.4% of films"
   - "The collector refuses to write its file unless the companies covering half are under a tenth of all companies, since the claim is that the top is narrow"
 excluded:
   - "Any ranking of companies. The names are printed alphabetically and the piece reports how few it takes, not who is largest"
@@ -28,18 +28,18 @@ excluded:
   - "Any census claim. Only titles that reached a country top 10 are here, so a company whose series never charted is absent"
 ---
 
-We already publish how few titles fill half of a country's Korean chart — six in the United States,
-49 in Vietnam. This is the same ruler pointed at the other end of the pipe.
+We already publish how few titles fill half of a country's Korean chart — seven in the United States,
+52 in Vietnam. This is the same ruler pointed at the other end of the pipe.
 
 Of the **129 companies** credited on the **332 Korean series** that reached a Netflix country top 10
 between 2021 and 2026, **three** account for half of them.
 
 | Credit counted | Companies | Series they cover | Companies for half |
 | --- | ---: | ---: | ---: |
-| Any credit | 129 | 332 (91.7%) | **3** |
-| Production company | 99 | 151 (41.7%) | **5** |
-| First broadcaster | 28 | 291 (80.4%) | 3 |
-| Distributor | 25 | 130 (35.9%) | 3 |
+| Any credit | 131 | 345 (92%) | **3** |
+| Production company | 101 | 156 (41.6%) | **5** |
+| First broadcaster | 28 | 303 (80.8%) | 3 |
+| Distributor | 25 | 139 (37.1%) | 4 |
 
 ## The objection, which is a good one
 
@@ -48,11 +48,11 @@ matter what the industry looks like — 28 broadcasters cover 291 series between
 close to a definition rather than a finding.
 
 So the row that matters is **production company**: firms Wikidata records as having *made* the
-series. Counting only those, **5 companies of 99** still account for half. The objection sharpens the
+series. Counting only those, **5 companies of 101** still account for half. The objection sharpens the
 number rather than dissolving it.
 
-That row also rests on the thinnest base in the table. Production credits are attached to 151 series,
-**41.7%** of the 362 that charted. It is at once the most meaningful cut and the least complete one,
+That row also rests on the thinnest base in the table. Production credits are attached to 156 series,
+**41.6%** of the 375 that charted. It is at once the most meaningful cut and the least complete one,
 and both of those are true.
 
 ## The other end of the same fact
@@ -60,19 +60,19 @@ and both of those are true.
 | Series credited to the company | Companies |
 | --- | ---: |
 | 1 series | 59 |
-| 2–4 | 51 |
-| 5 or more | 19 |
+| 2–4 | 52 |
+| 5 or more | 20 |
 
 **59 of the 129 companies appear on exactly one charting series.** A narrow top and a crowded bottom
 are not two findings; they are one distribution described from either side.
 
 ## Why films are not in this table
 
-Companies attach to 92% of the series and to **37.7%** of the films. Measuring concentration on a
+Companies attach to 92% of the series and to **44.4%** of the films. Measuring concentration on a
 half-empty list does not produce a cautious answer — it produces a wrong one, because the companies
 missing from the data look like small companies rather than like missing data.
 
-So films are left out rather than half-counted. There are 539 of them in our holdings and only 203
+So films are left out rather than half-counted. There are 570 of them in our holdings and only 253
 carry a company at all. Fixing that needs a source Wikidata does not have; the Korean Film Council's
 own database is the obvious one.
 
