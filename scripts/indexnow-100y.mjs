@@ -32,7 +32,21 @@ import { fileURLToPath } from 'node:url';
 
 export const 뿌리 = fileURLToPath(new URL('..', import.meta.url));
 export const 집 = 'https://100yearmap.com';
-export const 받는곳 = 'https://api.indexnow.org/indexnow';
+/**
+ * 🔴 2026-08-23 밤 정정 — **네이버는 공용 허브만으로는 안 받는다.**
+ *
+ *   「한 곳만 보내면 참여 엔진 전체로 퍼진다」는 IndexNow 규격 설명은 맞지만
+ *   **네이버는 예외다** — 자기 창구(searchadvisor.naver.com/indexnow)로 따로
+ *   보내야 받는다(2026-08 네이버 공식 문서. 4번이 klifemap.ai 쪽에서 먼저
+ *   찾아 고쳤다 — 같은 흠이 여기도 있어 그대로 옮긴다).
+ *   학부모·수험생이 손님인 이 사이트는 네이버가 구글보다 중요할 수 있다
+ *   (HundredYear.astro 의 naver-site-verification 주석 참고) — 빠뜨리면 안 되는 곳이다.
+ */
+export const 받는곳들 = [
+  'https://api.indexnow.org/indexnow',
+  'https://www.bing.com/indexnow',
+  'https://searchadvisor.naver.com/indexnow',
+];
 
 /** public/ 에서 32자 hex 이름의 열쇠 파일을 찾는다. ⛔ 값을 찍지 않는다 */
 export function 열쇠찾기(방 = path.join(뿌리, 'public')) {
@@ -87,6 +101,9 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   본다('⑩ 고정 지면이 열아홉이다', 고정지면.length === 19);
   본다('⑪ 첫 화면이 들어 있다', 고정지면.includes('/'));
+  본다('⑫ 🔴 네이버 전용 창구가 들어 있다 — 공용 허브만으로는 네이버가 안 받는다',
+    받는곳들.includes('https://searchadvisor.naver.com/indexnow'));
+  본다('⑬ 세 창구 다 있다(공용 허브·빙·네이버)', 받는곳들.length === 3);
 
   console.log(실패 === 0 ? `✅ 자가시험 ${통과}개 통과` : `❌ ${실패}개 실패 (통과 ${통과})`);
   process.exit(실패 === 0 ? 0 : 1);
@@ -109,22 +126,25 @@ if (내가실행됐다) {
   }
 
   const 묶음들 = 묶기(주소들);
-  for (let i = 0; i < 묶음들.length; i++) {
-    const 답 = await fetch(받는곳, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json; charset=utf-8' },
-      body: JSON.stringify({
-        host: '100yearmap.com',
-        key: 열쇠.값,
-        keyLocation: `${집}/${열쇠.이름}`,
-        urlList: 묶음들[i],
-      }),
-    });
-    const 글 = await 답.text();
-    /* 200 = 받았다 · 202 = 받았고 열쇠는 나중에 본다 */
-    const 됐나 = 답.status === 200 || 답.status === 202;
-    console.log(`  ${됐나 ? '✅' : '🔴'} ${i + 1}/${묶음들.length}묶음 · ${묶음들[i].length}개 · 상태 ${답.status}` +
-      (글.trim() ? ` · ${글.trim().slice(0, 80)}` : ''));
+  for (const 받는곳 of 받는곳들) {
+    console.log(`— ${받는곳}`);
+    for (let i = 0; i < 묶음들.length; i++) {
+      const 답 = await fetch(받는곳, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify({
+          host: '100yearmap.com',
+          key: 열쇠.값,
+          keyLocation: `${집}/${열쇠.이름}`,
+          urlList: 묶음들[i],
+        }),
+      });
+      const 글 = await 답.text();
+      /* 200 = 받았다 · 202 = 받았고 열쇠는 나중에 본다 */
+      const 됐나 = 답.status === 200 || 답.status === 202;
+      console.log(`  ${됐나 ? '✅' : '🔴'} ${i + 1}/${묶음들.length}묶음 · ${묶음들[i].length}개 · 상태 ${답.status}` +
+        (글.trim() ? ` · ${글.trim().slice(0, 80)}` : ''));
+    }
   }
   console.log('');
   console.log('⚠ 통보는 「담아 달라」는 부탁이지 명령이 아니다. **담겼는지는 따로 세야 한다.**');
