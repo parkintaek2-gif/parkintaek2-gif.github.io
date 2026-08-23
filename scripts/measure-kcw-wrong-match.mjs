@@ -39,9 +39,19 @@ import { fileURLToPath } from 'node:url';
 import { 낱말들, 노출합계, 클릭합계 } from './measure-kcw-search-words.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const 지면잰것길 = path.join(뿌리, 'src', 'data', 'kcw-search-pages.json');
-export const 낸방 = path.join(뿌리, 'dist', 'wikitip');
-export const 사이트 = 'sc-domain:kculturewire.com';
+/**
+ * ⭐ 2026-08-24 01:2x — 3번이 「검색어 축이 노출의 9.6%만 보인다」를 파 보고
+ *   「5번의 `--지면=` 걸름이 정답에 가장 가깝다」고 알려 주었다. 그 걸름을 **지면마다
+ *   되풀이해 돌리는 것**이 바로 이 자다. 그러니 남의 유닛도 쓸 수 있게 인자로 받는다.
+ * ⛔ 기본값은 내 것이지만 세 인자만 바꾸면 어느 사이트든 된다 —
+ *   `--사이트=sc-domain:100yearmap.com --잰것=src/data/100y-search-pages.json --낸방=dist/100y`
+ */
+const 인자 = (이름, 기본) => process.argv.find((a) => a.startsWith(`--${이름}=`))
+  ?.split('=').slice(1).join('=') ?? 기본;
+
+export const 지면잰것길 = path.resolve(뿌리, 인자('잰것', 'src/data/kcw-search-pages.json'));
+export const 낸방 = path.resolve(뿌리, 인자('낸방', 'dist/wikitip'));
+export const 사이트 = 인자('사이트', 'sc-domain:kculturewire.com');
 
 /** 이만큼은 노출돼야 본다. ⛔ 한두 건으로 결론을 세우지 않는다 */
 export const 볼노출 = 20;
