@@ -68,7 +68,12 @@ export function 키(email) {
 // 'panel' — B2B 임금패널 지면(/data/pension-wage-panel)의 「신청」 폼. 뉴스레터와 갈라 센다.
 // 'trade-sample' — 무역 데이터셋 지면(/data/korea-trade-dataset)의 가공본 견본 「받아보기 신청」.
 //   2번 결정(2026-08-21 23:2x): 결제 단추 대신 신청으로 수요를 먼저 잰다. panel 과 갈라 센다.
-const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel', 'trade-sample', 'unknown']);
+/**
+ * ⚠ 모르는 유입 이름은 «unknown» 으로 떨어진다 — 그래서 새 자리를 만들면 여기에도 적어야
+ *   그 자리가 보인다. 2026-08-23 에 KCW `/subscribe` 폼(`subscribe-page`)을 더했다.
+ */
+const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel',
+  'trade-sample', 'subscribe-page', 'unknown']);
 
 /**
  * 구독 접수.
@@ -117,6 +122,8 @@ export async function subscribe(body) {
     subscribedAt: 기존?.subscribedAt ?? 지금(),
     lastSeenAt: 지금(),
     source: 기존?.source ?? source,
+    /* 어느 사이트에서 온 가입인가. ⛔ 첫 가입의 값을 덮어쓰지 않는다 — 처음이 사실이다 */
+    site: 기존?.site ?? (typeof body?.site === 'string' ? body.site : null),
     /** 확인 메일을 아직 못 보낸다. 보낼 수단이 생기면 이 토큰으로 확인한다. */
     confirmed: 기존?.confirmed ?? false,
     confirmToken: 기존?.confirmToken ?? randomBytes(16).toString('hex'),

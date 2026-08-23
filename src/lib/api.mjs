@@ -908,7 +908,13 @@ export async function handleApi(pathname, searchParams, ctx = {}) {
       return 붙이기(err(400, 'invalid_json', 'Body must be JSON.'));
     }
     meter('subscribe');
-    const r = await subscribe(body);
+    /**
+     * ⛔ 넷 사이트가 한 명단을 쓴다. 어느 사이트에서 온 가입인지 안 적으면
+     *   어느 유닛의 구독자인지 영영 못 가른다. 호스트에서 뽑아 같이 넘긴다.
+     * ⚠ 호스트가 없으면 만들지 않는다 — null 로 둔다.
+     */
+    const 어느사이트 = String(ctx?.headers?.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '') || null;
+    const r = await subscribe({ ...body, site: 어느사이트 });
     return 붙이기(json(r.status, r.payload, { 'Cache-Control': 'no-store' }));
   }
 

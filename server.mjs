@@ -250,7 +250,15 @@ const handle = async (req, res) => {
    *   하는데(같은 계정, 같은 서버), 접두사가 붙으면 /admin → /wikitip/admin 이 되어
    *   316줄의 /admin 분기에 안 닿는다. seoulmarkets(접두사 없음)만 401(정상)이 뜨고
    *   나머지 둘은 404 였다. /admin(/…) 도 공유 경로에 넣는다. */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)/;
+  /**
+   * 🔴 2026-08-23 — `/v1/subscribe` 를 여기 넣는다.
+   *   KCW `/subscribe` 가 「메일을 보내면 사람이 등록」하는 수동 절차였다(2번 실측).
+   *   그런데 끝점은 이미 있었다 — 안 되던 까닭은 KCW 호스트로 온 요청에 `/wikitip` 이
+   *   붙어 `/wikitip/v1/subscribe` 가 되어 404 였던 것뿐이다.
+   * ⛔ `/v1/` 전체를 열지 않는다 — 그 API 는 6번 상품이고 호스트마다 열면 파는 면이 갈린다.
+   *   메일 명단은 사이트와 무관한 하나이므로 **그 한 경로만** 접두사 밖으로 뺀다.
+   */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {

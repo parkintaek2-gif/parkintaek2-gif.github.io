@@ -96,19 +96,67 @@ const jsonLd = {
     what we left out. {기사.length} pieces so far, across {지면수} data pages.
   </p>
 
-  {/*
-    ⛔ 폼이 아니라 메일이다. 주소를 담을 곳이 정해지기 전에 폼을 세우면
-       받아 놓고 잃어버린다. 정해지면 이 자리만 바뀐다.
-  */}
-  <p class="ask">
-    <a class="btn" href={`mailto:${MAIL}?subject=${encodeURIComponent('K Culture Wire — add me to the list')}`}>
-      Email us to be added
-    </a>
-  </p>
+  <form class="join" id="join" novalidate>
+    <label class="lab" for="email">Your email</label>
+    <div class="row">
+      <input class="inp" id="email" name="email" type="email" inputmode="email"
+        autocomplete="email" placeholder="you@example.com" required aria-describedby="joinnote" />
+      <button class="btn" id="joinbtn" type="submit">Add me</button>
+    </div>
+    {/* 스팸 함정 — 사람은 안 채우고 로봇은 채운다. 화면에서 감춘다 */}
+    <input class="hp" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <p class="note" id="joinnote">
+      One field, no account, no card. <b>Nothing is being sent yet</b> &mdash; there is no mailing
+      system on this site, so joining puts you on a list and the first issue goes out when the
+      archive is ready. We would rather say that than imply an email is on its way.
+    </p>
+    <p class="said" id="joinsaid" role="status" aria-live="polite"></p>
+  </form>
   <p class="plain">
-    Or write to <a href={`mailto:${MAIL}`}>{MAIL}</a> with anything at all in it. A blank message
-    is enough.
+    <noscript>The button above needs JavaScript. </noscript>
+    You can also write to <a href={`mailto:${MAIL}`}>{MAIL}</a> with anything at all in it &mdash;
+    a blank message is enough, and a person adds you within a working day.
   </p>
+
+  <script is:inline>
+    /* ⛔ 주소를 URL 에 안 싣는다(POST + JSON). 쿼리스트링에 실으면 로그·리퍼러에 남는다.
+       ⛔ 실패를 성공처럼 보이지 않게 한다 — 우리가 못 받았으면 그렇다고 말한다. */
+    (function () {
+      var f = document.getElementById('join');
+      if (!f) return;
+      var said = document.getElementById('joinsaid');
+      var btn = document.getElementById('joinbtn');
+      f.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = (f.email.value || '').trim();
+        if (!email || email.indexOf("@") < 1) {
+          said.textContent = 'That does not look like an email address.';
+          return;
+        }
+        btn.disabled = true;
+        said.textContent = 'Sending…';
+        fetch('/v1/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: email, source: 'subscribe-page', hp: f.hp.value || '' })
+        }).then(function (r) {
+          return r.json().then(function (j) { return { ok: r.ok, j: j }; });
+        }).then(function (x) {
+          if (!x.ok) {
+            said.textContent = (x.j && x.j.message) || 'We could not add you. Please write to us instead.';
+            btn.disabled = false;
+            return;
+          }
+          said.textContent = (x.j && x.j.message) || 'You are on the list.';
+          f.email.value = '';
+          btn.disabled = false;
+        }).catch(function () {
+          said.textContent = 'That did not reach us. Please write to us instead — the address is below.';
+          btn.disabled = false;
+        });
+      });
+    })();
+  </script>
 
   <h2>If you would rather not give us an address</h2>
   <p>
@@ -182,6 +230,13 @@ const jsonLd = {
   </p>
 
   <style>
+    .join { margin: 1.2rem 0 .4rem; }
+    .lab { display: block; font-size: .86rem; color: var(--muted); margin-bottom: .3rem; }
+    .row { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .inp { flex: 1 1 16rem; padding: .6rem .7rem; font: inherit; border: 1px solid var(--line);
+      border-radius: 8px; background: var(--card); color: var(--ink); }
+    .hp { position: absolute; left: -9999px; width: 1px; height: 1px; }
+    .said { margin: .5rem 0 0; font-size: .92rem; font-weight: 600; min-height: 1.4em; }
     .lede { font-size: 1.05rem; }
     .ask { margin: 1.4rem 0 .4rem; }
     .btn {
