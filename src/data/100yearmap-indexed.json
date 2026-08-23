@@ -16,7 +16,7 @@
   },
   {
    "state": "구글이모른다",
-   "pages": 9
+   "pages": 5
   },
   {
    "state": "노인덱스로뺌",
@@ -24,7 +24,7 @@
   },
   {
    "state": "발견만",
-   "pages": 21
+   "pages": 25
   }
  ],
  "byKind": [
@@ -44,17 +44,15 @@
    "kind": "major",
    "states": {
     "노인덱스로뺌": 3,
-    "발견만": 6,
-    "들어갔다": 5,
-    "구글이모른다": 1
+    "발견만": 7,
+    "들어갔다": 5
    }
   },
   {
    "kind": "college-major",
    "states": {
     "들어갔다": 9,
-    "구글이모른다": 2,
-    "발견만": 3
+    "발견만": 5
    }
   },
   {
@@ -62,14 +60,15 @@
    "states": {
     "들어갔다": 23,
     "노인덱스로뺌": 5,
-    "발견만": 8,
-    "구글이모른다": 5
+    "발견만": 10,
+    "구글이모른다": 3
    }
   },
   {
    "kind": "university",
    "states": {
-    "발견만": 3,
+    "구글이모른다": 1,
+    "발견만": 2,
     "노인덱스로뺌": 1,
     "들어갔다": 2
    }
@@ -162,9 +161,10 @@
   {
    "주소": "https://100yearmap.com/major/%EC%A0%84%EC%9E%90%EA%B3%84%EC%82%B0%EA%B8%B0%EA%B3%BC2-1",
    "갈래": "major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/major/%EA%B3%B5%EC%97%85%EA%B3%BC",
@@ -225,9 +225,10 @@
   {
    "주소": "https://100yearmap.com/college-major/%EA%B2%BD%EC%A0%9C%ED%95%99%EB%B6%80",
    "갈래": "college-major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/college-major/%ED%98%B8%ED%85%94%EA%B2%BD%EC%98%81%ED%95%99%EA%B3%BC",
@@ -240,9 +241,10 @@
   {
    "주소": "https://100yearmap.com/college-major/%EA%B8%B0%EA%B3%84%EC%84%A4%EA%B3%84%EA%B3%B5%ED%95%99%EA%B3%BC",
    "갈래": "college-major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/college-major/%EA%B8%B0%EC%95%85%EA%B3%BC",
@@ -468,9 +470,10 @@
   {
    "주소": "https://100yearmap.com/school/7011492",
    "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/school/7010193",
@@ -498,9 +501,10 @@
   {
    "주소": "https://100yearmap.com/school/7531394",
    "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/school/8750115",
@@ -561,9 +565,10 @@
   {
    "주소": "https://100yearmap.com/school/7140312",
    "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
    "주소": "https://100yearmap.com/school/8321137",
@@ -629,10 +634,9 @@
   {
    "주소": "https://100yearmap.com/school/7480186",
    "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
   },
   {
    "주소": "https://100yearmap.com/school/7240458",
@@ -645,10 +649,9 @@
   {
    "주소": "https://100yearmap.com/university/0000058",
    "갈래": "university",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
   },
   {
    "주소": "https://100yearmap.com/university/0000131",
