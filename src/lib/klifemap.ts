@@ -110,12 +110,38 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'age', 'university', 'work', 'life', 'how-long', 'size',
   'pets', 'travel', 'promotion', 'exercise', 'oneperson', 'lifelong', 'retire-income',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
-  'keep-working', 'longest-job', 'care', 'ages', 'community',
+  'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
 ]);
+
+/**
+ * 🔴 2026-08-23 — **반대 방향(100yearmap → KLifeMap) 물음을 지면 갈래마다 다르게 짓는다.**
+ *
+ *   4번이 KLifeMap 대운 카드마다("30대→marriage-age") 그 나이대에 맞는 구체적인 물음을
+ *   지어 걸었다(`saju.html` 의 `나이대다리` 표). 그런데 이쪽(100yearmap → KLifeMap)은
+ *   여전히 지면과 상관없이 「오늘 내 흐름은 어떤가」 한 마디뿐이었다 — 다리가 한쪽만
+ *   구체적인 것이다. 4번의 8구간과 짝이 맞는 지면부터 같은 결로 짓는다.
+ *
+ * ⛔ 여기 없는 갈래(pets·travel·home 처럼 특정 나이·시기와 안 묶이는 것)는 그대로
+ *   `KLIFEMAP_어른` 기본 문구를 쓴다 — 억지로 짓지 않는다.
+ */
+const 어른갈래별물음: Partial<Record<string, { 이름: string; 설명: string }>> = {
+  'first-job': { 이름: '이 시기 내 대운은 어떻게 보나', 설명: '첫 일자리를 찾는 이 시기, 사주로는 어떻게 읽히는지 봅니다' },
+  'marriage-age': { 이름: '결혼을 생각하는 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  promotion: { 이름: '승진을 앞둔 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  'longest-job': { 이름: '일을 그만두는 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  'retire-income': { 이름: '은퇴를 앞둔 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  'keep-working': { 이름: '은퇴 후에도 일할 대운이 있는가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  oneperson: { 이름: '혼자 사는 이 시기, 내 대운은', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  lifelong: { 이름: '지금 배우기 좋은 대운인가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+  exercise: { 이름: '지금 몸을 움직이기 좋은 대운인가', 설명: '통계 옆에 사주 대운도 나란히 봅니다' },
+};
 
 /** 갈래에 맞는 문을 고른다. ⛔ 한 곳으로 몰지 않는다 */
 export function 입구고르기(경로?: string | null): 입구 {
-  return 어른갈래.has(갈래고르기(경로)) ? KLIFEMAP_어른 : KLIFEMAP_적성;
+  const 갈래 = 갈래고르기(경로);
+  if (!어른갈래.has(갈래)) return KLIFEMAP_적성;
+  const 물음 = 어른갈래별물음[갈래];
+  return 물음 ? { ...KLIFEMAP_어른, 이름: 물음.이름, 설명: 물음.설명 } : KLIFEMAP_어른;
 }
 
 /** 같은 곳에서 만드는 다른 사이트라는 것을 밝힌다. ⛔ 남의 서비스인 척하지 않는다 */
@@ -159,7 +185,7 @@ export const 붙일수있는갈래 = [
    */
   'pets', 'travel', 'promotion', 'exercise', 'oneperson', 'lifelong', 'retire-income',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
-  'keep-working', 'longest-job', 'care', 'ages', 'community',
+  'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'pediatrics', 'afterschool', 'elementary',
   /**
    * ⭐ 2026-08-08 05:2x — **팔 물건 두 장.** 여기서 넘어온 손님이 제일 중요하다.
