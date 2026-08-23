@@ -36,9 +36,23 @@ import { createSign } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 낼길 = path.join(뿌리, 'src/data/wikitip-indexed.json');
-const 사이트 = 'sc-domain:kculturewire.com';
-const 집 = 'https://www.kculturewire.com';
+/**
+ * ⭐ 2026-08-24 04:2x — 2번 지시: 「색인 자를 호스트 인자로 열어 전 유닛이 쓰게 해 주십시오」.
+ * ```
+ * node scripts/check-kcw-indexed.mjs --잰다 --n=80 \
+ *      --사이트=sc-domain:100yearmap.com --집=https://100yearmap.com \
+ *      --사이트맵=dist/100y/sitemap.xml --낼길=src/data/100y-indexed.json
+ * ```
+ * ⛔ 기본값은 내 것이다. 인자를 안 주면 예전과 똑같이 돈다 — 남의 출력이 안 바뀐다.
+ * ⚠ **`--집` 을 안 바꾸면 대조군 주소가 내 도메인으로 만들어진다.** 그러면 남의 사이트를
+ *   재면서 대조군만 내 것을 물어 「믿을 만하다」가 헛말이 된다. 둘을 같이 바꾼다.
+ */
+const 인자 = (이름, 기본) => process.argv.find((a) => a.startsWith(`--${이름}=`))
+  ?.split('=').slice(1).join('=') ?? 기본;
+
+const 낼길 = path.resolve(뿌리, 인자('낼길', 'src/data/wikitip-indexed.json'));
+const 사이트 = 인자('사이트', 'sc-domain:kculturewire.com');
+const 집 = 인자('집', 'https://www.kculturewire.com');
 /** ⛔ 있으면 안 되는 주소. 대조군이다 — 이것이 「들어갔다」로 나오면 자를 못 쓴다 */
 export const 대조군주소 = `${집}/this-page-must-not-exist-zzz-5beon-control`;
 
@@ -76,7 +90,19 @@ export function 판정(응답) {
   if (/unknown to google/i.test(상태)) return { 꼴: '구글이모른다', 상태, 판 };
   if (/not found|404/i.test(상태)) return { 꼴: '없는주소', 상태, 판 };
   if (/blocked|robots/i.test(상태)) return { 꼴: '막혀있다', 상태, 판 };
-  if (판 === 'PASS') return { 꼴: '들어갔다', 상태, 판, 마지막크롤: r.lastCrawlTime ?? null };
+  /**
+   * 🔴 2026-08-24 — 여기가 위험한 자리였다. 옛 코드는 이랬다 —
+   *   `if (판 === 'PASS') return { 꼴: '들어갔다' }`.
+   *   **모르는 상태 글자에 verdict 만 PASS 면 「들어갔다」로 몰았다.** 색인을 **부풀리는**
+   *   쪽으로 틀리는 되돌림이다. 구글이 문구를 바꾸거나 다른 언어로 답하면 그날부터
+   *   우리 색인 수가 조용히 올라간다 — 그것이 가장 나쁜 종류의 흠이다.
+   * ⭐ 그래서 갈래를 하나 더 둔다. 「들어간듯」은 **확인된 「들어갔다」에 안 섞는다.**
+   * ⛔ 셈을 낼 때 이 둘을 더해 「색인 N%」라고 적지 않는다.
+   */
+  if (판 === 'PASS') {
+    return { 꼴: '들어간듯', 상태, 판, 마지막크롤: r.lastCrawlTime ?? null,
+      왜: `상태 글자를 못 알아봤다(verdict 만 PASS): ${상태 || '(빈칸)'}` };
+  }
   return { 꼴: '모른다', 상태, 판, 왜: `처음 보는 상태: ${상태 || '(빈칸)'}` };
 }
 
@@ -108,7 +134,9 @@ export function 갈래(주소) {
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⛔ 통과 수를 손으로 적으면 시험을 더할 때마다 거짓이 된다 — 세어서 적는다 */
+  let 잰것 = 0;
+  const 검 = (이름, 참) => { 잰것 += 1; if (!참) 실패.push(이름); };
   const 싼다 = (상태, verdict = 'PASS') => ({ inspectionResult: { indexStatusResult: { coverageState: 상태, verdict, lastCrawlTime: '2026-08-20T01:00:00Z' } } });
 
   검('들어간 것을 안다', 판정(싼다('Submitted and indexed')).꼴 === '들어갔다');
@@ -128,6 +156,34 @@ if (process.argv.includes('--자가시험')) {
   검('대조군이 «없는주소» 면 믿는다', 대조군믿을만한가(판정(싼다('Not found (404)', 'FAIL'))) === true);
   검('⛔ 대조군이 «들어갔다» 면 못 믿는다', 대조군믿을만한가(판정(싼다('Submitted and indexed'))) === false);
 
+  /* ── 🔴 3번이 알려 준 것 (2026-08-24) ────────────────────
+     languageCode 를 ko-KR 로 물으면 구글이 한국어로 답하고, 이 판정은 영어 문장이라
+     **전부 «모른다»로 떨어진다.** 그때 갈림 표가 그대로 찍혀 발견처럼 보인다.
+     ⛔ 못 잰 것이 결론으로 새어 나가는 자리다 — 한국어 답이 오면 «모른다»가 맞다는 것,
+        그리고 그것이 «안 들어갔다»가 아니라는 것을 여기서 못박는다 */
+  검('🔴 한국어 답(NEUTRAL)은 «모른다» 로 떨어진다',
+    판정(싼다('크롤됨 - 현재 색인이 생성되지 않음', 'NEUTRAL')).꼴 === '모른다');
+  검('⛔ 한국어 답을 «안 들어갔다»로 몰지 않는다',
+    !['발견만', '크롤했는데안넣음', '없는주소'].includes(판정(싼다('제출됨. 색인이 생성됨', 'NEUTRAL')).꼴));
+  검('그때 까닭을 글자로 남긴다',
+    /처음 보는 상태/.test(판정(싼다('무슨 말', 'NEUTRAL')).왜 ?? ''));
+  /**
+   * 🔴🔴 가장 나쁜 흠을 여기서 막는다 — 옛 코드는 모르는 상태 글자에 verdict 가 PASS 면
+   *   「들어갔다」로 몰았다. **색인을 부풀리는 쪽으로 틀리는 되돌림**이다.
+   *   구글이 문구를 바꾸거나 다른 언어로 답하면 그날부터 우리 색인 수가 조용히 올라간다.
+   */
+  검('🔴 모르는 상태 + PASS 는 «들어갔다»가 아니다',
+    판정(싼다('제출됨. 색인이 생성됨', 'PASS')).꼴 !== '들어갔다');
+  검('그것은 «들어간듯» 으로 갈라 둔다',
+    판정(싼다('제출됨. 색인이 생성됨', 'PASS')).꼴 === '들어간듯');
+  검('«들어간듯» 은 까닭을 적는다',
+    /못 알아봤다/.test(판정(싼다('무슨 말', 'PASS')).왜 ?? ''));
+  /* ⛔ 영어 정본 문구는 그대로 «들어갔다» 여야 한다 — 고치다가 이것을 깨면 안 된다 */
+  검('영어 정본은 그대로 «들어갔다»', 판정(싼다('Submitted and indexed', 'PASS')).꼴 === '들어갔다');
+  /* ⛔ 인자를 안 주면 기본값이 내 것이어야 한다 — 남의 출력이 안 바뀐다 */
+  검('기본 사이트가 내 것이다', 사이트 === 'sc-domain:kculturewire.com');
+  검('대조군 주소가 집에서 만들어진다', 대조군주소.startsWith(집));
+
   const 백 = Array.from({ length: 100 }, (_, i) => `/p${i}`);
   검('표본을 고르게 뽑는다', 고르게뽑기(백, 10).length === 10);
   검('첫 것과 끝 쪽이 다 들어간다', 고르게뽑기(백, 10)[0] === '/p0' && 고르게뽑기(백, 10)[9] === '/p90');
@@ -136,7 +192,7 @@ if (process.argv.includes('--자가시험')) {
   검('첫 화면 갈래', 갈래(집) === 'home' && 갈래(`${집}/`) === 'home');
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-kcw-indexed 자가시험 통과 (18)');
+  console.log(`✅ check-kcw-indexed 자가시험 통과 (${잰것}개)`);
   process.exit(0);
 }
 
@@ -206,9 +262,9 @@ if (!대조군믿을만한가(대조판정)) {
 console.log(`대조군 통과 — 없는 주소가 «${대조판정.꼴}»(${대조판정.상태 ?? ''})로 나온다`);
 
 /* ② 사이트맵에서 주소를 모으고 고르게 뽑는다 */
-const 사이트맵길 = path.join(뿌리, 'dist/wikitip/sitemap.xml');
+const 사이트맵길 = path.resolve(뿌리, 인자('사이트맵', 'dist/wikitip/sitemap.xml'));
 if (!fs.existsSync(사이트맵길)) {
-  console.log('⚠ 못 쟀다 — dist/wikitip/sitemap.xml 이 없다(빌드 먼저)');
+  console.log(`⚠ 못 쟀다 — ${path.relative(뿌리, 사이트맵길)} 이 없다(빌드 먼저)`);
   process.exit(0);
 }
 const 전체 = [...fs.readFileSync(사이트맵길, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
@@ -262,6 +318,24 @@ const 모르는것 = 결과.filter((x) => x.꼴 === '모른다' || x.꼴 === '�
 if (모르는것.length) {
   console.log(`\n⚠ 못 판정한 것 ${모르는것.length}장 — 「안 들어갔다」로 몰지 않는다`);
   모르는것.slice(0, 5).forEach((x) => console.log(`  ${x.주소.replace(집, '')} — ${x.왜 ?? x.상태 ?? ''}`));
+}
+
+/**
+ * 🔴 2026-08-24 — 3번이 이 판정 로직을 옮겨 쓰다가 걸린 것을 알려 주었다.
+ *   `languageCode` 를 `ko-KR` 로 물으면 구글이 **한국어로** 상태를 준다. 이 자의 판정은
+ *   영어 문장으로 되어 있어 **전부 「모른다」로 떨어졌다.**
+ * ⛔ 그때 화면에는 갈림 표가 그대로 나와서 **「모른다 80장」이 발견처럼 보인다.**
+ *   「못 쟀다」와 「이런 결과가 나왔다」를 갈라 적지 않으면 그것이 결론으로 새어 나간다.
+ * ⭐ 그래서 못 판정한 몫이 크면 **이 회차를 「못 쟀다」로 세운다.** 표를 믿지 말라고 적는다.
+ */
+const 못판정몫 = 결과.length ? 모르는것.length / 결과.length : 0;
+if (못판정몫 >= 0.3) {
+  console.log(`\n⛔⛔ **이 회차는 못 쟀다.** 못 판정한 것이 ${(100 * 못판정몫).toFixed(0)}% 다`
+    + ' — 위 갈림 표를 결론으로 쓰지 않는다.');
+  console.log('   먼저 볼 것 ① 물을 때 languageCode 가 en-US 인가'
+    + ' (한국어로 물으면 구글이 한국어로 답하고 이 판정이 다 빗나간다)');
+  console.log('   ② 구글이 상태 문구를 바꿨나 — 위 「못 판정한 것」의 상태 글자를 그대로 읽는다');
+  console.log('   ⛔ 3번이 2026-08-24 에 이 자리에서 ko-KR 로 물어 80장이 다 「모른다」로 떨어졌다.');
 }
 
 if (process.argv.includes('--쓴다')) {
