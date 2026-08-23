@@ -204,6 +204,51 @@ if (내가실행됐다) {
     console.log(`\n⭐ 이름으로 골랐다 — ${속성} (${찾음.고른것.이름})`);
   }
 
+  /**
+   * ⭐ `--하루` — 어제와 오늘을 사이트별로 한 줄씩. 매일 보고에 적을 수를 여기서 뽑는다.
+   * ⚠ **오늘 수는 집계 중**이다. 하루가 안 끝났으니 어제와 나란히 놓고 비교하면 안 된다 —
+   *   화면에 「집계 중」이라고 박아 둔다. 그 말이 없으면 오늘 수가 낮다고 잘못 읽는다.
+   */
+  if (process.argv.includes('--하루')) {
+    const 하루재기 = async (이름, 범위) => {
+      const r = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dateRanges: [범위],
+            dimensions: [{ name: 'hostName' }],
+            metrics: [{ name: 'totalUsers' }, { name: 'screenPageViews' }],
+            limit: 50,
+          }),
+        },
+      );
+      const j = await r.json();
+      if (j.error) { console.log(`   ${이름}: **못 쟀다** — ${String(j.error.message).slice(0, 90)}`); return; }
+      const 줄 = (j.rows ?? []).map((x) => ({
+        호스트: x.dimensionValues?.[0]?.value ?? '(모름)',
+        순방문: Number(x.metricValues?.[0]?.value ?? 0),
+        열림: Number(x.metricValues?.[1]?.value ?? 0),
+      }));
+      const 내것 = 줄.filter((x) => /kculturewire/i.test(x.호스트));
+      const 회사 = 줄.reduce((s, x) => s + x.순방문, 0);
+      if (!내것.length) {
+        console.log(`   ${이름}: kculturewire 줄이 없다 — **내 수는 못 쟀다**`
+          + ` (회사 전체 ${회사}명)`);
+        return;
+      }
+      console.log(`   ${이름}: K Culture Wire 순방문 **${내것.reduce((s, x) => s + x.순방문, 0)}명**`
+        + ` · 지면열림 ${내것.reduce((s, x) => s + x.열림, 0)}`
+        + `  (회사 전체 ${회사}명)`);
+    };
+    console.log('하루씩 — ⚠ 오늘 수는 **집계 중**이다. 어제와 나란히 비교하지 않는다\n');
+    await 하루재기('어제  ', { startDate: 'yesterday', endDate: 'yesterday' });
+    await 하루재기('오늘★', { startDate: 'today', endDate: 'today' });
+    console.log('\n   ★ 오늘은 하루가 안 끝났다. 「낮다」고 읽으면 안 된다.');
+    process.exit(0);
+  }
+
   /* ── ② 순방문자수 재기 ──────────────────────────────────── */
   const 일수 = Number(process.argv[process.argv.indexOf('--days') + 1]) || 28;
   const r2 = await fetch(
