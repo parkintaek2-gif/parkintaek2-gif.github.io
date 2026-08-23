@@ -187,6 +187,9 @@ export const 붙일수있는갈래 = [
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'pediatrics', 'afterschool', 'elementary',
+  /** ⭐ 2026-08-23 — 메뉴 개편으로 신설된 「대학 이전」 허브. 안의 여섯 지면과 같은 결(아이 쪽)이라
+   *  `어른갈래`에는 넣지 않는다 — 부모가 보러 온 자리라 기본 도착지(적성)가 이미 맞다. */
+  'before',
   /**
    * ⭐ 2026-08-08 05:2x — **팔 물건 두 장.** 여기서 넘어온 손님이 제일 중요하다.
    * ⚠ 둘을 갈라 붙인다 — `report`(학교 한 장) · `report-area`(지역 한 벌).

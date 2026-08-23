@@ -1,0 +1,104 @@
+---
+/**
+ * /100y/before — 「대학 이전」
+ *
+ * 🔴 사장님 지시(2026-08-23) — 메뉴 개편 중 「대학 이후」의 짝으로 신설.
+ *   `/after`(대학 이후)는 있는데 그 앞쪽 — 유치원·초등·아플 때·아침밥 같은
+ *   대학 이전 생애단계 지면 여섯 장을 한데 모아 보여주는 문이 없었다.
+ *
+ * ⛔ 새로 잰 숫자를 만들지 않는다 — 이미 낸 여섯 지면이 각자 쥔 수를 그대로 가져와 카드로 모은다.
+ *   (같은 방식을 `/ages` 가 이미 쓰고 있다 — 손으로 옮기면 자료가 바뀔 때 여기만 옛 수로 남는다)
+ *
+ * ⚠ 여섯 지면의 차례는 `HundredAgeWalk.astro` 의 `차례`(정본)와 같은 순서를 쓴다 —
+ *   여기서만 다른 순서로 늘어놓으면 손님이 옆 지면 이동 감각과 어긋난다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 어린이집 from '../../../data/100yearmap/nursery-none.json';
+import 유치원 from '../../../data/100yearmap/kindergarten.json';
+import 소아과 from '../../../data/100yearmap/pediatrics.json';
+import 방과후 from '../../../data/100yearmap/afterschool.json';
+import 초등 from '../../../data/100yearmap/elementary.json';
+import 아침 from '../../../data/100yearmap/breakfast.json';
+
+const a = 어린이집 as any, b = 유치원 as any, d = 소아과 as any;
+const c = 방과후 as any, e = 초등 as any, n = 아침 as any;
+
+const 문들 = [
+  {
+    나이: '0~5세', 주소: '/nursery', 이름: '어린이집이 한 곳도 없는 지역',
+    수: `${a.해별[a.최신].전국}곳`,
+    한줄: `${a.최신}년 기준. ${a.해별[a.해들[0]].전국}곳이던 ${a.해들[0]}년보다 늘었습니다.`,
+    기간: `${a.해들[0]}~${a.최신} · ${a.해들.length}해`,
+  },
+  {
+    나이: '3~5세', 주소: '/kindergarten', 이름: '우리 동네에 유치원이 몇 곳인가',
+    수: `${b.전국.곳.toLocaleString()}곳`,
+    한줄: `원아 ${b.전국.원아.toLocaleString()}명. 시·군·구 ${b.동네수}칸을 다 실었습니다.`,
+    기간: `${b.해}년 · 1해`,
+  },
+  {
+    나이: '아플 때', 주소: '/pediatrics', 이름: '밤에 아이가 열이 나면 어디로 가나',
+    수: `${d.없는곳수}곳`,
+    한줄: `소아청소년과 «의원»이 없는 시·군·구. 그중 ${d.병원급.아예없는곳}곳은 병원급도 없습니다.`,
+    기간: `${d.흐름[0].해}~${d.흐름[d.흐름.length - 1].해} · ${d.흐름.length}해`,
+  },
+  {
+    나이: '6~9세', 주소: '/afterschool', 이름: '학교가 한 시에 끝나면 아이는 어디로 가나',
+    수: `${(c.학교급 as any[])[0].참여율}%`,
+    한줄: `초등학교 늘봄·방과후 참여율. 읍면이 ${(c.지역 as any[])[4].참여율}%로 대도시보다 높습니다.`,
+    기간: `${c.해들[0]}~${c.최신} · ${c.해들.length}해`,
+  },
+  {
+    나이: '초등', 주소: '/elementary', 이름: '초등학교는 몇 살인가요',
+    수: `${e.백년넘은곳수.toLocaleString()}곳`,
+    한줄: `문 연 지 백 년이 넘은 학교. 전국 ${e.낸곳.toLocaleString()}곳을 세었습니다.`,
+    기간: `${e.올해}년 기준`,
+  },
+  {
+    나이: '10대', 주소: '/breakfast', 이름: '아침을 거르는 건 몇 살일까',
+    수: `${n.열대.몫}%`,
+    한줄: `10~18세가 조사 전날 아침을 걸렀습니다. ⛔ 맨 위 칸은 10대가 아니라 ${n.가장많이거르는칸.칸}(${n.가장많이거르는칸.몫}%)입니다.`,
+    기간: `${n.흐름첫.해}~${n.최신} · 값이 있는 해 ${n.흐름해수}해`,
+  },
+];
+
+const desc =
+  `백년지도가 낸 대학 이전 지면 ${문들.length}개를 나이 차례로 모았습니다. ` +
+  `어린이집·유치원·소아과·방과후·초등학교·아침밥 — 대학에 이르기 전 자리입니다.`;
+---
+
+<HundredYear title={`대학 이전 — 나이 차례로 모은 지면 ${문들.length}개`} description={desc}>
+  <h1>대학 이전</h1>
+  <p class="sub">
+    <a href="/after">대학 이후</a>가 있다면 그 앞도 있어야 합니다.
+    {' '}백년지도가 낸 <strong>대학 이전 지면 {문들.length}개</strong>를 나이 차례로 모았습니다.
+  </p>
+
+  <p class="note">
+    ⛔ 카드에 적힌 수는 <strong>그 지면이 실제로 쥔 수</strong>입니다 — 손으로 옮겨 적지 않았습니다.
+    {' '}자료가 바뀌면 이 카드도 같이 바뀝니다.
+  </p>
+
+  {문들.map((r) => (
+    <div class="answer">
+      <p class="answer-label">{r.나이}</p>
+      <p class="answer-num" style="font-size:clamp(1.4rem,4.4vw,2rem);letter-spacing:-1px">
+        <a href={r.주소}>{r.이름}</a>
+      </p>
+      <p class="answer-sub">
+        <strong>{r.수}</strong> — {r.한줄}
+        <br />자료 {r.기간}
+      </p>
+    </div>
+  ))}
+
+  <h2>다음은 어디로</h2>
+  <p class="note">
+    학교급을 넘어 고등학교 학과·대학·지역으로 찾으시려면{' '}
+    <a href="/major">배움 길 찾기</a>로, 대학 다음이 궁금하시면{' '}
+    <a href="/after">대학 이후</a>로 가시면 됩니다.
+  </p>
+
+  <NextQuestionBrief 모은것="대학 이전 생애단계 지면" />
+</HundredYear>
