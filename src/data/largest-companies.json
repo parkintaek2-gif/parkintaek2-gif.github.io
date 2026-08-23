@@ -1,0 +1,121 @@
+{
+ "_왜": "한국 최대 상장회사 — 회사단위(우선주 합산). 비율만(sim 스케일 무관). 종목단위와 대조.",
+ "asOf": "20260821",
+ "companies": 2678,
+ "issues": 2764,
+ "top10": [
+  {
+   "ko": "삼성전자",
+   "en": "Samsung Electronics",
+   "share": 29.4,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "SK하이닉스",
+   "en": "SK hynix",
+   "share": 20.5,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "SK스퀘어",
+   "en": "SK Square",
+   "share": 2.4,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "삼성전기",
+   "en": "Samsung Electro-Mechanics",
+   "share": 1.6,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "현대차",
+   "en": "Hyundai Motor",
+   "share": 1.5,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "LG에너지솔루션",
+   "en": "LG Energy Solution",
+   "share": 1.3,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "삼성바이오로직스",
+   "en": "Samsung Biologics",
+   "share": 1.2,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "삼성생명",
+   "en": "Samsung Life Insurance",
+   "share": 1.1,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "삼성물산",
+   "en": "Samsung C&T",
+   "share": 1,
+   "mkt": "KOSPI"
+  },
+  {
+   "ko": "KB금융",
+   "en": "KB Financial",
+   "share": 0.9,
+   "mkt": "KOSPI"
+  }
+ ],
+ "top2Share": 49.9,
+ "issueTop10": [
+  {
+   "nm": "삼성전자",
+   "en": "Samsung Electronics",
+   "share": 26.7
+  },
+  {
+   "nm": "SK하이닉스",
+   "en": "SK hynix",
+   "share": 20.5
+  },
+  {
+   "nm": "삼성전자우",
+   "en": "Samsung Electronics",
+   "share": 2.7
+  },
+  {
+   "nm": "SK스퀘어",
+   "en": "SK Square",
+   "share": 2.4
+  },
+  {
+   "nm": "삼성전기",
+   "en": "Samsung Electro-Mechanics",
+   "share": 1.6
+  },
+  {
+   "nm": "현대차",
+   "en": "Hyundai Motor",
+   "share": 1.4
+  },
+  {
+   "nm": "LG에너지솔루션",
+   "en": "LG Energy Solution",
+   "share": 1.3
+  },
+  {
+   "nm": "삼성바이오로직스",
+   "en": "Samsung Biologics",
+   "share": 1.2
+  },
+  {
+   "nm": "삼성생명",
+   "en": "Samsung Life Insurance",
+   "share": 1.1
+  },
+  {
+   "nm": "삼성물산",
+   "en": "Samsung C&T",
+   "share": 1
+  }
+ ]
+}
