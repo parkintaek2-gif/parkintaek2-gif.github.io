@@ -100,8 +100,18 @@ export const KLIFEMAP_어른: 입구 = {
  * 🔴 **어른 쪽으로 보낼 갈래** (2번이 정한 셋).
  *   ⛔ 여기 없는 갈래는 그대로 아이 쪽으로 간다 — 학교·학과는 학부모가 보는 자리다.
  *   ⚠ 갈래를 늘릴 때는 **도착지를 먼저 재고** 늘린다. 로그인 벽이면 안 넣는다.
+ *
+ * ⭐ 2026-08-23 — 생애단계 지면 열여섯 곳을 더했다(도착지 `ilzin.html` 200·로그인 벽
+ *   없음 재확인 후). 0~9세 대상 지면(breakfast·kindergarten·nursery·pediatrics·
+ *   afterschool·elementary)은 **일부러 안 넣는다** — 그 지면 손님은 아이 이야기를 보러
+ *   온 것이라 지금 기본 도착지(적성)가 이미 맞다. 태그만 `기타`에서 벗어나면 된다.
  */
-export const 어른갈래: ReadonlySet<string> = new Set(['age', 'university', 'work', 'life', 'how-long', 'size']);
+export const 어른갈래: ReadonlySet<string> = new Set([
+  'age', 'university', 'work', 'life', 'how-long', 'size',
+  'pets', 'travel', 'promotion', 'exercise', 'oneperson', 'lifelong', 'retire-income',
+  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
+  'keep-working', 'longest-job', 'care', 'ages', 'community',
+]);
 
 /** 갈래에 맞는 문을 고른다. ⛔ 한 곳으로 몰지 않는다 */
 export function 입구고르기(경로?: string | null): 입구 {
@@ -127,10 +137,30 @@ export const KLIFEMAP_밝힘 = '같은 곳에서 만드는 KLifeMap';
 /* ⚠ **빌드 결과의 폴더 이름을 보고 적었다.** 처음엔 내가 기억으로 넷만 적었고,
  *   그 바람에 age·region·university 가 전부 `기타` 로 뭉뚱그려졌다.
  *   갈래를 못 가르면 「어느 지면이 손님을 데려오나」를 못 잰다 — 이걸 만든 이유가 그것이다. */
+/**
+ * 🔴 2026-08-23 — **생애단계 지면 스무 곳 남짓이 통째로 빠져 있었다.**
+ *
+ *   사장님·2번의 「KLifeMap×100yearmap 결합」 킥오프를 살피다가, 실제 라이브 지면을
+ *   열어 보고 찾았다 — `/oneperson`(1인가구·전 연령), `/retire-income`(은퇴 후 소득) 같은
+ *   생애단계 KOSIS 지면들이 이 목록에 하나도 없어 **전부 `기타`로 잡히고 있었다.**
+ *   그리고 `기타`는 `어른갈래`에도 없으니 `KLIFEMAP_적성`(「우리 아이한테 이 길이 맞을까」)
+ *   으로 갔다 — 은퇴 소득을 읽던 어른이 갑자기 자기 아이 진로 질문을 받은 것이다.
+ *   이 파일 자체가 여러 번 겪은 바로 그 실수(1번이 여러 차례 잡아 준 것)를 새 지면들이
+ *   그대로 반복하고 있었다.
+ */
 export const 붙일수있는갈래 = [
   'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
   /* 입구 지면을 달고 나서 늘었다 — 이 넷도 손님이 들어오는 자리다 */
   'size', 'how-long', 'after', 'work', 'research',
+  /**
+   * ⭐ 2026-08-23 — 생애단계 지면(KOSIS 실측, /ages 문 스물세 장 + 허브 둘).
+   *   어른 쪽(대운·일진과 결이 맞는 인생 통계)과 아이 쪽(돌봄·보육 시설)을 갈라 붙인다 —
+   *   갈림은 바로 아래 `어른갈래`에서 마저 한다.
+   */
+  'pets', 'travel', 'promotion', 'exercise', 'oneperson', 'lifelong', 'retire-income',
+  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
+  'keep-working', 'longest-job', 'care', 'ages', 'community',
+  'breakfast', 'kindergarten', 'nursery', 'pediatrics', 'afterschool', 'elementary',
   /**
    * ⭐ 2026-08-08 05:2x — **팔 물건 두 장.** 여기서 넘어온 손님이 제일 중요하다.
    * ⚠ 둘을 갈라 붙인다 — `report`(학교 한 장) · `report-area`(지역 한 벌).
