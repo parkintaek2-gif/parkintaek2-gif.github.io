@@ -141,11 +141,36 @@ const TITLE = `${t.title} on Netflix — every country it charted in`;
  * ⛔ 「hit 이다」라고 쓰지 않는다. **그 물음에 우리가 무엇을 줄 수 있는지**를 적는다 —
  *   그것이 답이 아닌 척하지 않으면서 그 검색을 받는 유일한 정직한 길이다.
  */
+/**
+ * 🔴 2026-08-24 00:3x — 작품 지면에 닿은 검색어를 실제로 열어 봤다.
+ * ```
+ * 노출 175 · 클릭 2. 그중 「어느 나라」를 묻는 것이 검색어 9개·노출 31.
+ *   decision to leave netflix country              8노출 · 8.9위 · 클릭 0
+ *   my roommate is a gumiho netflix which country  8노출 · 8.8위 · 클릭 0
+ *   what countries can i watch behind your touch…  5노출 · 17.2위 · 클릭 0
+ * ```
+ * 순위는 9위 안팎인데 클릭이 0이다. 옛 설명문은 이렇게 시작했다 —
+ * 「took 6 Netflix top 10 places across **1 of 93 markets**」.
+ * ⛔ 「어느 나라?」를 물은 사람에게 **나라 이름이 없고**, 「1 of 93」이 먼저 보인다.
+ *   그건 사실이지만 답이 아니라 **적다는 인상**부터 준다.
+ * ⭐ 그래서 **물은 것을 앞에 놓는다** — 나라 수와 나라 이름 몇 개를 첫 문장에.
+ *   낱말을 쌓는 것이 아니다. 자료에 이미 있는 답(`byMarket`)을 앞으로 옮기는 것이다.
+ * ⛔ 「charted」를 「available」로 바꾸지 않는다. 차트에 든 것과 볼 수 있는 것은 다른 말이고,
+ *   우리가 가진 것은 앞엣것뿐이다. 본문에 그 차이를 적어 둔다.
+ */
+const 나라들 = (t.byMarket ?? []).map((m: any) => m.name).filter(Boolean);
+const 나라앞자락 = 나라들.length === 0
+  ? ''
+  : 나라들.length <= 3
+    ? `: ${나라들.join(', ')}. `
+    : ` — ${나라들.slice(0, 3).join(', ')} and ${나라들.length - 3} more. `;
 const DESC =
-  `${t.title} took ${t.places.toLocaleString('en-US')} Netflix top 10 places across ${t.markets} of `
-  + `${data.marketCount} markets between ${t.firstWeek} and ${t.lastWeek}, peaking at number ${t.peak}. `
-  + `Hit or flop is not something a chart file can answer — here is where it sits among `
-  + `${지면수} Korean titles instead, counted week by week from Netflix's own country lists.`;
+  `${t.title} charted on Netflix in ${t.markets} `
+  + `${t.markets === 1 ? 'country' : 'countries'}${나라앞자락 || '. '}`
+  + `${t.places.toLocaleString('en-US')} top 10 ${셈(t.places, 'place')} across `
+  + `${t.weeks} ${셈(t.weeks, 'week')}, peaking at number ${t.peak}, `
+  + `${t.firstWeek} to ${t.lastWeek}. Counted from Netflix's own country lists — `
+  + `charting there is not the same as being available there.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -169,6 +194,21 @@ const jsonLd = {
     {' '}<b>number {t.peak}</b>.
   </p>
   <p class="note lead-in"><b>What a place is.</b> {data.unit}</p>
+
+  {/*
+    🔴 2026-08-24 — 실측한 검색어 가운데 이런 것이 있었다 —
+      「what countries can i watch behind your touch on netflix」(5노출 · 17.2위 · 클릭 0).
+      손님이 묻는 것은 **볼 수 있는 나라**인데 우리가 가진 것은 **차트에 든 나라**다.
+    ⛔ 두 말을 섞지 않는다. 그러나 **하나는 말할 수 있다** — 차트에 들었으면 그 주에 그
+      나라에서 볼 수 있었다는 뜻이다. 그 반대는 아니다(안 들었다고 없었던 것은 아니다).
+    ⭐ 우리가 아는 것과 모르는 것을 갈라 적는 것이 이 물음에 답하는 정직한 길이다.
+  */}
+  <p class="note">
+    <b>Charted here is not the same as available here.</b> A chart place does show the title was
+    on Netflix in that country that week &mdash; that much follows. The reverse does not: a country
+    missing from this list may still have carried the title without it reaching a top 10.
+    We hold chart lists, not catalogue listings, and we do not guess the difference.
+  </p>
 
   {t.otherSpellings && (
     <p class="warn">
