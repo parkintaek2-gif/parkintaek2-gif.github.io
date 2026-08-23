@@ -73,6 +73,21 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   process.exit(진.length ? 1 : 0);
 }
 
+/**
+ * 🔴 2026-08-24 07:4x — **이 자의 본 검사가 안 잠겨 있었다.**
+ *   위 머리말(줄 49)에 「이 자가 import 되면 남의 시험이 통째로 안 돈다」고 적어 두었는데,
+ *   그것은 **자가시험 쪽만** 잠근 것이었다. 본 검사는 그대로 열려 있었다.
+ *   오늘 `check-kcw-earning-pages.mjs` 에서 `맨몸한국어` 를 들여왔더니, 그 자를 부르는
+ *   순간 **이 자가 1,539장을 훑고 `process.exit` 해 버려** 남의 검사가 통째로 죽었다.
+ * ⛔ 판단을 나눠 쓰라고 export 해 두고, 들여오면 죽게 만들어 두었던 것이다.
+ *   그러면 다음 사람은 베끼는 쪽을 고르고, 두 판단이 어긋난다.
+ * ⭐ 그래서 본 검사도 「내가 직접 불렸을 때만」으로 잠근다.
+ */
+const 직접불렸나 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (!직접불렸나) {
+  /* 들여쓰기용으로 불린 것이다 — 판단 함수만 내주고 아무것도 안 한다 */
+} else {
 /* 지어진 결과물을 본다 — 소스가 아니라 **손님이 받는 것**을 본다 */
 const 방 = path.join(뿌리, 'dist', 'wikitip');
 if (!fs.existsSync(방)) { console.log('⚠ dist/wikitip 이 없다. 먼저 짓는다'); process.exit(0); }
@@ -106,3 +121,4 @@ console.log(`🔴 빨강 ${빨강.length}장`);
 for (const [f, 낱] of 빨강.slice(0, 25)) console.log(`   ${f.padEnd(46)} ${낱.slice(0, 4).join(' / ')}`);
 if (빨강.length > 25) console.log(`   … 그리고 ${빨강.length - 25}장 더`);
 process.exit(1);
+} /* ← 직접불렸나 */
