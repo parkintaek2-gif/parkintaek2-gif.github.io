@@ -60,9 +60,20 @@ export function 제목뽑기(html) {
   return m ? m[1].replace(/\s*\|\s*K Culture Wire\s*$/, '') : null;
 }
 
+/**
+ * ⛔ **곳간이 없는 것은 「깨졌다」가 아니라 「못 쟀다」다.**
+ *   2026-08-23 에 이 자가 `archive/raw/wikipedia/sea-actors.json` 이 없다는 이유로
+ *   ENOENT 로 죽었다. 곳간은 OneDrive·R2 에 있고 창마다 다 내려와 있지 않다 —
+ *   그런데 죽으면 화면에는 「검사 실패」로 보이고, 못 잰 것이 깨진 것으로 적힌다.
+ *   ⭐ 그래서 없는 파일은 **건너뛰고 이름을 적어 둔다.** 부르는 쪽이 갈라 적을 수 있게.
+ */
+export const 못읽은명단 = [];
+
 export function 명단읽기(길들 = 명단길) {
   const 이름 = new Set();
+  못읽은명단.length = 0;
   for (const p of 길들) {
+    if (!fs.existsSync(p)) { 못읽은명단.push(p); continue; }
     for (const x of JSON.parse(fs.readFileSync(p, 'utf8')).people ?? []) if (x.name) 이름.add(x.name);
   }
   return [...이름].filter((n) => !부딪힘.has(n) && n.length >= 2).map((n) => [n, 자만들기(n)]);
@@ -93,10 +104,17 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     제목뽑기('<title>IU is a Rooster | K Culture Wire</title>'), 'IU is a Rooster');
   재본다('⛔ 제목이 없으면 null', 제목뽑기('<p>no title</p>'), null);
 
-  재본다('⭐ 명단이 있다', 명단길.every((p) => fs.existsSync(p)), true);
+  /* ⛔ 없는 파일에서 죽지 않는다 — 없으면 적어 두고 넘어간다 */
+  재본다('⭐ 없는 명단 파일에서 안 죽는다',
+    (() => { 명단읽기([path.join(뿌리, '없는-파일-입니다.json')]); return 못읽은명단.length; })(), 1);
+
   const 자들 = 명단읽기();
-  재본다('⭐ 명단에 이름이 3,000개 넘는다', 자들.length, (n) => n > 3000);
-  재본다('⛔ 부딪히는 예명은 빠져 있다', 자들.some(([n]) => n === 'June'), false);
+  if (못읽은명단.length === 명단길.length) {
+    console.log('   ⚠ 명단 곳간이 하나도 없다 — 「명단에 이름이 3,000개」는 **못 쟀다**.');
+  } else {
+    재본다('⭐ 명단에 이름이 3,000개 넘는다', 자들.length, (n) => n > 3000);
+    재본다('⛔ 부딪히는 예명은 빠져 있다', 자들.some(([n]) => n === 'June'), false);
+  }
 
   console.log(`제목에 스타 이름 있나 보는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
@@ -108,6 +126,23 @@ if (내가실행됐다) {
     process.exit(0);
   }
   const 자들 = 명단읽기();
+  /**
+   * 🔴 명단이 하나도 없으면 **셀 수가 없다.** 그때 0% 를 찍으면
+   *   「제목에 이름이 하나도 없다」는 거짓말이 된다. 못 쟀다고 적고 나간다.
+   */
+  if (!자들.length) {
+    console.log('⚠ 스타 명단 곳간이 없다 — **못 쟀다.**');
+    for (const p of 못읽은명단) console.log(`   · 없다: ${path.relative(뿌리, p)}`);
+    console.log('');
+    console.log('   내리는 법: OneDrive·R2 의 archive/raw/wikipedia 를 받아 온다.');
+    console.log('   ⛔ 이것은 「통과」가 아니다. 0% 도 아니다 — **재지 못한 것**이다.');
+    process.exit(0);
+  }
+  if (못읽은명단.length) {
+    console.log('⚠ 명단 일부가 없다 — 아래 셈은 **있는 명단으로만** 잰 것이다:');
+    for (const p of 못읽은명단) console.log(`   · 없다: ${path.relative(뿌리, p)}`);
+    console.log('');
+  }
   const 재기 = (방) => {
     const 것들 = fs.readdirSync(방).filter((f) => f.endsWith('.html'));
     let 있음 = 0; const 없음 = [];
