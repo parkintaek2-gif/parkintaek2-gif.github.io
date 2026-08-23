@@ -1,6 +1,6 @@
 ---
-title: "There is no K-drama season. The Korean share moves 2.2 points across twelve months — and 14.1 in a week."
-dek: "Month by month, Korean titles hold between 6.7% and 8.9% of the world's top-10 places. Remove each month's biggest title and the band gets wider, not narrower. What moves this number is releases, not the calendar."
+title: "There is no K-drama season. The Korean share moves 2.5 points across twelve months — and 14.2 in a week."
+dek: "Month by month, Korean titles hold between 6.6% and 9.1% of the world's top-10 places. Remove each month's biggest title and the band gets wider, not narrower. What moves this number is releases, not the calendar."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -35,24 +35,24 @@ published top-10 places did Korean titles hold in each calendar month?
 
 | Month | Korean share | Without that month's biggest title |
 | --- | ---: | ---: |
-| January | 8.3% | 6.7% |
-| February | 7.5% | 6.6% |
-| March | 7.4% | 6.8% |
-| April | 7.8% | 7.1% |
-| May | 6.9% | 6.5% |
-| June | 6.7% | 6.2% |
-| July | 8.5% | 7.3% |
-| August | 7.7% | 7.2% |
-| September | 8.8% | 8.2% |
-| October | 7.9% | 6.9% |
+| January | 8.4% | 6.8% |
+| February | 7.9% | 7% |
+| March | 7.9% | 7.4% |
+| April | 8.4% | 7.7% |
+| May | 7.6% | 7.2% |
+| June | 7.1% | 6.7% |
+| July | 8.6% | 7.4% |
+| August | 8.1% | 7.7% |
+| September | 9.1% | 8.5% |
+| October | 8% | 7% |
 | November | 6.6% | 5.8% |
-| December | 7.4% | 6.6% |
+| December | 7.5% | 6.7% |
 
-The whole year sits at 7.6%. The best month is 8.8% and the worst is 6.6%. **That is the entire
-range: 2.2 points.**
+The whole year sits at 7.9%. The best month is 9.1% and the worst is 6.6%. **That is the entire
+range: 2.5 points.**
 
-For comparison, our [world-share page](/world-share) records the highest single week at 16.1% and
-the lowest at 2.0% — a range of **14.1 points, 6.4 times the monthly one.** Whatever moves this
+For comparison, our [world-share page](/world-share) records the highest single week at 16.2% and
+the lowest at 2.0% — a range of **14.2 points, 5.7 times the monthly one.** Whatever moves this
 number, it is not the month of the year.
 
 ## The obvious suspect, and what happened to it
@@ -64,7 +64,7 @@ Korean chart place in the month.
 So we removed each month's own biggest title and measured again — that is the right-hand column
 above. If the swing were a title effect, the band should collapse.
 
-It does not. The band goes from 2.2 points to **2.4**. Taking the biggest title out of every month
+It does not. The band goes from 2.5 points to **2.7**. Taking the biggest title out of every month
 leaves the monthly pattern slightly *wider* than before, which is the opposite of what a
 one-title explanation predicts.
 
