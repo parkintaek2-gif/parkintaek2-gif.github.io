@@ -88,13 +88,51 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
           <li><b>Pro — from $99/mo</b> (or $990/yr): full multi-year history, per-sector and per-issue breakdowns, and a queryable API.</li>
           <li><b>Enterprise — from $2,500</b>: custom cuts, redistribution rights and bespoke concentration research.</li>
         </ul>
-        <p class="note"><a href="/contact">Contact us</a> to licence the Pro feed or discuss enterprise access.</p>
+        <form class="wait" id="wl-form" novalidate>
+          <p class="wl-lead">The Pro feed isn’t open yet. Leave your email and we’ll tell you when it is — with pricing, no card now.</p>
+          <div class="wl-row">
+            <label class="wl-label" for="wl-email">Email address</label>
+            <input class="wl-input" id="wl-email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required />
+            <input type="text" name="hp" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px" />
+            <button class="wl-btn" type="submit">Join the waitlist</button>
+          </div>
+          <p class="wl-said" id="wl-said" role="status" aria-live="polite"></p>
+        </form>
+        <p class="note">Enterprise or bespoke research? <a href="/contact">Contact us</a>.</p>
       </div>
 
       <p class="read">
         The full write-up:
-        <a href="/article/korea-everything-comes-down-to-four">Measure Korea any way you like — the top four are half of it</a>.
+        <a href="/article/korea-everything-comes-down-to-four">Korea's stock market and trade: the top four are half of everything</a>.
       </p>
+
+      <script is:inline>
+        (function () {
+          var f = document.getElementById('wl-form');
+          if (!f) return;
+          var said = document.getElementById('wl-said');
+          f.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var email = (f.email.value || '').trim();
+            if (!email || email.indexOf('@') < 1) { said.textContent = 'That does not look like an email address.'; return; }
+            if ((f.hp.value || '').trim() !== '') { said.textContent = 'Thanks.'; return; }
+            said.textContent = 'Adding you…';
+            fetch('/v1/subscribe', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ email: email, source: 'concentration-waitlist', hp: '' }),
+            }).then(function (r) {
+              if (r.ok) {
+                said.textContent = 'You’re on the list. We’ll email when the Pro feed opens.';
+                f.email.value = '';
+                try { if (window.gtag) window.gtag('event', 'waitlist_join', { feed: 'concentration' }); } catch (err) {}
+              } else {
+                said.textContent = 'Something went wrong — please try again, or email us.';
+              }
+            }).catch(function () { said.textContent = 'Something went wrong — please try again, or email us.'; });
+          });
+        })();
+      </script>
 
       <section class="faq">
         <h2>Korea market &amp; trade concentration — the questions people ask</h2>
@@ -161,6 +199,17 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
   .tiers li { font-size: .9rem; line-height: 1.55; padding-left: 1rem; position: relative; }
   .tiers li::before { content: '›'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
   .tiers b { font-weight: 650; }
+
+  .wait { margin: 1rem 0 .2rem; border-top: 1px solid var(--line); padding-top: 1rem; }
+  .wl-lead { font-size: .9rem; line-height: 1.55; margin: 0 0 .6rem; color: var(--ink); }
+  .wl-row { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+  .wl-label { position: absolute; left: -9999px; }
+  .wl-input { flex: 1 1 14rem; min-width: 0; padding: .55rem .7rem; font-size: .95rem;
+    border: 1px solid var(--line); border-radius: 8px; background: var(--bg, #fff); color: var(--ink); }
+  .wl-btn { padding: .55rem 1.1rem; font-size: .92rem; font-weight: 700; border: 0; border-radius: 8px;
+    background: var(--accent); color: #fff; cursor: pointer; white-space: nowrap; }
+  .wl-btn:hover { filter: brightness(1.08); }
+  .wl-said { font-size: .84rem; color: var(--muted); margin: .5rem 0 0; min-height: 1em; }
 
   .faq { margin: 2rem 0 1rem; }
   .faq h2 { font-size: 1.2rem; margin: 0 0 .8rem; letter-spacing: -.01em; }

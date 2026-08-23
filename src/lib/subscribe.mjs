@@ -73,7 +73,7 @@ export function 키(email) {
  *   그 자리가 보인다. 2026-08-23 에 KCW `/subscribe` 폼(`subscribe-page`)을 더했다.
  */
 const 허용유입 = new Set(['home', 'article', 'newsletter', 'api', 'about', 'footer', 'panel',
-  'trade-sample', 'subscribe-page', 'unknown']);
+  'trade-sample', 'subscribe-page', 'concentration-waitlist', 'unknown']);
 
 /**
  * 구독 접수.
