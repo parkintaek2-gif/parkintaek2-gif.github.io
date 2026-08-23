@@ -42,6 +42,38 @@ import { fileURLToPath } from 'node:url';
 
 export const 갈래 = 'https://www.googleapis.com/auth/analytics.readonly';
 
+/**
+ * ⭐ 호스트 → 유닛. 사장님이 물으셨다(2026-08-23 21:4x) — 「다른 유닛도 측정해야 하는 거 아냐?」
+ *   속성 하나가 네 사이트를 다 담으므로 **한 번 재면 여섯 자리 것이 같이 나온다.**
+ *   각 유닛이 따로 붙일 것이 없다. 이름을 붙여 한 줄씩 낸다.
+ * ⛔ `www.` 붙은 줄과 안 붙은 줄을 **따로 세지 않는다** — 같은 사이트다. 더해서 한 줄로 낸다.
+ *   처음엔 따로 찍혀서 kculturewire 가 60·42 두 줄로 나뉘어 있었다. 그러면 작아 보인다.
+ * ⛔ 우리가 띄운 개발 서버(localhost·127.0.0.1)는 **손님이 아니다.** 갈라 내고 합계에서 뺀다.
+ */
+export const 유닛 = [
+  { 이름: '3번 100yearmap', 자: /(^|\.)100yearmap\.com$/i },
+  { 이름: '5번 K Culture Wire', 자: /(^|\.)kculturewire\.com$/i },
+  { 이름: '1·4번 KLifeMap', 자: /(^|\.)klifemap\.(ai|net)$/i },
+  { 이름: '6번 SeoulMarkets', 자: /(^|\.)seoulmarkets\.com$/i },
+];
+export const 손님아님 = /^(localhost|127\.0\.0\.1|\[?::1\]?|.*\.github\.io)$/i;
+
+/** 호스트 줄들을 유닛별로 합친다. ⛔ 어디에도 안 붙는 호스트를 **버리지 않는다** */
+export function 유닛별로(줄들) {
+  const 표 = 유닛.map((u) => ({ 이름: u.이름, 순방문: 0, 열림: 0, 호스트: [] }));
+  const 남은것 = []; const 개발 = [];
+  for (const r of 줄들 ?? []) {
+    const h = String(r.호스트 ?? '');
+    if (손님아님.test(h)) { 개발.push(r); continue; }
+    const i = 유닛.findIndex((u) => u.자.test(h));
+    if (i < 0) { 남은것.push(r); continue; }
+    표[i].순방문 += r.순방문 ?? 0;
+    표[i].열림 += r.열림 ?? 0;
+    표[i].호스트.push(h);
+  }
+  return { 표: 표.sort((a, b) => b.순방문 - a.순방문), 남은것, 개발 };
+}
+
 /** 어떤 오류인지 **갈라** 적는다. ⛔ 「실패」 한 마디로 뭉개면 무엇을 켤지 알 수 없다 */
 export function 무엇이막혔나(오류글) {
   const s = String(오류글 ?? '');
@@ -202,6 +234,76 @@ if (내가실행됐다) {
     }
     속성 = 찾음.고른것.속성;
     console.log(`\n⭐ 이름으로 골랐다 — ${속성} (${찾음.고른것.이름})`);
+  }
+
+  /**
+   * ⭐ `--유닛` — 유닛별로 한 줄씩. 사장님 물음(「다른 유닛도 측정해야 하는 거 아냐?」)에
+   *   답하는 자리다. 창을 여럿 놓고 한 번에 낸다 — 하루치만 보면 흔들린다.
+   */
+  if (process.argv.includes('--유닛')) {
+    const 창들 = [['어제', 'yesterday', 'yesterday', 1], ['7일', '7daysAgo', 'yesterday', 7],
+      ['28일', '28daysAgo', 'yesterday', 28]];
+    const 모음 = new Map();
+    let 남은것 = []; let 개발 = [];
+    for (const [이름, 시작, 끝, 일] of 창들) {
+      const r = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dateRanges: [{ startDate: 시작, endDate: 끝 }],
+            dimensions: [{ name: 'hostName' }],
+            metrics: [{ name: 'totalUsers' }, { name: 'screenPageViews' }],
+            limit: 100,
+          }),
+        },
+      );
+      const j = await r.json();
+      if (j.error) { 모음.set(이름, { 못쟀다: String(j.error.message).slice(0, 90), 일 }); continue; }
+      const 줄 = (j.rows ?? []).map((x) => ({
+        호스트: x.dimensionValues?.[0]?.value ?? '(모름)',
+        순방문: Number(x.metricValues?.[0]?.value ?? 0),
+        열림: Number(x.metricValues?.[1]?.value ?? 0),
+      }));
+      const 갈름 = 유닛별로(줄);
+      모음.set(이름, { ...갈름, 일 });
+      남은것 = 갈름.남은것; 개발 = 갈름.개발;
+    }
+
+    console.log(`유닛별 순방문자 — 속성 ${속성} (네 사이트 공용)\n`);
+    console.log('   유닛                   어제    7일(하루평균)    28일(하루평균)');
+    for (const u of 유닛.map((x) => x.이름)) {
+      const 값 = (이름) => {
+        const m = 모음.get(이름);
+        if (!m || m.못쟀다) return '못 쟀다';
+        const row = m.표.find((x) => x.이름 === u);
+        const n = row ? row.순방문 : 0;
+        return m.일 === 1 ? `${n}` : `${n} (${(n / m.일).toFixed(1)})`;
+      };
+      console.log(`   ${u.padEnd(22)}${값('어제').padStart(5)}`
+        + `${값('7일').padStart(16)}${값('28일').padStart(18)}`);
+    }
+    const 합 = (이름) => {
+      const m = 모음.get(이름);
+      if (!m || m.못쟀다) return '못 쟀다';
+      const n = m.표.reduce((s, x) => s + x.순방문, 0);
+      return m.일 === 1 ? `${n}` : `${n} (${(n / m.일).toFixed(1)})`;
+    };
+    console.log(`   ${'회사 네 사이트 합'.padEnd(20)}${합('어제').padStart(5)}`
+      + `${합('7일').padStart(16)}${합('28일').padStart(18)}`);
+    console.log('\n   ⭐ 9월 목표는 **유닛마다 하루 1,000명**이다. 위 하루평균과 견준다.');
+    if (남은것.length) {
+      console.log('\n   ⚠ 어느 유닛에도 안 붙는 호스트 — **버리지 않고 적는다**:');
+      for (const x of 남은것) console.log(`      ${x.호스트}  순방문 ${x.순방문}`);
+    }
+    if (개발.length) {
+      console.log('\n   ⛔ 손님이 아니라 뺀 것(우리가 띄운 서버):');
+      for (const x of 개발) console.log(`      ${x.호스트}  순방문 ${x.순방문}`);
+    }
+    console.log('\n⚠ GA4 는 광고차단·쿠키거부로 **덜 센다.** 바닥값이다 —');
+    console.log('   「이보다 적을 수는 없다」가 우리가 말할 수 있는 것이다.');
+    process.exit(0);
   }
 
   /**
