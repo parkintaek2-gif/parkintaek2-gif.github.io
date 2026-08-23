@@ -26,7 +26,17 @@ const 규칙 = 'korean-netflix-titles';
  * ⚠ **내 곳간만** 적는다. `archive/raw` 로 넓게 잡으면 6번·3번의 짓는 자까지 같이 돌아
  *   내 보고에 남의 실패가 섞인다. 자기 자리를 넘지 않는다.
  */
-const 곳간들 = ['archive/raw/netflix-top10', 'archive/raw/star-pageviews'];
+const 곳간들 = ['archive/raw/netflix-top10', 'archive/raw/star-pageviews',
+  /**
+   * 🔴 2026-08-23 저녁 — 세 번째 입력이 생겼다. 방 지면(`/room/<띠>`)에 「이 방 사람의
+   *   이름이 제목에 든 기사」로 문을 달았더니 `build-kcw-community.mjs` 가
+   *   **기사 앞말을 읽는 자**가 됐다. 그런데 이 목록에 없어서 다시 안 돌았다 —
+   *   즉 **다음 기사를 내면 방에 그 문이 안 생긴다.** 아침에 곳간 하나만 따라가
+   *   `/actors` 가 옛 창을 싣고 있었던 것과 **같은 흠**이다. 세 시간 뒤에 내가 다시 만들었다.
+   * ⭐ 그러니 규칙은 이것이다 — **자에 새 입력을 붙이면 그 입력을 여기 같이 적는다.**
+   *   적지 않으면 그 자는 낡은 것을 계속 내보내고, 화면에는 아무 빨강도 안 뜬다.
+   */
+  'content/kculturewire'];
 
 /**
  * 다시 지어야 할 짓는 자를 **찾아낸다.** 손 목록을 안 만든다.
@@ -39,12 +49,25 @@ const 곳간들 = ['archive/raw/netflix-top10', 'archive/raw/star-pageviews'];
  *   기사와 지면이 서로 다른 날의 자료를 말하는 상태였고, 그것을 다른 자가 잡아 줬다.
  * ⭐ 그래서 **곳간을 읽는 자도 같이 돈다.** 곳간이 바뀌면 그 자의 산출도 낡는다.
  */
+/**
+ * ⚠ **글자로 찾는 자는 표기 하나에 눈이 먼다.** 2026-08-23 에 `content/kculturewire` 를
+ *   이 목록에 넣었는데도 `build-kcw-community.mjs` 가 안 걸렸다 —
+ *   그 자는 `path.join(뿌리, 'content', 'kculturewire')` 로 적혀 있었다.
+ *   ⭐ 그래서 **두 표기를 다 본다** — 붙여 쓴 길과 path.join 으로 쪼갠 길.
+ *   ⛔ 「안 걸렸다」를 「안 쓴다」로 읽으면 낡은 산출이 조용히 계속 나간다.
+ */
+export function 길이든가(글, 길) {
+  if (글.includes(길)) return true;
+  const 쪼갠 = 길.split('/').map((x) => `'${x}'`).join(', ');
+  return 글.includes(쪼갠);
+}
+
 export function 돌릴자들(읽기 = fs, 방 = 'scripts') {
   return 읽기.readdirSync(방)
     .filter((f) => /^build-.*\.mjs$/.test(f))
     .filter((f) => {
       const s = 읽기.readFileSync(path.join(방, f), 'utf8');
-      return s.includes(규칙) || 곳간들.some((c) => s.includes(c));
+      return s.includes(규칙) || 곳간들.some((c) => 길이든가(s, c));
     })
     .sort();
 }
@@ -73,6 +96,22 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     ...가짜, readFileSync: () => `import x from './lib/${규칙}.mjs'`,
   }).includes('check-c.mjs'), false);
   재본다('없으면 빈 목록', 돌릴자들({ readdirSync: () => [], readFileSync: () => '' }), []);
+
+  /* 🔴 2026-08-23 저녁 — 길을 목록에 넣었는데도 안 걸렸다. 그 자는 path.join 으로
+     쪼개 적혀 있었다. **표기 하나에 눈이 먼 자**를 그대로 두면 낡은 산출이 조용히 나간다 */
+  재본다('path.join 으로 쪼갠 길도 찾는다',
+    길이든가("const 방 = path.join(뿌리, 'content', 'kculturewire');", 'content/kculturewire'), true);
+  재본다('붙여 쓴 길도 찾는다', 길이든가("read('content/kculturewire')", 'content/kculturewire'), true);
+  재본다('없으면 안 찾는다', 길이든가('nothing here', 'content/kculturewire'), false);
+  /* ⛔ 조각이 다 들었어도 **순서가 아니면** 아니다 — 우연히 걸리게 두지 않는다 */
+  재본다('조각이 흩어져 있으면 안 찾는다',
+    길이든가("f('kculturewire', 'content')", 'content/kculturewire'), false);
+  재본다('쪼갠 길을 읽는 자를 돌릴 목록에 넣는다', 돌릴자들({
+    readdirSync: () => ['build-r.mjs', 'build-s.mjs'],
+    readFileSync: (x) => (String(x).includes('build-r')
+      ? "path.join(뿌리, 'content', 'kculturewire')" : 'nothing'),
+  }), ['build-r.mjs']);
+
   console.log(`자료 다시 짓는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
