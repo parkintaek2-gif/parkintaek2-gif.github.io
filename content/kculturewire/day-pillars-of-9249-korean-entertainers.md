@@ -15,6 +15,9 @@ sources:
     url: "https://www.wikidata.org/"
   - org: "K Culture Wire"
     api: "Sixty-cycle day pillar table, anchored on 1900-01-01 = 甲戌"
+  - org: "KLifeMap"
+    api: "Saju engine (sajuEngine.js), read as a second opinion on every day pillar we compared — English edition of the same engine"
+    url: "https://klifemap.ai/saju.html?lang=en"
 crossChecks:
   - "The day-pillar table was anchored twice, on two dates whose day pillars are widely published: 2000-01-01 returns 戊午 and 1949-10-01 returns 甲子. KLifeMap's independent saju engine returns the same day pillar as ours for every date we compared."
   - "Group members were resolved by Wikidata membership in both directions (P463 and P527), never by matching a stage name. An earlier version of the table matched BLACKPINK's Lisa by name and attached a different person born in 1980; the published table has her real date, 27 March 1997."

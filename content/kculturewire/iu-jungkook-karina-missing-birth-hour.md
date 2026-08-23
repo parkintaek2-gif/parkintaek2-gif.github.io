@@ -11,7 +11,11 @@ pages:
   - "/star-signs"
 sources:
   - org: "KLifeMap"
-    api: "Saju engine (sajuEngine.js), three-pillar reading; day pillars re-confirmed 2026-08-22"
+    api: "Saju engine (sajuEngine.js), three-pillar reading; day pillars re-confirmed 2026-08-22 — English edition of the same engine"
+    url: "https://klifemap.ai/saju.html?lang=en"
+  - org: "KLifeMap"
+    api: "The three readings as published, in Korean: star-iu-samju-saju, star-jungkook-samju-saju, star-karina-samju-saju"
+    url: "https://klifemap.ai/content/star-iu-samju-saju"
   - org: "Wikidata"
     api: "Date of birth (P569), CC0"
     url: "https://www.wikidata.org/"
@@ -31,7 +35,7 @@ IU was born on 16 May 1993. Jungkook of BTS was born on 1 September 1997. Karina
 
 ## What the reading said
 
-KLifeMap, which sells saju readings in Korean, ran the three charts for us. Saju sets a birth moment out as four pillars of two characters each — year, month, day and hour — so a complete chart is eight characters. Without an hour, three pillars stand and the fourth cannot be built.
+[KLifeMap](https://klifemap.ai/saju.html?lang=en), which sells saju readings in Korean, ran the three charts for us. Saju sets a birth moment out as four pillars of two characters each — year, month, day and hour — so a complete chart is eight characters. Without an hour, three pillars stand and the fourth cannot be built.
 
 Its engine returned the day pillar 丁酉 for IU, 丙午 for Jungkook, and 己亥 for Karina. On the readings built from those three pillars, it reported that the balancing element it looks for came out the same across all twelve possible hours in each case: water for IU, wood for Jungkook, fire for Karina. Where the missing hour did change its output was elsewhere — for IU the engine split five hours to strong and seven to weak, and for Jungkook and Karina the classification of the chart's governing structure came out five and five different ways respectively.
 
@@ -58,5 +62,7 @@ The correction changed one of its published figures. Jungkook's balancing elemen
 This is a three-pillar reading, not a four-pillar one. Knowing the hour can change it, and for these three the hour is not public. That is the ordinary case rather than the exception: birth dates are published for almost every Korean public figure and birth hours for almost none.
 
 And a count we published ourselves, on our own data: across 1,047 Korean actors who reached a Netflix chart, the spread across the twelve zodiac years is indistinguishable from chance — chi-square 7.77 against a threshold of 19.68. Being born in one year rather than another does not pick out who reaches a chart, and this article does not say otherwise.
+
+Each reading is published in full, in Korean, by KLifeMap — [IU](https://klifemap.ai/content/star-iu-samju-saju), [Jungkook](https://klifemap.ai/content/star-jungkook-samju-saju) and [Karina](https://klifemap.ai/content/star-karina-samju-saju) — and readers who want to run their own date through the same engine in English can do that at [klifemap.ai](https://klifemap.ai/saju.html?lang=en). We have since written one article on each of the three: [IU](/article/iu-saju-water-in-all-twelve-hours), [Jungkook](/article/jungkook-saju-structure-splits-five-ways), [Karina](/article/karina-saju-structure-settled-in-half-the-cases).
 
 What we can count — who shares a birth year with whom, and how flat that spread is — is at [kculturewire.com/star-signs](/star-signs).
