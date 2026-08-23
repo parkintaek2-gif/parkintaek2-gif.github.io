@@ -44,6 +44,30 @@ export const 봐준다 = {
   '/subscribe': '받아보기 — 자리마다 단추로 걸린다',
 };
 
+/**
+ * ⭐ **접은 주소는 「들어오는 문이 없는 것」이 옳다** (2026-08-23).
+ *
+ * 한 번 냈다가 자료가 바뀌어 사라진 주소에는 「이 주소는 접었다 + 까닭 + 갈 곳」 지면을
+ * 놓아 둔다(`check-kcw-retired-pages.mjs`). 그 지면의 손님은 **구글 결과에서만** 온다 —
+ * 우리 안에서 그리로 가는 링크를 다시 내면 접은 주소를 다시 쓰는 셈이다.
+ *
+ * ⛔ 그래서 봐주긴 하지만 **위 목록에 손으로 적지 않는다.** 접은 주소는 자료가 바뀔 때마다
+ *   늘거나 줄고, 손 목록은 반드시 어긋난다. 한 곳(그 자)에서 읽어 온다.
+ * ⛔ 그리고 「봐준 것」으로 뭉개지 않고 **접힌 것으로 갈라 세어 화면에 적는다.**
+ */
+export async function 접힌주소들() {
+  try {
+    const m = await import('./check-kcw-retired-pages.mjs');
+    const 사이트맵길 = m.사이트맵길;
+    const 대장길 = m.대장길;
+    if (!fs.existsSync(사이트맵길) || !fs.existsSync(대장길)) return null;   // 못 쟀다
+    return new Set(m.접힌것(JSON.parse(fs.readFileSync(대장길, 'utf8')),
+      fs.readFileSync(사이트맵길, 'utf8')));
+  } catch {
+    return null;
+  }
+}
+
 /** 나간 파일 이름 → 주소. `index.html` 은 그 폴더의 주소다 */
 export const 주소로 = (상대길) => {
   const p = '/' + 상대길.replace(/\\/g, '/').replace(/\.html$/, '');
@@ -80,9 +104,14 @@ export function 들어오는수(글들) {
   return 수;
 }
 
-if (process.argv.includes('--자가시험')) {
+/* ⚠ 2026-08-23 — `--selftest` 로 불렀더니 **자가시험이 안 돌고 본 검사가 돌았다.**
+   내 다른 자들은 다 `--selftest` 다. 조용히 다른 일을 하는 것이 가장 나쁘다 — 둘 다 받는다. */
+if (process.argv.includes('--자가시험') || process.argv.includes('--selftest')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⛔ 통과 수를 손으로 적어 두면 시험을 더할 때마다 거짓이 된다 — 부를 때마다 센다.
+     2026-08-23 까지 「(11)」이 박혀 있었다. */
+  let 잰것 = 0;
+  const 검 = (이름, 참) => { 잰것 += 1; if (!참) 실패.push(이름); };
 
   검('index.html 은 폴더 주소가 된다', 주소로('index.html') === '/' && 주소로('room/index.html') === '/room');
   검('.html 을 뗀다', 주소로('day-pillar.html') === '/day-pillar');
@@ -107,8 +136,20 @@ if (process.argv.includes('--자가시험')) {
   /* ⚠ 남이 dist 를 다시 짓는 사이에 읽으면 파일이 사라진다 — 그때는 «못 쟀다»여야 한다 */
   검('사라진 파일을 문 없는 지면으로 안 센다', 들어오는수(new Map([['/a', '<a href="/b">']])).get('/a') === 0);
 
+  /* ── 접은 주소 (2026-08-23) ────────────────────────────────
+     🔴 접은 주소 두 장(`/title/the-uninvited`·`/firm/lotte-entertainment`)이 이 자를 빨강으로
+       세웠다. 그 지면은 **문이 없는 것이 옳다** — 손님은 검색 결과에서만 온다.
+     ⛔ 그렇다고 봐준다에 손으로 적으면 안 된다. 접은 주소는 자료가 바뀔 때마다 늘고 줄어
+       손 목록이 반드시 어긋난다. 그러니 **손 목록에 없는 것**을 여기서 재 둔다. */
+  검('⛔ 접은 주소를 봐준다에 손으로 적지 않았다',
+    봐준다['/title/the-uninvited'] === undefined
+    && 봐준다['/firm/lotte-entertainment'] === undefined);
+  const 접힘시험 = await 접힌주소들();
+  검('접은 주소 목록은 집합이거나 「못 쟀다」(null)다',
+    접힘시험 === null || 접힘시험 instanceof Set);
+
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-kcw-orphan-pages 자가시험 통과 (11)');
+  console.log(`✅ check-kcw-orphan-pages 자가시험 통과 (${잰것})`);
   process.exit(0);
 }
 
@@ -170,12 +211,24 @@ if (fs.existsSync(사이트맵길)) {
 }
 
 const 수 = 들어오는수(글들);
-const 고아 = [...수.entries()]
+/* ⭐ 접은 주소는 갈라 센다 — 못 읽으면 null 이고, 그때는 「못 쟀다」로 적는다 */
+const 접힘 = await 접힌주소들();
+const 문없는것 = [...수.entries()]
   .filter(([주소, n]) => n === 0 && 봐준다[주소] === undefined)
   .map(([주소]) => 주소)
   .sort();
+const 접힌고아 = 접힘 ? 문없는것.filter((p) => 접힘.has(p)) : [];
+const 고아 = 접힘 ? 문없는것.filter((p) => !접힘.has(p)) : 문없는것;
 
-console.log(`나간 지면 ${글들.size}장 · 봐준 것 ${Object.keys(봐준다).length}개 · 들어오는 문이 0인 지면 ${고아.length}장`);
+console.log(`나간 지면 ${글들.size}장 · 봐준 것 ${Object.keys(봐준다).length}개 · 들어오는 문이 0인 지면 ${문없는것.length}장`);
+if (접힘 === null) {
+  console.log('⚠ 접은 주소 목록을 **못 쟀다**(사이트맵이나 IndexNow 대장이 없다) —'
+    + ' 아래 셈에 접은 주소가 섞여 있을 수 있다');
+} else if (접힌고아.length) {
+  console.log(`   그중 ${접힌고아.length}장은 **접은 주소**다 — 문이 없는 것이 옳다.`
+    + ' 손님은 검색 결과에서만 온다');
+  for (const p of 접힌고아) console.log(`   · ${p}`);
+}
 if (고아.length) {
   console.error('❌ 만들고 문을 안 냈다 — 링크를 타고 못 닿는 지면이 있다');
   for (const p of 고아.slice(0, 20)) console.error(`   · ${p}`);

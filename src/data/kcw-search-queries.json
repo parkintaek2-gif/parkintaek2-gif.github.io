@@ -1,0 +1,468 @@
+{
+  "site": "sc-domain:kculturewire.com",
+  "dimension": "query",
+  "window": {
+    "from": "2026-07-24",
+    "to": "2026-08-21",
+    "days": 28
+  },
+  "rowLimit": 500,
+  "rows": [
+    {
+      "key": "a girl who deserves to die netflix",
+      "impressions": 8,
+      "clicks": 1,
+      "position": 7.875
+    },
+    {
+      "key": "my lovely liar netflix country",
+      "impressions": 2,
+      "clicks": 1,
+      "position": 7
+    },
+    {
+      "key": "\"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv\"",
+      "impressions": 31,
+      "clicks": 0,
+      "position": 9.838709677419354
+    },
+    {
+      "key": "\"https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv\"",
+      "impressions": 11,
+      "clicks": 0,
+      "position": 11.545454545454545
+    },
+    {
+      "key": "\"https://www.netflix.com/tudum/top10/films-english?week=2024-11-03\"",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "\"https://www.netflix.com/tudum/top10/films?week=2024-11-03\"",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10.333333333333334
+    },
+    {
+      "key": "\"https://www.netflix.com/tudum/top10?week=2024-11-03\"",
+      "impressions": 36,
+      "clicks": 0,
+      "position": 7.694444444444445
+    },
+    {
+      "key": "\"netflix.com/tudum/top10?week=2024-11-03\"",
+      "impressions": 12,
+      "clicks": 0,
+      "position": 6.75
+    },
+    {
+      "key": "\"www.netflix.com/tudum/top10?week=2024-11-03\"",
+      "impressions": 11,
+      "clicks": 0,
+      "position": 7.181818181818182
+    },
+    {
+      "key": "18 again netflix countries",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 11.5
+    },
+    {
+      "key": "a model family hit or flop",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "alchemy of souls distribution",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "beasts clawing at straws netflix",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "biggest korean music labels",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "both",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "british korean actors",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "bugonia netflix country",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "challenger cut off korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "challenger cutoff korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "chartrow",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "confidential assignment 2 international hit or flop",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "confidential assignment 2 international netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "corrections have been made",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "culture wire",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "decision to leave netflix country",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 8.857142857142858
+    },
+    {
+      "key": "delightfully deceitful hit or flop",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "ena netflix",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "flixwatch bolivia business proposal netflix bolivia",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "ggg how many employees",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "how many dramas are there in the world",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "how many users does webtoon have",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv",
+      "impressions": 22,
+      "clicks": 0,
+      "position": 9.545454545454545
+    },
+    {
+      "key": "https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 11.23076923076923
+    },
+    {
+      "key": "https://www.netflix.com/tudum/top10/films-english?week=2024-11-03",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "key": "https://www.netflix.com/tudum/top10/films?week=2024-11-03",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "https://www.netflix.com/tudum/top10?week=2024-11-03",
+      "impressions": 61,
+      "clicks": 0,
+      "position": 7.60655737704918
+    },
+    {
+      "key": "is the killing vote on netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "korea challenger ladder",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "korea ladder",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 17.153846153846153
+    },
+    {
+      "key": "korea league of legends ladder",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "korea lol rank",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "korean challenger",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "korean challenger ladder",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 16.666666666666664
+    },
+    {
+      "key": "korean ladder",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 22.5
+    },
+    {
+      "key": "korean ladder lol",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "korean league of legends ladder",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "kuro games employee count",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "ladder korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "ladder korea lol",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "largest exporter of music",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "lol korean challenger ladder",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "miracle letters to the president netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "miracle: letters to the president netflix",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 9.166666666666666
+    },
+    {
+      "key": "money heist korea joint economic area",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 47
+    },
+    {
+      "key": "my heart puppy netflix",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "my roommate is a gumiho netflix which country",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 9.2
+    },
+    {
+      "key": "netflix.com/tudum/top10/data/all-weeks-global.tsv",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "reborn rich netflix country",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "road to boston netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "south korea live streaming market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 97
+    },
+    {
+      "key": "south korean record labels",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "spiritwalker netflix",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "the killer a girl who deserves to die netflix",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 8.25
+    },
+    {
+      "key": "the killer the girl who deserves to die netflix",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "the killer: a girl who deserves to die cast",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "the killer: a girl who deserves to die netflix",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 8.615384615384615
+    },
+    {
+      "key": "the killing vote distribution",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "the killing vote netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "the policeman's lineage netflix",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 16
+    },
+    {
+      "key": "the spy gone north awards",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "under the queen's umbrella genre",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "what countries can i watch behind your touch on netflix",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 17.2
+    },
+    {
+      "key": "what country is solo leveling in",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "what country made solo leveling",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "wikidata",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "عدد المشاهدات",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    }
+  ]
+}

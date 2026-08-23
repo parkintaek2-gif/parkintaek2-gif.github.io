@@ -5,6 +5,7 @@ import path from 'node:path';
 import markets from '../../data/wikitip-markets.json';
 import titlePages from '../../data/wikitip-title-pages.json';
 import firmPages from '../../data/wikitip-firm-pages.json';
+import weekPages from '../../data/kcw-week-pages.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -936,6 +937,23 @@ export const GET: APIRoute = async () => {
      2번이 「사이트맵에 들어갔나 — 오늘 두 번 빠뜨린 자리」라고 짚은 그 자리다. */
   for (const x of titlePages.titles.filter((y) => y.hasPage)) {
     entries.push({ path: `/title/${x.slug}`, priority: '0.7', changefreq: 'weekly' });
+  }
+
+  /*
+   * 주별 지면. 2026-08-23 — 검색 실측에서 「netflix.com/tudum/top10?week=2024-11-03」 꼴이
+   * 노출 120건(6.8~7.7위 · 클릭 0)이었다. 그 주를 보여 주는 지면이 없어서 답을 못 했다.
+   * ⛔ 손으로 268줄을 적지 않는다 — `build-kcw-week-pages.mjs` 가 낸 자료에서 뽑는다.
+   *   ⚠ 지난 주는 안 바뀌므로 monthly 다. 목록만 새 주가 붙어 weekly 다.
+   */
+  /* ⚠ 이 지면들은 `public/` 에 미리 지은 것이라 소스 파일이 없다 — 아래 lastmod 자동
+     채우기가 못 찾는다(방 지면도 그렇다). 그래서 **자료가 지어진 날**을 여기서 준다.
+     ⛔ 오늘 날짜를 쓰지 않는다. 지면이 실제로 바뀐 날이 아니면 거짓 신호다. */
+  const 주지어진날 = String(weekPages.generated ?? '').slice(0, 10) || undefined;
+  entries.push({ path: '/weeks', priority: '0.8', changefreq: 'weekly', lastmod: 주지어진날 });
+  for (const w of weekPages.weeks) {
+    entries.push({
+      path: `/week/${w.week}`, priority: '0.6', changefreq: 'monthly', lastmod: 주지어진날,
+    });
   }
 
   const articles = await getCollection('kcwArticles');

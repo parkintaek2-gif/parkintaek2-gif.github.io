@@ -199,7 +199,14 @@ const jsonLd = {
         </li>
       ))}
     </ul>
+    {/*
+      🔴 2026-08-23 — 검색 실측: 「netflix.com/tudum/top10?week=2024-11-03」 꼴이
+        노출 120건에 6.8~7.7위, 클릭 0. 손님이 찾는 것은 **그 한 주**인데 이 지면은
+        파일 전체를 설명한다. 그 주로 가는 문을 여기서 낸다 — 여기가 그 검색이 닿는 자리다.
+    */}
     <p class="note">
+      <a href="/weeks"><b>Pick a single week</b></a> &mdash; every week Netflix has published,
+      and which Korean titles charted in it ·{' '}
       <a href="/watched">What the whole Korean catalogue did, week by week</a> ·{' '}
       <a href="/exports">Where it travelled</a> ·{' '}
       <a href="/data">Every dataset we keep and how it was built</a>

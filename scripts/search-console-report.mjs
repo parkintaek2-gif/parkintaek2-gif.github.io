@@ -128,6 +128,29 @@ async function main() {
   for (const row of 행) {
     console.log(`   노출 ${String(row.impressions).padStart(6)} · 클릭 ${String(row.clicks).padStart(4)} · 순위 ${row.position.toFixed(1)}   ${row.keys[0]}`);
   }
+  /**
+   * ⭐ 2026-08-23 5번 — `--적는다 <파일>` 로 잰 것을 그대로 남긴다.
+   *   ⛔ 화면으로만 보면 **다른 자가 이 수를 쓸 수 없다.** 잰 말을 자료로 두면
+   *     「우리 제목이 손님이 치는 말을 담고 있나」를 자로 셀 수 있다.
+   *   ⛔ 인자를 안 주면 아무것도 안 쓴다 — 다른 자리 출력은 그대로다.
+   */
+  const 적을곳 = process.argv.find((a) => a.startsWith('--적는다='))?.split('=')[1];
+  if (적을곳) {
+    const { writeFileSync, mkdirSync } = await import('node:fs');
+    mkdirSync(path.dirname(적을곳), { recursive: true });
+    writeFileSync(적을곳, `${JSON.stringify({
+      site: 사이트,
+      dimension: 축,
+      window: { from: 날짜문자(시작), to: 날짜문자(끝), days: 일수 },
+      rowLimit: 행수,
+      /* ⚠ 구글이 준 줄 수다. 이 수가 rowLimit 과 같으면 **잘렸을 수 있다** */
+      rows: 행.map((row) => ({
+        key: row.keys[0], impressions: row.impressions, clicks: row.clicks, position: row.position,
+      })),
+    }, null, 2)}\n`);
+    console.log(`\n✅ 잰 것을 적었다 — ${적을곳} (${행.length}줄)`);
+    if (행.length >= 행수) console.log('⚠ 줄 수가 한도와 같다 — **잘렸을 수 있다.** --행수 를 올려 다시 잰다.');
+  }
 }
 
 main().catch((e) => { console.error('🔴 실패:', e.message); process.exit(1); });

@@ -121,7 +121,19 @@ const 셈 = (n: number, 하나: string, 여럿 = `${하나}s`) => (n === 1 ? 하
 /* ⛔ 없으면 `undefined` 다 — 그 지면은 예전 그대로 나간다. 그게 이 실험의 대조군이다 */
 const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
 
-const TITLE = `${t.title} — every country it charted in`;
+/**
+ * 🔴 2026-08-23 실측 — 28일 검색어를 낱말로 세 보니 `netflix` 가 노출 268(검색어 20개)로
+ *   가장 많이 치는 말이었다. 그런데 **작품 지면 560장 제목에 그 말이 없었다.**
+ *   「decision to leave netflix country」로 8.9위에 떠 클릭 0, 「my roommate is a gumiho
+ *   netflix which country」로 9.2위에 떠 클릭 0. 손님이 친 말이 제목에 안 보이니
+ *   목록에서 우리 줄이 그 물음의 답처럼 안 읽힌다.
+ * ⭐ 그래서 작품 이름 **바로 뒤**에 붙인다 — 구글이 60자에서 자르므로 앞에 와야 보인다.
+ * ⛔ 낱말을 쌓지 않는다. `on Netflix` 는 이 지면이 실제로 다루는 것이다(넷플릭스 주간 top 10).
+ *   참이 아닌 말을 제목에 넣는 것은 검색어를 받는 값으로 너무 비싸다.
+ * ⚠ 이 바꿈으로 순위가 어떻게 되는지는 **우리가 못 잰다.** 2주 뒤(9/05) 다시 재서
+ *   나빠졌으면 되돌린다. `scripts/measure-kcw-search-words.mjs` 로 같은 자를 다시 댄다.
+ */
+const TITLE = `${t.title} on Netflix — every country it charted in`;
 /**
  * ⭐ 2026-08-22 — 설명에 **손님이 치는 말**을 넣는다. Search Console 실측에서 우리에게 오는
  *   물음은 두 꼴이었다 — 「<제목> netflix country」와 「<제목> hit or flop」.
