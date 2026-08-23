@@ -22,7 +22,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={cat.label} description={`${cat.blurb} ${SITE.description}`} jsonLd={jsonLd}>
+<Base title={('seoTitle' in cat && cat.seoTitle) ? cat.seoTitle : cat.label} description={`${cat.blurb} ${SITE.description}`} jsonLd={jsonLd}>
   <div class="wrap">
     <AdSlot slot="banner" />
 

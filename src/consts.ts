@@ -94,31 +94,37 @@ export const CATEGORIES = [
   {
     slug: 'equities',
     label: 'Equities',
+    seoTitle: 'Korean stock market — KOSPI, KOSDAQ, Samsung',
     blurb: 'Listed Korean stocks, indices, ETFs and equity derivatives.',
   },
   {
     slug: 'fx',
     label: 'FX',
+    seoTitle: 'Korean won (KRW) exchange rate & currency',
     blurb: 'The won against the dollar and its major crosses, plus currency futures.',
   },
   {
     slug: 'rates',
     label: 'Rates',
+    seoTitle: 'Korea bond yields & interest rates',
     blurb: 'Korean government and corporate bonds, yields, and the policy rate.',
   },
   {
     slug: 'commodities',
     label: 'Commodities',
+    seoTitle: 'Korea commodities — oil & gold prices',
     blurb: 'Oil, gold and emissions traded through Korean venues.',
   },
   {
     slug: 'funds',
     label: 'Funds',
+    seoTitle: 'Korean funds — performance & fees',
     blurb: 'Korean fund performance, fees and the managers behind them.',
   },
   {
     slug: 'macro',
     label: 'Macro',
+    seoTitle: 'Korea economy & macro data — GDP, exports, prices',
     blurb: 'Growth, prices, employment and the external balance.',
   },
 ] as const;
