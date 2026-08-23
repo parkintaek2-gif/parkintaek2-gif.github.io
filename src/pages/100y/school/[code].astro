@@ -19,6 +19,7 @@ import { 권할만한 } from '../../../lib/university';
 import { 조사 } from '../../../lib/josa';
 import { 퍼센트, 명 } from '../../../lib/number-format';
 import schools from '../../../data/100yearmap/pages-school.json';
+import 옛이름대장 from '../../../data/100yearmap/school-former-names.json';
 import 중단자료 from '../../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../../data/100yearmap/school-class-size.json';
 import 진로자료 from '../../../data/100yearmap/school-career.json';
@@ -79,6 +80,15 @@ const 겹침 = (이름수.get(school.title) ?? 0) > 1;
  * ⚠ 이 상수는 `진로` 아래로 내려와 있다. `진로` 보다 위에 두면 「is not defined」다.
  */
 const 이름표 = 겹침 ? `${school.title}(${짧은지역명(school.지역)})` : school.title;
+/**
+ * 🔴 2026-08-24 — **개명 전 이름.** 5번이 실측으로 찾았다 — 손님이 옛 이름
+ *   (「경기여자상업고등학교」)으로 검색하면 구글이 이름이 닮은 **다른 학교**
+ *   (`/school/7010272` «경기상업고등학교»)를 대신 보여주고 있었다. 진짜 이 학교
+ *   지면(여기)에는 옛 이름이 한 글자도 없어 구글이 이을 방법이 없었다.
+ * ⚠ NEIS 학교기본정보는 지금 이름만 준다 — 옛 이름은 자동으로 못 채운다.
+ *   `school-former-names.json` 에 하나씩 확인해서만 채운다(짐작 금지).
+ */
+const 옛이름 = ((옛이름대장 as any).대장 as any[]).find((r) => r.code === school.code) ?? null;
 /**
  * ⭐ **이 학교 하나의 숫자다** (2026-08-06) — 이 지면에서 처음이다.
  *
@@ -276,7 +286,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'HighSchool',
   name: school.title,
-  ...(school.titleEn ? { alternateName: school.titleEn } : {}),
+  ...((school.titleEn || 옛이름) ? { alternateName: [school.titleEn, 옛이름?.이전이름].filter(Boolean) } : {}),
   address: { '@type': 'PostalAddress', addressRegion: school.지역, streetAddress: school.주소 },
   ...(school.홈페이지 ? { url: school.홈페이지 } : {}),
 };
@@ -332,6 +342,9 @@ const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
     {공학말(school.공학, school.종류) && <> · {공학말(school.공학, school.종류)}</>}
     {설립연도 && <> · {설립연도}년 설립</>}
   </p>
+  {옛이름 && (
+    <p class="note">옛 이름 «{옛이름.이전이름}»({옛이름.언제}). 같은 학교입니다.</p>
+  )}
 
   {/* 🔴 숫자가 하나도 없는 지면 — **왜 없는지를 맨 위에서 말한다.**
         아래로 내려가며 아무것도 못 찾고 나가게 두면 그 지면은 없는 것과 같다.
