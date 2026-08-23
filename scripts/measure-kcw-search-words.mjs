@@ -47,7 +47,23 @@ export const 낸방 = path.join(뿌리, 'dist', 'wikitip');
 
 /** 노출이 이만큼은 돼야 한 줄로 셈에 쓴다. ⛔ 문턱을 숨기지 않는다 */
 export const 볼노출 = 3;
-/** 이 순위 안이면 「이미 닿고 있다」로 본다 — 첫 두 쪽 */
+/**
+ * 🔴 2026-08-24 02:2x — **이 문턱이 첫 쪽과 둘째 쪽을 섞고 있었다.**
+ *
+ * 기사 쪽을 재다가 걸렸다. `/esports` 는 52노출 · **11.8위** · 클릭 0 이고,
+ * `/article/korea-challenger-win-rate` 는 150노출 · **15.1위** · 클릭 0 이다.
+ * 나는 이것을 「닿았는데 안 눌린 것」에 넣고 **제목·설명을 고칠 자리**로 셌다.
+ * ⛔ 틀렸다. 11위부터는 **둘째 쪽**이다. 둘째 쪽에서 클릭 0 은 이상한 일이 아니다 —
+ *   손님이 그 쪽까지 안 넘긴다. 거기서 제목을 고쳐도 눌릴 일이 없다.
+ * ⭐ 그래서 갈라 센다 —
+ * ```
+ * 첫 쪽(≤10)에서 클릭 0    보였고 읽혔는데 안 눌렸다 → **제목·설명이 할 일이 있다**
+ * 둘째 쪽(11~20)에서 클릭 0  거기까지 안 넘긴다        → **순위를 올려야 한다**(다른 일이다)
+ * ```
+ * ⛔ 「쪽마다 클릭률이 몇 %」 같은 남의 수를 빌려 오지 않는다. 우리가 잰 적이 없다.
+ *   쪽을 갈라 놓기만 하면 무엇을 고칠지는 갈린다. 그것으로 충분하다.
+ */
+export const 첫쪽 = 10;
 export const 닿은순위 = 20;
 
 /**
@@ -94,6 +110,19 @@ export function 닿았는데안눌린것(행들, 문턱 = 볼노출) {
     .filter((r) => (r.impressions ?? 0) >= 문턱 && (r.clicks ?? 0) === 0
       && (r.position ?? 999) <= 닿은순위)
     .sort((a, b) => b.impressions - a.impressions);
+}
+
+/**
+ * ⭐ 위 목록을 **쪽으로 갈라** 준다. 고칠 것이 서로 다르기 때문이다.
+ *   첫쪽 → 제목·설명이 할 일이 있다 / 둘째쪽 → 순위를 올려야 한다.
+ * ⛔ 둘을 한 목록으로 주면 둘째 쪽 지면의 제목을 고치느라 시간을 버린다.
+ */
+export function 쪽으로갈라(안눌린것들) {
+  const 첫 = []; const 둘째 = [];
+  for (const r of 안눌린것들 ?? []) {
+    ((r.position ?? 999) <= 첫쪽 ? 첫 : 둘째).push(r);
+  }
+  return { 첫쪽것: 첫, 둘째쪽것: 둘째 };
 }
 
 /** ⭐ 노출은 있는데 순위가 멀다 — 제목이 아니라 **지면이 없거나 약한** 자리다 */
@@ -181,6 +210,25 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   참('순위가 멀면 안 눌린 것에 안 넣는다',
     !닿았는데안눌린것(행).some((r) => r.key === 'korea ladder'));
   참('순위가 먼 것은 따로 집는다', 멀리있는것(행).some((r) => r.key === 'korea ladder'));
+
+  /* ── 🔴 첫 쪽과 둘째 쪽을 갈라야 한다 (2026-08-24 02:2x) ─────
+     `/esports` 52노출·11.8위·클릭 0 을 「제목을 고칠 자리」로 셌던 것이 잘못이었다.
+     11위부터는 둘째 쪽이고, 거기서 클릭 0 은 이상한 일이 아니다. */
+  const 섞인것 = [
+    { key: '첫쪽것', impressions: 20, clicks: 0, position: 8.2 },
+    { key: '둘째쪽것', impressions: 50, clicks: 0, position: 11.8 },
+    { key: '경계', impressions: 10, clicks: 0, position: 10.0 },
+  ];
+  const 갈린것 = 쪽으로갈라(섞인것);
+  참('첫 쪽 것만 첫 쪽에 든다',
+    갈린것.첫쪽것.map((x) => x.key).join(',') === '첫쪽것,경계');
+  참('둘째 쪽 것은 따로 간다',
+    갈린것.둘째쪽것.length === 1 && 갈린것.둘째쪽것[0].key === '둘째쪽것');
+  /* ⛔ 10위는 첫 쪽이다. 경계를 한 칸 밀면 그 지면의 일감이 바뀐다 */
+  참('10위는 첫 쪽이다', 쪽으로갈라([{ position: 10, impressions: 1, clicks: 0 }]).첫쪽것.length === 1);
+  참('11위는 둘째 쪽이다', 쪽으로갈라([{ position: 11, impressions: 1, clicks: 0 }]).둘째쪽것.length === 1);
+  참('순위를 모르면 둘째 쪽으로 둔다 — 첫 쪽으로 올려 세지 않는다',
+    쪽으로갈라([{ impressions: 1, clicks: 0 }]).둘째쪽것.length === 1);
 
   참('자료파일 검색을 갈라 본다',
     자료파일검색인가('https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv'));
@@ -274,8 +322,20 @@ if (내가실행됐다) {
     + ` (검색어로 보이는 노출 ${노출합} 가운데`
     + ` ${노출합 ? ((100 * 안눌린노출) / 노출합).toFixed(0) : '?'}%`
     + `${전체노출 ? ` · 전체 노출 ${전체노출} 로 나누면 ${((100 * 안눌린노출) / 전체노출).toFixed(0)}%` : ''})\n`);
-  for (const r of 안눌린.slice(0, 12)) {
-    console.log(`   노출 ${String(r.impressions).padStart(3)} · ${r.position.toFixed(1)}위   ${r.key}`);
+  /* 🔴 쪽을 갈라 적는다 — 고칠 것이 서로 다르다(위 상수 주석을 본다) */
+  const { 첫쪽것, 둘째쪽것 } = 쪽으로갈라(안눌린);
+  console.log(`   ⭐ 첫 쪽(${첫쪽}위 안)에서 안 눌린 것 ${첫쪽것.length}건`
+    + ` · 노출 ${첫쪽것.reduce((s, r) => s + r.impressions, 0)}`
+    + '  ← **제목·설명이 할 일이 있는 자리다**');
+  for (const r of 첫쪽것.slice(0, 10)) {
+    console.log(`      노출 ${String(r.impressions).padStart(3)} · ${r.position.toFixed(1)}위   ${r.key}`);
+  }
+  console.log(`\n   ⚠ 둘째 쪽(${첫쪽 + 1}~${닿은순위}위)에서 안 눌린 것 ${둘째쪽것.length}건`
+    + ` · 노출 ${둘째쪽것.reduce((s, r) => s + r.impressions, 0)}`);
+  console.log('      여기서 클릭 0 은 이상한 일이 아니다 — 손님이 그 쪽까지 안 넘긴다.');
+  console.log('      ⛔ 여기 제목을 고쳐도 눌릴 일이 없다. **순위를 올리는 일**이다(다른 일).');
+  for (const r of 둘째쪽것.slice(0, 6)) {
+    console.log(`      노출 ${String(r.impressions).padStart(3)} · ${r.position.toFixed(1)}위   ${r.key}`);
   }
 
   console.log('\n── 노출은 있는데 순위가 먼 것 (지면이 없거나 약한 자리) ──');
