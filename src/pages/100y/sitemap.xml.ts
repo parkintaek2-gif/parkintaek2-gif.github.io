@@ -220,6 +220,23 @@ export const GET: APIRoute = () => {
     /* 🔴 2번 17시·19시 — 「40대 자리」. /home 은 맨 위 칸이 50대라 «제목까지 40대인 문»을 따로 지었다.
        ⛔ /age 가 이미 빚을 다루므로 빚은 안 건드린다 */
     { path: '/spending', priority: '0.8', changefreq: 'monthly' },
+    /**
+     * 🔴 2026-08-23 20:4x — **2번 실측: sitemap이 실제 지면의 4분의 1도 안 담고 있었다.**
+     *
+     *   여기 여덟 줄이 통째로 빠져 있었다 — 지면은 다 라이브인데(각자 페이지 만들 때
+     *   자기 자신을 이 사이트맵에 넣는 것을 잊었다) 사이트맵에는 없어 검색엔진이 늦게
+     *   찾거나 못 찾는 상태였다. `/after`·`/region` 때와 같은 실수가 여덟 번 겹친 것이다.
+     * ⛔ 앞으로 이 갈래에 지면을 새로 내면 **여기 한 줄을 같이 넣는다.**
+     */
+    { path: '/pets', priority: '0.8', changefreq: 'monthly' },
+    { path: '/travel', priority: '0.8', changefreq: 'monthly' },
+    { path: '/promotion', priority: '0.8', changefreq: 'monthly' },
+    { path: '/exercise', priority: '0.8', changefreq: 'monthly' },
+    { path: '/oneperson', priority: '0.8', changefreq: 'monthly' },
+    { path: '/lifelong', priority: '0.8', changefreq: 'monthly' },
+    { path: '/retire-income', priority: '0.8', changefreq: 'monthly' },
+    /* 「대학 이후」의 짝(2026-08-23 신설) — 여기서도 잊지 않는다 */
+    { path: '/before', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
