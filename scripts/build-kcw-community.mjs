@@ -31,6 +31,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* ⭐ 부딪히는 예명 목록은 **한 곳**에 둔다 — check-kcw-star-names 가 이미 손으로 뺀 것들이다.
+   ⛔ 여기 베껴 두면 한쪽만 늘어난다(집안 규칙: 하나를 고치면 인용한 곳까지 따라간다) */
+import { 부딪힘 } from './check-kcw-star-names.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 자료길 = path.join(뿌리, 'src', 'data', 'wikitip-star-signs.json');
@@ -170,7 +173,7 @@ ${칸}
  * ⛔ 읽힘을 못 잰 사람도 이름은 싣는다. 「안 읽혔다」와 「우리가 못 쟀다」는 다르다.
  * ⛔ 줄 세운 목록(`<ol>`)을 안 쓴다 — 순위표가 아니다. 표로 놓되 등수 칸을 안 둔다.
  */
-export function 방짓기(칸, 자료) {
+export function 방짓기(칸, 자료, 기사들 = []) {
   const 잰것 = (칸.all ?? []).filter((p) => typeof p.perMillion === 'number');
   const 못잰것 = (칸.all ?? []).filter((p) => typeof p.perMillion !== 'number');
   const 줄 = 잰것.map((p) => `        <tr><td class="nm">${p.name}</td><td class="fine">${p.born}</td>`
@@ -182,6 +185,9 @@ export function 방짓기(칸, 자료) {
       not measured is not the same as not read.</p>
       <p class="names">${못잰것.map((p) => p.name).join(' &middot; ')}</p>`
     : '';
+
+  /* ⭐ 이 방 사람의 이름이 제목에 든 기사만. 걸린 것이 없으면 칸을 안 낸다 */
+  const 읽을것 = 읽을것칸(방기사(기사들, (칸.all ?? []).map((x) => x.name), 칸.sign));
 
   return `<!doctype html>
 <html lang="en">
@@ -235,6 +241,9 @@ export function 방짓기(칸, 자료) {
   .fine{color:var(--ink-2)}
   .num{text-align:right;white-space:nowrap}
   .names{color:var(--ink-2);font-size:14px;line-height:1.9;max-width:62ch}
+  .reads{list-style:none;padding:0;margin:10px 0 0;max-width:62ch}
+  .reads li{padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+  .reads li:last-child{border-bottom:none}
   .axis{margin-top:36px;padding-top:16px;border-top:1px solid var(--line)}
   .axis h2{font-size:1.02rem;margin:0 0 .4rem}
   .axis p{margin:.4rem 0}
@@ -265,6 +274,7 @@ ${줄}
 
 ${못잰줄}
 
+${읽을것}
     <section class="axis">
       <h2>The same people, split by the day instead of the year</h2>
       <p>This room is a birth <em>year</em>. Every name in it also has a birth <em>day</em>, and the
@@ -285,6 +295,95 @@ ${못잰줄}
 `;
 }
 
+/**
+ * ⭐⭐ 방마다 «읽을 것»을 붙인다 — 2026-08-23.
+ *
+ * 사장님 상시 지시: 「사람들이 방문하게 하고, **방문한 사람들이 오래 머무는 것**에 집중해라」.
+ * 방 열두 장에는 이름이 1,047개 있는데 **나가는 문이 하나뿐**이었다(카이제곱 기사 한 편).
+ * 이름을 보고 들어온 손님이 그 사람에 대해 우리가 쓴 글로 걸어갈 길이 없었다.
+ *
+ * ⛔ 「관련 기사」를 우리가 골라 주지 않는다. **제목에 그 방 사람의 이름이 든 것**만 싣고,
+ *   왜 걸렸는지(어느 이름이 걸렸는지)를 지면에 같이 적는다. 고른 것이 아니라 잰 것이다.
+ * ⛔ 걸린 것이 없으면 칸을 아예 안 낸다. 빈 「관련 기사」 칸은 없는 것보다 나쁘다.
+ * ⛔ 이름은 본문이 아니라 **제목**에서만 본다 — 표 안에 이름이 스치기만 한 기사를
+ *   「이 사람에 대한 글」이라고 부르면 거짓이다.
+ */
+export const 기사방 = path.join(뿌리, 'content', 'kculturewire');
+
+/** 앞말에서 몇 칸만 뽑는다. ⛔ YAML 을 다 풀지 않는다 — 필요한 것만 본다 */
+export function 앞말뽑기(글) {
+  const 앞 = String(글 ?? '').split(/^---\s*$/m)[1];
+  if (!앞) return null;
+  const 값 = (키) => {
+    for (const 줄 of 앞.split(/\r?\n/)) {
+      if (!줄.startsWith(`${키}:`)) continue;
+      let v = 줄.slice(키.length + 1).trim();
+      if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1);
+      return v;
+    }
+    return null;
+  };
+  return {
+    title: 값('title'), dek: 값('dek'), pubDate: 값('pubDate'), draft: 값('draft') === 'true',
+  };
+}
+
+export function 기사읽기(방 = 기사방, 읽기 = fs) {
+  if (!읽기.existsSync(방)) return [];
+  return 읽기.readdirSync(방).filter((n) => n.endsWith('.md')).map((f) => {
+    const a = 앞말뽑기(읽기.readFileSync(path.join(방, f), 'utf8'));
+    if (!a || !a.title || a.draft) return null;
+    return { slug: f.replace(/\.md$/, ''), ...a };
+  }).filter(Boolean);
+}
+
+/**
+ * ⛔ 이름이 낱말 조각에 걸리면 안 된다 — 「June(달)」이 예명 June 으로 걸린 적이 있다.
+ *   아포스트로피는 경계다: 소유격도 이름이다(「BTS's」).
+ */
+/**
+ * ⛔ **역슬래시를 이 자리에 안 쓴다.** 이 함수를 셸로 넣다가 `\` 두 개가 먹혀 파일이
+ *   깨졌다(2026-08-23, 오늘 세 번째다). 글자를 하나씩 세어 붙이는 편이 안 깨진다.
+ */
+export const 자에서뺄것 = new Set([...'.*+?^${}()|[]']);
+
+export function 이름자(이름) {
+  const n = [...String(이름)]
+    .map((c) => (자에서뺄것.has(c) ? String.fromCharCode(92) + c : c)).join('');
+  return new RegExp(`(^|[^A-Za-z0-9-])${n}([^A-Za-z0-9-]|$)`);
+}
+
+/** ⭐ 제목에 이 방 사람의 이름이 들었나. 든 이름을 **함께 돌려준다** — 지면에 까닭으로 적는다 */
+export function 방기사(기사들, 이름들, 띠, 최대 = 4) {
+  const 자들 = (이름들 ?? [])
+    .filter((n) => n && n.length >= 2 && !부딪힘.has(n))
+    .map((n) => [n, 이름자(n)]);
+  const 띠자 = 이름자(띠);
+  const 걸림 = [];
+  for (const a of 기사들 ?? []) {
+    const 든이름 = 자들.filter(([, r]) => r.test(a.title)).map(([n]) => n);
+    if (든이름.length) 걸림.push({ ...a, 까닭: `names ${든이름.slice(0, 3).join(', ')}` });
+    else if (띠자.test(a.title)) 걸림.push({ ...a, 까닭: `names the ${띠}` });
+  }
+  걸림.sort((x, y) => String(y.pubDate ?? '').localeCompare(String(x.pubDate ?? '')));
+  return 걸림.slice(0, 최대);
+}
+
+export function 읽을것칸(걸린것) {
+  if (!(걸린것 ?? []).length) return '';
+  const 줄 = 걸린것.map((a) => `        <li><a href="/article/${a.slug}">${a.title}</a>`
+    + `<br><span class="fine">${a.까닭}</span></li>`).join('\n');
+  return `    <section class="axis">
+      <h2>What we have written that names someone in this room</h2>
+      <p class="fine">These are here because the headline names a person on this page &mdash;
+      not because we judged them relevant. The reason each one is listed is printed under it.</p>
+      <ul class="reads">
+${줄}
+      </ul>
+    </section>
+
+`;
+}
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 
@@ -344,6 +443,44 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('⛔⛔ 방에도 noindex 가 없다', /noindex/.test(방판), false);
   재본다('방 주소를 소문자로 만든다', 방주소('Rooster'), '/room/rooster');
 
+  /* ── ⭐ 방에서 나가는 문 (2026-08-23) ─────────────────────── */
+  const 견본 = [
+    { slug: 'a', title: "IU's saju holds", pubDate: '2026-08-23' },
+    { slug: 'b', title: 'Jungkook and Karina', pubDate: '2026-08-22' },
+    { slug: 'c', title: 'Nothing to do with anyone here', pubDate: '2026-08-21' },
+    { slug: 'd', title: 'What the Rooster room is for', pubDate: '2026-08-20' },
+  ];
+  재본다('⭐ 제목에 이름이 든 것만 걸린다',
+    방기사(견본, ['IU', 'Karina'], 'Rooster').map((x) => x.slug), ['a', 'b', 'd']);
+  재본다('⛔ 아무 이름도 없는 기사는 안 걸린다',
+    방기사(견본, ['IU'], 'Rooster').some((x) => x.slug === 'c'), false);
+  재본다('⭐ 왜 걸렸는지를 함께 돌려준다',
+    방기사(견본, ['IU'], 'Rooster')[0].까닭, 'names IU');
+  재본다('⭐ 띠 이름만 든 것은 띠로 걸렸다고 적는다',
+    방기사(견본, ['IU'], 'Rooster').find((x) => x.slug === 'd').까닭, 'names the Rooster');
+  재본다('⭐ 새것부터 놓는다',
+    방기사(견본, ['IU', 'Karina'], 'Rooster')[0].slug, 'a');
+  재본다('⭐ 넷까지만 싣는다', 방기사(견본, ['IU', 'Karina'], 'Rooster', 2).length, 2);
+  /* ⛔ 낱말 조각·보통 낱말에 걸리면 거짓 문이 생긴다 */
+  재본다('⛔ 낱말 조각에 안 걸린다',
+    방기사([{ slug: 'x', title: 'IUY is not a name', pubDate: '1' }], ['IU'], 'Rat').length, 0);
+  재본다('⛔ 소유격은 이름으로 센다',
+    방기사([{ slug: 'x', title: "BTS's month", pubDate: '1' }], ['BTS'], 'Rat').length, 1);
+  재본다('⛔ 부딪히는 예명은 아예 안 센다',
+    방기사([{ slug: 'x', title: 'Rain or shine', pubDate: '1' }], ['Rain'], 'Rat').length, 0);
+  /* 🔴 걸린 것이 없으면 **칸을 아예 안 낸다.** 빈 「관련 기사」는 없는 것보다 나쁘다 */
+  재본다('⛔ 걸린 것이 없으면 칸을 안 낸다', 읽을것칸([]), '');
+  재본다('⭐ 걸린 것이 있으면 까닭까지 싣는다',
+    읽을것칸(방기사(견본, ['IU'], 'Rat')).includes('names IU'), true);
+  재본다('⛔ 「관련」이라고 우기지 않는다 — 까닭을 적는다고 밝힌다',
+    읽을것칸(방기사(견본, ['IU'], 'Rat')).includes('not because we judged them relevant'), true);
+  /* ⛔ 앞말을 다 풀지 않고 몇 칸만 뽑는다 — 그 몇 칸이 맞는지는 재 둔다 */
+  재본다('⭐ 앞말에서 제목을 뽑는다',
+    앞말뽑기('---\ntitle: "A B"\ndraft: false\n---\nbody').title, 'A B');
+  재본다('⛔ 초안은 뺀다',
+    앞말뽑기('---\ntitle: "A"\ndraft: true\n---\n').draft, true);
+  재본다('⛔ 앞말이 없으면 null', 앞말뽑기('no frontmatter'), null);
+
   console.log(`커뮤니티 첫 본 짓는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -351,6 +488,7 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
 if (내가실행됐다) {
   const 자료 = JSON.parse(fs.readFileSync(자료길, 'utf8'));
   const 방 = 방들(자료);
+  const 기사 = 기사읽기();
   if (방.length !== 카드수) {
     console.error(`⛔ 방이 ${방.length}개다 — ${카드수}개여야 한다. 짓지 않는다.`);
     process.exit(1);
@@ -370,7 +508,7 @@ if (내가실행됐다) {
   let 이름합 = 0;
   for (const s of 자료.signs) {
     const 길 = path.join(방방, `${s.sign.toLowerCase()}.html`);
-    fs.writeFileSync(길, 방짓기(s, 자료));
+    fs.writeFileSync(길, 방짓기(s, 자료, 기사));
     이름합 += s.all.length;
     console.log(`   ${방주소(s.sign).padEnd(18)} 이름 ${String(s.all.length).padStart(3)}`
       + `  (읽힘 ${s.withReads} · 못 잰 ${s.all.length - s.withReads})`);
