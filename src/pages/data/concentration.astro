@@ -15,6 +15,7 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import cross from '../../data/concentration-cross.json';
 import hist from '../../data/krx-daily-history.json';
+import today from '../../data/market-today.json';
 
 const TITLE = 'Korea stock market & trade concentration — KOSPI, KOSDAQ, exports';
 const DESC =
@@ -52,6 +53,16 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
         economies on earth, whether you weigh it by its market or by its trade. This is the compass,
         free. The full daily history and API are what we licence.
       </p>
+
+      {today?.facts?.length && (
+        <aside class="today">
+          <p class="today-h">Latest trading day · {today.asOf}</p>
+          <ul>
+            {today.facts.map((t) => <li>{t}</li>)}
+          </ul>
+          <p class="today-note">Ratios only — KRX price levels are not published. Updated each trading day.</p>
+        </aside>
+      )}
 
       <table class="tbl">
         <thead>
@@ -178,6 +189,14 @@ const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(
   .sample { font-size: .84rem; color: var(--muted); margin: 0 0 1rem; }
   .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.6rem; }
   .lead b, .fine b { font-weight: 650; }
+
+  .today { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: .9rem 1.1rem; margin: 0 0 1.8rem; background: var(--card); }
+  .today-h { font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; color: var(--accent);
+    font-weight: 700; margin: 0 0 .5rem; }
+  .today ul { margin: 0; padding-left: 1.1rem; }
+  .today li { font-size: .92rem; line-height: 1.6; margin: .2rem 0; }
+  .today-note { font-size: .78rem; color: var(--muted); margin: .5rem 0 0; }
 
   .tbl { width: 100%; border-collapse: collapse; margin: 0 0 1.8rem; font-size: .94rem; }
   .tbl th, .tbl td { text-align: left; padding: .55rem .5rem; border-bottom: 1px solid var(--line); }
