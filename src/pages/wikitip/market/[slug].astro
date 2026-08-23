@@ -206,8 +206,20 @@ const jsonLd = {
         <b>Russia is excluded</b> from every figure on this site, so it is absent here too.
       </li>
     </ul>
+    {/*
+      🔴 2026-08-23 실측 — 이 라우트의 한 지면(`/market/nicaragua`)이 **우리 사이트에서
+        노출이 가장 많은 지면**이었다(28일 175노출 · 7.7위 · 클릭 0). 그런데 그 175건에
+        닿은 검색어를 열어 보니 **여덜 개 전부**가 이것이었다 —
+        `netflix.com/tudum/top10?week=2024-11-03` 꼴. 나라를 찾는 검색이 아니었다.
+        손님이 찾는 것은 **그 한 주**인데 구글이 이 나라 지면을 내주고 있었고,
+        내용이 안 맞으니 클릭이 0 이었다.
+      ⭐ 그 주를 보여 주는 지면을 오늘 냈다(`/week/<날짜>` 268장). 여기서 문을 낸다 —
+        이 자리가 그 검색이 실제로 닿는 자리다. 손님에게도 맞는 곳을 준다.
+      ⛔ 이 지면을 깎지 않는다. 나라 지면은 나라를 찾는 손님에게 맞다.
+    */}
     <p class="note">
       <a href="/catalogue-depth">← All {data.countryCount} markets side by side</a> ·{' '}
+      <a href="/weeks">Looking for one particular week?</a> ·{' '}
       <a href="/titles">Every Korean title that has charted</a> ·{' '}
       <a href="/about">How we count</a>
     </p>
