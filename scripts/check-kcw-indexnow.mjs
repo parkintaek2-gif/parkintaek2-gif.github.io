@@ -115,7 +115,25 @@ if (!내가실행됐다) { /* 남이 가져다 쓰는 중이다. 아무것도 �
 
 const 적을자리 = process.argv.indexOf('--적는다');
 if (적을자리 >= 0) {
-  const 길들 = process.argv.slice(적을자리 + 1).filter((a) => a.startsWith('/'));
+  /**
+   * ⚠ 알릴 때는 **온 주소**로 부르고(ping-indexnow), 적을 때는 **길**만 받았다.
+   *   그래서 방금 알린 주소를 그대로 붙여 넣으면 「⛔ 주소를 주십시오」가 떴다 —
+   *   2026-08-23 에 실제로 그랬다. ⭐ 둘 다 받는다. 도메인은 떼서 길로 만든다.
+   *   ⛔ 그리고 셸(MSYS)이 `/article/...` 을 윈도 경로로 바꿔 버릴 때가 있다 —
+   *     `C:/Program Files/Git/article/...` 꼴로 들어온 것도 되돌려 준다.
+   *   ⛔ 정규식을 안 쓴다. 이 자리를 고칠 때 `node -e` 안에서 역슬래시가 먹혀
+   *     파일이 두 번 깨졌다 — 글자를 잘라 쓰는 편이 안 깨진다.
+   */
+  const 역슬래시 = String.fromCharCode(92);
+  const 길로 = (a) => {
+    const i = a.indexOf('://');
+    if (i >= 0) { const j = a.indexOf('/', i + 3); return j >= 0 ? a.slice(j) : a; }
+    const 윈도길 = a.length > 2 && a[1] === ':';
+    const k = a.indexOf('article');
+    if (윈도길 && k > 0) return '/' + a.slice(k).split(역슬래시).join('/');
+    return a;
+  };
+  const 길들 = process.argv.slice(적을자리 + 1).map(길로).filter((a) => a.startsWith('/'));
   if (!길들.length) { console.error('⛔ 적을 지면 주소를 주십시오'); process.exit(1); }
   const 날 = 오늘KST();
   fs.mkdirSync(path.dirname(기록길), { recursive: true });
