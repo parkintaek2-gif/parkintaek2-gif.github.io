@@ -184,6 +184,26 @@ fs.writeFileSync(산출, JSON.stringify({
   작품: Object.fromEntries([...맞춘것].map(([q, v]) => [q, v])),
 }, null, 2));
 console.log(`저장 ${산출}`);
+
+/**
+ * 🔴 2026-08-23 — 이름 목록도 같이 낸다.
+ *   `scripts/lib/korean-netflix-titles.mjs`(한국 작품 판정 규칙)가 이 파일을 읽는데,
+ *   **그것을 만드는 자가 저장소에 없었다.** 자료를 새로 캐면 규칙이 못 돌고 지면 528장이 멈춘다.
+ * ⭐ 이 자가 이미 같은 질의로 그 이름들을 다 받고 있다 — 받아 놓고 안 적고 있었을 뿐이다.
+ *   따로 수집기를 만들지 않는다. 두 파일이 다른 날의 위키데이터를 보면 언젠가 조용히 갈라진다.
+ * ⚠ 여기 담기는 것은 «후보»다 — 이름이 같은 남의 나라 작품도 들어 있다.
+ *   거르는 일은 규칙(영어 차트 딱지·손으로 뺀 목록)이 한다. 이 파일은 거르지 않는다.
+ */
+const 이름산출 = path.join(DIR, 'korean-titles.json');
+const 이름들 = [...new Set([...위키.values()].flatMap((v) => [v.이름, v.문서]).filter(Boolean))].sort();
+fs.writeFileSync(이름산출, JSON.stringify({
+  받은날: new Date().toISOString().slice(0, 10),
+  출처: 'Wikidata: works with country of origin (P495) = South Korea (Q884), English labels and English Wikipedia article names.',
+  주의: '⚠ 후보 목록이다. 이름이 같은 남의 나라 작품이 섞여 있다 — 거르는 일은 판정 규칙이 한다.',
+  제목수: 이름들.length,
+  제목: 이름들,
+}, null, 1) + String.fromCharCode(10));
+console.log(`저장 ${이름산출} — 이름 ${이름들.length}개`);
 for (const n of 온도계) {
   const v = [...맞춘것.values()].find((x) => [x.이름, x.문서, x.넷플릭스제목].includes(n));
   console.log(`  ${n.padEnd(28)} ${v.q} · ${v.갈래}`);
