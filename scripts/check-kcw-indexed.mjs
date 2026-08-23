@@ -276,6 +276,23 @@ const n = Number((process.argv.find((a) => a.startsWith('--n='))?.split('=')[1])
  *   쓰는 법  --주소=/for-industry,/data,/provenance
  */
 const 준주소 = process.argv.find((a) => a.startsWith('--주소='))?.split('=').slice(1).join('=');
+/**
+ * 🔴 2026-08-24 05:3x — `--주소=/born-on/05-16,...` 를 주었는데 첫 조각이
+ *   `C:/Program Files/Git/born-on/05-16` 로 바뀌어 들어왔다. Git Bash(MSYS)가 슬래시로
+ *   시작하는 인자를 윈도 경로로 바꾼다. 그러면 그 한 장이 **조용히 「못물었다」**가 된다.
+ * ⛔ 조용히 한 장을 잃는 것이 가장 나쁘다 — 표본이 59장인데 60장으로 적게 된다.
+ *   `search-console-report.mjs` 에는 이 방패를 이미 세워 뒀는데 이 자에는 없었다.
+ * ⭐ 세워서 **멈춘다.** 되돌려 고쳐 주지 않는다 — 되돌리기가 틀리면 남의 지면을 묻게 된다.
+ */
+const 윈도경로된것 = (준주소 ?? '').split(',').map((s) => s.trim())
+  .filter((s) => /^[A-Za-z]:[\\/]/.test(s));
+if (윈도경로된것.length) {
+  console.error('⛔ --주소 값이 윈도 경로로 바뀌었다 — MSYS 경로 변환이다:');
+  for (const s of 윈도경로된것) console.error(`   ${s}`);
+  console.error('   앞에 MSYS_NO_PATHCONV=1 을 붙이거나 PowerShell 에서 돌린다.');
+  console.error('   ⛔ 되돌려 고쳐 주지 않는다 — 잘못 되돌리면 남의 지면을 묻게 된다.');
+  process.exit(1);
+}
 const 고른것 = 준주소
   ? 준주소.split(',').map((s) => s.trim()).filter(Boolean).map((s) => (s.startsWith('http') ? s : 집 + s))
   : null;

@@ -1,9 +1,9 @@
 {
- "generated": "2026-08-22",
- "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 11 taken evenly across the 1234 pages in our sitemap, asked through the Search Console URL Inspection API.",
+ "generated": "2026-08-23",
+ "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 8 taken evenly across the 1537 pages in our sitemap, asked through the Search Console URL Inspection API.",
  "whatThisIsNot": "Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.",
- "sitemapPages": 1234,
- "sampled": 11,
+ "sitemapPages": 1537,
+ "sampled": 8,
  "control": {
   "url": "https://www.kculturewire.com/this-page-must-not-exist-zzz-5beon-control",
   "꼴": "구글이모른다",
@@ -11,12 +11,12 @@
  },
  "byState": [
   {
-   "state": "들어갔다",
-   "pages": 6
+   "state": "못물었다",
+   "pages": 1
   },
   {
-   "state": "크롤했는데안넣음",
-   "pages": 2
+   "state": "들어갔다",
+   "pages": 4
   },
   {
    "state": "발견만",
@@ -29,102 +29,90 @@
  ],
  "byKind": [
   {
-   "kind": "dataset",
    "states": {
-    "들어갔다": 6,
-    "크롤했는데안넣음": 2,
+    "못물었다": 1
+   }
+  },
+  {
+   "kind": "birthday",
+   "states": {
+    "들어갔다": 2
+   }
+  },
+  {
+   "kind": "title",
+   "states": {
     "발견만": 2,
     "구글이모른다": 1
+   }
+  },
+  {
+   "kind": "dataset",
+   "states": {
+    "들어갔다": 2
    }
   }
  ],
  "rows": [
   {
-   "주소": "https://www.kculturewire.com/underrated",
-   "갈래": "dataset",
+   "주소": "https://www.kculturewire.comC:/Program Files/Git/born-on/05-16",
+   "꼴": "못물었다",
+   "왜": "HTTP 403 {\n  \"error\": {\n    \"code\": 403,\n    \"message\": \"You do not own this site, or the inspected URL is not part of this property.\",\n    \"status\": \"PERMISSION_DENIED\"\n  }\n}\n"
+  },
+  {
+   "주소": "https://www.kculturewire.com/born-on/09-01",
+   "갈래": "birthday",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-22T21:46:42Z"
+   "마지막크롤": "2026-08-22T18:08:04Z"
   },
   {
-   "주소": "https://www.kculturewire.com/by-country",
-   "갈래": "dataset",
+   "주소": "https://www.kculturewire.com/born-on/04-11",
+   "갈래": "birthday",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-22T21:43:39Z"
+   "마지막크롤": "2026-08-22T17:41:56Z"
   },
   {
-   "주소": "https://www.kculturewire.com/firms",
-   "갈래": "dataset",
-   "꼴": "크롤했는데안넣음",
-   "상태": "Crawled - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": "2026-08-22T21:53:49Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/where-to-watch",
-   "갈래": "dataset",
-   "꼴": "크롤했는데안넣음",
-   "상태": "Crawled - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": "2026-08-22T21:49:53Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/most-popular",
-   "갈래": "dataset",
+   "주소": "https://www.kculturewire.com/title/broker",
+   "갈래": "title",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
    "판": "NEUTRAL",
    "마지막크롤": null
   },
   {
-   "주소": "https://www.kculturewire.com/year/2026",
-   "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://www.kculturewire.com/year/2025",
-   "갈래": "dataset",
+   "주소": "https://www.kculturewire.com/title/my-demon",
+   "갈래": "title",
    "꼴": "구글이모른다",
    "상태": "URL is unknown to Google",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://www.kculturewire.com/year/2024",
-   "갈래": "dataset",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-22T22:20:40Z"
+   "주소": "https://www.kculturewire.com/title/agency",
+   "갈래": "title",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
   },
   {
-   "주소": "https://www.kculturewire.com/year/2023",
+   "주소": "https://www.kculturewire.com/titles",
    "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-22T22:23:01Z"
+   "마지막크롤": "2026-08-14T14:32:36Z"
   },
   {
-   "주소": "https://www.kculturewire.com/year/2022",
+   "주소": "https://www.kculturewire.com/weeks",
    "갈래": "dataset",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-22T22:12:43Z"
-  },
-  {
-   "주소": "https://www.kculturewire.com/year/2021",
-   "갈래": "dataset",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-22T21:58:04Z"
+   "마지막크롤": "2026-08-23T10:52:34Z"
   }
  ]
 }
