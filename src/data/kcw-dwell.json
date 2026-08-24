@@ -174,6 +174,260 @@
       "열림당초": 0
     }
   ],
+  "landing": [
+    {
+      "path": "/",
+      "sessions": 80,
+      "views": 111,
+      "users": 72,
+      "stepsPerSession": 1.3875,
+      "sessionsThatDidNotWalk": 49,
+      "engagedSessionShare": 13.75
+    },
+    {
+      "path": "/article/it-moved-it-did-not-shrink",
+      "sessions": 8,
+      "views": 9,
+      "users": 8,
+      "stepsPerSession": 1.125,
+      "sessionsThatDidNotWalk": 7,
+      "engagedSessionShare": 25
+    },
+    {
+      "path": "/exports",
+      "sessions": 5,
+      "views": 5,
+      "users": 5,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 5,
+      "engagedSessionShare": 20
+    },
+    {
+      "path": "/articles",
+      "sessions": 4,
+      "views": 4,
+      "users": 2,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 4,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/title/the-devil-judge",
+      "sessions": 3,
+      "views": 3,
+      "users": 3,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 3,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/article/two-in-three-koreans",
+      "sessions": 2,
+      "views": 3,
+      "users": 1,
+      "stepsPerSession": 1.5,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 50
+    },
+    {
+      "path": "/watched",
+      "sessions": 2,
+      "views": 3,
+      "users": 2,
+      "stepsPerSession": 1.5,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 50
+    },
+    {
+      "path": "/about",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/article/jay-park-outreads-2pm",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/article/korea-challenger-win-rate",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/article/korea-music-outsells-television",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/article/kpop-export-left-japan-behind",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/article/one-region-is-not-like-the-others",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/article/who-makes-korean-pop-culture",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/catalogue-depth",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/contact",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/esports",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/for-industry",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/returns",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/star-signs",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/title/alchemy-of-souls",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/title/heavenly-ever-after",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/title/my-lovely-liar",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/title/my-royal-nemesis",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/title/sh-ting-stars",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/title/the-killer-a-girl-who-deserves-to-die",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/tv-exports",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/workforce",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    }
+  ],
   "pages": [
     {
       "path": "/",

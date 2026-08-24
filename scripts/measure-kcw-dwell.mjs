@@ -139,6 +139,29 @@ export function 전체열림당초(줄들) {
   return 열림당초(초, 열림);
 }
 
+/**
+ * 착지 지면 한 줄의 **걸음 수** — 세션 하나가 평균 몇 장을 열었나.
+ * ⛔ 세션이 0이면 null 이다. 0장이라고 적으면 「와서 아무것도 안 봤다」로 읽힌다.
+ * ⚠ 최솟값은 1이다(착지 지면 자체가 한 장이다). 1.00 이면 **두 번째 클릭이 없었다**는 뜻이다.
+ */
+export function 걸음수(열림, 세션) {
+  if (!Number.isFinite(열림) || !Number.isFinite(세션)) return null;
+  if (세션 <= 0) return null;
+  return 열림 / 세션;
+}
+
+/**
+ * **두 번째 걸음을 잃은 세션 수.** 착지해서 한 장만 보고 나간 세션이 몇인가.
+ * 이것이 체류시간 올인의 과녁이다 — 재 보니 세션당 지면 수가 세션당 초를 그대로 따라갔다
+ * (KLifeMap 3.33장 430초 / 나 1.28장 39초). 그러니 늘릴 것은 초가 아니라 **걸음**이다.
+ */
+export function 못걸은세션(열림, 세션) {
+  const g = 걸음수(열림, 세션);
+  if (g === null) return null;
+  /* 열림이 세션보다 적을 수는 없다 — 표본이 어긋난 것이니 못 잰 것으로 낸다 */
+  if (열림 < 세션) return null;
+  return Math.max(0, Math.round(세션 * (2 - Math.min(2, g))));
+}
 /* ── 자가시험 ─────────────────────────────────────────────── */
 if (내가실행됐다 && process.argv.includes('--selftest')) {
   let 통 = 0; let 실 = 0;
@@ -205,6 +228,15 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     열림당초(716, 88) > 8.1 && Math.abs(열림당초(716, 88) - 8.136) < 0.01);
   참('빈 목록도 안 죽는다', 주소로합쳐(null).length === 0);
 
+  /* 🔴 착지 지면 — 「들어온 것」과 「나가는 길에 들른 것」을 가르는 자리 */
+  참('열림을 세션으로 나눈다', 걸음수(200, 100) === 2);
+  참('세션이 0이면 못 잼', 걸음수(50, 0) === null);
+  참('한 장만 보면 1.00', 걸음수(40, 40) === 1);
+  참('두 번째 걸음이 아예 없으면 세션 전부가 잃은 것', 못걸은세션(40, 40) === 40);
+  참('두 장씩 걸었으면 잃은 것 0', 못걸은세션(80, 40) === 0);
+  참('두 장을 넘겨도 음수가 안 된다', 못걸은세션(400, 40) === 0);
+  참('열림이 세션보다 적으면 못 잼', 못걸은세션(10, 40) === null);
+  참('세션이 없으면 못 잼', 못걸은세션(10, 0) === null);
   참('읽기 갈래만 청한다', 갈래.endsWith('analytics.readonly'));
   참('유닛 목록에 내 자리가 있다', 유닛.some((u) => u.이름.includes('K Culture Wire')));
   참('손님 아닌 것을 가른다', 손님아님.test('localhost') === true);
@@ -379,6 +411,59 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
     }
   }
 
+  /* ── ③ 착지 지면 — 세션이 «시작된» 지면. 두 번째 클릭이 걸린 자리다 ── */
+  let 착지 = [];
+  try {
+    const j = await 물어본다({
+      dimensions: [{ name: 'landingPage' }, { name: 'hostName' }],
+      metrics: [{ name: 'sessions' }, { name: 'screenPageViews' },
+        { name: 'userEngagementDuration' }, { name: 'totalUsers' },
+        { name: 'engagedSessions' }],
+      limit: 500,
+    });
+    착지 = (j.rows ?? []).map((r) => ({
+      path: r.dimensionValues[0].value,
+      host: r.dimensionValues[1].value,
+      sessions: Number(r.metricValues[0].value),
+      views: Number(r.metricValues[1].value),
+      engagedSeconds: Number(r.metricValues[2].value),
+      users: Number(r.metricValues[3].value),
+      engagedSessions: Number(r.metricValues[4].value),
+    })).filter((r) => !손님아님.test(r.host))
+      .filter((r) => (볼호스트 ? 볼호스트.test(r.host) : true));
+  } catch (e) { console.log(`⚠ 착지 지면은 못 쟀다 — ${String(e.message).slice(0, 120)}`); }
+
+  if (착지.length) {
+    /* www 갈림을 합친다. 주소가 같으면 한 줄이다 */
+    const 통 = new Map();
+    for (const r of 착지) {
+      const k = String(r.path ?? '').split('?')[0] || '/';
+      const v = 통.get(k) ?? { path: k, sessions: 0, views: 0, engagedSeconds: 0, users: 0, engagedSessions: 0 };
+      for (const f of ['sessions', 'views', 'engagedSeconds', 'users', 'engagedSessions']) v[f] += r[f];
+      통.set(k, v);
+    }
+    착지 = [...통.values()].sort((a, b) => b.sessions - a.sessions);
+
+    const 세션합 = 착지.reduce((s2, r) => s2 + r.sessions, 0);
+    const 열림합 = 착지.reduce((s2, r) => s2 + r.views, 0);
+    console.log(`\n## 착지 지면 — 세션이 «시작된» 자리 ${착지.length}장 · 세션 ${세션합}`);
+    console.log(`전체 걸음수 ${걸음수(열림합, 세션합)?.toFixed(2) ?? '못 잼'}장/세션`
+      + ` · 두 번째 걸음을 잃은 세션 ${못걸은세션(열림합, 세션합) ?? '못 잼'}`);
+    console.log('⭐ 걸음수가 세션당 초를 그대로 따라간다 — 늘릴 것은 초가 아니라 걸음이다');
+    console.log(`\n${'착지 지면'.padEnd(40)} ${'세션'.padStart(5)} ${'걸음'.padStart(6)} ${'붙은몫'.padStart(7)} ${'잃은세션'.padStart(8)}`);
+    for (const r of 착지.slice(0, 18)) {
+      const g = 걸음수(r.views, r.sessions);
+      const 몫 = r.sessions > 0 ? (100 * r.engagedSessions) / r.sessions : null;
+      console.log(`${r.path.slice(0, 40).padEnd(40)} ${String(r.sessions).padStart(5)}`
+        + ` ${(g === null ? '못잼' : g.toFixed(2)).padStart(6)}`
+        + ` ${(몫 === null ? '못잼' : `${몫.toFixed(0)}%`).padStart(7)}`
+        + ` ${String(못걸은세션(r.views, r.sessions) ?? '못잼').padStart(8)}`);
+    }
+    if (착지.length > 18) console.log(`   … 그리고 ${착지.length - 18}장 더`);
+    console.log('\n「걸음」 = 이 지면으로 들어온 세션이 평균 몇 장을 열었나. 1.00 이면 두 번째 클릭이 없었다.');
+    console.log('⛔ 세션이 적은 줄은 흔들린다 — 세션 수를 같이 보고 읽는다.');
+  }
+
   if (적을곳) {
     const 몸 = {
       generated: new Date().toISOString().slice(0, 10),
@@ -399,6 +484,12 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
         secondsPerOpen: 열림당초(v.붙은초, v.열림),
       })),
       byKind: 갈래로모아(지면줄),
+      landing: 착지.map((r) => ({
+        path: r.path, sessions: r.sessions, views: r.views, users: r.users,
+        stepsPerSession: 걸음수(r.views, r.sessions),
+        sessionsThatDidNotWalk: 못걸은세션(r.views, r.sessions),
+        engagedSessionShare: r.sessions > 0 ? (100 * r.engagedSessions) / r.sessions : null,
+      })),
       pages: 지면줄.map((r) => ({
         path: r.path, views: r.views, users: r.users, sessions: r.sessions,
         engagedSeconds: r.engagedSeconds, secondsPerOpen: 열림당초(r.engagedSeconds, r.views),
