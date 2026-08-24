@@ -80,7 +80,10 @@ const jsonLd = {
 
   {달별.map((m) => (
     <section>
-      <h2>{m.이름}</h2>
+      {/* 🔴 2026-08-24 — 소제목이던 달 이름을 «문»으로 바꿨다. 손님이 치는 말이
+          `korean actors birthday in may` 라고 자동완성이 알려 줬는데, 나는 그 낱알의
+          지면이 없어서 날 366장으로만 보내고 있었다. 달 지면이 그 사이에 들어간다 */}
+      <h2><a href={`/born-in/${m.이름.toLowerCase()}`}>Korean actors born in {m.이름}</a></h2>
       <p class="days">
         {m.날들.map((x: any) => (
           <span><a href={x.url}>{Number(x.day.slice(3))}</a>{' '}<span class="fine">({x.people})</span>{' '}</span>
@@ -106,7 +109,8 @@ const jsonLd = {
     </ul>
     <p class="note">
       <a href="/most-read">The 100 most-read Korean stars this month</a> ·{' '}
-      <a href="/community">The twelve birth-year rooms</a>
+      <a href="/community">The twelve birth-year rooms</a> ·{' '}
+      <a href="/born-in/january">Month by month, all twelve</a>
     </p>
   </section>
 

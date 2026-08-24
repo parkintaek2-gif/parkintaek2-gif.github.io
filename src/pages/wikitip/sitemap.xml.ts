@@ -488,6 +488,23 @@ export const GET: APIRoute = async () => {
     /* 2026-08-22 — 생일 지면 366장. 재서 고른 축이다(「iu birthday」 자동완성 10줄 vs
        「byeong day stem」 0줄). 이름으로 들어와 같은 생일의 다른 이름으로 걸어간다.
        ⛔ 점을 치지 않는다 — 「같은 날 태어났다」는 그 말뿐이라고 각 장에 적었다 */
+    /* 2026-08-24 — 달 지면 12장. 🔴 내가 한 시간 전에 「이 축은 죽었다」고 접은 것을
+       자동완성이 뒤집었다: `korean actors birthday` 1번째·10줄인데 그 줄들이 «달» 단위다
+       (`in may`·`in june`·`in july`). 날 366장은 낱알이 손님 말과 안 맞았다.
+       ⛔ `today` 지면은 안 만든다 — 배포할 때만 다시 지어지니 다음 날부터 거짓이 된다.
+       ⭐ 이 12장이 날 지면 366장으로 가는 복도다 — 그 366장은 들어오는 문이 거의 없었다 */
+    { path: '/born-in/january', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/february', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/march', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/april', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/may', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/june', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/july', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/august', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/september', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/october', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/november', priority: '0.8', changefreq: 'monthly' },
+    { path: '/born-in/december', priority: '0.8', changefreq: 'monthly' },
     { path: '/born-on', priority: '0.9', changefreq: 'monthly' },
     { path: '/born-on/01-01', priority: '0.7', changefreq: 'monthly' },
     { path: '/born-on/01-02', priority: '0.7', changefreq: 'monthly' },

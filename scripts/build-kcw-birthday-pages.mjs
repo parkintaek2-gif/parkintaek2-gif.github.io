@@ -166,6 +166,7 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this
   <nav>
     <a href="/born-on/${어제}">&larr; ${날쓰기(어제)}</a>
     <a href="/born-on/${내일}">${날쓰기(내일)} &rarr;</a>
+    <a href="/born-in/${달이름[Number(mmdd.slice(0, 2)) - 1].toLowerCase()}">All of ${달이름[Number(mmdd.slice(0, 2)) - 1]}</a>
     <a href="/born-on">All 366 days</a>
   </nav>
 
@@ -228,13 +229,17 @@ if (process.argv.includes('--자가시험')) {
     } catch { return false; }
   })());
   검('어제·내일로 걷는다', h.includes('/born-on/05-15') && h.includes('/born-on/05-17'));
+  /* 🔴 2026-08-24 — 「in may」로 묻는 손님을 위해 달 지면 12장을 냈다. 날 지면에 떨어진
+     손님이 달로 올라갈 길이 없으면 한 걸음에서 끝난다 — 걸음 수가 곧 체류시간이다.
+     ⛔ 「문이 있나」가 아니라 «맞는 달로 가나»를 본다. 5월 지면이 6월로 가면 통과해선 안 된다 */
+  검('⭐ 자기 달 지면으로 올라간다', h.includes('/born-in/may') && !h.includes('/born-in/june'));
   검('⛔ 점을 안 친다는 말을 싣는다', h.includes('Sharing a birthday means sharing a birthday'));
   검('⛔ 화면에 우리말이 없다', !/[가-힣]/.test(h.replace(/홍길동/g, '')));
   검('영문 문서 제목으로 떨어진다', 영문이름({ name: '카리나', enTitle: 'Karina (South Korean singer)' }) === 'Karina');
   검('영문 이름이 아예 없으면 안 싣는다', 영문이름({ name: '홍길동', enTitle: null }) === null);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ build-kcw-birthday-pages 자가시험 통과 (17)');
+  console.log('✅ build-kcw-birthday-pages 자가시험 통과 (18)');
   process.exit(0);
 }
 
@@ -277,4 +282,4 @@ console.log(`지면 ${낸장}장 · 실은 사람 ${실은사람}명 / 명단 ${
 console.log('가장 붐비는 날:');
 for (const x of 붐비는날) console.log(`   ${날쓰기(x.day).padEnd(14)} ${String(x.people).padStart(3)}명  ${x.top.join(', ')}`);
 console.log(`\n냈다 — ${path.relative(뿌리, 낼방)} · ${path.relative(뿌리, 낼자료)}`);
-console.log('⚠ 들어오는 문을 아직 안 냈다 — /born-on 첫 장과 /most-read 에서 길을 낸다');
+console.log('✅ 들어오는 문 — /born-on 첫 장 · /most-read · 달 지면 12장(/born-in/*). 나가는 문 — 자기 달 지면으로 올라간다');
