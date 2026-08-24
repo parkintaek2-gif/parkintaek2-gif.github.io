@@ -29,7 +29,15 @@ import korea from '../../data/wikitip-korea-signal.json';
  * ⭐ 좁게도 넓게도 말하지 않는다 — **가진 그대로** 적는다. 93개국 지면과 여섯 나라 표 둘 다.
  * ⚠ 「모든 나라」라고 쓰지 않는다. 넷플릭스가 수를 내는 나라가 93개이고 그것이 세상 전부는 아니다.
  */
-const TITLE = `Every Korean title that reached a Netflix top 10 — ${titlePages.pageCount} with a page of their own`;
+/* 🔴 2026-08-25 — 앞머리를 「Korean drama list」로 바꿨다. 왜인지 적어 둔다.
+   `check-demand-covered.mjs` 로 재니 「korean drama list」가 자동완성 1번째·10줄인데
+   내 제목은 「Every Korean title that reached a Netflix top 10」이었다.
+   ⛔ 「title」은 «우리 자료의 말»이고 손님이 치는 말은 「drama list」다.
+     8/24 에 /year 에서 똑같은 잘못을 고쳤는데 이 지면은 그대로 두었다 —
+     한 곳을 고치면 같은 결함을 인용한 곳까지 따라가야 한다는 것을 또 놓쳤다.
+   ⛔ 낱말을 끼워 넣은 것이 아니다. 이것은 실제로 목록 지면이고 실려 있는 것은 한국 작품이다.
+   ⚠ 「films」를 남긴다 — 드라마만 있는 목록이 아니라는 것을 제목에서 밝힌다. */
+const TITLE = `Korean drama list — every Korean series and film that reached a Netflix top 10, ${titlePages.pageCount} with a page`;
 const DESC =
   `${titlePages.titleCount} Korean shows and films have reached at least one country's Netflix top 10 `
   + `since ${titlePages.weekFrom}, and ${titlePages.pageCount} of them have a page here showing every `

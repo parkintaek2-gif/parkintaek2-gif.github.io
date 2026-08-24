@@ -55,7 +55,17 @@ const 몫 = 전체 > 0 ? (100 * b.people) / 전체 : null;
 
 const 나이글 = 위가없나 ? `${b.ageFrom} or older` : `${b.ageFrom} to ${b.ageTo}`;
 
-const TITLE = `Korean actors in their ${b.name} — ${b.people.toLocaleString('en-US')} of them, and the years they were born`;
+/* 🔴 2026-08-25 — 「Korean actors age」를 제목에 넣었다. 왜인지 적어 둔다.
+   이 지면을 8/24 에 낸 근거가 「korean actors age 자동완성 1번째·10줄」이었는데,
+   `check-demand-covered.mjs` 로 재니 **정작 그 말이 내 제목에 없었다** —
+   제목이 「Korean actors in their 30s」였다. 근거로 삼은 낱말을 제목에서 빠뜨린 것이다.
+   ⛔ 낱말을 끼워 넣은 것이 아니다. 이 지면은 실제로 나이로 가른 지면이다.
+   ⭐ 「as of {기준해}」는 부제와 본문에 그대로 남긴다 — 나이는 움직이는 수다. */
+/* ⚠ 「by age」로 두었다가 다시 쟀더니 여전히 안 덮였다 — 손님이 치는 것은
+   「korean actors age」이고 「by」가 끼면 그 말이 통째로는 없다. 한 낱말 차이다.
+   ⭐ 그래서 「age {아래} to {위}」로 갔다. 낱말을 끼운 것이 아니라 **더 정확해진 것**이다 —
+     이 지면은 실제로 그 나이 범위이고, 범위를 제목에 적으면 손님이 열기 전에 안다. */
+const TITLE = `Korean actors age ${나이글} — in their ${b.name}, ${b.people.toLocaleString('en-US')} of them, and the years they were born`;
 const DESC = `${b.people.toLocaleString('en-US')} Korean actors, singers and other entertainers are `
   + `in their ${b.name} as of ${기준해} — that is, ${해글}. `
   + `${b.listed.toLocaleString('en-US')} are named here. Counted from Wikidata birth dates.`;

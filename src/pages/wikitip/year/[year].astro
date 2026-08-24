@@ -59,9 +59,22 @@ const 견줄말 = (!y.partialYear && 온해작품.length >= 2)
  *   그래서 제목·설명·머리글에 「charted during, not released in」을 못박는다 —
  *   안 적으면 손님이 「그 해 신작 목록」으로 읽는다. 못 잰 것은 못 쟀다고 적는다.
  */
+/*
+ * 🔴 2026-08-25 — 앞머리를 「Korean drama {해}」로 한 번 더 좁혔다. 왜인지 적어 둔다.
+ * 새로 세운 자(`check-demand-covered.mjs`)로 잰 낱말 114개를 우리 지면 1,636장의
+ * «제목»과 대 보니 이렇게 나왔다 —
+ * ```
+ *   korean drama 2024   자동완성 1번째 · 10줄   → 우리 제목에 «통째로 없다»
+ *   korean drama 2025   자동완성 1번째 · 10줄   → 우리 제목에 «통째로 없다»
+ * ```
+ * 8/24 에 「title that charted」를 버리고 「Korean drama on Netflix in 2024」로 바꿨는데,
+ * 그 사이의 「on Netflix in」이 끼어 **손님이 치는 말이 여전히 통째로는 없었다.**
+ * ⛔ 낱말을 «끼워 넣은» 것이 아니다. Netflix 를 뒤로 옮겼을 뿐 뜻은 그대로다 —
+ *   제목이 거짓이 되는 낱말은 넣지 않는다.
+ * ⭐ 배운 것: 「고쳤다」와 「손님 말이 됐다」는 다르다. 고친 뒤에도 재야 한다. */
 const TITLE = y.partialYear
-  ? `Korean drama on Netflix in ${y.year} — a part-year count of ${y.series} series`
-  : `Korean drama on Netflix in ${y.year} — the ${y.series} series that charted, and ${y.films} films`;
+  ? `Korean drama ${y.year} — a part-year count of ${y.series} series on Netflix`
+  : `Korean drama ${y.year} — the ${y.series} series that charted on Netflix, and ${y.films} films`;
 const DESC = y.partialYear
   ? `${y.series} Korean series and ${y.films} films held a place on a Netflix weekly top 10 during `
     + `${y.year}, but our data covers only ${y.weeksInData} weeks of that year, so this count is not `

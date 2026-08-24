@@ -25,7 +25,13 @@ const 달별 = 달이름.map((이름, i) => ({
 const 붐비는 = [...(d.days ?? [])].sort((a: any, b: any) => b.people - a.people).slice(0, 5);
 const 사람합 = d.peopleListed;
 
-const TITLE = `Which Korean stars share your birthday — all 366 days`;
+/* 🔴 2026-08-25 — 「Korean actors birthday」를 제목에 넣었다. 왜인지 적어 둔다.
+   `check-demand-covered.mjs` 로 재니 「korean actors birthday」가 자동완성 1번째·10줄인데
+   내 제목은 「Which Korean stars share your birthday」였다. **stars 와 actors 는 다른 낱말이고**
+   손님이 치는 쪽은 actors 였다. 지면은 답을 이미 갖고 있었고 제목만 어긋나 있었다.
+   ⛔ 낱말을 끼워 넣은 것이 아니다 — 이 지면에 실린 사람은 실제로 배우·가수다.
+   ⭐ 「share your birthday」는 남긴다. 그것이 손님이 여기서 «하려는 일»이다. */
+const TITLE = `Korean actors' birthdays — which Korean stars share yours, all 366 days`;
 const DESC = `${사람합.toLocaleString('en-US')} Korean actors and singers sorted into the day they were born. `
   + `Pick a date and see who shares it. Birth dates from Wikidata, readers from Wikipedia — not a horoscope.`;
 
