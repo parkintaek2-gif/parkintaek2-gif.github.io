@@ -7,6 +7,7 @@ import 지역단위 from '../../data/100yearmap/areas.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
 import 학급자료 from '../../data/100yearmap/school-class-size.json';
 import { 한벌로팔만한가 } from '../../lib/school-area';
+import { 파는지면검색 } from '../../lib/price';
 
 /** ⚠ `sitemap.xml.ts` · `school/[code].astro` 와 **같은 집합**이라야 한다 */
 const 중단있는코드 = new Set(((중단자료 as any).자료 as any[]).map((r) => r.code));
@@ -100,9 +101,10 @@ function 카드뉴스짝들(): 짝[] {
 export const GET: APIRoute = () => {
   const 짝들: 짝[] = [];
 
-  /* 지역 한 벌 — **무료로 연 것만.** 파는 쪽은 지면이 noindex 라 넣지 않는다 */
+  /* 지역 한 벌 — **지면 사이트맵과 같은 조건.** 2026-08-25 사장님 지시로 파는 지면도
+     검색에 열렸다(`price.ts` 의 `파는지면검색.연다`) — 손으로 조건을 다시 안 적는다 */
   for (const a of (지역단위 as any).단위 as any[]) {
-    if (한벌로팔만한가(a.곳)) continue;
+    if (!파는지면검색.연다 && 한벌로팔만한가(a.곳)) continue;
     짝들.push({
       지면: `/report/area/${a.slug}`,
       그림: `/og/area-${a.slug}.png`,
