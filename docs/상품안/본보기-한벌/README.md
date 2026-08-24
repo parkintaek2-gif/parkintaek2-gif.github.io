@@ -1,6 +1,6 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-23. Ten files. Start here.
+Sample bundle, 2026-08-24. Ten files. Start here.
 
 ## What this is, in five lines
 
