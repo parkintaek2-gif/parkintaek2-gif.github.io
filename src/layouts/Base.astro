@@ -41,6 +41,11 @@ const {
 
 const path = cleanPath(Astro.url.pathname);
 const canonical = path === '/' ? SITE_URL : new URL(path, SITE_URL).href;
+
+// AdSense 「저가치 콘텐츠」 방지(2026-08-24 주의 확인) — 비편집·법무·얇은 지면엔 광고를 아예 싣지 않는다.
+// 광고는 실제 편집 콘텐츠(기사·홈·갈래 목록·데이터 지면)에만. noAds prop 이거나 아래 경로면 끈다.
+const 비편집경로 = /^\/(terms|privacy|refund|contact|newsletter|community|about|pricing|404)\/?$/.test(path);
+const 광고끔 = noAds || 비편집경로;
 const ogImage = new URL(image ?? '/og-default.png', SITE_URL).href;
 const fullTitle = title === SITE.name ? title : `${title} | ${SITE.name}`;
 

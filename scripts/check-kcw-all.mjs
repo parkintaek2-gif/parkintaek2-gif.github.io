@@ -37,6 +37,13 @@ export const 막는검사 = [
   { 자: 'check-kcw-plural.mjs', 뭘: '단수·복수가 어긋나나', 빌드필요: true },
   { 자: 'check-kcw-cliches.mjs', 뭘: '상투어가 들었나' },
   { 자: 'check-corrections.mjs', 뭘: '지면에 적힌 정정이 목록에 다 있나', 빌드필요: true },
+  /**
+   * 🔴 2026-08-24 — 애드센스 로더를 심었더니 esports 지면에 그대로 들어갔다.
+   *   그 지면에 광고가 뜨면 Riot Production 승인(App 866800)이 **영구 취소**된다.
+   *   배포 전에 눈으로 잡았는데, 눈은 다음에 못 잡는다. **막는 검사**로 올린다 —
+   *   되돌릴 수 없는 손해가 걸린 것은 보는 검사에 두지 않는다.
+   */
+  { 자: 'check-no-ads-where-forbidden.mjs', 뭘: '🔴 광고가 있으면 안 되는 지면에 광고가 없나 (Riot 승인이 걸려 있다)', 빌드필요: true },
 ];
 
 /**
