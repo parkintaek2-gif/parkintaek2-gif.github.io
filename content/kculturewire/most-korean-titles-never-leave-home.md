@@ -21,6 +21,7 @@ sources:
 crossChecks:
   - "Countries count distinct markets in which a title appeared in at least one weekly top 10. South Korea is one of the 93 markets Netflix publishes a list for, so a title charting only there is counted as one country, not as zero"
   - "The year a title is filed under is the year of its first chart appearance anywhere, not its release year. Netflix publishes no release date in these files"
+  - "These figures were re-derived independently from Netflix's raw country file (499,180 rows) rather than from our own aggregate: that pass returns 433 one-country titles and 271 Korea-only against the 438 and 274 published here. The gap is our check matching titles on exact name, which resolves 973 of the 976 titles, not a difference in the count"
   - "Travel speed is measured per title as the gap between the earliest first-week across its markets and the second-earliest. It is the check that decides whether the year-by-year figures can be read at all"
 ---
 
