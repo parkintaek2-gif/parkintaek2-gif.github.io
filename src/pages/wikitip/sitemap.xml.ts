@@ -476,6 +476,15 @@ export const GET: APIRoute = async () => {
        ⭐ 파일이 안 알려 주는 것을 적는다 — views 가 102주 비어 있고, 제목 71%는 세계 파일에 줄이 없다
        ⛔ 파일을 다시 배포하지 않는다. 넷플릭스 주소로 보낸다 */
     { path: '/netflix-top10-data', priority: '1.0', changefreq: 'weekly' },
+    /* 2026-08-24 — 사장님 지시(「키워드 검색량을 재서 해」)로 자동완성을 재서 낸 지면.
+       잰 것: `netflix top 10 korea` 가 자동완성 1번째이고 그 말로 시작하는 제안이 9줄이었다 —
+       `netflix top 10 korean drama` · `korean series` · `korean drama 2026`.
+       내 쪽을 세니 지면 1,550장 중 제목에 「drama」가 든 것이 5장뿐이고, 자료에 든 한국 TV
+       398편을 모아 놓은 지면은 **없었다.** 손님은 「korean drama」라고 치는데 나는
+       「titles·series」라고 쓰고 있었다 — 자료는 있고 말이 없었다.
+       ⛔ 낱말을 채워 넣은 것이 아니다. 이 지면은 실제로 TV 만 담고, 영화 578편을 뺐다고 밝힌다.
+       ⛔ `/titles`(976편 전부)와 겹치지 않는다 — 여기는 갈래를 가른 쪽이다 */
+    { path: '/netflix-top-10-korean-drama', priority: '1.0', changefreq: 'weekly' },
     /* 2026-08-22 — 생일 지면 366장. 재서 고른 축이다(「iu birthday」 자동완성 10줄 vs
        「byeong day stem」 0줄). 이름으로 들어와 같은 생일의 다른 이름으로 걸어간다.
        ⛔ 점을 치지 않는다 — 「같은 날 태어났다」는 그 말뿐이라고 각 장에 적었다 */
