@@ -1,0 +1,84 @@
+---
+/**
+ * /100y/golf — 나이대별 골프 참여율
+ *
+ * ⭐ 자동완성 실측(2026-08-25) — 「골프 인구」 10줄, 오늘 잰 것 중 가장 강한 신호.
+ *   /hiking과 같은 표(KOSIS 문화체육관광부 국민생활체육조사, org 113)에서 나이만
+ *   있는 값을 골랐다(collect-100y-golf.mjs 참고).
+ *
+ * ⛔ 여러 해를 잇지 않는다 — 2022~2024년은 항목 이름이 「골프(그라운드 파크 포함)」로
+ *   달라 재는 범위가 다를 수 있다. 2025년 한 해만 정직하게 싣는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/golf.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 이번 = 자료.해별[최신];
+const 나이별 = 이번.나이별 as { 칸: string; 참여율: number }[];
+
+/** ⛔ 등수를 매기지 않는다. 어느 나이대가 가장 많이 하는지는 값에서 찾는다 */
+const 최고 = 나이별.reduce((a, b) => (b.참여율 != null && (a.참여율 == null || b.참여율 > a.참여율) ? b : a));
+
+const desc =
+  `${최신}년 기준 나이대별 골프 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
+  `전국 평균은 ${이번.전국}%입니다. 최근 1년 참여 경험 기준입니다.`;
+---
+
+<HundredYear title={`나이대별 골프 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/golf.png">
+  <h1>골프는 몇 살이<br />가장 많이 할까요?</h1>
+  <p class="sub">
+    <strong>{최신}년 기준 {최고.칸}가 {최고.참여율}%로 가장 높습니다.</strong>
+    {' '}전국 평균은 {이번.전국}%입니다.
+  </p>
+
+  <p class="note">
+    ⚠ 「최근 1년간 골프를 해 본 적이 있다」고 답한 사람의 비율입니다(복수응답 — 다른
+    {' '}운동도 같이 했을 수 있습니다). 매주 나가는 사람만이 아니라 <strong>한 번이라도 해 본 사람</strong>도 들어갑니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년, 골프 참여율이 가장 높은 나이대</p>
+    <p class="answer-num">{최고.칸} {최고.참여율}%</p>
+    <p class="answer-sub">전국 평균은 {이번.전국}%입니다</p>
+  </div>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>{최신}년 참여율</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.참여율 == null ? '못 잼' : `${r.참여율}%`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    10대·20대는 {나이별.find((r) => r.칸 === '10대')?.참여율}%·{나이별.find((r) => r.칸 === '20대')?.참여율}%로 거의 없다가,
+    {' '}30대부터 오르기 시작해 <strong>50대에서 가장 높고 60대부터 다시 낮아집니다.</strong>
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/hiking">← 같은 표에서 하나 더 — 등산은 몇 살이 가장 많이 갈까요?</a>
+    <br />
+    <a href="/exercise">← 규칙적으로 운동하는 사람, 동호회로 하는 사람은 몇 %일까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="나이대별 골프 참여율 자료" />
+</HundredYear>

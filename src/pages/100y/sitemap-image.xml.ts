@@ -129,6 +129,7 @@ export const GET: APIRoute = () => {
   /* ⭐ 주제 지면 전용 공유카드(make-og-100y-topics.mjs) — 새 지면 낼 때마다 한 줄씩 늘린다 */
   짝들.push(
     { 지면: '/hiking', 그림: '/og/hiking.png', 제목: '나이대별 등산 참여율' },
+    { 지면: '/golf', 그림: '/og/golf.png', 제목: '나이대별 골프 참여율' },
     { 지면: '/nursery-fill', 그림: '/og/nursery-fill.png', 제목: '어린이집 정원 대비 현원' },
   );
 
