@@ -1,17 +1,14 @@
 ---
 /**
- * /100y/hiking — 나이대별 등산 참여율
+ * /100y/soccer — 나이대별 축구·풋살 참여율
  *
- * ⭐ 자동완성 실측(2026-08-25) — 「등산 인구」 4줄(등산 인구·등산 인구 통계·등산 인구
- *   증가·한국 등산 인구). 신호를 먼저 재고서 KOSIS(문화체육관광부, 국민생활체육조사)에서
- *   나이대별 표를 찾았다.
- *
- * ⛔ 원자료가 «성별×나이 교차»와 «나이만»을 같은 이름으로 뒤섞어 낸다 —
- *   `collect-100y-hiking.mjs` 머리말에 그 함정을 자세히 적었다. 나이만 있는 값만 썼다.
+ * ⭐ 자동완성 실측(2026-08-25) — 「축구 인구」 신호 확인 후 등산·골프·헬스·자전거·수영과
+ *   같은 표(KOSIS org 113 · DT_113_STBL_1029668)에서 「축구 풋살」 항목을 찾았다.
+ *   golf 함정을 다시 확인했다 — 이 항목명은 2021~2025 5년 내내 동일하다.
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
-import 원본 from '../../../data/100yearmap/hiking.json';
+import 원본 from '../../../data/100yearmap/soccer.json';
 
 const 자료 = 원본 as any;
 const 최신 = 자료.최신 as string;
@@ -20,7 +17,7 @@ const 이번 = 자료.해별[최신];
 const 처음 = 자료.해별[해들[0]];
 const 나이별 = 이번.나이별 as { 칸: string; 참여율: number }[];
 
-/** ⛔ 등수를 매기지 않는다. 어느 나이대가 가장 많이 가는지는 값에서 찾는다 */
+/** ⛔ 등수를 매기지 않는다. 어느 나이대가 가장 많이 하는지는 값에서 찾는다 */
 const 최고 = 나이별.reduce((a, b) => (b.참여율 != null && (a.참여율 == null || b.참여율 > a.참여율) ? b : a));
 
 /** ⛔ 라이브러리를 쓰지 않는다. 선 하나라 손으로 그린다(다른 지면과 같은 방식) */
@@ -36,24 +33,24 @@ const 흐름 = (() => {
 })();
 
 const desc =
-  `${최신}년 기준 나이대별 등산 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
+  `${최신}년 기준 나이대별 축구·풋살 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
   `전국은 ${해들[0]}년 ${처음.전국}%에서 ${최신}년 ${이번.전국}%로 바뀌었습니다. 최근 1년 참여 경험 기준입니다.`;
 ---
 
-<HundredYear title={`나이대별 등산 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/hiking.png">
-  <h1>등산은 몇 살이<br />가장 많이 갈까요?</h1>
+<HundredYear title={`나이대별 축구·풋살 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/soccer.png">
+  <h1>축구는 몇 살이<br />가장 많이 할까요?</h1>
   <p class="sub">
     <strong>{최신}년 기준 {최고.칸}가 {최고.참여율}%로 가장 높습니다.</strong>
     {' '}전국은 {해들[0]}년 {처음.전국}%에서 {최신}년 {이번.전국}%로 바뀌었습니다.
   </p>
 
   <p class="note">
-    ⚠ 「최근 1년간 등산을 해 본 적이 있다」고 답한 사람의 비율입니다(복수응답 — 다른
-    {' '}운동도 같이 했을 수 있습니다). 매주 가는 사람만이 아니라 <strong>한 번이라도 간 사람</strong>도 들어갑니다.
+    ⚠ 「최근 1년간 축구나 풋살을 해 본 적이 있다」고 답한 사람의 비율입니다(복수응답
+    {' '}— 다른 운동도 같이 했을 수 있습니다). 축구와 풋살을 한 항목으로 묶어 재 — 둘을 못 가릅니다.
   </p>
 
   <div class="answer">
-    <p class="answer-label">{최신}년, 등산 참여율이 가장 높은 나이대</p>
+    <p class="answer-label">{최신}년, 축구·풋살 참여율이 가장 높은 나이대</p>
     <p class="answer-num">{최고.칸} {최고.참여율}%</p>
     <p class="answer-sub">전국 평균은 {이번.전국}%입니다</p>
   </div>
@@ -73,14 +70,14 @@ const desc =
     </table>
   </div>
   <p class="note">
-    10대부터 50대까지는 나이가 들수록 오르지만, <strong>60대부터는 다시 낮아집니다.</strong>
-    {' '}70세이상은 {나이별.find((r) => r.칸 === '70세이상')?.참여율}%로 20대와 비슷합니다.
+    <strong>10대가 {나이별.find((r) => r.칸 === '10대')?.참여율}%로 압도적으로 높고</strong>,
+    {' '}나이가 들수록 가파르게 낮아집니다. 70세이상은 {나이별.find((r) => r.칸 === '70세이상')?.참여율}%입니다.
   </p>
 
   <h2>{해들.length}해 동안 전국은 어떻게 움직였나</h2>
   <div class="tablewrap">
     <svg viewBox={`0 0 ${흐름.폭} ${흐름.높}`} width="100%" style="max-width:640px" role="img"
-         aria-label={`등산 참여율(전국) — ${흐름.값들.map((v) => `${v.해}년 ${v.률}%`).join(', ')}`}>
+         aria-label={`축구·풋살 참여율(전국) — ${흐름.값들.map((v) => `${v.해}년 ${v.률}%`).join(', ')}`}>
       <path d={흐름.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
       {흐름.값들.map((v, i) => (
         <g>
@@ -105,15 +102,15 @@ const desc =
   </p>
 
   <p class="note">
-    <a href="/golf">← 같은 표에서 하나 더 — 골프는 몇 살이 가장 많이 할까요?</a>
+    <a href="/hiking">← 같은 표에서 하나 더 — 등산은 몇 살이 가장 많이 갈까요?</a>
+    <br />
+    <a href="/golf">← 골프는 몇 살이 가장 많이 할까요?</a>
     <br />
     <a href="/workout">← 헬스는 몇 살이 가장 많이 할까요?</a>
     <br />
     <a href="/cycling">← 자전거는 몇 살이 가장 많이 탈까요?</a>
     <br />
     <a href="/swimming">← 수영은 몇 살이 가장 많이 할까요?</a>
-    <br />
-    <a href="/soccer">← 축구는 몇 살이 가장 많이 할까요?</a>
     <br />
     <a href="/exercise">← 규칙적으로 운동하는 사람, 동호회로 하는 사람은 몇 %일까요?</a>
     <br />
@@ -122,5 +119,5 @@ const desc =
     <a href="/community">← 커뮤니티 — 나이·처지로 나눈 방</a>
   </p>
 
-  <NextQuestionBrief 모은것="나이대별 등산 참여율 자료" />
+  <NextQuestionBrief 모은것="나이대별 축구·풋살 참여율 자료" />
 </HundredYear>
