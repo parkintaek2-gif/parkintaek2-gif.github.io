@@ -345,6 +345,14 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
     <slot />
 
     <footer>
+      {/* ⭐ 사장님 지시(2026-08-24) — 로고를 이미지 파일로 만들어 홈페이지에도 걸어 둔다.
+          ⛔ 첫 화면 위쪽 브랜드 판(위 SVG 두 줄)은 안 건드린다 — 그 자리를 <img> 로 바꾸지
+          않는 이유(8/14 사장님 지시)가 그대로 있다: 검색엔진이 이미지 속 글자를 못 읽고,
+          필수품 검사가 지면 글자를 세며, 그림이 안 뜨면 브랜드가 통째로 사라진다.
+          여기 꼬리말은 이미 텍스트로 이름·정보가 다 있는 자리라 이미지를 더해도 그 위험이 없다. */}
+      <p class="footer-logo">
+        <img src="/brand/100yearmap-logo-transparent.png" alt="백년지도 — 인생 네비" width="200" height="40" loading="lazy" />
+      </p>
       {/* ⚠ YMYL — 발행 주체가 없으면 아무리 좋은 글도 검색에 안 올라온다 (스토리보드 §11) */}
       <p>
         <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
