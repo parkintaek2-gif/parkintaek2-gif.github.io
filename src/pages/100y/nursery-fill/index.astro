@@ -1,0 +1,141 @@
+---
+/**
+ * /100y/nursery-fill — 어린이집 정원 대비 현원(채움률)
+ *
+ * ⭐ 콘텐츠기획서(2026-08-22)가 「전국 어린이집 대기아동 수」를 최강 신호(자동완성
+ *   10/10줄)로 적었으나 KOSIS 표를 못 찾아 미착수로 남겼다. 오늘(2026-08-24) 다시
+ *   찾아봐도 대기자 명부 통계 자체는 여전히 없다 — 대신 같은 org(112)의 「정원 대비
+ *   현원」표(DT_15407_NN004)를 찾았고, 자동완성으로 다시 재니 「어린이집 정원」10줄
+ *   (그중 «정원 현원»·«정원 충족률»이 그대로 들어 있다)·「어린이집 현원」2줄로 신호가
+ *   있었다.
+ *
+ * ⛔ 「대기아동」을 제목·본문 어디에도 쓰지 않는다 — 이 표는 자리를 채운 «비율»이지
+ *   대기자 «수»가 아니다. `collect-100y-nursery-fill.mjs` 머리말에 이유를 자세히 적었다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/nursery-fill.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 해들 = 자료.해들 as string[];
+const 이번 = 자료.해별[최신];
+const 처음 = 자료.해별[해들[0]];
+const 시도 = 이번.시도 as { 시도: string; 정원: number; 현원: number; 채움률: number }[];
+
+/** ⛔ 등수를 매기지 않는다. 채움률이 낮은 쪽부터 늘어놓아 «어디가 비어 있나»만 보인다 */
+const 가장낮은 = 시도[0];
+const 가장높은 = 시도[시도.length - 1];
+
+/** ⛔ 라이브러리를 쓰지 않는다. 선 하나라 손으로 그린다(다른 지면과 같은 방식) */
+const 흐름 = (() => {
+  const 값들 = 해들.map((해) => ({ 해, 률: 자료.해별[해].전국.채움률 as number }));
+  const 최대 = Math.max(...값들.map((v) => v.률));
+  const 최소 = Math.min(...값들.map((v) => v.률));
+  const 폭 = 640, 높 = 190, 왼 = 10, 오 = 10, 위 = 26, 아래 = 30;
+  const x = (i: number) => 왼 + (i * (폭 - 왼 - 오)) / (값들.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  const 선 = 값들.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v.률).toFixed(1)}`).join(' ');
+  return { 값들, 최대, 최소, 폭, 높, 선, x, y };
+})();
+
+const desc =
+  `${최신}년 기준 전국 어린이집 정원 ${이번.전국.정원.toLocaleString()}명 중 ${이번.전국.현원.toLocaleString()}명이 다녀 ` +
+  `채움률 ${이번.전국.채움률}%입니다. ${해들[0]}년 ${처음.전국.채움률}%에서 어떻게 바뀌었는지, 시·도별로 어디가 비어 있는지 적었습니다.`;
+---
+
+<HundredYear title={`어린이집 정원 대비 현원 — ${최신}년 전국 채움률 ${이번.전국.채움률}%`} description={desc}>
+  <h1>어린이집 정원 대비 현원</h1>
+  <p class="sub">
+    <strong>{최신}년 기준 전국 채움률 {이번.전국.채움률}%</strong>입니다.
+    {' '}{해들[0]}년에는 {처음.전국.채움률}%였으니 <strong>{(처음.전국.채움률 - 이번.전국.채움률).toFixed(1)}%p 낮아졌습니다.</strong>
+  </p>
+
+  <p class="note">
+    ⚠ <strong>정원</strong>은 그 어린이집이 받을 수 있는 최대 인원, <strong>현원</strong>은 실제로 다니는 인원입니다.
+    {' '}<strong>채움률(현원÷정원×100)</strong>이 낮을수록 자리가 남습니다.
+    {' '}⛔ <strong>이것은 대기아동 수가 아닙니다</strong> — 전국·지자체 단위로 관리되는 대기자 명부
+    {' '}통계 자체를 찾지 못했습니다. 자리가 «얼마나 채워졌나»만 잽니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년, 전국 어린이집 채움률</p>
+    <p class="answer-num">{이번.전국.채움률}%</p>
+    <p class="answer-sub">
+      정원 {이번.전국.정원.toLocaleString()}명 · 현원 {이번.전국.현원.toLocaleString()}명
+    </p>
+  </div>
+
+  <h2>{해들.length}해 동안 어떻게 움직였나</h2>
+  <p>
+    {해들[0]}년 <strong>{처음.전국.채움률}%</strong>에서 꾸준히 낮아져 {최신}년 <strong>{이번.전국.채움률}%</strong>가 되었습니다.
+  </p>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${흐름.폭} ${흐름.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`어린이집 채움률 — ${흐름.값들.map((v) => `${v.해}년 ${v.률}%`).join(', ')}`}>
+      <path d={흐름.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
+      {흐름.값들.map((v, i) => (
+        <g>
+          <circle cx={흐름.x(i)} cy={흐름.y(v.률)} r={i === 0 || v.해 === 최신 ? 4.5 : 2.5}
+                  fill={i === 0 || v.해 === 최신 ? '#c9a84c' : '#8b8b96'} />
+          {(i === 0 || v.해 === 최신) && (
+            <text x={흐름.x(i)} y={흐름.y(v.률) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.률}%</text>
+          )}
+          {(i % 4 === 0 || i === 흐름.값들.length - 1) && (
+            <text x={흐름.x(i)} y={흐름.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{v.해}</text>
+          )}
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <h2>시·도별로 어디가 비어 있나?</h2>
+  <p class="note">채움률이 낮은 쪽부터 늘어놓아 «어디가 비어 있나»만 보이는 표입니다.</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시·도</th><th>정원</th><th>현원</th><th>채움률</th></tr></thead>
+      <tbody>
+        {시도.map((r) => (
+          <tr>
+            <td>{r.시도}</td>
+            <td>{r.정원.toLocaleString()}</td>
+            <td>{r.현원.toLocaleString()}</td>
+            <td>{r.채움률}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    {가장낮은.시도}가 {가장낮은.채움률}%로 가장 낮고, {가장높은.시도}가 {가장높은.채움률}%로 가장 높습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⛔ 「대기아동」이 아닙니다'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <h2>어린이집이 아예 없는 지역은 따로 있습니다</h2>
+  <p>
+    이 지면은 «채움률»(자리를 얼마나 채웠나)만 봅니다. 어린이집이 <strong>한 곳도 없는 지역</strong>은
+    {' '}따로 <a href="/nursery">「어린이집이 한 곳도 없는 지역」</a>에 정리해 두었습니다. 유치원 수는
+    {' '}<a href="/kindergarten">「유치원」</a>에 따로 있습니다.
+  </p>
+
+  <HundredAgeWalk 키="nursery-fill" />
+
+  <p class="note">
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「0~5세 · 아이를 맡길 데를 찾는 사람」 방</a>
+    <br />
+    <a href="/community/0to5">← 0~5세 아이를 키우는 사람의 방 — 동네별 유치원·소아과·어린이집을 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="어린이집 정원·현원 자료" />
+</HundredYear>

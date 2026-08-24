@@ -174,6 +174,10 @@ export const GET: APIRoute = () => {
        ⚠ 지면을 만든 그 자리에서 이 줄을 넣는다 — /after·/region·/elementary·/saju 에 이어
          **다섯 번째** 같은 실수를 하지 않으려고. */
     { path: '/nursery', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 0~5세 셋째 문(2026-08-24) — 「어린이집 정원 대비 현원」. 자동완성 실측(「어린이집 정원」10줄,
+       그중 «정원 현원»·«정원 충족률» 포함)으로 신호를 확인하고 냈다. 「대기아동」이 아니다 — 그 표는
+       KOSIS·data.go.kr 어디에도 없어 못 찾았다고 지면·자료 양쪽에 적었다. */
+    { path: '/nursery-fill', priority: '0.7', changefreq: 'monthly' },
     /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
        /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
     { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },
