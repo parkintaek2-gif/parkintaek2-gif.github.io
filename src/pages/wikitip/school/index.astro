@@ -1,0 +1,76 @@
+---
+/*
+ * school/index.astro — **학교 쉰다섯 곳의 문간.** (5번, 2026-08-25 새벽)
+ *
+ * 여기가 있어야 학교 지면 55장이 «두 번 안에» 닿는다. 어제 잰 것에서 배운 것이 하나 있다 —
+ * 수요가 큰 지면이 들어오는 링크 한두 개로 굶고 있었다. 지면을 내고 문을 안 달면
+ * 만든 것이 안 보이는 것과 같다.
+ * ⛔ 학교를 줄 세우는 표가 아니다. 수가 큰 순서로 놓되 «순위»라고 부르지 않는다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-schools.json';
+
+const 학교들 = data.schools ?? [];
+const 수 = (n: number) => Number(n).toLocaleString('en-US');
+const 적힌사람 = data.peopleWithSchool;
+const 안적힌사람 = data.peopleWithoutSchool;
+const 명부 = data.rosterPeople;
+
+const TITLE = `Where Korean actors and singers studied — ${학교들.length} schools, counted`;
+const DESC = `${학교들.length} schools, each with the Korean actors, singers and other `
+  + `entertainers we counted from it. Built from Wikidata, which records a school for `
+  + `${수(적힌사람)} of the ${수(명부)} people we hold.`;
+---
+
+<WikiTip title={TITLE} description={DESC}
+  canonical="https://www.kculturewire.com/school">
+  <h1>Where Korean actors and singers studied</h1>
+
+  <p class="lead">
+    <b>{학교들.length}</b> schools, each with the people we counted from it. Open one to see the
+    names.
+  </p>
+
+  <p class="warn">
+    <b>Every number here is a floor.</b> Wikidata records a school for {수(적힌사람)} of the
+    {' '}{수(명부)} people we hold. For the other <b>{수(안적힌사람)}</b> we do not know where they
+    studied — and not knowing is not the same as not having gone.
+  </p>
+
+  <section>
+    <h2>The schools</h2>
+    <p class="note">
+      Largest count first. <b>That is not a ranking.</b> A bigger count reflects how large the
+      school is, how long it has existed, and who happens to have a Wikidata entry.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>School</th><th>People we counted</th></tr></thead>
+        <tbody>
+          {학교들.map((s: any) => (
+            <tr>
+              <td class="nm"><a href={`/school/${s.slug}`}>{s.name}</a></td>
+              <td class="tot">{수(s.people)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note fine">
+      We hold {data.schoolsSeen} schools in all. {data.schoolsNotListed} of them have fewer than
+      {' '}{data.minPeopleToList} people we could count, and we do not publish a page for those —
+      they are counted, not hidden.
+    </p>
+  </section>
+
+  <section class="onward">
+    <h3>Other ways into the same people</h3>
+    <ul class="walk">
+      <li><a href="/born-on">All 366 days of the year</a></li>
+      <li><a href="/born-in/january">Month by month, all twelve</a></li>
+      <li><a href="/actors-in-their/20s">By age band</a></li>
+      <li><a href="/star-sign/cancer">By star sign, twelve of them</a></li>
+      <li><a href="/most-read">The Korean names most people looked up this month</a></li>
+    </ul>
+  </section>
+</WikiTip>

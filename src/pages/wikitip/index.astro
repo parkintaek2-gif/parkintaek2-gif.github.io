@@ -51,6 +51,7 @@ import 작품자료 from '../../data/wikitip-title-pages.json';
 import 생일자료 from '../../data/wikitip-birthday-pages.json';
 import 해자료 from '../../data/wikitip-years.json';
 import 나이자료 from '../../data/wikitip-age-bands.json';
+import 학교자료 from '../../data/wikitip-schools.json';
 /* 🔴 2026-08-24 밤 — 수요가 큰 작품 지면이 들어오는 링크 1~2개로 굶고 있었다.
    위키백과 조회수(30일)로 재어 둔 것을 읽어 첫 화면에서 직접 건다 */
 import 수요자료 from '../../data/wikitip-title-demand.json';
@@ -194,6 +195,15 @@ const jsonLd = {
         <a href="/actors-in-their/30s">Korean actors by age band</a>
         <span class="cnt">{나이자료.bands.filter((b: any) => b.listedOnSite).length} bands,
           each with the birth years it covers</span>
+      </li>
+      <li>
+        {/* 🔴 2026-08-25 — 재서 붙인 줄이다. `school of performing arts seoul` 과
+            `hanlim multi art school` 이 둘 다 자동완성 1번째·그 말로 시작 10줄이었다.
+            손님이 치는 것은 학교 «이름 그 자체»여서 주소도 이름으로 갔다.
+            ⛔ 수를 「총수」로 적지 않는다 — 학교가 적힌 사람이 명부의 절반뿐이라
+              그 지면들이 모두 「이것은 하한이다」를 머리에 달고 있다 */}
+        <a href="/school">Where Korean actors and singers studied</a>
+        <span class="cnt">{학교자료.schools.length} schools, and who we counted from each</span>
       </li>
       <li>
         <a href="/where-to-watch">Where a title could actually be watched</a>

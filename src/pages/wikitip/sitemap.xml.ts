@@ -11,6 +11,7 @@ import weekPages from '../../data/kcw-week-pages.json';
 import videoData from '../../data/wikitip-video.json';
 /* 🔴 같은 날 밤 — 카드뉴스 96벌 474장도 사이트맵에 «0장»이었다. 파일을 세어 적어 둔 것을 읽는다 */
 import cardnewsData from '../../data/wikitip-cardnews.json';
+import schoolPages from '../../data/wikitip-schools.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -1088,6 +1089,18 @@ export const GET: APIRoute = async () => {
   /* 작품 지면. 2026-08-09 09:0x — 시장과 **같은 방식으로 자료에서 뽑는다.**
      ⛔ 손으로 적지 않는다. 얇아서 안 내는 작품은 hasPage 가 false 라 저절로 빠진다.
      2번이 「사이트맵에 들어갔나 — 오늘 두 번 빠뜨린 자리」라고 짚은 그 자리다. */
+  /*
+   * 학교 지면. 2026-08-25 새벽 — 사장님 「키워드 검색량을 재서 해」로 잰 것이다.
+   *   school of performing arts seoul  자동완성 1번째 · 그 말로 시작 10줄
+   *   hanlim multi art school          자동완성 1번째 · 그 말로 시작 10줄
+   * 손님이 치는 것은 학교 이름 그 자체여서 주소도 학교 이름으로 갔다.
+   * ⛔ 손으로 55줄을 적지 않는다 — build-kcw-schools.mjs 가 낸 자료에서 뽑는다.
+   *   15명에 못 미쳐 안 내는 학교는 그 자료에 이미 없으므로 저절로 빠진다.
+   */
+  entries.push({ path: '/school', priority: '0.9', changefreq: 'monthly' });
+  for (const x of schoolPages.schools) {
+    entries.push({ path: `/school/${x.slug}`, priority: '0.8', changefreq: 'monthly' });
+  }
   for (const x of titlePages.titles.filter((y) => y.hasPage)) {
     entries.push({ path: `/title/${x.slug}`, priority: '0.7', changefreq: 'weekly' });
   }

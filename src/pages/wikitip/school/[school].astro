@@ -1,0 +1,152 @@
+---
+/*
+ * school/[school].astro — **학교별 지면 쉰다섯 장.** (5번, 2026-08-25 새벽)
+ *
+ * ── 🔴 왜 이 지면이 생겼나 ─────────────────────────────────────
+ * 사장님 지시 「키워드 검색량을 재서 해」로 잰 결과다 —
+ * ```
+ *   school of performing arts seoul   자동완성 1번째 · 그 말로 시작 10줄
+ *   hanlim multi art school           자동완성 1번째 · 그 말로 시작 10줄
+ * ```
+ * ⭐ 손님이 치는 것은 **학교 이름 그 자체**다. 그래서 주소도 제목도 학교 이름으로 간다 —
+ *   「educated at」이나 「alma mater」 같은 자료의 말을 쓰지 않는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 — «분모가 명부가 아니다» ─────────────
+ * ```
+ *   명부 전체            9,249명
+ *   학교가 «적힌» 사람    4,535명 (49%)
+ *   학교가 «안 적힌» 사람  4,714명  ⛔ 학교를 «안 다닌» 것이 아니라 «모르는» 것이다
+ * ```
+ * 그러니 「352명」은 **「우리가 세어 352명」**이다. 이 문장이 지면에서 빠지면 그 수는
+ * 틀린 수가 된다. 그래서 아래 warn 칸을 뺄 수 없다.
+ *
+ * ⛔ 학교끼리 줄 세우지 않는다. 「최고의 연예인 학교」를 안 쓴다 — 수가 큰 것은 학교 규모·
+ *   설립 연도·위키데이터 편집자의 손이 함께 만든 것이고 우리는 그 셋을 못 가른다.
+ * ⛔ 이름 순서를 「인기 순」이라고 부르지 않는다.
+ * ⛔ 수를 이 지면에서 세지 않는다 — `wikitip-schools.json` 에서 읽는다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-schools.json';
+
+export function getStaticPaths() {
+  /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(어제 그것으로 빌드가
+     한 번 멈췄다). 자료는 여기서 읽고, 지면이 쓸 것은 props 로 건넨다 */
+  const 학교들 = data.schools ?? [];
+  return 학교들.map((s, i) => ({
+    params: { school: s.slug },
+    props: {
+      s,
+      이웃: [학교들[(i + 1) % 학교들.length], 학교들[(i + 2) % 학교들.length]]
+        .filter((x) => x && x.slug !== s.slug),
+      큰곳: 학교들.slice(0, 6).filter((x) => x.slug !== s.slug).slice(0, 5),
+    },
+  }));
+}
+
+const { s, 이웃, 큰곳 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[] };
+
+const 적힌사람 = data.peopleWithSchool;
+const 안적힌사람 = data.peopleWithoutSchool;
+const 명부 = data.rosterPeople;
+const 적힌몫 = 명부 > 0 ? (100 * 적힌사람) / 명부 : null;
+
+const 수 = (n: number) => Number(n).toLocaleString('en-US');
+
+const TITLE = `${s.name} — ${수(s.people)} Korean actors and singers we counted from it`;
+const DESC = `We counted ${수(s.people)} Korean actors, singers and other entertainers who `
+  + `studied at ${s.name}. Counted from Wikidata, which records a school for `
+  + `${수(적힌사람)} of the ${수(명부)} people we hold — so this is a floor, not a total.`;
+---
+
+<WikiTip title={TITLE} description={DESC}
+  canonical={`https://www.kculturewire.com/school/${s.slug}`}>
+  <h1>{s.name}</h1>
+
+  {/* ⭐ 답을 맨 앞에. 그리고 «무엇을 센 수인지»를 같은 문단에 둔다 */}
+  <p class="lead">
+    We counted <b>{수(s.people)}</b> Korean actors, singers and other entertainers who studied at
+    {' '}<b>{s.name}</b>. {s.top.length > 0 && <>The {s.top.length} most widely written about are
+    named below.</>}
+  </p>
+
+  {/*
+    🔴 이 칸을 뺄 수 없다. 분모가 명부가 아니라 «학교가 적힌 사람»이다.
+      이 문장 없이 수만 내면 손님은 그것을 확정된 총수로 읽는다.
+  */}
+  <p class="warn">
+    <b>This is a floor, not a total.</b> Wikidata records a school for {수(적힌사람)} of the
+    {' '}{수(명부)} people we hold{적힌몫 !== null && <> — {적힌몫.toFixed(0)}%</>}. For the other
+    {' '}<b>{수(안적힌사람)}</b> we do not know where they studied, and <b>not knowing is not the
+    same as not having gone</b>. So the real number for {s.name} is at least {수(s.people)},
+    and we cannot tell you how much higher.
+  </p>
+
+  {s.top.length > 0 && (
+    <section>
+      <h2>Some of the names</h2>
+      <p class="note">
+        Ordered by how many Wikipedia language editions carry an article about them.
+        <b> That measures how widely someone is written about, not how good they are</b>, and it
+        favours people who have been famous longer.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th>Name</th><th>Born</th><th>Wikipedia languages</th></tr></thead>
+          <tbody>
+            {s.top.map((p: any) => (
+              <tr>
+                <td class="nm">{p.name}</td>
+                <td>{p.year ?? '—'}</td>
+                <td class="tot">{p.languages ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note fine">A dash means we hold no figure, not a zero.</p>
+    </section>
+  )}
+
+  <section class="notes">
+    <h2>Where these numbers come from, and what they do not say</h2>
+    <ul>
+      <li>
+        <b>Wikidata</b> — &ldquo;educated at&rdquo; (P69), South Korean citizenship, an
+        entertainment occupation. CC0. Someone who attended more than one school is counted at
+        each of them, so adding every school here gives a number larger than the number of people.
+      </li>
+    </ul>
+    <p class="note">
+      <b>A bigger count does not mean a better school.</b> It reflects how large the school is,
+      how long it has existed, and who happens to have a Wikidata entry — three things we hold no
+      way to separate. We do not rank schools and we do not suggest you pick one.
+    </p>
+    <p class="note">
+      <b>We count schools, not degrees.</b> Wikidata's field records that someone studied there.
+      It does not tell us whether they graduated, what they studied, or for how long, so neither
+      do we.
+    </p>
+    <p class="note fine">
+      We hold {data.schoolsSeen} schools in all. {data.schoolsNotListed} of them have fewer than
+      {' '}{data.minPeopleToList} people we could count, and we do not publish a page for those —
+      they are counted, not hidden.
+    </p>
+  </section>
+
+  <section class="onward">
+    <h3>Other schools we counted</h3>
+    <ul>
+      {[...이웃, ...큰곳].slice(0, 6).map((x) => (
+        <li><a href={`/school/${x.slug}`}>{x.name}</a>
+          <span class="fine"> &mdash; {수(x.people)}</span></li>
+      ))}
+    </ul>
+    <h3>Other ways into the same people</h3>
+    <ul class="walk">
+      <li><a href="/born-on">All 366 days of the year</a></li>
+      <li><a href="/actors-in-their/20s">By age band</a></li>
+      <li><a href="/star-sign/cancer">By star sign</a></li>
+      <li><a href="/most-read">The Korean names most people looked up this month</a></li>
+    </ul>
+  </section>
+</WikiTip>
