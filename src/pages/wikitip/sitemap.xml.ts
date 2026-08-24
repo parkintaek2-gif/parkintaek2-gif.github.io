@@ -505,6 +505,16 @@ export const GET: APIRoute = async () => {
     { path: '/born-in/october', priority: '0.8', changefreq: 'monthly' },
     { path: '/born-in/november', priority: '0.8', changefreq: 'monthly' },
     { path: '/born-in/december', priority: '0.8', changefreq: 'monthly' },
+    /* 2026-08-24 — 나이 묶음 지면. 재서 고른 축이다(`korean actors age` 자동완성
+       1번째·10줄이고 그 줄들이 age 40 · age 50 · age 20 이다). 자료는 이미 있었고
+       손님이 묻는 낱알만 없었다 — 같은 잘못을 오늘 두 번 했다(날/달 · title that charted).
+       ⛔ 열세 살 아래 묶음은 세지만 주소를 안 만든다. changefreq 가 yearly 인 까닭은
+          나이가 «해마다» 바뀌기 때문이다 — 지면에 기준 해를 박아 두었다 */
+    { path: '/actors-in-their/20s', priority: '0.8', changefreq: 'yearly' },
+    { path: '/actors-in-their/30s', priority: '0.8', changefreq: 'yearly' },
+    { path: '/actors-in-their/40s', priority: '0.8', changefreq: 'yearly' },
+    { path: '/actors-in-their/50s', priority: '0.8', changefreq: 'yearly' },
+    { path: '/actors-in-their/60s-and-over', priority: '0.8', changefreq: 'yearly' },
     { path: '/born-on', priority: '0.9', changefreq: 'monthly' },
     { path: '/born-on/01-01', priority: '0.7', changefreq: 'monthly' },
     { path: '/born-on/01-02', priority: '0.7', changefreq: 'monthly' },

@@ -50,6 +50,7 @@ import asked from '../../data/wikitip-asked.json';
 import 작품자료 from '../../data/wikitip-title-pages.json';
 import 생일자료 from '../../data/wikitip-birthday-pages.json';
 import 해자료 from '../../data/wikitip-years.json';
+import 나이자료 from '../../data/wikitip-age-bands.json';
 
 /*
  * 기사는 컬렉션에서 읽는다. 손으로 적으면 다음 기사 때 문을 안 낸다 —
@@ -169,6 +170,14 @@ const jsonLd = {
         <a href="/titles">Every Korean title that charted</a>
         <span class="cnt">{(작품자료.titles ?? []).length} titles including films,
           {' '}{작품자료.marketCount} markets</span>
+      </li>
+      <li>
+        {/* 🔴 2026-08-24 — 재서 붙인 줄이다(`korean actors age` 자동완성 1번째·10줄이고
+            그 줄들이 age 40 · age 50 · age 20 이다). 생일 축과 같은 사람들을 나이로 가른 것이다.
+            ⛔ 「40살」이라고 안 적는다 — 나이는 움직이는 수라 그 지면이 기준 해를 박고 있다 */}
+        <a href="/actors-in-their/30s">Korean actors by age band</a>
+        <span class="cnt">{나이자료.bands.filter((b: any) => b.listedOnSite).length} bands,
+          each with the birth years it covers</span>
       </li>
       <li>
         <a href="/where-to-watch">Where a title could actually be watched</a>
