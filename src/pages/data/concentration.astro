@@ -28,14 +28,29 @@ const dims = (cross as any).dims as Array<{ key: string; units: string; gini: nu
 const stockAsOf = (cross as any).stockAsOf as string;
 const tradeMonth = (cross as any).tradeMonth as string;
 const days = ((hist as any).days || []).length;
+const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : s);
 
+// Dataset 스키마 — 구글 데이터셋 검색(datasetsearch.google.com)용으로 강화.
+// 웹검색은 저권위로 못 뜨지만 데이터셋 검색은 경쟁이 얕아 니치 한국 데이터셋이 실제로 잡힐 여지가 크다.
+// license·keywords·spatialCoverage·측정기법·무료여부를 채워 색인 자격을 최대화한다(2026-08-24, 방문 올인).
 const datasetLd = {
   '@context': 'https://schema.org', '@type': 'Dataset',
-  name: 'Korea Concentration Index',
-  description: DESC, url: `${SITE_URL}/data/concentration`,
+  name: 'Korea Concentration Index — stock market and trade',
+  description: DESC,
+  url: `${SITE_URL}/data/concentration`,
+  keywords: ['Korea', 'South Korea', 'KOSPI', 'KOSDAQ', 'market concentration', 'Gini coefficient',
+    'stock market capitalisation', 'trading value', 'export partners', 'import partners', 'Korea trade',
+    'top-four share', 'Samsung weight'],
   creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique: 'Gini coefficient and top-four share computed across listed issues (Korea Exchange OPEN API) and partner countries (Korea Customs Service via KOSIS); scale-invariant shares only, no absolute price or dollar levels',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  dateModified: fmtDd(stockAsOf),
+  temporalCoverage: `${fmtDd(stockAsOf)}/${fmtDd(stockAsOf)}`,
   variableMeasured: ['market-cap Gini', 'trading-value Gini', 'export-partner Gini', 'import-partner Gini', 'top-four share'],
-  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE_URL}/data/korea-concentration.csv` }],
+  distribution: [{ '@type': 'DataDownload', name: 'Korea concentration daily series (CSV)', encodingFormat: 'text/csv', contentUrl: `${SITE_URL}/data/korea-concentration.csv` }],
 };
 
 // FAQPage 구조화데이터 — 아래 .faq 지면에 실제로 보이는 6개 Q&A와 문장이 일치해야 한다(구글 규칙).
@@ -63,7 +78,6 @@ const faqLd = {
   })),
 };
 const jsonLd = [datasetLd, faqLd];
-const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : s);
 ---
 
 <Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
