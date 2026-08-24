@@ -615,6 +615,23 @@ export const GET: APIRoute = async () => {
     { path: '/actors-in-their/40s', priority: '0.8', changefreq: 'yearly' },
     { path: '/actors-in-their/50s', priority: '0.8', changefreq: 'yearly' },
     { path: '/actors-in-their/60s-and-over', priority: '0.8', changefreq: 'yearly' },
+    /* 2026-08-24 밤 — 서양 별자리 12장. 오늘 밤 «세 번째» 같은 낱알 오류를 고친 것이다 —
+       `kpop zodiac signs` 자동완성 1번째·4줄인데 그 줄들이 cancer·taurus(서양 별자리)이고,
+       내 지면 /zodiac·/star-signs 는 둘 다 띠(해 단위)였다. 그 지면에 cancer 라는 말이 0번이었다.
+       ⛔ 점을 치지 않는다 — 열두 장 전부에 「우리는 이것이 무엇을 뜻하는지 말하지 않는다」와
+          1,047명으로 잰 반증(우연과 구별되지 않는다)을 붙였다. */
+    { path: '/star-sign/capricorn', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/aquarius', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/pisces', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/aries', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/taurus', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/gemini', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/cancer', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/leo', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/virgo', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/libra', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/scorpio', priority: '0.8', changefreq: 'monthly' },
+    { path: '/star-sign/sagittarius', priority: '0.8', changefreq: 'monthly' },
     { path: '/born-on', priority: '0.9', changefreq: 'monthly' },
     { path: '/born-on/01-01', priority: '0.7', changefreq: 'monthly' },
     { path: '/born-on/01-02', priority: '0.7', changefreq: 'monthly' },
