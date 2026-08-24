@@ -27,7 +27,18 @@ import KcwPanel from '../../components/KcwPanel.astro';
 const 서울 = d.cities[0];
 const 서울몫 = ((100 * 서울.count) / d.inBox).toFixed(0);
 
-const TITLE = 'Where Korea\'s most-read stars were born: 50 of 123 in Seoul, '
+/* 🔴 2026-08-25 — 「kpop idols hometown」을 제목에 넣었다. 이번 근거는 «자동완성»이 아니라
+   **우리 검색 실측**이다. 8/20~8/23 나흘 동안 사람이 실제로 친 말이 이랬다 —
+   ```
+     bts members from busan     2노출 · 자리 8.5
+     bts birthplaces            1노출 · 자리 8.0
+     bts who is from busan      1노출 · 자리 7.0
+     bts members city name      1노출 · 자리 11.0
+   ```
+   ⭐ 이미 7~11위로 «뜨고 있는데» 제목에 hometown 이라는 말이 없었다.
+   자동완성으로도 재니 `kpop idols hometown` 1번째, `bts members hometown` 1번째·4줄이다.
+   ⛔ 낱말을 끼운 것이 아니다 — 이 지면은 실제로 태어난 곳을 센 지면이다. */
+const TITLE = 'Kpop idols hometown: where Korea\'s most-read stars were born — 50 of 123 in Seoul, '
   + 'but not one BTS member';
 const DESC =
   `Go Youn-jung, Faker, IU and Lee Min-ho were all born in Seoul — ${서울.count} of the `
