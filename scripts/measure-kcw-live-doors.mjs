@@ -105,6 +105,17 @@ export function 모아세기(줄들, 문들) {
   return 표;
 }
 
+/**
+ * MSYS 경로 변환에 망가진 `--문` 값을 골라낸다.
+ * 🔴 이 자가 실제로 이것에 물렸다 — `--문=/community` 가 `C:/Program Files/Git/community`
+ *   로 바뀌어 「문 있음 0 · 없음 14」라는 **거짓 수**를 냈다. 거짓 수를 막으려고 만든 자가
+ *   거짓 수를 낸 것이다. 그래서 판단을 함수로 빼고 자가시험으로 굳힌다.
+ */
+export function 망가진문(문들) {
+  return (문들 ?? []).filter((f) => typeof f !== 'string'
+    || !f.startsWith('/') || /^[A-Za-z]:/.test(f) || f.includes('Program Files'));
+}
+
 /** 사람이 실제로 열어 본 지면을 열림 순으로. ⛔ 목록을 손으로 적지 않는다 */
 export function 온지면(dwell, 장수) {
   const 줄 = (dwell?.pages ?? []).filter((r) => (r.views ?? 0) > 0);
@@ -170,6 +181,13 @@ if (직접불렸나 && process.argv.includes('--selftest')) {
 
   참('기본문에 커뮤니티가 있다', 기본문.includes('/community'));
 
+  /* 🔴 MSYS 경로 변환 — 이 자가 실제로 이것에 물려 거짓 수를 냈다. 검사로 굳힌다 */
+  참('윈도 경로를 망가진 것으로 본다', 망가진문(['C:/Program Files/Git/community']).length === 1);
+  참('드라이브 글자를 잡는다', 망가진문(['D:/x']).length === 1);
+  참('슬래시로 시작하지 않으면 잡는다', 망가진문(['community']).length === 1);
+  참('제대로 된 주소는 통과', 망가진문(['/community', '/weeks']).length === 0);
+  참('빈 목록도 안 죽는다', 망가진문(null).length === 0);
+
   console.log(`라이브 문을 재는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -178,6 +196,22 @@ if (직접불렸나 && process.argv.includes('--잰다')) {
   const 장수 = Number(process.argv.find((a) => a.startsWith('--장수='))?.split('=')[1]) || 25;
   const 문들 = (process.argv.find((a) => a.startsWith('--문='))?.split('=')[1] ?? '')
     .split(',').map((s) => s.trim()).filter(Boolean);
+  /**
+   * 🔴 2026-08-24 — `--문=/community` 를 주었더니 Git Bash 의 MSYS 경로 변환이 그것을
+   *   `C:/Program Files/Git/community` 로 바꿨고, 이 자가 **「문 있음 0 · 없음 14」라는
+   *   거짓 수를 냈다.** 배포는 실제로 나갔는데 안 나간 것처럼 보였다.
+   * ⛔ 거짓 수를 내지 않으려고 만든 자가 거짓 수를 냈다. 다른 자에는 이미 있던 방어인데
+   *   새 자에 안 넣었다 — 「하나를 고치면 인용한 곳까지 따라간다」를 새 자에도 적용한다.
+   * ⛔ 되돌려 고쳐 주지 않는다. **멈춘다.** 잘못 되돌리면 남의 주소를 재게 된다.
+   */
+  const 망가진것 = 망가진문(문들);
+  if (망가진것.length) {
+    console.log('⛔ --문 값이 윈도 경로로 바뀌었다 — MSYS 경로 변환이다:');
+    for (const f of 망가진것) console.log(`   ${f}`);
+    console.log('   앞에 MSYS_NO_PATHCONV=1 을 붙이거나 PowerShell 에서 돌린다.');
+    console.log('   ⛔ 되돌려 고쳐 주지 않는다 — 잘못 되돌리면 남의 주소를 재게 된다.');
+    process.exit(1);
+  }
   const 볼문 = 문들.length ? 문들 : 기본문;
 
   const dwellp = path.join(ROOT, 'src', 'data', 'kcw-dwell.json');
