@@ -193,6 +193,43 @@ const jsonLd = {
     {t.lastWeek}. Its best position anywhere was
     {' '}<b>number {t.peak}</b>.
   </p>
+  {/*
+    🔴 2026-08-24 — **나라목록을앞으로.** 여기가 손님이 찾던 답이다.
+      실측: 지면 앞쪽 두 토막이 판박이 61%·58% 였고, 이 표는 아홉 칸 중 여섯째에 있었다.
+      「what countries can i watch behind your touch on netflix」·「18 again netflix countries」
+      처럼 **나라를 묻는 검색**이 이 지면에 닿는데, 답을 다섯 칸 뒤에 두고 있었다.
+    ⛔ 정의와 한계를 지우지 않았다 — 이 표 **바로 뒤**에 그대로 있다. 순서만 바꿨다.
+      답 → 한계 → 견주기. 답 없이 한계부터 읽히면 손님은 답을 못 보고 나간다.
+  */}
+  <section>
+    <h2>Where it charted — all {t.markets} {셈(t.markets, 'market')}</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Market</th><th>Places</th><th>Best position</th><th>First week</th><th>Last week</th></tr>
+        </thead>
+        <tbody>
+          {t.byMarket.map((m) => (
+            <tr>
+              <td class="nm">{시장주소.has(m.iso2)
+                ? <a href={`/market/${시장주소.get(m.iso2)}`}>{m.name}</a>
+                : m.name}</td>
+              <td class="tot">{m.places}</td>
+              <td>{m.peak}</td>
+              <td>{m.first}</td>
+              <td>{m.last}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <b>Markets are in alphabetical order, not in order of size.</b> A market name is a link only
+      where that country has a page of its own; the rest are plain text rather than a link that goes
+      nowhere.
+    </p>
+  </section>
+
   <p class="note lead-in"><b>What a place is.</b> {data.unit}</p>
 
   {/*
@@ -366,35 +403,12 @@ const jsonLd = {
     </section>
   )}
 
-  <section>
-    <h2>Where it charted — all {t.markets} {셈(t.markets, 'market')}</h2>
-    <div class="scroll-x">
-      <table>
-        <thead>
-          <tr><th>Market</th><th>Places</th><th>Best position</th><th>First week</th><th>Last week</th></tr>
-        </thead>
-        <tbody>
-          {t.byMarket.map((m) => (
-            <tr>
-              <td class="nm">{시장주소.has(m.iso2)
-                ? <a href={`/market/${시장주소.get(m.iso2)}`}>{m.name}</a>
-                : m.name}</td>
-              <td class="tot">{m.places}</td>
-              <td>{m.peak}</td>
-              <td>{m.first}</td>
-              <td>{m.last}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    <p class="note">
-      <b>Markets are in alphabetical order, not in order of size.</b> A market name is a link only
-      where that country has a page of its own; the rest are plain text rather than a link that goes
-      nowhere.
-    </p>
-  </section>
-
+  {/*
+    ⭐ 2026-08-24 — 「Where it charted」 칸을 **머리말 바로 아래로 옮겼다**(나라목록을앞으로).
+      까닭: 지면을 다섯 토막으로 갈라 재 보니 앞쪽 두 토막이 판박이 61%·58% 였고,
+      손님이 찾던 나라 목록은 아홉 칸 중 여섯째에 있었다. 답이 뒤에 있었다.
+    ⛔ 지운 것이 아니다. 위로 갔다. 여기서 찾지 말고 머리말 아래를 보라.
+  */}
   {t.byYear.length > 1 && (
     <section>
       <h2>Chart places by year</h2>
