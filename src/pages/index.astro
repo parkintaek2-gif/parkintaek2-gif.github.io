@@ -34,6 +34,15 @@ const jsonLd = {
       </p>
     </div>
 
+    {/* 무료 데이터 허브로 가는 눈에 띄는 링크 — 홈(최강 지면)의 권위를 허브로 보내고,
+        방문자에게 실수요 질문("how much of the KOSPI is Samsung" 등)을 그대로 노출한다.
+        2026-08-24 방문 올인: 내부링크 집중. */}
+    <a class="data-hub" href="/data/concentration">
+      <span class="dh-tag">Free data</span>
+      <span class="dh-body"><b>The Korea Concentration Index</b> — how much of the KOSPI is Samsung,
+      how many companies are listed, and who Korea trades with. Charts, a CSV and sources. →</span>
+    </a>
+
     <HomeCharts />
 
     {
@@ -65,3 +74,21 @@ const jsonLd = {
     </div>
   </div>
 </Base>
+
+<style>
+  .data-hub {
+    display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap;
+    margin: 0 0 1.4rem; padding: .8rem 1rem;
+    border: 1px solid var(--accent, #0f4c81);
+    border-left-width: 4px; border-radius: 6px;
+    text-decoration: none; color: inherit;
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .data-hub:hover { background: color-mix(in srgb, var(--accent, #0f4c81) 12%, transparent); }
+  .dh-tag {
+    font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; font-weight: 700;
+    color: #fff; background: var(--accent, #0f4c81); padding: .15rem .5rem; border-radius: 3px; white-space: nowrap;
+  }
+  .dh-body { font-size: .95rem; line-height: 1.5; }
+  .dh-body b { font-weight: 650; }
+</style>
