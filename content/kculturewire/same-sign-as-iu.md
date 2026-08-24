@@ -7,6 +7,7 @@ dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
 tags: ["wikipedia", "southeast asia", "stars", "zodiac", "method"]
 pages:
+  - "/community"
   - "/star-signs"
   - "/zodiac"
 sources:

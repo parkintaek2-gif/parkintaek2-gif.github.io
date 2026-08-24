@@ -8,6 +8,7 @@ dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["saju", "stars", "klifemap", "method", "kpop"]
 pages:
+  - "/community"
   - "/star-signs"
 sources:
   - org: "KLifeMap"

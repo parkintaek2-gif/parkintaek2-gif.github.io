@@ -8,6 +8,7 @@ dataAsOf: 2026-08-10T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "tradition", "saju", "measurement", "limits"]
 pages:
+  - "/community"
   - "/zodiac"
 sources:
   - org: "Wikidata"
