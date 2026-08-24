@@ -18,6 +18,7 @@
  *    API 가 영구 취소된다. `WikiTip.astro` 와 같은 이유다.
  */
 import { getCollection, render } from 'astro:content';
+import cardnewsData from '../../../data/wikitip-cardnews.json';
 import WikiTip from '../../../layouts/WikiTip.astro';
 import { 이웃표 } from '../../../lib/kcw-neighbours.mjs';
 
@@ -29,6 +30,10 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const d = entry.data;
+
+/* 이 기사의 카드뉴스. ⛔ 없으면 null 이고 아무것도 안 그린다 — 빈 상자는 없는 것만 못하다.
+   ⛔ 장수를 손으로 적지 않는다. build-kcw-cardnews-index.mjs 가 파일을 세어 적어 둔다 */
+const 카드뉴스 = (cardnewsData.sets ?? []).find((c) => c.set === entry.id) ?? null;
 const { Content } = await render(entry);
 
 /**
@@ -200,6 +205,41 @@ const jsonLd = {
     )}
 
     {/*
+      🔴🔴 2026-08-24 밤 — **카드뉴스 96벌 474장이 어느 지면에도 안 걸려 있었다.**
+      사장님 「방문자 늘리는 데 올인하라」로 세다가 오늘 밤 세 번째 같은 흠을 잡았다 —
+        ① 숏영상 21편   → VideoObject 스키마 0장
+        ② 숏영상 21편   → 비디오 사이트맵 9편
+        ③ 카드뉴스 96벌 → 지면에 0벌 · 사이트맵에 0벌   ← 여기다
+      사장님 지시(2026-08-13): 「이건 **외부유입용** 콘텐트 역할도 하고, 우리를 알리는 거니까」.
+      ⛔ 서버에 있는 것과 «걸린 것»은 다르다. 만든 값을 다 치르고 노출이 0이었다.
+      ⭐ 구글 이미지는 웹 검색과 다른 자리다. 474장이 그 자리에 하나도 없었다.
+
+      ⛔ 벌이 없는 기사는 아무것도 안 그린다(21편이 그렇다). 빈 상자는 없는 것만 못하다.
+      ⛔ 장수를 손으로 적지 않는다 — `build-kcw-cardnews-index.mjs` 가 파일을 세어 적는다.
+      ⚠ `loading="lazy"` 다. 다섯 장이 기사 맨 아래에 있으니 먼저 내려받을 까닭이 없다.
+    */}
+    {카드뉴스 && (
+      <section class="cardnews">
+        <h3>Take this away — {카드뉴스.sq.length + 카드뉴스.v.length} cards</h3>
+        <p class="note">
+          The figures in this article, as images. Free to repost with the address on them.
+        </p>
+        <div class="cards">
+          {카드뉴스.sq.map((n: number) => (
+            <img src={`/cardnews/${카드뉴스.set}-sq-${n}.png`} width="1080" height="1080"
+              loading="lazy" decoding="async"
+              alt={`${entry.data.title} — card ${n} of ${카드뉴스.sq.length}`} />
+          ))}
+          {카드뉴스.v.map((n: number) => (
+            <img src={`/cardnews/${카드뉴스.set}-v-${n}.png`} width="1080" height="1920"
+              loading="lazy" decoding="async"
+              alt={`${entry.data.title} — tall card ${n} of ${카드뉴스.v.length}`} />
+          ))}
+        </div>
+      </section>
+    )}
+
+    {/*
       ⛔ 광고 자리가 아니다. Riot Production(App 866800) 승인 전이라 광고는 아직 하나도 없다.
       ⛔ 60편에 같은 꼬리를 손으로 붙여 넣지 않는다 — 틀에 한 번 둔다.
       ⚠ 그래도 문구가 예순 편에 똑같이 뜨므로, **이 기사가 쓴 지면 이름**을 넣어 다르게 만든다.
@@ -225,6 +265,11 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+  /* 카드뉴스 — 한 줄로 늘어놓고 옆으로 민다. ⛔ 넘김 단추를 만들지 않는다(정적 지면이다) */
+  .cardnews { margin: 2.6rem 0; }
+  .cardnews .cards { display: flex; gap: .6rem; overflow-x: auto; padding-bottom: .5rem; }
+  .cardnews img { width: 200px; height: auto; border-radius: 8px; flex: 0 0 auto; background: #0e0c14; }
+
   .kicker { margin: 0 0 .4rem; font-size: .78rem; letter-spacing: .08em;
             text-transform: uppercase; color: var(--accent); font-weight: 700; }
   h1 { margin: 0 0 .6rem; font-size: 1.9rem; line-height: 1.25; letter-spacing: -.02em; }

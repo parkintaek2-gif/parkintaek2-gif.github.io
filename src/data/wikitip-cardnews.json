@@ -1,0 +1,1084 @@
+{
+  "generated": "2026-08-24T13:23:36.098Z",
+  "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
+  "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
+  "base": "/cardnews",
+  "sets": [
+    {
+      "set": "a-battle-in-vietnam",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "a-quarter-fewer-titles",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "a-third-of-what-travels-never-charts-at-home",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "a-title-is-not-a-key",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "a-weekly-top-ten-is-not-ten-titles",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "actors-and-idols-same-shape",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "ahn-sung-ki-in-one-language",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "born-in-the-first-three-months",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "bts-babymonster-four-lists",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "bts-first-in-vietnam-last-in-malay",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "bts-is-not-a-seoul-band",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "day-pillars-of-9249-korean-entertainers",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "eight-ways-we-have-been-wrong",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "film-and-series-share-people-but-less-than-chance",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "five-shows-and-one-reader",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "half-a-place",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "half-our-panel-cannot-be-verified",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "home-chart-is-not-a-gate",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "how-a-title-leaves",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "how-much-of-our-own-number-is-checked",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "it-moved-it-did-not-shrink",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "iu-at-15-go-youn-jung-at-23",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "iu-is-a-rooster-go-youn-jung-a-rat",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "iu-jungkook-karina-missing-birth-hour",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "iu-saju-water-in-all-twelve-hours",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "jay-b-is-a-thai-star",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "jay-park-outreads-2pm",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "jungkook-saju-structure-splits-five-ways",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "karina-saju-structure-settled-in-half-the-cases",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-challenger-win-rate",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-does-not-chart-it-first",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-exports-grew-viewing-did-not",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-ladder-games-played",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-music-outsells-television",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-tv-export-shift-tenure",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korea-webtoon-two-economies",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-actors-attention-flat",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-actors-more-titles-buys-a-floor",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-casting-barely-repeats-itself",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-films-leave-like-everyone-else",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-netflix-titles-one-body",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-series-travel-films-do-not",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-titles-climb",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "korean-titles-southeast-asia-all-or-nothing",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "kpop-attention-level-or-event",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "kpop-attention-top-is-actors",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "kpop-export-left-japan-behind",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "kpop-members-outdraw-their-groups",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "land-or-spread",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "middle-of-the-chart",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "most-korean-titles-never-leave-home",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "music-and-broadcast-exports-are-the-same-size",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "music-has-no-squid-game-and-is-more-concentrated-anyway",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "netflix-does-not-say-where-a-show-is-from",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "netflix-korean-catalogue-concentration",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "not-one-a-week",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "one-flaw-twelve-corrections",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "one-korean-slot",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "one-queue-not-a-signal",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "one-region-is-not-like-the-others",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "playing-at-home-predicts-being-looked-up-abroad",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "psy-is-in-97-languages",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "reach-and-the-actor",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "reaching-number-one-is-mostly-length",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "same-sign-as-iu",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "short-titles-are-where-we-cannot-check-ourselves",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "six-titles-or-forty-nine",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-69-per-cent-fall-we-did-not-publish",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-acts-our-k-pop-panel-cannot-see",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-broadcast-run-that-never-happened",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-busiest-are-film-people",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "the-charts-did-not-concentrate",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-decline-that-was-not-there",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-return-that-was-a-second-season",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-second-time-is-easier",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-share-that-did-not-grow",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-top-tier-is-where-players-stay",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "the-twentieth-title-travels-no-further",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "there-is-no-k-drama-season",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "three-actors-no-leader",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "three-companies-half-the-shelf",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "three-labour-markets-not-one",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "twenty-eight-webtoon-platforms",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "two-hops-from-squid-game",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": []
+    },
+    {
+      "set": "two-in-three-koreans",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "what-a-position-does-not-say",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "what-it-costs-to-be-top-300",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "what-recorded-cast-actually-means",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "what-share-of-korean-output-the-charts-touch",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "what-the-opening-position-buys",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "when-a-korean-title-is-widest",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "which-markets-only-take-the-big-ones",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "who-appears-in-nothing-else",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "who-makes-korean-pop-culture",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "women-in-korean-content-companies",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    },
+    {
+      "set": "young-firms-explain-some-of-it",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": []
+    }
+  ],
+  "setCount": 96,
+  "imageCount": 474,
+  "setsWithoutArticle": [],
+  "articlesWithoutCards": [
+    "a-label-outreads-the-capital",
+    "a-year-in-one-month",
+    "brands-are-not-one-thing",
+    "december-looking-june-quiet",
+    "half-life-two-months",
+    "indonesia-writes-it-down-first",
+    "it-was-one-game",
+    "k-pop-groups-travel-widest",
+    "malaysia-reads-the-label",
+    "no-one-to-compare-against",
+    "one-act-clears-the-footballer",
+    "one-title-is-the-median-career",
+    "one-title-out",
+    "the-ceiling-and-the-band",
+    "the-instrument-was-wrong-not-the-question",
+    "the-manager-is-read-where-he-was-hired",
+    "the-reference-shelf-is-emptying",
+    "the-wave-leaves-nothing",
+    "travel-pages-fell-culture-pages-didnt",
+    "vietnam-reads-a-different-korea",
+    "where-the-counting-stops"
+  ]
+}

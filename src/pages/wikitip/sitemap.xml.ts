@@ -9,6 +9,8 @@ import weekPages from '../../data/kcw-week-pages.json';
 /* 🔴 2026-08-24 밤 — 영상 21편 중 «9편만» 이 사이트맵에 있었다. 어느 벌에 실제로 잰
    썸네일이 있는지 자료에서 읽는다. ⛔ 없는 그림 주소를 사이트맵에 적지 않는다 */
 import videoData from '../../data/wikitip-video.json';
+/* 🔴 같은 날 밤 — 카드뉴스 96벌 474장도 사이트맵에 «0장»이었다. 파일을 세어 적어 둔 것을 읽는다 */
+import cardnewsData from '../../data/wikitip-cardnews.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -1104,6 +1106,29 @@ export const GET: APIRoute = async () => {
         title: a.data.title,
         caption: a.data.dek,
       },
+      /*
+        🔴🔴 2026-08-24 밤 — **카드뉴스 96벌 474장이 사이트맵에 «0장»이었다.**
+        만들어서 서버에 올려 놓고 구글에 한 번도 알린 적이 없다.
+        ⭐ 구글 이미지는 웹 검색과 «다른 자리»다. 474장이 그 자리에 하나도 없었다.
+        ⛔ 벌이 없는 기사는 빈 배열이라 아무것도 안 나간다(21편이 그렇다).
+        ⚠ 장수를 손으로 적지 않는다 — `build-kcw-cardnews-index.mjs` 가 파일을 세어 적는다.
+      */
+      images: (() => {
+        const c = (cardnewsData.sets ?? []).find((x: any) => x.set === a.id);
+        if (!c) return [];
+        return [
+          ...c.sq.map((n: number) => ({
+            loc: `${ORIGIN}/cardnews/${c.set}-sq-${n}.png`,
+            title: a.data.title,
+            caption: `Card ${n} of ${c.sq.length} — the figures from this article as an image.`,
+          })),
+          ...c.v.map((n: number) => ({
+            loc: `${ORIGIN}/cardnews/${c.set}-v-${n}.png`,
+            title: a.data.title,
+            caption: `Tall card ${n} of ${c.v.length} — the figures from this article as an image.`,
+          })),
+        ];
+      })(),
     });
   }
 
