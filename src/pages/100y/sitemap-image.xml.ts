@@ -132,6 +132,7 @@ export const GET: APIRoute = () => {
     { 지면: '/golf', 그림: '/og/golf.png', 제목: '나이대별 골프 참여율' },
     { 지면: '/workout', 그림: '/og/workout.png', 제목: '나이대별 헬스 참여율' },
     { 지면: '/cycling', 그림: '/og/cycling.png', 제목: '나이대별 자전거 참여율' },
+    { 지면: '/swimming', 그림: '/og/swimming.png', 제목: '나이대별 수영 참여율' },
     { 지면: '/nursery-fill', 그림: '/og/nursery-fill.png', 제목: '어린이집 정원 대비 현원' },
   );
 
