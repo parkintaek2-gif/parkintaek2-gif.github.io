@@ -106,13 +106,26 @@ if (내가실행됐다) {
   if (첫화면있다) 들어오는길.set('/', 0);
   const 볼것들 = [...파일들.map((f) => ({ 길: 주소(f), 파일: `${지음방}/${f}` }))];
   if (첫화면있다) 볼것들.push({ 길: '/', 파일: 첫화면파일 });
+  /*
+   * 🔴 2026-08-25 — **나가는 길도 같이 센다.** 왜 넓혔는지 적어 둔다.
+   * 사장님 지시는 「방문자«와 체류시간»에 올인」인데 이 자는 «들어오는» 길만 세고 있었다.
+   * 들어오는 길은 「찾아지나」를 말하고, **나가는 길은 「머무나」를 말한다.**
+   * 나가는 길이 0인 지면은 **막다른 골목**이다 — 읽고 나서 갈 데가 없으면 그냥 나간다.
+   * ⛔ 새 자를 만들지 않았다. 같은 링크를 이미 훑고 있어서 세는 김에 반대편도 센 것이다.
+   *   오늘 이미 두 번, «있는 지면»을 못 보고 새로 지으려 했다. 있는 자를 먼저 본다.
+   * ⚠ 나가는 길이 많다고 오래 머무는 것은 아니다. 이 자는 「갈 데가 있나」까지만 말한다 —
+   *   실제로 머무는지는 GA4(`measure-kcw-dwell.mjs`)로 따로 잰다. 둘을 같은 것으로 안 적는다.
+   */
+  const 나가는길 = new Map();
   for (const v of 볼것들) {
     const 나 = v.길;
     const 본것 = new Set(링크들(fs.readFileSync(v.파일, 'utf8')));
+    let 밖 = 0;
     for (const h of 본것) {
       if (h === 나) continue;                       /* ⛔ 자기 자신은 안 센다 */
-      if (들어오는길.has(h)) 들어오는길.set(h, 들어오는길.get(h) + 1);
+      if (들어오는길.has(h)) { 들어오는길.set(h, 들어오는길.get(h) + 1); 밖 += 1; }
     }
+    나가는길.set(나, 밖);
   }
 
   const 갈래 = (p) => (p.startsWith('/article/') ? '기사'
@@ -182,6 +195,41 @@ if (내가실행됐다) {
     const 하나 = a.filter((n) => n === 1).length;
     console.log(`${g.padEnd(12)} ${String(a.length).padStart(4)} ${String(가운데(a)).padStart(7)} ${String(영).padStart(9)} ${String(하나).padStart(10)}`);
   }
+
+  /*
+   * 🔴 **나가는 길** — 「머무나」쪽이다. 위의 표와 «반대 방향»이므로 따로 낸다.
+   * ⛔ 두 표를 같은 것으로 읽지 않는다. 들어오는 길 0 은 「아무도 못 찾는다」이고,
+   *   나가는 길 0 은 「읽고 나면 갈 데가 없다」다. 고치는 법도 다르다.
+   */
+  console.log('');
+  console.log(`지은 지면 ${파일들.length}장 — **나가는 길** 수 (막다른 골목 찾기)\n`);
+  console.log('갈래          장수   가운데   나갈 데 0   나갈 데 1~2');
+  const 나통 = new Map();
+  for (const [p, n] of 나가는길) {
+    const g = 갈래(p);
+    if (!나통.has(g)) 나통.set(g, []);
+    나통.get(g).push({ p, n });
+  }
+  const 막다른 = [];
+  for (const [g, a] of [...나통].sort((x, y) => y[1].length - x[1].length)) {
+    const 수들 = a.map((x) => x.n);
+    const 영 = a.filter((x) => x.n === 0);
+    const 적은 = a.filter((x) => x.n >= 1 && x.n <= 2);
+    막다른.push(...영, ...적은);
+    console.log(`${g.padEnd(12)} ${String(a.length).padStart(4)} ${String(가운데(수들)).padStart(7)}`
+      + ` ${String(영.length).padStart(9)} ${String(적은.length).padStart(11)}`);
+  }
+  if (막다른.length) {
+    막다른.sort((a, b) => a.n - b.n);
+    console.log('\n  나갈 데가 가장 적은 지면 —');
+    for (const x of 막다른.slice(0, 12)) {
+      console.log(`    ${String(x.n).padStart(2)}개  ${x.p}   (들어오는 길 ${들어오는길.get(x.p) ?? 0})`);
+    }
+  } else {
+    console.log('\n  ✅ 나갈 데가 두 개 이하인 지면이 없다');
+  }
+  console.log('\n  ⚠ 나갈 데가 있다는 것과 «실제로 눌린다»는 것은 다른 말이다.');
+  console.log('     눌리는지는 GA4 로 따로 잰다 — 이 자는 「갈 데가 있나」까지만 말한다.');
 
   /* 색인된 작품 지면과 안 된 것을 맞대 본다 */
   const 색인 = ['stepmom', 'seoul-vibe', 'project-y', 'bad-guys', 'the-way-back', 'one-on-one',

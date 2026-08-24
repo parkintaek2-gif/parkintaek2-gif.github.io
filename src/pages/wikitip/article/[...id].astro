@@ -151,6 +151,28 @@ const jsonLd = {
       </aside>
     )}
 
+    {/*
+      🔴 2026-08-25 새벽 — **나갈 길 하나를 본문 «위»로 올린다.** 왜인지 재서 적는다.
+      GA4 로 재니 이렇다 —
+      ```
+        세션 137 · 걸음 1.26장/세션 · 두 번째 걸음을 «잃은» 세션 102 (74%)
+        기사 지면은 거의 다 1.00 — 두 번째 클릭이 아예 없다
+      ```
+      ⛔ 처음엔 「갈 데가 없어서」라고 생각했다. 그래서 나가는 길을 세어 봤더니 —
+        **막다른 골목이 0장**이고 지면마다 나갈 데가 가운데 18~42개였다. 길은 많았다.
+      ⭐ 그래서 «어디에» 있는지를 쟀다. 기사 8,623자 중 링크 29개인데
+        **윗절반에는 6개뿐**이고 나머지는 다 아래에 몰려 있었다.
+        끝까지 안 읽는 사람은 나갈 길을 «본 적이 없다».
+      그래서 자료 지면 하나를 머리에 올린다. ⛔ 링크 뭉치를 올리지 않는다 — 한 줄이다.
+      ⚠ 이것으로 걸음이 늘지는 «아직 모른다». 올리는 것과 눌리는 것은 다른 말이다 —
+        9/1 에 같은 자(`measure-kcw-dwell.mjs`)로 다시 재서 1.26 이 움직였는지 본다.
+    */}
+    {d.pages.length > 0 && (
+      <p class="jump">
+        The table this is written from: <a href={d.pages[0]}>{d.pages[0]}</a>
+      </p>
+    )}
+
     <div class="body"><Content /></div>
 
     <section class="notes">
@@ -274,6 +296,10 @@ const jsonLd = {
             text-transform: uppercase; color: var(--accent); font-weight: 700; }
   h1 { margin: 0 0 .6rem; font-size: 1.9rem; line-height: 1.25; letter-spacing: -.02em; }
   .dek { margin: 0 0 1rem; font-size: 1.06rem; color: var(--muted); }
+  /* 본문 «위»의 나갈 길 한 줄. 눈에 띄되 기사보다 커 보이지 않게 — 광고가 아니라 안내다 */
+  .jump { margin: 0 0 1.2rem; padding: .45rem .7rem; font-size: .93rem;
+    border-left: 3px solid var(--rule, #b45309); color: var(--muted); }
+  .jump a { font-weight: 600; }
   .byline { margin: 0 0 2rem; font-size: .84rem; color: var(--muted);
             padding-bottom: 1.25rem; border-bottom: 1px solid var(--line); }
   .asof { display: block; margin-top: .2rem; }
