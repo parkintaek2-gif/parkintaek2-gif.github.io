@@ -1,0 +1,510 @@
+{
+  "site": "sc-domain:klifemap.ai",
+  "dimension": "page",
+  "window": {
+    "from": "2026-07-24",
+    "to": "2026-08-21",
+    "days": 28
+  },
+  "rowLimit": 500,
+  "rows": [
+    {
+      "key": "https://klifemap.ai/",
+      "impressions": 5,
+      "clicks": 3,
+      "position": 2
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-14",
+      "impressions": 7,
+      "clicks": 1,
+      "position": 17.142857142857142
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-16",
+      "impressions": 6,
+      "clicks": 1,
+      "position": 6.166666666666667
+    },
+    {
+      "key": "https://klifemap.ai/ai-intelligence.html",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "https://klifemap.ai/api.html",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 3.6666666666666665
+    },
+    {
+      "key": "https://klifemap.ai/content",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 6.714285714285714
+    },
+    {
+      "key": "https://klifemap.ai/content/career-001",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 12.5
+    },
+    {
+      "key": "https://klifemap.ai/content/career-002",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10.333333333333334
+    },
+    {
+      "key": "https://klifemap.ai/content/career-003",
+      "impressions": 11,
+      "clicks": 0,
+      "position": 34.36363636363637
+    },
+    {
+      "key": "https://klifemap.ai/content/career-004",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "https://klifemap.ai/content/career-005",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "https://klifemap.ai/content/career-006",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "https://klifemap.ai/content/career-008",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 10.625
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-chilsal",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-insu",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 16.333333333333336
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-jeonggwan",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-rokgeop",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 16
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-sanggwan",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 6.8
+    },
+    {
+      "key": "https://klifemap.ai/content/gyeok-siksin",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 14
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-01",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-02",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-05",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-09",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-11",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 86
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-12",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-14",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-2026-08-16",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-01",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 7.25
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-02",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 2.666666666666667
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-03",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-04",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-05",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 8.25
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-06",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 21.333333333333332
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-07",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-08",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 34.75
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-09",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-10",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 6.875
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-11",
+      "impressions": 14,
+      "clicks": 0,
+      "position": 6.428571428571429
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-12",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 4.166666666666666
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-13",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 6.333333333333333
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-14",
+      "impressions": 22,
+      "clicks": 0,
+      "position": 5.863636363636363
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-ilju-2026-08-16",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 5.571428571428571
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-01",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-05",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-06",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-11",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-12",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://klifemap.ai/content/myth-daeun-graph",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 19
+    },
+    {
+      "key": "https://klifemap.ai/content/myth-jintaeyangsi-why",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://klifemap.ai/content/myth-sonepneunnal",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "https://klifemap.ai/content/myth-why-japyeongjinjeon",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 26.5
+    },
+    {
+      "key": "https://klifemap.ai/content/myth-wonjinsal",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "https://klifemap.ai/content/naming-stroke-count-differs",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 7.25
+    },
+    {
+      "key": "https://klifemap.ai/content/open-event-2026-08-15",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-moving-2026-08",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-moving-2026-09",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 6.4
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-moving-2026-10",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-opening-2026-08",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 6.4
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-opening-2026-10",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://klifemap.ai/content/taekil-wedding-2026-12",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "https://klifemap.ai/content?lang=en",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://klifemap.ai/content?page=2",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 6.5
+    },
+    {
+      "key": "https://klifemap.ai/content?pillar=notice",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://klifemap.ai/ilzin.html?from=smk&at=macro",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "https://klifemap.ai/intelligence.html?lang=en",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 97
+    },
+    {
+      "key": "https://klifemap.ai/mansecalendar.html",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "https://klifemap.ai/mingli-sungmyung.html",
+      "impressions": 49,
+      "clicks": 0,
+      "position": 7.612244897959184
+    },
+    {
+      "key": "https://klifemap.ai/mingli-taekil.html",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "https://klifemap.ai/mingli-taekil.html?lang=en",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "https://klifemap.ai/refund.html",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://klifemap.ai/saju.html",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 40.75
+    },
+    {
+      "key": "https://klifemap.ai/saju.html?lang=en",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "https://klifemap.ai/saju.html?lang=ja",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "https://www.klifemap.ai/content/career-008",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 13
+    },
+    {
+      "key": "https://www.klifemap.ai/content/ilzin-ilju-2026-08-05",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://www.klifemap.ai/content/ilzin-ilju-2026-08-08",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://www.klifemap.ai/content/ilzin-ilju-2026-08-09",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "https://www.klifemap.ai/content/ilzin-ilju-2026-08-13",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://www.klifemap.ai/content/ilzin-wol-ttee-2026-08-10",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "https://www.klifemap.ai/content/myth-sibiunseong",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://www.klifemap.ai/content/naming-stroke-count-differs",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://www.klifemap.ai/content/taekil-moving-2026-05",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://www.klifemap.ai/terms.html",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    }
+  ]
+}

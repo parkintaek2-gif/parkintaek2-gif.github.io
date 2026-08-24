@@ -1,0 +1,133 @@
+{
+  "site": "klifemap.ai",
+  "property": "549135289",
+  "days": 28,
+  "note": "GA4 totalUsers by pagePath, host contains klifemap.ai, to yesterday",
+  "rows": [
+    {
+      "path": "/",
+      "users": 42,
+      "views": 75
+    },
+    {
+      "path": "/saju.html",
+      "users": 17,
+      "views": 78
+    },
+    {
+      "path": "/login.html",
+      "users": 14,
+      "views": 42
+    },
+    {
+      "path": "/pricing.html",
+      "users": 11,
+      "views": 26
+    },
+    {
+      "path": "/checkout.html",
+      "users": 7,
+      "views": 38
+    },
+    {
+      "path": "/refund.html",
+      "users": 7,
+      "views": 12
+    },
+    {
+      "path": "/index.html",
+      "users": 6,
+      "views": 29
+    },
+    {
+      "path": "/mingli-taekil.html",
+      "users": 5,
+      "views": 7
+    },
+    {
+      "path": "/dashboard.html",
+      "users": 4,
+      "views": 11
+    },
+    {
+      "path": "/terms.html",
+      "users": 4,
+      "views": 14
+    },
+    {
+      "path": "/ilzin.html",
+      "users": 2,
+      "views": 8
+    },
+    {
+      "path": "/inquiry.html",
+      "users": 2,
+      "views": 2
+    },
+    {
+      "path": "/intelligence.html",
+      "users": 2,
+      "views": 5
+    },
+    {
+      "path": "/,02_product_saju|https://klifemap.ai/saju.html,03_pricing|https://klifemap.ai/pricing.html,04_refund|https://klifemap.ai/refund.html,05_terms|https://klifemap.ai/terms.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/about.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/admin",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/ai-report.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/cards.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/daily.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/index.html/f369db37882c5dec063011",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/mansecalendar.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/mingli-gunghap.html",
+      "users": 1,
+      "views": 2
+    },
+    {
+      "path": "/mingli-sungmyung.html",
+      "users": 1,
+      "views": 4
+    },
+    {
+      "path": "/reviews.html",
+      "users": 1,
+      "views": 1
+    },
+    {
+      "path": "/signup.html",
+      "users": 1,
+      "views": 1
+    }
+  ]
+}
