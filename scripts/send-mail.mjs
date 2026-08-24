@@ -50,6 +50,71 @@ export const 보내는주소 = process.env.MAIL_FROM ?? 'cs@klifedesign.net';
 export const 보내는이름 = 'K Culture Wire';
 export const 갈래 = 'https://www.googleapis.com/auth/gmail.send';
 
+/**
+ * 가르는 데 쓸 **기준 주소** — 실제로 있는 것이 확실한 주소여야 한다.
+ * ⚠ 내 자리 주소(u5@)를 쓴다. 이 주소로 로그인해 일하고 있으니 존재가 확실하다.
+ * ⛔ 이 주소로 메일을 보내지 않는다. 토큰을 청해 보는 데만 쓴다.
+ */
+export const 기준주소 = process.env.MAIL_PROBE ?? 'u5@klifedesign.net';
+
+/**
+ * ⭐ 구글이 준 «오류 글자»를 읽는다.
+ *
+ * 2026-08-24 에 두 주소로 토큰을 청해 보니 구글이 **서로 다른 말**을 돌려줬고,
+ * 그 글자에 답이 들어 있었다 —
+ *
+ *   `cs@klifedesign.net` → `Invalid email or User ID`
+ *       ⇒ 그 주소가 Workspace 사용자가 아니다(별칭이거나 없다)
+ *   `u5@klifedesign.net` → `Client is unauthorized to retrieve access tokens using this method`
+ *       ⇒ 클라이언트 ID 가 도메인 전체 위임에 없다
+ *
+ * 🔴 그래서 **둘이 동시에 막혀 있었다.** 「둘 중 하나」가 아니라 둘 다였다.
+ *   위임만 켜도 `cs@` 로는 여전히 못 보낸다 — 그것을 미리 말해야 사장님이 두 번 안 하신다.
+ * ⛔ 모르는 글자를 아는 척하지 않는다 — 못 알아보면 `'모름'` 이다.
+ * ⛔ 「위임이없다」가 「주소가없다」를 덮지 않는다 — 둘이 같이 올 수 있으므로 주소를 먼저 본다.
+ */
+export function 오류글읽기(글) {
+  const t = String(글 ?? '');
+  if (!t.trim()) return '없다';
+  if (/Invalid email or User ID/i.test(t)) return '주소가없다';
+  if (/unauthorized|not authorized/i.test(t)) return '위임이없다';
+  if (/scope/i.test(t)) return '범위가모자라다';
+  return '모름';
+}
+/**
+ * 두 주소의 토큰 결과로 **무엇이 막혔는지 가린다.**
+ *
+ * 🔴 왜 필요한가 — 구글이 둘 다 `invalid_grant` 로만 답할 때가 있다. 그래서 이 자는 오래
+ *   「위임안됨-또는-주소없음 (둘 중 하나 · 여기서는 못 가린다)」로 적어 왔다.
+ *   정직했지만 사장님이 무엇을 하실지 정하기에는 모자랐다.
+ * ⭐ 실제로 있는 주소(기준)로도 청해 보면 갈린다. 권한을 더 얻지 않아도 된다.
+ * ⛔ 짐작으로 한쪽을 고르지 않는다. 두 결과가 다 있어야 판정한다 —
+ *   하나만 있으면 「못 가렸다」다.
+ * ⚠ 이 판정은 «됐나/안 됐나» 만 본다. 더 자세한 것은 `오류글읽기` 가 글자에서 읽는다.
+ */
+export function 가름판정(보낼주소됐나, 기준주소됐나) {
+  if (typeof 보낼주소됐나 !== 'boolean' || typeof 기준주소됐나 !== 'boolean') {
+    return { 꼴: '못가렸다', 말: '두 결과가 다 있어야 가린다' };
+  }
+  if (보낼주소됐나 && 기준주소됐나) {
+    return { 꼴: '위임됐다', 말: '위임이 걸렸고 보낼 주소도 실제 사용자다 — 이제 보낼 수 있다' };
+  }
+  if (!보낼주소됐나 && 기준주소됐나) {
+    return {
+      꼴: '주소없다',
+      말: '위임은 걸려 있다. 보낼 주소가 이 Workspace 의 실제 사용자가 아니다'
+        + ' (별칭이거나 없다). 실제 사용자 주소로 MAIL_FROM 을 바꾼다',
+    };
+  }
+  if (보낼주소됐나 && !기준주소됐나) {
+    /* ⚠ 이 꼴은 뜻밖이다 — 기준 주소가 틀렸을 수 있다. 단정하지 않는다 */
+    return { 꼴: '기준이수상하다', 말: '보낼 주소는 되는데 기준 주소가 안 된다 — 기준 주소를 다시 고른다' };
+  }
+  return {
+    꼴: '위임안됐다',
+    말: '두 주소 다 안 된다 — 클라이언트 ID 가 도메인 전체 위임에 아직 없다',
+  };
+}
 /** ⛔ 자리표를 실제 주소로 착각하지 않는다 */
 export function 받을만한주소인가(주소) {
   const s = String(주소 ?? '').trim();
@@ -179,6 +244,33 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   참('보내는 주소가 admin@ 이 아니다', !보내는주소.startsWith('admin@'));
   참('읽기가 아니라 보내기 갈래를 청한다', 갈래.endsWith('gmail.send'));
 
+  /* 🔴 두 경우를 가리는 판단 — 사장님께 「못 가린다」고 말씀드린 그 자리다 */
+  참('둘 다 되면 위임됐다', 가름판정(true, true).꼴 === '위임됐다');
+  참('둘 다 안 되면 위임이 안 걸린 것', 가름판정(false, false).꼴 === '위임안됐다');
+  참('기준만 되면 그 주소가 없는 것', 가름판정(false, true).꼴 === '주소없다');
+  참('보낼 것만 되면 기준이 수상한 것', 가름판정(true, false).꼴 === '기준이수상하다');
+  /* ⛔ 하나만 있으면 가리지 않는다 — 짐작으로 한쪽을 고르면 사장님이 헛일을 하신다 */
+  참('결과가 하나면 못 가렸다', 가름판정(true, null).꼴 === '못가렸다');
+  참('결과가 없으면 못 가렸다', 가름판정(undefined, undefined).꼴 === '못가렸다');
+  참('글자를 참으로 안 본다', 가름판정('true', 'true').꼴 === '못가렸다');
+  참('판정마다 무엇을 할지 적혀 있다',
+    ['위임됐다', '위임안됐다', '주소없다', '기준이수상하다']
+      .every((k) => [가름판정(true, true), 가름판정(false, false), 가름판정(false, true),
+        가름판정(true, false)].some((r) => r.꼴 === k && (r.말 ?? "").length > 20)));
+  /* 🔴 구글이 준 글자를 읽는다 — 두 주소가 서로 다른 말을 돌려줬다(2026-08-24) */
+  참('주소가 없다는 말을 알아본다', 오류글읽기('Invalid email or User ID') === '주소가없다');
+  참('위임이 없다는 말을 알아본다',
+    오류글읽기('Client is unauthorized to retrieve access tokens using this method') === '위임이없다');
+  참('범위가 모자란 말을 알아본다', 오류글읽기('invalid_scope: bad scope') === '범위가모자라다');
+  참('빈 글은 없다', 오류글읽기('') === '없다');
+  참('빈 값도 안 죽는다', 오류글읽기(null) === '없다');
+  참('모르는 글자는 모름이다', 오류글읽기('something else entirely') === '모름');
+  /* ⛔ 「위임이없다」가 「주소가없다」를 덮지 않는다 — 둘이 같이 올 수 있다 */
+  참('주소 말이 위임 말보다 먼저다',
+    오류글읽기('Invalid email or User ID; client unauthorized') === '주소가없다');
+
+  참('기준 주소가 보낼 주소와 다르다', 기준주소 !== 보내는주소);
+
   console.log(`메일 보내는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -191,12 +283,16 @@ if (내가실행됐다) {
   }
   const 키 = JSON.parse(readFileSync(키파일, 'utf8'));
 
-  const jwt만들기 = () => {
+  /**
+   * 🔴 `sub` 를 인자로 받게 고쳤다 — 두 주소로 청해 봐야 **무엇이 막혔는지 가려진다.**
+   *   고정해 두면 `invalid_grant` 하나만 보고 끝나서 사장님께 「둘 중 하나」밖에 못 드린다.
+   */
+  const jwt만들기 = (대신할주소 = 보내는주소) => {
     const 지금 = Math.floor(Date.now() / 1000);
     const h = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
     /* ⭐ `sub` 가 도메인 위임의 핵심이다 — 「이 사람을 대신해서」라는 뜻 */
     const b = Buffer.from(JSON.stringify({
-      iss: 키.client_email, sub: 보내는주소, scope: 갈래,
+      iss: 키.client_email, sub: 대신할주소, scope: 갈래,
       aud: 'https://oauth2.googleapis.com/token', iat: 지금, exp: 지금 + 3600,
     })).toString('base64url');
     return `${h}.${b}.${createSign('RSA-SHA256').update(`${h}.${b}`).sign(키.private_key, 'base64url')}`;
@@ -213,6 +309,100 @@ if (내가실행됐다) {
     console.log(`   구글이 준 말: ${String(글).slice(0, 260)}`);
     console.log('\n⛔ 이것은 「보냈다」가 아니다. **아직 못 보낸 것**이다.');
   };
+  /**
+   * ⭐ `--가린다` — **토큰만 청해서 무엇이 막혔는지 가린다. 메일은 안 보낸다.**
+   *   사장님께 「제 자가 두 경우를 못 가립니다」라고 말씀드린 그 자리를 메운다.
+   * ⛔ 짐작으로 한쪽을 고르지 않는다. 두 주소를 다 청해 보고 `가름판정` 이 정한다.
+   */
+  if (process.argv.includes('--가린다')) {
+    const 청해보기 = async (주소) => {
+      try {
+        const r = await fetch('https://oauth2.googleapis.com/token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({
+            grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+            assertion: jwt만들기(주소),
+          }),
+        });
+        const j = await r.json();
+        return { 됐나: !!j.access_token, 말: j.error_description ?? j.error ?? '' };
+      } catch (e) { return { 됐나: false, 말: `그물이 막혔다: ${e.message}` }; }
+    };
+
+    console.log(`도메인 위임을 가린다 — 메일은 **안 보낸다**, 토큰만 청한다`);
+    console.log(`  클라이언트 ID : ${키.client_id ?? '(키파일에 없다)'}`);
+    console.log(`  범위          : ${갈래}`);
+    console.log(`  보낼 주소     : ${보내는주소}`);
+    console.log(`  기준 주소     : ${기준주소}  (실제로 있는 것이 확실한 주소)\n`);
+
+    const 보낼것 = await 청해보기(보내는주소);
+    const 기준것 = await 청해보기(기준주소);
+    console.log(`  ${보내는주소.padEnd(28)} ${보낼것.됐나 ? '✅ 토큰 받았다' : '🔴 못 받았다'}`
+      + (보낼것.말 ? `  (${보낼것.말})` : ''));
+    console.log(`  ${기준주소.padEnd(28)} ${기준것.됐나 ? '✅ 토큰 받았다' : '🔴 못 받았다'}`
+      + (기준것.말 ? `  (${기준것.말})` : ''));
+
+    const 판 = 가름판정(보낼것.됐나, 기준것.됐나);
+    const 표 = { 위임됐다: '✅', 위임안됐다: '🔴', 주소없다: '🔴', 기준이수상하다: '⚠', 못가렸다: '⚠' };
+    console.log(`\n${표[판.꼴] ?? '⚠'} ${판.꼴} — ${판.말}`);
+
+    /**
+     * ⭐ 구글이 준 글자까지 읽는다 — 「둘 다 안 된다」 안에 **서로 다른 두 문제**가
+     *   숨어 있을 수 있다. 2026-08-24 에 실제로 그랬다.
+     * ⛔ 하나만 말하면 사장님이 위임을 켜신 뒤에도 안 되어 두 번 하시게 된다.
+     */
+    const 보낼왜 = 오류글읽기(보낼것.말);
+    const 기준왜 = 오류글읽기(기준것.말);
+    const 할일 = [];
+    if (보낼왜 === '위임이없다' || 기준왜 === '위임이없다') {
+      할일.push({
+        무엇: '위임이 안 걸려 있다',
+        어디: 'admin.google.com/ac/owl/domainwidedelegation → 「새로 추가」',
+        값: `클라이언트 ID ${키.client_id} · 범위 ${갈래}`,
+      });
+    }
+    if (보낼왜 === '주소가없다') {
+      할일.push({
+        무엇: `${보내는주소} 가 Workspace 실제 사용자가 아니다(별칭이거나 없다)`,
+        어디: 'admin.google.com/ac/users 에서 그 이름을 찾아 «사용자»인지 본다',
+        값: '실제 사용자 주소를 .env 의 MAIL_FROM 에 넣는다',
+      });
+    }
+    if (기준왜 === '범위가모자라다' || 보낼왜 === '범위가모자라다') {
+      할일.push({ 무엇: '위임 범위가 모자라다', 어디: '같은 화면에서 그 줄을 고친다', 값: `범위 ${갈래}` });
+    }
+
+    if (할일.length) {
+      console.log(`\n## 막힌 것이 ${할일.length}가지다 — ⛔ 하나만 고치면 여전히 안 된다`);
+      할일.forEach((h, n) => {
+        console.log(`\n  ${n + 1}) ${h.무엇}`);
+        console.log(`     어디: ${h.어디}`);
+        console.log(`     값  : ${h.값}`);
+      });
+    }
+    if (보낼왜 === '모름' || 기준왜 === '모름') {
+      console.log('\n⚠ 구글이 준 글자 중 **내가 못 알아본 것**이 있다 — 아는 척하지 않는다:');
+      if (보낼왜 === '모름') console.log(`   ${보내는주소}: ${보낼것.말}`);
+      if (기준왜 === '모름') console.log(`   ${기준주소}: ${기준것.말}`);
+    }
+
+    if (판.꼴 === '위임안됐다') {
+      console.log('\n사장님이 누르실 자리 —');
+      console.log('  ① admin.google.com/ac/owl/domainwidedelegation');
+      console.log('  ② 「새로 추가」');
+      console.log(`  ③ 클라이언트 ID: ${키.client_id}`);
+      console.log(`     OAuth 범위  : ${갈래}`);
+      console.log('  ④ 「승인」');
+    }
+    if (판.꼴 === '주소없다') {
+      console.log('\n할 것 — 위임은 됐다. 보낼 주소를 실제 사용자로 바꾼다:');
+      console.log('  admin.google.com/ac/users 에서 그 이름을 찾아 «사용자»인지 본다');
+      console.log('  실제 사용자 주소를 .env 의 MAIL_FROM 에 넣는다');
+    }
+    console.log('\n⛔ 이 갈래는 메일을 보내지 않았다. 보내려면 --보낸다 를 준다.');
+    process.exit(판.꼴 === '위임됐다' ? 0 : 1);
+  }
 
   console.log(`메일 — 보내는 주소 ${보내는주소} · 서비스 계정 ${키.client_email}`);
 
