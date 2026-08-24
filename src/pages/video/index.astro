@@ -1,0 +1,85 @@
+---
+/**
+ * /video — 세로 숏영상 갤러리.
+ *
+ * 왜(2026-08-24, 방문 올인): 영상은 지금 가장 센 방문 축이다(5번 총괄 실측: 영상 2편 = 28일 웹클릭의 5배).
+ * 51편을 기사마다 흩어 두면 사람이 한자리에서 못 본다. 이 지면이 (1)사람이 훑는 갤러리(체류),
+ * (2)영상 있는 51개 기사로 가는 내부링크 허브(얕은 권위를 모아 분배), (3)색인되는 지면 하나가 된다.
+ * make-video-seoulmarkets.mjs 도 "video 지면에 링크해 배포한다"고 적어 두었다.
+ */
+import fs from 'node:fs';
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import { publishedArticles } from '../../lib/articles';
+import { categoryLabel } from '../../lib/format';
+
+const all = await publishedArticles();
+const withVideo = all.filter(
+  (a) => fs.existsSync(`public/video/${a.id}.mp4`) && fs.existsSync(`public/cardnews/${a.id}-1.png`),
+);
+
+const TITLE = 'Korean market data in 20 seconds — SeoulMarkets video';
+const DESC = `Short vertical videos on Korea's stock market, trade and economy — ${withVideo.length} clips, each built straight from official Korean data. Silent, 20 seconds. Not investment advice.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/video`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+  hasPart: withVideo.slice(0, 50).map((a) => ({
+    '@type': 'VideoObject',
+    name: a.data.title.slice(0, 100),
+    description: a.data.dek,
+    thumbnailUrl: [`${SITE_URL}/cardnews/${a.id}-1.png`],
+    uploadDate: (a.data.pubDate as Date).toISOString(),
+    contentUrl: `${SITE_URL}/video/${a.id}.mp4`,
+    embedUrl: `${SITE_URL}/article/${a.id}`,
+  })),
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="vhead">
+      <p class="kicker">SeoulMarkets · video</p>
+      <h1>Korean markets, in 20 seconds</h1>
+      <p>
+        Every clip is one story from our desk, built straight from official Korean data — the same
+        figures as the written piece, with a link to it. Silent, vertical, {withVideo.length} in all.
+        No tips, no targets. Not investment advice.
+      </p>
+    </div>
+
+    <ul class="vgrid">
+      {
+        withVideo.map((a) => (
+          <li class="vcard">
+            <a href={`/article/${a.id}`}>
+              <img src={`/cardnews/${a.id}-1.png`} alt={a.data.title} loading="lazy" width="216" height="270" />
+              <span class="vcat">{categoryLabel(a.data.category)}</span>
+              <span class="vtitle">{a.data.title}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .vhead { max-width: 46rem; margin: 1.4rem 0 1.6rem; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent, #0f4c81);
+            font-weight: 700; margin: 0 0 .3rem; }
+  .vhead h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .vhead p { font-size: 1rem; line-height: 1.65; color: var(--ink-2, var(--ink)); margin: 0; }
+  .vgrid { list-style: none; padding: 0; margin: 0; display: grid;
+           grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.1rem; }
+  .vcard a { display: block; text-decoration: none; color: inherit; }
+  .vcard img { width: 100%; height: auto; border-radius: 8px; background: #0d1420; display: block; }
+  .vcat { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .06em;
+          color: var(--accent, #0f4c81); font-weight: 700; margin: .5rem 0 .1rem; }
+  .vtitle { display: block; font-size: .88rem; line-height: 1.35; }
+  .vcard a:hover .vtitle { text-decoration: underline; }
+</style>

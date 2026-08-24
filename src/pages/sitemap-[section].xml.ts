@@ -54,6 +54,8 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/privacy', changefreq: 'monthly', priority: '0.3' },
       // 데이터 랭킹 지면 — 검색 유입 가치가 있는데 사이트맵에 빠져 있었다(손님 걸음 2026-08-07 실측).
       { loc: '/rankings', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
+      // 영상 갤러리 — 세로 숏영상 51편을 한자리에. 구글 비디오 축 + 체류(2026-08-24 방문 올인).
+      { loc: '/video', lastmod: newest, changefreq: 'weekly', priority: '0.7' },
       // 데이터 상품 지면들 — 기업이 살 「주소」다. 검색 유입이 곧 영업. 5장이 사이트맵에 0개였다(56316, 2026-08-09).
       { loc: '/data', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/sector-workforce-panel', changefreq: 'weekly', priority: '0.8' },
