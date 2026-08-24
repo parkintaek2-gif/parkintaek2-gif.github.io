@@ -1,4 +1,4 @@
-# 채널 문안 — Netflix never says where a show is from. Every count of Korean content on it is an inference — including ours.
+# 채널 문안 — Netflix never says where a show is from — our counts are inferences too
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/netflix-does-not-say-where-a-show-is-from
 
 ## Threads
 ```
-Netflix never says where a show is from. Every count of Korean content on it is an inference — including ours.
+Netflix never says where a show is from — our counts are inferences too
 
 The weekly charts carry nine columns and none is country of production. We measured the gap and publish its size.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Netflix never says where a show is from. Every count of Korean content on it is an inference — including ours.
+Netflix never says where a show is from — our counts are inferences too
 
 · The weekly charts carry nine columns and none is country of production.
 · Match titles by name, as everyone must, and 17% of Korean viewing sits on names another country also uses.

@@ -6,7 +6,7 @@
 
 ## X
 ```
-Korean titles hold 7.7% of the world's Netflix top 10 places — 37,750 of 492,900.
+Korean titles hold 7.9% of the world's Netflix top 10 places — 39,612 of 498,480.
 
 https://www.kculturewire.com/article/how-much-of-our-own-number-is-checked
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/how-much-of-our-own-number-is-checked
 ```
 We publish one figure more than any other. A sixth of it rests on titles we could not check.
 
-Of those, 82.5% carry the label we use to exclude same-name foreign works. 16.1% carry no label at all, and we keep them because we cannot check them.
+Of those, 82.3% carry the label we use to exclude same-name foreign works. 16.4% carry no label at all, and we keep them because we cannot check them.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/how-much-of-our-own-number-is-checked
 ```
@@ -25,9 +25,9 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 We publish one figure more than any other. A sixth of it rests on titles we could not check.
 
-· Korean titles hold 7.7% of the world's Netflix top 10 places — 37,750 of 492,900.
-· Of those, 82.5% carry the label we use to exclude same-name foreign works.
-· 16.1% carry no label at all, and we keep them because we cannot check them.
+· Korean titles hold 7.9% of the world's Netflix top 10 places — 39,612 of 498,480.
+· Of those, 82.3% carry the label we use to exclude same-name foreign works.
+· 16.4% carry no label at all, and we keep them because we cannot check them.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/how-much-of-our-own-number-is-checked

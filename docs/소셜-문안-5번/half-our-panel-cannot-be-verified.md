@@ -6,7 +6,7 @@
 
 ## X
 ```
-197 of 397 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
+214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
 
 https://www.kculturewire.com/article/half-our-panel-cannot-be-verified
 ```
@@ -25,7 +25,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is.
 
-· 197 of 397 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
+· 214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
 · They are also the small ones.
 
 We publish the working, the thresholds we chose, and the questions this

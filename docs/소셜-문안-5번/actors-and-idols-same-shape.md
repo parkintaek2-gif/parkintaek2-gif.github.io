@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 1,008 Korean actors and 2,361 K-pop acts, the biggest single day is about 5% of a 30-day month for both.
+Across 1,113 Korean actors and 2,372 K-pop acts, the biggest single day is about 5% of a 30-day month for both.
 
 https://www.kculturewire.com/article/actors-and-idols-same-shape
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/actors-and-idols-same-shape
 ```
 Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact.
 
-The raw gap of 5.5% against 6.2% disappears once the two groups are compared at the same size.
+The raw gap of 5.0% against 6.1% disappears once the two groups are compared at the same size.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/actors-and-idols-same-shape
 ```
@@ -25,8 +25,8 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact.
 
-· Across 1,008 Korean actors and 2,361 K-pop acts, the biggest single day is about 5% of a 30-day month for both.
-· The raw gap of 5.5% against 6.2% disappears once the two groups are compared at the same size.
+· Across 1,113 Korean actors and 2,372 K-pop acts, the biggest single day is about 5% of a 30-day month for both.
+· The raw gap of 5.0% against 6.1% disappears once the two groups are compared at the same size.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/actors-and-idols-same-shape

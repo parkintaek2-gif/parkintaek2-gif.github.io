@@ -1,4 +1,4 @@
-# 채널 문안 — Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 49.
+# 채널 문안 — Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 52.
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/six-titles-or-forty-nine
 
 ## Threads
 ```
-Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 49.
+Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 52.
 
 Matching markets by how many Korean places they hold removes a third of that gap. Two-thirds of it survives.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 49.
+Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 52.
 
 · Across 93 markets the typical Asian one has charted 247 different Korean titles and the typical market elsewhere 85.
 · Matching markets by how many Korean places they hold removes a third of that gap.

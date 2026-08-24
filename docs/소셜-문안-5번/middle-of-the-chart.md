@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 93 Netflix markets Korean titles hold 7.7% of chart places.
+Across 93 Netflix markets Korean titles hold 7.9% of chart places.
 
 https://www.kculturewire.com/article/middle-of-the-chart
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/middle-of-the-chart
 ```
 Korean titles are commonest in the middle of the chart — except in ten markets, where they own the top
 
-In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places. In the ten where they are strongest it inverts: 35.3% at number one against 26.7%.
+In the 20 markets where their share runs 5–10%, they hold only 5.4% of number-one places. In the ten where they are strongest it inverts: 36.6% at number one against 27.4%.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/middle-of-the-chart
 ```
@@ -25,9 +25,9 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Korean titles are commonest in the middle of the chart — except in ten markets, where they own the top
 
-· Across 93 Netflix markets Korean titles hold 7.7% of chart places.
-· In the 23 markets where their share runs 5–10%, they hold only 5.5% of number-one places.
-· In the ten where they are strongest it inverts: 35.3% at number one against 26.7%.
+· Across 93 Netflix markets Korean titles hold 7.9% of chart places.
+· In the 20 markets where their share runs 5–10%, they hold only 5.4% of number-one places.
+· In the ten where they are strongest it inverts: 36.6% at number one against 27.4%.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/middle-of-the-chart

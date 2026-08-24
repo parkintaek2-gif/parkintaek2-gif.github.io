@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 979 Korean actors joined to Netflix's country charts, those with a title in 20+ countries draw 3.09× the median Wikipedia lookups.
+Across 812 Korean actors joined to Netflix's country charts, those with a title in 20+ countries draw 2.91× the median Wikipedia lookups.
 
 https://www.kculturewire.com/article/reach-and-the-actor
 ```
@@ -25,7 +25,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Actors whose show travelled draw 3× the lookups. Hold two things fixed and most of that disappears.
 
-· Across 979 Korean actors joined to Netflix's country charts, those with a title in 20+ countries draw 3.09× the median Wikipedia lookups.
+· Across 812 Korean actors joined to Netflix's country charts, those with a title in 20+ countries draw 2.91× the median Wikipedia lookups.
 · Match on how many titles they have and how recently they charted, and only one group keeps the gap.
 
 We publish the working, the thresholds we chose, and the questions this

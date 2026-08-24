@@ -6,7 +6,7 @@
 
 ## X
 ```
-Of 940 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all.
+Of 957 gaps of four weeks or more that end with a Korean title back on a country chart, 45.5% carry a different season label — not a return at all.
 
 https://www.kculturewire.com/article/the-return-that-was-a-second-season
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/the-return-that-was-a-second-season
 ```
 Korean titles do come back to charts they had left. Most of the comebacks are second seasons.
 
-Of the 310 genuine returns, 94.8% happen with no other season nearby.
+Of the 316 genuine returns, 94.3% happen with no other season nearby.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/the-return-that-was-a-second-season
 ```
@@ -25,8 +25,8 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Korean titles do come back to charts they had left. Most of the comebacks are second seasons.
 
-· Of 940 gaps of four weeks or more that end with a Korean title back on a country chart, 45.2% carry a different season label — not a return at all.
-· Of the 310 genuine returns, 94.8% happen with no other season nearby.
+· Of 957 gaps of four weeks or more that end with a Korean title back on a country chart, 45.5% carry a different season label — not a return at all.
+· Of the 316 genuine returns, 94.3% happen with no other season nearby.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/the-return-that-was-a-second-season

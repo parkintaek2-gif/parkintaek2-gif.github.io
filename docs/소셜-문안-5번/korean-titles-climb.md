@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 93 markets, 57.5% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
+Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
 
 https://www.kculturewire.com/article/korean-titles-climb
 ```
@@ -25,7 +25,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one.
 
-· Across 93 markets, 57.5% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
+· Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
 · Longer runs give more chances to climb — and the gap holds inside every run-length band.
 
 We publish the working, the thresholds we chose, and the questions this

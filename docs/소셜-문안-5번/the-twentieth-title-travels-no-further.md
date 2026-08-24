@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 207 companies with a charting Korean title, catalogue size tracks total reach (r = 0.536) and not reach per title (r = −0.101).
+Across 220 companies with a charting Korean title, catalogue size tracks total reach (r = 0.516) and not reach per title (r = −0.118).
 
 https://www.kculturewire.com/article/the-twentieth-title-travels-no-further
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/the-twentieth-title-travels-no-further
 ```
 A bigger Korean catalogue reaches more countries. Each title in it does not.
 
-Firms with 20 or more titles get 13 markets from the median title; firms with two get 10.8.
+Firms with 20 or more titles get 11.1 markets from the median title; firms with two get 13.5.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/the-twentieth-title-travels-no-further
 ```
@@ -25,8 +25,8 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 A bigger Korean catalogue reaches more countries. Each title in it does not.
 
-· Across 207 companies with a charting Korean title, catalogue size tracks total reach (r = 0.536) and not reach per title (r = −0.101).
-· Firms with 20 or more titles get 13 markets from the median title; firms with two get 10.8.
+· Across 220 companies with a charting Korean title, catalogue size tracks total reach (r = 0.516) and not reach per title (r = −0.118).
+· Firms with 20 or more titles get 11.1 markets from the median title; firms with two get 13.5.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/the-twentieth-title-travels-no-further

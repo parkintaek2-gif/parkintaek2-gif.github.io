@@ -6,7 +6,7 @@
 
 ## X
 ```
-A series charts in 33.4% of countries where its company had already charted and 8.6% where it had not.
+A series charts in 32.9% of countries where its company had already charted and 8.6% where it had not.
 
 https://www.kculturewire.com/article/the-second-time-is-easier
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/the-second-time-is-easier
 ```
 A Korean company that charts in a country once charts there again, four times as often
 
-Comparing each series against itself removes age, strength and size, and the gap widens. It reverses in five markets, four English.
+Comparing each series against itself removes age, strength and size, and the gap widens. It reverses in seven markets, five English.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/the-second-time-is-easier
 ```
@@ -25,9 +25,9 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 A Korean company that charts in a country once charts there again, four times as often
 
-· A series charts in 33.4% of countries where its company had already charted and 8.6% where it had not.
+· A series charts in 32.9% of countries where its company had already charted and 8.6% where it had not.
 · Comparing each series against itself removes age, strength and size, and the gap widens.
-· It reverses in five markets, four English.
+· It reverses in seven markets, five English.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/the-second-time-is-easier

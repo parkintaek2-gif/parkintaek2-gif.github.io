@@ -6,11 +6,11 @@
 
 ## X
 ```
-Across 803 matched pairs, a Korean series sits at rank 5.71 on the weeks a stablemate shares the chart and 5.21 on the weeks it is alone.
+Across 801 matched pairs, a Korean series sits at rank 5.73 on the weeks a stablemate shares the chart and 5.2 on the weeks it is alone.
 
 https://www.kculturewire.com/article/half-a-place
 ```
-⚠ 162자 (한도 280)
+⚠ 161자 (한도 280)
 
 ## Threads
 ```
@@ -25,7 +25,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 Two shows from one Korean company on the same chart cost each other half a place
 
-· Across 803 matched pairs, a Korean series sits at rank 5.71 on the weeks a stablemate shares the chart and 5.21 on the weeks it is alone.
+· Across 801 matched pairs, a Korean series sits at rank 5.73 on the weeks a stablemate shares the chart and 5.2 on the weeks it is alone.
 · The direction is the one schedulers fear.
 · The size is half of one place out of ten.
 

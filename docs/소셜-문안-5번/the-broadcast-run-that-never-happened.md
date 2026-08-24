@@ -1,4 +1,4 @@
-# 채널 문안 — Korean series that never aired on Korean television reach ten times as many countries
+# 채널 문안 — Korean series that never aired at home reach ten times more countries
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-broadcast-run-that-never-happened
 
 ## Threads
 ```
-Korean series that never aired on Korean television reach ten times as many countries
+Korean series that never aired at home reach ten times more countries
 
 The 49 with no broadcaster on record reach 39. They are 17.1% of the titles and 39.4% of the chart places.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korean series that never aired on Korean television reach ten times as many countries
+Korean series that never aired at home reach ten times more countries
 
 · Of 287 charting Korean series with a company credit, the 238 that aired on a Korean network reach a median 4 markets.
 · The 49 with no broadcaster on record reach 39.

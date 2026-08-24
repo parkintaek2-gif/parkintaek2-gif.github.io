@@ -1,4 +1,4 @@
-# 채널 문안 — Korean challengers win less than any other region's. That is what a deep ladder looks like.
+# 채널 문안 — The Korean challenger ladder has the lowest win rate of any region
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korea-challenger-win-rate
 
 ## Threads
 ```
-Korean challengers win less than any other region's. That is what a deep ladder looks like.
+The Korean challenger ladder has the lowest win rate of any region
 
 A win rate at the top is set by who you have to play, and in Korea that is everybody else.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korean challengers win less than any other region's. That is what a deep ladder looks like.
+The Korean challenger ladder has the lowest win rate of any region
 
 · Korea's top 300 League of Legends players win 53.65% of their ranked games — the lowest of six regions, on all four days we have measured.
 · A win rate at the top is set by who you have to play, and in Korea that is everybody else.

@@ -6,7 +6,7 @@
 
 ## X
 ```
-Measured on all 235 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two.
+Measured on all 246 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two.
 
 https://www.kculturewire.com/article/reaching-number-one-is-mostly-length
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/reaching-number-one-is-mostly-length
 ```
 We said reaching number one doubles a title's hours. Most of that gap was run length.
 
-Hold length fixed and the gap that is left is 1.2× among titles that lasted six to ten weeks.
+Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/reaching-number-one-is-mostly-length
 ```
@@ -25,8 +25,8 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 We said reaching number one doubles a title's hours. Most of that gap was run length.
 
-· Measured on all 235 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two.
-· Hold length fixed and the gap that is left is 1.2× among titles that lasted six to ten weeks.
+· Measured on all 246 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two.
+· Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/reaching-number-one-is-mostly-length

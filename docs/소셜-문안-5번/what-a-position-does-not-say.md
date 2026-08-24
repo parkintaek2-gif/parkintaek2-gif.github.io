@@ -6,7 +6,7 @@
 
 ## X
 ```
-Netflix attaches hours viewed to 10,600 global chart rows and to 0 of its 493,600 country rows.
+Netflix attaches hours viewed to 10,720 global chart rows and to 0 of its 499,180 country rows.
 
 https://www.kculturewire.com/article/what-a-position-does-not-say
 ```
@@ -16,7 +16,7 @@ https://www.kculturewire.com/article/what-a-position-does-not-say
 ```
 What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on
 
-Knowing a rank narrows the possible hours by 45.8% on the non-English series chart — least of the four, and the one Korean titles sit on.
+Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/what-a-position-does-not-say
 ```
@@ -25,8 +25,8 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 ```
 What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on
 
-· Netflix attaches hours viewed to 10,600 global chart rows and to 0 of its 493,600 country rows.
-· Knowing a rank narrows the possible hours by 45.8% on the non-English series chart — least of the four, and the one Korean titles sit on.
+· Netflix attaches hours viewed to 10,720 global chart rows and to 0 of its 499,180 country rows.
+· Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/what-a-position-does-not-say

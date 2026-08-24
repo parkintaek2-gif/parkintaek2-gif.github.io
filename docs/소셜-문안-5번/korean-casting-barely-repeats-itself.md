@@ -1,4 +1,4 @@
-# 채널 문안 — Only 1.8% of Korean casting pairs ever work together twice — barely more than chance would give you
+# 채널 문안 — Ma Dong-seok and Park Ji-hwan share four Netflix Top 10 titles. Only 1.8% of Korean pairs ever repeat
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korean-casting-barely-repeats-itself
 
 ## Threads
 ```
-Only 1.8% of Korean casting pairs ever work together twice — barely more than chance would give you
+Ma Dong-seok and Park Ji-hwan share four Netflix Top 10 titles. Only 1.8% of Korean pairs ever repeat
 
 250 of them have done it more than once. Shuffle the same casts at random and you get about 208.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Only 1.8% of Korean casting pairs ever work together twice — barely more than chance would give you
+Ma Dong-seok and Park Ji-hwan share four Netflix Top 10 titles. Only 1.8% of Korean pairs ever repeat
 
 · Across 635 charting Korean titles there are 13,558 pairs of actors who have shared a production.
 · 250 of them have done it more than once.
