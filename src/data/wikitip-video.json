@@ -1,0 +1,155 @@
+{
+  "generated": "2026-08-24T13:05:27.189Z",
+  "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
+  "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
+  "videos": [
+    {
+      "set": "actors",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/actors.jpg",
+      "src": "/video/actors.mp4"
+    },
+    {
+      "set": "brands",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/brands.jpg",
+      "src": "/video/brands.mp4"
+    },
+    {
+      "set": "control",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/control.jpg",
+      "src": "/video/control.mp4"
+    },
+    {
+      "set": "counting",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/counting.jpg",
+      "src": "/video/counting.mp4"
+    },
+    {
+      "set": "debut",
+      "seconds": 14,
+      "uploadDate": "2026-08-22",
+      "thumb": "/video/thumb/debut.jpg",
+      "src": "/video/debut.mp4"
+    },
+    {
+      "set": "fame",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/fame.jpg",
+      "src": "/video/fame.mp4"
+    },
+    {
+      "set": "first",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/first.jpg",
+      "src": "/video/first.mp4"
+    },
+    {
+      "set": "halflife",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/halflife.jpg",
+      "src": "/video/halflife.mp4"
+    },
+    {
+      "set": "instrument",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/instrument.jpg",
+      "src": "/video/instrument.mp4"
+    },
+    {
+      "set": "least",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/least.jpg",
+      "src": "/video/least.mp4"
+    },
+    {
+      "set": "malaysia",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/malaysia.jpg",
+      "src": "/video/malaysia.mp4"
+    },
+    {
+      "set": "manager",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/manager.jpg",
+      "src": "/video/manager.mp4"
+    },
+    {
+      "set": "oneout",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/oneout.jpg",
+      "src": "/video/oneout.mp4"
+    },
+    {
+      "set": "onlyone",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/onlyone.jpg",
+      "src": "/video/onlyone.mp4"
+    },
+    {
+      "set": "outside",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/outside.jpg",
+      "src": "/video/outside.mp4"
+    },
+    {
+      "set": "places",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/places.jpg",
+      "src": "/video/places.mp4"
+    },
+    {
+      "set": "season",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/season.jpg",
+      "src": "/video/season.mp4"
+    },
+    {
+      "set": "shelf",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/shelf.jpg",
+      "src": "/video/shelf.mp4"
+    },
+    {
+      "set": "signs",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/signs.jpg",
+      "src": "/video/signs.mp4"
+    },
+    {
+      "set": "wave",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/wave.jpg",
+      "src": "/video/wave.mp4"
+    },
+    {
+      "set": "works",
+      "seconds": 14,
+      "uploadDate": "2026-08-21",
+      "thumb": "/video/thumb/works.jpg",
+      "src": "/video/works.mp4"
+    }
+  ],
+  "unmeasured": []
+}

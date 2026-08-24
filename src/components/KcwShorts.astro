@@ -22,11 +22,55 @@ interface Props {
   heading?: string;
 }
 const { set, says, heading = 'Fourteen seconds, with sound' } = Astro.props;
+
+/*
+ * 🔴🔴 2026-08-24 밤 — **여기에 21편의 노출 자리가 통째로 비어 있었다.**
+ * 사장님 「방문자 늘리는 데 올인하라」로 세어 보고 알았다 —
+ *   K Culture Wire 숏영상        21편   만들어져 있고 라이브에도 있다
+ *   그 영상에 VideoObject 스키마   0장   ← 구글이 이것을 «영상»으로 못 본다
+ *   3번(백년지도)                  1장   있다
+ *
+ * 구글 **비디오 검색·비디오 캐러셀은 웹 검색과 «다른 자리»**다. 스키마가 없으면 그 자리에
+ * 뜰 기회가 0이다. 21편을 만들어 놓고 그 자리를 비워 두고 있었다.
+ * ⭐ 그리고 이것은 **계정이 필요 없다** — 유튜브 업로드는 로그인(사장님 손)이 막고 있지만
+ *   이것은 우리 지면에 글자를 넣는 일이다.
+ *
+ * ⛔ 수를 지어내지 않는다. 길이는 ffmpeg 으로 «재고»(21편 전부 14.0초), 올린 날은 파일 날짜다.
+ *   `scripts/build-kcw-video-schema.mjs` 가 재서 `wikitip-video.json` 에 적어 둔다.
+ * ⛔ 자료에 없는 영상은 **스키마를 안 낸다.** 썸네일이나 길이가 빠진 반쪽 구조화 데이터는
+ *   구글이 「유효하지 않은 항목」으로 잡아서 없느니만 못하다.
+ * ⚠ 이것이 오늘 밤 방문자를 늘리지는 않는다. 색인이 붙어야 뜬다 — 며칠 걸린다.
+ */
+import videoData from '../data/wikitip-video.json';
+
+const 잰것 = (videoData.videos ?? []).find((v: any) => v.set === set) ?? null;
+const 집 = 'https://www.kculturewire.com';
+/* 설명은 지면이 준 `says` 를 쓴다 — 지면마다 다르고, 화면에 실제로 있는 말이다 */
+const 스키마 = (잰것 && says)
+  ? {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: heading === 'Fourteen seconds, with sound'
+      ? `${set} — K Culture Wire, fourteen seconds` : heading,
+    description: String(says).slice(0, 320),
+    thumbnailUrl: [`${집}${잰것.thumb}`],
+    uploadDate: 잰것.uploadDate,
+    duration: 잰것.seconds >= 60
+      ? `PT${Math.floor(잰것.seconds / 60)}M${Math.round(잰것.seconds % 60)}S`
+      : `PT${Math.round(잰것.seconds)}S`,
+    contentUrl: `${집}${잰것.src}`,
+    publisher: { '@type': 'Organization', name: 'K Culture Wire' },
+    isFamilyFriendly: true,
+  }
+  : null;
 ---
 
 <section class="kcw-shorts">
   <h2>{heading}</h2>
+  {/* ⛔ 잰 값이 없으면 스키마를 아예 안 낸다 — 반쪽짜리를 내지 않는다 */}
+  {스키마 && <script type="application/ld+json" set:html={JSON.stringify(스키마)} />}
   <video controls preload="none" playsinline width="270" height="480"
+    poster={잰것 ? 잰것.thumb : undefined}
     src={`/video/${set}.mp4`}>
     Your browser cannot play this file. It is a 14-second MP4.
   </video>
