@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-24T13:31+09:00",
+ "generated": "2026-08-25T06:36+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "weekFrom": "2021-07-04",
  "weekTo": "2026-08-16",
@@ -9,23 +9,23 @@
  "titlesPerPage": 20,
  "minTitlesForPage": 8,
  "medians": {
-  "koreanPc": 4.7,
-  "distinctTitles": 104,
-  "halfTakes": 21
+  "koreanPc": 4.6,
+  "distinctTitles": 101,
+  "halfTakes": 20
  },
  "markets": [
   {
    "iso2": "AR",
    "name": "Argentina",
    "slug": "argentina",
-   "koreanSlots": 227,
-   "koreanPc": 4.2,
-   "distinctTitles": 85,
+   "koreanSlots": 215,
+   "koreanPc": 4,
+   "distinctTitles": 82,
    "halfTakes": 17,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.2,
+   "topTitlePc": 14,
    "inAsianTen": false,
-   "weeksWithKorean": 160,
+   "weeksWithKorean": 156,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -34,19 +34,19 @@
     },
     {
      "year": 2022,
-     "places": 27
+     "places": 25
     },
     {
      "year": 2023,
-     "places": 44
+     "places": 43
     },
     {
      "year": 2024,
-     "places": 40
+     "places": 35
     },
     {
      "year": 2025,
-     "places": 61
+     "places": 57
     },
     {
      "year": 2026,
@@ -61,14 +61,6 @@
      "weeks": 23,
      "first": "2021-09-19",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Breathless",
-     "places": 9,
-     "peak": 1,
-     "weeks": 8,
-     "first": "2024-09-01",
-     "last": "2025-11-16"
     },
     {
      "title": "Bloodhounds",
@@ -213,6 +205,14 @@
      "weeks": 3,
      "first": "2026-07-19",
      "last": "2026-08-09"
+    },
+    {
+     "title": "Hellbound",
+     "places": 3,
+     "peak": 3,
+     "weeks": 3,
+     "first": "2021-11-21",
+     "last": "2021-12-05"
     }
    ],
    "titlesShown": 20,
@@ -436,14 +436,14 @@
    "iso2": "AT",
    "name": "Austria",
    "slug": "austria",
-   "koreanSlots": 146,
-   "koreanPc": 2.7,
-   "distinctTitles": 64,
+   "koreanSlots": 136,
+   "koreanPc": 2.5,
+   "distinctTitles": 61,
    "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 19.2,
+   "topTitlePc": 20.6,
    "inAsianTen": false,
-   "weeksWithKorean": 115,
+   "weeksWithKorean": 109,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -452,19 +452,19 @@
     },
     {
      "year": 2022,
-     "places": 19
+     "places": 15
     },
     {
      "year": 2023,
-     "places": 23
+     "places": 22
     },
     {
      "year": 2024,
-     "places": 32
+     "places": 28
     },
     {
      "year": 2025,
-     "places": 29
+     "places": 28
     },
     {
      "year": 2026,
@@ -497,14 +497,6 @@
      "last": "2022-02-27"
     },
     {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Oasis",
      "places": 5,
      "peak": 2,
@@ -519,14 +511,6 @@
      "weeks": 4,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Modern Family",
@@ -631,6 +615,22 @@
      "weeks": 2,
      "first": "2023-01-22",
      "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
+    },
+    {
+     "title": "Morning Glory",
+     "places": 2,
+     "peak": 4,
+     "weeks": 2,
+     "first": "2024-05-05",
+     "last": "2024-05-12"
     }
    ],
    "titlesShown": 20,
@@ -645,14 +645,14 @@
    "iso2": "BS",
    "name": "Bahamas",
    "slug": "bahamas",
-   "koreanSlots": 150,
-   "koreanPc": 2.8,
-   "distinctTitles": 74,
-   "halfTakes": 20,
+   "koreanSlots": 146,
+   "koreanPc": 2.7,
+   "distinctTitles": 72,
+   "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 12,
+   "topTitlePc": 12.3,
    "inAsianTen": false,
-   "weeksWithKorean": 113,
+   "weeksWithKorean": 110,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -661,7 +661,7 @@
     },
     {
      "year": 2022,
-     "places": 33
+     "places": 31
     },
     {
      "year": 2023,
@@ -669,7 +669,7 @@
     },
     {
      "year": 2024,
-     "places": 27
+     "places": 25
     },
     {
      "year": 2025,
@@ -810,14 +810,6 @@
      "last": "2023-05-21"
     },
     {
-     "title": "Breathless",
-     "places": 2,
-     "peak": 4,
-     "weeks": 2,
-     "first": "2024-09-01",
-     "last": "2024-09-08"
-    },
-    {
      "title": "Carter",
      "places": 2,
      "peak": 2,
@@ -834,12 +826,20 @@
      "last": "2024-05-05"
     },
     {
-     "title": "Dangerous Liaisons",
+     "title": "Desire",
      "places": 2,
      "peak": 2,
      "weeks": 2,
-     "first": "2022-07-10",
-     "last": "2022-07-17"
+     "first": "2026-07-19",
+     "last": "2026-07-26"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2023-12-24",
+     "last": "2023-12-31"
     }
    ],
    "titlesShown": 20,
@@ -854,9 +854,9 @@
    "iso2": "BH",
    "name": "Bahrain",
    "slug": "bahrain",
-   "koreanSlots": 515,
+   "koreanSlots": 514,
    "koreanPc": 9.6,
-   "distinctTitles": 147,
+   "distinctTitles": 146,
    "halfTakes": 31,
    "topTitle": "Squid Game",
    "topTitlePc": 7.8,
@@ -878,7 +878,7 @@
     },
     {
      "year": 2024,
-     "places": 87
+     "places": 86
     },
     {
      "year": 2025,
@@ -1055,7 +1055,7 @@
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "above"
+    "halfTakes": "well above"
    },
    "hasPage": true
   },
@@ -1063,9 +1063,9 @@
    "iso2": "BD",
    "name": "Bangladesh",
    "slug": "bangladesh",
-   "koreanSlots": 767,
+   "koreanSlots": 766,
    "koreanPc": 14.3,
-   "distinctTitles": 146,
+   "distinctTitles": 145,
    "halfTakes": 24,
    "topTitle": "Squid Game",
    "topTitlePc": 8.6,
@@ -1087,7 +1087,7 @@
     },
     {
      "year": 2024,
-     "places": 132
+     "places": 131
     },
     {
      "year": 2025,
@@ -1272,14 +1272,14 @@
    "iso2": "BE",
    "name": "Belgium",
    "slug": "belgium",
-   "koreanSlots": 153,
-   "koreanPc": 2.9,
-   "distinctTitles": 58,
+   "koreanSlots": 145,
+   "koreanPc": 2.7,
+   "distinctTitles": 56,
    "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 19,
+   "topTitlePc": 20,
    "inAsianTen": false,
-   "weeksWithKorean": 117,
+   "weeksWithKorean": 111,
    "firstKoreanWeek": "2021-08-15",
    "byYear": [
     {
@@ -1288,7 +1288,7 @@
     },
     {
      "year": 2022,
-     "places": 30
+     "places": 27
     },
     {
      "year": 2023,
@@ -1296,11 +1296,11 @@
     },
     {
      "year": 2024,
-     "places": 22
+     "places": 18
     },
     {
      "year": 2025,
-     "places": 32
+     "places": 31
     },
     {
      "year": 2026,
@@ -1331,14 +1331,6 @@
      "weeks": 6,
      "first": "2022-01-30",
      "last": "2022-03-06"
-    },
-    {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 4,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "Gossip Girl",
@@ -1405,14 +1397,6 @@
      "last": "2025-05-04"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 3,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Desire",
      "places": 3,
      "peak": 1,
@@ -1467,6 +1451,22 @@
      "weeks": 2,
      "first": "2024-04-28",
      "last": "2024-05-05"
+    },
+    {
+     "title": "Crush",
+     "places": 2,
+     "peak": 1,
+     "weeks": 2,
+     "first": "2022-04-03",
+     "last": "2022-04-10"
+    },
+    {
+     "title": "JUNG_E",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2023-01-22",
+     "last": "2023-01-29"
     }
    ],
    "titlesShown": 20,
@@ -1481,12 +1481,12 @@
    "iso2": "BO",
    "name": "Bolivia",
    "slug": "bolivia",
-   "koreanSlots": 656,
-   "koreanPc": 12.2,
-   "distinctTitles": 133,
-   "halfTakes": 24,
+   "koreanSlots": 649,
+   "koreanPc": 12.1,
+   "distinctTitles": 130,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.9,
+   "topTitlePc": 8,
    "inAsianTen": false,
    "weeksWithKorean": 260,
    "firstKoreanWeek": "2021-07-04",
@@ -1497,15 +1497,15 @@
     },
     {
      "year": 2022,
-     "places": 111
+     "places": 109
     },
     {
      "year": 2023,
-     "places": 153
+     "places": 151
     },
     {
      "year": 2024,
-     "places": 135
+     "places": 132
     },
     {
      "year": 2025,
@@ -1690,14 +1690,14 @@
    "iso2": "BR",
    "name": "Brazil",
    "slug": "brazil",
-   "koreanSlots": 386,
-   "koreanPc": 7.2,
-   "distinctTitles": 124,
-   "halfTakes": 25,
+   "koreanSlots": 378,
+   "koreanPc": 7.1,
+   "distinctTitles": 121,
+   "halfTakes": 24,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.7,
+   "topTitlePc": 6.9,
    "inAsianTen": false,
-   "weeksWithKorean": 222,
+   "weeksWithKorean": 219,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -1706,19 +1706,19 @@
     },
     {
      "year": 2022,
-     "places": 51
+     "places": 48
     },
     {
      "year": 2023,
-     "places": 77
+     "places": 76
     },
     {
      "year": 2024,
-     "places": 81
+     "places": 78
     },
     {
      "year": 2025,
-     "places": 90
+     "places": 89
     },
     {
      "year": 2026,
@@ -1899,14 +1899,14 @@
    "iso2": "BG",
    "name": "Bulgaria",
    "slug": "bulgaria",
-   "koreanSlots": 177,
-   "koreanPc": 3.3,
-   "distinctTitles": 65,
+   "koreanSlots": 174,
+   "koreanPc": 3.2,
+   "distinctTitles": 63,
    "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 28.8,
+   "topTitlePc": 29.3,
    "inAsianTen": false,
-   "weeksWithKorean": 129,
+   "weeksWithKorean": 126,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -1915,7 +1915,7 @@
     },
     {
      "year": 2022,
-     "places": 23
+     "places": 21
     },
     {
      "year": 2023,
@@ -1923,7 +1923,7 @@
     },
     {
      "year": 2024,
-     "places": 18
+     "places": 17
     },
     {
      "year": 2025,
@@ -2317,14 +2317,14 @@
    "iso2": "CL",
    "name": "Chile",
    "slug": "chile",
-   "koreanSlots": 428,
-   "koreanPc": 8,
-   "distinctTitles": 128,
+   "koreanSlots": 416,
+   "koreanPc": 7.8,
+   "distinctTitles": 125,
    "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.5,
+   "topTitlePc": 7.7,
    "inAsianTen": false,
-   "weeksWithKorean": 232,
+   "weeksWithKorean": 228,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -2333,19 +2333,19 @@
     },
     {
      "year": 2022,
-     "places": 58
+     "places": 56
     },
     {
      "year": 2023,
-     "places": 81
+     "places": 79
     },
     {
      "year": 2024,
-     "places": 90
+     "places": 85
     },
     {
      "year": 2025,
-     "places": 100
+     "places": 97
     },
     {
      "year": 2026,
@@ -2408,14 +2408,6 @@
      "weeks": 9,
      "first": "2025-03-16",
      "last": "2025-05-11"
-    },
-    {
-     "title": "Breathless",
-     "places": 8,
-     "peak": 1,
-     "weeks": 8,
-     "first": "2024-09-01",
-     "last": "2025-11-16"
     },
     {
      "title": "King the Land",
@@ -2512,6 +2504,14 @@
      "weeks": 6,
      "first": "2021-11-07",
      "last": "2021-12-12"
+    },
+    {
+     "title": "Sold Out on You",
+     "places": 6,
+     "peak": 4,
+     "weeks": 6,
+     "first": "2026-04-26",
+     "last": "2026-05-31"
     }
    ],
    "titlesShown": 20,
@@ -2526,14 +2526,14 @@
    "iso2": "CO",
    "name": "Colombia",
    "slug": "colombia",
-   "koreanSlots": 413,
-   "koreanPc": 7.7,
-   "distinctTitles": 118,
-   "halfTakes": 24,
+   "koreanSlots": 404,
+   "koreanPc": 7.5,
+   "distinctTitles": 115,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 9,
+   "topTitlePc": 9.2,
    "inAsianTen": false,
-   "weeksWithKorean": 223,
+   "weeksWithKorean": 220,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -2542,19 +2542,19 @@
     },
     {
      "year": 2022,
-     "places": 46
+     "places": 44
     },
     {
      "year": 2023,
-     "places": 78
+     "places": 76
     },
     {
      "year": 2024,
-     "places": 100
+     "places": 96
     },
     {
      "year": 2025,
-     "places": 104
+     "places": 103
     },
     {
      "year": 2026,
@@ -2735,14 +2735,14 @@
    "iso2": "CR",
    "name": "Costa Rica",
    "slug": "costa-rica",
-   "koreanSlots": 322,
-   "koreanPc": 6,
-   "distinctTitles": 106,
-   "halfTakes": 21,
+   "koreanSlots": 313,
+   "koreanPc": 5.8,
+   "distinctTitles": 103,
+   "halfTakes": 20,
    "topTitle": "Squid Game",
-   "topTitlePc": 9,
+   "topTitlePc": 9.3,
    "inAsianTen": false,
-   "weeksWithKorean": 199,
+   "weeksWithKorean": 194,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -2751,19 +2751,19 @@
     },
     {
      "year": 2022,
-     "places": 34
+     "places": 32
     },
     {
      "year": 2023,
-     "places": 61
+     "places": 59
     },
     {
      "year": 2024,
-     "places": 70
+     "places": 66
     },
     {
      "year": 2025,
-     "places": 79
+     "places": 78
     },
     {
      "year": 2026,
@@ -2924,12 +2924,12 @@
      "last": "2022-02-27"
     },
     {
-     "title": "Breathless",
+     "title": "Hometown Cha-Cha-Cha",
      "places": 5,
-     "peak": 2,
+     "peak": 6,
      "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
+     "first": "2021-11-14",
+     "last": "2021-12-12"
     }
    ],
    "titlesShown": 20,
@@ -2944,14 +2944,14 @@
    "iso2": "HR",
    "name": "Croatia",
    "slug": "croatia",
-   "koreanSlots": 115,
-   "koreanPc": 2.1,
-   "distinctTitles": 49,
-   "halfTakes": 7,
+   "koreanSlots": 108,
+   "koreanPc": 2,
+   "distinctTitles": 46,
+   "halfTakes": 6,
    "topTitle": "Squid Game",
-   "topTitlePc": 27.8,
+   "topTitlePc": 29.6,
    "inAsianTen": false,
-   "weeksWithKorean": 98,
+   "weeksWithKorean": 92,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -2960,19 +2960,19 @@
     },
     {
      "year": 2022,
-     "places": 16
+     "places": 14
     },
     {
      "year": 2023,
-     "places": 22
+     "places": 21
     },
     {
      "year": 2024,
-     "places": 16
+     "places": 13
     },
     {
      "year": 2025,
-     "places": 23
+     "places": 22
     },
     {
      "year": 2026,
@@ -3011,14 +3011,6 @@
      "weeks": 5,
      "first": "2026-06-21",
      "last": "2026-07-19"
-    },
-    {
-     "title": "Breathless",
-     "places": 4,
-     "peak": 4,
-     "weeks": 4,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "Desire",
@@ -3077,14 +3069,6 @@
      "last": "2022-08-14"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2022-07-17",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Dog Days Out",
      "places": 2,
      "peak": 5,
@@ -3139,6 +3123,22 @@
      "weeks": 2,
      "first": "2021-12-26",
      "last": "2022-01-02"
+    },
+    {
+     "title": "Uprising",
+     "places": 2,
+     "peak": 6,
+     "weeks": 2,
+     "first": "2024-10-13",
+     "last": "2024-10-20"
+    },
+    {
+     "title": "Watcher",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2024-07-21",
+     "last": "2024-07-28"
     }
    ],
    "titlesShown": 20,
@@ -3153,14 +3153,14 @@
    "iso2": "CY",
    "name": "Cyprus",
    "slug": "cyprus",
-   "koreanSlots": 143,
-   "koreanPc": 2.7,
-   "distinctTitles": 65,
+   "koreanSlots": 138,
+   "koreanPc": 2.6,
+   "distinctTitles": 63,
    "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 21.7,
+   "topTitlePc": 22.5,
    "inAsianTen": false,
-   "weeksWithKorean": 116,
+   "weeksWithKorean": 112,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -3169,7 +3169,7 @@
     },
     {
      "year": 2022,
-     "places": 13
+     "places": 12
     },
     {
      "year": 2023,
@@ -3177,11 +3177,11 @@
     },
     {
      "year": 2024,
-     "places": 19
+     "places": 16
     },
     {
      "year": 2025,
-     "places": 43
+     "places": 42
     },
     {
      "year": 2026,
@@ -3228,14 +3228,6 @@
      "weeks": 4,
      "first": "2022-01-30",
      "last": "2022-02-20"
-    },
-    {
-     "title": "Breathless",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "My Name",
@@ -3348,6 +3340,14 @@
      "weeks": 2,
      "first": "2023-01-22",
      "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -3362,14 +3362,14 @@
    "iso2": "CZ",
    "name": "Czech Republic",
    "slug": "czech-republic",
-   "koreanSlots": 197,
-   "koreanPc": 3.7,
-   "distinctTitles": 66,
+   "koreanSlots": 191,
+   "koreanPc": 3.6,
+   "distinctTitles": 64,
    "halfTakes": 9,
    "topTitle": "Squid Game",
-   "topTitlePc": 24.4,
+   "topTitlePc": 25.1,
    "inAsianTen": false,
-   "weeksWithKorean": 148,
+   "weeksWithKorean": 143,
    "firstKoreanWeek": "2021-09-19",
    "byYear": [
     {
@@ -3378,7 +3378,7 @@
     },
     {
      "year": 2022,
-     "places": 39
+     "places": 36
     },
     {
      "year": 2023,
@@ -3386,7 +3386,7 @@
     },
     {
      "year": 2024,
-     "places": 23
+     "places": 20
     },
     {
      "year": 2025,
@@ -3487,22 +3487,6 @@
      "last": "2025-09-21"
     },
     {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Desire",
      "places": 3,
      "peak": 3,
@@ -3557,6 +3541,22 @@
      "weeks": 2,
      "first": "2023-06-18",
      "last": "2023-06-25"
+    },
+    {
+     "title": "Awake",
+     "places": 2,
+     "peak": 2,
+     "weeks": 2,
+     "first": "2023-09-03",
+     "last": "2023-09-10"
+    },
+    {
+     "title": "Badland Hunters",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2024-01-28",
+     "last": "2024-02-04"
     }
    ],
    "titlesShown": 20,
@@ -3571,14 +3571,14 @@
    "iso2": "DK",
    "name": "Denmark",
    "slug": "denmark",
-   "koreanSlots": 92,
+   "koreanSlots": 91,
    "koreanPc": 1.7,
-   "distinctTitles": 43,
+   "distinctTitles": 42,
    "halfTakes": 6,
    "topTitle": "Squid Game",
-   "topTitlePc": 32.6,
+   "topTitlePc": 33,
    "inAsianTen": false,
-   "weeksWithKorean": 79,
+   "weeksWithKorean": 78,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -3587,7 +3587,7 @@
     },
     {
      "year": 2022,
-     "places": 18
+     "places": 17
     },
     {
      "year": 2023,
@@ -3752,20 +3752,20 @@
      "last": "2023-09-24"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 1,
-     "peak": 7,
-     "weeks": 1,
-     "first": "2022-07-17",
-     "last": "2022-07-17"
-    },
-    {
      "title": "Dog Days Out",
      "places": 1,
      "peak": 9,
      "weeks": 1,
      "first": "2025-02-23",
      "last": "2025-02-23"
+    },
+    {
+     "title": "Hellbound",
+     "places": 1,
+     "peak": 6,
+     "weeks": 1,
+     "first": "2021-11-28",
+     "last": "2021-11-28"
     }
    ],
    "titlesShown": 20,
@@ -3780,14 +3780,14 @@
    "iso2": "DO",
    "name": "Dominican Republic",
    "slug": "dominican-republic",
-   "koreanSlots": 469,
-   "koreanPc": 8.8,
-   "distinctTitles": 138,
-   "halfTakes": 31,
+   "koreanSlots": 460,
+   "koreanPc": 8.6,
+   "distinctTitles": 135,
+   "halfTakes": 30,
    "topTitle": "Squid Game",
-   "topTitlePc": 5.3,
+   "topTitlePc": 5.4,
    "inAsianTen": false,
-   "weeksWithKorean": 231,
+   "weeksWithKorean": 228,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -3796,19 +3796,19 @@
     },
     {
      "year": 2022,
-     "places": 62
+     "places": 59
     },
     {
      "year": 2023,
-     "places": 92
+     "places": 90
     },
     {
      "year": 2024,
-     "places": 102
+     "places": 99
     },
     {
      "year": 2025,
-     "places": 101
+     "places": 100
     },
     {
      "year": 2026,
@@ -3981,7 +3981,7 @@
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "above"
+    "halfTakes": "well above"
    },
    "hasPage": true
   },
@@ -3989,14 +3989,14 @@
    "iso2": "EC",
    "name": "Ecuador",
    "slug": "ecuador",
-   "koreanSlots": 487,
-   "koreanPc": 9.1,
-   "distinctTitles": 125,
-   "halfTakes": 27,
+   "koreanSlots": 478,
+   "koreanPc": 8.9,
+   "distinctTitles": 122,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.8,
+   "topTitlePc": 7.9,
    "inAsianTen": false,
-   "weeksWithKorean": 231,
+   "weeksWithKorean": 228,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -4005,19 +4005,19 @@
     },
     {
      "year": 2022,
-     "places": 55
+     "places": 53
     },
     {
      "year": 2023,
-     "places": 95
+     "places": 93
     },
     {
      "year": 2024,
-     "places": 112
+     "places": 108
     },
     {
      "year": 2025,
-     "places": 117
+     "places": 116
     },
     {
      "year": 2026,
@@ -4198,12 +4198,12 @@
    "iso2": "EG",
    "name": "Egypt",
    "slug": "egypt",
-   "koreanSlots": 335,
-   "koreanPc": 6.3,
-   "distinctTitles": 109,
-   "halfTakes": 20,
+   "koreanSlots": 332,
+   "koreanPc": 6.2,
+   "distinctTitles": 107,
+   "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 14.9,
+   "topTitlePc": 15.1,
    "inAsianTen": false,
    "weeksWithKorean": 199,
    "firstKoreanWeek": "2021-08-29",
@@ -4214,7 +4214,7 @@
     },
     {
      "year": 2022,
-     "places": 49
+     "places": 48
     },
     {
      "year": 2023,
@@ -4222,7 +4222,7 @@
     },
     {
      "year": 2024,
-     "places": 50
+     "places": 48
     },
     {
      "year": 2025,
@@ -4407,14 +4407,14 @@
    "iso2": "SV",
    "name": "El Salvador",
    "slug": "el-salvador",
-   "koreanSlots": 529,
-   "koreanPc": 9.9,
-   "distinctTitles": 134,
-   "halfTakes": 29,
+   "koreanSlots": 521,
+   "koreanPc": 9.7,
+   "distinctTitles": 131,
+   "halfTakes": 28,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.6,
+   "topTitlePc": 6.7,
    "inAsianTen": false,
-   "weeksWithKorean": 244,
+   "weeksWithKorean": 241,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -4423,19 +4423,19 @@
     },
     {
      "year": 2022,
-     "places": 64
+     "places": 62
     },
     {
      "year": 2023,
-     "places": 115
+     "places": 113
     },
     {
      "year": 2024,
-     "places": 117
+     "places": 114
     },
     {
      "year": 2025,
-     "places": 121
+     "places": 120
     },
     {
      "year": 2026,
@@ -4616,14 +4616,14 @@
    "iso2": "EE",
    "name": "Estonia",
    "slug": "estonia",
-   "koreanSlots": 101,
+   "koreanSlots": 100,
    "koreanPc": 1.9,
-   "distinctTitles": 36,
+   "distinctTitles": 35,
    "halfTakes": 3,
    "topTitle": "Squid Game",
-   "topTitlePc": 42.6,
+   "topTitlePc": 43,
    "inAsianTen": false,
-   "weeksWithKorean": 85,
+   "weeksWithKorean": 84,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -4632,7 +4632,7 @@
     },
     {
      "year": 2022,
-     "places": 15
+     "places": 14
     },
     {
      "year": 2023,
@@ -4825,14 +4825,14 @@
    "iso2": "FI",
    "name": "Finland",
    "slug": "finland",
-   "koreanSlots": 148,
-   "koreanPc": 2.8,
-   "distinctTitles": 62,
-   "halfTakes": 11,
+   "koreanSlots": 144,
+   "koreanPc": 2.7,
+   "distinctTitles": 59,
+   "halfTakes": 10,
    "topTitle": "Squid Game",
-   "topTitlePc": 25.7,
+   "topTitlePc": 26.4,
    "inAsianTen": false,
-   "weeksWithKorean": 118,
+   "weeksWithKorean": 116,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -4841,15 +4841,15 @@
     },
     {
      "year": 2022,
-     "places": 29
+     "places": 28
     },
     {
      "year": 2023,
-     "places": 32
+     "places": 30
     },
     {
      "year": 2024,
-     "places": 14
+     "places": 13
     },
     {
      "year": 2025,
@@ -5034,14 +5034,14 @@
    "iso2": "FR",
    "name": "France",
    "slug": "france",
-   "koreanSlots": 202,
-   "koreanPc": 3.8,
-   "distinctTitles": 83,
+   "koreanSlots": 194,
+   "koreanPc": 3.6,
+   "distinctTitles": 81,
    "halfTakes": 16,
    "topTitle": "Squid Game",
-   "topTitlePc": 15.3,
+   "topTitlePc": 16,
    "inAsianTen": false,
-   "weeksWithKorean": 144,
+   "weeksWithKorean": 137,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -5050,7 +5050,7 @@
     },
     {
      "year": 2022,
-     "places": 25
+     "places": 21
     },
     {
      "year": 2023,
@@ -5058,11 +5058,11 @@
     },
     {
      "year": 2024,
-     "places": 33
+     "places": 30
     },
     {
      "year": 2025,
-     "places": 43
+     "places": 42
     },
     {
      "year": 2026,
@@ -5133,22 +5133,6 @@
      "weeks": 4,
      "first": "2023-01-22",
      "last": "2023-05-28"
-    },
-    {
-     "title": "Breathless",
-     "places": 4,
-     "peak": 5,
-     "weeks": 4,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 2,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Family Business",
@@ -5229,6 +5213,22 @@
      "weeks": 2,
      "first": "2023-08-27",
      "last": "2023-09-03"
+    },
+    {
+     "title": "Badland Hunters",
+     "places": 2,
+     "peak": 2,
+     "weeks": 2,
+     "first": "2024-01-28",
+     "last": "2024-02-04"
+    },
+    {
+     "title": "Bon Appétit, Your Majesty",
+     "places": 2,
+     "peak": 9,
+     "weeks": 2,
+     "first": "2025-08-31",
+     "last": "2025-09-07"
     }
    ],
    "titlesShown": 20,
@@ -5243,14 +5243,14 @@
    "iso2": "DE",
    "name": "Germany",
    "slug": "germany",
-   "koreanSlots": 154,
-   "koreanPc": 2.9,
-   "distinctTitles": 63,
+   "koreanSlots": 144,
+   "koreanPc": 2.7,
+   "distinctTitles": 60,
    "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 20.1,
+   "topTitlePc": 21.5,
    "inAsianTen": false,
-   "weeksWithKorean": 115,
+   "weeksWithKorean": 109,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -5259,19 +5259,19 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 16
     },
     {
      "year": 2023,
-     "places": 22
+     "places": 21
     },
     {
      "year": 2024,
-     "places": 34
+     "places": 30
     },
     {
      "year": 2025,
-     "places": 33
+     "places": 32
     },
     {
      "year": 2026,
@@ -5304,14 +5304,6 @@
      "last": "2022-02-27"
     },
     {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Agent Kim Reactivated",
      "places": 4,
      "peak": 5,
@@ -5326,14 +5318,6 @@
      "weeks": 4,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Modern Family",
@@ -5438,6 +5422,22 @@
      "weeks": 2,
      "first": "2022-04-03",
      "last": "2022-04-10"
+    },
+    {
+     "title": "Ghost Ship",
+     "places": 2,
+     "peak": 7,
+     "weeks": 2,
+     "first": "2026-07-05",
+     "last": "2026-07-12"
+    },
+    {
+     "title": "Gossip Girl",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2023-07-16",
+     "last": "2023-07-23"
     }
    ],
    "titlesShown": 20,
@@ -5452,14 +5452,14 @@
    "iso2": "GR",
    "name": "Greece",
    "slug": "greece",
-   "koreanSlots": 234,
-   "koreanPc": 4.4,
-   "distinctTitles": 99,
-   "halfTakes": 20,
+   "koreanSlots": 228,
+   "koreanPc": 4.3,
+   "distinctTitles": 97,
+   "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 15,
+   "topTitlePc": 15.4,
    "inAsianTen": false,
-   "weeksWithKorean": 169,
+   "weeksWithKorean": 165,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -5468,7 +5468,7 @@
     },
     {
      "year": 2022,
-     "places": 29
+     "places": 26
     },
     {
      "year": 2023,
@@ -5476,7 +5476,7 @@
     },
     {
      "year": 2024,
-     "places": 35
+     "places": 32
     },
     {
      "year": 2025,
@@ -5625,28 +5625,28 @@
      "last": "2026-04-12"
     },
     {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 3,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Desire",
      "places": 3,
      "peak": 1,
      "weeks": 3,
      "first": "2026-07-19",
      "last": "2026-08-02"
+    },
+    {
+     "title": "Dynamite Kiss",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2025-11-16",
+     "last": "2025-11-30"
+    },
+    {
+     "title": "Extraordinary Attorney Woo",
+     "places": 3,
+     "peak": 9,
+     "weeks": 3,
+     "first": "2022-08-14",
+     "last": "2022-09-04"
     }
    ],
    "titlesShown": 20,
@@ -5661,14 +5661,14 @@
    "iso2": "GP",
    "name": "Guadeloupe",
    "slug": "guadeloupe",
-   "koreanSlots": 239,
-   "koreanPc": 4.5,
-   "distinctTitles": 102,
-   "halfTakes": 24,
+   "koreanSlots": 232,
+   "koreanPc": 4.3,
+   "distinctTitles": 99,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.8,
+   "topTitlePc": 9.1,
    "inAsianTen": false,
-   "weeksWithKorean": 168,
+   "weeksWithKorean": 164,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -5677,15 +5677,15 @@
     },
     {
      "year": 2022,
-     "places": 43
+     "places": 39
     },
     {
      "year": 2023,
-     "places": 49
+     "places": 48
     },
     {
      "year": 2024,
-     "places": 34
+     "places": 32
     },
     {
      "year": 2025,
@@ -5786,14 +5786,6 @@
      "last": "2025-03-23"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 2,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
-    },
-    {
      "title": "The Great Flood",
      "places": 4,
      "peak": 1,
@@ -5856,6 +5848,14 @@
      "weeks": 3,
      "first": "2023-04-02",
      "last": "2023-04-16"
+    },
+    {
+     "title": "Money Heist: Korea - Joint Economic Area",
+     "places": 3,
+     "peak": 4,
+     "weeks": 3,
+     "first": "2022-06-26",
+     "last": "2022-12-18"
     }
    ],
    "titlesShown": 20,
@@ -5870,14 +5870,14 @@
    "iso2": "GT",
    "name": "Guatemala",
    "slug": "guatemala",
-   "koreanSlots": 462,
-   "koreanPc": 8.6,
-   "distinctTitles": 121,
-   "halfTakes": 26,
+   "koreanSlots": 453,
+   "koreanPc": 8.5,
+   "distinctTitles": 118,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.7,
+   "topTitlePc": 8.8,
    "inAsianTen": false,
-   "weeksWithKorean": 234,
+   "weeksWithKorean": 230,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -5886,19 +5886,19 @@
     },
     {
      "year": 2022,
-     "places": 45
+     "places": 43
     },
     {
      "year": 2023,
-     "places": 101
+     "places": 99
     },
     {
      "year": 2024,
-     "places": 98
+     "places": 94
     },
     {
      "year": 2025,
-     "places": 114
+     "places": 113
     },
     {
      "year": 2026,
@@ -6079,14 +6079,14 @@
    "iso2": "HN",
    "name": "Honduras",
    "slug": "honduras",
-   "koreanSlots": 539,
-   "koreanPc": 10.1,
-   "distinctTitles": 142,
+   "koreanSlots": 532,
+   "koreanPc": 9.9,
+   "distinctTitles": 139,
    "halfTakes": 29,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.9,
+   "topTitlePc": 7,
    "inAsianTen": false,
-   "weeksWithKorean": 243,
+   "weeksWithKorean": 241,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -6095,15 +6095,15 @@
     },
     {
      "year": 2022,
-     "places": 68
+     "places": 66
     },
     {
      "year": 2023,
-     "places": 114
+     "places": 112
     },
     {
      "year": 2024,
-     "places": 116
+     "places": 113
     },
     {
      "year": 2025,
@@ -6497,14 +6497,14 @@
    "iso2": "HU",
    "name": "Hungary",
    "slug": "hungary",
-   "koreanSlots": 166,
-   "koreanPc": 3.1,
-   "distinctTitles": 66,
-   "halfTakes": 12,
+   "koreanSlots": 154,
+   "koreanPc": 2.9,
+   "distinctTitles": 63,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 22.3,
+   "topTitlePc": 24,
    "inAsianTen": false,
-   "weeksWithKorean": 124,
+   "weeksWithKorean": 114,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -6513,19 +6513,19 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 16
     },
     {
      "year": 2023,
-     "places": 38
+     "places": 36
     },
     {
      "year": 2024,
-     "places": 22
+     "places": 18
     },
     {
      "year": 2025,
-     "places": 41
+     "places": 39
     },
     {
      "year": 2026,
@@ -6550,14 +6550,6 @@
      "last": "2026-04-19"
     },
     {
-     "title": "Breathless",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Oasis",
      "places": 6,
      "peak": 2,
@@ -6572,14 +6564,6 @@
      "weeks": 5,
      "first": "2022-01-30",
      "last": "2022-02-27"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Desire",
@@ -6692,6 +6676,22 @@
      "weeks": 2,
      "first": "2023-12-31",
      "last": "2024-10-06"
+    },
+    {
+     "title": "Happy Ending",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-09-03",
+     "last": "2023-09-10"
+    },
+    {
+     "title": "Hellbound",
+     "places": 2,
+     "peak": 4,
+     "weeks": 2,
+     "first": "2021-11-21",
+     "last": "2021-11-28"
     }
    ],
    "titlesShown": 20,
@@ -6706,14 +6706,14 @@
    "iso2": "IS",
    "name": "Iceland",
    "slug": "iceland",
-   "koreanSlots": 78,
-   "koreanPc": 1.5,
-   "distinctTitles": 44,
+   "koreanSlots": 77,
+   "koreanPc": 1.4,
+   "distinctTitles": 43,
    "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 29.5,
+   "topTitlePc": 29.9,
    "inAsianTen": false,
-   "weeksWithKorean": 68,
+   "weeksWithKorean": 67,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -6726,7 +6726,7 @@
     },
     {
      "year": 2023,
-     "places": 10
+     "places": 9
     },
     {
      "year": 2024,
@@ -6915,9 +6915,9 @@
    "iso2": "IN",
    "name": "India",
    "slug": "india",
-   "koreanSlots": 539,
-   "koreanPc": 10.1,
-   "distinctTitles": 117,
+   "koreanSlots": 538,
+   "koreanPc": 10,
+   "distinctTitles": 116,
    "halfTakes": 19,
    "topTitle": "Squid Game",
    "topTitlePc": 12.8,
@@ -6939,7 +6939,7 @@
     },
     {
      "year": 2024,
-     "places": 83
+     "places": 82
     },
     {
      "year": 2025,
@@ -7124,9 +7124,9 @@
    "iso2": "ID",
    "name": "Indonesia",
    "slug": "indonesia",
-   "koreanSlots": 1551,
+   "koreanSlots": 1550,
    "koreanPc": 28.9,
-   "distinctTitles": 276,
+   "distinctTitles": 275,
    "halfTakes": 57,
    "topTitle": "Squid Game",
    "topTitlePc": 2.3,
@@ -7140,7 +7140,7 @@
     },
     {
      "year": 2022,
-     "places": 358
+     "places": 357
     },
     {
      "year": 2023,
@@ -7542,14 +7542,14 @@
    "iso2": "IL",
    "name": "Israel",
    "slug": "israel",
-   "koreanSlots": 149,
-   "koreanPc": 2.8,
-   "distinctTitles": 64,
-   "halfTakes": 12,
+   "koreanSlots": 145,
+   "koreanPc": 2.7,
+   "distinctTitles": 62,
+   "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 18.8,
+   "topTitlePc": 19.3,
    "inAsianTen": false,
-   "weeksWithKorean": 113,
+   "weeksWithKorean": 111,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -7558,7 +7558,7 @@
     },
     {
      "year": 2022,
-     "places": 27
+     "places": 26
     },
     {
      "year": 2023,
@@ -7566,7 +7566,7 @@
     },
     {
      "year": 2024,
-     "places": 28
+     "places": 25
     },
     {
      "year": 2025,
@@ -7659,14 +7659,6 @@
      "last": "2026-04-12"
     },
     {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
-    },
-    {
      "title": "Dynamite Kiss",
      "places": 3,
      "peak": 6,
@@ -7737,6 +7729,14 @@
      "weeks": 2,
      "first": "2023-07-16",
      "last": "2023-07-23"
+    },
+    {
+     "title": "Happy Ending",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-09-03",
+     "last": "2023-09-10"
     }
    ],
    "titlesShown": 20,
@@ -7751,14 +7751,14 @@
    "iso2": "IT",
    "name": "Italy",
    "slug": "italy",
-   "koreanSlots": 173,
-   "koreanPc": 3.2,
-   "distinctTitles": 68,
+   "koreanSlots": 164,
+   "koreanPc": 3.1,
+   "distinctTitles": 66,
    "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 21.4,
+   "topTitlePc": 22.6,
    "inAsianTen": false,
-   "weeksWithKorean": 118,
+   "weeksWithKorean": 112,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -7767,7 +7767,7 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 17
     },
     {
      "year": 2023,
@@ -7775,11 +7775,11 @@
     },
     {
      "year": 2024,
-     "places": 21
+     "places": 17
     },
     {
      "year": 2025,
-     "places": 43
+     "places": 41
     },
     {
      "year": 2026,
@@ -7802,14 +7802,6 @@
      "weeks": 9,
      "first": "2026-06-21",
      "last": "2026-08-16"
-    },
-    {
-     "title": "Breathless",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "Real Men",
@@ -7866,14 +7858,6 @@
      "weeks": 3,
      "first": "2025-05-18",
      "last": "2025-06-01"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 5,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     },
     {
      "title": "Desire",
@@ -7946,6 +7930,22 @@
      "weeks": 2,
      "first": "2023-09-03",
      "last": "2023-09-10"
+    },
+    {
+     "title": "JUNG_E",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-01-22",
+     "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 6,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -7960,14 +7960,14 @@
    "iso2": "JM",
    "name": "Jamaica",
    "slug": "jamaica",
-   "koreanSlots": 206,
-   "koreanPc": 3.8,
-   "distinctTitles": 88,
-   "halfTakes": 22,
+   "koreanSlots": 200,
+   "koreanPc": 3.7,
+   "distinctTitles": 85,
+   "halfTakes": 21,
    "topTitle": "Squid Game",
-   "topTitlePc": 10.7,
+   "topTitlePc": 11,
    "inAsianTen": false,
-   "weeksWithKorean": 154,
+   "weeksWithKorean": 150,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -7976,15 +7976,15 @@
     },
     {
      "year": 2022,
-     "places": 43
+     "places": 40
     },
     {
      "year": 2023,
-     "places": 44
+     "places": 43
     },
     {
      "year": 2024,
-     "places": 30
+     "places": 28
     },
     {
      "year": 2025,
@@ -8101,14 +8101,6 @@
      "last": "2023-10-22"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Heroes",
      "places": 3,
      "peak": 6,
@@ -8155,6 +8147,14 @@
      "weeks": 3,
      "first": "2024-09-15",
      "last": "2024-09-29"
+    },
+    {
+     "title": "Parasyte: The Grey",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2024-04-07",
+     "last": "2024-04-21"
     }
    ],
    "titlesShown": 20,
@@ -8378,12 +8378,12 @@
    "iso2": "JO",
    "name": "Jordan",
    "slug": "jordan",
-   "koreanSlots": 427,
-   "koreanPc": 8,
-   "distinctTitles": 128,
+   "koreanSlots": 425,
+   "koreanPc": 7.9,
+   "distinctTitles": 126,
    "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 11.7,
+   "topTitlePc": 11.8,
    "inAsianTen": false,
    "weeksWithKorean": 226,
    "firstKoreanWeek": "2021-08-01",
@@ -8394,7 +8394,7 @@
     },
     {
      "year": 2022,
-     "places": 56
+     "places": 55
     },
     {
      "year": 2023,
@@ -8402,7 +8402,7 @@
     },
     {
      "year": 2024,
-     "places": 81
+     "places": 80
     },
     {
      "year": 2025,
@@ -8587,14 +8587,14 @@
    "iso2": "KE",
    "name": "Kenya",
    "slug": "kenya",
-   "koreanSlots": 258,
-   "koreanPc": 4.8,
-   "distinctTitles": 100,
-   "halfTakes": 22,
+   "koreanSlots": 253,
+   "koreanPc": 4.7,
+   "distinctTitles": 98,
+   "halfTakes": 21,
    "topTitle": "Squid Game",
-   "topTitlePc": 11.6,
+   "topTitlePc": 11.9,
    "inAsianTen": false,
-   "weeksWithKorean": 173,
+   "weeksWithKorean": 169,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -8603,7 +8603,7 @@
     },
     {
      "year": 2022,
-     "places": 61
+     "places": 58
     },
     {
      "year": 2023,
@@ -8611,7 +8611,7 @@
     },
     {
      "year": 2024,
-     "places": 39
+     "places": 37
     },
     {
      "year": 2025,
@@ -8796,12 +8796,12 @@
    "iso2": "KW",
    "name": "Kuwait",
    "slug": "kuwait",
-   "koreanSlots": 564,
+   "koreanSlots": 562,
    "koreanPc": 10.5,
-   "distinctTitles": 156,
-   "halfTakes": 32,
+   "distinctTitles": 154,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.3,
+   "topTitlePc": 8.4,
    "inAsianTen": false,
    "weeksWithKorean": 253,
    "firstKoreanWeek": "2021-07-25",
@@ -8812,7 +8812,7 @@
     },
     {
      "year": 2022,
-     "places": 96
+     "places": 95
     },
     {
      "year": 2023,
@@ -8820,7 +8820,7 @@
     },
     {
      "year": 2024,
-     "places": 102
+     "places": 101
     },
     {
      "year": 2025,
@@ -9005,14 +9005,14 @@
    "iso2": "LV",
    "name": "Latvia",
    "slug": "latvia",
-   "koreanSlots": 103,
+   "koreanSlots": 100,
    "koreanPc": 1.9,
-   "distinctTitles": 34,
+   "distinctTitles": 32,
    "halfTakes": 2,
    "topTitle": "Squid Game",
-   "topTitlePc": 45.6,
+   "topTitlePc": 47,
    "inAsianTen": false,
-   "weeksWithKorean": 79,
+   "weeksWithKorean": 77,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -9021,11 +9021,11 @@
     },
     {
      "year": 2022,
-     "places": 20
+     "places": 18
     },
     {
      "year": 2023,
-     "places": 16
+     "places": 15
     },
     {
      "year": 2024,
@@ -9096,14 +9096,6 @@
      "weeks": 2,
      "first": "2022-08-07",
      "last": "2022-08-14"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 4,
-     "weeks": 2,
-     "first": "2022-07-17",
-     "last": "2022-07-24"
     },
     {
      "title": "Desire",
@@ -9200,6 +9192,14 @@
      "weeks": 1,
      "first": "2025-05-11",
      "last": "2025-05-11"
+    },
+    {
+     "title": "Little Women",
+     "places": 1,
+     "peak": 4,
+     "weeks": 1,
+     "first": "2021-08-29",
+     "last": "2021-08-29"
     }
    ],
    "titlesShown": 20,
@@ -9214,14 +9214,14 @@
    "iso2": "LB",
    "name": "Lebanon",
    "slug": "lebanon",
-   "koreanSlots": 250,
-   "koreanPc": 4.7,
-   "distinctTitles": 92,
-   "halfTakes": 16,
+   "koreanSlots": 244,
+   "koreanPc": 4.6,
+   "distinctTitles": 90,
+   "halfTakes": 15,
    "topTitle": "Squid Game",
-   "topTitlePc": 18.4,
+   "topTitlePc": 18.9,
    "inAsianTen": false,
-   "weeksWithKorean": 168,
+   "weeksWithKorean": 164,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -9230,7 +9230,7 @@
     },
     {
      "year": 2022,
-     "places": 40
+     "places": 37
     },
     {
      "year": 2023,
@@ -9238,7 +9238,7 @@
     },
     {
      "year": 2024,
-     "places": 38
+     "places": 35
     },
     {
      "year": 2025,
@@ -9395,20 +9395,20 @@
      "last": "2023-10-22"
     },
     {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
-    },
-    {
      "title": "Carter",
      "places": 3,
      "peak": 2,
      "weeks": 3,
      "first": "2022-08-07",
      "last": "2022-08-21"
+    },
+    {
+     "title": "Extraordinary Attorney Woo",
+     "places": 3,
+     "peak": 9,
+     "weeks": 3,
+     "first": "2022-07-31",
+     "last": "2022-08-14"
     }
    ],
    "titlesShown": 20,
@@ -9423,14 +9423,14 @@
    "iso2": "LT",
    "name": "Lithuania",
    "slug": "lithuania",
-   "koreanSlots": 113,
-   "koreanPc": 2.1,
-   "distinctTitles": 43,
+   "koreanSlots": 109,
+   "koreanPc": 2,
+   "distinctTitles": 41,
    "halfTakes": 4,
    "topTitle": "Squid Game",
-   "topTitlePc": 36.3,
+   "topTitlePc": 37.6,
    "inAsianTen": false,
-   "weeksWithKorean": 92,
+   "weeksWithKorean": 88,
    "firstKoreanWeek": "2021-08-29",
    "byYear": [
     {
@@ -9439,7 +9439,7 @@
     },
     {
      "year": 2022,
-     "places": 15
+     "places": 12
     },
     {
      "year": 2023,
@@ -9447,7 +9447,7 @@
     },
     {
      "year": 2024,
-     "places": 16
+     "places": 15
     },
     {
      "year": 2025,
@@ -9490,14 +9490,6 @@
      "weeks": 4,
      "first": "2025-12-21",
      "last": "2026-01-11"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 5,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     },
     {
      "title": "Tarot",
@@ -9618,6 +9610,14 @@
      "weeks": 1,
      "first": "2024-02-04",
      "last": "2024-02-04"
+    },
+    {
+     "title": "Ballerina",
+     "places": 1,
+     "peak": 7,
+     "weeks": 1,
+     "first": "2023-10-15",
+     "last": "2023-10-15"
     }
    ],
    "titlesShown": 20,
@@ -9632,14 +9632,14 @@
    "iso2": "LU",
    "name": "Luxembourg",
    "slug": "luxembourg",
-   "koreanSlots": 157,
-   "koreanPc": 2.9,
-   "distinctTitles": 67,
-   "halfTakes": 14,
+   "koreanSlots": 146,
+   "koreanPc": 2.7,
+   "distinctTitles": 64,
+   "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 16.6,
+   "topTitlePc": 17.8,
    "inAsianTen": false,
-   "weeksWithKorean": 120,
+   "weeksWithKorean": 112,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -9648,19 +9648,19 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 17
     },
     {
      "year": 2023,
-     "places": 26
+     "places": 25
     },
     {
      "year": 2024,
-     "places": 27
+     "places": 22
     },
     {
      "year": 2025,
-     "places": 33
+     "places": 32
     },
     {
      "year": 2026,
@@ -9685,14 +9685,6 @@
      "last": "2026-08-02"
     },
     {
-     "title": "Breathless",
-     "places": 6,
-     "peak": 2,
-     "weeks": 6,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Oasis",
      "places": 6,
      "peak": 2,
@@ -9715,14 +9707,6 @@
      "weeks": 4,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Desire",
@@ -9827,13 +9811,29 @@
      "weeks": 2,
      "first": "2025-08-31",
      "last": "2025-09-07"
+    },
+    {
+     "title": "Carter",
+     "places": 2,
+     "peak": 4,
+     "weeks": 2,
+     "first": "2022-08-07",
+     "last": "2022-08-14"
+    },
+    {
+     "title": "City Hunter",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2024-04-28",
+     "last": "2024-05-05"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well below",
     "distinctTitles": "well below",
-    "halfTakes": "below"
+    "halfTakes": "well below"
    },
    "hasPage": true
   },
@@ -10050,9 +10050,9 @@
    "iso2": "MV",
    "name": "Maldives",
    "slug": "maldives",
-   "koreanSlots": 648,
+   "koreanSlots": 647,
    "koreanPc": 12.1,
-   "distinctTitles": 154,
+   "distinctTitles": 153,
    "halfTakes": 31,
    "topTitle": "Squid Game",
    "topTitlePc": 4.9,
@@ -10074,7 +10074,7 @@
     },
     {
      "year": 2024,
-     "places": 117
+     "places": 116
     },
     {
      "year": 2025,
@@ -10250,8 +10250,8 @@
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "well above",
-    "distinctTitles": "above",
-    "halfTakes": "above"
+    "distinctTitles": "well above",
+    "halfTakes": "well above"
    },
    "hasPage": true
   },
@@ -10259,14 +10259,14 @@
    "iso2": "MT",
    "name": "Malta",
    "slug": "malta",
-   "koreanSlots": 115,
+   "koreanSlots": 111,
    "koreanPc": 2.1,
-   "distinctTitles": 55,
-   "halfTakes": 13,
+   "distinctTitles": 53,
+   "halfTakes": 12,
    "topTitle": "Squid Game",
-   "topTitlePc": 21.7,
+   "topTitlePc": 22.5,
    "inAsianTen": false,
-   "weeksWithKorean": 93,
+   "weeksWithKorean": 91,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -10275,7 +10275,7 @@
     },
     {
      "year": 2022,
-     "places": 13
+     "places": 12
     },
     {
      "year": 2023,
@@ -10283,7 +10283,7 @@
     },
     {
      "year": 2024,
-     "places": 31
+     "places": 28
     },
     {
      "year": 2025,
@@ -10326,14 +10326,6 @@
      "weeks": 3,
      "first": "2025-08-31",
      "last": "2025-09-14"
-    },
-    {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 5,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
     },
     {
      "title": "Desire",
@@ -10454,6 +10446,14 @@
      "weeks": 2,
      "first": "2022-09-18",
      "last": "2022-09-25"
+    },
+    {
+     "title": "Noise",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2023-03-19",
+     "last": "2023-03-26"
     }
    ],
    "titlesShown": 20,
@@ -10468,14 +10468,14 @@
    "iso2": "MQ",
    "name": "Martinique",
    "slug": "martinique",
-   "koreanSlots": 251,
-   "koreanPc": 4.7,
-   "distinctTitles": 104,
-   "halfTakes": 26,
+   "koreanSlots": 244,
+   "koreanPc": 4.6,
+   "distinctTitles": 101,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 8,
+   "topTitlePc": 8.2,
    "inAsianTen": false,
-   "weeksWithKorean": 177,
+   "weeksWithKorean": 173,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -10484,15 +10484,15 @@
     },
     {
      "year": 2022,
-     "places": 46
+     "places": 42
     },
     {
      "year": 2023,
-     "places": 54
+     "places": 53
     },
     {
      "year": 2024,
-     "places": 35
+     "places": 33
     },
     {
      "year": 2025,
@@ -10593,14 +10593,6 @@
      "last": "2024-02-04"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 2,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
-    },
-    {
      "title": "Narco-Saints",
      "places": 4,
      "peak": 1,
@@ -10663,6 +10655,14 @@
      "weeks": 3,
      "first": "2023-07-02",
      "last": "2023-07-16"
+    },
+    {
+     "title": "Desire",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2026-07-19",
+     "last": "2026-08-02"
     }
    ],
    "titlesShown": 20,
@@ -10677,14 +10677,14 @@
    "iso2": "MU",
    "name": "Mauritius",
    "slug": "mauritius",
-   "koreanSlots": 292,
+   "koreanSlots": 287,
    "koreanPc": 5.4,
-   "distinctTitles": 111,
-   "halfTakes": 24,
+   "distinctTitles": 109,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 10.6,
+   "topTitlePc": 10.8,
    "inAsianTen": false,
-   "weeksWithKorean": 189,
+   "weeksWithKorean": 185,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -10693,7 +10693,7 @@
     },
     {
      "year": 2022,
-     "places": 54
+     "places": 52
     },
     {
      "year": 2023,
@@ -10701,7 +10701,7 @@
     },
     {
      "year": 2024,
-     "places": 36
+     "places": 33
     },
     {
      "year": 2025,
@@ -10886,14 +10886,14 @@
    "iso2": "MX",
    "name": "Mexico",
    "slug": "mexico",
-   "koreanSlots": 455,
-   "koreanPc": 8.5,
-   "distinctTitles": 125,
-   "halfTakes": 24,
+   "koreanSlots": 448,
+   "koreanPc": 8.4,
+   "distinctTitles": 122,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 9,
+   "topTitlePc": 9.2,
    "inAsianTen": false,
-   "weeksWithKorean": 242,
+   "weeksWithKorean": 239,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -10902,15 +10902,15 @@
     },
     {
      "year": 2022,
-     "places": 75
+     "places": 73
     },
     {
      "year": 2023,
-     "places": 93
+     "places": 91
     },
     {
      "year": 2024,
-     "places": 91
+     "places": 88
     },
     {
      "year": 2025,
@@ -11095,12 +11095,12 @@
    "iso2": "MA",
    "name": "Morocco",
    "slug": "morocco",
-   "koreanSlots": 520,
-   "koreanPc": 9.7,
-   "distinctTitles": 141,
-   "halfTakes": 31,
+   "koreanSlots": 512,
+   "koreanPc": 9.6,
+   "distinctTitles": 139,
+   "halfTakes": 30,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.8,
+   "topTitlePc": 9,
    "inAsianTen": false,
    "weeksWithKorean": 246,
    "firstKoreanWeek": "2021-07-04",
@@ -11111,7 +11111,7 @@
     },
     {
      "year": 2022,
-     "places": 92
+     "places": 88
     },
     {
      "year": 2023,
@@ -11119,11 +11119,11 @@
     },
     {
      "year": 2024,
-     "places": 82
+     "places": 79
     },
     {
      "year": 2025,
-     "places": 115
+     "places": 114
     },
     {
      "year": 2026,
@@ -11296,7 +11296,7 @@
    "vsMedian": {
     "koreanPc": "well above",
     "distinctTitles": "above",
-    "halfTakes": "above"
+    "halfTakes": "well above"
    },
    "hasPage": true
   },
@@ -11304,14 +11304,14 @@
    "iso2": "NL",
    "name": "Netherlands",
    "slug": "netherlands",
-   "koreanSlots": 96,
+   "koreanSlots": 94,
    "koreanPc": 1.8,
-   "distinctTitles": 43,
+   "distinctTitles": 41,
    "halfTakes": 7,
    "topTitle": "Squid Game",
-   "topTitlePc": 26,
+   "topTitlePc": 26.6,
    "inAsianTen": false,
-   "weeksWithKorean": 78,
+   "weeksWithKorean": 76,
    "firstKoreanWeek": "2021-09-19",
    "byYear": [
     {
@@ -11320,7 +11320,7 @@
     },
     {
      "year": 2022,
-     "places": 14
+     "places": 13
     },
     {
      "year": 2023,
@@ -11328,7 +11328,7 @@
     },
     {
      "year": 2024,
-     "places": 15
+     "places": 14
     },
     {
      "year": 2025,
@@ -11513,14 +11513,14 @@
    "iso2": "NC",
    "name": "New Caledonia",
    "slug": "new-caledonia",
-   "koreanSlots": 253,
-   "koreanPc": 4.7,
-   "distinctTitles": 112,
-   "halfTakes": 24,
+   "koreanSlots": 248,
+   "koreanPc": 4.6,
+   "distinctTitles": 110,
+   "halfTakes": 23,
    "topTitle": "Squid Game",
-   "topTitlePc": 9.1,
+   "topTitlePc": 9.3,
    "inAsianTen": false,
-   "weeksWithKorean": 180,
+   "weeksWithKorean": 177,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -11529,7 +11529,7 @@
     },
     {
      "year": 2022,
-     "places": 41
+     "places": 38
     },
     {
      "year": 2023,
@@ -11537,7 +11537,7 @@
     },
     {
      "year": 2024,
-     "places": 36
+     "places": 34
     },
     {
      "year": 2025,
@@ -11678,14 +11678,6 @@
      "last": "2024-02-04"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Hierarchy",
      "places": 3,
      "peak": 2,
@@ -11708,6 +11700,14 @@
      "weeks": 3,
      "first": "2024-09-15",
      "last": "2024-09-29"
+    },
+    {
+     "title": "Parasyte: The Grey",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2024-04-07",
+     "last": "2024-04-21"
     }
    ],
    "titlesShown": 20,
@@ -11931,14 +11931,14 @@
    "iso2": "NI",
    "name": "Nicaragua",
    "slug": "nicaragua",
-   "koreanSlots": 554,
-   "koreanPc": 10.3,
-   "distinctTitles": 140,
-   "halfTakes": 28,
+   "koreanSlots": 546,
+   "koreanPc": 10.2,
+   "distinctTitles": 137,
+   "halfTakes": 27,
    "topTitle": "Squid Game",
-   "topTitlePc": 7.9,
+   "topTitlePc": 8.1,
    "inAsianTen": false,
-   "weeksWithKorean": 247,
+   "weeksWithKorean": 245,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -11947,15 +11947,15 @@
     },
     {
      "year": 2022,
-     "places": 58
+     "places": 56
     },
     {
      "year": 2023,
-     "places": 123
+     "places": 121
     },
     {
      "year": 2024,
-     "places": 126
+     "places": 122
     },
     {
      "year": 2025,
@@ -12140,10 +12140,10 @@
    "iso2": "NG",
    "name": "Nigeria",
    "slug": "nigeria",
-   "koreanSlots": 656,
+   "koreanSlots": 654,
    "koreanPc": 12.2,
-   "distinctTitles": 160,
-   "halfTakes": 30,
+   "distinctTitles": 159,
+   "halfTakes": 29,
    "topTitle": "Alchemy of Souls",
    "topTitlePc": 7.3,
    "inAsianTen": false,
@@ -12156,7 +12156,7 @@
     },
     {
      "year": 2022,
-     "places": 156
+     "places": 154
     },
     {
      "year": 2023,
@@ -12349,14 +12349,14 @@
    "iso2": "NO",
    "name": "Norway",
    "slug": "norway",
-   "koreanSlots": 108,
+   "koreanSlots": 105,
    "koreanPc": 2,
-   "distinctTitles": 52,
+   "distinctTitles": 50,
    "halfTakes": 10,
    "topTitle": "Squid Game",
-   "topTitlePc": 25,
+   "topTitlePc": 25.7,
    "inAsianTen": false,
-   "weeksWithKorean": 92,
+   "weeksWithKorean": 91,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -12365,11 +12365,11 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 20
     },
     {
      "year": 2023,
-     "places": 22
+     "places": 20
     },
     {
      "year": 2024,
@@ -12506,14 +12506,6 @@
      "last": "2023-03-12"
     },
     {
-     "title": "One More Time",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2023-04-23",
-     "last": "2023-04-30"
-    },
-    {
      "title": "Physical: Asia",
      "places": 2,
      "peak": 8,
@@ -12544,6 +12536,14 @@
      "weeks": 2,
      "first": "2022-03-06",
      "last": "2022-03-13"
+    },
+    {
+     "title": "Uprising",
+     "places": 2,
+     "peak": 10,
+     "weeks": 2,
+     "first": "2024-10-13",
+     "last": "2024-10-20"
     }
    ],
    "titlesShown": 20,
@@ -12558,9 +12558,9 @@
    "iso2": "OM",
    "name": "Oman",
    "slug": "oman",
-   "koreanSlots": 596,
+   "koreanSlots": 593,
    "koreanPc": 11.1,
-   "distinctTitles": 151,
+   "distinctTitles": 149,
    "halfTakes": 32,
    "topTitle": "Squid Game",
    "topTitlePc": 7.4,
@@ -12574,7 +12574,7 @@
     },
     {
      "year": 2022,
-     "places": 97
+     "places": 96
     },
     {
      "year": 2023,
@@ -12582,7 +12582,7 @@
     },
     {
      "year": 2024,
-     "places": 103
+     "places": 101
     },
     {
      "year": 2025,
@@ -12767,12 +12767,12 @@
    "iso2": "PK",
    "name": "Pakistan",
    "slug": "pakistan",
-   "koreanSlots": 573,
+   "koreanSlots": 571,
    "koreanPc": 10.7,
-   "distinctTitles": 112,
+   "distinctTitles": 111,
    "halfTakes": 15,
    "topTitle": "Squid Game",
-   "topTitlePc": 11.5,
+   "topTitlePc": 11.6,
    "inAsianTen": false,
    "weeksWithKorean": 264,
    "firstKoreanWeek": "2021-07-18",
@@ -12791,7 +12791,7 @@
     },
     {
      "year": 2024,
-     "places": 100
+     "places": 98
     },
     {
      "year": 2025,
@@ -12976,14 +12976,14 @@
    "iso2": "PA",
    "name": "Panama",
    "slug": "panama",
-   "koreanSlots": 380,
-   "koreanPc": 7.1,
-   "distinctTitles": 124,
-   "halfTakes": 27,
+   "koreanSlots": 370,
+   "koreanPc": 6.9,
+   "distinctTitles": 121,
+   "halfTakes": 26,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.3,
+   "topTitlePc": 6.5,
    "inAsianTen": false,
-   "weeksWithKorean": 222,
+   "weeksWithKorean": 218,
    "firstKoreanWeek": "2021-07-18",
    "byYear": [
     {
@@ -12992,19 +12992,19 @@
     },
     {
      "year": 2022,
-     "places": 59
+     "places": 56
     },
     {
      "year": 2023,
-     "places": 71
+     "places": 69
     },
     {
      "year": 2024,
-     "places": 84
+     "places": 80
     },
     {
      "year": 2025,
-     "places": 77
+     "places": 76
     },
     {
      "year": 2026,
@@ -13185,14 +13185,14 @@
    "iso2": "PY",
    "name": "Paraguay",
    "slug": "paraguay",
-   "koreanSlots": 411,
-   "koreanPc": 7.7,
-   "distinctTitles": 125,
-   "halfTakes": 26,
+   "koreanSlots": 401,
+   "koreanPc": 7.5,
+   "distinctTitles": 122,
+   "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.5,
+   "topTitlePc": 8.7,
    "inAsianTen": false,
-   "weeksWithKorean": 220,
+   "weeksWithKorean": 215,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -13201,19 +13201,19 @@
     },
     {
      "year": 2022,
-     "places": 42
+     "places": 39
     },
     {
      "year": 2023,
-     "places": 85
+     "places": 83
     },
     {
      "year": 2024,
-     "places": 92
+     "places": 88
     },
     {
      "year": 2025,
-     "places": 94
+     "places": 93
     },
     {
      "year": 2026,
@@ -13394,14 +13394,14 @@
    "iso2": "PE",
    "name": "Peru",
    "slug": "peru",
-   "koreanSlots": 695,
-   "koreanPc": 13,
-   "distinctTitles": 158,
-   "halfTakes": 32,
+   "koreanSlots": 686,
+   "koreanPc": 12.8,
+   "distinctTitles": 155,
+   "halfTakes": 31,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.5,
+   "topTitlePc": 6.6,
    "inAsianTen": false,
-   "weeksWithKorean": 254,
+   "weeksWithKorean": 253,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -13410,19 +13410,19 @@
     },
     {
      "year": 2022,
-     "places": 105
+     "places": 102
     },
     {
      "year": 2023,
-     "places": 149
+     "places": 147
     },
     {
      "year": 2024,
-     "places": 140
+     "places": 137
     },
     {
      "year": 2025,
-     "places": 157
+     "places": 156
     },
     {
      "year": 2026,
@@ -13812,14 +13812,14 @@
    "iso2": "PL",
    "name": "Poland",
    "slug": "poland",
-   "koreanSlots": 163,
-   "koreanPc": 3,
-   "distinctTitles": 74,
-   "halfTakes": 18,
+   "koreanSlots": 155,
+   "koreanPc": 2.9,
+   "distinctTitles": 71,
+   "halfTakes": 17,
    "topTitle": "Squid Game",
-   "topTitlePc": 17.8,
+   "topTitlePc": 18.7,
    "inAsianTen": false,
-   "weeksWithKorean": 121,
+   "weeksWithKorean": 116,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -13828,15 +13828,15 @@
     },
     {
      "year": 2022,
-     "places": 27
+     "places": 23
     },
     {
      "year": 2023,
-     "places": 35
+     "places": 34
     },
     {
      "year": 2024,
-     "places": 20
+     "places": 17
     },
     {
      "year": 2025,
@@ -13881,14 +13881,6 @@
      "last": "2022-02-20"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 4,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
-    },
-    {
      "title": "Return",
      "places": 4,
      "peak": 3,
@@ -13911,14 +13903,6 @@
      "weeks": 3,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 2,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
     },
     {
      "title": "Desire",
@@ -14007,6 +13991,22 @@
      "weeks": 2,
      "first": "2023-01-15",
      "last": "2023-01-22"
+    },
+    {
+     "title": "JUNG_E",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-01-22",
+     "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 9,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -14021,14 +14021,14 @@
    "iso2": "PT",
    "name": "Portugal",
    "slug": "portugal",
-   "koreanSlots": 214,
-   "koreanPc": 4,
-   "distinctTitles": 91,
+   "koreanSlots": 203,
+   "koreanPc": 3.8,
+   "distinctTitles": 89,
    "halfTakes": 19,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.6,
+   "topTitlePc": 14.3,
    "inAsianTen": false,
-   "weeksWithKorean": 152,
+   "weeksWithKorean": 145,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -14037,7 +14037,7 @@
     },
     {
      "year": 2022,
-     "places": 23
+     "places": 20
     },
     {
      "year": 2023,
@@ -14045,11 +14045,11 @@
     },
     {
      "year": 2024,
-     "places": 34
+     "places": 29
     },
     {
      "year": 2025,
-     "places": 62
+     "places": 59
     },
     {
      "year": 2026,
@@ -14064,14 +14064,6 @@
      "weeks": 23,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Breathless",
-     "places": 8,
-     "peak": 2,
-     "weeks": 8,
-     "first": "2024-09-01",
-     "last": "2025-11-16"
     },
     {
      "title": "Bon Appétit, Your Majesty",
@@ -14178,14 +14170,6 @@
      "last": "2023-05-21"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 3,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "places": 3,
      "peak": 5,
@@ -14216,6 +14200,22 @@
      "weeks": 3,
      "first": "2025-03-30",
      "last": "2025-05-04"
+    },
+    {
+     "title": "Wrath",
+     "places": 3,
+     "peak": 2,
+     "weeks": 3,
+     "first": "2026-08-02",
+     "last": "2026-08-16"
+    },
+    {
+     "title": "Badland Hunters",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2024-01-28",
+     "last": "2024-02-04"
     }
    ],
    "titlesShown": 20,
@@ -14230,9 +14230,9 @@
    "iso2": "QA",
    "name": "Qatar",
    "slug": "qatar",
-   "koreanSlots": 690,
+   "koreanSlots": 689,
    "koreanPc": 12.9,
-   "distinctTitles": 177,
+   "distinctTitles": 176,
    "halfTakes": 38,
    "topTitle": "Squid Game",
    "topTitlePc": 5.8,
@@ -14254,7 +14254,7 @@
     },
     {
      "year": 2024,
-     "places": 121
+     "places": 120
     },
     {
      "year": 2025,
@@ -14439,14 +14439,14 @@
    "iso2": "RE",
    "name": "Réunion",
    "slug": "r-union",
-   "koreanSlots": 283,
-   "koreanPc": 5.3,
-   "distinctTitles": 119,
-   "halfTakes": 28,
+   "koreanSlots": 276,
+   "koreanPc": 5.1,
+   "distinctTitles": 116,
+   "halfTakes": 27,
    "topTitle": "Squid Game",
-   "topTitlePc": 8.8,
+   "topTitlePc": 9.1,
    "inAsianTen": false,
-   "weeksWithKorean": 187,
+   "weeksWithKorean": 183,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -14455,15 +14455,15 @@
     },
     {
      "year": 2022,
-     "places": 42
+     "places": 39
     },
     {
      "year": 2023,
-     "places": 59
+     "places": 58
     },
     {
      "year": 2024,
-     "places": 39
+     "places": 36
     },
     {
      "year": 2025,
@@ -14612,14 +14612,6 @@
      "last": "2025-11-23"
     },
     {
-     "title": "Breathless",
-     "places": 3,
-     "peak": 5,
-     "weeks": 3,
-     "first": "2024-09-01",
-     "last": "2024-09-15"
-    },
-    {
      "title": "Carter",
      "places": 3,
      "peak": 3,
@@ -14634,6 +14626,14 @@
      "weeks": 3,
      "first": "2025-12-28",
      "last": "2026-01-11"
+    },
+    {
+     "title": "City Hunter",
+     "places": 3,
+     "peak": 1,
+     "weeks": 3,
+     "first": "2024-04-28",
+     "last": "2024-05-12"
     }
    ],
    "titlesShown": 20,
@@ -14648,14 +14648,14 @@
    "iso2": "RO",
    "name": "Romania",
    "slug": "romania",
-   "koreanSlots": 288,
-   "koreanPc": 5.4,
-   "distinctTitles": 118,
-   "halfTakes": 23,
+   "koreanSlots": 279,
+   "koreanPc": 5.2,
+   "distinctTitles": 115,
+   "halfTakes": 22,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.5,
+   "topTitlePc": 14,
    "inAsianTen": false,
-   "weeksWithKorean": 179,
+   "weeksWithKorean": 176,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -14664,19 +14664,19 @@
     },
     {
      "year": 2022,
-     "places": 34
+     "places": 31
     },
     {
      "year": 2023,
-     "places": 67
+     "places": 66
     },
     {
      "year": 2024,
-     "places": 38
+     "places": 34
     },
     {
      "year": 2025,
-     "places": 68
+     "places": 67
     },
     {
      "year": 2026,
@@ -14773,14 +14773,6 @@
      "last": "2026-04-12"
     },
     {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 2,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "All of Us Are Dead",
      "places": 4,
      "peak": 3,
@@ -14837,19 +14829,27 @@
      "last": "2023-05-28"
     },
     {
-     "title": "Dangerous Liaisons",
+     "title": "Desire",
      "places": 3,
-     "peak": 3,
+     "peak": 1,
      "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
+     "first": "2026-07-19",
+     "last": "2026-08-02"
+    },
+    {
+     "title": "Destined with You",
+     "places": 3,
+     "peak": 5,
+     "weeks": 3,
+     "first": "2023-08-27",
+     "last": "2023-09-10"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
     "koreanPc": "above",
     "distinctTitles": "above",
-    "halfTakes": "near"
+    "halfTakes": "above"
    },
    "hasPage": true
   },
@@ -14857,9 +14857,9 @@
    "iso2": "SA",
    "name": "Saudi Arabia",
    "slug": "saudi-arabia",
-   "koreanSlots": 674,
-   "koreanPc": 12.6,
-   "distinctTitles": 165,
+   "koreanSlots": 669,
+   "koreanPc": 12.5,
+   "distinctTitles": 163,
    "halfTakes": 34,
    "topTitle": "Squid Game",
    "topTitlePc": 6.7,
@@ -14873,7 +14873,7 @@
     },
     {
      "year": 2022,
-     "places": 126
+     "places": 125
     },
     {
      "year": 2023,
@@ -14881,11 +14881,11 @@
     },
     {
      "year": 2024,
-     "places": 117
+     "places": 114
     },
     {
      "year": 2025,
-     "places": 126
+     "places": 125
     },
     {
      "year": 2026,
@@ -15066,14 +15066,14 @@
    "iso2": "RS",
    "name": "Serbia",
    "slug": "serbia",
-   "koreanSlots": 168,
-   "koreanPc": 3.1,
-   "distinctTitles": 59,
-   "halfTakes": 7,
+   "koreanSlots": 160,
+   "koreanPc": 3,
+   "distinctTitles": 56,
+   "halfTakes": 6,
    "topTitle": "Squid Game",
-   "topTitlePc": 29.8,
+   "topTitlePc": 31.3,
    "inAsianTen": false,
-   "weeksWithKorean": 124,
+   "weeksWithKorean": 118,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15082,19 +15082,19 @@
     },
     {
      "year": 2022,
-     "places": 20
-    },
-    {
-     "year": 2023,
-     "places": 37
-    },
-    {
-     "year": 2024,
      "places": 18
     },
     {
+     "year": 2023,
+     "places": 36
+    },
+    {
+     "year": 2024,
+     "places": 14
+    },
+    {
      "year": 2025,
-     "places": 42
+     "places": 41
     },
     {
      "year": 2026,
@@ -15149,14 +15149,6 @@
      "weeks": 5,
      "first": "2022-01-30",
      "last": "2022-02-27"
-    },
-    {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "Desire",
@@ -15247,20 +15239,28 @@
      "last": "2022-08-14"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 4,
-     "weeks": 2,
-     "first": "2022-07-17",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Humint",
      "places": 2,
      "peak": 3,
      "weeks": 2,
      "first": "2026-04-05",
      "last": "2026-04-12"
+    },
+    {
+     "title": "JUNG_E",
+     "places": 2,
+     "peak": 7,
+     "weeks": 2,
+     "first": "2023-01-22",
+     "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 4,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -15484,14 +15484,14 @@
    "iso2": "SK",
    "name": "Slovakia",
    "slug": "slovakia",
-   "koreanSlots": 179,
-   "koreanPc": 3.3,
-   "distinctTitles": 61,
-   "halfTakes": 11,
+   "koreanSlots": 170,
+   "koreanPc": 3.2,
+   "distinctTitles": 58,
+   "halfTakes": 10,
    "topTitle": "Squid Game",
-   "topTitlePc": 24.6,
+   "topTitlePc": 25.9,
    "inAsianTen": false,
-   "weeksWithKorean": 130,
+   "weeksWithKorean": 122,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -15500,19 +15500,19 @@
     },
     {
      "year": 2022,
-     "places": 24
+     "places": 20
     },
     {
      "year": 2023,
-     "places": 32
+     "places": 31
     },
     {
      "year": 2024,
-     "places": 24
+     "places": 21
     },
     {
      "year": 2025,
-     "places": 45
+     "places": 44
     },
     {
      "year": 2026,
@@ -15575,22 +15575,6 @@
      "weeks": 5,
      "first": "2026-06-21",
      "last": "2026-07-19"
-    },
-    {
-     "title": "Breathless",
-     "places": 4,
-     "peak": 4,
-     "weeks": 4,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 2,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "Desire",
@@ -15679,6 +15663,22 @@
      "weeks": 2,
      "first": "2025-02-16",
      "last": "2025-02-23"
+    },
+    {
+     "title": "Grand Prix",
+     "places": 2,
+     "peak": 7,
+     "weeks": 2,
+     "first": "2024-04-21",
+     "last": "2024-04-28"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-12-31",
+     "last": "2024-10-06"
     }
    ],
    "titlesShown": 20,
@@ -15693,14 +15693,14 @@
    "iso2": "SI",
    "name": "Slovenia",
    "slug": "slovenia",
-   "koreanSlots": 118,
-   "koreanPc": 2.2,
-   "distinctTitles": 48,
-   "halfTakes": 5,
+   "koreanSlots": 114,
+   "koreanPc": 2.1,
+   "distinctTitles": 46,
+   "halfTakes": 4,
    "topTitle": "Squid Game",
-   "topTitlePc": 32.2,
+   "topTitlePc": 33.3,
    "inAsianTen": false,
-   "weeksWithKorean": 93,
+   "weeksWithKorean": 90,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15709,7 +15709,7 @@
     },
     {
      "year": 2022,
-     "places": 14
+     "places": 12
     },
     {
      "year": 2023,
@@ -15717,7 +15717,7 @@
     },
     {
      "year": 2024,
-     "places": 13
+     "places": 11
     },
     {
      "year": 2025,
@@ -15802,28 +15802,12 @@
      "last": "2023-05-21"
     },
     {
-     "title": "Breathless",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2024-09-08",
-     "last": "2024-09-15"
-    },
-    {
      "title": "Carter",
      "places": 2,
      "peak": 7,
      "weeks": 2,
      "first": "2022-08-07",
      "last": "2022-08-14"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2022-07-17",
-     "last": "2022-07-24"
     },
     {
      "title": "JUNG_E",
@@ -15888,6 +15872,22 @@
      "weeks": 1,
      "first": "2023-10-15",
      "last": "2023-10-15"
+    },
+    {
+     "title": "Band of Brothers",
+     "places": 1,
+     "peak": 9,
+     "weeks": 1,
+     "first": "2023-09-24",
+     "last": "2023-09-24"
+    },
+    {
+     "title": "Barbie",
+     "places": 1,
+     "peak": 9,
+     "weeks": 1,
+     "first": "2024-12-22",
+     "last": "2024-12-22"
     }
    ],
    "titlesShown": 20,
@@ -15902,14 +15902,14 @@
    "iso2": "ZA",
    "name": "South Africa",
    "slug": "south-africa",
-   "koreanSlots": 147,
+   "koreanSlots": 146,
    "koreanPc": 2.7,
-   "distinctTitles": 67,
+   "distinctTitles": 66,
    "halfTakes": 13,
    "topTitle": "Squid Game",
-   "topTitlePc": 20.4,
+   "topTitlePc": 20.5,
    "inAsianTen": false,
-   "weeksWithKorean": 118,
+   "weeksWithKorean": 117,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -15918,7 +15918,7 @@
     },
     {
      "year": 2022,
-     "places": 25
+     "places": 24
     },
     {
      "year": 2023,
@@ -16320,14 +16320,14 @@
    "iso2": "ES",
    "name": "Spain",
    "slug": "spain",
-   "koreanSlots": 183,
-   "koreanPc": 3.4,
-   "distinctTitles": 78,
-   "halfTakes": 16,
+   "koreanSlots": 166,
+   "koreanPc": 3.1,
+   "distinctTitles": 75,
+   "halfTakes": 17,
    "topTitle": "Squid Game",
-   "topTitlePc": 14.8,
+   "topTitlePc": 16.3,
    "inAsianTen": false,
-   "weeksWithKorean": 139,
+   "weeksWithKorean": 129,
    "firstKoreanWeek": "2021-07-25",
    "byYear": [
     {
@@ -16336,19 +16336,19 @@
     },
     {
      "year": 2022,
-     "places": 24
+     "places": 21
     },
     {
      "year": 2023,
-     "places": 29
+     "places": 28
     },
     {
      "year": 2024,
-     "places": 29
+     "places": 22
     },
     {
      "year": 2025,
-     "places": 46
+     "places": 40
     },
     {
      "year": 2026,
@@ -16363,14 +16363,6 @@
      "weeks": 22,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Breathless",
-     "places": 13,
-     "peak": 1,
-     "weeks": 11,
-     "first": "2024-09-01",
-     "last": "2025-11-23"
     },
     {
      "title": "Oasis",
@@ -16419,14 +16411,6 @@
      "weeks": 3,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     },
     {
      "title": "Escape",
@@ -16515,6 +16499,22 @@
      "weeks": 2,
      "first": "2026-05-10",
      "last": "2026-05-17"
+    },
+    {
+     "title": "Awake",
+     "places": 2,
+     "peak": 1,
+     "weeks": 2,
+     "first": "2026-02-01",
+     "last": "2026-02-08"
+    },
+    {
+     "title": "Badland Hunters",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2024-01-28",
+     "last": "2024-02-04"
     }
    ],
    "titlesShown": 20,
@@ -16529,9 +16529,9 @@
    "iso2": "LK",
    "name": "Sri Lanka",
    "slug": "sri-lanka",
-   "koreanSlots": 543,
+   "koreanSlots": 541,
    "koreanPc": 10.1,
-   "distinctTitles": 140,
+   "distinctTitles": 138,
    "halfTakes": 25,
    "topTitle": "Squid Game",
    "topTitlePc": 7.9,
@@ -16545,7 +16545,7 @@
     },
     {
      "year": 2022,
-     "places": 115
+     "places": 114
     },
     {
      "year": 2023,
@@ -16553,7 +16553,7 @@
     },
     {
      "year": 2024,
-     "places": 90
+     "places": 89
     },
     {
      "year": 2025,
@@ -16738,14 +16738,14 @@
    "iso2": "SE",
    "name": "Sweden",
    "slug": "sweden",
-   "koreanSlots": 117,
-   "koreanPc": 2.2,
-   "distinctTitles": 53,
-   "halfTakes": 9,
+   "koreanSlots": 113,
+   "koreanPc": 2.1,
+   "distinctTitles": 51,
+   "halfTakes": 8,
    "topTitle": "Squid Game",
-   "topTitlePc": 23.9,
+   "topTitlePc": 24.8,
    "inAsianTen": false,
-   "weeksWithKorean": 97,
+   "weeksWithKorean": 94,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -16754,11 +16754,11 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 20
     },
     {
      "year": 2023,
-     "places": 24
+     "places": 21
     },
     {
      "year": 2024,
@@ -16829,14 +16829,6 @@
      "weeks": 3,
      "first": "2023-07-16",
      "last": "2023-07-30"
-    },
-    {
-     "title": "One More Time",
-     "places": 3,
-     "peak": 1,
-     "weeks": 3,
-     "first": "2023-04-23",
-     "last": "2023-05-07"
     },
     {
      "title": "8MM",
@@ -16933,6 +16925,14 @@
      "weeks": 2,
      "first": "2021-12-26",
      "last": "2022-01-02"
+    },
+    {
+     "title": "Uprising",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2024-10-13",
+     "last": "2024-10-20"
     }
    ],
    "titlesShown": 20,
@@ -16947,14 +16947,14 @@
    "iso2": "CH",
    "name": "Switzerland",
    "slug": "switzerland",
-   "koreanSlots": 145,
-   "koreanPc": 2.7,
-   "distinctTitles": 57,
+   "koreanSlots": 135,
+   "koreanPc": 2.5,
+   "distinctTitles": 54,
    "halfTakes": 11,
    "topTitle": "Squid Game",
-   "topTitlePc": 18.6,
+   "topTitlePc": 20,
    "inAsianTen": false,
-   "weeksWithKorean": 116,
+   "weeksWithKorean": 110,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -16963,19 +16963,19 @@
     },
     {
      "year": 2022,
-     "places": 24
-    },
-    {
-     "year": 2023,
      "places": 20
     },
     {
+     "year": 2023,
+     "places": 19
+    },
+    {
      "year": 2024,
-     "places": 27
+     "places": 23
     },
     {
      "year": 2025,
-     "places": 29
+     "places": 28
     },
     {
      "year": 2026,
@@ -17016,14 +17016,6 @@
      "last": "2022-02-27"
     },
     {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 2,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Agent Kim Reactivated",
      "places": 4,
      "peak": 6,
@@ -17038,14 +17030,6 @@
      "weeks": 4,
      "first": "2023-06-18",
      "last": "2026-04-12"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 4,
-     "peak": 3,
-     "weeks": 4,
-     "first": "2022-07-10",
-     "last": "2022-07-31"
     },
     {
      "title": "The Glory",
@@ -17142,6 +17126,22 @@
      "weeks": 2,
      "first": "2023-09-03",
      "last": "2023-09-10"
+    },
+    {
+     "title": "JUNG_E",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2023-01-22",
+     "last": "2023-01-29"
+    },
+    {
+     "title": "Kill Boksoon",
+     "places": 2,
+     "peak": 3,
+     "weeks": 2,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ],
    "titlesShown": 20,
@@ -17574,14 +17574,14 @@
    "iso2": "TT",
    "name": "Trinidad and Tobago",
    "slug": "trinidad-and-tobago",
-   "koreanSlots": 157,
-   "koreanPc": 2.9,
-   "distinctTitles": 73,
-   "halfTakes": 18,
+   "koreanSlots": 152,
+   "koreanPc": 2.8,
+   "distinctTitles": 71,
+   "halfTakes": 17,
    "topTitle": "Squid Game",
-   "topTitlePc": 12.7,
+   "topTitlePc": 13.2,
    "inAsianTen": false,
-   "weeksWithKorean": 123,
+   "weeksWithKorean": 121,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -17590,7 +17590,7 @@
     },
     {
      "year": 2022,
-     "places": 37
+     "places": 34
     },
     {
      "year": 2023,
@@ -17598,7 +17598,7 @@
     },
     {
      "year": 2024,
-     "places": 26
+     "places": 24
     },
     {
      "year": 2025,
@@ -17675,14 +17675,6 @@
      "last": "2023-03-26"
     },
     {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 3,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
-    },
-    {
      "title": "Last Knights",
      "places": 3,
      "peak": 2,
@@ -17739,14 +17731,6 @@
      "last": "2023-05-21"
     },
     {
-     "title": "Breathless",
-     "places": 2,
-     "peak": 6,
-     "weeks": 2,
-     "first": "2024-09-01",
-     "last": "2024-09-08"
-    },
-    {
      "title": "Business Proposal",
      "places": 2,
      "peak": 6,
@@ -17769,6 +17753,22 @@
      "weeks": 2,
      "first": "2024-01-21",
      "last": "2024-01-28"
+    },
+    {
+     "title": "City Hunter",
+     "places": 2,
+     "peak": 8,
+     "weeks": 2,
+     "first": "2024-04-28",
+     "last": "2024-05-05"
+    },
+    {
+     "title": "Desire",
+     "places": 2,
+     "peak": 2,
+     "weeks": 2,
+     "first": "2026-07-19",
+     "last": "2026-07-26"
     }
    ],
    "titlesShown": 20,
@@ -17783,14 +17783,14 @@
    "iso2": "TR",
    "name": "Turkey",
    "slug": "turkey",
-   "koreanSlots": 334,
+   "koreanSlots": 332,
    "koreanPc": 6.2,
-   "distinctTitles": 115,
+   "distinctTitles": 113,
    "halfTakes": 21,
    "topTitle": "Squid Game",
-   "topTitlePc": 15.6,
+   "topTitlePc": 15.7,
    "inAsianTen": false,
-   "weeksWithKorean": 208,
+   "weeksWithKorean": 206,
    "firstKoreanWeek": "2021-07-11",
    "byYear": [
     {
@@ -17799,7 +17799,7 @@
     },
     {
      "year": 2022,
-     "places": 47
+     "places": 46
     },
     {
      "year": 2023,
@@ -17807,7 +17807,7 @@
     },
     {
      "year": 2024,
-     "places": 57
+     "places": 56
     },
     {
      "year": 2025,
@@ -17992,14 +17992,14 @@
    "iso2": "UA",
    "name": "Ukraine",
    "slug": "ukraine",
-   "koreanSlots": 100,
-   "koreanPc": 1.9,
-   "distinctTitles": 21,
+   "koreanSlots": 92,
+   "koreanPc": 1.7,
+   "distinctTitles": 19,
    "halfTakes": 2,
    "topTitle": "Squid Game",
-   "topTitlePc": 43,
+   "topTitlePc": 46.7,
    "inAsianTen": false,
-   "weeksWithKorean": 85,
+   "weeksWithKorean": 78,
    "firstKoreanWeek": "2021-09-26",
    "byYear": [
     {
@@ -18008,7 +18008,7 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 18
     },
     {
      "year": 2023,
@@ -18016,11 +18016,11 @@
     },
     {
      "year": 2024,
-     "places": 18
+     "places": 14
     },
     {
      "year": 2025,
-     "places": 31
+     "places": 30
     },
     {
      "year": 2026,
@@ -18053,28 +18053,12 @@
      "last": "2026-08-09"
     },
     {
-     "title": "Breathless",
-     "places": 5,
-     "peak": 3,
-     "weeks": 5,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "The Great Flood",
      "places": 4,
      "peak": 2,
      "weeks": 4,
      "first": "2025-12-21",
      "last": "2026-01-11"
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "places": 3,
-     "peak": 4,
-     "weeks": 3,
-     "first": "2022-07-10",
-     "last": "2022-07-24"
     },
     {
      "title": "Scent of a Woman",
@@ -18187,9 +18171,17 @@
      "weeks": 1,
      "first": "2024-04-14",
      "last": "2024-04-14"
+    },
+    {
+     "title": "The Silent Sea",
+     "places": 1,
+     "peak": 10,
+     "weeks": 1,
+     "first": "2022-01-02",
+     "last": "2022-01-02"
     }
    ],
-   "titlesShown": 20,
+   "titlesShown": 19,
    "vsMedian": {
     "koreanPc": "well below",
     "distinctTitles": "well below",
@@ -18201,9 +18193,9 @@
    "iso2": "AE",
    "name": "United Arab Emirates",
    "slug": "united-arab-emirates",
-   "koreanSlots": 584,
+   "koreanSlots": 583,
    "koreanPc": 10.9,
-   "distinctTitles": 164,
+   "distinctTitles": 163,
    "halfTakes": 34,
    "topTitle": "Squid Game",
    "topTitlePc": 6.3,
@@ -18225,7 +18217,7 @@
     },
     {
      "year": 2024,
-     "places": 104
+     "places": 103
     },
     {
      "year": 2025,
@@ -18828,14 +18820,14 @@
    "iso2": "UY",
    "name": "Uruguay",
    "slug": "uruguay",
-   "koreanSlots": 169,
-   "koreanPc": 3.2,
-   "distinctTitles": 68,
+   "koreanSlots": 156,
+   "koreanPc": 2.9,
+   "distinctTitles": 65,
    "halfTakes": 14,
    "topTitle": "Squid Game",
-   "topTitlePc": 13.6,
+   "topTitlePc": 14.7,
    "inAsianTen": false,
-   "weeksWithKorean": 132,
+   "weeksWithKorean": 125,
    "firstKoreanWeek": "2021-07-04",
    "byYear": [
     {
@@ -18844,19 +18836,19 @@
     },
     {
      "year": 2022,
-     "places": 21
+     "places": 19
     },
     {
      "year": 2023,
-     "places": 37
+     "places": 35
     },
     {
      "year": 2024,
-     "places": 26
+     "places": 20
     },
     {
      "year": 2025,
-     "places": 38
+     "places": 35
     },
     {
      "year": 2026,
@@ -18871,14 +18863,6 @@
      "weeks": 19,
      "first": "2021-09-19",
      "last": "2025-07-20"
-    },
-    {
-     "title": "Breathless",
-     "places": 9,
-     "peak": 1,
-     "weeks": 9,
-     "first": "2024-09-01",
-     "last": "2025-11-16"
     },
     {
      "title": "Oasis",
@@ -19023,11 +19007,19 @@
      "weeks": 2,
      "first": "2023-09-17",
      "last": "2023-09-24"
+    },
+    {
+     "title": "Carter",
+     "places": 2,
+     "peak": 5,
+     "weeks": 2,
+     "first": "2022-08-07",
+     "last": "2022-08-14"
     }
    ],
    "titlesShown": 20,
    "vsMedian": {
-    "koreanPc": "below",
+    "koreanPc": "well below",
     "distinctTitles": "well below",
     "halfTakes": "below"
    },
@@ -19037,14 +19029,14 @@
    "iso2": "VE",
    "name": "Venezuela",
    "slug": "venezuela",
-   "koreanSlots": 412,
-   "koreanPc": 7.7,
-   "distinctTitles": 121,
+   "koreanSlots": 401,
+   "koreanPc": 7.5,
+   "distinctTitles": 118,
    "halfTakes": 25,
    "topTitle": "Squid Game",
-   "topTitlePc": 6.8,
+   "topTitlePc": 7,
    "inAsianTen": false,
-   "weeksWithKorean": 215,
+   "weeksWithKorean": 212,
    "firstKoreanWeek": "2021-08-01",
    "byYear": [
     {
@@ -19053,19 +19045,19 @@
     },
     {
      "year": 2022,
-     "places": 40
+     "places": 37
     },
     {
      "year": 2023,
-     "places": 72
+     "places": 71
     },
     {
      "year": 2024,
-     "places": 92
+     "places": 87
     },
     {
      "year": 2025,
-     "places": 109
+     "places": 107
     },
     {
      "year": 2026,
@@ -19170,14 +19162,6 @@
      "last": "2026-04-19"
     },
     {
-     "title": "Breathless",
-     "places": 7,
-     "peak": 1,
-     "weeks": 7,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
-    },
-    {
      "title": "Dynamite Kiss",
      "places": 7,
      "peak": 1,
@@ -19232,6 +19216,14 @@
      "weeks": 6,
      "first": "2025-06-01",
      "last": "2025-07-06"
+    },
+    {
+     "title": "Romance in the House",
+     "places": 6,
+     "peak": 3,
+     "weeks": 6,
+     "first": "2024-08-11",
+     "last": "2024-09-15"
     }
    ],
    "titlesShown": 20,

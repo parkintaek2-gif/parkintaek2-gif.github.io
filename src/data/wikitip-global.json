@@ -1,11 +1,11 @@
 {
-  "generated": "2026. 8. 24. 오후 1:31:36",
+  "generated": "2026. 8. 25. 오전 6:35:55",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-08-16",
   "weekCount": 268,
-  "titleCount": 240,
-  "totalHours": 24221390000,
+  "titleCount": 237,
+  "totalHours": 24043850000,
   "before": {
     "titles": 298,
     "hours": 29899600000
@@ -15,11 +15,12 @@
     "hours": 3082780000
   },
   "excludedByHand": {
-    "titles": 11,
-    "hours": 2595430000,
+    "titles": 14,
+    "hours": 2772970000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
+      "Breathless",
       "Uninvited",
       "The Empress",
       "Fighter",
@@ -27,6 +28,8 @@
       "Money Heist",
       "Paradise",
       "Hunger",
+      "One More Time",
+      "Dangerous Liaisons",
       "Restless",
       "Undercover"
     ]
@@ -327,13 +330,6 @@
       "weeks": 10
     },
     {
-      "title": "Breathless",
-      "kind": "series",
-      "hours": 133800000,
-      "peak": 1,
-      "weeks": 7
-    },
-    {
       "title": "Money Heist: Korea - Joint Economic Area",
       "kind": "series",
       "hours": 133510000,
@@ -388,6 +384,13 @@
       "hours": 125300000,
       "peak": 6,
       "weeks": 4
+    },
+    {
+      "title": "Sweet Home",
+      "kind": "series",
+      "hours": 123400000,
+      "peak": 2,
+      "weeks": 5
     }
   ]
 }

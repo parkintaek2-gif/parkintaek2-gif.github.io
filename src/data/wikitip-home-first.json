@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 24. 오후 1:31:40",
+  "generated": "2026. 8. 25. 오전 6:35:58",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korea and the six Southeast Asian markets; Korean titles identified via Wikidata country of origin (P495 = Q884)",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한국과 동남아 여섯 나라",
   "question": "For Korean titles that charted in Southeast Asia, did Korea's own chart get there first?",
@@ -9,9 +9,9 @@
   "weekTo": "2026-08-16",
   "weekCount": 268,
   "slotsPerCountry": 5360,
-  "titleCount": 421,
-  "neverAtHome": 151,
-  "neverAtHomePc": 35.9,
+  "titleCount": 420,
+  "neverAtHome": 150,
+  "neverAtHomePc": 35.7,
   "bothCharted": 270,
   "all": {
     "n": 270,
@@ -163,14 +163,14 @@
   ],
   "neverAtHomeByFormat": {
     "series": 60,
-    "films": 91
+    "films": 90
   },
   "broadcasterTest": {
     "property": "Wikidata P449 (original broadcaster)",
     "mixedNever": {
-      "n": 149,
+      "n": 148,
       "withBroadcaster": 55,
-      "pc": 36.9
+      "pc": 37.2
     },
     "mixedCharted": {
       "n": 264,

@@ -26,8 +26,10 @@ crossChecks:
 corrections:
   - date: 2026-08-08
     note: "This article said twelve figures changed on 7 August and that all twelve came from one flaw. Both were wrong. Eleven changed that day — the twelfth was a correction made on 6 August to a different article, which we swept into the count. And three of the eleven had nothing to do with the title-matching flaw: two were separate errors this article's own text already described as unrelated, in a KOSIS table read on one level and a pay figure with the wrong denominator. Eight came from the flaw. The counts are now computed from the corrections record, where every entry carries its cause, and a check fails our build if the article and the record disagree. An article about miscounting that miscounted is the worst possible place for this, which is why it is at the top of the page rather than the bottom."
+  - date: 2026-08-25
+    note: "The Southeast Asia panel is 420 titles, not 421. This article said 421. The change is ours: on 25 August we removed three titles that were never Korean — Dangerous Liaisons (the French film Netflix released on 8 July 2022; it took no chart place in South Korea and one in all of Asia), Breathless (a Spanish series from 2024, charting in Spain, Argentina, Uruguay, Chile and Portugal) and One More Time (a Swedish film from 2023, charting first in Sweden). All three entered our figures through the same flaw this article is about: we match chart rows to Korean works by title text, so a work of any nationality sharing a title with a Korean one comes in with it. Between them they carried 473 chart places we had been counting as Korean. One of the three sat inside this panel, which is why the denominator moved by one. We now have a check that proposes such titles from their market pattern rather than waiting for a person to notice one; it proposes only, and each of these three was confirmed against Wikidata before it was removed. It proposes 153 more we have not yet worked through, and it does not catch every kind — a title where a Korean work and a foreign one of the same name are merged into a single row is invisible to it, because our market figures are not broken down by year."
 excluded:
-  - "Any claim that the corrected figures are final. They are the best we can currently show, and 214 of 421 titles in the Southeast Asia panel still cannot be language-verified at all"
+  - "Any claim that the corrected figures are final. They are the best we can currently show, and 214 of 420 titles in the Southeast Asia panel still cannot be language-verified at all"
   - "Any suggestion that we found this because our process is good. We found it because one title on a page looked wrong to a person reading it"
 ---
 
@@ -110,7 +112,7 @@ roster we produce and fails the build if a known foreign title is in it.
 
 ## What is still wrong
 
-214 of the 421 titles in the Southeast Asia panel have never reached a global Top 10, so the
+214 of the 420 titles in the Southeast Asia panel have never reached a global Top 10, so the
 language test cannot be applied to them at all. They are in the panel on a name match — the same
 weak key that caused all of this — and we cannot tell you what share of them is foreign, because we
 have not read all 214.

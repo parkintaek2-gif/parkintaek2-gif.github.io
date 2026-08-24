@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-24T13:31+09:00",
+ "generated": "2026-08-25T06:36+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "A chart place is a chart place — but is a Korean title as likely to be at number one as to be anywhere on the list?",
  "unit": "Every market hands out the same number of places at every rank: one film slot and one series slot at rank 1 each week, and the same at rank 10. Share at a rank is Korean places at that rank divided by all places at that rank.",
@@ -8,7 +8,7 @@
  "ranks": 10,
  "slotsTotal": 498480,
  "overallPc": 7.9,
- "rank1Pc": 8.1,
+ "rank1Pc": 8,
  "rank10Pc": 7.3,
  "marketsBelowAtOne": 50,
  "bands": [
@@ -66,236 +66,236 @@
     "United States",
     "Uruguay"
    ],
-   "korean": 7480,
+   "korean": 7208,
    "slots": 257280,
-   "overallPc": 2.9,
+   "overallPc": 2.8,
    "rank1Pc": 2.9,
-   "rank10Pc": 3.4,
-   "gapPp": 0,
-   "belowAtOne": 18,
+   "rank10Pc": 3.3,
+   "gapPp": 0.1,
+   "belowAtOne": 19,
    "byRank": [
     {
      "rank": 1,
-     "korean": 746,
+     "korean": 738,
      "slots": 25728,
      "pc": 2.9
     },
     {
      "rank": 2,
-     "korean": 484,
+     "korean": 456,
      "slots": 25728,
-     "pc": 1.9
+     "pc": 1.8
     },
     {
      "rank": 3,
-     "korean": 599,
+     "korean": 575,
      "slots": 25728,
-     "pc": 2.3
+     "pc": 2.2
     },
     {
      "rank": 4,
-     "korean": 663,
+     "korean": 636,
      "slots": 25728,
-     "pc": 2.6
+     "pc": 2.5
     },
     {
      "rank": 5,
-     "korean": 759,
+     "korean": 728,
      "slots": 25728,
-     "pc": 3
+     "pc": 2.8
     },
     {
      "rank": 6,
-     "korean": 749,
+     "korean": 717,
      "slots": 25728,
-     "pc": 2.9
+     "pc": 2.8
     },
     {
      "rank": 7,
-     "korean": 823,
+     "korean": 787,
      "slots": 25728,
-     "pc": 3.2
+     "pc": 3.1
     },
     {
      "rank": 8,
+     "korean": 842,
+     "slots": 25728,
+     "pc": 3.3
+    },
+    {
+     "rank": 9,
      "korean": 874,
      "slots": 25728,
      "pc": 3.4
     },
     {
-     "rank": 9,
-     "korean": 905,
-     "slots": 25728,
-     "pc": 3.5
-    },
-    {
      "rank": 10,
-     "korean": 878,
+     "korean": 855,
      "slots": 25728,
-     "pc": 3.4
+     "pc": 3.3
     }
    ],
    "films": {
-    "korean": 2743,
+    "korean": 2612,
     "slots": 128640,
-    "overallPc": 2.1,
+    "overallPc": 2,
     "rank1Pc": 1,
-    "rank10Pc": 2.7,
-    "gapPp": -1.1,
+    "rank10Pc": 2.6,
+    "gapPp": -1,
     "belowAtOne": 46,
     "byRank": [
      {
       "rank": 1,
-      "korean": 130,
+      "korean": 128,
       "slots": 12864,
       "pc": 1
      },
      {
       "rank": 2,
-      "korean": 185,
+      "korean": 172,
       "slots": 12864,
-      "pc": 1.4
+      "pc": 1.3
      },
      {
       "rank": 3,
-      "korean": 225,
+      "korean": 212,
       "slots": 12864,
-      "pc": 1.7
+      "pc": 1.6
      },
      {
       "rank": 4,
-      "korean": 254,
+      "korean": 242,
       "slots": 12864,
-      "pc": 2
+      "pc": 1.9
      },
      {
       "rank": 5,
-      "korean": 301,
-      "slots": 12864,
-      "pc": 2.3
-     },
-     {
-      "rank": 6,
-      "korean": 278,
+      "korean": 288,
       "slots": 12864,
       "pc": 2.2
      },
      {
+      "rank": 6,
+      "korean": 267,
+      "slots": 12864,
+      "pc": 2.1
+     },
+     {
       "rank": 7,
-      "korean": 341,
-      "slots": 12864,
-      "pc": 2.7
-     },
-     {
-      "rank": 8,
-      "korean": 349,
-      "slots": 12864,
-      "pc": 2.7
-     },
-     {
-      "rank": 9,
-      "korean": 328,
+      "korean": 321,
       "slots": 12864,
       "pc": 2.5
      },
      {
-      "rank": 10,
-      "korean": 352,
+      "rank": 8,
+      "korean": 336,
       "slots": 12864,
-      "pc": 2.7
+      "pc": 2.6
+     },
+     {
+      "rank": 9,
+      "korean": 306,
+      "slots": 12864,
+      "pc": 2.4
+     },
+     {
+      "rank": 10,
+      "korean": 340,
+      "slots": 12864,
+      "pc": 2.6
      }
     ]
    },
    "tv": {
-    "korean": 4737,
+    "korean": 4596,
     "slots": 128640,
-    "overallPc": 3.7,
-    "rank1Pc": 4.8,
-    "rank10Pc": 4.1,
+    "overallPc": 3.6,
+    "rank1Pc": 4.7,
+    "rank10Pc": 4,
     "gapPp": 1.1,
-    "belowAtOne": 7,
+    "belowAtOne": 6,
     "byRank": [
      {
       "rank": 1,
-      "korean": 616,
+      "korean": 610,
       "slots": 12864,
-      "pc": 4.8
+      "pc": 4.7
      },
      {
       "rank": 2,
-      "korean": 299,
+      "korean": 284,
       "slots": 12864,
-      "pc": 2.3
+      "pc": 2.2
      },
      {
       "rank": 3,
-      "korean": 374,
+      "korean": 363,
       "slots": 12864,
-      "pc": 2.9
+      "pc": 2.8
      },
      {
       "rank": 4,
-      "korean": 409,
+      "korean": 394,
       "slots": 12864,
-      "pc": 3.2
+      "pc": 3.1
      },
      {
       "rank": 5,
-      "korean": 458,
+      "korean": 440,
+      "slots": 12864,
+      "pc": 3.4
+     },
+     {
+      "rank": 6,
+      "korean": 450,
+      "slots": 12864,
+      "pc": 3.5
+     },
+     {
+      "rank": 7,
+      "korean": 466,
       "slots": 12864,
       "pc": 3.6
      },
      {
-      "rank": 6,
-      "korean": 471,
-      "slots": 12864,
-      "pc": 3.7
-     },
-     {
-      "rank": 7,
-      "korean": 482,
-      "slots": 12864,
-      "pc": 3.7
-     },
-     {
       "rank": 8,
-      "korean": 525,
+      "korean": 506,
       "slots": 12864,
-      "pc": 4.1
+      "pc": 3.9
      },
      {
       "rank": 9,
-      "korean": 577,
+      "korean": 568,
       "slots": 12864,
-      "pc": 4.5
+      "pc": 4.4
      },
      {
       "rank": 10,
-      "korean": 526,
+      "korean": 515,
       "slots": 12864,
-      "pc": 4.1
+      "pc": 4
      }
     ]
    },
    "rank1Titles": {
-    "koreanWeeks": 746,
-    "distinctTitles": 52,
-    "distinctPerMarketMean": 5,
+    "koreanWeeks": 738,
+    "distinctTitles": 50,
+    "distinctPerMarketMean": 4.9,
     "biggestTitle": "Squid Game",
     "biggestWeeks": 503,
-    "biggestSharePc": 67.4,
-    "topThreeSharePc": 76.9,
-    "rank1PcWithoutTopThree": 0.7,
+    "biggestSharePc": 68.2,
+    "topThreeSharePc": 77.8,
+    "rank1PcWithoutTopThree": 0.6,
     "topThree": [
      {
       "title": "Squid Game",
       "weeks": 503,
-      "sharePc": 67.4
+      "sharePc": 68.2
      },
      {
       "title": "All of Us Are Dead",
       "weeks": 42,
-      "sharePc": 5.6
+      "sharePc": 5.7
      },
      {
       "title": "The Great Flood",
@@ -308,7 +308,7 @@
   {
    "key": "5to10",
    "label": "5–10%",
-   "markets": 20,
+   "markets": 21,
    "marketNames": [
     "Bahrain",
     "Brazil",
@@ -320,6 +320,7 @@
     "Egypt",
     "El Salvador",
     "Guatemala",
+    "Honduras",
     "Jordan",
     "Mauritius",
     "Mexico",
@@ -331,241 +332,241 @@
     "Turkey",
     "Venezuela"
    ],
-   "korean": 8148,
-   "slots": 107200,
+   "korean": 8532,
+   "slots": 112560,
    "overallPc": 7.6,
-   "rank1Pc": 5.4,
-   "rank10Pc": 7.9,
-   "gapPp": -2.2,
-   "belowAtOne": 18,
+   "rank1Pc": 5.5,
+   "rank10Pc": 7.8,
+   "gapPp": -2.1,
+   "belowAtOne": 19,
    "byRank": [
     {
      "rank": 1,
-     "korean": 580,
-     "slots": 10720,
-     "pc": 5.4
+     "korean": 614,
+     "slots": 11256,
+     "pc": 5.5
     },
     {
      "rank": 2,
-     "korean": 682,
-     "slots": 10720,
+     "korean": 717,
+     "slots": 11256,
      "pc": 6.4
     },
     {
      "rank": 3,
-     "korean": 785,
-     "slots": 10720,
+     "korean": 825,
+     "slots": 11256,
      "pc": 7.3
     },
     {
      "rank": 4,
-     "korean": 876,
-     "slots": 10720,
-     "pc": 8.2
-    },
-    {
-     "rank": 5,
      "korean": 917,
-     "slots": 10720,
-     "pc": 8.6
-    },
-    {
-     "rank": 6,
-     "korean": 865,
-     "slots": 10720,
+     "slots": 11256,
      "pc": 8.1
     },
     {
+     "rank": 5,
+     "korean": 957,
+     "slots": 11256,
+     "pc": 8.5
+    },
+    {
+     "rank": 6,
+     "korean": 903,
+     "slots": 11256,
+     "pc": 8
+    },
+    {
      "rank": 7,
-     "korean": 879,
-     "slots": 10720,
+     "korean": 922,
+     "slots": 11256,
      "pc": 8.2
     },
     {
      "rank": 8,
-     "korean": 862,
-     "slots": 10720,
+     "korean": 902,
+     "slots": 11256,
      "pc": 8
     },
     {
      "rank": 9,
-     "korean": 851,
-     "slots": 10720,
+     "korean": 893,
+     "slots": 11256,
      "pc": 7.9
     },
     {
      "rank": 10,
-     "korean": 851,
-     "slots": 10720,
-     "pc": 7.9
+     "korean": 882,
+     "slots": 11256,
+     "pc": 7.8
     }
    ],
    "films": {
-    "korean": 1497,
-    "slots": 53600,
-    "overallPc": 2.8,
+    "korean": 1494,
+    "slots": 56280,
+    "overallPc": 2.7,
     "rank1Pc": 2.1,
-    "rank10Pc": 2.8,
-    "gapPp": -0.7,
+    "rank10Pc": 2.7,
+    "gapPp": -0.6,
     "belowAtOne": 17,
     "byRank": [
      {
       "rank": 1,
-      "korean": 110,
-      "slots": 5360,
+      "korean": 116,
+      "slots": 5628,
       "pc": 2.1
      },
      {
       "rank": 2,
       "korean": 134,
-      "slots": 5360,
-      "pc": 2.5
+      "slots": 5628,
+      "pc": 2.4
      },
      {
       "rank": 3,
-      "korean": 123,
-      "slots": 5360,
-      "pc": 2.3
+      "korean": 121,
+      "slots": 5628,
+      "pc": 2.1
      },
      {
       "rank": 4,
       "korean": 144,
-      "slots": 5360,
-      "pc": 2.7
+      "slots": 5628,
+      "pc": 2.6
      },
      {
       "rank": 5,
-      "korean": 187,
-      "slots": 5360,
-      "pc": 3.5
+      "korean": 185,
+      "slots": 5628,
+      "pc": 3.3
      },
      {
       "rank": 6,
-      "korean": 147,
-      "slots": 5360,
-      "pc": 2.7
+      "korean": 146,
+      "slots": 5628,
+      "pc": 2.6
      },
      {
       "rank": 7,
       "korean": 155,
-      "slots": 5360,
-      "pc": 2.9
+      "slots": 5628,
+      "pc": 2.8
      },
      {
       "rank": 8,
-      "korean": 176,
-      "slots": 5360,
-      "pc": 3.3
+      "korean": 168,
+      "slots": 5628,
+      "pc": 3
      },
      {
       "rank": 9,
-      "korean": 171,
-      "slots": 5360,
-      "pc": 3.2
+      "korean": 175,
+      "slots": 5628,
+      "pc": 3.1
      },
      {
       "rank": 10,
       "korean": 150,
-      "slots": 5360,
-      "pc": 2.8
+      "slots": 5628,
+      "pc": 2.7
      }
     ]
    },
    "tv": {
-    "korean": 6651,
-    "slots": 53600,
-    "overallPc": 12.4,
+    "korean": 7038,
+    "slots": 56280,
+    "overallPc": 12.5,
     "rank1Pc": 8.8,
-    "rank10Pc": 13.1,
-    "gapPp": -3.6,
-    "belowAtOne": 18,
+    "rank10Pc": 13,
+    "gapPp": -3.7,
+    "belowAtOne": 19,
     "byRank": [
      {
       "rank": 1,
-      "korean": 470,
-      "slots": 5360,
+      "korean": 498,
+      "slots": 5628,
       "pc": 8.8
      },
      {
       "rank": 2,
-      "korean": 548,
-      "slots": 5360,
-      "pc": 10.2
+      "korean": 583,
+      "slots": 5628,
+      "pc": 10.4
      },
      {
       "rank": 3,
-      "korean": 662,
-      "slots": 5360,
-      "pc": 12.4
+      "korean": 704,
+      "slots": 5628,
+      "pc": 12.5
      },
      {
       "rank": 4,
-      "korean": 732,
-      "slots": 5360,
+      "korean": 773,
+      "slots": 5628,
       "pc": 13.7
      },
      {
       "rank": 5,
-      "korean": 730,
-      "slots": 5360,
-      "pc": 13.6
+      "korean": 772,
+      "slots": 5628,
+      "pc": 13.7
      },
      {
       "rank": 6,
-      "korean": 718,
-      "slots": 5360,
-      "pc": 13.4
-     },
-     {
-      "rank": 7,
-      "korean": 724,
-      "slots": 5360,
+      "korean": 757,
+      "slots": 5628,
       "pc": 13.5
      },
      {
+      "rank": 7,
+      "korean": 767,
+      "slots": 5628,
+      "pc": 13.6
+     },
+     {
       "rank": 8,
-      "korean": 686,
-      "slots": 5360,
-      "pc": 12.8
+      "korean": 734,
+      "slots": 5628,
+      "pc": 13
      },
      {
       "rank": 9,
-      "korean": 680,
-      "slots": 5360,
-      "pc": 12.7
+      "korean": 718,
+      "slots": 5628,
+      "pc": 12.8
      },
      {
       "rank": 10,
-      "korean": 701,
-      "slots": 5360,
-      "pc": 13.1
+      "korean": 732,
+      "slots": 5628,
+      "pc": 13
      }
     ]
    },
    "rank1Titles": {
-    "koreanWeeks": 580,
+    "koreanWeeks": 614,
     "distinctTitles": 68,
-    "distinctPerMarketMean": 14.8,
+    "distinctPerMarketMean": 15,
     "biggestTitle": "Squid Game",
-    "biggestWeeks": 212,
-    "biggestSharePc": 36.6,
-    "topThreeSharePc": 46.9,
+    "biggestWeeks": 220,
+    "biggestSharePc": 35.8,
+    "topThreeSharePc": 46.3,
     "rank1PcWithoutTopThree": 2.9,
     "topThree": [
      {
       "title": "Squid Game",
-      "weeks": 212,
-      "sharePc": 36.6
+      "weeks": 220,
+      "sharePc": 35.8
      },
      {
       "title": "The Great Flood",
-      "weeks": 39,
+      "weeks": 41,
       "sharePc": 6.7
      },
      {
       "title": "The Glory",
-      "weeks": 21,
-      "sharePc": 3.6
+      "weeks": 23,
+      "sharePc": 3.7
      }
     ]
    }
@@ -573,11 +574,10 @@
   {
    "key": "10to20",
    "label": "10–20%",
-   "markets": 15,
+   "markets": 14,
    "marketNames": [
     "Bangladesh",
     "Bolivia",
-    "Honduras",
     "India",
     "Kuwait",
     "Maldives",
@@ -591,240 +591,240 @@
     "Sri Lanka",
     "United Arab Emirates"
    ],
-   "korean": 9278,
-   "slots": 80400,
-   "overallPc": 11.5,
-   "rank1Pc": 9.1,
+   "korean": 8694,
+   "slots": 75040,
+   "overallPc": 11.6,
+   "rank1Pc": 9.2,
    "rank10Pc": 10,
    "gapPp": -2.4,
-   "belowAtOne": 14,
+   "belowAtOne": 12,
    "byRank": [
     {
      "rank": 1,
-     "korean": 728,
-     "slots": 8040,
-     "pc": 9.1
+     "korean": 689,
+     "slots": 7504,
+     "pc": 9.2
     },
     {
      "rank": 2,
-     "korean": 968,
-     "slots": 8040,
-     "pc": 12
+     "korean": 909,
+     "slots": 7504,
+     "pc": 12.1
     },
     {
      "rank": 3,
-     "korean": 1002,
-     "slots": 8040,
+     "korean": 938,
+     "slots": 7504,
      "pc": 12.5
     },
     {
      "rank": 4,
-     "korean": 1002,
-     "slots": 8040,
-     "pc": 12.5
-    },
-    {
-     "rank": 5,
-     "korean": 1039,
-     "slots": 8040,
-     "pc": 12.9
-    },
-    {
-     "rank": 6,
-     "korean": 994,
-     "slots": 8040,
+     "korean": 933,
+     "slots": 7504,
      "pc": 12.4
     },
     {
+     "rank": 5,
+     "korean": 981,
+     "slots": 7504,
+     "pc": 13.1
+    },
+    {
+     "rank": 6,
+     "korean": 941,
+     "slots": 7504,
+     "pc": 12.5
+    },
+    {
      "rank": 7,
-     "korean": 951,
-     "slots": 8040,
+     "korean": 889,
+     "slots": 7504,
      "pc": 11.8
     },
     {
      "rank": 8,
-     "korean": 953,
-     "slots": 8040,
-     "pc": 11.9
+     "korean": 885,
+     "slots": 7504,
+     "pc": 11.8
     },
     {
      "rank": 9,
-     "korean": 839,
-     "slots": 8040,
+     "korean": 778,
+     "slots": 7504,
      "pc": 10.4
     },
     {
      "rank": 10,
-     "korean": 802,
-     "slots": 8040,
+     "korean": 751,
+     "slots": 7504,
      "pc": 10
     }
    ],
    "films": {
-    "korean": 1297,
-    "slots": 40200,
+    "korean": 1209,
+    "slots": 37520,
     "overallPc": 3.2,
     "rank1Pc": 2.3,
-    "rank10Pc": 2.6,
+    "rank10Pc": 2.5,
     "gapPp": -0.9,
-    "belowAtOne": 15,
+    "belowAtOne": 14,
     "byRank": [
      {
       "rank": 1,
-      "korean": 91,
-      "slots": 4020,
+      "korean": 85,
+      "slots": 3752,
       "pc": 2.3
      },
      {
       "rank": 2,
-      "korean": 121,
-      "slots": 4020,
+      "korean": 114,
+      "slots": 3752,
       "pc": 3
      },
      {
       "rank": 3,
-      "korean": 146,
-      "slots": 4020,
-      "pc": 3.6
+      "korean": 137,
+      "slots": 3752,
+      "pc": 3.7
      },
      {
       "rank": 4,
-      "korean": 162,
-      "slots": 4020,
-      "pc": 4
+      "korean": 152,
+      "slots": 3752,
+      "pc": 4.1
      },
      {
       "rank": 5,
-      "korean": 147,
-      "slots": 4020,
+      "korean": 140,
+      "slots": 3752,
       "pc": 3.7
      },
      {
       "rank": 6,
-      "korean": 132,
-      "slots": 4020,
+      "korean": 125,
+      "slots": 3752,
       "pc": 3.3
      },
      {
       "rank": 7,
-      "korean": 145,
-      "slots": 4020,
+      "korean": 134,
+      "slots": 3752,
       "pc": 3.6
      },
      {
       "rank": 8,
-      "korean": 135,
-      "slots": 4020,
+      "korean": 128,
+      "slots": 3752,
       "pc": 3.4
      },
      {
       "rank": 9,
-      "korean": 115,
-      "slots": 4020,
-      "pc": 2.9
+      "korean": 100,
+      "slots": 3752,
+      "pc": 2.7
      },
      {
       "rank": 10,
-      "korean": 103,
-      "slots": 4020,
-      "pc": 2.6
+      "korean": 94,
+      "slots": 3752,
+      "pc": 2.5
      }
     ]
    },
    "tv": {
-    "korean": 7981,
-    "slots": 40200,
+    "korean": 7485,
+    "slots": 37520,
     "overallPc": 19.9,
-    "rank1Pc": 15.8,
-    "rank10Pc": 17.4,
-    "gapPp": -4.1,
-    "belowAtOne": 13,
+    "rank1Pc": 16.1,
+    "rank10Pc": 17.5,
+    "gapPp": -3.8,
+    "belowAtOne": 12,
     "byRank": [
      {
       "rank": 1,
-      "korean": 637,
-      "slots": 4020,
-      "pc": 15.8
+      "korean": 604,
+      "slots": 3752,
+      "pc": 16.1
      },
      {
       "rank": 2,
-      "korean": 847,
-      "slots": 4020,
-      "pc": 21.1
+      "korean": 795,
+      "slots": 3752,
+      "pc": 21.2
      },
      {
       "rank": 3,
-      "korean": 856,
-      "slots": 4020,
+      "korean": 801,
+      "slots": 3752,
       "pc": 21.3
      },
      {
       "rank": 4,
-      "korean": 840,
-      "slots": 4020,
-      "pc": 20.9
+      "korean": 781,
+      "slots": 3752,
+      "pc": 20.8
      },
      {
       "rank": 5,
-      "korean": 892,
-      "slots": 4020,
-      "pc": 22.2
+      "korean": 841,
+      "slots": 3752,
+      "pc": 22.4
      },
      {
       "rank": 6,
-      "korean": 862,
-      "slots": 4020,
-      "pc": 21.4
+      "korean": 816,
+      "slots": 3752,
+      "pc": 21.7
      },
      {
       "rank": 7,
-      "korean": 806,
-      "slots": 4020,
-      "pc": 20
+      "korean": 755,
+      "slots": 3752,
+      "pc": 20.1
      },
      {
       "rank": 8,
-      "korean": 818,
-      "slots": 4020,
-      "pc": 20.3
+      "korean": 757,
+      "slots": 3752,
+      "pc": 20.2
      },
      {
       "rank": 9,
-      "korean": 724,
-      "slots": 4020,
-      "pc": 18
+      "korean": 678,
+      "slots": 3752,
+      "pc": 18.1
      },
      {
       "rank": 10,
-      "korean": 699,
-      "slots": 4020,
-      "pc": 17.4
+      "korean": 657,
+      "slots": 3752,
+      "pc": 17.5
      }
     ]
    },
    "rank1Titles": {
-    "koreanWeeks": 728,
-    "distinctTitles": 76,
-    "distinctPerMarketMean": 23.1,
+    "koreanWeeks": 689,
+    "distinctTitles": 75,
+    "distinctPerMarketMean": 23,
     "biggestTitle": "Squid Game",
-    "biggestWeeks": 203,
-    "biggestSharePc": 27.9,
-    "topThreeSharePc": 37.2,
+    "biggestWeeks": 195,
+    "biggestSharePc": 28.3,
+    "topThreeSharePc": 37.9,
     "rank1PcWithoutTopThree": 5.7,
     "topThree": [
      {
       "title": "Squid Game",
-      "weeks": 203,
-      "sharePc": 27.9
+      "weeks": 195,
+      "sharePc": 28.3
      },
      {
       "title": "All of Us Are Dead",
       "weeks": 40,
-      "sharePc": 5.5
+      "sharePc": 5.8
      },
      {
       "title": "The Great Flood",
-      "weeks": 28,
+      "weeks": 26,
       "sharePc": 3.8
      }
     ]
@@ -846,7 +846,7 @@
     "Thailand",
     "Vietnam"
    ],
-   "korean": 14706,
+   "korean": 14705,
    "slots": 53600,
    "overallPc": 27.4,
    "rank1Pc": 36.6,
@@ -910,13 +910,13 @@
     },
     {
      "rank": 10,
-     "korean": 1132,
+     "korean": 1131,
      "slots": 5360,
      "pc": 21.1
     }
    ],
    "films": {
-    "korean": 2708,
+    "korean": 2707,
     "slots": 26800,
     "overallPc": 10.1,
     "rank1Pc": 14.5,
@@ -980,7 +980,7 @@
      },
      {
       "rank": 10,
-      "korean": 229,
+      "korean": 228,
       "slots": 2680,
       "pc": 8.5
      }

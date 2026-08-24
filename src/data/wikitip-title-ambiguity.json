@@ -1,18 +1,18 @@
 {
-  "generated": "2026-08-23T05:39:50.602Z",
+  "generated": "2026-08-24T21:33:32.291Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
-  "titles": 246,
-  "titlesAssessed": 977,
-  "totalHours": 24500150000,
+  "titles": 243,
+  "titlesAssessed": 974,
+  "totalHours": 24322610000,
   "koreaOnly": {
     "titles": 163,
     "hours": 20309470000,
-    "sharePc": 82.9
+    "sharePc": 83.5
   },
   "shared": {
-    "titles": 79,
-    "hours": 4054920000,
-    "sharePc": 16.6
+    "titles": 76,
+    "hours": 3877380000,
+    "sharePc": 15.9
   },
   "koreaUnconfirmed": {
     "titles": 2,
@@ -86,20 +86,6 @@
       "hours": 162850000,
       "countries": [
         "South Korea",
-        "United States"
-      ]
-    },
-    {
-      "title": "Breathless",
-      "hours": 133800000,
-      "countries": [
-        "Australia",
-        "Dominican Republic",
-        "France",
-        "Netherlands",
-        "South Korea",
-        "Spain",
-        "United Kingdom",
         "United States"
       ]
     },
@@ -245,6 +231,18 @@
         "Sri Lanka",
         "Taiwan",
         "Thailand",
+        "United States"
+      ]
+    },
+    {
+      "title": "Ballerina",
+      "hours": 50600000,
+      "countries": [
+        "Canada",
+        "Denmark",
+        "France",
+        "Germany",
+        "South Korea",
         "United States"
       ]
     }
@@ -668,23 +666,6 @@
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
-      ]
-    },
-    {
-      "title": "Breathless",
-      "hours": 133800000,
-      "places": 250,
-      "q": "Q486355",
-      "verdict": "shared",
-      "countries": [
-        "Australia",
-        "Dominican Republic",
-        "France",
-        "Netherlands",
-        "South Korea",
-        "Spain",
-        "United Kingdom",
-        "United States"
       ]
     },
     {
@@ -1605,22 +1586,6 @@
       ]
     },
     {
-      "title": "Dangerous Liaisons",
-      "hours": 34150000,
-      "places": 165,
-      "q": "Q5216112",
-      "verdict": "shared",
-      "countries": [
-        "France",
-        "Japan",
-        "People's Republic of China",
-        "Singapore",
-        "South Korea",
-        "United Kingdom",
-        "United States"
-      ]
-    },
-    {
       "title": "Unlocked",
       "hours": 33090000,
       "places": 145,
@@ -2238,19 +2203,6 @@
       "countries": [
         "Japan",
         "South Korea"
-      ]
-    },
-    {
-      "title": "One More Time",
-      "hours": 9590000,
-      "places": 58,
-      "q": "Q52637887",
-      "verdict": "shared",
-      "countries": [
-        "Canada",
-        "South Korea",
-        "Sweden",
-        "United States"
       ]
     },
     {

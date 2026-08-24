@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 24. 오후 1:31:36",
+  "generated": "2026. 8. 25. 오전 6:35:55",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "sourceKo": "넷플릭스 Tudum 글로벌 주간 Top 10 · 한국 작품 판정은 위키데이터 P495=Q884",
   "weekFrom": "2021-07-04",
@@ -7,13 +7,13 @@
   "weekCount": 268,
   "series": {
     "kind": "series",
-    "titles": 150,
-    "hours": 22621640000,
-    "weeks": 810,
-    "hoursPerTitle": 150810933,
-    "weeksPerTitle": 5.4,
-    "hoursPerWeek": 27927951,
-    "numberOnes": 42,
+    "titles": 149,
+    "hours": 22487840000,
+    "weeks": 803,
+    "hoursPerTitle": 150925101,
+    "weeksPerTitle": 5.39,
+    "hoursPerWeek": 28004782,
+    "numberOnes": 41,
     "top": [
       {
         "title": "Squid Game",
@@ -79,13 +79,13 @@
   },
   "film": {
     "kind": "film",
-    "titles": 90,
-    "hours": 1599750000,
-    "weeks": 224,
-    "hoursPerTitle": 17775000,
-    "weeksPerTitle": 2.49,
-    "hoursPerWeek": 7141741,
-    "numberOnes": 24,
+    "titles": 88,
+    "hours": 1556010000,
+    "weeks": 218,
+    "hoursPerTitle": 17681932,
+    "weeksPerTitle": 2.48,
+    "hoursPerWeek": 7137661,
+    "numberOnes": 23,
     "top": [
       {
         "title": "The Great Flood",
@@ -150,14 +150,14 @@
     ]
   },
   "seriesAboveTopFilm": 34,
-  "ratioHours": 14.1,
-  "ratioTitles": 1.67,
+  "ratioHours": 14.5,
+  "ratioTitles": 1.69,
   "ratioPerTitle": 8.5,
   "withoutSquidGame": {
-    "titles": 149,
-    "hours": 17573340000,
-    "hoursPerTitle": 117941879,
-    "ratioPerTitle": 6.6
+    "titles": 148,
+    "hours": 17439540000,
+    "hoursPerTitle": 117834730,
+    "ratioPerTitle": 6.7
   },
   "before": {
     "titles": 298,
@@ -168,11 +168,12 @@
     "film": 20
   },
   "excludedByHand": {
-    "titles": 11,
-    "hours": 2595430000,
+    "titles": 14,
+    "hours": 2772970000,
     "list": [
       "The East Palace",
       "Teach You a Lesson",
+      "Breathless",
       "Uninvited",
       "The Empress",
       "Fighter",
@@ -180,6 +181,8 @@
       "Money Heist",
       "Paradise",
       "Hunger",
+      "One More Time",
+      "Dangerous Liaisons",
       "Restless",
       "Undercover"
     ]

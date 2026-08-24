@@ -1,16 +1,46 @@
 {
-  "generated": "2026-08-24T13:31+09:00",
+  "generated": "2026-08-25T06:36+09:00",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists, and Wikidata for country of origin",
   "question": "Two works can share a title. Which one charted?",
   "unit": "Chart places. One place is one title in one country in one week.",
-  "panelTitles": 977,
-  "koreanPlaces": 39612,
-  "removedTitles": 13,
-  "removedPlaces": 84,
-  "removedPlacesPc": 0.21,
-  "neverChartedAtHome": 384,
-  "neverChartedAtHomePc": 39.3,
+  "panelTitles": 974,
+  "koreanPlaces": 39139,
+  "removedTitles": 16,
+  "removedPlaces": 557,
+  "removedPlacesPc": 1.4,
+  "neverChartedAtHome": 381,
+  "neverChartedAtHomePc": 39.2,
   "removed": [
+    {
+      "title": "Breathless",
+      "places": 250,
+      "markets": 69,
+      "topMarket": "Spain",
+      "topMarketPlaces": 13,
+      "topMarketSharePc": 5.2,
+      "homePlaces": 0,
+      "attributedTo": "Spain"
+    },
+    {
+      "title": "Dangerous Liaisons",
+      "places": 165,
+      "markets": 70,
+      "topMarket": "France",
+      "topMarketPlaces": 4,
+      "topMarketSharePc": 2.4,
+      "homePlaces": 0,
+      "attributedTo": "France"
+    },
+    {
+      "title": "One More Time",
+      "places": 58,
+      "markets": 38,
+      "topMarket": "Sweden",
+      "topMarketPlaces": 3,
+      "topMarketSharePc": 5.2,
+      "homePlaces": 0,
+      "attributedTo": "Sweden"
+    },
     {
       "title": "Undercover",
       "places": 48,
@@ -164,7 +194,7 @@
       "attributedTo": null
     }
   ],
-  "whyNotHomeChartAlone": "384 of 976 Korean titles (39.3%) never charted in Korea at all, because a drama that airs on Korean television does not appear on Netflix Korea. Absence from the home chart proves nothing on its own.",
+  "whyNotHomeChartAlone": "381 of 973 Korean titles (39.2%) never charted in Korea at all, because a drama that airs on Korean television does not appear on Netflix Korea. Absence from the home chart proves nothing on its own.",
   "whatThisCannotDo": "It cannot separate two works when a Korean work genuinely shares the name and the foreign one dominates the same market. Two titles failed here and were kept.",
   "cannotAnswer": "It says which work the chart row belongs to, not whether the other work exists, and it needs a foreign work Wikidata already knows about."
 }

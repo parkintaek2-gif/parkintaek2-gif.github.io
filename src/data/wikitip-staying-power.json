@@ -1,52 +1,52 @@
 {
-  "generated": "2026-08-24T13:31+09:00",
+  "generated": "2026-08-25T06:36+09:00",
   "source": "Netflix Top 10 (Tudum) global weekly hours viewed; Korean titles identified via Wikidata country of origin (P495 = Q884), restricted to the Non-English charts",
   "weekFrom": "2021-07-04",
   "weekTo": "2026-08-16",
   "weekCount": 268,
-  "titleCount": 246,
+  "titleCount": 243,
   "shown": 50,
-  "totalHours": 24500150000,
+  "totalHours": 24322610000,
   "peakGroups": [
     {
       "label": "Peaked at #1",
-      "n": 67,
-      "avgHours": 229333582,
+      "n": 65,
+      "avgHours": 233806154,
       "medianHours": 103400000,
       "avgWeeks": 6.4,
       "medianWeeks": 5,
-      "avgPerWeek": 24803793
+      "avgPerWeek": 25141575
     },
     {
       "label": "Peaked below #1",
-      "n": 179,
-      "avgHours": 51032402,
-      "medianHours": 23340000,
+      "n": 178,
+      "avgHours": 51265225,
+      "medianHours": 24530000,
       "avgWeeks": 3.5,
       "medianWeeks": 2,
-      "avgPerWeek": 10956550
+      "avgPerWeek": 10991166
     }
   ],
   "peakGroupsTop50Only": [
     {
       "label": "Peaked at #1",
-      "n": 28,
-      "avgHours": 464512143,
-      "avgWeeks": 9.5,
-      "avgPerWeek": 38412367
+      "n": 27,
+      "avgHours": 476760741,
+      "avgWeeks": 9.6,
+      "avgPerWeek": 39127111
     },
     {
       "label": "Peaked below #1",
-      "n": 22,
-      "avgHours": 204118636,
-      "avgWeeks": 9.4,
-      "avgPerWeek": 23307273
+      "n": 23,
+      "avgHours": 200691739,
+      "avgWeeks": 9.1,
+      "avgPerWeek": 23655870
     }
   ],
   "peakByRank": [
     {
       "peak": 1,
-      "n": 67,
+      "n": 65,
       "medianHours": 103400000,
       "medianWeeks": 5
     },
@@ -70,7 +70,7 @@
     },
     {
       "peak": 5,
-      "n": 28,
+      "n": 27,
       "medianHours": 25100000,
       "medianWeeks": 2
     },
@@ -108,26 +108,26 @@
   "weeksBands": [
     {
       "label": "1–2 weeks",
-      "n": 92,
+      "n": 91,
       "topN": 1,
       "topMedianHours": 125900000,
-      "restN": 91,
+      "restN": 90,
       "restMedianHours": 6400000,
       "ratio": 19.67
     },
     {
       "label": "3–5 weeks",
-      "n": 100,
-      "topN": 43,
-      "topMedianHours": 74600000,
+      "n": 99,
+      "topN": 42,
+      "topMedianHours": 79400000,
       "restN": 57,
       "restMedianHours": 46000000,
-      "ratio": 1.62
+      "ratio": 1.73
     },
     {
       "label": "6–10 weeks",
-      "n": 41,
-      "topN": 16,
+      "n": 40,
+      "topN": 15,
       "topMedianHours": 162850000,
       "restN": 25,
       "restMedianHours": 128890000,
@@ -150,7 +150,7 @@
     },
     {
       "weeks": 2,
-      "n": 39
+      "n": 38
     },
     {
       "weeks": 3,
@@ -158,7 +158,7 @@
     },
     {
       "weeks": 4,
-      "n": 39
+      "n": 38
     },
     {
       "weeks": 5,
@@ -170,7 +170,7 @@
     },
     {
       "weeks": 7,
-      "n": 13
+      "n": 12
     },
     {
       "weeks": 8,
@@ -218,8 +218,8 @@
   "limitation": "A median tells you where the middle sits and nothing about the shape around it, so it should be read next to the range or the full distribution, not alone. A correlation is not a cause, and it only detects the straight-line part of a relationship — two things can move together tightly in a curve and still score near zero. Taking logs changes what is being correlated: it is the ranking-like structure of hours, not hours themselves. A coefficient from a chosen sample also inherits that choice; ours are titles that reached a chart, which is not a sample of titles. A week on a chart is not a week of watching — a title can be watched steadily and never chart, and the chart cuts off at ten. The window opens in 2021, so titles already running before then start mid-life. And every title here reached a chart at least once, so nothing on this page speaks for titles that never did.",
   "correlations": {
     "note": "Pearson r against log hours. Log because one title holds 5.05bn of 23.7bn and the raw scale would let it decide everything.",
-    "weeksVsLogHours": 0.731,
-    "peakVsLogHours": -0.753,
+    "weeksVsLogHours": 0.73,
+    "peakVsLogHours": -0.754,
     "weeksVsPeak": -0.473
   },
   "longest": [
@@ -724,14 +724,6 @@
       "perWeek": 13854000
     },
     {
-      "title": "Breathless",
-      "kind": "series",
-      "hours": 133800000,
-      "peak": 1,
-      "weeks": 7,
-      "perWeek": 19114286
-    },
-    {
       "title": "Money Heist: Korea - Joint Economic Area",
       "kind": "series",
       "hours": 133510000,
@@ -786,12 +778,21 @@
       "peak": 1,
       "weeks": 2,
       "perWeek": 62950000
+    },
+    {
+      "title": "The Guest",
+      "kind": "series",
+      "hours": 125300000,
+      "peak": 6,
+      "weeks": 4,
+      "perWeek": 31325000
     }
   ],
   "excludedEnglishChart": 53,
   "excludedByHand": [
     "The East Palace",
     "Teach You a Lesson",
+    "Breathless",
     "Uninvited",
     "The Empress",
     "Fighter",
@@ -800,6 +801,8 @@
     "Forgotten Love",
     "Paradise",
     "Hunger",
+    "One More Time",
+    "Dangerous Liaisons",
     "Restless",
     "Undercover"
   ],

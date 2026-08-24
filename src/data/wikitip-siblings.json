@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T13:31+09:00",
+  "generated": "2026-08-25T06:36+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series, joined to production company (P272), first broadcaster (P449) and distributor (P750) from Wikidata. Netflix's own \"weeks in top 10\" column is used to hold a title's age fixed.",
   "question": "When two series from the same Korean company are on a country's chart in the same week, do they sit lower than when either is there alone?",
   "unit": "One pair = one series in one country at one age in weeks, with its average rank on the weeks it was alone set against its average rank on the weeks a series from the same company was also on that chart. Rank 1 is the top of the chart, so a higher number is worse.",

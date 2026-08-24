@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-24T13:31+09:00",
+ "generated": "2026-08-25T06:35+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists for reach; Wikidata production, broadcaster and distributor credits for which company is attached to which title, retrieved by item number rather than by name",
  "question": "Does a company with more charting titles get more countries out of each one?",
  "unit": "Reach is the number of markets in which a title appeared in a weekly top 10 at least once, out of 93. Per-title reach is a company's mean across its own charting titles; total reach is the union of the markets its titles reached, so it cannot exceed 93.",

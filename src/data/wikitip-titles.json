@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 24. 오후 1:32:01",
+  "generated": "2026. 8. 25. 오전 6:36:19",
   "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "excludedEnglishChart": 38,
   "excludedByHand": [
@@ -9,6 +9,7 @@
     "Fighter",
     "Paradise",
     "Hunger",
+    "Dangerous Liaisons",
     "Money Heist",
     "Glorious Days",
     "Restless",
@@ -48,7 +49,7 @@
   "weekFrom": "2021-07-04",
   "weekTo": "2026-08-16",
   "weekCount": 268,
-  "titleCount": 421,
+  "titleCount": 420,
   "rows": [
     {
       "title": "Alchemy of Souls",
@@ -2909,13 +2910,6 @@
     {
       "title": "The Red Sleeve",
       "type": "TV",
-      "countries": 1,
-      "peak": 10,
-      "weeks": 1
-    },
-    {
-      "title": "Dangerous Liaisons",
-      "type": "Films",
       "countries": 1,
       "peak": 10,
       "weeks": 1

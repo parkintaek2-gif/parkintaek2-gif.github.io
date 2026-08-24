@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24 05:33",
+  "generated": "2026-08-24 21:35",
   "source": "Netflix Top 10 country lists, countries-2026-08-23.tsv",
   "unit": "A chart place means one country's weekly top 10 listed the title once. The country file carries no viewing figures.",
   "whatIsHere": "The Korean slice of each week. We do not republish the whole chart.",
@@ -239,27 +239,27 @@
     },
     {
       "week": "2025-11-23",
-      "titles": 14,
-      "markets": 59,
-      "rows": 121
+      "titles": 13,
+      "markets": 58,
+      "rows": 120
     },
     {
       "week": "2025-11-16",
-      "titles": 14,
+      "titles": 13,
       "markets": 73,
-      "rows": 159
+      "rows": 154
     },
     {
       "week": "2025-11-09",
-      "titles": 14,
-      "markets": 68,
-      "rows": 109
+      "titles": 13,
+      "markets": 43,
+      "rows": 75
     },
     {
       "week": "2025-11-02",
-      "titles": 15,
-      "markets": 63,
-      "rows": 97
+      "titles": 14,
+      "markets": 56,
+      "rows": 88
     },
     {
       "week": "2025-10-26",
@@ -563,9 +563,9 @@
     },
     {
       "week": "2024-11-10",
-      "titles": 18,
+      "titles": 17,
       "markets": 14,
-      "rows": 37
+      "rows": 36
     },
     {
       "week": "2024-11-03",
@@ -593,39 +593,39 @@
     },
     {
       "week": "2024-10-06",
-      "titles": 17,
-      "markets": 53,
-      "rows": 101
+      "titles": 16,
+      "markets": 51,
+      "rows": 99
     },
     {
       "week": "2024-09-29",
-      "titles": 21,
-      "markets": 65,
-      "rows": 146
+      "titles": 20,
+      "markets": 62,
+      "rows": 139
     },
     {
       "week": "2024-09-22",
-      "titles": 19,
+      "titles": 18,
       "markets": 92,
-      "rows": 223
+      "rows": 200
     },
     {
       "week": "2024-09-15",
-      "titles": 20,
-      "markets": 79,
-      "rows": 247
+      "titles": 19,
+      "markets": 77,
+      "rows": 199
     },
     {
       "week": "2024-09-08",
-      "titles": 19,
-      "markets": 80,
-      "rows": 177
+      "titles": 18,
+      "markets": 50,
+      "rows": 108
     },
     {
       "week": "2024-09-01",
-      "titles": 17,
-      "markets": 75,
-      "rows": 197
+      "titles": 16,
+      "markets": 56,
+      "rows": 146
     },
     {
       "week": "2024-08-25",
@@ -1037,21 +1037,21 @@
     },
     {
       "week": "2023-05-07",
-      "titles": 35,
-      "markets": 29,
-      "rows": 99
+      "titles": 34,
+      "markets": 28,
+      "rows": 98
     },
     {
       "week": "2023-04-30",
-      "titles": 37,
-      "markets": 64,
-      "rows": 144
+      "titles": 36,
+      "markets": 30,
+      "rows": 106
     },
     {
       "week": "2023-04-23",
-      "titles": 36,
-      "markets": 61,
-      "rows": 161
+      "titles": 35,
+      "markets": 54,
+      "rows": 142
     },
     {
       "week": "2023-04-16",
@@ -1277,27 +1277,27 @@
     },
     {
       "week": "2022-07-31",
-      "titles": 27,
-      "markets": 59,
-      "rows": 175
+      "titles": 26,
+      "markets": 51,
+      "rows": 164
     },
     {
       "week": "2022-07-24",
-      "titles": 27,
-      "markets": 76,
-      "rows": 190
+      "titles": 26,
+      "markets": 53,
+      "rows": 153
     },
     {
       "week": "2022-07-17",
-      "titles": 22,
-      "markets": 86,
-      "rows": 188
+      "titles": 21,
+      "markets": 34,
+      "rows": 118
     },
     {
       "week": "2022-07-10",
-      "titles": 26,
-      "markets": 75,
-      "rows": 167
+      "titles": 25,
+      "markets": 44,
+      "rows": 120
     },
     {
       "week": "2022-07-03",

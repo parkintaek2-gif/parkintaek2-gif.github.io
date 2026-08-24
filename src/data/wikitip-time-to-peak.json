@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-24T13:31+09:00",
+  "generated": "2026-08-25T06:36+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "A title that travels is on several country charts at once, and that number rises and then falls. The week it is highest is the week the title is at its widest. When does that happen — and is there anything left to push after it?",
   "unit": "Width is how many countries held the title in the same week. The peak week is counted from the title's first chart week anywhere, so week 1 is the week it first appears.",
@@ -11,12 +11,12 @@
   "byGroup": [
     {
       "group": "한국 시리즈",
-      "titles": 215,
+      "titles": 213,
       "droppedThin": 237,
       "droppedOpenEnded": 11,
       "medianWeek": 2,
-      "peakInWeekOnePc": 20.9,
-      "peakByWeekFourPc": 80.9,
+      "peakInWeekOnePc": 21.1,
+      "peakByWeekFourPc": 80.8,
       "latestWeek": 34,
       "medianWidth": 20,
       "byLengthBand": [
@@ -27,8 +27,8 @@
         },
         {
           "band": "3–4주",
-          "titles": 23,
-          "peakInWeekOnePc": 39.1
+          "titles": 22,
+          "peakInWeekOnePc": 40.9
         },
         {
           "band": "5–8주",
@@ -37,18 +37,18 @@
         },
         {
           "band": "9주 이상",
-          "titles": 105,
-          "peakInWeekOnePc": 11.4
+          "titles": 104,
+          "peakInWeekOnePc": 11.5
         }
       ]
     },
     {
       "group": "그 밖 시리즈",
-      "titles": 2004,
+      "titles": 2006,
       "droppedThin": 2353,
       "droppedOpenEnded": 54,
       "medianWeek": 2,
-      "peakInWeekOnePc": 44.7,
+      "peakInWeekOnePc": 44.6,
       "peakByWeekFourPc": 91.9,
       "latestWeek": 98,
       "medianWidth": 19,
@@ -60,8 +60,8 @@
         },
         {
           "band": "3–4주",
-          "titles": 510,
-          "peakInWeekOnePc": 45.9
+          "titles": 511,
+          "peakInWeekOnePc": 45.8
         },
         {
           "band": "5–8주",
@@ -70,19 +70,19 @@
         },
         {
           "band": "9주 이상",
-          "titles": 459,
+          "titles": 460,
           "peakInWeekOnePc": 23.7
         }
       ]
     },
     {
       "group": "한국 영화",
-      "titles": 119,
+      "titles": 117,
       "droppedThin": 468,
       "droppedOpenEnded": 4,
       "medianWeek": 2,
-      "peakInWeekOnePc": 29.4,
-      "peakByWeekFourPc": 84,
+      "peakInWeekOnePc": 29.9,
+      "peakByWeekFourPc": 83.8,
       "latestWeek": 15,
       "medianWidth": 10,
       "byLengthBand": [
@@ -93,8 +93,8 @@
         },
         {
           "band": "3–4주",
-          "titles": 27,
-          "peakInWeekOnePc": 29.6
+          "titles": 25,
+          "peakInWeekOnePc": 32
         },
         {
           "band": "5–8주",
@@ -110,7 +110,7 @@
     },
     {
       "group": "그 밖 영화",
-      "titles": 3231,
+      "titles": 3233,
       "droppedThin": 4619,
       "droppedOpenEnded": 90,
       "medianWeek": 2,
@@ -126,8 +126,8 @@
         },
         {
           "band": "3–4주",
-          "titles": 893,
-          "peakInWeekOnePc": 39.9
+          "titles": 895,
+          "peakInWeekOnePc": 39.8
         },
         {
           "band": "5–8주",
