@@ -126,6 +126,12 @@ export const GET: APIRoute = () => {
 
   짝들.push(...카드뉴스짝들());
 
+  /* ⭐ 주제 지면 전용 공유카드(make-og-100y-topics.mjs) — 새 지면 낼 때마다 한 줄씩 늘린다 */
+  짝들.push(
+    { 지면: '/hiking', 그림: '/og/hiking.png', 제목: '나이대별 등산 참여율' },
+    { 지면: '/nursery-fill', 그림: '/og/nursery-fill.png', 제목: '어린이집 정원 대비 현원' },
+  );
+
   /** ⭐ 한 지면에 그림이 여럿이면(예: report/area 의 OG 카드 + 카드뉴스 다섯 장) 한 <url> 에 모은다.
    *  ⛔ 같은 loc 으로 <url> 을 두 번 안 낸다 — 구글이 겹친 것으로 헷갈릴 수 있다. */
   const 지면별: Map<string, { 제목: string; 그림들: string[] }> = new Map();
