@@ -201,6 +201,10 @@ export const GET: APIRoute = () => {
        (collect-100y-soccer.mjs). 「축구 풋살」 항목명이 2021~2025 5년 내내 동일해(공백까지
        JSON.stringify로 대조) 5년을 그대로 이었다. */
     { path: '/soccer', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 2026-08-25 — 「육아휴직 사용률」 자동완성 실측(10줄, 오늘 등산 다음으로 강함)
+       확인 후 낸 지면. 통계청 「출생아 부모의 육아휴직 사용률」(org 101 · DT_CC2024D002)
+       2015~2024 10년치를 그대로 이었다(collect-100y-parental-leave.mjs). */
+    { path: '/parental-leave', priority: '0.7', changefreq: 'monthly' },
     /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
        /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
     { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },

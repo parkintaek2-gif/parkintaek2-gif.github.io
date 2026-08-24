@@ -1,0 +1,121 @@
+---
+/**
+ * /100y/parental-leave — 부모 나이대별 육아휴직 사용률
+ *
+ * ⭐ 자동완성 실측(2026-08-25) — 「육아휴직 사용률」 10줄(공시·계산·남성/여성/한국/OECD·
+ *   대기업/기업별 육아휴직 사용률 등) — 오늘 잰 것 중 등산 다음으로 강한 신호.
+ *
+ * 통계청 「출생아 부모의 육아휴직 사용률」(org 101 · DT_CC2024D002). 2015~2024 10년치가
+ * 다 있고 매해 이름이 같아 그대로 이었다(collect-100y-parental-leave.mjs 참고).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/parental-leave.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 해들 = 자료.해들 as string[];
+const 이번 = 자료.해별[최신];
+const 처음 = 자료.해별[해들[0]];
+const 나이별 = 이번.나이별 as { 칸: string; 계: number; 부: number; 모: number }[];
+
+const 최고 = 나이별.reduce((a, b) => (b.계 != null && (a.계 == null || b.계 > a.계) ? b : a));
+
+/** ⛔ 라이브러리를 쓰지 않는다. 선 하나라 손으로 그린다(다른 지면과 같은 방식) */
+const 흐름 = (() => {
+  const 값들 = 해들.map((해) => ({ 해, 률: 자료.해별[해].계 as number }));
+  const 최대 = Math.max(...값들.map((v) => v.률));
+  const 최소 = Math.min(...값들.map((v) => v.률));
+  const 폭 = 640, 높 = 190, 왼 = 10, 오 = 10, 위 = 26, 아래 = 30;
+  const x = (i: number) => 왼 + (i * (폭 - 왼 - 오)) / (값들.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  const 선 = 값들.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v.률).toFixed(1)}`).join(' ');
+  return { 값들, 최대, 최소, 폭, 높, 선, x, y };
+})();
+
+const desc =
+  `${최신}년 기준 부모 나이대별 육아휴직 사용률은 ${최고.칸}가 ${최고.계}%로 가장 높습니다. ` +
+  `전체는 ${해들[0]}년 ${처음.계}%에서 ${최신}년 ${이번.계}%로 늘었고, 어머니(${이번.모}%)와 아버지(${이번.부}%) 사용률 차이가 큽니다.`;
+---
+
+<HundredYear title={`부모 나이대별 육아휴직 사용률 — ${최신}년 ${최고.칸} ${최고.계}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/parental-leave.png">
+  <h1>육아휴직은<br />몇 살 부모가 가장 많이 쓸까요?</h1>
+  <p class="sub">
+    <strong>{최신}년 기준 {최고.칸} 부모가 {최고.계}%로 가장 높습니다.</strong>
+    {' '}전체는 {해들[0]}년 {처음.계}%에서 {최신}년 {이번.계}%로 늘었습니다.
+  </p>
+
+  <p class="note">
+    ⚠ 그 해에 아이가 태어난 부모 가운데 육아휴직을 쓴 사람의 비율입니다. 육아휴직을
+    {' '}쓸 수 없는 처지(자영업·미가입 등)까지 합친 <strong>전체 부모의 비율이 아닙니다</strong>.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년, 육아휴직 사용률이 가장 높은 부모 나이대</p>
+    <p class="answer-num">{최고.칸} {최고.계}%</p>
+    <p class="answer-sub">아버지 {이번.부}% · 어머니 {이번.모}% (전체 평균 {이번.계}%)</p>
+  </div>
+
+  <h2>부모 나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>부모 나이대</th><th>전체</th><th>아버지</th><th>어머니</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.계 == null ? '못 잼' : `${r.계}%`}</td>
+            <td>{r.부 == null ? '못 잼' : `${r.부}%`}</td>
+            <td>{r.모 == null ? '못 잼' : `${r.모}%`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    <strong>나이가 어릴수록 사용률이 높고, 나이가 들수록 낮아집니다.</strong>
+    {' '}어느 나이대든 어머니 사용률이 아버지보다 훨씬 높습니다 — {최신}년 40세 이상에서도
+    {' '}어머니 {나이별.find((r) => r.칸 === '40세 이상')?.모}% 대 아버지 {나이별.find((r) => r.칸 === '40세 이상')?.부}%입니다.
+  </p>
+
+  <h2>{해들.length}해 동안 전체는 어떻게 움직였나</h2>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${흐름.폭} ${흐름.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`육아휴직 사용률(전체) — ${흐름.값들.map((v) => `${v.해}년 ${v.률}%`).join(', ')}`}>
+      <path d={흐름.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
+      {흐름.값들.map((v, i) => (
+        <g>
+          <circle cx={흐름.x(i)} cy={흐름.y(v.률)} r={i === 0 || v.해 === 최신 ? 4.5 : 2.5}
+                  fill={i === 0 || v.해 === 최신 ? '#c9a84c' : '#8b8b96'} />
+          {(i === 0 || v.해 === 최신) && (
+            <text x={흐름.x(i)} y={흐름.y(v.률) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.률}%</text>
+          )}
+          <text x={흐름.x(i)} y={흐름.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{v.해}</text>
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/nursery">← 어린이집이 한 곳도 없는 지역이 있습니다</a>
+    <br />
+    <a href="/nursery-fill">← 어린이집 정원 대비 현원 — 채움률은 얼마나 될까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 「0~5세 · 아이를 맡길 데를 찾는 사람」 방</a>
+    <br />
+    <a href="/community/0to5">← 0~5세 아이를 키우는 사람의 방 — 동네별 유치원·소아과·어린이집을 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="부모 나이대별 육아휴직 사용률 자료" />
+</HundredYear>
