@@ -22,6 +22,8 @@ const [head, ...tail] = SITE.nameParts;
       }
       {/* 데이터 API 는 부가서비스가 아니라 매출의 본체다. 내비게이션에 올린다. */}
       <a href="/data" aria-current={isCurrent('/data')}>Data</a>
+      {/* 영상 갤러리 — 가장 센 방문 축(구글 비디오). 모든 지면 내비에서 걸어 사람·크롤러가 닿게 한다(2026-08-24). */}
+      <a href="/video" aria-current={isCurrent('/video')}>Video</a>
       <a href="/api" aria-current={isCurrent('/api')}>API</a>
       <a href="/about" aria-current={isCurrent('/about')}>About</a>
     </nav>
