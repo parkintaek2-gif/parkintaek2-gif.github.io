@@ -110,7 +110,7 @@ const orgLd = {
         ⚠ noAds 인 페이지에서는 **스크립트 자체를 안 부른다.** 슬롯만 빼면
           Auto Ads 가 스크립트만 보고 알아서 광고를 꽂을 수 있기 때문이다. */}
     {
-      ADS.client !== '' && !noAds && (
+      ADS.client !== '' && !광고끔 && (
         <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADS.client}`}
@@ -139,6 +139,6 @@ const orgLd = {
       {SITE.name} · {PUBLISHER.legalName} · <span>{canonical}</span>
     </p>
     {/* ins 하나당 한 번씩 광고 요청. 페이지당 스크립트 한 줄로 끝낸다. */}
-    {ADS.client !== '' && !noAds && <script is:inline set:html={adsPush} />}
+    {ADS.client !== '' && !광고끔 && <script is:inline set:html={adsPush} />}
   </body>
 </html>
