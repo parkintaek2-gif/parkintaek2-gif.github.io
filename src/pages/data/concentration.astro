@@ -29,7 +29,7 @@ const stockAsOf = (cross as any).stockAsOf as string;
 const tradeMonth = (cross as any).tradeMonth as string;
 const days = ((hist as any).days || []).length;
 
-const jsonLd = {
+const datasetLd = {
   '@context': 'https://schema.org', '@type': 'Dataset',
   name: 'Korea Concentration Index',
   description: DESC, url: `${SITE_URL}/data/concentration`,
@@ -37,6 +37,32 @@ const jsonLd = {
   variableMeasured: ['market-cap Gini', 'trading-value Gini', 'export-partner Gini', 'import-partner Gini', 'top-four share'],
   distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE_URL}/data/korea-concentration.csv` }],
 };
+
+// FAQPage 구조화데이터 — 아래 .faq 지면에 실제로 보이는 6개 Q&A와 문장이 일치해야 한다(구글 규칙).
+// 제로 노출을 뚫는 지렛대: 저권위 신규 사이트는 경쟁 질의에서 못 뜨지만, 구조화된 직접답변은
+// 스니펫 자격을 얻어 "how much of the kospi is samsung" 류 실수요 질의에 잡힐 여지가 생긴다.
+const faq = [
+  ['How much of the KOSPI is Samsung?',
+   'Samsung Electronics is about 26.7% of the entire Korean stock market (KOSPI + KOSDAQ) by market cap; together with SK hynix, the two chipmakers are close to half.'],
+  ['How concentrated is the Korean stock market?',
+   `The four largest stocks are ${dims[0].top4}% of total market cap and the top ten are about 60%; the concentration Gini is ${dims[0].gini}. KOSDAQ holds only about 7% of value but a much larger share of daily trading.`],
+  ["Who are South Korea's biggest trading partners?",
+   'Korea’s top export markets are the United States and China, nearly tied near 20% each; its single biggest import source is China, about a quarter of all imports. The top four partners are roughly half of trade either way.'],
+  ['What is the KOSPI vs KOSDAQ market cap split?',
+   'KOSPI holds about 93% of total listed market value; KOSDAQ, with nearly twice as many companies, holds about 7%.'],
+  ['How many companies are listed on the Korean stock market?',
+   'About 2,764 issues are listed across KOSPI (about 940) and KOSDAQ (about 1,820), counting common and preferred lines; the top ten are roughly 60% of all market value.'],
+  ['Which country does Korea export to the most?',
+   'Korea’s two largest export markets are the United States and China, nearly tied at about 20% each; together they take close to 40% of exports. Its largest single import source is China, about a quarter of all imports.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q,
+    acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
 const fmtDd = (s: string) => (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : s);
 ---
 
