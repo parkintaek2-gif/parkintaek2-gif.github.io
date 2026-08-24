@@ -149,8 +149,11 @@ const DESC = `${드라마.length} Korean TV series have reached a Netflix weekly
       <table>
         <thead><tr><th>First charted</th><th>Series</th></tr></thead>
         <tbody>
+          {/* 🔴 2026-08-24 — 해를 «문»으로 바꿨다. 연도 지면 6장은 색인은 됐는데 28일 노출이
+              0이었고, 들어오는 문은 작품 지면 93장에서 이미 있었다 — 없던 것은 문이 아니라
+              손님 말이었다(제목을 「Korean drama <해>」로 고쳤다). 이 표에서도 걸어가게 한다 */}
           {해줄.map(([y, n]) => (
-            <tr><td class="nm">{y}</td><td class="tot">{n}</td></tr>
+            <tr><td class="nm"><a href={`/year/${y}`}>{y}</a></td><td class="tot">{n}</td></tr>
           ))}
         </tbody>
       </table>

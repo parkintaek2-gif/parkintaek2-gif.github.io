@@ -42,15 +42,33 @@ const 견줄말 = (!y.partialYear && 온해작품.length >= 2)
       : ''))
   : '';
 
+/*
+ * 🔴 2026-08-24 — **제목을 손님 말로 바꿨다.** 재서 나온 것이 분명했다 —
+ *   이 6장의 색인 상태   PASS · Submitted and indexed (8/22~24 크롤 · 대조군 정상)
+ *   28일 노출            0    ← 색인은 됐는데 한 번도 안 떴다
+ *   손님이 치는 말        korean drama 2024 · korean drama 2025   각각 자동완성 1번째 · 10줄
+ *                        best korean drama 2024                  1번째 · 10줄
+ *   내가 쓰던 제목        Every Korean title that charted on Netflix in 2024
+ *
+ * ⇒ 색인 문제가 아니었다. **아무도 「title that charted」라고 치지 않는다.**
+ *   오늘 생일 축에서 똑같은 것을 겪었다 — 손님은 달로 묻는데 나는 날로 냈다.
+ *   ⛔ 낱말을 채운 것이 아니다. 이 지면의 시리즈는 실제로 한국 드라마다 — 맞는 말로 바꾼 것이다.
+ *
+ * ⚠ 다만 「2024년 드라마」와 이 지면은 **같은 것이 아니다.** 여기 있는 것은 그 해에
+ *   «차트에 든» 작품이고 그중에는 그 전에 나온 것도 있다. 개봉일이 자료에 없어서 못 가른다.
+ *   그래서 제목·설명·머리글에 「charted during, not released in」을 못박는다 —
+ *   안 적으면 손님이 「그 해 신작 목록」으로 읽는다. 못 잰 것은 못 쟀다고 적는다.
+ */
 const TITLE = y.partialYear
-  ? `Korean titles on Netflix in ${y.year} — a part-year count`
-  : `Every Korean title that charted on Netflix in ${y.year}`;
+  ? `Korean drama on Netflix in ${y.year} — a part-year count of ${y.series} series`
+  : `Korean drama on Netflix in ${y.year} — the ${y.series} series that charted, and ${y.films} films`;
 const DESC = y.partialYear
-  ? `${y.titles} Korean titles held a place on a Netflix weekly top 10 during ${y.year}, but our data `
-    + `covers only ${y.weeksInData} weeks of that year, so this count is not comparable with a full one.`
-  : `${y.titles} Korean titles held places on Netflix weekly top 10 lists during ${y.year} — `
-    + `${y.series} series and ${y.films} films, ${y.places.toLocaleString('en-US')} chart places across `
-    + `${data.marketCount} countries.`;
+  ? `${y.series} Korean series and ${y.films} films held a place on a Netflix weekly top 10 during `
+    + `${y.year}, but our data covers only ${y.weeksInData} weeks of that year, so this count is not `
+    + `comparable with a full one. Charted during ${y.year}, not released in it.`
+  : `${y.series} Korean drama series and ${y.films} films held places on Netflix weekly top 10 lists `
+    + `during ${y.year}, taking ${y.places.toLocaleString('en-US')} chart places across `
+    + `${data.marketCount} countries. Charted during ${y.year}, not released in it.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -82,6 +100,17 @@ const jsonLd = {
     {' '}{y.year} &mdash; <b>{y.series} series and {y.films} films</b>, taking
     {' '}{y.places.toLocaleString('en-US')} places in total across {data.marketCount} countries.
     {견줄말}
+  </p>
+
+  {/* ⚠ 2026-08-24 — 제목에 「Korean drama <해>」를 쓰기로 하면서 «반드시» 같이 놓는 문단이다.
+      손님이 그 말로 검색할 때 찾는 것은 흔히 「그 해 신작」인데, 우리가 가진 것은
+      「그 해 차트에 든 것」이다. 개봉일이 자료에 없어서 두 개를 못 가른다.
+      ⛔ 이 문단을 빼고 제목만 바꾸면 낱말은 맞고 뜻은 틀린 지면이 된다 */}
+  <p class="warn">
+    <b>These are the titles that charted during {y.year} &mdash; not the ones released in it.</b>
+    {' '}A series that came out earlier and was still charting appears here; one released
+    in {y.year} that never entered a top ten does not. Netflix publishes no release date in these
+    files, so we cannot split the two and do not pretend to.
   </p>
 
   <section>
