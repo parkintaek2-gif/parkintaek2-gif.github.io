@@ -185,6 +185,10 @@ export const GET: APIRoute = () => {
        같은 표에서 나이만 골랐다(collect-100y-golf.mjs). 2022~2024년은 항목명이 달라
        2025년 한 해만 싣는다. */
     { path: '/golf', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 2026-08-25 — 「헬스 인구」류 신호 확인 후 낸 지면. 같은 표에서 나이만 골랐다
+       (collect-100y-workout.mjs). 「보디빌딩(헬스)」 항목명이 2021~2025 5년 내내 동일해
+       golf와 달리 5년을 그대로 이었다. */
+    { path: '/workout', priority: '0.7', changefreq: 'monthly' },
     /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
        /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
     { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },

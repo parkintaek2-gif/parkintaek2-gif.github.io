@@ -108,7 +108,7 @@ export const KLIFEMAP_어른: 입구 = {
  */
 export const 어른갈래: ReadonlySet<string> = new Set([
   'age', 'university', 'work', 'life', 'how-long', 'size',
-  'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'oneperson', 'lifelong', 'retire-income',
+  'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'oneperson', 'lifelong', 'retire-income',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
 ]);
@@ -183,7 +183,7 @@ export const 붙일수있는갈래 = [
    *   어른 쪽(대운·일진과 결이 맞는 인생 통계)과 아이 쪽(돌봄·보육 시설)을 갈라 붙인다 —
    *   갈림은 바로 아래 `어른갈래`에서 마저 한다.
    */
-  'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'oneperson', 'lifelong', 'retire-income',
+  'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'oneperson', 'lifelong', 'retire-income',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary',
