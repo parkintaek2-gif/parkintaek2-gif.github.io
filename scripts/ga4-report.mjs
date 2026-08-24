@@ -58,6 +58,33 @@ export const 유닛 = [
 ];
 export const 손님아님 = /^(localhost|127\.0\.0\.1|\[?::1\]?|.*\.github\.io)$/i;
 
+/**
+ * ⭐ 2026-08-24 — **토큰 뽑는 것을 내준다.** 체류시간을 재는 자(measure-kcw-dwell.mjs)가
+ *   같은 서비스 계정으로 GA4 를 읽어야 한다. 이것은 판단이 아니라 배관이므로 베끼면
+ *   두 자가 어긋날 일은 없지만, 열쇠 다루는 곳이 두 군데가 되는 것이 싫다. 한 군데로 둔다.
+ * ⛔ 열쇠를 돌려주지 않는다 — access_token 만 준다.
+ */
+export async function 토큰받기(키, 갈래이름 = 갈래) {
+  const 지금 = Math.floor(Date.now() / 1000);
+  const 헤더 = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
+  const 몸 = Buffer.from(JSON.stringify({
+    iss: 키.client_email, scope: 갈래이름, aud: 'https://oauth2.googleapis.com/token',
+    iat: 지금, exp: 지금 + 3600,
+  })).toString('base64url');
+  const 대상 = `${헤더}.${몸}`;
+  const assertion = `${대상}.${createSign('RSA-SHA256').update(대상).sign(키.private_key, 'base64url')}`;
+  const r = await fetch('https://oauth2.googleapis.com/token', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({
+      grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion,
+    }),
+  });
+  const j = await r.json();
+  if (!j.access_token) throw new Error(`토큰 실패: ${JSON.stringify(j)}`);
+  return j.access_token;
+}
+
 /** 호스트 줄들을 유닛별로 합친다. ⛔ 어디에도 안 붙는 호스트를 **버리지 않는다** */
 export function 유닛별로(줄들) {
   const 표 = 유닛.map((u) => ({ 이름: u.이름, 순방문: 0, 열림: 0, 호스트: [] }));

@@ -1,0 +1,3536 @@
+{
+  "generated": "2026-08-24",
+  "days": 28,
+  "property": "549135289",
+  "whatThisIs": "GA4 userEngagementDuration divided by screenPageViews, per page. Engagement time is what Google counts as engaged, not wall-clock time with the tab open; a hidden tab is not counted. Treat it as a lower bound on reading time.",
+  "whatThisIsNot": "Not a count of seconds a person read. Not comparable across sites with different tagging. Pages with fewer than 5 opens are kept in the rows but must not be quoted as an average.",
+  "baselineSecondsPerOpen": 18.56860902255639,
+  "minimumOpensToQuote": 5,
+  "units": [
+    {
+      "unit": "3번 100yearmap",
+      "sessions": 354,
+      "users": 339,
+      "views": 448,
+      "secondsPerSession": 36.50817916949153,
+      "engagedSessionShare": 19.491525423728813,
+      "secondsPerOpen": 11.553571428571429
+    },
+    {
+      "unit": "1·4번 KLifeMap",
+      "sessions": 109,
+      "users": 56,
+      "views": 363,
+      "secondsPerSession": 430.40025342201835,
+      "engagedSessionShare": 46.788990825688074,
+      "secondsPerOpen": 30.80716253443526
+    },
+    {
+      "unit": "5번 K Culture Wire",
+      "sessions": 124,
+      "users": 111,
+      "views": 159,
+      "secondsPerSession": 39.21844689516129,
+      "engagedSessionShare": 19.35483870967742,
+      "secondsPerOpen": 13.9937106918239
+    },
+    {
+      "unit": "6번 SeoulMarkets",
+      "sessions": 47,
+      "users": 39,
+      "views": 94,
+      "secondsPerSession": 189.8271449574468,
+      "engagedSessionShare": 38.297872340425535,
+      "secondsPerOpen": 12.47872340425532
+    }
+  ],
+  "byKind": [
+    {
+      "갈래": "(집)",
+      "장": 1,
+      "열림": 292,
+      "붙은초": 2467,
+      "사람": 195,
+      "열림당초": 8.448630136986301
+    },
+    {
+      "갈래": "/school",
+      "장": 135,
+      "열림": 192,
+      "붙은초": 648,
+      "사람": 190,
+      "열림당초": 3.375
+    },
+    {
+      "갈래": "/saju.html",
+      "장": 1,
+      "열림": 78,
+      "붙은초": 4350,
+      "사람": 17,
+      "열림당초": 55.76923076923077
+    },
+    {
+      "갈래": "/report",
+      "장": 45,
+      "열림": 56,
+      "붙은초": 985,
+      "사람": 56,
+      "열림당초": 17.589285714285715
+    },
+    {
+      "갈래": "/article",
+      "장": 32,
+      "열림": 50,
+      "붙은초": 1169,
+      "사람": 42,
+      "열림당초": 23.38
+    },
+    {
+      "갈래": "/login.html",
+      "장": 1,
+      "열림": 42,
+      "붙은초": 634,
+      "사람": 14,
+      "열림당초": 15.095238095238095
+    },
+    {
+      "갈래": "/checkout.html",
+      "장": 1,
+      "열림": 38,
+      "붙은초": 1818,
+      "사람": 7,
+      "열림당초": 47.8421052631579
+    },
+    {
+      "갈래": "/university",
+      "장": 19,
+      "열림": 35,
+      "붙은초": 636,
+      "사람": 29,
+      "열림당초": 18.17142857142857
+    },
+    {
+      "갈래": "/index.html",
+      "장": 2,
+      "열림": 30,
+      "붙은초": 357,
+      "사람": 7,
+      "열림당초": 11.9
+    },
+    {
+      "갈래": "/pricing.html",
+      "장": 1,
+      "열림": 26,
+      "붙은초": 389,
+      "사람": 11,
+      "열림당초": 14.961538461538462
+    },
+    {
+      "갈래": "/college-major",
+      "장": 9,
+      "열림": 18,
+      "붙은초": 434,
+      "사람": 13,
+      "열림당초": 24.11111111111111
+    },
+    {
+      "갈래": "/terms.html",
+      "장": 1,
+      "열림": 14,
+      "붙은초": 1604,
+      "사람": 4,
+      "열림당초": 114.57142857142857
+    },
+    {
+      "갈래": "/major",
+      "장": 8,
+      "열림": 14,
+      "붙은초": 437,
+      "사람": 11,
+      "열림당초": 31.214285714285715
+    },
+    {
+      "갈래": "/refund.html",
+      "장": 1,
+      "열림": 12,
+      "붙은초": 177,
+      "사람": 7,
+      "열림당초": 14.75
+    },
+    {
+      "갈래": "/after",
+      "장": 1,
+      "열림": 11,
+      "붙은초": 365,
+      "사람": 6,
+      "열림당초": 33.18181818181818
+    },
+    {
+      "갈래": "/dashboard.html",
+      "장": 1,
+      "열림": 11,
+      "붙은초": 198,
+      "사람": 4,
+      "열림당초": 18
+    },
+    {
+      "갈래": "/about",
+      "장": 1,
+      "열림": 10,
+      "붙은초": 296,
+      "사람": 7,
+      "열림당초": 29.6
+    },
+    {
+      "갈래": "/title",
+      "장": 7,
+      "열림": 10,
+      "붙은초": 247,
+      "사람": 11,
+      "열림당초": 24.7
+    },
+    {
+      "갈래": "/ilzin.html",
+      "장": 1,
+      "열림": 8,
+      "붙은초": 0,
+      "사람": 2,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/mingli-taekil.html",
+      "장": 1,
+      "열림": 7,
+      "붙은초": 528,
+      "사람": 5,
+      "열림당초": 75.42857142857143
+    },
+    {
+      "갈래": "/data",
+      "장": 2,
+      "열림": 7,
+      "붙은초": 120,
+      "사람": 5,
+      "열림당초": 17.142857142857142
+    },
+    {
+      "갈래": "/work",
+      "장": 1,
+      "열림": 6,
+      "붙은초": 153,
+      "사람": 4,
+      "열림당초": 25.5
+    },
+    {
+      "갈래": "/region",
+      "장": 2,
+      "열림": 6,
+      "붙은초": 146,
+      "사람": 4,
+      "열림당초": 24.333333333333332
+    },
+    {
+      "갈래": "/exports",
+      "장": 1,
+      "열림": 5,
+      "붙은초": 42,
+      "사람": 5,
+      "열림당초": 8.4
+    },
+    {
+      "갈래": "/intelligence.html",
+      "장": 1,
+      "열림": 5,
+      "붙은초": 24,
+      "사람": 2,
+      "열림당초": 4.8
+    },
+    {
+      "갈래": "/macro",
+      "장": 1,
+      "열림": 5,
+      "붙은초": 62,
+      "사람": 2,
+      "열림당초": 12.4
+    },
+    {
+      "갈래": "/articles",
+      "장": 1,
+      "열림": 5,
+      "붙은초": 33,
+      "사람": 2,
+      "열림당초": 6.6
+    },
+    {
+      "갈래": "/age",
+      "장": 2,
+      "열림": 5,
+      "붙은초": 163,
+      "사람": 4,
+      "열림당초": 32.6
+    },
+    {
+      "갈래": "/section",
+      "장": 4,
+      "열림": 5,
+      "붙은초": 111,
+      "사람": 5,
+      "열림당초": 22.2
+    },
+    {
+      "갈래": "/commodities",
+      "장": 1,
+      "열림": 4,
+      "붙은초": 22,
+      "사람": 2,
+      "열림당초": 5.5
+    },
+    {
+      "갈래": "/equities",
+      "장": 1,
+      "열림": 4,
+      "붙은초": 60,
+      "사람": 4,
+      "열림당초": 15
+    },
+    {
+      "갈래": "/mingli-sungmyung.html",
+      "장": 1,
+      "열림": 4,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/funds",
+      "장": 1,
+      "열림": 3,
+      "붙은초": 18,
+      "사람": 2,
+      "열림당초": 6
+    },
+    {
+      "갈래": "/price",
+      "장": 1,
+      "열림": 3,
+      "붙은초": 119,
+      "사람": 2,
+      "열림당초": 39.666666666666664
+    },
+    {
+      "갈래": "/api",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 2,
+      "사람": 1,
+      "열림당초": 1
+    },
+    {
+      "갈래": "/inquiry.html",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 15,
+      "사람": 2,
+      "열림당초": 7.5
+    },
+    {
+      "갈래": "/life",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 20,
+      "사람": 2,
+      "열림당초": 10
+    },
+    {
+      "갈래": "/mingli-gunghap.html",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/rates",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 13,
+      "사람": 2,
+      "열림당초": 6.5
+    },
+    {
+      "갈래": "/watched",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 1,
+      "사람": 2,
+      "열림당초": 0.5
+    },
+    {
+      "갈래": "/catalogue-depth",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 326,
+      "사람": 2,
+      "열림당초": 163
+    },
+    {
+      "갈래": "/,02_product_saju|https:",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/about.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 445,
+      "사람": 1,
+      "열림당초": 445
+    },
+    {
+      "갈래": "/admin",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 5,
+      "사람": 1,
+      "열림당초": 5
+    },
+    {
+      "갈래": "/afterschool",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/ai-report.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 49,
+      "사람": 1,
+      "열림당초": 49
+    },
+    {
+      "갈래": "/auth",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/cards.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/contact",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/daily.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/eg",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 2,
+      "사람": 1,
+      "열림당초": 2
+    },
+    {
+      "갈래": "/esports",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 2,
+      "사람": 1,
+      "열림당초": 2
+    },
+    {
+      "갈래": "/for-industry",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/fx",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 4,
+      "사람": 1,
+      "열림당초": 4
+    },
+    {
+      "갈래": "/home",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 25,
+      "사람": 1,
+      "열림당초": 25
+    },
+    {
+      "갈래": "/login",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 1,
+      "사람": 1,
+      "열림당초": 1
+    },
+    {
+      "갈래": "/longest-job",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 2,
+      "사람": 1,
+      "열림당초": 2
+    },
+    {
+      "갈래": "/mansecalendar.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/nursery",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 2,
+      "사람": 1,
+      "열림당초": 2
+    },
+    {
+      "갈래": "/privacy",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/rankings",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 1,
+      "사람": 1,
+      "열림당초": 1
+    },
+    {
+      "갈래": "/returns",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/reviews.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/saju",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/signup.html",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/star-signs",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 8,
+      "사람": 1,
+      "열림당초": 8
+    },
+    {
+      "갈래": "/terms",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/tv-exports",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 21,
+      "사람": 1,
+      "열림당초": 21
+    },
+    {
+      "갈래": "/workforce",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/years-left",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 1,
+      "사람": 1,
+      "열림당초": 1
+    }
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "views": 292,
+      "users": 195,
+      "sessions": 235,
+      "engagedSeconds": 2467,
+      "secondsPerOpen": 8.448630136986301,
+      "quotable": true
+    },
+    {
+      "path": "/saju.html",
+      "views": 78,
+      "users": 17,
+      "sessions": 44,
+      "engagedSeconds": 4350,
+      "secondsPerOpen": 55.76923076923077,
+      "quotable": true
+    },
+    {
+      "path": "/login.html",
+      "views": 42,
+      "users": 14,
+      "sessions": 22,
+      "engagedSeconds": 634,
+      "secondsPerOpen": 15.095238095238095,
+      "quotable": true
+    },
+    {
+      "path": "/checkout.html",
+      "views": 38,
+      "users": 7,
+      "sessions": 10,
+      "engagedSeconds": 1818,
+      "secondsPerOpen": 47.8421052631579,
+      "quotable": true
+    },
+    {
+      "path": "/index.html",
+      "views": 29,
+      "users": 6,
+      "sessions": 18,
+      "engagedSeconds": 333,
+      "secondsPerOpen": 11.482758620689655,
+      "quotable": true
+    },
+    {
+      "path": "/pricing.html",
+      "views": 26,
+      "users": 11,
+      "sessions": 15,
+      "engagedSeconds": 389,
+      "secondsPerOpen": 14.961538461538462,
+      "quotable": true
+    },
+    {
+      "path": "/terms.html",
+      "views": 14,
+      "users": 4,
+      "sessions": 5,
+      "engagedSeconds": 1604,
+      "secondsPerOpen": 114.57142857142857,
+      "quotable": true
+    },
+    {
+      "path": "/refund.html",
+      "views": 12,
+      "users": 7,
+      "sessions": 7,
+      "engagedSeconds": 177,
+      "secondsPerOpen": 14.75,
+      "quotable": true
+    },
+    {
+      "path": "/after",
+      "views": 11,
+      "users": 6,
+      "sessions": 6,
+      "engagedSeconds": 365,
+      "secondsPerOpen": 33.18181818181818,
+      "quotable": true
+    },
+    {
+      "path": "/dashboard.html",
+      "views": 11,
+      "users": 4,
+      "sessions": 6,
+      "engagedSeconds": 198,
+      "secondsPerOpen": 18,
+      "quotable": true
+    },
+    {
+      "path": "/about",
+      "views": 10,
+      "users": 7,
+      "sessions": 8,
+      "engagedSeconds": 296,
+      "secondsPerOpen": 29.6,
+      "quotable": true
+    },
+    {
+      "path": "/article/it-moved-it-did-not-shrink",
+      "views": 9,
+      "users": 8,
+      "sessions": 8,
+      "engagedSeconds": 10,
+      "secondsPerOpen": 1.1111111111111112,
+      "quotable": true
+    },
+    {
+      "path": "/ilzin.html",
+      "views": 8,
+      "users": 2,
+      "sessions": 4,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": true
+    },
+    {
+      "path": "/college-major",
+      "views": 7,
+      "users": 4,
+      "sessions": 4,
+      "engagedSeconds": 61,
+      "secondsPerOpen": 8.714285714285714,
+      "quotable": true
+    },
+    {
+      "path": "/mingli-taekil.html",
+      "views": 7,
+      "users": 5,
+      "sessions": 6,
+      "engagedSeconds": 528,
+      "secondsPerOpen": 75.42857142857143,
+      "quotable": true
+    },
+    {
+      "path": "/university",
+      "views": 7,
+      "users": 5,
+      "sessions": 5,
+      "engagedSeconds": 119,
+      "secondsPerOpen": 17,
+      "quotable": true
+    },
+    {
+      "path": "/major",
+      "views": 6,
+      "users": 4,
+      "sessions": 4,
+      "engagedSeconds": 126,
+      "secondsPerOpen": 21,
+      "quotable": true
+    },
+    {
+      "path": "/work",
+      "views": 6,
+      "users": 4,
+      "sessions": 4,
+      "engagedSeconds": 153,
+      "secondsPerOpen": 25.5,
+      "quotable": true
+    },
+    {
+      "path": "/data",
+      "views": 6,
+      "users": 4,
+      "sessions": 5,
+      "engagedSeconds": 107,
+      "secondsPerOpen": 17.833333333333332,
+      "quotable": true
+    },
+    {
+      "path": "/exports",
+      "views": 5,
+      "users": 5,
+      "sessions": 5,
+      "engagedSeconds": 42,
+      "secondsPerOpen": 8.4,
+      "quotable": true
+    },
+    {
+      "path": "/intelligence.html",
+      "views": 5,
+      "users": 2,
+      "sessions": 4,
+      "engagedSeconds": 24,
+      "secondsPerOpen": 4.8,
+      "quotable": true
+    },
+    {
+      "path": "/macro",
+      "views": 5,
+      "users": 2,
+      "sessions": 4,
+      "engagedSeconds": 62,
+      "secondsPerOpen": 12.4,
+      "quotable": true
+    },
+    {
+      "path": "/region",
+      "views": 5,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 57,
+      "secondsPerOpen": 11.4,
+      "quotable": true
+    },
+    {
+      "path": "/school",
+      "views": 5,
+      "users": 5,
+      "sessions": 5,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 1.6,
+      "quotable": true
+    },
+    {
+      "path": "/articles",
+      "views": 5,
+      "users": 2,
+      "sessions": 5,
+      "engagedSeconds": 33,
+      "secondsPerOpen": 6.6,
+      "quotable": true
+    },
+    {
+      "path": "/article/how-much-of-our-own-number-is-checked",
+      "views": 4,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 178,
+      "secondsPerOpen": 44.5,
+      "quotable": false
+    },
+    {
+      "path": "/commodities",
+      "views": 4,
+      "users": 2,
+      "sessions": 3,
+      "engagedSeconds": 22,
+      "secondsPerOpen": 5.5,
+      "quotable": false
+    },
+    {
+      "path": "/equities",
+      "views": 4,
+      "users": 4,
+      "sessions": 4,
+      "engagedSeconds": 60,
+      "secondsPerOpen": 15,
+      "quotable": false
+    },
+    {
+      "path": "/mingli-sungmyung.html",
+      "views": 4,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000534",
+      "views": 4,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 51,
+      "secondsPerOpen": 12.75,
+      "quotable": false
+    },
+    {
+      "path": "/age",
+      "views": 3,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 163,
+      "secondsPerOpen": 54.333333333333336,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-five-buybacks-one-cancellation",
+      "views": 3,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 96,
+      "secondsPerOpen": 32,
+      "quotable": false
+    },
+    {
+      "path": "/article/six-titles-or-forty-nine",
+      "views": 3,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 134,
+      "secondsPerOpen": 44.666666666666664,
+      "quotable": false
+    },
+    {
+      "path": "/funds",
+      "views": 3,
+      "users": 2,
+      "sessions": 3,
+      "engagedSeconds": 18,
+      "secondsPerOpen": 6,
+      "quotable": false
+    },
+    {
+      "path": "/price",
+      "views": 3,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 119,
+      "secondsPerOpen": 39.666666666666664,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-동작구",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 303,
+      "secondsPerOpen": 101,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-은평구",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 64,
+      "secondsPerOpen": 21.333333333333332,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010153",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 0.6666666666666666,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010340",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010370",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.3333333333333333,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010810",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010811",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011087",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 3,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011088",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.3333333333333333,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011186",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011492",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.3333333333333333,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011506",
+      "views": 3,
+      "users": 3,
+      "sessions": 3,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.3333333333333333,
+      "quotable": false
+    },
+    {
+      "path": "/title/the-devil-judge",
+      "views": 3,
+      "users": 4,
+      "sessions": 4,
+      "engagedSeconds": 138,
+      "secondsPerOpen": 46,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000170",
+      "views": 3,
+      "users": 2,
+      "sessions": 3,
+      "engagedSeconds": 63,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/age/32",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/api",
+      "views": 2,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-ceo-tenure-eleven-year-median",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 30,
+      "secondsPerOpen": 15,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-leading-index-climbs-coincident-flat",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 105,
+      "secondsPerOpen": 52.5,
+      "quotable": false
+    },
+    {
+      "path": "/article/two-in-three-koreans",
+      "views": 2,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/신소재공학부",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 15,
+      "secondsPerOpen": 7.5,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/실내건축과",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 58,
+      "secondsPerOpen": 29,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/심리학과",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 219,
+      "secondsPerOpen": 109.5,
+      "quotable": false
+    },
+    {
+      "path": "/inquiry.html",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 15,
+      "secondsPerOpen": 7.5,
+      "quotable": false
+    },
+    {
+      "path": "/life/50대",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 20,
+      "secondsPerOpen": 10,
+      "quotable": false
+    },
+    {
+      "path": "/major/영상디자인과",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 82,
+      "secondsPerOpen": 41,
+      "quotable": false
+    },
+    {
+      "path": "/mingli-gunghap.html",
+      "views": 2,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/rates",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 13,
+      "secondsPerOpen": 6.5,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경기도-양주시",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경기도-여주시",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 36,
+      "secondsPerOpen": 18,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상남도-창녕군",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 14,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상북도-경산시",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-도봉구",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 44,
+      "secondsPerOpen": 22,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-영등포구",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 42,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-종로구",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010060",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010079",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010085",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 3.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010097",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 3,
+      "secondsPerOpen": 1.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010116",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010142",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010148",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010171",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 3,
+      "secondsPerOpen": 1.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010190",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010196",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 3,
+      "secondsPerOpen": 1.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010201",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010204",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010205",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010222",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010230",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010232",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010243",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010246",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010255",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010261",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010547",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 61,
+      "secondsPerOpen": 30.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010747",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010818",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011084",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011184",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011315",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011490",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011508",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011513",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 5,
+      "secondsPerOpen": 2.5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7140399",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 14,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/school/7310069",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 16,
+      "secondsPerOpen": 8,
+      "quotable": false
+    },
+    {
+      "path": "/school/8750419",
+      "views": 2,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/9010260",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 36,
+      "secondsPerOpen": 18,
+      "quotable": false
+    },
+    {
+      "path": "/title/my-lovely-liar",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 41,
+      "secondsPerOpen": 20.5,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000138",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 14,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000142",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 63,
+      "secondsPerOpen": 31.5,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000151",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 31,
+      "secondsPerOpen": 15.5,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000200",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 5,
+      "secondsPerOpen": 2.5,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000463",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 10,
+      "secondsPerOpen": 5,
+      "quotable": false
+    },
+    {
+      "path": "/watched",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 0.5,
+      "quotable": false
+    },
+    {
+      "path": "/catalogue-depth",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 326,
+      "secondsPerOpen": 163,
+      "quotable": false
+    },
+    {
+      "path": "/section/tradition",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 89,
+      "secondsPerOpen": 44.5,
+      "quotable": false
+    },
+    {
+      "path": "/,02_product_saju|https://klifemap.ai/saju.html,03_pricing|https://klifemap.ai/pricing.html,04_refund|https://klifemap.ai/refund.html,05_terms|https://klifemap.ai/terms.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/about.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 445,
+      "secondsPerOpen": 445,
+      "quotable": false
+    },
+    {
+      "path": "/admin",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 5,
+      "secondsPerOpen": 5,
+      "quotable": false
+    },
+    {
+      "path": "/afterschool",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/ai-report.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 49,
+      "secondsPerOpen": 49,
+      "quotable": false
+    },
+    {
+      "path": "/article/a-battle-in-vietnam",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 94,
+      "secondsPerOpen": 94,
+      "quotable": false
+    },
+    {
+      "path": "/article/born-in-the-first-three-months",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/bts-babymonster-four-lists",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/eight-ways-we-have-been-wrong",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/article/five-shows-and-one-reader",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/home-chart-is-not-a-gate",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 14,
+      "secondsPerOpen": 14,
+      "quotable": false
+    },
+    {
+      "path": "/article/jay-park-outreads-2pm",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/k-pop-groups-travel-widest",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 76,
+      "secondsPerOpen": 76,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-ceo-outlasts-the-workforce",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 176,
+      "secondsPerOpen": 176,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-challenger-win-rate",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-fractional-shares-broker-lottery",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-loans-turned-variable",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 21,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-market-cap-per-worker-artifact",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-music-outsells-television",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 69,
+      "secondsPerOpen": 69,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-oil-exchange-two-prices",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 9,
+      "secondsPerOpen": 9,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-oldest-listed-companies-banks-drugmakers",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-small-firms-churn-big-firms-hold",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/korea-tenure-tracks-pay",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/korean-analyst-attention-few-names",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 20,
+      "secondsPerOpen": 20,
+      "quotable": false
+    },
+    {
+      "path": "/article/kpop-export-left-japan-behind",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 72,
+      "secondsPerOpen": 72,
+      "quotable": false
+    },
+    {
+      "path": "/article/one-region-is-not-like-the-others",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 9,
+      "secondsPerOpen": 9,
+      "quotable": false
+    },
+    {
+      "path": "/article/the-instrument-was-wrong-not-the-question",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 33,
+      "secondsPerOpen": 33,
+      "quotable": false
+    },
+    {
+      "path": "/article/what-the-opening-position-buys",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/who-makes-korean-pop-culture",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/article/who-watches-korean-private-fund-managers",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/auth",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/cards.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/농업경제학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 16,
+      "secondsPerOpen": 16,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/법무행정학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/아동학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 17,
+      "secondsPerOpen": 17,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/정밀기계공학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 16,
+      "secondsPerOpen": 16,
+      "quotable": false
+    },
+    {
+      "path": "/college-major/항공교통물류학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 32,
+      "secondsPerOpen": 32,
+      "quotable": false
+    },
+    {
+      "path": "/contact",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/daily.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/data/pension-wage-panel",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 13,
+      "secondsPerOpen": 13,
+      "quotable": false
+    },
+    {
+      "path": "/eg",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 2,
+      "quotable": false
+    },
+    {
+      "path": "/esports",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 2,
+      "quotable": false
+    },
+    {
+      "path": "/for-industry",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/fx",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/home",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 25,
+      "secondsPerOpen": 25,
+      "quotable": false
+    },
+    {
+      "path": "/index.html/f369db37882c5dec063011",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 24,
+      "secondsPerOpen": 24,
+      "quotable": false
+    },
+    {
+      "path": "/login",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/longest-job",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 2,
+      "quotable": false
+    },
+    {
+      "path": "/major/건축설계과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 166,
+      "secondsPerOpen": 166,
+      "quotable": false
+    },
+    {
+      "path": "/major/공연예술과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 8,
+      "quotable": false
+    },
+    {
+      "path": "/major/생활과학과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 42,
+      "secondsPerOpen": 42,
+      "quotable": false
+    },
+    {
+      "path": "/major/애완동물과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/major/영화영상과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 11,
+      "secondsPerOpen": 11,
+      "quotable": false
+    },
+    {
+      "path": "/major/자영과",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/mansecalendar.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/nursery",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 2,
+      "quotable": false
+    },
+    {
+      "path": "/privacy",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/rankings",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/region/강원",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 89,
+      "secondsPerOpen": 89,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/강원특별자치도-강릉시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/강원특별자치도-속초시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 21,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경기도-군포시",
+      "views": 1,
+      "users": 1,
+      "sessions": 2,
+      "engagedSeconds": 57,
+      "secondsPerOpen": 57,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경기도-용인시-처인구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 56,
+      "secondsPerOpen": 56,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상남도-거제시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 3,
+      "secondsPerOpen": 3,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상남도-남해군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 20,
+      "secondsPerOpen": 20,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상남도-밀양시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상남도-함양군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상북도-구미시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 105,
+      "secondsPerOpen": 105,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상북도-안동시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 6,
+      "secondsPerOpen": 6,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상북도-영덕군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/경상북도-포항시-북구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/부산광역시-연제구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 12,
+      "secondsPerOpen": 12,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-강남구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-강동구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-강북구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-강서구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-관악구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-광진구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-구로구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-금천구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-노원구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-마포구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-서초구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-성동구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-성북구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-송파구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-양천구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-용산구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-중구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/서울특별시-중랑구",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/전남광주통합특별시-무안군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 97,
+      "secondsPerOpen": 97,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/충청남도-계룡시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 17,
+      "secondsPerOpen": 17,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/충청남도-서산시",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 28,
+      "secondsPerOpen": 28,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/충청남도-태안군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 33,
+      "secondsPerOpen": 33,
+      "quotable": false
+    },
+    {
+      "path": "/report/area/충청북도-진천군",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 19,
+      "secondsPerOpen": 19,
+      "quotable": false
+    },
+    {
+      "path": "/returns",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/reviews.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/saju",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010057",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010071",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010078",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010090",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010099",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010122",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010125",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010127",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010135",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010147",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010149",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010150",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010152",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010155",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 65,
+      "secondsPerOpen": 65,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010156",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010159",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010160",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010167",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010174",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010178",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010181",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010183",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010192",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010195",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010198",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010200",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010212",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010215",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010217",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010219",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010226",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010227",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010234",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 6,
+      "secondsPerOpen": 6,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010236",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010237",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010244",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010259",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010262",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010265",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 16,
+      "secondsPerOpen": 16,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010267",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010317",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010544",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010552",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010590",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 10,
+      "secondsPerOpen": 10,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010591",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010721",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010739",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010740",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010741",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010795",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010828",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010833",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010835",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010837",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010888",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010889",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010916",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010960",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7010964",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011085",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011122",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 33,
+      "secondsPerOpen": 33,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011213",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011216",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011320",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011585",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 11,
+      "secondsPerOpen": 11,
+      "quotable": false
+    },
+    {
+      "path": "/school/7011651",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7140296",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/school/7150140",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/school/7150146",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7240101",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 6,
+      "secondsPerOpen": 6,
+      "quotable": false
+    },
+    {
+      "path": "/school/7240222",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7430252",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530067",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 22,
+      "secondsPerOpen": 22,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530095",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 14,
+      "secondsPerOpen": 14,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530486",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 51,
+      "secondsPerOpen": 51,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530546",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 8,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530854",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 5,
+      "secondsPerOpen": 5,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530881",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 13,
+      "secondsPerOpen": 13,
+      "quotable": false
+    },
+    {
+      "path": "/school/7530981",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7531134",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 24,
+      "secondsPerOpen": 24,
+      "quotable": false
+    },
+    {
+      "path": "/school/7531246",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7801106",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/7801181",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 24,
+      "secondsPerOpen": 24,
+      "quotable": false
+    },
+    {
+      "path": "/school/8750234",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/school/8750536",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 42,
+      "secondsPerOpen": 42,
+      "quotable": false
+    },
+    {
+      "path": "/school/8750539",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/9010079",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/school/9010110",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/school/9010297",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 21,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/school/9290061",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 68,
+      "secondsPerOpen": 68,
+      "quotable": false
+    },
+    {
+      "path": "/school/9290064",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/section/industry",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 5,
+      "secondsPerOpen": 5,
+      "quotable": false
+    },
+    {
+      "path": "/section/stars",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 9,
+      "secondsPerOpen": 9,
+      "quotable": false
+    },
+    {
+      "path": "/section/titles",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 8,
+      "quotable": false
+    },
+    {
+      "path": "/signup.html",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/star-signs",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 8,
+      "secondsPerOpen": 8,
+      "quotable": false
+    },
+    {
+      "path": "/terms",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/title/alchemy-of-souls",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    },
+    {
+      "path": "/title/heavenly-ever-after",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/title/my-royal-nemesis",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 46,
+      "secondsPerOpen": 46,
+      "quotable": false
+    },
+    {
+      "path": "/title/sh-ting-stars",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 17,
+      "secondsPerOpen": 17,
+      "quotable": false
+    },
+    {
+      "path": "/title/the-killer-a-girl-who-deserves-to-die",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 4,
+      "secondsPerOpen": 4,
+      "quotable": false
+    },
+    {
+      "path": "/tv-exports",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 21,
+      "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000030",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 22,
+      "secondsPerOpen": 22,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000051",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 22,
+      "secondsPerOpen": 22,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000069",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 33,
+      "secondsPerOpen": 33,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000099",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 71,
+      "secondsPerOpen": 71,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000121",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 76,
+      "secondsPerOpen": 76,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000140",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000440",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 31,
+      "secondsPerOpen": 31,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000454",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 2,
+      "secondsPerOpen": 2,
+      "quotable": false
+    },
+    {
+      "path": "/university/0000490",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 16,
+      "secondsPerOpen": 16,
+      "quotable": false
+    },
+    {
+      "path": "/university/0002639",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 7,
+      "secondsPerOpen": 7,
+      "quotable": false
+    },
+    {
+      "path": "/university/0002651",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/workforce",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/years-left",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 1,
+      "secondsPerOpen": 1,
+      "quotable": false
+    }
+  ]
+}
