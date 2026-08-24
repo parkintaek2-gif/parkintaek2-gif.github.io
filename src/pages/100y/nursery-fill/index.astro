@@ -43,9 +43,33 @@ const 흐름 = (() => {
 const desc =
   `${최신}년 기준 전국 어린이집 정원 ${이번.전국.정원.toLocaleString()}명 중 ${이번.전국.현원.toLocaleString()}명이 다녀 ` +
   `채움률 ${이번.전국.채움률}%입니다. ${해들[0]}년 ${처음.전국.채움률}%에서 어떻게 바뀌었는지, 시·도별로 어디가 비어 있는지 적었습니다.`;
+
+/** ⭐ FAQPage — 6번이 검증한 지렛대. 자동완성 실측(「어린이집 정원 현원」·「어린이집 정원 충족률」) 그대로 질문으로 쓴다 */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '어린이집 정원 현원',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 전국 어린이집 정원은 ${이번.전국.정원.toLocaleString()}명, 실제로 다니는 현원은 ${이번.전국.현원.toLocaleString()}명입니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '어린이집 정원 충족률',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 전국 어린이집 채움률(현원÷정원×100)은 ${이번.전국.채움률}%입니다. ${해들[0]}년 ${처음.전국.채움률}%에서 계속 낮아졌습니다. 이것은 대기아동 수가 아니라 자리를 채운 비율입니다.`,
+      },
+    },
+  ],
+};
 ---
 
-<HundredYear title={`어린이집 정원 대비 현원 — ${최신}년 전국 채움률 ${이번.전국.채움률}%`} description={desc}>
+<HundredYear title={`어린이집 정원 대비 현원 — ${최신}년 전국 채움률 ${이번.전국.채움률}%`} description={desc} jsonLd={faqJsonLd}>
   <h1>어린이집 정원 대비 현원</h1>
   <p class="sub">
     <strong>{최신}년 기준 전국 채움률 {이번.전국.채움률}%</strong>입니다.
