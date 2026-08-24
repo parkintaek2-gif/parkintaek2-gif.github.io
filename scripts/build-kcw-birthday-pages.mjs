@@ -30,6 +30,7 @@
  *          node scripts/build-kcw-birthday-pages.mjs
  */
 import fs from 'node:fs';
+import { 꼬리말 } from './kcw-static-footer.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -168,10 +169,12 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this
     <a href="/born-on">All 366 days</a>
   </nav>
 
+  ${꼬리말([
+    '<a href="/most-read">The 100 most-read Korean stars this month</a> &middot; '
+      + '<a href="/community">The twelve birth-year rooms</a> &middot; '
+      + '<a href="/day-pillar">The birth-day count</a>',
+  ])}
   <footer>
-    <p><a href="/most-read">The 100 most-read Korean stars this month</a> &middot;
-       <a href="/community">The twelve birth-year rooms</a> &middot;
-       <a href="/day-pillar">The birth-day count</a></p>
     <p>Birth dates: Wikidata (best-ranked, day precision; South Korean citizenship; entertainment occupation), CC0.
        Readers: Wikimedia Pageviews, human traffic only. Readers are not searches.</p>
   </footer>

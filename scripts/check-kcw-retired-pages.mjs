@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 꼬리말 } from './kcw-static-footer.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 대장길 = path.join(뿌리, 'archive', 'indexnow-kcw.json');
@@ -111,7 +112,12 @@ export function 지면(길) {
     `  <h1>${제목}</h1>`,
     `  <p>You asked for <code>${길}</code>. ${몸}</p>`,
     `  <p>What we do still hold is <a href="${곳}">${뭐}</a>.</p>`,
-    '  <footer>K Culture Wire &middot; <a href="/">kculturewire.com</a></footer>',
+    /**
+     * 🔴 2026-08-24 — 여기에도 법적 링크가 없었다. `check-kcw-privacy-link.mjs` 가 찾아 줬다.
+     *   퇴역 안내도 **손님이 받는 지면**이다 — 짧다고 개인정보 안내를 빼도 되는 것이 아니다.
+     * ⛔ 꼬리말을 여기 손으로 적지 않는다. `kcw-static-footer` 하나가 원본이다.
+     */
+    꼬리말(),
     '</div>',
     '',
   ].join('\n');

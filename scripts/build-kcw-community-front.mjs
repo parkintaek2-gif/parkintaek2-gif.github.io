@@ -52,6 +52,7 @@
  *   node scripts/build-kcw-community-front.mjs
  */
 import fs from 'node:fs';
+import { 꼬리말 } from './kcw-static-footer.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -257,12 +258,7 @@ ${칸}
       write a zero in place of a blank.</p>
     </section>
 
-    <footer>
-      <p><strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and
-      to walk from one name to the next. Nothing here is ranked by us and there is no feed.</p>
-      <p>K Culture Wire &middot; <a href="/about">How we make these numbers</a> &middot;
-      <a href="/contact">Tell us a number here looks wrong</a></p>
-    </footer>
+${꼬리말(['<strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and to walk from one name to the next. Nothing here is ranked by us and there is no feed.'])}
   </div>
 </body>
 </html>

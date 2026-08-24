@@ -29,6 +29,7 @@
  *   node scripts/build-kcw-community.mjs --selftest
  */
 import fs from 'node:fs';
+import { 꼬리말 } from './kcw-static-footer.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 /* ⭐ 부딪히는 예명 목록은 **한 곳**에 둔다 — check-kcw-star-names 가 이미 손으로 뺀 것들이다.
@@ -156,12 +157,7 @@ ${칸}
       we tried four ways to kill that and still do not call it a finding.</p>
     </section>
 
-    <footer>
-      <p><strong>This is a first draft of a shell.</strong> There is no server, no sign-in and no
-      posting yet, so every button above is deliberately inert. Nothing is ranked and there is no
-      feed.</p>
-      <p>K Culture Wire &middot; kculturewire.com</p>
-    </footer>
+    ${꼬리말(['<strong>This is a first draft of a shell.</strong> There is no server, no sign-in and no posting yet, so every button above is deliberately inert. Nothing is ranked and there is no feed.'])}
   </div>
 </body>
 </html>
@@ -284,11 +280,7 @@ ${읽을것}
       <p class="fine"><strong>A room name is not a reading</strong>, and neither is a day stem.</p>
     </section>
 
-    <footer>
-      <p><strong>This room is read-only for now.</strong> There is no server, no sign-in and no
-      posting yet.</p>
-      <p>K Culture Wire &middot; kculturewire.com</p>
-    </footer>
+    ${꼬리말(['<strong>This room is read-only for now.</strong> There is no server, no sign-in and no posting yet.'])}
   </div>
 </body>
 </html>

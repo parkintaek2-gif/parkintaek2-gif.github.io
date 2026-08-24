@@ -23,6 +23,7 @@
  *          node scripts/build-kcw-stem-rooms.mjs
  */
 import fs from 'node:fs';
+import { 꼬리말 } from './kcw-static-footer.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 일주 } from './lib/일주.mjs';
@@ -129,12 +130,12 @@ ${줄}
   </table>
   </div>
 
-  <footer>
-    <nav>
-      <a href="/day-pillar">All ten stems, counted</a>
-      <a href="/star-signs">The same test on birth years</a>
-      <a href="/community">The twelve birth-year rooms</a>
-    </nav>
+  ${꼬리말([
+      '<a href="/day-pillar">All ten stems, counted</a> &middot; '
+        + '<a href="/star-signs">The same test on birth years</a> &middot; '
+        + '<a href="/community">The twelve birth-year rooms</a>',
+    ])}
+    <footer>
     <p>Source: Wikidata (date of birth, best-ranked, day precision; South Korean citizenship; entertainment occupation), CC0. Day pillars from our own sixty-cycle table, anchored on 1900-01-01 = 甲戌.</p>
   </footer>
 </div>
