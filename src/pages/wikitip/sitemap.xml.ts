@@ -6,6 +6,9 @@ import markets from '../../data/wikitip-markets.json';
 import titlePages from '../../data/wikitip-title-pages.json';
 import firmPages from '../../data/wikitip-firm-pages.json';
 import weekPages from '../../data/kcw-week-pages.json';
+/* 🔴 2026-08-24 밤 — 영상 21편 중 «9편만» 이 사이트맵에 있었다. 어느 벌에 실제로 잰
+   썸네일이 있는지 자료에서 읽는다. ⛔ 없는 그림 주소를 사이트맵에 적지 않는다 */
+import videoData from '../../data/wikitip-video.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -83,7 +86,9 @@ type Entry = {
    *   ⛔ 아침에 카드뉴스 15장에서 겪은 「만든 값이 0」을 영상에서 그대로 되풀이했다.
    *   ⭐ 검색이 영상을 찾아 주는 자리가 여기다. 그림과 같은 대접을 한다.
    */
-  video?: { loc: string; thumb: string; title: string; description: string; seconds: number };
+  /* 🔴 한 지면에 영상이 «둘» 걸린 자리가 있다(`/places` 에 outside·places).
+     예전 구조는 한 편만 받아서 둘째가 조용히 사라졌다 — 사이트맵 규격은 여러 편을 허용한다 */
+  videos?: { loc: string; thumb: string; title: string; description: string; seconds: number }[];
 };
 
 /**
@@ -184,7 +189,100 @@ const cardnewsSets: { set: string; page: string; count: number; title: string; c
  *   목소리 없는 편은 사장님 지시(「젊고 멋진 남성과 여성의 목소리로」) 이전 것이라 안 낸다.
  * ⚠ 벌 이름은 `public/wikitip/video/<벌>.mp4` 이자 카드뉴스 벌 이름이다. 둘이 같아야 한다.
  */
+/* 영상에서 뽑은 썸네일이 있는 벌. ⛔ 없는 그림을 사이트맵에 적지 않는다 */
+const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
+
+/* 🔴🔴 2026-08-24 밤 — **여기 아홉 편만 적혀 있었고 열두 편이 빠져 있었다.**
+   영상은 21편인데 사이트맵에 9편이었다. 사장님 「방문자 늘리는 데 올인하라」로 세다 잡았다.
+   ⛔ 손으로 적은 목록이 자료보다 짧으면 영상을 늘려도 목록이 안 따라온다 — 그것이 뿌리다.
+      그래서 `scripts/check-kcw-video-sitemap.mjs` 가 이 목록과 `wikitip-video.json` 을
+      견주고, 하나라도 빠지면 «막는다». 다음에 또 조용히 빠지지 않는다.
+   ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
+  {
+    set: 'actors',
+    page: '/actors-first',
+    title: 'Three actors lead four Southeast Asian Wikipedias, and three names lead none',
+    description: '14 seconds on who sits at the top of each edition, and on the names that appear '
+      + 'on every list without leading any of them.',
+  },
+  {
+    set: 'debut',
+    page: '/debut-age',
+    title: 'IU started at 15 and Ma Dong-seok at 32 — and it is not just career length',
+    description: '14 seconds on the ladder of median readers by debut age, and on the objection '
+      + 'that older debuts simply had less time.',
+  },
+  {
+    set: 'first',
+    page: '/written-down-first',
+    title: 'The same Korean title reaches four Wikipedias in a fixed order',
+    description: '14 seconds on which edition writes a Korean title down first, and why it is not '
+      + 'the biggest one.',
+  },
+  {
+    set: 'least',
+    page: '/who-reads-least',
+    title: 'BTS, Babymonster and Byeon Woo-seok are read least in the same country',
+    description: '14 seconds on three Korean acts read most in three different places and least in '
+      + 'one and the same place.',
+  },
+  {
+    set: 'malaysia',
+    page: '/malaysia',
+    title: 'Malaysia reads Korean brands nearly three times as readily as Korean people',
+    description: '14 seconds on the country where the gap between brands and people is widest, '
+      + 'counted from Wikipedia readers.',
+  },
+  {
+    set: 'manager',
+    page: '/sea-athletes',
+    title: 'Indonesia and Thailand look up Son Heung-min. Vietnam looks up Faker',
+    description: '14 seconds on which Korean sportsperson each Southeast Asian Wikipedia reads '
+      + 'most, and on the one that breaks the pattern.',
+  },
+  {
+    set: 'onlyone',
+    page: '/only-one-wikipedia',
+    title: 'Only the Indonesian Wikipedia has written about Ahn Sung-ki and Choi Jiwoo',
+    description: '14 seconds on Korean names that exist in exactly one Southeast Asian edition, '
+      + 'and on which edition that turns out to be.',
+  },
+  {
+    set: 'places',
+    page: '/places',
+    title: 'An entertainment company is looked up more than Seoul is',
+    description: '14 seconds on Korean places and companies side by side in Wikipedia reader '
+      + 'counts, and on what that ordering does and does not mean.',
+  },
+  {
+    set: 'outside',
+    page: '/places',
+    title: 'The Korean places Southeast Asia reads about are not the ones on the tour route',
+    description: '14 seconds on which Korean locations get looked up, counted from Wikipedia '
+      + 'readers rather than from visitor numbers.',
+  },
+  {
+    set: 'shelf',
+    page: '/what-kind-fell',
+    title: 'Southeast Asia is reading less about Korean language and craft',
+    description: '14 seconds on which kinds of Korean subject lost readers, and on the fact that '
+      + 'the same is true of Japan.',
+  },
+  {
+    set: 'signs',
+    page: '/star-signs',
+    title: 'We checked whether a Chinese zodiac sign predicts reaching a Netflix chart',
+    description: '14 seconds on 1,047 Korean actors sorted by birth-year sign, and on a spread '
+      + 'that is indistinguishable from chance.',
+  },
+  {
+    set: 'works',
+    page: '/works-and-readers',
+    title: 'Actors with five charting titles are read seven times as often',
+    description: '14 seconds on the relation between charting titles and Wikipedia readers, and '
+      + 'on why it still says little about any one actor.',
+  },
   {
     set: 'fame',
     page: '/fame-compare',
@@ -1033,14 +1131,21 @@ export const GET: APIRoute = async () => {
   for (const v of videoSets) {
     const 줄 = entries.find((e) => e.path === v.page);
     if (!줄) throw new Error(`숏영상 ${v.set} 의 짝 지면 ${v.page} 이 사이트맵에 없다`);
-    if (!줄.images?.length) throw new Error(`숏영상 ${v.set} 의 미리보기로 쓸 카드뉴스가 없다`);
-    줄.video = {
+    /* ⭐ 미리보기는 «영상에서 뽑은 것»을 먼저 쓴다(build-kcw-video-schema.mjs 가 ffmpeg 으로
+       2초 지점을 뽑는다 — 첫 칸은 검은 화면일 때가 많다). 없으면 그 벌 카드뉴스 첫 장으로
+       떨어진다. ⛔ 둘 다 없으면 던진다 — 조용히 넘기는 것이 이 사고의 뿌리였다 */
+    const 미리보기 = 영상그림.has(v.set)
+      ? `${ORIGIN}/video/thumb/${v.set}.jpg`
+      : 줄.images?.[0]?.loc;
+    if (!미리보기) throw new Error(`숏영상 ${v.set} 의 미리보기가 없다 — 썸네일도 카드뉴스도 없다`);
+    if (!줄.videos) 줄.videos = [];
+    줄.videos.push({
       loc: `${ORIGIN}/video/${v.set}.mp4`,
-      thumb: 줄.images[0].loc,
+      thumb: 미리보기,
       title: v.title,
       description: v.description,
       seconds: 14,
-    };
+    });
   }
 
   /**
@@ -1076,13 +1181,14 @@ ${entries
       줄.push(`      <image:caption>${xml(img.caption)}</image:caption>`);
       줄.push('    </image:image>');
     }
-    if (e.video) {
+    /* ⛔ 한 편만 내보내던 것을 여러 편으로 고쳤다 — `/places` 의 둘째 영상이 조용히 빠져 있었다 */
+    for (const v of (e.videos ?? [])) {
       줄.push('    <video:video>');
-      줄.push(`      <video:thumbnail_loc>${e.video.thumb}</video:thumbnail_loc>`);
-      줄.push(`      <video:title>${xml(e.video.title)}</video:title>`);
-      줄.push(`      <video:description>${xml(e.video.description)}</video:description>`);
-      줄.push(`      <video:content_loc>${e.video.loc}</video:content_loc>`);
-      줄.push(`      <video:duration>${e.video.seconds}</video:duration>`);
+      줄.push(`      <video:thumbnail_loc>${v.thumb}</video:thumbnail_loc>`);
+      줄.push(`      <video:title>${xml(v.title)}</video:title>`);
+      줄.push(`      <video:description>${xml(v.description)}</video:description>`);
+      줄.push(`      <video:content_loc>${v.loc}</video:content_loc>`);
+      줄.push(`      <video:duration>${v.seconds}</video:duration>`);
       줄.push('    </video:video>');
     }
     return `  <url>\n${줄.join('\n')}\n  </url>`;
