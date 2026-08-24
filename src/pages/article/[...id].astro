@@ -28,6 +28,16 @@ const 카드있음 = fs.existsSync(`public/og/${entry.id}.png`);
 const ogImage = d.image ?? (카드있음 ? `/og/${entry.id}.png` : undefined);
 
 /**
+ * ⭐ 세로 숏영상(카드뉴스→영상)이 이 기사에 있으면 **지면에 실어** 구글 비디오 검색에 잡히게 한다.
+ *   (2026-08-24 5번 총괄 발견: 영상 5편을 만들어 놓고 사이트맵·지면에 0편 — 노출 자리 하나를 통째로 비워둠.
+ *    영상 2편이 28일 웹클릭의 5배를 가져온 실측이 있다. 썸네일은 첫 카드뉴스(=디자인된 제목 카드)를 쓴다 —
+ *    ffmpeg 없이도 되고, 프레임 추출의 「검은 첫 칸」 함정도 없다. 썸네일 없으면 구글이 버리므로 둘 다 있을 때만 낸다.)
+ */
+const 영상있음 = fs.existsSync(`public/video/${entry.id}.mp4`) && fs.existsSync(`public/cardnews/${entry.id}-1.png`);
+const videoSrc = `${SITE_URL}/video/${entry.id}.mp4`;
+const videoThumb = `${SITE_URL}/cardnews/${entry.id}-1.png`;
+
+/**
  * ⭐ 나가는 길 — **본문 끝에서 다음 기사로 직접 건다.** (2번 지시 2026-08-08)
  *
  * 검색으로 한 편에 들어온 사람은 그 한 편만 읽고 나간다. 카테고리로 가는 backlink 는
@@ -75,7 +85,7 @@ const 관련상품 = /comes-down-to-four|four-stocks|kosdaq-trades|trade-partner
   : /tenure|gender|headcount|workforce|market-cap-per-worker|pay-holding|how-long-industries/.test(entry.id) ? 상품들.sector
   : null;
 
-const jsonLd = {
+const articleLd = {
   '@context': 'https://schema.org',
   '@type': 'NewsArticle',
   mainEntityOfPage: { '@type': 'WebPage', '@id': url },
@@ -103,6 +113,23 @@ const jsonLd = {
     ...(s.url ? { url: s.url } : {}),
   })),
 };
+
+// 영상이 있으면 VideoObject 스키마를 함께 낸다(구글 비디오 리치결과 자격). 없으면 기사 스키마 하나만.
+const videoLd = 영상있음
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'VideoObject',
+      name: d.title.slice(0, 100),
+      description: d.dek,
+      thumbnailUrl: [videoThumb],
+      uploadDate: iso(d.pubDate),
+      contentUrl: videoSrc,
+      embedUrl: url,
+      publisher: { '@type': 'Organization', name: SITE.name, '@id': `${SITE_URL}/#organization` },
+      isAccessibleForFree: true,
+    }
+  : null;
+const jsonLd = 영상있음 ? [articleLd, videoLd] : articleLd;
 ---
 
 <Base
@@ -147,6 +174,26 @@ const jsonLd = {
           <strong>{DISCLAIMER.short}</strong>
         </span>
       </p>
+
+      {/* 세로 숏영상 — 있을 때만. 구글 비디오 검색·캐러셀에 잡히는 자리(2026-08-24 5번 총괄 발견). */}
+      {
+        영상있음 && (
+          <figure style="margin:1.4rem auto;max-width:300px;text-align:center;">
+            <video
+              controls
+              preload="none"
+              playsinline
+              poster={videoThumb}
+              style="width:100%;max-width:270px;border-radius:10px;aspect-ratio:9/16;background:#0d1420;display:block;margin:0 auto;"
+            >
+              <source src={videoSrc} type="video/mp4" />
+            </video>
+            <figcaption style="font-size:.8rem;color:var(--muted,#666);margin-top:.4rem;">
+              A 20-second visual of this story — silent. Not investment advice.
+            </figcaption>
+          </figure>
+        )
+      }
 
       {
         /**

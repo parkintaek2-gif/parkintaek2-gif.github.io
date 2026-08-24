@@ -1,22 +1,33 @@
 import type { APIRoute } from 'astro';
+import fs from 'node:fs';
 import { SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
 
-type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string };
+type Video = { title: string; description: string; thumbnail: string; content: string };
+type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; video?: Video };
+
+// XML 이스케이프 — 제목·설명에 &, <, > 가 들어오면 사이트맵이 깨진다.
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 export function getStaticPaths() {
   return [{ params: { section: 'pages' } }, ...CATEGORIES.map((c) => ({ params: { section: c.slug } }))];
 }
 
 const xml = (urls: Url[]) => `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 ${urls
   .map(
     (u) => `  <url>
     <loc>${SITE_URL}${u.loc}</loc>${u.lastmod ? `
     <lastmod>${u.lastmod.toISOString()}</lastmod>` : ''}
     <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>
+    <priority>${u.priority}</priority>${u.video ? `
+    <video:video>
+      <video:thumbnail_loc>${SITE_URL}${u.video.thumbnail}</video:thumbnail_loc>
+      <video:title>${esc(u.video.title)}</video:title>
+      <video:description>${esc(u.video.description)}</video:description>
+      <video:content_loc>${SITE_URL}${u.video.content}</video:content_loc>
+    </video:video>` : ''}
   </url>`,
   )
   .join('\n')}
@@ -70,12 +81,27 @@ export const GET: APIRoute = async ({ params }) => {
       })),
     ];
   } else {
-    urls = (await publishedArticles(section)).map((a) => ({
-      loc: `/article/${a.id}`,
-      lastmod: a.data.updatedDate ?? a.data.pubDate,
-      changefreq: 'weekly',
-      priority: '0.7',
-    }));
+    // 기사에 세로 숏영상(+썸네일용 첫 카드뉴스)이 있으면 <video:video> 를 붙여 구글 비디오 검색에 알린다.
+    // 썸네일 없으면 구글이 버리므로 mp4·첫카드 둘 다 있을 때만(2026-08-24 5번 총괄 발견).
+    urls = (await publishedArticles(section)).map((a) => {
+      const hasVid = fs.existsSync(`public/video/${a.id}.mp4`) && fs.existsSync(`public/cardnews/${a.id}-1.png`);
+      return {
+        loc: `/article/${a.id}`,
+        lastmod: a.data.updatedDate ?? a.data.pubDate,
+        changefreq: 'weekly',
+        priority: '0.7',
+        ...(hasVid
+          ? {
+              video: {
+                title: a.data.title.slice(0, 100),
+                description: a.data.dek.slice(0, 2048),
+                thumbnail: `/cardnews/${a.id}-1.png`,
+                content: `/video/${a.id}.mp4`,
+              },
+            }
+          : {}),
+      };
+    });
   }
 
   return new Response(xml(urls), {
