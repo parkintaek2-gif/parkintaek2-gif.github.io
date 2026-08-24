@@ -25,9 +25,25 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 카드방 = path.join(뿌리, 'public/wikitip/cardnews');
-const 기사방 = path.join(뿌리, 'content/kculturewire');
-const 낼길 = path.join(뿌리, 'src/data/wikitip-cardnews.json');
+/**
+ * ⭐ 2026-08-24 밤 — **다른 유닛도 그대로 쓰게 인자로 연다.** 3번은 카드뉴스 1,196장을
+ *   갖고 있는데 사이트맵에 0장이다(제 474장의 2.5배다). 자를 나만 쓰면 그 값이 안 난다.
+ * ```
+ * node scripts/build-kcw-cardnews-index.mjs \
+ *      --방=public/100y/cardnews --기사방=content/100y --낼길=src/data/100y-cardnews.json
+ * ```
+ * ⛔ 기본값은 내 것이다. 인자를 안 주면 예전과 똑같이 돈다 — 남의 출력이 안 바뀐다.
+ * 🔴 이 함수를 셸을 거쳐 쓰다 백틱이 먹혀 `startsWith()` 로 깨진 적이 있다(같은 날 밤).
+ *   그러면 «항상 기본값»이 되어 남이 인자를 줘도 조용히 내 것을 읽는다 — 그래서 자가시험을 박았다.
+ */
+const 인자 = (이름, 기본) => {
+  const 머리 = `--${이름}=`;
+  const a = process.argv.find((x) => x.startsWith(머리));
+  return a ? a.slice(머리.length) : 기본;
+};
+const 카드방 = path.join(뿌리, 인자('방', 'public/wikitip/cardnews'));
+const 기사방 = path.join(뿌리, 인자('기사방', 'content/kculturewire'));
+const 낼길 = path.join(뿌리, 인자('낼길', 'src/data/wikitip-cardnews.json'));
 
 /**
  * 파일 이름을 뜯는다. `<벌>-sq-3.png` · `<벌>-v-1.png`.
@@ -89,11 +105,25 @@ if (process.argv.includes('--자가시험')) {
   /* ⛔ 빈 상자는 없는 것만 못하다 */
   검('⭐ 한 장도 없으면 안 건다', 걸만한가({ sq: [], v: [] }) === false && 걸만한가(null) === false);
 
+  /* 🔴 이 자를 셸을 거쳐 고치다 백틱이 먹혀 `startsWith()` 로 깨진 적이 있다.
+     그러면 «항상 기본값»이 되어, 3번이 `--방=` 을 줘도 조용히 내 폴더를 읽는다.
+     ⛔ 「인자를 받는다」를 말로만 두면 이런 것이 안 잡힌다 — 검사로 둔다 */
+  const 옛인자 = process.argv.slice();
+  process.argv.push('--방=남의폴더', '--기사방=남의기사');
+  검('⭐ 인자를 실제로 읽는다 — 기본값으로 조용히 떨어지지 않는다',
+    인자('방', '내폴더') === '남의폴더' && 인자('기사방', '내기사') === '남의기사');
+  검('안 준 인자는 기본값이다', 인자('낼길', '내길') === '내길');
+  /* 이름이 겹쳐 보이는 인자를 잘못 집지 않는다 — `--방` 과 `--방향` 은 다르다 */
+  process.argv.push('--방향=엉뚱');
+  검('⭐ 비슷한 이름을 잘못 집지 않는다', 인자('방', '내폴더') === '남의폴더');
+  process.argv.length = 0;
+  process.argv.push(...옛인자);
+
   if (실패.length) {
     console.error(`❌ 자가시험 ${실패.length}건 실패\n` + 실패.map((s) => `   · ${s}`).join('\n'));
     process.exit(1);
   }
-  console.log('✅ build-kcw-cardnews-index 자가시험 통과 (13)');
+  console.log('✅ build-kcw-cardnews-index 자가시험 통과 (17)');
   process.exit(0);
 }
 
