@@ -25,8 +25,25 @@ const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 회사파일 = 'archive/raw/netflix-top10/firm-works.json';
 const 낼파일 = 'src/data/wikitip-firm-pages.json';
 
-/** 몇 장을 내나. ⛔ 2번 지시가 여덟 장이다 */
-export const 낼장수 = 8;
+/**
+ * 몇 장을 내나.
+ *
+ * 🔴 2026-08-24 — **여덟에서 A등급 전부로 올린다.** 원래 여덟은 2번 지시였고,
+ *   고르는 법은 「A등급에서 이름 차례로」였다. 순위로 안 읽히게 하려던 뜻은 옳다.
+ *   ⛔ 그런데 재 보니 그 규칙이 **알파벳 L~Z 를 통째로 지우고 있었다.**
+ *   A등급 19곳 중 앞 8곳만 나가서, 빠진 11곳에 이런 이름들이 다 있었다 —
+ *     tvN 76편 · SBS 47 · SLL 39 · SHOWBOX 37 · SLL·Studio Dragon 28 · MBC 24
+ *     Next Entertainment World 25 · Lotte Entertainment 21 · Plus M 12 · TVING 12
+ *   가장 큰 곳(tvN)과 **회사 주소 중 유일하게 검색 노출이 있는 곳**(Lotte,
+ *   28일 노출 7 · 순위 7)이 둘 다 밖에 있었다. 순위를 피하려다 알파벳 순위를 만든 것이다.
+ *
+ * ⭐ A등급 전부를 내면 **고르는 일 자체가 없어진다.** 「여덟을 골랐다」고 설명할 것이
+ *   없고, 지면은 「카탈로그를 온전히 볼 수 있는 곳 전부」라고 말하면 된다.
+ *   그것이 이름 차례보다 더 정직하다.
+ * ⛔ B·C 등급으로 넓히지 않는다. 등급은 **카탈로그를 얼마나 온전히 보는가**이고,
+ *   덜 보이는 곳의 지면을 내면 그 지면이 우리가 모르는 것을 아는 척한다.
+ */
+export const 낼장수 = null;   /* null = A등급 전부. 수를 손으로 적지 않는다 */
 
 /** 주소에 쓸 이름. ⛔ 빈 슬러그를 내지 않는다 */
 export function 슬러그(이름) {
@@ -166,12 +183,21 @@ if (내가실행됐다) {
       shown: 작품줄.slice(0, 5),
       titlesNotShown: Math.max(0, 작품.size - 5),
     });
-    if (지면들.length >= 낼장수) break;
+    /* ⛔ 자리 수로 자르지 않는다 — 자르면 알파벳 뒤쪽이 통째로 사라진다.
+       낼장수 가 수로 적혀 있을 때만 자른다(되돌리고 싶을 때를 위해 남겨 둔다). */
+    if (낼장수 !== null && 지면들.length >= 낼장수) break;
   }
 
   /* ── 스스로 본다 ── */
-  if (지면들.length !== 낼장수) {
-    throw new Error(`지면이 ${지면들.length}장이다 — ${낼장수}장이라야 한다`);
+  /**
+   * ⛔ 「몇 장이라야 한다」를 손으로 적지 않는다. **후보 수와 같아야 한다** —
+   *   그게 「A등급 전부를 냈다」의 뜻이다. 수를 적어 두면 등급이 하나 늘 때 조용히 어긋난다.
+   * ⛔ 0장이면 통과가 아니다. 아무것도 안 내고 성공했다고 하지 않는다.
+   */
+  const 있어야할장수 = 낼장수 === null ? 후보.length : 낼장수;
+  if (!있어야할장수) throw new Error('후보가 0곳이다 — 자료를 못 읽었다. 0장을 내고 통과시키지 않는다');
+  if (지면들.length !== 있어야할장수) {
+    throw new Error(`지면이 ${지면들.length}장이다 — ${있어야할장수}장이라야 한다`);
   }
   const 슬러그모음 = new Set(지면들.map((x) => x.slug));
   if (슬러그모음.size !== 지면들.length) throw new Error('주소가 겹친다');
@@ -197,8 +223,10 @@ if (내가실행됐다) {
       + 'places fell.',
     whatIsNotHere: 'The week-by-week path of each title, its rank in each market, the full market table and the '
       + 'titles that never charted are in the company sheet, not on this page.',
-    whyTheseEight: 'These are eight of the companies whose catalogue we can see most completely, taken in '
-      + 'alphabetical order. It is not a ranking and the order carries no judgement.',
+    /* 🔴 이 문장이 「여덟을 골랐다」였다. 이제 고르지 않으므로 고른 이유를 적을 것이 없다.
+       ⛔ 대신 **무엇이 빠졌는지**를 적는다 — 안 보이는 것과 없는 것은 다르다. */
+    whichCompanies: 'Every company whose catalogue we can see completely, in alphabetical order. We do not choose which ones to publish, so this list is not a ranking and being on it is not a judgement.',
+    whatIsMissing: 'Companies whose catalogue we can only see in part have no sheet here. That is a limit of what the credits let us count, not a statement about the company.',
     weeksSpanned: 주모음.size,
     rowsRead: 줄,
     pages: 지면들.length,
