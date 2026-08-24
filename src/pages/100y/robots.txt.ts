@@ -25,6 +25,7 @@ Allow: /
 
 Sitemap: https://100yearmap.com/sitemap.xml
 Sitemap: https://100yearmap.com/sitemap-image.xml
+Sitemap: https://100yearmap.com/sitemap-video.xml
 `,
     { headers: { 'Content-Type': 'text/plain; charset=utf-8' } },
   );

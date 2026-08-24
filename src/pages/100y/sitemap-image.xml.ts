@@ -1,4 +1,7 @@
 import type { APIRoute } from 'astro';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import schools from '../../data/100yearmap/pages-school.json';
 import 지역단위 from '../../data/100yearmap/areas.json';
 import 중단자료 from '../../data/100yearmap/school-dropout.json';
@@ -41,6 +44,59 @@ const 주소 = (경로: string) =>
 
 type 짝 = { 지면: string; 그림: string; 제목: string };
 
+/**
+ * ⭐ 2026-08-24 — **카드뉴스 1,196장을 여기 더한다.**
+ *
+ * 5번(총괄)이 세 사이트 사이트맵을 다 열어 보고 알려 왔다 —
+ * 「3번은 카드뉴스 1,196장을 만들어 놓고 구글에 한 장도 안 알렸습니다.」
+ * 구글 이미지 검색은 구글 웹 검색과 **다른 자리**다. 만들어 둔 그림이 있는데
+ * 그 자리를 통째로 비워 두고 있었다.
+ *
+ * ⛔ 5번이 겪은 함정을 그대로 밟지 않는다 —
+ *   ① 장수를 손으로 안 적는다. `public/100y/cardnews` 를 **세어서** 쓴다.
+ *   ② 근거 없는 파일에 지면을 지어내지 않는다 — `.근거.json` 이 없으면 **뺀다**.
+ *   ③ 파는 지면(`/price`)으로 가는 근거 줄은 이미지의 «집»으로 안 쓴다 — 그 카드가
+ *     실제로 실려 있는 무료 지면(`/report/area/...` 등)을 우선한다.
+ */
+const 카드뉴스방 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../public/100y/cardnews');
+
+function 카드뉴스짝들(): 짝[] {
+  if (!fs.existsSync(카드뉴스방)) return [];
+  const 파일들 = fs.readdirSync(카드뉴스방);
+  const 덱별: Map<string, string[]> = new Map();
+  for (const f of 파일들) {
+    const m = f.match(/^(.+)-(\d+)\.png$/);
+    if (!m) continue;
+    const 슬러그 = m[1];
+    if (!덱별.has(슬러그)) 덱별.set(슬러그, []);
+    (덱별.get(슬러그) as string[]).push(f);
+  }
+  const 나온것: 짝[] = [];
+  for (const [슬러그, 파일들] of 덱별) {
+    const 근거길 = path.join(카드뉴스방, `${슬러그}.근거.json`);
+    if (!fs.existsSync(근거길)) continue; // ⛔ 근거 없이 지면을 지어내지 않는다
+    let 근거: any;
+    try {
+      근거 = JSON.parse(fs.readFileSync(근거길, 'utf8'));
+    } catch {
+      continue;
+    }
+    const 줄들 = Array.isArray(근거) ? 근거 : (근거.자료 ?? 근거.근거 ?? []);
+    if (!Array.isArray(줄들) || !줄들.length) continue;
+    const 지면후보 = 줄들.map((r: any) => r.지면).filter(Boolean) as string[];
+    if (!지면후보.length) continue;
+    /* ⛔ /price 는 파는 지면이다. 카드의 «집»으로 안 쓴다 — 무료 지면을 먼저 고른다 */
+    const 지면 = 지면후보.find((u) => !u.includes('/price')) ?? 지면후보[0];
+    const 지면경로 = 지면.replace(ORIGIN, '');
+    /** ⛔ 제목을 지어내지 않는다 — 근거의 첫 줄 «뜻»을 그대로 쓴다 */
+    const 제목 = (줄들[0]?.뜻 as string) ?? 슬러그;
+    for (const f of 파일들.sort()) {
+      나온것.push({ 지면: 지면경로, 그림: `/cardnews/${f}`, 제목 });
+    }
+  }
+  return 나온것;
+}
+
 export const GET: APIRoute = () => {
   const 짝들: 짝[] = [];
 
@@ -68,14 +124,25 @@ export const GET: APIRoute = () => {
     });
   }
 
+  짝들.push(...카드뉴스짝들());
+
+  /** ⭐ 한 지면에 그림이 여럿이면(예: report/area 의 OG 카드 + 카드뉴스 다섯 장) 한 <url> 에 모은다.
+   *  ⛔ 같은 loc 으로 <url> 을 두 번 안 낸다 — 구글이 겹친 것으로 헷갈릴 수 있다. */
+  const 지면별: Map<string, { 제목: string; 그림들: string[] }> = new Map();
+  for (const x of 짝들) {
+    if (!지면별.has(x.지면)) 지면별.set(x.지면, { 제목: x.제목, 그림들: [] });
+    지면별.get(x.지면)!.그림들.push(x.그림);
+  }
+
+  const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-${짝들
+${[...지면별.entries()]
   .map(
-    (x) =>
-      `  <url><loc>${주소(x.지면)}</loc><image:image><image:loc>${주소(x.그림)}</image:loc><image:title>${x.제목
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')}</image:title></image:image></url>`,
+    ([지면, v]) =>
+      `  <url><loc>${주소(지면)}</loc>${v.그림들
+        .map((그림) => `<image:image><image:loc>${주소(그림)}</image:loc><image:title>${esc(v.제목)}</image:title></image:image>`)
+        .join('')}</url>`,
   )
   .join('\n')}
 </urlset>
