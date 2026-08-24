@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T16:04+09:00",
+  "generated": "2026-08-24T13:31+09:00",
   "source": "Netflix Top 10 (Tudum). The global weekly lists carry hours viewed; the per-country lists do not.",
   "question": "If you know a title's rank, how much do you know about how much it was watched?",
   "unit": "Spread is the 90th percentile divided by the 10th — how many times bigger a high week is than a low one. \"Knowing nothing\" is the spread across every row of a chart; \"knowing the rank\" is the median of the spreads inside each of the ten rank positions.",

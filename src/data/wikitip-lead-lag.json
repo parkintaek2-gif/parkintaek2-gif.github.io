@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T16:04+09:00",
+  "generated": "2026-08-24T13:31+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series. A title's \"arrival\" in a country is the first week it appears on that country's chart.",
   "question": "Does one country's chart lead another's, so that a scheduler could watch a neighbour and know what is coming?",
   "unit": "One observation = one Korean series that reached the charts of both countries in a pair. It is \"same week\" if it first appeared in both on the same week, otherwise one of the two came first.",

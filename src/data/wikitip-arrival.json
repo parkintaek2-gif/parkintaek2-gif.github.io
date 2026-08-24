@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23T16:04+09:00",
+ "generated": "2026-08-24T13:31+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884) and by Wikidata item number where we hold one",
  "question": "When a Korean title reaches many countries, does it start in one and spread, or appear in many at once?",
  "unit": "A title’s first week is the earliest week it appears on any country list. First-week share is how many of its eventual countries were already there in that week.",

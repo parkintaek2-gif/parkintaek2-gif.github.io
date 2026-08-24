@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T16:04+09:00",
+  "generated": "2026-08-24T13:31+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists, 2021-07-04 to 2026-07-26, Russia excluded.",
   "question": "Everything published about a chart is about getting on it. This asks the other question: when a title leaves, what position was it in the week before it went?",
   "unit": "A run is one title in one country across consecutive chart weeks. A title that leaves and comes back later has two runs, because the two departures are two separate events.",

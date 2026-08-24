@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-23T16:04+09:00",
+  "generated": "2026-08-24T13:31+09:00",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korean series, joined to production company (P272), first broadcaster (P449) and distributor (P750) from Wikidata",
   "question": "If a company has already put a series on a country's Netflix top 10, is its next series more likely to chart there?",
   "unit": "One chance = one company, one country, one of that company's series other than its first. A chance is \"with a foothold\" if an earlier series by the same company had already charted in that country.",

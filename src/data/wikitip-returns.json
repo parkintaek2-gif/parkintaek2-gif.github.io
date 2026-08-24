@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23T16:04+09:00",
+ "generated": "2026-08-24T13:31+09:00",
  "source": "Netflix Top 10 (Tudum) weekly country lists, including the season label Netflix attaches to each row; Korean titles identified via Wikidata country of origin and by item number",
  "question": "A Korean title leaves a country's top 10 and later comes back. How often is that a genuine return, and how often is it simply a new season?",
  "unit": "One cell is one title in one market. A gap is a run of weeks in which the title is absent from that market's top 10, between two weeks in which it is present.",
