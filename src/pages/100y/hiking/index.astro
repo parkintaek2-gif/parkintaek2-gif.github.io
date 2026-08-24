@@ -1,0 +1,116 @@
+---
+/**
+ * /100y/hiking — 나이대별 등산 참여율
+ *
+ * ⭐ 자동완성 실측(2026-08-25) — 「등산 인구」 4줄(등산 인구·등산 인구 통계·등산 인구
+ *   증가·한국 등산 인구). 신호를 먼저 재고서 KOSIS(문화체육관광부, 국민생활체육조사)에서
+ *   나이대별 표를 찾았다.
+ *
+ * ⛔ 원자료가 «성별×나이 교차»와 «나이만»을 같은 이름으로 뒤섞어 낸다 —
+ *   `collect-100y-hiking.mjs` 머리말에 그 함정을 자세히 적었다. 나이만 있는 값만 썼다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/hiking.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.최신 as string;
+const 해들 = 자료.해들 as string[];
+const 이번 = 자료.해별[최신];
+const 처음 = 자료.해별[해들[0]];
+const 나이별 = 이번.나이별 as { 칸: string; 참여율: number }[];
+
+/** ⛔ 등수를 매기지 않는다. 어느 나이대가 가장 많이 가는지는 값에서 찾는다 */
+const 최고 = 나이별.reduce((a, b) => (b.참여율 != null && (a.참여율 == null || b.참여율 > a.참여율) ? b : a));
+
+/** ⛔ 라이브러리를 쓰지 않는다. 선 하나라 손으로 그린다(다른 지면과 같은 방식) */
+const 흐름 = (() => {
+  const 값들 = 해들.map((해) => ({ 해, 률: 자료.해별[해].전국 as number }));
+  const 최대 = Math.max(...값들.map((v) => v.률));
+  const 최소 = Math.min(...값들.map((v) => v.률));
+  const 폭 = 640, 높 = 190, 왼 = 10, 오 = 10, 위 = 26, 아래 = 30;
+  const x = (i: number) => 왼 + (i * (폭 - 왼 - 오)) / (값들.length - 1);
+  const y = (v: number) => 위 + ((최대 - v) * (높 - 위 - 아래)) / (최대 - 최소 || 1);
+  const 선 = 값들.map((v, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(v.률).toFixed(1)}`).join(' ');
+  return { 값들, 최대, 최소, 폭, 높, 선, x, y };
+})();
+
+const desc =
+  `${최신}년 기준 나이대별 등산 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
+  `전국은 ${해들[0]}년 ${처음.전국}%에서 ${최신}년 ${이번.전국}%로 바뀌었습니다. 최근 1년 참여 경험 기준입니다.`;
+---
+
+<HundredYear title={`나이대별 등산 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc}>
+  <h1>등산은 몇 살이<br />가장 많이 갈까요?</h1>
+  <p class="sub">
+    <strong>{최신}년 기준 {최고.칸}가 {최고.참여율}%로 가장 높습니다.</strong>
+    {' '}전국은 {해들[0]}년 {처음.전국}%에서 {최신}년 {이번.전국}%로 바뀌었습니다.
+  </p>
+
+  <p class="note">
+    ⚠ 「최근 1년간 등산을 해 본 적이 있다」고 답한 사람의 비율입니다(복수응답 — 다른
+    {' '}운동도 같이 했을 수 있습니다). 매주 가는 사람만이 아니라 <strong>한 번이라도 간 사람</strong>도 들어갑니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년, 등산 참여율이 가장 높은 나이대</p>
+    <p class="answer-num">{최고.칸} {최고.참여율}%</p>
+    <p class="answer-sub">전국 평균은 {이번.전국}%입니다</p>
+  </div>
+
+  <h2>나이대로 봅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>{최신}년 참여율</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.참여율 == null ? '못 잼' : `${r.참여율}%`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    10대부터 50대까지는 나이가 들수록 오르지만, <strong>60대부터는 다시 낮아집니다.</strong>
+    {' '}70세이상은 {나이별.find((r) => r.칸 === '70세이상')?.참여율}%로 20대와 비슷합니다.
+  </p>
+
+  <h2>{해들.length}해 동안 전국은 어떻게 움직였나</h2>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${흐름.폭} ${흐름.높}`} width="100%" style="max-width:640px" role="img"
+         aria-label={`등산 참여율(전국) — ${흐름.값들.map((v) => `${v.해}년 ${v.률}%`).join(', ')}`}>
+      <path d={흐름.선} fill="none" stroke="#c9a84c" stroke-width="2.5" />
+      {흐름.값들.map((v, i) => (
+        <g>
+          <circle cx={흐름.x(i)} cy={흐름.y(v.률)} r={i === 0 || v.해 === 최신 ? 4.5 : 2.5}
+                  fill={i === 0 || v.해 === 최신 ? '#c9a84c' : '#8b8b96'} />
+          {(i === 0 || v.해 === 최신) && (
+            <text x={흐름.x(i)} y={흐름.y(v.률) - 10} text-anchor="middle" font-size="15" fill="currentColor">{v.률}%</text>
+          )}
+          <text x={흐름.x(i)} y={흐름.높 - 8} text-anchor="middle" font-size="13" fill="currentColor">{v.해}</text>
+        </g>
+      ))}
+    </svg>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    출처 — {자료.출처.기관} 「{자료.출처.표}」, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/exercise">← 규칙적으로 운동하는 사람, 동호회로 하는 사람은 몇 %일까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+    <br />
+    <a href="/community">← 커뮤니티 — 나이·처지로 나눈 방</a>
+  </p>
+
+  <NextQuestionBrief 모은것="나이대별 등산 참여율 자료" />
+</HundredYear>

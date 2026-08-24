@@ -178,6 +178,9 @@ export const GET: APIRoute = () => {
        그중 «정원 현원»·«정원 충족률» 포함)으로 신호를 확인하고 냈다. 「대기아동」이 아니다 — 그 표는
        KOSIS·data.go.kr 어디에도 없어 못 찾았다고 지면·자료 양쪽에 적었다. */
     { path: '/nursery-fill', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 2026-08-25 — 「등산 인구」 자동완성 실측(4줄) 확인 후 낸 지면. 국민생활체육조사
+       나이대별 등산 참여율(성별×나이 교차와 안 섞고 나이만 골랐다 — collect-100y-hiking.mjs). */
+    { path: '/hiking', priority: '0.7', changefreq: 'monthly' },
     /* 🔴 0~5세 둘째 문 — 「우리 동네 유치원」. 시·군·구 228칸이라 «동네 이름»으로 찾는 검색을 받는다.
        /nursery 가 스스로 적어 둔 한계(「유치원은 이 표에 없습니다」)를 닫는 지면이다. */
     { path: '/kindergarten', priority: '0.8', changefreq: 'monthly' },
