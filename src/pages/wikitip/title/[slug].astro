@@ -138,7 +138,25 @@ const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
  * ⚠ 이 바꿈으로 순위가 어떻게 되는지는 **우리가 못 잰다.** 2주 뒤(9/05) 다시 재서
  *   나빠졌으면 되돌린다. `scripts/measure-kcw-search-words.mjs` 로 같은 자를 다시 댄다.
  */
-const TITLE = `${t.title} on Netflix — every country it charted in`;
+/*
+ * 🔴 2026-08-25 — 「on」 한 낱말이 검색어를 끊고 있었다. 28일 실측이 이랬다 —
+ * ```
+ *   decision to leave netflix country              11노출 · 자리 8.5 · 클릭 0
+ *   the killer a girl who deserves to die netflix  16노출 · 자리 8.4 · 클릭 0
+ *   my roommate is a gumiho netflix which country   9노출 · 자리 8.8 · 클릭 0
+ *   18 again netflix countries                      4노출 · 자리 11.5 · 클릭 0
+ * ```
+ * 손님이 치는 꼴은 **「{작품} netflix country」**인데 내 제목은
+ * 「Decision to Leave **on** Netflix — every country…」였다. 그 `on` 때문에
+ * 손님의 말이 제목에 «통째로» 들어 있지 않았다.
+ * ⭐ 8/24 에 /year 에서 똑같은 것을 고쳤다(「Korean drama **on Netflix in** 2024」).
+ *   그때 이 지면까지 따라오지 않아 556장이 그대로 남아 있었다 —
+ *   모토와-철학 ⑤(고친 결함을 인용한 곳까지 따라간다)를 또 놓친 자리다.
+ * ⛔ 낱말을 쌓은 것이 아니다. 어순만 바꿨고 뜻은 그대로다 —
+ *   이 지면은 실제로 나라별·주별 차트 자리를 적는 지면이다.
+ * ⚠ 이 바꿈으로 자리가 오를지는 «모른다». 9/05 에 같은 자로 다시 잰다.
+ */
+const TITLE = `${t.title}: Netflix country by country, every week it charted`;
 /**
  * ⭐ 2026-08-22 — 설명에 **손님이 치는 말**을 넣는다. Search Console 실측에서 우리에게 오는
  *   물음은 두 꼴이었다 — 「<제목> netflix country」와 「<제목> hit or flop」.
