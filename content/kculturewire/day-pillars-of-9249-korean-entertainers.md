@@ -9,6 +9,7 @@ author: Newsroom
 tags: ["saju", "stars", "method", "kpop", "wikidata"]
 pages:
   - "/day-pillar"
+  - "/born-on"
 sources:
   - org: "Wikidata"
     api: "Humans (P31=Q5) with South Korean citizenship (P27=Q884) and an entertainment occupation (P106: actor, singer, songwriter, musician), best-ranked date of birth (P569) at day precision, CC0"

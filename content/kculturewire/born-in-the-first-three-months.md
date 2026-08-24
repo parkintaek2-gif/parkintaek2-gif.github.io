@@ -9,6 +9,8 @@ tags: ["wikipedia", "stars", "method", "zodiac"]
 pages:
   - "/star-signs"
   - "/zodiac"
+  - "/born-on"
+  - "/born-in/january"
 sources:
   - org: "Wikidata"
     api: "Names and dates of birth (P569), CC0"

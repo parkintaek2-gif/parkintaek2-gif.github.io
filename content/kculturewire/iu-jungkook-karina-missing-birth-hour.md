@@ -9,6 +9,7 @@ author: Newsroom
 tags: ["saju", "stars", "klifemap", "method", "kpop"]
 pages:
   - "/star-signs"
+  - "/born-on"
 sources:
   - org: "KLifeMap"
     api: "Saju engine (sajuEngine.js), three-pillar reading; day pillars re-confirmed 2026-08-22 — English edition of the same engine"
