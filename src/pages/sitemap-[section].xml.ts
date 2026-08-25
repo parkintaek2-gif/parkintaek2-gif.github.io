@@ -76,6 +76,8 @@ export const GET: APIRoute = async ({ params }) => {
       // Korea Concentration Index — 주가×관세청 교차. 무료 지면 + 일일 CSV → 유료 피드(2026-08-22).
       { loc: '/data/concentration', lastmod: newest, changefreq: 'daily', priority: '0.9' },
       { loc: '/data/korea-concentration.csv', changefreq: 'daily', priority: '0.6' },
+      // 채권 거래집중 무료 CSV — 인용 유도용(2026-08-26, 5번 「자료 먼저」). 발견돼야 인용된다.
+      { loc: '/data/korea-bond-concentration.csv', changefreq: 'weekly', priority: '0.6' },
       // 파는 조건 지면 — 사는 쪽 법무가 본다.
       { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
       { loc: '/refund', changefreq: 'monthly', priority: '0.3' },
