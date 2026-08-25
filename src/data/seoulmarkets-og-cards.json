@@ -12,6 +12,11 @@
       "label": "of Korean stocks didn't trade a single share",
       "왜": "자동은 2,765(종목 수). 요점은 침묵 꼬리 5.0%(거래0)"
     },
+    "korea-everything-comes-down-to-four": {
+      "figure": "0.95",
+      "label": "market-cap Gini; trade clears 0.9 too",
+      "왜": "자동은 라벨 없이 0.9 만. 요점은 시총 Gini 0.95·무역도 0.9 넘음"
+    },
     "korea-bigger-firms-pay-more-every-step": {
       "figure": "1.56x",
       "label": "more pay at the largest firms, every step",

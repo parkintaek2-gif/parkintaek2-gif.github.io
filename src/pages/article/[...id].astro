@@ -26,7 +26,11 @@ const url = `${SITE_URL}/article/${entry.id}`;
  * 프론트matter 의 image 가 있으면 그게 우선.
  */
 const 카드있음 = fs.existsSync(`public/og/${entry.id}.png`);
-const ogImage = d.image ?? (카드있음 ? `/og/${entry.id}.png` : undefined);
+// og:image 는 X·페북·카카오톡 미리보기 자리인데 **SVG 는 이 플랫폼들이 렌더 못 한다** —
+// 프론트matter image 가 SVG 차트면 공유 카드가 통째로 빈다(2026-08-25 6번 실측: 이 기사 og 가 .svg 였음).
+// 그래서 래스터(png/jpg) 프론트매터면 그걸 우선, SVG 면 디자인된 PNG 카드로 떨어뜨린다(카드 있을 때).
+const 프론트래스터 = d.image && !d.image.endsWith('.svg');
+const ogImage = 프론트래스터 ? d.image : (카드있음 ? `/og/${entry.id}.png` : d.image);
 
 /**
  * ⭐ 세로 숏영상(카드뉴스→영상)이 이 기사에 있으면 **지면에 실어** 구글 비디오 검색에 잡히게 한다.
