@@ -1,0 +1,224 @@
+{
+  "generated": "2026-08-25 08:25 UTC",
+  "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
+  "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
+  "counts": {
+    "영상": 21,
+    "짝찾음": 21,
+    "짝못찾음": 0,
+    "두지면에걸린것": 0,
+    "지면에서읽음": 21
+  },
+  "videos": [
+    {
+      "set": "actors",
+      "src": "/video/actors.mp4",
+      "thumb": "/video/thumb/actors.jpg",
+      "seconds": 14,
+      "page": "/actors-first",
+      "says": "Fourteen seconds: the three actors at the top of four Southeast Asian Wikipedias, and the three names on every list that lead none of them.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "brands",
+      "src": "/video/brands.mp4",
+      "thumb": "/video/thumb/brands.jpg",
+      "seconds": 14,
+      "page": "/brand-kinds",
+      "says": "A man and a woman read out the two figures in the table above — 53.79 and 38.45, both for Indonesia.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "control",
+      "src": "/video/control.mp4",
+      "thumb": "/video/thumb/control.jpg",
+      "seconds": 14,
+      "page": "/what-actually-fell",
+      "says": "A man and a woman read out the four numbers, and the one that is not negative — the Japanese and Taiwanese culture articles, which rose.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "counting",
+      "src": "/video/counting.mp4",
+      "thumb": "/video/thumb/counting.jpg",
+      "seconds": 14,
+      "page": "/read-vs-visited",
+      "says": "A man and a woman read out the two figures above — Seoul has 25 districts and the public tourist count can speak for 5.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "debut",
+      "src": "/video/debut.mp4",
+      "thumb": "/video/thumb/debut.jpg",
+      "seconds": 14,
+      "page": "/debut-age",
+      "says": "Fourteen seconds: IU started at 15 and Ma Dong-seok at 32, the ladder of median reads by debut age, and the objection that they simply had longer — tested against career length.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "fame",
+      "src": "/video/fame.mp4",
+      "thumb": "/video/thumb/fame.jpg",
+      "seconds": 14,
+      "page": "/fame-compare",
+      "says": "A man and a woman read the headline out — BTS above Son Heung-min, out of 2,511 names we measured.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "first",
+      "src": "/video/first.mp4",
+      "thumb": "/video/thumb/first.jpg",
+      "seconds": 14,
+      "page": "/written-down-first",
+      "says": "A man and a woman read out how often the Indonesian Wikipedia was first, how often it was last, and why the largest edition is not the one that writes first.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "halflife",
+      "src": "/video/halflife.mp4",
+      "thumb": "/video/thumb/halflife.jpg",
+      "seconds": 14,
+      "page": "/half-life",
+      "says": "A man and a woman read out the median half-life and how many of the titles came back above half at least once.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "instrument",
+      "src": "/video/instrument.mp4",
+      "thumb": "/video/thumb/instrument.jpg",
+      "seconds": 14,
+      "page": "/titles-to-name",
+      "says": "A man and a woman read the multiple out — 9.9 times more reads between the ends.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "least",
+      "src": "/video/least.mp4",
+      "thumb": "/video/thumb/least.jpg",
+      "seconds": 14,
+      "page": "/who-reads-least",
+      "says": "Fourteen seconds: which country reads BTS and Byeon Woo-seok most, the one that comes last for all twenty, and the objection we cannot rule out — shown before the table.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "malaysia",
+      "src": "/video/malaysia.mp4",
+      "thumb": "/video/thumb/malaysia.jpg",
+      "seconds": 14,
+      "page": "/malaysia",
+      "says": "A man and a woman read out the band the four groups of people fall inside, the one figure that sits outside it, and how few brands that figure rests on.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "manager",
+      "src": "/video/manager.mp4",
+      "thumb": "/video/thumb/manager.jpg",
+      "seconds": 14,
+      "page": "/sea-athletes",
+      "says": "A man and a woman read out the two medians — how much of a player's reading sits in one country, and how much of a manager's does — and name the countries that hired them.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "oneout",
+      "src": "/video/oneout.mp4",
+      "thumb": "/video/thumb/oneout.jpg",
+      "seconds": 14,
+      "page": "/one-out",
+      "says": "A man and a woman read out what happened to each of two medians when a single title was removed.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "onlyone",
+      "src": "/video/onlyone.mp4",
+      "thumb": "/video/thumb/onlyone.jpg",
+      "seconds": 14,
+      "page": "/only-one-wikipedia",
+      "says": "Fourteen seconds: the names only one edition has written about, the size table that rules out the obvious explanation, and why a gap here is a fact about editors.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "outside",
+      "src": "/video/outside.mp4",
+      "thumb": "/video/thumb/outside.jpg",
+      "seconds": 14,
+      "page": "/places",
+      "says": "Fourteen seconds on the correction: the place that led the Vietnamese column, the nineteen that were not in Korea, and why our own first check found nothing.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "places",
+      "src": "/video/places.mp4",
+      "thumb": "/video/thumb/places.jpg",
+      "seconds": 14,
+      "page": "/places",
+      "says": "A man and a woman read out the two figures — one record label against the capital — and how many of the cities we measured sit below that one company.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "season",
+      "src": "/video/season.mp4",
+      "thumb": "/video/thumb/season.jpg",
+      "seconds": 14,
+      "page": "/look-vs-fly",
+      "says": "A man and a woman read out the two peak months and the one month both sides fall lowest — June.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "shelf",
+      "src": "/video/shelf.mp4",
+      "thumb": "/video/thumb/shelf.jpg",
+      "seconds": 14,
+      "page": "/what-kind-fell",
+      "says": "A man and a woman read out the two medians side by side — the Korean articles and the Japanese ones beside them — and say plainly that both fell.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "signs",
+      "src": "/video/signs.mp4",
+      "thumb": "/video/thumb/signs.jpg",
+      "seconds": 14,
+      "page": "/star-signs",
+      "says": "Fourteen seconds: the names in six of the twelve signs, and the measurement that says the spread across signs is indistinguishable from chance.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "wave",
+      "src": "/video/wave.mp4",
+      "thumb": "/video/thumb/wave.jpg",
+      "seconds": 14,
+      "page": "/wave-and-floor",
+      "says": "A man and a woman read out how many titles could be measured on both sides of their peak, and why most of them could not be.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "works",
+      "src": "/video/works.mp4",
+      "thumb": "/video/thumb/works.jpg",
+      "seconds": 14,
+      "page": "/works-and-readers",
+      "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    }
+  ]
+}
