@@ -151,7 +151,11 @@ export function 내내필터(소개, 주소, 글꼴) {
     `drawtext=fontfile='${글꼴막기(글꼴)}'`,
     `text='${글막기(글)}'`,
     'fontcolor=white@0.82',
-    'fontsize=32',
+    /* ⚠ 32 로 먼저 구워 한 장을 뽑아 봤더니 본문 글자와 «같은 크기»였다.
+         사장님 말씀은 「아주 작게」다 — 본문보다 작아야 그 말에 맞는다. 28 로 낮춘다.
+       ⛔ 여기서 더 낮추지 않는다. 원본에 이미 회색 주소가 «있었는데» 유입이 0이었다 —
+         «작아서 안 보이는 것»도 똑같은 실패다. 작되 흐리지 않게가 이 줄의 자리다 */
+    'fontsize=28',
     'box=1',
     'boxcolor=0x0e0c14@0.55',
     'boxborderw=14',
@@ -187,6 +191,30 @@ function 자가시험() {
   T('글막기 — 홑따옴표를 막는다', 글막기("it's").includes("\\'"));
   T('글막기 — 퍼센트를 막는다', 글막기('50%').includes('\\%'));
   T('글막기 — 보통 글자는 그대로', 글막기('www.kculturewire.com') === 'www.kculturewire.com');
+
+  /* ── 내내필터 — 8/25 저녁 사장님 「영상 내에도 … 아주 작게」 ── */
+  const 내 = 내내필터('Korean charts, counted', 'www.kculturewire.com', 'C:/Windows/Fonts/arialbd.ttf');
+  T('내내 — 소개와 주소가 «둘 다» 들어간다',
+    내.includes('Korean charts, counted') && 내.includes('www.kculturewire.com'));
+  T('내내 — ⛔ enable 을 안 준다(내내가 지시다)', !내.includes('enable'));
+  T('내내 — 아주 작게(28). 본문 글자보다 작다', 내.includes('fontsize=28'));
+  T('내내 — 맨 위 띠에 둔다(아래는 숏츠 UI 가 덮는다)', 내.includes('y=18'));
+  T('내내 — 어두운 띠를 깔아 어떤 배경에서도 읽힌다', 내.includes('box=1'));
+  T('내내 — ⛔ 흐리게 두지 않는다(회색 주소로 유입 0 이었다)', 내.includes('white@0.82'));
+  T('내내 — 소개가 없으면 주소만, 가운뎃점이 안 남는다',
+    !내내필터('', 'a.com', 'x.ttf').includes('·'));
+  /*
+   * ⚠ 이 기대값을 처음에 백슬래시 «둘»로 적어 시험이 헛돌았다 — 자가 아니라 «시험»이 틀렸다.
+   *   막는 것은 한 겹이다: `:` → `\:`. 시험이 실패하면 자를 고치기 전에 기대값을 먼저 본다.
+   * ⛔ 그리고 이 줄을 셸 heredoc 으로 고치려다 백슬래시를 두 번 잡아먹혔다.
+   *   백슬래시가 든 줄은 heredoc 으로 넣지 않는다 — 편집기로 직접 고친다.
+   */
+  T('내내 — 콜론이 든 주소도 필터를 안 깨뜨린다',
+    내내필터('x', 'https://a.com', 'x.ttf').includes('https\\://a.com'));
+  /* 🔴 순서가 뜻이 있다 — 끝화면을 먼저, 내내 줄을 나중에. 뒤집으면 끝 2.5초에서 줄이 사라진다 */
+  const 이은것 = [끝화면필터('a.com', 'x.ttf', 14, 2.5), 내내필터('소개', 'a.com', 'x.ttf')].join(',');
+  T('이음 — tpad 가 내내 줄보다 «앞»에 온다',
+    이은것.indexOf('tpad') < 이은것.indexOf('y=18'));
   T('글막기 — 빈 값에 안 터진다', 글막기(undefined) === '');
 
   T('글꼴막기 — 역슬래시를 슬래시로', 글꼴막기('C:\\Windows\\Fonts\\arial.ttf').includes('/'));
@@ -217,13 +245,31 @@ function 자가시험() {
 }
 
 /* ────────────────────────── 실행 ────────────────────────── */
-if (process.argv.includes('--자가시험')) {
+/**
+ * 🔴 2026-08-25 저녁 — **`import` 만 했는데 21편을 굽기 시작했다.**
+ *   `내내필터` 하나를 빌려 쓰려고 불렀을 뿐인데 아래 굽는 자리가 통째로 돌았다.
+ * ⛔ 오늘 아침 `check-name-placement.mjs` 에서 «똑같은 흠»을 찾아 고치고
+ *   전 유닛에 「여러분이 만드시는 자도 같습니다」라고까지 적어 놓고,
+ *   **내 자에 그대로 두고 있었다.** 남에게 준 잣대를 나에게 안 대면 그건 검사가 아니다.
+ * ⚠ 다른 유닛이 이 자의 함수만 빌려 쓸 수 있어야 값을 한다(6번 58편·4번 킷).
+ */
+const 내가불렸나 = path.resolve(process.argv[1] ?? '') === fileURLToPath(import.meta.url);
+
+if (!내가불렸나) {
+  /* import 된 것이다 — 아무것도 안 한다 */
+} else if (process.argv.includes('--자가시험')) {
   자가시험();
 } else {
   const 방 = path.resolve(뿌리, 인자('방', 'public/wikitip/video'));
   const 낼방 = path.resolve(뿌리, 인자('낼방', 'archive/video-stamped'));
   const 글 = 인자('글', 'www.kculturewire.com');
   const 보일초 = Number(인자('붙일초', '2.5'));
+  /*
+   * 🔴 사장님 「사이트 **소개**+주소」 — 주소만으로는 «무엇을 하는 곳인지»를 못 말한다.
+   * ⚠ 다른 유닛은 `--소개=` 로 자기 한 줄을 준다. 남의 한 줄을 그대로 쓰지 않는다.
+   * ⛔ 길게 쓰지 않는다 — 1080폭에 글자 32면 한 줄에 예순 자 남짓이다. 넘치면 잘린다.
+   */
+  const 소개 = 인자('소개', 'Korean charts, counted');
   const 글꼴 = 인자('글꼴', 'C:/Windows/Fonts/arialbd.ttf');
   const 덮는다 = process.argv.includes('--덮는다');
 
@@ -236,7 +282,7 @@ if (process.argv.includes('--자가시험')) {
 
   const 것들 = readdirSync(방).filter((f) => f.endsWith('.mp4')).sort();
   if (!것들.length) { console.error(`⛔ ${방} 에 mp4 가 없다`); process.exit(1); }
-  console.log(`■ 영상 ${것들.length}편 뒤에 「${글}」 끝화면 ${보일초}초를 붙인다`);
+  console.log(`■ 영상 ${것들.length}편 — 끝에 「${글}」 ${보일초}초 + **내내** 「${소개} · ${글}」`);
   console.log(`  낼 곳 ${path.relative(뿌리, 낼방)}  ⛔ 원본은 안 건드린다\n`);
 
   let 구운것 = 0; let 건너뛴것 = 0; let 못한것 = 0;
@@ -255,7 +301,7 @@ if (process.argv.includes('--자가시험')) {
         '-y', '-i', 원본,
         /* ⛔ 순서가 뜻이 있다 — 끝화면을 «먼저» 붙이고 그 위에 내내 줄을 얹어야
            늘어난 끝화면 위에도 줄이 남는다. 뒤집으면 끝 2.5초에서 줄이 사라진다 */
-        '-vf', [끝화면필터(글, 글꼴, 길이, 보일초), 내내필터(소개, 글, 글꼴)].join(','),
+        '-vf', [끝화면필터(글, 글꼴, 길이, 보일초, 소개), 내내필터(소개, 글, 글꼴)].join(','),
         '-c:a', 'copy', '-c:v', 'libx264', '-preset', 'medium', '-crf', '20',
         낼것,
       ], { stdio: 'ignore' });
