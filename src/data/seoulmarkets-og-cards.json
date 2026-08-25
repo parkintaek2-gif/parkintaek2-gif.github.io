@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-market-barbell-silent-tail": {
+      "figure": "5.0%",
+      "label": "of Korean stocks didn't trade a single share",
+      "왜": "자동은 2,765(종목 수). 요점은 침묵 꼬리 5.0%(거래0)"
+    },
     "korea-bigger-firms-pay-more-every-step": {
       "figure": "1.56x",
       "label": "more pay at the largest firms, every step",
