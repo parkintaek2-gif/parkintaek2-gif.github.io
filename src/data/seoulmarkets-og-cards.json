@@ -12,6 +12,11 @@
       "label": "of Korean stocks didn't trade a single share",
       "왜": "자동은 2,765(종목 수). 요점은 침묵 꼬리 5.0%(거래0)"
     },
+    "korea-bond-trading-six-issues": {
+      "figure": "90%",
+      "label": "of a day's Korean bond trading is 6 issues",
+      "왜": "자동은 396(종목 수). 요점은 6종목=90%·국고 95%"
+    },
     "korea-everything-comes-down-to-four": {
       "figure": "0.95",
       "label": "market-cap Gini; trade clears 0.9 too",
