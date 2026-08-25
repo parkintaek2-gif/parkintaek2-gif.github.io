@@ -156,8 +156,54 @@ const jsonLd = {
       <li><b>Export figures for 2025 and 2026.</b> The survey runs about eighteen months behind.</li>
     </ul>
     <p class="note">
-      The same list is in <code>coverage.csv</code> in a form you can filter, with a column saying
-      whether each gap can ever be filled.
+      The same list is in <a href="/data/coverage.csv"><code>coverage.csv</code></a>, in a form you
+      can filter, with a column saying whether each gap can ever be filled.
+    </p>
+
+    {/*
+      * 🔴 2026-08-25 밤 — 이 지면이 «coverage.csv 가 있다»고 적어 두고 **파일이 없었다.**
+      *   /coverage.csv · /data/coverage.csv · /wikitip/coverage.csv 전부 404 였다.
+      *   ⛔ 자료를 준다고 적어 놓고 안 주는 것은, 못 잰 것을 잰 것처럼 적는 것과 같다.
+      *
+      * ⭐ 그리고 그 김에 «인용될 만한 알맹이»를 같이 열었다. 그날 잰 것 —
+      *   우리에게 오는 길이 구글 검색 하나뿐이고, 밖에서 우리를 걸어 준 곳이 0이다.
+      *   뉴스레터·리서처가 우리를 걸려면 «자기 글에 쓸 수 있는 것»이 있어야 한다.
+      *   「우리 지면 좀 봐 주세요」로는 아무도 안 건다 — 표를 통째로 주면 그 표를 인용한다.
+      */}
+    <h3 id="downloads">Take the tables</h3>
+    <p>
+      Free to use, including commercially. Please cite as <b>K Culture Wire</b> and link back, so a
+      reader can see how the number was built. An empty cell means we do not hold the value &mdash;
+      it never means zero.
+    </p>
+    <ul class="files">
+      <li>
+        <a href="/data/korean-titles-netflix-runs.csv">korean-titles-netflix-runs.csv</a>
+        <span class="fine">Every Korean title we hold, one row per country it charted in: chart
+        places, best rank, first and last week. This is the table the rest of the site is built on.</span>
+      </li>
+      <li>
+        <a href="/data/korean-titles-summary.csv">korean-titles-summary.csv</a>
+        <span class="fine">The same titles, one row each, if you do not need the country breakdown.</span>
+      </li>
+      <li>
+        <a href="/data/korean-actors-netflix.csv">korean-actors-netflix.csv</a>
+        <span class="fine">Actors in at least two charting titles, with birth date where Wikidata
+        records one. A floor, not a filmography.</span>
+      </li>
+      <li>
+        <a href="/data/coverage.csv">coverage.csv</a>
+        <span class="fine">What is missing, and whether it can ever be filled.</span>
+      </li>
+      <li>
+        <a href="/data/README.txt">README.txt</a>
+        <span class="fine">What a chart place is, and the four things these files cannot tell you.
+        Read this before quoting a figure.</span>
+      </li>
+    </ul>
+    <p class="note">
+      <b>If a figure looks wrong, tell us.</b> We publish corrections with the old number still
+      visible &mdash; <a href="/corrections">every one we have made is here</a>.
     </p>
     {/*
       ⭐ 2026-08-22. Search Console 실측 — 우리에게 오는 노출 185개가 **Tudum 파일 주소 그 자체**였다
