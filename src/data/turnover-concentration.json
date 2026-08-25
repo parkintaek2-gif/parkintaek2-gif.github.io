@@ -1,60 +1,60 @@
 {
- "asOf": "20260821",
- "issues": 2764,
- "zeroTradeIssues": 137,
+ "asOf": "20260824",
+ "issues": 2765,
+ "zeroTradeIssues": 139,
  "market": [
   {
    "name": "KOSPI",
    "n": 942,
-   "capPct": 92.8,
-   "valPct": 84.1,
-   "vel": 5.06
+   "capPct": 92.5,
+   "valPct": 85.4,
+   "vel": 4.74
   },
   {
    "name": "KOSDAQ",
-   "n": 1822,
-   "capPct": 7.2,
-   "valPct": 15.9,
-   "vel": 12.31
+   "n": 1823,
+   "capPct": 7.5,
+   "valPct": 14.6,
+   "vel": 9.98
   }
  ],
- "turnoverTop1": 22.4,
- "turnoverTop5": 55,
- "turnoverTop10": 60.5,
- "turnoverTop30": 70.8,
- "turnoverTop100": 84.7,
+ "turnoverTop1": 27.6,
+ "turnoverTop5": 57.9,
+ "turnoverTop10": 62.7,
+ "turnoverTop30": 71.3,
+ "turnoverTop100": 84.8,
  "topTurnover": [
   {
    "en": "Samsung Electronics",
-   "sharePct": 22.4
+   "sharePct": 27.6
   },
   {
    "en": "SK hynix",
-   "sharePct": 21.6
+   "sharePct": 22.4
   },
   {
    "en": "Samsung Elec. (pref)",
-   "sharePct": 6.3
+   "sharePct": 4.2
   },
   {
    "en": "Samsung Electro-Mech.",
-   "sharePct": 2.7
+   "sharePct": 2.2
   },
   {
    "en": "SK Square",
-   "sharePct": 2
+   "sharePct": 1.6
   },
   {
-   "en": "Kumho E&C",
-   "sharePct": 1.5
-  },
-  {
-   "en": "인제니아테라퓨틱스(Reg.S)",
+   "en": "NAVER",
    "sharePct": 1.2
   },
   {
-   "en": "Kakao",
-   "sharePct": 1
+   "en": "삼성SDI",
+   "sharePct": 1.1
+  },
+  {
+   "en": "니어스랩",
+   "sharePct": 0.9
   }
  ]
 }
