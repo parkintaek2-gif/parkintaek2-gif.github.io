@@ -1,14 +1,20 @@
 {
-  "_왜": "잰 수를 그대로 적는다(5번 05:4x 「부풀리지 않고 그대로」). 8/28+ 색인·노출 재측정의 기준선.",
+  "_왜": "잰 수를 그대로 적는다. 8/28+ 재측정의 기준선. ⚠ 2026-08-26 정정: 처음엔 검색어 축(노출2)으로 적었으나 5번 07:4x 지적대로 그건 구글 익명화로 «과소»였다 — 지면 축으로 다시 잰 참값으로 바꾼다.",
   "property": "sc-domain:seoulmarkets.com",
   "measuredAt": "2026-08-26",
   "window": { "from": "2026-07-26", "to": "2026-08-23", "days": 28 },
   "note": "GSC는 2~3일 지연이라 창 끝날이 08-23. 이 창은 8/25 바벨·8/26 채권 기사·8/26 readnext 개선을 «아직 안 덮는다»(5번 ① 교훈). 그 효과는 8/28+ 재측정이 처음 담는다.",
-  "totals": { "queries": 2, "impressions": 2, "clicks": 0 },
-  "queries": [
-    { "query": "korea trade surplus", "impressions": 1, "clicks": 0, "position": 60.0 },
-    { "query": "kospi listing", "impressions": 1, "clicks": 0, "position": 41.0 }
+  "axis": "page",
+  "correction": "검색어 축은 사람 수 적은 검색어를 구글이 가려(anonymized) 총계가 언제나 과소. 총계는 지면 축으로 잰다(5번 07:4x). 검색어 축으로는 노출2·클릭0으로 보였으나(115배 과소), 지면 축 참값은 아래와 같다.",
+  "totals": { "pagesWithImpressions": 55, "impressions": 231, "clicks": 1 },
+  "perDay": { "impressions": 8.3, "clicks": 0.04 },
+  "topPagesByImpressions": [
+    { "url": "/article/kospi-2026-volatility-regime", "impressions": 42, "clicks": 0 },
+    { "url": "/article/korea-fractional-shares-broker-lottery", "impressions": 25, "clicks": 0 },
+    { "url": "/article/korea-currency-futures-one-contract", "impressions": 10, "clicks": 0 },
+    { "url": "/article/korea-headcount-disclosure-has-no-total-row", "impressions": 10, "clicks": 0 },
+    { "url": "/article/korea-exchange-gold-down-from-january-peak", "impressions": 9, "clicks": 0 }
   ],
-  "readsAs": "사실상 콜드스타트. 병목은 콘텐츠 커버리지가 아니라 노출·도메인 권위(5번 KCW 결론과 같은 축). 짐작으로 지면·제목 갈아엎지 않는다 — 차별화+꾸준함(매일)과 인용(공개 CSV·아웃리치)로 노출을 늘린다.",
+  "readsAs": "«안 보이는» 게 아니다 — 55장이 노출되고 상당수 순위 4~9인데 클릭 0~1. 병목은 ①노출 볼륨이 아직 작음(하루 8.3회) ②CTR 0(좋은 순위에도 클릭이 없음 → 제목·설명이 그 물음에 답하는지 볼 자리). 5번 KCW와 같은 결(순위가 아니라 제목·노출량). 짐작으로 갈아엎지 않고 8/28 재측정으로 노출 지면(바벨·채권 포함) 변화를 먼저 본다.",
   "recheckOn": "2026-08-28"
 }
