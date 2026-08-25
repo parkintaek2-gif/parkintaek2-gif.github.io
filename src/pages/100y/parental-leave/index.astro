@@ -36,9 +36,42 @@ const 흐름 = (() => {
 const desc =
   `${최신}년 기준 부모 나이대별 육아휴직 사용률은 ${최고.칸}가 ${최고.계}%로 가장 높습니다. ` +
   `전체는 ${해들[0]}년 ${처음.계}%에서 ${최신}년 ${이번.계}%로 늘었고, 어머니(${이번.모}%)와 아버지(${이번.부}%) 사용률 차이가 큽니다.`;
+
+/** ⭐ FAQPage — 6번이 검증한 지렛대. 자동완성 실측(「육아휴직 사용률」10줄, 오늘 등산 다음
+ *   강신호 — 「남성/여성 육아휴직 사용률」 변형까지) 그대로 질문으로 쓴다 */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '육아휴직 사용률',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 그 해 아이가 태어난 부모 중 육아휴직을 쓴 비율은 전체 ${이번.계}%입니다. ${해들[0]}년 ${처음.계}%에서 계속 늘었습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '여성 육아휴직 사용률',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 어머니의 육아휴직 사용률은 ${이번.모}%입니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '남성 육아휴직 사용률',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 아버지의 육아휴직 사용률은 ${이번.부}%입니다. 어머니(${이번.모}%)보다 훨씬 낮습니다.`,
+      },
+    },
+  ],
+};
 ---
 
-<HundredYear title={`부모 나이대별 육아휴직 사용률 — ${최신}년 ${최고.칸} ${최고.계}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/parental-leave.png">
+<HundredYear title={`부모 나이대별 육아휴직 사용률 — ${최신}년 ${최고.칸} ${최고.계}%가 가장 높다`} description={desc} jsonLd={faqJsonLd} ogImage="https://100yearmap.com/og/parental-leave.png">
   <h1>육아휴직은<br />몇 살 부모가 가장 많이 쓸까요?</h1>
   <p class="sub">
     <strong>{최신}년 기준 {최고.칸} 부모가 {최고.계}%로 가장 높습니다.</strong>

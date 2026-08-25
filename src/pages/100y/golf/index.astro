@@ -24,9 +24,25 @@ const 최고 = 나이별.reduce((a, b) => (b.참여율 != null && (a.참여율 =
 const desc =
   `${최신}년 기준 나이대별 골프 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
   `전국 평균은 ${이번.전국}%입니다. 최근 1년 참여 경험 기준입니다.`;
+
+/** ⭐ FAQPage — 6번이 검증한 지렛대. 자동완성 실측(「골프 인구」, 오늘 최강 신호) 그대로 질문으로 쓴다 */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '골프 인구',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 최근 1년간 골프를 해 본 적이 있는 사람은 전국 ${이번.전국}%입니다. 나이대로는 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다.`,
+      },
+    },
+  ],
+};
 ---
 
-<HundredYear title={`나이대별 골프 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/golf.png">
+<HundredYear title={`나이대별 골프 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} jsonLd={faqJsonLd} ogImage="https://100yearmap.com/og/golf.png">
   <h1>골프는 몇 살이<br />가장 많이 할까요?</h1>
   <p class="sub">
     <strong>{최신}년 기준 {최고.칸}가 {최고.참여율}%로 가장 높습니다.</strong>

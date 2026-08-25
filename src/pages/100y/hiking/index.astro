@@ -38,9 +38,25 @@ const 흐름 = (() => {
 const desc =
   `${최신}년 기준 나이대별 등산 참여율은 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다. ` +
   `전국은 ${해들[0]}년 ${처음.전국}%에서 ${최신}년 ${이번.전국}%로 바뀌었습니다. 최근 1년 참여 경험 기준입니다.`;
+
+/** ⭐ FAQPage — 6번이 검증한 지렛대. 자동완성 실측(「등산 인구」) 그대로 질문으로 쓴다 */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '등산 인구',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${최신}년 기준 최근 1년간 등산을 해 본 적이 있는 사람은 전국 ${이번.전국}%입니다. 나이대로는 ${최고.칸}가 ${최고.참여율}%로 가장 높습니다.`,
+      },
+    },
+  ],
+};
 ---
 
-<HundredYear title={`나이대별 등산 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} ogImage="https://100yearmap.com/og/hiking.png">
+<HundredYear title={`나이대별 등산 참여율 — ${최신}년 ${최고.칸} ${최고.참여율}%가 가장 높다`} description={desc} jsonLd={faqJsonLd} ogImage="https://100yearmap.com/og/hiking.png">
   <h1>등산은 몇 살이<br />가장 많이 갈까요?</h1>
   <p class="sub">
     <strong>{최신}년 기준 {최고.칸}가 {최고.참여율}%로 가장 높습니다.</strong>
