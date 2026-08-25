@@ -1,57 +1,57 @@
 {
-  "generated": "2026-08-24",
+  "generated": "2026-08-25",
   "days": 28,
   "property": "549135289",
   "whatThisIs": "GA4 userEngagementDuration divided by screenPageViews, per page. Engagement time is what Google counts as engaged, not wall-clock time with the tab open; a hidden tab is not counted. Treat it as a lower bound on reading time.",
   "whatThisIsNot": "Not a count of seconds a person read. Not comparable across sites with different tagging. Pages with fewer than 5 opens are kept in the rows but must not be quoted as an average.",
-  "baselineSecondsPerOpen": 13.9937106918239,
+  "baselineSecondsPerOpen": 12.804469273743017,
   "minimumOpensToQuote": 5,
   "units": [
     {
       "unit": "3번 100yearmap",
-      "sessions": 354,
-      "users": 339,
-      "views": 448,
-      "secondsPerSession": 36.50817916949153,
-      "engagedSessionShare": 19.491525423728813,
-      "secondsPerOpen": 11.553571428571429
+      "sessions": 364,
+      "users": 347,
+      "views": 462,
+      "secondsPerSession": 30.53678710989011,
+      "engagedSessionShare": 19.78021978021978,
+      "secondsPerOpen": 11.318181818181818
     },
     {
       "unit": "1·4번 KLifeMap",
-      "sessions": 109,
-      "users": 56,
-      "views": 363,
-      "secondsPerSession": 430.40025342201835,
-      "engagedSessionShare": 46.788990825688074,
-      "secondsPerOpen": 30.80716253443526
+      "sessions": 114,
+      "users": 57,
+      "views": 373,
+      "secondsPerSession": 397.99597161403506,
+      "engagedSessionShare": 50,
+      "secondsPerOpen": 30.0857908847185
     },
     {
       "unit": "5번 K Culture Wire",
-      "sessions": 124,
-      "users": 111,
-      "views": 159,
-      "secondsPerSession": 39.21844689516129,
-      "engagedSessionShare": 19.35483870967742,
-      "secondsPerOpen": 13.9937106918239
+      "sessions": 143,
+      "users": 128,
+      "views": 179,
+      "secondsPerSession": 34.83904860839161,
+      "engagedSessionShare": 20.27972027972028,
+      "secondsPerOpen": 12.804469273743017
     },
     {
       "unit": "6번 SeoulMarkets",
-      "sessions": 47,
-      "users": 39,
-      "views": 94,
-      "secondsPerSession": 189.8271449574468,
-      "engagedSessionShare": 38.297872340425535,
-      "secondsPerOpen": 12.47872340425532
+      "sessions": 48,
+      "users": 40,
+      "views": 96,
+      "secondsPerSession": 186.35410729166665,
+      "engagedSessionShare": 39.583333333333336,
+      "secondsPerOpen": 12.21875
     }
   ],
   "byKind": [
     {
       "갈래": "(집)",
       "장": 1,
-      "열림": 88,
+      "열림": 93,
       "붙은초": 718,
-      "사람": 70,
-      "열림당초": 8.159090909090908
+      "사람": 75,
+      "열림당초": 7.720430107526882
     },
     {
       "갈래": "/article",
@@ -63,19 +63,19 @@
     },
     {
       "갈래": "/title",
-      "장": 7,
-      "열림": 10,
-      "붙은초": 247,
-      "사람": 11,
-      "열림당초": 24.7
+      "장": 8,
+      "열림": 14,
+      "붙은초": 267,
+      "사람": 12,
+      "열림당초": 19.071428571428573
     },
     {
       "갈래": "/exports",
       "장": 1,
       "열림": 5,
-      "붙은초": 42,
+      "붙은초": 61,
       "사람": 5,
-      "열림당초": 8.4
+      "열림당초": 12.2
     },
     {
       "갈래": "/articles",
@@ -102,6 +102,14 @@
       "열림당초": 0.5
     },
     {
+      "갈래": "/who-reads-least",
+      "장": 1,
+      "열림": 2,
+      "붙은초": 0,
+      "사람": 2,
+      "열림당초": 0
+    },
+    {
       "갈래": "/about",
       "장": 1,
       "열림": 2,
@@ -118,7 +126,31 @@
       "열림당초": 163
     },
     {
+      "갈래": "/actors-first",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/brand-kinds",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
       "갈래": "/contact",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/debut-age",
       "장": 1,
       "열림": 1,
       "붙은초": 0,
@@ -134,7 +166,39 @@
       "열림당초": 2
     },
     {
+      "갈래": "/fame-compare",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
       "갈래": "/for-industry",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/half-life",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
+      "갈래": "/netflix-top10-data",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 28,
+      "사람": 1,
+      "열림당초": 28
+    },
+    {
+      "갈래": "/read-vs-visited",
       "장": 1,
       "열림": 1,
       "붙은초": 0,
@@ -158,12 +222,28 @@
       "열림당초": 8
     },
     {
+      "갈래": "/titles-to-name",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
+    },
+    {
       "갈래": "/tv-exports",
       "장": 1,
       "열림": 1,
       "붙은초": 21,
       "사람": 1,
       "열림당초": 21
+    },
+    {
+      "갈래": "/what-actually-fell",
+      "장": 1,
+      "열림": 1,
+      "붙은초": 0,
+      "사람": 1,
+      "열림당초": 0
     },
     {
       "갈래": "/workforce",
@@ -177,12 +257,12 @@
   "landing": [
     {
       "path": "/",
-      "sessions": 80,
-      "views": 111,
-      "users": 72,
-      "stepsPerSession": 1.3875,
-      "sessionsThatDidNotWalk": 49,
-      "engagedSessionShare": 13.75
+      "sessions": 83,
+      "views": 116,
+      "users": 75,
+      "stepsPerSession": 1.3975903614457832,
+      "sessionsThatDidNotWalk": 50,
+      "engagedSessionShare": 13.25301204819277
     },
     {
       "path": "/article/it-moved-it-did-not-shrink",
@@ -194,13 +274,22 @@
       "engagedSessionShare": 25
     },
     {
+      "path": "/title/the-devil-judge",
+      "sessions": 6,
+      "views": 6,
+      "users": 4,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 6,
+      "engagedSessionShare": 33.333333333333336
+    },
+    {
       "path": "/exports",
       "sessions": 5,
       "views": 5,
       "users": 5,
       "stepsPerSession": 1,
       "sessionsThatDidNotWalk": 5,
-      "engagedSessionShare": 20
+      "engagedSessionShare": 40
     },
     {
       "path": "/articles",
@@ -209,15 +298,6 @@
       "users": 2,
       "stepsPerSession": 1,
       "sessionsThatDidNotWalk": 4,
-      "engagedSessionShare": 0
-    },
-    {
-      "path": "/title/the-devil-judge",
-      "sessions": 3,
-      "views": 3,
-      "users": 3,
-      "stepsPerSession": 1,
-      "sessionsThatDidNotWalk": 3,
       "engagedSessionShare": 0
     },
     {
@@ -239,7 +319,25 @@
       "engagedSessionShare": 50
     },
     {
+      "path": "/who-reads-least",
+      "sessions": 2,
+      "views": 2,
+      "users": 2,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 2,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/about",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/actors-first",
       "sessions": 1,
       "views": 1,
       "users": 1,
@@ -302,6 +400,15 @@
       "engagedSessionShare": 0
     },
     {
+      "path": "/brand-kinds",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/catalogue-depth",
       "sessions": 1,
       "views": 1,
@@ -320,6 +427,15 @@
       "engagedSessionShare": 0
     },
     {
+      "path": "/debut-age",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/esports",
       "sessions": 1,
       "views": 1,
@@ -329,7 +445,43 @@
       "engagedSessionShare": 100
     },
     {
+      "path": "/fame-compare",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/for-industry",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/half-life",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
+      "path": "/netflix-top10-data",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 100
+    },
+    {
+      "path": "/read-vs-visited",
       "sessions": 1,
       "views": 1,
       "users": 1,
@@ -362,7 +514,7 @@
       "users": 1,
       "stepsPerSession": 1,
       "sessionsThatDidNotWalk": 1,
-      "engagedSessionShare": 0
+      "engagedSessionShare": 100
     },
     {
       "path": "/title/heavenly-ever-after",
@@ -392,6 +544,15 @@
       "engagedSessionShare": 100
     },
     {
+      "path": "/title/project-wolf-hunting",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/title/sh-ting-stars",
       "sessions": 1,
       "views": 1,
@@ -410,6 +571,15 @@
       "engagedSessionShare": 100
     },
     {
+      "path": "/titles-to-name",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
+    },
+    {
       "path": "/tv-exports",
       "sessions": 1,
       "views": 1,
@@ -417,6 +587,15 @@
       "stepsPerSession": 1,
       "sessionsThatDidNotWalk": 1,
       "engagedSessionShare": 100
+    },
+    {
+      "path": "/what-actually-fell",
+      "sessions": 1,
+      "views": 1,
+      "users": 1,
+      "stepsPerSession": 1,
+      "sessionsThatDidNotWalk": 1,
+      "engagedSessionShare": 0
     },
     {
       "path": "/workforce",
@@ -431,11 +610,11 @@
   "pages": [
     {
       "path": "/",
-      "views": 88,
-      "users": 70,
-      "sessions": 78,
+      "views": 93,
+      "users": 75,
+      "sessions": 83,
       "engagedSeconds": 718,
-      "secondsPerOpen": 8.159090909090908,
+      "secondsPerOpen": 7.720430107526882,
       "quotable": true
     },
     {
@@ -448,12 +627,21 @@
       "quotable": true
     },
     {
+      "path": "/title/the-devil-judge",
+      "views": 6,
+      "users": 4,
+      "sessions": 6,
+      "engagedSeconds": 138,
+      "secondsPerOpen": 23,
+      "quotable": true
+    },
+    {
       "path": "/exports",
       "views": 5,
       "users": 5,
       "sessions": 5,
-      "engagedSeconds": 42,
-      "secondsPerOpen": 8.4,
+      "engagedSeconds": 61,
+      "secondsPerOpen": 12.2,
       "quotable": true
     },
     {
@@ -484,15 +672,6 @@
       "quotable": false
     },
     {
-      "path": "/title/the-devil-judge",
-      "views": 3,
-      "users": 4,
-      "sessions": 4,
-      "engagedSeconds": 138,
-      "secondsPerOpen": 46,
-      "quotable": false
-    },
-    {
       "path": "/article/two-in-three-koreans",
       "views": 2,
       "users": 1,
@@ -520,6 +699,15 @@
       "quotable": false
     },
     {
+      "path": "/who-reads-least",
+      "views": 2,
+      "users": 2,
+      "sessions": 2,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
       "path": "/about",
       "views": 2,
       "users": 2,
@@ -544,6 +732,15 @@
       "sessions": 2,
       "engagedSeconds": 89,
       "secondsPerOpen": 44.5,
+      "quotable": false
+    },
+    {
+      "path": "/actors-first",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
       "quotable": false
     },
     {
@@ -682,7 +879,25 @@
       "quotable": false
     },
     {
+      "path": "/brand-kinds",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
       "path": "/contact",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/debut-age",
       "views": 1,
       "users": 1,
       "sessions": 1,
@@ -700,7 +915,43 @@
       "quotable": false
     },
     {
+      "path": "/fame-compare",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
       "path": "/for-industry",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/half-life",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
+      "path": "/netflix-top10-data",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 28,
+      "secondsPerOpen": 28,
+      "quotable": false
+    },
+    {
+      "path": "/read-vs-visited",
       "views": 1,
       "users": 1,
       "sessions": 1,
@@ -758,8 +1009,8 @@
       "views": 1,
       "users": 1,
       "sessions": 1,
-      "engagedSeconds": 1,
-      "secondsPerOpen": 1,
+      "engagedSeconds": 21,
+      "secondsPerOpen": 21,
       "quotable": false
     },
     {
@@ -781,6 +1032,15 @@
       "quotable": false
     },
     {
+      "path": "/title/project-wolf-hunting",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
       "path": "/title/sh-ting-stars",
       "views": 1,
       "users": 1,
@@ -799,12 +1059,30 @@
       "quotable": false
     },
     {
+      "path": "/titles-to-name",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
+      "quotable": false
+    },
+    {
       "path": "/tv-exports",
       "views": 1,
       "users": 1,
       "sessions": 1,
       "engagedSeconds": 21,
       "secondsPerOpen": 21,
+      "quotable": false
+    },
+    {
+      "path": "/what-actually-fell",
+      "views": 1,
+      "users": 1,
+      "sessions": 1,
+      "engagedSeconds": 0,
+      "secondsPerOpen": 0,
       "quotable": false
     },
     {
