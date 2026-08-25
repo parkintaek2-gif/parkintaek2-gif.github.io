@@ -38,7 +38,7 @@ export const GET: APIRoute = () => {
     '# kosdaqCapPct/kosdaqValPct: KOSDAQ share of cap / trading. Vel: day turnover per 1,000 of cap.',
     '# All figures are ratios or Gini — scale-invariant, independent of the price level. Absolute prices are not published.',
     `# Coverage: ${days.length} trading day(s); latest ${(hist as any).asOf || 'n/a'}. Source: Korea Exchange OPEN API (KOSPI + KOSDAQ daily).`,
-    '# Licence: our derived index from KRX raw data; attribute SeoulMarkets. Not investment advice.',
+    '# Free to reproduce (our derived index from KRX raw data). Cite as SeoulMarkets (seoulmarkets.com) and link back. Not investment advice.',
     '# Page: https://seoulmarkets.com/data/concentration',
   ].join('\n');
 

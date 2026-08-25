@@ -44,6 +44,6 @@ This is not a one-day accident. Across **all nine trading days** we measured (20
 
 A caution first, because it matters: this counts bonds that had a **quote** that day. Hundreds more are listed and simply do not appear — they had no trade. So read the figures as *of the bonds that actually traded*. That is exactly the point, though: the tradeable Korean bond market, day to day, **is** a small set of government benchmarks. Price discovery happens in a few Treasury issues; the rest of the market sits still.
 
-For anyone building a curve or a fund from Korean bonds, this is the terrain. We publish the underlying [concentration data](/data/concentration) and track the Treasury [yield curve](/article/korea-government-bond-yield-curve) from the same listed closes — every figure dated, ratios not levels.
+For anyone building a curve or a fund from Korean bonds, this is the terrain. The daily concentration series here is a [free CSV](/data/korea-bond-concentration.csv) you can reproduce with credit, alongside our [stock concentration data](/data/concentration) and the Treasury [yield curve](/article/korea-government-bond-yield-curve) — all from the same listed closes, every figure dated, ratios not levels.
 
 Not investment advice.
