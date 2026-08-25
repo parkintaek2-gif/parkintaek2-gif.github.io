@@ -29,15 +29,21 @@
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-western-signs.json';
+import people from '../../../data/wikitip-people.json';
+import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(오늘 그것으로 빌드가 멈췄다).
      자료는 여기서 직접 읽고, 지면이 쓸 것은 props 로 건넨다 */
   const 자리들 = data.signs ?? [];
+  /* 🔴 [2026-08-26] 이 표의 이름도 «글자»였다. 사람 지면으로 가는 문을 단다.
+     ⛔ 이름이 겹치면 안 건다 — 틀린 문은 없는 문보다 나쁘다(person-link 참고). */
+  const { 표: 사람표 } = 이름표만들기(people.people ?? []);
   return 자리들.map((s, i) => ({
     params: { sign: s.slug },
     props: {
       s,
+      사람문: 이지면의문((s.top ?? []).map((p: any) => p.name), 사람표),
       앞: 자리들[(i + 자리들.length - 1) % 자리들.length],
       뒤: 자리들[(i + 1) % 자리들.length],
       전체: 자리들.reduce((a, x) => a + x.people, 0),
@@ -45,7 +51,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { s, 앞, 뒤, 전체 } = Astro.props as { s: any; 앞: any; 뒤: any; 전체: number };
+const { s, 앞, 뒤, 전체, 사람문 } = Astro.props as { s: any; 앞: any; 뒤: any; 전체: number ; 사람문: Record<string, string> };
 
 const 못실린 = s.people - s.listed;
 const 몫 = 전체 > 0 ? (100 * s.people) / 전체 : null;
@@ -106,7 +112,8 @@ const DESC = `${s.people.toLocaleString('en-US')} Korean actors, singers and oth
           <tbody>
             {s.top.map((p: any) => (
               <tr>
-                <td class="nm">{p.name}</td>
+                <td class="nm">{문(p.name, 사람문)
+                  ? <a href={문(p.name, 사람문)}>{p.name}</a> : p.name}</td>
                 <td>{p.born}</td>
                 <td class="tot">{p.languages ?? '—'}</td>
               </tr>

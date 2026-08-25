@@ -24,6 +24,14 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/wikitip-star-demand.json';
 import signs from '../../data/wikitip-star-signs.json';
+import people from '../../data/wikitip-people.json';
+import { 이름표만들기, 문 } from '../../lib/person-link';
+
+/* 🔴 [2026-08-26] **가장 많이 읽힌 사람 목록인데 사람 지면으로 가는 문이 0개였다.**
+   손님이 이름을 보고 더 알고 싶은 자리가 바로 여기다. ⛔ 겹친 이름은 안 건다. */
+const { 표: 사람표 } = 이름표만들기(people.people ?? []);
+/* ⚠ 줄마다 Map 을 객체로 바꾸면 수백 번 만든다 — 한 번만 만든다 */
+const 사람문 = Object.fromEntries(사람표);
 
 /** 띠 방에 이름이 실려 있는 사람은 그 방으로 보낸다 — 이름에서 이름으로 걷게 */
 const 방주소 = new Map<string, string>();
@@ -99,7 +107,8 @@ const jsonLd = {
           {줄.map((p: any, i: number) => (
             <tr>
               <td class="fine">{i + 1}</td>
-              <td class="nm">{보일이름(p)}</td>
+              <td class="nm">{문(보일이름(p), 사람문)
+                ? <a href={문(보일이름(p), 사람문)}>{보일이름(p)}</a> : 보일이름(p)}</td>
               <td>{p.reads.toLocaleString('en-US')}</td>
               <td class="fine">{p.born}</td>
               <td class="fine"><a href={`/born-on/${String(p.born).slice(5)}`}>same day</a></td>
