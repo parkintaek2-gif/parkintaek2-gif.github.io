@@ -52,6 +52,7 @@ import 생일자료 from '../../data/wikitip-birthday-pages.json';
 import 해자료 from '../../data/wikitip-years.json';
 import 나이자료 from '../../data/wikitip-age-bands.json';
 import 학교자료 from '../../data/wikitip-schools.json';
+import 사람자료 from '../../data/wikitip-people.json';
 import 그룹자료 from '../../data/wikitip-groups.json';
 /* 🔴 2026-08-24 밤 — 수요가 큰 작품 지면이 들어오는 링크 1~2개로 굶고 있었다.
    위키백과 조회수(30일)로 재어 둔 것을 읽어 첫 화면에서 직접 건다 */
@@ -213,6 +214,21 @@ const jsonLd = {
             ⛔ 키는 안 낸다 — 수요는 더 컸지만 위키데이터에 3.5%뿐이다 */}
         <a href="/group">Kpop idols by group — age and birthday</a>
         <span class="cnt">{그룹자료.groups.length} groups, member by member</span>
+      </li>
+      <li>
+        {/* 🔴 2026-08-25 — 사장님 「특히 케이컬쳐는 **스타의 이름**」에서 나온 줄이다.
+            무엇을 낼지는 재서 정했다: 이름 뒤에 붙는 다섯 꼴을 자동완성으로 재니
+            age 51 · movies and tv shows 45 · netflix 44 · tv shows 24 · drama list 22 이었다.
+            ⛔ age 는 가장 컸지만 구글이 지식패널로 즉시 답한다 — 우리가 이길 자리가 아니다.
+              우리만 가진 축(「그 작품이 어느 나라까지 갔나」)으로 제목을 세웠다.
+            ⚠ 이 줄이 없으면 636장이 첫 화면에서 «한 번도 안 걸린다». 어제 그것을 겪었다 */}
+        <a href="/person">Korean actors on Netflix &mdash; every title they charted with</a>
+        <span class="cnt">{사람자료.peoplePublished} people, and how far each one&rsquo;s work travelled</span>
+      </li>
+      <li>
+        {/* ⚠ 영상 갤러리도 첫 화면에서 안 걸리고 있었다. 만든 것과 «닿는» 것은 다르다 */}
+        <a href="/video">Our short films</a>
+        <span class="cnt">each one built from a table on this site, and linked back to it</span>
       </li>
       <li>
         <a href="/where-to-watch">Where a title could actually be watched</a>
