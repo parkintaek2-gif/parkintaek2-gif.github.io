@@ -65,6 +65,7 @@ export const 벌목록 = {
   least: { 자료: 'src/data/wikitip-last-place.json', 만들기: (d) => 꼴찌벌짓기(d) },
   debut: { 자료: 'src/data/wikitip-debut-age.json', 만들기: (d) => 데뷔벌짓기(d) },
   people: { 자료: 'src/data/wikitip-people.json', 만들기: (d) => 사람벌짓기(d) },
+  daystem: { 자료: 'src/data/wikitip-stem-rooms.json', 만들기: (d) => 일진벌짓기(d) },
 };
 
 /**
@@ -309,6 +310,96 @@ export function 한판벌짓기(d) {
  *   ⛔ **띠끼리 줄세우지 않는다.** 「어느 띠가 세다」로 읽히면 그게 점이다.
  *   ⛔ 수를 손으로 안 박는다. 전부 자료에서 읽는다.
  */
+/**
+ * 일진 벌 — `/stem/*` 열 장의 짝. **아직 아무도 안 쓴 축이다.**
+ *
+ * 🔴 사장님 지시 — 「스타 이름·작품명이 인기 검색어다」. 그래서 표지가 이름이다.
+ *   수는 이름 뒤에 선다. 「9,249명」으로 시작하면 아무도 안 멈춘다.
+ *
+ * 🔴🔴 **이 벌에서 가장 위험한 것 — 우리가 점집이 되는 것이다.**
+ *   일진(태어난 날의 천간)은 사주에서 쓰는 말이다. 우리는 그것을 «판정»이 아니라
+ *   «자료»로만 다룬다(모토와-철학 3절 · KLifeMap 과 같은 규칙).
+ *   ⛔ 「무슨 일간이면 어떻다」를 한 글자도 쓰지 않는다.
+ *
+ * ⚠⚠ 그리고 여기서 **내 예상이 틀렸다.** 나는 열 칸이 고르게 나뉘어
+ *   「고르기와 구별되지 않는다」가 나올 줄 알았다. 재 보니 —
+ *   ```
+ *   카이제곱 17.9  (자유도 9 · 흔히 쓰는 문턱 16.92)   → 문턱을 «살짝 넘었다»
+ *   ```
+ *   ⛔ 그러면 「일진이 뜻이 있다」로 읽힐 수 있다. 그래서 **셋째 카드에**
+ *     그 수를 그대로 적고, **왜 우리 수를 우리가 못 믿는지**를 같이 적는다.
+ *     그것이 이 회사에서 리스크관리 자리가 하는 일이다.
+ *   ⭐ 유리한 쪽으로 반올림하지 않는다. 「16.92 아래였다」로 적으면 그건 거짓이다.
+ */
+export function 일진벌짓기(d) {
+  const 칸 = [...(d.rooms ?? [])];
+  const 합 = 칸.reduce((s2, r) => s2 + r.people, 0);
+  const 기대 = 합 / (칸.length || 1);
+  const 카이 = 칸.reduce((s2, r) => s2 + ((r.people - 기대) ** 2) / 기대, 0);
+  const 문턱 = 16.92;   /* 자유도 9 · p=0.05 */
+  const 큰칸 = [...칸].sort((a, b) => b.people - a.people)[0];
+  const 작은칸 = [...칸].sort((a, b) => a.people - b.people)[0];
+  /* ⚠ 표에 열 줄을 다 싣지 않는다 — 카드 한 장에 안 들어간다. 자료가 정한 차례로 여섯. */
+  const 여섯 = 칸.slice(0, 6);
+
+  return {
+    갈피: 'day-stem',
+    빛: '#c9a84c',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `${합.toLocaleString('en-US')} Korean stars · ten day stems`,
+        큰: 'IU, RM and Jennie\nwere born on\nthree different\nday stems',
+        아래: '**IU** and **Jimin** share one. **RM** and **Song Joong-ki** share another. '
+          + '**Jennie**, **Psy** and **Lee Min-ho** share a third. We counted which one every '
+          + 'Korean entertainer we hold was born on. A count, not a reading.',
+      },
+      {
+        꼴: '표',
+        제목: 'The stem, and\nthe names you\nalready know',
+        머리: ['Day stem', 'Most-read stars'],
+        줄: 여섯.map((r) => [`${r.stem} ${r.slug}`, (r.top ?? []).slice(0, 3).join(', ')]),
+        아래: 'Six of the ten, in the order the data put them. **This is not a ranking of stems** '
+          + '— the names are simply who is looked up most inside each one.',
+      },
+      {
+        /* ⛔⛔ 이 카드가 셋째인 것이 중요하다. 뒤로 밀면 앞의 두 장만 퍼진다 */
+        꼴: '수',
+        제목: 'We expected\nnothing here.\nWe did not\nget nothing.',
+        큰: `${카이.toFixed(1)} vs ${문턱}`,
+        곁: `Chi-square for how ${합.toLocaleString('en-US')} Korean entertainers spread across the ten day stems`,
+        아래: 'It crosses the usual threshold, which normally means **not chance**. '
+          + '**We still do not believe it means anything about the people.** The likeliest cause is '
+          + 'in our own data, not in the sky — see the next card.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'Why we distrust\nour own number',
+        목록: [
+          'Day stems run in a ten-day cycle; birth dates do not spread evenly across calendars, '
+            + 'so an exactly even split was never the right thing to expect',
+          `With ${합.toLocaleString('en-US')} people, a gap this small (${큰칸.people} vs ${작은칸.people}) `
+            + 'crosses a threshold that was never built for this question',
+          'Wikidata records a full date for some and only a year for others — who gets a full date '
+            + 'is not random, and that alone can bend a spread',
+        ],
+        아래: 'We are printing the number that argues against us, because leaving it out would be '
+          + 'the dishonest choice. **It is a count of birth dates. It is not a reading of anyone.**',
+      },
+      {
+        꼴: '끝',
+        제목: 'Same day stem.\nThat is the\nwhole claim.',
+        글: 'Who was born on the same day stem as whom is a fact.\n\n'
+          + '**What it means about them is not something a count can reach.**',
+        길: `${주소}/day-pillar`,
+        곁: 'Wikidata dates of birth · Wikimedia Pageviews · counted 2026-08',
+      },
+    ],
+  };
+}
+
 export function 띠벌짓기(d) {
   /* ⚠ 열두 띠를 다 못 싣는다. **자료가 정한 차례**(읽힘 으뜸)로 여섯만 보인다 */
   const 여섯 = [...d.signs]

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T09:11:08.946Z",
+  "generated": "2026-08-25T18:35:28.782Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -191,6 +191,23 @@
     },
     {
       "set": "day-pillars-of-9249-korean-entertainers",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "daystem",
       "sq": [
         1,
         2,
@@ -1625,8 +1642,8 @@
       ]
     }
   ],
-  "setCount": 96,
-  "imageCount": 948,
+  "setCount": 97,
+  "imageCount": 958,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-label-outreads-the-capital",
