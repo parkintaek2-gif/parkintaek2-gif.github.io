@@ -84,6 +84,20 @@ const 생일글 = p.born
     {드라마 > 0 && 영화 > 0 ? ` (${드라마} TV, ${영화} film)` : ''} that reached a Netflix weekly
     top 10 somewhere in the world. Together those titles took <b>{수(p.places)}</b> chart places
     in <b>{p.countries}</b> countries.
+    {/*
+      * 🔴 2026-08-25 밤 — 이 지면의 «다음 걸음»이 어디 있는지 재 보니
+      *   윗절반에 24%뿐이었다(5개 대 16개). 표를 다 읽어야 갈 데가 보였다.
+      *   내 유닛은 걸음이 1.23장이고 붙은 세션이 20%다 — 「붙드는 쪽」이 약한 자리다.
+      * ⭐ 그래서 «맨 처음 문단 안»에 가장 멀리 간 작품을 건다. 손님이 스크롤하기 전에
+      *   갈 데가 보여야 걸음이 는다. 그리고 작품 이름이 본문 위에 오므로
+      *   사장님 「제목·위·가운데·끝」의 «위» 자리도 같이 채워진다.
+      * ⛔ 억지로 넣지 않는다 — 그 사람의 실제 대표작이라 자연스럽다.
+      */}
+    {가장멀리 && (
+      <> The one that travelled furthest is
+      {' '}<a href={`/title/${가장멀리.slug}`}>{가장멀리.title}</a>,
+      {' '}which charted in {수(가장멀리.markets)} of them.</>
+    )}
   </p>
 
   <p class="warn">
@@ -98,6 +112,29 @@ const 생일글 = p.born
       <b>{p.wikiPage}</b>. The other one is on
       <a href={`/person/${동명이인.slug}`}>a separate page</a> &mdash; we do not merge them, because
       they are different people who share a romanised name.
+    </p>
+  )}
+
+  {/*
+    🔴 [2026-08-25] **사람 지면은 윗절반에 링크가 24%뿐이었다.**
+    지면 40장 평균으로 윗절반 5~6개 · 아랫절반 16개였다 — 손님이 «표를 다 읽어야»
+    다음 걸음이 보인다. 붙은세션이 20% 인 자리가 여기다.
+    ⛔ 아래 「Where to go next」를 위로 «옮기지» 않는다 — 그것은 읽고 난 뒤의 자리다.
+       여기 두는 것은 표를 읽기 «전에» 나갈 수 있는 문 넷뿐이다.
+    ⚠ 새 주소를 만들지 않는다. 아래 절에 이미 있는 것을 위에도 놓는 것이다 —
+       없는 자리를 새로 만들면 그 자리가 낡는다.
+    ⚠ 사장님 「제목·위·가운데·끝」의 «위» 자리에 작품 이름이 한 번 더 들어간다.
+  */}
+  {(p.titles.length > 0 || 이웃.length > 0) && (
+    <p class="fine">
+      <b>Jump ahead:</b>
+      {p.titles.slice(0, 2).map((t: any, i: number) => (
+        <>{i === 0 ? ' ' : ' · '}<a href={`/title/${t.slug}`}>{t.title}</a></>
+      ))}
+      {이웃.slice(0, 1).map((n: any) => (
+        <>{' · '}<a href={`/person/${n.slug}`}>{n.name}</a></>
+      ))}
+      {' · '}<a href="/titles">every Korean title that charted</a>
     </p>
   )}
 
