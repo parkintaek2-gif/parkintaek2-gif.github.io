@@ -297,7 +297,30 @@ const 고른것 = 준주소
   ? 준주소.split(',').map((s) => s.trim()).filter(Boolean).map((s) => (s.startsWith('http') ? s : 집 + s))
   : null;
 if (고른것 && !고른것.length) { console.error('⛔ --주소 에 아무것도 없다'); process.exit(1); }
-const 표본 = 고른것 ?? 고르게뽑기(전체, n);
+/**
+ * 🔴 [2026-08-26] **「지난번과 같은 지면」을 다시 묻는 길.**
+ *   ─────────────────────────────────────────────────────────────────────
+ *   [왜] 8/25 에 사람 지면 636장을 냈고 그 표본 40장이 「발견만 18 · 들어갔다 21」이었다.
+ *     8/28 에 「몇 장이 발견만 → 들어갔다로 바뀌었나」를 말하려면 **같은 40장**을
+ *     다시 물어야 한다. 새로 뽑으면 «다른 지면»을 재고 견주는 꼴이 된다.
+ *   ⛔ 표본을 새로 뽑아 놓고 「18장이 6장으로 줄었다」라고 적는 것이 가장 나쁘다 —
+ *     숫자는 그럴듯한데 견준 것이 아니다.
+ *   ⚠ --주소= 로도 되지만 마흔 장을 손으로 붙이면 하나를 빠뜨린다.
+ *     그리고 슬래시로 시작하는 인자는 Git Bash 가 윈도 경로로 바꾼다(위 방패 참고).
+ *   쓰는 법  --같은것=src/data/wikitip-indexed.json
+ */
+const 같은것길 = process.argv.find((a) => a.startsWith('--같은것='))?.split('=').slice(1).join('=');
+let 지난것 = null;
+if (같은것길) {
+  const 길 = path.resolve(뿌리, 같은것길);
+  if (!fs.existsSync(길)) { console.error(`⛔ --같은것 파일이 없다: ${길}`); process.exit(1); }
+  const j = JSON.parse(fs.readFileSync(길, 'utf8'));
+  지난것 = [...new Set((j.rows ?? []).map((r) => r.주소).filter(Boolean))];
+  if (!지난것.length) { console.error(`⛔ --같은것 파일에 주소가 0개다: ${길}`); process.exit(1); }
+  console.log(`지난 회차(${j.generated ?? '날짜 모름'})와 «같은» ${지난것.length}장을 다시 묻는다`);
+}
+
+const 표본 = 고른것 ?? 지난것 ?? 고르게뽑기(전체, n);
 
 console.log(`사이트맵 ${전체.length}장 중 ${표본.length}장을 고르게 뽑아 묻는다 (하루 한도 2,000건)`);
 
