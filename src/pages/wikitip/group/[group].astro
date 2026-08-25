@@ -48,14 +48,30 @@ const 이름못쓴 = g.membersRecorded - g.membersNamed;
 const 생일모름 = g.membersNamed - g.membersWithBirthday;
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
 
+/* 맏이·막내 — «생일이 있는 사람 중에서만» 말할 수 있다. 없으면 그 칸을 아예 안 그린다 */
+const 생일있는 = (g.members ?? []).filter((m: any) => m.born && m.age !== null);
+const 맏이 = 생일있는[0] ?? null;
+const 막내 = 생일있는.length ? 생일있는[생일있는.length - 1] : null;
+
 const 나이글 = g.oldestBornYear && g.youngestBornYear
   ? (g.oldestBornYear === g.youngestBornYear
     ? `all born in ${g.oldestBornYear}`
     : `born between ${g.oldestBornYear} and ${g.youngestBornYear}`)
   : null;
 
-const TITLE = `${g.name} members age and birthday — ${g.membersNamed} of them, `
-  + `and the years they were born`;
+/*
+ * 🔴 2026-08-25 저녁 — 벤치마킹으로 고쳤다. 사장님 지시로 1위 지면을 «열어서» 쟀다.
+ * `bts members age` 1위(kpopbeen.com)와 나란히 놓아 보니 —
+ * ```
+ *   1위 제목   BTS Ages «2026»: How Old Are Members? (Oldest to Youngest)
+ *   내 제목    BTS members age and birthday — 7 of them, and the years they were born
+ * ```
+ * ⭐ **제목에 «해»가 들어간다.** 사람은 「지금」을 묻고 나이는 해마다 바뀐다.
+ *   나는 본문에만 「as of 2026」을 적고 제목에는 안 넣었다.
+ * ⛔ 낱말을 쌓은 것이 아니다 — 이 지면의 나이는 실제로 그 해 기준이고,
+ *   해를 적는 것이 «더 정직»하다. 제목만 보고도 언제 기준인지 알 수 있다.
+ */
+const TITLE = `${g.name} members age ${기준해}: how old are they, oldest to youngest`;
 const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
   + `${g.membersWithBirthday} of them have a birth date on record, `
   + `${나이글 ?? 'with birth years listed'}. Ages here are as of ${기준해} — the birth dates are not.`;
@@ -89,6 +105,39 @@ const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
       but not named below</b> — their only name on Wikidata is written in Korean, and this is an
       English-language site.</>}
   </p>
+
+  {/*
+    🔴 벤치마킹으로 붙인 칸. 1위 지면은 소제목마다 «손님이 치는 다른 물음»을 받는다 —
+      「누가 제일 나이가 많나」·「막내는 누구인가」·「나이순으로」.
+      나는 소제목을 「우리 사정」(어디서 온 수인가)으로만 썼다.
+    ⭐ 사장님 지시 「제목, 본문 중 위·가운데·마지막에 나와야」가 바로 이것이다.
+    ⛔ 낱말을 쌓는 것이 아니라 **그 물음에 실제로 답을 적는다.** 답을 못 하면 안 쓴다 —
+      맏이·막내는 생일이 있는 사람 중에서만 말할 수 있고, 그 한계를 같이 적는다.
+  */}
+  {맏이 && 막내 && 맏이.name !== 막내.name && (
+    <section>
+      <h2>Who is the oldest {g.name} member?</h2>
+      <p>
+        {/* ⚠ 여기서 「&mdash; 가 글자로 샌다」고 잠깐 판단했다가 «내가 틀렸다».
+             태그를 regex 로 걷어낸 뒤 남은 것은 엔티티이고, 브라우저는 그것을 줄표로 그린다.
+             지면이 아니라 «내 검사»가 틀렸다 — 오늘 아침 &#39; 때와 똑같은 자리다.
+             ⭐ 뜻밖의 값이 나오면 자를 먼저 의심한다. 그래서 이 줄만 진짜 글자로 두고
+               나머지 &mdash; 는 그대로 뒀다 — 멀쩡한 것을 고치지 않는다 */}
+        <b>{맏이.name}</b>, born {맏이.bornText} {맏이.born.slice(0, 4)} —
+        {' '}<b>{맏이.age}</b> in {기준해}.
+        {' '}The youngest is <b>{막내.name}</b>, born {막내.bornText} {막내.born.slice(0, 4)},
+        {' '}<b>{막내.age}</b> in {기준해}. That is a gap of <b>{맏이.age - 막내.age}</b>
+        {' '}{맏이.age - 막내.age === 1 ? 'year' : 'years'}.
+      </p>
+      {g.membersWithBirthday < g.membersNamed && (
+        <p class="note fine">
+          Oldest and youngest are read from the {g.membersWithBirthday} members whose birth date
+          Wikidata records. {g.membersNamed - g.membersWithBirthday} more are named here without
+          one, so they are in neither answer.
+        </p>
+      )}
+    </section>
+  )}
 
   <section>
     <h2>The members, oldest first</h2>
@@ -154,6 +203,42 @@ const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
       We hold {data.groupsSeen} Korean groups in all. {data.groupsNotListed} of them have fewer
       than {data.minMembersToList} members we could name, and we do not publish a page for those —
       they are counted, not hidden.
+    </p>
+  </section>
+
+  {/*
+    🔴 벤치마킹으로 붙인 FAQ. 1위 지면에 있고 우리에겐 없었다.
+    ⛔ 답을 «지어내지» 않는다. 아래 넷은 다 이 지면의 자료로 실제로 답할 수 있는 것이고,
+      답할 수 없는 것(키·현재 멤버)은 «답할 수 없다고» 적는 것이 답이다.
+  */}
+  <section class="notes">
+    <h2>Questions people ask about {g.name} members</h2>
+    <h3>How many members does {g.name} have?</h3>
+    <p>
+      Wikidata records <b>{g.membersRecorded}</b>.
+      {이름못쓴 > 0 && <> {g.membersNamed} of them are named here; the other {이름못쓴} have no
+        English name on Wikidata, so we count them without naming them.</>}
+      {' '}<b>This is not the current line-up</b> — the field holds everyone recorded as part of
+      the group, including people who have left.
+    </p>
+    {맏이 && <>
+      <h3>What year were {g.name} members born?</h3>
+      <p>
+        {나이글 ? <>They were {나이글}.</> : <>Birth years vary.</>}
+        {' '}The full list of dates is in the table above. <b>Birth dates do not move; ages do</b> —
+        the ages here are as of {기준해}.
+      </p>
+    </>}
+    <h3>How tall are {g.name} members?</h3>
+    <p>
+      <b>We cannot tell you.</b> Wikidata records a height for about 3% of the Korean performers
+      we hold. We would rather say we do not know than publish a figure that would be wrong far
+      more often than right.
+    </p>
+    <h3>Where does this come from?</h3>
+    <p>
+      Wikidata, read by item number: group membership (P527), date of birth (P569), place of
+      birth (P19). CC0. Nothing here is copied from a fan wiki or a news write-up.
     </p>
   </section>
 
