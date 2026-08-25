@@ -120,6 +120,16 @@ const faqJsonLd = {
     {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
   </p>
 
+  {/* ⭐ 5번의 벤치마킹(2026-08-25, 1위 지면 실측) — 화면에 보이는 FAQ도 있어야 한다.
+       구조화데이터만으론 손님 눈에 안 보인다. FAQPage와 같은 문답을 그대로 보여준다 */}
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
   <p class="note">
     <a href="/golf">← 같은 표에서 하나 더 — 골프는 몇 살이 가장 많이 할까요?</a>
     <br />
