@@ -26,15 +26,24 @@
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-groups.json';
+import people from '../../../data/wikitip-people.json';
+import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(8/24 에 그것으로
      빌드가 멈췄다). 자료는 여기서 읽고 지면이 쓸 것은 props 로 건넨다 */
   const 그룹들 = data.groups ?? [];
+  /* 🔴 [2026-08-26] **멤버 이름이 사람 지면으로 안 갔다.** 263장 × 멤버 여럿이
+     전부 글자였다. 사람 지면 636장은 지금 구글에서 「발견만」인데, 그리로 가는
+     가장 자연스러운 문이 여기다.
+     ⛔ 이름이 겹치면 «안 건다» — 틀린 사람에게 보내느니 글자로 둔다(person-link 참고).
+     ⚠ 표 전체를 지면마다 실어 보내지 않는다 — 이 지면에 실릴 이름 것만 골라 넘긴다. */
+  const { 표: 사람표 } = 이름표만들기(people.people ?? []);
   return 그룹들.map((g, i) => ({
     params: { group: g.slug },
     props: {
       g,
+      사람문: 이지면의문((g.members ?? []).map((m: any) => m.name), 사람표),
       이웃: [그룹들[(i + 1) % 그룹들.length], 그룹들[(i + 2) % 그룹들.length]]
         .filter((x) => x && x.slug !== g.slug),
       큰곳: 그룹들.slice(0, 6).filter((x) => x.slug !== g.slug).slice(0, 4),
@@ -42,7 +51,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { g, 이웃, 큰곳 } = Astro.props as { g: any; 이웃: any[]; 큰곳: any[] };
+const { g, 이웃, 큰곳, 사람문 } = Astro.props as { g: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string> };
 const 기준해 = data.refYear;
 const 이름못쓴 = g.membersRecorded - g.membersNamed;
 const 생일모름 = g.membersNamed - g.membersWithBirthday;
@@ -123,9 +132,9 @@ const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
              지면이 아니라 «내 검사»가 틀렸다 — 오늘 아침 &#39; 때와 똑같은 자리다.
              ⭐ 뜻밖의 값이 나오면 자를 먼저 의심한다. 그래서 이 줄만 진짜 글자로 두고
                나머지 &mdash; 는 그대로 뒀다 — 멀쩡한 것을 고치지 않는다 */}
-        <b>{맏이.name}</b>, born {맏이.bornText} {맏이.born.slice(0, 4)} —
+        <b>{문(맏이.name, 사람문) ? <a href={문(맏이.name, 사람문)}>{맏이.name}</a> : 맏이.name}</b>, born {맏이.bornText} {맏이.born.slice(0, 4)} —
         {' '}<b>{맏이.age}</b> in {기준해}.
-        {' '}The youngest is <b>{막내.name}</b>, born {막내.bornText} {막내.born.slice(0, 4)},
+        {' '}The youngest is <b>{문(막내.name, 사람문) ? <a href={문(막내.name, 사람문)}>{막내.name}</a> : 막내.name}</b>, born {막내.bornText} {막내.born.slice(0, 4)},
         {' '}<b>{막내.age}</b> in {기준해}. That is a gap of <b>{맏이.age - 막내.age}</b>
         {' '}{맏이.age - 막내.age === 1 ? 'year' : 'years'}.
       </p>
@@ -150,7 +159,8 @@ const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
         <tbody>
           {g.members.map((m: any) => (
             <tr>
-              <td class="nm">{m.name}</td>
+              <td class="nm">{문(m.name, 사람문)
+                ? <a href={문(m.name, 사람문)}>{m.name}</a> : m.name}</td>
               <td>{m.born ? `${m.bornText}, ${m.born.slice(0, 4)}` : '—'}</td>
               <td class="tot">{m.age ?? '—'}</td>
               <td>{m.sign ? <a href={`/star-sign/${m.sign.slug}`}>{m.sign.name}</a> : '—'}</td>

@@ -27,15 +27,21 @@
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-schools.json';
+import people from '../../../data/wikitip-people.json';
+import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(어제 그것으로 빌드가
      한 번 멈췄다). 자료는 여기서 읽고, 지면이 쓸 것은 props 로 건넨다 */
   const 학교들 = data.schools ?? [];
+  /* 🔴 [2026-08-26] 동문 이름이 글자였다 — 사람 지면으로 가는 문을 단다.
+     ⛔ 이름이 겹치면 안 건다(person-link 참고). 틀린 문은 없는 문보다 나쁘다. */
+  const { 표: 사람표 } = 이름표만들기(people.people ?? []);
   return 학교들.map((s, i) => ({
     params: { school: s.slug },
     props: {
       s,
+      사람문: 이지면의문((s.top ?? []).map((p: any) => p.name), 사람표),
       이웃: [학교들[(i + 1) % 학교들.length], 학교들[(i + 2) % 학교들.length]]
         .filter((x) => x && x.slug !== s.slug),
       큰곳: 학교들.slice(0, 6).filter((x) => x.slug !== s.slug).slice(0, 5),
@@ -43,7 +49,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { s, 이웃, 큰곳 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[] };
+const { s, 이웃, 큰곳, 사람문 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string> };
 
 const 적힌사람 = data.peopleWithSchool;
 const 안적힌사람 = data.peopleWithoutSchool;
@@ -108,7 +114,8 @@ const DESC = `We counted ${수(s.people)} Korean actors, singers and other enter
           <tbody>
             {s.top.map((p: any) => (
               <tr>
-                <td class="nm">{p.name}</td>
+                <td class="nm">{문(p.name, 사람문)
+                  ? <a href={문(p.name, 사람문)}>{p.name}</a> : p.name}</td>
                 <td>{p.year ?? '—'}</td>
                 <td class="tot">{p.languages ?? '—'}</td>
               </tr>

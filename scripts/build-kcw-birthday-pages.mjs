@@ -87,7 +87,52 @@ export function 날별로(사람들, 수요 = new Map()) {
 
 const 벗 = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-export function 지면짓기(mmdd, 사람들) {
+/**
+ * 🔴🔴 [2026-08-26 · 5번이 재서 고침] **생일 지면 366장이 이름을 «글자로만» 싣고 있었다.**
+ * ─────────────────────────────────────────────────────────────────────────────
+ * [무엇이 있었나] 갈래마다 「다음 걸음이 어디 있나」를 전수로 재 보니 born-on 이
+ *   **지면당 안쪽 링크 1개**로 나왔다. 극단값이라 자를 먼저 의심하고 열어 봤더니 —
+ *   그 한 개는 본문 링크 하나뿐이었고, **표에 실린 사람 이름 스무 남짓이 전부 글자**였다.
+ *
+ * ⛔ 어제 사람 지면 636장을 냈는데 그리로 가는 링크가 **여기서 0개**였다.
+ *   그 636장은 지금 구글에서 「발견만」에 머물러 있다. 안쪽 링크가 색인을 끌어오는
+ *   가장 큰 힘인데, 가장 자연스러운 문(같은 날 태어난 사람 목록)이 닫혀 있었다.
+ *   366장 × 스무 이름 = 수천 개의 문이 닫혀 있던 셈이다.
+ *
+ * ⛔ **없는 지면으로 링크를 걸지 않는다.** 사람 지면은 「최소편수 2」를 넘긴 사람만
+ *   있다. 표에 있다고 다 있는 것이 아니다 — 있는 것만 건다.
+ * ⛔ **같은 이름이 둘이면 걸지 않는다.** 로마자 이름이 겹치는 사람이 실제로 있다
+ *   (그래서 person 쪽에 sameNameAs 가 있다). 하나를 골라 걸면 손님을 «다른 사람»에게
+ *   보낸다. 안 거는 것이 낫다 — 틀린 문은 없는 문보다 나쁘다.
+ * ⚠ 이름은 두 자리에서 온다 — people.name 과 people.wikiPage 가 다를 수 있다
+ *   (「Lee You-mi」 / 「Lee Yoo-mi」). 둘 다로 찾는다.
+ */
+export function 이름표만들기(사람들 = []) {
+  const 표 = new Map();
+  const 겹친것 = new Set();
+  const 키 = (s) => String(s ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
+  for (const p of 사람들) {
+    if (!p?.slug) continue;
+    for (const 이름 of [p.name, p.wikiPage]) {
+      const k = 키(이름);
+      if (!k) continue;
+      const 있던 = 표.get(k);
+      if (있던 && 있던 !== p.slug) { 겹친것.add(k); continue; }
+      표.set(k, p.slug);
+    }
+  }
+  /* 겹친 이름은 «빼» 버린다 — 틀린 사람에게 보내느니 안 건다 */
+  for (const k of 겹친것) 표.delete(k);
+  return { 표, 겹친수: 겹친것.size };
+}
+
+/** 이름 하나를 링크로 감싼다. 없으면 글자 그대로 — ⛔ 지어내지 않는다. */
+export function 이름칸(보일, 표) {
+  const slug = 표?.get(String(보일 ?? '').toLowerCase().replace(/\s+/g, ' ').trim());
+  return slug ? `<a href="/person/${slug}">${벗(보일)}</a>` : 벗(보일);
+}
+
+export function 지면짓기(mmdd, 사람들, 이름표 = null) {
   const 실을것 = 사람들.map((p) => ({ ...p, 보일: 영문이름(p) })).filter((p) => p.보일);
   const 안실은수 = 사람들.length - 실을것.length;
   const 으뜸 = 실을것[0];
@@ -97,7 +142,7 @@ export function 지면짓기(mmdd, 사람들) {
   const 제목 = 으뜸
     ? `${벗(으뜸.보일)} and ${실을것.length - 1} other Korean stars born on ${날}`
     : `Korean stars born on ${날}`;
-  const 줄 = 실을것.map((p) => `<tr><td>${벗(p.보일)}</td><td class="fine">${p.born.slice(0, 4)}</td><td class="fine">${p.reads === null ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`).join('\n');
+  const 줄 = 실을것.map((p) => `<tr><td>${이름칸(p.보일, 이름표)}</td><td class="fine">${p.born.slice(0, 4)}</td><td class="fine">${p.reads === null ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`).join('\n');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -207,7 +252,35 @@ if (process.argv.includes('--자가시험')) {
   검('읽힌 수를 붙인다', 날.get('05-16')[0].reads === 59582);
   검('못 잰 사람은 null 이다 — 0 이 아니다', 날.get('05-16')[1].reads === null);
 
+  /* 🔴 [2026-08-26] **이름에 문을 다는 것** — born-on 366장이 사람 지면으로 가는
+     링크를 0개 갖고 있었다. 여기서 지키는 것은 셋이다:
+       ① 지면이 있는 이름만 건다        ⛔ 없는 지면으로 걸면 손님이 404 를 본다
+       ② 이름이 겹치면 «안 건다»        ⛔ 틀린 사람에게 보내느니 글자로 둔다
+       ③ 이름은 두 자리에서 온다        people.name 과 people.wikiPage 가 다를 수 있다 */
+  const 명단 = [
+    { name: 'IU', wikiPage: 'IU (singer)', slug: 'iu' },
+    { name: 'Lee You-mi', wikiPage: 'Lee Yoo-mi', slug: 'lee-you-mi' },
+    /* 아래 둘은 로마자 이름이 같다 — 겹친 이름이다 */
+    { name: 'Kim Min-ju', wikiPage: 'Kim Min-ju (actress)', slug: 'kim-min-ju' },
+    { name: 'Kim Min-ju', wikiPage: 'Kim Min-ju (singer)', slug: 'kim-min-ju-2' },
+  ];
+  const { 표: 이름표시험, 겹친수 } = 이름표만들기(명단);
+  검('이름으로 문을 찾는다', 이름표시험.get('iu') === 'iu');
+  검('위키 문서 이름으로도 찾는다', 이름표시험.get('lee yoo-mi') === 'lee-you-mi');
+  검('⭐ 겹친 이름은 «빼» 버린다', !이름표시험.has('kim min-ju') && 겹친수 === 1);
+  검('겹치지 않은 쪽은 남는다', 이름표시험.get('kim min-ju (actress)') === 'kim-min-ju');
+  검('있는 이름은 문이 된다', 이름칸('IU', 이름표시험) === '<a href="/person/iu">IU</a>');
+  검('⛔ 없는 이름은 글자 그대로다', 이름칸('Nobody Here', 이름표시험) === 'Nobody Here');
+  검('⛔ 겹친 이름은 글자 그대로다', 이름칸('Kim Min-ju', 이름표시험) === 'Kim Min-ju');
+  검('표가 아예 없어도 안 죽는다', 이름칸('IU', null) === 'IU');
+  검('이름에 든 꺾쇠를 막는다', 이름칸('<b>x', null) === '&lt;b&gt;x');
+
+  const h링크 = 지면짓기('05-16', 날.get('05-16'), 이름표시험);
+  검('⭐ 표의 이름이 사람 지면으로 간다', h링크.includes('<td><a href="/person/iu">IU</a></td>'));
+  검('지면이 없는 사람은 글자다', h링크.includes('<td>Someone</td>'));
+
   const h = 지면짓기('05-16', 날.get('05-16'));
+  검('표를 안 주면 예전과 같다 — 글자로 낸다', h.includes('<td>IU</td>'));
   검('제목에 이름이 선다', h.includes('<h1>IU and 1 other'));
   검('⛔ 한글 이름을 목록에 안 싣는다', !h.includes('홍길동'));
   검('안 실은 수를 적는다', h.includes('1 more people born on this day are counted but not listed'));
@@ -254,15 +327,31 @@ if (fs.existsSync(수요길)) {
 }
 const 날 = 날별로(사람들, 수요);
 
+/* 🔴 [2026-08-26] 사람 지면 명단을 읽어 이름에 문을 단다.
+   ⚠ 명단이 없으면 «걸지 않는다» — 예전과 똑같이 글자로 나간다. 빌드가 죽지 않게. */
+const 사람지면길 = path.resolve(뿌리, 'src/data/wikitip-people.json');
+let 이름표 = null; let 겹친수 = 0;
+if (fs.existsSync(사람지면길)) {
+  const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
+  const r = 이름표만들기(j.people ?? []);
+  이름표 = r.표; 겹친수 = r.겹친수;
+  console.log(`사람 지면 ${(j.people ?? []).length}장 → 이름 ${이름표.size}개에 문을 단다` +
+    (겹친수 ? ` (이름이 겹쳐 «안 거는» 것 ${겹친수}개 — 틀린 사람에게 보내지 않는다)` : ''));
+} else {
+  console.log('⚠ 사람 지면 명단이 없다 — 이름을 글자로만 낸다(예전과 같다)');
+}
+
 fs.mkdirSync(낼방, { recursive: true });
-let 낸장 = 0; let 실은사람 = 0;
+let 낸장 = 0; let 실은사람 = 0; let 걸린문 = 0;
 const 목록 = [];
 for (let m = 1; m <= 12; m++) {
   const 날수 = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][m - 1];
   for (let d = 1; d <= 날수; d++) {
     const k = `${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     const v = 날.get(k) ?? [];
-    fs.writeFileSync(path.join(낼방, `${k}.html`), 지면짓기(k, v));
+        const 글 = 지면짓기(k, v, 이름표);
+    걸린문 += (글.match(/href="\/person\//g) ?? []).length;
+    fs.writeFileSync(path.join(낼방, `${k}.html`), 글);
     const 보일 = v.map(영문이름).filter(Boolean);
     실은사람 += 보일.length;
     목록.push({ day: k, url: `/born-on/${k}`, people: v.length, listed: 보일.length, top: 보일.slice(0, 3) });
