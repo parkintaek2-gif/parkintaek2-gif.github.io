@@ -89,6 +89,19 @@ const DESC = `We counted ${수(s.people)} Korean actors, singers and other enter
         <b> That measures how widely someone is written about, not how good they are</b>, and it
         favours people who have been famous longer.
       </p>
+      {/*
+        * 🔴 2026-08-25 — 이 표에 **한글 이름이 그대로 나가고 있었다**(학교 32곳).
+        *   영어 손님은 그 줄에서 읽기를 멈춘다. 이제 자료 쪽에서 걸러 낸다.
+        * ⛔ 걸러 냈다고 «없던 사람»으로 만들지 않는다 — 몇 명을 못 적었는지 여기 적는다.
+        */}
+      {s.namesNotInEnglish > 0 && (
+        <p class="note">
+          <b>{수(s.namesNotInEnglish)}</b> more people we counted at {s.name} are not in this table,
+          because Wikidata records their name only in Korean and this is an English page. They are
+          still inside the {수(s.people)} above. We would rather leave a name out than print one you
+          cannot read.
+        </p>
+      )}
       <div class="scroll-x">
         <table>
           <thead><tr><th>Name</th><th>Born</th><th>Wikipedia languages</th></tr></thead>

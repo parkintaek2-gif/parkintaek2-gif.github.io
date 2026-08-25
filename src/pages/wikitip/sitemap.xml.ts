@@ -13,6 +13,7 @@ import videoData from '../../data/wikitip-video.json';
 import cardnewsData from '../../data/wikitip-cardnews.json';
 import schoolPages from '../../data/wikitip-schools.json';
 import groupPages from '../../data/wikitip-groups.json';
+import peoplePages from '../../data/wikitip-people.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -1128,6 +1129,15 @@ export const GET: APIRoute = async () => {
   entries.push({ path: '/group', priority: '0.9', changefreq: 'monthly' });
   for (const x of groupPages.groups) {
     entries.push({ path: `/group/${x.slug}`, priority: '0.8', changefreq: 'monthly' });
+  }
+  /*
+   * 🔴 2026-08-25 — 사람 지면. 사장님 「특히 케이컬쳐는 **스타의 이름**」에서 나온 것이다.
+   * ⛔ 손으로 줄을 적지 않는다 — build-kcw-people.mjs 가 낸 자료에서 뽑는다.
+   * ⛔ 문턱(2편)이 `person/[person].astro` 와 «같은 자료»에서 오므로 어긋날 수 없다.
+   */
+  entries.push({ path: '/person', priority: '0.9', changefreq: 'weekly' });
+  for (const x of peoplePages.people) {
+    entries.push({ path: `/person/${x.slug}`, priority: '0.8', changefreq: 'monthly' });
   }
   entries.push({ path: '/school', priority: '0.9', changefreq: 'monthly' });
   for (const x of schoolPages.schools) {

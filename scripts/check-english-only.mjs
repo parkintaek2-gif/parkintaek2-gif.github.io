@@ -133,10 +133,27 @@ if (내가실행됐다) {
   const 면제된다 = (이름) => 면제.find((x) => 이름.includes(x.지면));
   const 걸린것 = [];
   let 면제된장 = 0;
+  /*
+   * 🔴 2026-08-25 — 이 자리에서 **검사가 통째로 죽었다.**
+   *   `dist/wikitip/market/spain.html` 이 없다고 `ENOENT` 를 던지고 멈췄다. 까닭은 결함이
+   *   아니라 **다른 창이 같은 `dist` 를 다시 짓는 중**이었던 것뿐이다(저장소를 여섯이 나눠 쓴다).
+   * ⛔ 그런데 그 한 장 때문에 **나머지 2,035장을 한 장도 못 쟀다.** 첫 실패에서 멈추는 검사는
+   *   앞쪽에 못 잰 것이 하나 생기면 뒤의 검사 전체를 침묵시킨다.
+   * ⭐ 「못 쟀다」와 「깨졌다」를 **갈라 적는다.** 못 잰 것은 세고, 검사는 끝까지 돈다.
+   */
+  const 못잰것 = [];
   for (const v of 볼것) {
     if (면제된다(v.이름)) { 면제된장 += 1; continue; }
-    const 조각 = 한글조각(본문(fs.readFileSync(v.길, 'utf8')));
+    let 글;
+    try { 글 = fs.readFileSync(v.길, 'utf8'); }
+    catch (e) { 못잰것.push({ 이름: v.이름, 까닭: e.code || String(e) }); continue; }
+    const 조각 = 한글조각(본문(글));
     if (조각.length) 걸린것.push({ 이름: v.이름, 조각 });
+  }
+  if (못잰것.length) {
+    console.log(`⬜ 못 잰 지면 ${못잰것.length}장 — 읽는 사이에 사라졌다. 다른 창이 다시 짓는 중일 수 있다`);
+    for (const x of 못잰것.slice(0, 5)) console.log(`   ${x.이름} (${x.까닭})`);
+    console.log("   ⛔ 이 수를 «0장 걸림»으로 읽지 않는다 — 재지 못한 것이다");
   }
 
   console.log(`영어 지면 검사 — 본 것 ${볼것.length - 면제된장}장 (면제 ${면제된장}장 · 면제표 ${면제.length}줄)`);

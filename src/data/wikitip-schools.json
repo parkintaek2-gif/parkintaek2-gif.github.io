@@ -1,5 +1,5 @@
 {
- "builtAt": "2026-08-24T15:40:31.927Z",
+ "builtAt": "2026-08-25T06:50:04.887Z",
  "rosterPeople": 9249,
  "peopleWithSchool": 4535,
  "peopleWithoutSchool": 4714,
@@ -16,6 +16,8 @@
    "name": "Seoul Institute of the Arts",
    "slug": "seoul-institute-of-the-arts",
    "people": 352,
+   "namesInEnglish": 306,
+   "namesNotInEnglish": 46,
    "top": [
     {
      "name": "Cho Jung-seok",
@@ -174,6 +176,8 @@
    "name": "Chung-Ang University",
    "slug": "chung-ang-university",
    "people": 310,
+   "namesInEnglish": 281,
+   "namesNotInEnglish": 29,
    "top": [
     {
      "name": "Kim Soo-hyun",
@@ -332,6 +336,8 @@
    "name": "Dongduk Women's University",
    "slug": "dongduk-womens-university",
    "people": 206,
+   "namesInEnglish": 149,
+   "namesNotInEnglish": 57,
    "top": [
     {
      "name": "Jung Ho-yeon",
@@ -490,6 +496,8 @@
    "name": "Dongguk University",
    "slug": "dongguk-university",
    "people": 200,
+   "namesInEnglish": 185,
+   "namesNotInEnglish": 15,
    "top": [
     {
      "name": "Jun Ji-hyun",
@@ -648,6 +656,8 @@
    "name": "Kyung Hee University",
    "slug": "kyung-hee-university",
    "people": 145,
+   "namesInEnglish": 130,
+   "namesNotInEnglish": 15,
    "top": [
     {
      "name": "Gong Yoo",
@@ -806,6 +816,8 @@
    "name": "Dankook University",
    "slug": "dankook-university",
    "people": 143,
+   "namesInEnglish": 125,
+   "namesNotInEnglish": 18,
    "top": [
     {
      "name": "Rain",
@@ -964,6 +976,8 @@
    "name": "Hanyang University",
    "slug": "hanyang-university",
    "people": 139,
+   "namesInEnglish": 127,
+   "namesNotInEnglish": 12,
    "top": [
     {
      "name": "Ha Seok-jin",
@@ -1122,6 +1136,8 @@
    "name": "School of Performing Arts Seoul",
    "slug": "school-of-performing-arts-seoul",
    "people": 125,
+   "namesInEnglish": 122,
+   "namesNotInEnglish": 3,
    "top": [
     {
      "name": "Jisoo",
@@ -1147,11 +1163,6 @@
      "name": "Sulli",
      "year": 1994,
      "languages": 47
-    },
-    {
-     "name": "카이",
-     "year": 1994,
-     "languages": 39
     },
     {
      "name": "Kim Sae-ron",
@@ -1272,6 +1283,11 @@
      "name": "Lia",
      "year": 2000,
      "languages": 20
+    },
+    {
+     "name": "Na Jaemin",
+     "year": 2000,
+     "languages": 20
     }
    ]
   },
@@ -1280,6 +1296,8 @@
    "name": "Hanlim Multi Art School",
    "slug": "hanlim-multi-art-school",
    "people": 123,
+   "namesInEnglish": 121,
+   "namesNotInEnglish": 2,
    "top": [
     {
      "name": "Kim Da-hyun",
@@ -1438,6 +1456,8 @@
    "name": "Korea National University of Arts",
    "slug": "korea-national-university-of-arts",
    "people": 115,
+   "namesInEnglish": 113,
+   "namesNotInEnglish": 2,
    "top": [
     {
      "name": "Suho",
@@ -1596,6 +1616,8 @@
    "name": "Dong-Ah Institute of Media and Arts",
    "slug": "dong-ah-institute-of-media-and-arts",
    "people": 82,
+   "namesInEnglish": 69,
+   "namesNotInEnglish": 13,
    "top": [
     {
      "name": "Yim Si-wan",
@@ -1754,6 +1776,8 @@
    "name": "Sungkyunkwan University",
    "slug": "sungkyunkwan-university",
    "people": 78,
+   "namesInEnglish": 74,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Song Joong-ki",
@@ -1912,6 +1936,8 @@
    "name": "Konkuk University",
    "slug": "konkuk-university",
    "people": 76,
+   "namesInEnglish": 72,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Lee Min-ho",
@@ -2070,6 +2096,8 @@
    "name": "Yonsei University",
    "slug": "yonsei-university",
    "people": 75,
+   "namesInEnglish": 63,
+   "namesNotInEnglish": 12,
    "top": [
     {
      "name": "J.Y. Park",
@@ -2228,6 +2256,8 @@
    "name": "Korea University",
    "slug": "korea-university",
    "people": 72,
+   "namesInEnglish": 64,
+   "namesNotInEnglish": 8,
    "top": [
     {
      "name": "Ok Taec-yeon",
@@ -2386,6 +2416,8 @@
    "name": "Sejong University",
    "slug": "sejong-university",
    "people": 72,
+   "namesInEnglish": 68,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "G-Dragon",
@@ -2544,6 +2576,8 @@
    "name": "Myongji University",
    "slug": "myongji-university",
    "people": 62,
+   "namesInEnglish": 49,
+   "namesNotInEnglish": 13,
    "top": [
     {
      "name": "Kim Jong-hyun",
@@ -2702,6 +2736,8 @@
    "name": "Seoul National University",
    "slug": "seoul-national-university",
    "people": 50,
+   "namesInEnglish": 49,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Kim Tae-hee",
@@ -2860,6 +2896,8 @@
    "name": "Sangmyung University",
    "slug": "sangmyung-university",
    "people": 49,
+   "namesInEnglish": 44,
+   "namesNotInEnglish": 5,
    "top": [
     {
      "name": "Park Bo-gum",
@@ -3018,6 +3056,8 @@
    "name": "Ewha Womans University",
    "slug": "ewha-womans-university",
    "people": 48,
+   "namesInEnglish": 36,
+   "namesNotInEnglish": 12,
    "top": [
     {
      "name": "Claudia Kim",
@@ -3140,33 +3180,33 @@
      "languages": 2
     },
     {
-     "name": "김복희",
-     "year": 1928,
+     "name": "Hwang So-hee",
+     "year": 1986,
      "languages": 1
     },
     {
-     "name": "박홍주",
-     "year": 1983,
+     "name": "Kim San-ha",
+     "year": 2001,
      "languages": 1
     },
     {
-     "name": "서주애",
+     "name": "Kim Yuhyun",
+     "year": 1987,
+     "languages": 1
+    },
+    {
+     "name": "Koh Na-young",
+     "year": 1992,
+     "languages": 1
+    },
+    {
+     "name": "Lee Eun-jeong",
      "year": 1985,
      "languages": 1
     },
     {
-     "name": "오예리",
-     "year": 1985,
-     "languages": 1
-    },
-    {
-     "name": "이미배",
-     "year": 1951,
-     "languages": 1
-    },
-    {
-     "name": "이순정",
-     "year": 1980,
+     "name": "Lim Ji-hyun",
+     "year": 1989,
      "languages": 1
     }
    ]
@@ -3176,6 +3216,8 @@
    "name": "Kyonggi University",
    "slug": "kyonggi-university",
    "people": 46,
+   "namesInEnglish": 43,
+   "namesNotInEnglish": 3,
    "top": [
     {
      "name": "Ju Ji-hoon",
@@ -3334,6 +3376,8 @@
    "name": "Anyang Arts High School",
    "slug": "anyang-arts-high-school",
    "people": 42,
+   "namesInEnglish": 39,
+   "namesNotInEnglish": 3,
    "top": [
     {
      "name": "Oh Yeon-seo",
@@ -3466,23 +3510,23 @@
      "languages": 2
     },
     {
-     "name": "김소연",
-     "year": 1978,
-     "languages": 1
-    },
-    {
-     "name": "전은미",
-     "year": 1984,
-     "languages": 1
-    },
-    {
-     "name": "정해은",
-     "year": 1994,
-     "languages": 1
-    },
-    {
      "name": "Cheon Yeong-min",
      "year": 1997,
+     "languages": 1
+    },
+    {
+     "name": "Hwang Se Ok",
+     "year": 1974,
+     "languages": 1
+    },
+    {
+     "name": "I Kon-dzu",
+     "year": 1981,
+     "languages": 1
+    },
+    {
+     "name": "Im Yeong-gyu",
+     "year": 1956,
      "languages": 1
     }
    ]
@@ -3492,6 +3536,8 @@
    "name": "Sungshin Women's University",
    "slug": "sungshin-womens-university",
    "people": 40,
+   "namesInEnglish": 34,
+   "namesNotInEnglish": 6,
    "top": [
     {
      "name": "Goo Hara",
@@ -3614,33 +3660,33 @@
      "languages": 2
     },
     {
-     "name": "김뮤즈",
-     "year": 1999,
+     "name": "Choi So Eun",
+     "year": 2001,
      "languages": 1
     },
     {
-     "name": "김수현",
-     "year": 1971,
+     "name": "Han Yoon-ji",
+     "year": 1996,
      "languages": 1
     },
     {
-     "name": "리다시티",
-     "year": 1994,
+     "name": "Kang Asol",
+     "year": 1987,
      "languages": 1
     },
     {
-     "name": "서자영",
-     "year": 1997,
+     "name": "Kim Chae-eun",
+     "year": 1995,
      "languages": 1
     },
     {
-     "name": "오제",
-     "year": 1989,
+     "name": "Lee Seul-Ah",
+     "year": 1990,
      "languages": 1
     },
     {
-     "name": "이지수",
-     "year": 1993,
+     "name": "Lee Seung-sin",
+     "year": 1969,
      "languages": 1
     }
    ]
@@ -3650,6 +3696,8 @@
    "name": "Hongik University",
    "slug": "hongik-university",
    "people": 35,
+   "namesInEnglish": 28,
+   "namesNotInEnglish": 7,
    "top": [
     {
      "name": "Choi Won-young",
@@ -3737,11 +3785,6 @@
      "languages": 4
     },
     {
-     "name": "김현철",
-     "year": 1969,
-     "languages": 3
-    },
-    {
      "name": "Cheon Jeongha",
      "year": 1969,
      "languages": 2
@@ -3757,36 +3800,6 @@
      "languages": 2
     },
     {
-     "name": "고한우",
-     "year": 1971,
-     "languages": 1
-    },
-    {
-     "name": "구창모",
-     "year": 1954,
-     "languages": 1
-    },
-    {
-     "name": "박상희",
-     "year": 1973,
-     "languages": 1
-    },
-    {
-     "name": "이광조 (가수)",
-     "year": 1952,
-     "languages": 1
-    },
-    {
-     "name": "임형순",
-     "year": 1965,
-     "languages": 1
-    },
-    {
-     "name": "장계현",
-     "year": 1950,
-     "languages": 1
-    },
-    {
      "name": "Bong Hye-seon",
      "year": 1948,
      "languages": 1
@@ -3800,6 +3813,31 @@
      "name": "Eom Yong-soo",
      "year": 1953,
      "languages": 1
+    },
+    {
+     "name": "HUE",
+     "year": 1972,
+     "languages": 1
+    },
+    {
+     "name": "Jeong-hoon Ahn",
+     "year": 1971,
+     "languages": 1
+    },
+    {
+     "name": "Park Jin-seop",
+     "year": 1952,
+     "languages": 1
+    },
+    {
+     "name": "Seong Chang-su",
+     "year": 1960,
+     "languages": 1
+    },
+    {
+     "name": "Yoon Joon Sung",
+     "year": 1982,
+     "languages": 1
     }
    ]
   },
@@ -3808,6 +3846,8 @@
    "name": "Kyung Hee Cyber University",
    "slug": "kyung-hee-cyber-university",
    "people": 35,
+   "namesInEnglish": 34,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Park Chan-yeol",
@@ -3966,6 +4006,8 @@
    "name": "Baekseok Arts University",
    "slug": "baekseok-arts-university",
    "people": 34,
+   "namesInEnglish": 26,
+   "namesNotInEnglish": 8,
    "top": [
     {
      "name": "Minzy",
@@ -4033,46 +4075,6 @@
      "languages": 2
     },
     {
-     "name": "강예빈",
-     "year": 1999,
-     "languages": 1
-    },
-    {
-     "name": "김수찬",
-     "year": 1994,
-     "languages": 1
-    },
-    {
-     "name": "늘해랑",
-     "year": 1989,
-     "languages": 1
-    },
-    {
-     "name": "아라지오",
-     "year": 1990,
-     "languages": 1
-    },
-    {
-     "name": "유원 (가수)",
-     "year": 1985,
-     "languages": 1
-    },
-    {
-     "name": "정수연",
-     "year": 1985,
-     "languages": 1
-    },
-    {
-     "name": "한아름",
-     "year": 1988,
-     "languages": 1
-    },
-    {
-     "name": "한채원",
-     "year": 1980,
-     "languages": 1
-    },
-    {
      "name": "Choo Min Gi",
      "year": 1984,
      "languages": 1
@@ -4116,6 +4118,26 @@
      "name": "Luke Dash",
      "year": 2002,
      "languages": 1
+    },
+    {
+     "name": "Yoon Taehwa",
+     "year": 1990,
+     "languages": 1
+    },
+    {
+     "name": "Yoon Woo-hyun",
+     "year": 1981,
+     "languages": 1
+    },
+    {
+     "name": "JoA",
+     "year": 1991,
+     "languages": null
+    },
+    {
+     "name": "Kang Ji Wook",
+     "year": 1990,
+     "languages": null
     }
    ]
   },
@@ -4124,6 +4146,8 @@
    "name": "Kookmin University",
    "slug": "kookmin-university",
    "people": 34,
+   "namesInEnglish": 30,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Lee Hyori",
@@ -4261,19 +4285,19 @@
      "languages": 2
     },
     {
-     "name": "김용민 (배우)",
-     "year": 1977,
+     "name": "Hwang Eun-soo",
+     "year": 1981,
      "languages": 1
     },
     {
-     "name": "김하나",
-     "year": 1980,
+     "name": "Ju Min-ha",
+     "year": 1986,
      "languages": 1
     },
     {
-     "name": "전진영",
-     "year": 1964,
-     "languages": 1
+     "name": "Namu",
+     "year": 1986,
+     "languages": null
     }
    ]
   },
@@ -4282,6 +4306,8 @@
    "name": "Cheongju University",
    "slug": "cheongju-university",
    "people": 31,
+   "namesInEnglish": 24,
+   "namesNotInEnglish": 7,
    "top": [
     {
      "name": "Song Il-kook",
@@ -4354,41 +4380,6 @@
      "languages": 2
     },
     {
-     "name": "김도형",
-     "year": 1970,
-     "languages": 1
-    },
-    {
-     "name": "라재웅",
-     "year": 1966,
-     "languages": 1
-    },
-    {
-     "name": "염준영",
-     "year": 1976,
-     "languages": 1
-    },
-    {
-     "name": "이도경 (1982년)",
-     "year": 1982,
-     "languages": 1
-    },
-    {
-     "name": "조현숙",
-     "year": 1971,
-     "languages": 1
-    },
-    {
-     "name": "주우 (배우)",
-     "year": 1972,
-     "languages": 1
-    },
-    {
-     "name": "황미선",
-     "year": 1967,
-     "languages": 1
-    },
-    {
      "name": "I Kju-bok",
      "year": 1981,
      "languages": 1
@@ -4432,6 +4423,11 @@
      "name": "Park Yoon Kyung",
      "year": 1970,
      "languages": 1
+    },
+    {
+     "name": "Han Sang Hyo",
+     "year": 1999,
+     "languages": null
     }
    ]
   },
@@ -4440,6 +4436,8 @@
    "name": "Inha University",
    "slug": "inha-university",
    "people": 31,
+   "namesInEnglish": 27,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Park Chan-yeol",
@@ -4552,26 +4550,6 @@
      "languages": 2
     },
     {
-     "name": "김상민",
-     "year": 1973,
-     "languages": 1
-    },
-    {
-     "name": "김원주",
-     "year": 1987,
-     "languages": 1
-    },
-    {
-     "name": "김현성 (가수)",
-     "year": 1978,
-     "languages": 1
-    },
-    {
-     "name": "최영준",
-     "year": 1954,
-     "languages": 1
-    },
-    {
      "name": "Choi Hang-suk",
      "year": 1961,
      "languages": 1
@@ -4590,6 +4568,11 @@
      "name": "Park Yeong-mi",
      "year": 1970,
      "languages": 1
+    },
+    {
+     "name": "Yoo Jae-hwan",
+     "year": 1989,
+     "languages": 1
     }
    ]
   },
@@ -4598,6 +4581,8 @@
    "name": "Howon University",
    "slug": "howon-university",
    "people": 29,
+   "namesInEnglish": 26,
+   "namesNotInEnglish": 3,
    "top": [
     {
      "name": "Baek A-yeon",
@@ -4700,21 +4685,6 @@
      "languages": 2
     },
     {
-     "name": "금단비",
-     "year": 1989,
-     "languages": 1
-    },
-    {
-     "name": "김다니엘",
-     "year": 1997,
-     "languages": 1
-    },
-    {
-     "name": "우이경",
-     "year": 1987,
-     "languages": 1
-    },
-    {
      "name": "COPYCHOO",
      "year": 1978,
      "languages": 1
@@ -4751,6 +4721,8 @@
    "name": "Hankuk University of Foreign Studies",
    "slug": "hankuk-university-of-foreign-studies",
    "people": 27,
+   "namesInEnglish": 25,
+   "namesNotInEnglish": 2,
    "top": [
     {
      "name": "Younha",
@@ -4838,16 +4810,6 @@
      "languages": 2
     },
     {
-     "name": "설수현",
-     "year": 1976,
-     "languages": 1
-    },
-    {
-     "name": "이은지",
-     "year": 1986,
-     "languages": 1
-    },
-    {
      "name": "Baek Young-kyu",
      "year": 1952,
      "languages": 1
@@ -4894,6 +4856,8 @@
    "name": "Korea National Open University",
    "slug": "korea-national-open-university",
    "people": 27,
+   "namesInEnglish": 22,
+   "namesNotInEnglish": 5,
    "top": [
     {
      "name": "Choi Soo-jong",
@@ -4961,31 +4925,6 @@
      "languages": 2
     },
     {
-     "name": "박칠용",
-     "year": 1950,
-     "languages": 1
-    },
-    {
-     "name": "정호선 (1974년)",
-     "year": 1974,
-     "languages": 1
-    },
-    {
-     "name": "차진영",
-     "year": 1971,
-     "languages": 1
-    },
-    {
-     "name": "최석준",
-     "year": 1961,
-     "languages": 1
-    },
-    {
-     "name": "홍수철",
-     "year": 1957,
-     "languages": 1
-    },
-    {
      "name": "Choe Jeong",
      "year": 1987,
      "languages": 1
@@ -5037,6 +4976,8 @@
    "name": "Myongji College",
    "slug": "myongji-college",
    "people": 26,
+   "namesInEnglish": 16,
+   "namesNotInEnglish": 10,
    "top": [
     {
      "name": "Lina",
@@ -5079,16 +5020,6 @@
      "languages": 3
     },
     {
-     "name": "고윤후",
-     "year": 1981,
-     "languages": 2
-    },
-    {
-     "name": "이주아",
-     "year": 1997,
-     "languages": 2
-    },
-    {
      "name": "Baek Bo-ram",
      "year": 1980,
      "languages": 2
@@ -5102,46 +5033,6 @@
      "name": "Lee Suk",
      "year": 1981,
      "languages": 2
-    },
-    {
-     "name": "빨간머리앤",
-     "year": 1983,
-     "languages": 1
-    },
-    {
-     "name": "소유찬",
-     "year": 1990,
-     "languages": 1
-    },
-    {
-     "name": "송민지 (1983년)",
-     "year": 1986,
-     "languages": 1
-    },
-    {
-     "name": "이은",
-     "year": 1982,
-     "languages": 1
-    },
-    {
-     "name": "이주호 (가수)",
-     "year": 1956,
-     "languages": 1
-    },
-    {
-     "name": "장소라",
-     "year": 1980,
-     "languages": 1
-    },
-    {
-     "name": "정동화",
-     "year": 1984,
-     "languages": 1
-    },
-    {
-     "name": "정해은",
-     "year": 1994,
-     "languages": 1
     },
     {
      "name": "Hoony Hoon",
@@ -5175,6 +5066,8 @@
    "name": "University of Suwon",
    "slug": "university-of-suwon",
    "people": 26,
+   "namesInEnglish": 21,
+   "namesNotInEnglish": 5,
    "top": [
     {
      "name": "Ryu Jun-yeol",
@@ -5247,31 +5140,6 @@
      "languages": 2
     },
     {
-     "name": "성인규",
-     "year": 1988,
-     "languages": 1
-    },
-    {
-     "name": "연초아",
-     "year": 1993,
-     "languages": 1
-    },
-    {
-     "name": "이윤애",
-     "year": 1982,
-     "languages": 1
-    },
-    {
-     "name": "이초아",
-     "year": 1984,
-     "languages": 1
-    },
-    {
-     "name": "편보승",
-     "year": 1981,
-     "languages": 1
-    },
-    {
      "name": "Cha Yup",
      "year": 1986,
      "languages": 1
@@ -5313,6 +5181,8 @@
    "name": "Yong In University",
    "slug": "yong-in-university",
    "people": 25,
+   "namesInEnglish": 21,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Gary",
@@ -5400,26 +5270,6 @@
      "languages": 2
     },
     {
-     "name": "김유라",
-     "year": 1991,
-     "languages": 1
-    },
-    {
-     "name": "도승지",
-     "year": 1977,
-     "languages": 1
-    },
-    {
-     "name": "문보라",
-     "year": 1990,
-     "languages": 1
-    },
-    {
-     "name": "윤익희",
-     "year": 1971,
-     "languages": 1
-    },
-    {
      "name": "Jeong Su-gyo",
      "year": 1987,
      "languages": 1
@@ -5446,6 +5296,8 @@
    "name": "Daejin University",
    "slug": "daejin-university",
    "people": 24,
+   "namesInEnglish": 20,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Taeyang",
@@ -5523,26 +5375,6 @@
      "languages": 2
     },
     {
-     "name": "강민규 (배우)",
-     "year": 1988,
-     "languages": 1
-    },
-    {
-     "name": "김다래",
-     "year": 1979,
-     "languages": 1
-    },
-    {
-     "name": "박혜영",
-     "year": 1983,
-     "languages": 1
-    },
-    {
-     "name": "허지은",
-     "year": 1986,
-     "languages": 1
-    },
-    {
      "name": "An Se-ho",
      "year": 1981,
      "languages": 1
@@ -5574,6 +5406,8 @@
    "name": "Global Cyber University",
    "slug": "global-cyber-university",
    "people": 24,
+   "namesInEnglish": 24,
+   "namesNotInEnglish": 0,
    "top": [
     {
      "name": "Jungkook",
@@ -5702,6 +5536,8 @@
    "name": "Sookmyung Women's University",
    "slug": "sookmyung-womens-university",
    "people": 24,
+   "namesInEnglish": 17,
+   "namesNotInEnglish": 7,
    "top": [
     {
      "name": "Moon Hee-kyung",
@@ -5747,41 +5583,6 @@
      "name": "Uhm Soo-jung",
      "year": 1973,
      "languages": 2
-    },
-    {
-     "name": "김하은",
-     "year": 1994,
-     "languages": 1
-    },
-    {
-     "name": "백현숙",
-     "year": 1967,
-     "languages": 1
-    },
-    {
-     "name": "임혜영",
-     "year": 1982,
-     "languages": 1
-    },
-    {
-     "name": "장미화",
-     "year": 1946,
-     "languages": 1
-    },
-    {
-     "name": "조하나",
-     "year": 1972,
-     "languages": 1
-    },
-    {
-     "name": "한서진",
-     "year": 1989,
-     "languages": 1
-    },
-    {
-     "name": "황인정",
-     "year": 1969,
-     "languages": 1
     },
     {
      "name": "Jeon Hui-ju",
@@ -5830,6 +5631,8 @@
    "name": "Chugye University for the Arts",
    "slug": "chugye-university-for-the-arts",
    "people": 23,
+   "namesInEnglish": 12,
+   "namesNotInEnglish": 11,
    "top": [
     {
      "name": "Moon Chae-won",
@@ -5850,61 +5653,6 @@
      "name": "Jeon Gwang-ryeol",
      "year": 1959,
      "languages": 9
-    },
-    {
-     "name": "김나래",
-     "year": 1990,
-     "languages": 1
-    },
-    {
-     "name": "라보",
-     "year": 1989,
-     "languages": 1
-    },
-    {
-     "name": "박지혜 (해금 연주자)",
-     "year": 1982,
-     "languages": 1
-    },
-    {
-     "name": "보배 (가수)",
-     "year": 1985,
-     "languages": 1
-    },
-    {
-     "name": "수성 (가수)",
-     "year": 1988,
-     "languages": 1
-    },
-    {
-     "name": "우순실",
-     "year": 1963,
-     "languages": 1
-    },
-    {
-     "name": "장은아",
-     "year": 1983,
-     "languages": 1
-    },
-    {
-     "name": "정동화",
-     "year": 1984,
-     "languages": 1
-    },
-    {
-     "name": "조윤영",
-     "year": 1987,
-     "languages": 1
-    },
-    {
-     "name": "주병선",
-     "year": 1964,
-     "languages": 1
-    },
-    {
-     "name": "허민지",
-     "year": 1987,
-     "languages": 1
     },
     {
      "name": "Duk Kyu Ha",
@@ -5953,6 +5701,8 @@
    "name": "Seorabeol Art College",
    "slug": "seorabeol-art-college",
    "people": 23,
+   "namesInEnglish": 22,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Lee Jung-gil",
@@ -5983,11 +5733,6 @@
      "name": "Gi Ju-bong",
      "year": 1955,
      "languages": 7
-    },
-    {
-     "name": "조동진",
-     "year": 1947,
-     "languages": 2
     },
     {
      "name": "Jeong Uk",
@@ -6076,6 +5821,8 @@
    "name": "Hanyang Women's University",
    "slug": "hanyang-womens-university",
    "people": 22,
+   "namesInEnglish": 13,
+   "namesNotInEnglish": 9,
    "top": [
     {
      "name": "Kim Se-jeong",
@@ -6128,51 +5875,6 @@
      "languages": 2
     },
     {
-     "name": "강애리자",
-     "year": 1962,
-     "languages": 1
-    },
-    {
-     "name": "김미화",
-     "year": 1958,
-     "languages": 1
-    },
-    {
-     "name": "송지영",
-     "year": 1973,
-     "languages": 1
-    },
-    {
-     "name": "유민",
-     "year": 2003,
-     "languages": 1
-    },
-    {
-     "name": "이성은",
-     "year": 1994,
-     "languages": 1
-    },
-    {
-     "name": "채수연",
-     "year": 1989,
-     "languages": 1
-    },
-    {
-     "name": "최나영",
-     "year": 1994,
-     "languages": 1
-    },
-    {
-     "name": "하 황 하이옌",
-     "year": 1986,
-     "languages": 1
-    },
-    {
-     "name": "한서경",
-     "year": 1969,
-     "languages": 1
-    },
-    {
      "name": "Cheon Danbi",
      "year": 1986,
      "languages": 1
@@ -6194,6 +5896,8 @@
    "name": "Kaywon High School of Arts",
    "slug": "kaywon-high-school-of-arts",
    "people": 22,
+   "namesInEnglish": 18,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Kim Go-eun",
@@ -6251,26 +5955,6 @@
      "languages": 2
     },
     {
-     "name": "도원경",
-     "year": 1971,
-     "languages": 1
-    },
-    {
-     "name": "손지연",
-     "year": 1973,
-     "languages": 1
-    },
-    {
-     "name": "윤익희",
-     "year": 1971,
-     "languages": 1
-    },
-    {
-     "name": "이상원 (가수)",
-     "year": 1965,
-     "languages": 1
-    },
-    {
      "name": "Jeon Soo-hwan",
      "year": 1966,
      "languages": 1
@@ -6312,6 +5996,8 @@
    "name": "Sogang University",
    "slug": "sogang-university",
    "people": 22,
+   "namesInEnglish": 18,
+   "namesNotInEnglish": 4,
    "top": [
     {
      "name": "Park Eun-bin",
@@ -6369,29 +6055,9 @@
      "languages": 7
     },
     {
-     "name": "차승민",
-     "year": 1979,
-     "languages": 2
-    },
-    {
      "name": "Kim Jeong-ha",
      "year": 1954,
      "languages": 2
-    },
-    {
-     "name": "고주희",
-     "year": 1976,
-     "languages": 1
-    },
-    {
-     "name": "지윤",
-     "year": 1984,
-     "languages": 1
-    },
-    {
-     "name": "최고은 (가수)",
-     "year": 1983,
-     "languages": 1
     },
     {
      "name": "Baek Jong-hak",
@@ -6430,6 +6096,8 @@
    "name": "Korea Art High School",
    "slug": "korea-art-high-school",
    "people": 20,
+   "namesInEnglish": 20,
+   "namesNotInEnglish": 0,
    "top": [
     {
      "name": "Yoon Bo-mi",
@@ -6538,6 +6206,8 @@
    "name": "Kyungsung University",
    "slug": "kyungsung-university",
    "people": 20,
+   "namesInEnglish": 19,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Cho Jin-woong",
@@ -6600,11 +6270,6 @@
      "languages": 2
     },
     {
-     "name": "김태호",
-     "year": 1979,
-     "languages": 1
-    },
-    {
      "name": "Ahn Sojin",
      "year": 1986,
      "languages": 1
@@ -6646,6 +6311,8 @@
    "name": "Daekyeung University",
    "slug": "daekyeung-university",
    "people": 19,
+   "namesInEnglish": 18,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Kim Myung-soo",
@@ -6723,11 +6390,6 @@
      "languages": 2
     },
     {
-     "name": "강소영",
-     "year": 1986,
-     "languages": 1
-    },
-    {
      "name": "I So-mi",
      "year": 1984,
      "languages": 1
@@ -6749,6 +6411,8 @@
    "name": "Cheongdam High School",
    "slug": "cheongdam-high-school",
    "people": 18,
+   "namesInEnglish": 18,
+   "namesNotInEnglish": 0,
    "top": [
     {
      "name": "Jennie",
@@ -6847,6 +6511,8 @@
    "name": "Lila Art High School",
    "slug": "lila-art-high-school",
    "people": 18,
+   "namesInEnglish": 16,
+   "namesNotInEnglish": 2,
    "top": [
     {
      "name": "Park Ji-yeon",
@@ -6924,16 +6590,6 @@
      "languages": 2
     },
     {
-     "name": "세아",
-     "year": 1999,
-     "languages": 1
-    },
-    {
-     "name": "은진",
-     "year": 1998,
-     "languages": 1
-    },
-    {
      "name": "Song Soo-woo",
      "year": 2003,
      "languages": 1
@@ -6945,6 +6601,8 @@
    "name": "Apgujeong High School",
    "slug": "apgujeong-high-school",
    "people": 17,
+   "namesInEnglish": 16,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Suga",
@@ -7017,11 +6675,6 @@
      "languages": 3
     },
     {
-     "name": "정동화",
-     "year": 1984,
-     "languages": 1
-    },
-    {
      "name": "Jeon Seung Woo",
      "year": 1974,
      "languages": 1
@@ -7038,6 +6691,8 @@
    "name": "Berklee College of Music",
    "slug": "berklee-college-of-music",
    "people": 16,
+   "namesInEnglish": 15,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Psy",
@@ -7105,11 +6760,6 @@
      "languages": 3
     },
     {
-     "name": "최재희",
-     "year": 1978,
-     "languages": 1
-    },
-    {
      "name": "Choi Sung-soo",
      "year": 1960,
      "languages": 1
@@ -7126,6 +6776,8 @@
    "name": "Sunhwa Arts High School",
    "slug": "sunhwa-arts-high-school",
    "people": 16,
+   "namesInEnglish": 15,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Sumi Jo",
@@ -7193,11 +6845,6 @@
      "languages": 3
     },
     {
-     "name": "박종호 (가수)",
-     "year": 1962,
-     "languages": 1
-    },
-    {
      "name": "Im Sun Woo",
      "year": 1999,
      "languages": 1
@@ -7214,6 +6861,8 @@
    "name": "Whimoon High School",
    "slug": "whimoon-high-school",
    "people": 16,
+   "namesInEnglish": 15,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Suho",
@@ -7276,11 +6925,6 @@
      "languages": 2
     },
     {
-     "name": "백순진",
-     "year": 1949,
-     "languages": 1
-    },
-    {
      "name": "Kim Tchä-han",
      "year": 1981,
      "languages": 1
@@ -7302,6 +6946,8 @@
    "name": "Chungwoon University",
    "slug": "chungwoon-university",
    "people": 15,
+   "namesInEnglish": 14,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Kim Jong-hyun",
@@ -7364,11 +7010,6 @@
      "languages": 4
     },
     {
-     "name": "민성",
-     "year": 1979,
-     "languages": 1
-    },
-    {
      "name": "Ahn Su-bin",
      "year": 1988,
      "languages": 1
@@ -7385,6 +7026,8 @@
    "name": "Kyunggi High School",
    "slug": "kyunggi-high-school",
    "people": 15,
+   "namesInEnglish": 13,
+   "namesNotInEnglish": 2,
    "top": [
     {
      "name": "Ro Woon",
@@ -7442,16 +7085,6 @@
      "languages": 2
     },
     {
-     "name": "강현민",
-     "year": 1969,
-     "languages": 1
-    },
-    {
-     "name": "윤형주",
-     "year": 1947,
-     "languages": 1
-    },
-    {
      "name": "Kang Won-rae",
      "year": 1969,
      "languages": 1
@@ -7468,6 +7101,8 @@
    "name": "Seokyeong University",
    "slug": "seokyeong-university",
    "people": 15,
+   "namesInEnglish": 14,
+   "namesNotInEnglish": 1,
    "top": [
     {
      "name": "Lee Soo-hyuk",
@@ -7523,11 +7158,6 @@
      "name": "Nam Kjong-min",
      "year": 1987,
      "languages": 2
-    },
-    {
-     "name": "윤아름",
-     "year": 1991,
-     "languages": 1
     },
     {
      "name": "Kim Gwang-min",

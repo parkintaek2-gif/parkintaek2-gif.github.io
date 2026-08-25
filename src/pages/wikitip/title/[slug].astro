@@ -19,6 +19,7 @@ import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-title-pages.json';
 import { 고유문장 } from '../../../../scripts/lib/kcw-title-facts.mjs';
 import markets from '../../../data/wikitip-markets.json';
+import people from '../../../data/wikitip-people.json';
 /* ⭐ 열 장에만 붙는 자료. 2번 지시(01:2x) — 530장을 다 고치기 전에 열 장으로 먼저 잰다 */
 import deepened from '../../../data/wikitip-deepened.json';
 
@@ -46,6 +47,24 @@ export function getStaticPaths() {
 }
 
 const { t } = Astro.props;
+
+/*
+ * 🔴 2026-08-25, 사장님 지시 —
+ *   「우리가 만든 콘텐트를 보러 온 사람이, 우리가 만든 **다른 콘텐트를 계속 볼 수 있도록** 해야지」
+ * 출연진 이름이 여기 **글자로만** 놓여 있었다. 이제 그 사람 지면이 있으므로 잇는다.
+ * ⛔ 지면이 «있는» 사람만 링크한다 — 없는 사람까지 걸면 죽은 링크가 된다.
+ * ⚠ 위키 문서명과 보이는 이름을 둘 다 열쇠로 둔다(`Ha Young (actress)` 와 `Ha Young`).
+ */
+const 사람주소 = new Map();
+for (const pp of (people.people ?? [])) {
+  사람주소.set(String(pp.wikiPage), pp.slug);
+  사람주소.set(String(pp.name), pp.slug);
+}
+const 출연진 = (t.cast ?? []).map((c) => ({
+  name: c.name,
+  slug: 사람주소.get(c.page) ?? 사람주소.get(c.name) ?? null,
+}));
+const 지면있는배우 = 출연진.filter((c) => c.slug).length;
 
 /* 이 작품에만 있는 사실. ⛔ 온 자료(976편)를 넘겨야 「가장·몇 %」를 말할 수 있다 —
    안 넘기면 그 문장을 아예 안 만든다. 짐작으로 등수를 매기지 않는다 */
@@ -554,7 +573,18 @@ const jsonLd = {
         are incomplete and skew toward better-known names, so this is not a full cast list and a short
         one does not mean a small production.
       </p>
-      <p class="names">{t.cast.map((c) => c.name).join(' · ')}</p>
+      <p class="names">{출연진.map((c, i) => (
+        <>{i > 0 && ' · '}{c.slug
+          ? <a href={`/person/${c.slug}`}>{c.name}</a>
+          : <span>{c.name}</span>}</>
+      ))}</p>
+      {지면있는배우 > 0 && (
+        <p class="note">
+          {지면있는배우} of these {출연진.length} names have a page of their own here, showing every
+          other charting title they appear in and how far each one travelled. The rest do not, because
+          we hold fewer than two charting titles for them.
+        </p>
+      )}
     </section>
   )}
 

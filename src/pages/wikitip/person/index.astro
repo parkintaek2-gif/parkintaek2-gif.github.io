@@ -1,0 +1,113 @@
+---
+/*
+ * person/index.astro — **사람 지면 636장의 입구.**
+ *
+ * ⛔ 「인기 배우 순위」가 아니다. 여기 순서는 «그 사람의 작품이 차지한 톱10 자리 수»다.
+ *   자리 수가 많은 것은 작품이 오래·널리 갔다는 뜻이지 그 사람이 더 낫다는 뜻이 아니다.
+ *   그 문장을 화면에 적는다 — 안 적으면 표가 순위표로 읽힌다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-people.json';
+
+const 사람들 = data.people ?? [];
+const 수 = (n: number) => Number(n ?? 0).toLocaleString('en-US');
+const 생일있는 = 사람들.filter((p: any) => p.born).length;
+
+/* 첫 글자로 묶는다 — 636장을 한 덩어리로 늘어놓으면 아무도 못 찾는다 */
+const 묶음 = new Map<string, any[]>();
+for (const p of 사람들) {
+  const k = (p.name[0] ?? '?').toUpperCase();
+  if (!묶음.has(k)) 묶음.set(k, []);
+  묶음.get(k)!.push(p);
+}
+const 글자들 = [...묶음.keys()].sort();
+for (const k of 글자들) 묶음.get(k)!.sort((a: any, b: any) => a.name.localeCompare(b.name));
+
+const TITLE = `Korean actors on Netflix: ${사람들.length} names, every title they charted with`;
+const DESC = `${사람들.length} Korean actors, each with the Netflix top-10 titles they appear in and `
+  + `the countries those titles reached. Counted, not ranked.`;
+---
+
+<WikiTip title={TITLE} description={DESC}
+  canonical="https://www.kculturewire.com/person">
+  <h1>Korean actors on the Netflix charts</h1>
+
+  <p class="lead">
+    <b>{사람들.length}</b> people, each with their own page. To be here, someone has to appear in at
+    least <b>{data.minTitles}</b> Korean titles that reached a Netflix weekly top 10 and that we hold
+    enough weekly data to publish. We have a birth date for <b>{생일있는}</b> of them and say so
+    plainly for the rest.
+  </p>
+
+  <p class="warn">
+    <b>This is not a ranking of actors.</b> The number beside each name is how many top-10
+    country-week places that person&rsquo;s titles took. A long-running show puts everyone in its
+    cast high on this list. That is a fact about the show, not about the person.
+  </p>
+
+  <section>
+    <h2>Who charted the widest</h2>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr><th>Name</th><th class="n">Titles</th><th class="n">Places</th><th class="n">Countries</th><th>Born</th></tr>
+        </thead>
+        <tbody>
+          {사람들.slice(0, 30).map((p: any) => (
+            <tr>
+              <td><a href={`/person/${p.slug}`}>{p.name}</a></td>
+              <td class="n">{p.titleCount}</td>
+              <td class="n">{수(p.places)}</td>
+              <td class="n">{p.countries}</td>
+              <td>{p.born ?? <span class="fine">not recorded</span>}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Everyone, A to Z</h2>
+    <p class="fine">{글자들.join(' · ')}</p>
+    {글자들.map((k) => (
+      <div class="az">
+        <h3 id={`l-${k}`}>{k}</h3>
+        <ul class="names">
+          {묶음.get(k)!.map((p: any) => (
+            <li><a href={`/person/${p.slug}`}>{p.name}</a> <span class="fine">{p.titleCount}</span></li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <section class="onward">
+    <h3>Where to go next</h3>
+    <ul class="walk">
+      <li><a href="/titles">Korean drama list &mdash; every title that reached a Netflix top 10</a></li>
+      <li><a href="/group">Kpop idols by group &mdash; age and birthday</a></li>
+      <li><a href="/born-on">Korean actors&rsquo; birthdays, day by day</a></li>
+      <li><a href="/school">Where Korean actors and singers studied</a></li>
+      <li><a href="/video">Our short films</a></li>
+    </ul>
+  </section>
+
+  <p class="fine tail">
+    Source: Netflix&rsquo;s published weekly country top 10s joined to Wikidata cast lists (P161),
+    filtered to Korean citizenship (P27). Foreign actors in co-productions drop out of that filter,
+    and so do Korean actors whose citizenship Wikidata does not record. The hole runs both ways and
+    we cannot size it.
+  </p>
+</WikiTip>
+
+<style>
+  .warn { border-left: 3px solid #b45; padding-left: .8rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .93rem; }
+  th, td { padding: .35rem .55rem; border-bottom: 1px solid #3332; text-align: left; }
+  th.n, td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .az h3 { margin: 1.2rem 0 .3rem; }
+  .names { display: grid; gap: .15rem .9rem; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); list-style: none; padding: 0; }
+  .tail { margin-top: 2rem; }
+</style>

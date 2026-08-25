@@ -81,6 +81,24 @@ export function 이름세우기(사람들) {
     || String(a.name).localeCompare(String(b.name)));
 }
 
+/**
+ * 이 이름을 **영문 지면에 쓸 수 있나.**
+ *
+ * 🔴 2026-08-25 — `check-english-only.mjs` 가 학교 지면 **32장**에서 한글 이름을 찾아냈다.
+ *   `강민규 (배우) 1988` 같은 줄이 영어 손님 화면에 그대로 나가고 있었다.
+ *   ⛔ 학교 «이름»에는 이 검사를 걸어 두고 사람 «이름»에는 안 걸어 둔 것이 까닭이다.
+ *      한쪽만 거는 검사는 검사가 아니다.
+ * ⛔ 그렇다고 그 사람을 **명단에서 빼지 않는다** — 학교 인원 수는 그대로다.
+ *   이름을 «못 쓰는» 것이지 그 사람이 «없는» 것이 아니다. 그 수를 따로 적는다.
+ */
+export function 영문으로쓸수있나(이름) {
+  const t = String(이름 ?? '').trim();
+  if (!t) return false;
+  if (/^Q\d+$/.test(t)) return false;
+  if (/[가-힣]/.test(t)) return false;
+  return /[A-Za-z]/.test(t);
+}
+
 /** 태어난 해만 — 지면에 날짜를 통째로 적을 자리가 아니다 */
 export function 태어난해(born) {
   const m = String(born ?? '').match(/^(\d{4})/);
@@ -114,7 +132,10 @@ export function 짓는다(명부, 학교자료) {
     name: s.name,
     slug: s.slug,
     people: s.people.length,
-    top: 이름세우기(s.people).slice(0, 이름칸)
+    /* ⛔ 영문으로 못 쓰는 이름은 «화면에서» 뺀다. 사람 수(people)는 안 줄인다 */
+    namesInEnglish: s.people.filter((p) => 영문으로쓸수있나(p.name)).length,
+    namesNotInEnglish: s.people.filter((p) => !영문으로쓸수있나(p.name)).length,
+    top: 이름세우기(s.people.filter((p) => 영문으로쓸수있나(p.name))).slice(0, 이름칸)
       .map((p) => ({ name: p.name, year: p.year, languages: p.sitelinks || null })),
   })).sort((a, b) => b.people - a.people || a.name.localeCompare(b.name));
 
@@ -158,6 +179,13 @@ function 자가시험() {
   T('이름세우기 — 언어판 많은 쪽이 먼저', 세운[0].sitelinks === 9);
   T('이름세우기 — 같으면 이름 순(돌릴 때마다 안 바뀐다)', 세운[0].name === 'B' && 세운[1].name === 'C');
   T('이름세우기 — 원래 배열을 안 건드린다', 사람들[0].name === 'A');
+
+  /* 🔴 2026-08-25 에 겪은 것 — 학교 이름에만 걸린 검사가 사람 이름은 통과시켰다 */
+  T('영문으로쓸수있나 — 보통 이름은 통과', 영문으로쓸수있나('Kim Go-eun'));
+  T('영문으로쓸수있나 — 한글 이름은 영문 지면에 못 쓴다', !영문으로쓸수있나('강민규'));
+  T('영문으로쓸수있나 — 한글에 괄호가 붙어도 못 쓴다', !영문으로쓸수있나('강민규 (배우)'));
+  T('영문으로쓸수있나 — Q번호는 이름이 아니다', !영문으로쓸수있나('Q123456'));
+  T('영문으로쓸수있나 — 빈 값은 아니다', !영문으로쓸수있나('') && !영문으로쓸수있나(null));
 
   const 명부맵 = new Map([
     ['Q1', { q: 'Q1', name: 'One', year: 1990, sitelinks: 3 }],
