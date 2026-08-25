@@ -33,6 +33,20 @@ const 원자료 = path.join(뿌리, 'archive/raw/wikidata/korean-entertainers-bi
 const 잰것 = path.join(뿌리, 'src/data/wikitip-star-daypillar.json');
 const 낼방 = path.join(뿌리, 'public/wikitip/stem');
 
+/* 🔴 [2026-08-26] 사람 지면 명단을 한 번 읽어 이름에 문을 단다.
+   ⚠ 명단이 없으면 «걸지 않는다» — 예전과 똑같이 글자로 나간다. 빌드가 죽지 않게. */
+const 사람지면길 = path.join(뿌리, 'src/data/wikitip-people.json');
+let 사람이름표들 = null;
+if (fs.existsSync(사람지면길)) {
+  const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
+  const r = 사람이름표(j.people ?? []);
+  사람이름표들 = r.표;
+  console.log(`사람 지면 ${(j.people ?? []).length}장 → 이름 ${r.표.size}개에 문을 단다`
+    + (r.겹친수 ? ` (겹쳐서 «안 거는» 것 ${r.겹친수}개)` : ''));
+} else {
+  console.log('⚠ 사람 지면 명단이 없다 — 이름을 글자로만 낸다(예전과 같다)');
+}
+
 /** 일간 열 칸 — 한자와 로마자. 주소는 로마자 소문자다 */
 export const 간 = [
   ['甲', 'gap'], ['乙', 'eul'], ['丙', 'byeong'], ['丁', 'jeong'], ['戊', 'mu'],
@@ -64,12 +78,49 @@ const 벗기기 = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<
  */
 export const 라틴이름 = (이름) => /^[A-Za-z0-9À-ɏḀ-ỿ' .,\-()&+/]+$/.test(이름);
 
-export function 방짓기(한자, 사람들, 잼) {
+/**
+ * 🔴 [2026-08-26] **이 지면들도 사람 이름을 «글자로만» 싣고 있었다.**
+ *   재 보니 일진(stem) 열 장에 68명 · 방(room) 열두 장에 61명이 글자였다.
+ *   사람 지면 636장은 지금 구글에서 「발견만」이고, 이런 목록이 그리로 가는 문이다.
+ *
+ * ⛔ 규칙은 `src/lib/person-link.ts` 와 «같다». 여기 다시 적는 까닭은 이 파일이
+ *   Astro 밖에서 도는 자라 그 모듈(.ts)을 그대로 못 부르기 때문이다.
+ *   ⚠ 규칙이 두 곳에 있으면 갈라진다 — **바꿀 때 둘 다 바꾼다.** 여기 적어 둔다.
+ *
+ *   ① 지면이 있는 이름만 건다     ⛔ 없는 곳으로 걸면 손님이 404 를 본다
+ *   ② 이름이 겹치면 «안 건다»     ⭐ 틀린 문은 없는 문보다 나쁘다
+ *   ③ 이름은 name·wikiPage 둘 다로 찾는다
+ */
+export function 사람이름표(사람들 = []) {
+  const 키 = (x) => String(x ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
+  const 표 = new Map();
+  const 겹친것 = new Set();
+  for (const p2 of 사람들) {
+    if (!p2?.slug) continue;
+    for (const 이름 of [p2.name, p2.wikiPage]) {
+      const k = 키(이름);
+      if (!k) continue;
+      const 있던 = 표.get(k);
+      if (있던 && 있던 !== p2.slug) { 겹친것.add(k); continue; }
+      표.set(k, p2.slug);
+    }
+  }
+  for (const k of 겹친것) 표.delete(k);
+  return { 표, 겹친수: 겹친것.size };
+}
+
+/** 이름 한 칸 — 지면이 있으면 문, 없으면 글자. ⛔ 지어내지 않는다. */
+export function 사람칸(이름, 표) {
+  const slug = 표?.get(String(이름 ?? '').toLowerCase().replace(/\s+/g, ' ').trim());
+  return slug ? `<a href="/person/${slug}">${벗기기(이름)}</a>` : 벗기기(이름);
+}
+
+export function 방짓기(한자, 사람들, 잼, 이름표 = null) {
   const rom = 로마자.get(한자);
   const 실을것 = 사람들.filter((p) => 라틴이름(p.name));
   const 안실은수 = 사람들.length - 실을것.length;
   const 이름셋 = 실을것.slice(0, 3).map((p) => p.name).join(', ');
-  const 줄 = 실을것.map((p) => `<tr><td>${벗기기(p.name)}</td><td class="fine">${p.born}</td><td>${p.dayPillar}</td><td class="fine">${p.sitelinks}</td></tr>`).join('\n');
+  const 줄 = 실을것.map((p) => `<tr><td>${사람칸(p.name, 이름표)}</td><td class="fine">${p.born}</td><td>${p.dayPillar}</td><td class="fine">${p.sitelinks}</td></tr>`).join('\n');
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -222,7 +273,7 @@ let 합 = 0;
 for (const [한자, rom] of 간) {
   const v = 칸.get(한자);
   if (!v.length) { console.error(`⛔ ${한자} 칸이 비었다 — 짓지 않는다`); process.exit(1); }
-  fs.writeFileSync(path.join(낼방, `${rom}.html`), 방짓기(한자, v, 잼));
+  fs.writeFileSync(path.join(낼방, `${rom}.html`), 방짓기(한자, v, 잼, 사람이름표들));
   합 += v.length;
   console.log(`   ${칸주소(rom).padEnd(14)} 이름 ${String(v.length).padStart(4)}  (으뜸 ${v[0].name})`);
 }

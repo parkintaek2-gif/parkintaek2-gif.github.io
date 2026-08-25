@@ -169,17 +169,50 @@ ${칸}
  * ⛔ 읽힘을 못 잰 사람도 이름은 싣는다. 「안 읽혔다」와 「우리가 못 쟀다」는 다르다.
  * ⛔ 줄 세운 목록(`<ol>`)을 안 쓴다 — 순위표가 아니다. 표로 놓되 등수 칸을 안 둔다.
  */
-export function 방짓기(칸, 자료, 기사들 = []) {
+/**
+ * 🔴 [2026-08-26] **띠 방 열두 장도 이름을 «글자로만» 싣고 있었다** (한 장에 60명 남짓).
+ *   사람 지면 636장은 구글에서 「발견만」이고, 이런 이름 목록이 그리로 가는 문이다.
+ * ⛔ 규칙은 `src/lib/person-link.ts` 와 «같다» — 바꿀 때 세 곳을 같이 바꾼다
+ *   (person-link.ts · build-kcw-birthday-pages.mjs · build-kcw-stem-rooms.mjs · 여기).
+ *   ① 지면이 있는 이름만 건다  ② 겹친 이름은 «안 건다»  ③ name·wikiPage 둘 다로 찾는다
+ *   ⭐ 틀린 문은 없는 문보다 나쁘다.
+ */
+export function 사람이름표(사람들 = []) {
+  const 키 = (x) => String(x ?? '').toLowerCase().replace(/\s+/g, ' ').trim();
+  const 표 = new Map();
+  const 겹친것 = new Set();
+  for (const q of 사람들) {
+    if (!q?.slug) continue;
+    for (const 이름 of [q.name, q.wikiPage]) {
+      const k = 키(이름);
+      if (!k) continue;
+      const 있던 = 표.get(k);
+      if (있던 && 있던 !== q.slug) { 겹친것.add(k); continue; }
+      표.set(k, q.slug);
+    }
+  }
+  for (const k of 겹친것) 표.delete(k);
+  return { 표, 겹친수: 겹친것.size };
+}
+
+/** 이름 한 칸 — 지면이 있으면 문, 없으면 글자. ⛔ 지어내지 않는다. */
+export function 사람칸(이름, 표) {
+  const 안전 = String(이름 ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const slug = 표?.get(String(이름 ?? '').toLowerCase().replace(/\s+/g, ' ').trim());
+  return slug ? `<a href="/person/${slug}">${안전}</a>` : 안전;
+}
+
+export function 방짓기(칸, 자료, 기사들 = [], 이름표 = null) {
   const 잰것 = (칸.all ?? []).filter((p) => typeof p.perMillion === 'number');
   const 못잰것 = (칸.all ?? []).filter((p) => typeof p.perMillion !== 'number');
-  const 줄 = 잰것.map((p) => `        <tr><td class="nm">${p.name}</td><td class="fine">${p.born}</td>`
+  const 줄 = 잰것.map((p) => `        <tr><td class="nm">${사람칸(p.name, 이름표)}</td><td class="fine">${p.born}</td>`
     + `<td class="num">${p.perMillion}</td></tr>`).join('\n');
   const 못잰줄 = 못잰것.length
     ? `      <h2>Also born in this year</h2>
       <p class="note">We hold a birth date for these ${못잰것.length} but no read count, because
       they are not in the panel we measure. They are named here rather than dropped &mdash;
       not measured is not the same as not read.</p>
-      <p class="names">${못잰것.map((p) => p.name).join(' &middot; ')}</p>`
+      <p class="names">${못잰것.map((p) => 사람칸(p.name, 이름표)).join(' &middot; ')}</p>`
     : '';
 
   /* ⭐ 이 방 사람의 이름이 제목에 든 기사만. 걸린 것이 없으면 칸을 안 낸다 */
@@ -495,12 +528,26 @@ if (내가실행됐다) {
   console.log(`⛔ 첫 화면은 안 쓴다 — build-kcw-community-front.mjs 몫이다`);
 
   /* 🔴 열두 방을 다 만든다 — 하나만 열면 나머지 열하나가 죽은 단추다 */
+  /* 🔴 [2026-08-26] 사람 지면 명단을 한 번 읽어 이름에 문을 단다.
+     ⚠ 명단이 없으면 걸지 않는다 — 예전과 똑같이 글자로 나간다. 빌드가 죽지 않게. */
+  const 사람지면길 = path.join(뿌리, 'src/data/wikitip-people.json');
+  let 사람이름표들 = null;
+  if (fs.existsSync(사람지면길)) {
+    const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
+    const r = 사람이름표(j.people ?? []);
+    사람이름표들 = r.표;
+    console.log(`   사람 지면 ${(j.people ?? []).length}장 → 이름 ${r.표.size}개에 문을 단다`
+      + (r.겹친수 ? ` (겹쳐서 «안 거는» 것 ${r.겹친수}개)` : ''));
+  } else {
+    console.log('   ⚠ 사람 지면 명단이 없다 — 이름을 글자로만 낸다(예전과 같다)');
+  }
+
   const 방방 = path.join(뿌리, 'public', 'wikitip', 'room');
   fs.mkdirSync(방방, { recursive: true });
   let 이름합 = 0;
   for (const s of 자료.signs) {
     const 길 = path.join(방방, `${s.sign.toLowerCase()}.html`);
-    fs.writeFileSync(길, 방짓기(s, 자료, 기사));
+    fs.writeFileSync(길, 방짓기(s, 자료, 기사, 사람이름표들));
     이름합 += s.all.length;
     console.log(`   ${방주소(s.sign).padEnd(18)} 이름 ${String(s.all.length).padStart(3)}`
       + `  (읽힘 ${s.withReads} · 못 잰 ${s.all.length - s.withReads})`);
