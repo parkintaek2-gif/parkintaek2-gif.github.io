@@ -57,9 +57,15 @@ const videoThumb = `${SITE_URL}/cardnews/${entry.id}-1.png`;
  */
 const 전체 = await publishedArticles();
 const 다른것 = 전체.filter((a) => a.id !== entry.id);
-const 같은갈래 = 다른것.filter((a) => a.data.category === d.category);
-const 나머지 = 다른것.filter((a) => a.data.category !== d.category);
-const 읽을것 = [...같은갈래, ...나머지].slice(0, 3);
+// 「Read next」를 주제로 촘촘히 — 공유 태그가 많은 것 먼저, 다음 같은 갈래, 다음 최신(원래 순서).
+// 갈래로만 고르면 나가는 문이 주제와 헐거웠다. 링크는 발행된 기사만이라 404 안 난다(2026-08-26, 5번 「문」 지적).
+const 내태그 = new Set(d.tags || []);
+const 공유수 = (a: any) => (a.data.tags || []).filter((t: string) => 내태그.has(t)).length;
+const 읽을것 = [...다른것]
+  .map((a, i) => ({ a, i, shared: 공유수(a), sameCat: a.data.category === d.category }))
+  .sort((x, y) => (y.shared - x.shared) || (Number(y.sameCat) - Number(x.sameCat)) || (x.i - y.i))
+  .slice(0, 3)
+  .map((o) => o.a);
 
 /*
  * 이 기사가 이어지는 데이터 상품 — 주제로 고른다. (2번 46083: 기사 → 상품 직접 링크)
