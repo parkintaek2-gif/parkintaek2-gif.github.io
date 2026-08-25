@@ -1,0 +1,181 @@
+---
+/*
+ * group/[group].astro — **그룹별 지면 263장.** (`/group/bts`)
+ *
+ * ── 🔴 왜 이 지면이 생겼나 ─────────────────────────────────────
+ * 우리 검색 실측에서 **노출이 가장 큰 지면이 BTS 기사**였다(68노출). 그 갈래를 재니 —
+ * ```
+ *   bts members age        자동완성 1번째 · 그 말로 시작 10줄
+ *   bts members birthday   1번째 · 10줄
+ *   blackpink members age  1번째 · 10줄
+ * ```
+ * 손님이 묻는 낱알은 **「그룹 하나의 멤버들」**인데, 우리는 생년월일 9,249건을 갖고도
+ * 그룹-멤버를 잇는 자료가 없어 그 축으로 한 장도 못 내고 있었다.
+ *
+ * ── 🔴 이 지면이 반드시 지키는 것 ─────────────────────────────
+ * ⛔ **「현재 멤버」라고 안 쓴다.** 위키데이터 P527 은 «있었던» 사람을 담아 탈퇴자도
+ *   들어 있고 우리는 그 둘을 못 가른다. 지면에 그대로 적는다.
+ * ⛔ **나이를 혼자 안 적는다.** 나이는 움직이는 수이고 이 지면은 배포할 때만 다시 지어진다.
+ *   기준 해와 «태어난 날»을 같이 적어야 지면이 낡아도 읽는 사람이 스스로 고쳐 읽는다.
+ * ⛔ **적힌 멤버 수와 이름 쓸 수 있는 수를 갈라 적는다.** 위키데이터는 BLACKPINK 를
+ *   4명으로 적는데 한 사람에게 영문 이름이 없다. 「3명」만 적으면 그것은 틀린 수다.
+ * ⛔ **점을 안 친다.** 별자리 칸은 생일에서 나온 산수일 뿐이고, 그것이 무엇을 뜻하는지
+ *   우리는 말하지 않는다 — `/star-signs` 에서 1,047명으로 재 보고 「우연과 구별되지
+ *   않는다」고 낸 그 결과를 여기서도 그대로 붙인다.
+ * ⛔ 키를 안 적는다 — 위키데이터에 키가 적힌 한국 연예인이 3.5%뿐이다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import data from '../../../data/wikitip-groups.json';
+
+export function getStaticPaths() {
+  /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(8/24 에 그것으로
+     빌드가 멈췄다). 자료는 여기서 읽고 지면이 쓸 것은 props 로 건넨다 */
+  const 그룹들 = data.groups ?? [];
+  return 그룹들.map((g, i) => ({
+    params: { group: g.slug },
+    props: {
+      g,
+      이웃: [그룹들[(i + 1) % 그룹들.length], 그룹들[(i + 2) % 그룹들.length]]
+        .filter((x) => x && x.slug !== g.slug),
+      큰곳: 그룹들.slice(0, 6).filter((x) => x.slug !== g.slug).slice(0, 4),
+    },
+  }));
+}
+
+const { g, 이웃, 큰곳 } = Astro.props as { g: any; 이웃: any[]; 큰곳: any[] };
+const 기준해 = data.refYear;
+const 이름못쓴 = g.membersRecorded - g.membersNamed;
+const 생일모름 = g.membersNamed - g.membersWithBirthday;
+const 수 = (n: number) => Number(n).toLocaleString('en-US');
+
+const 나이글 = g.oldestBornYear && g.youngestBornYear
+  ? (g.oldestBornYear === g.youngestBornYear
+    ? `all born in ${g.oldestBornYear}`
+    : `born between ${g.oldestBornYear} and ${g.youngestBornYear}`)
+  : null;
+
+const TITLE = `${g.name} members age and birthday — ${g.membersNamed} of them, `
+  + `and the years they were born`;
+const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
+  + `${g.membersWithBirthday} of them have a birth date on record, `
+  + `${나이글 ?? 'with birth years listed'}. Ages here are as of ${기준해} — the birth dates are not.`;
+---
+
+<WikiTip title={TITLE} description={DESC}
+  canonical={`https://www.kculturewire.com/group/${g.slug}`}>
+  <h1>{g.name} members — age and birthday</h1>
+
+  {/* ⭐ 답을 맨 앞에. 그리고 «기준 해»를 답과 같은 문단에 둔다 */}
+  <p class="lead">
+    Wikidata records <b>{g.membersRecorded}</b> {g.membersRecorded === 1 ? 'member' : 'members'} of
+    {' '}<b>{g.name}</b>. <b>{g.membersWithBirthday}</b> of them have a birth date on record
+    {나이글 && <>, {나이글}</>}. The ages below are <b>as of {기준해}</b>.
+  </p>
+
+  {/*
+    🔴 이 두 칸을 뺄 수 없다. 하나는 나이가 움직이는 수라서, 하나는 멤버 수가
+      「현재 멤버」로 읽히면 틀린 수가 되기 때문이다.
+  */}
+  <p class="warn">
+    <b>Ages move; birth dates do not.</b> This page is rebuilt only when we publish, so the ages
+    are true as of {기준해}. If you are reading it later, count from the birth dates rather than
+    from us.
+  </p>
+  <p class="warn">
+    <b>These are the members Wikidata records, not the current line-up.</b> The field we read
+    holds everyone recorded as part of the group, so people who have since left are included, and
+    we cannot tell the two apart.
+    {이름못쓴 > 0 && <> <b>{이름못쓴} of the {g.membersRecorded} {이름못쓴 === 1 ? 'is' : 'are'} counted
+      but not named below</b> — their only name on Wikidata is written in Korean, and this is an
+      English-language site.</>}
+  </p>
+
+  <section>
+    <h2>The members, oldest first</h2>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Born</th><th>Age in {기준해}</th><th>Star sign</th>
+            <th>Born in</th><th>Wikipedia languages</th></tr>
+        </thead>
+        <tbody>
+          {g.members.map((m: any) => (
+            <tr>
+              <td class="nm">{m.name}</td>
+              <td>{m.born ? `${m.bornText}, ${m.born.slice(0, 4)}` : '—'}</td>
+              <td class="tot">{m.age ?? '—'}</td>
+              <td>{m.sign ? <a href={`/star-sign/${m.sign.slug}`}>{m.sign.name}</a> : '—'}</td>
+              <td>{m.birthplace ?? '—'}</td>
+              <td>{m.languages ?? '—'}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note fine">
+      A dash means we hold no figure, not a zero.
+      {생일모름 > 0 && <> {생일모름} of the {g.membersNamed} named here have no birth date on
+        Wikidata, so their age and star sign are blank rather than guessed.</>}
+    </p>
+  </section>
+
+  <section class="warn-box">
+    <h2>We are not telling you what a star sign means</h2>
+    <p class="warn">
+      <b>The sign column is arithmetic on a birth date and nothing else.</b> We do not say what
+      any of it means, because we have not measured anything that would let us say it.
+    </p>
+    <p class="note">
+      We did test the nearest thing to a claim. Across 1,047 Korean actors who reached a Netflix
+      chart, the spread across birth-year animals was <b>indistinguishable from chance</b>.
+      {' '}<a href="/star-signs">That test is here</a>, with the working shown.
+      {' '}<b>Sign boundaries also move</b> by a few hours from year to year, so someone born on a
+      boundary day may fall the other way in their own birth year.
+    </p>
+  </section>
+
+  <section class="notes">
+    <h2>Where these numbers come from, and what they do not say</h2>
+    <ul>
+      <li>
+        <b>Wikidata</b> — group membership (P527), date of birth (P569), place of birth (P19),
+        and the number of Wikipedia language editions that carry an article about each person. CC0.
+      </li>
+    </ul>
+    <p class="note">
+      <b>Wikipedia language count is not a measure of how good someone is.</b> It measures how
+      widely they are written about, and it favours people who have been famous longer.
+    </p>
+    <p class="note">
+      <b>We do not publish heights.</b> Wikidata records a height for about 3% of the Korean
+      performers we hold, and a figure built on 3% would be wrong far more often than right.
+    </p>
+    <p class="note fine">
+      We hold {data.groupsSeen} Korean groups in all. {data.groupsNotListed} of them have fewer
+      than {data.minMembersToList} members we could name, and we do not publish a page for those —
+      they are counted, not hidden.
+    </p>
+  </section>
+
+  <section class="onward">
+    <h3>Other groups</h3>
+    <ul>
+      {[...이웃, ...큰곳].slice(0, 5).map((x) => (
+        <li><a href={`/group/${x.slug}`}>{x.name} members</a>
+          <span class="fine"> &mdash; {수(x.membersNamed)}</span></li>
+      ))}
+    </ul>
+    <h3>Other ways into the same people</h3>
+    <ul class="walk">
+      <li><a href="/born-on">Korean actors&rsquo; birthdays &mdash; all 366 days</a></li>
+      <li><a href="/actors-in-their/20s">Korean actors by age</a></li>
+      <li><a href="/hometowns">Where Korea&rsquo;s most-read stars were born</a></li>
+      <li><a href="/school">Where Korean actors and singers studied</a></li>
+      <li><a href="/most-read">The Korean names most people looked up this month</a></li>
+    </ul>
+  </section>
+</WikiTip>
+
+<style>
+  .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: .5rem 1rem; margin: 0 0 1.6rem; }
+</style>

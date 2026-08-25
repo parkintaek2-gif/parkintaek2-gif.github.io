@@ -52,6 +52,7 @@ import 생일자료 from '../../data/wikitip-birthday-pages.json';
 import 해자료 from '../../data/wikitip-years.json';
 import 나이자료 from '../../data/wikitip-age-bands.json';
 import 학교자료 from '../../data/wikitip-schools.json';
+import 그룹자료 from '../../data/wikitip-groups.json';
 /* 🔴 2026-08-24 밤 — 수요가 큰 작품 지면이 들어오는 링크 1~2개로 굶고 있었다.
    위키백과 조회수(30일)로 재어 둔 것을 읽어 첫 화면에서 직접 건다 */
 import 수요자료 from '../../data/wikitip-title-demand.json';
@@ -204,6 +205,14 @@ const jsonLd = {
               그 지면들이 모두 「이것은 하한이다」를 머리에 달고 있다 */}
         <a href="/school">Where Korean actors and singers studied</a>
         <span class="cnt">{학교자료.schools.length} schools, and who we counted from each</span>
+      </li>
+      <li>
+        {/* 🔴 2026-08-25 — 우리 «검색 실측»이 짚어 준 축이다. 노출이 가장 큰 지면이
+            BTS 기사(68노출)였고 그 갈래가 `bts members age`·`birthday` 로 자동완성
+            1번째·10줄이었다. 생년월일은 갖고 있었는데 그룹-멤버를 잇는 자료가 없었다.
+            ⛔ 키는 안 낸다 — 수요는 더 컸지만 위키데이터에 3.5%뿐이다 */}
+        <a href="/group">Kpop idols by group — age and birthday</a>
+        <span class="cnt">{그룹자료.groups.length} groups, member by member</span>
       </li>
       <li>
         <a href="/where-to-watch">Where a title could actually be watched</a>

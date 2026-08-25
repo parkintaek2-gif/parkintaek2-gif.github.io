@@ -12,6 +12,7 @@ import videoData from '../../data/wikitip-video.json';
 /* 🔴 같은 날 밤 — 카드뉴스 96벌 474장도 사이트맵에 «0장»이었다. 파일을 세어 적어 둔 것을 읽는다 */
 import cardnewsData from '../../data/wikitip-cardnews.json';
 import schoolPages from '../../data/wikitip-schools.json';
+import groupPages from '../../data/wikitip-groups.json';
 
 /**
  * K Culture Wire 사이트맵.
@@ -1097,6 +1098,15 @@ export const GET: APIRoute = async () => {
    * ⛔ 손으로 55줄을 적지 않는다 — build-kcw-schools.mjs 가 낸 자료에서 뽑는다.
    *   15명에 못 미쳐 안 내는 학교는 그 자료에 이미 없으므로 저절로 빠진다.
    */
+  /*
+   * 그룹 지면. 2026-08-25 — 우리 검색 실측에서 노출 1위가 BTS 기사(68노출)였고,
+   * 그 갈래 수요가 bts members age·birthday 로 자동완성 1번째·10줄이었다.
+   * ⛔ 손으로 263줄을 적지 않는다 — build-kcw-groups.mjs 가 낸 자료에서 뽑는다.
+   */
+  entries.push({ path: '/group', priority: '0.9', changefreq: 'monthly' });
+  for (const x of groupPages.groups) {
+    entries.push({ path: `/group/${x.slug}`, priority: '0.8', changefreq: 'monthly' });
+  }
   entries.push({ path: '/school', priority: '0.9', changefreq: 'monthly' });
   for (const x of schoolPages.schools) {
     entries.push({ path: `/school/${x.slug}`, priority: '0.8', changefreq: 'monthly' });
