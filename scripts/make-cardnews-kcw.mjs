@@ -64,6 +64,7 @@ export const 벌목록 = {
   onlyone: { 자료: 'src/data/wikitip-only-one-wikipedia.json', 만들기: (d) => 한판벌짓기(d) },
   least: { 자료: 'src/data/wikitip-last-place.json', 만들기: (d) => 꼴찌벌짓기(d) },
   debut: { 자료: 'src/data/wikitip-debut-age.json', 만들기: (d) => 데뷔벌짓기(d) },
+  people: { 자료: 'src/data/wikitip-people.json', 만들기: (d) => 사람벌짓기(d) },
 };
 
 /**
@@ -1818,4 +1819,103 @@ if (내가실행됐다) {
   }
   await b.close();
   console.log(`\n✅ ${낼방} — ${벌.카드.length}장 · ${폭}×${높}`);
+}
+
+/**
+ * 사람 벌 — 오늘 낸 `/person` 636장의 짝.
+ *
+ * ⭐ 이야기 한 줄: **이 표의 꼭대기는 «배우 순위»가 아니라 «드라마 한 편의 출연진»이다.**
+ *   우리가 세는 13명의 오징어 게임 출연진이 636명 중 위 스무 자리 안에 «전부» 들어 있다.
+ *
+ * 🔴 왜 이 이야기를 골랐나 —
+ *   2026-08-25 저녁 사장님 말씀: 「콘텐트가 **차별화**되고, 꾸준히 생산되는 거를
+ *   구글, 네이버가 감지할 때까지 어차피 시간이 걸려」
+ *   「배우 몇 명이 몇 편에 나왔다」는 남도 낸다. **「그 수가 사람에 대한 것이 아니다」**는
+ *   우리만 낸다 — 우리 강령(⛔ 줄세우지 않는다)이 그대로 이야기가 되는 자리다.
+ *
+ * ⛔ 이 벌이 지키는 것
+ *   ⛔ 「가장 인기 있는 배우」라고 쓰지 않는다. 자리 수는 «작품이 간 거리»다.
+ *   ⛔ 반례를 숨기지 않는다 — 편수 1위(마동석 17편)가 자리 수로는 185등이다. 그게 이 벌의 핵심이다.
+ *   ⛔ 「필모그래피」라고 쓰지 않는다. 넷플릭스 톱10에 오른 한국 작품 중 «우리가 지면을 낸 것»뿐이다.
+ */
+export function 사람벌짓기(d) {
+  const P = d.people ?? [];
+  const 수 = (n) => Number(n ?? 0).toLocaleString('en-US');
+
+  /* ⛔ 손으로 적지 않는다 — 전부 자료에서 «세어» 온다 */
+  const 위20 = P.slice(0, 20);
+  const 오징어 = new Set(P.filter((x) => (x.titles ?? []).some((t) => t.title === 'Squid Game')).map((x) => x.slug));
+  const 위20속오징어 = 위20.filter((x) => 오징어.has(x.slug)).length;
+  const 오징어뺀1위 = P.find((x) => !오징어.has(x.slug)) ?? null;
+
+  const 석들 = P.map((x) => x.places ?? 0).sort((a, b) => a - b);
+  const 중간석 = 석들[Math.floor(석들.length / 2)] ?? 0;
+  const 꼭대기 = P[0] ?? null;
+
+  /* 편수가 가장 많은 사람 — 자리 수로는 몇 등인가. 이 «어긋남»이 이 벌의 이야기다 */
+  const 편많은 = [...P].sort((a, b) => (b.titleCount ?? 0) - (a.titleCount ?? 0))[0] ?? null;
+  const 편많은등수 = 편많은 ? P.findIndex((x) => x.slug === 편많은.slug) + 1 : null;
+
+  const 배수 = 꼭대기 && 중간석 ? (꼭대기.places / 중간석).toFixed(0) : '—';
+
+  return {
+    갈피: 'person',
+    빛: '#c9a7f5',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `${수(P.length)} Korean actors · ${수(d.counts?.이름총 ?? 0)} names counted`,
+        큰: 'The top of this\nlist is not a\nranking of actors.\nIt is one show.',
+        아래: `Of the twenty most-charted names we hold, **${위20속오징어}** are the cast of a single `
+          + `series. The person in first place has **${배수}×** the chart places of the median actor — `
+          + `and almost none of that is about the person.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Chart places, and\nwhat they are\nactually counting',
+        머리: ['Actor', 'Titles', 'Chart places', 'Countries'],
+        줄: 위20.slice(0, 6).map((x) => [x.name, String(x.titleCount), 수(x.places), String(x.countries)]),
+        아래: 'A chart place is one country-week slot in a Netflix top 10. A long-running series puts '
+          + '**every name in its cast** near the top of a table like this one.',
+      },
+      {
+        꼴: '수',
+        제목: 'The busiest actor\nis not near\nthe top',
+        큰: 편많은등수 ? `#${편많은등수}` : '—',
+        곁: 편많은 ? `Where ${편많은.name} sits — the actor with the most charting titles of anyone here`
+          : 'Not measurable',
+        /* ⚠ 실존 인물을 「그/그녀」로 가리키지 않는다 — 우리가 «잰» 사실이 아니다.
+             이름을 다시 쓰거나 대명사를 아예 피한다. 이 지면들의 기본 규칙이다 */
+        아래: 편많은
+          ? `**${편많은.name}** appears in **${편많은.titleCount}** charting titles, more than anyone in `
+            + `these ${수(P.length)} — and sits **${편많은등수}th** by chart places, with ${수(편많은.places)}. `
+            + `Busy and far-travelled are two different things, and only one of them is about the actor.`
+          : 'We could not measure this.',
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not a filmography — only Netflix top-10 titles we hold enough weeks of data to publish',
+          'Not popularity — a chart place shows a title was in a top 10, never how many watched',
+          'Not every actor — Wikidata must record Korean citizenship for us to count someone',
+        ],
+        아래: 오징어뺀1위
+          ? `Take that one series out and first place becomes **${오징어뺀1위.name}** with `
+            + `${수(오징어뺀1위.places)} places — barely a third of the figure above. `
+            + `**We publish both, because either one alone is misleading.**`
+          : 'We could not measure this.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Every actor here\nhas a page, with\nthe table on it',
+        글: 'Which countries each of their titles reached, which week it first charted, and how far it '
+          + 'went.\n\n**We do not rank people. We show where the work travelled.**',
+        길: `${주소}/person`,
+        곁: `Netflix Top 10 · Wikidata cast lists · birth dates for ${수(d.counts?.생일있음 ?? 0)} of ${수(P.length)}`,
+      },
+    ],
+  };
 }

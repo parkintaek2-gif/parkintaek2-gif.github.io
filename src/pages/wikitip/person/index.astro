@@ -8,6 +8,7 @@
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-people.json';
+import KcwCardnews from '../../../components/KcwCardnews.astro';
 
 const 사람들 = data.people ?? [];
 const 수 = (n: number) => Number(n ?? 0).toLocaleString('en-US');
@@ -81,6 +82,15 @@ const DESC = `${사람들.length} Korean actors, each with the Netflix top-10 ti
       </div>
     ))}
   </section>
+
+  {/*
+    * 🔴 2026-08-25 저녁 — 카드뉴스를 만들었으면 «걸어 둔다».
+    *   사장님: 「영상 등 우리가 만든 콘텐트를 우리 사이트에도 게재하고 있지?」
+    * ⛔ 만든 것에 문을 안 내면 없는 것과 같다. 8/14 에 카드뉴스 15장이 서버에만
+    *   올라가 있고 어디에도 안 걸려 있던 일이 있었다.
+    */}
+  <KcwCardnews set="people" count={5}
+    heading="Five cards — free to share" />
 
   <section class="onward">
     <h3>Where to go next</h3>
