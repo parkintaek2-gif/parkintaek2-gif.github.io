@@ -5,6 +5,7 @@ import Base from '../../layouts/Base.astro';
 import DataNotes from '../../components/DataNotes.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { publishedArticles } from '../../lib/articles';
+import { tagsForArticle } from '../../lib/tags';
 import { formatDate, formatAsOf, categoryLabel, iso } from '../../lib/format';
 import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../../consts';
 
@@ -33,6 +34,9 @@ const ogImage = d.image ?? (카드있음 ? `/og/${entry.id}.png` : undefined);
  *    영상 2편이 28일 웹클릭의 5배를 가져온 실측이 있다. 썸네일은 첫 카드뉴스(=디자인된 제목 카드)를 쓴다 —
  *    ffmpeg 없이도 되고, 프레임 추출의 「검은 첫 칸」 함정도 없다. 썸네일 없으면 구글이 버리므로 둘 다 있을 때만 낸다.)
  */
+// 태그 칩(본문 «위»에 — 74%가 두 번째 지면을 안 눌러 아래 것은 안 보인다, 5번 실측). 2편↑는 /tag 링크, 1편은 글자만.
+const 태그칩 = await tagsForArticle(d.tags);
+
 const 영상있음 = fs.existsSync(`public/video/${entry.id}.mp4`) && fs.existsSync(`public/cardnews/${entry.id}-1.png`);
 const videoSrc = `${SITE_URL}/video/${entry.id}.mp4`;
 const videoThumb = `${SITE_URL}/cardnews/${entry.id}-1.png`;
@@ -174,6 +178,17 @@ const jsonLd = 영상있음 ? [articleLd, videoLd] : articleLd;
           <strong>{DISCLAIMER.short}</strong>
         </span>
       </p>
+
+      {/* 태그 칩 — 본문 «위». 2편↑ 태그는 /tag 허브로 링크(내부 mesh+검색), 1편은 글자만(404 안 만듦). */}
+      {
+        태그칩.length > 0 && (
+          <p class="tagchips">
+            {태그칩.map((t) => (t.paged
+              ? <a class="tagchip" href={`/tag/${t.slug}`}>{t.label}</a>
+              : <span class="tagchip tagchip--plain">{t.label}</span>))}
+          </p>
+        )
+      }
 
       {/* 세로 숏영상 — 있을 때만. 구글 비디오 검색·캐러셀에 잡히는 자리(2026-08-24 5번 총괄 발견). */}
       {
@@ -356,4 +371,9 @@ const jsonLd = 영상있음 ? [articleLd, videoLd] : articleLd;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  .tagchips { display: flex; flex-wrap: wrap; gap: .4rem; margin: 1rem 0 0; }
+  .tagchip { font-size: .74rem; padding: .2rem .6rem; border-radius: 999px; text-transform: capitalize;
+             border: 1px solid var(--line, #d9d9d6); color: var(--ink-2, var(--ink)); text-decoration: none; }
+  a.tagchip:hover { border-color: var(--accent, #0f4c81); color: var(--accent, #0f4c81); }
+  .tagchip--plain { opacity: .6; }
 </style>

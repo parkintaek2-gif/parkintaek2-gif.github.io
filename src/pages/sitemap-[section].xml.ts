@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import fs from 'node:fs';
 import { SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
+import { getPagedTags } from '../lib/tags';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
 type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; video?: Video };
@@ -80,6 +81,13 @@ export const GET: APIRoute = async ({ params }) => {
         lastmod: all.find((a) => a.data.category === c.slug)?.data.pubDate,
         changefreq: 'daily',
         priority: '0.8',
+      })),
+      // 태그 허브(2편↑) — 지면 문턱과 «같은 2편»(어긋나면 404 가 사이트맵에 실린다). 2026-08-25.
+      ...(await getPagedTags()).map((t) => ({
+        loc: `/tag/${t.slug}`,
+        lastmod: t.articles[0]?.data.pubDate,
+        changefreq: 'weekly',
+        priority: '0.6',
       })),
     ];
   } else {

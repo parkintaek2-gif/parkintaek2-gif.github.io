@@ -1,0 +1,52 @@
+---
+/**
+ * /tag/{slug} — 한 태그로 묶인 기사 허브. (2026-08-25, 5번 총괄 지시)
+ * 앞말에만 있던 태그를 «지면»으로 꺼낸다: 색인 대상 + 내부링크 mesh + 태그 낱말 검색 유입.
+ * 2편 이상인 태그만(getPagedTags) — 한 편짜리는 404 를 안 만들려고 지면을 안 낸다.
+ */
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { SITE_URL } from '../../consts';
+import { getPagedTags } from '../../lib/tags';
+
+export async function getStaticPaths() {
+  const tags = await getPagedTags();
+  return tags.map((t) => ({ params: { tag: t.slug }, props: { entry: t } }));
+}
+
+const { entry } = Astro.props;
+const label = entry.label;
+const n = entry.articles.length;
+const TITLE = `Korea market data tagged “${label}” — ${n} stories`;
+const DESC = `${n} SeoulMarkets stories on ${label} in Korea's markets and economy, each built from official Korean data with its source and timestamp. Not investment advice.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/tag/${entry.slug}`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <div class="tag-head">
+      <p class="kicker">SeoulMarkets · tag</p>
+      <h1>{label}</h1>
+      <p>{n} stories tagged “{label}”, each from official Korean data with its source and timestamp.</p>
+    </div>
+    <ul class="stream">
+      {entry.articles.map((a) => (<ArticleCard entry={a} />))}
+    </ul>
+  </div>
+</Base>
+
+<style>
+  .tag-head { max-width: 46rem; margin: 1.4rem 0 1.4rem; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent, #0f4c81);
+            font-weight: 700; margin: 0 0 .3rem; }
+  .tag-head h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.2; margin: 0 0 .4rem; letter-spacing: -.02em; text-transform: capitalize; }
+  .tag-head p { font-size: 1rem; line-height: 1.6; color: var(--ink-2, var(--ink)); margin: 0; }
+</style>
