@@ -194,9 +194,29 @@ const 칸 = [
   { d: uni.재학생충원율, k: '재학생 충원율' },
   { d: uni.전임교원확보율, k: '전임교원 확보율' },
 ].filter((x) => x.d);
+
+/**
+ * ⭐ FAQPage — 6번이 검증한 지렛대. 검색 실측(「우송대 취업률」15노출·자리5.5,
+ * 「충북대 취업률」·「한성대 취업률」)이 짚어 준 자리 — 제목과 같은 말을 그대로 묻는다.
+ * ⛔ 취업률을 못 잰 곳(셀대상없음 포함)은 FAQ를 안 만든다 — 답할 것이 없다.
+ */
+const faqJsonLd =
+  취 && !셀대상없음
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: `${uni.표시명} 취업률`,
+            acceptedAnswer: { '@type': 'Answer', text: 문단[0] },
+          },
+        ],
+      }
+    : undefined;
 ---
 
-<HundredYear title={제목} description={desc}>
+<HundredYear title={제목} description={desc} jsonLd={faqJsonLd}>
   <h1>{제목}</h1>
   <p class="sub">
     {uni.지역} · {uni.설립} {uni.종류}

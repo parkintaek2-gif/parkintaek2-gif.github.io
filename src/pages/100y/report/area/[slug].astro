@@ -267,6 +267,26 @@ const desc = 진학률잰곳있나
     `잰 곳 ${잰곳.length}곳 · ${퍼센트(낮은값)} ~ ${퍼센트(높은값)}. ` +
     `줄 세우지 않고 퍼짐 안에서 어디쯤인지만 보여드립니다.`
   : `${시도} ${구} 고등학교 ${곳들.length}곳입니다. 진학률을 잰 학교가 없어 이름과 갈래만 있습니다.`;
+
+/**
+ * ⭐ FAQPage — 6번이 검증한 지렛대. 검색 실측("대구 북구 고등학교" 20노출·자리7.1,
+ * "서대문구 고등학교"·"마포구 고등학교" 등)이 짚어 준 자리 — 손님이 실제로 치는
+ * «구 이름 + 고등학교» 그대로 묻는다. ⛔ 가린표(paywall JSON-LD)와 공존해야 하므로
+ * 배열로 합친다 — 한 스크립트에 여러 JSON-LD 노드를 담는 것은 표준 방식이다.
+ */
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `${구} 고등학교`,
+      acceptedAnswer: { '@type': 'Answer', text: desc },
+    },
+  ],
+};
+const 합친jsonLd = [가린표, faqJsonLd].filter(Boolean);
+const 최종jsonLd = 합친jsonLd.length > 1 ? 합친jsonLd : 합친jsonLd[0];
 ---
 
 <HundredYear
@@ -275,7 +295,7 @@ const desc = 진학률잰곳있나
   {/* 🔴 스위치는 `price.ts` **한 곳**에 있다. 사이트맵도 같은 것을 부른다 —
        두 곳에 두면 한쪽만 켜져 「사이트맵엔 있는데 지면은 noindex」가 된다 */}
   noindex={한벌인가 && !파는지면검색.연다}
-  jsonLd={가린표}
+  jsonLd={최종jsonLd}
   ogImage={카드주소}
 >
   {
