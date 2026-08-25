@@ -1103,6 +1103,28 @@ export const GET: APIRoute = async () => {
    * 그 갈래 수요가 bts members age·birthday 로 자동완성 1번째·10줄이었다.
    * ⛔ 손으로 263줄을 적지 않는다 — build-kcw-groups.mjs 가 낸 자료에서 뽑는다.
    */
+  /* 2026-08-25 사장님 지시 — 만든 콘텐트를 우리 사이트에도 싣고 서로 잇는다 */
+  entries.push({ path: '/video', priority: '0.8', changefreq: 'weekly' });
+  /*
+   * 태그 지면. 기사 117편 전부 앞말에 태그가 있었는데 «화면에 나오는 지면이 0장»이었다.
+   * ⛔ 손으로 적지 않는다 — 기사 앞말에서 세어 두 편 이상인 태그만 뽑는다.
+   *   `tag/[tag].astro` 와 «같은 규칙·같은 문턱(2편)»이어야 한다. 어긋나면 404 가 사이트맵에 실린다.
+   */
+  {
+    const 태그슬러그 = (t: string) => String(t ?? '').toLowerCase()
+      .replace(/[’'`]/g, '').replace(/&/g, ' and ')
+      .replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const 셈 = new Map<string, number>();
+    for (const e of (await getCollection('kcwArticles')).filter((x: any) => !x.data.draft)) {
+      for (const t of (e.data.tags ?? [])) {
+        const s = 태그슬러그(t);
+        if (s) 셈.set(s, (셈.get(s) ?? 0) + 1);
+      }
+    }
+    for (const [s, n] of 셈) {
+      if (n >= 2) entries.push({ path: `/tag/${s}`, priority: '0.6', changefreq: 'weekly' });
+    }
+  }
   entries.push({ path: '/group', priority: '0.9', changefreq: 'monthly' });
   for (const x of groupPages.groups) {
     entries.push({ path: `/group/${x.slug}`, priority: '0.8', changefreq: 'monthly' });

@@ -1,0 +1,78 @@
+---
+/*
+ * video/index.astro — **영상 갤러리.** 우리가 만든 영상을 «우리 사이트에도» 모아 둔다.
+ *
+ * 🔴 2026-08-25 오후, 사장님 지시 —
+ *   「영상 등 우리가 만든 콘텐트를 우리 사이트에도 게재하고 있지? 안 하고 있으면 해」
+ *   「우리가 만든 콘텐트를 보러 온 사람이, 우리가 만든 다른 콘텐트를 계속 볼 수 있도록 해야지」
+ *
+ * 재 보니 영상 21편이 지면 20장에 «흩어져» 실려 있고 **한자리에 모은 곳이 없었다.**
+ * 6번은 이미 /video 를 냈는데 나는 안 냈다.
+ * ⛔ 영상만 늘어놓지 않는다. 각 영상 옆에 **그 영상이 나온 지면**을 같이 건다 —
+ *   보고 나서 갈 데가 있어야 한다는 것이 지시의 핵심이다.
+ */
+import WikiTip from '../../../layouts/WikiTip.astro';
+import videoData from '../../../data/wikitip-video.json';
+import cardnews from '../../../data/wikitip-cardnews.json';
+
+/* ⚠ 영상 자료에는 제목이 없다(set·src·thumb 뿐). 제목과 「어느 지면에서 나왔나」는
+   카드뉴스 자료가 같은 set 이름으로 갖고 있으므로 그것으로 잇는다.
+   ⛔ 못 이으면 set 이름을 그대로 쓴다 — 빈칸으로 두지 않는다 */
+const 쪽 = new Map<string, any>(
+  (cardnews.sets ?? cardnews.items ?? []).map((c: any) => [c.set ?? c.slug, c]),
+);
+const 영상 = (videoData.videos ?? [])
+  .filter((v: any) => v.src)
+  .map((v: any) => {
+    const c = 쪽.get(v.set) ?? {};
+    return { ...v, 제목: c.title ?? c.headline ?? v.set, 지면: c.page ?? null };
+  });
+const TITLE = `K Culture Wire videos — ${영상.length} short films on Korean chart and reader data`;
+const DESC = `${영상.length} short videos, each built from a table on this site. `
+  + `Every one links to the page it was counted from.`;
+---
+
+<WikiTip title={TITLE} description={DESC}
+  canonical="https://www.kculturewire.com/video">
+  <h1>Videos</h1>
+
+  <p class="lead">
+    <b>{영상.length}</b> short films, each built from a table on this site. Every one links to the
+    page it was counted from &mdash; the video is the headline, the page is the working.
+  </p>
+
+  <section>
+    <div class="vgrid">
+      {영상.map((v: any) => (
+        <figure class="vcard">
+          <video controls preload="none" playsinline
+            poster={v.thumb ?? undefined} width="270" height="480">
+            <source src={v.src} type="video/mp4" />
+          </video>
+          <figcaption>
+            <b>{v.제목}</b>
+            {v.지면 && <div class="fine"><a href={v.지면}>The table this came from</a></div>}
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="onward">
+    <h3>Where to go next</h3>
+    <ul class="walk">
+      <li><a href="/articles">Everything we have published</a></li>
+      <li><a href="/titles">Korean drama list &mdash; every title that reached a Netflix top 10</a></li>
+      <li><a href="/group">Kpop idols by group &mdash; age and birthday</a></li>
+      <li><a href="/born-on">Korean actors&rsquo; birthdays</a></li>
+      <li><a href="/school">Where Korean actors and singers studied</a></li>
+    </ul>
+  </section>
+</WikiTip>
+
+<style>
+  .vgrid { display: grid; gap: 1.1rem; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); }
+  .vcard { margin: 0; }
+  .vcard video { width: 100%; height: auto; border-radius: 8px; background: #0e0c14; }
+  .vcard figcaption { margin-top: .35rem; font-size: .9rem; }
+</style>
