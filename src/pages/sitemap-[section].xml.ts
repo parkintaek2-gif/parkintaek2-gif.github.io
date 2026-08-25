@@ -5,7 +5,8 @@ import { publishedArticles } from '../lib/articles';
 import { getPagedTags } from '../lib/tags';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
-type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; video?: Video };
+type Image = { loc: string; title: string };
+type Url = { loc: string; lastmod?: Date; priority: string; changefreq: string; video?: Video; image?: Image };
 
 // XML 이스케이프 — 제목·설명에 &, <, > 가 들어오면 사이트맵이 깨진다.
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -15,14 +16,18 @@ export function getStaticPaths() {
 }
 
 const xml = (urls: Url[]) => `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urls
   .map(
     (u) => `  <url>
     <loc>${SITE_URL}${u.loc}</loc>${u.lastmod ? `
     <lastmod>${u.lastmod.toISOString()}</lastmod>` : ''}
     <changefreq>${u.changefreq}</changefreq>
-    <priority>${u.priority}</priority>${u.video ? `
+    <priority>${u.priority}</priority>${u.image ? `
+    <image:image>
+      <image:loc>${SITE_URL}${u.image.loc}</image:loc>
+      <image:title>${esc(u.image.title)}</image:title>
+    </image:image>` : ''}${u.video ? `
     <video:video>
       <video:thumbnail_loc>${SITE_URL}${u.video.thumbnail}</video:thumbnail_loc>
       <video:title>${esc(u.video.title)}</video:title>
@@ -95,11 +100,14 @@ export const GET: APIRoute = async ({ params }) => {
     // 썸네일 없으면 구글이 버리므로 mp4·첫카드 둘 다 있을 때만(2026-08-24 5번 총괄 발견).
     urls = (await publishedArticles(section)).map((a) => {
       const hasVid = fs.existsSync(`public/video/${a.id}.mp4`) && fs.existsSync(`public/cardnews/${a.id}-1.png`);
+      // 기사별 공유카드(og)를 이미지 사이트맵에 — 구글 이미지 검색 노출 자리(2026-08-25 사장님 말씀: 카드도 검색자리).
+      const hasOg = fs.existsSync(`public/og/${a.id}.png`);
       return {
         loc: `/article/${a.id}`,
         lastmod: a.data.updatedDate ?? a.data.pubDate,
         changefreq: 'weekly',
         priority: '0.7',
+        ...(hasOg ? { image: { loc: `/og/${a.id}.png`, title: a.data.title.slice(0, 200) } } : {}),
         ...(hasVid
           ? {
               video: {
