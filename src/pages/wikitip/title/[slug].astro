@@ -223,13 +223,21 @@ const 나라앞자락 = 나라들.length === 0
   : 나라들.length <= 3
     ? `: ${나라들.join(', ')}. `
     : ` — ${나라들.slice(0, 3).join(', ')} and ${나라들.length - 3} more. `;
+/* 🔴 2026-08-27 02:5x — **이 설명이 233~278자여서 구글이 잘라 냈다.**
+   구글은 155자쯤까지만 보여 준다. 잘린 자리에 있던 것이 한계 고지였고, 그보다 나쁜 것은
+   **손님이 누를 까닭이 아예 없었다**는 것이다. 안 눌리는 지면 21장 중 19장이 이 흠이었다.
+   ⭐ 556장을 다 재서 새 설명의 가장 긴 것이 153자다(Money Heist: Korea - Joint Economic Area).
+      ⚠ 여유가 «2자»뿐이다. 여기 글자를 더하기 전에 반드시 다시 잰다.
+   ⛔ 나라 이름 나열을 뺀 것은 «감춘» 것이 아니다 — 나라 표가 지면 첫 칸에 그대로 있다.
+      다만 한 나라뿐인 작품은 그 이름을 남긴다. 짧고, 그게 그 작품의 핵심 사실이며,
+      GSC 에 `<작품> netflix <나라>` 꼴 검색이 실제로 잡힌다.
+   ⛔ 「charted」를 「available」로 바꾸지 않는다(위 주석 그대로). 차이는 본문에 적어 둔다. */
+const 한나라 = t.markets === 1 && 나라들.length === 1 ? `${나라들[0]} only` : null;
 const DESC =
-  `${t.title} charted on Netflix in ${t.markets} `
-  + `${t.markets === 1 ? 'country' : 'countries'}${나라앞자락 || '. '}`
-  + `${t.places.toLocaleString('en-US')} top 10 ${셈(t.places, 'place')} across `
-  + `${t.weeks} ${셈(t.weeks, 'week')}, peaking at number ${t.peak}, `
-  + `${t.firstWeek} to ${t.lastWeek}. Counted from Netflix's own country lists — `
-  + `charting there is not the same as being available there.`;
+  `${t.title} took ${t.places.toLocaleString('en-US')} Netflix top 10 `
+  + `${셈(t.places, 'place')} in ${한나라 ?? `${t.markets} ${t.markets === 1 ? 'country' : 'countries'}`} `
+  + `over ${t.weeks} ${셈(t.weeks, 'week')}, peaking at number ${t.peak}. `
+  + `Every ${한나라 ? 'week' : 'country and week'} listed.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',

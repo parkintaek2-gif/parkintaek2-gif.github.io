@@ -71,11 +71,21 @@ const 중 = data.medians;
 const TITLE = `How much of ${m.name}'s Netflix top 10 is Korean?`;
 /* ⭐ 답을 첫 낱말로 당긴다. 검색 결과에서 손님이 읽는 것은 앞쪽 한 줄이다 —
    「Korean shows and films took…」로 시작하면 몫이 뒤에 묻힌다 */
+/* 🔴 2026-08-27 02:5x — **이 설명이 227자여서 구글이 잘라 냈다.**
+   구글은 155자쯤까지만 보여 준다. 그런데 하필 잘린 자리에 있던 것이
+   「with the years and the titles listed」 — **손님이 누를 까닭**이었다.
+   ⭐ 안 눌리는 지면 21장 중 19장이 이 흠이었다(`find-zero-click-pages` 로 쟀다).
+   ⛔ 「답을 첫 낱말로」라는 위 판단은 그대로 지킨다 — 몫(%)이 여전히 첫 낱말이다.
+   ⛔ 한계 고지(「주 단위로 셌다」)를 여기서 뺀 것은 «감춘» 것이 아니다.
+      지면 안 「Where these numbers come from」에 그대로 있고, 잘려서 안 보이던 글자를
+      보이는 자리에 있는 것으로 바꾼 것뿐이다.
+   ⚠ 93개 시장을 다 재서 가장 긴 것이 152자다(United Arab Emirates). 나라 이름이 길어져도
+      여유가 3자뿐이니, 여기 글자를 더할 때는 **다시 재고** 더한다. */
+const 전체자리 = (data.weekCount * 20).toLocaleString('en-US');
 const DESC =
-  `${m.koreanPc}% of it, over ${data.weekCount} weeks: Korean shows and films took `
-  + `${m.koreanSlots.toLocaleString('en-US')} of ${m.name}'s Netflix top 10 places, spread across `
-  + `${m.distinctTitles} different titles. Counted week by week from Netflix's own country lists, `
-  + `with the years and the titles listed.`;
+  `${m.koreanPc}% of ${m.name}'s Netflix top 10 places went to Korean titles `
+  + `in ${data.weekCount} weeks — ${m.koreanSlots.toLocaleString('en-US')} of ${전체자리}, `
+  + `across ${m.distinctTitles} titles. Every year and title listed.`;
 
 const 해 = m.byYear.filter((y) => y.places > 0);
 const 큰해 = 해.reduce((a, y) => (y.places > a.places ? y : a), 해[0]);
