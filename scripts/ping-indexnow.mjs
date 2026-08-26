@@ -166,9 +166,23 @@ async function 통보(호스트) {
       const { mkdirSync, writeFileSync } = await import('node:fs');
       const path = (await import('node:path')).default;
       const 길들 = urlList.map((u) => new URL(u).pathname);
+      /**
+       * 🔴 `오늘KST` 는 «함수»다. 값인 줄 알고 그대로 넘겼다가 한 번 걸렸다 —
+       *   함수를 넣으면 `JSON.stringify` 가 그 칸을 **통째로 빼 버려서**, 파일은 써지는데
+       *   새 지면이 하나도 안 적힌다. 오류도 안 난다. **조용히 아무것도 안 하는 흠**이었다.
+       *   ⭐ 그래서 적은 뒤에 «다시 읽어» 정말 들어갔는지 본다. 쓰고 끝내지 않는다.
+       */
+      const 날 = 오늘KST();
       mkdirSync(path.dirname(기록길), { recursive: true });
-      writeFileSync(기록길, `${JSON.stringify(적기(길들, 오늘KST, 기록읽기()), null, 2)}\n`);
-      console.log(`   ✅ 보낸 ${길들.length}장을 기록에 적었다 — 관문의 「안 알린 장수」가 이제 맞는다`);
+      writeFileSync(기록길, `${JSON.stringify(적기(길들, 날, 기록읽기()), null, 2)}\n`);
+      const 다시 = 기록읽기();
+      const 들어간수 = 길들.filter((p) => 다시.pinged?.[p]).length;
+      if (들어간수 === 길들.length) {
+        console.log(`   ✅ 보낸 ${길들.length}장을 기록에 적었다(${날}) — 관문의 「안 알린 장수」가 이제 맞는다`);
+      } else {
+        console.log(`   🔴 적었다는데 다시 읽으니 ${들어간수}/${길들.length}장뿐이다 — **기록이 안 맞는다**`);
+        console.log('      ⛔ 통보는 갔다. 그러나 관문의 수는 믿지 마라.');
+      }
     } catch (e) {
       console.log(`   ⚠ 통보는 갔는데 **기록은 못 적었다** — ${e.message}`);
       console.log('      ⛔ 「안 알린 지면 N장」이 실제보다 많게 보일 수 있다. 0 으로 읽지 않는다.');
