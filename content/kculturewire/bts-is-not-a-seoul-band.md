@@ -1,7 +1,7 @@
 ---
 title: "BTS members hometowns: V and Suga from Daegu, Jungkook and Jimin from Busan, not one from Seoul"
 category: stars
-dek: "Seoul is the birthplace of 50 of the 123 most-read Korean stars we could place — 41% from one city. BTS is the counterexample: six members, four cities, none of them the capital."
+dek: "Seoul is the birthplace of 50 of the 123 most-read Korean stars we could place — 41% from one city. BTS is the counterexample: all seven members, five cities, none of them the capital."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
@@ -32,7 +32,7 @@ of them, from one city.**
 
 Then there is BTS.
 
-## Six members, four cities, no Seoul
+## Seven members, five cities, no Seoul
 
 | Member | Born in |
 | --- | --- |
@@ -42,10 +42,21 @@ Then there is BTS.
 | **Jimin** | Busan |
 | **RM** | Goyang |
 | **J-Hope** | Gwangju |
+| **Jin** | Gwacheon |
 
-Six of the seven members are read widely enough in Indonesia, Vietnam, Thailand and Malaysia to
-enter our panel, and **not one of them was born in the capital**. Jin is not, so we cannot place
-him — that is a gap in what we measured, not a finding about him.
+All seven members have a birthplace recorded, and **not one of them was born in the capital**.
+Five cities, none of them the capital.
+
+> **Correction, 2026-08-26.** This section first said *six members, four cities* and left Jin
+> out, with a note that we could not place him. That was wrong, and it was wrong in a way worth
+> naming: **we mixed two panels.** Jin does not clear the reading threshold for the Southeast
+> Asia panel further down this page — but he is in the birthplace table, Gwacheon, Wikidata
+> Q24276424, checked again today. A person missing from one measurement is not missing from all
+> of them. Adding him changes the count and not the finding: still no Seoul.
+
+Six of the seven are read widely enough in Indonesia, Vietnam, Thailand and Malaysia to enter
+that separate reading panel. Jin is not — a gap in what we measured of readership, not a gap in
+where he was born.
 
 V is the most-read of the six by a distance: 233 reads per million against Jungkook's 140 and
 Suga's 72. Two of the group's three most-read members come from Daegu, a city that supplies four

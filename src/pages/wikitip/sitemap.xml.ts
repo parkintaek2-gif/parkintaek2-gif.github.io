@@ -6,6 +6,7 @@ import markets from '../../data/wikitip-markets.json';
 import titlePages from '../../data/wikitip-title-pages.json';
 import firmPages from '../../data/wikitip-firm-pages.json';
 import weekPages from '../../data/kcw-week-pages.json';
+import hometowns from '../../data/wikitip-hometowns.json';
 /* 🔴 2026-08-24 밤 — 영상 21편 중 «9편만» 이 사이트맵에 있었다. 어느 벌에 실제로 잰
    썸네일이 있는지 자료에서 읽는다. ⛔ 없는 그림 주소를 사이트맵에 적지 않는다 */
 import videoData from '../../data/wikitip-video.json';
@@ -1161,6 +1162,19 @@ export const GET: APIRoute = async () => {
   for (const w of weekPages.weeks) {
     entries.push({
       path: `/week/${w.week}`, priority: '0.6', changefreq: 'monthly', lastmod: 주지어진날,
+    });
+  }
+
+  /* 🔴 [2026-08-26 · 5번] 출신 도시 지면 37장. GSC 28일에서 «수요를 재서» 냈다 —
+     「which bts member is from busan」류가 23노출 · 순위 3~11위 · 클릭 «0» 이었다.
+     첫 화면에 있는데 안 눌린 까닭은, 그 검색에 뜨는 것이 기사 한 편뿐이고 제목이
+     「BTS is not a Seoul band」라 **묻는 말과 답하는 말이 어긋나서**다.
+     ⛔ 손으로 37줄을 적지 않는다 — 자료에서 뽑는다. 도시가 늘면 저절로 따라온다. */
+  const 고향지어진날 = String((hometowns as any).generated ?? '').slice(0, 10) || undefined;
+  for (const c of ((hometowns as any).cities ?? [])) {
+    entries.push({
+      path: `/from/${String(c.place).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
+      priority: '0.7', changefreq: 'monthly', lastmod: 고향지어진날,
     });
   }
 
