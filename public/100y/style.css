@@ -105,6 +105,7 @@
 
     .sub { color: var(--muted); font-size: var(--fs-body); line-height: 1.85; margin: 0 0 28px; }
     .note { font-size: var(--fs-note); color: var(--muted); line-height: 1.75; }
+    .note-inline { font-size: var(--fs-note); color: var(--muted); font-weight: normal; }
 
     #q {
       width: 100%;

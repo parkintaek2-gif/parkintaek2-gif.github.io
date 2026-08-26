@@ -150,6 +150,7 @@
 
     .sub { color: var(--muted); font-size: var(--fs-body); line-height: 1.85; margin: 0 0 28px; }
     .note { font-size: var(--fs-note); color: var(--muted); line-height: 1.75; }
+    .note-inline { font-size: var(--fs-note); color: var(--muted); font-weight: normal; }
 
     /* 검색창(#q) — 사장님 지시(2026-08-26) 「버튼·디자인이 오락가락하지」로 실측해 보니
        지면 7곳은 이 스타일을 각자 <style> 블록에 복사해 두었고, 2곳(kindergarten·years-left)은
