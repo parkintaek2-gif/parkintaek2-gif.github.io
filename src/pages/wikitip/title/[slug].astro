@@ -561,7 +561,13 @@ const jsonLd = {
 
   {t.firms.length > 0 && (
     <section>
-      <h2>Companies credited on it</h2>
+      {/*
+        ⭐ 같은 까닭으로 바꿨다. 다만 여기는 «재서 고른» 말이다 —
+          `alchemy of souls production company` 는 자동완성에 있고(1줄),
+          `who produced the devil judge` 는 **없다**(0줄). 그래서 앞말을 쓰지 않았다.
+          ⛔ 짐작으로 「Who made it」류를 쓰지 않는다. 그 꼴은 이미 한 번 안 된다고 나왔다.
+      */}
+      <h2>{t.title} production companies</h2>
       <div class="scroll-x">
         <table>
           <thead><tr><th>Company</th><th>Credited as</th></tr></thead>
@@ -584,9 +590,19 @@ const jsonLd = {
 
   {t.cast.length > 0 && (
     <section>
-      <h2>Cast recorded as Korean</h2>
+      {/*
+        ⭐ 2026-08-26 22:5x — 손님이 «치는 말»로 바꿨다. 「Cast recorded as Korean」은 우리 말이다.
+          자동완성으로 쟀다 — `the devil judge cast` 8줄 · `alchemy of souls cast` 10줄.
+          그리고 검색이 실제로 여는 문은 거의 이 `/title/<드라마>` 계열이다(28일 검색 26세션).
+          ⛔ 지면 «제목»(TITLE)은 안 건드렸다 — 9/05 에 끝나는 제목 실험이 걸려 있다.
+             바뀐 것은 안쪽 소제목뿐이라 제목의 클릭률 셈은 그대로 산다.
+          ⛔ 「Korean 으로 기록된 사람만」이라는 한계는 «지우지» 않았다. 바로 아래 줄로 내렸다 —
+             말을 손님 말로 바꾸는 것과 한계를 감추는 것은 다른 일이다.
+      */}
+      <h2>{t.title} cast</h2>
       <p class="note lead-in">
-        {t.cast.length} {t.cast.length === 1 ? 'name' : 'names'}, alphabetically. Wikidata cast lists
+        {t.cast.length} {t.cast.length === 1 ? 'name' : 'names'} <b>recorded as Korean</b>,
+        alphabetically. Wikidata cast lists
         are incomplete and skew toward better-known names, so this is not a full cast list and a short
         one does not mean a small production.
       </p>
