@@ -1171,6 +1171,7 @@ export const GET: APIRoute = async () => {
      「BTS is not a Seoul band」라 **묻는 말과 답하는 말이 어긋나서**다.
      ⛔ 손으로 37줄을 적지 않는다 — 자료에서 뽑는다. 도시가 늘면 저절로 따라온다. */
   const 고향지어진날 = String((hometowns as any).generated ?? '').slice(0, 10) || undefined;
+  entries.push({ path: '/born-abroad', priority: '0.7', changefreq: 'monthly', lastmod: 고향지어진날 });
   for (const c of ((hometowns as any).cities ?? [])) {
     entries.push({
       path: `/from/${String(c.place).toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`,
