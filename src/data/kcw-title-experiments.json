@@ -9,7 +9,8 @@
       "다시잴날": "2026-09-24",
       "무엇을": "제목과 설명",
       "전제목": "BTS members hometowns: V and Suga from Daegu, Jungkook and Jimin from Busan, not one from Seoul",
-      "후제목": "BTS hometowns: Daegu, Busan and three more cities — none of them Seoul",
+      "후제목": "BTS hometowns: Daegu, Busan, and not one from Seoul",
+      "⚠같은날두번고침": "처음에 70자로 줄이고 「안 잘린다」고 적었는데, 그때 제가 «70자»를 기준으로 썼습니다. 우리 자의 한계는 «60자»입니다(구글은 픽셀 폭으로 자르고 영문 기준 대략 그쯤입니다). 두 기준을 쓴 것이 잘못이라 같은 날 04:4x 에 51자로 다시 줄였습니다. GSC 수가 쌓이기 전이라 실험은 이 51자 판으로 셉니다.",
       "전값": { "노출": 165, "클릭": 0, "평균순위": 8.5, "창": "2026-07-27~2026-08-24" },
       "가설": [
         "① 제목이 96자여서 구글이 잘랐다. 잘리면 앞쪽 «답»만 보이고 뒤쪽 클릭 이유가 사라진다. → 70자로 줄였다.",

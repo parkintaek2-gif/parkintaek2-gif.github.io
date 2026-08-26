@@ -1,5 +1,5 @@
 ---
-title: "BTS hometowns: Daegu, Busan and three more cities — none of them Seoul"
+title: "BTS hometowns: Daegu, Busan, and not one from Seoul"
 category: stars
 dek: "Busan gave nine of the 123 most-read Korean stars, Daegu four, Seoul fifty. No BTS member was born in the capital — the member-by-member table is below."
 pubDate: 2026-08-22

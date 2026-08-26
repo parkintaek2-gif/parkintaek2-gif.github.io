@@ -98,7 +98,17 @@ export function 줄읽기(줄) {
 }
 
 /* ── 자가시험 ─────────────────────────────────────────── */
-if (process.argv.includes('--자가시험')) {
+/**
+ * 🔴 2026-08-27 04:3x — **자가시험도 «직접 부를 때만» 돈다.**
+ *   `check-meta-length.mjs` 가 이 파일의 함수를 갖다 쓰는데, 그쪽에서 `--자가시험` 을 주자
+ *   **이 파일의 자가시험이 먼저 돌고 `process.exit` 로 끝나** 정작 그쪽 시험이 한 개도
+ *   안 돌았다. 그런데 화면에는 「✅ 18개 다 통과」가 떠서 **통과한 줄 알았다.**
+ *   ⛔ 이런 흠은 초록으로 보인다 — 그게 가장 나쁘다.
+ *   ⚠ 본짓에만 관문을 달고 자가시험에는 안 달면 이 구멍이 남는다. 둘 다 단다.
+ */
+const 이파일직접 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (이파일직접 && process.argv.includes('--자가시험')) {
   let 깨짐 = 0;
   const 본다 = (이름, 참) => { if (참) console.log(`  ✅ ${이름}`); else { console.log(`  ❌ ${이름}`); 깨짐 += 1; } };
   console.log('자가시험 — find-zero-click-pages');
@@ -148,9 +158,7 @@ if (process.argv.includes('--자가시험')) {
 }
 
 /* ── 본짓 ─────────────────────────────────────────────── */
-const 직접부름 = process.argv[1]
-  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
-if (직접부름) {
+if (이파일직접) {
   const 도메인 = process.argv.find((a) => a.startsWith('--도메인='))?.split('=')[1] ?? 'kculturewire.com';
   const 뿌리이름 = process.argv.find((a) => a.startsWith('--뿌리='))?.split('=')[1] ?? 'dist';
   const 최소노출 = Number(process.argv.find((a) => a.startsWith('--최소노출='))?.split('=')[1]) || 20;
