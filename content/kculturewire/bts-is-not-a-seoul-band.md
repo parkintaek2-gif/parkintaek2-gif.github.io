@@ -1,7 +1,7 @@
 ---
-title: "BTS members hometowns: V and Suga from Daegu, Jungkook and Jimin from Busan, not one from Seoul"
+title: "BTS hometowns: Daegu, Busan and three more cities — none of them Seoul"
 category: stars
-dek: "Seoul is the birthplace of 50 of the 123 most-read Korean stars we could place — 41% from one city. BTS is the counterexample: all seven members, five cities, none of them the capital."
+dek: "Busan gave nine of the 123 most-read Korean stars, Daegu four, Seoul fifty. No BTS member was born in the capital — the member-by-member table is below."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
