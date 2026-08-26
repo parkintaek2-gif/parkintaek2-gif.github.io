@@ -35,6 +35,7 @@ import 혼자 from '../../../data/100yearmap/oneperson.json';
 import 학습 from '../../../data/100yearmap/lifelong.json';
 import 노후소득 from '../../../data/100yearmap/retire-income.json';
 import 폴리텍 from '../../../data/100yearmap/polytech.json';
+import 국민연금 from '../../../data/100yearmap/pension-recipients.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -52,6 +53,7 @@ const t = 혼자 as any;
 const u = 학습 as any;
 const v = 노후소득 as any;
 const w = 폴리텍 as any;
+const x = 국민연금 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -162,6 +164,12 @@ const 문들 = [
     수: `${new Set(w.과정.map((x: any) => x.캠퍼스)).size}개 캠퍼스`,
     한줄: `전국 학과·과정 ${w.과정.length}개를 시도별로 정리했습니다 — 국비 지원 국립 직업훈련기관(공교육)입니다.`,
     기간: `연 1회 갱신 · 공공데이터포털`,
+  },
+  {
+    나이: '65세~', 주소: '/pension', 이름: '국민연금, 내 나이·내 지역 사람들은 얼마 받을까',
+    수: `월 ${Math.round((x.전국['65']?.avgFnlPrvsAmt ?? 0) / 10000 * 10) / 10}만원`,
+    한줄: `65세 전국 평균 수급액입니다. 노령·장애·유족 연금을 합친 값이며, 지역별로도 볼 수 있습니다.`,
+    기간: `${x.받은날} · 국민연금공단`,
   },
   {
     나이: '노후', 주소: '/retire-income', 이름: '은퇴 후 소득은 얼마나 줄어들까',

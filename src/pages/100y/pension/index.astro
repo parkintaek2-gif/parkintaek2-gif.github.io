@@ -1,0 +1,174 @@
+---
+/**
+ * /100y/pension — 국민연금 수급현황, 내 나이·지역 사람들은 얼마 받나
+ *
+ * 사장님 지시(2026-08-26) — 「국민연금 통계, 각 지자체의 통계가 나이별로 어떻게 살고
+ * 있는 지를 보여주는 게 많다」. data.go.kr 15010381(사장님이 직접 활용신청·승인)을
+ * scripts/collect-100y-pension-recipients.mjs 로 실측 수집했다.
+ *
+ * ⛔ 순위를 매기지 않는다. 지역은 가나다순, 나이는 낮은 순으로만 놓는다.
+ * ⚠ 급여종별은 「00(전체)」만 쓴다 — 노령·장애·유족을 합친 값이다. 못 가른 것을
+ *   가른 것처럼 보이면 안 되니 그 사실을 그대로 적는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/pension-recipients.json';
+
+const 자료 = 원본 as any;
+const [나이시작, 나이끝] = 자료.나이범위 as [number, number];
+const 지역목록 = (Object.keys(자료.지역별) as string[]).sort((a, b) => a.localeCompare(b, 'ko'));
+
+const 만원 = (v: number | null | undefined) => (v == null ? '못 잼' : `${Math.round(v / 10000 * 10) / 10}만원`);
+
+/** 대표 나이(65세) — 첫 화면 요약에 쓴다. 없으면 있는 것 중 가장 가까운 나이로 */
+const 대표나이 = 자료.전국['65'] ? 65 : Number(Object.keys(자료.전국)[0]);
+const 전국대표 = 자료.전국[String(대표나이)];
+const 최고지역 = 지역목록
+  .map((이름) => ({ 이름, 값: 자료.지역별[이름][String(대표나이)]?.avgFnlPrvsAmt ?? null }))
+  .filter((r) => r.값 != null)
+  .reduce((a, b) => (b.값! > a.값! ? b : a));
+
+const desc =
+  `국민연금공단 수급현황(공공데이터포털)을 나이·지역별로 그대로 옮겼습니다. ` +
+  `${대표나이}세 전국 평균 월 수급액은 ${만원(전국대표?.avgFnlPrvsAmt)}입니다. ` +
+  `노령·장애·유족 연금을 합친 값이며, 지역별로 갈라 볼 수 있습니다.`;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '국민연금 수급액',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `국민연금공단 수급현황(2026-08 기준)에 따르면 ${대표나이}세 전국 평균 월 수급액은 ${만원(전국대표?.avgFnlPrvsAmt)}입니다. 지역별로는 ${최고지역.이름}이 ${만원(최고지역.값)}로 가장 높습니다. 노령·장애·유족 연금을 합친 값입니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear title={`국민연금 수급액 — ${대표나이}세 전국 평균 월 ${만원(전국대표?.avgFnlPrvsAmt)}`} description={desc} jsonLd={faqJsonLd}>
+  <h1>국민연금, 내 나이·<br />내 지역 사람들은<br />얼마 받을까요?</h1>
+  <p class="sub">
+    <strong>{대표나이}세 전국 평균은 월 {만원(전국대표?.avgFnlPrvsAmt)}입니다.</strong>
+    {' '}지역으로 갈라 보면 {최고지역.이름}이 {만원(최고지역.값)}로 가장 높습니다.
+  </p>
+
+  <p class="note">
+    ⚠ 노령·장애·유족 연금을 <strong>합친 값</strong>입니다 — 못 갈랐습니다. 이 수치는
+    <strong>통계이지 당신이 아닙니다.</strong> 같은 나이라도 가입기간·소득에 따라 실제
+    받는 금액은 크게 다릅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{대표나이}세, 전국 평균 월 수급액</p>
+    <p class="answer-num">{만원(전국대표?.avgFnlPrvsAmt)}</p>
+    <p class="answer-sub">
+      {전국대표?.avgTotPrvsAmt != null && <>실제 받은 총액 기준 평균 누적 {만원(전국대표.avgTotPrvsAmt)}</>}
+    </p>
+  </div>
+
+  <input
+    id="q"
+    type="search"
+    placeholder="나이를 입력하세요 (예: 40 · 65 · 80)"
+    autocomplete="off"
+    inputmode="numeric"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>나이</th>
+          <th>전국</th>
+          {지역목록.map((이름) => <th>{이름}</th>)}
+        </tr>
+      </thead>
+      <tbody>
+        {Array.from({ length: 나이끝 - 나이시작 + 1 }, (_, i) => 나이시작 + i).map((age) => (
+          <tr data-age={String(age)}>
+            <th>{age}세</th>
+            <td>{만원(자료.전국[String(age)]?.avgFnlPrvsAmt)}</td>
+            {지역목록.map((이름) => (
+              <td>{만원(자료.지역별[이름][String(age)]?.avgFnlPrvsAmt)}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>「광주·전남」은 하나로 묶여 있습니다.</strong> 이 자료를 낸 국민연금공단
+    시스템 자체가 광주광역시·전라남도를 가르지 않고 합쳐서 줍니다 — 저희가 못 가른
+    것이 아니라 원자료가 그렇습니다.
+  </p>
+  <p class="note">
+    ⚠ 강원·전북은 특별자치도로 바뀐 뒤의 새 지역 코드로만 값이 잡힙니다. 「못 잼」은
+    그 나이·그 지역에 실제로 수급자가 없거나 너무 적어(세종 98~100세 등) 원자료에
+    값이 없는 것입니다 — 0으로 채우지 않았습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처}. 이용허락범위 {자료.이용허락범위}. 받은 날 {자료.받은날}.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/keep-working">← 55~79세, 계속 일하고 싶은 사람은 몇 %일까요?</a>
+    <br />
+    <a href="/polytech">← 제2의 인생, 폴리텍대학에서 배울 수 있는 것</a>
+    <br />
+    <a href="/retire-income">← 은퇴 후 소득은 얼마나 줄어들까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="pension" />
+  <NextQuestionBrief 모은것="국민연금 수급현황 자료" />
+</HundredYear>
+
+<style>
+  /* #q 는 이제 공용 스타일(100y.src.css)에 있다 — 여기서 다시 안 정한다 */
+  [hidden] { display: none !important; }
+</style>
+
+<script is:inline>
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var 줄들 = Array.prototype.slice.call(document.querySelectorAll('tbody tr'));
+    if (!q) return;
+
+    function apply() {
+      var v = q.value.trim();
+      if (!v) {
+        줄들.forEach(function (tr) { tr.hidden = false; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      줄들.forEach(function (tr) {
+        var 맞나 = tr.getAttribute('data-age') === String(parseInt(v, 10));
+        tr.hidden = !맞나;
+        if (맞나) n++;
+      });
+      cnt.textContent = n ? '' : '「' + v + '」 로 찾은 나이가 없습니다 (40~100)';
+    }
+
+    q.addEventListener('input', apply);
+    var qs = new URLSearchParams(location.search).get('q');
+    if (qs) { q.value = qs; apply(); }
+  })();
+</script>
