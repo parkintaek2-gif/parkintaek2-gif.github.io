@@ -1,5 +1,5 @@
 ---
-title: "Netflix never says where a show is from — our counts are inferences too"
+title: "Netflix never says where a show is from, and nor can we"
 dek: "The weekly charts carry nine columns and none is country of production. Match titles by name, as everyone must, and 17% of Korean viewing sits on names another country also uses. We measured the gap and publish its size."
 category: titles
 purpose: both

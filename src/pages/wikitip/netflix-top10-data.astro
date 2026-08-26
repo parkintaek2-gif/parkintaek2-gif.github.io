@@ -39,7 +39,10 @@ const 우리것 = (titlePages.titles ?? [])
   .sort((a: any, b: any) => b.markets - a.markets)
   .slice(0, 3);
 
-const TITLE = `Inside Netflix's Top 10 files: all-weeks-countries.tsv and all-weeks-global.tsv`;
+/* 🔴 2026-08-27 06:3x — 79자여서 잘렸다. ⭐ 파일 «이름» 둘이 곧 검색어라 반드시 남긴다 —
+   GSC 실측에서 `all-weeks-countries.tsv` 가 노출 36, `all-weeks-global.tsv` 가 14 다.
+   앞머리(「Inside Netflix's Top 10 files:」)를 덜어 이름 둘을 다 지키면서 58자로 맞췄다. */
+const TITLE = `Netflix's all-weeks-countries.tsv and all-weeks-global.tsv`;
 const DESC =
   `What is actually in the two files Netflix publishes, counted on ${d.measuredAt}: `
   + `${나라파일.rows.toLocaleString('en-US')} country rows across ${나라파일.countries} countries, `

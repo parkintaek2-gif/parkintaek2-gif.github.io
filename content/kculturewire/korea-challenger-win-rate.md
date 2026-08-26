@@ -1,5 +1,5 @@
 ---
-title: "The Korean challenger ladder has the lowest win rate of any region"
+title: "Korea's challenger ladder: lowest win rate of six regions"
 dek: "Korea's top 300 League of Legends players win 53.65% of their ranked games — the lowest of six regions, on all four days we have measured. A win rate at the top is set by who you have to play, and in Korea that is everybody else."
 category: titles
 genre: esports

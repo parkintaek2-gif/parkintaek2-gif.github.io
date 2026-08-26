@@ -1,5 +1,5 @@
 ---
-title: "Every League region's top tier holds more long-stayers than the tier below it. North America's holds a third as many."
+title: "Every League region's top tier holds more long-stayers"
 dek: "Riot flags 54% of Korea's challengers as veterans of the tier and 29.4% of its grandmasters. In North America it is 36.8% and 13%. The top tier is where players stay everywhere — how much more it stays differs by region."
 category: titles
 genre: esports

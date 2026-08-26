@@ -23,7 +23,13 @@ import data from '../../data/wikitip-global.json';
      그 말로 시작하는 자동완성이 «2줄»이다(films 는 0줄). films 를 movies 로 바꿨다.
      ⛔ 영국식·미국식 가운데 «손님이 치는 쪽»을 쓴다. 우리 취향이 아니다.
      9/05 에 같은 자로 다시 잰다 — 나빠졌으면 되돌린다. */
-const TITLE = 'Most watched Korean dramas and movies on Netflix — by hours viewed, worldwide';
+/* 🔴 [2026-08-27 06:3x] **길이를 안 재고 바꿨던 것을 고칩니다.** 위 8/26 판단(movies·손님 말)은
+   그대로 맞았는데, 그때 «글자 수»를 안 쟀습니다 — 77자여서 구글이 잘라 냅니다.
+   잘리면 뒤쪽 「by hours viewed, worldwide」가 안 보이고, 그게 이 지면의 유일한 클릭 이유였습니다.
+   ⭐ 손님 말(「most watched korean movies on netflix」)은 앞쪽에 그대로 두고 58자로 줄였습니다.
+   ⚠ 9/05 실험이 걸려 있는 지면입니다. 같은 날 두 번 고친 셈이라 실험 기록에 적어 두었습니다 —
+     잘리는 제목으로 실험해 봐야 무엇이 들었는지 못 가릅니다. */
+const TITLE = 'Most watched Korean dramas and movies on Netflix, by hours';
 const DESC =
   `Korean shows and films have been watched for ${(data.totalHours / 1e9).toFixed(1)} billion hours on Netflix `
   + `worldwide since 2021 — ${data.titleCount} titles reached the global Top 10. This is the ranking by hours, `

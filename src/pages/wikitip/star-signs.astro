@@ -22,8 +22,11 @@ import d from '../../data/wikitip-star-signs.json';
 const 큰띠 = [...d.signs].sort((a, b) => (b.top[0]?.perMillion ?? 0) - (a.top[0]?.perMillion ?? 0));
 const 으뜸 = 큰띠[0];
 
-const TITLE = 'Which Korean stars share your Chinese zodiac sign? '
-  + 'IU, Cha Eun-woo, Byeon Woo-seok and 1,044 more';
+/* 🔴 2026-08-27 06:3x — 97자여서 잘렸다. 잘린 뒤쪽이 이름 나열이었다.
+   ⭐ 검색어는 앞쪽에 있다 — `korean zodiac` 는 자동완성 10줄로 우리가 가진 말 중 가장 세다.
+     그 물음만 남기고 50자로 줄였다. 이름 1,047개는 지면 안 표에 그대로 있다.
+   ⛔ 이름을 «감춘» 것이 아니다. 제목에 셋만 적는 것이 오히려 나머지 1,044명을 가리는 쪽이었다. */
+const TITLE = 'Which Korean stars share your Chinese zodiac sign?';
 const DESC =
   `We placed ${d.peopleWithSign} Korean actors and singers into the twelve zodiac signs by year of `
   + `birth — IU and Song Hye-kyo in the Rooster, Cha Eun-woo and Song Joong-ki in the Ox, `
