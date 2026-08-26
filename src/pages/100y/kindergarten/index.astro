@@ -145,6 +145,27 @@ const desc =
   <NextQuestionBrief 모은것="유치원 자료" />
 </HundredYear>
 
+<style>
+  /* 🔴 다른 검색창(#q)들과 통일 — 이 지면은 스타일이 아예 없어 브라우저 기본
+     입력창으로 나갔었다(2026-08-26 사장님 지적: 「버튼·디자인이 오락가락」) */
+  #q {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+    font-size: var(--fs-body);
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+  }
+</style>
+
 <script is:inline>
   (function () {
     var q = document.getElementById('q');
