@@ -148,6 +148,33 @@ async function 통보(호스트) {
   });
 
   console.log(`IndexNow ${res.status} ${res.statusText} — ${사이트들[호스트].이름} ${호스트} · ${urlList.length} URL(s)`);
+
+  /**
+   * 🔴 2026-08-26 22:4x (5번) — **보낸 것을 «적지» 않고 있었다.**
+   *   배포 관문(`check-deploy-ready.mjs`)은 `archive/indexnow-kcw.json` 을 읽어
+   *   「색인 알림을 한 번도 못 받은 지면 117장」이라고 말한다. 그런데 그 기록을 적는 쪽은
+   *   `check-kcw-indexnow.mjs` 뿐이고, **정작 통보를 «보내는» 이 자는 아무것도 안 적었다.**
+   *   그래서 여기서 2,715장을 보내 200 을 받아도 관문의 수는 그대로 117 이었다.
+   *   ⛔ 이건 「덜 알렸다」가 아니라 **자가 서로 안 맞물린 것**이다. 틀린 숫자가 남는다.
+   *
+   * ⛔ 6번 동작을 깨지 않는다 — 서울마켓·백년지도에는 이 기록이 없으므로 건너뛴다.
+   * ⛔ try/catch 로 감싼다. 기록에 실패해도 «통보 자체»는 이미 성공한 것이다.
+   */
+  if (res.ok && 호스트 === 'www.kculturewire.com') {
+    try {
+      const { 기록길, 기록읽기, 적기, 오늘KST } = await import('./check-kcw-indexnow.mjs');
+      const { mkdirSync, writeFileSync } = await import('node:fs');
+      const path = (await import('node:path')).default;
+      const 길들 = urlList.map((u) => new URL(u).pathname);
+      mkdirSync(path.dirname(기록길), { recursive: true });
+      writeFileSync(기록길, `${JSON.stringify(적기(길들, 오늘KST, 기록읽기()), null, 2)}\n`);
+      console.log(`   ✅ 보낸 ${길들.length}장을 기록에 적었다 — 관문의 「안 알린 장수」가 이제 맞는다`);
+    } catch (e) {
+      console.log(`   ⚠ 통보는 갔는데 **기록은 못 적었다** — ${e.message}`);
+      console.log('      ⛔ 「안 알린 지면 N장」이 실제보다 많게 보일 수 있다. 0 으로 읽지 않는다.');
+    }
+  }
+
   if (!res.ok) {
     const 몸 = await res.text();
     console.log(몸);
