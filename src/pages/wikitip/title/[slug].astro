@@ -290,7 +290,17 @@ const jsonLd = {
       답 → 한계 → 견주기. 답 없이 한계부터 읽히면 손님은 답을 못 보고 나간다.
   */}
   <section>
-    <h2>Where it charted — all {t.markets} {셈(t.markets, 'market')}</h2>
+    {/*
+      ⭐ 2026-08-26 23:5x — 손님이 «치는 말»로 바꿨다. 이번엔 자동완성이 아니라
+        **GSC 실측**에서 나온 꼴이다(28일, sc-domain:kculturewire.com) —
+          my lovely liar netflix country      노출 8 · 클릭 1 · 순위 6.8
+          band of brothers netflix country    노출 3 ·          순위 8.3
+          18 again netflix countries          노출 4 ·          순위 11.5
+          a girl who deserves to die netflix  노출 10 · 클릭 1 · 순위 7.8
+        「netflix country」가 실제로 쳐지는 말이다. 소제목이 그 말로 시작하지 않았다.
+      ⛔ 지면 «제목»(TITLE)은 안 건드린다 — 9/05 에 끝나는 제목 실험이 걸려 있다.
+    */}
+    <h2>{t.title} on Netflix, country by country — all {t.markets} {셈(t.markets, 'market')}</h2>
     <div class="scroll-x">
       <table>
         <thead>
@@ -356,7 +366,18 @@ const jsonLd = {
       제목을 줄세운 표가 아니다.
   */}
   <section class="warn-box">
-    <h2>Was it a hit or a flop?</h2>
+    {/*
+      🔴 2026-08-26 23:5x — **제가 앞서 이 꼴을 「지어낸 것」이라며 버렸는데, 틀렸습니다.**
+        8/26 자동완성 2차에서 `hit or flop` 이 «없다»(0줄)로 나와 그 축을 접었다.
+        그런데 GSC 실측에는 실제로 잡혀 있다 —
+          a model family hit or flop   노출 2 · 순위 9.5
+          a company man hit or flop    노출 1 · 순위 10.0
+      ⭐ 배운 것 — **자동완성은 대리지표이고 GSC 는 실측이다.** 둘이 갈리면 GSC 가 이긴다.
+        자동완성 「없다」로 축을 접기 전에 GSC 를 먼저 본다.
+      ⛔ 다만 우리 답은 안 바꾼다. 우리는 여전히 hit/flop 을 «판정하지 않는다» —
+        묻는 말로 문을 열되, 안에서는 「셀 수 없다」고 그대로 적는다.
+    */}
+    <h2>{t.title} — hit or flop?</h2>
     <p class="warn">
       We will not say, and neither can the chart. Netflix's country lists record that a title held a
       top-ten place in a country in a week. They do not record how many people watched it, what it
