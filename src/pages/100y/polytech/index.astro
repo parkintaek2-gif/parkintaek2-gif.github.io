@@ -1,0 +1,228 @@
+---
+/**
+ * /100y/polytech — 한국폴리텍대학에서 배울 수 있는 것 (배움의 길 · 첫 지면)
+ *
+ * 사장님 지시(2026-08-26) — 「폴리텍대학이라는 직업전문학교에서 배울 수 있는 것도
+ * 서비스하자. 새 직업을 찾아나서거나 제2의 인생을 설계하는 과정들이다. 우린 사교육이
+ * 아닌 공교육 중심이다 — 국가·지자체·공공기관이 하는 교육도 모두 공교육이다.」
+ *
+ * ⛔ 「API가 없으면 스크래핑뿐」이라 잘못 짚었다가 다시 파서 찾았다 — data.go.kr에
+ *   공식 파일데이터가 있었다(로그인도 필요 없다). scripts/collect-100y-polytech.mjs 참고.
+ *
+ * ⛔ 순위·추천을 매기지 않는다 — /major 와 같은 원칙이다. 시도 가나다순 · 그 안에서
+ *   캠퍼스 가나다순 · 그 안에서 학과 가나다순으로만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/polytech.json';
+
+const 자료 = 원본 as any;
+const 과정 = 자료.과정 as {
+  캠퍼스: string; 학과명: string; 전공직종: string | null; 계열: string | null;
+  과정: string; 기간: number | null; 기간단위: string; 주야간: string;
+  시도: string | null; 주소: string | null; 홈페이지: string | null;
+}[];
+
+const 시도별 = new Map<string, Map<string, typeof 과정>>();
+for (const p of 과정) {
+  const 시도 = p.시도 ?? '캠퍼스 소재지 확인 안 됨';
+  if (!시도별.has(시도)) 시도별.set(시도, new Map());
+  const 캠퍼스표 = 시도별.get(시도)!;
+  if (!캠퍼스표.has(p.캠퍼스)) 캠퍼스표.set(p.캠퍼스, []);
+  캠퍼스표.get(p.캠퍼스)!.push(p);
+}
+const 시도목록 = [...시도별.keys()].filter((s) => s !== '캠퍼스 소재지 확인 안 됨').sort((a, b) => a.localeCompare(b, 'ko'));
+const 미확인있나 = 시도별.has('캠퍼스 소재지 확인 안 됨');
+
+const 캠퍼스수 = new Set(과정.map((p) => p.캠퍼스)).size;
+const 계열수 = new Set(과정.map((p) => p.계열).filter(Boolean)).size;
+
+const desc =
+  `한국폴리텍대학 전국 ${캠퍼스수}개 캠퍼스에서 지금 운영하는 학과·과정 ${과정.length}개를 ` +
+  `시도별로 정리했습니다. 자격이 아니라 실제로 개설된 과정 이름·기간·주야간 구분까지 그대로 옮겼습니다.`;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '폴리텍대학 학과',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `한국폴리텍대학은 전국 ${캠퍼스수}개 캠퍼스에서 ${과정.length}개 학과·과정을 운영합니다(공공데이터포털, 학교법인한국폴리텍 제공). 국비 지원 직업훈련기관으로, 사립 학원이 아닌 공교육입니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear title="한국폴리텍대학에서 배울 수 있는 것 — 전국 캠퍼스별 학과·과정" description={desc} jsonLd={faqJsonLd}>
+  <h1>폴리텍대학에서<br />무엇을 배울 수 있을까요?</h1>
+  <p class="sub">
+    <strong>전국 {캠퍼스수}개 캠퍼스 · {과정.length}개 학과·과정</strong>입니다.
+    {' '}한국폴리텍대학은 고용노동부 산하 국립 직업훈련기관입니다 — 학원이 아니라 <strong>공교육</strong>입니다.
+  </p>
+
+  <p class="note">
+    ⚠ 이것은 <strong>새 직업을 찾거나 지금 하는 일을 바꾸려는 사람</strong>을 위한 자료입니다.
+    {' '}입학·수강 조건, 등록금(대부분 국비 지원), 정원은 캠퍼스마다 다르므로 아래 홈페이지에서
+    직접 확인하셔야 합니다 — 저희는 <strong>공공데이터포털이 낸 이름·기간만</strong> 옮깁니다.
+  </p>
+
+  <input
+    id="q"
+    type="search"
+    placeholder="학과·전공·지역을 입력하세요 (예: 자동화, 로봇, 부산)"
+    autocomplete="off"
+    aria-label="학과·전공·지역 검색"
+  />
+  <p class="note" id="cnt" aria-live="polite"></p>
+
+  {
+    시도목록.map((시도) => {
+      const 캠퍼스표 = 시도별.get(시도)!;
+      const 캠퍼스목록 = [...캠퍼스표.keys()].sort((a, b) => a.localeCompare(b, 'ko'));
+      return (
+        <section class="grp" data-track={시도}>
+          <h2>{시도} <span class="note">{[...캠퍼스표.values()].flat().length}개 과정 · {캠퍼스목록.length}개 캠퍼스</span></h2>
+          {캠퍼스목록.map((캠퍼스) => {
+            const 목록 = 캠퍼스표.get(캠퍼스)!.sort((a, b) => a.학과명.localeCompare(b.학과명, 'ko'));
+            const 홈 = 목록[0].홈페이지;
+            return (
+              <div class="campus">
+                <h3>
+                  {캠퍼스}
+                  {홈 && <> · <a href={홈} target="_blank" rel="noopener nofollow">캠퍼스 홈페이지 →</a></>}
+                </h3>
+                <ul class="courses">
+                  {목록.map((p) => (
+                    <li data-name={`${p.학과명} ${p.전공직종 ?? ''} ${시도}`}>
+                      <span class="dept">{p.학과명}</span>
+                      {p.전공직종 && <span class="note"> · {p.전공직종}</span>}
+                      <span class="note"> · {p.과정}{p.기간 ? ` · ${p.기간}${p.기간단위}` : ''} · {p.주야간}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            );
+          })}
+        </section>
+      );
+    })
+  }
+
+  {
+    미확인있나 && (
+      <section class="grp">
+        <h2>캠퍼스 소재지 확인 안 됨 <span class="note">{시도별.get('캠퍼스 소재지 확인 안 됨')!.size}개 캠퍼스</span></h2>
+        <p class="note">
+          ⛔ 「충남」·「전력기술」 두 캠퍼스는 저희가 가진 캠퍼스 주소록에 이름이 없어
+          지역을 <strong>짐작해 넣지 않았습니다.</strong> 학과·과정은 실제로 있습니다.
+        </p>
+        {[...시도별.get('캠퍼스 소재지 확인 안 됨')!.entries()].map(([캠퍼스, 목록]) => (
+          <div class="campus">
+            <h3>{캠퍼스}</h3>
+            <ul class="courses">
+              {목록.sort((a, b) => a.학과명.localeCompare(b.학과명, 'ko')).map((p) => (
+                <li data-name={`${p.학과명} ${p.전공직종 ?? ''}`}>
+                  <span class="dept">{p.학과명}</span>
+                  {p.전공직종 && <span class="note"> · {p.전공직종}</span>}
+                  <span class="note"> · {p.과정}{p.기간 ? ` · ${p.기간}${p.기간단위}` : ''} · {p.주야간}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </section>
+    )
+  }
+
+  <hr class="rule" />
+  <p class="note">
+    출처 — {자료.출처}. 이용허락범위 {자료.이용허락범위}. 원자료는 연 1회 안팎으로 바뀝니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/lifelong">← 나이대별로 몇 %가 계속 배우고 있을까요?</a>
+    <br />
+    <a href="/major">← 고등학교 학과 찾기</a>
+    <br />
+    <a href="/keep-working">← 55~79세, 계속 일하고 싶은 사람은 몇 %일까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="polytech" />
+  <NextQuestionBrief 모은것="한국폴리텍대학 학과·과정 자료" />
+</HundredYear>
+
+<style>
+  #q {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0.8rem;
+    font-size: var(--fs-body);
+    font-family: inherit;
+    color: var(--ink);
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.5rem;
+    margin: 0 0 0.5rem;
+  }
+  #q:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .grp h2 { padding-bottom: 0.35rem; border-bottom: 1px solid var(--line); margin-top: 1.8rem; }
+  .campus h3 { font-size: var(--fs-body); margin: 1rem 0 0.3rem; }
+  .courses { list-style: none; padding: 0; margin: 0; }
+  .courses li { padding: 0.35rem 0; border-bottom: 1px solid var(--line); font-size: var(--fs-body); }
+  .dept { font-weight: 600; }
+  [hidden] { display: none !important; }
+</style>
+
+<script is:inline>
+  (function () {
+    var q = document.getElementById('q');
+    var cnt = document.getElementById('cnt');
+    var items = Array.prototype.slice.call(document.querySelectorAll('.courses li'));
+    var camps = Array.prototype.slice.call(document.querySelectorAll('.campus'));
+    var groups = Array.prototype.slice.call(document.querySelectorAll('.grp'));
+    if (!q) return;
+
+    function apply() {
+      var v = q.value.trim();
+      if (!v) {
+        items.forEach(function (li) { li.hidden = false; });
+        camps.forEach(function (c) { c.hidden = false; });
+        groups.forEach(function (g) { g.hidden = false; });
+        cnt.textContent = '';
+        return;
+      }
+      var n = 0;
+      items.forEach(function (li) {
+        var hit = li.getAttribute('data-name').indexOf(v) >= 0;
+        li.hidden = !hit;
+        if (hit) n++;
+      });
+      camps.forEach(function (c) {
+        c.hidden = !c.querySelector('.courses li:not([hidden])');
+      });
+      groups.forEach(function (g) {
+        g.hidden = !g.querySelector('.campus:not([hidden])');
+      });
+      cnt.textContent = n ? '「' + v + '」 ' + n + '개 과정' : '「' + v + '」 로 찾은 과정이 없습니다';
+    }
+
+    q.addEventListener('input', apply);
+    var qs = new URLSearchParams(location.search).get('q');
+    if (qs) { q.value = qs; apply(); }
+  })();
+</script>

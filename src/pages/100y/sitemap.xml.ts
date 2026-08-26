@@ -266,6 +266,8 @@ export const GET: APIRoute = () => {
     { path: '/oneperson', priority: '0.8', changefreq: 'monthly' },
     { path: '/lifelong', priority: '0.8', changefreq: 'monthly' },
     { path: '/retire-income', priority: '0.8', changefreq: 'monthly' },
+    /* 「배움의 길」 첫 지면(2026-08-26 신설, 사장님 지시) — 폴리텍대학 학과·과정 */
+    { path: '/polytech', priority: '0.8', changefreq: 'monthly' },
     /* 「대학 이후」의 짝(2026-08-23 신설) — 여기서도 잊지 않는다 */
     { path: '/before', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
