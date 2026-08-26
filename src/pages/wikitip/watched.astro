@@ -10,7 +10,17 @@ import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-global.json';
 
-const TITLE = 'The most-watched Korean titles on Netflix, worldwide';
+/* 🔴 [2026-08-26 21:4x · 5번] 제목에 «drama» 를 넣었다. 손님이 치는 말이다 —
+   구글 자동완성: 「most watched korean drama netflix」 있다(1번째).
+   ⛔ 내 제목은 「Korean **titles**」였다. titles 는 «우리» 말이고 drama 는 «손님» 말이다.
+   ⚠ 이 지면은 드라마와 영화를 다 담는다. 그래서 drama 만 쓰지 않고 둘 다 적는다 —
+     drama 만 쓰면 영화를 빼먹은 것처럼 읽히고, 그건 사실이 아니다.
+   ⭐ 무엇으로 셌는지도 제목에 남긴다(by hours viewed) — 「가장 많이 본」은 판정이지만
+     「시청시간으로 셌다」는 사실이다. 우리는 판정하지 않는다.
+   ⚠ 지금 자리: 41노출 · 클릭 1 · 순위 15.8(2페이지). 잃을 것이 적어 바꾼다.
+   ⛔ 이 바꿈의 효과는 «우리가 못 잰다». 검색어가 익명화돼 41노출 중 2개만 보인다.
+     9/05 에 같은 자로 다시 잰다 — 나빠졌으면 되돌린다. */
+const TITLE = 'Most watched Korean dramas and films on Netflix — by hours viewed, worldwide';
 const DESC =
   `Korean shows and films have been watched for ${(data.totalHours / 1e9).toFixed(1)} billion hours on Netflix `
   + `worldwide since 2021 — ${data.titleCount} titles reached the global Top 10. This is the ranking by hours, `
@@ -34,7 +44,7 @@ const jsonLd = {
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/watched">
-  <h1>The most-watched Korean titles on Netflix, worldwide</h1>
+  <h1>Most watched Korean dramas and films on Netflix</h1>
   <p class="lead">
     Since {data.weekFrom.slice(0, 4)}, Korean shows and films that reached Netflix’s global Top 10
     {/* ⛔ 줄 끝의 빈칸은 사라진다 — `{' '}` 를 안 쓰면 「across234」로 붙어 나간다(손님으로 걸어 봤다) */}
