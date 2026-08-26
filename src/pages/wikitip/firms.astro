@@ -23,7 +23,14 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/wikitip-firm-index.json';
 
-const TITLE = 'Who made it? Every company behind a charting Korean title';
+/* 🔴 [2026-08-26 · 5번] 제목에 «Korean drama production companies» 를 넣었다.
+   구글 자동완성에 그 말이 있다(1번째). 내 제목은 「Who made it?」로 시작해서,
+   그 말로 검색하는 사람의 결과 목록에서 «우리 줄이 답처럼 안 읽혔다».
+   ⚠ 우리 자료는 제작사(P272)만이 아니라 방송사(P449)·배급사(P750)도 담는다.
+     그래서 「production companies」만 쓰면 «좁다» — 부제에서 셋을 다 밝힌다.
+     ⛔ 제목을 손님 말로 하고 본문에서 얼버무리면 그것이 낚시다. 밝히고 쓴다.
+   ⚠ 이 바꿈의 효과는 9/05 에 같은 자로 다시 잰다. */
+const TITLE = 'Korean drama production companies — who made every charting title';
 const DESC = 'Studio Dragon, tvN, SBS, SHOWBOX and every other company credited on a Korean series or '
   + 'film that has entered a Netflix weekly top 10 — with the titles we hold for each. Alphabetical, '
   + 'because this is not a ranking.';
@@ -51,7 +58,7 @@ const jsonLd = {
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/firms">
-  <h1>Who made it?</h1>
+  <h1>Korean drama production companies &mdash; who made it?</h1>
 
   <p class="lead">
     Every company credited on a Korean title that has reached a Netflix weekly top 10 somewhere —
