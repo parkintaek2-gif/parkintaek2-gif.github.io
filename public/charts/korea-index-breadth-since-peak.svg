@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 324" width="760" height="324" font-family="Georgia,'Times New Roman',serif">
+  <rect width="760" height="324" fill="#ffffff"/>
+  <line x1="635.1" y1="18" x2="635.1" y2="302" stroke="#333"/>
+  <text x="190" y="45.0" text-anchor="end" font-size="14" fill="#222">Information technology</text><rect x="200.0" y="31.0" width="435.1" height="20" fill="#b4472a"/><text x="206.0" y="45.0" text-anchor="start" font-size="13" fill="#ffffff">-40.9%</text>
+  <text x="190" y="79.0" text-anchor="end" font-size="14" fill="#222">Semiconductors</text><rect x="204.3" y="65.0" width="430.9" height="20" fill="#b4472a"/><text x="210.3" y="79.0" text-anchor="start" font-size="13" fill="#ffffff">-40.5%</text>
+  <text x="190" y="113.0" text-anchor="end" font-size="14" fill="#222">Electronics</text><rect x="223.4" y="99.0" width="411.7" height="20" fill="#b4472a"/><text x="229.4" y="113.0" text-anchor="start" font-size="13" fill="#ffffff">-38.7%</text>
+  <text x="190" y="147.0" text-anchor="end" font-size="14" fill="#222">KOSPI</text><rect x="302.1" y="133.0" width="333.0" height="20" fill="#b4472a"/><text x="308.1" y="147.0" text-anchor="start" font-size="13" fill="#ffffff">-31.3%</text>
+  <text x="190" y="181.0" text-anchor="end" font-size="14" fill="#222">Utilities</text><rect x="635.1" y="167.0" width="1.1" height="20" fill="#2b6f4a"/><text x="642.2" y="181.0" text-anchor="start" font-size="13" fill="#222">+0.1%</text>
+  <text x="190" y="215.0" text-anchor="end" font-size="14" fill="#222">Consumer staples</text><rect x="635.1" y="201.0" width="38.3" height="20" fill="#2b6f4a"/><text x="679.4" y="215.0" text-anchor="start" font-size="13" fill="#222">+3.6%</text>
+  <text x="190" y="249.0" text-anchor="end" font-size="14" fill="#222">Consumer staples (KRX 300)</text><rect x="635.1" y="235.0" width="50.0" height="20" fill="#2b6f4a"/><text x="691.1" y="249.0" text-anchor="start" font-size="13" fill="#222">+4.7%</text>
+  <text x="190" y="283.0" text-anchor="end" font-size="14" fill="#222">Banks</text><rect x="635.1" y="269.0" width="64.9" height="20" fill="#2b6f4a"/><text x="706.0" y="283.0" text-anchor="start" font-size="13" fill="#222">+6.1%</text>
+</svg>

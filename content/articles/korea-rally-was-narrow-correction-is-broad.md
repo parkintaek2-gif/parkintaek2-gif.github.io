@@ -47,6 +47,8 @@ Everything that led is down more than the index. What is *up* since the peak is 
 
 Banks never even peaked in June; their high was back in February, and they have given up less than 10% since.
 
+![Diverging bar chart of Korean sector indices since the 22 June peak: Information technology −40.9%, Semiconductors −40.5%, Electronics −38.7% and the KOSPI −31.3% all fell, while Utilities +0.1%, Consumer staples +3.6% to +4.7% and Banks +6.1% rose.](/charts/korea-index-breadth-since-peak.svg)
+
 ## Why this is the story, not the +125%
 
 A single index number is a weighted average, and in a market this [concentrated](/data/concentration) the average is the few largest names. When two chip stocks are [half the trading](/article/korea-market-barbell-silent-tail) and the biggest sector indices are semiconductors, the KOSPI *is* the chip trade — on the way up and on the way down. The breadth number (12 of 160) and the median (−19.3%) say what the headline cannot: most of the Korean market is not where the KOSPI is.
