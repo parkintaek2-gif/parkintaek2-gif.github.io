@@ -1,0 +1,7148 @@
+{
+  "출처": "국민연금공단_수급현황(공공데이터포털, 15010381)",
+  "url": "https://www.data.go.kr/data/15010381/openapi.do",
+  "이용허락범위": "제한 없음",
+  "받은날": "2026-08-26",
+  "나이범위": [
+    40,
+    100
+  ],
+  "급여종별": "00(전체) — 노령·장애·유족을 합친 값",
+  "⚠광주전남": "이 API는 광주·전남을 가르지 않고 한 코드(12)로만 준다 — 억지로 안 갈랐다",
+  "전국": {
+    "40": {
+      "avgFnlPrvsAmt": 401957,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 419680,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "41": {
+      "avgFnlPrvsAmt": 399304,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 422700,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "42": {
+      "avgFnlPrvsAmt": 403742,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 408970,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "43": {
+      "avgFnlPrvsAmt": 408129,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 409807,
+      "whlPymtCtstPrvsRate": 0.09
+    },
+    "44": {
+      "avgFnlPrvsAmt": 413217,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 431322,
+      "whlPymtCtstPrvsRate": 0.05
+    },
+    "45": {
+      "avgFnlPrvsAmt": 421395,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 432381,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "46": {
+      "avgFnlPrvsAmt": 430590,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 420812,
+      "whlPymtCtstPrvsRate": 0.05
+    },
+    "47": {
+      "avgFnlPrvsAmt": 428906,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 444751,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "48": {
+      "avgFnlPrvsAmt": 438256,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 425320,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "49": {
+      "avgFnlPrvsAmt": 448010,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 437734,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "50": {
+      "avgFnlPrvsAmt": 449255,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 456598,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "51": {
+      "avgFnlPrvsAmt": 451789,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 445850,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "52": {
+      "avgFnlPrvsAmt": 457587,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 451783,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "53": {
+      "avgFnlPrvsAmt": 461195,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 452826,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "54": {
+      "avgFnlPrvsAmt": 464472,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 450078,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "55": {
+      "avgFnlPrvsAmt": 461955,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 463033,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "56": {
+      "avgFnlPrvsAmt": 463646,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 459242,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "57": {
+      "avgFnlPrvsAmt": 472558,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 471618,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "58": {
+      "avgFnlPrvsAmt": 471881,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 460940,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "59": {
+      "avgFnlPrvsAmt": 562699,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 557103,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "60": {
+      "avgFnlPrvsAmt": 613948,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 616360,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "61": {
+      "avgFnlPrvsAmt": 689857,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 685203,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "62": {
+      "avgFnlPrvsAmt": 761472,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 755595,
+      "whlPymtCtstPrvsRate": 0.02
+    },
+    "63": {
+      "avgFnlPrvsAmt": 765878,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 759072,
+      "whlPymtCtstPrvsRate": 0.02
+    },
+    "64": {
+      "avgFnlPrvsAmt": 738234,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 731045,
+      "whlPymtCtstPrvsRate": 0.02
+    },
+    "65": {
+      "avgFnlPrvsAmt": 715036,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 708760,
+      "whlPymtCtstPrvsRate": 0.02
+    },
+    "66": {
+      "avgFnlPrvsAmt": 681513,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 672556,
+      "whlPymtCtstPrvsRate": 0.02
+    },
+    "67": {
+      "avgFnlPrvsAmt": 655860,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 660053,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "68": {
+      "avgFnlPrvsAmt": 613978,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 610201,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "69": {
+      "avgFnlPrvsAmt": 572452,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 571520,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "70": {
+      "avgFnlPrvsAmt": 542189,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 541041,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "71": {
+      "avgFnlPrvsAmt": 519165,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 515700,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "72": {
+      "avgFnlPrvsAmt": 501368,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 497037,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "73": {
+      "avgFnlPrvsAmt": 490692,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 483722,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "74": {
+      "avgFnlPrvsAmt": 481754,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 469450,
+      "whlPymtCtstPrvsRate": 0.03
+    },
+    "75": {
+      "avgFnlPrvsAmt": 470464,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 455194,
+      "whlPymtCtstPrvsRate": 0.04
+    },
+    "76": {
+      "avgFnlPrvsAmt": 459592,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 441604,
+      "whlPymtCtstPrvsRate": 0.04
+    },
+    "77": {
+      "avgFnlPrvsAmt": 415663,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 397837,
+      "whlPymtCtstPrvsRate": 0.04
+    },
+    "78": {
+      "avgFnlPrvsAmt": 387126,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 368146,
+      "whlPymtCtstPrvsRate": 0.05
+    },
+    "79": {
+      "avgFnlPrvsAmt": 368588,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 348959,
+      "whlPymtCtstPrvsRate": 0.05
+    },
+    "80": {
+      "avgFnlPrvsAmt": 350015,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 329639,
+      "whlPymtCtstPrvsRate": 0.05
+    },
+    "81": {
+      "avgFnlPrvsAmt": 323586,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 302403,
+      "whlPymtCtstPrvsRate": 0.06
+    },
+    "82": {
+      "avgFnlPrvsAmt": 303907,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 282447,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "83": {
+      "avgFnlPrvsAmt": 291460,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 268564,
+      "whlPymtCtstPrvsRate": 0.07
+    },
+    "84": {
+      "avgFnlPrvsAmt": 283650,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 261030,
+      "whlPymtCtstPrvsRate": 0.08
+    },
+    "85": {
+      "avgFnlPrvsAmt": 276282,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 251880,
+      "whlPymtCtstPrvsRate": 0.09
+    },
+    "86": {
+      "avgFnlPrvsAmt": 268125,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 244013,
+      "whlPymtCtstPrvsRate": 0.1
+    },
+    "87": {
+      "avgFnlPrvsAmt": 285203,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 255420,
+      "whlPymtCtstPrvsRate": 0.12
+    },
+    "88": {
+      "avgFnlPrvsAmt": 283538,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 248902,
+      "whlPymtCtstPrvsRate": 0.13
+    },
+    "89": {
+      "avgFnlPrvsAmt": 264385,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 231350,
+      "whlPymtCtstPrvsRate": 0.14
+    },
+    "90": {
+      "avgFnlPrvsAmt": 250570,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 219497,
+      "whlPymtCtstPrvsRate": 0.14
+    },
+    "91": {
+      "avgFnlPrvsAmt": 249362,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 217669,
+      "whlPymtCtstPrvsRate": 0.15
+    },
+    "92": {
+      "avgFnlPrvsAmt": 240033,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 206108,
+      "whlPymtCtstPrvsRate": 0.16
+    },
+    "93": {
+      "avgFnlPrvsAmt": 232742,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 200284,
+      "whlPymtCtstPrvsRate": 0.19
+    },
+    "94": {
+      "avgFnlPrvsAmt": 228429,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 200896,
+      "whlPymtCtstPrvsRate": 0.19
+    },
+    "95": {
+      "avgFnlPrvsAmt": 222064,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 198787,
+      "whlPymtCtstPrvsRate": 0.21
+    },
+    "96": {
+      "avgFnlPrvsAmt": 289698,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 233773,
+      "whlPymtCtstPrvsRate": 0.21
+    },
+    "97": {
+      "avgFnlPrvsAmt": 304206,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 253145,
+      "whlPymtCtstPrvsRate": 0.29
+    },
+    "98": {
+      "avgFnlPrvsAmt": 318690,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 269030,
+      "whlPymtCtstPrvsRate": 0.37
+    },
+    "99": {
+      "avgFnlPrvsAmt": 302374,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 259022,
+      "whlPymtCtstPrvsRate": 0.37
+    },
+    "100": {
+      "avgFnlPrvsAmt": 326950,
+      "avgPrvsPrdMcnt": 1,
+      "avgTotPrvsAmt": 274606,
+      "whlPymtCtstPrvsRate": 0.2
+    }
+  },
+  "지역별": {
+    "서울": {
+      "40": {
+        "avgFnlPrvsAmt": 402585,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434127,
+        "totPrsnCnt": 226,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "41": {
+        "avgFnlPrvsAmt": 432152,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441384,
+        "totPrsnCnt": 244,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "42": {
+        "avgFnlPrvsAmt": 424214,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441590,
+        "totPrsnCnt": 298,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "43": {
+        "avgFnlPrvsAmt": 442887,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 430102,
+        "totPrsnCnt": 366,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "44": {
+        "avgFnlPrvsAmt": 441452,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 428629,
+        "totPrsnCnt": 422,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "45": {
+        "avgFnlPrvsAmt": 437768,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 468317,
+        "totPrsnCnt": 529,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "46": {
+        "avgFnlPrvsAmt": 456632,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 479161,
+        "totPrsnCnt": 572,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "47": {
+        "avgFnlPrvsAmt": 443927,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 464701,
+        "totPrsnCnt": 586,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "48": {
+        "avgFnlPrvsAmt": 458806,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 450086,
+        "totPrsnCnt": 661,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "49": {
+        "avgFnlPrvsAmt": 470433,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 486732,
+        "totPrsnCnt": 750,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "50": {
+        "avgFnlPrvsAmt": 485939,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 479076,
+        "totPrsnCnt": 885,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "51": {
+        "avgFnlPrvsAmt": 478915,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 465206,
+        "totPrsnCnt": 1010,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "52": {
+        "avgFnlPrvsAmt": 474032,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 462258,
+        "totPrsnCnt": 1273,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "53": {
+        "avgFnlPrvsAmt": 496564,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 487376,
+        "totPrsnCnt": 1466,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "54": {
+        "avgFnlPrvsAmt": 503939,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 508589,
+        "totPrsnCnt": 1639,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "55": {
+        "avgFnlPrvsAmt": 496631,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 507919,
+        "totPrsnCnt": 1922,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "56": {
+        "avgFnlPrvsAmt": 515330,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 502175,
+        "totPrsnCnt": 2037,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "57": {
+        "avgFnlPrvsAmt": 519531,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 519350,
+        "totPrsnCnt": 2430,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "58": {
+        "avgFnlPrvsAmt": 504073,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 502471,
+        "totPrsnCnt": 2404,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "59": {
+        "avgFnlPrvsAmt": 586213,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 582730,
+        "totPrsnCnt": 4139,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 637606,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 638890,
+        "totPrsnCnt": 7216,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 737688,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 732635,
+        "totPrsnCnt": 10140,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 839429,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 835491,
+        "totPrsnCnt": 12488,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 871511,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 857423,
+        "totPrsnCnt": 83502,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 826038,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 823414,
+        "totPrsnCnt": 79738,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 810124,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 798529,
+        "totPrsnCnt": 95547,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 756576,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 744568,
+        "totPrsnCnt": 91606,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 764838,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 788005,
+        "totPrsnCnt": 85520,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 713852,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 721492,
+        "totPrsnCnt": 80120,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 677687,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 693159,
+        "totPrsnCnt": 73537,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 618980,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 633532,
+        "totPrsnCnt": 67302,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "71": {
+        "avgFnlPrvsAmt": 599229,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 610753,
+        "totPrsnCnt": 67709,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "72": {
+        "avgFnlPrvsAmt": 584510,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 593296,
+        "totPrsnCnt": 52783,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 570020,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 573160,
+        "totPrsnCnt": 48605,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 556610,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 551461,
+        "totPrsnCnt": 47993,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 542373,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 528888,
+        "totPrsnCnt": 35589,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 529332,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 511036,
+        "totPrsnCnt": 39194,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 469716,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 453256,
+        "totPrsnCnt": 40656,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "78": {
+        "avgFnlPrvsAmt": 434553,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 415306,
+        "totPrsnCnt": 41282,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 411956,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 393535,
+        "totPrsnCnt": 39844,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 393006,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 374297,
+        "totPrsnCnt": 26848,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "81": {
+        "avgFnlPrvsAmt": 372022,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 350801,
+        "totPrsnCnt": 28228,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "82": {
+        "avgFnlPrvsAmt": 348370,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 328926,
+        "totPrsnCnt": 24270,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 345729,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 326487,
+        "totPrsnCnt": 23270,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "84": {
+        "avgFnlPrvsAmt": 348564,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 328291,
+        "totPrsnCnt": 20689,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "85": {
+        "avgFnlPrvsAmt": 353300,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 331614,
+        "totPrsnCnt": 14691,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "86": {
+        "avgFnlPrvsAmt": 357595,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 332280,
+        "totPrsnCnt": 10905,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "87": {
+        "avgFnlPrvsAmt": 400599,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 366127,
+        "totPrsnCnt": 6723,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "88": {
+        "avgFnlPrvsAmt": 386267,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 347544,
+        "totPrsnCnt": 4653,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "89": {
+        "avgFnlPrvsAmt": 364271,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 321439,
+        "totPrsnCnt": 3622,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "90": {
+        "avgFnlPrvsAmt": 344137,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 302082,
+        "totPrsnCnt": 2740,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "91": {
+        "avgFnlPrvsAmt": 339232,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 298136,
+        "totPrsnCnt": 1833,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "92": {
+        "avgFnlPrvsAmt": 328257,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 277914,
+        "totPrsnCnt": 1117,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "93": {
+        "avgFnlPrvsAmt": 306492,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 256117,
+        "totPrsnCnt": 648,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "94": {
+        "avgFnlPrvsAmt": 337224,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 282471,
+        "totPrsnCnt": 322,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "95": {
+        "avgFnlPrvsAmt": 306068,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 259791,
+        "totPrsnCnt": 173,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "96": {
+        "avgFnlPrvsAmt": 321579,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 271003,
+        "totPrsnCnt": 87,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "97": {
+        "avgFnlPrvsAmt": 337243,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 280621,
+        "totPrsnCnt": 50,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "98": {
+        "avgFnlPrvsAmt": 374257,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 306223,
+        "totPrsnCnt": 29,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "99": {
+        "avgFnlPrvsAmt": 359943,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 332580,
+        "totPrsnCnt": 11,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "100": {
+        "avgFnlPrvsAmt": 438515,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 384930,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.09
+      }
+    },
+    "부산": {
+      "40": {
+        "avgFnlPrvsAmt": 423237,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 391351,
+        "totPrsnCnt": 92,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "41": {
+        "avgFnlPrvsAmt": 401196,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 399717,
+        "totPrsnCnt": 131,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "42": {
+        "avgFnlPrvsAmt": 410918,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 423367,
+        "totPrsnCnt": 134,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "43": {
+        "avgFnlPrvsAmt": 378557,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 396188,
+        "totPrsnCnt": 180,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "44": {
+        "avgFnlPrvsAmt": 409825,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 451139,
+        "totPrsnCnt": 220,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "45": {
+        "avgFnlPrvsAmt": 439130,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 502234,
+        "totPrsnCnt": 297,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "46": {
+        "avgFnlPrvsAmt": 410001,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 383485,
+        "totPrsnCnt": 287,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "47": {
+        "avgFnlPrvsAmt": 417322,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 689887,
+        "totPrsnCnt": 298,
+        "whlPymtCtstPrvsRate": 0.39
+      },
+      "48": {
+        "avgFnlPrvsAmt": 427654,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 404405,
+        "totPrsnCnt": 299,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "49": {
+        "avgFnlPrvsAmt": 424898,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 394630,
+        "totPrsnCnt": 361,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "50": {
+        "avgFnlPrvsAmt": 444623,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 416566,
+        "totPrsnCnt": 409,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "51": {
+        "avgFnlPrvsAmt": 451632,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 467769,
+        "totPrsnCnt": 497,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "52": {
+        "avgFnlPrvsAmt": 440355,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463329,
+        "totPrsnCnt": 606,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "53": {
+        "avgFnlPrvsAmt": 450099,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419982,
+        "totPrsnCnt": 636,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "54": {
+        "avgFnlPrvsAmt": 482819,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 456556,
+        "totPrsnCnt": 674,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "55": {
+        "avgFnlPrvsAmt": 463190,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 465153,
+        "totPrsnCnt": 891,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "56": {
+        "avgFnlPrvsAmt": 454275,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 433570,
+        "totPrsnCnt": 955,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "57": {
+        "avgFnlPrvsAmt": 480158,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 480699,
+        "totPrsnCnt": 1087,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 456713,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441463,
+        "totPrsnCnt": 1173,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "59": {
+        "avgFnlPrvsAmt": 560799,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 551235,
+        "totPrsnCnt": 2457,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 591345,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 587112,
+        "totPrsnCnt": 4640,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 645453,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 639450,
+        "totPrsnCnt": 6629,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 734919,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 727160,
+        "totPrsnCnt": 8067,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 759536,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 746157,
+        "totPrsnCnt": 36077,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 713835,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 707637,
+        "totPrsnCnt": 35118,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 694587,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 686141,
+        "totPrsnCnt": 42604,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 669416,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 654125,
+        "totPrsnCnt": 39830,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 656450,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 660733,
+        "totPrsnCnt": 36887,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 620644,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 615998,
+        "totPrsnCnt": 34382,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 583961,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 581721,
+        "totPrsnCnt": 32937,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 546844,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 545513,
+        "totPrsnCnt": 30407,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 528917,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 526050,
+        "totPrsnCnt": 30604,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 509152,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 505831,
+        "totPrsnCnt": 23711,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 485964,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 480324,
+        "totPrsnCnt": 22590,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 484937,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 472215,
+        "totPrsnCnt": 22711,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 486451,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 469258,
+        "totPrsnCnt": 17416,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 468839,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 445068,
+        "totPrsnCnt": 18672,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 423261,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 401276,
+        "totPrsnCnt": 19255,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 392552,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 372985,
+        "totPrsnCnt": 18848,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 376693,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 355588,
+        "totPrsnCnt": 16764,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 351081,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 332559,
+        "totPrsnCnt": 10653,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "81": {
+        "avgFnlPrvsAmt": 336030,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 314907,
+        "totPrsnCnt": 12528,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 308712,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 294838,
+        "totPrsnCnt": 10462,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 303745,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 281900,
+        "totPrsnCnt": 10356,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "84": {
+        "avgFnlPrvsAmt": 295656,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 277431,
+        "totPrsnCnt": 8655,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "85": {
+        "avgFnlPrvsAmt": 286033,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 264436,
+        "totPrsnCnt": 6371,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "86": {
+        "avgFnlPrvsAmt": 296670,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 267358,
+        "totPrsnCnt": 4733,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "87": {
+        "avgFnlPrvsAmt": 342491,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 306495,
+        "totPrsnCnt": 2820,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "88": {
+        "avgFnlPrvsAmt": 330811,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 289918,
+        "totPrsnCnt": 1806,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "89": {
+        "avgFnlPrvsAmt": 303562,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 288707,
+        "totPrsnCnt": 1396,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "90": {
+        "avgFnlPrvsAmt": 281439,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 247865,
+        "totPrsnCnt": 972,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "91": {
+        "avgFnlPrvsAmt": 274513,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 236390,
+        "totPrsnCnt": 724,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "92": {
+        "avgFnlPrvsAmt": 274924,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239019,
+        "totPrsnCnt": 429,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "93": {
+        "avgFnlPrvsAmt": 274061,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 222807,
+        "totPrsnCnt": 234,
+        "whlPymtCtstPrvsRate": 0.51
+      },
+      "94": {
+        "avgFnlPrvsAmt": 258764,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228718,
+        "totPrsnCnt": 122,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "95": {
+        "avgFnlPrvsAmt": 256890,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221517,
+        "totPrsnCnt": 71,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "96": {
+        "avgFnlPrvsAmt": 291152,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 266224,
+        "totPrsnCnt": 30,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "97": {
+        "avgFnlPrvsAmt": 368377,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 339396,
+        "totPrsnCnt": 20,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "98": {
+        "avgFnlPrvsAmt": 270796,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 253007,
+        "totPrsnCnt": 9,
+        "whlPymtCtstPrvsRate": 5.3
+      },
+      "99": {
+        "avgFnlPrvsAmt": 307394,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 250951,
+        "totPrsnCnt": 4,
+        "whlPymtCtstPrvsRate": 0.25
+      }
+    },
+    "대구": {
+      "40": {
+        "avgFnlPrvsAmt": 365879,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 511370,
+        "totPrsnCnt": 65,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "41": {
+        "avgFnlPrvsAmt": 384412,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 401855,
+        "totPrsnCnt": 69,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "42": {
+        "avgFnlPrvsAmt": 363367,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 372776,
+        "totPrsnCnt": 119,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "43": {
+        "avgFnlPrvsAmt": 392040,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 366681,
+        "totPrsnCnt": 148,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "44": {
+        "avgFnlPrvsAmt": 394859,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 484616,
+        "totPrsnCnt": 179,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "45": {
+        "avgFnlPrvsAmt": 438974,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 431779,
+        "totPrsnCnt": 182,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "46": {
+        "avgFnlPrvsAmt": 406285,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 365990,
+        "totPrsnCnt": 195,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "47": {
+        "avgFnlPrvsAmt": 423896,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 387467,
+        "totPrsnCnt": 241,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "48": {
+        "avgFnlPrvsAmt": 430364,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 403419,
+        "totPrsnCnt": 241,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "49": {
+        "avgFnlPrvsAmt": 434063,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 423663,
+        "totPrsnCnt": 261,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "50": {
+        "avgFnlPrvsAmt": 410978,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 423967,
+        "totPrsnCnt": 331,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "51": {
+        "avgFnlPrvsAmt": 451900,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434410,
+        "totPrsnCnt": 338,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "52": {
+        "avgFnlPrvsAmt": 431505,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 429472,
+        "totPrsnCnt": 445,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "53": {
+        "avgFnlPrvsAmt": 420524,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 401401,
+        "totPrsnCnt": 556,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "54": {
+        "avgFnlPrvsAmt": 464562,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434127,
+        "totPrsnCnt": 569,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "55": {
+        "avgFnlPrvsAmt": 458353,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 442917,
+        "totPrsnCnt": 682,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "56": {
+        "avgFnlPrvsAmt": 439263,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434425,
+        "totPrsnCnt": 730,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "57": {
+        "avgFnlPrvsAmt": 441850,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 430657,
+        "totPrsnCnt": 835,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 445365,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 422874,
+        "totPrsnCnt": 848,
+        "whlPymtCtstPrvsRate": 0.49
+      },
+      "59": {
+        "avgFnlPrvsAmt": 537700,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 527690,
+        "totPrsnCnt": 1907,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 564137,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 561679,
+        "totPrsnCnt": 3858,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 643515,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 637534,
+        "totPrsnCnt": 5760,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 706285,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 699783,
+        "totPrsnCnt": 6794,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 732529,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 720034,
+        "totPrsnCnt": 26386,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 729799,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 711256,
+        "totPrsnCnt": 25480,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "65": {
+        "avgFnlPrvsAmt": 699709,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 690316,
+        "totPrsnCnt": 29711,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 678799,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 672129,
+        "totPrsnCnt": 27323,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 660198,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 659604,
+        "totPrsnCnt": 24827,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 590632,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 589213,
+        "totPrsnCnt": 21241,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 573604,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 571875,
+        "totPrsnCnt": 20748,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 528815,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 531523,
+        "totPrsnCnt": 18980,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 513262,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 513218,
+        "totPrsnCnt": 18203,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 482266,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 478938,
+        "totPrsnCnt": 14295,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 486919,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 479868,
+        "totPrsnCnt": 14498,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 468487,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 456071,
+        "totPrsnCnt": 14390,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 465117,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 451624,
+        "totPrsnCnt": 10287,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 456528,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 438239,
+        "totPrsnCnt": 11047,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 415297,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 395945,
+        "totPrsnCnt": 12264,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 368881,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 351540,
+        "totPrsnCnt": 11327,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 358895,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 340917,
+        "totPrsnCnt": 10100,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 336519,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 319444,
+        "totPrsnCnt": 5884,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 309139,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 292357,
+        "totPrsnCnt": 7336,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 291540,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 270756,
+        "totPrsnCnt": 7153,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "83": {
+        "avgFnlPrvsAmt": 282262,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 261864,
+        "totPrsnCnt": 7344,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "84": {
+        "avgFnlPrvsAmt": 281784,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 262744,
+        "totPrsnCnt": 6211,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "85": {
+        "avgFnlPrvsAmt": 280252,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 264206,
+        "totPrsnCnt": 4508,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "86": {
+        "avgFnlPrvsAmt": 269384,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 247817,
+        "totPrsnCnt": 3540,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "87": {
+        "avgFnlPrvsAmt": 304526,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 279052,
+        "totPrsnCnt": 2028,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "88": {
+        "avgFnlPrvsAmt": 307862,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 275897,
+        "totPrsnCnt": 1454,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "89": {
+        "avgFnlPrvsAmt": 284597,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 246644,
+        "totPrsnCnt": 1135,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "90": {
+        "avgFnlPrvsAmt": 281694,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 246656,
+        "totPrsnCnt": 893,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "91": {
+        "avgFnlPrvsAmt": 263147,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 226207,
+        "totPrsnCnt": 623,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "92": {
+        "avgFnlPrvsAmt": 259301,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221724,
+        "totPrsnCnt": 331,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "93": {
+        "avgFnlPrvsAmt": 257572,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 211877,
+        "totPrsnCnt": 196,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "94": {
+        "avgFnlPrvsAmt": 277229,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 229432,
+        "totPrsnCnt": 127,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "95": {
+        "avgFnlPrvsAmt": 265348,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239549,
+        "totPrsnCnt": 66,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "96": {
+        "avgFnlPrvsAmt": 284649,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 257559,
+        "totPrsnCnt": 14,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "97": {
+        "avgFnlPrvsAmt": 319838,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 281878,
+        "totPrsnCnt": 20,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "98": {
+        "avgFnlPrvsAmt": 289275,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 236296,
+        "totPrsnCnt": 7,
+        "whlPymtCtstPrvsRate": 0.24
+      }
+    },
+    "인천": {
+      "40": {
+        "avgFnlPrvsAmt": 409612,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381663,
+        "totPrsnCnt": 106,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "41": {
+        "avgFnlPrvsAmt": 380768,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386519,
+        "totPrsnCnt": 117,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "42": {
+        "avgFnlPrvsAmt": 424927,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 469916,
+        "totPrsnCnt": 149,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "43": {
+        "avgFnlPrvsAmt": 407970,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 382780,
+        "totPrsnCnt": 168,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "44": {
+        "avgFnlPrvsAmt": 392158,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 364743,
+        "totPrsnCnt": 239,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "45": {
+        "avgFnlPrvsAmt": 425564,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 549399,
+        "totPrsnCnt": 268,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "46": {
+        "avgFnlPrvsAmt": 414298,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378467,
+        "totPrsnCnt": 245,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "47": {
+        "avgFnlPrvsAmt": 414858,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 449431,
+        "totPrsnCnt": 268,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "48": {
+        "avgFnlPrvsAmt": 432329,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 414655,
+        "totPrsnCnt": 342,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "49": {
+        "avgFnlPrvsAmt": 447491,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 472366,
+        "totPrsnCnt": 353,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "50": {
+        "avgFnlPrvsAmt": 446357,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 429285,
+        "totPrsnCnt": 350,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "51": {
+        "avgFnlPrvsAmt": 440727,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 411101,
+        "totPrsnCnt": 461,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "52": {
+        "avgFnlPrvsAmt": 446387,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 429425,
+        "totPrsnCnt": 509,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "53": {
+        "avgFnlPrvsAmt": 458309,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 427931,
+        "totPrsnCnt": 627,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "54": {
+        "avgFnlPrvsAmt": 468557,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 436428,
+        "totPrsnCnt": 672,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "55": {
+        "avgFnlPrvsAmt": 469120,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 436216,
+        "totPrsnCnt": 731,
+        "whlPymtCtstPrvsRate": 0.53
+      },
+      "56": {
+        "avgFnlPrvsAmt": 443016,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 425902,
+        "totPrsnCnt": 812,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 458546,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 464074,
+        "totPrsnCnt": 996,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 471996,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 450413,
+        "totPrsnCnt": 1022,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "59": {
+        "avgFnlPrvsAmt": 558039,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 553328,
+        "totPrsnCnt": 1892,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 630311,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 624429,
+        "totPrsnCnt": 3347,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 671531,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 666950,
+        "totPrsnCnt": 5318,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 788712,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 783342,
+        "totPrsnCnt": 6305,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 766424,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 775805,
+        "totPrsnCnt": 34864,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 743693,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 735591,
+        "totPrsnCnt": 32549,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 735402,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 726773,
+        "totPrsnCnt": 37592,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 706414,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 696224,
+        "totPrsnCnt": 34479,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 693140,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 683769,
+        "totPrsnCnt": 30717,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 652797,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 638204,
+        "totPrsnCnt": 27348,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 589909,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 587482,
+        "totPrsnCnt": 24262,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 555058,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 549141,
+        "totPrsnCnt": 21440,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 539346,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 532157,
+        "totPrsnCnt": 20836,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 552418,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 547670,
+        "totPrsnCnt": 15658,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 504579,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 493307,
+        "totPrsnCnt": 14058,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 509437,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 495676,
+        "totPrsnCnt": 13977,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 488041,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 472969,
+        "totPrsnCnt": 9744,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 490162,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 469545,
+        "totPrsnCnt": 10770,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 440615,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 422378,
+        "totPrsnCnt": 11244,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 400666,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 382024,
+        "totPrsnCnt": 11222,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 377440,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 359901,
+        "totPrsnCnt": 10680,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 375746,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 355672,
+        "totPrsnCnt": 6983,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "81": {
+        "avgFnlPrvsAmt": 337068,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 320301,
+        "totPrsnCnt": 7246,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 328535,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 309035,
+        "totPrsnCnt": 6415,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 313661,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 294647,
+        "totPrsnCnt": 6165,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "84": {
+        "avgFnlPrvsAmt": 315724,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 297734,
+        "totPrsnCnt": 5355,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "85": {
+        "avgFnlPrvsAmt": 300264,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 278435,
+        "totPrsnCnt": 3899,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "86": {
+        "avgFnlPrvsAmt": 298032,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 269646,
+        "totPrsnCnt": 2901,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "87": {
+        "avgFnlPrvsAmt": 321438,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 285356,
+        "totPrsnCnt": 2117,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "88": {
+        "avgFnlPrvsAmt": 316143,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 274231,
+        "totPrsnCnt": 1352,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "89": {
+        "avgFnlPrvsAmt": 272179,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 233106,
+        "totPrsnCnt": 1090,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "90": {
+        "avgFnlPrvsAmt": 251497,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221668,
+        "totPrsnCnt": 888,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "91": {
+        "avgFnlPrvsAmt": 256075,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 225918,
+        "totPrsnCnt": 615,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "92": {
+        "avgFnlPrvsAmt": 235619,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 211255,
+        "totPrsnCnt": 354,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "93": {
+        "avgFnlPrvsAmt": 239124,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 203362,
+        "totPrsnCnt": 244,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "94": {
+        "avgFnlPrvsAmt": 222343,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 199458,
+        "totPrsnCnt": 123,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "95": {
+        "avgFnlPrvsAmt": 260979,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 234893,
+        "totPrsnCnt": 79,
+        "whlPymtCtstPrvsRate": 0.24
+      },
+      "96": {
+        "avgFnlPrvsAmt": 261618,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 252477,
+        "totPrsnCnt": 30,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "97": {
+        "avgFnlPrvsAmt": 349085,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 300220,
+        "totPrsnCnt": 19,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "98": {
+        "avgFnlPrvsAmt": 274591,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 232557,
+        "totPrsnCnt": 7,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "99": {
+        "avgFnlPrvsAmt": 309697,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 241528,
+        "totPrsnCnt": 7,
+        "whlPymtCtstPrvsRate": 1.43
+      },
+      "100": {
+        "avgFnlPrvsAmt": 207010,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 178416,
+        "totPrsnCnt": 4,
+        "whlPymtCtstPrvsRate": 0.42
+      }
+    },
+    "광주·전남": {
+      "40": {
+        "avgFnlPrvsAmt": 397743,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 436751,
+        "totPrsnCnt": 111,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "41": {
+        "avgFnlPrvsAmt": 401738,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 368926,
+        "totPrsnCnt": 130,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "42": {
+        "avgFnlPrvsAmt": 395939,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 420765,
+        "totPrsnCnt": 140,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "43": {
+        "avgFnlPrvsAmt": 389757,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 400590,
+        "totPrsnCnt": 179,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "44": {
+        "avgFnlPrvsAmt": 407763,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386285,
+        "totPrsnCnt": 263,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "45": {
+        "avgFnlPrvsAmt": 409551,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 415004,
+        "totPrsnCnt": 279,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "46": {
+        "avgFnlPrvsAmt": 402407,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386690,
+        "totPrsnCnt": 277,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "47": {
+        "avgFnlPrvsAmt": 422039,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381758,
+        "totPrsnCnt": 318,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "48": {
+        "avgFnlPrvsAmt": 410027,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 391278,
+        "totPrsnCnt": 373,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "49": {
+        "avgFnlPrvsAmt": 414581,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378215,
+        "totPrsnCnt": 365,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "50": {
+        "avgFnlPrvsAmt": 423222,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 460594,
+        "totPrsnCnt": 407,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "51": {
+        "avgFnlPrvsAmt": 417849,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407073,
+        "totPrsnCnt": 497,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "52": {
+        "avgFnlPrvsAmt": 420978,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 423886,
+        "totPrsnCnt": 596,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "53": {
+        "avgFnlPrvsAmt": 432501,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419737,
+        "totPrsnCnt": 675,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "54": {
+        "avgFnlPrvsAmt": 444570,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419076,
+        "totPrsnCnt": 731,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "55": {
+        "avgFnlPrvsAmt": 430945,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 411599,
+        "totPrsnCnt": 908,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "56": {
+        "avgFnlPrvsAmt": 449835,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 449289,
+        "totPrsnCnt": 942,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "57": {
+        "avgFnlPrvsAmt": 439259,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 452638,
+        "totPrsnCnt": 1082,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "58": {
+        "avgFnlPrvsAmt": 442149,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 430745,
+        "totPrsnCnt": 1110,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "59": {
+        "avgFnlPrvsAmt": 530318,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 526559,
+        "totPrsnCnt": 1896,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "60": {
+        "avgFnlPrvsAmt": 586224,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 620420,
+        "totPrsnCnt": 3697,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 679502,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 673311,
+        "totPrsnCnt": 5267,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "62": {
+        "avgFnlPrvsAmt": 754266,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 748000,
+        "totPrsnCnt": 6767,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 737754,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 734821,
+        "totPrsnCnt": 34317,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 722277,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 715680,
+        "totPrsnCnt": 31630,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 673575,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 668932,
+        "totPrsnCnt": 38502,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "66": {
+        "avgFnlPrvsAmt": 641360,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 633864,
+        "totPrsnCnt": 37158,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "67": {
+        "avgFnlPrvsAmt": 617022,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 639278,
+        "totPrsnCnt": 33434,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 584986,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 578914,
+        "totPrsnCnt": 30435,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 536384,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 533598,
+        "totPrsnCnt": 27068,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 507121,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 502707,
+        "totPrsnCnt": 23991,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 488728,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 481948,
+        "totPrsnCnt": 24677,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 468092,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 460384,
+        "totPrsnCnt": 18574,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 450991,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 442880,
+        "totPrsnCnt": 17160,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 450383,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 437920,
+        "totPrsnCnt": 18652,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 438568,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 425398,
+        "totPrsnCnt": 15731,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 422407,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 406155,
+        "totPrsnCnt": 16375,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 385388,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 368181,
+        "totPrsnCnt": 17157,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 351858,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 331389,
+        "totPrsnCnt": 17100,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "79": {
+        "avgFnlPrvsAmt": 336933,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 317730,
+        "totPrsnCnt": 16832,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 317923,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 300118,
+        "totPrsnCnt": 11580,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "81": {
+        "avgFnlPrvsAmt": 290621,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 267821,
+        "totPrsnCnt": 12826,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "82": {
+        "avgFnlPrvsAmt": 265586,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 242703,
+        "totPrsnCnt": 10808,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "83": {
+        "avgFnlPrvsAmt": 256489,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 232179,
+        "totPrsnCnt": 13049,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "84": {
+        "avgFnlPrvsAmt": 246881,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221215,
+        "totPrsnCnt": 12860,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "85": {
+        "avgFnlPrvsAmt": 235971,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 209455,
+        "totPrsnCnt": 9996,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "86": {
+        "avgFnlPrvsAmt": 219724,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 196224,
+        "totPrsnCnt": 8539,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "87": {
+        "avgFnlPrvsAmt": 235080,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 206254,
+        "totPrsnCnt": 6052,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "88": {
+        "avgFnlPrvsAmt": 232924,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 201086,
+        "totPrsnCnt": 4350,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "89": {
+        "avgFnlPrvsAmt": 225903,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 193676,
+        "totPrsnCnt": 3680,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "90": {
+        "avgFnlPrvsAmt": 220658,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 191954,
+        "totPrsnCnt": 2711,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "91": {
+        "avgFnlPrvsAmt": 219042,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 193168,
+        "totPrsnCnt": 1757,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "92": {
+        "avgFnlPrvsAmt": 217124,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 186730,
+        "totPrsnCnt": 1181,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "93": {
+        "avgFnlPrvsAmt": 212389,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 182258,
+        "totPrsnCnt": 730,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "94": {
+        "avgFnlPrvsAmt": 196663,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 178468,
+        "totPrsnCnt": 512,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "95": {
+        "avgFnlPrvsAmt": 200514,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 178392,
+        "totPrsnCnt": 329,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "96": {
+        "avgFnlPrvsAmt": 269249,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 198433,
+        "totPrsnCnt": 75,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "97": {
+        "avgFnlPrvsAmt": 275166,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 201461,
+        "totPrsnCnt": 46,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "98": {
+        "avgFnlPrvsAmt": 270060,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 230861,
+        "totPrsnCnt": 25,
+        "whlPymtCtstPrvsRate": 0.25
+      },
+      "99": {
+        "avgFnlPrvsAmt": 261097,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 195658,
+        "totPrsnCnt": 15,
+        "whlPymtCtstPrvsRate": 0.26
+      },
+      "100": {
+        "avgFnlPrvsAmt": 322574,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 265104,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.15
+      }
+    },
+    "대전": {
+      "40": {
+        "avgFnlPrvsAmt": 379435,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419608,
+        "totPrsnCnt": 50,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "41": {
+        "avgFnlPrvsAmt": 414018,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 388448,
+        "totPrsnCnt": 54,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "42": {
+        "avgFnlPrvsAmt": 368167,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 350416,
+        "totPrsnCnt": 60,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "43": {
+        "avgFnlPrvsAmt": 393929,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 369974,
+        "totPrsnCnt": 87,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "44": {
+        "avgFnlPrvsAmt": 396952,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 511319,
+        "totPrsnCnt": 108,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "45": {
+        "avgFnlPrvsAmt": 403343,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 369666,
+        "totPrsnCnt": 102,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "46": {
+        "avgFnlPrvsAmt": 448773,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 427777,
+        "totPrsnCnt": 100,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "47": {
+        "avgFnlPrvsAmt": 439069,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 424685,
+        "totPrsnCnt": 134,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "48": {
+        "avgFnlPrvsAmt": 412319,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 398706,
+        "totPrsnCnt": 140,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "49": {
+        "avgFnlPrvsAmt": 434644,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407200,
+        "totPrsnCnt": 156,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "50": {
+        "avgFnlPrvsAmt": 452112,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 474150,
+        "totPrsnCnt": 182,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "51": {
+        "avgFnlPrvsAmt": 437109,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405222,
+        "totPrsnCnt": 181,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "52": {
+        "avgFnlPrvsAmt": 461669,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 444317,
+        "totPrsnCnt": 228,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "53": {
+        "avgFnlPrvsAmt": 471360,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 437171,
+        "totPrsnCnt": 302,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "54": {
+        "avgFnlPrvsAmt": 482713,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 470526,
+        "totPrsnCnt": 295,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "55": {
+        "avgFnlPrvsAmt": 455292,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 428921,
+        "totPrsnCnt": 358,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "56": {
+        "avgFnlPrvsAmt": 441090,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 415598,
+        "totPrsnCnt": 381,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 492097,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 477505,
+        "totPrsnCnt": 431,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "58": {
+        "avgFnlPrvsAmt": 503382,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 474829,
+        "totPrsnCnt": 455,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "59": {
+        "avgFnlPrvsAmt": 527817,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 512786,
+        "totPrsnCnt": 770,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 589347,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 589324,
+        "totPrsnCnt": 1369,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 695803,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 686633,
+        "totPrsnCnt": 2257,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 790989,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 787176,
+        "totPrsnCnt": 2511,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 788548,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 781806,
+        "totPrsnCnt": 13545,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 765733,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 763011,
+        "totPrsnCnt": 13342,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 745394,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 734737,
+        "totPrsnCnt": 16369,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 704623,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 695733,
+        "totPrsnCnt": 14767,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 701974,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 714488,
+        "totPrsnCnt": 12885,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 648349,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 650550,
+        "totPrsnCnt": 11617,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 590506,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 594790,
+        "totPrsnCnt": 10941,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 580405,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 586174,
+        "totPrsnCnt": 10057,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 539960,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 543980,
+        "totPrsnCnt": 9993,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 540797,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 540959,
+        "totPrsnCnt": 7692,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 538263,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 535733,
+        "totPrsnCnt": 6700,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 516933,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 507869,
+        "totPrsnCnt": 6779,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 493867,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 479873,
+        "totPrsnCnt": 4962,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 490305,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 475954,
+        "totPrsnCnt": 5362,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "77": {
+        "avgFnlPrvsAmt": 442322,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 425374,
+        "totPrsnCnt": 5612,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 397287,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378691,
+        "totPrsnCnt": 5331,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 371747,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 353151,
+        "totPrsnCnt": 4918,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "80": {
+        "avgFnlPrvsAmt": 362037,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 345386,
+        "totPrsnCnt": 3313,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "81": {
+        "avgFnlPrvsAmt": 337894,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 320408,
+        "totPrsnCnt": 3729,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 311199,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 293365,
+        "totPrsnCnt": 3363,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "83": {
+        "avgFnlPrvsAmt": 297296,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 273942,
+        "totPrsnCnt": 3193,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "84": {
+        "avgFnlPrvsAmt": 307557,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 283404,
+        "totPrsnCnt": 2920,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "85": {
+        "avgFnlPrvsAmt": 293033,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 269924,
+        "totPrsnCnt": 1967,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "86": {
+        "avgFnlPrvsAmt": 288379,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 264314,
+        "totPrsnCnt": 1517,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "87": {
+        "avgFnlPrvsAmt": 307458,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 275414,
+        "totPrsnCnt": 936,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "88": {
+        "avgFnlPrvsAmt": 343460,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 299981,
+        "totPrsnCnt": 613,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "89": {
+        "avgFnlPrvsAmt": 301829,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 261163,
+        "totPrsnCnt": 498,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "90": {
+        "avgFnlPrvsAmt": 292692,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 260651,
+        "totPrsnCnt": 385,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "91": {
+        "avgFnlPrvsAmt": 275612,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239783,
+        "totPrsnCnt": 243,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "92": {
+        "avgFnlPrvsAmt": 260724,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 227088,
+        "totPrsnCnt": 142,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "93": {
+        "avgFnlPrvsAmt": 270115,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228012,
+        "totPrsnCnt": 105,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "94": {
+        "avgFnlPrvsAmt": 279571,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 245005,
+        "totPrsnCnt": 50,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "95": {
+        "avgFnlPrvsAmt": 261127,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 209633,
+        "totPrsnCnt": 26,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "96": {
+        "avgFnlPrvsAmt": 357261,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 285862,
+        "totPrsnCnt": 17,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "97": {
+        "avgFnlPrvsAmt": 282147,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239683,
+        "totPrsnCnt": 10,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "98": {
+        "avgFnlPrvsAmt": 285366,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 234442,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.1
+      }
+    },
+    "울산": {
+      "40": {
+        "avgFnlPrvsAmt": 462966,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 426497,
+        "totPrsnCnt": 50,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "41": {
+        "avgFnlPrvsAmt": 449081,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 427750,
+        "totPrsnCnt": 31,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "42": {
+        "avgFnlPrvsAmt": 440840,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419348,
+        "totPrsnCnt": 64,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "43": {
+        "avgFnlPrvsAmt": 388459,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 369982,
+        "totPrsnCnt": 60,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "44": {
+        "avgFnlPrvsAmt": 427711,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 403723,
+        "totPrsnCnt": 82,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "45": {
+        "avgFnlPrvsAmt": 420733,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 397787,
+        "totPrsnCnt": 86,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "46": {
+        "avgFnlPrvsAmt": 433640,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 417232,
+        "totPrsnCnt": 106,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "47": {
+        "avgFnlPrvsAmt": 414010,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 375640,
+        "totPrsnCnt": 117,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "48": {
+        "avgFnlPrvsAmt": 480310,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 454287,
+        "totPrsnCnt": 130,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "49": {
+        "avgFnlPrvsAmt": 512153,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 474389,
+        "totPrsnCnt": 165,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "50": {
+        "avgFnlPrvsAmt": 471197,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 406636,
+        "totPrsnCnt": 164,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "51": {
+        "avgFnlPrvsAmt": 525292,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 497058,
+        "totPrsnCnt": 164,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "52": {
+        "avgFnlPrvsAmt": 542977,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 520718,
+        "totPrsnCnt": 223,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "53": {
+        "avgFnlPrvsAmt": 540573,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 508656,
+        "totPrsnCnt": 223,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "54": {
+        "avgFnlPrvsAmt": 525256,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 496197,
+        "totPrsnCnt": 245,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "55": {
+        "avgFnlPrvsAmt": 565294,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 546672,
+        "totPrsnCnt": 321,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "56": {
+        "avgFnlPrvsAmt": 507700,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 470135,
+        "totPrsnCnt": 335,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 636219,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 949894,
+        "totPrsnCnt": 425,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "58": {
+        "avgFnlPrvsAmt": 563052,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 549863,
+        "totPrsnCnt": 425,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "59": {
+        "avgFnlPrvsAmt": 620295,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 604941,
+        "totPrsnCnt": 835,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 645051,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 631032,
+        "totPrsnCnt": 1659,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 789222,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 778453,
+        "totPrsnCnt": 2718,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 1042575,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 1037337,
+        "totPrsnCnt": 3707,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 1084100,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 1067337,
+        "totPrsnCnt": 13425,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 982397,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 971788,
+        "totPrsnCnt": 12530,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 987111,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 973717,
+        "totPrsnCnt": 14746,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 933402,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 921806,
+        "totPrsnCnt": 12801,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 868974,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 874225,
+        "totPrsnCnt": 11530,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 827712,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 823130,
+        "totPrsnCnt": 10333,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 792013,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 792317,
+        "totPrsnCnt": 9348,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 730798,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 726444,
+        "totPrsnCnt": 8434,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "71": {
+        "avgFnlPrvsAmt": 709079,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 707481,
+        "totPrsnCnt": 8188,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "72": {
+        "avgFnlPrvsAmt": 693005,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 689123,
+        "totPrsnCnt": 6400,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "73": {
+        "avgFnlPrvsAmt": 650900,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 645008,
+        "totPrsnCnt": 5941,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 661196,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 650994,
+        "totPrsnCnt": 5706,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 654443,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 640220,
+        "totPrsnCnt": 4472,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 649004,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 619830,
+        "totPrsnCnt": 4421,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 542708,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 527844,
+        "totPrsnCnt": 4489,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "78": {
+        "avgFnlPrvsAmt": 493985,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 473213,
+        "totPrsnCnt": 4245,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 478081,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 450574,
+        "totPrsnCnt": 3536,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 445158,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 421676,
+        "totPrsnCnt": 2172,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "81": {
+        "avgFnlPrvsAmt": 399485,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 382337,
+        "totPrsnCnt": 2568,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 366905,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 346358,
+        "totPrsnCnt": 2180,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 358716,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 337111,
+        "totPrsnCnt": 2175,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "84": {
+        "avgFnlPrvsAmt": 333047,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 308643,
+        "totPrsnCnt": 1851,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "85": {
+        "avgFnlPrvsAmt": 327778,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 301272,
+        "totPrsnCnt": 1304,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "86": {
+        "avgFnlPrvsAmt": 309012,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 284243,
+        "totPrsnCnt": 1050,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "87": {
+        "avgFnlPrvsAmt": 311447,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 280066,
+        "totPrsnCnt": 606,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "88": {
+        "avgFnlPrvsAmt": 289036,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 252434,
+        "totPrsnCnt": 408,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "89": {
+        "avgFnlPrvsAmt": 268603,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239264,
+        "totPrsnCnt": 361,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "90": {
+        "avgFnlPrvsAmt": 248076,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 218837,
+        "totPrsnCnt": 260,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "91": {
+        "avgFnlPrvsAmt": 222973,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 199296,
+        "totPrsnCnt": 194,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "92": {
+        "avgFnlPrvsAmt": 232489,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 192264,
+        "totPrsnCnt": 150,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "93": {
+        "avgFnlPrvsAmt": 217975,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 195162,
+        "totPrsnCnt": 72,
+        "whlPymtCtstPrvsRate": 0.5
+      },
+      "94": {
+        "avgFnlPrvsAmt": 203698,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 194024,
+        "totPrsnCnt": 47,
+        "whlPymtCtstPrvsRate": 0.24
+      },
+      "95": {
+        "avgFnlPrvsAmt": 184071,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 175839,
+        "totPrsnCnt": 17,
+        "whlPymtCtstPrvsRate": 0.39
+      },
+      "96": {
+        "avgFnlPrvsAmt": 530633,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 452329,
+        "totPrsnCnt": 6,
+        "whlPymtCtstPrvsRate": 0.07
+      }
+    },
+    "세종": {
+      "40": {
+        "avgFnlPrvsAmt": 483855,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 436245,
+        "totPrsnCnt": 15,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "41": {
+        "avgFnlPrvsAmt": 391567,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 388907,
+        "totPrsnCnt": 19,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "42": {
+        "avgFnlPrvsAmt": 392239,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381518,
+        "totPrsnCnt": 14,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "43": {
+        "avgFnlPrvsAmt": 431495,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 367186,
+        "totPrsnCnt": 22,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "44": {
+        "avgFnlPrvsAmt": 484634,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 402624,
+        "totPrsnCnt": 23,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "45": {
+        "avgFnlPrvsAmt": 430071,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 417590,
+        "totPrsnCnt": 25,
+        "whlPymtCtstPrvsRate": 0.01
+      },
+      "46": {
+        "avgFnlPrvsAmt": 534329,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 556910,
+        "totPrsnCnt": 28,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "47": {
+        "avgFnlPrvsAmt": 466737,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441756,
+        "totPrsnCnt": 38,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "48": {
+        "avgFnlPrvsAmt": 416098,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 389792,
+        "totPrsnCnt": 29,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "49": {
+        "avgFnlPrvsAmt": 500714,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 461187,
+        "totPrsnCnt": 47,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "50": {
+        "avgFnlPrvsAmt": 511205,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 507408,
+        "totPrsnCnt": 40,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "51": {
+        "avgFnlPrvsAmt": 398703,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 392965,
+        "totPrsnCnt": 37,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "52": {
+        "avgFnlPrvsAmt": 497743,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 447494,
+        "totPrsnCnt": 61,
+        "whlPymtCtstPrvsRate": 0.01
+      },
+      "53": {
+        "avgFnlPrvsAmt": 488875,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 477526,
+        "totPrsnCnt": 56,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "54": {
+        "avgFnlPrvsAmt": 447039,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 426245,
+        "totPrsnCnt": 50,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "55": {
+        "avgFnlPrvsAmt": 492176,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 1065498,
+        "totPrsnCnt": 68,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "56": {
+        "avgFnlPrvsAmt": 501101,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 462019,
+        "totPrsnCnt": 64,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 506297,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 491884,
+        "totPrsnCnt": 74,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 477980,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 450798,
+        "totPrsnCnt": 79,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "59": {
+        "avgFnlPrvsAmt": 668506,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 658265,
+        "totPrsnCnt": 151,
+        "whlPymtCtstPrvsRate": 0.01
+      },
+      "60": {
+        "avgFnlPrvsAmt": 646480,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 627409,
+        "totPrsnCnt": 254,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 746929,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 742728,
+        "totPrsnCnt": 458,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 877781,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 870111,
+        "totPrsnCnt": 505,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 896123,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 881804,
+        "totPrsnCnt": 2645,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 857315,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 844684,
+        "totPrsnCnt": 2579,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 842244,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 841341,
+        "totPrsnCnt": 3104,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 778133,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 777688,
+        "totPrsnCnt": 2723,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 785851,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 809065,
+        "totPrsnCnt": 2444,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 729048,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 734147,
+        "totPrsnCnt": 2137,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 682005,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 691417,
+        "totPrsnCnt": 1970,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 670819,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 682172,
+        "totPrsnCnt": 1827,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 617837,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 624807,
+        "totPrsnCnt": 1813,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "72": {
+        "avgFnlPrvsAmt": 594038,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 601878,
+        "totPrsnCnt": 1378,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 600297,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 599333,
+        "totPrsnCnt": 1173,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 561351,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 554909,
+        "totPrsnCnt": 1180,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 524970,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 510304,
+        "totPrsnCnt": 865,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 534210,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 520481,
+        "totPrsnCnt": 969,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 484480,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 471610,
+        "totPrsnCnt": 964,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 426230,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 408448,
+        "totPrsnCnt": 826,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 403823,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 390635,
+        "totPrsnCnt": 785,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 375803,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 359972,
+        "totPrsnCnt": 532,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 365575,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 341754,
+        "totPrsnCnt": 593,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 331023,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 310610,
+        "totPrsnCnt": 558,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 317286,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 293738,
+        "totPrsnCnt": 560,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "84": {
+        "avgFnlPrvsAmt": 305182,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 276233,
+        "totPrsnCnt": 543,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "85": {
+        "avgFnlPrvsAmt": 324712,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 290232,
+        "totPrsnCnt": 407,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "86": {
+        "avgFnlPrvsAmt": 263498,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 237057,
+        "totPrsnCnt": 334,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "87": {
+        "avgFnlPrvsAmt": 295398,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 254222,
+        "totPrsnCnt": 205,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "88": {
+        "avgFnlPrvsAmt": 277377,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 242752,
+        "totPrsnCnt": 152,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "89": {
+        "avgFnlPrvsAmt": 267283,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 248381,
+        "totPrsnCnt": 105,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "90": {
+        "avgFnlPrvsAmt": 244853,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 213149,
+        "totPrsnCnt": 104,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "91": {
+        "avgFnlPrvsAmt": 249702,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 188721,
+        "totPrsnCnt": 75,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "92": {
+        "avgFnlPrvsAmt": 219692,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 176305,
+        "totPrsnCnt": 49,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "93": {
+        "avgFnlPrvsAmt": 244906,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 196079,
+        "totPrsnCnt": 24,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "94": {
+        "avgFnlPrvsAmt": 247754,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 192922,
+        "totPrsnCnt": 15,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "95": {
+        "avgFnlPrvsAmt": 210973,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 180649,
+        "totPrsnCnt": 11,
+        "whlPymtCtstPrvsRate": 0.3
+      },
+      "96": {
+        "avgFnlPrvsAmt": 290432,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 211250,
+        "totPrsnCnt": 3,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "97": {
+        "avgFnlPrvsAmt": 340534,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 237948,
+        "totPrsnCnt": 4,
+        "whlPymtCtstPrvsRate": 0.07
+      }
+    },
+    "경기": {
+      "40": {
+        "avgFnlPrvsAmt": 397371,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 398097,
+        "totPrsnCnt": 433,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "41": {
+        "avgFnlPrvsAmt": 405223,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 458881,
+        "totPrsnCnt": 487,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "42": {
+        "avgFnlPrvsAmt": 408799,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405314,
+        "totPrsnCnt": 569,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "43": {
+        "avgFnlPrvsAmt": 412207,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 411266,
+        "totPrsnCnt": 775,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "44": {
+        "avgFnlPrvsAmt": 414682,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 481521,
+        "totPrsnCnt": 928,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "45": {
+        "avgFnlPrvsAmt": 424461,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 410496,
+        "totPrsnCnt": 1063,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "46": {
+        "avgFnlPrvsAmt": 436430,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 432115,
+        "totPrsnCnt": 1164,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "47": {
+        "avgFnlPrvsAmt": 441486,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 466982,
+        "totPrsnCnt": 1212,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "48": {
+        "avgFnlPrvsAmt": 455286,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434585,
+        "totPrsnCnt": 1347,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "49": {
+        "avgFnlPrvsAmt": 457619,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 452657,
+        "totPrsnCnt": 1447,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "50": {
+        "avgFnlPrvsAmt": 461929,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 468139,
+        "totPrsnCnt": 1620,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "51": {
+        "avgFnlPrvsAmt": 465876,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 459197,
+        "totPrsnCnt": 1923,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "52": {
+        "avgFnlPrvsAmt": 477498,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 487254,
+        "totPrsnCnt": 2430,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "53": {
+        "avgFnlPrvsAmt": 480845,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 478526,
+        "totPrsnCnt": 2673,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "54": {
+        "avgFnlPrvsAmt": 472544,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 461831,
+        "totPrsnCnt": 2928,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "55": {
+        "avgFnlPrvsAmt": 480436,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 477592,
+        "totPrsnCnt": 3368,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "56": {
+        "avgFnlPrvsAmt": 480558,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 497419,
+        "totPrsnCnt": 3619,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 491432,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 487231,
+        "totPrsnCnt": 4250,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 492127,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 479775,
+        "totPrsnCnt": 4339,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "59": {
+        "avgFnlPrvsAmt": 558263,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 551503,
+        "totPrsnCnt": 7759,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "60": {
+        "avgFnlPrvsAmt": 600478,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 595201,
+        "totPrsnCnt": 13622,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 697171,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 695553,
+        "totPrsnCnt": 20621,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 792399,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 787131,
+        "totPrsnCnt": 24048,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 820789,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 810069,
+        "totPrsnCnt": 145278,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 782910,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 771431,
+        "totPrsnCnt": 135010,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 765775,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 759826,
+        "totPrsnCnt": 157504,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 733855,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 726901,
+        "totPrsnCnt": 143310,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 710505,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 716953,
+        "totPrsnCnt": 128080,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "68": {
+        "avgFnlPrvsAmt": 662285,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 660987,
+        "totPrsnCnt": 115549,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "69": {
+        "avgFnlPrvsAmt": 618812,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 621136,
+        "totPrsnCnt": 101333,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "70": {
+        "avgFnlPrvsAmt": 585275,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 588024,
+        "totPrsnCnt": 90695,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 563295,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 562548,
+        "totPrsnCnt": 87957,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 551159,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 549869,
+        "totPrsnCnt": 65949,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 544488,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 539904,
+        "totPrsnCnt": 59730,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 528507,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 516685,
+        "totPrsnCnt": 58696,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 512937,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 497307,
+        "totPrsnCnt": 40927,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 508324,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 491466,
+        "totPrsnCnt": 44876,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "77": {
+        "avgFnlPrvsAmt": 455568,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 436731,
+        "totPrsnCnt": 46558,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 418963,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 401975,
+        "totPrsnCnt": 47609,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 405944,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 387680,
+        "totPrsnCnt": 45530,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "80": {
+        "avgFnlPrvsAmt": 378405,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 358105,
+        "totPrsnCnt": 30874,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "81": {
+        "avgFnlPrvsAmt": 351157,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 330872,
+        "totPrsnCnt": 32522,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 333995,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 312716,
+        "totPrsnCnt": 28286,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "83": {
+        "avgFnlPrvsAmt": 325557,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 304127,
+        "totPrsnCnt": 27775,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "84": {
+        "avgFnlPrvsAmt": 315011,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 293123,
+        "totPrsnCnt": 25404,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "85": {
+        "avgFnlPrvsAmt": 309606,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 285166,
+        "totPrsnCnt": 19075,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "86": {
+        "avgFnlPrvsAmt": 304829,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 280184,
+        "totPrsnCnt": 14598,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "87": {
+        "avgFnlPrvsAmt": 317559,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 285277,
+        "totPrsnCnt": 9898,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "88": {
+        "avgFnlPrvsAmt": 318714,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 277531,
+        "totPrsnCnt": 6673,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "89": {
+        "avgFnlPrvsAmt": 295813,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 256306,
+        "totPrsnCnt": 5543,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "90": {
+        "avgFnlPrvsAmt": 277131,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 241272,
+        "totPrsnCnt": 4170,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "91": {
+        "avgFnlPrvsAmt": 276984,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 239214,
+        "totPrsnCnt": 2868,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "92": {
+        "avgFnlPrvsAmt": 258559,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 219835,
+        "totPrsnCnt": 1808,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "93": {
+        "avgFnlPrvsAmt": 259512,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 222264,
+        "totPrsnCnt": 1033,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "94": {
+        "avgFnlPrvsAmt": 265586,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 229333,
+        "totPrsnCnt": 611,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "95": {
+        "avgFnlPrvsAmt": 255085,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 220044,
+        "totPrsnCnt": 320,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "96": {
+        "avgFnlPrvsAmt": 304245,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 245832,
+        "totPrsnCnt": 159,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "97": {
+        "avgFnlPrvsAmt": 318457,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 283869,
+        "totPrsnCnt": 83,
+        "whlPymtCtstPrvsRate": 0.62
+      },
+      "98": {
+        "avgFnlPrvsAmt": 330700,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 316422,
+        "totPrsnCnt": 43,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "99": {
+        "avgFnlPrvsAmt": 294675,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 251770,
+        "totPrsnCnt": 24,
+        "whlPymtCtstPrvsRate": 0.57
+      },
+      "100": {
+        "avgFnlPrvsAmt": 335809,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 309460,
+        "totPrsnCnt": 8,
+        "whlPymtCtstPrvsRate": 0.35
+      }
+    },
+    "강원": {
+      "40": {
+        "avgFnlPrvsAmt": 459578,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 577581,
+        "totPrsnCnt": 48,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "41": {
+        "avgFnlPrvsAmt": 379691,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 431630,
+        "totPrsnCnt": 68,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "42": {
+        "avgFnlPrvsAmt": 386362,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 362290,
+        "totPrsnCnt": 69,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "43": {
+        "avgFnlPrvsAmt": 395249,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 467416,
+        "totPrsnCnt": 84,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "44": {
+        "avgFnlPrvsAmt": 389209,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 365448,
+        "totPrsnCnt": 105,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "45": {
+        "avgFnlPrvsAmt": 396039,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 382102,
+        "totPrsnCnt": 125,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "46": {
+        "avgFnlPrvsAmt": 410056,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386855,
+        "totPrsnCnt": 114,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "47": {
+        "avgFnlPrvsAmt": 387768,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 399418,
+        "totPrsnCnt": 143,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "48": {
+        "avgFnlPrvsAmt": 400907,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 390751,
+        "totPrsnCnt": 148,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "49": {
+        "avgFnlPrvsAmt": 420852,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441268,
+        "totPrsnCnt": 172,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "50": {
+        "avgFnlPrvsAmt": 419870,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 369351,
+        "totPrsnCnt": 198,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "51": {
+        "avgFnlPrvsAmt": 427027,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 385747,
+        "totPrsnCnt": 228,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "52": {
+        "avgFnlPrvsAmt": 431745,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 417962,
+        "totPrsnCnt": 268,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "53": {
+        "avgFnlPrvsAmt": 455253,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 430696,
+        "totPrsnCnt": 334,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "54": {
+        "avgFnlPrvsAmt": 428126,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 403244,
+        "totPrsnCnt": 345,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "55": {
+        "avgFnlPrvsAmt": 415676,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 387242,
+        "totPrsnCnt": 418,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "56": {
+        "avgFnlPrvsAmt": 422970,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 396411,
+        "totPrsnCnt": 451,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "57": {
+        "avgFnlPrvsAmt": 433937,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 427596,
+        "totPrsnCnt": 524,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "58": {
+        "avgFnlPrvsAmt": 437209,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 420217,
+        "totPrsnCnt": 566,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "59": {
+        "avgFnlPrvsAmt": 571954,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 555388,
+        "totPrsnCnt": 1097,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "60": {
+        "avgFnlPrvsAmt": 615019,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 607797,
+        "totPrsnCnt": 2114,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 706676,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 705522,
+        "totPrsnCnt": 2971,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 740180,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 736335,
+        "totPrsnCnt": 3733,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 740779,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 733877,
+        "totPrsnCnt": 17833,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 706408,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 698351,
+        "totPrsnCnt": 17174,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 693476,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 693065,
+        "totPrsnCnt": 21008,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 672437,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 664737,
+        "totPrsnCnt": 19607,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "67": {
+        "avgFnlPrvsAmt": 643047,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 641748,
+        "totPrsnCnt": 17819,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 610983,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 608261,
+        "totPrsnCnt": 16948,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 561929,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 558719,
+        "totPrsnCnt": 15171,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 561187,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 558181,
+        "totPrsnCnt": 13397,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 521510,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 511325,
+        "totPrsnCnt": 13228,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 501337,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 494055,
+        "totPrsnCnt": 10295,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 504677,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 496084,
+        "totPrsnCnt": 8952,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 481565,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 464332,
+        "totPrsnCnt": 9719,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 480704,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463757,
+        "totPrsnCnt": 6079,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 482669,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463353,
+        "totPrsnCnt": 6030,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 424450,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 404068,
+        "totPrsnCnt": 6978,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 396911,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 377433,
+        "totPrsnCnt": 7441,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 360950,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 340645,
+        "totPrsnCnt": 7047,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 349017,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 326588,
+        "totPrsnCnt": 5218,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 321160,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 297477,
+        "totPrsnCnt": 6173,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "82": {
+        "avgFnlPrvsAmt": 299329,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 277205,
+        "totPrsnCnt": 5341,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "83": {
+        "avgFnlPrvsAmt": 287553,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 263052,
+        "totPrsnCnt": 5205,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "84": {
+        "avgFnlPrvsAmt": 270952,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 244201,
+        "totPrsnCnt": 5060,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "85": {
+        "avgFnlPrvsAmt": 259149,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 230326,
+        "totPrsnCnt": 4150,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "86": {
+        "avgFnlPrvsAmt": 258571,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 233224,
+        "totPrsnCnt": 3263,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "87": {
+        "avgFnlPrvsAmt": 272275,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 241652,
+        "totPrsnCnt": 2241,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "88": {
+        "avgFnlPrvsAmt": 269445,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 227124,
+        "totPrsnCnt": 1521,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "89": {
+        "avgFnlPrvsAmt": 254208,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 220168,
+        "totPrsnCnt": 1176,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "90": {
+        "avgFnlPrvsAmt": 236991,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 202423,
+        "totPrsnCnt": 998,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "91": {
+        "avgFnlPrvsAmt": 246068,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 232580,
+        "totPrsnCnt": 615,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "92": {
+        "avgFnlPrvsAmt": 233446,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 196825,
+        "totPrsnCnt": 433,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "93": {
+        "avgFnlPrvsAmt": 223572,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 191596,
+        "totPrsnCnt": 232,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "94": {
+        "avgFnlPrvsAmt": 215103,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 187644,
+        "totPrsnCnt": 158,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "95": {
+        "avgFnlPrvsAmt": 216404,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 194367,
+        "totPrsnCnt": 107,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "96": {
+        "avgFnlPrvsAmt": 280675,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 214734,
+        "totPrsnCnt": 46,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "97": {
+        "avgFnlPrvsAmt": 289116,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 234173,
+        "totPrsnCnt": 23,
+        "whlPymtCtstPrvsRate": 0.42
+      },
+      "98": {
+        "avgFnlPrvsAmt": 262916,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 202916,
+        "totPrsnCnt": 8,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "99": {
+        "avgFnlPrvsAmt": 301052,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 227373,
+        "totPrsnCnt": 13,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "100": {
+        "avgFnlPrvsAmt": 309807,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228746,
+        "totPrsnCnt": 9,
+        "whlPymtCtstPrvsRate": 0.22
+      }
+    },
+    "충북": {
+      "40": {
+        "avgFnlPrvsAmt": 380938,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 356544,
+        "totPrsnCnt": 67,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "41": {
+        "avgFnlPrvsAmt": 351247,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 338022,
+        "totPrsnCnt": 71,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "42": {
+        "avgFnlPrvsAmt": 390822,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 415838,
+        "totPrsnCnt": 99,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "43": {
+        "avgFnlPrvsAmt": 403765,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 389793,
+        "totPrsnCnt": 110,
+        "whlPymtCtstPrvsRate": 0.42
+      },
+      "44": {
+        "avgFnlPrvsAmt": 392460,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 372443,
+        "totPrsnCnt": 131,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "45": {
+        "avgFnlPrvsAmt": 425021,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 404337,
+        "totPrsnCnt": 111,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "46": {
+        "avgFnlPrvsAmt": 443674,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 420495,
+        "totPrsnCnt": 158,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "47": {
+        "avgFnlPrvsAmt": 415076,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 410914,
+        "totPrsnCnt": 166,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "48": {
+        "avgFnlPrvsAmt": 437629,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 423885,
+        "totPrsnCnt": 187,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "49": {
+        "avgFnlPrvsAmt": 440045,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 409330,
+        "totPrsnCnt": 168,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "50": {
+        "avgFnlPrvsAmt": 443609,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434124,
+        "totPrsnCnt": 219,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "51": {
+        "avgFnlPrvsAmt": 431902,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407994,
+        "totPrsnCnt": 266,
+        "whlPymtCtstPrvsRate": 0.5
+      },
+      "52": {
+        "avgFnlPrvsAmt": 427015,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 397228,
+        "totPrsnCnt": 329,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "53": {
+        "avgFnlPrvsAmt": 443789,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 417060,
+        "totPrsnCnt": 334,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "54": {
+        "avgFnlPrvsAmt": 446170,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 422972,
+        "totPrsnCnt": 394,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "55": {
+        "avgFnlPrvsAmt": 432519,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 415156,
+        "totPrsnCnt": 439,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "56": {
+        "avgFnlPrvsAmt": 471950,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 462662,
+        "totPrsnCnt": 483,
+        "whlPymtCtstPrvsRate": 0.24
+      },
+      "57": {
+        "avgFnlPrvsAmt": 468825,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 456609,
+        "totPrsnCnt": 619,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "58": {
+        "avgFnlPrvsAmt": 442718,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 418004,
+        "totPrsnCnt": 607,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "59": {
+        "avgFnlPrvsAmt": 551310,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 540853,
+        "totPrsnCnt": 1152,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "60": {
+        "avgFnlPrvsAmt": 596162,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 593154,
+        "totPrsnCnt": 2054,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "61": {
+        "avgFnlPrvsAmt": 671002,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 664905,
+        "totPrsnCnt": 3187,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 741067,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 734351,
+        "totPrsnCnt": 3476,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 772071,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 761587,
+        "totPrsnCnt": 18615,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 747214,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 737622,
+        "totPrsnCnt": 18302,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 724761,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 718880,
+        "totPrsnCnt": 22950,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 687439,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 674506,
+        "totPrsnCnt": 19243,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 646426,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 643064,
+        "totPrsnCnt": 17904,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 608828,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 601639,
+        "totPrsnCnt": 16768,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 571238,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 569361,
+        "totPrsnCnt": 15368,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 540643,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 535471,
+        "totPrsnCnt": 13787,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 514583,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 509007,
+        "totPrsnCnt": 12967,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 495385,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 489302,
+        "totPrsnCnt": 10789,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 489831,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 480272,
+        "totPrsnCnt": 9222,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 479613,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 465278,
+        "totPrsnCnt": 9926,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 452253,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 437678,
+        "totPrsnCnt": 6267,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 452866,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 434672,
+        "totPrsnCnt": 6642,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 405407,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386474,
+        "totPrsnCnt": 7108,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 384686,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 368150,
+        "totPrsnCnt": 7051,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "79": {
+        "avgFnlPrvsAmt": 366250,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 346776,
+        "totPrsnCnt": 6559,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 347150,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 325634,
+        "totPrsnCnt": 4442,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 324465,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 303012,
+        "totPrsnCnt": 5226,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "82": {
+        "avgFnlPrvsAmt": 289969,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 266770,
+        "totPrsnCnt": 4648,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "83": {
+        "avgFnlPrvsAmt": 282280,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 258148,
+        "totPrsnCnt": 4982,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "84": {
+        "avgFnlPrvsAmt": 278937,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 254667,
+        "totPrsnCnt": 4708,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "85": {
+        "avgFnlPrvsAmt": 273203,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 243729,
+        "totPrsnCnt": 3459,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "86": {
+        "avgFnlPrvsAmt": 250868,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 226210,
+        "totPrsnCnt": 2795,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "87": {
+        "avgFnlPrvsAmt": 277653,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 251238,
+        "totPrsnCnt": 2032,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "88": {
+        "avgFnlPrvsAmt": 276105,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 231781,
+        "totPrsnCnt": 1231,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "89": {
+        "avgFnlPrvsAmt": 256906,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 215917,
+        "totPrsnCnt": 1170,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "90": {
+        "avgFnlPrvsAmt": 239433,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 202947,
+        "totPrsnCnt": 966,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "91": {
+        "avgFnlPrvsAmt": 252355,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 208448,
+        "totPrsnCnt": 664,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "92": {
+        "avgFnlPrvsAmt": 230978,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 192371,
+        "totPrsnCnt": 477,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "93": {
+        "avgFnlPrvsAmt": 220171,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 190059,
+        "totPrsnCnt": 300,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "94": {
+        "avgFnlPrvsAmt": 218081,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 191163,
+        "totPrsnCnt": 178,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "95": {
+        "avgFnlPrvsAmt": 209026,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 183368,
+        "totPrsnCnt": 101,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "96": {
+        "avgFnlPrvsAmt": 274463,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 233124,
+        "totPrsnCnt": 36,
+        "whlPymtCtstPrvsRate": 0.26
+      },
+      "97": {
+        "avgFnlPrvsAmt": 309615,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 270920,
+        "totPrsnCnt": 16,
+        "whlPymtCtstPrvsRate": 0.29
+      },
+      "98": {
+        "avgFnlPrvsAmt": 331124,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 248208,
+        "totPrsnCnt": 12,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "99": {
+        "avgFnlPrvsAmt": 266410,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 193418,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "100": {
+        "avgFnlPrvsAmt": 260771,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 231546,
+        "totPrsnCnt": 3,
+        "whlPymtCtstPrvsRate": 0.08
+      }
+    },
+    "충남": {
+      "40": {
+        "avgFnlPrvsAmt": 401049,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378777,
+        "totPrsnCnt": 95,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "41": {
+        "avgFnlPrvsAmt": 386734,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 362086,
+        "totPrsnCnt": 97,
+        "whlPymtCtstPrvsRate": 0.21
+      },
+      "42": {
+        "avgFnlPrvsAmt": 399601,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378993,
+        "totPrsnCnt": 134,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "43": {
+        "avgFnlPrvsAmt": 390624,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 368324,
+        "totPrsnCnt": 145,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "44": {
+        "avgFnlPrvsAmt": 421277,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405855,
+        "totPrsnCnt": 178,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "45": {
+        "avgFnlPrvsAmt": 400753,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381907,
+        "totPrsnCnt": 200,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "46": {
+        "avgFnlPrvsAmt": 431298,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 393907,
+        "totPrsnCnt": 222,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "47": {
+        "avgFnlPrvsAmt": 414855,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 389214,
+        "totPrsnCnt": 239,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "48": {
+        "avgFnlPrvsAmt": 444328,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 473626,
+        "totPrsnCnt": 234,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "49": {
+        "avgFnlPrvsAmt": 457749,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 446835,
+        "totPrsnCnt": 266,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "50": {
+        "avgFnlPrvsAmt": 440862,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 432968,
+        "totPrsnCnt": 276,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "51": {
+        "avgFnlPrvsAmt": 428743,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405844,
+        "totPrsnCnt": 335,
+        "whlPymtCtstPrvsRate": 0.23
+      },
+      "52": {
+        "avgFnlPrvsAmt": 435664,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 396978,
+        "totPrsnCnt": 409,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "53": {
+        "avgFnlPrvsAmt": 442586,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 420536,
+        "totPrsnCnt": 455,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "54": {
+        "avgFnlPrvsAmt": 427811,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407020,
+        "totPrsnCnt": 467,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "55": {
+        "avgFnlPrvsAmt": 427969,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 399764,
+        "totPrsnCnt": 556,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "56": {
+        "avgFnlPrvsAmt": 421550,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 397343,
+        "totPrsnCnt": 570,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "57": {
+        "avgFnlPrvsAmt": 450151,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 462048,
+        "totPrsnCnt": 729,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "58": {
+        "avgFnlPrvsAmt": 441542,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441691,
+        "totPrsnCnt": 705,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "59": {
+        "avgFnlPrvsAmt": 501042,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 494094,
+        "totPrsnCnt": 1244,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "60": {
+        "avgFnlPrvsAmt": 602369,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 624392,
+        "totPrsnCnt": 2131,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "61": {
+        "avgFnlPrvsAmt": 671913,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 664723,
+        "totPrsnCnt": 3728,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 743992,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 738495,
+        "totPrsnCnt": 3940,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 753873,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 748552,
+        "totPrsnCnt": 23057,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 714556,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 707085,
+        "totPrsnCnt": 22596,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 702924,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 696769,
+        "totPrsnCnt": 28221,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 650139,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 643881,
+        "totPrsnCnt": 25698,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 625797,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 622708,
+        "totPrsnCnt": 21923,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 593402,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 585192,
+        "totPrsnCnt": 19926,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 550536,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 544788,
+        "totPrsnCnt": 18261,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 522556,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 515600,
+        "totPrsnCnt": 17559,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 503840,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 497223,
+        "totPrsnCnt": 17312,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 471744,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463866,
+        "totPrsnCnt": 13250,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 470211,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 461804,
+        "totPrsnCnt": 11652,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 453042,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 440512,
+        "totPrsnCnt": 12650,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 442090,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 426760,
+        "totPrsnCnt": 9302,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 425931,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 408719,
+        "totPrsnCnt": 10782,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 393309,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 378031,
+        "totPrsnCnt": 10839,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 365850,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 349159,
+        "totPrsnCnt": 10241,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "79": {
+        "avgFnlPrvsAmt": 351538,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 333235,
+        "totPrsnCnt": 9544,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "80": {
+        "avgFnlPrvsAmt": 335859,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 316849,
+        "totPrsnCnt": 6072,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 301839,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 278653,
+        "totPrsnCnt": 7058,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "82": {
+        "avgFnlPrvsAmt": 281015,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 259084,
+        "totPrsnCnt": 6781,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "83": {
+        "avgFnlPrvsAmt": 263712,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 241490,
+        "totPrsnCnt": 6988,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "84": {
+        "avgFnlPrvsAmt": 254249,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228574,
+        "totPrsnCnt": 7242,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "85": {
+        "avgFnlPrvsAmt": 248199,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221494,
+        "totPrsnCnt": 5056,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "86": {
+        "avgFnlPrvsAmt": 236074,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 208046,
+        "totPrsnCnt": 4275,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "87": {
+        "avgFnlPrvsAmt": 243229,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 210925,
+        "totPrsnCnt": 3453,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "88": {
+        "avgFnlPrvsAmt": 246340,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 207370,
+        "totPrsnCnt": 2238,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "89": {
+        "avgFnlPrvsAmt": 232443,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 197021,
+        "totPrsnCnt": 2056,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "90": {
+        "avgFnlPrvsAmt": 229536,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 192335,
+        "totPrsnCnt": 1664,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "91": {
+        "avgFnlPrvsAmt": 224317,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 186091,
+        "totPrsnCnt": 1242,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "92": {
+        "avgFnlPrvsAmt": 212817,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 177165,
+        "totPrsnCnt": 799,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "93": {
+        "avgFnlPrvsAmt": 213033,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 182730,
+        "totPrsnCnt": 560,
+        "whlPymtCtstPrvsRate": 0.21
+      },
+      "94": {
+        "avgFnlPrvsAmt": 191553,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 171074,
+        "totPrsnCnt": 363,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "95": {
+        "avgFnlPrvsAmt": 202797,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 180005,
+        "totPrsnCnt": 198,
+        "whlPymtCtstPrvsRate": 0.21
+      },
+      "96": {
+        "avgFnlPrvsAmt": 261566,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 203594,
+        "totPrsnCnt": 46,
+        "whlPymtCtstPrvsRate": 0.29
+      },
+      "97": {
+        "avgFnlPrvsAmt": 254719,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 222119,
+        "totPrsnCnt": 31,
+        "whlPymtCtstPrvsRate": 0.32
+      },
+      "98": {
+        "avgFnlPrvsAmt": 326293,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 264054,
+        "totPrsnCnt": 18,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "99": {
+        "avgFnlPrvsAmt": 276413,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 225604,
+        "totPrsnCnt": 13,
+        "whlPymtCtstPrvsRate": 0.21
+      },
+      "100": {
+        "avgFnlPrvsAmt": 464508,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381962,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.19
+      }
+    },
+    "전북": {
+      "40": {
+        "avgFnlPrvsAmt": 394064,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 354417,
+        "totPrsnCnt": 62,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "41": {
+        "avgFnlPrvsAmt": 366497,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 357770,
+        "totPrsnCnt": 78,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "42": {
+        "avgFnlPrvsAmt": 371237,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 344035,
+        "totPrsnCnt": 82,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "43": {
+        "avgFnlPrvsAmt": 416699,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463895,
+        "totPrsnCnt": 100,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "44": {
+        "avgFnlPrvsAmt": 400676,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 385429,
+        "totPrsnCnt": 136,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "45": {
+        "avgFnlPrvsAmt": 409521,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 426166,
+        "totPrsnCnt": 125,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "46": {
+        "avgFnlPrvsAmt": 422292,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 398892,
+        "totPrsnCnt": 161,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "47": {
+        "avgFnlPrvsAmt": 407594,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 412978,
+        "totPrsnCnt": 173,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "48": {
+        "avgFnlPrvsAmt": 391590,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 393062,
+        "totPrsnCnt": 181,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "49": {
+        "avgFnlPrvsAmt": 422364,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 387906,
+        "totPrsnCnt": 201,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "50": {
+        "avgFnlPrvsAmt": 441235,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 507657,
+        "totPrsnCnt": 210,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "51": {
+        "avgFnlPrvsAmt": 429187,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 562350,
+        "totPrsnCnt": 278,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "52": {
+        "avgFnlPrvsAmt": 440350,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 402076,
+        "totPrsnCnt": 341,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "53": {
+        "avgFnlPrvsAmt": 397687,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 369226,
+        "totPrsnCnt": 378,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "54": {
+        "avgFnlPrvsAmt": 416605,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381480,
+        "totPrsnCnt": 417,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "55": {
+        "avgFnlPrvsAmt": 413895,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 383071,
+        "totPrsnCnt": 439,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "56": {
+        "avgFnlPrvsAmt": 439016,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 458796,
+        "totPrsnCnt": 465,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "57": {
+        "avgFnlPrvsAmt": 377568,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 351699,
+        "totPrsnCnt": 574,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "58": {
+        "avgFnlPrvsAmt": 428296,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 411101,
+        "totPrsnCnt": 633,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "59": {
+        "avgFnlPrvsAmt": 497628,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 485965,
+        "totPrsnCnt": 1147,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "60": {
+        "avgFnlPrvsAmt": 583522,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 597470,
+        "totPrsnCnt": 2050,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 667524,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 666364,
+        "totPrsnCnt": 3149,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "62": {
+        "avgFnlPrvsAmt": 716159,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 707133,
+        "totPrsnCnt": 3632,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "63": {
+        "avgFnlPrvsAmt": 715490,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 711391,
+        "totPrsnCnt": 19307,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 682419,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 679738,
+        "totPrsnCnt": 18222,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 647866,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 644443,
+        "totPrsnCnt": 23040,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "66": {
+        "avgFnlPrvsAmt": 616557,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 607956,
+        "totPrsnCnt": 22066,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "67": {
+        "avgFnlPrvsAmt": 604071,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 600904,
+        "totPrsnCnt": 18912,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 551259,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 544779,
+        "totPrsnCnt": 17475,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 522249,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 517390,
+        "totPrsnCnt": 16288,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 483427,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 477540,
+        "totPrsnCnt": 15064,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 467838,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 461707,
+        "totPrsnCnt": 15762,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 446049,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 438999,
+        "totPrsnCnt": 12069,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 434850,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 424845,
+        "totPrsnCnt": 10262,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 426276,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 414308,
+        "totPrsnCnt": 11056,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 420834,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405508,
+        "totPrsnCnt": 9675,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 402028,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 384538,
+        "totPrsnCnt": 10920,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "77": {
+        "avgFnlPrvsAmt": 365462,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 352838,
+        "totPrsnCnt": 9547,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "78": {
+        "avgFnlPrvsAmt": 343972,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 325242,
+        "totPrsnCnt": 10055,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "79": {
+        "avgFnlPrvsAmt": 325128,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 306793,
+        "totPrsnCnt": 10476,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 307265,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 286541,
+        "totPrsnCnt": 6802,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "81": {
+        "avgFnlPrvsAmt": 279853,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 257203,
+        "totPrsnCnt": 6922,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "82": {
+        "avgFnlPrvsAmt": 263020,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 238793,
+        "totPrsnCnt": 6386,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "83": {
+        "avgFnlPrvsAmt": 251549,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 223823,
+        "totPrsnCnt": 7296,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "84": {
+        "avgFnlPrvsAmt": 244394,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 218828,
+        "totPrsnCnt": 7898,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "85": {
+        "avgFnlPrvsAmt": 233199,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 206766,
+        "totPrsnCnt": 5191,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "86": {
+        "avgFnlPrvsAmt": 226165,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 201628,
+        "totPrsnCnt": 4632,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "87": {
+        "avgFnlPrvsAmt": 229808,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 200730,
+        "totPrsnCnt": 3702,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "88": {
+        "avgFnlPrvsAmt": 237050,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 208140,
+        "totPrsnCnt": 2710,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "89": {
+        "avgFnlPrvsAmt": 223381,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 191745,
+        "totPrsnCnt": 2355,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "90": {
+        "avgFnlPrvsAmt": 217308,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 188979,
+        "totPrsnCnt": 1859,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "91": {
+        "avgFnlPrvsAmt": 214749,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 187203,
+        "totPrsnCnt": 1210,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "92": {
+        "avgFnlPrvsAmt": 214212,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 184064,
+        "totPrsnCnt": 704,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "93": {
+        "avgFnlPrvsAmt": 200912,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 179150,
+        "totPrsnCnt": 487,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "94": {
+        "avgFnlPrvsAmt": 187965,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 169508,
+        "totPrsnCnt": 333,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "95": {
+        "avgFnlPrvsAmt": 183015,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 185539,
+        "totPrsnCnt": 187,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "96": {
+        "avgFnlPrvsAmt": 274878,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 219270,
+        "totPrsnCnt": 57,
+        "whlPymtCtstPrvsRate": 0.27
+      },
+      "97": {
+        "avgFnlPrvsAmt": 275681,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 227527,
+        "totPrsnCnt": 39,
+        "whlPymtCtstPrvsRate": 0.24
+      },
+      "98": {
+        "avgFnlPrvsAmt": 279397,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 216417,
+        "totPrsnCnt": 18,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "99": {
+        "avgFnlPrvsAmt": 258093,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 250482,
+        "totPrsnCnt": 13,
+        "whlPymtCtstPrvsRate": 0.28
+      },
+      "100": {
+        "avgFnlPrvsAmt": 329264,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 293344,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.07
+      }
+    },
+    "경북": {
+      "40": {
+        "avgFnlPrvsAmt": 383838,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 413359,
+        "totPrsnCnt": 90,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "41": {
+        "avgFnlPrvsAmt": 381841,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 609101,
+        "totPrsnCnt": 122,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "42": {
+        "avgFnlPrvsAmt": 388606,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 361110,
+        "totPrsnCnt": 120,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "43": {
+        "avgFnlPrvsAmt": 393367,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 380312,
+        "totPrsnCnt": 154,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "44": {
+        "avgFnlPrvsAmt": 404991,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 385181,
+        "totPrsnCnt": 200,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "45": {
+        "avgFnlPrvsAmt": 409752,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 417750,
+        "totPrsnCnt": 230,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "46": {
+        "avgFnlPrvsAmt": 401099,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 381234,
+        "totPrsnCnt": 270,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "47": {
+        "avgFnlPrvsAmt": 414756,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 383968,
+        "totPrsnCnt": 242,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "48": {
+        "avgFnlPrvsAmt": 425446,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 404777,
+        "totPrsnCnt": 262,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "49": {
+        "avgFnlPrvsAmt": 429146,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407305,
+        "totPrsnCnt": 309,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "50": {
+        "avgFnlPrvsAmt": 432134,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463679,
+        "totPrsnCnt": 355,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "51": {
+        "avgFnlPrvsAmt": 442924,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 424670,
+        "totPrsnCnt": 414,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "52": {
+        "avgFnlPrvsAmt": 451077,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 501041,
+        "totPrsnCnt": 523,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "53": {
+        "avgFnlPrvsAmt": 439294,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 410384,
+        "totPrsnCnt": 506,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "54": {
+        "avgFnlPrvsAmt": 455404,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 463400,
+        "totPrsnCnt": 629,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "55": {
+        "avgFnlPrvsAmt": 435802,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 419689,
+        "totPrsnCnt": 714,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "56": {
+        "avgFnlPrvsAmt": 424266,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 407767,
+        "totPrsnCnt": 813,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "57": {
+        "avgFnlPrvsAmt": 448863,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 422974,
+        "totPrsnCnt": 944,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "58": {
+        "avgFnlPrvsAmt": 454635,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 443954,
+        "totPrsnCnt": 1043,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "59": {
+        "avgFnlPrvsAmt": 582029,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 573656,
+        "totPrsnCnt": 2251,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "60": {
+        "avgFnlPrvsAmt": 602487,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 597964,
+        "totPrsnCnt": 4845,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 682346,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 675771,
+        "totPrsnCnt": 7293,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 767072,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 760541,
+        "totPrsnCnt": 8941,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 762827,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 756199,
+        "totPrsnCnt": 31627,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 741186,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 733732,
+        "totPrsnCnt": 30923,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 711414,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 703929,
+        "totPrsnCnt": 37287,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 682819,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 671187,
+        "totPrsnCnt": 34794,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "67": {
+        "avgFnlPrvsAmt": 650884,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 647008,
+        "totPrsnCnt": 30905,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 608807,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 602663,
+        "totPrsnCnt": 27735,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 554217,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 548669,
+        "totPrsnCnt": 26929,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 539031,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 536995,
+        "totPrsnCnt": 24442,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 510096,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 504495,
+        "totPrsnCnt": 23558,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 495437,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 489410,
+        "totPrsnCnt": 19345,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 477931,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 470629,
+        "totPrsnCnt": 19136,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 473526,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 462111,
+        "totPrsnCnt": 18709,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 459416,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 444036,
+        "totPrsnCnt": 13597,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 449405,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 433863,
+        "totPrsnCnt": 14827,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 407438,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 389481,
+        "totPrsnCnt": 16245,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 379704,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 359626,
+        "totPrsnCnt": 15334,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "79": {
+        "avgFnlPrvsAmt": 357640,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 336393,
+        "totPrsnCnt": 13483,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 345162,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 323813,
+        "totPrsnCnt": 7617,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 313216,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 289729,
+        "totPrsnCnt": 9967,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "82": {
+        "avgFnlPrvsAmt": 293733,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 267732,
+        "totPrsnCnt": 10480,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "83": {
+        "avgFnlPrvsAmt": 275731,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 250330,
+        "totPrsnCnt": 11761,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "84": {
+        "avgFnlPrvsAmt": 264979,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 241303,
+        "totPrsnCnt": 10472,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "85": {
+        "avgFnlPrvsAmt": 251903,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 223226,
+        "totPrsnCnt": 8249,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "86": {
+        "avgFnlPrvsAmt": 242237,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 214368,
+        "totPrsnCnt": 7146,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "87": {
+        "avgFnlPrvsAmt": 253737,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 221488,
+        "totPrsnCnt": 5482,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "88": {
+        "avgFnlPrvsAmt": 250035,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 217186,
+        "totPrsnCnt": 3784,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "89": {
+        "avgFnlPrvsAmt": 234219,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 200410,
+        "totPrsnCnt": 3336,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "90": {
+        "avgFnlPrvsAmt": 214955,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 185924,
+        "totPrsnCnt": 2882,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "91": {
+        "avgFnlPrvsAmt": 225384,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 193066,
+        "totPrsnCnt": 1776,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "92": {
+        "avgFnlPrvsAmt": 221785,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 187153,
+        "totPrsnCnt": 1093,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "93": {
+        "avgFnlPrvsAmt": 207997,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 179105,
+        "totPrsnCnt": 771,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "94": {
+        "avgFnlPrvsAmt": 200768,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 179633,
+        "totPrsnCnt": 472,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "95": {
+        "avgFnlPrvsAmt": 199748,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 181238,
+        "totPrsnCnt": 263,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "96": {
+        "avgFnlPrvsAmt": 267093,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 206204,
+        "totPrsnCnt": 66,
+        "whlPymtCtstPrvsRate": 0.27
+      },
+      "97": {
+        "avgFnlPrvsAmt": 295524,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228288,
+        "totPrsnCnt": 37,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "98": {
+        "avgFnlPrvsAmt": 318744,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 240722,
+        "totPrsnCnt": 31,
+        "whlPymtCtstPrvsRate": 0.22
+      },
+      "99": {
+        "avgFnlPrvsAmt": 278648,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 247448,
+        "totPrsnCnt": 8,
+        "whlPymtCtstPrvsRate": 0.35
+      },
+      "100": {
+        "avgFnlPrvsAmt": 338044,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 270472,
+        "totPrsnCnt": 11,
+        "whlPymtCtstPrvsRate": 0.22
+      }
+    },
+    "경남": {
+      "40": {
+        "avgFnlPrvsAmt": 415070,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 477432,
+        "totPrsnCnt": 125,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "41": {
+        "avgFnlPrvsAmt": 409771,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 388515,
+        "totPrsnCnt": 146,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "42": {
+        "avgFnlPrvsAmt": 408482,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 431503,
+        "totPrsnCnt": 197,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "43": {
+        "avgFnlPrvsAmt": 416832,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 420616,
+        "totPrsnCnt": 245,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "44": {
+        "avgFnlPrvsAmt": 411500,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 430462,
+        "totPrsnCnt": 233,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "45": {
+        "avgFnlPrvsAmt": 407898,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 443943,
+        "totPrsnCnt": 281,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "46": {
+        "avgFnlPrvsAmt": 434536,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 402912,
+        "totPrsnCnt": 286,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "47": {
+        "avgFnlPrvsAmt": 422700,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 393908,
+        "totPrsnCnt": 329,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "48": {
+        "avgFnlPrvsAmt": 420621,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 395897,
+        "totPrsnCnt": 416,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "49": {
+        "avgFnlPrvsAmt": 453952,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 456007,
+        "totPrsnCnt": 398,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "50": {
+        "avgFnlPrvsAmt": 446399,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 449769,
+        "totPrsnCnt": 465,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "51": {
+        "avgFnlPrvsAmt": 453988,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 467612,
+        "totPrsnCnt": 572,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "52": {
+        "avgFnlPrvsAmt": 461769,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 437605,
+        "totPrsnCnt": 676,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "53": {
+        "avgFnlPrvsAmt": 453411,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 490004,
+        "totPrsnCnt": 802,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "54": {
+        "avgFnlPrvsAmt": 459506,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 437671,
+        "totPrsnCnt": 862,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "55": {
+        "avgFnlPrvsAmt": 469299,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 516844,
+        "totPrsnCnt": 963,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "56": {
+        "avgFnlPrvsAmt": 466131,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 500749,
+        "totPrsnCnt": 1064,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "57": {
+        "avgFnlPrvsAmt": 462169,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 441054,
+        "totPrsnCnt": 1237,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "58": {
+        "avgFnlPrvsAmt": 463220,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 475299,
+        "totPrsnCnt": 1305,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "59": {
+        "avgFnlPrvsAmt": 555649,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 563426,
+        "totPrsnCnt": 2623,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "60": {
+        "avgFnlPrvsAmt": 641112,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 634775,
+        "totPrsnCnt": 5481,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "61": {
+        "avgFnlPrvsAmt": 687365,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 682726,
+        "totPrsnCnt": 8176,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "62": {
+        "avgFnlPrvsAmt": 755203,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 747896,
+        "totPrsnCnt": 9502,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 774730,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 767643,
+        "totPrsnCnt": 39405,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 749917,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 741656,
+        "totPrsnCnt": 37580,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 729927,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 724858,
+        "totPrsnCnt": 45510,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 694568,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 682150,
+        "totPrsnCnt": 40701,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 663051,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 661297,
+        "totPrsnCnt": 36515,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 638603,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 632710,
+        "totPrsnCnt": 33024,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 585227,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 582523,
+        "totPrsnCnt": 30870,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 555945,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 551884,
+        "totPrsnCnt": 28187,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 534254,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 528749,
+        "totPrsnCnt": 27787,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 514744,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 509024,
+        "totPrsnCnt": 21157,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "73": {
+        "avgFnlPrvsAmt": 508847,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 498942,
+        "totPrsnCnt": 19678,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 497711,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 485358,
+        "totPrsnCnt": 19692,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 483678,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 468327,
+        "totPrsnCnt": 14767,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "76": {
+        "avgFnlPrvsAmt": 472624,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 455571,
+        "totPrsnCnt": 15926,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 422704,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 405010,
+        "totPrsnCnt": 16275,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 402310,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 383442,
+        "totPrsnCnt": 15834,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 372606,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 353234,
+        "totPrsnCnt": 14160,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 351497,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 330188,
+        "totPrsnCnt": 8443,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 328114,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 307829,
+        "totPrsnCnt": 10931,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "82": {
+        "avgFnlPrvsAmt": 308510,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 285256,
+        "totPrsnCnt": 9253,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "83": {
+        "avgFnlPrvsAmt": 285008,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 259583,
+        "totPrsnCnt": 9893,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "84": {
+        "avgFnlPrvsAmt": 272256,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 248651,
+        "totPrsnCnt": 9261,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "85": {
+        "avgFnlPrvsAmt": 261777,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 238114,
+        "totPrsnCnt": 7367,
+        "whlPymtCtstPrvsRate": 0.09
+      },
+      "86": {
+        "avgFnlPrvsAmt": 256120,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 230361,
+        "totPrsnCnt": 6041,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "87": {
+        "avgFnlPrvsAmt": 262263,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 230811,
+        "totPrsnCnt": 4164,
+        "whlPymtCtstPrvsRate": 0.11
+      },
+      "88": {
+        "avgFnlPrvsAmt": 263810,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 226429,
+        "totPrsnCnt": 2675,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "89": {
+        "avgFnlPrvsAmt": 245281,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 210974,
+        "totPrsnCnt": 2506,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "90": {
+        "avgFnlPrvsAmt": 232543,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 203883,
+        "totPrsnCnt": 1925,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "91": {
+        "avgFnlPrvsAmt": 231550,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 202269,
+        "totPrsnCnt": 1337,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "92": {
+        "avgFnlPrvsAmt": 221302,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 194974,
+        "totPrsnCnt": 944,
+        "whlPymtCtstPrvsRate": 0.17
+      },
+      "93": {
+        "avgFnlPrvsAmt": 202969,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 180727,
+        "totPrsnCnt": 615,
+        "whlPymtCtstPrvsRate": 0.18
+      },
+      "94": {
+        "avgFnlPrvsAmt": 194127,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 175111,
+        "totPrsnCnt": 429,
+        "whlPymtCtstPrvsRate": 0.2
+      },
+      "95": {
+        "avgFnlPrvsAmt": 192313,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 175303,
+        "totPrsnCnt": 237,
+        "whlPymtCtstPrvsRate": 0.19
+      },
+      "96": {
+        "avgFnlPrvsAmt": 271120,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 223071,
+        "totPrsnCnt": 57,
+        "whlPymtCtstPrvsRate": 0.24
+      },
+      "97": {
+        "avgFnlPrvsAmt": 302063,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228458,
+        "totPrsnCnt": 36,
+        "whlPymtCtstPrvsRate": 0.23
+      },
+      "98": {
+        "avgFnlPrvsAmt": 337346,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 295428,
+        "totPrsnCnt": 16,
+        "whlPymtCtstPrvsRate": 0.15
+      },
+      "99": {
+        "avgFnlPrvsAmt": 335585,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 332477,
+        "totPrsnCnt": 8,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "100": {
+        "avgFnlPrvsAmt": 244298,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 188322,
+        "totPrsnCnt": 4,
+        "whlPymtCtstPrvsRate": 0.23
+      }
+    },
+    "제주": {
+      "40": {
+        "avgFnlPrvsAmt": 351658,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 357521,
+        "totPrsnCnt": 25,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "41": {
+        "avgFnlPrvsAmt": 374455,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 352268,
+        "totPrsnCnt": 41,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "42": {
+        "avgFnlPrvsAmt": 403207,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 387737,
+        "totPrsnCnt": 49,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "43": {
+        "avgFnlPrvsAmt": 375024,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 365726,
+        "totPrsnCnt": 41,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "44": {
+        "avgFnlPrvsAmt": 356171,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 347198,
+        "totPrsnCnt": 47,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "45": {
+        "avgFnlPrvsAmt": 411648,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 394346,
+        "totPrsnCnt": 62,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "46": {
+        "avgFnlPrvsAmt": 404587,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 517992,
+        "totPrsnCnt": 67,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "47": {
+        "avgFnlPrvsAmt": 436650,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 392901,
+        "totPrsnCnt": 58,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "48": {
+        "avgFnlPrvsAmt": 426500,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 403869,
+        "totPrsnCnt": 79,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "49": {
+        "avgFnlPrvsAmt": 404906,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 391607,
+        "totPrsnCnt": 74,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "50": {
+        "avgFnlPrvsAmt": 392296,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 359398,
+        "totPrsnCnt": 89,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "51": {
+        "avgFnlPrvsAmt": 436206,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 414041,
+        "totPrsnCnt": 100,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "52": {
+        "avgFnlPrvsAmt": 409884,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 404119,
+        "totPrsnCnt": 128,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "53": {
+        "avgFnlPrvsAmt": 417360,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 394637,
+        "totPrsnCnt": 161,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "54": {
+        "avgFnlPrvsAmt": 427067,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 385954,
+        "totPrsnCnt": 185,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "55": {
+        "avgFnlPrvsAmt": 423455,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 403581,
+        "totPrsnCnt": 175,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "56": {
+        "avgFnlPrvsAmt": 436776,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 459900,
+        "totPrsnCnt": 198,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "57": {
+        "avgFnlPrvsAmt": 449614,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 442807,
+        "totPrsnCnt": 213,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "58": {
+        "avgFnlPrvsAmt": 454575,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 459147,
+        "totPrsnCnt": 248,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "59": {
+        "avgFnlPrvsAmt": 535543,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 526304,
+        "totPrsnCnt": 394,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "60": {
+        "avgFnlPrvsAmt": 615698,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 610189,
+        "totPrsnCnt": 791,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "61": {
+        "avgFnlPrvsAmt": 694508,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 699666,
+        "totPrsnCnt": 1046,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "62": {
+        "avgFnlPrvsAmt": 726665,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 720833,
+        "totPrsnCnt": 1227,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "63": {
+        "avgFnlPrvsAmt": 747495,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 745396,
+        "totPrsnCnt": 6962,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "64": {
+        "avgFnlPrvsAmt": 719656,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 711039,
+        "totPrsnCnt": 6251,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "65": {
+        "avgFnlPrvsAmt": 698697,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 689279,
+        "totPrsnCnt": 6908,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "66": {
+        "avgFnlPrvsAmt": 651887,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 638033,
+        "totPrsnCnt": 6640,
+        "whlPymtCtstPrvsRate": 0.02
+      },
+      "67": {
+        "avgFnlPrvsAmt": 654765,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 654801,
+        "totPrsnCnt": 6046,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "68": {
+        "avgFnlPrvsAmt": 598715,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 594864,
+        "totPrsnCnt": 5602,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "69": {
+        "avgFnlPrvsAmt": 557179,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 555889,
+        "totPrsnCnt": 5080,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "70": {
+        "avgFnlPrvsAmt": 543666,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 542972,
+        "totPrsnCnt": 4669,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "71": {
+        "avgFnlPrvsAmt": 507920,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 507316,
+        "totPrsnCnt": 4669,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "72": {
+        "avgFnlPrvsAmt": 487466,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 484312,
+        "totPrsnCnt": 3362,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "73": {
+        "avgFnlPrvsAmt": 491779,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 487882,
+        "totPrsnCnt": 3064,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "74": {
+        "avgFnlPrvsAmt": 499366,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 491511,
+        "totPrsnCnt": 2866,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "75": {
+        "avgFnlPrvsAmt": 471369,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 458799,
+        "totPrsnCnt": 2621,
+        "whlPymtCtstPrvsRate": 0.03
+      },
+      "76": {
+        "avgFnlPrvsAmt": 441798,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 427950,
+        "totPrsnCnt": 2380,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "77": {
+        "avgFnlPrvsAmt": 416950,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 398578,
+        "totPrsnCnt": 2940,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "78": {
+        "avgFnlPrvsAmt": 402831,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 386594,
+        "totPrsnCnt": 2792,
+        "whlPymtCtstPrvsRate": 0.04
+      },
+      "79": {
+        "avgFnlPrvsAmt": 389933,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 370038,
+        "totPrsnCnt": 2584,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "80": {
+        "avgFnlPrvsAmt": 359115,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 337561,
+        "totPrsnCnt": 2067,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "81": {
+        "avgFnlPrvsAmt": 329472,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 306293,
+        "totPrsnCnt": 2018,
+        "whlPymtCtstPrvsRate": 0.05
+      },
+      "82": {
+        "avgFnlPrvsAmt": 318238,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 302796,
+        "totPrsnCnt": 1946,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "83": {
+        "avgFnlPrvsAmt": 297844,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 272062,
+        "totPrsnCnt": 1863,
+        "whlPymtCtstPrvsRate": 0.06
+      },
+      "84": {
+        "avgFnlPrvsAmt": 285243,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 255991,
+        "totPrsnCnt": 1842,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "85": {
+        "avgFnlPrvsAmt": 282026,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 245644,
+        "totPrsnCnt": 1614,
+        "whlPymtCtstPrvsRate": 0.07
+      },
+      "86": {
+        "avgFnlPrvsAmt": 285066,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 250054,
+        "totPrsnCnt": 1368,
+        "whlPymtCtstPrvsRate": 0.08
+      },
+      "87": {
+        "avgFnlPrvsAmt": 303012,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 255405,
+        "totPrsnCnt": 1037,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "88": {
+        "avgFnlPrvsAmt": 292632,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 244904,
+        "totPrsnCnt": 775,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "89": {
+        "avgFnlPrvsAmt": 273318,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 231787,
+        "totPrsnCnt": 680,
+        "whlPymtCtstPrvsRate": 0.1
+      },
+      "90": {
+        "avgFnlPrvsAmt": 259184,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 218974,
+        "totPrsnCnt": 566,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "91": {
+        "avgFnlPrvsAmt": 278976,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 228473,
+        "totPrsnCnt": 453,
+        "whlPymtCtstPrvsRate": 0.12
+      },
+      "92": {
+        "avgFnlPrvsAmt": 259985,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 227603,
+        "totPrsnCnt": 316,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "93": {
+        "avgFnlPrvsAmt": 252523,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 209484,
+        "totPrsnCnt": 232,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "94": {
+        "avgFnlPrvsAmt": 243667,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 208715,
+        "totPrsnCnt": 162,
+        "whlPymtCtstPrvsRate": 0.16
+      },
+      "95": {
+        "avgFnlPrvsAmt": 238748,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 209808,
+        "totPrsnCnt": 91,
+        "whlPymtCtstPrvsRate": 0.13
+      },
+      "96": {
+        "avgFnlPrvsAmt": 336183,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 207338,
+        "totPrsnCnt": 16,
+        "whlPymtCtstPrvsRate": 0.25
+      },
+      "97": {
+        "avgFnlPrvsAmt": 346221,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 256741,
+        "totPrsnCnt": 9,
+        "whlPymtCtstPrvsRate": 0.14
+      },
+      "98": {
+        "avgFnlPrvsAmt": 495733,
+        "avgPrvsPrdMcnt": 1,
+        "avgTotPrvsAmt": 476222,
+        "totPrsnCnt": 5,
+        "whlPymtCtstPrvsRate": 0.04
+      }
+    }
+  }
+}
