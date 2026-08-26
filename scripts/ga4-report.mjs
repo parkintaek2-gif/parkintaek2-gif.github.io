@@ -26,6 +26,9 @@ import { readFileSync, existsSync } from 'node:fs';
 import { createSign } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* ⛔ 호스트→유닛 표를 여기에 «복사하지» 않는다. 두 곳에 두면 사이트가 하나 늘 때
+   한쪽만 고쳐지고, 그때부터 두 자가 다른 수를 낸다. 한 곳에서 불러다 쓴다. */
+import { 유닛찾기, 우리것, 유닛차례 } from './unit-hosts.mjs';
 
 /* ⚠ Node 가 .env 를 자동으로 안 읽는다. search-console-report.mjs 와 같은 방식이다 */
 (function 환경파일읽기() {
@@ -442,10 +445,177 @@ if (내가실행됐다) {
         + ` · 지면열림 ${내것.reduce((s, x) => s + x.열림, 0)}`
         + `  (회사 전체 ${회사}명)`);
     };
+    /* 🔴 [2026-08-26 · 5번] 이 자가 «이틀»만 보여 주고 있었다. 그래서 사장님이
+       「방문자가 어제보다 적다」고 하셨을 때 **우리가 그것을 되재지 못했다.**
+       ⛔ 이틀로는 「적다」를 판정할 수 없다 — 어제가 낮은 것인지, 그 주가 낮은 것인지,
+         늘 그만큼 흔들리는 것인지 가르려면 «줄»이 있어야 한다.
+       ⭐ 그래서 날마다 한 줄씩, 유닛을 갈라 낸다. 사장님이 보시는 것을 우리도 본다. */
+    const 날별 = async (일수) => {
+      const r = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dateRanges: [{ startDate: `${일수}daysAgo`, endDate: 'today' }],
+            dimensions: [{ name: 'date' }, { name: 'hostName' }],
+            metrics: [{ name: 'totalUsers' }],
+            limit: 2000,
+          }),
+        },
+      );
+      const j = await r.json();
+      if (j.error) { console.log(`   **못 쟀다** — ${String(j.error.message).slice(0, 120)}`); return; }
+      const 표 = new Map();
+      for (const x of (j.rows ?? [])) {
+        const 날 = x.dimensionValues?.[0]?.value ?? '';
+        const 호스트 = x.dimensionValues?.[1]?.value ?? '';
+        const 수 = Number(x.metricValues?.[0]?.value ?? 0);
+        /* ⛔ 우리가 띄운 서버는 손님이 아니다 — 빼고, 뺐다고 아래에 적는다.
+           ⚠ 목록도 «불러다» 쓴다. 여기에 다시 적으면 한쪽만 늘어난다. */
+        if (우리것.includes(String(호스트).toLowerCase())) continue;
+        const u = 유닛찾기(호스트);
+        if (!표.has(날)) 표.set(날, new Map());
+        표.get(날).set(u, (표.get(날).get(u) ?? 0) + 수);
+      }
+      const 날들 = [...표.keys()].sort();
+      const 자리 = 유닛차례;
+      console.log('   날짜          3번   5번  1·4번   6번  │   합');
+      console.log('   ──────────────────────────────────────┼──────');
+      const 합들 = [];
+      for (const 날 of 날들) {
+        const m = 표.get(날);
+        const 값 = 자리.map((u) => m.get(u) ?? 0);
+        /* ⚠ 모르는 자리도 «합»에는 넣는다 — 버리면 합이 조용히 줄고 아무도 모른다 */
+        const 합 = [...m.values()].reduce((a, b) => a + b, 0);
+        합들.push(합);
+        const 오늘인가 = 날 === 날들[날들.length - 1];
+        console.log(`   ${날.slice(0, 4)}-${날.slice(4, 6)}-${날.slice(6)}${오늘인가 ? '★' : ' '} `
+          + 값.map((v) => String(v).padStart(5)).join(' ') + `  │ ${String(합).padStart(5)}`);
+      }
+      /* ⛔ 오늘은 하루가 안 끝났으니 평균에서 «뺀다». 넣으면 평균이 조용히 낮아진다 */
+      const 끝난날 = 합들.slice(0, -1);
+      if (끝난날.length >= 2) {
+        const 평균 = 끝난날.reduce((a, b) => a + b, 0) / 끝난날.length;
+        /* 🔴 평균만 내면 «봉우리 하루»에 휘둘린다. 2026-08-26 에 재 보니 14일 중
+           8/13 하루가 171명이었고, 그 하루가 평균을 38.5 로 끌어올려 나머지 열셋을
+           전부 「평균 아래」로 만들었다. ⭐ 그래서 가운데값을 같이 낸다 —
+           봉우리가 있어도 «보통 날이 어디인지»를 가운데값이 알려 준다. */
+        const 정렬 = [...끝난날].sort((a, b) => a - b);
+        const 가운데 = 정렬.length % 2
+          ? 정렬[(정렬.length - 1) / 2]
+          : (정렬[정렬.length / 2 - 1] + 정렬[정렬.length / 2]) / 2;
+        const 어제 = 끝난날[끝난날.length - 1];
+        console.log();
+        console.log(`   끝난 날 ${끝난날.length}일 — 하루평균 ${평균.toFixed(1)}명 ·`
+          + ` 가운데값 ${가운데.toFixed(1)}명 · 어제 ${어제}명`);
+        if (평균 > 가운데 * 1.3) {
+          const 봉우리 = Math.max(...끝난날);
+          console.log(`   ⚠ 평균(${평균.toFixed(1)})이 가운데값(${가운데.toFixed(1)})보다 훨씬 크다 —`
+            + ` 하루 ${봉우리}명짜리 봉우리가 끌어올린 것이다. **가운데값으로 읽는다**`);
+        }
+        const 차 = 어제 - 가운데;
+        const 큰가 = 가운데 > 0 && Math.abs(차) > 가운데 * 0.3;
+        console.log(큰가
+          ? `   ⚠ 어제는 가운데값에서 ${Math.abs(차 / 가운데 * 100).toFixed(0)}% ${차 < 0 ? '아래' : '위'}다`
+            + ' — 흔들림으로 보기엔 크다'
+          : '   ⭐ 어제는 가운데값과 30% 안쪽이다 — 이 정도는 날마다 흔들린다.'
+            + ' 「줄었다」로 읽지 않는다');
+        /* ⚠ 하루 수가 열 명대면 한두 명 차이로 몇십 %가 움직인다. 그것을 적어 둔다 */
+        if (가운데 < 30) {
+          console.log('   ⛔ 하루 수가 작아 %가 크게 흔들린다 — 한 사람이 늘고 줄어도 몇 %가 된다.'
+            + ' 하루끼리 견주기보다 «주 단위»로 보는 것이 낫다');
+        }
+      }
+    };
+
+    /* 🔴 [2026-08-26 · 5번] 「봉우리 하루」에 무엇이 열렸는지 묻는 자.
+       재 보니 8/13 하루가 171명(3번 149명)이었다. 그 하루가 무엇이었는지 모르면
+       **우연을 실력으로 착각하거나, 실력을 우연으로 버린다.** 둘 다 손해다.
+       ⭐ 「무엇을 하면 사람이 오는가」는 봉우리에서 배우는 것이 가장 싸다. */
+    const 그날파기 = async (날) => {
+      const q = async (dims, metrics, limit) => {
+        const r = await fetch(
+          `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+          {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              dateRanges: [{ startDate: 날, endDate: 날 }],
+              dimensions: dims.map((name) => ({ name })),
+              metrics: metrics.map((name) => ({ name })),
+              limit,
+            }),
+          },
+        );
+        const j = await r.json();
+        if (j.error) { console.log(`   **못 쟀다** — ${String(j.error.message).slice(0, 120)}`); return []; }
+        return (j.rows ?? []).map((x) => ({
+          키: (x.dimensionValues ?? []).map((d) => d.value).join(' │ '),
+          값: Number(x.metricValues?.[0]?.value ?? 0),
+        }));
+      };
+      const 날쓰기 = 날;
+      console.log(`\n   ── ${날쓰기} 에 무엇이 있었나 ──\n`);
+
+      console.log('   어디서 왔나 (순방문)');
+      for (const r of (await q(['sessionSource', 'sessionMedium'], ['totalUsers'], 12))) {
+        console.log(`     ${String(r.값).padStart(5)}  ${r.키}`);
+      }
+      console.log('\n   어느 지면이 열렸나 (지면열림)');
+      for (const r of (await q(['hostName', 'pagePath'], ['screenPageViews'], 15))) {
+        console.log(`     ${String(r.값).padStart(5)}  ${r.키}`);
+      }
+      console.log('\n   어느 나라에서 (순방문)');
+      for (const r of (await q(['country'], ['totalUsers'], 10))) {
+        console.log(`     ${String(r.값).padStart(5)}  ${r.키}`);
+      }
+      /* 🔴 [2026-08-26] 8/13 봉우리(171명)를 이 자로 파 보니 이랬다 —
+           162명이 Direct · 나라는 인도 38 · 베트남 30 · 이란 11 · 방글라데시 10 …
+           그런데 «지면열림이 순방문보다 적었다». 한 사람이 한 장도 안 본 셈이다.
+         ⭐ 사람이면 최소 한 장은 연다. 열림이 사람 수보다 «적으면» 사람으로 보기 어렵다.
+         ⛔ 「봇이다」라고 단정하지는 않는다 — 우리는 그것을 가릴 자가 없다.
+           다만 «성과로 읽지 말라»고는 적는다. 봉우리를 성과로 착각하면 그 방향으로 일한다. */
+      const 순합 = (await q(['hostName'], ['totalUsers'], 50)).reduce((a, b) => a + b.값, 0);
+      const 열림합 = (await q(['hostName'], ['screenPageViews'], 50)).reduce((a, b) => a + b.값, 0);
+      console.log(`\n   그날 순방문 ${순합}명 · 지면열림 ${열림합}`
+        + `  →  한 사람당 ${순합 ? (열림합 / 순합).toFixed(2) : '못 잼'}장`);
+      /* ⚠ 기준 1.1장은 `measure-real-readers.mjs` 가 「읽은 흔적 없음」을 가르는 기준과
+         **같은 값**이다. 자마다 다른 선을 쓰면 두 자가 다른 말을 한다.
+         ⛔ 처음엔 「1장 미만」으로 뒀다가 고쳤다 — 화면 «상위 15줄»만 눈으로 더해 보고
+           「열림이 사람보다 적다」고 잘못 읽었기 때문이다. 전부 세니 1.03장이었다.
+           ⭐ 눈으로 더하지 않는다. 세는 것은 자가 한다. */
+      if (순합 > 0 && 열림합 / 순합 < 1.1) {
+        console.log('   🔴 **한 사람당 1.1장이 안 된다.** 들어와 한 장 보고 나간 꼴이다.');
+        console.log('      ⛔ 이 봉우리를 «성과»로 읽지 않는다. 무엇을 잘해서 온 것으로 보기 어렵다.');
+        console.log('      ⛔ 그렇다고 「봇이다」라고 단정하지도 않는다 — 그것을 가릴 자가 우리에게 없다.');
+        console.log('      ⭐ 읽은 흔적으로 가르려면 — node scripts/measure-real-readers.mjs --잰다');
+      }
+
+      console.log('\n   ⛔ 이 표는 «무엇이 있었나»만 말한다. «왜 왔나»는 말하지 않는다 —');
+      console.log('      한 곳에서 몰려온 것과, 우리가 낸 것이 걸린 것은 여기서 갈리지 않는다.');
+    };
+
+    const 그날 = process.argv.find((a) => a.startsWith('--그날='))?.split('=')[1];
+    if (그날) {
+      /* ⚠ GA4 는 `YYYY-MM-DD` 만 받는다. 그런데 «날별 표»는 `YYYYMMDD` 로 찍힌다 —
+         화면에서 본 그대로 붙여 넣으면 「Invalid startDate」로 막힌다(2026-08-26에 막혔다).
+         ⭐ 그래서 둘 다 받아 여기서 맞춘다. 사람이 형식을 외우게 두지 않는다. */
+      const 숫자 = 그날.replace(/[^0-9]/g, '');
+      if (숫자.length !== 8) {
+        console.error(`⛔ 날짜가 여덟 자리가 아니다 — ${그날}. 20260813 이나 2026-08-13 으로 준다`);
+        process.exit(1);
+      }
+      await 그날파기(`${숫자.slice(0, 4)}-${숫자.slice(4, 6)}-${숫자.slice(6)}`);
+      process.exit(0);
+    }
+
     console.log('하루씩 — ⚠ 오늘 수는 **집계 중**이다. 어제와 나란히 비교하지 않는다\n');
-    await 하루재기('어제  ', { startDate: 'yesterday', endDate: 'yesterday' });
-    await 하루재기('오늘★', { startDate: 'today', endDate: 'today' });
+    const 날수 = Number(process.argv.find((a) => a.startsWith('--날수='))?.split('=')[1]) || 14;
+    await 날별(날수);
     console.log('\n   ★ 오늘은 하루가 안 끝났다. 「낮다」고 읽으면 안 된다.');
+    console.log('   ⚠ GA4 는 광고차단·쿠키거부로 덜 센다. 바닥값이다.');
+    console.log('   ⛔ 우리가 띄운 서버(127.0.0.1·localhost·github.io)는 뺐다.');
     process.exit(0);
   }
 
