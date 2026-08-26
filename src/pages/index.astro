@@ -43,18 +43,34 @@ const jsonLd = {
       how many companies are listed, and who Korea trades with. Charts, a CSV and sources. →</span>
     </a>
 
-    <HomeCharts />
-
     {
       articles.length === 0 ? (
-        <p class="empty">No articles published yet.</p>
+        <>
+          <HomeCharts />
+          <p class="empty">No articles published yet.</p>
+        </>
       ) : (
-        <ul class="stream">
-          <ArticleCard entry={lead} lead />
-          {rest.map((entry) => (
-            <ArticleCard entry={entry} />
-          ))}
-        </ul>
+        <>
+          <ul class="stream">
+            <ArticleCard entry={lead} lead />
+            {rest.slice(0, 4).map((entry) => (
+              <ArticleCard entry={entry} />
+            ))}
+          </ul>
+
+          {/* 사장님 지시(2026-08-26): 시장 움직임 패널을 첫 5편 «뒤»로 내린다.
+              첫 화면은 무엇을 하는 매체인가(히어로+무료데이터+기사)로 열고,
+              시장 대시보드는 스크롤 중간에 둔다. */}
+          <HomeCharts />
+
+          {rest.length > 4 && (
+            <ul class="stream">
+              {rest.slice(4).map((entry) => (
+                <ArticleCard entry={entry} />
+              ))}
+            </ul>
+          )}
+        </>
       )
     }
 
