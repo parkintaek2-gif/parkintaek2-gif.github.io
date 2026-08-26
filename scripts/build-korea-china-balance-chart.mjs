@@ -20,6 +20,8 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const IN = path.join(ROOT, 'src', 'data', 'trade-country-monthly.json');
 const OUT = path.join(ROOT, 'public', 'charts', 'korea-china-trade-balance.svg');
+// 이 파일을 직접 실행할 때만 main() — chart() 를 다른 스크립트가 import 해도 부작용이 없게 한다.
+const IS_MAIN = import.meta.url === `file://${process.argv[1]}` || fileURLToPath(import.meta.url) === process.argv[1];
 
 export function chart(series) {
   // series: [{m:'2026-06', bal: 3.59}, ...]
@@ -75,4 +77,4 @@ function main() {
   console.log(`✅ 대중 월별수지 ${series.length}개월 · 최신 ${last.m} ${last.bal >= 0 ? '+' : ''}${last.bal.toFixed(2)}bn · ${OUT}`);
 }
 
-main();
+if (IS_MAIN) main();
