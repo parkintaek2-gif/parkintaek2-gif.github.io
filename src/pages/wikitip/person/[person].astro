@@ -31,12 +31,25 @@ import WikiTip from '../../../layouts/WikiTip.astro';
 import KLifeMapNext from '../../../components/KLifeMapNext.astro';
 import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
+import 멤버그룹자료 from '../../../data/wikitip-member-vs-group.json';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다. 자료는 여기서 읽고
      지면이 쓸 것은 전부 props 로 건넨다 */
   const 사람들 = data.people ?? [];
   const 자리 = new Map(사람들.map((p: any) => [p.slug, p]));
+  /* 🔴 [2026-08-26 · 5번] 「독자가 «멤버»를 여나 «그룹»을 여나」 — 자료는 8/14 에 있었는데
+     지면이 한 장도 안 쓰고 있었다. 갇힌 행을 재는 자로 찾았다(scripts/check-kcw-row-pages.mjs).
+     ⭐ 우리 인기 검색어는 스타 이름이다. 그 이름으로 오는 지면이 person 636장이고,
+       이 자료는 그중 23명에 대해 «그 사람만의 사실»을 하나 더 준다.
+     ⛔ 한 사람이 두 그룹에 걸리기도 한다(Mark Lee — SuperM·NCT Dream). 다 싣는다.
+     ⚠ getStaticPaths 는 다른 청크에서 돈다 — 여기서 묶어 props 로 건넨다. */
+  const 멤버표 = new Map<string, any[]>();
+  for (const 쌍 of ((멤버그룹자료 as any).pairs ?? [])) {
+    const k = String(쌍.member).toLowerCase().trim();
+    if (!멤버표.has(k)) 멤버표.set(k, []);
+    멤버표.get(k)!.push(쌍);
+  }
   return 사람들.map((p: any, i: number) => ({
     params: { person: p.slug },
     props: {
@@ -46,11 +59,13 @@ export function getStaticPaths() {
       멀리간사람: 사람들.slice(0, 6).filter((x: any) => x.slug !== p.slug).slice(0, 4),
       /* 같은 이름의 다른 사람 — 있으면 그 사람 지면으로 보낸다. ⛔ 합치지 않는다 */
       동명이인: p.sameNameAs ? (자리.get(p.sameNameAs) ?? null) : null,
+      멤버쌍: 멤버표.get(String(p.name).toLowerCase().trim()) ?? [],
     },
   }));
 }
 
-const { p, 이웃, 멀리간사람, 동명이인 } = Astro.props as {
+const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍 } = Astro.props as {
+  멤버쌍: any[];
   p: any; 이웃: any[]; 멀리간사람: any[]; 동명이인: any;
 };
 const 수 = (n: number) => Number(n ?? 0).toLocaleString('en-US');
@@ -205,6 +220,52 @@ const 생일글 = p.born
       </li>
     </ul>
   </section>
+
+  {멤버쌍.length > 0 && (
+    <section>
+      <h2>Do readers open {p.name}, or the group?</h2>
+      <p>
+        When someone in Southeast Asia looks up {p.name}, they can open {p.name}&rsquo;s own
+        encyclopaedia article or the group&rsquo;s. We counted both, on the same editions, over
+        {' '}{(멤버그룹자료 as any).window}.
+      </p>
+      {멤버쌍.map((쌍: any) => (
+        <>
+          <h3>{쌍.member} and {쌍.group}</h3>
+          <div class="scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Wikipedia edition</th>
+                  <th class="n">{쌍.member}</th>
+                  <th class="n">{쌍.group}</th>
+                  <th>Which one opened more</th>
+                </tr>
+              </thead>
+              <tbody>
+                {쌍.rows.map((r: any) => (
+                  <tr>
+                    <td>{r.country}</td>
+                    <td class="n">{r.member.toFixed(2)}</td>
+                    <td class="n">{r.group.toFixed(2)}</td>
+                    <td>{r.memberHigher ? 쌍.member : 쌍.group}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      ))}
+      <p class="fine">
+        Reads per million, human traffic only. {/* ⛔ 자료가 스스로 적어 둔 한계를 «그대로» 옮긴다.
+          요약하면 「우리는 이걸 안다」로 읽히고, 그건 사실이 아니다. */}
+        {((멤버그룹자료 as any).cannotSay ?? []).join(' ')}
+      </p>
+      <p class="fine">
+        <a href="/member-vs-group">The same comparison for every act we could read &rarr;</a>
+      </p>
+    </section>
+  )}
 
   <section>
     <h2>How old is {p.name}?</h2>
