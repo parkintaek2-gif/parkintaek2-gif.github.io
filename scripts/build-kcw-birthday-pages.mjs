@@ -38,6 +38,15 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원자료 = path.join(뿌리, 'archive/raw/wikidata/korean-entertainers-birth.json');
 const 수요길 = path.join(뿌리, 'src/data/wikitip-star-demand.json');
 const 낼방 = path.join(뿌리, 'public/wikitip/born-on');
+/* 태어난 해 지면이 «있는» 해만 링크로 건다. ⛔ 없는 해에 걸면 죽은 링크가 된다.
+   ⚠ 파일이 없으면 «빈 집합»으로 둔다 — 그러면 링크를 안 걸 뿐 이 빌더가 서지는 않는다.
+     빌더 하나가 다른 빌더의 산출물에 목숨을 걸면, 순서가 바뀔 때 둘 다 못 돈다. */
+const 해지면길 = path.join(뿌리, 'src/data/kcw-birth-year-pages.json');
+const 해지면있나 = new Set(
+  fs.existsSync(해지면길)
+    ? (JSON.parse(fs.readFileSync(해지면길, 'utf8')).years ?? []).map((y) => String(y.year))
+    : [],
+);
 const 낼자료 = path.join(뿌리, 'src/data/wikitip-birthday-pages.json');
 
 export const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
@@ -142,7 +151,17 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
   const 제목 = 으뜸
     ? `${벗(으뜸.보일)} and ${실을것.length - 1} other Korean stars born on ${날}`
     : `Korean stars born on ${날}`;
-  const 줄 = 실을것.map((p) => `<tr><td>${이름칸(p.보일, 이름표)}</td><td class="fine">${p.born.slice(0, 4)}</td><td class="fine">${p.reads === null ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`).join('\n');
+  /* 🔴 [2026-08-26 · 5번] 「Born」 칸이 «글자»로만 있었다. 그날 태어난 해 지면 78장을 냈는데,
+     재 보니 그 지면들로 «밖에서 들어오는 문이 0개»였다 — 자기들끼리만 이어져 있었다.
+     구글이 사이트맵으로만 아는 지면은 「발견만 하고 안 넣음」이 되기 쉽다(8/22 에 작품
+     지면에서 겪었다: 528장 중 519장이 들어오는 링크 하나뿐이었다).
+     ⭐ 이 칸이 가장 정직한 문이다 — 그 사람이 «실제로» 그 해에 났기 때문에 여기 적혀 있다.
+     ⛔ 지면이 «있는» 해에만 건다. 여덟 명 미만인 35개 해는 지면이 없다 — 죽은 링크가 된다. */
+  const 줄 = 실을것.map((p) => {
+    const 해 = p.born.slice(0, 4);
+    const 해칸 = 해지면있나.has(해) ? `<a href="/born-year/${해}">${해}</a>` : 해;
+    return `<tr><td>${이름칸(p.보일, 이름표)}</td><td class="fine">${해칸}</td><td class="fine">${p.reads === null ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
+  }).join('\n');
   return `<!doctype html>
 <html lang="en">
 <head>

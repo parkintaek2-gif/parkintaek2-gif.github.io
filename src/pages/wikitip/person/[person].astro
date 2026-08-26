@@ -32,6 +32,7 @@ import KLifeMapNext from '../../../components/KLifeMapNext.astro';
 import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
 import 멤버그룹자료 from '../../../data/wikitip-member-vs-group.json';
+import 해지면자료 from '../../../data/kcw-birth-year-pages.json';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다. 자료는 여기서 읽고
@@ -44,6 +45,13 @@ export function getStaticPaths() {
        이 자료는 그중 23명에 대해 «그 사람만의 사실»을 하나 더 준다.
      ⛔ 한 사람이 두 그룹에 걸리기도 한다(Mark Lee — SuperM·NCT Dream). 다 싣는다.
      ⚠ getStaticPaths 는 다른 청크에서 돈다 — 여기서 묶어 props 로 건넨다. */
+  /* 🔴 [2026-08-26 · 5번] 태어난 해 지면 78장을 낸 뒤 재 보니 «밖에서 들어오는 문이 0개»였다.
+     자기들끼리만 이어져 있었다. 사이트맵으로만 아는 지면은 「발견만 하고 안 넣음」이 되기 쉽다.
+     ⭐ 이 지면의 「How old is …?」 자리가 가장 정직한 문이다 — 그 사람이 실제로 그 해에 났다.
+     ⛔ 지면이 «있는» 해에만 건다. 여덟 명 미만인 35개 해는 지면이 없다 — 죽은 링크가 된다. */
+  const 해있나 = new Set(((해지면자료 as any).years ?? []).map((y: any) => String(y.year)));
+  const 해수 = new Map(((해지면자료 as any).years ?? []).map((y: any) => [String(y.year), y.people]));
+
   const 멤버표 = new Map<string, any[]>();
   for (const 쌍 of ((멤버그룹자료 as any).pairs ?? [])) {
     const k = String(쌍.member).toLowerCase().trim();
@@ -60,11 +68,14 @@ export function getStaticPaths() {
       /* 같은 이름의 다른 사람 — 있으면 그 사람 지면으로 보낸다. ⛔ 합치지 않는다 */
       동명이인: p.sameNameAs ? (자리.get(p.sameNameAs) ?? null) : null,
       멤버쌍: 멤버표.get(String(p.name).toLowerCase().trim()) ?? [],
+      난해: (p.born && 해있나.has(String(p.born).slice(0, 4))) ? String(p.born).slice(0, 4) : null,
+      난해사람수: (p.born && 해수.get(String(p.born).slice(0, 4))) || null,
     },
   }));
 }
 
-const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍 } = Astro.props as {
+const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍, 난해, 난해사람수 } = Astro.props as {
+  난해: string | null; 난해사람수: number | null;
   멤버쌍: any[];
   p: any; 이웃: any[]; 멀리간사람: any[]; 동명이인: any;
 };
@@ -274,6 +285,12 @@ const 생일글 = p.born
       <p class="fine">
         We print the date as well as the number so this page still reads correctly after it goes
         stale. The age above is worked out for {기준일} and nothing else.
+      </p>
+    )}
+    {난해 && (
+      <p>
+        <a href={`/born-year/${난해}`}>{난해사람수} Korean actors and singers were born in {난해}</a>
+        {' '}&mdash; the same year as {p.name}.
       </p>
     )}
     <p class="fine">
