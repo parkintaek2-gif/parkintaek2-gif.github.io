@@ -41,11 +41,15 @@ const 보일것 = 최신기사.slice(0, 4);
  * ⭐ 제목이 그 물음에 답하게 바꾼다. 카피 규칙 ①(제목에 숫자 없음)·③(사람이 쓰는 말) 그대로다.
  * ⚠ 메뉴에 걸리는 이름(About)은 그대로다 — 검색 결과에 나가는 제목만 바꾼 것이다.
  */
-const TITLE = 'Where every number here comes from, and what we could not count';
+/* ⚠ 63자여서 3자가 잘렸다. 「here」 한 낱말을 빼 57자로 맞췄다 — 뜻은 그대로다. */
+const TITLE = 'Where every number comes from, and what we could not count';
+/* 🔴 2026-08-27 03:3x — 228자여서 뒤가 잘렸다.
+   ⚠ 이 지면의 노출 112 는 대부분 «넷플릭스 원본 .tsv 파일»을 찾는 검색이라 우리가 가져올 수
+     있는 클릭이 아니다(8/26 에 확인). 그래도 잘린 설명을 그냥 두지는 않는다 —
+     이 지면을 «방법이 궁금해서» 찾은 소수에게는 이 두 줄이 전부다. */
 const DESC =
   'The public datasets behind each figure, the rule that decides what counts as a Korean '
-  + 'production, and the gaps we leave open rather than fill — including the two Netflix files '
-  + 'most of this rests on and what is missing from them.';
+  + 'production, and the gaps we leave open rather than fill.';
 
 const jsonLd = {
   '@context': 'https://schema.org',

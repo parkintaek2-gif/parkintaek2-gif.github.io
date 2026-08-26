@@ -37,12 +37,15 @@ import korea from '../../data/wikitip-korea-signal.json';
      한 곳을 고치면 같은 결함을 인용한 곳까지 따라가야 한다는 것을 또 놓쳤다.
    ⛔ 낱말을 끼워 넣은 것이 아니다. 이것은 실제로 목록 지면이고 실려 있는 것은 한국 작품이다.
    ⚠ 「films」를 남긴다 — 드라마만 있는 목록이 아니라는 것을 제목에서 밝힌다. */
-const TITLE = `Korean drama list — every Korean series and film that reached a Netflix top 10, ${titlePages.pageCount} with a page`;
+/* 🔴 2026-08-27 03:3x — **노출 85에 클릭 0이었다.** 제목 95자·설명 314자로 둘 다 잘렸다.
+   ⭐ 위 주석의 판단(「Korean drama list」로 시작한다 · 「films」를 남긴다)은 그대로 지켰다.
+     길이만 줄였다 — 제목은 60자, 설명은 155자 안이다.
+   ⛔ 「Counted from Netflix's own weekly lists」를 뺀 것은 감춘 것이 아니다. 지면 본문의
+     출처 칸에 그대로 있다. 잘려서 안 보이던 글자를 보이는 글자로 바꾼 것이다. */
+const TITLE = `Korean drama list — ${titlePages.pageCount} that reached a Netflix top 10`;
 const DESC =
-  `${titlePages.titleCount} Korean shows and films have reached at least one country's Netflix top 10 `
-  + `since ${titlePages.weekFrom}, and ${titlePages.pageCount} of them have a page here showing every `
-  + `market they charted in. The table below ranks the ${data.titleCount} that charted in Southeast Asia `
-  + `by how many of those six countries took them. Counted from Netflix's own weekly lists.`;
+  `${titlePages.titleCount} Korean shows and films have hit a country's Netflix top 10 `
+  + `since ${titlePages.weekFrom}. ${titlePages.pageCount} have a page here with every market and week.`;
 
 const rows = data.rows;
 const reachedNo1 = rows.filter((r) => r.peak === 1).length;

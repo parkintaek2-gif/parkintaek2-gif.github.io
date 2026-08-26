@@ -21,10 +21,17 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-ladder-gap.json';
 
-const TITLE = 'How thin is the top of the ladder?';
+/* 🔴 2026-08-27 03:3x — 노출 22에 클릭 0, 평균순위 20.5(2페이지)였다. 원인이 둘이다.
+   ① 제목이 «우리 논지»였다 — 「How thin is the top of the ladder?」에는 Korea 도 LoL 도 없다.
+      GSC 실측에 `korea ladder` 가 노출 14·순위 16.6 으로 잡혀 있는데, 그 말이 제목에 없었다.
+      ⭐ 「손님이 검색하는 말로 만든다」 — 제목에 Korea 와 League of Legends 를 넣었다.
+   ② 설명이 195자여서 뒤가 잘렸다.
+   ⚠ 제목을 바꾸면 순위가 흔들린다. 지금 20.5(2페이지)라 잃을 것보다 얻을 것이 크다고 봤다.
+     `src/data/kcw-title-experiments.json` 에 전 값과 다시 잴 날을 적어 두었다. */
+const TITLE = 'Korea’s League of Legends ladder: how thin the top really is';
 const DESC =
-  'Korea’s top 300 League of Legends players win only 0.45 points more often than the 700 below them '
-  + '— the narrowest gap of six regions, on all four days measured. Elsewhere it is one to two points.';
+  'Korea’s top 300 League of Legends players win only 0.45 points more often than the 700 below '
+  + 'them — the narrowest gap of six regions. All six are listed.';
 
 const kr = data.rows.find((r) => r.code === 'kr')!;
 const 최대 = data.rows[data.rows.length - 1];

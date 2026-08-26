@@ -37,7 +37,12 @@ export function 제목뽑기(글자) {
   /* ⚠ 꼬리 구분자가 유닛마다 다르다 — 파이프·엠대시·하이픈을 다 본다.
      ⛔ 맨 앞 조각을 쓰지 않는다. 제목 «안»에 엠대시가 있는 일이 흔하다(우리 제목이 그렇다).
         마지막 구분자 뒤만 꼬리로 본다. */
-  const 풀 = m[1].replace(/&mdash;/g, '—').replace(/&amp;/g, '&').trim();
+  /* 🔴 2026-08-27 03:3x — **이 줄이 반쪽이었다.** 설명뽑기에는 `&#39;` 되돌리기를 넣었는데
+     여기엔 안 넣어서, `Korea&#39;s` 가 5자로 셈돼 제목 길이를 **실제보다 길게** 냈다.
+     그래서 이미 60자 안인 제목을 「넘는다」고 잘못 표시했다. 두 함수를 같은 규칙으로 맞춘다.
+     ⚠ 같은 일을 두 곳에 적으면 이렇게 갈라진다 — 되돌릴 것이 늘면 «둘 다» 고친다. */
+  const 풀 = m[1].replace(/&mdash;/g, '—').replace(/&amp;/g, '&')
+    .replace(/&#39;|&rsquo;|&apos;/g, "'").replace(/&quot;/g, '"').trim();
   const 자리 = Math.max(풀.lastIndexOf(' | '), 풀.lastIndexOf(' — '), 풀.lastIndexOf(' - '));
   return 자리 > 0 ? 풀.slice(0, 자리).trim() : 풀;
 }
@@ -120,6 +125,11 @@ if (process.argv.includes('--자가시험')) {
     설명뽑기(`<meta name='description' content='he said "no" today'>`) === 'he said "no" today');
   본다('&#39; 를 글자로 되돌린다',
     설명뽑기('<meta name="description" content="Korea&#39;s top">') === "Korea's top");
+  /* 🔴 03:3x — 제목뽑기에만 이 처리가 빠져 «길이를 부풀려» 재고 있었다 */
+  본다('제목에서도 &#39; 를 되돌린다 — 길이를 부풀리지 않는다',
+    제목뽑기('<title>Korea&#39;s ladder | Site</title>') === "Korea's ladder");
+  본다('제목의 &rsquo; 도 되돌린다',
+    제목뽑기('<title>Korea&rsquo;s ladder</title>') === "Korea's ladder");
   본다('GSC 줄에서 수를 뽑는다', (() => {
     const r = 줄읽기('   노출    165 · 클릭    0 · 순위 8.5   https://www.kculturewire.com/article/x');
     return r && r.노출 === 165 && r.클릭 === 0 && r.순위 === 8.5 && r.주소 === '/article/x';
@@ -133,7 +143,7 @@ if (process.argv.includes('--자가시험')) {
     파일자리들('/a', 'D', 'w')[0] === path.join('D', 'w', 'a.html'));
   본다('접두를 줘도 접두 없는 자리를 버리지 않는다',
     파일자리들('/a', 'D', 'w').includes(path.join('D', 'a.html')));
-  console.log(깨짐 === 0 ? `\n✅ 16개 다 통과` : `\n❌ ${깨짐}개 깨짐`);
+  console.log(깨짐 === 0 ? `\n✅ 18개 다 통과` : `\n❌ ${깨짐}개 깨짐`);
   process.exit(깨짐 === 0 ? 0 : 1);
 }
 

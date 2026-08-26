@@ -23,9 +23,11 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-webtoon.json';
 
 const TITLE = 'Korea’s webtoon businesses, counted';
+/* 🔴 2026-08-27 03:3x — 196자여서 뒤가 잘렸다(구글은 155자쯤까지 보여 준다).
+   잘린 자리에 있던 「the share earning under ₩1bn」이 하필 «누를 까닭»이었다. 앞으로 당겼다. */
 const DESC =
-  'All 396 Korean webtoon businesses surveyed in 2024 — by type, by what they do, by headcount and '
-  + 'by revenue. Average revenue, the share earning under ₩1bn, and how much of their income is webtoons.';
+  'All 396 Korean webtoon businesses surveyed in 2024 — by type, headcount and revenue. '
+  + 'Average revenue and the share earning under ₩1bn are listed.';
 
 type Row = typeof data.rows[number];
 const byKey = new Map(data.rows.map((r) => [r.key, r]));
