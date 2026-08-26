@@ -1179,6 +1179,16 @@ export const GET: APIRoute = async () => {
     });
   }
 
+  /* 🔴 [2026-08-26 · 5번] 태어난 해 지면 78장. 자동완성에 「korean actors born in 1995」가
+     «있다»(1번째)인데 우리에게 날(366장)·달(12장)은 있고 «해»가 없었다.
+     ⛔ 손으로 78줄을 적지 않는다 — 빌더가 낸 자료에서 뽑는다. 해가 늘면 저절로 따라온다. */
+  const 해지면 = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src/data/kcw-birth-year-pages.json'), 'utf8'));
+  const 해지어진날 = String(해지면.generated ?? '').slice(0, 10) || undefined;
+  entries.push({ path: '/born-year', priority: '0.8', changefreq: 'monthly', lastmod: 해지어진날 });
+  for (const y of (해지면.years ?? [])) {
+    entries.push({ path: `/born-year/${y.year}`, priority: '0.7', changefreq: 'monthly', lastmod: 해지어진날 });
+  }
+
   const articles = await getCollection('kcwArticles');
   for (const a of articles.filter((e) => !e.data.draft)) {
     const 날 = a.data.updatedDate ?? a.data.pubDate;
