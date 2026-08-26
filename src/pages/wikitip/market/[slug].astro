@@ -18,6 +18,7 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-markets.json';
 import 작품표 from '../../../data/wikitip-title-pages.json';
+import 움직임자료 from '../../../data/wikitip-where-it-moved.json';
 
 /**
  * 제목 → 주소 조각. **지면이 실제로 나는 작품만** 담는다.
@@ -31,10 +32,29 @@ const 지면있나 = new Map(
 
 export function getStaticPaths() {
   /* ⛔ 표가 얇은 시장은 지면을 안 낸다. 자료가 그렇게 판정해 둔 것을 그대로 따른다 */
-  return data.markets.filter((m) => m.hasPage).map((m) => ({ params: { slug: m.slug }, props: { m } }));
+  /* 🔴 [2026-08-26 · 5번] 나라별 자료가 «다섯 개 더» 있는데 이 지면은 둘만 쓰고 있었다.
+     자 하나를 세워 재서 찾았다 — `scripts/check-kcw-row-pages.mjs`.
+
+     ⛔ 그런데 다섯 중 넷은 «이미 실려 있었다» — 값이 `wikitip-markets.json` 으로 옮겨져
+       위 「The four numbers」가 그것이다(distinctTitles·halfTakes 가 catalogue-depth 다).
+       자가 그것을 못 봤다. 자료 이름으로만 견주면 «옮겨 실린 값»을 못 가른다.
+       ⭐ 그래서 다섯을 다 싣지 않고 **정말 새것 하나만** 싣는다. 같은 수를 두 번 적으면
+         손님이 어느 쪽을 믿을지 몰라 오히려 나빠진다.
+
+     ✅ 새것은 `where-it-moved` 다 — 2022년과 2025년을 견준 «움직임». 이 지면에 없었다.
+       니카라과는 5.4% → 12.3% 로 2.29배가 됐는데, 190노출을 받는 그 지면이 그 말을 못 했다.
+
+     ⚠ getStaticPaths 는 다른 청크에서 돈다 — 여기서 찾아 «props 로» 건넨다.
+       아래에서 바깥 변수를 다시 읽으면 undefined 가 되어 조용히 빈 칸이 된다.
+     ⚠ 배열 칸 이름이 `all` 이다(`markets` 도 `rows` 도 아니다). 짐작하지 말고 자료를 열어 본다. */
+  const 움직임표 = new Map((움직임자료.all ?? []).map((r) => [r.iso2, r]));
+  return data.markets.filter((m) => m.hasPage).map((m) => ({
+    params: { slug: m.slug },
+    props: { m, 움직임: 움직임표.get(m.iso2) ?? null },
+  }));
 }
 
-const { m } = Astro.props;
+const { m, 움직임 } = Astro.props as any;
 const 중 = data.medians;
 
 /**
@@ -169,6 +189,53 @@ const jsonLd = {
       a title can hold a place for many weeks. <i>Peak</i> is the highest position it reached.
     </p>
   </section>
+
+  {움직임 && (
+    <section>
+      <h2>Which way it moved, {움직임자료.beforeYear} to {움직임자료.afterYear}</h2>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>&nbsp;</th><th>{움직임자료.beforeYear}</th><th>{움직임자료.afterYear}</th><th>Change</th></tr>
+          </thead>
+          <tbody>
+            <tr class="edge">
+              <td class="nm">Share of chart places</td>
+              <td class="tot">{움직임.beforePc}%</td>
+              <td class="tot">{움직임.afterPc}%</td>
+              <td class="nm">{움직임.changePp > 0 ? '+' : ''}{움직임.changePp} pp</td>
+            </tr>
+            <tr>
+              <td class="nm">Korean chart places</td>
+              <td class="tot">{움직임.beforePlaces}</td>
+              <td class="tot">{움직임.afterPlaces}</td>
+              <td class="nm">{움직임.timesPlaces}&times;</td>
+            </tr>
+            <tr>
+              <td class="nm">Different Korean titles</td>
+              <td class="tot">{움직임.beforeTitles}</td>
+              <td class="tot">{움직임.afterTitles}</td>
+              <td class="nm">{움직임.afterTitles - 움직임.beforeTitles > 0 ? '+' : ''}{움직임.afterTitles - 움직임.beforeTitles}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Both years are {움직임자료.beforeWeeks} weeks long and each week gives out
+        {' '}{움직임자료.slotsPerWeek} places, so the two columns are counted the same way.
+        Across all {움직임자료.markets} markets, <b>{움직임자료.roseCount} rose</b> and
+        {' '}<b>{움직임자료.fellCount} fell</b>.
+      </p>
+      <p class="note">
+        {/* ⛔ 자료가 스스로 적어 둔 한계를 «그대로» 옮긴다. 요약하지 않는다 —
+             요약하면 「우리는 이걸 안다」로 읽히고, 그건 사실이 아니다. */}
+        <b>What this cannot tell you.</b> {움직임자료.cannotSeparate}
+      </p>
+      <p class="note">
+        <a href="/where-it-moved">The same two years for every market &rarr;</a>
+      </p>
+    </section>
+  )}
 
   <section>
     <h2>Year by year</h2>
