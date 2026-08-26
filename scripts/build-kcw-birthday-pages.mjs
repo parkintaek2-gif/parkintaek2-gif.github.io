@@ -219,6 +219,16 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this
     '<a href="/most-read">The 100 most-read Korean stars this month</a> &middot; '
       + '<a href="/community">The twelve birth-year rooms</a> &middot; '
       + '<a href="/day-pillar">The birth-day count</a>',
+    /* 🔴 [2026-08-26 · 5번] KLifeMap 입구. 2번 확인 — 「KCW 에 이름은 있는데 링크가 없다」.
+       재 보니 정말로 <a href> 로 걸린 것이 «0개» 였다(글자만 애널리틱스 안에 있었다).
+       ⛔ 배너가 아니라 «다음 물음»으로 낸다(2번 지시). 다른 사이트라는 것을 밝힌다.
+       ⚠ 이 주소는 src/lib/klifemap-en.ts 에도 있다. .mjs 는 .ts 를 못 불러서 나뉘었다 —
+         **둘을 같이 고친다.** 도착지가 로그인 화면이 되면 두 곳 다 내린다. */
+    /* ⛔ 2026-08-26 에 여기서 한 번 조용히 사라졌다 — 쉼표 뒤를 `+ '…'` 로 시작했더니
+       **단항 플러스**로 읽혀 NaN 이 되고, 꼬리말() 의 `typeof x === 'string'` 필터가
+       말없이 버렸다. 오류도 경고도 없었다. 자가시험이 없었으면 「넣었다」로 끝났을 것이다. */
+    '<a href="https://klifemap.ai/saju.html?lang=en" rel="noopener">What does a birth date say in the Korean four-pillars system?</a>'
+      + ' <span class="fine">&mdash; free chart, no sign-up. Opens KLifeMap.AI, a separate site we also run.</span>',
   ])}
   <footer>
     <p>Birth dates: Wikidata (best-ranked, day precision; South Korean citizenship; entertainment occupation), CC0.
@@ -301,6 +311,12 @@ if (process.argv.includes('--자가시험')) {
       return o['@type'] === 'CollectionPage' && o.mainEntity.numberOfItems > 0;
     } catch { return false; }
   })());
+  /* ⚠ 「글자가 있다」가 아니라 「<a href> 로 걸렸다」를 잰다. 2026-08-26 에 라이브를
+     재 보니 'klifemap.ai' 라는 글자는 1곳 있는데 누를 수 있는 링크는 «0개» 였다 —
+     애널리틱스 스크립트 안의 도메인 목록이었다. 세는 자가 넓으면 없는 것을 있다고 센다. */
+  검('⭐ KLifeMap 입구가 «누를 수 있게» 걸려 있다 — 글자만 있는 것은 링크가 아니다',
+    h.includes('<a href="https://klifemap.ai/saju.html?lang=en" rel="noopener">'));
+  검('⭐ 다른 사이트로 넘어간다는 것을 밝힌다', h.includes('a separate site we also run'));
   검('어제·내일로 걷는다', h.includes('/born-on/05-15') && h.includes('/born-on/05-17'));
   /* 🔴 2026-08-24 — 「in may」로 묻는 손님을 위해 달 지면 12장을 냈다. 날 지면에 떨어진
      손님이 달로 올라갈 길이 없으면 한 걸음에서 끝난다 — 걸음 수가 곧 체류시간이다.

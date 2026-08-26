@@ -28,6 +28,8 @@
  * ⛔ 위키백과 조회수를 「우리 손님 수」로 읽지 않는다 — 그 «이름에 대한 관심»이다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KLifeMapNext from '../../../components/KLifeMapNext.astro';
+import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
 
 export function getStaticPaths() {
@@ -234,6 +236,7 @@ const 생일글 = p.born
       <li><a href="/person">Everyone we have a page for</a></li>
       <li><a href="/titles">Korean drama list &mdash; every title that reached a Netflix top 10</a></li>
       <li><a href="/born-on">Korean actors&rsquo; birthdays, day by day</a></li>
+      {p.born && <KLifeMapNext 입구={KLIFEMAP_사주} 맥락={p.name} />}
     </ul>
   </section>
 
