@@ -1,6 +1,6 @@
 ---
-title: "Eight Korean brokers publish fractional-share lists. Only 46 stocks are buyable at all eight."
-dek: "The industry body posts each broker's list of stocks you can own in fractions. Put the eight side by side and the longest list turns out to be mostly sell-only — and 1,202 of the 2,586 listed stocks cannot be bought in fractions anywhere."
+title: "Only 46 stocks are fraction-buyable at all 8 Korean brokers"
+dek: "Each broker posts its own fractional-share list. Line up all eight and just 46 stocks overlap; 1,202 of 2,586 can't be bought in fractions anywhere."
 category: equities
 pubDate: 2026-08-07
 dataAsOf: 2026-02-27T00:00:00+09:00

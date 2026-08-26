@@ -1,6 +1,6 @@
 ---
-title: "The KOSPI has moved more than 3% on 53 days this year. The five years before it managed 20."
-dek: "Korea's benchmark is down 31.3% from its 22 June peak and still up 48.5% on the year. The drawdown is the smaller story: the average daily move has tripled, and July alone had ten sessions above 5%."
+title: "KOSPI volatility exploded: 53 days above 3% this year"
+dek: "Korea's benchmark has had 53 days of 3%+ moves in 2026 — the five years before it managed 20. The average daily move has tripled. Not advice."
 category: equities
 pubDate: 2026-08-04
 dataAsOf: 2026-08-03T18:00:00+09:00

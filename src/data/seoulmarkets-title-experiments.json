@@ -1,0 +1,35 @@
+{
+  "_왜": "제목·설명이 SERP에서 잘려(제목>60·설명>155) 클릭0이던 지면을 줄인 기록. 5번 find-zero-click-pages 실측 기반. GSC 28일 창이라 바꾼 뒤 값은 재측정일 이후에만 온전하다.",
+  "experiments": [
+    {
+      "slug": "kospi-2026-volatility-regime",
+      "changed": "2026-08-27",
+      "reason": "노출 45·순위 7·클릭 0. 제목 94자·설명 201자 → SERP 잘림",
+      "before": {
+        "title": "The KOSPI has moved more than 3% on 53 days this year. The five years before it managed 20.",
+        "dek_len": 201,
+        "impressions_28d": 45, "clicks_28d": 0, "position": 7.0
+      },
+      "after": {
+        "title": "KOSPI volatility exploded: 53 days above 3% this year",
+        "title_len": 53, "dek_len": 143
+      },
+      "recheckOn": "2026-09-10"
+    },
+    {
+      "slug": "korea-fractional-shares-broker-lottery",
+      "changed": "2026-08-27",
+      "reason": "노출 25·순위 8.5·클릭 0. 제목 96자·설명 243자 → SERP 잘림",
+      "before": {
+        "title": "Eight Korean brokers publish fractional-share lists. Only 46 stocks are buyable at all eight.",
+        "dek_len": 243,
+        "impressions_28d": 25, "clicks_28d": 0, "position": 8.5
+      },
+      "after": {
+        "title": "Only 46 stocks are fraction-buyable at all 8 Korean brokers",
+        "title_len": 59, "dek_len": 148
+      },
+      "recheckOn": "2026-09-10"
+    }
+  ]
+}
