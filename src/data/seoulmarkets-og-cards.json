@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-monthly-trade-surplus-changed-regime": {
+      "figure": "$36bn",
+      "label": "monthly surplus, up from $6bn a year ago",
+      "왜": "전국 월별 리듬. 요점은 국면 전환: $6bn→$36bn(5.5배), 수출이 견인"
+    },
     "korea-market-barbell-silent-tail": {
       "figure": "5.0%",
       "label": "of Korean stocks didn't trade a single share",
