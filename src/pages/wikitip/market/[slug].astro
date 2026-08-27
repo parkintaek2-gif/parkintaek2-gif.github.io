@@ -68,7 +68,27 @@ const 중 = data.medians;
  * ⚠ 나라 이름을 앞쪽에 둔다 — 손님이 치는 말이 나라 이름이다.
  * ⛔ 낚지 않는다. 이 지면은 실제로 그 물음에 답한다(자리 수·몫·작품 수·해마다).
  */
-const TITLE = `How much of ${m.name}'s Netflix top 10 is Korean?`;
+/* 🔴 [2026-08-27 13:2x] **아홉 나라의 제목·설명이 문법이 틀린 채 나가고 있었다.**
+   `${m.name}'s` 를 그대로 붙여 「United States's」·「Philippines's」·「Netherlands's」가
+   **검색 결과에 그대로** 있었다. s 로 끝나는 나라가 아홉이고 그중에 미국이 있다.
+   ⛔ 스니펫에 틀린 영어가 있으면 손님은 지면의 «수»도 같이 의심한다 — 강령 ③ 과 같은 자리다. */
+const 소유격 = (n: string) => (/s$/.test(n) ? `${n}'` : `${n}'s`);
+const 나라의 = 소유격(m.name);
+
+/* 🔴 [2026-08-27 13:2x] **제목을 물음에서 «이름표»로 바꾼다.**
+   `/market/nicaragua` 는 28일 동안 노출 195 · 순위 7.7 인데 **클릭이 0** 이었다
+   (`find-zero-click-pages.mjs` 로 쟀다). 열어 보니 —
+     제목  「How much of Nicaragua's Netflix top 10 is Korean?」   ← 묻는다
+     설명  「10.2% of Nicaragua's …」                              ← **첫 낱말이 그 답이다**
+   손님은 검색 결과에서 물음과 답을 «같이» 읽는다. 그러면 누를 까닭이 없다.
+   ⛔ 답을 «감추는» 것으로 고치지 않는다 — 몫(%)은 설명에 그대로 둔다.
+   ✅ 제목이 **지면에만 있는 것**을 가리키게 바꾼다. 몫은 한 줄이면 끝나지만
+      「어느 작품이 · 어느 해에」는 스니펫에 안 들어간다. 그것이 누를 까닭이다.
+   ⚠ 위 2026-08-22 의 판단(「물음으로 바꾼다」)을 뒤집는 것이다. 그때는 아흔세 장이
+      서로 구별되지 않는 것이 문제였고, 지금 고치는 것은 **답이 스니펫에서 끝나는 것**이다.
+      구별되는 것은 그대로 지킨다 — 작품 수가 시장마다 다르므로 제목이 여전히 다 다르다.
+   ⚠ 93개 시장을 다 재서 가장 긴 것이 57자다(United Arab Emirates). 60자 한계 안이다. */
+const TITLE = `${m.distinctTitles} Korean titles in ${나라의} Netflix top 10`;
 /* ⭐ 답을 첫 낱말로 당긴다. 검색 결과에서 손님이 읽는 것은 앞쪽 한 줄이다 —
    「Korean shows and films took…」로 시작하면 몫이 뒤에 묻힌다 */
 /* 🔴 2026-08-27 02:5x — **이 설명이 227자여서 구글이 잘라 냈다.**
@@ -83,7 +103,7 @@ const TITLE = `How much of ${m.name}'s Netflix top 10 is Korean?`;
       여유가 3자뿐이니, 여기 글자를 더할 때는 **다시 재고** 더한다. */
 const 전체자리 = (data.weekCount * 20).toLocaleString('en-US');
 const DESC =
-  `${m.koreanPc}% of ${m.name}'s Netflix top 10 places went to Korean titles `
+  `${m.koreanPc}% of ${나라의} Netflix top 10 places went to Korean titles `
   + `in ${data.weekCount} weeks — ${m.koreanSlots.toLocaleString('en-US')} of ${전체자리}, `
   + `across ${m.distinctTitles} titles. Every year and title listed.`;
 
@@ -107,7 +127,7 @@ const jsonLd = {
   canonical={`https://www.kculturewire.com/market/${m.slug}`}>
   <h1>{TITLE}</h1>
   <p class="lead">
-    Between {data.weekFrom} and {data.weekTo}, {m.name}'s Netflix top 10 had
+    Between {data.weekFrom} and {data.weekTo}, {나라의} Netflix top 10 had
     {' '}{(data.weekCount * 20).toLocaleString('en-US')} places to give out across films and series.
     Korean titles took <b>{m.koreanSlots.toLocaleString('en-US')}</b> of them — <b>{m.koreanPc}%</b>.
   </p>
@@ -195,7 +215,7 @@ const jsonLd = {
     </div>
     <p class="note">
       <i>{m.topTitle}</i> is the largest single title here, holding {m.topTitlePc}% of
-      {' '}{m.name}'s Korean places by itself. <i>Places</i> counts one title on one weekly list;
+      {' '}{나라의} Korean places by itself. <i>Places</i> counts one title on one weekly list;
       a title can hold a place for many weeks. <i>Peak</i> is the highest position it reached.
     </p>
   </section>
@@ -271,7 +291,7 @@ const jsonLd = {
     <ul>
       <li><b>Netflix</b> — {data.source}</li>
       <li>
-        <b>A top 10 is a rank list, not a viewing count.</b> A title just outside {m.name}'s top 10
+        <b>A top 10 is a rank list, not a viewing count.</b> A title just outside {나라의} top 10
         is invisible here no matter how much it was watched. Nothing on this page measures hours.
       </li>
       <li>

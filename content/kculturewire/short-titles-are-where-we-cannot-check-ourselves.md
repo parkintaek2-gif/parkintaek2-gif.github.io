@@ -1,6 +1,6 @@
 ---
-title: "Three in five Korean film titles share their name with a foreign work. For series it is one in four."
-dek: "We asked Wikidata which countries made something with each of our 397 chart titles. Films come back ambiguous 58.1% of the time, series 23.6%. Short names are the reason, and Korean films get short names — but that is not the whole gap."
+title: "3 in 5 Korean film titles share a name with a foreign work"
+dek: "We asked Wikidata which country made each of our 397 chart titles. Films come back ambiguous 58.1% of the time, series 23.6%. Short names are why."
 category: titles
 purpose: ads
 pubDate: 2026-08-08
