@@ -1,0 +1,113 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { SITE, SITE_URL } from '../../consts';
+import profilesData from '../../data/country-trade-profiles.json';
+
+export function getStaticPaths() {
+  return profilesData.profiles.map((p) => ({ params: { country: p.slug }, props: { p } }));
+}
+
+const { p } = Astro.props;
+const url = `${SITE_URL}/trade/${p.slug}`;
+const dir = p.direction; // 'surplus' | 'deficit'
+const dirWord = dir === 'surplus' ? 'surplus' : 'deficit';
+
+// 제목·설명 — 실제 검색어(«korea trade with X»)를 앞세운다. 절대 달러값은 쓰지 않는다(스케일브레이크).
+const title = `Korea's trade with ${p.name}: a ${dirWord}, in the data`;
+const description = `Korea runs a trade ${dirWord} with ${p.name}. It is Korea's ${p.exportRankOrd}-largest export market and ${p.importRankOrd}-largest source of imports — ${p.exportShare}% of exports, ${p.importShare}% of imports.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `Korea's trade with ${p.name}`,
+  description,
+  url,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+  publisher: { '@id': `${SITE_URL}/#organization` },
+  about: p.name,
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <nav class="crumb"><a href="/trade">Trade partners</a> &rsaquo; {p.name}</nav>
+
+    <div class="page-head">
+      <p class="kicker">Korea &middot; Trade partner</p>
+      <h1>Korea&rsquo;s trade with {p.name}</h1>
+      <p>
+        Over the twelve months to June 2026, Korea ran a trade <strong>{dirWord}</strong> with {p.name}.
+        {p.name.replace(/^the /, 'The ')} is Korea&rsquo;s <strong>{p.exportRankOrd}-largest export market</strong>
+        and its <strong>{p.importRankOrd}-largest source of imports</strong>.
+      </p>
+    </div>
+
+    <table class="facts">
+      <tbody>
+        <tr><th>Balance direction</th><td>{dir === 'surplus' ? 'Korea sells more than it buys (surplus)' : 'Korea buys more than it sells (deficit)'}</td></tr>
+        <tr><th>Share of Korea&rsquo;s exports</th><td>{p.exportShare}%</td></tr>
+        <tr><th>Share of Korea&rsquo;s imports</th><td>{p.importShare}%</td></tr>
+        <tr><th>Rank as an export market</th><td>{p.exportRankOrd} of {profilesData.totalCountries}</td></tr>
+        <tr><th>Rank as an import source</th><td>{p.importRankOrd} of {profilesData.totalCountries}</td></tr>
+        <tr><th>Rank by total trade</th><td>{p.twoWayRank}{p.twoWayRank === 1 ? 'st' : p.twoWayRank === 2 ? 'nd' : p.twoWayRank === 3 ? 'rd' : 'th'} of {profilesData.totalCountries}</td></tr>
+      </tbody>
+    </table>
+
+    <h2>What this says</h2>
+    <p>
+      {p.exportShare >= p.importShare
+        ? `${p.bare} matters more to Korea as a customer than as a supplier: it takes a larger share of what Korea sells than it provides of what Korea buys.`
+        : `${p.bare} matters more to Korea as a supplier than as a customer: it provides a larger share of what Korea buys than it takes of what Korea sells.`}
+      A trade {dirWord} is not, by itself, good or bad — a {dirWord} with a partner is simply what buying or selling more from that partner looks like.
+    </p>
+
+    <h2 class="notewhy">Why there are shares here, not dollar totals</h2>
+    <p class="scalebreak">
+      We report {p.name}&rsquo;s <em>share</em> of Korea&rsquo;s trade and its <em>rank</em>, not a dollar figure.
+      The underlying Korea Customs dataset has a <strong>scale break from March 2026</strong> that makes the absolute
+      monthly dollar totals unreliable after that month. Within-month shares are stable across that break, so those are
+      what we publish. <a href="/article/korea-2026-trade-surplus-data-artifact">Here is why we do not trust the 2026 dollar totals.</a>
+    </p>
+
+    <div class="cta">
+      <h2>The underlying data</h2>
+      <p>
+        These figures come from one dataset — Korea Customs Service exports and imports by partner country, month by month.
+        We publish it as a <a href="/data/korea-trade-dataset">structured trade dataset</a> you can license,
+        with a <a href="/data/korea-trade-balance.csv">free monthly CSV</a> to reproduce with credit.
+        See the whole picture in <a href="/article/korea-trade-balance-in-one-page">Korea&rsquo;s trade balance, in one page</a>.
+      </p>
+    </div>
+
+    {p.related.length > 0 && (
+      <section class="related">
+        <h2>Nearby trading partners</h2>
+        <ul>
+          {p.related.map((r) => (
+            <li><a href={`/trade/${r.slug}`}>Korea&rsquo;s trade with {r.name}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <p class="disc">Data as of {profilesData.asOf}. Korea Customs Service via KOSIS. Shares and ranks only — not investment advice.</p>
+    <a class="backlink" href="/trade">&larr; All trade partners</a>
+  </div>
+
+  <style>
+    .crumb { font-size: .85rem; color: #667; margin: .5rem 0 1rem; }
+    table.facts { width: 100%; border-collapse: collapse; margin: 1.5rem 0; }
+    table.facts th { text-align: left; font-weight: 600; padding: .6rem .8rem; border-bottom: 1px solid #e6e6e3; width: 55%; }
+    table.facts td { text-align: right; padding: .6rem .8rem; border-bottom: 1px solid #e6e6e3; font-variant-numeric: tabular-nums; }
+    .notewhy { font-size: 1.05rem; }
+    .scalebreak { font-size: .92rem; color: #556; background: #f7f7f4; padding: 1rem; border-left: 3px solid #c9c9c2; }
+    .cta { background: #f2f5f8; padding: 1.2rem 1.4rem; border-radius: 8px; margin: 1.5rem 0; }
+    .cta h2 { margin-top: 0; }
+    .related ul { columns: 2; list-style: none; padding: 0; }
+    .related li { margin: .3rem 0; }
+    .disc { font-size: .82rem; color: #778; margin-top: 2rem; }
+  </style>
+</Base>

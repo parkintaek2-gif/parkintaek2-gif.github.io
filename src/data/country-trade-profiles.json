@@ -1,0 +1,1909 @@
+{
+  "asOf": "2026-08-20 20:09:33",
+  "window": {
+    "first_month": "2025-07",
+    "latest_month": "2026-06",
+    "months": 12
+  },
+  "totalCountries": 243,
+  "topN": 60,
+  "coverage": 97.6,
+  "profiles": [
+    {
+      "slug": "china",
+      "name": "China",
+      "bare": "China",
+      "nameKo": "중국",
+      "twoWayRank": 1,
+      "exportShare": 19.5,
+      "importShare": 23.5,
+      "exportRank": 1,
+      "importRank": 1,
+      "exportRankOrd": "1st",
+      "importRankOrd": "1st",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "united-states",
+          "name": "the United States"
+        },
+        {
+          "slug": "vietnam",
+          "name": "Vietnam"
+        }
+      ]
+    },
+    {
+      "slug": "united-states",
+      "name": "the United States",
+      "bare": "United States",
+      "nameKo": "미국",
+      "twoWayRank": 2,
+      "exportShare": 17.7,
+      "importShare": 11.9,
+      "exportRank": 2,
+      "importRank": 2,
+      "exportRankOrd": "2nd",
+      "importRankOrd": "2nd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "china",
+          "name": "China"
+        },
+        {
+          "slug": "vietnam",
+          "name": "Vietnam"
+        },
+        {
+          "slug": "taiwan",
+          "name": "Taiwan"
+        }
+      ]
+    },
+    {
+      "slug": "vietnam",
+      "name": "Vietnam",
+      "bare": "Vietnam",
+      "nameKo": "베트남",
+      "twoWayRank": 3,
+      "exportShare": 9,
+      "importShare": 5.1,
+      "exportRank": 3,
+      "importRank": 5,
+      "exportRankOrd": "3rd",
+      "importRankOrd": "5th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "china",
+          "name": "China"
+        },
+        {
+          "slug": "united-states",
+          "name": "the United States"
+        },
+        {
+          "slug": "taiwan",
+          "name": "Taiwan"
+        },
+        {
+          "slug": "japan",
+          "name": "Japan"
+        }
+      ]
+    },
+    {
+      "slug": "taiwan",
+      "name": "Taiwan",
+      "bare": "Taiwan",
+      "nameKo": "대만",
+      "twoWayRank": 4,
+      "exportShare": 7.4,
+      "importShare": 5.3,
+      "exportRank": 4,
+      "importRank": 4,
+      "exportRankOrd": "4th",
+      "importRankOrd": "4th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "united-states",
+          "name": "the United States"
+        },
+        {
+          "slug": "vietnam",
+          "name": "Vietnam"
+        },
+        {
+          "slug": "japan",
+          "name": "Japan"
+        },
+        {
+          "slug": "hong-kong",
+          "name": "Hong Kong"
+        }
+      ]
+    },
+    {
+      "slug": "japan",
+      "name": "Japan",
+      "bare": "Japan",
+      "nameKo": "일본",
+      "twoWayRank": 5,
+      "exportShare": 3.5,
+      "importShare": 7.5,
+      "exportRank": 6,
+      "importRank": 3,
+      "exportRankOrd": "6th",
+      "importRankOrd": "3rd",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "vietnam",
+          "name": "Vietnam"
+        },
+        {
+          "slug": "taiwan",
+          "name": "Taiwan"
+        },
+        {
+          "slug": "hong-kong",
+          "name": "Hong Kong"
+        },
+        {
+          "slug": "australia",
+          "name": "Australia"
+        }
+      ]
+    },
+    {
+      "slug": "hong-kong",
+      "name": "Hong Kong",
+      "bare": "Hong Kong",
+      "nameKo": "홍콩",
+      "twoWayRank": 6,
+      "exportShare": 6.7,
+      "importShare": 0.6,
+      "exportRank": 5,
+      "importRank": 28,
+      "exportRankOrd": "5th",
+      "importRankOrd": "28th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "taiwan",
+          "name": "Taiwan"
+        },
+        {
+          "slug": "japan",
+          "name": "Japan"
+        },
+        {
+          "slug": "australia",
+          "name": "Australia"
+        },
+        {
+          "slug": "singapore",
+          "name": "Singapore"
+        }
+      ]
+    },
+    {
+      "slug": "australia",
+      "name": "Australia",
+      "bare": "Australia",
+      "nameKo": "호주",
+      "twoWayRank": 7,
+      "exportShare": 2.2,
+      "importShare": 5,
+      "exportRank": 9,
+      "importRank": 6,
+      "exportRankOrd": "9th",
+      "importRankOrd": "6th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "japan",
+          "name": "Japan"
+        },
+        {
+          "slug": "hong-kong",
+          "name": "Hong Kong"
+        },
+        {
+          "slug": "singapore",
+          "name": "Singapore"
+        },
+        {
+          "slug": "malaysia",
+          "name": "Malaysia"
+        }
+      ]
+    },
+    {
+      "slug": "singapore",
+      "name": "Singapore",
+      "bare": "Singapore",
+      "nameKo": "싱가포르",
+      "twoWayRank": 8,
+      "exportShare": 2.8,
+      "importShare": 2.1,
+      "exportRank": 7,
+      "importRank": 11,
+      "exportRankOrd": "7th",
+      "importRankOrd": "11th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "hong-kong",
+          "name": "Hong Kong"
+        },
+        {
+          "slug": "australia",
+          "name": "Australia"
+        },
+        {
+          "slug": "malaysia",
+          "name": "Malaysia"
+        },
+        {
+          "slug": "germany",
+          "name": "Germany"
+        }
+      ]
+    },
+    {
+      "slug": "malaysia",
+      "name": "Malaysia",
+      "bare": "Malaysia",
+      "nameKo": "말레이시아",
+      "twoWayRank": 9,
+      "exportShare": 1.8,
+      "importShare": 2.6,
+      "exportRank": 10,
+      "importRank": 9,
+      "exportRankOrd": "10th",
+      "importRankOrd": "9th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "australia",
+          "name": "Australia"
+        },
+        {
+          "slug": "singapore",
+          "name": "Singapore"
+        },
+        {
+          "slug": "germany",
+          "name": "Germany"
+        },
+        {
+          "slug": "saudi-arabia",
+          "name": "Saudi Arabia"
+        }
+      ]
+    },
+    {
+      "slug": "germany",
+      "name": "Germany",
+      "bare": "Germany",
+      "nameKo": "독일",
+      "twoWayRank": 10,
+      "exportShare": 1.1,
+      "importShare": 3.3,
+      "exportRank": 17,
+      "importRank": 8,
+      "exportRankOrd": "17th",
+      "importRankOrd": "8th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "singapore",
+          "name": "Singapore"
+        },
+        {
+          "slug": "malaysia",
+          "name": "Malaysia"
+        },
+        {
+          "slug": "saudi-arabia",
+          "name": "Saudi Arabia"
+        },
+        {
+          "slug": "india",
+          "name": "India"
+        }
+      ]
+    },
+    {
+      "slug": "saudi-arabia",
+      "name": "Saudi Arabia",
+      "bare": "Saudi Arabia",
+      "nameKo": "사우디아라비아",
+      "twoWayRank": 11,
+      "exportShare": 0.5,
+      "importShare": 4,
+      "exportRank": 28,
+      "importRank": 7,
+      "exportRankOrd": "28th",
+      "importRankOrd": "7th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "malaysia",
+          "name": "Malaysia"
+        },
+        {
+          "slug": "germany",
+          "name": "Germany"
+        },
+        {
+          "slug": "india",
+          "name": "India"
+        },
+        {
+          "slug": "netherlands",
+          "name": "the Netherlands"
+        }
+      ]
+    },
+    {
+      "slug": "india",
+      "name": "India",
+      "bare": "India",
+      "nameKo": "인도(인디아)",
+      "twoWayRank": 12,
+      "exportShare": 2.5,
+      "importShare": 1,
+      "exportRank": 8,
+      "importRank": 21,
+      "exportRankOrd": "8th",
+      "importRankOrd": "21st",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "germany",
+          "name": "Germany"
+        },
+        {
+          "slug": "saudi-arabia",
+          "name": "Saudi Arabia"
+        },
+        {
+          "slug": "netherlands",
+          "name": "the Netherlands"
+        },
+        {
+          "slug": "mexico",
+          "name": "Mexico"
+        }
+      ]
+    },
+    {
+      "slug": "netherlands",
+      "name": "the Netherlands",
+      "bare": "Netherlands",
+      "nameKo": "네덜란드",
+      "twoWayRank": 13,
+      "exportShare": 1.4,
+      "importShare": 1.9,
+      "exportRank": 13,
+      "importRank": 12,
+      "exportRankOrd": "13th",
+      "importRankOrd": "12th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "saudi-arabia",
+          "name": "Saudi Arabia"
+        },
+        {
+          "slug": "india",
+          "name": "India"
+        },
+        {
+          "slug": "mexico",
+          "name": "Mexico"
+        },
+        {
+          "slug": "canada",
+          "name": "Canada"
+        }
+      ]
+    },
+    {
+      "slug": "mexico",
+      "name": "Mexico",
+      "bare": "Mexico",
+      "nameKo": "멕시코",
+      "twoWayRank": 14,
+      "exportShare": 1.6,
+      "importShare": 1.3,
+      "exportRank": 12,
+      "importRank": 16,
+      "exportRankOrd": "12th",
+      "importRankOrd": "16th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "india",
+          "name": "India"
+        },
+        {
+          "slug": "netherlands",
+          "name": "the Netherlands"
+        },
+        {
+          "slug": "canada",
+          "name": "Canada"
+        },
+        {
+          "slug": "united-arab-emirates",
+          "name": "the United Arab Emirates"
+        }
+      ]
+    },
+    {
+      "slug": "canada",
+      "name": "Canada",
+      "bare": "Canada",
+      "nameKo": "캐나다",
+      "twoWayRank": 15,
+      "exportShare": 1.3,
+      "importShare": 1.3,
+      "exportRank": 14,
+      "importRank": 15,
+      "exportRankOrd": "14th",
+      "importRankOrd": "15th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "netherlands",
+          "name": "the Netherlands"
+        },
+        {
+          "slug": "mexico",
+          "name": "Mexico"
+        },
+        {
+          "slug": "united-arab-emirates",
+          "name": "the United Arab Emirates"
+        },
+        {
+          "slug": "philippines",
+          "name": "Philippines"
+        }
+      ]
+    },
+    {
+      "slug": "united-arab-emirates",
+      "name": "the United Arab Emirates",
+      "bare": "United Arab Emirates",
+      "nameKo": "아랍에미리트 연합",
+      "twoWayRank": 16,
+      "exportShare": 0.6,
+      "importShare": 2.2,
+      "exportRank": 24,
+      "importRank": 10,
+      "exportRankOrd": "24th",
+      "importRankOrd": "10th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "mexico",
+          "name": "Mexico"
+        },
+        {
+          "slug": "canada",
+          "name": "Canada"
+        },
+        {
+          "slug": "philippines",
+          "name": "Philippines"
+        },
+        {
+          "slug": "indonesia",
+          "name": "Indonesia"
+        }
+      ]
+    },
+    {
+      "slug": "philippines",
+      "name": "Philippines",
+      "bare": "Philippines",
+      "nameKo": "필리핀",
+      "twoWayRank": 17,
+      "exportShare": 1.8,
+      "importShare": 0.6,
+      "exportRank": 11,
+      "importRank": 29,
+      "exportRankOrd": "11th",
+      "importRankOrd": "29th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "canada",
+          "name": "Canada"
+        },
+        {
+          "slug": "united-arab-emirates",
+          "name": "the United Arab Emirates"
+        },
+        {
+          "slug": "indonesia",
+          "name": "Indonesia"
+        },
+        {
+          "slug": "thailand",
+          "name": "Thailand"
+        }
+      ]
+    },
+    {
+      "slug": "indonesia",
+      "name": "Indonesia",
+      "bare": "Indonesia",
+      "nameKo": "인도네시아",
+      "twoWayRank": 18,
+      "exportShare": 0.9,
+      "importShare": 1.7,
+      "exportRank": 20,
+      "importRank": 13,
+      "exportRankOrd": "20th",
+      "importRankOrd": "13th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "united-arab-emirates",
+          "name": "the United Arab Emirates"
+        },
+        {
+          "slug": "philippines",
+          "name": "Philippines"
+        },
+        {
+          "slug": "thailand",
+          "name": "Thailand"
+        },
+        {
+          "slug": "france",
+          "name": "France"
+        }
+      ]
+    },
+    {
+      "slug": "thailand",
+      "name": "Thailand",
+      "bare": "Thailand",
+      "nameKo": "태국",
+      "twoWayRank": 19,
+      "exportShare": 1.1,
+      "importShare": 1.1,
+      "exportRank": 15,
+      "importRank": 20,
+      "exportRankOrd": "15th",
+      "importRankOrd": "20th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "philippines",
+          "name": "Philippines"
+        },
+        {
+          "slug": "indonesia",
+          "name": "Indonesia"
+        },
+        {
+          "slug": "france",
+          "name": "France"
+        },
+        {
+          "slug": "brazil",
+          "name": "Brazil"
+        }
+      ]
+    },
+    {
+      "slug": "france",
+      "name": "France",
+      "bare": "France",
+      "nameKo": "프랑스",
+      "twoWayRank": 20,
+      "exportShare": 0.7,
+      "importShare": 1.4,
+      "exportRank": 23,
+      "importRank": 14,
+      "exportRankOrd": "23rd",
+      "importRankOrd": "14th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "indonesia",
+          "name": "Indonesia"
+        },
+        {
+          "slug": "thailand",
+          "name": "Thailand"
+        },
+        {
+          "slug": "brazil",
+          "name": "Brazil"
+        },
+        {
+          "slug": "italy",
+          "name": "Italy"
+        }
+      ]
+    },
+    {
+      "slug": "brazil",
+      "name": "Brazil",
+      "bare": "Brazil",
+      "nameKo": "브라질",
+      "twoWayRank": 21,
+      "exportShare": 1,
+      "importShare": 0.9,
+      "exportRank": 19,
+      "importRank": 23,
+      "exportRankOrd": "19th",
+      "importRankOrd": "23rd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "thailand",
+          "name": "Thailand"
+        },
+        {
+          "slug": "france",
+          "name": "France"
+        },
+        {
+          "slug": "italy",
+          "name": "Italy"
+        },
+        {
+          "slug": "united-kingdom",
+          "name": "United kingdom"
+        }
+      ]
+    },
+    {
+      "slug": "italy",
+      "name": "Italy",
+      "bare": "Italy",
+      "nameKo": "이탈리아",
+      "twoWayRank": 22,
+      "exportShare": 0.6,
+      "importShare": 1.3,
+      "exportRank": 25,
+      "importRank": 17,
+      "exportRankOrd": "25th",
+      "importRankOrd": "17th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "france",
+          "name": "France"
+        },
+        {
+          "slug": "brazil",
+          "name": "Brazil"
+        },
+        {
+          "slug": "united-kingdom",
+          "name": "United kingdom"
+        },
+        {
+          "slug": "turkey",
+          "name": "Turkey"
+        }
+      ]
+    },
+    {
+      "slug": "united-kingdom",
+      "name": "United kingdom",
+      "bare": "United kingdom",
+      "nameKo": "영국",
+      "twoWayRank": 23,
+      "exportShare": 0.9,
+      "importShare": 0.7,
+      "exportRank": 21,
+      "importRank": 26,
+      "exportRankOrd": "21st",
+      "importRankOrd": "26th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "brazil",
+          "name": "Brazil"
+        },
+        {
+          "slug": "italy",
+          "name": "Italy"
+        },
+        {
+          "slug": "turkey",
+          "name": "Turkey"
+        },
+        {
+          "slug": "russia",
+          "name": "Russia"
+        }
+      ]
+    },
+    {
+      "slug": "turkey",
+      "name": "Turkey",
+      "bare": "Turkey",
+      "nameKo": "튀르키예",
+      "twoWayRank": 24,
+      "exportShare": 1.1,
+      "importShare": 0.3,
+      "exportRank": 16,
+      "importRank": 38,
+      "exportRankOrd": "16th",
+      "importRankOrd": "38th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "italy",
+          "name": "Italy"
+        },
+        {
+          "slug": "united-kingdom",
+          "name": "United kingdom"
+        },
+        {
+          "slug": "russia",
+          "name": "Russia"
+        },
+        {
+          "slug": "poland",
+          "name": "Poland"
+        }
+      ]
+    },
+    {
+      "slug": "russia",
+      "name": "Russia",
+      "bare": "Russia",
+      "nameKo": "러시아",
+      "twoWayRank": 25,
+      "exportShare": 0.4,
+      "importShare": 1.1,
+      "exportRank": 29,
+      "importRank": 18,
+      "exportRankOrd": "29th",
+      "importRankOrd": "18th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "united-kingdom",
+          "name": "United kingdom"
+        },
+        {
+          "slug": "turkey",
+          "name": "Turkey"
+        },
+        {
+          "slug": "poland",
+          "name": "Poland"
+        },
+        {
+          "slug": "iraq",
+          "name": "Iraq"
+        }
+      ]
+    },
+    {
+      "slug": "poland",
+      "name": "Poland",
+      "bare": "Poland",
+      "nameKo": "폴란드",
+      "twoWayRank": 26,
+      "exportShare": 1,
+      "importShare": 0.2,
+      "exportRank": 18,
+      "importRank": 47,
+      "exportRankOrd": "18th",
+      "importRankOrd": "47th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "turkey",
+          "name": "Turkey"
+        },
+        {
+          "slug": "russia",
+          "name": "Russia"
+        },
+        {
+          "slug": "iraq",
+          "name": "Iraq"
+        },
+        {
+          "slug": "chile",
+          "name": "Chile"
+        }
+      ]
+    },
+    {
+      "slug": "iraq",
+      "name": "Iraq",
+      "bare": "Iraq",
+      "nameKo": "이라크",
+      "twoWayRank": 27,
+      "exportShare": 0.1,
+      "importShare": 1.1,
+      "exportRank": 54,
+      "importRank": 19,
+      "exportRankOrd": "54th",
+      "importRankOrd": "19th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "russia",
+          "name": "Russia"
+        },
+        {
+          "slug": "poland",
+          "name": "Poland"
+        },
+        {
+          "slug": "chile",
+          "name": "Chile"
+        },
+        {
+          "slug": "marshalls-islands",
+          "name": "Marshalls Islands"
+        }
+      ]
+    },
+    {
+      "slug": "chile",
+      "name": "Chile",
+      "bare": "Chile",
+      "nameKo": "칠레",
+      "twoWayRank": 28,
+      "exportShare": 0.2,
+      "importShare": 0.8,
+      "exportRank": 46,
+      "importRank": 25,
+      "exportRankOrd": "46th",
+      "importRankOrd": "25th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "poland",
+          "name": "Poland"
+        },
+        {
+          "slug": "iraq",
+          "name": "Iraq"
+        },
+        {
+          "slug": "marshalls-islands",
+          "name": "Marshalls Islands"
+        },
+        {
+          "slug": "qatar",
+          "name": "Qatar"
+        }
+      ]
+    },
+    {
+      "slug": "marshalls-islands",
+      "name": "Marshalls Islands",
+      "bare": "Marshalls Islands",
+      "nameKo": "마셜제도",
+      "twoWayRank": 29,
+      "exportShare": 0.8,
+      "importShare": 0,
+      "exportRank": 22,
+      "importRank": 144,
+      "exportRankOrd": "22nd",
+      "importRankOrd": "144th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "iraq",
+          "name": "Iraq"
+        },
+        {
+          "slug": "chile",
+          "name": "Chile"
+        },
+        {
+          "slug": "qatar",
+          "name": "Qatar"
+        },
+        {
+          "slug": "spain",
+          "name": "Spain"
+        }
+      ]
+    },
+    {
+      "slug": "qatar",
+      "name": "Qatar",
+      "bare": "Qatar",
+      "nameKo": "카타르",
+      "twoWayRank": 30,
+      "exportShare": 0.1,
+      "importShare": 1,
+      "exportRank": 67,
+      "importRank": 22,
+      "exportRankOrd": "67th",
+      "importRankOrd": "22nd",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "chile",
+          "name": "Chile"
+        },
+        {
+          "slug": "marshalls-islands",
+          "name": "Marshalls Islands"
+        },
+        {
+          "slug": "spain",
+          "name": "Spain"
+        },
+        {
+          "slug": "kuwait",
+          "name": "Kuwait"
+        }
+      ]
+    },
+    {
+      "slug": "spain",
+      "name": "Spain",
+      "bare": "Spain",
+      "nameKo": "스페인",
+      "twoWayRank": 31,
+      "exportShare": 0.4,
+      "importShare": 0.4,
+      "exportRank": 30,
+      "importRank": 32,
+      "exportRankOrd": "30th",
+      "importRankOrd": "32nd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "marshalls-islands",
+          "name": "Marshalls Islands"
+        },
+        {
+          "slug": "qatar",
+          "name": "Qatar"
+        },
+        {
+          "slug": "kuwait",
+          "name": "Kuwait"
+        },
+        {
+          "slug": "switzerland",
+          "name": "Switzerland"
+        }
+      ]
+    },
+    {
+      "slug": "kuwait",
+      "name": "Kuwait",
+      "bare": "Kuwait",
+      "nameKo": "쿠웨이트",
+      "twoWayRank": 32,
+      "exportShare": 0.1,
+      "importShare": 0.9,
+      "exportRank": 70,
+      "importRank": 24,
+      "exportRankOrd": "70th",
+      "importRankOrd": "24th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "qatar",
+          "name": "Qatar"
+        },
+        {
+          "slug": "spain",
+          "name": "Spain"
+        },
+        {
+          "slug": "switzerland",
+          "name": "Switzerland"
+        },
+        {
+          "slug": "belgium",
+          "name": "Belgium"
+        }
+      ]
+    },
+    {
+      "slug": "switzerland",
+      "name": "Switzerland",
+      "bare": "Switzerland",
+      "nameKo": "스위스",
+      "twoWayRank": 33,
+      "exportShare": 0.3,
+      "importShare": 0.6,
+      "exportRank": 36,
+      "importRank": 30,
+      "exportRankOrd": "36th",
+      "importRankOrd": "30th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "spain",
+          "name": "Spain"
+        },
+        {
+          "slug": "kuwait",
+          "name": "Kuwait"
+        },
+        {
+          "slug": "belgium",
+          "name": "Belgium"
+        },
+        {
+          "slug": "new-zealand",
+          "name": "New-zealand"
+        }
+      ]
+    },
+    {
+      "slug": "belgium",
+      "name": "Belgium",
+      "bare": "Belgium",
+      "nameKo": "벨기에",
+      "twoWayRank": 34,
+      "exportShare": 0.5,
+      "importShare": 0.2,
+      "exportRank": 27,
+      "importRank": 43,
+      "exportRankOrd": "27th",
+      "importRankOrd": "43rd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "kuwait",
+          "name": "Kuwait"
+        },
+        {
+          "slug": "switzerland",
+          "name": "Switzerland"
+        },
+        {
+          "slug": "new-zealand",
+          "name": "New-zealand"
+        },
+        {
+          "slug": "czech-republic",
+          "name": "the Czech Republic"
+        }
+      ]
+    },
+    {
+      "slug": "new-zealand",
+      "name": "New-zealand",
+      "bare": "New-zealand",
+      "nameKo": "뉴질랜드",
+      "twoWayRank": 35,
+      "exportShare": 0.4,
+      "importShare": 0.3,
+      "exportRank": 32,
+      "importRank": 39,
+      "exportRankOrd": "32nd",
+      "importRankOrd": "39th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "switzerland",
+          "name": "Switzerland"
+        },
+        {
+          "slug": "belgium",
+          "name": "Belgium"
+        },
+        {
+          "slug": "czech-republic",
+          "name": "the Czech Republic"
+        },
+        {
+          "slug": "algeria",
+          "name": "Algeria"
+        }
+      ]
+    },
+    {
+      "slug": "czech-republic",
+      "name": "the Czech Republic",
+      "bare": "Czech Republic",
+      "nameKo": "체코",
+      "twoWayRank": 36,
+      "exportShare": 0.4,
+      "importShare": 0.2,
+      "exportRank": 33,
+      "importRank": 44,
+      "exportRankOrd": "33rd",
+      "importRankOrd": "44th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "belgium",
+          "name": "Belgium"
+        },
+        {
+          "slug": "new-zealand",
+          "name": "New-zealand"
+        },
+        {
+          "slug": "algeria",
+          "name": "Algeria"
+        },
+        {
+          "slug": "liberia",
+          "name": "Liberia"
+        }
+      ]
+    },
+    {
+      "slug": "algeria",
+      "name": "Algeria",
+      "bare": "Algeria",
+      "nameKo": "알제리",
+      "twoWayRank": 37,
+      "exportShare": 0,
+      "importShare": 0.6,
+      "exportRank": 78,
+      "importRank": 27,
+      "exportRankOrd": "78th",
+      "importRankOrd": "27th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "new-zealand",
+          "name": "New-zealand"
+        },
+        {
+          "slug": "czech-republic",
+          "name": "the Czech Republic"
+        },
+        {
+          "slug": "liberia",
+          "name": "Liberia"
+        },
+        {
+          "slug": "hungry",
+          "name": "Hungry"
+        }
+      ]
+    },
+    {
+      "slug": "liberia",
+      "name": "Liberia",
+      "bare": "Liberia",
+      "nameKo": "라이베리아",
+      "twoWayRank": 38,
+      "exportShare": 0.5,
+      "importShare": 0,
+      "exportRank": 26,
+      "importRank": 93,
+      "exportRankOrd": "26th",
+      "importRankOrd": "93rd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "czech-republic",
+          "name": "the Czech Republic"
+        },
+        {
+          "slug": "algeria",
+          "name": "Algeria"
+        },
+        {
+          "slug": "hungry",
+          "name": "Hungry"
+        },
+        {
+          "slug": "sweden",
+          "name": "Sweden"
+        }
+      ]
+    },
+    {
+      "slug": "hungry",
+      "name": "Hungry",
+      "bare": "Hungry",
+      "nameKo": "헝가리",
+      "twoWayRank": 39,
+      "exportShare": 0.4,
+      "importShare": 0.1,
+      "exportRank": 31,
+      "importRank": 52,
+      "exportRankOrd": "31st",
+      "importRankOrd": "52nd",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "algeria",
+          "name": "Algeria"
+        },
+        {
+          "slug": "liberia",
+          "name": "Liberia"
+        },
+        {
+          "slug": "sweden",
+          "name": "Sweden"
+        },
+        {
+          "slug": "oman",
+          "name": "Oman"
+        }
+      ]
+    },
+    {
+      "slug": "sweden",
+      "name": "Sweden",
+      "bare": "Sweden",
+      "nameKo": "스웨덴",
+      "twoWayRank": 40,
+      "exportShare": 0.2,
+      "importShare": 0.3,
+      "exportRank": 47,
+      "importRank": 35,
+      "exportRankOrd": "47th",
+      "importRankOrd": "35th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "liberia",
+          "name": "Liberia"
+        },
+        {
+          "slug": "hungry",
+          "name": "Hungry"
+        },
+        {
+          "slug": "oman",
+          "name": "Oman"
+        },
+        {
+          "slug": "south-africa",
+          "name": "South africa"
+        }
+      ]
+    },
+    {
+      "slug": "oman",
+      "name": "Oman",
+      "bare": "Oman",
+      "nameKo": "오만",
+      "twoWayRank": 41,
+      "exportShare": 0.1,
+      "importShare": 0.5,
+      "exportRank": 66,
+      "importRank": 31,
+      "exportRankOrd": "66th",
+      "importRankOrd": "31st",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "hungry",
+          "name": "Hungry"
+        },
+        {
+          "slug": "sweden",
+          "name": "Sweden"
+        },
+        {
+          "slug": "south-africa",
+          "name": "South africa"
+        },
+        {
+          "slug": "kazakh",
+          "name": "Kazakh"
+        }
+      ]
+    },
+    {
+      "slug": "south-africa",
+      "name": "South africa",
+      "bare": "South africa",
+      "nameKo": "남아프리카 공화국",
+      "twoWayRank": 42,
+      "exportShare": 0.1,
+      "importShare": 0.4,
+      "exportRank": 57,
+      "importRank": 33,
+      "exportRankOrd": "57th",
+      "importRankOrd": "33rd",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "sweden",
+          "name": "Sweden"
+        },
+        {
+          "slug": "oman",
+          "name": "Oman"
+        },
+        {
+          "slug": "kazakh",
+          "name": "Kazakh"
+        },
+        {
+          "slug": "israel",
+          "name": "Israel"
+        }
+      ]
+    },
+    {
+      "slug": "kazakh",
+      "name": "Kazakh",
+      "bare": "Kazakh",
+      "nameKo": "카자흐스탄",
+      "twoWayRank": 43,
+      "exportShare": 0.3,
+      "importShare": 0.2,
+      "exportRank": 39,
+      "importRank": 48,
+      "exportRankOrd": "39th",
+      "importRankOrd": "48th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "oman",
+          "name": "Oman"
+        },
+        {
+          "slug": "south-africa",
+          "name": "South africa"
+        },
+        {
+          "slug": "israel",
+          "name": "Israel"
+        },
+        {
+          "slug": "denmark",
+          "name": "Denmark"
+        }
+      ]
+    },
+    {
+      "slug": "israel",
+      "name": "Israel",
+      "bare": "Israel",
+      "nameKo": "이스라엘",
+      "twoWayRank": 44,
+      "exportShare": 0.2,
+      "importShare": 0.2,
+      "exportRank": 44,
+      "importRank": 40,
+      "exportRankOrd": "44th",
+      "importRankOrd": "40th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "south-africa",
+          "name": "South africa"
+        },
+        {
+          "slug": "kazakh",
+          "name": "Kazakh"
+        },
+        {
+          "slug": "denmark",
+          "name": "Denmark"
+        },
+        {
+          "slug": "kyrgy",
+          "name": "Kyrgy"
+        }
+      ]
+    },
+    {
+      "slug": "denmark",
+      "name": "Denmark",
+      "bare": "Denmark",
+      "nameKo": "덴마크",
+      "twoWayRank": 45,
+      "exportShare": 0.2,
+      "importShare": 0.2,
+      "exportRank": 45,
+      "importRank": 41,
+      "exportRankOrd": "45th",
+      "importRankOrd": "41st",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "kazakh",
+          "name": "Kazakh"
+        },
+        {
+          "slug": "israel",
+          "name": "Israel"
+        },
+        {
+          "slug": "kyrgy",
+          "name": "Kyrgy"
+        },
+        {
+          "slug": "peru",
+          "name": "Peru"
+        }
+      ]
+    },
+    {
+      "slug": "kyrgy",
+      "name": "Kyrgy",
+      "bare": "Kyrgy",
+      "nameKo": "키르기스스탄",
+      "twoWayRank": 46,
+      "exportShare": 0.4,
+      "importShare": 0,
+      "exportRank": 34,
+      "importRank": 165,
+      "exportRankOrd": "34th",
+      "importRankOrd": "165th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "israel",
+          "name": "Israel"
+        },
+        {
+          "slug": "denmark",
+          "name": "Denmark"
+        },
+        {
+          "slug": "peru",
+          "name": "Peru"
+        },
+        {
+          "slug": "slovakia",
+          "name": "Slovakia"
+        }
+      ]
+    },
+    {
+      "slug": "peru",
+      "name": "Peru",
+      "bare": "Peru",
+      "nameKo": "페루",
+      "twoWayRank": 47,
+      "exportShare": 0.1,
+      "importShare": 0.4,
+      "exportRank": 60,
+      "importRank": 34,
+      "exportRankOrd": "60th",
+      "importRankOrd": "34th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "denmark",
+          "name": "Denmark"
+        },
+        {
+          "slug": "kyrgy",
+          "name": "Kyrgy"
+        },
+        {
+          "slug": "slovakia",
+          "name": "Slovakia"
+        },
+        {
+          "slug": "malta",
+          "name": "Malta"
+        }
+      ]
+    },
+    {
+      "slug": "slovakia",
+      "name": "Slovakia",
+      "bare": "Slovakia",
+      "nameKo": "슬로바키아",
+      "twoWayRank": 48,
+      "exportShare": 0.3,
+      "importShare": 0.1,
+      "exportRank": 37,
+      "importRank": 55,
+      "exportRankOrd": "37th",
+      "importRankOrd": "55th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "kyrgy",
+          "name": "Kyrgy"
+        },
+        {
+          "slug": "peru",
+          "name": "Peru"
+        },
+        {
+          "slug": "malta",
+          "name": "Malta"
+        },
+        {
+          "slug": "bangladesh",
+          "name": "Bangladesh"
+        }
+      ]
+    },
+    {
+      "slug": "malta",
+      "name": "Malta",
+      "bare": "Malta",
+      "nameKo": "몰타",
+      "twoWayRank": 49,
+      "exportShare": 0.3,
+      "importShare": 0,
+      "exportRank": 35,
+      "importRank": 74,
+      "exportRankOrd": "35th",
+      "importRankOrd": "74th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "peru",
+          "name": "Peru"
+        },
+        {
+          "slug": "slovakia",
+          "name": "Slovakia"
+        },
+        {
+          "slug": "bangladesh",
+          "name": "Bangladesh"
+        },
+        {
+          "slug": "norway",
+          "name": "Norway"
+        }
+      ]
+    },
+    {
+      "slug": "bangladesh",
+      "name": "Bangladesh",
+      "bare": "Bangladesh",
+      "nameKo": "방글라데시",
+      "twoWayRank": 50,
+      "exportShare": 0.3,
+      "importShare": 0.1,
+      "exportRank": 38,
+      "importRank": 61,
+      "exportRankOrd": "38th",
+      "importRankOrd": "61st",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "slovakia",
+          "name": "Slovakia"
+        },
+        {
+          "slug": "malta",
+          "name": "Malta"
+        },
+        {
+          "slug": "norway",
+          "name": "Norway"
+        },
+        {
+          "slug": "ireland",
+          "name": "Ireland"
+        }
+      ]
+    },
+    {
+      "slug": "norway",
+      "name": "Norway",
+      "bare": "Norway",
+      "nameKo": "노르웨이",
+      "twoWayRank": 51,
+      "exportShare": 0.1,
+      "importShare": 0.3,
+      "exportRank": 53,
+      "importRank": 37,
+      "exportRankOrd": "53rd",
+      "importRankOrd": "37th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "malta",
+          "name": "Malta"
+        },
+        {
+          "slug": "bangladesh",
+          "name": "Bangladesh"
+        },
+        {
+          "slug": "ireland",
+          "name": "Ireland"
+        },
+        {
+          "slug": "austria",
+          "name": "Austria"
+        }
+      ]
+    },
+    {
+      "slug": "ireland",
+      "name": "Ireland",
+      "bare": "Ireland",
+      "nameKo": "아일랜드",
+      "twoWayRank": 52,
+      "exportShare": 0.2,
+      "importShare": 0.2,
+      "exportRank": 48,
+      "importRank": 46,
+      "exportRankOrd": "48th",
+      "importRankOrd": "46th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "bangladesh",
+          "name": "Bangladesh"
+        },
+        {
+          "slug": "norway",
+          "name": "Norway"
+        },
+        {
+          "slug": "austria",
+          "name": "Austria"
+        },
+        {
+          "slug": "colombia",
+          "name": "Colombia"
+        }
+      ]
+    },
+    {
+      "slug": "austria",
+      "name": "Austria",
+      "bare": "Austria",
+      "nameKo": "오스트리아",
+      "twoWayRank": 53,
+      "exportShare": 0.1,
+      "importShare": 0.2,
+      "exportRank": 52,
+      "importRank": 42,
+      "exportRankOrd": "52nd",
+      "importRankOrd": "42nd",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "norway",
+          "name": "Norway"
+        },
+        {
+          "slug": "ireland",
+          "name": "Ireland"
+        },
+        {
+          "slug": "colombia",
+          "name": "Colombia"
+        },
+        {
+          "slug": "greece",
+          "name": "Greece"
+        }
+      ]
+    },
+    {
+      "slug": "colombia",
+      "name": "Colombia",
+      "bare": "Colombia",
+      "nameKo": "콜롬비아",
+      "twoWayRank": 54,
+      "exportShare": 0.2,
+      "importShare": 0.2,
+      "exportRank": 49,
+      "importRank": 49,
+      "exportRankOrd": "49th",
+      "importRankOrd": "49th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "ireland",
+          "name": "Ireland"
+        },
+        {
+          "slug": "austria",
+          "name": "Austria"
+        },
+        {
+          "slug": "greece",
+          "name": "Greece"
+        },
+        {
+          "slug": "bermuda",
+          "name": "Bermuda"
+        }
+      ]
+    },
+    {
+      "slug": "greece",
+      "name": "Greece",
+      "bare": "Greece",
+      "nameKo": "그리스",
+      "twoWayRank": 55,
+      "exportShare": 0.2,
+      "importShare": 0.1,
+      "exportRank": 43,
+      "importRank": 54,
+      "exportRankOrd": "43rd",
+      "importRankOrd": "54th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "austria",
+          "name": "Austria"
+        },
+        {
+          "slug": "colombia",
+          "name": "Colombia"
+        },
+        {
+          "slug": "bermuda",
+          "name": "Bermuda"
+        },
+        {
+          "slug": "democratic-republic-of-congo",
+          "name": "Democratic Republic of Congo"
+        }
+      ]
+    },
+    {
+      "slug": "bermuda",
+      "name": "Bermuda",
+      "bare": "Bermuda",
+      "nameKo": "버뮤다",
+      "twoWayRank": 56,
+      "exportShare": 0.3,
+      "importShare": 0,
+      "exportRank": 40,
+      "importRank": 229,
+      "exportRankOrd": "40th",
+      "importRankOrd": "229th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "colombia",
+          "name": "Colombia"
+        },
+        {
+          "slug": "greece",
+          "name": "Greece"
+        },
+        {
+          "slug": "democratic-republic-of-congo",
+          "name": "Democratic Republic of Congo"
+        },
+        {
+          "slug": "egypt",
+          "name": "Egypt"
+        }
+      ]
+    },
+    {
+      "slug": "democratic-republic-of-congo",
+      "name": "Democratic Republic of Congo",
+      "bare": "Democratic Republic of Congo",
+      "nameKo": "콩고 민주공화국",
+      "twoWayRank": 57,
+      "exportShare": 0,
+      "importShare": 0.3,
+      "exportRank": 143,
+      "importRank": 36,
+      "exportRankOrd": "143rd",
+      "importRankOrd": "36th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "greece",
+          "name": "Greece"
+        },
+        {
+          "slug": "bermuda",
+          "name": "Bermuda"
+        },
+        {
+          "slug": "egypt",
+          "name": "Egypt"
+        },
+        {
+          "slug": "uzbekistan",
+          "name": "Uzbekistan"
+        }
+      ]
+    },
+    {
+      "slug": "egypt",
+      "name": "Egypt",
+      "bare": "Egypt",
+      "nameKo": "이집트",
+      "twoWayRank": 58,
+      "exportShare": 0.2,
+      "importShare": 0,
+      "exportRank": 41,
+      "importRank": 80,
+      "exportRankOrd": "41st",
+      "importRankOrd": "80th",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "bermuda",
+          "name": "Bermuda"
+        },
+        {
+          "slug": "democratic-republic-of-congo",
+          "name": "Democratic Republic of Congo"
+        },
+        {
+          "slug": "uzbekistan",
+          "name": "Uzbekistan"
+        },
+        {
+          "slug": "papua-new-guinea",
+          "name": "Papua new guinea"
+        }
+      ]
+    },
+    {
+      "slug": "uzbekistan",
+      "name": "Uzbekistan",
+      "bare": "Uzbekistan",
+      "nameKo": "우즈베키스탄",
+      "twoWayRank": 59,
+      "exportShare": 0.2,
+      "importShare": 0,
+      "exportRank": 42,
+      "importRank": 121,
+      "exportRankOrd": "42nd",
+      "importRankOrd": "121st",
+      "direction": "surplus",
+      "related": [
+        {
+          "slug": "democratic-republic-of-congo",
+          "name": "Democratic Republic of Congo"
+        },
+        {
+          "slug": "egypt",
+          "name": "Egypt"
+        },
+        {
+          "slug": "papua-new-guinea",
+          "name": "Papua new guinea"
+        }
+      ]
+    },
+    {
+      "slug": "papua-new-guinea",
+      "name": "Papua new guinea",
+      "bare": "Papua new guinea",
+      "nameKo": "파푸아 뉴기니",
+      "twoWayRank": 60,
+      "exportShare": 0,
+      "importShare": 0.2,
+      "exportRank": 86,
+      "importRank": 45,
+      "exportRankOrd": "86th",
+      "importRankOrd": "45th",
+      "direction": "deficit",
+      "related": [
+        {
+          "slug": "egypt",
+          "name": "Egypt"
+        },
+        {
+          "slug": "uzbekistan",
+          "name": "Uzbekistan"
+        }
+      ]
+    }
+  ]
+}

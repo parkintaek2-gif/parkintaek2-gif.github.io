@@ -1,0 +1,75 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { SITE, SITE_URL } from '../../consts';
+import profilesData from '../../data/country-trade-profiles.json';
+
+const profiles = profilesData.profiles;
+const surpluses = profiles.filter((p) => p.direction === 'surplus');
+const deficits = profiles.filter((p) => p.direction === 'deficit');
+
+const title = "Korea's trade partners: who it sells to and buys from";
+const description = `Korea's ${profiles.length} biggest trading partners, each as a page: export and import share, rank, and whether Korea runs a surplus or a deficit. Shares and ranks from Korea Customs data.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: title,
+  description,
+  url: `${SITE_URL}/trade`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+};
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <div class="page-head">
+      <p class="kicker">Korea &middot; Trade</p>
+      <h1>Korea&rsquo;s trading partners</h1>
+      <p>
+        Korea&rsquo;s {profiles.length} biggest trading partners &mdash; together {profilesData.coverage}% of all its trade &mdash;
+        each with its own page: how big a share of Korea&rsquo;s exports and imports it takes, its rank, and whether
+        Korea runs a <strong>surplus</strong> or a <strong>deficit</strong> with it. We report shares and ranks, not dollar
+        totals, because the <a href="/article/korea-2026-trade-surplus-data-artifact">underlying data has a scale break</a>.
+      </p>
+    </div>
+
+    <section class="grp">
+      <h2>Partners Korea runs a surplus with ({surpluses.length})</h2>
+      <ul class="grid">
+        {surpluses.map((p) => (
+          <li><a href={`/trade/${p.slug}`}>{p.name.replace(/^the /, '')}</a> <span class="sh">{p.exportShare}% of exports</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="grp">
+      <h2>Partners Korea runs a deficit with ({deficits.length})</h2>
+      <ul class="grid">
+        {deficits.map((p) => (
+          <li><a href={`/trade/${p.slug}`}>{p.name.replace(/^the /, '')}</a> <span class="sh">{p.importShare}% of imports</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <div class="cta">
+      <p>
+        All of this is drawn from one dataset — Korea Customs Service trade by partner country. License the
+        <a href="/data/korea-trade-dataset">structured dataset</a>, or take the <a href="/data/korea-trade-balance.csv">free CSV</a>.
+      </p>
+    </div>
+
+    <a class="backlink" href="/">&larr; Home</a>
+  </div>
+
+  <style>
+    .grp { margin: 2rem 0; }
+    ul.grid { list-style: none; padding: 0; columns: 2; column-gap: 2rem; }
+    ul.grid li { margin: .4rem 0; break-inside: avoid; }
+    ul.grid .sh { color: #889; font-size: .82rem; }
+    .cta { background: #f2f5f8; padding: 1.1rem 1.3rem; border-radius: 8px; margin: 1.5rem 0; }
+    @media (max-width: 640px) { ul.grid { columns: 1; } }
+  </style>
+</Base>

@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { SITE_URL, CATEGORIES } from '../consts';
 import { publishedArticles } from '../lib/articles';
 import { getPagedTags } from '../lib/tags';
+import countryProfiles from '../data/country-trade-profiles.json';
 
 type Video = { title: string; description: string; thumbnail: string; content: string };
 type Image = { loc: string; title: string };
@@ -95,6 +96,14 @@ export const GET: APIRoute = async ({ params }) => {
         lastmod: t.articles[0]?.data.pubDate,
         changefreq: 'weekly',
         priority: '0.6',
+      })),
+      // 나라별 무역 프로필 — 「korea trade with X」 롱테일 대량(2026-08-27 사장님 지시: 관세청 캐시카우·방문 지렛대).
+      { loc: '/trade', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
+      ...countryProfiles.profiles.map((p: { slug: string }) => ({
+        loc: `/trade/${p.slug}`,
+        lastmod: countryProfiles.asOf ? new Date(countryProfiles.asOf) : newest,
+        changefreq: 'weekly',
+        priority: '0.7',
       })),
     ];
   } else {
