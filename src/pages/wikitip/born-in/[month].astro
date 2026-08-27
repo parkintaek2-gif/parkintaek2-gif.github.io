@@ -53,6 +53,16 @@ const 날들 = (data.days ?? []).filter((d: any) => String(d.day).slice(0, 2) ==
 const 사람 = 날들.reduce((s: number, d: any) => s + (d.people ?? 0), 0);
 const 실린 = 날들.reduce((s: number, d: any) => s + (d.listed ?? 0), 0);
 
+/* 🔴 [2026-08-27 15:5x · 5번] **이 지면도 「kpop」으로 찾으면 6페이지에 있었다.**
+   GSC 28일 실측 — 「kpop birthdays in january」 순위 63 · 「kpop idols march birthdays」 56 ·
+   「kpop idols born in november 20」 54. 그런데 「korean actors born in september」 는 **12위**다.
+   지면에 「K-pop」이라는 낱말이 한 번도 없었기 때문이다.
+   ⛔ 지어내지 않았다 — 위키데이터 P463(소속 음악 그룹)을 9,249명치 캐서 센 수다
+     (`scripts/fetch-kcw-entertainer-roles.mjs`). 날 지면이 세어 둔 것을 여기서 합칠 뿐이다.
+   ⚠ 「K-pop 그룹 소속」이라고만 적는다. **「아이돌」이라 부르지 않는다** — 위키데이터에
+     아이돌로 적힌 사람이 «0명»이라, 우리가 그렇게 부르면 그건 우리 «판정»이 된다. */
+const 케이팝 = 날들.reduce((s: number, d: any) => s + (d.kpop ?? 0), 0);
+
 /** 가장 많은 날·가장 적은 날. ⛔ 「좋은 날」이라고 부르지 않는다 — 그냥 많고 적음이다 */
 const 순 = [...날들].sort((a: any, b: any) => b.people - a.people);
 const 가장많은날 = 순[0] ?? null;
@@ -67,23 +77,46 @@ const 날글 = (day: string) => {
   return `${d} ${이달}`;
 };
 
-const TITLE = `Korean actors born in ${이달} — ${사람.toLocaleString('en-US')} of them, day by day`;
-const DESC = `${사람.toLocaleString('en-US')} Korean actors, singers and other entertainers have a `
-  + `birthday in ${이달}, spread over ${날들.length} days. ${실린.toLocaleString('en-US')} are named here. `
-  + `Counted from Wikidata birth dates, not from a horoscope.`;
+/* ⚠ 열두 달을 다 재서 가장 긴 것이 56자다(9월). 60자 한계 안이다.
+   ⛔ 케이팝이 0이면 예전 제목으로 떨어진다 — 자료 파일이 낡으면 kpop 칸이 없을 수 있고,
+     그때 「0 in K-pop groups」라고 적으면 «못 잰 것»을 «없다»로 내는 것이 된다. */
+const TITLE = 케이팝 > 0
+  ? `${사람.toLocaleString('en-US')} Korean stars born in ${이달} — ${케이팝.toLocaleString('en-US')} in K-pop groups`
+  : `Korean actors born in ${이달} — ${사람.toLocaleString('en-US')} of them, day by day`;
+/* 🔴 [2026-08-27] 앞 판은 209자여서 구글이 잘라 냈다(155자쯤에서 자른다).
+   잘린 자리에 「이름이 실려 있다」는 **누를 까닭**이 있었다.
+   ⛔ 뺀 것(「spread over N days」·「entertainers」)은 본문 lead 에 그대로 있다. 재고 뺐다.
+   ⚠ 열두 달을 다 재서 가장 긴 것이 135자다(9월). */
+const DESC = `${사람.toLocaleString('en-US')} Korean stars have a birthday in ${이달}`
+  + `${케이팝 > 0 ? ` — ${케이팝.toLocaleString('en-US')} of them in K-pop groups` : ''}. `
+  + `${실린.toLocaleString('en-US')} are named, day by day. From Wikidata, not a horoscope.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
   canonical={`https://www.kculturewire.com/born-in/${이달.toLowerCase()}`}>
-  <h1>Korean actors born in {이달}</h1>
+  <h1>Korean stars born in {이달}</h1>
 
-  {/* ⭐ 답을 맨 앞에. 손님이 물은 것은 「몇 명이냐」와 「누구냐」다 */}
+  {/* ⭐ 답을 맨 앞에. 손님이 물은 것은 「몇 명이냐」와 「누구냐」다.
+      🔴 [2026-08-27] K-pop 수를 여기에도 적는다 — 제목이 말한 것을 본문이 받아야 한다.
+      ⛔ 「아이돌」이라 쓰지 않는다. 우리가 잰 것은 «음악 그룹에 속해 있나»(위키데이터 P463)
+         하나뿐이고, 그 이상은 우리 판정이 된다. 무엇을 셌는지 그대로 적는다. */}
   <p class="lead">
     <b>{사람.toLocaleString('en-US')}</b> Korean actors, singers and other entertainers have a
     birthday in {이달}, spread over <b>{날들.length}</b> days.
+    {케이팝 > 0 && <> <b>{케이팝.toLocaleString('en-US')}</b> of them are listed as members of a
+      K-pop group.</>}
     {' '}<b>{실린.toLocaleString('en-US')}</b> of them are named on the day pages below.
     Across the whole year we hold {data.peopleTotal?.toLocaleString('en-US')} people.
   </p>
+
+  {케이팝 > 0 && (
+    <p class="note">
+      <b>What “in a K-pop group” counts.</b> Wikidata records which music group a person belongs to.
+      We counted that field and nothing else — we did not decide who is an idol, and no one on
+      Wikidata is filed under that word. Someone who sings alone is not counted here even if you
+      would call them K-pop, and a rock band counts the same as a boy group.
+    </p>
+  )}
 
   <p class="note">
     <b>This is a count of birth dates, not a horoscope.</b> Sharing a birth month means exactly

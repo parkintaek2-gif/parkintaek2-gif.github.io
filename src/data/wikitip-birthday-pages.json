@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-27T05:41:11.485Z",
+ "generated": "2026-08-27T06:29:14.413Z",
  "whatThisIs": "One page per calendar day: the Korean actors and singers born on it, ordered by how many people opened their English Wikipedia article in the last 30 days.",
  "whatThisIsNot": "A horoscope, and not search volume. Sharing a birthday means sharing a birthday.",
  "pages": 366,
@@ -11,6 +11,7 @@
    "url": "/born-on/01-01",
    "people": 48,
    "listed": 36,
+   "kpop": 5,
    "top": [
     "Yeon Sang-ho",
     "Winter",
@@ -22,6 +23,7 @@
    "url": "/born-on/01-02",
    "people": 27,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Yoon Se-ah",
     "Kim Ji-hyun",
@@ -33,6 +35,7 @@
    "url": "/born-on/01-03",
    "people": 35,
    "listed": 31,
+   "kpop": 7,
    "top": [
     "Jisoo",
     "Goo Hara",
@@ -44,6 +47,7 @@
    "url": "/born-on/01-04",
    "people": 26,
    "listed": 17,
+   "kpop": 5,
    "top": [
     "Kang Hye-jung",
     "Yoo Hai-jin",
@@ -55,6 +59,7 @@
    "url": "/born-on/01-05",
    "people": 36,
    "listed": 27,
+   "kpop": 6,
    "top": [
     "Jang Seo-hui",
     "Yoo In-young",
@@ -66,6 +71,7 @@
    "url": "/born-on/01-06",
    "people": 34,
    "listed": 27,
+   "kpop": 7,
    "top": [
     "JAY B",
     "Kim Young-ok",
@@ -77,6 +83,7 @@
    "url": "/born-on/01-07",
    "people": 30,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Lee Sun-bin",
     "Lim Ju-eun",
@@ -88,6 +95,7 @@
    "url": "/born-on/01-08",
    "people": 26,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Shin Ji-min",
     "Kim Ga-eun",
@@ -99,6 +107,7 @@
    "url": "/born-on/01-09",
    "people": 28,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Yang Hyun-suk",
     "Nam Ji-hyun",
@@ -110,6 +119,7 @@
    "url": "/born-on/01-10",
    "people": 32,
    "listed": 26,
+   "kpop": 12,
    "top": [
     "Heo Sol-ji",
     "Brian Joo",
@@ -121,6 +131,7 @@
    "url": "/born-on/01-11",
    "people": 28,
    "listed": 19,
+   "kpop": 8,
    "top": [
     "Son Ye-jin",
     "Kim Young-kwang",
@@ -132,6 +143,7 @@
    "url": "/born-on/01-12",
    "people": 37,
    "listed": 28,
+   "kpop": 10,
    "top": [
     "Lee Bo-young",
     "Doh Kyung-soo",
@@ -143,6 +155,7 @@
    "url": "/born-on/01-13",
    "people": 26,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Lee Seung-gi",
     "Kim Gun-mo",
@@ -154,6 +167,7 @@
    "url": "/born-on/01-14",
    "people": 23,
    "listed": 21,
+   "kpop": 6,
    "top": [
     "Kai",
     "Kim Hye-seong",
@@ -165,6 +179,7 @@
    "url": "/born-on/01-15",
    "people": 37,
    "listed": 25,
+   "kpop": 8,
    "top": [
     "Jun. K",
     "Clara Lee",
@@ -176,6 +191,7 @@
    "url": "/born-on/01-16",
    "people": 26,
    "listed": 20,
+   "kpop": 7,
    "top": [
     "Jennie",
     "Lee Min-ki",
@@ -187,6 +203,7 @@
    "url": "/born-on/01-17",
    "people": 32,
    "listed": 21,
+   "kpop": 8,
    "top": [
     "Song Kang-ho",
     "Kangin",
@@ -198,6 +215,7 @@
    "url": "/born-on/01-18",
    "people": 30,
    "listed": 22,
+   "kpop": 5,
    "top": [
     "Gang Dong-won",
     "Shin Ye-eun",
@@ -209,6 +227,7 @@
    "url": "/born-on/01-19",
    "people": 29,
    "listed": 22,
+   "kpop": 3,
    "top": [
     "Hwang In-yeop",
     "Park Won-sook",
@@ -220,6 +239,7 @@
    "url": "/born-on/01-20",
    "people": 32,
    "listed": 23,
+   "kpop": 6,
    "top": [
     "Choo Ja-hyun",
     "Kim So-hee",
@@ -231,6 +251,7 @@
    "url": "/born-on/01-21",
    "people": 24,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Jung Ryeo-won",
     "Kang Seung-yoon",
@@ -242,6 +263,7 @@
    "url": "/born-on/01-22",
    "people": 22,
    "listed": 19,
+   "kpop": 7,
    "top": [
     "Jun",
     "Myung-whun Chung",
@@ -253,6 +275,7 @@
    "url": "/born-on/01-23",
    "people": 23,
    "listed": 17,
+   "kpop": 10,
    "top": [
     "Lee Jung-eun",
     "Lee Hwa-kyum",
@@ -264,6 +287,7 @@
    "url": "/born-on/01-24",
    "people": 27,
    "listed": 22,
+   "kpop": 6,
    "top": [
     "Kim Min-seok",
     "Yoo Young-jae",
@@ -275,6 +299,7 @@
    "url": "/born-on/01-25",
    "people": 26,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Roh Yoon-seo",
     "Lee Jun-ho",
@@ -286,6 +311,7 @@
    "url": "/born-on/01-26",
    "people": 32,
    "listed": 23,
+   "kpop": 7,
    "top": [
     "Jin Ki-joo",
     "Moonbin",
@@ -297,6 +323,7 @@
    "url": "/born-on/01-27",
    "people": 29,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Im Ho",
     "Kino",
@@ -308,6 +335,7 @@
    "url": "/born-on/01-28",
    "people": 18,
    "listed": 14,
+   "kpop": 1,
    "top": [
     "Lee Yu-ri",
     "Yoo Seon-ho",
@@ -319,6 +347,7 @@
    "url": "/born-on/01-29",
    "people": 22,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Lee Dae-hwi",
     "Jo Min-su",
@@ -330,6 +359,7 @@
    "url": "/born-on/01-30",
    "people": 33,
    "listed": 22,
+   "kpop": 6,
    "top": [
     "Choi Hyun-wook",
     "Kang Han-na",
@@ -341,6 +371,7 @@
    "url": "/born-on/01-31",
    "people": 19,
    "listed": 13,
+   "kpop": 6,
    "top": [
     "Cho Mi-yeon",
     "Lee Young-ae",
@@ -352,6 +383,7 @@
    "url": "/born-on/02-01",
    "people": 26,
    "listed": 19,
+   "kpop": 3,
    "top": [
     "Park Ji-hyo",
     "Ye Ji-won",
@@ -363,6 +395,7 @@
    "url": "/born-on/02-02",
    "people": 25,
    "listed": 18,
+   "kpop": 6,
    "top": [
     "Han Ga-in",
     "Hong Jong-hyeon",
@@ -374,6 +407,7 @@
    "url": "/born-on/02-03",
    "people": 26,
    "listed": 22,
+   "kpop": 7,
    "top": [
     "Cho Kyuhyun",
     "Kim Jun",
@@ -385,6 +419,7 @@
    "url": "/born-on/02-04",
    "people": 25,
    "listed": 17,
+   "kpop": 1,
    "top": [
     "Bae Nu-ri",
     "Choi Ah-jin",
@@ -396,6 +431,7 @@
    "url": "/born-on/02-05",
    "people": 31,
    "listed": 24,
+   "kpop": 8,
    "top": [
     "Kim Min-ju",
     "Min Hyo-rin",
@@ -407,6 +443,7 @@
    "url": "/born-on/02-06",
    "people": 25,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Yunho",
     "Luda",
@@ -418,6 +455,7 @@
    "url": "/born-on/02-07",
    "people": 24,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Son Seok-koo",
     "Lee Joon",
@@ -429,6 +467,7 @@
    "url": "/born-on/02-08",
    "people": 30,
    "listed": 24,
+   "kpop": 6,
    "top": [
     "I.N",
     "Baek Jin-hee",
@@ -440,6 +479,7 @@
    "url": "/born-on/02-09",
    "people": 25,
    "listed": 21,
+   "kpop": 8,
    "top": [
     "Chungha",
     "Choi Jin-hyuk",
@@ -451,6 +491,7 @@
    "url": "/born-on/02-10",
    "people": 34,
    "listed": 24,
+   "kpop": 9,
    "top": [
     "Son Na-eun",
     "Cho Yeo-jeong",
@@ -462,6 +503,7 @@
    "url": "/born-on/02-11",
    "people": 41,
    "listed": 32,
+   "kpop": 10,
    "top": [
     "ROSÉ",
     "Go Ara",
@@ -473,6 +515,7 @@
    "url": "/born-on/02-12",
    "people": 33,
    "listed": 24,
+   "kpop": 7,
    "top": [
     "Park Bo-young",
     "Soyou",
@@ -484,6 +527,7 @@
    "url": "/born-on/02-13",
    "people": 31,
    "listed": 22,
+   "kpop": 5,
    "top": [
     "Park Hee-soon",
     "Lee Sang-woo",
@@ -495,6 +539,7 @@
    "url": "/born-on/02-14",
    "people": 27,
    "listed": 19,
+   "kpop": 7,
    "top": [
     "Lee Hae-ri",
     "Sung Hoon",
@@ -506,6 +551,7 @@
    "url": "/born-on/02-15",
    "people": 37,
    "listed": 29,
+   "kpop": 8,
    "top": [
     "Yiruma",
     "Jin Se-yeon",
@@ -517,6 +563,7 @@
    "url": "/born-on/02-16",
    "people": 32,
    "listed": 24,
+   "kpop": 4,
    "top": [
     "Kim Soo-hyun",
     "Lee Min-jung",
@@ -528,6 +575,7 @@
    "url": "/born-on/02-17",
    "people": 19,
    "listed": 15,
+   "kpop": 2,
    "top": [
     "Harisu",
     "Hong Eun-hui",
@@ -539,6 +587,7 @@
    "url": "/born-on/02-18",
    "people": 24,
    "listed": 23,
+   "kpop": 7,
    "top": [
     "J-Hope",
     "Park Shin-hye",
@@ -550,6 +599,7 @@
    "url": "/born-on/02-19",
    "people": 37,
    "listed": 26,
+   "kpop": 5,
    "top": [
     "Lee Hyori",
     "Lee Elijah",
@@ -561,6 +611,7 @@
    "url": "/born-on/02-20",
    "people": 30,
    "listed": 23,
+   "kpop": 7,
    "top": [
     "Kim Seong-hun",
     "Chang Ki-ha",
@@ -572,6 +623,7 @@
    "url": "/born-on/02-21",
    "people": 35,
    "listed": 30,
+   "kpop": 14,
    "top": [
     "Kang Ha-neul",
     "Jung Joon-young",
@@ -583,6 +635,7 @@
    "url": "/born-on/02-22",
    "people": 35,
    "listed": 27,
+   "kpop": 7,
    "top": [
     "Nam Joo-hyuk",
     "Han Hyo-joo",
@@ -594,6 +647,7 @@
    "url": "/born-on/02-23",
    "people": 29,
    "listed": 21,
+   "kpop": 9,
    "top": [
     "Jeong Yu-mi",
     "Jung Ga-ram",
@@ -605,6 +659,7 @@
    "url": "/born-on/02-24",
    "people": 29,
    "listed": 22,
+   "kpop": 6,
    "top": [
     "Gary",
     "Park Jung-ah",
@@ -616,6 +671,7 @@
    "url": "/born-on/02-25",
    "people": 30,
    "listed": 24,
+   "kpop": 8,
    "top": [
     "Kan Mi-youn",
     "Rocky",
@@ -627,6 +683,7 @@
    "url": "/born-on/02-26",
    "people": 23,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Oh Jung-se",
     "CL",
@@ -638,6 +695,7 @@
    "url": "/born-on/02-27",
    "people": 40,
    "listed": 30,
+   "kpop": 9,
    "top": [
     "Ji Seong",
     "Seo Hyun-jin",
@@ -649,6 +707,7 @@
    "url": "/born-on/02-28",
    "people": 48,
    "listed": 35,
+   "kpop": 9,
    "top": [
     "Bada",
     "Kang Ae-sim",
@@ -660,6 +719,7 @@
    "url": "/born-on/02-29",
    "people": 12,
    "listed": 8,
+   "kpop": 1,
    "top": [
     "Joel Kim Booster",
     "Bizzy",
@@ -671,6 +731,7 @@
    "url": "/born-on/03-01",
    "people": 28,
    "listed": 22,
+   "kpop": 4,
    "top": [
     "Ma Dong-seok",
     "Kim Min-hee",
@@ -682,6 +743,7 @@
    "url": "/born-on/03-02",
    "people": 34,
    "listed": 23,
+   "kpop": 6,
    "top": [
     "Lee Sun-kyun",
     "Go Hyeon-jeong",
@@ -693,6 +755,7 @@
    "url": "/born-on/03-03",
    "people": 38,
    "listed": 32,
+   "kpop": 9,
    "top": [
     "Park Cho-rong",
     "Sung Yu-ri",
@@ -704,6 +767,7 @@
    "url": "/born-on/03-04",
    "people": 20,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Park Min-young",
     "Jeong Da-bin",
@@ -715,6 +779,7 @@
    "url": "/born-on/03-05",
    "people": 32,
    "listed": 27,
+   "kpop": 6,
    "top": [
     "Yeri",
     "Ha Seok-jin",
@@ -726,6 +791,7 @@
    "url": "/born-on/03-06",
    "people": 25,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Park Cho-a",
     "Ra Mi-ran",
@@ -737,6 +803,7 @@
    "url": "/born-on/03-07",
    "people": 21,
    "listed": 14,
+   "kpop": 5,
    "top": [
     "Jang Dong-geon",
     "Choi Jong-hoon",
@@ -748,6 +815,7 @@
    "url": "/born-on/03-08",
    "people": 20,
    "listed": 14,
+   "kpop": 6,
    "top": [
     "Kim Do-wan",
     "Yoon Ji-sung",
@@ -759,6 +827,7 @@
    "url": "/born-on/03-09",
    "people": 26,
    "listed": 23,
+   "kpop": 12,
    "top": [
     "Suga",
     "Jeon Somi",
@@ -770,6 +839,7 @@
    "url": "/born-on/03-10",
    "people": 36,
    "listed": 26,
+   "kpop": 8,
    "top": [
     "Han Go-eun",
     "Peniel Shin",
@@ -781,6 +851,7 @@
    "url": "/born-on/03-11",
    "people": 21,
    "listed": 18,
+   "kpop": 7,
    "top": [
     "Ha Jung-woo",
     "Baek A-yeon",
@@ -792,6 +863,7 @@
    "url": "/born-on/03-12",
    "people": 27,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Namkoong Min",
     "Lee Re",
@@ -803,6 +875,7 @@
    "url": "/born-on/03-13",
    "people": 23,
    "listed": 19,
+   "kpop": 9,
    "top": [
     "Lee Joon-hyuk",
     "Kim Nam-gil",
@@ -814,6 +887,7 @@
    "url": "/born-on/03-14",
    "people": 28,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Park Ji-bin",
     "Moon Hee-joon",
@@ -825,6 +899,7 @@
    "url": "/born-on/03-15",
    "people": 36,
    "listed": 30,
+   "kpop": 7,
    "top": [
     "Lee Da-hee",
     "Kang Ye-won",
@@ -836,6 +911,7 @@
    "url": "/born-on/03-16",
    "people": 32,
    "listed": 28,
+   "kpop": 5,
    "top": [
     "Jung So-min",
     "Kim Mi-soo",
@@ -847,6 +923,7 @@
    "url": "/born-on/03-17",
    "people": 29,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Shin Bora",
     "Yangpa",
@@ -858,6 +935,7 @@
    "url": "/born-on/03-18",
    "people": 20,
    "listed": 13,
+   "kpop": 4,
    "top": [
     "Jang Na-ra",
     "Jeong Jun-ha",
@@ -869,6 +947,7 @@
    "url": "/born-on/03-19",
    "people": 34,
    "listed": 20,
+   "kpop": 10,
    "top": [
     "Kwak Dong-yeon",
     "Kim Rae-won",
@@ -880,6 +959,7 @@
    "url": "/born-on/03-20",
    "people": 41,
    "listed": 33,
+   "kpop": 14,
    "top": [
     "Hyunjin",
     "Kang Ji-hwan",
@@ -891,6 +971,7 @@
    "url": "/born-on/03-21",
    "people": 30,
    "listed": 21,
+   "kpop": 8,
    "top": [
     "Lee Jin",
     "Shin Seung Hun",
@@ -902,6 +983,7 @@
    "url": "/born-on/03-22",
    "people": 23,
    "listed": 17,
+   "kpop": 3,
    "top": [
     "Jeon Bo-ram",
     "Ha Sung-woon",
@@ -913,6 +995,7 @@
    "url": "/born-on/03-23",
    "people": 31,
    "listed": 23,
+   "kpop": 3,
    "top": [
     "Lee Hyun-woo",
     "Um Ki-joon",
@@ -924,6 +1007,7 @@
    "url": "/born-on/03-24",
    "people": 18,
    "listed": 13,
+   "kpop": 4,
    "top": [
     "Park Jeong-min",
     "Park Bom",
@@ -935,6 +1019,7 @@
    "url": "/born-on/03-25",
    "people": 21,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Cha Tae-hyun",
     "Baek Ji-young",
@@ -946,6 +1031,7 @@
    "url": "/born-on/03-26",
    "people": 26,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Choi Woo-shik",
     "Xiumin",
@@ -957,6 +1043,7 @@
    "url": "/born-on/03-27",
    "people": 28,
    "listed": 22,
+   "kpop": 5,
    "top": [
     "Choi Min-soo",
     "Jin Kyeong",
@@ -968,6 +1055,7 @@
    "url": "/born-on/03-28",
    "people": 33,
    "listed": 24,
+   "kpop": 4,
    "top": [
     "Cho Seung-woo",
     "Hoya",
@@ -979,6 +1067,7 @@
    "url": "/born-on/03-29",
    "people": 33,
    "listed": 25,
+   "kpop": 8,
    "top": [
     "Kim Tae-hee",
     "Sulli",
@@ -990,6 +1079,7 @@
    "url": "/born-on/03-30",
    "people": 23,
    "listed": 19,
+   "kpop": 7,
    "top": [
     "Cha Eun-woo",
     "Ji Soo",
@@ -1001,6 +1091,7 @@
    "url": "/born-on/03-31",
    "people": 22,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Bang Yong-guk",
     "Koo Jun-hoe",
@@ -1012,6 +1103,7 @@
    "url": "/born-on/04-01",
    "people": 24,
    "listed": 18,
+   "kpop": 2,
    "top": [
     "Jung Hae-in",
     "Park Ye-jin",
@@ -1023,6 +1115,7 @@
    "url": "/born-on/04-02",
    "people": 25,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Kim Jae-wook",
     "Shin Jae-ha",
@@ -1034,6 +1127,7 @@
    "url": "/born-on/04-03",
    "people": 25,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Park Jung-min",
     "Park Seong-hwa",
@@ -1045,6 +1139,7 @@
    "url": "/born-on/04-04",
    "people": 27,
    "listed": 21,
+   "kpop": 6,
    "top": [
     "Gong Hyo-jin",
     "Eunhyuk",
@@ -1056,6 +1151,7 @@
    "url": "/born-on/04-05",
    "people": 30,
    "listed": 25,
+   "kpop": 4,
    "top": [
     "Shin Min-a",
     "Kim Jung-hyun",
@@ -1067,6 +1163,7 @@
    "url": "/born-on/04-06",
    "people": 34,
    "listed": 28,
+   "kpop": 10,
    "top": [
     "Seo Yea-ji",
     "Kim Min-gyu",
@@ -1078,6 +1175,7 @@
    "url": "/born-on/04-07",
    "people": 25,
    "listed": 15,
+   "kpop": 5,
    "top": [
     "Choi Siwon",
     "Jeon So-min",
@@ -1089,6 +1187,7 @@
    "url": "/born-on/04-08",
    "people": 17,
    "listed": 13,
+   "kpop": 5,
    "top": [
     "Kim Jong-hyun",
     "Kim Woo-jin",
@@ -1100,6 +1199,7 @@
    "url": "/born-on/04-09",
    "people": 23,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Kim Da-mi",
     "Lee Yo-won",
@@ -1111,6 +1211,7 @@
    "url": "/born-on/04-10",
    "people": 33,
    "listed": 23,
+   "kpop": 4,
    "top": [
     "Shin Hyun-been",
     "Kim Sun-young",
@@ -1122,6 +1223,7 @@
    "url": "/born-on/04-11",
    "people": 26,
    "listed": 23,
+   "kpop": 4,
    "top": [
     "Karina",
     "Danielle Marsh",
@@ -1133,6 +1235,7 @@
    "url": "/born-on/04-12",
    "people": 17,
    "listed": 16,
+   "kpop": 7,
    "top": [
     "Oh Se-hun",
     "Lee Soo-young",
@@ -1144,6 +1247,7 @@
    "url": "/born-on/04-13",
    "people": 20,
    "listed": 16,
+   "kpop": 6,
    "top": [
     "Yu Ji-tae",
     "Nancy",
@@ -1155,6 +1259,7 @@
    "url": "/born-on/04-14",
    "people": 21,
    "listed": 17,
+   "kpop": 3,
    "top": [
     "Oh Ji-ho",
     "Moon Sang-min",
@@ -1166,6 +1271,7 @@
    "url": "/born-on/04-15",
    "people": 29,
    "listed": 26,
+   "kpop": 4,
    "top": [
     "Kim Nam-joo",
     "Wang Bit-na",
@@ -1177,6 +1283,7 @@
    "url": "/born-on/04-16",
    "people": 22,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Lee So-yeon",
     "Kim Hee-jung",
@@ -1188,6 +1295,7 @@
    "url": "/born-on/04-17",
    "people": 36,
    "listed": 25,
+   "kpop": 9,
    "top": [
     "Lee Joon-gi",
     "Shin Ryu-jin",
@@ -1199,6 +1307,7 @@
    "url": "/born-on/04-18",
    "people": 27,
    "listed": 21,
+   "kpop": 1,
    "top": [
     "Jessica Jung",
     "Jo Hye-joo",
@@ -1210,6 +1319,7 @@
    "url": "/born-on/04-19",
    "people": 23,
    "listed": 19,
+   "kpop": 7,
    "top": [
     "Lee Da-hae",
     "Im Soo-hyang",
@@ -1221,6 +1331,7 @@
    "url": "/born-on/04-20",
    "people": 20,
    "listed": 14,
+   "kpop": 5,
    "top": [
     "Chun Woo-hee",
     "Choi Min-yong",
@@ -1232,6 +1343,7 @@
    "url": "/born-on/04-21",
    "people": 24,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Kim Young-ae",
     "Choi Hyun-suk",
@@ -1243,6 +1355,7 @@
    "url": "/born-on/04-22",
    "people": 28,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Go Youn-jung",
     "Jung Woo-sung",
@@ -1254,6 +1367,7 @@
    "url": "/born-on/04-23",
    "people": 29,
    "listed": 23,
+   "kpop": 6,
    "top": [
     "Song Kang",
     "Son Chaeyoung",
@@ -1265,6 +1379,7 @@
    "url": "/born-on/04-24",
    "people": 26,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Kim Tae-ri",
     "Kim Hyun-joo",
@@ -1276,6 +1391,7 @@
    "url": "/born-on/04-25",
    "people": 19,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Jay Park",
     "Kim Jong-kook",
@@ -1287,6 +1403,7 @@
    "url": "/born-on/04-26",
    "people": 22,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Daesung",
     "Nam Gyu-ri",
@@ -1298,6 +1415,7 @@
    "url": "/born-on/04-27",
    "people": 18,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Choi Min-sik",
     "Sung Dong-il",
@@ -1309,6 +1427,7 @@
    "url": "/born-on/04-28",
    "people": 22,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Jenna Ushkowitz",
     "Kim Sung-kyu",
@@ -1320,6 +1439,7 @@
    "url": "/born-on/04-29",
    "people": 23,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Younha",
     "Jung Hye-sung",
@@ -1331,6 +1451,7 @@
    "url": "/born-on/04-30",
    "people": 26,
    "listed": 18,
+   "kpop": 6,
    "top": [
     "Jang Wooyoung",
     "Chae Seo-jin",
@@ -1342,6 +1463,7 @@
    "url": "/born-on/05-01",
    "people": 32,
    "listed": 19,
+   "kpop": 6,
    "top": [
     "Hani",
     "Park Hae-jin",
@@ -1353,6 +1475,7 @@
    "url": "/born-on/05-02",
    "people": 33,
    "listed": 29,
+   "kpop": 5,
    "top": [
     "Yook Sung-jae",
     "Jung Jin-woon",
@@ -1364,6 +1487,7 @@
    "url": "/born-on/05-03",
    "people": 34,
    "listed": 28,
+   "kpop": 8,
    "top": [
     "Pom Klementieff",
     "Nam Sang-mi",
@@ -1375,6 +1499,7 @@
    "url": "/born-on/05-04",
    "people": 22,
    "listed": 18,
+   "kpop": 8,
    "top": [
     "Lee Su-hyun",
     "Jeong So-yeon",
@@ -1386,6 +1511,7 @@
    "url": "/born-on/05-05",
    "people": 24,
    "listed": 18,
+   "kpop": 6,
    "top": [
     "Song Jieun",
     "Choi Kang-hee",
@@ -1397,6 +1523,7 @@
    "url": "/born-on/05-06",
    "people": 35,
    "listed": 27,
+   "kpop": 9,
    "top": [
     "Ahn Eun-jin",
     "Byun Baek-hyun",
@@ -1408,6 +1535,7 @@
    "url": "/born-on/05-07",
    "people": 23,
    "listed": 15,
+   "kpop": 7,
    "top": [
     "Raina",
     "Yoon So-hee",
@@ -1419,6 +1547,7 @@
    "url": "/born-on/05-08",
    "people": 18,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Kim Hye-jun",
     "Kim Seon-ho",
@@ -1430,6 +1559,7 @@
    "url": "/born-on/05-09",
    "people": 29,
    "listed": 23,
+   "kpop": 1,
    "top": [
     "Kim Ji-hun",
     "Jo Hyun-jae",
@@ -1441,6 +1571,7 @@
    "url": "/born-on/05-10",
    "people": 27,
    "listed": 19,
+   "kpop": 6,
    "top": [
     "Lee Jae-wook",
     "Bae Jin-young",
@@ -1452,6 +1583,7 @@
    "url": "/born-on/05-11",
    "people": 26,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Kim Na-woon",
     "Lim Seul-ong",
@@ -1463,6 +1595,7 @@
    "url": "/born-on/05-12",
    "people": 15,
    "listed": 10,
+   "kpop": 1,
    "top": [
     "Kim Tae-woo",
     "Shin Sia",
@@ -1474,6 +1607,7 @@
    "url": "/born-on/05-13",
    "people": 23,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Bang Min-ah",
     "Bae Jong-ok",
@@ -1485,6 +1619,7 @@
    "url": "/born-on/05-14",
    "people": 30,
    "listed": 23,
+   "kpop": 10,
    "top": [
     "Yeon Min-ji",
     "Dayoung",
@@ -1496,6 +1631,7 @@
    "url": "/born-on/05-15",
    "people": 27,
    "listed": 21,
+   "kpop": 8,
    "top": [
     "Sunny",
     "Lee Jong-hyun",
@@ -1507,6 +1643,7 @@
    "url": "/born-on/05-16",
    "people": 25,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "IU",
     "Ahn Bo-hyun",
@@ -1518,6 +1655,7 @@
    "url": "/born-on/05-17",
    "people": 20,
    "listed": 14,
+   "kpop": 3,
    "top": [
     "Choi Ji-na",
     "Kwak Do-won",
@@ -1529,6 +1667,7 @@
    "url": "/born-on/05-18",
    "people": 25,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Taeyang",
     "Heo Ga-yoon",
@@ -1540,6 +1679,7 @@
    "url": "/born-on/05-19",
    "people": 26,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Bong Tae-gyu",
     "Chae Jong-hyeop",
@@ -1551,6 +1691,7 @@
    "url": "/born-on/05-20",
    "people": 25,
    "listed": 19,
+   "kpop": 1,
    "top": [
     "Cheetah",
     "Kim Dong-hyun",
@@ -1562,6 +1703,7 @@
    "url": "/born-on/05-21",
    "people": 20,
    "listed": 15,
+   "kpop": 7,
    "top": [
     "Park Gyu-ri",
     "Park So-jin",
@@ -1573,6 +1715,7 @@
    "url": "/born-on/05-22",
    "people": 18,
    "listed": 13,
+   "kpop": 5,
    "top": [
     "Kim Mu-yeol",
     "Suho",
@@ -1584,6 +1727,7 @@
    "url": "/born-on/05-23",
    "people": 25,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Kang Hoon",
     "Kim Seong-su",
@@ -1595,6 +1739,7 @@
    "url": "/born-on/05-24",
    "people": 24,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Kim Yoon-hye",
     "Yves",
@@ -1606,6 +1751,7 @@
    "url": "/born-on/05-25",
    "people": 30,
    "listed": 25,
+   "kpop": 4,
    "top": [
     "Lee Bo-hee",
     "Jae Hui",
@@ -1617,6 +1763,7 @@
    "url": "/born-on/05-26",
    "people": 26,
    "listed": 19,
+   "kpop": 8,
    "top": [
     "Gong Myoung",
     "Hwang Ye-ji",
@@ -1628,6 +1775,7 @@
    "url": "/born-on/05-27",
    "people": 20,
    "listed": 17,
+   "kpop": 5,
    "top": [
     "Kim Jae Hwan",
     "Dawon",
@@ -1639,6 +1787,7 @@
    "url": "/born-on/05-28",
    "people": 26,
    "listed": 19,
+   "kpop": 5,
    "top": [
     "Kim Da-hyun",
     "Seong-Jin Cho",
@@ -1650,6 +1799,7 @@
    "url": "/born-on/05-29",
    "people": 18,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Park Ji-hoon",
     "Lim Semi",
@@ -1661,6 +1811,7 @@
    "url": "/born-on/05-30",
    "people": 16,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Im Yoon-ah",
     "Shin Ha-kyun",
@@ -1672,6 +1823,7 @@
    "url": "/born-on/05-31",
    "people": 28,
    "listed": 22,
+   "kpop": 7,
    "top": [
     "Lee Soo-hyuk",
     "Shim Eun Kyung",
@@ -1683,6 +1835,7 @@
    "url": "/born-on/06-01",
    "people": 19,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Yang Dong-geun",
     "Dawn",
@@ -1694,6 +1847,7 @@
    "url": "/born-on/06-02",
    "people": 26,
    "listed": 22,
+   "kpop": 6,
    "top": [
     "Oh Chang-seok",
     "Big Naughty",
@@ -1705,6 +1859,7 @@
    "url": "/born-on/06-03",
    "people": 19,
    "listed": 14,
+   "kpop": 6,
    "top": [
     "SinB",
     "Jo Seung-hee",
@@ -1716,6 +1871,7 @@
    "url": "/born-on/06-04",
    "people": 27,
    "listed": 23,
+   "kpop": 5,
    "top": [
     "Kim So-hyun",
     "Park Yoo-chun",
@@ -1727,6 +1883,7 @@
    "url": "/born-on/06-05",
    "people": 22,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Yoo In-na",
     "Choo Young-woo",
@@ -1738,6 +1895,7 @@
    "url": "/born-on/06-06",
    "people": 20,
    "listed": 14,
+   "kpop": 7,
    "top": [
     "Hyuna",
     "Kim Hyun-joong",
@@ -1749,6 +1907,7 @@
    "url": "/born-on/06-07",
    "people": 21,
    "listed": 19,
+   "kpop": 8,
    "top": [
     "Cha Seung-won",
     "Park Ji-yeon",
@@ -1760,6 +1919,7 @@
    "url": "/born-on/06-08",
    "people": 16,
    "listed": 13,
+   "kpop": 5,
    "top": [
     "Eun Ji-won",
     "Byun Hee-bong",
@@ -1771,6 +1931,7 @@
    "url": "/born-on/06-09",
    "people": 24,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Lee Hye-ri",
     "Kim Won-hee",
@@ -1782,6 +1943,7 @@
    "url": "/born-on/06-10",
    "people": 14,
    "listed": 12,
+   "kpop": 2,
    "top": [
     "J.Fla",
     "Baek Il-seob",
@@ -1793,6 +1955,7 @@
    "url": "/born-on/06-11",
    "people": 23,
    "listed": 14,
+   "kpop": 5,
    "top": [
     "Choi Ji-woo",
     "Kim Hee-sun",
@@ -1804,6 +1967,7 @@
    "url": "/born-on/06-12",
    "people": 26,
    "listed": 15,
+   "kpop": 4,
    "top": [
     "Dia",
     "Ryu Deok-hwan",
@@ -1815,6 +1979,7 @@
    "url": "/born-on/06-13",
    "people": 19,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Nam Da-reum",
     "Seo Young-hee",
@@ -1826,6 +1991,7 @@
    "url": "/born-on/06-14",
    "people": 25,
    "listed": 18,
+   "kpop": 6,
    "top": [
     "Jang Jin-young",
     "Moon Tae-il",
@@ -1837,6 +2003,7 @@
    "url": "/born-on/06-15",
    "people": 24,
    "listed": 19,
+   "kpop": 6,
    "top": [
     "Hoshi",
     "Oh Dal-su",
@@ -1848,6 +2015,7 @@
    "url": "/born-on/06-16",
    "people": 19,
    "listed": 12,
+   "kpop": 3,
    "top": [
     "Park Bo-gum",
     "Huihyeon",
@@ -1859,6 +2027,7 @@
    "url": "/born-on/06-17",
    "people": 20,
    "listed": 16,
+   "kpop": 1,
    "top": [
     "Choi Sung-eun",
     "Jeon Hye-jin",
@@ -1870,6 +2039,7 @@
    "url": "/born-on/06-18",
    "people": 20,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Lee Soo-man",
     "Arin",
@@ -1881,6 +2051,7 @@
    "url": "/born-on/06-19",
    "people": 27,
    "listed": 22,
+   "kpop": 4,
    "top": [
     "Youn Yuh-jung",
     "Dohwa",
@@ -1892,6 +2063,7 @@
    "url": "/born-on/06-20",
    "people": 26,
    "listed": 21,
+   "kpop": 6,
    "top": [
     "Kang Tae-oh",
     "Jeong Ga-eun",
@@ -1903,6 +2075,7 @@
    "url": "/born-on/06-21",
    "people": 21,
    "listed": 16,
+   "kpop": 6,
    "top": [
     "Kim Ryeowook",
     "Min",
@@ -1914,6 +2087,7 @@
    "url": "/born-on/06-22",
    "people": 15,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Lee Min-ho",
     "Oh Yeon-seo",
@@ -1925,6 +2099,7 @@
    "url": "/born-on/06-23",
    "people": 26,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Lim Ji-yeon",
     "Jung Ho-yeon",
@@ -1936,6 +2111,7 @@
    "url": "/born-on/06-24",
    "people": 19,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Ji Jin-hee",
     "Kim Yeo-jin",
@@ -1947,6 +2123,7 @@
    "url": "/born-on/06-25",
    "people": 22,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Rain",
     "Chae Shi-ra",
@@ -1958,6 +2135,7 @@
    "url": "/born-on/06-26",
    "people": 26,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Baek Ye-rin",
     "Lee Pil-mo",
@@ -1969,6 +2147,7 @@
    "url": "/born-on/06-27",
    "people": 25,
    "listed": 23,
+   "kpop": 6,
    "top": [
     "Sohee",
     "Son Ho-jun",
@@ -1980,6 +2159,7 @@
    "url": "/born-on/06-28",
    "people": 21,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Ha Ji-won",
     "Seo Joo-hyun",
@@ -1991,6 +2171,7 @@
    "url": "/born-on/06-29",
    "people": 26,
    "listed": 18,
+   "kpop": 1,
    "top": [
     "Han Ji-hye",
     "Soon-Tek Oh",
@@ -2002,6 +2183,7 @@
    "url": "/born-on/06-30",
    "people": 16,
    "listed": 10,
+   "kpop": 2,
    "top": [
     "N",
     "Cho Jae-hyun",
@@ -2013,6 +2195,7 @@
    "url": "/born-on/07-01",
    "people": 27,
    "listed": 17,
+   "kpop": 10,
    "top": [
     "Ahn Jae-hyun",
     "Leeteuk",
@@ -2024,6 +2207,7 @@
    "url": "/born-on/07-02",
    "people": 15,
    "listed": 6,
+   "kpop": 1,
    "top": [
     "Kim Go-eun",
     "Moon So-ri",
@@ -2035,6 +2219,7 @@
    "url": "/born-on/07-03",
    "people": 19,
    "listed": 16,
+   "kpop": 3,
    "top": [
     "Peggy Gou",
     "Roy Kim",
@@ -2046,6 +2231,7 @@
    "url": "/born-on/07-04",
    "people": 19,
    "listed": 15,
+   "kpop": 5,
    "top": [
     "Lee Je-hoon",
     "Yoon Doo-joon",
@@ -2057,6 +2243,7 @@
    "url": "/born-on/07-05",
    "people": 33,
    "listed": 25,
+   "kpop": 5,
    "top": [
     "Ji Chang-wook",
     "Jeon Jong-seo",
@@ -2068,6 +2255,7 @@
    "url": "/born-on/07-06",
    "people": 26,
    "listed": 18,
+   "kpop": 6,
    "top": [
     "Baby Soul",
     "Joo Min-kyung",
@@ -2079,6 +2267,7 @@
    "url": "/born-on/07-07",
    "people": 27,
    "listed": 19,
+   "kpop": 3,
    "top": [
     "Kim Bum",
     "Choi Tae-joon",
@@ -2090,6 +2279,7 @@
    "url": "/born-on/07-08",
    "people": 17,
    "listed": 10,
+   "kpop": 1,
    "top": [
     "Park Kyung",
     "Shin Hyun-soo",
@@ -2101,6 +2291,7 @@
    "url": "/born-on/07-09",
    "people": 16,
    "listed": 12,
+   "kpop": 2,
    "top": [
     "Linda Park",
     "Kim Ji-young",
@@ -2112,6 +2303,7 @@
    "url": "/born-on/07-10",
    "people": 32,
    "listed": 25,
+   "kpop": 7,
    "top": [
     "Gong Yoo",
     "Moon Ga-young",
@@ -2123,6 +2315,7 @@
    "url": "/born-on/07-11",
    "people": 19,
    "listed": 17,
+   "kpop": 2,
    "top": [
     "Im Su-jeong",
     "Kim Kang-woo",
@@ -2134,6 +2327,7 @@
    "url": "/born-on/07-12",
    "people": 20,
    "listed": 17,
+   "kpop": 7,
    "top": [
     "Lee Byung-hun",
     "Woo Do-hwan",
@@ -2145,6 +2339,7 @@
    "url": "/born-on/07-13",
    "people": 20,
    "listed": 14,
+   "kpop": 3,
    "top": [
     "Ken Jeong",
     "Yebin",
@@ -2156,6 +2351,7 @@
    "url": "/born-on/07-14",
    "people": 22,
    "listed": 15,
+   "kpop": 4,
    "top": [
     "Nam Yoon-su",
     "Park Byeong-eun",
@@ -2167,6 +2363,7 @@
    "url": "/born-on/07-15",
    "people": 25,
    "listed": 20,
+   "kpop": 4,
    "top": [
     "Kim Joo-ryoung",
     "Cha In-ha",
@@ -2178,6 +2375,7 @@
    "url": "/born-on/07-16",
    "people": 22,
    "listed": 19,
+   "kpop": 2,
    "top": [
     "Kim Woo-bin",
     "Cha Ye-ryun",
@@ -2189,6 +2387,7 @@
    "url": "/born-on/07-17",
    "people": 18,
    "listed": 12,
+   "kpop": 5,
    "top": [
     "Dana",
     "Jeon Won-woo",
@@ -2200,6 +2399,7 @@
    "url": "/born-on/07-18",
    "people": 27,
    "listed": 24,
+   "kpop": 4,
    "top": [
     "Joo Sang-wook",
     "Lee Taemin",
@@ -2211,6 +2411,7 @@
    "url": "/born-on/07-19",
    "people": 22,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Oh Ha-young",
     "Kim So-hye",
@@ -2222,6 +2423,7 @@
    "url": "/born-on/07-20",
    "people": 15,
    "listed": 12,
+   "kpop": 2,
    "top": [
     "Jin Goo",
     "Joon Park",
@@ -2233,6 +2435,7 @@
    "url": "/born-on/07-21",
    "people": 31,
    "listed": 21,
+   "kpop": 6,
    "top": [
     "Lia",
     "Baekho",
@@ -2244,6 +2447,7 @@
    "url": "/born-on/07-22",
    "people": 30,
    "listed": 27,
+   "kpop": 4,
    "top": [
     "Tablo",
     "Lee Dong-hwi",
@@ -2255,6 +2459,7 @@
    "url": "/born-on/07-23",
    "people": 35,
    "listed": 22,
+   "kpop": 4,
    "top": [
     "Hwasa",
     "Seong Hyeon-ah",
@@ -2266,6 +2471,7 @@
    "url": "/born-on/07-24",
    "people": 31,
    "listed": 27,
+   "kpop": 5,
    "top": [
     "Han Seung-yeon",
     "Lee Si-yeon",
@@ -2277,6 +2483,7 @@
    "url": "/born-on/07-25",
    "people": 20,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Yang Mi-kyung",
     "Park Ha-na",
@@ -2288,6 +2495,7 @@
    "url": "/born-on/07-26",
    "people": 19,
    "listed": 16,
+   "kpop": 5,
    "top": [
     "Jeon Yeo-been",
     "Lee Dong-gun",
@@ -2299,6 +2507,7 @@
    "url": "/born-on/07-27",
    "people": 21,
    "listed": 17,
+   "kpop": 2,
    "top": [
     "Park Gyu-young",
     "Choi Yeo-jin",
@@ -2310,6 +2519,7 @@
    "url": "/born-on/07-28",
    "people": 27,
    "listed": 21,
+   "kpop": 7,
    "top": [
     "Zo In-sung",
     "Yum Jung-ah",
@@ -2321,6 +2531,7 @@
    "url": "/born-on/07-29",
    "people": 21,
    "listed": 12,
+   "kpop": 4,
    "top": [
     "Shin Sae-kyeong",
     "Alexander Lee Eusebio",
@@ -2332,6 +2543,7 @@
    "url": "/born-on/07-30",
    "people": 21,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Park Se-young",
     "Kim Min-joung",
@@ -2343,6 +2555,7 @@
    "url": "/born-on/07-31",
    "people": 21,
    "listed": 17,
+   "kpop": 10,
    "top": [
     "Kim Sae-ron",
     "Park Soo-ah",
@@ -2354,6 +2567,7 @@
    "url": "/born-on/08-01",
    "people": 26,
    "listed": 22,
+   "kpop": 10,
    "top": [
     "Kim Chaewon",
     "Tiffany Young",
@@ -2365,6 +2579,7 @@
    "url": "/born-on/08-02",
    "people": 22,
    "listed": 17,
+   "kpop": 5,
    "top": [
     "Mark Lee",
     "Kim Jung-ah",
@@ -2376,6 +2591,7 @@
    "url": "/born-on/08-03",
    "people": 29,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Kang Min-kyeong",
     "Kim Hyung-jun",
@@ -2387,6 +2603,7 @@
    "url": "/born-on/08-04",
    "people": 23,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Daniel Dae Kim",
     "Jang Keun-suk",
@@ -2398,6 +2615,7 @@
    "url": "/born-on/08-05",
    "people": 31,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "WOODZ",
     "Kwon Sang-woo",
@@ -2409,6 +2627,7 @@
    "url": "/born-on/08-06",
    "people": 21,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Lee Ji-ah",
     "Ha Yeon-ju",
@@ -2420,6 +2639,7 @@
    "url": "/born-on/08-07",
    "people": 27,
    "listed": 14,
+   "kpop": 4,
    "top": [
     "Ro Woon",
     "Jang Ki-Yong",
@@ -2431,6 +2651,7 @@
    "url": "/born-on/08-08",
    "people": 22,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Choi Seung-cheol",
     "Lee Eun-seong",
@@ -2442,6 +2663,7 @@
    "url": "/born-on/08-09",
    "people": 29,
    "listed": 24,
+   "kpop": 7,
    "top": [
     "Hwang Min-hyun",
     "Kim Hyang-gi",
@@ -2453,6 +2675,7 @@
    "url": "/born-on/08-10",
    "people": 26,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Lee Sung-kyoung",
     "Jeon Hye-jin",
@@ -2464,6 +2687,7 @@
    "url": "/born-on/08-11",
    "people": 19,
    "listed": 15,
+   "kpop": 4,
    "top": [
     "Changbin",
     "So Yoo-jin",
@@ -2475,6 +2699,7 @@
    "url": "/born-on/08-12",
    "people": 24,
    "listed": 21,
+   "kpop": 7,
    "top": [
     "Park Yong-ha",
     "Luna",
@@ -2486,6 +2711,7 @@
    "url": "/born-on/08-13",
    "people": 28,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Yeo Jin-goo",
     "Yoon Bo-mi",
@@ -2497,6 +2723,7 @@
    "url": "/born-on/08-14",
    "people": 26,
    "listed": 21,
+   "kpop": 4,
    "top": [
     "Yoo Jae-suk",
     "Kal So-won",
@@ -2508,6 +2735,7 @@
    "url": "/born-on/08-15",
    "people": 33,
    "listed": 26,
+   "kpop": 4,
    "top": [
     "Lee Sang-yoon",
     "Hwang Sun-hee",
@@ -2519,6 +2747,7 @@
    "url": "/born-on/08-16",
    "people": 30,
    "listed": 25,
+   "kpop": 8,
    "top": [
     "Arden Cho",
     "Paul Sun-Hyung Lee",
@@ -2530,6 +2759,7 @@
    "url": "/born-on/08-17",
    "people": 24,
    "listed": 17,
+   "kpop": 3,
    "top": [
     "Uhm Jeong-hwa",
     "Yoo Seung-ho",
@@ -2541,6 +2771,7 @@
    "url": "/born-on/08-18",
    "people": 25,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "G-Dragon",
     "Jeong Eun-ji",
@@ -2552,6 +2783,7 @@
    "url": "/born-on/08-19",
    "people": 27,
    "listed": 20,
+   "kpop": 7,
    "top": [
     "Bona",
     "Yerin",
@@ -2563,6 +2795,7 @@
    "url": "/born-on/08-20",
    "people": 22,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Haha",
     "Han Hye-sook",
@@ -2574,6 +2807,7 @@
    "url": "/born-on/08-21",
    "people": 21,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Kim Kibum",
     "Choi Yoo-jung",
@@ -2585,6 +2819,7 @@
    "url": "/born-on/08-22",
    "people": 24,
    "listed": 19,
+   "kpop": 3,
    "top": [
     "Cho Bo-ah",
     "Kang Ye-seo",
@@ -2596,6 +2831,7 @@
    "url": "/born-on/08-23",
    "people": 22,
    "listed": 17,
+   "kpop": 5,
    "top": [
     "Seo Hye-lin",
     "Lee Sung-jae",
@@ -2607,6 +2843,7 @@
    "url": "/born-on/08-24",
    "people": 16,
    "listed": 16,
+   "kpop": 5,
    "top": [
     "Seo Ji-hye",
     "Yesung",
@@ -2618,6 +2855,7 @@
    "url": "/born-on/08-25",
    "people": 28,
    "listed": 22,
+   "kpop": 8,
    "top": [
     "Ong Seongwu",
     "Kim Hwan-hee",
@@ -2629,6 +2867,7 @@
    "url": "/born-on/08-26",
    "people": 22,
    "listed": 15,
+   "kpop": 8,
    "top": [
     "Ryeoun",
     "Jeon Soyeon",
@@ -2640,6 +2879,7 @@
    "url": "/born-on/08-27",
    "people": 17,
    "listed": 14,
+   "kpop": 2,
    "top": [
     "Lee Sungyeol",
     "Jeon Soo-kyung",
@@ -2651,6 +2891,7 @@
    "url": "/born-on/08-28",
    "people": 22,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Kim Se-jeong",
     "So I-hyeon",
@@ -2662,6 +2903,7 @@
    "url": "/born-on/08-29",
    "people": 22,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Bae Yong-joon",
     "In Gyo-jin",
@@ -2673,6 +2915,7 @@
    "url": "/born-on/08-30",
    "people": 25,
    "listed": 16,
+   "kpop": 6,
    "top": [
     "Kwon So-hyun",
     "Heo Young-ji",
@@ -2684,6 +2927,7 @@
    "url": "/born-on/08-31",
    "people": 23,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Shin Hae-sun",
     "Jang Won-young",
@@ -2695,6 +2939,7 @@
    "url": "/born-on/09-01",
    "people": 21,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Jungkook",
     "Hwang Jung-min",
@@ -2706,6 +2951,7 @@
    "url": "/born-on/09-02",
    "people": 20,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Sungha Jung",
     "Alex Chu",
@@ -2717,6 +2963,7 @@
    "url": "/born-on/09-03",
    "people": 36,
    "listed": 25,
+   "kpop": 7,
    "top": [
     "Joy",
     "Jang Hyun-seung",
@@ -2728,6 +2975,7 @@
    "url": "/born-on/09-04",
    "people": 21,
    "listed": 16,
+   "kpop": 7,
    "top": [
     "Park Eun-bin",
     "Huh Jiwon",
@@ -2739,6 +2987,7 @@
    "url": "/born-on/09-05",
    "people": 29,
    "listed": 24,
+   "kpop": 6,
    "top": [
     "Kim Hye-soo",
     "Jang Hye-jin",
@@ -2750,6 +2999,7 @@
    "url": "/born-on/09-06",
    "people": 24,
    "listed": 18,
+   "kpop": 2,
    "top": [
     "Kim So-eun",
     "Kim Yoon-ji",
@@ -2761,6 +3011,7 @@
    "url": "/born-on/09-07",
    "people": 27,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Jin Hui-gyeong",
     "Kim Ji-young",
@@ -2772,6 +3023,7 @@
    "url": "/born-on/09-08",
    "people": 19,
    "listed": 14,
+   "kpop": 2,
    "top": [
     "Park So-dam",
     "Lee Chang-hun",
@@ -2783,6 +3035,7 @@
    "url": "/born-on/09-09",
    "people": 30,
    "listed": 24,
+   "kpop": 6,
    "top": [
     "Jung Il-woo",
     "Kim Jung-hwa",
@@ -2794,6 +3047,7 @@
    "url": "/born-on/09-10",
    "people": 22,
    "listed": 15,
+   "kpop": 2,
    "top": [
     "Lee Young-ji",
     "Moon Ye-won",
@@ -2805,6 +3059,7 @@
    "url": "/born-on/09-11",
    "people": 16,
    "listed": 13,
+   "kpop": 1,
    "top": [
     "Jang Minho",
     "Yoo Oh-seong",
@@ -2816,6 +3071,7 @@
    "url": "/born-on/09-12",
    "people": 28,
    "listed": 23,
+   "kpop": 7,
    "top": [
     "RM",
     "Go Won-hee",
@@ -2827,6 +3083,7 @@
    "url": "/born-on/09-13",
    "people": 20,
    "listed": 16,
+   "kpop": 8,
    "top": [
     "Yeonjun",
     "Han Chae-young",
@@ -2838,6 +3095,7 @@
    "url": "/born-on/09-14",
    "people": 28,
    "listed": 23,
+   "kpop": 10,
    "top": [
     "Lee Jong-suk",
     "Han",
@@ -2849,6 +3107,7 @@
    "url": "/born-on/09-15",
    "people": 33,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Felix",
     "Lee Chae-min",
@@ -2860,6 +3119,7 @@
    "url": "/born-on/09-16",
    "people": 26,
    "listed": 21,
+   "kpop": 2,
    "top": [
     "Lee Jin-uk",
     "Soo Ae",
@@ -2871,6 +3131,7 @@
    "url": "/born-on/09-17",
    "people": 26,
    "listed": 20,
+   "kpop": 8,
    "top": [
     "Nam Ji-hyun",
     "Na In-woo",
@@ -2882,6 +3143,7 @@
    "url": "/born-on/09-18",
    "people": 21,
    "listed": 17,
+   "kpop": 4,
    "top": [
     "Lee Joo-bin",
     "Han Ye-seul",
@@ -2893,6 +3155,7 @@
    "url": "/born-on/09-19",
    "people": 20,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Song Joong-ki",
     "Kyeon Mi-ri",
@@ -2904,6 +3167,7 @@
    "url": "/born-on/09-20",
    "people": 24,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Gain",
     "Ahn Jae-mo",
@@ -2915,6 +3179,7 @@
    "url": "/born-on/09-21",
    "people": 17,
    "listed": 11,
+   "kpop": 3,
    "top": [
     "Chen",
     "Kwon Mina",
@@ -2926,6 +3191,7 @@
    "url": "/born-on/09-22",
    "people": 27,
    "listed": 23,
+   "kpop": 10,
    "top": [
     "Kim You-jung",
     "Park Jin-young",
@@ -2937,6 +3203,7 @@
    "url": "/born-on/09-23",
    "people": 29,
    "listed": 16,
+   "kpop": 7,
    "top": [
     "Key",
     "Lee Hi",
@@ -2948,6 +3215,7 @@
    "url": "/born-on/09-24",
    "people": 20,
    "listed": 19,
+   "kpop": 5,
    "top": [
     "Do Ji-han",
     "Park Se-wan",
@@ -2959,6 +3227,7 @@
    "url": "/born-on/09-25",
    "people": 32,
    "listed": 27,
+   "kpop": 4,
    "top": [
     "Hyun Bin",
     "Ryu Jun-yeol",
@@ -2970,6 +3239,7 @@
    "url": "/born-on/09-26",
    "people": 29,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Yoon Shi-yoon",
     "Kim Jin-woo",
@@ -2981,6 +3251,7 @@
    "url": "/born-on/09-27",
    "people": 30,
    "listed": 25,
+   "kpop": 9,
    "top": [
     "Bibi",
     "Kwon Eun-bi",
@@ -2992,6 +3263,7 @@
    "url": "/born-on/09-28",
    "people": 24,
    "listed": 22,
+   "kpop": 5,
    "top": [
     "Shindong",
     "Kim Bo-ra",
@@ -3003,6 +3275,7 @@
    "url": "/born-on/09-29",
    "people": 20,
    "listed": 15,
+   "kpop": 6,
    "top": [
     "Choi Ye-na",
     "Yoon Seung-ah",
@@ -3014,6 +3287,7 @@
    "url": "/born-on/09-30",
    "people": 27,
    "listed": 19,
+   "kpop": 2,
    "top": [
     "Ki-hong Lee",
     "Joo Won",
@@ -3025,6 +3299,7 @@
    "url": "/born-on/10-01",
    "people": 24,
    "listed": 19,
+   "kpop": 3,
    "top": [
     "Song Il-kook",
     "Kim Sun-a",
@@ -3036,6 +3311,7 @@
    "url": "/born-on/10-02",
    "people": 16,
    "listed": 12,
+   "kpop": 2,
    "top": [
     "Hwang Bo-ra",
     "Seunghan",
@@ -3047,6 +3323,7 @@
    "url": "/born-on/10-03",
    "people": 25,
    "listed": 19,
+   "kpop": 5,
    "top": [
     "Bang Chan",
     "Yoon Eun-hye",
@@ -3058,6 +3335,7 @@
    "url": "/born-on/10-04",
    "people": 29,
    "listed": 21,
+   "kpop": 8,
    "top": [
     "Yubin",
     "Yuju",
@@ -3069,6 +3347,7 @@
    "url": "/born-on/10-05",
    "people": 31,
    "listed": 20,
+   "kpop": 5,
    "top": [
     "Song Seung-heon",
     "Park So-yeon",
@@ -3080,6 +3359,7 @@
    "url": "/born-on/10-06",
    "people": 23,
    "listed": 17,
+   "kpop": 5,
    "top": [
     "Yoo Ah-in",
     "Han Seon-hwa",
@@ -3091,6 +3371,7 @@
    "url": "/born-on/10-07",
    "people": 20,
    "listed": 15,
+   "kpop": 7,
    "top": [
     "Nicole Jung",
     "NC.A",
@@ -3102,6 +3383,7 @@
    "url": "/born-on/10-08",
    "people": 22,
    "listed": 17,
+   "kpop": 3,
    "top": [
     "Kim Myung-min",
     "Lee Sang-hee",
@@ -3113,6 +3395,7 @@
    "url": "/born-on/10-09",
    "people": 22,
    "listed": 14,
+   "kpop": 3,
    "top": [
     "Kim Ji-eun",
     "Choi Min-young",
@@ -3124,6 +3407,7 @@
    "url": "/born-on/10-10",
    "people": 29,
    "listed": 23,
+   "kpop": 3,
    "top": [
     "Bae Suzy",
     "Ha Yeon-soo",
@@ -3135,6 +3419,7 @@
    "url": "/born-on/10-11",
    "people": 27,
    "listed": 23,
+   "kpop": 3,
    "top": [
     "Bae Doona",
     "Kim Ja-ok",
@@ -3146,6 +3431,7 @@
    "url": "/born-on/10-12",
    "people": 19,
    "listed": 12,
+   "kpop": 5,
    "top": [
     "Seo Kang-jun",
     "Kim Yu-mi",
@@ -3157,6 +3443,7 @@
    "url": "/born-on/10-13",
    "people": 26,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Jimin",
     "Jun Hyo-seong",
@@ -3168,6 +3455,7 @@
    "url": "/born-on/10-14",
    "people": 19,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Kim Mi-kyung",
     "Kang Ki-young",
@@ -3179,6 +3467,7 @@
    "url": "/born-on/10-15",
    "people": 36,
    "listed": 28,
+   "kpop": 13,
    "top": [
     "Heeseung",
     "Lee Dong-hae",
@@ -3190,6 +3479,7 @@
    "url": "/born-on/10-16",
    "people": 30,
    "listed": 21,
+   "kpop": 7,
    "top": [
     "Kim A-jung",
     "Jeong Jin-yeong",
@@ -3201,6 +3491,7 @@
    "url": "/born-on/10-17",
    "people": 23,
    "listed": 18,
+   "kpop": 8,
    "top": [
     "Lily",
     "Hwang Min-woo",
@@ -3212,6 +3503,7 @@
    "url": "/born-on/10-18",
    "people": 33,
    "listed": 28,
+   "kpop": 4,
    "top": [
     "Hwang Hee",
     "Ahn In-sook",
@@ -3223,6 +3515,7 @@
    "url": "/born-on/10-19",
    "people": 19,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Kim Ji-won",
     "Oh Yeong-su",
@@ -3234,6 +3527,7 @@
    "url": "/born-on/10-20",
    "people": 33,
    "listed": 27,
+   "kpop": 6,
    "top": [
     "Ha Yoon-kyung",
     "Heo Sung-tae",
@@ -3245,6 +3539,7 @@
    "url": "/born-on/10-21",
    "people": 19,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Chae Jung-an",
     "Lee Jong-su",
@@ -3256,6 +3551,7 @@
    "url": "/born-on/10-22",
    "people": 23,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Jo Yu-ri",
     "B.I",
@@ -3267,6 +3563,7 @@
    "url": "/born-on/10-23",
    "people": 28,
    "listed": 23,
+   "kpop": 8,
    "top": [
     "Seo In-guk",
     "Shin Eun-soo",
@@ -3278,6 +3575,7 @@
    "url": "/born-on/10-24",
    "people": 26,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Krystal Jung",
     "Kim Ji-soo",
@@ -3289,6 +3587,7 @@
    "url": "/born-on/10-25",
    "people": 18,
    "listed": 16,
+   "kpop": 3,
    "top": [
     "Lee Know",
     "Kim Hye-ja",
@@ -3300,6 +3599,7 @@
    "url": "/born-on/10-26",
    "people": 21,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Oh Na-ra",
     "Lee Eun-sang",
@@ -3311,6 +3611,7 @@
    "url": "/born-on/10-27",
    "people": 23,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Han Hye-jin",
     "Kim Woo-seok",
@@ -3322,6 +3623,7 @@
    "url": "/born-on/10-28",
    "people": 25,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Go Eun-ah",
     "Kim Seo-hyung",
@@ -3333,6 +3635,7 @@
    "url": "/born-on/10-29",
    "people": 20,
    "listed": 10,
+   "kpop": 1,
    "top": [
     "Ha Hee-ra",
     "Lee Chung-ah",
@@ -3344,6 +3647,7 @@
    "url": "/born-on/10-30",
    "people": 17,
    "listed": 11,
+   "kpop": 5,
    "top": [
     "Jun Ji-hyun",
     "Choi Hong-man",
@@ -3355,6 +3659,7 @@
    "url": "/born-on/10-31",
    "people": 17,
    "listed": 13,
+   "kpop": 2,
    "top": [
     "Byeon Woo-seok",
     "Lee Seung-hyub",
@@ -3366,6 +3671,7 @@
    "url": "/born-on/11-01",
    "people": 23,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Yoo Jeong-yeon",
     "Kim Min-jae",
@@ -3377,6 +3683,7 @@
    "url": "/born-on/11-02",
    "people": 27,
    "listed": 18,
+   "kpop": 8,
    "top": [
     "Kim So-yeon",
     "Park Woojin",
@@ -3388,6 +3695,7 @@
    "url": "/born-on/11-03",
    "people": 23,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Heo Young-saeng",
     "Ren",
@@ -3399,6 +3707,7 @@
    "url": "/born-on/11-04",
    "people": 25,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "So Ji-sub",
     "T.O.P",
@@ -3410,6 +3719,7 @@
    "url": "/born-on/11-05",
    "people": 26,
    "listed": 22,
+   "kpop": 6,
    "top": [
     "Han Ji-min",
     "BoA",
@@ -3421,6 +3731,7 @@
    "url": "/born-on/11-06",
    "people": 36,
    "listed": 34,
+   "kpop": 9,
    "top": [
     "Lee Dong-wook",
     "Yura",
@@ -3432,6 +3743,7 @@
    "url": "/born-on/11-07",
    "people": 23,
    "listed": 19,
+   "kpop": 3,
    "top": [
     "Yunjin Kim",
     "Kim Hong-joong",
@@ -3443,6 +3755,7 @@
    "url": "/born-on/11-08",
    "people": 25,
    "listed": 18,
+   "kpop": 3,
    "top": [
     "Lee Hyun",
     "Ho-Sung Pak",
@@ -3454,6 +3767,7 @@
    "url": "/born-on/11-09",
    "people": 19,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Momo",
     "Koo Hye-sun",
@@ -3465,6 +3779,7 @@
    "url": "/born-on/11-10",
    "people": 24,
    "listed": 14,
+   "kpop": 4,
    "top": [
     "Kim Hye-yoon",
     "Won Bin",
@@ -3476,6 +3791,7 @@
    "url": "/born-on/11-11",
    "people": 34,
    "listed": 26,
+   "kpop": 5,
    "top": [
     "Lomon",
     "Na Hae-ryung",
@@ -3487,6 +3803,7 @@
    "url": "/born-on/11-12",
    "people": 11,
    "listed": 9,
+   "kpop": 3,
    "top": [
     "Sandara Park",
     "Choi Yoo-jung",
@@ -3498,6 +3815,7 @@
    "url": "/born-on/11-13",
    "people": 25,
    "listed": 20,
+   "kpop": 6,
    "top": [
     "Moon Chae-won",
     "Hyeju",
@@ -3509,6 +3827,7 @@
    "url": "/born-on/11-14",
    "people": 22,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Xiyeon",
     "Jo An",
@@ -3520,6 +3839,7 @@
    "url": "/born-on/11-15",
    "people": 30,
    "listed": 21,
+   "kpop": 7,
    "top": [
     "Kim Jung-sook",
     "Huh Gak",
@@ -3531,6 +3851,7 @@
    "url": "/born-on/11-16",
    "people": 32,
    "listed": 21,
+   "kpop": 6,
    "top": [
     "Park Hyung-sik",
     "Lee Eun-ju",
@@ -3542,6 +3863,7 @@
    "url": "/born-on/11-17",
    "people": 17,
    "listed": 15,
+   "kpop": 2,
    "top": [
     "Eric Nam",
     "Park Han-byul",
@@ -3553,6 +3875,7 @@
    "url": "/born-on/11-18",
    "people": 22,
    "listed": 16,
+   "kpop": 2,
    "top": [
     "Han So-hee",
     "Jung Jin-young",
@@ -3564,6 +3887,7 @@
    "url": "/born-on/11-19",
    "people": 23,
    "listed": 15,
+   "kpop": 5,
    "top": [
     "Ryu Su-jeong",
     "Samantha Futerman",
@@ -3575,6 +3899,7 @@
    "url": "/born-on/11-20",
    "people": 21,
    "listed": 13,
+   "kpop": 3,
    "top": [
     "Choi Eun-hee",
     "DinDin",
@@ -3586,6 +3911,7 @@
    "url": "/born-on/11-21",
    "people": 29,
    "listed": 21,
+   "kpop": 10,
    "top": [
     "Park Hae-soo",
     "Woohee",
@@ -3597,6 +3923,7 @@
    "url": "/born-on/11-22",
    "people": 25,
    "listed": 20,
+   "kpop": 7,
    "top": [
     "Sumi Jo",
     "Kihyun",
@@ -3608,6 +3935,7 @@
    "url": "/born-on/11-23",
    "people": 23,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Shin Sung-rok",
     "EunB",
@@ -3619,6 +3947,7 @@
    "url": "/born-on/11-24",
    "people": 17,
    "listed": 17,
+   "kpop": 0,
    "top": [
     "Jung Eun-chae",
     "Park Hye-soo",
@@ -3630,6 +3959,7 @@
    "url": "/born-on/11-25",
    "people": 29,
    "listed": 22,
+   "kpop": 3,
    "top": [
     "Lee Beom-soo",
     "Lee Haeyoung",
@@ -3641,6 +3971,7 @@
    "url": "/born-on/11-26",
    "people": 22,
    "listed": 14,
+   "kpop": 6,
    "top": [
     "Park Ji-hyun",
     "Song Won-geun",
@@ -3652,6 +3983,7 @@
    "url": "/born-on/11-27",
    "people": 27,
    "listed": 22,
+   "kpop": 5,
    "top": [
     "Park Chan-yeol",
     "Nam Bo-ra",
@@ -3663,6 +3995,7 @@
    "url": "/born-on/11-28",
    "people": 13,
    "listed": 7,
+   "kpop": 3,
    "top": [
     "Yu Jun-sang",
     "Gyubin",
@@ -3674,6 +4007,7 @@
    "url": "/born-on/11-29",
    "people": 30,
    "listed": 19,
+   "kpop": 5,
    "top": [
     "Chun Jung-myung",
     "Choi Yoon-so",
@@ -3685,6 +4019,7 @@
    "url": "/born-on/11-30",
    "people": 26,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Na Moon-hee",
     "Choi Ran",
@@ -3696,6 +4031,7 @@
    "url": "/born-on/12-01",
    "people": 24,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "Jung Chae-yeon",
     "Yim Si-wan",
@@ -3707,6 +4043,7 @@
    "url": "/born-on/12-02",
    "people": 21,
    "listed": 14,
+   "kpop": 3,
    "top": [
     "Song Ha-yoon",
     "Kim Ga-young",
@@ -3718,6 +4055,7 @@
    "url": "/born-on/12-03",
    "people": 29,
    "listed": 20,
+   "kpop": 3,
    "top": [
     "Hwang Chi-yeul",
     "Yang Hee-kyung",
@@ -3729,6 +4067,7 @@
    "url": "/born-on/12-04",
    "people": 25,
    "listed": 20,
+   "kpop": 9,
    "top": [
     "Kim Seok-jin",
     "Kang Mi-na",
@@ -3740,6 +4079,7 @@
    "url": "/born-on/12-05",
    "people": 19,
    "listed": 12,
+   "kpop": 6,
    "top": [
     "Kwon Yu-ri",
     "Soobin",
@@ -3751,6 +4091,7 @@
    "url": "/born-on/12-06",
    "people": 22,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Ejae",
     "Seo Yi-sook",
@@ -3762,6 +4103,7 @@
    "url": "/born-on/12-07",
    "people": 22,
    "listed": 15,
+   "kpop": 5,
    "top": [
     "Kim So-won",
     "Jung-in",
@@ -3773,6 +4115,7 @@
    "url": "/born-on/12-08",
    "people": 29,
    "listed": 22,
+   "kpop": 9,
    "top": [
     "Park Sung-hoon",
     "Cho Yi-hyun",
@@ -3784,6 +4127,7 @@
    "url": "/born-on/12-09",
    "people": 21,
    "listed": 14,
+   "kpop": 7,
    "top": [
     "Shin Yu-na",
     "Choi Min-ho",
@@ -3795,6 +4139,7 @@
    "url": "/born-on/12-10",
    "people": 20,
    "listed": 14,
+   "kpop": 5,
    "top": [
     "Kang Daniel",
     "Chae Yeon",
@@ -3806,6 +4151,7 @@
    "url": "/born-on/12-11",
    "people": 21,
    "listed": 14,
+   "kpop": 2,
    "top": [
     "Hyolyn",
     "Kim Ye-won",
@@ -3817,6 +4163,7 @@
    "url": "/born-on/12-12",
    "people": 26,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Seungri",
     "Hahm Eun-jung",
@@ -3828,6 +4175,7 @@
    "url": "/born-on/12-13",
    "people": 27,
    "listed": 22,
+   "kpop": 7,
    "top": [
     "J.Y. Park",
     "Jang Seung-jo",
@@ -3839,6 +4187,7 @@
    "url": "/born-on/12-14",
    "people": 32,
    "listed": 25,
+   "kpop": 6,
    "top": [
     "Koo Kyo-hwan",
     "Onew",
@@ -3850,6 +4199,7 @@
    "url": "/born-on/12-15",
    "people": 30,
    "listed": 20,
+   "kpop": 3,
    "top": [
     "Lee Jung-jae",
     "Kim Junsu",
@@ -3861,6 +4211,7 @@
    "url": "/born-on/12-16",
    "people": 21,
    "listed": 15,
+   "kpop": 3,
    "top": [
     "Park Seo-joon",
     "Kim Dae-myung",
@@ -3872,6 +4223,7 @@
    "url": "/born-on/12-17",
    "people": 22,
    "listed": 18,
+   "kpop": 4,
    "top": [
     "Jessi",
     "Lee Jae-jin",
@@ -3883,6 +4235,7 @@
    "url": "/born-on/12-18",
    "people": 30,
    "listed": 22,
+   "kpop": 7,
    "top": [
     "Lim Na-young",
     "Choi Soo-jong",
@@ -3894,6 +4247,7 @@
    "url": "/born-on/12-19",
    "people": 22,
    "listed": 17,
+   "kpop": 6,
    "top": [
     "Yong Jun-hyung",
     "Kang Young-hyun",
@@ -3905,6 +4259,7 @@
    "url": "/born-on/12-20",
    "people": 22,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Jang Hyuk",
     "Lee Se-young",
@@ -3916,6 +4271,7 @@
    "url": "/born-on/12-21",
    "people": 21,
    "listed": 16,
+   "kpop": 4,
    "top": [
     "Steven Yeun",
     "Bobby",
@@ -3927,6 +4283,7 @@
    "url": "/born-on/12-22",
    "people": 28,
    "listed": 19,
+   "kpop": 4,
    "top": [
     "Moonbyul",
     "Danny Ahn",
@@ -3938,6 +4295,7 @@
    "url": "/born-on/12-23",
    "people": 33,
    "listed": 25,
+   "kpop": 3,
    "top": [
     "Yang Se-jong",
     "Han Ye-ri",
@@ -3949,6 +4307,7 @@
    "url": "/born-on/12-24",
    "people": 33,
    "listed": 27,
+   "kpop": 11,
    "top": [
     "Choi Jin-sil",
     "Kim Jae-kyung",
@@ -3960,6 +4319,7 @@
    "url": "/born-on/12-25",
    "people": 30,
    "listed": 27,
+   "kpop": 7,
    "top": [
     "Hwang Jung-eum",
     "Kim Min-kyu",
@@ -3971,6 +4331,7 @@
    "url": "/born-on/12-26",
    "people": 30,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Cho Jung-seok",
     "Park Jae-chan",
@@ -3982,6 +4343,7 @@
    "url": "/born-on/12-27",
    "people": 22,
    "listed": 18,
+   "kpop": 8,
    "top": [
     "Ok Taec-yeon",
     "Jang Gyu-ri",
@@ -3993,6 +4355,7 @@
    "url": "/born-on/12-28",
    "people": 26,
    "listed": 21,
+   "kpop": 5,
    "top": [
     "Narsha",
     "Choi Woong",
@@ -4004,6 +4367,7 @@
    "url": "/born-on/12-29",
    "people": 21,
    "listed": 11,
+   "kpop": 2,
    "top": [
     "Wang Ji-hye",
     "Lee So-ra",
@@ -4015,6 +4379,7 @@
    "url": "/born-on/12-30",
    "people": 26,
    "listed": 18,
+   "kpop": 5,
    "top": [
     "V",
     "Yoon Bo-ra",
@@ -4026,6 +4391,7 @@
    "url": "/born-on/12-31",
    "people": 18,
    "listed": 15,
+   "kpop": 5,
    "top": [
     "Psy",
     "Kim Sung-cheol",

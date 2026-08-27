@@ -453,7 +453,11 @@ for (let m = 1; m <= 12; m++) {
     fs.writeFileSync(path.join(낼방, `${k}.html`), 글);
     const 보일 = v.map(영문이름).filter(Boolean);
     실은사람 += 보일.length;
-    목록.push({ day: k, url: `/born-on/${k}`, people: v.length, listed: 보일.length, top: 보일.slice(0, 3) });
+    /* 🔴 [2026-08-27 · 5번] `kpop` 수를 여기 «같이» 적는다 — 달 지면 12장이 이 파일만
+       읽기 때문이다. 달 지면도 「kpop birthdays in january」로 순위 63위였다.
+       ⛔ 달 지면이 사람 자료를 «따로» 읽게 하지 않는다 — 두 벌이 되면 한쪽만 고치는 날이 온다. */
+    const 케이팝 = v.filter((p) => 그룹소속.has(p.q)).length;
+    목록.push({ day: k, url: `/born-on/${k}`, people: v.length, listed: 보일.length, kpop: 케이팝, top: 보일.slice(0, 3) });
     낸장++;
   }
 }
