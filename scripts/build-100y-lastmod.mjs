@@ -56,6 +56,59 @@ export const 갈래 = {
   '/school': ['src/pages/100y/school/index.astro', 'src/data/100yearmap/pages-school.json'],
   '/university': ['src/pages/100y/university/index.astro', 'src/data/100yearmap/pages-university.json'],
 
+  /* 2026-08-27 — 5번이 kculturewire에서 겪은 것과 같은 흠(손으로 적은 짝이 새 지면을
+     빠뜨림)을 백년지도 사이트맵에서도 발견해 35갈래를 채운다. 각 지면이 실제로 import 하는
+     data/100yearmap/*.json 을 grep 으로 뽑아 넣었다 — 지어내지 않았다 */
+  '/elementary': ['src/pages/100y/elementary/index.astro', 'src/data/100yearmap/elementary.json'],
+  '/nursery': ['src/pages/100y/nursery/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json'],
+  '/nursery-fill': ['src/pages/100y/nursery-fill/index.astro', 'src/data/100yearmap/nursery-fill.json'],
+  '/hiking': ['src/pages/100y/hiking/index.astro', 'src/data/100yearmap/hiking.json'],
+  '/golf': ['src/pages/100y/golf/index.astro', 'src/data/100yearmap/golf.json'],
+  '/workout': ['src/pages/100y/workout/index.astro', 'src/data/100yearmap/workout.json'],
+  '/cycling': ['src/pages/100y/cycling/index.astro', 'src/data/100yearmap/cycling.json'],
+  '/swimming': ['src/pages/100y/swimming/index.astro', 'src/data/100yearmap/swimming.json'],
+  '/soccer': ['src/pages/100y/soccer/index.astro', 'src/data/100yearmap/soccer.json'],
+  '/parental-leave': ['src/pages/100y/parental-leave/index.astro', 'src/data/100yearmap/parental-leave.json'],
+  '/kindergarten': ['src/pages/100y/kindergarten/index.astro', 'src/data/100yearmap/kindergarten.json'],
+  '/longest-job': ['src/pages/100y/longest-job/index.astro', 'src/data/100yearmap/longest-job.json'],
+  '/afterschool': ['src/pages/100y/afterschool/index.astro', 'src/data/100yearmap/afterschool.json'],
+  '/years-left': ['src/pages/100y/years-left/index.astro', 'src/data/100yearmap/years-left.json'],
+  '/healthy-years': ['src/pages/100y/healthy-years/index.astro', 'src/data/100yearmap/healthy-years.json', 'src/data/100yearmap/years-left.json'],
+  '/pediatrics': ['src/pages/100y/pediatrics/index.astro', 'src/data/100yearmap/pediatrics.json'],
+  '/keep-working': ['src/pages/100y/keep-working/index.astro', 'src/data/100yearmap/keep-working.json', 'src/data/100yearmap/longest-job.json'],
+  '/first-job': ['src/pages/100y/first-job/index.astro', 'src/data/100yearmap/first-job.json', 'src/data/100yearmap/longest-job.json'],
+  '/marriage-age': ['src/pages/100y/marriage-age/index.astro', 'src/data/100yearmap/marriage-age.json', 'src/data/100yearmap/first-job.json'],
+  '/care': ['src/pages/100y/care/index.astro', 'src/data/100yearmap/care.json', 'src/data/100yearmap/years-left.json', 'src/data/100yearmap/keep-working.json'],
+  '/breakfast': ['src/pages/100y/breakfast/index.astro', 'src/data/100yearmap/breakfast.json', 'src/data/100yearmap/first-job.json'],
+  '/home': ['src/pages/100y/home/index.astro', 'src/data/100yearmap/home.json', 'src/data/100yearmap/longest-job.json', 'src/data/100yearmap/marriage-age.json'],
+  '/spending': ['src/pages/100y/spending/index.astro', 'src/data/100yearmap/spending.json', 'src/data/100yearmap/home.json'],
+  '/pets': ['src/pages/100y/pets/index.astro', 'src/data/100yearmap/pets.json'],
+  '/travel': ['src/pages/100y/travel/index.astro', 'src/data/100yearmap/travel.json'],
+  '/promotion': ['src/pages/100y/promotion/index.astro', 'src/data/100yearmap/promotion.json'],
+  '/exercise': ['src/pages/100y/exercise/index.astro', 'src/data/100yearmap/exercise.json'],
+  '/oneperson': ['src/pages/100y/oneperson/index.astro', 'src/data/100yearmap/oneperson.json'],
+  '/lifelong': ['src/pages/100y/lifelong/index.astro', 'src/data/100yearmap/lifelong.json'],
+  '/retire-income': ['src/pages/100y/retire-income/index.astro', 'src/data/100yearmap/retire-income.json'],
+  '/polytech': ['src/pages/100y/polytech/index.astro', 'src/data/100yearmap/polytech.json'],
+  '/pension': ['src/pages/100y/pension/index.astro', 'src/data/100yearmap/pension-recipients.json'],
+  '/training-card': ['src/pages/100y/training-card/index.astro', 'src/data/100yearmap/training-card.json'],
+  '/before': [
+    'src/pages/100y/before/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json',
+    'src/data/100yearmap/pediatrics.json', 'src/data/100yearmap/afterschool.json', 'src/data/100yearmap/elementary.json',
+    'src/data/100yearmap/breakfast.json',
+  ],
+  '/ages': [
+    'src/pages/100y/ages/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json',
+    'src/data/100yearmap/afterschool.json', 'src/data/100yearmap/pediatrics.json', 'src/data/100yearmap/elementary.json',
+    'src/data/100yearmap/longest-job.json', 'src/data/100yearmap/years-left.json', 'src/data/100yearmap/healthy-years.json',
+    'src/data/100yearmap/keep-working.json', 'src/data/100yearmap/first-job.json', 'src/data/100yearmap/marriage-age.json',
+    'src/data/100yearmap/care.json', 'src/data/100yearmap/breakfast.json', 'src/data/100yearmap/home.json',
+    'src/data/100yearmap/spending.json', 'src/data/100yearmap/pets.json', 'src/data/100yearmap/travel.json',
+    'src/data/100yearmap/promotion.json', 'src/data/100yearmap/exercise.json', 'src/data/100yearmap/oneperson.json',
+    'src/data/100yearmap/lifelong.json', 'src/data/100yearmap/retire-income.json', 'src/data/100yearmap/polytech.json',
+    'src/data/100yearmap/pension-recipients.json', 'src/data/100yearmap/training-card.json',
+  ],
+
   /* 여러 장짜리 갈래 — 그 갈래 전체가 한 날을 쓴다. 장마다 다른 날을 댈 근거가 없다 */
   '갈래:region': ['src/pages/100y/region/[slug].astro', 'src/data/100yearmap/pages-school.json'],
   '갈래:age': ['src/pages/100y/age/[age].astro', 'src/data/100yearmap/age-axis.json'],
@@ -134,7 +187,17 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   본다('⑭ 🔴 갈래 표가 가리키는 파일이 다 있다' + (없는것.length ? ' — 없는 것: ' + 없는것.join(', ') : ''),
        없는것.length === 0);
 
-  본다('⑮ 갈래가 스물 넘는다', Object.keys(갈래).length >= 20);
+  /* 🔴 2026-08-27 — ⑭는 «틀린 것»만 잡지 «빠뜨린 것»은 못 잡는다. 5번이 kculturewire에서
+     겪은 것과 같은 흠(고정 지면을 만들었는데 갈래에 안 넣음)이 백년지도에도 35갈래나
+     있었다. sitemap.xml.ts 의 고정 경로(`path: '/word'`, 나머지 슬래시 없는 것)를 직접
+     읽어 갈래 표에 짝이 있는지 대조한다 — 새 지면을 만들고 여기 안 넣으면 이 시험이 잡는다 */
+  const 사이트맵글 = fs.readFileSync(path.join(뿌리, 'src/pages/100y/sitemap.xml.ts'), 'utf8');
+  const 고정경로들 = [...new Set([...사이트맵글.matchAll(/path:\s*'(\/[a-z0-9-]+)'/g)].map((m) => m[1]))];
+  const 안낀것 = ['/', ...고정경로들].filter((p) => !(p in 갈래));
+  본다('⑯ 🔴 sitemap.xml.ts 의 고정 지면이 갈래 표에 다 있다' + (안낀것.length ? ' — 빠진 것: ' + 안낀것.join(', ') : ''),
+       안낀것.length === 0);
+
+  본다('⑰ 갈래가 쉰 넘는다', Object.keys(갈래).length >= 50);
 
   console.log(실패 === 0 ? `✅ 자가시험 ${통과}개 통과` : `❌ ${실패}개 실패 (통과 ${통과})`);
   process.exit(실패 === 0 ? 0 : 1);
