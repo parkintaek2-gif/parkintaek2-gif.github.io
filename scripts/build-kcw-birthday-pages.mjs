@@ -176,8 +176,41 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
        본문 표에 «전원» 실려 있다. 제목이 나르던 것은 으뜸 한 명뿐이었다.
      ⚠ 366일을 다 재서 가장 긴 것이 57자다(9월 14일). 60자 한계 안이다. */
   const 케이팝수 = 실을것.filter((p) => 그룹소속.has(p.q)).length;
+
+  /**
+   * 🔴🔴 [2026-08-28 04:2x · 5번] **「idols」 한 낱말이 이 366장에서 통째로 빠져 있었다.**
+   *   ────────────────────────────────────────────────────────────────
+   *   GSC 28일치를 이 갈래만 뽑아 보니 **순위가 두 무리로 딱 갈렸다** —
+   *   ```
+   *     kpop idols born on february 20      66위    kpop idols march birthdays    56위
+   *     kpop birthdays in january           63위    august 1 kpop birthday        63위
+   *     kpop idols with january birthdays   62위    kdrama actors born in august  62위
+   *     ────────────────────────────────────────────────────────────
+   *     korean stars with birthday on 4yh august  10위
+   *     korean actors born in september           12위
+   *     which kpop idol birthday is on 26 august  12위
+   *   ```
+   *   윗무리는 6~7쪽, 아랫무리는 1쪽이다. **윗무리에는 다 「idols」가 있고, 우리 366장에는
+   *   「idol」이라는 글자가 «한 번도» 안 나온다.** 우리는 「K-pop groups」라고만 적었다.
+   *
+   * ⛔ **없는 말을 지어내는 것이 아니다.** 우리가 잰 것은 위키데이터 P463(그룹 소속)이고,
+   *   영어권에서 「K-pop idol」이 가리키는 것이 바로 그것 — «케이팝 그룹에 속한 사람»이다.
+   *   ⚠ 예전에 「아이돌」을 안 쓰기로 한 적이 있다. 그것은 위키데이터에 «직업»이 「아이돌」인
+   *     사람이 0명이라 **직업을 지어낼 수 없어서**였다. 여기서는 직업이 아니라 이미 잰
+   *     «그룹 소속»을 손님 말로 옮기는 것이라 그 판단과 어긋나지 않는다.
+   *
+   * ⭐⭐ 그런데 이 갈래는 내가 오늘 03:4x 에 **9/25 까지 잠가 뒀다**(제목 길이 쓸이 실험).
+   *   지금 통째로 바꾸면 「길이 때문인지 낱말 때문인지」를 영영 못 가른다.
+   *   ⇒ 그래서 **366장을 반으로 갈라 낸다.** 홀숫날은 새 낱말, 짝숫날은 그대로.
+   *     같은 사이트·같은 기간·같은 권위에서 두 판이 나란히 서므로, 9/25 에 둘을 견주면
+   *     **낱말 하나의 효과만** 떨어져 나온다. 기다리는 것도 아니고 눈감고 바꾸는 것도 아니다.
+   *   ⚠ 홀짝은 «날짜»로 가른다 — 무작위로 가르면 다음에 다시 잴 때 어느 쪽이 어느 쪽이었는지
+   *     모른다. 날짜는 다시 셈해도 늘 같다.
+   */
+  const 홀숫날 = Number(String(mmdd).slice(-2)) % 2 === 1;
+  const 케이팝말 = 홀숫날 ? 'K-pop idols' : 'in K-pop groups';
   const 제목 = 케이팝수 > 0
-    ? `${실을것.length} Korean stars born on ${날} — ${케이팝수} in K-pop groups`
+    ? `${실을것.length} Korean stars born on ${날} — ${케이팝수} ${케이팝말}`
     : (으뜸
       ? `${벗(으뜸.보일)} and ${실을것.length - 1} other Korean stars born on ${날}`
       : `Korean stars born on ${날}`);
@@ -215,7 +248,7 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/born-on/${mmdd}">
 <title>${제목} | K Culture Wire</title>
-<meta name="description" content="${실을것.length} Korean actors and singers were born on ${날}${으뜸 ? `, including ${벗(으뜸.보일)}` : ''}. ${케이팝수 === 0 ? 'None of them are in a music group' : 케이팝수 === 1 ? 'One of them is in a K-pop group' : `${케이팝수} of them are in K-pop groups`}. Every name is listed.">
+<meta name="description" content="${실을것.length} Korean actors and singers were born on ${날}${으뜸 ? `, including ${벗(으뜸.보일)}` : ''}. ${케이팝수 === 0 ? 'None of them are in a music group' : 케이팝수 === 1 ? (홀숫날 ? 'One of them is a K-pop idol' : 'One of them is in a K-pop group') : (홀숫날 ? `${케이팝수} of them are K-pop idols` : `${케이팝수} of them are in K-pop groups`)}. Every name is listed.">
 <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -369,8 +402,17 @@ if (process.argv.includes('--자가시험')) {
     const 원래 = new Set(그룹소속);
     그룹소속.add('Q-시험-아이유');
     const k = 지면짓기('05-16', (날.get('05-16') ?? []).map((p, i) => (i === 0 ? { ...p, q: 'Q-시험-아이유' } : p)));
-    검('⭐ 그룹 소속이 있으면 제목이 «K-pop groups» 를 말한다', /K-pop group/.test(k));
-    검('⭐ 설명도 K-pop 을 말한다', /in a K-pop group|in K-pop groups/.test(k));
+    /* 🔴 [2026-08-28] 홀짝 가름을 넣었으므로 시험도 «두 판»을 다 본다. 05-16 은 짝숫날이다 */
+    검('⭐ 짝숫날은 예전 낱말(K-pop groups)을 그대로 쓴다', /K-pop group/.test(k));
+    검('⭐ 짝숫날 설명도 예전 낱말이다', /in a K-pop group|in K-pop groups/.test(k));
+    검('⛔ 짝숫날에는 idol 이라 안 쓴다', !/K-pop idol/.test(k));
+    {
+      /* ⚠ 시험 자료에는 05-16 하루뿐이라, «같은 사람 목록»을 홀숫날 자리에 넣어 짓는다.
+         날짜만 홀수로 바꾸면 낱말이 갈리는지 그것만 본다 — 자료를 새로 지어내지 않는다. */
+      const 홀 = 지면짓기('05-17', (날.get('05-16') ?? []).map((p, i) => (i === 0 ? { ...p, q: 'Q-시험-아이유' } : p)));
+      검('⭐ 홀숫날 제목은 «K-pop idols» 를 말한다 — 잰 검색어의 낱말이다', /K-pop idol/.test(홀));
+      검('⛔ 홀숫날에는 예전 낱말을 안 쓴다', !/in K-pop groups/.test(홀));
+    }
     검('한 명이면 «One of them is» 로 쓴다 — 「1 of them are」 가 아니다',
       !/1 of them are/.test(k));
     그룹소속.clear(); 원래.forEach((q) => 그룹소속.add(q));
