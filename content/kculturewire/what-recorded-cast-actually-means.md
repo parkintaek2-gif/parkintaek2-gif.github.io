@@ -1,6 +1,6 @@
 ---
-title: "Everything we can say about Korean casting rests on a median of five recorded names per title"
-dek: "Wikidata records no cast at all for 266 of 901 Korean titles. Of the 635 that have any, the median series lists five people and the median film four. Here is what that does to every figure we publish from it."
+title: "Korean titles on Netflix: a median of 5 recorded cast names"
+dek: "Wikidata records no cast at all for 266 of 901 Korean titles. Of the 635 that have any, the median series lists five names. What that limits."
 category: titles
 purpose: ads
 pubDate: 2026-08-08

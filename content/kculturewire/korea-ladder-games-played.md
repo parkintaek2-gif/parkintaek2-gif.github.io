@@ -1,6 +1,6 @@
 ---
 title: "The Korean ladder is not the hardest grind. Europe West is."
-dek: "Europe West's challengers average 921 ranked games to Korea's 770 and Southeast Asia's 410. In five of six regions you play more to reach the top tier. In Vietnam you play less, on all four days measured."
+dek: "Europe West's challengers average 921 ranked games to Korea's 770 and Southeast Asia's 410 — five of six regions measured."
 category: titles
 genre: esports
 purpose: both

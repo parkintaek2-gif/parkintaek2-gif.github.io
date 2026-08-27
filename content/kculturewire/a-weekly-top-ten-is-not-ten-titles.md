@@ -1,6 +1,6 @@
 ---
-title: "A Netflix weekly top ten is not ten titles. One show has held seven of the places."
-dek: "Across 493,600 country-chart rows, 18,586 weekly lists put one title in two or more places. Seasons explain 26,068 of the 26,093 extra rows. The 25 that are left are two different films sharing one name inside a single top ten."
+title: "A Netflix weekly top 10 is not ten titles"
+dek: "Across 493,600 country-chart rows, 18,586 weekly lists put one title in two or more places. One show has held seven of the ten. Seasons explain some of it."
 category: titles
 purpose: both
 pubDate: 2026-08-08

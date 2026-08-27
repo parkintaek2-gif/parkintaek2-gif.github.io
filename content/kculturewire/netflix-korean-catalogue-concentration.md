@@ -1,6 +1,6 @@
 ---
-title: "236 Korean titles have charted on Netflix worldwide. One of them is a fifth of all the viewing."
-dek: "Five years of Netflix's global Top 10 hold 23.7 billion hours of Korean viewing. Squid Game is 21.3% of it, the 50 biggest titles are nearly three-quarters, and reaching number one multiplies a show's hours without lengthening its run."
+title: "Squid Game is 21.3% of all Korean viewing on Netflix"
+dek: "Five years of Netflix's global Top 10 hold 23.7 billion hours of Korean viewing across 236 titles. One of them is a fifth of it. Every title listed."
 category: titles
 purpose: both
 pubDate: 2026-08-06

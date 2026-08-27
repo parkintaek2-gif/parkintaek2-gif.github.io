@@ -145,6 +145,23 @@
       "가설": [
         "제목 106자·설명 236자로 둘 다 잘렸다. 8/27 새벽에 훑을 때 이 한 장이 빠져 있었다 — 다시 재서 찾았다. 뺀 사실(시리즈 23.6% · short names 까닭)은 본문에 그대로 있는 것을 확인하고 뺐다."
       ]
+    },
+    {
+      "지면": "(기사 여덟 편 묶음) korea-ladder-games-played · korea-music-outsells-television · what-recorded-cast-actually-means · the-charts-did-not-concentrate · korea-exports-grew-viewing-did-not · netflix-korean-catalogue-concentration · a-weekly-top-ten-is-not-ten-titles · one-region-is-not-like-the-others",
+      "바꾼날": "2026-08-27",
+      "다시잴날": "2026-09-24",
+      "무엇을": "제목과 설명",
+      "전값": {
+        "노출합": 213,
+        "창": "2026-07-28~2026-08-25",
+        "가장큰것": "korea-ladder-games-played 노출 104 · 순위 14.5"
+      },
+      "가설": [
+        "여덟 편 다 제목 59~110자·설명 190~235자로 잘리고 있었다. 노출이 있는 것부터 골랐다 — 안 보이는 지면을 먼저 고치면 값이 안 나온다.",
+        "korea-ladder-games-played 는 순위 14.5(2페이지)다. 제목은 59자로 이미 한계 안이었고 설명만 204자였다 — 잘린 설명이 클릭 이유를 지우고 있었을 개연성을 본다."
+      ],
+      "⚠못재는것": "여덟 편을 한꺼번에 바꿨다. 지면별로 봐야 하고 묶음 합계로는 못 가른다.",
+      "⛔무엇을하면안되나": "9/24 전에 이 여덟 편 제목·설명을 또 바꾸지 않는다."
     }
   ],
   "_9월5일에할것": {
