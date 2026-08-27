@@ -18,7 +18,6 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-title-pages.json';
 import { 고유문장 } from '../../../../scripts/lib/kcw-title-facts.mjs';
-import { 나라사실 } from '../../../../scripts/lib/kcw-title-lead.mjs';
 import markets from '../../../data/wikitip-markets.json';
 import people from '../../../data/wikitip-people.json';
 /* ⭐ 열 장에만 붙는 자료. 2번 지시(01:2x) — 530장을 다 고치기 전에 열 장으로 먼저 잰다 */
@@ -48,9 +47,6 @@ export function getStaticPaths() {
 }
 
 const { t } = Astro.props;
-
-/* 🔴 [2026-08-28] 첫 문단에 세울 «나라가 든» 사실. 자료가 없으면 null 이 오고 그 문장은 안 나온다 */
-const 나라앞세우기 = 나라사실(t);
 
 /*
  * 🔴 2026-08-25, 사장님 지시 —
@@ -280,13 +276,34 @@ const jsonLd = {
     ⚠ `<title>` 은 **안 건드렸다** — 9/05 까지 제목 실험이 걸려 있다
       (`src/data/kcw-title-experiments.json`). 그날 낼 제목은 거기에 적어 뒀다.
   */}
+  {/*
+    🔴🔴 [2026-08-28 02:1x · 5번] **빌드해서 읽어 보고 내 전제가 틀린 것을 알았다. 그대로 적는다.**
+      「첫 문단이 나라 이름을 한 번도 안 말한다」고 적고 셋을 다 넣었는데, 빌드된 지면을
+      읽어 보니 **바로 다음 문단(`고유사실`)이 이미 같은 말을 하고 있었다** —
+        내가 넣은 것        「stayed longest in South Korea — 6 weeks」
+        원래 있던 것        「Its longest presence was in South Korea, where it held 6 chart places」
+        내가 넣은 것        「was on 20 country charts at once in the week of 2023-07-30」
+        원래 있던 것        「Its widest single week was 2023-07-30, when it sat on 20 country charts at once」
+      ⛔ 그대로 뒀으면 **556장이 같은 사실을 연달아 두 번 말하는 지면**이 됐다.
+        판박이를 줄이겠다며 판박이를 늘리는 꼴이다.
+      ⚠ 내가 잰 것은 `<p class="lead">` 하나뿐이었고, «첫 화면»은 그 다음 문단까지다.
+        **재는 자리를 좁게 잡으면 없는 문제를 만든다.**
+    ⭐ 두 번째로 다시 읽고 나서 **문단을 아예 안 더하기로 했다.**
+      「이름만 남기면 되지 않나」로 한 번 더 줄여 봤지만, 그래도
+      「number 1 in Indonesia, Japan, South Korea and Taiwan」 바로 뒤에
+      「number one in **4 of them**」이 와서 여전히 같은 말이었다.
+      🔴 **고칠 자리는 새 문단이 아니라 «있던 문장»이었다.**
+        나라 이름은 `scripts/lib/kcw-title-facts.mjs` 의 그 문장 안에 붙였다 —
+        「It reached number one in 4 of them — Indonesia, Japan, South Korea and Taiwan.」
+      ⚠ `markets` → `countries` 한 낱말만 여기 남긴다. 손님이 치는 말이 그것이다
+        (GSC 실측 「18 again netflix **countries**」). 「markets」는 우리 용어다.
+  */}
   <p class="lead">
     A Korean {갈래} that reached a Netflix weekly top 10 in <b>{t.markets}</b> of
-    {' '}{data.marketCount} countries. It {나라앞세우기.높이 ?? `peaked at number ${t.peak}`}
-    {나라앞세우기.오래 && <>, and {나라앞세우기.오래}</>}.
-    {나라앞세우기.한꺼번에 && <> It {나라앞세우기.한꺼번에}.</>}
-    {' '}Across {t.weeks} {셈(t.weeks, 'week')} between {t.firstWeek} and {t.lastWeek} it took
-    {' '}<b>{t.places.toLocaleString('en-US')}</b> {셈(t.places, 'chart place')}.
+    {' '}{data.marketCount} countries, holding <b>{t.places.toLocaleString('en-US')}</b>{' '}
+    {셈(t.places, 'chart place')} across {t.weeks} {셈(t.weeks, 'week')} between {t.firstWeek} and{' '}
+    {t.lastWeek}. Its best position anywhere was
+    {' '}<b>number {t.peak}</b>.
   </p>
 
   {/*

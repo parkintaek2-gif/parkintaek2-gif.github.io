@@ -144,12 +144,35 @@ export function 고유문장(작품, 온자료, 나라수) {
     }
   }
 
-  /* ② 몇 나라에서 1위였나. ⛔ 0이면 그 말을 안 한다 — 「0개국에서 1위」는 쓸 말이 아니다 */
+  /**
+   * ② 몇 나라에서 1위였나. ⛔ 0이면 그 말을 안 한다 — 「0개국에서 1위」는 쓸 말이 아니다
+   *
+   * 🔴 [2026-08-28 · 5번] **여기에 나라 «이름»을 넣는다. 문장을 더하지 않고 이 문장을 늘린다.**
+   *   ─────────────────────────────────────────────────────────────────
+   *   오늘 새벽에 첫 문단(`lead`)에 나라 이름을 세우는 문장을 «따로» 넣었다가
+   *   빌드해서 읽어 보니 바로 이 문장과 겹쳤다 —
+   *     넣은 것   「It reached number 1 in Indonesia, Japan, South Korea and Taiwan」
+   *     이 문장   「It reached number one in 4 of them.」
+   *   같은 사실을 연달아 두 번 말하는 지면이 556장 나올 뻔했다.
+   *   ⛔ **판박이를 줄이겠다며 판박이를 늘리는 것**이 가장 나쁜 고침이다.
+   *   ⭐ 그래서 새 문장을 만들지 않고 «있던 문장에 이름을 붙인다».
+   *     손님이 치는 말은 수가 아니라 나라 «이름»이다(GSC 실측 — 「squid game countries」).
+   * ⚠ 이름이 많으면 넷까지만 적고 「and N more」로 줄인다. 아흔셋을 늘어놓으면 문단이 아니라 목록이다.
+   */
   const 일위 = 일위나라수(작품);
   if (일위 !== null && 일위 > 0) {
+    const 일위나라 = (작품.byMarket ?? [])
+      .filter((m) => Number(m.peak) === 1)
+      .map((m) => m.name)
+      .filter(Boolean);
+    const 이름들 = 일위나라.length === 0 ? null
+      : 일위나라.length === 1 ? 일위나라[0]
+        : 일위나라.length <= 4
+          ? `${일위나라.slice(0, -1).join(', ')} and ${일위나라[일위나라.length - 1]}`
+          : `${일위나라.slice(0, 4).join(', ')} and ${일위나라.length - 4} more`;
     글.push(일위 === 1
-      ? 'It reached number one in one country.'
-      : `It reached number one in ${일위} of them.`);
+      ? `It reached number one in one country${이름들 ? `, ${이름들}` : ''}.`
+      : `It reached number one in ${일위} of them${이름들 ? ` — ${이름들}` : ''}.`);
   }
 
   /* ③ 한 나라에서 가장 오래 */
