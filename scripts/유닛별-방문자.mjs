@@ -152,7 +152,7 @@ for (const u of 유닛) {
   const 쪽 = 일수 > 1 ? Math.round(합 / 일수) : 합;
   const 몫 = Math.round((쪽 / 목표) * 100);
   const 낱 = u.주소.map((d) => `${d} ${(표.get(d) ?? 0).toLocaleString()}`).join(' + ');
-  console.log(`  ${u.이름.padEnd(20)} ${String(쪽.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (${낱})`);
+  console.log(`  ${u.이름.padEnd(20)} ${String(쪽.toLocaleString()).padStart(7)}명꼴  목표의 ${String(몫).padStart(3)}%   (${낱})`);
 }
 const 맵 = 클라이프맵읽기(일수);
 if (맵 === null) {
@@ -160,7 +160,7 @@ if (맵 === null) {
 } else {
   const 몫 = Math.round((맵.평균 / 목표) * 100);
   const 날치 = 맵.잰날수 < 맵.요청날수 ? ` (요청 ${맵.요청날수}일 중 ${맵.잰날수}일만 잼)` : '';
-  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.평균.toLocaleString()).padStart(7)}명  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · ${맵.잰날수}일 평균${날치})`);
+  console.log(`  ${'1번/4번 KLifeMap'.padEnd(20)} ${String(맵.평균.toLocaleString()).padStart(7)}명꼴  목표의 ${String(몫).padStart(3)}%   (klifemap.ai · ${맵.잰날수}일 평균${날치})`);
   console.log(`  ${''.padEnd(20)} ${''.padStart(7)}      ⚠ 쿠키를 안 심어 같은 사람 여러 번을 한 명으로 못 묶습니다`);
 }
 console.log('\n⛔ 「못 쟀음」을 0 으로 옮겨 적지 마십시오 — 「손님이 없다」와 「안 세서 모른다」는 다릅니다.');
