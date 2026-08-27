@@ -1,10 +1,10 @@
 {
- "asOf": "20260825",
+ "asOf": "20260826",
  "stocks": 2767,
- "top1": 24.9,
+ "top1": 25.1,
  "top5": 51.9,
  "top10": 57.9,
- "top30": 70.9,
+ "top30": 70.8,
  "top100": 85.2,
  "stocksForHalf": 4,
  "stocksFor80": 57,
@@ -19,7 +19,7 @@
  "top10list": [
   {
    "en": "Samsung Electronics",
-   "share": 24.9
+   "share": 25.1
   },
   {
    "en": "SK hynix",
@@ -35,7 +35,7 @@
   },
   {
    "en": "Samsung Electro-Mech.",
-   "share": 1.7
+   "share": 1.6
   },
   {
    "en": "Hyundai Motor",
@@ -54,7 +54,7 @@
    "share": 1
   },
   {
-   "en": "KB Financial",
+   "en": "Samsung Life",
    "share": 1
   }
  ]
