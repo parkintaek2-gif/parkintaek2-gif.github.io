@@ -146,5 +146,31 @@
         "제목 106자·설명 236자로 둘 다 잘렸다. 8/27 새벽에 훑을 때 이 한 장이 빠져 있었다 — 다시 재서 찾았다. 뺀 사실(시리즈 23.6% · short names 까닭)은 본문에 그대로 있는 것을 확인하고 뺐다."
       ]
     }
-  ]
+  ],
+  "_9월5일에할것": {
+    "왜": "/title 지면 556장의 제목은 8/26 실험 때문에 2026-09-05 까지 잠겨 있다. 그날 풀리면 아래를 «재고 나서» 고친다. 그전에 건드리면 실험이 섞여 아무것도 못 잰다.",
+    "어떻게찾았나": "node scripts/find-missing-words.mjs sc-domain:kculturewire.com --days 28 --행수 5000 --적어도 3",
+    "찾은것": [
+      {
+        "빠진낱말": "hit / flop",
+        "지면": "/title/* 여럿 (concrete-utopia · confidential-assignment-2-international · parasyte-the-grey)",
+        "평균순위": "7.0 ~ 10.3",
+        "지금제목": "{작품}: Netflix country by country, every week it charted",
+        "⚠": "h2 로는 이미 넣어 두었는데(8/27 새벽) 순위가 그대로다 — 제목이 아니면 안 되는 것으로 보인다. 9/05 에 다시 재서 확인한다"
+      },
+      {
+        "빠진낱말": "countries (복수)",
+        "지면": "/title/18-again · /title/behind-your-touch",
+        "평균순위": "11.5 ~ 17.2",
+        "⚠": "제목이 「country by country」라 «countries» 를 담지 못한다. 손님은 「18 again netflix countries」로 친다"
+      },
+      {
+        "빠진낱말": "watch",
+        "지면": "/title/behind-your-touch",
+        "평균순위": 17.2,
+        "⛔": "우리는 어디서 볼 수 있는지 «모른다». 넣으려면 먼저 그 자료가 있어야 한다 — 없으면 안 넣는다"
+      }
+    ],
+    "⛔함정": "이 자가 맨 위에 올린 tudum·top10·all-weeks-countries.tsv 는 «넷플릭스 원본 파일»을 찾는 검색이다. 순위 2~4위인데 클릭이 0 이다. 순위를 올려도 안 눌린다 — 쫓지 않는다."
+  }
 }
