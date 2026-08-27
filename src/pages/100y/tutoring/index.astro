@@ -1,0 +1,167 @@
+---
+/**
+ * /100y/tutoring — 사교육 참여율·비용, 초중고
+ *
+ * 사장님 지시(2026-08-27) — 「끊임없이 데이터를 보강해야지」. docs/새데이터-KOSIS-후보.md
+ * (2번, 2026-08-06)에 있던 후보(학교급별 사교육 참여율)를 3주 만에 착수했다.
+ * 우리 강령과 정면으로 닿는 자리다 — 「학원을 팔지 않는다. 그래서 안 다녀도 된다고
+ * 말할 수 있다」. KOSIS 「초중고사교육비조사」(DT_1PE301 참여율 · DT_1PE201 사교육비)를
+ * scripts/collect-kosis-private-tutoring.mjs 로 실측 수집했다.
+ *
+ * ⛔ 참여율이 낮다고 「덜 배운다」로 읽히지 않게, 안 하는 쪽도 다수라는 것을 그대로 적는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/private-tutoring.json';
+
+const 자료 = 원본 as any;
+const 연도들 = (Object.keys(자료.연도별) as string[]).sort((a, b) => Number(b) - Number(a));
+const 기준연도 = 자료.기준연도 as string;
+const 최근 = 자료.연도별[기준연도];
+
+const 반올림 = (v: number | null, 자리 = 1) =>
+  v == null ? null : Math.round(v * 10 ** 자리) / 10 ** 자리;
+const 퍼센트 = (v: number | null) => (v == null ? '못 잼' : `${반올림(v)}%`);
+const 만원 = (v: number | null) => (v == null ? '못 잼' : `${반올림(v)}만원`);
+
+const 고참여율 = 반올림(최근.참여율.고등학교);
+const 고안받음 = 고참여율 == null ? null : 반올림(100 - 고참여율);
+
+const desc =
+  `통계청 초중고사교육비조사(${기준연도}년)를 그대로 옮겼습니다. 고등학생 사교육 참여율은 ` +
+  `${퍼센트(최근.참여율.고등학교)}입니다 — 뒤집으면 ${고안받음}%는 사교육을 받지 않습니다. ` +
+  `2007년부터 학교급별 참여율·월평균 비용을 나란히 볼 수 있습니다.`;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '사교육 참여율',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `통계청 초중고사교육비조사(${기준연도}년)에 따르면 사교육 참여율은 초등학교 ${퍼센트(최근.참여율.초등학교)}, 중학교 ${퍼센트(최근.참여율.중학교)}, 고등학교 ${퍼센트(최근.참여율.고등학교)}입니다. 고등학생 기준 ${고안받음}%는 사교육을 받지 않습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '사교육비',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `같은 조사에서 학생 1인당 월평균 사교육비는 초등학교 ${만원(최근.사교육비.초등학교)}, 중학교 ${만원(최근.사교육비.중학교)}, 고등학교 ${만원(최근.사교육비.고등학교)}입니다. 사교육을 받지 않는 학생도 포함한 전체 평균입니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`사교육 참여율 — 고등학생 ${고안받음}%는 안 받습니다 (${기준연도}년)`}
+  description={desc}
+  jsonLd={faqJsonLd}
+>
+  <h1>학원, 얼마나 다니고<br />얼마나 안 다닐까요?</h1>
+  <p class="sub">
+    <strong>{기준연도}년 고등학생 사교육 참여율은 {퍼센트(최근.참여율.고등학교)}입니다.</strong>
+    {' '}뒤집으면 <strong>{고안받음}%는 사교육을 받지 않습니다.</strong>
+  </p>
+
+  <p class="note">
+    ⚠ 이 지면은 「다녀야 한다」도 「안 다녀도 된다」도 말하지 않습니다.
+    <strong>둘 다 다수가 아니게 갈리는 나이가 있다는 것</strong>만 통계청 조사 그대로 적습니다.
+    이 수치는 <strong>통계이지 당신이 아닙니다.</strong>
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{기준연도}년, 고등학생 사교육 참여율</p>
+    <p class="answer-num">{퍼센트(최근.참여율.고등학교)}</p>
+    <p class="answer-sub">전체 평균 월 사교육비 {만원(최근.사교육비.고등학교)}(안 받는 학생 포함)</p>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>학교급</th>
+          <th>참여율</th>
+          <th>월평균 사교육비</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>전체</td><td>{퍼센트(최근.참여율.전체)}</td><td>{만원(최근.사교육비.전체)}</td></tr>
+        <tr><td>초등학교</td><td>{퍼센트(최근.참여율.초등학교)}</td><td>{만원(최근.사교육비.초등학교)}</td></tr>
+        <tr><td>중학교</td><td>{퍼센트(최근.참여율.중학교)}</td><td>{만원(최근.사교육비.중학교)}</td></tr>
+        <tr><td>고등학교</td><td>{퍼센트(최근.참여율.고등학교)}</td><td>{만원(최근.사교육비.고등학교)}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{연도들[연도들.length - 1]}년부터 {연도들[0]}년까지</h2>
+  <p class="note">참여율·사교육비 둘 다 해마다 바뀝니다. 아래에서 연도별로 볼 수 있습니다.</p>
+
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>연도</th>
+          <th>전체 참여율</th>
+          <th>고등학교 참여율</th>
+          <th>전체 사교육비</th>
+          <th>고등학교 사교육비</th>
+        </tr>
+      </thead>
+      <tbody>
+        {연도들.map((연도) => (
+          <tr>
+            <td>{연도}</td>
+            <td>{퍼센트(자료.연도별[연도].참여율.전체)}</td>
+            <td>{퍼센트(자료.연도별[연도].참여율.고등학교)}</td>
+            <td>{만원(자료.연도별[연도].사교육비.전체)}</td>
+            <td>{만원(자료.연도별[연도].사교육비.고등학교)}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn">
+    <p><strong>⛔ 이것은 등수가 아닙니다.</strong></p>
+    <p class="note">
+      사교육비는 <strong>받지 않는 학생도 포함한 전체 평균</strong>입니다. 실제로 다니는
+      학생만 놓고 보면 금액은 이보다 큽니다. 지역·소득에 따라서도 크게 갈리는데, 이 조사는
+      전국 표본이라 그 갈림은 담지 않았습니다.
+    </p>
+  </div>
+
+  <p class="note">
+    출처 — {자료.출처.이름} ({자료.출처.표.참여율} · {자료.출처.표.사교육비}). 이용허락범위
+    {자료.출처.이용허락범위}. 받은 날 {자료.받은때}.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/elementary">← 초등학교, 몇 살에 들어가나요?</a>
+    <br />
+    <a href="/afterschool">← 6~9세, 학교가 끝난 뒤는 어떻게 보낼까요?</a>
+    <br />
+    <a href="/major">← 고등학교 이후, 학과 찾기</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="tutoring" />
+  <NextQuestionBrief 모은것="초중고사교육비조사 자료" />
+</HundredYear>
+
+<style>
+  [hidden] { display: none !important; }
+</style>

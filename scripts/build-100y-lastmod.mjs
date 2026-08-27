@@ -60,6 +60,7 @@ export const 갈래 = {
      빠뜨림)을 백년지도 사이트맵에서도 발견해 35갈래를 채운다. 각 지면이 실제로 import 하는
      data/100yearmap/*.json 을 grep 으로 뽑아 넣었다 — 지어내지 않았다 */
   '/elementary': ['src/pages/100y/elementary/index.astro', 'src/data/100yearmap/elementary.json'],
+  '/tutoring': ['src/pages/100y/tutoring/index.astro', 'src/data/100yearmap/private-tutoring.json'],
   '/nursery': ['src/pages/100y/nursery/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json'],
   '/nursery-fill': ['src/pages/100y/nursery-fill/index.astro', 'src/data/100yearmap/nursery-fill.json'],
   '/hiking': ['src/pages/100y/hiking/index.astro', 'src/data/100yearmap/hiking.json'],

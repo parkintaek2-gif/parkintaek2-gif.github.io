@@ -186,7 +186,7 @@ export const 붙일수있는갈래 = [
   'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'cycling', 'swimming', 'soccer', 'parental-leave', 'oneperson', 'lifelong', 'retire-income', 'polytech', 'pension', 'training-card',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
-  'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary',
+  'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring',
   /** ⭐ 2026-08-23 — 메뉴 개편으로 신설된 「대학 이전」 허브. 안의 여섯 지면과 같은 결(아이 쪽)이라
    *  `어른갈래`에는 넣지 않는다 — 부모가 보러 온 자리라 기본 도착지(적성)가 이미 맞다. */
   'before',

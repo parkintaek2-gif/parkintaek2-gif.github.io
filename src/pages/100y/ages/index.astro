@@ -17,6 +17,7 @@ import 유치원 from '../../../data/100yearmap/kindergarten.json';
 import 방과후 from '../../../data/100yearmap/afterschool.json';
 import 소아과 from '../../../data/100yearmap/pediatrics.json';
 import 초등 from '../../../data/100yearmap/elementary.json';
+import 사교육 from '../../../data/100yearmap/private-tutoring.json';
 import 직장 from '../../../data/100yearmap/longest-job.json';
 import 남은해 from '../../../data/100yearmap/years-left.json';
 import 건강한해 from '../../../data/100yearmap/healthy-years.json';
@@ -56,6 +57,7 @@ const v = 노후소득 as any;
 const w = 폴리텍 as any;
 const x = 국민연금 as any;
 const y = 내일배움카드 as any;
+const z = 사교육 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -88,6 +90,12 @@ const 문들 = [
     수: `${e.백년넘은곳수.toLocaleString()}곳`,
     한줄: `문 연 지 백 년이 넘은 학교. 전국 ${e.낸곳.toLocaleString()}곳을 세었습니다.`,
     기간: `${e.올해}년 기준`,
+  },
+  {
+    나이: '초중고', 주소: '/tutoring', 이름: '학원, 얼마나 다니고 얼마나 안 다닐까요',
+    수: `${Math.round(z.연도별[z.기준연도].참여율.고등학교 * 10) / 10}%`,
+    한줄: `${z.기준연도}년 고등학생 사교육 참여율. 나머지 ${Math.round((100 - z.연도별[z.기준연도].참여율.고등학교) * 10) / 10}%는 받지 않습니다.`,
+    기간: `${Object.keys(z.연도별)[0]}~${z.기준연도} · ${Object.keys(z.연도별).length}해`,
   },
   {
     나이: '10대', 주소: '/breakfast', 이름: '아침을 거르는 건 몇 살일까',
