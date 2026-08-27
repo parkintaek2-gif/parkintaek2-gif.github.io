@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Korea's monthly trade surplus tripled in a year, and five partners did nine-tenths of it"
 dek: "The customs surplus ran about $8bn a month in late 2025. By the first half of 2026 it averaged $23bn, and hit $36bn in June. Almost the entire jump traces to five partners — the US, Hong Kong, China, Vietnam and Taiwan. Not advice."
 category: macro

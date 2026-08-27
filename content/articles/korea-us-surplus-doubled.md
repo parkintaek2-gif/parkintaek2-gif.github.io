@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Korea's trade surplus with the US more than doubled in six months"
 dek: "Korea's monthly goods surplus with the US went from ~$3.9bn in mid-2025 to $12.1bn by June 2026. Across the year's two halves it grew from $23bn to $50bn — exports up 94%. As of June 2026. Not advice."
 category: fx

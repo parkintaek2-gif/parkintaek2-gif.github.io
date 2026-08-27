@@ -1,4 +1,5 @@
 ---
+draft: true
 title: "Korea's trade with China flipped from deficit to surplus this year"
 dek: "Over a full year, Korea and China nearly cancel. Month by month, the balance turned: net deficit in late 2025, net surplus every month of 2026 — and widening. Exports to China are up 81% in a year. As of June 2026. Not advice."
 category: fx

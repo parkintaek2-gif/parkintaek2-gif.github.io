@@ -1,6 +1,6 @@
 ---
-title: "Korea runs a $188bn trade surplus. Almost none of it is with China."
-dek: "China is Korea's biggest partner both ways, and the two nearly cancel — a $9bn surplus on $330bn of trade. The surplus is earned from the US, Vietnam and a Hong Kong that forwards most goods on. The deficits are oil, gas and machinery."
+title: "China is Korea's biggest trade partner, but almost none of its surplus"
+dek: "China is Korea's biggest partner both ways — and the two nearly cancel. Its balance is about 5% of the national surplus on a fifth of all trade. The surplus is earned from the US, Vietnam and Taiwan; the deficits are oil, gas and machinery."
 category: fx
 pubDate: 2026-08-06
 dataAsOf: 2026-06-30T00:00:00+09:00
@@ -29,7 +29,9 @@ Ask who Korea trades with and the answer is China. It is the largest destination
 
 Over the year to June 2026, Korea sent $169.8bn of goods to China and bought $160.6bn back. That is $330bn of trade — more than a fifth of everything Korea ships or receives — and it nets to a surplus of **$9.2bn**. On a national goods surplus of $187.7bn, China accounts for under **5%**.
 
-The country that dominates the volume barely moves the balance. To find the $188bn, you have to look past it.
+The country that dominates the volume barely moves the balance. To find the surplus, you have to look past it.
+
+*A note on the figures: these are nominal customs dollars over twelve months, and the underlying monthly totals carry a scale break from March 2026 that lifts the later months, so the absolute levels below read high. What we rely on — and what survives the break — is the **structure**: which partners are surpluses and which are deficits, the ranking, and China's share of the total. Those are the findings; the exact dollar levels are not.*
 
 ## Where the surplus is actually earned
 

@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
- * build-korea-deficit-chart.mjs — 한국의 «최대 무역적자 상대국» 가로 막대(2026 상반기).
- * 원천 관세청/KOSIS(금융위 9/9 공지 무관). 값 = 상반기 수지 합(USD bn), 전부 적자라 빨강.
+ * build-korea-deficit-chart.mjs — 한국의 «최대 무역적자 상대국» 가로 막대(12개월).
+ * 원천 관세청/KOSIS(금융위 9/9 공지 무관). 값 = 12개월(2025-07~2026-06) 수지 합(USD bn), 전부 적자라 빨강.
+ * ⚠ 절대 달러 수준은 2026-03 스케일 브레이크 영향을 받는다([[6번-무역데이터-스케일브레이크]]).
+ *    그래서 이 차트의 «순위·구성»이 소재이지 정확한 막대 높이가 아니다 — 12개월 순위는 브레이크를 가로질러 안정적.
  * 자가시험: node scripts/build-korea-deficit-chart.mjs --self-test
  */
 import fs from 'node:fs';
@@ -30,7 +32,7 @@ export function chart(rows) {
   }).join('\n  ');
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="Georgia,'Times New Roman',serif">
   <rect width="${W}" height="${H}" fill="#ffffff"/>
-  <text x="${x1}" y="18" text-anchor="end" font-size="12" fill="#555">USD bn · 2026 H1 balance · red = energy</text>
+  <text x="${x1}" y="18" text-anchor="end" font-size="12" fill="#555">USD bn · 12-month balance to Jun 2026 · red = energy</text>
   <line x1="${x1}" y1="${MT - 6}" x2="${x1}" y2="${H - MB + 2}" stroke="#333"/>
   ${bars}
 </svg>`;
@@ -39,8 +41,8 @@ export function chart(rows) {
 const ENERGY = /saudi|arab emirates|iraq|quatar|qatar|oman|kuwait|algeria|australia|iran|libya|nigeria|kazakhstan/i;
 
 function selfTest() {
-  const svg = chart([{ label: 'Saudi', value: -11.6, energy: true }, { label: 'Japan', value: -10.7, energy: false }]);
-  const ok = svg.includes('-11.6') && svg.includes('Japan') && svg.includes('<svg');
+  const svg = chart([{ label: 'Saudi', value: -22.7, energy: true }, { label: 'Japan', value: -20.8, energy: false }]);
+  const ok = svg.includes('-22.7') && svg.includes('Japan') && svg.includes('12-month') && svg.includes('<svg');
   if (ok) { console.log('✅ 자가시험 통과'); process.exit(0); }
   console.error('❌ 자가시험 실패'); process.exit(1);
 }
@@ -50,9 +52,9 @@ function main() {
   if (!fs.existsSync(IN)) { console.log('못 만든다 — trade-country-monthly.json 없음'); process.exit(0); }
   const j = JSON.parse(fs.readFileSync(IN, 'utf8'));
   const rows = (j.countries || []).map((c) => {
-    const bal = c.months.filter((m) => m.month >= '2026-01').reduce((s, m) => s + m.balance, 0) / 1e6;
+    const bal = c.months.reduce((s, m) => s + m.balance, 0) / 1e6; // 12개월 전체 — 순위가 브레이크에 강건
     return { label: c.name_en.replace(/\(BR\)|peoples.*|,.*$/i, '').trim(), value: bal, energy: ENERGY.test(c.name_en) };
-  }).filter((r) => r.value < 0).sort((a, b) => a.value - b.value).slice(0, 9);
+  }).filter((r) => r.value < 0).sort((a, b) => a.value - b.value).slice(0, 10);
   fs.mkdirSync(path.dirname(OUT), { recursive: true });
   fs.writeFileSync(OUT, chart(rows));
   console.log(`✅ 적자 상위 ${rows.length}국 · 1위 ${rows[0].label} ${rows[0].value.toFixed(1)}bn · ${OUT}`);

@@ -1,5 +1,5 @@
 ---
-title: "Korea's $188bn trade surplus comes from a handful of partners — and drains into a different set"
+title: "Korea's trade surplus comes from a handful of partners — and drains to a different set"
 dek: "Twelve months of customs data: Korea's goods surplus rests on the U.S., Hong Kong, Vietnam and Taiwan, and drains to where it buys energy and parts — Saudi Arabia, Japan, Australia. China, the biggest partner, nearly balances. Not advice."
 category: macro
 pubDate: 2026-08-15
@@ -22,7 +22,7 @@ excluded:
   - "Exact totals — source values are in thousand dollars and rounded here to billions"
 ---
 
-Korea sells the world about 188 billion dollars more in goods than it buys, over the year to June 2026. But that headline surplus is not spread across its trading partners — it is made in a few places and given back in a different few. The customs ledger, read partner by partner, is a map of what the country sells and what it cannot make at home.
+Korea sells the world far more finished goods than it buys, over the year to June 2026. But that surplus is not spread across its trading partners — it is made in a few places and given back in a different few. The customs ledger, read partner by partner, is a map of what the country sells and what it cannot make at home. The dollar figures below are approximate and the *structure* — who is a surplus, who is a deficit, and the ranking — is the finding, for the reason set out at the end.
 
 ## Where the surplus is made
 
@@ -48,4 +48,4 @@ The one partner missing from both lists is the biggest of all. By total trade, *
 
 ## What this is, and what it is not
 
-This is merchandise trade only — services and investment income sit outside it — and it is **not investment advice**. A bilateral deficit is not a loss: buying oil from Saudi Arabia or machine tools from Germany is how an export economy runs. Two cautions matter. **Hong Kong's surplus is overstated** by re-exports that pass through it to their real destination. And these are customs values rounded from thousands to billions. What survives is the shape: Korea's trade surplus is narrow at the top, concentrated in a few buyers of its finished goods, and it flows straight back out to the sellers of the energy and parts it runs on.
+This is merchandise trade only — services and investment income sit outside it — and it is **not investment advice**. A bilateral deficit is not a loss: buying oil from Saudi Arabia or machine tools from Germany is how an export economy runs. Two cautions matter. **Hong Kong's surplus is overstated** by re-exports that pass through it to their real destination. And the absolute dollar levels are not to be trusted: the underlying monthly customs totals carry a **scale break from March 2026** that lifts the later months, so the figures above read high. That is why we report the *shape* rather than the levels — Korea's trade surplus is narrow at the top, concentrated in a few buyers of its finished goods, and it flows straight back out to the sellers of the energy and parts it runs on. The ranking and the concentration survive the break; the exact dollars do not.

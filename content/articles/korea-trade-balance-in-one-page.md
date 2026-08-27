@@ -1,6 +1,6 @@
 ---
 title: "Korea's trade balance, in one page: who it sells to, who it pays"
-dek: "The whole shape of Korean trade in one place. Korea sells manufactured goods to two giants — the US and China — and buys energy and machines from everyone else. The surplus is doubling; the deficit is oil. As of June 2026. Not advice."
+dek: "Korea's trade in one page: it sells to two giants — the US and China, each about a fifth of exports — and buys energy and machines from everyone else."
 category: fx
 pubDate: 2026-08-27
 dataAsOf: 2026-06-30T00:00:00+09:00
@@ -11,45 +11,42 @@ sources:
   - org: "Korea Customs Service (via KOSIS, Statistics Korea)"
     api: "Exports and imports by partner country, monthly, July 2025–June 2026 (table DT_1R11006_FRM101 / 360)"
 crossChecks:
-  - "Surplus side, H1 2026: the US (+$50.0bn, more than doubled from $23bn) and China (+$13.5bn, flipped from a deficit) are the two biggest surpluses"
-  - "Deficit side, H1 2026: Korea ran a deficit with 81 countries totalling about −$70.8bn; the largest are Saudi Arabia, Japan, the UAE, Germany and Australia — energy and machinery"
-  - "Both surges are exports: exports to the US rose 94% over the year, exports to China 81%"
-  - "Over a full 12 months, China and Korea nearly cancel on ~$330bn of two-way trade; the reversal only shows month by month"
+  - "Sell side, share of exports over 12 months: China about 19.5% and the United States about 17.7% — two partners of almost identical size, and no third comes close"
+  - "Buy side, share of imports: China is the single biggest supplier at about 23.5%, ahead of the US at about 11.9%"
+  - "Deficit side: Korea ran a goods deficit with 84 partner countries; the largest are Saudi Arabia, Japan, Australia, Germany and the UAE — energy and machinery"
+  - "Shares are used throughout rather than dollar levels: the underlying monthly totals contain a scale break from March 2026, so absolute figures are not reported, but within-month shares are stable across the break and can be"
 excluded:
-  - "Monthly customs values in US dollars (balances are levels, not ratios), stated with their period"
+  - "Absolute dollar balances. The monthly customs totals contain a scale break from March 2026, so we report shares and rankings — which survive the break — not levels"
   - "Partner-country table only; product detail (HS codes) is not in it — energy/machinery is inferred from each partner's known export mix"
-  - "Balances move with commodity prices and shipment timing; treat single months as snapshots and half-year sums as the steadier read"
   - "This is not investment advice"
+draft: false
 ---
 
 Korean trade has a simple shape once you see both sides at once. Korea **sells** finished manufactured goods — chips, cars, ships — to a small number of large markets, and **buys** raw energy and some high-end machinery from a long tail of everyone else. This page puts the whole picture in one place; each part links to the detail.
 
-## What Korea sells — the surplus
+## What Korea sells — two giants
 
-Two countries are almost the entire surplus, and both grew fast in the first half of 2026.
+Two countries are almost the entire export story, and they are nearly the same size.
 
-- **United States: +$50.0bn** in H1 2026 — [more than double](/article/korea-us-surplus-doubled) the $23bn of the previous half. Exports to the US rose 94% over the year.
-- **China: +$13.5bn** — a balance that [flipped from deficit to surplus](/article/korea-china-trade-balance-flipped) this year, on an 81% jump in exports.
+- **China: about 19.5% of exports** over the twelve months to June 2026.
+- **United States: about 17.7%.**
 
-![Korea's monthly goods surplus with the United States, rising from about +$3.9bn in mid-2025 to +$12.1bn by June 2026.](/charts/korea-us-trade-balance.svg)
+No third partner comes close — the next, Hong Kong, is under 9%, and much of that is Korean goods passing through on their way to the mainland. The [partner map](/article/korea-trade-partners-two-giants-one-supplier) has the full curve; the short version is that four partners are half of everything Korea sells.
 
-Over a full year the China relationship [nearly cancels](/article/korea-trade-surplus-not-china) on about $330bn of two-way trade — the surplus is a 2026 development, visible only month by month.
+## What Korea buys — one supplier, then the oil states
 
-## What Korea buys — the deficit
+On the buying side the picture tilts toward a single country. **China alone supplies about 23.5% of Korea's imports** — a bigger slice than any export destination takes — with the US second at about 11.9%. After that the import bill is dominated by energy.
 
-The paying-out side is [almost entirely energy and machines](/article/korea-trade-deficits-energy-and-machines). Korea ran a deficit with **81 countries** in H1 2026, about **−$70.8bn** in total. The biggest:
+The list of partners Korea runs its biggest **deficits** with is [almost entirely energy and machines](/article/korea-trade-deficits-energy-and-machines): Saudi Arabia, Australia, the UAE, Iraq and the other oil states, plus Japan and Germany for machinery. Korea has almost no domestic oil or gas, so the energy bill is paid abroad, to whoever has it.
 
-- **Saudi Arabia −$11.6bn**, **UAE −$6.1bn**, **Australia −$5.4bn** — oil, gas, coal.
-- **Japan −$10.7bn**, **Germany −$6.0bn** — machinery and parts.
-
-![Korea's ten largest trade-deficit partners in H1 2026, led by Saudi Arabia and Japan; energy exporters marked in red.](/charts/korea-trade-deficit-partners.svg)
-
-Korea has almost no domestic oil or gas, so the energy bill is paid abroad, to whoever has it.
+![Bar chart of Korea's ten largest trade-deficit partners over the 12 months to June 2026, led by Saudi Arabia and Japan; energy exporters marked in red.](/charts/korea-trade-deficit-partners.svg)
 
 ## The one-line summary
 
-Korea earns from **two giants** ([US and China](/article/korea-us-surplus-doubled)) and, on the import side, buys mostly from **one supplier plus the oil states** ([the partner map is here](/article/korea-trade-partners-two-giants-one-supplier)). Sells manufacturing; buys fuel and tools.
+Korea **sells** manufacturing to **two giants** of nearly equal size ([the US and China](/article/korea-trade-partners-two-giants-one-supplier)) and **buys** mostly from **one supplier plus the oil states**. Sells chips and cars; buys fuel and tools.
 
-All of the above is drawn from one dataset — Korea Customs partner-country trade — which we publish as a [free monthly CSV](/data/korea-trade-balance.csv) you can reproduce with credit.
+## A note on the numbers
 
-Not investment advice — monthly customs values from official Korean data, every figure dated.
+This page uses **shares**, not dollar levels, on purpose. The underlying dataset — Korea Customs partner-country trade — has a scale break from March 2026 that makes the absolute monthly dollar figures untrustworthy after that month. The shares of the basket each partner holds are stable across that break, so those are what we report. It is drawn from one dataset, which we publish as a [free monthly CSV](/data/korea-trade-balance.csv) you can reproduce with credit.
+
+Not investment advice — official Korean customs data, reported as shares because of a known scale break.

@@ -38,14 +38,14 @@
       "왜": "자동은 94나 235. 요점은 2배: 하반기2025 $23bn→상반기2026 $50bn"
     },
     "korea-trade-deficits-energy-and-machines": {
-      "figure": "$11.6bn",
-      "label": "Korea's biggest trade deficit — Saudi oil",
-      "왜": "본문에 있는 값. 최대 적자=사우디(에너지). 테마 = 적자는 에너지+기계"
+      "figure": "9 of 10",
+      "label": "biggest trade deficits sell energy or machines",
+      "왜": "재작성(스케일브레이크). 절대달러 대신 순위/구성 — 상위10 중 9가 에너지/기계"
     },
     "korea-trade-balance-in-one-page": {
-      "figure": "$50.0bn",
-      "label": "surplus with the US; the deficit is oil",
-      "왜": "무역 허브. 본문값 $50bn(대미 흑자). 라벨로 양쪽(흑자·적자) 대비"
+      "figure": "23.5%",
+      "label": "of Korea's imports come from China — its top supplier",
+      "왜": "재작성(스케일브레이크). 절대달러 대신 점유율 — 중국이 수입 23.5%(최대 공급처)"
     },
     "korea-everything-comes-down-to-four": {
       "figure": "0.95",
