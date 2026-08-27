@@ -38,13 +38,28 @@ const 서울몫 = ((100 * 서울.count) / d.inBox).toFixed(0);
    ⭐ 이미 7~11위로 «뜨고 있는데» 제목에 hometown 이라는 말이 없었다.
    자동완성으로도 재니 `kpop idols hometown` 1번째, `bts members hometown` 1번째·4줄이다.
    ⛔ 낱말을 끼운 것이 아니다 — 이 지면은 실제로 태어난 곳을 센 지면이다. */
-const TITLE = 'Kpop idols hometown: where Korea\'s most-read stars were born — 50 of 123 in Seoul, '
-  + 'but not one BTS member';
+/* 🔴 [2026-08-27 · 5번] 앞 판이 105자여서 구글이 잘랐다(60자쯤에서 자른다).
+   그러니 「but not one BTS member」는 손님에게 보인 적이 없다. 위 판단(hometown 이 제목에
+   있어야 한다)은 그대로 지키고 길이만 줄인다 — 그 낱말은 여전히 맨 앞에 있다.
+   ⛔ 뺀 말(BTS 멤버는 한 명도 서울이 아니다)은 본문 두 번째 문단과 설명에 그대로 있다. */
+const TITLE = 'Kpop idols hometown: 50 of 123 stars were born in Seoul';
 const DESC =
   `Go Youn-jung, Faker, IU and Lee Min-ho were all born in Seoul — ${서울.count} of the `
   + `${d.inBox} most-read Korean names we could place, or ${서울몫}%. V and Suga were born in `
   + 'Daegu, Jungkook and Jimin in Busan, RM in Goyang and J-Hope in Gwangju. Wikidata place of '
   + 'birth, checked against coordinates.';
+
+/* 🔴🔴 [2026-08-27 18:4x · 5번] 이 지면이 도시 지면 37장을 하나도 안 걸고 있었다.
+   dist 를 재 보니 /from/ 서른일곱 장에 링크를 거는 지면이 딱 하나였고, 그 하나가
+   /born-abroad 인데 그 지면 자체가 고아였다(들어오는 링크 0개 · 노출 0).
+   즉 출생지 갈래 서른여덟 장이 통째로 «사이트맵으로만» 알려져 있었다.
+   ⭐ 여기가 그 갈래의 허브다. 도시 이름을 그 도시 지면으로 잇는다 —
+     ① 구글이 링크로 걸어 들어간다(사이트맵만으로는 「발견만 하고 안 넣음」이 되기 쉽다)
+     ② 손님이 표에서 도시를 눌러 다음 걸음을 걷는다. 그것이 체류시간이다
+   ⚠ 슬러그 규칙은 from/[city].astro 의 것과 «글자 그대로» 같아야 한다. 다르면 죽은
+     링크가 되고, 죽은 링크는 안 거느니만 못하다. 빌드 뒤에 37장이 다 맞는지 쟀다. */
+const 도시길 = (place: string) => String(place).toLowerCase()
+  .replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -93,7 +108,7 @@ const jsonLd = {
         <tbody>
           {d.cities.map((c) => (
             <tr>
-              <td class="nm">{c.place}</td>
+              <td class="nm"><a href={`/from/${도시길(c.place)}`}>{c.place}</a></td>
               <td>{c.count}</td>
               <td class="who">{c.people.map((p) => p.name).join(' · ')}</td>
             </tr>
@@ -104,6 +119,14 @@ const jsonLd = {
     <p class="note">
       Order is by how many stars, then by their combined reads. Reads are per million reads of each
       of the four Southeast Asian Wikipedias, so the size of each edition is already divided out.
+      {' '}<b>Each city name opens its own page</b> with everyone born there and where it sits
+      against the rest.
+    </p>
+    {/* 🔴 [2026-08-27] born-abroad 는 이 사이트에서 아무 데서도 안 걸려 있었다.
+        사이트맵에만 있고 노출이 0이었다. 출생지를 다루는 허브가 여기뿐이라 문도 여기서 낸다. */}
+    <p class="note">
+      Seven of the names we could place were <a href="/born-abroad">born outside Korea</a> — and one
+      of them we would not call that.
     </p>
   </section>
 
