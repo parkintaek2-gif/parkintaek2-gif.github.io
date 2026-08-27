@@ -18,6 +18,7 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-title-pages.json';
 import { 고유문장 } from '../../../../scripts/lib/kcw-title-facts.mjs';
+import { 나라사실 } from '../../../../scripts/lib/kcw-title-lead.mjs';
 import markets from '../../../data/wikitip-markets.json';
 import people from '../../../data/wikitip-people.json';
 /* ⭐ 열 장에만 붙는 자료. 2번 지시(01:2x) — 530장을 다 고치기 전에 열 장으로 먼저 잰다 */
@@ -47,6 +48,9 @@ export function getStaticPaths() {
 }
 
 const { t } = Astro.props;
+
+/* 🔴 [2026-08-28] 첫 문단에 세울 «나라가 든» 사실. 자료가 없으면 null 이 오고 그 문장은 안 나온다 */
+const 나라앞세우기 = 나라사실(t);
 
 /*
  * 🔴 2026-08-25, 사장님 지시 —
@@ -253,12 +257,36 @@ const jsonLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical={`https://www.kculturewire.com/title/${t.slug}`}>
   <h1>{t.title}</h1>
+  {/*
+    🔴🔴 [2026-08-28 02:2x · 5번] **첫 문단이 나라 이름을 한 번도 말하지 않고 있었다.**
+
+    ── 어떻게 여기까지 왔나 ─────────────────────────────────────
+    갈래별 색인률을 재니 `/born-on` 20/20(100%) · `/group` 16/20(80%) · `/title` 14/20(70%).
+    「왜 title 만 낮은가」를 설명하려던 가설이 **넷 다 반증됐다** —
+    인입 링크 수(안 든 것 23장 vs 든 것 4장) · 지면 두께(가장 얇은 born-on 이 100%) ·
+    자료 양(안 든 noise 는 115자리·10주) · 판박이 비율(가장 판박이인 group 이 title 보다 높다).
+    8/25 에 열 장만 「깊게」 해 둔 실험도 읽어 보니 **5/10 대 5/10, 대조군과 한 장도 안 달랐다.**
+
+    ⭐ 남은 가설 — **「남이 이미 답하는 물음이라 우리 지면이 더할 것이 적다」.**
+      그렇다면 할 일은 하나다. **우리만 가진 것을 첫 문단으로 끌어올린다.**
+      우리만 가진 것은 「나라별·주별 자취」인데, 이 문단은 `21 of 94 markets` 처럼
+      **수만 말하고 나라 이름을 한 번도 안 말했다.** 손님이 치는 말은
+      「squid game countries」·「18 again netflix countries」다(GSC 실측).
+
+    ⛔ 수를 지우지 않았다 — 자리 수·주 수·기간은 그대로 뒤에 있다. **앞에 나라를 세웠을 뿐이다.**
+    ⛔ 줄세우지 않는다. 「가장 인기 있는 나라」가 아니라 「가장 높이 오른 곳」·「가장 오래 머문 곳」이다.
+       동점이면 동점이라고 적는다(`나라이어붙이기` 가 그 일을 한다).
+    ⚠ 자료가 없으면 그 문장은 안 나온다. 빈칸을 그럴듯한 말로 메우지 않는다.
+    ⚠ `<title>` 은 **안 건드렸다** — 9/05 까지 제목 실험이 걸려 있다
+      (`src/data/kcw-title-experiments.json`). 그날 낼 제목은 거기에 적어 뒀다.
+  */}
   <p class="lead">
     A Korean {갈래} that reached a Netflix weekly top 10 in <b>{t.markets}</b> of
-    {' '}{data.marketCount} markets, holding <b>{t.places.toLocaleString('en-US')}</b>{' '}
-    {셈(t.places, 'chart place')} across {t.weeks} {셈(t.weeks, 'week')} between {t.firstWeek} and{' '}
-    {t.lastWeek}. Its best position anywhere was
-    {' '}<b>number {t.peak}</b>.
+    {' '}{data.marketCount} countries. It {나라앞세우기.높이 ?? `peaked at number ${t.peak}`}
+    {나라앞세우기.오래 && <>, and {나라앞세우기.오래}</>}.
+    {나라앞세우기.한꺼번에 && <> It {나라앞세우기.한꺼번에}.</>}
+    {' '}Across {t.weeks} {셈(t.weeks, 'week')} between {t.firstWeek} and {t.lastWeek} it took
+    {' '}<b>{t.places.toLocaleString('en-US')}</b> {셈(t.places, 'chart place')}.
   </p>
 
   {/*
