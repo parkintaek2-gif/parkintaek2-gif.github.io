@@ -58,10 +58,18 @@ const 적힌몫 = 명부 > 0 ? (100 * 적힌사람) / 명부 : null;
 
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
 
-const TITLE = `${s.name} — ${수(s.people)} Korean actors and singers we counted from it`;
-const DESC = `We counted ${수(s.people)} Korean actors, singers and other entertainers who `
-  + `studied at ${s.name}. Counted from Wikidata, which records a school for `
-  + `${수(적힌사람)} of the ${수(명부)} people we hold — so this is a floor, not a total.`;
+/* 🔴 [2026-08-27 17:2x · 5번] **55장이 전부 잘리고 있었다** — 제목 73자·설명 200자쯤.
+   구글은 제목을 60자, 설명을 155자쯤에서 자른다.
+   ⭐ 수를 «앞으로» 당기고 「from 학교이름」 꼴로 바꿨다 — 손님이 치는 말이
+     「celebrities from hanyang university」 꼴이라 그 순서에 맞춘다.
+   ⛔ 「floor, not a total」(이 수가 밑값이라는 고지)을 설명에서 뺐다. **빼기 전에 본문을 쟀다** —
+     아래 note 칸이 그 말을 그대로 하고 있다. 잘려서 안 보이던 자리에서 보이는 자리로 옮긴 것이다.
+   ⚠ 55개 학교를 다 재서 제목 최대 57자(Hankuk University of Foreign Studies)다. */
+const TITLE = `${수(s.people)} Korean stars from ${s.name}`;
+/* ⚠ 55개 학교를 다 재서 설명 최대 130자다. 「other entertainers」를 뺀 것은 본문 첫 문단이
+   그 말을 그대로 하기 때문이다(빼기 전에 쟀다). */
+const DESC = `${수(s.people)} Korean actors and singers studied at `
+  + `${s.name}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
