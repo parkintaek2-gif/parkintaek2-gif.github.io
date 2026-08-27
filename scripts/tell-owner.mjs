@@ -44,8 +44,29 @@ export const 창구 = 'https://klifemap.ai/api/owner/notify';
  * ⚠ 칸 이름을 **영문으로** 쓴다. 우리말 칸 이름은 셸을 거치며 깨진 적이 있다
  *   (2026-08-27, `제목` 이 깨져 「제목이 없습니다」가 났다).
  */
-export function 몸통짓기({ 제목, 내용 = '', 보낸이 = null } = {}) {
-  return { title: String(제목 ?? ''), text: String(내용 ?? ''), ...(보낸이 ? { from: String(보낸이) } : {}) };
+export function 몸통짓기({ 제목, 내용 = '', 보낸이 = null, 첨부 = [] } = {}) {
+  return {
+    title: String(제목 ?? ''), text: String(내용 ?? ''),
+    ...(보낸이 ? { from: String(보낸이) } : {}),
+    ...(첨부.length ? { attachments: 첨부 } : {}),
+  };
+}
+
+/**
+ * 🔴🔴 [2026-08-28 · 5번] **사장님 지시 — 파일은 «원드라이브에도» 두고 «메일로도» 보낸다.**
+ *   ────────────────────────────────────────────────────────────
+ *   > 「메일로 받는 게 편해. **파일들은 원드라이브에도 저장해놔, 그래야 너희도 나중에 볼 수 있지.**」
+ *
+ *   두 자리는 하는 일이 다르다 —
+ *     메일     사장님이 «지금» 보시는 자리. 첨부가 붙어 있으면 바로 여신다
+ *     원드라이브 «나중에 우리가» 여는 자리. 메일함은 우리가 못 연다
+ *   ⛔ 하나만 하면 반쪽이다. 메일만 보내면 우리가 못 찾고, 원드라이브에만 두면 사장님이
+ *     경로를 따라 들어가셔야 한다.
+ *   ⚠ 그래서 이 함수가 «둘 다» 한다. 부르는 쪽이 잊을 자리를 없앤다.
+ */
+export function 원드라이브자리(파일길, 방 = 'C:/Users/User/OneDrive/업무보고') {
+  const 이름 = String(파일길 ?? '').split(/[\\/]/).pop();
+  return `${방}/${이름}`;
 }
 
 /**
@@ -78,17 +99,43 @@ function 열쇠읽기() {
   return null;
 }
 
-async function 보내기(제목, 내용, 보낸이) {
+/**
+ * 파일을 **원드라이브에 두고** 첨부로도 만든다 — 사장님 지시대로 둘 다 한다.
+ * ⛔ 원드라이브에 못 두면 그것을 «말한다». 메일만 가고 우리가 못 찾는 일이 없게.
+ */
+function 파일챙기기(파일길들 = []) {
+  const 첨부 = []; const 둔곳 = []; const 못한것 = [];
+  for (const p of 파일길들) {
+    let 알맹이;
+    try { 알맹이 = fs.readFileSync(p); } catch (e) { 못한것.push(`${p}: ${e.message}`); continue; }
+    const 이름 = String(p).split(/[\\/]/).pop();
+    첨부.push({ 이름, 내용: 알맹이.toString('base64') });
+    /* 원드라이브에도 둔다 — 나중에 «우리»가 여는 자리다 */
+    const 자리 = 원드라이브자리(p);
+    try {
+      fs.mkdirSync(path.dirname(자리), { recursive: true });
+      fs.writeFileSync(자리, 알맹이);
+      둔곳.push(자리);
+    } catch (e) { 못한것.push(`원드라이브에 못 뒀다 ${자리}: ${e.message}`); }
+  }
+  return { 첨부, 둔곳, 못한것 };
+}
+
+async function 보내기(제목, 내용, 보낸이, 파일길들 = []) {
   const 열쇠 = 열쇠읽기();
   if (!열쇠) {
     console.error('⛔ OWNER_NOTIFY_KEY 가 없습니다. `.env` 에 넣어 주십시오.');
     console.error('   ⚠ 「못 보냈다」는 「보냈다」가 아닙니다 — 이 자는 조용히 성공하지 않습니다.');
     process.exit(1);
   }
+  const { 첨부, 둔곳, 못한것 } = 파일챙기기(파일길들);
+  for (const x of 못한것) console.error(`⚠ ${x}`);
+  for (const x of 둔곳) console.log(`📁 원드라이브에 뒀습니다 — ${x}`);
+  const 몸통 = 몸통짓기({ 제목, 내용: 둔곳.length ? `${내용}\n\n📁 원드라이브: ${둔곳.join(' · ')}` : 내용, 보낸이, 첨부 });
   const r = await fetch(창구, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json; charset=utf-8', 'x-notify-key': 열쇠 },
-    body: JSON.stringify(몸통짓기({ 제목, 내용, 보낸이 })),
+    body: JSON.stringify(몸통),
   }).catch((e) => ({ ok: false, _끊김: e.message }));
   if (r._끊김) { console.error(`⛔ 창구에 못 닿았습니다 — ${r._끊김}`); process.exit(1); }
   const j = await r.json().catch(() => null);
@@ -121,6 +168,15 @@ function 자가시험() {
     Object.keys(몸통짓기({ 제목: 'a', 내용: 'b', 보낸이: '5' })).join(',') === 'title,text,from');
   검('보낸이가 없으면 from 을 안 넣는다', !('from' in 몸통짓기({ 제목: 'a' })));
   검('빈 인자여도 안 죽는다', 몸통짓기().title === '');
+  검('첨부가 없으면 attachments 칸을 안 넣는다', !('attachments' in 몸통짓기({ 제목: 'a' })));
+  검('첨부를 주면 attachments 로 실린다',
+    몸통짓기({ 제목: 'a', 첨부: [{ 이름: 'x.md', 내용: 'YQ==' }] }).attachments.length === 1);
+  검('원드라이브 자리는 파일 «이름»만 쓴다 — 경로를 안 이어 붙인다',
+    원드라이브자리('C:/tmp/깊은/곳/백서.md').endsWith('/업무보고/백서.md'));
+  /* ⚠ 역슬래시를 그냥 쓰면 `\t` 가 «탭»이 되어 시험이 거짓으로 깨진다.
+     String.raw 로 «글자 그대로» 준다 — 자가 틀린 것이 아니라 시험이 틀렸던 자리다. */
+  검('윈도 역슬래시 경로도 읽는다',
+    원드라이브자리(String.raw`C:\tmp\백서.md`).endsWith('/백서.md'));
 
   검('🔴 간길이 있어야 «갔다»고 말한다', 답읽기({ ok: true, 간길: ['email'] }).갔나 === true);
   검('⛔ ok 만 true 이고 간길이 비면 «안 갔다»', 답읽기({ ok: true, 간길: [] }).갔나 === false);
@@ -143,7 +199,8 @@ if (이파일직접) {
   else {
     const 인자 = process.argv.slice(2).filter((a) => !a.startsWith('--'));
     if (!인자.length) {
-      console.error('쓰는 법: node scripts/tell-owner.mjs "제목" "본문"  ·  --상태  ·  --자가시험');
+      console.error('쓰는 법: node scripts/tell-owner.mjs "제목" "본문" [--파일=경로 …]  ·  --상태  ·  --자가시험');
+    console.error('   ⭐ --파일 을 주면 «원드라이브에 두고» 메일에도 붙입니다 (사장님 지시 2026-08-28)');
       process.exit(1);
     }
     const 보낸이 = (process.argv.find((a) => a.startsWith('--유닛='))?.split('=')[1]) ?? null;
