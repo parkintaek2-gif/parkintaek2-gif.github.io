@@ -93,11 +93,25 @@ export function 닿은나라(작품들) {
 }
 
 /** 생일 곳간을 이름으로 찾는다. ⛔ 같은 이름이 둘이면 «고르지 않는다» */
+/**
+ * 🔴🔴 [2026-08-28 07:3x · 5번] **위키데이터 열쇠(q)를 같이 돌려준다.**
+ *   ─────────────────────────────────────────────────────────────
+ *   [왜] 오늘 새벽에 「학교 × 넷플릭스 자취」를 이어 기사를 쓰려다 멈췄다.
+ *     우리 사람 자료에 `q` 가 없어서 **이름으로만** 맞출 수 있었기 때문이다.
+ *     그런데 이 저장소는 이름 맞추기를 스스로 금지해 왔다 —
+ *     `Lee You-mi` / `Lee Yoo-mi` 처럼 같은 사람이 두 이름으로 적히고,
+ *     `Kim Min-jae` 처럼 **다른 사람**이 같은 이름으로 적힌다(아래 슬러그 충돌 주석 참고).
+ *   ⭐ 그런데 여기서 이미 «생일 명부»를 이름으로 찾고 있고, 그 명부에는 q 가 있다.
+ *     찾은 그 줄의 q 를 **그대로 실어 보내기만** 하면 된다. 새로 캘 것이 없다.
+ *   ⛔ 이름이 겹치면(ambiguous) q 도 «안 준다». 하나를 고르면 남남을 한 사람으로 만드는 것이고,
+ *     그것이 바로 이름 맞추기의 흠이다.
+ *   ⚠ 그래서 q 가 null 인 사람이 남는다. 그건 못 맞춘 것이고, «못 맞췄다»가 맞는 답이다.
+ */
 export function 생일찾기(생일지도, 이름) {
   const v = 생일지도.get(보일이름(이름).toLowerCase());
-  if (!v) return { born: null, why: 'notFound' };
-  if (v.length > 1) return { born: null, why: 'ambiguous' };
-  return { born: v[0].born ?? null, why: v[0].born ? null : 'noDate' };
+  if (!v) return { born: null, q: null, why: 'notFound' };
+  if (v.length > 1) return { born: null, q: null, why: 'ambiguous' };
+  return { born: v[0].born ?? null, q: v[0].q ?? null, why: v[0].born ? null : 'noDate' };
 }
 
 if (process.argv.includes('--자가시험')) {
@@ -111,6 +125,12 @@ if (process.argv.includes('--자가시험')) {
   검('괄호가 주소를 안 깨뜨린다', 슬러그('Ha Young (actress)') === 'ha-young-actress');
   검('앞뒤 붙임표가 안 남는다', !/^-|-$/.test(슬러그('  Lee  Jung-jae  ')));
 
+  {
+    const 지도 = new Map([['iu', [{ q: 'Q1', name: 'IU', born: '1993-05-16' }]], ['kim min-jae', [{ q: 'Q2', born: '1996-01-01' }, { q: 'Q3', born: '1979-01-01' }]]]);
+    검('생일찾기가 q 를 같이 준다', 생일찾기(지도, 'IU').q === 'Q1');
+    검('⛔ 이름이 겹치면 q 를 안 준다 — 남남을 한 사람으로 만들지 않는다', 생일찾기(지도, 'Kim Min-jae').q === null);
+    검('명부에 없으면 q 는 null', 생일찾기(지도, 'Nobody').q === null);
+  }
   검('괄호를 떼고 보여 준다', 보일이름('Ha Young (actress)') === 'Ha Young');
   검('괄호가 없으면 그대로', 보일이름('Jung Hae-in') === 'Jung Hae-in');
   검('가운데 괄호는 안 뗀다', 보일이름('A (b) c') === 'A (b) c');
@@ -209,6 +229,9 @@ for (const v of 뒤집힌.values()) {
     name: 보임,
     wikiPage: v.key,
     slug: s,
+    /* ⭐ [2026-08-28] 위키데이터 열쇠. 이름이 겹치면 null 이다 — 그때는 «못 맞췄다»가 답이다.
+       이 칸이 있어야 학교·그룹·출생지 같은 위키데이터 칸과 «이름이 아니라 열쇠»로 이을 수 있다 */
+    q: b.q ?? null,
     born: b.born,
     /** ⛔ 왜 생일이 없는지를 «적는다». 빈칸은 이유를 못 말한다 */
     bornUnknownWhy: b.born ? null : b.why,
