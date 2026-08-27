@@ -1,8 +1,8 @@
 {
- "generated": "2026-08-25",
- "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 40 taken evenly across the 2596 pages in our sitemap, asked through the Search Console URL Inspection API.",
+ "generated": "2026-08-27",
+ "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 40 taken evenly across the 2716 pages in our sitemap, asked through the Search Console URL Inspection API.",
  "whatThisIsNot": "Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.",
- "sitemapPages": 2596,
+ "sitemapPages": 2716,
  "sampled": 40,
  "control": {
   "url": "https://www.kculturewire.com/this-page-must-not-exist-zzz-5beon-control",
@@ -12,15 +12,15 @@
  "byState": [
   {
    "state": "들어갔다",
-   "pages": 21
+   "pages": 30
   },
   {
    "state": "발견만",
-   "pages": 18
+   "pages": 8
   },
   {
    "state": "구글이모른다",
-   "pages": 1
+   "pages": 2
   }
  ],
  "byKind": [
@@ -33,8 +33,9 @@
   {
    "kind": "dataset",
    "states": {
-    "들어갔다": 7,
-    "발견만": 15
+    "들어갔다": 16,
+    "발견만": 5,
+    "구글이모른다": 1
    }
   },
   {
@@ -53,8 +54,8 @@
    "kind": "title",
    "states": {
     "들어갔다": 5,
-    "구글이모른다": 1,
-    "발견만": 3
+    "발견만": 3,
+    "구글이모른다": 1
    }
   },
   {
@@ -71,7 +72,7 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-23T16:29:09Z"
+   "마지막크롤": "2026-08-25T20:44:22Z"
   },
   {
    "주소": "https://www.kculturewire.com/spread",
@@ -143,15 +144,15 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-24T02:38:48Z"
+   "마지막크롤": "2026-08-25T21:57:32Z"
   },
   {
    "주소": "https://www.kculturewire.com/tag/data-quality",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T19:11:59Z"
   },
   {
    "주소": "https://www.kculturewire.com/group/dia",
@@ -164,10 +165,9 @@
   {
    "주소": "https://www.kculturewire.com/group/nct-dream",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
   },
   {
    "주소": "https://www.kculturewire.com/group/f-x",
@@ -188,26 +188,26 @@
   {
    "주소": "https://www.kculturewire.com/person/kim-joo-ryoung",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T18:49:52Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/jo-jae-yun",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T16:57:33Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/jeon-so-nee",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T14:14:01Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/park-bo-young",
@@ -220,10 +220,10 @@
   {
    "주소": "https://www.kculturewire.com/person/kim-in-gwon",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T18:42:24Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/kim-sung-cheol",
@@ -236,34 +236,34 @@
   {
    "주소": "https://www.kculturewire.com/person/jeong-ho-bin",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-26T15:42:20Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/han-ji-eun",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T16:27:26Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/sung-hyuk",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T17:24:01Z"
   },
   {
    "주소": "https://www.kculturewire.com/person/park-ji-il",
    "갈래": "dataset",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T19:09:06Z"
   },
   {
    "주소": "https://www.kculturewire.com/school/hongik-university",
@@ -295,22 +295,22 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-10T15:36:08Z"
+   "마지막크롤": "2026-08-26T08:28:32Z"
   },
   {
    "주소": "https://www.kculturewire.com/title/love-to-hate-you",
-   "갈래": "title",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://www.kculturewire.com/title/new-world",
    "갈래": "title",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
    "판": "NEUTRAL",
    "마지막크롤": null
+  },
+  {
+   "주소": "https://www.kculturewire.com/title/new-world",
+   "갈래": "title",
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
   },
   {
    "주소": "https://www.kculturewire.com/title/revelations",
@@ -326,7 +326,7 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-17T12:37:23Z"
+   "마지막크롤": "2026-08-25T18:43:40Z"
   },
   {
    "주소": "https://www.kculturewire.com/title/the-tale-of-lady-ok",
@@ -334,7 +334,7 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-14T13:50:25Z"
+   "마지막크롤": "2026-08-27T08:24:02Z"
   },
   {
    "주소": "https://www.kculturewire.com/title/yesterday",
