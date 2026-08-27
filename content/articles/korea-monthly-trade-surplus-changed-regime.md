@@ -20,7 +20,7 @@ excluded:
   - "Volume versus price. These are nominal US-dollar customs values. A rising number can be more goods, dearer goods, or a cheaper won — this dataset cannot separate them"
   - "Whether the surplus lasts. Twelve months is twelve months. This is not a multi-year trend and we do not treat five rising months as a forecast"
   - "The partner breakdown, which we cover separately. This piece is the national total only"
-draft: false
+draft: true
 image: /charts/korea-trade-balance-monthly.svg
 ---
 
