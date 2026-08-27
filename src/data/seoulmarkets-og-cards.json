@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "how-many-companies-listed-korea": {
+      "figure": "2,767",
+      "label": "stock lines in Korea — but fewer companies",
+      "왜": "레퍼런스 질의. 요점: 2,767 issues인데 115는 우선주(같은 회사 중복)·134 무거래 → 세는 방식 따라 다름"
+    },
     "korea-2026-trade-surplus-data-artifact": {
       "figure": "29%",
       "label": "one-month export jump — a measurement break, not a boom",
