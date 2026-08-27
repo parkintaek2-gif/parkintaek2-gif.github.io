@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-2026-trade-surplus-data-artifact": {
+      "figure": "29%",
+      "label": "one-month export jump — a measurement break, not a boom",
+      "왜": "데이터-정직 기사. 요점: 한 달 +29% 계단이 스케일 브레이크 표식(비율 안 변함)"
+    },
     "korea-monthly-trade-surplus-changed-regime": {
       "figure": "$36bn",
       "label": "monthly surplus, up from $6bn a year ago",
