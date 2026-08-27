@@ -62,11 +62,16 @@ const 날글 = (v: string) => {
   return `${d} ${달}`;
 };
 
-const TITLE = `Korean actors who are ${s.name} — ${s.people.toLocaleString('en-US')} of them, `
-  + `born ${날글(s.from)} to ${날글(s.to)}`;
-const DESC = `${s.people.toLocaleString('en-US')} Korean actors, singers and other entertainers were `
-  + `born between ${날글(s.from)} and ${날글(s.to)}. ${s.listed.toLocaleString('en-US')} are named here. `
-  + `Counted from birth dates — this is arithmetic on a date, not astrology.`;
+/* 🔴 [2026-08-27 · 5번] 열두 장 다 제목 68~80자·설명 179자쯤으로 잘리고 있었다.
+   ⛔ 「not astrology」를 설명에서 빼는 대신 **본문 warn 상자에 낱말 그대로 넣었다** —
+     빼기 전에 재 보니 본문에 astrology 가 «0회»였다. 그냥 뺐으면 감춘 것이 된다.
+   ⚠ 열두 별자리를 다 재서 제목 최대 57자·설명 최대 133자다. */
+/* ⚠ 날짜를 제목에 넣으면 Sagittarius(가장 긴 이름)에서 61자가 된다 — 열둘을 다 재서 알았다.
+   날짜는 설명과 본문 첫 문단에 그대로 있으므로 제목에서는 뺀다. */
+const TITLE = `Korean stars who are ${s.name} — all ${s.people.toLocaleString('en-US')}`;
+const DESC = `${s.people.toLocaleString('en-US')} Korean actors and singers were born between `
+  + `${날글(s.from)} and ${날글(s.to)}. ${s.listed.toLocaleString('en-US')} are named here, `
+  + `with how widely each is read.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
@@ -88,7 +93,11 @@ const DESC = `${s.people.toLocaleString('en-US')} Korean actors, singers and oth
   <section class="warn-box">
     <h2>We are not telling you what this means</h2>
     <p class="warn">
-      <b>A star sign here is arithmetic on a birth date and nothing else.</b> We do not say what
+      {/* 🔴 [2026-08-27 · 5번] 「not astrology」라는 낱말이 여태 **설명(meta)에만** 있었다.
+          본문을 재 보니 astrology 가 «0회»였다. 설명을 줄이면서 그 말을 빼면 그것은
+          감추는 것이 된다 — 별자리 지면에서 가장 못 빼는 한 줄이다. 그래서 여기로 옮겼다.
+          ⛔ 설명에서 뺀 말은 «반드시» 본문 어딘가에 있어야 한다. */}
+      <b>A star sign here is arithmetic on a birth date, not astrology.</b> We do not say what
       {' '}{s.name} is like, because we have not measured anything that would let us say it.
     </p>
     <p class="note">

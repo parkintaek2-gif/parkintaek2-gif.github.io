@@ -19,11 +19,15 @@ export function getStaticPaths() {
 }
 const { f } = Astro.props;
 
-const TITLE = `${f.firm} — where its titles travelled on Netflix`;
+/* ⚠ [2026-08-27] 회사 이름이 긴 세 곳(CJ ENM Entertainment Division 등)에서 69자가 됐다.
+   열아홉 곳을 다 재서 꼬리를 줄였다 — 「어디로 퍼졌나」는 본문 첫 문단이 그대로 말한다. */
+const TITLE = `${f.firm} — its titles on Netflix`;
+/* 🔴 [2026-08-27 · 5번] 열아홉 장 다 설명이 175자쯤이라 잘리고 있었다.
+   ⛔ 뺀 말(가장 넓게 퍼진 주에 몇 나라였나)은 본문에 그대로 있다 — 재고 뺐다. */
 const DESC =
-  `${f.titlesThatCharted} titles from ${f.firm} reached a Netflix country top 10 across ${f.markets} markets `
-  + `and ${f.weeks} weeks, taking ${f.places.toLocaleString('en-US')} chart places. At its widest, `
-  + `${f.widestWeekCountries} countries held one of them in the same week.`;
+  `${f.titlesThatCharted} of its titles reached a Netflix country top 10 in `
+  + `${f.markets} markets over ${f.weeks} weeks, taking `
+  + `${f.places.toLocaleString('en-US')} chart places. Every title and market listed.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',

@@ -191,7 +191,7 @@ for (let i = 0; i < 낼것.length; i += 1) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/born-year/${해}">
 <title>${감(제목)} | K Culture Wire</title>
-<meta name="description" content="${해표.get(해).length} Korean actors, singers and songwriters were born in ${해}${으뜸 ? `, including ${감(벗(으뜸.이름))}` : ''}. They turn ${나이} this year. Birth dates from Wikidata; readers counted from English Wikipedia.">
+<meta name="description" content="${해표.get(해).length} Korean actors and singers were born in ${해}${으뜸 ? `, including ${감(벗(으뜸.이름))}` : ''}. They turn ${나이} this year. Every name listed.">
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --accent:#b4472a; --accent-soft:#fdf3f0; }
   @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){

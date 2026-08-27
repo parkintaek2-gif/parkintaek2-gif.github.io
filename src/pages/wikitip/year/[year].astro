@@ -72,16 +72,22 @@ const 견줄말 = (!y.partialYear && 온해작품.length >= 2)
  * ⛔ 낱말을 «끼워 넣은» 것이 아니다. Netflix 를 뒤로 옮겼을 뿐 뜻은 그대로다 —
  *   제목이 거짓이 되는 낱말은 넣지 않는다.
  * ⭐ 배운 것: 「고쳤다」와 「손님 말이 됐다」는 다르다. 고친 뒤에도 재야 한다. */
+/* 🔴 [2026-08-27 · 5번] 여섯 장 다 제목 66~72자·설명 175자쯤으로 잘리고 있었다.
+   ⛔ 「Charted during {해}, not released in it」은 이 지면에서 가장 못 빼는 한 줄이라
+     설명에 «그대로 둔다» — 본문에 그 말이 없기 때문이다(재고 확인했다).
+     대신 앞쪽 군더더기를 줄였다. */
 const TITLE = y.partialYear
-  ? `Korean drama ${y.year} — a part-year count of ${y.series} series on Netflix`
-  : `Korean drama ${y.year} — the ${y.series} series that charted on Netflix, and ${y.films} films`;
+  ? `Korean drama ${y.year} — ${y.series} series on Netflix (part year)`
+  : `Korean drama ${y.year} — ${y.series} series and ${y.films} films on Netflix`;
 const DESC = y.partialYear
-  ? `${y.series} Korean series and ${y.films} films held a place on a Netflix weekly top 10 during `
-    + `${y.year}, but our data covers only ${y.weeksInData} weeks of that year, so this count is not `
-    + `comparable with a full one. Charted during ${y.year}, not released in it.`
-  : `${y.series} Korean drama series and ${y.films} films held places on Netflix weekly top 10 lists `
-    + `during ${y.year}, taking ${y.places.toLocaleString('en-US')} chart places across `
-    + `${data.marketCount} countries. Charted during ${y.year}, not released in it.`;
+  /* ⚠ 반쪽 해 갈래도 220자여서 잘리고 있었다. 「우리 자료가 그 해의 N주만 덮는다」는
+     이 지면에서 못 빼는 한계 고지라 남기고, 나머지를 줄인다. 본문에도 그대로 있다. */
+  ? `${y.series} Korean series and ${y.films} films took a Netflix top 10 place in ${y.year}. `
+    + `Our data covers only ${y.weeksInData} weeks of that year, so this is not comparable `
+    + `with a full one.`
+  : `${y.series} Korean series and ${y.films} films took `
+    + `${y.places.toLocaleString('en-US')} Netflix top 10 places across ${data.marketCount} countries `
+    + `in ${y.year}. Charted during ${y.year}, not released in it.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
