@@ -45,6 +45,10 @@ The list of partners Korea runs its biggest **deficits** with is [almost entirel
 
 Korea **sells** manufacturing to **two giants** of nearly equal size ([the US and China](/article/korea-trade-partners-two-giants-one-supplier)) and **buys** mostly from **one supplier plus the oil states**. Sells chips and cars; buys fuel and tools.
 
+## Every partner, one page each
+
+Want a single country? We keep a page for each of Korea's biggest trading partners — whether Korea runs a surplus or deficit with it, its rank, and its share of exports and imports. Start at [Korea's trading partners](/trade), or jump to [China](/trade/china), [the United States](/trade/united-states), [Vietnam](/trade/vietnam) or [Japan](/trade/japan).
+
 ## A note on the numbers
 
 This page uses **shares**, not dollar levels, on purpose. The underlying dataset — Korea Customs partner-country trade — has a scale break from March 2026 that makes the absolute monthly dollar figures untrustworthy after that month. The shares of the basket each partner holds are stable across that break, so those are what we report. It is drawn from one dataset, which we publish as a [free monthly CSV](/data/korea-trade-balance.csv) you can reproduce with credit.

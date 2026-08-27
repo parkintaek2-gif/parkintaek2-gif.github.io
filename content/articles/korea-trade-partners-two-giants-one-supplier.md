@@ -44,6 +44,10 @@ Stack the partners up from the largest and both curves climb steeply. **Four par
 
 ![Line chart: cumulative share of Korea's trade against number of partner countries on a log scale, exports and imports. Both reach 50% at four partners and about 77%/72% at ten.](/charts/trade-concentration-curve.svg)
 
+## Look up any one partner
+
+We keep a page for each of Korea's [biggest trading partners](/trade) — surplus or deficit, rank, and share of exports and imports, country by country.
+
 ## What these numbers are, and are not
 
 Everything here is a **share** — the fraction of the basket each partner holds — and deliberately so. The underlying table's monthly dollar totals contain a scale break from March 2026, so the absolute figures are not trustworthy and are not used; the *shares*, by contrast, barely move across that break (China's export share reads 18.9%, 19.1% and 19.6% in February, March and June), which is why they can be reported with confidence. This is a description of *where* Korea's trade goes and comes from in one month, in relative terms — **not investment advice**.
