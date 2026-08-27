@@ -51,9 +51,46 @@ const ORIGIN = 'https://www.kculturewire.com';
 const 지면방 = path.resolve('src/pages/wikitip');
 const 자료방 = path.resolve('src/data');
 
+/**
+ * 주소 → **그 지면을 그리는 소스 파일**. 없으면 undefined.
+ *
+ * 🔴 [2026-08-27 18:1x · 5번] **이 짝을 손으로 적던 것이 이 파일의 세 번째 사고다.**
+ *   아래 주석이 이미 「손으로 짝을 적으면 지면이 늘 때마다 빠진다 — 이 파일에서 이미
+ *   두 번 겪은 일이다」라고 적어 두었는데, 정작 짝 목록은 손으로 적혀 있었다
+ *   (`/title/` `/firm/` `/market/` `/section/` 넷뿐).
+ *
+ *   그래서 오늘 라이브 사이트맵을 재 보니 **2,716개 중 1,446개(53%)에 lastmod 가 없었다.**
+ *     /person 637 · /born-on 367 · /group 264 · /tag 63 · /school 56 · /born-in 12 …
+ *   구글은 lastmod 로 「무엇이 새것인가」를 고른다. 없으면 다시 안 와 본다.
+ *
+ * ⭐ 그래서 **저절로 찾게** 바꾼다 —
+ *     ① `<갈래>/<이름>.astro`        그냥 지면
+ *     ② `<갈래>/[아무거나].astro`     자리표로 나오는 지면(소스 이름이 주소와 다르다)
+ *     ③ `<갈래>/index.astro`         갈래 첫 장
+ *   ⛔ 짝을 손으로 안 적으므로 갈래가 늘어도 저절로 따라온다. 그것이 이 고침의 전부다.
+ * ⚠ `public/` 에 미리 지은 지면(주별·생일 따위)은 소스가 없다 — 그건 부르는 쪽이 따로 준다.
+ */
+function 소스찾기(지면길: string): string | undefined {
+  const 이름 = 지면길.replace(/^\//, '') || 'index';
+  const 곧바로 = path.join(지면방, `${이름}.astro`);
+  if (fs.existsSync(곧바로)) return 곧바로;
+  /* 갈래 첫 장 — `/person` 은 `person/index.astro` 다. 이것을 빠뜨려 첫 장 여섯이
+     날짜 없이 나갔다(고친 뒤 다시 재서 찾았다). ⚠ 재고 나서 또 재야 남은 것이 보인다. */
+  const 갈래첫장 = path.join(지면방, 이름, 'index.astro');
+  if (fs.existsSync(갈래첫장)) return 갈래첫장;
+  const 조각 = 이름.split('/');
+  if (조각.length < 2) return undefined;
+  const 방 = path.join(지면방, ...조각.slice(0, -1));
+  if (!fs.existsSync(방)) return undefined;
+  const 자리표 = fs.readdirSync(방).find((f) => /^\[.+\]\.astro$/.test(f));
+  if (자리표) return path.join(방, 자리표);
+  const 첫장 = path.join(방, 'index.astro');
+  return fs.existsSync(첫장) ? 첫장 : undefined;
+}
+
 function 지어진날(지면길: string): string | undefined {
-  const 소스 = path.join(지면방, `${지면길.replace(/^\//, '') || 'index'}.astro`);
-  if (!fs.existsSync(소스)) return undefined;
+  const 소스 = 소스찾기(지면길);
+  if (!소스) return undefined;
   const 글 = fs.readFileSync(소스, 'utf8');
   /**
    * 🔴 처음엔 자료의 `generated` 만 봤다. 그랬더니 작품 지면 530장이 **08-09** 로 나왔다.
@@ -1028,7 +1065,10 @@ export const GET: APIRoute = async () => {
     /* 🔴 2026-08-22 — 방 열둘은 여기 있는데 **그 방들의 현관(`/community`)이 빠져 있었다.**
        `check-search-readiness` 가 「빌드됐는데 사이트맵에 없는 것 1장」으로 잡았다.
        ⭐ 방을 다 적고 현관을 빼면, 검색은 방을 서로 무관한 열두 장으로 본다 */
-    { path: '/community', priority: '0.8', changefreq: 'weekly' },
+    /* ⚠ [2026-08-27] `public/wikitip/community.html` 로 미리 지은 지면이라 소스가 없다.
+       git 이 아는 그 파일의 마지막 커밋 날을 적는다 — 지어낸 날이 아니다.
+       ⛔ 이 지면을 고치면 이 날짜도 같이 고친다. 안 고치면 「안 바뀌었다」는 거짓이 된다. */
+    { path: '/community', priority: '0.8', changefreq: 'weekly', lastmod: '2026-08-24' },
     { path: '/room/rat', priority: '0.7', changefreq: 'monthly' },
     { path: '/room/ox', priority: '0.7', changefreq: 'monthly' },
     { path: '/room/tiger', priority: '0.7', changefreq: 'monthly' },
@@ -1275,15 +1315,30 @@ export const GET: APIRoute = async () => {
    * ⚠ `/title/<slug>` 530장은 한 소스에서 나오므로 같은 날이 된다. 그것이 맞다 —
    *   그 지면들은 실제로 같은 자료가 바뀔 때 같이 바뀐다.
    */
+  /* ⭐ [2026-08-27] 자리표 짝을 **손으로 안 적는다.** `소스찾기` 가 그 방의 `[…].astro` 를
+     스스로 찾는다. 넷만 적혀 있어서 열세 갈래 1,446장이 날짜 없이 나가고 있었다. */
   for (const e of entries) {
     if (e.lastmod) continue;
-    /* ⚠ 자리표(`[slug]`)로 나오는 지면은 소스 이름이 주소와 다르다. 넷 다 적는다 —
-       하나라도 빠뜨리면 그 지면만 조용히 날짜 없이 나간다(section 이 실제로 그랬다) */
-    const 날 = 지어진날(e.path.startsWith('/title/') ? '/title/[slug]'
-      : e.path.startsWith('/firm/') ? '/firm/[slug]'
-        : e.path.startsWith('/market/') ? '/market/[slug]'
-          : e.path.startsWith('/section/') ? '/section/[category]' : e.path);
+    const 날 = 지어진날(e.path);
     if (날) e.lastmod = 날;
+  }
+
+  /* 🔴 [2026-08-27] `/stem` 열 장과 `/room` 열두 장은 `public/` 에 미리 지은 것이라
+     소스 `.astro` 가 없다 — 위 자동 찾기가 못 잡는다. 그 지면들이 읽는 자료의
+     `generated` 를 그대로 준다(`scripts/build-kcw-stem-rooms.mjs` 가 쓰는 자료다).
+     ⛔ 빌드한 날을 박지 않는다. 자료가 안 바뀌었는데 바뀌었다고 하면 거짓말이고,
+       크롤러가 알아채면 lastmod 를 통째로 무시한다 — 없느니만 못하다. */
+  const 일진지어진날 = (() => {
+    try {
+      const g = JSON.parse(fs.readFileSync(path.join(자료방, 'wikitip-star-daypillar.json'), 'utf8')).generated;
+      return typeof g === 'string' && /^\d{4}-\d{2}-\d{2}/.test(g) ? g.slice(0, 10) : undefined;
+    } catch { return undefined; }
+  })();
+  if (일진지어진날) {
+    for (const e of entries) {
+      if (e.lastmod) continue;
+      if (e.path.startsWith('/stem/') || e.path.startsWith('/room/')) e.lastmod = 일진지어진날;
+    }
   }
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
