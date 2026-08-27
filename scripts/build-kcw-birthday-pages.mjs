@@ -49,6 +49,26 @@ const 해지면있나 = new Set(
 );
 const 낼자료 = path.join(뿌리, 'src/data/wikitip-birthday-pages.json');
 
+/* 🔴 [2026-08-27 15:2x · 5번] **이 지면들이 「kpop」으로 찾으면 6페이지에 있었다.**
+   GSC 로 28일 재 보니 이 지면에 오는 검색어가 일곱인데 갈림이 뚜렷했다 —
+     「kpop」이 «있는» 다섯 개  → 순위 54 · 55 · 56 · 63 · 63
+     「kpop」이 «없는» 두 개   → 순위 **9 · 12**
+   지면에 「K-pop」이라는 낱말이 **한 번도 없었기** 때문이다.
+
+   ⛔ 그렇다고 제목에 그냥 적을 수 없었다 — **누가 가수인지 우리가 몰랐다.**
+     원자료 칸은 q·name·born·sitelinks 넷뿐이다. 모르는 것을 적는 것은 강령 ① 위반이다.
+   ⭐ 그래서 «캤다» — `scripts/fetch-kcw-entertainer-roles.mjs` 가 위키데이터에서
+     P463(소속 음악 그룹)을 9,249명치 받아 왔다. 1,900명(20.5%)이 그룹 소속이다.
+     이제 「K-pop 그룹 소속 N명」은 **지어낸 말이 아니라 잰 사실**이다.
+   ⚠ 파일이 없으면 빈 집합으로 둔다 — 그러면 제목이 예전 꼴로 돌아갈 뿐 빌더는 선다. */
+const 역할길 = path.join(뿌리, 'archive/raw/wikidata/korean-entertainers-roles.json');
+const 그룹소속 = new Set(
+  fs.existsSync(역할길)
+    ? Object.entries(JSON.parse(fs.readFileSync(역할길, 'utf8')).사람 ?? {})
+      .filter(([, v]) => v && v.grp).map(([q]) => q)
+    : [],
+);
+
 export const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -148,9 +168,19 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
   const 날 = 날쓰기(mmdd);
   const 어제 = 옆날(mmdd, -1);
   const 내일 = 옆날(mmdd, 1);
-  const 제목 = 으뜸
-    ? `${벗(으뜸.보일)} and ${실을것.length - 1} other Korean stars born on ${날}`
-    : `Korean stars born on ${날}`;
+  /* 🔴 [2026-08-27 15:2x] 제목이 **손님이 치는 말**을 하나 빠뜨리고 있었다 — 「K-pop」.
+     위 그룹소속 주석에 잰 값이 있다. 여기서는 그것을 «세어» 적는다.
+     ⛔ 그룹 소속이 0명인 날이 366일 중 «하루» 있다. 그날 제목에 K-pop 을 쓰면 거짓이다 —
+       그래서 0명이면 예전 꼴을 그대로 쓴다. 못 잰 날에 수를 지어내지 않는다.
+     ⚠ 이름을 제목에서 뺀 것이 «이름 검색을 버린 것»은 아니다 — 이름은 366장 전부
+       본문 표에 «전원» 실려 있다. 제목이 나르던 것은 으뜸 한 명뿐이었다.
+     ⚠ 366일을 다 재서 가장 긴 것이 57자다(9월 14일). 60자 한계 안이다. */
+  const 케이팝수 = 실을것.filter((p) => 그룹소속.has(p.q)).length;
+  const 제목 = 케이팝수 > 0
+    ? `${실을것.length} Korean stars born on ${날} — ${케이팝수} in K-pop groups`
+    : (으뜸
+      ? `${벗(으뜸.보일)} and ${실을것.length - 1} other Korean stars born on ${날}`
+      : `Korean stars born on ${날}`);
   /* 🔴 [2026-08-26 · 5번] 「Born」 칸이 «글자»로만 있었다. 그날 태어난 해 지면 78장을 냈는데,
      재 보니 그 지면들로 «밖에서 들어오는 문이 0개»였다 — 자기들끼리만 이어져 있었다.
      구글이 사이트맵으로만 아는 지면은 「발견만 하고 안 넣음」이 되기 쉽다(8/22 에 작품
@@ -162,6 +192,22 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
     const 해칸 = 해지면있나.has(해) ? `<a href="/born-year/${해}">${해}</a>` : 해;
     return `<tr><td>${이름칸(p.보일, 이름표)}</td><td class="fine">${해칸}</td><td class="fine">${p.reads === null ? '—' : p.reads.toLocaleString('en-US')}</td></tr>`;
   }).join('\n');
+  /* 🔴🔴 [2026-08-27 15:3x · 5번] **아래 지면 글자 안에 우리말 주석을 넣지 않는다.**
+     오늘 05:3x 에 누군가(나다) 「왜 설명을 줄였는지」를 `<!-- … -->` 로 적어 넣었다.
+     HTML 주석은 **브라우저까지 그대로 간다.** 366장의 지면 소스에 우리 내부 판단이
+     우리말로 실려 나가고 있었다 — 영문 사이트다. `dist` 를 재 보니 366장 전부였다.
+     ⛔ 자가시험에 「화면에 우리말이 없다」가 이미 있었는데, 주석을 넣고 시험을 안 돌렸다.
+       **자를 만들어 놓고 안 돌리면 자가 아니다.**
+     ✅ 그래서 그 판단을 여기(자바스크립트 주석)로 옮겼다 — 여기는 안 나간다.
+
+     ── 옮겨 온 판단 둘 ──────────────────────────────────────────────
+     ① 설명(meta) — 예전에 159자여서 구글이 잘라 냈다(155자쯤에서 자른다). 잘리기 전
+        부분에도 «손님이 누를 까닭»이 없었다(뒤쪽이 전부 출처와 고지였다). 무엇이 실려
+        있는지를 앞으로 당겼다. 출처(Wikidata·English Wikipedia)는 본문에 이미 두 번 있다.
+     ② 「This is not a horoscope」 — 이 말이 여태 «설명에만» 있었다. 설명을 줄이면서 재 보니
+        본문에 horoscope 가 0회였다. 그래서 낱말을 본문 warn 상자로 옮겼다.
+        생일로 묶은 지면이라 점으로 오해되기 가장 쉬운 자리이고, 그 오해를 가장 경계한다.
+        ⛔ 설명에서 뺀 말은 «반드시» 본문 어딘가에 있어야 한다. */
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -169,13 +215,7 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/born-on/${mmdd}">
 <title>${제목} | K Culture Wire</title>
-<!-- 🔴 2026-08-27 05:3x — 설명이 159자여서 구글이 잘라 냈다(155자쯤에서 자른다).
-     잘리기 전 부분에도 «손님이 누를 까닭»이 없었다 — 뒤쪽은 전부 출처와 고지였다.
-     ⭐ 무엇이 실려 있는지(이름 전부 · 얼마나 읽히는지)를 앞으로 당겼다.
-     ⛔ 「Not a horoscope」를 여기서 뺀 대신 **본문 warn 상자에 낱말 그대로 넣었다.**
-        빼기 전에 본문을 재 보니 horoscope 라는 낱말이 «0회»였다 — 그냥 뺐으면 감춘 것이 된다.
-     ⛔ 출처(Wikidata·English Wikipedia)는 본문에 이미 2회 있다. 재고 뺐다. -->
-<meta name="description" content="${실을것.length} Korean actors and singers were born on ${날}${으뜸 ? `, including ${벗(으뜸.보일)}` : ''}. Every name is listed, with how widely each is read.">
+<meta name="description" content="${실을것.length} Korean actors and singers were born on ${날}${으뜸 ? `, including ${벗(으뜸.보일)}` : ''}. ${케이팝수 === 0 ? 'None of them are in a music group' : 케이팝수 === 1 ? 'One of them is in a K-pop group' : `${케이팝수} of them are in K-pop groups`}. Every name is listed.">
 <script type="application/ld+json">${JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -224,10 +264,6 @@ export function 지면짓기(mmdd, 사람들, 이름표 = null) {
 
   <div class="warn">
     <p><strong>Sharing a birthday means sharing a birthday.</strong> Nothing on this page says it means anything else. We counted whether a birth year predicts who reaches a chart, and it does not — <a href="/star-signs">that test is here</a>.</p>
-    <!-- 🔴 2026-08-27 05:3x — 이 한 줄이 여태 «설명(meta)에만» 있었다. 설명을 줄이면서
-         재 보니 본문에는 horoscope 라는 낱말이 0회였다. 낱말을 여기로 옮겨 둔다 —
-         생일로 묶은 지면이라 점으로 오해되기 가장 쉬운 자리이고, 그 오해를 우리가
-         가장 경계한다. ⛔ 설명에서 뺀 말은 «반드시» 본문 어딘가에 있어야 한다. -->
     <p><strong>This is not a horoscope.</strong> We do not read birth charts and we do not say what a
       date means about a person. Birth dates come from Wikidata; how widely each name is read is
       counted from English Wikipedia.</p>
@@ -323,7 +359,22 @@ if (process.argv.includes('--자가시험')) {
 
   const h = 지면짓기('05-16', 날.get('05-16'));
   검('표를 안 주면 예전과 같다 — 글자로 낸다', h.includes('<td>IU</td>'));
-  검('제목에 이름이 선다', h.includes('<h1>IU and 1 other'));
+  /* 🔴 [2026-08-27] 이 시험이 «옛 제목»을 지키고 있었다 — 고친 것은 시험이 아니라 규칙이다.
+     시험 자료에는 그룹 소속이 없으므로(가짜 Q번호다) 제목이 예전 꼴로 떨어져야 한다.
+     ⭐ 그것 자체가 재는 값이다 — **K-pop 이 0명인 날은 K-pop 을 안 쓴다.** */
+  검('그룹 소속이 0명이면 예전 제목으로 떨어진다', h.includes('<h1>IU and 1 other'));
+  검('⛔ 0명인 날 제목에 K-pop 을 안 쓴다', !/<h1>[^<]*K-pop/.test(h));
+  /* 그룹 소속이 있는 날은 K-pop 수를 세운다 — 가짜 자료로 직접 재 본다 */
+  {
+    const 원래 = new Set(그룹소속);
+    그룹소속.add('Q-시험-아이유');
+    const k = 지면짓기('05-16', (날.get('05-16') ?? []).map((p, i) => (i === 0 ? { ...p, q: 'Q-시험-아이유' } : p)));
+    검('⭐ 그룹 소속이 있으면 제목이 «K-pop groups» 를 말한다', /K-pop group/.test(k));
+    검('⭐ 설명도 K-pop 을 말한다', /in a K-pop group|in K-pop groups/.test(k));
+    검('한 명이면 «One of them is» 로 쓴다 — 「1 of them are」 가 아니다',
+      !/1 of them are/.test(k));
+    그룹소속.clear(); 원래.forEach((q) => 그룹소속.add(q));
+  }
   검('⛔ 한글 이름을 목록에 안 싣는다', !h.includes('홍길동'));
   검('안 실은 수를 적는다', h.includes('1 more people born on this day are counted but not listed'));
   검('canonical 이 있다', h.includes('rel="canonical" href="https://www.kculturewire.com/born-on/05-16"'));
