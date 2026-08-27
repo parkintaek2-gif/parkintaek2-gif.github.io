@@ -80,10 +80,21 @@ const 나이글 = g.oldestBornYear && g.youngestBornYear
  * ⛔ 낱말을 쌓은 것이 아니다 — 이 지면의 나이는 실제로 그 해 기준이고,
  *   해를 적는 것이 «더 정직»하다. 제목만 보고도 언제 기준인지 알 수 있다.
  */
-const TITLE = `${g.name} members age ${기준해}: how old are they, oldest to youngest`;
-const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
-  + `${g.membersWithBirthday} of them have a birth date on record, `
-  + `${나이글 ?? 'with birth years listed'}. Ages here are as of ${기준해} — the birth dates are not.`;
+/* 🔴 2026-08-27 10:3x — 263장 가운데 제목 173장·설명 173장이 잘리고 있었다.
+   ⭐ 263개 그룹 이름을 다 넣어 재고 골랐다. 위 주석의 판단(해를 제목에 적는다)은 그대로 지켰다 —
+     「members age ${기준해}」가 여전히 앞쪽에 있다. 「how old are they」 한 마디만 덜었다.
+   ⚠ 그룹 이름 길이가 제각각이라 «이름이 길 때만» 꼬리를 뗀다. 한 개(가장 긴 이름)만 짧은
+     제목이 되고 나머지 262장은 온전하다. ⛔ 이름을 자르지는 않는다 — 이름이 곧 검색어다.
+   ⛔ 「the birth dates are not」 는 본문에 0회여서 그냥 뺄 수 없었다. **본문으로 옮기고**
+     설명에는 「Ages are as of ${기준해}」만 남겼다. 뜻이 뒤집히는 고지라 지울 수 없다.
+   ⚠ 처음 잴 때 dist 에서 정규식으로 「born between X and Y」를 뽑고 **안 맞는 것은 기본값으로
+     채웠다.** 그래서 최대 153자로 나왔는데 실제로는 179자였다 — 못 잰 것을 채운 탓이다.
+     ⭐ 두 번째는 dist 를 그대로 읽어 «가장 긴 것»을 찾아 다시 쟀다. 짐작으로 채우지 않는다. */
+const 제목긴것 = `${g.name} members age ${기준해}, oldest to youngest`;
+const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members age ${기준해}`;
+const DESC = `${g.name} has ${g.membersWithBirthday} members with a birth date on record, `
+  + `${나이글 ?? 'with birth years listed'}. Ages are as of ${기준해}. `
+  + `All listed, oldest to youngest.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
@@ -94,7 +105,12 @@ const DESC = `Wikidata records ${g.membersRecorded} members of ${g.name}. `
   <p class="lead">
     Wikidata records <b>{g.membersRecorded}</b> {g.membersRecorded === 1 ? 'member' : 'members'} of
     {' '}<b>{g.name}</b>. <b>{g.membersWithBirthday}</b> of them have a birth date on record
-    {나이글 && <>, {나이글}</>}. The ages below are <b>as of {기준해}</b>.
+    {나이글 && <>, {나이글}</>}. The ages below are <b>as of {기준해}</b>
+    {/* 🔴 2026-08-27 10:4x — 이 반 문장이 여태 «설명(meta)에만» 있었다. 설명을 줄이려고
+        재 보니 본문에는 「as of {기준해}」까지만 있고 「the birth dates are not」이 없었다.
+        ⛔ 설명에서 뺄 말은 반드시 본문에 있어야 한다 — 그래서 여기로 옮겼다.
+        ⚠ 이게 없으면 손님이 「생년월일도 2026년 기준인가」로 읽을 수 있다. 뜻이 뒤집힌다. */}
+    {' '}&mdash; <b>the birth dates are not</b>.
   </p>
 
   {/*
