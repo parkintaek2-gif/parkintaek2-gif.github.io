@@ -49,3 +49,5 @@ Size does something the wage number alone misses: it stabilises the job. In the 
 ## What we did not claim
 
 We have not controlled for industry, and industry and size are entangled — banks are both large and well-paid, corner shops both small and not. Some of the size premium is really an industry premium wearing a size label; separating the two is the decomposition's job, not this article's. What this article claims is narrower and firmer: however you slice the confounds, the raw size ladder does not have a broken rung.
+
+For the pay level all of these firms are measured against — the national average, over time — see [Korea's real wages, which climbed for a decade and then went flat](/article/korea-real-wages-flat-since-2021).

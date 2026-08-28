@@ -53,4 +53,6 @@ Second, **June is not yet in the public data.** The ministry's press release is 
 
 The annual picture is the honest one, and it is stark enough on its own: **the long climb in Korean real wages ended around 2021, and four years on it has not resumed.**
 
+This is the national average. Where that average lands depends on where you work: pay rises with [firm size at every step](/article/korea-bigger-firms-pay-more-every-step), and a [sector's biggest firms pay more](/article/korean-sector-leaders-pay-more) than its smaller ones.
+
 *Real wages computed from KOSIS: Ministry of Employment and Labor establishment-survey earnings, deflated by Statistics Korea's CPI (2020=100). Free to reproduce with attribution — cite as SeoulMarkets (seoulmarkets.com) and link back.*
