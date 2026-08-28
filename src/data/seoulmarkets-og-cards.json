@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-real-wages-flat-since-2021": {
+      "figure": "+0.2%",
+      "label": "real-wage growth in 4 years (was +24%/decade)",
+      "왜": "연간 실질임금 정체. 요점: 2011~2021 +24% → 2021~2025 +0.2%(4년 합)"
+    },
     "how-many-companies-listed-korea": {
       "figure": "2,767",
       "label": "stock lines in Korea — but fewer companies",
