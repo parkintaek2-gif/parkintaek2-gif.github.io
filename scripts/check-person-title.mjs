@@ -30,6 +30,18 @@ import { fileURLToPath } from 'node:url';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 export const 제목바닥 = 60;
+/**
+ * 🔴🔴 [2026-08-29] **레이아웃이 붙이는 꼬리를 안 세고 있었다.**
+ * 지면 제목만 60자로 맞춰 놓고 라이브에서 재니 77자였다 — WikiTip 이 여기 17자를 더한다.
+ * 잘리면 «내가 넣은 수»가 안 보인다. 그래서 이제 «손님이 보는 전체»를 잰다.
+ */
+export const 꼬리 = ' | K Culture Wire';
+
+/** 손님이 실제로 보는 제목 — 레이아웃이 더하는 것까지 셈한다 */
+export function 손님이보는제목(지면제목) {
+  const t = String(지면제목 ?? '');
+  return (t.length + 꼬리.length) <= 제목바닥 ? t + 꼬리 : t;
+}
 
 /** 지면이 지을 제목을 «같은 셈»으로 미리 짓는다 */
 export function 제목짓기(이름, 나라수) {
@@ -75,6 +87,23 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   검('⭐ 나라 수를 아는 사람은 제목에 그 수가 있다',
     (자료.people ?? []).every((x, i) => !(Number(x.countries) > 0) || 다[i].includes(`${x.countries} countries`)));
 
+  /**
+   * ⛔⛔ [2026-08-29] **여기가 이번에 내가 빠진 함정이다.**
+   * 지면 제목만 재고 «레이아웃이 더하는 17자»를 안 셌다. 라이브는 77자였다.
+   */
+  검('⭐⭐ 짧으면 사이트 이름이 붙는다', 손님이보는제목('Short one') === 'Short one | K Culture Wire');
+  검('⭐⭐ 길면 사이트 이름을 «뗀다» — 잘려서 수가 안 보이는 쪽이 더 나쁘다',
+    손님이보는제목('Lee You-mi movies and TV shows — 93 countries on Netflix')
+      === 'Lee You-mi movies and TV shows — 93 countries on Netflix');
+  검('⭐⭐ 손님이 보는 제목이 636장 다 60자 안이다', (() => {
+    const 자료2 = JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data/wikitip-people.json'), 'utf8'));
+    return (자료2.people ?? []).every((x) => 손님이보는제목(제목짓기(x.name, x.countries)).length <= 제목바닥);
+  })());
+  검('⛔ 레이아웃이 같은 셈을 쓴다 — 갈리면 이 검사가 뜻을 잃는다', (() => {
+    const L = fs.readFileSync(path.join(뿌리, 'src/layouts/WikiTip.astro'), 'utf8');
+    return /제목바닥 = 60/.test(L) && /꼬리 = ' | K Culture Wire'/.test(L);
+  })());
+
   /* ⛔ 지면이 이 자와 «같은 셈»을 쓰는지 본다 — 갈리면 이 검사가 뜻을 잃는다 */
   const 지면 = fs.readFileSync(path.join(뿌리, 'src/pages/wikitip/person/[person].astro'), 'utf8');
   검('⛔ 지면이 같은 바닥값(60)을 쓴다', /제목바닥 = 60/.test(지면));
@@ -95,7 +124,10 @@ if (내가실행됐다) {
   console.log(`■ 사람 낱장 ${사람.length}장 — 제목을 쟀습니다\n`);
   console.log(`  ⭐ 「몇 나라까지 갔나」를 제목에 넣은 낱장   ${수있음}장`);
   console.log(`  ⚠ 나라 수를 몰라 옛 꼴로 둔 낱장           ${사람.length - 수있음}장 (지어내지 않았습니다)`);
-  console.log(`  가장 긴 제목 ${Math.max(...다.map((x) => x.제목.length))}자`);
+  console.log(`  가장 긴 제목 ${Math.max(...다.map((x) => x.제목.length))}자 (지면이 짓는 것)`);
+  const 보이는것 = 다.map((x) => 손님이보는제목(x.제목));
+  console.log(`  ⭐ 손님이 «실제로 보는» 제목 최대 ${Math.max(...보이는것.map((t) => t.length))}자`);
+  console.log(`     그중 사이트 이름이 붙은 것 ${보이는것.filter((t) => t.includes('K Culture Wire')).length}장`);
   if (넘친것.length) {
     console.error(`\n⛔ 60자를 넘긴 것 ${넘친것.length}장 — 잘리면 뒤의 수가 안 보입니다`);
     넘친것.slice(0, 8).forEach((x) => console.error(`   · ${x.제목.length}자 ${x.slug}`));
