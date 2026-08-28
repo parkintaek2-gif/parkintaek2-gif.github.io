@@ -309,7 +309,16 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
     유닛별.get(이름).push(덩);
   }
 
-  const 적을것 = { generated: new Date().toISOString().slice(0, 10), days: 날수, property: 속성, 기준: 흔적없음기준, units: [] };
+  /* ⚠ `customerChannels` 는 «최상위»에도 둔다 — 유닛마다 다른 값이 아니고,
+     읽는 쪽이 `d.customerChannels` 로 집는다. 안 두면 방송에 «빈 자리»가 나간다(실제로 그랬다). */
+  const 적을것 = {
+    generated: new Date().toISOString().slice(0, 10),
+    days: 날수,
+    property: 속성,
+    기준: 흔적없음기준,
+    customerChannels: 손님갈래,
+    units: [],
+  };
 
   console.log(`${'유닛'.padEnd(22)} ${'세션'.padStart(5)} ${'사람'.padStart(5)} ${'붙은몫'.padStart(7)} ${'세션당초'.padStart(9)} ${'걸음'.padStart(6)}`);
   console.log('─'.repeat(60));
@@ -356,6 +365,20 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
       realUsersInWindow: g.있음합.사람,
       windowDays: 날수,
       groupsWithoutSigns: g.없음.sort((a, b) => b.세션 - a.세션).slice(0, 10),
+      /**
+       * 🔴 [2026-08-29 · 2번 정본] 채널로 가른 «진짜 손님». 이것이 방문자 방송의 근거다.
+       * ⚠ 화면을 정규식으로 뜯지 말고 **이 자료를 읽으십시오** — 화면은 깨지기 쉽습니다.
+       */
+      realCustomers: 더해(덩어리들.filter((d) => 손님인가(채널뽑기(d.이름)))),
+      realCustomerChannels: (() => {
+        const m = new Map();
+        for (const d of 덩어리들.filter((x) => 손님인가(채널뽑기(x.이름)))) {
+          const c = 채널뽑기(d.이름);
+          m.set(c, 더해([m.get(c) ?? {}, d]));
+        }
+        return [...m].sort((a, b) => b[1].세션 - a[1].세션).map(([channel, v]) => ({ channel, ...v }));
+      })(),
+      customerChannels: 손님갈래,
     });
   }
 

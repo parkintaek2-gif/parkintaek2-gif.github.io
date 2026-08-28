@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-27",
+  "generated": "2026-08-28",
   "days": 28,
   "property": "549135289",
   "기준": {
@@ -7,28 +7,33 @@
     "걸음": 1.1,
     "붙은몫": 15
   },
+  "customerChannels": [
+    "Organic Search",
+    "AI Assistant",
+    "Organic Social"
+  ],
   "units": [
     {
       "unit": "3번 100yearmap",
       "total": {
-        "세션": 388,
-        "붙은": 77,
-        "초합": 13206.712087000002,
-        "열림": 501,
-        "사람": 364
+        "세션": 390,
+        "붙은": 80,
+        "초합": 12776.748308000002,
+        "열림": 507,
+        "사람": 365
       },
       "withReadingSigns": {
-        "세션": 154,
-        "붙은": 77,
-        "초합": 13037.014100000002,
-        "열림": 270,
-        "사람": 131
+        "세션": 156,
+        "붙은": 80,
+        "초합": 12601.467392000004,
+        "열림": 274,
+        "사람": 132
       },
       "withoutReadingSigns": {
         "세션": 234,
         "붙은": 0,
-        "초합": 169.69798700000004,
-        "열림": 231,
+        "초합": 175.28091600000002,
+        "열림": 233,
         "사람": 233
       },
       "undecided": {
@@ -38,16 +43,16 @@
         "열림": 0,
         "사람": 0
       },
-      "realUsersInWindow": 131,
+      "realUsersInWindow": 132,
       "windowDays": 28,
       "groupsWithoutSigns": [
         {
           "이름": "Direct · desktop · United States",
-          "세션": 62,
+          "세션": 63,
           "붙은": 0,
-          "초합": 136.004274,
-          "열림": 62,
-          "사람": 62
+          "초합": 141.587203,
+          "열림": 63,
+          "사람": 63
         },
         {
           "이름": "Direct · desktop · India",
@@ -74,18 +79,18 @@
           "사람": 16
         },
         {
+          "이름": "Direct · mobile · United States",
+          "세션": 14,
+          "붙은": 0,
+          "초합": 5.772641,
+          "열림": 14,
+          "사람": 14
+        },
+        {
           "이름": "Direct · desktop · Malaysia",
           "세션": 13,
           "붙은": 0,
           "초합": 0,
-          "열림": 13,
-          "사람": 13
-        },
-        {
-          "이름": "Direct · mobile · United States",
-          "세션": 13,
-          "붙은": 0,
-          "초합": 5.772641,
           "열림": 13,
           "사람": 13
         },
@@ -121,30 +126,189 @@
           "열림": 4,
           "사람": 4
         }
+      ],
+      "realCustomers": {
+        "세션": 115,
+        "붙은": 65,
+        "초합": 4954.642155999999,
+        "열림": 140,
+        "사람": 109
+      },
+      "realCustomerChannels": [
+        {
+          "channel": "Organic Search",
+          "세션": 100,
+          "붙은": 57,
+          "초합": 4245.540271999999,
+          "열림": 114,
+          "사람": 95
+        },
+        {
+          "channel": "AI Assistant",
+          "세션": 15,
+          "붙은": 8,
+          "초합": 709.1018839999999,
+          "열림": 26,
+          "사람": 14
+        }
+      ],
+      "customerChannels": [
+        "Organic Search",
+        "AI Assistant",
+        "Organic Social"
+      ]
+    },
+    {
+      "unit": "1·4번 KLifeMap",
+      "total": {
+        "세션": 171,
+        "붙은": 68,
+        "초합": 71858.01950100002,
+        "열림": 490,
+        "사람": 87
+      },
+      "withReadingSigns": {
+        "세션": 154,
+        "붙은": 68,
+        "초합": 71847.72783700001,
+        "열림": 474,
+        "사람": 71
+      },
+      "withoutReadingSigns": {
+        "세션": 17,
+        "붙은": 0,
+        "초합": 10.291664,
+        "열림": 16,
+        "사람": 16
+      },
+      "undecided": {
+        "세션": 0,
+        "붙은": 0,
+        "초합": 0,
+        "열림": 0,
+        "사람": 0
+      },
+      "realUsersInWindow": 71,
+      "windowDays": 28,
+      "groupsWithoutSigns": [
+        {
+          "이름": "Organic Search · desktop · South Korea",
+          "세션": 7,
+          "붙은": 0,
+          "초합": 3.3205,
+          "열림": 7,
+          "사람": 6
+        },
+        {
+          "이름": "Direct · mobile · United States",
+          "세션": 3,
+          "붙은": 0,
+          "초합": 3.056083,
+          "열림": 3,
+          "사람": 3
+        },
+        {
+          "이름": "Direct · desktop · Anguilla",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 1,
+          "사람": 1
+        },
+        {
+          "이름": "Direct · desktop · Egypt",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 1,
+          "사람": 1
+        },
+        {
+          "이름": "Direct · desktop · Taiwan",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 1,
+          "사람": 1
+        },
+        {
+          "이름": "Direct · mobile · (not set)",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 1,
+          "사람": 1
+        },
+        {
+          "이름": "Unassigned · mobile · South Korea",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 0,
+          "사람": 1
+        },
+        {
+          "이름": "Direct · desktop · United States",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 1.856775,
+          "열림": 1,
+          "사람": 1
+        },
+        {
+          "이름": "Direct · mobile · United States",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 2.058306,
+          "열림": 1,
+          "사람": 1
+        }
+      ],
+      "realCustomers": {
+        "세션": 15,
+        "붙은": 6,
+        "초합": 743.720287,
+        "열림": 22,
+        "사람": 9
+      },
+      "realCustomerChannels": [
+        {
+          "channel": "Organic Search",
+          "세션": 15,
+          "붙은": 6,
+          "초합": 743.720287,
+          "열림": 22,
+          "사람": 9
+        }
+      ],
+      "customerChannels": [
+        "Organic Search",
+        "AI Assistant",
+        "Organic Social"
       ]
     },
     {
       "unit": "5번 K Culture Wire",
       "total": {
-        "세션": 159,
-        "붙은": 32,
-        "초합": 5564.133063999998,
-        "열림": 197,
-        "사람": 140
+        "세션": 166,
+        "붙은": 33,
+        "초합": 5600.4947889999985,
+        "열림": 204,
+        "사람": 146
       },
       "withReadingSigns": {
-        "세션": 50,
-        "붙은": 29,
-        "초합": 5504.460555999998,
-        "열림": 87,
+        "세션": 51,
+        "붙은": 30,
+        "초합": 5540.822280999998,
+        "열림": 89,
         "사람": 34
       },
       "withoutReadingSigns": {
-        "세션": 109,
+        "세션": 115,
         "붙은": 3,
         "초합": 59.672508,
-        "열림": 110,
-        "사람": 106
+        "열림": 115,
+        "사람": 112
       },
       "undecided": {
         "세션": 0,
@@ -158,11 +322,11 @@
       "groupsWithoutSigns": [
         {
           "이름": "Direct · desktop · United States",
-          "세션": 32,
+          "세션": 34,
           "붙은": 2,
           "초합": 40.071899,
-          "열림": 33,
-          "사람": 32
+          "열림": 35,
+          "사람": 34
         },
         {
           "이름": "Direct · mobile · (not set)",
@@ -236,114 +400,61 @@
           "열림": 2,
           "사람": 2
         }
-      ]
-    },
-    {
-      "unit": "1·4번 KLifeMap",
-      "total": {
-        "세션": 143,
-        "붙은": 65,
-        "초합": 57821.36593800001,
-        "열림": 433,
-        "사람": 73
+      ],
+      "realCustomers": {
+        "세션": 33,
+        "붙은": 17,
+        "초합": 2256.172318,
+        "열림": 46,
+        "사람": 26
       },
-      "withReadingSigns": {
-        "세션": 130,
-        "붙은": 65,
-        "초합": 57811.074274000006,
-        "열림": 420,
-        "사람": 60
-      },
-      "withoutReadingSigns": {
-        "세션": 13,
-        "붙은": 0,
-        "초합": 10.291664,
-        "열림": 13,
-        "사람": 13
-      },
-      "undecided": {
-        "세션": 0,
-        "붙은": 0,
-        "초합": 0,
-        "열림": 0,
-        "사람": 0
-      },
-      "realUsersInWindow": 60,
-      "windowDays": 28,
-      "groupsWithoutSigns": [
+      "realCustomerChannels": [
         {
-          "이름": "Organic Search · desktop · South Korea",
-          "세션": 5,
-          "붙은": 0,
-          "초합": 3.3205,
-          "열림": 5,
-          "사람": 5
+          "channel": "Organic Search",
+          "세션": 28,
+          "붙은": 16,
+          "초합": 2188.068235,
+          "열림": 41,
+          "사람": 21
         },
         {
-          "이름": "Direct · mobile · United States",
+          "channel": "Organic Social",
           "세션": 3,
-          "붙은": 0,
-          "초합": 3.056083,
+          "붙은": 1,
+          "초합": 31.542912,
           "열림": 3,
           "사람": 3
         },
         {
-          "이름": "Direct · desktop · Anguilla",
-          "세션": 1,
+          "channel": "AI Assistant",
+          "세션": 2,
           "붙은": 0,
-          "초합": 0,
-          "열림": 1,
-          "사람": 1
-        },
-        {
-          "이름": "Direct · desktop · Egypt",
-          "세션": 1,
-          "붙은": 0,
-          "초합": 0,
-          "열림": 1,
-          "사람": 1
-        },
-        {
-          "이름": "Direct · mobile · (not set)",
-          "세션": 1,
-          "붙은": 0,
-          "초합": 0,
-          "열림": 1,
-          "사람": 1
-        },
-        {
-          "이름": "Direct · desktop · United States",
-          "세션": 1,
-          "붙은": 0,
-          "초합": 1.856775,
-          "열림": 1,
-          "사람": 1
-        },
-        {
-          "이름": "Direct · mobile · United States",
-          "세션": 1,
-          "붙은": 0,
-          "초합": 2.058306,
-          "열림": 1,
-          "사람": 1
+          "초합": 36.561171,
+          "열림": 2,
+          "사람": 2
         }
+      ],
+      "customerChannels": [
+        "Organic Search",
+        "AI Assistant",
+        "Organic Social"
       ]
     },
     {
       "unit": "6번 SeoulMarkets",
       "total": {
-        "세션": 59,
-        "붙은": 20,
-        "초합": 8944.997150000001,
-        "열림": 105,
-        "사람": 46
+        "세션": 63,
+        "붙은": 21,
+        "초합": 8996.777507000003,
+        "열림": 108,
+        "사람": 50
       },
       "withReadingSigns": {
-        "세션": 37,
-        "붙은": 19,
-        "초합": 8921.875813,
-        "열림": 84,
-        "사람": 24
+        "세션": 41,
+        "붙은": 20,
+        "초합": 8973.656170000002,
+        "열림": 87,
+        "사람": 28
       },
       "withoutReadingSigns": {
         "세션": 22,
@@ -359,7 +470,7 @@
         "열림": 0,
         "사람": 0
       },
-      "realUsersInWindow": 24,
+      "realUsersInWindow": 28,
       "windowDays": 28,
       "groupsWithoutSigns": [
         {
@@ -395,7 +506,7 @@
           "사람": 2
         },
         {
-          "이름": "AI Assistant · desktop · Ukraine",
+          "이름": "AI Assistant · desktop · Netherlands",
           "세션": 1,
           "붙은": 0,
           "초합": 0,
@@ -403,7 +514,7 @@
           "사람": 1
         },
         {
-          "이름": "Direct · desktop · ",
+          "이름": "Direct · desktop · (not set)",
           "세션": 1,
           "붙은": 0,
           "초합": 0,
@@ -435,13 +546,43 @@
           "사람": 1
         },
         {
-          "이름": "Unassigned · desktop · Ukraine",
+          "이름": "Unassigned · desktop · India",
           "세션": 1,
           "붙은": 0,
           "초합": 0,
           "열림": 0,
           "사람": 1
         }
+      ],
+      "realCustomers": {
+        "세션": 5,
+        "붙은": 2,
+        "초합": 3661.7929289999997,
+        "열림": 14,
+        "사람": 5
+      },
+      "realCustomerChannels": [
+        {
+          "channel": "AI Assistant",
+          "세션": 4,
+          "붙은": 2,
+          "초합": 3661.7929289999997,
+          "열림": 13,
+          "사람": 4
+        },
+        {
+          "channel": "Organic Search",
+          "세션": 1,
+          "붙은": 0,
+          "초합": 0,
+          "열림": 1,
+          "사람": 1
+        }
+      ],
+      "customerChannels": [
+        "Organic Search",
+        "AI Assistant",
+        "Organic Social"
       ]
     },
     {
@@ -476,7 +617,20 @@
       },
       "realUsersInWindow": 2,
       "windowDays": 28,
-      "groupsWithoutSigns": []
+      "groupsWithoutSigns": [],
+      "realCustomers": {
+        "세션": 0,
+        "붙은": 0,
+        "초합": 0,
+        "열림": 0,
+        "사람": 0
+      },
+      "realCustomerChannels": [],
+      "customerChannels": [
+        "Organic Search",
+        "AI Assistant",
+        "Organic Social"
+      ]
     }
   ]
 }

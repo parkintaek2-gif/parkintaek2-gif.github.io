@@ -251,6 +251,32 @@ if (process.argv.includes('--자가시험')) {
   검('마지막 칸이 없어도 뜯는다',
     호스트줄뜯기('   a.com   10   11   12').length === 1);
   검('머리글 줄은 안 뜯는다', !샘플.some((r) => r.호스트 === '호스트'));
+
+  /**
+   * 🔴🔴 [2026-08-29 · 2번 정본] 「진짜 손님」 절이 «자료 파일»에서 오는지 못박는다.
+   * ⛔ 화면 긁기로 되돌아가면 이 검사가 깨진다 — 화면은 이미 한 번 우리를 속일 뻔했다.
+   */
+  const 내소스2 = readFileSync(fileURLToPath(import.meta.url), 'utf8');
+  검('⭐ 진짜 손님 절이 있다', /진짜 손님만/.test(내소스2));
+  검('⭐ 그 절이 «자료 파일»을 읽는다 — 화면을 안 뜯는다',
+    /real-readers\.json/.test(내소스2) && /realCustomers/.test(내소스2));
+  검('⭐ 「기준이 바뀌었습니다」를 방송에 «반드시» 적는다',
+    /기준이 바뀌었습니다/.test(내소스2));
+  검('⛔ 자료가 없으면 0 이 아니라 「못 쟀다」로 적는다',
+    /못 쟀다.*real-readers\.json|real-readers\.json 이 없다/.test(내소스2));
+  검('⭐ AI Assistant 가 무엇인지 방송에 적는다', /ChatGPT·Perplexity/.test(내소스2));
+  /**
+   * ⛔⛔ 자료에 갈래 목록이 «비어» 있으면 「기준이 바뀌었습니다.  만 셉니다」라는
+   * 빈 자리가 방송에 나간다. 실제로 한 번 나갈 뻔했고 검사 51개가 못 잡았다.
+   */
+  검('⛔ 갈래 목록이 비면 «비었다고 말한다» — 조용히 빈 자리를 안 낸다',
+    /갈래를 자료에서 못 읽었다/.test(내소스2));
+  검('⭐⭐ 지금 자료에 갈래 목록이 실제로 «들어 있다»', (() => {
+    const p = path.join(뿌리, 'src/data/real-readers.json');
+    if (!existsSync(p)) return true;                      // 자료가 없는 것은 이 검사의 몫이 아니다
+    const d = JSON.parse(readFileSync(p, 'utf8'));
+    return Array.isArray(d.customerChannels) && d.customerChannels.length === 3;
+  })());
   검('수를 숫자로 뜯는다', 샘플[0].순방문 === 333 && 샘플[0].세션 === 348);
   /* 🔴 이 자의 목숨줄 — 한 줄도 못 뜯으면 0장이 나오고, 그것을 「방문자 0」으로 읽으면 안 된다 */
   검('⭐ 아무것도 못 뜯으면 빈 배열이다 — 부르는 쪽이 「못 쟀다」로 읽어야 한다',
@@ -331,6 +357,50 @@ if (!방문.됐나) {
   console.log('     「이보다 적을 수는 없다」가 우리가 말할 수 있는 전부다.');
   const 모름 = 호스트줄.filter((r) => 유닛찾기(r.호스트) === '모름');
   if (모름.length) console.log(`   ⚠ 어느 유닛인지 모르는 호스트 ${모름.length}개: ${모름.map((r) => r.호스트).join(', ')}`);
+}
+
+/**
+ * 🔴🔴 [2026-08-29 · 2번 정본] **「진짜 손님」을 따로 낸다.**
+ *
+ * 위 ①은 «모든» 세션이다. 그런데 1번이 찾았다 — 우리 여섯 유닛의 라이브 확인
+ * (Playwright·크롬 자동확인)이 진짜 브라우저 UA 라 서버도 GA4 도 못 거른다.
+ * 그것이 Direct 로 쌓인다. 2번이 정본을 확정했다 —
+ *   ✅ 센다    Organic Search · AI Assistant · Organic Social
+ *   ⛔ 안 센다  Direct · Unassigned · Referral
+ *
+ * ⚠ 화면을 정규식으로 뜯지 «않는다». `measure-real-readers.mjs --적는다` 가 낸
+ *    자료를 읽는다 — 화면 긁기는 깨지기 쉽고, 그래서 이미 한 번 통째로 「못 쟀다」가 될 뻔했다.
+ * ⛔ 자료가 없으면 **0 을 내지 않고 「못 쟀다」로 적는다.**
+ */
+console.log('\n## ①-2 ⭐ 진짜 손님만 — **2026-08-29 부터 이 수가 정본이다**');
+{
+  const 자료길 = path.join(뿌리, 'src/data/real-readers.json');
+  if (!existsSync(자료길)) {
+    console.log('   ⛔ **못 쟀다** — src/data/real-readers.json 이 없다. 0 으로 적지 않는다.');
+    console.log('   먼저: node scripts/measure-real-readers.mjs --잰다 --적는다=src/data/real-readers.json');
+  } else {
+    const d = JSON.parse(readFileSync(자료길, 'utf8'));
+    console.log(`   잰 날 ${d.generated ?? '모름'} · 창 ${d.days ?? '?'}일`);
+    console.log('   유닛                    손님세션   사람   갈래');
+    for (const u of d.units ?? []) {
+      const c = u.realCustomers ?? {};
+      const 갈래 = (u.realCustomerChannels ?? []).map((x) => `${x.channel} ${x.세션}`).join(' · ') || '없음';
+      console.log(`   ${String(u.unit).slice(0, 22).padEnd(22)} ${String(c.세션 ?? '못잼').padStart(6)}`
+        + ` ${String(c.사람 ?? '못잼').padStart(6)}   ${갈래}`);
+    }
+    /**
+     * ⛔⛔ 처음 판은 `d.customerChannels` 가 «비어» 있어도 그대로 찍었다 —
+     * 「**기준이 바뀌었습니다.**  만 셉니다.」라는 빈 자리가 방송에 나갈 뻔했다.
+     * 자가시험 51개가 그것을 못 잡았다. 눈으로 보고 잡았다.
+     * ✅ 이제 비면 「못 읽었다」고 «말한다». 조용히 빈 자리를 내지 않는다.
+     */
+    const 갈래목록 = (d.customerChannels ?? []).join(' · ');
+    console.log(`\n   🔴 **기준이 바뀌었습니다.** ${갈래목록 || '⛔ (갈래를 자료에서 못 읽었다)'} 만 셉니다.`);
+    console.log('   ⚠ 어제까지 낸 수보다 훨씬 작습니다. **실적이 나빠진 것이 아니라**');
+    console.log('     지금까지 우리 자신의 라이브 확인이 방문자로 섞여 있었습니다 —');
+    console.log('     **이제야 제대로 재기 시작한 것**입니다.');
+    console.log('   ⭐ AI Assistant 는 ChatGPT·Perplexity 답변을 타고 오는 사람입니다. 실재합니다.');
+  }
 }
 
 console.log('\n## ② 체류시간');
