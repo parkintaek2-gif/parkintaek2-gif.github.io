@@ -137,6 +137,32 @@ if (process.argv.includes('--자가시험')) {
     return 다.some((x) => x.includes('/')) && 다.every((x) => x.endsWith('.astro'));
   })());
 
+  /**
+   * ⛔⛔ [2026-08-29] 영상 파일이 «있는지»를 아무도 안 재고 있었다. 목록·지면·갤러리는
+   * 다 제대로 나갔는데 영상만 404 였다 — 파일을 6번 자리(public/video/)에 두었기 때문이다.
+   * 배포 표식(글자)이 떠서 「나갔다」로 판정까지 났다. 글자는 떴고 영상은 없었다.
+   */
+  검('⭐ 없는 파일을 잡는다', (() => {
+    const 없 = 없는파일찾기([{ set: 'x', src: '/video/없다.mp4', thumb: null }], () => false);
+    return 없.length === 1 && 없[0].includes('없다.mp4');
+  })());
+  검('⭐ 있는 파일은 안 잡는다', (() => {
+    const 없 = 없는파일찾기([{ set: 'x', src: '/video/x.mp4' }], () => true);
+    return 없.length === 0;
+  })());
+  검('⭐ src 와 thumb 를 둘 다 본다', (() => {
+    const 없 = 없는파일찾기([{ set: 'x', src: '/video/a.mp4', thumb: '/video/thumb/a.jpg' }], () => false);
+    return 없.length === 2;
+  })());
+  검('⭐ /video/x 를 public/wikitip/video/x 로도 찾아본다 — KCW 는 그리로 다시 쓴다',
+    파일자리('/video/a.mp4').some((x) => x.split('\\').join('/').includes('public/wikitip/video/a.mp4')));
+  검('⭐⭐ 지금 목록의 영상 파일이 «전부 실제로 있다»', (() => {
+    const 자료 = JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data/wikitip-video.json'), 'utf8'));
+    const 없 = 없는파일찾기(자료.videos);
+    if (없.length) console.error('    없는 것:', 없.join(' / '));
+    return 없.length === 0;
+  })());
+
   검('글접기 — 앞뒤 공백을 턴다', 글접기('  a  b  ') === 'a b');
   검('글접기 — 빈 값은 빈 글', 글접기(null) === '' && 글접기(undefined) === '');
 
@@ -185,6 +211,37 @@ function 지어진글(page, set) {
   return 글 || null;
 }
 
+/**
+ * 🔴🔴 [2026-08-29] **영상 파일이 «있는지»를 아무도 안 재고 있었다.**
+ *
+ * 새 영상을 넣으면서 파일을 `public/video/` 에 두었다. 그런데 K Culture Wire 의 영상
+ * 자리는 `public/wikitip/video/` 이고, `public/video/` 는 **6번(SeoulMarkets) 자리**다.
+ * 목록·지면·갤러리는 다 제대로 나갔는데 **영상만 404** 였다 — 손님에게는 깨진 자리가 보인다.
+ *
+ * ⛔ 배포 표식(글자)이 떠서 「나갔다」로 판정됐다. 글자는 떴고 영상은 없었다.
+ *    「닿는 것과 걷는 것은 다르다」를 또 겪었다.
+ * ✅ 그래서 목록을 지을 때 **파일이 실제로 있는지 재고, 없으면 짓지 않는다.**
+ *    ⚠ 빈 갤러리를 내지 않는 것과 같은 결이다 — 없는 것을 있다고 적지 않는다.
+ */
+export function 파일자리(주소) {
+  /* 지면에서는 `/video/x.mp4` 로 부르지만 실제 파일은 `public/wikitip/video/x.mp4` 다.
+     ⚠ KCW 도메인이 `/video/` 를 `/wikitip/video/` 로 다시 쓴다 — 둘 다 200 이다. */
+  const 뒤 = String(주소 ?? '').replace(/^\/+/, '');
+  const 후보 = 뒤.startsWith('wikitip/') ? [뒤] : [`wikitip/${뒤}`, 뒤];
+  return 후보.map((x) => path.join(뿌리, 'public', x));
+}
+
+export function 없는파일찾기(영상들, 있나 = (p) => fs.existsSync(p)) {
+  const 없는것 = [];
+  for (const v of 영상들 ?? []) {
+    for (const [무엇, 주소] of [['src', v.src], ['thumb', v.thumb]]) {
+      if (!주소) continue;
+      if (!파일자리(주소).some((p) => 있나(p))) 없는것.push(`${v.set} ${무엇} ${주소}`);
+    }
+  }
+  return 없는것;
+}
+
 const 짝 = new Map();
 for (const f of 지면들모으기(지면방)) {
   const 글 = fs.readFileSync(path.join(지면방, f), 'utf8');
@@ -194,6 +251,16 @@ for (const f of 지면들모으기(지면방)) {
     if (!짝.has(v.set)) 짝.set(v.set, []);
     짝.get(v.set).push({ page: 지면주소(f), says: v.says, heading: v.heading });
   }
+}
+
+/* 🔴 짓기 전에 «파일이 있는지» 먼저 잰다. 없으면 짓지 않는다 — 없는 것을 있다고 적지 않는다 */
+const 없는것 = 없는파일찾기(영상자료.videos);
+if (없는것.length) {
+  console.error(`⛔ 영상 파일 ${없는것.length}개가 «없다». 목록을 짓지 않는다 —`);
+  없는것.forEach((s) => console.error(`   · ${s}`));
+  console.error('\n⚠ K Culture Wire 의 영상 자리는 public/wikitip/video/ 다.');
+  console.error('   public/video/ 는 6번(SeoulMarkets) 자리다 — 거기 두면 KCW 에서 404 가 난다.');
+  process.exit(1);
 }
 
 const 셈 = { 영상: 0, 짝찾음: 0, 짝못찾음: 0, 두지면에걸린것: 0 };

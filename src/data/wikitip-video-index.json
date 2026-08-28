@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-28 17:33 UTC",
+  "generated": "2026-08-28 17:50 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
@@ -7,8 +7,7 @@
     "짝찾음": 22,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 21,
-    "원본에서읽음": 1
+    "지면에서읽음": 22
   },
   "videos": [
     {
@@ -228,7 +227,7 @@
       "seconds": 14,
       "page": "/school",
       "says": "Fourteen seconds: one name, Lee You-mi, moves a whole school's figure from 43 countries to 25. The school did not travel — a person did.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     }
   ]
