@@ -1,0 +1,332 @@
+{
+ "잰때": "2026-08-28",
+ "무엇": "학교별로, 그 학교 사람들의 작품이 가장 넓게 간 나라 수의 가운데값",
+ "⛔ 아닌 것": "이 학교에 가면 멀리 간다는 뜻이 아니다. 인과를 못 가린다.",
+ "최소인원": 5,
+ "학교수": 355,
+ "잴수있는것": [
+  {
+   "학교": "Ewha Womans University",
+   "slug": "ewha-womans-university",
+   "사람수": 5,
+   "가운데나라수": 68,
+   "한사람빼고": 55.5,
+   "가장넓은사람": {
+    "이름": "Roh Yoon-seo",
+    "slug": "roh-yoon-seo",
+    "가장넓은나라수": 79,
+    "자리합": 522,
+    "작품수": 3
+   }
+  },
+  {
+   "학교": "Kyunggi High School",
+   "slug": "kyunggi-high-school",
+   "사람수": 5,
+   "가운데나라수": 61,
+   "한사람빼고": 47.5,
+   "가장넓은사람": {
+    "이름": "Yoo Yeon-seok",
+    "slug": "yoo-yeon-seok",
+    "가장넓은나라수": 82,
+    "자리합": 1206,
+    "작품수": 10
+   }
+  },
+  {
+   "학교": "Sejong University",
+   "slug": "sejong-university",
+   "사람수": 8,
+   "가운데나라수": 60,
+   "한사람빼고": 55,
+   "가장넓은사람": {
+    "이름": "Jeon Jong-seo",
+    "slug": "jeon-jong-seo",
+    "가장넓은나라수": 89,
+    "자리합": 457,
+    "작품수": 4
+   }
+  },
+  {
+   "학교": "Korea University",
+   "slug": "korea-university",
+   "사람수": 6,
+   "가운데나라수": 56.5,
+   "한사람빼고": 48,
+   "가장넓은사람": {
+    "이름": "Park Jeong-min",
+    "slug": "park-jeong-min",
+    "가장넓은나라수": 92,
+    "자리합": 731,
+    "작품수": 11
+   }
+  },
+  {
+   "학교": "School of Performing Arts Seoul",
+   "slug": "school-of-performing-arts-seoul",
+   "사람수": 9,
+   "가운데나라수": 51,
+   "한사람빼고": 48.5,
+   "가장넓은사람": {
+    "이름": "Kim Sae-ron",
+    "slug": "kim-sae-ron",
+    "가장넓은나라수": 87,
+    "자리합": 635,
+    "작품수": 3
+   }
+  },
+  {
+   "학교": "Kaywon High School of Arts",
+   "slug": "kaywon-high-school-of-arts",
+   "사람수": 7,
+   "가운데나라수": 45,
+   "한사람빼고": 40.5,
+   "가장넓은사람": {
+    "이름": "Jang Young-nam",
+    "slug": "jang-young-nam",
+    "가장넓은나라수": 89,
+    "자리합": 873,
+    "작품수": 11
+   }
+  },
+  {
+   "학교": "Daejin University",
+   "slug": "daejin-university",
+   "사람수": 5,
+   "가운데나라수": 43,
+   "한사람빼고": 25,
+   "가장넓은사람": {
+    "이름": "Lee You-mi",
+    "slug": "lee-you-mi",
+    "가장넓은나라수": 93,
+    "자리합": 4347,
+    "작품수": 6
+   }
+  },
+  {
+   "학교": "Dongguk University",
+   "slug": "dongguk-university",
+   "사람수": 32,
+   "가운데나라수": 41.5,
+   "한사람빼고": 40,
+   "가장넓은사람": {
+    "이름": "Lee Jung-jae",
+    "slug": "lee-jung-jae",
+    "가장넓은나라수": 93,
+    "자리합": 3257,
+    "작품수": 9
+   }
+  },
+  {
+   "학교": "Kyung Hee University",
+   "slug": "kyung-hee-university",
+   "사람수": 14,
+   "가운데나라수": 41.5,
+   "한사람빼고": 38,
+   "가장넓은사람": {
+    "이름": "Gong Yoo",
+    "slug": "gong-yoo",
+    "가장넓은나라수": 93,
+    "자리합": 3507,
+    "작품수": 7
+   }
+  },
+  {
+   "학교": "Korea National University of Arts",
+   "slug": "korea-national-university-of-arts",
+   "사람수": 32,
+   "가운데나라수": 41.5,
+   "한사람빼고": 36,
+   "가장넓은사람": {
+    "이름": "Park Jeong-min",
+    "slug": "park-jeong-min",
+    "가장넓은나라수": 92,
+    "자리합": 731,
+    "작품수": 11
+   }
+  },
+  {
+   "학교": "Myongji University",
+   "slug": "myongji-university",
+   "사람수": 6,
+   "가운데나라수": 40,
+   "한사람빼고": 37,
+   "가장넓은사람": {
+    "이름": "Ryu Soo-young",
+    "slug": "ryu-soo-young",
+    "가장넓은나라수": 87,
+    "자리합": 686,
+    "작품수": 3
+   }
+  },
+  {
+   "학교": "Dankook University",
+   "slug": "dankook-university",
+   "사람수": 23,
+   "가운데나라수": 36,
+   "한사람빼고": 35,
+   "가장넓은사람": {
+    "이름": "Park Hae-soo",
+    "slug": "park-hae-soo",
+    "가장넓은나라수": 93,
+    "자리합": 4226,
+    "작품수": 10
+   }
+  },
+  {
+   "학교": "Chung-Ang University",
+   "slug": "chung-ang-university",
+   "사람수": 52,
+   "가운데나라수": 35,
+   "한사람빼고": 34,
+   "가장넓은사람": {
+    "이름": "Kim Byung-chul",
+    "slug": "kim-byung-chul",
+    "가장넓은나라수": 93,
+    "자리합": 804,
+    "작품수": 5
+   }
+  },
+  {
+   "학교": "Kyung Hee Cyber University",
+   "slug": "kyung-hee-cyber-university",
+   "사람수": 5,
+   "가운데나라수": 30,
+   "한사람빼고": 19.5,
+   "가장넓은사람": {
+    "이름": "Lee Joon",
+    "slug": "lee-joon",
+    "가장넓은나라수": 76,
+    "자리합": 191,
+    "작품수": 3
+   }
+  },
+  {
+   "학교": "Anyang Arts High School",
+   "slug": "anyang-arts-high-school",
+   "사람수": 6,
+   "가운데나라수": 29.5,
+   "한사람빼고": 13,
+   "가장넓은사람": {
+    "이름": "Shin Ye-eun",
+    "slug": "shin-ye-eun",
+    "가장넓은나라수": 91,
+    "자리합": 602,
+    "작품수": 2
+   }
+  },
+  {
+   "학교": "Sungkyunkwan University",
+   "slug": "sungkyunkwan-university",
+   "사람수": 19,
+   "가운데나라수": 28,
+   "한사람빼고": 20,
+   "가장넓은사람": {
+    "이름": "Joo Won",
+    "slug": "joo-won",
+    "가장넓은나라수": 92,
+    "자리합": 206,
+    "작품수": 3
+   }
+  },
+  {
+   "학교": "Seoul National University",
+   "slug": "seoul-national-university",
+   "사람수": 6,
+   "가운데나라수": 27.5,
+   "한사람빼고": 21,
+   "가장넓은사람": {
+    "이름": "Jeong Jin-yeong",
+    "slug": "jeong-jin-yeong",
+    "가장넓은나라수": 65,
+    "자리합": 297,
+    "작품수": 6
+   }
+  },
+  {
+   "학교": "Konkuk University",
+   "slug": "konkuk-university",
+   "사람수": 22,
+   "가운데나라수": 25,
+   "한사람빼고": 23,
+   "가장넓은사람": {
+    "이름": "Yoo Ah-in",
+    "slug": "yoo-ah-in",
+    "가장넓은나라수": 92,
+    "자리합": 388,
+    "작품수": 6
+   }
+  },
+  {
+   "학교": "Dongduk Women's University",
+   "slug": "dongduk-womens-university",
+   "사람수": 13,
+   "가운데나라수": 20,
+   "한사람빼고": 16,
+   "가장넓은사람": {
+    "이름": "Jung Ho-yeon",
+    "slug": "jung-ho-yeon",
+    "가장넓은나라수": 93,
+    "자리합": 3230,
+    "작품수": 2
+   }
+  },
+  {
+   "학교": "Hanyang University",
+   "slug": "hanyang-university",
+   "사람수": 25,
+   "가운데나라수": 19,
+   "한사람빼고": 18.5,
+   "가장넓은사람": {
+    "이름": "Park Ji-hu",
+    "slug": "park-ji-hu",
+    "가장넓은나라수": 93,
+    "자리합": 917,
+    "작품수": 4
+   }
+  },
+  {
+   "학교": "University of Suwon",
+   "slug": "university-of-suwon",
+   "사람수": 5,
+   "가운데나라수": 19,
+   "한사람빼고": 15.5,
+   "가장넓은사람": {
+    "이름": "Ryu Jun-yeol",
+    "slug": "ryu-jun-yeol",
+    "가장넓은나라수": 68,
+    "자리합": 321,
+    "작품수": 5
+   }
+  },
+  {
+   "학교": "Seoul Institute of the Arts",
+   "slug": "seoul-institute-of-the-arts",
+   "사람수": 51,
+   "가운데나라수": 16,
+   "한사람빼고": 14,
+   "가장넓은사람": {
+    "이름": "Jang Yoon-ju",
+    "slug": "jang-yoon-ju",
+    "가장넓은나라수": 89,
+    "자리합": 465,
+    "작품수": 4
+   }
+  },
+  {
+   "학교": "Hanlim Multi Art School",
+   "slug": "hanlim-multi-art-school",
+   "사람수": 12,
+   "가운데나라수": 11,
+   "한사람빼고": 11,
+   "가장넓은사람": {
+    "이름": "Choi Hyun-wook",
+    "slug": "choi-hyun-wook",
+    "가장넓은나라수": 59,
+    "자리합": 151,
+    "작품수": 3
+   }
+  }
+ ],
+ "못재는것수": 332
+}
