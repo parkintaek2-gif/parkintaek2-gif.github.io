@@ -26,6 +26,24 @@
  *   `check-kcw-privacy-link.mjs` 가 라이브 지면에 이것이 있는지 검사한다.
  * ⚠ Astro 레이아웃(`WikiTip.astro`)의 꼬리말과 **같은 주소**를 쓴다. 다르면 두 얼굴이 된다.
  */
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { PUBLISHER } from '../src/consts.ts';
+
+/**
+ * 발행 주체 한 줄 — 상호·대표·사업자등록번호·통신판매업 신고번호.
+ *
+ * 🔴 [2026-08-28] 사장님이 통신판매업 신고를 마치시고 신고증을 주셔서 넣었다.
+ * ⛔ **값을 여기 손으로 적지 않는다.** `src/consts.ts` 의 PUBLISHER 한 곳이 원본이고,
+ *   그 값은 4번이 등기사항전부증명서로 대조한 것이다. 베끼면 두 얼굴이 된다.
+ * ⚠ 영문 지면이라 번호는 한국어 그대로 두되 «무엇인지»를 영어로 밝힌다 —
+ *   번호만 적으면 영어 손님에게는 뜻 없는 글자다.
+ */
+export function 발행주체() {
+  return `Published by ${PUBLISHER.legalName} &middot; Representative director `
+    + `${PUBLISHER.representative} &middot; Business reg. ${PUBLISHER.bizRegNo} `
+    + `&middot; Mail-order licence ${PUBLISHER.mailOrderNo} (${PUBLISHER.mailOrderAuthority})`;
+}
 
 /**
  * 반드시 들어가야 하는 법적 링크. ⛔ `/privacy` 를 빼면 검사가 막는다.
@@ -59,6 +77,12 @@ export function 꼬리말(더할것 = []) {
     '  <footer>',
     앞,
     `    <p>K Culture Wire &middot; ${링크}</p>`,
+    /* 🔴 [2026-08-28 · 5번] **미리 지어 두는 지면에 발행 주체가 한 줄도 없었다.**
+       Astro 틀만 고치고 빌드해서 세 보니 신고번호가 든 지면이 1,982장이었다 —
+       나머지 700여 장이 이 꼬리말을 쓰는 «미리 지은» 지면이었다.
+       ⛔ 「고쳤다」와 「전부에 나갔다」는 다른 말이다. 세어 보고 알았다.
+       ⚠ 값을 여기 손으로 적지 않는다 — consts 한 곳에서 온다(아래 발행주체). */
+    `    <p>${발행주체()}</p>`,
     '    <p>Cookies are set by Google Analytics on this site. What is stored, and how to refuse it,'
       + ' is on <a href="/privacy">the cookies page</a>.</p>',
     '  </footer>',
@@ -77,6 +101,19 @@ if (process.argv[1] && process.argv[1].endsWith('kcw-static-footer.mjs')
   && process.argv.includes('--selftest')) {
   let 통 = 0; let 실 = 0;
   const 참 = (이름, 값) => { if (값) 통 += 1; else { 실 += 1; console.log(`   🔴 ${이름}`); } };
+
+  /* 🔴 [2026-08-28] 발행 주체가 꼬리말에서 사라지면 여기서 걸린다 —
+     Astro 틀만 고치고 이 자를 안 고쳐 700여 장이 빠져 있었다. 검사로 굳힌다. */
+  참('꼬리말에 상호가 있다', 꼬리말().includes('KLifeDesign'));
+  참('꼬리말에 사업자등록번호가 있다', 꼬리말().includes('456-87-03384'));
+  참('꼬리말에 통신판매업 신고번호가 있다', 꼬리말().includes('2026-세종-0591'));
+  참('신고번호가 무엇인지 영어로 밝힌다', /Mail-order licence/.test(꼬리말()));
+  /* ⛔ 값을 이 파일에 손으로 적어 두면 두 얼굴이 된다 — consts 에서 오는지 본다 */
+  참('값을 이 파일에 손으로 안 적었다',
+    !/2026-세종-0591|456-87-03384/.test(
+      readFileSync(fileURLToPath(import.meta.url), 'utf8').split('자가시험')[0]));
+  참('더할 것이 있어도 발행 주체는 붙는다',
+    꼬리말(['그 지면만의 문장']).includes('2026-세종-0591'));
 
   const f = 꼬리말();
   참('privacy 가 들어간다', f.includes('href="/privacy"'));

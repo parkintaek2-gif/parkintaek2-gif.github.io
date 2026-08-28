@@ -48,6 +48,10 @@ const year = new Date().getFullYear();
           <li>Representative director: {PUBLISHER.representative}</li>
           <li>{PUBLISHER.address}</li>
           <li>Business reg. {PUBLISHER.bizRegNo}</li>
+          {/* 🔴 [2026-08-28] 통신판매업 신고번호. 사장님이 신고를 마치시고 신고증을 주셨다.
+              ⚠ 영문 지면이라 번호는 한국어 그대로 두되 «무엇인지»를 영어로 밝힌다 —
+                번호만 적으면 영어 손님에게는 뜻 없는 글자다. */}
+          <li>Mail-order licence {PUBLISHER.mailOrderNo} ({PUBLISHER.mailOrderAuthority})</li>
         </ul>
       </div>
       {

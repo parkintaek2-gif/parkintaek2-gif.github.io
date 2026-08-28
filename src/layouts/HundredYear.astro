@@ -358,6 +358,9 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         <strong>{PUBLISHER.legalNameKo}</strong> · 대표 {PUBLISHER.representativeKo}<br />
         {PUBLISHER.addressKo}<br />
         사업자등록번호 {PUBLISHER.bizRegNo} · <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a><br />
+        {/* 🔴 [2026-08-28] 통신판매업 신고번호 — 사장님이 신고를 마치시고 신고증을 주셨다.
+            ⭐ 백년지도는 결제를 받는 곳이라 이 줄이 «가장 필요한» 자리다. */}
+        통신판매업 신고 {PUBLISHER.mailOrderNo}<br />
         {/* ⚠ YMYL — 「누가 내놓는가」가 푸터 한 줄로 끝나면 얕다. 설명하는 지면으로 보낸다 */}
         <a href="/about">백년지도는 무엇인가?</a>
       </p>
