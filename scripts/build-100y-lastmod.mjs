@@ -62,6 +62,8 @@ export const 갈래 = {
   '/elementary': ['src/pages/100y/elementary/index.astro', 'src/data/100yearmap/elementary.json'],
   '/tutoring': ['src/pages/100y/tutoring/index.astro', 'src/data/100yearmap/private-tutoring.json'],
   '/real-wage': ['src/pages/100y/real-wage/index.astro', 'src/data/100yearmap/real-wage.json'],
+  '/idle-youth': ['src/pages/100y/idle-youth/index.astro', 'src/data/100yearmap/idle-youth.json'],
+  '/wealth-gap': ['src/pages/100y/wealth-gap/index.astro', 'src/data/100yearmap/wealth-gap-age.json'],
   '/nursery': ['src/pages/100y/nursery/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json'],
   '/nursery-fill': ['src/pages/100y/nursery-fill/index.astro', 'src/data/100yearmap/nursery-fill.json'],
   '/hiking': ['src/pages/100y/hiking/index.astro', 'src/data/100yearmap/hiking.json'],

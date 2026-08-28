@@ -173,6 +173,10 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-28 — 실질임금(사업체노동력조사×소비자물가지수, 저희 계산). 사장님이
        고용노동부 보도자료를 직접 짚으며 지시. 매달 갱신 여지가 있어 monthly. */
     { path: '/real-wage', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 2026-08-28 — 「청년 예산 언박싱 2027」보도자료 각주를 KOSIS로 검증해 지면화.
+       월별 갱신되는 실측 통계라 monthly. */
+    { path: '/idle-youth', priority: '0.8', changefreq: 'monthly' },
+    { path: '/wealth-gap', priority: '0.8', changefreq: 'yearly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이
