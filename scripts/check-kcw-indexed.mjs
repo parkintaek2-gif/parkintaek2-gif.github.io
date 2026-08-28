@@ -267,7 +267,37 @@ if (!fs.existsSync(사이트맵길)) {
   console.log(`⚠ 못 쟀다 — ${path.relative(뿌리, 사이트맵길)} 이 없다(빌드 먼저)`);
   process.exit(0);
 }
-const 전체 = [...fs.readFileSync(사이트맵길, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+const 전체읽은것 = [...fs.readFileSync(사이트맵길, 'utf8').matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+/**
+ * 🔴 [2026-08-28] **갈래 하나만 재는 길을 냈다.**
+ *   오늘 `/week` 268장이 사이트맵에 다 있는데 GSC 노출이 «0» 인 것을 봤다.
+ *   까닭이 「색인이 안 됐다」인지 「됐는데 안 뜬다」인지 갈라야 약이 다른데,
+ *   표본 24장을 뽑으니 `/week` 이 «한 장도» 안 들어왔다.
+ *   ⛔ 고르게 뽑기는 «전체»를 보는 데는 맞지만, «한 갈래»를 물을 때는 못 쓴다.
+ *   ⚠ 갈래를 좁혀 잰 것을 「사이트 전체가 그렇다」고 말하지 않는다.
+ */
+const 갈래좁힘 = (process.argv.find((a) => a.startsWith('--갈래='))?.split('=')[1]) ?? null;
+/* 🔴 Git Bash 는 `/week/` 처럼 «슬래시로 시작하는 값»을 윈도 경로로 바꿔 버린다
+   (`C:/Program Files/Git/week/`). 조용히 0장이 되어 「색인 0」으로 읽힐 뻔했다.
+   같은 덫에 search-console-report 가 2026-08-22 에 먼저 걸렸다 — 여기도 막는다.
+   ⛔ 「못 쟀다」와 「0장」을 가르는 것이 이 자의 일이므로, 이건 그냥 두면 안 된다. */
+if (갈래좁힘 && /^[A-Za-z]:[\\/]/.test(갈래좁힘)) {
+  console.log(`⛔ --갈래 값이 윈도 경로로 바뀌었다 — ${갈래좁힘}`);
+  console.log('   ⚠ Git Bash 가 슬래시로 시작하는 값을 경로로 바꾼 것이다. 이렇게 주십시오 —');
+  console.log('     MSYS_NO_PATHCONV=1 node scripts/check-kcw-indexed.mjs --잰다 "--갈래=/week/"');
+  process.exit(1);
+}
+const 전체 = 갈래좁힘
+  ? 전체읽은것.filter((u) => u.includes(갈래좁힘))
+  : 전체읽은것;
+if (갈래좁힘) {
+  console.log(`⚠ 갈래를 «${갈래좁힘}» 로 좁혔다 — 사이트맵 ${전체읽은것.length}장 중 ${전체.length}장.`);
+  console.log('   ⛔ 여기서 나온 비율을 「사이트 전체」로 옮겨 적지 않는다.');
+  if (전체.length === 0) {
+    console.log(`⚠ 못 쟀다 — 사이트맵에 «${갈래좁힘}» 이 든 주소가 한 장도 없다.`);
+    process.exit(0);
+  }
+}
 const n = Number((process.argv.find((a) => a.startsWith('--n='))?.split('=')[1]) ?? 60);
 /**
  * 2026-08-23 — **고를 지면을 직접 줄 수 있게** 했다. 2번이 「B2B 문의 0건의 까닭을 구분할
