@@ -74,10 +74,26 @@ const 수 = (n: number) => Number(n).toLocaleString('en-US');
      아래 note 칸이 그 말을 그대로 하고 있다. 잘려서 안 보이던 자리에서 보이는 자리로 옮긴 것이다.
    ⚠ 55개 학교를 다 재서 제목 최대 57자(Hankuk University of Foreign Studies)다. */
 const TITLE = `${수(s.people)} Korean stars from ${s.name}`;
-/* ⚠ 55개 학교를 다 재서 설명 최대 130자다. 「other entertainers」를 뺀 것은 본문 첫 문단이
-   그 말을 그대로 하기 때문이다(빼기 전에 쟀다). */
-const DESC = `${수(s.people)} Korean actors and singers studied at `
-  + `${s.name}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`;
+/**
+ * 🔴🔴 [2026-08-29] **설명문이 「우리만 가진 수」를 안 말하고 있었다.**
+ *
+ * AI 가 어느 지면을 인용하는지 재 봤다(`measure-ai-citations.mjs`). 28일에 21세션인데
+ * 그중 «10» 이 3번(백년지도)의 학교·대학 낱장이었고, 내 학교 낱장은 «0» 이었다.
+ * 두 지면의 설명문을 견주니 차이가 뚜렷했다 —
+ *
+ * ```
+ *   3번  「학급당 14.1명 · 학업중단 5.7% · 1년 뒤 83.1%」   ← 「이 학교가 어떤 곳인가」에 답한다
+ *   5번  「48명이 이 학교에서 나왔다」                      ← 목록의 «크기»만 말한다
+ * ```
+ * ⛔ 그리고 「이 학교 출신 스타가 누구냐」는 위키피디아가 이미 답한다 — 우리가 이길 자리가 아니다.
+ * ⭐ 우리가 «혼자» 가진 수는 넷플릭스 도달이다. 그것을 설명문 앞으로 당긴다.
+ *    ⚠ 도달을 «잰» 학교에만 넣는다. 못 잰 학교는 예전 문장 그대로다 — 지어내지 않는다.
+ */
+const DESC = 도달 && Number.isFinite(도달.가운데나라수)
+  ? `${수(s.people)} Korean stars studied at ${s.name}. Their work reached a median of `
+    + `${도달.가운데나라수} countries on Netflix, measured over ${수(도달.사람수)} of them.`
+  : `${수(s.people)} Korean actors and singers studied at `
+    + `${s.name}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
