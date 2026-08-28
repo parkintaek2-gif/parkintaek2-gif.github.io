@@ -75,6 +75,17 @@ export const PUBLISHER = {
    */
   mailOrderNo: '2026-세종-0591',
   mailOrderAuthority: '세종특별자치시',
+  /**
+   * 🔴 [2026-08-28] 영문 지면용 기관 이름.
+   *   신고번호를 영문 사이트 꼬리말에 넣었더니 `build-kcw-birthday-pages` 의 자가시험
+   *   「⛔ 화면에 우리말이 없다」가 **바로 걸렸다.** 그 검사가 옳다 —
+   *   영어 손님은 한국어 줄에서 읽기를 멈춘다.
+   *
+   * ⭐ 그래서 기관 이름은 영문 지면에서 **Sejong** 으로 쓴다.
+   * ⛔ 다만 **번호 자체(`2026-세종-0591`)는 못 바꾼다.** 그것이 그 번호의 «이름»이고,
+   *   바꿔 적으면 조회가 안 되는 거짓 번호가 된다. 「세종」 넉 자는 그래서 남는다.
+   */
+  mailOrderAuthorityEn: 'Sejong',
   /* ⚠ 본점 표기도 등기부 그대로다 — **「제상가1동 101호」**. 「상가1동 1층 101호」가 아니다.
      「1층」은 우리가 덧붙인 말이었다. 등기부에 없는 말을 주소에 넣지 않는다. */
   address: 'Unit 101, Commercial Bldg. 1, 441 Namsejong-ro, Boram-dong, Sejong, Republic of Korea',

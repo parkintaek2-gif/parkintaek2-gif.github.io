@@ -328,7 +328,7 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this
     /* ⛔ 2026-08-26 에 여기서 한 번 조용히 사라졌다 — 쉼표 뒤를 `+ '…'` 로 시작했더니
        **단항 플러스**로 읽혀 NaN 이 되고, 꼬리말() 의 `typeof x === 'string'` 필터가
        말없이 버렸다. 오류도 경고도 없었다. 자가시험이 없었으면 「넣었다」로 끝났을 것이다. */
-    '<a href="https://klifemap.ai/saju.html?lang=en" rel="noopener">What does a birth date say in the Korean four-pillars system?</a>'
+    '<a href="https://klifemap.ai/saju.html?lang=en&from=kcw&at=born-on" rel="noopener">What does a birth date say in the Korean four-pillars system?</a>'
       + ' <span class="fine">&mdash; free chart, no sign-up. Opens KLifeMap.AI, a separate site we also run.</span>',
   ])}
   <footer>
@@ -440,7 +440,7 @@ if (process.argv.includes('--자가시험')) {
      재 보니 'klifemap.ai' 라는 글자는 1곳 있는데 누를 수 있는 링크는 «0개» 였다 —
      애널리틱스 스크립트 안의 도메인 목록이었다. 세는 자가 넓으면 없는 것을 있다고 센다. */
   검('⭐ KLifeMap 입구가 «누를 수 있게» 걸려 있다 — 글자만 있는 것은 링크가 아니다',
-    h.includes('<a href="https://klifemap.ai/saju.html?lang=en" rel="noopener">'));
+    h.includes('<a href="https://klifemap.ai/saju.html?lang=en&from=kcw&at=born-on" rel="noopener">'));
   검('⭐ 다른 사이트로 넘어간다는 것을 밝힌다', h.includes('a separate site we also run'));
   검('어제·내일로 걷는다', h.includes('/born-on/05-15') && h.includes('/born-on/05-17'));
   /* 🔴 2026-08-24 — 「in may」로 묻는 손님을 위해 달 지면 12장을 냈다. 날 지면에 떨어진
@@ -448,7 +448,23 @@ if (process.argv.includes('--자가시험')) {
      ⛔ 「문이 있나」가 아니라 «맞는 달로 가나»를 본다. 5월 지면이 6월로 가면 통과해선 안 된다 */
   검('⭐ 자기 달 지면으로 올라간다', h.includes('/born-in/may') && !h.includes('/born-in/june'));
   검('⛔ 점을 안 친다는 말을 싣는다', h.includes('Sharing a birthday means sharing a birthday'));
-  검('⛔ 화면에 우리말이 없다', !/[가-힣]/.test(h.replace(/홍길동/g, '')));
+  /**
+   * ⛔ 화면에 우리말이 없다 — 영어 손님은 한국어 줄에서 읽기를 멈춘다.
+   *
+   * ⚠ [2026-08-28] **딱 하나 예외를 두었다 — 통신판매업 신고번호(`2026-세종-0591`).**
+   *   그 안의 「세종」은 번호의 «이름»이라 못 바꾼다. 로마자로 적으면 조회가 안 되는
+   *   거짓 번호가 된다. 기관 이름은 영문(`Sejong`)으로 바꿨고, 번호만 그대로 둔다.
+   *
+   * ⭐ 예외를 «이름 붙여» 둔다. 이 검사가 막으려는 것은 «영어 손님이 읽다 멈추는 한국어
+   *   문장»이고, 법정 식별자는 문장이 아니다. 이름 없이 정규식만 느슨하게 하면
+   *   다음 사람이 한국어 «문장»을 넣어도 안 걸린다.
+   */
+  const 법정번호 = /2026-세종-\d+/g;
+  검('⛔ 화면에 우리말이 없다 (법정 신고번호만 예외)',
+    !/[가-힣]/.test(h.replace(/홍길동/g, '').replace(법정번호, '')));
+  /* ⚠ 예외가 «번호에만» 걸리는지 본다 — 넓어지면 한국어 문장이 새 나간다 */
+  검('예외가 한국어 문장까지 봐주지 않는다',
+    /[가-힣]/.test('사람이 온다'.replace(법정번호, '')));
   검('영문 문서 제목으로 떨어진다', 영문이름({ name: '카리나', enTitle: 'Karina (South Korean singer)' }) === 'Karina');
   검('영문 이름이 아예 없으면 안 싣는다', 영문이름({ name: '홍길동', enTitle: null }) === null);
 

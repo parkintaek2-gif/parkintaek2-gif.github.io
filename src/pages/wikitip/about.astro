@@ -19,6 +19,9 @@
  * 「광고로 운영한다」고도 적지 않는다 — 지금 사실이 아니다.
  */
 import { getCollection } from 'astro:content';
+/* 🔴 [2026-08-28] 자매 사이트 링크에 딱지를 단다 — 안 달면 우리끼리 유입을 «못 센다».
+   크로스도메인 linker 때문에 referral 로 안 잡히기 때문이다(sister-link.ts 참고). */
+import { 자매링크 } from '../../lib/sister-link';
 import WikiTip from '../../layouts/WikiTip.astro';
 import { PUBLISHER } from '../../consts';
 
@@ -251,12 +254,12 @@ const jsonLd = {
       Representative director: {PUBLISHER.representative}<br />
       {PUBLISHER.address}<br />
       Business registration number {PUBLISHER.bizRegNo}<br />
-      Mail-order licence {PUBLISHER.mailOrderNo} ({PUBLISHER.mailOrderAuthority})<br />
+      Mail-order licence {PUBLISHER.mailOrderNo} ({PUBLISHER.mailOrderAuthorityEn})<br />
       <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
     </p>
     <p class="note">
-      The same company publishes <a href="https://seoulmarkets.com/">SeoulMarkets</a>, which
-      covers Korean financial markets in English, and <a href="https://100yearmap.com/" hreflang="ko">100 Year Map</a>,
+      The same company publishes <a href={자매링크("https://seoulmarkets.com/", "about")}>SeoulMarkets</a>, which
+      covers Korean financial markets in English, and <a href={자매링크("https://100yearmap.com/", "about")} hreflang="ko">100 Year Map</a>,
       a Korean-language guide to what happens after university.
     </p>
   </section>

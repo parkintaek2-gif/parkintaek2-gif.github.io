@@ -20,6 +20,9 @@
  * `wikitip/index.astro` 가 이미 쓰던 값을 그대로 가져왔다 — 두 지면이 따로 놀면 안 된다.
  */
 import Analytics from '../components/Analytics.astro';
+/* 🔴 [2026-08-28] 자매 사이트 링크에 딱지를 단다 — 안 달면 우리끼리 유입을 «못 센다».
+   크로스도메인 linker 때문에 referral 로 안 잡히기 때문이다(sister-link.ts 참고). */
+import { 자매링크 } from '../lib/sister-link';
 import { ADS, PUBLISHER } from '../consts';
 
 export interface Props {
@@ -302,8 +305,8 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
           ⛔ 이름만 영어로 바꾼다. **받는 화면(100yearmap.com)은 3번 것**이라 안 건드리고 알린다.
           ⚠ 그래서 이 문은 아직 **누르면 한국어 화면**이 나온다. 그 사실을 여기 적어 둔다.
         */}
-        <a href="https://seoulmarkets.com/">SeoulMarkets</a> — Korean markets in numbers ·{' '}
-        <a href="https://100yearmap.com/" hreflang="ko">100 Year Map</a> — Korean careers, mapped past
+        <a href={자매링크("https://seoulmarkets.com/", "footer")}>SeoulMarkets</a> — Korean markets in numbers ·{' '}
+        <a href={자매링크("https://100yearmap.com/", "footer")} hreflang="ko">100 Year Map</a> — Korean careers, mapped past
         graduation <span class="fine">(in Korean)</span>
       </p>
     </footer>

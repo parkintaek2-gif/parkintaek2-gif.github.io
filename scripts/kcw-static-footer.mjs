@@ -42,7 +42,7 @@ import { PUBLISHER } from '../src/consts.ts';
 export function 발행주체() {
   return `Published by ${PUBLISHER.legalName} &middot; Representative director `
     + `${PUBLISHER.representative} &middot; Business reg. ${PUBLISHER.bizRegNo} `
-    + `&middot; Mail-order licence ${PUBLISHER.mailOrderNo} (${PUBLISHER.mailOrderAuthority})`;
+    + `&middot; Mail-order licence ${PUBLISHER.mailOrderNo} (${PUBLISHER.mailOrderAuthorityEn})`;
 }
 
 /**
