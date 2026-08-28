@@ -71,9 +71,33 @@ export function 글접기(글) {
 }
 
 /** 지면 파일 이름에서 손님 주소로. `src/pages/wikitip/one-out.astro` → `/one-out` */
+/**
+ * 🔴🔴 [2026-08-29] **하위 폴더 지면을 «못 보고» 있었다.**
+ * 예전 판은 파일 «이름»만 보고 주소를 지었다. 그래서 wikitip/school/index.astro 처럼
+ * 한 겹 안에 있는 지면에 영상을 걸면 갤러리가 「어디서 왔는지 모른다」로 세웠다.
+ * ⛔ 지우지는 않으니 조용히 틀린다 — 손님은 영상만 보고 «그 이야기가 있는 지면»으로
+ *    못 걸어간다. 사장님 상시 지시(「관련 콘텐트를 빠짐없이 붙여 다음 것을 보게 하라」)가
+ *    바로 여기서 끊긴다.
+ * ✅ 이제 wikitip 아래 상대 경로를 그대로 주소로 만든다.
+ */
 export function 지면주소(파일이름) {
-  const b = path.basename(String(파일이름 ?? ''), '.astro');
-  return b === 'index' ? '/' : `/${b}`;
+  const 길 = String(파일이름 ?? '').split('\\').join('/');
+  const 뒤 = 길.includes('src/pages/wikitip/') ? 길.split('src/pages/wikitip/')[1] : 길;
+  const 없앤것 = 뒤.replace(/\.astro$/, '');
+  const 조각 = 없앤것.split('/').filter(Boolean);
+  if (조각[조각.length - 1] === 'index') 조각.pop();
+  return 조각.length ? `/${조각.join('/')}` : '/';
+}
+
+/** wikitip 아래 .astro 를 «하위 폴더까지» 모은다 — 뿌리로부터의 상대 경로로 준다 */
+export function 지면들모으기(방, 위 = '') {
+  const 나온것 = [];
+  for (const 이름 of fs.readdirSync(방, { withFileTypes: true })) {
+    const 상대 = 위 ? `${위}/${이름.name}` : 이름.name;
+    if (이름.isDirectory()) 나온것.push(...지면들모으기(path.join(방, 이름.name), 상대));
+    else if (이름.name.endsWith('.astro')) 나온것.push(상대);
+  }
+  return 나온것;
 }
 
 if (process.argv.includes('--자가시험')) {
@@ -100,6 +124,18 @@ if (process.argv.includes('--자가시험')) {
 
   검('지면 주소를 만든다', 지면주소('src/pages/wikitip/one-out.astro') === '/one-out');
   검('index 는 뿌리다', 지면주소('index.astro') === '/');
+  /* ⛔⛔ [2026-08-29] 하위 폴더 지면을 못 보던 결함 — 수로 못박는다 */
+  검('⭐ 하위 폴더 지면의 주소를 살린다',
+    지면주소('src/pages/wikitip/school/index.astro') === '/school');
+  검('⭐ 하위 폴더의 낱장도 살린다',
+    지면주소('src/pages/wikitip/school/[school].astro') === '/school/[school]');
+  검('⭐ 상대 경로로 줘도 된다', 지면주소('school/index.astro') === '/school');
+  검('⭐ 윈도우 역슬래시도 읽는다',
+    지면주소(['src', 'pages', 'wikitip', 'school', 'index.astro'].join('\\')) === '/school');
+  검('⭐ 훑기가 하위 폴더까지 모은다', (() => {
+    const 다 = 지면들모으기(path.join(뿌리, 'src/pages/wikitip'));
+    return 다.some((x) => x.includes('/')) && 다.every((x) => x.endsWith('.astro'));
+  })());
 
   검('글접기 — 앞뒤 공백을 턴다', 글접기('  a  b  ') === 'a b');
   검('글접기 — 빈 값은 빈 글', 글접기(null) === '' && 글접기(undefined) === '');
@@ -150,8 +186,7 @@ function 지어진글(page, set) {
 }
 
 const 짝 = new Map();
-for (const f of fs.readdirSync(지면방)) {
-  if (!f.endsWith('.astro')) continue;
+for (const f of 지면들모으기(지면방)) {
   const 글 = fs.readFileSync(path.join(지면방, f), 'utf8');
   if (!글.includes('KcwShorts')) continue;
   for (const v of 영상꺼내기(글)) {

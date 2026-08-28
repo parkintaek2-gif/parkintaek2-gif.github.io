@@ -9,6 +9,9 @@
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-schools.json';
+/* 🔴 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣고, 관련 콘텐트를
+   빠짐없이 붙여 다음 것을 계속 보게 하라」. 유튜브가 막혀 있어도 이 자리는 열려 있다. */
+import KcwShorts from '../../../components/KcwShorts.astro';
 
 const 학교들 = data.schools ?? [];
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
@@ -62,6 +65,11 @@ const DESC = `${학교들.length} schools, each with the Korean actors, singers 
       they are counted, not hidden.
     </p>
   </section>
+
+  {/* ⭐ 14초로 「학교가 아니라 한 사람이 갔다」를 보여 준다 — 이 지면이 말하는 것 그대로다 */}
+  <KcwShorts set="school-one-name"
+    says={`Fourteen seconds: one name, Lee You-mi, moves a whole school's figure `
+      + `from 43 countries to 25. The school did not travel — a person did.`} />
 
   <section class="onward">
     <h3>Other ways into the same people</h3>
