@@ -88,6 +88,27 @@ export async function 토큰받기(키, 갈래이름 = 갈래) {
   return j.access_token;
 }
 
+/**
+ * 여러 날치 사람 수를 「하루 몇 명꼴」로 옮긴다.
+ *
+ * 🔴 2026-08-28, 사장님 — 「**사람이 소숫점인게 이해가 안돼**」.
+ *    9월 목표가 「하루 1,000명」이라 나눈 값을 안 쓸 수는 없다. 다만
+ *    ⛔ 나눈 값에 「명」을 붙이면 사람이 0.46명이 된다.
+ *    ✅ 그래서 나눈 값은 «통째 수 + 명꼴»로 적어 «비율»임을 말에 드러낸다.
+ *
+ * ⚠ 하루 한 명이 안 되는 자리를 「0명꼴」로 적으면 아무도 안 온 것처럼 읽힌다.
+ *    그 자리는 「N일에 M명」이라고 «센 수 그대로» 적는다.
+ */
+export function 하루꼴(사람, 날수) {
+  if (사람 === null || 사람 === undefined || 사람 === '') return '못 쟀다';
+  const n = Number(사람);
+  const d = Number(날수);
+  if (!Number.isFinite(n) || n < 0 || !Number.isFinite(d) || d <= 0) return '못 쟀다';
+  const 하루 = n / d;
+  if (하루 < 1) return `${d}일에 ${Math.round(n)}명`;
+  return `${Math.round(하루).toLocaleString('en-US')}명꼴`;
+}
+
 /** 호스트 줄들을 유닛별로 합친다. ⛔ 어디에도 안 붙는 호스트를 **버리지 않는다** */
 export function 유닛별로(줄들) {
   const 표 = 유닛.map((u) => ({ 이름: u.이름, 순방문: 0, 열림: 0, 호스트: [] }));
@@ -148,6 +169,19 @@ const 내가실행됐다 = process.argv[1]
 if (내가실행됐다 && process.argv.includes('--selftest')) {
   let 통 = 0; let 실 = 0;
   const 참 = (n, v) => { if (v) 통 += 1; else { 실 += 1; console.error(`  ⛔ ${n}`); } };
+
+  /* 🔴 사장님 지적 — 「사람이 소숫점인게 이해가 안돼」 */
+  참('하루꼴에 소수점이 없다', 하루꼴(623, 28) === '22명꼴');
+  참('나눈 값 어디에도 소수점이 없다', !/\d\.\d/.test(하루꼴(355, 28)));
+  참('하루 한 명이 안 되면 센 수 그대로', 하루꼴(20, 28) === '28일에 20명');
+  참('아무도 안 왔으면 0명', 하루꼴(0, 28) === '28일에 0명');
+  참('못 잰 것은 0 이 아니다', 하루꼴(null, 28) === '못 쟀다');
+  참('날수가 0이면 못 쟀다', 하루꼴(10, 0) === '못 쟀다');
+  참('천 단위에 쉼표가 붙는다', 하루꼴(280000, 28) === '10,000명꼴');
+  /* ⛔ 「/ 일수 … toFixed」 모양이 돌아오면 여기서 걸린다 — 말이 아니라 검사로 굳힌다 */
+  참('소스에 나눗셈 뒤 toFixed 가 없다',
+    !/(순방문|n)\s*\/\s*(일수|m\.일)\s*\)?\s*\.toFixed\(/.test(
+      readFileSync(fileURLToPath(import.meta.url), 'utf8')));
 
   /* 🔴 막힌 곳을 갈라 적어야 사람이 «무엇을 켤지» 안다. 「실패」 한 마디는 쓸모가 없다 */
   참('Admin API 꺼짐을 알아본다',
@@ -373,14 +407,14 @@ if (내가실행됐다) {
     }
 
     console.log(`유닛별 순방문자 — 속성 ${속성} (네 사이트 공용)\n`);
-    console.log('   유닛                   어제    7일(하루평균)    28일(하루평균)');
+    console.log('   유닛                   어제    7일(하루몇명꼴)    28일(하루몇명꼴)');
     for (const u of 유닛.map((x) => x.이름)) {
       const 값 = (이름) => {
         const m = 모음.get(이름);
         if (!m || m.못쟀다) return '못 쟀다';
         const row = m.표.find((x) => x.이름 === u);
         const n = row ? row.순방문 : 0;
-        return m.일 === 1 ? `${n}` : `${n} (${(n / m.일).toFixed(1)})`;
+        return m.일 === 1 ? `${n}` : `${n} (${하루꼴(n, m.일)})`;
       };
       console.log(`   ${u.padEnd(22)}${값('어제').padStart(5)}`
         + `${값('7일').padStart(16)}${값('28일').padStart(18)}`);
@@ -389,7 +423,7 @@ if (내가실행됐다) {
       const m = 모음.get(이름);
       if (!m || m.못쟀다) return '못 쟀다';
       const n = m.표.reduce((s, x) => s + x.순방문, 0);
-      return m.일 === 1 ? `${n}` : `${n} (${(n / m.일).toFixed(1)})`;
+      return m.일 === 1 ? `${n}` : `${n} (${하루꼴(n, m.일)})`;
     };
     console.log(`   ${'회사 네 사이트 합'.padEnd(20)}${합('어제').padStart(5)}`
       + `${합('7일').padStart(16)}${합('28일').padStart(18)}`);
@@ -682,11 +716,11 @@ if (내가실행됐다) {
       열림: Number(r.metricValues?.[2]?.value ?? 0),
     }));
     console.log('\n📊 사이트별로 갈라 잰 것 — ⭐ **이 줄이 유닛별 방문자수다**');
-    console.log('   호스트                          순방문  세션  지면열림  하루평균');
+    console.log('   호스트                          순방문  세션  지면열림  하루몇명꼴');
     for (const x of 줄) {
       console.log(`   ${x.호스트.padEnd(30)}${String(x.순방문).padStart(6)}`
         + `${String(x.세션).padStart(6)}${String(x.열림).padStart(9)}`
-        + `${(x.순방문 / 일수).toFixed(1).padStart(10)}`);
+        + `${하루꼴(x.순방문, 일수).padStart(12)}`);
     }
     const 내것 = 줄.filter((x) => /kculturewire/i.test(x.호스트));
     const 내순방문 = 내것.reduce((s, x) => s + x.순방문, 0);
