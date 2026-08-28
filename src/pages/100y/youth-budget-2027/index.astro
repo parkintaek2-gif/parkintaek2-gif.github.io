@@ -1,0 +1,123 @@
+---
+/**
+ * /100y/youth-budget-2027 — 2027년, 나이별로 어떤 지원이 새로 생기나
+ *
+ * 사장님이 「청년 예산 언박싱 2027」관계부처합동 보도자료(2026-08-28)를 공유하며
+ * 「매해 예산안을 기획예산처 등의 보도자료·정책브리핑에서 검토하는 게 중요하다」고
+ * 지시했다. 원문 PDF(정책브리핑 fileId 198532505)를 직접 열어 확인했다.
+ *
+ * ⛔⛔ 이 지면의 위험 둘 —
+ *   ① 이건 **정부안**이다. 국회 심의(통상 12월 확정)를 거쳐야 확정된다 — 「이미 확정된
+ *      제도」처럼 쓰면 안 된다. 헤드라인 바로 밑에 못박는다.
+ *   ② "0~34세 최대 1억9,582만원"은 **조건부 시나리오**(지방우대지역·첫째·중위소득100%
+ *      가정)다. 모든 아이가 받는 돈이 아니다 — 이것도 헤드라인 바로 밑에 못박는다.
+ *
+ * ⭐ 정책 각주에 인용된 실측 통계 둘(쉬었음인구·자산격차)은 KOSIS로 직접 검증해
+ *   /idle-youth · /wealth-gap 으로 이미 지면화했다 — 여기서는 링크만 걷다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/youth-budget-2027.json';
+
+const 자료 = 원본 as any;
+
+const desc =
+  `관계부처합동 보도자료(${자료.배포})를 그대로 옮겼습니다. 2027년도 예산안(정부안)에서 ` +
+  `청년 관련 예산은 ${자료.예산총액['2026년']}에서 ${자료.예산총액['2027년_정부안']}으로 늘어납니다(${자료.예산총액.증가율}). ` +
+  `⚠ 아직 국회 확정 전입니다. 23개 사업을 세 갈래로 나눠 봅니다.`;
+---
+
+<HundredYear
+  title={`2027년 청년 예산안 — ${자료.예산총액['2026년']} → ${자료.예산총액['2027년_정부안']}(${자료.예산총액.증가율})`}
+  description={desc}
+>
+  <h1>2027년, 나이별로<br />어떤 지원이 새로 생길까요?</h1>
+  <p class="sub">
+    정부가 발표한 2027년도 예산안(정부안)에서 청년 관련 투자가
+    {' '}<strong>{자료.예산총액['2026년']} → {자료.예산총액['2027년_정부안']}</strong>으로 늘어납니다
+    {' '}(<strong>{자료.예산총액.증가율}</strong>).
+  </p>
+
+  <div class="warn">
+    <p><strong>⚠ 이것은 아직 «정부안»입니다.</strong></p>
+    <p class="note">{자료['⚠단계']}</p>
+  </div>
+
+  <div class="answer">
+    <p class="answer-label">정부 발표 · 0~34세 누적 최대 지원(특정 조건 가정)</p>
+    <p class="answer-num">{자료.누적혜택['34세까지']}</p>
+    <p class="answer-sub">18세까지 {자료.누적혜택['18세까지']} — 관계부처합동 보도자료, {자료.배포}</p>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>이 액수는 모든 아이가 받는 돈이 아닙니다.</strong> 원문 각주 그대로 옮기면 —
+    {' '}「{자료.누적혜택['⚠조건']}」. <strong>가장 유리한 하나의 시나리오</strong>일 뿐입니다.
+  </p>
+
+  {자료.세축.map((축: any) => (
+    <>
+      <h2>{축.이름}</h2>
+      <div class="tablewrap">
+        <table>
+          <thead><tr><th>사업명</th><th>규모</th><th>시행</th></tr></thead>
+          <tbody>
+            {축.사업.map((s: any) => (
+              <tr>
+                <td>
+                  <strong>{s.이름}</strong>
+                  {s.내용 && <><br /><span class="note">{s.내용}</span></>}
+                </td>
+                <td>{s.규모 ?? '—'}</td>
+                <td>{s.시행}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  ))}
+
+  <h2>이 정책의 근거로 인용된, 저희가 직접 검증한 실측 통계</h2>
+  <p class="note">
+    보도자료 각주는 정책이 필요한 이유로 실측 통계 둘을 인용했습니다. 정부의 «약속»이
+    {' '}아니라 이미 조사된 값이라 저희가 KOSIS 원자료로 직접 재봤습니다.
+  </p>
+  <ul class="types">
+    <li>
+      <a href="/idle-youth">쉬었음 청년(20~30대) — {자료.근거로_인용된_실측통계.쉬었음인구_2030세대.인용문}</a>
+      <span class="note">{자료.근거로_인용된_실측통계.쉬었음인구_2030세대.저희검증}</span>
+    </li>
+    <li>
+      <a href="/wealth-gap">세대간 자산격차 — {자료.근거로_인용된_실측통계.세대간자산격차.인용문}</a>
+      <span class="note">{자료.근거로_인용된_실측통계.세대간자산격차.저희검증}</span>
+    </li>
+  </ul>
+
+  <p class="note">
+    재원 — {자료.재원}.
+  </p>
+  <p class="note">
+    <strong>이것은 정부의 계획을 그대로 옮긴 것이지, 저희 평가가 아닙니다.</strong>
+    {' '}좋다·나쁘다를 말하지 않습니다 — <strong>무엇이 발표됐는지만</strong> 놓습니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처}. 배포 {자료.배포}. 이용허락범위 {자료.이용허락범위}. 받은 날 {자료.받은날}.
+  </p>
+
+  <p class="note">
+    <a href="/idle-youth">← 일도 구직도 안 하고 쉬는 2030, 몇 명일까</a>
+    <br />
+    <a href="/wealth-gap">← 고령층은 청년층보다 자산이 몇 배 많을까</a>
+    <br />
+    <a href="/first-job">← 처음 일자리는 언제 오고, 얼마나 갈까</a>
+    <br />
+    <a href="/pension">← 국민연금, 몇 살부터 얼마씩 받나</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="youth-budget-2027" />
+  <NextQuestionBrief 모은것="관계부처합동 보도자료" />
+</HundredYear>

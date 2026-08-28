@@ -41,6 +41,7 @@ import 내일배움카드 from '../../../data/100yearmap/training-card.json';
 import 실질임금 from '../../../data/100yearmap/real-wage.json';
 import 쉬었음 from '../../../data/100yearmap/idle-youth.json';
 import 자산격차 from '../../../data/100yearmap/wealth-gap-age.json';
+import 청년예산2027 from '../../../data/100yearmap/youth-budget-2027.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -64,6 +65,7 @@ const z = 사교육 as any;
 const aa = 실질임금 as any;
 const ab = 쉬었음 as any;
 const ac = 자산격차 as any;
+const ad = 청년예산2027 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -144,6 +146,12 @@ const 문들 = [
     수: `${ac.연도별[ac.기준연도].배율}배`,
     한줄: `${ac.기준연도}년 가구주 60세 이상 가구 평균 총자산 ÷ 29세 이하 가구(가계금융복지조사).`,
     기간: `${Object.keys(ac.연도별)[0]}~${ac.기준연도} · ${Object.keys(ac.연도별).length}해`,
+  },
+  {
+    나이: '0~34세', 주소: '/youth-budget-2027', 이름: '2027년, 나이별로 어떤 지원이 새로 생기나',
+    수: `${ad.예산총액['2027년_정부안']}`,
+    한줄: `2027년도 청년 예산안(정부안). ${ad.예산총액['2026년']}에서 ${ad.예산총액.증가율} 늘었습니다. ⚠ 아직 국회 확정 전입니다.`,
+    기간: `${ad.배포} 발표`,
   },
   {
     나이: '40대', 주소: '/spending', 이름: '마흔에 한 달 돈은 어디로 가나',

@@ -177,6 +177,8 @@ export const GET: APIRoute = () => {
        월별 갱신되는 실측 통계라 monthly. */
     { path: '/idle-youth', priority: '0.8', changefreq: 'monthly' },
     { path: '/wealth-gap', priority: '0.8', changefreq: 'yearly' },
+    /* 🔴 2026-08-28 — 2027년도 예산안(정부안) 청년 정책 안내. 12월 국회 확정 때 재확인 필요. */
+    { path: '/youth-budget-2027', priority: '0.7', changefreq: 'monthly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이
