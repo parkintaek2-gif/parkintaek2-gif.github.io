@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T18:35:28.782Z",
+  "generated": "2026-08-28T10:38:42.985Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1272,6 +1272,17 @@
       ]
     },
     {
+      "set": "the-school-that-sends-the-most-travels-the-least",
+      "sq": [],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-second-time-is-easier",
       "sq": [
         1,
@@ -1642,8 +1653,8 @@
       ]
     }
   ],
-  "setCount": 97,
-  "imageCount": 958,
+  "setCount": 98,
+  "imageCount": 963,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-label-outreads-the-capital",
@@ -1659,12 +1670,14 @@
     "one-act-clears-the-footballer",
     "one-title-is-the-median-career",
     "one-title-out",
+    "the-biggest-school-is-not-the-idol-school",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
     "the-manager-is-read-where-he-was-hired",
     "the-reference-shelf-is-emptying",
     "the-wave-leaves-nothing",
     "travel-pages-fell-culture-pages-didnt",
+    "vietnam-asean-cup-korean-coach-netflix-share",
     "vietnam-reads-a-different-korea",
     "where-the-counting-stops"
   ]

@@ -66,6 +66,10 @@ export const 벌목록 = {
   debut: { 자료: 'src/data/wikitip-debut-age.json', 만들기: (d) => 데뷔벌짓기(d) },
   people: { 자료: 'src/data/wikitip-people.json', 만들기: (d) => 사람벌짓기(d) },
   daystem: { 자료: 'src/data/wikitip-stem-rooms.json', 만들기: (d) => 일진벌짓기(d) },
+  /* 🔴 [2026-08-28] 오늘 학교와 넷플릭스 도달을 처음 이어 재고 기사로 냈다.
+     ⛔ 기사만 내고 카드를 안 내면 «밖으로 나가는 문»이 하나 줄어든다 —
+       사장님 상시 지시는 「카드·카드뉴스·숏영상을 매일」이다. 오늘 이틀째 비어 있었다. */
+  school: { 자료: 'src/data/kcw-school-reach.json', 만들기: (d) => 학교벌짓기(d) },
 };
 
 /**
@@ -331,6 +335,106 @@ export function 한판벌짓기(d) {
  *     그것이 이 회사에서 리스크관리 자리가 하는 일이다.
  *   ⭐ 유리한 쪽으로 반올림하지 않는다. 「16.92 아래였다」로 적으면 그건 거짓이다.
  */
+/**
+ * 학교 × 넷플릭스 도달 — **사람을 가장 많이 낸 학교가 가장 멀리 못 간다.**
+ *
+ * 🔴 [2026-08-28] 두 자료를 처음 이었다(위키데이터 학교 4,535명 × 넷플릭스 636명).
+ *   기사로도 냈다 — `/article/the-school-that-sends-the-most-travels-the-least`.
+ *
+ * ⛔ **등수를 매기지 않는다.** 「최고의 학교」를 안 쓴다 — 이 표는 인과를 못 가린다.
+ *   학교가 사람을 뽑은 것인지 사람이 학교를 고른 것인지 이 자료로는 모른다.
+ * ⛔ **평균을 안 쓴다.** 한 편이 3,228자리라 평균이 통째로 끌려간다.
+ * ⭐ 「한 사람 빼고」를 **카드 안에** 넣는다 — 「그거 한 명이 만든 수 아니냐」는 반론을
+ *   각주로 막지 않고 보는 사람이 그 자리에서 검산하게 한다. 반론이 «맞는» 학교도 같이 보인다.
+ * ✅ 넷째 장은 늘 「이 안에 없는 것」이다 — 무대를 못 보는 자료라는 것을 거기서 밝힌다.
+ */
+export function 학교벌짓기(d) {
+  const 줄 = [...(d.잴수있는것 ?? [])];
+  const 찾 = (이름) => 줄.find((x) => x.학교 === 이름);
+  const 서울예대 = 찾('Seoul Institute of the Arts');
+  const 동국대 = 찾('Dongguk University');
+  const 한림 = 찾('Hanlim Multi Art School');
+  const 안양 = 찾('Anyang Arts High School');
+  /* ⛔ 자료에 없으면 카드를 짓지 않는다 — 없는 수를 지어내지 않는다 */
+  for (const [이름, x] of [['서울예대', 서울예대], ['동국대', 동국대], ['한림예고', 한림], ['안양예고', 안양]]) {
+    if (!x) throw new Error(`⛔ 카드에 쓸 학교가 자료에 없다: ${이름}`);
+  }
+  const 큰곳 = 줄.slice().sort((a, b) => b.사람수 - a.사람수).slice(0, 5);
+
+  return {
+    갈피: 'school-reach',
+    빛: '#8fd3c7',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: 'Schools × Netflix reach · first time joined',
+        큰: 'The school that\nsends the most\ntravels the least.',
+        아래: `Wikidata records where **4,535** Korean actors and singers went to school. `
+          + `Netflix records how far their titles travelled. Nobody had read the two together. `
+          + `We did, on **${d.잰때}**.`,
+      },
+      {
+        꼴: '수',
+        제목: 'Most alumni.\nLowest reach.',
+        큰: `${서울예대.가운데나라수} vs ${동국대.가운데나라수}`,
+        곁: 'Median countries their widest title reached',
+        아래: `Seoul Institute of the Arts has **${서울예대.사람수}** people in the Netflix set — `
+          + `more than any school but one. Their median title reached `
+          + `**${서울예대.가운데나라수} of 94 countries**. Dongguk University has `
+          + `**${동국대.사람수}**, and theirs reached **${동국대.가운데나라수}**.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Check it yourself:\nremove one person',
+        머리: ['School', 'People', 'Median', 'Minus its widest'],
+        /* ⚠ 그냥 26자에서 자르니 「Korea National Univ. of Ar」로 끊겼다. 빌드해서 눈으로 보고 잡았다.
+             ⛔ 이름을 «자르지» 않는다 — 줄여 쓴다. 잘린 이름은 틀린 이름이다. */
+        줄: 큰곳.map((r) => [
+          r.학교
+            .replace('Korea National University of Arts', 'Korea Nat. Univ. of Arts')
+            .replace('Seoul Institute of the Arts', 'Seoul Inst. of Arts')
+            .replace('University', 'Univ.'),
+          String(r.사람수), String(r.가운데나라수), String(r.한사람빼고 ?? '—'),
+        ]),
+        /* ⚠ `*기울임*` 은 이 자가 안 푼다 — 별표가 그대로 찍힌다. `**굵게**` 만 된다 */
+        아래: `The last column is the check on the third. Seoul Inst. goes ${서울예대.가운데나라수} → `
+          + `**${서울예대.한사람빼고}** — removing its widest person makes it **lower**, not higher. `
+          + `Where the two columns are far apart, the figure belongs to one person: `
+          + `Anyang Arts High School drops ${안양.가운데나라수} → **${안양.한사람빼고}** without `
+          + `${안양.가장넓은사람.이름}. That row is about a person, not a school.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What we are not saying',
+        목록: [
+          'Not that a school causes reach — this cannot separate a school that selects people '
+            + 'who would travel anyway from one that teaches something that travels',
+          'Not that a low number is a small career — a median of '
+            + `${서울예대.가운데나라수} countries is most of a continent`,
+          'Not the whole industry — this file cannot see a stage. A singer who never entered '
+            + 'a Netflix country Top 10 adds nothing to their school here',
+          `Not every school — ${d.못재는것수} of them have fewer than five people in the set `
+            + 'and are not ranked at all',
+        ],
+        아래: 'Attending and graduating are not separated either.\nWikidata does not record the '
+          + 'difference, so neither do we.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Two files.\nOne join.',
+        글: `Joined on each person's Wikidata identifier, never on a name — an earlier join here `
+          + `matched English names and silently dropped someone who had none.\n\n`
+          + `**${한림.학교}**, the idol school, sits lowest of the ${줄.length} we can measure: `
+          + `**${한림.가운데나라수}**.`,
+        길: `${주소}/article/the-school-that-sends-the-most-travels-the-least`,
+        곁: 'Wikidata · Netflix Tudum weekly country files, 268 weeks',
+      },
+    ],
+  };
+}
+
 export function 일진벌짓기(d) {
   const 칸 = [...(d.rooms ?? [])];
   const 합 = 칸.reduce((s2, r) => s2 + r.people, 0);
