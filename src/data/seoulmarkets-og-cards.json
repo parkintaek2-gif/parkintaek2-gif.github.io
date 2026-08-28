@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-youth-unemployment-fell-since-2016": {
+      "figure": "9.8%",
+      "label": "youth jobless-rate peak (2016) — down to 6% now",
+      "왜": "청년실업률. 요점: 2016 정점 9.8% → 2025 6.1%(전체의 2배), 단 쉬었음 섞임"
+    },
     "korea-real-wages-flat-since-2021": {
       "figure": "+0.2%",
       "label": "real-wage growth in 4 years (was +24%/decade)",

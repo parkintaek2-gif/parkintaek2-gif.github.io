@@ -1,0 +1,109 @@
+{
+  "source": "KOSIS · Statistics Korea, Economically Active Population Survey (경제활동인구조사), table DT_1DA7102S — unemployment rate by sex and age, annual",
+  "peakYear": 2016,
+  "peakRate": 9.8,
+  "troughYear": 2023,
+  "troughRate": 5.9,
+  "lastYear": 2025,
+  "lastRate": 6.1,
+  "lastRatioToAll": 2.18,
+  "rows": [
+    {
+      "year": 2010,
+      "youth": 7.9,
+      "all": 3.7,
+      "ratio": 2.14
+    },
+    {
+      "year": 2011,
+      "youth": 7.6,
+      "all": 3.4,
+      "ratio": 2.24
+    },
+    {
+      "year": 2012,
+      "youth": 7.5,
+      "all": 3.2,
+      "ratio": 2.34
+    },
+    {
+      "year": 2013,
+      "youth": 8,
+      "all": 3.1,
+      "ratio": 2.58
+    },
+    {
+      "year": 2014,
+      "youth": 9,
+      "all": 3.5,
+      "ratio": 2.57
+    },
+    {
+      "year": 2015,
+      "youth": 9.1,
+      "all": 3.6,
+      "ratio": 2.53
+    },
+    {
+      "year": 2016,
+      "youth": 9.8,
+      "all": 3.7,
+      "ratio": 2.65
+    },
+    {
+      "year": 2017,
+      "youth": 9.8,
+      "all": 3.7,
+      "ratio": 2.65
+    },
+    {
+      "year": 2018,
+      "youth": 9.5,
+      "all": 3.8,
+      "ratio": 2.5
+    },
+    {
+      "year": 2019,
+      "youth": 8.9,
+      "all": 3.8,
+      "ratio": 2.34
+    },
+    {
+      "year": 2020,
+      "youth": 9,
+      "all": 4,
+      "ratio": 2.25
+    },
+    {
+      "year": 2021,
+      "youth": 7.8,
+      "all": 3.7,
+      "ratio": 2.11
+    },
+    {
+      "year": 2022,
+      "youth": 6.4,
+      "all": 2.9,
+      "ratio": 2.21
+    },
+    {
+      "year": 2023,
+      "youth": 5.9,
+      "all": 2.7,
+      "ratio": 2.19
+    },
+    {
+      "year": 2024,
+      "youth": 5.9,
+      "all": 2.8,
+      "ratio": 2.11
+    },
+    {
+      "year": 2025,
+      "youth": 6.1,
+      "all": 2.8,
+      "ratio": 2.18
+    }
+  ],
+  "receivedAt": "2026-08-28 20:37:47"
+}
