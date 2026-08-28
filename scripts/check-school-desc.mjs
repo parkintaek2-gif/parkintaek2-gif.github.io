@@ -34,12 +34,19 @@ export const 설명바닥 = 155;
 export const 제목바닥 = 60;
 
 /** 지면이 지을 설명문을 «자와 같은 셈»으로 미리 짓는다 */
-export function 설명짓기(사람수, 학교이름, 도달, 적힌사람, 명부) {
+export function 설명짓기(사람수, 학교이름, 도달, 적힌사람, 명부, 적게 = null) {
   const 수 = (n) => Number(n).toLocaleString('en-US');
+  /* ① 5명 이상 — 가운데값을 말한다 */
   if (도달 && Number.isFinite(도달.가운데나라수)) {
     return `${수(사람수)} Korean stars studied at ${학교이름}. Their work reached a median of `
       + `${도달.가운데나라수} countries on Netflix, measured over ${수(도달.사람수)} of them.`;
   }
+  /* ② 1~4명 — 가운데값은 «안» 말한다. 세는 것만 말한다. ⭐ 스타 이름이 들어간다 */
+  if (적게?.가장넓은사람?.이름 && Number.isFinite(적게?.가장넓은사람?.가장넓은나라수)) {
+    return `${수(사람수)} Korean stars studied at ${학교이름}. Of the ${적게.사람수} we could measure, `
+      + `${적게.가장넓은사람.이름} travelled furthest — ${적게.가장넓은사람.가장넓은나라수} countries on Netflix.`;
+  }
+  /* ③ 한 명도 못 재었다 — 지어내지 않는다 */
   return `${수(사람수)} Korean actors and singers studied at `
     + `${학교이름}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`;
 }
@@ -67,6 +74,22 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   /** ⛔ 길이를 재서 못박는다 — 잘리면 뒤의 수가 안 보인다 */
   검('⭐ 잰 학교 설명이 155자 안이다', 잰것.length <= 설명바닥);
   검('⭐ 못 잰 학교 설명도 155자 안이다', 못잰것.length <= 설명바닥);
+  /* ⭐ [2026-08-29] 적게 잰 학교도 버리지 않는다 — 셋째 갈래 */
+  const 적게것 = 설명짓기(75, 'Yonsei University', null, 4535, 9249,
+    { 사람수: 3, 가장넓은사람: { 이름: 'Park Gyu-young', 가장넓은나라수: 59 } });
+  검('⭐⭐ 적게 잰 학교는 «몇 명을 재었는지»를 말한다', 적게것.includes('Of the 3 we could measure'));
+  검('⭐⭐ 그리고 스타 이름이 들어간다 — 손님이 치는 말이다', 적게것.includes('Park Gyu-young'));
+  검('⛔ 적게 잰 학교에 «가운데값»을 안 쓴다', !/median/.test(적게것));
+  검('⛔ 사람 수가 없으면 셋째 갈래로 안 간다',
+    !/travelled furthest/.test(설명짓기(75, 'X', null, 1, 2, { 사람수: 3, 가장넓은사람: null })));
+  검('⛔ 나라 수가 숫자가 아니면 셋째 갈래로 안 간다',
+    !/travelled furthest/.test(설명짓기(75, 'X', null, 1, 2,
+      { 사람수: 3, 가장넓은사람: { 이름: 'A', 가장넓은나라수: null } })));
+  검('⭐ 적게 잰 설명도 155자 안이다', 적게것.length <= 설명바닥);
+  검('⭐ 긴 이름 + 긴 학교로도 안 넘친다',
+    설명짓기(999, 'Hankuk University of Foreign Studies', null, 4535, 9249,
+      { 사람수: 4, 가장넓은사람: { 이름: 'Kim Seon-ho', 가장넓은나라수: 100 } }).length <= 설명바닥);
+
   검('⭐ 가장 긴 학교 이름으로도 안 넘친다',
     설명짓기(999, 'Hankuk University of Foreign Studies', { 가운데나라수: 100, 사람수: 99 }, 4535, 9249)
       .length <= 설명바닥);
@@ -80,6 +103,7 @@ if (내가실행됐다) {
   const 학교자료 = JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data/wikitip-schools.json'), 'utf8'));
   const 도달자료 = JSON.parse(fs.readFileSync(path.join(뿌리, 'src/data/kcw-school-reach.json'), 'utf8'));
   const 도달표 = new Map((도달자료.잴수있는것 ?? []).map((r) => [r.slug, r]));
+  const 적게표 = new Map((도달자료.적게잰것 ?? []).map((r) => [r.slug, r]));
   const 학교들 = 학교자료.schools ?? 학교자료.학교들 ?? [];
   const 적힌사람 = 학교자료.peopleWithSchool ?? 학교자료.적힌사람 ?? 0;
   const 명부 = 학교자료.peopleTotal ?? 학교자료.명부 ?? 0;
@@ -87,7 +111,8 @@ if (내가실행됐다) {
   let 잰것 = 0; let 못잰것 = 0; const 넘친것 = [];
   for (const s of 학교들) {
     const 도달 = 도달표.get(s.slug) ?? null;
-    const d = 설명짓기(s.people, s.name, 도달, 적힌사람, 명부);
+    const 적게 = 적게표.get(s.slug) ?? null;
+    const d = 설명짓기(s.people, s.name, 도달, 적힌사람, 명부, 적게);
     if (/countries on Netflix/.test(d)) 잰것 += 1; else 못잰것 += 1;
     if (d.length > 설명바닥) 넘친것.push(`${s.slug} ${d.length}자`);
     const t = `${Number(s.people).toLocaleString('en-US')} Korean stars from ${s.name}`;

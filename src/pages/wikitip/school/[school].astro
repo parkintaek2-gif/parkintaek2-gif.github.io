@@ -44,11 +44,16 @@ export function getStaticPaths() {
   const { 표: 사람표 } = 이름표만들기(people.people ?? []);
   /* ⚠ 잇는 열쇠는 slug 다. 학교 자료와 도달 자료가 같은 builder 에서 나온 같은 slug 를 쓴다 */
   const 도달표 = new Map((도달자료.잴수있는것 ?? []).map((r: any) => [r.slug, r]));
+  /* 🔴 [2026-08-29] 사람이 적어 «가운데값을 못 내는» 학교도 1~4명은 재어 놓았다.
+     그 수를 버리면 32장이 «모두 똑같은» 설명문을 달게 된다 — AI 도 검색도 인용할 이유가 없다.
+     ⚠ 가운데값은 안 쓰고 «세는 것»만 쓴다: 몇 명을 재었나, 가장 넓게 간 사람은 누구인가. */
+  const 적게표 = new Map((도달자료.적게잰것 ?? []).map((r: any) => [r.slug, r]));
   return 학교들.map((s, i) => ({
     params: { school: s.slug },
     props: {
       s,
       도달: 도달표.get(s.slug) ?? null,
+      적게: 적게표.get(s.slug) ?? null,
       사람문: 이지면의문((s.top ?? []).map((p: any) => p.name), 사람표),
       이웃: [학교들[(i + 1) % 학교들.length], 학교들[(i + 2) % 학교들.length]]
         .filter((x) => x && x.slug !== s.slug),
@@ -57,7 +62,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { s, 이웃, 큰곳, 사람문, 도달 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string>; 도달: any };
+const { s, 이웃, 큰곳, 사람문, 도달, 적게 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string>; 도달: any; 적게: any };
 
 const 적힌사람 = data.peopleWithSchool;
 const 안적힌사람 = data.peopleWithoutSchool;
@@ -89,11 +94,22 @@ const TITLE = `${수(s.people)} Korean stars from ${s.name}`;
  * ⭐ 우리가 «혼자» 가진 수는 넷플릭스 도달이다. 그것을 설명문 앞으로 당긴다.
  *    ⚠ 도달을 «잰» 학교에만 넣는다. 못 잰 학교는 예전 문장 그대로다 — 지어내지 않는다.
  */
+/**
+ * ⭐ [2026-08-29] 세 갈래다. **적게 잰 학교도 «버리지 않는다».**
+ *   ① 5명 이상 재었다      → 가운데값을 말한다
+ *   ② 1~4명 재었다        → 가운데값은 «안» 말하고, 몇 명을 재었는지와
+ *                           가장 넓게 간 사람 이름을 말한다. 세는 것은 표본이 작아도 참말이다
+ *   ③ 한 명도 못 재었다    → 예전 문장 그대로. 지어내지 않는다
+ * ⭐ ②에는 «스타 이름»이 들어간다 — 사장님: 「인기검색어는 스타 이름·작품명이다」
+ */
 const DESC = 도달 && Number.isFinite(도달.가운데나라수)
   ? `${수(s.people)} Korean stars studied at ${s.name}. Their work reached a median of `
     + `${도달.가운데나라수} countries on Netflix, measured over ${수(도달.사람수)} of them.`
-  : `${수(s.people)} Korean actors and singers studied at `
-    + `${s.name}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`;
+  : (적게?.가장넓은사람?.이름 && Number.isFinite(적게?.가장넓은사람?.가장넓은나라수)
+    ? `${수(s.people)} Korean stars studied at ${s.name}. Of the ${적게.사람수} we could measure, `
+      + `${적게.가장넓은사람.이름} travelled furthest — ${적게.가장넓은사람.가장넓은나라수} countries on Netflix.`
+    : `${수(s.people)} Korean actors and singers studied at `
+      + `${s.name}. Wikidata records a school for ${수(적힌사람)} of ${수(명부)} people.`);
 ---
 
 <WikiTip title={TITLE} description={DESC}
