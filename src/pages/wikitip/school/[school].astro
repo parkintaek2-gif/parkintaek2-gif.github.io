@@ -29,6 +29,11 @@ import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-schools.json';
 import people from '../../../data/wikitip-people.json';
 import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
+/* 🔴 [2026-08-28 · 5번] 학교 지면이 「몇 명 나왔나」만 말하고 있었다.
+   같은 날 학교와 «넷플릭스에서 얼마나 멀리 갔나»를 처음 이어 재 놓고도
+   그 수를 지면에 안 실으면 «재고 안 쓴 것»이 된다. 여기서 싣는다.
+   ⛔ 사람이 5명 아래인 학교는 자료 쪽에서 이미 빠져 있다 — 지면에도 이 칸이 안 나온다. */
+import 도달자료 from '../../../data/kcw-school-reach.json';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(어제 그것으로 빌드가
@@ -37,10 +42,13 @@ export function getStaticPaths() {
   /* 🔴 [2026-08-26] 동문 이름이 글자였다 — 사람 지면으로 가는 문을 단다.
      ⛔ 이름이 겹치면 안 건다(person-link 참고). 틀린 문은 없는 문보다 나쁘다. */
   const { 표: 사람표 } = 이름표만들기(people.people ?? []);
+  /* ⚠ 잇는 열쇠는 slug 다. 학교 자료와 도달 자료가 같은 builder 에서 나온 같은 slug 를 쓴다 */
+  const 도달표 = new Map((도달자료.잴수있는것 ?? []).map((r: any) => [r.slug, r]));
   return 학교들.map((s, i) => ({
     params: { school: s.slug },
     props: {
       s,
+      도달: 도달표.get(s.slug) ?? null,
       사람문: 이지면의문((s.top ?? []).map((p: any) => p.name), 사람표),
       이웃: [학교들[(i + 1) % 학교들.length], 학교들[(i + 2) % 학교들.length]]
         .filter((x) => x && x.slug !== s.slug),
@@ -49,7 +57,7 @@ export function getStaticPaths() {
   }));
 }
 
-const { s, 이웃, 큰곳, 사람문 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string> };
+const { s, 이웃, 큰곳, 사람문, 도달 } = Astro.props as { s: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string>; 도달: any };
 
 const 적힌사람 = data.peopleWithSchool;
 const 안적힌사람 = data.peopleWithoutSchool;
@@ -132,6 +140,61 @@ const DESC = `${수(s.people)} Korean actors and singers studied at `
         </table>
       </div>
       <p class="note fine">A dash means we hold no figure, not a zero.</p>
+    </section>
+  )}
+
+  {/*
+    🔴 [2026-08-28 · 5번] 여기가 이 지면에서 «이 학교만 가진» 수다.
+      위의 「몇 명」은 큰 학교면 다 크다. 이것은 크기와 «따로» 움직인다 —
+      사람을 가장 많이 낸 서울예대가 가운데 16나라이고, 그 절반인 동국대가 41.5나라다.
+    ⛔ 평균을 안 쓴다. 오징어게임 한 편이 3,228자리라 평균이 통째로 끌려간다.
+    ⭐ 「한 사람 빼고」를 «같은 표»에 둔다 — 「그거 한 명이 만든 수 아니냐」는 반론을
+      각주로 막지 않고 읽는 사람이 그 자리에서 검산하게 한다.
+  */}
+  {도달 && (
+    <section>
+      <h2>How far their work travelled</h2>
+      <p class="lead">
+        Of the {수(s.people)} people we counted here, <b>{도달.사람수}</b> have a title that
+        reached a Netflix country Top 10. The median one reached
+        {' '}<b>{도달.가운데나라수} of the 94 countries</b> Netflix publishes lists for.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th></th><th>Countries reached</th></tr></thead>
+          <tbody>
+            <tr><td class="nm">Median of all {도달.사람수}</td><td class="tot">{도달.가운데나라수}</td></tr>
+            {도달.한사람빼고 !== null && (
+              <tr>
+                <td class="nm">Median with the single widest person removed</td>
+                <td class="tot">{도달.한사람빼고}</td>
+              </tr>
+            )}
+            {도달.가장넓은사람 && (
+              <tr>
+                {/* ⚠ JSX 안의 «글자 자리»에서는 &mdash; 가 안 풀린다 — 그대로 찍힌다.
+                     빌드해서 눈으로 보고 잡았다. 글자를 직접 쓴다. */}
+                <td class="nm">Widest single person — {문(도달.가장넓은사람.이름, 사람문)
+                  ? <a href={문(도달.가장넓은사람.이름, 사람문)}>{도달.가장넓은사람.이름}</a>
+                  : 도달.가장넓은사람.이름}</td>
+                <td class="tot">{도달.가장넓은사람.가장넓은나라수}</td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <b>The second row is the check on the first.</b> If removing one person moves the median a
+        long way, the school’s figure was that person rather than that school. Here it moves
+        from {도달.가운데나라수} to {도달.한사람빼고 ?? '—'}.
+      </p>
+      <p class="note fine">
+        Counted as the widest single title a person has, not the sum of their titles: the source
+        file gives a country count per title but not <i>which</i> countries, so adding them would
+        count the same country twice. Schools with fewer than five such people are not given this
+        figure at all.
+        {' '}<a href="/article/the-school-that-sends-the-most-travels-the-least">All 23 schools side by side →</a>
+      </p>
     </section>
   )}
 
