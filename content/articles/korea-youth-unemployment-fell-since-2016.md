@@ -48,6 +48,6 @@ A lower unemployment rate sounds like an unambiguous win. It is not, because of 
 
 That matters here because the number of young Koreans who are neither working nor looking has grown. Part of the decline from 9.8% to 6% is genuinely fewer jobless youth; part of it is youth who have left the count altogether. The rate does not distinguish the two, and anyone who tells you the youth job market simply "got a third better" is reading only the half of the picture the rate shows.
 
-So the honest reading is narrower than the headline and more useful: **the measured youth unemployment rate has fallen well below its mid-2010s peak — while a growing group of young people has stepped outside the measure entirely.** Both facts are why a government writes a youth budget in a year when the unemployment line is near its lowest in over a decade.
+So the honest reading is narrower than the headline and more useful: **the measured youth unemployment rate has fallen well below its mid-2010s peak — while a growing group of young people has stepped outside the measure entirely.** Both facts are why a government writes a youth budget in a year when the unemployment line is near its lowest in over a decade — and when, for those who do work, [real wages have gone flat since 2021](/article/korea-real-wages-flat-since-2021).
 
 *Youth unemployment computed from KOSIS: Statistics Korea's Economically Active Population Survey, annual averages, ages 15–29. Free to reproduce with attribution — cite as SeoulMarkets (seoulmarkets.com) and link back.*
