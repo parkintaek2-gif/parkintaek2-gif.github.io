@@ -148,14 +148,20 @@ export function 방들(자료) {
       href: '/kpop-attention',
       cta: 'See what fell',
     },
-    {
-      phrase: 'korean zodiac',
-      name: 'Stars by the year they were born',
-      line: `${s.peopleWithSign} Korean stars sorted into twelve birth-year rooms. The spread is `
-        + 'indistinguishable from chance, so the years are a way to divide names and nothing more.',
-      href: '/star-signs',
-      cta: 'Open the star rooms',
-    },
+    /**
+     * 🔴🔴 [2026-08-29 · 사장님 지시] **「띠 방 내려」** — 이 카드와 방 12장을 내렸다.
+     *
+     * 왜 내렸나 — 네 유닛이 «따로» 리뷰하고 같은 결론에 닿았다.
+     *   5번  자동완성으로 재니 띠 관련 검색어가 «0줄». 방 12개 노출 28·클릭 3
+     *   6번  「순위가 아니라 «수요 0» 문제다. 이름·SEO 손봐도 안 산다. 축을 갈아야 산다」
+     *   3번  「띠는 태어난 해라 «영원히 안 바뀐다». 다시 올 이유가 물리적으로 없다」
+     *   4번  「커뮤니티가 되려면 ①다시 올 이유 ②왔다는 흔적 — 지금은 둘 다 없다」
+     *
+     * ⚠ 4번이 코드로 확인해 주었다 — KLifeMap 과 «겹치지는 않았다».
+     *    겹쳐서 내린 것이 아니라 **수요가 없어서** 내렸다. 까닭을 섞지 않는다.
+     * ⭐ 나머지 아홉 방은 그대로 둔다 — 전부 자동완성으로 검증된 축이고 매주 바뀐다.
+     *    3번이 준 자로 걸러 본 것이다 — 「이 자료가 다음 주에도 같은 값일까?」
+     */
   ];
 }
 
@@ -302,7 +308,14 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   검('⭐ e스포츠 축이 있다', 판.includes('/esports'));
   검('⭐ 가장 센 잰 말이 첫 카드다', 방[0].phrase === 'where to watch korean drama');
   검('⭐ 그 방으로 가는 문이 있다', 판.includes('/where-to-watch'));
-  검('스타 축은 카드 한 장으로 남는다', (판.match(/href="\/star-signs"/g) ?? []).length === 1);
+  /**
+   * 🔴 [2026-08-29 사장님 「띠 방 내려」] 예전에는 「카드 한 장으로 «남는다»」를 쟀다.
+   * 이제 «없어야» 한다. 검사를 뒤집는다 — 뒤집지 않으면 되살아나도 아무도 모른다.
+   */
+  검('⛔ 띠 축 카드가 없다 — 사장님 지시로 내렸다',
+    (판.match(/href="\/star-signs"/g) ?? []).length === 0);
+  검('⛔ 「star rooms」 라는 말도 안 남는다', !/star rooms/i.test(판));
+  검('⭐ 나머지 아홉 방은 그대로 있다', (판.match(/class="room"/g) ?? []).length === 9);
 
   /* ⛔ 자동완성을 검색량이라고 부르면 안 된다 */
   검('⛔ 자동완성은 검색량이 아니라고 적었다', 판.includes('Autocomplete is not a search volume'));
