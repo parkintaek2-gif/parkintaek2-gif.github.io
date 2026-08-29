@@ -16,8 +16,32 @@ try { const 본문 = readFileSync(path.resolve('.env'), 'utf8'); for (const line
 const 키파일 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 if (!키파일) { console.error('⛔ GOOGLE_APPLICATION_CREDENTIALS 가 .env 에 없다'); process.exit(1); }
 const 키 = JSON.parse(readFileSync(키파일, 'utf8'));
-const SITE = 'sc-domain:seoulmarkets.com';
-const SITEMAP = 'https://seoulmarkets.com/sitemap.xml';
+/*
+ * 🔴 [2026-08-29] **여기 주소가 seoulmarkets 로 못박혀 있었다.**
+ *   5번이 새 지면을 내고 「사이트맵을 구글에 알렸다」고 이 자를 돌렸더니 6번 사이트맵이
+ *   제출됐다. 화면에는 ✅ 가 떴다 — ⛔ **성공 표시가 나온 채로 내 것은 하나도 안 알렸다.**
+ *   자기 사이트를 못 고르는 자는 남의 것을 알리고 초록을 낸다.
+ * ✅ 그래서 --사이트 로 고른다. 안 주면 예전처럼 seoulmarkets 다(쓰던 자리를 안 깬다).
+ * ⚠ 서비스계정에 그 자산 권한이 없으면 403 이 온다. 그건 「못 알렸다」이지 실패가 아니다 —
+ *   갈라서 적는다.
+ */
+const 사이트들 = {
+  seoulmarkets: { site: 'sc-domain:seoulmarkets.com', map: 'https://seoulmarkets.com/sitemap.xml' },
+  kculturewire: { site: 'sc-domain:kculturewire.com', map: 'https://www.kculturewire.com/sitemap.xml' },
+  '100yearmap': { site: 'sc-domain:100yearmap.com', map: 'https://100yearmap.com/sitemap.xml' },
+};
+const 고른이름 = (() => {
+  const i = process.argv.indexOf('--사이트');
+  return i >= 0 ? process.argv[i + 1] : 'seoulmarkets';
+})();
+const 고른 = 사이트들[고른이름];
+if (!고른) {
+  console.error(`⛔ --사이트 ${고른이름} 를 모른다. 아는 것: ${Object.keys(사이트들).join(' · ')}`);
+  process.exit(1);
+}
+const SITE = 고른.site;
+const SITEMAP = 고른.map;
+console.log(`■ ${고른이름} — ${SITEMAP}`);
 const 쓰기 = !process.argv.includes('--list');
 
 async function 토큰(scope) {
