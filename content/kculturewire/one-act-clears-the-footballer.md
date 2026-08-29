@@ -10,6 +10,12 @@ tags: ["korea", "stars", "kpop", "sport", "brands", "southeast-asia", "measureme
 pages:
   - "/fame-compare"
   - "/sea-athletes"
+crossChecks:
+  - "Reading an encyclopaedia article is not liking someone, buying something, or going anywhere. It counts people looking something up"
+  - "Readers in all four countries also use the English Wikipedia, 82 billion reads in this window and not splittable by country, so every figure here is a floor rather than a measure"
+  - "The acting panel is the cast of Korean titles that reached a Netflix country chart, so it under-counts actors who work outside Netflix. The music panel is Korean singers, rappers, idols, songwriters, bands and groups on Wikidata; an act with no Wikidata occupation recorded is absent"
+  - "The brand list is 22 names we chose and resolved to Wikidata items by their English article titles. It is a sample, not a census"
+  - "The Philippines is absent. The Tagalog Wikipedia is too small to measure with and Filipino readers largely use the English edition"
 sources:
   - org: "Wikidata"
     api: "Article links for Korean athletes, singers, groups, the cast of Netflix-charting Korean titles, and named luxury, fashion and car brands"

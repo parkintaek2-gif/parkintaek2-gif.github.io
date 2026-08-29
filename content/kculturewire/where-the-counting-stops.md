@@ -10,6 +10,11 @@ tags: ["korea", "industry", "tourism", "seoul", "measurement", "open-data"]
 pages:
   - "/read-vs-visited"
   - "/places"
+crossChecks:
+  - "Korea's public tourist table counts paid admissions, so a district whose draw is a street, a market or a shopping block has nothing to sell a ticket to. Jongno takes 1,683,727 foreign admissions because the palaces sell tickets; Nowon, read almost as often, records 136. That distance is about ticket gates, not about interest"
+  - "Of Seoul's 25 districts the admissions table can speak for five. This cannot be used to argue about where tourists go in the other twenty"
+  - "The other ruler is incomplete too: the four Southeast Asian Wikipedias hold an article for 24 of the 25 districts, and Yangcheon has none in any of them. Neither ruler sees the whole city"
+  - "The reading data can see every district and cannot see a single restaurant. The admissions data can see a turnstile and cannot see a street. Between them no public source says where a visitor actually spent an afternoon"
 sources:
   - org: "KOSIS"
     api: "Paid tourist-site admissions by district, Ministry of the Interior and Safety, 2023"

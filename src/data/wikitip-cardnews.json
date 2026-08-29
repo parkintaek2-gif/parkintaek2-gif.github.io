@@ -1,11 +1,28 @@
 {
-  "generated": "2026-08-29T03:00:17.210Z",
+  "generated": "2026-08-29T03:29:50.817Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
   "sets": [
     {
       "set": "a-battle-in-vietnam",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-label-outreads-the-capital",
       "sq": [
         1,
         2,
@@ -513,6 +530,23 @@
       ]
     },
     {
+      "set": "k-pop-groups-travel-widest",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "karina-saju-structure-settled-in-half-the-cases",
       "sq": [
         1,
@@ -866,6 +900,23 @@
       ]
     },
     {
+      "set": "malaysia-reads-the-label",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "middle-of-the-chart",
       "sq": [
         1,
@@ -968,7 +1019,41 @@
       ]
     },
     {
+      "set": "no-one-to-compare-against",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "not-one-a-week",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "one-act-clears-the-footballer",
       "sq": [
         1,
         2,
@@ -1634,6 +1719,23 @@
       ]
     },
     {
+      "set": "where-the-counting-stops",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "which-markets-only-take-the-big-ones",
       "sq": [
         1,
@@ -1719,20 +1821,15 @@
       ]
     }
   ],
-  "setCount": 102,
-  "imageCount": 1001,
+  "setCount": 108,
+  "imageCount": 1061,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
-    "a-label-outreads-the-capital",
     "a-year-in-one-month",
     "brands-are-not-one-thing",
     "december-looking-june-quiet",
     "indonesia-writes-it-down-first",
     "it-was-one-game",
-    "k-pop-groups-travel-widest",
-    "malaysia-reads-the-label",
-    "no-one-to-compare-against",
-    "one-act-clears-the-footballer",
     "one-title-out",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
@@ -1740,7 +1837,6 @@
     "the-reference-shelf-is-emptying",
     "the-wave-leaves-nothing",
     "travel-pages-fell-culture-pages-didnt",
-    "vietnam-reads-a-different-korea",
-    "where-the-counting-stops"
+    "vietnam-reads-a-different-korea"
   ]
 }

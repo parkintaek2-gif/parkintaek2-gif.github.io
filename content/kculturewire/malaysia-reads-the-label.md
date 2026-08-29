@@ -10,6 +10,11 @@ tags: ["korea", "southeast-asia", "malaysia", "brands", "measurement", "limits"]
 pages:
   - "/malaysia"
   - "/fame-compare"
+crossChecks:
+  - "The Malay Wikipedia is not Malaysia. Malay is read outside the country, and many Malaysian readers use the English or Chinese editions instead, so this measures an edition rather than a nation"
+  - "The English Wikipedia alone drew 82 billion reads in this window and cannot be split by country. Every figure here is a floor, not a measure"
+  - "Subjects with a four-country total below 3 are left out of both lists. At that size one burst of reading turns into a large-looking share"
+  - "The brand list is 22 names we chose and resolved to Wikidata items by their English article titles. It is a sample, not a census, and a different 22 would move the 23% figure"
 sources:
   - org: "Wikidata"
     api: "Article links for Korean athletes, singers, groups, actors, and named luxury, fashion and car brands"

@@ -10,6 +10,10 @@ tags: ["korea", "kpop", "southeast-asia", "measurement", "limits"]
 pages:
   - "/spread"
   - "/fame-compare"
+crossChecks:
+  - "Concentration says where reading sits, not how much of it there is. A name read evenly and rarely scores the same as one read evenly and widely, which is why the totals stay in the tables alongside"
+  - "Where a name has an article in only one edition, its concentration is fixed at 100% by that fact alone. That is the trap the esports row fell into, and it is worth checking for in any row near the extreme"
+  - "The Philippines is absent throughout. The Tagalog Wikipedia is too small to measure with and Filipino readers largely use the English edition"
 sources:
   - org: "Wikidata"
     api: "Article links for Korean athletes, singers, groups, Netflix-charting cast lists and named brands"

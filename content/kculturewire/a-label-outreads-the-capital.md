@@ -10,6 +10,11 @@ tags: ["korea", "southeast-asia", "places", "kpop", "measurement", "limits"]
 pages:
   - "/places"
   - "/fame-compare"
+crossChecks:
+  - "Wikipedia has articles on neighbourhoods, cities, palaces and stations, and none on individual venues. This cannot see a single restaurant or cafe, so it measures which parts of Korea are looked up, not where anyone goes"
+  - "A read is curiosity, not a trip. It can say who looked, not who came — arrival counts by nationality are published separately by the Korea Tourism Organization and are the right instrument for visits"
+  - "Of the places with an article in at least one of these editions, 2,238 could be measured and 49 could not. Those 49 are left out rather than counted as zero"
+  - "The Philippines is absent. The Tagalog Wikipedia is too small to measure with and Filipino readers largely use the English edition, so there is no honest number to publish"
 sources:
   - org: "Wikidata"
     api: "Anything in South Korea with coordinates, with its article links in each language edition"

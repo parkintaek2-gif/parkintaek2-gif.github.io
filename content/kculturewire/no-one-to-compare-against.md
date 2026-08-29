@@ -11,6 +11,11 @@ tags: ["korea", "esports", "southeast-asia", "measurement", "limits", "negative-
 pages:
   - "/esports-nations"
   - "/one-month"
+crossChecks:
+  - "This measures what Southeast Asian Wikipedia readers looked up. It says nothing about how these players are read at home — a Swedish player unread in Indonesian may be very well read in Swedish"
+  - "Setting the bar at three measurable players, exactly two national groups clear it. One is Korea; the other is Vietnam, whose four players are read by their own countrymen, which is a different phenomenon rather than a control. So there was no second group to compare Korea against"
+  - "The question the piece set out to answer stays open. It is not answered here, and the reason is the comparison could not be built, not that the answer came out one way"
+  - "An encyclopaedia article being written and an encyclopaedia article being opened are different acts by different people. This table measures the gap between them and cannot say why it is there"
 sources:
   - org: "Wikidata"
     api: "People listed as esports players, by citizenship, with their article links in the Indonesian, Vietnamese, Thai and Malay Wikipedias"
