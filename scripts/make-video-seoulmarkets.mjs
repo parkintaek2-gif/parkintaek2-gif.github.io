@@ -65,8 +65,10 @@ for (const f of 프레임) { 목록.push(`file '${f.replace(/\\/g, '/')}'`); 목
 const 목록길 = path.join(임시, 'list.txt');
 fs.writeFileSync(목록길, 목록.join('\n'));
 
-// 낼 자리 — public/video (배포에 실린다)
-const 낼방 = path.join(ROOT, 'public', 'video');
+// 🔴 [2026-08-29 사장님 「무성 콘텐트 다신 만들지 말 것」] 무성판은 «공개 폴더에 못 선다».
+//   여기서 만드는 건 소리 없는 «바탕»뿐이라 archive/video-silent(스테이징)에 둔다.
+//   반드시 make-seoulmarkets-video-sound.mjs 로 소리를 입혀야 public/video 로 나간다.
+const 낼방 = path.join(ROOT, 'archive', 'video-silent');
 fs.mkdirSync(낼방, { recursive: true });
 const 낼길 = path.join(낼방, `${slug}.mp4`);
 
@@ -83,5 +85,5 @@ fs.rmSync(목록길, { force: true });
 fs.rmSync(임시, { recursive: true, force: true });
 
 const 초 = 장.length * 초당장;
-console.log(`숏영상 1편 · ${장.length}장 · ${초}초 → ${path.relative(ROOT, 낼길)}`);
-console.log('⚠ 한 번 열어 글이 읽히는지 보고 커밋한다. /video 지면에 링크해 배포한다.');
+console.log(`무음 바탕 1편 · ${장.length}장 · ${초}초 → ${path.relative(ROOT, 낼길)} (스테이징, 아직 public 아님)`);
+console.log('🔴 무성판은 public 에 못 올린다. 다음: node scripts/make-seoulmarkets-video-sound.mjs ' + slug + ' — 소리를 입혀야 public/video 로 나간다.');
