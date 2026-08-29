@@ -414,6 +414,10 @@ export const GET: APIRoute = async () => {
     { path: '/firms', priority: '0.9', changefreq: 'weekly' },
     { path: '/where-to-watch', priority: '0.9', changefreq: 'weekly' },
     { path: '/most-popular', priority: '0.9', changefreq: 'weekly' },
+    /* 2026-08-29 — 사장님 「텍스트 콘텐트를 만들어서 검색엔진 통해서 우리 쪽으로 방문하게 해.
+       색인 잊지말고」. 「korean movies on netflix」가 자동완성 1번째·10줄인데 우리 2,723장에
+       그 물음에 답하는 제목이 한 장도 없었다. 영화 줄은 이미 쥐고 있었다 — 안 쓰던 축이었다 */
+    { path: '/korean-movies-on-netflix', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-23 — 잰 연도 축. 열 개가 전부 자동완성 1번째였다 */
     { path: '/year/2026', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2025', priority: '0.8', changefreq: 'weekly' },
