@@ -49,8 +49,11 @@ Every page names its source, its year, and what it cannot tell you.
 - [When care becomes necessary](https://100yearmap.com/care): long-term care certification rate by age, 65+
 - [Years of life remaining](https://100yearmap.com/years-left): life-table years left, every age 0–100
 - [Healthy years vs. total years](https://100yearmap.com/healthy-years): healthy life expectancy gap, every age
+- [Idle youth, "resting" population](https://100yearmap.com/idle-youth): 20s–30s not working/studying/job-hunting, monthly, 2015–2026
+- [Wealth gap by age](https://100yearmap.com/wealth-gap): household assets, 60+ vs. under-30, 2017–2025
+- [2027 youth budget (draft)](https://100yearmap.com/youth-budget-2027): government's proposed youth programs, itemized
 
-All 20 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
+All 23 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 
 ## Schools and majors (the original data set)
 
