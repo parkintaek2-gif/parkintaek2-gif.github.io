@@ -32,6 +32,8 @@ import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import { 캐릭터SVG, 사이, 술술 } from './kcw-character.mjs';
+import { 섞기필터, 넘치나 } from './mix-voice-kcw.mjs';
+import { 초읽기 } from './make-voice-100y.mjs';
 
 const require = createRequire('C:/Users/USER/Documents/GitHub/klifemap/package.json');
 
@@ -39,6 +41,12 @@ export const 초당 = 30;
 export const 폭 = 1080;
 export const 높 = 1920;
 export const 총초 = 14;
+
+/** 🔴 사장님(8/29) — 「무성 콘텐트 다신 만들지 말 것」. anullsrc(빈 소리) 대신
+ *  make-voice-100y.mjs로 낸 실제 내레이션을 얹는다. 대사와 화면 반전(줄 74 「말함」)이
+ *  같은 자리를 봐야 하므로 여기 시각과 그 배열을 같이 손댄다. */
+export const 목소리방 = 'archive/video/voice/wealthgap';
+export const 목소리때들 = [0.6, 6.2, 11.0];
 
 const d = JSON.parse(fs.readFileSync('src/data/100yearmap/wealth-gap-age.json', 'utf8'));
 
@@ -71,7 +79,9 @@ export function 칸HTML(초) {
   const 캐 = 캐릭터SVG(초, {
     들어옴: 0.1,
     그리는초: 1.0,
-    말함: [[1.9, 3.2], [5.2, 6.4]],
+    /* ⚠ 실제 내레이션 세 줄의 시작(목소리때들)에 맞춘다 — 대사 없는데 입만 움직이면
+       그것도 화면과 소리가 딴말을 하는 것이다(mix-voice-kcw.mjs가 이미 겪은 실수). */
+    말함: [[0.6, 6.04], [6.2, 10.33], [11.0, 13.78]],
     가리킴: [[4.6, 7.2]],
     풀림: 11.4,
   });
@@ -244,6 +254,15 @@ if (내가돌려졌다 && process.argv.includes('--selftest')) {
   재본다('출처와 받은 날을 적는다', 글자만(칸HTML(13)),
     (s) => s.includes('가계금융복지조사') && s.includes(d.받은때));
 
+  // ── 무성 콘텐트 다신 만들지 말 것(2026-08-29) ──────────────────────
+  재본다('⛔ 목소리때들이 셋(대본 세 줄)이다', 목소리때들.length, 3);
+  재본다('⛔ 목소리때들이 시간순으로 늘어난다', 목소리때들.every((t, i) => i === 0 || t > 목소리때들[i - 1]), true);
+  재본다('⛔ 입이 움직이는 시작이 목소리 시작과 같다 — 화면과 소리가 딴말 안 한다', (() => {
+    const m = 칸HTML.toString().match(/말함:\s*(\[\[[\s\S]*?\]\])/);
+    const 말함 = JSON.parse(m[1]);
+    return 말함.map((w) => w[0]).every((시작, i) => Math.abs(시작 - 목소리때들[i]) < 0.01);
+  })(), true);
+
   console.log(실패 ? `\n⛔ ${실패}개 틀렸다 (통과 ${통과})` : `✅ 검사 ${통과}개 통과`);
   process.exit(실패 ? 1 : 0);
 }
@@ -288,12 +307,46 @@ if (내가돌려졌다 && !process.argv.includes('--selftest') && !process.argv.
   }
   await b.close();
 
+  /* ⛔ 무성 콘텐트 다신 만들지 말 것(2026-08-29) — anullsrc(빈 소리) 대신 실제
+     내레이션을 얹는다. mix-voice-kcw.mjs의 섞기필터를 그대로 쓴다(같은 실수를
+     두 번 안 겪으려고 — adelay 양쪽 채널, apad로 총초까지 채워 끝 주소가 안 잘리게). */
+  const 줄들 = 목소리때들.map((때, i) => {
+    const 길 = path.join(목소리방, `${String(i).padStart(2, '0')}.wav`);
+    if (!fs.existsSync(길)) { console.error(`⛔ 목소리가 없다 — ${길} (make-voice-100y.mjs로 먼저 낸다)`); process.exit(1); }
+    return { 길, 때, 초: 초읽기(길) };
+  });
+  const 넘은것 = 넘치나(줄들, 총초);
+  if (넘은것.length) {
+    console.error('⛔ 목소리가 영상보다 길다 — 얹으면 잘린다:');
+    for (const t of 넘은것) console.error(`   · ${t}`);
+    process.exit(1);
+  }
+
   const ff = require('ffmpeg-static');
-  execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(임시, '%04d.png'),
-    '-f', 'lavfi', '-i', 'anullsrc=channel_layout=stereo:sample_rate=44100',
+  const 인자 = ['-y', '-framerate', String(초당), '-i', path.join(임시, '%04d.png')];
+  for (const 줄 of 줄들) 인자.push('-i', 줄.길);
+  인자.push(
+    '-filter_complex', 섞기필터(줄들, 총초),
+    '-map', '0:v', '-map', '[말끝]',
     '-c:v', 'libx264', '-profile:v', 'baseline', '-level', '3.1', '-pix_fmt', 'yuv420p',
-    '-crf', '20', '-c:a', 'aac', '-b:a', '64k', '-shortest',
-    '-movflags', '+faststart', 낼길], { stdio: 'ignore' });
+    '-crf', '20', '-c:a', 'aac', '-b:a', '128k', '-shortest',
+    '-movflags', '+faststart', 낼길,
+  );
+  execFileSync(ff, 인자, { stdio: 'ignore' });
+
+  /* ⛔ 얹으면서 짧아졌는지 잰다 — mix-voice-kcw.mjs가 겪은 사고(끝 주소가 잘림)와 같은 검사 */
+  const 길이재기 = (길) => {
+    try { execFileSync(ff, ['-i', 길], { stdio: 'pipe' }); } catch (e) {
+      const m = String(e.stderr).match(/Duration: (\d+):(\d+):(\d+\.\d+)/);
+      return m ? +m[1] * 3600 + +m[2] * 60 + +m[3] : null;
+    }
+    return null;
+  };
+  const 낸길이 = 길이재기(낼길);
+  if (낸길이 !== null && 총초 - 낸길이 > 0.2) {
+    console.error(`\n🔴 얹으면서 짧아졌다 — 원본 ${총초}초 → 낸 것 ${낸길이}초`);
+    process.exit(1);
+  }
 
   fs.rmSync(임시, { recursive: true, force: true });
   console.log(`✅ ${낼길}  ${총초}초 · ${폭}x${높} · ${(fs.statSync(낼길).size / 1024).toFixed(0)}KB`);
