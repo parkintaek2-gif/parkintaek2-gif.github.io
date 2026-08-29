@@ -64,6 +64,42 @@ export function 골고루(다, n) {
   return [...new Set(나온것)];
 }
 
+/**
+ * 🔴 [2026-08-29] **색인 안 된 것은 «한 병»이 아니다. 셋이고 약이 다르다.**
+ *   4번이 이 자를 klifemap.ai 에 돌렸을 때 23장이 색인 안 됨이었는데, 내 자가
+ *   그걸 뭉뚱그려 「내용이 겹쳐서 안 담긴 것」으로 진단했다. **틀린 약이었다** —
+ *   실제로는 구글이 주소를 «모르는» 것이 많았다.
+ * ⛔ 다시는 뭉뚱그리지 않는다.
+ */
+export function 무슨병인가(구글말) {
+  const s = String(구글말 ?? '').trim();
+  if (!s) return null;
+  if (/unknown to Google/i.test(s)) return '모른다';       /* 알려야 한다 */
+  if (/^Discovered/i.test(s)) return '안왔다';             /* 크롤이 못 따라온다 */
+  if (/^Crawled/i.test(s)) return '안담았다';              /* 지면 쪽 문제다 */
+  return null;
+}
+
+/** 병마다 «다른 약»을 말한다. ⛔ 하나로 뭉뚱그리지 않는다 */
+export const 약 = {
+  모른다: {
+    뜻: '구글이 이 주소를 «모른다». 크롤조차 안 왔다.',
+    할것: '사이트맵이 Search Console 에 «제출»돼 있는지, robots.txt 가 막고 있지 않은지, '
+      + '그 지면으로 가는 «안쪽 링크»가 하나라도 있는지 — 이 셋을 먼저 본다.',
+    쓰면안되는것: '지면 내용을 고쳐도 안 바뀐다. 구글이 아직 «와 본 적이 없다».',
+  },
+  안왔다: {
+    뜻: '주소는 아는데 «아직 안 왔다».',
+    할것: '지면을 더 만들지 않는다. 이미 있는 것 중 값이 큰 쪽으로 안쪽 링크를 모은다.',
+    쓰면안되는것: '「더 만들면 는다」가 이 구간에서는 거꾸로 간다 — 줄만 길어진다.',
+  },
+  안담았다: {
+    뜻: '와서 보고 «안 담기로» 했다.',
+    할것: '그 지면이 다른 지면과 얼마나 다른지 본다. 같은 꼴이 수백 장이면 합치거나 줄인다.',
+    쓰면안되는것: '사이트맵을 다시 내도 안 바뀐다. 구글은 이미 보고 판단했다.',
+  },
+};
+
 /** 셈. ⛔ 못 물은 것을 「색인 안 됨」과 섞지 않는다 */
 export function 셈하기(줄들) {
   const c = { 색인됨: 0, 색인안됨: 0, 모름: 0, 못물음: 0 };
@@ -97,6 +133,17 @@ if (process.argv.includes('--자가시험')) {
   검('n 이 더 크면 다 준다', 골고루(열, 99).length === 10);
   검('⛔ 빈 것도 안 터진다', 골고루(undefined, 3).length === 0);
 
+  검('🔴 「구글이 모른다」와 「안 담았다」를 가른다',
+    무슨병인가('URL is unknown to Google') === '모른다');
+  검('「아직 안 왔다」를 따로 본다',
+    무슨병인가('Discovered - currently not indexed') === '안왔다');
+  검('「와서 보고 안 담았다」를 따로 본다',
+    무슨병인가('Crawled - currently not indexed') === '안담았다');
+  검('⛔ 색인된 것은 병이 아니다', 무슨병인가('Submitted and indexed') === null);
+  검('⛔ 빈 것도 안 터진다', 무슨병인가(undefined) === null);
+  검('세 병에 «다른» 약이 적혀 있다',
+    약.모른다.할것 !== 약.안왔다.할것 && 약.안왔다.할것 !== 약.안담았다.할것);
+
   const c = 셈하기([{ 칸: '색인됨' }, { 칸: '색인안됨' }, { 칸: '색인안됨' }, { 칸: '못물음' }]);
   검('갈라서 센다', c.색인됨 === 1 && c.색인안됨 === 2 && c.못물음 === 1);
   검('⛔ 못 물은 것을 색인 안 됨에 안 더한다', c.색인안됨 === 2);
@@ -106,7 +153,7 @@ if (process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s2) => `   · ${s2}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ check-google-indexed 자가시험 통과 (19)');
+  console.log('✅ check-google-indexed 자가시험 통과 (25)');
   process.exit(0);
 }
 
@@ -119,6 +166,17 @@ const 사이트 = 인자('사이트', 'sc-domain:kculturewire.com');
 const 갈래 = 인자('갈래', null);
 const 표본수 = Number(인자('n', 10));
 const 맵길 = path.join(뿌리, 인자('사이트맵', 'dist/wikitip/sitemap.xml'));
+
+/*
+ * ⚠ [2026-08-29] 4번이 겪은 것 — 기본 사이트맵이 KCW 것이라 남의 사이트에 돌리면
+ *   「You do not own this site」로 «조용히» 막혔다. 먼저 말해 준다.
+ */
+if (!사이트.includes('kculturewire') && !process.argv.includes('--사이트맵')) {
+  console.log(`⚠ --사이트 는 ${사이트} 인데 사이트맵은 기본값(KCW 것)이다.`);
+  console.log('   그 사이트의 사이트맵을 --사이트맵 으로 주십시오. 안 그러면 남의 주소를 묻게 되어');
+  console.log('   「You do not own this site」로 전부 «못 물음»이 된다.');
+  console.log('   예) curl -s https://klifemap.ai/sitemap.xml > /tmp/m.xml 뒤 --사이트맵 /tmp/m.xml\n');
+}
 
 if (!fs.existsSync(맵길)) {
   console.log(`⬜ 못 쟀다 — 사이트맵이 없다: ${path.relative(뿌리, 맵길)}`);
@@ -210,9 +268,25 @@ if (크롤된것.length) {
   console.log(`\n   ⚠ 마지막 크롤이 기록된 것 ${크롤된것.length}장 — 가장 최근 ${
     크롤된것.map((r) => r.마지막크롤).sort().slice(-1)[0]}`);
 }
-if (c.색인안됨 > c.색인됨 && 줄들.length >= 5) {
-  console.log('\n🔴 **이 갈래는 색인이 안 되고 있다.** 더 만들기 전에 «왜»를 먼저 본다 —');
-  console.log('   같은 꼴 지면이 수백 장이면 구글이 「거의 같은 것」으로 보고 안 담을 수 있다.');
-  console.log('   ⛔ 답은 「더 만든다」가 아니다. 줄이거나 합치거나, 장마다 다른 것을 넣는다.');
+/*
+ * 🔴 [2026-08-29] 여기서 예전에 «하나의 진단»만 냈다. 4번이 그것을 그대로 옮겨 적으셨고
+ *   그 진단이 틀렸다 — klifemap 은 「겹쳐서 안 담긴」 것이 아니라 구글이 «주소를 모르는»
+ *   것이 많았다. ⛔ 병을 갈라서, 병마다 «다른 약»을 낸다.
+ */
+const 병셈 = {};
+for (const r of 줄들) {
+  const b = 무슨병인가(r.구글말);
+  if (b) 병셈[b] = (병셈[b] ?? 0) + 1;
+}
+const 병들 = Object.entries(병셈).sort((a, b) => b[1] - a[1]);
+if (병들.length) {
+  console.log('\n■ 🔴 색인이 안 된 까닭 — **한 병이 아니다. 약이 다르다**');
+  for (const [병, 수] of 병들) {
+    const a = 약[병];
+    console.log(`\n   [${병}] ${수}장 — ${a.뜻}`);
+    console.log(`      ✅ 할 것: ${a.할것}`);
+    console.log(`      ⛔ ${a.쓰면안되는것}`);
+  }
+  console.log('\n   ⚠ 표본이다. 물어본 장수를 늘 같이 적는다 — 「전부 그렇다」로 쓰지 않는다.');
 }
 process.exit(0);
