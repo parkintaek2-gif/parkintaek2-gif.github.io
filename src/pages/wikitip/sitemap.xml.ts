@@ -282,6 +282,15 @@ const videoSets = [
     title: 'Hearts2Hearts moved on one Wikipedia yesterday — narrated, with sound',
     description: '14 seconds, now spoken aloud over music we made ourselves. The measurement has not changed: what an encyclopaedia open counts, what it does not, and why the reason a name moved is not in the data.',
   },
+  /* 🔴 [2026-08-29] 사장님 「영상은 텍스트 콘텐트 중에서 괜찮은 걸로 절반 정도의 양으로」.
+     오늘 낸 /hit-or-flop 에서 나온 수로 만든 편이다 — 새 수를 짓지 않았다.
+     ⭐ 처음부터 «소리를 넣고» 만든 첫 편이다. 무성판을 낸 적이 없다. */
+  {
+    set: 'numberone',
+    page: '/hit-or-flop',
+    title: '304 Korean titles have been number one on Netflix. Only 67 reached fifty countries',
+    description: '14 seconds, narrated: more Korean titles have been number one somewhere than have ever reached fifty countries, and 65 of them were number one in the only country that ever charted them.',
+  },
   {
     set: 'actors',
     page: '/actors-first',

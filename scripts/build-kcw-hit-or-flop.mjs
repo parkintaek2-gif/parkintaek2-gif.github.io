@@ -120,6 +120,27 @@ export function 찾기(이름, 표) {
   return 표.get(k) ?? null;
 }
 
+/**
+ * 🔴 「1위」가 실제로 무엇을 가르나.
+ *   어디선가 1위인데 «그 나라가 유일한» 작품 — 「넷플릭스 1위」라는 말이 가장 크게
+ *   흔들리는 자리다. ⛔ 이것을 「과장」이라고 부르지 않는다. 세어서 보일 뿐이다.
+ */
+export function 일위인데한나라뿐(작품들) {
+  const 다 = (작품들 ?? []).filter((t) => t && Number.isFinite(t.markets));
+  const 일위 = 다.filter((t) => t.peak === 1);
+  const 겹침 = 일위.filter((t) => t.markets === 1);
+  return {
+    everNumberOne: 일위.length,
+    numberOneInItsOnlyCountry: 겹침.length,
+    shareOfNumberOnes: 일위.length ? Math.round((겹침.length / 일위.length) * 100) : null,
+  };
+}
+
+/** 몇 나라 이상 간 편수. ⛔ 못 잰 것은 세지 않는다 */
+export function 이상간편수(작품들, 나라) {
+  return (작품들 ?? []).filter((t) => Number.isFinite(t?.markets) && t.markets >= 나라).length;
+}
+
 /* ── 자가시험 ─────────────────────────────────────────────── */
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
@@ -151,6 +172,18 @@ if (process.argv.includes('--자가시험')) {
   검('마지막 띠는 열린 띠', 띠.bands[3].label === '10+' && 띠.bands[3].titles === 1);
   검('⛔ 못 잰 것은 세지 않는다', 띠나누기([{ m: null }, { m: 4 }], [1, 5], (t) => t.m).total === 1);
 
+  const 겹 = [{ peak: 1, markets: 1 }, { peak: 1, markets: 9 }, { peak: 3, markets: 1 },
+    { peak: 1, markets: null }];
+  const 겹결과 = 일위인데한나라뿐(겹);
+  검('🔴 1위인데 한 나라뿐인 것을 센다', 겹결과.numberOneInItsOnlyCountry === 1);
+  검('⛔ 못 잰 나라 수는 세지 않는다', 겹결과.everNumberOne === 2);
+  검('1위 중 몫을 낸다', 겹결과.shareOfNumberOnes === 50);
+  검('⛔ 1위가 없으면 몫은 null 이지 0 이 아니다',
+    일위인데한나라뿐([{ peak: 4, markets: 2 }]).shareOfNumberOnes === null);
+  검('⛔ 빈 것도 안 터진다', 일위인데한나라뿐(undefined).everNumberOne === 0);
+  검('몇 나라 이상을 센다', 이상간편수(겹, 5) === 1);
+  검('⛔ 못 잰 것은 안 센다', 이상간편수([{ markets: null }], 1) === 0);
+
   const 표 = new Map([['our blues', { title: 'Our Blues', markets: 9 }]]);
   검('이름이 맞으면 찾는다', 찾기('Our Blues', 표).markets === 9);
   검('⛔ 비슷한 것으로 때우지 않는다', 찾기('Our Blue', 표) === null);
@@ -159,7 +192,7 @@ if (process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ build-kcw-hit-or-flop 자가시험 통과 (20)');
+  console.log('✅ build-kcw-hit-or-flop 자가시험 통과 (27)');
   process.exit(0);
 }
 
@@ -266,6 +299,10 @@ const 낼것 = {
   },
 
   everNumberOne: 작품들.filter((t) => t.peak === 1).length,
+  /* 🔴 「넷플릭스 1위」라는 말이 가장 크게 흔들리는 자리 — 세어서 보인다 */
+  ...일위인데한나라뿐(작품들),
+  reached50: 이상간편수(작품들, 50),
+  reached5: 이상간편수(작품들, 5),
   oneCountryOnly: 작품들.filter((t) => t.markets === 1).length,
   oneWeekOnly: 작품들.filter((t) => t.weeks === 1).length,
   oneCountryOneWeek: 작품들.filter((t) => t.markets === 1 && t.weeks === 1).length,
@@ -291,5 +328,8 @@ for (const x of 물음) {
     : `   ⬜ ${x.name} — 우리 표에 줄이 없다`);
 }
 console.log(`   한 나라 한 주뿐 ${낼것.oneCountryOneWeek}편 · 어디선가 1위 ${낼것.everNumberOne}편`);
+console.log(`   🔴 1위인데 그 나라가 «유일»한 것 ${낼것.numberOneInItsOnlyCountry}편`
+  + ` — 1위 다섯 중 ${Math.round((낼것.shareOfNumberOnes ?? 0) / 20)}쯤(${낼것.shareOfNumberOnes}%)`);
+console.log(`   50개국 이상 ${낼것.reached50}편 · 5개국 이상 ${낼것.reached5}편`);
 console.log(`   ⛔ 「hit」·「flop」을 우리가 정하지 않는다 — 분포에서 «자리»만 보인다`);
 console.log(`\n✔ ${path.relative(뿌리, 낼길)}`);

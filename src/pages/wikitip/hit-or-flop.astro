@@ -15,13 +15,17 @@
  *
  * ── 🔴 이 지면이 말하는 하나 ──────────────────────────────────
  * **「넷플릭스 1위」는 드물지 않다 — 974편 중 304편(31%)이 어딘가에서 1위를 했다.**
- * 드문 것은 «넓이»다: 다섯 나라를 넘긴 것이 22%뿐이다.
- * ⚠ 그러니 「1위 했다」로 크기를 재면 거의 아무것도 안 갈린다. 이것이 리스크관리의 자리다.
+ * 🔴 [2026-08-29 고침] 처음에 「다섯 나라를 넘긴 것이 22%뿐」이라고 적었는데 **틀렸다.**
+ *   재 보니 316편(32%)이다 — 1위 몫(31%)과 «같은 크기»라 견줌이 성립하지 않는다.
+ *   영상을 그려서 눈으로 보고서야 무너진 것을 알았다. 자가시험은 두 수가 «나오는지»만 봤다.
+ * ✅ 성립하는 견줌은 이것이다 — **1위 304편 vs 50개국을 넘긴 것 67편.**
+ *   그리고 **1위 중 65편(다섯 중 하나)은 그 나라가 «유일»했다.** 이것이 리스크관리의 자리다.
  *
  * ⛔ 화면에 한국어를 내지 않는다 — 손님은 영어권이다. 이 주석은 frontmatter 라 나가지 않는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-hit-or-flop.json';
 
 const TITLE = 'Hit or flop? What Netflix’s charts actually recorded for 974 Korean titles';
@@ -76,6 +80,16 @@ const jsonLd = {
     in some week.</b> Number one in one small market for one week is common. What separates titles
     is how many countries they reached and how long they stayed, and on both of those the spread is
     enormous: from one country for one week to {나라.max} countries for {주.max} weeks.
+  </p>
+
+  <p class="warn">
+    <b>Look at how far &ldquo;number one&rdquo; actually reaches.</b> More Korean titles have
+    been number one somewhere ({data.everNumberOne}) than have ever charted in fifty countries
+    ({data.reached50}). And <b>{data.numberOneInItsOnlyCountry} of the {data.everNumberOne}{' '}
+    &mdash; {data.shareOfNumberOnes}%, one in five &mdash; were number one in the only country
+    that ever charted them.</b> That is not a criticism of those titles. It is what the phrase
+    &ldquo;number one on Netflix&rdquo; is capable of meaning, and we would rather you saw the
+    range before you read a rank as a verdict.
   </p>
 
   <section>
@@ -216,6 +230,8 @@ const jsonLd = {
       statement about the title, and we are not making one.
     </p>
   </section>
+
+  <KcwShorts set="numberone" says={`Fourteen seconds, read aloud: more Korean titles have been number one somewhere than have ever reached fifty countries. Sixty-five of them were number one in the only country that ever charted them. A chart place is a rank in one country in one week, not viewers and not money.`} />
 
   <section>
     <h2>Where to walk from here</h2>

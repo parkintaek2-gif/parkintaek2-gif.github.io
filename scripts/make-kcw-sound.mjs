@@ -177,7 +177,15 @@ const 인자 = (이름, 기본 = null) => {
 const set = 인자('set');
 if (!set) { console.error('⛔ --set <영상이름> 을 준다'); process.exit(1); }
 
-const 영상길 = path.join(영상방, `${set}.mp4`);
+/*
+ * 🔴 [2026-08-29] `--원본` 을 더한다 — **소리 없는 판이 공개 폴더에 «잠깐도» 서지 않게.**
+ *   사장님 「무성 콘텐트 다신 만들지 말 것」. 그전에는 소리를 입히려면 무음판을
+ *   public/wikitip/video/ 에 먼저 놓아야 했다. 도중에 멈추면 그대로 남는다.
+ * ⚠ 안 주면 예전처럼 공개 폴더에서 찾는다 — 이미 나가 있는 무음판에 소리를 입히는
+ *   길(사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」)이 그대로 살아 있어야 한다.
+ */
+const 원본인자 = 인자('원본');
+const 영상길 = 원본인자 ? path.resolve(뿌리, 원본인자) : path.join(영상방, `${set}.mp4`);
 if (!fs.existsSync(영상길)) { console.error(`⛔ 없다 — ${영상길}`); process.exit(1); }
 
 const 초 = 영상길이초(영상길);
