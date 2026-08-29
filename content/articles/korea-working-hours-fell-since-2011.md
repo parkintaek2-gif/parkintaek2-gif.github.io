@@ -53,6 +53,6 @@ What the annual series does say, cleanly, is this: **the amount of time a Korean
 
 ## Fewer hours, flat pay
 
-The hours came down. Pay, adjusted for inflation, did not keep climbing to match: real wages [rose for a decade and then went flat after 2021](/article/korea-real-wages-flat-since-2021). Where a worker lands on both counts depends on where they work — [bigger firms pay more at every step](/article/korea-bigger-firms-pay-more-every-step) — and on getting hired at all, where [youth unemployment has fallen from its mid-2010s peak](/article/korea-youth-unemployment-fell-since-2016) even as more young people step outside the count.
+The hours came down — and [recorded overtime fell even faster, by about a third](/article/korea-overtime-fell-since-2011). Pay, adjusted for inflation, did not keep climbing to match: real wages [rose for a decade and then went flat after 2021](/article/korea-real-wages-flat-since-2021). Where a worker lands on both counts depends on where they work — [bigger firms pay more at every step](/article/korea-bigger-firms-pay-more-every-step) — and on getting hired at all, where [youth unemployment has fallen from its mid-2010s peak](/article/korea-youth-unemployment-fell-since-2016) even as more young people step outside the count.
 
 *Working hours computed from KOSIS: Ministry of Employment and Labor establishment survey, total hours worked per worker, annual averages of monthly figures. Free to reproduce with attribution — cite as SeoulMarkets (seoulmarkets.com) and link back.*
