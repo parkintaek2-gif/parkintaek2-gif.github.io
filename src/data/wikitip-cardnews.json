@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T03:29:50.817Z",
+  "generated": "2026-08-29T03:36:41.862Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -91,6 +91,23 @@
     },
     {
       "set": "a-weekly-top-ten-is-not-ten-titles",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-year-in-one-month",
       "sq": [
         1,
         2,
@@ -1617,6 +1634,23 @@
       ]
     },
     {
+      "set": "vietnam-reads-a-different-korea",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "what-a-position-does-not-say",
       "sq": [
         1,
@@ -1821,11 +1855,10 @@
       ]
     }
   ],
-  "setCount": 108,
-  "imageCount": 1061,
+  "setCount": 110,
+  "imageCount": 1081,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
-    "a-year-in-one-month",
     "brands-are-not-one-thing",
     "december-looking-june-quiet",
     "indonesia-writes-it-down-first",
@@ -1836,7 +1869,6 @@
     "the-manager-is-read-where-he-was-hired",
     "the-reference-shelf-is-emptying",
     "the-wave-leaves-nothing",
-    "travel-pages-fell-culture-pages-didnt",
-    "vietnam-reads-a-different-korea"
+    "travel-pages-fell-culture-pages-didnt"
   ]
 }

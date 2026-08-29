@@ -11,6 +11,11 @@ tags: ["korea", "esports", "sport", "southeast-asia", "measurement", "limits"]
 pages:
   - "/one-month"
   - "/sea-athletes"
+crossChecks:
+  - "Narrowed after publication: splitting these players by game shows 85.7% of the ones we could measure play League of Legends, so the honest scope is League of Legends players rather than esports players. Too few Korean players of the other games are read in these editions to test them"
+  - "A month with more reads is a month with more reads. It does not say why someone opened the page"
+  - "This counts only the Indonesian, Vietnamese, Thai and Malay Wikipedias. Readers there also use the English edition, which cannot be split by country, so every count here is a floor"
+  - "The panel is the twenty most-read Korean athletes in those four editions. It is not a sample of Korean sport"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, monthly per-article reads in the Indonesian, Vietnamese, Thai and Malay editions, human traffic only, August 2025 to July 2026"

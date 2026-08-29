@@ -11,6 +11,11 @@ tags: ["korea", "sport", "esports", "southeast-asia", "measurement", "limits"]
 pages:
   - "/sea-athletes"
   - "/esports"
+crossChecks:
+  - "Reading an encyclopaedia article is not following a sport. This counts people looking someone up after a match, a transfer or a headline, and it cannot say who is liked"
+  - "Readers in Southeast Asia also use the English Wikipedia, 82 billion reads in this window and not splittable by country. Every number here is a floor on interest, not a measure of it"
+  - "Of the 8,917 Korean athletes on Wikidata, 7,967 have no article in any of these four editions. That is an absence of an article, not an absence of interest, and it is not counted as a zero"
+  - "The Philippines is missing. The Tagalog Wikipedia draws 1.9 million reads a month, less than a single popular article draws elsewhere, and Filipino readers largely use the English edition"
 sources:
   - org: "Wikidata"
     api: "South Korean citizens listed as footballers, esports players, baseball players, golfers or mixed martial artists, with their article links in each language edition"
