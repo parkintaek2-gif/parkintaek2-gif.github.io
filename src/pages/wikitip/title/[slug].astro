@@ -22,6 +22,15 @@ import markets from '../../../data/wikitip-markets.json';
 import people from '../../../data/wikitip-people.json';
 /* ⭐ 열 장에만 붙는 자료. 2번 지시(01:2x) — 530장을 다 고치기 전에 열 장으로 먼저 잰다 */
 import deepened from '../../../data/wikitip-deepened.json';
+/**
+ * 🔴 [2026-08-29] 이 지면이 회사 이름을 «글자로만» 냈다. 그래서 회사 지면 19장 중
+ *   11장이 목록(/firms) «한 곳»에서만 걸리고 있었다 — 안쪽 링크를 처음 전수로 세서 찾았다
+ *   (scripts/measure-kcw-inbound.mjs).
+ * ⭐ 손님이 「Studio Dragon 이 만든 다른 것」으로 걸어갈 문이 바로 여기다.
+ * ⚠ getStaticPaths 는 따로 떼어 돌아가므로 표를 «그 안에서» 만들어 props 로 건넨다.
+ */
+import firmPages from '../../../data/wikitip-firm-pages.json';
+import { 이름표만들기 as 회사이름표, 회사주소 } from '../../../lib/firm-link.ts';
 
 /* ⛔ 시장 주소를 **짐작하지 않는다.** iso2 를 소문자로 만든 것이 주소일 거라 여겼다가
    93장 전부 죽은 링크가 될 뻔했다 — 실제 주소는 나라 이름이다(AR → argentina). */
@@ -43,10 +52,15 @@ const 옮긴일 = (라벨) => (맡은일[라벨] ? `${맡은일[라벨]} (${라�
 
 export function getStaticPaths() {
   /* ⛔ 얇은 작품은 지면을 안 낸다. 자료가 그렇게 판정해 둔 것을 그대로 따른다 */
-  return data.titles.filter((t) => t.hasPage).map((t) => ({ params: { slug: t.slug }, props: { t } }));
+  /* ⚠ 표를 한 번만 만든다 — 작품 560장마다 다시 만들면 그만큼 헛일이다 */
+  const { 표: 회사문 } = 회사이름표((firmPages as any).firms ?? []);
+  return data.titles.filter((t) => t.hasPage)
+    .map((t) => ({ params: { slug: t.slug }, props: { t, 회사문: Object.fromEntries(회사문) } }));
 }
 
-const { t } = Astro.props;
+const { t, 회사문: 회사문객체 } = Astro.props;
+/* ⛔ props 는 객체로 건너온다 — Map 으로 되돌려 쓴다 */
+const 회사문 = new Map(Object.entries((회사문객체 ?? {}) as Record<string, string>));
 
 /*
  * 🔴 2026-08-25, 사장님 지시 —
@@ -674,13 +688,19 @@ const jsonLd = {
           <thead><tr><th>Company</th><th>Credited as</th></tr></thead>
           <tbody>
             {t.firms.map((f) => (
-              <tr><td class="nm">{f.firm}</td><td>{f.roles.map(옮긴일).join(', ')}</td></tr>
+              <tr>
+                <td class="nm">{회사주소(f.firm, 회사문)
+                  ? <a href={회사주소(f.firm, 회사문)!}>{f.firm}</a> : f.firm}</td>
+                <td>{f.roles.map(옮긴일).join(', ')}</td>
+              </tr>
             ))}
           </tbody>
         </table>
       </div>
       <p class="note">
-        From Wikidata, listed alphabetically. <b>A credit is not a share of the work</b> — it records
+        From Wikidata, listed alphabetically. Company names link through to a sheet where we hold
+        one; we publish a sheet only for companies whose catalogue we can see completely, so most
+        names here are text. <b>A credit is not a share of the work</b> — it records
         that a company is attached, not how much of the budget or the decision it held. Companies
         inside one corporate group are listed separately because we did not confirm the ownership tree.
         The credit type is given in English with the original Korean label in brackets, because that
