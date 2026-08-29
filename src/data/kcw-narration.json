@@ -1,0 +1,22 @@
+{
+  "무엇": "숏영상에 얹을 «대본». 화면이 말하는 것을 그대로 읽는다.",
+  "⛔ 지키는 것": "이 파일에 없는 말을 자가 지어내지 않는다. 화면에 없는 수를 목소리로 말하지 않는다. 화면과 소리가 다른 것을 말하면 그 편은 우리를 못 믿게 만든다.",
+  "⚠ 길이": "14초 화면에 들어가는 말은 대략 35낱말이다. 넘치면 화면을 늘이지 말고 «말을 줄인다» — make-kcw-sound.mjs 가 그것을 재고 넘치면 멈춘다.",
+  "대본": {
+    "spike-hearts2hearts": {
+      "제목": "Hearts2Hearts was looked up twice as often yesterday on the Vietnamese Wikipedia",
+      "내레이션": "Hearts2Hearts was opened twice as often on the Vietnamese Wikipedia yesterday. Three hundred forty-nine, against a hundred seventy-four a day the week before.",
+      "설명": "We do not know why. Wikipedia records no reason."
+    },
+    "onecountry": {
+      "제목": "Mr. Sunshine: 23 weeks on Netflix top 10 — in one country",
+      "내레이션": "Mr. Sunshine held a Netflix top ten place for twenty-three weeks, and never left one country. The middle Korean title we publish reached seven.",
+      "설명": "Long is not wide. We counted both."
+    },
+    "tworulers": {
+      "제목": "Two rulers for the same people, and they point at different names",
+      "내레이션": "We measure people two ways: how often their page is opened, and how many countries their titles charted in.",
+      "설명": "Of the people we can measure both ways, not one is top five on both lists."
+    }
+  }
+}
