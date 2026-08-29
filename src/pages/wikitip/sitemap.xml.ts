@@ -453,6 +453,17 @@ export const GET: APIRoute = async () => {
        손님은 「이번 주」를 묻는데 우리 문은 날짜를 알아야 열렸다.
        ⭐ daily — 주마다 내용이 바뀌는 유일한 자리다. 재방문을 만드는 지면이다 */
     { path: '/netflix-korea-this-week', priority: '1.0', changefreq: 'daily' },
+    /* 2026-08-29 — Search Console 실측에서 나온 물음 «모양»에 답하는 넉 장.
+       우리 2,700여 장이 그 모양에 하나도 답하지 않고 있었다 */
+    /* 「<작품> hit or flop」 아홉 질의·노출 15회·4~10위 */
+    { path: '/hit-or-flop', priority: '0.9', changefreq: 'weekly' },
+    /* 「<작품> netflix which country」 아홉 질의·노출 39회·7~36위 */
+    { path: '/netflix-which-country', priority: '0.9', changefreq: 'weekly' },
+    /* 「which bts member is from busan」 열일곱 질의·노출 30회·3~11위 */
+    { path: '/bts-hometowns', priority: '0.9', changefreq: 'monthly' },
+    /* 「what country made <작품>」 두 질의·22·36위. 그리고 974편 중 423편이
+       이름만으로는 못 가른다는 것을 «우리 손으로» 내놓는 자리다 */
+    { path: '/is-it-korean', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-23 — 잰 연도 축. 열 개가 전부 자동완성 1번째였다 */
     { path: '/year/2026', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2025', priority: '0.8', changefreq: 'weekly' },
