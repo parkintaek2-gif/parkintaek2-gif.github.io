@@ -20,6 +20,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-bts-hometowns.json';
 
 const 부산 = data.byCity.find((c: any) => c.place === 'Busan');
@@ -151,6 +152,8 @@ const jsonLd = {
       {data.cannotAnswer.map((c: string) => <li>{c}</li>)}
     </ul>
   </section>
+
+  <KcwShorts set="btsborn" says={`Fourteen seconds, read aloud: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and a hospital city is often recorded instead of the town a person grew up in.`} />
 
   <section>
     <h2>Where to walk from here</h2>

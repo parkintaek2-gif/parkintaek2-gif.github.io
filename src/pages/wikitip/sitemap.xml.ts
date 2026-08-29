@@ -291,6 +291,15 @@ const videoSets = [
     title: '304 Korean titles have been number one on Netflix. Only 67 reached fifty countries',
     description: '14 seconds, narrated: more Korean titles have been number one somewhere than have ever reached fifty countries, and 65 of them were number one in the only country that ever charted them.',
   },
+  /* 🔴 [2026-08-29] 사장님 「인기 검색어는 스타 이름·작품명·노래제목이다」.
+     오늘 낸 /bts-hometowns 에서 나온 수로 만든 편이다 — 새 수를 짓지 않았다.
+     ⭐ 처음부터 소리를 넣고 만들었다. 무성판을 낸 적이 없다. */
+  {
+    set: 'btsborn',
+    page: '/bts-hometowns',
+    title: 'Which BTS member is from Busan? Jimin and Jungkook, and where the other five were born',
+    description: '14 seconds, narrated: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and this video keeps the two apart.',
+  },
   {
     set: 'actors',
     page: '/actors-first',

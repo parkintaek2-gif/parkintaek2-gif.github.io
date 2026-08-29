@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-29 10:05 UTC",
+  "generated": "2026-08-29 10:20 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 27,
-    "짝찾음": 27,
+    "영상": 28,
+    "짝찾음": 28,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 26,
+    "지면에서읽음": 27,
     "원본에서읽음": 1
   },
   "videos": [
@@ -29,6 +29,16 @@
       "page": "/brand-kinds",
       "says": "A man and a woman read out the two figures in the table above — 53.79 and 38.45, both for Indonesia.",
       "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "btsborn",
+      "src": "/video/btsborn.mp4",
+      "thumb": "/video/thumb/btsborn.jpg",
+      "seconds": 14,
+      "page": "/bts-hometowns",
+      "says": "Fourteen seconds, read aloud: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and a hospital city is often recorded instead of the town a person grew up in.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -138,7 +148,7 @@
       "seconds": 14,
       "page": "/hit-or-flop",
       "says": "Fourteen seconds, read aloud: more Korean titles have been number one somewhere than have ever reached fifty countries. Sixty-five of them were number one in the only country that ever charted them. A chart place is a rank in one country in one week, not viewers and not money.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
