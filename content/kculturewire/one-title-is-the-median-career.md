@@ -9,6 +9,11 @@ author: Newsroom
 tags: ["korea", "stars", "netflix", "measurement", "limits", "negative-result"]
 pages:
   - "/one-title"
+crossChecks:
+  - "A chart is not a career. This counts only titles that reached a Netflix country chart in the weeks we hold: theatre, cinema releases that never charted, television that never went to Netflix, and any work before the chart existed are all absent. An actor with one charting title here is not an actor with one title"
+  - "For 658 of the 1,329 actors the chart lights them exactly once, so every figure we could attribute to that person — countries, weeks, peak — is a fact about the single title, read twice. No arithmetic separates the person from the work when the work is a sample of one"
+  - "The finding is narrower than the sentence it tests: on Netflix charts, debut age does not predict reach, and the main reason is that most actors appear on those charts once"
+  - "The data carries a flag, debutAgeMonotonic, currently false. If the bands ever line up in one direction the claim becomes writable. Until then it is not"
 sources:
   - org: "Netflix Tudum"
     api: "Weekly country Top 10 lists, the panel of Korean titles behind our chart data"

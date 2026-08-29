@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T02:44:31.639Z",
+  "generated": "2026-08-29T03:00:17.210Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -276,6 +276,23 @@
     },
     {
       "set": "half-a-place",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "half-life-two-months",
       "sq": [
         1,
         2,
@@ -1036,6 +1053,23 @@
       ]
     },
     {
+      "set": "one-title-is-the-median-career",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "playing-at-home-predicts-being-looked-up-abroad",
       "sq": [
         1,
@@ -1685,22 +1719,20 @@
       ]
     }
   ],
-  "setCount": 100,
-  "imageCount": 981,
+  "setCount": 102,
+  "imageCount": 1001,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-label-outreads-the-capital",
     "a-year-in-one-month",
     "brands-are-not-one-thing",
     "december-looking-june-quiet",
-    "half-life-two-months",
     "indonesia-writes-it-down-first",
     "it-was-one-game",
     "k-pop-groups-travel-widest",
     "malaysia-reads-the-label",
     "no-one-to-compare-against",
     "one-act-clears-the-footballer",
-    "one-title-is-the-median-career",
     "one-title-out",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",

@@ -13,6 +13,12 @@ tags: ["korean drama", "wikipedia", "attention", "squid game", "korea"]
 pages:
   - "/half-life"
   - "/wave-and-floor"
+crossChecks:
+  - "Wikipedia reads are monthly, so every half-life here has a floor of one month. A title that lost half its readers in ten days and one that took thirty both read as one month, which makes the short end of the table shorter than it looks"
+  - "The 59 titles were chosen as ones we expected to have had a wave, not the most-read Korean titles and not a random sample. A set chosen that way leans toward titles that travelled far enough to have a peak worth measuring"
+  - "A read is not a viewer. Someone opening an encyclopaedia article may have watched the show, may be deciding whether to, or may have seen the name somewhere and been curious"
+  - "Seven of the 33 titles we could not time had peaked too recently to have fallen below half yet. That is the calendar, not endurance, and including them would have pulled the median up for no reason"
+  - "We can say the half-life was not set by the size of the wave. We cannot say what did set it"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, August 2020 to June 2026"
