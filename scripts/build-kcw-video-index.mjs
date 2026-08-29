@@ -243,13 +243,32 @@ export function 없는파일찾기(영상들, 있나 = (p) => fs.existsSync(p)) 
 }
 
 const 짝 = new Map();
+const 담기 = (set, 것) => {
+  /* ⛔ 덮어쓰지 않는다 — 같은 벌이 두 지면에 걸려 있으면 둘 다 적는다 */
+  if (!짝.has(set)) 짝.set(set, []);
+  짝.get(set).push(것);
+};
 for (const f of 지면들모으기(지면방)) {
   const 글 = fs.readFileSync(path.join(지면방, f), 'utf8');
   if (!글.includes('KcwShorts')) continue;
-  for (const v of 영상꺼내기(글)) {
-    /* ⛔ 덮어쓰지 않는다 — 같은 벌이 두 지면에 걸려 있으면 둘 다 적는다 */
-    if (!짝.has(v.set)) 짝.set(v.set, []);
-    짝.get(v.set).push({ page: 지면주소(f), says: v.says, heading: v.heading });
+  for (const v of 영상꺼내기(글)) 담기(v.set, { page: 지면주소(f), says: v.says, heading: v.heading });
+}
+
+/*
+ * 🔴🔴 [2026-08-29] **글자로 박힌 것만 읽고 있었다.**
+ *   그룹 지면(/group/<slug>)은 263개를 «한 틀»로 찍는다. 거기에 오늘 튄 이름의 영상을
+ *   글자로 박으면 263개 전부에 그 영상이 붙는다 — 그래서 자료로 골라 싣게 만들었다.
+ *   그랬더니 이 자가 그 영상을 **못 보게 됐다**: set 이 `set={이그룹영상.set}` 이라 글자가 아니다.
+ *   ⛔ 그 결과 영상은 지면에 «떠 있는데» 갤러리 목록에는 «없는» 상태가 된다.
+ * ✅ 그러니 자료로 붙인 것도 같이 읽는다. 붙이는 길이 둘이면 읽는 길도 둘이어야 한다.
+ * ⚠ 붙이는 길을 새로 만들면 여기도 같이 늘려야 한다. 안 늘리면 조용히 빠진다.
+ */
+const 그룹영상길 = path.join(뿌리, 'src/data/kcw-group-video.json');
+if (fs.existsSync(그룹영상길)) {
+  const 그룹영상 = JSON.parse(fs.readFileSync(그룹영상길, 'utf8')).영상 ?? {};
+  for (const [slug, v] of Object.entries(그룹영상)) {
+    if (!v?.set) continue;
+    담기(v.set, { page: `/group/${slug}`, says: v.says ?? null, heading: v.heading ?? null });
   }
 }
 

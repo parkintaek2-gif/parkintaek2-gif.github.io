@@ -242,6 +242,37 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
       견주고, 하나라도 빠지면 «막는다». 다음에 또 조용히 빠지지 않는다.
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
+  /*
+   * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
+   *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.
+   *   즉 **만드는 값은 다 치르고 아무 데도 안 보이는 상태**로 며칠이 지나 있었다.
+   * ⚠ 영상 갤러리 목록(wikitip-video-index)은 24편인데 여기는 21편이었다. 두 목록이
+   *   따로 손질되니 반드시 갈라진다 — check-kcw-video-lists.mjs 가 이제 그 차이를 잡는다.
+   */
+  {
+    set: 'tworulers',
+    page: '/person',
+    title: 'Two rulers for the same people, and they point at different names',
+    description: '14 seconds on measuring people two ways — Wikipedia opens and countries charted — and on the fact that nobody is in the top five of both.',
+  },
+  {
+    set: 'onecountry',
+    page: '/underrated',
+    title: 'It held a Netflix top 10 place for 23 weeks — in one country',
+    description: '14 seconds on the Korean titles that lasted longest while reaching almost nowhere, and on why a long run is not the same as a wide one.',
+  },
+  {
+    set: 'school-one-name',
+    page: '/school',
+    title: 'Most Korean performing-arts schools reach the charts through one name',
+    description: '14 seconds on how many charting names each school has, and on what a single name carrying a whole school does and does not tell you.',
+  },
+  {
+    set: 'spike-hearts2hearts',
+    page: '/group/hearts2hearts',
+    title: 'Hearts2Hearts was looked up twice as often yesterday on the Vietnamese Wikipedia',
+    description: '14 seconds on a name that moved on one Wikipedia edition yesterday — what an encyclopaedia open counts, and why the reason for the move is not in the data.',
+  },
   {
     set: 'actors',
     page: '/actors-first',

@@ -25,6 +25,8 @@
  * ⛔ 키를 안 적는다 — 위키데이터에 키가 적힌 한국 연예인이 3.5%뿐이다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwShorts from '../../../components/KcwShorts.astro';
+import 그룹영상 from '../../../data/kcw-group-video.json';
 import data from '../../../data/wikitip-groups.json';
 import people from '../../../data/wikitip-people.json';
 import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
@@ -59,6 +61,17 @@ export function getStaticPaths() {
 }
 
 const { g, 이웃, 큰곳, 사람문 } = Astro.props as { g: any; 이웃: any[]; 큰곳: any[]; 사람문: Record<string, string> };
+
+/*
+ * 🔴 [2026-08-29] 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣는다」.
+ *   어제 만든 spike 영상이 **어느 지면에도 안 실려** 있었다. 만드는 값은 다 치르고
+ *   손님이 볼 자리가 없던 것이다.
+ * ⛔ 그렇다고 이 지면에 그냥 박으면 «263개 그룹 전부»에 그 영상이 붙는다 — 남의 이름 밑에
+ *   남의 수를 놓는 꼴이다.
+ * ✅ 그래서 그룹 slug 로 «골라» 싣는다. 하루 여섯 번 내는 영상은 코드가 아니라
+ *   src/data/kcw-group-video.json 에 «한 줄»만 더하면 붙는다.
+ */
+const 이그룹영상 = ((그룹영상 as any).영상 ?? {})[g.slug] ?? null;
 const 기준해 = data.refYear;
 const 이름못쓴 = g.membersRecorded - g.membersNamed;
 const 생일모름 = g.membersNamed - g.membersWithBirthday;
@@ -275,6 +288,9 @@ const DESC = `${g.name} has ${g.membersWithBirthday} members with a birth date o
       birth (P19). CC0. Nothing here is copied from a fan wiki or a news write-up.
     </p>
   </section>
+
+  {/* ⭐ 오늘 이 이름이 움직였을 때만 붙는다. 없으면 아무것도 안 그린다 */}
+  {이그룹영상 && <KcwShorts set={이그룹영상.set} says={이그룹영상.says} />}
 
   <section class="onward">
     <h3>Other groups</h3>

@@ -1,0 +1,11 @@
+{
+  "무엇": "그룹 지면(/group/<slug>)에 실을 숏영상. 열쇠는 그룹 slug, 값은 영상 set 이름과 그 지면에 적을 한 문단.",
+  "왜": "오늘 튄 이름으로 하루 여섯 번 영상을 낸다. 그때마다 지면 코드를 고치면 못 지킨다. 여기 한 줄만 더한다.",
+  "⛔ 지키는 것": "여기 적은 set 은 public/wikitip/video/<set>.mp4 로 실제로 있어야 한다. check-kcw-video-lists.mjs 가 그것을 잰다.",
+  "영상": {
+    "hearts2hearts": {
+      "set": "spike-hearts2hearts",
+      "says": "Fourteen seconds: this name was opened about twice as often on the Vietnamese Wikipedia yesterday as on an average day the week before. An encyclopaedia open is not a stream, a ticket or a fan — and the data does not say why it moved."
+    }
+  }
+}
