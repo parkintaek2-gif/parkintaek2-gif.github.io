@@ -31,10 +31,20 @@ import path from 'node:path';
  */
 export const 최소지면 = 2000;
 
-/** 온전한 dist 에 반드시 있는 파일들 */
+/**
+ * 온전한 dist 에 «반드시» 있는 파일들.
+ *
+ * 🔴🔴 [2026-08-29] **여기에 `wikitip/index.html` 을 적었다가 자를 통째로 죽일 뻔했다.**
+ *   그런 파일은 «아예 없다» — wikitip 뿌리는 `dist/wikitip.html` 이다.
+ *   그래서 dist 가 멀쩡해도(2,715장) 늘 「못 쟀다」가 나왔고, 이 자를 쓰는 검사자 일곱이
+ *   **영영 침묵**할 뻔했다. 막으려던 「거짓 초록」을 내가 «더 크게» 만든 셈이다.
+ *   ⭐ 자가시험은 다 통과했다 — 가짜 파일자를 넣어 시험했기 때문이다.
+ *     ⛔ 「검사가 통과해도 한 번은 실물을 본다」가 여기서 값을 했다.
+ * ⚠ 여기에 이름을 더할 때는 **실제로 그 파일이 있는지 눈으로 보고** 적는다.
+ */
 export const 있어야할것 = [
   'wikitip/sitemap.xml',
-  'wikitip/index.html',
+  'wikitip.html',
 ];
 
 /**
@@ -46,11 +56,7 @@ export function dist상태(뿌리, 읽기 = fs) {
   if (!읽기.existsSync(dist)) {
     return { 잴수있나: false, 까닭: 'dist 가 없다 — 아직 한 번도 안 지었다', 지면수: null };
   }
-  for (const 것 of 있어야할것) {
-    if (!읽기.existsSync(path.join(dist, 것))) {
-      return { 잴수있나: false, 까닭: `dist/${것} 이 없다 — 덜 지어졌다(빌드 중일 수 있다)`, 지면수: null };
-    }
-  }
+  const 없는것 = 있어야할것.filter((것) => !읽기.existsSync(path.join(dist, 것)));
   let 수 = 0;
   const 세기 = (방) => {
     let 것들;
@@ -61,6 +67,21 @@ export function dist상태(뿌리, 읽기 = fs) {
     }
   };
   세기(path.join(dist, 'wikitip'));
+  /*
+   * ⛔ 지면은 잔뜩 있는데 「있어야 할 파일」이 없다면, 덜 지어진 것이 아니라
+   *   **내 목록이 틀린 것**일 수 있다. 그때는 조용히 「못 쟀다」로 넘기지 않고 그렇게 말한다.
+   *   ⚠ 2026-08-29 에 실제로 그랬다. 조용히 넘겼으면 검사자 일곱이 영영 침묵했다.
+   */
+  if (없는것.length && 수 >= 최소지면) {
+    return {
+      잴수있나: false,
+      까닭: `지면은 ${수}장인데 ${없는것.join(', ')} 이 없다 — 「덜 지어졌다」가 아니라 «이 목록이 틀렸을» 수 있다. scripts/lib/dist-ready.mjs 의 있어야할것 을 실물과 맞춰 본다`,
+      지면수: 수,
+    };
+  }
+  if (없는것.length) {
+    return { 잴수있나: false, 까닭: `dist/${없는것[0]} 이 없다 — 덜 지어졌다(빌드 중일 수 있다)`, 지면수: 수 };
+  }
   if (수 < 최소지면) {
     return {
       잴수있나: false,
