@@ -21,6 +21,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/wikitip-quiet-hits.json';
 /**
  * 🔴 [2026-08-29] 이 지면이 «없는 작품 지면»으로 링크를 걸고 있었다.
@@ -154,6 +155,13 @@ const jsonLd = {
       <a href="/community">All the rooms</a>
     </p>
   </section>
+
+  {/* ⭐ 14초로 「오래 버틴 것과 넓게 퍼진 것은 다른 말이다」를 보여 준다 — 이 지면이 말하는 것 그대로다.
+      사장님 상시 지시: 밖에 내는 콘텐트는 «우리 사이트에도» 싣고 서로 잇는다. */}
+  <KcwShorts set="onecountry"
+    says={`Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never `
+      + `left one country, while the middle title we publish charted in ${data.medianCountries}. `
+      + `Long is not wide, and we counted both.`} />
 
   <KcwMethodLimits
     method={`Netflix's own weekly top 10 files, ${data.weekCount} weeks across ${data.marketCount} countries, ${data.weekFrom} to ${data.weekTo}. A title is counted here when its weeks on any weekly top 10 reach ${data.thresholds.longRunWeeks} — the median run of the ${data.pagesConsidered} titles that have a page on this site — and the number of countries it charted in stays below the median of ${data.medianCountries}. The first quartile of that country count is ${data.thresholds.fewCountries}, which is the band shown first. Neither cut-off was chosen by hand.`}
