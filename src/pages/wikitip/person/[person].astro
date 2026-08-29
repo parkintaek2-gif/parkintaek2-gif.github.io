@@ -28,6 +28,15 @@
  * ⛔ 위키백과 조회수를 「우리 손님 수」로 읽지 않는다 — 그 «이름에 대한 관심»이다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+/**
+ * 🔴 [2026-08-29] 사람 지면 636장에 구조화 데이터가 «하나도» 없었다.
+ *   같은 636장이 구글에서 「발견만」에 머물러 있다. 안쪽 링크는 굶지 않았으니
+ *   (가운데 9.5장에서 걸린다) 크롤러에게 «줄 것이 적었던» 쪽이 남는다.
+ * ⛔ 「붙이면 색인된다」고 단정하지 않는다 — 9/05 쯤 노출을 다시 재서 움직였는지 본다.
+ */
+import { 사람구조화 } from '../../../lib/person-jsonld.ts';
+import titlePages from '../../../data/wikitip-title-pages.json';
+import { 지면있는것들 } from '../../../lib/title-link.ts';
 import KLifeMapNext from '../../../components/KLifeMapNext.astro';
 import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
@@ -58,10 +67,16 @@ export function getStaticPaths() {
     if (!멤버표.has(k)) 멤버표.set(k, []);
     멤버표.get(k)!.push(쌍);
   }
+  /* ⚠ 작품 지면이 «있는» 것만 구조화 데이터에서 url 로 잇는다 — 없는 곳으로 걸지 않는다.
+     ⛔ Map/Set 은 props 로 못 건너간다. 배열로 바꿔 건넨 뒤 지면에서 되돌린다 */
+  const 지면있는작품 = 지면있는것들((titlePages as any).titles ?? []);
+  const 지면있는작품목록 = 지면있는작품 === null ? null : [...지면있는작품];
+
   return 사람들.map((p: any, i: number) => ({
     params: { person: p.slug },
     props: {
       p,
+      지면있는작품목록,
       이웃: [사람들[(i + 1) % 사람들.length], 사람들[(i + 2) % 사람들.length]]
         .filter((x: any) => x && x.slug !== p.slug),
       멀리간사람: 사람들.slice(0, 6).filter((x: any) => x.slug !== p.slug).slice(0, 4),
@@ -74,7 +89,8 @@ export function getStaticPaths() {
   }));
 }
 
-const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍, 난해, 난해사람수 } = Astro.props as {
+const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍, 난해, 난해사람수, 지면있는작품목록 } = Astro.props as {
+  지면있는작품목록: string[] | null;
   난해: string | null; 난해사람수: number | null;
   멤버쌍: any[];
   p: any; 이웃: any[]; 멀리간사람: any[]; 동명이인: any;
@@ -134,7 +150,8 @@ const 생일글 = p.born
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/person/${p.slug}`}>
+  canonical={`https://www.kculturewire.com/person/${p.slug}`}
+  jsonLd={사람구조화(p, 지면있는작품목록 === null ? null : new Set(지면있는작품목록))}>
   <h1>{p.name}: movies and TV shows on the Netflix charts</h1>
 
   <p class="lead">

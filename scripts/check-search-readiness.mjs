@@ -79,13 +79,48 @@ if (process.argv[1] && process.argv[1].endsWith('check-search-readiness.mjs')) {
   };
   판다(D, '');
   const 기사 = fs.existsSync(`${D}/article`) ? fs.readdirSync(`${D}/article`).filter((f) => f.endsWith('.html')) : [];
-  const 있어야 = [...지면.map((f) => `/${f.replace('.html', '')}`), ...기사.map((f) => `/article/${f.replace('.html', '')}`)];
+  /**
+   * 🔴🔴 [2026-08-29 · 5번] **이 자가 같은 지면을 «둘»로 세고 있었다.**
+   *
+   *   빌드됐는데 사이트맵에 없는 것 …  /born-year/index
+   *   사이트맵에 있는데 빌드에 없는 것 … /born-year
+   *
+   *   같은 한 장이다. `dist/…/born-year/index.html` 을 손님은 `/born-year` 로 연다.
+   *   ⛔ 헛경보가 둘 늘면 진짜 하나가 그 사이에 묻힌다. 오늘 배포 표식에서도 같은 것을 겪었다.
+   * ⭐ 그래서 주소를 «손님이 여는 꼴»로 맞춘 뒤에 견준다 — `/index` 를 떼어 낸다.
+   */
+  const 손님꼴 = (p) => String(p).replace(/\/index$/, '') || '/';
+
+  /**
+   * ⚠ 그리고 **일부러 사이트맵에 안 넣는 지면**이 있다 — 「접은 주소」다.
+   *   `check-kcw-retired-pages.mjs --낸다` 가 내린 지면 자리에 「왜 접었는지」를 적어 두는데,
+   *   그것들은 noindex 를 달고 나온다. 사이트맵에 넣으면 «싣는 지면»이라고 말하는 꼴이 된다.
+   * ⛔ 그러니 그것을 「빠졌다」고 세면 안 된다. 그건 결함이 아니라 «우리가 정한 것»이다.
+   *   가르는 표는 noindex 다 — 우리가 안 실으려고 붙인 표시 그 자체다.
+   */
+  const noindex인가 = (주소) => {
+    for (const c of [`${D}${주소}.html`, `${D}${주소}/index.html`]) {
+      try {
+        if (fs.existsSync(c)) return /name=["']robots["'][^>]*noindex/.test(fs.readFileSync(c, 'utf8'));
+      } catch { return false; }
+    }
+    return false;
+  };
+
+  const 있어야 = [...지면.map((f) => 손님꼴(`/${f.replace('.html', '')}`)),
+    ...기사.map((f) => `/article/${f.replace('.html', '')}`)];
   if (fs.existsSync(첫화면)) 있어야.push('/');
-  const 빠진 = 있어야.filter((p) => !실린주소.includes(p));
+  const 실린것 = 실린주소.map(손님꼴);
+
+  const 빠진다 = 있어야.filter((p) => !실린것.includes(p));
+  const 빠진 = 빠진다.filter((p) => !noindex인가(p));
+  const 일부러뺀것 = 빠진다.length - 빠진.length;
   if (빠진.length) 문제.push(`🔴 빌드됐는데 사이트맵에 없는 것 ${빠진.length}장: ${빠진.slice(0, 5).join(' · ')}`);
+  /* ⭐ 「일부러 뺀 것」도 «수를 말한다». 조용히 빼면 다음 사람이 이 자를 못 믿는다 */
+  if (일부러뺀것) console.log(`⬜ 사이트맵에 «일부러» 안 넣은 것 ${일부러뺀것}장 — noindex 를 단 접은 지면들이다`);
 
   /* ── ② 사이트맵에 있는데 빌드에 없나 (죽은 주소를 검색엔진에 내미는 꼴) ── */
-  const 헛것 = 실린주소.filter((p) => !있어야.includes(p));
+  const 헛것 = 실린것.filter((p) => !있어야.includes(p));
   if (헛것.length) 문제.push(`🔴 사이트맵에 있는데 빌드에 없는 것 ${헛것.length}장: ${헛것.slice(0, 5).join(' · ')}`);
 
   /* ── ③ 구조화 데이터 — 404 말고는 다 있어야 한다 ── */
