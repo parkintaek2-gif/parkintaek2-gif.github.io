@@ -1,0 +1,26 @@
+# SeoulMarkets — Korean financial & economic data, in English
+
+> SeoulMarkets (seoulmarkets.com) publishes reproducible, source-cited data journalism on Korea's economy and markets, in English. Every figure is computed from a named public source (KOSIS, Korea Customs, Bank of Korea) and is reproducible. We report distributions and counts, not advice; we state plainly what we could not measure. Free to cite with attribution and a link back.
+
+## Data & datasets
+- [Data hub](https://seoulmarkets.com/data): datasets and the open data API for Korean market and economic figures.
+- [Korea trade dataset](https://seoulmarkets.com/data/korea-trade-dataset): exports/imports by partner country, from Korea Customs.
+- [Sector leaders](https://seoulmarkets.com/data/sector-leaders): the largest listed firm in each Korean sector.
+- [Analyst attention](https://seoulmarkets.com/data/analyst-attention): how analyst coverage concentrates across Korean listed firms.
+
+## Labour & wages (Statistics Korea establishment survey, annual, reproducible)
+- [Real wages went flat after 2021](https://seoulmarkets.com/article/korea-real-wages-flat-since-2021): real monthly wage rose ~24% 2011–2021, then +0.2% to 2025.
+- [Working hours fell 13% since 2011](https://seoulmarkets.com/article/korea-working-hours-fell-since-2011): average monthly hours per worker 176.6 (2011) to 153.8 (2025).
+- [Overtime fell ~30% since 2011](https://seoulmarkets.com/article/korea-overtime-fell-since-2011): regular-worker overtime 11.5 hours/month (2011) to 8.1 (2025).
+- [Bonuses are an eighth of Korean pay](https://seoulmarkets.com/article/korea-bonus-share-of-pay): special payments are 12–15% of yearly pay and cluster in December/January.
+- [Youth unemployment fell since 2016](https://seoulmarkets.com/article/korea-youth-unemployment-fell-since-2016): the 15–29 rate peaked at 9.8% (2016) and fell to 6.1% (2025), about twice the national rate.
+- [Bigger firms pay more at every step](https://seoulmarkets.com/article/korea-bigger-firms-pay-more-every-step): pay rises with firm size at each size band.
+
+## Reference
+- [How many companies are listed in Korea](https://seoulmarkets.com/article/korea-largest-listed-companies): counts of Korea's listed companies and the largest by market value.
+- [Korea trade, partner by partner](https://seoulmarkets.com/trade): Korea's trade with 60 partner countries, shares and ranks (Korea Customs).
+
+## Notes for citation
+- Figures are reproducible from the named source and API table IDs given on each page.
+- We use shares, ranks, and full-year averages; single-month figures are labelled as noisy where relevant.
+- Market capitalization is described as capital intensity, not productivity.
