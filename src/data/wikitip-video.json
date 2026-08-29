@@ -137,6 +137,13 @@
    "src": "/video/places.mp4"
   },
   {
+   "set": "samename",
+   "seconds": 14,
+   "uploadDate": "2026-08-29",
+   "thumb": "/video/thumb/samename.jpg",
+   "src": "/video/samename.mp4"
+  },
+  {
    "set": "school-one-name",
    "seconds": 14,
    "uploadDate": "2026-08-29",

@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-29 10:20 UTC",
+  "generated": "2026-08-29 10:27 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 28,
-    "짝찾음": 28,
+    "영상": 29,
+    "짝찾음": 29,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 27,
+    "지면에서읽음": 28,
     "원본에서읽음": 1
   },
   "videos": [
@@ -38,7 +38,7 @@
       "seconds": 14,
       "page": "/bts-hometowns",
       "says": "Fourteen seconds, read aloud: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and a hospital city is often recorded instead of the town a person grew up in.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -199,6 +199,16 @@
       "page": "/places",
       "says": "A man and a woman read out the two figures — one record label against the capital — and how many of the cities we measured sit below that one company.",
       "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "samename",
+      "src": "/video/samename.mp4",
+      "thumb": "/video/thumb/samename.jpg",
+      "seconds": 14,
+      "page": "/is-it-korean",
+      "says": "Fourteen seconds, read aloud: a Netflix chart row carries a title, a country, a week and a rank, and nothing else. For 423 of our 974 titles another country carries a work with the same English name, so the row alone cannot say which work charted. For 41 of them Wikidata lists no Korean work at all, and we publish that list rather than drop the rows.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {

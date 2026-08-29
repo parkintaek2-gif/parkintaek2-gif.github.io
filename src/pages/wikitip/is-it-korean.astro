@@ -25,6 +25,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-is-it-korean.json';
 
 const c = data.counts;
@@ -175,6 +176,8 @@ const jsonLd = {
       {data.cannotAnswer.map((x: string) => <li>{x}</li>)}
     </ul>
   </section>
+
+  <KcwShorts set="samename" says={`Fourteen seconds, read aloud: a Netflix chart row carries a title, a country, a week and a rank, and nothing else. For 423 of our 974 titles another country carries a work with the same English name, so the row alone cannot say which work charted. For 41 of them Wikidata lists no Korean work at all, and we publish that list rather than drop the rows.`} />
 
   <section>
     <h2>Where to walk from here</h2>

@@ -27,6 +27,11 @@
       "제목": "Which BTS member is from Busan? Jimin and Jungkook — and where the other five were born",
       "내레이션": "Which BTS member is from Busan? Jimin and Jungkook. Suga and V were born in Daegu.",
       "설명": "Wikidata records a place of birth, which is not the same thing as a hometown."
+    },
+    "samename": {
+      "제목": "Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you",
+      "내레이션": "Is it actually Korean? For four hundred twenty three of our titles, the name alone cannot tell you.",
+      "설명": "A Netflix chart row has no year and no country of production."
     }
   }
 }

@@ -300,6 +300,14 @@ const videoSets = [
     title: 'Which BTS member is from Busan? Jimin and Jungkook, and where the other five were born',
     description: '14 seconds, narrated: two of the seven were born in Busan and two in Daegu. Wikidata records a place of birth, which is not the same thing as a hometown, and this video keeps the two apart.',
   },
+  /* 🔴 [2026-08-29] 오늘 낸 /is-it-korean 에서 나온 수로 만든 편이다.
+     ⭐ 우리 수가 틀렸을 수 있는 자리를 «우리 손으로» 내놓는 편이다. */
+  {
+    set: 'samename',
+    page: '/is-it-korean',
+    title: "Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you",
+    description: "14 seconds, narrated: a Netflix chart row carries a title, a country, a week and a rank, and no year, director or country of production. For 423 of our 974 titles another country carries the same English name, and for 41 we say plainly that our own figures may be wrong.",
+  },
   {
     set: 'actors',
     page: '/actors-first',
