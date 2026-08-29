@@ -56,6 +56,15 @@ import { 꼬리말 } from './kcw-static-footer.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+/*
+ * 🔴 [2026-08-29 · 2번 요청] **차림표** — 이 지면에는 «사이트 나머지로 가는 길»이 없었다.
+ *   방 아홉과 꼬리말(약관·개인정보)뿐이었다. AI 어시스턴트 인용을 타고 여기로 «바로»
+ *   떨어진 손님은 그 아홉만 보고 나간다.
+ *   ⛔ 체류시간을 늘리자고 만든 지면이 정작 다음 걸음을 안 내주고 있었다.
+ * ✅ 다른 지면(WikiTip)과 «같은 모양»으로 단다 — 여기만 다르면 손님이 다른 사이트로 여긴다.
+ * ⛔ 차림표는 방 칸 «앞»에 온다. 뒤에 두면 35초 손님은 못 본다(자가시험이 순서를 잰다).
+ * ⚠ 이 파일이 내는 CSS·마크업 안에는 한국어를 안 쓴다 — 그대로 손님 화면으로 나간다.
+ */
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 낼길 = path.join(뿌리, 'public', 'wikitip', 'community.html');
 
@@ -70,6 +79,7 @@ const 읽기 = (이름) => JSON.parse(fs.readFileSync(path.join(뿌리, 'src/dat
  */
 export function 방들(자료) {
   const t = 자료.제목;
+  const 영화 = 자료.영화;
   const m = 자료.나라;
   const q = 자료.조용한것;
   const s = 자료.별;
@@ -125,12 +135,20 @@ export function 방들(자료) {
       cta: 'Find a company',
     },
     {
+      /*
+       * 🔴 [2026-08-29] 이 방은 「korean movies on netflix」를 걸어 놓고 «작품 전체» 목록으로
+       *   보내고 있었다. 방 이름은 「Films and series are not the same shelf」인데 정작
+       *   그 둘을 갈라 보여 주는 지면이 없었다 — 영화를 물은 손님이 섞인 목록을 받았다.
+       * ✅ 오늘 그 지면을 냈다(/korean-movies-on-netflix). 방이 물음에 맞는 곳으로 간다.
+       * ⛔ 수를 손으로 적지 않는다 — 자료가 바뀌면 방만 옛말을 한다.
+       */
       phrase: 'korean movies on netflix',
       name: 'Films and series are not the same shelf',
-      line: `Every Korean title that has entered a Netflix weekly top 10 anywhere — ${t.pageCount} of `
-        + `them with a page, out of ${t.titleCount} we can see.`,
-      href: '/titles',
-      cta: 'Open the shelf',
+      line: `${영화.films.titles} Korean films have entered a weekly top 10 somewhere — more than `
+        + `the ${영화.series.titles} series. The median film reached ${영화.films.medianCountries} `
+        + `country; the median series reached ${영화.series.medianCountries}.`,
+      href: '/korean-movies-on-netflix',
+      cta: 'See the films',
     },
     {
       phrase: 'korean challenger ladder',
@@ -242,12 +260,31 @@ export function 판짓기(방, 자료) {
   .how{margin-top:40px;padding-top:18px;border-top:1px solid var(--line);max-width:64ch}
   .how h2{font-size:1.05rem;margin:0 0 .4rem}
   .how p{margin:.5rem 0;font-size:14px;color:var(--ink-2)}
+  .top{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .logo{font-size:1.15rem;font-weight:800;color:var(--ink);text-decoration:none;letter-spacing:-.02em}
+  .logo span{color:var(--accent)}
+  .top .tag{font-size:13px;color:var(--ink-2)}
+  .sections{font-size:.86rem;padding:0 0 1.4rem;border-bottom:1px solid var(--line);margin-bottom:26px}
+  .sections a{color:var(--ink);text-decoration:none;font-weight:600}
+  .sections a:hover{text-decoration:underline}
   footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:64ch}
 </style>
 </head>
 <body>
   <div class="wrap">
+    <div class="top">
+      <a class="logo" href="/">K Culture <span>Wire</span></a>
+      <span class="tag">Korean pop culture, in numbers</span>
+    </div>
+    <nav class="sections" aria-label="Sections">
+      <a href="/section/stars">Stars</a>
+      <span aria-hidden="true"> &middot; </span><a href="/section/titles">Titles</a>
+      <span aria-hidden="true"> &middot; </span><a href="/section/industry">Industry</a>
+      <span aria-hidden="true"> &middot; </span><a href="/section/tradition">Tradition</a>
+      <span aria-hidden="true"> &middot; </span><a href="/articles">All articles</a>
+    </nav>
+
     <h1>Rooms</h1>
     <p class="lead">${수를글자로(방.length)} rooms about Korean film, television, music and esports. Each one exists
       because people search for it, and each one is answered with counts rather than opinion.</p>
@@ -289,6 +326,7 @@ function 자료읽기() {
   return {
     제목: 읽기('wikitip-title-pages.json'),
     나라: 읽기('wikitip-markets.json'),
+    영화: 읽기('kcw-films.json'),
     조용한것: 읽기('wikitip-quiet-hits.json'),
     별: 읽기('wikitip-star-signs.json'),
   };
@@ -322,6 +360,13 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
    *    로마자로 바꿀 수 없다. 그 한 자리만 빼고 나머지에 한국어가 없는지 본다.
    *    ⛔ 검사를 아주 지우지 않는다 — 우리 사정을 손님 화면에 흘리는 것을 막는 자다.
    */
+    /* 🔴 [2026-08-29 · 2번 요청] 사이트 나머지로 돌아가는 길이 «있나». 없으면 손님이 여기서 끝난다 */
+  검('첫 화면으로 가는 길이 있다', /href="\/"/.test(판));
+  검('갈래 차림표 다섯이 다 있다',
+    ['/section/stars', '/section/titles', '/section/industry', '/section/tradition', '/articles']
+      .every((u) => 판.includes(`href="${u}"`)));
+  검('⛔ 차림표가 방 칸 «앞»에 온다 — 뒤에 있으면 못 본다',
+    판.indexOf('/section/stars') < 판.indexOf('class="grid"'));
   검('⛔ 화면에 한국어가 없다 — 신고번호만 빼고', !/[가-힣]/.test(판.replace(/2026-세종-\d+/g, '')));
   검('⛔ noindex 가 없다 — 사이트맵과 어긋나면 안 된다', !/noindex/.test(판));
   검('영문 지면이다', /<html lang="en">/.test(판));
@@ -351,7 +396,11 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   /* ⛔ 수를 지어내지 않았나 — 자료 파일의 값이 그대로 화면에 있어야 한다 */
   검('나라 수가 자료에서 왔다', 판.includes(String(자료.나라.countryCount)));
-  검('지면 수가 자료에서 왔다', 판.includes(String(자료.제목.pageCount)));
+  /* ⚠ [2026-08-29] 여기는 원래 자료.제목.pageCount 를 봤다. 영화 방이 새 지면을 가리키게
+     바뀌면서 그 수가 화면에서 빠졌고, 이 검사가 «제대로» 걸렸다 — 화면에 없는 수를 계속
+     보고 있으면 검사가 아니라 장식이 된다. 그래서 지금 화면이 «실제로 내는» 수로 옮긴다. */
+  검('영화 편수가 자료에서 왔다', 판.includes(String(자료.영화.films.titles)));
+  검('시리즈 편수가 자료에서 왔다', 판.includes(String(자료.영화.series.titles)));
 
   if (실패.length) {
     console.error(`❌ 자가시험 실패\n${실패.map((s) => `   · ${s}`).join('\n')}`);
