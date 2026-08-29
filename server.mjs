@@ -69,6 +69,26 @@ function checkAuth(req) {
   return safeEqual(got, want);
 }
 
+/*
+ * 🔴🔴 [2026-08-30] **우리 영상이 검색에 «영상으로» 안 잡히던 까닭을 여기서 찾았다.**
+ *   사장님이 물으셨다 — 「영상을 굳이 유튜브에 올릴 필요가 있나? 우리 사이트에만 올리고
+ *   검색 색인만 되면 되는 거 아냐?」. 재 보러 갔다가 이것이 나왔다.
+ *
+ * ```
+ *   https://www.kculturewire.com/video/numberone.mp4
+ *     Content-Type: application/octet-stream      ← .mp4 가 이 표에 «없었다»
+ * ```
+ * ⛔ 그리고 우리는 `X-Content-Type-Options: nosniff` 를 건다 — 「추측하지 말라」는 뜻이다.
+ *   그래서 **크롤러도 브라우저도 이것을 영상으로 볼 수 없다.** 못 보는 것이 «맞다».
+ *   ⭐ 아래 BASE_HEADERS 의 nosniff 는 옳다. 잘못은 이 표가 비어 있던 것이다.
+ *
+ * 🔴 실측 — 지난 28일 영상 검색 노출이 **네 사이트 모두 0**이었고, URL Inspection 으로
+ *   물으면 영상 지면 어느 것도 «영상 칸»을 안 준다. 사이트맵에 영상 29편을 냈는데도 그렇다.
+ * ⚠ 「영상 사이트맵에 냈다」는 **낸 것**이지 잡힌 것이 아니다. 여기서 막혀 있었다.
+ *
+ * ⛔ 파일 하나를 막는 것이 아니라 «갈래»로 채운다 — 소리·자막·다음에 쓸 것까지.
+ *   새 미디어를 쓰기 시작하면 «여기부터» 더한다. 안 더하면 조용히 octet-stream 이 된다.
+ */
 const TYPES = {
   '.html': 'text/html; charset=utf-8',
   '.css': 'text/css; charset=utf-8',
@@ -78,10 +98,23 @@ const TYPES = {
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.gif': 'image/gif',
+  '.avif': 'image/avif',
   '.svg': 'image/svg+xml',
   '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.woff': 'font/woff',
+  /* 🔴 영상·소리 — 이것이 없어서 우리 영상이 검색에 영상으로 안 잡혔다 */
+  '.mp4': 'video/mp4',
+  '.webm': 'video/webm',
+  '.mov': 'video/quicktime',
+  '.mp3': 'audio/mpeg',
+  '.m4a': 'audio/mp4',
+  '.wav': 'audio/wav',
+  '.vtt': 'text/vtt; charset=utf-8',   /* 자막. 붙이면 체류가 는다 */
+  '.pdf': 'application/pdf',
 };
 
 // public/_headers 와 같은 정책을 여기서도 건다. 호스팅이 바뀌어도 헤더는 유지된다.
