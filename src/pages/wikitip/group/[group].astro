@@ -28,6 +28,13 @@ import WikiTip from '../../../layouts/WikiTip.astro';
 import data from '../../../data/wikitip-groups.json';
 import people from '../../../data/wikitip-people.json';
 import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
+/**
+ * 🔴 [2026-08-29] 그룹 지면 263장에 구조화 데이터가 «하나도» 없었다.
+ *   사람 지면 636장과 같은 결함이고 같은 값이 있는 자리다 — 그룹 이름은
+ *   우리 인기 검색어의 한 갈래인데, 크롤러에게 「이것은 음악 그룹이고 멤버는
+ *   이 사람들이다」를 말해 준 적이 없다.
+ */
+import { 그룹구조화 } from '../../../lib/group-jsonld.ts';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(8/24 에 그것으로
@@ -98,7 +105,8 @@ const DESC = `${g.name} has ${g.membersWithBirthday} members with a birth date o
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/group/${g.slug}`}>
+  canonical={`https://www.kculturewire.com/group/${g.slug}`}
+  jsonLd={그룹구조화(g, new Map(Object.entries(사람문 ?? {})))}>
   <h1>{g.name} members — age and birthday</h1>
 
   {/* ⭐ 답을 맨 앞에. 그리고 «기준 해»를 답과 같은 문단에 둔다 */}

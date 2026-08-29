@@ -34,6 +34,12 @@ import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-li
    그 수를 지면에 안 실으면 «재고 안 쓴 것»이 된다. 여기서 싣는다.
    ⛔ 사람이 5명 아래인 학교는 자료 쪽에서 이미 빠져 있다 — 지면에도 이 칸이 안 나온다. */
 import 도달자료 from '../../../data/kcw-school-reach.json';
+/**
+ * 🔴 [2026-08-29] 학교 지면 55장에 구조화 데이터가 없었다.
+ *   ⛔ 다만 «순위»로 읽히면 안 된다 — 이 자료가 스스로 적어 둔 한계다.
+ *     별점·평가류를 안 넣는 것을 school-jsonld.test.mjs 가 지킨다.
+ */
+import { 학교구조화 } from '../../../lib/school-jsonld.ts';
 
 export function getStaticPaths() {
   /* ⚠ Astro 는 이 함수를 따로 떼어 돌린다 — 바깥 선언이 안 보인다(어제 그것으로 빌드가
@@ -113,7 +119,8 @@ const DESC = 도달 && Number.isFinite(도달.가운데나라수)
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/school/${s.slug}`}>
+  canonical={`https://www.kculturewire.com/school/${s.slug}`}
+  jsonLd={학교구조화(s, new Map(Object.entries(사람문 ?? {})))}>
   <h1>{s.name}</h1>
 
   {/* ⭐ 답을 맨 앞에. 그리고 «무엇을 센 수인지»를 같은 문단에 둔다 */}
