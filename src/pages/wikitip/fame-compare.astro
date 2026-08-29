@@ -45,6 +45,14 @@ const jsonLd = {
   canonical="https://www.kculturewire.com/fame-compare">
   <h1>{TITLE}</h1>
   <p class="lead">{d.question}</p>
+  {/* 🔴 [2026-08-29] 이 지면의 첫 안쪽 링크가 40% 아래에 있었다. 체류 68.6초·걸음 1.39 인
+      손님은 거기까지 못 내려간다. ⛔ 새 링크를 지어내지 않았다 — 이 지면이 아래에서
+      «이미 고른» 걸음을 위로 올린 것뿐이다. */}
+  <p class="walk">
+    <b>Next:</b>{' '}
+    <a href="/sea-athletes">The athletes in full</a> &middot;{' '}
+    <a href="/article/a-label-outreads-the-capital">In Southeast Asia, a Korean record label is looked up more than Seoul</a>
+  </p>
   <p class="q">{d.answer}</p>
   <p class="q">
     Most-read athlete <b>{d.topAthleteTotal}</b> · most-read entertainer <b>{d.topActorTotal}</b>.
@@ -210,5 +218,7 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+    .walk { font-size: .95rem; margin: 1rem 0 1.6rem; padding: .6rem 1rem;
+      border-left: 3px solid var(--accent); }
   .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
 </style>
