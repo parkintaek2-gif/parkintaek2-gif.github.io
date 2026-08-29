@@ -125,15 +125,25 @@ if (process.argv[1] && process.argv[1].endsWith('check-search-readiness.mjs')) {
 
   /* ── ③ 구조화 데이터 — 404 말고는 다 있어야 한다 ── */
   {
+    /**
+     * ⚠ [2026-08-29] **접은 지면(noindex)은 여기서도 안 센다.** 사이트맵 쪽과 같은 까닭이다 —
+     *   내려놓은 지면에 구조화 데이터를 붙이는 것은 「이 지면을 실어 달라」는 말이 된다.
+     *   ⛔ 결함이 아니라 «우리가 정한 것»을 결함으로 세면 진짜가 그 사이에 묻힌다.
+     * ⭐ 그리고 몇 장을 그렇게 뺐는지 «수로» 말한다. 조용히 빼지 않는다.
+     */
     const 없는 = [];
+    let 일부러뺀구조화 = 0;
+    const 구조화있나 = (글) => /application\/ld\+json/.test(글);
+    const noindex달렸나 = (글) => /name=["']robots["'][^>]*noindex/.test(글);
     for (const [묶음, 목록, 앞] of [['지면', 지면, D], ['기사', 기사, `${D}/article`]]) {
       for (const f of 목록) {
-        if (!/application\/ld\+json/.test(fs.readFileSync(path.join(앞, f), 'utf8'))) {
-          없는.push(묶음 === '기사' ? `article/${f}` : f);
-        }
+        const 글 = fs.readFileSync(path.join(앞, f), 'utf8');
+        if (구조화있나(글)) continue;
+        if (noindex달렸나(글)) { 일부러뺀구조화 += 1; continue; }
+        없는.push(묶음 === '기사' ? `article/${f}` : f);
       }
     }
-    if (fs.existsSync(첫화면) && !/application\/ld\+json/.test(fs.readFileSync(첫화면, 'utf8'))) 없는.push('/');
+    if (일부러뺀구조화) console.log(`⬜ 구조화 데이터를 «일부러» 안 붙인 것 ${일부러뺀구조화}장 — noindex 를 단 지면들이다`);
     if (없는.length) 문제.push(`🔴 구조화 데이터가 없는 것 ${없는.length}장: ${없는.slice(0, 5).join(' · ')}`);
   }
 

@@ -46,6 +46,12 @@ export function getStaticPaths() {
   }));
 }
 
+/**
+ * 🔴 [2026-08-29] 목록 지면 213장에 구조화 데이터가 «하나도» 없었다.
+ *   갈래는 일곱인데 하는 일이 같아서 자를 하나만 두고 나눠 쓴다.
+ * ⛔ 순위가 아니다 — 이건 «묶음»이다.
+ */
+import { 목록구조화 } from '../../../lib/list-jsonld.ts';
 const { 달번호, 달이름: 이달, 앞달, 뒷달 } = Astro.props as
   { 달번호: string; 달이름: string; 앞달: string; 뒷달: string };
 
@@ -93,7 +99,14 @@ const DESC = `${사람.toLocaleString('en-US')} Korean stars have a birthday in 
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/born-in/${이달.toLowerCase()}`}>
+  canonical={`https://www.kculturewire.com/born-in/${이달.toLowerCase()}`}
+  jsonLd={목록구조화({
+    주소: `/born-in/${이달.toLowerCase()}`,
+    이름: `Korean stars born in ${이달}`,
+    설명: DESC,
+    /* ⚠ 이 지면이 세는 것은 사람이 아니라 «날»이다. 그대로 낸다 */
+    줄들: 날들.map((d: any) => ({ name: 날글(d.day), url: d.url })),
+  })}>
   <h1>Korean stars born in {이달}</h1>
 
   {/* ⭐ 답을 맨 앞에. 손님이 물은 것은 「몇 명이냐」와 「누구냐」다.

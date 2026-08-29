@@ -51,6 +51,12 @@ export function getStaticPaths() {
   }));
 }
 
+/**
+ * 🔴 [2026-08-29] 목록 지면 213장에 구조화 데이터가 «하나도» 없었다.
+ *   갈래는 일곱인데 하는 일이 같아서 자를 하나만 두고 나눠 쓴다.
+ * ⛔ 순위가 아니다 — 이건 «묶음»이다.
+ */
+import { 목록구조화 } from '../../../lib/list-jsonld.ts';
 const { s, 앞, 뒤, 전체, 사람문 } = Astro.props as { s: any; 앞: any; 뒤: any; 전체: number ; 사람문: Record<string, string> };
 
 const 못실린 = s.people - s.listed;
@@ -75,7 +81,18 @@ const DESC = `${s.people.toLocaleString('en-US')} Korean actors and singers were
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/star-sign/${s.slug}`}>
+  canonical={`https://www.kculturewire.com/star-sign/${s.slug}`}
+  jsonLd={목록구조화({
+    주소: `/star-sign/${s.slug}`,
+    이름: `Korean actors who are ${s.name}`,
+    설명: DESC,
+    /* ⚠ 지면의 표와 «같은 순서»로 낸다 */
+    줄들: (s.top ?? []).map((p: any) => ({
+      name: p.name,
+      url: 사람문?.[String(p.name).toLowerCase().replace(/\s+/g, ' ').trim()]
+        ? `/person/${사람문[String(p.name).toLowerCase().replace(/\s+/g, ' ').trim()]}` : null,
+    })),
+  })}>
   <h1>Korean actors who are {s.name}</h1>
 
   {/* ⭐ 답을 맨 앞에. 손님이 물은 것은 「몇 명이냐」와 「누구냐」다 */}

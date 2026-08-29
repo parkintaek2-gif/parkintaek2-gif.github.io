@@ -189,6 +189,38 @@ const 이름칸 = (이름) => {
   return s ? `<a href="/person/${s}">${감(벗(이름))}</a>` : 감(벗(이름));
 };
 
+/**
+ * 🔴 [2026-08-29] 이 지면 79장에 구조화 데이터가 «하나도» 없었다.
+ *   사람·그룹·학교·목록 지면을 다 붙이고 마지막으로 남은 갈래다.
+ * ⚠ 이 빌더는 Astro 밖에서 돌아 `src/lib/list-jsonld.ts` 를 못 들여온다.
+ *   그래서 «같은 규칙»을 여기 옮겨 적는다 —
+ *     ① 지면의 표와 «같은 순서»로 낸다(보기 좋게 다시 정렬하지 않는다)
+ *     ② 사람 지면이 «있는» 사람만 url 을 붙인다
+ *     ③ ⛔ 순위가 아니다. position 은 「몇 번째 줄」이지 등수가 아니다
+ *     ④ 목록이 비면 ItemList 를 아예 안 넣는다
+ */
+function 해구조화(해, 보일것, 설명) {
+  const 칸 = 보일것.map((p, i) => {
+    const 슬 = 이름표.get(String(p.이름).toLowerCase().trim());
+    const 것 = { '@type': 'ListItem', position: i + 1, name: 벗(p.이름) };
+    if (슬) 것.url = `https://www.kculturewire.com/person/${슬}`;
+    return 것;
+  });
+  const 판 = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    url: `https://www.kculturewire.com/born-year/${해}`,
+    name: `Korean actors and idols born in ${해}`,
+    description: 설명,
+    isPartOf: { '@type': 'WebSite', name: 'K Culture Wire', url: 'https://www.kculturewire.com' },
+    isBasedOn: ['https://www.wikidata.org'],
+  };
+  if (칸.length) {
+    판.mainEntity = { '@type': 'ItemList', numberOfItems: 칸.length, itemListElement: 칸 };
+  }
+  return 판;
+}
+
 const { 표: 해표, 해없음 } = 해별로(사람들);
 const { 낼것, 얇은것 } = 낼해고르기(해표);
 
@@ -215,6 +247,8 @@ for (let i = 0; i < 낼것.length; i += 1) {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/born-year/${해}">
 <title>${감(제목)} | K Culture Wire</title>
+<script type="application/ld+json">${JSON.stringify(해구조화(해, 보일것,
+  `${해표.get(해).length} Korean actors and singers were born in ${해}. They turn ${나이} this year.`))}</script>
 <meta name="description" content="${해표.get(해).length} Korean actors and singers were born in ${해}${으뜸 ? `, including ${감(벗(으뜸.이름))}` : ''}. They turn ${나이} this year. Every name listed.">
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --accent:#b4472a; --accent-soft:#fdf3f0; }

@@ -78,6 +78,13 @@ export async function getStaticPaths() {
   }));
 }
 
+/**
+ * 🔴 [2026-08-29] 목록 지면 213장에 구조화 데이터가 «하나도» 없었다.
+ *   갈래는 일곱인데 하는 일이 같아서(어떤 조건에 맞는 것들의 목록) 자를 하나만 두고
+ *   일곱이 나눠 쓴다 — 일곱 개를 지으면 하나를 고칠 때 여섯이 안 따라온다.
+ * ⛔ 순위가 아니다 — 이건 «묶음»이다.
+ */
+import { 목록구조화 } from '../../../lib/list-jsonld.ts';
 const { 슬러그: s, 이름들, 글, 태그전체, 안낸태그, 이웃 } = Astro.props as any;
 const 보일이름 = 이름들[0];
 const TITLE = `${보일이름} — ${글.length} pieces we have published on it`;
@@ -86,7 +93,14 @@ const DESC = `Everything K Culture Wire has published tagged ${보일이름}: ${
 ---
 
 <WikiTip title={TITLE} description={DESC}
-  canonical={`https://www.kculturewire.com/tag/${s}`}>
+  canonical={`https://www.kculturewire.com/tag/${s}`}
+  jsonLd={목록구조화({
+    주소: `/tag/${s}`,
+    이름: `#${보일이름}`,
+    설명: DESC,
+    /* ⚠ 지면과 «같은 순서»(새것 먼저)로 낸다 */
+    줄들: 글.map((e: any) => ({ name: e.title, url: `/article/${e.id}` })),
+  }, ['https://www.kculturewire.com/articles'])}>
   <h1>#{보일이름}</h1>
 
   <p class="lead">
