@@ -43,13 +43,46 @@ export function 줄읽기(줄) {
 }
 
 /**
+ * 🔴🔴 [2026-08-29] **같은 뜻의 다른 말이 «조용히» 걸러지고 있었다.**
+ *   이 자는 상태가 「산다」인 줄만 냈는데, 파일에는 「살아있음」으로 적힌 줄이 **넷** 있었다.
+ *   그 넷이 상태줄에도 창에도 **한 번도 안 나왔다** — 그중 하나가 사장님의
+ *   「영상이 6번이 아니라, 텍스트가 6번이야」였다. 내가 그 지시를 오래 못 보고 있었다.
+ *
+ * ⛔ 결함에 이름을 붙인다 — **「같은 뜻의 다른 말이 조용히 걸러진다」**.
+ *   거르는 자는 «모르는 값»을 만나면 조용히 버리면 안 된다. 버릴 거면 «말하고» 버려야 한다.
+ *
+ * ✅ 그래서 둘을 한다 — ① 같은 뜻을 다 받는다 ② 모르는 상태는 «세어서 알려 준다».
+ */
+export const 산것으로치는말 = ['산다', '살아있음', '살아 있음', '유효'];
+export const 죽은것으로치는말 = ['취소', '끝남', '지남', '대체됨'];
+
+/** 이 상태가 「살아 있다」인가. ⛔ 모르는 말은 살았다고도 죽었다고도 안 한다 — null */
+export function 살았나(상태) {
+  const s = String(상태 ?? '').trim();
+  if (산것으로치는말.includes(s)) return true;
+  if (죽은것으로치는말.includes(s)) return false;
+  return null;
+}
+
+/**
  * 살아 있는 지시를 다 읽는다.
  * ⚠ 못 읽으면 빈 목록이다 — 훅을 죽이지 않는다.
+ * ⚠ 모르는 상태는 «살아 있는 쪽»으로 낸다. 지시를 못 보여 주는 것이 더 나쁘다.
+ *   그런 줄이 있으면 `모르는상태()` 가 이름으로 알려 준다.
  */
 export function 지시들(길 = 대장길, 읽기 = (p) => fs.readFileSync(p, 'utf8')) {
   let 글;
   try { 글 = 읽기(길); } catch { return []; }
-  return String(글).split(/\r?\n/).map(줄읽기).filter(Boolean).filter((o) => o.상태 === '산다');
+  return String(글).split(/\r?\n/).map(줄읽기).filter(Boolean)
+    .filter((o) => 살았나(o.상태) !== false);
+}
+
+/** 🔴 모르는 상태로 적힌 줄들 — 조용히 넘기지 않으려고 따로 낸다 */
+export function 모르는상태(길 = 대장길, 읽기 = (p) => fs.readFileSync(p, 'utf8')) {
+  let 글;
+  try { 글 = 읽기(길); } catch { return []; }
+  return String(글).split(/\r?\n/).map(줄읽기).filter(Boolean)
+    .filter((o) => 살았나(o.상태) === null);
 }
 
 /**

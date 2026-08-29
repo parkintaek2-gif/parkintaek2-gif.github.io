@@ -71,7 +71,16 @@ export function 판정(글, 선 = 무음선) {
   return v <= 선 ? '무음' : '소리있음';
 }
 
-if (process.argv.includes('--자가시험')) {
+/*
+ * 🔴 [2026-08-29] 이 자를 «불러다 쓰려» 했더니 부르는 쪽 일이 안 됐다 —
+ *   자가시험과 재는 부분이 «파일을 읽기만 해도» 돌아가고 그대로 exit 해 버렸다.
+ *   ⚠ 한 번 고치고도 자가시험 쪽을 안 막아 두 번 걸렸다. 둘 다 막는다.
+ * ⛔ 불려 갈 수 없는 자는 두 번 만들게 된다. 규칙을 두 군데 적게 되는 길이다.
+ */
+const 내가돌려졌다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가돌려졌다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
 
@@ -104,6 +113,7 @@ if (process.argv.includes('--자가시험')) {
 }
 
 /* ── 실제로 잰다 ── */
+if (내가돌려졌다) {
 if (!fs.existsSync(영상방)) {
   console.log(`⬜ 못 쟀다 — ${영상방} 이 없다`);
   process.exit(0);
@@ -150,3 +160,4 @@ if (셈.못쟀다.length) {
 console.log('\n⛔ 「소리 트랙이 있나」로 검사하면 전부 통과한다 — 생성기가 anullsrc(빈 소리)를 붙이기 때문이다.');
 console.log('   음량을 «재야» 드러난다. 무음판 −91 dB · 우리 소리판 −23 dB.');
 process.exit(0);
+}
