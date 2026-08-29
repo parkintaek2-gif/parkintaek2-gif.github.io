@@ -158,6 +158,13 @@
    "src": "/video/spike-hearts2hearts.mp4"
   },
   {
+   "set": "spike-hearts2hearts-voiced",
+   "seconds": 14,
+   "uploadDate": "2026-08-29",
+   "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
+   "src": "/video/spike-hearts2hearts-voiced.mp4"
+  },
+  {
    "set": "tworulers",
    "seconds": 14,
    "uploadDate": "2026-08-29",
@@ -179,5 +186,6 @@
    "src": "/video/works.mp4"
   }
  ],
- "unmeasured": []
+ "unmeasured": [],
+ "⚠ 소리판": "이름 뒤 -voiced 는 «소리를 입힌» 판이다. 무음판을 지우지 않고 옆에 둔다 — 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해, 영상 제목만 바꿔서」."
 }

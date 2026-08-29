@@ -273,6 +273,15 @@ const videoSets = [
     title: 'Hearts2Hearts was looked up twice as often yesterday on the Vietnamese Wikipedia',
     description: '14 seconds on a name that moved on one Wikipedia edition yesterday — what an encyclopaedia open counts, and why the reason for the move is not in the data.',
   },
+  /* 🔴 [2026-08-29] 사장님 「무성 콘텐트 삭제하지 말고 소리만 입혀서 추가로 배포해,
+     영상 제목만 바꿔서」. 무음판을 «두고» 소리판을 «옆에» 놓는다.
+     ⛔ 같은 제목을 쓰지 않는다 — 같으면 손님이 어느 것에 소리가 있는지 모른다. */
+  {
+    set: 'spike-hearts2hearts-voiced',
+    page: '/group/hearts2hearts',
+    title: 'Hearts2Hearts moved on one Wikipedia yesterday — narrated, with sound',
+    description: '14 seconds, now spoken aloud over music we made ourselves. The measurement has not changed: what an encyclopaedia open counts, what it does not, and why the reason a name moved is not in the data.',
+  },
   {
     set: 'actors',
     page: '/actors-first',

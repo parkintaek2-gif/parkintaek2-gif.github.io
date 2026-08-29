@@ -266,9 +266,14 @@ for (const f of 지면들모으기(지면방)) {
 const 그룹영상길 = path.join(뿌리, 'src/data/kcw-group-video.json');
 if (fs.existsSync(그룹영상길)) {
   const 그룹영상 = JSON.parse(fs.readFileSync(그룹영상길, 'utf8')).영상 ?? {};
+  /* ⚠ [2026-08-29] 한 그룹에 «여러 편»이 붙을 수 있게 됐다 — 무음판과 소리판이
+     같이 서는 꼴이다(사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」).
+     ⛔ 하나만 읽으면 소리판이 조용히 빠진다. 옛 꼴(객체 하나)도 그대로 읽는다. */
+  const 한그룹의영상들 = (v) => (Array.isArray(v) ? v : [v]).filter((x) => x?.set);
   for (const [slug, v] of Object.entries(그룹영상)) {
-    if (!v?.set) continue;
-    담기(v.set, { page: `/group/${slug}`, says: v.says ?? null, heading: v.heading ?? null });
+    for (const x of 한그룹의영상들(v)) {
+      담기(x.set, { page: `/group/${slug}`, says: x.says ?? null, heading: x.heading ?? null });
+    }
   }
 }
 

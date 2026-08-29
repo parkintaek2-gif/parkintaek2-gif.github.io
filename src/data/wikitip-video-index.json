@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-29 05:55 UTC",
+  "generated": "2026-08-29 09:51 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 25,
-    "짝찾음": 25,
+    "영상": 26,
+    "짝찾음": 26,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 24,
+    "지면에서읽음": 25,
     "원본에서읽음": 1
   },
   "videos": [
@@ -228,6 +228,16 @@
       "seconds": 14,
       "page": "/group/hearts2hearts",
       "says": "Fourteen seconds: this name was opened about twice as often on the Vietnamese Wikipedia yesterday as on an average day the week before. An encyclopaedia open is not a stream, a ticket or a fan — and the data does not say why it moved.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "spike-hearts2hearts-voiced",
+      "src": "/video/spike-hearts2hearts-voiced.mp4",
+      "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
+      "seconds": 14,
+      "page": "/group/hearts2hearts",
+      "says": "The same fourteen seconds, now spoken aloud over music we made ourselves. The measurement has not changed: this name was opened about twice as often on the Vietnamese Wikipedia yesterday as on an average day the week before. An encyclopaedia open is not a stream, a ticket or a fan, and the data does not say why it moved.",
       "saysFrom": "page source",
       "alsoOn": []
     },
