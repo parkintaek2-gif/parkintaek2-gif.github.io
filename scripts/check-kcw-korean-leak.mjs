@@ -12,8 +12,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 못재면멈춘다 } from './lib/dist-ready.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/* ⛔ 덜 지어진 dist 를 재면 «거짓 빨강»이나 «거짓 초록»이 나온다. 그럴 땐 안 잰다 */
+if (!process.argv.includes('--자가시험')) 못재면멈춘다(뿌리, 'check-kcw-korean-leak');
 
 /** 한국어 낱말 하나가 **뜻을 달고 있는가**. 앞뒤 어느 쪽이든 로마자 짝이 있으면 정당하다 */
 export function 뜻이있나(글, 자리, 낱말) {

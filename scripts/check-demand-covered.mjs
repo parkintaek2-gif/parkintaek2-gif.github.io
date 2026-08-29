@@ -29,8 +29,12 @@
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 못재면멈춘다 } from './lib/dist-ready.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/* ⛔ 덜 지어진 dist 를 재면 «거짓 빨강»이나 «거짓 초록»이 나온다. 그럴 땐 안 잰다 */
+if (!process.argv.includes('--자가시험')) 못재면멈춘다(뿌리, 'check-demand-covered');
 
 const 인자 = (이름, 기본) => {
   const 머리 = `--${이름}=`;

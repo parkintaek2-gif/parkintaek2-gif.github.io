@@ -26,8 +26,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 못재면멈춘다 } from './lib/dist-ready.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+
+/* ⛔ 덜 지어진 dist 를 재면 «거짓 빨강»이나 «거짓 초록»이 나온다. 그럴 땐 안 잰다 */
+if (!process.argv.includes('--자가시험')) 못재면멈춘다(뿌리, 'check-kcw-comment-leak');
 
 /** 우리말(한글 음절)이 있나. ⚠ 한자·가나는 안 본다 — 그건 손님에게 보여 주는 원어일 수 있다. */
 export function 우리말있나(글자) {
