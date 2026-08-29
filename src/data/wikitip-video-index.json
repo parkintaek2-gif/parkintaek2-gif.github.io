@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-29 00:31 UTC",
+  "generated": "2026-08-29 01:06 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 23,
-    "짝찾음": 23,
+    "영상": 24,
+    "짝찾음": 24,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 22,
+    "지면에서읽음": 23,
     "원본에서읽음": 1
   },
   "videos": [
@@ -237,7 +237,17 @@
       "thumb": "/video/thumb/onecountry.jpg",
       "seconds": 14,
       "page": "/underrated",
-      "says": "Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never left one country, while the middle title we publish charted in …. Long is not wide, and we counted both.",
+      "says": "Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never left one country, while the middle title we publish charted in 7. Long is not wide, and we counted both.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "tworulers",
+      "src": "/video/tworulers.mp4",
+      "thumb": "/video/thumb/tworulers.jpg",
+      "seconds": 14,
+      "page": "/person",
+      "says": "Fourteen seconds: we measure people two ways — how often their Wikipedia page is opened, and how many countries their titles charted in. Of the people we can measure both ways, not one is in the top five of both lists.",
       "saysFrom": "page source",
       "alsoOn": []
     }
