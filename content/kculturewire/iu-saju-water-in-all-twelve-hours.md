@@ -64,6 +64,6 @@ And a count we published ourselves, on our own data: across 1,047 Korean actors 
 
 ## Who else is in the room
 
-IU was born in a Rooster year, and so were 91 other Korean actors and singers we hold a birth date for. Of the 69 in that room whose Wikipedia reads we can measure across Indonesian, Vietnamese, Thai and Malay, IU is read most — 208.57 per million, ahead of Song Hye-kyo at 154.46 and Jun Ji-hyun at 114.48. Han So-hee shares the year as well, born in November 1993. The whole room is at [kculturewire.com/room/rooster](/room/rooster).
+IU was born in a Rooster year, and so were 91 other Korean actors and singers we hold a birth date for. Of the 69 in that room whose Wikipedia reads we can measure across Indonesian, Vietnamese, Thai and Malay, IU is read most — 208.57 per million, ahead of Song Hye-kyo at 154.46 and Jun Ji-hyun at 114.48. Han So-hee shares the year as well, born in November 1993. Every one of those names, with the birth years beside them, is at [kculturewire.com/star-signs](/star-signs).
 
 The reading is KLifeMap's, and it is published in Korean: [the full text is here](https://klifemap.ai/content/star-iu-samju-saju). Readers who want to put their own date through the same engine in English can do that at [klifemap.ai](https://klifemap.ai/saju.html?lang=en). What we can count — who shares a birth year with whom, and how flat that spread turns out to be — is at [kculturewire.com/star-signs](/star-signs).

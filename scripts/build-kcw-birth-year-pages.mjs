@@ -35,6 +35,30 @@ import fs from 'node:fs';
 import path from 'node:path';
 import url from 'node:url';
 import { 꼬리말 } from './kcw-static-footer.mjs';
+/**
+ * 🔴 [2026-08-29] 여기서 나이 묶음 주소를 «손으로 계산»하고 있었다 —
+ *   `${Math.floor(나이 / 10)}0s`. 그래서 2007~2009년생 지면 8장이 «/actors-in-their/10s»
+ *   를 걸었고, 그 지면은 «있지도 않다**. 열아홉 살 묶음은 일부러 안 내는 것이다
+ *   (`묶음표` 의 `지면낼까: false` — 미성년자를 나이로 모아 놓은 지면은 안 낸다).
+ * ⛔ 같은 사실을 두 군데서 계산하면 반드시 갈라진다. 원본에서 들여와 쓴다.
+ *   `check-kcw-broken-links.mjs` 가 이것을 잡아 주었다.
+ */
+import { 묶음표, 묶음찾기 } from './build-kcw-age-bands.mjs';
+
+/** 이 지면들이 나이를 세는 기준 해. ⚠ 한 군데에만 적는다 */
+export const 기준해 = 2026;
+
+/**
+ * 태어난 해 → 꼬리말에 넣을 「나이 묶음」 한 조각.
+ * ⛔ 지면을 «안 내는» 묶음(teens)이면 **빈 글자**를 낸다 — 없는 지면으로 손님을 보내지 않는다.
+ * ⚠ 링크가 빠진 자리에 「10대」라고 «글자로도» 안 적는다. 안 내기로 한 갈래다.
+ */
+export function 나이묶음문(해, 올해 = 기준해) {
+  const 슬러그 = 묶음찾기(Number(해), 올해);
+  const 칸 = 묶음표.find((b) => b.슬러그 === 슬러그);
+  if (!칸 || !칸.지면낼까) return '';
+  return `<a href="/actors-in-their/${칸.슬러그}">Korean actors in their ${칸.이름}</a> &middot; `;
+}
 
 const 뿌리 = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '..');
 const 원자료 = path.join(뿌리, 'archive/raw/wikidata/korean-entertainers-birth.json');
@@ -245,7 +269,7 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born in this
 
   ${꼬리말([
     '<a href="/most-read">The 100 most-read Korean stars this month</a> &middot; '
-      + `<a href="/actors-in-their/${나이 >= 60 ? '60s-and-over' : `${Math.floor(나이 / 10)}0s`}">Korean actors in their ${나이 >= 60 ? '60s and over' : `${Math.floor(나이 / 10)}0s`}</a> &middot; `
+      + 나이묶음문(해) 
       + '<a href="/hometowns">Where they were born</a>',
     'Birth dates: Wikidata (best-ranked, day precision; South Korean citizenship; entertainment '
       + 'occupation), CC0. Readers: Wikimedia Pageviews, human traffic only. Readers are not searches.',

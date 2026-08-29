@@ -440,7 +440,10 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('⛔⛔ 단추가 갈 곳이 있다', /<a class="cta" href="\/room\//.test(판), true);
   재본다('⛔ 죽은 단추가 없다', /disabled/.test(판), false);
   재본다('⛔ 단추 수가 방 수와 같다', (판.match(/class="cta"/g) ?? []).length, 카드수);
-  재본다('⛔ 화면에 한국어가 없다', /[가-힣]/.test(판), false);
+  /* ⚠ 2026-08-29 — 통신판매업 신고번호(2026-세종-0591)는 법정 번호라 로마자로 못 바꾼다.
+     그 한 자리만 빼고 본다. ⛔ 검사를 지우지 않는다 — 우리 사정이 손님 화면에 새는 것을 막는 자다 */
+  const 신고번호빼기 = (t) => String(t).replace(/2026-세종-\d+/g, '');
+  재본다('⛔ 화면에 한국어가 없다 — 신고번호만 빼고', /[가-힣]/.test(신고번호빼기(판)), false);
   재본다('⛔ 점을 안 친다는 말이 있다', /indistinguishable from chance/.test(판), true);
   재본다('영문 지면이다', /<html lang="en">/.test(판), true);
   /* 🔴 사이트맵에 실린 지면에 noindex 를 달면 모순된 신호다 */
@@ -463,7 +466,7 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   const 붙여 = (s) => s.replace(/\s+/g, ' ');
   재본다('⛔ 방에서도 점을 안 친다',
     붙여(방판).includes('indistinguishable from chance'), true);
-  재본다('⛔ 방에 한국어가 없다', /[가-힣]/.test(방판), false);
+  재본다('⛔ 방에 한국어가 없다 — 신고번호만 빼고', /[가-힣]/.test(신고번호빼기(방판)), false);
   재본다('⛔ 아직 글쓰기가 없다고 적는다', /no sign-in and no\s+posting/.test(방판), true);
   재본다('⛔⛔ 방에도 noindex 가 없다', /noindex/.test(방판), false);
   재본다('방 주소를 소문자로 만든다', 방주소('Rooster'), '/room/rooster');
@@ -525,32 +528,51 @@ if (내가실행됐다) {
    *   ⛔ 이 자는 첫 화면을 **더 쓰지 않는다** — 두 자가 한 파일을 쓰면 나중 것이 앞 것을 지운다.
    *   이 자가 계속 하는 일은 띠 방 열두 장이다. 그 방들은 살아 있고 /star-signs 에서 닿는다.
    */
-  console.log(`⛔ 첫 화면은 안 쓴다 — build-kcw-community-front.mjs 몫이다`);
-
-  /* 🔴 열두 방을 다 만든다 — 하나만 열면 나머지 열하나가 죽은 단추다 */
-  /* 🔴 [2026-08-26] 사람 지면 명단을 한 번 읽어 이름에 문을 단다.
-     ⚠ 명단이 없으면 걸지 않는다 — 예전과 똑같이 글자로 나간다. 빌드가 죽지 않게. */
-  const 사람지면길 = path.join(뿌리, 'src/data/wikitip-people.json');
-  let 사람이름표들 = null;
-  if (fs.existsSync(사람지면길)) {
-    const j = JSON.parse(fs.readFileSync(사람지면길, 'utf8'));
-    const r = 사람이름표(j.people ?? []);
-    사람이름표들 = r.표;
-    console.log(`   사람 지면 ${(j.people ?? []).length}장 → 이름 ${r.표.size}개에 문을 단다`
-      + (r.겹친수 ? ` (겹쳐서 «안 거는» 것 ${r.겹친수}개)` : ''));
-  } else {
-    console.log('   ⚠ 사람 지면 명단이 없다 — 이름을 글자로만 낸다(예전과 같다)');
-  }
+  /**
+   * 🔴🔴 [2026-08-29 · 사장님 「띠 방 내려」] **이 자는 이제 짓지 않고 «치운다».**
+   *
+   * 왜 — 순위가 낮은 것이 아니라 «찾는 사람이 없다». 네 유닛이 따로 재고 같은 데 닿았다.
+   *   5번  자동완성으로 재니 띠 관련 검색어가 0줄. 방 12장 노출 28 · 클릭 3
+   *   6번  「이름·SEO 를 손봐도 안 산다. 축을 갈아야 산다」
+   *   3번  「띠는 태어난 해라 영원히 안 바뀐다 — 다시 올 이유가 물리적으로 없다」
+   *   4번  「커뮤니티가 되려면 ①다시 올 이유 ②왔다는 흔적 — 지금은 둘 다 없다」
+   *
+   * ⛔ 파일만 지우고 이 자를 그대로 두면 «다음 빌드가 다시 지어 올린다».
+   *   그래서 부르면 남은 것을 «치우도록» 만들었다.
+   * ⚠ 아래 방짓기() 같은 것은 지우지 않고 남긴다 — 자가시험이 그것을 재고 있고,
+   *   축을 다시 세울 날이 오면 틀은 그대로 쓴다. 내린 것은 «내보내는 것»이지 «만드는 법»이 아니다.
+   * ⭐ 이름 1,047개는 안 잃었다 — /star-signs · /zodiac 표와 사람 지면에 그대로 있다.
+   */
+  console.log('⛔ 띠 방은 내렸다(2026-08-29 사장님 지시). 이 자는 남은 것을 치운다');
 
   const 방방 = path.join(뿌리, 'public', 'wikitip', 'room');
-  fs.mkdirSync(방방, { recursive: true });
-  let 이름합 = 0;
-  for (const s of 자료.signs) {
-    const 길 = path.join(방방, `${s.sign.toLowerCase()}.html`);
-    fs.writeFileSync(길, 방짓기(s, 자료, 기사, 사람이름표들));
-    이름합 += s.all.length;
-    console.log(`   ${방주소(s.sign).padEnd(18)} 이름 ${String(s.all.length).padStart(3)}`
-      + `  (읽힘 ${s.withReads} · 못 잰 ${s.all.length - s.withReads})`);
+  if (!fs.existsSync(방방)) {
+    console.log('   치울 것 없음 — public/wikitip/room/ 이 이미 없다');
+  } else {
+    /**
+     * ⚠⚠ [2026-08-29] **여기에 함정이 하나 있다.** 방을 내린 뒤,
+     *   `check-kcw-retired-pages.mjs --낸다` 가 **같은 주소에 「왜 접었는지」 지면을 낸다.**
+     *   그 지면들도 `public/wikitip/room/*.html` 이다. 그러니 여기서 폴더를 통째로 비우면
+     *   **내가 방금 낸 안내 지면을 내가 지운다.** 손님은 빈 404 를 보게 된다.
+     * ⭐ 그래서 «접은 까닭이 적힌 지면»은 남기고, 옛 방 지면만 지운다.
+     *   가르는 표는 접은-지면이 달고 나오는 noindex 다 — 옛 방 지면에는 없었다
+     *   (사이트맵에 실려 있었으니 noindex 를 달 수 없었다).
+     */
+    const 접은지면인가 = (길) => {
+      try { return /name="robots"[^>]*noindex/.test(fs.readFileSync(길, 'utf8')); }
+      catch { return true; }   /* 못 읽으면 «안 지운다» — 못 잰 것을 지우지 않는다 */
+    };
+    const 다 = fs.readdirSync(방방).filter((n) => n.endsWith('.html'));
+    const 치운것 = [];
+    const 남긴것 = [];
+    for (const n of 다) {
+      const 길 = path.join(방방, n);
+      if (접은지면인가(길)) { 남긴것.push(n); continue; }
+      fs.rmSync(길);
+      치운것.push(n);
+    }
+    if (fs.readdirSync(방방).length === 0) fs.rmdirSync(방방);
+    console.log(`   치웠다 — 옛 방 지면 ${치운것.length}장`
+      + (남긴것.length ? ` · 접은 까닭이 적힌 지면 ${남긴것.length}장은 남겼다` : ''));
   }
-  console.log(`\n방 ${자료.signs.length}개 · 이름 합계 ${이름합}`);
 }

@@ -68,6 +68,6 @@ And a count we published ourselves, on our own data: across 1,047 Korean actors 
 
 1997 is an Ox year, and we hold a birth date for 82 Korean stars born in Ox years. Jungkook is not one of them. All 82 names are on that page and no BTS member appears anywhere in the 1,047 the rooms are built from — a gap in the list we drew from Wikidata, not a finding about the group. Not in our list and not read are different things, so we say which one this is.
 
-The Ox room is led by Cha Eun-woo, also born in 1997, at 200.33 reads per million across the Indonesian, Vietnamese, Thai and Malay Wikipedias, with Song Joong-ki at 106.36 and Lee Kwang-soo at 70.94. It is at [kculturewire.com/room/ox](/room/ox).
+The Ox room is led by Cha Eun-woo, also born in 1997, at 200.33 reads per million across the Indonesian, Vietnamese, Thai and Malay Wikipedias, with Song Joong-ki at 106.36 and Lee Kwang-soo at 70.94. Those names sit with the rest at [kculturewire.com/star-signs](/star-signs).
 
 The reading is KLifeMap's, and it is published in Korean: [the full text is here](https://klifemap.ai/content/star-jungkook-samju-saju). Readers who want to put their own date through the same engine in English can do that at [klifemap.ai](https://klifemap.ai/saju.html?lang=en). What we can count — who shares a birth year with whom, and how flat that spread turns out to be — is at [kculturewire.com/star-signs](/star-signs).

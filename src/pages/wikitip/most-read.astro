@@ -33,11 +33,12 @@ const { 표: 사람표 } = 이름표만들기(people.people ?? []);
 /* ⚠ 줄마다 Map 을 객체로 바꾸면 수백 번 만든다 — 한 번만 만든다 */
 const 사람문 = Object.fromEntries(사람표);
 
-/** 띠 방에 이름이 실려 있는 사람은 그 방으로 보낸다 — 이름에서 이름으로 걷게 */
-const 방주소 = new Map<string, string>();
-for (const s of signs.signs ?? []) {
-  for (const p of (s as any).top ?? []) 방주소.set(p.name, `/room/${String((s as any).sign).toLowerCase()}`);
-}
+/**
+ * 🔴 [2026-08-29 · 사장님 「띠 방 내려」] 띠 방 12장을 내렸으므로 이 칸도 뺐다.
+ *   ⛔ 지면을 내리면서 그 지면을 «가리키는 칸»을 남기면 손님이 404 를 만난다.
+ *   ⚠ 이름에서 이름으로 걷는 길은 남아 있다 — 왼쪽 이름이 사람 지면으로, 「same day」가
+ *     생일 지면으로 간다. 방이 하던 일을 이 둘이 이미 하고 있었다.
+ */
 
 /**
  * 🔴 2026-08-22 15:2x — 라이브에 **한글 이름이 하나 나갔다**(「카리나」 73위).
@@ -101,7 +102,7 @@ const jsonLd = {
     <div class="scroll-x">
       <table>
         <thead>
-          <tr><th>#</th><th>Name</th><th>Readers, 30 days</th><th>Born</th><th>Who shares this birthday</th><th>Born-year room</th></tr>
+          <tr><th>#</th><th>Name</th><th>Readers, 30 days</th><th>Born</th><th>Who shares this birthday</th></tr>
         </thead>
         <tbody>
           {줄.map((p: any, i: number) => (
@@ -112,7 +113,6 @@ const jsonLd = {
               <td>{p.reads.toLocaleString('en-US')}</td>
               <td class="fine">{p.born}</td>
               <td class="fine"><a href={`/born-on/${String(p.born).slice(5)}`}>same day</a></td>
-              <td class="fine">{방주소.has(보일이름(p)) ? <a href={방주소.get(보일이름(p))}>room</a> : <span>—</span>}</td>
             </tr>
           ))}
         </tbody>

@@ -166,6 +166,17 @@ export function 방들(자료) {
 }
 
 /** ⛔ 이 자는 화면에 한국어를 안 낸다. 우리 사정은 이 파일 주석에만 있다 */
+/**
+ * ⚠ 2026-08-29 — 첫 줄의 「Ten rooms」가 방을 아홉으로 줄인 뒤에도 «열»로 남아 있었다.
+ *    자가시험 20개가 다 통과하는데 손님이 보는 첫 문장이 틀린 자리다.
+ *    그래서 수를 손으로 적지 않고 «방 수에서 뽑는다». 아래 자가시험이 이것을 지킨다.
+ */
+export function 수를글자로(n) {
+  const 말 = ['zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine',
+    'Ten', 'Eleven', 'Twelve'];
+  return 말[n] ?? String(n);
+}
+
 export function 판짓기(방, 자료) {
   const 칸 = 방.map((r) => `      <article class="room">
         <p class="phrase">${r.phrase}</p>
@@ -238,7 +249,7 @@ export function 판짓기(방, 자료) {
 <body>
   <div class="wrap">
     <h1>Rooms</h1>
-    <p class="lead">Ten rooms about Korean film, television, music and esports. Each one exists
+    <p class="lead">${수를글자로(방.length)} rooms about Korean film, television, music and esports. Each one exists
       because people search for it, and each one is answered with counts rather than opinion.</p>
     <p class="note">The small red line on every card is the phrase people actually type. We checked
       each one against Google&rsquo;s own autocomplete before building the room.</p>
@@ -285,19 +296,33 @@ function 자료읽기() {
 
 if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 아래 「통과 (N)」의 N 을 손으로 적어 두었더니 검사를 넷 더해도 20 그대로였다.
+     검사 수를 «세어서» 낸다 — 늘었는지 줄었는지가 눈에 보여야 한다 */
+  let 센수 = 0;
+  const 검 = (이름, 참) => { 센수 += 1; if (!참) 실패.push(이름); };
 
   const 자료 = 자료읽기();
   const 방 = 방들(자료);
   const 판 = 판짓기(방, 자료);
 
-  검('방이 열이다', 방.length === 10);
+  검('방이 아홉이다', 방.length === 9);
   검('⛔ 방마다 갈 곳이 있다', 방.every((r) => typeof r.href === 'string' && r.href.startsWith('/')));
   검('⛔ 방마다 잰 말이 붙어 있다', 방.every((r) => r.phrase && r.phrase.length > 3));
   검('단추 수가 방 수와 같다', (판.match(/class="cta"/g) ?? []).length === 방.length);
   검('⛔ 죽은 단추가 없다', !/disabled/.test(판));
+
+  /* ⭐ 손님이 보는 첫 문장의 «수»가 실제 방 수와 같아야 한다 — 2026-08-29 에 여기서 틀렸다 */
+  검('⭐ 첫 문장의 방 수가 실제와 같다', 판.includes(`>${수를글자로(방.length)} rooms about`));
+  검('수를글자로 — 아홉', 수를글자로(9) === 'Nine');
+  검('수를글자로 — 열둘', 수를글자로(12) === 'Twelve');
+  검('수를글자로 — 표 밖은 숫자 그대로', 수를글자로(37) === '37');
   검('⛔ 줄 세운 목록이 없다', !/<[ou]l[\s>]/.test(판));
-  검('⛔ 화면에 한국어가 없다', !/[가-힣]/.test(판));
+  /**
+   * ⚠ 2026-08-29 — 이 검사를 «좁혔다». 통신판매업 신고번호(2026-세종-0591)는 법정 번호라
+   *    로마자로 바꿀 수 없다. 그 한 자리만 빼고 나머지에 한국어가 없는지 본다.
+   *    ⛔ 검사를 아주 지우지 않는다 — 우리 사정을 손님 화면에 흘리는 것을 막는 자다.
+   */
+  검('⛔ 화면에 한국어가 없다 — 신고번호만 빼고', !/[가-힣]/.test(판.replace(/2026-세종-\d+/g, '')));
   검('⛔ noindex 가 없다 — 사이트맵과 어긋나면 안 된다', !/noindex/.test(판));
   검('영문 지면이다', /<html lang="en">/.test(판));
 
@@ -332,7 +357,7 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패\n${실패.map((s) => `   · ${s}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ build-kcw-community-front 자가시험 통과 (20)');
+  console.log(`✅ build-kcw-community-front 자가시험 통과 (${센수})`);
   process.exit(0);
 }
 

@@ -18,6 +18,17 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/wikitip-where-to-watch.json';
+/**
+ * 🔴 [2026-08-29] 이 지면이 «없는 작품 지면»으로 링크를 걸고 있었다.
+ *   작품 지면은 차트 줄이 minRowsForPage(6) 를 넘긴 작품만 난다. 그런데 여기서는
+ *   이름에서 만든 슬러그를 그냥 걸었다. 새로 지은 죽은링크 검사자가 잡아 주었다.
+ * ⭐ 사람 이름에는 person-link.ts 가 같은 규칙을 이미 지키고 있었다 — 작품에도 짝을 맞춘다.
+ * ⛔ 지면이 없으면 «링크만» 뺀다. 이름은 그대로 낸다 — 그 작품이 차트에 있었던 것은 사실이다.
+ */
+import titlePages from '../../data/wikitip-title-pages.json';
+import { 지면있는것들, 작품주소 } from '../../lib/title-link.ts';
+
+const 있는작품 = 지면있는것들((titlePages as any).titles ?? []);
 
 const TITLE = 'Where to watch Korean drama: what Netflix actually tells us';
 const DESC = 'Netflix publishes no availability data for any country. It does publish a weekly top 10 for '
@@ -69,7 +80,8 @@ const jsonLd = {
       <tbody>
         {data.widest.map((t) => (
           <tr>
-            <td class="nm"><a href={`/title/${t.slug}`}>{t.title}</a></td>
+            <td class="nm">{작품주소(t.slug, 있는작품)
+              ? <a href={작품주소(t.slug, 있는작품)!}>{t.title}</a> : t.title}</td>
             <td class="fine">{t.type === 'TV' ? 'Series' : 'Film'}</td>
             <td class="num">{t.countries}</td>
             <td class="num">{t.weeks}</td>
@@ -102,7 +114,8 @@ const jsonLd = {
           {c.titles.map((t, i) => (
             <span>
               {i > 0 ? ' · ' : ''}
-              <a href={`/title/${t.slug}`}>{t.title}</a>
+              {작품주소(t.slug, 있는작품)
+                ? <a href={작품주소(t.slug, 있는작품)!}>{t.title}</a> : <span>{t.title}</span>}
               <span class="fine"> {t.first}</span>
             </span>
           ))}

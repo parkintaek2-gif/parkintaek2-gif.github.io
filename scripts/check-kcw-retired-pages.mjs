@@ -44,6 +44,159 @@ export const 낸방 = path.join(뿌리, 'dist', 'wikitip');
  * ⛔ 여기에 없는 주소에 그럴듯한 까닭을 지어 붙이지 않는다.
  */
 export const 접은까닭 = new Map([
+  /**
+   * 🔴 [2026-08-29 · 사장님 「띠 방 내려」] 띠 방 열둘을 접었다.
+   *   ⛔ 「수요가 없어서 지웠다」를 손님에게 숨기지 않는다. 우리가 재고 정한 일이다.
+   *   ⭐ 이름 1,047개는 안 잃었다 — 그 사실을 각 자리에 같이 적는다.
+   */
+  ['/room/rat',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/ox',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/tiger',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/rabbit',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/dragon',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/snake',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/horse',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/goat',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/monkey',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/rooster',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/dog',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+  ['/room/pig',
+    ['We took the twelve birth-year rooms down. Nothing in them was found to be wrong.',
+      'Each room held the Korean stars born in one Chinese zodiac year — about ninety names, with '
+      + 'how often each is read on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We built '
+      + 'them in August 2026 and measured what happened: across twenty-eight days the twelve pages '
+      + 'together drew 28 impressions and 3 clicks, and no phrase about Chinese zodiac years '
+      + 'autocompleted on Google at all. A birth year also never changes, so nobody had a reason to '
+      + 'come back. We would rather say that plainly than keep twelve pages nobody was looking for. '
+      + 'Every name is still published — the birth-year table is at /star-signs, and each person has '
+      + 'their own page.']],
+
+  /**
+   * ⚠ [2026-08-29] 아래 작품 셋은 «지면을 지운 것»이 아니다. 애초에 지면이 난 적이 없는데
+   *   다른 지면들이 링크만 걸고 있었고, 사이트맵에도 한 번 실렸다. 까닭은 하나다 —
+   *   차트 줄이 minRowsForPage(6) 에 못 미쳐 지면을 «일부러 안 냈다».
+   *   2026-08-29 에 그 링크들을 걷어 냈다(src/lib/title-link.ts).
+   */
+  ['/title/breathless',
+    ['This title charted, but it never had enough chart rows for a page of its own.',
+      'We publish a page for a title once we hold at least six chart rows for it — six places on '
+      + 'some country top 10, in some week. Below that the page would be almost empty and would say '
+      + 'more about our coverage than about the title. This one is under that line. It is still '
+      + 'counted everywhere the numbers are aggregated; it simply has no sheet. If more chart weeks '
+      + 'arrive and it crosses the line, the page appears on its own.']],
+  ['/title/one-more-time',
+    ['This title charted, but it never had enough chart rows for a page of its own.',
+      'We publish a page for a title once we hold at least six chart rows for it — six places on '
+      + 'some country top 10, in some week. Below that the page would be almost empty and would say '
+      + 'more about our coverage than about the title. This one is under that line. It is still '
+      + 'counted everywhere the numbers are aggregated; it simply has no sheet. If more chart weeks '
+      + 'arrive and it crosses the line, the page appears on its own.']],
+  ['/title/dangerous-liaisons',
+    ['This title charted, but it never had enough chart rows for a page of its own.',
+      'We publish a page for a title once we hold at least six chart rows for it — six places on '
+      + 'some country top 10, in some week. Below that the page would be almost empty and would say '
+      + 'more about our coverage than about the title. This one is under that line. It is still '
+      + 'counted everywhere the numbers are aggregated; it simply has no sheet. If more chart weeks '
+      + 'arrive and it crosses the line, the page appears on its own.']],
   ['/title/the-uninvited',
     ['We removed this title, not this film.',
       'Uninvited charted on Netflix, but when we checked its country of origin against Wikidata it '
@@ -63,6 +216,9 @@ export function 갈곳(길) {
   if (길.startsWith('/title/')) return ['/titles', 'every Korean title we hold chart data for'];
   if (길.startsWith('/firm/')) return ['/firms', 'the company sheets we publish'];
   if (길.startsWith('/article/')) return ['/articles', 'everything we have published'];
+  /* ⭐ [2026-08-29] 띠 방을 접으면서 넣었다. 첫 지면으로 보내면 손님이 찾던 «이름»에서 멀어진다 —
+     이름은 /star-signs 표에 그대로 있다. 갈 곳은 «그 자료가 옮겨간 자리»여야 한다 */
+  if (길.startsWith('/room/')) return ['/star-signs', 'the birth-year table, with every name still in it'];
   return ['/', 'the front page'];
 }
 

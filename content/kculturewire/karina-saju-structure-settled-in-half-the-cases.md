@@ -66,6 +66,6 @@ And a count we published ourselves, on our own data: across 1,047 Korean actors 
 
 ## Who else is in the room
 
-2000 is a Dragon year, and we hold a birth date for 90 Korean stars born in Dragon years. Of the 73 whose Wikipedia reads we can measure across Indonesian, Vietnamese, Thai and Malay, Karina is second at 115.02 per million, behind Lee Chae-min at 200.18 and also born in 2000. Park Seo-joon and Jung Hae-in are in the same room from 1988. The whole list is at [kculturewire.com/room/dragon](/room/dragon).
+2000 is a Dragon year, and we hold a birth date for 90 Korean stars born in Dragon years. Of the 73 whose Wikipedia reads we can measure across Indonesian, Vietnamese, Thai and Malay, Karina is second at 115.02 per million, behind Lee Chae-min at 200.18 and also born in 2000. Park Seo-joon and Jung Hae-in are in the same room from 1988. The whole list, year by year, is at [kculturewire.com/star-signs](/star-signs).
 
 The reading is KLifeMap's, and it is published in Korean: [the full text is here](https://klifemap.ai/content/star-karina-samju-saju). Readers who want to put their own date through the same engine in English can do that at [klifemap.ai](https://klifemap.ai/saju.html?lang=en). What we can count — who shares a birth year with whom, and how flat that spread turns out to be — is at [kculturewire.com/star-signs](/star-signs).

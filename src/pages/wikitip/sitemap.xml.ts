@@ -1069,18 +1069,13 @@ export const GET: APIRoute = async () => {
        git 이 아는 그 파일의 마지막 커밋 날을 적는다 — 지어낸 날이 아니다.
        ⛔ 이 지면을 고치면 이 날짜도 같이 고친다. 안 고치면 「안 바뀌었다」는 거짓이 된다. */
     { path: '/community', priority: '0.8', changefreq: 'weekly', lastmod: '2026-08-24' },
-    { path: '/room/rat', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/ox', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/tiger', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/rabbit', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/dragon', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/snake', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/horse', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/goat', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/monkey', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/rooster', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/dog', priority: '0.7', changefreq: 'monthly' },
-    { path: '/room/pig', priority: '0.7', changefreq: 'monthly' },
+    /*
+     * 🔴 [2026-08-29 · 사장님 「띠 방 내려」] 여기 있던 띠 방 12줄을 뺐다.
+     *   ⚠ 사이트맵에서 빼는 것과 «지면을 지우는 것»은 다른 일이다. 둘 다 했다 —
+     *     public/wikitip/room/*.html 12장을 지웠고 짓는 자도 멈췄다.
+     *     사이트맵에만 남기면 검색이 404 를 계속 긁고, 지면만 지우면 사이트맵이 거짓말을 한다.
+     *   ⛔ 다시 넣지 않는다 — 내린 까닭은 순위가 아니라 «수요 0»이다(자동완성 0줄).
+     */
     /* 84편째 기사의 표. 2026-08-14 — 말레이시아만 다르다. 사람은 8%인데 브랜드는 23% */
     { path: '/malaysia', priority: '0.9', changefreq: 'weekly' },
     /* 파는 자리. 2026-08-09 12:5x — 2번 지시(B2B 손님이 올 첫 지면) */
@@ -1337,7 +1332,7 @@ export const GET: APIRoute = async () => {
   if (일진지어진날) {
     for (const e of entries) {
       if (e.lastmod) continue;
-      if (e.path.startsWith('/stem/') || e.path.startsWith('/room/')) e.lastmod = 일진지어진날;
+      if (e.path.startsWith('/stem/')) e.lastmod = 일진지어진날;
     }
   }
 
