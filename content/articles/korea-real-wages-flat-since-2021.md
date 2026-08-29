@@ -47,7 +47,7 @@ The plateau is not a straight line. Real wages actually **fell** in two of the f
 
 The figure that makes headlines is the monthly one — Korea's labour ministry reported that June's real wage was 3.412m won, down 0.1% on the year and negative for a third straight month. We are deliberately not building on that here, for two honest reasons.
 
-First, **monthly real-wage figures swing wildly**, and not because pay does. Bonuses land in specific months — a big December, a big February — so any single month is dominated by whether a bonus fell inside it. Comparing one month to the next, or even one month to the same month a year earlier, mostly measures bonus timing. Full-year averages cancel that; single months do not.
+First, **monthly real-wage figures swing wildly**, and not because pay does. Bonuses land in specific months — a big December, a big January — so any single month is dominated by whether a bonus fell inside it. In fact [bonuses are about an eighth of Korean pay and cluster into just a few months](/article/korea-bonus-share-of-pay). Comparing one month to the next, or even one month to the same month a year earlier, mostly measures bonus timing. Full-year averages cancel that; single months do not.
 
 Second, **June is not yet in the public data.** The ministry's press release is ahead of the KOSIS table it comes from, and we report what we can pull and recompute ourselves, not what a release says. When June posts, it will be one data point inside a plateau that the annual figures already show clearly.
 
