@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23",
+ "generated": "2026-08-29",
  "whatThisIs": "Korean titles grouped by the calendar year in which they held places on a Netflix weekly top 10, with how many places each held that year. Every title we publish has a year, which is why this axis reaches titles that have no cast or company data at all.",
  "whatThisIsNot": "Not a ranking of years and not a trend. Our data starts in July 2021 and ends in July 2026, so the first and last years hold only about half a year each — comparing their totals against a full year would show a rise and a fall that are properties of the window, not of the industry. A chart place is also not a viewing figure.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
@@ -7,7 +7,7 @@
  "weekTo": "2026-08-16",
  "weekCount": 268,
  "marketCount": 93,
- "titlesConsidered": 559,
+ "titlesConsidered": 546,
  "yearCount": 6,
  "partialYears": [
   2026,
@@ -18,10 +18,10 @@
    "year": 2026,
    "weeksInData": 33,
    "partialYear": true,
-   "titles": 104,
-   "series": 45,
-   "films": 59,
-   "places": 4952,
+   "titles": 97,
+   "series": 42,
+   "films": 55,
+   "places": 4883,
    "rows": [
     {
      "title": "Agent Kim Reactivated",
@@ -216,20 +216,12 @@
      "weeks": 6
     },
     {
-     "title": "Hierarchy",
-     "slug": "hierarchy",
-     "type": "Films",
-     "places": 56,
-     "markets": 72,
-     "weeks": 11
-    },
-    {
      "title": "Family Business",
      "slug": "family-business",
      "type": "Films",
      "places": 46,
-     "markets": 15,
-     "weeks": 13
+     "markets": 11,
+     "weeks": 10
     },
     {
      "title": "Awake",
@@ -448,14 +440,6 @@
      "weeks": 18
     },
     {
-     "title": "Champion",
-     "slug": "champion",
-     "type": "TV",
-     "places": 5,
-     "markets": 15,
-     "weeks": 7
-    },
-    {
      "title": "Lovely Runner",
      "slug": "lovely-runner",
      "type": "TV",
@@ -549,7 +533,7 @@
      "type": "Films",
      "places": 3,
      "markets": 27,
-     "weeks": 13
+     "weeks": 5
     },
     {
      "title": "Peninsula",
@@ -574,14 +558,6 @@
      "places": 3,
      "markets": 1,
      "weeks": 3
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "places": 3,
-     "markets": 22,
-     "weeks": 46
     },
     {
      "title": "Beasts Clawing at Straws",
@@ -676,8 +652,8 @@
      "slug": "the-cursed",
      "type": "Films",
      "places": 2,
-     "markets": 38,
-     "weeks": 18
+     "markets": 29,
+     "weeks": 15
     },
     {
      "title": "The Desperate Chase",
@@ -712,14 +688,6 @@
      "weeks": 8
     },
     {
-     "title": "Time",
-     "slug": "time",
-     "type": "Films",
-     "places": 2,
-     "markets": 2,
-     "weeks": 5
-    },
-    {
      "title": "Waves",
      "slug": "waves",
      "type": "Films",
@@ -744,14 +712,6 @@
      "weeks": 4
     },
     {
-     "title": "Doubt",
-     "slug": "doubt",
-     "type": "Films",
-     "places": 1,
-     "markets": 7,
-     "weeks": 9
-    },
-    {
      "title": "Hometown Cha-Cha-Cha",
      "slug": "hometown-cha-cha-cha",
      "type": "TV",
@@ -766,14 +726,6 @@
      "places": 1,
      "markets": 4,
      "weeks": 10
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 1,
-     "markets": 31,
-     "weeks": 39
     },
     {
      "title": "Montage",
@@ -806,14 +758,6 @@
      "places": 1,
      "markets": 1,
      "weeks": 1
-    },
-    {
-     "title": "Start-Up",
-     "slug": "start-up",
-     "type": "TV",
-     "places": 1,
-     "markets": 2,
-     "weeks": 4
     },
     {
      "title": "The Auditors",
@@ -861,10 +805,10 @@
    "year": 2025,
    "weeksInData": 53,
    "partialYear": false,
-   "titles": 135,
-   "series": 71,
-   "films": 64,
-   "places": 7700,
+   "titles": 129,
+   "series": 66,
+   "films": 63,
+   "places": 7431,
    "rows": [
     {
      "title": "Squid Game",
@@ -969,14 +913,6 @@
      "places": 156,
      "markets": 71,
      "weeks": 5
-    },
-    {
-     "title": "The Guest",
-     "slug": "the-guest",
-     "type": "TV",
-     "places": 134,
-     "markets": 43,
-     "weeks": 9
     },
     {
      "title": "Love Untangled",
@@ -1107,14 +1043,6 @@
      "weeks": 11
     },
     {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 59,
-     "markets": 31,
-     "weeks": 39
-    },
-    {
      "title": "Typhoon Family",
      "slug": "typhoon-family",
      "type": "TV",
@@ -1129,14 +1057,6 @@
      "places": 52,
      "markets": 9,
      "weeks": 10
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "places": 49,
-     "markets": 69,
-     "weeks": 11
     },
     {
      "title": "Melo Movie",
@@ -1299,28 +1219,12 @@
      "weeks": 5
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "places": 13,
-     "markets": 22,
-     "weeks": 46
-    },
-    {
      "title": "Big",
      "slug": "big",
      "type": "Films",
      "places": 12,
      "markets": 12,
      "weeks": 2
-    },
-    {
-     "title": "Only You",
-     "slug": "only-you",
-     "type": "TV",
-     "places": 12,
-     "markets": 7,
-     "weeks": 8
     },
     {
      "title": "The Tale of Lady Ok",
@@ -1423,8 +1327,8 @@
      "slug": "last-summer",
      "type": "TV",
      "places": 8,
-     "markets": 6,
-     "weeks": 7
+     "markets": 5,
+     "weeks": 3
     },
     {
      "title": "The Dream Life of Mr. Kim",
@@ -1495,8 +1399,8 @@
      "slug": "the-cursed",
      "type": "Films",
      "places": 6,
-     "markets": 38,
-     "weeks": 18
+     "markets": 29,
+     "weeks": 15
     },
     {
      "title": "The Witch",
@@ -1653,10 +1557,10 @@
     {
      "title": "Red Eye",
      "slug": "red-eye",
-     "type": "TV",
+     "type": "Films",
      "places": 3,
      "markets": 30,
-     "weeks": 12
+     "weeks": 6
     },
     {
      "title": "The Killers",
@@ -1681,14 +1585,6 @@
      "places": 2,
      "markets": 1,
      "weeks": 2
-    },
-    {
-     "title": "Blood",
-     "slug": "blood",
-     "type": "Films",
-     "places": 2,
-     "markets": 5,
-     "weeks": 3
     },
     {
      "title": "Doctor John",
@@ -1807,8 +1703,8 @@
      "slug": "family-business",
      "type": "Films",
      "places": 1,
-     "markets": 15,
-     "weeks": 13
+     "markets": 11,
+     "weeks": 10
     },
     {
      "title": "Following",
@@ -1952,10 +1848,10 @@
    "year": 2024,
    "weeksInData": 53,
    "partialYear": false,
-   "titles": 152,
-   "series": 65,
-   "films": 87,
-   "places": 6583,
+   "titles": 144,
+   "series": 60,
+   "films": 84,
+   "places": 6283,
    "rows": [
     {
      "title": "Queen of Tears",
@@ -2008,10 +1904,10 @@
     {
      "title": "Hierarchy",
      "slug": "hierarchy",
-     "type": "Films",
+     "type": "TV",
      "places": 232,
      "markets": 72,
-     "weeks": 11
+     "weeks": 7
     },
     {
      "title": "Badland Hunters",
@@ -2036,14 +1932,6 @@
      "places": 203,
      "markets": 66,
      "weeks": 20
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "places": 201,
-     "markets": 69,
-     "weeks": 11
     },
     {
      "title": "The Atypical Family",
@@ -2230,14 +2118,6 @@
      "weeks": 5
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "places": 49,
-     "markets": 30,
-     "weeks": 12
-    },
-    {
      "title": "Tarot",
      "slug": "tarot",
      "type": "Films",
@@ -2270,22 +2150,6 @@
      "weeks": 4
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "places": 39,
-     "markets": 22,
-     "weeks": 22
-    },
-    {
-     "title": "Champion",
-     "slug": "champion",
-     "type": "TV",
-     "places": 37,
-     "markets": 15,
-     "weeks": 7
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -2310,14 +2174,6 @@
      "weeks": 11
     },
     {
-     "title": "Monster",
-     "slug": "monster",
-     "type": "Films",
-     "places": 35,
-     "markets": 27,
-     "weeks": 13
-    },
-    {
      "title": "Last Holiday",
      "slug": "last-holiday",
      "type": "Films",
@@ -2326,12 +2182,28 @@
      "weeks": 5
     },
     {
+     "title": "Red Eye",
+     "slug": "red-eye",
+     "type": "Films",
+     "places": 31,
+     "markets": 30,
+     "weeks": 6
+    },
+    {
      "title": "The Cursed",
      "slug": "the-cursed",
      "type": "Films",
      "places": 30,
-     "markets": 38,
-     "weeks": 18
+     "markets": 29,
+     "weeks": 15
+    },
+    {
+     "title": "Monster",
+     "slug": "monster",
+     "type": "Films",
+     "places": 29,
+     "markets": 27,
+     "weeks": 5
     },
     {
      "title": "Ballerina",
@@ -2344,10 +2216,10 @@
     {
      "title": "Doubt",
      "slug": "doubt",
-     "type": "Films",
+     "type": "TV",
      "places": 26,
-     "markets": 7,
-     "weeks": 9
+     "markets": 6,
+     "weeks": 8
     },
     {
      "title": "Frankly Speaking",
@@ -2363,6 +2235,14 @@
      "type": "TV",
      "places": 25,
      "markets": 13,
+     "weeks": 16
+    },
+    {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "places": 25,
+     "markets": 16,
      "weeks": 16
     },
     {
@@ -2468,14 +2348,6 @@
      "places": 11,
      "markets": 21,
      "weeks": 6
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 11,
-     "markets": 31,
-     "weeks": 39
     },
     {
      "title": "Godsend",
@@ -2718,14 +2590,6 @@
      "weeks": 8
     },
     {
-     "title": "Once Again",
-     "slug": "once-again",
-     "type": "Films",
-     "places": 4,
-     "markets": 3,
-     "weeks": 12
-    },
-    {
      "title": "Phantom",
      "slug": "phantom",
      "type": "Films",
@@ -2740,14 +2604,6 @@
      "places": 4,
      "markets": 1,
      "weeks": 4
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "places": 4,
-     "markets": 22,
-     "weeks": 46
     },
     {
      "title": "A Man of Reason",
@@ -2854,20 +2710,12 @@
      "weeks": 1
     },
     {
-     "title": "The Guest",
-     "slug": "the-guest",
-     "type": "TV",
-     "places": 3,
-     "markets": 43,
-     "weeks": 9
-    },
-    {
      "title": "Time",
      "slug": "time",
      "type": "Films",
      "places": 3,
-     "markets": 2,
-     "weeks": 5
+     "markets": 1,
+     "weeks": 3
     },
     {
      "title": "Veteran",
@@ -2898,8 +2746,8 @@
      "slug": "black-knight",
      "type": "TV",
      "places": 2,
-     "markets": 79,
-     "weeks": 8
+     "markets": 77,
+     "weeks": 5
     },
     {
      "title": "By Quantum Physics: A Nightlife Venture",
@@ -3014,14 +2862,6 @@
      "weeks": 8
     },
     {
-     "title": "First Love",
-     "slug": "first-love",
-     "type": "TV",
-     "places": 1,
-     "markets": 9,
-     "weeks": 19
-    },
-    {
      "title": "Iron Family",
      "slug": "iron-family",
      "type": "TV",
@@ -3044,14 +2884,6 @@
      "places": 1,
      "markets": 1,
      "weeks": 1
-    },
-    {
-     "title": "Last Summer",
-     "slug": "last-summer",
-     "type": "TV",
-     "places": 1,
-     "markets": 6,
-     "weeks": 7
     },
     {
      "title": "Like Flowers in Sand",
@@ -3179,10 +3011,10 @@
    "year": 2023,
    "weeksInData": 53,
    "partialYear": false,
-   "titles": 188,
+   "titles": 180,
    "series": 91,
-   "films": 97,
-   "places": 7896,
+   "films": 89,
+   "places": 7652,
    "rows": [
     {
      "title": "The Glory",
@@ -3289,20 +3121,20 @@
      "weeks": 18
     },
     {
-     "title": "Black Knight",
-     "slug": "black-knight",
-     "type": "TV",
-     "places": 194,
-     "markets": 79,
-     "weeks": 8
-    },
-    {
      "title": "The Good Bad Mother",
      "slug": "the-good-bad-mother",
      "type": "TV",
      "places": 191,
      "markets": 34,
      "weeks": 11
+    },
+    {
+     "title": "Black Knight",
+     "slug": "black-knight",
+     "type": "TV",
+     "places": 172,
+     "markets": 77,
+     "weeks": 5
     },
     {
      "title": "JUNG_E",
@@ -3449,14 +3281,6 @@
      "weeks": 6
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "places": 64,
-     "markets": 22,
-     "weeks": 46
-    },
-    {
      "title": "Daily Dose of Sunshine",
      "slug": "daily-dose-of-sunshine",
      "type": "TV",
@@ -3471,14 +3295,6 @@
      "places": 58,
      "markets": 47,
      "weeks": 5
-    },
-    {
-     "title": "One More Time",
-     "slug": "one-more-time",
-     "type": "Films",
-     "places": 58,
-     "markets": 38,
-     "weeks": 3
     },
     {
      "title": "The Interest of Love",
@@ -3551,14 +3367,6 @@
      "places": 38,
      "markets": 21,
      "weeks": 4
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 38,
-     "markets": 31,
-     "weeks": 39
     },
     {
      "title": "D.P.",
@@ -3673,36 +3481,12 @@
      "weeks": 7
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "places": 16,
-     "markets": 72,
-     "weeks": 40
-    },
-    {
      "title": "Bodyguard",
      "slug": "bodyguard",
      "type": "TV",
      "places": 15,
      "markets": 12,
      "weeks": 4
-    },
-    {
-     "title": "First Love",
-     "slug": "first-love",
-     "type": "TV",
-     "places": 15,
-     "markets": 9,
-     "weeks": 19
-    },
-    {
-     "title": "Mine",
-     "slug": "mine",
-     "type": "Films",
-     "places": 14,
-     "markets": 36,
-     "weeks": 12
     },
     {
      "title": "Babel",
@@ -3791,14 +3575,6 @@
      "places": 11,
      "markets": 12,
      "weeks": 22
-    },
-    {
-     "title": "Tunnel",
-     "slug": "tunnel",
-     "type": "Films",
-     "places": 11,
-     "markets": 5,
-     "weeks": 6
     },
     {
      "title": "Awaken",
@@ -3985,14 +3761,6 @@
      "weeks": 13
     },
     {
-     "title": "The Promise",
-     "slug": "the-promise",
-     "type": "Films",
-     "places": 6,
-     "markets": 2,
-     "weeks": 37
-    },
-    {
      "title": "The Swindlers",
      "slug": "the-swindlers",
      "type": "Films",
@@ -4113,6 +3881,14 @@
      "weeks": 2
     },
     {
+     "title": "The Promise",
+     "slug": "the-promise",
+     "type": "TV",
+     "places": 5,
+     "markets": 1,
+     "weeks": 36
+    },
+    {
      "title": "The Real Has Come!",
      "slug": "the-real-has-come",
      "type": "TV",
@@ -4151,14 +3927,6 @@
      "places": 4,
      "markets": 1,
      "weeks": 4
-    },
-    {
-     "title": "Blood",
-     "slug": "blood",
-     "type": "Films",
-     "places": 4,
-     "markets": 5,
-     "weeks": 3
     },
     {
      "title": "Concrete Utopia",
@@ -4223,14 +3991,6 @@
      "places": 4,
      "markets": 7,
      "weeks": 23
-    },
-    {
-     "title": "Once Again",
-     "slug": "once-again",
-     "type": "Films",
-     "places": 4,
-     "markets": 3,
-     "weeks": 12
     },
     {
      "title": "Perfect Marriage Revenge",
@@ -4417,6 +4177,14 @@
      "weeks": 14
     },
     {
+     "title": "Little Women",
+     "slug": "little-women",
+     "type": "TV",
+     "places": 2,
+     "markets": 39,
+     "weeks": 15
+    },
+    {
      "title": "Midnight",
      "slug": "midnight",
      "type": "Films",
@@ -4445,8 +4213,8 @@
      "slug": "safe",
      "type": "Films",
      "places": 2,
-     "markets": 22,
-     "weeks": 22
+     "markets": 16,
+     "weeks": 16
     },
     {
      "title": "Secretly, Greatly",
@@ -4535,6 +4303,14 @@
      "places": 2,
      "markets": 1,
      "weeks": 2
+    },
+    {
+     "title": "Tunnel",
+     "slug": "tunnel",
+     "type": "TV",
+     "places": 2,
+     "markets": 1,
+     "weeks": 3
     },
     {
      "title": "When the Weather Is Fine",
@@ -4649,14 +4425,6 @@
      "weeks": 3
     },
     {
-     "title": "Only You",
-     "slug": "only-you",
-     "type": "TV",
-     "places": 1,
-     "markets": 7,
-     "weeks": 8
-    },
-    {
      "title": "Pinocchio",
      "slug": "pinocchio",
      "type": "TV",
@@ -4694,10 +4462,10 @@
    "year": 2022,
    "weeksInData": 53,
    "partialYear": false,
-   "titles": 193,
-   "series": 100,
-   "films": 93,
-   "places": 7084,
+   "titles": 185,
+   "series": 97,
+   "films": 88,
+   "places": 6708,
    "rows": [
     {
      "title": "All of Us Are Dead",
@@ -4742,10 +4510,10 @@
     {
      "title": "Little Women",
      "slug": "little-women",
-     "type": "Films",
-     "places": 243,
-     "markets": 72,
-     "weeks": 40
+     "type": "TV",
+     "places": 223,
+     "markets": 39,
+     "weeks": 15
     },
     {
      "title": "Money Heist: Korea - Joint Economic Area",
@@ -4762,14 +4530,6 @@
      "places": 201,
      "markets": 92,
      "weeks": 5
-    },
-    {
-     "title": "Dangerous Liaisons",
-     "slug": "dangerous-liaisons",
-     "type": "Films",
-     "places": 165,
-     "markets": 70,
-     "weeks": 4
     },
     {
      "title": "Narco-Saints",
@@ -4948,22 +4708,6 @@
      "weeks": 9
     },
     {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "places": 58,
-     "markets": 24,
-     "weeks": 12
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "places": 57,
-     "markets": 22,
-     "weeks": 46
-    },
-    {
      "title": "Boys Over Flowers",
      "slug": "boys-over-flowers",
      "type": "TV",
@@ -5042,14 +4786,6 @@
      "places": 33,
      "markets": 13,
      "weeks": 10
-    },
-    {
-     "title": "First Love",
-     "slug": "first-love",
-     "type": "TV",
-     "places": 31,
-     "markets": 9,
-     "weeks": 19
     },
     {
      "title": "My Roommate Is a Gumiho",
@@ -5156,14 +4892,6 @@
      "weeks": 9
     },
     {
-     "title": "Mine",
-     "slug": "mine",
-     "type": "Films",
-     "places": 19,
-     "markets": 36,
-     "weeks": 12
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -5236,20 +4964,12 @@
      "weeks": 2
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "places": 15,
-     "markets": 38,
-     "weeks": 18
-    },
-    {
      "title": "The Promise",
      "slug": "the-promise",
-     "type": "Films",
+     "type": "TV",
      "places": 15,
-     "markets": 2,
-     "weeks": 37
+     "markets": 1,
+     "weeks": 36
     },
     {
      "title": "Angel Eyes",
@@ -5516,14 +5236,6 @@
      "weeks": 13
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "places": 6,
-     "markets": 22,
-     "weeks": 22
-    },
-    {
      "title": "Unlocked",
      "slug": "unlocked",
      "type": "Films",
@@ -5546,14 +5258,6 @@
      "places": 5,
      "markets": 6,
      "weeks": 2
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 5,
-     "markets": 31,
-     "weeks": 39
     },
     {
      "title": "More Than Blue",
@@ -5632,8 +5336,8 @@
      "slug": "glitch",
      "type": "TV",
      "places": 4,
-     "markets": 3,
-     "weeks": 4
+     "markets": 2,
+     "weeks": 3
     },
     {
      "title": "Honest Candidate",
@@ -5652,20 +5356,20 @@
      "weeks": 23
     },
     {
-     "title": "Only You",
-     "slug": "only-you",
-     "type": "TV",
-     "places": 4,
-     "markets": 7,
-     "weeks": 8
-    },
-    {
      "title": "Reminiscence",
      "slug": "reminiscence",
      "type": "Films",
      "places": 4,
      "markets": 11,
      "weeks": 11
+    },
+    {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "places": 4,
+     "markets": 16,
+     "weeks": 16
     },
     {
      "title": "Sinkhole",
@@ -5942,10 +5646,10 @@
     {
      "title": "Red Eye",
      "slug": "red-eye",
-     "type": "TV",
+     "type": "Films",
      "places": 2,
      "markets": 30,
-     "weeks": 12
+     "weeks": 6
     },
     {
      "title": "Solace",
@@ -6249,10 +5953,10 @@
    "year": 2021,
    "weeksInData": 26,
    "partialYear": true,
-   "titles": 109,
-   "series": 48,
-   "films": 61,
-   "places": 3908,
+   "titles": 99,
+   "series": 46,
+   "films": 53,
+   "places": 3846,
    "rows": [
     {
      "title": "Squid Game",
@@ -6353,10 +6057,10 @@
     {
      "title": "Mine",
      "slug": "mine",
-     "type": "Films",
+     "type": "TV",
      "places": 54,
-     "markets": 36,
-     "weeks": 12
+     "markets": 26,
+     "weeks": 7
     },
     {
      "title": "Love (ft. Marriage and Divorce)",
@@ -6389,14 +6093,6 @@
      "places": 29,
      "markets": 7,
      "weeks": 7
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "places": 29,
-     "markets": 72,
-     "weeks": 40
     },
     {
      "title": "Lawless Lawyer",
@@ -6513,10 +6209,10 @@
     {
      "title": "The Promise",
      "slug": "the-promise",
-     "type": "Films",
+     "type": "TV",
      "places": 16,
-     "markets": 2,
-     "weeks": 37
+     "markets": 1,
+     "weeks": 36
     },
     {
      "title": "Grudge",
@@ -6549,22 +6245,6 @@
      "places": 8,
      "markets": 6,
      "weeks": 13
-    },
-    {
-     "title": "Family Business",
-     "slug": "family-business",
-     "type": "Films",
-     "places": 8,
-     "markets": 15,
-     "weeks": 13
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "places": 7,
-     "markets": 31,
-     "weeks": 39
     },
     {
      "title": "Train to Busan",
@@ -6651,8 +6331,8 @@
      "slug": "safe",
      "type": "Films",
      "places": 5,
-     "markets": 22,
-     "weeks": 22
+     "markets": 16,
+     "weeks": 16
     },
     {
      "title": "Sleepless",
@@ -6695,14 +6375,6 @@
      "weeks": 3
     },
     {
-     "title": "Once Again",
-     "slug": "once-again",
-     "type": "Films",
-     "places": 4,
-     "markets": 3,
-     "weeks": 12
-    },
-    {
      "title": "The Way Back",
      "slug": "the-way-back",
      "type": "Films",
@@ -6741,14 +6413,6 @@
      "places": 3,
      "markets": 2,
      "weeks": 4
-    },
-    {
-     "title": "Last Summer",
-     "slug": "last-summer",
-     "type": "TV",
-     "places": 3,
-     "markets": 6,
-     "weeks": 7
     },
     {
      "title": "Law School",
@@ -6807,14 +6471,6 @@
      "weeks": 3
     },
     {
-     "title": "Start-Up",
-     "slug": "start-up",
-     "type": "TV",
-     "places": 3,
-     "markets": 2,
-     "weeks": 4
-    },
-    {
      "title": "The Outlaws",
      "slug": "the-outlaws",
      "type": "Films",
@@ -6829,14 +6485,6 @@
      "places": 3,
      "markets": 21,
      "weeks": 17
-    },
-    {
-     "title": "Tunnel",
-     "slug": "tunnel",
-     "type": "Films",
-     "places": 3,
-     "markets": 5,
-     "weeks": 6
     },
     {
      "title": "Angel Eyes",
@@ -6879,28 +6527,12 @@
      "weeks": 2
     },
     {
-     "title": "Monster",
-     "slug": "monster",
-     "type": "Films",
-     "places": 2,
-     "markets": 27,
-     "weeks": 13
-    },
-    {
      "title": "My ID is Gangnam Beauty",
      "slug": "my-id-is-gangnam-beauty",
      "type": "TV",
      "places": 2,
      "markets": 11,
      "weeks": 11
-    },
-    {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "places": 2,
-     "markets": 24,
-     "weeks": 12
     },
     {
      "title": "The Battle: Roar to Victory",
@@ -6951,28 +6583,12 @@
      "weeks": 18
     },
     {
-     "title": "Black Knight",
-     "slug": "black-knight",
-     "type": "TV",
-     "places": 1,
-     "markets": 79,
-     "weeks": 8
-    },
-    {
      "title": "Exit",
      "slug": "exit",
      "type": "Films",
      "places": 1,
      "markets": 2,
      "weeks": 2
-    },
-    {
-     "title": "Glitch",
-     "slug": "glitch",
-     "type": "TV",
-     "places": 1,
-     "markets": 3,
-     "weeks": 4
     },
     {
      "title": "Life",
@@ -7117,6 +6733,14 @@
      "places": 1,
      "markets": 1,
      "weeks": 1
+    },
+    {
+     "title": "Tunnel",
+     "slug": "tunnel",
+     "type": "TV",
+     "places": 1,
+     "markets": 1,
+     "weeks": 3
     },
     {
      "title": "Voice",

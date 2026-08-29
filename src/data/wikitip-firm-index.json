@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23",
+ "generated": "2026-08-29",
  "whatThisIs": "Every company credited on a Korean title that has entered a Netflix weekly top 10, with the titles we hold for it. Companies are in alphabetical order so the list cannot be read as a ranking.",
  "whatThisIsNot": "Not a measure of how good or how big a company is, and not a complete filmography. Credits come from Wikidata, which is incomplete: of the titles with a page here, some carry no company credit at all. That is a gap in the record, not a title without a maker.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
@@ -7,12 +7,12 @@
  "weekTo": "2026-08-16",
  "weekCount": 268,
  "marketCount": 93,
- "titlesConsidered": 559,
- "titlesWithNoCredit": 139,
- "companyCount": 199,
+ "titlesConsidered": 546,
+ "titlesWithNoCredit": 132,
+ "companyCount": 198,
  "companiesWithTwoOrMore": 98,
- "companiesWithOne": 101,
- "detailPageCount": 8,
+ "companiesWithOne": 100,
+ "detailPageCount": 19,
  "roleWords": [
   "produced",
   "distributed",
@@ -84,17 +84,10 @@
    "roles": [
     "distributed"
    ],
-   "titleCount": 4,
+   "titleCount": 3,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
-    {
-     "slug": "snowpiercer",
-     "title": "Snowpiercer",
-     "type": "TV",
-     "weeks": 12,
-     "markets": 24
-    },
     {
      "slug": "peninsula",
      "title": "Peninsula",
@@ -209,17 +202,10 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 4,
+   "titleCount": 3,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
-    {
-     "slug": "kingdom",
-     "title": "Kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "markets": 31
-    },
     {
      "slug": "extraordinary-attorney-woo",
      "title": "Extraordinary Attorney Woo",
@@ -445,17 +431,10 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 3,
+   "titleCount": 2,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
-    {
-     "slug": "once-again",
-     "title": "Once Again",
-     "type": "Films",
-     "weeks": 12,
-     "markets": 3
-    },
     {
      "slug": "lovely-runner",
      "title": "Lovely Runner",
@@ -940,13 +919,6 @@
      "markets": 6
     },
     {
-     "slug": "monster",
-     "title": "Monster",
-     "type": "Films",
-     "weeks": 13,
-     "markets": 27
-    },
-    {
      "slug": "confidential-assignment-2-international",
      "title": "Confidential Assignment 2: International",
      "type": "Films",
@@ -1015,6 +987,13 @@
      "type": "Films",
      "weeks": 5,
      "markets": 2
+    },
+    {
+     "slug": "monster",
+     "title": "Monster",
+     "type": "Films",
+     "weeks": 5,
+     "markets": 27
     },
     {
      "slug": "the-moon",
@@ -1682,7 +1661,7 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 8,
+   "titleCount": 7,
    "detailSlug": "filmmaker-r-k",
    "hasDetailPage": true,
    "titles": [
@@ -1692,13 +1671,6 @@
      "type": "Films",
      "weeks": 11,
      "markets": 67
-    },
-    {
-     "slug": "start-up",
-     "title": "Start-Up",
-     "type": "TV",
-     "weeks": 4,
-     "markets": 2
     },
     {
      "slug": "svaha-the-sixth-finger",
@@ -2609,7 +2581,7 @@
     "first broadcast",
     "produced"
    ],
-   "titleCount": 25,
+   "titleCount": 23,
    "detailSlug": "kbs",
    "hasDetailPage": true,
    "titles": [
@@ -2623,9 +2595,9 @@
     {
      "slug": "the-promise",
      "title": "The Promise",
-     "type": "Films",
-     "weeks": 37,
-     "markets": 2
+     "type": "TV",
+     "weeks": 36,
+     "markets": 1
     },
     {
      "slug": "the-king-s-affection",
@@ -2649,13 +2621,6 @@
      "markets": 10
     },
     {
-     "slug": "once-again",
-     "title": "Once Again",
-     "type": "Films",
-     "weeks": 12,
-     "markets": 3
-    },
-    {
      "slug": "oh-my-venus",
      "title": "Oh My Venus",
      "type": "TV",
@@ -2668,13 +2633,6 @@
      "type": "TV",
      "weeks": 8,
      "markets": 2
-    },
-    {
-     "slug": "last-summer",
-     "title": "Last Summer",
-     "type": "TV",
-     "weeks": 7,
-     "markets": 6
     },
     {
      "slug": "sell-your-haunted-house",
@@ -2726,9 +2684,9 @@
      "markets": 2
     },
     {
-     "slug": "blood",
-     "title": "Blood",
-     "type": "Films",
+     "slug": "last-summer",
+     "title": "Last Summer",
+     "type": "TV",
      "weeks": 3,
      "markets": 5
     },
@@ -2949,8 +2907,8 @@
     "produced"
    ],
    "titleCount": 11,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "lotte-entertainment",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "switch",
@@ -3099,8 +3057,8 @@
     "first broadcast"
    ],
    "titleCount": 12,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "mbc",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "encounter",
@@ -3119,9 +3077,9 @@
     {
      "slug": "doubt",
      "title": "Doubt",
-     "type": "Films",
-     "weeks": 9,
-     "markets": 7
+     "type": "TV",
+     "weeks": 8,
+     "markets": 6
     },
     {
      "slug": "oh-my-ghost-clients",
@@ -3425,9 +3383,9 @@
     {
      "slug": "the-promise",
      "title": "The Promise",
-     "type": "Films",
-     "weeks": 37,
-     "markets": 2
+     "type": "TV",
+     "weeks": 36,
+     "markets": 1
     },
     {
      "slug": "the-uncanny-counter",
@@ -3453,8 +3411,8 @@
     "produced"
    ],
    "titleCount": 14,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "next-entertainment-world",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "man-in-love",
@@ -3624,9 +3582,9 @@
     {
      "slug": "tunnel",
      "title": "Tunnel",
-     "type": "Films",
-     "weeks": 6,
-     "markets": 5
+     "type": "TV",
+     "weeks": 3,
+     "markets": 1
     },
     {
      "slug": "dual",
@@ -3671,8 +3629,8 @@
     "produced"
    ],
    "titleCount": 11,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "plus-m-entertainment",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "escape",
@@ -3787,8 +3745,8 @@
     "distributed"
    ],
    "titleCount": 36,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "sbs",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "the-penthouse-war-in-life",
@@ -4078,8 +4036,8 @@
     "produced"
    ],
    "titleCount": 23,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "showbox-co-ltd",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "exhuma",
@@ -4319,8 +4277,8 @@
     "produced"
    ],
    "titleCount": 36,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "sll",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "all-of-us-are-dead",
@@ -4615,9 +4573,9 @@
    "roles": [
     "produced"
    ],
-   "titleCount": 28,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "titleCount": 27,
+   "detailSlug": "studio-dragon",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "crash-landing-on-you",
@@ -4632,13 +4590,6 @@
      "type": "TV",
      "weeks": 45,
      "markets": 45
-    },
-    {
-     "slug": "little-women",
-     "title": "Little Women",
-     "type": "Films",
-     "weeks": 40,
-     "markets": 72
     },
     {
      "slug": "the-glory",
@@ -4676,6 +4627,13 @@
      "markets": 69
     },
     {
+     "slug": "little-women",
+     "title": "Little Women",
+     "type": "TV",
+     "weeks": 15,
+     "markets": 39
+    },
+    {
      "slug": "crash-course-in-romance",
      "title": "Crash Course in Romance",
      "type": "TV",
@@ -4702,13 +4660,6 @@
      "type": "Films",
      "weeks": 12,
      "markets": 76
-    },
-    {
-     "slug": "once-again",
-     "title": "Once Again",
-     "type": "Films",
-     "weeks": 12,
-     "markets": 3
     },
     {
      "slug": "sweet-home",
@@ -4883,8 +4834,8 @@
     "produced"
    ],
    "titleCount": 11,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "studio-n",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "the-trauma-code-heroes-on-call",
@@ -5174,8 +5125,8 @@
     "first broadcast"
    ],
    "titleCount": 10,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "tving",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "alchemy-of-souls",
@@ -5258,8 +5209,8 @@
     "produced"
    ],
    "titleCount": 66,
-   "detailSlug": null,
-   "hasDetailPage": false,
+   "detailSlug": "tvn",
+   "hasDetailPage": true,
    "titles": [
     {
      "slug": "crash-landing-on-you",
@@ -5281,13 +5232,6 @@
      "type": "TV",
      "weeks": 45,
      "markets": 45
-    },
-    {
-     "slug": "little-women",
-     "title": "Little Women",
-     "type": "Films",
-     "weeks": 40,
-     "markets": 72
     },
     {
      "slug": "reply-1988",
@@ -5360,6 +5304,13 @@
      "markets": 12
     },
     {
+     "slug": "little-women",
+     "title": "Little Women",
+     "type": "TV",
+     "weeks": 15,
+     "markets": 39
+    },
+    {
      "slug": "flower-of-evil",
      "title": "Flower of Evil",
      "type": "TV",
@@ -5400,13 +5351,6 @@
      "type": "TV",
      "weeks": 12,
      "markets": 79
-    },
-    {
-     "slug": "mine",
-     "title": "Mine",
-     "type": "Films",
-     "weeks": 12,
-     "markets": 36
     },
     {
      "slug": "mr-queen",
@@ -5526,6 +5470,13 @@
      "type": "TV",
      "weeks": 7,
      "markets": 31
+    },
+    {
+     "slug": "mine",
+     "title": "Mine",
+     "type": "TV",
+     "weeks": 7,
+     "markets": 26
     },
     {
      "slug": "see-you-in-my-19th-life",
@@ -5816,17 +5767,10 @@
    "roles": [
     "distributed"
    ],
-   "titleCount": 3,
+   "titleCount": 2,
    "detailSlug": null,
    "hasDetailPage": false,
    "titles": [
-    {
-     "slug": "champion",
-     "title": "Champion",
-     "type": "TV",
-     "weeks": 7,
-     "markets": 15
-    },
     {
      "slug": "confession",
      "title": "Confession",
@@ -6287,12 +6231,6 @@
    "slug": "one-entertainment",
    "title": "Marry YOU",
    "titleSlug": "marry-you"
-  },
-  {
-   "firm": "Plaion",
-   "slug": "plaion",
-   "title": "Snowpiercer",
-   "titleSlug": "snowpiercer"
   },
   {
    "firm": "Plan B Entertainment",

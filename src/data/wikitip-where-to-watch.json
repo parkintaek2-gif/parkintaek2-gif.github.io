@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23",
+ "generated": "2026-08-29",
  "whatThisIs": "A floor on where a Korean title could be watched. If a title held a place on a country’s weekly Netflix top 10 in a given week, it was available in that country that week. That is arithmetic, not an estimate.",
  "whatThisIsNot": "Not a list of what you can watch today, and not a completeness claim. Netflix publishes no availability data at all, and it publishes only the weekly top 10 — so a title absent from a country here may still have been available there without charting. Never read the absence as a no.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
@@ -7,7 +7,7 @@
  "weekTo": "2026-08-16",
  "weekCount": 268,
  "marketCount": 93,
- "titlesConsidered": 559,
+ "titlesConsidered": 546,
  "countryCount": 93,
  "countriesWithoutSlug": 0,
  "perCountryShown": 12,
@@ -355,25 +355,6 @@
    ]
   },
   {
-   "title": "Black Knight",
-   "slug": "black-knight",
-   "type": "TV",
-   "weeks": 8,
-   "countries": 79,
-   "firstWeek": "2021-08-01",
-   "lastWeek": "2024-09-29",
-   "someCountries": [
-    "Argentina",
-    "Austria",
-    "Bahamas",
-    "Bahrain",
-    "Bangladesh",
-    "Belgium",
-    "Bolivia",
-    "Brazil"
-   ]
-  },
-  {
    "title": "Bon Appétit, Your Majesty",
    "slug": "bon-appetit-your-majesty",
    "type": "TV",
@@ -390,6 +371,25 @@
     "Bolivia",
     "Brazil",
     "Bulgaria"
+   ]
+  },
+  {
+   "title": "Black Knight",
+   "slug": "black-knight",
+   "type": "TV",
+   "weeks": 5,
+   "countries": 77,
+   "firstWeek": "2023-05-14",
+   "lastWeek": "2024-09-29",
+   "someCountries": [
+    "Argentina",
+    "Austria",
+    "Bahamas",
+    "Bahrain",
+    "Bangladesh",
+    "Belgium",
+    "Bolivia",
+    "Brazil"
    ]
   },
   {
@@ -491,14 +491,6 @@
      "last": "2024-01-14"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2023-02-26",
-     "last": "2023-03-05"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -569,6 +561,14 @@
      "weeks": 21,
      "first": "2025-04-06",
      "last": "2025-04-13"
+    },
+    {
+     "title": "My Demon",
+     "slug": "my-demon",
+     "type": "TV",
+     "weeks": 20,
+     "first": "2023-12-03",
+     "last": "2023-12-31"
     }
    ]
   },
@@ -599,14 +599,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-02-19"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-04-10",
-     "last": "2022-04-17"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -657,20 +649,28 @@
      "last": "2024-03-24"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2022-06-05",
-     "last": "2022-06-12"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
      "weeks": 22,
      "first": "2023-03-12",
      "last": "2023-03-12"
+    },
+    {
+     "title": "Barbie",
+     "slug": "barbie",
+     "type": "Films",
+     "weeks": 19,
+     "first": "2024-05-12",
+     "last": "2024-05-19"
+    },
+    {
+     "title": "Bloodhounds",
+     "slug": "bloodhounds",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2023-06-18",
+     "last": "2026-04-12"
     }
    ]
   },
@@ -685,14 +685,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-01-02",
-     "last": "2022-01-02"
     },
     {
      "title": "All of Us Are Dead",
@@ -719,14 +711,6 @@
      "last": "2023-03-19"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-07-28",
-     "last": "2024-07-28"
-    },
-    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -751,6 +735,14 @@
      "last": "2026-04-12"
     },
     {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2024-07-28",
+     "last": "2024-07-28"
+    },
+    {
      "title": "Gyeongseong Creature",
      "slug": "gyeongseong-creature",
      "type": "TV",
@@ -773,6 +765,14 @@
      "weeks": 12,
      "first": "2025-06-15",
      "last": "2025-06-15"
+    },
+    {
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ]
   },
@@ -795,14 +795,6 @@
      "weeks": 45,
      "first": "2022-12-18",
      "last": "2022-12-18"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "All of Us Are Dead",
@@ -837,14 +829,6 @@
      "last": "2023-11-05"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2021-12-05",
-     "last": "2021-12-12"
-    },
-    {
      "title": "Ballerina",
      "slug": "ballerina",
      "type": "Films",
@@ -869,12 +853,28 @@
      "last": "2022-09-18"
     },
     {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2021-12-05",
+     "last": "2021-12-12"
+    },
+    {
      "title": "Angel Eyes",
      "slug": "angel-eyes",
      "type": "Films",
      "weeks": 15,
      "first": "2022-08-14",
      "last": "2022-08-14"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "slug": "gyeongseong-creature",
+     "type": "TV",
+     "weeks": 15,
+     "first": "2023-12-24",
+     "last": "2023-12-31"
     }
    ]
   },
@@ -889,14 +889,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -921,22 +913,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-16"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-02",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -977,6 +953,30 @@
      "weeks": 27,
      "first": "2025-01-26",
      "last": "2025-02-09"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-25",
+     "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-05"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-10"
     }
    ]
   },
@@ -1033,22 +1033,6 @@
      "last": "2023-06-11"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-05-01",
-     "last": "2022-10-30"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2025-08-31",
-     "last": "2025-09-21"
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -1079,6 +1063,22 @@
      "weeks": 34,
      "first": "2021-09-05",
      "last": "2021-12-05"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-08-04",
+     "last": "2024-08-11"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-08",
+     "last": "2023-05-28"
     }
    ]
   },
@@ -1093,14 +1093,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-11-07",
-     "last": "2021-12-19"
     },
     {
      "title": "All of Us Are Dead",
@@ -1143,14 +1135,6 @@
      "last": "2026-04-12"
     },
     {
-     "title": "Family Business",
-     "slug": "family-business",
-     "type": "Films",
-     "weeks": 13,
-     "first": "2021-10-17",
-     "last": "2021-10-17"
-    },
-    {
      "title": "Weak Hero",
      "slug": "weak-hero",
      "type": "TV",
@@ -1167,20 +1151,36 @@
      "last": "2025-06-15"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-24",
-     "last": "2024-03-31"
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     },
     {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
+     "title": "Parasyte: The Grey",
+     "slug": "parasyte-the-grey",
      "type": "TV",
-     "weeks": 12,
-     "first": "2022-02-27",
-     "last": "2022-04-03"
+     "weeks": 11,
+     "first": "2024-04-07",
+     "last": "2024-04-14"
+    },
+    {
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2026-01-04"
+    },
+    {
+     "title": "Badland Hunters",
+     "slug": "badland-hunters",
+     "type": "Films",
+     "weeks": 10,
+     "first": "2024-01-28",
+     "last": "2024-02-04"
     }
    ]
   },
@@ -1229,14 +1229,6 @@
      "last": "2024-08-25"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-11-20"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -1283,6 +1275,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-17"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-26"
     }
    ]
   },
@@ -1321,14 +1321,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-01-14"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-10-30"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -1385,6 +1377,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-08-20"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-19"
     }
    ]
   },
@@ -1407,14 +1407,6 @@
      "weeks": 44,
      "first": "2022-04-03",
      "last": "2022-04-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -1487,6 +1479,14 @@
      "weeks": 15,
      "first": "2023-12-31",
      "last": "2023-12-31"
+    },
+    {
+     "title": "Weak Hero",
+     "slug": "weak-hero",
+     "type": "TV",
+     "weeks": 13,
+     "first": "2025-03-30",
+     "last": "2025-05-04"
     }
    ]
   },
@@ -1517,14 +1517,6 @@
      "weeks": 37,
      "first": "2022-08-21",
      "last": "2022-08-21"
-    },
-    {
-     "title": "The Promise",
-     "slug": "the-promise",
-     "type": "Films",
-     "weeks": 37,
-     "first": "2023-11-19",
-     "last": "2023-11-19"
     },
     {
      "title": "All of Us Are Dead",
@@ -1589,6 +1581,14 @@
      "weeks": 17,
      "first": "2023-06-18",
      "last": "2023-06-18"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2022-07-03",
+     "last": "2022-07-10"
     }
    ]
   },
@@ -1627,14 +1627,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-02-11"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-11-13",
-     "last": "2023-03-05"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -1691,6 +1683,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-03"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-19"
     }
    ]
   },
@@ -1825,14 +1825,6 @@
      "last": "2024-01-21"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2023-02-26",
-     "last": "2023-03-05"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -1895,6 +1887,14 @@
      "weeks": 22,
      "first": "2024-03-24",
      "last": "2024-05-19"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-02-01"
     }
    ]
   },
@@ -1909,14 +1909,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -1959,20 +1951,20 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-07-21",
-     "last": "2024-07-21"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2026-04-12",
      "last": "2026-04-12"
+    },
+    {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-07-21",
+     "last": "2024-07-21"
     },
     {
      "title": "Addicted",
@@ -1997,6 +1989,14 @@
      "weeks": 12,
      "first": "2021-08-01",
      "last": "2021-08-01"
+    },
+    {
+     "title": "Humint",
+     "slug": "humint",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2026-04-05",
+     "last": "2026-04-05"
     }
    ]
   },
@@ -2115,14 +2115,6 @@
      "last": "2025-08-10"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
-    },
-    {
      "title": "All of Us Are Dead",
      "slug": "all-of-us-are-dead",
      "type": "TV",
@@ -2171,14 +2163,6 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-07-21",
-     "last": "2024-07-21"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
@@ -2195,12 +2179,28 @@
      "last": "2024-10-06"
     },
     {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-07-21",
+     "last": "2024-07-21"
+    },
+    {
      "title": "Weak Hero",
      "slug": "weak-hero",
      "type": "TV",
      "weeks": 13,
      "first": "2025-04-27",
      "last": "2025-04-27"
+    },
+    {
+     "title": "Addicted",
+     "slug": "addicted",
+     "type": "Films",
+     "weeks": 12,
+     "first": "2023-06-18",
+     "last": "2023-06-25"
     }
    ]
   },
@@ -2215,14 +2215,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-03-13",
-     "last": "2022-03-20"
     },
     {
      "title": "All of Us Are Dead",
@@ -2268,7 +2260,7 @@
      "title": "The Cursed",
      "slug": "the-cursed",
      "type": "Films",
-     "weeks": 18,
+     "weeks": 15,
      "first": "2025-04-20",
      "last": "2025-04-20"
     },
@@ -2289,20 +2281,28 @@
      "last": "2021-08-01"
     },
     {
-     "title": "Mine",
-     "slug": "mine",
-     "type": "Films",
-     "weeks": 12,
-     "first": "2023-03-05",
-     "last": "2023-03-12"
-    },
-    {
      "title": "Kill Boksoon",
      "slug": "kill-boksoon",
      "type": "Films",
      "weeks": 11,
      "first": "2023-04-02",
      "last": "2023-04-02"
+    },
+    {
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2025-12-28"
+    },
+    {
+     "title": "The Net",
+     "slug": "the-net",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2022-10-23",
+     "last": "2022-10-23"
     }
    ]
   },
@@ -2351,14 +2351,6 @@
      "last": "2024-01-21"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-11-13"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -2405,6 +2397,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-03"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-26"
     }
    ]
   },
@@ -2453,14 +2453,6 @@
      "last": "2024-08-04"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-30",
-     "last": "2022-11-13"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -2507,6 +2499,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-17"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-26"
     }
    ]
   },
@@ -2521,14 +2521,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-24"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-02-05"
     },
     {
      "title": "Alchemy of Souls",
@@ -2553,14 +2545,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-03-26"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-09",
-     "last": "2022-10-16"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -2609,6 +2593,22 @@
      "weeks": 22,
      "first": "2023-06-25",
      "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-04-28"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-10"
     }
    ]
   },
@@ -2657,14 +2657,6 @@
      "last": "2024-08-04"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2023-03-05"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -2711,6 +2703,14 @@
      "weeks": 23,
      "first": "2023-11-05",
      "last": "2023-11-05"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-07-16",
+     "last": "2023-10-01"
     }
    ]
   },
@@ -2725,14 +2725,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-08-29",
-     "last": "2021-08-29"
     },
     {
      "title": "All of Us Are Dead",
@@ -2813,6 +2805,14 @@
      "weeks": 12,
      "first": "2025-09-14",
      "last": "2025-09-14"
+    },
+    {
+     "title": "Parasyte: The Grey",
+     "slug": "parasyte-the-grey",
+     "type": "TV",
+     "weeks": 11,
+     "first": "2024-04-14",
+     "last": "2024-04-14"
     }
    ]
   },
@@ -2827,14 +2827,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-24"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-03-13",
-     "last": "2022-03-27"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -2909,10 +2901,18 @@
      "last": "2023-10-15"
     },
     {
+     "title": "Bloodhounds",
+     "slug": "bloodhounds",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2023-06-18",
+     "last": "2026-04-12"
+    },
+    {
      "title": "The Cursed",
      "slug": "the-cursed",
      "type": "Films",
-     "weeks": 18,
+     "weeks": 15,
      "first": "2025-04-20",
      "last": "2025-04-20"
     }
@@ -2937,14 +2937,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2023-12-17"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2023-05-28",
-     "last": "2023-06-04"
     },
     {
      "title": "All of Us Are Dead",
@@ -3003,20 +2995,28 @@
      "last": "2025-03-23"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-01-07",
-     "last": "2024-01-14"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2023-06-11",
      "last": "2026-04-12"
+    },
+    {
+     "title": "Young Lady and Gentleman",
+     "slug": "young-lady-and-gentleman",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2022-09-11",
+     "last": "2022-09-18"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2026-07-05",
+     "last": "2026-07-05"
     }
    ]
   },
@@ -3031,14 +3031,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-01-02",
-     "last": "2022-01-02"
     },
     {
      "title": "All of Us Are Dead",
@@ -3065,14 +3057,6 @@
      "last": "2023-03-26"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-07-28",
-     "last": "2024-08-04"
-    },
-    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -3097,6 +3081,14 @@
      "last": "2026-04-12"
     },
     {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2024-07-28",
+     "last": "2024-08-04"
+    },
+    {
      "title": "Kingdom: Ashin of the North",
      "slug": "kingdom-ashin-of-the-north",
      "type": "Films",
@@ -3113,12 +3105,20 @@
      "last": "2025-06-15"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
+    },
+    {
+     "title": "Parasyte: The Grey",
+     "slug": "parasyte-the-grey",
      "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-31",
-     "last": "2024-09-22"
+     "weeks": 11,
+     "first": "2024-04-07",
+     "last": "2024-04-14"
     }
    ]
   },
@@ -3149,14 +3149,6 @@
      "weeks": 44,
      "first": "2022-05-15",
      "last": "2022-05-15"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-01-09",
-     "last": "2022-01-09"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -3221,6 +3213,14 @@
      "weeks": 21,
      "first": "2026-01-25",
      "last": "2026-01-25"
+    },
+    {
+     "title": "My Demon",
+     "slug": "my-demon",
+     "type": "TV",
+     "weeks": 20,
+     "first": "2023-11-26",
+     "last": "2023-12-17"
     }
    ]
   },
@@ -3301,14 +3301,6 @@
      "last": "2025-03-23"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-01-07",
-     "last": "2024-01-14"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
@@ -3323,6 +3315,14 @@
      "weeks": 17,
      "first": "2022-09-04",
      "last": "2022-10-09"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2026-07-05",
+     "last": "2026-07-12"
     }
    ]
   },
@@ -3353,14 +3353,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-08-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-11-13",
-     "last": "2022-11-20"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -3425,6 +3417,14 @@
      "weeks": 22,
      "first": "2024-03-24",
      "last": "2024-05-26"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-02-15"
     }
    ]
   },
@@ -3473,14 +3473,6 @@
      "last": "2024-08-04"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-11-20"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -3527,6 +3519,14 @@
      "weeks": 23,
      "first": "2023-11-05",
      "last": "2023-11-05"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-07-16",
+     "last": "2023-10-01"
     }
    ]
   },
@@ -3559,14 +3559,6 @@
      "last": "2025-07-27"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-06-04",
-     "last": "2023-06-25"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -3589,14 +3581,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-03-19"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-06"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -3629,6 +3613,22 @@
      "weeks": 34,
      "first": "2024-09-22",
      "last": "2024-09-29"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-13"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-01",
+     "last": "2025-04-06"
     }
    ]
   },
@@ -3643,14 +3643,6 @@
      "weeks": 60,
      "first": "2021-09-26",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-04-03",
-     "last": "2022-04-03"
     },
     {
      "title": "All of Us Are Dead",
@@ -3717,20 +3709,28 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-07-21",
-     "last": "2024-07-21"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2023-06-11",
      "last": "2026-04-19"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "slug": "gyeongseong-creature",
+     "type": "TV",
+     "weeks": 15,
+     "first": "2023-12-31",
+     "last": "2024-10-06"
+    },
+    {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-07-21",
+     "last": "2024-07-21"
     }
    ]
   },
@@ -3745,14 +3745,6 @@
      "weeks": 60,
      "first": "2021-09-26",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-05-22",
-     "last": "2022-05-29"
     },
     {
      "title": "All of Us Are Dead",
@@ -3795,20 +3787,20 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2025-04-20",
-     "last": "2025-04-20"
-    },
-    {
      "title": "Angel Eyes",
      "slug": "angel-eyes",
      "type": "Films",
      "weeks": 15,
      "first": "2021-11-07",
      "last": "2021-11-07"
+    },
+    {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2025-04-20",
+     "last": "2025-04-20"
     },
     {
      "title": "Kingdom: Ashin of the North",
@@ -3819,20 +3811,28 @@
      "last": "2021-08-01"
     },
     {
-     "title": "Mine",
-     "slug": "mine",
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
      "type": "Films",
-     "weeks": 12,
-     "first": "2023-03-05",
-     "last": "2023-03-12"
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-02"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-31",
-     "last": "2024-03-31"
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2025-12-28"
+    },
+    {
+     "title": "The Net",
+     "slug": "the-net",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2022-10-16",
+     "last": "2022-10-30"
     }
    ]
   },
@@ -3871,22 +3871,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-06-11"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-02",
-     "last": "2022-10-16"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2025-08-31",
-     "last": "2025-10-05"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -3935,6 +3919,22 @@
      "weeks": 27,
      "first": "2025-02-02",
      "last": "2025-02-09"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-07-16",
+     "last": "2023-09-03"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-19"
     }
    ]
   },
@@ -3975,14 +3975,6 @@
      "last": "2025-08-03"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-16",
-     "last": "2023-05-14"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -4007,22 +3999,6 @@
      "last": "2023-05-14"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-04",
-     "last": "2023-04-02"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-30"
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -4037,6 +4013,30 @@
      "weeks": 37,
      "first": "2022-07-10",
      "last": "2022-10-16"
+    },
+    {
+     "title": "All of Us Are Dead",
+     "slug": "all-of-us-are-dead",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2022-01-30",
+     "last": "2022-03-13"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-08-29",
+     "last": "2022-01-09"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-22"
     }
    ]
   },
@@ -4051,14 +4051,6 @@
      "weeks": 60,
      "first": "2021-09-26",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-11-28",
-     "last": "2021-12-05"
     },
     {
      "title": "All of Us Are Dead",
@@ -4085,14 +4077,6 @@
      "last": "2023-03-19"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2022-01-16",
-     "last": "2024-01-28"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -4117,14 +4101,6 @@
      "last": "2026-04-19"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-04-07",
-     "last": "2024-04-07"
-    },
-    {
      "title": "Angel Eyes",
      "slug": "angel-eyes",
      "type": "Films",
@@ -4133,12 +4109,36 @@
      "last": "2022-08-14"
     },
     {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-04-07",
+     "last": "2024-04-07"
+    },
+    {
      "title": "Cleaning Up",
      "slug": "cleaning-up",
      "type": "TV",
      "weeks": 11,
      "first": "2024-04-07",
      "last": "2024-05-05"
+    },
+    {
+     "title": "Reminiscence",
+     "slug": "reminiscence",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-11-12",
+     "last": "2023-11-12"
+    },
+    {
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2025-12-21"
     }
    ]
   },
@@ -4257,14 +4257,6 @@
      "last": "2025-08-10"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-11-28",
-     "last": "2021-11-28"
-    },
-    {
      "title": "All of Us Are Dead",
      "slug": "all-of-us-are-dead",
      "type": "TV",
@@ -4329,20 +4321,28 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-04-21",
-     "last": "2024-04-21"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2023-06-18",
      "last": "2026-04-12"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2026-07-05",
+     "last": "2026-07-05"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "slug": "gyeongseong-creature",
+     "type": "TV",
+     "weeks": 15,
+     "first": "2023-12-31",
+     "last": "2023-12-31"
     }
    ]
   },
@@ -4373,14 +4373,6 @@
      "weeks": 44,
      "first": "2022-04-03",
      "last": "2022-04-10"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "All of Us Are Dead",
@@ -4415,14 +4407,6 @@
      "last": "2023-11-05"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2021-12-05",
-     "last": "2021-12-12"
-    },
-    {
      "title": "My Demon",
      "slug": "my-demon",
      "type": "TV",
@@ -4445,6 +4429,22 @@
      "weeks": 17,
      "first": "2023-06-11",
      "last": "2026-04-12"
+    },
+    {
+     "title": "Young Lady and Gentleman",
+     "slug": "young-lady-and-gentleman",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2022-09-04",
+     "last": "2022-10-02"
+    },
+    {
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2021-12-05",
+     "last": "2021-12-12"
     }
    ]
   },
@@ -4501,22 +4501,6 @@
      "last": "2022-05-22"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-20"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2022-07-17",
-     "last": "2026-07-19"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -4547,6 +4531,22 @@
      "weeks": 29,
      "first": "2024-01-21",
      "last": "2025-04-06"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-08",
+     "last": "2023-05-07"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-02-02",
+     "last": "2025-02-09"
     }
    ]
   },
@@ -4561,14 +4561,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-31"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -4593,14 +4585,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-03-19"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-02",
-     "last": "2022-10-23"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -4649,6 +4633,22 @@
      "weeks": 22,
      "first": "2023-06-25",
      "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-05"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-17"
     }
    ]
   },
@@ -4663,14 +4663,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-09",
-     "last": "2022-01-23"
     },
     {
      "title": "Alchemy of Souls",
@@ -4695,14 +4687,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-03-19"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -4751,6 +4735,22 @@
      "weeks": 22,
      "first": "2023-06-25",
      "last": "2023-07-09"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2025-03-09",
+     "last": "2025-03-09"
+    },
+    {
+     "title": "My Demon",
+     "slug": "my-demon",
+     "type": "TV",
+     "weeks": 20,
+     "first": "2023-11-26",
+     "last": "2023-12-24"
     }
    ]
   },
@@ -4765,14 +4765,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-17"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -4797,22 +4789,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-05-21"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-25",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-07"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -4853,6 +4829,30 @@
      "weeks": 27,
      "first": "2025-01-26",
      "last": "2025-02-09"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-25",
+     "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-05"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-17"
     }
    ]
   },
@@ -4867,14 +4867,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-08-29",
-     "last": "2021-08-29"
     },
     {
      "title": "All of Us Are Dead",
@@ -4917,30 +4909,6 @@
      "last": "2023-10-15"
     },
     {
-     "title": "Mine",
-     "slug": "mine",
-     "type": "Films",
-     "weeks": 12,
-     "first": "2022-07-17",
-     "last": "2022-07-17"
-    },
-    {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-31",
-     "last": "2024-03-31"
-    },
-    {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2022-02-20",
-     "last": "2022-04-03"
-    },
-    {
      "title": "Parasyte: The Grey",
      "slug": "parasyte-the-grey",
      "type": "TV",
@@ -4955,6 +4923,38 @@
      "weeks": 11,
      "first": "2025-12-21",
      "last": "2026-01-04"
+    },
+    {
+     "title": "Gossip Girl",
+     "slug": "gossip-girl",
+     "type": "TV",
+     "weeks": 10,
+     "first": "2023-07-16",
+     "last": "2023-08-20"
+    },
+    {
+     "title": "The 8 Show",
+     "slug": "the-8-show",
+     "type": "TV",
+     "weeks": 10,
+     "first": "2024-05-26",
+     "last": "2024-05-26"
+    },
+    {
+     "title": "Awake",
+     "slug": "awake",
+     "type": "Films",
+     "weeks": 9,
+     "first": "2023-09-03",
+     "last": "2023-09-10"
+    },
+    {
+     "title": "Hellbound",
+     "slug": "hellbound",
+     "type": "TV",
+     "weeks": 9,
+     "first": "2021-11-28",
+     "last": "2021-11-28"
     }
    ]
   },
@@ -4971,14 +4971,6 @@
      "last": "2025-08-24"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
-    },
-    {
      "title": "Business Proposal",
      "slug": "business-proposal",
      "type": "TV",
@@ -4993,14 +4985,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-02-26"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -5057,6 +5041,22 @@
      "weeks": 20,
      "first": "2026-02-08",
      "last": "2026-03-01"
+    },
+    {
+     "title": "My Demon",
+     "slug": "my-demon",
+     "type": "TV",
+     "weeks": 20,
+     "first": "2023-11-26",
+     "last": "2023-12-17"
+    },
+    {
+     "title": "Barbie",
+     "slug": "barbie",
+     "type": "Films",
+     "weeks": 19,
+     "first": "2025-05-25",
+     "last": "2025-05-25"
     }
    ]
   },
@@ -5071,14 +5071,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-08-29",
-     "last": "2021-09-05"
     },
     {
      "title": "All of Us Are Dead",
@@ -5159,6 +5151,14 @@
      "weeks": 13,
      "first": "2025-03-30",
      "last": "2025-04-27"
+    },
+    {
+     "title": "Bon Appétit, Your Majesty",
+     "slug": "bon-appetit-your-majesty",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-09-14",
+     "last": "2025-09-14"
     }
    ]
   },
@@ -5247,20 +5247,20 @@
      "last": "2023-12-31"
     },
     {
-     "title": "Family Business",
-     "slug": "family-business",
-     "type": "Films",
-     "weeks": 13,
-     "first": "2021-10-17",
-     "last": "2021-10-17"
-    },
-    {
      "title": "Weak Hero",
      "slug": "weak-hero",
      "type": "TV",
      "weeks": 13,
      "first": "2025-03-30",
      "last": "2025-05-04"
+    },
+    {
+     "title": "Bon Appétit, Your Majesty",
+     "slug": "bon-appetit-your-majesty",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-08-31",
+     "last": "2025-09-07"
     }
    ]
   },
@@ -5293,14 +5293,6 @@
      "last": "2025-07-27"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-02",
-     "last": "2023-04-09"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -5325,22 +5317,6 @@
      "last": "2023-05-14"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2023-04-02"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2021-08-01",
-     "last": "2025-09-21"
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -5363,6 +5339,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2022-04-03"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2021-12-26"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-22"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
     }
    ]
   },
@@ -5387,14 +5387,6 @@
      "last": "2025-08-03"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-09",
-     "last": "2022-01-23"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -5417,22 +5409,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-06-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-18",
-     "last": "2022-10-30"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-30",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -5465,6 +5441,30 @@
      "weeks": 34,
      "first": "2024-09-22",
      "last": "2024-09-22"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-01",
+     "last": "2023-04-16"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-01-26",
+     "last": "2025-02-16"
     }
    ]
   },
@@ -5505,14 +5505,6 @@
      "last": "2023-06-18"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-01-21",
-     "last": "2024-02-04"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -5537,14 +5529,6 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-07-21",
-     "last": "2024-07-21"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
@@ -5561,12 +5545,28 @@
      "last": "2026-05-17"
     },
     {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-07-21",
+     "last": "2024-07-21"
+    },
+    {
      "title": "Bon Appétit, Your Majesty",
      "slug": "bon-appetit-your-majesty",
      "type": "TV",
      "weeks": 12,
      "first": "2025-08-31",
      "last": "2025-09-14"
+    },
+    {
+     "title": "Kingdom: Ashin of the North",
+     "slug": "kingdom-ashin-of-the-north",
+     "type": "Films",
+     "weeks": 12,
+     "first": "2021-08-01",
+     "last": "2021-08-01"
     }
    ]
   },
@@ -5709,14 +5709,6 @@
      "last": "2023-03-05"
     },
     {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2025-08-31",
-     "last": "2025-09-21"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -5771,6 +5763,14 @@
      "weeks": 22,
      "first": "2025-03-09",
      "last": "2025-03-09"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-01-25"
     }
    ]
   },
@@ -5809,14 +5809,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-08-25"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-11-20"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -5873,6 +5865,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-10"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-19"
     }
    ]
   },
@@ -5921,22 +5921,6 @@
      "last": "2023-04-16"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-16",
-     "last": "2022-12-04"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -5975,6 +5959,22 @@
      "weeks": 29,
      "first": "2023-01-01",
      "last": "2023-04-16"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-02-02",
+     "last": "2025-02-16"
+    },
+    {
+     "title": "Land",
+     "slug": "land",
+     "type": "Films",
+     "weeks": 23,
+     "first": "2023-01-08",
+     "last": "2023-01-08"
     }
    ]
   },
@@ -6023,14 +6023,6 @@
      "last": "2025-03-02"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-01-21",
-     "last": "2024-02-11"
-    },
-    {
      "title": "Barbie",
      "slug": "barbie",
      "type": "Films",
@@ -6071,12 +6063,20 @@
      "last": "2025-09-07"
     },
     {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
      "weeks": 11,
-     "first": "2024-09-08",
-     "last": "2024-09-08"
+     "first": "2023-04-02",
+     "last": "2023-04-09"
+    },
+    {
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2026-01-04"
     }
    ]
   },
@@ -6107,14 +6107,6 @@
      "weeks": 44,
      "first": "2023-02-19",
      "last": "2023-03-05"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "All of Us Are Dead",
@@ -6173,12 +6165,20 @@
      "last": "2025-03-23"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-01-07",
-     "last": "2024-01-14"
+     "title": "Bloodhounds",
+     "slug": "bloodhounds",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2023-06-11",
+     "last": "2026-04-19"
+    },
+    {
+     "title": "Young Lady and Gentleman",
+     "slug": "young-lady-and-gentleman",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2022-09-04",
+     "last": "2022-10-09"
     }
    ]
   },
@@ -6217,14 +6217,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-02-19"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-04-17",
-     "last": "2022-04-17"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6281,6 +6273,14 @@
      "weeks": 22,
      "first": "2024-03-17",
      "last": "2024-03-24"
+    },
+    {
+     "title": "Barbie",
+     "slug": "barbie",
+     "type": "Films",
+     "weeks": 19,
+     "first": "2025-07-13",
+     "last": "2025-07-20"
     }
    ]
   },
@@ -6319,14 +6319,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-08-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-30",
-     "last": "2023-03-05"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6383,6 +6375,14 @@
      "weeks": 22,
      "first": "2024-03-24",
      "last": "2024-06-02"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-02-15"
     }
    ]
   },
@@ -6407,14 +6407,6 @@
      "last": "2025-07-27"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-09",
-     "last": "2022-01-30"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -6437,22 +6429,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-23"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-25",
-     "last": "2022-10-30"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-07"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6485,6 +6461,30 @@
      "weeks": 29,
      "first": "2023-01-08",
      "last": "2023-04-16"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-02-02",
+     "last": "2025-02-09"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-18",
+     "last": "2023-09-03"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-26"
     }
    ]
   },
@@ -6499,14 +6499,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-03-13",
-     "last": "2022-03-20"
     },
     {
      "title": "All of Us Are Dead",
@@ -6541,14 +6533,6 @@
      "last": "2023-08-13"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-01-21",
-     "last": "2024-01-21"
-    },
-    {
      "title": "Memory",
      "slug": "memory",
      "type": "Films",
@@ -6565,14 +6549,6 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2025-04-20",
-     "last": "2025-04-20"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
@@ -6581,12 +6557,36 @@
      "last": "2026-04-12"
     },
     {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2025-04-20",
+     "last": "2025-04-20"
+    },
+    {
      "title": "Kingdom: Ashin of the North",
      "slug": "kingdom-ashin-of-the-north",
      "type": "Films",
      "weeks": 12,
      "first": "2021-08-01",
      "last": "2021-08-01"
+    },
+    {
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
+    },
+    {
+     "title": "The Great Flood",
+     "slug": "the-great-flood",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2025-12-21",
+     "last": "2025-12-28"
     }
    ]
   },
@@ -6601,14 +6601,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-17"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-06-04",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -6633,22 +6625,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-06-11"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-18",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6689,6 +6665,30 @@
      "weeks": 27,
      "first": "2025-02-02",
      "last": "2025-02-23"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-25",
+     "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-05"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-10"
     }
    ]
   },
@@ -6727,22 +6727,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-06-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-05-01",
-     "last": "2022-10-16"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2025-08-31",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6791,6 +6775,22 @@
      "weeks": 22,
      "first": "2023-06-25",
      "last": "2023-09-10"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-06-02"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-25",
+     "last": "2026-02-08"
     }
    ]
   },
@@ -6829,14 +6829,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-01-21"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2023-03-05"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6893,6 +6885,14 @@
      "weeks": 22,
      "first": "2023-07-16",
      "last": "2023-09-03"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-05-19"
     }
    ]
   },
@@ -6923,14 +6923,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-02-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-30",
-     "last": "2023-02-26"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -6995,6 +6987,14 @@
      "weeks": 22,
      "first": "2024-03-24",
      "last": "2024-05-19"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-02-08"
     }
    ]
   },
@@ -7043,22 +7043,6 @@
      "last": "2024-08-11"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-10-23",
-     "last": "2022-11-27"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -7097,6 +7081,22 @@
      "weeks": 27,
      "first": "2025-01-26",
      "last": "2025-02-23"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-07-16",
+     "last": "2023-11-05"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-24",
+     "last": "2024-06-02"
     }
    ]
   },
@@ -7129,14 +7129,6 @@
      "last": "2025-07-27"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-02",
-     "last": "2022-02-06"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -7161,22 +7153,6 @@
      "last": "2023-05-14"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-06"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2021-08-01",
-     "last": "2023-07-30"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -7187,8 +7163,8 @@
     {
      "title": "The Promise",
      "slug": "the-promise",
-     "type": "Films",
-     "weeks": 37,
+     "type": "TV",
+     "weeks": 36,
      "first": "2021-09-12",
      "last": "2023-03-05"
     },
@@ -7199,6 +7175,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2025-01-05"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2021-12-26"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-29"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
     }
    ]
   },
@@ -7213,14 +7213,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -7263,14 +7255,6 @@
      "last": "2023-09-17"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-01-21",
-     "last": "2024-01-21"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -7301,6 +7285,22 @@
      "weeks": 19,
      "first": "2024-12-22",
      "last": "2024-12-22"
+    },
+    {
+     "title": "Ballerina",
+     "slug": "ballerina",
+     "type": "Films",
+     "weeks": 18,
+     "first": "2023-10-15",
+     "last": "2023-10-15"
+    },
+    {
+     "title": "Bloodhounds",
+     "slug": "bloodhounds",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2023-06-18",
+     "last": "2026-04-12"
     }
    ]
   },
@@ -7331,14 +7331,6 @@
      "weeks": 44,
      "first": "2022-05-01",
      "last": "2022-05-01"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -7403,6 +7395,14 @@
      "weeks": 22,
      "first": "2025-02-02",
      "last": "2025-02-09"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-01-25"
     }
    ]
   },
@@ -7417,14 +7417,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -7449,22 +7441,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-30"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-18",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -7505,6 +7481,30 @@
      "weeks": 27,
      "first": "2025-01-26",
      "last": "2025-02-16"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-18",
+     "last": "2023-08-20"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-05-19"
+    },
+    {
+     "title": "The Penthouse: War in Life",
+     "slug": "the-penthouse-war-in-life",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-01-22",
+     "last": "2023-01-22"
     }
    ]
   },
@@ -7535,14 +7535,6 @@
      "weeks": 44,
      "first": "2023-02-19",
      "last": "2023-03-05"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2023-05-28",
-     "last": "2023-05-28"
     },
     {
      "title": "All of Us Are Dead",
@@ -7607,6 +7599,14 @@
      "weeks": 19,
      "first": "2026-07-26",
      "last": "2026-07-26"
+    },
+    {
+     "title": "Ballerina",
+     "slug": "ballerina",
+     "type": "Films",
+     "weeks": 18,
+     "first": "2023-10-08",
+     "last": "2025-03-23"
     }
    ]
   },
@@ -7629,22 +7629,6 @@
      "weeks": 45,
      "first": "2022-09-04",
      "last": "2023-02-19"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-04-03",
-     "last": "2022-04-03"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-30"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -7709,6 +7693,22 @@
      "weeks": 22,
      "first": "2024-03-31",
      "last": "2024-03-31"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-01-25"
+    },
+    {
+     "title": "My Demon",
+     "slug": "my-demon",
+     "type": "TV",
+     "weeks": 20,
+     "first": "2023-11-26",
+     "last": "2023-12-31"
     }
    ]
   },
@@ -7733,14 +7733,6 @@
      "last": "2025-08-17"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-02-05",
-     "last": "2023-06-11"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -7763,22 +7755,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-06-04"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-06"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -7811,6 +7787,30 @@
      "weeks": 29,
      "first": "2023-01-01",
      "last": "2023-05-21"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-01-26",
+     "last": "2025-02-23"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-25",
+     "last": "2023-08-13"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-12"
     }
    ]
   },
@@ -7833,14 +7833,6 @@
      "weeks": 44,
      "first": "2022-04-10",
      "last": "2022-04-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -7913,6 +7905,14 @@
      "weeks": 15,
      "first": "2023-12-31",
      "last": "2023-12-31"
+    },
+    {
+     "title": "Unlocked",
+     "slug": "unlocked",
+     "type": "Films",
+     "weeks": 13,
+     "first": "2023-02-26",
+     "last": "2023-02-26"
     }
    ]
   },
@@ -7937,14 +7937,6 @@
      "last": "2025-07-27"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-02",
-     "last": "2022-02-20"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -7967,22 +7959,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-02"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-06"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-08-31"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -8015,6 +7991,30 @@
      "weeks": 34,
      "first": "2024-09-15",
      "last": "2024-09-22"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-01",
+     "last": "2023-05-14"
+    },
+    {
+     "title": "Man in Love",
+     "slug": "man-in-love",
+     "type": "Films",
+     "weeks": 28,
+     "first": "2021-08-29",
+     "last": "2021-08-29"
     }
    ]
   },
@@ -8029,14 +8029,6 @@
      "weeks": 60,
      "first": "2021-09-26",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -8087,14 +8079,6 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-07-21",
-     "last": "2024-07-28"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
@@ -8111,12 +8095,28 @@
      "last": "2024-10-06"
     },
     {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-07-21",
+     "last": "2024-07-28"
+    },
+    {
      "title": "Addicted",
      "slug": "addicted",
      "type": "Films",
      "weeks": 12,
      "first": "2023-06-18",
      "last": "2023-06-25"
+    },
+    {
+     "title": "Bon Appétit, Your Majesty",
+     "slug": "bon-appetit-your-majesty",
+     "type": "TV",
+     "weeks": 12,
+     "first": "2025-09-07",
+     "last": "2025-09-07"
     }
    ]
   },
@@ -8131,14 +8131,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-10",
-     "last": "2021-10-17"
     },
     {
      "title": "All of Us Are Dead",
@@ -8219,6 +8211,14 @@
      "weeks": 12,
      "first": "2025-09-07",
      "last": "2025-09-07"
+    },
+    {
+     "title": "Kingdom: Ashin of the North",
+     "slug": "kingdom-ashin-of-the-north",
+     "type": "Films",
+     "weeks": 12,
+     "first": "2021-08-01",
+     "last": "2021-08-01"
     }
    ]
   },
@@ -8283,14 +8283,6 @@
      "last": "2023-08-20"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2024-05-19",
-     "last": "2024-06-02"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -8321,6 +8313,14 @@
      "weeks": 18,
      "first": "2023-10-15",
      "last": "2023-10-15"
+    },
+    {
+     "title": "Bloodhounds",
+     "slug": "bloodhounds",
+     "type": "TV",
+     "weeks": 17,
+     "first": "2023-06-18",
+     "last": "2023-06-18"
     }
    ]
   },
@@ -8361,14 +8361,6 @@
      "last": "2025-08-03"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2025-07-06",
-     "last": "2026-01-18"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -8393,22 +8385,6 @@
      "last": "2023-02-26"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-13"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2021-08-01",
-     "last": "2021-08-01"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -8423,6 +8399,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2022-03-06"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2021-11-21"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2025-03-09",
+     "last": "2025-11-02"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
     }
    ]
   },
@@ -8437,14 +8437,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-10"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-10-17",
-     "last": "2021-10-31"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -8511,20 +8503,28 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2026-01-04",
-     "last": "2026-01-11"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2023-06-18",
      "last": "2026-04-12"
+    },
+    {
+     "title": "Escape",
+     "slug": "escape",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2022-11-13",
+     "last": "2026-06-14"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2026-05-10",
+     "last": "2026-05-17"
     }
    ]
   },
@@ -8549,14 +8549,6 @@
      "last": "2025-08-17"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-09",
-     "last": "2022-01-16"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -8579,22 +8571,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-23"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-18",
-     "last": "2022-10-30"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2025-08-31",
-     "last": "2025-09-28"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -8627,6 +8603,30 @@
      "weeks": 34,
      "first": "2024-09-22",
      "last": "2024-09-29"
+    },
+    {
+     "title": "The Glory",
+     "slug": "the-glory",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2023-01-01",
+     "last": "2023-04-16"
+    },
+    {
+     "title": "The Trauma Code: Heroes on Call",
+     "slug": "the-trauma-code-heroes-on-call",
+     "type": "TV",
+     "weeks": 27,
+     "first": "2025-02-02",
+     "last": "2025-02-09"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-18",
+     "last": "2023-08-20"
     }
    ]
   },
@@ -8641,14 +8641,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-03-20",
-     "last": "2022-03-20"
     },
     {
      "title": "All of Us Are Dead",
@@ -8699,20 +8691,20 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2025-04-20",
-     "last": "2025-04-20"
-    },
-    {
      "title": "Bloodhounds",
      "slug": "bloodhounds",
      "type": "TV",
      "weeks": 17,
      "first": "2023-06-18",
      "last": "2023-06-18"
+    },
+    {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2025-04-20",
+     "last": "2025-04-20"
     },
     {
      "title": "Addicted",
@@ -8729,6 +8721,14 @@
      "weeks": 12,
      "first": "2025-08-31",
      "last": "2025-09-07"
+    },
+    {
+     "title": "Kingdom: Ashin of the North",
+     "slug": "kingdom-ashin-of-the-north",
+     "type": "Films",
+     "weeks": 12,
+     "first": "2021-08-01",
+     "last": "2021-08-01"
     }
    ]
   },
@@ -8817,20 +8817,20 @@
      "last": "2025-06-15"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-24",
-     "last": "2024-09-08"
+     "title": "Humint",
+     "slug": "humint",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2026-04-05",
+     "last": "2026-04-05"
     },
     {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2022-03-06",
-     "last": "2022-04-03"
+     "title": "Kill Boksoon",
+     "slug": "kill-boksoon",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-04-02",
+     "last": "2023-04-09"
     }
    ]
   },
@@ -8863,14 +8863,6 @@
      "last": "2025-07-20"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2024-06-09",
-     "last": "2024-06-30"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -8895,22 +8887,6 @@
      "last": "2023-03-05"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-11-13"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -8933,6 +8909,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2022-03-06"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2021-12-26"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-29"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-13"
     }
    ]
   },
@@ -8973,14 +8973,6 @@
      "last": "2025-07-20"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-02",
-     "last": "2023-02-26"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -9005,22 +8997,6 @@
      "last": "2023-04-30"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2021-07-25",
-     "last": "2023-07-23"
-    },
-    {
      "title": "Extraordinary Attorney Woo",
      "slug": "extraordinary-attorney-woo",
      "type": "TV",
@@ -9035,6 +9011,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2022-03-27"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2022-05-01"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-22"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
     }
    ]
   },
@@ -9065,14 +9065,6 @@
      "weeks": 44,
      "first": "2022-04-03",
      "last": "2022-04-10"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
     },
     {
      "title": "All of Us Are Dead",
@@ -9137,6 +9129,14 @@
      "weeks": 17,
      "first": "2022-08-28",
      "last": "2022-10-16"
+    },
+    {
+     "title": "Angel Eyes",
+     "slug": "angel-eyes",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2022-08-14",
+     "last": "2022-08-14"
     }
    ]
   },
@@ -9274,33 +9274,9 @@
      "title": "The Cursed",
      "slug": "the-cursed",
      "type": "Films",
-     "weeks": 18,
+     "weeks": 15,
      "first": "2024-04-21",
      "last": "2024-04-28"
-    },
-    {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2024-03-24",
-     "last": "2024-03-31"
-    },
-    {
-     "title": "Snowpiercer",
-     "slug": "snowpiercer",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2022-01-30",
-     "last": "2022-04-10"
-    },
-    {
-     "title": "Breathless",
-     "slug": "breathless",
-     "type": "TV",
-     "weeks": 11,
-     "first": "2024-09-01",
-     "last": "2025-11-09"
     },
     {
      "title": "Parasyte: The Grey",
@@ -9341,6 +9317,30 @@
      "weeks": 9,
      "first": "2026-06-21",
      "last": "2026-08-09"
+    },
+    {
+     "title": "Uprising",
+     "slug": "uprising",
+     "type": "Films",
+     "weeks": 9,
+     "first": "2024-10-13",
+     "last": "2024-10-20"
+    },
+    {
+     "title": "Wanted",
+     "slug": "wanted",
+     "type": "Films",
+     "weeks": 8,
+     "first": "2024-09-22",
+     "last": "2024-09-29"
+    },
+    {
+     "title": "The Game",
+     "slug": "the-game",
+     "type": "Films",
+     "weeks": 7,
+     "first": "2022-05-29",
+     "last": "2022-06-05"
     }
    ]
   },
@@ -9355,14 +9355,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-08-03"
-    },
-    {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2023-06-04",
-     "last": "2023-06-11"
     },
     {
      "title": "Alchemy of Souls",
@@ -9387,22 +9379,6 @@
      "weeks": 44,
      "first": "2023-02-12",
      "last": "2023-04-16"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-25",
-     "last": "2022-10-23"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2025-09-21"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -9443,6 +9419,30 @@
      "weeks": 27,
      "first": "2025-01-26",
      "last": "2025-02-16"
+    },
+    {
+     "title": "King the Land",
+     "slug": "king-the-land",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2023-06-25",
+     "last": "2023-08-20"
+    },
+    {
+     "title": "Queen of Tears",
+     "slug": "queen-of-tears",
+     "type": "TV",
+     "weeks": 22,
+     "first": "2024-03-17",
+     "last": "2024-05-12"
+    },
+    {
+     "title": "Watcher",
+     "slug": "watcher",
+     "type": "Films",
+     "weeks": 22,
+     "first": "2024-03-10",
+     "last": "2024-03-10"
     }
    ]
   },
@@ -9457,14 +9457,6 @@
      "weeks": 60,
      "first": "2021-09-19",
      "last": "2025-07-27"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2021-11-28",
-     "last": "2021-11-28"
     },
     {
      "title": "All of Us Are Dead",
@@ -9489,14 +9481,6 @@
      "weeks": 29,
      "first": "2023-03-12",
      "last": "2023-03-19"
-    },
-    {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2022-01-16",
-     "last": "2024-01-21"
     },
     {
      "title": "Watcher",
@@ -9531,20 +9515,36 @@
      "last": "2023-10-15"
     },
     {
-     "title": "The Cursed",
-     "slug": "the-cursed",
-     "type": "Films",
-     "weeks": 18,
-     "first": "2024-04-07",
-     "last": "2024-04-07"
-    },
-    {
      "title": "Angel Eyes",
      "slug": "angel-eyes",
      "type": "Films",
      "weeks": 15,
      "first": "2022-08-07",
      "last": "2022-08-07"
+    },
+    {
+     "title": "The Cursed",
+     "slug": "the-cursed",
+     "type": "Films",
+     "weeks": 15,
+     "first": "2024-04-07",
+     "last": "2024-04-07"
+    },
+    {
+     "title": "Cleaning Up",
+     "slug": "cleaning-up",
+     "type": "TV",
+     "weeks": 11,
+     "first": "2024-04-07",
+     "last": "2024-04-28"
+    },
+    {
+     "title": "Reminiscence",
+     "slug": "reminiscence",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2023-11-12",
+     "last": "2023-11-12"
     }
    ]
   },
@@ -9593,14 +9593,6 @@
      "last": "2023-03-26"
     },
     {
-     "title": "Safe",
-     "slug": "safe",
-     "type": "Films",
-     "weeks": 22,
-     "first": "2023-08-13",
-     "last": "2023-08-20"
-    },
-    {
      "title": "Watcher",
      "slug": "watcher",
      "type": "Films",
@@ -9625,12 +9617,12 @@
      "last": "2023-06-18"
     },
     {
-     "title": "Red Eye",
-     "slug": "red-eye",
-     "type": "TV",
-     "weeks": 12,
-     "first": "2025-07-13",
-     "last": "2025-07-13"
+     "title": "Safe",
+     "slug": "safe",
+     "type": "Films",
+     "weeks": 16,
+     "first": "2023-08-13",
+     "last": "2023-08-20"
     },
     {
      "title": "Parasyte: The Grey",
@@ -9647,6 +9639,14 @@
      "weeks": 11,
      "first": "2025-12-21",
      "last": "2025-12-28"
+    },
+    {
+     "title": "The Net",
+     "slug": "the-net",
+     "type": "Films",
+     "weeks": 11,
+     "first": "2021-08-15",
+     "last": "2021-08-15"
     }
    ]
   },
@@ -9669,14 +9669,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2023-12-24"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2023-02-26",
-     "last": "2023-03-05"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -9749,6 +9741,14 @@
      "weeks": 17,
      "first": "2023-06-18",
      "last": "2026-04-12"
+    },
+    {
+     "title": "Gyeongseong Creature",
+     "slug": "gyeongseong-creature",
+     "type": "TV",
+     "weeks": 15,
+     "first": "2023-12-31",
+     "last": "2023-12-31"
     }
    ]
   },
@@ -9779,14 +9779,6 @@
      "weeks": 44,
      "first": "2023-12-17",
      "last": "2024-01-14"
-    },
-    {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-11-13",
-     "last": "2022-11-13"
     },
     {
      "title": "Extraordinary Attorney Woo",
@@ -9851,6 +9843,14 @@
      "weeks": 22,
      "first": "2024-03-24",
      "last": "2024-05-26"
+    },
+    {
+     "title": "Can This Love Be Translated?",
+     "slug": "can-this-love-be-translated",
+     "type": "TV",
+     "weeks": 21,
+     "first": "2026-01-18",
+     "last": "2026-02-08"
     }
    ]
   },
@@ -9883,14 +9883,6 @@
      "last": "2025-08-03"
     },
     {
-     "title": "Taxi Driver",
-     "slug": "taxi-driver",
-     "type": "TV",
-     "weeks": 46,
-     "first": "2022-01-02",
-     "last": "2023-05-28"
-    },
-    {
      "title": "Alchemy of Souls",
      "slug": "alchemy-of-souls",
      "type": "TV",
@@ -9915,22 +9907,6 @@
      "last": "2023-03-19"
     },
     {
-     "title": "Little Women",
-     "slug": "little-women",
-     "type": "Films",
-     "weeks": 40,
-     "first": "2022-09-11",
-     "last": "2022-10-09"
-    },
-    {
-     "title": "Kingdom",
-     "slug": "kingdom",
-     "type": "Films",
-     "weeks": 39,
-     "first": "2023-07-23",
-     "last": "2023-07-23"
-    },
-    {
      "title": "Reply 1988",
      "slug": "reply-1988",
      "type": "TV",
@@ -9953,6 +9929,30 @@
      "weeks": 34,
      "first": "2022-01-30",
      "last": "2022-03-20"
+    },
+    {
+     "title": "Hometown Cha-Cha-Cha",
+     "slug": "hometown-cha-cha-cha",
+     "type": "TV",
+     "weeks": 34,
+     "first": "2021-09-05",
+     "last": "2026-02-01"
+    },
+    {
+     "title": "Tarot",
+     "slug": "tarot",
+     "type": "Films",
+     "weeks": 34,
+     "first": "2024-09-22",
+     "last": "2024-09-29"
+    },
+    {
+     "title": "Solo Leveling",
+     "slug": "solo-leveling",
+     "type": "TV",
+     "weeks": 29,
+     "first": "2024-01-14",
+     "last": "2025-04-06"
     }
    ]
   }

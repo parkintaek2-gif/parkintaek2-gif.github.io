@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T03:46:22.962Z",
+  "generated": "2026-08-29T04:44:53.789Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -411,7 +411,41 @@
       ]
     },
     {
+      "set": "indonesia-writes-it-down-first",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "it-moved-it-did-not-shrink",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "it-was-one-game",
       "sq": [
         1,
         2,
@@ -1156,6 +1190,23 @@
     },
     {
       "set": "one-title-is-the-median-career",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "one-title-out",
       "sq": [
         1,
         2,
@@ -1923,15 +1974,12 @@
       ]
     }
   ],
-  "setCount": 114,
-  "imageCount": 1121,
+  "setCount": 117,
+  "imageCount": 1151,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "brands-are-not-one-thing",
     "december-looking-june-quiet",
-    "indonesia-writes-it-down-first",
-    "it-was-one-game",
-    "one-title-out",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question"
   ]

@@ -99,10 +99,21 @@ export async function 만들기() {
     if (!나라주.has(r.iso2)) 나라주.set(r.iso2, new Set());
     나라주.get(r.iso2).add(r.주);
     if (!ko.keepTitle(r.제목)) continue;
-    if (!T.has(r.제목)) {
-      T.set(r.제목, { 구분: r.구분, 시장: new Map(), 주: new Set(), 해: new Map(), 주별나라: new Map(), 구간감: new Map() });
+    /*
+     * 🔴🔴 [2026-08-29] **넷플릭스 차트는 둘이고, 이름이 같은 «다른 작품»이 양쪽에 앉는다.**
+     *   여기서 열쇠를 제목 하나로 잡는 바람에 두 작품의 줄이 **한 덩이로 뭉쳤다.**
+     *   보기 — Little Women: 원자료에 Films 63줄 · TV 225줄. 앞엣것은 2019년 미국 영화이고
+     *   뒤엣것이 2022년 tvN 드라마다. 우리 지면은 «둘을 더한 수»를 드라마 이름으로 내고 있었다.
+     *   ⛔ 남의 수를 우리 작품 이름으로 보여 주는 것 — 이 파일이 맨 위에서 스스로 금한 바로 그것이다.
+     *   ⚠ 이름이 겹치는 지면 25장이 그렇게 나가 있었고, 그중 19장은 갈래 딱지까지 틀렸다.
+     * ✅ 그래서 «제목 → 차트 → 자료» 두 겹으로 담는다. 고르는 것은 다 담은 뒤에 한다.
+     */
+    if (!T.has(r.제목)) T.set(r.제목, new Map());
+    const 칸 = T.get(r.제목);
+    if (!칸.has(r.구분)) {
+      칸.set(r.구분, { 구분: r.구분, 시장: new Map(), 주: new Set(), 해: new Map(), 주별나라: new Map(), 구간감: new Map() });
     }
-    const t = T.get(r.제목);
+    const t = 칸.get(r.구분);
     /* ⭐ 한 주에 몇 나라였나 — 「35개 나라」는 *동시에* 와 *차례로* 가 전혀 다른 이야기다 */
     if (!t.주별나라.has(r.주)) t.주별나라.set(r.주, new Set());
     t.주별나라.get(r.주).add(r.iso2);
@@ -125,7 +136,16 @@ export async function 만들기() {
     if (r.주 > m.last) m.last = r.주;
   }
 
-  /* 회사 — 어느 회사가 어떤 자격으로 붙었나 */
+  /*
+   * 🔴 **두 차트에 같은 이름이 앉았을 때 어느 쪽이 «우리» 작품인가.**
+   *   ⛔ 더하지 않는다. 더하면 남의 작품 수가 우리 이름 아래로 들어온다.
+   *   ⛔ 「줄이 많은 쪽」으로 고르지 않는다 — 남의 작품이 더 잘 나갔으면 남의 것을 집는다.
+   *   ✅ 위키데이터가 그 이름에 붙여 둔 «갈래»(film / series)로 고른다. 우리가 이미 쥔 자료다.
+   *   ⚠ 그 갈래도 이름으로 맞춘 것이라(근거: label) 틀릴 수 있다. 그래서 지면이
+   *     «몇 줄을 어느 차트에서 뺐는지»를 적는다. 조용히 빼면 다음 사람이 못 되짚는다.
+   *   ⛔ 갈래를 모르면 **둘 다 안 낸다.** 고를 근거가 없는데 고르는 것이 제일 나쁘다.
+   */
+  /* 회사 — 어느 회사가 어떤 자격으로 붙었나. ⭐ 차트를 «고르는 증거»로도 쓴다 */
   const F = JSON.parse(fs.readFileSync(회사판, 'utf8'));
   const 회사 = new Map();
   for (const f of F.firms) {
@@ -134,6 +154,60 @@ export async function 만들기() {
       회사.get(w.title).push({ firm: f.firm, grade: f.grade, roles: w.roles });
     }
   }
+
+  const 갈래표 = (() => {
+    const k = JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-titles-keyed.json', 'utf8'));
+    return new Map(Object.values(k.작품).map((x) => [x.넷플릭스제목, x.갈래]));
+  })();
+  /** 위키데이터 갈래 → 넷플릭스 차트 이름 */
+  const 갈래의차트 = (g) => (g === 'series' ? 'TV' : (g === 'film' ? 'Films' : null));
+  /** 제목 → { 고른차트, 뺀차트, 뺀줄수 } — 지면이 이걸 적는다 */
+  const 두차트 = new Map();
+  /** 갈래를 몰라 «둘 다» 못 내는 제목 */
+  const 못가른이름 = new Set();
+  /** 자리 수 — 어느 쪽이 큰지 견주려면 필요하다 */
+  const 자리수 = (v) => [...v.시장.values()].reduce((n, m) => n + m.places, 0);
+  for (const [제목, 칸] of T) {
+    if (칸.size <= 1) { T.set(제목, [...칸.values()][0]); continue; }
+
+    /*
+     * ⭐ 증거가 «센 것»부터 쓴다.
+     *   ① **방송사가 「첫방송」 자격으로 붙어 있으면 그것은 방송된 것이다** — TV 다.
+     *      위키데이터에서 자격까지 받아 둔 것이라 이름 맞추기보다 세다.
+     *   ② 없으면 위키데이터 갈래(film/series). ⚠ 이것은 «이름»으로 맞춘 것이라 약하다.
+     */
+    const 방송됨 = (회사.get(제목) || []).some((x) => (x.roles || []).includes('첫방송'));
+    const 원하는 = 방송됨 ? 'TV' : 갈래의차트(갈래표.get(제목));
+    if (!원하는 || !칸.has(원하는)) {
+      못가른이름.add(제목);
+      /* 한쪽은 골라 둬야 아래 셈이 돌아간다. 어차피 hasPage:false 로 나간다 */
+      T.set(제목, [...칸.values()][0]);
+      continue;
+    }
+    const 뺀 = [...칸.entries()].filter(([c]) => c !== 원하는);
+    /*
+     * 🔴 **약한 증거로 「작은 쪽」을 골랐다면 아예 안 낸다.**
+     *   Taxi Driver 는 고른 쪽이 7자리, 버린 쪽이 134자리였다. 갈래가 틀렸다면
+     *   사람들이 찾는 그 이름 아래에 **다른 작품의 초라한 수**를 내놓게 된다.
+     *   ⛔ 이름은 맞고 수는 남의 것 — 이게 제일 나쁜 꼴이다. 차라리 안 낸다.
+     *   ⚠ ①(첫방송)으로 고른 것은 이 검사에 안 걸린다. 증거가 셌기 때문이다.
+     */
+    const 뺀자리 = 뺀.reduce((n, [, v]) => n + 자리수(v), 0);
+    if (!방송됨 && 뺀자리 > 자리수(칸.get(원하는))) {
+      못가른이름.add(제목);
+      T.set(제목, 칸.get(원하는));
+      continue;
+    }
+    두차트.set(제목, {
+      kept: 원하는,
+      basis: 방송됨
+        ? 'a broadcaster is credited with first airing this title, so the televised chart is the one that belongs to it'
+        : `Wikidata records this name as a ${갈래표.get(제목)}`,
+      dropped: 뺀.map(([c, v]) => ({ chart: c, countries: v.시장.size, places: 자리수(v) })),
+    });
+    T.set(제목, 칸.get(원하는));
+  }
+  console.log(`   두 차트에 같은 이름 ${두차트.size + 못가른이름.size}건 — 가른 것 ${두차트.size} · ⬜ 못 가른 것 ${못가른이름.size}(둘 다 안 낸다)`);
 
   /* 배우 — 위키데이터에 한국 국적으로 잡힌 이름만 */
   const C = JSON.parse(fs.readFileSync(출연판, 'utf8'));
@@ -180,6 +254,8 @@ export async function 만들기() {
       for (const t of v) 겹친제목.add(t);
     }
   }
+  /* ⛔ 갈래를 몰라 차트를 못 가른 이름도 «안 낸다» — 겹친 것과 같은 이유다 */
+  for (const 제목 of 못가른이름) 겹친제목.add(제목);
 
   const titles = [];
   for (const [제목, t] of T) {
@@ -239,16 +315,28 @@ export async function 만들기() {
       hasPage: rows >= 지면낼최소줄 && !겹침,
       /* ⛔ 합치지 않은 다른 철자. 지면이 이것을 화면에 적는다 */
       otherSpellings: 다른철자.get(제목) || null,
+      /*
+       * ⭐ 같은 이름이 다른 차트에도 있었고, 그쪽 줄은 **이 수에 안 들어 있다.**
+       *   ⛔ 조용히 빼면 지면이 「이게 전부다」라고 거짓말한다. 몇 줄을 뺐는지 적는다.
+       */
+      sameNameOtherChart: 두차트.get(제목) || null,
       /* ⛔ 지면을 안 내는 까닭을 **작품마다** 적는다. 「없다」로 두면 다음 사람이 못 고친다 */
       /* 🔴 2026-08-23 — 겹친 까닭을 **두 갈래로 갈라 적는다.**
          앞서는 겹치기만 하면 「둘 다 안 낸다」로 적었는데, 열쇠로 한쪽을 가려낸 경우에는
          그 문장이 **사실이 아니다** — 다른 철자가 지면을 받고 있는데도 안 받았다고 말한다.
          ⛔ 우리 지면이 스스로에 대해 틀린 말을 하게 두지 않는다. */
-      noPageReason: 겹침
-        ? (가려낸주소.has(슬러그(제목))
-          ? 'another spelling of this address was identified in Wikidata and published instead; the rows under this spelling are not merged into it'
-          : 'another charting title resolves to the same address and neither could be identified, so neither is published rather than showing one title numbers under the other name')
-        : (rows >= 지면낼최소줄 ? null : `only ${rows} data rows — below the ${지면낼최소줄} this site requires before it publishes a page`),
+      /*
+       * ⚠ [2026-08-29] 까닭을 «가장 정확한 것부터» 묻는다. 앞서 「주소가 겹쳤다」를 먼저
+       *   물었더니, 차트를 못 갈라 안 낸 열 편까지 「철자가 겹쳤다」로 적혔다 —
+       *   ⛔ 지면이 스스로에 대해 틀린 말을 하는 것이라 여기서 순서를 뒤집는다.
+       */
+      noPageReason: 못가른이름.has(제목)
+        ? 'this name sits on both the Films chart and the TV chart, which are two different works, and we could not establish firmly enough which one is the Korean title, so neither set of numbers is published under it'
+        : (겹침
+          ? (가려낸주소.has(슬러그(제목))
+            ? 'another spelling of this address was identified in Wikidata and published instead; the rows under this spelling are not merged into it'
+            : 'another charting title resolves to the same address and neither could be identified, so neither is published rather than showing one title numbers under the other name')
+          : (rows >= 지면낼최소줄 ? null : `only ${rows} data rows — below the ${지면낼최소줄} this site requires before it publishes a page`)),
       /* ⭐ 동시에 몇 나라였나 — `markets` 와 나란히 놔야 「차례로」와 「한꺼번에」가 갈린다 */
       atOnce: 넓은수,
       atOnceWeek: 넓은주,

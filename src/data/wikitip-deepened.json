@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-25T06:35+09:00",
+  "generated": "2026-08-29T13:46+09:00",
   "whatIsStillOnlyInTheSheet": "The week-by-week path of a title, the full company catalogue table and the titles that never charted remain in the company sheet. What is here is the per-market summary: how many separate runs, the longest, and the position each run ended from.",
   "rowsRead": 499180,
   "bySlug": {
@@ -729,182 +729,6 @@
       "pairedWith": "the-devil-s-plan",
       "byMarketRuns": [
         {
-          "market": "Ukraine",
-          "runs": 2,
-          "places": 10,
-          "longestRun": 9,
-          "leftFrom": "8, 7",
-          "stillOn": 0
-        },
-        {
-          "market": "Latvia",
-          "runs": 2,
-          "places": 6,
-          "longestRun": 5,
-          "leftFrom": "9, 6",
-          "stillOn": 0
-        },
-        {
-          "market": "Belgium",
-          "runs": 2,
-          "places": 5,
-          "longestRun": 4,
-          "leftFrom": "10, 8",
-          "stillOn": 0
-        },
-        {
-          "market": "Finland",
-          "runs": 2,
-          "places": 5,
-          "longestRun": 4,
-          "leftFrom": "9, 4",
-          "stillOn": 0
-        },
-        {
-          "market": "Turkey",
-          "runs": 2,
-          "places": 5,
-          "longestRun": 3,
-          "leftFrom": "9, 6",
-          "stillOn": 0
-        },
-        {
-          "market": "Bulgaria",
-          "runs": 2,
-          "places": 3,
-          "longestRun": 2,
-          "leftFrom": "9, 9",
-          "stillOn": 0
-        },
-        {
-          "market": "Estonia",
-          "runs": 2,
-          "places": 3,
-          "longestRun": 2,
-          "leftFrom": "10, 6",
-          "stillOn": 0
-        },
-        {
-          "market": "Poland",
-          "runs": 2,
-          "places": 3,
-          "longestRun": 2,
-          "leftFrom": "9, 9",
-          "stillOn": 0
-        },
-        {
-          "market": "France",
-          "runs": 2,
-          "places": 2,
-          "longestRun": 1,
-          "leftFrom": "9, 9",
-          "stillOn": 0
-        },
-        {
-          "market": "Slovenia",
-          "runs": 2,
-          "places": 2,
-          "longestRun": 1,
-          "leftFrom": "9, 8",
-          "stillOn": 0
-        },
-        {
-          "market": "Sweden",
-          "runs": 2,
-          "places": 2,
-          "longestRun": 1,
-          "leftFrom": "9, 10",
-          "stillOn": 0
-        },
-        {
-          "market": "Switzerland",
-          "runs": 2,
-          "places": 2,
-          "longestRun": 1,
-          "leftFrom": "9, 9",
-          "stillOn": 0
-        },
-        {
-          "market": "Croatia",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "9",
-          "stillOn": 0
-        },
-        {
-          "market": "Greece",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
-          "market": "Guadeloupe",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
-          "market": "Italy",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "8",
-          "stillOn": 0
-        },
-        {
-          "market": "Lithuania",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "6",
-          "stillOn": 0
-        },
-        {
-          "market": "Luxembourg",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
-          "market": "Martinique",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
-          "market": "Norway",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
-          "market": "Romania",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "7",
-          "stillOn": 0
-        },
-        {
-          "market": "Serbia",
-          "runs": 1,
-          "places": 1,
-          "longestRun": 1,
-          "leftFrom": "10",
-          "stillOn": 0
-        },
-        {
           "market": "Singapore",
           "runs": 1,
           "places": 1,
@@ -921,12 +745,12 @@
           "stillOn": 0
         }
       ],
-      "totalRuns": 36,
-      "marketsWithReturn": 12,
-      "exitsCounted": 36,
-      "exitBottomThree": 29,
-      "companionAvg": 0.67,
-      "companionWeeksAlone": 55
+      "totalRuns": 2,
+      "marketsWithReturn": 0,
+      "exitsCounted": 2,
+      "exitBottomThree": 2,
+      "companionAvg": 6.5,
+      "companionWeeksAlone": 0
     },
     "the-trauma-code-heroes-on-call": {
       "slug": "the-trauma-code-heroes-on-call",

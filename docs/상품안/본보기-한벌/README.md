@@ -1,6 +1,6 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-24. Ten files. Start here.
+Sample bundle, 2026-08-29. Ten files. Start here.
 
 ## What this is, in five lines
 
@@ -69,7 +69,7 @@ below and neither is the real one on its own.
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3579 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
-| `corrections.csv` | Every figure we have published and had to change | 33 |
+| `corrections.csv` | Every figure we have published and had to change | 34 |
 | `coverage.csv` | What is empty, how much, and whether it can be filled | 18 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 

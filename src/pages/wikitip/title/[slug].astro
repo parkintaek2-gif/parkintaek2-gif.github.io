@@ -439,6 +439,21 @@ const jsonLd = {
     We hold chart lists, not catalogue listings, and we do not guess the difference.
   </p>
 
+  {(t as any).sameNameOtherChart && (
+    <p class="warn">
+      ⚠ <b>A different work carries this same name.</b> Netflix publishes two separate charts —
+      one for films, one for series — and this name appears on both.{' '}
+      {(t as any).sameNameOtherChart.dropped.map((d: any) => (
+        `${d.places} chart place${d.places === 1 ? '' : 's'} across ${d.countries} ${d.countries === 1 ? 'country' : 'countries'} on the ${d.chart === 'TV' ? 'series' : 'film'} chart`
+      )).join(' and ')} {' '}
+      {(t as any).sameNameOtherChart.dropped.length === 1 ? 'belongs' : 'belong'} to that other work
+      and <b>is not counted anywhere on this page</b>. We kept the {(t as any).sameNameOtherChart.kept === 'TV' ? 'series' : 'film'} chart
+      because {(t as any).sameNameOtherChart.basis}. If that identification is wrong, every number
+      here is the wrong work's — so we are telling you what we excluded and why, rather than
+      quietly adding the two together.
+    </p>
+  )}
+
   {t.otherSpellings && (
     <p class="warn">
       ⚠ Netflix's lists also carry <b>{t.otherSpellings.join(', ')}</b> as a separate entry.

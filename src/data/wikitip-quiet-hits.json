@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-23",
+ "generated": "2026-08-29",
  "whatThisIs": "Korean titles that stayed on a Netflix weekly top 10 for a long run while charting in very few countries. Both thresholds are taken from the measured distribution of the titles we hold, not chosen by taste.",
  "whatThisIsNot": "Not a quality ranking and not a claim that these are good. Charting is not the same as being available, and not charting is not the same as not being watched — Netflix publishes only the weekly top 10, so a title huge at home can be absent here entirely.",
  "source": "Netflix Top 10 (Tudum) weekly country lists for chart places; Wikidata for the companies credited on a title and for cast members recorded as Korean citizens, both retrieved by item number rather than by name",
@@ -7,20 +7,20 @@
  "weekTo": "2026-08-16",
  "weekCount": 268,
  "marketCount": 93,
- "pagesConsidered": 559,
+ "pagesConsidered": 546,
  "thresholds": {
   "longRunWeeks": 6,
   "fewCountries": 1,
   "howChosen": "longRunWeeks is the median weeks of the titles we publish; fewCountries is the first quartile of the number of countries they charted in.",
-  "wideCountries": 27,
+  "wideCountries": 26,
   "shortRunWeeks": 3
  },
  "counts": {
-  "tv": 13,
+  "tv": 14,
   "film": 10,
-  "both": 23,
-  "wideAndBrief": 6,
-  "inBands": 77
+  "both": 24,
+  "wideAndBrief": 5,
+  "inBands": 75
  },
  "medianCountries": 7,
  "bands": [
@@ -28,6 +28,19 @@
    "from": 1,
    "to": 1,
    "titles": [
+    {
+     "title": "The Promise",
+     "slug": "the-promise",
+     "type": "TV",
+     "weeks": 36,
+     "markets": 1,
+     "peak": 2,
+     "firstWeek": "2021-09-12",
+     "lastWeek": "2023-03-05",
+     "where": [
+      "Philippines"
+     ]
+    },
     {
      "title": "Mr. Sunshine",
      "slug": "mr-sunshine",
@@ -333,20 +346,6 @@
    "from": 2,
    "to": 2,
    "titles": [
-    {
-     "title": "The Promise",
-     "slug": "the-promise",
-     "type": "Films",
-     "weeks": 37,
-     "markets": 2,
-     "peak": 2,
-     "firstWeek": "2021-09-12",
-     "lastWeek": "2023-11-19",
-     "where": [
-      "Canada",
-      "Philippines"
-     ]
-    },
     {
      "title": "Reborn Rich",
      "slug": "reborn-rich",
@@ -706,21 +705,6 @@
      ]
     },
     {
-     "title": "Once Again",
-     "slug": "once-again",
-     "type": "Films",
-     "weeks": 12,
-     "markets": 3,
-     "peak": 2,
-     "firstWeek": "2021-07-11",
-     "lastWeek": "2024-07-14",
-     "where": [
-      "South Korea",
-      "Taiwan",
-      "Vietnam"
-     ]
-    },
-    {
      "title": "What's Wrong with Secretary Kim",
      "slug": "what-s-wrong-with-secretary-kim",
      "type": "TV",
@@ -928,6 +912,24 @@
      ]
     },
     {
+     "title": "Doubt",
+     "slug": "doubt",
+     "type": "TV",
+     "weeks": 8,
+     "markets": 6,
+     "peak": 2,
+     "firstWeek": "2024-10-13",
+     "lastWeek": "2024-12-01",
+     "where": [
+      "Indonesia",
+      "Kuwait",
+      "Malaysia",
+      "Singapore",
+      "South Korea",
+      "Vietnam"
+     ]
+    },
+    {
      "title": "Hello Ghost",
      "slug": "hello-ghost",
      "type": "Films",
@@ -1059,24 +1061,6 @@
      ]
     },
     {
-     "title": "Last Summer",
-     "slug": "last-summer",
-     "type": "TV",
-     "weeks": 7,
-     "markets": 6,
-     "peak": 1,
-     "firstWeek": "2021-07-11",
-     "lastWeek": "2025-11-23",
-     "where": [
-      "Indonesia",
-      "Malaysia",
-      "Philippines",
-      "South Korea",
-      "Turkey",
-      "Vietnam"
-     ]
-    },
-    {
      "title": "Racket Boys",
      "slug": "racket-boys",
      "type": "TV",
@@ -1140,23 +1124,6 @@
       "Peru",
       "Singapore",
       "South Korea"
-     ]
-    },
-    {
-     "title": "Tunnel",
-     "slug": "tunnel",
-     "type": "Films",
-     "weeks": 6,
-     "markets": 5,
-     "peak": 2,
-     "firstWeek": "2021-09-12",
-     "lastWeek": "2023-05-07",
-     "where": [
-      "Malaysia",
-      "Singapore",
-      "South Korea",
-      "Thailand",
-      "Vietnam"
      ]
     },
     {
@@ -1376,56 +1343,6 @@
     "Spain",
     "Switzerland",
     "Turkey",
-    "Uruguay",
-    "Venezuela"
-   ]
-  },
-  {
-   "title": "One More Time",
-   "slug": "one-more-time",
-   "type": "Films",
-   "weeks": 3,
-   "markets": 38,
-   "peak": 1,
-   "firstWeek": "2023-04-23",
-   "lastWeek": "2023-05-07",
-   "where": [
-    "Argentina",
-    "Austria",
-    "Bolivia",
-    "Brazil",
-    "Chile",
-    "Colombia",
-    "Costa Rica",
-    "Croatia",
-    "Dominican Republic",
-    "Ecuador",
-    "El Salvador",
-    "Finland",
-    "Germany",
-    "Guadeloupe",
-    "Guatemala",
-    "Honduras",
-    "Hungary",
-    "Iceland",
-    "Jamaica",
-    "Latvia",
-    "Luxembourg",
-    "Martinique",
-    "Mexico",
-    "Nicaragua",
-    "Norway",
-    "Panama",
-    "Paraguay",
-    "Peru",
-    "Poland",
-    "Réunion",
-    "Romania",
-    "Serbia",
-    "Slovakia",
-    "Spain",
-    "Sweden",
-    "Switzerland",
     "Uruguay",
     "Venezuela"
    ]
