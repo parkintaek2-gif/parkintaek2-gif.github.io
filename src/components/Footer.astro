@@ -45,7 +45,8 @@ const year = new Date().getFullYear();
         <h2>Published by</h2>
         <ul>
           <li>{PUBLISHER.legalName}</li>
-          <li>Representative director: {PUBLISHER.representative}</li>
+          {/* 2026-08-29 · 사장님 지시 — 대표자 이름은 여기서 뺐다. 없앤 게 아니라
+              /about 으로 옮겼다(전자상거래법 표시의무는 그대로 지킨다, 클릭 한 번). */}
           <li>{PUBLISHER.address}</li>
           <li>Business reg. {PUBLISHER.bizRegNo}</li>
           {/* 🔴 [2026-08-28] 통신판매업 신고번호. 사장님이 신고를 마치시고 신고증을 주셨다.

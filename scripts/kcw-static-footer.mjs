@@ -31,17 +31,21 @@ import { fileURLToPath } from 'node:url';
 import { PUBLISHER } from '../src/consts.ts';
 
 /**
- * 발행 주체 한 줄 — 상호·대표·사업자등록번호·통신판매업 신고번호.
+ * 발행 주체 한 줄 — 상호·사업자등록번호·통신판매업 신고번호.
  *
  * 🔴 [2026-08-28] 사장님이 통신판매업 신고를 마치시고 신고증을 주셔서 넣었다.
  * ⛔ **값을 여기 손으로 적지 않는다.** `src/consts.ts` 의 PUBLISHER 한 곳이 원본이고,
  *   그 값은 4번이 등기사항전부증명서로 대조한 것이다. 베끼면 두 얼굴이 된다.
  * ⚠ 영문 지면이라 번호는 한국어 그대로 두되 «무엇인지»를 영어로 밝힌다 —
  *   번호만 적으면 영어 손님에게는 뜻 없는 글자다.
+ *
+ * 🔴 [2026-08-29 · 사장님 지시] 대표자 이름은 이 줄(모든 지면 꼬리말)에서 뺐다 —
+ *   전자상거래법 표시의무는 그대로 지켜야 해서 «없앤» 것이 아니라 **`/about`으로
+ *   옮겼다**(about.astro 에 "Representative director: …"가 이미 있다). 법적 링크
+ *   목록(법적링크)에 `/about`이 이미 있어 손님이 한 번의 클릭으로 볼 수 있다.
  */
 export function 발행주체() {
-  return `Published by ${PUBLISHER.legalName} &middot; Representative director `
-    + `${PUBLISHER.representative} &middot; Business reg. ${PUBLISHER.bizRegNo} `
+  return `Published by ${PUBLISHER.legalName} &middot; Business reg. ${PUBLISHER.bizRegNo} `
     + `&middot; Mail-order licence ${PUBLISHER.mailOrderNo} (${PUBLISHER.mailOrderAuthorityEn})`;
 }
 
