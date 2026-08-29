@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-28T10:38:42.985Z",
+  "generated": "2026-08-29T02:44:31.639Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1189,6 +1189,21 @@
       ]
     },
     {
+      "set": "the-biggest-school-is-not-the-idol-school",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
       "set": "the-broadcast-run-that-never-happened",
       "sq": [
         1,
@@ -1466,6 +1481,23 @@
       ]
     },
     {
+      "set": "vietnam-asean-cup-korean-coach-netflix-share",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "what-a-position-does-not-say",
       "sq": [
         1,
@@ -1653,8 +1685,8 @@
       ]
     }
   ],
-  "setCount": 98,
-  "imageCount": 963,
+  "setCount": 100,
+  "imageCount": 981,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-label-outreads-the-capital",
@@ -1670,14 +1702,12 @@
     "one-act-clears-the-footballer",
     "one-title-is-the-median-career",
     "one-title-out",
-    "the-biggest-school-is-not-the-idol-school",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
     "the-manager-is-read-where-he-was-hired",
     "the-reference-shelf-is-emptying",
     "the-wave-leaves-nothing",
     "travel-pages-fell-culture-pages-didnt",
-    "vietnam-asean-cup-korean-coach-netflix-share",
     "vietnam-reads-a-different-korea",
     "where-the-counting-stops"
   ]
