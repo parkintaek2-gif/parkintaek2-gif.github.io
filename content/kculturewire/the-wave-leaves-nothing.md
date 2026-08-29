@@ -15,6 +15,11 @@ tags: ["korean drama", "wikipedia", "attention", "squid game", "korea", "method"
 pages:
   - "/wave-and-floor"
   - "/half-life"
+crossChecks:
+  - "Nine titles is a small number, and it is small for a reason that will not go away: the question excludes new titles by construction. Anything that arrives and creates its own article is unmeasurable here permanently, and that class is growing faster than the measurable one"
+  - "The titles were chosen as ones we expected to have had a wave, not the most-read Korean titles and not a random sample"
+  - "A read is not a viewer, and we are not saying the wave caused the floor to move in either direction — twelve months either side of a peak contain everything else that happened in those months"
+  - "What this can say is narrower than the headline: among Korean titles old enough to have a floor, the months after a wave look about the same as the months before it"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, August 2020 to June 2026"

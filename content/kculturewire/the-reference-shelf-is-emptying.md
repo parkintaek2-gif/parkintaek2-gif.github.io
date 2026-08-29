@@ -9,6 +9,11 @@ author: Newsroom
 tags: ["wikipedia", "southeast asia", "korea", "japan", "tradition", "method"]
 pages:
   - "/what-kind-fell"
+crossChecks:
+  - "The genres are ours. We decided that taekwondo belongs with hangul and that Squid Game belongs with cinema, and a different grouping would produce different medians. Wikipedia does not sort itself this way"
+  - "An encyclopaedia article is not the thing itself. Reads of Korean language are not people learning Korean, and a fall in reads of Taekwondo is not a fall in people practising it"
+  - "What this can see is how often someone opened a page to find out what something was"
+  - "A control removes an explanation without supplying one. We know this is not a fall that singles Korea out. We do not know what it is"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, human traffic only, monthly, per edition"

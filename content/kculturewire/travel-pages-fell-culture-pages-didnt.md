@@ -13,6 +13,11 @@ tags: ["korea", "industry", "tourism", "aviation", "method"]
 pages:
   - "/what-actually-fell"
   - "/look-vs-fly"
+crossChecks:
+  - "The KOSIS air table has no Southeast Asia row. Its Asia line puts Indonesia, Vietnam, Thailand and Malaysia together with India and Central Asia. It is the closest ruler we have to the four editions we read, and it is not the same ruler"
+  - "These reads are not travellers. Some are homework, some are curiosity, and some never become a trip. A read can date when the looking happened, not whether anyone went"
+  - "The pairings are article-kind against edition, so the same article appears in several of them. They are not independent observations and we do not treat them as a sample"
+  - "We cannot say why the culture pages held. We can say the fall was not about Korea, not about the encyclopaedia shrinking, not about where the articles started, and not mostly about settled answers leaving encyclopaedias — because we checked all four"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, July 2024 to June 2026"

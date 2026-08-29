@@ -1,5 +1,5 @@
 {
-  "generated": "2026-08-29T03:36:41.862Z",
+  "generated": "2026-08-29T03:46:22.962Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1406,6 +1406,40 @@
       ]
     },
     {
+      "set": "the-manager-is-read-where-he-was-hired",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "the-reference-shelf-is-emptying",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-return-that-was-a-second-season",
       "sq": [
         1,
@@ -1502,6 +1536,23 @@
       ]
     },
     {
+      "set": "the-wave-leaves-nothing",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "there-is-no-k-drama-season",
       "sq": [
         1,
@@ -1554,6 +1605,23 @@
     },
     {
       "set": "three-labour-markets-not-one",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "travel-pages-fell-culture-pages-didnt",
       "sq": [
         1,
         2,
@@ -1855,8 +1923,8 @@
       ]
     }
   ],
-  "setCount": 110,
-  "imageCount": 1081,
+  "setCount": 114,
+  "imageCount": 1121,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "brands-are-not-one-thing",
@@ -1865,10 +1933,6 @@
     "it-was-one-game",
     "one-title-out",
     "the-ceiling-and-the-band",
-    "the-instrument-was-wrong-not-the-question",
-    "the-manager-is-read-where-he-was-hired",
-    "the-reference-shelf-is-emptying",
-    "the-wave-leaves-nothing",
-    "travel-pages-fell-culture-pages-didnt"
+    "the-instrument-was-wrong-not-the-question"
   ]
 }

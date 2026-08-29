@@ -12,6 +12,12 @@ author: Newsroom
 tags: ["korea", "sport", "football", "southeast-asia", "measurement"]
 pages:
   - "/sea-athletes"
+crossChecks:
+  - "Wikidata records both roles for anyone who played before managing, so this cannot say which role a reader came for. Park Hang-seo played in the 1980s, and a Vietnamese reader opening his article in 2026 is almost certainly not there for that"
+  - "Players and managers are kept in separate tables rather than ranked against each other, because the two sets of numbers answer different questions"
+  - "Reading an article is not following a sport. It counts people looking someone up, usually after a match or an appointment, and it cannot say who is liked"
+  - "A language edition is a floor on interest in that country, not a measure of it — readers in all four countries also use the English Wikipedia"
+  - "The Philippines is absent. The Tagalog Wikipedia is too small to measure with and Filipino readers largely use the English edition"
 sources:
   - org: "Wikidata"
     api: "South Korean citizens listed as footballers or football managers, with their article links in each language edition"
