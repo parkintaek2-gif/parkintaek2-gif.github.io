@@ -449,6 +449,10 @@ export const GET: APIRoute = async () => {
        색인 잊지말고」. 「korean movies on netflix」가 자동완성 1번째·10줄인데 우리 2,723장에
        그 물음에 답하는 제목이 한 장도 없었다. 영화 줄은 이미 쥐고 있었다 — 안 쓰던 축이었다 */
     { path: '/korean-movies-on-netflix', priority: '0.9', changefreq: 'weekly' },
+    /* 2026-08-29 — 주 지면이 269장인데 «늘 최신을 가리키는 입구»가 없었다.
+       손님은 「이번 주」를 묻는데 우리 문은 날짜를 알아야 열렸다.
+       ⭐ daily — 주마다 내용이 바뀌는 유일한 자리다. 재방문을 만드는 지면이다 */
+    { path: '/netflix-korea-this-week', priority: '1.0', changefreq: 'daily' },
     /* 2026-08-23 — 잰 연도 축. 열 개가 전부 자동완성 1번째였다 */
     { path: '/year/2026', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2025', priority: '0.8', changefreq: 'weekly' },
