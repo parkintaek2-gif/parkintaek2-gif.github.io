@@ -7,6 +7,11 @@
  * ⛔ 멤버 수로 줄 세우되 «순위»라고 부르지 않는다. 위키데이터에 실리는 것은 편집자가 정한다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+/**
+ * 🔴 [2026-08-29] 구조화 데이터를 갈래마다 붙이고 마지막에 남은 다섯 장 중 하나다.
+ *   목록 지면이므로 다른 213장과 «같은 자»를 쓴다.
+ */
+import { 목록구조화 } from '../../../lib/list-jsonld.ts';
 import data from '../../../data/wikitip-groups.json';
 
 const 그룹들 = data.groups ?? [];
@@ -20,7 +25,13 @@ const DESC = `${그룹들.length} Korean music groups with the members Wikidata 
   + `${수(멤버합)} members named in all.`;
 ---
 
-<WikiTip title={TITLE} description={DESC}
+<WikiTip jsonLd={목록구조화({
+    주소: '/group',
+    이름: TITLE,
+    설명: DESC,
+    줄들: 그룹들.map((g: any) => ({ name: g.name, url: `/group/${g.slug}` })),
+  })}
+  title={TITLE} description={DESC}
   canonical="https://www.kculturewire.com/group">
   <h1>Kpop idols by group — age and birthday, member by member</h1>
 

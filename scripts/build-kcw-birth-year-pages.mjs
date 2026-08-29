@@ -326,6 +326,18 @@ fs.writeFileSync(path.join(낼방, 'index.html'), `<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com/born-year">
 <title>Korean actors by birth year — ${낼것.length} years | K Culture Wire</title>
+<script type="application/ld+json">${JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  url: "https://www.kculturewire.com/born-year",
+  name: `Korean actors by birth year — ${낼것.length} years`,
+  isPartOf: { "@type": "WebSite", name: "K Culture Wire", url: "https://www.kculturewire.com" },
+  isBasedOn: ["https://www.wikidata.org"],
+  /* ⚠ 표와 같은 순서. ⛔ 순위가 아니라 «해»의 목록이다 */
+  mainEntity: { "@type": "ItemList", numberOfItems: 목록.length,
+    itemListElement: 목록.map((r, i) => ({ "@type": "ListItem", position: i + 1,
+      name: String(r.year), url: `https://www.kculturewire.com${r.url}` })) },
+})}</script>
 <meta name="description" content="Korean actors, singers and songwriters grouped by the year they were born. ${낼것.length} years with eight or more names, counted from Wikidata birth dates.">
 <style>
   :root{ --ink:#14161a; --ink-2:#5b6270; --line:#e6e8ec; --bg:#fbfbfc; --accent:#b4472a; }

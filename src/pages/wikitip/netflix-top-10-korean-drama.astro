@@ -31,6 +31,11 @@
  * ⛔ 수를 이 지면에서 계산하지 않는다 — `wikitip-title-pages.json` 에서 읽는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+/**
+ * 🔴 [2026-08-29] 구조화 데이터를 갈래마다 붙이고 마지막에 남은 다섯 장 중 하나다.
+ *   목록 지면이므로 다른 213장과 «같은 자»를 쓴다.
+ */
+import { 목록구조화 } from '../../lib/list-jsonld.ts';
 import data from '../../data/wikitip-title-pages.json';
 
 const 셈 = (n: number, 말: string) => `${말}${n === 1 ? '' : 's'}`;
@@ -65,7 +70,14 @@ const DESC = `${드라마.length} Korean TV series have reached a Netflix weekly
   + `The median one charted in ${나라중간} ${셈(나라중간 ?? 0, 'country')}. Films are counted separately.`;
 ---
 
-<WikiTip title={TITLE} description={DESC}
+<WikiTip jsonLd={목록구조화({
+    주소: '/netflix-top-10-korean-drama',
+    이름: TITLE,
+    설명: DESC,
+    /* ⛔ 지면이 있는 작품만 url 을 붙인다 — 자료의 hasPage 를 그대로 따른다 */
+    줄들: 넓은것.map((t: any) => ({ name: t.title, url: t.hasPage ? `/title/${t.slug}` : null })),
+  }, ['https://www.netflix.com/tudum/top10'])}
+  title={TITLE} description={DESC}
   canonical="https://www.kculturewire.com/netflix-top-10-korean-drama">
   <h1>Netflix top 10 Korean drama</h1>
 
