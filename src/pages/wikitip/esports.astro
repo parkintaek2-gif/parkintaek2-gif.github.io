@@ -135,6 +135,15 @@ const jsonLd = {
         </p>
       </div>
 
+      {/* 🔴 [2026-08-29] 첫 안쪽 링크가 지면의 71% 지점이었다. 「korea ladder」로 오는
+          손님이 다음 걸음을 못 보고 나갔다. 체류 68.6초·걸음 1.39 로는 거기까지 못 내려간다. */}
+      <p class="walk">
+        <b>Korean pop culture, counted the same way:</b>{' '}
+        <a href="/netflix-korea-this-week">Korean titles on Netflix this week</a> &middot;{' '}
+        <a href="/actors">the people</a> &middot;{' '}
+        <a href="/community">all the rooms</a>
+      </p>
+
       <div class="prose">
         <p class="stamp">
           Snapshot of <strong>{날짜}</strong> · collected {ladder.collected_at_kst} KST ·
@@ -369,6 +378,8 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+  .walk { font-size: .95rem; margin: 1rem 0 1.4rem; padding: .7rem 1rem;
+    border-left: 3px solid var(--accent); }
   .stamp {
     font-size: 0.9rem;
     opacity: 0.75;
