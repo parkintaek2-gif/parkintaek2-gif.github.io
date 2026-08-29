@@ -1,8 +1,8 @@
 {
- "generated": "2026-08-24",
- "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 60 taken evenly across the 4796 pages in our sitemap, asked through the Search Console URL Inspection API.",
+ "generated": "2026-08-29",
+ "whatThisIs": "Google's own answer, page by page, on whether it has indexed us. A sample of 60 taken evenly across the 4925 pages in our sitemap, asked through the Search Console URL Inspection API.",
  "whatThisIsNot": "Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.",
- "sitemapPages": 4796,
+ "sitemapPages": 4925,
  "sampled": 60,
  "control": {
   "url": "https://100yearmap.com/this-page-must-not-exist-zzz-5beon-control",
@@ -12,19 +12,23 @@
  "byState": [
   {
    "state": "들어갔다",
-   "pages": 26
+   "pages": 30
   },
   {
    "state": "발견만",
-   "pages": 23
+   "pages": 20
   },
   {
-   "state": "노인덱스로뺌",
-   "pages": 3
+   "state": "크롤했는데안넣음",
+   "pages": 1
   },
   {
    "state": "구글이모른다",
-   "pages": 8
+   "pages": 3
+  },
+  {
+   "state": "노인덱스로뺌",
+   "pages": 6
   }
  ],
  "byKind": [
@@ -35,42 +39,48 @@
    }
   },
   {
+   "kind": "life",
+   "states": {
+    "들어갔다": 1
+   }
+  },
+  {
    "kind": "major",
    "states": {
-    "발견만": 7,
-    "노인덱스로뺌": 2,
-    "구글이모른다": 1,
-    "들어갔다": 2
+    "들어갔다": 4,
+    "발견만": 6,
+    "크롤했는데안넣음": 1
    }
   },
   {
    "kind": "college-major",
    "states": {
-    "발견만": 2,
-    "구글이모른다": 2,
-    "들어갔다": 6
+    "들어갔다": 3,
+    "발견만": 5,
+    "구글이모른다": 2
    }
   },
   {
    "kind": "school",
    "states": {
-    "들어갔다": 16,
-    "구글이모른다": 5,
-    "발견만": 9,
-    "노인덱스로뺌": 1
+    "들어갔다": 17,
+    "구글이모른다": 1,
+    "발견만": 6,
+    "노인덱스로뺌": 6
    }
   },
   {
    "kind": "university",
    "states": {
-    "발견만": 4,
-    "들어갔다": 1
+    "발견만": 2,
+    "들어갔다": 2
    }
   },
   {
    "kind": "report-area",
    "states": {
-    "발견만": 1
+    "발견만": 1,
+    "들어갔다": 2
    }
   }
  ],
@@ -81,10 +91,26 @@
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-10T09:14:37Z"
+   "마지막크롤": "2026-08-25T04:21:50Z"
   },
   {
-   "주소": "https://100yearmap.com/major/%EA%B1%B4%EC%B6%95%EA%B3%BC",
+   "주소": "https://100yearmap.com/life/60%EB%8C%80",
+   "갈래": "life",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-09T01:03:44Z"
+  },
+  {
+   "주소": "https://100yearmap.com/major/%EC%99%B8%EC%8B%9D%EC%A1%B0%EB%A6%AC%EA%B3%BC",
+   "갈래": "major",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T04:45:19Z"
+  },
+  {
+   "주소": "https://100yearmap.com/major/%EB%8F%99%EB%A0%A5%EA%B8%B0%EA%B3%84%EA%B3%BC",
    "갈래": "major",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -92,14 +118,7 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/major/%EA%B4%80%EA%B4%91%EA%B3%BC",
-   "갈래": "major",
-   "꼴": "노인덱스로뺌",
-   "상태": "Excluded by ‘noindex’ tag",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/major/%EC%9D%B8%EA%B3%B5%EC%A7%80%EB%8A%A5%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EB%B9%84%EC%A6%88%EB%8B%88%EC%8A%A4%EC%98%81%EC%96%B4%EA%B3%BC",
    "갈래": "major",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -107,7 +126,7 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/major/%EC%97%B0%EA%B7%B9%EC%98%81%ED%99%94%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EA%B3%B5%EA%B3%B5%ED%96%89%EC%A0%95%EA%B3%BC",
    "갈래": "major",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -115,14 +134,7 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/major/%EA%B8%88%EC%86%8D%EC%9E%AC%EB%A3%8C%EA%B3%BC",
-   "갈래": "major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/major/%ED%8A%B9%EC%88%98%EC%82%B0%EC%97%85%EC%84%A4%EB%B9%84%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%ED%8A%B9%EC%84%B1%ED%99%94%EA%B3%BC%EC%A0%95",
    "갈래": "major",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -138,7 +150,23 @@
    "마지막크롤": "2026-08-05T11:48:58Z"
   },
   {
-   "주소": "https://100yearmap.com/major/3D%EA%B1%B4%EC%B6%95%EC%9D%B8%ED%85%8C%EB%A6%AC%EC%96%B4%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/3D%EC%9C%B5%ED%95%A9%EC%84%A4%EA%B3%84%EA%B3%BC",
+   "갈래": "major",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-26T20:15:15Z"
+  },
+  {
+   "주소": "https://100yearmap.com/major/%EB%A1%9C%EB%B4%87%EC%86%8C%ED%94%84%ED%8A%B8%EC%9B%A8%EC%96%B4%EA%B3%BC",
+   "갈래": "major",
+   "꼴": "크롤했는데안넣음",
+   "상태": "Crawled - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": "2026-08-29T12:18:32Z"
+  },
+  {
+   "주소": "https://100yearmap.com/major/%EC%8B%9C%EC%8A%A4%ED%85%9C%EC%9E%90%EB%8F%99%ED%99%94%EA%B3%BC",
    "갈래": "major",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -146,147 +174,203 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/major/%EB%94%94%EC%A7%80%ED%84%B8%EC%A0%9C%EC%96%B4%EC%A0%84%EA%B8%B0%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EC%A0%84%EC%9E%90%ED%9A%8C%EB%A1%9C%EC%84%A4%EA%B3%84%EA%B3%BC",
+   "갈래": "major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/major/AI%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC",
    "갈래": "major",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-05T16:15:18Z"
+   "마지막크롤": "2026-08-05T15:23:49Z"
   },
   {
-   "주소": "https://100yearmap.com/major/%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%9E%90%EC%82%B0%EA%B4%80%EB%A6%AC%EA%B3%BC",
-   "갈래": "major",
+   "주소": "https://100yearmap.com/college-major/%EB%AC%B8%ED%97%8C%EC%A0%95%EB%B3%B4%ED%95%99%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-08T00:21:55Z"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EC%9D%8C%EC%95%85%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%ED%95%99%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%ED%99%98%EA%B2%BD%EA%B3%B5%ED%95%99%EC%A0%84%EA%B3%B5",
+   "갈래": "college-major",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-08T00:44:32Z"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%ED%99%94%ED%95%99%EC%83%9D%EB%AA%85%EA%B3%B5%ED%95%99%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EB%85%B8%EC%9D%B8%EB%B3%B5%EC%A7%80%EC%A0%84%EA%B3%B5",
+   "갈래": "college-major",
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EB%8F%99%EB%AC%BC%EB%B3%B4%ED%98%B8%EA%B3%84%EC%97%B4",
+   "갈래": "college-major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EB%A9%94%EC%B9%B4%ED%8A%B8%EB%A1%9C%EB%8B%89%EC%8A%A4%ED%95%99%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EB%94%94%EC%A7%80%ED%84%B8%EB%A7%88%EC%BC%80%ED%8C%85%ED%95%99%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-08T11:37:06Z"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EC%8B%A0%EC%86%8C%EC%9E%AC%EC%9D%91%EC%9A%A9%EA%B3%BC",
+   "갈래": "college-major",
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7010958",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-10T03:33:48Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8750627",
+   "갈래": "school",
+   "꼴": "구글이모른다",
+   "상태": "URL is unknown to Google",
+   "판": "NEUTRAL"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7011487",
+   "갈래": "school",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/school/7140321",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T19:42:58Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8750090",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T19:54:53Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8140040",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T17:52:07Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7140343",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T17:51:32Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7010148",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-08T06:13:34Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7530969",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T19:24:33Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7140200",
+   "갈래": "school",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/school/7531113",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T18:38:10Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8140192",
+   "갈래": "school",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/school/7140282",
+   "갈래": "school",
    "꼴": "노인덱스로뺌",
    "상태": "Excluded by ‘noindex’ tag",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://100yearmap.com/major/%EC%A0%84%EC%82%B0%ED%9A%8C%EA%B3%84%EC%A0%95%EB%B3%B4%EA%B3%BC",
-   "갈래": "major",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/major/%ED%98%B8%ED%85%94%EC%A0%9C%EA%B3%BC%EC%A0%9C%EB%B9%B5%EA%B3%BC",
-   "갈래": "major",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%A0%84%EA%B8%B0%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%9D%BC%EC%96%B4%EC%9D%BC%EB%AC%B8%ED%95%99%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EA%B8%B0%EA%B3%84%EC%84%A4%EA%B3%84%EA%B3%B5%ED%95%99%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EB%AF%B8%EB%9E%98%EC%9E%90%EB%8F%99%EC%B0%A8%EA%B3%B5%ED%95%99%EB%B6%80",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T01:13:50Z"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EB%AF%B8%EB%9E%98%ED%95%99%EB%B6%80",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T13:21:26Z"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%ED%95%AD%EA%B3%B5%EA%B8%B0%EA%B3%84%EA%B3%B5%ED%95%99%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%A0%84%EC%82%B0%ED%95%99%EB%B6%80",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T14:00:50Z"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%83%9D%EB%AA%85%ED%99%98%EA%B2%BD%ED%99%94%EA%B3%B5%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T13:20:22Z"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/EMBA",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-10T04:28:24Z"
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%84%9C%EB%B9%84%EC%8A%A4%EA%B2%BD%EC%98%81%EA%B3%BC",
-   "갈래": "college-major",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T08:18:36Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7310035",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T20:30:38Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530908",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-11T13:26:26Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7240074",
-   "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530553",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T18:21:13Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/8140498",
+   "주소": "https://100yearmap.com/school/7010085",
    "갈래": "school",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -294,194 +378,99 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/school/9010042",
+   "주소": "https://100yearmap.com/school/7010196",
    "갈래": "school",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-07T18:24:12Z"
+   "마지막크롤": "2026-08-07T21:04:01Z"
   },
   {
-   "주소": "https://100yearmap.com/school/9010044",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T18:31:33Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7430295",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530990",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530972",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-21T18:25:40Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/8750172",
-   "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
-   "판": "NEUTRAL"
-  },
-  {
-   "주소": "https://100yearmap.com/school/8750097",
+   "주소": "https://100yearmap.com/school/7530090",
    "갈래": "school",
    "꼴": "노인덱스로뺌",
    "상태": "Excluded by ‘noindex’ tag",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://100yearmap.com/school/7801136",
+   "주소": "https://100yearmap.com/school/7430041",
    "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T17:24:04Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8321083",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-20T16:31:33Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8750456",
+   "갈래": "school",
+   "꼴": "발견만",
+   "상태": "Discovered - currently not indexed",
+   "판": "NEUTRAL",
+   "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/school/7530941",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-22T14:58:05Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7530111",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T21:03:18Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7310447",
+   "갈래": "school",
+   "꼴": "노인덱스로뺌",
+   "상태": "Excluded by ‘noindex’ tag",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://100yearmap.com/school/7010181",
+   "주소": "https://100yearmap.com/school/8321270",
    "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T10:27:48Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7011491",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/9010101",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-10T04:46:33Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7531138",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T17:26:24Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/9300117",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T02:26:18Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7140289",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/8750121",
-   "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
+   "꼴": "노인덱스로뺌",
+   "상태": "Excluded by ‘noindex’ tag",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://100yearmap.com/school/7480142",
+   "주소": "https://100yearmap.com/school/9290128",
    "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/8750203",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-20T05:55:01Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7310371",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-22T03:29:27Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/8321114",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530525",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T18:55:09Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/9010309",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-07T17:27:42Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/7430043",
-   "갈래": "school",
-   "꼴": "들어갔다",
-   "상태": "Submitted and indexed",
-   "판": "PASS",
-   "마지막크롤": "2026-08-08T10:48:18Z"
-  },
-  {
-   "주소": "https://100yearmap.com/school/8750542",
-   "갈래": "school",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7150400",
-   "갈래": "school",
-   "꼴": "구글이모른다",
-   "상태": "URL is unknown to Google",
+   "꼴": "노인덱스로뺌",
+   "상태": "Excluded by ‘noindex’ tag",
    "판": "NEUTRAL"
   },
   {
-   "주소": "https://100yearmap.com/school/9290103",
+   "주소": "https://100yearmap.com/school/9010261",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-19T00:39:55Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8140072",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T09:02:54Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8750212",
    "갈래": "school",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -489,15 +478,30 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/school/7150364",
+   "주소": "https://100yearmap.com/school/7140292",
    "갈래": "school",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-07T17:25:57Z"
+   "마지막크롤": "2026-08-11T10:47:14Z"
   },
   {
-   "주소": "https://100yearmap.com/university/0000058",
+   "주소": "https://100yearmap.com/school/8140262",
+   "갈래": "school",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-07T11:02:15Z"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7801206",
+   "갈래": "school",
+   "꼴": "노인덱스로뺌",
+   "상태": "Excluded by ‘noindex’ tag",
+   "판": "NEUTRAL"
+  },
+  {
+   "주소": "https://100yearmap.com/university/0000079",
    "갈래": "university",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -505,7 +509,7 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/university/0000154",
+   "주소": "https://100yearmap.com/university/0000177",
    "갈래": "university",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
@@ -513,36 +517,44 @@
    "마지막크롤": null
   },
   {
-   "주소": "https://100yearmap.com/university/0000252",
-   "갈래": "university",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
-  },
-  {
-   "주소": "https://100yearmap.com/university/0000501",
+   "주소": "https://100yearmap.com/university/0000425",
    "갈래": "university",
    "꼴": "들어갔다",
    "상태": "Submitted and indexed",
    "판": "PASS",
-   "마지막크롤": "2026-08-11T08:15:47Z"
+   "마지막크롤": "2026-08-25T11:00:09Z"
   },
   {
-   "주소": "https://100yearmap.com/university/0002800",
+   "주소": "https://100yearmap.com/university/0000534",
    "갈래": "university",
-   "꼴": "발견만",
-   "상태": "Discovered - currently not indexed",
-   "판": "NEUTRAL",
-   "마지막크롤": null
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-11T06:25:15Z"
   },
   {
-   "주소": "https://100yearmap.com/report/area/%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C-%EA%B8%B0%EC%9E%A5%EA%B5%B0",
+   "주소": "https://100yearmap.com/report/area/%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C-%EA%B0%95%EB%82%A8%EA%B5%AC",
    "갈래": "report-area",
    "꼴": "발견만",
    "상태": "Discovered - currently not indexed",
    "판": "NEUTRAL",
    "마지막크롤": null
+  },
+  {
+   "주소": "https://100yearmap.com/report/area/%EA%B2%BD%EA%B8%B0%EB%8F%84-%EC%9A%A9%EC%9D%B8%EC%8B%9C-%EC%B2%98%EC%9D%B8%EA%B5%AC",
+   "갈래": "report-area",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-25T15:30:23Z"
+  },
+  {
+   "주소": "https://100yearmap.com/report/area/%EB%B6%80%EC%82%B0%EA%B4%91%EC%97%AD%EC%8B%9C-%EC%98%81%EB%8F%84%EA%B5%AC",
+   "갈래": "report-area",
+   "꼴": "들어갔다",
+   "상태": "Submitted and indexed",
+   "판": "PASS",
+   "마지막크롤": "2026-08-20T08:19:07Z"
   }
  ]
 }
