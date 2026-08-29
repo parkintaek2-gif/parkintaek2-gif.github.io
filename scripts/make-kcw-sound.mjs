@@ -75,6 +75,24 @@ export function 넘치나(글, 화면초, 여유 = 0.6) {
   return 말길이초(글) > (화면초 - 여유);
 }
 
+/**
+ * 🔴🔴 [2026-08-29] **낱말로 어림한 길이를 믿었다가 세 목소리가 잘린 채로 리뷰에 나갔다.**
+ *   같은 대본(33낱말)을 네 목소리가 읽은 «실제» 길이 —
+ * ```
+ *   Andrew       13.13초   ✅ 14초 화면에 들어간다
+ *   Christopher  15.34초   🔴 넘는다
+ *   Ryan         15.34초   🔴 넘는다
+ *   Jenny        14.81초   🔴 넘는다
+ * ```
+ *   내 어림은 12.7초였다. **어림은 목소리마다 다른 속도를 모른다.**
+ * ⛔ 그래서 어림으로 «통과»시키지 않는다. 소리를 만든 뒤 «그 파일을 재서» 판정한다.
+ *   ⚠ 어림은 그대로 둔다 — 소리를 만들기 «전»에 미리 걸러 주는 값이 있다.
+ *     다만 어림이 통과했다고 끝이 아니다. 실물이 마지막 판관이다.
+ */
+export function 소리길이초(길, 돌리기 = execFileSync) {
+  return 영상길이초(길, 돌리기);   /* ffmpeg 은 소리 파일도 같은 꼴로 알려 준다 */
+}
+
 /** 영상 길이를 «재서» 얻는다. ⛔ 14초라고 짐작하지 않는다 */
 export function 영상길이초(길, 돌리기 = execFileSync) {
   try {
@@ -137,6 +155,9 @@ if (process.argv.includes('--자가시험')) {
   검('WAV 몸 길이가 표본×2', w.readUInt32LE(40) === 8000 * 2);
   검('WAV 전체가 44 + 몸', w.length === 44 + 8000 * 2);
 
+  검('⛔ 어림이 통과해도 실물이 넘칠 수 있다 — 그래서 실물을 잰다',
+    /* 33낱말 어림 12.7초가 통과하지만 실제 Ryan 은 15.34초였다. 이 사실을 코드가 안다 */
+    말길이초(new Array(33).fill('word').join(' ')) < 14 && 소리길이초('없는파일') === null);
   검('목소리 후보를 손으로 고르게 남겨 뒀다', 목소리후보.length >= 3
     && 목소리후보.every((v) => v.이름 && v.성격));
 
@@ -144,7 +165,7 @@ if (process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ make-kcw-sound 자가시험 통과 (20)');
+  console.log('✅ make-kcw-sound 자가시험 통과 (21)');
   process.exit(0);
 }
 
@@ -192,7 +213,29 @@ const { MsEdgeTTS, OUTPUT_FORMAT } = await import('msedge-tts');
 const tts = new MsEdgeTTS();
 await tts.setMetadata(목소리, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
 const { audioFilePath } = await tts.toFile(낼방, 읽을것);
-console.log(`  ✔ 내레이션 — ${목소리}`);
+
+/*
+ * 🔴 어림이 아니라 «만든 소리»를 잰다. 목소리마다 읽는 속도가 다르다 —
+ *   같은 33낱말을 Andrew 는 13.13초, Ryan 은 15.34초에 읽는다.
+ * ⛔ 넘치면 만들지 않는다. 넘친 채로 붙이면 문장이 «잘린 채» 나간다.
+ *   ⚠ 답은 화면을 늘이는 것이 아니라 ① 말을 줄이거나 ② 빠른 목소리로 바꾸는 것이다.
+ */
+const 실제말 = 소리길이초(audioFilePath);
+const 시작지연 = 0.4;
+if (실제말 == null) {
+  console.error('⛔ 만든 소리의 길이를 못 쟀다. 짐작으로 안 붙인다');
+  process.exit(1);
+}
+const 실제끝 = 시작지연 + 실제말;
+if (실제끝 > 초) {
+  console.error(`  🔴 ${목소리} — 말이 ${실제말.toFixed(2)}초라 ${실제끝.toFixed(2)}초에 끝난다.`
+    + ` 화면은 ${초.toFixed(2)}초다. **넘친다.**`);
+  console.error('     ⛔ 화면을 늘이지 않는다. ① 대본을 줄이거나 ② 더 빠른 목소리로 바꾼다.');
+  console.error(`     ⚠ 어림은 ${말길이초(읽을것).toFixed(1)}초로 통과시켰다 — 어림은 목소리 속도를 모른다.`);
+  process.exit(1);
+}
+console.log(`  ✔ 내레이션 — ${목소리} · 말 ${실제말.toFixed(2)}초 → ${실제끝.toFixed(2)}초에 끝난다`
+  + ` (여백 ${(초 - 실제끝).toFixed(2)}초)`);
 
 /* ④ 섞어서 화면에 붙인다. ⛔ 원본은 안 건드린다 */
 const ff = ffmpeg경로;
