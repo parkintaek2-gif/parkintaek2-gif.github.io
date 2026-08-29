@@ -1,0 +1,168 @@
+#!/usr/bin/env node
+/**
+ * check-navigational-impressions.mjs — **못 이기는 노출과 이길 수 있는 노출을 «가른다».**
+ *
+ * ── 왜 이 자를 세웠나 (2026-08-29) ────────────────────────────
+ * 🔴 우리 최대 노출 지면 `/market/nicaragua` 가 **190회 노출에 클릭 0**, 자리 7.7위였다.
+ *   나는 이것을 「고칠 것」으로 보고 2번께 올렸다. 제목·설명이 구체적인데 왜 0인가 하고.
+ *
+ * ⭐ 그런데 «질의 × 지면»을 실제로 떠 보니 이랬다 —
+ * ```
+ *   62회  https://www.netflix.com/tudum/top10?week=2024-11-03
+ *   37회  "https://www.netflix.com/tudum/top10?week=2024-11-03"
+ *   15회  netflix.com/tudum/top10?week=2024-11-03
+ *   …     나머지도 전부 넷플릭스 «주소 그대로»
+ * ```
+ * **주소를 통째로 넣고 찾는 사람은 netflix.com 을 누른다.** 우리를 안 누르는 것이 맞다.
+ *
+ * ⛔ 그리고 나는 「Tudum 이 옛 주를 더는 안 보여 준다」고 짐작했다. **틀렸다.**
+ *   실제로 열어 보니 `?week=2024-11-03` 이 200 으로 뜨고 그 날짜도 들어 있다.
+ *   ⭐ 짐작을 지면에 쓰기 전에 «열어 봤다». 그래서 틀린 지면을 안 냈다.
+ *
+ * ── 그래서 이 자가 하는 일 ────────────────────────────────────
+ * **길찾기 질의(navigational)**와 **알고 싶어 하는 질의(informational)**를 갈라서 센다.
+ * ```
+ *   전체        445 노출 · 2 클릭 · CTR 0.45%
+ *   길찾기      225 노출 · 0 클릭 · CTR 0.00%   ← 이길 수 없다. 고치려 들면 헛수고다
+ *   우리 질의   220 노출 · 2 클릭 · CTR 0.91%   ← 여기가 우리가 이길 자리다
+ * ```
+ * ⭐ **합친 CTR 을 그대로 보면 우리 실력을 절반으로 잘못 읽는다.**
+ * ⛔ 그렇다고 길찾기 노출을 «지우지» 않는다. 세되 갈라서 센다 — 「못 잰다」와 다르다.
+ *
+ * ── ⚠ 이 자가 못 하는 것 ──────────────────────────────────────
+ * ⚠ 「길찾기」 판정은 «글자 모양»으로 한다. 사람의 «속»은 못 본다.
+ *   주소 꼴이 아닌데 길찾기인 질의(브랜드명만 친 것 따위)는 못 가른다.
+ * ⛔ 그러니 이 수를 「우리가 이길 수 있는 전부」라고 읽지 않는다. **위쪽 어림**이다.
+ *
+ * 쓰는 법
+ *   node scripts/check-navigational-impressions.mjs --자가시험
+ *   node scripts/check-navigational-impressions.mjs [--자료 src/data/gsc-kcw-2026-08-26.json]
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const 기본자료 = 'src/data/gsc-kcw-2026-08-26.json';
+
+/**
+ * 이 질의가 «어딘가로 가려고» 친 것인가.
+ * ⚠ 글자 모양으로만 본다. 사람 속은 못 본다 — 그래서 «위쪽 어림»이다.
+ */
+export function 길찾기인가(질의) {
+  const s = String(질의 ?? '').trim().replace(/^["']|["']$/g, '');
+  if (!s) return false;
+  if (/^(https?:\/\/|www\.)/i.test(s)) return true;      /* 주소를 통째로 쳤다 */
+  if (/\.(tsv|csv|json|xml|pdf)\b/i.test(s)) return true; /* 파일을 찾는다 */
+  if (/\b[a-z0-9-]+\.(com|net|org|co\.[a-z]{2})\//i.test(s)) return true; /* 도메인+길 */
+  if (/\btudum\b/i.test(s)) return true;                  /* 넷플릭스 자기 이름 */
+  return false;
+}
+
+/** ⛔ 못 재면 null — 0 이 아니다. 0 은 「아무도 안 눌렀다」는 뜻이다 */
+export function 비율(위, 아래) {
+  if (!Number.isFinite(위) || !Number.isFinite(아래) || 아래 === 0) return null;
+  return Math.round((위 / 아래) * 10000) / 100;
+}
+
+/** 한 무리를 센다 */
+export function 셈하기(줄들) {
+  const v = (줄들 ?? []).filter((r) => r && Number.isFinite(r.impressions));
+  const 노출 = v.reduce((n, r) => n + r.impressions, 0);
+  const 클릭 = v.reduce((n, r) => n + (Number.isFinite(r.clicks) ? r.clicks : 0), 0);
+  return { 질의수: v.length, 노출, 클릭, ctr: 비율(클릭, 노출) };
+}
+
+/** 갈라서 센다 */
+export function 가르기(줄들) {
+  const v = 줄들 ?? [];
+  const 길 = v.filter((r) => 길찾기인가(r?.key));
+  const 우리 = v.filter((r) => !길찾기인가(r?.key));
+  return { 전체: 셈하기(v), 길찾기: 셈하기(길), 우리것: 셈하기(우리), 길줄: 길 };
+}
+
+/* ── 자가시험 ─────────────────────────────────────────────── */
+if (process.argv.includes('--자가시험')) {
+  const 실패 = [];
+  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+
+  검('주소를 통째로 친 것은 길찾기다',
+    길찾기인가('https://www.netflix.com/tudum/top10?week=2024-11-03') === true);
+  검('따옴표가 붙어 있어도 안다',
+    길찾기인가('"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv"') === true);
+  검('www 로 시작해도 안다', 길찾기인가('www.netflix.com/tudum/top10?week=2024-11-03') === true);
+  검('도메인+길 꼴도 안다', 길찾기인가('netflix.com/tudum/top10?week=2024-11-03') === true);
+  검('파일을 찾는 것도 길찾기다', 길찾기인가('"all-weeks-countries.tsv" netflix') === true);
+  검('tudum 은 넷플릭스 자기 이름이다', 길찾기인가('netflix tudum top 10') === true);
+
+  검('⛔ 우리에게 물어본 것은 길찾기가 아니다',
+    길찾기인가('which bts member is from busan') === false);
+  검('⛔ 작품 이름도 아니다', 길찾기인가('decision to leave netflix country') === false);
+  검('⛔ 회사 이름만으로 길찾기라 하지 않는다', 길찾기인가('netflix korea') === false);
+  검('⛔ 빈 것도 안 터진다', 길찾기인가(undefined) === false && 길찾기인가('') === false);
+
+  검('비율을 센다', 비율(2, 445) === 0.45);
+  검('⛔ 0 으로 안 나눈다 — null 이지 0 이 아니다', 비율(0, 0) === null);
+  검('⛔ 못 재면 null', 비율(null, 10) === null);
+
+  const 표본 = [
+    { key: 'https://a.com/b', impressions: 100, clicks: 0 },
+    { key: 'korean drama', impressions: 50, clicks: 2 },
+    { key: '없는칸' },
+  ];
+  const g = 가르기(표본);
+  검('⛔ 노출을 못 잰 줄은 세지 않는다', g.전체.질의수 === 2);
+  검('길찾기를 따로 센다', g.길찾기.노출 === 100 && g.길찾기.클릭 === 0);
+  검('우리 것을 따로 센다', g.우리것.노출 === 50 && g.우리것.클릭 === 2);
+  검('⛔ 길찾기 CTR 0% 와 「못 쟀다」를 안 섞는다', g.길찾기.ctr === 0);
+  검('우리 CTR 을 낸다', g.우리것.ctr === 4);
+  검('⛔ 빈 것도 안 터진다', 가르기(undefined).전체.노출 === 0);
+  검('⛔ 갈라 센 노출을 더하면 전체다', g.길찾기.노출 + g.우리것.노출 === g.전체.노출);
+
+  if (실패.length) {
+    console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
+    process.exit(1);
+  }
+  console.log('✅ check-navigational-impressions 자가시험 통과 (20)');
+  process.exit(0);
+}
+
+/* ── 실제로 잰다 ── */
+const 인자 = process.argv.find((a) => a.startsWith('--자료='))?.split('=')[1];
+const 자료길 = path.join(뿌리, 인자 ?? 기본자료);
+if (!fs.existsSync(자료길)) {
+  console.log(`⬜ 못 쟀다 — ${path.relative(뿌리, 자료길)} 이 없다`);
+  console.log('   ⛔ 「0」이라고 적지 않는다. 자료가 없는 것과 손님이 없는 것은 다르다.');
+  process.exit(0);
+}
+
+const 원 = JSON.parse(fs.readFileSync(자료길, 'utf8'));
+const g = 가르기(원.rows ?? []);
+
+const 줄 = (이름, x) => `   ${이름.padEnd(12)} ${String(x.질의수).padStart(4)}질의 ·`
+  + ` ${String(x.노출).padStart(5)}노출 · ${String(x.클릭).padStart(3)}클릭 ·`
+  + ` CTR ${x.ctr == null ? '못 쟀다' : `${x.ctr.toFixed(2)}%`}`;
+
+console.log(`■ 못 이기는 노출과 이길 수 있는 노출 — ${원.site ?? ''} ${원.window ?? ''}\n`);
+console.log(줄('전체', g.전체));
+console.log(줄('🔴 길찾기', g.길찾기));
+console.log(줄('✅ 우리 질의', g.우리것));
+
+const 몫 = 비율(g.길찾기.노출, g.전체.노출);
+console.log(`\n   길찾기가 전체 노출의 ${몫 == null ? '?' : `${몫.toFixed(0)}%`} 다.`);
+if (몫 != null && 몫 >= 30) {
+  console.log('   ⛔ **합친 CTR 을 그대로 읽으면 우리 실력을 잘못 읽는다.**');
+  console.log('      주소를 통째로 친 사람은 그 주소를 누른다 — 우리를 안 누르는 것이 «맞다».');
+  console.log('      그 노출로 제목을 고치려 들면 헛수고다.');
+}
+
+if (g.길줄.length) {
+  console.log('\n■ 🔴 이길 수 없는 질의 — 큰 것부터');
+  for (const r of [...g.길줄].sort((a, b) => b.impressions - a.impressions).slice(0, 8)) {
+    console.log(`   ${String(r.impressions).padStart(4)}회 · ${(r.position ?? 0).toFixed(1)}위  ${r.key}`);
+  }
+}
+
+console.log('\n⚠ 이 자는 «글자 모양»으로만 가른다. 사람 속은 못 본다 —');
+console.log('   주소 꼴이 아닌 길찾기(브랜드명만 친 것 따위)는 못 가른다. 위쪽 어림으로 읽는다.');
+process.exit(0);
