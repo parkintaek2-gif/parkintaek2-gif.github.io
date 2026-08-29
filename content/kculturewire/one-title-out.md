@@ -14,6 +14,11 @@ pages:
   - "/one-out"
   - "/half-life"
   - "/wave-and-floor"
+crossChecks:
+  - "This does not tell you a finding is wrong. It tells you the sample is not yet large enough for that median to be reported as a finding — our -15.1% was not a false number, it was a real median of five real values that happened not to be stable"
+  - "It works on medians. A share, a total or a correlation needs a different check, and we do not have one"
+  - "It only works in one direction. Because removing one observation barely moves a median, the jackknife understates how much a median varies and is not consistent for the median at all (Miller, 1974). A swing it finds is real; a swing it does not find is not evidence of stability"
+  - "Establishing stability, rather than failing to disprove it, would take a delete-d jackknife or a bootstrap (Efron, 1979). We have built neither"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, Indonesian, Vietnamese, Thai and Malay editions, monthly, August 2020 to June 2026"

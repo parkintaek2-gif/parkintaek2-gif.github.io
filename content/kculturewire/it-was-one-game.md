@@ -11,6 +11,9 @@ tags: ["korea", "esports", "southeast-asia", "measurement", "limits", "correctio
 pages:
   - "/esports-games"
   - "/one-month"
+crossChecks:
+  - "This does not say StarCraft II is unpopular in Southeast Asia. It says four Korean StarCraft II players have an article in these four Wikipedias, and an encyclopaedia's coverage is not a measure of a game's audience"
+  - "It does not retract the earlier piece. The eleven players in it peak in November 2025 and they still do. What changes is the name of the group they belong to"
 sources:
   - org: "Wikidata"
     api: "Korean esports players and the game each competes in, from P2416, with their article links in the Indonesian, Vietnamese, Thai and Malay Wikipedias"

@@ -9,6 +9,10 @@ author: Newsroom
 tags: ["wikipedia", "southeast asia", "korea", "attention", "method"]
 pages:
   - "/written-down-first"
+crossChecks:
+  - "This counts when someone wrote an article, not when anyone read one. An audience can arrive long before an encyclopaedia does, or never arrive at all — a title that reached Thailand's Wikipedia seven years late may have been watched there the whole time"
+  - "It covers 25 titles, not 59. A title with no article on one of the four editions is left out completely rather than counted as arriving late, because counting it would make an edition look slow for a title it never covered at all"
+  - "It says nothing about why. We know the order is not explained by how big the encyclopaedia is. That is one explanation removed, not an explanation found"
 sources:
   - org: "Wikipedia"
     api: "action=query&prop=revisions&rvdir=newer — the first revision of each article"

@@ -35,9 +35,19 @@
 import { execSync } from 'node:child_process';
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
+/**
+ * 🔴 사장님 지시(2026-08-29): 「터미널(SessionStart/statusLine) — 사장님 지시 이력 상시 고정」
+ *   새 창은 «무엇을 하는지» 알기 전에 «무엇을 지시받았는지»를 알아야 한다.
+ * ⚠ 읽는 자는 하나다 — 상태줄도 같은 자를 쓴다. 둘이 각자 읽으면 반드시 갈라진다.
+ */
+import { 브리핑 as 지시브리핑 } from './lib/boss-orders.mjs';
 
 const REPO = path.resolve(path.join(import.meta.dirname, '..'));
 const 줄 = [];
+
+/* ⭐ 제일 먼저 사장님 지시다. 아래 어떤 것보다 앞이다 —
+   지금 상태를 알기 전에 무엇을 지켜야 하는지를 먼저 안다. */
+try { 줄.push(...지시브리핑(), ""); } catch { /* ⛔ 훅을 죽이지 않는다 */ }
 
 const 조용히 = (cmd) => {
   try {
