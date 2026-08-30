@@ -215,6 +215,27 @@ if (내가실행됐다) {
   }
   낼것.sort((a, b) => b.함께있던나라주합 - a.함께있던나라주합);
 
+  /*
+   * ⭐ [2026-08-30 17:3x] **반대쪽도 센다** — 한 번도 다른 한국 작품과 목록을 나눠 본 적 없는 작품.
+   *   `/what-to-watch-after` 가 「누구 옆에 있었나」라면 이쪽은 「끝까지 혼자였다」다.
+   * ⛔ 이것을 「인기가 없었다」로 읽으면 안 된다. 오히려 **아무도 없는 나라·주에 혼자 들어간 것**이다.
+   *   그 나라 그 주에 한국 작품이 그것 하나뿐이었다는 뜻이다.
+   * ⚠ 지면이 있는 작품만 센다 — 지면이 없으면 손님이 갈 곳이 없다.
+   */
+  const 혼자였던것 = [];
+  for (const 제목 of 지면있는것) {
+    if (셈.has(제목) && 셈.get(제목).size) continue;
+    const t = 우리것.get(제목);
+    /* ⛔ 차트에 아예 안 오른 것은 «혼자였던 것»이 아니다. 잰 적이 없는 것이다 */
+    if (!t || !Number.isFinite(t.markets) || t.markets < 1) continue;
+    혼자였던것.push({
+      title: 제목, slug: t.slug, type: t.type,
+      markets: t.markets, weeks: t.weeks, peak: t.peak, places: t.places,
+      firstWeek: t.firstWeek, lastWeek: t.lastWeek,
+    });
+  }
+  혼자였던것.sort((a, b) => b.weeks - a.weeks || b.markets - a.markets);
+
   fs.writeFileSync(낼길, `${JSON.stringify({
     잰날: new Date().toISOString(),
     원자료: 고른것,
@@ -222,9 +243,11 @@ if (내가실행됐다) {
     한국작품이든칸: 칸.size,
     지면있는작품: 지면있는것.size,
     낸작품: 낼것.length,
+    혼자였던편수: 혼자였던것.length,
     뜻하는것: '같은 나라 같은 주에 두 작품이 나란히 넷플릭스 톱10 안에 있었던 횟수',
     안뜻하는것: ['같은 사람이 둘 다 봤다', '두 작품이 비슷하다', '다음에 볼 것이다'],
     작품: 낼것,
+    혼자였던것,
   }, null, 1)}\n`);
 
   console.log(`\n✅ 낸 작품 ${낼것.length}편 → ${path.relative(뿌리, 낼길)}`);

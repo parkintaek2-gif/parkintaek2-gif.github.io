@@ -1,11 +1,12 @@
 {
- "잰날": "2026-08-30T06:31:34.159Z",
+ "잰날": "2026-08-30T08:28:26.143Z",
  "원자료": "countries-2026-08-29.tsv",
  "읽은줄": 501040,
  "못읽은줄": 0,
  "한국작품이든칸": 16408,
  "지면있는작품": 546,
  "낸작품": 538,
+ "혼자였던편수": 6,
  "뜻하는것": "같은 나라 같은 주에 두 작품이 나란히 넷플릭스 톱10 안에 있었던 횟수",
  "안뜻하는것": [
   "같은 사람이 둘 다 봤다",
@@ -31303,6 +31304,74 @@
      "slug": "carter"
     }
    ]
+  }
+ ],
+ "혼자였던것": [
+  {
+   "title": "Way Home",
+   "slug": "way-home",
+   "type": "Films",
+   "markets": 6,
+   "weeks": 5,
+   "peak": 1,
+   "places": 12,
+   "firstWeek": "2022-06-19",
+   "lastWeek": "2025-06-15"
+  },
+  {
+   "title": "Summertime",
+   "slug": "summertime",
+   "type": "TV",
+   "markets": 3,
+   "weeks": 3,
+   "peak": 1,
+   "places": 5,
+   "firstWeek": "2022-05-08",
+   "lastWeek": "2022-05-22"
+  },
+  {
+   "title": "Grand Prix",
+   "slug": "grand-prix",
+   "type": "Films",
+   "markets": 2,
+   "weeks": 3,
+   "peak": 1,
+   "places": 5,
+   "firstWeek": "2024-04-21",
+   "lastWeek": "2024-05-05"
+  },
+  {
+   "title": "Our Universe",
+   "slug": "our-universe",
+   "type": "TV",
+   "markets": 5,
+   "weeks": 2,
+   "peak": 7,
+   "places": 6,
+   "firstWeek": "2022-11-27",
+   "lastWeek": "2022-12-04"
+  },
+  {
+   "title": "The Three Musketeers",
+   "slug": "the-three-musketeers",
+   "type": "Films",
+   "markets": 1,
+   "weeks": 2,
+   "peak": 7,
+   "places": 2,
+   "firstWeek": "2022-07-03",
+   "lastWeek": "2022-07-10"
+  },
+  {
+   "title": "Rookie Cops",
+   "slug": "rookie-cops",
+   "type": "TV",
+   "markets": 1,
+   "weeks": 1,
+   "peak": 7,
+   "places": 1,
+   "firstWeek": "2023-10-08",
+   "lastWeek": "2023-10-08"
   }
  ]
 }
