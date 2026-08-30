@@ -15,8 +15,8 @@
     },
     "tworulers": {
       "제목": "Two rulers for the same people, and they point at different names",
-      "내레이션": "We measure people two ways: how often their page is opened, and how many countries their titles charted in.",
-      "설명": "Of the people we can measure both ways, not one is top five on both lists."
+      "내레이션": "We measure people two ways: how often their page is opened, and how many countries their titles charted.",
+      "설명": "Of the forty we can measure both ways, not one is top five on both."
     },
     "numberone": {
       "제목": "304 Korean titles have been number one on Netflix. Only 67 reached fifty countries",
@@ -47,6 +47,71 @@
       "제목": "Vietnam number one was Korean for 34 weeks — held by eleven different series",
       "내레이션": "Vietnam number one series was Korean for thirty four weeks straight. Not one show. Eleven of them, taking turns.",
       "설명": "The place changed hands thirteen times."
+    },
+    "actors": {
+      "제목": "Four Southeast Asian Wikipedias, three different Korean actors at the top",
+      "내레이션": "Four Southeast Asian Wikipedias, three different Korean actors at the top. Go Youn-jung leads Vietnam and Thailand, Lee Chae-min Indonesia, Moon Ga-young Malaysia.",
+      "설명": "No name is first everywhere."
+    },
+    "debut": {
+      "제목": "IU started at 15, Ma Dong-seok at 32 — and it is not just career length",
+      "내레이션": "Stars who debuted before eighteen are read eleven point eight nine per million. Those who started at twenty six or later, two point four three.",
+      "설명": "Median career length barely differs across the four bands."
+    },
+    "first": {
+      "제목": "One Wikipedia writes Korean titles down first, and it is not the biggest one",
+      "내레이션": "Of twenty five Korean titles written up on all four Wikipedias, the Indonesian one wrote first for twenty four. The Vietnamese, the biggest, for eight.",
+      "설명": "Size does not explain the order."
+    },
+    "least": {
+      "제목": "BTS peaks in Vietnam, Byeon Woo-seok in Thailand — and all 20 end in the same place",
+      "내레이션": "BTS peaks in Vietnam, Byeon Woo-seok in Thailand. First place moves. Last does not — Malay is last for all twenty of the most-read.",
+      "설명": "A Malaysian reader can open the Indonesian article."
+    },
+    "malaysia": {
+      "제목": "Malaysia reads Korean brands nearly three times as readily as Korean people",
+      "내레이션": "Malaysia's share of four country reading is seven point six to eight point six percent for people. For luxury and car brands, twenty three.",
+      "설명": "That row rests on twenty two brands, not thousands."
+    },
+    "manager": {
+      "제목": "A Korean player is read across the region. A manager, in the country that hired him",
+      "내레이션": "Half a Korean player's reading sits in one country — fifty point five five percent. A manager's, eighty one point three five.",
+      "설명": "Vietnam hired Kim Sang-sik. Indonesia hired Shin Tae-yong."
+    },
+    "onlyone": {
+      "제목": "Only one of four Wikipedias has written about Ahn Sung-ki and Choi Jiwoo",
+      "내레이션": "Ahn Sung-ki has over a hundred thirty films. Choi Jiwoo was in Winter Sonata. Only one of four Wikipedias has written about either.",
+      "설명": "The Indonesian edition — which is not the biggest one."
+    },
+    "outside": {
+      "제목": "The most-read Korean place in Vietnamese was a battle fought in Vietnam",
+      "내레이션": "We published the Battle of Khe Sanh as the most-read Korean place in Vietnamese. It was fought in Vietnam.",
+      "설명": "Nineteen of our two thousand two hundred thirty eight places are not in Korea."
+    },
+    "places": {
+      "제목": "One Korean record label is looked up more than Seoul is",
+      "내레이션": "YG Entertainment scores a hundred eleven point four seven. Seoul, the most-read place of any kind, a hundred six point five four.",
+      "설명": "Five hundred eighteen cities and districts sit below it."
+    },
+    "school-one-name": {
+      "제목": "One name moves a whole school's figure from 43 countries to 25",
+      "내레이션": "Daejin University's five people reach a median forty three countries. Take out Lee You-mi, who reached ninety three, and it drops to twenty five.",
+      "설명": "The school did not travel. A person did."
+    },
+    "shelf": {
+      "제목": "Southeast Asia reads less about Korean language and craft — and less about Japan’s too",
+      "내레이션": "Reads of Korean language, hangul and taekwondo fell twenty five point five percent. The Japanese articles beside them, twenty eight point two.",
+      "설명": "Both fell. Japan is a control, not a competitor."
+    },
+    "signs": {
+      "제목": "Which Korean stars share your Chinese zodiac sign?",
+      "내레이션": "A thousand forty seven Korean stars, sorted into the twelve zodiac signs by birth year.",
+      "설명": "Indistinguishable from chance: chi-square seven point seven seven against nineteen point six eight."
+    },
+    "works": {
+      "제목": "Actors with five charting titles are read seven times as often — and that says little about one of them",
+      "내레이션": "Actors with five or more charting titles are read seven point one times as often as those with one.",
+      "설명": "Pick one from each group; the busier wins eighty two percent of the time."
     }
   }
 }

@@ -116,7 +116,16 @@ export function 소리판제목(옛제목) {
   return `${s} — read aloud`;
 }
 
-if (process.argv.includes('--자가시험')) {
+/*
+ * 🔴 [2026-08-30] 이 자는 **들여오기만 해도 본체가 돌았다.** `--set` 이 없다고 즉시 죽는다.
+ *   그래서 남이 `말길이초`·`넘치나` 를 가져다 쓸 수 없었다 — 대본 열세 편의 길이를
+ *   재려다 걸렸다. **길이를 재는 자가 «재게 해 주지 않는» 꼴이다.**
+ * ⛔ 형제 자들(make-video-kcw-*.mjs)은 이미 이 빗장을 걸고 있다. 여기만 빠져 있었다.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
 
@@ -169,7 +178,8 @@ if (process.argv.includes('--자가시험')) {
   process.exit(0);
 }
 
-/* ── 실제로 만든다 ── */
+/* ── 실제로 만든다 ── ⛔ «직접 실행됐을 때만». 들여오기는 함수만 가져간다 ── */
+if (내가실행됐다) {
 const 인자 = (이름, 기본 = null) => {
   const i = process.argv.indexOf(`--${이름}`);
   return i >= 0 ? process.argv[i + 1] : 기본;
@@ -266,3 +276,4 @@ execFileSync(ff, [
 console.log(`  ✔ 붙였다 — ${낼길}`);
 console.log(`\n⭐ 새 제목(사장님 ③ 「제목만 바꿔서」): ${소리판제목(대본.제목) ?? '(옛 제목을 모른다)'}`);
 console.log('⛔ 원본 무성판은 «그대로 둔다». 지우지 않는다.');
+}
