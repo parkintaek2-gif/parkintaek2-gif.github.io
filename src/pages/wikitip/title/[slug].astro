@@ -31,6 +31,15 @@ import deepened from '../../../data/wikitip-deepened.json';
  */
 import firmPages from '../../../data/wikitip-firm-pages.json';
 import { 이름표만들기 as 회사이름표, 회사주소 } from '../../../lib/firm-link.ts';
+/*
+ * 🔴 [2026-08-30 · 5번] **「what to watch after <작품>」에 여기서 답한다.**
+ *   자동완성으로 재니 `what to watch after squid game` 이 1번째·6줄로 컸다.
+ *   ⭐ 그런데 사람은 «일반형»이 아니라 **작품 이름을 넣어서** 친다.
+ *     그러니 허브 지면 한 장보다 **작품 지면 538장에 한 토막씩** 붙는 것이 훨씬 크다.
+ * ⛔ 추천이 아니다. 같은 나라 같은 주 톱10 목록에 «나란히 있었던 횟수»다.
+ *   그래서 화면에도 「recommend」라고 안 쓰고, 무엇을 세었는지를 그 자리에 적는다.
+ */
+import alongside from '../../../data/kcw-alongside.json';
 
 /* ⛔ 시장 주소를 **짐작하지 않는다.** iso2 를 소문자로 만든 것이 주소일 거라 여겼다가
    93장 전부 죽은 링크가 될 뻔했다 — 실제 주소는 나라 이름이다(AR → argentina). */
@@ -59,6 +68,8 @@ export function getStaticPaths() {
 }
 
 const { t, 회사문: 회사문객체 } = Astro.props;
+/* 이 작품과 «같은 칸에 있었던» 것. ⛔ 없으면 그 토막을 통째로 안 낸다 — 빈 표를 안 낸다 */
+const 나란히 = (alongside as any).작품.find((x: any) => x.slug === t.slug) ?? null;
 /* ⛔ props 는 객체로 건너온다 — Map 으로 되돌려 쓴다 */
 const 회사문 = new Map(Object.entries((회사문객체 ?? {}) as Record<string, string>));
 
@@ -754,6 +765,48 @@ const jsonLd = {
           we hold fewer than two charting titles for them.
         </p>
       )}
+    </section>
+  )}
+
+  {나란히 && 나란히.함께.length > 0 && (
+    <section>
+      <h2>What to watch after {t.title}</h2>
+      <p>
+        <b>We are not recommending anything.</b> We have no idea what you like, and Netflix
+        publishes nothing about who watched what. What we can tell you is which other Korean
+        titles were <em>on the same country&rsquo;s top 10, in the same week</em> as
+        {' '}{t.title} &mdash; the list you saw it on. That is a fact about a published chart,
+        and it is the whole of what we are claiming.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Title</th><th class="num">Country-weeks shared</th></tr>
+        </thead>
+        <tbody>
+          {나란히.함께.map((o: any) => (
+            <tr>
+              <td class="nm"><a href={`/title/${o.slug}`}>{o.제목}</a></td>
+              <td class="num">{o.나라주}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="fine">
+        {t.title} shared a country&rsquo;s weekly top 10 with
+        {' '}<b>{나란히.함께있던편수} other Korean titles</b> across
+        {' '}<b>{나란히.함께있던나라주합.toLocaleString('en-US')} country-weeks</b> in total.
+        {나란히.함께있던편수 > 나란히.함께.length && (
+          <> The table shows the {나란히.함께.length} it sat beside most often, and only those
+          with a page here.</>
+        )}
+      </p>
+      <p class="warn">
+        <b>A big number here mostly means the title lasted.</b> A show that held a
+        country&rsquo;s top 10 for a year sits beside almost everything; a show that charted for
+        one week in one country can sit beside at most nine other titles ever. It does not mean
+        the same people watched both, and it does not mean the two are similar.
+        {' '}<a href="/what-to-watch-after">How we counted this, across every title</a>.
+      </p>
     </section>
   )}
 
