@@ -20,6 +20,7 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-staying-power.json';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 
 const TITLE = 'Staying power and force — two different things';
 const DESC =
@@ -236,6 +237,15 @@ const jsonLd = {
       </li>
     </ul>
   </section>
+
+  {/*
+    🔴 [2026-08-30 · 5번] 이 지면은 «한 작품이 얼마나 오래 갔나»를 잰다.
+      영상은 그 «옆의 것»을 잰다 — 한 나라의 1위 «자리»가 얼마나 오래 한국 작품이었나.
+      베트남 34주. 그런데 한 작품이 아니라 열한 편이 열세 번 손바꿈하며 지켰다.
+    ⛔ 두 수를 같이 안 보이면 손님이 「한 작품이 34주 1위」로 읽는다 — 그건 거짓이다.
+      그래서 화면에도 「34 held by 11」로 나란히 세웠다.
+  */}
+  <KcwShorts set="relay-voiced" says={`Fourteen seconds, read aloud: Vietnam's number one series on Netflix was Korean for 34 weeks straight — but not one show. Eleven different Korean series held that place, and it changed hands thirteen times without once leaving Korean television. This counts the top place week by week, not one title's own run, and a rank is an ordering: Netflix publishes no viewers or hours by country.`} />
 
   <p class="back"><a href="/">&larr; Back to the front page</a></p>
   <KcwMethodLimits method={data.method} limitation={data.limitation} />
