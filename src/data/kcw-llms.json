@@ -1,5 +1,5 @@
 {
- "지은날": "2026-08-30T06:55:02.101Z",
+ "지은날": "2026-08-30T07:11:19.711Z",
  "갈래들": [
   {
    "갈래": "Start here",
@@ -177,6 +177,341 @@
    ]
   },
   {
+   "갈래": "How a title moves — climb, hold, fall",
+   "줄들": [
+    {
+     "길": "/climb",
+     "이름": "How titles climb",
+     "설명": "Across 109,618 chart runs, 57.1% of Korean runs reach a higher rank than their opening week against 40.5% for everything else — and the gap holds inside every run-length band."
+    },
+    {
+     "길": "/opening",
+     "이름": "Opening week",
+     "설명": "A Korean series that opens at number one runs a median of 6 weeks; one that opens at ten runs 1. Across 8,220 runs that is 0.56 weeks a position, against 0.44 for other series and 0.22 for other…"
+    },
+    {
+     "길": "/arrival",
+     "이름": "When a title arrives",
+     "설명": "Among 170 Korean titles that reached 20 or more countries on Netflix's weekly lists, the first week already accounts for a median 40% of the countries they ever reach — but 58 of them started under…"
+    },
+    {
+     "길": "/half-life",
+     "이름": "How fast attention halves",
+     "설명": "Across four Southeast Asian Wikipedias, 26 Korean titles could be timed from their peak: the median fell below half in 2 months. 19 of them later rose above half again."
+    },
+    {
+     "길": "/run-length",
+     "이름": "How long a run lasts",
+     "설명": "Across 210,355 finished runs, a Korean film holds a country top 10 for 1.95 weeks on average and every other film for 2.02. Korean series run 3.71 weeks against 2.71. The staying power is entirely in…"
+    },
+    {
+     "길": "/exit",
+     "이름": "How titles leave the chart",
+     "설명": "Everything published about a chart is about getting on it. This is the other end: across 12,309 departures, a Korean title at position 1 is gone the next week 1.3% of the time and one at position 10…"
+    },
+    {
+     "길": "/what-actually-fell",
+     "이름": "What actually fell",
+     "설명": "In four Southeast Asian Wikipedias, reads of Korean travel articles fell 30% in a year while Korean culture articles fell 12% — and air passengers on Asian routes moved 0.7%."
+    },
+    {
+     "길": "/what-kind-fell",
+     "이름": "What kind of title fell",
+     "설명": "Reads of Korean language, Hangul, hanbok and taekwondo fell 25.5% across four Southeast Asian Wikipedias. The Japanese equivalents fell 28.2%. Two other genres we measured could not be used at all."
+    },
+    {
+     "길": "/rank-shape",
+     "이름": "The shape of a rank run",
+     "설명": "Across 93 Netflix markets, Korean titles hold 7.9% of all chart places. In the 21 markets where their share is 5–10%, they hold only 5.5% of number-one places — below their 7.6% overall. In the 10…"
+    },
+    {
+     "길": "/rank-tells",
+     "이름": "What a rank does and does not tell",
+     "설명": "Netflix attaches hours viewed to its global lists and to none of its 499,180 country rows. On the global lists, knowing a title's rank narrows the range of possible hours by 47.3% on the non-English…"
+    },
+    {
+     "길": "/wave-and-floor",
+     "이름": "The wave and the floor",
+     "설명": "Of 35 Korean titles across four Southeast Asian Wikipedias, 9 could be measured before and after their peak: median peak 2.2× the surrounding months, median floor afterwards −4.5%. 22 were…"
+    },
+    {
+     "길": "/one-month",
+     "이름": "One month on the chart",
+     "설명": "We split twelve months of Southeast Asian Wikipedia reads by month. All 11 esports players in the panel peak in the same month; only 3 of 9 footballers share theirs. An even year would put 8.3% in…"
+    },
+    {
+     "길": "/lead-lag",
+     "이름": "Which country leads and which lags",
+     "설명": "Of 135,036 times a Korean series reached two countries' charts, 58.1% arrived in both the same week. Where one did come first, the direction almost never reverses: 100% of 8,333 country triples are…"
+    }
+   ]
+  },
+  {
+   "갈래": "Where it travelled — countries and catalogues",
+   "줄들": [
+    {
+     "길": "/by-country",
+     "이름": "Country by country",
+     "설명": "Every country in Netflix’s weekly top 10 files, with the share of its chart slots that went to Korean titles. South Korea’s own chart is half Korean; the middle country is under five per cent.…"
+    },
+    {
+     "길": "/spread",
+     "이름": "How a title spreads across countries",
+     "설명": "Concentration is the share of a name's four-country reading that sits in its largest country. Four equal countries give 25%. K-pop groups come closest at 41.7%; Esports players sit at 100%, and that…"
+    },
+    {
+     "길": "/where-it-moved",
+     "이름": "Where it moved",
+     "설명": "Between 2022 and 2025, Korean titles lost chart share in all 10 of the Asian markets we track — a mean of -8.56 points — while rising in 69 of the other 83. The largest gains are in Latin America."
+    },
+    {
+     "길": "/where-to-watch",
+     "이름": "Where a title was watchable",
+     "설명": "Netflix publishes no availability data for any country. It does publish a weekly top 10 for each one — and a title on that list was, that week, watchable there. This page is that floor: the countries…"
+    },
+    {
+     "길": "/foothold",
+     "이름": "Getting a foothold",
+     "설명": "Across 74 Korean production companies and 93 Netflix markets, a series charts in 32.9% of the countries where its company had already charted, against 8.6% where it had not — 3.8× — measured inside…"
+    },
+    {
+     "길": "/hard-markets",
+     "이름": "The hard markets",
+     "설명": "For each of 93 markets, the median breadth of the Korean titles that reached it. On Korea's own chart it is 2; in Estonia it is 77. Most of that gap is how often a market plays Korean titles at all."
+    },
+    {
+     "길": "/crowding",
+     "이름": "Crowding on the chart",
+     "설명": "Across 2,455 arrivals at the top three of a market chart, the other Korean titles fall by 0.402 on average. Matched against the same measurement for non-Korean arrivals at the same starting level,…"
+    },
+    {
+     "길": "/clumping",
+     "이름": "Clumping",
+     "설명": "Korean titles hold 7.9% of Netflix country chart places. Spread evenly that would put at least one on 55.9% of country-weeks; the real figure is 41.3%. 58.7% of country-weeks have none at all,…"
+    },
+    {
+     "길": "/catalogue-reach",
+     "이름": "Catalogue reach",
+     "설명": "Across 220 companies with at least one charting Korean title, catalogue size correlates with total reach (r = 0.516) but not with reach per title (r = -0.118). A company with 20 or more gets 11.1…"
+    },
+    {
+     "길": "/catalogue-depth",
+     "이름": "Catalogue depth",
+     "설명": "Across 93 markets, the typical Asian one has charted 259 different Korean titles and the typical market elsewhere 89. It takes 56 titles to fill half of one and 19 to fill half of the other."
+    },
+    {
+     "길": "/malaysia",
+     "이름": "Malaysia",
+     "설명": "Across groups, solo musicians, actors and athletes, the Malay Wikipedia takes 7.6% to 8.6% of the four-country reading. For luxury, fashion and car brands it takes 23%. Four categories of people, one…"
+    },
+    {
+     "길": "/one-out",
+     "이름": "The one country left out",
+     "설명": "Removing a single title from our sample left one median exactly where it was and moved the other by 89% of itself. The interquartile range put the two within a whisker of each other."
+    },
+    {
+     "길": "/one-title",
+     "이름": "Countries that charted one Korean title",
+     "설명": "Of 1,329 Korean actors with a title on a Netflix country chart, 49.5% have exactly one and 68.7% have two or fewer. That is why a chart cannot measure a person: for half of them, the reach we would…"
+    },
+    {
+     "길": "/fewer-titles",
+     "이름": "Fewer titles, further reach",
+     "설명": "288 Korean titles reached a Netflix country top 10 in 2022 and 215 in 2025, a fall of 25.3%, while the places they held rose 9.7%. Remove each year's biggest title and the ten largest gained 3.1…"
+    },
+    {
+     "길": "/screen-split",
+     "이름": "How the screen splits",
+     "설명": "Korean series and films reach Netflix’s global Top 10 at similar rates — 151 series against 86 films over five years — but the series account for 22.3 billion hours of viewing and the films for 1.5…"
+    },
+    {
+     "길": "/korean-movies-on-netflix",
+     "이름": "Korean movies on Netflix",
+     "설명": "Every Korean film that ever entered a country's Netflix weekly top 10 — 577 of them, more than the 396 Korean series. But the median film reached one country for three weeks, while the median series…"
+    },
+    {
+     "길": "/watched",
+     "이름": "What was watched",
+     "설명": "Korean shows and films have been watched for 24.0 billion hours on Netflix worldwide since 2021 — 237 titles reached the global Top 10. This is the ranking by hours, from Netflix’s own weekly figures."
+    },
+    {
+     "길": "/netflix-top10-data",
+     "이름": "The Netflix top 10 data itself",
+     "설명": "What is actually in the two files Netflix publishes, counted on 2026-08-22: 499,180 country rows across 94 countries, 10,720 global rows, both covering 268 weeks from 2021-07-04 to 2026-08-16.…"
+    }
+   ]
+  },
+  {
+   "갈래": "Names, attention and identity",
+   "줄들": [
+    {
+     "길": "/most-read",
+     "이름": "Most-read names",
+     "설명": "Who the world actually opened an article about in the last 30 days: 1,019 Korean actors and singers measured, So Ji-sub first with 170,257 readers. Reads, not searches, and we say which is which."
+    },
+    {
+     "길": "/kpop-attention",
+     "이름": "K-pop attention",
+     "설명": "Thirty days of English Wikipedia page views for every Korean musician and group with an article — 2,372 of them. Measured, not voted on, and we say what the ranking cannot tell you."
+    },
+    {
+     "길": "/fame-compare",
+     "이름": "Comparing fame",
+     "설명": "We measured 2,511 Korean entertainers, 900 athletes and 12 brands with one instrument: reads of their Wikipedia article in the Indonesian, Vietnamese, Thai and Malay editions over twelve months. BTS…"
+    },
+    {
+     "길": "/member-vs-group",
+     "이름": "Member versus group",
+     "설명": "Across the Indonesian, Vietnamese, Thai and Malay Wikipedias we put 23 K-pop soloists beside the group they belong to. For 13 the group is read more in every country; for 6 — including Jay Park, Lee…"
+    },
+    {
+     "길": "/own-star",
+     "이름": "A star of one's own",
+     "설명": "Of 214 Korean stars with an article on all four Southeast Asian Wikipedias, 86.6% of the reading about JAY B sits in Thailand alone. An evenly read star would score 25%. Kim Jong-kook of Turbo scores…"
+    },
+    {
+     "길": "/who-is-first",
+     "이름": "Who comes first",
+     "설명": "Across the Indonesian, Vietnamese, Thai and Malay Wikipedias, BTS tops three of the four reading lists and Babymonster tops Indonesia's. BTS, BTS, Im Yoon-ah and Cha Eun-woo are in here too, with the…"
+    },
+    {
+     "길": "/who-reads-least",
+     "이름": "Who is read least",
+     "설명": "Across 374 Korean stars with an article on all four Southeast Asian Wikipedias, the Thai, Vietnamese and Indonesian editions all take first place for someone. The Malay edition comes last for 310 of…"
+    },
+    {
+     "길": "/read-vs-visited",
+     "이름": "Read versus visited",
+     "설명": "We tried to put what Southeast Asia reads about Seoul next to where foreign visitors actually walk. In 16 of 24 districts the public admissions table counts no tourist site at all, and in 3 more it…"
+    },
+    {
+     "길": "/works-and-readers",
+     "이름": "Works and readers",
+     "설명": "Across 1023 Korean actors on four Southeast Asian Wikipedias, the median reader count rises at every step from one charting title to five or more. Pick one actor from each end and the busier one is…"
+    },
+    {
+     "길": "/siblings",
+     "이름": "Siblings",
+     "설명": "Across 801 matched pairs in 647 title-and-market runs, a Korean series sits at rank 5.73 on the weeks another series from the same company is on that country's chart, against 5.2 on the weeks it is…"
+    },
+    {
+     "길": "/home-first",
+     "이름": "Home first",
+     "설명": "For the 420 Korean titles that reached a Netflix Top 10 in Southeast Asia, Korea's own chart got there first for 51, in the same week for 165, and never charted 150 of them at all."
+    },
+    {
+     "길": "/home-abroad",
+     "이름": "Home and abroad",
+     "설명": "Across 973 Korean titles on Netflix's country top 10 lists, 10.7% of those with one or two weeks on Korea's own chart reached ten countries, against 55.8% of those with six to ten. But 29 titles…"
+    },
+    {
+     "길": "/is-it-korean",
+     "이름": "Is it Korean?",
+     "설명": "Netflix publishes a title and a rank and nothing else — no year, no country, no director. So when The Glory, Business Proposal or Little Women appears on a chart, the name may belong to a Korean work…"
+    },
+    {
+     "길": "/only-one-wikipedia",
+     "이름": "Only one Wikipedia",
+     "설명": "Of 1,701 Korean music acts and 1,023 actors, 1249 have an article on only one of the four Southeast Asian Wikipedias. The Indonesian edition holds 1155 of them, and it is not the biggest of the four."
+    },
+    {
+     "길": "/how-many-languages",
+     "이름": "How many languages",
+     "설명": "We counted how many Wikipedia language editions hold an article about each of 9,249 Korean entertainers. The median is 1. Only 26 people reach fifty editions, and 365 have no article in any language."
+    },
+    {
+     "길": "/titles-to-name",
+     "이름": "Titles to a name",
+     "설명": "Grouping 1,023 Korean actors by how many of their titles reached a Netflix chart, the median reads of their own Wikipedia article run 1.21, 2.15, 4.72, 11.94 across four Southeast Asian editions. It…"
+    },
+    {
+     "길": "/written-down-first",
+     "이름": "Written down first",
+     "설명": "Across 25 Korean titles with an article on all four Southeast Asian Wikipedias, the Indonesian edition was first or joint-first 24 times. The last edition arrives a median of 8 months after the first."
+    },
+    {
+     "길": "/provenance",
+     "이름": "Provenance",
+     "설명": "A chart row gives a title, not a work. 16 titles in our Korean panel were foreign works carrying the same English name, worth 557 of 39,696 chart places (1.4%). The test is where they charted, not…"
+    },
+    {
+     "길": "/places",
+     "이름": "Places",
+     "설명": "We measured 2,219 places in Korea against the Indonesian, Vietnamese, Thai and Malay Wikipedias over twelve months. YG Entertainment scores 111.47, above every one of the 518 Korean cities and…"
+    },
+    {
+     "길": "/actors-first",
+     "이름": "Actors first",
+     "설명": "Across the Indonesian, Vietnamese, Thai and Malay Wikipedias, 3 different Korean actors sit at the top of the four lists. Byeon Woo-seok, Kim Seon-ho, Cha Eun-woo are the names on all four. Measured…"
+    },
+    {
+     "길": "/zodiac",
+     "이름": "Zodiac",
+     "설명": "1047 Korean actors with a usable birth year, counted by animal sign. Chance would put 87.3 in each; the spread runs 76 to 103. Chi-square 7.77 against a threshold of 19.68."
+    },
+    {
+     "길": "/day-pillar",
+     "이름": "Day pillar",
+     "설명": "We built the day pillar for 9,249 Korean actors, singers and songwriters whose birth date is on public record to the day, and counted how they fall across the ten day stems and twelve day branches.…"
+    },
+    {
+     "길": "/sea-athletes",
+     "이름": "Southeast Asian athletes",
+     "설명": "We counted how often 950 Korean athletes were looked up in the Indonesian, Vietnamese, Thai and Malay Wikipedias over twelve months. The four editions do not agree on who to look up — 3 different…"
+    }
+   ]
+  },
+  {
+   "갈래": "Industry structure",
+   "줄들": [
+    {
+     "길": "/industry",
+     "이름": "The industry",
+     "설명": "Every listed Korean company in broadcasting, film and audio production, and publishing including games — 68,809 people. Average tenure, the gender split and pay, against the listed market as a whole."
+    },
+    {
+     "길": "/exports",
+     "이름": "Exports",
+     "설명": "Twenty years of Korean music export value by region — Japan, Greater China, Southeast Asia, North America and Europe — from the Content Industry Survey. Measured, sourced, not estimated."
+    },
+    {
+     "길": "/workforce",
+     "이름": "Workforce",
+     "설명": "How long people stay at Korea’s listed entertainment agencies and game studios — average tenure, headcount and the gender split, from company filings."
+    },
+    {
+     "길": "/brand-kinds",
+     "이름": "Kinds of brand",
+     "설명": "Split 22 fashion, luxury, jewellery and car brands by kind and the four countries change places. Indonesia is first among german car makers and last among luxury houses. Read as a single ranking,…"
+    },
+    {
+     "길": "/leverage",
+     "이름": "Leverage",
+     "설명": "Production costs are reported to have risen 27-fold in under a decade, and the argument built on that is that power concentrated. Across 2022–2025 the three largest companies' share of charting…"
+    },
+    {
+     "길": "/look-vs-fly",
+     "이름": "Look versus fly",
+     "설명": "Reads of Korean travel articles in four Southeast Asian Wikipedias peak in December; flights on the Asia routes peak in January. The steadier signal is not the peak — both fall to their lowest point…"
+    },
+    {
+     "길": "/returns",
+     "이름": "Returns",
+     "설명": "Across 7,257 title-and-market cells, 924 gaps of 4 weeks or more end with the title returning. 43.6% of those are a different season, not a return. Of the 315 genuine returns, 94.3% happen with no…"
+    },
+    {
+     "길": "/ladder-gap",
+     "이름": "The ladder gap",
+     "설명": "Korea’s top 300 League of Legends players win only 0.45 points more often than the 700 below them — the narrowest gap of six regions. All six are listed."
+    },
+    {
+     "길": "/ladder-churn",
+     "이름": "Ladder churn",
+     "설명": "Korea has the most settled top tier of six League of Legends regions — 54% of its challengers are long-standing, against 36.8% in North America, which has the most players on hot streaks."
+    }
+   ]
+  },
+  {
    "갈래": "How we work",
    "줄들": [
     {
@@ -193,6 +528,16 @@
      "길": "/articles",
      "이름": "All articles",
      "설명": "All 121 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+    },
+    {
+     "길": "/community",
+     "이름": "Community",
+     "설명": "Rooms built on what people actually search for about Korean film, television, music and esports: which countries charted a title, which titles ran for weeks almost nowhere, who made them, and how the…"
+    },
+    {
+     "길": "/weeks",
+     "이름": "Every week of the Netflix country top 10",
+     "설명": "269 weeks of Netflix top 10 country lists, each one showing which Korean titles charted that week and in how many countries. 2021-07-04 to 2026-08-23."
     }
    ]
   }
