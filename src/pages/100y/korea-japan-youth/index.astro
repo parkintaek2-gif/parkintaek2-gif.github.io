@@ -1,0 +1,118 @@
+---
+/**
+ * /100y/korea-japan-youth — 한일 청년의식조사 2026, 무엇이 다른가
+ *
+ * 사장님이 「한일 청년의식조사 2026」뉴스(대한상공회의소·일본상공회의소 공동, 2026-08-30
+ * 일본 센다이 발표)를 공유했다.
+ *
+ * ⛔⛔ 이 지면은 100yearmap에서 드문 예외다 —
+ *   ① 정부 통계가 아니라 **민간 공동조사**다(대한상공회의소·일본상공회의소).
+ *   ② 원자료(대한상공회의소 공식 보도자료·리포트)를 못 찾았다 — 언론 보도로만 인용한다.
+ *      표본오차·조사방법 등 방법론 세부는 확인하지 못했다.
+ *   두 가지를 헤드라인 바로 밑에 못박는다 — 다른 KOSIS 지면과 같은 무게로 안 보이게 한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/korea-japan-youth-2026.json';
+
+const 자료 = 원본 as any;
+
+const desc =
+  '대한상공회의소·일본상공회의소가 공동으로 실시한 민간 조사입니다(정부 통계 아님). ' +
+  '2026년 6~7월 한일 20~39세 청년 4,000명에게 물은 결과, 이직·창업·결혼·자녀 의향에서 ' +
+  '두 나라 청년의 응답이 크게 갈렸습니다. 원자료를 찾지 못해 언론 보도로만 인용합니다.';
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 조사는 정부 통계인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 대한상공회의소와 일본상공회의소가 공동으로 실시한 민간 조사입니다. 100yearmap의 다른 지면 대부분은 정부 통계(KOSIS·NEIS 등)를 다루지만, 이 지면은 예외입니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 조사는 어떻게 진행됐나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${자료.조사개요.기간}, ${자료.조사개요.대상}을 대상으로 했습니다. ${자료.조사개요['⚠확인못한것']}`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title="한일 청년의식조사 2026 — 이직·창업·결혼, 무엇이 다른가"
+  description={desc}
+  jsonLd={faqJsonLd}
+>
+  <h1>한국과 일본의 20~30대,<br />무엇이 다를까요?</h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이것은 정부 통계가 아닙니다.</strong></p>
+    <p class="note">{자료.출처}의 민간 공동조사입니다. {자료.발표.자리}에서 {자료.발표.날짜} 발표됐습니다({자료.발표.발표자}).</p>
+  </div>
+
+  <div class="warn">
+    <p><strong>⚠ 원자료를 찾지 못했습니다.</strong></p>
+    <p class="note">{자료['⚠원자료']}</p>
+  </div>
+
+  <p class="sub">
+    {자료.조사개요.기간}, <strong>{자료.조사개요.대상}</strong>에게 물었습니다.
+    {' '}{자료.조사개요.성격}. {자료.조사개요['⚠확인못한것']}
+  </p>
+
+  <h2>응답 견주기</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>물음</th><th>한국</th><th>일본</th></tr></thead>
+      <tbody>
+        {자료.항목.map((항: any) => (
+          <tr>
+            <td>
+              <strong>{항.이름}</strong>
+              {항.비고 && <><br /><span class="note">{항.비고}</span></>}
+            </td>
+            <td>{항.한국}</td>
+            <td>{항.일본}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 쪽이 낫다는 판정이 아니라,
+    {' '}같은 물음에 대한 두 나라 청년의 응답 차이일 뿐입니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    보도출처 — {자료.보도출처.join(' · ')}. {자료.이용허락범위} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/marriage-age">← 서른, 아직 결혼하지 않은 사람</a>
+    <br />
+    <a href="/idle-youth">← 일도 구직도 안 하고 쉬는 2030, 몇 명일까</a>
+    <br />
+    <a href="/first-job">← 처음 일자리는 언제 오고, 얼마나 갈까</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="한일 청년의식조사 2026 언론 보도" />
+</HundredYear>

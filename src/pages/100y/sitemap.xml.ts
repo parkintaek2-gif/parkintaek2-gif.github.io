@@ -179,6 +179,11 @@ export const GET: APIRoute = () => {
     { path: '/wealth-gap', priority: '0.8', changefreq: 'yearly' },
     /* 🔴 2026-08-28 — 2027년도 예산안(정부안) 청년 정책 안내. 12월 국회 확정 때 재확인 필요. */
     { path: '/youth-budget-2027', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 2026-08-31 — 뉴스 헤드라인(혼인 외 출생아 역대 최대)을 KOSIS로 검증해 지면화. */
+    { path: '/nonmarital-birth', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-08-31 — 대한상의·일본상의 공동 「한일 청년의식조사 2026」 언론 보도 인용.
+       ⛔ 정부 통계 아님 — 지면 안에 못박음. 원자료 못 찾음(언론 보도로만 인용). */
+    { path: '/korea-japan-youth', priority: '0.6', changefreq: 'yearly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이

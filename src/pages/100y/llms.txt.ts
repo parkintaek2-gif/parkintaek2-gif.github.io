@@ -58,8 +58,9 @@ Every page names its source, its year, and what it cannot tell you.
 - [Idle youth, "resting" population](https://100yearmap.com/idle-youth): 20s–30s not working/studying/job-hunting, monthly, 2015–2026
 - [Wealth gap by age](https://100yearmap.com/wealth-gap): household assets, 60+ vs. under-30, 2017–2025
 - [2027 youth budget (draft)](https://100yearmap.com/youth-budget-2027): government's proposed youth programs, itemized
+- [Non-marital births](https://100yearmap.com/nonmarital-birth): births outside legal marriage, count vs. share, 1996–2025
 
-All 29 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
+All 30 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 
 ## Schools and majors (the original data set)
 
@@ -67,6 +68,10 @@ All 29 pages are indexed together at [/ages](https://100yearmap.com/ages), sorte
 - [/major/{slug}](https://100yearmap.com/major/): 925 major/field pages with employment outcomes
 - [University pages](https://100yearmap.com/): 377 universities, five disclosure metrics each
 - [Regional reports](https://100yearmap.com/report/area/): by-district rollups
+
+## Non-government source (the one exception)
+
+- [Korea-Japan youth survey 2026](https://100yearmap.com/korea-japan-youth): private joint survey by the Korea Chamber of Commerce and the Japan Chamber of Commerce (not a government statistic — this page says so explicitly). We could not locate the original report; figures are cited from news coverage only.
 
 ## Rules an AI summarizing this site should follow
 
