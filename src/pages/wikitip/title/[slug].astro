@@ -276,15 +276,97 @@ const DESC =
   + `over ${t.weeks} ${셈(t.weeks, 'week')}, peaking at number ${t.peak}. `
   + `Every ${한나라 ? 'week' : 'country and week'} listed.`;
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'Dataset',
-  name: TITLE,
-  description: DESC,
-  temporalCoverage: `${t.firstWeek}/${t.lastWeek}`,
-  creator: { '@type': 'Organization', name: 'K Culture Wire' },
-  isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
-};
+/*
+ * 🔴 [2026-08-30 · 5번] **이 지면이 «무엇에 관한 것인지»를 말하지 않고 있었다.**
+ *   구조화 데이터가 `Dataset` + `Organization` 뿐이었다. 사람 지면(`/person/…`)에는
+ *   `Person` · `TVSeries` · `Movie` 가 다 있는데 작품 지면에는 **정작 그 작품이 없었다.**
+ *
+ * ⚠ 이것이 아픈 까닭 — 8/29 실측에서 바깥 채널 90일이 유튜브 2명 · SNS 3명 ·
+ *   **AI 어시스턴트 23명**이었다. 그리고 AI 가 실제로 인용해 간 24 세션 중 16 이
+ *   `/school/<코드>` 처럼 **「한 대상 + 사실들」** 꼴이었다. 작품 지면이 바로 그 꼴인데
+ *   기계에게 **「이건 그 작품 지면입니다」라고 말해 주지 않고** 있었다.
+ *
+ * ⭐ 그래서 셋을 나란히 낸다 —
+ *   ① 그 «작품» 자체(TVSeries 또는 Movie) — 이 지면이 무엇의 지면인지
+ *   ② 오늘 붙인 두 물음(hit or flop · what to watch after)을 FAQPage 로 —
+ *     사람이 실제로 «그 말로» 묻는다는 것을 Search Console 로 쟀다
+ *   ③ 본래의 Dataset — 수의 출처와 기간
+ *
+ * ⛔ 지어내지 않는다. 여기 들어가는 것은 전부 화면에도 있는 사실이다.
+ * ⛔ aggregateRating 을 넣지 않는다 — 우리는 «평점을 매기지 않는다». 강령 그대로다.
+ */
+const 작품종류 = t.type === 'Films' ? 'Movie' : 'TVSeries';
+const 물음들 = [
+  자리 && {
+    '@type': 'Question',
+    name: `Was ${t.title} a hit or a flop?`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `Netflix publishes no budget, revenue or per-country viewing hours, so a chart `
+        + `position cannot be turned into a verdict. What can be said is where ${t.title} sits `
+        + `among the ${hof.titleCount} Korean titles that entered any country's Netflix weekly `
+        + `top 10: it charted in ${자리.markets} countries, which is wider than `
+        + `${자리.나라?.아래 ?? '—'} of them, over ${자리.weeks} weeks, reaching number `
+        + `${자리.peak} at best.`,
+    },
+  },
+  나란히 && 나란히.함께.length > 0 && {
+    '@type': 'Question',
+    name: `What to watch after ${t.title}?`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `This is not a recommendation. In the weeks ${t.title} was in a country's Netflix `
+        + `top 10, the Korean title that appeared on that same list most often was `
+        + `${나란히.함께[0].제목}, sharing ${나란히.함께[0].나라주} country-weeks with it. `
+        + `${나란히.함께있던편수} Korean titles shared a list with it at all. Co-appearance on a `
+        + `published list is not similarity and does not mean the same people watched both.`,
+    },
+  },
+  {
+    '@type': 'Question',
+    name: `Which countries charted ${t.title} on Netflix?`,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `${t.title} entered the Netflix weekly top 10 in ${t.markets} `
+        + `${t.markets === 1 ? 'country' : 'countries'} between ${t.firstWeek} and ${t.lastWeek}, `
+        + `taking ${t.places} chart places over ${t.weeks} weeks. Netflix publishes no catalogue `
+        + `by country, so this says where it charted, not everywhere it was available.`,
+    },
+  },
+].filter(Boolean);
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 작품종류,
+    name: t.title,
+    url: `https://www.kculturewire.com/title/${t.slug}`,
+    countryOfOrigin: { '@type': 'Country', name: 'South Korea' },
+    /* ⭐ 우리 사람 지면이 «있는» 배우는 주소까지 준다 — 기계가 두 지면을 한 사람으로 잇는다.
+       ⛔ 지면이 없는 사람은 이름만 준다. 없는 주소를 지어내지 않는다. */
+    ...(출연진.length ? {
+      actor: 출연진.slice(0, 12).filter((c: any) => c.name).map((c: any) => ({
+        '@type': 'Person',
+        name: c.name,
+        ...(c.slug ? { url: `https://www.kculturewire.com/person/${c.slug}` } : {}),
+      })),
+    } : {}),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: 물음들,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Dataset',
+    name: TITLE,
+    description: DESC,
+    temporalCoverage: `${t.firstWeek}/${t.lastWeek}`,
+    creator: { '@type': 'Organization', name: 'K Culture Wire' },
+    isBasedOn: ['https://www.netflix.com/tudum/top10', 'https://www.wikidata.org'],
+  },
+];
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
