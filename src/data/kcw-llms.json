@@ -1,0 +1,210 @@
+{
+ "지은날": "2026-08-30T06:55:02.101Z",
+ "갈래들": [
+  {
+   "갈래": "Start here",
+   "줄들": [
+    {
+     "길": "/",
+     "이름": "K Culture Wire",
+     "설명": "Which Korean shows are in the Netflix Top 10 across Southeast Asia this week, and which Korean actors are drawing the most attention on English Wikipedia. Measured, sourced, updated weekly."
+    },
+    {
+     "길": "/most-popular",
+     "이름": "Which Korean title did best — it depends what you count",
+     "설명": "Ask which Korean title did best on Netflix and the answer depends on what you count. Reach says one title, staying power says another, total chart places says a third — and only one title appears on…"
+    },
+    {
+     "길": "/titles",
+     "이름": "Every Korean title we hold",
+     "설명": "974 Korean shows and films have hit a country's Netflix top 10 since 2021-07-04. 546 have a page here with every market and week."
+    },
+    {
+     "길": "/data",
+     "이름": "Data and sources",
+     "설명": "Every number on this site comes from 6,690 rows we built and keep. This is what is in them, what is missing from them, and what we have had to correct."
+    }
+   ]
+  },
+  {
+   "갈래": "Netflix reach — how far a Korean title travelled",
+   "줄들": [
+    {
+     "길": "/hit-or-flop",
+     "이름": "Hit or flop?",
+     "설명": "People ask whether a Korean film or series was a hit or a flop. We will not rule on that, and Netflix publishes nothing that would let anyone rule on it. What we can do is put a title next to the…"
+    },
+    {
+     "길": "/what-to-watch-after",
+     "이름": "What to watch after a Korean show",
+     "설명": "Not a recommendation list. We counted, across 16,408 country-weeks of Netflix top 10 data, which other Korean titles were on the same country's list in the same week. After Squid Game, the title that…"
+    },
+    {
+     "길": "/netflix-which-country",
+     "이름": "Which country charted it",
+     "설명": "Netflix publishes no catalogue by country, so nobody can list where a title is available. It does publish a weekly top 10 for every country — and a title on that list was watchable there that week.…"
+    },
+    {
+     "길": "/reach",
+     "이름": "How many countries a title reaches",
+     "설명": "All 397 Korean titles that reached a Netflix Top 10 in six Southeast Asian markets since 2021, sorted by how many of the six they reached. 45.1% reached all six; 30.7% reached exactly one."
+    },
+    {
+     "길": "/staying-power",
+     "이름": "How long titles stay",
+     "설명": "Korean titles on Netflix’s global chart, measured two ways: how many weeks they lasted and how many hours they drew per week. Of the top eight on each measure, only two appear on both."
+    },
+    {
+     "길": "/time-to-peak",
+     "이름": "How fast titles peak",
+     "설명": "Korean series are at their widest in their first chart week 21.1% of the time, against 44.6% for every other series. Hold run length fixed and most of that gap closes — but among titles lasting nine…"
+    },
+    {
+     "길": "/world-share",
+     "이름": "Korea's share of the world top 10",
+     "설명": "Korean titles hold 7.9% of the top-10 places Netflix publishes across 93 countries. The share has not moved since 2022, but in the 9 Asian markets where it was highest it fell from 30.5% to 20.8%."
+    },
+    {
+     "길": "/underrated",
+     "이름": "Titles that travelled further than their fame",
+     "설명": "Korean series and films that stayed on a Netflix weekly top 10 for a long run while charting in only one or two countries. Both cut-offs come from the measured spread of every Korean title we hold,…"
+    },
+    {
+     "길": "/netflix-top-10-korean-drama",
+     "이름": "Korean drama in the Netflix top 10",
+     "설명": "397 Korean TV series have reached a Netflix weekly top 10 somewhere since 2021-07-04, taking 30,752 chart places across 93 markets. The median one charted in 5 countrys. Films are counted separately."
+    },
+    {
+     "길": "/netflix-korea-this-week",
+     "이름": "This week in Korea",
+     "설명": "17 Korean titles held a Netflix weekly top 10 place somewhere in the week of 23 August 2026. 3 entered, 5 left, 14 held on from the week before. Every title and its country count, listed."
+    }
+   ]
+  },
+  {
+   "갈래": "People — actors, idols, where they came from",
+   "줄들": [
+    {
+     "길": "/actors",
+     "이름": "Korean actors we hold",
+     "설명": "Over 30 days, English Wikipedia readers looked up 1,113 Korean actors 10,017,367 times. This is who they read about most — measured, sourced, and careful about what a view does and does not mean."
+    },
+    {
+     "길": "/actor-reach",
+     "이름": "How far each actor's work travelled",
+     "설명": "Joining Netflix's country charts to English Wikipedia page views across 808 Korean actors, those with a title in 20+ countries draw 2.99x the median lookups — but once title count and recency are…"
+    },
+    {
+     "길": "/bts-hometowns",
+     "이름": "Where each BTS member was born",
+     "설명": "Jimin and Jungkook were born in Busan. Suga and V were born in Daegu, J-Hope in Gwangju, RM in Goyang and Jin in Gwacheon. Wikidata records place of birth, which is not the same as a hometown, and…"
+    },
+    {
+     "길": "/hometowns",
+     "이름": "Where Korean stars were born",
+     "설명": "Go Youn-jung, Faker, IU and Lee Min-ho were all born in Seoul — 50 of the 123 most-read Korean names we could place, or 41%. V and Suga were born in Daegu, Jungkook and Jimin in Busan, RM in Goyang…"
+    },
+    {
+     "길": "/born-abroad",
+     "이름": "Korean stars born outside Korea",
+     "설명": "7 of the most-read Korean actors and idols we could place were born outside Korea: Mark Lee, Moon Ga-young, Jay Park and more — plus the one name our own ruler pushed abroad by mistake."
+    },
+    {
+     "길": "/debut-age",
+     "이름": "How old they were at debut",
+     "설명": "Across 584 Korean stars, those who started before 18 are read 11.89 per million against 2.43 for those who started at 26 or later. Career length is the obvious explanation and it does not hold: the…"
+    },
+    {
+     "길": "/star-signs",
+     "이름": "Star signs across Korean stars",
+     "설명": "We placed 1047 Korean actors and singers into the twelve zodiac signs by year of birth — IU and Song Hye-kyo in the Rooster, Cha Eun-woo and Song Joong-ki in the Ox, Byeon Woo-seok in the Goat. The…"
+    },
+    {
+     "길": "/school",
+     "이름": "The schools Korean stars went to",
+     "설명": "55 schools, each with the Korean actors, singers and other entertainers we counted from it. Built from Wikidata, which records a school for 4,535 of the 9,249 people we hold."
+    }
+   ]
+  },
+  {
+   "갈래": "Industry — who makes it",
+   "줄들": [
+    {
+     "길": "/firms",
+     "이름": "Production companies",
+     "설명": "Studio Dragon, tvN, SBS, SHOWBOX and every other company credited on a Korean series or film that has entered a Netflix weekly top 10 — with the titles we hold for each. Alphabetical, because this is…"
+    },
+    {
+     "길": "/who-makes-it",
+     "이름": "Who makes Korean shows",
+     "설명": "Of 131 companies credited on the 345 Korean series that reached a Netflix country top 10, 3 account for half of them. Counting production companies only, it is 5 of 101."
+    },
+    {
+     "길": "/webtoon",
+     "이름": "Titles that began as webtoons",
+     "설명": "All 396 Korean webtoon businesses surveyed in 2024 — by type, headcount and revenue. Average revenue and the share earning under ₩1bn are listed."
+    },
+    {
+     "길": "/tv-exports",
+     "이름": "Korean TV exports",
+     "설명": "Korean broadcast programme exports grew 5.4 times in thirteen years. Terrestrial broadcasters went from two-thirds of it to 4%, and independent production companies went from 7% to half. Measured,…"
+    },
+    {
+     "길": "/two-pipelines",
+     "이름": "Two pipelines into the top 10",
+     "설명": "Of 287 charting Korean series with a company credit, 238 aired on a Korean television network and reach a median 4 markets. The 49 with no broadcaster credit reach a median 39. They are 17.1% of the…"
+    }
+   ]
+  },
+  {
+   "갈래": "Esports",
+   "줄들": [
+    {
+     "길": "/esports",
+     "이름": "Korean esports",
+     "설명": "What it takes to sit in Challenger on the Korean server, next to five other regions — the cutoff LP, the median inside, and the games played."
+    },
+    {
+     "길": "/esports-nations",
+     "이름": "Esports by nation",
+     "설명": "Players from China, Sweden and the United States have articles in the Southeast Asian Wikipedias at about the same rate Korean players do. 9.1% of theirs are read enough to measure, against 71.4% of…"
+    },
+    {
+     "길": "/esports-games",
+     "이름": "Esports by game",
+     "설명": "Split by game, 85.7% of the Korean esports players we could measure in the Southeast Asian Wikipedias play League of Legends. Korea has more StarCraft II players on Wikidata, and 4 of them have an…"
+    }
+   ]
+  },
+  {
+   "갈래": "How we work",
+   "줄들": [
+    {
+     "길": "/about",
+     "이름": "About K Culture Wire",
+     "설명": "The public datasets behind each figure, the rule that decides what counts as a Korean production, and the gaps we leave open rather than fill."
+    },
+    {
+     "길": "/corrections",
+     "이름": "Corrections",
+     "설명": "Every number we have published and had to change, with the date, the old value, the new value and the reason. We keep the record rather than quietly editing."
+    },
+    {
+     "길": "/articles",
+     "이름": "All articles",
+     "설명": "All 121 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+    }
+   ]
+  }
+ ],
+ "셈": {
+  "작품": 550,
+  "사람": 634,
+  "학교": 55,
+  "나라": 93,
+  "그룹": 263,
+  "주": 269,
+  "회사": 19
+ },
+ "빠진것": []
+}
