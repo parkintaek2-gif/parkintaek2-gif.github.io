@@ -1,0 +1,6 @@
+{"_fixture":"합성 신호 픽스처 — 결정론 층(②펀드매니저·③리스크관리자)을 돌려보기 위한 시험용. ⛔ 실제 증권과 무관하다(market:TEST·코드 T*). 실제 신호는 ①애널리스트(LLM 판독층)만 만든다. 이 파일은 매매 신호도 추천도 아니다.","asOfDay":20260830}
+{"ts":"20260828","source":"픽스처","sourceId":"FX-001","entity":{"market":"TEST","code":"T00001"},"kind":"실적","direction":1,"strength":3,"horizon":20,"evidence":"시험용 레코드 — 강한 양의 실적 신호","model":"fixture-0"}
+{"ts":"20260829","source":"픽스처","sourceId":"FX-002","entity":{"market":"TEST","code":"T00002"},"kind":"가이던스","direction":1,"strength":2,"horizon":30,"evidence":"시험용 레코드 — 중간 양의 가이던스","model":"fixture-0"}
+{"ts":"20260825","source":"픽스처","sourceId":"FX-003","entity":{"market":"TEST","code":"T00003"},"kind":"수급","direction":-1,"strength":2,"horizon":10,"evidence":"시험용 레코드 — 음의 수급 신호(롱온리라 편입 제외돼야 함)","model":"fixture-0"}
+{"ts":"20260801","source":"픽스처","sourceId":"FX-004","entity":{"market":"TEST","code":"T00004"},"kind":"뉴스","direction":1,"strength":3,"horizon":15,"evidence":"시험용 레코드 — 신선도 만료(ts가 horizon 밖)라 무게 0이어야 함","model":"fixture-0"}
+{"ts":"20260830","source":"픽스처","sourceId":"FX-005","entity":{"market":"TEST","code":"T00001"},"kind":"공시","direction":1,"strength":1,"horizon":40,"evidence":"시험용 레코드 — T00001에 신호 하나 더(합산 확인용)","model":"fixture-0"}
