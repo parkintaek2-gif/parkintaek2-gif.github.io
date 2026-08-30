@@ -166,6 +166,15 @@ const jsonLd = {
       + `left one country, while the middle title we publish charted in ${data.medianCountries}. `
       + `Long is not wide, and we counted both.`} />
 
+  {/* 🔴 [2026-08-30] 사장님 「무성 콘텐트 삭제하지 말고 소리만 입혀서 추가로 배포해,
+      영상 제목만 바꿔서」·「무음 영상 하루에 1개씩 수정해서 올려」.
+      ⛔ 위 무음판을 «지우지 않는다». 소리판을 옆에 놓고 제목만 다르게 한다. */}
+  <KcwShorts set="onecountry-voiced"
+    says={`Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a `
+      + `Netflix top ten place for twenty-three weeks and never left one country, while the `
+      + `middle Korean title we publish reached ${data.medianCountries}. Charting is not the same as `
+      + `being available, and Netflix publishes only the top ten.`} />
+
   <KcwMethodLimits
     method={`Netflix's own weekly top 10 files, ${data.weekCount} weeks across ${data.marketCount} countries, ${data.weekFrom} to ${data.weekTo}. A title is counted here when its weeks on any weekly top 10 reach ${data.thresholds.longRunWeeks} — the median run of the ${data.pagesConsidered} titles that have a page on this site — and the number of countries it charted in stays below the median of ${data.medianCountries}. The first quartile of that country count is ${data.thresholds.fewCountries}, which is the band shown first. Neither cut-off was chosen by hand.`}
     limitation="Charting is not availability: Netflix does not publish where a title can be watched. Not charting is not the same as not being watched, because only the weekly top 10 is published, so a title that was enormous in Korea and never charted abroad does not appear here at all. Netflix also states no country of production, so which titles count as Korean is our inference and not its label."

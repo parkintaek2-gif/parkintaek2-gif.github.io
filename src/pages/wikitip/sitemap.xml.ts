@@ -308,6 +308,14 @@ const videoSets = [
     title: "Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you",
     description: "14 seconds, narrated: a Netflix chart row carries a title, a country, a week and a rank, and no year, director or country of production. For 423 of our 974 titles another country carries the same English name, and for 41 we say plainly that our own figures may be wrong.",
   },
+  /* 🔴 [2026-08-29] 오늘 낸 /is-it-korean 에서 나온 수로 만든 편이다.
+     ⭐ 우리 수가 틀렸을 수 있는 자리를 «우리 손으로» 내놓는 편이다. */
+  {
+    set: 'onecountry-voiced',
+    page: '/underrated',
+    title: "Mr. Sunshine held a Netflix top 10 for 23 weeks, in one country — read aloud",
+    description: "14 seconds, now spoken aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached seven. Long is not wide, and we counted both.",
+  },
   {
     set: 'actors',
     page: '/actors-first',

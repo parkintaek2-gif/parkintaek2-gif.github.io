@@ -109,6 +109,13 @@
    "src": "/video/onecountry.mp4"
   },
   {
+   "set": "onecountry-voiced",
+   "seconds": 14,
+   "uploadDate": "2026-08-30",
+   "thumb": "/video/thumb/onecountry-voiced.jpg",
+   "src": "/video/onecountry-voiced.mp4"
+  },
+  {
    "set": "oneout",
    "seconds": 14,
    "uploadDate": "2026-08-21",
