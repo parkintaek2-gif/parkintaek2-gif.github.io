@@ -18,6 +18,10 @@
     "korea-company-vs-owner-wage": {
       "내레이션": "In Korea, working for a company pays about a quarter more than working for an individual owner. The national pension bills roughly 370,000 won a month for the average company worker, against 280,000 for those working for a sole proprietor.",
       "설명": "From national pension billing. We measure the gap, not the cause."
+    },
+    "korea-headcount-disclosure-has-no-total-row": {
+      "내레이션": "Every listed Korean company files a yearly headcount table. It carries no total. One in three files the count in pieces, leaving the reader to add. Read only the first row — as we did — and hundreds of thousands vanish. We made that mistake, and fixed it.",
+      "설명": "From company filings on DART. This piece is our own correction — we report what we could not measure, and what we got wrong."
     }
   }
 }
