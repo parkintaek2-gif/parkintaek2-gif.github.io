@@ -15,10 +15,16 @@
 - [Bonuses are an eighth of Korean pay](https://seoulmarkets.com/article/korea-bonus-share-of-pay): special payments are 12–15% of yearly pay and cluster in December/January.
 - [Youth unemployment fell since 2016](https://seoulmarkets.com/article/korea-youth-unemployment-fell-since-2016): the 15–29 rate peaked at 9.8% (2016) and fell to 6.1% (2025), about twice the national rate.
 - [Bigger firms pay more at every step](https://seoulmarkets.com/article/korea-bigger-firms-pay-more-every-step): pay rises with firm size at each size band.
+- [Fewer days, not shorter days](https://seoulmarkets.com/article/korea-fewer-days-not-shorter-days): monthly work fell 13% since 2011, mostly fewer days (21.2 to 19.1); hours per day barely moved (8.33 to 8.05).
+- [Temp workers earn 39% of regular staff](https://seoulmarkets.com/article/korea-temp-workers-pay-gap): temporary/daily monthly pay is ~40% of regular pay (1.74m vs 4.47m won in 2025), roughly unchanged since 2011.
+- [Women's workforce share by sector](https://seoulmarkets.com/article/korea-female-workforce-share-by-sector): median female share of listed-firm staff is 24%; about 57% in apparel, under 10% in steel/autos/construction.
+
+## Trade (Korea Customs, shares and ranks)
+- [Korea trade, partner by partner](https://seoulmarkets.com/trade): Korea's trade with 60 partner countries, shares and ranks.
+- [Korea sells to and buys from different countries](https://seoulmarkets.com/article/korea-sells-and-buys-different-countries): export vs import maps diverge — Hong Kong 6.7% of exports but 0.6% of imports; Japan 7.5% of imports but 3.5% of exports.
 
 ## Reference
 - [How many companies are listed in Korea](https://seoulmarkets.com/article/korea-largest-listed-companies): counts of Korea's listed companies and the largest by market value.
-- [Korea trade, partner by partner](https://seoulmarkets.com/trade): Korea's trade with 60 partner countries, shares and ranks (Korea Customs).
 
 ## Notes for citation
 - Figures are reproducible from the named source and API table IDs given on each page.
