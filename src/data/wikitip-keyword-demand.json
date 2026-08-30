@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-26T13:46:34.274Z",
+ "generated": "2026-08-30T14:30:20.117Z",
  "whatThisIs": "Autocomplete presence (Google Suggest) and English Wikipedia article reads. Neither is a search-volume figure and we do not call them one.",
  "whatThisIsNot": "Monthly search volume. We have no paid keyword data. A phrase that autocompletes is a phrase people type; how many people type it is not measured here.",
  "phrases": [
@@ -62,10 +62,10 @@
    "그말로시작": 10,
    "보기": [
     "iu birthday",
-    "iu birthday cafe",
     "iu birthday date",
-    "iu birthday age",
-    "iu birthday songs"
+    "iu birthday zodiac",
+    "iu birthday songs",
+    "iu birthday cake"
    ]
   },
   {
@@ -151,7 +151,7 @@
     "bts birthdays in order",
     "bts birthdays and ages",
     "bts birthdays and zodiac signs",
-    "bts birthdays in order by month"
+    "bts birthday date"
    ]
   },
   {
@@ -221,8 +221,8 @@
    "그말로시작": 4,
    "보기": [
     "korean age calculator",
-    "korean age calculator with month",
     "korean age calculator by date of birth",
+    "korean age calculator with month",
     "korean age calculator month and year",
     "korean age converter"
    ]
@@ -246,23 +246,23 @@
  "people": [
   {
    "이름": "IU (singer)",
-   "지난30일읽힘": 1278
+   "지난30일읽힘": 1305
   },
   {
    "이름": "Jungkook",
-   "지난30일읽힘": 3335
+   "지난30일읽힘": 3119
   },
   {
    "이름": "Jisoo",
-   "지난30일읽힘": 91138
+   "지난30일읽힘": 90357
   },
   {
    "이름": "Song Joong-ki",
-   "지난30일읽힘": 41951
+   "지난30일읽힘": 41119
   },
   {
    "이름": "Psy",
-   "지난30일읽힘": 30445
+   "지난30일읽힘": 30508
   }
  ]
 }

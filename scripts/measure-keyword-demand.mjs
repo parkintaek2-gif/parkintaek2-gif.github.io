@@ -96,7 +96,19 @@ export const 후보 = [
 /** 위키 읽힘으로 견줄 사람 — 이름이 널리 알려진 쪽 */
 export const 사람후보 = ['IU (singer)', 'Jungkook', 'Jisoo', 'Song Joong-ki', 'Psy'];
 
-if (process.argv.includes('--자가시험')) {
+/*
+ * 🔴 [2026-08-30] **자동완성 함수 하나를 빌리려 들여왔더니 본체가 다 돌았다.**
+ *   `src/data/wikitip-keyword-demand.json` 이 «내가 시키지도 않았는데» 새로 쓰였다.
+ *   부르는 쪽은 함수 하나를 빌리려 했을 뿐인데 남의 자료가 바뀐다 — 조용한 결함이다.
+ * ⛔ 아래 자가시험도 argv 만 보고 있어, 남이 `--자가시험` 으로 돌면
+ *   **남의 시험을 가로채고 process.exit(0) 으로 끝낸다.**
+ * ⇒ 같은 결함을 오늘 세 번 만났다(make-kcw-sound · build-kcw-age-bands · 여기).
+ *   그래서 이름을 붙이고 검사로 굳혔다 — `check-import-safe.mjs`.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
 
@@ -123,6 +135,8 @@ if (process.argv.includes('--자가시험')) {
   process.exit(0);
 }
 
+/* ── 실제로 잰다 ── ⛔ «직접 실행됐을 때만». 들여오기는 함수만 가져간다 ── */
+if (내가실행됐다) {
 /**
  * 2026-08-22 5번 — **잴 말을 밖에서 줄 수 있게** 했다.
  * 사장님: 「왜 너의 커뮤니티인데 케이라이프맵의 커뮤니티 같지? 수정하자...검색량」
@@ -187,3 +201,4 @@ fs.writeFileSync(낼파일, JSON.stringify({
   people: 사람잰것,
 }, null, 1));
 console.log(`\n냈다 — ${path.relative(뿌리, 낼파일)}`);
+}

@@ -138,7 +138,19 @@ export function 모으기(사람들, 기준해) {
   return { bands: [...통.values()], unreadable: 못읽음, outside: 묶음밖 };
 }
 
-if (process.argv.includes('--자가시험')) {
+/*
+ * 🔴 [2026-08-30] **이 자는 들여오기만 해도 본체가 다 돌았다.**
+ *   `build-kcw-birth-year-pages.mjs` 가 `묶음표`·`묶음찾기` 두 함수를 빌리려고 들여오는데,
+ *   그때마다 여기 아래가 통째로 돌아 `src/data/wikitip-age-bands.json` 을 «다시 쓴다».
+ *   부르는 쪽은 그것을 시킨 적이 없다.
+ * ⛔ 게다가 아래 자가시험이 argv 만 본다 — 남이 `--자가시험` 으로 돌면
+ *   **남의 시험을 가로채고 process.exit(0) 으로 끝내 버린다.** 형제 자들이 이미 막아 둔 자리다.
+ * ⇒ check-import-safe.mjs 가 이 결함을 훑어 찾았다.
+ */
+const 내가실행됐다 = process.argv[1]
+  && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+
+if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
 
@@ -206,6 +218,8 @@ if (process.argv.includes('--자가시험')) {
   process.exit(0);
 }
 
+/* ── 실제로 만든다 ── ⛔ «직접 실행됐을 때만». 들여오기는 함수만 가져간다 ── */
+if (내가실행됐다) {
 if (!existsSync(원자료)) {
   console.error(`⛔ 원자료가 없다 — ${원자료}`);
   process.exit(1);
@@ -264,3 +278,4 @@ if (합 + unreadable + outside !== 사람들.length) {
 }
 console.log(`✅ 셈이 맞는다 — ${합}+${unreadable}+${outside} = ${사람들.length}. 아무도 안 사라졌다`);
 console.log(`냈다 — ${path.relative(뿌리, 낼길)}`);
+}
