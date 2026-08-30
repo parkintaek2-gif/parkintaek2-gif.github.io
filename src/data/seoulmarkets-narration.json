@@ -10,6 +10,10 @@
     "korea-female-workforce-share-by-sector": {
       "내레이션": "In Korea, women are about 57 percent of the staff at apparel firms — and just 8 percent at steelmakers. Across listed companies the median is 24 percent. Where women work splits hard by sector, far more than how many work.",
       "설명": "Listed firms' own disclosures. We report where, not why."
+    },
+    "korea-how-long-industries-keep-workers": {
+      "내레이션": "How long does a Korean industry keep the people it hires? Weight each firm by headcount and the range is wide. Carmakers hold their workers about sixteen years. Research firms keep them under four.",
+      "설명": "From listed firms' own filings. We rank, we do not explain."
     }
   }
 }
