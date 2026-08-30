@@ -14,6 +14,10 @@
     "korea-how-long-industries-keep-workers": {
       "내레이션": "How long does a Korean industry keep the people it hires? Weight each firm by headcount and the range is wide. Carmakers hold their workers about sixteen years. Research firms keep them under four.",
       "설명": "From listed firms' own filings. We rank, we do not explain."
+    },
+    "korea-company-vs-owner-wage": {
+      "내레이션": "In Korea, working for a company pays about a quarter more than working for an individual owner. The national pension bills roughly 370,000 won a month for the average company worker, against 280,000 for those working for a sole proprietor.",
+      "설명": "From national pension billing. We measure the gap, not the cause."
     }
   }
 }
