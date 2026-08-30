@@ -13,6 +13,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/wikitip-clumping.json';
 
 const 없는칸 = data.distribution.find((d) => d.korean === 0);
@@ -176,7 +177,17 @@ const jsonLd = {
     <p class="note">
       <a href="/world-share">What share of chart places Korean titles hold</a> ·{' '}
       <a href="/rank-tells">What a position does not say</a> ·{' '}
+      <a href="/article/the-four-weeks-the-whole-shelf-was-korean">The four weeks a country&rsquo;s
+        whole TV top 10 was Korean</a> ·{' '}
       <a href="/about">How we count</a>
     </p>
   </section>
+
+  {/*
+    🔴 [2026-08-30 · 5번] 이 지면이 말하는 「나오다 말다, 그러다 한꺼번에」의 **가장 먼 끝**이
+      영상의 소재다 — 한국 밖에서 네 번, 한 나라 TV 톱10 열 자리가 전부 한국 작품이었다.
+    ⛔ 「점령했다」로 안 쓴다. 화면에서 그 넷 옆에 «딱 한 편이었던 11,594칸»을 같이 세운다.
+      그래야 손님이 이것을 추세로 안 읽는다.
+  */}
+  <KcwShorts set="allten-voiced" says={`Fourteen seconds, read aloud: four times outside Korea — Vietnam twice, then Indonesia and Malaysia in the same week — every one of a country's ten Netflix TV places was Korean. That is 0.02% of the country-weeks we checked. In 11,594 of them, a country's top 10 held exactly one Korean title. A top 10 is a ranking of what was watched most, not a census, and Netflix releases no viewer numbers by country at all.`} />
 </WikiTip>
