@@ -42,6 +42,7 @@ import 실질임금 from '../../../data/100yearmap/real-wage.json';
 import 쉬었음 from '../../../data/100yearmap/idle-youth.json';
 import 자산격차 from '../../../data/100yearmap/wealth-gap-age.json';
 import 청년예산2027 from '../../../data/100yearmap/youth-budget-2027.json';
+import 혼인외출생 from '../../../data/100yearmap/nonmarital-birth.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -66,6 +67,7 @@ const aa = 실질임금 as any;
 const ab = 쉬었음 as any;
 const ac = 자산격차 as any;
 const ad = 청년예산2027 as any;
+const ae = 혼인외출생 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -152,6 +154,12 @@ const 문들 = [
     수: `${ad.예산총액['2027년_정부안']}`,
     한줄: `2027년도 청년 예산안(정부안). ${ad.예산총액['2026년']}에서 ${ad.예산총액.증가율} 늘었습니다. ⚠ 아직 국회 확정 전입니다.`,
     기간: `${ad.배포} 발표`,
+  },
+  {
+    나이: '태어날 때', 주소: '/nonmarital-birth', 이름: '혼인 밖에서 태어나는 아이, 얼마나 늘었을까',
+    수: `${ae.연도별[ae.기준연도].혼인외_명.toLocaleString()}명`,
+    한줄: `${ae.기준연도}년 혼인 밖에서 태어난 아이(인구동향조사) — 숫자로는 역대 최대. 다만 비율은 ${ae.최고연도_비율}년이 더 높았습니다.`,
+    기간: `${Object.keys(ae.연도별)[0]}~${ae.기준연도} · ${Object.keys(ae.연도별).length}해`,
   },
   {
     나이: '40대', 주소: '/spending', 이름: '마흔에 한 달 돈은 어디로 가나',
