@@ -23,6 +23,13 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
+/*
+ * 🔴 [2026-08-30] 이 지면을 내면서 이 조각을 빠뜨렸다.
+ *   기사 `korean-titles-rarely-chart-alone` 이 frontmatter 에 이 지면을 적어 뒀는데도
+ *   지면 쪽에 «받는 자리»가 없어서 링크가 안 걸렸다. 라이브를 훑어보고 잡았다.
+ * ⭐ 새 지면을 낼 때마다 이 조각을 잊는다 — 관계는 «기사»가 들고 있고 지면은 읽기만 하면 된다.
+ */
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/kcw-alongside.json';
 
 /* 손님이 실제로 묻는 작품이 앞에 오게 — 함께 있은 나라-주 합이 큰 순서다 */
@@ -147,6 +154,8 @@ const jsonLd = {
       be longer than what we show. Where we cut it, we cut at twelve.
     </p>
   </section>
+
+  <KcwRelatedArticles page="/what-to-watch-after" />
 
   <KcwShorts set="alongside-voiced" says={`Fourteen seconds, read aloud: ${첫째.title} and ${첫째.함께[0].제목} were on the same country's Netflix top 10, in the same week, ${첫째.함께[0].나라주} times — and even that closest pair is only a tenth of all the country-weeks ${첫째.title} shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.`} />
 

@@ -7,6 +7,7 @@
  *   그 문장을 화면에 적는다 — 안 적으면 표가 순위표로 읽힌다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-people.json';
 import KcwCardnews from '../../../components/KcwCardnews.astro';
 import KcwShorts from '../../../components/KcwShorts.astro';
@@ -118,6 +119,11 @@ const DESC = `${사람들.length} Korean actors, each with the Netflix top-10 ti
     and so do Korean actors whose citizenship Wikidata does not record. The hole runs both ways and
     we cannot size it.
   </p>
+
+  {/* 🔴 [2026-08-30] 기사가 이 지면을 가리키는데 «받는 자리»가 없어 링크가 안 뜨고 있었다.
+    ⭐ 관계는 기사가 들고 있고 지면은 읽기만 한다 — 그 대신 이 한 줄을 빠뜨리면 조용히 끊긴다.
+    ⛔ check-kcw-article-backlinks.mjs 가 이제 그것을 잡는다. */}
+  <KcwRelatedArticles page="/person" />
 </WikiTip>
 
 <style>

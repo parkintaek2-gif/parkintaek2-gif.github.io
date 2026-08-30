@@ -8,6 +8,7 @@
  * ⛔ 학교를 줄 세우는 표가 아니다. 수가 큰 순서로 놓되 «순위»라고 부르지 않는다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-schools.json';
 /* 🔴 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣고, 관련 콘텐트를
    빠짐없이 붙여 다음 것을 계속 보게 하라」. 유튜브가 막혀 있어도 이 자리는 열려 있다. */
@@ -81,4 +82,7 @@ const DESC = `${학교들.length} schools, each with the Korean actors, singers 
       <li><a href="/most-read">The Korean names most people looked up this month</a></li>
     </ul>
   </section>
+
+  {/* 🔴 [2026-08-30] 기사 두 편이 이 지면을 가리키는데 «받는 자리»가 없었다. */}
+  <KcwRelatedArticles page="/school" />
 </WikiTip>

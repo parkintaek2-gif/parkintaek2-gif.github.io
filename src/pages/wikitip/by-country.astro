@@ -22,6 +22,7 @@
  * ⛔ 지면이 없는 나라를 지면 있는 척 걸지 않는다 — `hasPage` 로 가른다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/wikitip-markets.json';
 
@@ -146,4 +147,9 @@ const jsonLd = {
     .row { margin: .2rem 0; line-height: 2; }
     .pc { color: var(--muted); font-size: .82rem; }
   </style>
+
+  {/* 🔴 [2026-08-30] 기사가 이 지면을 가리키는데 «받는 자리»가 없어 링크가 안 뜨고 있었다.
+    ⭐ 관계는 기사가 들고 있고 지면은 읽기만 한다 — 그 대신 이 한 줄을 빠뜨리면 조용히 끊긴다.
+    ⛔ check-kcw-article-backlinks.mjs 가 이제 그것을 잡는다. */}
+  <KcwRelatedArticles page="/by-country" />
 </WikiTip>

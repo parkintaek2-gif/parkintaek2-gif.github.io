@@ -24,6 +24,7 @@
  * ⛔ 화면에 한국어를 내지 않는다 — 손님은 영어권이다. 이 주석은 frontmatter 라 나가지 않는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-hit-or-flop.json';
@@ -275,4 +276,9 @@ const jsonLd = {
       .nm { min-width: 8rem; }
     }
   </style>
+
+  {/* 🔴 [2026-08-30] 기사가 이 지면을 가리키는데 «받는 자리»가 없어 링크가 안 뜨고 있었다.
+    ⭐ 관계는 기사가 들고 있고 지면은 읽기만 한다 — 그 대신 이 한 줄을 빠뜨리면 조용히 끊긴다.
+    ⛔ check-kcw-article-backlinks.mjs 가 이제 그것을 잡는다. */}
+  <KcwRelatedArticles page="/hit-or-flop" />
 </WikiTip>
