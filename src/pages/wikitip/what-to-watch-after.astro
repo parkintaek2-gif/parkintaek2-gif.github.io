@@ -22,6 +22,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-alongside.json';
 
 /* 손님이 실제로 묻는 작품이 앞에 오게 — 함께 있은 나라-주 합이 큰 순서다 */
@@ -146,6 +147,8 @@ const jsonLd = {
       be longer than what we show. Where we cut it, we cut at twelve.
     </p>
   </section>
+
+  <KcwShorts set="alongside-voiced" says={`Fourteen seconds, read aloud: ${첫째.title} and ${첫째.함께[0].제목} were on the same country's Netflix top 10, in the same week, ${첫째.함께[0].나라주} times — and even that closest pair is only a tenth of all the country-weeks ${첫째.title} shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.`} />
 
   <KcwMethodLimits
     method={{

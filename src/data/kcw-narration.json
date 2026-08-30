@@ -32,6 +32,11 @@
       "제목": "Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you",
       "내레이션": "Is it actually Korean? For four hundred twenty three of our titles, the name alone cannot tell you.",
       "설명": "A Netflix chart row has no year and no country of production."
+    },
+    "alongside": {
+      "제목": "Squid Game and My Name were on the same Netflix top 10 — 274 times",
+      "내레이션": "Squid Game and My Name shared one country top ten in the same week, two hundred seventy four times.",
+      "설명": "That counts lists, not people."
     }
   }
 }

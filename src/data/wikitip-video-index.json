@@ -1,14 +1,13 @@
 {
-  "generated": "2026-08-30 02:33 UTC",
+  "generated": "2026-08-30 07:55 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 30,
-    "짝찾음": 30,
+    "영상": 31,
+    "짝찾음": 31,
     "짝못찾음": 0,
     "두지면에걸린것": 0,
-    "지면에서읽음": 29,
-    "원본에서읽음": 1
+    "지면에서읽음": 31
   },
   "videos": [
     {
@@ -167,8 +166,8 @@
       "thumb": "/video/thumb/onecountry-voiced.jpg",
       "seconds": 14,
       "page": "/underrated",
-      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached …. Charting is not the same as being available, and Netflix publishes only the top ten.",
-      "saysFrom": "page source",
+      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached 7. Charting is not the same as being available, and Netflix publishes only the top ten.",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -308,6 +307,16 @@
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "alongside-voiced",
+      "src": "/video/alongside-voiced.mp4",
+      "thumb": "/video/thumb/alongside-voiced.jpg",
+      "seconds": 14,
+      "page": "/what-to-watch-after",
+      "says": "Fourteen seconds, read aloud: Squid Game and My Name were on the same country's Netflix top 10, in the same week, 274 times — and even that closest pair is only a tenth of all the country-weeks Squid Game shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.",
       "saysFrom": "built page",
       "alsoOn": []
     }
