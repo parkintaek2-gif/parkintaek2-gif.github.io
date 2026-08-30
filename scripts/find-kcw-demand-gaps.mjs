@@ -20,9 +20,17 @@
  *   그 사람은 우리 글이 아니라 «그 파일»을 찾는다. 데려와도 안 머문다.
  * ⛔ 못 잰 것은 **못 쟀다**고 적는다. 0 으로 채우지 않는다.
  *
+ * ── ⚠ 90일로 재면 «어제 낸 지면»을 못 본다 (2026-08-30 13:5x 에 걸릴 뻔했다) ──
+ * 「BTS 고향 검색어에서 우리가 8등」이라고 읽고 지면을 고치려 했는데,
+ * 그 90일 노출의 대부분은 **그 지면이 생기기 «전»**의 것이었다. 옛 지면(`/hometowns`)이
+ * 받던 노출을 새 지면(`/bts-hometowns`, 8/29 신설)의 성적으로 읽을 뻔했다.
+ * ⛔ **어느 «지면»이 그 말을 받고 있는지**를 같이 보지 않으면 엉뚱한 것을 고친다.
+ * ⭐ 그래서 `--짝` 을 뒀다 — 검색어와 지면을 «함께» 본다.
+ *
  * 쓰는 법
  *   node scripts/find-kcw-demand-gaps.mjs                28일치를 재서 보여 준다
  *   node scripts/find-kcw-demand-gaps.mjs --days 90
+ *   node scripts/find-kcw-demand-gaps.mjs --짝 bts --days 7    검색어 ↔ 지면을 짝지어 본다
  *   node scripts/find-kcw-demand-gaps.mjs --자가시험
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
@@ -159,21 +167,51 @@ if (내가실행됐다) {
     process.exit(1);
   }
 
-  const 끝 = new Date(Date.now() - 3 * 86400_000);           /* 구글이 마지막 이틀은 덜 채운다 */
+  /* ⚠ 구글이 마지막 이틀은 덜 채운다. 그래서 사흘을 뒤로 민다.
+     🔴 [2026-08-30] **이 사흘이 눈먼 자리다.** 8/29 에 낸 지면을 8/30 에 재려 했더니
+       자료가 8/27 까지라 «있을 수가 없었다». 하마터면 「새 지면이 안 먹힌다」로 읽을 뻔했다.
+     ⛔ 그러니 «잰 마지막 날»을 늘 화면에 적는다. 안 적으면 오늘까지 잰 것으로 읽힌다. */
+  const 끝 = new Date(Date.now() - 3 * 86400_000);
   const 시작 = new Date(끝.getTime() - 날수 * 86400_000);
   const 날 = (d) => d.toISOString().slice(0, 10);
 
-  const 답 = await fetch(
+  const 청하기 = (몸) => fetch(
     `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(사이트)}/searchAnalytics/query`,
     {
       method: 'POST',
       headers: { authorization: `Bearer ${토큰답.access_token}`, 'content-type': 'application/json' },
-      body: JSON.stringify({
-        startDate: 날(시작), endDate: 날(끝),
-        dimensions: ['query'], rowLimit: 1000, type: 'web',
-      }),
+      body: JSON.stringify({ startDate: 날(시작), endDate: 날(끝), type: 'web', ...몸 }),
     },
   ).then((r) => r.json());
+
+  /* ── --짝 : 검색어와 «지면»을 함께 본다 ────────────────────────
+     🔴 이것이 없어서 옛 지면의 성적을 새 지면 것으로 읽을 뻔했다. */
+  const 짝낱말 = process.argv.includes('--짝') ? process.argv[process.argv.indexOf('--짝') + 1] : null;
+  if (짝낱말) {
+    const 답2 = await 청하기({ dimensions: ['query', 'page'], rowLimit: 1000 });
+    const 행2 = (답2.rows ?? [])
+      .map((r) => ({ 말: r.keys[0], 지면: r.keys[1], ...r }))
+      .filter((r) => r.말.toLowerCase().includes(짝낱말.toLowerCase()));
+    console.log(`\n「${짝낱말}」이 든 검색어 ↔ 그것을 받은 지면 · ${날(시작)} ~ ${날(끝)} (${날수}일)\n`);
+    if (!행2.length) {
+      console.log('  ⚠ 한 건도 안 잡혔다 — **못 쟀다.** (그 말로 노출이 없었거나, 아직 안 모였다)');
+      process.exit(0);
+    }
+    for (const r of 행2.sort((a, b) => b.impressions - a.impressions)) {
+      console.log(`  노출 ${String(r.impressions).padStart(3)} · 순위 ${r.position.toFixed(1).padStart(5)} · 클릭 ${r.clicks}`);
+      console.log(`      말   ${r.말}`);
+      console.log(`      지면 ${r.지면.replace('https://www.kculturewire.com', '')}`);
+    }
+    const 지면별 = new Map();
+    for (const r of 행2) 지면별.set(r.지면, (지면별.get(r.지면) ?? 0) + r.impressions);
+    console.log('\n  지면별 노출 합 —');
+    for (const [p, n] of [...지면별].sort((a, b) => b[1] - a[1])) {
+      console.log(`    ${String(n).padStart(4)}  ${p.replace('https://www.kculturewire.com', '')}`);
+    }
+    process.exit(0);
+  }
+
+  const 답 = await 청하기({ dimensions: ['query'], rowLimit: 1000 });
 
   const 행 = (답.rows ?? []).map((r) => ({
     말: r.keys[0],
@@ -190,7 +228,9 @@ if (내가실행됐다) {
   const 합 = (a) => a.reduce((n, r) => n + r.impressions, 0);
   const 전체노출 = 합(행);
 
-  console.log(`\nK Culture Wire — 손님이 친 말 ${행.length}개 · ${날(시작)} ~ ${날(끝)} (${날수}일)\n`);
+  console.log(`\nK Culture Wire — 손님이 친 말 ${행.length}개 · ${날(시작)} ~ ${날(끝)} (${날수}일)`);
+  console.log(`⚠ **${날(끝)} 까지다.** 그 뒤 사흘은 구글이 아직 안 준다 —`);
+  console.log('   그 사이에 낸 지면은 여기 «있을 수가 없다». 없다고 「안 먹혔다」로 읽지 않는다.\n');
   console.log(`  노출 합계        ${전체노출}`);
   console.log(`  ├ 이길 자리      ${합(통.이길자리)}  (${통.이길자리.length}개)`);
   console.log(`  ├ 우리 이름      ${합(통.우리이름)}  (${통.우리이름.length}개) ⛔ 이미 우리를 아는 사람`);

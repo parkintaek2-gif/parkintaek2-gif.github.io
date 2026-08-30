@@ -191,7 +191,19 @@ if (!주소들.length) {
 }
 const 물을것 = 골고루(주소들, 표본수);
 
-/* 토큰 — search-console-report 와 같은 열쇠를 쓴다 */
+/* 토큰 — search-console-report 와 같은 열쇠를 쓴다.
+ * 🔴 [2026-08-30] 이 자가 **.env 를 안 읽고 있었다.** Node 는 .env 를 저절로 안 읽는데
+ *   여기만 그 한 줄이 빠져 있어서, 열쇠가 «있는데도» 늘 「못 물었다」로 끝났다.
+ *   ⛔ 그 말이 정직하긴 해도, 잴 수 있는 것을 못 잰 채 며칠을 보냈다.
+ *   ⚠ 「못 쟀다」를 잘 적는 것과 «잴 수 있게 만드는 것»은 다른 일이다. 둘 다 해야 한다. */
+(function 환경파일읽기() {
+  try {
+    for (const 줄 of fs.readFileSync(path.resolve('.env'), 'utf8').split(/\r?\n/)) {
+      const m = 줄.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)$/);
+      if (m && process.env[m[1]] === undefined) process.env[m[1]] = m[2].trim().replace(/^["']|["']$/g, '');
+    }
+  } catch { /* 없으면 정상 — 아래에서 「못 물었다」로 걸린다 */ }
+})();
 const 키길 = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 if (!키길 || !fs.existsSync(키길)) {
   console.log('⬜ 못 물었다 — GOOGLE_APPLICATION_CREDENTIALS 가 없다.');
