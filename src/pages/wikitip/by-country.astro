@@ -26,10 +26,31 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/wikitip-markets.json';
 
-const TITLE = 'Netflix top 10 by country: how Korean is each chart?';
+/*
+ * ⚠ [2026-08-31] 제목에 «두» 물음을 같이 둔다. 자동완성으로 잰 말이 둘이다 —
+ *   `netflix top 10 by country`(2026-08-22 잼, 1번째) 와
+ *   `which country watch korean drama most`(2026-08-30 잼, 3줄).
+ *   앞엣말은 이 지면을 이미 데려오고 있으니 «지우지 않는다». 뒤엣말을 «더한다».
+ * ⛔ 낚시로 바꾸지 않는다 — 뒤엣말의 답이 실제로 이 지면 첫머리에 있다.
+ */
+const TITLE = 'Netflix top 10 by country: which country’s chart is the most Korean?';
+
+/*
+ * ⚠ 한국 자신은 «따로» 둔다. 한국을 1등으로 놓으면 물음의 뜻이 어긋난다 —
+ *   「어느 나라가 제일」을 묻는 사람은 「한국 밖에서」를 뜻한다.
+ * ⛔ 나라 이름을 손으로 안 박는다 — 자료에서 읽는다. 자료가 바뀌면 글도 따라 바뀐다.
+ */
+const 한국 = data.markets.find((m) => m.slug === 'south-korea' || m.name === 'South Korea') ?? null;
+const 한국밖앞줄 = [...data.markets]
+  .filter((m) => m !== 한국)
+  .sort((a, b) => b.koreanPc - a.koreanPc)
+  .slice(0, 10);
+
 const DESC = 'Every country in Netflix’s weekly top 10 files, with the share of its chart slots that '
-  + 'went to Korean titles. South Korea’s own chart is half Korean; the middle country is under five '
-  + 'per cent. Charting is not the same as being available.';
+  + `went to Korean titles. Outside Korea the highest is ${한국밖앞줄[0].name} at `
+  + `${한국밖앞줄[0].koreanPc}%${한국 ? `; Korea’s own chart is ${한국.koreanPc}%` : ''}, and the `
+  + `middle country is ${data.medians.koreanPc}%. Charting is not the same as being available, and `
+  + 'Netflix publishes no viewing figures by country at all.';
 
 /** ⛔ 등수를 매기지 않는다 — 이름 순으로 놓는다 */
 const 나라들 = [...data.markets].sort((a, b) => a.name.localeCompare(b.name, 'en'));
@@ -48,6 +69,19 @@ for (const m of 지면있는것) {
 const 가장높은 = [...data.markets].sort((a, b) => b.koreanPc - a.koreanPc)[0];
 const 가장낮은 = [...data.markets].sort((a, b) => a.koreanPc - b.koreanPc)[0];
 
+/*
+ * 🔴 [2026-08-31] **손님이 묻는 말에 이 지면이 답을 «안» 하고 있었다.**
+ *   자동완성으로 재 보니 `which country watch korean drama most` 가 떠 있다(3줄).
+ *   답에 필요한 수는 이 지면에 «전부» 있는데, 알파벳 순으로 흩어 놓아
+ *   손님이 아흔세 나라를 눈으로 훑어야 찾는다. (`한국밖앞줄` 은 위에서 구했다)
+ *
+ * ⚠ 알파벳 순은 앞선 자리가 «일부러» 고른 것이고 그 까닭도 옳다 —
+ *   「비중 순으로 세우면 한국물이 적은 나라는 뒤떨어진다로 읽힌다」.
+ *   ⛔ 그래서 **아래 표는 그대로 둔다.** 대신 물음에 답하는 자리를 «따로» 낸다.
+ * ⭐ 잰 수를 순서대로 놓는 것은 사실이지 판정이 아니다. 판정이 되는 것은
+ *   「그래서 어느 나라가 낫다」는 말인데, 우리는 그 말을 안 한다 — 화면에 못박아 둔다.
+ */
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
@@ -61,7 +95,7 @@ const jsonLd = {
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd} canonical="https://www.kculturewire.com/by-country">
-  <h1>Netflix top 10 by country: how Korean is each chart?</h1>
+  <h1>Netflix top 10 by country: which country&rsquo;s chart is the most Korean?</h1>
 
   <p class="lead">
     Netflix publishes a weekly top 10 for every country it operates in, and it publishes the same
@@ -76,6 +110,46 @@ const jsonLd = {
     how many people watched in a country, and it does not publish where a title can be watched at
     all. What is counted here is places on a published weekly list, nothing more.
   </p>
+
+  {/*
+    🔴 [2026-08-31] 이 자리가 없어서, 답이 이 지면에 다 있는데도 손님이 못 찾았다.
+    ⛔ 「그래서 어느 나라가 낫다」는 말을 안 한다 — 아래 문단에 못박아 둔다.
+  */}
+  <section>
+    <h2>Which country&rsquo;s Netflix chart is the most Korean?</h2>
+    <p>
+      Outside Korea itself, <b>{한국밖앞줄[0].name}</b> &mdash;
+      {' '}{한국밖앞줄[0].koreanPc}% of every slot on its weekly Netflix top 10, across
+      {' '}{data.weekFrom} to {data.weekTo}, went to a Korean title.
+      {한국 && (
+        <> Korea&rsquo;s own chart is {한국.koreanPc}%, which is a different kind of fact and
+        why we keep it out of the line above.</>
+      )}
+    </p>
+    <table>
+      <thead>
+        <tr><th>Country</th><th class="num">Korean share of chart slots</th><th class="num">Korean titles</th></tr>
+      </thead>
+      <tbody>
+        {한국밖앞줄.map((m) => (
+          <tr>
+            <td>{m.hasPage ? <a href={`/market/${m.slug}`}>{m.name}</a> : m.name}</td>
+            <td class="num">{m.koreanPc}%</td>
+            {/* ⛔ 없는 칸 이름을 짐작으로 쓰지 않는다 — 자료의 칸은 `distinctTitles` 다 */}
+            <td class="num">{m.distinctTitles ?? '—'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="warn">
+      <b>This is not a ranking of countries, and it is not a ranking of taste.</b> A share is high
+      when a country&rsquo;s catalogue is small as easily as when its readers are keen &mdash; which
+      is why the count of distinct Korean titles sits beside it. A country low on this list is not
+      a country that likes Korean shows less; it is a country whose top 10 had other things in it.
+      {' '}We put the full {data.countryCount} in alphabetical order below, on purpose, for the same
+      reason.
+    </p>
+  </section>
 
   <section>
     <h2>Pick a country</h2>
