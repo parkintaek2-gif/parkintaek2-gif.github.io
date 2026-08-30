@@ -23,6 +23,9 @@
 - [Korea trade, partner by partner](https://seoulmarkets.com/trade): Korea's trade with 60 partner countries, shares and ranks.
 - [Korea sells to and buys from different countries](https://seoulmarkets.com/article/korea-sells-and-buys-different-countries): export vs import maps diverge — Hong Kong 6.7% of exports but 0.6% of imports; Japan 7.5% of imports but 3.5% of exports.
 
+## Commodities & prices (Bank of Korea import price index, reproducible)
+- [Which imports jumped, which fell](https://seoulmarkets.com/article/korea-import-prices-which-goods-jumped): the 18.4% won-basis average hides a huge spread — synthetic rubber +96% and fuels ~+77%, while sugar and dairy fell; the won sets the level, the spread is the goods.
+
 ## Markets & disclosure (counts and distributions, reproducible — not prices, not advice)
 - [Korean analysts stopped saying hold](https://seoulmarkets.com/article/korea-analysts-stopped-saying-hold): across 55,580 rated broker reports since 2014, the neutral (hold) rating fell from 9.7% to 3.3%; only 89 sell calls in twelve years.
 - [Four names are half of everything](https://seoulmarkets.com/article/korea-everything-comes-down-to-four): rank Korea's stocks or its trade partners and the top four are about half every time; every concentration Gini sits above 0.9 (shares and ranks only).
