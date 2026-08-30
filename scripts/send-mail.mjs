@@ -45,17 +45,45 @@ import { fileURLToPath } from 'node:url';
   } catch { /* 없으면 정상 */ }
 })();
 
-/** 보내는 주소. ⛔ 관리용(admin@)은 쓰지 않는다 — 손님에게 보이는 주소는 cs@ 다 */
-export const 보내는주소 = process.env.MAIL_FROM ?? 'cs@klifedesign.net';
+/**
+ * 보내는 주소. ⛔ 관리용(admin@)은 쓰지 않는다.
+ *
+ * 🔴 [2026-08-30] **`cs@klifedesign.net` 은 이 Workspace 의 «실제 사용자»가 아니다.**
+ *   사장님이 도메인 전체 위임을 켜 주셨는데도 메일이 안 나가서 파고 재 봤다 —
+ *   위임은 «걸렸고», 막힌 것은 **보내는 주소**였다. 없는 주소로는 토큰이 안 나온다
+ *   (`invalid_grant: Invalid email or User ID`).
+ *
+ *   주소를 하나씩 넣어 재 본 결과 —
+ *   ```
+ *   ✅ 토큰 나옴 : admin@ · u2@ · u5@        ← Workspace 의 실제 사용자
+ *   ⛔ 안 나옴   : cs@ · info@ · contact@    ← 아예 «없는 주소»다
+ *   ```
+ *   ⚠ 그러니 이 자가 기본값으로 들고 있던 `cs@` 는 **처음부터 못 보낼 주소**였다.
+ *     「위임만 켜지면 된다」고 알고 있었던 것이 절반만 맞았다.
+ *     ⭐ 배울 것 — 「막혔다」의 까닭을 «한 겹»에서 멈추면 못 고친다. 이 자는
+ *       ①위임 ②주소 둘을 나눠 물을 줄 알면서도 ②를 재 볼 생각을 못 했다.
+ *
+ * ⭐ 그래서 **자리 번호로 그 자리 주소를 쓴다.** 여섯 자리가 각자 자기 이름으로 보낸다.
+ * ⚠ 손님에게 보이는 `cs@` 로 보내려면 `admin.google.com` → 디렉터리 → 사용자에서
+ *   **`cs` 를 «사용자»로 먼저 만들어야 한다.** 별칭으로는 안 된다.
+ */
+const 자리번호 = String(process.env.CLAUDE_SEAT ?? '').match(/^[1-9]$/)?.[0] ?? null;
+export const 보내는주소 = process.env.MAIL_FROM
+  ?? (자리번호 ? `u${자리번호}@klifedesign.net` : 'cs@klifedesign.net');
 export const 보내는이름 = 'K Culture Wire';
 export const 갈래 = 'https://www.googleapis.com/auth/gmail.send';
 
 /**
- * 가르는 데 쓸 **기준 주소** — 실제로 있는 것이 확실한 주소여야 한다.
- * ⚠ 내 자리 주소(u5@)를 쓴다. 이 주소로 로그인해 일하고 있으니 존재가 확실하다.
+ * 가르는 데 쓸 **기준 주소** — 실제로 있는 것이 «확실한» 주소여야 한다.
  * ⛔ 이 주소로 메일을 보내지 않는다. 토큰을 청해 보는 데만 쓴다.
+ *
+ * 🔴 [2026-08-30] 전에는 `u5@` 였다. 그런데 보내는 주소가 «자리 번호»를 따르게 되면서
+ *   5번 자리에서는 **기준과 보낼 주소가 같아져 버린다** — 그러면 둘을 견줄 수가 없어
+ *   이 자의 판단(①위임이 안 걸렸나 ②주소가 없나)이 통째로 죽는다.
+ *   ⇒ 어느 자리에서도 겹치지 않는 `admin@` 을 기준으로 삼는다. 사장님 계정이라 존재가 확실하다.
+ * ⚠ 「관리용 주소를 쓰지 않는다」는 **보내는** 주소 이야기다. 재 보는 데 쓰는 것은 별개다.
  */
-export const 기준주소 = process.env.MAIL_PROBE ?? 'u5@klifedesign.net';
+export const 기준주소 = process.env.MAIL_PROBE ?? 'admin@klifedesign.net';
 
 /**
  * ⭐ 구글이 준 «오류 글자»를 읽는다.
