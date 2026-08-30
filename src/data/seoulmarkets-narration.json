@@ -22,6 +22,10 @@
     "korea-headcount-disclosure-has-no-total-row": {
       "내레이션": "Every listed Korean company files a yearly headcount table. It carries no total. One in three files the count in pieces, leaving the reader to add. Read only the first row — as we did — and hundreds of thousands vanish. We made that mistake, and fixed it.",
       "설명": "From company filings on DART. This piece is our own correction — we report what we could not measure, and what we got wrong."
+    },
+    "korea-everything-comes-down-to-four": {
+      "내레이션": "One number keeps coming back in Korea. Rank its stocks by value, or its trading partners by exports — the top four are about half, every time. Every score sits above nine-tenths, more top-heavy than any income gap. Not advice.",
+      "설명": "Shares and Gini only, computed the same way across market and trade. We show the shape, not the reasons — and this is not advice."
     }
   }
 }
