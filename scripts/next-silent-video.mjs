@@ -47,15 +47,30 @@ export function 무음판이름(set) {
 }
 
 /**
- * 오늘 이미 한 편을 냈나 — 원부의 uploadDate 로 본다.
+ * 오늘 이미 «버전업»을 했나 — 원부의 uploadDate 로 본다.
  * ⭐ 새 장부를 만들지 않는다. 이미 «내는 날»을 적고 있는 자리를 쓴다.
  * ⛔ 못 읽으면 「안 했다」로 단정하지 않는다 — null 이다.
+ *
+ * 🔴 [2026-08-30] **이 자가 «새 영상»을 버전업으로 세고 있었다.**
+ *   오늘 새 영상 셋(alongside·allten·relay)을 냈는데 이름이 다 `-voiced` 로 끝난다.
+ *   그래서 자가 「오늘 몫 끝」이라고 했다 — **버전업은 한 편(onecountry)뿐이었는데도.**
+ *   ⚠ 순서만 달랐어도 이 자가 그날의 «진짜» 버전업을 막았을 것이다.
+ *
+ * ⭐ 가르는 법 — **버전업은 «무음 원본»이 우리 공개 폴더에 있다.**
+ *   `onecountry-voiced` 옆에는 `onecountry.mp4`(무음)가 서 있다. 그것이 소재였다.
+ *   새 영상은 원본이 `archive/silent-source/` 에 있고 공개 폴더에는 없다.
+ *   ⇒ 「무음 원본이 있는 것」만 버전업으로 센다. 이름 꼬리로 안 가른다.
  */
-export function 오늘낸것(원부, 오늘) {
+export function 오늘낸것(원부, 오늘, 무음판들 = null) {
   const v = 원부?.videos;
   if (!Array.isArray(v)) return null;
-  return v.filter((x) => x && String(x.set).endsWith(소리판꼬리) && x.uploadDate === 오늘)
-    .map((x) => x.set);
+  const 있는무음 = 무음판들 === null ? null : new Set(무음판들);
+  return v.filter((x) => {
+    if (!x || !String(x.set).endsWith(소리판꼬리) || x.uploadDate !== 오늘) return false;
+    /* ⛔ 무음판 목록을 못 받았으면 옛 방식대로 «다» 센다 — 조용히 덜 세지 않는다 */
+    if (있는무음 === null) return true;
+    return 있는무음.has(무음판이름(x.set));
+  }).map((x) => x.set);
 }
 
 /**
@@ -101,6 +116,22 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 소리판이 아닌 것은 안 센다', !오늘낸것(원부, '2026-08-29').includes('c'));
   검('어제 것은 오늘로 안 센다', 오늘낸것(원부, '2026-08-27').length === 0);
   검('⛔ 못 읽으면 null 이지 빈 줄이 아니다', 오늘낸것(null, '2026-08-29') === null);
+  /*
+   * 🔴🔴 [2026-08-30] 이 검사가 없어서 자가 **새 영상을 버전업으로 셌다.**
+   *   오늘 낸 새 영상 셋도 이름이 `-voiced` 로 끝나기 때문이다.
+   *   ⛔ 순서만 달랐어도 자가 그날의 «진짜» 버전업을 막았을 것이다.
+   */
+  const 원부2 = { videos: [
+    { set: 'onecountry-voiced', uploadDate: '2026-08-30' },   /* 버전업 — 무음 원본이 있다 */
+    { set: 'alongside-voiced', uploadDate: '2026-08-30' },    /* 새 영상 — 공개 폴더에 원본이 없다 */
+  ] };
+  검('⭐⭐ 무음 원본이 있는 것만 «버전업»으로 센다',
+    JSON.stringify(오늘낸것(원부2, '2026-08-30', ['onecountry', 'onecountry-voiced', 'alongside-voiced']))
+      === JSON.stringify(['onecountry-voiced']));
+  검('⛔ 무음판 목록을 안 주면 옛 방식대로 «다» 센다 — 조용히 덜 세지 않는다',
+    오늘낸것(원부2, '2026-08-30').length === 2);
+  검('⛔ 무음 원본이 하나도 없으면 버전업은 0 이다',
+    오늘낸것(원부2, '2026-08-30', ['alongside-voiced']).length === 0);
 
   const 무음 = ['actors', 'debut', 'works'];
   const r1 = 다음한편(무음, ['actors-voiced'], ['debut', 'works'], ['works']);
@@ -125,7 +156,7 @@ if (process.argv.includes('--자가시험')) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
     process.exit(1);
   }
-  console.log('✅ next-silent-video 자가시험 통과 (17)');
+  console.log('✅ next-silent-video 자가시험 통과 (20)');
   process.exit(0);
 }
 
@@ -142,9 +173,13 @@ if (!fs.existsSync(영상방)) {
 }
 
 const 원부 = fs.existsSync(원부길) ? JSON.parse(fs.readFileSync(원부길, 'utf8')) : null;
-const 낸것 = 오늘낸것(원부, 오늘);
-
 console.log(`■ 오늘(${오늘}) 소리 입힐 «한 편»\n`);
+
+/* 🔴 [2026-08-30] 「오늘 몫을 냈나」를 «음량을 재기 전»에 물었더니 새 영상까지 세어졌다.
+   ⇒ 차례를 바꾼다 — 무음판이 무엇인지 «먼저» 재고, 그다음에 「그중 오늘 낸 것」을 센다. */
+const 공개것들 = fs.readdirSync(영상방).filter((f) => f.endsWith('.mp4')).sort();
+const 공개이름 = 공개것들.map((f) => f.replace(/\.mp4$/, ''));
+const 낸것 = 오늘낸것(원부, 오늘, 공개이름);
 
 if (낸것 === null) {
   console.log('⬜ 오늘 것을 냈는지 «못 쟀다» — 원부를 못 읽었다.');
@@ -159,7 +194,7 @@ if (낸것.length) {
 }
 
 /* 음량을 «재서» 무음을 고른다 */
-const 것들 = fs.readdirSync(영상방).filter((f) => f.endsWith('.mp4')).sort();
+const 것들 = 공개것들;   /* ⭐ 위에서 이미 읽었다 — 두 번 안 읽는다 */
 const 무음들 = [];
 const 못쟀다 = [];
 for (const f of 것들) {
