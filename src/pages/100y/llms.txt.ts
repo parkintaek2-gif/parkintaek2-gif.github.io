@@ -30,22 +30,28 @@ Every page names its source, its year, and what it cannot tell you.
 ## Life-stage pages (age 0–100, one topic per page)
 
 - [Nursery deserts](https://100yearmap.com/nursery): districts with zero daycare centers, ages 0–5
+- [Nursery fill rate](https://100yearmap.com/nursery-fill): enrolled children vs. capacity, ages 0–5
 - [Kindergartens near you](https://100yearmap.com/kindergarten): count and enrollment by district
 - [Pediatric care gaps](https://100yearmap.com/pediatrics): districts with no pediatric clinic
 - [After-school hours](https://100yearmap.com/afterschool): participation rate by region, ages 6–9
 - [How old are elementary schools](https://100yearmap.com/elementary): founding dates nationwide
+- [Private tutoring](https://100yearmap.com/tutoring): participation rate and cost, K-12
 - [Skipping breakfast by age](https://100yearmap.com/breakfast): teen meal-skipping rates
 - [Choosing a major](https://100yearmap.com/major): 925 college majors, outcomes by field
 - [First job timing](https://100yearmap.com/first-job): months to first job after graduation, tenure
 - [Still unmarried at 30](https://100yearmap.com/marriage-age): marital status by age band vs. average marriage age
+- [Real wages](https://100yearmap.com/real-wage): inflation-adjusted pay growth, calculated from KOSIS nominal wage + CPI
 - [Where does a 40-something's spending go](https://100yearmap.com/spending): household budget by category
 - [Who owns a home, by age](https://100yearmap.com/home): homeowner household age distribution
 - [Pet ownership by age](https://100yearmap.com/pets): ownership rate and dog-vs-cat split by age
 - [Domestic travel days by age](https://100yearmap.com/travel): days traveled per year, 2018–2025, COVID recovery
 - [Promotion satisfaction](https://100yearmap.com/promotion): satisfaction by rank and gender, private-sector panel
 - [Pay, tenure, and household by age](https://100yearmap.com/age): wage and asset snapshots, ages 20–60
+- [Retraining at a Polytech college](https://100yearmap.com/polytech): mid-career retraining programs and outcomes
 - [Longest job, when people quit](https://100yearmap.com/longest-job): age and reason for leaving a long-held job
+- [National training voucher (Naeil Baeum Card)](https://100yearmap.com/training-card): course enrollment and completion
 - [Wanting to keep working after retirement](https://100yearmap.com/keep-working): ages 55–79
+- [National Pension payouts](https://100yearmap.com/pension): benefit amount by age and contribution history, 65+
 - [When care becomes necessary](https://100yearmap.com/care): long-term care certification rate by age, 65+
 - [Years of life remaining](https://100yearmap.com/years-left): life-table years left, every age 0–100
 - [Healthy years vs. total years](https://100yearmap.com/healthy-years): healthy life expectancy gap, every age
@@ -53,7 +59,7 @@ Every page names its source, its year, and what it cannot tell you.
 - [Wealth gap by age](https://100yearmap.com/wealth-gap): household assets, 60+ vs. under-30, 2017–2025
 - [2027 youth budget (draft)](https://100yearmap.com/youth-budget-2027): government's proposed youth programs, itemized
 
-All 23 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
+All 29 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 
 ## Schools and majors (the original data set)
 
