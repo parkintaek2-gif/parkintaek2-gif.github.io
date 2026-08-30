@@ -40,6 +40,16 @@ import { 이름표만들기 as 회사이름표, 회사주소 } from '../../../li
  *   그래서 화면에도 「recommend」라고 안 쓰고, 무엇을 세었는지를 그 자리에 적는다.
  */
 import alongside from '../../../data/kcw-alongside.json';
+/*
+ * 🔴 [2026-08-30 · 5번] **「<작품> hit or flop」에도 여기서 답한다.**
+ *   Search Console 90일 실측 — 그 꼴로 물어본 검색이 **이미 작품 지면 18장에 떨어지고 있었다**
+ *   (our sticky love 5 · dali and cocky prince 4 · the 8th night 4 · concrete utopia 3 …).
+ *   ⭐ 구글은 맞는 지면으로 보내고 있는데, **그 지면에 그 말도 그 답도 없었다.** 순위 4~10.
+ * ⛔ 그래서 지면을 더 내지 않고, **있는 지면이 그 물음에 답하게** 한다.
+ * ⛔ 「hit」·「flop」은 판정어다 — 우리는 판정하지 않는다. 974편 안의 «자리»만 준다.
+ */
+import standing from '../../../data/kcw-title-standing.json';
+import hof from '../../../data/kcw-hit-or-flop.json';
 
 /* ⛔ 시장 주소를 **짐작하지 않는다.** iso2 를 소문자로 만든 것이 주소일 거라 여겼다가
    93장 전부 죽은 링크가 될 뻔했다 — 실제 주소는 나라 이름이다(AR → argentina). */
@@ -70,6 +80,8 @@ export function getStaticPaths() {
 const { t, 회사문: 회사문객체 } = Astro.props;
 /* 이 작품과 «같은 칸에 있었던» 것. ⛔ 없으면 그 토막을 통째로 안 낸다 — 빈 표를 안 낸다 */
 const 나란히 = (alongside as any).작품.find((x: any) => x.slug === t.slug) ?? null;
+/* 974편 안에서 이 작품이 선 자리. ⛔ 없으면 그 토막을 통째로 안 낸다 */
+const 자리 = ((standing as any).작품 ?? {})[t.slug] ?? null;
 /* ⛔ props 는 객체로 건너온다 — Map 으로 되돌려 쓴다 */
 const 회사문 = new Map(Object.entries((회사문객체 ?? {}) as Record<string, string>));
 
@@ -765,6 +777,74 @@ const jsonLd = {
           we hold fewer than two charting titles for them.
         </p>
       )}
+    </section>
+  )}
+
+  {자리 && (
+    <section>
+      <h2>Was {t.title} a hit or a flop?</h2>
+      <p>
+        <b>We are not going to rule on that, and neither can anyone else working from this data.</b>
+        {' '}Netflix publishes no budget, no revenue and no viewing hours by country, so a chart
+        position cannot be turned into a verdict. Several Korean titles opened in cinemas first,
+        and that run is not in this data at all.
+      </p>
+      <p>
+        What we can give you is the thing the word &ldquo;flop&rdquo; is really reaching for:
+        {' '}<b>somewhere to stand.</b> Of the {hof.titleCount.toLocaleString('en-US')} Korean
+        titles that entered any country&rsquo;s Netflix weekly top 10 between {hof.weekFrom} and
+        {' '}{hof.weekTo}, here is where {t.title} sits.
+      </p>
+      <table>
+        <thead>
+          <tr><th>Measure</th><th class="num">{t.title}</th><th>Where that puts it</th></tr>
+        </thead>
+        <tbody>
+          {자리.나라 && (
+            <tr>
+              <td>Countries that charted it</td>
+              <td class="num">{자리.markets}</td>
+              <td class="fine">
+                wider than <b>{자리.나라.아래.toLocaleString('en-US')}</b> of
+                {' '}{자리.나라.전체.toLocaleString('en-US')} titles
+                {자리.나라.같음 > 1 && <>; {자리.나라.같음 - 1} others reached exactly as many</>}
+              </td>
+            </tr>
+          )}
+          {자리.주 && (
+            <tr>
+              <td>Weeks on any chart</td>
+              <td class="num">{자리.weeks}</td>
+              <td class="fine">
+                longer than <b>{자리.주.아래.toLocaleString('en-US')}</b> of
+                {' '}{자리.주.전체.toLocaleString('en-US')} titles
+              </td>
+            </tr>
+          )}
+          {자리.순위 && (
+            <tr>
+              <td>Best position reached</td>
+              <td class="num">{자리.peak}</td>
+              <td class="fine">
+                {자리.peak === 1
+                  ? <>number one somewhere &mdash; so were <b>{hof.everNumberOne}</b> of
+                    {' '}{hof.titleCount.toLocaleString('en-US')} titles</>
+                  : <>higher than <b>{자리.순위.아래.toLocaleString('en-US')}</b> of
+                    {' '}{자리.순위.전체.toLocaleString('en-US')} titles</>}
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <p class="warn">
+        <b>&ldquo;Number one on Netflix&rdquo; is not the rare part.</b>
+        {' '}<b>{hof.everNumberOne}</b> of {hof.titleCount.toLocaleString('en-US')} titles &mdash;
+        {' '}{Math.round((hof.everNumberOne / hof.titleCount) * 100)}% &mdash; have been number one
+        in some country in some week, and <b>{hof.numberOneInItsOnlyCountry} of those
+        {' '}{hof.everNumberOne}</b> were number one in the only country that ever charted them.
+        Read a rank next to the reach, not on its own.
+        {' '}<a href="/hit-or-flop">The full distribution, and what it can and cannot say</a>.
+      </p>
     </section>
   )}
 
