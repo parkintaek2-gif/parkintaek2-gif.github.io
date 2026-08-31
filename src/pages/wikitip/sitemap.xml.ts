@@ -546,6 +546,8 @@ export const GET: APIRoute = async () => {
      * ⚠ 「what to watch after squid game」 자동완성 1번째 · 그 말로 시작하는 줄 6.
      */
     { path: '/what-to-watch-after', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 [2026-08-31] 사장님 「논쟁꺼리를 우리가 만든다」 — 순위를 내고 그 순위를 되묻는 첫 편 */
+    { path: '/which-ranking', priority: '0.9', changefreq: 'weekly' },
     /* 「<작품> netflix which country」 아홉 질의·노출 39회·7~36위 */
     { path: '/netflix-which-country', priority: '0.9', changefreq: 'weekly' },
     /* 「which bts member is from busan」 열일곱 질의·노출 30회·3~11위 */
