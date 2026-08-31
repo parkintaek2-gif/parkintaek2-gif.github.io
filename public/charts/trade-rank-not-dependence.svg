@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Korea's export map and import map point at different countries">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="90" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">A rank counts volume, not dependence</text>
+  <text x="80" y="132" font-family="Georgia, serif" font-size="22" fill="#5b6472">Who Korea sells to is not who it buys from. Shares of trade, not dollars.</text>
+
+  <!-- Hong Kong -->
+  <text x="80" y="210" font-family="'Segoe UI', Arial, sans-serif" font-size="24" font-weight="700" fill="#0b1f3a">Hong Kong</text>
+  <text x="80" y="248" font-family="'Segoe UI', Arial, sans-serif" font-size="17" fill="#5b6472">exports &#8594;</text>
+  <rect x="200" y="230" width="470" height="26" rx="4" fill="#1e5bbf"/>
+  <text x="682" y="250" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#1e5bbf">~6.7% of exports</text>
+  <text x="80" y="288" font-family="'Segoe UI', Arial, sans-serif" font-size="17" fill="#5b6472">imports &#8594;</text>
+  <rect x="200" y="270" width="42" height="26" rx="4" fill="#b53434"/>
+  <text x="254" y="290" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#b53434">~0.6% of imports</text>
+
+  <!-- Japan -->
+  <text x="80" y="372" font-family="'Segoe UI', Arial, sans-serif" font-size="24" font-weight="700" fill="#0b1f3a">Japan</text>
+  <text x="80" y="410" font-family="'Segoe UI', Arial, sans-serif" font-size="17" fill="#5b6472">imports &#8594;</text>
+  <rect x="200" y="392" width="525" height="26" rx="4" fill="#b53434"/>
+  <text x="737" y="412" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#b53434">~7.5% of imports</text>
+  <text x="80" y="450" font-family="'Segoe UI', Arial, sans-serif" font-size="17" fill="#5b6472">exports &#8594;</text>
+  <rect x="200" y="432" width="245" height="26" rx="4" fill="#1e5bbf"/>
+  <text x="457" y="452" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" fill="#1e5bbf">~3.5% of exports</text>
+
+  <text x="80" y="530" font-family="Georgia, serif" font-size="22" font-style="italic" fill="#33404f">Top of one map, far down the other. "Biggest partner" hides which.</text>
+  <text x="80" y="590" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; Korea Customs shares and ranks &#183; not absolute dollars &#183; not advice</text>
+</svg>
