@@ -1,13 +1,13 @@
 {
- "잰날": "2026-08-30T06:27:48.768Z",
+ "잰날": "2026-08-31T04:10:07.234Z",
  "사이트": "sc-domain:kculturewire.com",
- "시작": "2026-07-30",
- "끝": "2026-08-27",
- "전체노출": 752,
+ "시작": "2026-07-31",
+ "끝": "2026-08-28",
+ "전체노출": 815,
  "갈래별": {
-  "이길자리": 491,
+  "이길자리": 553,
   "우리이름": 0,
-  "원본파일": 261
+  "원본파일": 262
  },
  "손댈것": [
   {
@@ -233,6 +233,12 @@
    "position": 16.666666666666664
   },
   {
+   "말": "megan katseye birthday",
+   "impressions": 3,
+   "clicks": 0,
+   "position": 75
+  },
+  {
    "말": "parasyte the grey hit or flop",
    "impressions": 3,
    "clicks": 0,
@@ -323,6 +329,12 @@
    "position": 7
   },
   {
+   "말": "daniela katseye age",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 74.5
+  },
+  {
    "말": "extraordinary you hit or flop",
    "impressions": 2,
    "clicks": 0,
@@ -357,6 +369,18 @@
    "impressions": 2,
    "clicks": 0,
    "position": 66
+  },
+  {
+   "말": "k goddess age",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 61.5
+  },
+  {
+   "말": "katseye members birthdays",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 71.5
   },
   {
    "말": "korea challenger cutoff",
@@ -413,10 +437,16 @@
    "position": 10
   },
   {
-   "말": "megan katseye birthday",
+   "말": "kpop birthdays in january",
    "impressions": 2,
    "clicks": 0,
-   "position": 74
+   "position": 69
+  },
+  {
+   "말": "members of ladies' code",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 90
   },
   {
    "말": "nam ji-hyun",
@@ -467,6 +497,12 @@
    "position": 91.5
   },
   {
+   "말": "skz birthday",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 58
+  },
+  {
    "말": "spiritwalker netflix",
    "impressions": 2,
    "clicks": 0,
@@ -491,10 +527,28 @@
    "position": 8.5
   },
   {
+   "말": "treasure oldest to youngest",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 69
+  },
+  {
    "말": "where are bts members from in korea",
    "impressions": 2,
    "clicks": 0,
    "position": 6
+  },
+  {
+   "말": "who is the youngest in katseye",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 65.5
+  },
+  {
+   "말": "wonder girls ages",
+   "impressions": 2,
+   "clicks": 0,
+   "position": 45
   },
   {
    "말": "\"business proposal\" netflix bolivia",
@@ -629,6 +683,12 @@
    "position": 12
   },
   {
+   "말": "byeon woo seok netflix",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 88
+  },
+  {
    "말": "challenger cut off korea",
    "impressions": 1,
    "clicks": 0,
@@ -689,6 +749,12 @@
    "position": 88
   },
   {
+   "말": "got 7 age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 91
+  },
+  {
    "말": "got7 age members",
    "impressions": 1,
    "clicks": 0,
@@ -701,6 +767,12 @@
    "position": 75
   },
   {
+   "말": "h1key ages",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 81
+  },
+  {
    "말": "how many dramas are there in the world",
    "impressions": 1,
    "clicks": 0,
@@ -711,6 +783,12 @@
    "impressions": 1,
    "clicks": 0,
    "position": 84
+  },
+  {
+   "말": "how many members in kara",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 90
   },
   {
    "말": "how many people died in all of us are dead",
@@ -731,16 +809,40 @@
    "position": 52
   },
   {
+   "말": "how old is cortisa star",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 74
+  },
+  {
+   "말": "how old is daniela katseye",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 78
+  },
+  {
    "말": "how old is everyone in katseye",
    "impressions": 1,
    "clicks": 0,
    "position": 56
   },
   {
+   "말": "how old is girl generation members when they debuted",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 100
+  },
+  {
    "말": "how old is star?",
    "impressions": 1,
    "clicks": 0,
    "position": 75
+  },
+  {
+   "말": "i dle debut date",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 86
   },
   {
    "말": "idols born in february",
@@ -815,10 +917,22 @@
    "position": 75
   },
   {
+   "말": "izna oldest to youngest",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 58
+  },
+  {
    "말": "january kpop birthdays",
    "impressions": 1,
    "clicks": 0,
    "position": 76
+  },
+  {
+   "말": "jb got7 age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 91
   },
   {
    "말": "joel kim booster birthday",
@@ -827,10 +941,40 @@
    "position": 9
   },
   {
+   "말": "joo sang wook netflix",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 33
+  },
+  {
    "말": "jungkook birth date",
    "impressions": 1,
    "clicks": 0,
    "position": 9
+  },
+  {
+   "말": "k birthday",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 72
+  },
+  {
+   "말": "k pop idols born in july",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 79
+  },
+  {
+   "말": "katseye age members",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 79
+  },
+  {
+   "말": "katseye all birthdays",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 57
   },
   {
    "말": "katseye anniversary date",
@@ -839,16 +983,40 @@
    "position": 83
   },
   {
+   "말": "katseye members age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 71
+  },
+  {
    "말": "katseye members age when they debuted",
    "impressions": 1,
    "clicks": 0,
    "position": 74
   },
   {
+   "말": "katseye who is the youngest",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 63
+  },
+  {
    "말": "kdrama actors born in august",
    "impressions": 1,
    "clicks": 0,
    "position": 62
+  },
+  {
+   "말": "kep1er ages",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 83
+  },
+  {
+   "말": "kim go-eun movies and tv shows netflix",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 63
   },
   {
    "말": "kim kibum birthday",
@@ -869,10 +1037,34 @@
    "position": 36
   },
   {
+   "말": "kim woo bin movie",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 90
+  },
+  {
+   "말": "kim woo bin movies on netflix",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 77
+  },
+  {
    "말": "kim woo-bin films et programmes tv",
    "impressions": 1,
    "clicks": 0,
    "position": 69
+  },
+  {
+   "말": "kim woo-bin movies",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 73
+  },
+  {
+   "말": "kim woo-bin movies on netflix",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 76
   },
   {
    "말": "korea league of legends ladder",
@@ -881,10 +1073,28 @@
    "position": 39
   },
   {
+   "말": "korea league of legends ranking",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 71
+  },
+  {
    "말": "korea lol rank",
    "impressions": 1,
    "clicks": 0,
    "position": 30
+  },
+  {
+   "말": "korea rank lol",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 54
+  },
+  {
+   "말": "korea ranking lol",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 60
   },
   {
    "말": "korean actors over 50 years old list",
@@ -911,16 +1121,16 @@
    "position": 28
   },
   {
-   "말": "kpop birthdays in january",
-   "impressions": 1,
-   "clicks": 0,
-   "position": 63
-  },
-  {
    "말": "kpop idol born in july",
    "impressions": 1,
    "clicks": 0,
    "position": 83
+  },
+  {
+   "말": "kpop idols birthday in july",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 81
   },
   {
    "말": "kpop idols birthday in march",
@@ -929,16 +1139,40 @@
    "position": 55
   },
   {
+   "말": "kpop idols birthday october 2",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 74
+  },
+  {
+   "말": "kpop idols born in 1980",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 71
+  },
+  {
    "말": "kpop idols born in november 20",
    "impressions": 1,
    "clicks": 0,
    "position": 54
   },
   {
+   "말": "kpop idols born on february 10",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 65
+  },
+  {
    "말": "kpop idols born on february 20",
    "impressions": 1,
    "clicks": 0,
    "position": 66
+  },
+  {
+   "말": "kpop idols born on january",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 75
   },
   {
    "말": "kpop idols born on june 10",
@@ -995,6 +1229,18 @@
    "position": 52
   },
   {
+   "말": "leona age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 64
+  },
+  {
+   "말": "like flowers in sand genre",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 100
+  },
+  {
    "말": "lila art high school",
    "impressions": 1,
    "clicks": 0,
@@ -1005,6 +1251,18 @@
    "impressions": 1,
    "clicks": 0,
    "position": 12
+  },
+  {
+   "말": "lol ranking korea",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 55
+  },
+  {
+   "말": "loona how many members",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 80
   },
   {
    "말": "loona members",
@@ -1023,6 +1281,12 @@
    "impressions": 1,
    "clicks": 0,
    "position": 98
+  },
+  {
+   "말": "magenta qwer age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 67
   },
   {
    "말": "members of artms",
@@ -1085,6 +1349,12 @@
    "position": 10
   },
   {
+   "말": "oldest in baemon",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 53
+  },
+  {
    "말": "oldest member in katseye",
    "impressions": 1,
    "clicks": 0,
@@ -1095,6 +1365,12 @@
    "impressions": 1,
    "clicks": 0,
    "position": 52
+  },
+  {
+   "말": "oldest shinee member",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 67
   },
   {
    "말": "oldest triples member",
@@ -1161,6 +1437,12 @@
    "impressions": 1,
    "clicks": 0,
    "position": 71
+  },
+  {
+   "말": "snsd members by age",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 84
   },
   {
    "말": "south korea live streaming market",
@@ -1247,6 +1529,12 @@
    "position": 54
   },
   {
+   "말": "uni.t members",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 69
+  },
+  {
    "말": "wang yibo zodiac sign",
    "impressions": 1,
    "clicks": 0,
@@ -1275,6 +1563,18 @@
    "impressions": 1,
    "clicks": 0,
    "position": 22
+  },
+  {
+   "말": "what kpop idols are born in july",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 78
+  },
+  {
+   "말": "when did ikon debut",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 98
   },
   {
    "말": "when did the boyz debut",
@@ -1313,6 +1613,12 @@
    "position": 12
   },
   {
+   "말": "which kpop idols are born in july",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 74
+  },
+  {
    "말": "who from bts is from busan",
    "impressions": 1,
    "clicks": 0,
@@ -1331,6 +1637,12 @@
    "position": 8
   },
   {
+   "말": "who is the 2 youngest in katseye",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 61
+  },
+  {
    "말": "who is the oldest in katseye",
    "impressions": 1,
    "clicks": 0,
@@ -1343,10 +1655,10 @@
    "position": 52
   },
   {
-   "말": "who is the youngest in katseye",
+   "말": "who is the second oldest in katseye",
    "impressions": 1,
    "clicks": 0,
-   "position": 62
+   "position": 55
   },
   {
    "말": "who is the youngest of katseye",
@@ -1355,16 +1667,16 @@
    "position": 60
   },
   {
+   "말": "who's the oldest member of katseye",
+   "impressions": 1,
+   "clicks": 0,
+   "position": 64
+  },
+  {
    "말": "wikidata",
    "impressions": 1,
    "clicks": 0,
    "position": 68
-  },
-  {
-   "말": "wonder girls ages",
-   "impressions": 1,
-   "clicks": 0,
-   "position": 11
   },
   {
    "말": "wonwoo zodiac sign",
