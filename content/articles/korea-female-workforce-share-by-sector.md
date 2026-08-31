@@ -37,3 +37,7 @@ The gap between the top and bottom is about **seven to one**. In the industries 
 This is the share of **headcount**, not of seniority or pay, and the distinction matters. As earlier pieces showed, a high female share does not narrow a company's gender pay gap, because the gap lives in **which rungs people stand on**, not how many women are in the building. A sector can be 57% female and still concentrate its women in its lower-paid roles. So this map answers a narrower question than it seems to: not "where are women paid best," but simply "where do women work."
 
 The figure is a median — the typical firm in each industry — chosen because female share is skewed across companies and the median is the robust representative value for a skewed distribution, where an average would be pulled by outliers. This is a description of Korea's listed workforce, not a judgement of any company and **not investment advice**. What it shows is plain and stark: in Korea, an industry's product predicts its gender mix almost better than anything else, and the distance between the sewing floor and the steel mill is sevenfold.
+
+## Related — where this shows up
+
+- [Women's workforce share: firm choice or sector mix?](https://seoulmarkets.com/article/korea-women-share-firm-or-sector) — does the rank measure the employer or the industry?

@@ -103,3 +103,7 @@ A rating scale with three positions and 94% of the mass on one of them carries a
 Which leaves the target price doing the work the rating used to do. 84.3% of reports in this archive carry one, and unlike the rating, it is a number that can eventually be checked against what the stock did.
 
 That check is the next thing we intend to publish, and we do not have it yet: it requires the price history after each call, which is not in our archive. Until it is, we are reporting what analysts said — not whether they were right.
+
+## Related — where this shows up
+
+- [The stock rating that has no downside](https://seoulmarkets.com/article/korea-stock-rating-with-no-downside) — if a rating scale never says sell, what does a "buy" tell you?

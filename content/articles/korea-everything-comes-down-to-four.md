@@ -46,3 +46,9 @@ For a sense of scale: when the same coefficient is used on household **incomes**
 ## Why it matters, and what it is not
 
 Concentration is not automatically bad — it is what world-beating champions look like, and Korea's are real. But it is a **dependence**, and dependence is a risk worth seeing plainly: when four names carry half of everything, the whole rises and falls with a handful of decisions made far away — a chip cycle, a tariff, one partner's slowdown. The value here is simply in **seeing the shape**, measured the same way across places nobody usually compares. Every figure is a share or a ratio, chosen because they do not depend on the price or dollar levels in the raw feeds. This is a portrait of how Korea's market and trade are built — **not investment advice**.
+
+## Related — where this shows up
+
+- [Korea's "biggest company" ranking measures hope, not output](https://seoulmarkets.com/article/korea-market-cap-is-not-productivity) — the same top-heavy market, seen through market value.
+- [Korea's biggest trade partner isn't its most vital](https://seoulmarkets.com/article/korea-biggest-trade-partner-not-most-vital) — concentration in trade is not the same as dependence.
+- [183,351 funds isn't 183,351 choices](https://seoulmarkets.com/article/korea-many-funds-few-choices) — abundance in the count, concentration in the substance.

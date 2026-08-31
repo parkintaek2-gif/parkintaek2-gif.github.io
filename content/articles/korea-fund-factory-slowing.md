@@ -63,3 +63,7 @@ Most funds carry no theme at all; 108,496 of the 183,351 leave the field blank. 
 - Semiconductors: 133
 
 The US-themed count is more than double China's and nearly ten times Japan's. And the themes that dominate the financial press — AI, robots, semiconductors, ESG — are, in the register, a rounding error next to a plain American index fund. What the industry talks about and what it actually stamps a code on are not the same list.
+
+## Related — where this shows up
+
+- [183,351 funds isn't 183,351 choices](https://seoulmarkets.com/article/korea-many-funds-few-choices) — a big count is not a wide menu.
