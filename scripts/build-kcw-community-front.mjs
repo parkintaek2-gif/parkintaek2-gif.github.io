@@ -150,13 +150,26 @@ export function 방들(자료) {
       href: '/korean-movies-on-netflix',
       cta: 'See the films',
     },
+    /**
+     * 🔴 [2026-09-01 · 사장님 지시] **Riot 을 지우고 이 방을 «옮겼다».**
+     *
+     * 여기 있던 방은 「korean challenger ladder」로 `/esports` 를 가리켰다. 그 지면은
+     * Riot API 로 지은 것이라 사장님 지시로 걷어냈다.
+     * ⛔ 그렇다고 방을 «지우지» 않는다 — 사장님이 바로잡아 주셨다:
+     *   > 「**내가 riot을 제거하라고 했지, e스포츠를 제거하라고는 하지 않았잖아**」
+     * ✅ 그래서 «같은 관심, 다른 우물»로 옮긴다 — `/esports-nations` 는 위키백과 열람수라
+     *   열쇠 없이 우리가 언제든 다시 잰다.
+     * ⛔ 문만 바꾸고 «설명은 그대로» 두면 안 된다 — 옛 문구는 승률·랭크 게임 수를 말했는데
+     *   그 수는 이제 우리에게 없다. 문구도 새 자료의 말로 바꾼다.
+     */
     {
-      phrase: 'korean challenger ladder',
-      name: 'The Korean ladder against five other regions',
-      line: 'Korea has the lowest win rate at the top of any region we measure, and Europe West '
-        + 'plays more ranked games to get there.',
-      href: '/esports',
-      cta: 'See the ladder',
+      phrase: 'korean esports players',
+      name: 'Korean esports players, read from Southeast Asia',
+      line: `Of ${자료.종목.nations[0].onWikidata.toLocaleString()} Korean esports players on Wikidata, `
+        + `${자료.종목.nations[0].withSeaArticle} have an article in a Southeast Asian edition at all — `
+        + `and Korea takes ${자료.종목.koreaReadSharePc}% of the reading. We say which countries we could not compare.`,
+      href: '/esports-nations',
+      cta: 'See who is read',
     },
     {
       phrase: 'kpop group debuts',
@@ -329,6 +342,9 @@ function 자료읽기() {
     영화: 읽기('kcw-films.json'),
     조용한것: 읽기('wikitip-quiet-hits.json'),
     별: 읽기('wikitip-star-signs.json'),
+    /* ⚠ 2026-09-01 — e스포츠 방이 Riot 사다리에서 «위키백과 열람»으로 옮겨 왔다.
+       ⛔ 방에 적는 수를 손으로 안 적는다. 이 자료가 바뀌면 방도 따라 바뀐다 */
+    종목: 읽기('wikitip-esports-nations.json'),
   };
 }
 

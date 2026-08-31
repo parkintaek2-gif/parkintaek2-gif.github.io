@@ -19,8 +19,6 @@
     "test:crisis": "node src/ai/crisis.test.mjs",
     "collect:dart": "node scripts/collect-dart.mjs",
     "collect:dart:corpcode": "node scripts/collect-dart.mjs --corpcode",
-    "collect:riot": "node scripts/collect-riot-ladder.mjs",
-    "probe:riot": "node scripts/probe-riot.mjs",
     "test:accuracy": "node src/lib/accuracy.test.mjs",
     "outreach": "node scripts/build-outreach-letters.mjs",
     "collect:broker": "node scripts/collect-broker-direct.mjs",

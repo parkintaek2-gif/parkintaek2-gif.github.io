@@ -120,31 +120,15 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-more-articles.mjs')
     본다('② 게임은 뺐다고 말하나', /Games are larger than both/.test(한줄), '문장 있음');
   }
 
-  /* ── ③ 같은 등수, 다른 LP ── */
-  {
-    const { 한줄, 원 } = 읽기('what-it-costs-to-be-top-300');
-    const g = JSON.parse(fs.readFileSync('src/data/wikitip-ladder-gap.json', 'utf8'));
-    for (const r of g.rows) {
-      const 줄 = 원.split('\n').find((l) => l.startsWith(`| ${r.region} |`));
-      const ok = !!줄 && 줄.includes(천(r.cLp)) && 줄.includes(천(r.gLp)) && 줄.includes(String(r.lpGap));
-      본다(`③ ${r.region}`, ok, `${r.cLp} · ${r.gLp} · ${r.lpGap}`);
-    }
-    const lp = g.rows.map((x) => x.cLp); const 갭 = g.rows.map((x) => x.lpGap);
-    본다('③ 높이 퍼짐', 한줄.includes(`${(Math.max(...lp) / Math.min(...lp)).toFixed(2)} times for the tiers`), (Math.max(...lp) / Math.min(...lp)).toFixed(2));
-    본다('③ 걸음 퍼짐', 한줄.includes(`**${Math.min(...갭)} to ${Math.max(...갭)} LP**`) && 한줄.includes(`${(Math.max(...갭) / Math.min(...갭)).toFixed(2)} times`),
-      `${Math.min(...갭)}~${Math.max(...갭)} · ${(Math.max(...갭) / Math.min(...갭)).toFixed(2)}배`);
-    /* 네 날 순서가 같다고 적었다 — 원자료로 확인한다 */
-    const 중앙 = (a) => { const s = [...a].sort((x, y) => x - y); return s[Math.floor(s.length / 2)]; };
-    const 날 = fs.readdirSync('archive/raw/riot-ladder').filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
-    const 순 = 날.map((d) => {
-      const j = JSON.parse(fs.readFileSync(`archive/raw/riot-ladder/${d}/solo-queue.json`, 'utf8'));
-      return Object.entries(j.regions).map(([k, v]) => [k, v.challenger?.lp_values?.length ? 중앙(v.challenger.lp_values) : null])
-        .filter((x) => x[1] != null).sort((a, b) => b[1] - a[1]).map(([k]) => k).join('>');
-    });
-    본다('③ 네 날 순서가 정말 같나', new Set(순).size === 1 && /same on all four days/.test(한줄), `${날.length}일 · 순서 ${new Set(순).size}가지`);
-    본다('③ 일본이 50명이라 밝히나', 한줄.includes(`${g.rows.find((x) => x.region === 'Japan').cPlayers} players`), g.rows.find((x) => x.region === 'Japan').cPlayers);
-    본다('③ LP 로 나라를 견주지 말라 하나', /comparing exchange rates/.test(한줄), '문장 있음');
-  }
+  /**
+   * ── ③ 같은 등수, 다른 LP ── 🔴 [2026-09-01] **이 검사를 걷어냈다.**
+   *
+   * 재던 기사 `what-it-costs-to-be-top-300` 과 자료 `wikitip-ladder-gap.json`,
+   * 원자료 `archive/raw/riot-ladder/` 가 **사장님 지시로 다 사라졌다.**
+   * ⛔ 검사만 남겨 두면 파일이 없어 자가 죽고, 그러면 **위의 ①·② 도 같이 침묵한다.**
+   *   (검사 묶음은 끝까지 돌아야 검사다 — 앞에서 죽으면 뒤가 안 돈다.)
+   * ⚠ 그래서 자를 통째로 지우지 않고 ③만 뗐다. ①·② 두 편은 살아 있고 계속 지켜야 한다.
+   */
 
   if (틀림) { console.error(`\n❌ ${틀림}개가 기사와 자료가 어긋난다. 자를 먼저 의심한다.`); process.exit(1); }
   console.log('\n✅ 더 낸 세 편 전부 기사와 자료가 맞는다');

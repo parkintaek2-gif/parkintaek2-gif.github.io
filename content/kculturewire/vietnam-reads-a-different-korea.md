@@ -10,7 +10,7 @@ author: Newsroom
 tags: ["korea", "sport", "esports", "southeast-asia", "measurement", "limits"]
 pages:
   - "/sea-athletes"
-  - "/esports"
+  - "/esports-nations"
 crossChecks:
   - "Reading an encyclopaedia article is not following a sport. This counts people looking someone up after a match, a transfer or a headline, and it cannot say who is liked"
   - "Readers in Southeast Asia also use the English Wikipedia, 82 billion reads in this window and not splittable by country. Every number here is a floor on interest, not a measure of it"

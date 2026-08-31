@@ -97,28 +97,14 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-new-articles.mjs'))
     본다('① 못 재는 것을 말하나', /never had the chance/.test(한줄) && /aired on Korean television/.test(한줄), '두 문장 다');
   }
 
-  /* ── ② 롤 사다리 두 칸 ── */
-  {
-    const { 한줄, 원 } = 읽기('the-top-tier-is-where-players-stay');
-    const C = JSON.parse(fs.readFileSync('src/data/wikitip-ladder-churn.json', 'utf8'));
-    for (const r of C.rows) {
-      const 차 = +(r.vetPc - r.gmVetPc).toFixed(1);
-      const 줄 = 원.split('\n').find((l) => l.startsWith(`| ${r.region} |`));
-      const 맞나 = (l, n, 끝 = '%') => !!l && new RegExp(`${수꼴(n)}${끝 === '%' ? '%' : ''}`).test(l);
-      const ok = 맞나(줄, r.vetPc) && 맞나(줄, r.gmVetPc) && 맞나(줄, 차, '');
-      본다(`② 고인물 ${r.region}`, ok, `${r.vetPc} · ${r.gmVetPc} · ${차}p`);
-      const 뜨 = 원.split('\n').filter((l) => l.startsWith(`| ${r.region} |`)).slice(-1)[0];
-      본다(`② 연승 ${r.region}`, 맞나(뜨, r.hotPc) && 맞나(뜨, r.gmHotPc), `${r.hotPc} · ${r.gmHotPc}`);
-    }
-    본다('② 모든 지역이 위가 더 굳었나', C.rows.every((r) => r.vetPc > r.gmVetPc) && /Every row is positive/.test(한줄), '전부 양수');
-    본다('② 날 수', 한줄.includes(`${C.days} days`) || /four days/.test(한줄), C.days);
-    /* 「끝은 안 바뀌고 가운데는 바뀐다」 — 실제로 그런가 */
-    const 순 = C.series.map((d) => Object.entries(d).filter(([k]) => k !== 'date').sort((a, b) => b[1] - a[1]).map(([k]) => k));
-    본다('② 늘 한국이 첫째', 순.every((s) => s[0] === 'Korea') && /Korea is highest on all four days/.test(한줄), '네 날 다');
-    본다('② 끝 둘은 늘 NA·SEA', 순.every((s) => ['North America', 'Southeast Asia'].includes(s[5])), '네 날 다');
-    본다('② 가운데가 바뀐다고 말하나', new Set(순.map((s) => s.join('>'))).size > 1 && /middle\s*is not stable/.test(한줄), `순서 ${new Set(순.map((s) => s.join('>'))).size}가지`);
-    본다('② 사람 식별자를 안 담는다고 말하나', /identifiers/.test(한줄) && /puuid/.test(한줄), '앞말·본문');
-  }
+  /**
+   * ── ② 롤 사다리 두 칸 ── 🔴 [2026-09-01] **이 검사를 걷어냈다.**
+   *
+   * 재던 기사 `the-top-tier-is-where-players-stay` 와 자료 `wikitip-ladder-churn.json`
+   * 이 **사장님 지시로 사라졌다**(Riot·e스포츠 완전 제거).
+   * ⛔ 검사만 남기면 파일이 없어 자가 죽고, 그러면 **①·③ 도 같이 침묵한다.**
+   * ⚠ 그래서 자를 통째로 지우지 않고 ②만 뗐다. ①·③ 두 편은 살아 있다.
+   */
 
   /* ── ③ 화면 대 음악 쏠림 ── */
   {

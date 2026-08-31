@@ -68,9 +68,20 @@ export function 물음만들기(질의, 있는제목) {
   if (k.꼴 === 'files') {
     return { ask: 'Where are Netflix’s own Top 10 files, and what is in them?', href: '/netflix-top10-data' };
   }
-  if (k.꼴 === 'ladder') {
-    return { ask: 'What was the Challenger cutoff on the Korean server?', href: '/esports' };
-  }
+  /**
+   * 🔴 [2026-09-01 · 사장님 지시] **사다리 물음에 이제 답하지 않는다.**
+   *
+   * 여기 있던 것 — 「What was the Challenger cutoff on the Korean server?」→ `/esports`.
+   * 그 지면은 Riot API 로 지은 것이라 걷어냈고, **열쇠가 죽어 다시는 못 잰다.**
+   * ⛔ 답할 자료가 없는 물음은 문이 아니다 — 아래 「답할 지면이 없으면 문이 아니다」와 같은 규칙이다.
+   *
+   * ⭐ 이 한 줄이 요점이다 — 자료 파일에서 물음을 «지워도» 이 자가 다음 번에 **다시 만들어 낸다.**
+   *   지시로 내린 것은 «만드는 자»까지 찾아가야 진짜로 내려간다.
+   * ⚠ e스포츠를 막는 것이 아니다. 사장님이 못박으셨다 —
+   *   > 「**내가 riot을 제거하라고 했지, e스포츠를 제거하라고는 하지 않았잖아**」
+   *   위키백과로 잰 e스포츠 지면(`/esports-nations`·`/esports-games`)은 그대로 살아 있다.
+   */
+  if (k.꼴 === 'ladder') return null;
   const s = 조각(k.제목);
   const 제목 = 있는제목[s];
   if (!제목) return null;                       // ⛔ 답할 지면이 없으면 문이 아니다
@@ -94,12 +105,24 @@ export function 접기(물음들, { 최대 = 8 } = {}) {
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /**
+   * 🔴 [2026-09-01] 통과 문구의 수가 **손으로 적혀** 있었다 — 검사가 23개인데 「(21)」이라 적혔다.
+   *   ⛔ 손으로 적은 수는 검사가 «조용히 빠져도» 그대로 21을 말한다. 재서 적는다.
+   */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
   const 있는 = { 'a-model-family': 'A Model Family', 'decision-to-leave': 'Decision to Leave' };
 
   검('파일 주소 꼴을 안다', 꼴알아보기('https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv').꼴 === 'files');
   검('사다리 꼴을 안다', 꼴알아보기('korea ladder').꼴 === 'ladder');
   검('챌린저도 사다리다', 꼴알아보기('challenger cutoff korea').꼴 === 'ladder');
+  /**
+   * 🔴 [2026-09-01] 꼴은 «알아보되» 문은 «안 낸다». 둘을 갈라 잰다.
+   * ⛔ 이 검사가 없으면 누가 `/esports` 를 되살리는 한 줄을 넣어도 아무도 모른다.
+   *   지시로 내린 것은 «검사»로 잠가야 내려간 채로 있다.
+   */
+  검('⛔ 사다리 물음은 문을 안 만든다(Riot 걷어냄)', 물음만들기('korea ladder', {}) === null);
+  검('⛔ 챌린저 물음도 문을 안 만든다', 물음만들기('challenger cutoff korea', {}) === null);
   검('hit or flop 에서 제목을 뽑는다', 꼴알아보기('a model family hit or flop').제목 === 'a model family');
   검('international 이 끼어도 뽑는다',
     꼴알아보기('confidential assignment 2 international hit or flop').제목 === 'confidential assignment 2');
@@ -129,7 +152,7 @@ if (process.argv.includes('--자가시험')) {
   검('최대를 지킨다', 접기([{ ask: 'a', href: '/1' }, { ask: 'b', href: '/2' }], { 최대: 1 }).length === 1);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ build-kcw-asked 자가시험 통과 (21)');
+  console.log(`✅ build-kcw-asked 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

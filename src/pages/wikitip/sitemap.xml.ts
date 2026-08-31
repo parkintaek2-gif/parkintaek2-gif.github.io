@@ -562,9 +562,7 @@ export const GET: APIRoute = async () => {
     { path: '/year/2023', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2022', priority: '0.8', changefreq: 'weekly' },
     { path: '/year/2021', priority: '0.8', changefreq: 'weekly' },
-    { path: '/ladder-gap', priority: '0.9', changefreq: 'daily' },
     { path: '/reach', priority: '0.9', changefreq: 'weekly' },
-    { path: '/ladder-churn', priority: '0.9', changefreq: 'daily' },
     { path: '/screen-split', priority: '0.9', changefreq: 'weekly' },
     { path: '/kpop-attention', priority: '0.9', changefreq: 'weekly' },
     /* 44편째 기사의 표. 2026-08-08 17:0x — 기사만 내고 지면을 안 내면 카드의
@@ -1231,7 +1229,6 @@ export const GET: APIRoute = async () => {
     { path: '/subscribe', priority: '0.8', changefreq: 'monthly' },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' },
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },
-    { path: '/esports', priority: '0.8', changefreq: 'daily' },
     { path: '/about', priority: '0.7', changefreq: 'monthly' },
     /* 쿠키·접속기록을 밝히는 지면. 2026-08-08 에 분석 태그를 붙이면서 같이 냈다 */
     { path: '/privacy', priority: '0.5', changefreq: 'yearly' },

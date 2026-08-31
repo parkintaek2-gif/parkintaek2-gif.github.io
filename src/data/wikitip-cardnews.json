@@ -615,23 +615,6 @@
       ]
     },
     {
-      "set": "korea-challenger-win-rate",
-      "sq": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "v": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
       "set": "korea-does-not-chart-it-first",
       "sq": [
         1,
@@ -650,23 +633,6 @@
     },
     {
       "set": "korea-exports-grew-viewing-did-not",
-      "sq": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "v": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
-      "set": "korea-ladder-games-played",
       "sq": [
         1,
         2,
@@ -1172,23 +1138,6 @@
       ]
     },
     {
-      "set": "one-region-is-not-like-the-others",
-      "sq": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "v": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
       "set": "one-title-is-the-median-career",
       "sq": [
         1,
@@ -1553,23 +1502,6 @@
       ]
     },
     {
-      "set": "the-top-tier-is-where-players-stay",
-      "sq": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "v": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
       "set": "the-twentieth-title-travels-no-further",
       "sq": [
         1,
@@ -1771,23 +1703,6 @@
     },
     {
       "set": "what-a-position-does-not-say",
-      "sq": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ],
-      "v": [
-        1,
-        2,
-        3,
-        4,
-        5
-      ]
-    },
-    {
-      "set": "what-it-costs-to-be-top-300",
       "sq": [
         1,
         2,

@@ -3,14 +3,15 @@
  * K Culture Wire — 404.
  * 없으면 server.mjs 가 남의 얼굴을 내보낸다 — 실측(2026-08-06): "Page not found | SeoulMarkets".
  * src/pages/<접두사>/404.astro 를 두면 server.mjs 가 저절로 이 지면을 쓴다(server.mjs 주석 422줄).
- * 표기는 K Culture Wire (영어만). 링크 경로는 index.astro 와 같은 규칙(/ · /esports · /about).
+ * 표기는 K Culture Wire (영어만). 링크 경로는 index.astro 와 같은 규칙(/ · /most-read · /about).
+ * ⚠ 2026-09-01 — /esports 를 걷어냈다(사장님 지시). 여기 링크도 /most-read 로 바꿨다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 
 const TITLE = 'Page not found';
 const DESC =
   'This page does not exist. K Culture Wire measures Korean pop culture — Netflix rankings, '
-  + 'viewership, Wikipedia attention and the esports ladder — in English, with every source named.';
+  + 'viewership and Wikipedia attention — in English, with every source named.';
 ---
 
 <WikiTip title={TITLE} description={DESC} noindex>
@@ -18,7 +19,7 @@ const DESC =
   <p class="lead">The page you were looking for isn’t here. Try one of these:</p>
   <ul class="links">
     <li><a href="/">Korean pop culture, in numbers — the front page</a></li>
-    <li><a href="/esports">The ladder census — six regions, counted daily</a></li>
+    <li><a href="/most-read">The Korean names most people looked up</a></li>
     <li><a href="/about">About &amp; methodology</a></li>
   </ul>
 </WikiTip>

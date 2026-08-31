@@ -199,21 +199,21 @@ if (existsSync(메모경로)) {
 /* ── ③ 시각이 걸린 항목 ───────────────────────────────────── */
 const 경고 = [];
 
-/* Riot Personal Key 는 24시간마다 죽는다. 마지막 수집 시각으로 남은 시간을 가늠한다. */
-const 사다리 = path.join(REPO, 'src', 'data', 'riot-ladder.json');
-if (existsSync(사다리)) {
-  try {
-    const j = JSON.parse(readFileSync(사다리, 'utf8'));
-    const 지난시간 = (지금 - new Date(j.collected_at_kst.replace(' ', 'T'))) / 3600e3;
-    경고.push(
-      `- **Riot 랭크 사다리** — 마지막 수집 ${j.day} (${지난시간.toFixed(0)}시간 전). ` +
-        (지난시간 > 26
-          ? '⚠ **하루 이상 비었다. 사다리는 소급이 안 된다.** `npm run collect:riot` 로 확인하라. ' +
-            'Personal Key(24h)가 만료됐을 수 있다 — developer.riotgames.com 에서 REGENERATE 후 `.env` 교체.'
-          : '정상.'),
-    );
-  } catch { /* 파일이 깨져도 브리핑은 나간다 */ }
-}
+/**
+ * 🔴 [2026-09-01 · 사장님 지시] **Riot 사다리 알림을 여기서 걷어냈다.**
+ *
+ * 여기 있던 것 — 사다리가 하루 넘게 비면 「developer.riotgames.com 에서 REGENERATE 후
+ * `.env` 교체」라고 **세션 브리핑마다 띄우던 블록**이다.
+ *
+ * ⚠ 그것이 바로 사장님이 그만두라 하신 행동이다. 2번을 거쳐 온 원문:
+ *   > 「승인 대기·보류가 아니라 **완전히 없앤다**로 바뀌었습니다.
+ *   >  **Riot API 키 재발급 요구도 더 이상 올리지 마시고**, Riot/e스포츠 관련
+ *   >  지면·콘텐트·의존 코드를 정리(제거)해 주십시오」
+ *
+ * ⭐ 지시를 어기게 만든 것이 사람이 아니라 **저절로 뜨는 알림**이었다. 지면만 지우고
+ *   이 블록을 뒀으면 나는 내일도 같은 것을 사장님께 올렸을 것이다.
+ *   ⇒ **그만두라 한 일은 그 일을 «시키던 자»까지 찾아가서 지운다.**
+ */
 
 /**
  * ⭐ 국민연금 사업장 — **월간 스냅숏이라 놓치면 그 달이 영영 없다.**
@@ -283,7 +283,8 @@ if (existsSync(사다리)) {
 }
 
 /* 로그에 실패가 찍혀 있으면 조용히 지나가지 않는다 */
-for (const [이름, 파일] of [['Riot 수집', 'riot-ladder.log'], ['문서 동기화', 'sync.log']]) {
+/* ⚠ 2026-09-01 — 「Riot 수집」 로그 감시를 뺐다. 수집하는 자 자체를 걷어냈다 */
+for (const [이름, 파일] of [['문서 동기화', 'sync.log']]) {
   const p = path.join(REPO, 'archive', 'log', 파일);
   if (!existsSync(p)) continue;
   try {
