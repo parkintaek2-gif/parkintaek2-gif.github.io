@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Overtime fell from 11.5 to 8.1 hours: less strain for some, less pay for others">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">Overtime is both a burden and a paycheck</text>
+  <text x="80" y="134" font-family="Georgia, serif" font-size="22" fill="#5b6472">Regular-worker overtime, hours per month. Hours, not won.</text>
+
+  <!-- 2011 bar -->
+  <text x="150" y="200" font-family="'Segoe UI', Arial, sans-serif" font-size="20" fill="#33404f" text-anchor="middle">2011</text>
+  <rect x="110" y="215" width="80" height="220" rx="4" fill="#7a8699"/>
+  <text x="150" y="460" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#0b1f3a" text-anchor="middle">11.5h</text>
+  <!-- 2025 bar -->
+  <text x="300" y="270" font-family="'Segoe UI', Arial, sans-serif" font-size="20" fill="#33404f" text-anchor="middle">2025</text>
+  <rect x="260" y="280" width="80" height="155" rx="4" fill="#1e5bbf"/>
+  <text x="300" y="460" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#0b1f3a" text-anchor="middle">8.1h</text>
+  <text x="150" y="510" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#b53434">&#8595; about 30%</text>
+
+  <!-- fork -->
+  <rect x="470" y="215" width="640" height="105" rx="10" fill="#eefaf1" stroke="#bfe6cc" stroke-width="2"/>
+  <text x="495" y="255" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#1e7a44">If you resented the hours&#8230;</text>
+  <text x="495" y="292" font-family="Georgia, serif" font-size="19" fill="#33404f">less strain, more evenings. A win.</text>
+
+  <rect x="470" y="335" width="640" height="105" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="495" y="375" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#b53434">If you wanted the pay&#8230;</text>
+  <text x="495" y="412" font-family="Georgia, serif" font-size="19" fill="#33404f">overtime is paid at a premium &#8212; lost income.</text>
+
+  <text x="80" y="560" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#0b1f3a">The hours figure measures the time, not the pay. Two different series.</text>
+  <text x="80" y="600" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; KOSIS overtime hours &#183; this is a statistic, not a settlement &#183; not advice</text>
+</svg>
