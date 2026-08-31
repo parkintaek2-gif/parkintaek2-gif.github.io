@@ -34,6 +34,10 @@
     "korea-bond-trading-six-issues": {
       "내레이션": "Korea's bond market puts a price on hundreds of bonds — but barely trades them. On one day, six bonds were ninety percent of all trading; government benchmarks, ninety-five. A market that prices everything and trades almost nothing. We count, not advise.",
       "설명": "Trading-value shares for one measured day. We count what actually traded — this is not advice."
+    },
+    "korea-largest-listed-companies": {
+      "내레이션": "How many companies are listed in Korea, and which are the largest by market value? We count them from the exchange's own list. And we call market value capital intensity, not productivity.",
+      "설명": "The full ranking and method are on Seoul Markets dot com."
     }
   }
 }
