@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="A falling jobless rate can mean jobs found or people who stopped looking">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">The same fall, two opposite meanings</text>
+  <text x="80" y="134" font-family="Georgia, serif" font-size="22" fill="#5b6472">Youth jobless rate: 9.8% (2016) &#8594; 6.1% (2025). A rate is a fraction.</text>
+
+  <text x="80" y="210" font-family="'Segoe UI', Arial, sans-serif" font-size="24" font-weight="700" fill="#0b1f3a">unemployment rate =</text>
+  <line x1="470" y1="192" x2="760" y2="192" stroke="#0b1f3a" stroke-width="3"/>
+  <text x="480" y="182" font-family="'Segoe UI', Arial, sans-serif" font-size="22" fill="#0b1f3a">unemployed (still looking)</text>
+  <text x="520" y="224" font-family="'Segoe UI', Arial, sans-serif" font-size="22" fill="#0b1f3a">labour force</text>
+
+  <rect x="80" y="280" width="480" height="150" rx="10" fill="#eefaf1" stroke="#bfe6cc" stroke-width="2"/>
+  <text x="105" y="322" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#1e7a44">It falls because&#8230; they found work</text>
+  <text x="105" y="360" font-family="Georgia, serif" font-size="19" fill="#33404f">numerator shrinks, denominator holds.</text>
+  <text x="105" y="392" font-family="Georgia, serif" font-size="19" fill="#33404f">Good news.</text>
+
+  <rect x="620" y="280" width="490" height="150" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="645" y="322" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#b53434">It falls because&#8230; they stopped looking</text>
+  <text x="645" y="360" font-family="Georgia, serif" font-size="19" fill="#33404f">they leave the labour force and are</text>
+  <text x="645" y="392" font-family="Georgia, serif" font-size="19" fill="#33404f">no longer counted at all. Not good.</text>
+
+  <text x="80" y="500" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#0b1f3a">The chart looks identical. One number cannot tell them apart.</text>
+  <text x="80" y="590" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; KOSIS annual rates &#183; this is a statistic, not a conclusion &#183; not advice</text>
+</svg>
