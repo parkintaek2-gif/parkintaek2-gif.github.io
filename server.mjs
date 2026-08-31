@@ -15,6 +15,7 @@ import { join, extname, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
+import { 등록 as 댓글등록, 목록 as 댓글목록 } from './src/lib/comments.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
 import { 센다, flush할때되면, 유입표, 현황 as 유입현황 } from './src/lib/traffic.mjs';
 
@@ -209,7 +210,10 @@ const handle = async (req, res) => {
    *   실제로 POST 를 처리하는 곳은 `/v1/subscribe` 하나뿐이고, 다른 `/v1/*` 로 온
    *   POST 는 handleApi 안에서 405 로 떨어진다.
    */
-  const POST허용 = req.method === 'POST' && parsed.pathname === '/v1/subscribe';
+  /* 🔴 2026-08-31 — 자체 댓글(`/api/comments`) 등록도 POST 라 여기 더한다.
+   *   사장님 지시: 「우리 자체 댓글 서비스를 만들어라... 모든 유닛이 이용하도록」.
+   *   3자 위젯(Giscus 등)을 안 쓰는 이유는 comments.mjs 머리글 참고 — IP·쿠키 정책 충돌. */
+  const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;
@@ -291,7 +295,10 @@ const handle = async (req, res) => {
    * ⛔ `/v1/` 전체를 열지 않는다 — 그 API 는 6번 상품이고 호스트마다 열면 파는 면이 갈린다.
    *   메일 명단은 사이트와 무관한 하나이므로 **그 한 경로만** 접두사 밖으로 뺀다.
    */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$/;
+  /* 🔴 2026-08-31 — `/api/comments` 도 같은 이유로 뺀다. 댓글은 세 사이트가
+   *   **같은 코드로 같이 쓰는** 공용 기능이라, 접두사가 붙어 사이트마다 다른 경로
+   *   (`/100y/api/comments`)가 되면 클라이언트 스크립트를 사이트별로 따로 짜야 한다. */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
@@ -326,7 +333,7 @@ const handle = async (req, res) => {
      *   이메일 한 줄에 16KB 면 충분하고도 남는다.
      */
     let 본문 = null;
-    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/'))) {
+    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/') || pathname === '/api/comments')) {
       본문 = await new Promise((resolve) => {
         const 조각 = [];
         let 크기 = 0;
@@ -352,6 +359,35 @@ const handle = async (req, res) => {
       res.writeHead(api.status, { ...BASE_HEADERS, ...api.headers });
       res.end(req.method === 'HEAD' ? undefined : api.body);
       return;
+    }
+
+    /* ── 자체 댓글(/api/comments) — 세 사이트 공용, 로그인·쿠키·IP 없음 ─────────
+     * 사장님 지시(2026-08-31): 「우리 자체 댓글 서비스를 만들어라... 모든 유닛이
+     * 이용하도록 해라. 논쟁꺼리를 우리가 만든다. 거기에 댓글을 붙일 수 있는 기능」.
+     * 3자 위젯(Giscus 등)을 안 쓰는 이유·스팸 방지 방식은 comments.mjs 머리글 참고. */
+    if (pathname === '/api/comments') {
+      const 헤더 = { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' };
+      if (req.method === 'GET') {
+        const page = parsed.searchParams.get('page') ?? '';
+        const 것들 = await 댓글목록(page).catch(() => []);
+        res.writeHead(200, 헤더);
+        res.end(JSON.stringify({ ok: true, comments: 것들 }));
+        return;
+      }
+      if (req.method === 'POST') {
+        let 입력 = {};
+        try { 입력 = JSON.parse(본문 ?? '{}'); } catch { 입력 = {}; }
+        const 결과 = await 댓글등록({
+          page: 입력.page,
+          name: 입력.name,
+          body: 입력.body,
+          honeypot: 입력.website, // 화면엔 「website」라는 미끼 이름으로 낸다(봇이 흔히 채우는 이름)
+          openedAt: typeof 입력.openedAt === 'number' ? 입력.openedAt : undefined,
+        });
+        res.writeHead(결과.ok ? 200 : (결과.code ?? 400), 헤더);
+        res.end(JSON.stringify(결과));
+        return;
+      }
     }
   }
 
