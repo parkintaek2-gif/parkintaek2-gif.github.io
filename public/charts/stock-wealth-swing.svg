@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" role="img" aria-label="Korea's top three stock-wealth holders on 2 January 2026: Lee Jae-yong 25.88 trillion won (up 117% in a year), Seo Jung-jin 13.69 trillion, Kim Beom-su 6.55 trillion.">
+  <rect width="640" height="320" rx="14" fill="#ffffff"/>
+  <text x="28" y="40" font-family="Georgia, serif" font-size="19" font-weight="700" fill="#202A31">Korea's richest stockholders — listed shares, 2 Jan 2026</text>
+  <text x="28" y="62" font-family="system-ui, sans-serif" font-size="13" fill="#57646C">Trillion won. Cited from Korea CXO Institute. The number moves with the market.</text>
+  <!-- bars: scale 20px per trillion, x0=28, max ~25.88 -->
+  <g font-family="system-ui, sans-serif" font-size="14">
+    <!-- Lee -->
+    <text x="28" y="108" fill="#202A31" font-weight="700">Lee Jae-yong · Samsung</text>
+    <rect x="28" y="118" width="518" height="30" rx="5" fill="#167B6E"/>
+    <text x="536" y="138" text-anchor="end" fill="#ffffff" font-weight="700">₩25.88tn</text>
+    <text x="28" y="168" fill="#C0454A" font-size="13" font-weight="700">▲ +117% in one year — the KOSPI rose, not the man</text>
+    <!-- Seo -->
+    <text x="28" y="200" fill="#202A31" font-weight="700">Seo Jung-jin · Celltrion</text>
+    <rect x="28" y="210" width="274" height="30" rx="5" fill="#3C9488"/>
+    <text x="312" y="230" fill="#202A31" font-weight="700">₩13.69tn</text>
+    <!-- Kim -->
+    <text x="28" y="262" fill="#202A31" font-weight="700">Kim Beom-su · Kakao</text>
+    <rect x="28" y="272" width="131" height="30" rx="5" fill="#7FB8AE"/>
+    <text x="169" y="292" fill="#202A31" font-weight="700">₩6.55tn</text>
+  </g>
+</svg>
