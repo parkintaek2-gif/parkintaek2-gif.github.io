@@ -248,6 +248,18 @@ const jsonLd = 영상있음 ? [articleLd, videoLd] : articleLd;
 
       <DataNotes data={d} />
 
+      {/* 논쟁거리(tag: debate)에만 자체 댓글(2번 위젯) — 쿠키·IP·로그인 없음. 순위+문제제기를 손님이 논쟁 */}
+      {
+        d.tags?.includes('debate') && (
+          <section class="debate" aria-label="Discussion">
+            <h2>What do you think?</h2>
+            <p>This is a talking point, not a verdict — argue it out.</p>
+            <script src="/comments-widget.js" defer is:inline></script>
+            <div data-comments-page={url}></div>
+          </section>
+        )
+      }
+
       {
         관련상품 && (
           <aside class="product-cta">
