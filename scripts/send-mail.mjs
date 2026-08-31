@@ -511,7 +511,12 @@ if (내가실행됐다) {
     if (!existsSync(적을길)) {
       writeFileSync(적을길, ['보낸때', '보낸주소', '받는곳', '제목', '메시지id'].join(칸) + 줄끝);
     }
-    const 때 = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    /*
+     * 🔴 [2026-08-31] 처음엔 `toISOString()` 을 썼다가 **12:40 에 보낸 메일이 03:40 으로 찍혔다.**
+     *   그건 UTC 다. 우리 문서·메모·보고는 «전부» 한국시각이라, 섞이면 나중에 순서를 못 맞춘다.
+     * ⛔ 시각은 어림하지도, 다른 시간대로 적지도 않는다. 무엇으로 적었는지 칸에 밝힌다.
+     */
+    const 때 = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Seoul' }).slice(0, 16);
     const 한줄 = [때, 보내는주소, 받는곳, String(제목).split(칸).join(' '), j2.id].join(칸);
     appendFileSync(적을길, 한줄 + 줄끝);
     console.log(`   ✔ 기록했다 — docs/보낸메일.tsv (${때})`);

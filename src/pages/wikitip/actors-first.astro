@@ -139,9 +139,19 @@ const jsonLd = {
 
   <KcwCardnews set="actors" count={5} />
 
-  <KcwShorts set="actors"
-    says={`Fourteen seconds: the three actors at the top of four Southeast Asian Wikipedias, `
-      + `and the three names on every list that lead none of them.`} />
+  {/*
+    🔴 [2026-08-31] 무음판에 «소리만» 입혀 새 편으로 냈다 — 사장님 「무성 콘텐트 다신 만들지 말 것」·
+      「삭제하지 말고 소리만 입혀서 추가로 배포해, 영상 제목만 바꿔서」.
+    ⛔ 무음 파일 `/video/actors.mp4` 는 «그대로 둔다» — 밖에 나간 링크가 살아 있어야 한다.
+      다만 «지면»에는 소리 있는 쪽을 건다. 같은 화면 둘을 나란히 두면 손님이 헷갈린다.
+    ⚠ 화면에 없는 말을 목소리가 하지 않는다 — 대본은 이 편의 화면에서 그대로 가져왔다.
+  */}
+  <KcwShorts set="actors-voiced"
+    says={`Fourteen seconds, read aloud: four Southeast Asian Wikipedias, three different Korean `
+      + `actors at the top. Go Youn-jung leads Vietnam and Thailand, Lee Chae-min Indonesia, `
+      + `Moon Ga-young Malaysia. No name is first everywhere. This counts people opening an `
+      + `encyclopaedia article — it is not popularity, and the panel is a cast list, so singers `
+      + `are on it too.`} />
 
   <KcwRelatedArticles page="/actors-first" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />

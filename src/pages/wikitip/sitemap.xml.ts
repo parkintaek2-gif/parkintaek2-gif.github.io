@@ -463,6 +463,43 @@ const videoSets = [
     description: '14 seconds on the one-line check that separated a finding we could keep from '
       + 'one we had to correct, using our own two published medians.',
   },
+  /*
+   * 🔴 [2026-08-31] **소리 입힌 네 편이 모두 이 목록에 없었다.**
+   *   `actors-voiced` 는 오늘 낸 것이지만 `allten`·`alongside`·`relay` 는 8/29~8/30 에 낸 것이다.
+   *   목록에 없으면 ① 영상 사이트맵에 안 들어가 구글 영상 검색에 안 뜨고
+   *   ② 올릴 문안(upload-kit)이 안 만들어진다 — **만드는 값은 다 치르고 아무 데도 안 보인다.**
+   * ⚠ 8/29 에 똑같은 일로 넷을 놓쳤다고 위에 적어 두고, 그 뒤 다시 넷을 놓쳤다.
+   *   `check-kcw-video-lists.mjs` 가 잡아 주는데 **소리를 입힌 날 그 자를 안 돌린 것**이 뿌리다.
+   *   ⇒ 무음 버전 업 절차(next-silent-video.mjs 의 ②③)에 이 목록이 이미 적혀 있다. 그대로 밟는다.
+   */
+  {
+    set: 'actors-voiced',
+    page: '/actors-first',
+    title: 'Four Southeast Asian Wikipedias, three different Korean actors at the top — read aloud',
+    description: '14 seconds with narration: Go Youn-jung leads Vietnam and Thailand, Lee Chae-min '
+      + 'Indonesia, Moon Ga-young Malaysia — and no name is first everywhere.',
+  },
+  {
+    set: 'allten-voiced',
+    page: '/clumping',
+    title: 'Four times outside Korea, a whole Netflix TV top 10 was Korean — read aloud',
+    description: '14 seconds with narration: Vietnam twice, then Indonesia and Malaysia in the same '
+      + 'week. In 11,594 other country-weeks, exactly one Korean title was on the list.',
+  },
+  {
+    set: 'alongside-voiced',
+    page: '/what-to-watch-after',
+    title: 'Squid Game and My Name were on the same Netflix top 10 — 274 times, read aloud',
+    description: '14 seconds with narration: how often two Korean titles shared one country top 10 in '
+      + 'the same week. It counts published lists, not people.',
+  },
+  {
+    set: 'relay-voiced',
+    page: '/staying-power',
+    title: 'Vietnam number one was Korean for 34 weeks — held by eleven different series, read aloud',
+    description: '14 seconds with narration: eight months without the top place leaving Korean '
+      + 'television, and it changed hands thirteen times inside that run.',
+  },
 ];
 
 /** XML 에 그대로 넣으면 안 되는 글자. 제목에 & 와 ' 가 실제로 있다 */
@@ -500,6 +537,15 @@ export const GET: APIRoute = async () => {
        우리 2,700여 장이 그 모양에 하나도 답하지 않고 있었다 */
     /* 「<작품> hit or flop」 아홉 질의·노출 15회·4~10위 */
     { path: '/hit-or-flop', priority: '0.9', changefreq: 'weekly' },
+    /*
+     * 🔴 [2026-08-31] **어제 낸 이 지면이 사이트맵에 없었다.** 라이브인데 구글은
+     *   안쪽 링크로만 만난다 — 「낸 것」과 「찾아지는 것」이 또 갈라져 있었다.
+     * ⭐ 잡아 준 것은 사람이 아니라 **빌드**다. 이 파일 아래에 「숏영상의 짝 지면이
+     *   사이트맵에 있나」를 막는 검사가 있어, `alongside-voiced` 를 올리자마자 터졌다.
+     *   ⇒ 영상을 거는 일이 지면 누락까지 드러냈다. 검사를 걸어 둔 값이 여기서 났다.
+     * ⚠ 「what to watch after squid game」 자동완성 1번째 · 그 말로 시작하는 줄 6.
+     */
+    { path: '/what-to-watch-after', priority: '0.9', changefreq: 'weekly' },
     /* 「<작품> netflix which country」 아홉 질의·노출 39회·7~36위 */
     { path: '/netflix-which-country', priority: '0.9', changefreq: 'weekly' },
     /* 「which bts member is from busan」 열일곱 질의·노출 30회·3~11위 */

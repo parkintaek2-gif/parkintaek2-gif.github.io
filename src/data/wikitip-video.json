@@ -11,6 +11,13 @@
    "src": "/video/actors.mp4"
   },
   {
+   "set": "actors-voiced",
+   "seconds": 14,
+   "uploadDate": "2026-08-31",
+   "thumb": "/video/thumb/actors-voiced.jpg",
+   "src": "/video/actors-voiced.mp4"
+  },
+  {
    "set": "brands",
    "seconds": 14,
    "uploadDate": "2026-08-21",

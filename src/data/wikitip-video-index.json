@@ -1,13 +1,14 @@
 {
-  "generated": "2026-08-30 09:11 UTC",
+  "generated": "2026-08-31 03:34 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 33,
+    "영상": 34,
     "짝찾음": 33,
-    "짝못찾음": 0,
+    "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 33
+    "원본에서읽음": 1,
+    "지면에서읽음": 32
   },
   "videos": [
     {
@@ -15,9 +16,19 @@
       "src": "/video/actors.mp4",
       "thumb": "/video/thumb/actors.jpg",
       "seconds": 14,
+      "page": null,
+      "says": null,
+      "saysFrom": null,
+      "alsoOn": []
+    },
+    {
+      "set": "actors-voiced",
+      "src": "/video/actors-voiced.mp4",
+      "thumb": "/video/thumb/actors-voiced.jpg",
+      "seconds": 14,
       "page": "/actors-first",
-      "says": "Fourteen seconds: the three actors at the top of four Southeast Asian Wikipedias, and the three names on every list that lead none of them.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, read aloud: four Southeast Asian Wikipedias, three different Korean actors at the top. Go Youn-jung leads Vietnam and Thailand, Lee Chae-min Indonesia, Moon Ga-young Malaysia. No name is first everywhere. This counts people opening an encyclopaedia article — it is not popularity, and the panel is a cast list, so singers are on it too.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
