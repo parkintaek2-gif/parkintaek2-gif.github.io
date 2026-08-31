@@ -19,6 +19,16 @@
  * ⛔ 화면에 한국어를 내지 않는다 — 이 주석은 frontmatter 라 나가지 않는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+/*
+ * 🔴 [2026-08-31] 이 지면이 구글에 **«발견만»** 이었다 — 주소는 아는데 «가지러 온 적이 없다».
+ *   제목부터 「Which BTS member is from Busan? Jimin and Jungkook」로 물음에 딱 답하는데,
+ *   정작 그 물음으로 «색인되어 7위에 뜨는» 기사(`/article/bts-is-not-a-seoul-band`)에서
+ *   여기로 오는 링크가 **0개**였다. 안쪽 링크가 딱 하나(`/hometowns`)뿐이었다 — 길이 끊겨 있었다.
+ * ⚠ 8/30 밤에 「안쪽 링크는 지렛대가 아니다」라고 적었는데 그것과 다른 이야기다.
+ *   그건 작품 지면 104장의 «분포»를 두고 한 말이고, 이건 **한 지면으로 가는 길이 끊긴 것**이다.
+ * ⇒ 기사가 여기를 가리키게 했고, 여기서 그 기사를 «받는» 자리를 낸다.
+ */
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-bts-hometowns.json';
@@ -167,6 +177,9 @@ const jsonLd = {
       <a href="/star-signs">Birth dates, and what they cluster into</a>
     </p>
   </section>
+
+  {/* ⭐ 이 지면을 가리킨 기사를 «받는» 자리. 없으면 기사는 걸었다고 믿고 화면엔 안 뜬다 */}
+  <KcwRelatedArticles page="/bts-hometowns" />
 
   <KcwMethodLimits
     method={`Place of birth (P19) from Wikidata for each of the seven members, matched by stage name and by born name, then placed with the city's coordinates (P625). Reading figures alongside are lookups on four Southeast Asian Wikipedia editions, ${data.window}. The questions this page answers are not invented: they are the seventeen queries about BTS birthplaces that brought people to this site in the four weeks to 2026-08-26.`}

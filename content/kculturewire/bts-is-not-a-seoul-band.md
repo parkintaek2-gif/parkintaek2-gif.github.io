@@ -1,13 +1,17 @@
 ---
 title: "BTS hometowns: Daegu, Busan, and not one from Seoul"
 category: stars
-dek: "Busan gave nine of the 123 most-read Korean stars, Daegu four, Seoul fifty. No BTS member was born in the capital — the member-by-member table is below."
+dek: "Jimin and Jungkook were born in Busan, Suga and V in Daegu, and not one of the seven in Seoul. Busan gave nine of the 123 most-read Korean stars, Daegu four, Seoul fifty."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["bts", "k-pop", "seoul", "busan", "daegu", "wikidata", "places"]
 pages:
   - "/hometowns"
+  # 🔴 [2026-08-31] /bts-hometowns 가 구글에 «발견만» 상태였다 — 주소는 아는데 가지러 온 적이 없다.
+  #   그 지면은 제목부터 「Which BTS member is from Busan? Jimin and Jungkook」로 물음에 딱 답하는데,
+  #   정작 «색인되어 7위에 뜨는» 이 기사에서 그리로 가는 링크가 0개였다. 길이 끊겨 있었다.
+  - "/bts-hometowns"
 sources:
   - org: "Wikidata"
     api: "Place of birth (P19), coordinate location (P625), instance of (P31) — CC0"
@@ -46,6 +50,12 @@ Then there is BTS.
 
 All seven members have a birthplace recorded, and **not one of them was born in the capital**.
 Five cities, none of them the capital.
+
+So: **which BTS member is from Busan? Jimin and Jungkook.** From Daegu, **Suga and V**. The other
+three each came from a different city again. If that is the question you arrived with, the
+member-by-member page — [where each BTS member was born](https://www.kculturewire.com/bts-hometowns)
+— takes it one step further and shows what a recorded *place of birth* does and does not tell you
+about where somebody is from.
 
 > **Correction, 2026-08-26.** This section first said *six members, four cities* and left Jin
 > out, with a note that we could not place him. That was wrong, and it was wrong in a way worth
