@@ -38,6 +38,10 @@
     "korea-largest-listed-companies": {
       "내레이션": "How many companies are listed in Korea, and which are the largest by market value? We count them from the exchange's own list. And we call market value capital intensity, not productivity.",
       "설명": "The full ranking and method are on Seoul Markets dot com."
+    },
+    "korea-four-stocks-half-the-market": {
+      "내레이션": "Rank Korea's stocks by market value and a handful at the top hold about half of everything. Every way we measure it, the same few names dominate.",
+      "설명": "But market value is capital intensity, not productivity. The full data is on Seoul Markets dot com."
     }
   }
 }
