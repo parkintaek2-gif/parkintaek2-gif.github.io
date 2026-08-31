@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="183,351 funds, but equity is one in ten and launches have halved since 2020">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">A big count is not a wide menu</text>
+  <text x="80" y="134" font-family="Georgia, serif" font-size="22" fill="#5b6472">Korea's fund registry: counts of funds, not prices or performance.</text>
+
+  <text x="80" y="230" font-family="Georgia, serif" font-size="80" font-weight="700" fill="#0b1f3a">183,351</text>
+  <text x="80" y="268" font-family="'Segoe UI', Arial, sans-serif" font-size="20" fill="#5b6472">registered funds &#8212; sounds like endless choice</text>
+
+  <!-- equity 1 in 10 -->
+  <text x="80" y="340" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#0b1f3a">Equity funds: about 1 in 10</text>
+  <g font-family="'Segoe UI', Arial, sans-serif" font-size="30">
+    <text x="80" y="382" fill="#1e5bbf">&#9632;</text>
+    <text x="118" y="382" fill="#cfd6e2">&#9632; &#9632; &#9632; &#9632; &#9632; &#9632; &#9632; &#9632; &#9632;</text>
+  </g>
+  <text x="80" y="418" font-family="Georgia, serif" font-size="18" fill="#5b6472">most launches are derivatives and bonds</text>
+
+  <!-- launches halved -->
+  <text x="640" y="340" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#0b1f3a">New launches per year</text>
+  <rect x="640" y="360" width="300" height="26" rx="4" fill="#1e5bbf"/>
+  <text x="950" y="380" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#1e5bbf">~5,990 (2020)</text>
+  <rect x="640" y="394" width="135" height="26" rx="4" fill="#b53434"/>
+  <text x="785" y="414" font-family="'Segoe UI', Arial, sans-serif" font-size="17" font-weight="700" fill="#b53434">~2,698 (2025)</text>
+
+  <text x="80" y="500" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#0b1f3a">The stock counts every fund ever set up &#8212; not the live choices you face.</text>
+  <text x="80" y="590" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; KOFIA registry counts &#183; this is a count, not a menu &#183; not advice</text>
+</svg>
