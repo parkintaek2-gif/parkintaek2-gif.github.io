@@ -28,7 +28,7 @@
  *   node scripts/send-mail.mjs --받는곳=a@b.com ... --보낸다  실제로 보낸다
  *   node scripts/send-mail.mjs --selftest
  */
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, appendFileSync, writeFileSync } from 'node:fs';
 import { createSign } from 'node:crypto';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -495,4 +495,29 @@ if (내가실행됐다) {
   if (j2.error) { 막혔다('보내다가 막혔다', j2.error.message); process.exit(1); }
   console.log(`\n✅ 보냈다 — 메시지 id ${j2.id}`);
   console.log('   ⭐ 보낸 날을 문서에 적는다. 무응답을 「허락」으로 읽지 않기 위한 기준선이다.');
+
+  /*
+   * 🔴 [2026-08-31] **보낸 기록이 어디에도 안 남고 있었다.**
+   *   사장님이 「2번 열리면 이메일도 보내라」 하셨는데 그때 Gmail 이 403 이라 못 보냈다.
+   *   오늘 다시 하려니 **보냈는지 안 보냈는지 알 길이 없었다** — 메모를 뒤져도 안 나온다.
+   *   ⇒ 「안 보낸 것으로 보고 다시 보낸다」로 갈 수밖에 없었다. 그건 짐작이다.
+   * ⛔ 사람에게 나간 것은 «나갔다고 적는다». 안 적으면 다음 자리가 또 짐작한다.
+   * ⚠ 받는곳·제목·id 만 적는다 — 본문은 «안» 적는다(개인 내용이 저장소에 남지 않게).
+   */
+  try {
+    const 적을길 = path.join(뿌리, 'docs/보낸메일.tsv');
+    const 칸 = String.fromCharCode(9);          /* 탭 — 소스에 날탭을 안 둔다 */
+    const 줄끝 = String.fromCharCode(10);
+    if (!existsSync(적을길)) {
+      writeFileSync(적을길, ['보낸때', '보낸주소', '받는곳', '제목', '메시지id'].join(칸) + 줄끝);
+    }
+    const 때 = new Date().toISOString().replace('T', ' ').slice(0, 16);
+    const 한줄 = [때, 보내는주소, 받는곳, String(제목).split(칸).join(' '), j2.id].join(칸);
+    appendFileSync(적을길, 한줄 + 줄끝);
+    console.log(`   ✔ 기록했다 — docs/보낸메일.tsv (${때})`);
+  } catch (e) {
+    /* ⛔ 기록에 실패해도 «보낸 것»은 사실이다. 그것을 뒤집지 않는다 — 다만 알린다 */
+    console.log(`   ⚠ **보내긴 했는데 기록을 못 남겼다** — ${String(e.message).slice(0, 70)}`);
+    console.log('      ⛔ 다음 자리가 「안 보냈나」 하고 또 보낼 수 있다. 손으로 적어 두십시오.');
+  }
 }
