@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="A single pay number hides the distribution, the contract gap, and the hours">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="92" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">One number per company hides three things</text>
+  <text x="80" y="134" font-family="Georgia, serif" font-size="22" fill="#5b6472">A pay ranking is an average dressed as a verdict. We report the distribution.</text>
+
+  <!-- The single number -->
+  <rect x="80" y="180" width="300" height="360" rx="10" fill="#eef1f6" stroke="#cfd6e2" stroke-width="2"/>
+  <text x="110" y="228" font-family="'Segoe UI', Arial, sans-serif" font-size="18" font-weight="700" letter-spacing="1" fill="#5b6472">THE RANKING SHOWS</text>
+  <text x="120" y="380" font-family="Georgia, serif" font-size="120" font-weight="700" fill="#0b1f3a">1</text>
+  <text x="110" y="440" font-family="Georgia, serif" font-size="22" fill="#33404f">average pay,</text>
+  <text x="110" y="470" font-family="Georgia, serif" font-size="22" fill="#33404f">one row per firm</text>
+
+  <!-- arrow -->
+  <text x="405" y="370" font-family="'Segoe UI', Arial, sans-serif" font-size="40" fill="#b53434">&#8594;</text>
+
+  <!-- Three hidden things -->
+  <rect x="470" y="180" width="650" height="110" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="500" y="222" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#b53434">1 &#183; the distribution</text>
+  <text x="500" y="262" font-family="Georgia, serif" font-size="20" fill="#33404f">pay rises at every size step &#8212; the average flattens the staircase</text>
+
+  <rect x="470" y="305" width="650" height="110" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="500" y="347" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#b53434">2 &#183; the gap</text>
+  <text x="500" y="387" font-family="Georgia, serif" font-size="20" fill="#33404f">temporary staff earn ~39% of regular pay &#8212; blended into one mean</text>
+
+  <rect x="470" y="430" width="650" height="110" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="500" y="472" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#b53434">3 &#183; the hours</text>
+  <text x="500" y="512" font-family="Georgia, serif" font-size="20" fill="#33404f">monthly pay is not pay-per-hour &#8212; the hours underneath moved</text>
+
+  <text x="80" y="588" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; this is a statistic, not you &#183; distributions, not averages</text>
+</svg>
