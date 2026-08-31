@@ -1,5 +1,5 @@
 ---
-title: "NCT 127 and BigBang are the only K-pop groups whose readers even doubled — 3.6× and 2.7× while Blackpink, Twice and Seventeen barely moved"
+title: "NCT 127 and BigBang are the only K-pop groups whose readers doubled — 3.6x and 2.7x"
 category: stars
 dek: "Of the sixteen groups with more than 20,000 English Wikipedia opens in our window, exactly two rose by more than a third. NCT 127 multiplied further; BigBang added more readers. We do not know why either happened."
 pubDate: 2026-08-31

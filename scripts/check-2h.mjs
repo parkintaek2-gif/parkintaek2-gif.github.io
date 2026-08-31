@@ -211,7 +211,17 @@ if (내가실행됐다) {
   console.log(줄('④', '라이브', 라이브));
 
   /* ⑤ 검사 묶음 — ⛔ 첫 실패에서 멈추지 않는다. 다 돌리고 갈라 적는다 */
-  const 검사들 = ['check-kcw-video-lists.mjs', 'check-kcw-article-backlinks.mjs', 'check-kcw-names-in-title.mjs'];
+  /*
+   * 🔴 [2026-08-31] **`check-kcw-frontmatter.mjs` 를 여기 안 넣어 두었다가 하루 몫을 잃을 뻔했다.**
+   *   기사 제목이 138자(한도 120)라 **빌드가 통째로 섰고**, 그날 기사 셋이 하나도 안 나갔다.
+   *   배포 자는 「✅ 라이브 200」이라고 했다 — 홈이 살아 있으니 200 은 맞다. 그래서 조용했다.
+   *   ⇒ 헛배포를 네 번 돌리고 남 탓까지 할 뻔한 뒤에야 지역 빌드를 돌려 찾았다.
+   * ⛔⛔ 그 자는 **8/15 에 똑같은 일(dek 274자)을 겪고 이미 만들어 둔 것**이었다.
+   *   자가 없던 게 아니라 **내가 안 돌렸다.** 그래서 목록에 박는다 — 기억에 맡기지 않는다.
+   * ⭐ 빌드는 2분, 이 자는 1초다. 내기 전에 이것부터 돈다.
+   */
+  const 검사들 = ['check-kcw-frontmatter.mjs', 'check-kcw-video-lists.mjs',
+    'check-kcw-article-backlinks.mjs', 'check-kcw-names-in-title.mjs'];
   const 결과 = 검사들.map((자) => ({ 자, 통과: 돌리기(자) }));
   const 진것 = 결과.filter((r) => !r.통과).map((r) => r.자.replace(/^check-kcw-|\.mjs$/g, ''));
   console.log(줄('⑤', '검사 묶음', { 됐나: !진것.length, 말: 진것.length ? `걸린 것: ${진것.join(' · ')}` : `${결과.length}개 다 통과` }));

@@ -151,9 +151,18 @@ const jsonLd = {
       for whatever you are trying to decide, and it is not the same answer for a distributor, a
       subtitler and a fan. We are not going to pick one for you.
     </p>
+    {/*
+      🔴 [2026-08-31 20:1x] **2번의 댓글이 나왔다 — 붙였다.**
+        사장님: 「논쟁꺼리를 우리가 만든다. 거기에 댓글을 붙일 수 있는 기능을 2번이 만들기 시작했다」
+        3번이 `/ranking-university` 에 붙인 것과 «같은 방식»이다(세션간-메모 160848).
+      ⭐ 2번이 만든 것이라 쿠키도 IP 도 안 남는다 — 3자 추적 위젯을 안 쓴다는 약속을 지킨다.
+      ⚠ `data-comments-page` 는 이 지면의 주소와 «같아야» 한다. 다르면 남의 방에 글이 쌓인다.
+    */}
+    <h2 class="cm">What do you think?</h2>
+    <script src="/comments-widget.js" defer></script>
+    <div data-comments-page="/which-ranking"></div>
     <p class="fine">
-      Comments are being built. When they are ready they will open here, on this page, with no
-      third-party tracker attached to them.
+      No cookie, no IP, no third-party tracker &mdash; we built this ourselves.
     </p>
   </section>
 
@@ -185,6 +194,7 @@ const jsonLd = {
     .nm { min-width: 10rem; }
     .ask { border-top: 2px solid var(--line); padding-top: 1.1rem; margin-top: 2rem; }
     .ask h2 { margin-top: 0; }
+    .ask h2.cm { margin-top: 1.6rem; }
     svg { display: block; max-width: 100%; }
     td svg { display: inline-block; vertical-align: middle; }
     @media (max-width: 640px) { table { font-size: .86rem; } .nm { min-width: 7rem; } }
