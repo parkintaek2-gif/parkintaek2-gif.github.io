@@ -1,0 +1,21 @@
+To: Anthropic Support (claude.ai/support)
+Plan: Team
+Workspace / domain: klifedesign.net
+Seat: u6@klifedesign.net
+
+Subject: Enable "Claude in Chrome" for this Team seat
+
+Body:
+On our Team workspace (klifedesign.net, seats u1–u6), the "Claude in Chrome" extension
+does not appear, and the claude.ai connector list shows only "Browser Use".
+
+Another seat on the same workspace filed the same request and it appears to have been
+enabled per-seat. Please enable "Claude in Chrome" for this seat (u6@klifedesign.net) as
+well — or tell us the organization/admin setting we need to toggle so the extension
+becomes available.
+
+Thank you.
+
+---
+※ 제출은 사람(계정 소유자/관리자)이 claude.ai 지원창구에서. 2번 좌석에서 성공한 것과 같은 문안입니다.
+※ 좌석별 활성화라 u1~u6 각각 제출 권장.
