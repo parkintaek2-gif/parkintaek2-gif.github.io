@@ -18,6 +18,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/ranking-university-2025.json';
+import { 조사 } from '../../../lib/josa';
 
 const 자료 = 원본 as any;
 const 항목 = 자료.항목 as any[];
@@ -36,7 +37,7 @@ const 취업률1등 = 취업률순[0];
  *   **실명 대 실명**으로 헤드라인에 박는다. 과장 어휘("충격"류)는 여전히 안 쓴다 —
  *   실명+실측 대비 자체가 이미 강하다.
  */
-const 헤드라인 = `${일등.이름}이 종합 1위인데, 취업률은 ${취업률1등.이름}보다 낮습니다`;
+const 헤드라인 = `${일등.이름}${조사(일등.이름, '이가')} 종합 1위인데, 취업률은 ${취업률1등.이름}보다 낮습니다`;
 
 const desc =
   `중앙일보 대학평가 2025 종합 1~10위를 그대로 옮기고, 같은 대학 10곳의 취업률·중도탈락률· ` +
@@ -68,7 +69,7 @@ const jsonLd = {
     },
     {
       '@type': 'Question',
-      name: `왜 ${일등.이름}은 종합 1위인데 취업률은 ${일등의취업률순위}위인가요?`,
+      name: `왜 ${일등.이름}${조사(일등.이름, '은는')} 종합 1위인데 취업률은 ${일등의취업률순위}위인가요?`,
       acceptedAnswer: {
         '@type': 'Answer',
         text: '중앙일보 종합평가는 연구실적·평판도 등 여러 지표를 섞은 값입니다. 취업률은 그 지표 중 하나가 아니라 대학알리미가 따로 공시하는 별개의 실측치입니다. 두 순위가 다른 것은 "틀렸다"가 아니라, 보는 각도가 다르기 때문입니다.',
@@ -83,7 +84,7 @@ const jsonLd = {
   description={desc}
   jsonLd={jsonLd}
 >
-  <h1>{일등.이름}이 종합 1위인데,<br />취업률은 {취업률1등.이름}보다 낮습니다</h1>
+  <h1>{일등.이름}{조사(일등.이름, '이가')} 종합 1위인데,<br />취업률은 {취업률1등.이름}보다 낮습니다</h1>
 
   <div class="warn">
     <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
@@ -183,4 +184,9 @@ const jsonLd = {
   </p>
 
   <NextQuestionBrief 모은것="중앙일보 대학평가 2025 언론 보도 + 대학알리미 공시" />
+
+  {/* 🔴 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) — docs/세션간-메모.md 160848 참고 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-university"></div>
 </HundredYear>
