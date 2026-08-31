@@ -1,13 +1,13 @@
 {
  "_왜": "당일 비율(검색형 문장). KRX 절대시세는 sim이라 안 냄 — 비율만. build-market-today.mjs 산출.",
- "asOf": "2026-08-27",
- "asOfRaw": "20260827",
- "headline": "Samsung Electronics is 25.2% of the Korean stock market",
+ "asOf": "2026-08-28",
+ "asOfRaw": "20260828",
+ "headline": "Samsung Electronics is 24.8% of the Korean stock market",
  "facts": [
-  "Samsung Electronics is 25.2% of Korea's entire stock market (KOSPI + KOSDAQ) by market cap.",
-  "The two largest — Samsung Electronics and SK hynix — are 45.7% of the market between them.",
-  "The top 10 stocks are 58.1% of total market value; the top 57 are about 80%.",
-  "KOSPI holds 92.4% of market value across 944 issues; KOSDAQ 7.6% across 1823."
+  "Samsung Electronics is 24.8% of Korea's entire stock market (KOSPI + KOSDAQ) by market cap.",
+  "The two largest — Samsung Electronics and SK hynix — are 44.7% of the market between them.",
+  "The top 10 stocks are 57.1% of total market value; the top 57 are about 80%.",
+  "KOSPI holds 92.3% of market value across 944 issues; KOSDAQ 7.7% across 1823."
  ],
  "source": "Korea Exchange OPEN API (KOSPI + KOSDAQ daily), market cap by issue",
  "caveat": "Ratios only — scale-invariant, independent of the price level. Latest trading day."
