@@ -59,8 +59,9 @@ Every page names its source, its year, and what it cannot tell you.
 - [Wealth gap by age](https://100yearmap.com/wealth-gap): household assets, 60+ vs. under-30, 2017–2025
 - [2027 youth budget (draft)](https://100yearmap.com/youth-budget-2027): government's proposed youth programs, itemized
 - [Non-marital births](https://100yearmap.com/nonmarital-birth): births outside legal marriage, count vs. share, 1996–2025
+- [Stress and depression by age](https://100yearmap.com/mental-health): self-reported stress-perception and depression-experience rates by age group, 2021–2023. Not a diagnosis rate — survey self-report only, and the page says so explicitly.
 
-All 30 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
+All 31 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 
 ## Schools and majors (the original data set)
 
