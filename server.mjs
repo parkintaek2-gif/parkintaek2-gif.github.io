@@ -393,6 +393,22 @@ const handle = async (req, res) => {
     }
   }
 
+  /* ── 유입 맥박(/traffic-pulse.json) — 인증 없이 «총계만» ─────────────
+   * 왜: 데이터로 먹고사는 우리가 우리 방문자 수를 남(GA4·2번)에게 물을 순 없다.
+   *     우리 서버가 이미 세니(traffic.mjs) 스스로 읽는다.
+   * ⛔ 분포는 안 낸다(그건 /admin/traffic, 인증 안쪽). 여기는 사람/봇 «수»와 봇 종류뿐 —
+   *    개인 식별값은 traffic.mjs 가 애초에 안 모은다(사람 쪽은 UA·IP 안 남김). */
+  if (pathname === '/traffic-pulse.json') {
+    let 몸;
+    try {
+      const c = 유입현황();
+      몸 = JSON.stringify({ 사람: c.사람, 봇: c.봇, 봇별: c.봇별, 서로다른키: c.서로다른키, 모은시각: c.모은시각, 지금: c.지금 });
+    } catch (e) { 몸 = JSON.stringify({ error: String(e?.message ?? e) }); }
+    res.writeHead(200, { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' });
+    res.end(req.method === 'HEAD' ? undefined : 몸);
+    return;
+  }
+
   // ── 편집국 ─────────────────────────────────────────────────────────
   // 정적 파일 처리보다 먼저 가로챈다. dist/ 에 admin 이라는 파일이 생겨도
   // 그쪽으로 새지 않게 하려는 것이다.
