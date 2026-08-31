@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Female workforce share varies by sector far more than the median firm">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="90" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">A rank of women's share mostly ranks sectors</text>
+  <text x="80" y="132" font-family="Georgia, serif" font-size="22" fill="#5b6472">Share of women in the workforce, listed Korean firms. Shares, not a scorecard.</text>
+
+  <!-- baseline: median -->
+  <line x1="80" y1="180" x2="80" y2="470" stroke="#cfd6e2" stroke-width="2"/>
+  <line x1="80" y1="470" x2="1120" y2="470" stroke="#cfd6e2" stroke-width="2"/>
+
+  <!-- Apparel ~57 -->
+  <rect x="180" y="215" width="150" height="255" rx="4" fill="#1e5bbf"/>
+  <text x="255" y="205" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#1e5bbf" text-anchor="middle">~57%</text>
+  <text x="255" y="500" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#33404f" text-anchor="middle">apparel</text>
+
+  <!-- Median ~24 -->
+  <rect x="470" y="362" width="150" height="108" rx="4" fill="#7a8699"/>
+  <text x="545" y="352" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#5b6472" text-anchor="middle">~24%</text>
+  <text x="545" y="500" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#33404f" text-anchor="middle">median firm</text>
+
+  <!-- Heavy industry <10 -->
+  <rect x="760" y="428" width="150" height="42" rx="4" fill="#b53434"/>
+  <text x="835" y="418" font-family="'Segoe UI', Arial, sans-serif" font-size="22" font-weight="700" fill="#b53434" text-anchor="middle">&lt;10%</text>
+  <text x="835" y="500" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#33404f" text-anchor="middle">steel / autos / construction</text>
+
+  <text x="80" y="560" font-family="Georgia, serif" font-size="24" font-weight="700" fill="#0b1f3a">The gap between top and bottom is a sector, not an employer.</text>
+  <text x="80" y="600" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; board seats are a separate ~7% &#183; this is a statistic, not a scorecard</text>
+</svg>
