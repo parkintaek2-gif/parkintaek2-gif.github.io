@@ -28,6 +28,7 @@
 
 ## Debate — rankings, and whether they mean anything (cited third-party rank + our data critique)
 - [Korea's richest stockholder got ₩14tn richer in a year — doing nothing](https://seoulmarkets.com/article/korea-stock-wealth-ranking-paper-fortune): we cite the Korea CXO Institute stock-wealth ranking (Lee Jae-yong ₩25.88tn, +117%) and question the measure — mark-to-market paper wealth that swings with the KOSPI, not income or productivity.
+- ["Biggest company" measures hope, not output](https://seoulmarkets.com/article/korea-market-cap-is-not-productivity): the default ranking of Korea's largest firms is by market capitalization — a priced bet on the future, not output, employment, or profit. We recompute no figure; we question why a mark-to-market bet is treated as a scoreboard of worth. Capital intensity, not productivity.
 
 ## Markets & disclosure (counts and distributions, reproducible — not prices, not advice)
 - [Korean analysts stopped saying hold](https://seoulmarkets.com/article/korea-analysts-stopped-saying-hold): across 55,580 rated broker reports since 2014, the neutral (hold) rating fell from 9.7% to 3.3%; only 89 sell calls in twelve years.

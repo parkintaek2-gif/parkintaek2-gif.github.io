@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Market cap is a bet on the future, not output, jobs, or profit">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="96" font-family="Georgia, 'Times New Roman', serif" font-size="40" font-weight="700" fill="#0b1f3a">"Biggest company" — bigger by what?</text>
+  <text x="80" y="140" font-family="Georgia, serif" font-size="22" fill="#5b6472">Korea's default league table ranks firms by market capitalization.</text>
+
+  <!-- What it is -->
+  <rect x="80" y="190" width="480" height="360" rx="10" fill="#f2f7ff" stroke="#c7dbf5" stroke-width="2"/>
+  <text x="110" y="240" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1" fill="#1e5bbf">WHAT MARKET CAP IS</text>
+  <text x="110" y="310" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#0b1f3a">price &#215; shares</text>
+  <text x="110" y="360" font-family="Georgia, serif" font-size="24" fill="#33404f">= the market's bet on</text>
+  <text x="110" y="394" font-family="Georgia, serif" font-size="24" fill="#33404f">the future, priced now</text>
+  <text x="110" y="470" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#5b6472">Revised every time</text>
+  <text x="110" y="500" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#5b6472">sentiment moves.</text>
+
+  <!-- What it isn't -->
+  <rect x="640" y="190" width="480" height="360" rx="10" fill="#fff5f5" stroke="#f3cccc" stroke-width="2"/>
+  <text x="670" y="240" font-family="'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" letter-spacing="1" fill="#b53434">WHAT IT IS NOT</text>
+  <text x="670" y="312" font-family="Georgia, serif" font-size="30" fill="#0b1f3a">&#215;&#160; output</text>
+  <text x="670" y="372" font-family="Georgia, serif" font-size="30" fill="#0b1f3a">&#215;&#160; employment</text>
+  <text x="670" y="432" font-family="Georgia, serif" font-size="30" fill="#0b1f3a">&#215;&#160; profit</text>
+  <text x="670" y="500" font-family="Georgia, serif" font-size="20" font-style="italic" fill="#5b6472">Capital intensity &#8212; not productivity.</text>
+
+  <text x="80" y="600" font-family="'Segoe UI', Arial, sans-serif" font-size="18" fill="#8a929e">SeoulMarkets &#183; we question the measure, not the firm &#183; not investment advice</text>
+</svg>
