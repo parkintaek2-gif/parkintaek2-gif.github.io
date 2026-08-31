@@ -298,7 +298,9 @@ const handle = async (req, res) => {
   /* 🔴 2026-08-31 — `/api/comments` 도 같은 이유로 뺀다. 댓글은 세 사이트가
    *   **같은 코드로 같이 쓰는** 공용 기능이라, 접두사가 붙어 사이트마다 다른 경로
    *   (`/100y/api/comments`)가 되면 클라이언트 스크립트를 사이트별로 따로 짜야 한다. */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$/;
+  /* `/comments-widget.js` 도 같이 뺀다 — `public/`(root) 에 하나만 있고
+   *   100y·wikitip 은 각자 복사본이 없다. 접두사가 붙으면 그 두 사이트에서 404 난다. */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
