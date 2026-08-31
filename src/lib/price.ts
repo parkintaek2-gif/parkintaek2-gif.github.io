@@ -54,7 +54,7 @@
  * 🖐 켜기 전에 남의 손 둘이 먼저다 — **PG(사장님)** · **KLifeMap 요금표 regionSet(1번)**.
  *   ⛔ 둘 없이 켜면 손님이 「잘못된 주문」 화면을 본다.
  */
-export const PG붙었나 = false;
+export const PG붙었나 = true;
 
 /** 지역 한 벌 값. 2번·1번·3번이 모여 정했다(2026-08-08 05:4x) */
 export const 지역한벌값 = 9900;
