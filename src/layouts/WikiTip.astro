@@ -99,6 +99,19 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{제목}</title>
+  {/*
+    🔴 [2026-08-31] **파비콘이 아예 없었다.** 공용 크롬으로 우리 홈을 열었더니
+      콘솔에 `/favicon.ico` 404 가 찍혔고, `.ico`·`.svg`·`.png` 셋 다 404 였다.
+      ⇒ 탭에도 구글 검색 결과 줄에도 우리 얼굴이 안 나오고 있었다.
+    ⚠ 저장소의 `public/favicon.svg` 는 파란 차트선이라 SeoulMarkets 결이고,
+      KCW 호스트는 `dist/wikitip/` 을 뿌리로 삼아 그 파일이 우리 주소로 나가지도 않는다.
+      ⇒ 우리 것을 `public/wikitip/` 에 따로 두었다(빛깔은 숏영상과 같게 맞췄다).
+    ⭐ 브라우저는 `/favicon.ico` 를 알아서 찾지만 **구글은 이 <link> 를 먼저 본다.**
+      그래서 파일만 두지 않고 여기 건다. ⛔ 파일과 태그 중 하나만 하면 반만 한 것이다.
+  */}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32 16x16" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
   <meta name="description" content={description} />
   <meta property="og:title" content={제목} />
   <meta property="og:description" content={description} />
