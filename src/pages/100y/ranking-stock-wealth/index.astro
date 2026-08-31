@@ -1,0 +1,148 @@
+---
+/**
+ * /100y/ranking-stock-wealth — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 2편)
+ *
+ * 🔴 사장님 지시(2026-08-31) — docs/3번-순위콘텐트-지침.md 참고.
+ *   「우리나라는 주식부자 순위 이런게 공개돼. CEO스코어, 재벌닷컴 보도자료나
+ *   여기 자료를 갖고 기사를 쓴 게 많아」— 이미 공개된 3자 순위를 인용한다.
+ *   「성격이 달라...너는 부자를 얘기하지만, 결국 부자가 되자고 얘기하는 게 아니잖아」
+ *
+ * ⛔⛔ 이 지면이 반드시 지키는 것 —
+ *   ① "부자 되는 법"·재테크 조언 문장을 절대 쓰지 않는다.
+ *   ② 이재용 회장(또는 누구든) 개인이 「행복하다/불행하다」고 판정하지 않는다 —
+ *      검증 불가능하고 100yearmap 원칙 위반이다.
+ *   ③ 순위 자체는 저희가 매긴 게 아니다 — CEOscore데일리 인용 + KOSIS 실측 대조일 뿐.
+ *   ④ "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json에 이 지면을 등록해 둔다.
+ *
+ * ⭐ 톤: "돈이 많다/적다"의 판정이 아니라 «규모»(scale)만 보여준다. 판단은 손님 몫이다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/ranking-stock-wealth-2026.json';
+
+const 자료 = 원본 as any;
+const 인물 = 자료.인물;
+const 상위100 = 자료.상위100인;
+const 비교 = 자료.비교기준;
+
+const 만콤마 = (n: number) => n.toLocaleString();
+
+const desc =
+  `${인물.이름}의 주식재산(${인물.기준일} 기준, CEOscore데일리 인용) ${인물.표시}은 ` +
+  `100yearmap이 KOSIS로 실측한 29세 이하 가구 평균 순자산(${비교.표시})의 ` +
+  `약 ${만콤마(비교.이인물_가구환산)}가구치입니다. 어느 쪽이 옳다는 판정이 아니라, 규모만 보여드립니다.`;
+
+/** 격자 그림 — ⛔ 라이브러리를 쓰지 않는다. 정확한 비율로는 화면에 못 그려서(166,946배)
+ *  네모 100개로 나눠 「칸 하나 = 몇 가구」로 옮긴다. 그림이 못 하는 정밀함은 숫자로 채운다 */
+const 격자 = (() => {
+  const 칸수 = 100;
+  const 한칸당 = 비교.이인물_가구환산 / 칸수;
+  const 열 = 10;
+  const 칸크기 = 46, 간격 = 6;
+  const 폭 = 열 * (칸크기 + 간격) - 간격;
+  const 행수 = Math.ceil(칸수 / 열);
+  const 높 = 행수 * (칸크기 + 간격) - 간격;
+  return { 칸수, 한칸당, 열, 칸크기, 간격, 폭, 행수, 높 };
+})();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${자료.순위출처.이름}를 그대로 인용했습니다. ${자료.순위출처['⚠원자료']} 100yearmap은 개인의 재산을 새로 추정하지 않습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: `${인물.이름}이 «더 행복하다»는 뜻인가요?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 재산의 «규모»만 보여줍니다. 누가 더 행복한지, 더 잘 사는지는 확인할 방법이 없고 100yearmap이 판정할 일도 아닙니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`한 사람의 주식재산이 청년 ${만콤마(비교.이인물_가구환산)}가구를 합친 것과 같습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>한 사람의 주식재산이<br />청년 {만콤마(비교.이인물_가구환산)}가구를 합친 것과 같습니다</h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {자료.순위출처.이름}를 그대로 인용했습니다. {자료.순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    {인물.이름}의 주식재산은 {인물.기준일} 기준 <strong>{인물.표시}</strong>으로 국내 주식부호
+    {' '}{인물.순위}위입니다({자료.순위출처.이름}). 100yearmap이 {자료.실측출처.기준연도}년
+    {' '}KOSIS 가계금융복지조사로 실측한 <strong>29세 이하 가구 평균 순자산은 {비교.표시}</strong>입니다.
+    {' '}나누면 약 <strong>{만콤마(비교.이인물_가구환산)}가구</strong>입니다.
+  </p>
+
+  <h2>규모로 그려 보면</h2>
+  <p class="note">
+    정확한 비율(약 {만콤마(비교.이인물_가구환산)}배)은 화면에 그대로 그릴 수 없어 네모
+    {' '}{격자.칸수}개로 나눴습니다. <strong>네모 하나 = 청년 가구 약 {Math.round(격자.한칸당).toLocaleString()}곳</strong>입니다.
+    {' '}이 네모 {격자.칸수}개를 다 더해야 {인물.이름} 한 사람의 주식재산과 같습니다.
+  </p>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${격자.폭} ${격자.높}`} width="100%" style="max-width:520px" role="img"
+         aria-label={`청년 가구 자산을 100칸으로 나눈 격자 — 칸 하나는 약 ${Math.round(격자.한칸당).toLocaleString()}가구, 100칸을 합치면 ${인물.이름}의 주식재산과 같다`}>
+      {Array.from({ length: 격자.칸수 }, (_, i) => {
+        const 행 = Math.floor(i / 격자.열);
+        const 열 = i % 격자.열;
+        const x = 열 * (격자.칸크기 + 격자.간격);
+        const y = 행 * (격자.칸크기 + 격자.간격);
+        return <rect x={x} y={y} width={격자.칸크기} height={격자.칸크기} rx="4" fill="#c9a84c" opacity="0.85" />;
+      })}
+    </svg>
+  </div>
+
+  <h2>상위 100명까지 보면</h2>
+  <p>
+    국내 주식부호 상위 100명의 보유주식 가치를 다 더하면({상위100.기간} 기준)
+    {' '}<strong>{상위100.표시}</strong>입니다({자료.순위출처.이름}). 같은 방식으로 나누면
+    {' '}청년 가구 <strong>약 {만콤마(비교.상위100인_가구환산)}곳</strong>어치입니다.
+  </p>
+  <p class="note">
+    ⚠ 주식재산은 평가액이지 현금이 아닙니다 — 주가가 바뀌면 이 순위도, 이 배수도 같이 바뀝니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료['⚠이자료가못가르는것'] as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 재산의 «규모»를 보여줄 뿐,
+    {' '}누가 더 낫다거나 더 행복하다고 말하지 않습니다. 그 판단은 손님의 몫입니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/wealth-gap">← 고령층은 청년층보다 자산이 몇 배 많을까</a>
+    <br />
+    <a href="/ranking-university">← 대학 종합순위 1위인데, 취업률은 순위가 다릅니다</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="CEOscore데일리 언론 보도 + KOSIS 가계금융복지조사" />
+</HundredYear>

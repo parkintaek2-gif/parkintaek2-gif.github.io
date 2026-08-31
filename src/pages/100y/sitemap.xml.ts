@@ -184,6 +184,12 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-31 — 대한상의·일본상의 공동 「한일 청년의식조사 2026」 언론 보도 인용.
        ⛔ 정부 통계 아님 — 지면 안에 못박음. 원자료 못 찾음(언론 보도로만 인용). */
     { path: '/korea-japan-youth', priority: '0.6', changefreq: 'yearly' },
+    /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 1편. 중앙일보 대학평가(3자 순위) 인용 +
+       대학알리미 실측 대조. docs/3번-순위콘텐트-지침.md 참고. */
+    { path: '/ranking-university', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 2편. CEOscore데일리 국내 주식부호 순위(3자
+       인용) + 100yearmap 청년 가구 자산 실측(KOSIS) 대조. 개인 행복 판정 안 함. */
+    { path: '/ranking-stock-wealth', priority: '0.7', changefreq: 'yearly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이
