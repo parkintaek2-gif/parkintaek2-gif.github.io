@@ -1,26 +1,60 @@
+========================================================================
+파일 절대경로:
+C:\Users\USER\Documents\GitHub\dataeconomics\docs\지원요청-claude-in-chrome-u6.txt
+========================================================================
+
+■■■ A. 소유주(admin)가 직접 켜는 경로 — 이것부터 ■■■
+
+1) claude.ai 로그인 (u6 또는 소유주 계정)
+2) Organization settings (조직 설정)  →  Claude in Chrome
+3) "Enable for your team" 토글을 켠다   ← 조직 전체(좌석별 아님)
+
+   ※ Team 플랜은 기본 켜짐. 예전에 끈 적 없으면 이미 켜져 있을 수 있음.
+   ※ 이 옵션이 안 보이면 = 이미 활성이거나, 아직 그 UI가 안 뜨는 빌드.
+
+■■■ B. 조직에서 켠 뒤, 각 좌석(u6)이 Chrome에서 해야 하는 것 ■■■
+
+1) Chrome 웹스토어에서 "Claude in Chrome" 확장 설치 → Add to Chrome
+   (웹스토어: https://chrome.google.com/webstore)
+2) 확장에서 로그인 + 권한 허용
+3) 확장 UI에서 "Connect" 클릭   ← 이게 빠지면 세션 목록에 안 잡힘
+
+■■■ C. 단서 ■■■
+- 지금 보이는 "Browser Use"가 같은 기능의 다른 표기일 수 있음(화면마다 명칭 차이).
+  → "Browser Use"를 켜서 Connect까지 해 보는 것도 방법.
+
+■■■ D. 공식 문서(소유주가 직접 확인) ■■■
+- Claude in Chrome admin controls:
+  https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls
+- Get started with Claude in Chrome:
+  https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome
+
+========================================================================
+■■■ E. 그래도 안 되면 — 지원센터 재제출 문안(영문, 사람이 제출) ■■■
+========================================================================
+
 To: Anthropic Support (claude.ai/support)
 Plan: Team
 Workspace / domain: klifedesign.net
 Seat: u6@klifedesign.net
 
-Subject: FOLLOW-UP — "Claude in Chrome" still unavailable on this Team seat after following support guidance
+Subject: FOLLOW-UP — "Claude in Chrome" still unavailable on this Team seat after
+following support guidance
 
 Body:
-This is a follow-up. On our Team workspace (klifedesign.net, seats u1–u6), the "Claude in
-Chrome" extension/connector still does not appear for this seat (u6@klifedesign.net) — the
-claude.ai connector list shows only "Browser Use", and an agent's list of connected
-browsers returns empty.
+This is a follow-up. On our Team workspace (klifedesign.net, seats u1–u6), the
+"Claude in Chrome" extension/connector still does not appear for this seat
+(u6@klifedesign.net) — the claude.ai connector list shows only "Browser Use", and an
+agent's list of connected browsers returns empty.
 
-- We already followed the steps support provided, and it still does not work for this seat.
-- Another seat on the same workspace (u2) was enabled after filing a request, so enablement
-  appears to be per-seat.
-- As the workspace OWNER/ADMIN, we expect there is an organization/admin setting to enable
-  this. If so, please tell us the exact setting and path (menu name / toggle). If it requires
-  Anthropic-side enablement per seat, please enable it for u6@klifedesign.net (and ideally
-  u1–u6).
+- We already enabled it under Organization settings > Claude in Chrome ("Enable for your
+  team"), installed the Chrome extension, signed in, and clicked Connect — it still does
+  not work for this seat.
+- Another seat on the same workspace (u2) works, so enablement appears effective per-seat.
+- As the workspace OWNER/ADMIN: if there is any additional setting, tell us the exact
+  path; otherwise please enable Claude in Chrome for u6@klifedesign.net (ideally u1–u6).
 
-Please confirm which it is and enable the seat. Thank you.
+Please confirm and enable the seat. Thank you.
 
----
-※ 제출은 사람(소유주/관리자)이 claude.ai 지원창구에서. 기존 티켓의 «후속/재확인» 문안입니다.
-※ 핵심: 안내대로 했는데 안 됨 + 소유주 권한으로 켜는 설정 위치를 물음 + 안 되면 좌석 활성화 요청.
+------------------------------------------------------------------------
+※ A→B 순서로 소유주가 먼저 켠다. C도 시도. 그래도 안 되면 E를 사람이 제출.
