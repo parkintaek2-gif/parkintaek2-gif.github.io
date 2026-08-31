@@ -24,6 +24,7 @@ import schools from '../../data/100yearmap/pages-school.json';
 import universities from '../../data/100yearmap/pages-university.json';
 import 연구 from '../../data/100yearmap/pages-research.json';
 import 초등 from '../../data/100yearmap/elementary.json';
+import { 값글자, 한벌에드는것 } from '../../lib/price';
 
 const 학과수 = (majors as any[]).length;
 const 학교수 = (schools as any[]).length;
@@ -174,6 +175,30 @@ const jsonLd = {
   <p class="note">
     <a href="/major">학과 {학과수.toLocaleString()}개 전부 보기 →</a>
   </p>
+
+  {/**
+    * 🔴 사장님 지시(2026-08-31) — 「첫페이지에 유료 서비스 눈에 잘 띄고 매력적인 카피로
+    *   결제를 하고 싶게 할 것」. price.ts 자체의 규칙(「지금 바로」·「놓치지 마세요」 금지)은
+    *   그대로 지킨다 — 매력은 과장이 아니라 «무엇을 정확히 받는지»의 구체성에서 나오게 한다.
+    * ⛔ 실제 구매 버튼은 여기 두지 않는다(지역 하나를 정해야 사는주소() 가 완성된다) —
+    *   /price 로 보내면 그 지면이 PG 스위치·미리보기 규칙을 이미 옳게 따라간다(한 곳에서 관리).
+    */}
+  <div class="paid-cta">
+    <h2>우리 동네 고등학교, 이름까지 짚어 보시겠어요?</h2>
+    <p class="note">
+      방금 보신 가운데값·퍼짐은 지역 전체 이야기입니다. <strong>어느 학교인지, 그 학교의
+      진학률이 몇 %인지</strong>까지 보려면 그 지역 「한 벌」이 필요합니다.
+    </p>
+    <ul class="paid-list">
+      {한벌에드는것.map((줄) => <li>{줄}</li>)}
+    </ul>
+    <p class="paid-price">
+      지역 한 벌 <strong>{값글자}</strong>
+    </p>
+    <p class="note">
+      <a class="gotoarea" href="/price">무엇을 받는지 자세히 보기 →</a>
+    </p>
+  </div>
 
   {/**
     * 🔴 **걸어 두지 않으면 지면이 있어도 아무도 못 닿는다** — 2026-08-08 에 /region 18장이
@@ -397,6 +422,29 @@ const jsonLd = {
 
   .free {
     margin: 0 0 0.5rem;
+  }
+
+  .paid-cta {
+    margin: 1.5rem 0;
+    padding: 1.25rem 1.25rem 1rem;
+    border: 1px solid var(--accent);
+    border-radius: 0.75rem;
+    background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+  }
+  .paid-cta h2 {
+    margin-top: 0;
+  }
+  .paid-list {
+    margin: 0.5rem 0 0.75rem;
+    padding-left: 1.25rem;
+  }
+  .paid-list li {
+    margin: 0.25rem 0;
+    font-size: var(--fs-note);
+  }
+  .paid-price {
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
   }
   td:first-child {
     color: var(--muted);
