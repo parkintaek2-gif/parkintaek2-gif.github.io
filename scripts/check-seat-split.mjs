@@ -38,7 +38,9 @@ import { fileURLToPath } from 'node:url';
    그것이 바로 이번 사고의 씨앗이었다(1번·7번이 사장님 계정을 쓰게 된 경로). */
 const 기본뿌리 = '.claude';
 const 유닛뿌리 = {
-  1: 기본뿌리, 2: '.claude-u2', 3: '.claude-u3', 4: '.claude-u4',
+  /* [2026-09-01 20:3x] 사장님이 u1@ 을 팀에 넣어 주셔서 1번을 전용 뿌리로 옮겼다.
+     ⚠ 7번은 여전히 기본 뿌리(=사장님 계정)다 — 1번이 성공한 뒤 따로 옮긴다. */
+  1: '.claude-u1', 2: '.claude-u2', 3: '.claude-u3', 4: '.claude-u4',
   5: '.claude-u5', 6: '.claude-u6', 7: 기본뿌리,
 };
 
