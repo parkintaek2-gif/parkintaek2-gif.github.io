@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01 06:41 UTC",
+  "generated": "2026-09-01 09:36 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
@@ -7,8 +7,8 @@
     "짝찾음": 37,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 34,
-    "원본에서읽음": 3
+    "지면에서읽음": 23,
+    "원본에서읽음": 14
   },
   "videos": [
     {
@@ -58,7 +58,7 @@
       "seconds": 14,
       "page": "/what-actually-fell",
       "says": "A man and a woman read out the four numbers, and the one that is not negative — the Japanese and Taiwanese culture articles, which rose.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -98,7 +98,7 @@
       "seconds": 14,
       "page": "/written-down-first",
       "says": "A man and a woman read out how often the Indonesian Wikipedia was first, how often it was last, and why the largest edition is not the one that writes first.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -117,8 +117,8 @@
       "thumb": "/video/thumb/instrument.jpg",
       "seconds": 14,
       "page": "/titles-to-name",
-      "says": "A man and a woman read the multiple out — 9.9 times more reads between the ends.",
-      "saysFrom": "built page",
+      "says": "A man and a woman read the multiple out — … times more reads between the ends.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -128,7 +128,7 @@
       "seconds": 14,
       "page": "/who-reads-least",
       "says": "Fourteen seconds: which country reads BTS and Byeon Woo-seok most, the one that comes last for all twenty, and the objection we cannot rule out — shown before the table.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -167,8 +167,8 @@
       "thumb": "/video/thumb/onecountry.jpg",
       "seconds": 14,
       "page": "/underrated",
-      "says": "Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never left one country, while the middle title we publish charted in 7. Long is not wide, and we counted both.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never left one country, while the middle title we publish charted in …. Long is not wide, and we counted both.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -177,8 +177,8 @@
       "thumb": "/video/thumb/onecountry-voiced.jpg",
       "seconds": 14,
       "page": "/underrated",
-      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached 7. Charting is not the same as being available, and Netflix publishes only the top ten.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached …. Charting is not the same as being available, and Netflix publishes only the top ten.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -258,7 +258,7 @@
       "seconds": 14,
       "page": "/what-kind-fell",
       "says": "A man and a woman read out the two medians side by side — the Korean articles and the Japanese ones beside them — and say plainly that both fell.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -268,7 +268,7 @@
       "seconds": 14,
       "page": "/star-signs",
       "says": "Fourteen seconds: the names in six of the twelve signs, and the measurement that says the spread across signs is indistinguishable from chance.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -308,7 +308,7 @@
       "seconds": 14,
       "page": "/wave-and-floor",
       "says": "A man and a woman read out how many titles could be measured on both sides of their peak, and why most of them could not be.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -318,7 +318,7 @@
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -327,8 +327,8 @@
       "thumb": "/video/thumb/alongside-voiced.jpg",
       "seconds": 14,
       "page": "/what-to-watch-after",
-      "says": "Fourteen seconds, read aloud: Squid Game and My Name were on the same country's Netflix top 10, in the same week, 274 times — and even that closest pair is only a tenth of all the country-weeks Squid Game shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, read aloud: … and … were on the same country's Netflix top 10, in the same week, … times — and even that closest pair is only a tenth of all the country-weeks … shared with anything. This counts one published list. It is not a count of people, and Netflix releases no viewer data at all.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -348,7 +348,7 @@
       "seconds": 14,
       "page": "/staying-power",
       "says": "Fourteen seconds, read aloud: Vietnam's number one series on Netflix was Korean for 34 weeks straight — but not one show. Eleven different Korean series held that place, and it changed hands thirteen times without once leaving Korean television. This counts the top place week by week, not one title's own run, and a rank is an ordering: Netflix publishes no viewers or hours by country.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -368,7 +368,7 @@
       "seconds": 14,
       "page": "/member-vs-group",
       "says": "Fourteen seconds, read aloud: seven BTS members across four Southeast Asian Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri beats Girl's Day in all four of hers — six acts lose to their own member everywhere we could measure. This counts encyclopaedia pages being opened, not popularity or streams.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {

@@ -1,8 +1,15 @@
 {
-  "generated": "2026-08-24T14:14:01.755Z",
+  "generated": "2026-09-01T09:37:07.015Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
+    {
+      "set": "actors-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-08-31",
+      "thumb": "/video/thumb/actors-voiced.jpg",
+      "src": "/video/actors-voiced.mp4"
+    },
     {
       "set": "actors",
       "seconds": 14,
@@ -11,11 +18,25 @@
       "src": "/video/actors.mp4"
     },
     {
-      "set": "actors-voiced",
+      "set": "alchemy",
       "seconds": 14,
-      "uploadDate": "2026-08-31",
-      "thumb": "/video/thumb/actors-voiced.jpg",
-      "src": "/video/actors-voiced.mp4"
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/alchemy.jpg",
+      "src": "/video/alchemy.mp4"
+    },
+    {
+      "set": "allten-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-08-30",
+      "thumb": "/video/thumb/allten-voiced.jpg",
+      "src": "/video/allten-voiced.mp4"
+    },
+    {
+      "set": "alongside-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-08-30",
+      "thumb": "/video/thumb/alongside-voiced.jpg",
+      "src": "/video/alongside-voiced.mp4"
     },
     {
       "set": "brands",
@@ -32,6 +53,13 @@
       "src": "/video/btsborn.mp4"
     },
     {
+      "set": "btsgroup",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/btsgroup.jpg",
+      "src": "/video/btsgroup.mp4"
+    },
+    {
       "set": "control",
       "seconds": 14,
       "uploadDate": "2026-08-21",
@@ -44,6 +72,13 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/counting.jpg",
       "src": "/video/counting.mp4"
+    },
+    {
+      "set": "debut-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/debut-voiced.jpg",
+      "src": "/video/debut-voiced.mp4"
     },
     {
       "set": "debut",
@@ -109,18 +144,18 @@
       "src": "/video/numberone.mp4"
     },
     {
-      "set": "onecountry",
-      "seconds": 14,
-      "uploadDate": "2026-08-29",
-      "thumb": "/video/thumb/onecountry.jpg",
-      "src": "/video/onecountry.mp4"
-    },
-    {
       "set": "onecountry-voiced",
       "seconds": 14,
       "uploadDate": "2026-08-30",
       "thumb": "/video/thumb/onecountry-voiced.jpg",
       "src": "/video/onecountry-voiced.mp4"
+    },
+    {
+      "set": "onecountry",
+      "seconds": 14,
+      "uploadDate": "2026-08-29",
+      "thumb": "/video/thumb/onecountry.jpg",
+      "src": "/video/onecountry.mp4"
     },
     {
       "set": "oneout",
@@ -151,6 +186,13 @@
       "src": "/video/places.mp4"
     },
     {
+      "set": "relay-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-08-30",
+      "thumb": "/video/thumb/relay-voiced.jpg",
+      "src": "/video/relay-voiced.mp4"
+    },
+    {
       "set": "samename",
       "seconds": 14,
       "uploadDate": "2026-08-29",
@@ -160,7 +202,7 @@
     {
       "set": "school-one-name",
       "seconds": 14,
-      "uploadDate": "2026-08-29",
+      "uploadDate": "2026-08-28",
       "thumb": "/video/thumb/school-one-name.jpg",
       "src": "/video/school-one-name.mp4"
     },
@@ -186,6 +228,13 @@
       "src": "/video/signs.mp4"
     },
     {
+      "set": "spike-hearts2hearts-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-08-29",
+      "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
+      "src": "/video/spike-hearts2hearts-voiced.mp4"
+    },
+    {
       "set": "spike-hearts2hearts",
       "seconds": 14,
       "uploadDate": "2026-08-29",
@@ -193,11 +242,18 @@
       "src": "/video/spike-hearts2hearts.mp4"
     },
     {
-      "set": "spike-hearts2hearts-voiced",
+      "set": "starsign",
       "seconds": 14,
-      "uploadDate": "2026-08-29",
-      "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
-      "src": "/video/spike-hearts2hearts-voiced.mp4"
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/starsign.jpg",
+      "src": "/video/starsign.mp4"
+    },
+    {
+      "set": "transfer-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/transfer-voiced.jpg",
+      "src": "/video/transfer-voiced.mp4"
     },
     {
       "set": "tworulers",
@@ -219,57 +275,7 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/works.jpg",
       "src": "/video/works.mp4"
-    },
-    {
-      "set": "alongside-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-08-30",
-      "thumb": "/video/thumb/alongside-voiced.jpg",
-      "src": "/video/alongside-voiced.mp4"
-    },
-    {
-      "set": "allten-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-08-30",
-      "thumb": "/video/thumb/allten-voiced.jpg",
-      "src": "/video/allten-voiced.mp4"
-    },
-    {
-      "set": "relay-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-08-30",
-      "thumb": "/video/thumb/relay-voiced.jpg",
-      "src": "/video/relay-voiced.mp4"
-    },
-    {
-      "set": "debut-voiced",
-      "seconds": 14,
-      "uploadDate": "2026-09-01",
-      "thumb": "/video/thumb/debut-voiced.jpg",
-      "src": "/video/debut-voiced.mp4"
-    },
-    {
-      "set": "btsgroup",
-      "seconds": 14,
-      "uploadDate": "2026-09-01",
-      "thumb": "/video/thumb/btsgroup.jpg",
-      "src": "/video/btsgroup.mp4"
-    },
-    {
-      "set": "alchemy",
-      "seconds": 14,
-      "uploadDate": "2026-09-01",
-      "thumb": "/video/thumb/alchemy.jpg",
-      "src": "/video/alchemy.mp4"
-    },
-    {
-      "set": "starsign",
-      "seconds": 14,
-      "uploadDate": "2026-09-01",
-      "thumb": "/video/thumb/starsign.jpg",
-      "src": "/video/starsign.mp4"
     }
   ],
-  "unmeasured": [],
-  "⚠ 소리판": "이름 뒤 -voiced 는 «소리를 입힌» 판이다. 무음판을 지우지 않고 옆에 둔다 — 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해, 영상 제목만 바꿔서」."
+  "unmeasured": []
 }
