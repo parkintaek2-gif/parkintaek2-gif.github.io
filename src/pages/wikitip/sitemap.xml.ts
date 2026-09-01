@@ -359,6 +359,14 @@ const videoSets = [
       + 'most, and on the one that breaks the pattern.',
   },
   {
+    set: 'manager-voiced',
+    page: '/sea-athletes',
+    title: 'Indonesia and Thailand look up Son Heung-min. Vietnam looks up Faker — read aloud',
+    description: '14 seconds with narration: half a Korean player\'s reading sits in one country, '
+      + '50.55 per cent. A manager\'s, 81.35 — Vietnam hired Kim Sang-sik, Indonesia hired '
+      + 'Shin Tae-yong.',
+  },
+  {
     set: 'onlyone',
     page: '/only-one-wikipedia',
     title: 'Only the Indonesian Wikipedia has written about Ahn Sung-ki and Choi Jiwoo',
