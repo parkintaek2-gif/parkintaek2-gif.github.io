@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Korea income quintile ratio: market income near 11, disposable near 6, the wedge is redistribution">
+  <rect width="1200" height="630" fill="#ffffff"/>
+  <rect x="1" y="1" width="1198" height="628" fill="none" stroke="#e2e5ea" stroke-width="2"/>
+  <text x="80" y="88" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="700" fill="#0b1f3a">The gap the market leaves, and what the state removes</text>
+  <text x="80" y="128" font-family="Georgia, serif" font-size="21" fill="#5b6472">Income quintile ratio (top 20% ÷ bottom 20%). Our own KOSIS pull.</text>
+
+  <!-- axis -->
+  <line x1="120" y1="180" x2="120" y2="470" stroke="#cfd6e2" stroke-width="2"/>
+  <line x1="120" y1="470" x2="1120" y2="470" stroke="#cfd6e2" stroke-width="2"/>
+
+  <!-- market ~11.19 (tall) -->
+  <rect x="230" y="200" width="150" height="270" rx="4" fill="#b53434"/>
+  <text x="305" y="190" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="#b53434" text-anchor="middle">11.19</text>
+  <text x="305" y="500" font-family="'Segoe UI', Arial, sans-serif" font-size="19" fill="#33404f" text-anchor="middle">market income</text>
+  <text x="305" y="524" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#8a929e" text-anchor="middle">before tax &amp; transfers</text>
+
+  <!-- disposable ~5.78 (short) -->
+  <rect x="470" y="330" width="150" height="140" rx="4" fill="#1e7a44"/>
+  <text x="545" y="320" font-family="'Segoe UI', Arial, sans-serif" font-size="26" font-weight="700" fill="#1e7a44" text-anchor="middle">5.78</text>
+  <text x="545" y="500" font-family="'Segoe UI', Arial, sans-serif" font-size="19" fill="#33404f" text-anchor="middle">disposable income</text>
+  <text x="545" y="524" font-family="'Segoe UI', Arial, sans-serif" font-size="16" fill="#8a929e" text-anchor="middle">after tax &amp; transfers</text>
+
+  <!-- wedge bracket -->
+  <line x1="700" y1="200" x2="700" y2="330" stroke="#c98a1a" stroke-width="3"/>
+  <text x="720" y="255" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#c98a1a">the wedge =</text>
+  <text x="720" y="284" font-family="Georgia, serif" font-size="22" font-weight="700" fill="#c98a1a">redistribution</text>
+  <text x="720" y="316" font-family="Georgia, serif" font-size="18" fill="#5b6472">(the market gap does not close on its own)</text>
+
+  <text x="80" y="560" font-family="Georgia, serif" font-size="23" font-weight="700" fill="#0b1f3a">2024. Before tax the gap is flat near 11; after tax it is about half.</text>
+  <text x="80" y="596" font-family="'Segoe UI', Arial, sans-serif" font-size="17" fill="#8a929e">SeoulMarkets · KOSIS DT_1HDALF05, recomputed · this is a statistic, not you · not advice</text>
+</svg>

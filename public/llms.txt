@@ -50,3 +50,6 @@
 - Figures are reproducible from the named source and API table IDs given on each page.
 - We use shares, ranks, and full-year averages; single-month figures are labelled as noisy where relevant.
 - Market capitalization is described as capital intensity, not productivity.
+
+## Redistribution & inequality (KOSIS income distribution, reproducible — market vs disposable)
+- [Taxes and transfers nearly halve Korea's income gap](https://seoulmarkets.com/article/korea-redistribution-market-vs-disposable): we pulled KOSIS DT_1HDALF05 ourselves and compute both market and disposable income inequality. 2024: income quintile ratio 11.19 (market) vs 5.78 (disposable); gini 0.399 vs 0.325; relative poverty 20.9% vs 15.3%. Market inequality is flat since 2017; the redistribution wedge does the narrowing. Quoting one number misleads.
