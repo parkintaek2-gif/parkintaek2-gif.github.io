@@ -1,0 +1,163 @@
+---
+/**
+ * /100y/senior-doctor — 시니어의사 채용지원 사업
+ *
+ * 🔴 사장님이 직접 기사를 읽어 주며 자료를 전달(2026-09-01). 처음엔 "전국 집계가
+ *   없다"고 판단했는데 있는 걸 못 찾은 것이었다 — 이 지면은 그 자료를 그대로 옮긴다.
+ *
+ * ⛔ 이 제도가 "좋다/나쁘다"로 판정하지 않는다. 수요 급증(신청 1.9배)과 제한된 예산
+ *   (지원율 52.4%), 지역 편차(어떤 곳은 17명 채용, 어떤 곳은 월급을 배로 올려도
+ *   지원자가 없음)를 데이터로 나란히 보여줄 뿐이다.
+ * ⚠ 「신청 인원」과 「실제 채용 인원」은 다른 지표다 — 섞지 않는다(자료 파일 참고).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/senior-doctor-program.json';
+
+const 자료 = 원본 as any;
+const 추이 = 자료.전국추이;
+const 신청 = 추이.신청인원;
+
+const desc =
+  `2026년 지자체의 시니어의사(60세 이상 은퇴 의사) 채용 신청 인원이 ${신청['2025']}명에서 ` +
+  `${신청['2026']}명으로 ${신청.배율}배 늘었습니다. 그런데 최근 3년간 정부 지원율은 ` +
+  `${추이.지원율.값}%뿐입니다 — 보건복지부는 "한정된 예산으로 충분히 지원하기 어렵다"고 밝혔습니다.`;
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '시니어의사 채용지원 사업이 무엇인가요',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${자료.제도.자격}을 갖춘 의사를 지역 보건소·보건의료원이 채용하면 정부가 인건비 일부를 지원하는 제도입니다. ${자료.제도.도입연도}년 도입됐습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '「신청 인원」과 「실제 채용 인원」이 왜 다른가요',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `지자체가 신청한 인원(${신청['2025']}→${신청['2026']}명)과 실제로 배치된 인원은 다른 수입니다. 예산이 한정돼 신청한다고 다 지원되지 않습니다(최근 3년 지원율 ${추이.지원율.값}%) — 참고로 다른 보도에는 실제 채용 규모가 ${자료.참고_실제채용규모.값['2025']}명(2025)에서 ${자료.참고_실제채용규모.값['2026']}명(2026)으로 보도된 자료도 있습니다.`,
+      },
+    },
+  ],
+};
+
+/** 인라인 SVG — 신청 인원 2025→2026 막대 */
+const 폭 = 420;
+const 높 = 220;
+const y0 = 높 - 40;
+const 최대값 = Math.max(신청['2025'], 신청['2026']) * 1.15;
+const 스케일 = (v: number) => (v / 최대값) * (y0 - 20);
+const 칸들 = [
+  { 라벨: '2025년', 값: 신청['2025'], 색: '#7a8ba6' },
+  { 라벨: '2026년', 값: 신청['2026'], 색: '#c9a84c' },
+];
+const 칸폭 = 90;
+---
+
+<HundredYear
+  title={`신청은 ${신청.배율}배 늘었는데, 지원은 ${추이.지원율.값}%뿐입니다`}
+  description={desc}
+  jsonLd={faqJsonLd}
+>
+  <h1>시니어의사 신청은 {신청.배율}배 늘었는데,<br />정부 지원율은 {추이.지원율.값}%뿐입니다</h1>
+  <p class="sub">
+    지자체의 시니어의사(만 60세 이상, {자료.제도.자격.split(' · ')[1]}) 채용 신청 인원이
+    {' '}<strong>{신청['2025']}명({자료.전국추이.신청인원['2025']}년) → {신청['2026']}명({자료.전국추이.신청인원['2026']}년)</strong>으로
+    {' '}늘었습니다. 그런데 최근 3년간 정부가 실제로 지원한 비율은 <strong>{추이.지원율.값}%</strong>뿐입니다.
+    {' '}보건복지부는 "{추이.복지부코멘트}"고 밝혔습니다.
+  </p>
+
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${폭} ${높}`} width="100%" style="max-width:420px" role="img"
+         aria-label={`지자체 시니어의사 채용 신청 인원. 2025년 ${신청['2025']}명, 2026년 ${신청['2026']}명.`}>
+      <line x1="40" y1={y0} x2={폭 - 20} y2={y0} stroke="#3a3f4d" />
+      {칸들.map((c, i) => {
+        const x = 60 + i * (칸폭 + 60);
+        return (
+          <>
+            <rect x={x} y={y0 - 스케일(c.값)} width={칸폭} height={스케일(c.값)} fill={c.색} opacity="0.9" />
+            <text x={x + 칸폭 / 2} y={y0 - 스케일(c.값) - 8} fill="#e6e6e6" font-size="16" text-anchor="middle" font-weight="bold">{c.값}명</text>
+            <text x={x + 칸폭 / 2} y={y0 + 20} fill="#9aa3b2" font-size="13" text-anchor="middle">{c.라벨}</text>
+          </>
+        );
+      })}
+    </svg>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>「신청 인원」과 「실제 채용 인원」은 다른 수입니다.</strong> 위 그래프는 지자체가
+    {' '}«신청»한 인원입니다. 예산이 한정돼 신청한다고 다 지원되지 않습니다(지원율 {추이.지원율.값}%) —
+    {' '}다른 보도에는 실제 채용 규모가 {자료.참고_실제채용규모.값['2025']}명(2025년)에서
+    {' '}{자료.참고_실제채용규모.값['2026']}명(2026년)으로 나온 자료도 있어 함께 적습니다.
+  </p>
+
+  <h2>제도 개요</h2>
+  <div class="tablewrap">
+    <table>
+      <tbody>
+        <tr><td>주관</td><td>{자료.제도.주관}</td></tr>
+        <tr><td>도입</td><td>{자료.제도.도입연도}년</td></tr>
+        <tr><td>자격</td><td>{자료.제도.자격}</td></tr>
+        <tr><td>지원 방식</td><td>{자료.제도.지원방식}</td></tr>
+        <tr><td>2025→2026 변화</td><td>{자료.제도.변화}</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>지역마다 사정이 다릅니다</h2>
+  <p class="note">
+    같은 제도인데 지역마다 결과가 다릅니다 — 어떤 곳은 여럿을 채용했고, 어떤 곳은 월급을
+    {' '}배로 올려도 지원자가 없었습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>내용</th></tr></thead>
+      <tbody>
+        {자료.지역사례.map((r: any) => (
+          <tr><td>{r.지역}</td><td>{r.내용}</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 제도가 잘 되고 있는지, 예산을
+    {' '}더 늘려야 하는지는 저희가 판정하지 않습니다 — 신청이 늘어난 것, 지원율이 제한된 것,
+    {' '}지역마다 결과가 다른 것을 그대로 보여드릴 뿐입니다.
+  </p>
+
+  <p class="note">
+    출처 — 보건복지부 시니어의사 채용지원 사업 안내 및 언론 보도(전국 신청·지원율·지역 사례).
+    {' '}{자료.전국추이['⚠원자료']} 받은 날 {자료.받은때}.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {faqJsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/keep-working">← 55~79세, 계속 일하고 싶은가</a>
+    <br />
+    <a href="/care">← 몇 살부터 돌봄이 필요해질까</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="senior-doctor" />
+  <NextQuestionBrief 모은것="보건복지부 시니어의사 채용지원 사업 안내 + 언론 보도" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/senior-doctor"></div>
+</HundredYear>

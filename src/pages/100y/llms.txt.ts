@@ -60,6 +60,7 @@ Every page names its source, its year, and what it cannot tell you.
 - [2027 youth budget (draft)](https://100yearmap.com/youth-budget-2027): government's proposed youth programs, itemized
 - [Non-marital births](https://100yearmap.com/nonmarital-birth): births outside legal marriage, count vs. share, 1996–2025
 - [Stress and depression by age](https://100yearmap.com/mental-health): self-reported stress-perception and depression-experience rates by age group, 2021–2023. Not a diagnosis rate — survey self-report only, and the page says so explicitly.
+- [Senior doctor program](https://100yearmap.com/senior-doctor): government support program hiring retired doctors (60+) for rural clinics — applications up 1.9x, government support rate 52.4%, regional case studies.
 
 All 31 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 

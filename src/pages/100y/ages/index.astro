@@ -44,6 +44,7 @@ import 자산격차 from '../../../data/100yearmap/wealth-gap-age.json';
 import 청년예산2027 from '../../../data/100yearmap/youth-budget-2027.json';
 import 혼인외출생 from '../../../data/100yearmap/nonmarital-birth.json';
 import 몸맘 from '../../../data/100yearmap/mental-health-by-age.json';
+import 시니어의사 from '../../../data/100yearmap/senior-doctor-program.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -70,6 +71,7 @@ const ac = 자산격차 as any;
 const ad = 청년예산2027 as any;
 const ae = 혼인외출생 as any;
 const af = 몸맘 as any;
+const ag = 시니어의사 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -168,6 +170,12 @@ const 문들 = [
     수: `${af['2023_핵심대비'].우울감_최고.값}%`,
     한줄: `${af.최근연도}년 우울감 경험률(한국보건사회연구원) — 80세 이상이 가장 높습니다. 스트레스 인지율은 반대로 30~40대가 가장 높습니다. 진단이 아니라 설문 응답입니다.`,
     기간: `${Object.keys(af.연도별)[0]}~${af.최근연도} · ${Object.keys(af.연도별).length}해`,
+  },
+  {
+    나이: '60세~', 주소: '/senior-doctor', 이름: '시니어의사 신청은 늘었는데, 지원은 절반뿐',
+    수: `${ag.전국추이.지원율.값}%`,
+    한줄: `지자체의 시니어의사 채용 신청이 ${ag.전국추이.신청인원['2025']}명(2025)에서 ${ag.전국추이.신청인원['2026']}명(2026)으로 늘었지만, 정부 지원율은 ${ag.전국추이.지원율.값}%뿐입니다.`,
+    기간: `2025~2026 · 2해`,
   },
   {
     나이: '40대', 주소: '/spending', 이름: '마흔에 한 달 돈은 어디로 가나',

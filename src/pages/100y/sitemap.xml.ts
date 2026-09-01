@@ -193,6 +193,7 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-31 — 시즌2-2 「몸/맘」 1편. 한국보건사회연구원 KOSIS 우울감·스트레스
        나이대별 실측. 진단 아님 — docs/3번-시즌2-2-몸맘.md 참고. */
     { path: '/mental-health', priority: '0.7', changefreq: 'yearly' },
+    { path: '/senior-doctor', priority: '0.7', changefreq: 'yearly' },
     /* ⛔ 2026-08-21 사장님 지시로 스타 사주(/saju · /saju/iu)를 내렸다.
        「왜 네가 스타사주를 서비스하냐? 전혀 상관없는데」 — 다시 넣지 않는다. */
     /* 🔴 0~5세 — 어린이집이 한 곳도 없는 지역. 8/21 00:14 실측에서 대입 아닌 지면이
