@@ -71,6 +71,7 @@ export const 갈래 = {
   '/mental-health': ['src/pages/100y/mental-health/index.astro', 'src/data/100yearmap/mental-health-by-age.json'],
   '/senior-doctor': ['src/pages/100y/senior-doctor/index.astro', 'src/data/100yearmap/senior-doctor-program.json'],
   '/korea-japan-youth': ['src/pages/100y/korea-japan-youth/index.astro', 'src/data/100yearmap/korea-japan-youth-2026.json'],
+  '/high-value-home-age': ['src/pages/100y/high-value-home-age/index.astro', 'src/data/100yearmap/high-value-home-age.json'],
   '/nursery': ['src/pages/100y/nursery/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json'],
   '/nursery-fill': ['src/pages/100y/nursery-fill/index.astro', 'src/data/100yearmap/nursery-fill.json'],
   '/hiking': ['src/pages/100y/hiking/index.astro', 'src/data/100yearmap/hiking.json'],

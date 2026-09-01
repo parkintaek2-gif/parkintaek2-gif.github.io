@@ -61,8 +61,9 @@ Every page names its source, its year, and what it cannot tell you.
 - [Non-marital births](https://100yearmap.com/nonmarital-birth): births outside legal marriage, count vs. share, 1996–2025
 - [Stress and depression by age](https://100yearmap.com/mental-health): self-reported stress-perception and depression-experience rates by age group, 2021–2023. Not a diagnosis rate — survey self-report only, and the page says so explicitly.
 - [Senior doctor program](https://100yearmap.com/senior-doctor): government support program hiring retired doctors (60+) for rural clinics — applications up 1.9x, government support rate 52.4%, regional case studies.
+- [Comprehensive property tax threshold by age](https://100yearmap.com/high-value-home-age): who actually sits at the ₩1.2B exemption line the 2026-09-01 tax reform touches — owners of homes valued above ₩1.2B (public assessed value), by age, from KOSIS housing-ownership statistics, 2024. No verdict on the policy — data only.
 
-All 31 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
+All 32 pages are indexed together at [/ages](https://100yearmap.com/ages), sorted by age.
 
 ## Schools and majors (the original data set)
 
