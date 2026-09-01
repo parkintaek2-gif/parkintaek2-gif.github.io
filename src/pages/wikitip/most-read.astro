@@ -22,6 +22,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-star-demand.json';
 import signs from '../../data/wikitip-star-signs.json';
 import people from '../../data/wikitip-people.json';
@@ -166,6 +167,8 @@ const jsonLd = {
       <a href="/star-signs">Whether a birth year predicts any of this (it does not)</a>
     </p>
   </section>
+
+  <KcwShorts set="transfer-voiced" says={`Fourteen seconds, read aloud: Crash Landing on You had one hundred thirty one thousand reads on its biggest day and Hyun Bin took thirty four point two percent of that. Parasite had two point seven million and Song Kang-ho took three point nine. Across twelve Korean breakouts the bigger the title, the smaller the share reaching any one actor — but these twelve are titles we picked because we knew they broke out, so this is a pattern inside a list of winners, not a law.`} />
 
   <KcwRelatedArticles page="/most-read" />
 </WikiTip>

@@ -480,6 +480,14 @@ const videoSets = [
       + 'Indonesia, Moon Ga-young Malaysia — and no name is first everywhere.',
   },
   {
+    set: 'transfer-voiced',
+    page: '/most-read',
+    title: 'Hyun Bin took 34% of his show. Song Kang-ho got 3.9%',
+    description: '14 seconds with narration: across twelve Korean breakouts, the bigger the title, '
+      + 'the smaller the share of attention reaching any one actor. r = -0.678, n = 12, p = 0.016. '
+      + 'These twelve are titles we picked because we knew they broke out.',
+  },
+  {
     /**
      * 🔴 [2026-09-01] 오늘 낸 새 영상. 기사 `no-bts-member-outdraws-bts` 에서 뽑았다.
      * ⛔ 「-voiced」가 «아니다» — 이것은 버전업이 아니라 처음부터 소리를 넣고 만든 새 편이다.
