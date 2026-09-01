@@ -59,3 +59,4 @@
 
 ## Pension performance (NPS official disclosure, labels kept — not a market return)
 - [What Korea's pension's 107% return really measures](https://seoulmarkets.com/article/korea-pension-107-percent-read-the-label): NPS reports H1 2026 money-weighted, provisional returns — domestic equity 107.37%, overseas equity 17.81%, domestic bonds -3.00%, overseas bonds 9.22%, alternatives 9.60%; whole fund 27.22%; assets 1,865.6tn won. Money-weighted ≠ the market's move, so 107% is not a claim that Korean stocks doubled. We keep the fund's own labels.
+- [Not one Korean region's merchants expect improvement](https://seoulmarkets.com/article/korea-no-region-merchants-expect-better): the latest regional small-merchant expectation BSI runs 64.5 (Daejeon) to 80.6 (South Jeolla) — all 17 provinces below the neutral 100, with big cities (Seoul 65.7) near the bottom. The just-released national 95.1 is one month newer and not yet split by region. A map of expectations, not places.
