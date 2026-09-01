@@ -25,6 +25,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 소리재기, 올려도되나, 무음선 } from './lib/kcw-video-sound.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 집 = 'https://www.kculturewire.com';
@@ -71,6 +72,25 @@ export function 설명만들기(지면, 설명, 해시 = []) {
   return 글.length <= 한도.설명 ? 글 : `${글.slice(0, 한도.설명 - 1)}…`;
 }
 
+/**
+ * 🔴 [2026-09-02] **주석이 든 벌을 «조용히» 빠뜨렸다.**
+ *   `videoSets` 서른아홉 벌 중 서른일곱 벌만 킷에 들어갔다. 빠진 둘은 `starsign` 과
+ *   `debut-voiced` — 둘 다 `{` 와 `set:` 사이에 설명 주석이 붙어 있었다.
+ *   아래 짜임이 「여는 중괄호 다음 빈칸 다음 set」이라 «빈칸»만 넘고 주석은 못 넘는다.
+ *
+ *   ⚠ 더 나쁜 것은 그 다음이다 — 킷은 「못 된 것 0편」이라고 냈다. **빠뜨리고도 초록불이었다.**
+ *   ⭐ 우리 강령 셋째 줄: 「못 잰 것은 못 쟀다고 적는다. 0 으로 채우지 않는다.」
+ *   ⇒ 그래서 ① 주석을 먼저 걷어내고 ② 센 수가 안 맞으면 **소리 내어 멈춘다.**
+ *
+ * ⛔ 따옴표 안의 두 빗금까지 지우면 주소가 깨진다. 그래서 줄머리 것만 본다
+ *   (`videoSets` 안에 줄머리 빗금주석이 0개임을 재고 이렇게 정했다).
+ */
+export function 주석뺀다(글) {
+  return String(글 ?? '')
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/^[ \t]*\/\/.*$/gm, '');
+}
+
 /** 태그 줄. ⛔ 한도를 넘으면 뒤에서부터 버린다 — 앞엣것이 더 가깝다 */
 export function 태그줄(태그들, 최대 = 한도.태그) {
   const a = (태그들 ?? []).map((t) => String(t).trim()).filter(Boolean);
@@ -111,11 +131,36 @@ if (process.argv.includes('--자가시험')) {
   검('⭐ 한도를 넘으면 뒤에서부터 버린다', 태그줄(['a'.repeat(300), 'b'.repeat(300)]).length === 1);
   검('빈 것을 넣어도 안 터진다', 태그줄(null).length === 0);
 
+  /* ── 🔴 2026-09-02 에 실제로 두 벌을 빠뜨린 자리 ── */
+  const 주석든벌 = `
+  {
+    /* 🔴 [2026-09-01] 오늘 낸 새 편이다 */
+    set: 'starsign',
+    page: '/star-signs',
+    title: 'x',
+    description: 'y',
+  },`;
+  const 짜임 = /\{\s*set:\s*'([a-z0-9-]+)',\s*page:\s*'([^']+)',/g;
+  검('🔴 주석이 들면 «그냥은» 못 읽는다 — 이것이 그날의 병이다',
+    [...주석든벌.matchAll(짜임)].length === 0);
+  짜임.lastIndex = 0;
+  검('⭐ 주석을 걷어내면 읽힌다', [...주석뺀다(주석든벌).matchAll(짜임)].length === 1);
+  /* ⛔ 따옴표 안의 주소를 깨뜨리면 지면이 어긋난다 */
+  검('⛔ 따옴표 안 주소를 안 건드린다',
+    주석뺀다("page: 'https://x.com/a'").includes("'https://x.com/a'"));
+  검('줄머리 빗금주석만 지운다', 주석뺀다('  // 없앨 것\nset: 1').trim() === 'set: 1');
+
+  /* ── 무성 영상을 올릴 것으로 세지 않는가 ── */
+  검('⛔ 무음은 올릴 것에 안 넣는다', 올려도되나('무음') === false);
+  검('⛔ 못 쟀으면 올릴 것에 안 넣는다', 올려도되나('못쟀다') === false);
+  검('✅ 소리가 나야 올린다', 올려도되나('소리있음') === true);
+  검('무음선을 여기서 새로 정하지 않는다', 무음선 === -60);
+
   if (실패.length) {
     console.error(`❌ 자가시험 ${실패.length}건 실패\n` + 실패.map((s) => `   · ${s}`).join('\n'));
     process.exit(1);
   }
-  console.log('✅ build-kcw-upload-kit 자가시험 통과 (16)');
+  console.log('✅ build-kcw-upload-kit 자가시험 통과 (24)');
   process.exit(0);
 }
 
@@ -125,7 +170,8 @@ if (!existsSync(맵소스)) { console.error('⛔ sitemap.xml.ts 가 없다'); pr
 const s = readFileSync(맵소스, 'utf8').replace(/\r\n/g, '\n');
 const i = s.indexOf('const videoSets = [');
 const j = s.indexOf('\n];', i);
-const blk = s.slice(i, j);
+/* ⭐ 주석을 먼저 걷어낸다 — 안 걷으면 설명이 붙은 벌이 조용히 빠진다(위 주석 참조) */
+const blk = 주석뺀다(s.slice(i, j));
 
 const 벌들 = [];
 for (const m of blk.matchAll(/\{\s*set:\s*'([a-z0-9-]+)',\s*page:\s*'([^']+)',\s*title:\s*([\s\S]*?),\s*description:\s*([\s\S]*?),\s*\}/g)) {
@@ -137,12 +183,43 @@ for (const m of blk.matchAll(/\{\s*set:\s*'([a-z0-9-]+)',\s*page:\s*'([^']+)',\s
 
 if (!벌들.length) { console.error('⛔ videoSets 를 못 읽었다 — 꼴이 바뀌었다. 「0편」으로 적지 않는다'); process.exit(1); }
 
+/**
+ * ⭐ **센 수가 맞나** — 이것이 이 자에서 가장 중요한 줄이다.
+ * 짜임이 못 읽은 벌은 «없는 것처럼» 지나간다. 그러면 킷은 초록불인데 그 편은 영원히 안 올라간다.
+ * ⛔ 그래서 「set: 이 몇 번 나오나」와 「몇 벌을 풀었나」를 견주고, 다르면 멈춘다.
+ */
+const 있는이름 = [...blk.matchAll(/set:\s*'([a-z0-9-]+)'/g)].map((m) => m[1]);
+const 푼이름 = new Set(벌들.map((v) => v.set));
+const 못푼것 = 있는이름.filter((n) => !푼이름.has(n));
+if (못푼것.length) {
+  console.error(`⛔ videoSets 에 ${있는이름.length}벌이 있는데 ${벌들.length}벌만 풀었다.`);
+  console.error(`   못 푼 것: ${못푼것.join(' · ')}`);
+  console.error('   ⚠ 「0편」으로 넘기지 않는다 — 이 편들은 킷에 없으면 아무도 못 올린다.');
+  console.error('   ⭐ 그 벌의 꼴을 보십시오(들여쓰기·자리 순서·주석). 짜임은 set·page·title·description 순서만 읽습니다.');
+  process.exit(1);
+}
+
 const 기본태그 = ['Korean drama', 'K-drama', 'Netflix', 'Korea', 'data', 'K-pop', 'Hallyu',
   'Korean series', 'Wikipedia', 'statistics'];
 
+/**
+ * 🔴 [2026-09-02] **무음 편에 `ready: true` 를 달아 냈다.**
+ *   서른일곱 벌 전부 준비됐다고 냈는데, 실측해 보니 **열여섯 편이 −91 dB 무음**이었다.
+ *   이 킷을 그대로 쓰면 무성 영상이 채널에 올라간다 — 사장님 금지에 정면으로 걸린다.
+ *   > 「무성 콘텐트 다신 만들지 말 것」 · 「삭제하지 말고 소리만 입혀서 추가로 배포해」
+ *
+ * ⛔ 이름에 `-voiced` 가 붙었나로 가르지 않는다 — `starsign` 은 처음부터 소리를 넣고 만든 편이라
+ *    이름에 그 꼬리가 없다. **음량을 재야** 옳게 갈린다.
+ * ⛔ 못 잰 편을 「올려도 된다」고 하지 않는다. 「못 쟀다」로 적어 둔다.
+ */
 const 짐 = 벌들.map((v) => {
   const 제목 = 제목다듬기(v.title);
   const 설명 = 설명만들기(v.page, v.description, ['KDrama', 'Korea', 'Shorts']);
+  const 파일길 = path.join(뿌리, `public/wikitip/video/${v.set}.mp4`);
+  const 있나 = existsSync(파일길);
+  const 소리 = 있나 ? 소리재기(파일길) : { 판: '못쟀다', dB: null };
+  const 문안됐나 = Boolean(제목 && 설명);
+  const 올려도 = 문안됐나 && 있나 && 올려도되나(소리.판);
   return {
     set: v.set,
     file: `public/wikitip/video/${v.set}.mp4`,
@@ -153,30 +230,57 @@ const 짐 = 벌들.map((v) => {
     tags: 태그줄(기본태그),
     /* ⚠ 쇼츠로 잡히려면 세로이고 60초 아래여야 한다. 우리 것은 14초 세로다 */
     isShort: true,
-    ready: Boolean(제목 && 설명 && existsSync(path.join(뿌리, `public/wikitip/video/${v.set}.mp4`))),
+    /* ⭐ 잰 값을 그대로 남긴다 — 「왜 못 올리나」를 사람이 볼 수 있게 */
+    sound: { verdict: 소리.판, meanDb: 소리.dB, threshold: 무음선 },
+    uploadable: 올려도,
+    /* 못 올리는 까닭을 «적는다». 빈 칸으로 두면 다음 사람이 다시 재게 된다 */
+    whyNot: 올려도 ? null
+      : !있나 ? '영상 파일이 없다'
+        : !문안됐나 ? '제목이나 설명을 못 만들었다'
+          : 소리.판 === '무음' ? `무음(${소리.dB} dB) — 사장님 금지. 소리를 입혀 새 편으로 낸다: node scripts/make-kcw-sound.mjs --set ${v.set}`
+            : 소리.판 === '트랙없음' ? '소리 트랙이 아예 없다'
+              : '소리를 못 쟀다 — 재 보고 다시 낸다',
+    /* ⚠ 옛 이름을 그대로 둔다(읽는 자가 있을 수 있다). 뜻은 uploadable 과 같다 */
+    ready: 올려도,
   };
 });
+
+const 준비된것 = 짐.filter((x) => x.uploadable);
+const 무음인것 = 짐.filter((x) => x.sound.verdict === '무음');
+const 못잰것 = 짐.filter((x) => x.sound.verdict === '못쟀다' || x.sound.verdict === '트랙없음');
 
 const 낼길 = path.join(뿌리, 'archive/kcw-upload-kit.json');
 writeFileSync(낼길, `${JSON.stringify({
   generated: new Date().toISOString(),
-  whatThisIs: 'Everything needed to upload the 21 shorts the moment a channel exists. '
+  /* ⛔ 수를 손으로 적지 않는다 — 예전에 「21 shorts」로 굳어 있어 서른아홉 벌인데도 스물하나라고 했다 */
+  whatThisIs: `Upload text for ${준비된것.length} of ${짐.length} shorts. `
     + 'Titles and descriptions come from the sitemap, which took them from the live page titles.',
   whatThisIsNot: 'This is not proof anyone will watch. It removes the delay, not the uncertainty.',
+  /* ⭐ 읽는 사람이 «가장 먼저» 봐야 하는 줄. 무성 영상은 올리지 않는다 */
+  uploadOnlyWhen: 'uploadable === true. The rest are measured silent (mean volume at or below '
+    + `${무음선} dB) and must not be uploaded — add narration first, then re-run this script.`,
+  counts: { total: 짐.length, uploadable: 준비된것.length, silent: 무음인것.length, unmeasured: 못잰것.length },
   platform: 'YouTube Shorts (vertical, under 60 seconds)',
   videos: 짐,
 }, null, 2)}\n`);
 
-const 준비된것 = 짐.filter((x) => x.ready);
 console.log('■ 올릴 준비 — 채널이 열리면 바로 쓴다\n');
-console.log(`영상 ${짐.length}편 · 준비된 것 ${준비된것.length}편 · 못 된 것 ${짐.length - 준비된것.length}편`);
+console.log(`영상 ${짐.length}편 · ✅ 올려도 되는 것 ${준비된것.length}편`
+  + ` · 🔴 무음이라 못 올리는 것 ${무음인것.length}편 · ⬜ 못 잰 것 ${못잰것.length}편`);
 console.log(`제목 가장 긴 것 ${Math.max(...짐.map((x) => (x.youtubeTitle ?? '').length))}자 (한도 ${한도.제목})`);
 console.log(`설명 가장 긴 것 ${Math.max(...짐.map((x) => (x.youtubeDescription ?? '').length))}자 (한도 ${한도.설명})`);
 console.log();
-for (const x of 준비된것.slice(0, 3)) {
-  console.log(`  [${x.set}] ${x.youtubeTitle}`);
-  console.log(`      ${x.youtubeDescription.split('\n')[0]}`);
+for (const x of 준비된것) {
+  console.log(`  ✅ [${x.set}] ${x.youtubeTitle}`);
 }
-console.log(`  … 그리고 ${Math.max(0, 준비된것.length - 3)}편 더`);
+if (무음인것.length) {
+  console.log(`\n🔴 무음 ${무음인것.length}편 — 사장님 「무성 콘텐트 다신 만들지 말 것」에 걸린다. 올리지 않는다.`);
+  console.log(`   ${무음인것.map((x) => x.set).join(' · ')}`);
+  console.log('   ✅ 지우지 않는다 — 소리를 입혀 새 편으로 낸다:');
+  console.log(`      node scripts/make-kcw-sound.mjs --set ${무음인것[0].set} --목소리 en-US-AndrewNeural`);
+}
+if (못잰것.length) {
+  console.log(`\n⬜ 못 잰 것 ${못잰것.length}편 — 0 으로 치지 않는다: ${못잰것.map((x) => x.set).join(' · ')}`);
+}
 console.log(`\n냈다 — ${path.relative(뿌리, 낼길)}`);
 console.log('⚠ 이것은 아무도 볼 것이라는 증거가 아니다. **늦어지는 것을 없앨 뿐**이다.');
