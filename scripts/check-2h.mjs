@@ -275,7 +275,12 @@ if (내가실행됐다) {
   const 검사들 = ['check-kcw-frontmatter.mjs', 'check-kcw-video-lists.mjs',
     'check-kcw-article-backlinks.mjs', 'check-kcw-names-in-title.mjs', 'check-no-riot.mjs', 'check-kcw-my-files-only.mjs',
     'check-kcw-title-cutoff.mjs',
-    'check-kcw-memo-clock.mjs', 'check-selftest-counts.mjs'];
+  /* ⚠ 2026-09-01 — `check-title-change-cooldown` 을 더했다. 오늘 나는 «1페이지에 떠 있는데
+     클릭 0» 인 지면 422장을 재고 작품 지면 133장의 제목을 바로 고치려 했다. 자리에 가 보니
+     앞선 세션이 「9/05 전에 고치지 말라」를 **주석으로만** 적어 두었더라.
+     ⛔ 주석은 그 파일을 여는 사람만 본다. 8/22·8/25·8/27 세 번을 고쳐 놓고 무엇이 들었는지
+     하나도 모르는 까닭이 그것이다. 그래서 목록에 박는다 — 기억에 맡기지 않는다(강령 ④). */
+    'check-kcw-memo-clock.mjs', 'check-selftest-counts.mjs', 'check-title-change-cooldown.mjs'];
   const 결과 = 검사들.map((자) => ({ 자, 통과: 돌리기(자) }));
   const 진것 = 결과.filter((r) => !r.통과).map((r) => r.자.replace(/^check-kcw-|\.mjs$/g, ''));
   console.log(줄('⑤', '검사 묶음', { 됐나: !진것.length, 말: 진것.length ? `걸린 것: ${진것.join(' · ')}` : `${결과.length}개 다 통과` }));
