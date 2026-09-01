@@ -52,3 +52,5 @@ This is a record of what five companies filed with DART in one seven-day window,
 ## The debate
 
 If every convertible bond already reports its own dilution percentage to the regulator, should that number — not the won amount — lead the headline when a bond raise is reported? **What do you think?** This is a talking point, not a verdict — argue it out below.
+
+*This week's [buyback](https://seoulmarkets.com/article/korea-celltrion-biggest-buyback-no-cancellation) and [rights-issue](https://seoulmarkets.com/article/korea-samsung-biologics-rights-issue-dilution) rankings found the same thing. See the [three-instrument synthesis](https://seoulmarkets.com/article/korea-capital-raising-size-does-not-predict-outcome) for all three together.*

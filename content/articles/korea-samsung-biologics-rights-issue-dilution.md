@@ -60,4 +60,4 @@ This is a record of what 21 companies filed with DART in one seven-day window, a
 
 If a rights issue dilutes existing shareholders more than half, should disclosure rules require that number — not just the won figure — in the filing's headline? **What do you think?** This is a talking point, not a verdict — argue it out below.
 
-*A [convertible-bond ranking the same week](https://seoulmarkets.com/article/korea-kg-mobility-convertible-bond-dilution) finds the same pattern: dilution and the size of the raise don't move together, and DART already reports the dilution figure itself.*
+*A [convertible-bond ranking the same week](https://seoulmarkets.com/article/korea-kg-mobility-convertible-bond-dilution) finds the same pattern: dilution and the size of the raise don't move together, and DART already reports the dilution figure itself. See the [three-instrument synthesis](https://seoulmarkets.com/article/korea-capital-raising-size-does-not-predict-outcome) for all three side by side.*

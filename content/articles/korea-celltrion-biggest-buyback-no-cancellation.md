@@ -65,4 +65,4 @@ This is a record of what nine companies filed with DART in one seven-day window,
 
 Should regulators or exchanges require a buyback filing to state upfront whether the shares will be cancelled — or is "price stability," left vague, a legitimate purpose on its own? **What do you think?** This is a talking point, not a verdict — argue it out below.
 
-*Buybacks shrink the share count when cancelled; a [rights issue does the opposite](https://seoulmarkets.com/article/korea-samsung-biologics-rights-issue-dilution) — and the same week's filings show size doesn't predict how much it dilutes existing holders either.*
+*Buybacks shrink the share count when cancelled; a [rights issue does the opposite](https://seoulmarkets.com/article/korea-samsung-biologics-rights-issue-dilution) — and the same week's filings show size doesn't predict how much it dilutes existing holders either. See the [three-instrument synthesis](https://seoulmarkets.com/article/korea-capital-raising-size-does-not-predict-outcome) for the full pattern.*
