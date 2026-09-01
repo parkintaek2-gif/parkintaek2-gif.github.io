@@ -57,7 +57,7 @@ For each title we took its single biggest day on English Wikipedia, then measure
 
 ## The relationship, and what it survives
 
-Plotted against the log of the title's peak, the share moves the other way: **r = −0.677**, with twelve titles. That gives t = −2.91 on 10 degrees of freedom, **p ≈ 0.016** — inside the 0.05 line we hold ourselves to.
+Plotted against the log of the title's peak, the share moves the other way: **r = −0.678**, with twelve titles. That gives t = −2.92 on 10 degrees of freedom, **p ≈ 0.016** — inside the 0.05 line we hold ourselves to.
 
 **The bigger the title got, the less of it landed on any one person.**
 
