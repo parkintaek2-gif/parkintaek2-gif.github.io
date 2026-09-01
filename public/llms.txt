@@ -53,3 +53,6 @@
 
 ## Redistribution & inequality (KOSIS income distribution, reproducible — market vs disposable)
 - [Taxes and transfers nearly halve Korea's income gap](https://seoulmarkets.com/article/korea-redistribution-market-vs-disposable): we pulled KOSIS DT_1HDALF05 ourselves and compute both market and disposable income inequality. 2024: income quintile ratio 11.19 (market) vs 5.78 (disposable); gini 0.399 vs 0.325; relative poverty 20.9% vs 15.3%. Market inequality is flat since 2017; the redistribution wedge does the narrowing. Quoting one number misleads.
+
+## Small-business sentiment (SEMAS BSI via KOSIS, reproducible — hope vs reality)
+- [Korea's small merchants haven't felt neutral in years](https://seoulmarkets.com/article/korea-small-merchants-never-neutral): a survey put September small-merchant sentiment at a year-high 95.1 (traditional markets 105.0). But 95.1 is an expectation and still below the neutral 100. On the reproducible KOSIS series (overall conditions), over 36 months expected BSI averaged 80 and felt BSI averaged 63.3 (a ~17pt gap) and neither crossed 100 once. Latest felt reading: 55.6 (July 2026).
