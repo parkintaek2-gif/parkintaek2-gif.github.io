@@ -1080,7 +1080,7 @@ async function main() {
   try {
     const 도장 = await import('./check-live-is-my-head.mjs');
     도장.도장찍기();
-    execFileSync('git', ['add', '--', 'public/배포도장.txt'], { cwd: 뿌리, stdio: 'ignore' });
+    execFileSync('git', ['add', '--', 'public/deploy-stamp.txt'], { cwd: 뿌리, stdio: 'ignore' });
     const 바뀐것 = execFileSync('git', ['diff', '--cached', '--name-only'], { cwd: 뿌리 }).toString().trim();
     if (바뀐것) {
       execFileSync('git', ['commit', '-q', '-m', '배포 도장 (라이브 대조용 · 자동)'], { cwd: 뿌리, stdio: 'ignore' });

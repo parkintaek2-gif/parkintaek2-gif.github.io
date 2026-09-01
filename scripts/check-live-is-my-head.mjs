@@ -34,7 +34,10 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
-export const 도장자리 = path.join(뿌리, 'public', '배포도장.txt');
+/* ⚠ 이름을 ASCII 로 둔다 — 주소에 한글이 들어가면 프록시·캐시를 지나며 인코딩이 갈린다.
+   그리고 이 파일은 «뿌리»에만 있으므로 server.mjs 의 `공유경로` 에 등록해야
+   세 호스트에서 다 보인다(안 하면 KCW·백년지도에서 404 다 — 실제로 그랬다). */
+export const 도장자리 = path.join(뿌리, 'public', 'deploy-stamp.txt');
 /** 세 지면이 한 저장소를 쓴다 — 셋 다 본다. 하나만 보면 나머지 둘이 옛 것인 줄 모른다. */
 export const 지면들 = [
   ['K Culture Wire', 'https://www.kculturewire.com'],
@@ -62,7 +65,7 @@ export function 도장찍기() {
     '',
   ].join('\n');
   fs.writeFileSync(도장자리, 글, 'utf8');
-  console.log('도장을 찍었다 — public/배포도장.txt (커밋 ' + (커밋 || '못읽음') + ')');
+  console.log('도장을 찍었다 — public/deploy-stamp.txt (커밋 ' + (커밋 || '못읽음') + ')');
   console.log('⚠ 이 파일을 «커밋하고 밀어야» 라이브에 나갑니다.');
   return 글;
 }
@@ -77,7 +80,7 @@ export async function 견준다({ 조용히 = false } = {}) {
   const 결과 = [];
   for (const [이름, 밑] of 지면들) {
     try {
-      const r = await fetch(`${밑}/배포도장.txt?cb=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
+      const r = await fetch(`${밑}/deploy-stamp.txt?cb=${Date.now()}`, { headers: { 'Cache-Control': 'no-cache' } });
       if (!r.ok) { 결과.push({ 이름, 상태: `못 받았다(${r.status})` }); continue; }
       const 라이브 = await r.text();
       const 고르기 = (s) => s.split('\r\n').join('\n').trim();
@@ -119,7 +122,7 @@ async function 자가시험() {
   봐(fs.existsSync(도장자리), '도장 파일이 만들어진다');
   /* ⛔ 도장을 «라이브에서» 읽어 견주는지 — 내 파일끼리 견주면 늘 초록이다(헛것) */
   const 나 = fs.readFileSync(fileURLToPath(import.meta.url), 'utf8');
-  봐(나.includes('배포도장.txt?cb='), '라이브에서 도장을 받아 온다(내 파일끼리 견주지 않는다)');
+  봐(나.includes('deploy-stamp.txt?cb='), '라이브에서 도장을 받아 온다(내 파일끼리 견주지 않는다)');
   console.log(흠 ? `\n🔴 흠 ${흠}개` : '\n✅ 흠 없다');
   process.exit(흠 ? 1 : 0);
 }

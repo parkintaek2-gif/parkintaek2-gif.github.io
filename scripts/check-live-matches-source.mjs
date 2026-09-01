@@ -18,6 +18,19 @@
  *    원본 파일에서 **가장 튀는 문장**을 떼어다 그것이 라이브에 있는지만 본다.
  *    원본이 뭐라고 적었든 그대로 따라간다. 내 짐작이 끼어들 자리가 없다.
  *
+ * ─────────────────────────────────────────────────────────────────────────
+ * [자 넷의 몫이 다르다 — 2026-09-02 5번이 적어 둔다]
+ *   아래 넷은 이름이 비슷해 보이지만 «묻는 것»이 다르다. 하나를 「중복」으로 보고 지우면
+ *   그 순간 재는 자리가 하나 없어진다.
+ *     · dataeconomics/scripts/check-live-matches-source.mjs
+ *         「이 지면 한 장에 내가 쓴 그 문장이 라이브에 있나」  — 지면 단위·손으로 부른다
+ *     · dataeconomics/scripts/check-live-is-my-head.mjs
+ *         「지금 라이브 «전체»가 내 HEAD 인가」 — 배포 도장으로, 세 지면 다, 배포 자가 저절로 부른다
+ *     · klifemap/tools/check-live-has-my-fixes.mjs
+ *         「내가 고친 표식들이 라이브에 있나」 — 표식 목록을 손으로 적어 둔다(목록이 낡는다)
+ *     · klifemap/tools/check-live-matches-head.mjs
+ *         klifemap 판 「라이브 전체가 내 HEAD 인가」 — 그 저장소는 public/ 을 그대로 내주므로
+ *         도장 없이 파일끼리 견준다(단, 빌드가 주석을 지우므로 주석을 떼고 견준다)
  * 쓰는 법
  *   node scripts/check-live-matches-source.mjs <원본파일> <라이브주소>
  *   node scripts/check-live-matches-source.mjs --selftest

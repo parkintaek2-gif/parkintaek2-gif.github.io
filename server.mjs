@@ -300,7 +300,12 @@ const handle = async (req, res) => {
    *   (`/100y/api/comments`)가 되면 클라이언트 스크립트를 사이트별로 따로 짜야 한다. */
   /* `/comments-widget.js` 도 같이 뺀다 — `public/`(root) 에 하나만 있고
    *   100y·wikitip 은 각자 복사본이 없다. 접두사가 붙으면 그 두 사이트에서 404 난다. */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$/;
+  /* 🔴 [2026-09-02 · 5번] `/deploy-stamp.txt` 도 같이 뺀다 — 바로 위 `comments-widget.js` 와
+   *   **똑같은 사정**이다. 배포 도장은 `public/`(뿌리) 에 하나만 있고 100y·wikitip 에는
+   *   복사본이 없다. 접두사가 붙으면 그 두 사이트에서 404 다 — 실제로 그랬다
+   *   (SeoulMarkets 만 초록, KCW·백년지도는 404). 그러면 「라이브가 최신인가」를
+   *   세 지면 중 하나만 잴 수 있다. 자가 셋 중 둘을 못 재면 그 자는 못 쓰는 자다. */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
