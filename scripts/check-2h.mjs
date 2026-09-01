@@ -223,7 +223,7 @@ if (내가실행됐다) {
   /* ⚠ 2026-09-01 — `check-no-riot` 를 더했다. 사장님이 내린 것이 되살아나지 않게,
      그리고 **너무 많이 지우지 않았나**까지 잰다(위키백과 e스포츠는 살아 있어야 한다) */
   const 검사들 = ['check-kcw-frontmatter.mjs', 'check-kcw-video-lists.mjs',
-    'check-kcw-article-backlinks.mjs', 'check-kcw-names-in-title.mjs', 'check-no-riot.mjs',
+    'check-kcw-article-backlinks.mjs', 'check-kcw-names-in-title.mjs', 'check-no-riot.mjs', 'check-kcw-my-files-only.mjs',
     'check-kcw-title-cutoff.mjs'];
   const 결과 = 검사들.map((자) => ({ 자, 통과: 돌리기(자) }));
   const 진것 = 결과.filter((r) => !r.통과).map((r) => r.자.replace(/^check-kcw-|\.mjs$/g, ''));
