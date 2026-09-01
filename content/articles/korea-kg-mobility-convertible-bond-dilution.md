@@ -11,7 +11,7 @@ sources:
   - org: "DART (Financial Supervisory Service electronic disclosure)"
     api: "Convertible-bond decisions (cvbdIsDecsn), matched to daily filing lists 2026-08-25 through 2026-09-01, read directly from the OpenDART API. English company names are DART's own corp_name_eng field. Dilution is DART's own reported field (cvisstk_tisstk_vs) — not recomputed by us."
 crossChecks:
-  - "Five listed companies filed a private-placement (사모) convertible bond this window with a usable amount and dilution figure: KG Mobility ₩154.5bn (21.96% dilution), Shinhwapritech ₩21.0bn (14.69%), Sungho Electronics ₩13.0bn (1.02%), CP System ₩10.0bn (5.10%), ITCEN CTS ₩5.0bn (6.76%)"
+  - "Five listed companies filed a private-placement convertible bond this window with a usable amount and dilution figure: KG Mobility ₩154.5bn (21.96% dilution), Shinhwapritech ₩21.0bn (14.69%), Sungho Electronics ₩13.0bn (1.02%), CP System ₩10.0bn (5.10%), ITCEN CTS ₩5.0bn (6.76%)"
   - "All five carry a 0.0% surface (coupon) interest rate; yield-to-maturity ranges 0.0%–3.0%. The return to the bondholder comes almost entirely from the option to convert to shares, not from interest paid along the way"
   - "Ranked by amount raised, dilution does not fall in step: Sungho Electronics raised more than ITCEN CTS (₩13.0bn vs ₩5.0bn) but dilutes existing shareholders roughly a sixth as much (1.02% vs 6.76%)"
 excluded:
