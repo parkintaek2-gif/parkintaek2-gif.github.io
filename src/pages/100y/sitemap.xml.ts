@@ -187,6 +187,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-01 — 2번(5번 대행) signal.bz 직접 주문. 종부세 1주택 기본공제 개편(9/1 확정)을
        KOSIS 주택소유통계(연령×주택자산가액)로 검증해 지면화. 찬반 판정 없음. */
     { path: '/high-value-home-age', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-01 — docs/새데이터-KOSIS-후보.md 후보 이행. 118/DT_118N_LCE0003(고용형태별
+       근로실태조사)로 학력별 월급여·시간당임금을 검증해 지면화. 판정 없음, 상관관계만. */
+    { path: '/wage-education', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 1편. 중앙일보 대학평가(3자 순위) 인용 +
        대학알리미 실측 대조. docs/3번-순위콘텐트-지침.md 참고. */
     { path: '/ranking-university', priority: '0.7', changefreq: 'yearly' },

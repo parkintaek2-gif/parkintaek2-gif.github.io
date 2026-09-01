@@ -1,0 +1,134 @@
+---
+/**
+ * /100y/wage-education — 학력별로 월급여·시간당임금이 얼마나 다른가
+ *
+ * `docs/새데이터-KOSIS-후보.md` 후보 — 「대학 갔을 때와 안 갔을 때를 같은 자로 재는
+ * 유일한 축」. 118/DT_118N_LCE0003(고용형태별근로실태조사)로 검증.
+ *
+ * ⛔⛔ 판정하지 않는다 — 「대학을 가야 한다/안 가도 된다」를 쓰지 않는다.
+ * ⛔⛔ 학력 하나가 임금을 결정한다는 «인과»로 읽히면 안 된다. 근속·연령·산업·직종이
+ *   섞여 있고 이 표는 그것을 가르지 않는다 — 상관관계만 놓는다.
+ * ⛔ 「월급여액」은 정액급여+초과급여다. 상여금·성과급은 빠졌다 — 연봉이 아니다.
+ * ⚠ 비정규·대학원졸 칸처럼 표본이 작을 수 있는 교차칸은 특히 조심해서 읽어야 한다 —
+ *   이 API 는 셀별 표본 수를 안 주므로, 그 사실 자체를 지면에 적는다(못 잰 것은 못 쟀다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/wage-education.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.학력별_전체근로자 as any[];
+const 정규 = 자료.학력별_정규근로자 as any[];
+const 비정규 = 자료.학력별_비정규근로자 as any[];
+const 최고 = 자료.최고칸;
+const 최저 = 자료.최저칸;
+
+const 칸찾기 = (arr: any[], 이름: string) => arr.find((r) => r.칸 === 이름);
+
+const desc =
+  `${자료.최신}년 고용형태별근로실태조사로 학력별 월급여를 견줍니다. ` +
+  `${최고.칸}(${최고.월급여_천원.toLocaleString()}천원)이 ${최저.칸}(${최저.월급여_천원.toLocaleString()}천원)보다 ` +
+  `${자료.최고최저_배수}배 많습니다. 근속·연령·직종을 가르지 않은 상관관계이며, 상여금은 빠진 값입니다.`;
+---
+
+<HundredYear
+  title={`학력별 월급여 — ${최고.칸} ${최고.월급여_천원.toLocaleString()}천원 vs ${최저.칸} ${최저.월급여_천원.toLocaleString()}천원`}
+  description={desc}
+>
+  <h1>학력별로 월급여는<br />얼마나 다를까요?</h1>
+  <p class="sub">
+    {자료.최신}년 고용형태별근로실태조사(표본사업체 {자료.출처.조사대상}) 기준,
+    {' '}학력에 따라 월급여·시간당임금이 어떻게 다른지를 <strong>같은 자로</strong> 견줍니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전체 근로자 월급여 — 가장 높은 학력 ÷ 가장 낮은 학력</p>
+    <p class="answer-num">{자료.최고최저_배수}배</p>
+    <p class="answer-sub">
+      {최고.칸} {최고.월급여_천원.toLocaleString()}천원 / {최저.칸} {최저.월급여_천원.toLocaleString()}천원 — {자료.최신}년
+    </p>
+  </div>
+
+  <p class="note">
+    ⛔ <strong>「월급여액」은 정액급여+초과급여만입니다.</strong> {자료['⛔ 월급여액은 총소득이 아니다']}
+  </p>
+
+  <h2>전체 근로자 — 학력별 월급여·시간당임금</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력</th><th>월급여</th><th>시간당임금</th><th>총근로시간</th></tr></thead>
+      <tbody>
+        {전체.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.월급여_천원.toLocaleString()}천원</strong></td>
+            <td>{r.시간당임금_원.toLocaleString()}원</td>
+            <td>{r.총근로시간}시간</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ <strong>학력이 임금의 원인이라는 뜻이 아닙니다.</strong> {자료['⛔ 학력이 원인이라는 뜻이 아니다']}
+  </p>
+
+  <h2>고용형태를 가르면 — 정규직·비정규직 각각</h2>
+  <p class="note">
+    ⚠ 아래 두 표를 나란히 보면, <strong>학력 칸 사이의 차이보다 정규·비정규 사이의 차이가
+    더 클 수 있습니다.</strong> 예를 들어 대졸 정규직({칸찾기(정규,'대졸').월급여_천원.toLocaleString()}천원)은
+    고졸 정규직({칸찾기(정규,'고졸').월급여_천원.toLocaleString()}천원)보다 많지만, 같은 대졸이라도
+    비정규직({칸찾기(비정규,'대졸').월급여_천원.toLocaleString()}천원)은 고졸 정규직보다 적습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력</th><th>정규직 월급여</th><th>비정규직 월급여</th></tr></thead>
+      <tbody>
+        {전체.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{칸찾기(정규, r.칸).월급여_천원.toLocaleString()}천원</td>
+            <td>{칸찾기(비정규, r.칸).월급여_천원.toLocaleString()}천원</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ <strong>비정규직·대학원졸처럼 사람 수가 적을 수 있는 교차칸이 있습니다.</strong> 이 API는
+    칸마다 표본 수를 알려주지 않아 저희가 직접 재지 못했습니다 — 그 사실을 그대로 적습니다.
+    작은 칸의 값은 해마다 크게 흔들릴 수 있습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>근속연수·연령·산업·직종을 가르지 않습니다 — 학력 하나만의 효과가 아닙니다.</li>
+    <li>월급여액에 상여금·성과급이 빠져 있습니다 — 연봉 개념의 총소득이 아닙니다.</li>
+    <li>조사는 매년 6월 기준 한 시점입니다 — 그 근로자의 평생 소득이 아닙니다.</li>
+    <li>교차칸(고용형태×학력)의 표본 수를 저희가 확인하지 못했습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「대학을 가야 한다」고도
+    {' '}「안 가도 된다」고도 쓰지 않습니다. 학력에 따라 이 표가 재는 값이 어떻게 갈리는지가
+    {' '}저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). {자료.출처.조사시점}. 받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/real-wage">← 물가를 뺀 월급, 언제부터 줄고 있나요?</a>
+    <br />
+    <a href="/major">← 학과 찾기 — 그 길로 간 사람들은 어떻게 됐나요?</a>
+    <br />
+    <a href="/longest-job">← 가장 오래 다닌 직장, 몇 살에 그만두나요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="wage-education" />
+
+  <NextQuestionBrief 모은것="고용형태별근로실태조사 자료" />
+</HundredYear>
