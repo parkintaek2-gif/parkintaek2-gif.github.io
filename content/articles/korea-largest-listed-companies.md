@@ -42,3 +42,8 @@ The honest fix is to rank by **company**, folding a firm's preferred shares back
 ## What this is, and is not
 
 Every figure here is a **share of total market value**, not a won amount — the price level in this data feed is a simulation, so only the ratios, which do not depend on it, are used. "Largest" means most valuable on one trading day (2026-08-21), which moves with the market. For the fuller picture of just how top-heavy this is — [four stocks are half the market](/article/korea-four-stocks-half-the-market), and [the same lopsidedness runs through Korea's trade](/article/korea-everything-comes-down-to-four). This is a description of Korea's biggest listed companies, **not investment advice**.
+
+## Related — where this shows up
+
+- [What Korea's pension's 107% return really measures](https://seoulmarkets.com/article/korea-pension-107-percent-read-the-label) — the national pension is a major holder of these same large-caps; read the label on that number.
+- [Korea's "biggest company" ranking measures hope, not output](https://seoulmarkets.com/article/korea-market-cap-is-not-productivity) — ranking these firms by market value is ranking a bet, not output.

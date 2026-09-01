@@ -55,3 +55,4 @@ For the pay level all of these firms are measured against — the national avera
 ## Related — where this shows up
 
 - [The pay ranking everyone shares hides three things](https://seoulmarkets.com/article/korea-pay-ranking-hides-the-distribution) — the size staircase is one of the things a single pay number buries.
+- [Taxes and transfers nearly halve Korea's income gap](https://seoulmarkets.com/article/korea-redistribution-market-vs-disposable) — the size pay gap feeds the market-income gap that redistribution then narrows.

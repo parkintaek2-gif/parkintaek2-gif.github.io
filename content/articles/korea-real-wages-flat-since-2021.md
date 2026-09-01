@@ -56,3 +56,8 @@ The annual picture is the honest one, and it is stark enough on its own: **the l
 This is the national average. Where that average lands depends on where you work: pay rises with [firm size at every step](/article/korea-bigger-firms-pay-more-every-step), and [temporary workers earn about 40% of what regular staff make](/article/korea-temp-workers-pay-gap), and a [sector's biggest firms pay more](/article/korean-sector-leaders-pay-more) than its smaller ones. It also depends on getting in the door at all — [youth unemployment](/article/korea-youth-unemployment-fell-since-2016) has fallen from its mid-2010s peak, though not everyone who left the jobless count found work. And the flat pay came even as [hours worked kept falling](/article/korea-working-hours-fell-since-2011) — about an eighth fewer since 2011.
 
 *Real wages computed from KOSIS: Ministry of Employment and Labor establishment-survey earnings, deflated by Statistics Korea's CPI (2020=100). Free to reproduce with attribution — cite as SeoulMarkets (seoulmarkets.com) and link back.*
+
+## Related — where this shows up
+
+- [Taxes and transfers nearly halve Korea's income gap](https://seoulmarkets.com/article/korea-redistribution-market-vs-disposable) — flat wages are the market side; redistribution is what moves the disposable gap.
+- [Korea's small merchants haven't felt neutral in years](https://seoulmarkets.com/article/korea-small-merchants-never-neutral) — how the economy underneath flat wages actually feels, month to month.
