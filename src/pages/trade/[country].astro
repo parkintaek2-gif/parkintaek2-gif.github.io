@@ -14,7 +14,7 @@ const dir = p.direction; // 'surplus' | 'deficit'
 const dirWord = dir === 'surplus' ? 'surplus' : 'deficit';
 
 // 제목·설명 — 실제 검색어(«korea trade with X»)를 앞세운다. 절대 달러값은 쓰지 않는다(스케일브레이크).
-const title = `Korea's trade with ${p.name}: a ${dirWord}, in the data`;
+const TITLE = `Korea's trade with ${p.name}: a ${dirWord}, in the data`;
 const description = `Korea runs a trade ${dirWord} with ${p.name}. It is Korea's ${p.exportRankOrd}-largest export market and ${p.importRankOrd}-largest source of imports — ${p.exportShare}% of exports, ${p.importShare}% of imports.`;
 
 const jsonLd = {
@@ -29,7 +29,7 @@ const jsonLd = {
 };
 ---
 
-<Base title={title} description={description} jsonLd={jsonLd}>
+<Base title={TITLE} description={description} jsonLd={jsonLd}>
   <div class="wrap">
     <AdSlot slot="banner" />
 

@@ -61,6 +61,8 @@ export const 기본식은날 = 14;
 export const 지켜볼자리 = [
   { 이름: '작품 지면', 길: 'src/pages/wikitip/title/[slug].astro', 몇장: '작품마다 한 장' },
   { 이름: '시장 지면', 길: 'src/pages/wikitip/market/[slug].astro', 몇장: '93장' },
+  { 이름: '6번 태그 지면', 길: 'src/pages/tag/[tag].astro', 몇장: '91장' },
+  { 이름: '6번 무역상대 지면', 길: 'src/pages/trade/[country].astro', 몇장: '60장' },
 ];
 
 /** 「YYYY-MM-DD」 두 날 사이의 날 수. ⛔ 시간대를 타지 않게 날짜만 셉니다 */
