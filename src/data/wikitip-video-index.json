@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-01 05:56 UTC",
+  "generated": "2026-09-01 06:21 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 35,
-    "짝찾음": 34,
+    "영상": 36,
+    "짝찾음": 35,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 33,
+    "지면에서읽음": 34,
     "원본에서읽음": 1
   },
   "videos": [
@@ -358,6 +358,16 @@
       "seconds": 14,
       "page": "/debut-age",
       "says": "Fourteen seconds, read aloud: stars who debuted before eighteen are read 11.89 per million; those who started at twenty-six or later, 2.43. Median career length barely differs across the four bands, so this is not the older ones simply having had less time.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "btsgroup",
+      "src": "/video/btsgroup.mp4",
+      "thumb": "/video/thumb/btsgroup.jpg",
+      "seconds": 14,
+      "page": "/member-vs-group",
+      "says": "Fourteen seconds, read aloud: seven BTS members across four Southeast Asian Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri beats Girl's Day in all four of hers — six acts lose to their own member everywhere we could measure. This counts encyclopaedia pages being opened, not popularity or streams.",
       "saysFrom": "page source",
       "alsoOn": []
     }

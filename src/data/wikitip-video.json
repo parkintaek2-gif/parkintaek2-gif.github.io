@@ -247,6 +247,13 @@
       "uploadDate": "2026-09-01",
       "thumb": "/video/thumb/debut-voiced.jpg",
       "src": "/video/debut-voiced.mp4"
+    },
+    {
+      "set": "btsgroup",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/btsgroup.jpg",
+      "src": "/video/btsgroup.mp4"
     }
   ],
   "unmeasured": [],

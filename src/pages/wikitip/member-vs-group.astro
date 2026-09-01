@@ -18,6 +18,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-member-vs-group.json';
 import KcwPanel from '../../components/KcwPanel.astro';
 
@@ -164,6 +165,19 @@ const jsonLd = {
       <li><b>Limits</b> — {d.limitation}</li>
     </ul>
   </section>
+
+  {/*
+    🔴 [2026-09-01] 오늘 낸 기사 `no-bts-member-outdraws-bts` 에서 뽑은 숏영상이다.
+    ⛔ 새 수를 만들지 않았다 — 이 지면과 같은 자료(`wikitip-member-vs-group.json`)를 읽는다.
+    ⚠ 화면에 «반대 사례»(Lee Hye-ri)가 같이 선다. 한쪽만 보이면
+      「멤버는 그룹을 못 이긴다」는 틀린 일반화가 된다.
+    ⛔ 소리 있는 판이다 — 사장님 「무성 콘텐트 다신 만들지 말 것」. 음량 −24.9 dB 로 쟀다.
+  */}
+  <KcwShorts set="btsgroup"
+    says={`Fourteen seconds, read aloud: seven BTS members across four Southeast Asian `
+      + `Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri `
+      + `beats Girl's Day in all four of hers — six acts lose to their own member everywhere we `
+      + `could measure. This counts encyclopaedia pages being opened, not popularity or streams.`} />
 
   <KcwRelatedArticles page="/member-vs-group" />
 </WikiTip>

@@ -481,6 +481,20 @@ const videoSets = [
   },
   {
     /**
+     * 🔴 [2026-09-01] 오늘 낸 새 영상. 기사 `no-bts-member-outdraws-bts` 에서 뽑았다.
+     * ⛔ 「-voiced」가 «아니다» — 이것은 버전업이 아니라 처음부터 소리를 넣고 만든 새 편이다.
+     *   소리 자가 기본으로 `-voiced` 를 붙이길래 이름을 바로잡았다.
+     *   ⚠ 안 바로잡으면 체크리스트가 「버전업 2편」으로 세고 「새 영상 0편」이 남는다.
+     */
+    set: 'btsgroup',
+    page: '/member-vs-group',
+    title: 'No BTS member outdraws BTS — 0 of 28 checks',
+    description: '14 seconds with narration: seven BTS members across four Southeast Asian '
+      + 'Wikipedias, and the group page wins all 28 checks — while Lee Hye-ri beats Girl\'s Day '
+      + 'in all four of hers.',
+  },
+  {
+    /**
      * 🔴 [2026-09-01] 사장님 「무성 콘텐트 삭제하지 말고 소리만 입혀서 추가로 배포해
      *   **영상 제목만 바꿔서**」 — 그래서 제목이 위 무성판(`debut`)과 다르다.
      * ⛔ 낚시로 바꾸지 않았다. 같은 수를 말하되 읽어 주는 판임을 밝혔을 뿐이다.
