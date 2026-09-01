@@ -545,3 +545,28 @@ CronList  → 위 넷이 있는가?  없으면 즉시 다시 건다
 ```
 
 저녁 보고에는 **아카이빙 확인**을 반드시 붙인다 — 소급이 안 되는 유일한 항목이다.
+
+## 유튜브에 올리기 — `scripts/youtube-upload.mjs`
+
+🔴 **채널 `@KCultureWire`(intelligentsiatv@gmail.com)가 개설 25일째 0편이었다.**
+올릴 것은 24편이 다 되어 있는데 브라우저로 로그인할 수 있는 유닛이 없어 한 편도 못 올렸다.
+⇒ 사장님 동의를 **한 번만** 받고, 그 뒤로는 이 자가 올린다
+(사장님 지시 — 「매일·반복되는 일은 사장님 손으로 올리지 않는다」).
+
+```
+node scripts/youtube-upload.mjs --남은것       무엇이 남았나 (망 안 씀)
+node scripts/youtube-upload.mjs --자격만들기    사장님 동의 한 번
+node scripts/youtube-upload.mjs --한편         한 편만 올리고 멈춘다 (첫 확인용)
+node scripts/youtube-upload.mjs --전부         오늘 한도까지 올린다
+node scripts/youtube-upload.mjs --자가시험      21가지
+```
+
+⛔ **`uploadable: true` 인 것만 올라간다.** 나머지는 실측 무음이라 사장님 금지에 걸린다
+(「무성 콘텐트 다신 만들지 말 것」). 어느 것이 무음인지는 음량을 «재서» 가른다 —
+이름의 `-voiced` 꼬리로 가르면 안 된다(`starsign`처럼 처음부터 소리를 넣은 편은 꼬리가 없다).
+
+⚠ **하루 여섯 편이 한도다.** 업로드 한 편이 1,600 units 이고 기본 한도가 10,000/day 다.
+24편은 나흘 걸린다. 「오늘 다 올렸다」고 적지 않는다.
+
+⛔ 토큰은 저장소 «밖»(`C:\Users\User\.klifedesign\`)에 둔다 — 여섯 유닛이 이 저장소를 함께 쓰고
+깃에 올라간다. 자격을 여기 두지 않는다.
