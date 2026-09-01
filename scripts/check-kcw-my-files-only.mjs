@@ -51,6 +51,13 @@ export const 공유것 = [
   /^scripts\/(deploy|check-deploy-ready|deploy-key|send-mail|session-brief)\.mjs$/,
   /^scripts\/lib\/work-hours\.mjs$/,
   /^src\/layouts\/WikiTip\.astro$/,
+  /**
+   * ⚠ 2026-09-01 — 여섯이 «다 같이 덧붙이는» 파일이다. 남의 것도 내 것도 아니다.
+   *   오늘 6번이 여기 세 줄을 더한 채 커밋을 안 해 내 배포 관문이 섰다.
+   *   ⛔ 그렇다고 내가 «대신 담지» 않는다 — 담으면 남의 작업을 가져가는 것이다.
+   *     기다리고, 그 사이에 다른 일을 한다.
+   */
+  /^public\/llms\.txt$/,
 ];
 
 /** 딱 봐도 남의 유닛인 자리 — 여기 걸리면 «확실히» 잘못이다 */
@@ -91,6 +98,7 @@ export function 자가시험() {
   검('공유 메모는 공유', 누구것('docs/세션간-메모.md').갈래 === '공유');
   검('배포 자는 공유', 누구것('scripts/deploy.mjs').갈래 === '공유');
   검('시간표는 공유', 누구것('scripts/lib/work-hours.mjs').갈래 === '공유');
+  검('llms.txt 는 공유 — 여섯이 다 덧붙인다', 누구것('public/llms.txt').갈래 === '공유');
 
   검('⚠ 모르는 것은 내 것으로 «안» 친다', 누구것('src/lib/무언가.ts').갈래 === '모름');
   검('⛔ 빈 값은 null', 누구것('') === null && 누구것(null) === null);
