@@ -42,14 +42,34 @@ const 우리것 = (titlePages.titles ?? [])
 /* 🔴 2026-08-27 06:3x — 79자여서 잘렸다. ⭐ 파일 «이름» 둘이 곧 검색어라 반드시 남긴다 —
    GSC 실측에서 `all-weeks-countries.tsv` 가 노출 36, `all-weeks-global.tsv` 가 14 다.
    앞머리(「Inside Netflix's Top 10 files:」)를 덜어 이름 둘을 다 지키면서 58자로 맞췄다. */
-const TITLE = `Netflix's all-weeks-countries.tsv and all-weeks-global.tsv`;
+/* 🔴🔴 [2026-09-02 01:4x · 5번] **이 지면이 우리 지면 중 가장 큰데 제목이 값을 안 말했다.**
+   ───────────────────────────────────────────────────────────────────────────
+   [잰 것 — sc-domain:kculturewire.com · 28일]
+     이 지면      노출 117 · 클릭 1 · 순위 **5.3**      ← 우리 지면 중 가장 큰 것
+     사이트 전체  노출 889 · 클릭 3 · 검색어 363개
+     그 중 51%(225노출)는 **넷플릭스 주소를 통째로 친** 길찾기 질의였다(이길 수 없다).
+   ⇒ 순위는 이미 5위다. **막힌 곳은 순위가 아니라 「눌릴 이유」다.**
+      5위의 기대 CTR 은 5~6%인데 이 지면은 0.85% 다.
+   ⛔ 옛 제목은 파일 «이름 둘»뿐이었다 — 검색어와는 맞지만 **무엇을 얻는지 말하지 않는다.**
+      파일 이름을 찾아온 사람은 「그 파일이 뭔지·쓸 만한지」를 알고 싶은 것이다.
+   ⭐ 그래서 제일 센 실측 사실을 제목에 올린다 — country 파일 작품의 71.1%(9,530/13,395)가
+      **어디에도 조회수가 없다.** 파일을 받아 쓰려는 사람에게 이보다 값나가는 한 줄이 없다.
+   ⭐ 수를 글자로 박지 않고 «자료에서» 만든다 — 다음 달 자료가 바뀌면 제목이 저절로 따라간다.
+      (`/most-read` 지면에서 같은 방식을 이미 쓰고 있다.)
+   ⚠ `all-weeks-global.tsv` 는 제목에서 빠진다(그 이름의 노출은 28일에 29회다).
+      대신 설명·H1·본문 소제목에 그대로 남아 있어 그 이름으로도 계속 걸린다.
+      ⛔ 두 이름을 다 넣으려고 「눌릴 이유」를 빼면 순위만 좋고 클릭은 없는 지금이 그대로다. */
+const TITLE = `all-weeks-countries.tsv: ${안붙는몫}% of its titles have no view count`;
+/* ⭐ [2026-09-02] 설명도 «값나가는 한 줄»을 앞으로 옮긴다 — 구글이 스니펫으로 보여 주는
+   것은 앞부분이다. 옛 설명은 「무엇이 들었나」로 시작해 정작 아플 자리(71.1%)가 끝에 있었다.
+   ⛔ 수를 줄이지 않았다. 순서만 바꿨다 — 손님이 먼저 알아야 할 것을 먼저 놓는다. */
 const DESC =
-  `What is actually in the two files Netflix publishes, counted on ${d.measuredAt}: `
-  + `${나라파일.rows.toLocaleString('en-US')} country rows across ${나라파일.countries} countries, `
-  + `${세계파일.rows.toLocaleString('en-US')} global rows, both covering ${나라파일.weeks} weeks from `
-  + `${나라파일.firstWeek} to ${나라파일.lastWeek}. Including the two things the files do not tell you: `
-  + `weekly_views is empty for ${빈주} of those weeks, and ${안붙는몫}% of the titles in the country file `
-  + `have no row in the global file at all.`;
+  `${안붙는몫}% of the titles in all-weeks-countries.tsv (${j.notInGlobal.toLocaleString('en-US')} of `
+  + `${j.countryTitles.toLocaleString('en-US')}) have no row in all-weeks-global.tsv, so they carry no view `
+  + `count anywhere — and weekly_views is empty for ${빈주} of the ${세계파일.weeks} weeks that do. `
+  + `Counted on ${d.measuredAt}: ${나라파일.rows.toLocaleString('en-US')} country rows across `
+  + `${나라파일.countries} countries and ${세계파일.rows.toLocaleString('en-US')} global rows, both covering `
+  + `${나라파일.firstWeek} to ${나라파일.lastWeek}. Not a copy of the files — a count of what is in them.`;
 
 const jsonLd = {
   '@context': 'https://schema.org',
