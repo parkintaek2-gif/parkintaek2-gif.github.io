@@ -480,6 +480,19 @@ const videoSets = [
       + 'Indonesia, Moon Ga-young Malaysia — and no name is first everywhere.',
   },
   {
+    /**
+     * 🔴 [2026-09-01] 사장님 「무성 콘텐트 삭제하지 말고 소리만 입혀서 추가로 배포해
+     *   **영상 제목만 바꿔서**」 — 그래서 제목이 위 무성판(`debut`)과 다르다.
+     * ⛔ 낚시로 바꾸지 않았다. 같은 수를 말하되 읽어 주는 판임을 밝혔을 뿐이다.
+     */
+    set: 'debut-voiced',
+    page: '/debut-age',
+    title: 'IU debuted at 15, Ma Dong-seok at 32 — read aloud',
+    description: '14 seconds with narration: stars who debuted before eighteen are read 11.89 per '
+      + 'million, those who started at twenty-six or later 2.43 — and median career length barely '
+      + 'differs across the four bands.',
+  },
+  {
     set: 'allten-voiced',
     page: '/clumping',
     title: 'Four times outside Korea, a whole Netflix TV top 10 was Korean — read aloud',
