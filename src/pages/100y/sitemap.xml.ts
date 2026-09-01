@@ -173,6 +173,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-01 — /tutoring과 같은 조사(초중고사교육비조사)의 지역 축. DT_1PE202는
        "참여율"이 아니라 "사교육비"였다(표 이름 오인 정정, KOSIS 후보 문서 참고). */
     { path: '/tutoring-region', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-02 — 같은 조사(초중고사교육비조사)의 소득 축(101/DT_1PE102). 소득구간이
+       2022년 개편돼 시계열은 안 내고 2025년 한 해만 냄. */
+    { path: '/tutoring-income', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-28 — 실질임금(사업체노동력조사×소비자물가지수, 저희 계산). 사장님이
        고용노동부 보도자료를 직접 짚으며 지시. 매달 갱신 여지가 있어 monthly. */
     { path: '/real-wage', priority: '0.8', changefreq: 'monthly' },

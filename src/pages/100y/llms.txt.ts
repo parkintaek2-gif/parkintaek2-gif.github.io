@@ -37,6 +37,7 @@ Every page names its source, its year, and what it cannot tell you.
 - [How old are elementary schools](https://100yearmap.com/elementary): founding dates nationwide
 - [Private tutoring](https://100yearmap.com/tutoring): participation rate and cost, K-12
 - [Private tutoring cost by region](https://100yearmap.com/tutoring-region): same survey (household tutoring-cost survey) as /tutoring, sliced by region instead of school level, 2007-2025. Seoul households spend the most per student (₩663k/month, 2025), rural areas the least (₩325k) — about 2x, a ratio that has held roughly steady even as absolute spending rose. The "population share" column is a sampling breakdown, not a participation rate — the page corrects an earlier internal mislabeling of this KOSIS table.
+- [Private tutoring participation by household income](https://100yearmap.com/tutoring-income): same survey as /tutoring, sliced by household monthly income instead of region, 2025 only (income brackets were redefined in 2022, so no time series). Participation rises from 52.8% (under ₩3M/month) to 84.9% (₩8M+/month), a 32.2pp gap, monotonic across all four school-level breakdowns. Measures participation only — not spending amount or academic outcome.
 - [Skipping breakfast by age](https://100yearmap.com/breakfast): teen meal-skipping rates
 - [Choosing a major](https://100yearmap.com/major): 925 college majors, outcomes by field
 - [First job timing](https://100yearmap.com/first-job): months to first job after graduation, tenure

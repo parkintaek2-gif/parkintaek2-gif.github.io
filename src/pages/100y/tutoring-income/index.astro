@@ -1,0 +1,99 @@
+---
+/**
+ * /100y/tutoring-income — 가구 소득에 따라 사교육 참여율은 얼마나 다른가
+ *
+ * `docs/새데이터-KOSIS-후보.md`의 「학교급·특성별 사교육 참여율」(101/DT_1PE102) 후보를
+ * 열어 보니 지역뿐 아니라 **가구 월소득** 축도 있었다. 전체 참여율(75.74%)이 이미 만든
+ * /tutoring(DT_1PE301 기반)과 한 자리도 안 틀리고 같아 같은 조사 원자료임을 확인했다.
+ *
+ * ⛔ 소득구간은 2022년에 개편됐다(statisticsExplData 원문) — 그래서 시계열을 내지 않고
+ *   2025년 한 해만 낸다. 여러 해를 이으면 구간이 바뀐 것을 추세로 오독한다.
+ * ⛔ 「참여율」은 사교육을 안 받은 학생도 분모에 넣은 값이다 — 표본 인구비중과 다르다.
+ * ⛔ 소득이 높을수록 참여율이 높다는 것이 「돈이 성적을 만든다」는 뜻은 아니다 — 이 표는
+ *   그 인과를 가르지 않는다. 참여 «여부»만 잰다(금액·시간·효과는 이 표 밖이다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/tutoring-income.json';
+
+const 자료 = 원본 as any;
+const 구간이름들 = Object.keys(자료.소득구간별);
+const 최고 = 자료.최고구간;
+const 최저 = 자료.최저구간;
+
+const desc =
+  `${자료.기준연도}년 가구 월소득별 사교육 참여율 — ${최저.이름} 가구 ${최저.값.toFixed(1)}% vs ` +
+  `${최고.이름} 가구 ${최고.값.toFixed(1)}%, 격차 ${자료.격차}%p. 초중고사교육비조사 실측입니다.`;
+---
+
+<HundredYear
+  title={`가구소득별 사교육 참여율 — ${최저.이름} ${최저.값.toFixed(1)}% vs ${최고.이름} ${최고.값.toFixed(1)}%`}
+  description={desc}
+>
+  <h1>가구 소득에 따라<br />사교육 참여율은 얼마나 다를까요?</h1>
+  <p class="sub">
+    {자료.기준연도}년 초중고사교육비조사 기준, 전체 학생 중 사교육비를 지출한
+    {' '}학생의 비율을 <strong>가구 월소득 구간별로</strong> 견줍니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">가구 월소득별 사교육 참여율 — 가장 낮은 구간과 가장 높은 구간</p>
+    <p class="answer-num">{최저.값.toFixed(1)}% → {최고.값.toFixed(1)}%</p>
+    <p class="answer-sub">
+      {최저.이름} 가구와 {최고.이름} 가구 사이 {자료.격차}%p 차이, {자료.기준연도}년
+    </p>
+  </div>
+
+  <h2>소득 구간별로 나란히 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>가구 월소득</th><th>전체</th><th>초등학교</th><th>중학교</th><th>고등학교</th></tr></thead>
+      <tbody>
+        {구간이름들.map((이름) => (
+          <tr>
+            <td>{이름}</td>
+            <td><strong>{자료.소득구간별[이름].전체}%</strong></td>
+            <td>{자료.소득구간별[이름].초등학교 ?? '못 쟀다'}%</td>
+            <td>{자료.소득구간별[이름].중학교 ?? '못 쟀다'}%</td>
+            <td>{자료.소득구간별[이름].고등학교 ?? '못 쟀다'}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 소득 구간이 오를수록 학교급 넷 다 참여율이 오릅니다 — 초등학교가 가장 높고
+    {' '}고등학교가 가장 낮은 것은 <a href="/tutoring">/tutoring</a>과 같은 흐름입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>이 표는 소득 구간이 2022년에 개편돼 시계열(추세)을 낼 수 없습니다 — 2025년 한 해만입니다.</li>
+    <li>「참여율」은 참여 여부만 잽니다 — 얼마를 썼는지(금액)는 <a href="/tutoring-region">/tutoring-region</a>에 있습니다.</li>
+    <li>소득이 성적·진학 결과로 이어지는지는 이 표가 가르지 않습니다 — 참여 «여부»까지입니다.</li>
+    <li>가구 대상 표본조사입니다 — 전수조사가 아니고, 소득은 응답자 자기신고입니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「사교육을 더 시켜야 한다/덜
+    {' '}시켜야 한다」고 쓰지 않습니다. 소득 구간마다 참여율이 얼마나 다른지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.정의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/tutoring">← 학원, 얼마나 다니고 얼마나 안 다닐까요?</a>
+    <br />
+    <a href="/tutoring-region">← 지역에 따라 사교육비는 얼마나 다를까요?</a>
+    <br />
+    <a href="/wage-education">← 학력에 따라 월급은 얼마나 다를까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="tutoring-income" />
+
+  <NextQuestionBrief 모은것="초중고사교육비조사 자료" />
+</HundredYear>
