@@ -56,3 +56,6 @@
 
 ## Small-business sentiment (SEMAS BSI via KOSIS, reproducible — hope vs reality)
 - [Korea's small merchants haven't felt neutral in years](https://seoulmarkets.com/article/korea-small-merchants-never-neutral): a survey put September small-merchant sentiment at a year-high 95.1 (traditional markets 105.0). But 95.1 is an expectation and still below the neutral 100. On the reproducible KOSIS series (overall conditions), over 36 months expected BSI averaged 80 and felt BSI averaged 63.3 (a ~17pt gap) and neither crossed 100 once. Latest felt reading: 55.6 (July 2026).
+
+## Pension performance (NPS official disclosure, labels kept — not a market return)
+- [What Korea's pension's 107% return really measures](https://seoulmarkets.com/article/korea-pension-107-percent-read-the-label): NPS reports H1 2026 money-weighted, provisional returns — domestic equity 107.37%, overseas equity 17.81%, domestic bonds -3.00%, overseas bonds 9.22%, alternatives 9.60%; whole fund 27.22%; assets 1,865.6tn won. Money-weighted ≠ the market's move, so 107% is not a claim that Korean stocks doubled. We keep the fund's own labels.
