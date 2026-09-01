@@ -1,0 +1,290 @@
+#!/usr/bin/env node
+/**
+ * check-seat-split.mjs — **유닛마다 계정이 갈려 있나, 좌석 등급이 어긋나 있나**를 잰다.
+ *
+ * ── 왜 이 자가 생겼나 (2026-09-01 19:5x · 5번) ─────────────────────────────
+ * 사장님 — 「1번이 토큰이 없다… 1번을 팀으로 초대해서 데리고 와야한다」
+ *          「1번을 잘 팀으로 데리고 오는 게 매우 중요한 일이다」
+ *
+ * 실측해 보니 원인이 「초대를 안 보냈다」가 아니었다 —
+ * ```
+ * 1번 · 7번 · 2번  셋이 admin@klifedesign.net «하나»를 나눠 쓰고 있었다
+ *                  그 계정은 displayName "보스" · primary_owner — 사장님 본인 계정이다
+ *                  ⇒ 1번이 굶을 때 «사장님 몫»도 같이 깎인다
+ * 5번만            좌석이 team_tier_1 · 한도 default_claude_max_5x
+ * 나머지 다섯       team_standard · default_raven  ⇒ 그래서 자꾸 멈춘다
+ * ```
+ *
+ * ⚠ **이 건은 8/21부터 열흘 넘게 멈춰 있었다.** 2번이 「1번 팀좌석은 제 권한 밖」이라
+ *    적어 두고 「사장님 회신 대기」로 몇 번 남긴 것이 전부였다. 아무도 «재지» 않았다.
+ *    ⇒ 강령④ — 규칙은 문장이 아니라 검사로 둔다. 사람이 기억해서 지키는 구조를 안 만든다.
+ *
+ * ── ⛔ 이 자가 지키는 것 ──────────────────────────────────────────────────
+ * ⛔ 열쇠·토큰을 화면에 안 찍는다. 계정 «주소»와 좌석 «등급»까지만 읽는다.
+ * ⛔ 못 읽은 뿌리를 「이상 없음」으로 넘기지 않는다 — 「못 쟀다」로 따로 세어 적는다.
+ * ⛔ 고치라고 시키지 않는다 — 좌석은 사람(primary_owner)만 바꿀 수 있다. 짚어만 준다.
+ *
+ * 쓰는 법
+ *   node scripts/check-seat-split.mjs
+ *   node scripts/check-seat-split.mjs --자가시험
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import os from 'node:os';
+import { fileURLToPath } from 'node:url';
+
+/* 유닛 번호 → 설정 뿌리. 뿌리를 «안 거는» 유닛은 기본 `.claude` 를 쓴다 —
+   그것이 바로 이번 사고의 씨앗이었다(1번·7번이 사장님 계정을 쓰게 된 경로). */
+const 기본뿌리 = '.claude';
+const 유닛뿌리 = {
+  1: 기본뿌리, 2: '.claude-u2', 3: '.claude-u3', 4: '.claude-u4',
+  5: '.claude-u5', 6: '.claude-u6', 7: 기본뿌리,
+};
+
+/** 한 뿌리에서 계정·좌석만 읽는다. 못 읽으면 이유를 담아 돌려준다(0으로 안 채운다). */
+export function 계정읽기(뿌리, 집 = os.homedir()) {
+  const p = path.join(집, 뿌리, '.claude.json');
+  let 원본;
+  try { 원본 = fs.readFileSync(p, 'utf8'); }
+  catch (e) { return { 못잼: `파일이 없다(${e.code || e.message})`, 자리: p }; }
+  let j;
+  try { j = JSON.parse(원본); }
+  catch (e) { return { 못잼: `읽을 수 없는 꼴이다(${e.message.slice(0, 40)})`, 자리: p }; }
+  const a = j.oauthAccount;
+  if (!a) return { 못잼: '로그인 정보가 없다(로그인 안 된 뿌리)', 자리: p };
+  return {
+    계정: a.emailAddress || null,
+    좌석: a.seatTier || null,
+    한도: a.userRateLimitTier || null,
+    역할: a.organizationRole || null,
+    이름: a.displayName || null,
+    추가사용: a.hasExtraUsageEnabled === true,
+    조직: a.organizationName || null,
+    자리: p,
+  };
+}
+
+/** 좌석 등급 셈 — 큰 것이 센 것. 목록에 없는 이름이 나오면 «모른다»로 둔다(짐작 안 한다). */
+const 좌석셈 = { team_standard: 1, team_tier_1: 2, team_tier_2: 3, team_premium: 3 };
+
+export function 진단(표) {
+  const 산것 = Object.entries(표).filter(([, v]) => !v.못잼);
+  const 못잰것 = Object.entries(표).filter(([, v]) => v.못잼);
+
+  /* ① 한 계정을 여러 유닛이 나눠 쓰는가 */
+  const 계정별 = {};
+  for (const [번호, v] of 산것) (계정별[v.계정] ||= []).push(번호);
+  const 겹친계정 = Object.entries(계정별).filter(([, ns]) => ns.length > 1);
+
+  /* ② 좌석 등급이 어긋나는가 — 가장 센 것을 기준으로 삼는다 */
+  let 최고 = 0, 최고좌석 = null;
+  for (const [, v] of 산것) {
+    const c = 좌석셈[v.좌석] ?? 0;
+    if (c > 최고) { 최고 = c; 최고좌석 = v.좌석; }
+  }
+  const 낮은것 = 산것.filter(([, v]) => (좌석셈[v.좌석] ?? 0) < 최고);
+  const 모르는좌석 = 산것.filter(([, v]) => v.좌석 && 좌석셈[v.좌석] == null);
+
+  /* ③ 사장님 계정을 유닛이 쓰고 있는가 — primary_owner 는 사람 자리다 */
+  const 사장님계정 = 산것.filter(([, v]) => v.역할 === 'primary_owner');
+
+  /* ④ 추가 사용량이 조직 차원에서 막혀 있는가 */
+  const 추가막힘 = 산것.length > 0 && 산것.every(([, v]) => !v.추가사용);
+
+  return { 산것, 못잰것, 겹친계정, 최고좌석, 낮은것, 모르는좌석, 사장님계정, 추가막힘 };
+}
+
+function 낸다() {
+  const 표 = {};
+  for (const [번호, 뿌리] of Object.entries(유닛뿌리)) 표[번호] = 계정읽기(뿌리);
+  const d = 진단(표);
+
+  console.log(`■ 유닛 계정·좌석 — ${new Date().toLocaleString('ko-KR')}`);
+  console.log('');
+  console.log('  유닛  설정 뿌리        계정                        좌석            한도');
+  console.log('  ' + '─'.repeat(84));
+  for (const [번호, 뿌리] of Object.entries(유닛뿌리)) {
+    const v = 표[번호];
+    if (v.못잼) { console.log(`  ${번호}번   ${뿌리.padEnd(16)} ⚠ 못 쟀다 — ${v.못잼}`); continue; }
+    const 표시 = 뿌리 === 기본뿌리 ? `${뿌리} (기본)` : 뿌리;
+    console.log(`  ${번호}번   ${표시.padEnd(16)} ${(v.계정 || '-').padEnd(27)} ${(v.좌석 || '-').padEnd(15)} ${v.한도 || '-'}`);
+  }
+  console.log('');
+
+  let 흠 = 0;
+  const 잡는다 = (말) => { 흠++; console.log(`🔴 ${말}`); };
+
+  if (d.못잰것.length) console.log(`⚠ 못 잰 뿌리 ${d.못잰것.length}개 — 「이상 없음」이 아니다. 아래 셈에서 빠져 있다`);
+
+  for (const [계정, 번호들] of d.겹친계정) {
+    잡는다(`${번호들.map((n) => n + '번').join('·')} 이 계정 «하나»(${계정})를 나눠 쓴다 — 한도를 갈라 쓰니 먼저 굶는다`);
+  }
+  for (const [번호, v] of d.사장님계정) {
+    잡는다(`${번호}번이 «사장님 계정»(${v.계정} · ${v.이름 || '이름없음'} · primary_owner)으로 돈다 — 유닛이 굶을 때 사장님 몫도 깎인다`);
+  }
+  if (d.낮은것.length) {
+    잡는다(`좌석 등급이 어긋난다 — 가장 센 것은 ${d.최고좌석} 인데 ${d.낮은것.map(([n, v]) => `${n}번(${v.좌석})`).join(' · ')} 이 그보다 낮다`);
+    console.log('   → 좌석은 primary_owner 만 바꿀 수 있다. claude.ai → 설정 → Members 에서 좌석 종류를 맞춘다');
+  }
+  for (const [번호, v] of d.모르는좌석) {
+    console.log(`⚠ ${번호}번 좌석 「${v.좌석}」은 이 자가 모르는 이름이다 — 셈에서 뺐다(짐작해 등급을 매기지 않는다)`);
+  }
+  if (d.추가막힘) {
+    console.log('⚠ 「추가 사용량」이 전 유닛에서 꺼져 있다(org_level_disabled) — 한도를 다 쓰면 그 자리에서 멈춘다');
+    console.log('   ⛔ 돈이 드는 일이라 켜라고 하지 않는다. 사실만 적는다');
+  }
+
+  console.log('');
+  console.log(흠 ? `══ 흠 ${흠}개 ══  🔴 사람 손이 필요하다 — 「보스 도와줘요」에 올린다` : '══ 흠 0개 ══  ✅');
+  return 흠;
+}
+
+/* ── 자가시험 — 지어낸 표로 «잡는지»를 잰다. 통과만 하는 검사는 검사가 아니다 ── */
+function 자가시험() {
+  let 통과 = 0, 실패 = 0;
+  const 본다 = (참, 말) => { if (참) { 통과++; } else { 실패++; console.log('   🔴', 말); } };
+
+  const 만든다 = (o) => ({ 계정: o.계정, 좌석: o.좌석, 한도: 'x', 역할: o.역할 || 'user', 이름: null, 추가사용: o.추가사용 ?? true, 조직: 'X', 자리: 'x' });
+
+  /* ① 계정이 갈려 있고 좌석이 같으면 흠이 없다 */
+  {
+    const d = 진단({
+      1: 만든다({ 계정: 'a@x', 좌석: 'team_tier_1' }),
+      2: 만든다({ 계정: 'b@x', 좌석: 'team_tier_1' }),
+    });
+    본다(d.겹친계정.length === 0, '갈려 있는데 겹쳤다고 한다');
+    본다(d.낮은것.length === 0, '같은 좌석인데 낮다고 한다');
+    본다(d.사장님계정.length === 0, 'user 인데 사장님 계정이라고 한다');
+    본다(d.추가막힘 === false, '추가사용 켜졌는데 막혔다고 한다');
+  }
+  /* ② 두 유닛이 한 계정을 쓰면 잡는다 */
+  {
+    const d = 진단({
+      1: 만든다({ 계정: 'same@x', 좌석: 'team_tier_1' }),
+      7: 만든다({ 계정: 'same@x', 좌석: 'team_tier_1' }),
+      3: 만든다({ 계정: 'c@x', 좌석: 'team_tier_1' }),
+    });
+    본다(d.겹친계정.length === 1, '한 계정을 둘이 쓰는데 못 잡는다');
+    본다(d.겹친계정[0] && d.겹친계정[0][1].length === 2, '겹친 유닛 수를 틀리게 센다');
+  }
+  /* ③ 좌석이 낮으면 잡는다 */
+  {
+    const d = 진단({
+      5: 만든다({ 계정: 'e@x', 좌석: 'team_tier_1' }),
+      1: 만든다({ 계정: 'f@x', 좌석: 'team_standard' }),
+    });
+    본다(d.최고좌석 === 'team_tier_1', '가장 센 좌석을 못 고른다');
+    본다(d.낮은것.length === 1, '낮은 좌석을 못 잡는다');
+    본다(d.낮은것[0][0] === '1', '낮은 것이 어느 유닛인지 틀린다');
+  }
+  /* ④ 사장님 계정으로 도는 유닛을 잡는다 */
+  {
+    const d = 진단({ 1: 만든다({ 계정: 'boss@x', 좌석: 'team_standard', 역할: 'primary_owner' }) });
+    본다(d.사장님계정.length === 1, '사장님 계정으로 도는 유닛을 못 잡는다');
+  }
+  /* ⑤ 못 읽은 뿌리를 「이상 없음」으로 넘기지 않는다 */
+  {
+    const d = 진단({ 1: { 못잼: '파일이 없다' }, 2: 만든다({ 계정: 'g@x', 좌석: 'team_tier_1' }) });
+    본다(d.못잰것.length === 1, '못 읽은 뿌리를 못 센다');
+    본다(d.산것.length === 1, '못 읽은 뿌리를 산 것에 넣었다');
+    본다(d.겹친계정.length === 0, '못 읽은 뿌리를 계정 겹침에 끌어넣었다');
+  }
+  /* ⑥ 모르는 좌석 이름은 짐작하지 않는다 */
+  {
+    const d = 진단({
+      1: 만든다({ 계정: 'h@x', 좌석: 'team_tier_1' }),
+      2: 만든다({ 계정: 'i@x', 좌석: '새로생긴등급' }),
+    });
+    본다(d.모르는좌석.length === 1, '모르는 좌석 이름을 못 짚는다');
+  }
+  /* ⑦ 추가 사용량이 전부 꺼져 있으면 짚는다 */
+  {
+    const d = 진단({ 1: 만든다({ 계정: 'j@x', 좌석: 'team_tier_1', 추가사용: false }) });
+    본다(d.추가막힘 === true, '추가사용이 꺼진 것을 못 짚는다');
+  }
+  /* ⑧ 실물 뿌리를 정말 읽는가 — 없는 뿌리를 넣어도 죽지 않아야 한다 */
+  {
+    const v = 계정읽기('.claude-없는뿌리-시험용');
+    본다(!!v.못잼, '없는 뿌리인데 못 잼으로 안 적는다');
+    본다(!v.계정, '없는 뿌리에서 계정을 지어냈다');
+  }
+
+  console.log(`\n══ 자가시험 통과 ${통과} · 실패 ${실패} ══ ${실패 ? '🔴' : '✅'}`);
+  return 실패;
+}
+
+/* ── 한 줄 모드 — 두 시간 체크리스트가 부른다 ──
+   ⛔ 사장님 손을 기다리는 동안 계속 빨간불을 켜지 않는다. 기준선과 견줘
+      «나빠졌을 때»만 빨간불을 켠다. 그대로면 「기다리는 중」이라고만 적는다. */
+/* ⚠ 상대경로로 두면 «어디서 부르느냐»에 따라 다른 파일을 본다 — 체크리스트가
+   execSync 로 부를 때 기준선을 못 찾아 매번 「처음 쟀다」로 빨간불이 켜졌다.
+   ⇒ 이 파일 자리를 기준으로 잡는다. */
+const 이파일칸 = path.dirname(fileURLToPath(import.meta.url));
+const 기준선자리 = path.join(이파일칸, '..', 'docs', '유닛좌석-기준선.json');
+
+function 지금상태() {
+  const 표 = {};
+  for (const [번호, 뿌리] of Object.entries(유닛뿌리)) 표[번호] = 계정읽기(뿌리);
+  const d = 진단(표);
+  return {
+    겹친계정수: d.겹친계정.length,
+    겹친유닛: d.겹친계정.flatMap(([, ns]) => ns).sort().join(','),
+    사장님계정유닛: d.사장님계정.map(([n]) => n).sort().join(','),
+    낮은좌석유닛: d.낮은것.map(([n]) => n).sort().join(','),
+    못잰뿌리수: d.못잰것.length,
+  };
+}
+
+function 한줄() {
+  const 지금 = 지금상태();
+  let 기준 = null;
+  try { 기준 = JSON.parse(fs.readFileSync(기준선자리, 'utf8')); } catch { /* 없으면 처음이다 */ }
+
+  const 흠있나 = 지금.겹친계정수 > 0 || 지금.사장님계정유닛 || 지금.낮은좌석유닛;
+
+  if (!기준) {
+    fs.mkdirSync(path.dirname(기준선자리), { recursive: true });
+    fs.writeFileSync(기준선자리, JSON.stringify({ 적은날: new Date().toISOString(), 상태: 지금 }, null, 1), 'utf8');
+    console.log(`🔴 ⑧ 유닛 좌석    처음 쟀다 — 기준선을 적었다. ${흠있나 ? '흠 있음' : '깨끗'} (${기준선자리})`);
+    return 흠있나 ? 1 : 0;
+  }
+
+  const 나빠진것 = [];
+  if (지금.겹친계정수 > 기준.상태.겹친계정수) 나빠진것.push('계정 겹침이 늘었다');
+  if (지금.사장님계정유닛.length > (기준.상태.사장님계정유닛 || '').length) 나빠진것.push('사장님 계정으로 도는 유닛이 늘었다');
+  if (지금.낮은좌석유닛.length > (기준.상태.낮은좌석유닛 || '').length) 나빠진것.push('좌석이 낮은 유닛이 늘었다');
+  if (지금.못잰뿌리수 > 기준.상태.못잰뿌리수) 나빠진것.push('못 읽는 뿌리가 늘었다');
+
+  const 나아진것 = [];
+  if (지금.겹친계정수 < 기준.상태.겹친계정수) 나아진것.push('계정 겹침이 줄었다');
+  if (지금.낮은좌석유닛.length < (기준.상태.낮은좌석유닛 || '').length) 나아진것.push('좌석이 맞춰졌다');
+  if (지금.사장님계정유닛.length < (기준.상태.사장님계정유닛 || '').length) 나아진것.push('사장님 계정에서 빠져나왔다');
+
+  if (나빠진것.length) {
+    console.log(`🔴 ⑧ 유닛 좌석    **나빠졌다** — ${나빠진것.join(' · ')} → node scripts/check-seat-split.mjs`);
+    return 1;
+  }
+  if (나아진것.length) {
+    fs.writeFileSync(기준선자리, JSON.stringify({ 적은날: new Date().toISOString(), 상태: 지금 }, null, 1), 'utf8');
+    console.log(`✅ ⑧ 유닛 좌석    나아졌다 — ${나아진것.join(' · ')}. 기준선을 새로 적었다`);
+    return 0;
+  }
+  if (흠있나) {
+    const 며칠 = Math.floor((Date.now() - new Date(기준.적은날)) / 86400000);
+    console.log(`⏳ ⑧ 유닛 좌석    사장님 손 기다리는 중 ${며칠}일 — 겹친 계정 ${지금.겹친계정수} · 좌석 낮은 유닛 [${지금.낮은좌석유닛}]`);
+    console.log('                  (「보스 도와줘요」에 올려 두었다. ⛔ 여기서 빨간불을 켜지 않는다 — 기다리는 것은 흠이 아니다)');
+    return 0;
+  }
+  console.log('✅ ⑧ 유닛 좌석    계정 갈려 있고 좌석 맞다');
+  return 0;
+}
+
+const 인자 = process.argv.slice(2);
+if (인자.includes('--자가시험') ||인자.includes('--selftest')) {
+  process.exit(자가시험() ? 1 : 0);
+} else if (인자.includes('--체크리스트')) {
+  process.exit(한줄());
+} else {
+  process.exit(낸다() ? 1 : 0);
+}
