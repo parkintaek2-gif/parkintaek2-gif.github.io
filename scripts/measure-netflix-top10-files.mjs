@@ -120,7 +120,9 @@ export function 붙지않는제목(나라줄들, 세계줄들, { 넓이 = 20, �
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
   const 세계 = 줄나누기([
     'week\tcategory\tweekly_rank\tshow_title\tseason_title\tweekly_hours_viewed\truntime\tweekly_views\tcumulative_weeks_in_top_10',
     '2021-07-04\tTV (English)\t1\tA\t\t100\t\t\t1',
@@ -153,7 +155,7 @@ if (process.argv.includes('--자가시험')) {
   검('대소문자는 같은 제목이다', 제목열쇠('Squid Game', '') === 제목열쇠('squid game', ''));
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ measure-netflix-top10-files 자가시험 통과 (14)');
+  console.log(`✅ measure-netflix-top10-files 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

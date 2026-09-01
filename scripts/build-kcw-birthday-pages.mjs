@@ -343,7 +343,9 @@ ${줄 || '<tr><td colspan="3" class="fine">Nobody in our roster was born on this
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
 
   검('날을 사람 말로 쓴다', 날쓰기('05-16') === '16 May' && 날쓰기('12-01') === '1 December');
   검('하루 뒤로', 옆날('05-16', 1) === '05-17');
@@ -469,7 +471,7 @@ if (process.argv.includes('--자가시험')) {
   검('영문 이름이 아예 없으면 안 싣는다', 영문이름({ name: '홍길동', enTitle: null }) === null);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ build-kcw-birthday-pages 자가시험 통과 (18)');
+  console.log(`✅ build-kcw-birthday-pages 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

@@ -91,7 +91,9 @@ export const 잴시간인가 = (시, { 부터 = 9, 까지 = 23 } = {}) => 시 >=
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
 
   const t = 적힌시각읽기('2026. 8. 22. 오전 10:26:35');
   검('한국어 시각을 읽는다', t && t.hour === 10 && t.minute === 26 && t.day === 22);
@@ -114,7 +116,7 @@ if (process.argv.includes('--자가시험')) {
   검('경계를 포함한다', 잴시간인가(9) === true && 잴시간인가(23) === true);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-traffic-flush-alive 자가시험 통과 (16)');
+  console.log(`✅ check-traffic-flush-alive 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

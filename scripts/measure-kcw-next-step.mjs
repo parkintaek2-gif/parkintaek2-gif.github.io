@@ -128,7 +128,9 @@ export const 걸음몫 = (칸) => (칸.views > 0 ? 칸.inside / 칸.views : null
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
 
   검('열쇠를 칸으로 뜯는다', 열쇠뜯기('www.kculturewire.com\t/a\t(직접)\t0\t').pathname === '/a');
   검('봇 칸을 읽는다', 열쇠뜯기('h\t/a\tx\t1\t기타').bot === true);
@@ -174,7 +176,7 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 밖에서 온 것은 딱지에 안 센다', [...딱.values()].reduce((a,b)=>a+b,0) === 10);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ measure-kcw-next-step 자가시험 통과 (19)');
+  console.log(`✅ measure-kcw-next-step 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

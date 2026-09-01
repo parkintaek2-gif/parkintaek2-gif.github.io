@@ -152,7 +152,9 @@ export function 틈사이에일했나(git, 시작시각, 끝시각) {
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
   검('자료·기사를 건드리면 일로 센다', 일인가(['content/kculturewire/a.md']) === true);
   검('메모만 고친 것은 일로 안 센다', 일인가(['docs/세션간-메모.md']) === false);
   검('자를 만든 것도 일로 센다', 일인가(['scripts/check-x.mjs']) === true);
@@ -167,7 +169,7 @@ if (process.argv.includes('--자가시험')) {
   검('한 줄뿐이면 틈이 0', 가장큰틈(['01:00']) === 0);
   검('사장님 말씀을 자 안에 지니고 있다', 사장님말씀.includes('쉼 없이') && 사장님말씀.includes('1,000명'));
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-no-idle-hours 자가시험 통과 (8)');
+  console.log(`✅ check-no-idle-hours 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

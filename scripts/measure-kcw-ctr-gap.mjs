@@ -80,7 +80,9 @@ export const 클릭률 = (클릭, 노출) => (노출 > 0 ? 클릭 / 노출 : nul
 
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
 
   const 한줄 = 줄뜯기('   노출    175 · 클릭    0 · 순위 7.9   https://www.kculturewire.com/market/nicaragua');
   검('한 줄을 뜯는다', 한줄 && 한줄.노출 === 175 && 한줄.클릭 === 0 && 한줄.순위 === 7.9);
@@ -114,7 +116,7 @@ if (process.argv.includes('--자가시험')) {
   검('⛔ 0 으로 나누지 않는다', 클릭률(0, 0) === null);
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ measure-kcw-ctr-gap 자가시험 통과 (15)');
+  console.log(`✅ measure-kcw-ctr-gap 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 

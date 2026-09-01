@@ -79,7 +79,9 @@ export const 기사읽기 = (디렉 = CD) =>
  */
 if (process.argv.includes('--자가시험')) {
   const 실패 = [];
-  const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
+  /* ⚠ 2026-09-01 — 수를 «재서» 적는다. 손으로 적으면 검사가 빠져도 수가 안 움직인다 */
+  let 센것 = 0;
+  const 검 = (이름, 참) => { 센것 += 1; if (!참) 실패.push(이름); };
 
   /* 다섯 편이 태그 하나를 모두 공유하면 옛 규칙은 최신 둘만 물었다. 새 규칙은 고르게 낸다 */
   const 모형 = ['a', 'b', 'c', 'd', 'e'].map((id, i) => ({
@@ -103,7 +105,7 @@ if (process.argv.includes('--자가시험')) {
   검('후보가 둘이면 이웃도 둘', [...이웃표(셋만).values()].every((v) => v.length === 2));
 
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ check-kcw-article-doors 자가시험 통과 (6)');
+  console.log(`✅ check-kcw-article-doors 자가시험 통과 (${센것})`);
   process.exit(0);
 }
 
