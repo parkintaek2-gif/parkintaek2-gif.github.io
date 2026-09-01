@@ -67,6 +67,7 @@ export const 갈래 = {
   '/youth-budget-2027': ['src/pages/100y/youth-budget-2027/index.astro', 'src/data/100yearmap/youth-budget-2027.json'],
   '/ranking-university': ['src/pages/100y/ranking-university/index.astro', 'src/data/100yearmap/ranking-university-2025.json'],
   '/ranking-university-founding': ['src/pages/100y/ranking-university-founding/index.astro', 'src/data/100yearmap/ranking-university-founding.json'],
+  '/ranking-university-region': ['src/pages/100y/ranking-university-region/index.astro', 'src/data/100yearmap/ranking-university-region.json'],
   '/ranking-stock-wealth': ['src/pages/100y/ranking-stock-wealth/index.astro', 'src/data/100yearmap/ranking-stock-wealth-2026.json'],
   '/nonmarital-birth': ['src/pages/100y/nonmarital-birth/index.astro', 'src/data/100yearmap/nonmarital-birth.json'],
   '/mental-health': ['src/pages/100y/mental-health/index.astro', 'src/data/100yearmap/mental-health-by-age.json'],
