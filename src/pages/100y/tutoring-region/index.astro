@@ -1,0 +1,124 @@
+---
+/**
+ * /100y/tutoring-region — 지역에 따라 사교육비가 얼마나 다른가
+ *
+ * `docs/새데이터-KOSIS-후보.md` 후보였던 「지역별 사교육 참여율」을 다시 열어 보니
+ * 표 이름이 거짓이었다(101/DT_1PE202는 참여율이 아니라 사교육비). `/tutoring`
+ * (학교급별, 같은 조사)의 지역 축 짝이다.
+ *
+ * ⛔⛔ 「대상분포(%)」는 참여율이 아니라 표본의 지역별 인구비중이다 — 헷갈리지 않는다.
+ * ⛔ 서울이 더 많이 쓴다고 「서울 부모가 더 열성적이다」로 안 쓴다 — 학원 밀도·물가·
+ *   소득수준 등 이 표가 못 가르는 변수가 섞여 있다.
+ * ⛔ 2015년은 원자료에 "평균"(전체) 행이 없다 — 못 쟀다로 적는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/tutoring-region.json';
+
+const 자료 = 원본 as any;
+const 지역별 = 자료.최신지역별 as any[];
+const 최고 = 자료.최고칸;
+const 최저 = 자료.최저칸;
+const 흐름있는것 = (자료.흐름 as any[]).filter((r) => r.평균 != null && r.서울 != null && r.읍면지역 != null);
+const 첫흐름 = 흐름있는것[0];
+const 끝흐름 = 흐름있는것[흐름있는것.length - 1];
+const 배수 = (a: number, b: number) => Math.round((a / b) * 100) / 100;
+
+const desc =
+  `${자료.최신}년 지역별 학생 1인당 월평균 사교육비 — ${최고.칸}(${최고.사교육비}만원)이 ` +
+  `${최저.칸}(${최저.사교육비}만원)보다 ${배수(최고.사교육비, 최저.사교육비)}배 많습니다. ` +
+  `초중고사교육비조사 실측이며, 참여율이 아니라 «금액»입니다.`;
+---
+
+<HundredYear
+  title={`지역별 사교육비 — ${최고.칸} ${최고.사교육비}만원 vs ${최저.칸} ${최저.사교육비}만원`}
+  description={desc}
+>
+  <h1>지역에 따라 사교육비는<br />얼마나 다를까요?</h1>
+  <p class="sub">
+    {자료.최신}년 초중고사교육비조사 기준, 학생 1인당 월평균 사교육비를
+    {' '}<strong>지역별로</strong> 견줍니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">지역별 학생 1인당 월평균 사교육비 — 가장 높은 곳</p>
+    <p class="answer-num">{최고.칸} {최고.사교육비}만원</p>
+    <p class="answer-sub">
+      {최저.칸} {최저.사교육비}만원의 {배수(최고.사교육비, 최저.사교육비)}배 — 전체 평균 {자료.전체평균}만원, {자료.최신}년
+    </p>
+  </div>
+
+  <h2>지역별로 나란히 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>월평균 사교육비</th><th>학생 인구비중</th></tr></thead>
+      <tbody>
+        {지역별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.사교육비}만원</strong></td>
+            <td>{r.인구비중}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ <strong>「학생 인구비중」은 참여율이 아닙니다.</strong> {자료['⛔ 표 이름이 거짓이다']}
+  </p>
+
+  <h2>{첫흐름.해}년부터 {끝흐름.해}년까지 — 서울과 읍면지역</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>서울</th><th>읍면지역</th><th>배수</th></tr></thead>
+      <tbody>
+        {[첫흐름, 끝흐름].map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.서울}만원</td>
+            <td>{r.읍면지역}만원</td>
+            <td>{배수(r.서울, r.읍면지역)}배</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ <strong>절대 금액 차이는 커졌지만, 배수는 거의 그대로입니다.</strong>
+    {' '}{첫흐름.해}년 {첫흐름.서울 - 첫흐름.읍면지역}만원 차이(배수 {배수(첫흐름.서울, 첫흐름.읍면지역)}배)에서
+    {' '}{끝흐름.해}년 {Math.round((끝흐름.서울 - 끝흐름.읍면지역) * 10) / 10}만원 차이(배수 {배수(끝흐름.서울, 끝흐름.읍면지역)}배)로,
+    {' '}격차가 좁혀지거나 벌어졌다고 단정하지 않습니다 — 배수로 보면 «비슷한 정도»입니다.
+  </p>
+  <p class="note">
+    ⚠ 원자료에 {자료.해수}해가 있고 저희가 <strong>{자료.흐름해수}해를 냈습니다</strong> —
+    {' '}{자료.못낸해.length > 0 ? `${자료.못낸해.join(', ')}년은 "평균"(전체) 행이 원자료에 없어 못 냈습니다.` : ''}
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>「학생 인구비중」은 참여율이 아니라 표본의 지역별 분포입니다.</li>
+    <li>서울이 더 많이 쓰는 까닭(학원 밀도·물가·소득수준 등)은 이 표가 가르지 않습니다.</li>
+    <li>가구 대상 표본조사입니다 — 전수조사가 아닙니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「사교육을 더 써야 한다/덜
+    {' '}써야 한다」고 쓰지 않습니다. 지역마다 이 금액이 얼마나 다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.창구}에서 받았습니다
+    {' '}({자료.출처.orgId} · {자료.출처.tblId}). 받은 날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/tutoring">← 학원, 얼마나 다니고 얼마나 안 다닐까요?</a>
+    <br />
+    <a href="/region">← 지역으로 찾아보기</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="tutoring-region" />
+
+  <NextQuestionBrief 모은것="초중고사교육비조사 자료" />
+</HundredYear>

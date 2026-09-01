@@ -61,6 +61,7 @@ export const 갈래 = {
      data/100yearmap/*.json 을 grep 으로 뽑아 넣었다 — 지어내지 않았다 */
   '/elementary': ['src/pages/100y/elementary/index.astro', 'src/data/100yearmap/elementary.json'],
   '/tutoring': ['src/pages/100y/tutoring/index.astro', 'src/data/100yearmap/private-tutoring.json'],
+  '/tutoring-region': ['src/pages/100y/tutoring-region/index.astro', 'src/data/100yearmap/tutoring-region.json'],
   '/real-wage': ['src/pages/100y/real-wage/index.astro', 'src/data/100yearmap/real-wage.json'],
   '/idle-youth': ['src/pages/100y/idle-youth/index.astro', 'src/data/100yearmap/idle-youth.json'],
   '/wealth-gap': ['src/pages/100y/wealth-gap/index.astro', 'src/data/100yearmap/wealth-gap-age.json'],

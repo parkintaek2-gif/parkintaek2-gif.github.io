@@ -170,6 +170,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-27 — 사교육 참여율·비용(KOSIS 초중고사교육비조사). 우리 강령(학원을
        팔지 않는다)과 직접 닿는 자리라 사장님 지시로 착수. 만든 날 여기 넣는다. */
     { path: '/tutoring', priority: '0.8', changefreq: 'yearly' },
+    /* 🔴 2026-09-01 — /tutoring과 같은 조사(초중고사교육비조사)의 지역 축. DT_1PE202는
+       "참여율"이 아니라 "사교육비"였다(표 이름 오인 정정, KOSIS 후보 문서 참고). */
+    { path: '/tutoring-region', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-28 — 실질임금(사업체노동력조사×소비자물가지수, 저희 계산). 사장님이
        고용노동부 보도자료를 직접 짚으며 지시. 매달 갱신 여지가 있어 monthly. */
     { path: '/real-wage', priority: '0.8', changefreq: 'monthly' },
