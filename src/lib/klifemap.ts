@@ -109,7 +109,7 @@ export const KLIFEMAP_어른: 입구 = {
 export const 어른갈래: ReadonlySet<string> = new Set([
   'age', 'university', 'work', 'life', 'how-long', 'size',
   'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'cycling', 'swimming', 'soccer', 'parental-leave', 'oneperson', 'lifelong', 'retire-income', 'polytech', 'pension', 'training-card',
-  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-stock-wealth', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education',
+  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
 ]);
 
@@ -184,7 +184,7 @@ export const 붙일수있는갈래 = [
    *   갈림은 바로 아래 `어른갈래`에서 마저 한다.
    */
   'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'cycling', 'swimming', 'soccer', 'parental-leave', 'oneperson', 'lifelong', 'retire-income', 'polytech', 'pension', 'training-card',
-  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-stock-wealth', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education',
+  'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring',
   /** ⭐ 2026-08-23 — 메뉴 개편으로 신설된 「대학 이전」 허브. 안의 여섯 지면과 같은 결(아이 쪽)이라
