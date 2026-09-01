@@ -1,0 +1,154 @@
+---
+/**
+ * /100y/ranking-university-founding — 「순위+문제제기」 시리즈 3편
+ * 대학 순위 — 설립별(국립·공립·사립)
+ *
+ * 사장님 지시(2026-08-31 원문 10) — 「국립대, 공립대 순위 다 나눠서 공격적으로」.
+ * `docs/3번-순위콘텐트-지침.md` 참고.
+ *
+ * ⛔⛔ 이 지면은 대학 «개별»을 새로 평가하지 않는다 — 1편(`/ranking-university`)이
+ *   그 일을 했다. 여기서는 이미 공시된 개별 값을 설립유형별로 «묶어» 평균만 낸다.
+ * ⛔ 「공립대가 국립대보다 취업률이 높다」는 사실을 「공립대가 더 낫다」로 읽으면
+ *   안 된다 — 공립대 7곳은 대개 도립 전문대학 성격이 섞여 있어 국립대(종합대 다수)와
+ *   «같은 종류의 학교»가 아닐 수 있다. 그 말을 지면에 못박는다.
+ * ⚠ 국립대법인(2)·특별법법인(5)·특별법국립(2)은 표본이 작아 참고로만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/ranking-university-founding.json';
+
+const 자료 = 원본 as any;
+const 설립별 = 자료.설립별 as Record<string, any>;
+const 주요 = (자료.주요세갈래 as string[]).map((g) => ({ 이름: g, ...설립별[g] }));
+const 작은갈래 = 자료['⚠ 표본이 작은 갈래'] as { 갈래: string; 학교수: number }[];
+
+const 최고 = 주요.reduce((a, b) => (b.평균취업률 > a.평균취업률 ? b : a));
+const 최저 = 주요.reduce((a, b) => (b.평균취업률 < a.평균취업률 ? b : a));
+
+const desc =
+  `대학알리미 공시(${자료.출처.공시연도}년)로 낸 설립유형별 평균 취업률 — ` +
+  `${최고.이름}(${최고.평균취업률}%)이 ${최저.이름}(${최저.평균취업률}%)보다 ` +
+  `${Math.round((최고.평균취업률 - 최저.평균취업률) * 10) / 10}%p 높습니다. 새 평가가 아니라 기존 공시치의 묶음 평균입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: `${최고.이름}이 ${최저.이름}보다 취업률이 높으니 더 나은 대학인가요?`,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 공립대(7곳)와 국립대(36곳)는 학교 성격 구성이 다를 수 있어(도립 전문대학 비중 등) 같은 잣대로 줄 세울 수 없습니다. 저희는 "더 낫다"를 판정하지 않고, 설립유형별 평균이 이렇게 다르다는 사실만 놓습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`대학 취업률 — ${최고.이름} ${최고.평균취업률}% vs ${최저.이름} ${최저.평균취업률}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>국립대·공립대·사립대,<br />취업률 평균이 다릅니다</h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 지면은 대학 개별을 새로 평가한 것이 아닙니다.</strong></p>
+    <p class="note">{자료['⛔ 이것은 새 평가가 아니다']}</p>
+  </div>
+
+  <p class="sub">
+    대학알리미 공시({자료.출처.공시연도}년)에 있는 대학 {주요.reduce((s, g) => s + g.학교수, 0)}곳의
+    {' '}취업률·중도탈락률·재학생충원율을, 저희가 <strong>설립유형(국립·공립·사립)별로 묶어</strong> 평균만 냈습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">설립유형별 평균 취업률 — 가장 높은 갈래</p>
+    <p class="answer-num">{최고.이름} {최고.평균취업률}%</p>
+    <p class="answer-sub">
+      {최저.이름} {최저.평균취업률}%보다 {Math.round((최고.평균취업률 - 최저.평균취업률) * 10) / 10}%p 높습니다 — {자료.출처.공시연도}년
+    </p>
+  </div>
+
+  <h2>설립유형별 평균 — 셋을 나란히</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>설립</th><th>학교 수</th><th>평균 취업률</th><th>평균 중도탈락률</th><th>평균 재학생충원율</th></tr></thead>
+      <tbody>
+        {주요.map((g) => (
+          <tr>
+            <td>{g.이름}</td>
+            <td>{g.학교수}곳</td>
+            <td><strong>{g.평균취업률}%</strong></td>
+            <td>{g.평균중도탈락률}%</td>
+            <td>{g.평균재학생충원율}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ <strong>이것이 "어느 쪽이 더 나은 대학이다"라는 뜻은 아닙니다.</strong> 공립대 7곳은
+    {' '}도립 전문대학 성격이 섞여 국립대(종합대가 많음) 36곳과 학교 구성이 다를 수 있습니다.
+    {' '}같은 잣대로 줄 세운 순위가 아니라, 평균값이 이렇게 갈린다는 사실만 놓습니다.
+  </p>
+
+  <h2>표본이 작은 갈래 — 따로 참고만</h2>
+  <p class="note">
+    아래는 학교 수가 적어 위 셋과 나란히 비교하면 우연이 차이로 읽힐 수 있습니다.
+    {' '}그래서 갈라 둡니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>설립</th><th>학교 수</th><th>평균 취업률</th></tr></thead>
+      <tbody>
+        {작은갈래.map((g) => (
+          <tr>
+            <td>{g.갈래}</td>
+            <td>{g.학교수}곳</td>
+            <td>{설립별[g.갈래].평균취업률}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    저희가 맞춰 본 것 — 설립유형별 학교 수를 다 더하니
+    {' '}{자료.자가대조.합}곳으로, 취업률이 있는 전체 대학 수({자료.자가대조.취업률있는대학수}곳)와
+    {' '}<strong>{자료.자가대조['설립별 학교수 합 == 취업률 있는 대학수'] ? '같습니다' : '어긋납니다'}</strong>.
+  </p>
+
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 어느 설립유형이 "더 낫다"고
+    {' '}쓰지 않습니다. 평균이 이렇게 갈린다는 사실과, 그 평균 뒤에 섞여 있는 학교 구성의
+    {' '}차이를 함께 놓을 뿐입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관} {자료.출처.표}, {자료.출처.공시연도}년 공시. 받은 날 {자료.만든날}.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/ranking-university">← 중앙일보 종합평가가 높은 대학인데, 취업률은 다른 대학보다 낮은 경우</a>
+    <br />
+    <a href="/university">← 대학 찾아보기</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="대학알리미 공시 자료" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-university-founding"></div>
+</HundredYear>

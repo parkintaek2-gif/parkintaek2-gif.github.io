@@ -193,6 +193,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 1편. 중앙일보 대학평가(3자 순위) 인용 +
        대학알리미 실측 대조. docs/3번-순위콘텐트-지침.md 참고. */
     { path: '/ranking-university', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-01 — 「순위+문제제기」 시리즈 3편(사장님 지시 10 — 국립·공립·사립 나눠서).
+       개별 대학을 새로 평가하지 않는다 — 이미 공시된 값을 설립유형별로 묶어 평균만 낸다. */
+    { path: '/ranking-university-founding', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 2편. CEOscore데일리 국내 주식부호 순위(3자
        인용) + 100yearmap 청년 가구 자산 실측(KOSIS) 대조. 개인 행복 판정 안 함. */
     { path: '/ranking-stock-wealth', priority: '0.7', changefreq: 'yearly' },
