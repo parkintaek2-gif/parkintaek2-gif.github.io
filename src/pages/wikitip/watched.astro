@@ -8,6 +8,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import { 지은날글 } from "../../../scripts/lib/kcw-date.mjs";
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/wikitip-global.json';
 
 /* 🔴 [2026-08-26 21:4x · 5번] 제목에 «drama» 를 넣었다. 손님이 치는 말이다 —
@@ -103,6 +104,19 @@ const jsonLd = {
       ))}
     </ul>
   </section>
+
+  {/*
+    🔴 [2026-09-01] 오늘 낸 기사 `alchemy-of-souls-ran-longest-without-number-one` 에서 뽑았다.
+    ⛔ 새 수를 만들지 않았다 — 이 지면과 같은 자료(`wikitip-global.json`)를 읽는다.
+    ⚠ 화면에 «두 자»가 같이 선다(주당 41 vs 16). 하나만 보이면 손님이
+      「오래 갔으니 더 컸다」로 읽는다 — 그건 자료가 말하는 것이 아니다.
+    ⛔ 소리 있는 판이다 — 음량 −24 dB 로 쟀다.
+  */}
+  <KcwShorts set="alchemy"
+    says={`Fourteen seconds, read aloud: nine of the ten most watched Korean titles on Netflix `
+      + `reached number one. Alchemy of Souls charted for 27 weeks — longer than eight of them — `
+      + `and peaked at three. King the Land drew 41 million hours per charting week against its `
+      + `16. Netflix publishes hours only for the weeks a title was inside the top 10.`} />
 
   <KcwRelatedArticles page="/watched" />
 

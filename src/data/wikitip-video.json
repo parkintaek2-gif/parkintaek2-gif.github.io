@@ -254,6 +254,20 @@
       "uploadDate": "2026-09-01",
       "thumb": "/video/thumb/btsgroup.jpg",
       "src": "/video/btsgroup.mp4"
+    },
+    {
+      "set": "alchemy",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/alchemy.jpg",
+      "src": "/video/alchemy.mp4"
+    },
+    {
+      "set": "starsign",
+      "seconds": 14,
+      "uploadDate": "2026-09-01",
+      "thumb": "/video/thumb/starsign.jpg",
+      "src": "/video/starsign.mp4"
     }
   ],
   "unmeasured": [],

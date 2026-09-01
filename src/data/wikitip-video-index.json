@@ -1,14 +1,14 @@
 {
-  "generated": "2026-09-01 06:21 UTC",
+  "generated": "2026-09-01 06:41 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 36,
-    "짝찾음": 35,
+    "영상": 38,
+    "짝찾음": 37,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
     "지면에서읽음": 34,
-    "원본에서읽음": 1
+    "원본에서읽음": 3
   },
   "videos": [
     {
@@ -368,6 +368,26 @@
       "seconds": 14,
       "page": "/member-vs-group",
       "says": "Fourteen seconds, read aloud: seven BTS members across four Southeast Asian Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri beats Girl's Day in all four of hers — six acts lose to their own member everywhere we could measure. This counts encyclopaedia pages being opened, not popularity or streams.",
+      "saysFrom": "page source",
+      "alsoOn": []
+    },
+    {
+      "set": "alchemy",
+      "src": "/video/alchemy.mp4",
+      "thumb": "/video/thumb/alchemy.jpg",
+      "seconds": 14,
+      "page": "/watched",
+      "says": "Fourteen seconds, read aloud: nine of the ten most watched Korean titles on Netflix reached number one. Alchemy of Souls charted for 27 weeks — longer than eight of them — and peaked at three. King the Land drew 41 million hours per charting week against its 16. Netflix publishes hours only for the weeks a title was inside the top 10.",
+      "saysFrom": "page source",
+      "alsoOn": []
+    },
+    {
+      "set": "starsign",
+      "src": "/video/starsign.mp4",
+      "thumb": "/video/thumb/starsign.jpg",
+      "seconds": 14,
+      "page": "/star-signs",
+      "says": "Fourteen seconds, read aloud: 281 Korean stars from Wikidata, counted by star sign. Aquarius 28, Cancer 17 — and dealing 281 people into twelve signs at random produces a gap that size about 87% of the time. Chi-squared is 6.3 against a 0.05 threshold of 19.68. 22 of the 281 sit within a day of a sign boundary, where a birth time we do not have would change the answer. We measured it, and there is nothing to explain.",
       "saysFrom": "page source",
       "alsoOn": []
     }

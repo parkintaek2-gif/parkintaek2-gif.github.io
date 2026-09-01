@@ -486,6 +486,22 @@ const videoSets = [
      *   소리 자가 기본으로 `-voiced` 를 붙이길래 이름을 바로잡았다.
      *   ⚠ 안 바로잡으면 체크리스트가 「버전업 2편」으로 세고 「새 영상 0편」이 남는다.
      */
+    /* 🔴 [2026-09-01] 사장님 지시로 «1번 자료»(스타 281명)를 읽어 만든 첫 편이다 */
+    set: 'starsign',
+    page: '/star-signs',
+    title: '281 Korean stars by star sign — and no pattern at all',
+    description: '14 seconds with narration: Aquarius 28, Cancer 17 — and chance alone produces a '
+      + 'gap that size about 87% of the time. Chi-squared 6.3 against a 0.05 threshold of 19.68.',
+  },
+  {
+    set: 'alchemy',
+    page: '/watched',
+    title: 'Alchemy of Souls ran 27 weeks and never hit number one',
+    description: '14 seconds with narration: nine of the ten most watched Korean titles reached '
+      + 'number one. The exception charted longer than eight of them — and King the Land drew '
+      + '41 million hours per charting week against its 16.',
+  },
+  {
     set: 'btsgroup',
     page: '/member-vs-group',
     title: 'No BTS member outdraws BTS — 0 of 28 checks',
