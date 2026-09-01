@@ -1,5 +1,5 @@
 ---
-title: "Four times outside Korea, every one of a country's ten Netflix TV places was Korean"
+title: "Four times, every one of a country’s 10 TV places was Korean"
 category: titles
 genre: drama
 dek: "Vietnam twice in August 2021, then Indonesia and Malaysia in the same week of July 2022. We checked all 20,667 country-weeks in which any Korean title charted; these four are the only ones outside Korea where nothing else got in."

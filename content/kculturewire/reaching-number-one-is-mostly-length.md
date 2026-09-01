@@ -1,5 +1,5 @@
 ---
-title: "We said reaching number one doubles a title's hours. Most of that gap was run length."
+title: "Number one doubles a title’s hours — mostly by run length"
 dek: "Measured on all 246 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two. Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks."
 category: titles
 purpose: both

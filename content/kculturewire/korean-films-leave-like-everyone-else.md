@@ -1,5 +1,5 @@
 ---
-title: "Korean films leave a Netflix chart exactly as fast as everyone else's. Korean series do not"
+title: "Korean films leave a Netflix chart like everyone else"
 category: titles
 purpose: both
 dek: "Across 210,355 finished runs, a Korean film holds a country chart for 1.96 weeks on average and every other film for 2.02. Korean series run 3.7 weeks against 2.71 — and removing each group's biggest title barely moves it."

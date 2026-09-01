@@ -1,5 +1,5 @@
 ---
-title: "In Southeast Asia a Korean title charts in all six countries or in one. There is little in between."
+title: "A Korean title charts in all 6 countries, or in 1"
 dek: "Of 397 Korean titles that reached a Netflix Top 10 in Southeast Asia since 2021, 45.1% charted in all six countries and 30.7% in exactly one. Series average 4.6 countries; films average 2.6."
 category: titles
 purpose: both

@@ -1,12 +1,12 @@
 ---
-title: "IU's saju: the balancing element holds without a birth hour, the strength reading splits 5–7"
+title: "IU’s saju holds without a birth hour. Strength splits 5–7"
 category: stars
 genre: music
 dek: "KLifeMap ran IU's chart from the public birth date, 16 May 1993, with no birth hour. Its engine returns water in all twelve possible hours. Strength comes out five strong, seven weak. We report the reading and what it cannot settle."
 pubDate: 2026-08-23
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["saju", "stars", "klifemap", "method", "kpop"]
+tags: ["iu", "saju", "stars", "klifemap", "method", "kpop"]
 pages:
   - "/community"
   - "/star-signs"

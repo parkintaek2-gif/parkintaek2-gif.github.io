@@ -1,12 +1,12 @@
 ---
-title: "Malaysia over-reads SISTAR and Ahn So-hee while the region leads with BTS"
+title: "Malaysia over-reads SISTAR while the region leads with BTS"
 category: industry
 purpose: both
 dek: "Groups, solo musicians, actors, athletes — the Malay Wikipedia takes 7.6% to 8.6% of the four-country reading for each. For luxury and car brands it takes 23%. Four categories in a narrow band, one well outside it."
 pubDate: 2026-08-14
 dataAsOf: 2026-08-14T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "southeast-asia", "malaysia", "brands", "measurement", "limits"]
+tags: ["sistar", "ahn-so-hee", "bts", "korea", "southeast-asia", "malaysia", "brands", "measurement", "limits"]
 pages:
   - "/malaysia"
   - "/fame-compare"

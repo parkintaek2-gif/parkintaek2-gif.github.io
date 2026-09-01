@@ -1,5 +1,5 @@
 ---
-title: "Korea's television exports moved to companies where people stay half as long"
+title: "Korea’s TV exports moved to firms where people stay half"
 dek: "Terrestrial broadcasters were 81.5% of Korea's TV exports in 2012 and 7.2% in 2024. Their staff average 10.3 years of service — the longest in Korean content. The producers who took the trade average 5.4 to 7.3."
 category: industry
 purpose: both

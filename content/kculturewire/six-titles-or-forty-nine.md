@@ -1,5 +1,5 @@
 ---
-title: "Six Korean titles fill half of America's Korean chart places. In Vietnam it takes 52."
+title: "6 Korean titles fill half of America’s chart. Vietnam: 52"
 dek: "Across 93 markets the typical Asian one has charted 247 different Korean titles and the typical market elsewhere 85. Matching markets by how many Korean places they hold removes a third of that gap. Two-thirds of it survives."
 category: titles
 purpose: both

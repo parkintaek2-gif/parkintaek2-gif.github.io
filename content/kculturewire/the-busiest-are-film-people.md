@@ -1,12 +1,12 @@
 ---
-title: "Lee Byung-hun, Ma Dong-seok and Ha Jung-woo: the busiest names on Netflix Korea are film actors"
+title: "Lee Byung-hun and Ma Dong-seok: the busiest are film actors"
 dek: "Korean series account for more casting slots than films here — 1,804 against 1,611. But among the 30 actors with ten or more charting titles, film outnumbers series 263 to 109."
 category: stars
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-07T00:00:00+09:00
 author: Newsroom
-tags: ["korean film", "korean drama", "netflix", "casting", "korea"]
+tags: ["lee-byung-hun", "ma-dong-seok", "ha-jung-woo", "korean film", "korean drama", "netflix", "casting", "korea"]
 pages:
   - "/actors"
 sources:

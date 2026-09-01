@@ -1,5 +1,5 @@
 ---
-title: "Korean content companies are 38.8% women against the market's 28% — the gap inside them is bigger"
+title: "Korean content firms are 38.8% women against 28%"
 dek: "Film, video and audio production is 56.9% women. Publishing and games is 34.1%. Both sit above the whole listed market. The 22.8-point gap inside one sector is the larger fact and the filings do not explain it."
 category: stars
 purpose: both

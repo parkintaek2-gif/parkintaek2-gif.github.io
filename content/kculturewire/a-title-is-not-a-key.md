@@ -1,5 +1,5 @@
 ---
-title: "Undercover took 48 chart places in our Korean panel. It is a Belgian series"
+title: "Undercover took 48 places in our Korean panel. It is Belgian"
 category: industry
 purpose: both
 dek: "Two works can carry the same English title, and a chart row does not say which one it is. Thirteen titles in our Korean panel turned out to be foreign works. The test that found them is not the name — it is where they charted."

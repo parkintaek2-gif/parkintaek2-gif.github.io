@@ -1,5 +1,5 @@
 ---
-title: "Fewer people are looking up what hangul is. The same is true of kana"
+title: "Hangul reads fell 25.5% in a year. Kana fell 28.2%"
 category: tradition
 purpose: both
 dek: "Reads of Korean language, hangul, hanbok and taekwondo fell 25.5% across four Southeast Asian Wikipedias in a year. The Japanese equivalents fell 28.2%. Two other genres we measured could not be used at all, and we say why."

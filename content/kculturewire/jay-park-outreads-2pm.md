@@ -1,11 +1,11 @@
 ---
-title: "Jay Park outreads 2PM and Lee Hye-ri outreads Girl's Day, in all four countries. BTS's members never outread BTS"
+title: "Jay Park outreads 2PM. BTS members never outread BTS"
 category: stars
 dek: "We put 23 K-pop soloists beside their own group on four Southeast Asian Wikipedias. Six are read more everywhere, thirteen less everywhere, and four disagree from one country to the next — T.O.P clears BigBang only in Vietnam."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "kpop", "method"]
+tags: ["jay-park", "2pm", "lee-hye-ri", "girls-day", "bts", "wikipedia", "southeast asia", "kpop", "method"]
 pages:
   - "/member-vs-group"
 sources:

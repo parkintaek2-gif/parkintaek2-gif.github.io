@@ -1,12 +1,12 @@
 ---
-title: "Exactly one Korean act is read more than Son Heung-min in Southeast Asia"
+title: "One Korean act is read more than Son Heung-min in SEA"
 category: stars
 purpose: both
 dek: "We put 2,511 Korean entertainers, 900 athletes and 22 luxury and car brands on one scale. BTS clears the footballer. Of everyone else measured, nobody does — and the most-read brand sits at a sixth of the leaders."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "stars", "kpop", "sport", "brands", "southeast-asia", "measurement"]
+tags: ["son-heung-min", "korea", "stars", "kpop", "sport", "brands", "southeast-asia", "measurement"]
 pages:
   - "/fame-compare"
   - "/sea-athletes"

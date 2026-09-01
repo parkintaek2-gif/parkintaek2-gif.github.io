@@ -1,5 +1,5 @@
 ---
-title: "One Wikipedia writes down Korean titles first, and it is not the biggest one"
+title: "One Wikipedia writes Korean titles first — not the biggest"
 category: titles
 purpose: both
 dek: "Across 25 Korean titles with an article on all four Southeast Asian Wikipedias, the Indonesian edition was first or joint-first 24 times and last not once. The Vietnamese edition is larger on every measure we checked."

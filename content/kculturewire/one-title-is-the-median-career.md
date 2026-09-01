@@ -1,5 +1,5 @@
 ---
-title: "Half the Korean actors on a Netflix chart are there for exactly one title"
+title: "50% of Korean actors on a Netflix chart have 1 title"
 category: stars
 purpose: both
 dek: "We tried to test whether debuting younger buys a wider career. The answer did not come out in one direction, so we went looking for why — and found that for 658 of 1,329 actors, the chart only ever lit them once."

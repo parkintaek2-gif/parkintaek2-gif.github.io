@@ -1,5 +1,5 @@
 ---
-title: "There is no K-drama season. The Korean share moves 2.5 points across twelve months — and 14.2 in a week."
+title: "No K-drama season: 2.5 points a year, 14.2 in a week"
 dek: "Month by month, Korean titles hold between 6.6% and 9.1% of the world's top-10 places. Remove each month's biggest title and the band gets wider, not narrower. What moves this number is releases, not the calendar."
 category: titles
 purpose: both

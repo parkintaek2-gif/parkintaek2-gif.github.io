@@ -1,12 +1,12 @@
 ---
-title: "Go Youn-jung, Lee Chae-min and Moon Ga-young: three countries, three different first names"
+title: "Go Youn-jung, Lee Chae-min, Moon Ga-young: 3 countries"
 category: stars
 genre: drama
 dek: "Four Southeast Asian Wikipedias, four lists of Korean actors, three different names at the top. Byeon Woo-seok, Kim Seon-ho and Cha Eun-woo appear on every list — and not one of them is first anywhere."
 pubDate: 2026-08-20
 dataAsOf: 2026-08-20T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "actors", "kdrama", "method"]
+tags: ["go-youn-jung", "lee-chae-min", "moon-ga-young", "wikipedia", "southeast asia", "actors", "kdrama", "method"]
 pages:
   - "/actors-first"
   - "/who-is-first"

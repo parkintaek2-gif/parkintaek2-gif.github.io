@@ -1,5 +1,5 @@
 ---
-title: "Nearly three in ten Korean titles that reached a Netflix top 10 never left home"
+title: "Nearly 3 in 10 Korean Netflix titles never left home"
 dek: "976 Korean titles have reached a weekly top 10 somewhere. 438 did it in exactly one country, and for 274 of those the country was South Korea itself. Films stay home far more than series — 37% against 15%."
 category: titles
 purpose: both

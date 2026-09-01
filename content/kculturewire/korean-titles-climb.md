@@ -1,5 +1,5 @@
 ---
-title: "Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one."
+title: "Korean titles climb the Netflix chart. Others peak week one"
 dek: "Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
 category: titles
 purpose: both

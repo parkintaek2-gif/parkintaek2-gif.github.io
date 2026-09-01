@@ -1,5 +1,5 @@
 ---
-title: "A Korean company that charts in a country once charts there again, four times as often"
+title: "A Korean company that charts once charts there 4x as often"
 category: industry
 purpose: both
 dek: "A series charts in 32.9% of countries where its company had already charted and 8.6% where it had not. Comparing each series against itself removes age, strength and size, and the gap widens. It reverses in seven markets, five English."

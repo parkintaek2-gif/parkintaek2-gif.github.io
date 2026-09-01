@@ -1,5 +1,5 @@
 ---
-title: "Our headline 7.9% is not one place a week — it is nothing, and then several at once"
+title: "Our 7.9% is not one place a week — nothing, then several"
 category: titles
 purpose: both
 dek: "Korean titles hold 7.9% of Netflix country chart places. Spread evenly that would put at least one on 56.3% of country-weeks; the real figure is 42.0%. Empty weeks run 58.0% against 43.7%, and crowded weeks 4.0% against 0.6%."

@@ -1,12 +1,12 @@
 ---
-title: "We built the day pillar for 9,249 Korean entertainers — IU, Jungkook, RM and BTS included"
+title: "Day pillars for 9,249 Korean entertainers, IU and BTS in"
 category: stars
 genre: music
 dek: "English saju sites read one chart at a time, so nobody has a denominator. We built one: 9,249 Korean entertainers with a birth date on record to the day. One of our four tests crossed the chance line; here is what we did to kill it."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["saju", "stars", "method", "kpop", "wikidata"]
+tags: ["iu", "jungkook", "rm", "bts", "saju", "stars", "method", "kpop", "wikidata"]
 pages:
   - "/day-pillar"
   - "/born-on"

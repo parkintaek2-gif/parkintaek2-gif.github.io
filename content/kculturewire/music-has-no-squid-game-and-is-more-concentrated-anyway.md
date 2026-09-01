@@ -1,5 +1,5 @@
 ---
-title: "Squid Game is 21.3% of Korean viewing. BTS is 3.9% of K-pop — and K-pop is still more unequal"
+title: "Squid Game is 21.3% of viewing. BTS is 3.9% of K-pop"
 dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.3% of titles on screen. No giant, steeper slope."
 category: titles
 genre: music
@@ -10,7 +10,7 @@ corrections:
   - date: 2026-08-09
     note: "The screen panel this article measures was 235 titles and is now 234, and the shares move with it: the 17 titles that reach half the attention are 7.3% of the panel rather than 7.2%, and the ten largest hold 56.2% rather than 57.0%. The article was right about the numbers it was given; the rule that produced them was wrong. Our test for whether a Netflix title is Korean matched the title text against Wikidata labels in any language, so 23 titles written in Arabic, Hebrew, Cyrillic and Japanese script were counted as Korean works. They are local titles. Netflix does not translate titles in these lists — Squid Game holds 445 chart places across ten Arab markets under its Latin name, and only 10 of the 1,530 distinct titles on Egypt's chart are written in Arabic script. The rule now ignores non-Latin labels. The comparison this article makes is unchanged in direction: music is still the more concentrated of the two, and still more concentrated once Squid Game is removed from the screen side."
 author: Newsroom
-tags: ["kpop", "netflix", "attention", "concentration", "measurement"]
+tags: ["squid-game", "bts", "kpop", "netflix", "attention", "concentration", "measurement"]
 pages:
   - "/kpop-attention"
   - "/watched"

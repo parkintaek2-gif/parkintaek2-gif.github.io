@@ -1,5 +1,5 @@
 ---
-title: "Southeast Asia's Korean travel pages fell by a third. Its Korean culture pages did not"
+title: "Korean travel pages fell 33%. Culture pages did not"
 category: industry
 purpose: both
 dek: "Reads of Korean travel articles in four Southeast Asian Wikipedias fell 30% in a year. Korean culture articles fell 14%, Japanese and Taiwanese culture articles rose, and air passengers on the Asia routes barely moved."

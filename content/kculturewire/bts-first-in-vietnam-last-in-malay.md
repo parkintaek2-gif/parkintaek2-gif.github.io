@@ -1,11 +1,11 @@
 ---
-title: "BTS is read most in Vietnam and Byeon Woo-seok in Thailand. The 20 biggest are all read least in Malay"
+title: "BTS is read most in Vietnam. All 20 read least in Malay"
 category: stars
 dek: "Across 374 Korean stars with an article on all four Southeast Asian Wikipedias, three editions share first place. The Malay edition is last for 310 of them — and there is an explanation we cannot rule out."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "k-pop", "actors", "method"]
+tags: ["bts", "byeon-woo-seok", "wikipedia", "southeast asia", "k-pop", "actors", "method"]
 pages:
   - "/who-reads-least"
 sources:

@@ -1,5 +1,5 @@
 ---
-title: "The most-read Korean place in Vietnamese was a battle fought in Vietnam"
+title: "19 of our 2,238 Korean places are not in Korea"
 category: tradition
 dek: "We published 2,238 Korean places. Nineteen are not in Korea, including the one leading the Vietnamese column. The field we selected on records who was involved, not only where a thing is — and our first check reused it and found nothing."
 pubDate: 2026-08-16

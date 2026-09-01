@@ -1,5 +1,5 @@
 ---
-title: "No country's Netflix chart is a signal for another's — 58 markets are standing in one queue"
+title: "No Netflix chart signals another — 58 are in one queue"
 category: titles
 purpose: both
 dek: "Of 135,036 times a Korean series reached two countries charts, 58.1% arrived in both the same week. Where one did come first, only 1 of 8,333 country triples contradict each other — the markets form one stable order."

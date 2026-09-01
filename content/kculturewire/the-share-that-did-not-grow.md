@@ -1,5 +1,5 @@
 ---
-title: "Korean titles hold 7.9% of the world's top-10 places. Where they were strongest, the share fell by a third."
+title: "Korean titles hold 7.9% of top-10 places worldwide"
 dek: "Across 93 countries and 265 weeks the global share has not moved since 2022. That average hides nine Asian markets where Korean titles held 30.3% of places and now hold 19.5% — all nine fell, and Korea's own chart did not."
 category: titles
 purpose: both

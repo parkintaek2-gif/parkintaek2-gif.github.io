@@ -1,5 +1,5 @@
 ---
-title: "Two in three Koreans have had their fortune read. Here is what they are actually looking at"
+title: "2 in 3 Koreans have had their fortune read"
 category: tradition
 purpose: both
 dek: "The animal year and saju are two different things, and Koreans use both. We counted the animal years of 1,047 Korean actors who reached a Netflix chart: chance would put 87.3 in each sign, and the count runs 76 to 103."

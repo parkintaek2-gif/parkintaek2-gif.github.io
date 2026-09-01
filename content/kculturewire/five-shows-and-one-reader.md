@@ -1,5 +1,5 @@
 ---
-title: "Five charting shows, seven times the readers, and still no way to guess about one actor"
+title: "Actors with 5 charting titles are read 7x more"
 category: stars
 dek: "Korean actors with five or more charting titles are read seven times as often as actors with one, across four Southeast Asian Wikipedias. Pick one from each group at random and the busier one wins 82% of the time — a long way from a rule."
 pubDate: 2026-08-16

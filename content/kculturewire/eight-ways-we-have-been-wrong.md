@@ -1,5 +1,5 @@
 ---
-title: "Fourteen distinct ways of being wrong. Ten of them now fail the build; four do not."
+title: "14 ways we have been wrong. 10 now fail the build"
 dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for eight of the thirty-three. Four kinds still have no test, and this piece names them rather than reporting the coverage."
 category: titles
 purpose: ads

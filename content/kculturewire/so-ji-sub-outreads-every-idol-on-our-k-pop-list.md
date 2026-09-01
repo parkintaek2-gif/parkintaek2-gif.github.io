@@ -1,11 +1,11 @@
 ---
-title: "So Ji-sub outreads Jennie, V and Jung Kook on our K-pop list — and he is an actor"
+title: "So Ji-sub outreads Jennie and V on our K-pop list"
 category: stars
 dek: "We built a K-pop readership panel from Wikidata: 2,372 Korean acts with a music occupation. The single most-read person on it is an actor. 232 names — 9.8% — also act, and they take 29.3% of every read."
 pubDate: 2026-08-31
 dataAsOf: 2026-08-31T00:00:00+09:00
 author: Newsroom
-tags: ["k-pop", "so-ji-sub", "jennie", "bts", "wikidata", "rankings", "method"]
+tags: ["so-ji-sub", "jennie", "v", "jung-kook", "k-pop", "bts", "wikidata", "rankings", "method"]
 pages:
   - "/kpop-attention"
 sources:

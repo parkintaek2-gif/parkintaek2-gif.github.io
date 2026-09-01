@@ -1,12 +1,12 @@
 ---
-title: "Two hops from Squid Game reaches 79% of every Korean title Netflix has charted"
+title: "Two hops from Squid Game reaches 79% of Korean titles"
 dek: "Sixty-nine titles share an actor with Squid Game directly. Another 432 are one further step away. Out of 635 Korean titles with a recorded cast, 502 sit within two shared actors of one show."
 category: titles
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-07T00:00:00+09:00
 author: Newsroom
-tags: ["korean drama", "korean film", "netflix", "squid game", "casting", "korea"]
+tags: ["squid-game", "korean drama", "korean film", "netflix", "squid game", "casting", "korea"]
 pages:
   - "/titles"
   - "/actors"

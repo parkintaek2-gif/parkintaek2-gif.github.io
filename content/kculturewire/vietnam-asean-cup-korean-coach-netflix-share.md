@@ -1,5 +1,5 @@
 ---
-title: "Vietnam won the ASEAN Cup under a Korean coach. Its Netflix top 10 is also the most Korean in Southeast Asia"
+title: "Vietnam won the ASEAN Cup. Its chart is the most Korean"
 category: industry
 dek: "Kim Sang-sik's Vietnam beat Thailand 4-2 on aggregate in Hanoi. We do not count football. What we count is 268 weeks of Netflix country lists — and by that ruler the two finalists are not the same country at all."
 pubDate: 2026-08-27

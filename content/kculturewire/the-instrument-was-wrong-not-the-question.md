@@ -1,12 +1,12 @@
 ---
-title: "Go Youn-jung and Byeon Woo-seok read clearly today and read as nothing yesterday. We changed the ruler"
+title: "Go Youn-jung read as nothing yesterday. We changed the ruler"
 category: stars
 purpose: both
 dek: "Median reads of a Korean actor's own Wikipedia article, by how many of their titles reached a Netflix chart: 1.21, 2.15, 4.72, 11.94. Yesterday the same panel gave us nothing, because we were measuring the wrong thing."
 pubDate: 2026-08-14
 dataAsOf: 2026-08-14T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "stars", "netflix", "measurement", "method"]
+tags: ["go-youn-jung", "byeon-woo-seok", "korea", "stars", "netflix", "measurement", "method"]
 pages:
   - "/titles-to-name"
   - "/one-title"

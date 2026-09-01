@@ -1,5 +1,5 @@
 ---
-title: "Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact."
+title: "Actors and K-pop acts are looked up in the same shape"
 dek: "Across 1,113 Korean actors and 2,372 K-pop acts, the biggest single day is about 5% of a 30-day month for both. The raw gap of 5.0% against 6.1% disappears once the two groups are compared at the same size."
 category: stars
 purpose: both

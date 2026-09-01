@@ -1,5 +1,5 @@
 ---
-title: "Actors whose one charting title also played in Korea are looked up 1.7 times as often abroad"
+title: "Actors who also played in Korea are read 1.7x abroad"
 dek: "Hold the number of titles fixed and the gap is still there: 1,926 English Wikipedia lookups against 1,111. Hold how far the title travelled fixed and it survives that too. Korea's own chart predicts foreign curiosity."
 category: stars
 purpose: both

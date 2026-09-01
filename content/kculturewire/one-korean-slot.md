@@ -1,5 +1,5 @@
 ---
-title: "We wrote that a market has one Korean slot. Measured, two-thirds of that was arithmetic"
+title: "We said a market has 1 Korean slot. It was arithmetic"
 category: titles
 purpose: both
 dek: "When a Korean title reaches a market's top three, the other Korean titles there fall by 0.403. Non-Korean arrivals cost 0.013. That looks decisive until you notice the two groups start from different heights."

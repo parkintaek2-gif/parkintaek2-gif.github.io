@@ -1,5 +1,5 @@
 ---
-title: "Seoul has 25 districts. Korea's public tourist count can speak for five of them"
+title: "Seoul has 25 districts. The tourist count speaks for five"
 category: industry
 purpose: both
 dek: "We tried to set what Southeast Asia reads about Seoul beside where foreign visitors walk. In 16 of 24 districts the admissions table counts no tourist site at all — Jung, which holds Myeongdong, among them. It maps where counting stops."

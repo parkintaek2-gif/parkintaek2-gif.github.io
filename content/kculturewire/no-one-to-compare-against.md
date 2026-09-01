@@ -1,5 +1,5 @@
 ---
-title: "We tried to check whether the Korean esports pattern was really about Korea. There was nobody to check it against"
+title: "We looked for a country to compare Korean esports against"
 category: stars
 genre: esports
 purpose: both

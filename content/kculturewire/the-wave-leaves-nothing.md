@@ -1,5 +1,5 @@
 ---
-title: "You cannot ask what a Korean hit leaves behind. The article is born with the show"
+title: "You cannot ask what a Korean hit leaves behind"
 category: industry
 purpose: both
 dek: "Of 59 Korean titles fetched across four Southeast Asian Wikipedias, nine could be measured before and after their peak. Twenty-two were disqualified because their article did not exist before the title arrived."

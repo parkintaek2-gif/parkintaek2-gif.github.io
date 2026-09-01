@@ -1,5 +1,5 @@
 ---
-title: "A bigger Korean catalogue reaches more countries. Each title in it does not."
+title: "A bigger Korean catalogue travels. Each title does not"
 dek: "Across 220 companies with a charting Korean title, catalogue size tracks total reach (r = 0.516) and not reach per title (r = −0.118). Firms with 20 or more titles get 11.1 markets from the median title; firms with two get 13.5."
 category: industry
 purpose: both

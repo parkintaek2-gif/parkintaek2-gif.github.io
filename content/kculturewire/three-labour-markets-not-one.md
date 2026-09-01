@@ -1,5 +1,5 @@
 ---
-title: "Korea's listed content companies are three labour markets, not one — and the highest-paid keeps people twice as long"
+title: "Korea’s content firms are 3 labour markets, not one"
 dek: "Broadcasting holds staff 10.3 years, film 7.3, publishing and games 5.4. Pay runs the other way from what that suggests: film pays ₩63.1m against publishing's ₩77.4m while keeping people longer."
 category: industry
 purpose: both

@@ -1,5 +1,5 @@
 ---
-title: "Korean film and television share actors freely — but less freely than chance alone would produce"
+title: "Korean film and TV share actors — but less than chance"
 dek: "Of 700 actors with two or more charting Korean titles, 61.6% have worked in both film and series. If format meant nothing, the figure would be 73.2%. The gap is the size of the wall, and it is smaller than reputation suggests."
 category: titles
 purpose: both

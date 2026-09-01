@@ -1,12 +1,12 @@
 ---
-title: "Ma Dong-seok has 21 charting titles and Steven Yeun has one. Steven Yeun is read twice as much"
+title: "Ma Dong-seok has 21 titles. Steven Yeun is read 2x more"
 dek: "Actors in ten or more charting Korean titles are looked up eight times as often as those in one. We said in August that the rise stops at ten. It does not. The busiest are still not the most read: 21 titles against Steven Yeun's one."
 category: stars
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["korean drama", "netflix", "attention", "wikipedia", "actors", "korea"]
+tags: ["ma-dong-seok", "steven-yeun", "korean drama", "netflix", "attention", "wikipedia", "actors", "korea"]
 pages:
   - "/actors"
 sources:

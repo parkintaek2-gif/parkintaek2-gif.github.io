@@ -2,17 +2,17 @@
   "site": "sc-domain:kculturewire.com",
   "dimension": "page",
   "window": {
-    "from": "2026-07-29",
-    "to": "2026-08-26",
+    "from": "2026-08-01",
+    "to": "2026-08-29",
     "days": 28
   },
   "rowLimit": 1000,
   "rows": [
     {
       "key": "https://www.kculturewire.com/",
-      "impressions": 22,
+      "impressions": 23,
       "clicks": 2,
-      "position": 8.772727272727273
+      "position": 8.652173913043478
     },
     {
       "key": "https://www.kculturewire.com/exports",
@@ -28,9 +28,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/project-wolf-hunting",
-      "impressions": 30,
+      "impressions": 31,
       "clicks": 2,
-      "position": 9.166666666666666
+      "position": 10.774193548387096
     },
     {
       "key": "https://www.kculturewire.com/article/bts-babymonster-four-lists",
@@ -82,9 +82,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-22",
-      "impressions": 2,
+      "impressions": 6,
       "clicks": 1,
-      "position": 6
+      "position": 54.333333333333336
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-09",
@@ -94,21 +94,21 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-23",
-      "impressions": 6,
+      "impressions": 7,
       "clicks": 1,
-      "position": 8.833333333333332
+      "position": 17.285714285714285
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-24",
-      "impressions": 29,
+      "impressions": 31,
       "clicks": 1,
-      "position": 6.9655172413793105
+      "position": 10.709677419354838
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-27",
-      "impressions": 10,
+      "impressions": 11,
       "clicks": 1,
-      "position": 7.1
+      "position": 15
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-18",
@@ -124,9 +124,9 @@
     },
     {
       "key": "https://www.kculturewire.com/netflix-top10-data",
-      "impressions": 111,
+      "impressions": 117,
       "clicks": 1,
-      "position": 5.252252252252252
+      "position": 5.3247863247863245
     },
     {
       "key": "https://www.kculturewire.com/room/rat",
@@ -136,9 +136,9 @@
     },
     {
       "key": "https://www.kculturewire.com/star-signs",
-      "impressions": 47,
+      "impressions": 48,
       "clicks": 1,
-      "position": 16.340425531914896
+      "position": 17.666666666666668
     },
     {
       "key": "https://www.kculturewire.com/title/alchemy-of-souls",
@@ -178,9 +178,9 @@
     },
     {
       "key": "https://www.kculturewire.com/tv-exports",
-      "impressions": 23,
+      "impressions": 25,
       "clicks": 1,
-      "position": 32.086956521739125
+      "position": 36.44
     },
     {
       "key": "https://www.kculturewire.com/watched",
@@ -196,21 +196,33 @@
     },
     {
       "key": "https://www.kculturewire.com/actors",
-      "impressions": 8,
+      "impressions": 10,
       "clicks": 0,
-      "position": 12.125
+      "position": 15.5
+    },
+    {
+      "key": "https://www.kculturewire.com/actors-in-their/20s",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 62.5
     },
     {
       "key": "https://www.kculturewire.com/actors-in-their/40s",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 42
+      "position": 50.5
     },
     {
       "key": "https://www.kculturewire.com/actors-in-their/50s",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 8
+      "position": 36.5
+    },
+    {
+      "key": "https://www.kculturewire.com/actors-in-their/60s-and-over",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
     },
     {
       "key": "https://www.kculturewire.com/article/a-label-outreads-the-capital",
@@ -268,9 +280,9 @@
     },
     {
       "key": "https://www.kculturewire.com/article/bts-is-not-a-seoul-band",
-      "impressions": 202,
+      "impressions": 206,
       "clicks": 0,
-      "position": 8.475247524752476
+      "position": 9.592233009708737
     },
     {
       "key": "https://www.kculturewire.com/article/eight-ways-we-have-been-wrong",
@@ -310,9 +322,9 @@
     },
     {
       "key": "https://www.kculturewire.com/article/it-moved-it-did-not-shrink",
-      "impressions": 8,
+      "impressions": 9,
       "clicks": 0,
-      "position": 35.75
+      "position": 41.22222222222222
     },
     {
       "key": "https://www.kculturewire.com/article/it-was-one-game",
@@ -328,15 +340,15 @@
     },
     {
       "key": "https://www.kculturewire.com/article/iu-is-a-rooster-go-youn-jung-a-rat",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 7
+      "position": 46.333333333333336
     },
     {
       "key": "https://www.kculturewire.com/article/iu-jungkook-karina-missing-birth-hour",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 1
+      "position": 49.666666666666664
     },
     {
       "key": "https://www.kculturewire.com/article/jay-b-is-a-thai-star",
@@ -406,9 +418,9 @@
     },
     {
       "key": "https://www.kculturewire.com/article/korean-casting-barely-repeats-itself",
-      "impressions": 16,
+      "impressions": 17,
       "clicks": 0,
-      "position": 13.25
+      "position": 18.235294117647058
     },
     {
       "key": "https://www.kculturewire.com/article/korean-films-leave-like-everyone-else",
@@ -712,9 +724,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-in/february",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 67
+      "position": 69.66666666666667
+    },
+    {
+      "key": "https://www.kculturewire.com/born-in/july",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 78.875
     },
     {
       "key": "https://www.kculturewire.com/born-in/june",
@@ -742,9 +760,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-in/september",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 4
+      "position": 32.5
     },
     {
       "key": "https://www.kculturewire.com/born-on",
@@ -754,15 +772,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-01",
-      "impressions": 5,
+      "impressions": 12,
       "clicks": 0,
-      "position": 42.6
+      "position": 61.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-02",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 5.5
+      "position": 27.333333333333332
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-04",
@@ -772,21 +790,21 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-05",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 10
+      "position": 41.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-06",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 10
+      "position": 43
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-07",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 7.5
+      "position": 20.2
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-08",
@@ -820,9 +838,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-15",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 2.666666666666667
+      "position": 16.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-16",
@@ -844,15 +862,21 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-20",
-      "impressions": 6,
+      "impressions": 7,
       "clicks": 0,
-      "position": 8.333333333333332
+      "position": 17.714285714285715
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/01-21",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-22",
-      "impressions": 6,
+      "impressions": 8,
       "clicks": 0,
-      "position": 8.5
+      "position": 24.75
     },
     {
       "key": "https://www.kculturewire.com/born-on/01-23",
@@ -892,9 +916,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-01",
-      "impressions": 6,
+      "impressions": 7,
       "clicks": 0,
-      "position": 29.166666666666668
+      "position": 37
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-02",
@@ -903,10 +927,16 @@
       "position": 78
     },
     {
-      "key": "https://www.kculturewire.com/born-on/02-04",
-      "impressions": 4,
+      "key": "https://www.kculturewire.com/born-on/02-03",
+      "impressions": 1,
       "clicks": 0,
-      "position": 9
+      "position": 70
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/02-04",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 20.4
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-05",
@@ -919,6 +949,12 @@
       "impressions": 1,
       "clicks": 0,
       "position": 4
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/02-07",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 69.33333333333333
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-08",
@@ -934,9 +970,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-10",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 5.5
+      "position": 25.333333333333332
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-11",
@@ -952,9 +988,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-14",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 53
+      "position": 62
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-15",
@@ -1030,9 +1066,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-28",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 72
+      "position": 67
     },
     {
       "key": "https://www.kculturewire.com/born-on/02-29",
@@ -1078,9 +1114,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-09",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 24.25
+      "position": 32
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-11",
@@ -1120,9 +1156,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-20",
-      "impressions": 12,
+      "impressions": 15,
       "clicks": 0,
-      "position": 27.333333333333332
+      "position": 39.266666666666666
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-23",
@@ -1144,15 +1180,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-26",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 5
+      "position": 32
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-28",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 9
+      "position": 48.333333333333336
     },
     {
       "key": "https://www.kculturewire.com/born-on/03-31",
@@ -1168,9 +1204,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-02",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 6.333333333333333
+      "position": 24.25
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-03",
@@ -1183,6 +1219,12 @@
       "impressions": 2,
       "clicks": 0,
       "position": 37.5
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/04-05",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-06",
@@ -1210,9 +1252,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-11",
-      "impressions": 6,
+      "impressions": 9,
       "clicks": 0,
-      "position": 20.5
+      "position": 35.44444444444444
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-12",
@@ -1228,9 +1270,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-14",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 8
+      "position": 52
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/04-16",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 76.33333333333333
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-18",
@@ -1257,6 +1305,12 @@
       "position": 5.666666666666667
     },
     {
+      "key": "https://www.kculturewire.com/born-on/04-23",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 73
+    },
+    {
       "key": "https://www.kculturewire.com/born-on/04-24",
       "impressions": 3,
       "clicks": 0,
@@ -1264,9 +1318,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-25",
-      "impressions": 5,
+      "impressions": 6,
       "clicks": 0,
-      "position": 8.6
+      "position": 18.833333333333332
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/04-26",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 78
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-28",
@@ -1276,9 +1336,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/04-30",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 69.5
+      "position": 69.75
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-01",
@@ -1360,9 +1420,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-15",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 4
+      "position": 37
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-16",
@@ -1375,6 +1435,12 @@
       "impressions": 1,
       "clicks": 0,
       "position": 5
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/05-19",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-20",
@@ -1426,9 +1492,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-28",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 6
+      "position": 20.75
     },
     {
       "key": "https://www.kculturewire.com/born-on/05-29",
@@ -1462,9 +1528,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-03",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 8
+      "position": 7.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-04",
@@ -1474,21 +1540,21 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-05",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 7.75
+      "position": 18.4
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-06",
-      "impressions": 7,
+      "impressions": 10,
       "clicks": 0,
-      "position": 13.857142857142858
+      "position": 32
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-07",
-      "impressions": 2,
+      "impressions": 9,
       "clicks": 0,
-      "position": 31.5
+      "position": 70.33333333333333
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-08",
@@ -1497,10 +1563,22 @@
       "position": 43
     },
     {
+      "key": "https://www.kculturewire.com/born-on/06-10",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
       "key": "https://www.kculturewire.com/born-on/06-12",
       "impressions": 1,
       "clicks": 0,
       "position": 11
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/06-13",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-15",
@@ -1558,9 +1636,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-27",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 11
+      "position": 34.333333333333336
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-28",
@@ -1570,15 +1648,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/06-29",
-      "impressions": 1,
+      "impressions": 4,
       "clicks": 0,
-      "position": 10
+      "position": 69.25
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-01",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 7
+      "position": 33
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-02",
@@ -1593,10 +1671,16 @@
       "position": 6.5
     },
     {
-      "key": "https://www.kculturewire.com/born-on/07-05",
-      "impressions": 2,
+      "key": "https://www.kculturewire.com/born-on/07-04",
+      "impressions": 1,
       "clicks": 0,
-      "position": 4
+      "position": 86
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/07-05",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 35.75
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-06",
@@ -1615,6 +1699,12 @@
       "impressions": 2,
       "clicks": 0,
       "position": 9.5
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/07-09",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-10",
@@ -1645,6 +1735,12 @@
       "impressions": 2,
       "clicks": 0,
       "position": 10
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/07-15",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-16",
@@ -1678,9 +1774,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-22",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 10
+      "position": 31.666666666666668
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-23",
@@ -1690,9 +1786,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-24",
-      "impressions": 3,
+      "impressions": 6,
       "clicks": 0,
-      "position": 42.666666666666664
+      "position": 56.166666666666664
     },
     {
       "key": "https://www.kculturewire.com/born-on/07-25",
@@ -1738,9 +1834,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-06",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 5.5
+      "position": 28
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-07",
@@ -1750,9 +1846,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-08",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 9
+      "position": 31.666666666666668
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-10",
@@ -1768,27 +1864,27 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-18",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 6.333333333333333
+      "position": 24
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-21",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 39
+      "position": 50.333333333333336
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-25",
-      "impressions": 44,
+      "impressions": 45,
       "clicks": 0,
-      "position": 9.363636363636363
+      "position": 10.777777777777779
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-26",
-      "impressions": 44,
+      "impressions": 45,
       "clicks": 0,
-      "position": 7.818181818181818
+      "position": 9.28888888888889
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-29",
@@ -1798,9 +1894,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-30",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 4.25
+      "position": 18
     },
     {
       "key": "https://www.kculturewire.com/born-on/08-31",
@@ -1816,9 +1912,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-02",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 1
+      "position": 39.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-03",
@@ -1840,15 +1936,15 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-08",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 8
+      "position": 32
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-10",
-      "impressions": 5,
+      "impressions": 7,
       "clicks": 0,
-      "position": 30.2
+      "position": 41.285714285714285
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-13",
@@ -1858,9 +1954,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-14",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 6.25
+      "position": 21.4
     },
     {
       "key": "https://www.kculturewire.com/born-on/09-15",
@@ -1891,6 +1987,18 @@
       "impressions": 2,
       "clicks": 0,
       "position": 5.5
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/10-02",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 75.5
+    },
+    {
+      "key": "https://www.kculturewire.com/born-on/10-07",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 79.5
     },
     {
       "key": "https://www.kculturewire.com/born-on/10-09",
@@ -1930,9 +2038,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/10-30",
-      "impressions": 4,
+      "impressions": 7,
       "clicks": 0,
-      "position": 7.25
+      "position": 38.142857142857146
     },
     {
       "key": "https://www.kculturewire.com/born-on/11-01",
@@ -1954,9 +2062,9 @@
     },
     {
       "key": "https://www.kculturewire.com/born-on/11-04",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 3.3333333333333335
+      "position": 5.25
     },
     {
       "key": "https://www.kculturewire.com/born-on/11-05",
@@ -2266,9 +2374,9 @@
     },
     {
       "key": "https://www.kculturewire.com/esports",
-      "impressions": 133,
+      "impressions": 157,
       "clicks": 0,
-      "position": 10.909774436090226
+      "position": 18.261146496815286
     },
     {
       "key": "https://www.kculturewire.com/firm/cinema-service",
@@ -2331,6 +2439,12 @@
       "position": 3
     },
     {
+      "key": "https://www.kculturewire.com/firm/sll",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
       "key": "https://www.kculturewire.com/firm/studio-dragon",
       "impressions": 1,
       "clicks": 0,
@@ -2343,10 +2457,118 @@
       "position": 9.666666666666666
     },
     {
-      "key": "https://www.kculturewire.com/group/babymonster",
+      "key": "https://www.kculturewire.com/group",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 62.75
+    },
+    {
+      "key": "https://www.kculturewire.com/group/3ye",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "https://www.kculturewire.com/group/4minute",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://www.kculturewire.com/group/adya",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "https://www.kculturewire.com/group/after-school",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 89
+    },
+    {
+      "key": "https://www.kculturewire.com/group/ahof",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 42
+    },
+    {
+      "key": "https://www.kculturewire.com/group/and2ble",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "https://www.kculturewire.com/group/aoa",
       "impressions": 4,
       "clicks": 0,
-      "position": 7.5
+      "position": 75
+    },
+    {
+      "key": "https://www.kculturewire.com/group/april",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "https://www.kculturewire.com/group/artms",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 85.33333333333333
+    },
+    {
+      "key": "https://www.kculturewire.com/group/astro",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "https://www.kculturewire.com/group/ateez",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 85
+    },
+    {
+      "key": "https://www.kculturewire.com/group/babymonster",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 29.714285714285715
+    },
+    {
+      "key": "https://www.kculturewire.com/group/btob-4u",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 81.5
+    },
+    {
+      "key": "https://www.kculturewire.com/group/celeb-five",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "https://www.kculturewire.com/group/cignature",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://www.kculturewire.com/group/cortis",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "https://www.kculturewire.com/group/day6",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 94
+    },
+    {
+      "key": "https://www.kculturewire.com/group/dreamcatcher",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 87
     },
     {
       "key": "https://www.kculturewire.com/group/el7z-up",
@@ -2355,22 +2577,304 @@
       "position": 6
     },
     {
+      "key": "https://www.kculturewire.com/group/everglow",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "https://www.kculturewire.com/group/exid",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 86
+    },
+    {
+      "key": "https://www.kculturewire.com/group/f-t-island",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 85
+    },
+    {
+      "key": "https://www.kculturewire.com/group/f-x",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "https://www.kculturewire.com/group/fiestar",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 99
+    },
+    {
+      "key": "https://www.kculturewire.com/group/fromis-9",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 83
+    },
+    {
+      "key": "https://www.kculturewire.com/group/girls-generation",
+      "impressions": 15,
+      "clicks": 0,
+      "position": 90.86666666666666
+    },
+    {
+      "key": "https://www.kculturewire.com/group/got7",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 87.5
+    },
+    {
+      "key": "https://www.kculturewire.com/group/h1-key",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "https://www.kculturewire.com/group/i-dle",
+      "impressions": 16,
+      "clicks": 0,
+      "position": 78
+    },
+    {
+      "key": "https://www.kculturewire.com/group/ikon",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 91.33333333333333
+    },
+    {
+      "key": "https://www.kculturewire.com/group/infinite",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "https://www.kculturewire.com/group/izna",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 77.83333333333333
+    },
+    {
+      "key": "https://www.kculturewire.com/group/k-da",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 63.4
+    },
+    {
+      "key": "https://www.kculturewire.com/group/kara",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 77.66666666666667
+    },
+    {
       "key": "https://www.kculturewire.com/group/katseye",
+      "impressions": 43,
+      "clicks": 0,
+      "position": 64.53488372093022
+    },
+    {
+      "key": "https://www.kculturewire.com/group/kep1er",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "https://www.kculturewire.com/group/ladies-code",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 88.4
+    },
+    {
+      "key": "https://www.kculturewire.com/group/lightsum",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 99
+    },
+    {
+      "key": "https://www.kculturewire.com/group/loona",
+      "impressions": 14,
+      "clicks": 0,
+      "position": 83.21428571428571
+    },
+    {
+      "key": "https://www.kculturewire.com/group/mamamoo",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "https://www.kculturewire.com/group/miss-a",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "https://www.kculturewire.com/group/mister-t",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "https://www.kculturewire.com/group/newjeans",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 76.66666666666667
+    },
+    {
+      "key": "https://www.kculturewire.com/group/nine-muses",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "https://www.kculturewire.com/group/oh-my-girl",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 84
+    },
+    {
+      "key": "https://www.kculturewire.com/group/pristin",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://www.kculturewire.com/group/purple-kiss",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "https://www.kculturewire.com/group/qwer",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "https://www.kculturewire.com/group/riize",
       "impressions": 2,
       "clicks": 0,
-      "position": 8.5
+      "position": 74
+    },
+    {
+      "key": "https://www.kculturewire.com/group/sf9",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "https://www.kculturewire.com/group/shinee",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 78.6923076923077
+    },
+    {
+      "key": "https://www.kculturewire.com/group/stayc",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "https://www.kculturewire.com/group/stray-kids",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "https://www.kculturewire.com/group/t-ara",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 80
+    },
+    {
+      "key": "https://www.kculturewire.com/group/teen-top",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "https://www.kculturewire.com/group/the-boyz",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 71
+    },
+    {
+      "key": "https://www.kculturewire.com/group/tiny-g",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "https://www.kculturewire.com/group/top-combine",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "https://www.kculturewire.com/group/treasure",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 79.5
     },
     {
       "key": "https://www.kculturewire.com/group/triples",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 66.75
+    },
+    {
+      "key": "https://www.kculturewire.com/group/twice",
       "impressions": 1,
       "clicks": 0,
-      "position": 19
+      "position": 92
+    },
+    {
+      "key": "https://www.kculturewire.com/group/tws",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "https://www.kculturewire.com/group/uni-t",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "https://www.kculturewire.com/group/us",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 72.5
+    },
+    {
+      "key": "https://www.kculturewire.com/group/wjsn",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 83
     },
     {
       "key": "https://www.kculturewire.com/group/wonder-girls",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "https://www.kculturewire.com/group/wooah",
       "impressions": 1,
       "clicks": 0,
-      "position": 11
+      "position": 93
+    },
+    {
+      "key": "https://www.kculturewire.com/group/x1",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "https://www.kculturewire.com/group/ze-a",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
     },
     {
       "key": "https://www.kculturewire.com/half-life",
@@ -2379,10 +2883,16 @@
       "position": 2
     },
     {
-      "key": "https://www.kculturewire.com/industry",
-      "impressions": 11,
+      "key": "https://www.kculturewire.com/how-many-languages",
+      "impressions": 2,
       "clicks": 0,
-      "position": 22.454545454545453
+      "position": 55
+    },
+    {
+      "key": "https://www.kculturewire.com/industry",
+      "impressions": 12,
+      "clicks": 0,
+      "position": 21.166666666666668
     },
     {
       "key": "https://www.kculturewire.com/kpop-attention",
@@ -2392,15 +2902,15 @@
     },
     {
       "key": "https://www.kculturewire.com/ladder-churn",
-      "impressions": 7,
+      "impressions": 8,
       "clicks": 0,
-      "position": 35.57142857142857
+      "position": 31.5
     },
     {
       "key": "https://www.kculturewire.com/ladder-gap",
-      "impressions": 22,
+      "impressions": 23,
       "clicks": 0,
-      "position": 20.545454545454547
+      "position": 22.26086956521739
     },
     {
       "key": "https://www.kculturewire.com/market/argentina",
@@ -2877,10 +3387,64 @@
       "position": 43
     },
     {
+      "key": "https://www.kculturewire.com/netflix-top-10-korean-drama",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
       "key": "https://www.kculturewire.com/one-month",
       "impressions": 1,
       "clicks": 0,
       "position": 9
+    },
+    {
+      "key": "https://www.kculturewire.com/person/byeon-woo-seok",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 86
+    },
+    {
+      "key": "https://www.kculturewire.com/person/heo-nam-jun",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 82.5
+    },
+    {
+      "key": "https://www.kculturewire.com/person/joo-sang-wook",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 40
+    },
+    {
+      "key": "https://www.kculturewire.com/person/kim-go-eun",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "https://www.kculturewire.com/person/kim-woo-bin",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 77.15384615384616
+    },
+    {
+      "key": "https://www.kculturewire.com/person/lee-hee-joon",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "https://www.kculturewire.com/person/park-yoo-na",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "https://www.kculturewire.com/person/yim-si-wan",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 79
     },
     {
       "key": "https://www.kculturewire.com/privacy",
@@ -2896,9 +3460,9 @@
     },
     {
       "key": "https://www.kculturewire.com/rank-shape",
-      "impressions": 6,
+      "impressions": 7,
       "clicks": 0,
-      "position": 4.833333333333334
+      "position": 4.428571428571429
     },
     {
       "key": "https://www.kculturewire.com/rank-tells",
@@ -2985,10 +3549,16 @@
       "position": 11.333333333333334
     },
     {
-      "key": "https://www.kculturewire.com/school/hanlim-multi-art-school",
-      "impressions": 2,
+      "key": "https://www.kculturewire.com/school/berklee-college-of-music",
+      "impressions": 1,
       "clicks": 0,
-      "position": 78.5
+      "position": 60
+    },
+    {
+      "key": "https://www.kculturewire.com/school/hanlim-multi-art-school",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 84.25
     },
     {
       "key": "https://www.kculturewire.com/school/kaywon-high-school-of-arts",
@@ -3010,21 +3580,39 @@
     },
     {
       "key": "https://www.kculturewire.com/school/kyung-hee-university",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 87
+      "position": 75.5
     },
     {
       "key": "https://www.kculturewire.com/school/lila-art-high-school",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 52.75
+    },
+    {
+      "key": "https://www.kculturewire.com/school/seokyeong-university",
       "impressions": 1,
       "clicks": 0,
-      "position": 11
+      "position": 75
+    },
+    {
+      "key": "https://www.kculturewire.com/school/seoul-national-university",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 71.5
     },
     {
       "key": "https://www.kculturewire.com/school/sogang-university",
       "impressions": 2,
       "clicks": 0,
       "position": 8.5
+    },
+    {
+      "key": "https://www.kculturewire.com/school/sungkyunkwan-university",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
     },
     {
       "key": "https://www.kculturewire.com/school/sunhwa-arts-high-school",
@@ -3040,9 +3628,9 @@
     },
     {
       "key": "https://www.kculturewire.com/school/yonsei-university",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 8
+      "position": 33.5
     },
     {
       "key": "https://www.kculturewire.com/screen-split",
@@ -3076,19 +3664,19 @@
     },
     {
       "key": "https://www.kculturewire.com/star-sign/aquarius",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 50
+      "position": 64
     },
     {
       "key": "https://www.kculturewire.com/star-sign/aries",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 4.5
+      "position": 21
     },
     {
       "key": "https://www.kculturewire.com/star-sign/capricorn",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
       "position": 88
     },
@@ -3100,15 +3688,21 @@
     },
     {
       "key": "https://www.kculturewire.com/star-sign/scorpio",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 5
+      "position": 45.75
     },
     {
       "key": "https://www.kculturewire.com/star-sign/taurus",
       "impressions": 3,
       "clicks": 0,
       "position": 9.333333333333334
+    },
+    {
+      "key": "https://www.kculturewire.com/star-sign/virgo",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 81
     },
     {
       "key": "https://www.kculturewire.com/staying-power",
@@ -3136,15 +3730,15 @@
     },
     {
       "key": "https://www.kculturewire.com/stem/gi",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 8.5
+      "position": 6.75
     },
     {
       "key": "https://www.kculturewire.com/stem/gye",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 6
+      "position": 5
     },
     {
       "key": "https://www.kculturewire.com/stem/gyeong",
@@ -3172,9 +3766,9 @@
     },
     {
       "key": "https://www.kculturewire.com/stem/sin",
-      "impressions": 7,
+      "impressions": 9,
       "clicks": 0,
-      "position": 7.142857142857143
+      "position": 6.444444444444445
     },
     {
       "key": "https://www.kculturewire.com/subscribe",
@@ -3214,9 +3808,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/a-company-man",
-      "impressions": 1,
+      "impressions": 3,
       "clicks": 0,
-      "position": 10
+      "position": 7
     },
     {
       "key": "https://www.kculturewire.com/title/a-good-day-to-be-a-dog",
@@ -3256,9 +3850,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/all-of-us-are-dead",
-      "impressions": 4,
+      "impressions": 5,
       "clicks": 0,
-      "position": 6.25
+      "position": 21.6
     },
     {
       "key": "https://www.kculturewire.com/title/along-with-the-gods-the-two-worlds",
@@ -3337,6 +3931,12 @@
       "impressions": 1,
       "clicks": 0,
       "position": 52
+    },
+    {
+      "key": "https://www.kculturewire.com/title/bon-appetit-your-majesty",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
     },
     {
       "key": "https://www.kculturewire.com/title/boys-over-flowers",
@@ -3430,9 +4030,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/crash-landing-on-you",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 7.5
+      "position": 5.666666666666667
     },
     {
       "key": "https://www.kculturewire.com/title/cyber-hell-exposing-an-internet-horror",
@@ -3538,9 +4138,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/genie-make-a-wish",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 9
+      "position": 5.5
     },
     {
       "key": "https://www.kculturewire.com/title/godsend",
@@ -3675,10 +4275,16 @@
       "position": 6.4
     },
     {
-      "key": "https://www.kculturewire.com/title/little-women",
+      "key": "https://www.kculturewire.com/title/like-flowers-in-sand",
       "impressions": 1,
       "clicks": 0,
-      "position": 7
+      "position": 100
+    },
+    {
+      "key": "https://www.kculturewire.com/title/little-women",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 39.5
     },
     {
       "key": "https://www.kculturewire.com/title/love-ft-marriage-and-divorce",
@@ -3802,9 +4408,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/oh-my-venus",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 4
+      "position": 3.5
     },
     {
       "key": "https://www.kculturewire.com/title/once-upon-a-small-town",
@@ -3844,9 +4450,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/our-sticky-love",
-      "impressions": 5,
+      "impressions": 6,
       "clicks": 0,
-      "position": 8.2
+      "position": 8
     },
     {
       "key": "https://www.kculturewire.com/title/our-unwritten-seoul",
@@ -3916,9 +4522,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/queen-of-tears",
-      "impressions": 2,
+      "impressions": 4,
       "clicks": 0,
-      "position": 4
+      "position": 46.5
     },
     {
       "key": "https://www.kculturewire.com/title/reborn-rich",
@@ -3946,9 +4552,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/rookie-cops",
-      "impressions": 3,
+      "impressions": 4,
       "clicks": 0,
-      "position": 10
+      "position": 26.25
     },
     {
       "key": "https://www.kculturewire.com/title/safe",
@@ -4012,9 +4618,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/squid-game",
-      "impressions": 5,
+      "impressions": 7,
       "clicks": 0,
-      "position": 15
+      "position": 33
     },
     {
       "key": "https://www.kculturewire.com/title/stepmom",
@@ -4125,6 +4731,12 @@
       "position": 9
     },
     {
+      "key": "https://www.kculturewire.com/title/the-guest",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
       "key": "https://www.kculturewire.com/title/the-handmaiden",
       "impressions": 9,
       "clicks": 0,
@@ -4141,6 +4753,12 @@
       "impressions": 8,
       "clicks": 0,
       "position": 4.875
+    },
+    {
+      "key": "https://www.kculturewire.com/title/the-influencer",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 96
     },
     {
       "key": "https://www.kculturewire.com/title/the-interest-of-love",
@@ -4186,7 +4804,7 @@
     },
     {
       "key": "https://www.kculturewire.com/title/the-pirates-the-last-royal-treasure",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
       "position": 11
     },
@@ -4264,9 +4882,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/the-unjust",
-      "impressions": 1,
+      "impressions": 2,
       "clicks": 0,
-      "position": 7
+      "position": 30.5
     },
     {
       "key": "https://www.kculturewire.com/title/the-villagers",
@@ -4360,9 +4978,9 @@
     },
     {
       "key": "https://www.kculturewire.com/title/weak-hero",
-      "impressions": 3,
+      "impressions": 5,
       "clicks": 0,
-      "position": 8.666666666666668
+      "position": 29.6
     },
     {
       "key": "https://www.kculturewire.com/title/welcome-to-samdal-ri",
@@ -4414,9 +5032,9 @@
     },
     {
       "key": "https://www.kculturewire.com/titles",
-      "impressions": 85,
+      "impressions": 89,
       "clicks": 0,
-      "position": 10.31764705882353
+      "position": 11.044943820224718
     },
     {
       "key": "https://www.kculturewire.com/titles-to-name",
@@ -4426,9 +5044,9 @@
     },
     {
       "key": "https://www.kculturewire.com/two-pipelines",
-      "impressions": 2,
+      "impressions": 3,
       "clicks": 0,
-      "position": 4.5
+      "position": 3.3333333333333335
     },
     {
       "key": "https://www.kculturewire.com/wave-and-floor",
@@ -4456,9 +5074,9 @@
     },
     {
       "key": "https://www.kculturewire.com/workforce",
-      "impressions": 77,
+      "impressions": 84,
       "clicks": 0,
-      "position": 20.207792207792206
+      "position": 23.988095238095237
     },
     {
       "key": "https://www.kculturewire.com/world-share",

@@ -1,11 +1,11 @@
 ---
-title: "Cha Eun-woo, Kim Tae-hee and 383 other Korean stars were born in January, February or March. We are not running it"
+title: "Cha Eun-woo, Kim Tae-hee and 383 stars share a quarter"
 category: stars
 dek: "Korean stars are born in the first quarter 1.31 times as often as in the third. The test clears its threshold by 0.24, and removing any one of those 385 people puts it back below. Here is the finding we did not publish, and why."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "stars", "method", "zodiac"]
+tags: ["cha-eun-woo", "kim-tae-hee", "wikipedia", "stars", "method", "zodiac"]
 pages:
   - "/star-signs"
   - "/zodiac"

@@ -1,12 +1,12 @@
 ---
-title: "Karina's saju: two judgements hold without a birth hour, and the third is settled in only half the cases"
+title: "Karina’s saju: 2 judgements hold, the third splits in half"
 category: stars
 genre: music
 dek: "KLifeMap ran Karina's chart from the public birth date, 11 April 2000, with no birth hour. Strength and the governing element hold across all twelve possible hours. The structure comes out five ways, and the most common one covers six."
 pubDate: 2026-08-23
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["saju", "stars", "klifemap", "method", "kpop"]
+tags: ["karina", "saju", "stars", "klifemap", "method", "kpop"]
 pages:
   - "/community"
   - "/star-signs"

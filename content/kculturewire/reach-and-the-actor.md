@@ -1,5 +1,5 @@
 ---
-title: "Actors whose show travelled draw 3× the lookups. Hold two things fixed and most of that disappears."
+title: "Actors whose show travelled draw 3x the lookups"
 dek: "Across 812 Korean actors joined to Netflix's country charts, those with a title in 20+ countries draw 2.91× the median Wikipedia lookups. Match on how many titles they have and how recently they charted, and only one group keeps the gap."
 category: stars
 purpose: both

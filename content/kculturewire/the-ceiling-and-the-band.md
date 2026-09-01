@@ -1,12 +1,12 @@
 ---
-title: "Son Heung-min is read more in Southeast Asia than all 1,023 Korean actors we measured"
+title: "Son Heung-min outreads all 1,023 Korean actors we measured"
 category: stars
 purpose: both
 dek: "We measured 1,972 Koreans with one instrument. Son Heung-min sits above all 1,023 actors. But 22 actors clear 100 against two athletes, and the two groups are read in different countries. Musicians who never acted are not in this panel."
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "stars", "sport", "southeast-asia", "measurement", "limits"]
+tags: ["son-heung-min", "korea", "stars", "sport", "southeast-asia", "measurement", "limits"]
 pages:
   - "/fame-compare"
   - "/sea-athletes"

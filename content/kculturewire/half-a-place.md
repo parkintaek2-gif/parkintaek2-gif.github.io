@@ -1,5 +1,5 @@
 ---
-title: "Two shows from one Korean company on the same chart cost each other half a place"
+title: "Two shows from one company cost each other half a place"
 category: industry
 purpose: both
 dek: "Across 801 matched pairs, a Korean series sits at rank 5.73 on the weeks a stablemate shares the chart and 5.2 on the weeks it is alone. The direction is the one schedulers fear. The size is half of one place out of ten."

@@ -1,5 +1,5 @@
 ---
-title: "Three companies make half the Korean series that chart anywhere"
+title: "3 companies make half the Korean series that chart"
 dek: "Of 129 companies credited on the 332 Korean series that reached a Netflix country top 10, three account for half. Counting production credits alone — the answer to the obvious objection — it is 5 of 99, on a thinner base of 151 series."
 category: industry
 purpose: both

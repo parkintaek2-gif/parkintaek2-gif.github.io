@@ -1,11 +1,11 @@
 ---
-title: "IU started at 15 and Ma Dong-seok at 32. Go Youn-jung started at 23 and outreads them both"
+title: "IU started at 15, Go Youn-jung at 23 — and outreads her"
 category: stars
 dek: "Across 584 Korean stars on four Southeast Asian Wikipedias, those who debuted before 18 are read almost five times as often as those who started at 26. It is not that they have had longer — the median career is 20 to 22 years in every band."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "actors", "k-pop", "method"]
+tags: ["iu", "go-youn-jung", "ma-dong-seok", "wikipedia", "southeast asia", "actors", "k-pop", "method"]
 pages:
   - "/debut-age"
 sources:

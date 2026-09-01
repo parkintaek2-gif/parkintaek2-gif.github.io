@@ -1,11 +1,11 @@
 ---
-title: "IU is a Rooster, Cha Eun-woo an Ox, Byeon Woo-seok a Goat — and none of it explains why they are famous"
+title: "IU is a Rooster, Cha Eun-woo an Ox. It explains nothing"
 category: stars
 dek: "We sorted 1,047 Korean actors and singers into the twelve zodiac signs. Go Youn-jung leads the Rat, Kim Seon-ho the Tiger, Im Yoon-ah the Horse. The spread across the twelve is indistinguishable from chance, and we counted that ourselves."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "stars", "zodiac", "method"]
+tags: ["iu", "cha-eun-woo", "byeon-woo-seok", "wikipedia", "southeast asia", "stars", "zodiac", "method"]
 pages:
   - "/community"
   - "/star-signs"

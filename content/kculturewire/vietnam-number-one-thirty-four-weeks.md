@@ -1,5 +1,5 @@
 ---
-title: "Vietnam's number one series was Korean for 34 weeks straight — and eleven different titles held it"
+title: "Vietnam’s number one was Korean 34 weeks — 11 titles"
 category: titles
 genre: drama
 dek: "Eight months without the top place leaving Korean television, and it changed hands thirteen times inside that run. Malaysia and Singapore then did seventeen weeks each, starting and ending on exactly the same dates."

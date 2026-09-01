@@ -1,5 +1,5 @@
 ---
-title: "We said we could not count the acts our K-pop panel misses. We can, and it is 1,312 groups."
+title: "Our K-pop panel misses 1,312 groups. We counted them"
 dek: "Wikidata holds 2,128 Korean musical groups. Our attention panel sees the 816 with an English Wikipedia article. Among singers the gap is wider — 5,408 exist, we measure 1,421, and 3,572 of the missing ones have a Korean article."
 category: titles
 genre: music

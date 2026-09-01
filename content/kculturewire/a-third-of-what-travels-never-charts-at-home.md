@@ -1,5 +1,5 @@
 ---
-title: "140 of the 397 Korean titles that charted in Southeast Asia never charted in Korea"
+title: "140 of 397 Korean titles never charted in Korea"
 dek: "They are a different kind of title: 2.21 markets on average against 4.67, and one in seven reaches #1 against one in two. Netflix's Korean chart is not a smaller version of the regional one — it is a different chart."
 category: titles
 purpose: both

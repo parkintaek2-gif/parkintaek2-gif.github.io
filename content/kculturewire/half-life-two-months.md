@@ -1,5 +1,5 @@
 ---
-title: "Squid Game lost half its readers in one month. Goblin took seven"
+title: "Squid Game lost half its readers in a month. Goblin took 7"
 category: industry
 purpose: both
 dek: "Twenty-six Korean titles could be timed from their peak across four Southeast Asian Wikipedias. The median fell below half in two months, nine of them in a single month, and nineteen later rose above half again."
@@ -9,7 +9,7 @@ corrections:
   - date: 2026-08-15
     note: "Published first with 35 titles and 16 in the table. We widened the set to 59 the same day, and every count here grew: 26 titles timed rather than 16, nine halving within a month rather than five, nineteen returning above half rather than twelve. The median half-life did not move — it was two months at 16 titles and is two months at 26. The mean came down from 2.9 to 2.6. One title, Big Mouth, has now been watched for 26 months without falling below half, where previously none had held. The direction and size of the finding are unchanged; the counts are the new ones."
 author: Newsroom
-tags: ["korean drama", "wikipedia", "attention", "squid game", "korea"]
+tags: ["squid-game", "goblin", "korean drama", "wikipedia", "attention", "squid game", "korea"]
 pages:
   - "/half-life"
   - "/wave-and-floor"

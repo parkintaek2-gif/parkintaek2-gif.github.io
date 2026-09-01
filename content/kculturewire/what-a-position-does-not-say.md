@@ -1,5 +1,5 @@
 ---
-title: "What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on"
+title: "What a chart position does not say about Korean titles"
 category: titles
 purpose: both
 dek: "Netflix attaches hours viewed to 10,720 global chart rows and to 0 of its 499,180 country rows. Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on."

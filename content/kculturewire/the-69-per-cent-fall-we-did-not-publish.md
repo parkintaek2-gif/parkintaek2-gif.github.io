@@ -1,5 +1,5 @@
 ---
-title: "New Korean groups look 69% down since 2015. We are not publishing that, and here is what killed it"
+title: "New Korean groups look 69% down. We are not publishing it"
 category: industry
 dek: "Wikidata records 691 Korean musical groups with a formation year. The 2023-25 average is 31% of the 2015-17 average. Then we ran the same count for Japan, the United States and the United Kingdom — and all three fell too."
 pubDate: 2026-08-22

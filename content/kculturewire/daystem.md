@@ -1,12 +1,12 @@
 ---
-title: "IU and Jimin were born on the same day stem. RM and Song Joong-ki share a different one."
+title: "IU and Jimin share a day stem. RM and Song Joong-ki another"
 dek: "We counted which of the ten day stems each of 9,249 Korean entertainers was born on. The spread runs 832 to 984, and a chi-square just crosses the usual threshold. We print that number even though it argues against us."
 category: stars
 purpose: both
 pubDate: 2026-08-26
 dataAsOf: 2026-08-26T00:00:00+09:00
 author: Newsroom
-tags: ["iu", "rm", "jennie", "korean actors", "k-pop", "birthday", "saju"]
+tags: ["iu", "jimin", "rm", "song-joong-ki", "jennie", "korean actors", "k-pop", "birthday", "saju"]
 pages:
   - "/day-pillar"
   - "/stem/jeong"

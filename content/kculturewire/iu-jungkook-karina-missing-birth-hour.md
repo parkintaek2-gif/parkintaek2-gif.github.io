@@ -1,12 +1,12 @@
 ---
-title: "IU, Jungkook and Karina: a missing birth hour moved one chart by a whole day"
+title: "IU, Jungkook, Karina: a missing hour moved 1 chart"
 category: stars
 genre: music
 dek: "KLifeMap read the charts of IU, Jungkook and Karina without their birth hours. Trying all twelve hour branches moved one reading a day earlier. The cause was a 32-minute clock correction, not astrology. We say what stays unknowable."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["saju", "stars", "klifemap", "method", "kpop"]
+tags: ["iu", "jungkook", "karina", "saju", "stars", "klifemap", "method", "kpop"]
 pages:
   - "/star-signs"
   - "/born-on"

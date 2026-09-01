@@ -1,12 +1,12 @@
 ---
-title: "BTS tops three Southeast Asian Wikipedias. Indonesia's list opens with Babymonster"
+title: "BTS tops 3 Wikipedias. Indonesia opens with Babymonster"
 category: stars
 genre: music
 dek: "Indonesia, Vietnam, Thailand and Malaysia each keep their own Korean reading list. BTS leads three of them, and is the only name on all four. Cha Eun-woo, IU, Im Yoon-ah and Stray Kids are each in some and not others."
 pubDate: 2026-08-20
 dataAsOf: 2026-08-20T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "kpop", "bts", "babymonster", "method"]
+tags: ["bts", "babymonster", "wikipedia", "southeast asia", "kpop", "method"]
 pages:
   - "/who-is-first"
 sources:

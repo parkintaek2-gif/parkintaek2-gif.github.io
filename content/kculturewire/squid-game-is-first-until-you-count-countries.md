@@ -1,5 +1,5 @@
 ---
-title: "Squid Game is first by hours. All of Us Are Dead is first by countries. Which one travelled further?"
+title: "Squid Game leads by hours, All of Us Are Dead by countries"
 category: titles
 dek: "Netflix publishes one ranking of Korean shows: hours viewed. Count countries instead and 11 of the top 15 move at least three places. Extraordinary Attorney Woo goes from 2nd to 49th."
 pubDate: 2026-08-31

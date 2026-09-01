@@ -1,12 +1,12 @@
 ---
-title: "Jungkook's saju: two of the three judgements hold without a birth hour, the structure splits five ways"
+title: "Jungkook’s saju: 2 of 3 judgements hold, structure splits 5"
 category: stars
 genre: music
 dek: "KLifeMap ran Jungkook's chart from the public birth date, 1 September 1997, with no birth hour. Strength and the governing element come out identical in all twelve possible hours. Only the structure splits, five ways."
 pubDate: 2026-08-23
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["saju", "stars", "klifemap", "method", "kpop"]
+tags: ["jungkook", "saju", "stars", "klifemap", "method", "kpop"]
 pages:
   - "/community"
   - "/star-signs"

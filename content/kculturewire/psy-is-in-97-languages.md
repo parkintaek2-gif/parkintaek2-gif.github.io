@@ -1,11 +1,11 @@
 ---
-title: "Psy is in 97 Wikipedias, more than any BTS or BLACKPINK member. Half of Korean entertainers are in one"
+title: "Psy is in 97 Wikipedias, more than any BTS member"
 category: stars
 dek: "We counted the language editions holding an article about each of 9,249 Korean entertainers. Psy leads at 97, ROSÉ of BLACKPINK is at 86, IU at 69. The median is 1, and 365 people have no article in any language."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "k-pop", "stars", "korea", "method"]
+tags: ["psy", "bts", "blackpink", "wikipedia", "k-pop", "stars", "korea", "method"]
 pages:
   - "/how-many-languages"
 sources:

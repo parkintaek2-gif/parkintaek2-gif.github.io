@@ -1,5 +1,5 @@
 ---
-title: "Every country Netflix reports on had charted a Korean title by September 2021. None has been added since"
+title: "Every Netflix country had a Korean title by Sept 2021"
 category: titles
 dek: "In the five years of country top 10s Netflix has published, 93 countries have put a Korean title in a weekly top 10. All 93 did so within the first twelve weeks of the record. Six of the last eight doors were opened by Squid Game."
 pubDate: 2026-08-30

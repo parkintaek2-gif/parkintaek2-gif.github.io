@@ -1,12 +1,12 @@
 ---
-title: "Kim Jong-kook is the most evenly read Korean name in Southeast Asia. K-pop groups are the most even category"
+title: "Kim Jong-kook is the most evenly read Korean name in SEA"
 category: stars
 purpose: both
 dek: "We measured concentration — the share of a name's four-country reading that sits in its biggest country. K-pop groups come closest to even at 41.7%. The most concentrated row turned out to be an artefact of Wikipedia, not of attention."
 pubDate: 2026-08-14
 dataAsOf: 2026-08-14T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "kpop", "southeast-asia", "measurement", "limits"]
+tags: ["kim-jong-kook", "korea", "kpop", "southeast-asia", "measurement", "limits"]
 pages:
   - "/spread"
   - "/fame-compare"

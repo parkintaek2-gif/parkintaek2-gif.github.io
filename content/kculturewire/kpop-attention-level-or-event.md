@@ -1,5 +1,5 @@
 ---
-title: "Most K-pop attention is flat. At the very top it is not — a quarter of BTS's month happened on one day"
+title: "A quarter of BTS’s month happened on one day"
 dek: "For the typical act, the biggest single day is 5.5% of a 30-day month. For the ten largest names the median is 11.0%. BTS sits at 25.1%, and all six of its measurable members peaked on the same date."
 category: titles
 genre: music
@@ -7,7 +7,7 @@ purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-06T00:00:00+09:00
 author: Newsroom
-tags: ["k-pop", "attention", "wikipedia", "measurement", "bts", "korea"]
+tags: ["bts", "k-pop", "attention", "wikipedia", "measurement", "korea"]
 pages:
   - "/kpop-attention"
 sources:

@@ -1,5 +1,5 @@
 ---
-title: "Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is."
+title: "50% of our Southeast Asia panel cannot be verified Korean"
 dek: "214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them. They are also the small ones."
 category: titles
 purpose: ads

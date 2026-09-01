@@ -1,5 +1,5 @@
 ---
-title: "Southeast Asia looks up a Korean trip in December. It stops looking in June"
+title: "Southeast Asia looks up a Korean trip in December, not June"
 category: industry
 purpose: both
 dek: "Reads of Korean travel articles in four Southeast Asian Wikipedias peak in December; flights on the Asia routes peak in January. The steadier signal is the other end — both fall to their lowest point in the same month."

@@ -1,5 +1,5 @@
 ---
-title: "Korean content companies hold staff half as long. Being younger companies explains some of it, not most of it."
+title: "Korean content firms hold staff half as long. Age is part"
 dek: "Content firms average 23.9 years old against 44.3 for the rest of the listed market, and you cannot have long tenure at a young firm. Band companies by their own age and the tenure gap narrows from 1.86× to 1.32× — it never closes."
 category: industry
 purpose: both

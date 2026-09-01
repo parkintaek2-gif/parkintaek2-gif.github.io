@@ -1,5 +1,5 @@
 ---
-title: "We published two findings and corrected one. A one-line check told them apart beforehand"
+title: "Removing 1 title moved one median by 89%, the other by 0"
 category: industry
 purpose: both
 dek: "Removing a single title left one of our medians exactly where it was and moved the other by 89% of itself. The interquartile range rated the two almost identically. We ran neither before publishing."

@@ -1,5 +1,5 @@
 ---
-title: "Song Kang is looked up 3.3x more today — and all three of his Netflix shows hit number one, in 67 countries"
+title: "Song Kang is looked up 3.3x more — 3 shows hit number one"
 category: stars
 dek: "His English Wikipedia page drew 4,613 opens yesterday against 1,411 a day the week before. My Demon, Sweet Home and Forecasting Love and Weather each hit number one somewhere — true of only 33 of the 389 actors we can measure."
 pubDate: 2026-08-31

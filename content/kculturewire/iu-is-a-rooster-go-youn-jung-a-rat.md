@@ -1,11 +1,11 @@
 ---
-title: "IU is a Rooster and Go Youn-jung a Rat. We checked whether that means anything, and it does not"
+title: "IU is a Rooster, Go Youn-jung a Rat. It means nothing"
 category: stars
 dek: "We sorted 1,047 Korean stars into twelve rooms by birth year — IU with 91 other Roosters, Bae Suzy with 102 other Dogs. Then we tested whether the zodiac picks out who ends up on a chart. Chi-square 7.77 against a threshold of 19.68."
 pubDate: 2026-08-22
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "actors", "k-pop", "zodiac", "method"]
+tags: ["iu", "go-youn-jung", "wikipedia", "southeast asia", "actors", "k-pop", "zodiac", "method"]
 pages:
   - "/community"
   - "/zodiac"

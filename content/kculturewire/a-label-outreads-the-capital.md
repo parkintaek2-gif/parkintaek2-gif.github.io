@@ -1,5 +1,5 @@
 ---
-title: "In Southeast Asia, a Korean record label is looked up more than Seoul"
+title: "A Korean record label is looked up more than Seoul itself"
 category: industry
 purpose: both
 dek: "We measured 2,238 places in Korea against four Southeast Asian Wikipedias. YG Entertainment scores 111.47 and Seoul 106.54. Twelve companies out-read 520 cities and districts on the median. What this cannot see is a single restaurant."

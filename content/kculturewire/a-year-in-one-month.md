@@ -1,5 +1,5 @@
 ---
-title: "Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does"
+title: "Faker gets a year of readers in one month. Son does not"
 category: stars
 genre: esports
 purpose: both
@@ -7,7 +7,7 @@ dek: "Split Indonesian, Vietnamese, Thai and Malay Wikipedia reads by month. All
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "esports", "sport", "southeast-asia", "measurement", "limits"]
+tags: ["faker", "peanut", "son-heung-min", "korea", "esports", "sport", "southeast-asia", "measurement", "limits"]
 pages:
   - "/one-month"
   - "/sea-athletes"

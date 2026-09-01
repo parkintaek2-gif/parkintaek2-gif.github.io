@@ -1,5 +1,5 @@
 ---
-title: "Rank Korean musicians by look-ups and IU is not first — the top name is there for acting"
+title: "Rank Korean musicians by look-ups and IU is not first"
 dek: "232 of the 1,550 individuals in our K-pop panel also appear in Korean titles that reached a Netflix Top 10. They are 15% of the names and 41% of the attention. Removing them does not correct the list. It produces a second one."
 category: titles
 genre: music
@@ -7,7 +7,7 @@ purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-06T00:00:00+09:00
 author: Newsroom
-tags: ["k-pop", "korean drama", "attention", "netflix", "wikipedia", "measurement", "korea"]
+tags: ["iu", "k-pop", "korean drama", "attention", "netflix", "wikipedia", "measurement", "korea"]
 pages:
   - "/kpop-attention"
   - "/actors"

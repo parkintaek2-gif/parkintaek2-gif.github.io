@@ -1,12 +1,12 @@
 ---
-title: "Ma Dong-seok and Park Ji-hwan share four Netflix Top 10 titles. Only 1.8% of Korean pairs ever repeat"
+title: "Ma Dong-seok and Park Ji-hwan: the 1.8% who repeat"
 dek: "Across 635 charting Korean titles there are 13,558 pairs of actors who have shared a production. 250 of them have done it more than once. Shuffle the same casts at random and you get about 208. The repertory company is mostly not there."
 category: stars
 purpose: both
 pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "casting", "network", "wikidata", "null model"]
+tags: ["ma-dong-seok", "park-ji-hwan", "korea", "casting", "network", "wikidata", "null model"]
 pages:
   - "/actors"
   - "/titles"

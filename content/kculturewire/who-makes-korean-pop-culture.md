@@ -1,5 +1,5 @@
 ---
-title: "Korea's listed pop-culture companies employ 15,072 people. They stay half as long as the rest of the market."
+title: "Korea’s pop-culture firms employ 15,072, for half as long"
 dek: "Netflix's Korean catalogue has been watched 23.7 billion hours. The listed companies in that business keep staff 5.5 years against 11.3 across Korea's listed market — and their two halves are mirror-image workforces."
 category: stars
 purpose: both

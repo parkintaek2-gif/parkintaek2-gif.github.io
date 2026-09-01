@@ -1,5 +1,5 @@
 ---
-title: "A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more."
+title: "A Korean title’s run at home leans the odds, not the gate"
 dek: "Titles with six to ten weeks on Korea's own Netflix chart reached ten countries 56.5% of the time, against 11.4% for those with one or two. But 29 reached twenty countries without ever charting in Korea."
 category: titles
 purpose: both

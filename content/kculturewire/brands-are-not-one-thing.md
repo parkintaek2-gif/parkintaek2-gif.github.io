@@ -1,5 +1,5 @@
 ---
-title: "Indonesia reads more about German cars than any of its neighbours, and less about luxury houses than all of them"
+title: "Indonesia reads most about German cars, least about luxury"
 category: industry
 purpose: both
 dek: "Split 22 brands by kind and the four Southeast Asian countries swap places. Indonesia is first among car makers on 53.79 reads per million and last among luxury houses on 38.45. A single ranking hides that."

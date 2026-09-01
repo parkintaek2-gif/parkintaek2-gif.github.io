@@ -1,5 +1,5 @@
 ---
-title: "Vietnam reads Faker and Kim Sang-sik where its neighbours read Son Heung-min"
+title: "Vietnam reads Faker where its neighbours read Son Heung-min"
 category: stars
 genre: esports
 purpose: both
@@ -7,7 +7,7 @@ dek: "Four Southeast Asian Wikipedias, twelve months, 926 Korean athletes. Three
 pubDate: 2026-08-13
 dataAsOf: 2026-08-13T00:00:00+09:00
 author: Newsroom
-tags: ["korea", "sport", "esports", "southeast-asia", "measurement", "limits"]
+tags: ["faker", "kim-sang-sik", "son-heung-min", "korea", "sport", "esports", "southeast-asia", "measurement", "limits"]
 pages:
   - "/sea-athletes"
   - "/esports-nations"

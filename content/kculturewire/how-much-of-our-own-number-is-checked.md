@@ -1,5 +1,5 @@
 ---
-title: "We publish one figure more than any other. A sixth of it rests on titles we could not check."
+title: "A sixth of our most-quoted figure rests on unchecked titles"
 dek: "Korean titles hold 7.9% of the world's Netflix top 10 places — 39,612 of 498,480. Of those, 82.3% carry the label we use to exclude same-name foreign works. 16.4% carry no label at all, and we keep them because we cannot check them."
 category: industry
 purpose: ads

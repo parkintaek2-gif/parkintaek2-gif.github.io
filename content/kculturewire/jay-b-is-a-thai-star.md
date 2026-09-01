@@ -1,11 +1,11 @@
 ---
-title: "JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook belongs to nobody"
+title: "JAY B is a Thai star. Kim Jong-kook belongs to nobody"
 category: stars
 dek: "Of 214 Korean stars with an article on all four Southeast Asian Wikipedias, 86.6% of the reading about JAY B sits in Thailand alone. An evenly read star would score 25%. Kim Jong-kook of Turbo scores 27.5%."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "k-pop", "actors", "method"]
+tags: ["jay-b", "got7", "kim-jong-kook", "tempest", "wikipedia", "southeast asia", "k-pop", "actors", "method"]
 pages:
   - "/own-star"
 sources:

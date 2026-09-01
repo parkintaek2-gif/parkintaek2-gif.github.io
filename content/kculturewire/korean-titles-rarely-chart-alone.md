@@ -1,5 +1,5 @@
 ---
-title: "Korean titles almost never chart alone. Of 546, six never once shared a list"
+title: "Of 546 Korean titles, six never once shared a list"
 category: titles
 dek: "We counted every country-week of the Netflix top 10 in which a Korean title appeared — 16,408 of them — and asked which other Korean titles were on that same list. Only six titles went their whole run without ever meeting another."
 pubDate: 2026-08-30

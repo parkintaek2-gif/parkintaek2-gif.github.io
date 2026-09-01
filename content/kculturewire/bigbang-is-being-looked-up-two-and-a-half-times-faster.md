@@ -1,11 +1,11 @@
 ---
-title: "NCT 127 and BigBang are the only K-pop groups whose readers doubled — 3.6x and 2.7x"
+title: "NCT 127 and BigBang doubled their readers — 3.6x and 2.7x"
 category: stars
 dek: "Of the sixteen groups with more than 20,000 English Wikipedia opens in our window, exactly two rose by more than a third. NCT 127 multiplied further; BigBang added more readers. We do not know why either happened."
 pubDate: 2026-08-31
 dataAsOf: 2026-08-31T00:00:00+09:00
 author: Newsroom
-tags: ["k-pop", "bigbang", "illit", "blackpink", "wikipedia", "attention"]
+tags: ["nct-127", "bigbang", "k-pop", "illit", "blackpink", "wikipedia", "attention"]
 pages:
   - "/kpop-attention"
 sources:

@@ -1,5 +1,5 @@
 ---
-title: "A Korean series that opens at number one lasts six weeks. One that opens at ten lasts one"
+title: "A Korean series opening at 1 lasts 6 weeks. At 10, one"
 category: titles
 purpose: both
 dek: "Opening position is the only fact anyone has on the first Monday. Across 8,324 Korean series runs it moves expected length by 0.56 weeks a step — against 0.44 for other series, 0.33 for Korean films and 0.22 for other films."

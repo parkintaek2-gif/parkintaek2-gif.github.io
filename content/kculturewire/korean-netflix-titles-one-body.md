@@ -1,12 +1,12 @@
 ---
-title: "Remove Ma Dong-seok, Hwang Jung-min and 98 more, and Korean Netflix is still one connected body"
+title: "Remove Ma Dong-seok and 99 more: Korean Netflix still holds"
 dek: "Of 668 Korean titles with a recorded cast, 651 form a single connected body through shared actors. We expected a few very busy people to be holding it together. Take out the 100 busiest and 94.6% is still one piece."
 category: titles
 purpose: both
 pubDate: 2026-08-07
 dataAsOf: 2026-08-23T00:00:00+09:00
 author: Newsroom
-tags: ["korean drama", "korean film", "netflix", "wikidata", "casting", "korea"]
+tags: ["ma-dong-seok", "hwang-jung-min", "korean drama", "korean film", "netflix", "wikidata", "casting", "korea"]
 pages:
   - "/actors"
   - "/titles"

@@ -1,11 +1,11 @@
 ---
-title: "Ahn Sung-ki and Choi Jiwoo exist on one Southeast Asian Wikipedia, and it is not the biggest one"
+title: "Ahn Sung-ki and Choi Jiwoo exist on 1 Wikipedia of 4"
 category: stars
 dek: "Of 1,023 Korean actors and 1,701 music acts, 1,249 appear on exactly one of the four Southeast Asian Wikipedias. The Indonesian edition holds 1,155 of them — while the larger Vietnamese edition holds 31."
 pubDate: 2026-08-21
 dataAsOf: 2026-08-21T00:00:00+09:00
 author: Newsroom
-tags: ["wikipedia", "southeast asia", "actors", "k-pop", "method"]
+tags: ["ahn-sung-ki", "choi-jiwoo", "wikipedia", "southeast asia", "actors", "k-pop", "method"]
 pages:
   - "/only-one-wikipedia"
 sources:
