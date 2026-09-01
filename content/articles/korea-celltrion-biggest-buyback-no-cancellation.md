@@ -1,5 +1,5 @@
 ---
-title: "Celltrion filed Korea's biggest buyback this week. It won't cancel a single share."
+title: "Celltrion's biggest buyback won't cancel a share"
 dek: "Celltrion's ₩100.0bn buyback dwarfs eight others filed with Korea's regulator this week — and carries no cancellation clause. The three firms that do promise to cancel are the smallest on the list."
 category: equities
 pubDate: 2026-09-01
@@ -64,3 +64,5 @@ This is a record of what nine companies filed with DART in one seven-day window,
 ## The debate
 
 Should regulators or exchanges require a buyback filing to state upfront whether the shares will be cancelled — or is "price stability," left vague, a legitimate purpose on its own? **What do you think?** This is a talking point, not a verdict — argue it out below.
+
+*Buybacks shrink the share count when cancelled; a [rights issue does the opposite](https://seoulmarkets.com/article/korea-samsung-biologics-rights-issue-dilution) — and the same week's filings show size doesn't predict how much it dilutes existing holders either.*
