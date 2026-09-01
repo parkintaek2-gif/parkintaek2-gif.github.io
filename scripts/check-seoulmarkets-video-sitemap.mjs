@@ -24,9 +24,18 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const VIDEO_DIR = path.join(ROOT, 'public', 'video');
 const CARD_DIR = path.join(ROOT, 'public', 'cardnews');
+const ARTICLES_DIR = path.join(ROOT, 'content', 'articles');
 const DIST = path.join(ROOT, 'dist');
 
 function readIf(p) { try { return fs.readFileSync(p, 'utf8'); } catch { return ''; } }
+
+/** ⛔ draft:true 기사는 사이트맵·지면에서 애초에 빠진다 — 영상 노출 실패가 아니다.
+ *  2026-09-02: korea-trade-surplus-tripled-five-partners(스케일브레이크로 6번이 draft:true 내림)를
+ *  이 자가 「사이트맵에 없다」로 잘못 잡았다 — 이 함수가 그 오탐을 걸러낸다. */
+function 초안인가(slug) {
+  const 글 = readIf(path.join(ARTICLES_DIR, `${slug}.md`));
+  return /^draft:\s*true\s*$/m.test(글);
+}
 
 function allSitemapXml() {
   if (!fs.existsSync(DIST)) return '';
@@ -50,7 +59,16 @@ function selfTest() {
     console.error('❌ 자가시험 실패 — 빠진 슬러그 판정이 틀렸다', missing);
     process.exit(1);
   }
-  console.log('✅ 자가시험 통과 — 빠진 영상 판정 정상');
+  // draft:true 기사는 실제 저장소에서 하나 골라 실측(2026-09-02 오탐 재발 방지)
+  if (!초안인가('korea-trade-surplus-tripled-five-partners')) {
+    console.error('❌ 자가시험 실패 — draft:true 기사를 초안으로 못 잡았다');
+    process.exit(1);
+  }
+  if (초안인가('korea-largest-listed-companies')) {
+    console.error('❌ 자가시험 실패 — 발행된 기사를 초안으로 잘못 잡았다');
+    process.exit(1);
+  }
+  console.log('✅ 자가시험 통과 — 빠진 영상 판정 정상 · draft 판정 정상');
 }
 
 function main() {
@@ -63,8 +81,9 @@ function main() {
   const sitemapXml = allSitemapXml();
   const distReady = sitemapXml.length > 0;
 
-  const problems = [];
+  const problems = []; const 건너뜀 = [];
   for (const slug of mp4s) {
+    if (초안인가(slug)) { 건너뜀.push(slug); continue; }
     const hasThumb = fs.existsSync(path.join(CARD_DIR, `${slug}-1.png`));
     const inSitemap = distReady ? sitemapXml.includes(`/video/${slug}.mp4`) : null;
     const html = distReady ? readIf(path.join(DIST, 'article', `${slug}.html`)) : '';
@@ -74,7 +93,7 @@ function main() {
     else if (distReady && !embedded) problems.push(`${slug} — 지면(dist/article/${slug}.html)에 임베드 없음`);
   }
 
-  console.log(`■ 영상 ${mp4s.length}편 검사 (dist ${distReady ? '있음' : '없음 — ①썸네일만 검사'})`);
+  console.log(`■ 영상 ${mp4s.length}편 검사 (dist ${distReady ? '있음' : '없음 — ①썸네일만 검사'})` + (건너뜀.length ? ` · draft 건너뜀 ${건너뜀.length}편(${건너뜀.join(', ')})` : ''));
   if (!problems.length) {
     console.log(`✅ 다 통과 — 썸네일·사이트맵·임베드 모두 있음`);
     return;
