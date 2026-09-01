@@ -23,6 +23,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
+import RankBars from '../../components/RankBars.astro';
 import d from '../../data/wikitip-star-demand.json';
 import signs from '../../data/wikitip-star-signs.json';
 import people from '../../data/wikitip-people.json';
@@ -58,8 +59,46 @@ const 합 = 줄.reduce((a, p: any) => a + p.reads, 0);
 const 으뜸 = 줄[0] as any;
 const 셋 = 줄.slice(0, 3).map((p: any) => 보일이름(p)).join(', ');
 
-const TITLE = `The 100 most-read Korean stars right now — ${셋} lead`;
-const DESC = `Who the world actually opened an article about in the last 30 days: ${d.measured.toLocaleString('en-US')} Korean actors and singers measured, ${보일이름(으뜸)} first with ${으뜸.reads.toLocaleString('en-US')} readers. Reads, not searches, and we say which is which.`;
+/**
+ * 🔴 [2026-09-01 · 사장님 지시] 「**공격적으로** 콘텐트를 기획, 생산, 배포하라」
+ *   「사람들의 관심을 갖는 순위를 다 찾아 공개해」 「그 순위가 의미가 있는 지 생각해보게 해」
+ *   「콘텐트 제목도 사람들의 이목을 끌어 클릭할 수 있게 만들어, **그래프**도 만들고,
+ *    그 안에서 우리가 하고 싶은 얘기를 해, **데이터로**… **댓글**을 달 수 있게 해」
+ *   「**공격적으로 대학명을 제목에 기재해**」 ⇒ 우리 쪽에서는 **사람 이름**이다.
+ *
+ * ⚠ 전 제목은 `The 100 most-read Korean stars right now — A, B, C lead` 였다. 이름은
+ *   들어 있었지만 «모순»이 없어서 누를 까닭이 없었다. 3번이 승인받은 문체가 본보기다 —
+ *   「서울대학교가 종합 1위인데, 취업률은 성균관대학교보다 낮습니다」. 실명 + 수치 + 모순.
+ *
+ * ⭐ 우리 자료에 있는 모순 — **언어 폭과 영문 열람이 서로 어긋난다.**
+ *   가장 많이 읽힌 사람이 위키백과 언어 수는 «적고», 언어 수가 가장 많은 사람은 아래에 있다.
+ * ⛔ 이 모순을 «내가 정한 결론»으로 쓰지 않는다. 두 수를 나란히 놓고 「이 순위가 뜻이 있나」를
+ *   되묻는다(강령② 평균이 아니라 분포 · 우리가 바늘을 세우지 않는다).
+ *
+ * ⚠ 자료는 달마다 다시 잰다. 그러니 제목을 **글자로 박지 않고 자료에서 만든다** —
+ *   모순이 사라진 달에는 저절로 옛 제목으로 돌아간다. ⛔ 거짓이 된 제목이 남지 않게.
+ * ⛔ 사람의 성별을 우리 자료가 담고 있지 않다 — 제목·본문에 he/she 를 쓰지 않는다.
+ */
+const 위30 = 줄.slice(0, 30) as any[];
+const 언어넓은이 = 위30.reduce((a, p) => (p.sitelinks > a.sitelinks ? p : a), 위30[0]);
+/* 모순이 성립하는 조건 — 으뜸이 더 많이 읽혔는데 언어 수는 더 «적다» */
+const 모순있나 = !!언어넓은이 && 언어넓은이.q !== 으뜸.q
+  && 으뜸.reads > 언어넓은이.reads && 으뜸.sitelinks < 언어넓은이.sitelinks;
+const 배수 = 모순있나 ? 으뜸.reads / 언어넓은이.reads : 0;
+const 배수말 = 배수 >= 10 ? Math.round(배수).toString() : 배수.toFixed(1);
+
+const TITLE = 모순있나
+  ? `${보일이름(으뜸)} outreads ${보일이름(언어넓은이)} ${배수말} to 1 in English — ${으뜸.sitelinks} Wikipedias against ${언어넓은이.sitelinks}`
+  : `The 100 most-read Korean stars right now — ${셋} lead`;
+const DESC = 모순있나
+  ? `${d.measured.toLocaleString('en-US')} Korean actors and singers, ranked by who the English-reading world actually opened an article about. ${보일이름(으뜸)} leads with ${으뜸.reads.toLocaleString('en-US')} readers in thirty days while carrying an article in only ${으뜸.sitelinks} languages; ${보일이름(언어넓은이)} carries ${언어넓은이.sitelinks} and sits at ${위30.indexOf(언어넓은이) + 1}. Reads, not searches — and we ask on the page whether this ranking means anything at all.`
+  : `Who the world actually opened an article about in the last 30 days: ${d.measured.toLocaleString('en-US')} Korean actors and singers measured, ${보일이름(으뜸)} first with ${으뜸.reads.toLocaleString('en-US')} readers. Reads, not searches, and we say which is which.`;
+
+/* 그래프에 쓸 스무 줄 — ⛔ 두 그림 다 «읽힌 수 순서»를 지킨다.
+   언어 수 그림을 언어 수로 다시 줄 세우면 어긋남이 안 보인다. 그것이 이 지면의 알맹이다. */
+const 스무줄 = 줄.slice(0, 20) as any[];
+const 읽힌막대 = 스무줄.map((p) => ({ name: 보일이름(p), value: p.reads, href: 문(보일이름(p), 사람문) }));
+const 언어막대 = 스무줄.map((p) => ({ name: 보일이름(p), value: p.sitelinks }));
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -92,6 +131,33 @@ const jsonLd = {
       returned 1,264 readers, while her actual article returned {(줄.find((p: any) => p.name === 'IU') as any)?.reads?.toLocaleString('en-US') ?? '59,582'}.
       A ranking built on guessed titles is a false ranking.
     </p>
+  </section>
+
+  {/*
+    ⭐ [2026-09-01 · 사장님 「그래프도 만들고」] 이 순위 지면에는 표 백 줄만 있고 그림이
+      하나도 없었다. 표는 훑어야 모양이 보이고, 막대는 한눈에 보인다.
+    ⛔ 두 자를 «한 그림에 두 축»으로 겹치지 않는다 — 눈금이 다른 것을 한 축에 얹으면
+      없는 관계가 보인다. 그림을 둘로 나누고, 줄 순서를 «같게» 두어 어긋남이 드러나게 한다.
+  */}
+  <section>
+    <h2>The top twenty, drawn</h2>
+    <RankBars rows={읽힌막대} valueLabel="readers in 30 days" tone="a"
+      caption={`Readers who opened the English Wikipedia article, ${창}. Sorted by this bar.`} />
+
+    <h3>Now the same twenty people, measured with a different ruler</h3>
+    <RankBars rows={언어막대} valueLabel="Wikipedia language editions" tone="b" numbered={true}
+      caption="How many language editions of Wikipedia carry an article about them. ⚠ Still in the order above — sorted by readers, not by this bar. The raggedness is the point: the two rulers disagree." />
+
+    {모순있나 && (
+      <p class="note">
+        Read the two together. {보일이름(으뜸)} is opened {으뜸.reads.toLocaleString('en-US')} times
+        in thirty days while carrying an article in {으뜸.sitelinks} languages.
+        {' '}{보일이름(언어넓은이)} carries {언어넓은이.sitelinks} — the widest in this top thirty —
+        and is opened {언어넓은이.reads.toLocaleString('en-US')} times, which is
+        {' '}{배수말} times fewer. Breadth across languages and readership in English are
+        not the same quantity, and nothing here says which one is fame.
+      </p>
+    )}
   </section>
 
   <section>
@@ -165,6 +231,41 @@ const jsonLd = {
       <a href="/community">The twelve birth-year rooms</a> ·{' '}
       <a href="/day-pillar">The birth-day count</a> ·{' '}
       <a href="/star-signs">Whether a birth year predicts any of this (it does not)</a>
+    </p>
+  </section>
+
+  {/*
+    ⭐ [2026-09-01 · 사장님] 「사람들이 관심이 많은 모든 것에 대해 순위를 매겨…
+      **그 순위가 의미가 있는 지 생각해보게 해**」 「거기에 **댓글**을 달 수 있게 해」
+    ⛔ 우리가 답을 정해 두지 않는다. 어느 쪽도 「맞다」고 안 쓴다 — 우리는 지형을 그리고
+      바늘은 보는 사람이 세운다(모토와 철학 ①).
+    ⚠ `data-comments-page` 는 이 지면 주소와 «같아야» 한다. 다르면 남의 방에 글이 쌓인다.
+  */}
+  <section class="ask">
+    <h2>Does this ranking mean anything?</h2>
+    <p>
+      Here is the case against it. This counts English Wikipedia. A name read mostly in
+      Indonesian, Vietnamese or Spanish is undercounted, and a name carried in
+      {' '}{언어넓은이 ? 언어넓은이.sitelinks : 80} language editions can still sit below one carried in
+      {' '}{으뜸.sitelinks}. A single drama airing this month moves a name hundreds of places.
+      By this ruler, the biggest Korean star is whoever the English-reading room happened to
+      look up in the last thirty days.
+    </p>
+    <p>
+      Here is the case for it. It is the same measurement applied to every name, it is not
+      bought, not modelled and not voted on, and it is re-taken every month so you can watch it
+      move. Nobody is scored on talent and nobody is left out for being unpopular.
+    </p>
+    <p>
+      <b>So: is a ranking like this worth publishing, or does it just tell people who to
+      look at next?</b> We are not going to settle that for you — but we would rather argue
+      about it in the open than quietly print a number.
+    </p>
+    <h2 class="cm">What do you think?</h2>
+    <script src="/comments-widget.js" defer></script>
+    <div data-comments-page="/most-read"></div>
+    <p class="fine">
+      No cookie, no IP, no third-party tracker &mdash; we built this ourselves.
     </p>
   </section>
 
