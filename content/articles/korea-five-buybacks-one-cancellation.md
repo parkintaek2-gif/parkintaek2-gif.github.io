@@ -44,3 +44,5 @@ Of today's five, only **Fims** wrote the second half into its filing — its sta
 Korea's Corporate Value-up push has made buyback filings routine — five in one ordinary day is unremarkable now, which is the point. For an investor watching from outside the country, the volume is easy to see and the nuance is easy to miss. The number that gets a headline is the won figure; the number that changes the arithmetic of ownership is whether the shares are cancelled. Today, four companies bought, and one said it would cancel.
 
 This is a record of what was filed with DART on 13 August, drawn straight from the primary disclosures, and it is **not investment advice** — nothing here says any of these five is worth owning. What it shows is narrow and exact: the buyback has become a reflex in Korea, and cancellation, the part that actually counts, is still the exception rather than the rule.
+
+*A later week's filings show the same split at a bigger scale — see [Celltrion filed Korea's biggest buyback this week — and won't cancel a share](https://seoulmarkets.com/article/korea-celltrion-biggest-buyback-no-cancellation).*
