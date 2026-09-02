@@ -143,9 +143,9 @@
       "왜": "자동은 표본 크기 396 을 집었다. 63배 차이가 기사다"
     },
     "the-acts-our-k-pop-panel-cannot-see": {
-      "figure": "1,312",
+      "figure": "1,311",
       "label": "Korean groups our panel cannot see",
-      "왜": "자동은 2,362(패널 크기)를 집는다. 기사가 파는 것은 **못 보는 쪽**이다"
+      "왜": "자동은 2,362(패널 크기)를 집는다. 기사가 파는 것은 **못 보는 쪽**이다 / 2026-09-03 — 제목이 1,312 였는데 본문 표는 1,311 이었다. 표가 맞아서 제목과 카드를 1,311 로 맞췄다"
     },
     "what-share-of-korean-output-the-charts-touch": {
       "figure": "31.6%",
