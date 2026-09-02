@@ -45,9 +45,21 @@ import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 /* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
    ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
 const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '전국 고등학교 개설 학과 목록',
+  description: desc,
+  temporalCoverage: 받은날,
+  license: 'https://www.neis.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국교육학술정보원(NEIS 교육정보 개방 포털)' },
+  variableMeasured: ['학과명', '계열', '전국 개설 학교 수', '지역별 분포'],
+};
 ---
 
-<HundredYear title="학과 찾기" description={desc}>
+<HundredYear title="학과 찾기" description={desc} jsonLd={jsonLd}>
   <h1>학과 찾기</h1>
   {/* 🔴 2026-08-08 08:2x — 여기 「책에 있는 학과가 아니라 **올해 학생을 받는 학과**입니다」가
         있었다. **틀린 말이었다.** 나이스 학과정보에는 개설일도 폐과일도 없다.

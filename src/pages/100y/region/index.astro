@@ -66,9 +66,20 @@ import 요약 from '../../../data/100yearmap/summary.json';
 /* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
    ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
 const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '시도별 고교·대학 수 및 취업률·탈락률',
+  description: desc,
+  temporalCoverage: 받은날,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국교육학술정보원·한국대학교육협의회' },
+  variableMeasured: ['시도별 고교 수', '시도별 대학 수', '시도별 대학 취업률·중도탈락률', '시도별 고교 학업중단률'],
+};
 ---
 
-<HundredYear title="지역으로 보기" description={desc}>
+<HundredYear title="지역으로 보기" description={desc} jsonLd={jsonLd}>
   <h1>지역으로 보기</h1>
   <p class="sub">
     시·도 <strong>17곳</strong>입니다. 고등학교 {고교합.toLocaleString()}곳 · 대학 {대학합.toLocaleString()}곳을

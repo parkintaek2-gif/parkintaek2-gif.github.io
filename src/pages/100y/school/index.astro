@@ -43,9 +43,21 @@ import 요약 from '../../../data/100yearmap/summary.json';
 /* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
    ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
 const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '전국 고등학교 목록',
+  description: desc,
+  temporalCoverage: 받은날,
+  license: 'https://www.neis.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국교육학술정보원(NEIS 교육정보 개방 포털)' },
+  variableMeasured: ['학교명', '지역', '개설 학과 수'],
+};
 ---
 
-<HundredYear title="학교 찾기" description={desc}>
+<HundredYear title="학교 찾기" description={desc} jsonLd={jsonLd}>
   <h1>학교 찾기</h1>
   <p class="sub">
     전국 고등학교 <strong>{전체.toLocaleString()}곳</strong>입니다.

@@ -33,9 +33,21 @@ const 가운데 = 값[Math.floor(값.length / 2)];
 const desc =
   `대학 학과 ${자료.length}개가 졸업 뒤 어떻게 됐는지 모았습니다. ` +
   `순위가 아니라 분포로 보여드립니다. ${출처.조사회차} 조사 기준입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '대학 학과별 졸업 후 취업률',
+  description: desc,
+  temporalCoverage: 출처.조사회차,
+  license: 'https://www.data.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 출처.이름 },
+  variableMeasured: ['학과별 취업률'],
+};
 ---
 
-<HundredYear title="대학 학과 찾기" description={desc}>
+<HundredYear title="대학 학과 찾기" description={desc} jsonLd={jsonLd}>
   <h1>대학 어느 과를 나오면<br class="pcbr" /> 어떻게 되나요?</h1>
   <p class="lead">
     대학 학과 <strong>{자료.length}개</strong>가 졸업한 뒤 실제로 어떻게 됐는지 모았습니다.
