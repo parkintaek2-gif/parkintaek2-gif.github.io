@@ -36,8 +36,8 @@ market, is at [how a title leaves](/exit) — and the arriving end we have alrea
 
 ## The chart bottom is a trapdoor. The top is not.
 
-A run is one title in one country across consecutive chart weeks. We found 12,698 of them. Of those,
-**12,521 ended** — the other 177 are still on a chart in the last week we hold, and a run our data
+A run is one title in one country across consecutive chart weeks. We found 12,486 of them. Of those,
+**12,309 ended** — the other 177 are still on a chart in the last week we hold, and a run our data
 outlives has not left, so they are set aside rather than counted.
 
 Take every week a Korean title spent at a given position, and ask what share of those weeks turned
@@ -46,15 +46,15 @@ out to be its last:
 | Position | Chance it is gone next week |
 |---|---:|
 | 1 | **1.3%** |
-| 2 | 5.4% |
-| 3 | 10.2% |
-| 4 | 17.8% |
-| 5 | 24.4% |
-| 6 | 33% |
-| 7 | 43.8% |
-| 8 | 53.4% |
-| 9 | 62.3% |
-| 10 | **70.7%** |
+| 2 | 5.3% |
+| 3 | 10% |
+| 4 | 17.7% |
+| 5 | 24.3% |
+| 6 | 32.8% |
+| 7 | 43.5% |
+| 8 | 53.3% |
+| 9 | 62.2% |
+| 10 | **70.5%** |
 
 A title at number one is almost never gone next week. A title at number ten is gone more often than
 not. Between position 7 and position 8 the run crosses a coin flip.
@@ -65,7 +65,7 @@ worth more than the difference between rank 1 and rank 2.
 
 ## Where departures land, and the comparison that matters
 
-Of the 12,521 departures, **56.4% happened from positions 8, 9 or 10.** If leaving had nothing to
+Of the 12,309 departures, **56.4% happened from positions 8, 9 or 10.** If leaving had nothing to
 do with position, that figure would be 30.0%, because every country-week-chart has exactly one
 place at each rank. Only **5.4%** of departures happened from the top three.
 
@@ -88,8 +88,8 @@ Both groups sit level, so the gap is in how they leave, not where they were. A K
 charts is slightly more likely to slide out and slightly less likely to be pushed out while still
 ranking well.
 
-Entries look nothing like exits, which is worth stating plainly: **13.5%** of Korean runs began at
-position 10 and **6.7%** began at position 1. Getting on a chart is spread across the whole list.
+Entries look nothing like exits, which is worth stating plainly: **13.6%** of Korean runs began at
+position 10 and **6.8%** began at position 1. Getting on a chart is spread across the whole list.
 Leaving it is not.
 
 ## Markets differ, and not by quality
@@ -99,9 +99,9 @@ runs from **68.4% in Indonesia to 42.9% in Canada**.
 
 | Highest | | Lowest | |
 |---|---:|---|---:|
-| Indonesia | 68.4% | Canada | 42.9% |
-| Argentina | 66.3% | Slovakia | 43.7% |
-| Guatemala | 64.1% | France | 44.8% |
+| Argentina | 68.8% | Slovakia | 41.8% |
+| Indonesia | 68.3% | Canada | 42.9% |
+| Denmark | 65.2% | France | 44.1% |
 
 A market at the top of that list is one where titles slide out of the chart. A market at the bottom
 is one where titles are pushed out while still ranking well — which is what happens where the chart

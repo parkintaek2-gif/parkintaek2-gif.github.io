@@ -2,7 +2,7 @@
 title: "Our 7.9% is not one place a week — nothing, then several"
 category: titles
 purpose: both
-dek: "Korean titles hold 7.9% of Netflix country chart places. Spread evenly that would put at least one on 56.3% of country-weeks; the real figure is 42.0%. Empty weeks run 58.0% against 43.7%, and crowded weeks 4.0% against 0.6%."
+dek: "Korean titles hold 7.9% of Netflix country chart places. Spread evenly that would put at least one on 55.9% of country-weeks; the real figure is 41.3%. Empty weeks run 58.7% against 44.1%, and crowded weeks 4.6% against 0.5%."
 pubDate: 2026-08-09
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -17,7 +17,7 @@ sources:
     api: "Korean titles identified by item number rather than by name, using country of origin"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Korean titles are counted with the same single rule the rest of this publication uses, so the 39,612 places here are the same places reported as 7.9% elsewhere on the site"
+  - "Korean titles are counted with the same single rule the rest of this publication uses, so the 39,139 places here are the same places reported as 7.9% elsewhere on the site"
   - "The comparison is a binomial built from each country's own Korean share, so a market that takes few Korean titles is not counted as clumped merely for being small"
   - "Every market with at least 50 country-weeks is measured and the count that comes out more clumped than chance is reported rather than a selected subset"
   - "The collector refuses to write if the observed share of weeks with any Korean title is not below the independent figure, which would mean the finding had reversed"
@@ -41,34 +41,35 @@ Call each of those a country-week: one country, one week, one chart. There are 4
 how the whole number falls: is one there most weeks, or none for a long stretch and then a crowd?
 
 To answer that you need to know what *unclumped* would look like. If places fell independently — the
-same 7.9%, just scattered — at least one Korean title would appear in **56.3%** of country-weeks.
+same 7.9%, just scattered — at least one Korean title would appear in **55.9%** of country-weeks.
 
 | Country-weeks with at least one Korean title | Share |
 |---|---:|
-| If the same 7.9% fell independently | 56.3% |
-| Actually observed | **42.0%** |
+| If the same 7.9% fell independently | 55.9% |
+| Actually observed | **41.3%** |
 
-The same share, sitting in **14 points fewer weeks**. A reader who takes 7.9% to mean "usually about
+The same share, sitting in **14.6 points fewer weeks**. A reader who takes 7.9% to mean "usually about
 one" is wrong about a seventh of the calendar.
 
 ## The middle is what goes missing
 
 | Korean titles in that country-week | Observed | If independent |
 |---|---:|---:|
-| 0 | **58.0%** | 43.7% |
-| 1 | 23.7% | 37.7% |
-| 2 | 9.5% | 14.7% |
-| 3 | 4.2% | 3.4% |
+| 0 | **58.7%** | 44.1% |
+| 1 | 23.2% | 37.6% |
+| 2 | 9.4% | 14.4% |
+| 3 | 4.2% | 3.3% |
 | 4 | 1.8% | 0.5% |
-| 5 | 1.1% | 0.1% |
-| 6 | 0.8% | 0.0% |
-| 7 | 0.6% | 0.0% |
-| 8 | 0.2% | 0.0% |
-| 9 | 0.1% | 0.0% |
+| 5 | 1.1% | 0% |
+| 6 | 0.8% | 0% |
+| 7 | 0.6% | 0% |
+| 8 | 0.2% | 0% |
+| 9 | 0.1% | 0% |
+| 10 | 0% | 0% |
 
 Read the two columns against each other and the shape is plain. **Empty weeks are commoner than
 chance allows.** So are crowded ones: four or more Korean titles in a single country-week happen
-4.0% of the time, where independence would give 0.6% — nearly seven times as often. What disappears is the
+4.6% of the time, where independence would give 0.5% — 9 times as often. What disappears is the
 middle, the quiet single placement that an average implies.
 
 The bottom of that table is worth pausing on. There are country-weeks in which **nine of the ten
@@ -82,11 +83,11 @@ content — are producing the whole effect.
 
 They are not. Every market is compared against a binomial built from *its own* Korean share, so a
 country that takes very few Korean titles is not counted as clumped merely for being small. Of the
-**93 markets** with at least 50 country-weeks, **79** come out more clumped than chance.
+**93 markets** with at least 50 country-weeks, **82** come out more clumped than chance.
 
 ## What this changes about our own figure
 
-Nothing about the 7.9% itself. It is the same 39,612 places, counted with the same rule as
+Nothing about the 7.9% itself. It is the same 39,139 places, counted with the same rule as
 everywhere else on this site, and it is correct.
 
 What changes is the sentence it belongs in. "Korean titles hold 7.7% of the world's chart places" is

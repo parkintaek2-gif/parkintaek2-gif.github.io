@@ -2,7 +2,7 @@
 title: "A quarter fewer Korean titles chart than in 2022"
 category: titles
 purpose: both
-dek: "289 Korean titles charted somewhere in 2022 and 216 in 2025, while the places they held rose 7.9%. Remove each year's biggest title and the ten largest gained just 3.6 points — most of the concentration is one show returning."
+dek: "288 Korean titles charted somewhere in 2022 and 215 in 2025, while the places they held rose 9.7%. Remove each year's biggest title and the ten largest gained 3.1 points — much of the concentration is one show returning."
 pubDate: 2026-08-10
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
@@ -38,13 +38,13 @@ held went up.** The full table, every year including the part years, is at
 | Year | Titles that charted | Chart places held | Places per title |
 |---|---:|---:|---:|
 | 2021 *(part year)* | 177 | 4,131 | 23.3 |
-| 2022 | 289 | 7,388 | 25.6 |
-| 2023 | 292 | 8,181 | 28 |
-| 2024 | 237 | 6,846 | 28.9 |
-| 2025 | 216 | 7,972 | 36.9 |
+| 2022 | 288 | 7,223 | 25.1 |
+| 2023 | 291 | 8,123 | 27.9 |
+| 2024 | 236 | 6,645 | 28.2 |
+| 2025 | 215 | 7,923 | 36.9 |
 | 2026 *(part year)* | 167 | 5,094 | 30.5 |
 
-Same shelf, a quarter fewer titles on it. Places per title rose from 26.5 to 36.6.
+Same shelf, a quarter fewer titles on it. Places per title rose from 25.1 to 36.9.
 
 **That last column is the one to distrust.** It is one number divided by another, both of which moved,
 and on its own it cannot say which. So we took it apart.
@@ -53,10 +53,10 @@ and on its own it cannot say which. So we took it apart.
 
 | Year | Ten biggest titles hold | Same, biggest title removed | Everyone outside the top ten, per title |
 |---|---:|---:|---:|
-| 2022 | 44.9% | 42.3% | 14.6 |
-| 2023 | 38.4% | 36.3% | 17.9 |
-| 2024 | 40.7% | 39.8% | 17.9 |
-| 2025 | 56% | 45.9% | 17 |
+| 2022 | 45.8% | 43.2% | 14.1 |
+| 2023 | 38.6% | 36.6% | 17.7 |
+| 2024 | 42% | 41.1% | 17.1 |
+| 2025 | 56.4% | 46.3% | 16.9 |
 
 The first column looks like a field closing up: the ten biggest titles went from holding 44.9% of
 every Korean chart place to 56%.
@@ -72,12 +72,12 @@ So the concentration is not a thicker head. It is one title:
 | Year | Biggest single title | Its share of all Korean chart places |
 |---|---|---:|
 | 2021 *(part year)* | Squid Game | 27.1% |
-| 2022 | All of Us Are Dead | 8.2% |
-| 2023 | The Glory | 7.2% |
-| 2024 | Queen of Tears | 6.5% |
-| 2025 | Squid Game | **22.9%** |
+| 2022 | All of Us Are Dead | 8.4% |
+| 2023 | The Glory | 7.3% |
+| 2024 | Queen of Tears | 6.7% |
+| 2025 | Squid Game | **23%** |
 
-Between 2022 and 2024 the largest Korean title of the year took 6.6% to 8.4% of all Korean chart
+Between 2022 and 2024 the largest Korean title of the year took 6.7% to 8.4% of all Korean chart
 places. In 2025 one show took **a quarter of them**, and it is the same show that took 27.1% in 2021.
 
 **We are not naming a second or a third.** One title holding a quarter of a year's places is a fact
