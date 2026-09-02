@@ -189,9 +189,20 @@ const jsonLd = {
 
   <KcwCardnews set="first" count={5} />
 
-  <KcwShorts set="first"
-    says={`A man and a woman read out how often the Indonesian Wikipedia was first, how often `
-      + `it was last, and why the largest edition is not the one that writes first.`} />
+  {/*
+    🔴 [2026-09-03] 무음판에 «소리만» 입혀 새 편으로 냈다 — 사장님 「무성 콘텐트 다신
+      만들지 말 것」·「삭제하지 말고 소리만 입혀서 추가로 배포해, 영상 제목만 바꿔서」.
+      재서 확인했다: `first.mp4` −91 dB(무음) → `first-voiced.mp4` **−23.9 dB**.
+    ⛔ 무음 파일 `/video/first.mp4` 는 «그대로 둔다» — 밖에 나간 링크가 살아 있어야 한다.
+      다만 «지면»에는 소리 있는 쪽을 건다. 같은 화면 둘을 나란히 두면 손님이 헷갈린다.
+    ⚠ 화면에 없는 말을 목소리가 하지 않는다 — 대본은 `src/data/kcw-narration.json` 의
+      `first` 항목이고, 그 수(25편 중 인도네시아 24·베트남 8)는 이 지면의 표와 같은 자료다.
+  */}
+  <KcwShorts set="first-voiced"
+    says={`Fourteen seconds, read aloud: of twenty five Korean titles written up on all four `
+      + `Southeast Asian Wikipedias, the Indonesian one wrote first for twenty four. The `
+      + `Vietnamese edition, the biggest of the four, wrote first for eight. Size does not `
+      + `explain the order. This counts when an article was written, not when anyone read it.`} />
 
   <KcwRelatedArticles page="/written-down-first" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />

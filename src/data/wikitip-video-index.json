@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-01 09:37 UTC",
+  "generated": "2026-09-02 16:06 UTC",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 39,
-    "짝찾음": 38,
+    "영상": 35,
+    "짝찾음": 34,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 37,
+    "지면에서읽음": 33,
     "원본에서읽음": 1
   },
   "videos": [
@@ -19,16 +19,6 @@
       "page": "/actors-first",
       "says": "Fourteen seconds, read aloud: four Southeast Asian Wikipedias, three different Korean actors at the top. Go Youn-jung leads Vietnam and Thailand, Lee Chae-min Indonesia, Moon Ga-young Malaysia. No name is first everywhere. This counts people opening an encyclopaedia article — it is not popularity, and the panel is a cast list, so singers are on it too.",
       "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
-      "set": "actors",
-      "src": "/video/actors.mp4",
-      "thumb": "/video/thumb/actors.jpg",
-      "seconds": 14,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
       "alsoOn": []
     },
     {
@@ -122,16 +112,6 @@
       "alsoOn": []
     },
     {
-      "set": "debut",
-      "src": "/video/debut.mp4",
-      "thumb": "/video/thumb/debut.jpg",
-      "seconds": 14,
-      "page": "/debut-age",
-      "says": "Fourteen seconds: IU started at 15 and Ma Dong-seok at 32, the ladder of median reads by debut age, and the objection that they simply had longer — tested against career length.",
-      "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
       "set": "fame",
       "src": "/video/fame.mp4",
       "thumb": "/video/thumb/fame.jpg",
@@ -142,13 +122,13 @@
       "alsoOn": []
     },
     {
-      "set": "first",
-      "src": "/video/first.mp4",
-      "thumb": "/video/thumb/first.jpg",
+      "set": "first-voiced",
+      "src": "/video/first-voiced.mp4",
+      "thumb": "/video/thumb/first-voiced.jpg",
       "seconds": 14,
       "page": "/written-down-first",
-      "says": "A man and a woman read out how often the Indonesian Wikipedia was first, how often it was last, and why the largest edition is not the one that writes first.",
-      "saysFrom": "built page",
+      "says": "Fourteen seconds, read aloud: of twenty five Korean titles written up on all four Southeast Asian Wikipedias, the Indonesian one wrote first for twenty four. The Vietnamese edition, the biggest of the four, wrote first for eight. Size does not explain the order. This counts when an article was written, not when anyone read it.",
+      "saysFrom": "page source",
       "alsoOn": []
     },
     {
@@ -192,13 +172,13 @@
       "alsoOn": []
     },
     {
-      "set": "manager",
-      "src": "/video/manager.mp4",
-      "thumb": "/video/thumb/manager.jpg",
+      "set": "manager-voiced",
+      "src": "/video/manager-voiced.mp4",
+      "thumb": "/video/thumb/manager-voiced.jpg",
       "seconds": 14,
-      "page": "/sea-athletes",
-      "says": "A man and a woman read out the two medians — how much of a player's reading sits in one country, and how much of a manager's does — and name the countries that hired them.",
-      "saysFrom": "built page",
+      "page": null,
+      "says": null,
+      "saysFrom": null,
       "alsoOn": []
     },
     {
@@ -218,16 +198,6 @@
       "seconds": 14,
       "page": "/underrated",
       "says": "Fourteen seconds, now read aloud over music we made ourselves. Mr. Sunshine held a Netflix top ten place for twenty-three weeks and never left one country, while the middle Korean title we publish reached 7. Charting is not the same as being available, and Netflix publishes only the top ten.",
-      "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
-      "set": "onecountry",
-      "src": "/video/onecountry.mp4",
-      "thumb": "/video/thumb/onecountry.jpg",
-      "seconds": 14,
-      "page": "/underrated",
-      "says": "Fourteen seconds: Mr. Sunshine held a Netflix weekly top 10 for 23 weeks and never left one country, while the middle title we publish charted in 7. Long is not wide, and we counted both.",
       "saysFrom": "built page",
       "alsoOn": []
     },
@@ -342,16 +312,6 @@
       "alsoOn": []
     },
     {
-      "set": "spike-hearts2hearts",
-      "src": "/video/spike-hearts2hearts.mp4",
-      "thumb": "/video/thumb/spike-hearts2hearts.jpg",
-      "seconds": 14,
-      "page": "/group/hearts2hearts",
-      "says": "Fourteen seconds: this name was opened about twice as often on the Vietnamese Wikipedia yesterday as on an average day the week before. An encyclopaedia open is not a stream, a ticket or a fan — and the data does not say why it moved.",
-      "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
       "set": "starsign",
       "src": "/video/starsign.mp4",
       "thumb": "/video/thumb/starsign.jpg",
@@ -368,7 +328,7 @@
       "seconds": 14,
       "page": "/most-read",
       "says": "Fourteen seconds, read aloud: Crash Landing on You had one hundred thirty one thousand reads on its biggest day and Hyun Bin took thirty four point two percent of that. Parasite had two point seven million and Song Kang-ho took three point nine. Across twelve Korean breakouts the bigger the title, the smaller the share reaching any one actor — but these twelve are titles we picked because we knew they broke out, so this is a pattern inside a list of winners, not a law.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {

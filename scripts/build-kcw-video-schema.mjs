@@ -168,8 +168,36 @@ function 그림뽑기(파일, 낼곳, 초, 카드) {
   } catch { return false; }
 }
 
-const 파일들 = readdirSync(영상방).filter((f) => f.toLowerCase().endsWith('.mp4')).sort();
-console.log(`■ 영상 ${파일들.length}편 — 길이를 재고 썸네일을 뽑는다\n`);
+const 다있는것 = readdirSync(영상방).filter((f) => f.toLowerCase().endsWith('.mp4')).sort();
+
+/**
+ * 🔴🔴 [2026-09-03] **소리판이 있는 무음판은 목록에 안 싣는다.**
+ *
+ * 재 보니 이 목록이 «무음 16편»을 함께 내고 있었다(음량 −91 dB · 우리 소리판 −23 dB).
+ * 이 파일이 만드는 것은 **영상 사이트맵과 VideoObject 스키마**다 — 즉 구글에게
+ * 「이런 영상이 있습니다」라고 내미는 목록이다. 무음 영상을 그렇게 내미는 것은
+ * 사장님 지시 「**무성 콘텐트 다신 만들지 말 것**」을 지면 뒤에서 어기는 것이다.
+ *
+ * ⛔ 파일은 «지우지 않는다» — 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해,
+ *   영상 제목만 바꿔서」. 밖에 나간 링크가 살아 있어야 한다.
+ * ⇒ 그래서 «내미는 것»만 고른다. `<이름>-voiced.mp4` 가 있으면 `<이름>.mp4` 는 뺀다.
+ *
+ * ⚠ 아직 소리판이 없는 무음판은 **그대로 실린다.** 그것을 빼면 그 영상이 우리 눈에서
+ *   사라져 소리 입히는 일이 잊힌다. 하루 한 편씩 입히고, 입히면 저절로 여기서 빠진다 —
+ *   `node scripts/next-silent-video.mjs` 가 다음 대상을 골라 준다.
+ */
+const 소리판있음 = new Set(다있는것
+  .filter((f) => /-voiced\.mp4$/i.test(f))
+  .map((f) => f.replace(/-voiced\.mp4$/i, '')));
+const 파일들 = 다있는것.filter((f) => !소리판있음.has(f.replace(/\.mp4$/i, '')));
+const 뺀것 = 다있는것.length - 파일들.length;
+
+console.log(`■ 영상 ${파일들.length}편 — 길이를 재고 썸네일을 뽑는다`);
+if (뺀것) {
+  console.log(`  ⛔ 소리판이 있어 목록에서 뺀 무음판 ${뺀것}편 `
+    + `(파일은 그대로 둔다 — 밖에 나간 링크가 살아 있어야 한다)`);
+}
+console.log('');
 
 const 나온것 = [];
 const 못한것 = [];

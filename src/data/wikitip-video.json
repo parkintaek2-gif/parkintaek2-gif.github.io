@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-01T19:57:11.846Z",
+  "generated": "2026-09-02T16:05:31.725Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -9,13 +9,6 @@
       "uploadDate": "2026-08-31",
       "thumb": "/video/thumb/actors-voiced.jpg",
       "src": "/video/actors-voiced.mp4"
-    },
-    {
-      "set": "actors",
-      "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/actors.jpg",
-      "src": "/video/actors.mp4"
     },
     {
       "set": "alchemy",
@@ -81,13 +74,6 @@
       "src": "/video/debut-voiced.mp4"
     },
     {
-      "set": "debut",
-      "seconds": 14,
-      "uploadDate": "2026-08-22",
-      "thumb": "/video/thumb/debut.jpg",
-      "src": "/video/debut.mp4"
-    },
-    {
       "set": "fame",
       "seconds": 14,
       "uploadDate": "2026-08-21",
@@ -95,11 +81,11 @@
       "src": "/video/fame.mp4"
     },
     {
-      "set": "first",
+      "set": "first-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/first.jpg",
-      "src": "/video/first.mp4"
+      "uploadDate": "2026-09-02",
+      "thumb": "/video/thumb/first-voiced.jpg",
+      "src": "/video/first-voiced.mp4"
     },
     {
       "set": "halflife",
@@ -137,13 +123,6 @@
       "src": "/video/manager-voiced.mp4"
     },
     {
-      "set": "manager",
-      "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/manager.jpg",
-      "src": "/video/manager.mp4"
-    },
-    {
       "set": "numberone",
       "seconds": 14,
       "uploadDate": "2026-08-29",
@@ -156,13 +135,6 @@
       "uploadDate": "2026-08-30",
       "thumb": "/video/thumb/onecountry-voiced.jpg",
       "src": "/video/onecountry-voiced.mp4"
-    },
-    {
-      "set": "onecountry",
-      "seconds": 14,
-      "uploadDate": "2026-08-29",
-      "thumb": "/video/thumb/onecountry.jpg",
-      "src": "/video/onecountry.mp4"
     },
     {
       "set": "oneout",
@@ -240,13 +212,6 @@
       "uploadDate": "2026-08-29",
       "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
       "src": "/video/spike-hearts2hearts-voiced.mp4"
-    },
-    {
-      "set": "spike-hearts2hearts",
-      "seconds": 14,
-      "uploadDate": "2026-08-29",
-      "thumb": "/video/thumb/spike-hearts2hearts.jpg",
-      "src": "/video/spike-hearts2hearts.mp4"
     },
     {
       "set": "starsign",

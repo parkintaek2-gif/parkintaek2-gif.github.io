@@ -338,6 +338,22 @@ const videoSets = [
       + 'the biggest one.',
   },
   {
+    /*
+     * 🔴 [2026-09-03] 무음판 `first` 에 소리를 입힌 편. 재서 확인했다 —
+     *   `first.mp4` −91 dB(무음) → `first-voiced.mp4` **−23.9 dB**.
+     *   사장님 「무성 콘텐트 다신 만들지 말 것」·「삭제하지 말고 소리만 입혀서 추가로
+     *   배포해, **영상 제목만 바꿔서**」 — 그래서 위 무음판 줄을 남기고 제목을 달리 적는다.
+     * ⚠ 목소리는 화면에 있는 수만 말한다 — 25편 중 인도네시아 24 · 베트남 8.
+     */
+    set: 'first-voiced',
+    page: '/written-down-first',
+    title: 'One Wikipedia writes Korean titles down first, and it is not the biggest one — read aloud',
+    description: '14 seconds with narration: of 25 Korean titles written up on all four Southeast '
+      + 'Asian Wikipedias, the Indonesian edition wrote first for 24 and the Vietnamese — the '
+      + 'biggest of the four — for 8. Size does not explain the order. This counts when an article '
+      + 'was written, not when anyone read it.',
+  },
+  {
     set: 'least',
     page: '/who-reads-least',
     title: 'BTS, Babymonster and Byeon Woo-seok are read least in the same country',
@@ -1483,6 +1499,22 @@ export const GET: APIRoute = async () => {
    * ⛔ 짝 지면이 없으면 던진다. 조용히 넘기는 것이 이 사고의 뿌리였다.
    */
   for (const v of videoSets) {
+    /**
+     * 🔴 [2026-09-03] **소리판이 있는 무음판은 사이트맵에 안 싣는다.**
+     *
+     * 사장님 지시가 둘이고 둘 다 지킨다 —
+     *   「무성 콘텐트 다신 만들지 말 것」        → 무음 영상을 구글에 내밀지 않는다
+     *   「삭제하지 말고 소리만 입혀서 추가로 배포해」 → 파일은 지우지 않는다
+     *
+     * ⭐ 판정은 **스키마 목록(`wikitip-video.json`)을 진실로 삼는다.** 그 목록을 만드는
+     *   `build-kcw-video-schema.mjs` 가 이미 「소리판이 있으면 무음판을 뺀다」를 한다.
+     *   여기서 그 판정을 다시 적으면 두 곳이 갈라진다 — 한 곳만 고치는 날 어긋난다.
+     * ⚠ 그래서 조건이 「목록에 없다」다. 소리를 입히면 그 편이 목록에 들어오고
+     *   저절로 사이트맵에도 실린다. 손으로 이 파일을 고칠 일이 없다.
+     * ⛔ 소리판이 «없는» 무음판은 목록에 남아 있으므로 그대로 실린다 — 그건 아직
+     *   고쳐야 하는 것이라 우리 눈에서 사라지면 안 된다.
+     */
+    if (!영상그림.has(v.set) && 영상그림.has(`${v.set}-voiced`)) continue;
     const 줄 = entries.find((e) => e.path === v.page);
     if (!줄) throw new Error(`숏영상 ${v.set} 의 짝 지면 ${v.page} 이 사이트맵에 없다`);
     /* ⭐ 미리보기는 «영상에서 뽑은 것»을 먼저 쓴다(build-kcw-video-schema.mjs 가 ffmpeg 으로
