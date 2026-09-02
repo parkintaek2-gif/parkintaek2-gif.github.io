@@ -141,5 +141,21 @@ if (결과 === 0) {
   }
 }
 
+/**
+ * 🔴 2026-09-02(6번, GEO [5번→6번] ③) — 표 있는 기사마다 Dataset 구조화데이터가 실제로 나갔는지 잰다.
+ * ⛔⛔ 위 블록들과 같은 이유로 별도 프로세스·종료코드 무시 — 알림용일 뿐 배포를 막지 않는다.
+ */
+if (결과 === 0) {
+  try {
+    spawnSync(process.execPath, ['scripts/check-seoulmarkets-dataset-schema.mjs'], {
+      cwd: 뿌리,
+      stdio: 'inherit',
+      timeout: 60000,
+    });
+  } catch (e) {
+    console.log(`⚠ Dataset 구조화데이터 확인 중 오류(무시하고 계속) — ${e.message}`);
+  }
+}
+
 console.log(결과 === 0 ? `✅ ${때()} 빌드 끝` : `⛔ ${때()} 빌드 실패`);
 process.exit(결과);

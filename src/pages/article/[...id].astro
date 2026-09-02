@@ -143,7 +143,38 @@ const videoLd = 영상있음
       isAccessibleForFree: true,
     }
   : null;
-const jsonLd = 영상있음 ? [articleLd, videoLd] : articleLd;
+
+/**
+ * ⭐ 2026-09-02 GEO 지시 [5번→6번] ③ — 「Dataset·Table을 더한다. 금융 표가 인용되기 가장 쉽다」.
+ * 본문 첫 markdown 표의 머리글을 variableMeasured로 낸다. 표 없으면 안 낸다(없는 걸 있다고 안 함).
+ * ⛔ 이 정규식은 scripts/check-seoulmarkets-dataset-schema.mjs의 표찾기()와 «똑같이» 유지한다.
+ * distribution은 GEO ②(기사별 .md 판)를 그대로 가리킨다 — 두 지시가 서로를 보강한다.
+ */
+function 표찾기(본문: string): string[] | null {
+  const m = 본문.match(/^\|(.+)\|\r?\n\|[\s:|-]+\|\r?\n(?:\|.*\|\r?\n?)+/m);
+  if (!m) return null;
+  const 칸들 = m[1].split('|').map((s) => s.trim()).filter(Boolean);
+  return 칸들.length ? 칸들 : null;
+}
+const 표머리 = 표찾기(entry.body ?? '');
+const datasetLd = 표머리
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Dataset',
+      name: d.title,
+      description: d.dek,
+      url,
+      datePublished: iso(d.pubDate),
+      dateModified: iso(d.updatedDate ?? d.pubDate),
+      variableMeasured: 표머리,
+      creator: { '@type': 'Organization', name: SITE.name, '@id': `${SITE_URL}/#organization` },
+      distribution: { '@type': 'DataDownload', encodingFormat: 'text/markdown', contentUrl: `${url}.md` },
+      isAccessibleForFree: true,
+    }
+  : null;
+
+const 추가스키마 = [videoLd, datasetLd].filter(Boolean);
+const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articleLd;
 ---
 
 <Base
