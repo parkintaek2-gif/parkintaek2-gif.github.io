@@ -176,17 +176,6 @@ export const ADS = {
   slots: { banner: '', inArticle: '' },
 } as const;
 
-/**
- * ⭐ 100yearmap.com 전용 애드센스 — 사장님 지시 2026-09-02, 신청 태그를 <head>에 넣음.
- * ⛔ 위 ADS(공용) 값은 seoulmarkets·kculturewire가 이미 승인받아 쓰는 pub 아이디이고
- *   `docs/되돌아간것.tsv` 지킴 목록에 걸려 있다 — 절대 덮어쓰지 않는다. 100yearmap은
- *   사장님 지시(2026-08-24) 그대로 "pub아이디 있어도 개별적으로 승인받아야 한다"라
- *   별도 상수로 둔다.
- */
-export const ADS_100Y = {
-  client: 'ca-pub-3547185342873229', // 100yearmap 전용 애드센스 신청(2026-09-02)
-} as const;
-
 export const DISCLAIMER = {
   short: 'Not investment advice.',
   ai: 'AI-assisted, human-reviewed sourcing.',
