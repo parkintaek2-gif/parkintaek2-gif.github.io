@@ -222,7 +222,41 @@ const 문없는것 = [...수.entries()]
   .map(([주소]) => 주소)
   .sort();
 const 접힌고아 = 접힘 ? 문없는것.filter((p) => 접힘.has(p)) : [];
-const 고아 = 접힘 ? 문없는것.filter((p) => !접힘.has(p)) : 문없는것;
+
+/**
+ * ⭐ [2026-09-03] **`noindex` 인 지면은 문이 없는 것이 옳다.**
+ *
+ * `/video/review` 한 장이 이 자를 빨강으로 만들고 있었다. 열어 보니
+ * `<meta name="robots" content="noindex,nofollow">` 이고 제목이 「Sound review」다 —
+ * 영상 소리를 우리끼리 검토하는 **내부 도구**다.
+ *
+ * ⚠ 이 자가 지키는 것은 「만들고 문을 안 내면 없는 것과 같다」인데, 그 말은
+ *   **손님·검색이 오는 지면**에 대한 것이다. 우리가 구글에 「담지 마라」고 이미 말한 지면은
+ *   문이 없어서 잃을 유입이 «없다». 그것을 흠으로 부르면 맞는 상태를 흠으로 부르는 것이고,
+ *   그러면 사람이 검사를 끈다.
+ *
+ * ⛔ 그렇다고 `봐준다` 에 손으로 적지 않는다 — 이 파일이 접은 주소에서 이미 그 잘못을
+ *   겪었다(「자료가 바뀔 때마다 늘고 줄어 목록이 반드시 낡는다」).
+ * ⭐ 대신 **재서 가른다** — 그 지면의 글에 `noindex` 가 있나를 본다.
+ *   noindex 를 떼는 날 이 자가 저절로 다시 울린다.
+ */
+const noindex인가 = (주소) => {
+  const 후보 = [
+    path.join('public', 'wikitip', `${주소.replace(/^\//, '')}.html`),
+    path.join('public', 'wikitip', 주소.replace(/^\//, ''), 'index.html'),
+    path.join('dist', 'wikitip', `${주소.replace(/^\//, '')}.html`),
+    path.join('dist', 'wikitip', 주소.replace(/^\//, ''), 'index.html'),
+  ];
+  for (const f of 후보) {
+    if (!fs.existsSync(f)) continue;
+    /* 머리만 본다 — 본문에 「noindex」라는 낱말이 글로 나올 수 있다 */
+    return /name=["']robots["'][^>]*noindex/i.test(fs.readFileSync(f, 'utf8').slice(0, 4000));
+  }
+  return false;   /* 못 읽으면 «아니다»로 둔다 — 못 잰 것을 면제로 바꾸지 않는다 */
+};
+const 안담는고아 = 문없는것.filter((p) => !접힘?.has(p) && noindex인가(p));
+const 고아 = (접힘 ? 문없는것.filter((p) => !접힘.has(p)) : 문없는것)
+  .filter((p) => !안담는고아.includes(p));
 
 console.log(`나간 지면 ${글들.size}장 · 봐준 것 ${Object.keys(봐준다).length}개 · 들어오는 문이 0인 지면 ${문없는것.length}장`);
 if (접힘 === null) {
@@ -232,6 +266,13 @@ if (접힘 === null) {
   console.log(`   그중 ${접힌고아.length}장은 **접은 주소**다 — 문이 없는 것이 옳다.`
     + ' 손님은 검색 결과에서만 온다');
   for (const p of 접힌고아) console.log(`   · ${p}`);
+}
+/* ⭐ [2026-09-03] noindex 인 것도 «갈라 세어 화면에 적는다» — 뭉개면 다음 사람이
+   「고아가 하나 줄었네」로만 읽고 왜 줄었는지 모른다. 접은 주소와 같은 결로 낸다. */
+if (안담는고아.length) {
+  console.log(`   그중 ${안담는고아.length}장은 **noindex 인 내부 지면**이다 — `
+    + '구글에 「담지 마라」고 이미 말했으므로 문이 없어서 잃을 유입이 없다');
+  for (const p of 안담는고아) console.log(`   · ${p}`);
 }
 if (고아.length) {
   console.error('❌ 만들고 문을 안 냈다 — 링크를 타고 못 닿는 지면이 있다');

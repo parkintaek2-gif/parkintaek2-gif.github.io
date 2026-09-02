@@ -28,7 +28,7 @@
       "왜": "자동은 93(시장 수)을 집어 「93개 시장」이라는 다른 기사가 된다. 이 기사의 요점은 2 대 78 이라는 거리다"
     },
     "when-a-korean-title-is-widest": {
-      "figure": "20.9%",
+      "figure": "21.1%",
       "label": "Korean series widest in week one — others 45%",
       "왜": "자동은 「26.6% — against 28」로 대조군 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 20.1 대 44.7 이다"
     },
@@ -48,7 +48,7 @@
       "왜": "자동은 「276 — Korean titles charted somewhere in 2022」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 줄어든 몫이다"
     },
     "how-a-title-leaves": {
-      "figure": "70.2%",
+      "figure": "70.5%",
       "label": "chance a No.10 title is gone next week",
       "왜": "자동은 「11,779 — departures instead」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 자리마다 다른 확률이다"
     },
@@ -183,12 +183,12 @@
       "왜": "자동은 제목 첫 수 69 를 집는데 딱지가 「down since 2017」로 붙으면 카드가 하락을 사실로 말한다. 이 기사의 요점은 그 수가 틀렸다는 것이다"
     },
     "korean-titles-climb": {
-      "figure": "57.4%",
+      "figure": "57.1%",
       "label": "of Korean chart runs climb after week one",
-      "왜": "자동은 제목에서 첫 수를 집는데 그러면 40.5%(그 밖)를 집을 수 있다. 이 기사의 주어는 한국 작품이다 / 2026-08-09 09:5x — 비라틴 제목 23편을 빼면서 57.3 → 57.5 로 움직였다. 카드도 같이 옮긴다"
+      "왜": "자동은 제목에서 첫 수를 집는데 그러면 40.5%(그 밖)를 집을 수 있다. 이 기사의 주어는 한국 작품이다 / 2026-08-09 09:5x — 비라틴 제목 23편을 빼면서 57.3 → 57.5 로 움직였다. 카드도 같이 옮긴다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
     },
     "there-is-no-k-drama-season": {
-      "figure": "2.5",
+      "figure": "2.1",
       "label": "points — the whole yearly swing",
       "왜": "자동은 제목 첫 수를 집는데 그러면 14.1(주 폭)을 집을 수 있다. 이 기사의 요점은 달 폭이 **작다**는 것이다"
     },
@@ -208,9 +208,9 @@
       "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다"
     },
     "it-moved-it-did-not-shrink": {
-      "figure": "9.68",
-      "label": "points — the mean Korean share fall across ten Asian markets",
-      "왜": "자동 딱지가 「points」 한 낱말이라 무엇의 포인트인지 안 보였다. 카드만 보고는 못 읽는다"
+      "figure": "8.56",
+      "label": "points — mean Korean share fall in nine Asian markets",
+      "왜": "자동 딱지가 「points」 한 낱말이라 무엇의 포인트인지 안 보였다. 카드만 보고는 못 읽는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
     },
     "women-in-korean-content-companies": {
       "figure": "22.8",
@@ -233,9 +233,9 @@
       "왜": "자동은 dek 첫 수 287 을 집는다. 이 기사의 요점은 표본 크기가 아니라 **4 대 39** 라 그 수를 박는다"
     },
     "the-return-that-was-a-second-season": {
-      "figure": "45.5%",
+      "figure": "43.6%",
       "label": "of Korean chart comebacks are a different season, not a comeback",
-      "왜": "자동은 dek 첫 수 940 을 집는다. 이 기사의 요점은 틈 수가 아니라 **절반 가까이가 복귀가 아니라는 것**이라 그 수를 박는다"
+      "왜": "자동은 dek 첫 수 940 을 집는다. 이 기사의 요점은 틈 수가 아니라 **절반 가까이가 복귀가 아니라는 것**이라 그 수를 박는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
     },
     "how-much-of-our-own-number-is-checked": {
       "figure": "16.4%",
@@ -340,6 +340,46 @@
     "most-korean-titles-never-leave-home": {
       "figure": "28.1%",
       "label": "of Korean titles charted only at home"
+    },
+    "no-bts-member-outdraws-bts": {
+      "figure": "28",
+      "label": "countries where the group page wins",
+      "왜": "글머리가 문장으로 시작해 자동이 수를 못 집는다. 이 기사의 요점은 「28개국 전부에서 그룹 지면이 이긴다」다"
+    },
+    "squid-game-cast-second-biggest-title": {
+      "figure": "93",
+      "label": "countries Squid Game charted in",
+      "왜": "글머리에 수가 없다. 표의 첫 줄들이 다 93 인데 그 93 은 「전 세계 몇 나라」라는 이 기사의 바탕값이다"
+    },
+    "vietnam-number-one-thirty-four-weeks": {
+      "figure": "34",
+      "label": "weeks Korean titles held No.1 in Vietnam",
+      "왜": "글머리에 수가 없다. 제목이 말하는 34주가 이 기사의 요점이고 표 첫 줄에 그대로 있다"
+    },
+    "alchemy-of-souls-ran-longest-without-number-one": {
+      "figure": "27",
+      "label": "weeks on charts, never once at number one",
+      "왜": "자동 딱지가 「weeks」 한 낱말이라 무엇의 27주인지 안 보였다"
+    },
+    "bigger-title-smaller-share": {
+      "figure": "0.68",
+      "label": "correlation — bigger titles take a smaller share",
+      "왜": "자동 딱지가 아예 비었다. 0.68 만 있으면 카드에서 무슨 수인지 알 길이 없다"
+    },
+    "choi-baek-ho-no-english-page": {
+      "figure": "30",
+      "label": "August — the month he was read, with no English page",
+      "왜": "자동은 「30 August」에서 딱지를 「August」로 잘라 날짜만 남았다"
+    },
+    "korean-titles-rarely-chart-alone": {
+      "figure": "16,408",
+      "label": "chart places sat beside another Korean title",
+      "왜": "자동 딱지가 「of them」이라 무엇의 16,408 인지 안 보였다"
+    },
+    "odyssey-outreads-korean-films": {
+      "figure": "119,356",
+      "label": "Korean Wikipedia reads for one non-Korean film",
+      "왜": "자동 딱지가 「times」 한 낱말이었다. 이 기사의 요점은 그 수가 «한국 영화 열넷을 합친 것»보다 크다는 것이다"
     }
   }
 }

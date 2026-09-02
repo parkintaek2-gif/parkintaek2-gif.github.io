@@ -61,12 +61,30 @@ export function 본문(h) {
 export function 링크(h) {
   return [...new Set([...h.matchAll(/href="([^"]+)"/g)].map((m) => m[1]))];
 }
+/**
+ * **접두사 밖에 사는 공유 경로.**
+ *
+ * 🔴 [2026-09-03] 이 자가 기사 지면 180장에 「죽은 링크 `/_astro/_..CxA39zMW.css`」를
+ *   달았다. 그 파일은 **있다** — `dist/_astro/` 에 있다. 세 사이트가 자산 한 벌을
+ *   나눠 쓰기 때문에 `dist/wikitip/_astro/` 는 아예 없는 폴더다.
+ *   `server.mjs` 313줄의 «공유경로»가 이 경로들을 접두사 밖에서 찾는다.
+ * ⛔ 180장이 다 빨강이면 그 안의 «진짜» 죽은 링크 하나를 아무도 못 본다
+ *   (실제로 `which-ranking.html` 의 `/title/i-am-solo` 가 그 아래 묻혀 있었다).
+ * ⚠ 그렇다고 뿌리를 «모든» 주소에 열지 않는다 — `/about` 을 뿌리에서 찾으면
+ *   SeoulMarkets 의 about 이 잡혀 «없는 지면이 살아 있다»고 나온다. 그것이 더 나쁘다.
+ *   서버가 접두사 밖으로 빼는 그 꼴만 뿌리에서도 찾는다.
+ */
+export const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$/;
+
 /** 우리 안쪽 주소가 실제 파일로 있나. */
 export function 있나(u, 있음 = fs.existsSync) {
   if (/^https?:|^mailto:|^#/.test(u)) return true;
   const p = u.split('#')[0].split('?')[0];
   if (p === '/') return 있음(첫화면);
-  return [`${D}${p}.html`, `${D}${p}/index.html`, `${D}${p}`].some((x) => 있음(x));
+  const 후보 = [`${D}${p}.html`, `${D}${p}/index.html`, `${D}${p}`];
+  /* 공유 경로는 뿌리(dist/)에도 있다 — 서버가 거기서 찾는다 */
+  if (공유경로.test(p)) 후보.push(`dist${p}`);
+  return 후보.some((x) => 있음(x));
 }
 
 if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
@@ -78,6 +96,9 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   자가('바깥 주소는 늘 살아 있다고 본다', 있나('https://x.com', () => false));
   자가('첫 화면은 wikitip.html 로 찾는다', 있나('/', (p) => p === 첫화면));
   자가('없는 주소는 잡는다', !있나('/nope', () => false));
+  자가('공유 자산은 뿌리에서도 찾는다', 있나('/_astro/x.css', (q) => q === 'dist/_astro/x.css'));
+  자가('⛔ 보통 지면은 뿌리에서 안 찾는다 — 남의 사이트 지면이 잡힌다',
+    !있나('/about', (q) => q === 'dist/about.html'));
   자가('값을 소스에서 둘 읽는다', 값읽기().length === 2);
   자가('값이 숫자다', 값읽기().every((v) => /^\d+$/.test(v)));
   console.log(`손님 걸음 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
