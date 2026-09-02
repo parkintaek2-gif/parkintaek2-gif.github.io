@@ -60,9 +60,21 @@ const 바닥뒤늘어난 = (이번.전국 as number) - 바닥.곳;
 const desc =
   `${최신}년 기준 어린이집이 한 곳도 없는 지역이 전국 ${이번.전국}곳입니다. ` +
   `${해들[0]}년 ${처음.전국}곳에서 ${늘어난곳}곳 늘었습니다. 시·도별로 어디에 몰려 있는지 적었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '어린이집 없는 지역 수(시도별)',
+  description: desc,
+  temporalCoverage: `${해들[0]}/${최신}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['시도별 어린이집 없는 지역 수'],
+};
 ---
 
-<HundredYear title={`어린이집이 한 곳도 없는 지역 — ${최신}년 전국 ${이번.전국}곳`} description={desc}>
+<HundredYear title={`어린이집이 한 곳도 없는 지역 — ${최신}년 전국 ${이번.전국}곳`} description={desc} jsonLd={jsonLd}>
   <h1>어린이집이 한 곳도 없는 지역</h1>
   <p class="sub">
     <strong>{최신}년 기준 전국 {이번.전국}곳</strong>입니다.

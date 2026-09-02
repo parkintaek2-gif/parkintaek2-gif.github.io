@@ -26,11 +26,23 @@ const desc =
   `관계부처합동 보도자료(${자료.배포})를 그대로 옮겼습니다. 2027년도 예산안(정부안)에서 ` +
   `청년 관련 예산은 ${자료.예산총액['2026년']}에서 ${자료.예산총액['2027년_정부안']}으로 늘어납니다(${자료.예산총액.증가율}). ` +
   `⚠ 아직 국회 확정 전입니다. 23개 사업을 세 갈래로 나눠 봅니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '2027년도 청년 예산안(정부안) 사업별 내역',
+  description: desc,
+  temporalCoverage: '2027',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '관계부처합동' },
+  variableMeasured: ['2027년도 청년 관련 예산 총액', '사업별 예산 배정'],
+};
 ---
 
 <HundredYear
   title={`2027년 청년 예산안 — ${자료.예산총액['2026년']} → ${자료.예산총액['2027년_정부안']}(${자료.예산총액.증가율})`}
   description={desc}
+  jsonLd={jsonLd}
 >
   <h1>2027년, 나이별로<br />어떤 지원이 새로 생길까요?</h1>
   <p class="sub">

@@ -57,9 +57,20 @@ const 때말 = (() => {
 const desc =
   `${때말} 기준으로 소아청소년과 의원이 한 곳도 없는 시·군·구가 ${자료.없는곳수}곳입니다` +
   `(전국 시·군·구 ${자료.시군구수}칸 가운데). ⚠ 「의원」만 센 값이라 병원·종합병원은 들어 있지 않습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '소아청소년과 의원 없는 시군구 수',
+  description: desc,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['시군구별 소아청소년과 의원 수'],
+};
 ---
 
-<HundredYear title={`소아청소년과 의원이 한 곳도 없는 시·군·구 ${자료.없는곳수}곳`} description={desc}>
+<HundredYear title={`소아청소년과 의원이 한 곳도 없는 시·군·구 ${자료.없는곳수}곳`} description={desc} jsonLd={jsonLd}>
   <h1>밤에 아이가 열이 나면 어디로 가나</h1>
   <p class="sub">
     {때말} 기준으로 <strong>소아청소년과 의원이 한 곳도 없는 시·군·구가 {자료.없는곳수}곳</strong>입니다.

@@ -30,11 +30,24 @@ const desc =
   `${자료.기준연도}년 학력별 임금 구간 «분포» — 500만원 이상 비율이 중졸이하 ` +
   `${최저학력.비율['500만원 이상']}%에서 대졸이상 ${최고학력.비율['500만원 이상']}%로 오릅니다. ` +
   `평균이 아니라 사람 수 비율입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '학력별 임금 구간 분포',
+  description: desc,
+  temporalCoverage: 자료.기준연도,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+  variableMeasured: ['학력별 임금 구간별 근로자 비율'],
+};
 ---
 
 <HundredYear
   title={`학력별 임금 분포 — 500만원 이상, 중졸이하 ${최저학력.비율['500만원 이상']}% vs 대졸이상 ${최고학력.비율['500만원 이상']}%`}
   description={desc}
+  jsonLd={jsonLd}
 >
   <h1>학력별 임금은<br />평균이 아니라 갈래로 보면 어떨까요?</h1>
   <p class="sub">

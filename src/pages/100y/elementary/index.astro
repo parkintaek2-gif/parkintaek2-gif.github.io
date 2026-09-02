@@ -71,9 +71,20 @@ const desc =
   `전국 초등학교 ${자료.낸곳.toLocaleString()}곳이 언제 문을 열었는지 모았습니다. ` +
   `백 년이 넘은 학교가 ${자료.백년넘은곳수.toLocaleString()}곳입니다. ` +
   `가장 먼저 문을 연 곳은 ${맨오래.title}로 ${맨오래.설립연}년입니다. 등수를 매기지 않습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '전국 초등학교 설립연도',
+  description: desc,
+  license: 'https://www.neis.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국교육학술정보원(NEIS 교육정보 개방 포털)' },
+  variableMeasured: ['전국 초등학교별 설립연도'],
+};
 ---
 
-<HundredYear title="초등학교는 몇 살인가요? — 백 년 넘은 학교 888곳" description={desc}>
+<HundredYear title="초등학교는 몇 살인가요? — 백 년 넘은 학교 888곳" description={desc} jsonLd={jsonLd}>
   <h1>초등학교는 몇 살인가요?</h1>
   <p class="sub">
     전국 초등학교 <strong>{자료.낸곳.toLocaleString()}곳</strong>이 언제 문을 열었는지 모았습니다.{' '}

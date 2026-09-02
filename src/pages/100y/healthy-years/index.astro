@@ -36,9 +36,21 @@ const 남은해 = (나이: number) => 여명나이별.find((r) => r.나이 === �
 const desc =
   `${자료.최신}년 기준 갓 태어난 아이의 건강한 해는 잣대에 따라 ${영.유병제외}년 또는 ${영.주관건강}년입니다. ` +
   `같은 해 같은 표인데 ${영.벌어짐}년이 벌어집니다. 65세에게는 ${예순다섯.유병제외}~${예순다섯.주관건강}년이 적혀 있습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이별 건강수명(유병기간 제외·주관적 건강)',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이별 유병기간 제외 기대여명', '나이별 주관적 건강기대여명'],
+};
 ---
 
-<HundredYear title={`건강수명 — 남은 해 가운데 건강한 해, 잣대에 따라 ${영.벌어짐}년이 다릅니다`} description={desc}>
+<HundredYear title={`건강수명 — 남은 해 가운데 건강한 해, 잣대에 따라 ${영.벌어짐}년이 다릅니다`} description={desc} jsonLd={jsonLd}>
   <h1>남은 해 가운데 건강한 해는 몇 해인가?</h1>
   <p class="sub">
     <a href="/years-left">남은 해</a>는 저희가 이미 냈습니다. 여기서는 그다음 물음입니다 —

@@ -30,10 +30,23 @@ const desc =
   `${자료.최신}년 고용형태별근로실태조사로 학력별 월급여를 견줍니다. ` +
   `${최고.칸}(${최고.월급여_천원.toLocaleString()}천원)이 ${최저.칸}(${최저.월급여_천원.toLocaleString()}천원)보다 ` +
   `${자료.최고최저_배수}배 많습니다. 근속·연령·직종을 가르지 않은 상관관계이며, 상여금은 빠진 값입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '학력별 월급여·시간당임금',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['학력별 월급여액', '학력별 시간당임금', '고용형태별(정규·비정규) 월급여'],
+};
 ---
 
 <HundredYear
   title={`학력별 월급여 — ${최고.칸} ${최고.월급여_천원.toLocaleString()}천원 vs ${최저.칸} ${최저.월급여_천원.toLocaleString()}천원`}
+  jsonLd={jsonLd}
   description={desc}
 >
   <h1>학력별로 월급여는<br />얼마나 다를까요?</h1>

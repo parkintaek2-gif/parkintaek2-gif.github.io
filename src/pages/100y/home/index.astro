@@ -46,9 +46,21 @@ const desc =
   `${자료.최신}년 집을 가진 가구는 ${자료.소유전체.toLocaleString()}가구입니다. ` +
   `그 가운데 가구주가 ${맨위.칸}인 집이 ${맨위.몫}%로 가장 많습니다. ` +
   `⛔ 이것은 「그 나이대의 몇 %가 집을 가졌나」가 아니라 「집을 가진 가구 가운데 그 나이대가 몇 %인가」입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가구주 나이별 주택 소유 가구 구성비',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['가구주 나이별 주택 소유 가구 구성비'],
+};
 ---
 
-<HundredYear title={`집을 가진 가구는 몇 살인가? — ${맨위.칸}가 ${맨위.몫}%`} description={desc}>
+<HundredYear title={`집을 가진 가구는 몇 살인가? — ${맨위.칸}가 ${맨위.몫}%`} description={desc} jsonLd={jsonLd}>
   <h1>집을 가진 가구는<br />몇 살일까요?</h1>
   <p class="sub">
     {자료.최신}년, 집을 가진 가구는 <strong>{자료.소유전체.toLocaleString()}가구</strong>입니다.

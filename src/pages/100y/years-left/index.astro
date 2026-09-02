@@ -37,9 +37,21 @@ const desc =
   `${자료.최신}년 완전생명표로 보면 갓 태어난 아이의 기대여명은 ${영.전체}년입니다. ` +
   `${자료.첫해}년에는 ${영.옛전체}년이었으니 ${자료.해수}해 만에 ${영.늘어난}년이 늘었습니다. ` +
   `0세부터 100세까지 한 살씩 남은 해를 적었습니다. ⚠ 한 사람의 남은 해가 아니라 그 나이 전체의 평균입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이별 기대여명(완전생명표)',
+  description: desc,
+  temporalCoverage: `${자료.첫해}/${자료.최신}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['0~100세 나이별 기대여명'],
+};
 ---
 
-<HundredYear title={`기대수명·평균 수명 — 지금 몇 살이면 앞으로 몇 해가 남았나, ${자료.최신}년 생명표`} description={desc}>
+<HundredYear title={`기대수명·평균 수명 — 지금 몇 살이면 앞으로 몇 해가 남았나, ${자료.최신}년 생명표`} description={desc} jsonLd={jsonLd}>
   <h1>지금 몇 살이면, 앞으로 몇 해가 남았나</h1>
   <p class="sub">
     {자료.최신}년 기준으로 갓 태어난 아이에게 <strong>{영.전체}년</strong>이 적혀 있습니다.

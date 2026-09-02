@@ -48,9 +48,21 @@ const desc =
   `가장 오래 다닌 직장을 그만둔 나이는 평균 ${나이.평균}세입니다(${나이.칸} 기준). ` +
   `그만둔 까닭은 ${까닭말[맨위.까닭]}가 ${맨위.몫}%로 가장 많고, 정년퇴직은 ${정년.몫}%입니다. ` +
   `⚠ 마지막 직장이 아니라 제일 오래 다닌 직장이고, 은퇴 나이가 아닙니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가장 오래 다닌 직장의 은퇴연령·은퇴사유',
+  description: desc,
+  temporalCoverage: 자료.해,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['가장 오래 다닌 직장을 그만둔 평균 나이', '은퇴 사유별 구성비'],
+};
 ---
 
-<HundredYear title={`가장 오래 다닌 직장, 몇 살에 그만두었나 — 평균 ${나이.평균}세`} description={desc}>
+<HundredYear title={`가장 오래 다닌 직장, 몇 살에 그만두었나 — 평균 ${나이.평균}세`} description={desc} jsonLd={jsonLd}>
   <h1>가장 오래 다닌 직장, 몇 살에 그만두었나</h1>
   <p class="sub">
     {나이.칸} 에게 물었더니 평균 <strong>{나이.평균}세</strong>였습니다.

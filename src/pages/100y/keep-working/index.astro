@@ -48,9 +48,21 @@ const desc =
   `${때말(자료.최신)} 기준 55~79세 가운데 ${자료.원함몫}%가 앞으로도 일하고 싶다고 답했습니다. ` +
   `까닭 맨 위는 ${맨위.까닭}(${맨위.몫}%)입니다. ` +
   `⚠ 두 수의 분모가 다릅니다 — 뒤쪽은 「일하고 싶다고 답한 사람」이 분모입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '55~79세 계속근로 희망률',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['55~79세 계속근로 희망률', '계속근로 희망 이유별 구성비'],
+};
 ---
 
-<HundredYear title={`그만두고도 계속 일하고 싶은가? — 55~79세의 ${자료.원함몫}%`} description={desc}>
+<HundredYear title={`그만두고도 계속 일하고 싶은가? — 55~79세의 ${자료.원함몫}%`} description={desc} jsonLd={jsonLd}>
   <h1>그만두고도 계속 일하고 싶은가?</h1>
   <p class="sub">
     <a href="/longest-job">가장 오래 다닌 직장</a>을 평균 <strong>{그만둔나이}세</strong>에 그만둡니다.

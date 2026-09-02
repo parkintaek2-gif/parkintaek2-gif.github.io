@@ -67,9 +67,21 @@ const desc =
   `${최신}년 초등학교 늘봄학교·방과후학교 참여율은 ${초등.참여율}%입니다. ` +
   `읍면지역이 ${(자료.지역 as any[])[4].참여율}%로 대도시 ${(자료.지역 as any[])[0].참여율}%보다 높고, ` +
   `맞벌이와 외벌이의 참여율은 거의 같습니다. 출처와 한계를 함께 적었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '늘봄학교·방과후학교 참여율',
+  description: desc,
+  temporalCoverage: 최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['늘봄학교·방과후학교 참여율(지역별·맞벌이 여부별)'],
+};
 ---
 
-<HundredYear title={`학교가 한 시에 끝나면 — 초등 방과후 참여율 ${초등.참여율}%`} description={desc}>
+<HundredYear title={`학교가 한 시에 끝나면 — 초등 방과후 참여율 ${초등.참여율}%`} description={desc} jsonLd={jsonLd}>
   <h1>학교가 한 시에 끝나면 아이는 어디로 가나</h1>
   <p class="sub">
     {최신}년 기준 초등학교 학생의 <strong>{초등.참여율}%</strong>가

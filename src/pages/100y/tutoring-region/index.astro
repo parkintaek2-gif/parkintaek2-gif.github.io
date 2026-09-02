@@ -29,11 +29,24 @@ const desc =
   `${자료.최신}년 지역별 학생 1인당 월평균 사교육비 — ${최고.칸}(${최고.사교육비}만원)이 ` +
   `${최저.칸}(${최저.사교육비}만원)보다 ${배수(최고.사교육비, 최저.사교육비)}배 많습니다. ` +
   `초중고사교육비조사 실측이며, 참여율이 아니라 «금액»입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '지역별 학생 1인당 월평균 사교육비',
+  description: desc,
+  temporalCoverage: `${첫흐름.해}/${끝흐름.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['지역별 학생 1인당 월평균 사교육비'],
+};
 ---
 
 <HundredYear
   title={`지역별 사교육비 — ${최고.칸} ${최고.사교육비}만원 vs ${최저.칸} ${최저.사교육비}만원`}
   description={desc}
+  jsonLd={jsonLd}
 >
   <h1>지역에 따라 사교육비는<br />얼마나 다를까요?</h1>
   <p class="sub">

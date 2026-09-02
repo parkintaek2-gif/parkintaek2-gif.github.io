@@ -38,9 +38,21 @@ const desc =
   `${때말(자료.최신)} 기준 ${자료.나이칸}이 졸업·중퇴 뒤 첫 일자리를 얻기까지 평균 ${자료.평균소요}개월이 걸렸습니다. ` +
   `첫 직장은 평균 ${근속.전체}개월(${자료.평균소요말 ? '' : ''}) 다녔고, 이미 그만둔 사람이 ${근속.그만둔몫}%입니다. ` +
   `⚠ 이 표에 「몇 살에 들어갔나」는 없습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '첫 취업 소요기간·첫 직장 근속기간',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['첫 취업 소요기간', '첫 직장 근속기간'],
+};
 ---
 
-<HundredYear title={`처음 일자리 — 졸업하고 ${자료.평균소요}개월, 그리고 ${근속.전체}개월`} description={desc}>
+<HundredYear title={`처음 일자리 — 졸업하고 ${자료.평균소요}개월, 그리고 ${근속.전체}개월`} description={desc} jsonLd={jsonLd}>
   <h1>처음 일자리는 언제 오고, 얼마나 갈까</h1>
   <p class="sub">
     {때말(자료.최신)} 기준 {자료.나이칸}이 졸업·중퇴 뒤 첫 일자리를 얻기까지

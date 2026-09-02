@@ -25,11 +25,24 @@ const 최저 = 자료.최저구간;
 const desc =
   `${자료.기준연도}년 가구 월소득별 사교육 참여율 — ${최저.이름} 가구 ${최저.값.toFixed(1)}% vs ` +
   `${최고.이름} 가구 ${최고.값.toFixed(1)}%, 격차 ${자료.격차}%p. 초중고사교육비조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가구 월소득별 사교육 참여율',
+  description: desc,
+  temporalCoverage: 자료.기준연도,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+  variableMeasured: ['가구 월소득 구간별 사교육 참여율', '학교급별 사교육 참여율'],
+};
 ---
 
 <HundredYear
   title={`가구소득별 사교육 참여율 — ${최저.이름} ${최저.값.toFixed(1)}% vs ${최고.이름} ${최고.값.toFixed(1)}%`}
   description={desc}
+  jsonLd={jsonLd}
 >
   <h1>가구 소득에 따라<br />사교육 참여율은 얼마나 다를까요?</h1>
   <p class="sub">

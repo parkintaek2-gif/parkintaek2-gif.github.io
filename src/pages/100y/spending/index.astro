@@ -52,9 +52,21 @@ const desc =
   `열두 항목 가운데 교육이 ${만원(교육항목.원)}(${교육항목.몫}%)입니다 — ` +
   `39세 이하 ${서른교육.몫}%, 50대 ${쉰교육.몫}%와 견주면 40대만 솟아 있습니다. ` +
   `⚠ 「가구주가 40대」이지 40대 개인이 아닙니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '가구주 나이대별 월평균 소비지출(12개 항목)',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['가구주 나이대별 월평균 소비지출 항목별 금액'],
+};
 ---
 
-<HundredYear title={`40대 평균 지출 — 마흔에 한 달 돈은 어디로 가나, 소비지출 ${만원(마흔.소비지출)}`} description={desc}>
+<HundredYear title={`40대 평균 지출 — 마흔에 한 달 돈은 어디로 가나, 소비지출 ${만원(마흔.소비지출)}`} description={desc} jsonLd={jsonLd}>
   <h1>마흔에 한 달 돈은<br />어디로 갈까요?</h1>
   <p class="sub">
     {자료.최신}년, <strong>가구주가 40대인 가구</strong>는 한 달에
