@@ -36,6 +36,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
+import { KST밀리 } from './_kst.mjs';
 
 const KEY = process.env.DART_API_KEY ?? '';
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
@@ -50,7 +51,26 @@ const DAYS = Number(argv.find((a) => a.startsWith('--days='))?.slice(7)) || 1;
 const GAP = 400;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const ymd = (d) => d.toISOString().slice(0, 10).replace(/-/g, '');
+/**
+ * ⛔⛔ [2026-09-03] 5번이 지적한 결함(77개 자리 중 하나) — 예전엔 `new Date()`(로컬 시각)에
+ * `setDate()`(로컬 시각 메서드)로 날짜를 옮긴 뒤 `toISOString()`(UTC)으로 찍었다. 이 기계가
+ * KST 라서 자정~오전 9시 사이엔 «로컬 오늘»과 «UTC 오늘」이 갈려 하루 밀린 날짜를 셀 뻔했다.
+ * ⇒ epoch(밀리초, 시간대 무관)에서 KST 오프셋을 직접 더해 계산한다(_kst.mjs 방식 그대로).
+ */
+export const ymd = (msEpoch) => new Date(msEpoch + KST밀리).toISOString().slice(0, 10).replace(/-/g, '');
+
+if (argv.includes('--자가시험')) {
+  let 실패 = 0;
+  const 검 = (m, ok) => { if (!ok) { 실패++; console.log('  ❌', m); } };
+  /* 2026-09-02 20:00 UTC = 2026-09-03 05:00 KST — 로컬(KST) 자정~9시 사이 결함 재현 구간 */
+  const 새벽 = Date.parse('2026-09-02T20:00:00Z');
+  검('KST 새벽엔 UTC 날짜와 다른(하루 앞선) 날짜를 낸다', ymd(새벽) === '20260903');
+  검('UTC 로 그대로 찍으면 전날이 나왔을 것(결함 재현)', new Date(새벽).toISOString().slice(0, 10).replace(/-/g, '') === '20260902');
+  const 낮 = Date.parse('2026-09-02T06:00:00Z'); // = 09-02 15:00 KST
+  검('KST 낮엔 달력이 안 갈린다', ymd(낮) === '20260902');
+  console.log(실패 === 0 ? '✅ 자가시험 — 통과' : `❌ 자가시험 — 실패 ${실패}`);
+  process.exit(실패 === 0 ? 0 : 1);
+}
 const dash = (s) => `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}`;
 
 /**
@@ -200,10 +220,9 @@ async function main() {
   let sumSaved = 0;
   let sumSkip = 0;
   const days = [];
+  const 하루밀리 = 24 * 3600 * 1000;
   for (let i = 0; i < DAYS; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() - i);
-    days.push(ymd(d));
+    days.push(ymd(Date.now() - i * 하루밀리));
   }
   days.reverse();
 
