@@ -124,5 +124,22 @@ if (결과 === 0) {
   }
 }
 
+/**
+ * 🔴 2026-09-02(6번, GEO [5번→6번] ②) — astro build 뒤 SeoulMarkets 기사마다 .md 판을 낸다.
+ * ⛔⛔ 위 100y 블록과 같은 이유로 별도 프로세스·종료코드 무시 — .md가 안 나가도 배포는 막지 않는다.
+ */
+if (결과 === 0) {
+  try {
+    const md결과 = spawnSync(process.execPath, ['scripts/build-seoulmarkets-markdown.mjs'], {
+      cwd: 뿌리,
+      stdio: 'inherit',
+      timeout: 60000,
+    });
+    if (md결과.status !== 0) console.log('⚠ SeoulMarkets 마크다운 판 생성 실패 — 배포는 계속한다(.html은 정상)');
+  } catch (e) {
+    console.log(`⚠ SeoulMarkets 마크다운 판 생성 중 오류(무시하고 계속) — ${e.message}`);
+  }
+}
+
 console.log(결과 === 0 ? `✅ ${때()} 빌드 끝` : `⛔ ${때()} 빌드 실패`);
 process.exit(결과);
