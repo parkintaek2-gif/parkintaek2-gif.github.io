@@ -20,6 +20,17 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/kcw-which-ranking.json';
+/**
+ * 🔴 [2026-09-03] 이 지면이 `/title/i-am-solo` 를 걸고 있었다 — **그런 지면이 없다.**
+ *   이 사이트는 자료 여섯 줄 미만인 작품에는 지면을 안 낸다(i-am-solo 는 한 줄이다).
+ *   `check-visitor-walk` 가 잡았다. 손님이 누르면 404 를 만난다.
+ * ⛔ 그 줄을 표에서 «지우지» 않는다 — 순위 대조가 이 지면의 요점이고, 지면이 없는 것은
+ *   그 작품의 잘못이 아니다. **링크만 걷는다.**
+ * ⛔ 어느 것이 지면이 있는지 손으로 적지 않는다 — `hasPage` 를 읽는다. 문턱이 바뀌면 저절로 따라온다.
+ */
+import 작품지면 from '../../data/wikitip-title-pages.json';
+const 지면있는것 = new Set((작품지면.titles ?? []).filter((t: any) => t.hasPage).map((t: any) => t.slug));
+const 지면있나 = (slug: string) => 지면있는것.has(slug);
 
 const 행 = data.행;
 const 최대 = 행[0];
@@ -96,7 +107,7 @@ const jsonLd = {
       <tbody>
         {행.map((r: any) => (
           <tr>
-            <td class="nm"><a href={`/title/${r.slug}`}>{r.제목}</a></td>
+            <td class="nm">{지면있나(r.slug) ? <a href={`/title/${r.slug}`}>{r.제목}</a> : r.제목}</td>
             <td class="num">{r.시간자리}</td>
             <td class={`num ${Number.isFinite(r.어긋남) && r.어긋남 >= 3 ? 'far' : ''}`}>{r.나라자리 ?? '—'}</td>
             <td class="num">{r.주자리 ?? '—'}</td>
@@ -120,9 +131,9 @@ const jsonLd = {
   <section>
     <h2>The two titles the hours ranking never shows you</h2>
     <p>
-      <b><a href={`/title/${data.나라수1위.slug}`}>{data.나라수1위.제목}</a></b> reached
+      <b>{지면있나(data.나라수1위.slug) ? <a href={`/title/${data.나라수1위.slug}`}>{data.나라수1위.제목}</a> : data.나라수1위.제목}</b> reached
       {' '}<b>{data.나라수1위.나라수} countries</b> &mdash; more than any other Korean title we hold.
-      {' '}<b><a href={`/title/${data.주수1위.slug}`}>{data.주수1위.제목}</a></b> spent
+      {' '}<b>{지면있나(data.주수1위.slug) ? <a href={`/title/${data.주수1위.slug}`}>{data.주수1위.제목}</a> : data.주수1위.제목}</b> spent
       {' '}<b>{data.주수1위.주수} weeks</b> on country top 10s, the longest run of any of them, and it
       is nowhere near the top of the hours list. If you had only ever seen the hours ranking, you
       would not know either fact.
