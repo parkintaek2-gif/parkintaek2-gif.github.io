@@ -9,6 +9,8 @@
  * ⚠ 셋 다 「우리가 못 재는 것」을 같이 말한다. 그 문장이 사라지면 그것도 잡는다.
  */
 import fs from 'node:fs';
+/* ⭐ 귀무모형은 «자로» 다시 센다 — 수를 이 파일에 손으로 적지 않는다 */
+import { 재기 } from './measure-kcw-casting-shuffle.mjs';
 
 const CD = 'content/kculturewire';
 const 읽기 = (slug) => {
@@ -54,8 +56,19 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-more-articles.mjs')
     const { 한줄, 원 } = 읽기('korean-casting-barely-repeats-itself');
     const c = JSON.parse(fs.readFileSync('archive/raw/netflix-top10/korean-cast-joined.json', 'utf8'));
     const 사람 = Object.values(c.배우);
+    /**
+     * 🔴 [2026-09-03] 여기서 사람을 **이름**으로 묶고 있었다 — `작품.get(q).push(p.이름)`.
+     *   같은 이름을 쓰는 다른 사람이 하나로 뭉쳐져 짝 수가 14,144 → 14,140 으로 줄었다.
+     *   ⚠ 우리 원칙은 「사람과 작품은 **Q번호**로 잇는다, 제목·이름 글자로 안 잇는다」다
+     *     (같은 이름 문제를 `wikitip-people.json` 의 `sameNameSplit` 에서 이미 다룬다).
+     *   ⇒ 열쇠로 묶는다. 수가 0.03% 움직이지만, 두 군데가 다른 방식으로 세는 것이 더 나쁘다 —
+     *     `measure-kcw-casting-shuffle.mjs` 가 귀무모형을 «열쇠로» 세기 때문이다.
+     *     시점도 방식도 같아야 두 수를 견줄 수 있다.
+     */
     const 작품 = new Map();
-    for (const p of 사람) for (const q of p.작품) { if (!작품.has(q)) 작품.set(q, []); 작품.get(q).push(p.이름); }
+    for (const [열쇠, p] of Object.entries(c.배우)) {
+      for (const q of p.작품) { if (!작품.has(q)) 작품.set(q, []); 작품.get(q).push(열쇠); }
+    }
     const 짝 = 짝세기([...작품.values()]);
     const v = [...짝.values()];
     const 자리 = [...작품.values()].reduce((s, a) => s + a.length, 0);
@@ -70,12 +83,28 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-more-articles.mjs')
       본다(`① 표 ${말}`, new RegExp(`\\| ${말} \\| ${천(수)} \\|`).test(원), 수);
     }
     본다('① 다섯 번은 없다', Math.max(...v) === 4 && /same person five times/.test(한줄), `최다 ${Math.max(...v)}`);
-    /* 이름을 댄 두 짝이 정말 네 번인가 */
+    /* 이름을 댄 두 짝이 정말 네 번인가.
+       ⚠ [2026-09-03] 짝 열쇠가 «이름»에서 «Q번호»로 바뀌었다(위 주석 참고).
+         그래서 이름 → 열쇠 표를 만들어 찾는다. 기사는 사람 이름으로 말하고
+         자료는 열쇠로 잇는다 — 둘을 잇는 자리가 여기다. */
+    const 이름열쇠 = new Map(Object.entries(c.배우).map(([열쇠, p]) => [p.이름, 열쇠]));
     for (const [a, b] of [['Jo Woo-jin', 'Kim Eui-sung'], ['Ma Dong-seok', 'Park Ji-hwan']]) {
-      const k = [a, b].sort().join('|');
-      본다(`① 짝 «${a}»`, 짝.get(k) === 4 && 한줄.includes(a) && 한줄.includes(b), 짝.get(k));
+      const ka = 이름열쇠.get(a);
+      const kb = 이름열쇠.get(b);
+      const k = ka && kb ? [ka, kb].sort().join('|') : null;
+      본다(`① 짝 «${a}»`, 짝.get(k) === 4 && 한줄.includes(a) && 한줄.includes(b),
+        k ? 짝.get(k) : `이름을 열쇠로 못 바꿨다(${a}·${b})`);
     }
-    본다('① 귀무모형을 말하나', /median of 208/.test(한줄) && /1\.2 times chance/.test(한줄), '두 문장 다');
+    /**
+     * 🔴 [2026-09-03] 여기 귀무모형 수(208·1.2배)가 **손으로 박혀** 있었다.
+     *   자료가 바뀌면 자와 기사가 «같이» 틀린다 — 이 파일이 다른 자리에 적어 둔 바로 그 함정이다.
+     *   ⇒ `measure-kcw-casting-shuffle.mjs` 로 **다시 세서** 기사가 그 수를 말하는지 본다.
+     *   ⚠ 씨앗을 못박아 두었으므로 돌릴 때마다 같은 답이 나온다.
+     */
+    const 섞어잰것 = 재기([...작품.values()]);
+    본다('① 귀무모형을 말하나',
+      한줄.includes(`median of ${섞어잰것.중앙}`) && 한줄.includes(`${섞어잰것.배수} times chance`),
+      `중앙 ${섞어잰것.중앙} · ${섞어잰것.배수}배`);
     본다('① 어느 쪽으로 틀리나', /higher than\s*1\.8%, not lower/.test(한줄), '방향 적음');
   }
 

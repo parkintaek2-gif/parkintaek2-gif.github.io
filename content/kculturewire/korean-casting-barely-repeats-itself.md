@@ -1,6 +1,6 @@
 ---
-title: "Ma Dong-seok and Park Ji-hwan: the 1.8% who repeat"
-dek: "Across 635 charting Korean titles there are 13,558 pairs of actors who have shared a production. 250 of them have done it more than once. Shuffle the same casts at random and you get about 208. The repertory company is mostly not there."
+title: "Ma Dong-seok and Park Ji-hwan: the 1.9% who repeat"
+dek: "Across 666 charting Korean titles there are 14,144 pairs of actors who have shared a production. 268 of them have done it more than once. Shuffle the same casts at random and you get about 214. The repertory company is mostly not there."
 category: stars
 purpose: both
 pubDate: 2026-08-08
@@ -32,16 +32,16 @@ excluded:
 it four times — and they are the exception, not the rule.
 
 Take every Korean film and series that has reached a Netflix Top 10 and has a cast recorded in
-Wikidata — **635 titles, 1,355 people, 3,413 credited roles**. Draw a line between two people every
+Wikidata — **666 titles, 1,391 people, 3,579 credited roles**. Draw a line between two people every
 time they appear in the same production.
 
-You get **13,558 distinct pairs**. Of those, **250 have worked together more than once.** That is
-**1.8%**.
+You get **14,144 distinct pairs**. Of those, **268 have worked together more than once.** That is
+**1.9%**.
 
 | Times a pair has shared a title | Pairs |
 | --- | ---: |
-| Once | 13,308 |
-| Twice | 235 |
+| Once | 13,876 |
+| Twice | 253 |
 | Three times | 13 |
 | Four times | 2 |
 
@@ -50,14 +50,14 @@ The two pairs at four are Jo Woo-jin with Kim Eui-sung, and Ma Dong-seok with Pa
 
 ## Chance would give you almost the same number
 
-1.8% sounds low, but low compared to what? So we built the comparison: keep every title's cast size
-exactly as it is, pour all 3,413 roles into one pile, and deal them back out at random.
+1.9% sounds low, but low compared to what? So we built the comparison: keep every title's cast size
+exactly as it is, pour all 3,579 roles into one pile, and deal them back out at random.
 
-**A random Korean film industry produces about 208 repeat pairs. The real one produces 250.**
+**A random Korean film industry produces about 214 repeat pairs. The real one produces 268.**
 
-Thirty shuffles gave a median of 208 and a range of 167 to 263 — so the observed 250 sits above the
+Thirty shuffles gave a median of 214 and a range of 194 to 253 — so the observed 268 sits above the
 middle of the random distribution but inside its range, and one shuffle in thirty beat it outright.
-**Observed is 1.2 times chance.** That is a real effect and a small one.
+**Observed is 1.3 times chance.** That is a real effect and a small one.
 
 ## What that rules out
 
@@ -103,3 +103,27 @@ common than they would be if nobody chose anybody."**
 ---
 
 If pairings are close to random, what holds the network of Korean productions together at all? [Read how it stays one connected body →](/article/korean-netflix-titles-one-body)
+
+## What changed on 3 September 2026
+
+Two things moved, and one of them was our own mistake.
+
+We re-collected the cast data on 25 August 2026, which took the set from 635 titles to 666 and from
+1,355 people to 1,391. And we found that this piece had joined people **by name** rather than by
+Wikidata Q-number, so two different people who share a name were counted as one. The rest of this
+site joins on Q-numbers precisely because Korean names repeat; this article was the exception. It is
+now joined the same way as everything else.
+
+Recounted, the pairs went from 13,558 to 14,144 and the repeats from 250 to 268 — 1.9% rather than
+1.8%. We also wrote the shuffle as a script this time
+(`scripts/measure-kcw-casting-shuffle.mjs`, seed 20260903) rather than running it by hand, so the
+null model can be re-run whenever the data moves. On the new data thirty shuffles give a median of
+214 and a range of 194 to 253, and no shuffle out of thirty beat the observed 268.
+
+**The finding did not change.** Repeat pairing is real, small, and close to chance — 1.3 times it
+rather than 1.2. There is still no repertory company here.
+
+One limit we should have stated the first time: the shuffle keeps each title's cast size but does
+**not** keep how many titles each person appears in. It removes the tendency for the same people to
+gather in the same productions, which is what we wanted to test, but it is not a null model that
+holds an actor's workload fixed. A shuffle that did would be a harder test than this one.
