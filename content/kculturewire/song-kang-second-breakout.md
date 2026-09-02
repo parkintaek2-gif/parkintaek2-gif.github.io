@@ -85,4 +85,4 @@ That pattern has an ordinary explanation — it was made and cast right after *S
 
 "So-and-so is in everything" is a thing people say about Korean actors, and nobody attaches a number to it. **The number, inside thirteen global breakouts, is that sixteen people have two and nobody has three.**
 
-Every actor above has a page here with what else they have been in and how far it travelled.
+Every actor above has a page here with what else they have been in and how far it travelled — the index is [the actors page](/actors), and the same question asked across our whole panel rather than thirteen titles is on [the casting-overlap page](/clumping).

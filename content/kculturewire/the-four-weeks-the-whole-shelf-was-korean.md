@@ -64,21 +64,21 @@ We are not going to tell you why. Netflix publishes nothing about how its lists 
 
 It is not a statement that Indonesians and Malaysians watched only Korean series that week. A top 10 is a ranking of what was watched most, not a census of what was watched. Something finishing eleventh is invisible here, and the gap between first and eleventh is not published.
 
-It is also not a trend. Four occasions in 20,667 country-weeks is 0.02%. The ordinary case is the opposite: **11,594 of those country-weeks held exactly one Korean title**, and just eight held ten. If you take one number from this piece, take that one — the full sweep is the rarity, and the single title is the norm.
+It is also not a trend. Four occasions in 20,581 country-weeks is 0.02%. The ordinary case is the opposite: **11,561 of those country-weeks held exactly one Korean title**, and just 8 held ten. If you take one number from this piece, take that one — the full sweep is the rarity, and the single title is the norm.
 
 The distribution across the whole file:
 
 | Korean titles in one country's top 10 that week | Country-weeks |
 |---|---|
-| 1 | 11,594 |
-| 2 | 4,704 |
-| 3 | 2,086 |
-| 4 | 900 |
-| 5 | 528 |
-| 6 | 405 |
+| 1 | 11,561 |
+| 2 | 4,670 |
+| 3 | 2,076 |
+| 4 | 895 |
+| 5 | 526 |
+| 6 | 403 |
 | 7 | 277 |
 | 8 | 122 |
 | 9 | 43 |
 | 10 | 8 |
 
-Our page on [how Korean chart places clump](/clumping) makes the same point from the other side: the 7.7% share we publish most often is not a place a week, it is nothing for long stretches and then several at once. These four weeks are what the far end of "several at once" actually looks like.
+Our page on [how Korean chart places clump](/clumping) makes the same point from the other side: the 7.9% share we publish most often is not a place a week, it is nothing for long stretches and then several at once. These four weeks are what the far end of "several at once" actually looks like.

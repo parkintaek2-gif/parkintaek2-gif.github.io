@@ -80,3 +80,5 @@ The lesson is narrow and we are keeping it: **check the exact identifier the dat
 If you follow K-drama, *Mousetrap* breaking out is news you already have. What this page adds is the **denominator** — where it sits among everything the English-reading world looked up that day, and what the previous benchmark actually measures when you put the two side by side in the same month.
 
 Nobody publishes that number, so we counted it.
+
+The standing version of this measurement — the hundred most-read Korean names of the month — is on [the most-read page](/most-read), and what a chart position does and does not tell you is on [the rank page](/rank-tells).

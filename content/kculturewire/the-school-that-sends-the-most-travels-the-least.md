@@ -137,3 +137,5 @@ places in an industry and in the same place in this table.
 
 That is a separate measurement and we have the rows to make it. It is not in this piece because
 we have not made it yet.
+
+Every school in the count, with its alumni listed, is on [the schools page](/school); the actors themselves are on [the actors page](/actors).

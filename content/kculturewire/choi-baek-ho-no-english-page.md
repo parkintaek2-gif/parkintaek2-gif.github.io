@@ -90,3 +90,5 @@ It would be easy to write this up as a story about what the English-speaking wor
 What the count does give you is a **denominator**: on one ordinary Sunday, a third of the entertainers Korea was reading about could not be read about in English at all. That number is checkable, it moves daily, and as far as we can tell nobody else is publishing it.
 
 We will keep taking it.
+
+The people who *do* have an English article, ranked by how many languages carry them, are on [the most-read page](/most-read). Who is missing from our own panel, and why, is on [the K-pop coverage page](/kpop-attention).

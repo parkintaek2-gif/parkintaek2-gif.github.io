@@ -76,6 +76,21 @@ export function 링크(h) {
  */
 export const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$/;
 
+/**
+ * **구글에 담지 말라고 이미 말한 지면인가.**
+ *
+ * 🔴 [2026-09-03] 이 자가 열아홉 줄을 「description 이 없다」·「canonical 이 없다」로 울렸다.
+ *   전부 `noindex` 다 — 띠 방 열둘 · 내린 작품 넷 · 내부 소리검토 하나.
+ *   description 과 canonical 은 **검색이 읽는 것**이다. 담지 말라고 한 지면에 그것이 없는 것은
+ *   흠이 아니라 맞는 상태다. 맞는 상태를 빨강으로 부르면 사람이 검사를 끈다.
+ * ⛔ 주소를 손으로 봐주지 않는다. 재서 가른다 — noindex 를 떼는 날 저절로 다시 울린다.
+ *   (`check-two-clicks`·`check-kcw-orphan-pages` 와 같은 규칙이다)
+ * ⚠ 죽은 링크·[object Object]·title 은 **noindex 여도 그대로 잡는다** — 그건 손님이 겪는 흠이다.
+ */
+export function 색인안함(글) {
+  return /name=["']robots["'][^>]*noindex/i.test(String(글 ?? '').slice(0, 4000));
+}
+
 /** 우리 안쪽 주소가 실제 파일로 있나. */
 export function 있나(u, 있음 = fs.existsSync) {
   if (/^https?:|^mailto:|^#/.test(u)) return true;
@@ -96,6 +111,9 @@ if (process.argv[1] && process.argv[1].endsWith('check-visitor-walk.mjs')) {
   자가('바깥 주소는 늘 살아 있다고 본다', 있나('https://x.com', () => false));
   자가('첫 화면은 wikitip.html 로 찾는다', 있나('/', (p) => p === 첫화면));
   자가('없는 주소는 잡는다', !있나('/nope', () => false));
+  자가('noindex 를 읽는다', 색인안함('<meta name="robots" content="noindex, follow">'));
+  자가('담는 지면은 예외가 아니다', !색인안함('<meta name="robots" content="index,follow">'));
+  자가('⛔ 못 읽으면 예외로 안 만든다', !색인안함(undefined));
   자가('공유 자산은 뿌리에서도 찾는다', 있나('/_astro/x.css', (q) => q === 'dist/_astro/x.css'));
   자가('⛔ 보통 지면은 뿌리에서 안 찾는다 — 남의 사이트 지면이 잡힌다',
     !있나('/about', (q) => q === 'dist/about.html'));
@@ -154,7 +172,7 @@ const 기사디렉 = `${D}/article`;
       const 안쪽 = 링크(h).filter((u) => !/^https?:|^mailto:|^#/.test(u));
 
       /* 404 지면은 원래 얇고 canonical 이 없다 — 손님이 머무는 자리가 아니다. */
-      const 예외 = f === '404.html';
+      const 예외 = f === '404.html' || 색인안함(h);
       if (!예외 && t.length < 얇은기준) 문제.push(`${이름} — 본문 ${t.length}자. ${얇은기준}자보다 얇다`);
       const 깨짐 = 안쪽.filter((u) => !있나(u));
       if (깨짐.length) 문제.push(`${이름} — 죽은 링크 ${깨짐.length}개: ${깨짐.slice(0, 3).join(' · ')}`);

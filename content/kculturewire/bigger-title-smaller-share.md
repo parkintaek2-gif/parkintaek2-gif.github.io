@@ -78,3 +78,5 @@ We cannot test that mechanism with this data, so we are offering it as a reading
 If you want to know whether a Korean title made anyone famous, the title's own peak is a poor guide — the biggest titles here converted the worst. *Crash Landing on You* was a twentieth of *Parasite*'s size and put nearly nine times the share onto its lead.
 
 That is measurable, nobody publishes it, and it took twelve titles and 108 actors to say it with a number attached.
+
+The same panel of actors, measured for reach rather than share, is on [the actor-reach table](/actor-reach); who appears alongside whom is on [the casting page](/actors).

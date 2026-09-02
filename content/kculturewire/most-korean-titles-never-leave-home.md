@@ -104,3 +104,5 @@ and they are the reason the median run is two weeks.
 
 Netflix also publishes no viewing figures in the per-country files, so nothing here measures how
 many people watched. A chart place is a rank, not an audience.
+
+Every title in this count has its own row on [the titles page](/titles), and how far each one travelled is broken out by market on [the reach page](/reach).

@@ -83,3 +83,5 @@ It does not close a gap of six to one.
 Korean film's export decade is well documented — *Parasite*, *Squid Game*, the festival circuit. This is the same measurement pointed the other way: what the domestic audience was reading about in the month the year's biggest picture was a Hollywood one.
 
 A single foreign release taking six times the encyclopedia attention of an entire domestic release year is a fact about the home market, and it is measurable without any box-office data at all.
+
+What Korean film does outside Korea is a different measurement, and it is on [the screen-split page](/screen-split): films travel to far fewer countries than series, and [most Korean titles never leave home](/article/most-korean-titles-never-leave-home) at all.
