@@ -42,6 +42,72 @@ export const 주소 = 'kculturewire.com';
  * 어느 벌을 지을 수 있나. ⚠ 사장님 지시는 「**매일** 낸다」이므로 한 벌만 박아 두면 안 된다.
  * ⛔ 벌마다 **자기 자료**를 가진다. 남의 자료에서 수를 빌려 오지 않는다.
  */
+/**
+ * 세는자 벌 — 넷플릭스의 「weeks in top 10」이 무엇을 세나.
+ * ⛔ 「넷플릭스가 틀렸다」고 하지 않는다. **무엇을 세는지**만 말한다(자료의 whatThisIsNot 그대로).
+ * ⛔ 수를 손으로 적지 않는다. 전부 kcw-weeks-counter.json 에서 읽는다.
+ */
+function 세는자벌짓기(d) {
+  const k = d.korean; const c = d.koreanCellShape;
+  const 으뜸 = (d.longestKorean ?? [])[0];
+  const 줄 = (d.longestKorean ?? []).slice(0, 5).map((x) => [
+    x.title, x.name, String(x.counter), String(x.longestStreak)]);
+  return {
+    갈피: 'weeks-counter',
+    빛: '#7fd4c1',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Netflix Top 10 · ${Number(d.rowsRead).toLocaleString('en-US')} rows`,
+        큰: 'Weeks in the top 10\nis not weeks\nin a row',
+        아래: `Netflix puts a weeks-in-top-10 number on every row. We read all of them. When a title leaves the chart and comes back, the counter **keeps going** ${k.afterGapContinuedPc}% of the time `
+          + `— it does not start over.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The longest Korean\ncounters, and the\nrun inside them',
+        머리: ['Title', 'Country', 'Counter', 'Longest run'],
+        줄,
+        아래: 으뜸
+          ? `**${으뜸.title}** carries a counter of ${으뜸.counter} in ${으뜸.name}. Its longest unbroken run is `+ `**${으뜸.longestStreak}**, across a span of ${으뜸.spanWeeks} weeks. Both numbers are true; they answer different questions.`
+          : 'We could not read a longest Korean cell from the data.',
+      },
+      {
+        꼴: '표',
+        제목: 'What a Korean\nchart life looks like',
+        머리: ['Measure', 'Weeks'],
+        줄: [
+          ['Median weeks present', String(c.medianWeeksPresent)],
+          ['Median span, first to last', String(c.medianSpan)],
+          ['Median longest unbroken run', String(c.medianLongestStreak)],
+        ],
+        아래: `Of ${Number(c.koreanCells).toLocaleString('en-US')} Korean chart lives, **${c.unbrokenPc}%** never break. `+`The counter and the run agree for most titles — which is why the ones where they disagree are worth naming.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not a claim that the counter is wrong — it counts weeks present, and says so',
+          'Not viewing — a chart place is not an audience figure',
+          'Not Russia — Netflix stopped publishing that list in February 2022',
+        ],
+        아래: 'We also cannot see below the tenth place. A title that keeps being watched but '
+          + 'drops out of the ten looks the same to us as one nobody watched.',
+      },
+      {
+        꼴: '끝',
+        제목: 'Two true numbers,\ntwo different\nquestions',
+        글: 'How many weeks was it on the chart at all?\nHow many weeks in a row?\n\n'
+          + '**We publish both, and we say which is which.**',
+        길: `${주소}/weeks-counter`,
+        곁: `Netflix Top 10 (Tudum) · ${d.weekFrom} – ${d.weekTo} · Russia excluded`,
+      },
+    ],
+  };
+}
+
 export const 벌목록 = {
   fame: { 자료: 'src/data/wikitip-fame-compare.json', 만들기: (d) => 한벌짓기(d) },
   manager: { 자료: 'src/data/wikitip-sea-athletes.json', 만들기: (d) => 감독벌짓기(d) },
@@ -70,6 +136,10 @@ export const 벌목록 = {
      ⛔ 기사만 내고 카드를 안 내면 «밖으로 나가는 문»이 하나 줄어든다 —
        사장님 상시 지시는 「카드·카드뉴스·숏영상을 매일」이다. 오늘 이틀째 비어 있었다. */
   school: { 자료: 'src/data/kcw-school-reach.json', 만들기: (d) => 학교벌짓기(d) },
+  /* [2026-09-03] 오늘 낸 여섯 편 가운데 «가장 놀라운 것»을 카드로 낸다 —
+     넷플릭스가 줄마다 붙이는 「weeks in top 10」이 «연속»이 아니라는 것.
+     ⛔ 사장님 하루 몫이 텍스트 6 · 영상 1 · **기타(카드) 1** 로 바뀌었다. 그 칸을 채운다. */
+  counter: { 자료: 'src/data/kcw-weeks-counter.json', 만들기: (d) => 세는자벌짓기(d) },
 };
 
 /**
