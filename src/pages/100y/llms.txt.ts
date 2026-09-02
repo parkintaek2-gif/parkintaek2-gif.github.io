@@ -46,6 +46,7 @@ included, navigation chrome stripped.
 - [Choosing a major](https://100yearmap.com/major): 925 college majors, outcomes by field
 - [First job timing](https://100yearmap.com/first-job): months to first job after graduation, tenure
 - [Still unmarried at 30](https://100yearmap.com/marriage-age): marital status by age band vs. average marriage age
+- [Divorce age and marriage duration](https://100yearmap.com/divorce-age): average divorce age, 1990-2025 (husband 36.75→51.02, wife 32.69→47.71, vital-statistics registry data), plus 2025 divorces by marriage duration — the largest single group is 20+ years married (36.6%), larger than any shorter band. Explicitly warns against computing a "divorce rate" from same-year divorce/marriage counts.
 - [Real wages](https://100yearmap.com/real-wage): inflation-adjusted pay growth, calculated from KOSIS nominal wage + CPI
 - [Where does a 40-something's spending go](https://100yearmap.com/spending): household budget by category
 - [Who owns a home, by age](https://100yearmap.com/home): homeowner household age distribution

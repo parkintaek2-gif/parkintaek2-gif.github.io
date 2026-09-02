@@ -1,0 +1,129 @@
+---
+/**
+ * /100y/divorce-age — 이혼, 몇 살에 하고 몇 년차에 하는가
+ *
+ * /marriage-age(결혼 나이)의 짝이다. 101/DT_1B85011(시도/평균 이혼 연령, 1990~2025)로
+ * 나이 추세를, 101/DT_1B85006(시도/혼인지속기간별 이혼)으로 몇 년차인지 분포를 낸다.
+ * 둘 다 인구동향조사 — 신고 기반 행정통계다(표본조사가 아니다).
+ *
+ * ⛔⛔ statisticsExplData 원문 경고 — 「이혼 건수를 혼인 건수와 대비해 이혼율로 쓰지 않도록
+ *   주의」. 같은 해 이혼한 부부와 결혼한 부부는 다른 집단이다 — 이 지면은 그 계산을 안 한다.
+ * ⛔ 판정하지 않는다 — 「늦게 결혼해라/일찍 이혼해라」 같은 말을 쓰지 않는다.
+ * ⛔ 「평균 나이」는 그 해 이혼한 사람만의 평균이다 — 모든 기혼자 중 이혼한 비율이 아니다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/divorce-age.json';
+
+const 자료 = 원본 as any;
+const 첫해 = 자료.나이_첫해;
+const 끝해 = 자료.나이_최신해;
+const 밴드들= ['0∼4년', '5∼9년', '10∼14년', '15∼19년', '20년이상'];
+const 지속기간 = 자료.지속기간;
+
+const 남편늘어난 = Math.round((끝해.남편 - 첫해.남편) * 10) / 10;
+const 아내늘어난 = Math.round((끝해.아내 - 첫해.아내) * 10) / 10;
+
+const desc =
+  `${첫해.해}년 평균 이혼 연령은 남편 ${첫해.남편}세·아내 ${첫해.아내}세였는데, ${끝해.해}년에는 ` +
+  `남편 ${끝해.남편}세·아내 ${끝해.아내}세로 올랐습니다(${끝해.해 - 첫해.해}년 만에 각각 ${남편늘어난}세·${아내늘어난}세). ` +
+  `${자료.지속기간_기준연도}년 이혼 중 ${지속기간.밴드['20년이상'].비율}%가 결혼 20년차 이상입니다. 인구동향조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '평균 이혼 연령 추세·혼인지속기간별 이혼',
+  description: desc,
+  temporalCoverage: `${첫해.해}/${끝해.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['연도별 평균 이혼 연령(남편·아내)', '혼인지속기간별 이혼 건수'],
+};
+---
+
+<HundredYear
+  title={`이혼 연령 — ${첫해.해}년 남편 ${첫해.남편}세 → ${끝해.해}년 ${끝해.남편}세`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>이혼은<br />몇 살에, 몇 년차에 할까요?</h1>
+  <p class="sub">
+    인구동향조사(신고 기반 행정통계) 기준, 평균 이혼 연령이 {첫해.해}년부터 {끝해.해}년까지
+    {' '}<strong>어떻게 바뀌었는지</strong>와, 결혼한 지 몇 년 만에 이혼하는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">평균 이혼 연령 — {첫해.해}년 → {끝해.해}년</p>
+    <p class="answer-num">남편 {첫해.남편}세 → {끝해.남편}세</p>
+    <p class="answer-sub">
+      아내 {첫해.아내}세 → {끝해.아내}세 · {끝해.해 - 첫해.해}년 만에 남편 {남편늘어난}세, 아내 {아내늘어난}세 올랐습니다
+    </p>
+  </div>
+
+  <h2>{첫해.해}년부터 {끝해.해}년까지, 5년 단위로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>남편 평균</th><th>아내 평균</th></tr></thead>
+      <tbody>
+        {(자료.나이추세 as any[])
+          .filter((r) => r.남편 != null && (Number(r.해) % 5 === 0 || r.해 === 끝해.해))
+          .map((r) => (
+            <tr>
+              <td>{r.해}</td>
+              <td>{r.남편}세</td>
+              <td>{r.아내}세</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{자료.지속기간_기준연도}년, 결혼한 지 몇 년 만에 이혼했을까</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>혼인지속기간</th><th>건수</th><th>비율</th></tr></thead>
+      <tbody>
+        {밴드들.map((b) => (
+          <tr>
+            <td>{b}</td>
+            <td>{지속기간.밴드[b].건수?.toLocaleString()}건</td>
+            <td><strong>{지속기간.밴드[b].비율}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ <strong>가장 큰 갈래는 신혼이 아니라 결혼 20년차 이상입니다.</strong> 전체
+    {' '}{지속기간.전체?.toLocaleString()}건 중 {지속기간.밴드['20년이상'].비율}%로, 어느 한 기간대보다도 많습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>이혼 건수를 같은 해 혼인 건수와 나눠 「이혼율」로 계산하지 않습니다 — 두 집단이 다릅니다.</li>
+    <li>「평균 이혼 연령」은 그 해 이혼한 사람만의 평균입니다 — 전체 기혼자 중 이혼 비율이 아닙니다.</li>
+    <li>연령·기간이 오른 까닭(수명 연장·황혼이혼 증가·평균 결혼연령 자체가 오른 것 등)을 이 표가 가르지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「늦게 결혼해야 한다」고도
+    {' '}「일찍 정리해야 한다」고도 쓰지 않습니다. 나이·기간이 시간이 지나며 어떻게
+    {' '}달라졌는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표.나이} · {자료.출처.표.지속기간}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/marriage-age">← 서른 살에 사람들은 결혼했을까, 아직일까?</a>
+    <br />
+    <a href="/wealth-gap">← 고령층은 청년층보다 자산이 몇 배 많을까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="divorce-age" />
+
+  <NextQuestionBrief 모은것="인구동향조사 자료" />
+</HundredYear>

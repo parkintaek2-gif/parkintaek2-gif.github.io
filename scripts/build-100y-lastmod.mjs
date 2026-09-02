@@ -79,6 +79,7 @@ export const 갈래 = {
   '/high-value-home-age': ['src/pages/100y/high-value-home-age/index.astro', 'src/data/100yearmap/high-value-home-age.json'],
   '/wage-education': ['src/pages/100y/wage-education/index.astro', 'src/data/100yearmap/wage-education.json'],
   '/wage-distribution': ['src/pages/100y/wage-distribution/index.astro', 'src/data/100yearmap/wage-distribution.json'],
+  '/divorce-age': ['src/pages/100y/divorce-age/index.astro', 'src/data/100yearmap/divorce-age.json'],
   '/nursery': ['src/pages/100y/nursery/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json'],
   '/nursery-fill': ['src/pages/100y/nursery-fill/index.astro', 'src/data/100yearmap/nursery-fill.json'],
   '/hiking': ['src/pages/100y/hiking/index.astro', 'src/data/100yearmap/hiking.json'],
