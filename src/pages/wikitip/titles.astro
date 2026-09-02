@@ -20,6 +20,20 @@ import key from '../../data/wikitip-key-integrity.json';
 import korea from '../../data/wikitip-korea-signal.json';
 
 /**
+ * 🔴 [2026-09-03] 기사 `/article/most-korean-titles-never-leave-home` 가 「한 나라에서만,
+ *   그 나라가 한국」인 작품 몫을 머리로 쓰는데, **그 수가 이 지면에 없었다.**
+ *   `check-table-promises` 가 그것을 잡았다 — 우리 공유 카드가 「every figure has a table
+ *   behind it」이라고 적고 있으니, 그 표가 어딘가에는 있어야 한다.
+ * ⚠ 이 지면의 판(974편)과 그 기사의 판(976편)이 두 편 다르다. 기사가 그 차이를 각주에
+ *   밝혀 두었으므로 **여기서는 이 지면의 판으로 센다.** 둘을 억지로 맞추지 않는다 —
+ *   맞추려면 판 하나를 고쳐야 하고, 그건 이 자리에서 할 일이 아니다.
+ */
+const 한나라만 = (titlePages.titles ?? []).filter((t: any) => t.markets === 1);
+const 한국만찍은것 = 한나라만.filter((t: any) => (t.byMarket ?? []).some((m: any) => m.iso2 === 'KR'));
+const 한국만몫 = titlePages.titles?.length
+  ? +((100 * 한국만찍은것.length) / titlePages.titles.length).toFixed(1) : null;
+
+/**
  * 🔴 2026-08-22 — 4주 실측에서 이 지면이 **노출 67 · 순위 7.9 · 클릭 0** 이었다.
  *   자료 지면 무리에서 가장 큰 자리인데 한 번도 안 눌렸다.
  *
@@ -116,7 +130,17 @@ const 연도들 = 해자료.years;
     <div><b>{reachedNo1}</b><span>reached #1 somewhere</span></div>
     <div><b>{allSix}</b><span>charted in all six countries</span></div>
     <div><b>{tv} / {films}</b><span>series / films</span></div>
+    <div><b>{한국만몫}%</b><span>charted only in Korea</span></div>
   </section>
+  <p class="note">
+    Counting <b>every one of the 93 markets Netflix publishes</b> rather than the six above:
+    <b>{한국만찍은것.length}</b> of {titlePages.titles?.length} Korean titles charted in exactly one
+    country and that country was South Korea &mdash; {한국만몫}% of the panel. Another
+    {' '}{한나라만.length - 한국만찍은것.length} charted in exactly one country that was not Korea.
+    {' '}<a href="/article/most-korean-titles-never-leave-home">The piece on those titles</a> uses a
+    panel two titles larger and reports 28.1%; the difference is which titles resolve by exact name,
+    and it is set out in that article&rsquo;s notes.
+  </p>
 
   <section>
     <h2>The ones that stayed longest</h2>

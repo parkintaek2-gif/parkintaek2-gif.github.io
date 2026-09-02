@@ -103,14 +103,14 @@
       "왜": "자동은 21.3% 를 집는데 그건 다른 두 기사와 같은 수다"
     },
     "short-titles-are-where-we-cannot-check-ourselves": {
-      "figure": "58.1%",
+      "figure": "54.1%",
       "label": "of films come back ambiguous",
-      "왜": "자동은 397 을 집는데 옆 기사 카드와 같은 수다"
+      "왜": "자동은 397 을 집는데 옆 기사 카드와 같은 수다 / 2026-09-03 — 카드가 58.1% 로 남아 있었다. 본문 표는 54.1% 다(정정 절에만 58.1 이 남아 있다). 정정으로 맞췄다"
     },
     "film-and-series-share-people-but-less-than-chance": {
-      "figure": "61.6%",
-      "label": "where chance alone gives 73.2%",
-      "왜": "기댓값과의 차이가 기사다. 700 은 표본 크기일 뿐이다"
+      "figure": "62.4%",
+      "label": "cross between film and series — chance gives 73.8%",
+      "왜": "기댓값과의 차이가 기사다. 700 은 표본 크기일 뿐이다 / 2026-09-03 — 카드가 61.6% 로 남아 있었다. 기사 본문은 62.4% 다(448/718). 정정으로 맞췄다"
     },
     "korean-series-travel-films-do-not": {
       "figure": "35",

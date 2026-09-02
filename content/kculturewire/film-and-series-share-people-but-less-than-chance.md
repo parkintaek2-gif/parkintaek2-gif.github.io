@@ -25,7 +25,7 @@ crossChecks:
 excluded:
   - "Any claim about the whole industry. This is people credited in Korean titles that reached a Netflix Top 10 — a small, self-selected slice"
   - "Any claim about billing or role size. P161 records a cast member; a lead and one scene are the same row"
-  - "Any claim that Wikidata's cast lists are complete. They are not. Missing credits push a person towards looking like a specialist, so the true crossing rate is probably higher than 61.6%"
+  - "Any claim that Wikidata's cast lists are complete. They are not. Missing credits push a person towards looking like a specialist, so the true crossing rate is probably higher than 62.4%"
   - "Theatre, advertising, variety and anything that did not chart. A person who alternates between film and stage looks like a film specialist here"
 ---
 
@@ -38,7 +38,7 @@ series. That is **62.4%**. Most people who work more than once work across the l
 
 ## The number that makes it interesting
 
-61.6% sounds like a wall that barely exists. To know whether it is low or high you need something to
+62.4% sounds like a wall that barely exists. To know whether it is low or high you need something to
 compare it against, so we asked what the figure would be if format meant nothing at all — if each of
 a person's titles were drawn without regard to whether it was a film or a series.
 
@@ -66,12 +66,12 @@ both — 14 are film-only and 8 series-only. Work enough and you cross almost re
 
 **Incomplete cast lists push in one direction only.** If a person did four series and two films and
 Wikidata records only the series, they appear here as a series specialist. Missing credits cannot
-turn a specialist into a crosser; they can only do the reverse. **61.6% is therefore a floor**, and
+turn a specialist into a crosser; they can only do the reverse. **62.4% is therefore a floor**, and
 the true crossing rate is higher by an amount we cannot measure.
 
 **The null model is a comparison, not a prediction.** It assumes a person's titles are independent
 draws at film's overall share of the set. Nobody's career works that way. It is there to answer
-"compared to what", which a bare 61.6% cannot.
+"compared to what", which a bare 62.4% cannot.
 
 **And this is only what charted.** A film actor whose work never reached a Netflix Top 10, or who
 works mainly in theatre or advertising, is either absent or looks like something they are not.
