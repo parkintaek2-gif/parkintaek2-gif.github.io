@@ -693,6 +693,8 @@ export const GET: APIRoute = async () => {
     { path: '/rank-tells', priority: '0.9', changefreq: 'weekly' },
     /* 65편째 기사의 표. 2026-08-09 21:2x — 7.7% 는 고르게가 아니라 몰려 있다 */
     { path: '/clumping', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 [2026-09-03] 열 자리 전부가 한국 작품이던 주 — /clumping 의 안 쓰던 축에서 나왔다 */
+    { path: '/all-ten', priority: '0.8', changefreq: 'weekly' },
     /* 66편째 기사의 표. 2026-08-09 22:3x — 제작비 27배 이야기가 예고한 몰림은 **안 왔다** */
     { path: '/leverage', priority: '0.9', changefreq: 'weekly' },
     /* 67편째 기사의 표. 2026-08-09 23:2x — 들어오는 것만 재 왔다. **나가는 자리**를 처음 잰다 */

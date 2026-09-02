@@ -380,6 +380,11 @@
       "figure": "119,356",
       "label": "Korean Wikipedia reads for one non-Korean film",
       "왜": "자동 딱지가 「times」 한 낱말이었다. 이 기사의 요점은 그 수가 «한국 영화 열넷을 합친 것»보다 크다는 것이다"
+    },
+    "four-times-a-foreign-top-ten-was-all-korean": {
+      "figure": "4",
+      "label": "foreign charts Korean in all ten places",
+      "왜": "자동은 dek 첫 수 50,034(분모)를 집는다. 분모는 이 기사의 요점이 아니다 — 요점은 한국 밖에서 «넷»이고, 그 넷이 다 동남아라는 것이다"
     }
   }
 }
