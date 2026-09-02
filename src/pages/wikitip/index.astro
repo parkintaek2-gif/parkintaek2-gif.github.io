@@ -52,6 +52,8 @@ import 생일자료 from '../../data/wikitip-birthday-pages.json';
 import 해자료 from '../../data/wikitip-years.json';
 import 나이자료 from '../../data/wikitip-age-bands.json';
 import 학교자료 from '../../data/wikitip-schools.json';
+/* 🔴 [2026-09-03] 고향 지면 37장이 첫 화면에서 세 걸음이었다 — 그 문을 내려고 읽는다 */
+import 고향자료 from '../../data/wikitip-hometowns.json';
 import 사람자료 from '../../data/wikitip-people.json';
 import 그룹자료 from '../../data/wikitip-groups.json';
 /* 🔴 2026-08-24 밤 — 수요가 큰 작품 지면이 들어오는 링크 1~2개로 굶고 있었다.
@@ -184,6 +186,21 @@ const jsonLd = {
         <a href="/born-on">Korean actors&rsquo; birthdays</a>
         <span class="cnt">{생일자료.peopleTotal.toLocaleString('en-US')} people,
           by month or by day</span>
+      </li>
+      {/*
+        🔴 [2026-09-03] **고향 지면 37장이 첫 화면에서 «세 번»이었다.**
+          `/hometowns` 가 37장을 다 걸고 있는데 그 `/hometowns` 로 가는 문이 첫 화면에 없었다.
+          그래서 `check-two-clicks.mjs` 가 `/from/…` 37장을 「두 번 안에 못 닿는다」로 셌다.
+        ⭐ 2번 지시(2026-08-09) — 「구글은 링크를 타고 온다. 두 번 안에 못 닿으면 색인을
+          걸어도 잘 안 잡힌다」. 이 한 줄이 이미 만들어 둔 37장을 두 걸음으로 당긴다.
+        ⚠ 손님 말로 적는다 — Search Console 에 온 물음이 「korean actors born in busan」·
+          「bts members from busan」·「daegu bts member」 꼴이었다. 「hometown」보다
+          «도시 이름으로 찾는다»가 실제 모양이다.
+      */}
+      <li>
+        <a href="/hometowns">Korean stars by home city</a>
+        <span class="cnt">{(고향자료.cities ?? []).length} cities,
+          {' '}{고향자료.inBox.toLocaleString('en-US')} people we could place</span>
       </li>
       <li>
         <a href="/titles">Every Korean title that charted</a>
@@ -368,6 +385,19 @@ const jsonLd = {
       <p class="more">
         Looking for Netflix's own Top 10 files?{' '}
         <a href="/netflix-top10-data">What is inside them, and what is missing from them &rarr;</a>
+      </p>
+      {/*
+        🔴 [2026-09-03] **주간 지면 269장이 첫 화면에서 «세 번»이라 검색에 안 잡히고 있었다.**
+          `check-two-clicks.mjs` 로 재니 두 번 안에 못 닿는 지면 418장 중 **269장이 `/week/…`**
+          이었다. `/weeks` 가 269장을 다 걸고 있는데, 그 `/weeks` 로 가는 문이 첫 화면에
+          없었다 — 첫 화면 → /netflix-top10-data → /weeks → /week/… 로 세 걸음이었다.
+        ⭐ 2번 지시(2026-08-09) — 「구글은 링크를 타고 온다. **두 번 안에 못 닿으면 색인을
+          걸어도 잘 안 잡힌다**」. 그러니 이 한 줄이 지면 269장을 두 걸음으로 당긴다.
+        ⚠ 낱말을 쌓는 것이 아니다. 이미 만들어 둔 지면으로 가는 «길»을 내는 것이다.
+      */}
+      <p class="more">
+        Or go week by week:{' '}
+        <a href="/weeks">every week we hold, from {markets.weekFrom ?? '2021-07-04'} &rarr;</a>
       </p>
       {/*
         ⛔ 2026-08-09 12:5x — 2번 지시. 살 만한 곳을 208곳까지 찾고 여정표를 열일곱 장 만들어 놓고
