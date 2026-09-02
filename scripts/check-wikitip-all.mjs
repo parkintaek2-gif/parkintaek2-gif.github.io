@@ -45,7 +45,15 @@ const 검사 = [
   ['안 보이는 사람을 기사·지면이 맞게 말하나', 'check-invisible-acts-article.mjs'],
   ['분모를 기사가 맞게 말하나', 'check-output-denominator-article.mjs'],
   ['여덟 가지로 틀린 것을 기사가 맞게 세나', 'check-eight-ways-article.mjs'],
-  ['한 지역만 다른 것을 기사가 맞게 말하나', 'check-hot-streak-article.mjs'],
+  /* 🔴 [2026-09-03] `check-hot-streak-article.mjs` 를 목록에서 뺐다.
+   *   그 자와 그 기사·자료·만드는 자는 **사장님 지시로 Riot 을 걷어낼 때 함께 지워졌다**
+   *   (커밋 32109edc — riot-ladder · wikitip-hot-streak · build-wikitip-hot-streak · 그 검사).
+   *   ⛔ 그런데 이 목록에만 이름이 남아서, 이 자가 「검사 목록이 실제와 어긋난다」로
+   *     매번 섰다. 지운 것을 목록에서 안 뺀 것이다.
+   *   ⚠ 사장님이 바로잡아 주신 것을 잊지 않는다 — 「내가 riot을 제거하라고 했지,
+   *     e스포츠를 제거하라고는 하지 않았잖아」. e스포츠 축은 살아 있고
+   *     `/esports-nations` 가 위키백과 열람수로 그것을 잰다. 그 지면의 자는 따로 있다.
+   */
   /* 2번 지시 14:2x — 자가 없던 네 꼴에 자를 만들었다. 원인 딱지와 1:1 로 붙는다 */
   ['질의가 패널과 어긋나나 (attribution-contradiction)', 'check-attribution-agrees.mjs'],
   ['두 겹 표에서 한 겹만 읽었나 (kosis-two-level)', 'check-two-level-totals.mjs'],

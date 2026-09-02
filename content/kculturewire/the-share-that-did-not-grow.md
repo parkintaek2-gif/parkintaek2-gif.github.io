@@ -31,14 +31,14 @@ Netflix publishes twenty places per country per week — ten films, ten series. 
 that makes it one of the few things about the Korean wave that can be counted rather than asserted.
 
 We counted all of it: 93 countries with a complete record, 268 weeks, **498,480 places**. Korean
-titles hold **39,612** of them.
+titles hold **39,139** of them — **Korean titles hold 7.9% of the world's top-10 places.**
 
-## 7.6% of the world, and half of Korea
+## 7.9% of the world, and half of Korea
 
 | | Korean share of top-10 places |
 | --- | ---: |
 | All 93 markets | **7.7%** |
-| The median country | 4.7% |
+| The median country | 4.6% |
 | South Korea itself | **49.7%** in 2025 |
 
 Korea's own figure is the one that surprises people first. Even at home, in the market where every
@@ -63,9 +63,9 @@ the English-speaking world.
 
 | Year | Weeks | Korean share |
 | --- | ---: | ---: |
-| 2022 | 52 | 7.6% |
-| 2023 | 53 | 8.3% |
-| 2024 | 52 | 7.1% |
+| 2022 | 52 | 7.5% |
+| 2023 | 53 | 8.2% |
+| 2024 | 52 | 6.9% |
 | 2025 | 52 | 8.2% |
 
 Four complete years, and the share ends where it started. If the Korean wave has been growing since
@@ -92,7 +92,7 @@ inside an average of 93.
 | Market | 2022 | 2025 | Change |
 | --- | ---: | ---: | ---: |
 | Vietnam | 34.4% | 25.8% | −8.6 |
-| Indonesia | 34.4% | 26.7% | −7.7 |
+| Indonesia | 34.3% | 26.7% | −7.6 |
 | Malaysia | 31.4% | 21.5% | −9.9 |
 | Taiwan | 27.1% | 21.3% | −5.8 |
 | Thailand | 30.8% | 20.3% | −10.5 |
@@ -112,13 +112,13 @@ These are different problems and the data separates them cleanly.
 
 | Year | Korean share | Korean titles charting | Places per Korean title | All titles charting |
 | --- | ---: | ---: | ---: | ---: |
-| 2022 | 30.5% | **166** | 17.2 | 1,127 |
+| 2022 | 30.5% | **165** | 17.3 | 1,127 |
 | 2023 | 26.9% | 145 | 17.7 | 1,158 |
 | 2024 | 19.9% | 102 | 18.3 | 1,248 |
-| 2025 | 20.8% | **110** | 17.7 | 1,247 |
+| 2025 | 20.8% | 110 | 17.7 | 1,247 |
 
-The number of distinct Korean titles reaching these charts fell from 166 to 110. What each one did
-once it arrived barely changed — 17.2 places to 17.7. **A Korean title that charts in these markets
+The number of distinct Korean titles reaching these charts fell from 165 to 110. What each one did
+once it arrived barely changed — 17.3 places to 17.7. **A Korean title that charts in these markets
 performs as well as it did in 2022. There are simply far fewer of them.**
 
 Meanwhile the total number of distinct titles charting rose from 1,127 to 1,247. The lists got
@@ -168,3 +168,12 @@ Thailand and Indonesia, and the simple fact that more titles now compete for the
 are all plausible, and this data separates none of them. What it does say is narrower and firmer:
 in the markets where Korean titles held the most ground, they hold a third less of it than they did
 in 2022, and that is true in every one of those markets.
+
+## What changed on 3 September 2026
+
+We recounted from the current files. The record is now 268 weeks rather than 265, so the totals grew:
+498,480 top-10 places across 93 countries, of which Korean titles hold 39,139. Every share in the
+tables was rebuilt from the data rather than edited by hand.
+
+**The finding did not change.** The global share has not moved since 2022, and the nine Asian markets
+that were once above 20% have all fallen while Korea's own chart has not.

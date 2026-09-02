@@ -1,6 +1,6 @@
 ---
 title: "Netflix reaches 32% of Korean series, 15% of the films"
-dek: "Our panel never had a denominator. Wikidata records 784 Korean series and 1,122 Korean films from the chart era; 248 series and 173 films reached a Top 10. Series are twice as likely to be seen at all."
+dek: "Our panel never had a denominator. Wikidata records 785 Korean series and 1,126 Korean films from the chart era; 248 series and 172 films reached a Top 10. Series are twice as likely to be seen at all."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -28,8 +28,8 @@ excluded:
   - "Documentaries, shorts, web series and anything Wikidata files under another class. Two classes are counted here and nothing else"
 ---
 
-Every figure we publish about Korean titles on Netflix starts from the same place: **421 titles that
-reached a Top 10** in six Southeast Asian markets. Until today we had never said what that is 421
+Every figure we publish about Korean titles on Netflix starts from the same place: **420 titles that
+reached a Top 10** in six Southeast Asian markets. Until today we had never said what that is 420
 *out of*.
 
 A share without a denominator is not a share. So we counted one.
@@ -38,8 +38,8 @@ A share without a denominator is not a share. So we counted one.
 
 | | Recorded in Wikidata | Made since 2021 | Reached a Top 10 | Share of the chart era |
 | --- | ---: | ---: | ---: | ---: |
-| Television series | 4,755 | 784 | 248 | **31.6%** |
-| Films | 10,247 | 1,122 | 173 | **15.4%** |
+| Television series | 4,760 | 785 | 248 | **31.6%** |
+| Films | 10,253 | 1,126 | 172 | **15.3%** |
 
 Roughly **three in ten** Korean series made since the charts began have appeared on one in Southeast
 Asia. For films it is **about one and a half in ten**.
@@ -88,3 +88,18 @@ releases nobody catalogued — then our 14.3% is **an upper bound that gets smal
 
 We would rather hand you a ceiling and say so than hand you a number and let you assume it is a
 count.
+
+## What changed on 3 September 2026
+
+The panel is 420 titles, not 421. This piece said 421. We removed *Dangerous Liaisons* — the 2022
+French film — on 25 August after confirming against Wikidata that no Korean work carries that name,
+and one of the three titles we removed that day sat inside this panel.
+
+We also re-ran the Wikidata denominator query the same day. It now records 785 Korean series and
+1,126 Korean films from the chart era, against 784 and 1,122 before — Wikidata gains entries
+continuously, so this will keep moving. Films that reached a Top 10 went from 173 to 172 and the film
+share from 15.4% to 15.3%.
+
+**The finding did not change.** Roughly three in ten Korean series made since the charts began have
+appeared on one in Southeast Asia, and about one and a half in ten films. Series are still about
+twice as likely to be seen at all.

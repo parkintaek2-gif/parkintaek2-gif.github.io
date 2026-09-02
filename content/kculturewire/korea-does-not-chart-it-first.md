@@ -1,6 +1,6 @@
 ---
-title: "Korea led Southeast Asia for 51 of 421 Korean titles"
-dek: "Of the 421 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 51 and in the same week for 165 — and never charted 151 of them at all. Series enter together; films scatter."
+title: "Korea led Southeast Asia for 51 of 420 Korean titles"
+dek: "Of the 420 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 51 and in the same week for 165 — and never charted 150 of them at all. Series enter together; films scatter."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -50,8 +50,8 @@ first week it charted in Korea.
 The three rows are the same measurement under progressively stricter conditions, and the answer does
 not move: **around five titles in eight enter Korea and Southeast Asia in the same week.**
 
-The remaining 151 titles never charted in Korea at all — 35.9% of everything that reached Southeast
-Asia. Set against the whole panel, Korea's chart led for 46 titles in 397. **About one in nine.**
+The remaining 150 titles never charted in Korea at all — 35.7% of everything that reached Southeast
+Asia. Set against the whole panel, Korea's chart led for 51 titles in 420. **About one in nine.**
 
 ## "Same week" is not "same day", and we cannot tell the difference
 
@@ -127,7 +127,7 @@ The titles that *did* chart in Korea are the ones more likely to have aired on K
 The explanation does not hold, and we do not have a replacement for it.
 
 One detail is worth keeping, because it nearly fooled us. Ignoring format, the same comparison reads
-**36.9% against 66.7%** — a gap three times larger, pointing the way we expected. That gap is
+**37.2% against 66.7%** — a gap three times larger, pointing the way we expected. That gap is
 format mix: the never-charted group is 83 films and 57 series, films rarely carry a broadcaster
 field at all, and the number was measuring how many films were in each group. Had we not split by
 format we would have published a confirmation of a hypothesis that is false.

@@ -49,10 +49,10 @@ Here is the same comparison over the whole panel.
 
 | Peaked at | Titles | Median hours | Median weeks | Mean hours |
 | --- | ---: | ---: | ---: | ---: |
-| **#1** | 67 | **103.4m** | **5** | 229.3m |
-| Below #1 | 179 | 23.3m | 2 | 51.0m |
+| **#1** | 65 | **103.4m** | **5** | 233.8m |
+| Below #1 | 178 | 24.5m | 2 | 51.3m |
 
-The gap in hours is larger than we said — **4.4× on medians**, against the 2.5× we reported on means
+The gap in hours is larger than we said — **4.2× on medians**, against the 2.5× we reported on means
 of the top fifty. And the claim that it adds no weeks is simply false: the median number-one title
 runs **five weeks against two**.
 
@@ -61,18 +61,18 @@ group containing *Squid Game* is substantially a description of *Squid Game*.
 
 ## Then most of the gap turns out to be length
 
-If number-one titles run longer, part of that 4.4× is just more weeks in which to accumulate hours.
+If number-one titles run longer, part of that 4.2× is just more weeks in which to accumulate hours.
 So hold the length roughly fixed and look again.
 
 | Titles that lasted | Reached #1 | Median hours | Did not | Median hours | Ratio |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| 1–2 weeks | 1 | 125.9m | 91 | 6.4m | — |
-| 3–5 weeks | 43 | 74.6m | 57 | 46.0m | 1.62× |
-| 6–10 weeks | 16 | 162.8m | 25 | 128.9m | **1.26×** |
+| 1–2 weeks | 1 | 125.9m | 90 | 6.4m | 19.67× |
+| 3–5 weeks | 42 | 79.4m | 57 | 46.0m | 1.73× |
+| 6–10 weeks | 15 | 162.8m | 25 | 128.9m | **1.26×** |
 | 11 weeks or more | 7 | 653.9m | 6 | 331.1m | 1.97× |
 
 Among titles that lasted six to ten weeks, reaching number one goes with **1.26×** the median hours —
-not 4.3×, and not 2.5×. The 1–2 week row has one title on the left of it and we do not read it.
+not 4.2×, and not 2.5×. The 1–2 week row has one title on the left of it and we do not read it.
 
 **Most of what we had attributed to the peak was length.**
 
@@ -94,13 +94,13 @@ the audience.
 
 ## Neither column is the cause of the other
 
-Against log hours, weeks on chart correlates at **0.731** and peak rank at **−0.753**. They are the
+Against log hours, weeks on chart correlates at **0.73** and peak rank at **−0.754**. They are the
 same strength. And they correlate with each other at **−0.473**, so a table showing one is partly
 showing the other. There is no version of this data in which we can hand you a single number and call
 it the driver, and we are not going to invent one.
 
-What the panel does say plainly is that **21.5% of Korean titles that reached a global Non-English
-Top 10 were there for exactly one week** — 53 of 246. The most common outcome for a title that
+What the panel does say plainly is that **21.8% of Korean titles that reached a global Non-English
+Top 10 were there for exactly one week** — 53 of 243. The most common outcome for a title that
 charts at all is to chart once.
 
 ## What we changed
@@ -113,3 +113,22 @@ applied when [one flaw in title matching moved figures on seven pages](/article/
 The general lesson is cheap to state and easy to repeat: **if you cut a panel by the outcome and then
 explain the outcome, the cut will answer for you.** We had the whole panel in the same file the whole
 time.
+
+## What changed on 3 September 2026
+
+The panel moved from 246 titles to 243. On 25 August we removed three titles that were never Korean —
+*Dangerous Liaisons*, *Breathless* and *One More Time* — after confirming each against Wikidata, and
+every figure here was recounted on the smaller panel.
+
+What moved: the hours gap between number-one titles and the rest went from 4.4× to 4.2× on medians,
+the 3–5 week band from 1.62× to 1.73×, and the share of titles that lasted exactly one week from
+21.5% to 21.8%. The two correlations barely moved, from 0.731 to 0.73 and from −0.753 to −0.754.
+
+We also filled in a cell we had left as an em dash. The 1–2 week band now shows its ratio, 19.67×,
+rather than a blank. **It should still not be read as a finding** — the left-hand side of that row is
+one title, and one title cannot carry a ratio. We are printing it because leaving a computed number
+out of a table is its own kind of hiding, and saying why not to trust it is better than saying
+nothing.
+
+**The finding did not change.** Reaching number one is mostly length: band the titles by how long
+they ran and most of the hours gap goes away.
