@@ -46,3 +46,5 @@ We could publish our own single-number pay league table. We don't, for the same 
 ## The debate
 
 So: is "which company pays the most" a fair way to rank employers, or does one number per company flatter the top and bury everyone the average swallowed? A rank is easy; a distribution is honest. **What do you think?** This is a talking point, not a verdict — argue it out below.
+
+*A [fresh top-pay ranking this week](https://seoulmarkets.com/article/korea-top-pay-firms-gender-gap) shows the same average hiding a gender split — every reproducible company in it pays men more.*
