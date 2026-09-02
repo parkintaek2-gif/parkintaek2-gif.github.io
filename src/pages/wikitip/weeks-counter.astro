@@ -1,0 +1,146 @@
+---
+/**
+ * weeks-counter.astro — **넷플릭스의 「몇 주째」가 무엇을 세나.**
+ *
+ * ── 🔴 왜 이 지면이 생겼나 (2026-09-03) ────────────────────────
+ * 나라별 표의 모든 줄에 「weeks in top 10」이 붙어 있고, 우리 자 셋이 그 칸을 쓴다.
+ * 그런데 **그것이 무엇을 세는지 확인한 적이 없었다.** 우리는 원자료를 가공해 파는 곳이고,
+ * 원자료 칸의 뜻을 모르는 채 쓰면 그것은 가공이 아니라 «해석»이다.
+ *
+ * ⭐ 잰 결과는 하나로 떨어졌다 — **이어진 주에는 예외 없이 +1(287,291쌍 전부)이고,
+ *   틈이 생긴 뒤에도 98%가 이어서 센다.** 「연속 몇 주」가 아니라 「누적 몇 주」다.
+ *
+ * ⛔ 「넷플릭스가 틀렸다」고 안 쓴다. 우리가 세는 것과 «다른 것»을 세는 것이다.
+ * ⛔ 424쌍은 1 로 돌아간다. 까닭을 모른다 — 「모른다」고 적는다.
+ * ⛔ 수를 손으로 적지 않는다. `kcw-weeks-counter.json` 에서 읽는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../components/KcwDataBasis.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/kcw-weeks-counter.json';
+
+const A = d.all;
+const K = d.korean;
+const 수 = (n: number) => Number(n).toLocaleString('en-US');
+
+const TITLE = `What Netflix's weeks-in-top-10 counter actually counts`;
+const DESC = `Netflix puts a weeks-in-top-10 number on every chart row. Measured across ${수(d.rowsRead)} rows: `
+  + `it adds one on every consecutive week without exception, and after a gap it keeps counting `
+  + `${A.afterGapContinuedPc}% of the time. It is cumulative, not consecutive.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: "What Netflix's weeks-in-top-10 counter counts",
+  description: DESC,
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  temporalCoverage: `${d.weekFrom}/${d.weekTo}`,
+  isBasedOn: ['https://www.netflix.com/tudum/top10'],
+};
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/weeks-counter">
+  <h1>What the weeks-in-top-10 counter counts</h1>
+
+  <p class="lead">
+    Every row of Netflix&rsquo;s per-country top 10 carries a number: how many weeks that title has
+    been in that country&rsquo;s top 10. Read as &ldquo;weeks in a row&rdquo; it is wrong.
+    {' '}<b>It is cumulative.</b> Here is the measurement, on {수(d.rowsRead)} rows.
+  </p>
+
+  <section>
+    <h2>On consecutive weeks it adds exactly one</h2>
+    <table>
+      <thead>
+        <tr><th></th><th class="num">All titles</th><th class="num">Korean titles</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Cells (title, season, chart, country)</td>
+          <td class="num">{수(A.cells)}</td><td class="num">{수(K.cells)}</td></tr>
+        <tr><td>Pairs of consecutive weeks</td>
+          <td class="num">{수(A.consecutivePairs)}</td><td class="num">{수(K.consecutivePairs)}</td></tr>
+        <tr><td>Of those, counter went up by one</td>
+          <td class="num"><b>{A.consecutivePlusOnePc}%</b></td>
+          <td class="num"><b>{K.consecutivePlusOnePc}%</b></td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      Not &ldquo;almost always&rdquo;. Every one of the {수(A.consecutivePairs)} consecutive-week
+      pairs in the file adds exactly one.
+    </p>
+  </section>
+
+  <section>
+    <h2>After a gap it keeps counting</h2>
+    <p>
+      This is the part that matters. A title leaves a country&rsquo;s top 10 and comes back weeks or
+      months later. The counter does <b>not</b> restart.
+    </p>
+    <table>
+      <thead>
+        <tr><th>After a gap, the counter&hellip;</th><th class="num">All titles</th><th class="num">Korean titles</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>continued from where it left off</td>
+          <td class="num"><b>{수(A.afterGapContinued)}</b> ({A.afterGapContinuedPc}%)</td>
+          <td class="num"><b>{수(K.afterGapContinued)}</b> ({K.afterGapContinuedPc}%)</td></tr>
+        <tr><td>restarted at 1</td>
+          <td class="num">{수(A.afterGapResetToOne)} ({A.afterGapResetToOnePc}%)</td>
+          <td class="num">{수(K.afterGapResetToOne)} ({K.afterGapResetToOnePc}%)</td></tr>
+        <tr><td>did something else</td>
+          <td class="num">{수(A.afterGapOther)} ({A.afterGapOtherPc}%)</td>
+          <td class="num">{수(K.afterGapOther)} ({K.afterGapOtherPc}%)</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      {/* ⛔ 모르는 것을 채워 적지 않는다 */}
+      <b>We cannot explain the {수(A.afterGapResetToOne)} that restart.</b> Netflix publishes no note
+      about the counter, and nothing else in the row distinguishes those cases from the
+      {' '}{수(A.afterGapContinued)} that continue. We report the split and stop there.
+    </p>
+  </section>
+
+  <section>
+    <h2>What this means if you use the number</h2>
+    <ul>
+      <li><b>&ldquo;25 weeks in the top 10&rdquo; is not 25 weeks in a row.</b> It can be 25 weeks
+        spread over two years, with the title absent for most of them.</li>
+      <li><b>It is per country and per chart.</b> Every one of the {수(A.cells)} cells starts at 1,
+        so the number is not a global tally arriving in each market.</li>
+      <li><b>Seasons count separately</b>, because Netflix lists them separately. Two seasons of one
+        show are two counters.</li>
+      <li><b>The largest we found is {A.largestCounter}</b> across all titles, and
+        {' '}{K.largestCounter} among Korean ones.</li>
+    </ul>
+    <p class="note">
+      This is why every run length on this site is computed from the weeks themselves rather than
+      read off the counter. What a run is, and what leaving a chart looks like, is on
+      {' '}<a href="/exit">the exit page</a>; how often a return is really a new season is on
+      {' '}<a href="/returns">the returns page</a>.
+    </p>
+  </section>
+
+  <KcwDataBasis
+    whatThisIs={d.unit}
+    whatThisIsNot={d.whatThisIsNot}
+    notes={[d.source]}
+    counts={[
+      { label: 'Chart rows read', value: d.rowsRead },
+      { label: 'Rows with no counter', value: d.rowsWithoutCounter },
+      { label: 'Weeks covered', value: `${d.weekFrom} to ${d.weekTo}` },
+      { label: 'Cells whose first row was not 1', value: A.cellsStartingAboveOne },
+    ]} />
+
+  <KcwRelatedArticles page="/weeks-counter" />
+</WikiTip>
+
+<style>
+  table { border-collapse: collapse; width: 100%; margin: 0.8rem 0; }
+  th, td { padding: 0.35rem 0.5rem; border-bottom: 1px solid #e5e7eb; text-align: left; }
+  th.num, td.num { text-align: right; }
+  .num { font-variant-numeric: tabular-nums; }
+  .note { font-size: 0.92em; color: #4b5563; }
+  ul { padding-left: 1.1rem; }
+  li { margin: 0.3rem 0; }
+</style>

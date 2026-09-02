@@ -1,0 +1,43 @@
+{
+  "generated": "2026-09-03",
+  "source": "Netflix Top 10 (Tudum) per-country weekly lists, including the \"weeks in top 10\" number Netflix attaches to each row. Russia excluded.",
+  "question": "Netflix publishes a weeks-in-top-10 counter on every row. What does it count?",
+  "unit": "One cell is one title (with its season label) on one chart in one country. Pairs are consecutive rows of that cell in week order.",
+  "whatThisIsNot": "This does not say the counter is wrong. It says what it counts, which is not the same thing as what we count when we measure a run.",
+  "weekFrom": "2021-07-04",
+  "weekTo": "2026-08-23",
+  "rowsRead": 500340,
+  "rowsWithoutCounter": 0,
+  "all": {
+    "cells": 191537,
+    "rows": 500340,
+    "consecutivePairs": 287291,
+    "consecutivePlusOnePc": 100,
+    "gapPairs": 21512,
+    "afterGapResetToOne": 424,
+    "afterGapContinued": 21072,
+    "afterGapOther": 16,
+    "afterGapResetToOnePc": 2,
+    "afterGapContinuedPc": 98,
+    "afterGapOtherPc": 0.1,
+    "cellsStartingAboveOne": 0,
+    "cellsStartingAboveOnePc": 0,
+    "largestCounter": 133
+  },
+  "korean": {
+    "cells": 11181,
+    "rows": 39278,
+    "consecutivePairs": 26783,
+    "consecutivePlusOnePc": 100,
+    "gapPairs": 1314,
+    "afterGapResetToOne": 64,
+    "afterGapContinued": 1250,
+    "afterGapOther": 0,
+    "afterGapResetToOnePc": 4.9,
+    "afterGapContinuedPc": 95.1,
+    "afterGapOtherPc": 0,
+    "cellsStartingAboveOne": 0,
+    "cellsStartingAboveOnePc": 0,
+    "largestCounter": 72
+  }
+}

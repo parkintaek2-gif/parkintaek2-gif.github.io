@@ -697,6 +697,8 @@ export const GET: APIRoute = async () => {
     { path: '/all-ten', priority: '0.8', changefreq: 'weekly' },
     /* 🔴 [2026-09-03] 나라쌍이 같은 한국 목록을 보나 — /all-ten 에서 이어 나온 물음이다 */
     { path: '/same-list', priority: '0.8', changefreq: 'weekly' },
+    /* 🔴 [2026-09-03] 원자료 「weeks in top 10」 칸이 무엇을 세나 — 우리 방법론의 근거다 */
+    { path: '/weeks-counter', priority: '0.7', changefreq: 'monthly' },
     /* 66편째 기사의 표. 2026-08-09 22:3x — 제작비 27배 이야기가 예고한 몰림은 **안 왔다** */
     { path: '/leverage', priority: '0.9', changefreq: 'weekly' },
     /* 67편째 기사의 표. 2026-08-09 23:2x — 들어오는 것만 재 왔다. **나가는 자리**를 처음 잰다 */
