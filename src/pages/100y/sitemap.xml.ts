@@ -176,6 +176,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-02 — 같은 조사(초중고사교육비조사)의 소득 축(101/DT_1PE102). 소득구간이
        2022년 개편돼 시계열은 안 내고 2025년 한 해만 냄. */
     { path: '/tutoring-income', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-02 — /wage-education의 «평균» 대신 «분포»(118/DT_PAY0011). 강령 「평균이
+       아니라 분포」 직접 이행. 임금이 총액(상여 포함) 기준이라 /wage-education과 다르다. */
+    { path: '/wage-distribution', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-28 — 실질임금(사업체노동력조사×소비자물가지수, 저희 계산). 사장님이
        고용노동부 보도자료를 직접 짚으며 지시. 매달 갱신 여지가 있어 monthly. */
     { path: '/real-wage', priority: '0.8', changefreq: 'monthly' },
