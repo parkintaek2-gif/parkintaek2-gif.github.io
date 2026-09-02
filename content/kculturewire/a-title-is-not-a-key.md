@@ -17,7 +17,7 @@ sources:
     api: "Country of origin and original language for every film and television series carrying each English title"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 384 of 976 Korean titles never chart in Korea at all"
+  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 381 of 974 Korean titles never chart in Korea at all"
   - "Every removed title was checked to have zero places on Korea's own chart, and the builder fails if any of them has one"
   - "Two titles met the market test but were kept, because a Korean work genuinely shares their name and we cannot tell which one charted"
   - "The removed places are reported as a share of the panel so the size of the error is visible rather than described"
@@ -39,11 +39,11 @@ Not the name — the names are identical. **Where they charted.**
 
 | Title | Places | Markets | Largest market | Its share |
 |---|---:|---:|---|---:|
+| Breathless | 250 | 69 | Spain | 5.2% |
+| Dangerous Liaisons | 165 | 70 | France | 2.4% |
+| One More Time | 58 | 38 | Sweden | 5.2% |
 | Undercover | 48 | 24 | Netherlands | 33.3% |
 | UFO | 17 | 12 | Turkey | 29.4% |
-| Let's Dance | 4 | 3 | France | 50% |
-| Motherland | 2 | 2 | United Kingdom | 50% |
-| #Manhole | 1 | 1 | Japan | 100% |
 
 *Undercover* never appeared on Korea's own chart. Its heaviest markets are the Netherlands and
 Belgium, which is where a Flemish-language Netflix series would be heaviest. Nine of the thirteen
@@ -53,10 +53,10 @@ origin of a same-titled foreign work.
 ## The obvious test does not work
 
 The first rule we tried was "if it never charts in Korea, it is not Korean." It is wrong, and the
-size of the error is the point: **384 of our 977 Korean titles — 39.3% — never chart in Korea at
+size of the error is the point: **381 of our 974 Korean titles — 39.2% — never chart in Korea at
 all.** A drama that airs on KBS or tvN is on Korean television, not on Netflix Korea, so it can
 travel to sixty countries without ever appearing at home. Applying that rule alone would have thrown
-out 342 genuine titles to catch thirteen foreign ones.
+out hundreds of genuine titles to catch 16 foreign ones.
 
 So the test requires three things at once, and all three must hold:
 
@@ -79,7 +79,7 @@ which work charted, and we would rather carry two uncertain rows than delete two
 
 ## How large the error was
 
-The 13 titles held **84 chart places out of 39,844, which is 0.21%.** They were spread across 38 of
+The 16 titles held **557 chart places out of 39,696, which is 1.4%.** The largest single one, *Breathless*, held 250 of them. They were spread across 38 of
 the 93 markets, and
 the largest effect on anything we publish was that Malta left the top five of
 [the markets that only take wide titles](/hard-markets) and Croatia entered it.

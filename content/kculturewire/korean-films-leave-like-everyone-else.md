@@ -40,10 +40,10 @@ was in the week before it vanished — is at [how a title leaves](/exit).
 
 | | Runs | Median weeks | Mean weeks | Gone after one week | Lasting 4+ weeks |
 |---|---:|---:|---:|---:|---:|
-| Korean films | 4,197 | 2 | **1.96** | 42.1% | 8.8% |
-| Every other film | 118,252 | 2 | **2.02** | 42.4% | 9.9% |
-| Korean series | 8,324 | 3 | **3.7** | 30.3% | 38.2% |
-| Every other series | 79,582 | 2 | **2.71** | 34.1% | 23.3% |
+| Korean films | 4,089 | 2 | **1.95** | 42.3% | 8.7% |
+| Every other film | 118,360 | 2 | **2.02** | 42.4% | 9.9% |
+| Korean series | 8,220 | 3 | **3.71** | 30.2% | 38.4% |
+| Every other series | 79,686 | 2 | **2.71** | 34.1% | 23.3% |
 
 Read the first two rows and there is nothing to report. A Korean film holds a country's top 10 for
 1.96 weeks on average; every other film on the same charts holds it for 2.02. Four in ten of each are
@@ -62,9 +62,9 @@ between the two formats. The number worth having is what is left after removing 
 
 | | Series minus films, mean weeks |
 |---|---:|
-| Korean titles | **1.74 weeks** |
+| Korean titles | **1.76 weeks** |
 | Every other title | **0.69 weeks** |
-| Difference | **1.05 weeks** |
+| Difference | **1.07 weeks** |
 
 Korean series pull away from Korean films by a week more than other series pull away from other
 films. That extra week is the Korean part, and it sits entirely on the series side.
@@ -77,9 +77,9 @@ measured again with its single most-charting title taken out:
 
 | | Mean weeks | Without the biggest title | 4+ weeks | Without the biggest title |
 |---|---:|---:|---:|---:|
-| Korean series | 3.7 | **3.55** | 38.2% | **36.2%** |
+| Korean series | 3.71 | **3.57** | 38.4% | **36.4%** |
 | Every other series | 2.71 | **2.67** | 23.3% | **23%** |
-| Korean films | 1.96 | 1.95 | 8.8% | 8.7% |
+| Korean films | 1.95 | 1.95 | 8.7% | 8.7% |
 | Every other film | 2.02 | 2.02 | 9.9% | 9.9% |
 
 The gap narrows and stays. Korean series still run about nine tenths of a week longer than other
@@ -87,8 +87,8 @@ series with their biggest contributor removed, and still reach four weeks half a
 
 ## How they leave
 
-There is one more asymmetry, and it runs the other way. Of Korean series runs that ended, **62.5%**
-ended from positions 8, 9 or 10 — against 57.5% for other series and 44.2% for Korean films. A
+There is one more asymmetry, and it runs the other way. Of Korean series runs that ended, **62.7%**
+ended from positions 8, 9 or 10 — against 57.5% for other series and 44% for Korean films. A
 Korean series is on the chart longer and then slides off the bottom of it; a Korean film is more
 often simply gone.
 

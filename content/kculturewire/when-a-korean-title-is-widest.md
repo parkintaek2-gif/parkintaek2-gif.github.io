@@ -38,10 +38,10 @@ there anything left to push after that?**
 
 | | Titles | Median peak week | Widest in week 1 | Widest by week 4 |
 |---|---:|---:|---:|---:|
-| Korean series | 215 | 2 | **20.9%** | 80.9% |
-| Every other series | 2,004 | 2 | **44.7%** | 91.9% |
-| Korean films | 119 | 2 | 29.4% | 84% |
-| Every other film | 3,231 | 2 | 36.7% | 78.7% |
+| Korean series | 213 | 2 | **21.1%** | 80.8% |
+| Every other series | 2,006 | 2 | **44.6%** | 91.9% |
+| Korean films | 117 | 2 | 29.9% | 83.8% |
+| Every other film | 3,233 | 2 | 36.7% | 78.7% |
 
 Other series are at their widest on the first Monday **44.7%** of the time. Korean series manage it
 **20.1%** of the time — less than half as often.
@@ -58,9 +58,9 @@ So the same measurement, inside bands of equal run length:
 | Weeks on a chart | Korean series | Every other series |
 |---|---:|---:|
 | 1–2 weeks | 50% *(6 titles)* | 83.5% *(467)* |
-| 3–4 weeks | 39.1% *(23)* | 45.9% *(510)* |
+| 3–4 weeks | 40.9% *(22)* | 45.8% *(511)* |
 | 5–8 weeks | 25.9% *(81)* | 28.5% *(568)* |
-| 9 weeks or more | **11.4%** *(105)* | **23.7%** *(459)* |
+| 9 weeks or more | **11.5%** *(104)* | **23.7%** *(460)* |
 
 **The gap narrows sharply, and in the middle it nearly disappears.** Among titles that lasted five to
 eight weeks, Korean series peak in week one 26.6% of the time and other series 28.6% — a difference

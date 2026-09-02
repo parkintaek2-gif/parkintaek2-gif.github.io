@@ -1,6 +1,6 @@
 ---
 title: "A sixth of our most-quoted figure rests on unchecked titles"
-dek: "Korean titles hold 7.9% of the world's Netflix top 10 places — 39,612 of 498,480. Of those, 82.3% carry the label we use to exclude same-name foreign works. 16.4% carry no label at all, and we keep them because we cannot check them."
+dek: "Korean titles hold 7.9% of the world's Netflix top 10 places — 39,139 of 498,480. Of those, 82.3% carry the label we use to exclude same-name foreign works. 16.4% carry no label at all, and we keep them because we cannot check them."
 category: industry
 purpose: ads
 pubDate: 2026-08-09
@@ -26,7 +26,7 @@ excluded:
 ---
 
 The number we publish most often is **7.7%** — the share of the world's Netflix top-10 places held by
-Korean titles, 39,612 of 498,480 across 93 markets and five years. It is on our front page, in our
+Korean titles, 39,139 of 498,480 across 93 markets and five years. It is on our front page, in our
 articles, and in the sheets we offer to companies.
 
 This week we finally asked how much of it we have actually checked.
@@ -47,11 +47,11 @@ would quietly delete real Korean shows.
 
 Keeping is not the same as confirming. Here is the size of the difference:
 
-| Of the 39,612 Korean chart places | Places | Share |
+| Of the 39,139 Korean chart places | Places | Share |
 |---|---:|---:|
-| Carry Netflix's Non-English label — checked | 32,602 | **82.3%** |
-| No label at all — kept because we could not check | 6,481 | **16.4%** |
-| Label says both — the name is on an English chart too | 529 | 1.3% |
+| Carry Netflix's Non-English label — checked | 32,129 | **82.1%** |
+| No label at all — kept because we could not check | 6,481 | **16.6%** |
+| Label says both — the name is on an English chart too | 529 | 1.4% |
 
 ## Why we had never published this
 

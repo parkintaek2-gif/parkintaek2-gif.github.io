@@ -41,10 +41,10 @@ market, the **median breadth of the Korean titles that appeared there**.
 | Only the widest titles get in | Median breadth | Korean share of that chart |
 |---|---:|---:|
 | Estonia | 77 | 1.9% |
-| Slovenia | 76 | 2.2% |
-| Switzerland | 72 | 2.7% |
-| Croatia | 71 | 2.1% |
-| Belgium | 70 | 2.9% |
+| Croatia | 76 | 2% |
+| Slovenia | 76 | 2.1% |
+| Switzerland | 72.5 | 2.5% |
+| Netherlands | 72 | 1.8% |
 
 | Narrow titles get in too | Median breadth | Korean share of that chart |
 |---|---:|---:|
@@ -73,10 +73,10 @@ So the same measurement, with markets grouped by how much of their chart is Kore
 
 | Korean share of the chart | Markets | Median breadth | Range within the band |
 |---|---:|---:|---:|
-| Under 5% | 48 | 64.8 | 49 |
-| 5–8% | 11 | 52 | 3 |
-| 8–12% | 17 | 47 | 9 |
-| 12% or more | 17 | 21 | 46 |
+| Under 5% | 48 | 62.5 | 49 |
+| 5–8% | 13 | 52 | 3 |
+| 8–12% | 15 | 46 | 9 |
+| 12% or more | 17 | 21 | 45.5 |
 
 **It falls straight down: 63, 52, 46, 21.** The more of a chart is Korean, the narrower the titles
 that get onto it. Most of what looks like "hard to reach" is "rarely plays Korean titles".

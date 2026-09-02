@@ -36,16 +36,16 @@ connected the two ends. So: **does the opening position say anything about the l
 
 | Opened at | Runs | Median weeks | Lasting 4+ weeks | Gone after one week |
 |---|---:|---:|---:|---:|
-| 1 | 506 | **6** | 89.9% | 0.4% |
-| 2 | 496 | 5 | 73.8% | 3.2% |
-| 3 | 642 | 4 | 61.4% | 6.5% |
-| 4 | 745 | 3 | 49.5% | 12.2% |
-| 5 | 831 | 3 | 44.6% | 19.1% |
-| 6 | 892 | 2 | 34.1% | 28.1% |
-| 7 | 916 | 2 | 26.9% | 36.4% |
-| 8 | 1,058 | 2 | 24.6% | 41.5% |
-| 9 | 1,057 | 2 | 21% | 49.9% |
-| 10 | 1,181 | **1** | 16.4% | 56.1% |
+| 1 | 505 | **6** | 89.9% | 0.4% |
+| 2 | 484 | 5 | 73.3% | 3.3% |
+| 3 | 635 | 4 | 61.9% | 6.3% |
+| 4 | 731 | 4 | 50.1% | 12% |
+| 5 | 823 | 3 | 44.7% | 19% |
+| 6 | 879 | 2 | 34.4% | 28% |
+| 7 | 907 | 2 | 27.1% | 36.2% |
+| 8 | 1,036 | 2 | 24.8% | 41.3% |
+| 9 | 1,048 | 2 | 21.2% | 49.9% |
+| 10 | 1,172 | **1** | 16.6% | 56% |
 
 A Korean series that opens at number one runs a median of **six weeks**, and nine in ten of them last
 a month or more. One that opens at number ten runs **one week**, and more than half are gone the
@@ -62,10 +62,10 @@ taken as the gap between the two ends of the table divided by the nine steps bet
 
 | | Runs | Median weeks opening at 1 | Opening at 10 | Weeks per position |
 |---|---:|---:|---:|---:|
-| Korean series | 8,324 | 6 | 1 | **0.56** |
-| Every other series | 79,582 | 5 | 1 | **0.44** |
-| Korean films | 4,197 | 4 | 1 | **0.33** |
-| Every other film | 118,252 | 3 | 1 | **0.22** |
+| Korean series | 8,220 | 6 | 1 | **0.56** |
+| Every other series | 79,686 | 5 | 1 | **0.44** |
+| Korean films | 4,089 | 4 | 1 | **0.33** |
+| Every other film | 118,360 | 3 | 1 | **0.22** |
 
 Two things fall out of that column.
 
