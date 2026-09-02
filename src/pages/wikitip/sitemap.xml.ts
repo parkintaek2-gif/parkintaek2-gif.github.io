@@ -1301,6 +1301,9 @@ export const GET: APIRoute = async () => {
     { path: '/data', priority: '0.9', changefreq: 'weekly' },
     /* 기사 목록. 2026-08-07 에 만들었다 — 그전엔 404 라 15편 중 3편만 닿을 수 있었다. */
     { path: '/articles', priority: '0.8', changefreq: 'daily' },
+    /* 🔴 [2026-09-03] 태그 지면 102장으로 가는 «첫 문». 만들었는데 사이트맵에 안 실으면
+       구글은 첫 화면 링크 하나로만 알게 된다 — 둘 다 한다 */
+    { path: '/tags', priority: '0.7', changefreq: 'weekly' },
     { path: '/subscribe', priority: '0.8', changefreq: 'monthly' },
     { path: '/contact', priority: '0.7', changefreq: 'monthly' },
     { path: '/corrections', priority: '0.7', changefreq: 'weekly' },

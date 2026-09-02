@@ -14,6 +14,10 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import d from '../../../data/wikitip-birthday-pages.json';
+/* 🔴 [2026-09-03] 이 지면이 별자리 열둘 중 «하나»(cancer)만 걸고 있었다.
+   그래서 나머지 열한 장이 첫 화면에서 세 걸음 밖이었다. 열둘을 다 건다.
+   ⛔ 이름을 손으로 적지 않는다 — 자료의 signs 를 읽는다. 경계가 바뀌면 저절로 따라온다. */
+import 별자리자료 from '../../../data/wikitip-western-signs.json';
 
 const 달이름 = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December'];
@@ -118,15 +122,41 @@ const jsonLd = {
       <a href="/community">The twelve birth-year rooms</a> ·{' '}
       <a href="/born-in/january">Month by month, all twelve</a> ·{' '}
       <a href="/actors-in-their/30s">By age band, not by date</a> ·{' '}
-      <a href="/star-sign/cancer">By star sign</a> ·{' '}
+      <a href="/star-signs">By star sign</a> ·{' '}
       <a href="/school">By the school they studied at</a>
     </p>
+  </section>
+
+  {/*
+    🔴 [2026-09-03] **고아 허브를 하나 더 막는다.** 별자리 지면 열두 장 중 이 지면이
+      걸고 있던 것은 `cancer` 하나였다 → 나머지 열한 장이 첫 화면에서 세 걸음이었다.
+      `/star-signs` 는 «띠»(해 단위) 지면이라 서양 별자리 자식을 하나도 안 걸고 있었다.
+    ⚠ 손님이 묻는 것은 «서양 별자리»다 — `star-sign/[sign].astro` 8줄에 자동완성 실측이 있다.
+    ⛔ 열두 줄을 손으로 적지 않는다. 사람 수도 자료에서 읽는다.
+  */}
+  <section class="signs">
+    <h2>By star sign</h2>
+    <p>
+      Twelve pages, one per sign, built from the same {d.peopleTotal.toLocaleString('en-US')} birth dates.
+      {' '}{별자리자료.placed.toLocaleString('en-US')} people fell inside a sign we could read.
+    </p>
+    <ul class="signgrid">
+      {(별자리자료.signs ?? []).map((g: any) => (
+        <li>
+          <a href={`/star-sign/${g.slug}`}>{g.name}</a>
+          <span class="cnt">{g.people.toLocaleString('en-US')} people</span>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <KcwRelatedArticles page="/born-on" />
 </WikiTip>
 
 <style>
+  .signgrid { list-style: none; padding: 0; display: grid; gap: 0.4rem 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); }
+  .signgrid .cnt { color: #6b7280; font-size: 0.85em; margin-left: 0.35rem; }
   .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: 0.5rem 1rem; }
   .days { line-height: 2.1; }
   .days a { font-weight: 700; }

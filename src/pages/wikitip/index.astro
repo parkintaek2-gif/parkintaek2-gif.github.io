@@ -54,6 +54,8 @@ import 나이자료 from '../../data/wikitip-age-bands.json';
 import 학교자료 from '../../data/wikitip-schools.json';
 /* 🔴 [2026-09-03] 고향 지면 37장이 첫 화면에서 세 걸음이었다 — 그 문을 내려고 읽는다 */
 import 고향자료 from '../../data/wikitip-hometowns.json';
+/* 🔴 [2026-09-03] 태어난 해 지면 78장을 «아무 지면도» 걸고 있지 않았다 — 허브까지 고아였다 */
+import 난해자료 from '../../data/kcw-birth-year-pages.json';
 import 사람자료 from '../../data/wikitip-people.json';
 import 그룹자료 from '../../data/wikitip-groups.json';
 /* 🔴 2026-08-24 밤 — 수요가 큰 작품 지면이 들어오는 링크 1~2개로 굶고 있었다.
@@ -197,6 +199,22 @@ const jsonLd = {
           「bts members from busan」·「daegu bts member」 꼴이었다. 「hometown」보다
           «도시 이름으로 찾는다»가 실제 모양이다.
       */}
+      {/*
+        🔴🔴 [2026-09-03] **여기가 가장 큰 구멍이었다.** `/born-year` 허브가 78장을 다 걸고
+          있는데 **그 허브로 가는 문이 저장소 어디에도 없었다.** `grep -rl 'href="/born-year"' dist`
+          → 0장. 허브 자신이 고아라서 자식 78장이 통째로 세 걸음 밖이었다(44장이 자에 걸렸다).
+        ⚠ 이것이 `/weeks`·`/hometowns` 와 **같은 결함**이다 — 이름을 붙인다:
+          **«고아 허브»** — 목록 지면을 만들고 그 목록으로 가는 문을 안 낸 것.
+          지면을 만든 값은 다 치렀는데 구글도 손님도 못 온다.
+        ⭐ 이 축은 자동완성 실측이 있다 — 「korean actors born in 1995」가 1번째였다
+          (`sitemap.xml.ts` 1430줄에 그때 잰 것이 적혀 있다).
+        ⛔ 수를 손으로 적지 않는다. `kcw-birth-year-pages.json` 에서 읽는다.
+      */}
+      <li>
+        <a href="/born-year">Korean actors by birth year</a>
+        <span class="cnt">{(난해자료.years ?? []).length} years,
+          {' '}{Math.min(...(난해자료.years ?? []).map((y: any) => +y.year))}&ndash;{Math.max(...(난해자료.years ?? []).map((y: any) => +y.year))}</span>
+      </li>
       <li>
         <a href="/hometowns">Korean stars by home city</a>
         <span class="cnt">{(고향자료.cities ?? []).length} cities,
@@ -352,6 +370,13 @@ const jsonLd = {
         편수를 **손으로 적지 않는다** — 기사가 늘면 저절로 따라온다.
       */}
       <p class="more"><a href="/articles">All {전체기사수} articles &rarr;</a></p>
+      {/*
+        🔴 [2026-09-03] 태그 지면이 통째로 «세 걸음» 밖이었다 —
+          첫 화면 → 기사 → 그 기사의 태그. 들어가는 첫 문이 없었다.
+        ⛔ 수를 손으로 적지 않는다. `/tags` 가 자기 수를 세어 적으므로 여기서는 안 센다 —
+          두 곳에서 세면 하나가 늦게 따라와 서로 다른 수를 말한다.
+      */}
+      <p class="more"><a href="/tags">Or by subject &mdash; every tag we hold &rarr;</a></p>
 
       {/*
         최신 여섯은 대개 같은 날 쓴 것이라 한쪽으로 쏠린다. **넓이는 따로 보여 준다.**
