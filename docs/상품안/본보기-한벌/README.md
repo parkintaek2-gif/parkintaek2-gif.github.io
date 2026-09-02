@@ -1,8 +1,8 @@
 # K Culture Wire — Korean Content Panel
 
-Sample bundle, 2026-08-29. Ten files. Start here.
+Sample bundle, 2026-09-02. Ten files. Start here.
 
-## What this is, in five lines
+## What this is, in six lines
 
 1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — 420 titles,
    each with **two independent columns** saying how sure we are it is the Korean work and not a foreign
@@ -10,8 +10,11 @@ Sample bundle, 2026-08-29. Ten files. Start here.
 2. **Which actor appears in which charting Korean title** — 3579 rows, keyed on Wikidata
    Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
 3. **How often each K-pop act was looked up** on English Wikipedia — 2372 acts, 30 days.
-4. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
-5. **Everything we have published and had to correct**, with the old value beside the new one.
+4. **Every Korean entertainer Wikidata holds a birth date for** — 9249 people, with the
+   schools listed for 4535 of them. No Netflix, no
+   licence question: Wikidata is CC0.
+5. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
+6. **Everything we have published and had to correct**, with the old value beside the new one.
 
 `columns.csv` says what every column in every file means, including what a blank cell means.
 `coverage.csv` says what is missing and whether it can ever be filled. Read that one before you build on this.
@@ -54,6 +57,7 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
 | Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
 | K-pop acts with no English Wikipedia article — invisible to us entirely | uncountable | **No.** An act with no article produces no row, so we cannot even say how many are missing |
+| Entertainers with no school recorded | 4714 of 9249 rows (51.0%) | **Partly.** Wikidata carries no educated-at statement for them. The row stays, with the school columns empty — dropping it would read as a claim that the people who do have schools are the whole roster |
 | K-pop history before 2026 | 30 days is all there is | **Later.** We began collecting daily this month. The window grows from here |
 
 The same thing is in `coverage.csv` in a form you can filter.
@@ -67,10 +71,11 @@ below and neither is the real one on its own.
 | `korean-title-panel.csv` | Every Korean title that charted in six Southeast Asian markets since 2021 | 420 |
 | `kpop-attention-panel.csv` | Every K-pop act with an English Wikipedia article, and how often it was opened over 30 days | 2372 |
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3579 |
+| `entertainer-panel.csv` | Every Korean entertainer Wikidata holds a birth date for, with occupation and schools | 9249 |
 | `provenance.csv` | How sure we are that each title is Korean, and how much of the total that covers | 3 |
 | `industry-panel.csv` | Korean music and broadcast exports by year, beside the workforce of listed content companies | 216 |
 | `corrections.csv` | Every figure we have published and had to change | 34 |
-| `coverage.csv` | What is empty, how much, and whether it can be filled | 18 |
+| `coverage.csv` | What is empty, how much, and whether it can be filled | 23 |
 | `method.md` | How each number is made, in the words our build scripts use | — |
 
 ## The file you cannot assemble from either source alone

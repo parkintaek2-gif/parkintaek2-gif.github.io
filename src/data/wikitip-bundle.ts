@@ -24,6 +24,11 @@ export const 표들 = [
   { 파일: 'kpop-attention-panel.csv', 이름: 'K-pop attention',
     갱신: 'daily',
     말: 'Daily English Wikipedia lookups for every act and member with an article, with a column marking the ones who are also on our screen-actor roster.' },
+  /* ⭐ [2026-09-03] 명부 패널 — 줄도 고르는 기준도 위키데이터(CC0)다.
+     넷플릭스 파생 표가 배포 라이선스 미확인으로 잠긴 동안(2026-08-08 판정) 팔 수 있는 축이다. */
+  { 파일: 'entertainer-panel.csv', 이름: 'Korean entertainers, with their schools',
+    갱신: 'monthly, as Wikidata fills',
+    말: 'Every Korean entertainer Wikidata records a birth date for, with the occupation it files them under and the schools it lists. Rows with no school are kept, empty, rather than dropped.' },
   { 파일: 'industry-panel.csv', 이름: 'Listed content companies',
     갱신: 'yearly, as companies file',
     말: 'Headcount, tenure, pay and the male/female split for every listed Korean company that discloses them, from its own annual filing.' },

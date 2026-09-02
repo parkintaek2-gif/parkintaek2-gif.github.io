@@ -7,6 +7,15 @@ kpop-attention-panel.csv,peak_day,Date of the single largest day,YYYYMMDD,never 
 kpop-attention-panel.csv,peak_day_views,Opens on that day,page opens,never blank
 kpop-attention-panel.csv,views_last_7d,Opens in the final seven days of the window,page opens,never blank
 kpop-attention-panel.csv,last7_vs_daily_avg,Last seven days against the daily average,ratio,"blank means the act averaged under one view a day, so there is no base to divide by. We do not write 0, which would look like a measured collapse"
+entertainer-panel.csv,wikidata_q,"The Wikidata item for this person or group. The only stable key here — romanised names change spelling, Q-numbers do not",,never blank
+entertainer-panel.csv,name,English label on Wikidata,,never blank
+entertainer-panel.csv,born,Date of birth as Wikidata records it,YYYY-MM-DD,"blank means Wikidata holds no birth date. It is not a claim about the person, it is an empty field upstream"
+entertainer-panel.csv,kind,music / acting / both / other — read from the occupations Wikidata lists,,blank means no occupation we could read
+entertainer-panel.csv,is_group,yes when the item is a group rather than a person,,blank means the occupations did not tell us either way
+entertainer-panel.csv,schools,Schools Wikidata lists this person as educated at,pipe-separated,blank means no school is recorded — not a claim that they attended none
+entertainer-panel.csv,school_count,How many schools are listed,schools,never blank; 0 means none recorded
+entertainer-panel.csv,wikipedia_editions,How many Wikipedia language editions carry an article on them,editions,never blank
+entertainer-panel.csv,label_has_hangul,"yes when Wikidata holds no Latin-script label, so the name column carries the Korean one. We did not romanise it — a guessed romanisation cannot be matched back to anything",,never blank
 industry-panel.csv,year,Survey or filing year,year,never blank
 industry-panel.csv,series,Which dataset the row belongs to,,never blank
 industry-panel.csv,measure,What is being counted,,never blank

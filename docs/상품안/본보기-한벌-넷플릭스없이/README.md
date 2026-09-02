@@ -1,17 +1,20 @@
 # Korean culture data — the part that carries no chart licence question
 
-Two panels and our corrections record. **Nothing in this bundle is derived from Netflix's charts**,
+Three panels and our corrections record. **Nothing in this bundle is derived from Netflix's charts**,
 which is the whole point of it: it can be used today without waiting on anything.
 
-## What this is, in four lines
+## What this is, in five lines
 
 1. **How often each K-pop act was looked up** on English Wikipedia — 2372 acts and members,
    30 days, daily. Groups and individuals are marked separately, and so are the ones who are
    also screen actors.
-2. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed
+2. **Every Korean entertainer Wikidata holds a birth date for** — 9249 people, their
+   occupation as Wikidata files it, and the schools listed for
+   4535 of them.
+3. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed
    content companies — 216 rows.
-3. **Everything we have published and had to correct**, with the old value beside the new one.
-4. `columns.csv` says what every column means, including what a blank cell means. `coverage.csv`
+4. **Everything we have published and had to correct**, with the old value beside the new one.
+5. `columns.csv` says what every column means, including what a blank cell means. `coverage.csv`
    says what is missing and whether it can ever be filled.
 
 ## Why this bundle exists separately
@@ -37,6 +40,7 @@ argue about the edge.
 | Panel | Source | Status |
 | --- | --- | --- |
 | K-pop attention | Wikimedia Pageviews API (en.wikipedia); roster from Wikidata | open |
+| Entertainer roster | Wikidata SPARQL (P27=Q884, P569, P106, P69) | CC0 — public domain |
 | Music and broadcast exports | Content Industry Survey via KOSIS | open |
 | Listed workforce | FSS DART annual report employee disclosures | confirmed unrestricted, 2026-08-05 |
 

@@ -156,6 +156,47 @@ for (const p of kpopRaw.사람) {
   ]);
 }
 fs.writeFileSync(path.join(OUT, 'kpop-attention-panel.csv'), csv(kp));
+/* ── ③-4 명부 패널 ── ⭐ [2026-09-03] **업무 바퀴 ④리포트 칸을 채우려고 고른 축이다.**
+   오늘 새로 잰 넷은 다 넷플릭스 차트에서 나왔다. 2026-08-08 판정으로 그것은
+   **지면에 집계는 🟢 · 파일로 배포는 🔴** 다. 그러니 파는 한 벌에 넣을 수가 없다.
+   ⚠ 그래서 「잠긴 자료를 안 쓰는 축」을 찾았다 — 위키데이터다.
+      `docs/5번-라이선스-검토.md` 24줄: 「위키데이터 구조화 자료는 **CC0(퍼블릭 도메인)** 입니다
+      — 상업적 재사용에 걸림돌이 없습니다」. 줄도 고르는 기준도 위키데이터 하나에서 온다.
+   ⛔ 「인기 명단」이 아니다. **위키데이터에 한국 국적(P27=Q884)으로 적힌 연예인 전부**다.
+      상위 몇 줄로 자르지 않는다 — 자르면 사는 사람이 자기 기준으로 못 자른다.
+   ⛔ 빈칸을 0 으로 채우지 않는다. 태어난 날이 없는 것은 「모르는 날」이지 「날이 없는 사람」이 아니다.
+   ⛔ 학교가 안 적힌 사람은 **줄은 있고 학교 칸만 빈다.** 줄을 빼면 사는 사람이
+      「학교 적힌 4,535명이 전부다」로 읽는다. */
+const 명부 = (() => {
+  const D = 'archive/raw/wikidata';
+  const 셋 = ['korean-entertainers-birth.json', 'korean-entertainers-school.json', 'korean-entertainers-roles.json'];
+  const 없는것 = 셋.filter((f) => !fs.existsSync(path.join(D, f)));
+  if (없는것.length) throw new Error(`위키데이터 명부가 없다 — ${없는것.join(' · ')}`);
+  return { 생일: 읽기(path.join(D, 셋[0])), 학교: 읽기(path.join(D, 셋[1])), 갈래: 읽기(path.join(D, 셋[2])) };
+})();
+/** 위키데이터 갈래 낱말을 영어 열 값으로. ⛔ 「미확인」은 빈칸이다 — 「other」가 아니다 */
+const 갈래영어 = { 노래: 'music', 연기: 'acting', 둘다: 'both', 기타: 'other' };
+const 학교표 = new Map((명부.학교.사람 ?? []).map((r) => [r.q, r.schools ?? []]));
+const ent = [[
+  'wikidata_q', 'name', 'born', 'kind', 'is_group', 'schools', 'school_count', 'wikipedia_editions',
+  'label_has_hangul',
+]];
+for (const p of 명부.생일.사람 ?? []) {
+  const 역 = 명부.갈래.사람?.[p.q] ?? {};
+  const 학 = 학교표.get(p.q) ?? [];
+  ent.push([
+    p.q, p.name ?? '', p.born ?? '',
+    갈래영어[역.갈래] ?? '',
+    typeof 역.grp === 'boolean' ? (역.grp ? 'yes' : 'no') : '',
+    학.map((s) => s.name).filter(Boolean).join(' | '),
+    학.length,
+    p.sitelinks ?? 0,
+    /* ⛔ 로마자로 «우리가» 옮기지 않는다. 지어낸 표기는 되짚을 수 없다. 표시만 해서 사는 사람이 고르게 한다 */
+    /[가-힣]/.test(String(p.name ?? '')) ? 'yes' : 'no',
+  ]);
+}
+fs.writeFileSync(path.join(OUT, 'entertainer-panel.csv'), csv(ent));
+
 
 /* ── ③-3 조인 패널 ── **이 한 벌에서 남이 못 주는 것이 이것이다.**
    넷플릭스는 출연진을 안 낸다. 위키데이터는 넷플릭스 차트를 모른다.
@@ -264,6 +305,25 @@ cov.push(['titles — language label unavailable', titlesKeyed.맞춘작품수, 
   'Netflix labels its global chart by primary language; country charts carry no language field. Titles that never reached a global Top 10 cannot be checked that way and are included on a title-text match alone. They are the small ones — the median charted in one country for three weeks — but the share is large and stated rather than buried.']);
 cov.push(['k-pop — period covered', kpop.days, 0, 0, 'later',
   `${kpop.period}. Thirty days only. This panel cannot show a trend across years yet; we began collecting daily in August 2026 and the window grows from here.`]);
+/* 명부 패널의 빈 곳 — 사는 사람이 열자마자 세어 볼 세 칸이다. */
+{
+  const 줄 = ent.length - 1;
+  const 몫 = (n) => +((100 * n) / 줄).toFixed(1);
+  const 생일없음 = ent.slice(1).filter((r) => !r[2]).length;
+  const 학교없음 = ent.slice(1).filter((r) => Number(r[6]) === 0).length;
+  const 갈래없음 = ent.slice(1).filter((r) => !r[3]).length;
+  cov.push(['entertainers — no date of birth on Wikidata', 줄, 'uncountable', 'unknown', 'no',
+    'Every row here carries a birth date, and that is not a coverage figure — it is how the roster was drawn. The query that produced this list asked Wikidata for Korean-citizenship entertainers with a date of birth, so a person without one produces no row at all and cannot be counted as a blank. Read the row count as people with a birth date, not as the size of the profession.']);
+  cov.push(['entertainers — no school recorded', 줄, 학교없음, 몫(학교없음), 'partly',
+    'No educated-at statement exists for these people. It does not mean they attended no school. The row is still here with the school columns empty, because dropping it would read as a claim that the people with schools are the whole roster.']);
+  cov.push(['entertainers — occupation not readable', 줄, 갈래없음, 몫(갈래없음), 'partly',
+    'Wikidata lists an occupation we could not sort into music or acting, or lists none. Left blank rather than filed under other, which would be a claim we did not measure.']);
+  const 한글이름 = ent.slice(1).filter((r) => r[8] === 'yes').length;
+  cov.push(['entertainers — label is not in Latin script', 줄, 한글이름, 몫(한글이름), 'partly',
+    'Wikidata holds no English label for these people, so the name column carries the Korean one. We did not romanise it ourselves: a guessed romanisation of a real name is worse than the Korean characters, because it looks authoritative and cannot be matched back. The label_has_hangul column marks every such row so you can filter or romanise on your own rules.']);
+  cov.push(['entertainers — who is missing from the roster', 줄, 'uncountable', 'unknown', 'no',
+    'The roster is everyone Wikidata marks as a Korean-citizenship entertainer. Someone with no Wikidata item produces no row, so we cannot count who is absent. This falls hardest on people who debuted recently.']);
+}
 fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
 
 /* ── ④-2 열 사전 ── CSV 를 **혼자 열어도** 뜻을 알아야 한다.
@@ -274,6 +334,23 @@ fs.writeFileSync(path.join(OUT, 'coverage.csv'), csv(cov));
    ⛔ 열 목록을 손으로 적지 않는다. **실제로 낸 표의 머리줄**에서 읽는다.
       손으로 적으면 열이 늘 때 사전이 조용히 낡는다. */
 const 뜻 = {
+  /**
+   * ⭐ [2026-09-03 · 5번] 명부 패널 — **위키데이터만으로 만든 표.**
+   * 업무 바퀴 ④리포트 칸을 채우려는데 오늘 새로 잰 넷이 다 넷플릭스에서 나온 것이라
+   * 파일로 못 낸다(대장 2026-08-08: 집계 🟢 · 파일 🔴). 그래서 잠기지 않은 축으로 골랐다.
+   * 위키데이터는 CC0 이고, `docs/5번-라이선스-검토.md` 24줄이 그것을 이미 못박아 두었다.
+   */
+  'entertainer-panel.csv': {
+    wikidata_q: ['The Wikidata item for this person or group. The only stable key here — romanised names change spelling, Q-numbers do not', '', 'never blank'],
+    name: ['English label on Wikidata', '', 'never blank'],
+    born: ['Date of birth as Wikidata records it', 'YYYY-MM-DD', 'blank means Wikidata holds no birth date. It is not a claim about the person, it is an empty field upstream'],
+    kind: ['music / acting / both / other — read from the occupations Wikidata lists', '', 'blank means no occupation we could read'],
+    is_group: ['yes when the item is a group rather than a person', '', 'blank means the occupations did not tell us either way'],
+    schools: ['Schools Wikidata lists this person as educated at', 'pipe-separated', 'blank means no school is recorded — not a claim that they attended none'],
+    school_count: ['How many schools are listed', 'schools', 'never blank; 0 means none recorded'],
+    wikipedia_editions: ['How many Wikipedia language editions carry an article on them', 'editions', 'never blank'],
+    label_has_hangul: ['yes when Wikidata holds no Latin-script label, so the name column carries the Korean one. We did not romanise it — a guessed romanisation cannot be matched back to anything', '', 'never blank'],
+  },
   'korean-title-panel.csv': {
     title: ['The title exactly as Netflix printed it', '', 'never blank'],
     format: ['series or film, from Netflix’s own chart category', '', 'never blank'],
@@ -472,7 +549,7 @@ const readme = `# K Culture Wire — Korean Content Panel
 
 Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
 
-## What this is, in five lines
+## What this is, in six lines
 
 1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — ${panel.length - 1} titles,
    each with **two independent columns** saying how sure we are it is the Korean work and not a foreign
@@ -480,8 +557,11 @@ Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
 2. **Which actor appears in which charting Korean title** — ${cj.length - 1} rows, keyed on Wikidata
    Q-numbers. Netflix does not publish cast; Wikidata does not know the charts. This is the join.
 3. **How often each K-pop act was looked up** on English Wikipedia — ${kp.length - 1} acts, ${kpop.days} days.
-4. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
-5. **Everything we have published and had to correct**, with the old value beside the new one.
+4. **Every Korean entertainer Wikidata holds a birth date for** — ${ent.length - 1} people, with the
+   schools listed for ${ent.slice(1).filter((r) => Number(r[6]) > 0).length} of them. No Netflix, no
+   licence question: Wikidata is CC0.
+5. **Korea's music and broadcast exports** by year, beside the workforce of its listed content companies.
+6. **Everything we have published and had to correct**, with the old value beside the new one.
 
 \`columns.csv\` says what every column in every file means, including what a blank cell means.
 \`coverage.csv\` says what is missing and whether it can ever be filled. Read that one before you build on this.
@@ -524,6 +604,7 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
 | Export figures for 2025 and 2026 | 2 years | **Later.** The survey runs about eighteen months behind |
 | K-pop acts with no English Wikipedia article — invisible to us entirely | uncountable | **No.** An act with no article produces no row, so we cannot even say how many are missing |
+| Entertainers with no school recorded | ${ent.slice(1).filter((r) => Number(r[6]) === 0).length} of ${ent.length - 1} rows (${(100 * ent.slice(1).filter((r) => Number(r[6]) === 0).length / (ent.length - 1)).toFixed(1)}%) | **Partly.** Wikidata carries no educated-at statement for them. The row stays, with the school columns empty — dropping it would read as a claim that the people who do have schools are the whole roster |
 | K-pop history before ${kpop.period.slice(0, 4)} | ${kpop.days} days is all there is | **Later.** We began collecting daily this month. The window grows from here |
 
 The same thing is in \`coverage.csv\` in a form you can filter.
@@ -537,6 +618,7 @@ below and neither is the real one on its own.
 | \`korean-title-panel.csv\` | Every Korean title that charted in six Southeast Asian markets since ${titles.weekFrom.slice(0, 4)} | ${panel.length - 1} |
 | \`kpop-attention-panel.csv\` | Every K-pop act with an English Wikipedia article, and how often it was opened over ${kpop.days} days | ${kp.length - 1} |
 | \`cast-title-join.csv\` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | ${cj.length - 1} |
+| \`entertainer-panel.csv\` | Every Korean entertainer Wikidata holds a birth date for, with occupation and schools | ${ent.length - 1} |
 | \`provenance.csv\` | How sure we are that each title is Korean, and how much of the total that covers | ${prov.length - 1} |
 | \`industry-panel.csv\` | Korean music and broadcast exports by year, beside the workforce of listed content companies | ${industry.length - 1} |
 | \`corrections.csv\` | Every figure we have published and had to change | ${fixes.length - 1} |
@@ -643,7 +725,8 @@ if (없는것.length) throw new Error(`K팝 패널에 ${없는것.join('·')} �
 console.log(`한 벌을 ${OUT}/ 에 냈다 — 파일 ${fs.readdirSync(OUT).length}개`);
 console.log(` 작품 패널   ${panel.length - 1}줄 (맛보기가 아니라 전부)`);
 console.log(` K팝 패널    ${kp.length - 1}줄 (그룹 ${kpop.groups.n} · 개인 ${kpop.people.n} · 배우겹침 ${kp.slice(1).filter((r) => r[8] === 'yes').length})`);
-console.log(` 조인 패널   ${cj.length - 1}줄 (작품 ${cast.출연진이붙은작품}/${titlesKeyed.맞춘작품수} · 사람 ${cast.배우수})`);
+console.log(` 명부 패널   ${ent.length - 1}줄 (학교 적힌 사람 ${ent.slice(1).filter((r) => Number(r[6]) > 0).length} · 이름이 한글인 줄 ${ent.slice(1).filter((r) => r[8] === (String.fromCharCode(121) + String.fromCharCode(101) + String.fromCharCode(115))).length})
+ 조인 패널   ${cj.length - 1}줄 (작품 ${cast.출연진이붙은작품}/${titlesKeyed.맞춘작품수} · 사람 ${cast.배우수})`);
 console.log(` 산업 패널   ${industry.length - 1}줄`);
 console.log(` 정정        ${총정정}건 (지면 ${지면건수} · 기사 ${기사정정.length})`);
 console.log(` 출처 판정   한국만 ${amb.koreaOnly.sharePc}% · 겹침 ${amb.shared.sharePc}% · 모름 ${amb.unknown.sharePc}%`);
@@ -669,10 +752,14 @@ const kp2 = kp.map((r) => r.slice(0, -1));
 fs.writeFileSync(path.join(OUT2, 'kpop-attention-panel.csv'), csv(kp2));
 fs.writeFileSync(path.join(OUT2, 'industry-panel.csv'), csv(industry));
 fs.writeFileSync(path.join(OUT2, 'corrections.csv'), csv(fixes));
+/* ⭐ 명부 패널은 **줄도 고르는 기준도 위키데이터**다 — CC0 이고 넷플릭스가 한 글자도 안 닿았다.
+   그래서 이 한 벌에 그대로 들어간다. 위 한 벌과 같은 파일이다(자르지 않는다). */
+fs.writeFileSync(path.join(OUT2, 'entertainer-panel.csv'), csv(ent));
+
 
 /* 사전·빈칸 — 위 한 벌과 **같은 뜻 표**에서 뽑는다. 두 벌이 갈라지지 않게 한다. */
 {
-  const 실린표 = ['kpop-attention-panel.csv', 'industry-panel.csv', 'corrections.csv'];
+  const 실린표 = ['kpop-attention-panel.csv', 'entertainer-panel.csv', 'industry-panel.csv', 'corrections.csv'];
   const dict2 = [['file', 'column', 'what_it_is', 'unit', 'what_a_blank_cell_means']];
   for (const 파일 of 실린표) {
     const 머리 = fs.readFileSync(path.join(OUT2, 파일), 'utf8').split('\n')[0].split(',');
@@ -694,18 +781,21 @@ fs.writeFileSync(path.join(OUT2, 'corrections.csv'), csv(fixes));
 
   const readme2 = `# Korean culture data — the part that carries no chart licence question
 
-Two panels and our corrections record. **Nothing in this bundle is derived from Netflix's charts**,
+Three panels and our corrections record. **Nothing in this bundle is derived from Netflix's charts**,
 which is the whole point of it: it can be used today without waiting on anything.
 
-## What this is, in four lines
+## What this is, in five lines
 
 1. **How often each K-pop act was looked up** on English Wikipedia — ${kp.length - 1} acts and members,
    ${kpop.days} days, daily. Groups and individuals are marked separately, and so are the ones who are
    also screen actors.
-2. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed
+2. **Every Korean entertainer Wikidata holds a birth date for** — ${ent.length - 1} people, their
+   occupation as Wikidata files it, and the schools listed for
+   ${ent.slice(1).filter((r) => Number(r[6]) > 0).length} of them.
+3. **Korea's music and broadcast exports** by year and by region, beside the workforce of its listed
    content companies — ${industry.length - 1} rows.
-3. **Everything we have published and had to correct**, with the old value beside the new one.
-4. \`columns.csv\` says what every column means, including what a blank cell means. \`coverage.csv\`
+4. **Everything we have published and had to correct**, with the old value beside the new one.
+5. \`columns.csv\` says what every column means, including what a blank cell means. \`coverage.csv\`
    says what is missing and whether it can ever be filled.
 
 ## Why this bundle exists separately
@@ -731,6 +821,7 @@ argue about the edge.
 | Panel | Source | Status |
 | --- | --- | --- |
 | K-pop attention | Wikimedia Pageviews API (en.wikipedia); roster from Wikidata | open |
+| Entertainer roster | Wikidata SPARQL (P27=Q884, P569, P106, P69) | CC0 — public domain |
 | Music and broadcast exports | Content Industry Survey via KOSIS | open |
 | Listed workforce | FSS DART annual report employee disclosures | confirmed unrestricted, 2026-08-05 |
 
@@ -751,5 +842,5 @@ Questions: parkintaek2@gmail.com
 `;
   fs.writeFileSync(path.join(OUT2, 'README.md'), readme2);
   console.log(`넷플릭스 없는 한 벌 → ${OUT2}/ 파일 ${fs.readdirSync(OUT2).length}개`
-    + ` (K팝 ${kp.length - 1}줄 · 산업 ${industry.length - 1}줄 · 정정 ${fixes.length - 1}건)`);
+    + ` (K팝 ${kp.length - 1}줄 · 명부 ${ent.length - 1}줄 · 산업 ${industry.length - 1}줄 · 정정 ${fixes.length - 1}건)`);
 }
