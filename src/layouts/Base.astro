@@ -86,8 +86,15 @@ const orgLd = {
       ⛔ 소유확인이 끝나도 **이 태그를 지우지 않는다.** 지우면 확인이 풀린다.
     */}
     <meta name="naver-site-verification" content="fb7b0650be3bca9b51c81a625dc82e78f4fcad0e" />
-    {/* 애드센스 소유확인 (2026-09-02 · 사장님 직접 지시). pub 넘버는 사이트마다 같다. */}
+    {/*
+      애드센스 소유확인 (2026-09-02 · 사장님 직접 지시).
+      pub 넘버는 사이트마다 같다(계정 하나). 메타태그만으로 소유확인이 안 돼 스크립트도 넣으라 하셨다.
+      ⚠ 이것은 이 새 계정(3547185342873229)의 «소유확인용» 로더다 — 아래 adsbygoogle.js
+        (ADS.client, ca-pub-5113515144381167)는 서울마켓이 이미 승인받아 광고를 부르는
+        기존 로더로 그대로 둔다. 둘은 다른 계정·다른 일이다.
+    */}
     <meta name="google-adsense-account" content="ca-pub-3547185342873229" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3547185342873229" crossorigin="anonymous"></script>
     {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:site_name" content={SITE.name} />
