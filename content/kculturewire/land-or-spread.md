@@ -1,9 +1,10 @@
 ---
 title: "Korean titles travel 2 ways. The average describes neither"
-dek: "Among 165 Korean titles that reached 20 countries or more, the first week already holds a median 39.1% of the countries they ever reach. But 57 of them started under 25% and 33 were nearly everywhere at once."
+dek: "Among 170 Korean titles that reached 20 countries or more, the first week already holds a median 40% of the countries they ever reach. But 58 of them started under 25% and 38 were nearly everywhere at once."
 category: titles
 purpose: both
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "distribution", "measurement", "release"]
@@ -30,7 +31,7 @@ excluded:
 ---
 
 We set out to find the gateway market: the country a Korean title shows up in before it shows up
-anywhere else. The answer was that there is not one. Among the **173 Korean titles** that reached 20
+anywhere else. The answer was that there is not one. Among the **170 Korean titles** that reached 20
 countries or more on Netflix's weekly lists, the middle title is already in **16 countries** in its
 first charting week.
 
@@ -42,8 +43,8 @@ it starts*.
 | | Median |
 | --- | ---: |
 | Countries reached in the end | 43 |
-| Countries in the first week | **16** |
-| Share of the footprint already there | **40.7%** |
+| Countries in the first week | **14** |
+| Share of the footprint already there | **40%** |
 
 Two fifths of everywhere, in week one. That is a fact about how Netflix charts move, and on its own
 it would suggest a single pattern: titles land, then top up.
@@ -52,13 +53,13 @@ it would suggest a single pattern: titles land, then top up.
 
 | Share of countries reached in week one | Titles | Share |
 | --- | ---: | ---: |
-| under 25% | **58** | 33.5% |
-| 25–49% | 42 | 24.3% |
-| 50–74% | 35 | 20.2% |
-| 75% or more | **38** | 22% |
+| under 25% | **58** | 34.1% |
+| 25–49% | 42 | 24.7% |
+| 50–74% | 32 | 18.8% |
+| 75% or more | **38** | 22.4% |
 
 The two ends are nearly the same size. **58 titles built their footprint over weeks; 38 had it
-almost immediately.** The median of 40.7% sits between two groups and describes neither of them —
+almost immediately.** The median of 40% sits between two groups and describes neither of them —
 which is what a median does when the thing underneath is not one thing.
 
 ## Built week by week
@@ -96,8 +97,8 @@ reached in the same seven days.
 
 ## Films land; series accumulate
 
-Across the 57 films in this set the first week holds a median **50.8%** of the eventual footprint.
-Across the 116 series it is **38.1%**. A film has one week to be found. A series can pick up a market
+Across the 55 films in this set the first week holds a median **50.8%** of the eventual footprint.
+Across the 115 series it is **38.1%**. A film has one week to be found. A series can pick up a market
 in its third week, and often does.
 
 ## What this changes for someone shipping a title
@@ -106,7 +107,7 @@ If a catalogue is mostly films, the marketing question is *are all the markets r
 day*, because a film that misses week one has largely missed. If it is mostly series, the first week
 is a start rather than a verdict, and a market that stays quiet for a fortnight has not yet said no.
 
-The dangerous move is to plan against the median. **40.7% is a number no title in this set behaves
+The dangerous move is to plan against the median. **40% is a number no title in this set behaves
 like.** The full band table, both tails, and the format split are on
 **[the arrival table](/arrival)**. Whether a title's run at home says anything about any of this is
 a separate question, and we measured that too:
@@ -116,3 +117,24 @@ a separate question, and we measured that too:
 country's top 10, which is not the week it became available there. A title released everywhere on
 one day can still take a month to chart in half of those countries — and that gap is exactly what
 the table above is measuring.
+
+## What changed on 3 September 2026
+
+Every figure in this piece was recounted against a rebuilt Korean title list, and this piece had a
+second problem of its own: **its summary line and its opening paragraph disagreed with each other.**
+The summary said 165 titles, the first paragraph said 173. Neither was the count. Both now read 170,
+which is what the data holds.
+
+| | Was | Now |
+|---|---|---|
+| Titles that reached 20+ countries | 165 or 173, depending on the paragraph | 170 |
+| Countries in the first week (median) | 16 | 14 |
+| Share of the footprint already there | 40.7% | 40% |
+| Started under 25% | 58 of them, 33.5% | 58, 34.1% |
+| 50–74% band | 35 titles, 20.2% | 32, 18.8% |
+| Films / series in the set | 57 / 116 | 55 / 115 |
+
+The shape of the finding is unchanged: the two ends of the distribution are still nearly the same
+size, and the median still describes neither of them. What changed is that a check now reads every
+one of these numbers out of the counted data on each build, so a figure cannot sit here disagreeing
+with the paragraph above it — or with the data — for weeks without the build going red.

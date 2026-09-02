@@ -1,9 +1,10 @@
 ---
 title: "Korean titles climb the Netflix chart. Others peak week one"
-dek: "Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
+dek: "Across 93 markets, 57.1% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else. Longer runs give more chances to climb — and the gap holds inside every run-length band."
 category: titles
 purpose: both
 pubDate: 2026-08-08
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement"]
@@ -38,10 +39,10 @@ whether any later week beat the opening week.
 
 | | Runs | Climbed after week one | Peaked in week one |
 | --- | ---: | ---: | ---: |
-| Korean titles | 7,414 | **57.4%** | 42.6% |
-| Everything else | 102,204 | **40.5%** | 59.5% |
+| Korean titles | 7,288 | **57.1%** | 42.9% |
+| Everything else | 102,330 | **40.5%** | 59.5% |
 
-A Korean title's opening week is its best week 42.7% of the time. For everything else on the same
+A Korean title's opening week is its best week 42.9% of the time. For everything else on the same
 charts, in the same weeks, it is 59.5%. **The typical non-Korean title arrives at its peak; the
 typical Korean one does not.**
 
@@ -53,11 +54,11 @@ same length.
 
 | Run length | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| 2 weeks | 40.4% | 30.7% | +9.7 |
-| 3 weeks | 64.2% | 49.7% | +14.5 |
-| 4–5 weeks | 60.9% | 47.2% | +13.7 |
-| 6–10 weeks | 70.4% | 49.9% | +20.5 |
-| 11 weeks or more | 81.3% | 58.1% | +23.2 |
+| 2 weeks | 39.9% | 30.7% | +9.2 |
+| 3 weeks | 63.7% | 49.8% | +13.9 |
+| 4–5 weeks | 60.6% | 47.2% | +13.4 |
+| 6–10 weeks | 70.3% | 50.0% | +20.3 |
+| 11 weeks or more | 81.5% | 58.1% | +23.4 |
 
 It does not vanish in any band. The smallest gap is 8.8 points among two-week runs and the largest
 is 23.5 points among the longest. **Length is not the explanation**, and among runs long enough for
@@ -68,10 +69,10 @@ more heavily series than the field is:
 
 | Format | Korean climbed | Everything else | Gap |
 | --- | ---: | ---: | ---: |
-| Series | 62.8% | 46.5% | +16.3 |
-| Films | 46.1% | 37.2% | +8.9 |
+| Series | 62.7% | 46.6% | +16.1 |
+| Films | 45.0% | 37.2% | +7.8 |
 
-Korean films climb less often than Korean series — 46.9% against 62.4% — but still more often than
+Korean films climb less often than Korean series — 45.0% against 62.7% — but still more often than
 non-Korean films. The gap is not an artefact of what Korea puts on the chart.
 
 ## What we are not saying
@@ -91,3 +92,24 @@ Korean titles are about **1.4 times as likely** to have their best week later th
 Every band and both formats are on [the climb table](/climb), with what it cannot answer printed
 beside it. It reads the same 93-market panel as [the world-share page](/world-share), where the
 share of places those runs add up to is counted.
+
+## What changed on 3 September 2026
+
+Our Korean title list had been frozen at 8 August. We rebuilt it on 3 September and it went from
+397 titles to 420, and one title we had been counting as Korean (*Dangerous Liaisons*) is not.
+We have not broken the increase down — how much of it is titles that charted for the first time in
+those four weeks and how much is the panel reading rows it had missed, we did not measure. Every
+figure above moved with the rebuild. The direction did not:
+
+| | Was | Now |
+|---|---|---|
+| Korean runs read | 7,414 | 7,288 |
+| Korean runs that climb | 57.4% | 57.1% |
+| Everything else | 40.5% | 40.5% |
+| Films that climb | 46.1% | 45.0% |
+| Series that climb | 62.8% | 62.7% |
+
+One sentence in the format section had also drifted from its own table — it said films climb 46.9%
+of the time where the table said 46.1%. Both now read 45.0%, from the same count. A wrong number in
+one paragraph makes the twenty-three correct ones beside it worth doubting, so we print what moved
+rather than quietly swapping it.
