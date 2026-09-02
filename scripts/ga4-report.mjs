@@ -600,9 +600,21 @@ if (내가실행됐다) {
       for (const r of (await q(['sessionSource', 'sessionMedium'], ['totalUsers'], 12))) {
         console.log(`     ${String(r.값).padStart(5)}  ${r.키}`);
       }
+      /**
+       * ⭐ [2026-09-03] 사장님이 「이슈메이킹」의 기준에 **「방문자 수가 평균보다 많은지」**를
+       *   넣으셨다. 그러려면 «지면 하나하나»의 수가 필요하다. 열다섯 줄로는 못 잰다.
+       * ⛔ 화면 출력은 그대로 열다섯 줄만 낸다 — 보던 사람이 놀라지 않게.
+       *   `--지면전부` 를 주면 전부를 한 덩어리로 더 낸다(다른 자가 읽어 간다).
+       */
+      const 지면들 = await q(['hostName', 'pagePath'], ['screenPageViews'], 400);
       console.log('\n   어느 지면이 열렸나 (지면열림)');
-      for (const r of (await q(['hostName', 'pagePath'], ['screenPageViews'], 15))) {
+      for (const r of 지면들.slice(0, 15)) {
         console.log(`     ${String(r.값).padStart(5)}  ${r.키}`);
+      }
+      if (process.argv.includes('--지면전부')) {
+        console.log('\n   ▼ 지면 전부 (지면열림) — 자가 읽어 가는 자리다');
+        for (const r of 지면들) console.log(`     ${String(r.값).padStart(6)}  ${r.키}`);
+        console.log('   ▲ 지면 전부 끝');
       }
       console.log('\n   어느 나라에서 (순방문)');
       for (const r of (await q(['country'], ['totalUsers'], 10))) {
