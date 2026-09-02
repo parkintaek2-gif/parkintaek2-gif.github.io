@@ -118,12 +118,36 @@ if (process.argv[1] && process.argv[1].endsWith('check-product-bundle.mjs')) {
           }
         }
       }
-      /* 지면이 「내려받으라」고 말하고 있지도 않아야 한다 */
+      /* 지면이 「내려받으라」고 말하고 있지도 않아야 한다.
+       *
+       * 🔴🔴 [2026-09-02] 이 자리가 **`.csv` 링크를 통째로** 막고 있었다. 그래서 우리가
+       *   직접 쓴 `coverage.csv`(무엇이 없나·채울 수 있나를 우리 말로 적은 글)까지 걸렸다.
+       *   ⛔ 통째로 막으면 사람이 「우리 것인데?」 하며 검사를 끄게 된다. 그것이 제일 나쁘다.
+       *
+       * ⭐ 그래서 **이름표 대신 «열 이름»을 잰다.** 넷플릭스에서 나온 값이 든 표는
+       *   `chart_places`·`peak_rank`·`first_week` 같은 열을 갖는다. 파일 이름을 바꿔도
+       *   그 열은 남으므로, 이름 목록보다 이 자가 더 세다.
+       * ⚠ 재 볼 수 없으면(파일이 없으면) **「없다」가 아니라 「못 쟀다」**로 적고 넘긴다 —
+       *   지면이 없는 파일을 가리키는 것은 다른 검사가 볼 일이다.
+       */
       const 데이터지면 = 'src/pages/wikitip/data.astro';
       if (fs.existsSync(데이터지면)) {
         const g = fs.readFileSync(데이터지면, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/<!--[\s\S]*?-->/g, ' ');
-        if (/download the files|Download the bundle|href="[^"]*\.csv"/i.test(g)) {
-          넘음.push('⛔ /data 가 파일을 내려받게 한다 — 대장의 Netflix 조건이 아직 안 끝났다');
+        /** 넷플릭스 주간 순위에서 나온 값이 든 표에만 있는 열 */
+        const 넷플릭스열 = ['chart_places', 'peak_rank', 'first_week', 'last_week', 'charting_titles'];
+        for (const m of g.matchAll(/href="([^"]*\.csv)"/gi)) {
+          const 이름 = m[1].split('/').pop();
+          const 실물 = path.join('public', 'wikitip', 'data', 이름);
+          if (!fs.existsSync(실물)) continue;                 // 못 쟀다 — 다른 검사 몫이다
+          const 머리 = fs.readFileSync(실물, 'utf8').split('\n')[0] ?? '';
+          const 걸린열 = 넷플릭스열.filter((c) => 머리.includes(c));
+          if (걸린열.length) {
+            넘음.push(`⛔ /data 가 «${이름}» 를 내려받게 한다 — 그 표에 넷플릭스에서 나온 열이 있다`
+              + `(${걸린열.join(', ')}). 대장의 Netflix 재배포 조건이 아직 안 끝났다`);
+          }
+        }
+        if (/download the files|Download the bundle/i.test(g)) {
+          넘음.push('⛔ /data 가 「한 벌을 내려받으라」고 말한다 — 대장의 Netflix 조건이 아직 안 끝났다');
         }
         if (!/still being confirmed|not offering the files/i.test(g)) {
           넘음.push('/data 가 「파일은 아직 안 연다」는 까닭을 말하지 않는다. 안 적으면 손님이 그냥 없는 줄 안다');

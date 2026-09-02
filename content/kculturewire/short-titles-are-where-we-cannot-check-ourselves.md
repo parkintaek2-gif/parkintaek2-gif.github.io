@@ -83,7 +83,7 @@ and more common pool — one-word abstractions, single names, ordinary nouns.
 
 **This means our film panel is the part of our data most likely to contain something that is not
 Korean, and it is the part we can least easily check.** It is also the smaller side: 160 titles against
-237, and 476 chart-weeks against 1,870.
+237, and 475 chart-weeks against 1,870.
 
 ## A second ruler we had not used
 
@@ -140,3 +140,11 @@ worse one.
 ---
 
 Every panel here carries its verification columns with it. [Read what is in the data and what is missing from it →](/data)
+
+## What changed on 2 September 2026
+
+We re-collected the Netflix files on 25 August 2026 and recounted. The film side moved from 476
+chart-weeks to 475; every other figure here came back the same.
+
+**The finding did not change.** The film panel is still the smaller side and still the part we can
+least easily check.

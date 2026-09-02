@@ -1,18 +1,18 @@
 {
-  "generated": "2026. 8. 8. 오전 8:08:16",
+  "generated": "2026. 9. 3. 오전 12:04:37",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists — every country Netflix publishes, not only Southeast Asia",
   "sourceKo": "넷플릭스 Tudum 나라별 주간 Top 10 전 세계",
   "method": "A Korean title should normally also appear on Netflix’s South Korea chart. Absence is not proof — a title released before July 2021, or never streamed in Korea, cannot appear — so this ranks titles for human review rather than deciding them.",
-  "panelTitles": 397,
+  "panelTitles": 420,
   "sharedTitles": 149,
-  "duplicateRows": 1179,
-  "scannedRowsForPanel": 34172,
-  "sharedWithoutKorea": 76,
+  "duplicateRows": 1239,
+  "scannedRowsForPanel": 35524,
+  "sharedWithoutKorea": 75,
   "sameCountryWork": 9,
   "queues": {
     "oneCountryOnly": 20,
     "concentrated": 19,
-    "noKorea": 37
+    "noKorea": 36
   },
   "reviewQueue": [
     {
@@ -819,17 +819,6 @@
       "concentrationPc": 2.5
     },
     {
-      "title": "Dangerous Liaisons",
-      "type": "Films",
-      "queue": "no-korea",
-      "seaWeeks": 1,
-      "sameCountryWork": false,
-      "countries": 70,
-      "topCountry": "Austria",
-      "topWeeks": 4,
-      "concentrationPc": 2.4
-    },
-    {
       "title": "The Way Back",
       "type": "Films",
       "queue": "no-korea",
@@ -958,6 +947,19 @@
       "queue": null
     },
     {
+      "title": "Can This Love Be Translated?",
+      "type": "TV",
+      "seaWeeks": 21,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 7,
+      "countries": 60,
+      "topCountry": "Vietnam",
+      "topWeeks": 22,
+      "concentrationPc": 10.3,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "The Glory",
       "type": "TV",
       "seaWeeks": 21,
@@ -967,19 +969,6 @@
       "topCountry": "Hong Kong",
       "topWeeks": 25,
       "concentrationPc": 4.2,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
-      "title": "Can This Love Be Translated?",
-      "type": "TV",
-      "seaWeeks": 18,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 7,
-      "countries": 60,
-      "topCountry": "Vietnam",
-      "topWeeks": 18,
-      "concentrationPc": 8.6,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1159,9 +1148,9 @@
       "verdict": "shared",
       "koreaWeeks": 9,
       "countries": 53,
-      "topCountry": "Indonesia",
-      "topWeeks": 12,
-      "concentrationPc": 3.3,
+      "topCountry": "Vietnam",
+      "topWeeks": 13,
+      "concentrationPc": 3.5,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1175,6 +1164,19 @@
       "topCountry": "Pakistan",
       "topWeeks": 16,
       "concentrationPc": 3.2,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Mercy For None",
+      "type": "TV",
+      "seaWeeks": 12,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 8,
+      "countries": 75,
+      "topCountry": "Indonesia",
+      "topWeeks": 12,
+      "concentrationPc": 5.7,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1195,7 +1197,7 @@
       "title": "Welcome to Samdal-ri",
       "type": "TV",
       "seaWeeks": 12,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 10,
       "countries": 35,
       "topCountry": "Indonesia",
@@ -1309,6 +1311,19 @@
       "queue": null
     },
     {
+      "title": "Doctor Cha",
+      "type": "TV",
+      "seaWeeks": 11,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 9,
+      "countries": 39,
+      "topCountry": "Indonesia",
+      "topWeeks": 11,
+      "concentrationPc": 4.6,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Mr. Queen",
       "type": "TV",
       "seaWeeks": 11,
@@ -1357,19 +1372,6 @@
       "topCountry": "India",
       "topWeeks": 28,
       "concentrationPc": 4.5,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
-      "title": "Mercy For None",
-      "type": "TV",
-      "seaWeeks": 10,
-      "verdict": "unknown",
-      "koreaWeeks": 8,
-      "countries": 75,
-      "topCountry": "Indonesia",
-      "topWeeks": 10,
-      "concentrationPc": 4.9,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1442,7 +1444,7 @@
       "title": "Destined with You",
       "type": "TV",
       "seaWeeks": 10,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 8,
       "countries": 44,
       "topCountry": "Indonesia",
@@ -1517,6 +1519,19 @@
       "queue": null
     },
     {
+      "title": "Weak Hero",
+      "type": "TV",
+      "seaWeeks": 9,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 11,
+      "countries": 72,
+      "topCountry": "Pakistan",
+      "topWeeks": 11,
+      "concentrationPc": 3.3,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Miss Night and Day",
       "type": "TV",
       "seaWeeks": 9,
@@ -1565,6 +1580,19 @@
       "topCountry": "Indonesia",
       "topWeeks": 9,
       "concentrationPc": 3.2,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Agent Kim Reactivated",
+      "type": "TV",
+      "seaWeeks": 8,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 8,
+      "countries": 81,
+      "topCountry": "Bangladesh",
+      "topWeeks": 9,
+      "concentrationPc": 1.9,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1689,7 +1717,7 @@
       "title": "The WONDERfools",
       "type": "TV",
       "seaWeeks": 7,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 6,
       "countries": 64,
       "topCountry": "Bangladesh",
@@ -1933,15 +1961,15 @@
       "queue": null
     },
     {
-      "title": "Agent Kim Reactivated",
+      "title": "Spooky in Love",
       "type": "TV",
       "seaWeeks": 5,
       "verdict": "koreaOnly",
-      "koreaWeeks": 5,
-      "countries": 81,
-      "topCountry": "Argentina",
-      "topWeeks": 5,
-      "concentrationPc": 1.4,
+      "koreaWeeks": 6,
+      "countries": 48,
+      "topCountry": "Bolivia",
+      "topWeeks": 6,
+      "concentrationPc": 2.6,
       "sameCountryWork": false,
       "queue": null
     },
@@ -2080,11 +2108,11 @@
       "type": "Films",
       "seaWeeks": 4,
       "verdict": "koreaOnly",
-      "koreaWeeks": 6,
+      "koreaWeeks": 9,
       "countries": 41,
       "topCountry": "South Korea",
-      "topWeeks": 6,
-      "concentrationPc": 7.3,
+      "topWeeks": 9,
+      "concentrationPc": 10.6,
       "sameCountryWork": true,
       "queue": null
     },
@@ -2157,7 +2185,7 @@
       "title": "Mission: Cross",
       "type": "Films",
       "seaWeeks": 4,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 9,
       "countries": 43,
       "topCountry": "South Korea",
@@ -2271,6 +2299,19 @@
       "queue": null
     },
     {
+      "title": "Bogotá: City of the Lost",
+      "type": "Films",
+      "seaWeeks": 3,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 4,
+      "countries": 73,
+      "topCountry": "South Korea",
+      "topWeeks": 4,
+      "concentrationPc": 4.1,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Uprising",
       "type": "Films",
       "seaWeeks": 3,
@@ -2372,6 +2413,19 @@
       "topWeeks": 12,
       "concentrationPc": 8.9,
       "sameCountryWork": true,
+      "queue": null
+    },
+    {
+      "title": "Our Sticky Love",
+      "type": "TV",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 3,
+      "countries": 68,
+      "topCountry": "Bahrain",
+      "topWeeks": 3,
+      "concentrationPc": 1.8,
+      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -2482,7 +2536,7 @@
       "title": "Behind Your Touch",
       "type": "TV",
       "seaWeeks": 8,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 9,
       "countries": 27,
       "topCountry": "South Korea",
@@ -2830,6 +2884,19 @@
       "queue": null
     },
     {
+      "title": "The Apartment Job",
+      "type": "TV",
+      "seaWeeks": 6,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 7,
+      "countries": 19,
+      "topCountry": "Malaysia",
+      "topWeeks": 7,
+      "concentrationPc": 9.5,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Captivating the King",
       "type": "TV",
       "seaWeeks": 6,
@@ -2885,7 +2952,7 @@
       "title": "Bad And Crazy",
       "type": "TV",
       "seaWeeks": 5,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 0,
       "countries": 6,
       "topCountry": "Malaysia",
@@ -2934,19 +3001,6 @@
       "queue": null
     },
     {
-      "title": "The Apartment Job",
-      "type": "TV",
-      "seaWeeks": 3,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 3,
-      "countries": 19,
-      "topCountry": "Malaysia",
-      "topWeeks": 3,
-      "concentrationPc": 8.8,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
       "title": "Tarot",
       "type": "Films",
       "seaWeeks": 3,
@@ -2979,22 +3033,22 @@
       "verdict": "shared",
       "koreaWeeks": 1,
       "countries": 90,
-      "topCountry": "Argentina",
-      "topWeeks": 2,
-      "concentrationPc": 1.1,
-      "sameCountryWork": true,
+      "topCountry": "Egypt",
+      "topWeeks": 5,
+      "concentrationPc": 2,
+      "sameCountryWork": false,
       "queue": null
     },
     {
-      "title": "Spooky in Love",
-      "type": "TV",
+      "title": "Pavane",
+      "type": "Films",
       "seaWeeks": 2,
       "verdict": "koreaOnly",
-      "koreaWeeks": 2,
-      "countries": 47,
-      "topCountry": "Bolivia",
-      "topWeeks": 2,
-      "concentrationPc": 3.1,
+      "koreaWeeks": 3,
+      "countries": 19,
+      "topCountry": "South Korea",
+      "topWeeks": 3,
+      "concentrationPc": 11.5,
       "sameCountryWork": false,
       "queue": null
     },
@@ -3084,8 +3138,8 @@
       "koreaWeeks": 3,
       "countries": 28,
       "topCountry": "Japan",
-      "topWeeks": 4,
-      "concentrationPc": 10,
+      "topWeeks": 7,
+      "concentrationPc": 16.3,
       "sameCountryWork": true,
       "queue": null
     },
@@ -3168,6 +3222,19 @@
       "queue": "no-korea"
     },
     {
+      "title": "Bitch and Rich",
+      "type": "TV",
+      "seaWeeks": 7,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 10,
+      "countries": 13,
+      "topCountry": "South Korea",
+      "topWeeks": 10,
+      "concentrationPc": 22.2,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Check in Hanyang",
       "type": "TV",
       "seaWeeks": 3,
@@ -3223,7 +3290,7 @@
       "title": "My Roommate Is a Gumiho",
       "type": "TV",
       "seaWeeks": 12,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 0,
       "countries": 7,
       "topCountry": "Hong Kong",
@@ -3389,6 +3456,19 @@
       "queue": null
     },
     {
+      "title": "Dali & Cocky Prince",
+      "type": "TV",
+      "seaWeeks": 4,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 8,
+      "topCountry": "Indonesia",
+      "topWeeks": 3,
+      "concentrationPc": 15.8,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Lookism",
       "type": "TV",
       "seaWeeks": 2,
@@ -3464,6 +3544,19 @@
       "topWeeks": 10,
       "concentrationPc": 40,
       "sameCountryWork": true,
+      "queue": null
+    },
+    {
+      "title": "Flu",
+      "type": "Films",
+      "seaWeeks": 3,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 4,
+      "topCountry": "Singapore",
+      "topWeeks": 3,
+      "concentrationPc": 30,
+      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -3562,11 +3655,11 @@
       "type": "TV",
       "seaWeeks": 4,
       "verdict": "koreaOnly",
-      "koreaWeeks": 0,
-      "countries": 4,
+      "koreaWeeks": 2,
+      "countries": 5,
       "topCountry": "Indonesia",
       "topWeeks": 2,
-      "concentrationPc": 33.3,
+      "concentrationPc": 25,
       "sameCountryWork": false,
       "queue": null
     },
@@ -3636,6 +3729,19 @@
       "queue": "no-korea"
     },
     {
+      "title": "Miraculous Brothers",
+      "type": "TV",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 2,
+      "countries": 5,
+      "topCountry": "Indonesia",
+      "topWeeks": 2,
+      "concentrationPc": 25,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Aema",
       "type": "TV",
       "seaWeeks": 1,
@@ -3654,10 +3760,10 @@
       "seaWeeks": 1,
       "verdict": "shared",
       "koreaWeeks": 2,
-      "countries": 71,
+      "countries": 72,
       "topCountry": "Mexico",
       "topWeeks": 4,
-      "concentrationPc": 3.5,
+      "concentrationPc": 3.4,
       "sameCountryWork": true,
       "queue": null
     },
@@ -3669,6 +3775,19 @@
       "koreaWeeks": 1,
       "countries": 5,
       "topCountry": "Malaysia",
+      "topWeeks": 2,
+      "concentrationPc": 28.6,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Witch at Court",
+      "type": "TV",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 4,
+      "topCountry": "Philippines",
       "topWeeks": 2,
       "concentrationPc": 28.6,
       "sameCountryWork": false,
@@ -3935,6 +4054,19 @@
       "queue": null
     },
     {
+      "title": "The Battleship Island",
+      "type": "Films",
+      "seaWeeks": 4,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 3,
+      "topCountry": "Malaysia",
+      "topWeeks": 3,
+      "concentrationPc": 50,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "All In",
       "type": "Films",
       "seaWeeks": 2,
@@ -4010,6 +4142,19 @@
       "topWeeks": 4,
       "concentrationPc": 44.4,
       "sameCountryWork": true,
+      "queue": null
+    },
+    {
+      "title": "A Business Proposal",
+      "type": "Films",
+      "seaWeeks": 4,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 2,
+      "topCountry": "Indonesia",
+      "topWeeks": 4,
+      "concentrationPc": 66.7,
+      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -4146,7 +4291,7 @@
       "title": "Marry YOU",
       "type": "TV",
       "seaWeeks": 2,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 2,
       "countries": 3,
       "topCountry": "Indonesia",
@@ -4507,6 +4652,19 @@
       "queue": null
     },
     {
+      "title": "Wonderful Nightmare",
+      "type": "Films",
+      "seaWeeks": 4,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Philippines",
+      "topWeeks": 4,
+      "concentrationPc": 100,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "A Journey",
       "type": "Films",
       "seaWeeks": 4,
@@ -4533,23 +4691,10 @@
       "queue": null
     },
     {
-      "title": "Wonderful Nightmare",
-      "type": "Films",
-      "seaWeeks": 3,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 0,
-      "countries": 1,
-      "topCountry": "Philippines",
-      "topWeeks": 3,
-      "concentrationPc": 100,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
       "title": "PROJECT SILENCE",
       "type": "Films",
       "seaWeeks": 3,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 5,
       "countries": 2,
       "topCountry": "South Korea",
@@ -4621,6 +4766,19 @@
       "topWeeks": 7,
       "concentrationPc": 77.8,
       "sameCountryWork": true,
+      "queue": null
+    },
+    {
+      "title": "Hotel Lake",
+      "type": "Films",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Thailand",
+      "topWeeks": 2,
+      "concentrationPc": 100,
+      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -4861,7 +5019,7 @@
       "title": "The Gangster, The Cop, The Devil",
       "type": "Films",
       "seaWeeks": 3,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 2,
       "countries": 3,
       "topCountry": "Vietnam",
@@ -4926,7 +5084,7 @@
       "title": "I, the Executioner",
       "type": "Films",
       "seaWeeks": 2,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 9,
       "countries": 2,
       "topCountry": "South Korea",
@@ -5040,6 +5198,19 @@
       "queue": "no-korea"
     },
     {
+      "title": "Beauty Inside",
+      "type": "TV",
+      "seaWeeks": 3,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 3,
+      "topCountry": "Hong Kong",
+      "topWeeks": 4,
+      "concentrationPc": 44.4,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Take Point",
       "type": "Films",
       "seaWeeks": 2,
@@ -5066,10 +5237,23 @@
       "queue": null
     },
     {
+      "title": "Number One",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "shared",
+      "koreaWeeks": 4,
+      "countries": 2,
+      "topCountry": "South Korea",
+      "topWeeks": 4,
+      "concentrationPc": 66.7,
+      "sameCountryWork": true,
+      "queue": null
+    },
+    {
       "title": "Seobok",
       "type": "Films",
       "seaWeeks": 1,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 0,
       "countries": 2,
       "topCountry": "Hong Kong",
@@ -5131,6 +5315,19 @@
       "queue": null
     },
     {
+      "title": "Strong Girl Bong-soon",
+      "type": "TV",
+      "seaWeeks": 3,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 2,
+      "countries": 3,
+      "topCountry": "Taiwan",
+      "topWeeks": 3,
+      "concentrationPc": 37.5,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "In Between",
       "type": "Films",
       "seaWeeks": 2,
@@ -5173,7 +5370,7 @@
       "title": "Escape From Mogadishu",
       "type": "Films",
       "seaWeeks": 2,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 8,
       "countries": 2,
       "topCountry": "South Korea",
@@ -5207,6 +5404,19 @@
       "concentrationPc": 100,
       "sameCountryWork": true,
       "queue": "one-country-only"
+    },
+    {
+      "title": "Spring Garden",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Thailand",
+      "topWeeks": 1,
+      "concentrationPc": 100,
+      "sameCountryWork": false,
+      "queue": null
     },
     {
       "title": "Come Back Home",
@@ -5326,6 +5536,19 @@
       "queue": null
     },
     {
+      "title": "Christmas Carol",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 4,
+      "countries": 2,
+      "topCountry": "South Korea",
+      "topWeeks": 4,
+      "concentrationPc": 80,
+      "sameCountryWork": true,
+      "queue": null
+    },
+    {
       "title": "Persona: Sulli",
       "type": "Films",
       "seaWeeks": 1,
@@ -5417,6 +5640,19 @@
       "queue": null
     },
     {
+      "title": "The Battle of Jangsari",
+      "type": "Films",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 2,
+      "countries": 2,
+      "topCountry": "South Korea",
+      "topWeeks": 2,
+      "concentrationPc": 50,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Respect",
       "type": "Films",
       "seaWeeks": 1,
@@ -5480,6 +5716,19 @@
       "concentrationPc": 75,
       "sameCountryWork": false,
       "queue": "concentrated"
+    },
+    {
+      "title": "The Accidental Detective 2: In Action",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Vietnam",
+      "topWeeks": 1,
+      "concentrationPc": 100,
+      "sameCountryWork": false,
+      "queue": null
     },
     {
       "title": "Abyss",
@@ -5599,15 +5848,28 @@
       "queue": "one-country-only"
     },
     {
+      "title": "8MM",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 11,
+      "topCountry": "Bulgaria",
+      "topWeeks": 2,
+      "concentrationPc": 14.3,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Along with the Gods: The Two Worlds",
       "type": "Films",
       "seaWeeks": 1,
       "verdict": "koreaOnly",
       "koreaWeeks": 0,
-      "countries": 2,
+      "countries": 3,
       "topCountry": "Japan",
       "topWeeks": 2,
-      "concentrationPc": 66.7,
+      "concentrationPc": 50,
       "sameCountryWork": false,
       "queue": null
     },
@@ -5660,6 +5922,19 @@
       "topCountry": "South Korea",
       "topWeeks": 3,
       "concentrationPc": 42.9,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Chef & My Fridge",
+      "type": "TV",
+      "seaWeeks": 2,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 9,
+      "countries": 2,
+      "topCountry": "South Korea",
+      "topWeeks": 9,
+      "concentrationPc": 81.8,
       "sameCountryWork": false,
       "queue": null
     },
@@ -5732,7 +6007,7 @@
       "title": "Luck-Key",
       "type": "Films",
       "seaWeeks": 1,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 0,
       "countries": 1,
       "topCountry": "Malaysia",
@@ -5758,7 +6033,7 @@
       "title": "Hotel Del Luna",
       "type": "TV",
       "seaWeeks": 1,
-      "verdict": "unknown",
+      "verdict": "koreaOnly",
       "koreaWeeks": 9,
       "countries": 5,
       "topCountry": "South Korea",
@@ -5885,19 +6160,6 @@
       "queue": null
     },
     {
-      "title": "Dangerous Liaisons",
-      "type": "Films",
-      "seaWeeks": 1,
-      "verdict": "shared",
-      "koreaWeeks": 0,
-      "countries": 70,
-      "topCountry": "Austria",
-      "topWeeks": 4,
-      "concentrationPc": 2.4,
-      "sameCountryWork": false,
-      "queue": "no-korea"
-    },
-    {
       "title": "The Way Back",
       "type": "Films",
       "seaWeeks": 1,
@@ -5937,6 +6199,19 @@
       "queue": null
     },
     {
+      "title": "Remember You",
+      "type": "TV",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Thailand",
+      "topWeeks": 1,
+      "concentrationPc": 100,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "A Werewolf Boy",
       "type": "Films",
       "seaWeeks": 1,
@@ -5946,6 +6221,19 @@
       "topCountry": "Hong Kong",
       "topWeeks": 1,
       "concentrationPc": 33.3,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Tie A Yellow Ribbon",
+      "type": "Films",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 0,
+      "countries": 1,
+      "topCountry": "Vietnam",
+      "topWeeks": 1,
+      "concentrationPc": 100,
       "sameCountryWork": false,
       "queue": null
     },

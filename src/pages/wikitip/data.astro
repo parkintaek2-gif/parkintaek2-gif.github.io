@@ -176,24 +176,36 @@ const jsonLd = {
       reader can see how the number was built. An empty cell means we do not hold the value &mdash;
       it never means zero.
     </p>
+    {/*
+      🔴🔴 [2026-09-02] **넷플릭스에서 나온 열이 든 표 셋을 웹에서 내렸다.**
+
+      `docs/데이터-라이선스-대장.md` 가 2026-08-08 에 못박아 두었다 —
+        「파일로 파는 것: **미확인. 확인 전에는 안 연다** 🔴」
+        「/data 는 값도 안 적고 파일도 안 준다 → 이미 그렇게 나갔다」
+      ⛔ 그런데 그 사이 열려 있었다. `check-product-bundle.mjs` 가 잡았고, 라이브를 재 보니
+        세 파일이 다 **200** 이었다(runs 표는 769KB).
+
+      ⚠ 집계(합·편수·비중)를 지면에 내는 것은 대장 판정이 🟢 다. 막힌 것은 «원본에 가까운
+        표를 파일로 내주는 것»뿐이다. 그래서 지면의 수는 그대로 두고 파일만 닫는다.
+      ⭐ 표는 `docs/data-bundle-held/` 에 있고, 왜 내렸는지도 그 폴더에 적어 두었다.
+      ⛔ 이 링크를 되살리지 말 것. 대장이 🟢 가 되는 날 그 검사가 저절로 풀린다.
+    */}
+    <p class="note">
+      <b>Three tables are not here, and we will say why.</b> The chart figures on this site are
+      counted from Netflix&rsquo;s own weekly country lists. Publishing counts built from them is one
+      thing; handing over a file that sits close to the source is another, and we have not been able
+      to read the terms that govern the second. The Top 10 pages are drawn by script, so fetching
+      them returns an empty document &mdash; we could not read the conditions as text.
+      <b>That is &ldquo;we have not seen it&rdquo;, not &ldquo;there is nothing there&rdquo;</b>, and
+      we will not treat those as the same thing. So the aggregate figures stay on the pages where you
+      can read and cite them, and the near-source tables stay off until we can read the terms or get
+      an answer in writing. If you need a figure that is on a page but not in a file, ask us.
+    </p>
     <ul class="files">
       <li>
-        <a href="/data/korean-titles-netflix-runs.csv">korean-titles-netflix-runs.csv</a>
-        <span class="fine">Every Korean title we hold, one row per country it charted in: chart
-        places, best rank, first and last week. This is the table the rest of the site is built on.</span>
-      </li>
-      <li>
-        <a href="/data/korean-titles-summary.csv">korean-titles-summary.csv</a>
-        <span class="fine">The same titles, one row each, if you do not need the country breakdown.</span>
-      </li>
-      <li>
-        <a href="/data/korean-actors-netflix.csv">korean-actors-netflix.csv</a>
-        <span class="fine">Actors in at least two charting titles, with birth date where Wikidata
-        records one. A floor, not a filmography.</span>
-      </li>
-      <li>
         <a href="/data/coverage.csv">coverage.csv</a>
-        <span class="fine">What is missing, and whether it can ever be filled.</span>
+        <span class="fine">What is missing, and whether it can ever be filled. This one is our own
+        writing about our own gaps, so we can hand it over without asking anyone.</span>
       </li>
       <li>
         <a href="/data/README.txt">README.txt</a>

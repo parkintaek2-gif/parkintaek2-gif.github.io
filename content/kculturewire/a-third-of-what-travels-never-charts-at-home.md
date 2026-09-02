@@ -1,6 +1,6 @@
 ---
-title: "140 of 397 Korean titles never charted in Korea"
-dek: "They are a different kind of title: 2.21 markets on average against 4.67, and one in seven reaches #1 against one in two. Netflix's Korean chart is not a smaller version of the regional one — it is a different chart."
+title: "150 of 420 Korean titles never charted in Korea"
+dek: "They are a different kind of title: 2.20 markets on average against 4.63, and one in seven reaches #1 against one in two. Netflix's Korean chart is not a smaller version of the regional one — it is a different chart."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -27,15 +27,15 @@ excluded:
   - "Viewing hours. Netflix publishes hours for its global list only, so everything here is titles and chart-weeks"
 ---
 
-Of the **397 Korean titles** that have reached a Netflix Top 10 somewhere in Southeast Asia since
-2021, **140 have never once appeared on Netflix's Top 10 in Korea.**
+Of the **420 Korean titles** that have reached a Netflix Top 10 somewhere in Southeast Asia since
+2021, **150 have never once appeared on Netflix's Top 10 in Korea.**
 
 That is 35% of the panel, and it is not a rounding of the tail. It is a structurally different group.
 
 | | Titles | Avg. markets reached | Avg. weeks | Reached #1 |
 | --- | ---: | ---: | ---: | ---: |
-| Also charted in Korea | 257 | **4.67** | 7.0 | 50.6% |
-| Never charted in Korea | 140 | **2.21** | 3.5 | **14.3%** |
+| Also charted in Korea | 270 | **4.63** | 6.8 | 49.6% |
+| Never charted in Korea | 150 | **2.20** | 3.4 | **15.3%** |
 
 A title that plays at home reaches more than twice as many Southeast Asian markets and is three and a
 half times as likely to reach number one in one of them.
@@ -48,16 +48,16 @@ That is strong enough to be the main story and weak enough that the exceptions a
 | Weeks on Korea's chart | Titles | Avg. Southeast Asian markets |
 | --- | ---: | ---: |
 | None | 140 | 2.21 |
-| 1–3 | 70 | 3.51 |
-| 4–9 | 149 | 5.01 |
-| 10 or more | 38 | 5.50 |
+| 1–3 | 74 | 3.46 |
+| 4–9 | 156 | 4.96 |
+| 10 or more | 40 | 5.53 |
 
 Read down the right-hand column and the ladder is clean. Read the ends and it breaks: **15 titles
-reached all six Southeast Asian markets without ever charting in Korea**, and 78 of the 122
+reached all six Southeast Asian markets without ever charting in Korea**, and 84 of the 133
 single-market titles never charted at home either.
 
-Put the other way: **8.4% of the titles that swept the region skipped the Korean chart entirely, and
-63.9% of the single-market titles did.**
+Put the other way: **8.1% of the titles that swept the region skipped the Korean chart entirely, and
+63.2% of the single-market titles did.**
 
 ## What the exceptions are
 
@@ -77,7 +77,7 @@ Korea and one market abroad. *Nocturnal* held thirteen at home and two weeks in 
 
 ## Films skip home more than series do
 
-**51.9% of the films in this panel never charted in Korea, against 24.1% of the series.** A Korean
+**52.3% of the films in this panel never charted in Korea, against 24.2% of the series.** A Korean
 film often has its domestic life in cinemas, arrives on Netflix months later, and by then the
 domestic audience has seen it — while for a Southeast Asian viewer the Netflix release is the release.
 
@@ -101,3 +101,19 @@ reading of the 35% is: at most that many skipped Korea's chart, and some of them
 ---
 
 If a title can travel without playing at home, how much of the rest of the panel can we even check? [Read the half we cannot verify by language →](/article/half-our-panel-cannot-be-verified)
+
+## What changed on 3 September 2026
+
+One of our source files had gone stale. The Korea-signal table was still the 8 August build, which
+means it still counted *Dangerous Liaisons* — the 2022 French film we removed on 25 August after
+confirming against Wikidata that no Korean work carries that name. Rebuilding it moved the panel from
+397 titles to 420, because the newer build also picks up titles that charted after 8 August.
+
+The figures above were all recounted. The ones that moved: 140 titles that never charted in Korea
+became 150, the share went from 35.3% to 35.7%, and the film-versus-series gap went from 51.9%
+against 24.1% to 52.3% against 24.2%.
+
+**The finding did not change.** About a third of what travels never charts at home, and the
+never-charted titles are still a different kind of title rather than a smaller version of the same
+one. We are printing the old and new figures side by side because a number that moves without saying
+so is a number no one should trust.

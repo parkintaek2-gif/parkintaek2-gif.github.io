@@ -59,7 +59,27 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-new-articles.mjs'))
     const K = JSON.parse(fs.readFileSync('src/data/wikitip-korea-signal.json', 'utf8'));
     const T = JSON.parse(fs.readFileSync('src/data/wikitip-titles.json', 'utf8'));
     const wk = new Map(T.rows.map((r) => [r.title, r]));
-    const R = K.rows;
+    /**
+     * 🔴🔴 [2026-09-03] 이 자가 **터졌다** — `wk.get(r.title).countries` 에서
+     *   `undefined.countries` 였다. 빨강보다 나쁘다: 묶음이 거기서 멈춰 **뒤의 검사가 통째로
+     *   안 돌았다.** 그 뒤에 라이선스 노출(넷플릭스 표 셋이 웹에 열려 있던 것)이 숨어 있었다.
+     *
+     *   까닭은 자료 두 벌의 «만든 날»이 달랐던 것이다 —
+     *   `wikitip-korea-signal.json`(8/8)에 `Dangerous Liaisons`(프랑스 영화)가 남아 있고
+     *   `wikitip-titles.json`(8/29)에는 없었다. 8/25 에 그 편을 뺐기 때문이다.
+     *
+     * ⭐ 자료를 다시 세서 짝을 맞췄다(397 → 420줄, 짝 없는 것 0).
+     * ⛔ 그리고 **자가 다시는 터지지 않게** 한다 — 짝이 없으면 세지 말고 «못 쟀다»로 낸다.
+     *   「못 잰 것은 못 쟀다고 적는다」가 자에도 걸린다. 터지면 아무것도 못 적는다.
+     */
+    const 짝없음 = K.rows.filter((r) => !wk.has(r.title));
+    if (짝없음.length) {
+      console.log(`  ⬜ 두 자료의 짝이 안 맞아 ${짝없음.length}편을 **못 쟀다** — `
+        + `${짝없음.slice(0, 5).map((r) => r.title).join(' · ')}`);
+      console.log('     ⇒ node scripts/collect-korea-chart-signal.mjs 로 다시 세십시오');
+    }
+    /* 짝이 있는 줄만 센다. ⚠ 아래 셈이 wk 를 되찾으므로 여기서 걸러야 한다 */
+    const R = K.rows.filter((r) => wk.has(r.title));
     const 없 = R.filter((r) => r.koreaWeeks === 0);
     const 있 = R.filter((r) => r.koreaWeeks > 0);
     본다('① 패널·한국 0주', 한줄.includes(`**${R.length} Korean titles**`) && 한줄.includes(`**${없.length} have never once appeared`), `${R.length} · ${없.length}`);

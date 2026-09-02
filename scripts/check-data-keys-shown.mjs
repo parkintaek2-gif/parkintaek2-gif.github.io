@@ -29,7 +29,9 @@ const 읽는곳 = ['src/pages/wikitip', 'src/components', 'src/layouts'];
  *   이름만 달라 빠져 있었다. 만든 때는 지면에 낼 값이 아니라 꼬리표다 — 여기 넣는다.
  * ⛔ 이 줄을 넓힐 때 보는 것은 「값이냐 꼬리표냐」 하나뿐이다.
  *   보여 주기 싫은 값을 여기에 숨기면 이 검사가 죽는다. */
-const 기록용 = /^(generated|generatedAt|source|sourceKo|unit|unitKo|unitMean|privacy|note|주의|갱신|출처)$/;
+/* ⭐ 2026-09-02 — `builtAt` 을 더했다. `generated`·`generatedAt` 과 **같은 것**인데
+ *   이름만 달라 빠져 있었다(groups·schools 두 파일). 위 주석의 그 잘못이 세 번째다. */
+const 기록용 = /^(generated|generatedAt|builtAt|source|sourceKo|unit|unitKo|unitMean|privacy|note|주의|갱신|출처)$/;
 
 /**
  * ② ③ 면제표. **까닭 없이 못 들어온다.**
@@ -37,6 +39,31 @@ const 기록용 = /^(generated|generatedAt|source|sourceKo|unit|unitKo|unitMean|
  *   비면면제: 값이 「비었다」면 넘어간다. 차면 선다.
  */
 const 면제 = [
+  /*
+   * 🔴 [2026-09-02] **내부 감사·생성용 파일 둘.** 손님에게 낼 자료가 아니다.
+   *   ⚠ 둘 다 `counts` 열쇠가 **한국어**다 — wikitip-headlines 는
+   *     「본지면·머리글있음·머리글없음」이다. 영문 매체라 지면에 그대로 낼 수 없고,
+   *     내면 check-kcw-korean-leak 이 잡는다. 그것이 이 파일들이
+   *     «읽는 사람 것이 아니라 우리 것»이라는 증거다.
+   *   ⛔ 그래도 공짜로 넘기지 않는다 — 쓰는곳을 적고, 그 파일이 정말 그 열쇠를 부르는지
+   *     이 검사가 확인한다. 안 부르게 되는 날 이 검사가 선다.
+   */
+  ...['setCount', 'imageCount', 'setsWithoutArticle', 'articlesWithoutCards', 'base',
+    'whatThisIs', 'whatThisIsNot'].map((열쇠) => ({
+    파일: 'wikitip-cardnews.json',
+    열쇠,
+    까닭: '카드뉴스 «만드는 자»가 읽는 목록이다. 손님이 보는 것은 이 수가 아니라 기사 지면에 '
+      + '실리는 카드 그림 자체이고, 그것은 KcwCardnews 조각이 낸다. 이 파일의 수는 '
+      + '「몇 벌을 만들었나·짝이 없는 것이 있나」를 우리끼리 확인하는 값이다',
+    쓰는곳: 'scripts/build-kcw-cardnews-index.mjs',
+  })),
+  ...['counts', 'missing', 'whatThisIs', 'whatThisIsNot'].map((열쇠) => ({
+    파일: 'wikitip-headlines.json',
+    열쇠,
+    까닭: '우리가 «지은 지면들의 머리글»을 되읽어 감사한 파일이다. 손님에게 낼 자료가 아니라 '
+      + '우리 지면이 머리글을 빠뜨렸는지 보는 자다. counts 열쇠가 한국어인 것이 그 증거다',
+    쓰는곳: 'scripts/build-kcw-headlines.mjs',
+  })),
   {
     파일: 'wikitip-staying-power.json', 열쇠: 'peakGroupsTop50Only',
     까닭: '2026-08-08 에 물린 옛 값이다. 시간 상위 50편만으로 센 것이라 **지면에 내면 안 되는 수**다. '

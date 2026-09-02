@@ -28,6 +28,7 @@
  * ⛔ 수를 이 지면에서 세지 않는다 — `wikitip-western-signs.json` 에서 읽는다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import data from '../../../data/wikitip-western-signs.json';
 import people from '../../../data/wikitip-people.json';
 import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
@@ -203,6 +204,19 @@ const DESC = `${s.people.toLocaleString('en-US')} Korean actors and singers were
       <li><a href="/most-read">The Korean names most people looked up this month</a></li>
     </ul>
   </section>
+  {/* 🔴 [2026-09-02] 별자리 경계를 어떻게 갈랐는지(boundaryNote)와 못 읽은 생일 수가
+    자료에만 있었다. 별자리는 특히 «판정처럼 읽히기 쉬운» 지면이라 이 칸이 리스크관리다. */}
+  <KcwDataBasis
+    heading="What this split is"
+    whatThisIs={data.whatThisIs}
+    whatThisIsNot={data.whatThisIsNot}
+    notes={[data.boundaryNote]}
+    counts={[
+      { label: 'People in the roster', value: data.peopleTotal },
+      { label: 'People we could place in a sign', value: data.placed },
+      { label: 'Birth dates we could not read', value: data.unreadableBirthDate },
+    ]}
+  />
 </WikiTip>
 
 <style>

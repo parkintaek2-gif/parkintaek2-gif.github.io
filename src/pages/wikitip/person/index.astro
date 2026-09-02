@@ -7,6 +7,7 @@
  *   그 문장을 화면에 적는다 — 안 적으면 표가 순위표로 읽힌다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-people.json';
 import KcwCardnews from '../../../components/KcwCardnews.astro';
@@ -124,6 +125,24 @@ const DESC = `${사람들.length} Korean actors, each with the Netflix top-10 ti
     ⭐ 관계는 기사가 들고 있고 지면은 읽기만 한다 — 그 대신 이 한 줄을 빠뜨리면 조용히 끊긴다.
     ⛔ check-kcw-article-backlinks.mjs 가 이제 그것을 잡는다. */}
   <KcwRelatedArticles page="/person" />
+  {/* 🔴 [2026-09-02] 센 것을 손님이 보게 한다 — check-data-keys-shown 이 이 지면의
+    자료에서 여섯 열쇠를 「어느 지면도 안 보여 준다」고 잡았다.
+    ⚠ data.counts 의 열쇠는 한국어다. 값만 꺼내 쓰고 화면 이름은 영어로 짓는다. */}
+  <KcwDataBasis
+    heading="What this roster is"
+    whatThisIs={data.whatThisIs}
+    whatThisIsNot={data.whatThisIsNot}
+    counts={[
+      { label: 'People in the roster', value: data.peopleTotal },
+      { label: 'People with a page here', value: data.peoplePublished },
+      /* ⚠ counts['이름총'] 은 peopleTotal 과 «같은 수»다(둘 다 1,284). 두 줄로 내면
+         손님이 다른 것을 센 줄 알고 읽는다 — 렌더해서 눈으로 보고 그 줄을 뺐다.
+         대신 그 묶음에서 지면이 안 내던 두 값을 낸다. */
+      { label: 'Dropped for too little data', value: data.counts['얇아서제외'] },
+      { label: 'Names shared by more than one person', value: data.counts['이름겹침'] },
+      { label: 'Split into separate pages for a shared name', value: data.sameNameSplit },
+    ]}
+  />
 </WikiTip>
 
 <style>

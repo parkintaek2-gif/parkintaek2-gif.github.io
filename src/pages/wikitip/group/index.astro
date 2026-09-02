@@ -7,6 +7,7 @@
  * ⛔ 멤버 수로 줄 세우되 «순위»라고 부르지 않는다. 위키데이터에 실리는 것은 편집자가 정한다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 /**
  * 🔴 [2026-08-29] 구조화 데이터를 갈래마다 붙이고 마지막에 남은 다섯 장 중 하나다.
  *   목록 지면이므로 다른 213장과 «같은 자»를 쓴다.
@@ -105,4 +106,14 @@ const DESC = `${그룹들.length} Korean music groups with the members Wikidata 
       <li><a href="/star-sign/cancer">By star sign, twelve of them</a></li>
     </ul>
   </section>
+  {/* 🔴 [2026-09-02] 왜 어떤 그룹은 지면이 없는지, 왜 키를 안 다루는지 — 손님이 봐야 한다.
+    그 글은 자료 파일 안에만 있었고 어느 지면도 안 냈다(check-data-keys-shown). */}
+  <KcwDataBasis
+    heading="What this list is, and what we left out"
+    notes={[data.whyNotListed, data.whyNoHeight, data.whyNotCurrentMembers]}
+    counts={[
+      { label: 'Groups that would share a web address', value: data.slugCollisions },
+      { label: 'Dropped because another group had the same address', value: data.droppedForSameSlug },
+    ]}
+  />
 </WikiTip>

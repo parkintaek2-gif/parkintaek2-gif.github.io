@@ -26,6 +26,7 @@
  *   요즘 사람이 더 많이 실리는 것일 수도 있고 우리는 그 둘을 못 가른다. 그 말을 지면에 적는다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import data from '../../../data/wikitip-age-bands.json';
 
 export function getStaticPaths() {
@@ -197,4 +198,12 @@ const DESC = `${b.people.toLocaleString('en-US')} Korean actors and singers are 
       <li><a href="/most-read">The Korean names most people looked up this month</a></li>
     </ul>
   </section>
+  {/* 🔴 [2026-09-02] 나이 칸 밖으로 나간 사람이 무슨 뜻인지 자료에만 적혀 있었다. 지면에 낸다. */}
+  <KcwDataBasis
+    heading="What these age bands are"
+    whatThisIs={data.whatThisIs}
+    whatThisIsNot={data.whatThisIsNot}
+    notes={[data.outsideBandsMeans]}
+    counts={[{ label: 'People in the roster', value: data.peopleTotal }]}
+  />
 </WikiTip>

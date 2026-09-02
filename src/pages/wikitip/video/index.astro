@@ -24,6 +24,8 @@
  *   지면이 영상을 떼면 짝도 저절로 사라지므로 어긋날 수가 없다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
+import videoFiles from '../../../data/wikitip-video.json';
 /**
  * 🔴 [2026-08-29] 구조화 데이터를 갈래마다 붙이고 마지막에 남은 다섯 장 중 하나다.
  *   목록 지면이므로 다른 213장과 «같은 자»를 쓴다.
@@ -101,6 +103,25 @@ const DESC = `${영상.length} short videos, each built from a table on this sit
       <li><a href="/school">Where Korean actors and singers studied</a></li>
     </ul>
   </section>
+  {/* 🔴 [2026-09-02] 두 벌을 나란히 낸다 — «목록»이 무엇인가와 «파일»을 어떻게 쟀나.
+    둘 다 자료 파일 안에만 있었다(check-data-keys-shown).
+    ⚠ data.counts 의 열쇠는 한국어다. 값만 꺼내 쓰고 화면 이름은 영어로 짓는다. */}
+  <KcwDataBasis
+    heading="What this list is"
+    whatThisIs={data.whatThisIs}
+    whatThisIsNot={data.whatThisIsNot}
+    counts={[
+      { label: 'Short films', value: data.counts['영상'] },
+      { label: 'Paired to the page they were built from', value: data.counts['짝찾음'] },
+      { label: 'Not paired to any page', value: data.counts['짝못찾음'] },
+    ]}
+  />
+  <KcwDataBasis
+    heading="How the files were measured"
+    whatThisIs={videoFiles.whatThisIs}
+    whatThisIsNot={videoFiles.whatThisIsNot}
+    counts={[{ label: 'Files we could not measure', value: videoFiles.unmeasured }]}
+  />
 </WikiTip>
 
 <style>

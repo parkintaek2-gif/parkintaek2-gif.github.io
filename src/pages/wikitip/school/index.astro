@@ -8,6 +8,7 @@
  * ⛔ 학교를 줄 세우는 표가 아니다. 수가 큰 순서로 놓되 «순위»라고 부르지 않는다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-schools.json';
 /* 🔴 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣고, 관련 콘텐트를
@@ -85,4 +86,13 @@ const DESC = `${학교들.length} schools, each with the Korean actors, singers 
 
   {/* 🔴 [2026-08-30] 기사 두 편이 이 지면을 가리키는데 «받는 자리»가 없었다. */}
   <KcwRelatedArticles page="/school" />
+  {/* 🔴 [2026-09-02] 왜 어떤 학교는 지면이 없는지, 왜 키 지면을 안 만들었는지 — 손님이 봐야 한다. */}
+  <KcwDataBasis
+    heading="What this list is, and what we left out"
+    notes={[data.whyNotListed, data.whyNoHeightPages]}
+    counts={[
+      { label: 'Schools that would share a web address', value: data.slugCollisions },
+      { label: 'Dropped for not being in the roster', value: data.droppedNotInRoster },
+    ]}
+  />
 </WikiTip>

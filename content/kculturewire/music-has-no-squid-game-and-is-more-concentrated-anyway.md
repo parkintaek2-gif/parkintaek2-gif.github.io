@@ -32,14 +32,14 @@ excluded:
 ---
 
 *Squid Game* is a fifth of everything Korea has put on Netflix's global chart in five years. **BTS** is under three per cent of the attention its own field receives. Both figures come off the two instruments
-we have: **246 titles** carrying five years of Netflix viewing hours, and **2,372 K-pop acts and
+we have: **243 titles** carrying five years of Netflix viewing hours, and **2,372 K-pop acts and
 members** carrying thirty days of English Wikipedia lookups.
 
 The obvious comparison says screen is the concentrated one:
 
 | | Biggest single unit | Share it holds |
 | --- | --- | ---: |
-| Screen (viewing hours) | *Squid Game* | **20.6%** |
+| Screen (viewing hours) | *Squid Game* | **20.7%** |
 | Music (page lookups) | BTS | **2.6%** |
 
 One drama is a fifth of everything Korea has put on Netflix's global chart in five years. The biggest
@@ -49,20 +49,20 @@ act in K-pop is under three per cent of the attention its own field receives.
 
 ## The panels are ten times different in size
 
-246 against 2,372. A top-50 share means something completely different in each. So ask the question
+243 against 2,372. A top-50 share means something completely different in each. So ask the question
 that does not depend on panel size: **how much of the field do you need before you have half the
 total?**
 
 | | Half the total comes from | As a share of the panel | Top 10% of the panel holds |
 | --- | ---: | ---: | ---: |
-| Screen | 18 titles | **7.3%** | 56.3% |
+| Screen | 18 titles | **7.4%** | 55.8% |
 | Music | 118 acts | **5.0%** | **66.1%** |
 
 **Music is the steeper distribution.** Its top tenth holds nearly ten points more of its field's attention
 than screen's top tenth holds of viewing. Half of all K-pop lookups sit on 118 of 2,372 acts.
 
 So both statements are true and they are about different things. **Screen has one giant; music has a
-steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.9%** — flatter still against music's 66.1%.
+steeper slope.** Remove *Squid Game* and screen's top tenth falls to **45.2%** — flatter still against music's 66.1%.
 Nothing in music is remotely as large as *Squid Game* relative to its field — and the field beneath
 it is still more unequal.
 
@@ -97,3 +97,18 @@ distribution is steeper still than 67.0%.
 ---
 
 Screen has the giant. Whether a title is even Korean is the harder question underneath it. [Read what we cannot verify about the catalogue →](/article/short-titles-are-where-we-cannot-check-ourselves)
+
+## What changed on 3 September 2026
+
+The screen panel moved from 246 titles to 243. On 25 August we removed three titles that were never
+Korean — *Dangerous Liaisons* (French), *Breathless* (Spanish) and *One More Time* (Swedish) — after
+confirming each against Wikidata. They had entered our figures through the same title-text matching
+this site has corrected before.
+
+Every share above was recounted on the smaller panel. *Squid Game* went from 20.6% of screen
+attention to 20.7%; the eighteen titles that reach half the attention are 7.4% of the panel rather
+than 7.3%; the ten largest hold 55.8% rather than 56.3%; and with *Squid Game* removed the top tenth
+falls to 45.2% rather than 45.9%.
+
+**The finding did not change**, in direction or in size. Music is still the more concentrated of the
+two fields, and still more concentrated after *Squid Game* is taken off the screen side.
