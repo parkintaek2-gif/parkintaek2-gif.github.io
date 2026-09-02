@@ -217,6 +217,8 @@ if (process.argv.includes('--자가시험')) {
 
 let 돈것 = 0;
 const 못잰것 = [];
+/* [2026-09-03] 첫 실패에 멈추지 않고 모아 둔다 — 남은 일의 «크기»를 알아야 순서를 정한다 */
+const 흠난것 = [];
 for (const [무엇, 파일] of 검사) {
   if (!fs.existsSync(`scripts/${파일}`)) {
     console.error(`❌ ${파일} 이 없다 — 검사 목록이 실제와 어긋난다`);
@@ -233,10 +235,36 @@ for (const [무엇, 파일] of 검사) {
       못잰것.push(파일);
       continue;
     }
-    console.error(`\n❌ ${무엇} — ${파일}\n`);
-    process.stderr.write(글);
-    process.exit(1);
+    /*
+     * 🔴🔴 [2026-09-03] 여기서 **첫 실패에 멈추고 있었다.** 그래서 뒤의 검사가 몇 개
+     *   흠났는지 아무도 몰랐다 — 세어 보니 **27개**였다. 하나 고치면 다음 하나가 나오는
+     *   식으로 밤새 스물일곱 번을 «발견»해야 하는 구조였다.
+     *
+     *   ⛔ 그리고 그 침묵이 값을 치렀다. 이 래퍼 뒤에 있던 `check-product-bundle` 이
+     *     **재배포 조건이 미확인인 넷플릭스 표 셋이 웹에 열려 있는 것**을 잡고 있었는데,
+     *     그 자가 한 번도 안 돌아서 라이브에 769KB CSV 가 나가고 있었다(2026-09-02 발견).
+     *     「안 불리는 검사는 문장일 뿐이다」가 라이선스 노출로 나타난 것이다.
+     *
+     * ⭐ 그래서 **다 돌리고 끝에 한꺼번에 낸다.** 남은 일의 «크기»를 알 수 있어야
+     *   고칠 순서를 정할 수 있다. 종료코드는 그대로 1 이므로 관문은 여전히 막힌다.
+     */
+    흠난것.push({ 무엇, 파일, 글 });
+    console.error(`  ❌ ${무엇.padEnd(28)} (${파일})`);
   }
+}
+
+if (흠난것.length) {
+  console.error(`\n❌ K Culture Wire 검사 — 흠난 것 ${흠난것.length}개 / 돈 것 ${돈것 + 흠난것.length}개\n`);
+  for (const x of 흠난것) console.error(`   · ${x.파일}  —  ${x.무엇}`);
+  console.error('\n─── 첫 세 개의 자세한 말 ───');
+  for (const x of 흠난것.slice(0, 3)) {
+    console.error(`\n❌ ${x.무엇} — ${x.파일}`);
+    process.stderr.write(x.글);
+  }
+  if (흠난것.length > 3) {
+    console.error(`\n⚠ 나머지 ${흠난것.length - 3}개는 각각 돌려서 봅니다 — node scripts/<파일 이름>`);
+  }
+  process.exit(1);
 }
 
 console.log(`\n✅ K Culture Wire 검사 ${돈것}개 통과`);
