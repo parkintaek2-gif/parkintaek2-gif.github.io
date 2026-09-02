@@ -28,6 +28,46 @@ export const 검사무늬 = /(\.test\.mjs|^check-.*\.mjs)$/;
 export const 봐준다 = {
   'check-tests-wired.mjs': '이 파일. 자기를 자기가 부르면 안 된다',
 
+  /* 🔴🔴 [2026-09-02 · 5번] **안 불리는 검사가 30 → 66 으로 늘어 전 유닛 npm test 가 막혔다.**
+     사장님: 「npm test 가 깨져 있습니다 … 자기가 만든 검사는 자기가 물립니다 >>>> 이건 뭘까? 해결해」
+
+     [어떻게 풀었나 — 봐주는 수를 «올리지» 않았다]
+       66개를 갈라 세었다 — 자가시험이 있고 인터넷·크롬·DB 를 안 타는 것 43개 · 나머지 23개.
+       ⭐ 43개는 하나씩 돌려 **전부 통과하는 것을 확인한 뒤** `check-all-selftests.mjs` 로 묶어
+          npm test 에 «한 줄»로 물렸다(package.json 에 2,446자를 붙이지 않으려고 자를 뒀다).
+       ⛔ 남의 검사를 물렸다가 그것이 실패하면 전 유닛 배포가 또 막힌다 — 그건 옮기는 것이지
+          고치는 것이 아니다. 그래서 «돌려 보고» 물렸다.
+       ⇒ 66 → 22. 그 22개가 아래다. **전부 인터넷·라이브·구글API 를 탄다.**
+
+     [그리고 봐주는 수를 0 으로 조였다]
+       아래에 까닭을 다 적었으니 안불림은 0 이 된다. ⇒ 이제 **안 물린 검사가 하나만 생겨도 운다.**
+       그것이 「자기가 만든 검사는 자기가 물린다」를 문장이 아니라 «검사»로 만드는 길이다.
+     ⚠ 새 검사를 만들었으면 ① 자가시험이 있으면 `check-all-selftests.mjs` 목록에 한 줄 더한다
+       ② 인터넷·크롬을 타면 **여기에 까닭을 적어** 넣는다. 둘 중 하나는 해야 한다.
+     ⛔ 봐주는 수를 올려서 끄지 않는다. 그러면 다음 사람이 또 66개를 만난다. */
+  'check-100y-llms-freshness.mjs': '라이브 100yearmap 의 llms.txt 를 받아 지면과 대 본다. 인터넷이 끊기면 npm test 가 통째로 죽는다',
+  'check-100y-sitemap-read.mjs': '구글 서치콘솔 API 로 사이트맵 읽힘을 본다. 인터넷 + 구글 API 한도를 탄다',
+  'check-2h.mjs': '두 시간마다 도는 «자리지킴» 감시자다. 배포 관문이 아니라 상시 감시라 npm test 에 넣을 자리가 아니다',
+  'check-clock.mjs': '라이브 서버의 시각이 KST 와 맞나 본다. 인터넷을 탄다',
+  'check-first-onward-link.mjs': '라이브 지면을 받아 첫 안쪽 링크의 자리를 잰다. 인터넷을 탄다',
+  'check-google-indexed.mjs': '구글 URL Inspection API 한도(하루 2,000건)를 쓴다. 상시로 물리면 한도를 태운다',
+  'check-import-safe.mjs': '라이브에서 대본 길이를 재 본다. 인터넷을 탄다',
+  'check-indexing.mjs': '구글 색인 상태를 라이브로 본다. 인터넷을 탄다',
+  'check-kcw-broken-links.mjs': '라이브 기사의 링크를 하나씩 눌러 본다. 인터넷이 끊기면 죽는다',
+  'check-kcw-sitemap-lastmod.mjs': '라이브 사이트맵의 lastmod 를 받아 본다. 인터넷을 탄다',
+  'check-kcw-video-sitemap.mjs': '라이브 영상 사이트맵을 받아 본다. 인터넷을 탄다',
+  'check-live-assets.mjs': '라이브에 나간 자원을 받아 본다. 인터넷을 탄다',
+  'check-live-matches-source.mjs': '라이브가 내 HEAD 와 같은지 받아 본다. 배포 «뒤»에 도는 자다 — 배포 전에는 옛 지면을 보고 운다',
+  'check-navigational-impressions.mjs': '서치콘솔 노출을 받아 잰다. 인터넷 + 구글 API 를 탄다',
+  'check-paid-services.mjs': '라이브에서 유료 서비스가 보이나 밖에서 잰다. 인터넷을 탄다',
+  'check-search-index.mjs': '라이브 색인을 본다. 인터넷을 타고 자가시험이 아직 없다 — 주인이 자가시험을 붙이면 묶음으로 옮긴다',
+  'check-seoulmarkets-broken-links.mjs': '라이브 기사의 링크를 눌러 본다. 인터넷을 탄다',
+  'check-seoulmarkets-video-sitemap.mjs': '라이브 영상 사이트맵을 본다. 인터넷을 타고 자가시험이 아직 없다',
+  'check-sitemap-freshness.mjs': '서치콘솔로 사이트맵 신선도를 본다. 인터넷 + 구글 API 를 탄다',
+  'check-title-ambiguity.mjs': '라이브 제목을 받아 견준다. 인터넷을 타고 자가시험이 아직 없다',
+  'check-trade-scale-break.mjs': '🔒 잠금쇠. 자가시험이 아직 없다 — 주인이 붙이면 `check-all-selftests.mjs` 목록으로 옮긴다',
+  'check-youtube-100y.mjs': '라이브 유튜브 쪽을 본다. 인터넷을 탄다. ⚠ 우리는 유튜브에 안 올린다(사장님 2026-08-30) — 이 자가 아직 필요한지는 주인이 정한다',
+
   /* 3번(백년지도) 것 넷 — 2026-08-08 16:5x~17:5x. 넷 다 **상시로 돌 수 없는 까닭**이 다르다.
      ⚠ 상시로 돌 수 있는 둘(check-100y-provenance · check-100y-major-bridge)은 npm test 에 물렸다 */
   'check-100y-label-echo.mjs': '나간 지면 4,963장을 훑는다. 빌드가 없으면 잴 것이 없다 — npm run check:100y:label',
@@ -191,6 +231,16 @@ const j = JSON.parse(fs.readFileSync(path.join(뿌리, 'package.json'), 'utf8'))
 const 파일들 = fs.readdirSync(path.join(뿌리, 'scripts'));
 const { 검사수, 안불림 } = 갈라내기(파일들, j.scripts?.test ?? '');
 
+/* 🔴 [2026-09-02 · 5번] **목록을 볼 길이 없었다.**
+   톱니를 지나면 「아직 22개가 안 불립니다」만 찍고 «무엇이» 안 불리는지는 안 보였다.
+   그래서 아무도 줄이지 못했다 — 고칠 수 없는 경고는 경고가 아니다.
+   `node scripts/check-tests-wired.mjs --목록` 으로 언제든 다 본다. */
+if (process.argv.includes('--목록')) {
+  console.log(`안 불리는 검사 ${안불림.length}개 (검사 파일 ${검사수}개 중)`);
+  for (const f of 안불림) console.log(`  · ${f}`);
+  process.exit(0);
+}
+
 /**
  * ⚠ 이 수를 **줄이기만** 한다 — 늘어나면 운다.
  *
@@ -217,13 +267,20 @@ const { 검사수, 안불림 } = 갈라내기(파일들, j.scripts?.test ?? '');
  *   check-100y-content-evidence)만 위 `봐준다` 에 까닭을 적어 넣었다.
  *   남은 30개는 각 자리 몫이다 — **3번이 남의 검사를 대신 물리지 않는다.**
  */
-const 오늘까지봐주는수 = 30;
+/* 🔴 [2026-09-02 · 5번] 30 → **0**. 66개를 43(물림) + 22(까닭 적어 봐줌) 으로 다 처리했다.
+   ⇒ 이제 **안 물린 검사가 하나만 생겨도 운다.** 「자기가 만든 검사는 자기가 물린다」가
+   문장이 아니라 검사가 된다. ⛔ 이 수를 올려서 끄지 마십시오 — 둘 중 하나를 하십시오:
+   ① 자가시험이 있으면 check-all-selftests.mjs 목록에 한 줄  ② 인터넷·크롬을 타면 위 봐준다 에 까닭 */
+const 오늘까지봐주는수 = 0;
 
 console.log(`검사 파일 ${검사수}개 · npm test 가 부르는 것 ${검사수 - 안불림.length}개 · 안 부르는 것 ${안불림.length}개`);
 if (안불림.length > 오늘까지봐주는수) {
   console.error(`\n⛔ 안 불리는 검사가 늘었다 (${오늘까지봐주는수} → ${안불림.length}).`);
   console.error('   새로 만든 검사를 npm test 에 물리십시오. 안 불리는 검사는 문장일 뿐입니다.');
-  for (const f of 안불림.slice(0, 10)) console.error(`   · ${f}`);
+  /* 🔴 [2026-09-02 · 5번] **열 개만 찍고 있었다.** 66개가 걸렸는데 열 줄만 보이니
+     고치려는 사람이 나머지 56개를 알 수가 없었다 — 그래서 아무도 안 고쳤다.
+     ⛔ 「너무 길다」는 이유로 잘라 놓으면 «고칠 수 없는 경고»가 된다. 다 찍는다. */
+  for (const f of 안불림) console.error(`   · ${f}`);
   process.exit(1);
 }
 if (안불림.length) {
