@@ -47,11 +47,40 @@ export function 희석률(rec) {
   return +((신주 / (신주 + 기존)) * 100).toFixed(1);
 }
 
-async function piicDecsn(corp_code) {
-  const url = `https://opendart.fss.or.kr/api/piicDecsn.json?crtfc_key=${K}&corp_code=${corp_code}&bgn_de=20260801&end_de=20260901`;
+/** YYYYMMDD 문자열에 며칠을 더하거나 뺀다(달력 경계 넘어도 맞게) */
+export function 날짜이동(yyyymmdd, 일수) {
+  const y = +yyyymmdd.slice(0, 4), m = +yyyymmdd.slice(4, 6), d = +yyyymmdd.slice(6, 8);
+  const dt = new Date(Date.UTC(y, m - 1, d + 일수));
+  return `${dt.getUTCFullYear()}${String(dt.getUTCMonth() + 1).padStart(2, '0')}${String(dt.getUTCDate()).padStart(2, '0')}`;
+}
+
+/**
+ * ⛔⛔ 2026-09-02 발견한 결함(cvbd 스크립트와 같은 결함) — 이 창이 «20260801~20260901»로
+ * 못박혀 있었다. 9/2 이후 접수분은 이 API 호출에서 영원히 「API실패」로 나왔다 — 진짜
+ * 실패가 아니라 창 밖이었을 뿐이다. 접수일(t.날짜) 중심 ±5일 창으로 고친다.
+ */
+async function piicDecsn(corp_code, 접수일) {
+  const bgn_de = 날짜이동(접수일, -5), end_de = 날짜이동(접수일, 5);
+  const url = `https://opendart.fss.or.kr/api/piicDecsn.json?crtfc_key=${K}&corp_code=${corp_code}&bgn_de=${bgn_de}&end_de=${end_de}`;
   const r = await fetch(url);
   const j = await r.json();
   return j.status === '000' ? (j.list || []) : [];
+}
+
+if (process.argv.includes('--자가시험')) {
+  let 통과 = 0, 실패 = 0;
+  const 검 = (m, ok) => { if (ok) 통과++; else { 실패++; console.log('  ❌', m); } };
+  검('며칠 더하기(월 안)', 날짜이동('20260902', 5) === '20260907');
+  검('며칠 빼기(월 안)', 날짜이동('20260902', -5) === '20260828');
+  검('월 경계를 넘는다', 날짜이동('20260831', 2) === '20260902');
+  검('연 경계를 넘는다', 날짜이동('20261230', 5) === '20270104');
+  검('⛔ 2026-09-02 실제 결함 사례 — 9/2 접수건이 자기 창 안에 든다', (() => {
+    const 접수일 = '20260902';
+    const bgn = 날짜이동(접수일, -5), end = 날짜이동(접수일, 5);
+    return bgn <= 접수일 && 접수일 <= end;
+  })());
+  console.log(실패 === 0 ? `✅ 자가시험 — 통과 ${통과} · 실패 0` : `❌ 자가시험 — 통과 ${통과} · 실패 ${실패}`);
+  process.exit(실패 === 0 ? 0 : 1);
 }
 
 async function main() {
@@ -77,7 +106,7 @@ async function main() {
   let 실패 = 0;
   for (const t of targets) {
     let list;
-    try { list = await piicDecsn(t.corp_code); } catch { 실패++; continue; }
+    try { list = await piicDecsn(t.corp_code, t.날짜); } catch { 실패++; continue; }
     const rec = list.find((r) => r.rcept_no === t.rcept) || list[0];
     if (!rec) { 실패++; continue; }
     const 자금 = 조달금액(rec);
