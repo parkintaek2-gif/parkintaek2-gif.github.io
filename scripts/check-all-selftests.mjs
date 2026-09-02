@@ -80,6 +80,8 @@ export const 돌릴것 = [
   ['check-two-chart-merge.mjs', '--자가시험'],
   ['check-unregistered-title-changes.mjs', '--자가시험'],
   ['check-utc-today.mjs', '--자가시험'],
+  ['check-wikitip-indexed-records.mjs', '--자가시험'],
+  ['build-wikitip-title-demand.mjs', '--자가시험'],
 ];
 
 export function 자가시험() {
@@ -92,7 +94,12 @@ export function 자가시험() {
   };
   본다('돌릴 것이 비어 있지 않다', 돌릴것.length > 0);
   본다('모두 [파일, 깃발] 두 칸이다', 돌릴것.every((x) => Array.isArray(x) && x.length === 2));
-  본다('모두 check- 로 시작하는 .mjs 다', 돌릴것.every(([f]) => /^check-.*\.mjs$/.test(f)));
+  /* ⭐ `build-` 도 받는다 — 만드는 자의 자가시험도 검사만큼 값이 있다.
+     2026-09-02 에 `build-wikitip-title-demand.mjs` 를 넣으려다 여기서 막혔다.
+     그 자는 첫 화면이 죽은 링크 13개를 걸던 것을 막는 자라, 안 돌리면 그것이 다시 자란다.
+     ⛔ 그 밖의 이름(collect-·make-·measure-)은 받지 않는다 — 그것들은 인터넷·크롬을 탄다. */
+  본다('모두 check- 나 build- 로 시작하는 .mjs 다',
+    돌릴것.every(([f]) => /^(check|build)-.*\.mjs$/.test(f)));
   본다('깃발이 --자가시험 이나 --selftest 다',
     돌릴것.every(([, g]) => g === '--자가시험' || g === '--selftest'));
   본다('같은 파일을 두 번 넣지 않았다', new Set(돌릴것.map(([f]) => f)).size === 돌릴것.length);

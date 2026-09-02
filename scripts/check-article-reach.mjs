@@ -52,11 +52,102 @@ const pages를읽는다 = (src) => {
 const 앞말한계 = { title: 120, dek: 240 };
 
 const 기사들 = fs.readdirSync(CD).filter((f) => f.endsWith('.md'));
-const 지면본문 = new Map(
-  fs.readdirSync(PD).filter((f) => f.endsWith('.astro'))
-    .map((f) => [f, fs.readFileSync(path.join(PD, f), 'utf8')]),
-);
-const 지면파일 = (주소) => (주소 === '/' ? 'index.astro' : `${주소.replace(/^\//, '')}.astro`);
+
+/**
+ * 🔴🔴 [2026-09-02] 이 자가 **거짓 빨강 25건**을 냈다. 앞 판은 주소를 이렇게만 풀었다 —
+ *   `'/person'` → `src/pages/wikitip/person.astro`. 한 겹 파일만 본 것이다.
+ *   그래서 아래 넷을 다 「지면이 없다」고 불렀는데, **넷 다 라이브에서 200 이었다.**
+ *
+ *   ```
+ *   /person · /school · /born-on   → <디렉터리>/index.astro 로 있다
+ *   /market/vietnam                → market/[slug].astro (동적 주소)로 난다
+ *   /community                     → src/pages/community.astro (wikitip 방 «밖»)
+ *   /stem/im                       → .astro 파일이 아니라 서버가 낸다
+ *   ```
+ *
+ *   ⚠ 이 자 자신이 위에 적어 두었다 — 「거짓 빨강은 … 묶음 자를 첫 실패에서 멈춰
+ *      뒤의 검사 전부를 못 돌게 만든다」. 실제로 그 일이 났다: 이 25건 뒤에 있던 검사들이
+ *      한 번도 안 돌았다. **그래서 주소를 제대로 푼다.**
+ */
+
+/** 방 아래에서 그 꼴의 파일을 다 모은다 */
+function 지면모으기(방, 꼴, 담을것 = []) {
+  if (!fs.existsSync(방)) return 담을것;
+  for (const it of fs.readdirSync(방, { withFileTypes: true })) {
+    const 길 = path.join(방, it.name);
+    if (it.isDirectory()) { 지면모으기(길, 꼴, 담을것); continue; }
+    if (꼴.test(it.name)) 담을것.push(길);
+  }
+  return 담을것;
+}
+
+/**
+ * 파일 길을 주소로 바꾼다.
+ * ⭐ `src/pages/wikitip/` 아래가 kculturewire 의 «뿌리»다 — 그래서 그 앞머리를 뗀다.
+ */
+function 길을주소로(길) {
+  let r = 길.replace(/\\/g, '/').replace(/^src\/pages\//, '').replace(/\.astro$/, '');
+  r = r.replace(/^wikitip\//, '').replace(/^wikitip$/, '');
+  r = r.replace(/(^|\/)index$/, '');
+  return `/${r}`.replace(/\/{2,}/g, '/').replace(/(.)\/$/, '$1');
+}
+
+/**
+ * ⭐ [2026-09-02] **정적 HTML 지면도 본다.** KCW 의 `/community` 는 .astro 가 아니라
+ *   `public/wikitip/community.html` 이다(`build-kcw-community-front.mjs` 가 짓는다).
+ *   ⛔ 그것을 몰라서 이 자가 **`src/pages/community.astro`(6번·SeoulMarkets 지면)**를 짚고
+ *      「KcwRelatedArticles 를 안 걸었다」고 했다. 남의 지면을 고치라고 시킨 셈이다.
+ *      두 지면은 이름만 같고 딴 사이트다 —
+ *      「Rooms — K Culture Wire community」 대 「Community — reading rooms by market | SeoulMarkets」.
+ */
+const 정적지면들 = 지면모으기(path.join('public', 'wikitip'), /\.html$/i)
+  .map((길) => ({
+    길: 길.replace(/\\/g, '/'),
+    주소: `/${길.replace(/\\/g, '/').replace(/^public\/wikitip\//, '').replace(/\.html$/i, '')}`,
+    본문: fs.readFileSync(길, 'utf8'),
+    갈래: 'static',
+  }));
+
+const 지면들 = 지면모으기('src/pages', /\.astro$/)
+  .map((길) => ({
+    길: 길.replace(/\\/g, '/'), 주소: 길을주소로(길), 본문: fs.readFileSync(길, 'utf8'), 갈래: 'astro',
+  }));
+
+/* ⚠ 같은 주소가 여럿일 수 있다.
+   ① `public/wikitip/community.html`(KCW 정적) 대 `src/pages/community.astro`(SeoulMarkets)
+   ② `src/pages/index.astro`(SeoulMarkets) 대 `src/pages/wikitip/index.astro`(KCW)
+   ⭐ 이 검사는 **KCW 기사**를 보므로 우선순위를 정적(KCW) → wikitip → 나머지로 둔다.
+      안 그러면 남의 지면을 보고 판정한다. */
+const 순위 = (p) => (p.갈래 === 'static' ? 0 : p.길.includes('/wikitip/') ? 1 : 2);
+const 고정주소 = new Map();
+for (const p of [...정적지면들, ...지면들].sort((가, 나) => 순위(가) - 순위(나))) {
+  if (!고정주소.has(p.주소)) 고정주소.set(p.주소, p);
+}
+
+/** 동적 주소 — `market/[slug]` 같은 것. `[…]` 한 칸을 아무 글자 한 토막으로 본다 */
+const 동적주소 = 지면들.filter((p) => p.주소.includes('['))
+  .map((p) => ({
+    ...p,
+    꼴: new RegExp(`^${p.주소.split('/').map((s) => (/^\[.*\]$/.test(s) ? '[^/]+' : s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'))).join('/')}$`),
+  }));
+
+/** 사이트맵이 스스로 낸다고 적어 둔 주소들 — .astro 가 아니라 서버가 내는 것이 있다 */
+const 사이트맵글 = (() => {
+  try { return fs.readFileSync(path.join(PD, 'sitemap.xml.ts'), 'utf8'); } catch { return ''; }
+})();
+
+/**
+ * 주소에 해당하는 지면을 찾는다.
+ * @returns {{주소:string, 본문:string, 길:string}|null}
+ */
+export function 지면찾기(주소) {
+  const 깨끗 = 주소 === '/' ? '/' : 주소.replace(/\/$/, '');
+  if (고정주소.has(깨끗)) return 고정주소.get(깨끗);
+  return 동적주소.find((p) => p.꼴.test(깨끗)) ?? null;
+}
+
+/** 사이트맵이 그 주소를 내겠다고 적어 두었나 — 서버가 내는 주소를 거짓 빨강으로 안 부르려고 본다 */
+export const 사이트맵이내나 = (주소) => 사이트맵글.includes(`'${주소}'`) || 사이트맵글.includes(`"${주소}"`);
 
 let 닿는기사 = 0;
 for (const f of 기사들) {
@@ -80,10 +171,27 @@ for (const f of 기사들) {
   }
   let 하나라도보임 = false;
   for (const 주소 of pages) {
-    const pf = 지면파일(주소);
-    if (!지면본문.has(pf)) { 문제.push(`${slug} — pages 의 '${주소}' 에 해당하는 지면이 없다`); continue; }
-    if (!지면본문.get(pf).includes('KcwRelatedArticles')) {
-      문제.push(`${pf} — 기사가 이 지면을 가리키는데 KcwRelatedArticles 를 안 걸었다. 지면에 안 보인다`);
+    const 지면 = 지면찾기(주소);
+    if (!지면) {
+      /* ⬜ .astro 가 아니라 서버가 내는 주소도 있다(`/stem/im`). 사이트맵이 낸다고
+         적어 두었으면 **「없다」가 아니라 「못 쟀다」**로 적는다 — 0 으로 채우지 않는다 */
+      if (사이트맵이내나(주소)) {
+        경고.push(`${slug} — '${주소}' 는 .astro 가 아니라 서버가 낸다. 기사가 걸렸는지 **못 쟀다**`);
+        continue;
+      }
+      문제.push(`${slug} — pages 의 '${주소}' 에 해당하는 지면이 없다`);
+      continue;
+    }
+    /* ⭐ 지면 갈래마다 «보이나»를 다르게 잰다.
+       astro  → 받는 자리(KcwRelatedArticles)를 걸었나
+       static → 그 기사 주소가 실제로 글에 있나 (컴포넌트를 못 쓰는 지면이다) */
+    const 보인다 = 지면.갈래 === 'static'
+      ? 지면.본문.includes(`/article/${slug}`)
+      : 지면.본문.includes('KcwRelatedArticles');
+    if (!보인다) {
+      문제.push(지면.갈래 === 'static'
+        ? `${지면.길} — 기사가 이 지면('${주소}')을 가리키는데 그 기사 링크가 없다. 지면에 안 보인다`
+        : `${지면.길} — 기사가 이 지면('${주소}')을 가리키는데 KcwRelatedArticles 를 안 걸었다. 지면에 안 보인다`);
       continue;
     }
     하나라도보임 = true;

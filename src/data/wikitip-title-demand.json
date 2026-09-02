@@ -1,10 +1,12 @@
 {
-  "generated": "2026-08-24T14:01:32.607Z",
+  "generated": "2026-09-02T13:53:11.932Z",
   "whatThisIs": "The Korean titles that took the most Netflix weekly top 10 places, counted from Netflix's own country files. Used to decide which title pages the front page links to.",
   "whatThisIsNot": "This is not a ranking of quality and not a viewing figure. A chart place shows a title was on Netflix in that country that week; it says nothing about how many people watched.",
   "whyNotWikipedia": "2026-08-24 밤에 위키백과 조회수로 재려다 접었다. 제목만으로 영어 위키백과를 찾으면 «같은 이름의 다른 작품»을 잡는다 — Modern Family(미국 시트콤) 143,055회, Gossip Girl 67,238회가 한국 작품 목록에 올라왔다. 우리 자료에 위키데이터 Q번호가 없어 정확히 짚을 방법이 없었다. 틀린 수로 지면을 만드느니 우리가 직접 센 수를 쓴다. ⛔ 재 보고 접은 것도 결과다 — 다시 파지 않게 여기 적어 둔다.",
+  "derivedFrom": "wikitip-title-pages.json (built by build-wikitip-title-pages.mjs from archive/raw/netflix-top10)",
+  "onlyTitlesWithPages": true,
   "basis": "chartPlaces",
-  "measured": 559,
+  "measured": 546,
   "titles": [
     {
       "slug": "squid-game",
@@ -91,9 +93,9 @@
       "slug": "agent-kim-reactivated",
       "title": "Agent Kim Reactivated",
       "type": "TV",
-      "places": 466,
+      "places": 481,
       "markets": 81,
-      "weeks": 8,
+      "weeks": 9,
       "peak": 1
     },
     {
@@ -154,9 +156,9 @@
       "slug": "love-next-door",
       "title": "Love Next Door",
       "type": "TV",
-      "places": 368,
+      "places": 369,
       "markets": 53,
-      "weeks": 13,
+      "weeks": 14,
       "peak": 1
     },
     {
@@ -214,24 +216,6 @@
       "peak": 1
     },
     {
-      "slug": "hierarchy",
-      "title": "Hierarchy",
-      "type": "Films",
-      "places": 288,
-      "markets": 72,
-      "weeks": 11,
-      "peak": 1
-    },
-    {
-      "slug": "little-women",
-      "title": "Little Women",
-      "type": "Films",
-      "places": 288,
-      "markets": 72,
-      "weeks": 40,
-      "peak": 1
-    },
-    {
       "slug": "doctor-slump",
       "title": "Doctor Slump",
       "type": "TV",
@@ -286,30 +270,21 @@
       "peak": 1
     },
     {
+      "slug": "oasis",
+      "title": "Oasis",
+      "type": "TV",
+      "places": 255,
+      "markets": 82,
+      "weeks": 10,
+      "peak": 2
+    },
+    {
       "slug": "solo-leveling",
       "title": "Solo Leveling",
       "type": "TV",
       "places": 255,
       "markets": 11,
       "weeks": 29,
-      "peak": 1
-    },
-    {
-      "slug": "oasis",
-      "title": "Oasis",
-      "type": "TV",
-      "places": 253,
-      "markets": 82,
-      "weeks": 9,
-      "peak": 2
-    },
-    {
-      "slug": "breathless",
-      "title": "Breathless",
-      "type": "TV",
-      "places": 250,
-      "markets": 69,
-      "weeks": 11,
       "peak": 1
     },
     {
@@ -376,6 +351,24 @@
       "peak": 1
     },
     {
+      "slug": "spooky-in-love",
+      "title": "Spooky in Love",
+      "type": "TV",
+      "places": 235,
+      "markets": 48,
+      "weeks": 6,
+      "peak": 1
+    },
+    {
+      "slug": "hierarchy",
+      "title": "Hierarchy",
+      "type": "TV",
+      "places": 232,
+      "markets": 72,
+      "weeks": 7,
+      "peak": 1
+    },
+    {
       "slug": "sold-out-on-you",
       "title": "Sold Out on You",
       "type": "TV",
@@ -412,6 +405,15 @@
       "peak": 1
     },
     {
+      "slug": "little-women",
+      "title": "Little Women",
+      "type": "TV",
+      "places": 225,
+      "markets": 39,
+      "weeks": 15,
+      "peak": 1
+    },
+    {
       "slug": "hospital-playlist",
       "title": "Hospital Playlist",
       "type": "TV",
@@ -433,9 +435,9 @@
       "slug": "can-this-love-be-translated",
       "title": "Can This Love Be Translated?",
       "type": "TV",
-      "places": 213,
+      "places": 214,
       "markets": 60,
-      "weeks": 21,
+      "weeks": 22,
       "peak": 1
     },
     {
@@ -529,24 +531,6 @@
       "peak": 1
     },
     {
-      "slug": "black-knight",
-      "title": "Black Knight",
-      "type": "TV",
-      "places": 197,
-      "markets": 79,
-      "weeks": 8,
-      "peak": 1
-    },
-    {
-      "slug": "spooky-in-love",
-      "title": "Spooky in Love",
-      "type": "TV",
-      "places": 191,
-      "markets": 48,
-      "weeks": 5,
-      "peak": 1
-    },
-    {
       "slug": "the-good-bad-mother",
       "title": "The Good Bad Mother",
       "type": "TV",
@@ -592,6 +576,15 @@
       "peak": 1
     },
     {
+      "slug": "black-knight",
+      "title": "Black Knight",
+      "type": "TV",
+      "places": 174,
+      "markets": 77,
+      "weeks": 5,
+      "peak": 1
+    },
+    {
       "slug": "jung-e",
       "title": "JUNG_E",
       "type": "Films",
@@ -610,21 +603,21 @@
       "peak": 1
     },
     {
-      "slug": "dangerous-liaisons",
-      "title": "Dangerous Liaisons",
-      "type": "Films",
-      "places": 165,
-      "markets": 70,
-      "weeks": 4,
-      "peak": 2
-    },
-    {
       "slug": "narco-saints",
       "title": "Narco-Saints",
       "type": "TV",
       "places": 164,
       "markets": 82,
       "weeks": 10,
+      "peak": 1
+    },
+    {
+      "slug": "our-sticky-love",
+      "title": "Our Sticky Love",
+      "type": "TV",
+      "places": 164,
+      "markets": 68,
+      "weeks": 3,
       "peak": 1
     },
     {
@@ -736,15 +729,6 @@
       "peak": 1
     },
     {
-      "slug": "taxi-driver",
-      "title": "Taxi Driver",
-      "type": "TV",
-      "places": 141,
-      "markets": 22,
-      "weeks": 46,
-      "peak": 1
-    },
-    {
       "slug": "boyfriend-on-demand",
       "title": "Boyfriend on Demand",
       "type": "TV",
@@ -769,15 +753,6 @@
       "places": 137,
       "markets": 18,
       "weeks": 15,
-      "peak": 1
-    },
-    {
-      "slug": "the-guest",
-      "title": "The Guest",
-      "type": "TV",
-      "places": 137,
-      "markets": 43,
-      "weeks": 9,
       "peak": 1
     },
     {
@@ -880,15 +855,6 @@
       "peak": 2
     },
     {
-      "slug": "kingdom",
-      "title": "Kingdom",
-      "type": "Films",
-      "places": 121,
-      "markets": 31,
-      "weeks": 39,
-      "peak": 1
-    },
-    {
       "slug": "phantom-lawyer",
       "title": "Phantom Lawyer",
       "type": "TV",
@@ -919,9 +885,9 @@
       "slug": "noise",
       "title": "Noise",
       "type": "Films",
-      "places": 115,
+      "places": 116,
       "markets": 72,
-      "weeks": 10,
+      "weeks": 11,
       "peak": 1
     },
     {
@@ -949,15 +915,6 @@
       "places": 114,
       "markets": 23,
       "weeks": 13,
-      "peak": 1
-    },
-    {
-      "slug": "our-sticky-love",
-      "title": "Our Sticky Love",
-      "type": "TV",
-      "places": 112,
-      "markets": 68,
-      "weeks": 2,
       "peak": 1
     },
     {
@@ -1132,15 +1089,6 @@
       "peak": 1
     },
     {
-      "slug": "mine",
-      "title": "Mine",
-      "type": "Films",
-      "places": 87,
-      "markets": 36,
-      "weeks": 12,
-      "peak": 1
-    },
-    {
       "slug": "the-trunk",
       "title": "The Trunk",
       "type": "TV",
@@ -1195,6 +1143,15 @@
       "peak": 1
     },
     {
+      "slug": "wrath",
+      "title": "Wrath",
+      "type": "TV",
+      "places": 82,
+      "markets": 43,
+      "weeks": 4,
+      "peak": 1
+    },
+    {
       "slug": "outlaw",
       "title": "Outlaw",
       "type": "Films",
@@ -1202,15 +1159,6 @@
       "markets": 53,
       "weeks": 2,
       "peak": 2
-    },
-    {
-      "slug": "wrath",
-      "title": "Wrath",
-      "type": "TV",
-      "places": 80,
-      "markets": 43,
-      "weeks": 3,
-      "peak": 1
     },
     {
       "slug": "awake",
@@ -1265,6 +1213,15 @@
       "markets": 43,
       "weeks": 6,
       "peak": 1
+    },
+    {
+      "slug": "the-apartment-job",
+      "title": "The Apartment Job",
+      "type": "TV",
+      "places": 74,
+      "markets": 19,
+      "weeks": 7,
+      "peak": 3
     },
     {
       "slug": "the-sound-of-magic",
@@ -1384,15 +1341,6 @@
       "peak": 2
     },
     {
-      "slug": "the-apartment-job",
-      "title": "The Apartment Job",
-      "type": "TV",
-      "places": 63,
-      "markets": 19,
-      "weeks": 6,
-      "peak": 3
-    },
-    {
       "slug": "the-penthouse-war-in-life",
       "title": "The Penthouse: War in Life",
       "type": "TV",
@@ -1420,15 +1368,6 @@
       "peak": 1
     },
     {
-      "slug": "snowpiercer",
-      "title": "Snowpiercer",
-      "type": "TV",
-      "places": 60,
-      "markets": 24,
-      "weeks": 12,
-      "peak": 3
-    },
-    {
       "slug": "the-devil-s-plan",
       "title": "The Devil's Plan",
       "type": "TV",
@@ -1453,15 +1392,6 @@
       "places": 58,
       "markets": 20,
       "weeks": 20,
-      "peak": 1
-    },
-    {
-      "slug": "one-more-time",
-      "title": "One More Time",
-      "type": "Films",
-      "places": 58,
-      "markets": 38,
-      "weeks": 3,
       "peak": 1
     },
     {
@@ -1492,15 +1422,6 @@
       "peak": 1
     },
     {
-      "slug": "family-business",
-      "title": "Family Business",
-      "type": "Films",
-      "places": 55,
-      "markets": 15,
-      "weeks": 13,
-      "peak": 1
-    },
-    {
       "slug": "love-scout",
       "title": "Love Scout",
       "type": "TV",
@@ -1510,13 +1431,13 @@
       "peak": 2
     },
     {
-      "slug": "red-eye",
-      "title": "Red Eye",
+      "slug": "mine",
+      "title": "Mine",
       "type": "TV",
       "places": 54,
-      "markets": 30,
-      "weeks": 12,
-      "peak": 2
+      "markets": 26,
+      "weeks": 7,
+      "peak": 1
     },
     {
       "slug": "dr-romantic",
@@ -1535,24 +1456,6 @@
       "markets": 43,
       "weeks": 23,
       "peak": 3
-    },
-    {
-      "slug": "the-cursed",
-      "title": "The Cursed",
-      "type": "Films",
-      "places": 53,
-      "markets": 38,
-      "weeks": 18,
-      "peak": 3
-    },
-    {
-      "slug": "safe",
-      "title": "Safe",
-      "type": "Films",
-      "places": 52,
-      "markets": 22,
-      "weeks": 22,
-      "peak": 1
     },
     {
       "slug": "lovely-runner",
@@ -1627,6 +1530,15 @@
       "peak": 1
     },
     {
+      "slug": "family-business",
+      "title": "Family Business",
+      "type": "Films",
+      "places": 49,
+      "markets": 11,
+      "weeks": 11,
+      "peak": 1
+    },
+    {
       "slug": "scent-of-a-woman",
       "title": "Scent of a Woman",
       "type": "Films",
@@ -1636,30 +1548,21 @@
       "peak": 3
     },
     {
+      "slug": "bitch-and-rich",
+      "title": "Bitch and Rich",
+      "type": "TV",
+      "places": 48,
+      "markets": 13,
+      "weeks": 17,
+      "peak": 2
+    },
+    {
       "slug": "the-tale-of-lady-ok",
       "title": "The Tale of Lady Ok",
       "type": "TV",
       "places": 48,
       "markets": 12,
       "weeks": 11,
-      "peak": 1
-    },
-    {
-      "slug": "bitch-and-rich",
-      "title": "Bitch and Rich",
-      "type": "TV",
-      "places": 47,
-      "markets": 13,
-      "weeks": 16,
-      "peak": 2
-    },
-    {
-      "slug": "first-love",
-      "title": "First Love",
-      "type": "TV",
-      "places": 47,
-      "markets": 9,
-      "weeks": 19,
       "peak": 1
     },
     {
@@ -1726,15 +1629,6 @@
       "peak": 1
     },
     {
-      "slug": "champion",
-      "title": "Champion",
-      "type": "TV",
-      "places": 42,
-      "markets": 15,
-      "weeks": 7,
-      "peak": 1
-    },
-    {
       "slug": "unlock-my-boss",
       "title": "Unlock My Boss",
       "type": "TV",
@@ -1769,15 +1663,6 @@
       "markets": 17,
       "weeks": 6,
       "peak": 3
-    },
-    {
-      "slug": "monster",
-      "title": "Monster",
-      "type": "Films",
-      "places": 40,
-      "markets": 27,
-      "weeks": 13,
-      "peak": 2
     },
     {
       "slug": "pro-bono",
@@ -1843,13 +1728,13 @@
       "peak": 1
     },
     {
-      "slug": "the-promise",
-      "title": "The Promise",
+      "slug": "the-cursed",
+      "title": "The Cursed",
       "type": "Films",
-      "places": 37,
-      "markets": 2,
-      "weeks": 37,
-      "peak": 2
+      "places": 38,
+      "markets": 29,
+      "weeks": 15,
+      "peak": 3
     },
     {
       "slug": "i-can-t-live-without-you",
@@ -1867,6 +1752,33 @@
       "places": 36,
       "markets": 7,
       "weeks": 7,
+      "peak": 2
+    },
+    {
+      "slug": "red-eye",
+      "title": "Red Eye",
+      "type": "Films",
+      "places": 36,
+      "markets": 30,
+      "weeks": 6,
+      "peak": 3
+    },
+    {
+      "slug": "safe",
+      "title": "Safe",
+      "type": "Films",
+      "places": 36,
+      "markets": 16,
+      "weeks": 16,
+      "peak": 1
+    },
+    {
+      "slug": "the-promise",
+      "title": "The Promise",
+      "type": "TV",
+      "places": 36,
+      "markets": 1,
+      "weeks": 36,
       "peak": 2
     },
     {
@@ -1939,6 +1851,15 @@
       "places": 33,
       "markets": 21,
       "weeks": 7,
+      "peak": 4
+    },
+    {
+      "slug": "monster",
+      "title": "Monster",
+      "type": "Films",
+      "places": 32,
+      "markets": 27,
+      "weeks": 5,
       "peak": 4
     },
     {
@@ -2041,15 +1962,6 @@
       "peak": 2
     },
     {
-      "slug": "doubt",
-      "title": "Doubt",
-      "type": "Films",
-      "places": 27,
-      "markets": 7,
-      "weeks": 9,
-      "peak": 2
-    },
-    {
       "slug": "hotel-del-luna",
       "title": "Hotel Del Luna",
       "type": "TV",
@@ -2075,6 +1987,15 @@
       "markets": 18,
       "weeks": 2,
       "peak": 4
+    },
+    {
+      "slug": "doubt",
+      "title": "Doubt",
+      "type": "TV",
+      "places": 26,
+      "markets": 6,
+      "weeks": 8,
+      "peak": 2
     },
     {
       "slug": "frankly-speaking",
@@ -2419,15 +2340,6 @@
       "peak": 2
     },
     {
-      "slug": "only-you",
-      "title": "Only You",
-      "type": "TV",
-      "places": 17,
-      "markets": 7,
-      "weeks": 8,
-      "peak": 1
-    },
-    {
       "slug": "tale-of-the-nine-tailed",
       "title": "Tale of the Nine Tailed",
       "type": "TV",
@@ -2635,15 +2547,6 @@
       "peak": 1
     },
     {
-      "slug": "tunnel",
-      "title": "Tunnel",
-      "type": "Films",
-      "places": 14,
-      "markets": 5,
-      "weeks": 6,
-      "peak": 2
-    },
-    {
       "slug": "yesterday",
       "title": "Yesterday",
       "type": "Films",
@@ -2759,24 +2662,6 @@
       "markets": 2,
       "weeks": 7,
       "peak": 1
-    },
-    {
-      "slug": "last-summer",
-      "title": "Last Summer",
-      "type": "TV",
-      "places": 12,
-      "markets": 6,
-      "weeks": 7,
-      "peak": 1
-    },
-    {
-      "slug": "once-again",
-      "title": "Once Again",
-      "type": "Films",
-      "places": 12,
-      "markets": 3,
-      "weeks": 12,
-      "peak": 2
     },
     {
       "slug": "sinkhole",
@@ -3121,6 +3006,15 @@
       "peak": 2
     },
     {
+      "slug": "last-summer",
+      "title": "Last Summer",
+      "type": "TV",
+      "places": 8,
+      "markets": 5,
+      "weeks": 3,
+      "peak": 4
+    },
+    {
       "slug": "miraculous-brothers",
       "title": "Miraculous Brothers",
       "type": "TV",
@@ -3146,6 +3040,15 @@
       "markets": 2,
       "weeks": 8,
       "peak": 1
+    },
+    {
+      "slug": "the-auditors",
+      "title": "The Auditors",
+      "type": "TV",
+      "places": 8,
+      "markets": 5,
+      "weeks": 6,
+      "peak": 4
     },
     {
       "slug": "the-boy-next-door",
@@ -3274,15 +3177,6 @@
       "peak": 2
     },
     {
-      "slug": "the-auditors",
-      "title": "The Auditors",
-      "type": "TV",
-      "places": 7,
-      "markets": 5,
-      "weeks": 5,
-      "peak": 4
-    },
-    {
       "slug": "the-house",
       "title": "The House",
       "type": "Films",
@@ -3362,15 +3256,6 @@
       "markets": 1,
       "weeks": 6,
       "peak": 2
-    },
-    {
-      "slug": "blood",
-      "title": "Blood",
-      "type": "Films",
-      "places": 6,
-      "markets": 5,
-      "weeks": 3,
-      "peak": 3
     },
     {
       "slug": "brother",
@@ -3535,6 +3420,15 @@
       "peak": 8
     },
     {
+      "slug": "wild-sing",
+      "title": "Wild Sing",
+      "type": "Films",
+      "places": 6,
+      "markets": 2,
+      "weeks": 4,
+      "peak": 1
+    },
+    {
       "slug": "boomerang-family",
       "title": "Boomerang Family",
       "type": "Films",
@@ -3569,15 +3463,6 @@
       "markets": 2,
       "weeks": 5,
       "peak": 3
-    },
-    {
-      "slug": "glitch",
-      "title": "Glitch",
-      "type": "TV",
-      "places": 5,
-      "markets": 3,
-      "weeks": 4,
-      "peak": 2
     },
     {
       "slug": "grand-prix",
@@ -3733,24 +3618,6 @@
       "peak": 3
     },
     {
-      "slug": "time",
-      "title": "Time",
-      "type": "Films",
-      "places": 5,
-      "markets": 2,
-      "weeks": 5,
-      "peak": 1
-    },
-    {
-      "slug": "wild-sing",
-      "title": "Wild Sing",
-      "type": "Films",
-      "places": 5,
-      "markets": 2,
-      "weeks": 3,
-      "peak": 1
-    },
-    {
       "slug": "a-company-man",
       "title": "A Company Man",
       "type": "Films",
@@ -3767,6 +3634,15 @@
       "markets": 3,
       "weeks": 2,
       "peak": 5
+    },
+    {
+      "slug": "along-with-the-gods-the-two-worlds",
+      "title": "Along with the Gods: The Two Worlds",
+      "type": "Films",
+      "places": 4,
+      "markets": 3,
+      "weeks": 4,
+      "peak": 4
     },
     {
       "slug": "beyond-evil",
@@ -3859,6 +3735,15 @@
       "peak": 1
     },
     {
+      "slug": "glitch",
+      "title": "Glitch",
+      "type": "TV",
+      "places": 4,
+      "markets": 2,
+      "weeks": 3,
+      "peak": 2
+    },
+    {
       "slug": "honest-candidate",
       "title": "Honest Candidate",
       "type": "Films",
@@ -3929,15 +3814,6 @@
       "markets": 3,
       "weeks": 2,
       "peak": 4
-    },
-    {
-      "slug": "start-up",
-      "title": "Start-Up",
-      "type": "TV",
-      "places": 4,
-      "markets": 2,
-      "weeks": 4,
-      "peak": 5
     },
     {
       "slug": "svaha-the-sixth-finger",
@@ -4028,15 +3904,6 @@
       "markets": 1,
       "weeks": 3,
       "peak": 3
-    },
-    {
-      "slug": "along-with-the-gods-the-two-worlds",
-      "title": "Along with the Gods: The Two Worlds",
-      "type": "Films",
-      "places": 3,
-      "markets": 2,
-      "weeks": 3,
-      "peak": 5
     },
     {
       "slug": "bad-memory-eraser",
@@ -4303,6 +4170,24 @@
       "slug": "the-pirates",
       "title": "The Pirates",
       "type": "Films",
+      "places": 3,
+      "markets": 1,
+      "weeks": 3,
+      "peak": 3
+    },
+    {
+      "slug": "time",
+      "title": "Time",
+      "type": "Films",
+      "places": 3,
+      "markets": 1,
+      "weeks": 3,
+      "peak": 1
+    },
+    {
+      "slug": "tunnel",
+      "title": "Tunnel",
+      "type": "TV",
       "places": 3,
       "markets": 1,
       "weeks": 3,
@@ -4777,15 +4662,6 @@
       "peak": 9
     },
     {
-      "slug": "miss-mrs-cops",
-      "title": "Miss & Mrs. Cops",
-      "type": "Films",
-      "places": 1,
-      "markets": 1,
-      "weeks": 1,
-      "peak": 6
-    },
-    {
       "slug": "miss-granny",
       "title": "Miss Granny",
       "type": "Films",
@@ -4793,6 +4669,15 @@
       "markets": 1,
       "weeks": 1,
       "peak": 8
+    },
+    {
+      "slug": "miss-mrs-cops",
+      "title": "Miss & Mrs. Cops",
+      "type": "Films",
+      "places": 1,
+      "markets": 1,
+      "weeks": 1,
+      "peak": 6
     },
     {
       "slug": "montage",

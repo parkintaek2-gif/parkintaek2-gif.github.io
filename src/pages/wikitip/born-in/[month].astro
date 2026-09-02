@@ -26,6 +26,7 @@
  * ⭐ 이 지면은 **날 지면 366장으로 가는 복도**다. 그 366장은 지금 들어오는 문이 거의 없다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-birthday-pages.json';
 
 /* 🔴 Astro 는 `getStaticPaths` 를 «따로 떼어» 다른 덩이로 돌린다 — 이 앞뒤에 선언한 값이
@@ -213,4 +214,8 @@ const DESC = `${사람.toLocaleString('en-US')} Korean stars have a birthday in 
       <li><a href="/most-read">The Korean names most people looked up this month</a></li>
     </ul>
   </section>
+  {/* 🔴 [2026-09-02] 기사가 이 지면을 가리키는데 «받는 자리»가 없어 링크가 안 뜨고 있었다.
+    ⭐ 관계는 기사가 들고 있고(앞말 pages) 지면은 읽기만 한다 — 이 한 줄을 빠뜨리면 조용히 끊긴다.
+    ⛔ check-article-reach.mjs 가 이제 그것을 잡는다. */}
+  <KcwRelatedArticles page={`/born-in/${이달.toLowerCase()}`} />
 </WikiTip>

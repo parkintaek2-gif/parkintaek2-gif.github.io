@@ -208,7 +208,88 @@ export function 수를글자로(n) {
   return 말[n] ?? String(n);
 }
 
-export function 판짓기(방, 자료) {
+export const 기사방 = path.join(뿌리, 'content', 'kculturewire');
+
+/**
+ * 기사 앞말에서 제목·요약과 **`pages`** 를 읽는다.
+ *
+ * 🔴 [2026-09-02] 이것을 안 읽어서 **기사 6편이 「나는 /community 에 걸린다」고 적어 놓고
+ *   그 지면에 한 편도 안 걸려 있었다** — iu-is-a-rooster-go-youn-jung-a-rat ·
+ *   iu-saju-water-in-all-twelve-hours · jungkook-saju-structure-splits-five-ways ·
+ *   karina-saju-structure-settled-in-half-the-cases · same-sign-as-iu · two-in-three-koreans.
+ *   `check-article-reach.mjs` 가 잡았다. 「만들고 문을 안 내면 없는 것과 같다.」
+ *
+ * ⚠ 줄 안의 빈칸만 먹도록 좁힌다 — `\s` 는 줄바꿈까지 먹어 CRLF 기사를 통째로 놓친다
+ *   (그 잘못이 2026-08-08 에 실제로 났다).
+ */
+export function 앞말읽기(글) {
+  const 앞 = String(글 ?? '').split(/^---\s*$/m)[1];
+  if (!앞) return null;
+  const 값 = (키) => {
+    for (const 줄 of 앞.split(/\r?\n/)) {
+      if (!줄.startsWith(`${키}:`)) continue;
+      let v = 줄.slice(키.length + 1).trim();
+      if (v.startsWith('"') && v.endsWith('"')) v = v.slice(1, -1);
+      return v;
+    }
+    return null;
+  };
+  const m = 앞.match(/^pages:[^\S\r\n]*\r?\n((?:[^\S\r\n]+-[^\S\r\n]+.*\r?\n)+)/m);
+  return {
+    title: 값('title'),
+    dek: 값('dek'),
+    pubDate: 값('pubDate'),
+    draft: 값('draft') === 'true',
+    pages: m
+      ? [...m[1].matchAll(/-[^\S\r\n]+"?([^"\r\n]+?)"?[^\S\r\n]*\r?$/gm)].map((x) => x[1].trim())
+      : [],
+  };
+}
+
+export function 기사읽기(방 = 기사방, 읽기 = fs) {
+  if (!읽기.existsSync(방)) return [];
+  return 읽기.readdirSync(방).filter((n) => n.endsWith('.md')).map((f) => {
+    const a = 앞말읽기(읽기.readFileSync(path.join(방, f), 'utf8'));
+    if (!a || !a.title || a.draft) return null;
+    return { slug: f.replace(/\.md$/, ''), ...a };
+  }).filter(Boolean);
+}
+
+/**
+ * 이 주소에 걸리겠다고 **기사가 스스로 적어 둔** 것들. 새것부터.
+ * ⛔ 우리가 골라 주는 것이 아니다 — 기사가 적은 것을 그대로 읽는다.
+ */
+export function 이지면기사(기사들, 주소, 최대 = 8) {
+  return (기사들 ?? [])
+    .filter((a) => (a.pages ?? []).includes(주소))
+    .sort((가, 나) => String(나.pubDate ?? '').localeCompare(String(가.pubDate ?? '')))
+    .slice(0, 최대);
+}
+
+/**
+ * 그 목록을 지면 한 토막으로 짓는다. ⚠ 없으면 토막을 아예 안 낸다 — 빈 상자는 없는 것만 못하다.
+ *
+ * ⛔⛔ **`<ul>`·`<ol>` 을 쓰지 않는다.** 이 지면은 「줄 세운 목록 0개」가 2번 확인 항목이고
+ *    자가시험이 그것을 재고 있다(373줄, `/<[ou]l[\s>]/` 가 없어야 한다).
+ *    순위표로 읽히면 안 되기 때문이다 — 우리는 이것을 순위로 세우지 않았다.
+ */
+/* ⚠ 아래가 내는 CSS(.read/.fine)에는 «주석을 달지 않는다» — 내는 글은 그대로 손님 화면이고
+   그 안에 한국어가 섞이면 자가시험 「화면에 한국어가 없다」가 잡는다. 2026-09-02 에 걸렸다. */
+export function 읽을것칸(걸린것) {
+  if (!(걸린것 ?? []).length) return '';
+  const 줄 = 걸린것.map((a) => `      <p class="read"><a href="/article/${a.slug}">${a.title}</a>`
+    + `${a.dek ? `<br><span class="fine">${a.dek}</span>` : ''}</p>`).join('\n');
+  return `    <section class="how">
+      <h2>What we wrote from this data</h2>
+      <p class="fine">Each of these is here because <strong>the article itself says it belongs on
+      this page</strong> &mdash; not because we ranked it or judged it relevant.</p>
+${줄}
+    </section>
+
+`;
+}
+
+export function 판짓기(방, 자료, 기사들 = []) {
   const 칸 = 방.map((r) => `      <article class="room">
         <p class="phrase">${r.phrase}</p>
         <h2>${r.name}</h2>
@@ -280,6 +361,9 @@ export function 판짓기(방, 자료) {
   .sections{font-size:.86rem;padding:0 0 1.4rem;border-bottom:1px solid var(--line);margin-bottom:26px}
   .sections a{color:var(--ink);text-decoration:none;font-weight:600}
   .sections a:hover{text-decoration:underline}
+  .read{margin:0;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;max-width:64ch}
+  .read:last-of-type{border-bottom:none}
+  .fine{color:var(--ink-2);font-size:13px}
   footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);
     color:var(--ink-2);font-size:13px;max-width:64ch}
 </style>
@@ -325,7 +409,7 @@ ${칸}
       write a zero in place of a blank.</p>
     </section>
 
-${꼬리말(['<strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and to walk from one name to the next. Nothing here is ranked by us and there is no feed.'])}
+${읽을것칸(이지면기사(기사들, '/community'))}${꼬리말(['<strong>There is no sign-in and no posting yet.</strong> These rooms are places to read and to walk from one name to the next. Nothing here is ranked by us and there is no feed.'])}
   </div>
 </body>
 </html>
@@ -430,7 +514,8 @@ if (내가실행됐다) {
   const 자료 = 자료읽기();
   const 방 = 방들(자료);
   fs.mkdirSync(path.dirname(낼길), { recursive: true });
-  fs.writeFileSync(낼길, 판짓기(방, 자료));
+  const 기사 = 기사읽기();
+  fs.writeFileSync(낼길, 판짓기(방, 자료, 기사));
   console.log(`✅ ${path.relative(뿌리, 낼길)} — 방 ${방.length}개`);
   for (const r of 방) console.log(`   ${r.href.padEnd(18)} ← «${r.phrase}»`);
 }

@@ -56,6 +56,10 @@ export const 칸주소 = (로마자) => `/stem/${로마자}`;
 const 로마자 = new Map(간);
 
 /** 한 칸에 들어갈 사람 — 많이 링크된 순. ⚠ 링크 수는 «널리 쓰였나»의 대리 지표다 */
+/* ⭐ [2026-09-02] 기사 문을 내는 자는 «한 곳»에 둔다 — build-kcw-community-front.mjs 것을 쓴다.
+   ⛔ 여기 베껴 적으면 한쪽만 고쳐진다. */
+import { 기사읽기, 이지면기사 } from './build-kcw-community-front.mjs';
+
 export function 칸나누기(사람들) {
   const 칸 = new Map(간.map(([h]) => [h, []]));
   for (const p of 사람들) {
@@ -115,7 +119,32 @@ export function 사람칸(이름, 표) {
   return slug ? `<a href="/person/${slug}">${벗기기(이름)}</a>` : 벗기기(이름);
 }
 
-export function 방짓기(한자, 사람들, 잼, 이름표 = null) {
+/**
+ * 이 지면에 걸리겠다고 기사가 적어 둔 것들을 한 토막으로 짓는다.
+ * ⚠ 없으면 토막을 아예 안 낸다 — 빈 상자는 없는 것만 못하다.
+ * ⚠ 내는 글 안에는 «주석을 달지 않는다» — 그대로 손님 화면이고, 한국어가 섞이면
+ *   `check-kcw-korean-leak` 이 잡는다.
+ */
+export function 읽을것칸(걸린것) {
+  if (!(걸린것 ?? []).length) return '';
+  const 줄 = (걸린것 ?? []).map((a) => `    <p class="read"><a href="/article/${a.slug}">${a.title}</a>`
+    + `${a.dek ? `<br><span class="fine">${a.dek}</span>` : ''}</p>`).join('\n');
+  return `<section class="reads">
+    <h2>What we wrote from this data</h2>
+    <p class="fine">Each of these is here because <strong>the article itself says it belongs on
+    this page</strong> &mdash; not because we ranked it or judged it relevant.</p>
+${줄}
+  </section>
+`;
+}
+
+/**
+ * @param 기사들 [2026-09-02] 이 지면에 걸리겠다고 «기사가 스스로 적어 둔» 것들.
+ *   🔴 이것이 없어서 daystem 기사가 「/stem/jeong · /stem/sin · /stem/im 에 걸린다」고
+ *     적어 놓고 세 지면 어디에도 링크가 없었다. check-article-reach.mjs 가 잡았다.
+ *   ⚠ 기본값을 빈 배열로 둔다 — 앞서 이 자를 네 인자로 부르는 자리가 있다.
+ */
+export function 방짓기(한자, 사람들, 잼, 이름표 = null, 기사들 = []) {
   const rom = 로마자.get(한자);
   const 실을것 = 사람들.filter((p) => 라틴이름(p.name));
   const 안실은수 = 사람들.length - 실을것.length;
@@ -153,6 +182,10 @@ export function 방짓기(한자, 사람들, 잼, 이름표 = null) {
   table{border-collapse:collapse;width:100%;font-size:.93rem}
   th,td{text-align:left;padding:.42rem .5rem;border-bottom:1px solid var(--line)}
   th{font-size:.78rem;color:var(--ink-2);text-transform:uppercase;letter-spacing:.05em}
+  .reads{margin-top:36px;padding-top:16px;border-top:1px solid var(--line)}
+  .reads h2{font-size:1.05rem;margin:0 0 .4rem}
+  .read{margin:0;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px;max-width:64ch}
+  .read:last-of-type{border-bottom:none}
   .fine{color:var(--ink-2);font-size:.86rem}
   .scroll{overflow-x:auto}
   nav a{color:var(--accent);font-weight:600;margin-right:.8rem}
@@ -181,6 +214,7 @@ ${줄}
   </table>
   </div>
 
+  ${읽을것칸(이지면기사(기사들, 칸주소(rom)))}
   ${꼬리말([
       '<a href="/day-pillar">All ten stems, counted</a> &middot; '
         + '<a href="/star-signs">The same test on birth years</a> &middot; '
@@ -267,13 +301,14 @@ if (!fs.existsSync(원자료)) {
 const 사람들 = JSON.parse(fs.readFileSync(원자료, 'utf8')).사람;
 const 잼 = JSON.parse(fs.readFileSync(잰것, 'utf8'));
 const 칸 = 칸나누기(사람들);
+const 기사 = 기사읽기();
 
 fs.mkdirSync(낼방, { recursive: true });
 let 합 = 0;
 for (const [한자, rom] of 간) {
   const v = 칸.get(한자);
   if (!v.length) { console.error(`⛔ ${한자} 칸이 비었다 — 짓지 않는다`); process.exit(1); }
-  fs.writeFileSync(path.join(낼방, `${rom}.html`), 방짓기(한자, v, 잼, 사람이름표들));
+  fs.writeFileSync(path.join(낼방, `${rom}.html`), 방짓기(한자, v, 잼, 사람이름표들, 기사));
   합 += v.length;
   console.log(`   ${칸주소(rom).padEnd(14)} 이름 ${String(v.length).padStart(4)}  (으뜸 ${v[0].name})`);
 }

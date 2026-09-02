@@ -98,6 +98,14 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  {/*
+    🔴 [2026-09-02 · 사장님 직접 지시] 애드센스 소유확인.
+      > 「<meta name="google-adsense-account" content="ca-pub-3547185342873229">」 · 「너도 헤드에 넣어」
+      pub 넘버는 사이트마다 같다(계정 하나). 6번 Base.astro 89줄에 같은 태그가 있다.
+    ⛔ 소유확인이 끝나도 **이 태그를 지우지 않는다.** 지우면 확인이 풀린다.
+    ⚠ 이것은 «소유확인»이고, 광고를 «부르는» 것은 아래쪽 adsbygoogle.js 로더다. 둘은 다른 일이다.
+  */}
+  <meta name="google-adsense-account" content="ca-pub-3547185342873229" />
   <title>{제목}</title>
   {/*
     🔴 [2026-08-31] **파비콘이 아예 없었다.** 공용 크롬으로 우리 홈을 열었더니

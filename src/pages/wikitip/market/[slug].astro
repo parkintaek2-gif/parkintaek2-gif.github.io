@@ -16,6 +16,7 @@
  * ⚠ 수를 손으로 적지 않는다. 전부 `wikitip-markets.json` 에서 읽는다.
  */
 import WikiTip from '../../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import data from '../../../data/wikitip-markets.json';
 import 작품표 from '../../../data/wikitip-title-pages.json';
 import 움직임자료 from '../../../data/wikitip-where-it-moved.json';
@@ -343,4 +344,8 @@ const jsonLd = {
     </ul>
   </section>
 
+  {/* 🔴 [2026-09-02] 기사가 이 지면을 가리키는데 «받는 자리»가 없어 링크가 안 뜨고 있었다.
+    ⭐ 관계는 기사가 들고 있고(앞말 pages) 지면은 읽기만 한다 — 이 한 줄을 빠뜨리면 조용히 끊긴다.
+    ⛔ check-article-reach.mjs 가 이제 그것을 잡는다. */}
+  <KcwRelatedArticles page={`/market/${m.slug}`} />
 </WikiTip>
