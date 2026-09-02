@@ -1,5 +1,5 @@
 ---
-title: "Two hops from Squid Game reaches 79% of Korean titles"
+title: "Two hops from Squid Game reaches 80.5% of Korean titles"
 dek: "Sixty-nine titles share an actor with Squid Game directly. Another 432 are one further step away. Out of 635 Korean titles with a recorded cast, 502 sit within two shared actors of one show."
 category: titles
 purpose: both

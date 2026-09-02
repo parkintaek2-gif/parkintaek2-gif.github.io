@@ -1,5 +1,5 @@
 ---
-title: "Korean series are widest in week one only 20% of the time"
+title: "Korean series are widest in week one only 21% of the time"
 category: titles
 purpose: both
 dek: "Hold run length fixed and most of that gap closes — among titles that lasted five to eight weeks it is 26.6% against 28.6%. Among those that lasted nine weeks or more it does not close: 9.7% against 24%."
@@ -44,8 +44,8 @@ there anything left to push after that?**
 | Korean films | 117 | 2 | 29.9% | 83.8% |
 | Every other film | 3,233 | 2 | 36.7% | 78.7% |
 
-Other series are at their widest on the first Monday **44.7%** of the time. Korean series manage it
-**20.1%** of the time — less than half as often.
+Other series are at their widest on the first Monday **44.6%** of the time. Korean series manage it
+**21.1%** of the time — less than half as often.
 
 That is a large gap and the obvious explanation is not the interesting one.
 
@@ -64,14 +64,14 @@ So the same measurement, inside bands of equal run length:
 | 9 weeks or more | **11.5%** *(104)* | **23.7%** *(460)* |
 
 **The gap narrows sharply, and in the middle it nearly disappears.** Among titles that lasted five to
-eight weeks, Korean series peak in week one 26.6% of the time and other series 28.6% — a difference
+eight weeks, Korean series peak in week one 25.9% of the time and other series 28.5% — a difference
 of two points, which is nothing.
 
-So most of the raw 20.1%-against-44.7% gap is length: Korean series are concentrated in the long
+So most of the raw 21.1%-against-44.6% gap is length: Korean series are concentrated in the long
 bands, where everybody peaks late.
 
 **But it does not vanish everywhere.** Among titles that lasted nine weeks or more, Korean series
-peak in week one **9.7%** of the time against **24%** for other series — still two and a half times
+peak in week one **11.5%** of the time against **23.7%** for other series — still twice
 apart, on 103 titles against 458. The long Korean series really do keep widening after their first
 week in a way that other long series do not.
 

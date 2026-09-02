@@ -1,5 +1,5 @@
 ---
-title: "Squid Game is 21.3% of viewing. BTS is 3.9% of K-pop"
+title: "Squid Game is 20.7% of viewing. BTS is 2.6% of K-pop"
 dek: "One title takes 21.3% of all Korean viewing hours on Netflix; the biggest K-pop act takes 3.9% of English Wikipedia lookups. But half of all music attention sits on 4.5% of acts against 7.3% of titles on screen. No giant, steeper slope."
 category: titles
 genre: music
