@@ -27,6 +27,10 @@ export const GET: APIRoute = () =>
 (KOSIS, NEIS, university disclosure data, KDI, National Pension Service, etc.).
 Every page names its source, its year, and what it cannot tell you.
 
+Most pages below also have a plain-markdown version at the same path with .md
+appended (e.g. https://100yearmap.com/tutoring-income.md) — tables and sources
+included, navigation chrome stripped.
+
 ## Life-stage pages (age 0–100, one topic per page)
 
 - [Nursery deserts](https://100yearmap.com/nursery): districts with zero daycare centers, ages 0–5

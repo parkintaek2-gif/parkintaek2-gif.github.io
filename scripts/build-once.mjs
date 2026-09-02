@@ -105,5 +105,24 @@ try {
   const 지금락 = 읽기();
   if (지금락 && 지금락.pid === process.pid) unlinkSync(자물쇠);
 }
+/**
+ * 🔴 2026-09-02(3번, GEO) — astro build 뒤 100yearmap 지면마다 .md 판을 낸다.
+ * ⛔⛔ 이 저장소를 여섯 자리가 같이 쓴다 — 여기서 던지면 **전 유닛 배포가 막힌다.**
+ *   그래서 별도 프로세스로 돌리고 종료코드를 무시한다. 실패해도 astro 빌드 결과(결과)만
+ *   이 스크립트의 exit code 를 정한다 — .md 가 안 나가도 배포는 막지 않는다.
+ */
+if (결과 === 0) {
+  try {
+    const md결과 = spawnSync(process.execPath, ['scripts/build-100y-markdown.mjs'], {
+      cwd: 뿌리,
+      stdio: 'inherit',
+      timeout: 60000,
+    });
+    if (md결과.status !== 0) console.log('⚠ 100y 마크다운 판 생성 실패 — 배포는 계속한다(.html은 정상)');
+  } catch (e) {
+    console.log(`⚠ 100y 마크다운 판 생성 중 오류(무시하고 계속) — ${e.message}`);
+  }
+}
+
 console.log(결과 === 0 ? `✅ ${때()} 빌드 끝` : `⛔ ${때()} 빌드 실패`);
 process.exit(결과);

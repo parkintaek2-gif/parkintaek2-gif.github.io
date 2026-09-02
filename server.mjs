@@ -96,6 +96,9 @@ const TYPES = {
   '.js': 'text/javascript; charset=utf-8',
   '.xml': 'application/xml; charset=utf-8',
   '.txt': 'text/plain; charset=utf-8',
+  /* 🔴 2026-09-02 — GEO(3번): 지면마다 낸 .md 판(scripts/build-100y-markdown.mjs)이
+   * 이 표에 없으면 조용히 octet-stream 이 된다(위 주석의 교훈, 영상과 같은 함정). */
+  '.md': 'text/markdown; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
