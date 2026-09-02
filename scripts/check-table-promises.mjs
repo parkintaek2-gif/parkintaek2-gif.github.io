@@ -62,6 +62,24 @@ export const 면제 = {
 };
 
 /**
+ * 날짜가 붙은 **같은 측정의 스냅숏**은 원본과 같은 까닭으로 면제한다.
+ *
+ * 🔴 [2026-09-03] `wikitip-indexed.json` 은 까닭까지 적어 면제해 두었는데,
+ *   같은 측정을 날짜별로 남긴 `wikitip-indexed-20260825.json` 세 개가 빨강으로 떴다.
+ *   ⛔ 세 줄을 손으로 더하면 **다음 스냅숏을 뜰 때마다 또 낡는다.** 자료가 바뀔 때마다
+ *     늘고 줄어드는 목록은 반드시 낡는다 — 이 파일이 이미 그 잘못을 겪었다.
+ * ⭐ 그래서 «꼴»로 다룬다 — `<원본이름>-<날짜>[-메모].json` 이면 원본의 까닭을 물려받는다.
+ * ⚠ 원본이 면제 대상이 아니면 스냅숏도 면제가 아니다. 아무 날짜 파일이나 새지 않는다.
+ */
+export function 면제까닭(이름, 표 = 면제) {
+  if (표[이름]) return 표[이름];
+  const m = /^(.+?)-\d{8}(?:-.+)?\.json$/.exec(String(이름 ?? ''));
+  if (!m) return null;
+  const 원본 = 표[`${m[1]}.json`];
+  return 원본 ? `${원본} (${이름} 은 같은 측정을 ${m[1]} 의 날짜별 스냅숏으로 남긴 것이다)` : null;
+}
+
+/**
  * 지면 소스를 다 이어 붙인다 — 어느 지면이 어느 자료를 읽는지 이름으로 본다.
  *
  * 🔴 2026-08-10 00:4x — **이 자가 `title/` · `market/` · `firm/` 을 안 보고 있었다.**
@@ -184,6 +202,12 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
   /* ⚠ 저장소에 CRLF 파일과 LF 파일이 섞여 있다. 이 한 줄이 없어 딱 한 편을 놓쳤다 */
   자가('줄 끝이 CRLF 여도 읽는다',
     걸린지면('a: 1\r\npages:\r\n  - "/x"\r\nb: 2\r\n').join() === '/x');
+  자가('날짜 스냅숏은 원본의 까닭을 물려받는다',
+    (면제까닭('a-20260825.json', { 'a.json': '까닭이 스무 자를 넘게 적혀 있다 아무렴' }) ?? '').length > 20);
+  자가('메모가 붙은 스냅숏도 읽는다',
+    !!면제까닭('a-20260828-실험20.json', { 'a.json': '까닭이 스무 자를 넘게 적혀 있다 아무렴' }));
+  자가('⛔ 원본이 면제가 아니면 스냅숏도 아니다', 면제까닭('b-20260825.json', { 'a.json': 'x'.repeat(30) }) === null);
+  자가('⛔ 날짜가 없으면 물려받지 않는다', 면제까닭('a-copy.json', { 'a.json': 'x'.repeat(30) }) === null);
   자가('면제에 까닭이 다 있다',
     Object.values(면제).every((v) => typeof v === 'string' && v.length > 20));
   console.log(`표 약속 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
@@ -195,7 +219,7 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
   /* ── ① 아무 지면도 안 읽는 자료 파일 ── */
   const 소스 = 지면소스();
   const 자료들 = fs.readdirSync(자료칸).filter((x) => /^wikitip-.*\.json$/.test(x));
-  const 안보임 = 자료들.filter((f) => !소스.includes(f.replace('.json', '')) && !면제[f]);
+  const 안보임 = 자료들.filter((f) => !소스.includes(f.replace('.json', '')) && !면제까닭(f));
   본다('세어 놓고 아무 지면도 안 읽는 자료', 안보임.length === 0,
     안보임.length ? `🔴 ${안보임.length}개 — ${안보임.join(' · ')}` : `자료 ${자료들.length}개 다 지면에 나온다`);
 
