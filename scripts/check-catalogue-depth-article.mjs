@@ -105,8 +105,28 @@ if (process.argv[1] && process.argv[1].endsWith('check-catalogue-depth-article.m
 
   /* ── ② 기사가 자료와 같은 수를 말하나 ── */
   const [안, 밖] = d.groups;
-  있나('제목의 여섯 대 마흔아홉',
-    `Six Korean titles fill half of America's Korean chart places. In Vietnam it takes ${d.countries.find((c) => c.name === 'Vietnam').halfTakes}.`);
+  /**
+   * 🔴🔴 [2026-09-03] 이 줄에 **「Six」가 손으로 박혀** 있었다. 자료는 «7» 이다
+   *   (`United States` 의 `halfTakes` = 7).
+   *
+   *   ⛔ 그 탓에 실제로 사고가 났다 — 이 문장이 본문에 없어서 내가 «검사가 시키는 대로»
+   *     「Six」라고 적었다. 검사가 기사에 **틀린 수를 쓰게 만든 것**이다.
+   *     이 파일이 지키려는 것이 「기사가 자료와 같은 수를 말하나」인데 그 반대를 시켰다.
+   *
+   * ⭐ 그래서 **두 수를 다 자료에서 읽는다.** 미국도, 베트남도.
+   * ⚠ 기사는 문장 첫머리 수를 낱말로 쓴다(Seven). 숫자와 낱말을 **둘 다** 받는다 —
+   *   낱말만 받으면 열 이상에서 자가 헛돈다.
+   */
+  {
+    const 미국 = d.countries.find((c) => c.name === 'United States');
+    const 베트남 = d.countries.find((c) => c.name === 'Vietnam');
+    const 낱말 = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten'];
+    const 첫칸 = (n) => (낱말[n] ? 낱말[n][0].toUpperCase() + 낱말[n].slice(1) : String(n));
+    const 꼴들 = [첫칸(미국.halfTakes), String(미국.halfTakes)]
+      .map((앞) => `${앞} Korean titles fill half of America's Korean chart places. In Vietnam it takes ${베트남.halfTakes}.`);
+    본다('제목의 미국 대 베트남', 꼴들.some((t) => 한줄.includes(t)),
+      `미국 ${미국.halfTakes} · 베트남 ${베트남.halfTakes}`);
+  }
   있나('아시아 줄', `| The ten Asian markets | ${안.countries} | ${안.medianKoreanSlots.toLocaleString('en-US')} | ${안.medianDistinctTitles} | ${안.medianHalfTakes} | ${안.medianTopTitlePc}% |`);
   있나('바깥 줄', `| The other markets | ${밖.countries} | ${밖.medianKoreanSlots} | ${밖.medianDistinctTitles} | ${밖.medianHalfTakes} | ${밖.medianTopTitlePc}% |`);
   있나('중앙값이라고 밝혔나', 'All figures are medians of the markets in each group');

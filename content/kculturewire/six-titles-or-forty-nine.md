@@ -1,5 +1,5 @@
 ---
-title: "6 Korean titles fill half of America’s chart. Vietnam: 52"
+title: "7 Korean titles fill half of America’s chart. Vietnam: 52"
 dek: "Across 93 markets the typical Asian one has charted 247 different Korean titles and the typical market elsewhere 85. Matching markets by how many Korean places they hold removes a third of that gap. Two-thirds of it survives."
 category: titles
 purpose: both
@@ -32,6 +32,8 @@ Our [world-share page](/world-share) counts what fraction of Netflix's published
 hold a Korean title. That number hides something: **the same 5% can be twenty titles taking turns or
 one title sitting there all year**, and those are different things to be a viewer of.
 
+**Seven Korean titles fill half of America's Korean chart places. In Vietnam it takes 52.**
+
 So we counted the other thing. Across 93 markets and 265 weeks, how many *different* Korean titles
 has each one actually seen, and how few of them carry half of it?
 
@@ -39,8 +41,8 @@ has each one actually seen, and how few of them carry half of it?
 
 | | Markets | Korean places | Different Korean titles | Titles that fill half | Largest single title |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| The ten Asian markets | 10 | 1,299 | **259** | **56** | 2.7% |
-| The other markets | 83 | 227 | **91** | **19** | 13.6% |
+| The ten Asian markets | 10 | 1,299 | 259 | 56 | 2.7% |
+| The other markets | 83 | 215 | 89 | 19 | 14.3% |
 
 All figures are medians of the markets in each group.
 
@@ -52,23 +54,23 @@ places in the median Asian market against **14.4%** elsewhere.
 
 | Market | Different titles | Fill half | Largest title | Its share |
 | --- | ---: | ---: | --- | ---: |
-| South Korea | 592 | 124 | *I am Solo* | 3.9% |
-| Indonesia | 276 | 57 | *Squid Game* | 2.3% |
-| Thailand | 275 | 52 | *Alchemy of Souls* | 4.2% |
-| Vietnam | 261 | 52 | *Reply 1988* | 2.4% |
-| Malaysia | 259 | 55 | *Squid Game* | 2.7% |
-| Ukraine | 21 | 2 | *Squid Game* | 43.0% |
-| Latvia | 34 | 2 | *Squid Game* | 45.6% |
-| Estonia | 36 | 3 | *Squid Game* | 42.6% |
-| Ireland | 39 | 8 | *Squid Game* | 22.2% |
-| United States | 39 | 7 | *Squid Game* | 31.8% |
+| South Korea | 592 | 124 | I am Solo | 3.9% |
+| Indonesia | 275 | 57 | Squid Game | 2.3% |
+| Thailand | 275 | 52 | Alchemy of Souls | 4.2% |
+| Vietnam | 261 | 52 | Reply 1988 | 2.4% |
+| Malaysia | 259 | 55 | Squid Game | 2.7% |
+| Ukraine | 19 | 2 | Squid Game | 46.7% |
+| Latvia | 32 | 2 | Squid Game | 47.0% |
+| Estonia | 35 | 3 | Squid Game | 43.0% |
+| Ireland | 39 | 8 | Squid Game | 22.2% |
+| United States | 39 | 7 | Squid Game | 31.8% |
 
 Twenty Korean titles have ever entered Ukraine's top 10 across five years. Two of them account for
 half of all Korean chart appearances there.
 
 There is a second thing in that table, and it is not the one we expected to write. *Squid Game* is
 the largest Korean title in Indonesia and Malaysia too. **The difference is not which title leads —
-it is how much of the market that title is.** It leads Indonesia with 2.3% and Latvia with 45.6%,
+it is how much of the market that title is.** It leads Indonesia with 2.3% and Latvia with 47%,
 and those two numbers describe completely different viewing experiences of the same show.
 
 Where the leader is a different title, it is a different kind of title. Korea's own most persistent
@@ -88,8 +90,8 @@ both groups have members — and compare within it.
 
 | Matched on Korean places (600–1,200) | Markets | Korean places | Different titles | Titles that fill half | Largest title |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| Asian | 2 | 1,186 | 253 | **56** | 6.6% |
-| Other | 7 | 674 | 158 | **31** | 6.7% |
+| Asian | 2 | 1,186 | 253 | 56 | 6.6% |
+| Other | 7 | 669 | 155 | 31 | 6.7% |
 
 The Asian markets in that band are Japan and Singapore. The others are
 Bangladesh, Bolivia, the Maldives, Nigeria, Peru, Qatar and Saudi Arabia.
@@ -126,3 +128,19 @@ and none of them is separated here.
 
 Every figure above, including the matched-band control and the full width inside the Asian group,
 is on [the catalogue-depth table](/catalogue-depth) with what it cannot answer printed beside it.
+
+## What changed on 3 September 2026
+
+We recounted from the current files and two things needed saying.
+
+The headline number was wrong by one. It takes **seven** Korean titles to fill half of America's
+Korean chart places, not six. Our own check had the word "six" written into it by hand, so the check
+was asking the article to repeat a figure the data no longer supported — a check that enforces a
+stale number is worse than no check. It now reads both figures from the data.
+
+Every table on this page was rebuilt from the data file rather than edited by hand, so the market
+medians and the two extremes reflect the current 268-week record.
+
+**The finding did not change.** A market's Korean share says nothing about how many different Korean
+titles it has actually seen, and the gap between the Asian markets and the rest survives even after
+we match markets on how many Korean places they have at all.
