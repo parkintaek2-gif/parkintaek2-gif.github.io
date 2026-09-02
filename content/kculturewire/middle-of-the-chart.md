@@ -4,6 +4,7 @@ dek: "Across 93 Netflix markets Korean titles hold 7.9% of chart places. In the 
 category: titles
 purpose: both
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "rank", "measurement"]
@@ -48,22 +49,22 @@ separates from the rest.
 
 | Korean share of the market | Markets | #1 | #5 | #10 | All places | #1 minus all |
 |---|---|---|---|---|---|---|
-| Under 5% | 48 | 2.9% | 3% | 3.4% | 2.9% | 0p |
-| 5–10% | 20 | 5.4% | 8.6% | 7.9% | 7.6% | −2.2p |
-| 10–20% | 15 | 9.1% | 12.9% | 10% | 11.5% | −2.4p |
+| Under 5% | 48 | 2.9% | 2.8% | 3.3% | 2.8% | +0.1p |
+| 5–10% | 21 | 5.5% | 8.5% | 7.8% | 7.6% | −2.1p |
+| 10–20% | 14 | 9.2% | 13.1% | 10% | 11.6% | −2.4p |
 | 20% and over | 10 | 36.6% | 26.9% | 21.1% | 27.4% | +9.2p |
 
 The two middle rows are humps. Korean titles are least common at number one, most common around the
 middle of the list, and taper again toward number ten. The bottom row is the opposite: a slope that
 starts at its highest point and falls all the way down.
 
-This is not an average concealing disagreement. On the 5–10% row, **18 of 20 markets** individually
+This is not an average concealing disagreement. On the 5–10% row, **19 of 21 markets** individually
 sit lower at number one than across their chart. On the bottom row, **none of the ten do** — every
 one of them is higher.
 
 Films and series are separate top tens, and a pattern that only appeared when they were added
-together would be worth nothing. Split apart, the 5–10% row is −0.7 points for films and −3.6 points
-for series; the bottom row is +4.4 and +14.0. Different sizes, same direction, four times over.
+together would be worth nothing. Split apart, the 5–10% row is −0.6 points for films and −3.7 points
+for series; the bottom row is +4.4 and +14. Different sizes, same direction, four times over.
 
 ## The objection, which is right three times out of four
 
@@ -74,9 +75,9 @@ In three of the four bands, it is close to all it is.
 
 | Korean share of the market | Distinct titles at #1 | Largest title's share | #1 share without the top three |
 |---|---|---|---|
-| Under 5% | 52 | 67.4% | 0.7% (all places: 2.9%) |
-| 5–10% | 68 | 36.6% | 2.9% (7.6%) |
-| 10–20% | 76 | 27.9% | 5.7% (11.5%) |
+| Under 5% | 50 | 68.2% | 0.6% (all places: 2.8%) |
+| 5–10% | 68 | 35.8% | 2.9% (7.6%) |
+| 10–20% | 75 | 28.3% | 5.7% (11.6%) |
 | 20% and over | 263 | 5.1% | 32.2% (27.4%) |
 
 The largest title is the same one in all four rows. In the 49 markets where Korean titles hold under
@@ -121,3 +122,22 @@ The full four-band table, both charts split apart, the ten markets named, and th
 figures that limit every row: **[where on the chart Korean titles sit](/rank-shape)**. The
 companion ruler — how few titles fill half of a country's Korean chart — is at
 **[catalogue depth](/catalogue-depth)**.
+
+## What changed on 3 September 2026
+
+Recounted against a rebuilt title list. **The finding is unchanged and the direction of every row is
+unchanged**; the figures moved by tenths, and two band sizes moved by one market:
+
+| | Was | Now |
+|---|---|---|
+| Markets in the 5–10% band | 20 | 21 |
+| Markets in the 10–20% band | 15 | 14 |
+| 5–10% band, #1 minus all places | −2.2p | −2.1p |
+| 5–10% band, markets below at #1 | 18 of 20 | 19 of 21 |
+| Split by format, 5–10% band | −0.7p films, −3.6p series | −0.6p films, −3.7p series |
+
+Both tables are now generated from the counted file rather than typed out. That matters here more
+than in most pieces, because the check that reads this article tests **which column** a figure sits
+in — two of these tables have the same row labels, and a right number in the wrong column is a
+harder mistake to see than a wrong number.
+

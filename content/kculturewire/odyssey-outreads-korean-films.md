@@ -46,23 +46,23 @@ So one Tuesday of the Nolan film outdrew every Korean 2026 release's whole Augus
 
 ## The fourteen
 
-| Film | English title | August reads |
+| Film | Title on Korean Wikipedia | August reads |
 | --- | --- | --- |
-| 오디세이 | The Odyssey *(not Korean)* | 119,356 |
-| 호프 | Hope | 5,633 |
-| 왕과 사는 남자 | The King's Warden | 4,937 |
-| 와일드 씽 | Wild Sing | 1,600 |
-| 어쩔수가없다 | No Other Choice | 1,493 |
-| 살목지 | Salmokji: Whispering Water | 1,461 |
-| 군체 | Colony | 1,390 |
-| 휴민트 | Humint | 985 |
-| 가능한 사랑 | Possible Love | 801 |
-| 파반느 | Pavane: For A Dead Princess | 716 |
-| 남편들 | Husbands in Action | 220 |
-| 악마들 | Devils | 219 |
-| 하트맨 | Heartman: Rock and Love | 181 |
-| 소녀심판 | Judge Girl | 97 |
-| 탈출: 프로젝트 사일런스 | Project Silence | 89 |
+| The Odyssey *(not Korean)* | (오디세이) | 119,356 |
+| Hope | (호프) | 5,633 |
+| The King's Warden | (왕과 사는 남자) | 4,937 |
+| Wild Sing | (와일드 씽) | 1,600 |
+| No Other Choice | (어쩔수가없다) | 1,493 |
+| Salmokji: Whispering Water | (살목지) | 1,461 |
+| Colony | (군체) | 1,390 |
+| Humint | (휴민트) | 985 |
+| Possible Love | (가능한 사랑) | 801 |
+| Pavane: For A Dead Princess | (파반느) | 716 |
+| Husbands in Action | (남편들) | 220 |
+| Devils | (악마들) | 219 |
+| Heartman: Rock and Love | (하트맨) | 181 |
+| Judge Girl | (소녀심판) | 97 |
+| Project Silence | (탈출: 프로젝트 사일런스) | 89 |
 
 **Eight of the fourteen drew under a thousand reads in a month.** Five drew under 250 — about eight people a day, across a country of fifty-one million.
 

@@ -1,9 +1,10 @@
 ---
 title: "Korean titles do come back — mostly as second seasons"
-dek: "Of 957 gaps of four weeks or more that end with a Korean title back on a country chart, 45.5% carry a different season label — not a return at all. Of the 316 genuine returns, 94.3% happen with no other season nearby."
+dek: "Of 924 gaps of four weeks or more that end with a Korean title back on a country chart, 43.6% carry a different season label — not a return at all. Of the 315 genuine returns, 94.3% happen with no other season nearby."
 category: titles
 purpose: both
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "catalogue", "seasons", "measurement"]
@@ -32,7 +33,7 @@ It is not always one run. A title leaves a country's top 10 and, sometimes, come
 
 ## The first thing we saw was wrong
 
-Across 7,383 title-and-market cells, 957 gaps of four weeks or more end with the title back on that
+Across 7,257 title-and-market cells, 924 gaps of four weeks or more end with the title back on that
 country's chart. The longest was **223 weeks** — more than four years — and it belonged to *Juvenile
 Justice* in several markets at once.
 
@@ -43,15 +44,15 @@ our own reading:
 
 | Gaps of four weeks or more | Cells | Share |
 |---|---:|---:|
-| Season label changed — a new season, not a return | 435 | **45.5%** |
-| Same season — the title genuinely came back | 316 | **33.0%** |
-| No season label on one side — we cannot tell | 206 | 21.5% |
+| Season label changed — a new season, not a return | 403 | **43.6%** |
+| Same season — the title genuinely came back | 315 | **34.1%** |
+| No season label on one side — we cannot tell | 206 | 22.3% |
 
 Nearly half of what looks like a Korean title returning to a chart is a different season of that
 title arriving. Had we not split on the label, we would have published a number about catalogue
 revival that was largely a number about sequels.
 
-The third row is not small print. Netflix carries a season label on 78.7% of Korean chart rows, so a
+The third row is not small print. Netflix carries a season label on 79% of Korean chart rows, so a
 fifth of the gaps cannot be classified at all. They stay in their own row.
 
 ## The explanation we had, and had to drop
@@ -76,12 +77,12 @@ Four weeks is our choice, not Netflix's, so here is what happens at other thresh
 
 | Gap of at least | Gaps | Season changed | Same season | Cannot tell |
 |---|---:|---:|---:|---:|
-| 2 weeks | 1,155 | 477 | 454 | 224 |
-| 3 weeks | 1,020 | 447 | 361 | 212 |
-| 4 weeks | 957 | 435 | 316 | 206 |
-| 6 weeks | 911 | 433 | 279 | 199 |
-| 8 weeks | 862 | 432 | 238 | 192 |
-| 12 weeks | 787 | 419 | 190 | 178 |
+| 2 weeks | 1,122 | 445 | 453 | 224 |
+| 3 weeks | 987 | 415 | 360 | 212 |
+| 4 weeks | 924 | 403 | 315 | 206 |
+| 6 weeks | 879 | 401 | 279 | 199 |
+| 8 weeks | 830 | 400 | 238 | 192 |
+| 12 weeks | 755 | 387 | 190 | 178 |
 
 Read the season-changed column down: 429 at two weeks, 411 at twelve. It barely moves. A gap between
 two seasons is long by construction, so raising the bar does not remove those cases. The same-season
@@ -93,7 +94,7 @@ worth doing, and it is why we are more confident in the classification than in t
 ## How common is any of this
 
 Returning is the exception, and we would rather say so than let a mechanism read as a trend. Of the
-7,383 title-and-market cells, 6,215 are a single unbroken run with no gap at all. Only 59 distinct
+7,257 title-and-market cells, 6,121 are a single unbroken run with no gap at all. Only 58 distinct
 titles came back anywhere across 93 markets and five years.
 
 ## What this cannot tell you
@@ -112,3 +113,24 @@ is not finished, and the rights to it are not either.
 The full table, all six thresholds, the ten longest genuine returns and the coverage limit on the
 season label: **[when a title comes back](/returns)**. How long titles stay in the first place is at
 **[staying power](/staying-power)**.
+
+## What changed on 3 September 2026
+
+Recounted against a rebuilt title list. The answer is unchanged — **most Korean chart "returns" are
+a new season, not a return** — and the share of them that are is a little lower than we published:
+
+| | Was | Now |
+|---|---|---|
+| Cells measured | 7,383 | 7,257 |
+| Gaps of four weeks or more | 957 | 924 |
+| Season label changed | 435 (45.5%) | 403 (43.6%) |
+| Same season — a genuine return | 316 (33.0%) | 315 (34.1%) |
+| No label on one side | 206 (21.5%) | 206 (22.3%) |
+| Rows carrying a season label | 78.7% | 79% |
+| Distinct titles that came back anywhere | 59 | 58 |
+
+Both tables — the three-row result and the six-row threshold table published beside it — are now
+generated from the counted file. The threshold table is the one that lets a reader judge our
+four-week cut rather than trust it, so it is the last table in the piece that should ever be typed
+by hand.
+
