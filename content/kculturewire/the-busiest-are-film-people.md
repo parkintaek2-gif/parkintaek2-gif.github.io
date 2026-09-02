@@ -17,7 +17,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "A casting slot is one person in one title. The panel holds 3,413 of them across 668 titles and 1,355 people"
+  - "A casting slot is one person in one title. The panel holds 3,579 of them across 666 titles and 1,391 people"
   - "The comparison is slot against slot, not title against title, so it is not distorted by films and series having different cast sizes on average"
   - "The 30 are everyone with ten or more titles in this set, not a hand-picked list"
   - "No pageview data is used. Nothing here depends on whether a person has an English Wikipedia article"
@@ -27,12 +27,12 @@ excluded:
   - "Anything that did not chart. A prolific television actor whose work never reached a Netflix Top 10 is absent"
 ---
 
-Count casting slots — one person in one title — and this panel leans television. **1,854 series slots against 1,734 film slots**, across 635 titles.
+Count casting slots — one person in one title — and this panel leans television. **1,854 series slots against 1,725 film slots**, across 666 titles.
 
-Now look at the 39 people who appear in ten or more of these titles. Their slots split the other
+Now look at the 38 people who appear in ten or more of these titles. Their slots split the other
 way, and not narrowly.
 
-**341 film. 138 series.**
+**331 film. 137 series.**
 
 | | Titles | Film | Series |
 | --- | ---: | ---: | ---: |
@@ -81,3 +81,12 @@ Netflix Top 10, does not appear at all.
 ---
 
 The busiest are film people. Removing them does not break anything. [Read why the network holds without them →](/article/korean-netflix-titles-one-body)
+
+## What changed on 2 September 2026
+
+We re-collected the cast data on 25 August 2026 and recounted every figure here. The panel moved to
+3,579 casting slots across 666 titles and 1,391 people, and the group appearing in ten or more titles
+from 39 people to 38.
+
+**The finding did not change.** The busiest people still lean the other way from the panel as a whole:
+331 film slots against 137 series, where the earlier count said 341 against 138.

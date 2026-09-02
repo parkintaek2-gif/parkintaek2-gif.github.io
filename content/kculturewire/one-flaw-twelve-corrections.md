@@ -1,5 +1,5 @@
 ---
-title: "One title-matching flaw put wrong figures on 11 pages"
+title: "One flaw put wrong figures on seven pages and four articles"
 dek: "Our Korean Netflix catalogue was 294 titles and 27.7 billion hours. It is 236 and 23.7 billion. Here is the mistake, how it spread, why counting alone would never have caught it, and what we changed so it cannot happen the same way twice."
 category: titles
 purpose: ads

@@ -18,12 +18,12 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "A hop means two titles share at least one credited actor. Distance is the fewest hops from Squid Game, computed by breadth-first search over all 635 titles with a recorded cast"
+  - "A hop means two titles share at least one credited actor. Distance is the fewest hops from Squid Game, computed by breadth-first search over all 666 titles with a recorded cast"
   - "Squid Game was chosen because it is the most widely charted Korean title in the set, not because it produced a striking number. The same walk from Mr. Sunshine or 12.12: The Day gives a similar shape"
   - "No pageview data is used. Nothing here depends on whether a person has an English Wikipedia article"
 excluded:
   - "Any claim that these titles are similar, related, or influenced by each other. Sharing a supporting actor is not a relationship between works"
-  - "The 266 Korean titles with no cast recorded in Wikidata. They are absent from the walk, not distant from it"
+  - "The 276 Korean titles with no cast recorded in Wikidata. They are absent from the walk, not distant from it"
   - "Directors, writers, studios and production companies. If those were included the distances would only shrink"
 ---
 
@@ -35,13 +35,13 @@ actor with — and the Korean catalogue closes up fast.
 | --- | ---: |
 | 0 (itself) | 1 |
 | 1 | 74 |
-| 2 | 462 |
-| 3 | 112 |
+| 2 | 461 |
+| 3 | 111 |
 | 4 | 2 |
 | never reached | 17 |
 
-**537 of the 668 titles — 80.4% — are within two hops.** Take one more step and you have 649, or
-97.2%. Four steps exhausts everything the walk can reach.
+**536 of the 666 titles — 80.5% — are within two hops.** Take one more step and you have 647, or
+97.1%. Four steps exhausts everything the walk can reach.
 
 ## What this does and does not mean
 
@@ -70,7 +70,7 @@ say why the number should not be read as a count of self-contained productions.
 
 ## The bigger absence
 
-**277 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
+**276 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
 they are outside the walk entirely. Every figure above describes the 635 that could be walked, and
 the true structure of the whole 906 is something this data cannot show.
 
@@ -80,3 +80,11 @@ them. The catalogue is at least this connected, and probably more.
 ---
 
 Two hops is short. It is short because of pairs that almost never repeat. [Read how rarely a casting pair works together twice →](/article/korean-casting-barely-repeats-itself)
+
+## What changed on 2 September 2026
+
+We re-collected the cast data on 25 August 2026 and recounted the whole walk. The set moved from 668
+titles with a recorded cast to 666, so the two-hop reach is now 536 titles rather than 537 — 80.5%
+rather than 80.4%.
+
+**The finding did not change.** Two hops from *Squid Game* still reaches four titles in five.

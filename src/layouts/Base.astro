@@ -89,12 +89,20 @@ const orgLd = {
     {/*
       애드센스 소유확인 (2026-09-02 · 사장님 직접 지시).
       pub 넘버는 사이트마다 같다(계정 하나). 메타태그만으로 소유확인이 안 돼 스크립트도 넣으라 하셨다.
-      ⚠ 이것은 이 새 계정(3547185342873229)의 «소유확인용» 로더다 — 아래 adsbygoogle.js
-        (ADS.client, ca-pub-5113515144381167)는 서울마켓이 이미 승인받아 광고를 부르는
-        기존 로더로 그대로 둔다. 둘은 다른 계정·다른 일이다.
+
+      🔴 [2026-09-02 · 5번] 여기 있던 «둘째 로더»(같은 pub 을 조건 없이 부르던 한 줄)를 뺐다.
+        · `ADS.client` 를 새 계정(3547185342873229)으로 바꿨으므로 아래 129줄 로더가 이미 그것을 부른다
+        · 그 한 줄은 **조건이 없었다** — `광고끔` 지면에도 로더가 실린다. 이 파일이 바로 위에
+          「noAds 인 페이지에서는 스크립트 자체를 안 부른다」고 적어 둔 함정이다(Auto Ads 는
+          슬롯이 없어도 스크립트만 보고 광고를 꽂는다)
+        · 옛 주석은 「옛 ADS.client 는 이미 승인받아 광고를 부르는 계정」이라고 적혀 있었다.
+          **그 말이 틀렸다** — 재 보니 네 사이트 전부 광고 자리(ins.adsbygoogle) 0개이고
+          `slots` 가 빈 문자열이라 옛 계정으로 나가는 광고가 처음부터 없었다
+          (사장님 「광고 안나가」). 그 틀린 주석이 「옛 계정을 지켜야 한다」는 판단을 만들었다.
+        ⛔ 로더를 다시 더하기 전에 라이브를 한 줄로 잰다 —
+          curl -s <주소> | grep -c 'class="adsbygoogle"'
     */}
     <meta name="google-adsense-account" content="ca-pub-3547185342873229" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3547185342873229" crossorigin="anonymous"></script>
     {noindex && <meta name="robots" content="noindex, follow" />}
 
     <meta property="og:site_name" content={SITE.name} />

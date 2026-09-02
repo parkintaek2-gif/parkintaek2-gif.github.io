@@ -161,7 +161,18 @@ export type CategorySlug = (typeof CATEGORIES)[number]['slug'];
  * 비어 있으면 운영 빌드에서 빈 박스를 그리지 않는다.
  */
 export const ADS = {
-  client: 'ca-pub-5113515144381167', // 애드센스 승인·등록 완료(2번 61153, pub-5113515144381167)
+  /**
+   * 🔴 [2026-09-02 · 사장님 직접 지시] 애드센스 계정을 **새 계정으로 바꿨다** —
+   *   admin@klifedesign.net → ca-pub-3547185342873229. 사장님: 「이걸 붙여. 소유확인안됨」
+   *
+   * ⚠ 옛 값은 pub-5113515144381167(개인계정 parkintaek2)였다. 옛 계정을 «지켜야 한다»고
+   *   판단했다가 사장님이 「광고 안나가」로 바로잡아 주셨다 — 재 보니 네 사이트 전부
+   *   광고 자리(ins.adsbygoogle)가 **0개**이고 `slots` 가 빈 문자열이다. 즉 옛 계정으로
+   *   나가는 광고가 처음부터 없었다. 지킬 수입이 없으므로 한 계정으로 정리한다.
+   * ⛔ 이 값을 «재지 않고» 바꾸지 않는다. 바꾸기 전에 라이브를 한 줄로 잰다 —
+   *   curl -s <주소> | grep -c 'class="adsbygoogle"'
+   */
+  client: 'ca-pub-3547185342873229',
   slots: { banner: '', inArticle: '' },
 } as const;
 

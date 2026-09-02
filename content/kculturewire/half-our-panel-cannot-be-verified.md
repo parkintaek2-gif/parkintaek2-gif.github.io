@@ -37,7 +37,7 @@ There is one thing in the published data that settles it. Netflix splits its **g
 title's primary language, and a Korean work belongs on the Non-English side. If a title has reached
 the global chart, the label tells you which work charted.
 
-**Country charts carry no language field.** And 214 of the 421 titles in our Southeast Asia panel
+**Country charts carry no language field.** And 214 of the 420 titles in our Southeast Asia panel
 have never reached a global Top 10. For those, the check cannot be run at all. They are in the panel
 on a name match and nothing else.
 
@@ -45,7 +45,7 @@ on a name match and nothing else.
 
 Two numbers, and they point in different directions.
 
-**By title count it is half the panel.** 214 of 421 — 50.8%.
+**By title count it is half the panel.** 214 of 420 — 51.0%.
 
 **By size it is small.** The median title in that unverified group charted in **one country for
 three weeks**. The verified group's median is 28 countries and 8 weeks. Whatever is wrong in the
@@ -105,3 +105,11 @@ had been treating them as the same.
 ---
 
 Netflix has a second chart we had not used, and it settles some of these titles. [Read what Korea’s own chart says about them →](/article/a-third-of-what-travels-never-charts-at-home)
+
+## What changed on 2 September 2026
+
+We re-collected the source files on 25 August 2026. The panel moved from 421 titles to 420, so the
+unverified share is now 51.0% rather than 50.8%.
+
+**The finding did not change** — it is still about half the panel. We are saying which numbers moved
+rather than swapping them quietly.

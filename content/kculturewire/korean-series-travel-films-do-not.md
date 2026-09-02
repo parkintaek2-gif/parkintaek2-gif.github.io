@@ -31,16 +31,16 @@ excluded:
 
 Netflix files its global Top 10 by a title's primary language, so a Korean work belongs on the
 Non-English side. That label is the only thing in the published data that verifies a title is the
-Korean work and not a foreign one with the same name. **238 Korean titles carry it.** Split them by
+Korean work and not a foreign one with the same name. **235 Korean titles carry it.** Split them by
 Wikidata's own film-or-series statement and the two halves behave very differently.
 
 | | Films | Series |
 | --- | ---: | ---: |
-| Titles | 93 | 145 |
+| Titles | 91 | 144 |
 | Median weeks on a chart | 6 | 9 |
-| Median countries reached | 11 | **35** |
-| Reached 25 countries or more | 38.7% | **60.7%** |
-| Lasted 10 weeks or more | 24.7% | 43.4% |
+| Median countries reached | 10 | **35** |
+| Reached 25 countries or more | 37.4% | **60.4%** |
+| Lasted 10 weeks or more | 25.3% | 43.8% |
 
 The staying-power gap has an easy explanation, and we have printed it on `/reach` for weeks: a film
 is one sitting and a series is sixteen episodes, so a series holds a chart slot longer almost by
@@ -71,3 +71,13 @@ A Korean film absent from these lists may be doing well somewhere we cannot see.
 ---
 
 Series travel further abroad. They also behave differently at home. [Read which titles skip Korea’s own chart →](/article/a-third-of-what-travels-never-charts-at-home)
+
+## What changed on 2 September 2026
+
+We re-collected the Netflix and Wikidata files on 25 August 2026 and recounted every figure here.
+The language-verified set moved from 238 titles to 235, and the shares moved with it — series
+reaching 25 countries or more went from 60.7% to 60.4%, films from 38.7% to 37.4%.
+
+**The finding did not change.** Series still reach about three times as many markets as films. We are
+saying which numbers moved rather than swapping them quietly, because a figure that changes without
+saying so is a figure no one should trust.
