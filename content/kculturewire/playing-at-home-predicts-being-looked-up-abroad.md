@@ -25,7 +25,7 @@ crossChecks:
   - "The comparison is run inside groups of equal title count, and then again inside groups of equal market reach, because both are obvious confounders and both had to be removed separately"
   - "Every group size is printed beside its figure so a reader can see which comparisons rest on enough people"
 excluded:
-  - "Actors with no English Wikipedia article. 583 of the 1,395 people in the cast join produce no row here at all, and they are likely the less famous ones"
+  - "Actors with no English Wikipedia article. 583 of the 1,391 people in the cast join produce no row here at all, and they are likely the less famous ones"
   - "Any causal claim. Charting in Korea does not make anyone famous abroad; both are downstream of things we cannot see, and the piece says which"
   - "Actors whose panel work is more than two titles, where the groups become too small to compare"
 ---
@@ -35,7 +35,7 @@ something neither says alone.
 
 The first: **140 of the 397 Korean titles that charted in Southeast Asia never appeared on Netflix's
 chart in Korea.** The second: we track English Wikipedia lookups for every Korean actor in those
-titles who has an article — **812 of 1,395 people**.
+titles who has an article — **808 of 1,391 people**.
 
 Join them, and the actors attached to titles that played at home are looked up more.
 
@@ -46,8 +46,8 @@ the comparison only means something inside groups of equal size.
 
 | Actors with… | Every title also charted in Korea | None did | Ratio |
 | --- | ---: | ---: | ---: |
-| 1 title in our panel | **3,500** (201 people) | **2,152** (98) | 1.63 |
-| 2 titles in our panel | 6,605 (62) | 3,317 (22) | 1.99 |
+| 1 title in our panel | **3,118** (201 people) | **1,776** (103) | 1.76 |
+| 2 titles in our panel | 5,863 (64) | 2,524 (20) | 2.32 |
 
 Median 30-day lookups. **The gap is there at both sizes**, and it is roughly the same size at both,
 which is what you want before taking it seriously.
@@ -57,13 +57,13 @@ which is what you want before taking it seriously.
 Perhaps titles that chart in Korea are simply bigger titles — they reach more markets, so of course
 their casts get looked up more. That would make this a story about title size wearing a Korean hat.
 
-So we ran it again inside bands of equal reach, using only the 299 actors with exactly one panel title.
+So we ran it again inside bands of equal reach, using only the 304 actors with exactly one panel title.
 
 | That one title reached | Also charted in Korea | Did not | Ratio |
 | --- | ---: | ---: | ---: |
-| 1 market | 1,841 (29) | 1,412 (61) | 1.30 |
-| 2–4 markets | 3,448 (29) | 2,761 (25) | 1.25 |
-| 5–6 markets | 3,989 (143) | 2,897 (12) | 1.38 |
+| 1 market | 1,841 (31) | 1,412 (65) | 1.30 |
+| 2–4 markets | 3,687 (31) | 2,348 (26) | 1.57 |
+| 5–6 markets | 3,046 (139) | 2,897 (12) | 1.05 |
 
 **It survives.** Two actors whose single credit reached the same number of Southeast Asian markets
 still differ by a quarter to two-fifths in lookups, depending on whether that credit also played on
@@ -89,7 +89,7 @@ confounders anyone would raise first, and it is available in advance from a publ
 
 ## The hole in this that we cannot fill
 
-**583 of the 1,395 people in our cast join have no English Wikipedia article at all.** They produce no
+**583 of the 1,391 people in our cast join have no English Wikipedia article at all.** They produce no
 lookup figure, so they are absent from every number above.
 
 That is not a random 28%. An actor without an English article is almost certainly less known to the
@@ -105,3 +105,15 @@ We print the ratio and we print this paragraph, and we would rather you read bot
 ---
 
 This rests on which titles played at home, which is itself a finding. [Read the 140 titles that never charted in Korea →](/article/a-third-of-what-travels-never-charts-at-home)
+
+## What changed on 3 September 2026
+
+We re-collected the cast data on 25 August 2026 and recounted every figure here. The join moved from
+1,395 people to 1,391 and the number with an English Wikipedia article from 812 to 808. Median
+lookups moved with them: actors with one panel title went from 3,500 against 2,152 to 3,118 against
+1,776, and the reach bands shifted too.
+
+**The finding held in direction and got slightly stronger for the one-title group** — the ratio went
+from 1.63 to 1.76. It got weaker in the widest reach band, from 1.38 to 1.05, which is close to no
+difference at all. That band already carried our warning that its smaller cell rests on twelve
+people; this recount is a reason to lean on it less, not more.
