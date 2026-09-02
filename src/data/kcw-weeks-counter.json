@@ -387,6 +387,16 @@
       "longestStreak": 14
     }
   ],
+  "koreanCellShape": {
+    "koreanCells": 11181,
+    "cellsOfTwoOrMore": 7730,
+    "medianWeeksPresent": 3,
+    "medianSpan": 3,
+    "medianLongestStreak": 3,
+    "unbrokenCells": 6725,
+    "unbrokenPc": 87,
+    "scatteredCells": 631
+  },
   "all": {
     "cells": 191537,
     "rows": 500340,

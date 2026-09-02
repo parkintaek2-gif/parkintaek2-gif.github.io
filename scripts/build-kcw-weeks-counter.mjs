@@ -177,6 +177,27 @@ for (const 갈래 of ['전체', '한국']) {
   합[갈래] = s;
 }
 
+const 중앙값 = (a) => {
+  if (!a.length) return null;
+  const b = [...a].sort((x, y) => x - y);
+  const m = Math.floor(b.length / 2);
+  return b.length % 2 ? b[m] : +((b[m - 1] + b[m]) / 2).toFixed(1);
+};
+const 한국칸 = 오래된칸.filter((x) => x.korean);
+const 두주이상 = 한국칸.filter((x) => x.rows >= 2);
+const 빈틈없는 = 두주이상.filter((x) => x.longestStreak === x.rows && x.spanWeeks === x.rows);
+const 분포 = {
+  koreanCells: 한국칸.length,
+  cellsOfTwoOrMore: 두주이상.length,
+  medianWeeksPresent: 중앙값(두주이상.map((x) => x.rows)),
+  medianSpan: 중앙값(두주이상.map((x) => x.spanWeeks)),
+  medianLongestStreak: 중앙값(두주이상.map((x) => x.longestStreak)),
+  unbrokenCells: 빈틈없는.length,
+  unbrokenPc: 두주이상.length ? +((100 * 빈틈없는.length) / 두주이상.length).toFixed(1) : null,
+  /* 걸침이 머문 주보다 두 배 넘는 칸 — 「흩어진 삶」 */
+  scatteredCells: 두주이상.filter((x) => x.spanWeeks >= 2 * x.rows).length,
+};
+
 const 몫 = (a, b) => (b ? +((100 * a) / b).toFixed(1) : null);
 const 낼것 = (s) => ({
   cells: s.칸,
@@ -208,6 +229,7 @@ const out = {
   /* ⛔ 「가장 오래」를 이름으로 말하려면 그 칸이 «어느 나라·어느 주»인지 같이 내야 한다 */
   longestAll: 오래된칸.slice(0, 10),
   longestKorean: 오래된칸.filter((x) => x.korean).slice(0, 15),
+  koreanCellShape: 분포,
   all: 낼것(합.전체),
   korean: 낼것(합.한국),
 };

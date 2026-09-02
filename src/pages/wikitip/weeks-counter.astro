@@ -25,6 +25,7 @@ const K = d.korean;
    최장 연속을 «반드시 옆에» 낸다. 안 내면 우리가 그 수를 연속으로 오독하게 만든다 */
 const 가장긴한국 = d.longestKorean ?? [];
 const 가장긴전체 = d.longestAll ?? [];
+const 꼴 = d.koreanCellShape ?? {};
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
 
 const TITLE = `What Netflix's weeks-in-top-10 counter actually counts`;
@@ -102,6 +103,35 @@ const jsonLd = {
       <b>We cannot explain the {수(A.afterGapResetToOne)} that restart.</b> Netflix publishes no note
       about the counter, and nothing else in the row distinguishes those cases from the
       {' '}{수(A.afterGapContinued)} that continue. We report the split and stop there.
+    </p>
+  </section>
+
+  <section>
+    <h2>Most Korean chart lives are one unbroken block</h2>
+    <p>
+      The scattered cases above are the memorable ones, so it is worth saying how rare they are.
+      Of <b>{수(꼴.koreanCells)}</b> Korean cells, {수(꼴.cellsOfTwoOrMore)} last two weeks or more.
+      Of those, <b>{꼴.unbrokenPc}%</b> have no gap at all &mdash; they arrive, stay, and leave once.
+    </p>
+    <table>
+      <thead><tr><th>Korean cells lasting two weeks or more</th><th class="num">Count</th></tr></thead>
+      <tbody>
+        <tr><td>Cells</td><td class="num">{수(꼴.cellsOfTwoOrMore)}</td></tr>
+        <tr><td>Unbroken &mdash; present every week from first to last</td>
+          <td class="num"><b>{수(꼴.unbrokenCells)}</b> ({꼴.unbrokenPc}%)</td></tr>
+        <tr><td>Scattered &mdash; span at least twice the weeks present</td>
+          <td class="num">{수(꼴.scatteredCells)}</td></tr>
+        <tr><td>Median weeks present</td><td class="num">{꼴.medianWeeksPresent}</td></tr>
+        <tr><td>Median weeks spanned</td><td class="num">{꼴.medianSpan}</td></tr>
+        <tr><td>Median longest unbroken run</td><td class="num">{꼴.medianLongestStreak}</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      {/* ⛔ 한 주짜리 칸을 넣으면 「빈틈없다」가 셈이 아니라 정의가 된다 */}
+      One-week cells are left out of this table. Their span and their streak are both one, so
+      counting them would make &ldquo;unbroken&rdquo; true by definition rather than by
+      measurement &mdash; there are {수(꼴.koreanCells - 꼴.cellsOfTwoOrMore)} of them, and that is
+      its own finding, and it is not half: {(100 * (꼴.koreanCells - 꼴.cellsOfTwoOrMore) / 꼴.koreanCells).toFixed(1)}% of Korean chart lives are a single week.
     </p>
   </section>
 
