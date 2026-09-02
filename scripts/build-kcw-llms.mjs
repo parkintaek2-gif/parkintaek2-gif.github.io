@@ -178,6 +178,10 @@ export const 차례 = [
       ['/korean-movies-on-netflix', 'Korean movies on Netflix'],
       ['/watched', 'What was watched'],
       ['/netflix-top10-data', 'The Netflix top 10 data itself'],
+      /* 🔴 [2026-09-02 · GEO] 지킴이가 「빠진 큰 지면」으로 울리던 자리다.
+         AI 는 «표를 가진 지면»부터 인용한다 — 이 지면은 랭킹 자를 셋으로 갈라 센다.
+         빼 둘 이유가 없었고, 안 넣은 것은 그냥 빠뜨린 것이었다. */
+      ['/which-ranking', 'Which ranking is the real one'],
     ],
   },
   {
