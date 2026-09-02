@@ -3,6 +3,10 @@
   "⛔ 지키는 것": "이 파일에 없는 말을 자가 지어내지 않는다. 화면 카드에 없는 수를 목소리로 말하지 않는다(카드 PNG 글자를 못 읽으니, 확실치 않으면 숫자를 빼고 질적 사실만 읽는다). 화면과 소리가 다르면 그 편이 신뢰를 깎는다.",
   "⚠ 길이": "영상 길이 안에 들어가는 말만. make-seoulmarkets-video-sound.mjs 가 실제 목소리 길이를 재서 넘치면 멈춘다(화면을 늘이지 않고 말을 줄인다).",
   "대본": {
+    "korea-etf-premium-means-two-different-things": {
+      "내레이션": "A Korean ETF trading above its value usually falls back tomorrow. But for a synthetic fund tracking Asian stocks, the same premium predicts a gain instead. Same signal, opposite meaning.",
+      "설명": "FSC ETF price API, 629 trading days. We report the split, not a trading strategy — not investment advice."
+    },
     "korea-bigger-firms-pay-more-every-step": {
       "내레이션": "In Korea, the bigger the company, the more it pays — and not only at the top. At every step up the size ladder, average pay rises. The gap between the smallest firms and the largest is not one jump. It builds, step after step.",
       "설명": "Same establishment survey, all industries. We report the steps, not the reasons."
