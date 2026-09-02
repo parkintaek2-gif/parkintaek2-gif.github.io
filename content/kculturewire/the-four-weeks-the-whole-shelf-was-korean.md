@@ -4,6 +4,7 @@ category: titles
 genre: drama
 dek: "Vietnam twice in August 2021, then Indonesia and Malaysia in the same week of July 2022. We checked all 20,667 country-weeks in which any Korean title charted; these four are the only ones outside Korea where nothing else got in."
 pubDate: 2026-08-30
+updatedDate: 2026-09-03
 dataAsOf: 2026-08-30T00:00:00+09:00
 author: Newsroom
 tags: ["netflix", "korea", "vietnam", "indonesia", "malaysia", "drama"]
@@ -82,3 +83,20 @@ The distribution across the whole file:
 | 10 | 8 |
 
 Our page on [how Korean chart places clump](/clumping) makes the same point from the other side: the 7.9% share we publish most often is not a place a week, it is nothing for long stretches and then several at once. These four weeks are what the far end of "several at once" actually looks like.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **8 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Country-weeks with a Korean title | 20,667 | 20,581 |
+| Country-weeks with exactly one | 11,594 | 11,561 |
+| The share we publish most often | 7.7% | 7.9% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

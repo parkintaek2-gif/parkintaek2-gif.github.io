@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "Korean titles hold 7.9% of Netflix country chart places. Spread evenly that would put at least one on 55.9% of country-weeks; the real figure is 41.3%. Empty weeks run 58.7% against 44.1%, and crowded weeks 4.6% against 0.5%."
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "measurement", "limits", "charts"]
@@ -116,3 +117,21 @@ would rather publish the shape than let the average do work it cannot do.
 
 The full tables — the whole distribution to ten, the per-market count, and the binomial each market
 was measured against: **[how the 7.7% actually falls](/clumping)**.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **14 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Country-weeks with at least one Korean title | 42.0% | 41.3% |
+| Same, if places fell independently | 56.3% | 55.9% |
+| Empty country-weeks | 58.0% | 58.7% |
+| Markets more clumped than chance | 79 of 93 | 82 of 93 |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

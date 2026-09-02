@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "288 Korean titles charted somewhere in 2022 and 215 in 2025, while the places they held rose 9.7%. Remove each year's biggest title and the ten largest gained 3.1 points — much of the concentration is one show returning."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "industry", "measurement"]
@@ -114,3 +115,22 @@ watched.
 And a note on our own arithmetic: seasons of one show are counted as that show. Netflix lists
 seasons separately on its charts, and if we counted them separately a returning show would look like
 several new titles — which is exactly the thing this article is trying to measure.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **31 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Titles that charted in 2022 | 289 | 288 |
+| Chart places held in 2022 | 7,388 | 7,223 |
+| Places per title, 2022 | 25.6 | 25.1 |
+| Places held, 2025 | 7,972 | 7,923 |
+| Growth in places, 2022 to 2025 | 7.9% | 9.7% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

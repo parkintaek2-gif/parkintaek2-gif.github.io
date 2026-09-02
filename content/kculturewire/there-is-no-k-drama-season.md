@@ -4,6 +4,7 @@ dek: "The Korean share moves 2.1 points across twelve months — and 14.3 in a w
 category: titles
 purpose: both
 pubDate: 2026-08-08
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "seasonality"]
@@ -92,3 +93,21 @@ and only one of them is answerable here.
 It does not say September is a good month to release into. A 2.2-point band across five years,
 which does not survive as a story once you look at what is inside it, is not a planning tool and we
 would rather say so than dress it up as one.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **13 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| The whole yearly swing | 2.5 points | 2.1 points |
+| Best month | 9.1% | 8.6% |
+| Worst month | 6.6% | 6.5% |
+| The weekly swing, for comparison | 14.2 points | 14.3 points |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

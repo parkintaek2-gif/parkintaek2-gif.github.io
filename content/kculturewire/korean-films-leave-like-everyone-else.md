@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "Across 210,355 finished runs, a Korean film holds a country chart for 1.96 weeks on average and every other film for 2.02. Korean series run 3.7 weeks against 2.71 — and removing each group's biggest title barely moves it."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "limits"]
@@ -106,3 +107,21 @@ It also cannot tell you *why* Korean series hold longer. Weekly release schedule
 dubbing, and how much of a season lands at once would all produce this shape, and none of them is in
 this data. What we can say is narrower: **the staying power people describe as Korean is a property
 of Korean series, and Korean films do not have it.**
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **16 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Korean film runs | 4,197 | 4,089 |
+| Korean series runs | 8,324 | 8,220 |
+| Series minus films, Korean titles | 1.74 weeks | 1.76 weeks |
+| Korean series that end from the bottom three | 62.5% | 62.7% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

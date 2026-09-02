@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "For each of 93 markets we took the median breadth of the Korean titles that reached it. Korea's own chart: 2. Estonia, Slovenia, Switzerland: 77, 76, 72. Most of that gap is how often a market plays Korean titles at all — but not all of it."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "markets", "measurement", "limits"]
@@ -100,3 +101,19 @@ a market with a short Korean list may still be watching a great deal of it.
 And breadth is a lifetime count, not a simultaneous one — a title that spread to 60 countries slowly
 counts the same as one that opened in 60 at once. We measure that difference separately, on
 [when a Korean title is at its widest](/time-to-peak).
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **8 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Markets in the 5–8% band | 20 | 13 |
+| Second-hardest market | Slovenia, median breadth 76 | Croatia, 76 |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

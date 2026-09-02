@@ -4,6 +4,7 @@ category: industry
 purpose: both
 dek: "Two works can carry the same English title, and a chart row does not say which one it is. Thirteen titles in our Korean panel turned out to be foreign works. The test that found them is not the name — it is where they charted."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "method", "measurement", "limits", "corrections"]
@@ -96,3 +97,21 @@ invisible to this test, and so is one where the foreign work exists but its coun
 It also says nothing about titles inside the panel that are correctly Korean but whose chart rows
 belong to a second work of the same name in some weeks and not others. We can only accept or reject
 a title whole. Nothing in a rank table separates one row from another.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **15 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Titles removed as not Korean | 13 | 16 |
+| Chart places they had carried | 84 | 557 |
+| Their share of our Korean total | 0.21% | 1.4% |
+| Titles that never chart in Korea | 384 of 977 | 381 of 974 |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

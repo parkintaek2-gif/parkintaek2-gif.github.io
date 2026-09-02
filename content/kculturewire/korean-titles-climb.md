@@ -105,7 +105,7 @@ figure above moved with the rebuild. The direction did not:
 |---|---|---|
 | Korean runs read | 7,414 | 7,288 |
 | Korean runs that climb | 57.4% | 57.1% |
-| Everything else | 40.5% | 40.5% |
+| Everything else (unchanged) | 40.5% | 40.5% |
 | Films that climb | 46.1% | 45.0% |
 | Series that climb | 62.8% | 62.7% |
 

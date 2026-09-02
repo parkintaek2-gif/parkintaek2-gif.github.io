@@ -141,7 +141,7 @@ is the one thing this article is about — so they were the worst two rows in it
 | | Was | Now |
 |---|---|---|
 | Korean titles read | 976 | 973 |
-| Charted in Korea | 592 | 592 |
+| Charted in Korea (unchanged) | 592 | 592 |
 | Never charted in Korea | 384 | 381 |
 | Reached 20+ countries without charting at home | 32 | 29 |
 

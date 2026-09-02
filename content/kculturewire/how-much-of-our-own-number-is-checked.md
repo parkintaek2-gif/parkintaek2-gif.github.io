@@ -4,6 +4,7 @@ dek: "Korean titles hold 7.9% of the world's Netflix top 10 places — 39,139 of
 category: industry
 purpose: ads
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "method", "measurement", "corrections"]
@@ -108,3 +109,20 @@ than by their name.
 If you use our figure, that is the disclosure you should have had from the start. It is on
 **[the world share page](/world-share)** now, in the same table as the number itself, which is where
 it should have been.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **3 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Korean chart places | 39,612 | 39,139 |
+| Places we can check against a label | 82.3% | 82.1% |
+| Places we cannot check | 16.4% | 16.6% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

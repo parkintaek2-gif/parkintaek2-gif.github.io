@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "Hold run length fixed and most of that gap closes — among titles that lasted five to eight weeks it is 26.6% against 28.6%. Among those that lasted nine weeks or more it does not close: 9.7% against 24%."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-08-16T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "limits"]
@@ -97,3 +98,21 @@ why.
 
 And this is a distribution, not a rule. Some Korean series are widest in week one; some are widest
 in week thirty-four. The table says how often, not what will happen to any one title.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **16 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Korean series measured | 215 | 213 |
+| Korean series widest in week one | 20.9% | 21.1% |
+| Every other series, same figure | 44.7% | 44.6% |
+| Korean films measured | 119 | 117 |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

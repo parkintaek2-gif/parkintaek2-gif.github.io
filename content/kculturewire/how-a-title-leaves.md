@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "Everything written about a chart is about getting on it. We measured 11,722 departures instead — the position a Korean title held the week before it vanished, against the 10.0% each rank would take if position did not matter."
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "limits"]
@@ -127,3 +128,21 @@ held places in the same week — Netflix lists them separately, and they are sep
 25,987 rows. We caught it because the positions we had read came out at 9.28% to 10.56% instead of
 10.0% each, which is impossible if a chart is read correctly. The collector now refuses to publish
 unless that figure comes out flat, and it does.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **18 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Runs read | 12,698 | 12,486 |
+| Runs that ended | 12,521 | 12,309 |
+| Chance a No.10 title is gone next week | 70.7% | 70.5% |
+| Runs that began at No.1 | 6.7% | 6.8% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.

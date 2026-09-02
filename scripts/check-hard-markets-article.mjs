@@ -7,6 +7,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 정정절뗀다 } from './lib/kcw-correction-section.mjs';
 
 const 기사 = 'content/kculturewire/which-markets-only-take-the-big-ones.md';
 const 자료 = 'src/data/wikitip-hard-markets.json';
@@ -56,7 +57,10 @@ if (내가실행됐다) {
     if (!fs.existsSync(p)) { console.error(`⛔ 없다 — ${p}`); process.exit(1); }
   }
   const d = JSON.parse(fs.readFileSync(자료, 'utf8'));
-  const 글 = fs.readFileSync(기사, 'utf8').replace(/\r\n/g, '\n');
+  /* 🔴 [2026-09-03] 정정 절(「What changed on …」)은 **옛 수를 일부러 적는 자리**다.
+     그것을 본문으로 세면 「표가 4개다」처럼 없는 흠이 뜬다 — 이 자 여섯이 한꺼번에 그랬다.
+     ⛔ 자를 통과시키려고 정정을 안 싣지 않는다. 자가 그 절을 빼고 본다. */
+  const 글 = 정정절뗀다(fs.readFileSync(기사, 'utf8')).replace(/\r\n/g, '\n');
   const 넓은 = new Map(d.widestOnly.map((m) => [m.name, m]));
   const 좁은 = new Map(d.narrowToo.map((m) => [m.name, m]));
   const 띠 = new Map(d.byBand.map((b) => [b.band, b]));

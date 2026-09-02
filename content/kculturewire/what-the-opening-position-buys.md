@@ -4,6 +4,7 @@ category: titles
 purpose: both
 dek: "Opening position is the only fact anyone has on the first Monday. Across 8,324 Korean series runs it moves expected length by 0.56 weeks a step — against 0.44 for other series, 0.33 for Korean films and 0.22 for other films."
 pubDate: 2026-08-10
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "charts", "measurement", "limits"]
@@ -93,3 +94,21 @@ position is a symptom of whatever produced it, not a cause of what follows.
 And a chart is not viewing. A title one place outside a top 10 is invisible here at any level of
 viewing, so everything above is about time on a rank list and nothing else. Netflix publishes no
 country-level viewing figures at all.
+
+## What changed on 3 September 2026
+
+Our list of Korean titles had been frozen at 8 August. We rebuilt it, it went from 397 titles to
+420, and one title we had been counting as Korean (*Dangerous Liaisons*, the 2022 French film) is
+not. **31 figures in this piece moved with it.** None of them changed what the piece found. The
+ones a reader is most likely to have quoted:
+
+| | Was | Now |
+|---|---|---|
+| Runs that opened at No.1 | 506 | 505 |
+| Of those, lasting four weeks or more (unchanged) | 89.9% | 89.9% |
+| Runs that opened at No.10 | 1,181 | 1,172 |
+| Of those, gone after one week | 56.1% | 56% |
+
+Every table above is now generated from the counted file rather than typed out, and a check reads
+each figure back out of that file on every build. We print what moved rather than swapping it
+quietly: one wrong number makes the correct ones beside it worth doubting.
