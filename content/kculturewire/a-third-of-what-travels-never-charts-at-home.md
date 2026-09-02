@@ -1,5 +1,5 @@
 ---
-title: "150 of 420 Korean titles never charted in Korea"
+title: "150 of 421 Korean titles never charted in Korea"
 dek: "They are a different kind of title: 2.20 markets on average against 4.63, and one in seven reaches #1 against one in two. Netflix's Korean chart is not a smaller version of the regional one — it is a different chart."
 category: titles
 purpose: both
@@ -27,14 +27,14 @@ excluded:
   - "Viewing hours. Netflix publishes hours for its global list only, so everything here is titles and chart-weeks"
 ---
 
-Of the **420 Korean titles** that have reached a Netflix Top 10 somewhere in Southeast Asia since
+Of the **421 Korean titles** that have reached a Netflix Top 10 somewhere in Southeast Asia since
 2021, **150 have never once appeared on Netflix's Top 10 in Korea.**
 
 That is 35% of the panel, and it is not a rounding of the tail. It is a structurally different group.
 
 | | Titles | Avg. markets reached | Avg. weeks | Reached #1 |
 | --- | ---: | ---: | ---: | ---: |
-| Also charted in Korea | 270 | **4.63** | 6.8 | 49.6% |
+| Also charted in Korea | 271 | **4.62** | 6.8 | 49.4% |
 | Never charted in Korea | 150 | **2.20** | 3.4 | **15.3%** |
 
 A title that plays at home reaches more than twice as many Southeast Asian markets and is three and a
@@ -48,16 +48,16 @@ That is strong enough to be the main story and weak enough that the exceptions a
 | Weeks on Korea's chart | Titles | Avg. Southeast Asian markets |
 | --- | ---: | ---: |
 | None | 140 | 2.21 |
-| 1–3 | 74 | 3.46 |
+| 1–3 | 75 | 3.43 |
 | 4–9 | 156 | 4.96 |
 | 10 or more | 40 | 5.53 |
 
 Read down the right-hand column and the ladder is clean. Read the ends and it breaks: **15 titles
-reached all six Southeast Asian markets without ever charting in Korea**, and 84 of the 133
+reached all six Southeast Asian markets without ever charting in Korea**, and 84 of the 134
 single-market titles never charted at home either.
 
 Put the other way: **8.1% of the titles that swept the region skipped the Korean chart entirely, and
-63.2% of the single-market titles did.**
+62.7% of the single-market titles did.**
 
 ## What the exceptions are
 
@@ -117,3 +117,23 @@ against 24.1% to 52.3% against 24.2%.
 never-charted titles are still a different kind of title rather than a smaller version of the same
 one. We are printing the old and new figures side by side because a number that moves without saying
 so is a number no one should trust.
+
+## What changed on 3 September 2026
+
+We added the chart week of **23 August 2026**. One title entered the panel with it, and it had
+charted in Korea, so the denominator grew and the never-charted count did not.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles in the panel | 420 | 421 |
+| Never once on the Korean chart | 150 | 150 (unchanged) |
+| Also charted in Korea | 270 | 271 |
+| Also charted — average markets | 4.63 | 4.62 |
+| Also charted — share that hit #1 | 49.6% | 49.4% |
+| Titles with 1–3 Korean weeks | 74 | 75 |
+| Those titles — average markets | 3.46 | 3.43 |
+| Single-market titles | 133 | 134 |
+| Single-market titles never charted at home | 63.2% | 62.7% |
+
+**The finding did not change and the headline count did not move**: 150 titles travelled without
+ever charting at home. The share is 35.6% of 421 rather than 35.7% of 420, which is the same third.

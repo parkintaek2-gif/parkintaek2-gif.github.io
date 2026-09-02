@@ -18,11 +18,11 @@ sources:
     api: "Country of origin (P495 = Q884) to identify Korean titles; cast member (P161) with citizenship (P27 = Q884) for the cast of each"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Titles and people are joined on Wikidata Q-numbers, not on title text. Matching by text put cast on only 317 of 1,005 titles because article names differ from chart names; matching on Q-numbers reaches 666 of 942"
+  - "Titles and people are joined on Wikidata Q-numbers, not on title text. Matching by text put cast on only 317 of 1,005 titles because article names differ from chart names; matching on Q-numbers reaches 666 of 943"
   - "This piece uses no pageview data at all. Nothing here depends on whether a person has an English Wikipedia article, so the selection bias that shapes our attention panels is absent"
   - "A link means two titles share at least one credited actor. That is a weak relation on purpose, and it is why we report the median number of links per title (16) beside the size of the connected body, rather than the body alone"
   - "The robustness test removes actors in order of how many titles they appear in, and is reported against the mirror-image test that removes the same number of the least busy actors. Both are shown"
-  - "942 of the titles Netflix has charted are matched to a Korean Wikidata item. 666 of those have at least one cast member recorded. The 276 with none are absent from this analysis and counted here"
+  - "943 of the titles Netflix has charted are matched to a Korean Wikidata item. 666 of those have at least one cast member recorded. The 277 with none are absent from this analysis and counted here"
 excluded:
   - "Any claim about the whole Korean industry. This is what reached a Netflix Top 10, which is a small and unrepresentative slice of what Korea makes"
   - "Directors, writers, producers, studios and agencies. The link here is cast only. The industry may be far more connected through people we did not measure"
@@ -97,7 +97,7 @@ two unrelated films joins them here. The median-links figure is the honest compa
 down. That cuts both ways: the true number of links is higher than we measure, and the share of
 linking done by famous people is lower than it looks here.
 
-**276 titles have no cast recorded at all** — 942 Korean titles are matched to Wikidata items and only
+**277 titles have no cast recorded at all** — 943 Korean titles are matched to Wikidata items and only
 666 carry a P161 statement. Those 276 are not counted as isolated; they are absent.
 
 **Only Korean citizens are counted.** International co-productions lose their non-Korean cast, and
@@ -122,3 +122,17 @@ by side rather than quietly swapping them, because a number that moves without s
 no one should trust.
 
 The body holds without its busiest people. It is built from pairs — and those barely repeat. [Read how rarely two actors work together twice →](/article/korean-casting-barely-repeats-itself)
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata. One more charted title matched a Korean
+Wikidata item, and it has no cast recorded.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Charted titles matched to a Korean Wikidata item | 942 | 943 |
+| Of those, titles with at least one cast member | 666 | 666 (unchanged) |
+| Titles with no cast recorded | 276 | 277 |
+
+**The join did not change.** What grew is the roster it is measured against, so the gap we name
+here is one title wider than it was.

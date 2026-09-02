@@ -70,7 +70,7 @@ say why the number should not be read as a count of self-contained productions.
 
 ## The bigger absence
 
-**276 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
+**277 Korean titles have no cast recorded in Wikidata at all.** They are not at distance infinity;
 they are outside the walk entirely. Every figure above describes the 635 that could be walked, and
 the true structure of the whole 906 is something this data cannot show.
 
@@ -88,3 +88,15 @@ titles with a recorded cast to 666, so the two-hop reach is now 536 titles rathe
 rather than 80.4%.
 
 **The finding did not change.** Two hops from *Squid Game* still reaches four titles in five.
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata. One more charted title matched a Korean
+item, and it carries no cast statement.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles with no cast recorded in Wikidata | 276 | 277 |
+
+**No distance in this piece changed.** The titles outside the graph grew by one, which makes the
+hole we name here one title wider.

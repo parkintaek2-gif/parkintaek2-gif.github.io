@@ -1,6 +1,6 @@
 ---
 title: "50% of our Southeast Asia panel cannot be verified Korean"
-dek: "214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them. They are also the small ones."
+dek: "215 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them. They are also the small ones."
 category: titles
 purpose: ads
 pubDate: 2026-08-07
@@ -13,7 +13,7 @@ pages:
   - "/staying-power"
 sources:
   - org: "Netflix"
-    api: "Top 10 weekly lists (Tudum), global and per-country, 265 weeks from 2021-07-04 to 2026-07-26. The global lists carry a language category; the country lists do not"
+    api: "Top 10 weekly lists (Tudum), global and per-country, 269 weeks from 2021-07-04 to 2026-08-23. The global lists carry a language category; the country lists do not"
     url: "https://www.netflix.com/tudum/top10"
   - org: "Wikidata"
     api: "Country of origin (P495 = Q884), used to match chart titles to Korean works by name"
@@ -24,7 +24,7 @@ crossChecks:
   - "The 'small' claim is a median over the unverified group itself: one country, three weeks. It is not an average, which a handful of large titles would distort"
   - "Nine titles were removed by hand after being read one at a time; 36 were removed because Netflix files them on its English charts. Both counts are printed on the pages"
 excluded:
-  - "Any estimate of how many of the 197 are actually foreign. We can name examples but we have not audited the group, and a guess dressed as a figure is worse than the gap"
+  - "Any estimate of how many of the 215 are actually foreign. We can name examples but we have not audited the group, and a guess dressed as a figure is worse than the gap"
   - "Any claim that the unverified titles are wrong. Most are probably Korean. The point is that we cannot show it from published data"
   - "Hours viewed. Netflix publishes hours for its global chart only"
 ---
@@ -37,7 +37,7 @@ There is one thing in the published data that settles it. Netflix splits its **g
 title's primary language, and a Korean work belongs on the Non-English side. If a title has reached
 the global chart, the label tells you which work charted.
 
-**Country charts carry no language field.** And 214 of the 420 titles in our Southeast Asia panel
+**Country charts carry no language field.** And 215 of the 421 titles in our Southeast Asia panel
 have never reached a global Top 10. For those, the check cannot be run at all. They are in the panel
 on a name match and nothing else.
 
@@ -45,7 +45,7 @@ on a name match and nothing else.
 
 Two numbers, and they point in different directions.
 
-**By title count it is half the panel.** 214 of 420 — 51.0%.
+**By title count it is half the panel.** 215 of 421 — 51.1%.
 
 **By size it is small.** The median title in that unverified group charted in **one country for
 three weeks**. The verified group's median is 28 countries and 8 weeks. Whatever is wrong in the
@@ -113,3 +113,29 @@ unverified share is now 51.0% rather than 50.8%.
 
 **The finding did not change** — it is still about half the panel. We are saying which numbers moved
 rather than swapping them quietly.
+
+## What changed on 3 September 2026
+
+We added the chart week of **23 August 2026**, which had been sitting in our archive while this
+panel still stopped at 16 August. One title entered the panel with it, so the denominator went
+from 420 to 421 and the unverified count from 214 to 215.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles in the panel | 420 | 421 |
+| Never on a global Top 10 | 214 | 215 |
+| Share unverified | 51.0% | 51.1% |
+| Weeks named in our source line | 265 | 269 |
+
+⚠ That last row is the one to read twice. This piece has always been counted over the whole
+archive, but its source line said **265 weeks to 26 July 2026** — the window as it stood when the
+piece was published, left there while the panel moved on underneath it. We do not know of a figure
+in the body that was wrong because of it, and we are not going to claim there was none: what we
+can say is that the line now names the window the numbers actually come from.
+
+Two other figures were stale for a different reason and are corrected here rather than quietly.
+The summary line at the top of this piece said **421** while the body said 420 — it had been left
+behind when the panel moved on 25 August. And one exclusion note still referred to **197**
+unverified titles, a count from before that same rebuild. Both now read 215 of 421.
+
+**The finding did not change.** It is still about half the panel, and it is still the small half.

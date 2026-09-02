@@ -56,13 +56,21 @@ Keeping is not the same as confirming. Here is the size of the difference:
 
 ## Why we had never published this
 
-We had. Sort of. Two of our pages have said for weeks that **197 titles** carry no language label,
-and that sentence is true.
+We had. Sort of. Two of our pages carry a count of titles with no language label, and the sentence
+has always been true. It has always been the wrong unit too.
 
-It is also the wrong unit. "197 titles" out of nine hundred sounds like a rounding error. **16.1% of
+When that count read **197 titles**, the phrase it produced was *197 titles out of nine hundred*,
+which sounds like a rounding error.
+
+**16.1% of
 the places behind our headline figure** does not. The same fact, counted the way the number is
 actually used, is roughly six times more alarming — and it is the version that matters if you are
 deciding whether to rely on the figure.
+
+The count reads **215** today, against the 421 titles in the panel, and the unit problem has
+flipped rather than gone away: as a title count it now reads like half the panel, which overstates
+the risk as badly as *197 out of nine hundred* understated it. Neither is the number to quote. The
+share of chart places is.
 
 We counted titles because titles were what the collector happened to have. That is not a reason.
 

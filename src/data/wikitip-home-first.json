@@ -1,35 +1,35 @@
 {
-  "generated": "2026. 8. 29. 오후 1:45:20",
+  "generated": "2026. 9. 3. 오전 6:25:03",
   "source": "Netflix Top 10 (Tudum) weekly country lists for Korea and the six Southeast Asian markets; Korean titles identified via Wikidata country of origin (P495 = Q884)",
   "sourceKo": "넷플릭스 Tudum 주간 나라별 Top10 — 한국과 동남아 여섯 나라",
   "question": "For Korean titles that charted in Southeast Asia, did Korea's own chart get there first?",
   "home": "Korea",
   "region": "Singapore, Malaysia, the Philippines, Thailand, Indonesia, Vietnam",
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-08-16",
-  "weekCount": 268,
-  "slotsPerCountry": 5360,
-  "titleCount": 420,
+  "weekTo": "2026-08-23",
+  "weekCount": 269,
+  "slotsPerCountry": 5380,
+  "titleCount": 421,
   "neverAtHome": 150,
-  "neverAtHomePc": 35.7,
-  "bothCharted": 270,
+  "neverAtHomePc": 35.6,
+  "bothCharted": 271,
   "all": {
-    "n": 270,
+    "n": 271,
     "homeFirst": 51,
-    "sameWeek": 165,
+    "sameWeek": 166,
     "awayFirst": 54,
-    "homeFirstPc": 18.9,
-    "sameWeekPc": 61.1,
-    "awayFirstPc": 20
+    "homeFirstPc": 18.8,
+    "sameWeekPc": 61.3,
+    "awayFirstPc": 19.9
   },
   "censoredExcluded": {
-    "n": 259,
+    "n": 260,
     "homeFirst": 50,
-    "sameWeek": 159,
+    "sameWeek": 160,
     "awayFirst": 50,
-    "homeFirstPc": 19.3,
-    "sameWeekPc": 61.4,
-    "awayFirstPc": 19.3
+    "homeFirstPc": 19.2,
+    "sameWeekPc": 61.5,
+    "awayFirstPc": 19.2
   },
   "censoredCount": 11,
   "sharedNameCount": 9,
@@ -46,24 +46,24 @@
     "Tunnel"
   ],
   "cleanest": {
-    "n": 254,
+    "n": 255,
     "homeFirst": 48,
-    "sameWeek": 159,
+    "sameWeek": 160,
     "awayFirst": 47,
-    "homeFirstPc": 18.9,
-    "sameWeekPc": 62.6,
-    "awayFirstPc": 18.5
+    "homeFirstPc": 18.8,
+    "sameWeekPc": 62.7,
+    "awayFirstPc": 18.4
   },
   "byFormat": [
     {
       "format": "Series",
-      "n": 179,
+      "n": 180,
       "homeFirst": 27,
-      "sameWeek": 127,
+      "sameWeek": 128,
       "awayFirst": 25,
-      "homeFirstPc": 15.1,
-      "sameWeekPc": 70.9,
-      "awayFirstPc": 14
+      "homeFirstPc": 15,
+      "sameWeekPc": 71.1,
+      "awayFirstPc": 13.9
     },
     {
       "format": "Films",

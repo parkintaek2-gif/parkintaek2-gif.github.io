@@ -1,12 +1,12 @@
 {
-  "generated": "2026. 9. 3. 오전 12:04:37",
+  "generated": "2026. 9. 3. 오전 6:20:53",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists — every country Netflix publishes, not only Southeast Asia",
   "sourceKo": "넷플릭스 Tudum 나라별 주간 Top 10 전 세계",
   "method": "A Korean title should normally also appear on Netflix’s South Korea chart. Absence is not proof — a title released before July 2021, or never streamed in Korea, cannot appear — so this ranks titles for human review rather than deciding them.",
-  "panelTitles": 420,
+  "panelTitles": 421,
   "sharedTitles": 149,
   "duplicateRows": 1239,
-  "scannedRowsForPanel": 35524,
+  "scannedRowsForPanel": 35526,
   "sharedWithoutKorea": 75,
   "sameCountryWork": 9,
   "queues": {
@@ -949,7 +949,7 @@
     {
       "title": "Can This Love Be Translated?",
       "type": "TV",
-      "seaWeeks": 21,
+      "seaWeeks": 22,
       "verdict": "koreaOnly",
       "koreaWeeks": 7,
       "countries": 60,
@@ -1064,6 +1064,19 @@
       "queue": null
     },
     {
+      "title": "Love Next Door",
+      "type": "TV",
+      "seaWeeks": 14,
+      "verdict": "shared",
+      "koreaWeeks": 9,
+      "countries": 53,
+      "topCountry": "Vietnam",
+      "topWeeks": 13,
+      "concentrationPc": 3.5,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "King the Land",
       "type": "TV",
       "seaWeeks": 14,
@@ -1138,19 +1151,6 @@
       "topCountry": "Vietnam",
       "topWeeks": 10,
       "concentrationPc": 7.5,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
-      "title": "Love Next Door",
-      "type": "TV",
-      "seaWeeks": 13,
-      "verdict": "shared",
-      "koreaWeeks": 9,
-      "countries": 53,
-      "topCountry": "Vietnam",
-      "topWeeks": 13,
-      "concentrationPc": 3.5,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1493,6 +1493,19 @@
       "queue": null
     },
     {
+      "title": "Agent Kim Reactivated",
+      "type": "TV",
+      "seaWeeks": 9,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 8,
+      "countries": 81,
+      "topCountry": "Bangladesh",
+      "topWeeks": 9,
+      "concentrationPc": 1.9,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Dynamite Kiss",
       "type": "TV",
       "seaWeeks": 9,
@@ -1580,19 +1593,6 @@
       "topCountry": "Indonesia",
       "topWeeks": 9,
       "concentrationPc": 3.2,
-      "sameCountryWork": false,
-      "queue": null
-    },
-    {
-      "title": "Agent Kim Reactivated",
-      "type": "TV",
-      "seaWeeks": 8,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 8,
-      "countries": 81,
-      "topCountry": "Bangladesh",
-      "topWeeks": 9,
-      "concentrationPc": 1.9,
       "sameCountryWork": false,
       "queue": null
     },
@@ -1844,6 +1844,19 @@
       "queue": null
     },
     {
+      "title": "Spooky in Love",
+      "type": "TV",
+      "seaWeeks": 6,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 6,
+      "countries": 48,
+      "topCountry": "Bolivia",
+      "topWeeks": 6,
+      "concentrationPc": 2.6,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Humint",
       "type": "Films",
       "seaWeeks": 6,
@@ -1958,19 +1971,6 @@
       "topWeeks": 10,
       "concentrationPc": 6.1,
       "sameCountryWork": true,
-      "queue": null
-    },
-    {
-      "title": "Spooky in Love",
-      "type": "TV",
-      "seaWeeks": 5,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 6,
-      "countries": 48,
-      "topCountry": "Bolivia",
-      "topWeeks": 6,
-      "concentrationPc": 2.6,
-      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -2286,6 +2286,19 @@
       "queue": null
     },
     {
+      "title": "Our Sticky Love",
+      "type": "TV",
+      "seaWeeks": 3,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 3,
+      "countries": 68,
+      "topCountry": "Bahrain",
+      "topWeeks": 3,
+      "concentrationPc": 1.8,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Dear Hongrang",
       "type": "TV",
       "seaWeeks": 3,
@@ -2413,19 +2426,6 @@
       "topWeeks": 12,
       "concentrationPc": 8.9,
       "sameCountryWork": true,
-      "queue": null
-    },
-    {
-      "title": "Our Sticky Love",
-      "type": "TV",
-      "seaWeeks": 2,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 3,
-      "countries": 68,
-      "topCountry": "Bahrain",
-      "topWeeks": 3,
-      "concentrationPc": 1.8,
-      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -2871,6 +2871,19 @@
       "queue": null
     },
     {
+      "title": "The Apartment Job",
+      "type": "TV",
+      "seaWeeks": 7,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 7,
+      "countries": 19,
+      "topCountry": "Malaysia",
+      "topWeeks": 7,
+      "concentrationPc": 9.5,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
       "title": "Typhoon Family",
       "type": "TV",
       "seaWeeks": 7,
@@ -2881,19 +2894,6 @@
       "topWeeks": 9,
       "concentrationPc": 15.5,
       "sameCountryWork": true,
-      "queue": null
-    },
-    {
-      "title": "The Apartment Job",
-      "type": "TV",
-      "seaWeeks": 6,
-      "verdict": "koreaOnly",
-      "koreaWeeks": 7,
-      "countries": 19,
-      "topCountry": "Malaysia",
-      "topWeeks": 7,
-      "concentrationPc": 9.5,
-      "sameCountryWork": false,
       "queue": null
     },
     {
@@ -3224,7 +3224,7 @@
     {
       "title": "Bitch and Rich",
       "type": "TV",
-      "seaWeeks": 7,
+      "seaWeeks": 8,
       "verdict": "koreaOnly",
       "koreaWeeks": 10,
       "countries": 13,
@@ -5224,6 +5224,19 @@
       "queue": null
     },
     {
+      "title": "Number One",
+      "type": "Films",
+      "seaWeeks": 2,
+      "verdict": "shared",
+      "koreaWeeks": 4,
+      "countries": 2,
+      "topCountry": "South Korea",
+      "topWeeks": 4,
+      "concentrationPc": 66.7,
+      "sameCountryWork": true,
+      "queue": null
+    },
+    {
       "title": "Gangnam Zombie",
       "type": "Films",
       "seaWeeks": 2,
@@ -5234,19 +5247,6 @@
       "topWeeks": 2,
       "concentrationPc": 100,
       "sameCountryWork": false,
-      "queue": null
-    },
-    {
-      "title": "Number One",
-      "type": "Films",
-      "seaWeeks": 1,
-      "verdict": "shared",
-      "koreaWeeks": 4,
-      "countries": 2,
-      "topCountry": "South Korea",
-      "topWeeks": 4,
-      "concentrationPc": 66.7,
-      "sameCountryWork": true,
       "queue": null
     },
     {
@@ -6013,6 +6013,19 @@
       "topCountry": "Malaysia",
       "topWeeks": 1,
       "concentrationPc": 100,
+      "sameCountryWork": false,
+      "queue": null
+    },
+    {
+      "title": "Take a Hike!",
+      "type": "TV",
+      "seaWeeks": 1,
+      "verdict": "koreaOnly",
+      "koreaWeeks": 1,
+      "countries": 2,
+      "topCountry": "Singapore",
+      "topWeeks": 1,
+      "concentrationPc": 50,
       "sameCountryWork": false,
       "queue": null
     },

@@ -21,7 +21,7 @@ countries made a film or series with exactly that name.
 
 | Verdict | Titles | Share of viewing |
 | --- | ---: | ---: |
-| Only Korean works carry this title | 163 | 83.5% |
+| Only Korean works carry this title | 163 | 83.6% |
 | A foreign work shares the title | 76 | 15.9% |
 | Wikidata gives no country | 2 | 0.4% |
 
@@ -32,7 +32,7 @@ guessed at or dropped.
 ## Reach and weeks
 
 `countries_reached` is how many of six Southeast Asian markets (Singapore, Malaysia, the
-Philippines, Thailand, Indonesia, Vietnam) a title charted in **at any point** across 268
+Philippines, Thailand, Indonesia, Vietnam) a title charted in **at any point** across 269
 weeks. It is not simultaneous. A title that hit Vietnam in 2022 and Thailand in 2024 counts as two.
 
 `weeks_on_chart` counts distinct weeks, once per title however many countries it appeared in.

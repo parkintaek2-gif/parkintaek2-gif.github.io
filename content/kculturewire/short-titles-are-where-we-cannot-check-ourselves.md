@@ -1,6 +1,6 @@
 ---
 title: "3 in 5 Korean film titles share a name with a foreign work"
-dek: "We asked Wikidata which country made each of our 420 chart titles. Films come back ambiguous 54.1% of the time, series 22.6%. Short names are why."
+dek: "We asked Wikidata which country made each of our 421 chart titles. Films come back ambiguous 54.1% of the time, series 22.5%. Short names are why."
 category: titles
 purpose: ads
 pubDate: 2026-08-08
@@ -18,9 +18,9 @@ sources:
     api: "For every chart title, the countries of origin (P495) of every film or TV series carrying exactly that English label"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "The three verdicts are produced by the build and sum to the panel: 266 names only Korean works carry, 149 shared with a foreign work, 5 that Wikidata gives no country for"
+  - "The three verdicts are produced by the build and sum to the panel: 267 names only Korean works carry, 149 shared with a foreign work, 5 that Wikidata gives no country for"
   - "Word counts are taken from the chart title as Netflix publishes it, so The Glory is two words and D.P. is one"
-  - "The South Korea comparison uses Netflix's own Korean country chart over the same weeks, counted as distinct weeks per country rather than rows, because the source file repeats 1,239 of 35,524 panel rows"
+  - "The South Korea comparison uses Netflix's own Korean country chart over the same weeks, counted as distinct weeks per country rather than rows, because the source file repeats 1,239 of 35,526 panel rows"
 excluded:
   - "Any claim that a shared title is the wrong title. Shared means the name alone cannot settle it, and for most of these the Korean work is plainly the one that charted"
   - "Any correction to the panel itself. Nothing has been removed on the strength of this measurement; what it produces is a queue for human review, and any removals will appear on our corrections page with the evidence"
@@ -30,7 +30,7 @@ corrections:
     note: "Published against a 405-title panel; the panel is now 397. Within an hour of this piece going out we found eight titles that our own attribution query said no Korean work carries — Waterworld, Re/Member, Into the Storm, Wildflower, Feng Shui, Glorious Days, Long Live Love! and You and Me — and removed them. Every figure in this article moved: films are 58.1% rather than 59.9%, series 23.6% rather than 23.9%, and the review queue is 20 one-country titles rather than 25. Wildflower was named here as a clear miss and is now gone from the panel rather than queued in it. The direction of the finding did not change, which is the least interesting thing about it: the piece argued our film numbers are the soft ones, and seven of the eight removals were films (167 down to 160) and one was a series (238 to 237)."
 ---
 
-Our Southeast Asia panel holds **420 Korean titles**. A title is in it because its English name matches
+Our Southeast Asia panel holds **421 Korean titles**. A title is in it because its English name matches
 a Korean work in Wikidata. That rule can fail in exactly one way: another country made something with
 the same name.
 
@@ -39,23 +39,23 @@ that label.
 
 | | Titles | Name shared with a foreign work |
 | --- | ---: | ---: |
-| Series | 248 | **22.6%** |
+| Series | 249 | **22.5%** |
 | Films | 172 | **54.1%** |
-| Whole panel | 420 | 35.5% |
+| Whole panel | 421 | 35.4% |
 
-**Three in five of our film titles cannot be settled by name. For series it is fewer than one in
+**More than half of our film titles cannot be settled by name. For series it is fewer than one in
 four.** Anyone using our film numbers is standing on much softer ground than anyone using our series
 numbers, and until now we had not said so, because we had not measured it.
 
 ## The reason is length, mostly
 
-Sort the same 420 titles by how many words are in the name and the pattern is not subtle.
+Sort the same 421 titles by how many words are in the name and the pattern is not subtle.
 
 | Words in the title | Titles | Name shared |
 | --- | ---: | ---: |
 | One | 102 | **71.6%** |
 | Two | 139 | 38.8% |
-| Three | 95 | 13.7% |
+| Three | 96 | 13.5% |
 | Four or more | 84 | **10.7%** |
 
 A one-word title is more than six times as likely to collide as a four-word one. *Carter*,
@@ -75,15 +75,15 @@ Hold the length fixed and the films are still worse.
 | --- | ---: | ---: |
 | One | 57.1% (35) | **79.1%** (67) |
 | Two | 30.2% (86) | **52.8%** (53) |
-| Three or more | 7.9% (127) | **23.1%** (52) |
+| Three or more | 7.8% (128) | **23.1%** (52) |
 
-At every length, a Korean film's title is roughly 25 points more likely to be shared than a Korean
+At every length, a Korean film's title is roughly 20 points more likely to be shared than a Korean
 series' title of the same length. Short film names are not just short, they are drawn from a smaller
 and more common pool — one-word abstractions, single names, ordinary nouns.
 
 **This means our film panel is the part of our data most likely to contain something that is not
-Korean, and it is the part we can least easily check.** It is also the smaller side: 160 titles against
-237, and 475 chart-weeks against 1,870.
+Korean, and it is the part we can least easily check.** It is also the smaller side: 172 titles against
+249, and 476 chart-weeks against 1,878.
 
 ## A second ruler we had not used
 
@@ -134,7 +134,7 @@ briefly in a single country. Those are also the smallest entries — the median 
 two weeks — so the risk sits in the tail rather than the top. It is still there.
 
 The one thing we can say without hedging is the size of what we do not know, which is what this piece
-is. A panel that reported 420 titles and said nothing else would be a cleaner-looking number and a
+is. A panel that reported 421 titles and said nothing else would be a cleaner-looking number and a
 worse one.
 
 ---
@@ -162,3 +162,33 @@ that spread widely without touching Korea.
 
 **The finding did not change.** Short names are still where we cannot check ourselves, and the film
 half of the panel is still the soft half — by a wider margin than the series half, exactly as before.
+
+## What changed on 3 September 2026
+
+We added the chart week of **23 August 2026**. It had been in our archive since the evening of
+2 September while this panel still stopped at 16 August, so our own week pages and this piece were
+reading two different end dates. One title entered the panel with the new week.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles in the panel | 420 | 421 |
+| Series | 248 | 249 |
+| Films | 172 | 172 (unchanged) |
+| Series with a shared name | 22.6% | 22.5% |
+| Whole panel with a shared name | 35.5% | 35.4% |
+| Three-word titles | 95 | 96 |
+| Three-word titles with a shared name | 13.7% | 13.5% |
+| Three-or-more, series | 7.9% (127) | 7.8% (128) |
+| Panel rows read | 35,524 | 35,526 |
+
+Three sentences here were stale for a different reason, and we would rather name that than let a
+new week cover it. The film-and-series comparison near the end still read **160 titles against
+237, and 475 chart-weeks against 1,870** — figures from the 397-title panel this piece was first
+published against, left behind when the panel was rebuilt on 25 August. They are now 172 against
+249, and 476 chart-weeks against 1,878. The films line said **three in five** cannot be settled by
+name, which was fair at 58.1% and is not at 54.1%; it now says more than half. And the gap between
+films and series was described as **roughly 25 points** when the three lengths give 22, 23 and 15;
+it now says roughly 20.
+
+**The finding did not change.** Film titles are still the soft side of this panel, at every title
+length, and short names are still why.

@@ -1,6 +1,6 @@
 ---
-title: "Korea led Southeast Asia for 51 of 420 Korean titles"
-dek: "Of the 420 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 51 and in the same week for 165 — and never charted 150 of them at all. Series enter together; films scatter."
+title: "Korea led Southeast Asia for 51 of 421 Korean titles"
+dek: "Of the 421 Korean titles that reached Southeast Asia's top 10, Korea's own chart got there first for 51 and in the same week for 166 — and never charted 150 of them at all. Series enter together; films scatter."
 category: titles
 purpose: both
 pubDate: 2026-08-08
@@ -43,15 +43,15 @@ first week it charted in Korea.
 
 | | Titles | Korea first | Same week | Korea later |
 | --- | ---: | ---: | ---: | ---: |
-| Charted in both | 270 | 51 (18.9%) | **165 (61.1%)** | 54 (20%) |
-| Panel's first week removed | 259 | 50 | 159 | 50 |
-| Shared names also removed | 254 | 48 (18.9%) | **159 (62.6%)** | 47 (18.5%) |
+| Charted in both | 271 | 51 (18.8%) | **166 (61.3%)** | 54 (19.9%) |
+| Panel's first week removed | 260 | 50 | 160 | 50 |
+| Shared names also removed | 255 | 48 (18.8%) | **160 (62.7%)** | 47 (18.4%) |
 
 The three rows are the same measurement under progressively stricter conditions, and the answer does
 not move: **around five titles in eight enter Korea and Southeast Asia in the same week.**
 
-The remaining 150 titles never charted in Korea at all — 35.7% of everything that reached Southeast
-Asia. Set against the whole panel, Korea's chart led for 51 titles in 420. **About one in nine.**
+The remaining 150 titles never charted in Korea at all — 35.6% of everything that reached Southeast
+Asia. Set against the whole panel, Korea's chart led for 51 titles in 421. **About one in nine.**
 
 ## "Same week" is not "same day", and we cannot tell the difference
 
@@ -71,7 +71,7 @@ releases running ahead of Korea.
 
 | | Titles | Korea first | Same week | Korea later |
 | --- | ---: | ---: | ---: | ---: |
-| Series | 179 | 27 (15.1%) | **127 (70.9%)** | 25 (14.0%) |
+| Series | 180 | 27 (15.0%) | **128 (71.1%)** | 25 (13.9%) |
 | Films | 80 | 23 (28.8%) | **32 (40.0%)** | 25 (31.3%) |
 
 Nearly three-quarters of Korean series enter both charts in the same week. Korean films do so
@@ -106,7 +106,7 @@ Not "charted lower in Korea". Never appeared.
 | The Stone | Films | 2025-08-03 |
 
 It is worth being precise about what this is not. Korea's list has exactly the same number of places
-as Singapore's — **5,360 rows each**, ten titles times two lists times 268 weeks. These titles did
+as Singapore's — **5,380 rows each**, ten titles times two lists times 269 weeks. These titles did
 not miss Korea's chart because Korea's chart is smaller.
 
 ## The explanation we had, and why we dropped it
@@ -141,3 +141,27 @@ It cannot tell you whether the next Korean title will follow that pattern, and w
 dress it up as though it can. If you want the underlying counts, they are in the tables behind
 [the Southeast Asia panel](/titles) and [the country-reach page](/reach); what those tables cannot
 answer is listed on each of them, in the same place as what they can.
+
+## What changed on 3 September 2026
+
+We added the chart week of **23 August 2026**. One series entered the panel with it, and it
+charted in Korea in the same week, which is why the same-week column moves and Korea's lead count
+does not.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles in the panel | 420 | 421 |
+| Charted in both Korea and Southeast Asia | 270 | 271 |
+| Korea first | 51 | 51 (unchanged) |
+| Same week | 165 | 166 |
+| Southeast Asia first | 54 | 54 (unchanged) |
+| Never charted in Korea | 150 | 150 (unchanged) |
+| Never charted in Korea, as a share | 35.7% | 35.6% |
+| Series in the comparison | 179 | 180 |
+| Series, same week | 127 | 128 |
+| Chart rows per country | 5,360 | 5,380 |
+| Weeks read | 268 | 269 |
+
+**The finding did not change**, and the headline number did not move at all: Korea led for 51
+titles either way. What grew is the denominator and the same-week column — a new Korean series
+appeared on both charts in the same week, which is the pattern this piece is about.

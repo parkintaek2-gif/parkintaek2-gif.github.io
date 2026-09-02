@@ -4,7 +4,7 @@ Sample bundle, 2026-09-02. Ten files. Start here.
 
 ## What this is, in six lines
 
-1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — 420 titles,
+1. **Which Korean titles charted on Netflix in Southeast Asia**, how far and how long — 421 titles,
    each with **two independent columns** saying how sure we are it is the Korean work and not a foreign
    one of the same name. Two, not one, because one was not enough — see the next section.
 2. **Which actor appears in which charting Korean title** — 3579 rows, keyed on Wikidata
@@ -26,7 +26,7 @@ second one is newer than the first.
 
 **Ruler one is the name.** Netflix publishes no country of production, so a title enters because its
 English name matches a Korean work in Wikidata. That fails in exactly one way — another country made
-something with the same name — so we measured how often it can fail. Of 420 titles,
+something with the same name — so we measured how often it can fail. Of 421 titles,
 149 carry a name a foreign work also carries. The `attribution` column holds that verdict.
 
 **Ruler two is Korea's own chart.** A Korean title normally also plays in Korea. So for every title we
@@ -51,7 +51,7 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 
 | What | How much | Can it be filled? |
 | --- | ---: | --- |
-| Titles whose name is shared with a foreign work, so the name alone cannot say which one charted | 149 of 420 rows (35.5%) | **Partly, and this changed on 8 August 2026.** We used to say no. Netflix still publishes no country of production, but its Korean chart is a second signal: 75 of these never appear on it and 20 charted in one country only. That narrows it to a readable queue; it does not close it |
+| Titles whose name is shared with a foreign work, so the name alone cannot say which one charted | 149 of 421 rows (35.4%) | **Partly, and this changed on 8 August 2026.** We used to say no. Netflix still publishes no country of production, but its Korean chart is a second signal: 75 of these never appear on it and 20 charted in one country only. That narrows it to a readable queue; it does not close it |
 | Titles Wikidata gives no country for | 5 rows (1.2%) | **Partly** — by a per-title human check we have not done |
 | Hours viewed per country | every row | **No.** Netflix publishes hours for the global chart only |
 | What sits below each weekly top ten | unknown | **No.** Unpublished, so we cannot even count what is missing |
@@ -62,13 +62,13 @@ We would rather you learn this from us than from a spreadsheet at six in the eve
 
 The same thing is in `coverage.csv` in a form you can filter.
 
-**Weighted by viewing rather than by title count, the picture is better** — 83.5% of hours
+**Weighted by viewing rather than by title count, the picture is better** — 83.6% of hours
 sit on titles only Korean works carry. The ambiguity is concentrated in small titles. Both numbers are
 below and neither is the real one on its own.
 
 | File | What it is | Rows |
 | --- | --- | ---: |
-| `korean-title-panel.csv` | Every Korean title that charted in six Southeast Asian markets since 2021 | 420 |
+| `korean-title-panel.csv` | Every Korean title that charted in six Southeast Asian markets since 2021 | 421 |
 | `kpop-attention-panel.csv` | Every K-pop act with an English Wikipedia article, and how often it was opened over 30 days | 2372 |
 | `cast-title-join.csv` | Which actor appears in which charting Korean title, keyed on Wikidata Q-numbers | 3579 |
 | `entertainer-panel.csv` | Every Korean entertainer Wikidata holds a birth date for, with occupation and schools | 9249 |
@@ -119,8 +119,8 @@ Two different numbers, and both matter.
 
 | | Only Korean | Shared name | No country |
 | --- | ---: | ---: | ---: |
-| This panel, by titles | 266 | 149 | 5 |
-| Global catalogue, by viewing hours | 83.5% | 15.9% | 0.4% |
+| This panel, by titles | 267 | 149 | 5 |
+| Global catalogue, by viewing hours | 83.6% | 15.9% | 0.4% |
 
 **The panel has a much higher share of shared names than the global catalogue does.** That is not a
 different standard — it is the same test on a different population. Titles that chart in Southeast

@@ -1,19 +1,19 @@
 {
-  "generated": "2026-08-29T13:45+09:00",
+  "generated": "2026-09-03T06:25+09:00",
   "source": "Netflix Top 10 (Tudum) per-country weekly lists, Films and TV counted as separate charts",
   "question": "When a Korean title arrives at the top of a market, do the other Korean titles there lose their places?",
   "unit": "Titles. The count is of *other* Korean titles on that chart, with the arriving title removed.",
   "whyItWasAsked": "We published the sentence \"there is one Korean slot and the biggest title takes it\" as an explanation on /hard-markets without measuring it.",
-  "rowsRead": 498480,
+  "rowsRead": 500340,
   "windowWeeks": 4,
   "topRanks": 3,
-  "koreanArrivals": 2455,
-  "otherArrivals": 36987,
-  "koreanBefore": 1.905,
-  "otherBefore": 0.579,
-  "koreanChange": -0.402,
-  "otherChange": -0.014,
-  "rawGap": -0.389,
+  "koreanArrivals": 2458,
+  "otherArrivals": 37098,
+  "koreanBefore": 1.906,
+  "otherBefore": 0.58,
+  "koreanChange": -0.403,
+  "otherChange": -0.015,
+  "rawGap": -0.388,
   "matchedControl": -0.255,
   "excess": -0.148,
   "explainedByStartingLevelPc": 62,
@@ -22,7 +22,7 @@
       "band": "0",
       "koreanArrivals": 755,
       "koreanChange": 0.106,
-      "otherArrivals": 21384,
+      "otherArrivals": 21391,
       "otherChange": 0.157,
       "gap": -0.051
     },
@@ -30,33 +30,33 @@
       "band": "1",
       "koreanArrivals": 544,
       "koreanChange": -0.235,
-      "otherArrivals": 10847,
-      "otherChange": -0.186,
-      "gap": -0.05
+      "otherArrivals": 10913,
+      "otherChange": -0.187,
+      "gap": -0.048
     },
     {
       "band": "2",
-      "koreanArrivals": 371,
-      "koreanChange": -0.547,
-      "otherArrivals": 2889,
-      "otherChange": -0.27,
-      "gap": -0.278
+      "koreanArrivals": 373,
+      "koreanChange": -0.544,
+      "otherArrivals": 2924,
+      "otherChange": -0.265,
+      "gap": -0.279
     },
     {
       "band": "3",
       "koreanArrivals": 362,
       "koreanChange": -0.624,
-      "otherArrivals": 1378,
-      "otherChange": -0.472,
-      "gap": -0.151
+      "otherArrivals": 1380,
+      "otherChange": -0.471,
+      "gap": -0.152
     },
     {
       "band": "4 or more",
-      "koreanArrivals": 423,
-      "koreanChange": -1.208,
-      "otherArrivals": 489,
-      "otherChange": -0.879,
-      "gap": -0.329
+      "koreanArrivals": 424,
+      "koreanChange": -1.211,
+      "otherArrivals": 490,
+      "otherChange": -0.881,
+      "gap": -0.33
     }
   ],
   "whyMatching": "A Korean title reaches the top three most often in markets that already carry several Korean titles, and a chart that starts high falls whatever arrives. The control is weighted to the same starting levels as the Korean cases.",

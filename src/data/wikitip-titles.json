@@ -1,5 +1,5 @@
 {
-  "generated": "2026. 8. 29. 오후 1:45:43",
+  "generated": "2026. 9. 3. 오전 6:14:39",
   "source": "Netflix Top 10 (Tudum) weekly country lists; Korean titles identified via Wikidata country of origin (P495 = Q884), with titles Netflix classes on its English-language global charts excluded",
   "excludedEnglishChart": 38,
   "excludedByHand": [
@@ -43,13 +43,13 @@
     "Our House",
     "Fake"
   ],
-  "unlabelledTitles": 214,
+  "unlabelledTitles": 215,
   "region": "Southeast Asia — Singapore, Malaysia, the Philippines, Thailand, Indonesia and Vietnam",
   "countries": 6,
   "weekFrom": "2021-07-04",
-  "weekTo": "2026-08-16",
-  "weekCount": 268,
-  "titleCount": 420,
+  "weekTo": "2026-08-23",
+  "weekCount": 269,
+  "titleCount": 421,
   "rows": [
     {
       "title": "Alchemy of Souls",
@@ -112,7 +112,7 @@
       "type": "TV",
       "countries": 6,
       "peak": 1,
-      "weeks": 21
+      "weeks": 22
     },
     {
       "title": "The Glory",
@@ -171,6 +171,13 @@
       "weeks": 14
     },
     {
+      "title": "Love Next Door",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 14
+    },
+    {
       "title": "King the Land",
       "type": "TV",
       "countries": 6,
@@ -207,13 +214,6 @@
     },
     {
       "title": "Juvenile Justice",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 13
-    },
-    {
-      "title": "Love Next Door",
       "type": "TV",
       "countries": 6,
       "peak": 1,
@@ -402,6 +402,13 @@
       "weeks": 10
     },
     {
+      "title": "Agent Kim Reactivated",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 9
+    },
+    {
       "title": "Dynamite Kiss",
       "type": "TV",
       "countries": 6,
@@ -449,13 +456,6 @@
       "countries": 6,
       "peak": 1,
       "weeks": 9
-    },
-    {
-      "title": "Agent Kim Reactivated",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 8
     },
     {
       "title": "If Wishes Could Kill",
@@ -591,6 +591,13 @@
       "weeks": 7
     },
     {
+      "title": "Spooky in Love",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 6
+    },
+    {
       "title": "Humint",
       "type": "Films",
       "countries": 6,
@@ -652,13 +659,6 @@
       "countries": 6,
       "peak": 1,
       "weeks": 6
-    },
-    {
-      "title": "Spooky in Love",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 5
     },
     {
       "title": "The Price of Confession",
@@ -829,6 +829,13 @@
       "weeks": 4
     },
     {
+      "title": "Our Sticky Love",
+      "type": "TV",
+      "countries": 6,
+      "peak": 1,
+      "weeks": 3
+    },
+    {
       "title": "Dear Hongrang",
       "type": "TV",
       "countries": 6,
@@ -897,13 +904,6 @@
       "countries": 6,
       "peak": 1,
       "weeks": 3
-    },
-    {
-      "title": "Our Sticky Love",
-      "type": "TV",
-      "countries": 6,
-      "peak": 1,
-      "weeks": 2
     },
     {
       "title": "City Hunter",
@@ -1144,18 +1144,18 @@
       "weeks": 8
     },
     {
-      "title": "Typhoon Family",
+      "title": "The Apartment Job",
       "type": "TV",
       "countries": 6,
       "peak": 3,
       "weeks": 7
     },
     {
-      "title": "The Apartment Job",
+      "title": "Typhoon Family",
       "type": "TV",
       "countries": 6,
       "peak": 3,
-      "weeks": 6
+      "weeks": 7
     },
     {
       "title": "Captivating the King",
@@ -1337,7 +1337,7 @@
       "type": "TV",
       "countries": 6,
       "peak": 6,
-      "weeks": 7
+      "weeks": 8
     },
     {
       "title": "Check in Hanyang",
@@ -2411,18 +2411,18 @@
       "weeks": 2
     },
     {
-      "title": "Gangnam Zombie",
+      "title": "Number One",
       "type": "Films",
       "countries": 1,
       "peak": 4,
       "weeks": 2
     },
     {
-      "title": "Number One",
+      "title": "Gangnam Zombie",
       "type": "Films",
       "countries": 1,
       "peak": 4,
-      "weeks": 1
+      "weeks": 2
     },
     {
       "title": "Seobok",
@@ -2833,6 +2833,13 @@
     {
       "title": "Luck-Key",
       "type": "Films",
+      "countries": 1,
+      "peak": 9,
+      "weeks": 1
+    },
+    {
+      "title": "Take a Hike!",
+      "type": "TV",
       "countries": 1,
       "peak": 9,
       "weeks": 1

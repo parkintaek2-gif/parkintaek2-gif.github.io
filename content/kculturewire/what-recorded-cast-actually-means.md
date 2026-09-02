@@ -37,7 +37,7 @@ actually made of.
 | Series | 297 | 4 |
 
 **A sixteen-episode drama is represented here by a median of four names.** Seventy-six titles have
-exactly one person recorded. And 276 of the 942 Korean titles we matched carry no cast statement at
+exactly one person recorded. And 277 of the 943 Korean titles we matched carry no cast statement at
 all, so they are not in the join in any form.
 
 That is the whole foundation: **3,579 casting slots**, 1,391 people, 666 titles.
@@ -81,7 +81,7 @@ unanswerable, and rebuilding the link took a full day of re-querying.
 
 The join is now keyed on Wikidata Q-numbers for both the person and the title, not on names, because
 names change and identifiers do not. Matching these two sources on title text attaches cast to only
-317 of 1,005 titles — chart names and article titles disagree constantly. On Q-numbers it reaches 666 of 942.
+317 of 1,005 titles — chart names and article titles disagree constantly. On Q-numbers it reaches 666 of 943.
 
 The file is in our data bundle as `cast-title-join.csv`, with a column dictionary that says what a
 blank cell means in each column, and a coverage file that carries every number above.
@@ -97,3 +97,17 @@ to 3,579 casting slots, 1,391 people and 666 titles, and the share of people app
 title from 48.5% to 48.4%.
 
 **The finding did not change.** What "recorded cast" means is still a floor and not a census.
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata. One more charted title matched a Korean
+Wikidata item, and it has no cast recorded.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Charted titles matched to a Korean Wikidata item | 942 | 943 |
+| Of those, titles with at least one cast member | 666 | 666 (unchanged) |
+| Titles with no cast recorded | 276 | 277 |
+
+**The join did not change.** What grew is the roster it is measured against, so the gap we name
+here is one title wider than it was.

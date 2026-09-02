@@ -1,13 +1,13 @@
 {
-  "generated": "2026-08-24T21:33:32.291Z",
+  "generated": "2026-09-02T21:20:07.684Z",
   "method": "Every title we count is asked of Wikidata: which countries produced a film or TV series with exactly this English label. A title only Korean works carry cannot be mismatched by our title-text rule. A shared title means we cannot tell from the text alone which work charted — it does not mean the entry is wrong.",
   "titles": 243,
-  "titlesAssessed": 974,
-  "totalHours": 24322610000,
+  "titlesAssessed": 975,
+  "totalHours": 24414210000,
   "koreaOnly": {
     "titles": 163,
-    "hours": 20309470000,
-    "sharePc": 83.5
+    "hours": 20401070000,
+    "sharePc": 83.6
   },
   "shared": {
     "titles": 76,
@@ -342,7 +342,7 @@
     {
       "title": "Agent Kim Reactivated",
       "hours": 365200000,
-      "places": 466,
+      "places": 481,
       "q": "Q139553270",
       "verdict": "koreaOnly",
       "countries": [
@@ -363,7 +363,7 @@
     {
       "title": "Love Next Door",
       "hours": 340200000,
-      "places": 368,
+      "places": 369,
       "q": "Q124326709",
       "verdict": "shared",
       "countries": [
@@ -425,7 +425,7 @@
     {
       "title": "Can This Love Be Translated?",
       "hours": 271000000,
-      "places": 213,
+      "places": 214,
       "q": "Q125121395",
       "verdict": "koreaOnly",
       "countries": [
@@ -539,6 +539,16 @@
       "q": "Q130748503",
       "verdict": "koreaOnly",
       "countries": []
+    },
+    {
+      "title": "Our Sticky Love",
+      "hours": 169200000,
+      "places": 164,
+      "q": "Q137835829",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
     },
     {
       "title": "Little Women",
@@ -689,6 +699,16 @@
       ]
     },
     {
+      "title": "Spooky in Love",
+      "hours": 132400000,
+      "places": 235,
+      "q": "Q138266416",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
       "title": "Narco-Saints",
       "hours": 130350000,
       "places": 164,
@@ -723,16 +743,6 @@
       "hours": 127500000,
       "places": 84,
       "q": "Q131822507",
-      "verdict": "koreaOnly",
-      "countries": [
-        "South Korea"
-      ]
-    },
-    {
-      "title": "Our Sticky Love",
-      "hours": 125900000,
-      "places": 112,
-      "q": "Q137835829",
       "verdict": "koreaOnly",
       "countries": [
         "South Korea"
@@ -934,16 +944,6 @@
       ]
     },
     {
-      "title": "Spooky in Love",
-      "hours": 98500000,
-      "places": 191,
-      "q": "Q138266416",
-      "verdict": "koreaOnly",
-      "countries": [
-        "South Korea"
-      ]
-    },
-    {
       "title": "Cashero",
       "hours": 93800000,
       "places": 124,
@@ -1071,7 +1071,7 @@
     {
       "title": "Oasis",
       "hours": 79000000,
-      "places": 253,
+      "places": 255,
       "q": "Q487216",
       "verdict": "shared",
       "countries": [
@@ -1336,6 +1336,16 @@
       ]
     },
     {
+      "title": "The Apartment Job",
+      "hours": 51200000,
+      "places": 74,
+      "q": "Q139455537",
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
+    },
+    {
       "title": "The Potato Lab",
       "hours": 51000000,
       "places": 77,
@@ -1515,16 +1525,6 @@
       ]
     },
     {
-      "title": "The Apartment Job",
-      "hours": 36800000,
-      "places": 63,
-      "q": "Q139455537",
-      "verdict": "koreaOnly",
-      "countries": [
-        "South Korea"
-      ]
-    },
-    {
       "title": "The Pirates: The Last Royal Treasure",
       "hours": 36590000,
       "places": 158,
@@ -1567,7 +1567,7 @@
     {
       "title": "Wrath",
       "hours": 34700000,
-      "places": 80,
+      "places": 82,
       "q": "Q47482401",
       "verdict": "shared",
       "countries": [
@@ -1637,7 +1637,7 @@
     {
       "title": "Noise",
       "hours": 31600000,
-      "places": 115,
+      "places": 116,
       "q": "Q133575909",
       "verdict": "shared",
       "countries": [
@@ -2471,7 +2471,7 @@
     {
       "title": "Wild Sing",
       "hours": 5400000,
-      "places": 5,
+      "places": 6,
       "q": "Q139715512",
       "verdict": "koreaOnly",
       "countries": [
@@ -2823,7 +2823,7 @@
     {
       "title": "Number One",
       "hours": 1900000,
-      "places": 5,
+      "places": 6,
       "q": "Q138504849",
       "verdict": "shared",
       "countries": [
@@ -3274,7 +3274,7 @@
     {
       "title": "Bitch and Rich",
       "hours": 0,
-      "places": 47,
+      "places": 48,
       "q": "Q118878204",
       "verdict": "koreaOnly",
       "countries": []
@@ -3487,7 +3487,7 @@
     {
       "title": "The Auditors",
       "hours": 0,
-      "places": 7,
+      "places": 8,
       "q": "Q125968286",
       "verdict": "koreaOnly",
       "countries": [
@@ -5036,7 +5036,7 @@
     {
       "title": "Along with the Gods: The Two Worlds",
       "hours": 0,
-      "places": 3,
+      "places": 4,
       "q": "Q26252639",
       "verdict": "koreaOnly",
       "countries": [
@@ -5053,8 +5053,8 @@
         "Belgium",
         "Canada",
         "Czech Republic",
+        "East Germany",
         "France",
-        "German Democratic Republic",
         "Germany",
         "Italy",
         "Kingdom of Italy",
@@ -5147,6 +5147,16 @@
       "q": "Q24856052",
       "verdict": "koreaOnly",
       "countries": []
+    },
+    {
+      "title": "Take a Hike!",
+      "hours": 0,
+      "places": 2,
+      "q": null,
+      "verdict": "koreaOnly",
+      "countries": [
+        "South Korea"
+      ]
     },
     {
       "title": "Anchor",
@@ -5396,7 +5406,7 @@
     {
       "title": "I am Solo",
       "hours": 0,
-      "places": 112,
+      "places": 113,
       "q": "Q113548365",
       "verdict": "koreaOnly",
       "countries": []
@@ -5442,7 +5452,7 @@
     {
       "title": "Family Business",
       "hours": 0,
-      "places": 55,
+      "places": 57,
       "q": "Q65233787",
       "verdict": "shared",
       "countries": [
@@ -9501,7 +9511,8 @@
       "q": "Q17504475",
       "verdict": "shared",
       "countries": [
-        "England"
+        "England",
+        "South Korea"
       ]
     },
     {
@@ -11876,7 +11887,7 @@
     {
       "title": "I am Solo",
       "q": "Q113548365",
-      "places": 112
+      "places": 113
     },
     {
       "title": "Bogotá: City of the Lost",
@@ -11891,7 +11902,7 @@
     {
       "title": "Wrath",
       "q": "Q47482401",
-      "places": 80
+      "places": 82
     },
     {
       "title": "Mission: Cross",
@@ -11906,7 +11917,7 @@
     {
       "title": "Bitch and Rich",
       "q": "Q118878204",
-      "places": 47
+      "places": 48
     },
     {
       "title": "The Great Seduction",
@@ -12221,11 +12232,6 @@
     {
       "title": "Proof of Innocence",
       "q": "Q23999998",
-      "places": 2
-    },
-    {
-      "title": "Troubleshooter",
-      "q": "Q17504475",
       "places": 2
     },
     {

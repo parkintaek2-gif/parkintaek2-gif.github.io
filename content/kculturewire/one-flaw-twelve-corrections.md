@@ -29,7 +29,7 @@ corrections:
   - date: 2026-08-25
     note: "The Southeast Asia panel is 420 titles, not 421. This article said 421. The change is ours: on 25 August we removed three titles that were never Korean — Dangerous Liaisons (the French film Netflix released on 8 July 2022; it took no chart place in South Korea and one in all of Asia), Breathless (a Spanish series from 2024, charting in Spain, Argentina, Uruguay, Chile and Portugal) and One More Time (a Swedish film from 2023, charting first in Sweden). All three entered our figures through the same flaw this article is about: we match chart rows to Korean works by title text, so a work of any nationality sharing a title with a Korean one comes in with it. Between them they carried 473 chart places we had been counting as Korean. One of the three sat inside this panel, which is why the denominator moved by one. We now have a check that proposes such titles from their market pattern rather than waiting for a person to notice one; it proposes only, and each of these three was confirmed against Wikidata before it was removed. It proposes 153 more we have not yet worked through, and it does not catch every kind — a title where a Korean work and a foreign one of the same name are merged into a single row is invisible to it, because our market figures are not broken down by year."
 excluded:
-  - "Any claim that the corrected figures are final. They are the best we can currently show, and 214 of 420 titles in the Southeast Asia panel still cannot be language-verified at all"
+  - "Any claim that the corrected figures are final. They are the best we can currently show, and 215 of 421 titles in the Southeast Asia panel still cannot be language-verified at all"
   - "Any suggestion that we found this because our process is good. We found it because one title on a page looked wrong to a person reading it"
 ---
 
@@ -112,11 +112,26 @@ roster we produce and fails the build if a known foreign title is in it.
 
 ## What is still wrong
 
-214 of the 420 titles in the Southeast Asia panel have never reached a global Top 10, so the
+215 of the 421 titles in the Southeast Asia panel have never reached a global Top 10, so the
 language test cannot be applied to them at all. They are in the panel on a name match — the same
 weak key that caused all of this — and we cannot tell you what share of them is foreign, because we
-have not read all 214.
+have not read all 215.
 
 That number is now printed on the pages that use it, and there is a check that fails our build if it
 stops being printed. It is the honest state of the thing: one flaw found and fixed, and a second,
 larger version of the same flaw that we can measure the size of but not yet close.
+
+## What changed on 3 September 2026
+
+We added the chart week of **23 August 2026**. One title entered the Southeast Asia panel with it.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles in the panel | 420 | 421 |
+| Titles that cannot be language-verified | 214 | 215 |
+
+⚠ Read the correction note at the head of this piece beside that. It records the panel moving
+**from 421 to 420** on 25 August, when we removed three titles that were never Korean. The panel
+is 421 again today, and it is not the same 421: one of those three is still gone, and a new title
+charted. A count that returns to its old value has not returned to its old contents, and we would
+rather say that than let the two numbers look like a round trip.

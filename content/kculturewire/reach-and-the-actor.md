@@ -28,7 +28,7 @@ crossChecks:
 excluded:
   - "Direction. A travelling title may raise an actor's profile, or a known actor may be cast in titles that travel, and nothing here separates those"
   - "Liking. A Wikipedia page climbs for good news and bad; we count openings and never the reason"
-  - "Actors on the 276 charting titles with no cast attached, and Korean actors whose Wikidata entry carries no citizenship"
+  - "Actors on the 277 charting titles with no cast attached, and Korean actors whose Wikidata entry carries no citizenship"
   - "Russia, whose list Netflix stopped publishing in February 2022"
   - "Any claim that this is causal, or that casting a travelled actor will make a title travel"
 ---
@@ -100,7 +100,7 @@ other, a ratio of two medians is not a finding; it is what noise looks like at t
 rather than tidy it away, and every cell below **12** actors a side is marked *too thin to say*
 instead of being given a number.
 
-One more hole worth naming: cast lists are attached to 666 of the 942 charting titles, so **276
+One more hole worth naming: cast lists are attached to 666 of the 943 charting titles, so **277
 titles carry no actors here at all**. An actor whose only credits sit on those is absent from this
 piece entirely — not counted as low, just absent.
 
@@ -146,4 +146,17 @@ The check that reads this piece also had to change. It was demanding the sentenc
 biggest number away* about the five-title band, which is a claim the data no longer makes — a check
 that insists on a stale finding will make the article lie to keep the build green. It now works out
 from the data which band recency was carrying, and asks about that one.
-
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata. One more charted title matched a Korean
+Wikidata item, and it has no cast recorded.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Charted titles matched to a Korean Wikidata item | 942 | 943 |
+| Of those, titles with at least one cast member | 666 | 666 (unchanged) |
+| Titles with no cast recorded | 276 | 277 |
+
+**The join did not change.** What grew is the roster it is measured against, so the gap we name
+here is one title wider than it was.

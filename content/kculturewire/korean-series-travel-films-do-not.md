@@ -23,7 +23,7 @@ crossChecks:
   - "Film and series come from Wikidata's own instance-of statement, not from our reading of a title"
   - "Medians are used throughout. Squid Game distorts a mean of 144 series and tells you nothing about the typical one"
 excluded:
-  - "The 707 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
+  - "The 708 Korean titles that never reached a global Top 10. They cannot be language-verified, they are small — the median charted in one country for three weeks — and including them would mix an unverified population into a comparison this piece rests on"
   - "Hours viewed by country. Netflix publishes hours for the global chart only, so nothing here says how much anything was watched in any single market"
   - "Any claim about production budgets, licensing terms or how Netflix decides what to promote. None of that is published"
   - "Any claim that this is Korean output. It is Korean output that charted, which is a small and self-selected slice"
@@ -81,3 +81,15 @@ reaching 25 countries or more went from 60.7% to 60.4%, films from 38.7% to 37.4
 **The finding did not change.** Series still reach about three times as many markets as films. We are
 saying which numbers moved rather than swapping them quietly, because a figure that changes without
 saying so is a figure no one should trust.
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata on the same day we added the chart week of
+23 August 2026. One more charted title matched a Korean Wikidata item.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Titles excluded — never on a global Top 10 | 707 | 708 |
+
+**Nothing the piece compares changed.** The excluded group is the unverifiable tail, and it grew
+by one title.

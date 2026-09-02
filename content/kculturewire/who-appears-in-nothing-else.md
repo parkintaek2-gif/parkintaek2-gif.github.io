@@ -18,7 +18,7 @@ sources:
     api: "Top 10 weekly lists (Tudum), used to decide which Korean titles enter the set"
     url: "https://www.netflix.com/tudum/top10"
 crossChecks:
-  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 666 of 942"
+  - "Titles and people are joined on Wikidata Q-numbers. Matching by title text attached cast to only 317 of 1,005 titles because article names differ from chart names; Q-numbers reach 666 of 943"
   - "This piece uses no pageview data, so it does not depend on whether anyone has an English Wikipedia article. 289 of the 1,391 people here have no article and are counted the same as everyone else"
   - "The comparison is restricted to the 311 productions with at least five recorded cast members, because a title with two recorded names produces a 0% or 50% that means nothing"
   - "'Appears in nothing else' means nothing else in this set — Korean titles that reached a Netflix Top 10. It is not a claim about a person's career"
@@ -85,7 +85,7 @@ people, so the productions that look most self-contained are the ones cast with 
 names — which is the same population the measure is trying to describe. We report the figure and
 the flaw together because separating them would make the number look better than it is.
 
-Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 942 Korean titles
+Two smaller limits. "Appears in nothing else" means nothing else **in this set** — 943 Korean titles
 that reached a Netflix Top 10, not a career. And reality formats list participants under the same
 cast property as actors, which is why *The Influencer* sits where it does; that is Wikidata's
 modelling, not a finding about casting.
@@ -102,3 +102,19 @@ statements changed underneath us in both directions.
 
 **The finding did not change.** Just under half the people in the set — 48.4%, where the earlier
 count said 48.5% — still appear in exactly one of these titles.
+
+## What changed on 3 September 2026
+
+We re-collected the keyed title roster from Wikidata. One more charted title matched a Korean
+Wikidata item, and it has no cast recorded.
+
+| | Was | Now |
+| --- | ---: | ---: |
+| Charted titles matched to a Korean Wikidata item | 942 | 943 |
+| Of those, titles with at least one cast member | 666 | 666 (unchanged) |
+
+The count of titles with no cast recorded moved 276 → 277 with it. That figure is not
+stated in this piece, so it is not in the table above; it is corrected where we do state it.
+
+**The join did not change.** What grew is the roster it is measured against, so the gap we name
+here is one title wider than it was.

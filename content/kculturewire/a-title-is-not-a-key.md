@@ -18,7 +18,7 @@ sources:
     api: "Country of origin and original language for every film and television series carrying each English title"
     url: "https://query.wikidata.org"
 crossChecks:
-  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 381 of 974 Korean titles never chart in Korea at all"
+  - "Absence from Korea's own chart was tested as a rule on its own and rejected, because 381 of 975 Korean titles never chart in Korea at all"
   - "Every removed title was checked to have zero places on Korea's own chart, and the builder fails if any of them has one"
   - "Two titles met the market test but were kept, because a Korean work genuinely shares their name and we cannot tell which one charted"
   - "The removed places are reported as a share of the panel so the size of the error is visible rather than described"
@@ -54,7 +54,7 @@ origin of a same-titled foreign work.
 ## The obvious test does not work
 
 The first rule we tried was "if it never charts in Korea, it is not Korean." It is wrong, and the
-size of the error is the point: **381 of our 974 Korean titles — 39.2% — never chart in Korea at
+size of the error is the point: **381 of our 975 Korean titles — 39.2% — never chart in Korea at
 all.** A drama that airs on KBS or tvN is on Korean television, not on Netflix Korea, so it can
 travel to sixty countries without ever appearing at home. Applying that rule alone would have thrown
 out hundreds of genuine titles to catch 16 foreign ones.
@@ -110,8 +110,13 @@ ones a reader is most likely to have quoted:
 | Titles removed as not Korean | 13 | 16 |
 | Chart places they had carried | 84 | 557 |
 | Their share of our Korean total | 0.21% | 1.4% |
-| Titles that never chart in Korea | 384 of 977 | 381 of 974 |
+| Titles that never chart in Korea | 384 of 977 | 381 of 975 |
 
-Every table above is now generated from the counted file rather than typed out, and a check reads
-each figure back out of that file on every build. We print what moved rather than swapping it
+⚠ That last row moved twice today. When this section was first written the roster was **974**
+names; later the same day we added the chart week of 23 August 2026, one new title entered the
+panel, and re-querying Wikidata brought the roster to **975**. The count that never charts in
+Korea stayed at 381 through both. We are recording the end of the day, not the middle of it.
+
+Every table above is checked against the counted file on every build rather than trusted, and
+the build fails if a figure here and the file disagree. We print what moved rather than swapping it
 quietly: one wrong number makes the correct ones beside it worth doubting.
