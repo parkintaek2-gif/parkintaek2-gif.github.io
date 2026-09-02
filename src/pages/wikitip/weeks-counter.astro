@@ -21,6 +21,10 @@ import d from '../../data/kcw-weeks-counter.json';
 
 const A = d.all;
 const K = d.korean;
+/* 🔴 [2026-09-03] 누적임을 보인 뒤에는 «그 누적값»이 쓸 수 있는 수가 된다 — 걸친 주와
+   최장 연속을 «반드시 옆에» 낸다. 안 내면 우리가 그 수를 연속으로 오독하게 만든다 */
+const 가장긴한국 = d.longestKorean ?? [];
+const 가장긴전체 = d.longestAll ?? [];
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
 
 const TITLE = `What Netflix's weeks-in-top-10 counter actually counts`;
@@ -98,6 +102,48 @@ const jsonLd = {
       <b>We cannot explain the {수(A.afterGapResetToOne)} that restart.</b> Netflix publishes no note
       about the counter, and nothing else in the row distinguishes those cases from the
       {' '}{수(A.afterGapContinued)} that continue. We report the split and stop there.
+    </p>
+  </section>
+
+  <section>
+    <h2>The longest counters, and what they are not</h2>
+    <p>
+      Once you know the field is cumulative, the largest values become readable &mdash; as long as
+      the span is printed next to them. <b>{수(가장긴한국[0]?.counter ?? 0)} weeks</b> for
+      {' '}<i>{가장긴한국[0]?.title}</i> in {가장긴한국[0]?.name} is spread across
+      {' '}{수(가장긴한국[0]?.spanWeeks ?? 0)} weeks of calendar, and its longest unbroken run is
+      {' '}{수(가장긴한국[0]?.longestStreak ?? 0)}.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Korean title</th><th>Country</th>
+          <th class="num">Counter</th><th class="num">Weeks it spans</th><th class="num">Longest unbroken</th>
+        </tr>
+      </thead>
+      <tbody>
+        {가장긴한국.slice(0, 10).map((x: any) => (
+          <tr>
+            <td>{x.title}</td>
+            <td>{x.name}</td>
+            <td class="num"><b>{x.counter}</b></td>
+            <td class="num">{x.spanWeeks}</td>
+            <td class="num">{x.longestStreak}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      Read the last two columns against the first. Squid Game&rsquo;s 43 weeks in India span
+      {' '}<b>201</b> weeks &mdash; nearly four years &mdash; with 25 of them unbroken. A headline
+      that turned that counter into &ldquo;43 straight weeks&rdquo; would be describing something
+      that did not happen.
+    </p>
+    <p class="note">
+      The largest counter in the whole file is not Korean: <i>{가장긴전체[0]?.title}</i> in
+      {' '}{가장긴전체[0]?.name}, at {가장긴전체[0]?.counter} weeks over
+      {' '}{가장긴전체[0]?.spanWeeks} &mdash; a children&rsquo;s title, which is what the top of this
+      particular measure looks like in most countries.
     </p>
   </section>
 

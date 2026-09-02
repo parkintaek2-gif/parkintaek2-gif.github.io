@@ -114,6 +114,7 @@ if (!ko || typeof ko.keepTitle !== 'function') {
 
 /* 칸 = 나라 · 차트 · 제목 · 시즌. 시즌을 넣어야 넷플릭스가 세는 단위와 같아진다 */
 const 칸 = new Map();
+const 나라이름 = new Map();
 let 줄수 = 0; let 널 = 0; let 첫주 = null; let 끝주 = null;
 for (const l of fs.readFileSync(나라파일, 'utf8').split('\n')) {
   if (!l) continue;
@@ -122,6 +123,7 @@ for (const l of fs.readFileSync(나라파일, 'utf8').split('\n')) {
   const iso2 = String(r.iso2).toUpperCase();
   if (iso2 === 'RU') continue;
   줄수 += 1;
+  if (r.국가 && !나라이름.has(iso2)) 나라이름.set(iso2, String(r.국가));
   if (r.누적주 == null) { 널 += 1; continue; }
   if (!첫주 || r.주 < 첫주) 첫주 = r.주;
   if (!끝주 || r.주 > 끝주) 끝주 = r.주;
@@ -129,6 +131,33 @@ for (const l of fs.readFileSync(나라파일, 'utf8').split('\n')) {
   if (!칸.has(k)) 칸.set(k, { 한국: ko.keepTitle(r.제목), 줄: [] });
   칸.get(k).줄.push({ 주: r.주, 누적주: r.누적주 });
 }
+
+/* 칸마다 가장 큰 누적주 — 「한 나라 톱10 에 가장 오래 있었던 것」 */
+const 오래된칸 = [];
+for (const [k, v] of 칸) {
+  const [iso2, 구분, 제목, 시즌] = k.split('|');
+  /* 🔴 여기서 정렬한다. 아래 합계 고리가 정렬하지만 이 고리가 «먼저» 돈다 —
+     그것을 몰라 최장연속이 전부 1 로 나왔다(72줄 칸에서 1 은 있을 수 없는 값이다). */
+  v.줄.sort((a, b) => a.주.localeCompare(b.주));
+  let 최대 = 0; let 최대주 = null; let 첫 = null; let 끝 = null;
+  let 연속 = 0; let 가장긴연속 = 0; let 앞주 = null;
+  for (const x of v.줄) {
+    if (x.누적주 > 최대) { 최대 = x.누적주; 최대주 = x.주; }
+    if (!첫 || x.주 < 첫) 첫 = x.주;
+    if (!끝 || x.주 > 끝) 끝 = x.주;
+    연속 = (앞주 && 이어진주인가(앞주, x.주)) ? 연속 + 1 : 1;
+    가장긴연속 = Math.max(가장긴연속, 연속);
+    앞주 = x.주;
+  }
+  오래된칸.push({
+    iso2, name: 나라이름.get(iso2) ?? iso2, chart: 구분, title: 제목, season: 시즌 || null,
+    korean: v.한국, counter: 최대, counterWeek: 최대주, firstWeek: 첫, lastWeek: 끝, rows: v.줄.length,
+    /* 첫 주와 끝 주 사이가 몇 주인가 — 72 가 95 주에 걸쳐 있으면 연속이 아니다 */
+    spanWeeks: (주를일수로(끝) - 주를일수로(첫)) / 7 + 1,
+    longestStreak: 가장긴연속,
+  });
+}
+오래된칸.sort((a, b) => b.counter - a.counter);
 
 const 합 = { 전체: null, 한국: null };
 for (const 갈래 of ['전체', '한국']) {
@@ -176,6 +205,9 @@ const out = {
   weekTo: 끝주,
   rowsRead: 줄수,
   rowsWithoutCounter: 널,
+  /* ⛔ 「가장 오래」를 이름으로 말하려면 그 칸이 «어느 나라·어느 주»인지 같이 내야 한다 */
+  longestAll: 오래된칸.slice(0, 10),
+  longestKorean: 오래된칸.filter((x) => x.korean).slice(0, 15),
   all: 낼것(합.전체),
   korean: 낼것(합.한국),
 };
