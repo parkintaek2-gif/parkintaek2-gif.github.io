@@ -360,6 +360,17 @@ const videoSets = [
     description: '14 seconds on three Korean acts read most in three different places and least in '
       + 'one and the same place.',
   },
+  /* 🔴 [2026-09-03] 소리판. 원본 무음판은 파일로 남기고 목록에서만 뺀다 —
+     사장님 「무성 콘텐트 다신 만들지 말 것」 + 「삭제하지말고」 둘을 다 지킨다 */
+  {
+    set: 'least-voiced',
+    page: '/who-reads-least',
+    title: 'BTS peaks in Vietnam, Byeon Woo-seok in Thailand — and all 20 end in the same place — read aloud',
+    description: '14 seconds with narration: three Korean acts are read most in three different '
+      + 'places and least in one and the same place. Reads per million, four Southeast Asian '
+      + 'Wikipedias. Malay and Indonesian readers can read across, and we cannot separate that '
+      + 'from not looking.',
+  },
   {
     set: 'malaysia',
     page: '/malaysia',

@@ -33,6 +33,11 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import ffmpeg경로 from 'ffmpeg-static';
 import { 판정, 평균음량 } from './check-kcw-silent-video.mjs';
+/* 🔴 [2026-09-03] 이 자가 `toISOString()` 으로 «오늘»을 정하고 그것을 uploadDate 와
+   견줬다 — UTC 라서 KST 자정~09시에는 «어제»가 나온다. 새벽 2시 55분에 이 자가
+   「오늘(2026-09-02) 몫 끝」이라고 답했고, 그날은 이미 9월 3일이었다.
+   그 말을 믿었으면 **하루치 영상을 건너뛰었다.** 사장님 지시가 🔴 「시각은 KST」다. */
+import { 오늘 as KST오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 영상방 = path.join(뿌리, 'public/wikitip/video');
@@ -165,7 +170,7 @@ const 인자 = (이름) => {
   const i = process.argv.indexOf(`--${이름}`);
   return i >= 0 ? process.argv[i + 1] : null;
 };
-const 오늘 = 인자('오늘') ?? new Date().toISOString().slice(0, 10);
+const 오늘 = 인자('오늘') ?? KST오늘();
 
 if (!fs.existsSync(영상방)) {
   console.log(`⬜ 못 쟀다 — ${영상방} 이 없다`);
