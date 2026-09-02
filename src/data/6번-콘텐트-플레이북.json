@@ -1,0 +1,85 @@
+{
+  "_왜": "사장님 지시(2026-09-02): 「네가 만든 콘텐트 리스트를 DB화 해서 어떤 특정 시점이 되면 바로 특정데이터를 가공해서 콘텐트로 만들어서 계속 우리의 존재를 알려. 그래야 계약도 돼」. 매번 새로 발상하지 않고, 이미 검증된 틀(스크립트+데이터원천)을 트리거 조건과 함께 등록해 둔다 — 조건이 오면 사람(또는 다음 세션)이 이 표를 보고 즉시 돌린다.",
+  "_쓰는법": "node scripts/check-6번-콘텐트-due.mjs 로 오늘 「마감 지난 것」을 본다. 각 항목은 스크립트를 실행 가능한 상태로 유지하는 게 원칙 — 문서만 있고 코드가 죽어 있으면 자가 잡는다(check-*.mjs).",
+  "항목": [
+    {
+      "id": "krx-concentration",
+      "이름": "KRX 시가총액·거래대금 집중도(매일)",
+      "데이터원천": "KRX OpenAPI(stk_bydd_trd, ksq_bydd_trd) — 시세 자체 안 씀, 비율만",
+      "스크립트": ["scripts/collect-krx-stock.mjs", "scripts/append-krx-daily-history.mjs", "scripts/make-market-concentration-charts.mjs", "scripts/make-turnover-vs-cap-charts.mjs", "scripts/make-korea-concentration-cross-charts.mjs", "scripts/build-market-today.mjs"],
+      "트리거": { "종류": "매일(평일)", "조건": "크론 43 18 * * 1-5 이미 등록", "설명": "최신 영업일 데이터가 뜨면 시계열에 1행 축적. 이미 자동" },
+      "산출물": "src/data/market-concentration.json 등 + /data/concentration 지면(상시 갱신, 새 기사 아님)",
+      "B2B_각도": "일별 시계열이 쌓일수록 라이선스 가치 커짐 — 「매일 갱신되는 재현 가능한 집중도 지수」"
+    },
+    {
+      "id": "dart-buyback",
+      "이름": "자사주매입 실명 순위(소각여부)",
+      "데이터원천": "DART tsstkAqDecsn — 공시, FSC 9/9 무관",
+      "스크립트": ["scripts/collect-dart-breaking.mjs", "scripts/make-buyback-cancel-chart.mjs"],
+      "트리거": { "종류": "주간·건수기반", "조건": "일주일 누적 buyback 필자가 6곳 이상이거나, 실명 하나가 압도적으로 크면(₩500억+) 즉시", "설명": "collect-dart-breaking.mjs를 매일 돌려 후보를 쌓고, 조건 차면 make-buyback-cancel-chart.mjs 실행" },
+      "최근발행": "2026-09-01 (korea-celltrion-biggest-buyback-no-cancellation)",
+      "B2B_각도": "지배구조·주주환원 데이터 — 기관투자자 리서치 팀에 파는 축"
+    },
+    {
+      "id": "dart-rights-issue",
+      "이름": "유상증자 실명 순위(희석률)",
+      "데이터원천": "DART piicDecsn",
+      "스크립트": ["scripts/make-rights-issue-dilution-chart.mjs"],
+      "트리거": { "종류": "주간·건수기반", "조건": "일주일 누적 rights-issue 15곳 이상 또는 대형 1건(₩1,000억+)" },
+      "최근발행": "2026-09-01 (korea-samsung-biologics-rights-issue-dilution)",
+      "B2B_각도": "희석률은 DART 원문이 이미 계산 — 「우리가 매주 감시해 정리해 준다」가 상품"
+    },
+    {
+      "id": "dart-cvbd",
+      "이름": "전환사채 실명 순위(희석률·표면금리)",
+      "데이터원천": "DART cvbdIsDecsn",
+      "스크립트": ["scripts/make-cvbd-dilution-chart.mjs"],
+      "트리거": { "종류": "주간·건수기반", "조건": "일주일 누적 3곳 이상" },
+      "최근발행": "2026-09-02 (korea-kg-mobility-convertible-bond-dilution)",
+      "B2B_각도": "사모 전환사채는 정보 비대칭이 큰 시장 — 정리된 표 자체가 상품"
+    },
+    {
+      "id": "dart-capital-raising-synthesis",
+      "이름": "자사주매입·유상증자·전환사채 종합(3편 묶음)",
+      "데이터원천": "위 세 데이터 파일 재사용 — 새 API 호출 없음",
+      "스크립트": ["scripts/make-capital-raising-summary-chart.mjs"],
+      "트리거": { "종류": "주간", "조건": "위 세 항목이 그 주에 전부 갱신됐을 때 마지막에 한 번" },
+      "최근발행": "2026-09-02 (korea-capital-raising-size-does-not-predict-outcome)"
+    },
+    {
+      "id": "dart-empSttus-paygap",
+      "이름": "임직원 현황 — 급여·근속·성별격차",
+      "데이터원천": "DART empSttus(반기·사업보고서). scripts/collect-tenure.mjs가 이미 상장사 전수 수집 가능",
+      "스크립트": ["scripts/collect-tenure.mjs", "scripts/make-top-pay-gender-gap-chart.mjs(패턴 재사용 대상)"],
+      "트리거": { "종류": "계절(공시시즌) + 언론보도 계기", "조건": "① 반기보고서 시즌(매년 8월 중순 마감 뒤) · 사업보고서 시즌(매년 3월 마감 뒤) — collect-tenure.mjs --year 갱신 ② CEOScore·잡코리아 등 3자가 '평균급여/근속 순위' 보도를 낼 때마다 — 그 보도의 실명 목록만 받아 DART 원문으로 재현·성별분해(오늘 한 것과 같은 패턴)", "설명": "②가 더 잦고 값싸다 — 이미 보도가 골라준 실명 목록을 우리가 재현·해부만 하면 됨" },
+      "최근발행": "2026-09-02 (korea-top-pay-firms-gender-gap) — 사장님이 직접 준 CEOScore 보도가 계기",
+      "B2B_각도": "성별·근속 분해는 3자 보도에 없는 축 — HR·ESG 리서치 수요"
+    },
+    {
+      "id": "invest-ai-signal",
+      "이름": "투자AI 무인판독(매크로 신호)",
+      "데이터원천": "공개 헤드라인(WebSearch) + DART/KOSIS 구조화 원천",
+      "스크립트": ["scripts/invest-ai/signal-store.mjs", "scripts/invest-ai/run-paper.mjs"],
+      "트리거": { "종류": "매일", "조건": "크론 37 9 * * * 이미 등록" },
+      "⛔": "라이브 노출 0 유지 — 모두의창업 상용화 리스크"
+    },
+    {
+      "id": "silent-video-sound",
+      "이름": "무성영상 소리 입히기",
+      "데이터원천": "이미 만든 기사의 카드 실측 대사만(새 사실 창작 안 함)",
+      "스크립트": ["scripts/make-seoulmarkets-video-sound.mjs"],
+      "트리거": { "종류": "매일 1편 한도", "조건": "하루 1편, 이미 하면 더 안 함(사장님 금지)" },
+      "진척": "11/46 (2026-09-02 기준)"
+    },
+    {
+      "id": "kosis-reproduction",
+      "이름": "KOSIS 재현기사(BSI·국민연금·소득분배·근로시간 등)",
+      "데이터원천": "KOSIS OpenAPI, 통계청/한은/관세청",
+      "스크립트": ["scripts/collect-kosis-*.mjs (건별로 다름)"],
+      "트리거": { "종류": "이벤트(신규 지표 발표) + 발굴", "조건": "① 통계청·한은이 매월/매분기 새 수치 발표 시 갱신 ② docs/6번-DART실명순위-다음후보.md류 후보문서에서 미착수 항목 순차 착수" }
+    }
+  ],
+  "다음후보_미착수": [
+    { "축": "전환사채 확장", "메모": "docs/6번-DART실명순위-다음후보.md 참고" }
+  ]
+}
