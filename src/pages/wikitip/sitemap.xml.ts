@@ -699,6 +699,8 @@ export const GET: APIRoute = async () => {
     { path: '/same-list', priority: '0.8', changefreq: 'weekly' },
     /* 🔴 [2026-09-03] 원자료 「weeks in top 10」 칸이 무엇을 세나 — 우리 방법론의 근거다 */
     { path: '/weeks-counter', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 [2026-09-03] 어느 시장이 한국 작품을 데뷔 주에 집어 드나 */
+    { path: '/pickup', priority: '0.8', changefreq: 'weekly' },
     /* 66편째 기사의 표. 2026-08-09 22:3x — 제작비 27배 이야기가 예고한 몰림은 **안 왔다** */
     { path: '/leverage', priority: '0.9', changefreq: 'weekly' },
     /* 67편째 기사의 표. 2026-08-09 23:2x — 들어오는 것만 재 왔다. **나가는 자리**를 처음 잰다 */

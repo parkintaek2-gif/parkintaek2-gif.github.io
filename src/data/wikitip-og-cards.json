@@ -390,6 +390,11 @@
       "figure": "98%",
       "label": "of returns keep counting, not restart",
       "왜": "자동은 제목의 「top 10」에서 10 을 집어 딱지가 「number」 여섯 자가 됐다. 이 기사의 요점은 틈 뒤에도 98% 가 이어서 센다는 것 — 그래서 「연속 몇 주」로 읽으면 틀린다는 것이다"
+    },
+    "malaysia-gets-korean-titles-in-the-debut-week": {
+      "figure": "71.9%",
+      "label": "of Korean titles reach Malaysia in week one",
+      "왜": "자동은 dek 첫 수 33% 를 집고 딱지가 비었다(그 앞에 낱말이 없다). 이 기사의 요점은 말레이시아 71.9% 이고, 33% 는 견줄 상대(영국)다"
     }
   }
 }
