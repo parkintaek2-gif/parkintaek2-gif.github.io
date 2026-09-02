@@ -18,7 +18,12 @@ import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const DIR = path.join(ROOT, 'archive/raw/dart-breaking');
 
-/** 태그별로 이번 주(archive에 있는 파일 전부, 정정 제외) 원본 필자 수를 센다 */
+/** 태그별로 archive 원본(정정 제외) 고유 필자 수를 센다.
+ *  ⚠ 2026-09-02 교훈: 이 raw 수는 «다시 돌려 볼 값어치가 있다»는 신호일 뿐이다 — buyback만
+ *  collect-dart-breaking.mjs가 금액(x.수)을 같이 받아 두고, rights-issue·convertible-bond는
+ *  각자 스크립트가 API(piicDecsn·cvbdIsDecsn)를 따로 불러야 진짜 금액을 안다. raw 건수가 늘어도
+ *  실제로 돌려 보면 API 실패로 «발행분과 똑같을» 수 있다 — 그래서 아래 판정은 「늘었으면 확정」이
+ *  아니라 「늘었으면 다시 돌려서 rows.length를 확인하라」로만 말한다. */
 export function 태그별건수(디렉 = DIR) {
   const 결과 = {};
   if (!fs.existsSync(디렉)) return { 못잼: true };
@@ -36,6 +41,13 @@ export function 태그별건수(디렉 = DIR) {
   }
   return 결과;
 }
+
+/** 이미 발행된 데이터 파일의 rows.length — «진짜 기준선». 없으면 0(아직 한 번도 안 낸 것) */
+export function 발행된수(경로) {
+  try { return JSON.parse(fs.readFileSync(path.join(ROOT, 경로), 'utf8')).rows.length; } catch { return 0; }
+}
+
+export const 데이터파일 = { buyback: 'src/data/buyback-filings.json', 'rights-issue': 'src/data/rights-issue-filings.json', 'convertible-bond': 'src/data/cvbd-filings.json' };
 
 /** 건수 기반 트리거 판정. 임계값은 플레이북 조건 문장에서 사람이 읽고 정한 값을 여기 고정한다(문장 파싱 안 함 — 짐작 금지) */
 export const 임계값 = { buyback: 6, 'rights-issue': 15, 'convertible-bond': 3 };
@@ -66,13 +78,15 @@ function main() {
 
   console.log('■ 6번 콘텐트 플레이북 — 건수 기반 트리거 판정\n');
   const 판정결과 = 판정(건수);
-  let 찬것 = 0;
+  let 재확인후보 = 0;
   for (const r of 판정결과) {
-    const 상태 = r.찼다 ? '🔴 지금 만들 때' : '⏳ 기다리는 중';
-    console.log(`  ${r.태그.padEnd(18)} ${String(r.건수).padStart(2)}곳 / 기준 ${r.기준}곳  ${상태}`);
-    if (r.찼다) 찬것++;
+    const 기발행 = 발행된수(데이터파일[r.태그]);
+    const raw늘었다 = r.건수 > 기발행;
+    const 상태 = !r.찼다 ? '⏳ 기다리는 중(기준 미달)' : raw늘었다 ? '🟡 다시 돌려볼 값어치 — raw가 발행분보다 많다' : '⏳ 기준은 찼지만 raw가 발행분과 같음 — 아직 새 것 아님';
+    console.log(`  ${r.태그.padEnd(18)} raw ${String(r.건수).padStart(2)}곳 / 기준 ${r.기준}곳 / 이미 발행 ${기발행}곳  ${상태}`);
+    if (r.찼다 && raw늘었다) 재확인후보++;
   }
-  console.log(`\n${찬것 ? `🔴 ${찬것}개 트리거가 찼다 — src/data/6번-콘텐트-플레이북.json의 해당 스크립트를 지금 돌린다.` : '✅ 아직 기준 미달 — 계속 쌓는다(자리지킴이가 매시 collect-dart-breaking으로 누적).'}`);
+  console.log(`\n${재확인후보 ? `🟡 ${재확인후보}개 — 해당 make-*.mjs 스크립트를 «먼저 돌려» rows.length가 발행분보다 실제로 늘었는지 본다. 늘었을 때만 기사화한다(raw 증가만으로 기사화하지 않는다 — 2026-09-02 헛트리거 교훈).` : '✅ 다시 돌려도 새 기사 없을 것 — 계속 쌓는다(자리지킴이가 매시 collect-dart-breaking으로 누적).'}`);
 }
 
 main();
