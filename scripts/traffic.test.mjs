@@ -121,7 +121,9 @@ console.log('  스캐너 판별까지 전부 통과');
     ['Mozilla/5.0 (compatible; PerplexityBot/1.0; +https://perplexity.ai/bot)', 'ai:perplexity'],
     ['CCBot/2.0 (https://commoncrawl.org/faq/)', 'ai:commoncrawl'],
     ['Mozilla/5.0 (compatible; Google-Extended)', 'ai:google학습'],
-    ['Mozilla/5.0 (compatible; Bytespider; spider-feedback@bytedance.com)', 'ai:기타'],
+    /* ⭐ [2026-09-02] 전에는 'ai:기타' 였다 — 이제 «누구인지»까지 남는다 */
+    ['Mozilla/5.0 (compatible; Bytespider; spider-feedback@bytedance.com)', 'ai:bytespider'],
+    ['Mozilla/5.0 (compatible; meta-externalagent/1.1)', 'ai:meta-externalagent'],
     /* ⚠ 검색엔진이 AI 로 새면 안 된다 — 반대쪽도 시험한다 */
     ['Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', 'google'],
     ['Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bingbot.htm)', 'bing'],
@@ -135,4 +137,39 @@ console.log('  스캐너 판별까지 전부 통과');
   }
   if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
   console.log(`  ${표.length} 통과 · 0 실패`);
+}
+
+/* ══════════════════════════════════════════════════════════════════
+ * 🔴 모르는 봇도 **이름표까지** 남긴다 (2026-09-02 · GEO)
+ *
+ * 실측에서 봇 35,818건 중 「기타」가 28,296건(79%)이었다.
+ * 뭉쳐 두면 새 AI 봇이 와도 목록에 더할 근거가 안 생긴다 — 「모른다」가 「없다」로 굳는다.
+ * ⛔ UA 원문은 남기지 않는다. 봇이 스스로 대는 **제품 이름 한 토막**뿐이다.
+ * ══════════════════════════════════════════════════════════════════ */
+{
+  const 표 = [
+    /* 아직 목록에 없는 봇들 — 이름표가 붙어야 다음에 목록에 넣을 수 있다 */
+    ['Mozilla/5.0 (compatible; SemrushBot/7~bl; +http://www.semrush.com/bot.html)', '기타:semrushbot'],
+    ['Mozilla/5.0 (compatible; AhrefsBot/7.0; +http://ahrefs.com/robot/)', '기타:ahrefsbot'],
+    ['Mozilla/5.0 (compatible; MJ12bot/v1.4.8; http://mj12bot.com/)', '기타:mj12bot'],
+    ['python-requests/2.31.0', '기타:python-requests'],
+    ['curl/8.4.0', '기타:curl'],
+    ['axios/1.6.2', '기타:axios'],
+    /* ⚠ UA 가 아예 없는 것도 «없다»고 적는다 — 0 으로 채우지 않는다 */
+    ['', '기타:빈UA'],
+    /* ⛔ 이미 이름을 아는 것들은 **그대로**여야 한다 — 이름표가 덮어쓰면 안 된다 */
+    ['Mozilla/5.0 (compatible; GPTBot/1.2; +https://openai.com/gptbot)', 'ai:openai학습'],
+    ['Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)', 'google'],
+  ];
+  let 실패 = 0;
+  console.log('모르는 봇의 이름표');
+  for (const [ua, 기대] of 표) {
+    const v = 봇종류(ua);
+    if (v !== 기대) { 실패++; console.log(`  ✕ ${기대} → ${v}  |  ${ua.slice(0, 46) || '(빈 UA)'}`); }
+  }
+  /* ⚠ 칸이 무한히 늘면 집계가 못 쓰게 된다 — 길이를 못박는다 */
+  const 긴것 = 봇종류(`X${'a'.repeat(200)}/1.0`);
+  if (긴것.length > 4 + 24) { 실패++; console.log(`  ✕ 이름표가 너무 길다 — ${긴것.length}자`); }
+  if (실패) { console.error(`\n${실패} 실패`); process.exit(1); }
+  console.log(`  ${표.length + 1} 통과 · 0 실패`);
 }

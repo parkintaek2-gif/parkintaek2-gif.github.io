@@ -125,11 +125,46 @@ export function 봇종류(userAgent) {
   if (/perplexity/i.test(u)) return 'ai:perplexity';
   if (/ccbot/i.test(u)) return 'ai:commoncrawl';
   if (/google-extended/i.test(u)) return 'ai:google학습';
-  if (/bytespider|amazonbot|applebot-extended|meta-externalagent|cohere|diffbot|timpibot|omgili/i.test(u)) return 'ai:기타';
-  if (/anthropic|openai/i.test(u)) return 'ai:기타';
+  /* ⭐ 여기도 «누구인지»를 남긴다 — 'ai:기타' 3,583건이 통째로 모름이었다 */
+  if (/bytespider|amazonbot|applebot-extended|meta-externalagent|cohere|diffbot|timpibot|omgili/i.test(u)) return 'ai:' + (봇이름표(u) || '기타');
+  if (/anthropic|openai/i.test(u)) return 'ai:' + (봇이름표(u) || '기타');
   if (/facebookexternalhit|twitterbot|slackbot|linkedinbot|discordbot|telegram/i.test(u)) return 'sns미리보기';
   if (/uptime|pingdom|monitor|newrelic|datadog/i.test(u)) return '감시';
-  return '기타';
+  /* 🔴🔴 [2026-09-02 · 사장님 「AI에이전트용 콘텐트 전략(GEO) 바로 공유 후 시행」]
+     ─────────────────────────────────────────────────────────────────────────
+     [무엇이 문제였나 — 실측]
+       봇 35,818건 중 **「기타」가 28,296건(79%)** 이었다. 「ai:기타」도 3,583건이다.
+       ⛔ 「기타」로 뭉쳐 놓으면 **영영 못 배운다.** 새 AI 봇이 와도 위 목록에
+          그 이름을 더할 근거가 안 생긴다. 「모른다」가 「없다」로 굳는다.
+       ⭐ 이것은 오늘 내가 「958명이 회원」이라 말한 것과 **같은 결함**이다 —
+          수만 세고 «그것이 무엇인지»를 안 본 것.
+     [고침] 이름표(product token) 하나만 뒤에 붙인다 — `기타:gptbot` 처럼.
+     ⛔ UA 원문을 남기지 않는다. 봇이 스스로 대는 **제품 이름 한 토막**뿐이다.
+        (봇은 사람이 아니라 개인정보가 아니다 — 위 89~95줄의 판단 그대로다)
+     ⛔ 사람 쪽은 손대지 않는다. 이 자리는 이미 «봇으로 가려진 뒤»다. */
+  const 표 = 봇이름표(u);
+  return 표 ? `기타:${표}` : '기타';
+}
+
+/**
+ * 모르는 봇이 **스스로 대는 이름** 한 토막을 뽑는다. 없으면 null.
+ *
+ * ⚠ 아무 글자나 담으면 칸이 무한히 늘어난다(자유 입력이다). 그래서 좁게 받는다 —
+ *   영문으로 시작하는 3~24자, 그리고 **흔한 브라우저 낱말은 버린다**(그건 이름이 아니다).
+ */
+export function 봇이름표(userAgent) {
+  const u = String(userAgent ?? '');
+  if (!u) return '빈UA';
+  const 버릴것 = new Set(['mozilla', 'applewebkit', 'khtml', 'gecko', 'chrome', 'safari',
+    'version', 'like', 'compatible', 'windows', 'macintosh', 'linux', 'android',
+    'mobile', 'edg', 'opr', 'firefox', 'webkit', 'http', 'https']);
+  for (const m of u.matchAll(/([A-Za-z][A-Za-z0-9._-]{2,23})(?:\/[\d.]+)?/g)) {
+    const t = m[1].toLowerCase();
+    if (버릴것.has(t)) continue;
+    /* 사람 브라우저의 부품 이름(x11, u, rv 같은 것)은 위 길이 조건에서 이미 걸러진다 */
+    return t.slice(0, 24);
+  }
+  return null;
 }
 
 const 스캐너경로 = new RegExp(
