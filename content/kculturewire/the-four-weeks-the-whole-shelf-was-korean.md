@@ -2,7 +2,7 @@
 title: "Four times, every one of a country’s 10 TV places was Korean"
 category: titles
 genre: drama
-dek: "Vietnam twice in August 2021, then Indonesia and Malaysia in the same week of July 2022. We checked all 20,667 country-weeks in which any Korean title charted; these four are the only ones outside Korea where nothing else got in."
+dek: "Vietnam twice in August 2021, then Indonesia and Malaysia in the same week of July 2022. We checked all 20,581 country-weeks in which any Korean title charted; these four are the only ones outside Korea where nothing else got in."
 pubDate: 2026-08-30
 updatedDate: 2026-09-03
 dataAsOf: 2026-08-30T00:00:00+09:00
@@ -25,7 +25,7 @@ sources:
 draft: false
 ---
 
-Netflix publishes a top 10 for films and a top 10 for series, separately, for every country, every week. We went through all of it — 501,040 rows — and pulled out the country-weeks in which at least one Korean title appeared. There are 20,667 of them.
+Netflix publishes a top 10 for films and a top 10 for series, separately, for every country, every week. We went through all of it — 501,040 rows — and pulled out the country-weeks in which at least one Korean title appeared. There are 20,581 of them.
 
 In eight, the Korean titles took every single place. Four of those eight were South Korea's own chart, which is not surprising. **The other four were not.**
 
