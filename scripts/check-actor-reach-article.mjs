@@ -91,8 +91,26 @@ if (내가실행됐다) {
   본다('날것이 크기 탓이라고 적었나', /whatever those titles did|partly just a count of work|bookkeeping/i.test(민본),
     '작품이 많으면 조회도 많다');
   본다('시기 반론을 세웠나', /disproportionately recent|recency/i.test(민본), '넓게 간 것이 최신작이다');
-  본다('시기가 큰 수를 가져갔다고 적었나', /takes the biggest number away|not about how far/i.test(민본),
-    '5편+ 의 3.74 는 시기였다');
+  /**
+   * 🔴 [2026-09-03] **이 검사가 «자료가 더는 말하지 않는 것»을 기사에 쓰라고 요구하고 있었다.**
+   *   라벨에 「5편+ 의 3.74 는 시기였다」가 박혀 있었고, 문구도 그 이야기를 찾고 있었다.
+   *   자료를 다시 지으니 5편+ 는 시기를 갈라도 남았다(최근 2.43× · 그 전 1.64×) —
+   *   시기가 배수를 가져간 띠는 «1편»으로 옮겨 갔다(그 전 2.61× · 최근 0.85×).
+   * ⛔ 검사가 박은 값을 지키려고 기사에 틀린 문장을 쓰면 검사가 거짓을 만든다.
+   *   그런 일을 이미 한 번 겪었다(catalogue-depth 자가 「Six」를 박아 두어 7 을 Six 로 쓰게 했다).
+   * ⭐ 어느 띠인지는 **자료가 정한다.** 그런 띠가 아예 없으면 이 검사는 할 일이 없다.
+   */
+  {
+    const 시기가가져간띠 = d.bands.filter((b) => b.recent && b.older && !b.recent.thin && !b.older.thin
+      && typeof b.recent.times === 'number' && typeof b.older.times === 'number'
+      && b.older.times > b.recent.times);
+    본다(시기가가져간띠.length ? '시기가 배수를 가져간 띠를 적었나' : '시기가 배수를 가져간 띠',
+      !시기가가져간띠.length
+        || /takes the biggest number away|not about how far|was recency|when these actors last worked/i.test(민본),
+      시기가가져간띠.length
+        ? 시기가가져간띠.map((b) => `${b.band}: 그 전 ${b.older.times}× vs 최근 ${b.recent.times}×`).join(' · ')
+        : '이번엔 그런 띠가 없다');
+  }
   본다('얇은 칸을 못 낸다고 적었나', /too thin to say|not a finding; it is what noise/i.test(민본),
     '열두 명 미만은 배수를 안 낸다');
   /* 🔴 2026-08-23 — 이 자가 「거꾸로 간 칸은 두 편 띠다」를 **박아 놓고** 있었다.

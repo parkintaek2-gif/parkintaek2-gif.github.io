@@ -1,9 +1,10 @@
 ---
 title: "3 companies make half the Korean series that chart"
-dek: "Of 129 companies credited on the 332 Korean series that reached a Netflix country top 10, three account for half. Counting production credits alone — the answer to the obvious objection — it is 5 of 99, on a thinner base of 151 series."
+dek: "Of 131 companies credited on the 345 Korean series that reached a Netflix country top 10, three account for half. Counting production credits alone — the answer to the obvious objection — it is 5 of 101, on a thinner base of 156 series."
 category: industry
 purpose: both
 pubDate: 2026-08-09
+updatedDate: 2026-09-03
 dataAsOf: 2026-07-26T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "production", "concentration", "measurement"]
@@ -19,7 +20,7 @@ sources:
 crossChecks:
   - "Titles are counted as a set rather than added up, because a series credited to several companies would otherwise be counted several times and reach half too early"
   - "Every figure is repeated for production, broadcaster and distributor credits separately, so the objection that networks cover everything by definition is answered inside the table rather than argued around"
-  - "Films are excluded and the coverage figures for both formats are printed, because companies attach to 92% of series and 44.4% of films"
+  - "Films are excluded and the coverage figures for both formats are printed, because companies attach to 92.2% of series and 44.5% of films"
   - "The collector refuses to write its file unless the companies covering half are under a tenth of all companies, since the claim is that the top is narrow"
 excluded:
   - "Any ranking of companies. The names are printed alphabetically and the piece reports how few it takes, not who is largest"
@@ -31,15 +32,15 @@ excluded:
 We already publish how few titles fill half of a country's Korean chart — seven in the United States,
 52 in Vietnam. This is the same ruler pointed at the other end of the pipe.
 
-Of the **129 companies** credited on the **332 Korean series** that reached a Netflix country top 10
+Of the **131 companies** credited on the **345 Korean series** that reached a Netflix country top 10
 between 2021 and 2026, **three** account for half of them.
 
 | Credit counted | Companies | Series they cover | Companies for half |
 | --- | ---: | ---: | ---: |
-| Any credit | 131 | 345 (92%) | **3** |
-| Production company | 101 | 156 (41.6%) | **5** |
-| First broadcaster | 28 | 303 (80.8%) | 3 |
-| Distributor | 25 | 139 (37.1%) | 4 |
+| Any credit | 131 | 345 (92.2%) | **3** |
+| Production company | 101 | 156 (41.7%) | **5** |
+| First broadcaster | 28 | 303 (81%) | 3 |
+| Distributor | 25 | 139 (37.2%) | 4 |
 
 ## The objection, which is a good one
 
@@ -52,7 +53,7 @@ series. Counting only those, **5 companies of 101** still account for half. The 
 number rather than dissolving it.
 
 That row also rests on the thinnest base in the table. Production credits are attached to 156 series,
-**41.6%** of the 375 that charted. It is at once the most meaningful cut and the least complete one,
+**41.7%** of the 374 that charted. It is at once the most meaningful cut and the least complete one,
 and both of those are true.
 
 ## The other end of the same fact
@@ -68,11 +69,11 @@ are not two findings; they are one distribution described from either side.
 
 ## Why films are not in this table
 
-Companies attach to 92% of the series and to **44.4%** of the films. Measuring concentration on a
+Companies attach to 92.2% of the series and to **44.5%** of the films. Measuring concentration on a
 half-empty list does not produce a cautious answer — it produces a wrong one, because the companies
 missing from the data look like small companies rather than like missing data.
 
-So films are left out rather than half-counted. There are 570 of them in our holdings and only 253
+So films are left out rather than half-counted. There are 568 of them in our holdings and only 253
 carry a company at all. Fixing that needs a source Wikidata does not have; the Korean Film Council's
 own database is the obvious one.
 
@@ -88,3 +89,23 @@ The full table, all four credit types, and the coverage figures that limit each 
 **[who makes it](/who-makes-it)**. The market-side ruler this borrows from is at
 **[catalogue depth](/catalogue-depth)** — and note that one counts titles while this counts
 companies, so the two numbers sit side by side without being comparable.
+
+## What changed on 3 September 2026
+
+Recounted against a rebuilt title list. The answer to the question in the headline did not move —
+**three companies still account for half the Korean series that chart** — but every figure around it
+did, by one or two:
+
+| | Was | Now |
+|---|---|---|
+| Companies credited | 129 | 131 |
+| Series they are credited on | 332 | 345 |
+| Coverage of series | 92% | 92.2% |
+| Production credits alone | 5 of 99, on 151 series | 5 of 101, on 156 series |
+| Films in our holdings | 570 | 568 |
+| Films with a company attached | 44.4% | 44.5% |
+
+The summary line and the opening paragraph had also been left at 129 companies and 332 series while
+the table beside them read 131 and 345 — the table was right. A check now reads all of these out of
+the counted file on each build.
+
