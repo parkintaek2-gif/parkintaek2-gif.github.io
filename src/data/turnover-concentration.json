@@ -1,60 +1,60 @@
 {
- "asOf": "20260831",
- "issues": 2766,
- "zeroTradeIssues": 122,
+ "asOf": "20260901",
+ "issues": 2765,
+ "zeroTradeIssues": 124,
  "market": [
   {
    "name": "KOSPI",
    "n": 943,
-   "capPct": 92.3,
-   "valPct": 83.6,
-   "vel": 4.9
+   "capPct": 92.5,
+   "valPct": 80.5,
+   "vel": 3.41
   },
   {
    "name": "KOSDAQ",
-   "n": 1823,
-   "capPct": 7.7,
-   "valPct": 16.4,
-   "vel": 11.53
+   "n": 1822,
+   "capPct": 7.5,
+   "valPct": 19.5,
+   "vel": 10.13
   }
  ],
- "turnoverTop1": 19.8,
- "turnoverTop5": 42.9,
- "turnoverTop10": 50.8,
- "turnoverTop30": 64.5,
- "turnoverTop100": 81.5,
+ "turnoverTop1": 19.3,
+ "turnoverTop5": 43.2,
+ "turnoverTop10": 49.2,
+ "turnoverTop30": 60.3,
+ "turnoverTop100": 78,
  "topTurnover": [
   {
    "en": "SK hynix",
-   "sharePct": 19.8
+   "sharePct": 19.3
   },
   {
    "en": "Samsung Electronics",
-   "sharePct": 14.1
+   "sharePct": 16.7
   },
   {
    "en": "Samsung Electro-Mech.",
-   "sharePct": 3.9
-  },
-  {
-   "en": "LG이노텍",
-   "sharePct": 3.1
-  },
-  {
-   "en": "Samsung Elec. (pref)",
-   "sharePct": 2
+   "sharePct": 3.6
   },
   {
    "en": "SK Square",
    "sharePct": 2
   },
   {
-   "en": "KB금융",
+   "en": "Samsung Elec. (pref)",
    "sharePct": 1.6
   },
   {
-   "en": "HLB",
-   "sharePct": 1.6
+   "en": "삼성SDI",
+   "sharePct": 1.4
+  },
+  {
+   "en": "KB금융",
+   "sharePct": 1.4
+  },
+  {
+   "en": "SK이노베이션",
+   "sharePct": 1.3
   }
  ]
 }
