@@ -25,6 +25,7 @@
  *   그 둘은 다르다.
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 
 const ROOT = path.resolve(
@@ -103,7 +104,7 @@ const 안걸린것 = 빈곳.filter((u) => !이름집합.has(u.표시명));
 const 이상한것 = 대학.filter((u) => 수치있음(u) && 이름집합.has(u.표시명));
 
 const 결과 = {
-  만든날: new Date().toISOString().slice(0, 10),
+  만든날: 오늘(),
   출처,
   전체: 목록.length,
   /** 우리 377곳 중 이 명단에 걸린 수 */

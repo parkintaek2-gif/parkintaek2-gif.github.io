@@ -12,6 +12,7 @@
  * 쓰는 법  node scripts/build-100y-star-birth.mjs
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 일주 } from './lib/일주.mjs';
@@ -97,7 +98,7 @@ for (const 이름 of 찾을이름) {
 
 const 대장 = {
   무엇: '「(스타) 사주」 검색이 실재하는 사람들의 «공개된» 생년월일',
-  잰때: new Date().toISOString().slice(0, 10),
+  잰때: 오늘(),
   출처: '위키데이터(Wikidata) P569 출생일 — 항목마다 Q번호와 주소를 함께 적는다',
   '⚠': [
     '이것은 «자료에 이렇게 적혀 있다»이지, 그 사람의 사주가 «이렇다»가 아니다.',

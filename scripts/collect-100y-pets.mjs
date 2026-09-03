@@ -25,6 +25,7 @@
  * 쓰는 법  node scripts/collect-100y-pets.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -125,7 +126,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '몇 %가 반려동물을 기르나, 나이대로 다른가 — 양육 여부와 기르는 종류',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들: [최신], 해수: 1,
     출처: {
       기관: '농림축산식품부',

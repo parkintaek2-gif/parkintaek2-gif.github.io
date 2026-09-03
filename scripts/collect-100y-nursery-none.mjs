@@ -22,6 +22,7 @@
  * 쓰는 법  node scripts/collect-100y-nursery-none.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -84,7 +85,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '어린이집이 한 곳도 없는 지역의 수 — 시·도별',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     출처: { 기관: '보건복지부', 표: '어린이집 미설치 지역', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: TBL },
     단위: 날[0].UNIT_NM,
     정의: '어린이집이 한 곳도 설치되어 있지 않은 지역의 «수»입니다. 아이의 수가 아닙니다.',

@@ -20,6 +20,7 @@
  * 쓰는 법  node scripts/collect-100y-hiking.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -86,7 +87,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '나이대별 등산 참여율 — 최근 1년간 참여 경험(복수응답)',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     출처: { 기관: '문화체육관광부', 표: '최근 1년간 참여 경험이 있는 체육활동(복수응답, 상위 10개 종목)', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: TBL },
     단위: '%',
     정의: '최근 1년 동안 등산을 해 본 적이 있다고 답한 사람의 비율입니다(복수응답 — 다른 운동도 같이 했을 수 있습니다). 매일·매주 하는 사람만이 아닙니다.',

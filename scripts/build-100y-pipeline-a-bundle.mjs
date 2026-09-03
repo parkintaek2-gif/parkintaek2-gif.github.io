@@ -16,6 +16,7 @@
  * ⛔ 이 자는 원자료를 베끼지 않는다. **가리키기만** 한다(부품장부 원칙 — 다시 만들지 않는다).
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 
 const 여기 = path.resolve(
@@ -137,7 +138,7 @@ const 나가는곳 = path.join(자료방, '100yearmap', 'pipeline-a-bundle.json'
 const 산출 = {
   이름: '파이프라인 A(이직·연봉·회사) — 쓸 자료 + 경고문',
   안내: '⛔ 지면 새로 만들기 아님. 지면을 만들 때 이 파일을 먼저 본다.',
-  잰때: new Date().toISOString().slice(0, 10),
+  잰때: 오늘(),
   자료세벌: 자료세벌.map(({ 이름, 경로, 맡은이, 기대 }) => ({ 이름, 경로: `src/data/${경로}`, 맡은이, 기대 })),
   경고문한벌,
   확인결과: { 확인: 확인.length, 안맞음: 안맞음.length, 안맞음목록: 안맞음 },

@@ -18,6 +18,7 @@
  * 쓰는 법  node scripts/collect-100y-kindergarten.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -84,7 +85,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '유치원 수와 원아수 — 행정구역별',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     해,
     출처: { 기관: '한국교육개발원', 표: '유치원 수 · 유치원 원아수(시도/시/군/구)', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: `${표들.곳} · ${표들.원아}` },
     '⚠ 이 자료가 못 가르는 것': [

@@ -21,6 +21,7 @@
  * 쓰는 법  node scripts/collect-100y-healthy-years.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -93,7 +94,7 @@ if (내가직접불렸나) {
   const 영 = 나이별.find((r) => r.나이 === 0);
   const 낸다 = {
     무엇: '남은 해 가운데 건강한 해는 몇 해인가 — 건강수준별 기대여명',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들, 단위: '년',
     출처: { 기관: '국가데이터처', 표: '건강수준별 기대여명', 창구: 'KOSIS', orgId: ORG, tblId: TBL },
     잣대,

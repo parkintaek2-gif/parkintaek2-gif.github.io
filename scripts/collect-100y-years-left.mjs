@@ -19,6 +19,7 @@
  * 쓰는 법  node scripts/collect-100y-years-left.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -107,7 +108,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '지금 몇 살이면 앞으로 몇 해가 남았나 — 기대여명(1세별)',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 첫해, 해수: 해들.length,
     단위: '년',
     출처: { 기관: '국가데이터처', 표: '완전생명표(1세별)', 창구: 'KOSIS', orgId: ORG, tblId: TBL },

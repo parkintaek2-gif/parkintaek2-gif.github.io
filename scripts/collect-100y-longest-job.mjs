@@ -19,6 +19,7 @@
  * 쓰는 법  node scripts/collect-100y-longest-job.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -108,7 +109,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '가장 오래 다닌 직장을 몇 살에, 왜 그만두었나',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     해,
     출처: { 기관: '국가데이터처', 표: '경제활동인구조사 고령층 부가조사 — 가장 오래 근무한 일자리', 창구: 'KOSIS', orgId: ORG, tblId: `${표들.나이} · ${표들.까닭}` },
     '⚠ 이 자료가 못 가르는 것': [

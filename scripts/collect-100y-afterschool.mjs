@@ -23,6 +23,7 @@
  * 쓰는 법  node scripts/collect-100y-afterschool.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -133,7 +134,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '늘봄학교·방과후학교 참여율',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들,
     단위: '%',
     출처: { 기관: '국가데이터처', 표: '초중고사교육비조사 — 늘봄학교 및 방과후학교 참여율', 창구: 'KOSIS', orgId: ORG, tblId: Object.values(표들).join(' · ') },

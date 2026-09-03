@@ -25,6 +25,7 @@
  * 쓰는 법  node scripts/collect-100y-first-job.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -132,7 +133,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '처음 일자리 — 졸업·중퇴 뒤 첫 취업까지 걸린 기간과 첫 직장 근속',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 조사수: 때들.length, 나이칸,
     출처: { 기관: '국가데이터처', 표: '경제활동인구조사 청년층 부가조사 — 첫 취업 소요기간 · 첫직장 근속기간', 창구: 'KOSIS', orgId: ORG, tblId: Object.values(표들).join(' · ') },
     '⛔ 표의 단위가 거짓이다': '표가 사람 수 칸에도 평균 칸에도 「천명개월」을 붙여 놓았습니다. 실제로는 사람 수는 천명, 평균은 개월입니다. 저희가 갈라서 적었습니다.',

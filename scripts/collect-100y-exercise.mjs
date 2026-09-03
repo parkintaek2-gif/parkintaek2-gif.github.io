@@ -22,6 +22,7 @@
  * 쓰는 법  node scripts/collect-100y-exercise.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -116,7 +117,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '몇 %가 규칙적으로 운동하나, 동호회로 하는 사람은 얼마나 되나',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신: 운동최신, 동호회최신,
     출처: {
       기관: '문화체육관광부',

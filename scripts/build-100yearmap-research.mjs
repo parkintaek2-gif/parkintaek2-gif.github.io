@@ -17,6 +17,7 @@
  * ⛔ 순위를 매기지 않는다. 발행일 내림차순이다 — 새것이 위인 것뿐이다.
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 
 const ROOT = path.resolve(
@@ -148,7 +149,7 @@ const 분류별 = {};
 for (const d of 담긴) for (const k of d.분류) 분류별[k] = (분류별[k] ?? 0) + 1;
 
 const 결과 = {
-  만든날: new Date().toISOString().slice(0, 10),
+  만든날: 오늘(),
   출처: '한국개발연구원(KDI) 오픈API',
   전체검사: 파일들.length,
   담김: 담긴.length,

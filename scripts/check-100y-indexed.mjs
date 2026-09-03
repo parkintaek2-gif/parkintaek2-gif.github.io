@@ -27,6 +27,7 @@
  *          node scripts/check-100y-indexed.mjs --잰다 --주소=/school/7531159,/before
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -289,7 +290,7 @@ if (못판정몫 >= 0.3) {
 
 if (process.argv.includes('--쓴다')) {
   fs.writeFileSync(낼길, JSON.stringify({
-    generated: new Date().toISOString().slice(0, 10),
+    generated: 오늘(),
     whatThisIs: `Google's own answer, page by page, on whether it has indexed us. A sample of ${결과.length} taken evenly across the ${전체.length} pages in our sitemap, asked through the Search Console URL Inspection API.`,
     whatThisIsNot: 'Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.',
     sitemapPages: 전체.length,

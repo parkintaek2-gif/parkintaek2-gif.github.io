@@ -16,6 +16,7 @@
  * 쓰는 법  node scripts/collect-100y-parental-leave.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -71,7 +72,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '부모 나이대별 육아휴직 사용률',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     출처: { 기관: '통계청', 표: '출생아 부모의 육아휴직 사용률', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: TBL },
     단위: '%',
     정의: '그 해에 아이가 태어난 부모 가운데 육아휴직을 쓴 사람의 비율입니다. 육아휴직을 쓸 수 없는 처지(자영업·미가입 등)인 부모까지 합친 전체 부모의 비율이 아닙니다.',

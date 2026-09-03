@@ -22,6 +22,7 @@
  * 쓰는 법  node scripts/collect-100y-nursery-fill.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -90,7 +91,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '어린이집 정원 대비 현원(채움률) — 시·도별',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     출처: { 기관: '보건복지부', 표: '전국 어린이집 정현원 현황', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: TBL },
     단위: '명(정원·현원) · %(채움률)',
     정의: '정원은 그 어린이집이 받을 수 있는 최대 인원, 현원은 실제로 다니고 있는 인원입니다. 채움률(=현원÷정원×100)이 낮을수록 자리가 남습니다.',

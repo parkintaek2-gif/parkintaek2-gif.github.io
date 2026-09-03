@@ -23,6 +23,7 @@
  * 쓰는 법  node scripts/collect-100y-retire-income.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -104,7 +105,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '나이대별 가구 소득 — 은퇴 후 소득은 얼마나 줄어드나',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신,
     출처: {
       기관: '국가데이터처(통계청) · 가계금융복지조사', 표: '가구주연령계층별(10세) 자산 부채 소득 현황',

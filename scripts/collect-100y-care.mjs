@@ -27,6 +27,7 @@
  * 쓰는 법  node scripts/collect-100y-care.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -166,7 +167,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '몇 살부터 돌봄이 필요해지나 — 노인장기요양 등급 판정과 나이',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들, 해수: 해들.length, 밑수해,
     출처: {
       기관: '국민건강보험공단 · 국가데이터처',

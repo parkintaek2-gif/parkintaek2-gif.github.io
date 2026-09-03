@@ -32,6 +32,7 @@
  *   node scripts/collect-100y-pension-recipients.mjs           실제로 받아 src/data/100yearmap/pension-recipients.json 을 쓴다
  */
 import { writeFileSync, readFileSync } from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -114,7 +115,7 @@ async function 만들기() {
     출처: '국민연금공단_수급현황(공공데이터포털, 15010381)',
     url: 'https://www.data.go.kr/data/15010381/openapi.do',
     이용허락범위: '제한 없음',
-    받은날: new Date().toISOString().slice(0, 10),
+    받은날: 오늘(),
     나이범위: [나이시작, 나이끝],
     급여종별: '00(전체) — 노령·장애·유족을 합친 값',
     '⚠광주전남': '이 API는 광주·전남을 가르지 않고 한 코드(12)로만 준다 — 억지로 안 갈랐다',

@@ -29,6 +29,7 @@
  *   ⛔ 키 값을 출력하거나 커밋하지 않는다. `.env` 는 gitignore.
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 
 const ROOT = path.resolve(
@@ -107,7 +108,7 @@ fs.writeFileSync(
   path.join(ROOT, 'src', 'data', '100yearmap', 'nonmarital-birth.json'),
   JSON.stringify({
     출처,
-    받은때: new Date().toISOString().slice(0, 10),
+    받은때: 오늘(),
     기준연도,
     최고연도_숫자,
     최고연도_비율,

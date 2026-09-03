@@ -26,6 +26,7 @@
  * 쓰는 법  node scripts/collect-100y-home.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -129,7 +130,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '집을 가진 가구는 몇 살인가 — 가구주 나이대별 주택소유 가구수와 열 해 흐름',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들, 해수: 해들.length, 흐름해수: 흐름.length, 못낸해,
     출처: {
       기관: '국가데이터처',

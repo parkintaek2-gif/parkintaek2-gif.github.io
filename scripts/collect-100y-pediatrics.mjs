@@ -29,6 +29,7 @@
  * 쓰는 법  node scripts/collect-100y-pediatrics.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -160,7 +161,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '소아청소년과 «의원»이 한 곳도 없는 시·군·구',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     때,
     출처: { 기관: '건강보험심사평가원', 표: '시군구별 표시과목별 의원 현황', 창구: '국가데이터처 KOSIS', orgId: ORG, tblId: TBL },
     '⚠ 이 자료가 못 가르는 것': [

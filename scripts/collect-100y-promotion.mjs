@@ -25,6 +25,7 @@
  * 쓰는 법  node scripts/collect-100y-promotion.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -108,7 +109,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '승진에 만족하는 사람이 몇 %일까, 직급이 오를수록 성별 차가 벌어지나',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들, 해수: 해들.length,
     출처: {
       기관: '한국여성정책연구원',

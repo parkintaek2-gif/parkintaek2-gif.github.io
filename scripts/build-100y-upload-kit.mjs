@@ -14,6 +14,7 @@
  * 쓰는 법  node scripts/build-100y-upload-kit.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -122,7 +123,7 @@ if (내가직접불렸나) {
       '/price(파는 지면)로만 가는 덱은 뺐습니다.',
       '순서는 이미지 장수(카드가 완성된 정도) 내림차순입니다 — 등수를 매긴 것이 아닙니다.',
     ],
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     총게시물: 게시물들.length,
     게시물: 게시물들,
   };

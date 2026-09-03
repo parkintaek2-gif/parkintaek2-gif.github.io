@@ -27,6 +27,7 @@
  * 쓰는 법  node scripts/collect-100y-marriage-age.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -147,7 +148,7 @@ if (내가직접불렸나) {
 
   const 낸다 = {
     무엇: '서른 살에 사람들은 결혼했을까, 아직일까 — 나이칸별 혼인 상태와 평균 초혼 연령',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신, 해들, 해수: 해들.length,
     출처: {
       기관: '국가데이터처',

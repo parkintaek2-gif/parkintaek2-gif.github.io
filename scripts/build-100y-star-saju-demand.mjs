@@ -13,6 +13,7 @@
  * 쓰는 법  node scripts/build-100y-star-saju-demand.mjs
  */
 import fs from 'node:fs';
+import { 지금 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -50,7 +51,7 @@ const 뜬수 = 잰수.filter((r) => r.실재);
 const 대장 = {
   무엇: '「(스타 이름) 사주」가 자동완성에 실재하는지 잰 것',
   잰곳: '네이버 자동완성(ac.search.naver.com) — 공개된 끝점',
-  잰때: new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
+  잰때: 지금().replace('T', ' '),
   '⚠': [
     '자동완성은 때에 따라 바뀐다. 이 수는 «잰 그때»의 수다.',
     '이것은 «몇 사람이 검색했나»가 아니다. «그 말이 자동완성에 떠 있나»다.',

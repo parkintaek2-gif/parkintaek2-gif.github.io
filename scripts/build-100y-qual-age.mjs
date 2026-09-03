@@ -18,6 +18,7 @@
  * 쓰는 법  node scripts/build-100y-qual-age.mjs
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -116,7 +117,7 @@ if (process.argv[1] && path.basename(process.argv[1]) === 'build-100y-qual-age.m
       오퍼: 'InquiryAcquStatisSVC/getAgeList',
       기준연도: 기준해,
       이용허락범위: '이용허락범위 제한 없음',
-      받은때: new Date().toISOString().slice(0, 10),
+      받은때: 오늘(),
       받은법: '공식 오픈API 를 인증키로 조회. 사이트를 긁지 않았다',
       줄수검산: `${모두.length}줄 — API 의 totalCount ${전체}`,
     },

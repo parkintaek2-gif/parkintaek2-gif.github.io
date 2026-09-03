@@ -25,6 +25,7 @@
  * 쓰는 법  node scripts/collect-100y-oneperson.mjs [--selftest]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -166,7 +167,7 @@ if (내가직접불렸나) {
   const 낸다 = {
     정의: '비중 = 그 나이 칸 1인가구 수 ÷ 전국 1인가구 합계 × 100. 증가율(흐름) = (최신가구수 − 첫해가구수) ÷ 첫해가구수 × 100',
     무엇: '나이대별 1인가구 비중 — 어느 나이대에 가장 몰려 있나',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     최신,
     출처: {
       기관: '국가데이터처(통계청)', 표: '성 및 연령별 1인가구 - 시군구(전국)',

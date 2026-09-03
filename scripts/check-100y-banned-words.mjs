@@ -19,6 +19,7 @@
  * 쓰는 법  node scripts/check-100y-banned-words.mjs [--자세히]
  */
 import fs from 'node:fs';
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -142,7 +143,7 @@ if (!fs.existsSync(대장절대길)) {
   fs.writeFileSync(대장절대길, JSON.stringify({
     무엇: '지면마다 화면에 있는 «안 쓰기로 한 낱말» — 이 대장이 기준선이다',
     '⛔': '대장에 있는 것은 잘못이 아니다. 우리 지면은 「등수를 매기지 않습니다」처럼 약속으로 쓴다. 새로 생긴 것만 본다',
-    만든날: new Date().toISOString().slice(0, 10),
+    만든날: 오늘(),
     지면수: 지면.length, 든지면수: Object.keys(이제).length, 지면별: 이제,
   }, null, 1), 'utf8');
   console.log(`  ⬜ 대장이 없어 지금 상태로 **기준선을 만들었다** — ${대장길}`);
