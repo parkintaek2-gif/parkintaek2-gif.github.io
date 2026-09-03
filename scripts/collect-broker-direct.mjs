@@ -189,8 +189,18 @@ const 증권사 = {
   mirae: {
     ko: '미래에셋증권',
     origin: 'https://securities.miraeasset.com',
-    list: (p) => `https://securities.miraeasset.com/bbs/board/message/list.do?categoryId=1521&pageIndex=${p}`,
-    detail: (id) => `https://securities.miraeasset.com/bbs/board/message/view.do?messageId=${id}&categoryId=1521`,
+    /*
+     * 🔴 [2026-09-03 5번 발견 · 6번 재확인] categoryId=1521은 「리서치 리포트 › 전체」다.
+     * 「전체」는 마켓뷰·글로벌브리핑·해외종목(RELIANCE IN·CRDO US 등 알파벳 티커) 등이
+     * 최근 목록에 섞여 있어, 최근 10건이 전부 6자리 국내 코드가 아닌 날이 흔하다 —
+     * 그래서 parseList가 code:null로 «정확히» 걸러내는데, main()의 `if (!r.code) continue`가
+     * 그걸 실패 0·성공 0으로 조용히 넘겨 "파서가 죽었다"처럼 보였다(실은 그 배치에 국내
+     * 종목 리포트가 없었을 뿐). 실측(브라우저로 직접 확인): categoryId=1800(기업분석)이
+     * 진짜 국내 종목 리포트를 담는 하위분류다 — 현대건설(000720)·SK텔레콤(017670) 등
+     * 6자리 코드가 실제로 나온다. 1521 대신 1800을 쓴다.
+     */
+    list: (p) => `https://securities.miraeasset.com/bbs/board/message/list.do?categoryId=1800&pageIndex=${p}`,
+    detail: (id) => `https://securities.miraeasset.com/bbs/board/message/view.do?messageId=${id}&categoryId=1800`,
     parseList(html) {
       /*
        * ⚠ 처음에 `view('id','no')` 로 split 해서 주변 텍스트를 읽었더니
