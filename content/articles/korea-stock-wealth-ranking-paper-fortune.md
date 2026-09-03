@@ -1,5 +1,5 @@
 ---
-title: "Korea's richest stockholder got ₩14 trillion richer in a year. He did not do anything."
+title: "Samsung's Lee Jae-yong got ₩14tn richer, did nothing"
 dek: "Samsung's Lee Jae-yong topped Korea's stock-wealth ranking at ₩25.88tn on 2 January 2026 — up 117% in a year. The gain was the market, not the man. So what does a ranking that doubles on a rally actually measure?"
 category: equities
 pubDate: 2026-08-31
