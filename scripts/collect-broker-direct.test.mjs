@@ -16,7 +16,7 @@
  * 표본은 전부 **실제 리포트 문장**에서 가져왔다. 지어내지 않았다.
  */
 
-import { parseTargetPrice, normalizeRating } from './collect-broker-direct.mjs';
+import { parseTargetPrice, normalizeRating, 처음받은때 } from './collect-broker-direct.mjs';
 
 let 통과 = 0;
 let 실패 = 0;
@@ -74,6 +74,20 @@ console.log('투자의견 정규화');
 같나('NR', normalizeRating('NR'), 'NR');
 같나('모르는 표기는 null', normalizeRating('관심'), null);
 같나('빈값', normalizeRating(''), null);
+
+console.log('처음받은때 — 재실행해도 첫 수집 시각을 지킨다 (2026-09-03 5번 발견)');
+같나('옛 파일 없음 — 이번이 처음', 처음받은때(null, '2026-09-03T19-10-53'), '2026-09-03T19-10-53');
+같나(
+  'firstCollectedAt이 이미 있으면 그대로',
+  처음받은때(JSON.stringify({ firstCollectedAt: '2026-09-03T06-55-05', collectedAt: '2026-09-03T19-10-53' }), '2026-09-03T20-00-00'),
+  '2026-09-03T06-55-05',
+);
+같나(
+  '옛 꼴(firstCollectedAt 없음) — collectedAt에서 옮겨온다',
+  처음받은때(JSON.stringify({ collectedAt: '2026-09-03T06-55-05' }), '2026-09-03T19-10-53'),
+  '2026-09-03T06-55-05',
+);
+같나('깨진 JSON — 이번을 처음으로', 처음받은때('{이건 JSON 아님', '2026-09-03T19-10-53'), '2026-09-03T19-10-53');
 
 console.log(`\n${통과} 통과 · ${실패} 실패`);
 process.exit(실패 ? 1 : 0);

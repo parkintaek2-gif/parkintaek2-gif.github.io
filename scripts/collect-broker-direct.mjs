@@ -54,7 +54,7 @@
 
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { put, storeStatus } from '../src/lib/store.mjs';
+import { put, get, storeStatus } from '../src/lib/store.mjs';
 
 const UA = 'Mozilla/5.0 (compatible; SeoulMarketsBot/0.1; +https://seoulmarkets.com/about)';
 const ARCHIVE = path.resolve(process.env.ARCHIVE_DIR ?? 'archive');
@@ -147,6 +147,22 @@ export function parseTargetPrice(text) {
 }
 
 /** 투자의견을 우리 어휘로 정규화한다. 증권사 표기가 제각각이다. */
+/**
+ * ⭐ [2026-09-03 5번 발견] 다시 돌리면 collectedAt이 「처음 받은 때」를 잃고
+ * 「마지막으로 다시 쓴 때」로 덮였다 — 아카이빙은 소급이 안 되는 유일한 항목이라
+ * 「언제 처음 받았나」가 지워지면 되찾을 길이 없다. 옛 파일이 있으면 그 시각을 지킨다.
+ * ⛔ firstCollectedAt은 한 번 정해지면 안 바뀐다. collectedAt은 이번 실행 시각으로 매번 갱신한다(마지막으로 다시 쓴 때).
+ */
+export function 처음받은때(옛본문JSON, 이번수집시각) {
+  if (!옛본문JSON) return 이번수집시각;
+  try {
+    const 옛 = JSON.parse(옛본문JSON);
+    return 옛.firstCollectedAt ?? 옛.collectedAt ?? 이번수집시각;
+  } catch {
+    return 이번수집시각;
+  }
+}
+
 export function normalizeRating(s) {
   if (!s) return null;
   const t = s.trim().toUpperCase().replace(/\s+/g, '');
@@ -379,11 +395,10 @@ async function main() {
    */
   for (const r of 전체) {
     const 날 = r.date ?? today();
-    await put(
-      `raw/broker/${날}/${r.broker}-${r.id}.json`,
-      JSON.stringify(r, null, 2),
-      'application/json',
-    );
+    const 키 = `raw/broker/${날}/${r.broker}-${r.id}.json`;
+    const 옛본문 = await get(키); // 파일이 없으면 null — 그때는 이번이 처음이다
+    const 레코드 = { ...r, firstCollectedAt: 처음받은때(옛본문?.toString('utf8'), r.collectedAt) };
+    await put(키, JSON.stringify(레코드, null, 2), 'application/json');
   }
   await put(
     `manifest/broker/${실행}.json`,
