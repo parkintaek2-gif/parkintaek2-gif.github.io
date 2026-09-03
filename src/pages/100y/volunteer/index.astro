@@ -1,0 +1,167 @@
+---
+/**
+ * /100y/volunteer — 자원봉사, 몇 살에 가장 많이 할까
+ *
+ * 사장님 지시("생활 전반의 정부·공공기관 데이터를 스스로 찾아라")로 문화·건강 다음
+ * 사회참여 영역에서 직접 찾은 자료. 국가데이터처 「사회조사」(국가승인통계 제1977013호)
+ * — 101/DT_1SSSP179R.
+ *
+ * ⛔⛔ 13~19세 참여율이 2021→2023→2025년 사이 23.3%→27.2%→67.1%로 크게 뛰었다.
+ *   원인(표본 변동인지 조사방법 변경인지)을 모른다 — 지어내지 않고 그대로 밝힌다.
+ * ⛔ 자기응답 조사다. 실제 활동 기록과 대조한 것이 아니다.
+ * ⛔ 판정하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/volunteer.json';
+
+const 자료 = 원본 as any;
+const 연령별 = 자료.연령별 as any[];
+const 성별 = 자료.성별 as any[];
+const 학력별 = 자료.학력별 as any[];
+const 이유 = 자료.이유 as any[];
+const 추이 = 자료.연도별_전체참여율 as any[];
+const 십대 = 연령별.find((r) => r.칸 === '13∼19세');
+const 최저칸 = [...연령별].filter((r) => r.칸 !== '13∼19세').reduce((a, b) => (b.참여율 < a.참여율 ? b : a));
+
+const desc =
+  `${자료.최신연도}년 지난 1년간 자원봉사를 했다고 답한 사람은 전체의 ${자료.전체_참여율}% — ` +
+  `13~19세가 ${십대.참여율}%로 압도적으로 높고, ${최저칸.칸}이 ${최저칸.참여율}%로 가장 낮습니다. ` +
+  `국가데이터처 「사회조사」 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '자원봉사활동 참여율 — 나이·성별·학력별',
+  description: desc,
+  temporalCoverage: `${추이[0].해}/${추이[추이.length - 1].해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['나이대별 자원봉사활동 참여율', '성별·학력별 참여율', '연도별 전체 참여율 추이', '자원봉사 참여 이유별 분율'],
+};
+---
+
+<HundredYear
+  title={`자원봉사 — ${자료.최신연도}년 13~19세가 ${십대.참여율}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>자원봉사는<br />몇 살에 가장 많이 할까요?</h1>
+  <p class="sub">
+    국가데이터처 「사회조사」(13세 이상 인구 대상 2년 주기 표본조사) 기준,
+    {' '}{자료.최신연도}년 지난 1년간 자원봉사활동 경험이 나이·성별·학력으로 어떻게 갈리는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{자료.최신연도}년 — 지난 1년간 자원봉사활동을 한 적이 있다</p>
+    <p class="answer-num">{자료.전체_참여율}%</p>
+    <p class="answer-sub">
+      13~19세만 보면 {십대.참여율}% — 다른 어느 나이대보다 압도적으로 높습니다
+    </p>
+  </div>
+
+  <h2>나이대별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>참여율</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.참여율}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 13~19세({십대.참여율}%)를 빼면 20대부터 70대까지 대체로 한 자리에서 10%대를 오가다가
+    {' '}80세 이상에서 {연령별.find((r) => r.칸 === '80세 이상')?.참여율}%로 뚝 떨어집니다.
+    {' '}가장 낮은 나이대는 {최저칸.칸}({최저칸.참여율}%)입니다.
+  </p>
+
+  <h2>왜 13~19세만 이렇게 높을까요?</h2>
+  <p class="note">
+    이 표만으로는 확정할 수 없지만, 실마리가 있습니다. 참여 이유 1위가
+    {' '}<strong>「{이유[0].이유}」</strong>({이유[0].분율}%)이고, 학력별로 보면
+    {' '}<strong>중졸({학력별.find((r) => r.칸 === '중졸')?.참여율}%)</strong>이
+    {' '}고졸({학력별.find((r) => r.칸 === '고졸')?.참여율}%)보다 높습니다 — 학교에서
+    {' '}단체로 하는 활동이 섞여 있을 가능성을 시사하지만, 이 표가 그 인과를 확정해 주지는 않습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>자원봉사를 하는 이유(계 기준)</th><th>분율</th></tr></thead>
+      <tbody>
+        {이유.map((r) => (
+          <tr>
+            <td>{r.이유}</td>
+            <td>{r.분율}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>성별·학력별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>성별</th><th>참여율</th></tr></thead>
+      <tbody>
+        {성별.map((r) => <tr><td>{r.칸}</td><td>{r.참여율}%</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학력</th><th>참여율</th></tr></thead>
+      <tbody>
+        {학력별.map((r) => <tr><td>{r.칸}</td><td>{r.참여율}%</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⛔ {추이[0].해}년부터 {추이[추이.length - 1].해}년까지 — 정직하게 밝힙니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>전체 참여율</th></tr></thead>
+      <tbody>
+        {추이.map((r) => <tr><td>{r.해}년</td><td>{r.참여율}%</td></tr>)}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔⛔ 전체 참여율은 꾸준히 늘었지만({추이[0].참여율}%→{추이[추이.length - 1].참여율}%), 그 안에서
+    {' '}13~19세만 따로 보면 2021년 23.3%에서 2025년 {십대.참여율}%로 훨씬 크게 뛰었습니다.
+    {' '}표본이 작은 하위집단이라 우연히 흔들린 것인지, 조사 방법이 바뀐 것인지 저희가
+    {' '}확인하지 못했습니다 — <strong>모르는 것을 안다고 쓰지 않습니다.</strong>
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>자기응답 표본조사입니다 — 실제 활동 기록과 대조한 것이 아닙니다.</li>
+    <li>13~19세 참여율의 급격한 변화 원인을 이 표가 밝히지 않습니다.</li>
+    <li>「참여했다」는 응답이지 얼마나 자주, 얼마나 오래 했는지는 이 표가 못 가릅니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 자원봉사를 더 해야 한다거나
+    {' '}덜 해도 된다고 쓰지 않습니다. 나이·성별·학력으로 숫자가 어떻게 갈리는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/oneperson">← 1인가구는 어느 나이대에 가장 많을까요?</a>
+    <br />
+    <a href="/lifelong">← 성인은 몇 %가 계속 배우고 있을까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="volunteer" />
+
+  <NextQuestionBrief 모은것="국가데이터처 사회조사 실측 자료" />
+</HundredYear>
