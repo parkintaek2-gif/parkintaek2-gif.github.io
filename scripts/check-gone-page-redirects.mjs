@@ -38,7 +38,24 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 서버길 = path.join(뿌리, 'server.mjs');
-const 바탕 = 'https://www.kculturewire.com';
+
+/**
+ * ⚠ [2026-09-03 6번] 처음엔 `바탕`이 kculturewire 하나로 고정돼 있었다 — 이 표가
+ * KCW 항목만 있었을 때는 맞았지만, SeoulMarkets(접두사 없음) 항목을 더하면서
+ * 그 항목들이 «잘못된 도메인»(kculturewire)에 물어봐지는 조용한 결함이 됐다.
+ * 표 안의 접두사로 사이트를 가려 «자기 도메인»에 묻는다. server.mjs 의
+ * SITE_PREFIX 와 같은 지도를 여기도 둔다 — 한쪽만 늘면 다른 쪽이 거짓말한다.
+ */
+const 접두사별도메인 = [
+  { 접두사: '/wikitip', 바탕: 'https://www.kculturewire.com' },
+  { 접두사: '/100y', 바탕: 'https://100yearmap.com' },
+  { 접두사: '', 바탕: 'https://seoulmarkets.com' }, // 접두사 없음 — 반드시 맨 뒤(가장 안 걸리는 것으로)
+];
+export function 도메인고르기(내부길) {
+  const p = String(내부길 ?? '');
+  const 맞는것 = 접두사별도메인.find((x) => x.접두사 && p.startsWith(x.접두사));
+  return (맞는것 ?? 접두사별도메인[접두사별도메인.length - 1]).바탕;
+}
 
 /**
  * server.mjs 에서 되돌림 표를 «읽어 온다».
@@ -56,10 +73,11 @@ export function 표읽기(글) {
   return Object.keys(표).length ? 표 : null;
 }
 
-/** 접두사를 떼어 «손님이 보는 주소»로 만든다 */
-export function 손님주소(내부길, 접두사 = '/wikitip') {
+/** 접두사를 떼어 «손님이 보는 주소»로 만든다. 접두사를 안 주면 표에서 맞는 것을 스스로 찾는다. */
+export function 손님주소(내부길, 접두사) {
   const p = String(내부길 ?? '');
-  return p.startsWith(접두사) ? (p.slice(접두사.length) || '/') : p;
+  const 쓸접두사 = 접두사 ?? (접두사별도메인.find((x) => x.접두사 && p.startsWith(x.접두사))?.접두사 ?? '');
+  return 쓸접두사 && p.startsWith(쓸접두사) ? (p.slice(쓸접두사.length) || '/') : p;
 }
 
 function 자가시험() {
@@ -81,8 +99,15 @@ function 자가시험() {
   /* 🔴 실제 파일에서도 읽히나 — 자가 «지금 이 저장소»에서 도는지 본다 */
   const 진짜 = fs.existsSync(서버길) ? 표읽기(fs.readFileSync(서버길, 'utf8')) : null;
   본다('server.mjs 에서 실제로 표를 읽는다', 진짜 !== null && Object.keys(진짜).length >= 5);
-  본다('그 표가 e스포츠 지면으로 보낸다',
-    진짜 !== null && Object.values(진짜).every((v) => v.startsWith('/esports')));
+  /* ⚠ 2026-09-03 6번 — 예전엔 「모든 값이 /esports로 시작한다」였다. SeoulMarkets
+   * 항목(비-esports)을 더하면서 그 가정이 깨졌다 — 표가 KCW 전용이 아니게 됐으니
+   * 자가시험도 「내부 경로 모양이 맞나」로 넓힌다(값은 항상 절대경로 /로 시작). */
+  본다('그 표의 보낼 곳이 다 내부경로(/로 시작)다',
+    진짜 !== null && Object.values(진짜).every((v) => v.startsWith('/')));
+  본다('도메인고르기가 접두사로 사이트를 가른다',
+    도메인고르기('/wikitip/x') === 'https://www.kculturewire.com' &&
+    도메인고르기('/100y/x') === 'https://100yearmap.com' &&
+    도메인고르기('/article/x') === 'https://seoulmarkets.com');
 
   console.log(흠 ? `\n🔴 자가시험 ${잰수}가지 중 ${흠}가지 틀렸다` : `\n✅ 자가시험 ${잰수}가지 다 맞다`);
   return 흠;
@@ -110,28 +135,30 @@ async function main() {
     process.exit(1);
   }
 
-  console.log(`\n표에 든 옛 주소 ${Object.keys(표).length}개 — 라이브에 물어본다\n`);
+  console.log(`\n표에 든 옛 주소 ${Object.keys(표).length}개 — 각자 자기 도메인에 물어본다\n`);
   let 나쁨 = 0;
-  const 보낼곳들 = new Set(Object.values(표));
+  const 보낼곳들 = new Map(); // 보낼곳 → 도메인 (되돌림 Location 은 절대경로라, 시킨 쪽과 같은 사이트로 문는다)
 
   for (const [내부, 보낼곳] of Object.entries(표)) {
+    const 바탕 = 도메인고르기(내부);
+    보낼곳들.set(보낼곳, 바탕);
     const 옛 = 손님주소(내부);
     const r = await 코드(바탕 + 옛);
-    if (r.못쟀다) { console.log(`  ⬜ 못 쟀다 — ${옛} (${r.못쟀다})`); 나쁨 += 1; continue; }
+    if (r.못쟀다) { console.log(`  ⬜ 못 쟀다 — ${바탕}${옛} (${r.못쟀다})`); 나쁨 += 1; continue; }
     if (r.코드 !== 301) {
-      console.log(`  🔴 ${옛} — 301 이 아니라 ${r.코드} 다`);
+      console.log(`  🔴 ${바탕}${옛} — 301 이 아니라 ${r.코드} 다`);
       나쁨 += 1; continue;
     }
     const 맞나 = String(r.어디로 || '').endsWith(보낼곳);
-    console.log(`  ${맞나 ? '✅' : '🔴'} ${옛}  →  ${r.어디로}${맞나 ? '' : `  (표는 ${보낼곳} 라고 한다)`}`);
+    console.log(`  ${맞나 ? '✅' : '🔴'} ${바탕}${옛}  →  ${r.어디로}${맞나 ? '' : `  (표는 ${보낼곳} 라고 한다)`}`);
     if (!맞나) 나쁨 += 1;
   }
 
   console.log('\n보낼 곳이 실제로 사나 — 여기가 죽으면 손님이 두 번 헛걸음한다');
-  for (const p of 보낼곳들) {
+  for (const [p, 바탕] of 보낼곳들) {
     const r = await 코드(바탕 + p);
     const 산다 = r.코드 === 200;
-    console.log(`  ${산다 ? '✅' : '🔴'} ${p} — ${r.못쟀다 ? '못 쟀다' : r.코드}`);
+    console.log(`  ${산다 ? '✅' : '🔴'} ${바탕}${p} — ${r.못쟀다 ? '못 쟀다' : r.코드}`);
     if (!산다) 나쁨 += 1;
   }
 

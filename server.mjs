@@ -555,6 +555,14 @@ const handle = async (req, res) => {
     '/wikitip/article/korea-challenger-win-rate': '/esports-games',
     '/wikitip/article/korea-ladder-games-played': '/esports-games',
     '/wikitip/article/the-top-tier-is-where-players-stay': '/esports-games',
+    /* ⚠ [2026-09-03 6번] 5번의 방법(전체 지시)을 SeoulMarkets에 그대로 재서 찾았다.
+     * 이 둘은 무역 스케일브레이크 결함으로 draft 처리된 지면(korea-us-surplus-doubled·
+     * korea-trade-surplus-tripled-five-partners, [[6번-무역데이터-스케일브레이크]])인데
+     * 구글은 아직 옛 주소를 기억하고 있다(28일 노출 3·2). SeoulMarkets는 접두사가
+     * 없어 이 표에 그대로(접두사 없이) 걸린다 — KCW/100yearmap 내부 경로와는 다른 공간이라
+     * 안 겹친다. 뜻이 가장 가까운 살아 있는 재작성본(비율 기반, 스케일브레이크 없음)으로 보낸다. */
+    '/article/korea-us-surplus-doubled': '/article/korea-trade-surplus-four-partners-customs',
+    '/article/korea-trade-surplus-tripled-five-partners': '/article/korea-trade-surplus-four-partners-customs',
   };
   {
     const 보낼곳 = 사라진지면[pathname];
