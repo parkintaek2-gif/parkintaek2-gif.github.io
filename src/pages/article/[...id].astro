@@ -46,6 +46,17 @@ const videoSrc = `${SITE_URL}/video/${entry.id}.mp4`;
 const videoThumb = `${SITE_URL}/cardnews/${entry.id}-1.png`;
 
 /**
+ * ⭐ 카드뉴스 캐러셀 — 영상 유무와 무관하게 «지면 자체»에 낸다. (2026-09-03, 5번 판정)
+ *   make-cardnews-seoulmarkets.mjs 가 `${id}-1.png`부터 순번으로 굽는다(5~6장, 정해진 총수 없음).
+ *   ⛔ 장수를 손으로 적지 않는다 — 파일이 실제로 있는 데까지 센다(끊기면 멈춘다).
+ *   영상이 있으면 1번 카드는 이미 위 <video poster>로 쓰이므로, 캐러셀에서는 2번부터 보여준다
+ *   (같은 그림을 두 번 보여주지 않는다). 영상이 없으면 1번부터 전부 보여준다.
+ */
+const 카드뉴스전체 = [];
+for (let n = 1; fs.existsSync(`public/cardnews/${entry.id}-${n}.png`); n++) 카드뉴스전체.push(n);
+const 카드뉴스보일것 = 영상있음 ? 카드뉴스전체.filter((n) => n > 1) : 카드뉴스전체;
+
+/**
  * ⭐ 나가는 길 — **본문 끝에서 다음 기사로 직접 건다.** (2번 지시 2026-08-08)
  *
  * 검색으로 한 편에 들어온 사람은 그 한 편만 읽고 나간다. 카테고리로 가는 backlink 는
@@ -279,6 +290,25 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
 
       <DataNotes data={d} />
 
+      {/* 카드뉴스 — 있으면 지면에 낸다(영상 썸네일로만 쓰이던 것을 지면 자체로도 확장, 2026-09-03). */}
+      {
+        카드뉴스보일것.length > 0 && (
+          <section class="cardnews">
+            <h3>Take this away — {카드뉴스전체.length} cards</h3>
+            <p class="note">
+              The figures in this article, as images. Free to repost with the address on them.
+            </p>
+            <div class="cards">
+              {카드뉴스보일것.map((n) => (
+                <img src={`/cardnews/${entry.id}-${n}.png`} width="1080" height="1350"
+                  loading="lazy" decoding="async"
+                  alt={`${d.title} — card ${n} of ${카드뉴스전체.length}`} />
+              ))}
+            </div>
+          </section>
+        )
+      }
+
       {/* 논쟁거리(tag: debate)에만 자체 댓글(2번 위젯) — 쿠키·IP·로그인 없음. 순위+문제제기를 손님이 논쟁 */}
       {
         d.tags?.includes('debate') && (
@@ -430,4 +460,9 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
              border: 1px solid var(--line, #d9d9d6); color: var(--ink-2, var(--ink)); text-decoration: none; }
   a.tagchip:hover { border-color: var(--accent, #0f4c81); color: var(--accent, #0f4c81); }
   .tagchip--plain { opacity: .6; }
+  .cardnews { margin: 2.6rem 0; }
+  .cardnews h3 { font-size: 1rem; margin-bottom: .2rem; }
+  .cardnews .note { font-size: .82rem; color: var(--ink-2, #666); margin: 0 0 .8rem; }
+  .cardnews .cards { display: flex; gap: .6rem; overflow-x: auto; padding-bottom: .5rem; }
+  .cardnews img { width: 200px; height: auto; border-radius: 8px; flex: 0 0 auto; background: #0d1420; }
 </style>
