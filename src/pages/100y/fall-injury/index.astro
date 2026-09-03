@@ -1,0 +1,194 @@
+---
+/**
+ * /100y/fall-injury — 낙상으로 입원하는 사람, 몇 살부터 늘어나는가
+ *
+ * /cardiac-arrest에 이어 사장님 지시("질병관리청·소방청 공개 데이터를 더 찾아라")로
+ * 직접 찾은 두 번째 자료. 질병관리청 「퇴원손상심층조사」(국가승인통계 제2006042호) —
+ * 177/DT_11760NP32(추락·낙상 손상환자 퇴원환자수, 성별·연령별, 2024)와
+ * 177/DT_11760NP62(65세 이상 손상기전별 퇴원율 추이, 「추락·낙상」칸, 2015~2024).
+ *
+ * ⛔⛔ 이 표는 등록통계(전수)가 아니라 표본조사를 전국 추정치로 가중 환산한 값이다 —
+ *   건수가 소수점인 것이 오차가 아니라 원래 그렇다.
+ * ⛔ 「퇴원환자수」는 입원 후 그 해 퇴원한 사람만 센다. 다치고도 입원 안 한 사람,
+ *   입원 중인데 그 해를 못 넘긴 사람은 이 표에 없다.
+ * ⛔ 판정하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/fall-injury.json';
+
+const 자료 = 원본 as any;
+const 연령별 = 자료.연령별 as any[];
+const 성별 = 자료.성별 as any[];
+const 추이 = 자료.노인추이_추락낙상_퇴원율 as any[];
+const 첫해 = 추이[0];
+const 끝해 = 추이[추이.length - 1];
+const 정점 = 추이.reduce((a, b) => (b.퇴원율 > a.퇴원율 ? b : a));
+
+const desc =
+  `${자료.최신연도}년 추락·낙상으로 입원했다 퇴원한 사람은 전국 추정 ${Math.round(자료.전체_퇴원환자수).toLocaleString()}명 — ` +
+  `그중 36.6%가 75세 이상입니다. 65세 이상만 따로 보면, 낙상 퇴원율이 ${첫해.해}년 10만 명당 ${첫해.퇴원율}명에서 ` +
+  `${끝해.해}년 ${끝해.퇴원율}명으로 늘었습니다. 질병관리청 「퇴원손상심층조사」 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '추락·낙상 손상 퇴원환자 — 나이·성별·연도별',
+  description: desc,
+  temporalCoverage: `${첫해.해}/${끝해.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '질병관리청' },
+  variableMeasured: ['나이대별 낙상 손상 퇴원환자수·분율', '성별 낙상 손상 퇴원환자수', '65세 이상 낙상 퇴원율 연도별 추이(10만 명당)', '손상발생장소별 분율', '손상시활동별 분율'],
+};
+---
+
+<HundredYear
+  title={`낙상 손상 — ${자료.최신연도}년 75세 이상이 ${연령별.find((r) => r.칸 === '75세이상').분율}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>낙상으로 입원하는 사람은<br />몇 살부터 늘어날까요?</h1>
+  <p class="sub">
+    질병관리청 「퇴원손상심층조사」(병원 표본조사를 전국 추정치로 환산) 기준,
+    {' '}{자료.최신연도}년 추락·낙상으로 입원했다 퇴원한 사람이 나이·성별로 어떻게 갈리는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{자료.최신연도}년 — 추락·낙상으로 입원했다 퇴원한 사람(전국 추정)</p>
+    <p class="answer-num">{Math.round(자료.전체_퇴원환자수).toLocaleString()}명</p>
+    <p class="answer-sub">
+      75세 이상이 {연령별.find((r) => r.칸 === '75세이상').분율}%로 가장 큰 몫입니다
+    </p>
+  </div>
+
+  <h2>나이대별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>퇴원환자수(추정)</th><th>분율</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{Math.round(r.건수).toLocaleString()}명</td>
+            <td><strong>{r.분율}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 55세부터 분율이 뛰기 시작해(17.6%), 65세 이상 두 칸(65-74세·75세이상)을 합치면
+    {' '}{Math.round((연령별.find((r) => r.칸 === '65-74세').분율 + 연령별.find((r) => r.칸 === '75세이상').분율) * 10) / 10}%로
+    {' '}전체의 절반을 넘습니다.
+  </p>
+
+  <h2>성별로 보면 — 심장정지와는 반대입니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>성별</th><th>퇴원환자수(추정)</th></tr></thead>
+      <tbody>
+        {성별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{Math.round(r.건수).toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ <a href="/cardiac-arrest">급성심장정지</a>는 남자가 여자보다 많았는데, 낙상 손상 퇴원은
+    {' '}여자({Math.round(성별.find((r) => r.칸 === '여자').건수).toLocaleString()}명)가 남자
+    {' '}({Math.round(성별.find((r) => r.칸 === '남자').건수).toLocaleString()}명)보다 많습니다 — 같은 몸이라도
+    {' '}무엇으로 다치느냐에 따라 성별 갈래가 다르게 나타납니다.
+  </p>
+
+  <h2>어디서, 무엇을 하다가 다칠까요?</h2>
+  <p class="note">
+    ⚠ 장소·활동 둘 다 「미상」(현장에서 확인이 안 된 칸)이 가장 큽니다 — 장소는 {자료.장소_미상몫}%,
+    {' '}활동은 {자료.활동_미상몫}%가 미상입니다. 아래 표는 <strong>확인된 나머지 안에서 가장 많이 나온 갈래</strong>일 뿐이지,
+    {' '}전체의 과반이라는 뜻이 아닙니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>장소(확인된 것만, 미상 제외)</th><th>분율</th></tr></thead>
+      <tbody>
+        {(자료.장소별 as any[]).slice(0, 5).map((r) => (
+          <tr>
+            <td>{r.이름}</td>
+            <td>{r.분율}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>활동(확인된 것만, 미상 제외)</th><th>분율</th></tr></thead>
+      <tbody>
+        {(자료.활동별 as any[]).slice(0, 5).map((r) => (
+          <tr>
+            <td>{r.이름}</td>
+            <td>{r.분율}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 확인된 것 중에서는 <strong>「주거지」</strong>({(자료.장소별 as any[])[0].분율}%)와
+    {' '}<strong>「일상생활중」</strong>({(자료.활동별 as any[])[0].분율}%)이 확인된 것 중 가장 많습니다 — 운동경기
+    {' '}({(자료.활동별 as any[]).find((r) => r.이름 === '운동경기참여중')?.분율}%)보다 훨씬 큽니다.
+    {' '}75세 이상이 전체의 36.6%를 차지한다는 점(위)과 함께 보면, 확인된 낙상의 상당수가 특별한
+    {' '}운동·사고 현장이 아니라 <strong>평소 지내는 집 안, 평소 하던 일상 동작</strong>에서 일어났다는
+    {' '}뜻으로 읽힙니다.
+  </p>
+
+  <h2>65세 이상만 따로 — {첫해.해}년부터 {끝해.해}년까지 낙상 퇴원율</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>10만 명당 퇴원율</th></tr></thead>
+      <tbody>
+        {추이.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.퇴원율}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ {정점.해}년이 10년 중 가장 높았고({정점.퇴원율}명), {끝해.해}년은 {끝해.퇴원율}명으로
+    {' '}{첫해.해}년({첫해.퇴원율}명)보다 여전히 높습니다. 2020~2021년 잠시 낮아졌다
+    {' '}2022년부터 다시 올랐습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>표본조사를 전국 추정치로 가중 환산한 값입니다(전수조사가 아닙니다) — 사례수가 적은 칸은 오차가 큽니다.</li>
+    <li>「퇴원환자수」는 입원 후 그 해 퇴원한 사람만 셉니다. 다치고 입원하지 않은 사람, 입원 중인데 그 해를 못 넘긴 사람은 이 표에 없습니다.</li>
+    <li>2020~2021년이 낮아진 까닭(코로나19로 병원 이용·활동이 줄었을 가능성 등)을 이 표가 가르지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「몇 살부터 조심해야 한다」고
+    {' '}쓰지 않습니다. 나이·성별·연도로 숫자가 어떻게 갈리는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/cardiac-arrest">← 급성심장정지는 몇 살부터 늘어날까요?</a>
+    <br />
+    <a href="/care">← 몇 살부터 돌봄이 필요해질까요?</a>
+    <br />
+    <a href="/years-left">← 0세부터 100세까지, 앞으로 몇 해가 남았을까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="fall-injury" />
+
+  <NextQuestionBrief 모은것="질병관리청 실측 자료" />
+</HundredYear>
