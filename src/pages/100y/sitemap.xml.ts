@@ -327,6 +327,15 @@ export const GET: APIRoute = () => {
     { path: '/training-card', priority: '0.8', changefreq: 'weekly' },
     /* 「대학 이후」의 짝(2026-08-23 신설) — 여기서도 잊지 않는다 */
     { path: '/before', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 2026-09-03 — 사장님 지시("질병관리청·소방청 데이터를 스스로 찾아라")로 낸 지면.
+       ⛔⛔ 사장님이 "콘텐트 목표 달성했는데 방문자 1명이면 이유를 찾아 고쳐라"고 지적한
+         뒤 check:100y:launch를 처음 돌려서 잡았다 — 이 세 줄이 통째로 빠져 있었다.
+         지면은 라이브인데 사이트맵엔 없어 구글이 몰랐다. /after·/region·/pets 등에서
+         반복된 것과 같은 실수를 오늘 또 세 번 했다 — 앞으로 새 고정 지면을 만들 때마다
+         반드시 이 자리에 같은 커밋으로 넣는다. */
+    { path: '/cardiac-arrest', priority: '0.8', changefreq: 'yearly' },
+    { path: '/fall-injury', priority: '0.8', changefreq: 'yearly' },
+    { path: '/volunteer', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
