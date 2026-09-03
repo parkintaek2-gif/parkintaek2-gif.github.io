@@ -235,7 +235,8 @@
      "다시잴날": "2026-09-30"
     },
     "누가": "5번 (총괄대행)"
-   }
+   },
+   "⚠2026-09-04관문이헛울었다": "배포 관문이 「/school 실험을 건드렸다 ← src/data/kcw-school-pipeline.json」로 울었으나, 재 보니 «거짓 경보»였다. /school 지면(src/pages/wikitip/school/[school].astro 36줄)이 읽는 것은 kcw-school-reach.json 이고, 그날 새로 낸 kcw-school-pipeline.json 을 읽는 지면은 하나도 없었다 (grep -rln kcw-school-pipeline src/ → 0곳). 이름 앞머리가 같아서 관문이 짝지은 것이다. ⭐ 그러므로 이 실험의 전값·후값은 «그대로 쓸 수 있다». 다시잴날 2026-09-25 도 그대로다. ⚠ 관문은 자기가 어림임을 밝혀 두었고 막지 않았다 — 그 설계가 맞다. 다만 다음 사람이   같은 경보를 보고 실험 값을 버리지 않도록 판정을 여기 적어 둔다."
   },
   {
    "지면": "/born-on/* — 366장을 홀짝으로 갈라 «반만» 바꾼 A/B",
