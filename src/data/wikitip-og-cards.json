@@ -203,9 +203,9 @@
       "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다 / 2026-08-09 10:3x — 비라틴 제목을 빼면서 띠가 24곳→23곳이 됐다. 카드도 같이 옮긴다 / 2026-09-03 — 패널을 08-23 주까지 올리자 그 띠가 20곳→21곳이 됐다(지면은 「19 of 21」). 카드가 「18 of 20」에 멈춰 있어 check-table-promises 가 잡았다. 자가 제 몫을 했다."
     },
     "half-our-panel-cannot-be-verified": {
-      "figure": "214 of 421",
+      "figure": "215 of 421",
       "label": "titles that never reached a global Top 10, so the language label cannot be applied",
-      "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다"
+      "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다 / 2026-09-03 — 카드가 「214 of 421」에 멈춰 있었다. 본문은 dek·표·정정절 세 곳 모두 「215 of 421」이다. 카드 자가 「기사 본문에 없다」고 막아 알았다 — 자가 제 몫을 했다. ⭐ 손으로 적은 값은 자료가 움직여도 안 따라온다."
     },
     "it-moved-it-did-not-shrink": {
       "figure": "8.56",
@@ -395,6 +395,11 @@
       "figure": "71.9%",
       "label": "of Korean titles reach Malaysia in week one",
       "왜": "자동은 dek 첫 수 33% 를 집고 딱지가 비었다(그 앞에 낱말이 없다). 이 기사의 요점은 말레이시아 71.9% 이고, 33% 는 견줄 상대(영국)다"
+    },
+    "ten-wikipedias-one-audience": {
+      "figure": "51.9%",
+      "label": "of Korean stars who sing and act sit in 10+ Wikipedia languages. Singers: 8.1%",
+      "왜": "자동은 글머리 첫 수 9,249 를 집는다 — 그건 명부 크기(분모)이고 카드가 「한국 연예인 9,249명」이라는 다른 기사가 된다. 이 기사의 요점은 «한 쪽만 하는 사람과의 거리»라 51.9 대 8.1 을 박는다. 둘 다 본문 표에 그대로 있다."
     }
   }
 }
