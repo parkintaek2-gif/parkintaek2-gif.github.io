@@ -854,7 +854,10 @@ const jsonLd = [
       ))}</p>
       {지면있는배우 > 0 && (
         <p class="note">
-          {지면있는배우} of these {출연진.length} names have a page of their own here, showing every
+          {/* 🔴 2026-09-03 — 여기가 「1 of these 1 names have」로 나가고 있었다(13장).
+              ⛔ 수 옆의 낱말도 동사도 세서 고른다. 영문 매체가 영어를 틀리면 나머지 수도 안 믿는다. */}
+          {지면있는배우} of these {출연진.length} {출연진.length === 1 ? 'name' : 'names'}
+          {' '}{지면있는배우 === 1 ? 'has a page of its own' : 'have pages of their own'} here, showing every
           other charting title they appear in and how far each one travelled. The rest do not, because
           we hold fewer than two charting titles for them.
         </p>

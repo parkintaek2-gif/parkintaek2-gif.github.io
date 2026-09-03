@@ -41,6 +41,13 @@ import KLifeMapNext from '../../../components/KLifeMapNext.astro';
 import { KLIFEMAP_사주 } from '../../../lib/klifemap-en';
 import data from '../../../data/wikitip-people.json';
 import 멤버그룹자료 from '../../../data/wikitip-member-vs-group.json';
+
+/* 🔴 2026-09-03 — 이 지면 77장이 「1 countries」로 나가고 있었다(check-kcw-plural 실측).
+   ⛔ 수 옆의 낱말을 늘 복수로 두지 않는다. 하나면 하나라고 쓴다.
+   ⚠ 「title/titles」는 원래 갈라 쓰고 있었는데 countries·places·markets 만 안 갈랐다.
+      한 곳을 고치면 «같은 병을 앓는 이웃»까지 따라간다 — 그래서 셋을 함께 고쳤다. */
+const 단복 = (n: number, 단: string, 복: string) => (Number(n) === 1 ? 단 : 복);
+
 import 해지면자료 from '../../../data/kcw-birth-year-pages.json';
 
 export function getStaticPaths() {
@@ -127,13 +134,13 @@ const 기준일 = data.asOf;
  */
 const 제목바닥 = 60;
 const 제목후보 = [
-  `${p.name} movies and TV shows — ${p.countries} countries on Netflix`,
-  `${p.name} movies and TV shows — ${p.countries} countries`,
+  `${p.name} movies and TV shows — ${p.countries} ${단복(p.countries, 'country', 'countries')} on Netflix`,
+  `${p.name} movies and TV shows — ${p.countries} ${단복(p.countries, 'country', 'countries')}`,
   `${p.name} movies and TV shows on Netflix`,
 ];
 const TITLE = 제목후보.find((t) => t.length <= 제목바닥) ?? 제목후보[제목후보.length - 1];
 const DESC = `${p.name} appears in ${p.titleCount} Korean titles that reached a Netflix weekly top 10 — `
-  + `${수(p.places)} chart places across ${p.countries} countries. Every title is listed.`;
+  + `${수(p.places)} chart ${단복(p.places, 'place', 'places')} across ${p.countries} ${단복(p.countries, 'country', 'countries')}. Every title is listed.`;
 
 const 가장멀리 = p.titles[0] ?? null;
 const 가장오래 = [...p.titles].sort((a: any, b: any) => (b.weeks ?? 0) - (a.weeks ?? 0))[0] ?? null;
@@ -157,8 +164,8 @@ const 생일글 = p.born
   <p class="lead">
     <b>{p.name}</b> appears in <b>{p.titleCount}</b> Korean {p.titleCount === 1 ? 'title' : 'titles'}
     {드라마 > 0 && 영화 > 0 ? ` (${드라마} TV, ${영화} film)` : ''} that reached a Netflix weekly
-    top 10 somewhere in the world. Together those titles took <b>{수(p.places)}</b> chart places
-    in <b>{p.countries}</b> countries.
+    top 10 somewhere in the world. Together those titles took <b>{수(p.places)}</b> chart {단복(p.places, 'place', 'places')}
+    in <b>{p.countries}</b> {단복(p.countries, 'country', 'countries')}.
     {/*
       * 🔴 2026-08-25 밤 — 이 지면의 «다음 걸음»이 어디 있는지 재 보니
       *   윗절반에 24%뿐이었다(5개 대 16개). 표를 다 읽어야 갈 데가 보였다.
@@ -251,7 +258,7 @@ const 생일글 = p.born
       {가장멀리 && (
         <li>
           Widest run: <a href={`/title/${가장멀리.slug}`}>{가장멀리.title}</a> &mdash;
-          {' '}{수(가장멀리.places)} places in {수(가장멀리.markets)} countries.
+          {' '}{수(가장멀리.places)} {단복(가장멀리.places, 'place', 'places')} in {수(가장멀리.markets)} {단복(가장멀리.markets, 'country', 'countries')}.
         </li>
       )}
       {가장오래 && 가장오래.slug !== 가장멀리?.slug && (
