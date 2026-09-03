@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-02T18:11:40.674Z",
+  "generated": "2026-09-03T17:36:44.525Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -144,11 +144,11 @@
       "src": "/video/oneout.mp4"
     },
     {
-      "set": "onlyone",
+      "set": "onlyone-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/onlyone.jpg",
-      "src": "/video/onlyone.mp4"
+      "uploadDate": "2026-09-03",
+      "thumb": "/video/thumb/onlyone-voiced.jpg",
+      "src": "/video/onlyone-voiced.mp4"
     },
     {
       "set": "outside",
@@ -200,16 +200,16 @@
       "src": "/video/shelf.mp4"
     },
     {
-      "set": "signs",
+      "set": "signs-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/signs.jpg",
-      "src": "/video/signs.mp4"
+      "uploadDate": "2026-09-03",
+      "thumb": "/video/thumb/signs-voiced.jpg",
+      "src": "/video/signs-voiced.mp4"
     },
     {
       "set": "spike-hearts2hearts-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-29",
+      "uploadDate": "2026-09-03",
       "thumb": "/video/thumb/spike-hearts2hearts-voiced.jpg",
       "src": "/video/spike-hearts2hearts-voiced.mp4"
     },

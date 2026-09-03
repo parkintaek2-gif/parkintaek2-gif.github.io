@@ -394,7 +394,7 @@ const videoSets = [
       + 'Shin Tae-yong.',
   },
   {
-    set: 'onlyone',
+    set: 'onlyone-voiced',
     page: '/only-one-wikipedia',
     title: 'Only the Indonesian Wikipedia has written about Ahn Sung-ki and Choi Jiwoo',
     description: '14 seconds on Korean names that exist in exactly one Southeast Asian edition, '
@@ -422,7 +422,7 @@ const videoSets = [
       + 'the same is true of Japan.',
   },
   {
-    set: 'signs',
+    set: 'signs-voiced',
     page: '/star-signs',
     title: 'We checked whether a Chinese zodiac sign predicts reaching a Netflix chart',
     description: '14 seconds on 1,047 Korean actors sorted by birth-year sign, and on a spread '
