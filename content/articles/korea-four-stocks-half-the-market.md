@@ -35,7 +35,7 @@ At the very top sits one name.
 
 ![Bar chart: top 10 Korean stocks by share of total KOSPI+KOSDAQ market cap as of 2026-08-21. Samsung Electronics 26.7%, SK hynix 20.5%, then a steep drop to Samsung Elec. preferred 2.7%, SK Square 2.4% and smaller.](/charts/market-concentration-top10.svg)
 
-**Samsung Electronics is 26.7% of the whole market** on its own — and once its preferred shares are added, the company is about **29%**. **SK hynix** is another **20.5%**. So two companies — both riding the memory and AI cycle that [tripled chip producer prices](/article/korea-producer-prices-chips-tripled) — are together nearly **half** of everything listed in Korea. After them the bars fall off a cliff: third place is under 3%.
+**Samsung Electronics is 26.7% of the whole market** on its own — and once its preferred shares are added, the company is about **29%**. **SK hynix** is another **20.5%**. So two companies — both riding the memory and AI cycle that [tripled chip producer prices](/article/korea-producer-prices-chips-tripled) — are together nearly **half** of everything listed in Korea. After them the bars fall off a cliff: third place is under 3%. That same pair is also who [Korea's state utility went to first](/article/korea-kepco-samsung-sk-hynix-power-prepay) when it needed grid money up front.
 
 ## The two markets are not the same size at all
 
