@@ -37,7 +37,15 @@ const LF = String.fromCharCode(10);
 /* ── 유닛과 사이트 — 한 곳에서만 정한다 ── */
 export const 유닛들 = [
   { 번호: '1번', 이름: 'KLifeMap', 도메인: 'klifemap.ai', 콘텐트: [], 영상: [], 지면: ['public'], 저장소: '../klifemap' },
-  { 번호: '3번', 이름: '백년지도', 도메인: '100yearmap.com', 콘텐트: ['content/100yearmap'], 영상: ['public/100y/video'], 카드: ['public/100y/card'] },
+  /* 🔴 2026-09-03 21:5x · 3번 — 콘텐트·카드 경로가 «존재하지 않는 자리»를 가리키고
+   * 있었다. content/100yearmap 은 이 저장소에 없다(3번 지면은 Astro다, 마크다운이
+   * 아니다) · public/100y/card 도 없다(실제는 public/100y/cardnews). 그 결과 09-02에
+   * 실제로 새 지면 3장을 냈는데도(divorce-age·wage-distribution·tutoring-income,
+   * curl 로 라이브 200 확인) 이 자는 «발행 0편»으로 셌다 — 없는 경로를 «세서 0건»과
+   * 헷갈린 것이다(⛔ 이 파일 스스로 금지한 바로 그 것). 3번이 직접 고쳤다.
+   * 콘텐트는 비워 두고(마크다운이 없으니) 아래 「아스트로지면」으로 따로 센다 —
+   * klifemap(1번)이 «지면이 마크다운이 아니다」를 손댄 .html 로 대신 센 것과 같은 결. */
+  { 번호: '3번', 이름: '백년지도', 도메인: '100yearmap.com', 콘텐트: [], 아스트로지면: ['src/pages/100y'], 영상: ['public/100y/video'], 카드: ['public/100y/cardnews'] },
   { 번호: '4번', 이름: '방문자 유입', 도메인: null, 콘텐트: [], 영상: [] },
   { 번호: '5번', 이름: 'K Culture Wire', 도메인: 'www.kculturewire.com', 콘텐트: ['content/kculturewire'], 영상: ['public/wikitip/video'], 카드: ['public/wikitip/card', 'archive/social'] },
   { 번호: '6번', 이름: 'SeoulMarkets', 도메인: 'seoulmarkets.com', 콘텐트: ['content/articles'], 영상: ['public/video'], 카드: ['public/card', 'public/seoulmarkets/card'] },
@@ -223,6 +231,30 @@ function 발행센다(날, 유닛, 지면표 = null, 평균열림 = null) {
   결과.영상수 = 영상 === null ? null : 영상.length;
   const 카드 = 유닛.카드 ? 그날새파일(날, 유닛.카드.filter((x) => fs.existsSync(path.join(뿌리, x))), '.png') : [];
   결과.카드수 = 카드 === null ? null : 카드.length;
+
+  /* 🔴 3번(백년지도) — 지면이 마크다운이 아니라 Astro(.astro)라 아래 앞말 판정이 안 맞는다.
+   * klifemap(1번)이 손댄 .html 로 대신 센 것과 같은 결로, git 이 그날 «새로 들인»
+   * index.astro 를 새 지면으로 센다. ⛔ 반응·만듦은 여기서 못 잰다 — Astro 지면엔
+   * pubDate·dataAsOf 앞말이 없다. 0 으로 적지 않고 결과.분류못잼 으로 밝힌다. */
+  if (유닛.아스트로지면) {
+    const 새 = 그날새파일(날, 유닛.아스트로지면, 'index.astro');
+    if (새 === null) {
+      결과.편수못잼 = true;
+    } else {
+      결과.편수 += 새.length;
+      결과.분류못잼 = 새.length > 0;
+      for (const 길 of 새) {
+        const 슬러그 = 길.split('/').slice(-2, -1)[0] ?? 길;
+        결과.제목들.push(슬러그);
+        결과.편들.push({
+          제목: 슬러그, 무엇: '⬜ Astro 지면 — dek 앞말 없음', 시차: null, 배포기준: false,
+          표시: 제목표시(슬러그), 열림: 지면찾기(지면표, 슬러그), 평균넘나: null, 슬러그,
+          갈래: null, 반응: null, 기준일: null,
+        });
+      }
+    }
+  }
+
   for (const 방 of 유닛.콘텐트) {
     const d = path.join(뿌리, 방);
     if (!fs.existsSync(d)) continue;
@@ -451,10 +483,14 @@ if (내가) {
   쓴다('| --- | --- | ---: | ---: | ---: | ---: |');
   for (const u of 유닛들) {
     const p = 발행.get(u.번호);
-    const 몫 = u.콘텐트.length ? String(p.편수) : '—';
-    쓴다(`| ${u.번호} | ${u.이름} | **${몫}** | ${u.콘텐트.length ? p.반응 : '—'} | ${u.콘텐트.length ? p.만듦 : '—'} | ${커밋[u.번호] ?? 0} |`);
+    const 텍스트있나 = u.콘텐트.length || u.아스트로지면?.length;
+    const 몫 = 텍스트있나 ? String(p.편수) : '—';
+    const 갈래칸 = (v) => (!텍스트있나 ? '—' : p.분류못잼 ? '⬜ 못 쟀다' : v);
+    쓴다(`| ${u.번호} | ${u.이름} | **${몫}** | ${갈래칸(p.반응)} | ${갈래칸(p.만듦)} | ${커밋[u.번호] ?? 0} |`);
   }
   쓴다('', `합계 — 발행 **${총편수}편** · 이슈 반응 ${총반응} · 이슈 생성 ${총만듦}`, '');
+  쓴다('⚠ 3번은 Astro 지면이라 이슈반응·이슈생성을 이 자로 못 잰다(위 표에 ⬜로 뜬다) —', '');
+  쓴다('  총반응·총만듦 합계에는 0으로 들어가 있다. 실제보다 적게 보일 수 있다.', '');
   쓴다('### 1-2. 하루 몫 세 줄 — **텍스트 6 · 영상 1 · 기타 1** (사장님 2026-09-03)', '');
   쓴다('| 유닛 | 텍스트 (몫 6) | 영상 (몫 1) | 기타·카드 (몫 1) |');
   쓴다('| --- | --- | --- | --- |');
@@ -462,7 +498,8 @@ if (내가) {
     const p = 발행.get(u.번호);
     const 칸 = (수, 몫) => (수 === null ? '⬜ 못 쟀다' : `${수} / ${몫}` + (수 >= 몫 ? ' ✅' : ' 🔴'));
     const 없음 = (자리) => (자리 && 자리.length ? null : '— (그 몫이 없는 유닛)');
-    쓴다(`| ${u.번호} ${u.이름} | ${없음(u.콘텐트) ?? 칸(p.편수, 6)}`
+    const 텍스트자리 = (u.콘텐트.length || u.아스트로지면?.length) ? [1] : [];
+    쓴다(`| ${u.번호} ${u.이름} | ${없음(텍스트자리) ?? 칸(p.편수, 6)}`
       + ` | ${없음(u.영상) ?? 칸(p.영상수, 1)} | ${없음(u.카드) ?? 칸(p.카드수, 1)} |`);
   }
   쓴다('');
