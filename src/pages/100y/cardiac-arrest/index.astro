@@ -16,6 +16,7 @@
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/cardiac-arrest.json';
 
 const 자료 = 원본 as any;
@@ -150,6 +151,8 @@ const jsonLd = {
   </p>
 
   <HundredAgeWalk 키="cardiac-arrest" />
+
+  <HundredCardnews 벌="급성심장정지" 장수={5} 머리="이 지면을 카드 다섯 장으로" />
 
   <NextQuestionBrief 모은것="질병관리청·소방청 실측 자료" />
 </HundredYear>
