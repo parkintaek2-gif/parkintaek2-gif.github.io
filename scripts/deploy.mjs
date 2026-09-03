@@ -31,7 +31,7 @@
  */
 
 import { readFileSync, writeFileSync, existsSync, unlinkSync, appendFileSync } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import path from 'node:path';
 import { pathToFileURL, fileURLToPath } from 'node:url';
 import https from 'node:https';
@@ -173,6 +173,48 @@ const 표식 = 표식읽기();
 const 지금 = () => new Date(); // 이 PC 는 KST 다. 9시간을 더하지 않는다
 const 시각 = (d = 지금()) => d.toLocaleString('ko-KR', { hour12: false });
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/**
+ * 🔴 빌드가 깨졌다 — **배포를 하지 않는다.**
+ * ⚠ 「판정을 못 한다」와 다른 말이다. 구울 수가 없으면 배포는 뜻이 없다.
+ *   자세한 까닭은 아래 build-once 를 부르는 자리의 주석에 있다(2026-09-04).
+ */
+export class 빌드실패 extends Error {
+  constructor(글) {
+    super('빌드가 깨졌다');
+    this.name = '빌드실패';
+    this.글 = String(글 || '');
+  }
+
+  /** 오류 글에서 «사람이 고칠 수 있는 한 줄»을 뽑는다. 없으면 null — 억지로 만들지 않는다 */
+  get짚은곳() {
+    return 빌드오류짚기(this.글);
+  }
+}
+
+/**
+ * 빌드 오류 글에서 「어느 파일이 왜」를 뽑는다.
+ * ⚠ 못 뽑으면 `null` 이다. 「없다」가 아니라 **「못 짚었다」**로 내보낸다 —
+ *   그러면 부르는 쪽이 원문 전체를 보여 준다.
+ */
+export function 빌드오류짚기(글) {
+  const s = String(글 || '').replace(/\[[0-9;]*m/g, '');   // 색코드를 지운다
+  /* Astro 콘텐츠 스키마 오류 — 우리가 제일 자주 내는 꼴이다 */
+  const m = s.match(/InvalidContentEntryDataError\][^\n]*?([A-Za-z0-9_]+)\s*→\s*([^\s]+)/);
+  const 까닭 = s.match(/^\s*([A-Za-z]+):\s*(Too big[^\n]*|Too small[^\n]*|Invalid[^\n]*|Required[^\n]*)/m);
+  if (m) {
+    return {
+      꼴: '콘텐츠스키마',
+      묶음: m[1],
+      글쪽: m[2],
+      까닭: 까닭 ? `${까닭[1]}: ${까닭[2].trim()}` : null,
+      고치는곳: `content/*/${m[2]}.md 의 frontmatter`,
+    };
+  }
+  const 길 = s.match(/^\s*(?:Location:\s*\n\s*)?([A-Za-z]:[\\/][^\n:]+\.(?:md|astro|ts|mjs|js))/m);
+  if (길) return { 꼴: '파일', 글쪽: null, 까닭: null, 고치는곳: 길[1] };
+  return null;
+}
 
 /** ⚠ `-t` 없이 부르지 않는다. 없으면 전역 스테이지로 튀어 남의 프로젝트에 배포된다. */
 function ctype(args) {
@@ -418,10 +460,39 @@ async function 새주소찾기(최대 = 3) {
     //   두 자리가 동시에 빌드하면 한쪽이 dist 를 비우는 사이 다른 쪽이 죽거나,
     //   더 나쁘게는 **반쯤 섞인 dist** 가 남아 판정이 통째로 틀린다(2026-08-07 16:4x 실제로 겪음).
     //   build-once 가 자물쇠를 쥐고 하나씩 돌린다.
-    execFileSync(process.execPath, [path.join(뿌리, 'scripts', 'build-once.mjs')], { stdio: 'ignore', cwd: 뿌리 });
-  } catch {
-    console.log('⚠ 빌드가 안 됐다 — 지면 판정을 쓰지 않고 옛 방식으로 돈다.');
-    return [];
+    /* 🔴🔴 [2026-09-04 · 5번이 겪고 고침] **빌드 실패를 「판정을 못 한다」로 낮춰 읽고 있었다.**
+       ─────────────────────────────────────────────────────────────────────────────
+       06:0x 에 새 기사 한 편을 냈다. 배포를 두 번 돌렸고 두 번 다 이렇게 끝났다 —
+       ```
+         ✅ Running · 라이브 200
+         🔴🔴 라이브가 아직 옛 것이다 … ⭐ 몇 분 기다린 뒤 **다시 배포**하십시오
+       ```
+       그 안내를 따라 또 배포했고, 또 같은 말이 나왔다. **기다려도 영영 안 나갔다.**
+
+       [까닭] 배포가 아니라 **빌드가 깨져 있었다.** 내 기사의 `dek` 이 240자를 넘어
+         `InvalidContentEntryDataError` 로 «사이트 전체» 빌드가 죽었다.
+         Cloudtype 도 같은 저장소를 같은 명령으로 굽는다 — 그쪽도 똑같이 죽는다.
+
+       ⛔ 그런데 옛 코드는 그 실패를 삼켰다. `stdio: 'ignore'` 로 오류 글을 버리고,
+         catch 에서 「지면 판정을 쓰지 않고 옛 방식으로 돈다」고만 적고 **배포를 계속했다.**
+         그래서 사람이 보는 것은 「Running · 라이브 200」과 「다시 배포하십시오」뿐이었다.
+         2026-09-01 밤에 5번이 두 시간을 헛돈 것도 이 꼴이었을 수 있다(그때는 못 쟀다).
+
+       🔴 그리고 이 결함은 **한 유닛이 여섯을 다 막는다.** 세 사이트가 «한 빌드»다 —
+         내 frontmatter 한 줄이 6번·3번의 배포까지 영영 안 나가게 만들고,
+         그 유닛들은 까닭을 모른 채 「다시 배포」만 되풀이한다.
+
+       ✅ 그래서 빌드가 깨지면 **배포를 하지 않고 멈춘다.** 오류 글을 그대로 보여 준다.
+         「판정을 못 한다」와 「구울 수가 없다」는 다른 말이다. */
+    const r = spawnSync(process.execPath, [path.join(뿌리, 'scripts', 'build-once.mjs')],
+      { cwd: 뿌리, encoding: 'utf8' });
+    if (r.status !== 0) {
+      const 글 = String(r.stdout || '') + String(r.stderr || '');
+      throw new 빌드실패(글);
+    }
+  } catch (e) {
+    if (e instanceof 빌드실패) throw e;      // ⛔ 삼키지 않는다. 위로 올려 배포를 멈춘다
+    throw new 빌드실패(String(e && e.message ? e.message : e));
   }
 
   // ① 라이브 사이트맵 셋을 받아 **지금 나가 있는 주소**를 모은다. 요청 세 번이면 된다.
@@ -778,6 +849,40 @@ async function 자가시험() {
       경로되돌리기('C:/Users/USER/x').되돌렸나 === false],
     ['빈 값에 안 죽는다', async () =>
       경로되돌리기(null).낱말 === '' && 경로되돌리기(undefined).되돌렸나 === false],
+
+    /* ── 빌드 실패를 배포로 넘기지 않는다 (2026-09-04) ────────────────────────
+       ⚠ **진짜로 겪은 글**을 넣는다. 지어낸 오류 글로 시험하면 진짜가 와도 못 짚는다.
+         아래 글은 2026-09-04 06:01 에 실제로 나온 것을 색코드만 남기고 옮긴 것이다. */
+    ['진짜 겪은 빌드 오류에서 「어디가·무엇이」를 짚는다', async () => {
+      const 진짜 = '\u001b[2m06:01:31\u001b[22m \u001b[34m[content]\u001b[39m Syncing content\n'
+        + '\u001b[31m[InvalidContentEntryDataError]\u001b[39m \u001b[1mkcwArticles \u2192 chart-credits-buy-a-level-not-a-direction\u001b[22m data does not match collection schema.\n\n'
+        + '  \u001b[1mdek\u001b[22m: Too big: expected string to have <=240 characters\n';
+      const r = 빌드오류짚기(진짜);
+      return r !== null && r.꼴 === '콘텐츠스키마'
+        && r.묶음 === 'kcwArticles'
+        && r.글쪽 === 'chart-credits-buy-a-level-not-a-direction'
+        && /Too big/.test(r.까닭 ?? '');
+    }],
+    ['못 짚으면 «못 짚었다»(null)로 낸다 — 억지로 지어내지 않는다', async () =>
+      빌드오류짚기('무슨 말인지 모를 오류') === null && 빌드오류짚기('') === null
+      && 빌드오류짚기(null) === null],
+    ['다른 글쪽이 오면 그 글쪽을 짚는다 (한 편에 박아 두지 않았다)', async () => {
+      const r = 빌드오류짚기('[InvalidContentEntryDataError] hundredYear → some-other-page data does not match\n\n  title: Required\n');
+      return r && r.묶음 === 'hundredYear' && r.글쪽 === 'some-other-page';
+    }],
+    ['파일 길만 있는 오류도 어디인지는 짚는다', async () => {
+      const r = 빌드오류짚기('Something broke\n  Location:\n    C:/Users/User/Documents/GitHub/dataeconomics/src/pages/x.astro\n');
+      return r && r.꼴 === '파일' && /x\.astro$/.test(r.고치는곳);
+    }],
+    ['빌드실패는 «다른 오류와 구별»된다 — 배포를 멈추는 갈래다', async () => {
+      const a = new 빌드실패('아무 글');
+      return (a instanceof 빌드실패) && (a instanceof Error)
+        && !(new Error('그냥 오류') instanceof 빌드실패);
+    }],
+    ['빌드실패가 원문을 «잃지 않는다» — 사람이 볼 것은 이 글뿐이다', async () => {
+      const 글 = 'Too big: expected string to have <=240 characters';
+      return new 빌드실패(글).글 === 글 && new 빌드실패(null).글 === '';
+    }],
   ];
   let 진 = 0;
   for (const [이름, 재기] of 본보기) {
@@ -1342,6 +1447,29 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   main().catch((e) => {
     락풀기();
+    /* 🔴 빌드가 깨진 것은 «배포 문제가 아니다». 사람이 고칠 곳을 짚어 준다.
+       ⛔ 여기서 「다시 배포하십시오」라고 말하지 않는다 — 그 말이 오늘 두 번 헛돌게 했다. */
+    if (e instanceof 빌드실패) {
+      const 짚 = e.get짚은곳();
+      console.error('\n🔴🔴 **빌드가 깨졌다 — 배포하지 않았다.**');
+      console.error('   Cloudtype 도 같은 저장소를 같은 명령으로 굽는다. 여기서 깨지면 거기서도 깨진다.');
+      console.error('   ⛔ 다시 배포해도 소용없다. **고쳐야 나간다.**\n');
+      if (짚 && 짚.꼴 === '콘텐츠스키마') {
+        console.error(`   어디가  ${짚.고치는곳}`);
+        console.error(`   무엇이  ${짚.까닭 ?? '(못 짚었다 — 아래 원문을 보십시오)'}`);
+        console.error(`   묶음    ${짚.묶음}\n`);
+      } else if (짚) {
+        console.error(`   어디가  ${짚.고치는곳}\n`);
+      } else {
+        console.error('   ⬜ 어디인지 **못 짚었다.** 아래 원문을 그대로 보십시오.\n');
+      }
+      console.error('── 빌드가 낸 말 ─────────────────────────────');
+      console.error(e.글.trim().split('\n').slice(-25).join('\n'));
+      console.error('─────────────────────────────────────────────');
+      console.error('\n   🔴 세 사이트가 **한 빌드**다. 이것을 고칠 때까지 6번·3번의 배포도 안 나간다.');
+      console.error('   ✅ 고친 뒤 확인: node scripts/build-once.mjs   (종료코드 0 이어야 한다)');
+      process.exit(1);
+    }
     console.error(e);
     process.exit(1);
   });

@@ -1,6 +1,6 @@
 ---
 title: "Netflix chart credits buy a level of attention, not a direction"
-dek: "The same 1,113 actors, the same 30 days. Charting credits move an actor's attention floor sevenfold but do not move which way that attention travels: the median actor was flat in all four credit bands. The one trend we did see failed its own resampling test 11.2% of the time, so we are not publishing it as a finding."
+dek: "The same 1,113 actors, the same 30 days. Charting credits move an actor's attention floor sevenfold but not the direction it travels: the median actor was flat in all four bands. The trend we did see failed its own resampling test."
 category: stars
 purpose: both
 pubDate: 2026-09-04
