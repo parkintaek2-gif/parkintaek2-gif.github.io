@@ -516,6 +516,55 @@ const handle = async (req, res) => {
   }
 
   /**
+   * ⚠⚠ 「사라진 지면」을 살아 있는 이웃으로 보낸다 (301)
+   * ────────────────────────────────────────────────────────────────
+   * [왜 이것이 있나 — 2026-09-03 실측 · 5번]
+   *   사장님: 「낮은 방문자의 더 큰 원인은 … 검색엔진이 아직 우리를 실어주지 않는
+   *   초기 단계 문제입니다」(4번 진단) 「모든 세션들과 함께 해결방법을 찾으라」
+   *
+   *   그래서 KCW 의 노출 큰 지면 60장을 하나씩 눌러 봤다. 다섯 장이 404 였다.
+   *   ```
+   *   /esports                                    노출 166
+   *   /article/korea-challenger-win-rate          노출 151
+   *   /article/korea-ladder-games-played          노출 104
+   *   /ladder-gap                                 노출  28
+   *   /article/the-top-tier-is-where-players-stay 노출  21
+   *   ────────────────────────────────────────────  합 470
+   *   ```
+   *   ⭐ KCW 전체 노출 5,010건의 **9.4%** 가 우리 자신의 404 로 가고 있었다.
+   *      **검색엔진은 우리를 실어 주고 있었다.** 우리가 그 자리를 비워 둔 것이다.
+   *
+   * [왜 그 다섯 장이 사라졌나]
+   *   사장님 지시로 Riot 을 걷어낼 때 함께 없어졌다. 지운 것 자체는 맞다 —
+   *   다만 **구글은 아직 그 주소를 보여 주고 있다.** 지우면 수요도 같이 사라지는 것이 아니다.
+   *   ⚠ 사장님이 함께 바로잡아 주신 것 — 「내가 riot을 제거하라고 했지,
+   *     e스포츠를 제거하라고는 하지 않았잖아」. 그래서 보낼 곳이 있다:
+   *     `/esports-nations`·`/esports-games` 는 살아 있고 위키백과 열람수로 잰다.
+   *
+   * [⛔ 지키는 것]
+   *   · 301 이다. 302 가 아니다 — 영구히 옮긴 것이고, 그래야 구글이 새 주소로 힘을 옮긴다
+   *   · **뜻이 가까운 곳으로만** 보낸다. 아무 데나 보내면 손님이 속았다고 느끼고 바로 나간다
+   *     (구글도 그것을 「soft 404」로 보고 오히려 깎는다)
+   *   · KCW 접두사(`/wikitip`)가 붙은 길에만 걸린다. 세 사이트가 한 서버를 쓰므로
+   *     다른 사이트의 같은 이름 주소를 건드리면 안 된다
+   *   · 표에 없는 404 는 그대로 404 다. 조용히 홈으로 보내지 않는다
+   */
+  const 사라진지면 = {
+    '/wikitip/esports': '/esports-nations',
+    '/wikitip/ladder-gap': '/esports-nations',
+    '/wikitip/article/korea-challenger-win-rate': '/esports-games',
+    '/wikitip/article/korea-ladder-games-played': '/esports-games',
+    '/wikitip/article/the-top-tier-is-where-players-stay': '/esports-games',
+  };
+  {
+    const 보낼곳 = 사라진지면[pathname];
+    if (보낼곳) {
+      res.writeHead(301, { ...BASE_HEADERS, Location: 보낼곳 }).end();
+      return;
+    }
+  }
+
+  /**
    * ⚠⚠ **404 도 그 사이트 얼굴로 낸다.**
    *
    * 2026-08-05 실측 — `100yearmap.com/없는주소` 가 **「Page not found | SeoulMarkets」**
