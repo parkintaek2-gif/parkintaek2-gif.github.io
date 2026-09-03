@@ -611,13 +611,63 @@ if (내가) {
   console.log(`저장소 사본 — docs/보고/전유닛-점검/${이름}.md`);
   console.log(`발행 ${총편수}편 · 이슈반응 ${총반응} · 이슈생성 ${총만듦} · llms.txt 빠진 곳 ${빵.length}`);
 
+  /*
+   * 🔴 [2026-09-03 21:3x · 5번] **PDF 가 «조용히» 안 나오고 있었다.**
+   *
+   *   사장님 지시로 보고서는 PDF 로 드려야 한다 — 마크다운은 표가 깨져서 못 보신다.
+   *   그런데 이 자리가 늘 「⬜ PDF 는 못 냈다」를 찍고 있었고, 아무도 «왜»를 몰랐다.
+   *
+   *   까닭 둘.
+   *   1) `path.relative(뿌리, md)` 가 «쓰레기 경로»를 냈다 —
+   *      `뿌리` 는 슬래시, `md` 는 역슬래시라 섞였고 결과가 이랬다:
+   *        UsersUserOneDrive콘텐트 점검콘텐트 점검_20260902.md
+   *      그러니 md-to-pdf 가 그 파일을 못 찾는 것이 당연하다.
+   *      ⭐ 그리고 낼 곳은 OneDrive 인데 «저장소 뿌리 기준 상대 경로»를 넘기고 있었다.
+   *   2) `catch { pdf = null }` 가 오류를 **먹었다.** 무엇이 틀렸는지 한 줄도 안 남겼다.
+   *      ⛔ 조용히 성공한 척하는 것이 제일 나쁘다 — 오늘 하루 이 병을 여러 곳에서 고쳤다.
+   *
+   *   ✅ 고침: «절대 경로»를 넘기고, 실패하면 «까닭을 찍는다».
+   *   ✅ 그리고 저장소 사본으로 만든 뒤 OneDrive 로 «복사»한다 —
+   *      OneDrive 경로에 공백·한글이 섞여 있어 그쪽에서 바로 만드는 것보다 안전하다.
+   */
   let pdf = null;
+  const 사본md = path.join(사본방, `${이름}.md`);
   try {
-    execFileSync('node', ['scripts/md-to-pdf.mjs', path.relative(뿌리, md)], { cwd: 뿌리, stdio: 'pipe' });
-    pdf = md.replace(/\.md$/, '.pdf');
-    if (!fs.existsSync(pdf)) pdf = null;
-  } catch { pdf = null; }
-  console.log(pdf ? `PDF 도 냈다 — ${path.relative(뿌리, pdf)}` : '⬜ PDF 는 못 냈다 — md 로만 낸다');
+    execFileSync(process.execPath, [path.join(뿌리, 'scripts/md-to-pdf.mjs'), 사본md],
+      { cwd: 뿌리, stdio: 'pipe' });
+    const 만든것 = 사본md.replace(/\.md$/, '.pdf');
+    if (fs.existsSync(만든것)) {
+      pdf = 만든것;
+      /*
+       * OneDrive 쪽에도 같은 PDF 를 둔다 — 사장님이 그 폴더를 보신다.
+       * 🔴 [2026-09-03 실측] 덮어쓰기가 **EBUSY** 로 막힌다. OneDrive 가 그 파일을 붙잡고 있다.
+       *   ⛔ 그때 조용히 넘기면 사장님 폴더에는 «옛 판»이 남는다. 오늘 실제로 07:09 자
+       *      277KB 판이 남아 있었고, 새로 만든 371KB 판은 저장소에만 있었다.
+       *   ✅ 그러니 막히면 **딴 이름으로라도 새 판을 넣는다.** 없는 것보다 낫고,
+       *      이름에 시각이 들어가니 어느 것이 새 것인지 사장님이 바로 아신다.
+       */
+      const 원드라이브pdf = md.replace(/\.md$/, '.pdf');
+      let 놓았나 = null;
+      try { fs.copyFileSync(만든것, 원드라이브pdf); 놓았나 = 원드라이브pdf; }
+      catch (e1) {
+        const 두자 = (n) => String(n).padStart(2, '0');
+        const 때 = new Date(); /* ⚠ 이 PC 는 이미 KST 다 */
+        const 딴이름 = 원드라이브pdf.replace(/\.pdf$/, `_${두자(때.getHours())}${두자(때.getMinutes())}.pdf`);
+        try { fs.copyFileSync(만든것, 딴이름); 놓았나 = 딴이름; }
+        catch (e2) {
+          console.log(`   🔴 OneDrive 에 못 놓았다 — 덮기: ${String(e1.code || e1.message).slice(0, 20)}`
+            + ` · 딴이름: ${String(e2.code || e2.message).slice(0, 20)}`);
+        }
+      }
+      if (놓았나) console.log(`   OneDrive 에도 놓았다 — ${path.basename(놓았나)}`);
+    }
+  } catch (e) {
+    /* ⛔ 먹지 않는다. 무엇이 틀렸는지 남긴다 */
+    console.log(`   🔴 PDF 를 만들다 걸렸다 — ${String(e.message).slice(0, 160)}`);
+  }
+  console.log(pdf
+    ? `PDF 도 냈다 — ${path.basename(pdf)} (${Math.round(fs.statSync(pdf).size / 1024)}KB)`
+    : '⬜ PDF 는 못 냈다 — md 로만 낸다. ⛔ 사장님은 md 표를 못 보신다. 위 까닭을 고쳐야 한다');
 
   /**
    * 🔴 받는 주소를 **소스에 박지 않는다.** `send-mail.mjs` 가 처음부터 못박아 둔 규칙이고
