@@ -250,7 +250,7 @@ const videoSets = [
    *   따로 손질되니 반드시 갈라진다 — check-kcw-video-lists.mjs 가 이제 그 차이를 잡는다.
    */
   {
-    set: 'tworulers',
+    set: 'tworulers-voiced',
     page: '/person',
     title: 'Two rulers for the same people, and they point at different names',
     description: '14 seconds on measuring people two ways — Wikipedia opens and countries charted — and on the fact that nobody is in the top five of both.',

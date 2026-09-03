@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-04T02:36+09:00",
+  "generated": "2026-09-04T06:35+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
@@ -7,8 +7,7 @@
     "짝찾음": 34,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 32,
-    "원본에서읽음": 2
+    "지면에서읽음": 34
   },
   "videos": [
     {
@@ -218,7 +217,7 @@
       "seconds": 14,
       "page": "/only-one-wikipedia",
       "says": "Fourteen seconds: the names only one edition has written about, the size table that rules out the obvious explanation, and why a gap here is a fact about editors.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -298,7 +297,7 @@
       "seconds": 14,
       "page": "/star-signs",
       "says": "Fourteen seconds: the names in six of the twelve signs, and the measurement that says the spread across signs is indistinguishable from chance.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -332,9 +331,9 @@
       "alsoOn": []
     },
     {
-      "set": "tworulers",
-      "src": "/video/tworulers.mp4",
-      "thumb": "/video/thumb/tworulers.jpg",
+      "set": "tworulers-voiced",
+      "src": "/video/tworulers-voiced.mp4",
+      "thumb": "/video/thumb/tworulers-voiced.jpg",
       "seconds": 14,
       "page": "/person",
       "says": "Fourteen seconds: we measure people two ways — how often their Wikipedia page is opened, and how many countries their titles charted in. Of the people we can measure both ways, not one is in the top five of both lists.",

@@ -274,6 +274,39 @@ execFileSync(ff, [
 ], { stdio: ['ignore', 'ignore', 'pipe'] });
 
 console.log(`  ✔ 붙였다 — ${낼길}`);
+
+/* 🔴🔴 [2026-09-04 · 5번이 겪고 못박음] **여기서 끝내면 다음 사람이 사이트를 깨뜨린다.**
+   ─────────────────────────────────────────────────────────────────────────────
+   이 자는 `-voiced.mp4` 만 만들고 «썸네일»을 안 만들었다. 그래서 그 편을 지면에
+   `<KcwShorts set="…-voiced">` 로 걸면 빌드가 이렇게 죽는다 —
+     Error: 숏영상 tworulers-voiced 의 미리보기가 없다 — 썸네일도 카드뉴스도 없다
+   ⚠ 세 사이트가 «한 빌드»다. **소리 한 편 입힌 것이 6번·3번 배포까지 세운다.**
+
+   ⛔ 「썸네일은 나중에 만들면 된다」가 아니다 — 만든 사람은 잊고, 다음 사람은 까닭을 모른다.
+   ✅ 그래서 여기서 «곧바로» 뽑는다. 못 뽑으면 소리를 입힌 것도 **실패로 낸다.** */
+try {
+  const 썸방 = path.join(영상방, 'thumb');
+  const 썸길 = path.join(썸방, `${set}-voiced.jpg`);
+  if (!fs.existsSync(썸방)) fs.mkdirSync(썸방, { recursive: true });
+  /* 2초 지점 — build-kcw-video-schema.mjs 가 쓰는 것과 «같은 자리·같은 크기»로 맞춘다.
+     ⚠ 다르게 뽑으면 그 자가 다시 돌 때 그림이 바뀌어 diff 가 지저분해진다. */
+  execFileSync(ff, ['-y', '-ss', '2', '-i', 낼길, '-frames:v', '1',
+    '-vf', 'scale=405:720', '-q:v', '3', 썸길], { stdio: 'ignore' });
+  if (!fs.existsSync(썸길) || fs.statSync(썸길).size <= 1000) throw new Error('썸네일이 너무 작다');
+  console.log(`  ✔ 미리보기 — ${썸길} (${(fs.statSync(썸길).size / 1024).toFixed(0)}KB)`);
+} catch (e) {
+  console.error('\n🔴 소리는 붙였는데 **미리보기를 못 뽑았다.**');
+  console.error('   ⛔ 이대로 지면에 걸면 «사이트 전체 빌드»가 깨진다 — 세 사이트가 한 빌드다.');
+  console.error(`   까닭: ${e && e.message ? e.message : e}`);
+  console.error('   ✅ 손으로 뽑으려면: node scripts/build-kcw-video-schema.mjs');
+  process.exit(1);
+}
+
 console.log(`\n⭐ 새 제목(사장님 ③ 「제목만 바꿔서」): ${소리판제목(대본.제목) ?? '(옛 제목을 모른다)'}`);
 console.log('⛔ 원본 무성판은 «그대로 둔다». 지우지 않는다.');
+console.log('\n⚠ 아직 «손님이 볼 자리»가 없다. 세 곳 다 이름을 올려야 끝난다 —');
+console.log(`   1. 지면에  <KcwShorts set="${set}-voiced" …>`);
+console.log(`   2. src/pages/wikitip/sitemap.xml.ts 의 videoSets 에  set: '${set}-voiced'`);
+console.log('   3. node scripts/build-kcw-video-index.mjs   (⚠ 빌드를 «먼저» 해야 지면을 읽는다)');
+console.log('   그다음 확인: node scripts/check-kcw-video-lists.mjs  → 「셋이 다 맞는다」');
 }

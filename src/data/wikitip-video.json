@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-03T17:36:44.525Z",
+  "generated": "2026-09-03T21:33:50.357Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -228,11 +228,11 @@
       "src": "/video/transfer-voiced.mp4"
     },
     {
-      "set": "tworulers",
+      "set": "tworulers-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-29",
-      "thumb": "/video/thumb/tworulers.jpg",
-      "src": "/video/tworulers.mp4"
+      "uploadDate": "2026-09-03",
+      "thumb": "/video/thumb/tworulers-voiced.jpg",
+      "src": "/video/tworulers-voiced.mp4"
     },
     {
       "set": "wave",
