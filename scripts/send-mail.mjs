@@ -163,17 +163,83 @@ export function 제목인코딩(제목) {
   return `=?UTF-8?B?${Buffer.from(s, 'utf8').toString('base64')}?=`;
 }
 
-export function 편지만들기({ 받는곳, 제목, 글, 보내는곳 = 보내는주소, 이름 = 보내는이름 }) {
+/**
+ * 파일 이름으로 MIME 종류를 고른다. ⛔ 모르는 것은 «모른다»고 두고 octet-stream 을 쓴다 —
+ *   지어낸 종류를 적으면 받는 쪽이 열지 못한다.
+ */
+export function 종류고르기(파일이름) {
+  const n = String(파일이름 ?? '').toLowerCase();
+  if (n.endsWith('.pdf')) return 'application/pdf';
+  if (n.endsWith('.xlsx')) return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+  if (n.endsWith('.docx')) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+  if (n.endsWith('.csv')) return 'text/csv';
+  if (n.endsWith('.tsv')) return 'text/tab-separated-values';
+  if (n.endsWith('.md') || n.endsWith('.txt')) return 'text/plain';
+  if (n.endsWith('.png')) return 'image/png';
+  if (n.endsWith('.jpg') || n.endsWith('.jpeg')) return 'image/jpeg';
+  return 'application/octet-stream';
+}
+
+/**
+ * 첨부 이름을 헤더에 안전하게 적는다. ⛔ 한글 파일이름을 그대로 넣으면 깨진다 —
+ *   제목과 같은 MIME 인코딩으로 감싼다. (2026-09-03 에 실측: 우리 보고서 이름이 다 한글이다)
+ */
+export function 첨부이름인코딩(이름) {
+  return 제목인코딩(이름);
+}
+
+/**
+ * 편지 한 통. 첨부가 있으면 multipart/mixed 로 짠다.
+ *
+ * 🔴 [2026-09-03] **사장님: 「pdf첨부 빠짐」**
+ *   이 자에 «첨부 기능이 아예 없었다.** 그런데 나는 `--첨부=…` 를 붙여 보내고
+ *   「첨부했다」고 믿었다. 인자() 가 모르는 인자를 조용히 버리기 때문이다.
+ *   ⛔ **조용히 성공한 척하는 것이 제일 나쁘다** — CLAUDE.md 의 `undeploy` 사고와 같은 꼴이다.
+ *   그래서 두 가지를 같이 고쳤다: (1) 첨부를 실제로 붙인다 (2) 모르는 인자를 «거부»한다.
+ *   ⚠ 그 전에 나간 보고 메일 셋(9/3 06:51·07:07·16:30)에는 첨부가 «없이» 갔다.
+ */
+export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내는곳 = 보내는주소, 이름 = 보내는이름 }) {
+  const 글64 = (t) => Buffer.from(String(t ?? ''), 'utf8').toString('base64').replace(/(.{76})/g, '$1\n');
+
+  if (!첨부들.length) {
+    return [
+      `From: ${이름} <${보내는곳}>`,
+      `To: ${받는곳}`,
+      `Subject: ${제목인코딩(제목)}`,
+      'MIME-Version: 1.0',
+      'Content-Type: text/plain; charset="UTF-8"',
+      'Content-Transfer-Encoding: base64',
+      '',
+      글64(글),
+    ].join('\r\n');
+  }
+
+  /* 경계 글자는 본문에 나올 수 없는 것이어야 한다 */
+  const 경계 = '----klifedesign-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
   const 줄들 = [
     `From: ${이름} <${보내는곳}>`,
     `To: ${받는곳}`,
     `Subject: ${제목인코딩(제목)}`,
     'MIME-Version: 1.0',
+    `Content-Type: multipart/mixed; boundary="${경계}"`,
+    '',
+    `--${경계}`,
     'Content-Type: text/plain; charset="UTF-8"',
     'Content-Transfer-Encoding: base64',
     '',
-    Buffer.from(String(글 ?? ''), 'utf8').toString('base64').replace(/(.{76})/g, '$1\n'),
+    글64(글),
   ];
+  for (const a of 첨부들) {
+    줄들.push(
+      `--${경계}`,
+      `Content-Type: ${종류고르기(a.이름)}; name="${첨부이름인코딩(a.이름)}"`,
+      'Content-Transfer-Encoding: base64',
+      `Content-Disposition: attachment; filename="${첨부이름인코딩(a.이름)}"`,
+      '',
+      a.내용.toString('base64').replace(/(.{76})/g, '$1\n'),
+    );
+  }
+  줄들.push(`--${경계}--`, '');
   return 줄들.join('\r\n');
 }
 
@@ -226,6 +292,29 @@ export function 무엇이막혔나(글) {
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 인자 = (이름) => process.argv.find((a) => a.startsWith(`--${이름}=`))?.split('=').slice(1).join('=');
+
+/**
+ * 🔴 [2026-09-03] **사장님: 「pdf첨부 빠짐」**
+ *   이 자에 첨부 기능이 없던 시절, 나는 `--첨부=…` 를 붙여 보내고 「첨부했다」고 믿었다.
+ *   인자() 가 모르는 인자를 **조용히 버렸기** 때문이다. 출력에 아무 말도 없었다.
+ *   ⛔ **조용히 성공한 척하는 것이 제일 나쁘다** — CLAUDE.md 의 `undeploy` 사고와 같은 꼴이다.
+ *      그때도 종료코드 0 이 나와 두 세션이 「지웠다」고 믿었다.
+ *   ✅ 그래서 이 자는 **모르는 인자를 만나면 안 보낸다.** 오타 하나로 첨부가 빠지는 것보다
+ *      아예 서는 것이 낫다.
+ */
+const 아는인자 = ['받는곳', '제목', '글', '첨부', '보내는곳', '이름'];
+const 아는깃발 = ['--보낸다', '--selftest', '--자가시험', '--진단'];
+export function 모르는인자찾기(argv, 아는것 = 아는인자, 깃발 = 아는깃발) {
+  const 나온다 = [];
+  for (const a of argv) {
+    if (!a.startsWith('--')) continue;
+    if (깃발.includes(a)) continue;
+    const 이름 = a.slice(2).split('=')[0];
+    if (아는것.includes(이름)) continue;
+    나온다.push(a);
+  }
+  return 나온다;
+}
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 
@@ -247,6 +336,31 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     Buffer.from(제목인코딩('안녕').slice(10, -2), 'base64').toString('utf8') === '안녕');
 
   const 편지 = 편지만들기({ 받는곳: 'a@b.com', 제목: 'Subject line', 글: 'Body here' });
+
+  /* 🔴 [2026-09-03] 사장님 「pdf첨부 빠짐」 — 이 자에 첨부 기능이 «없었다».
+     그런데 나는 --첨부 를 붙여 보내고 「첨부했다」고 믿었다. 아래 시험들이 그것을 막는다. */
+  {
+    const 붙인편지 = 편지만들기({
+      받는곳: 'a@b.com', 제목: '보고', 글: '본문',
+      첨부들: [{ 이름: '보고서.pdf', 내용: Buffer.from('PDF-1.7 어쩌고') }],
+    });
+    참('첨부가 있으면 multipart/mixed 다', 붙인편지.includes('multipart/mixed'));
+    참('첨부 이름이 헤더에 든다', 붙인편지.includes('filename='));
+    참('한글 첨부 이름을 MIME 으로 감싼다', 붙인편지.includes('=?UTF-8?B?'));
+    참('PDF 종류를 맞게 적는다', 붙인편지.includes('application/pdf'));
+    참('본문도 함께 든다', 붙인편지.includes(Buffer.from('본문', 'utf8').toString('base64')));
+    참('첨부 내용이 base64 로 든다', 붙인편지.includes(Buffer.from('PDF-1.7 어쩌고').toString('base64')));
+    참('경계가 닫힌다', 붙인편지.trimEnd().endsWith('--'));
+    참('첨부가 없으면 예전처럼 text/plain 이다', 편지.includes('text/plain') && !편지.includes('multipart'));
+
+    참('종류고르기 — xlsx', 종류고르기('가.xlsx').includes('spreadsheetml'));
+    참('종류고르기 — 모르는 것은 octet-stream', 종류고르기('가.zzz') === 'application/octet-stream');
+
+    /* 🔴 조용히 무시되던 그 인자를 이제 «거부»한다 */
+    참('모르는 인자를 잡는다', 모르는인자찾기(['--받는곳=a', '--첨부=b.pdf', '--없는것=c']).length === 1);
+    참('아는 인자는 안 잡는다', 모르는인자찾기(['--받는곳=a', '--제목=b', '--글=c', '--첨부=d', '--보낸다']).length === 0);
+    참('오타를 잡는다 (--첨부파일)', 모르는인자찾기(['--첨부파일=a.pdf']).length === 1);
+  }
   참('From 에 보내는 주소가 든다', 편지.includes(`<${보내는주소}>`));
   참('To 가 든다', 편지.includes('To: a@b.com'));
   참('제목이 든다', 편지.includes('Subject: Subject line'));
@@ -460,6 +574,17 @@ if (내가실행됐다) {
 
   const 받는곳 = 인자('받는곳');
   const 제목 = 인자('제목');
+  /* ⛔ 모르는 인자면 «안 보낸다». 오타 하나로 첨부가 빠지는 것보다 서는 것이 낫다 */
+  {
+    const 모름 = 모르는인자찾기(process.argv.slice(2));
+    if (모름.length) {
+      console.log(`\n🔴 모르는 인자 ${모름.length}개 — **안 보낸다.**`);
+      for (const x of 모름) console.log(`   ${x}`);
+      console.log(`   아는 인자: ${아는인자.map((x) => '--' + x + '=').join(' · ')} · ${아는깃발.join(' · ')}`);
+      console.log('   ⛔ 2026-09-03 에 --첨부 가 조용히 무시되어 사장님께 첨부 없이 갔다. 그래서 세운다.');
+      process.exit(1);
+    }
+  }
   const 글파일 = 인자('글');
   const 봐 = 받을만한주소인가(받는곳);
   if (!봐.된다) {
@@ -474,7 +599,43 @@ if (내가실행됐다) {
   }
   const 글 = readFileSync(path.resolve(뿌리, 글파일), 'utf8');
 
+  /**
+   * 첨부를 읽는다. `--첨부=a.pdf,b.xlsx` 처럼 쉼표로 여러 개.
+   *
+   * 🔴 [2026-09-03] **사장님: 「pdf첨부 빠짐」**
+   *   이 자에 첨부 기능이 «아예 없었다». 그런데 나는 `--첨부=…` 를 붙여 보내고
+   *   「첨부했다」고 믿었다. 인자() 가 모르는 인자를 조용히 버렸기 때문이다.
+   *   ⛔ **조용히 성공한 척하는 것이 제일 나쁘다** — CLAUDE.md 의 `undeploy` 사고와 같은 꼴이다.
+   *   ⚠ 그 전에 나간 보고 메일 셋(9/3 06:51 · 07:07 · 16:30)에는 첨부가 «없이» 갔다.
+   *
+   * ⛔ 파일이 없으면 **안 보낸다.** 첨부가 빠진 채로 나가는 것이 제일 나쁘다.
+   * ⚠ 지메일 한 통 한도가 25MB 다. 넘으면 서고 알린다 — 잘라 보내지 않는다.
+   */
+  const 첨부들 = [];
+  const 첨부값 = 인자('첨부');
+  if (첨부값) {
+    for (const p of 첨부값.split(',').map((x) => x.trim()).filter(Boolean)) {
+      const 온길 = path.resolve(뿌리, p);
+      if (!existsSync(온길)) {
+        console.log(`\n🔴 --첨부 파일이 없다: ${p}  **안 보낸다.**`);
+        console.log('   ⛔ 첨부가 빠진 채로 보내지 않는다. 2026-09-03 에 그렇게 나갔다.');
+        process.exit(1);
+      }
+      첨부들.push({ 이름: path.basename(온길), 내용: readFileSync(온길) });
+    }
+    const 합 = 첨부들.reduce((a, b) => a + b.내용.length, 0);
+    if (합 > 24 * 1024 * 1024) {
+      console.log(`\n🔴 첨부 합이 ${(합 / 1048576).toFixed(1)}MB — 지메일 한도(25MB)를 넘는다. **안 보낸다.**`);
+      process.exit(1);
+    }
+  }
+
   console.log(`\n── 보낼 것 ──────────────────────────────`);
+  if (첨부들.length) {
+    for (const a of 첨부들) console.log(`   첨부   ${a.이름} · ${(a.내용.length / 1024).toFixed(0)}KB`);
+  } else {
+    console.log('   첨부   ⬜ 없음 (--첨부=파일 로 붙인다)');
+  }
   console.log(`   받는곳 ${받는곳}`);
   console.log(`   제목   ${제목}`);
   console.log(`   본문   ${글.split(/\r?\n/).length}줄 · ${글.length}자`);
@@ -489,7 +650,7 @@ if (내가실행됐다) {
   const r2 = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
     method: 'POST',
     headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ raw: 감싸기(편지만들기({ 받는곳, 제목, 글 })) }),
+    body: JSON.stringify({ raw: 감싸기(편지만들기({ 받는곳, 제목, 글, 첨부들 })) }),
   });
   const j2 = await r2.json();
   if (j2.error) { 막혔다('보내다가 막혔다', j2.error.message); process.exit(1); }
