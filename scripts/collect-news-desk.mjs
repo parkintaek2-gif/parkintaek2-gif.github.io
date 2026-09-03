@@ -171,7 +171,21 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.a
   console.log('  경제=매일경제(6번) · 나머지=동아일보(3번) · K컬처=스타뉴스·텐아시아(5번)');
   console.log('  ⛔ 아래 수는 «기사가 말한 수»다. 우리 실측이 아니다 — 원자료를 받아 다시 센다.\n');
 
-  const 담은것 = { 잰때: 오늘.toISOString(), 매체별: {} };
+  /*
+   * 🔴 [2026-09-03] **이 칸이 UTC 였다.** CLAUDE.md 🔴 지시를 어긴 자리다 —
+   *   「시각은 한국시간(KST)이다. `toISOString()` 도 쓰지 않는다.
+   *    날짜를 만들면 «새벽에 하루가 어긋난다»」
+   *
+   *   실제로 어긋나 있었다. 파일 이름은 위 169줄에서 KST 로 짓는데(20260903.json)
+   *   이 칸만 UTC 라서 «같은 파일 안에서» 날짜가 갈렸다 —
+   *   `20260903.json` 의 잰때가 `2026-09-02T15:54:24Z` 였다(= 09-03 00:54 KST).
+   *   ⛔ 이 자는 «새벽»에 도는 자다. 그래서 이 흠이 거의 항상 드러난다.
+   *      다음 사람이 잰때를 보고 「09-02 자료」로 읽는다.
+   */
+  const 두자 = (n) => String(n).padStart(2, '0');
+  const 잰때KST = `${오늘.getFullYear()}-${두자(오늘.getMonth() + 1)}-${두자(오늘.getDate())} `
+    + `${두자(오늘.getHours())}:${두자(오늘.getMinutes())} KST`;
+  const 담은것 = { 잰때: 잰때KST, 매체별: {} };
   for (const s of 신문들) {
     const 모음 = new Map();
     const 못받은 = [];
