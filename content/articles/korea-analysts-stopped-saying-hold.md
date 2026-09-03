@@ -92,7 +92,7 @@ Since 2020, ranked by the share of ratings that were *not* buy — hold and sell
 | 15 | Kyobo Securities | 1.0% | 1,990 | 0 |
 | 16 | Samsung Securities | 0.0% | 381 | 0 |
 
-The top of this table is not a list of bearish houses. **Eight percent is the maximum**, and it belongs to a firm that has published zero sell ratings in six years. The gap between the most and least differentiated research on this board is eight percentage points of hold.
+The top of this table is not a list of bearish houses. **Eight percent is the maximum**, and it belongs to a firm that has published zero sell ratings in six years. The gap between the most and least differentiated research on this board is eight percentage points of hold. DB Financial's own sample, 414 reports, is nearly as thin as Samsung's at the bottom of the table — its rank-one spot should be read with that in mind, not as a firm decisively more willing to say hold than Ebest or Mirae Asset just below it.
 
 At the bottom, Samsung Securities posted 381 rated reports since 2020 and every one was a buy. That is the smallest sample in the table and should be read as such — but it is not a rounding error either. Kyobo Securities managed 1.0% across nearly two thousand.
 
