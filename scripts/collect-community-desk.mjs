@@ -63,6 +63,19 @@ export const 우물들 = [
   { 곳: 'Reddit r/KDRAMA', 갈래: 'SNS', 꼴: 'rss', 주소: 'https://www.reddit.com/r/KDRAMA/.rss', 바탕: '' },
   { 곳: 'Reddit r/koreanvariety', 갈래: 'SNS', 꼴: 'rss', 주소: 'https://www.reddit.com/r/koreanvariety/.rss', 바탕: '' },
   { 곳: 'Reddit r/korea', 갈래: 'SNS', 꼴: 'rss', 주소: 'https://www.reddit.com/r/korea/.rss', 바탕: '' },
+  /* ⭐ [2026-09-03 실측] 열쇠 없이 되는 것 가운데 «가장 센 것»이다 —
+     구글 트렌드는 지금 한국이 무엇을 검색하는지를 «검색량과 함께» 준다.
+     커뮤니티 댓글 수는 그 방 사람들의 수지만, 이것은 나라 전체의 수다. */
+  { 곳: '구글트렌드 KR', 갈래: '검색', 꼴: 'trends',
+    주소: 'https://trends.google.com/trending/rss?geo=KR', 바탕: '' },
+  /* ⚠ collect-news-desk 는 «한국어 신문»을 본다. 우리 손님은 영어권이라
+     영문 기사가 언제 나갔는지를 알아야 「12시간 안」을 잴 수 있다. 그래서 따로 둔다. */
+  { 곳: '구글뉴스 kpop(영문)', 갈래: '뉴스', 꼴: 'gnews',
+    주소: 'https://news.google.com/rss/search?q=kpop&hl=en-US&gl=US&ceid=US:en', 바탕: '' },
+  { 곳: '구글뉴스 korean drama(영문)', 갈래: '뉴스', 꼴: 'gnews',
+    주소: 'https://news.google.com/rss/search?q=%22korean+drama%22&hl=en-US&gl=US&ceid=US:en', 바탕: '' },
+  { 곳: '구글뉴스 korea economy(영문)', 갈래: '뉴스', 꼴: 'gnews',
+    주소: 'https://news.google.com/rss/search?q=%22korean+economy%22+OR+kospi&hl=en-US&gl=US&ceid=US:en', 바탕: '' },
 ];
 
 /* ── 유닛 가르기 ────────────────────────────────────────────────────────────
@@ -146,6 +159,46 @@ export function inven읽기(html, 바탕 = 'https://www.inven.co.kr') {
   return [...본.values()];
 }
 
+/**
+ * 구글 트렌드 RSS — 지금 한국이 검색하는 것. **검색량이 함께 온다.**
+ * ⭐ 이것이 이 자에서 유일하게 «나라 전체»를 재는 칸이다.
+ *    커뮤니티 댓글 수는 그 방 사람들의 수이고, 이것은 검색한 사람의 수다.
+ * ⚠ 「1000+」처럼 «어림»으로 온다. 그대로 적고 우리가 정확한 수인 척하지 않는다.
+ */
+export function trends읽기(xml) {
+  const 나온다 = [];
+  for (const m of String(xml ?? '').matchAll(/<item>([\s\S]*?)<\/item>/g)) {
+    const 덩이 = m[1];
+    const 제목 = 엔티티풀기((덩이.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '');
+    if (!제목) continue;
+    const 검색량 = 엔티티풀기((덩이.match(/<ht:approx_traffic>([^<]*)</) || [])[1] || '');
+    const 언제 = 엔티티풀기((덩이.match(/<pubDate>([^<]*)</) || [])[1] || '');
+    /* 그 낱말로 뜬 «기사» 제목도 같이 온다 — 무엇 때문에 떴는지가 여기 있다 */
+    const 까닭 = 엔티티풀기((덩이.match(/<ht:news_item_title>([\s\S]*?)<\/ht:news_item_title>/) || [])[1] || '');
+    나온다.push({ 제목, 길: 'https://trends.google.com/trending?geo=KR', 댓글: 0, 언제,
+      방: 검색량 ? '검색 ' + 검색량 : '', 검색량, 까닭 });
+  }
+  return 나온다;
+}
+
+/** 구글 뉴스 RSS — 보통 RSS 다. 제목 끝에 「 - 매체이름」이 붙는다 */
+export function gnews읽기(xml) {
+  const 나온다 = [];
+  for (const m of String(xml ?? '').matchAll(/<item>([\s\S]*?)<\/item>/g)) {
+    const 덩이 = m[1];
+    const 통제목 = 엔티티풀기((덩이.match(/<title>([\s\S]*?)<\/title>/) || [])[1] || '');
+    if (!통제목) continue;
+    /* 「제목 - 매체」에서 매체를 갈라 낸다. 어느 매체가 언제 냈는지가 «12시간 창»의 시작점이다 */
+    const 쪼갠 = 통제목.split(' - ');
+    const 매체 = 쪼갠.length > 1 ? 쪼갠[쪼갠.length - 1] : '';
+    const 제목 = 쪼갠.length > 1 ? 쪼갠.slice(0, -1).join(' - ') : 통제목;
+    const 언제 = 엔티티풀기((덩이.match(/<pubDate>([^<]*)</) || [])[1] || '');
+    const 길 = 엔티티풀기((덩이.match(/<link>([^<]*)</) || [])[1] || '');
+    나온다.push({ 제목, 길, 댓글: 0, 언제, 방: 매체 });
+  }
+  return 나온다;
+}
+
 /** Reddit .rss — Atom 이다(`<entry>`), RSS 가 아니다 */
 export function atom읽기(xml) {
   const 나온다 = [];
@@ -163,6 +216,19 @@ export function atom읽기(xml) {
 /* ── 그물 ──────────────────────────────────────────────────────────────── */
 const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * 우물마다 «몰아치지 않는 사이»가 다르다 — 짐작이 아니라 겪은 대로 적는다.
+ * 🔴 2026-09-03: 에펨코리아가 처음엔 200 이었는데 짧은 사이에 여러 번 받자 **430** 을 냈다.
+ *    커뮤니티는 우리 같은 자를 반기지 않는다. 사이를 넓히는 것이 예의이자 우리가 계속 받는 길이다.
+ * 🔴 같은 날: Reddit 은 IP 로 조여서 7초로도 넷 중 셋이 429 였다. 20초로 늘렸다.
+ * ⚠ 구글 쪽(트렌드·뉴스)은 공개 RSS 라 조인 적이 없다. 그래도 2초는 둔다.
+ */
+export function 잠깐길이(우물) {
+  if (우물.갈래 === 'SNS') return 20000;
+  if (우물.갈래 === '커뮤니티') return 8000;
+  return 2000;
+}
+
 async function 받는다(url) {
   try {
     const r = await fetch(url, {
@@ -179,6 +245,8 @@ export function 읽기고르기(꼴) {
   if (꼴 === 'fmkorea') return fmkorea읽기;
   if (꼴 === 'ruliweb') return ruliweb읽기;
   if (꼴 === 'inven') return inven읽기;
+  if (꼴 === 'trends') return trends읽기;
+  if (꼴 === 'gnews') return gnews읽기;
   return atom읽기;
 }
 
@@ -269,10 +337,35 @@ function 자가시험() {
     inven읽기(iv3)[0] && inven읽기(iv3)[0].제목 === 'K-민간요법을 체험한 일본인 와이프.');
   본다('인벤: 그때도 방 이름은 따로 읽는다', inven읽기(iv3)[0] && inven읽기(iv3)[0].방 === '유머');
 
+  const tr = '<item><title>손예진</title><ht:approx_traffic>5000+</ht:approx_traffic>'
+    + '<pubDate>Wed, 03 Sep 2026 03:00:00 GMT</pubDate>'
+    + '<ht:news_item_title>배우 손예진, 새 드라마 확정</ht:news_item_title></item>';
+  const t = trends읽기(tr);
+  본다('트렌드: 한 건을 읽는다', t.length === 1 && t[0].제목 === '손예진');
+  본다('트렌드: 검색량을 그대로 적는다 — 정확한 수인 척하지 않는다', t[0] && t[0].검색량 === '5000+');
+  본다('트렌드: 무엇 때문에 떴는지(기사 제목)도 담는다', t[0] && t[0].까닭.includes('손예진'));
+
+  const gn = '<item><title>NewJeans announce comeback - Billboard</title>'
+    + '<link>https://news.google.com/x</link><pubDate>Wed, 03 Sep 2026 01:00:00 GMT</pubDate></item>';
+  const g = gnews읽기(gn);
+  본다('구글뉴스: 제목에서 매체 이름을 갈라 낸다',
+    g[0] && g[0].제목 === 'NewJeans announce comeback' && g[0].방 === 'Billboard');
+  본다('구글뉴스: 낸 시각을 읽는다 — 12시간 창의 시작점이다',
+    g[0] && g[0].언제.includes('03 Sep 2026'));
+  본다('구글뉴스: 붙임표가 제목 안에 있어도 마지막 것만 매체로 본다', (() => {
+    const x = gnews읽기('<item><title>K-pop and K-drama - what is next - Reuters</title><link>u</link></item>');
+    return x[0].제목 === 'K-pop and K-drama - what is next' && x[0].방 === 'Reuters';
+  })());
+  /* 🔴 실측으로 정한 것 — 여기에 못 박아 둔다 */
+  본다('X·Threads 는 우물에 없다 — 열쇠 없이 안 된다(실측 401·400)',
+    !우물들.some((u) => /twitter|threads|nitter/i.test(u.주소)));
+  본다('구글 트렌드가 우물에 있다 — 열쇠 없이 나라 전체를 재는 유일한 칸',
+    우물들.some((u) => u.꼴 === 'trends'));
+
   본다('수뽑기를 뉴스 수집기에서 가져다 쓴다', 수뽑기('조회수 1,234명 돌파').쓸만한가 === true);
   본다('꼴에 맞는 읽개를 고른다',
     읽기고르기('fmkorea') === fmkorea읽기 && 읽기고르기('rss') === atom읽기);
-  본다('우물이 일곱 곳이다', 우물들.length === 7);
+  본다('우물이 열한 곳이다', 우물들.length === 11);
   본다('디시인사이드는 없다 — robots 가 우리를 이름으로 막았다',
     !우물들.some((u) => u.곳.includes('디시')));
   본다('우리 이름으로 나간다 — 사람 브라우저인 척하지 않는다',
@@ -302,7 +395,7 @@ async function main() {
     const r = await 받는다(u.주소);
     if (!r.글) {
       못받은곳.push({ 곳: u.곳, 까닭: r.못쟀다 ? `못 쟀다(${r.못쟀다})` : `코드 ${r.코드}` });
-      await 잠깐(u.갈래 === 'SNS' ? 20000 : 2000);
+      await 잠깐(잠깐길이(u));
       continue;
     }
     const 글들 = 읽기고르기(u.꼴)(r.글, u.바탕);
@@ -312,7 +405,7 @@ async function main() {
         수: 수뽑기(g.제목).수 });
     }
     console.log(`  ${글들.length ? '✅' : '⬜'} ${u.곳} — ${글들.length}건`);
-    await 잠깐(u.갈래 === 'SNS' ? 20000 : 2000);
+    await 잠깐(잠깐길이(u));
   }
 
   for (const m of 못받은곳) console.log(`  🔴 ${m.곳} — ${m.까닭}`);
@@ -337,15 +430,24 @@ async function main() {
      그 자는 「12.3%」·「1,234명」 같은 한국 기사 제목을 재는 자이지 커뮤니티 글제목을 재는 자가 아니다.
      ⛔ 안 맞는 자로 0 을 내고 「0건이다」라고 적는 것이 제일 나쁘다. 자를 바꾼다. */
   const 우리축 = 담은것.filter((d) => d.유닛 !== '갈래없음');
-  const 댓글값 = 담은것.map((d) => d.댓글 || 0).filter((n) => n > 0);
+  /* ⛔ 댓글을 «주지 않는» 우물(구글 트렌드·뉴스·레딧 RSS)을 평균에 섞으면 안 된다.
+     섞으면 평균이 0 쪽으로 끌려가고, 그러면 「평균보다 뜨겁다」가 아무 뜻이 없어진다.
+     🔴 2026-09-03 에 실제로 그렇게 냈다 — 우물을 넷 늘리자 「뜨거운 것」이 4건에서 2건으로
+        «줄었다». 커뮤니티가 식은 것이 아니라 내 자가 망가진 것이었다.
+     ✅ 그래서 «댓글을 주는 우물»만으로 평균을 낸다. 갈래가 다른 것은 갈래 안에서 견준다. */
+  const 댓글주는우물 = new Set(우물들.filter((u) => u.갈래 === '커뮤니티').map((u) => u.곳));
+  const 댓글값 = 담은것.filter((d) => 댓글주는우물.has(d.곳)).map((d) => d.댓글 || 0).filter((n) => n > 0);
   const 평균댓글 = 댓글값.length ? Math.round(댓글값.reduce((a, b) => a + b, 0) / 댓글값.length) : null;
-  const 뜨거운것 = 평균댓글 === null ? [] : 우리축.filter((d) => (d.댓글 || 0) > 평균댓글);
+  const 뜨거운것 = 평균댓글 === null ? []
+    : 우리축.filter((d) => 댓글주는우물.has(d.곳) && (d.댓글 || 0) > 평균댓글);
   const 수있는것 = 우리축.filter((d) => d.수.length > 0);
   console.log(`⭐ 우리 세 축에 걸린 것 — ${우리축.length}건 / 받은 ${담은것.length}건`);
   if (평균댓글 === null) {
     console.log('⬜ 댓글 수를 주는 우물이 없었다 — 뜨거움을 «못 쟀다». 0 으로 채우지 않는다.');
   } else {
-    console.log(`⭐ 그중 댓글이 평균(${평균댓글}개)보다 많은 것 — ${뜨거운것.length}건. 이것이 지면 후보의 첫 줄이다.`);
+    console.log(`⭐ 커뮤니티에서 댓글이 평균(${평균댓글}개)보다 많은 것 — ${뜨거운것.length}건. 이것이 지면 후보의 첫 줄이다.`);
+    const 검색 = 담은것.filter((d) => d.검색량);
+    if (검색.length) console.log(`⭐ 지금 한국이 검색하는 것 — ${검색.length}건 (나라 전체를 재는 유일한 칸)`);
   }
   console.log(`⬜ 제목에 «수»가 든 것 — ${수있는것.length}건 (한국 기사용 자라 커뮤니티엔 잘 안 걸린다)`);
 
