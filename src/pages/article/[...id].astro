@@ -184,7 +184,23 @@ const datasetLd = 표머리
     }
   : null;
 
-const 추가스키마 = [videoLd, datasetLd].filter(Boolean);
+/**
+ * ⭐ [2026-09-03 · 5번 실측] BreadcrumbList — 세 사이트 통틀어 0장이었다.
+ * 있으면 검색 결과에 날 주소 대신 「SeoulMarkets › Macro › 제목」이 뜬다.
+ * 여섯 갈래(equities/macro/rates/fx/commodities/funds) 전부 라이브 200 확인 후 넣는다 —
+ * 없는 주소를 가리키는 빵가루는 없는 것보다 나쁘다(KCW 사례).
+ */
+const breadcrumbLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: SITE.name, item: SITE_URL },
+    { '@type': 'ListItem', position: 2, name: categoryLabel(d.category), item: `${SITE_URL}/${d.category}` },
+    { '@type': 'ListItem', position: 3, name: d.title, item: url },
+  ],
+};
+
+const 추가스키마 = [breadcrumbLd, videoLd, datasetLd].filter(Boolean);
 const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articleLd;
 ---
 
