@@ -164,13 +164,13 @@ const 설명 = `${사람.length === 1 ? 'One of' : `${사람.length} of`} the ${
   <section>
     <h2>What this page cannot tell you</h2>
     <p>
-      We looked at <b>{수(전체사람)}</b> people. Only <b>{놓은사람}</b> had a birthplace we could put on a city.
+      We looked at <b>{수(전체사람)}</b> people. Only <b>{놓은사람}</b> had a birthplace we could put on a city.{' '}
       <b>{나라만}</b> had a country recorded and no city, and <b>{기록없음}</b> had nothing recorded at all.
     </p>
     <p class="fine">
       We test whether a birthplace is in Korea using its coordinates, not its country field, because the
       country field records involvement as well as location. Where Wikidata marks a place as a country
-      rather than a city, we count it separately instead of quietly calling it Seoul.
+      rather than a city, we count it separately instead of quietly calling it Seoul.{' '}
       <b>A guess in a table looks exactly like a measurement</b>, so we leave the cell out instead.
     </p>
   </section>

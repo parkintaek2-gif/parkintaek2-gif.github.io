@@ -59,7 +59,12 @@ export const GET: APIRoute = () => {
 
 kculturewire.com measures Korean film, television, music and esports for readers outside Korea.
 The main sources are the Netflix weekly country top 10 (published by Netflix at Tudum),
-Wikipedia/Wikidata, and the Riot esports ladder. Every page names its source and its date.
+Wikipedia and Wikidata. Esports is measured from Wikipedia pageviews, not from a game publisher
+ladder. Every page names its source and its date.
+
+Every article below also has a plain-markdown version at the same path with .md appended
+(e.g. https://www.kculturewire.com/article/netflix-weeks-in-top-10-is-not-weeks-in-a-row.md) —
+same text, no navigation, with the sources and limits listed at the end.
 
 ## What we will not do
 

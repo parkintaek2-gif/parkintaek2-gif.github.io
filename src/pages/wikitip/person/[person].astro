@@ -183,8 +183,8 @@ const 생일글 = p.born
 
   {동명이인 && (
     <p class="warn">
-      <b>There is more than one {p.name}.</b> This page is
-      <b>{p.wikiPage}</b>. The other one is on
+      <b>There is more than one {p.name}.</b> This page is{' '}
+      <b>{p.wikiPage}</b>. The other one is on{' '}
       <a href={`/person/${동명이인.slug}`}>a separate page</a> &mdash; we do not merge them, because
       they are different people who share a romanised name.
     </p>

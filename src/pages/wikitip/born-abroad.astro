@@ -89,7 +89,7 @@ const 설명 = `${밖.length} of the most-read Korean actors and idols we could 
 
   <p>
     Of the <b>{자료.inBox}</b> most-read Korean names we could put on a map, <b>{밖.length}</b> were
-    born outside the country. They do not appear on any of our
+    born outside the country. They do not appear on any of our{' '}
     <a href="/hometowns">{(자료.cities ?? []).length} city pages</a>, because there is no Korean city
     to put them in — which is exactly why this page exists.
   </p>
@@ -140,7 +140,7 @@ const 설명 = `${밖.length} of the most-read Korean actors and idols we could 
     </p>
     <p class="fine">
       For several of those, Seoul is the likeliest answer, and Seoul is already 41% of the map. Writing
-      it in would make the map look fuller and the finding look stronger. We are not writing it in.
+      it in would make the map look fuller and the finding look stronger. We are not writing it in.{' '}
       <b>A guess in a table looks exactly like a measurement</b> — that is the whole reason the cell
       stays empty.
     </p>
@@ -160,7 +160,7 @@ const 설명 = `${밖.length} of the most-read Korean actors and idols we could 
 
   <p class="fine tail">
     Birthplaces: Wikidata (P19), coordinates checked (P625), as of {String(자료.generated ?? '').slice(0, 10)}.
-    Reader counts: Wikimedia Pageviews, human traffic only, per million.
+    Reader counts: Wikimedia Pageviews, human traffic only, per million.{' '}
     <b>This is a statistic, not a person.</b>
   </p>
 </WikiTip>

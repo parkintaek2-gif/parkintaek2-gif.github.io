@@ -54,7 +54,7 @@ const jsonLd = {
   <h1>Is it actually Korean?</h1>
 
   <p class="lead">
-    Netflix&rsquo;s weekly top 10 files give a title, a country, a week and a rank.
+    Netflix&rsquo;s weekly top 10 files give a title, a country, a week and a rank.{' '}
     <b>They do not give a year, a director, or a country of production.</b> So when a chart says
     &ldquo;Little Women&rdquo; or &ldquo;The Glory&rdquo;, the row itself cannot tell anyone which
     work that is &mdash; and every site counting &ldquo;Korean titles on Netflix&rdquo;, ours
@@ -63,8 +63,8 @@ const jsonLd = {
 
   <p class="lead">
     We check each of our {data.titleCount.toLocaleString('en-US')} names against Wikidata: which
-    countries have a film or series carrying exactly this English label?
-    <b>{c.koreaOnly} names are carried only by Korean works</b> &mdash; those cannot be confused.
+    countries have a film or series carrying exactly this English label?{' '}
+    <b>{c.koreaOnly} names are carried only by Korean works</b> &mdash; those cannot be confused.{' '}
     <b>{c.shared} are carried by works from more than one country</b>, which is
     {' '}{몫(c.shared)}% of everything we publish figures for.
   </p>
