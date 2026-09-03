@@ -141,6 +141,11 @@
       "figure": "1.43x",
       "label": "more pay at a sector’s biggest firms (materials)",
       "왜": "자동은 20(퍼센트류). 요점은 주도주 급여배수 1.2~1.43x·8업종 전부"
+    },
+    "korea-kepco-samsung-sk-hynix-power-prepay": {
+      "figure": "25",
+      "label": "trillion won power-prepay ask — terms still unset",
+      "왜": "자동추출이 dek 괄호 안 「(₩20tn)」에 걸려 라벨이 깨짐(「— )」). 요점은 총액 ₩25tn(제목 숫자와 일치), 본문 33·45·53줄에 「₩25tn」·「₩25 trillion」 반복 등장"
     }
   }
 }
