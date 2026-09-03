@@ -10,6 +10,7 @@
 import WikiTip from '../../../layouts/WikiTip.astro';
 import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../../components/KcwCardnews.astro';
 import data from '../../../data/wikitip-schools.json';
 /* 🔴 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣고, 관련 콘텐트를
    빠짐없이 붙여 다음 것을 계속 보게 하라」. 유튜브가 막혀 있어도 이 자리는 열려 있다. */
@@ -85,6 +86,9 @@ const DESC = `${학교들.length} schools, each with the Korean actors, singers 
   </section>
 
   {/* 🔴 [2026-08-30] 기사 두 편이 이 지면을 가리키는데 «받는 자리»가 없었다. */}
+  {/* 🔴 [2026-09-03] 고아였던 벌 — 구웠는데 어느 지면도 부르지 않았다. */}
+  <KcwCardnews set="school" count={5} />
+
   <KcwRelatedArticles page="/school" />
   {/* 🔴 [2026-09-02] 왜 어떤 학교는 지면이 없는지, 왜 키 지면을 안 만들었는지 — 손님이 봐야 한다. */}
   <KcwDataBasis

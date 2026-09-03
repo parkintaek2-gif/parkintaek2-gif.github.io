@@ -17,6 +17,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/wikitip-star-daypillar.json';
 import 방자료 from '../../data/wikitip-stem-rooms.json';
 
@@ -277,6 +278,9 @@ const jsonLd = {
       <a href="/about">How we count</a>
     </p>
   </section>
+
+  {/* 🔴 [2026-09-03] 고아였던 벌 — 구웠는데 어느 지면도 부르지 않았다. */}
+  <KcwCardnews set="daystem" count={5} />
 
   <KcwRelatedArticles page="/day-pillar" />
 </WikiTip>

@@ -17,6 +17,7 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwDataBasis from '../../components/KcwDataBasis.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwCardnews from '../../components/KcwCardnews.astro';
 import d from '../../data/kcw-weeks-counter.json';
 
 const A = d.all;
@@ -207,6 +208,11 @@ const jsonLd = {
       { label: 'Weeks covered', value: `${d.weekFrom} to ${d.weekTo}` },
       { label: 'Cells whose first row was not 1', value: A.cellsStartingAboveOne },
     ]} />
+
+  {/* 🔴 [2026-09-03] 이 벌은 09-03 08:56 에 구워 놓고 «어느 지면에도 안 걸어» 두었다.
+      만든 값이 0이었다. 사장님 지시로 카드는 «외부유입용»이라 집어 갈 수 있어야 값이 생긴다.
+      check-kcw-cardnews-orphan.mjs 가 이제 이것을 잡는다. */}
+  <KcwCardnews set="counter" count={5} />
 
   <KcwRelatedArticles page="/weeks-counter" />
 </WikiTip>
