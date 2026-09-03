@@ -82,10 +82,16 @@ export function 갈래정하기(직업Q들 = [], 그룹있나 = false) {
 /** 한 묶음(values) SPARQL — 너무 크면 위키데이터가 끊는다. 200명씩 나눈다. */
 export function 물음짓기(q들) {
   const values = q들.map((q) => `wd:${q}`).join(' ');
-  return `SELECT ?p ?occ ?grp WHERE {
+  /* 🔴 [2026-09-04 · 5번] **`?grp` 을 받아 놓고 `true` 로 뭉개고 있었다.**
+     그래서 「이 사람이 그룹에 있다」는 알아도 «어느 그룹인지»는 몰랐고,
+     생일 지면 366장이 「8 K-pop idols」라고 세면서 그룹 이름을 한 번도 못 적었다.
+     ⭐ 라벨을 함께 받아 «이름»까지 남긴다. 요청 수는 그대로다 — 같은 물음에 칸 하나를 더할 뿐이다.
+     ⛔ 기존 `grp`(참·거짓)는 «그대로 둔다». 그것을 읽는 자가 이미 있다. */
+  return `SELECT ?p ?occ ?grp ?grpLabel WHERE {
   VALUES ?p { ${values} }
   OPTIONAL { ?p wdt:P106 ?occ }
   OPTIONAL { ?p wdt:P463 ?grp . ?grp wdt:P31/wdt:P279* wd:Q2088357 }
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }`;
 }
 
@@ -98,10 +104,16 @@ async function 받기(q들, 가져오기 = fetch) {
   const 모음 = new Map();
   for (const b of j.results.bindings) {
     const q = b.p.value.split('/').pop();
-    if (!모음.has(q)) 모음.set(q, { occ: new Set(), grp: false });
+    if (!모음.has(q)) 모음.set(q, { occ: new Set(), grp: false, 그룹: new Map() });
     const it = 모음.get(q);
     if (b.occ) it.occ.add(b.occ.value.split('/').pop());
-    if (b.grp) it.grp = true;
+    if (b.grp) {
+      it.grp = true;
+      /* ⚠ 라벨이 Q숫자 그대로 오면 «이름을 모르는 것»이다 — 이름 자리에 Q를 넣지 않는다 */
+      const gq = b.grp.value.split('/').pop();
+      const 이름 = b.grpLabel && !/^Qd+$/.test(b.grpLabel.value) ? b.grpLabel.value : null;
+      it.그룹.set(gq, 이름);
+    }
   }
   return 모음;
 }
@@ -132,7 +144,12 @@ async function 다받기() {
     for (const p of 조각) {
       const it = 모음.get(p.q);
       const occ = it ? [...it.occ] : [];
-      결과[p.q] = { 갈래: 갈래정하기(occ, it ? it.grp : false), occ, grp: it ? it.grp : false };
+      결과[p.q] = {
+        갈래: 갈래정하기(occ, it ? it.grp : false), occ, grp: it ? it.grp : false,
+        /* 새 칸. ⛔ 없는 사람에게는 아예 안 붙인다 — 빈 배열은 「그룹이 없다」로 잘못 읽힌다 */
+        ...(it && it.그룹 && it.그룹.size
+          ? { 그룹: [...it.그룹].map(([q2, 이름]) => ({ q: q2, 이름 })) } : {}),
+      };
     }
     process.stdout.write(`\r  받는 중 ${Math.min(i + 묶음크기, 사람들.length).toLocaleString('en-US')}/${사람들.length.toLocaleString('en-US')}`);
     await 자다(400);   // 위키데이터에 예의를 지킨다

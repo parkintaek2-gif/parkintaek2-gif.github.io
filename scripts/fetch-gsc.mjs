@@ -19,7 +19,8 @@
  * 쓰는 법
  *   node scripts/fetch-gsc.mjs --사이트 kcw
  *   node scripts/fetch-gsc.mjs --사이트 kcw --갈래 page
- *   node scripts/fetch-gsc.mjs --모두              네 사이트 · 두 갈래를 다 받는다
+ *   node scripts/fetch-gsc.mjs --사이트 kcw --갈래 query+page   어느 물음에 «어느 지면»이 뜨나
+ *   node scripts/fetch-gsc.mjs --모두              네 사이트 · 세 갈래를 다 받는다
  *   node scripts/fetch-gsc.mjs --자가시험
  */
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -36,11 +37,15 @@ export const 사이트들 = {
   seoulmarkets: { 속성: 'sc-domain:seoulmarkets.com', 딱지: 'seoulmarkets' },
   klifemap: { 속성: 'sc-domain:klifemap.ai', 딱지: 'klifemap' },
 };
-export const 갈래들 = ['query', 'page'];
+/* ⭐ [2026-09-04] 「질의×지면」을 더한다.
+   질의만 보면 «무엇을 묻는지»는 알아도 «우리 어느 지면이 그 자리에 섰는지»를 모른다.
+   그걸 모르면 처방이 갈린다 — 맞는 지면이 뜨는데 자리가 낮은 것과,
+   엉뚱한 지면이 뜨는 것은 «완전히 다른 병»이다. */
+export const 갈래들 = ['query', 'page', 'query+page'];
 
 /** 낼 파일 이름. ⚠ 기존 자료와 «같은 꼴»이어야 읽던 자들이 그대로 읽는다 */
 export function 낼이름(딱지, 갈래, 끝날) {
-  const 가운데 = 갈래 === 'page' ? '-page' : '';
+  const 가운데 = 갈래 === 'page' ? '-page' : 갈래 === 'query+page' ? '-qp' : '';
   return `src/data/gsc-${딱지}${가운데}-${끝날}.json`;
 }
 
@@ -90,13 +95,14 @@ async function 하나받기(토큰, 이름, 갈래, 일수) {
     `https://searchconsole.googleapis.com/webmasters/v3/sites/${encodeURIComponent(곳.속성)}/searchAnalytics/query`,
     { method: 'POST',
       headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ startDate: 첫날, endDate: 끝날, dimensions: [갈래], rowLimit: 25000 }) });
+      body: JSON.stringify({ startDate: 첫날, endDate: 끝날,
+        dimensions: 갈래 === 'query+page' ? ['query', 'page'] : [갈래], rowLimit: 25000 }) });
   const j = await r.json();
   /* ⛔ 못 받으면 «빈 파일을 안 쓴다». 빈 파일은 「노출이 0」으로 잘못 읽힌다 */
   if (j.error) return { 됐나: false, 왜: j.error.message };
-  const rows = (j.rows ?? []).map((x) => ({
-    key: x.keys[0], impressions: x.impressions, clicks: x.clicks, position: x.position,
-  }));
+  const rows = (j.rows ?? []).map((x) => (갈래 === 'query+page'
+    ? { key: x.keys[0], page: x.keys[1], impressions: x.impressions, clicks: x.clicks, position: x.position }
+    : { key: x.keys[0], impressions: x.impressions, clicks: x.clicks, position: x.position }));
   const 이름길 = 낼이름(곳.딱지, 갈래, 끝날);
   writeFileSync(path.join(뿌리, 이름길), `${JSON.stringify({
     site: 곳.속성, dimension: 갈래, window: { from: 첫날, to: 끝날, days: 일수 }, rowLimit: 25000, rows,
@@ -136,7 +142,12 @@ function 자가시험() {
     const a = 창잡기(new Date(2026, 8, 4), 28), b = 창잡기(new Date(2026, 8, 4), 90);
     return a.끝날 === b.끝날 && a.첫날 !== b.첫날;
   })());
-  검('갈래는 둘뿐이다', 갈래들.length === 2 && 갈래들.includes('query') && 갈래들.includes('page'));
+  검('갈래 셋이 다 있다', 갈래들.length === 3
+    && ['query', 'page', 'query+page'].every((g) => 갈래들.includes(g)));
+  검('질의×지면 파일 이름이 다른 둘과 안 겹친다', (() => {
+    const 셋 = 갈래들.map((g) => 낼이름('kcw', g, '2026-09-01'));
+    return new Set(셋).size === 3 && 셋[2].endsWith('-qp-2026-09-01.json');
+  })());
 
   if (실패.length) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
