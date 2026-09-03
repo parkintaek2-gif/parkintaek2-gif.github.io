@@ -119,13 +119,29 @@ export function 닿나(지면, 파일) {
      ⚠ 낱말이 «파일 이름의 한 토막»으로 들어 있을 때만 본다 — 그냥 포함으로 보면
         'title' 이 'kcw-title-experiments' 를 잡는 식으로 헛것을 잡는다. */
   if (파일.startsWith('src/data/')) {
-    /* ⚠ 지면 이름이 토막 둘일 수 있다(`star-signs`). 그래서 «이어진 토막»으로 본다 —
-       자가시험이 `kcw-star-signs.json` 을 못 잡아서 알았다(토막 하나로만 봤다). */
-    const 이름토막 = path.basename(파일).replace(/\.json$/, '').split(/[-_.]/);
+    /*
+     * ⚠ 지면 이름이 토막 둘일 수 있다(`star-signs`). 그래서 «이어진 토막»으로 본다 —
+     *   자가시험이 `kcw-star-signs.json` 을 못 잡아서 알았다(토막 하나로만 봤다).
+     *
+     * 🔴 [2026-09-03 두 번째 헛경보] 그때는 **어디서든** 맞으면 잡았다. 그래서 내가
+     *   `kcw-demon-hunters-year.json` 을 새로 내자 잠긴 지면 **`/year` 가 걸렸다.**
+     *   그 지면이 정말 읽는 자료는 `wikitip-years.json` 이다 — 아무 상관이 없다.
+     *   ⛔ 「이름 안에 그 낱말이 있다」는 너무 헐렁하다. 자료 파일이 늘 때마다 헛경보가 는다.
+     *
+     * ✅ **자리를 본다** — 사이트 접두를 뗀 «맨 앞»에서 맞아야 한다.
+     *   자료 이름은 `<사이트>-<주제>…` 꼴로 짓기 때문이다.
+     * ⚠ 홑·겹 낱말은 봐 준다 — `/year` ↔ `wikitip-years.json` 이 실제로 그 짝이다.
+     *   그래서 「맨 앞에서 맞는다 + 끝의 s 는 눈감아 준다」가 이 자의 규칙이다.
+     */
+    const 이름 = path.basename(파일).replace(/\.json$/, '');
+    const 접두 = ['wikitip', 'kcw', '100yearmap', 'seoulmarkets', 'klifemap', 'korea'];
+    let 이름토막 = 이름.split(/[-_.]/);
+    if (접두.includes(이름토막[0])) 이름토막 = 이름토막.slice(1);
     const 찾을토막 = 조각[0].split('-');
-    for (let i = 0; i + 찾을토막.length <= 이름토막.length; i++) {
-      if (찾을토막.every((t, k) => 이름토막[i + k] === t)) return true;
-    }
+    /** 홑·겹만 봐 준다. 딴 변형은 봐 주지 않는다 */
+    const 같나 = (a, b) => a === b || a === b + 's' || a + 's' === b;
+    if (찾을토막.length <= 이름토막.length
+      && 찾을토막.every((t, k) => 같나(이름토막[k], t))) return true;
   }
   return false;
 }
@@ -176,6 +192,15 @@ function 자가시험() {
   봐(!닿나('/title', 'src/data/kcw-title-experiments.json'), '실험 기록 파일 자체는 안 잡는다');
   봐(!닿나('/title', 'src/data/kcw-demand-gaps.json'), '이름에 그 낱말이 없는 자료는 안 잡는다');
   봐(닿나('/star-signs', 'src/data/kcw-star-signs.json'), '이름 토막이 맞는 자료는 잡는다');
+  /* 🔴 [2026-09-03 두 번째 헛경보] 새 자료 파일이 늘자 «끝의 낱말»만 맞아 잡혔다 */
+  봐(!닿나('/year', 'src/data/kcw-demon-hunters-year.json'),
+    '🔴 이름 «끝»에 그 낱말이 있어도 잡지 «않는다» (/year vs demon-hunters-year)');
+  봐(닿나('/year', 'src/data/wikitip-years.json'),
+    '⭐ 그러면서 /year 의 «진짜» 자료(wikitip-years)는 여전히 잡는다 — 홑·겹을 봐 준다');
+  봐(닿나('/weeks-counter', 'src/data/kcw-weeks-counter.json'),
+    '토막 둘짜리 이름도 맨 앞에서 맞으면 잡는다');
+  봐(!닿나('/counter', 'src/data/kcw-weeks-counter.json'),
+    '맨 앞이 아니면 안 잡는다 (/counter vs weeks-counter)');
 
   /* 🔴 [2026-09-03] 6번이 잡아 준 헛경보 — 두 사이트가 /article/ 을 같이 쓴다 */
   봐(지면의사이트('/article/bts-is-not-a-seoul-band') === 'kcw',
