@@ -1,11 +1,28 @@
 {
-  "generated": "2026-08-29T04:44:53.789Z",
+  "generated": "2026-09-03T17:27:46.062Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
   "sets": [
     {
       "set": "a-battle-in-vietnam",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-korean-title-lasts-three-times-longer-in-vietnam",
       "sq": [
         1,
         2,
@@ -124,6 +141,23 @@
       ]
     },
     {
+      "set": "a-year-unbroken-in-one-country",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "actors-and-idols-same-shape",
       "sq": [
         1,
@@ -142,6 +176,74 @@
     },
     {
       "set": "ahn-sung-ki-in-one-language",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "alchemy-of-souls-ran-longest-without-number-one",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "arts-high-school-beats-sky-universities",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "bigbang-is-being-looked-up-two-and-a-half-times-faster",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "bigger-title-smaller-share",
       "sq": [
         1,
         2,
@@ -210,6 +312,21 @@
     },
     {
       "set": "bts-is-not-a-seoul-band",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "set": "choi-baek-ho-no-english-page",
       "sq": [
         1,
         2,
@@ -564,6 +681,23 @@
       ]
     },
     {
+      "set": "jisoo-jungkook-same-arts-school",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "jungkook-saju-structure-splits-five-ways",
       "sq": [
         1,
@@ -817,6 +951,23 @@
       ]
     },
     {
+      "set": "korean-titles-rarely-chart-alone",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "korean-titles-southeast-asia-all-or-nothing",
       "sq": [
         1,
@@ -951,7 +1102,41 @@
       ]
     },
     {
+      "set": "more-charting-work-raises-the-floor",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "most-korean-titles-never-leave-home",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "mousetrap-outdrew-squid-game",
       "sq": [
         1,
         2,
@@ -1036,6 +1221,40 @@
       ]
     },
     {
+      "set": "nine-of-the-twelve-most-read-are-outside-our-panel",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "no-bts-member-outdraws-bts",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "no-one-to-compare-against",
       "sq": [
         1,
@@ -1054,6 +1273,23 @@
     },
     {
       "set": "not-one-a-week",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "odyssey-outreads-korean-films",
       "sq": [
         1,
         2,
@@ -1291,6 +1527,119 @@
       ]
     },
     {
+      "set": "so-ji-sub-outreads-every-idol-on-our-k-pop-list",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "song-kang-is-being-looked-up-three-times-faster-today",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "song-kang-second-breakout",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "set": "squid-game-cast-second-biggest-title",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "squid-game-is-first-until-you-count-countries",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "set": "squid-game-is-the-only-korean-number-one-in-eight-countries",
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "set": "ten-wikipedias-one-audience",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-69-per-cent-fall-we-did-not-publish",
       "sq": [
         1,
@@ -1406,7 +1755,41 @@
       ]
     },
     {
+      "set": "the-four-weeks-the-whole-shelf-was-korean",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-manager-is-read-where-he-was-hired",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "the-map-filled-in-and-stopped",
       "sq": [
         1,
         2,
@@ -1458,7 +1841,12 @@
     },
     {
       "set": "the-school-that-sends-the-most-travels-the-least",
-      "sq": [],
+      "sq": [
+        1,
+        2,
+        3,
+        4
+      ],
       "v": [
         1,
         2,
@@ -1604,6 +1992,23 @@
       ]
     },
     {
+      "set": "topped-25-countries-never-charted-in-america",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "travel-pages-fell-culture-pages-didnt",
       "sq": [
         1,
@@ -1669,6 +2074,23 @@
     },
     {
       "set": "vietnam-asean-cup-korean-coach-netflix-share",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "vietnam-number-one-thirty-four-weeks",
       "sq": [
         1,
         2,
@@ -1889,12 +2311,18 @@
       ]
     }
   ],
-  "setCount": 117,
-  "imageCount": 1151,
+  "setCount": 137,
+  "imageCount": 1347,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
+    "a-korean-chart-life-is-three-weeks-and-unbroken",
     "brands-are-not-one-thing",
+    "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
+    "malaysia-and-singapore-hold-the-same-korean-list",
+    "malaysia-gets-korean-titles-in-the-debut-week",
+    "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
+    "only-four-countries-come-close-to-all-korean",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question"
   ]
