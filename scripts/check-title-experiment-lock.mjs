@@ -58,8 +58,44 @@ function 바뀐파일() {
   ])];
 }
 
+/**
+ * 🔴 [2026-09-03 · 6번이 잡아 줬다] **이 자가 헛경보를 «열한 장씩» 내고 있었다.**
+ *
+ *   두 사이트가 손님 앞에서 «같은 경로»를 쓴다.
+ *   ```
+ *   seoulmarkets.com/article/<슬러그>     ← src/pages/article/[...id].astro
+ *   kculturewire.com/article/<슬러그>     ← src/pages/wikitip/article/[...id].astro
+ *   ```
+ *   실험 기록에는 **손님이 보는 주소**(`/article/…`)가 적혀 있어서, 6번이 SeoulMarkets
+ *   기사 템플릿을 고칠 때마다 **잠긴 KCW 기사 열한 장이 전부 「건드렸다」로 잡혔다.**
+ *
+ *   ⛔ 6번은 그것을 두 번 손으로 확인하고 「알려진 어림 결함」이라 부르며 넘겼다.
+ *      **그것이 이 결함의 진짜 값이다** — 다음에 그 열한 장 가운데 «진짜»가 하나 섞이면
+ *      같은 손짓으로 넘어간다. 우리 강령이 「잘못 잡는 자는 꺼진다」인 까닭이다.
+ *
+ *   ✅ 고치는 법은 짐작이 아니라 **자료를 보는 것**이다 — 그 슬러그의 마크다운이
+ *      어느 갈래에 있나. `content/kculturewire/` 면 KCW, `content/articles/` 면 SeoulMarkets.
+ *   ⚠ 어느 쪽에도 없으면 **「못 쟀다」**로 두고 그대로 잡는다(안전한 쪽). 0 으로 치지 않는다.
+ */
+export function 지면의사이트(지면) {
+  const 조각 = String(지면).replace(/^\//, '').split('/').filter(Boolean);
+  if (조각[0] !== 'article' || !조각[1]) return null; /* 기사 지면만 갈린다 */
+  const 슬러그 = 조각[1].replace(/\.html$/, '');
+  const 있나 = (p) => fs.existsSync(path.join(뿌리, p, 슬러그 + '.md'));
+  if (있나('content/kculturewire')) return 'kcw';
+  if (있나('content/articles')) return 'seoulmarkets';
+  return null; /* ⬜ 못 쟀다 — 지워진 기사일 수 있다 */
+}
+
+/** 그 사이트의 기사 템플릿 자리인가 */
+export function 기사템플릿의사이트(파일) {
+  if (파일.includes('src/pages/wikitip/article/')) return 'kcw';
+  if (파일.includes('src/pages/article/')) return 'seoulmarkets';
+  return null;
+}
+
 /** 지면 주소가 이 파일에서 만들어질 «수 있나». ⚠ 어림이다 — 막지 않고 말해 준다. */
-function 닿나(지면, 파일) {
+export function 닿나(지면, 파일) {
   if (!파일.startsWith('src/')) return false;
   /* 🔴 [2026-09-02 첫판이 여기서 거짓 양성을 냈다] 실험 «기록 파일»을 고치면
      그 안에 'title' 이 들어 있어 `/title` 지면을 건드린 것으로 잡혔다.
@@ -70,8 +106,15 @@ function 닿나(지면, 파일) {
   if (!조각.length) return false;
   /* 정확히 그 이름의 지면 파일인가 */
   if (파일.includes('/' + 조각.join('/') + '.astro')) return true;
-  /* 묶음 지면(`[...id].astro` · `[month].astro`)이면 그 폴더가 걸리면 걸린 것으로 본다 */
-  if (파일.includes('/' + 조각[0] + '/') && /\[.+\]\.astro$/.test(파일)) return true;
+  /* 묶음 지면(`[...id].astro` · `[month].astro`)이면 그 폴더가 걸리면 걸린 것으로 본다.
+     🔴 다만 «기사» 묶음은 두 사이트가 같은 경로를 쓴다 — 사이트를 가려야 한다(위 머리글). */
+  if (파일.includes('/' + 조각[0] + '/') && /\[.+\]\.astro$/.test(파일)) {
+    const 지면쪽 = 지면의사이트(지면);
+    const 파일쪽 = 기사템플릿의사이트(파일);
+    /* 둘 다 가려졌고 «서로 다르면» 남의 사이트다 — 잡지 않는다 */
+    if (지면쪽 && 파일쪽 && 지면쪽 !== 파일쪽) return false;
+    return true;
+  }
   /* 그 지면이 읽는 자료 파일도 제목을 바꿀 수 있다.
      ⚠ 낱말이 «파일 이름의 한 토막»으로 들어 있을 때만 본다 — 그냥 포함으로 보면
         'title' 이 'kcw-title-experiments' 를 잡는 식으로 헛것을 잡는다. */
@@ -133,21 +176,52 @@ function 자가시험() {
   봐(!닿나('/title', 'src/data/kcw-title-experiments.json'), '실험 기록 파일 자체는 안 잡는다');
   봐(!닿나('/title', 'src/data/kcw-demand-gaps.json'), '이름에 그 낱말이 없는 자료는 안 잡는다');
   봐(닿나('/star-signs', 'src/data/kcw-star-signs.json'), '이름 토막이 맞는 자료는 잡는다');
+
+  /* 🔴 [2026-09-03] 6번이 잡아 준 헛경보 — 두 사이트가 /article/ 을 같이 쓴다 */
+  봐(지면의사이트('/article/bts-is-not-a-seoul-band') === 'kcw',
+    '⭐ 슬러그를 보고 KCW 기사임을 가려낸다');
+  봐(기사템플릿의사이트('src/pages/article/[...id].astro') === 'seoulmarkets',
+    'SeoulMarkets 기사 템플릿을 가려낸다');
+  봐(기사템플릿의사이트('src/pages/wikitip/article/[...id].astro') === 'kcw',
+    'KCW 기사 템플릿을 가려낸다');
+  봐(!닿나('/article/bts-is-not-a-seoul-band', 'src/pages/article/[...id].astro'),
+    '🔴 KCW 기사를 SeoulMarkets 템플릿으로 잡지 «않는다» (6번이 겪은 그 헛경보)');
+  봐(닿나('/article/bts-is-not-a-seoul-band', 'src/pages/wikitip/article/[...id].astro'),
+    '⭐ 그러면서 «제 사이트» 템플릿은 여전히 잡는다 (못 잡는 자가 되면 안 된다)');
+  /* ⬜ 어느 쪽에도 없는 슬러그는 「못 쟀다」로 두고 그대로 잡는다 — 안전한 쪽 */
+  봐(지면의사이트('/article/이런-기사는-없다') === null,
+    '어느 갈래에도 없으면 null 을 낸다 — 「없다」가 아니라 「못 쟀다」');
+  봐(닿나('/article/이런-기사는-없다', 'src/pages/article/[...id].astro'),
+    '⬜ 못 가려낸 것은 그대로 잡는다 (0 으로 치지 않는다)');
+  봐(!닿나('/article/x', 'src/pages/wikitip/person/[name].astro'),
+    '기사 아닌 묶음은 폴더가 다르면 안 잡는다');
   const r = 본다();
   봐(['✅', '🔴', '⬜'].includes(r.빛), '빛을 하나 낸다');
   console.log(흠 ? `\n🔴 흠 ${흠}개` : '\n✅ 흠 없다');
   process.exit(흠 ? 1 : 0);
 }
 
-const 줄들 = process.argv.slice(2);
-if (줄들.includes('--자가시험')) 자가시험();
-else {
-  const r = 본다();
-  if (줄들.includes('--체크리스트')) console.log(`${r.빛} 제목 실험 잠금 — ${r.줄[0].replace(/\*\*/g, '')}`);
+/**
+ * 🔴 [2026-09-03] **이 파일은 «불러올» 수 없었다.**
+ *   아래가 맨몸으로 돌아서, 다른 자가 `import` 하면 그 자리에서 보고를 찍고
+ *   `process.exit(0)` 로 프로세스를 죽였다. 그래서 판정 함수를 밖에서 «재 볼» 수가 없었다.
+ *   ⛔ 재 볼 수 없는 판정은 헛경보를 내도 아무도 증명하지 못한다 —
+ *      실제로 6번의 헛경보 11장이 그렇게 「알려진 어림 결함」으로 굳어 있었다.
+ *   ✅ 저장소의 다른 검사들과 같은 문지기를 둔다. 직접 돌릴 때 하는 일은 그대로다.
+ */
+function main() {
+  const 줄들 = process.argv.slice(2);
+  if (줄들.includes('--자가시험')) 자가시험();
   else {
-    console.log('# 실험이 도는 지면의 제목을 또 건드렸나\n');
-    for (const 줄 of r.줄) console.log(줄);
+    const r = 본다();
+    if (줄들.includes('--체크리스트')) console.log(`${r.빛} 제목 실험 잠금 — ${r.줄[0].replace(/\*\*/g, '')}`);
+    else {
+      console.log('# 실험이 도는 지면의 제목을 또 건드렸나\n');
+      for (const 줄 of r.줄) console.log(줄);
+    }
+    /* ⚠ 걸려도 1 을 내지 않는다 — 막는 자가 아니라 «말해 주는» 자다 */
+    process.exit(0);
   }
-  /* ⚠ 걸려도 1 을 내지 않는다 — 막는 자가 아니라 «말해 주는» 자다 */
-  process.exit(0);
 }
+
+if (process.argv[1] && process.argv[1].endsWith('check-title-experiment-lock.mjs')) main();

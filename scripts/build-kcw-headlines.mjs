@@ -134,8 +134,21 @@ for (const f of fs.readdirSync(지면방)) {
   else { 셈.머리글없음++; 없는것.push(주소); }
 }
 
-fs.writeFileSync(낼곳, JSON.stringify({
-  generated: new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
+/*
+ * 🔴 [2026-09-03 · 두 가지를 함께 고친다]
+ *
+ *   1) 시각이 «UTC»였다 — `new Date().toISOString()`. CLAUDE.md 의 🔴 지시는
+ *      「시각은 한국시간(KST)이다. `toISOString()` 도 쓰지 않는다」다. 이 PC 가 이미 KST 이므로
+ *      `new Date()` 를 그대로 쓴다. 새벽에 하루가 어긋나는 것을 막는 것이 그 지시의 뜻이다.
+ *
+ *   2) **내용이 같아도 매번 새로 썼다.** 그러면 `npm run build` 를 돌릴 때마다 이 파일이
+ *      「바뀐 것」으로 뜨고, 배포 관문이 **커밋 안 된 변경**으로 잡아 배포를 막는다.
+ *      ⛔ 아무 뜻 없는 시각 한 줄 때문에 관문이 빨간불이 되면, 사람은 그 빨간불을
+ *         무시하는 손짓을 배운다. 오늘 바로 그 병(헛경보를 손으로 넘기는 것)을 다른 자에서
+ *         고쳤다 — 여기서 새로 만들지 않는다.
+ *      ✅ 그래서 **머리글이 정말 달라졌을 때만 쓴다.** 시각도 그때만 새로 찍는다.
+ */
+const 알맹이 = {
   whatThisIs: 'The first heading of every single-page section of the site, read from the built pages '
     + 'so the numbers inside it are the real ones.',
   whatThisIsNot: 'Not a list of every page. Pages built from a template (articles, titles, people) '
@@ -143,9 +156,28 @@ fs.writeFileSync(낼곳, JSON.stringify({
   counts: 셈,
   missing: 없는것,
   headlines: 머리,
-}, null, 2));
+};
 
-console.log(`■ 지면 ${셈.본지면}장 — 머리글 있음 ${셈.머리글있음} · 없음 ${셈.머리글없음}`);
-if (셈.머리글없음) console.log(`  ⛔ 머리글 없는 지면은 «없다»고 적었다: ${없는것.slice(0, 6).join(' · ')}`);
-console.log(`  냈다 — ${path.relative(뿌리, 낼곳)}`);
+/** 시각 칸만 뺀 알맹이가 같은가 — 같으면 쓰지 않는다 */
+let 그대로다 = false;
+try {
+  const 옛 = JSON.parse(fs.readFileSync(낼곳, 'utf8'));
+  const { generated: _버린다, ...옛알맹이 } = 옛;
+  그대로다 = JSON.stringify(옛알맹이) === JSON.stringify(알맹이);
+} catch { 그대로다 = false; } /* 못 읽으면 «같다»고 치지 않는다 */
+
+if (그대로다) {
+  console.log(`■ 지면 ${셈.본지면}장 — 머리글 있음 ${셈.머리글있음} · 없음 ${셈.머리글없음}`);
+  console.log(`  ⬜ 달라진 것이 없어 «안 썼다» — ${path.relative(뿌리, 낼곳)}`);
+} else {
+  /* ⚠ 이 PC 는 이미 KST 다. 9시간을 더하지도, toISOString 을 쓰지도 않는다 */
+  const 때 = new Date();
+  const 두자 = (n) => String(n).padStart(2, '0');
+  const 찍은시각 = `${때.getFullYear()}-${두자(때.getMonth() + 1)}-${두자(때.getDate())} `
+    + `${두자(때.getHours())}:${두자(때.getMinutes())} KST`;
+  fs.writeFileSync(낼곳, JSON.stringify({ generated: 찍은시각, ...알맹이 }, null, 2));
+  console.log(`■ 지면 ${셈.본지면}장 — 머리글 있음 ${셈.머리글있음} · 없음 ${셈.머리글없음}`);
+  if (셈.머리글없음) console.log(`  ⛔ 머리글 없는 지면은 «없다»고 적었다: ${없는것.slice(0, 6).join(' · ')}`);
+  console.log(`  ✅ 달라졌으므로 냈다 — ${path.relative(뿌리, 낼곳)}`);
+}
 }
