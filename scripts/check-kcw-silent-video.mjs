@@ -145,8 +145,23 @@ if (셈.소리있음.length) {
   for (const x of 셈.소리있음) console.log(`   ${String(x.dB).padStart(7)} dB  ${x.f}`);
 }
 if (셈.무음.length) {
-  console.log('\n■ 🔴 무음 — 사장님 「무성 콘텐트 다신 만들지 말 것」에 걸린다');
-  for (const x of 셈.무음) console.log(`   ${String(x.dB).padStart(7)} dB  ${x.f}`);
+  /* 🔴 [2026-09-03 실측] 이 자가 「무음 16편」이라 했는데 «진짜 남은 것은 9편»이었다.
+     까닭 — 소리판(<이름>-voiced.mp4)을 이미 만든 편도 «원본»은 그대로 −91 dB 로 남는다.
+     사장님이 「삭제하지 말고 소리만 입혀서 추가로 배포해」라 하셨으므로 원본이 남는 것이 «맞다».
+     ⛔ 그런데 그 원본을 「할 일」로 세면 다 해도 수가 안 줄어, 다음 사람이 이 자를 안 믿는다.
+        일곱 편이 그렇게 부풀어 있었다 — actors·debut·first·least·manager·onecountry·spike-hearts2hearts.
+     ✅ 그래서 «소리판 짝이 있는 원본»과 «없는 원본»을 갈라 낸다. 지우지는 않는다 — 갈라 셀 뿐이다. */
+  const 소리판있음 = (x) => fs.existsSync(path.join(영상방, x.f.replace(/[.]mp4$/, "-voiced.mp4")));
+  const 짝있는것 = 셈.무음.filter(소리판있음);
+  const 진짜남음 = 셈.무음.filter((x) => !소리판있음(x));
+
+  if (짝있는것.length) {
+    console.log(`\n■ ✅ 무음 원본이지만 «소리판을 이미 만든» 것 — ${짝있는것.length}편 (할 일 아님)`);
+    for (const x of 짝있는것) console.log(`   ${String(x.dB).padStart(7)} dB  ${x.f}  →  ${x.f.replace(/[.]mp4$/, "-voiced.mp4")}`);
+  }
+
+  console.log(`\n■ 🔴 소리가 «아직 없는» 편 — ${진짜남음.length}편. 사장님 「무성 콘텐트 다신 만들지 말 것」에 걸린다`);
+  for (const x of 진짜남음) console.log(`   ${String(x.dB).padStart(7)} dB  ${x.f}`);
   console.log('\n   ⛔ 이 편들을 «지우지 않는다» — 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」.');
   console.log('   ✅ 하루 한 편씩 소리를 입혀 새 제목으로 낸다:');
   console.log('     node scripts/make-kcw-sound.mjs --set <이름> --목소리 en-US-AndrewNeural');
