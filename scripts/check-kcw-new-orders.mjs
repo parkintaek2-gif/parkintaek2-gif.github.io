@@ -27,6 +27,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 */
+import { 지금 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 메모길 = path.join(뿌리, 'docs', '세션간-메모.md');
@@ -94,7 +96,7 @@ export function 상태쓰기(본것, 바닥, 길 = 본것길) {
     설명: '5번이 「봤다」고 표시한 지시 제목. ⛔ 저절로 안 채워진다 — --봤다 로만 채운다.',
     바닥설명: '이 줄 번호 아래의 옛 제목은 안 본다. 처음 한 번만 정하고 다시 안 움직인다.',
     바닥,
-    갱신: new Date().toISOString().slice(0, 19),
+    갱신: 지금(),
     본것: [...본것],
   }, null, 1)}\n`);
 }

@@ -36,6 +36,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 모호길 = path.join(뿌리, 'src/data/wikitip-title-ambiguity.json');
@@ -156,7 +159,7 @@ const 겹치는나라 = [...나라셈.entries()]
   .slice(0, 12);
 
 const 낼것 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   method: 모호.method,
   titleCount: 다.length,
   counts: {

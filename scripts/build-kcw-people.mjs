@@ -31,6 +31,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 지금 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 최소편수 = 2;
@@ -274,7 +277,7 @@ const 낼사람 = [...슬러그본것.values()]
   .sort((a, b) => (b.places ?? 0) - (a.places ?? 0) || a.name.localeCompare(b.name));
 
 fs.writeFileSync(낼곳, JSON.stringify({
-  generated: new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
+  generated: 지금(),
   source: 'Netflix Top 10 (Tudum) weekly country lists, joined to Wikidata cast lists (P161) filtered to '
     + 'Korean citizenship (P27), and to Wikidata birth dates (P569). Wikipedia reads from the Wikimedia '
     + 'Pageviews API, human traffic only.',

@@ -30,6 +30,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -193,7 +196,7 @@ if (내가불렸나) {
     '  If a figure looks wrong, tell us and we will publish a correction with the old number',
     '  still visible: https://www.kculturewire.com/corrections',
     '',
-    `Built ${new Date().toISOString().slice(0, 10)}.`,
+    `Built ${오늘()}.`,
   ].join('\r\n') + '\r\n');
 
   console.log('■ 내려받을 파일을 냈다 — public/wikitip/data/');

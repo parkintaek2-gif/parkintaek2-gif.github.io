@@ -37,6 +37,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 자료길 = path.join(뿌리, 'src/data/wikitip-title-pages.json');
@@ -166,7 +169,7 @@ const 모두든것 = 열개[0].줄
   .map((x) => ({ title: x.t.title, slug: x.t.slug }));
 
 const 몸 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   whatThisIs: 'Three different ways of asking which Korean title did best on Netflix, each one counted '
     + 'from the same weekly files. They are shown side by side rather than merged, because merging them '
     + 'would hide the fact that they disagree.',

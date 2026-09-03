@@ -34,6 +34,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /**
@@ -426,7 +429,7 @@ if (못판정몫 >= 0.3) {
 
 if (process.argv.includes('--쓴다')) {
   fs.writeFileSync(낼길, JSON.stringify({
-    generated: new Date().toISOString().slice(0, 10),
+    generated: 오늘(),
     whatThisIs: `Google's own answer, page by page, on whether it has indexed us. A sample of ${결과.length} taken evenly across the ${전체.length} pages in our sitemap, asked through the Search Console URL Inspection API.`,
     whatThisIsNot: 'Not a count of the whole site. It is a sample, and a page can be indexed and still never appear for anything anyone searches — that is a different question, measured separately.',
     sitemapPages: 전체.length,

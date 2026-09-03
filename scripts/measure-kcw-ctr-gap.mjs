@@ -23,6 +23,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 낼길 = path.join(뿌리, 'src/data/wikitip-ctr-gap.json');
@@ -147,7 +150,7 @@ for (const [k, v] of 갈래별(아픈)) console.log(`  ${k.padEnd(10)} ${String(
 
 if (process.argv.includes('--쓴다')) {
   fs.writeFileSync(낼길, JSON.stringify({
-    generated: new Date().toISOString().slice(0, 10),
+    generated: 오늘(),
     whatThisIs: 'Pages that already sit on the first page of Google for something and still get no clicks, taken from Search Console. The list is a work queue, not a ranking.',
     whatThisIsNot: 'Not a measure of page quality, and not a list of what to write. It says where the promise on the search result did not match the page, and nothing about which side to change.',
     pagesSeen: 줄들.length,

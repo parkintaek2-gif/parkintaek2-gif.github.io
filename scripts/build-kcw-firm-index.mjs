@@ -31,6 +31,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 자료길 = path.join(뿌리, 'src/data/wikitip-title-pages.json');
@@ -167,7 +170,7 @@ const 여럿 = 회사들.filter((c) => c.titleCount >= 2).sort((a, b) => a.firm.
 const 하나 = 회사들.filter((c) => c.titleCount === 1).sort((a, b) => a.firm.localeCompare(b.firm, 'en'));
 
 const 몸 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   whatThisIs: 'Every company credited on a Korean title that has entered a Netflix weekly top 10, with the '
     + 'titles we hold for it. Companies are in alphabetical order so the list cannot be read as a ranking.',
   whatThisIsNot: 'Not a measure of how good or how big a company is, and not a complete filmography. Credits '

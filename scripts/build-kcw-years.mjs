@@ -31,6 +31,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 자료길 = path.join(뿌리, 'src/data/wikitip-title-pages.json');
@@ -131,7 +134,7 @@ const 해들 = [...표.keys()].sort((a, b) => b - a).map((y) => {
 });
 
 const 몸 = {
-  generated: new Date().toISOString().slice(0, 10),
+  generated: 오늘(),
   whatThisIs: 'Korean titles grouped by the calendar year in which they held places on a Netflix weekly '
     + 'top 10, with how many places each held that year. Every title we publish has a year, which is why '
     + 'this axis reaches titles that have no cast or company data at all.',

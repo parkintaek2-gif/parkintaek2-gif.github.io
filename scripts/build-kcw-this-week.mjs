@@ -38,6 +38,9 @@ import path from 'node:path';
 import readline from 'node:readline';
 import { fileURLToPath } from 'node:url';
 import { koreanTitleFilter } from './lib/korean-netflix-titles.mjs';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 as KST오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 나라판 = path.join(뿌리, 'archive/raw/netflix-top10/countries.ndjson');
@@ -173,7 +176,7 @@ const 흐름 = 주들.slice(-볼주수).map((w) => {
   return { week: w, titles: 것.length, countries: 나라.size };
 });
 
-const 오늘 = new Date().toISOString().slice(0, 10);
+const 오늘 = KST오늘();
 const 낼것 = {
   generated: new Date().toISOString(),
   source: 제목자료.source,

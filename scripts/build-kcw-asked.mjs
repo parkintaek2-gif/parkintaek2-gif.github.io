@@ -30,6 +30,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 낼길 = path.join(뿌리, 'src/data/wikitip-asked.json');
@@ -180,7 +183,7 @@ console.log(`지면이 답할 수 있는 물음 ${물음들.length}개`);
 
 if (process.argv.includes('--쓴다')) {
   fs.writeFileSync(낼길, JSON.stringify({
-    generated: new Date().toISOString().slice(0, 10),
+    generated: 오늘(),
     whatThisIs: 'Questions readers actually arrived with, taken from the search terms Google records for this site and rewritten as plain questions. Only questions we already have a page for are listed.',
     asked: 물음들,
   }, null, 1));

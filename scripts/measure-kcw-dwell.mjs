@@ -32,6 +32,9 @@ import { readFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 갈래, 유닛, 손님아님, 토큰받기, 무엇이막혔나, 우리속성 } from './ga4-report.mjs';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 오늘 } from './_kst.mjs';
 
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -466,7 +469,7 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
 
   if (적을곳) {
     const 몸 = {
-      generated: new Date().toISOString().slice(0, 10),
+      generated: 오늘(),
       days: 날수,
       property: 속성,
       whatThisIs: 'GA4 userEngagementDuration divided by screenPageViews, per page. '

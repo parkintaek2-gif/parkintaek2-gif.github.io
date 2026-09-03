@@ -31,6 +31,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
+   CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
+import { 지금 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -312,7 +315,7 @@ for (const v of 영상자료.videos ?? []) {
 }
 
 fs.writeFileSync(낼곳, JSON.stringify({
-  generated: new Date().toISOString().slice(0, 16).replace('T', ' ') + ' UTC',
+  generated: 지금(),
   whatThisIs: 'Every short film we publish, paired with the page it was built from. The pairing is '
     + 'read from the pages themselves, so it cannot drift out of date.',
   whatThisIsNot: 'It is not a description written for the video. The sentence beside each film is the '
