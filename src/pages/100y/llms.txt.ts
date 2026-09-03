@@ -47,6 +47,7 @@ included, navigation chrome stripped.
 - [First job timing](https://100yearmap.com/first-job): months to first job after graduation, tenure
 - [Still unmarried at 30](https://100yearmap.com/marriage-age): marital status by age band vs. average marriage age
 - [Divorce age and marriage duration](https://100yearmap.com/divorce-age): average divorce age, 1990-2025 (husband 36.75→51.02, wife 32.69→47.71, vital-statistics registry data), plus 2025 divorces by marriage duration — the largest single group is 20+ years married (36.6%), larger than any shorter band. Explicitly warns against computing a "divorce rate" from same-year divorce/marriage counts.
+- [Out-of-hospital cardiac arrest, by age](https://100yearmap.com/cardiac-arrest): KDCA/fire-agency registry, 33,034 EMS-transported cases in 2024 (64.7 per 100,000). Reports both the age share of total cases (30s 3.5%, rising to 80+ at 31.8%) and the age-specific incidence rate (per 100,000 within that age group) side by side, explicitly warning they use different denominators and must not be conflated. 2020–2024 trend, both crude and age-standardized rates, both declining since a 2022 peak.
 - [Real wages](https://100yearmap.com/real-wage): inflation-adjusted pay growth, calculated from KOSIS nominal wage + CPI
 - [Where does a 40-something's spending go](https://100yearmap.com/spending): household budget by category
 - [Who owns a home, by age](https://100yearmap.com/home): homeowner household age distribution

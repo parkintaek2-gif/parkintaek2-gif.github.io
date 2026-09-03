@@ -1,0 +1,155 @@
+---
+/**
+ * /100y/cardiac-arrest — 급성심장정지, 몇 살부터 늘어나는가
+ *
+ * 질병관리청·소방청 「급성심장정지조사」(국가승인통계 제2011030호) 실측. 사장님이 전달한
+ * 언론 보도의 원 숫자(2024년 3만3034건·인구 10만 명당 64.7명·30대 3.5%·50세 미만 하루
+ * 13명꼴)를 KOSIS에서 직접 대조해 그대로 확인했다.
+ *
+ * ⛔⛔ 「분율」과 「발생률」은 분모가 다르다 — 이 지면 전체에서 절대 같은 자리에 섞지 않는다.
+ *   분율 = 환자 중 그 나이가 차지하는 몫(전체 건수가 분모). 발생률 = 그 나이 인구가
+ *   걸릴 위험(그 나이 인구가 분모, 인구 10만 명당). 30대는 분율(3.5%)로는 작아 보여도
+ *   발생률(17.5명)로는 20대(13.4명)보다 이미 높다 — "젊으니 안전"이라 쓰지 않는다.
+ * ⛔ 판정하지 않는다 — "위험하다/조심해야 한다" 대신 숫자만 놓는다.
+ * ⛔ 119구급대 이송 환자만 센 것이다 — 이송 전 사망·미신고는 이 표에 없다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/cardiac-arrest.json';
+
+const 자료 = 원본 as any;
+const 연령별 = 자료.연령별 as any[];
+const 연도별 = 자료.연도별 as any[];
+const 성별 = 자료.성별 as any[];
+const 삼사십대분율합 = Math.round((연령별.find((r) => r.칸 === '30-39세').분율 + 연령별.find((r) => r.칸 === '40-49세').분율) * 10) / 10;
+
+const desc =
+  `${자료.최신연도}년 급성심장정지로 119구급대에 이송된 사람은 ${자료.전체_건수.toLocaleString()}명 — ` +
+  `인구 10만 명당 ${자료.전체_발생률}명입니다. 30대가 전체의 3.5%, 40대까지 합치면 ${삼사십대분율합}%로 10%를 넘고, ` +
+  `50세 미만만 하루 ${자료['50세미만_하루평균']}명꼴입니다. 질병관리청·소방청 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '급성심장정지 발생 — 나이·성별·연도별',
+  description: desc,
+  temporalCoverage: `${연도별[0].해}/${연도별[연도별.length - 1].해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '질병관리청·소방청' },
+  variableMeasured: ['나이대별 급성심장정지 발생 건수·분율·발생률', '성별 발생 건수·발생률', '연도별 발생 건수·발생률·표준화발생률'],
+};
+---
+
+<HundredYear
+  title={`급성심장정지 — ${자료.최신연도}년 10만 명당 ${자료.전체_발생률}명`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>급성심장정지는<br />몇 살부터 늘어날까요?</h1>
+  <p class="sub">
+    질병관리청·소방청 「급성심장정지조사」(119구급대 이송 환자 실측) 기준,
+    {' '}{자료.최신연도}년 나이대·성별로 발생이 어떻게 갈리는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{자료.최신연도}년 — 119구급대가 병원으로 이송한 급성심장정지 환자</p>
+    <p class="answer-num">{자료.전체_건수.toLocaleString()}명</p>
+    <p class="answer-sub">
+      인구 10만 명당 {자료.전체_발생률}명 · 하루 평균 {Math.round((자료.전체_건수 / 365) * 10) / 10}명꼴
+    </p>
+  </div>
+
+  <h2>나이대별로 보면 — 몫(분율)과 위험(발생률)은 다릅니다</h2>
+  <p class="note">
+    ⛔ 「분율」은 환자 {자료.전체_건수.toLocaleString()}명 중 그 나이가 차지하는 몫입니다(전체가 분모).
+    {' '}「발생률」은 그 나이 인구 10만 명 중 몇 명꼴로 생기는지입니다(그 나이 인구가 분모) —
+    {' '}같은 숫자가 아닙니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>건수</th><th>분율(환자 중 몫)</th><th>발생률(10만 명당)</th></tr></thead>
+      <tbody>
+        {연령별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.건수?.toLocaleString()}건</td>
+            <td>{r.분율}%</td>
+            <td>{r.발생률}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 30대는 전체의 {연령별.find((r) => r.칸 === '30-39세').분율}%에 그치지만, 40대까지 합치면
+    {' '}{삼사십대분율합}%로 10%를 넘습니다. 50세 미만만 따로 더하면 하루 평균
+    {' '}{자료['50세미만_하루평균']}명꼴입니다(연간 {자료['50세미만_건수합'].toLocaleString()}명 ÷ 365일).
+  </p>
+
+  <h2>성별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>성별</th><th>건수</th><th>분율</th><th>발생률(10만 명당)</th></tr></thead>
+      <tbody>
+        {성별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.건수?.toLocaleString()}건</td>
+            <td>{r.분율}%</td>
+            <td>{r.발생률}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{연도별[0].해}년부터 {연도별[연도별.length - 1].해}년까지 — 실제 늘고 있나</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>건수</th><th>발생률(10만 명당)</th><th>표준화발생률(고령화 뺀 값)</th></tr></thead>
+      <tbody>
+        {연도별.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.건수?.toLocaleString()}건</td>
+            <td>{r.발생률}명</td>
+            <td>{r.표준화발생률}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 건수·발생률 둘 다 2022년을 정점으로 {자료.최신연도}년까지 내려왔습니다. 인구가 늙어서
+    {' '}생긴 착시가 아닌지 보려고 「표준화발생률」(고령화 효과를 뺀 값)도 같이 놓았는데, 이것도
+    {' '}2022년 이후 낮아졌습니다 — 인구 고령화만으로 설명되는 흐름이 아닙니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>119구급대가 병원으로 이송한 환자만 셉니다. 이송 전에 사망했거나 신고되지 않은 경우는 이 표에 없습니다.</li>
+    <li>성·연령·시도는 구급활동일지 기준입니다 — 현장에서 확인이 안 되면 「미상」으로 빠져 나이 9칸의 합이 전체와 정확히 같지 않을 수 있습니다.</li>
+    <li>「왜」 늘거나 줄었는지(생활습관·심폐소생술 보급·응급의료 접근성 등)는 이 표가 가르지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 「몇 살부터 조심해야 한다」고
+    {' '}쓰지 않습니다. 나이·성별로 숫자가 어떻게 갈리는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/care">← 몇 살부터 돌봄이 필요해질까요?</a>
+    <br />
+    <a href="/senior-doctor">← 시니어의사 채용지원 사업, 몇 명이 신청했을까요?</a>
+    <br />
+    <a href="/years-left">← 0세부터 100세까지, 앞으로 몇 해가 남았을까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="cardiac-arrest" />
+
+  <NextQuestionBrief 모은것="질병관리청·소방청 실측 자료" />
+</HundredYear>
