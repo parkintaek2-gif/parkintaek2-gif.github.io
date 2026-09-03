@@ -1,0 +1,150 @@
+{
+  "site": "sc-domain:klifemap.ai",
+  "dimension": "query",
+  "window": {
+    "from": "2026-08-04",
+    "to": "2026-09-01",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "\"2026-08-12\" \"戊午\"",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "\"2026-08-14\" \"庚申\"",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "\"2026-08-16\" \"壬戌\"",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "2026년 8월 14일 경신일",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "2026년 8월 9일 을묘일",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "bazi wedding date calculator",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 81
+    },
+    {
+      "key": "워크넷 직업정보 상담전문가 임금",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "四柱推命 命式 精密 無料",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 82
+    },
+    {
+      "key": "공연기획자 연봉",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 17
+    },
+    {
+      "key": "대운 그래프",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "대운그래프",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "록겁격",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 16
+    },
+    {
+      "key": "범죄심리사",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 10.666666666666666
+    },
+    {
+      "key": "법원직",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 26.2
+    },
+    {
+      "key": "법원직 공무원",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 23.333333333333332
+    },
+    {
+      "key": "법원직 공무원 현실",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 40
+    },
+    {
+      "key": "생년월일 사주",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "속기사 전망",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "오늘의 일진",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "자평 진전 원문",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "직업 능력 개발 훈련 교사",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "코드쿤스트 사주",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "택일 뜻",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    }
+  ]
+}

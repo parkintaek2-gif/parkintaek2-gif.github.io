@@ -1,0 +1,1980 @@
+{
+  "site": "sc-domain:100yearmap.com",
+  "dimension": "query",
+  "window": {
+    "from": "2026-08-04",
+    "to": "2026-09-01",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "경산 고등학교 순위",
+      "impressions": 5,
+      "clicks": 1,
+      "position": 6.8
+    },
+    {
+      "key": "서산 고등학교 순위",
+      "impressions": 8,
+      "clicks": 1,
+      "position": 9
+    },
+    {
+      "key": "세종대 취업률",
+      "impressions": 14,
+      "clicks": 1,
+      "position": 5.285714285714286
+    },
+    {
+      "key": "영남대 취업률",
+      "impressions": 8,
+      "clicks": 1,
+      "position": 3.75
+    },
+    {
+      "key": "율천고등학교",
+      "impressions": 1,
+      "clicks": 1,
+      "position": 11
+    },
+    {
+      "key": "은평구 고등학교 순위",
+      "impressions": 7,
+      "clicks": 1,
+      "position": 9
+    },
+    {
+      "key": "한성대학교 취업률",
+      "impressions": 2,
+      "clicks": 1,
+      "position": 2
+    },
+    {
+      "key": "\"동탄중앙고등학교\" \"졸업생의 진로 현황\"",
+      "impressions": 16,
+      "clicks": 0,
+      "position": 1.8125
+    },
+    {
+      "key": "60",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 36.333333333333336
+    },
+    {
+      "key": "고신대학교 대학정보공시 재학생수",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "가곡고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "가림고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "가은고",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 15.5
+    },
+    {
+      "key": "간디 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "갈매고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "갈산 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 18.5
+    },
+    {
+      "key": "갈산고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "거제 고등학교 순위",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 11.5
+    },
+    {
+      "key": "거창 고등학교 순위",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 10.285714285714286
+    },
+    {
+      "key": "거창중앙고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 18.5
+    },
+    {
+      "key": "건축학과 취업률",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "경기물류고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 18
+    },
+    {
+      "key": "경기여자상업고등학교 학생수",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "경기여자상업고등학교 학생수 2024",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 4.333333333333334
+    },
+    {
+      "key": "경동대학교 제4캠퍼스",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "경상국립대학교 사범대학 부설고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "경상사대부고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 43
+    },
+    {
+      "key": "경신고등학교 서울",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "경주 고등학교 순위",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 10.833333333333334
+    },
+    {
+      "key": "경주에 있는 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "경주예일고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "경주정보고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 20.5
+    },
+    {
+      "key": "경주정보고등학교 홈페이지",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "경화여자고등학교 대구",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "계성여자고등학교 학생수 2024",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "고창 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "고창고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 50
+    },
+    {
+      "key": "고척고",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "광명시 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "광문",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "광신대학교 수준",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "광양고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "광양고등학교 서울",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "광운인공지능고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 38
+    },
+    {
+      "key": "광운전자공업고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "광주 경신 여자 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "광주 보문고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "광주상일여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "교동고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 88
+    },
+    {
+      "key": "구미산동고",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 11.5
+    },
+    {
+      "key": "구미에 있는 고등학교",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 11.333333333333334
+    },
+    {
+      "key": "구일고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "군산 동고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "군산중앙고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "금곡고등학교 부산",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "금당고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "기린고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "김해 율하 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "김해 제일고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "김해영운고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "김화고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "남강고 홈페이지",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "남성 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "남창 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "남한고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "남해 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "노은고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "논산 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "달서 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "대구 강동고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "대구 경상고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "대구 경화여고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "대구 대건고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "대구 보건고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "대구 북구 고등학교",
+      "impressions": 20,
+      "clicks": 0,
+      "position": 7.1
+    },
+    {
+      "key": "대구 성산고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 14.5
+    },
+    {
+      "key": "대구 수성고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "대구 수성구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "대구가톨릭대학교사범대학부속무학고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "대구대진고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "대구반도체마이스터고 홈페이지",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 17
+    },
+    {
+      "key": "대구수성고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "대륜고 수준",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "대전노은고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "대전도안고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "대천 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "대학 과",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "대학교 학과",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 49
+    },
+    {
+      "key": "대학교 학과 종류",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "덕암",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "덕원여자고등학교 학생수 2024 학교알리미",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "도개 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 67
+    },
+    {
+      "key": "도개고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "도봉구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "돌마고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 24.5
+    },
+    {
+      "key": "동국대학교 사범대학 부속 영석고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "동국대학교사범대학부속영석고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "동덕여자고등학교 학생수 2024 학교알리미",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "동명생활경영고등학교 학생수 2024",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "동백고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 33
+    },
+    {
+      "key": "동성고등학교 충북",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 13
+    },
+    {
+      "key": "동작구 고등학교",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 16.25
+    },
+    {
+      "key": "동작구 고등학교 순위",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "동탄 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 42
+    },
+    {
+      "key": "동해삼육고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "동해시 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "두루고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "링컨고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "링컨중고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "마산 고등학교 순위",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 6.875
+    },
+    {
+      "key": "마산가포고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "마산에 있는 고등학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 12.666666666666666
+    },
+    {
+      "key": "마포구 고등학교",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 11.307692307692308
+    },
+    {
+      "key": "마포구 고등학교 순위",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "매괴 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "매괴고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 49
+    },
+    {
+      "key": "명인고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "명호고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "목포 고등학교 순위",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "무학고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "무학여자고등학교 학교알리미 학생수",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "묵호고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 18
+    },
+    {
+      "key": "미림여자고등학교 학생수 2024",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "배곧고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 18
+    },
+    {
+      "key": "백영",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "범어 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "병영상업고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 21.5
+    },
+    {
+      "key": "보라고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "보은 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 28.5
+    },
+    {
+      "key": "부산 경원고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "부산 남고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "부산 대동고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "부산 북구 고등학교",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "부산 신도고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "부산 신도고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "부산 체육 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "부산경호고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "부산남 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 38
+    },
+    {
+      "key": "부산대동고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "부산에 있는 예고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "부산컴퓨터과학고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "부석고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "부천 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 38
+    },
+    {
+      "key": "부흥고등학교 인천",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 40
+    },
+    {
+      "key": "북구 고등학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "빛고을고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "사내고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "산동고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "산청 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "삼랑진 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 18
+    },
+    {
+      "key": "삼랑진고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "삼성여자고등학교 제주",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "삽교 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "서강고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "서대문구 고등학교",
+      "impressions": 15,
+      "clicks": 0,
+      "position": 10.066666666666666
+    },
+    {
+      "key": "서령고",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "서울 공연 예술 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 43
+    },
+    {
+      "key": "서울 대신 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "서울 대신고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "서울 성수고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "서울 애니고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "서울 양정고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 33
+    },
+    {
+      "key": "서울 양정고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "서울 오산 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "서울 오산고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "서울 용문고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "서울 우신고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "서울 의료 보건 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "서울공연예술고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 40
+    },
+    {
+      "key": "서울디자인고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "서울로봇 고등학교 수준",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "서울문화고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "서울백영고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 17
+    },
+    {
+      "key": "서울백영고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 42
+    },
+    {
+      "key": "서울산업정보학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "서울양정고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "서울오산고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "서울용문고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "서울의료보건고등학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 11.333333333333334
+    },
+    {
+      "key": "서울정화고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "서울정화고등학교 학생 수 2024",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "서울정화고등학교 학생수",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "서울정화고등학교 학생수 2024",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "서천 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "서천고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "선인 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "성공회대 편입",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "성동구 고등학교",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "성심여자고등학교 서울 학생수 2024",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "성희여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "세 그루 패션디자인 고등학교 경쟁률",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "세인고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "세종 고등학교 목록",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "세종 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "세종 양지고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "세화고등학교 제주",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "송곡여자고등학교 학생수",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "송도 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "송파 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "송파구 고등학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 12.333333333333334
+    },
+    {
+      "key": "수성고등학교 대구",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "수성구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 19
+    },
+    {
+      "key": "수성구 고등학교 순위",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "수영구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "수원대 취업률",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 3.5
+    },
+    {
+      "key": "수지구 고등학교",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 10.6
+    },
+    {
+      "key": "숙명여고 학생수",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 11.5
+    },
+    {
+      "key": "숙명여자고등학교 홈페이지",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "숙지고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "순천 금당 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "신안고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "신탄진고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "신평고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "아산고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "안법고 입결",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "안산 강서고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "안산에 있는 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "안양상고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "양산 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 45
+    },
+    {
+      "key": "양주 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "여수 화양고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "연천고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 18
+    },
+    {
+      "key": "연천고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "영등포구 고등학교",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 10.8
+    },
+    {
+      "key": "영락의료과학고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 29
+    },
+    {
+      "key": "영암여고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 94.5
+    },
+    {
+      "key": "영월고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 21
+    },
+    {
+      "key": "영주 영광고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 55
+    },
+    {
+      "key": "영주영광고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "예림 디자인 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "예림디고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 19
+    },
+    {
+      "key": "예림디자인고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 35.5
+    },
+    {
+      "key": "오류고등학교 학생수 2024",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 9.666666666666666
+    },
+    {
+      "key": "옥빛고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "완도 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 37
+    },
+    {
+      "key": "용인고등학교 부산",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "우석고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 48
+    },
+    {
+      "key": "우송대 취업률",
+      "impressions": 15,
+      "clicks": 0,
+      "position": 5.533333333333333
+    },
+    {
+      "key": "울산 신정고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "울산예고 경쟁률",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "웅천고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 53
+    },
+    {
+      "key": "원주 고등학교 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "원주 삼육고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "원주삼육고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 19
+    },
+    {
+      "key": "원통고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "월계 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "위도고등학교",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 13
+    },
+    {
+      "key": "위례고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "유성여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "은평구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 19
+    },
+    {
+      "key": "이솔 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "이일 여고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "이천에 있는 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "익산 고등학교 순위",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "익산에 있는 고등학교",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 9.333333333333334
+    },
+    {
+      "key": "인월고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "인천 청라 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "인천고잔고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "일산동고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "장흥고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 33
+    },
+    {
+      "key": "전주성심여고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 43
+    },
+    {
+      "key": "전주솔내고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "전주양현고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "전주우석고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "정동고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32
+    },
+    {
+      "key": "정동고등학교 홈페이지",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "정보고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "정보고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "정선고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "정신여자고등학교 학생수 2024 학교알리미",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "조원고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "주례여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 47
+    },
+    {
+      "key": "지리산 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "진보고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "진영고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "진주제일여고",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 42.5
+    },
+    {
+      "key": "진천고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 43
+    },
+    {
+      "key": "창녕대성고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "창덕여자고등학교 학생수 2024 학교알리미",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "창동고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "창원 경일 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "창원 고등학교 순위",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 16.5
+    },
+    {
+      "key": "창원 대산고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "창원 중앙 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "창원고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 36
+    },
+    {
+      "key": "창원대산고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "창원대암고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 22
+    },
+    {
+      "key": "창원명지여자고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8.5
+    },
+    {
+      "key": "창원에 있는 고등학교",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "창원토월고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "처인구 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "천안 상고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31
+    },
+    {
+      "key": "청라 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "청산고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 27
+    },
+    {
+      "key": "청원여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "춘천 고등학교 순위",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 10.5
+    },
+    {
+      "key": "충남 고등학교",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 40.5
+    },
+    {
+      "key": "충북대 취업률",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 4.75
+    },
+    {
+      "key": "충북상업정보고",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "충북상업정보고등학교",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 10.428571428571429
+    },
+    {
+      "key": "치동고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 25
+    },
+    {
+      "key": "컴공 취업률",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "태안여자고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 20
+    },
+    {
+      "key": "파주 지산고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "포천 고등학교 목록",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 19.5
+    },
+    {
+      "key": "하나 고등학교 순위",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "하나고등학교 인트라넷",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 44
+    },
+    {
+      "key": "학과 검색",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "학과 찾기",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 15
+    },
+    {
+      "key": "학다리고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "학다리고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "한경국립대 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 57
+    },
+    {
+      "key": "한국국제비즈니스고등학교",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "한성대 취업률",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 4.25
+    },
+    {
+      "key": "한신대 수준",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26
+    },
+    {
+      "key": "한신대 순위",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 28
+    },
+    {
+      "key": "한신대 평판",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "함양고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "함지 고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 23
+    },
+    {
+      "key": "함평고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 34
+    },
+    {
+      "key": "해강고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 14
+    },
+    {
+      "key": "해성국제컨벤션고등학교 학생수 2024",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "현서고등학교",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 7.75
+    },
+    {
+      "key": "혜성여자고등학교 학생수 2024",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "화령고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 46
+    },
+    {
+      "key": "화성의과학대학교 수준",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 30
+    },
+    {
+      "key": "화천고",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 51
+    },
+    {
+      "key": "화천고등학교",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    }
+  ]
+}

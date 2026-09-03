@@ -36,14 +36,17 @@
  *
  * 쓰는 법
  *   node scripts/check-navigational-impressions.mjs --자가시험
- *   node scripts/check-navigational-impressions.mjs [--자료 src/data/gsc-kcw-2026-08-26.json]
+ *   node scripts/check-navigational-impressions.mjs --자료=src/data/gsc-kcw-2026-09-01.json
+ *   ⚠ 「--자료 <길>」(빈칸) 도 받는다. 2026-09-04 에 그 꼴이 조용히 무시돼 옛 자료를 읽었다
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 기본자료 = 'src/data/gsc-kcw-2026-08-26.json';
+/* ⚠ 새 자료를 받으면 여기도 옮긴다 — node scripts/fetch-gsc.mjs --사이트 kcw
+   ⛔ 안 옮기면 «인자를 안 준 사람»이 낡은 창을 새 것으로 읽는다. 2026-09-04 에 내가 그랬다. */
+const 기본자료 = 'src/data/gsc-kcw-2026-09-01.json';
 
 /**
  * 이 질의가 «어딘가로 가려고» 친 것인가.
@@ -128,8 +131,46 @@ if (process.argv.includes('--자가시험')) {
 }
 
 /* ── 실제로 잰다 ── */
-const 인자 = process.argv.find((a) => a.startsWith('--자료='))?.split('=')[1];
+/**
+ * 🔴🔴 [2026-09-04 · 5번이 걸림] **빈칸 꼴로 준 인자가 조용히 무시됐다.**
+ *   `--자료 src/data/gsc-kcw-2026-09-01.json` 이라 치고 새 자료를 읽었다고 믿었다.
+ *   실제로는 `=` 꼴만 받으므로 **옛 파일이 읽혔고**, 화면에 나온 수는 12일 낡은 것이었다.
+ *   ⚠ 그 수로 「길찾기가 51%」라고 읽었는데 새 자료로는 **27%** 였다. 노출도 445 대 966.
+ *     하마터면 «우리 실력을 절반으로 잘못 읽은 것»을 그대로 보고할 뻔했다.
+ *   ⛔ 게다가 이 파일 머리글의 «쓰는 법 예시부터» 빈칸 꼴이었다 — 자가 스스로 틀리게 가르쳤다.
+ *
+ *   ⭐ 이것은 `docs/발견/2026-09-03_조용히-무시되는-인자.md` 와 **같은 갈래**다. 또 나왔다.
+ *   ✅ 그래서 둘 다 받고, **모르는 인자를 만나면 멈춘다.** 조용히 지나가지 않는다.
+ */
+function 자료인자() {
+  const a = process.argv.slice(2);
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i].startsWith('--자료=')) return a[i].slice('--자료='.length);
+    if (a[i] === '--자료') {
+      if (!a[i + 1] || a[i + 1].startsWith('--')) {
+        console.error('⛔ `--자료` 뒤에 길이 없다. **안 잰다.**');
+        process.exit(1);
+      }
+      return a[i + 1];
+    }
+  }
+  /* ⛔ 모르는 인자를 조용히 흘리지 않는다 — 흘리면 옛 자료를 새 자료로 착각한다 */
+  const 아는것 = new Set(['--자가시험']);
+  const 모르는것 = a.filter((x, i) => x.startsWith('--') && !아는것.has(x)
+    && !x.startsWith('--자료') && a[i - 1] !== '--자료');
+  if (모르는것.length) {
+    console.error(`⛔ 모르는 인자 ${모르는것.join(' · ')} — **안 잰다.**`);
+    console.error('   쓰는 법: node scripts/check-navigational-impressions.mjs --자료=src/data/gsc-kcw-2026-09-01.json');
+    process.exit(1);
+  }
+  return null;
+}
+const 인자 = 자료인자();
 const 자료길 = path.join(뿌리, 인자 ?? 기본자료);
+if (!인자) {
+  console.log('⚠ --자료 를 안 줘서 «기본 자료»를 읽는다 — ' + 기본자료);
+  console.log('   ⛔ 이것이 오늘 것인지 «창»을 아래에서 확인하십시오. 낡은 창으로 콘텐트를 정하면 지나간 수요를 좇습니다.');
+}
 if (!fs.existsSync(자료길)) {
   console.log(`⬜ 못 쟀다 — ${path.relative(뿌리, 자료길)} 이 없다`);
   console.log('   ⛔ 「0」이라고 적지 않는다. 자료가 없는 것과 손님이 없는 것은 다르다.');
@@ -143,7 +184,15 @@ const 줄 = (이름, x) => `   ${이름.padEnd(12)} ${String(x.질의수).padSta
   + ` ${String(x.노출).padStart(5)}노출 · ${String(x.클릭).padStart(3)}클릭 ·`
   + ` CTR ${x.ctr == null ? '못 쟀다' : `${x.ctr.toFixed(2)}%`}`;
 
-console.log(`■ 못 이기는 노출과 이길 수 있는 노출 — ${원.site ?? ''} ${원.window ?? ''}\n`);
+/* ⚠ 창은 파일에 따라 «글자»일 수도 «객체»({from,to,days})일 수도 있다.
+   객체를 그대로 이으면 [object Object] 가 찍힌다 — 2026-09-04 에 실제로 그렇게 나왔다.
+   ⛔ 창을 못 읽으면 사람이 «어느 창을 보고 있는지» 모른 채 콘텐트를 정하게 된다. */
+const 창글 = (w) => (w == null ? '(창을 모른다)'
+  : typeof w === 'string' ? w
+  : (w.from && w.to) ? `${w.from}~${w.to}${w.days ? ` (${w.days}일)` : ''}`
+  : JSON.stringify(w));
+console.log(`■ 못 이기는 노출과 이길 수 있는 노출 — ${원.site ?? ''}  창 ${창글(원.window)}
+`);
 console.log(줄('전체', g.전체));
 console.log(줄('🔴 길찾기', g.길찾기));
 console.log(줄('✅ 우리 질의', g.우리것));

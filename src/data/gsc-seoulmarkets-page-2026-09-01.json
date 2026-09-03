@@ -1,0 +1,498 @@
+{
+  "site": "sc-domain:seoulmarkets.com",
+  "dimension": "page",
+  "window": {
+    "from": "2026-08-04",
+    "to": "2026-09-01",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "https://seoulmarkets.com/article/korea-trade-surplus-not-china",
+      "impressions": 14,
+      "clicks": 2,
+      "position": 9.714285714285714
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 172,
+      "clicks": 1,
+      "position": 32.25
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 89,
+      "clicks": 1,
+      "position": 10.92134831460674
+    },
+    {
+      "key": "https://seoulmarkets.com/newsletter",
+      "impressions": 5,
+      "clicks": 1,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/api",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "https://seoulmarkets.com/article/how-many-companies-listed-korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-analysts-stopped-saying-hold",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-better-paying-firms-wider-gender-gap",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 11.3
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-bond-spread-two-weeks",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 71.33333333333333
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-ceo-outlasts-the-workforce",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-company-vs-owner-wage",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-convertible-dilution-discount",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-currency-futures-one-contract",
+      "impressions": 10,
+      "clicks": 0,
+      "position": 3.3
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-etf-premium-means-two-different-things",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 5.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-everything-comes-down-to-four",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 37.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-exchange-gold-down-from-january-peak",
+      "impressions": 13,
+      "clicks": 0,
+      "position": 3.769230769230769
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-five-buybacks-one-cancellation",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 5.6
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 16,
+      "clicks": 0,
+      "position": 30.625
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-fractional-shares-broker-lottery",
+      "impressions": 28,
+      "clicks": 0,
+      "position": 8.285714285714285
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-gender-pay-ratio-seventy-three",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-government-bond-yield-curve",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-headcount-disclosure-has-no-total-row",
+      "impressions": 11,
+      "clicks": 0,
+      "position": 13.909090909090908
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-housing-two-numbers-that-disagree",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 5.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-how-long-industries-keep-workers",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-import-prices-won-did-the-work",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 5.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-import-prices-won-not-goods",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-leading-index-climbs-coincident-flat",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7.333333333333333
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-listed-headquarters-capital-region",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-listed-market-broad-by-count-narrow-by-value",
+      "impressions": 19,
+      "clicks": 0,
+      "position": 24.05263157894737
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-listed-pay-holding-company-trap",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-loans-shift-to-floating",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-loans-turned-variable",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-market-cap-per-worker-artifact",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 13.6
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-oil-exchange-two-prices",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 8.875
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-older-industries-churn-less",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-oldest-listed-companies-banks-drugmakers",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7.666666666666667
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-oldest-workplaces-banks-youngest-building-sites",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-pension-bill-pay-ladder",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-pension-map-ulsan-tops-seoul",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 15.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-producer-prices-chips-tripled",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 2.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-provincial-bonds-price-identically",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-real-wages-flat-since-2021",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 39
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-seoul-companies-lose-staff-fastest",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-small-firms-churn-big-firms-hold",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 32.66666666666667
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-tenure-gender-gap",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 4.25
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-tenure-is-partly-company-age",
+      "impressions": 7,
+      "clicks": 0,
+      "position": 7.571428571428571
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-tenure-tracks-pay",
+      "impressions": 6,
+      "clicks": 0,
+      "position": 16.166666666666664
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-trade-balance-in-one-page",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 87.33333333333333
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 31,
+      "clicks": 0,
+      "position": 55.774193548387096
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-us-surplus-doubled",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 53.333333333333336
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-women-share-does-not-close-pay-gap",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-workers-concentrate-in-seoul-pay-doesnt",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 8.666666666666668
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korea-youth-unemployment-fell-since-2016",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korean-board-women-seven-percent",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 6.5
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korean-brokers-aim-high-hit-less",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 48.666666666666664
+    },
+    {
+      "key": "https://seoulmarkets.com/article/korean-sector-leaders-pay-more",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://seoulmarkets.com/article/kospi-2026-volatility-regime",
+      "impressions": 50,
+      "clicks": 0,
+      "position": 7.12
+    },
+    {
+      "key": "https://seoulmarkets.com/article/kospi-is-a-semiconductor-index",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 4.6
+    },
+    {
+      "key": "https://seoulmarkets.com/article/twenty-six-sell-ratings",
+      "impressions": 4,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://seoulmarkets.com/article/who-watches-korean-private-fund-managers",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/article/why-korean-market-data-arrives-a-day-late",
+      "impressions": 9,
+      "clicks": 0,
+      "position": 5.555555555555555
+    },
+    {
+      "key": "https://seoulmarkets.com/commodities",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/community",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://seoulmarkets.com/data",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 3.6666666666666665
+    },
+    {
+      "key": "https://seoulmarkets.com/data/korea-trade-dataset",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 45.5
+    },
+    {
+      "key": "https://seoulmarkets.com/data/sector-leaders",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 6
+    },
+    {
+      "key": "https://seoulmarkets.com/equities",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 1.5
+    },
+    {
+      "key": "https://seoulmarkets.com/funds",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/fx",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "https://seoulmarkets.com/macro",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/pricing",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 3
+    },
+    {
+      "key": "https://seoulmarkets.com/privacy",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 2
+    },
+    {
+      "key": "https://seoulmarkets.com/rankings",
+      "impressions": 9,
+      "clicks": 0,
+      "position": 3.7777777777777777
+    },
+    {
+      "key": "https://seoulmarkets.com/tag/interest-rates",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "https://seoulmarkets.com/tag/korea",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "https://seoulmarkets.com/tag/oil",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "https://seoulmarkets.com/terms",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 6.666666666666667
+    },
+    {
+      "key": "https://seoulmarkets.com/video",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "https://www.seoulmarkets.com/article/korea-gender-pay-ratio-seventy-three",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 79
+    },
+    {
+      "key": "https://www.seoulmarkets.com/article/korea-trade-surplus-tripled-five-partners",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 3.5
+    },
+    {
+      "key": "https://www.seoulmarkets.com/article/korean-sectors-female-workforce",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 38
+    }
+  ]
+}
