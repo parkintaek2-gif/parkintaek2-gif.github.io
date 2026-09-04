@@ -150,6 +150,42 @@ const 낱말수 = {
   one: '1', two: '2', three: '3', four: '4', five: '5', six: '6',
   seven: '7', eight: '8', nine: '9', ten: '10', eleven: '11', twelve: '12',
 };
+/**
+ * 지면의 **표 칸**만 꺼낸다.
+ *
+ * 🔴 2026-09-04 — 이 자가 「표가 뒤에 있다」를 **보증하지 못하고 있었다.**
+ *   지면 «온 글»에 `includes` 를 했기 때문이다. 111장으로 재 보니 —
+ *
+ *     두 자리 수(10~99)  평균 **71.7%** 의 지면에 그냥 들어 있다
+ *                       「25」는 **98.2%**, 「62」는 91.9%
+ *     세 자리            평균 6.4%
+ *     네 자리            평균 1.6%
+ *
+ *   즉 대표값이 두 자리면 `pages:` 를 **아무 지면에나** 걸어도 통과했다.
+ *   ⛔ 안 울릴 수 있는 자는 자가 아니다. 카드에 적은 「every figure has a table behind it」이
+ *      두 자리 수에서는 참말이 아니었다.
+ *
+ * ✅ 그래서 «표 칸(td·th)» 안에서만 본다. 본문 문장에 스친 수는 표가 아니다.
+ */
+export function 표칸들(html) {
+  return [...String(html).matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)]
+    .map((m) => m[1].replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/,/g, '').replace(/\s+/g, ' ').trim())
+    .filter(Boolean);
+}
+
+/** 표 칸 «하나»가 그 수와 같은가. 칸 안에 섞여 있는 것은 안 친다 — 그래야 우연이 안 통한다 */
+export function 칸이같나(칸, 값) {
+  const c = String(칸).trim();
+  if (c === 값) return true;
+  /* 「62%」·「62명」·「$62」처럼 꼬리표가 붙은 칸은 같은 값으로 본다 */
+  return new RegExp('^[^0-9]{0,2}' + 값.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[^0-9]{0,4}$').test(c);
+}
+
+export function 지면에있나(html, 꼴들) {
+  const 칸 = 표칸들(html);
+  return 꼴들.some((v) => 칸.some((c) => 칸이같나(c, v)));
+}
+
 export function 낱말꼴(v) {
   if (typeof v !== 'string' || !v.trim().length) return [];
   const 말 = v.trim();
@@ -208,6 +244,22 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
     !!면제까닭('a-20260828-실험20.json', { 'a.json': '까닭이 스무 자를 넘게 적혀 있다 아무렴' }));
   자가('⛔ 원본이 면제가 아니면 스냅숏도 아니다', 면제까닭('b-20260825.json', { 'a.json': 'x'.repeat(30) }) === null);
   자가('⛔ 날짜가 없으면 물려받지 않는다', 면제까닭('a-copy.json', { 'a.json': 'x'.repeat(30) }) === null);
+  /* ── 표 칸으로 보는 자 (2026-09-04) ── */
+  const 표지면 = '<p>본문에 25 개국이라고 스쳐 지나간다</p><table><tr><th>나라</th><td>62</td></tr>'
+    + '<tr><th>몫</th><td>58.4%</td></tr><tr><td>1,113</td></tr></table>';
+  자가('표 칸을 꺼낸다', 표칸들(표지면).length === 5);
+  자가('표 칸의 쉼표를 지운다', 표칸들(표지면).includes('1113'));
+  자가('표에 있는 수를 찾는다', 지면에있나(표지면, ['62']) === true);
+  자가('꼬리표가 붙은 칸도 같은 값으로 본다', 지면에있나(표지면, ['58.4']) === true);
+  /* 🔴 이것이 이 자를 고친 까닭이다 — 본문에 스친 25 를 「표가 뒤에 있다」로 세면 안 된다 */
+  자가('⛔ 본문에만 스친 수는 «표가 아니다»', 지면에있나(표지면, ['25']) === false);
+  자가('⛔ 아예 없는 수는 없다고 한다', 지면에있나(표지면, ['9999']) === false);
+  자가('⛔ 표가 없는 지면은 무엇도 참이 아니다', 지면에있나('<p>62 25 1113</p>', ['62']) === false);
+  자가('칸 안에 «섞여» 있는 것은 안 친다',
+    칸이같나('62개국과 25개 도시', '62') === false);
+  자가('칸이 딱 그 수면 참', 칸이같나('62', '62') === true);
+  자가('빈 꼴 목록이면 참이 아니다', 지면에있나(표지면, []) === false);
+
   자가('면제에 까닭이 다 있다',
     Object.values(면제).every((v) => typeof v === 'string' && v.length > 20));
   console.log(`표 약속 검사 — 자가시험 ${시험}건 중 ${통과}건 통과`);
@@ -259,15 +311,55 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
     /* ⭐ 수가 있으면 수로, 없으면 낱말로 본다. 자가 볼 것이 아예 없는 상태를 만들지 않는다 */
     const 꼴들 = 수 ? 받을꼴(수) : 낱말꼴(fig);
     if (!꼴들.length) { 못잼.push(`${slug} → 대표값 «${fig}» 에서 볼 것을 못 만들었다`); continue; }
-    const 보임 = 있는지면.some((p) => {
-      const t = fs.readFileSync(`dist/wikitip${p}.html`, 'utf8')
-        .replace(/<[^>]+>/g, ' ').replace(/,/g, '');
-      return 꼴들.some((v) => t.includes(v));
-    });
+    const 보임 = 있는지면.some((p) => 지면에있나(fs.readFileSync(`dist/wikitip${p}.html`, 'utf8'), 꼴들));
     if (!보임) 빈약속.push(`${slug} [${fig}] → ${있는지면.join(',')}`);
   }
-  본다('대표 수가 걸린 지면에 있나', 빈약속.length === 0,
-    빈약속.length ? `🔴 ${빈약속.length}편 — ${빈약속.join(' · ')}` : `기사 ${본기사}편 다 표가 뒤에 있다`);
+  /*
+   * ── 톱니 ────────────────────────────────────────────────────────────────────
+   * 🔴 2026-09-04 — 자를 «표 칸»으로 조였더니 92편이 걸렸다. 옛 자는 지면 온 글에
+   *   `includes` 를 해서, 두 자리 수가 지면의 71.7%에 그냥 들어 있었다.
+   *   (「19」는 「Parasite (2019 film)」에 걸려 통과하고 있었다.)
+   *
+   * ⛔ 그렇다고 92편을 한꺼번에 빨갛게 만들면 «여섯 유닛이 함께 쓰는 npm test» 가 멈춘다.
+   *   남의 일을 막는 것은 내가 정할 일이 아니다.
+   * ✅ 그래서 톱니로 건다 — **오늘의 빚 목록을 적어 두고, 그 목록에 «없는» 편이 걸리면 깨진다.**
+   *   빚은 줄기만 하고 늘지 못한다. 그리고 남은 빚이 몇 편인지 늘 화면에 보인다.
+   *
+   * ⛔ 이 목록에 편을 «더 넣어서» 통과시키지 않는다. 넣으려면 지면을 만드는 게 맞다.
+   */
+  const 톱니길 = 'src/data/table-promise-backlog.json';
+  let 옛빚 = [];
+  if (fs.existsSync(톱니길)) 옛빚 = JSON.parse(fs.readFileSync(톱니길, 'utf8')).밀린편 || [];
+  const 이름만 = (s) => String(s).split(' ')[0];
+  const 지금빚 = 빈약속.map(이름만);
+  const 새로깨진것 = 빈약속.filter((x) => !옛빚.includes(이름만(x)));
+  const 갚은것 = 옛빚.filter((s) => !지금빚.includes(s));
+
+  본다('대표 수가 걸린 지면에 있나 (새로 깨진 것)', 새로깨진것.length === 0,
+    새로깨진것.length
+      ? `🔴 ${새로깨진것.length}편 — ${새로깨진것.join(' · ')}`
+      : `새로 깨진 편 없음 · 남은 빚 ${지금빚.length}편 (기사 ${본기사}편 중)`);
+  if (갚은것.length) console.log(`  ⭐ 갚은 편 ${갚은것.length} — ${갚은것.slice(0, 6).join(' · ')}${갚은것.length > 6 ? ' 외' : ''}`);
+  if (지금빚.length) console.log(`  ⬜ 남은 빚 ${지금빚.length}편 — 이 수는 «늘 수 없다». ${톱니길} 를 손으로 늘리지 않는다`);
+
+  /* 갚은 편은 «바로» 목록에서 뺀다 — 안 그러면 다시 깨져도 톱니가 봐준다 */
+  if (갚은것.length && !새로깨진것.length) {
+    fs.writeFileSync(톱니길, JSON.stringify({
+      적은날: new Date().toLocaleDateString('ko-KR'),
+      까닭: '표 칸으로 조인 자에 걸린 옛 기사들. 지면을 만들면 하나씩 줄인다. ⛔ 손으로 «늘리지» 않는다',
+      밀린편: 지금빚,
+    }, null, 1), 'utf8');
+    console.log(`  ✅ 갚은 ${갚은것.length}편을 목록에서 뺐다`);
+  }
+  if (process.argv.includes('--빚굳히기')) {
+    fs.writeFileSync(톱니길, JSON.stringify({
+      적은날: new Date().toLocaleDateString('ko-KR'),
+      까닭: '표 칸으로 조인 자에 걸린 옛 기사들. 지면을 만들면 하나씩 줄인다. ⛔ 손으로 «늘리지» 않는다',
+      밀린편: 지금빚,
+    }, null, 1), 'utf8');
+    console.log(`  📌 빚 ${지금빚.length}편을 ${톱니길} 에 굳혔다`);
+    process.exit(0);
+  }
   if (못잼.length) console.log(`  ⬜ 걸린 지면이 dist 에 없어 못 잰 기사 ${못잼.length}편 — ${못잼.join(' · ')}`);
 
   /*
@@ -281,6 +373,11 @@ if (process.argv[1] && process.argv[1].endsWith('check-table-promises.mjs')) {
     까닭없음.length ? `🔴 ${까닭없음.join(' · ')}` : `${Object.keys(면제).length}개 다 까닭이 적혀 있다`);
 
   console.log(`\n지면 ${fs.readdirSync(지면칸).filter((x) => x.endsWith('.astro')).length}장 · 자료 ${자료들.length}개 · 기사 ${본기사}편`);
-  console.log(틀림 ? `⛔ 약속이 빈 것 ${틀림}갈래` : '✅ 표 약속 — 카드의 「every figure has a table behind it」이 참말이다');
+  /* ⛔ 빚이 남아 있는데 「참말이다」로 끝내지 않는다 — 그것이 옛 자가 하던 짓이다 */
+  if (틀림) console.log(`⛔ 약속이 빈 것 ${틀림}갈래`);
+  else if (지금빚.length) {
+    console.log(`⬜ 새로 깨진 편은 없다. 다만 카드의 「every figure has a table behind it」은`);
+    console.log(`   아직 **${지금빚.length}편에서 참말이 아니다.** 지면을 만들어 하나씩 갚는다`);
+  } else console.log('✅ 표 약속 — 카드의 「every figure has a table behind it」이 참말이다');
   process.exit(틀림 ? 1 : 0);
 }

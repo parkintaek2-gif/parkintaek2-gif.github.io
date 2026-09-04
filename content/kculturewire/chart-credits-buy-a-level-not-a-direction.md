@@ -7,6 +7,8 @@ pubDate: 2026-09-04
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "actors", "netflix", "wikipedia", "measurement", "null-result"]
+pages:
+  - "/kpop-attention"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, en.wikipedia, all-access, user agents only, 2026-07-24 to 2026-08-22, 30 days; 1,113 actors, all 1,113 with both a credit count and a movement figure, 0 gaps"

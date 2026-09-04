@@ -7,6 +7,8 @@ pubDate: 2026-09-04
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "wikipedia", "concentration", "measurement"]
+pages:
+  - "/kpop-attention"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, en.wikipedia, all-access, user agents only, 2026-07-24 to 2026-08-22, 30 days; 2,372 acts requested and 2,372 returned, 0 missing pages and 0 call failures"
