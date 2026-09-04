@@ -45,6 +45,9 @@
  * 쓰는 법  node scripts/check-kcw-geo-fit.mjs --자가시험
  *          node scripts/check-kcw-geo-fit.mjs             (dist 를 읽는다 — 빌드가 먼저다)
  *          node scripts/check-kcw-geo-fit.mjs --고칠것     고칠 지면만 순서대로
+ *          node scripts/check-kcw-geo-fit.mjs --사이트=sm      SeoulMarkets (6번)
+ *          node scripts/check-kcw-geo-fit.mjs --사이트=100y    백년지도 (3번)
+ *          ⭐ 사이트 인자가 없으면 KCW 다. 세 사이트가 한 dist 안에 있다.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -133,6 +136,24 @@ export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data'))
   return { 이름들: [...이름], 온데 };
 }
 
+/**
+ * 세 사이트가 «한 dist» 안에 있다. 서버가 손님이 온 호스트를 보고 경로 접두를 갈아 끼운다.
+ *
+ * ⭐ [2026-09-05 00:2x] 6번이 「이 자를 SeoulMarkets 용으로 다시 만들겠다」고 메모에 남겼다.
+ *   ⛔ 같은 자를 셋이 따로 만들면 셋이 따로 틀린다. 내가 오늘 이 자에서 잡은 결함이
+ *     여섯 개인데, 그 여섯을 3번·6번이 각자 다시 겪게 된다.
+ *   ✅ 그래서 자를 «사이트 인자»로 넓혔다. 6번은 만들지 않고 골라 쓰면 된다.
+ *
+ * ⚠ 이름 사전은 지금 «우리 자료 전부»에서 모은다 — K팝 작품·사람 이름이 대부분이다.
+ *   그래서 SeoulMarkets·백년지도의 실명(종목명·학교명)은 «덜 잡힌다».
+ *   ⛔ 그 수를 「그 사이트가 못했다」로 읽지 않는다. 사전이 얇은 것이다.
+ *   ⭐ 오늘 이 사전이 얇아서 세 번 틀렸다(석 자 약칭·도시 이름·글자 배열). 네 번째가 이것이다.
+ */
+export const 사이트들 = {
+  kcw: { 방: 'dist/wikitip', 이름: 'K Culture Wire', 꼬리: /\s*\|\s*K Culture Wire\s*$/i },
+  '100y': { 방: 'dist/100y', 이름: '백년지도', 꼬리: /\s*[|·—-]\s*백년지도\s*$/ },
+  sm: { 방: 'dist', 이름: 'SeoulMarkets', 꼬리: /\s*\|\s*SeoulMarkets\s*$/i, 뺄방: ['wikitip', '100y'] },
+};
 /** 정규식에 쓸 수 있게 특수문자를 막는다 */
 export function 정규식막기(s) {
   return String(s ?? '').replace(/[.*+?^${}()|[\]\\]/g, (c) => '\\' + c);
@@ -197,10 +218,10 @@ export function 손님지면인가(글) {
 }
 
 /** 지면 하나를 석 칸으로 잰다. 글은 «나간 HTML» 이다 */
-export function 지면재기({ 주소, 글, 이름들 }) {
+export function 지면재기({ 주소, 글, 이름들, 꼬리 = null }) {
   const h = String(글 ?? '');
   const 제목 = (h.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
-    .replace(/\s*\|\s*K Culture Wire\s*$/i, '').trim();
+    .replace(꼬리 ?? /\s*\|\s*K Culture Wire\s*$/i, '').trim();
   return {
     주소,
     제목,
@@ -210,6 +231,33 @@ export function 지면재기({ 주소, 글, 이름들 }) {
   };
 }
 
+/**
+ * 🔴 **이 사이트에서 이 자가 «꺼져 있나».** 재기 전에 이것을 먼저 본다.
+ *
+ * [2026-09-05 00:3x] 자를 세 사이트로 넓히고 돌리니 백년지도가 **0 / 4,945 (0%)** 였다.
+ * ⛔ 그것은 발견이 아니다. 내 이름 사전은 K팝 작품·사람 이름으로 채워져 있고,
+ *   백년지도 지면의 실명은 «우리말 학교·학과 이름»이다. 사전에 한 개도 없다.
+ * ⇒ **사전이 그 사이트를 모르면, 그 사이트는 언제나 0% 다.**
+ *   그 0% 를 3번께 「맞춤형이 0장입니다」로 드렸다면 없는 결함을 시킨 것이 된다.
+ *
+ * ⚠ 오늘 같은 꼴을 세 번 겪었다 — llms 0/2,798 · 한국어 2,795/2,796 · 그리고 이것.
+ *   셋 다 「거의 다 한쪽」이었다. 그래서 «수를 내기 전에» 자가 스스로 묻게 만든다.
+ *
+ * ⛔ 문턱을 넉넉히 잡지 않는다. 5% 미만이면 「못 쟀다」로 본다 —
+ *   진짜로 5% 미만인 사이트가 있을 수 있지만, 그때도 «사전을 확인한 뒤» 말하는 것이 옳다.
+ */
+export function 사전이이사이트를아나(잰것들, 문턱몫 = 0.05) {
+  const 전체 = 잰것들.length;
+  if (!전체) return { 안다: false, 까닭: '지면이 0장이다' };
+  const 걸린것 = 잰것들.filter((x) => x.실명).length;
+  if (걸린것 / 전체 >= 문턱몫) return { 안다: true, 걸린것, 전체 };
+  return {
+    안다: false,
+    걸린것,
+    전체,
+    까닭: `${전체}장 중 ${걸린것}장만 걸렸다 — 이름 사전이 이 사이트의 실명을 모르는 것으로 본다`,
+  };
+}
 /** 석 칸 중 몇 칸이 찼나. 실명은 두 몫으로 센다 — 규칙이 그것을 먼저 말한다 */
 export function 점수(잰것) {
   return (잰것.실명 ? 2 : 0) + (잰것.구조화 ? 1 : 0) + (잰것.canonical ? 1 : 0);
@@ -321,6 +369,34 @@ function 자가시험() {
   재('비슷한 이름에 안 속는다 — /titles 는 /title 이 아니다',
     자물쇠걸렸나('/titles', 묶음), null);
 
+  /* ⭐ 사이트 표 — 6번이 같은 자를 다시 만들지 않게 넓힌 자리 */
+  재('세 사이트가 다 있다', Object.keys(사이트들).sort(), ['100y', 'kcw', 'sm']);
+  재('SeoulMarkets 는 뿌리라서 남의 방을 뺀다', 사이트들.sm.뺄방.sort(), ['100y', 'wikitip']);
+  /* 🔴 dist/100y.html 은 «파일»이라 폴더만 빼던 규칙을 비켜 갔다 */
+  재('뺄 이름은 .html 을 뗀 것과도 맞는다',
+    ['100y.html', 'wikitip.html'].map((f) => 사이트들.sm.뺄방.includes(f.replace(/.html$/, ''))),
+    [true, true]);
+  재('KCW·백년지도는 뺄 방이 없다',
+    [사이트들.kcw.뺄방 ?? null, 사이트들['100y'].뺄방 ?? null], [null, null]);
+  재('사이트마다 제목 꼬리를 다르게 뗀다',
+    지면재기({ 주소: '/a', 글: '<title>Samsung | SeoulMarkets</title>', 이름들: [],
+      꼬리: 사이트들.sm.꼬리 }).제목, 'Samsung');
+  재('꼬리를 안 주면 KCW 꼴로 뗀다',
+    지면재기({ 주소: '/a', 글: '<title>Squid Game | K Culture Wire</title>', 이름들: [] }).제목,
+    'Squid Game');
+
+  /* 🔴 백년지도가 0/4,945 로 나온 것을 «발견»으로 낼 뻔한 자리 */
+  재('실명이 하나도 안 걸리면 못 쟀다로 본다',
+    사전이이사이트를아나([{ 실명: null }, { 실명: null }]).안다, false);
+  재('문턱을 넘으면 안다', 사전이이사이트를아나(
+    [{ 실명: 'a' }, { 실명: null }, { 실명: null }, { 실명: null }]).안다, true);
+  재('문턱 바로 아래는 못 쟀다',
+    사전이이사이트를아나(Array.from({ length: 100 },
+      (_, i) => ({ 실명: i < 4 ? 'a' : null }))).안다, false);
+  재('지면이 0장이면 못 쟀다', 사전이이사이트를아나([]).안다, false);
+  재('까닭을 글로 돌려준다',
+    typeof 사전이이사이트를아나([{ 실명: null }]).까닭, 'string');
+
   console.log(`\n자가시험 ${든것}가지 통과${깬것 ? ` · 🔴 ${깬것}가지 깨짐` : ''}`);
   return 깬것 === 0;
 }
@@ -366,14 +442,29 @@ export function 자물쇠걸렸나(주소, 걸림) {
   return null;
 }
 
-function 나간지면들() {
-  /* 서버가 호스트를 보고 접두를 갈아 끼우므로, KCW 지면은 dist/wikitip 아래에 있다 */
-  const 방 = path.join(뿌리, 'dist/wikitip');
+/**
+ * 그 사이트의 나간 지면을 훑는다.
+ * ⚠ SeoulMarkets 는 dist 뿌리라서 «다른 두 사이트가 그 안에 들어 있다».
+ *   그래서 뺄 방을 받는다 — 안 빼면 6번 수에 5번 지면 2,780장이 섞인다.
+ */
+function 나간지면들(사이트 = 사이트들.kcw) {
+  const 방 = path.join(뿌리, 사이트.방);
+  const 뺄 = new Set(사이트.뺄방 ?? []);
   const 낸것 = [];
   const 훑 = (d, 앞) => {
     if (!fs.existsSync(d)) return;
     for (const e of fs.readdirSync(d, { withFileTypes: true })) {
       const p = path.join(d, e.name);
+      /* ⛔ 남의 사이트 방은 안 들어간다 — 뿌리에서 훑을 때만 걸린다 */
+      if (앞 === '' && 뺄.has(e.name)) continue;
+      /**
+       * 🔴 [2026-09-05 00:4x] 처음엔 «폴더»만 뺐다. 그런데 dist/100y.html 과
+       *   dist/wikitip.html 은 «파일»이라 그대로 들어왔다.
+       *   ⇒ SeoulMarkets 고칠 목록 맨 위에 「대학 다음까지 보는 진로 지도 — 백년지도」가
+       *     올라와 있었다. **6번 수에 3번 지면이 섞인 것이다.**
+       *   ⛔ 남의 지면을 남의 목록에 넣으면, 그 유닛이 남의 일을 하게 된다.
+       */
+      if (앞 === '' && !e.isDirectory() && 뺄.has(e.name.replace(/.html$/, ''))) continue;
       if (e.isDirectory()) 훑(p, 앞 + '/' + e.name);
       else if (e.name === 'index.html') 낸것.push({ 주소: 앞 || '/', 길: p });
       else if (e.name.endsWith('.html')) 낸것.push({ 주소: 앞 + '/' + e.name.replace(/\.html$/, ''), 길: p });
@@ -383,19 +474,24 @@ function 나간지면들() {
   return 낸것;
 }
 
-function 본일(고칠것만) {
+function 본일(고칠것만, 사이트키 = 'kcw') {
   const { 이름들, 온데 } = 이름사전만들기();
   const 자물쇠 = 자물쇠걸린지면들();
-  const 지면들 = 나간지면들();
+  const 사이트 = 사이트들[사이트키];
+  if (!사이트) {
+    console.log(`🔴 그런 사이트가 없다: ${사이트키} — 있는 것: ${Object.keys(사이트들).join(', ')}`);
+    return false;
+  }
+  const 지면들 = 나간지면들(사이트);
 
-  console.log('# 지면이 하나하나 「맞춤형」인가 — 석 칸으로 잰 것\n');
+  console.log(`# ${사이트.이름} — 지면이 하나하나 「맞춤형」인가. 석 칸으로 잰 것\n`);
   console.log(`이름 사전 ${이름들.length}개 · 우리 자료 ${온데.length}개 파일에서 모았다`);
   console.log(`   가장 많이 준 파일: ${온데.sort((a, b) => b.개수 - a.개수).slice(0, 3).map((x) => `${x.파일}(${x.개수})`).join(' · ')}`);
   console.log(`제목 실험 자물쇠 ${자물쇠.size}장`);
   console.log('⭐ llms.txt 등재는 이 자가 안 잰다 — `scripts/check-llms-coverage.mjs` 가 갈래로 옳게 잰다');
 
   if (!지면들.length) {
-    console.log('\n⬜ **dist/wikitip 이 없다 — 못 쟀다.** `npm run build` 를 먼저 돌린다.');
+    console.log(`\n⬜ **${사이트.방} 이 없다 — 못 쟀다.** \`npm run build\` 를 먼저 돌린다.`);
     return true;                                   // 못 쟀다로 세운다. 「깨끗하다」로 안 읽는다
   }
 
@@ -414,7 +510,7 @@ function 본일(고칠것만) {
   const 다 = 지면들.map(({ 주소, 길 }) => ({ 주소, 글: fs.readFileSync(길, 'utf8') }));
   const 손님것 = 다.filter((x) => 손님지면인가(x.글));
   const 안본것 = 다.length - 손님것.length;
-  const 잰것들 = 손님것.map(({ 주소, 글 }) => 지면재기({ 주소, 글, 이름들 }));
+  const 잰것들 = 손님것.map(({ 주소, 글 }) => 지면재기({ 주소, 글, 이름들, 꼬리: 사이트.꼬리 }));
 
   const 셈 = { 실명: 0, 구조화: 0, canonical: 0 };
   for (const x of 잰것들) for (const k of Object.keys(셈)) if (x[k]) 셈[k] += 1;
@@ -422,7 +518,15 @@ function 본일(고칠것만) {
   const 몫 = (n) => `${n} / ${전체} (${Math.round((n / 전체) * 1000) / 10}%)`;
 
   console.log(`\n## 손님이 받는 지면 ${전체}장을 재니\n`);
-  console.log(`  제목에 실명   ${몫(셈.실명)}   ← 어제 정한 규칙의 첫 칸`);
+  const 앎 = 사전이이사이트를아나(잰것들);
+  if (앎.안다) {
+    console.log(`  제목에 실명   ${몫(셈.실명)}   ← 어제 정한 규칙의 첫 칸`);
+  } else {
+    console.log(`  제목에 실명   ⬜ **못 쟀다** — ${앎.까닭}`);
+    console.log('     ⛔ 이 수를 「맞춤형이 아니다」로 읽지 않는다. 자가 이 사이트에서 꺼져 있다.');
+    console.log('     ✅ 고치려면 이 사이트의 실명이 든 자료를 src/data 에 두십시오 —');
+     console.log('        이름·title·회사·firm·place·top 칸을 읽습니다(우리말도 읽습니다).');
+  }
   console.log(`  구조화 데이터 ${몫(셈.구조화)}   ← GEO. AI 가 읽는 자리`);
   console.log(`  canonical    ${몫(셈.canonical)}`);
   if (안본것) {
@@ -435,6 +539,12 @@ function 본일(고칠것만) {
     .map((x) => ({ ...x, 점: 점수(x), 자물쇠: 자물쇠걸렸나(x.주소, 자물쇠) }))
     .sort((a, b) => a.점 - b.점 || a.주소.localeCompare(b.주소));
 
+  if (!앎.안다) {
+    console.log(`\n## ⬜ 고칠 지면 목록을 내지 않는다 — 실명을 못 쟀다`);
+    console.log('   ⛔ 못 잰 칸으로 만든 목록을 남에게 시키면 없는 일을 시키는 것이다.');
+    console.log(`   ⚠ 구조화·canonical 은 위 수가 맞다 — 그 둘은 말과 상관이 없다.`);
+    return true;
+  }
   console.log(`\n## 고칠 지면 ${고칠것.length}장 — 빈 칸이 많은 것부터\n`);
   const 낼것 = 고칠것만 ? 고칠것 : 고칠것.slice(0, 25);
   for (const x of 낼것) {
@@ -465,5 +575,8 @@ const 이파일이시작인가 = process.argv[1]
   && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
 if (이파일이시작인가) {
   if (인.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
-  else process.exit(본일(인.includes('--고칠것')) ? 0 : 1);
+  else {
+    const 키 = (인.find((x) => x.startsWith('--사이트=')) ?? '').split('=')[1] || 'kcw';
+    process.exit(본일(인.includes('--고칠것'), 키) ? 0 : 1);
+  }
 }
