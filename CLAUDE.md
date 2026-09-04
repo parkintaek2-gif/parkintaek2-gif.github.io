@@ -41,7 +41,7 @@ grep -n '^## \[' docs/세션간-메모.md | tail -30
 
 ```
 docs/세션간-메모.md              전 유닛 공용. 여기에 적고 커밋·푸시하면 닿는다
-klifemap/docs/1번-4번-메모.md     klifemap 쪽 (1번·4번)
+../klifemap/docs/1번-4번-메모.md   klifemap 쪽 (1번·4번)  ⚠ 형제 저장소다 — 이 저장소 «안»에 없다
 git log --oneline --since="2 hours ago"    누가 살아 있나는 여기서 본다
 ```
 
