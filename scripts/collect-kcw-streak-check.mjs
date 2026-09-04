@@ -53,13 +53,13 @@ const 뿌리 = path.resolve(import.meta.dirname, '..');
  *   더하면 사람 열람수에 음반 열람수를 섞는 것이 된다.
  */
 export const 사람들 = [
-  { 이름: 'V', 지면: 'V_(singer)', 넘겨주기: ['Kim_Tae-hyung', 'V_(BTS)'] },
-  { 이름: 'Jungkook', 지면: 'Jungkook', 넘겨주기: ['Jeon_Jung-kook'] },
-  { 이름: 'Jimin', 지면: 'Jimin', 넘겨주기: ['Jimin_(BTS)', 'Park_Ji-min_(singer,_born_1995)'] },
-  { 이름: 'Jin', 지면: 'Jin_(singer)', 넘겨주기: ['Kim_Seok-jin', 'Jin_(BTS)'] },
-  { 이름: 'RM', 지면: 'RM_(musician)', 넘겨주기: ['RM_(rapper)', 'Rap_Monster', 'Kim_Nam-joon', 'RM'] },
-  { 이름: 'J-Hope', 지면: 'J-Hope', 넘겨주기: ['J-Hope_(BTS)', 'Jung_Ho-seok'] },
-  { 이름: 'Suga', 지면: 'Suga', 넘겨주기: ['Suga_(rapper)', 'Min_Yoon-gi', 'Suga_(BTS)'] },
+  { 이름: 'V', 씨앗: 'V_(singer)' },
+  { 이름: 'Jungkook', 씨앗: 'Jungkook' },
+  { 이름: 'Jimin', 씨앗: 'Jimin' },
+  { 이름: 'Jin', 씨앗: 'Jin_(singer)' },
+  { 이름: 'RM', 씨앗: 'RM_(musician)' },
+  { 이름: 'J-Hope', 씨앗: 'J-Hope' },
+  { 이름: 'Suga', 씨앗: 'Suga_(rapper)' },
 ];
 
 /** 신문 제목이 옮긴 «주장». 우리가 잰 것이 아니라 남이 말한 것이다 — 갈라 적는다 */
@@ -114,6 +114,27 @@ export function 주별1위(사람별주별) {
   return 낸것;
 }
 
+/**
+ * 값들의 가운데 값.
+ * 🔴 `Number(null) === 0` 이라 걸러내지 않으면 못 잰 주가 0 으로 섞인다.
+ *   2026-09-04 에 `/label-reach` 에서 그 실수를 했다. 먼저 «진짜 수»만 남긴다.
+ */
+export function 가운데(값들) {
+  const v = (값들 ?? []).filter((x) => typeof x === 'number' && Number.isFinite(x)).sort((a, b) => a - b);
+  if (!v.length) return null;
+  const m = Math.floor(v.length / 2);
+  return v.length % 2 ? v[m] : Math.round((v[m - 1] + v[m]) / 2);
+}
+
+/**
+ * ⭐ **「1위였던 주 0주」를 「아무도 안 읽는다」로 읽으면 안 된다.**
+ *   0주인 네 사람도 주마다 수만 회씩 읽힌다. 그래서 지면에 중간값을 «나란히» 싣는다.
+ *   ⛔ 순위만 싣고 크기를 안 싣는 표는 사람을 잘못 읽게 만든다.
+ */
+export function 사람별중간(주별) {
+  return 가운데(Object.values(주별 ?? {}));
+}
+
 /** 한 사람이 «몇 주에서» 1위였나. 공동 1위도 1위로 센다 */
 export function 몇주1위(주별1위표, 이름) {
   return Object.values(주별1위표 ?? {}).filter((x) => x.일위.includes(이름)).length;
@@ -145,6 +166,42 @@ export async function 넘겨주기확인(제목들, 가져오기 = fetch) {
   return { 상태: 200, 넘김 };
 }
 
+/**
+ * 씨앗 제목 하나로 **본 지면과 그리로 오는 넘겨주기 «전부»**를 우물에서 받는다.
+ *
+ * 🔴🔴 [2026-09-05 02:3x] **제목을 손으로 적는 방식이 세 번 틀렸다.**
+ *   1) `RM_(rapper)` 18만회 → 본 지면은 `RM (musician)` 213만회
+ *   2) `Suga_(rapper)` 35만회 → 본 지면은 `Suga` 205만회
+ *   3) `Jungkook` 409만회가 **본 지면이 아니라 넘겨주기**였다 —
+ *      본 지면은 `Jung Kook` 이고, 둘을 더해야 570만회다
+ *   ⛔ 세 번 다 «사람의 열람수»를 크게 틀리게 셀 뻔했다. 손으로 적는 것을 그만둔다.
+ * ✅ 그래서 우물에 두 번 묻는다 —
+ *   1. `redirects=1` 로 씨앗이 어디로 넘어가는지 → **본 지면**을 얻는다
+ *   2. `prop=redirects` 로 그 지면으로 오는 **넘겨주기 목록 전부**를 얻는다
+ *   ⇒ 이제 내가 목록을 짐작하지 않는다. 우물이 알려 준 것만 더한다.
+ * ⚠ 열람수 API 는 넘겨주기 제목에 온 조회를 그 제목 아래 «따로» 센다.
+ *   그래서 본 지면 + 넘겨주기를 다 더해야 그 사람에게 온 것이 모인다.
+ */
+export async function 본지면과넘겨주기(씨앗, 가져오기 = fetch) {
+  const 부르기 = async (질의) => {
+    const r = await 가져오기(`https://en.wikipedia.org/w/api.php?${질의}&format=json`,
+      { headers: { 'User-Agent': 'KCultureWire/1.0 (u5@klifedesign.net)' } });
+    if (!r.ok) return null;
+    return r.json();
+  };
+  const 첫 = await 부르기(`action=query&redirects=1&titles=${encodeURIComponent(씨앗)}`);
+  if (!첫?.query) return { 본지면: null, 넘겨주기: [], 까닭: '우물이 답하지 않았다' };
+  const 지면들 = Object.values(첫.query.pages ?? {});
+  const 본지면 = 지면들[0]?.title ?? null;
+  if (!본지면 || 지면들[0]?.missing !== undefined) return { 본지면: null, 넘겨주기: [], 까닭: '그런 지면이 없다' };
+  const 둘 = await 부르기(`action=query&prop=redirects&rdlimit=max&titles=${encodeURIComponent(본지면)}`);
+  const 쪽 = Object.values(둘?.query?.pages ?? {})[0];
+  const 넘겨주기 = (쪽?.redirects ?? [])
+    .filter((x) => x.ns === 0)                        // 본문 이름칸만. 이야기·사용자 쪽은 뺀다
+    .map((x) => String(x.title).replace(/ /g, '_'));
+  return { 본지면: 본지면.replace(/ /g, '_'), 넘겨주기, 까닭: null };
+}
+
 /* ── 우물에서 받기 ────────────────────────────────────────── */
 export async function 하루열람수(위키제목, 시작, 끝, 가져오기 = fetch) {
   const u = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia'
@@ -159,7 +216,7 @@ export async function 하루열람수(위키제목, 시작, 끝, 가져오기 = 
 }
 
 /* ── 자가시험 ────────────────────────────────────────────── */
-function 자가시험() {
+async function 자가시험() {
   let 든것 = 0, 깬것 = 0;
   const 재 = (무엇, 실제, 바람) => {
     const a = JSON.stringify(실제), b = JSON.stringify(바람);
@@ -192,6 +249,12 @@ function 자가시험() {
   재('한 사람 자료가 없는 주는 그 사람을 빼고 센다',
     주별1위({ A: { w: 5 }, B: {} }), { w: { 일위: ['A'], 수: 5 } });
 
+  재('가운데 값 — 홀수', 가운데([3, 1, 2]), 2);
+  재('가운데 값 — 짝수는 평균', 가운데([1, 2, 3, 4]), 3);
+  재('🔴 null 을 0 으로 세지 않는다', 가운데([null, 10, 20]), 15);
+  재('진짜 수가 없으면 null', 가운데([null, undefined]), null);
+  재('사람별 중간값', 사람별중간({ w1: 10, w2: 30, w3: 20 }), 20);
+
   재('몇 주에서 1위였나', 몇주1위(주별1위(사람별), 'Jin'), 1);
   재('공동 1위도 1위로 센다', 몇주1위(주별1위({ A: { w: 5 }, B: { w: 5 } }), 'B'), 1);
   재('한 번도 아니면 0', 몇주1위(주별1위(사람별), 'V'), 0);
@@ -201,14 +264,42 @@ function 자가시험() {
   재('끊기면 다시 센다', 가장긴연속(긴것, 'B'), 1);
   재('없으면 0', 가장긴연속(긴것, 'C'), 0);
 
-  /* 🔴🔴 제목을 짐작해서 RM·Suga 를 10분의 1로 셀 뻔한 자리 */
-  재('사람 목록이 확인한 지면을 쓴다',
-    사람들.find((x) => x.이름 === 'RM').지면, 'RM_(musician)');
-  재('짐작했던 제목은 «넘겨주기»로 옮겨 두었다',
-    사람들.find((x) => x.이름 === 'RM').넘겨주기.includes('RM_(rapper)'), true);
-  재('Suga 도 같다', 사람들.find((x) => x.이름 === 'Suga').지면, 'Suga');
-  재('⬜ Agust_D 는 넘겨주기가 아니라 따로 선 지면이라 아무 목록에도 없다',
-    사람들.some((x) => (x.넘겨주기 ?? []).includes('Agust_D')), false);
+  /**
+   * 🔴🔴 제목을 손으로 적어 세 번 틀렸던 자리 —
+   *   RM_(rapper) 18만 / Suga_(rapper) 35만 / Jungkook 이 «넘겨주기»였다.
+   *   ⇒ 이제 목록을 안 적는다. 씨앗 하나만 두고 우물에 묻는다.
+   *   그래서 시험도 «목록이 맞나»가 아니라 «묻는 꼴이 맞나»를 잰다.
+   */
+  재('사람마다 씨앗 하나만 둔다',
+    사람들.every((x) => x.씨앗 && !x.지면 && !x.넘겨주기), true);
+  재('일곱 사람이다', 사람들.length, 7);
+  {
+    /* 가짜 우물 — 씨앗이 넘겨주기일 때 본 지면을 찾아내는지 잰다 */
+    const 가짜우물 = async (u) => {
+      if (u.includes('redirects=1')) {
+        return { ok: true, json: async () => ({
+          query: { pages: { 1: { title: 'Jung Kook' } }, redirects: [{ from: 'Jungkook', to: 'Jung Kook' }] },
+        }) };
+      }
+      return { ok: true, json: async () => ({
+        query: { pages: { 1: { title: 'Jung Kook', redirects: [
+          { ns: 0, title: 'Jungkook' }, { ns: 0, title: 'Jeon Jung-kook' }, { ns: 1, title: 'Talk:Jung Kook' },
+        ] } } },
+      }) };
+    };
+    const 받은것 = await 본지면과넘겨주기('Jungkook', 가짜우물);
+    재('씨앗이 넘겨주기면 본 지면을 찾는다', 받은것.본지면, 'Jung_Kook');
+    재('넘겨주기 목록을 우물에서 받는다', 받은것.넘겨주기, ['Jungkook', 'Jeon_Jung-kook']);
+    재('⛔ 이야기 이름칸(ns 1)은 안 더한다', 받은것.넘겨주기.includes('Talk:Jung_Kook'), false);
+  }
+  {
+    const 없는우물 = async () => ({ ok: true, json: async () => ({
+      query: { pages: { '-1': { title: 'X', missing: '' } } },
+    }) });
+    const 없는것 = await 본지면과넘겨주기('X', 없는우물);
+    재('없는 지면은 본지면이 null 이고 까닭을 적는다',
+      [없는것.본지면, 없는것.까닭], [null, '그런 지면이 없다']);
+  }
 
   /* 우물 — 가짜 가져오기로 «부르는 꼴»만 잰다. 네트워크를 타지 않는다 */
   let 부른주소 = null;
@@ -241,32 +332,55 @@ async function 본일(적나) {
 
   const 사람별주별 = {};
   const 막힌것 = [];
+  const 받은제목표 = {};
+  const 막힌제목표 = {};
   /* ⭐ 넘겨주기 제목에 온 조회도 그 사람에게 온 것이다 — 더해서 센다.
      ⛔ 다만 「정말 넘겨주는가」를 API 로 먼저 확인한다. 짐작으로 더하지 않는다. */
-  for (const { 이름, 지면, 넘겨주기 } of 사람들) {
-    const { 넘김 } = await 넘겨주기확인([지면, ...(넘겨주기 ?? [])]);
-    const 볼것 = [지면];
+  for (const { 이름, 씨앗 } of 사람들) {
+    const { 본지면, 넘겨주기, 까닭 } = await 본지면과넘겨주기(씨앗);
+    if (!본지면) { 막힌것.push(`${이름}(${까닭})`); continue; }
+    const 볼것 = [본지면, ...넘겨주기];
     const 안더한것 = [];
-    for (const t of (넘겨주기 ?? [])) {
-      const 어디로 = 넘김[t.replace(/_/g, ' ')];
-      if (어디로 && 어디로 === 지면.replace(/_/g, ' ')) 볼것.push(t);
-      else 안더한것.push(t);
+    if (본지면 !== 씨앗) {
+      console.log(`     ⭐ ${이름} — 씨앗 「${씨앗}」은 넘겨주기다. 본 지면은 「${본지면}」`);
     }
     const 하루합 = new Map();
     let 받은제목 = 0;
+    const 막힌제목 = [];
+    /**
+     * 🔴🔴 [2026-09-05 02:2x] **여기서 자료가 «조용히» 새고 있었다.**
+     *   낱개로 부르면 200 인데, 한 번에 서른 번쯤 부르면 우물이 일부를 막는다(요청 제한).
+     *   첫 판은 `if (상태 !== 200) continue;` 로 «조용히» 건너뛰고,
+     *   화면에는 `볼것.length` 를 찍어 「제목 3개」라고 말했다.
+     *   ⇒ Jin 은 넘겨주기 두 개가 빠진 채로 세어졌다(2,122,233 대신 2,306,329 이어야 한다).
+     *   ⛔ **자가 「3개를 봤다」고 말하면서 1개만 본 것이다.** 조용히 성공한 척하는 꼴이다.
+     * ✅ 그래서 셋을 고쳤다 —
+     *   1. 부르는 사이에 «쉰다»(우물에 대한 예의이자, 막히지 않는 길이다)
+     *   2. 막히면 «한 번 더» 부른다
+     *   3. 그래도 막힌 제목을 «세어서 화면과 자료에 적는다». 0 으로 덮지 않는다
+     */
     for (const t of 볼것) {
-      const { 상태, 하루들 } = await 하루열람수(t, 시작, 끝);
-      if (상태 !== 200) continue;
+      let 받은것 = await 하루열람수(t, 시작, 끝);
+      if (받은것.상태 !== 200) {
+        await new Promise((r) => setTimeout(r, 1200));      // 한 박자 쉬고 다시
+        받은것 = await 하루열람수(t, 시작, 끝);
+      }
+      if (받은것.상태 !== 200) { 막힌제목.push(`${t}(${받은것.상태})`); continue; }
       받은제목 += 1;
-      for (const { 날, 수 } of 하루들) 하루합.set(날, (하루합.get(날) ?? 0) + (수 ?? 0));
+      for (const { 날, 수 } of 받은것.하루들) 하루합.set(날, (하루합.get(날) ?? 0) + (수 ?? 0));
+      await new Promise((r) => setTimeout(r, 250));         // 다음 부름까지 쉰다
     }
     if (!받은제목) { 막힌것.push(`${이름}(못 받음)`); continue; }
+    if (막힌제목.length) {
+      console.log(`     🔴 ${이름} — 우물이 막은 제목 ${막힌제목.length}개: ${막힌제목.join(', ')}`);
+      console.log('        ⛔ 그만큼 «덜 세어졌다». 0 으로 덮지 않고 이렇게 적는다.');
+    }
     const 하루들 = [...하루합.entries()].map(([날, 수]) => ({ 날, 수 })).sort((a, b) => a.날.localeCompare(b.날));
     사람별주별[이름] = 주별로모으기(하루들);
     if (안더한것.length) {
       console.log(`     ⬜ ${이름} — 넘겨주기가 아니라서 «안 더한» 제목: ${안더한것.join(', ')}`);
     }
-    console.log(`  ${이름.padEnd(10)} 제목 ${볼것.length}개 · 하루 ${하루들.length}일 → 주 ${Object.keys(사람별주별[이름]).length}주`);
+    console.log(`  ${이름.padEnd(10)} 제목 ${받은제목}/${볼것.length}개 받음 · 하루 ${하루들.length}일 → 주 ${Object.keys(사람별주별[이름]).length}주`);
   }
   if (막힌것.length) console.log(`\n  ⬜ 못 받은 사람 ${막힌것.length}명 — ${막힌것.join(', ')} (0 으로 안 채운다)`);
   if (Object.keys(사람별주별).length < 2) { console.log('\n🔴 견줄 사람이 둘도 안 된다 — 못 쟀다'); return true; }
@@ -279,10 +393,16 @@ async function 본일(적나) {
     이름,
     일위주: 몇주1위(표, 이름),
     가장긴연속: 가장긴연속(표, 이름),
-  })).sort((a, b) => b.일위주 - a.일위주);
+    주중간: 사람별중간(사람별주별[이름]),
+    합계: Object.values(사람별주별[이름]).reduce((a, b) => a + b, 0),
+    받은제목: 받은제목표[이름] ?? null,
+    막힌제목: 막힌제목표[이름] ?? [],
+  })).sort((a, b) => b.일위주 - a.일위주 || (b.주중간 ?? 0) - (a.주중간 ?? 0));
   for (const x of 줄) {
     console.log(`  ${x.이름.padEnd(10)} 1위였던 주 ${String(x.일위주).padStart(3)}주 `
-      + `(${Math.round((x.일위주 / 전체주) * 1000) / 10}%) · 가장 긴 연속 ${x.가장긴연속}주`);
+      + `(${String(Math.round((x.일위주 / 전체주) * 1000) / 10).padStart(4)}%) · 연속 ${String(x.가장긴연속).padStart(2)}주`
+      + ` · 주 중간 ${(x.주중간 ?? 0).toLocaleString('en-US').padStart(7)}회`
+      + ` · 합계 ${x.합계.toLocaleString('en-US').padStart(10)}회`);
   }
 
   const 주장 = 신문이옮긴주장;
