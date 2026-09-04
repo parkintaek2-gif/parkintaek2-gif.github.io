@@ -21,6 +21,7 @@ excluded:
   - "Delisted and renamed tickers that could not be matched to a price. Their removal lifts every hit rate, so the levels are ceilings; the inverse relationship between ambition and accuracy is what survives"
   - "Houses with fewer than 100 scored reports, so no point on the correlation rests on a thin sample"
   - "Any claim that a low target is better analysis. A conservative target can be right for the wrong reason; this measures calibration, not skill"
+  - "Overstating the −0.46 as settled: across 18 houses that is t = −2.08 (df 16), just short of the conventional two-tailed 0.05 cutoff (critical t = 2.12). The direction is consistent with the individual comparisons in the table, which each rest on hundreds of reports per house, but the 18-point correlation itself is suggestive rather than proven"
 draft: false
 ---
 
@@ -42,6 +43,6 @@ DB Financial aimed lower than almost anyone — an average 29% upside — and re
 
 ## What it means, and what it doesn't
 
-This is not proof that a modest target is better research. A conservative call can be right by accident, and a bold one can be early rather than wrong. What the −0.46 measures is calibration: as a house's targets climb, the share that actually print falls away. The bigger number wins the reader and loses the year.
+This is not proof that a modest target is better research. A conservative call can be right by accident, and a bold one can be early rather than wrong. What the −0.46 measures is calibration: as a house's targets climb, the share that actually print falls away. The bigger number wins the reader and loses the year. One honest limit: with only 18 houses in the set, that correlation sits just short of the conventional statistical bar (t = −2.08 against a critical 2.12) — a tendency worth watching, not a proven law. The clearest individual cases, Hanwha and DB Financial, are each built on hundreds of reports and stand well apart from each other on their own.
 
 For anyone reading a Korean broker report, the useful move is not to trust the target but to know the house's record behind it — how high it tends to aim, and how often it lands. That record is not in the report. It is only visible once someone keeps the targets and the prices side by side, long enough to score them.
