@@ -87,10 +87,28 @@ export function 물음짓기(q들) {
      생일 지면 366장이 「8 K-pop idols」라고 세면서 그룹 이름을 한 번도 못 적었다.
      ⭐ 라벨을 함께 받아 «이름»까지 남긴다. 요청 수는 그대로다 — 같은 물음에 칸 하나를 더할 뿐이다.
      ⛔ 기존 `grp`(참·거짓)는 «그대로 둔다». 그것을 읽는 자가 이미 있다. */
-  return `SELECT ?p ?occ ?grp ?grpLabel WHERE {
+  /**
+   * 🔴 [2026-09-04 20:2x · 5번] **P264(음반사)를 더한다 — 두 사이트가 같이 쓸 칸이다.**
+   *
+   *   6번이 K팝 기획사 넷의 재무·자사주를 모으면서 나에게 「5번↔6번 교차링크」를 물어 왔다.
+   *   ⛔ 그런데 억지로 링크를 걸 수 없다 — 우리 손님은 K컬처 독자고 6번 손님은 투자자다.
+   *     사장님이 못박으신 「사이트를 헷갈리지 않는다」에 정면으로 걸린다.
+   *   ⭐ 그래서 **겹치는 자리를 찾았다** — 기획사다. 우리는 그 기획사 «아티스트가 얼마나
+   *     읽히는지»를 쥐고 있고, 6번은 그 기획사의 «시가총액·재무»를 쥐고 있다.
+   *     그 둘을 이으면 아무도 안 센 것이 나온다. 그리고 그것이 회사 정의 그대로다 —
+   *     「그들은 재무를, 우리는 사람을 한다」.
+   *
+   *   ⛔ 그런데 재 보니 **우리 자료에 소속 기획사 칸이 아예 없었다.** 칸이 셋뿐이다(갈래·occ·grp).
+   *     그러니 「링크를 걸자」가 아니라 «자료를 받자»가 먼저다.
+   *   ✅ 새 자를 짓지 않고 **이 물음에 칸 하나를 더한다.** 요청 수는 그대로다.
+   *   ⚠ P264 는 「음반사(record label)」다. 한국에서 기획사와 음반사가 대개 같지만 **늘 같지 않다.**
+   *     그러니 이 칸을 「소속사」라고 부르지 않고 **「음반사」**라고 부른다. 아는 것만 적는다.
+   */
+  return `SELECT ?p ?occ ?grp ?grpLabel ?label ?labelLabel WHERE {
   VALUES ?p { ${values} }
   OPTIONAL { ?p wdt:P106 ?occ }
   OPTIONAL { ?p wdt:P463 ?grp . ?grp wdt:P31/wdt:P279* wd:Q2088357 }
+  OPTIONAL { ?p wdt:P264 ?label }
   SERVICE wikibase:label { bd:serviceParam wikibase:language "en". }
 }`;
 }
@@ -104,14 +122,22 @@ async function 받기(q들, 가져오기 = fetch) {
   const 모음 = new Map();
   for (const b of j.results.bindings) {
     const q = b.p.value.split('/').pop();
-    if (!모음.has(q)) 모음.set(q, { occ: new Set(), grp: false, 그룹: new Map() });
+    if (!모음.has(q)) 모음.set(q, { occ: new Set(), grp: false, 그룹: new Map(), 음반사: new Map() });
     const it = 모음.get(q);
     if (b.occ) it.occ.add(b.occ.value.split('/').pop());
+    if (b.label) {
+      /* ⚠ 라벨이 Q숫자로 오면 «이름을 모르는 것»이다 — 이름 자리에 Q를 넣지 않는다.
+         🔴 위 그룹 쪽 정규식이 `/^Qd+$/` 로 «백슬래시가 빠져» 있었다(원래 `\d`).
+           그래서 Q숫자도 이름으로 통과한다. 여기서는 제대로 쓴다. 그쪽은 따로 고친다. */
+      const lq = b.label.value.split('/').pop();
+      const 이름 = b.labelLabel && !/^Q\d+$/.test(b.labelLabel.value) ? b.labelLabel.value : null;
+      it.음반사.set(lq, 이름);
+    }
     if (b.grp) {
       it.grp = true;
       /* ⚠ 라벨이 Q숫자 그대로 오면 «이름을 모르는 것»이다 — 이름 자리에 Q를 넣지 않는다 */
       const gq = b.grp.value.split('/').pop();
-      const 이름 = b.grpLabel && !/^Qd+$/.test(b.grpLabel.value) ? b.grpLabel.value : null;
+      const 이름 = b.grpLabel && !/^Q[0-9]+$/.test(b.grpLabel.value) ? b.grpLabel.value : null;
       it.그룹.set(gq, 이름);
     }
   }
@@ -149,6 +175,11 @@ async function 다받기() {
         /* 새 칸. ⛔ 없는 사람에게는 아예 안 붙인다 — 빈 배열은 「그룹이 없다」로 잘못 읽힌다 */
         ...(it && it.그룹 && it.그룹.size
           ? { 그룹: [...it.그룹].map(([q2, 이름]) => ({ q: q2, 이름 })) } : {}),
+        /* 🔴 [2026-09-04 20:2x] **모으기만 하고 결과에 안 넣어 두었다가 잡았다.**
+           받아도 파일에 안 남으면 받은 것이 아니다. 오늘 아침에도 같은 꼴을 겪었다 —
+           그룹을 받아 놓고 true 로 뭉갠 것. ⛔ 새 칸을 더할 때는 «저장까지» 따라간다. */
+        ...(it && it.음반사 && it.음반사.size
+          ? { 음반사: [...it.음반사].map(([q2, 이름]) => ({ q: q2, 이름 })) } : {}),
       };
     }
     process.stdout.write(`\r  받는 중 ${Math.min(i + 묶음크기, 사람들.length).toLocaleString('en-US')}/${사람들.length.toLocaleString('en-US')}`);
@@ -165,8 +196,9 @@ async function 다받기() {
   if (못받은묶음) console.log(`⚠ 못 받은 묶음 ${못받은묶음}개 — 「못받음」으로 남겼다. 미확인과 «다른 것»이다.`);
 
   fs.writeFileSync(낼길, `${JSON.stringify({
-    잰때: new Date().toISOString(),
-    출처: 'Wikidata SPARQL — P106(직업) · P463(소속 음악 그룹)',
+    /* ⛔ toISOString 은 UTC 다 — 사장님 지시로 우리 시각은 KST 다. 이 PC 가 이미 KST 다 */
+    잰때: new Date().toLocaleString('ko-KR'),
+    출처: 'Wikidata SPARQL — P106(직업) · P463(소속 음악 그룹) · P264(음반사)',
     이자료가아닌것: '「아이돌인가」를 우리가 판정한 것이 아니다. 위키데이터가 적어 둔 것을 옮겼을 뿐이고, 안 적힌 사람은 미확인으로 남겼다.',
     사람수: 사람들.length,
     셈,
@@ -193,6 +225,23 @@ function 자가시험() {
   검('물음에 VALUES 가 들어간다', 물음짓기(['Q1', 'Q2']).includes('VALUES ?p { wd:Q1 wd:Q2 }'));
   검('물음이 직업과 그룹을 둘 다 묻는다',
     /wdt:P106/.test(물음짓기(['Q1'])) && /wdt:P463/.test(물음짓기(['Q1'])));
+
+  /* 🔴 [2026-09-04 20:2x] 음반사(P264) 를 더했다 — 두 사이트가 같이 쓸 칸이다 */
+  검('⭐ 물음이 음반사(P264)도 묻는다', /wdt:P264/.test(물음짓기(['Q1'])));
+  검('음반사 라벨도 함께 받는다', /\?labelLabel/.test(물음짓기(['Q1'])));
+  검('그룹 라벨은 그대로 받는다', /\?grpLabel/.test(물음짓기(['Q1'])));
+
+  /**
+   * 🔴 Q숫자를 «이름»으로 저장하지 않는지 본다.
+   *   이 자에 원래 `/^Qd+$/`(백슬래시 빠짐)가 있었다 — 그 무늬는 Q12345 에 안 맞으므로
+   *   가드가 통째로 죽어 있었다. 아직 라벨 받기를 안 돌려 새지는 않았고, 돌리기 전에 고쳤다.
+   *   ⛔ 자가시험으로 굳혀 둔다. 다음 사람이 또 백슬래시를 빠뜨리면 여기서 걸린다.
+   */
+  검('⭐ Q숫자를 이름으로 안 본다', /^Q[0-9]+$/.test('Q12345') === true);
+  검('⛔ 백슬래시 빠진 무늬는 Q숫자를 못 잡는다 (이것이 그 결함이었다)',
+    new RegExp('^Qd+$').test('Q12345') === false);
+  검('사람 이름은 Q꼴이 아니다', /^Q[0-9]+$/.test('Stray Kids') === false);
+  검('음반사 이름도 Q꼴이 아니다', /^Q[0-9]+$/.test('JYP Entertainment') === false);
 
   console.log(`\n자가시험 ${통과 + 실패}개 · 실패 ${실패}개`);
   return 실패;
