@@ -655,6 +655,8 @@ export const GET: APIRoute = async () => {
        보고 알려 줘서 알았다 — `check-search-readiness.mjs` 가 「빌드됐는데 사이트맵에
        없는 것 1장」으로 잡아 줬다. 지면을 새로 만들면 이 목록에 «같은 커밋에서» 넣는다. */
     { path: '/kpop-birthdays', priority: '0.9', changefreq: 'monthly' },
+    /* 🔴 지면을 만들면 «같은 커밋에서» 이 목록에 넣는다 — 9/04 에 한 번 잊었다 */
+    { path: '/surge-floor', priority: '0.9', changefreq: 'monthly' },
     /* 44편째 기사의 표. 2026-08-08 17:0x — 기사만 내고 지면을 안 내면 카드의
        「every figure has a table behind it」이 거짓말이 된다 */
     { path: '/home-first', priority: '0.9', changefreq: 'weekly' },

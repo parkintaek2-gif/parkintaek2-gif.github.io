@@ -7,6 +7,8 @@ pubDate: 2026-09-04
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "actors", "wikipedia", "measurement"]
+pages:
+  - "/surge-floor"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, en.wikipedia, all-access, user agents only, 2026-07-24 to 2026-08-22; surge is the last seven days of the window divided by the first seven, computed by our collector at collection time and left untouched here"
@@ -103,3 +105,5 @@ peak of 234, and a surge of 654. Reading the collector settled it. **A field nam
 definition.**
 
 **This is a count of readers, not a ranking of stars.**
+
+The table behind this is at [kculturewire.com/surge-floor](/surge-floor?from=body).

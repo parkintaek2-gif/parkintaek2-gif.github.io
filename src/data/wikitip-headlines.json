@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-04 15:18 KST",
+  "generated": "2026-09-04 18:40 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 112,
-    "머리글있음": 112,
+    "본지면": 113,
+    "머리글있음": 113,
     "머리글없음": 0
   },
   "missing": [],
@@ -93,6 +93,7 @@
     "/star-signs": "Which Korean stars share your Chinese zodiac sign?",
     "/staying-power": "Staying power and force are two different things",
     "/subscribe": "Get this by email",
+    "/surge-floor": "6 floors, 3 different number ones",
     "/tags": "Every subject we have published on",
     "/terms": "Terms of the data licence",
     "/time-to-peak": "When a Korean title is at its widest — the week the push has already worked",
