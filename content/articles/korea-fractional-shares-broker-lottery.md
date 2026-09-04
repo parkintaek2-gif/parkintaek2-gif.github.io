@@ -1,6 +1,6 @@
 ---
-title: "Only 46 stocks are fraction-buyable at all 8 Korean brokers"
-dek: "Each broker posts its own fractional-share list. Line up all eight and just 46 stocks overlap; 1,202 of 2,586 can't be bought in fractions anywhere."
+title: "Shinhan's longest fractional-share list is mostly unbuyable"
+dek: "Shinhan posts Korea's longest fractional-share list, 2,450 stocks. But 2,022 of those are marked sell-only; only 428 can be bought. Line up all eight brokers and just 46 stocks are fraction-buyable everywhere."
 category: equities
 pubDate: 2026-08-07
 dataAsOf: 2026-02-27T00:00:00+09:00

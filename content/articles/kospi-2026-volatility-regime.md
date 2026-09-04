@@ -1,6 +1,6 @@
 ---
-title: "KOSPI volatility exploded: 53 days above 3% this year"
-dek: "Korea's benchmark has had 53 days of 3%+ moves in 2026 — the five years before it managed 20. The average daily move has tripled. Not advice."
+title: "KOSPI fell 31% from its peak. It is still up 48% this year."
+dek: "Korea's benchmark peaked at 9,114.55 on 22 June and closed at 6,257.45 on 3 August — down 31.3% in six weeks. But it ended 2025 at 4,214.17, so even after the drop it is up 48.5% year-to-date. Both are true at once. Not advice."
 category: equities
 pubDate: 2026-08-04
 dataAsOf: 2026-08-03T18:00:00+09:00

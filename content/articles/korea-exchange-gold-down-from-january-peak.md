@@ -1,6 +1,6 @@
 ---
-title: "Korea's exchange-traded gold has fallen 31% since January, and the small-lot contract is busier than ever"
-dek: "Six and a half years of Korea Exchange gold prints: up 228% overall, up 60% in 2025, then down 30.9% from a peak set on 29 January. Turnover in the 100-gram contract is running 72% above last year through the whole decline."
+title: "Korean gold fell 31%. Trading in it went up, not down."
+dek: "Korea Exchange gold peaked on 29 January and is down 30.9% since. Turnover in the small, retail-sized 100-gram contract is running 72.3% above 2025's daily average through the whole decline — the fall drew more small buyers in, not fewer."
 category: commodities
 pubDate: 2026-08-04
 dataAsOf: 2026-08-03T18:00:00+09:00
