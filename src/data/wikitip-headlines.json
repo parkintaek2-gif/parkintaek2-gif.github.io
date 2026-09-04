@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-04 20:42 KST",
+  "generated": "2026-09-04 22:21 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 114,
-    "머리글있음": 114,
+    "본지면": 115,
+    "머리글있음": 115,
     "머리글없음": 0
   },
   "missing": [],
@@ -22,6 +22,7 @@
     "/brand-kinds": "Southeast Asia does not read brands as one thing",
     "/bts-hometowns": "Where each BTS member was born",
     "/by-country": "Netflix top 10 by country: which country’s chart is the most Korean?",
+    "/cap-per-artist": "K-pop market value per artist we can count",
     "/catalogue-depth": "How many different Korean titles has your country actually seen?",
     "/catalogue-reach": "Does a bigger catalogue travel further per title?",
     "/climb": "Does a title climb after it enters the chart?",
