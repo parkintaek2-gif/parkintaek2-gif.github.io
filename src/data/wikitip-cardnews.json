@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-04T06:23:48.429Z",
+  "generated": "2026-09-04T08:30:12.586Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -112,15 +112,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -822,15 +820,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -1260,15 +1256,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -1549,15 +1543,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -1794,15 +1786,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -1919,8 +1909,7 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -2231,15 +2220,13 @@
         1,
         2,
         3,
-        4,
-        5
+        4
       ],
       "v": [
         1,
         2,
         3,
-        4,
-        5
+        4
       ]
     },
     {
@@ -2397,7 +2384,7 @@
     }
   ],
   "setCount": 142,
-  "imageCount": 1397,
+  "imageCount": 1384,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",

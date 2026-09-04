@@ -7,6 +7,8 @@ pubDate: 2026-09-04
 dataAsOf: 2026-08-22T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "actors", "netflix", "wikipedia", "measurement"]
+pages:
+  - "/kpop-attention"
 sources:
   - org: "Wikimedia"
     api: "Pageviews API, en.wikipedia, all-access, user agents only, 2026-07-24 to 2026-08-22, 30 days; 1,113 actors requested and 1,113 returned, 0 missing pages and 0 failures"
@@ -91,3 +93,5 @@ And the readers counted are English Wikipedia's. Korean readers, who are most of
 actor's audience, are absent from every figure on this page.
 
 **This is a count of readers, not a ranking of actors.**
+
+The table behind this is at [kculturewire.com/kpop-attention](/kpop-attention?from=body).

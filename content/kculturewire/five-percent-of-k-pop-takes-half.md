@@ -99,3 +99,5 @@ members. Whether Jennie out-reads Blackpink, or V out-reads BTS, is not answered
 unmeasured, and unmeasured is not zero.
 
 **This is a count of readers, not a ranking of acts.**
+
+The table behind this is at [kculturewire.com/kpop-attention](/kpop-attention?from=body).

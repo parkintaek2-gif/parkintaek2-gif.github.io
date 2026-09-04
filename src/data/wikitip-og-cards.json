@@ -410,6 +410,10 @@
       "figure": "7.0x",
       "label": "more readers, floor only — not the ceiling",
       "왜": "글머리 첫 수는 1,113(표본)이다. 요점은 바닥이 7배 오르고 천장은 안 오른 것이다"
+    },
+    "chart-credits-buy-a-level-not-a-direction": {
+      "figure": "1,113",
+      "label": "actors in Netflix charting Korean titles"
     }
   }
 }

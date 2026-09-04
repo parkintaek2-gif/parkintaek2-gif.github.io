@@ -113,3 +113,5 @@ chart that looks like knowledge and is not, and that is worse than an empty tabl
 number makes every right number beside it suspect.
 
 **This is a count of readers over 30 days, not a judgment of anyone's career.**
+
+The table behind this is at [kculturewire.com/kpop-attention](/kpop-attention?from=body).
