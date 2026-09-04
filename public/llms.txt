@@ -8,9 +8,11 @@ tables, sources, and verification notes included, without the page chrome.
 
 ## Data & datasets
 - [Data hub](https://seoulmarkets.com/data): datasets and the open data API for Korean market and economic figures.
-- [Korea trade dataset](https://seoulmarkets.com/data/korea-trade-dataset): exports/imports by partner country, from Korea Customs.
-- [Sector leaders](https://seoulmarkets.com/data/sector-leaders): the largest listed firm in each Korean sector.
-- [Analyst attention](https://seoulmarkets.com/data/analyst-attention): how analyst coverage concentrates across Korean listed firms.
+- [Korea trade dataset](https://seoulmarkets.com/data/korea-trade-dataset): 243 partner countries × 12 months (2025-08 to 2026-07) of exports, imports and trade balance, in English, one clean CSV — sourced from Korea Customs, free to keep.
+- [Sector leaders](https://seoulmarkets.com/data/sector-leaders): split 9 sectors into market-cap leaders (top fifth) vs the rest — leaders pay 1.2x to 1.43x more, and in most sectors keep staff longer too. Not a stock pick.
+- [Analyst attention](https://seoulmarkets.com/data/analyst-attention): 6,372 single-stock broker reports, 20 brokerages, 2026. 939 of 2,819 listed companies drew at least one; the busiest name drew 100, the median covered company just 2.
+- [Target-price accuracy](https://seoulmarkets.com/data/target-price-accuracy): 19,499 rated broker reports joined to the share price 12 months later — hit rate by house, the number brokers never publish about themselves.
+- [Broker candour](https://seoulmarkets.com/data/broker-candour): rating distribution (Buy/Hold/Sell) by brokerage house — Sell ratings have nearly vanished from Korean broker research. Not investment advice.
 
 ## Labour & wages (Statistics Korea establishment survey, annual, reproducible)
 - [Real wages went flat after 2021](https://seoulmarkets.com/article/korea-real-wages-flat-since-2021): real monthly wage rose ~24% 2011–2021, then +0.2% to 2025.
