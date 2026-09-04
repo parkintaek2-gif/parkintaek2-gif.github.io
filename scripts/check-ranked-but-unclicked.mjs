@@ -68,6 +68,50 @@ export function 새는자리(줄들, { 자리문턱 = 눈앞자리, 노출문턱
   return { 샘, 못쟀다 };
 }
 
+/**
+ * 🔴 [2026-09-04] **처방을 가르는 층.** 이것이 없으면 자가 «틀린 일»을 시킨다.
+ *
+ * `/market/nicaragua` 는 자리 7.7위에 노출 195, 클릭 0 이라 「제목을 고쳐라」로 잡혔다.
+ * 그런데 검색어를 보니 —
+ *
+ *   노출 62 · 검색어 「https://www.netflix.com/tudum/top10?week=2024-11-03」
+ *   노출 37 · 검색어 「"https://www.netflix.com/tudum/top10?week=20…」
+ *
+ * **넷플릭스 «자기 주소»를 검색한 사람들이다.** 그들은 넷플릭스를 찾는 것이지 우리를 찾는 게 아니다.
+ * ⛔ 제목을 아무리 고쳐도 안 누른다. 이건 «제목 문제»가 아니라 «손님이 딴 데» 인 것이다.
+ *
+ * 그래서 검색어를 보고 셋으로 가른다.
+ */
+export function 왜안눌리나(검색어들) {
+  const 합 = 검색어들.reduce((a, b) => a + (b.노출 || 0), 0);
+  if (!검색어들.length || !합) return { 판정: '못 쟀다', 까닭: '이 지면에 붙은 검색어 자료가 없다' };
+  /* 주소를 통째로 검색한 것 — 남의 지면을 찾는 사람이다 */
+  const 주소찾기 = 검색어들.filter((q) => /^["']?https?:\/\/|^["']?www\./i.test(String(q.검색어 || '').trim()))
+    .reduce((a, b) => a + b.노출, 0);
+  if (주소찾기 / 합 >= 0.5) {
+    return { 판정: '손님이 딴 데', 몫: +(주소찾기 / 합 * 100).toFixed(0), 까닭: '노출의 절반 넘게가 «주소를 그대로 검색»한 것이다 — 남의 지면을 찾는 사람이다' };
+  }
+  /* 우리 이름을 찾은 것 — 이미 우리를 아는 사람이다 */
+  const 우리이름 = 검색어들.filter((q) => /kculturewire|k culture wire|100yearmap|백년지도|seoulmarkets|klifemap/i.test(String(q.검색어 || '')))
+    .reduce((a, b) => a + b.노출, 0);
+  if (우리이름 / 합 >= 0.5) {
+    return { 판정: '우리 이름', 몫: +(우리이름 / 합 * 100).toFixed(0), 까닭: '우리 이름으로 온 노출이다 — 제목보다 «그 지면이 답인가»를 본다' };
+  }
+  return { 판정: '제목 문제', 몫: 100, 까닭: '뜻이 있는 검색어로 눈앞에 떴는데 안 눌렸다 — 제목·dek 을 고친다' };
+}
+
+/** 지면별로 검색어를 모은다 (query+page 자료가 있을 때만) */
+export function 검색어모으기(qp) {
+  const 통 = new Map();
+  for (const r of (qp && (qp.rows || [])) || []) {
+    const p = r.page || r.url;
+    if (!p) continue;
+    if (!통.has(p)) 통.set(p, []);
+    통.get(p).push({ 검색어: r.key ?? r.query, 노출: Number(r.impressions || 0), 클릭: Number(r.clicks || 0) });
+  }
+  return 통;
+}
+
 /** 잘 눌린 지면 — 무엇을 흉내 낼지 보여 준다 */
 export function 잘된자리(줄들, 몇 = 5) {
   return 줄들.filter((x) => x.클릭 > 0 && x.노출 >= 3)
@@ -110,6 +154,25 @@ export function 재기() {
   const 잘 = 잘된자리(줄);
   봄('⭐ 가장 잘 눌린 곳을 CTR 순으로 낸다', 잘[0].주소 === '/b' && Math.round(잘[0].ctr) === 14);
 
+  /* ── 처방을 가르는 층 ── */
+  봄('🔴 주소를 그대로 검색한 것은 «손님이 딴 데»로 가른다',
+    왜안눌리나([{ 검색어: 'https://www.netflix.com/tudum/top10?week=2024-11-03', 노출: 62 },
+      { 검색어: '"https://www.netflix.com/tudum/top10?week=2024"', 노출: 37 },
+      { 검색어: 'korean netflix', 노출: 5 }]).판정 === '손님이 딴 데');
+  봄('뜻이 있는 검색어면 «제목 문제»로 가른다',
+    왜안눌리나([{ 검색어: 'korean drama netflix', 노출: 40 }, { 검색어: 'squid game country', 노출: 20 }]).판정 === '제목 문제');
+  봄('우리 이름으로 온 것은 따로 가른다',
+    왜안눌리나([{ 검색어: 'kculturewire', 노출: 30 }, { 검색어: 'korean drama', 노출: 5 }]).판정 === '우리 이름');
+  봄('⬜ 검색어 자료가 없으면 «못 쟀다» — 「제목 문제」로 단정하지 않는다',
+    왜안눌리나([]).판정 === '못 쟀다');
+  봄('노출이 0 뿐이어도 못 쟀다로 둔다', 왜안눌리나([{ 검색어: 'x', 노출: 0 }]).판정 === '못 쟀다');
+  const 통 = 검색어모으기({ rows: [
+    { key: 'a', page: '/x', impressions: 3, clicks: 1 },
+    { key: 'b', page: '/x', impressions: 2, clicks: 0 },
+    { key: 'c', page: '/y', impressions: 9, clicks: 0 }] });
+  봄('지면별로 검색어를 모은다', 통.get('/x').length === 2 && 통.get('/y').length === 1);
+  봄('지면이 없는 줄은 버린다', 검색어모으기({ rows: [{ key: 'a', impressions: 1 }] }).size === 0);
+
   봄('빈 자료에서 지어내지 않는다', 새는자리(줄뽑기({})).샘.length === 0);
   봄('문턱을 낮추면 더 잡힌다', 새는자리(줄, { 자리문턱: 60 }).샘.length === 2);
   봄('노출 문턱을 낮추면 더 잡힌다', 새는자리(줄, { 노출문턱: 1 }).샘.length === 2);
@@ -142,11 +205,30 @@ if (나인가) {
     console.log(`── ${s.이름} (${s.유닛}) · ${path.basename(길)}`);
     console.log(`   노출 ${노출합.toLocaleString()} · 클릭 ${클릭합} · CTR ${노출합 ? (클릭합 / 노출합 * 100).toFixed(2) : '0.00'}%`
       + ` · 10위 안 노출 ${눈앞노출.toLocaleString()} (${노출합 ? (눈앞노출 / 노출합 * 100).toFixed(1) : '0'}%)`);
+    /* 검색어 자료가 있으면 «왜» 안 눌리는지까지 가른다 */
+    const qp길 = (() => {
+      const 것들 = fs.readdirSync(path.join(process.cwd(), 'src', 'data'))
+        .filter((f) => f.startsWith(`gsc-${s.딱지}-qp-`) && f.endsWith('.json')).sort();
+      return 것들.length ? path.join(process.cwd(), 'src', 'data', 것들[것들.length - 1]) : null;
+    })();
+    const 검색어통 = qp길 ? 검색어모으기(JSON.parse(fs.readFileSync(qp길, 'utf8'))) : new Map();
+
     if (!샘.length) console.log('   ✅ 새는 자리 없음');
+    const 갈래셈 = {};
+    for (const x of 샘) {
+      const 판 = 왜안눌리나(검색어통.get(x.주소) || []);
+      x._판정 = 판;
+      갈래셈[판.판정] = (갈래셈[판.판정] || 0) + 1;
+    }
+    if (샘.length) {
+      console.log('   판정 — ' + Object.entries(갈래셈).map(([k, v]) => `${k} ${v}곳`).join(' · '));
+    }
     for (const x of 샘.slice(0, 6)) {
-      console.log(`   🔴 노출 ${String(x.노출).padStart(4)} · 자리 ${x.자리.toFixed(1).padStart(5)} · ${x.주소.replace(s.밑, '').slice(0, 62)}`);
+      const 표 = { '제목 문제': '🔴', '손님이 딴 데': '⛔', '우리 이름': '⭐', '못 쟀다': '⬜' }[x._판정.판정] || '·';
+      console.log(`   ${표} 노출 ${String(x.노출).padStart(4)} · 자리 ${x.자리.toFixed(1).padStart(5)} · [${x._판정.판정}] ${x.주소.replace(s.밑, '').slice(0, 50)}`);
     }
     if (샘.length > 6) console.log(`   … 그 밖 ${샘.length - 6}곳`);
+    if (!qp길) console.log('   ⬜ 검색어(qp) 자료가 없어 «왜 안 눌리는지»는 못 쟀다');
     if (못쟀다.length) console.log(`   ⬜ 자리를 몰라 «못 잰» 지면 ${못쟀다.length}곳`);
     const 잘 = 잘된자리(줄, 2);
     if (잘.length) {
@@ -155,8 +237,16 @@ if (나인가) {
     }
     console.log('');
   }
-  console.log(`■ 합계 — 고칠 자리 ${합}곳`);
+  console.log(`■ 합계 — 눈앞인데 안 눌린 자리 ${합}곳`);
+  console.log('');
+  console.log('■ 판정마다 «할 일이 다르다» — 여기를 섞으면 헛일을 한다');
+  console.log('   🔴 제목 문제    제목·dek 을 고친다. ⛔ 새 글을 쓰지 않는다');
+  console.log('   ⛔ 손님이 딴 데  ⛔ **제목을 고쳐도 소용없다.** 남의 주소를 검색한 사람이 스쳐 간 것이다');
+  console.log('                   그 노출은 «우리 수»가 아니다. CTR 을 셈할 때 빼고 본다');
+  console.log('   ⭐ 우리 이름    이미 우리를 아는 사람이다. 제목보다 «그 지면이 답인가»를 본다');
+  console.log('   ⬜ 못 쟀다     검색어(qp) 자료가 없다. 먼저 받는다 —');
+  console.log('                   node scripts/fetch-gsc.mjs   (사이트별 query+page)');
+  console.log('');
   console.log('⛔ 「수가 작아서 의미 없다」로 닫지 않는다. 작을수록 원인이 또렷하다.');
-  console.log('⛔ 새 글을 쓰지 않는다. 이미 눈앞에 있는 지면의 «제목·dek» 을 고친다.');
   console.log('⚠ 고친 뒤 다시 재야 고친 것이다. 「고쳤다」로 끝내지 않는다.');
 }
