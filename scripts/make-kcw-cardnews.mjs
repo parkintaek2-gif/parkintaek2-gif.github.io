@@ -74,6 +74,28 @@ export const 색 = {
 };
 
 /** 글자를 안전하게. ⛔ `&` 하나가 SVG 를 깨뜨린다 */
+/**
+ * 카드 바닥의 주소를 «쪽번호와 안 겹치게» 자른다.
+ *
+ * 🔴 [2026-09-04] 눈으로 보고 찾았다 — `july-is-the-thinnest-month-for-k-pop-birthdays`
+ *   카드에서 주소 끝이 쪽번호(「2 / 5」)와 «겹쳐» 둘 다 안 읽혔다.
+ *   주소는 왼쪽 붙임, 쪽번호는 오른쪽 붙임이라 긴 슬러그가 그대로 밀고 들어간다.
+ * ⛔ 폰트 크기를 줄여 숨기지 않는다 — 주소는 카드가 홀로 돌아다닐 때의 «유일한 출처»다.
+ * ✅ 대신 «슬러그 뒤»를 자르고 … 를 붙인다. 어느 지면인지는 앞부분으로 안다.
+ *
+ * @param 주소 kculturewire.com/article/<slug>
+ * @param 쓸폭 주소가 쓸 수 있는 가로 픽셀
+ * @param 글자폭 한 글자의 어림 폭 (Helvetica 소문자 어림 — 글자크기의 0.52)
+ */
+export function 주소줄이기(주소, 쓸폭, 글자폭) {
+  const s = String(주소 ?? '');
+  if (!(쓸폭 > 0) || !(글자폭 > 0)) return s;
+  const 들어갈글자 = Math.floor(쓸폭 / 글자폭);
+  if (s.length <= 들어갈글자) return s;
+  if (들어갈글자 <= 1) return '…';
+  return `${s.slice(0, 들어갈글자 - 1)}…`;
+}
+
 export function 막는다(글) {
   return String(글 ?? '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -85,8 +107,36 @@ export function 막는다(글) {
  * ⛔ 넘치면 **자르지 않고 줄을 늘린다.** 자르면 문장이 반토막 나서 뜻이 바뀐다.
  *   장 수가 늘어나는 것이 뜻이 바뀌는 것보다 낫다.
  */
+/**
+ * 🔴 [2026-09-04] **한 줄보다 긴 낱말 하나가 화면 밖으로 나갔다.** 카드를 열어 보고 알았다 —
+ *   닫는 카드의 「kculturewire.com/article/a-weekly-top-ten-is-not-ten-titles」 가
+ *   오른쪽 끝에서 «잘려» 있었다. 433장 전부가 그랬다.
+ *
+ *   까닭: 아래 `줄나누기` 는 «빈칸»에서만 줄을 나눈다. 주소에는 빈칸이 없어 나눌 자리가 없었다.
+ *   ⛔ 카드는 우리 지면을 떠나 혼자 돌아다닌다. **잘린 주소는 눌러도 오지 못하는 주소다.**
+ *   ✅ 그래서 한 줄을 넘는 낱말은 강제로 자른다. 주소는 `/` `-` `.` 에서 자르면 읽히므로
+ *      그 자리를 먼저 찾고, 너무 앞이면 글자 수로 자른다.
+ */
+export function 낱말자르기(낱말, 한줄글자) {
+  const w = String(낱말 ?? '');
+  if (!(한줄글자 > 0) || w.length <= 한줄글자) return [w];
+  const 조각 = [];
+  let 남은 = w;
+  while (남은.length > 한줄글자) {
+    const 창 = 남은.slice(0, 한줄글자);
+    /* 끊는 «글자를 남기고» 자른다 — 주소는 / 가 붙어 있어야 읽힌다 */
+    const 자리 = Math.max(창.lastIndexOf('/'), 창.lastIndexOf('-'), 창.lastIndexOf('.'));
+    const 끊을데 = 자리 >= Math.floor(한줄글자 * 0.4) ? 자리 + 1 : 한줄글자;
+    조각.push(남은.slice(0, 끊을데));
+    남은 = 남은.slice(끊을데);
+  }
+  if (남은) 조각.push(남은);
+  return 조각;
+}
+
 export function 줄나누기(글, 한줄글자) {
-  const 낱말 = String(글 ?? '').trim().split(/\s+/).filter(Boolean);
+  const 낱말 = String(글 ?? '').trim().split(/\s+/).filter(Boolean)
+    .flatMap((w) => 낱말자르기(w, 한줄글자));
   if (!낱말.length) return [];
   const 줄 = []; let 이번 = '';
   for (const w of 낱말) {
@@ -171,6 +221,35 @@ export function 토막내기(글, 한장글자) {
   return 토막;
 }
 
+/**
+ * 🔴 [2026-09-04] **옛 판이 남긴 카드가 지면에 그대로 남아 있었다.**
+ *
+ *   카드를 열어 보려다 알았다 — `a-weekly-top-ten-is-not-ten-titles-sq-5.png` 를 열었는데
+ *   주소가 오른쪽으로 잘려 있었다. 고치고 다시 구웠는데 **그림이 안 바뀌었다.**
+ *   까닭은 이 기사가 지금 **4장**을 내기 때문이다. 5장째는 «다시 구워지지 않는 고아»였다.
+ *
+ *   ⛔ 그 고아는 바닥에 **「5 / 5」**라고 적혀 있다. 넷뿐인데 다섯 중 다섯이라고 말한다.
+ *     카드는 우리 지면을 떠나 혼자 돌아다니므로, 틀린 쪽번호는 그대로 남의 화면에 간다.
+ *   ⛔ 그리고 **덮어쓰는 자는 지우지 않는다.** 장 수가 줄면 옛 파일이 조용히 살아남는다.
+ *     조용히 남는 것이 제일 나쁘다 — 고쳤다고 믿고 지나가게 된다.
+ *
+ *   ✅ 그래서 굽고 나서 «이번 장 수를 넘는 번호»를 지운다.
+ *   ⚠ 다른 기사 것을 지우지 않도록 딱지는 `<slug>-<규격>-<번호>.png` 를 **온전히** 맞춘다 —
+ *     `foo` 를 치우면서 `foo-bar` 것을 지우면 그것이 더 큰 사고다. 아래 자가시험이 그 경계를 본다.
+ */
+export function 고아찾기(파일들, slug, 이번장수) {
+  const 규이름 = 규격.map((r) => r.이름);
+  const 고아 = [];
+  for (const f of 파일들) {
+    const m = String(f).match(/^(.*)-([a-z]+)-([0-9]+)\.png$/);
+    if (!m) continue;
+    if (m[1] !== slug) continue;
+    if (!규이름.includes(m[2])) continue;
+    if (Number(m[3]) > 이번장수) 고아.push(f);
+  }
+  return 고아;
+}
+
 /** 한 장을 SVG 로. 규격에 따라 자리를 다시 잡는다 */
 export function 그리기(장, 번호, 총, 규, 주소) {
   const { 폭, 높이 } = 규;
@@ -251,8 +330,14 @@ export function 그리기(장, 번호, 총, 규, 주소) {
   /* ⛔ 모든 장에 주소를 박는다 — 카드는 우리 지면을 떠나 혼자 돌아다닌다 */
   조각.push(`<line x1="${여백}" y1="${높이 - 여백 - 56}" x2="${폭 - 여백}"`
     + ` y2="${높이 - 여백 - 56}" stroke="${색.줄}" stroke-width="2"/>`);
+  /* 🔴 쪽번호가 오른쪽에 붙으므로 주소가 쓸 폭을 «빼고» 잰다 — 안 그러면 둘이 겹친다 */
+  const 바닥글자 = Math.round(폭 * 0.026);
+  const 쪽글 = `${번호} / ${총}`;
+  const 쪽번호폭 = 쪽글.length * 바닥글자 * 0.52;
+  const 주소쓸폭 = 폭 - 여백 * 2 - 쪽번호폭 - 바닥글자;
   조각.push(`<text x="${여백}" y="${높이 - 여백 - 12}" font-family="Helvetica,Arial,sans-serif"`
-    + ` font-size="${Math.round(폭 * 0.026)}" fill="${색.수}">${막는다(주소)}</text>`);
+    + ` font-size="${바닥글자}" fill="${색.수}">`
+    + `${막는다(주소줄이기(주소, 주소쓸폭, 바닥글자 * 0.52))}</text>`);
   조각.push(`<text x="${폭 - 여백}" y="${높이 - 여백 - 12}" text-anchor="end"`
     + ` font-family="Helvetica,Arial,sans-serif" font-size="${Math.round(폭 * 0.026)}"`
     + ` fill="${색.흐림}">${번호} / ${총}</text>`);
@@ -275,6 +360,35 @@ if (직접불렸나 && process.argv.includes('--selftest')) {
   /* ⛔ 자르지 않는다 — 넣은 낱말이 다 나와야 한다 */
   참('낱말을 안 버린다', 줄나누기('one two three four five', 9).join(' ') === 'one two three four five');
   참('빈 글은 빈 목록', 줄나누기('', 40).length === 0);
+
+  /* 🔴 433장이 잘려 있던 결함 — 자가시험으로 굳힌다 */
+  {
+    const 주소 = 'kculturewire.com/article/a-weekly-top-ten-is-not-ten-titles';
+    const 줄 = 줄나누기(주소, 30);
+    참('긴 주소가 여러 줄로 나뉜다', 줄.length >= 2);
+    참('어느 줄도 한 줄 폭을 안 넘는다', 줄.every((l) => l.length <= 30));
+    참('자른 것을 이으면 원래 주소다', 줄.join('') === 주소);
+    참('끊는 글자를 안 버린다', 줄.some((l) => /[/.-]$/.test(l)));
+    참('짧은 낱말은 안 건드린다', 낱말자르기('short', 30).join('|') === 'short');
+    참('끊을 자리가 너무 앞이면 글자 수로 자른다',
+      낱말자르기(`a-${'b'.repeat(40)}`, 20)[0] === `a-${'b'.repeat(18)}`);
+    참('한줄글자가 0 이면 그대로 돌려준다', 낱말자르기('abcdef', 0).join('|') === 'abcdef');
+  }
+
+  /* 🔴 「5 / 5」라고 적힌 고아가 넷뿐인 기사에 남아 있던 결함 */
+  {
+    const 방 = ['foo-sq-1.png', 'foo-sq-4.png', 'foo-sq-5.png', 'foo-v-5.png',
+      'foo-bar-sq-5.png', 'foo-sq-5.txt', 'foo-zz-5.png'];
+    const 고아 = 고아찾기(방, 'foo', 4);
+    참('넘는 번호를 고아로 본다', 고아.includes('foo-sq-5.png') && 고아.includes('foo-v-5.png'));
+    참('안 넘는 번호는 안 건드린다',
+      !고아.includes('foo-sq-1.png') && !고아.includes('foo-sq-4.png'));
+    참('⭐ 이름이 겹치는 «다른» 기사 것을 안 지운다', !고아.includes('foo-bar-sq-5.png'));
+    참('png 아닌 것을 안 지운다', !고아.includes('foo-sq-5.txt'));
+    참('모르는 규격은 안 지운다', !고아.includes('foo-zz-5.png'));
+    참('고아가 없으면 빈 목록', 고아찾기(['foo-sq-1.png'], 'foo', 4).length === 0);
+    참('빈 방에서 지어내지 않는다', 고아찾기([], 'foo', 4).length === 0);
+  }
 
   /* 🔴 이 자의 핵 — crossChecks 를 앞말에서만 꺼낸다 */
   const 글 = ['---', 'title: "T"', 'dek: "D"', 'crossChecks:',
@@ -336,6 +450,29 @@ if (직접불렸나 && process.argv.includes('--selftest')) {
   const svg = 그리기(장[0], 1, 장.length, 규격[0], 재료.주소);
   참('SVG 가 나온다', svg.startsWith('<svg') && svg.endsWith('</svg>'));
   참('모든 장에 주소가 있다', 장.every((z) => 그리기(z, 1, 4, 규격[0], 재료.주소).includes('kculturewire.com/article/my-slug')));
+
+  /* 🔴 [2026-09-04] 긴 슬러그가 쪽번호와 «겹쳐» 둘 다 안 읽혔다. 눈으로 보고 찾은 결함이다 */
+  참('짧은 주소는 그대로 둔다', 주소줄이기('kculturewire.com/article/x', 900, 14) === 'kculturewire.com/article/x');
+  참('🔴 긴 주소는 잘라 … 를 붙인다', (() => {
+    const 긴 = 'kculturewire.com/article/july-is-the-thinnest-month-for-k-pop-birthdays';
+    const r = 주소줄이기(긴, 700, 14);
+    return r.length < 긴.length && r.endsWith('…');
+  })());
+  참('자른 뒤에도 «어느 지면인지» 앞부분이 남는다',
+    주소줄이기('kculturewire.com/article/july-is-the-thinnest-month', 500, 14).startsWith('kculturewire.com/article/'));
+  참('폭이 0 이면 손대지 않는다 (잘못 잘라 지우지 않는다)',
+    주소줄이기('kculturewire.com/article/x', 0, 14) === 'kculturewire.com/article/x');
+  참('폭이 아주 좁으면 … 하나만', 주소줄이기('abcdef', 10, 14) === '…');
+  참('⭐ 긴 슬러그 카드에서 주소와 쪽번호가 «안 겹친다»', (() => {
+    const 긴주소 = 'kculturewire.com/article/july-is-the-thinnest-month-for-k-pop-birthdays';
+    const svg = 그리기(장[0], 2, 5, 규격[0], 긴주소);
+    const 바닥글자 = Math.round(1080 * 0.026);
+    const 여백 = Math.round(1080 * 0.09);
+    const 쪽번호폭 = '2 / 5'.length * 바닥글자 * 0.52;
+    const 쓸폭 = 1080 - 여백 * 2 - 쪽번호폭 - 바닥글자;
+    const m = svg.match(/fill="[^"]*">(kculturewire[^<]*)</);
+    return !!m && m[1].length * 바닥글자 * 0.52 <= 쓸폭;
+  })());
   참('매체 이름이 있다', svg.includes('K CULTURE WIRE'));
   참('세로 규격도 그린다', 그리기(장[0], 1, 4, 규격[1], 재료.주소).includes('width="1080" height="1920"'));
   /* 🔴 딱지 이름 — crossChecks 는 「어떻게 셌나」다. 「안 하는 말」이라 붙이면 거짓이 된다 */
@@ -365,7 +502,7 @@ if (직접불렸나 && process.argv.includes('--낸다')) {
   fs.mkdirSync(낼방, { recursive: true });
   const sharp = createRequire(path.join(ROOT, 'package.json'))('sharp');
 
-  let 낸것 = 0; let 건너 = 0; const 까닭 = new Map();
+  let 낸것 = 0; let 건너 = 0; let 치운것 = 0; const 까닭 = new Map();
   for (const f of 목록) {
     const slug = f.replace(/\.md$/, '');
     const p = path.join(기사방, f);
@@ -386,11 +523,16 @@ if (직접불렸나 && process.argv.includes('--낸다')) {
         await sharp(Buffer.from(svg)).png().toFile(path.join(낼방, 이름));
       }
     }
+    /* 🔴 [2026-09-04] 고아 카드를 치운다 — 아래 「고아찾기」 주석을 읽는다 */
+    for (const 이름 of 고아찾기(fs.readdirSync(낼방), slug, 장.length)) {
+      fs.rmSync(path.join(낼방, 이름));
+      치운것 += 1;
+    }
     낸것 += 1;
     if (하나) console.log(`✅ ${slug} — ${장.length}장 × 규격 ${규격.length}벌 = ${장.length * 규격.length}개`);
   }
 
-  console.log(`\n카드뉴스 — 낸 기사 ${낸것}편 · 건너뛴 것 ${건너}편 → public/wikitip/cardnews`);
+  console.log(`\n카드뉴스 — 낸 기사 ${낸것}편 · 건너뛴 것 ${건너}편 · 치운 고아 ${치운것}장 → public/wikitip/cardnews`);
   if (까닭.size) {
     console.log('건너뛴 까닭마다 — ⛔ 억지로 채우지 않는다. 안 만든 것도 결과다');
     for (const [k, v] of [...까닭].sort((a, b) => b[1] - a[1])) console.log(`  ${String(v).padStart(4)}편  ${k}`);
