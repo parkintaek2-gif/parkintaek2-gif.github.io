@@ -336,6 +336,9 @@ export const GET: APIRoute = () => {
     { path: '/cardiac-arrest', priority: '0.8', changefreq: 'yearly' },
     { path: '/fall-injury', priority: '0.8', changefreq: 'yearly' },
     { path: '/volunteer', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-04 — 사장님이 하나금융연구소 뉴스 인용문을 주며 지시(「긁어올 수 있으면
+       데이터를 가공해」). 원문 PDF 4쪽 Summary 표(결혼계획별 1인가구 세 유형)를 인용. */
+    { path: '/single-intent', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
