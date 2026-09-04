@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-04 18:40 KST",
+  "generated": "2026-09-04 20:42 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 113,
-    "머리글있음": 113,
+    "본지면": 114,
+    "머리글있음": 114,
     "머리글없음": 0
   },
   "missing": [],
@@ -55,6 +55,7 @@
     "/korean-movies-on-netflix": "Korean movies on Netflix",
     "/kpop-attention": "Who the English-speaking world looks up when it looks up K-pop",
     "/kpop-birthdays": "K-pop idol birthdays by month: July is the thinnest, March the fullest",
+    "/label-reach": "K-pop companies by how widely their artists are read",
     "/lead-lag": "No country's Netflix chart is a signal for another's — they are one queue",
     "/leverage": "Did the charts concentrate? Korean series by company, year by year",
     "/look-vs-fly": "Southeast Asia looks up a Korean trip in December and stops looking in June",
