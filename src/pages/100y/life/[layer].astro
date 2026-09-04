@@ -34,9 +34,19 @@ const 다음층 = (낼층 as readonly string[]).filter((x) => x !== 층);
 const desc =
   `${층} 사람들이 실제로 어떻게 하고 있는지 국가 통계로만 모았습니다. ` +
   `월급여·근속·자산·부채를 그 나이에 놓았습니다. ⛔ 조언하지 않습니다.`;
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 갈래(2장)에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${층} — ${것.물음}`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title={`${층} — ${것.물음}`} description={desc}>
+<HundredYear title={`${층} — ${것.물음}`} description={desc} jsonLd={jsonLd}>
   <h1>{층}</h1>
   <p class="sub">{것.물음}</p>
 

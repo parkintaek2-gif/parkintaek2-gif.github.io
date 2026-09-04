@@ -298,9 +298,19 @@ const 문들 = [
 const desc =
   `백년지도가 지금까지 연 문 ${문들.length}개를 나이 차례로 모았습니다. ` +
   `0~5세 어린이집부터 0~100세 생명표까지, 문마다 몇 살 자리인지와 자료가 몇 해치인지를 적었습니다.`;
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 지면에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `나이로 보는 문 ${문들.length}개 — 0세부터 100세까지`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title={`나이로 보는 문 ${문들.length}개 — 0세부터 100세까지`} description={desc}>
+<HundredYear title={`나이로 보는 문 ${문들.length}개 — 0세부터 100세까지`} description={desc} jsonLd={jsonLd}>
   <h1>나이로 보는 문</h1>
   <p class="sub">
     백년지도가 지금까지 연 문 <strong>{문들.length}개</strong>를 나이 차례로 모았습니다.

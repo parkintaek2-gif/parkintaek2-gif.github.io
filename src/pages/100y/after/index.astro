@@ -77,9 +77,19 @@ const 연구수 = ((연구자료 as any).자료 as any[]).length;
 const desc =
   `대학을 졸업한 뒤 실제로 어떻게 됐는지를 ${셀수있음.length.toLocaleString()}개 대학의 ` +
   `취업률·중도탈락률 분포로 보여드립니다. 순위가 아니라 분포입니다.`;
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 지면에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: '대학 이후',
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title="대학 이후" description={desc}>
+<HundredYear title="대학 이후" description={desc} jsonLd={jsonLd}>
   <h1>대학에 간 다음이<br class="pcbr" /> 궁금하실 겁니다.</h1>
   <p class="lead">
     어디에 합격했는지까지는 어디서나 알려줍니다. 그 다음은 아무도 안 봅니다.

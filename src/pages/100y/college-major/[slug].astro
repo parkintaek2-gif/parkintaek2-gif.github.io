@@ -127,9 +127,23 @@ const 이과말 = {
 const desc =
   `${과.학과}${조사(과.학과, '을를', '를')} 나온 사람들이 졸업 뒤 어떻게 됐는지 공공데이터로 정리했습니다. ` +
   `취업률 ${과.취업률}% · 진학률 ${과.진학률}% · 졸업자 ${과.졸업자.toLocaleString()}명 기준입니다.`;
+
+/**
+ * 🔴 [2026-09-05] 5번의 geo-fit 자가 이 갈래(837장) 전체에 구조화 데이터가
+ *   빠져 있다고 잡아 줬다 — 지면을 하나씩 안 고치고 이 한 자리만 고친다.
+ *   /major(고교 학과)와 같은 꼴(Article)로 맞춘다 — 두 지면이 자매간이다.
+ */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 제목,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title={제목} description={desc}>
+<HundredYear title={제목} description={desc} jsonLd={jsonLd}>
   <h1>{과.학과}</h1>
   <p class="sub">대학 학과 · {출처.조사회차} 조사</p>
 

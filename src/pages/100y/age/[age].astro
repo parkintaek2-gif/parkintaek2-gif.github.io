@@ -88,9 +88,19 @@ const desc =
   `월급여 ${일?.월급 ?? '—'} · 근속 ${일?.근속 ?? '—'}년` +
   (누적 ? ` · ${나이}세까지 초혼한 사람 남자 ${누적.남편}% · 여자 ${누적.아내}%` : '') +
   '. 조언하지 않고 숫자만 놓습니다.';
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 갈래(5장)에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${나이말(나이)} — 남들은 어떻게 하고 있나`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title={`${나이말(나이)} — 남들은 어떻게 하고 있나`} description={desc}>
+<HundredYear title={`${나이말(나이)} — 남들은 어떻게 하고 있나`} description={desc} jsonLd={jsonLd}>
   <h1>{나이말(나이)}</h1>
   <p class="sub">
     같은 나이의 사람들이 <strong>실제로 어떻게 했는지</strong>만 놓았습니다.

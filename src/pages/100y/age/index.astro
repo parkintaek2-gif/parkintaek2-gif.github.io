@@ -84,9 +84,19 @@ const 살림줄 = 살림띠
 const desc =
   '스물다섯·서른둘·마흔·쉰다섯·예순여덟 — 그 나이의 사람들이 실제로 어떻게 살고 있는지 ' +
   '국가 통계로만 모았습니다. 월급여·근속·초혼·자산·부채를 나이로 놓았습니다. 조언하지 않습니다.';
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 지면에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: '나이로 보기 — 남들은 어떻게 하고 있나',
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title="나이로 보기 — 남들은 어떻게 하고 있나" description={desc}>
+<HundredYear title="나이로 보기 — 남들은 어떻게 하고 있나" description={desc} jsonLd={jsonLd}>
   <h1>나이로 보기</h1>
   <p class="sub">
     백년지도는 열아홉에서 끝나지 않습니다.{' '}

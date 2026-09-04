@@ -87,9 +87,19 @@ import 요약 from '../../../data/100yearmap/summary.json';
 /* 🔴 2026-08-14 — 출처에 「언제 받은 자료인가」가 빠져 있었다(8번이 잡음).
    ⛔ 날을 손으로 박지 않는다. 대장에서 가져와 날짜만 남긴다 */
 const 받은날 = String((요약 as any).원천수집시각 ?? '').slice(0, 10);
+
+/** 🔴 [2026-09-05] 5번 geo-fit 자가 이 갈래(17장)에 구조화 데이터가 없다고 잡았다 */
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `${r.짧은} — 지역으로 보기`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
 ---
 
-<HundredYear title={`${r.짧은} — 지역으로 보기`} description={desc}>
+<HundredYear title={`${r.짧은} — 지역으로 보기`} description={desc} jsonLd={jsonLd}>
   <h1>{r.짧은}</h1>
 
   <p class="sub">
