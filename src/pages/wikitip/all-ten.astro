@@ -40,10 +40,36 @@ const 수 = (n: number) => Number(n).toLocaleString('en-US');
 const 주글 = (w: string) => new Date(`${w}T00:00:00+09:00`)
   .toLocaleDateString('en-GB', { timeZone: 'Asia/Seoul', day: 'numeric', month: 'long', year: 'numeric' });
 
-const TITLE = `Every Netflix top 10 that was all Korean, country by country`;
-const DESC = `${d.allTenCells} times a Netflix country chart has been Korean in all ten places — `
-  + `${밖의칸.length} of them outside Korea, in ${밖의시장.length} countries. `
-  + `Counted from ${수(d.cellsRead)} country-week charts.`;
+/**
+ * 🔴 [2026-09-05 00:1x] **제목에 실명을 넣었다.** 어제(9/3) 네 유닛이 이어 써서 정한 규칙이
+ *   「제목·h1 에 사람이 실제로 검색하는 실명 + 아무도 답하지 않는 물음」이다.
+ *   ⛔ 이 지면의 알맹이는 «어느 나라»인데 제목에 나라 이름이 하나도 없었다.
+ *     「country by country」라고만 적혀 있었다 — 나라 이름이 아니라 나라라는 «낱말»이다.
+ *   ⭐ 사람이 검색하는 것은 「Vietnam Netflix top 10」이지 「country by country」가 아니다.
+ *
+ * ⛔ 나라 이름을 자료에서 «계산하지» 않았다 — 제목은 색인에 남으므로 자료가 흔들릴 때마다
+ *   바뀌면 안 된다. 대신 **박은 이름이 자료에 있는지 빌드가 검사한다.**
+ *   ⚠ 이 지면은 자료가 늘면 나라가 늘 수 있다. 그때 검사가 안 죽는 것이 옳다 —
+ *     «없어지는» 것만 잡는다. 그래서 「박은 것이 자료에 있나」만 본다.
+ */
+const 제목에박은나라 = ['Vietnam', 'Indonesia', 'Malaysia'];
+const 자료의나라 = (d.byMarket ?? []).map((x: any) => String(x.name));
+const 못찾은나라 = 제목에박은나라.filter((n) => !자료의나라.includes(n));
+if (못찾은나라.length) {
+  throw new Error(
+    [
+      '🔴 /all-ten — 제목·설명에 박은 나라가 자료에 없다: ' + 못찾은나라.join(', '),
+      '   자료에 있는 나라: ' + 자료의나라.join(', '),
+      '   ⛔ 제목을 고치십시오. 틀린 제목이 색인에 남는 것이 가장 나쁩니다.',
+    ].join('\n'),
+  );
+}
+
+/* ⚠ 첫 판은 제목 63자 · 설명 163자였다. 두 자가 다 잡는 길이라 60자·155자로 줄였다 */
+const TITLE = 'Vietnam, Indonesia, Malaysia: the all-Korean top 10s';
+const DESC = `A Netflix country chart has been Korean in all ten places ${d.allTenCells} times — `
+  + `${밖의칸.length} outside Korea, in Vietnam, Indonesia and Malaysia. `
+  + `From ${수(d.cellsRead)} country-week charts.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}

@@ -54,9 +54,38 @@ const 커버가장낮은회사 = [...회사들].sort((a: any, b: any) => a.커�
 const 커버배수 = Math.round((가장높은커버 / 가장낮은커버) * 10) / 10;
 const 중간배수 = Math.round((가장높은중간 / 가장낮은중간) * 10) / 10;
 
-const TITLE = 'K-pop companies by how widely their artists are read';
-const DESC = `${d.셈.회사수} K-pop companies, ${수(d.셈.이어진사람합)} artists with a reader count. `
-  + `Coverage varies ${가장낮은커버}–${가장높은커버}%, so we print it beside every median.`;
+/**
+ * 🔴 [2026-09-05 00:0x] **제목에 실명을 넣었다.** 어제(9/3) 네 유닛이 이어 써서 정한 규칙이
+ *   「제목·h1 에 사람이 실제로 검색하는 실명 + 아무도 답하지 않는 물음」인데, 이 지면은
+ *   내가 «그 규칙을 정한 다음 날» 만들면서 실명을 하나도 안 넣었다.
+ *   23시 점검에서 재 보니 오늘 낸 새 지면 여섯 장이 다 그랬고, 그 중 넷이 내 것이었다.
+ *   ⛔ 규칙을 몰라서가 아니다. 표를 만들면 제목이 자연히 총론이 되고, 그때 자를 안 댔다.
+ *
+ * ⚠ 회사 이름을 앞에 놓을 때 조심한 것 — 이 지면의 알맹이는 **「줄 세울 수 없다」**다.
+ *   그래서 제목을 「SM 이 1위」꼴로 짓지 않았다. 「how many we can actually count」로
+ *   **셀 수 있는 몫이 회사마다 다르다는 것**을 제목에서부터 말한다.
+ *
+ * ⛔ 이름을 자료에서 계산하지 않았다 — 제목은 색인에 남으므로 자료가 흔들릴 때마다
+ *   바뀌면 안 된다. 대신 **박은 이름이 자료에 있는지 빌드가 검사한다**(아래).
+ */
+const 제목에박은이름 = ['SM', 'YG', 'JYP', 'Hybe'];
+const 자료의이름 = 회사들.map((x: any) => String(x.회사));
+const 못찾은이름 = 제목에박은이름.filter((n) => !자료의이름.some((m) => m.includes(n)));
+if (못찾은이름.length) {
+  throw new Error(
+    [
+      '🔴 /label-reach — 제목·설명에 박은 이름이 자료에 없다: ' + 못찾은이름.join(', '),
+      '   자료에 있는 회사: ' + 자료의이름.join(', '),
+      '   ⛔ 제목을 고치거나 자료를 고치십시오. 틀린 제목이 색인에 남는 것이 가장 나쁩니다.',
+    ].join('\n'),
+  );
+}
+
+/* ⚠ 첫 판은 제목 69자 · 설명 168자였다. 두 자가 다 잡는 길이다 — 60자·155자로 줄였다 */
+const TITLE = 'SM, YG, JYP, Hybe: how many artists we can actually count';
+const DESC = `SM, YG, JYP, Hybe and ${d.셈.회사수 - 4} more K-pop companies. We hold a reader `
+  + `count for ${수(d.셈.이어진사람합)} artists, but the share we can measure runs `
+  + `${가장낮은커버}–${가장높은커버}% — not a ranking.`;
 
 const jsonLd = [{
   '@context': 'https://schema.org',

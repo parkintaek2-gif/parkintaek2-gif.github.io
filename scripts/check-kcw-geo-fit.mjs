@@ -72,6 +72,15 @@ export function 이름쓸만한가(이름) {
   const s = String(이름 ?? '').trim();
   if (!/[A-Za-z가-힣]/.test(s)) return false;
   if (/^(the|and|for|with|from|that|this|korea|korean|netflix)$/i.test(s)) return false;
+  /**
+   * 🔴 [2026-09-05 00:3x] **달 이름·요일을 뺐다.** `/kpop-birthdays` 가 「실명 있음」으로
+   *   통과했는데, 걸린 이름이 **「March」**였다. 넷플릭스 작품에 그 이름이 있고
+   *   제목의 「March the fullest」가 달 이름으로 큰 글자를 쓰니 그대로 걸렸다.
+   * ⛔ 달 이름은 큰 글자라서 대소문자 규칙으로도 안 걸러진다. 목록으로 뺀다.
+   *   ⚠ 「우연히 통과」를 두 번 잡았다 — 처음은 「count/Count」, 이번은 달 이름이다.
+   *     **통과한 것을 하나하나 눌러 보지 않으면 계속 나온다.**
+   */
+  if (/^(january|february|march|april|june|july|august|september|october|november|december|monday|tuesday|wednesday|thursday|friday|saturday|sunday)$/i.test(s)) return false;
   if (s.length >= 4) return true;
   /* 석 자는 약칭만 받는다 — 큰 글자가 하나라도 있으면 약칭으로 본다 */
   return s.length === 3 && /[A-Z]/.test(s);
@@ -113,6 +122,27 @@ export function 정규식막기(s) {
  * 제목에 사전의 이름이 들어 있나. 들어 있으면 «가장 긴 것»을 돌려준다.
  * ⛔ 낱말 경계를 본다 — 「Us」가 「Just」 안에서 걸리는 것을 막는다.
  *   ⚠ 우리말은 낱말 경계가 없어 이 규칙이 안 듣는다. 우리말 이름은 그대로 포함으로 본다.
+ *
+ * ── 🔴 [2026-09-05 00:2x] **대소문자를 안 가려서 «우연히» 통과했다** ────
+ * 내가 방금 고친 두 지면을 다시 재 보니 이렇게 나왔다.
+ * ```
+ * /label-reach     실명: "Count"   ← 「SM」이 아니다
+ * /cap-per-artist  실명: "Count"   ← 「HYBE」가 아니다
+ *   제목: 「SM, YG, JYP, Hybe: how many artists we can actually count」
+ *                                                              ^^^^^ 이것이 걸렸다
+ * ```
+ * 넷플릭스 작품에 「Count」라는 이름이 있고, 내가 대소문자를 안 가리게 짰다.
+ * ⇒ **평범한 낱말이 작품 이름과 같으면 아무 제목이나 통과한다.**
+ *   Count · Exit · Reach · Climb · Opening … 우리 지면 이름과 겹치는 것이 수두룩하다.
+ * ⛔ **그러니 「88.2%」는 부풀려진 수였다.** 통과한 것 중 얼마가 우연인지 몰랐다.
+ * ✅ 그래서 **제목에 적힌 쪽이 큰 글자로 시작하는지**를 본다.
+ *   「count」는 떨어지고 「Count」는 걸린다.
+ *
+ * ── ⚠ 처음엔 아예 «대소문자를 가려» 맞췄는데, 그건 너무 좁았다 ────
+ * 그렇게 하니 **`/cap-per-artist` 의 「HYBE」가 떨어졌다** — 우리 자료가 그 회사를
+ * 「Hybe」로 적기 때문이다. **지면은 옳고 사전 표기가 다른 것**인데 지면을 틀렸다고 했다.
+ * ⇒ 그래서 «찾기»는 대소문자를 안 가리고, «판정»은 제목 쪽 첫 글자로 한다.
+ *   HYBE ↔ Hybe 는 걸리고, count ↔ Count 는 안 걸린다.
  */
 export function 제목의실명(제목, 이름들) {
   const t = String(제목 ?? '');
@@ -120,10 +150,15 @@ export function 제목의실명(제목, 이름들) {
   let 찾은 = null;
   for (const n of 이름들) {
     const 우리말 = /[가-힣]/.test(n);
-    const 걸리나 = 우리말
-      ? t.includes(n)
-      : new RegExp('(^|[^A-Za-z0-9])' + 정규식막기(n) + '([^A-Za-z0-9]|$)', 'i').test(t);
-    if (걸리나 && (!찾은 || n.length > 찾은.length)) 찾은 = n;
+    let 걸린것 = null;
+    if (우리말) {
+      if (t.includes(n)) 걸린것 = n;
+    } else {
+      const m = t.match(new RegExp('(^|[^A-Za-z0-9])(' + 정규식막기(n) + ')([^A-Za-z0-9]|$)', 'i'));
+      /* ⭐ 제목에 적힌 쪽이 큰 글자로 시작해야 이름으로 본다 */
+      if (m && /^[A-Z]/.test(m[2])) 걸린것 = n;
+    }
+    if (걸린것 && (!찾은 || 걸린것.length > 찾은.length)) 찾은 = 걸린것;
   }
   return 찾은;
 }
@@ -195,7 +230,17 @@ function 자가시험() {
   재('붙임표가 있어도 센다', 제목의실명('Go Youn-jung tops two Wikipedias', 사전), 'Go Youn-jung');
   재('우리말은 그대로 포함으로 본다',
     제목의실명('국립강릉원주대학교 취업률', 사전), '국립강릉원주대학교');
-  재('대소문자를 안 가린다', 제목의실명('hybe alone', 사전), 'HYBE');
+  /* 🔴 「count」가 작품 이름 「Count」로 통과하던 자리 */
+  재('🔴 대소문자를 가린다 — 평범한 낱말이 작품 이름으로 통과하면 안 된다',
+    제목의실명('how many artists we can actually count', ['Count']), null);
+  재('제 꼴로 적히면 걸린다', 제목의실명('The Count returns', ['Count']), 'Count');
+  재('소문자로 적힌 이름은 «없다»로 본다', 제목의실명('hybe alone', 사전), null);
+  /* 🔴 우리 자료는 Hybe, 지면은 HYBE — 지면이 옳은데 사전 표기가 달라 떨어지던 자리 */
+  재('🔴 HYBE 는 자료가 Hybe 여도 걸린다 — 둘 다 큰 글자로 시작한다',
+    제목의실명('HYBE alone is two-thirds', ['Hybe']), 'Hybe');
+  재('달 이름은 사전에 안 들어간다 — March 로 우연히 통과하던 자리',
+    [이름쓸만한가('March'), 이름쓸만한가('July'), 이름쓸만한가('Monday')], [false, false, false]);
+  재('달 이름과 겹치지 않는 이름은 그대로 쓴다', 이름쓸만한가('Marchlands'), true);
   재('빈 제목', 제목의실명('', 사전), null);
 
   const 글 = '<title>HYBE alone is two-thirds | K Culture Wire</title>'
