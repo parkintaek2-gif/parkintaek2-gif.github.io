@@ -1,23 +1,23 @@
 {
  "_왜": "주가×무역을 같은 잣대(Gini·상위4)로 교차. 비율/Gini라 sim 인플레 불변·검증가능.",
- "stockAsOf": "20260902",
+ "stockAsOf": "20260903",
  "tradeMonth": "2026-06",
  "dims": [
   {
    "key": "Stock market cap",
-   "units": "2765 listed stocks",
-   "gini": 0.941,
-   "top4": 49.8,
-   "top10": 57.6,
+   "units": "2764 listed stocks",
+   "gini": 0.942,
+   "top4": 49.5,
+   "top10": 57.3,
    "half": 5
   },
   {
    "key": "Stock trading",
-   "units": "2644 traded stocks",
-   "gini": 0.935,
-   "top4": 38.6,
-   "top10": 47.1,
-   "half": 14
+   "units": "2640 traded stocks",
+   "gini": 0.938,
+   "top4": 39.1,
+   "top10": 48.3,
+   "half": 12
   },
   {
    "key": "Exports",

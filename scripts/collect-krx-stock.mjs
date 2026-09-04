@@ -7,12 +7,21 @@
  *
  * 왜: 그동안 못 갖던 «종목별 주가·거래량». 애널 목표주가 × 실주가(적중률) 교차상품의 재료.
  */
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { put } from '../src/lib/store.mjs';
+
+/**
+ * 🔴 [2026-09-04 · 6번] R2 백업 없이 archive/ 로컬에만 썼다. 5번의 전체 경고
+ *   ("여러분 수집기가 store.put 을 거치는지 보십시오")를 계기로 6번이 오늘 만든 두
+ *   수집기에서 같은 결함을 발견·고쳤고, 기존 것도 훑다가 이 자도 걸렸다.
+ *   KRX 일별매매정보는 재현 안 되는 원자료(내일이면 오늘 basDd 는 다시 못 받는다는
+ *   보장이 없지만 과거분은 API가 언제까지 열어 둘지 모른다) — writeFileSync 하나로
+ *   이 PC 에만 남는 구조는 store.mjs 헤더가 경고하는 바로 그 사고다.
+ */
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const OUT = join(ROOT, 'archive', 'raw', 'krx');
 
 async function key() {
   const env = await readFile(join(ROOT, '.env'), 'utf8');
@@ -51,13 +60,12 @@ if (!basDd) {
   if (!basDd) throw new Error('최근 6일 내 영업일을 못 찾음');
 }
 
-await mkdir(OUT, { recursive: true });
 let ok = 0;
 for (const service of services) {
   const { status, rows, raw } = await pull(service, basDd);
   if (status === 200 && rows.length > 0) {
-    await writeFile(join(OUT, `${service}-${basDd}.json`), JSON.stringify({ service, basDd, rows }, null, 0));
-    console.log(`✅ ${service} ${basDd} · ${rows.length}행 → archive/raw/krx/${service}-${basDd}.json`);
+    const 저장 = await put(`raw/krx/${service}-${basDd}.json`, JSON.stringify({ service, basDd, rows }, null, 0), 'application/json');
+    console.log(`✅ ${service} ${basDd} · ${rows.length}행 → ${저장.local}${저장.remote ? ' · R2 저장 완료' : (저장.remoteError ? ` · R2 실패: ${저장.remoteError}` : ' · R2 비활성')}`);
     ok++;
   } else {
     console.log(`⚠ ${service} ${basDd} · HTTP ${status} · ${JSON.stringify(raw).slice(0, 160)}`);

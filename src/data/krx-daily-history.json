@@ -171,8 +171,27 @@
    "valTop1": 17.27,
    "valTop5": 40.86,
    "valTop10": 47.1
+  },
+  {
+   "date": "2026-09-03",
+   "issues": 2764,
+   "zeroTrade": 124,
+   "giniCap": 0.9417,
+   "giniTurnover": 0.9382,
+   "kospiCapPct": 92.46,
+   "kosdaqCapPct": 7.54,
+   "kospiValPct": 81.81,
+   "kosdaqValPct": 18.19,
+   "kospiVel": 4.09,
+   "kosdaqVel": 11.15,
+   "capTop1": 24.91,
+   "capTop5": 51.22,
+   "capTop10": 57.29,
+   "valTop1": 15.67,
+   "valTop5": 41.37,
+   "valTop10": 48.27
   }
  ],
- "asOf": "2026-09-02",
- "count": 9
+ "asOf": "2026-09-03",
+ "count": 10
 }
