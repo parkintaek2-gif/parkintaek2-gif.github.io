@@ -106,6 +106,26 @@ export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data'))
           const v = 것[칸];
           if (typeof v === 'string' && 이름쓸만한가(v)) { 이름.add(v.trim()); 여기 += 1; }
         }
+        /**
+         * 🔴 [2026-09-05 00:3x] **이름이 «글자 배열»로 들어 있는 자료를 못 읽고 있었다.**
+         *   /born-year/ 아래 36장이 「실명 없음」으로 올라왔는데, 그 제목에는
+         *   「Oh Hyeon-kyeong」·「Byun Hee-bong」 같은 이름이 «이미» 들어 있었다.
+         *   자료가 이렇게 생겼다 —
+         *     { "year": "1936", "people": 11, "top": ["Oh Hyeon-kyeong", "Johnny Yune"] }
+         *   내 사전은 «객체의 칸»만 읽고 있었다. 글자 배열은 안 읽었다.
+         * ⛔ 지면이 틀린 것이 아니라 **또 내 사전이 얇았다.** 세 번째다
+         *   (석 자 약칭 · 도시 이름 · 그리고 이것).
+         * ⚠ 그러니 「실명 없음 목록」을 그대로 남에게 시키지 않는다 —
+         *   **목록을 읽고, 몇 장을 눌러 보고 나서** 시킨다.
+         * ⛔ 아무 글자 배열이나 긁지 않는다. 이름이 들어가는 칸 이름만 본다.
+         */
+        for (const 칸 of ['top', 'names', 'people', 'members', 'titles']) {
+          const v2 = 것[칸];
+          if (!Array.isArray(v2)) continue;             // people 은 «수»일 때가 있다
+          for (const x of v2) {
+            if (typeof x === 'string' && 이름쓸만한가(x)) { 이름.add(x.trim()); 여기 += 1; }
+          }
+        }
       }
     }
     if (여기) 온데.push({ 파일: f, 개수: 여기 });
@@ -213,6 +233,24 @@ function 자가시험() {
   재('석 자 소문자 낱말은 그대로 버린다',
     [이름쓸만한가('the'), 이름쓸만한가('and'), 이름쓸만한가('for')], [false, false, false]);
   재('도시 이름', 이름쓸만한가('Ansan'), true);
+
+  /* 🔴 이름이 «글자 배열»로 든 자료를 못 읽어 /born-year 아래 36장을 틀렸다고 하던 자리 */
+  {
+    const 방 = fs.mkdtempSync(path.join(process.env.TEMP ?? '.', 'geofit-'));
+    fs.writeFileSync(path.join(방, 'a.json'), JSON.stringify({
+      pages: [{ year: '1936', people: 11, top: ['Oh Hyeon-kyeong', 'Johnny Yune'] }],
+    }));
+    const 하나 = 이름사전만들기(방).이름들.sort();
+    재('글자 배열 안의 이름을 읽는다', 하나, ['Johnny Yune', 'Oh Hyeon-kyeong']);
+    fs.writeFileSync(path.join(방, 'b.json'), JSON.stringify({
+      pages: [{ people: 11, top: ['ok', 'Byun Hee-bong'] }],
+    }));
+    const 둘 = 이름사전만들기(방).이름들;
+    재('짧은 글자는 그래도 버린다', 둘.includes('ok'), false);
+    재('긴 이름은 받는다', 둘.includes('Byun Hee-bong'), true);
+    재('people 이 «수»일 때 터지지 않는다', 둘.length > 0, true);
+    fs.rmSync(방, { recursive: true, force: true });
+  }
   재('네 글자부터 쓴다', 이름쓸만한가('HYBE'), true);
   재('흔한 낱말은 뺀다', 이름쓸만한가('Korea'), false);
   재('Netflix 도 뺀다 — 어디에나 있다', 이름쓸만한가('Netflix'), false);
