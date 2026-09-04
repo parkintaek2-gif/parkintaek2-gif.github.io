@@ -111,8 +111,16 @@ function 뽑기_keyword(t) {
      화면 부속(「검색」·「내용」·「최신순」)을 제목으로 집었고, 그 가짜 제목들이
      서로 겹쳐 중복으로 걸러지면서 **11,234건 중 69건만 담겼다.**
      0건이면 눈에 띄는데 69건이라 성공한 척 넘어갈 뻔했다. */
-  let 앞칸끝 = -1;
-  const 부속 = /^(최신순|조회순|인기순|제목순|검색|내용|전체|제목|바로가기|건의 결과가 있습니다\.)$/;
+  /* ⚠ 한 쪽의 «첫 항목»은 앞에 바로가기가 없어 창이 화면 머리까지 뻗는다.
+     그래서 목록 머리(「제목순」·「건의 결과가 있습니다.」)를 왼쪽 끝으로 삼는다.
+     이걸 안 하면 첫 항목 제목이 「기관명」·「총」으로 잡히고, 그 가짜 제목이 쪽마다 겹쳐
+     중복으로 걸러지면서 **11,234건이 1,200건에서 멈춘다** (2026-09-04 실측). */
+  let 앞칸끝 = Math.max(
+    t.lastIndexOf('제목순'),
+    t.findIndex((s) => /건의 결과가 있습니다/.test(s)),
+    -1,
+  );
+  const 부속 = /^(최신순|조회순|인기순|제목순|검색|내용|전체|제목|바로가기|기관명|수정일|등록일|총|건의 결과가 있습니다\.)$/;
   for (let i = 0; i < t.length; i += 1) {
     if (t[i] === '바로가기') { 앞칸끝 = i; continue; }
     if (t[i] !== '제공기관') continue;
@@ -121,7 +129,8 @@ function 뽑기_keyword(t) {
     const 값 = (이름) => { const k = 창.indexOf(이름); return k >= 0 ? 창[k + 1] : null; };
     const 앞 = t.slice(창머리, i)
       .filter((s) => !/^(오픈API|파일데이터|REST|SOAP)$/.test(s))
-      .filter((s) => !/^(JSON|XML|CSV|XLSX|LINK|JSON\+XML|JSON XML|ZIP|PDF)$/.test(s))
+      /* ⚠ 대소문자를 가리면 「csv」·「json」 소문자 딱지를 제목으로 집는다 (200·500쪽에서 실측) */
+      .filter((s) => !/^(json|xml|csv|xlsx|link|zip|pdf|txt|hwp|shp|json\+xml|json xml|xml\+json)$/i.test(s))
       .filter((s) => !부속.test(s));
     앞칸끝 = i;
     if (!앞.length) continue;
