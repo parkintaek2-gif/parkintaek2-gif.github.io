@@ -151,6 +151,24 @@ if (!fs.existsSync(DIST)) { console.log('⬜ dist 가 없다 — **못 쟀다.**
 const 지면 = 지면들();
 if (!지면.length) { console.log('⬜ SeoulMarkets 지면이 dist 에 없다 — **못 쟀다.** 빌드 먼저'); process.exit(0); }
 
+/**
+ * 🔴 [2026-09-05 · 5번 지적] 여섯 유닛이 같은 dist 를 쓴다 — 옆 유닛이 빌드 중이면
+ * 이 자가 «절반쯤 쓰인 dist»를 읽는다(2,798장 → 743장 → 폴더 없어짐, 실측 사례).
+ * ⛔ 그 수로 「고아 폭증」을 보고하면 없는 결함을 만든다. 짐작 표식 대신 «전에 본 가장
+ * 큰 장수»를 파일에 적어 두고 견준다(5번의 3판 안전장치 — 사이트맵 유무로는 못 가른다).
+ */
+const 기준길 = path.join(뿌리, 'src/data/seoulmarkets-inbound-baseline.json');
+let 기준 = { 가장많이본것: 0 };
+try { 기준 = JSON.parse(fs.readFileSync(기준길, 'utf8')); } catch {}
+if (기준.가장많이본것 > 0 && 지면.length < 기준.가장많이본것 / 2) {
+  console.log(`⬜ 지면 ${지면.length}장 — 전에 본 가장 많은 것(${기준.가장많이본것}장)의 절반 아래다.`);
+  console.log('   반쯤 쓰인 dist 로 보인다 — **못 쟀다.** 다른 유닛의 빌드가 끝난 뒤 다시 돈다.');
+  process.exit(0);
+}
+if (지면.length > 기준.가장많이본것) {
+  try { fs.writeFileSync(기준길, JSON.stringify({ 가장많이본것: 지면.length, 잰때: new Date().toISOString() }, null, 1)); } catch {}
+}
+
 const 고른갈래 = (process.argv.find((a) => a.startsWith('--갈래=')) ?? '').split('=')[1] ?? null;
 const 몇장 = Number((process.argv.find((a) => a.startsWith('--몇장=')) ?? '').split('=')[1] ?? 12);
 
