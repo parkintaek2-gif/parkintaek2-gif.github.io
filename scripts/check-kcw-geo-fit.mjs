@@ -197,7 +197,16 @@ export function 제목의실명(제목, 이름들) {
     } else {
       const m = t.match(new RegExp('(^|[^A-Za-z0-9])(' + 정규식막기(n) + ')([^A-Za-z0-9]|$)', 'i'));
       /* ⭐ 제목에 적힌 쪽이 큰 글자로 시작해야 이름으로 본다 */
-      if (m && /^[A-Z]/.test(m[2])) 걸린것 = n;
+      /**
+       * 🔴 [2026-09-05 00:4x] 처음엔 «큰 글자로 시작»만 봤다. 그래서
+       *   「20th Century Girl」이 떨어졌다 — 숫자로 시작하는 작품 이름이다.
+       *   /week 아래 석 장이 그 때문에 「실명 없음」으로 남아 있었다.
+       *   ⛔ 지면은 옳고 내 판정이 좁았다. 오늘 이 갈래로 네 번째다.
+       * ✅ 이름 «자체»가 글자로 시작할 때만 큰 글자를 따진다.
+       *   숫자나 다른 글자로 시작하는 이름은 그 규칙을 걸지 않는다.
+       */
+      const 첫글자가로마자 = /^[A-Za-z]/.test(n);
+      if (m && (!첫글자가로마자 || /^[A-Z]/.test(m[2]))) 걸린것 = n;
     }
     if (걸린것 && (!찾은 || 걸린것.length > 찾은.length)) 찾은 = 걸린것;
   }
@@ -321,6 +330,12 @@ function 자가시험() {
     제목의실명('how many artists we can actually count', ['Count']), null);
   재('제 꼴로 적히면 걸린다', 제목의실명('The Count returns', ['Count']), 'Count');
   재('소문자로 적힌 이름은 «없다»로 본다', 제목의실명('hybe alone', 사전), null);
+  /* 🔴 숫자로 시작하는 작품 이름이 떨어지던 자리 */
+  재('🔴 숫자로 시작하는 이름도 걸린다',
+    제목의실명('20th Century Girl — Korea on Netflix', ['20th Century Girl']),
+    '20th Century Girl');
+  재('그래도 평범한 낱말은 안 걸린다',
+    제목의실명('how many artists we can actually count', ['Count']), null);
   /* 🔴 우리 자료는 Hybe, 지면은 HYBE — 지면이 옳은데 사전 표기가 달라 떨어지던 자리 */
   재('🔴 HYBE 는 자료가 Hybe 여도 걸린다 — 둘 다 큰 글자로 시작한다',
     제목의실명('HYBE alone is two-thirds', ['Hybe']), 'Hybe');
