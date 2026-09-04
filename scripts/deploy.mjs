@@ -525,15 +525,35 @@ async function 새주소찾기(최대 = 3) {
     ? statSync(path.join(dist뿌리, 'index.html')).mtimeMs - 10 * 60 * 1000
     : 0;
   const 후보 = [];
+  let 사라진지면 = 0;
+  /**
+   * 🔴 [2026-09-05 04:1x] **이 걷기가 배포를 통째로 터뜨렸다.**
+   *   목록을 만든 «뒤»에 옆 유닛 빌드가 그 파일을 지웠고, statSync 가 ENOENT 로 던졌다.
+   *     Error: ENOENT: no such file or directory, stat
+   *       …/dist/100y/college-major/경찰학전공.html
+   *   ⛔ **여섯 유닛이 같은 dist 를 쓴다.** 옆에서 빌드하는 동안 파일은 지워지고 다시 쓰인다.
+   *     그때 배포가 죽으면 «다 된 커밋이 손님에게 안 나간다» — 가장 비싼 실패다.
+   * ✅ 못 읽은 것은 «세어서 알리고» 나머지로 배포를 이어 간다.
+   *   ⚠ 0 으로 덮지 않는다. 몇 장을 못 봤는지 화면에 적는다 —
+   *     그 장수가 크면 판정에 쓸 표식이 모자랄 수 있으니 사람이 알아야 한다.
+   */
   const 걷기 = (d, 앞) => {
-    for (const e of readdirSync(d, { withFileTypes: true })) {
+    let 것들;
+    try { 것들 = readdirSync(d, { withFileTypes: true }); } catch { 사라진지면 += 1; return; }
+    for (const e of 것들) {
       const p = path.join(d, e.name);
-      if (e.isDirectory()) { if (e.name !== '_astro') 걷기(p, `${앞}/${e.name}`); }
-      else if (e.name.endsWith('.html') && statSync(p).mtimeMs >= 기준시각)
-        후보.push(`${앞}/${e.name.replace(/\.html$/, '')}`);
+      if (e.isDirectory()) { if (e.name !== '_astro') 걷기(p, `${앞}/${e.name}`); continue; }
+      if (!e.name.endsWith('.html')) continue;
+      let 때;
+      try { 때 = statSync(p).mtimeMs; } catch { 사라진지면 += 1; continue; }
+      if (때 >= 기준시각) 후보.push(`${앞}/${e.name.replace(/\.html$/, '')}`);
     }
   };
   걷기(dist뿌리, '');
+  if (사라진지면) {
+    console.log(`⚠ 걷는 사이에 사라진 지면 ${사라진지면}장 — 옆 유닛이 빌드 중이다.`);
+    console.log('   그만큼 «안 본 것»이고, 0 으로 덮지 않았다. 판정 표식이 모자라면 다시 배포한다.');
+  }
 
   const 주소로 = (길) =>
     길.startsWith('/100y/') ? `https://100yearmap.com${길.slice(5)}`
