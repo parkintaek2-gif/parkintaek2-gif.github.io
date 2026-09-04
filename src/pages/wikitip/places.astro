@@ -201,9 +201,15 @@ const jsonLd = {
   <KcwCardnews set="places" count={5} />
 
   {/* 🔴 8/15 — 카드뉴스는 12벌인데 영상이 9편이었다. 이 지면이 그 빈 자리 하나였다 */}
-  <KcwShorts set="places"
-    says={`A man and a woman read out the two figures — one record label against the capital — `
-      + `and how many of the cities we measured sit below that one company.`} />
+  {/* ⭐ [2026-09-05] 소리판으로 갈았다. 무음판 파일은 «그대로 둔다» —
+      사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」.
+      재서 확인했다: 무음판 −91 dB · 이 판 −24.3 dB */}
+  <KcwShorts set="places-voiced"
+    says={`Fourteen seconds, read aloud: YG Entertainment scores 111.47 reads per million and `
+      + `Seoul, the most-read place of any kind, 106.54. Five hundred and eighteen cities and `
+      + `districts sit below that one company. These are Wikipedia reader counts per million `
+      + `people, not a measure of importance, and a company and a city are not the same kind `
+      + `of thing — the ordering is what we can count, not a claim about which matters more.`} />
 
   <KcwRelatedArticles page="/places" />
   <KcwMethodLimits method={d.method} limitation={d.limitation} />

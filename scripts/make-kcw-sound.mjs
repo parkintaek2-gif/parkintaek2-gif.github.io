@@ -304,9 +304,18 @@ try {
 
 console.log(`\n⭐ 새 제목(사장님 ③ 「제목만 바꿔서」): ${소리판제목(대본.제목) ?? '(옛 제목을 모른다)'}`);
 console.log('⛔ 원본 무성판은 «그대로 둔다». 지우지 않는다.');
-console.log('\n⚠ 아직 «손님이 볼 자리»가 없다. 세 곳 다 이름을 올려야 끝난다 —');
+console.log('\n⚠ 아직 «손님이 볼 자리»가 없다. 네 곳 다 이름을 올려야 끝난다 —');
 console.log(`   1. 지면에  <KcwShorts set="${set}-voiced" …>`);
 console.log(`   2. src/pages/wikitip/sitemap.xml.ts 의 videoSets 에  set: '${set}-voiced'`);
-console.log('   3. node scripts/build-kcw-video-index.mjs   (⚠ 빌드를 «먼저» 해야 지면을 읽는다)');
+/**
+ * 🔴 [2026-09-05] **이 안내문이 「세 곳」이라 했는데 실제로는 네 곳이다.**
+ *   빠져 있던 자리가 src/data/wikitip-video.json 의 videos 다 —
+ *   build-kcw-video-index.mjs 가 그 파일을 읽어 갤러리를 만든다.
+ *   그것을 안 넣으면 check-kcw-video-lists 가 「어느 지면에도 안 실렸다」로 잡는다.
+ *   ⛔ 안내문이 한 자리를 빼먹으면, 그 말을 믿은 사람이 그 자리를 빼먹는다.
+ *     실제로 내가 그렇게 빼먹었다(places-voiced).
+ */
+console.log(`   3. src/data/wikitip-video.json 의 videos 에  { set: '${set}-voiced', seconds, uploadDate, thumb, src }`);
+console.log('   4. node scripts/build-kcw-video-index.mjs   (⚠ 빌드를 «먼저» 해야 지면을 읽는다)');
 console.log('   그다음 확인: node scripts/check-kcw-video-lists.mjs  → 「셋이 다 맞는다」');
 }

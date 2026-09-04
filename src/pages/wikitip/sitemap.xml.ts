@@ -408,6 +408,21 @@ const videoSets = [
       + 'counts, and on what that ordering does and does not mean.',
   },
   {
+    /**
+     * ⭐ [2026-09-05] 소리판. 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해,
+     *   **영상 제목만 바꿔서**」 — 그래서 위 무음판 줄을 남기고 제목을 달리 적는다.
+     * ⚠ 목소리는 화면에 있는 수만 말한다 — YG 111.47 · 서울 106.54 · 그 아래 518곳.
+     * ⚠ 음량을 재서 확인했다: 무음판 −91 dB · 이 판 −24.3 dB.
+     */
+    set: 'places-voiced',
+    page: '/places',
+    title: 'One Korean record label is looked up more than Seoul is — read aloud',
+    description: '14 seconds with narration: YG Entertainment scores 111.47 Wikipedia reads per '
+      + 'million against 106.54 for Seoul, the most-read place of any kind, with 518 cities and '
+      + 'districts below that one company. Reader counts are not importance, and a company and '
+      + 'a city are not the same kind of thing.',
+  },
+  {
     set: 'outside',
     page: '/places',
     title: 'The Korean places Southeast Asia reads about are not the ones on the tour route',
