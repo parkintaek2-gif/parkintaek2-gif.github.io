@@ -115,11 +115,32 @@ const 나이글 = g.oldestBornYear && g.youngestBornYear
    ⚠ 처음 잴 때 dist 에서 정규식으로 「born between X and Y」를 뽑고 **안 맞는 것은 기본값으로
      채웠다.** 그래서 최대 153자로 나왔는데 실제로는 179자였다 — 못 잰 것을 채운 탓이다.
      ⭐ 두 번째는 dist 를 그대로 읽어 «가장 긴 것»을 찾아 다시 쟀다. 짐작으로 채우지 않는다. */
-const 제목긴것 = `${g.name} members age ${기준해}, oldest to youngest`;
-const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members age ${기준해}`;
-const DESC = `${g.name} has ${g.membersWithBirthday} members with a birth date on record, `
-  + `${나이글 ?? 'with birth years listed'}. Ages are as of ${기준해}. `
-  + `All listed, oldest to youngest.`;
+/* 🔴 2026-09-04 — **손님이 치는 말은 「birthday」인데 제목에 그 낱말이 없었다.**
+   Search Console 28일치(2026-08-04~09-01)에서 그룹 지면에 붙은 검색어 —
+   ```
+   「skz birthday」          노출 4 · 자리 65.5
+   「ateez birthdays」        노출 2 · 자리 76.0
+   「katseye members birthdays」 노출 2 · 자리 77.5
+   「cortis birthday」        노출 2 · 자리 68.0
+   「kpop birthdays in january」 노출 2 · 자리 69.0
+   ```
+   ⭐ 자리가 65~82 다. 사실상 «없는» 것이다. 지면은 있고 200 이며 생일을 실제로 싣고 있는데,
+     제목이 「members age」라 그 물음의 말이 아니었다.
+   ⚠ 바로 위 8/27 주석에 내가 스스로 적어 둔 것이 있다 — 원래 제목안은
+     「members age and birthday」였는데 **길이 때문에 birthday 를 뺐다.** 그 뺀 낱말이
+     정작 손님이 치는 말이었다.
+   ⭐ 263개 그룹 이름을 다 넣어 다시 쟀다 — 새 제목의 최대가 «58자»다(NCT 계열이 가장 짧고
+     Tacos de asada y cebollin 이 가장 길다). 60자를 넘는 것이 **0장**이라 꼬리를 뗄 일이 없다.
+   ⛔ 낱말을 쌓은 것이 아니다. 이 지면은 실제로 «생일과 나이»를 둘 다 싣는다.
+   ⚠ 이 바꿈으로 자리가 오를지는 «모른다». 2026-09-11 에 같은 자로 다시 잰다 —
+     node scripts/check-ranked-but-unclicked.mjs */
+const 제목긴것 = `${g.name} members: birthdays and ages ${기준해}`;
+const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members: birthdays ${기준해}`;
+/* ⭐ 2026-09-04 — 설명에도 손님이 치는 말(「birthday」)을 앞에 둔다.
+   ⚠ 263장을 다 재고 바꿨다 — 새 설명의 최대가 126자다(옛것은 149자). 155자를 넘는 것이 0장이다.
+   ⛔ 뜻은 그대로다. 이 지면은 실제로 멤버마다 생일을 싣는다. */
+const DESC = `Every ${g.name} member birthday: ${g.membersWithBirthday} on record, `
+  + `${나이글 ?? 'birth years listed'}. Ages as of ${기준해}, oldest to youngest.`;
 ---
 
 <WikiTip title={TITLE} description={DESC}
