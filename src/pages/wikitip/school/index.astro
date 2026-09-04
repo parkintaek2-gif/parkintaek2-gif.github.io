@@ -12,6 +12,22 @@ import KcwDataBasis from '../../../components/KcwDataBasis.astro';
 import KcwRelatedArticles from '../../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../../components/KcwCardnews.astro';
 import data from '../../../data/wikitip-schools.json';
+/**
+ * 🔴 [2026-09-04] **이 지면은 「학교 이름과 사람 수」만 싣고 있었다.**
+ *
+ *   `check-visitor-walk.mjs` 가 「본문에 나가는 길이 없는 기사 9편」을 잡아 줘서, 그 아홉이
+ *   어느 지면으로 가야 하나를 재다가 알았다 — 기사
+ *   `arts-high-school-beats-sky-universities` 가 내세우는
+ *   **58.4% · 125 · 16.0% · 75 · 4,535** 가운데 이 지면에 있던 것은 125 와 75 뿐이었다.
+ *   ⇒ 카드마다 박는 「every figure has a table behind it」이 그 기사에서 거짓이었다.
+ *   ⭐ 그리고 자료는 8월부터 있었다. 못 잰 것이 아니라 «싣지 않은 것»이었다.
+ *
+ *   ⛔ 그런데 몫만 실으면 이 지면이 «학교 순위표»가 된다. 이 지면 스스로 위에서
+ *     「큰 수가 순위가 아니다」라고 적어 놓고 그것을 어기는 꼴이다.
+ *   ✅ 그래서 몫과 **95% 구간**을 같이 싣고, 인원이 스물 미만인 곳은 몫을 «말하지 않는다».
+ *     (다섯 명 가운데 셋이면 60% 인데, 그 60% 는 「낫다」가 아니라 「셋이 그랬다」다)
+ */
+import 언어판 from '../../../data/kcw-school-language-reach.json';
 /* 🔴 사장님 상시 지시 — 「밖에 내는 콘텐트는 «우리 사이트에도» 싣고, 관련 콘텐트를
    빠짐없이 붙여 다음 것을 계속 보게 하라」. 유튜브가 막혀 있어도 이 자리는 열려 있다. */
 import KcwShorts from '../../../components/KcwShorts.astro';
@@ -66,6 +82,77 @@ const DESC = `${학교들.length} schools, each with the Korean actors, singers 
       We hold {data.schoolsSeen} schools in all. {data.schoolsNotListed} of them have fewer than
       {' '}{data.minPeopleToList} people we could count, and we do not publish a page for those —
       they are counted, not hidden.
+    </p>
+  </section>
+
+  <section>
+    <h2>How far each school&rsquo;s alumni travel</h2>
+    <p class="note">
+      A Wikipedia article that exists in ten or more languages has been written up outside Korea.
+      Across every school we can count, <b>{언어판.셈.전체열개이상.toLocaleString('en-US')}</b> of
+      {' '}<b>{언어판.셈.전체잰사람.toLocaleString('en-US')}</b> counted alumni clear that line —
+      {' '}<b>{언어판.셈.전체몫}%</b> ({언어판.셈.전체구간아래}&ndash;{언어판.셈.전체구간위}).
+      The schools below are the {언어판.셈.몫을말할수있는학교} with at least
+      {' '}{언어판.몫낼최소인원} counted alumni, largest first.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead><tr><th>What we counted</th><th>Number</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Entertainers with a school recorded on Wikidata</th><td>{수(언어판.셈.학교적힌사람)}</td></tr>
+          <tr><th scope="row">School&ndash;person links counted (people at two schools count twice)</th><td>{수(언어판.셈.전체잰사람)}</td></tr>
+          <tr><th scope="row">Schools seen at all</th><td>{수(언어판.셈.학교전체)}</td></tr>
+          <tr><th scope="row">Schools with at least {언어판.몫낼최소인원} counted alumni</th><td>{수(언어판.셈.몫을말할수있는학교)}</td></tr>
+          <tr><th scope="row">Alumni in ten or more language editions</th><td>{수(언어판.셈.전체열개이상)}</td></tr>
+          <tr><th scope="row">That share, across every school</th><td>{언어판.셈.전체몫.toFixed(1)}%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="warn">
+      <b>Read the interval, not the percentage.</b> A school with 23 alumni and one with 352 both
+      get a percentage, but only the second one is a stable figure. Where two schools&rsquo;
+      intervals overlap, <b>this table cannot tell them apart</b> — and most of them overlap.
+      Sorting by percentage would turn that into a league table it is not.
+    </p>
+    <div class="scroll-x">
+      <table>
+        <thead>
+          {/* ⛔ 몫과 구간을 «한 칸에» 넣지 않는다. 넣어 봤더니 check-table-promises 가
+              「58.4 가 표에 없다」고 잡았다 — 칸 안에서 「58.4% (49.6–66.7)」로 붙어
+              한 칸이 한 값이 아니게 됐다. 자가 맞았다. 칸을 나누는 것이 표로도 낫다. */}
+          <tr>
+            <th>School</th><th>Counted alumni</th><th>Median language editions</th>
+            <th>In 10+ editions</th><th>Share</th><th>95% interval</th>
+          </tr>
+        </thead>
+        <tbody>
+          {언어판.학교들.map((s: any) => (
+            <tr>
+              <td class="nm">{s.학교}</td>
+              <td class="tot">{수(s.잰사람)}</td>
+              <td class="tot">{s.중간언어판}</td>
+              <td class="tot">{수(s.열개이상)}</td>
+              <td class="tot">{s.몫.toFixed(1)}%</td>
+              <td class="tot fine">{s.구간아래.toFixed(1)}&ndash;{s.구간위.toFixed(1)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note fine">
+      Two schools at the ends of this table can be told apart:
+      {' '}<b>{언어판.가장넓은.학교}</b> at {언어판.가장넓은.몫}%
+      {' '}({언어판.가장넓은.구간아래}&ndash;{언어판.가장넓은.구간위}) on {수(언어판.가장넓은.잰사람)} alumni,
+      and <b>{언어판.가장좁은.학교}</b> at {언어판.가장좁은.몫}%
+      {' '}({언어판.가장좁은.구간아래}&ndash;{언어판.가장좁은.구간위}) on {수(언어판.가장좁은.잰사람)}.
+      {' '}Their intervals do not overlap. That is the only kind of comparison this table supports.
+    </p>
+    <p class="note fine">
+      A person who studied at two schools is counted at both, so the alumni column adds up to more
+      than the number of people we hold. And a wide language footprint is not the same as being
+      widely read — it means an article exists in those languages, nothing more.
+      {' '}<a href="/article/arts-high-school-beats-sky-universities">How we counted this &rarr;</a>
     </p>
   </section>
 

@@ -7,6 +7,8 @@ pubDate: 2026-09-04
 dataAsOf: 2026-09-04T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "actors", "education", "measurement"]
+pages:
+  - "/school"
 sources:
   - org: "Wikidata"
     api: "educated_at for Korean entertainers, 4,535 people with at least one school recorded; joined on Q-id to a birth and sitelink table of 9,249 people"
@@ -119,3 +121,5 @@ The 4,535 people are those Wikidata records a school for. Our birth table holds 
 other 4,714 are not people without schools; they are people whose schools nobody wrote down.
 
 **This is a count of public records, not a ranking of schools.**
+
+The table behind this is at [kculturewire.com/school](/school?from=body).
