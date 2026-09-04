@@ -412,6 +412,33 @@ function 자가시험() {
   본다('우물이 열한 곳이다', 우물들.length === 11);
   본다('디시인사이드는 없다 — robots 가 우리를 이름으로 막았다',
     !우물들.some((u) => u.곳.includes('디시')));
+  /**
+   * 🔴 [2026-09-04 17:4x · 5번이 재서 잠금] **막힌 우물을 이름으로 잠근다.**
+   *
+   * 2번이 「커뮤니티 실시간 응답」 재료를 재 보고(446건 중 유닛 축에 걸린 것 **1건**)
+   * 우물을 유닛 축에 맞게 늘리자고 제안했다. 그래서 후보 넷의 `robots.txt` 를 **직접 받아 봤다.**
+   *
+   * ```
+   * orbi.kr           User-agent: ClaudeBot            Disallow: /     ⛔
+   * gall.dcinside.com ClaudeBot · anthropic-ai · Claude-Web  Disallow: /  ⛔ (9/3 에 이미 뺐다)
+   * pann.nate.com     User-agent: *                    Disallow: /     ⛔ (검색봇 흰명단만)
+   * www.clien.net     robots.txt 자체가 HTTP 403                        ⛔
+   * theqoo.net        robots.txt 없음(404) · 이용약관 있음              ⬜ 아직 못 봤다
+   * ```
+   *
+   * ⚠ **덫이 하나 있다.** orbi 와 dcinside 는 `User-agent: *` 에는 `Allow: /` 를 준다.
+   *   그러니 이름 없는 수집기로 가면 «규칙상» 통한다.
+   * ⛔ **그렇게 하지 않는다.** 그 사이트들은 ClaudeBot·anthropic-ai·Claude-Web 을
+   *   **이름으로 적어** 막았다. 우리가 무엇인지 알고 막은 것이다. 이름을 감추고 들어가는 것은
+   *   차단 회피이고, 우리는 데이터를 파는 회사다 — 그 한 번이 사업을 끝낼 수 있다.
+   * ⛔ **규칙을 못 읽는 곳(clien 403)도 안 쓴다.** 「규칙이 없다」와 「규칙을 못 봤다」는 다르다.
+   * ⬜ theqoo 는 robots 가 없을 뿐 «허락»은 아니다. 이용약관을 읽기 전에는 안 붙인다.
+   */
+  const 막힌곳 = ['오르비', 'orbi', '디시', 'dcinside', '네이트판', 'nate', '클리앙', 'clien'];
+  본다('⭐ 우리를 막은 우물이 하나도 안 들어와 있다',
+    !우물들.some((u) => 막힌곳.some((x) => `${u.곳}${u.주소}`.toLowerCase().includes(x.toLowerCase()))));
+  본다('⬜ theqoo 는 이용약관을 읽기 전에는 안 붙인다',
+    !우물들.some((u) => /theqoo|더쿠/i.test(`${u.곳}${u.주소}`)));
   /* 🔴 [2026-09-03] 하루 두 번 도는데 두 번째가 첫 번째를 덮고 있었다. 이 넷이 막는다 */
   본다('⭐ 합치면 아침 것을 안 잃는다', (() => {
     const r = 합치기([{ 길: 'a', 제목: '아침' }], [{ 길: 'b', 제목: '저녁' }], '저녁때');
