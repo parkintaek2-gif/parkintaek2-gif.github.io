@@ -1,5 +1,5 @@
 ---
-title: "Which BTS member is from Busan? And from Daegu? None is from Seoul"
+title: "BTS hometowns: Daegu, Busan, and not one from Seoul"
 category: stars
 dek: "Jimin and Jungkook were born in Busan, Suga and V in Daegu, and not one of the seven in Seoul. Busan gave nine of the 123 most-read Korean stars, Daegu four, Seoul fifty."
 pubDate: 2026-08-22

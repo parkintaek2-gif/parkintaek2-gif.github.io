@@ -332,6 +332,49 @@
    "왜": "제목의 수가 «틀렸다». 자료(wikitip-catalogue-depth.json 의 United States.halfTakes)는 7 이다. 검사에 「Six」가 손으로 박혀 있어서 그 틀린 수가 지켜지고 있었다 — 검사도 함께 고쳐 두 수를 다 자료에서 읽게 했다. **실험이 아니라 정정이다.**",
    "전값": "⬜ 못 쟀다 — 실험으로 바꾼 것이 아니라 수가 틀려서 고친 것이다.",
    "누가": "5번 (총괄대행)"
+  },
+  {
+   "지면": "/group/* (263장 전부 — 만드는 자리 한 곳을 고쳤다)",
+   "바꾼날": "2026-09-04",
+   "다시잴날": "2026-10-02",
+   "무엇을": "제목과 설명 — 손님이 치는 낱말 「birthday」를 넣었다",
+   "전제목": "{그룹} members age 2026, oldest to youngest",
+   "후제목": "{그룹} members: birthdays and ages 2026",
+   "전설명": "{그룹} has N members with a birth date on record, born between X and Y. Ages are as of 2026. All listed, oldest to youngest.",
+   "후설명": "Every {그룹} member birthday: N on record, born between X and Y. Ages as of 2026, oldest to youngest.",
+   "왜": "GSC 2026-08-04~09-01 에서 그룹 지면에 붙은 검색어가 「skz birthday」(자리 65.5)·「ateez birthdays」(76.0)·「katseye members birthdays」(77.5)·「cortis birthday」(68.0)·「kpop birthdays in january」(69.0) 였다. 지면은 200 이고 생일을 실제로 싣는데 제목에 그 낱말이 없었다. 8/27 주석에 「원래 age and birthday 로 하려다 길이 때문에 뺐다」가 적혀 있었고, 그 뺀 낱말이 정작 손님이 치는 말이었다.",
+   "🔴 앞 실험을 덮어씀": "8/26~27 의 «31갈래 한 쓸이»(다시잴날 2026-09-25)에 /group 이 들어 있었다. 그 실험 값을 «못 쓴다». 그것은 «길이»를 잰 실험이고 이번은 «낱말»을 바꾼 것이라 두 변화가 섞였다. ⛔ 조용히 지나가지 않고 여기 적는다. /group 몫만 못 쓰고 나머지 30갈래는 그대로 산다.",
+   "전값": {
+    "노출": "⬜ 못 쟀다 — 지면별 GSC 에 /group/* 이 노출 10 이상으로 잡힌 것이 없다",
+    "붙은검색어": {
+     "skz birthday": {
+      "노출": 4,
+      "자리": 65.5
+     },
+     "ateez birthdays": {
+      "노출": 2,
+      "자리": 76
+     },
+     "katseye members birthdays": {
+      "노출": 2,
+      "자리": 77.5
+     },
+     "cortis birthday": {
+      "노출": 2,
+      "자리": 68
+     }
+    },
+    "창": "2026-08-04~2026-09-01"
+   },
+   "재는법": "node scripts/check-ranked-but-unclicked.mjs · 그리고 GSC 검색어에서 「birthday」 꼴의 자리가 올랐는지 본다"
+  },
+  {
+   "지면": "/article/bts-is-not-a-seoul-band  — 🔴 되돌림 기록",
+   "바꾼날": "2026-09-04 (되돌림)",
+   "다시잴날": "2026-09-24 (원래 실험 그대로)",
+   "무엇을": "오늘 제목을 「Which BTS member is from Busan? And from Daegu? None is from Seoul」로 바꿨다가 «되돌렸다»",
+   "왜되돌렸나": "🔴 내가 「이름이 없어서 안 눌린다」고 진단했는데, 8/27 이전 제목이 바로 «이름이 들어 있던» 것이었고 그때 노출 165·클릭 0 이었다. 이름이 있던 때도 0 이었으므로 내 진단에 근거가 없다. 그리고 내가 본 창(2026-08-04~09-01)은 8/27 이전이 절반 넘게 섞여 있어 «옛 제목»의 성적이었다. ⛔ 옛 제목의 실패를 보고 옛 제목으로 되돌릴 뻔했다.",
+   "⚠ 배운 것": "재고 고치라는 지시에 서둘렀는데 «이미 도는 실험»을 안 봤다. check-deploy-ready 가 막아 주었다. 고치기 전에 kcw-title-experiments.json 을 먼저 본다."
   }
  ],
  "_9월5일에할것": {
