@@ -1,8 +1,13 @@
 #!/usr/bin/env node
 /**
- * K팝 기획사 4곳(HYBE·SM·YG·JYP) 회사현황 — 5번↔6번 교차링크 제안용 최소 수집.
- * 전체 상장사를 도는 collect-company.mjs 를 안 건드리고, 이 4곳만 따로 받는다
+ * K팝 기획사 7곳 회사현황 — 5번↔6번 교차링크(archive/raw/wikidata/kpop-label-owners.json,
+ * scripts/fetch-kcw-label-owners.mjs 산출)에서 «자기 티커를 가진 상장 주체» 규칙으로 추린 것.
+ * 전체 상장사를 도는 collect-company.mjs 를 안 건드리고, 이 7곳만 따로 받는다
  * (공용 수집기 상태 파일·일일 한도를 건드리지 않기 위함).
+ *
+ * ⚠ 130960(CJ E&M Corporation, 대표 김성수)은 DART엔 살아 있는 법인이지만, 현재 시장에서
+ *   흔히 부르는 「CJ ENM」(035760)과 같은 티커인지는 확인 못 했다 — 5번이 위키데이터에서
+ *   그대로 넘긴 값이고, 6번이 재검증하지 않았다. 기사화 전 대조 필요(못 쟀다로 남김).
  *
  *   node scripts/collect-kpop-agencies-company.mjs
  */
@@ -25,6 +30,9 @@ const 대상 = [
   { corp: '00260930', 종목: '041510', 이름: 'SM Entertainment' },
   { corp: '00613318', 종목: '122870', 이름: 'YG Entertainment' },
   { corp: '00258689', 종목: '035900', 이름: 'JYP Entertainment' },
+  { corp: '00838421', 종목: '130960', 이름: 'CJ E&M Corporation' },
+  { corp: '00925295', 종목: '173940', 이름: 'FNC Entertainment' },
+  { corp: '00985686', 종목: '182360', 이름: 'Cube Entertainment' },
 ];
 
 const 저장키 = 'raw/kpop-agencies/company.json';
