@@ -44,6 +44,32 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 
+/** 인자 배열에서 경로만 뽑는다(순수함수 — 자가시험용). `--host x` 와 `--all`·`--dry` 를 뺀 나머지. */
+export function 경로파싱(인자) {
+  const 호스트자리 = 인자.indexOf('--host');
+  return 인자.filter((a, n) => !a.startsWith('--') && !(호스트자리 >= 0 && n === 호스트자리 + 1));
+}
+
+function 자가시험() {
+  let 실패 = 0, 셈 = 0;
+  const 자 = (말, 참) => { 셈++; if (!참) { 실패++; console.error(`  ✕ ${말}`); } };
+
+  자('--host 없이 경로 3개 — 다 살아있다(2026-09-04 전엔 첫 줄이 빠졌다)',
+    JSON.stringify(경로파싱(['/a', '/b', '/c', '--dry'])) === JSON.stringify(['/a', '/b', '/c']));
+  자('--host 없이 경로 1개 — 그 하나가 살아있다(전엔 0개로 떨어져 사이트 전체로 샜다)',
+    JSON.stringify(경로파싱(['/a', '--dry'])) === JSON.stringify(['/a']));
+  자('--host X 뒤의 값(X 자신)은 경로가 아니다', JSON.stringify(경로파싱(['--host', 'X', '/a', '/b'])) === JSON.stringify(['/a', '/b']));
+  자('--all 만 있으면 경로 0개', JSON.stringify(경로파싱(['--all'])) === JSON.stringify([]));
+  자('아무 인자 없으면 경로 0개', JSON.stringify(경로파싱([])) === JSON.stringify([]));
+
+  console.log(실패 === 0 ? `✅ 자가시험 통과(${셈}개)` : `🔴 자가시험 실패 ${실패}/${셈}건`);
+  return 실패 === 0;
+}
+
+if (process.argv.includes('--자가시험')) {
+  process.exit(자가시험() ? 0 : 1);
+}
+
 const KEY = (await readFile(new URL('./.indexnow-key', import.meta.url), 'utf8')).trim();
 
 /**
@@ -80,8 +106,9 @@ const 전부 = 인자.includes('--all');
 const 시늉 = 인자.includes('--dry');
 const 호스트자리 = 인자.indexOf('--host');
 const 고른호스트 = 호스트자리 >= 0 ? 인자[호스트자리 + 1] : null;
-/** `--host x` 와 `--all` 을 뺀 나머지가 경로다 */
-const 경로들 = 인자.filter((a, n) => !a.startsWith('--') && n !== 호스트자리 + 1);
+/** `--host x` 와 `--all`·`--dry` 를 뺀 나머지가 경로다. 자가시험이 도는 순수함수(위 `경로파싱`)를 그대로 쓴다 —
+ * 2026-09-04 실측: 옛 코드는 --host 없이 쓸 때 첫 경로 인자를 조용히 빼먹었다(경로 3개 주면 2개만 나갔다). */
+const 경로들 = 경로파싱(인자);
 
 if (고른호스트 && !사이트들[고른호스트]) {
   console.error(`모르는 호스트다: ${고른호스트}`);
