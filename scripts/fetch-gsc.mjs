@@ -43,10 +43,19 @@ export const 사이트들 = {
    엉뚱한 지면이 뜨는 것은 «완전히 다른 병»이다. */
 export const 갈래들 = ['query', 'page', 'query+page'];
 
-/** 낼 파일 이름. ⚠ 기존 자료와 «같은 꼴»이어야 읽던 자들이 그대로 읽는다 */
-export function 낼이름(딱지, 갈래, 끝날) {
+/**
+ * 낼 파일 이름. ⚠ 기존 자료와 «같은 꼴»이어야 읽던 자들이 그대로 읽는다.
+ *
+ * 🔴 [2026-09-04] **다른 창인데 같은 이름을 써서 28일치를 덮어 버렸다.**
+ *   `--일수 7` 로 받았더니 끝날이 같아 `gsc-kcw-qp-2026-09-01.json` 을 그대로 밀었다.
+ *   28일치 471줄이 7일치 306줄로 바뀌었고, 오류도 경고도 없었다.
+ *   커밋돼 있어 되살렸지만, 안 되어 있었으면 «조용히» 잃었을 자리다.
+ * ✅ 그래서 28일이 아니면 이름에 «창 길이»를 넣는다. 28일치는 이름이 그대로라 읽던 자들이 산다.
+ */
+export function 낼이름(딱지, 갈래, 끝날, 일수 = 28) {
   const 가운데 = 갈래 === 'page' ? '-page' : 갈래 === 'query+page' ? '-qp' : '';
-  return `src/data/gsc-${딱지}${가운데}-${끝날}.json`;
+  const 창 = Number(일수) === 28 ? '' : `-${Number(일수)}d`;
+  return `src/data/gsc-${딱지}${가운데}${창}-${끝날}.json`;
 }
 
 /** 구글이 주는 마지막 날. ⚠ 오늘이 아니다 — 마지막 사흘은 아직 안 굳었다 */
@@ -103,7 +112,7 @@ async function 하나받기(토큰, 이름, 갈래, 일수) {
   const rows = (j.rows ?? []).map((x) => (갈래 === 'query+page'
     ? { key: x.keys[0], page: x.keys[1], impressions: x.impressions, clicks: x.clicks, position: x.position }
     : { key: x.keys[0], impressions: x.impressions, clicks: x.clicks, position: x.position }));
-  const 이름길 = 낼이름(곳.딱지, 갈래, 끝날);
+  const 이름길 = 낼이름(곳.딱지, 갈래, 끝날, 일수);
   writeFileSync(path.join(뿌리, 이름길), `${JSON.stringify({
     site: 곳.속성, dimension: 갈래, window: { from: 첫날, to: 끝날, days: 일수 }, rowLimit: 25000, rows,
   }, null, 2)}\n`);
@@ -148,6 +157,14 @@ function 자가시험() {
     const 셋 = 갈래들.map((g) => 낼이름('kcw', g, '2026-09-01'));
     return new Set(셋).size === 3 && 셋[2].endsWith('-qp-2026-09-01.json');
   })());
+  /* 🔴 [2026-09-04] 창이 달라도 이름이 같아 28일치를 덮어 버렸다. 그 덫을 시험으로 막는다 */
+  검('🔴 창이 다르면 이름도 달라야 한다 (28일치를 덮지 않는다)',
+    낼이름('kcw', 'query+page', '2026-09-01', 7) !== 낼이름('kcw', 'query+page', '2026-09-01', 28));
+  검('7일치는 이름에 창 길이가 붙는다',
+    낼이름('kcw', 'query+page', '2026-09-01', 7) === 'src/data/gsc-kcw-qp-7d-2026-09-01.json');
+  검('28일치는 이름이 «그대로»다 (읽던 자들이 산다)',
+    낼이름('kcw', 'page', '2026-09-01', 28) === 'src/data/gsc-kcw-page-2026-09-01.json');
+  검('90일치도 갈린다', 낼이름('100y', 'query', '2026-09-01', 90) === 'src/data/gsc-100y-90d-2026-09-01.json');
 
   if (실패.length) {
     console.error(`❌ 자가시험 실패 ${실패.length}\n${실패.map((s) => `   · ${s}`).join('\n')}`);
