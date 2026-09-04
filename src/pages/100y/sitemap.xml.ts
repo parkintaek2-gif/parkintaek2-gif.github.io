@@ -339,6 +339,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-04 — 사장님이 하나금융연구소 뉴스 인용문을 주며 지시(「긁어올 수 있으면
        데이터를 가공해」). 원문 PDF 4쪽 Summary 표(결혼계획별 1인가구 세 유형)를 인용. */
     { path: '/single-intent', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-04 — 사장님이 원드라이브에 직접 쓰신 「독립 데이터포털 목록.md」에서
+       건강보험심사평가원(HIRA) 빅데이터개방포털을 찾음. 국민건강보험공단과 다른 기관. */
+    { path: '/medical-cost', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

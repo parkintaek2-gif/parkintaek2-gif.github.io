@@ -1,0 +1,119 @@
+---
+/**
+ * /100y/medical-cost — 나이대별 1인당 진료비, 얼마나 벌어지나
+ *
+ * 사장님이 원드라이브에 직접 쓰신 「독립 데이터포털 목록.md」를 다시 보라 지시(2026-09-04) —
+ * 건강보험심사평가원(HIRA) 빅데이터개방포털을 찾았다. 국민건강보험공단(350, 이미 쓰는 곳)과
+ * «다른 기관»의 별도 포털이다. scripts/collect-100y-medical-cost.mjs 참고.
+ *
+ * ⛔ 판정하지 않는다 — 나이 들면 아프다는 뜻으로 쓰지 않는다. 「적용대상자 1인당」이지
+ *   「진료받은 사람 1인당」이 아니다 — 안 아픈 사람도 분모에 들어간다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/medical-cost.json';
+
+const 자료 = 원본 as any;
+const 나이별 = 자료.나이별 as any[];
+const 최고칸 = 자료.최고칸;
+const 최저칸 = 자료.최저칸;
+const U자 = 자료.U자모양;
+const 영세칸 = 나이별.find((r) => r.칸 === '0세');
+
+const 원표시 = (n: number) => n.toLocaleString('ko-KR');
+
+const desc =
+  `${자료.최신}년 건강보험 적용대상자 1인당 진료비 — ${최저칸.칸}이 ${원표시(최저칸.일인당진료비)}원으로 ` +
+  `가장 낮고, ${최고칸.칸}이 ${원표시(최고칸.일인당진료비)}원으로 가장 높습니다(${자료.배수}배). ` +
+  `HIRA 빅데이터개방포털 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이대별 건강보험 1인당 진료비',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://opendata.hira.or.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 1인당 진료비', '나이대별 1인당 진료일수', '나이대별 건강보험 적용대상자수'],
+};
+---
+
+<HundredYear
+  title={`나이대별 1인당 진료비 — ${최저칸.칸} ${원표시(최저칸.일인당진료비)}원 vs ${최고칸.칸} ${원표시(최고칸.일인당진료비)}원`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>나이대별 1인당 진료비,<br />얼마나 벌어질까요?</h1>
+  <p class="sub">
+    건강보험심사평가원(HIRA)의 {자료.최신}년 「연령별 건강보험 적용대상자 1인당 진료현황」
+    {' '}기준, 나이 칸마다 1인당 진료비·진료일수가 어떻게 다른지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">1인당 진료비 — 가장 낮은 나이 vs 가장 높은 나이</p>
+    <p class="answer-num">{원표시(최저칸.일인당진료비)}원 → {원표시(최고칸.일인당진료비)}원</p>
+    <p class="answer-sub">
+      {최저칸.칸}에서 {최고칸.칸}까지 {자료.배수}배로 벌어집니다
+    </p>
+  </div>
+
+  <h2>나이대별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>1인당 진료비</th><th>1인당 진료일수</th><th>적용대상자</th></tr></thead>
+      <tbody>
+        {나이별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{원표시(r.일인당진료비)}원</strong></td>
+            <td>{r.일인당진료일수}일</td>
+            <td>{원표시(r.적용대상자_천명)}천명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>바닥은 10대, 그다음은 계속 오릅니다</h2>
+  <p class="note">
+    ⭐ {U자.바닥칸}이 1인당 진료비가 가장 낮은 나이입니다({원표시(U자.바닥값)}원). 그
+    {' '}뒤로는 나이가 들수록 {' '}<strong>한 번도 안 꺾이고 계속 오릅니다</strong> —
+    {' '}50대부터 오름폭이 커지고, 60대 이후는 몇 년 사이에 백만 원 단위로 뜁니다.
+  </p>
+  <p class="note">
+    ⚠ 다만 {영세칸?.칸}은 예외적으로 높습니다({원표시(영세칸?.일인당진료비)}원) — 10~19세보다
+    {' '}훨씬 높고 30대와 비슷한 수준입니다. 신생아 집중치료 등 출생 관련 의료가 섞였을
+    {' '}가능성이 있지만, 이 표 하나로 원인을 확정하지 않습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>「나이 들면 아프다」가 아닙니다 — 「적용대상자 1인당」이지 「진료받은 사람 1인당」이
+      아닙니다. 그 나이 전체 인구가 분모라, 안 아픈 사람도 함께 나눠집니다.</li>
+    <li>진료비는 건강보험이 부담한 몫과 본인부담금을 합친 것입니다 — 전액 본인부담이거나
+      건강보험이 안 되는 비급여 진료는 빠져 있습니다. 실제 쓴 의료비 전부가 아닙니다.</li>
+    <li>한 해(2025년) 스냅샷입니다 — 몇 년째 이런 모양인지는 이 지면에서 아직 안 봤습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 나이 들수록 아프다거나 젊으면
+    {' '}괜찮다고 쓰지 않습니다. 나이대마다 건강보험 진료비가 얼마나 갈리는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표}({자료.최신}년). {자료.출처.이용허락범위}.
+    {' '}<a href={자료.출처.주소} rel="noopener">원문 표</a>에서 다른 해도 볼 수 있습니다.
+  </p>
+
+  <p class="note">
+    <a href="/cardiac-arrest">← 급성심장정지는 나이대별로 어떻게 다를까요?</a>
+    <br />
+    <a href="/healthy-years">← 건강하게 사는 기간은 나이 들수록 어떻게 될까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="medical-cost" />
+
+  <NextQuestionBrief 모은것="건강보험심사평가원 HIRA 빅데이터개방포털 실측" />
+</HundredYear>
