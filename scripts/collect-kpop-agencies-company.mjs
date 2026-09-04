@@ -6,8 +6,9 @@
  *
  *   node scripts/collect-kpop-agencies-company.mjs
  */
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
+import { put } from '../src/lib/store.mjs';
 
 function 키읽기() {
   if (process.env.DART_API_KEY) return process.env.DART_API_KEY;
@@ -26,12 +27,11 @@ const 대상 = [
   { corp: '00258689', 종목: '035900', 이름: 'JYP Entertainment' },
 ];
 
-const OUT_DIR = path.resolve('archive/raw/kpop-agencies');
+const 저장키 = 'raw/kpop-agencies/company.json';
 
 async function main() {
   const 키 = 키읽기();
   if (!키) { console.error('✕ DART_API_KEY 없음'); process.exit(1); }
-  mkdirSync(OUT_DIR, { recursive: true });
 
   const 결과 = [];
   for (const c of 대상) {
@@ -47,8 +47,8 @@ async function main() {
     await new Promise((res) => setTimeout(res, 300));
   }
 
-  writeFileSync(path.join(OUT_DIR, 'company.json'), JSON.stringify({ 잰때: new Date().toISOString(), 회사: 결과 }, null, 2));
-  console.log(`\n저장: ${path.join(OUT_DIR, 'company.json')}`);
+  const 저장 = await put(저장키, JSON.stringify({ 잰때: new Date().toISOString(), 회사: 결과 }, null, 2), 'application/json');
+  console.log(`\n저장: 로컬 ${저장.local}${저장.remote ? ' · R2 저장 완료' : (저장.remoteError ? ` · R2 실패: ${저장.remoteError}` : ' · R2 비활성')}`);
 }
 
 main();

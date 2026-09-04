@@ -32,12 +32,13 @@
  * · 다시 돌리면 겹치는 날짜는 덮어쓴다(멱등) — «최신값 우선»
  */
 
-import { readFileSync, writeFileSync, existsSync, mkdirSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { put } from '../src/lib/store.mjs';
 
 const BASE = 'https://apis.data.go.kr/1160100/service/GetKofiaStatisticsInfoService/getGrantingOfCreditBalanceInfo';
-const OUT_DIR = path.resolve('archive/raw/credit-balance');
+const 저장키 = 'raw/credit-balance/series.json';
 const 쪽크기 = 100;
 const 간격ms = 300;
 
@@ -127,15 +128,13 @@ async function main() {
   const 키 = 키읽기();
   if (!키) { console.error('✕ DATAGO_KEY 가 없다.'); process.exit(1); }
 
-  mkdirSync(OUT_DIR, { recursive: true });
   try {
     const { 모음, 총 } = await 전체받기(키);
     if (!모음.length) { console.log('0건 — 못 받았다(원본 확인 필요)'); process.exit(1); }
     모음.sort((a, b) => (a.기준일 < b.기준일 ? 1 : -1)); // 최신 먼저
-    const 산출 = path.join(OUT_DIR, 'series.json');
-    writeFileSync(산출, JSON.stringify({ 잰때: new Date().toISOString(), 총건수: 총, 자료: 모음 }, null, 2));
+    const 결과 = await put(저장키, JSON.stringify({ 잰때: new Date().toISOString(), 총건수: 총, 자료: 모음 }, null, 2), 'application/json');
     const 최신 = 모음[0];
-    console.log(`✅ 신용공여잔고추이 ${모음.length.toLocaleString()}건(신고 총 ${총.toLocaleString()}) → ${산출}`);
+    console.log(`✅ 신용공여잔고추이 ${모음.length.toLocaleString()}건(신고 총 ${총.toLocaleString()}) → 로컬 ${결과.local}${결과.remote ? ' · R2 저장 완료' : (결과.remoteError ? ` · R2 실패: ${결과.remoteError}` : ' · R2 비활성')}`);
     console.log(`   최신(${최신.기준일}): 신용융자 전체 ${(최신.신용융자_전체 / 1e12).toFixed(2)}조원 (코스피 ${(최신.신용융자_유가증권 / 1e12).toFixed(2)}조·코스닥 ${(최신.신용융자_코스닥 / 1e12).toFixed(2)}조)`);
   } catch (e) {
     console.error(`✕ ${String(e.message).slice(0, 150)}`);
