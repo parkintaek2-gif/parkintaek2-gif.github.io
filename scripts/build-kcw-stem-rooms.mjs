@@ -60,6 +60,42 @@ const 로마자 = new Map(간);
    ⛔ 여기 베껴 적으면 한쪽만 고쳐진다. */
 import { 기사읽기, 이지면기사 } from './build-kcw-community-front.mjs';
 
+/**
+ * 그 칸의 제목. **사람 이름을 앞에 놓는다.**
+ *
+ * 🔴 [2026-09-05 00:4x] 전 제목은 「甲 (gap) day stem — 949 Korean entertainers」였다.
+ *   열 장이 다 같은 꼴이고 **이름이 하나도 없다.**
+ *   ⛔ 사람이 검색하는 것은 「Jisoo」이지 「gap day stem」이 아니다.
+ *   ⭐ 어제(9/3) 네 유닛이 정한 규칙 — 「제목에 사람이 실제로 검색하는 실명 +
+ *     아무도 답하지 않는 물음」. 「누가 같은 일간을 갖고 있나」는 아무도 안 센다.
+ *   ⚠ 이름은 이미 설명에 쓰고 있었다(이름셋). 제목에만 없었다.
+ *
+ * ⛔ 「이 일간이면 이렇다」로 읽히게 짓지 않는다 — 이 지면은 **셈이지 감명이 아니다.**
+ *   그래서 「share」로 쓴다. 성격도 운도 말하지 않는다.
+ * ⬜ 실을 이름이 없으면 옛 꼴로 돌아간다. 없는 이름을 지어내지 않는다.
+ */
+/**
+ * h1 앞머리 — 실을 이름이 있으면 「A and B share the 」를 만든다.
+ * ⛔ 삼항 연산자를 지면 문자열 «안에» 넣지 않는다. 따옴표가 겹쳐 파일이 깨진다
+ *   (2026-09-05 00:5x 에 실제로 깨뜨렸다 — 백틱 안의 홑따옴표가 문자열을 닫았다).
+ */
+export function 이름앞머리(실을것 = []) {
+  const 둘 = (실을것 ?? []).slice(0, 2).map((x) => x.name).filter(Boolean);
+  if (!둘.length) return '';
+  return `${둘.join(' and ')} share the `;
+}
+
+export function 칸제목(한자, rom, 사람수, 이름들 = []) {
+  const 둘 = (이름들 ?? []).filter(Boolean).slice(0, 2);
+  const 뒤 = `the ${한자} (${rom}) day stem, ${사람수} in all`;
+  if (!둘.length) return `${한자} (${rom}) day stem — ${사람수} Korean entertainers`;
+  const 꼴들 = [
+    `${둘.join(' and ')} share ${뒤}`,
+    `${둘.join(', ')} — ${뒤}`,
+    `${둘[0]} — ${뒤}`,
+  ];
+  return 꼴들.find((t) => t.length <= 60) ?? 꼴들[꼴들.length - 1];
+}
 export function 칸나누기(사람들) {
   const 칸 = new Map(간.map(([h]) => [h, []]));
   for (const p of 사람들) {
@@ -156,7 +192,7 @@ export function 방짓기(한자, 사람들, 잼, 이름표 = null, 기사들 = 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="canonical" href="https://www.kculturewire.com${칸주소(rom)}">
-<title>${한자} (${rom}) day stem &mdash; ${사람들.length} Korean entertainers | K Culture Wire</title>
+<title>${칸제목(한자, rom, 사람들.length, 실을것.slice(0, 2).map((p) => p.name))} | K Culture Wire</title>
 <meta name="description" content="The ${사람달수(사람들)} Korean actors and singers born on a ${한자} (${rom}) day, including ${벗기기(이름셋)}. A count, not a reading.">
 <script type="application/ld+json">${JSON.stringify({
   '@context': 'https://schema.org',
@@ -195,7 +231,7 @@ export function 방짓기(한자, 사람들, 잼, 이름표 = null, 기사들 = 
 <body>
 <div class="wrap">
   <p class="kicker">K Culture Wire &middot; day stem</p>
-  <h1>${한자} (${rom}) &mdash; ${사람들.length} Korean entertainers were born on this day stem</h1>
+  <h1>${이름앞머리(실을것)}${한자} (${rom}) day stem &mdash; ${사람들.length} Korean entertainers in all</h1>
   <p>${벗기기(이름셋)} and ${실을것.length - 3} others. Ordered by how many Wikipedia editions carry an article about them, so the name you are most likely to know comes first.</p>
   ${안실은수 ? `<p class="fine"><strong>${안실은수} of these ${사람들.length} people are counted but not listed.</strong> Wikidata holds no English name for them, only a Korean one. This is an English-language site, so putting a name our readers cannot read next to a date would help nobody &mdash; but dropping them from the count would be worse. They are inside every figure on this page and in <a href="/day-pillar">the totals</a>.</p>` : ''}
 
@@ -278,7 +314,23 @@ if (process.argv.includes('--자가시험')) {
   검('이름이 지면에 있다', h.includes('IU'));
   검('«발견이 아니다»를 지면에 적는다', h.includes('we do not call it a finding'));
   검('나가는 문이 있다', h.includes('href="/day-pillar"'));
-  검('⛔ 화면에 우리말이 없다', !/[가-힣]/.test(h));
+  /**
+   * 🔴 [2026-09-05 00:5x] 이 시험이 «오래» 빨강이었다. 그런데 지면이 틀린 것이 아니다 —
+   *   걸린 우리말은 「세종」 하나이고, 통신판매업 신고번호 2026-세종-0591 이다.
+   *   법으로 그대로 적어야 하는 번호다.
+   * ⚠ **오늘 같은 뿌리를 세 번째로 만났다** —
+   *   check-kcw-korean-leak.mjs (2,795/2,796 빨강) · build-kcw-week-pages.mjs · 그리고 이것.
+   *   앞의 둘은 고쳤는데 이 자는 그 고침을 못 받고 있었다.
+   * ⭐ 강령 ⑤ 그대로다 — 「하나를 고치면 인용한 곳까지 따라간다」.
+   *   ⛔ 그러니 다음에 이런 것을 고치면 **결함에 이름을 붙이고 저장소를 훑는다.**
+   */
+  const 뜻없는우리말 = (글) => [...new Set((String(글 ?? '')
+    .replace(/[0-9]{4}-세종-[0-9]{4}/g, '').match(/[가-힣]+/g) ?? []))];
+  검(`⛔ 화면에 뜻 없는 우리말이 없다 (걸린 것: ${뜻없는우리말(h).join(',') || '없음'})`,
+    뜻없는우리말(h).length === 0);
+  /* ⛔ 예외를 넣으면 다 통과하게 될 위험이 있다 — 자가 정말 도는지 재 둔다 */
+  검('뜻 없는 우리말은 그대로 잡는다', 뜻없는우리말('<p>손님</p>').join(',') === '손님');
+  검('신고번호의 세종은 빼고 본다', 뜻없는우리말('licence 2026-세종-0591').length === 0);
   검('문덩어리에 열 줄이 있다', (문덩어리(칸).match(/href="\/stem\//g) ?? []).length === 10);
   /* 🔴 영어 지면에 한글이 나가면 손님이 거기서 끝난다 — 셈에는 넣고 목록에서만 뺀다 */
   const 한글든것 = [{ name: '홍길동', born: '1993-05-16', sitelinks: 1, dayPillar: '丁酉' },
@@ -289,8 +341,24 @@ if (process.argv.includes('--자가시험')) {
   검('안 실은 수를 지면에 적는다', h2.includes('counted but not listed'));
   검('⛔ 셈에서는 안 뺀다 — 전체 수를 그대로 적는다', h2.includes('of these 2 people'));
 
+  /* 🔴 열 장이 다 같은 꼴이고 이름이 하나도 없던 자리 */
+  검('h1 앞머리를 만든다',
+    이름앞머리([{ name: 'ROSÉ' }, { name: 'Jisoo' }]) === 'ROSÉ and Jisoo share the ');
+  검('이름앞머리가 빈 값이면 빈 글자다', 이름앞머리([]) === '');
+  검('제목에 사람 이름이 앞에 온다',
+    칸제목('甲', 'gap', 949, ['ROSÉ', 'Jisoo'])
+      === 'ROSÉ and Jisoo share the 甲 (gap) day stem, 949 in all');
+  검('60자를 넘으면 짧은 꼴로 물러난다',
+    칸제목('甲', 'gap', 949, ['Kim Seok-jin', 'Park Ji-hyeon']).length <= 60);
+  검('이름이 없으면 옛 꼴로 돌아간다',
+    칸제목('甲', 'gap', 949, []) === '甲 (gap) day stem — 949 Korean entertainers');
+  검('이름이 하나면 그 하나로 짓는다',
+    칸제목('甲', 'gap', 949, ['Jisoo']).startsWith('Jisoo share'));
+  검('⛔ 감명으로 읽히는 말을 쓰지 않는다',
+    !/means|says|reveals|personality|luck/i.test(칸제목('甲', 'gap', 949, ['ROSÉ', 'Jisoo'])));
+
   if (실패.length) { console.error('❌ 자가시험 실패\n' + 실패.map((s) => `   · ${s}`).join('\n')); process.exit(1); }
-  console.log('✅ build-kcw-stem-rooms 자가시험 통과 (16)');
+  console.log('✅ build-kcw-stem-rooms 자가시험 통과 (21)');
   process.exit(0);
 }
 
