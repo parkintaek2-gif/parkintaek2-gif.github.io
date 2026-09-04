@@ -9,16 +9,16 @@ tags: ["fractional shares", "brokerages", "retail investing", "market structure"
 tickers: []
 sources:
   - org: "Korea Financial Investment Association (KOFIA)"
-    api: "증권사별 국내주식 소수점 매매 가능 종목 목록 — eight broker files, posted 2026-02-27"
+    api: "Fractional-tradable domestic stock list by broker (증권사별 국내주식 소수점 매매 가능 종목 목록) — eight broker files, posted 2026-02-27"
     url: "https://www.kofia.or.kr/brd/m_52/list.do"
 crossChecks:
-  - "The eight files are matched on the six-character KRX code, not the stock name. Brokers write the same company differently — CJ대한통운 at one firm is 씨제이대한통운보통주 at another — so matching on names would have split single stocks into two"
-  - "Each file carries a 비고 (remarks) column that three of the eight brokers actually use. Every distinct value was mapped explicitly: blank and 정상 to tradable, 매도만 가능 to sell-only, 매매불가 to blocked. Kiwoom's three other values — 감리, 거래정지, 관리대상 — are market-wide suspension states, not broker policy, and are counted separately rather than folded into 'tradable'"
+  - "The eight files are matched on the six-character KRX code, not the stock name. Brokers write the same company differently — CJ Logistics (CJ대한통운) at one firm is spelled out in full as 씨제이대한통운보통주 (CJ Logistics common shares) at another — so matching on names would have split single stocks into two"
+  - "Each file carries a 비고 (remarks) column that three of the eight brokers actually use. Every distinct value was mapped explicitly: blank and 정상 (normal) to tradable, 매도만 가능 (sell-only) to sell-only, 매매불가 (not tradable) to blocked. Kiwoom's three other values — 감리 (surveillance), 거래정지 (trading halt), 관리대상 (administrative issue) — are market-wide suspension states, not broker policy, and are counted separately rather than folded into 'tradable'"
   - "Korean stock codes are not all digits — 00088K and 0126Z0 are real codes for preferred shares and subscription-rights certificates. An earlier digits-only parse rejected one KB row and stopped the run rather than silently dropping it"
   - "Row counts were read from the sheets themselves, not from the summary figure each file prints in its second row, which is roughly double the row count in every file"
   - "Eight household names — Samsung Electronics, SK Hynix, Hyundai Motor, NAVER, Kakao, LG Chem, Samsung Biologics, LG Energy Solution — were checked individually and are buyable in fractions at all eight brokers"
 excluded:
-  - "Why a stock is sell-only. Shinhan marks 2,022 of its 2,450 entries 매도만 가능, and the files give no reason. A plausible reading is that fractions can arrive through corporate actions at stocks the firm never opened for buying, but the data does not say so and we do not assert it"
+  - "Why a stock is sell-only. Shinhan marks 2,022 of its 2,450 entries 매도만 가능 (sell-only), and the files give no reason. A plausible reading is that fractions can arrive through corporate actions at stocks the firm never opened for buying, but the data does not say so and we do not assert it"
   - "Minimum order sizes, fees and the FX and settlement terms attached to fractional orders. These differ by broker and are not in the files"
   - "Whether a broker's list has changed since the 27 February posting. KOFIA posts a snapshot, not a feed; brokers may have added or dropped stocks since"
   - "Overseas stocks. Every Korean broker in the files also offers fractional trading in US shares under separate rules; these lists cover domestic stocks only"
@@ -45,9 +45,9 @@ The Korea Financial Investment Association posts the lists, one spreadsheet per 
 
 Read the first column and Shinhan looks like the most generous house in Korea, with a list nearly six times Mirae Asset's. Read the second and it drops to fourth. Of its 2,450 entries, **2,022 are marked 매도만 가능** — sell only. You can dispose of a fraction there; you cannot open one.
 
-Hanwha's file is blunter still. It marks each row 정상 or 매매불가, and 372 of 448 are 매매불가 — blocked. Seventy-six stocks survive. It publishes the fifth-longest list and offers the smallest fractional universe of the eight.
+Hanwha's file is blunter still. It marks each row 정상 (tradable) or 매매불가 (blocked), and 372 of 448 are 매매불가 — blocked. Seventy-six stocks survive. It publishes the fifth-longest list and offers the smallest fractional universe of the eight.
 
-Kiwoom is the only broker whose exclusions are not its own doing: nineteen of its rows are marked 감리, 거래정지 or 관리대상 — surveillance, trading halt, administrative issue. Those are exchange states. Every other name on its list is open.
+Kiwoom is the only broker whose exclusions are not its own doing: nineteen of its rows are marked 감리 (surveillance), 거래정지 (trading halt) or 관리대상 (administrative issue). Those are exchange states. Every other name on its list is open.
 
 ## What the overlap looks like
 

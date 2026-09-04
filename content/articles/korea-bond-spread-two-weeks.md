@@ -9,7 +9,7 @@ tags: ["yield curve", "bond spread", "government bonds", "ktb", "3 year 10 year"
 tickers: []
 sources:
   - org: "Korea government bonds (KTB), listed closing yields"
-    api: "getBondPriceInfo (일자별 채권 종가·종가수익률), 국고채 issues only, nine trading days 2026-08-10 to 2026-08-21"
+    api: "getBondPriceInfo (일자별 채권 종가·종가수익률, daily bond close and yield-to-maturity), Korea Treasury Bond (국고채) issues only, nine trading days 2026-08-10 to 2026-08-21"
     url: "https://www.data.go.kr"
 crossChecks:
   - "For each of the nine trading days, the 3-year and 10-year points are the listed KTB whose remaining maturity is closest to that tenor (within 25%), with the maturity read from the bond's name and a yield inside a plausible 0.3–8% band. The spread is the 10-year yield minus the 3-year"

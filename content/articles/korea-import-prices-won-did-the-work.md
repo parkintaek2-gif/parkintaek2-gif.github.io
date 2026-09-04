@@ -9,7 +9,7 @@ tags: ["import prices", "inflation", "won", "exchange rate", "korea"]
 tickers: []
 sources:
   - org: "Statistics Korea — KOSIS (Bank of Korea data)"
-    api: "수입물가지수 Import Price Index by basic groups, table DT_401Y015"
+    api: "Import Price Index (수입물가지수) by basic groups, table DT_401Y015"
     url: "https://kosis.kr"
 crossChecks:
   - "The same import basket is published three ways — priced in the contract currency, in US dollars, and in won — all on a 2020 = 100 base. Over July 2025 to June 2026 the all-items index rose 9.1% on the contract-currency measure, 7.7% in dollars and 19.7% in won"

@@ -9,7 +9,7 @@ tags: ["interest rates", "bank loans", "fixed vs floating", "households", "korea
 tickers: []
 sources:
   - org: "Statistics Korea — KOSIS (Bank of Korea data)"
-    api: "예금은행 고정·변동금리대출 비중, outstanding-balance basis, table DT_121Y011"
+    api: "Deposit bank fixed/variable-rate loan share (예금은행 고정·변동금리대출 비중), outstanding-balance basis, table DT_121Y011"
     url: "https://kosis.kr"
 crossChecks:
   - "Monthly shares of bank loan balances at fixed versus floating rates, July 2025 to June 2026, split into corporate, household and mortgage borrowers. For each group the fixed and floating shares sum to 100, and match the 'total' row the source reports separately"

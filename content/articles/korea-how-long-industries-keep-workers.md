@@ -26,7 +26,7 @@ excluded:
 draft: false
 ---
 
-Every listed company in Korea files one number about its workers that reads like a confession: how long, on average, the people there have stayed. It sits in the annual report as 근속연수, average years of service, written by the company itself. Add it up across an industry — weighting each firm by how many people it employs — and you get a map of where Korea holds onto workers and where it hands them back.
+Every listed company in Korea files one number about its workers that reads like a confession: how long, on average, the people there have stayed. It sits in the annual report as 근속연수 (average years of service), written by the company itself. Add it up across an industry — weighting each firm by how many people it employs — and you get a map of where Korea holds onto workers and where it hands them back.
 
 ## The ladder
 

@@ -9,7 +9,7 @@ tags: ["bond-yield", "government-bonds", "ktb", "yield-curve", "interest-rates",
 tickers: []
 sources:
   - org: "Korea government bonds (KTB), listed closing yields"
-    api: "getBondPriceInfo (일자별 채권 종가·종가수익률), 국고채 issues only, basis date 2026-08-21"
+    api: "getBondPriceInfo (일자별 채권 종가·종가수익률, daily bond close and yield-to-maturity), Korea Treasury Bond (국고채) issues only, basis date 2026-08-21"
     url: "https://www.data.go.kr"
 crossChecks:
   - "The file for 2026-08-21 holds 396 listed bonds; 45 of them are Korea Treasury Bonds (국고채) with a readable maturity and a closing yield inside a plausible 0.3–8% band. Each KTB's remaining maturity is computed from the maturity month encoded in its name (e.g. 국고03500-5603 matures 2056-03) against the 2026-08 basis date"

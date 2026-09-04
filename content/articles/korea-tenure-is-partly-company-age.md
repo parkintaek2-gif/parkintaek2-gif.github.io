@@ -12,7 +12,7 @@ sources:
     api: "DART Open API — empSttus (average tenure) and company (incorporation date)"
     url: "https://opendart.fss.or.kr"
 crossChecks:
-  - "Average tenure is the company's own filed 근속연수; company age is today's date minus the incorporation date in DART's corporate registry. Both are weighted by headcount and rolled up to the KSIC industry"
+  - "Average tenure is the company's own filed 근속연수 (years of service); company age is today's date minus the incorporation date in DART's corporate registry. Both are weighted by headcount and rolled up to the KSIC industry"
   - "The tenure-to-age ratio is each industry's headcount-weighted tenure divided by its headcount-weighted firm age, measured across the 44 industries with at least 3,000 covered workers and 5 filers"
   - "The correlation of 0.66 between industry tenure and industry firm age is measured across those same 44 industries"
 excluded:

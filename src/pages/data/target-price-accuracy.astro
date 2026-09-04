@@ -11,7 +11,11 @@
  */
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
+import { describeInstitution } from '../../lib/institutions.mjs';
 import data from '../../data/target-price-accuracy.json';
+
+/** 영문 지면에 한글 사명이 그대로 나가던 것을 고친다(2026-09-04, 5번 지적 계기로 6번이 실측). */
+const houseEn = (name) => describeInstitution(name)?.en ?? name;
 
 const TITLE = 'Which brokers hit their target prices';
 const SAMPLE = `${data.조인성공.toLocaleString()} rated reports joined to price · 12-month horizon`;
@@ -67,7 +71,7 @@ const jsonLd = {
           <tbody>
             {rows.map((r) => (
               <tr>
-                <td class="axis">{r.house}</td>
+                <td class="axis">{houseEn(r.house)}</td>
                 <td class="r">{r.n}</td>
                 <td class="r"><b>{r.hitRate}%</b></td>
                 <td class="r">{r.avgTargetUpside}%</td>

@@ -90,7 +90,7 @@ Matching on a word is also unsafe. An earlier version of our own filter treated 
 
 The rule that survives contact with the actual filings is short:
 
-1. If any row's group label is exactly a total — 전사, 전체, 합계, 총계, 성별합계, 계, 소계 — use only those rows.
+1. If any row's group label is exactly one of the company's own words for "total" or "company-wide" (전사, 전체, 합계, 총계, 성별합계, 계, 소계) — use only those rows.
 2. Otherwise sum every row, by sex.
 3. Weight tenure and pay by the headcount of the row they came from. A simple average across divisions gives the 300-person plant and the 5-person office the same say.
 
