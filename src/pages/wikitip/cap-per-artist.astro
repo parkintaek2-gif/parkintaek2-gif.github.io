@@ -58,9 +58,40 @@ const 억 = (n: number) => Number(n).toLocaleString('en-US', {
   minimumFractionDigits: 1, maximumFractionDigits: 1,
 });
 
-const TITLE = 'K-pop market value per artist we can count';
-const DESC = `Market value divided by the artists we can count, for ${회사들.length} listed K-pop `
-  + `companies. The divisor is a floor, so every figure is a ceiling. Not a valuation.`;
+/**
+ * 🔴 [2026-09-04 23:1x] **제목을 고쳤다 — 어제 우리가 정한 자에 내 것을 안 대 봤다.**
+ *   어제(9/3) 네 유닛이 이어 쓴 결론은 「제목에 «사람이 실제로 검색하는 실명» + «아무도
+ *   답하지 않는 물음»」이다(docs/보고/검색노출-병목-2026-09-03.md 9-4절).
+ *   그런데 오늘 낸 새 지면 여섯 장에 실명이 «하나도» 없었고, 그 중 넷이 내 것이었다.
+ *   ⛔ 규칙을 몰라서가 아니다. 표를 만들면 제목이 자연히 총론이 되고, 그때 자를 안 댔다.
+ *   ⚠ 그런데 여기에 함정이 하나 더 있다 — 회사 이름을 앞에 놓고 「per artist」를 붙이면
+ *     **평가 기사처럼 읽힌다.** 그래서 「we can count」를 제목에 «남겼다» —
+ *     세는 것이 우리가 아는 만큼이라는 말이 제목에서 빠지면 이 지면은 성격이 바뀐다.
+ *   ⭐ 30분 전에 낸 지면이라 노출이 0 이다. 지금 고치는 것이 가장 값싸다.
+ */
+/**
+ * ⛔ 제목·설명에 «박은 이름»은 자료에서 계산하지 않는다 — 제목은 색인에 남으므로
+ *   자료가 흔들릴 때마다 바뀌면 안 된다. 오늘 수를 지면에 박아 두 번 물렸는데,
+ *   그때의 답은 「자료에서 뽑아라」였지만 **제목은 반대다.**
+ * ✅ 그래서 박되, **박은 이름이 자료에 실제로 있는지 빌드가 검사한다.**
+ *   회사가 빠지거나 이름이 바뀌면 빌드가 죽는다 — 조용히 틀린 제목이 남는 것보다 낫다.
+ */
+const 제목에박은이름 = ['Hybe', 'SM', 'JYP', 'YG', 'Cube', 'FNC'];
+const 자료의이름 = 회사들.map((x: any) => String(x.회사));
+const 못찾은이름 = 제목에박은이름.filter((n) => !자료의이름.some((m) => m.includes(n)));
+if (못찾은이름.length) {
+  throw new Error(
+    [
+      '🔴 /cap-per-artist — 제목·설명에 박은 이름이 자료에 없다: ' + 못찾은이름.join(', '),
+      '   자료에 있는 회사: ' + 자료의이름.join(', '),
+      '   ⛔ 제목을 고치거나 자료를 고치십시오. 틀린 제목이 색인에 남는 것이 가장 나쁩니다.',
+    ].join('\n'),
+  );
+}
+
+const TITLE = 'HYBE, SM, JYP and YG: market value per artist we can count';
+const DESC = `HYBE, SM, JYP, YG, Cube and FNC: market value divided by the artists we can `
+  + `count. The divisor is a floor, so every figure is a ceiling. Not a valuation.`;
 
 const jsonLd = [{
   '@context': 'https://schema.org',
