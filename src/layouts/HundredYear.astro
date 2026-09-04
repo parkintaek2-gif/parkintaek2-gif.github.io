@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import Analytics from '../components/Analytics.astro';
 import { ADS } from '../consts';
 import path from 'node:path';
+import { 자매링크 } from '../lib/sister-link';
 
 /** CSS 파일이 바뀌면 저절로 바뀌는 판 번호. ⛔ 손으로 올리지 않는다 —
  *  손으로 올리게 두면 반드시 잊는다(오늘만 규칙을 손으로 적었다가 다섯 곳이 어긋났다). */
@@ -415,11 +416,20 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
            사장님이 승인하신 「9월 방문자 방향 셋」 중 «사이트 교차 링크»(2번 17:1x 제안,
            1번·3번이 논의)를 이 한 줄로 시작한다. klifemap 은 우리와 같은 **한국어** 독자다
            (수험생·학부모가 사주도 본다) — 이 점에서 세오울마켓츠·KCW(영문 매체)와 다르다.
+           ⚠ klifemap 으로 가는 **더 깊은** 문은 이미 있었다(`src/lib/klifemap.ts` ·
+           `KLifeMapNext.astro`, 8/07~8/23) — 지면마다 다른 물음을 지어 붙인 것이다.
+           이 푸터 줄은 그것과 겹치지 않는다. 그 문이 없는 지면(가로) 전부를 덮는
+           «같은 회사다」 한 줄일 뿐이다.
+
+        🔴 [2026-09-04] 이 세 링크에 `자매링크()`(5번, 2026-08-28)를 처음 물렸다.
+           5번이 8/28 에 "3번의 지면 간 자사 링크 중 딱지 붙은 것이 0개"라고 짚었는데,
+           그건 klifemap.ts 쪽 얘기였고 **정작 이 푸터는 그 뒤로도 안 고쳐진 채였다.**
+           오늘 klifemap 을 더 넣으며 알아채서 셋 다 같이 고친다 — `from=100y&at=footer`.
       */}
       <p>
-        같은 곳에서 만드는 <a href="https://seoulmarkets.com/" rel="noopener">SeoulMarkets</a>
-        — 한국 금융시장 데이터를 영문으로 냅니다 · <a href="https://www.kculturewire.com/" rel="noopener">K Culture Wire</a>
-        — 한국 대중문화를 영문 데이터로 냅니다 · <a href="https://klifemap.ai/" rel="noopener">KLifeMap</a>
+        같은 곳에서 만드는 <a href={자매링크('https://seoulmarkets.com/', 'footer', '100y')} rel="noopener">SeoulMarkets</a>
+        — 한국 금융시장 데이터를 영문으로 냅니다 · <a href={자매링크('https://www.kculturewire.com/', 'footer', '100y')} rel="noopener">K Culture Wire</a>
+        — 한국 대중문화를 영문 데이터로 냅니다 · <a href={자매링크('https://klifemap.ai/', 'footer', '100y')} rel="noopener">KLifeMap</a>
         — 생년월일로 보는 사주·명리를 냅니다.
       </p>
       {/* 인쇄 전용 — 종이만 들고 있어도 다시 찾아올 수 있게 주소와 뽑은 날을 남긴다 */}
