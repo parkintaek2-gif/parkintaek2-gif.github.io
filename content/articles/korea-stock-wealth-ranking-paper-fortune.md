@@ -1,5 +1,5 @@
 ---
-title: "Samsung's Lee Jae-yong got ₩14tn richer, did nothing"
+title: "Korea's rich list doesn't measure Lee Jae-yong. It measures KOSPI."
 dek: "Samsung's Lee Jae-yong topped Korea's stock-wealth ranking at ₩25.88tn on 2 January 2026 — up 117% in a year. The gain was the market, not the man. So what does a ranking that doubles on a rally actually measure?"
 category: equities
 pubDate: 2026-08-31
