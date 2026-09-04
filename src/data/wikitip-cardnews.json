@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-03T17:27:46.062Z",
+  "generated": "2026-09-04T01:52:20.283Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -326,6 +326,23 @@
       ]
     },
     {
+      "set": "chart-credits-buy-a-level-not-a-direction",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "choi-baek-ho-no-english-page",
       "sq": [
         1,
@@ -393,6 +410,23 @@
     },
     {
       "set": "film-and-series-share-people-but-less-than-chance",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "five-percent-of-k-pop-takes-half",
       "sq": [
         1,
         2,
@@ -1689,6 +1723,23 @@
       ]
     },
     {
+      "set": "the-biggest-spike-had-one-reader",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-broadcast-run-that-never-happened",
       "sq": [
         1,
@@ -1891,6 +1942,23 @@
     },
     {
       "set": "the-twentieth-title-travels-no-further",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "the-two-members-the-press-writes-about",
       "sq": [
         1,
         2,
@@ -2311,8 +2379,8 @@
       ]
     }
   ],
-  "setCount": 137,
-  "imageCount": 1347,
+  "setCount": 141,
+  "imageCount": 1387,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
