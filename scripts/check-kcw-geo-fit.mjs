@@ -1,0 +1,386 @@
+/**
+ * check-kcw-geo-fit.mjs — **지면 하나하나가 「맞춤형」인가.** 석 칸으로 잰다.
+ *
+ * ── 사장님 지시 (2026-09-04 23:1x, 원문) ────────────────────
+ * > 「SEO·GEO 맞춤 — 라이브에서 잰 것 … **중요한 일이다. 모든 콘텐트가 맞춤형으로 잘
+ * >   만들고, 이미 만들어진 건 하나하나 다 맞춤형으로 바꿔라.**」
+ *
+ * ⚠ **이 지시가 나온 자리를 적어 둔다.** 내가 23시 보고에 「llms.txt 200 · robots 200 ·
+ *   sitemap 200」을 네 사이트 다 **초록으로** 올렸고, 사장님은 그것을 「됐다」로 읽지 않으셨다.
+ * ⛔ **「문이 열렸다」와 「콘텐트가 맞춤이다」는 다른 말이다.** 앞의 것은 사이트에 넷,
+ *   뒤의 것은 지면에 하나하나 있다. 그래서 이 자는 **지면 단위로** 잰다.
+ *
+ * ── 무엇을 재나 — 석 칸 ──────────────────────────────────────
+ * ```
+ * 1. 실명      제목에 «사람이 실제로 검색하는 이름»이 있나
+ *              ⭐ 어제(9/3) 네 유닛이 이어 써서 정한 규칙이다
+ *                 (docs/보고/검색노출-병목-2026-09-03.md 9-4절)
+ *              ⛔ 짐작으로 안 가른다 — «우리 자료에 있는 이름»으로만 판정한다
+ *                 (넷플릭스 작품명·사람 이름·그룹명·회사명 … 2,500개쯤)
+ * 2. 구조화    JSON-LD 가 지면에 있나 (GEO — AI 가 읽는 자리)
+ * 3. canonical 있나 (같은 지면이 둘로 색인되면 둘 다 약해진다)
+ * ```
+ *
+ * ── 🔴 넉 칸이었다가 석 칸으로 줄인 까닭 (2026-09-04 23:3x) ──
+ * 처음에 「llms.txt 에 이 주소가 적혀 있나」를 넷째 칸으로 넣었다. 돌리니 **0 / 2,798 (0%)**
+ * 이 나왔다. 하마터면 그것을 사장님께 「llms 등재 0%」로 올릴 뻔했다.
+ * ⛔ **발견이 아니라 내 자가 틀린 것이었다.**
+ * ```
+ * llms.txt 는 주소를 하나하나 적지 않는다 — 갈래로 적는다
+ *   `https://www.kculturewire.com/title/{slug}` — … 421 pages.
+ * 그래서 주소를 글자로 맞춰 찾으면 «언제나 0» 이다
+ * ```
+ * ⭐ 그리고 **이미 그것을 옳게 재는 자가 있었다** — `scripts/check-llms-coverage.mjs`.
+ *   돌려 보니 **115편 중 115편 걸림 · 0편 빠짐**이다. 내 칸은 그 자를 잘못 베낀 것이었다.
+ * ⛔ **모두에게 빨강을 내는 검사는 꺼진 검사다.** 그 칸을 지우고, 있는 자를 가리킨다.
+ *   ⚠ 오늘 두 번째다 — 아침에 한국어 새는 검사가 2,795/2,796 을 빨강으로 냈다.
+ *     **「거의 다 빨강」이 나오면 자료를 의심하기 전에 내 자를 의심한다.**
+ *
+ * ── ⛔ 이 자가 «안» 하는 것 ──────────────────────────────────
+ * ⛔ 「아무도 답하지 않는 물음인가」는 **못 잰다.** 그것은 남의 검색결과를 봐야 아는 것이다.
+ *   규칙의 절반만 재는 자다. 그것을 숨기지 않고 화면에 적는다.
+ * ⛔ 실명이 없다고 「나쁜 지면」이라 하지 않는다. **고칠 자리를 알려 주는 것**까지다.
+ * ⛔ 제목 실험 자물쇠가 걸린 지면은 «지금 고치면 두 변화가 섞인다». 목록에 자물쇠로 적는다.
+ *
+ * 쓰는 법  node scripts/check-kcw-geo-fit.mjs --자가시험
+ *          node scripts/check-kcw-geo-fit.mjs             (dist 를 읽는다 — 빌드가 먼저다)
+ *          node scripts/check-kcw-geo-fit.mjs --고칠것     고칠 지면만 순서대로
+ */
+import fs from 'node:fs';
+import path from 'node:path';
+
+const 뿌리 = path.resolve(import.meta.dirname, '..');
+
+/* ── 이름 사전 — «우리 자료»에서만 모은다 ─────────────────── */
+
+/**
+ * 이름으로 쓸 만한가. 너무 짧거나 흔한 낱말은 뺀다 — 「Us」 같은 것이 걸린다.
+ *
+ * 🔴 [2026-09-04 23:4x] **처음엔 「넉 자 미만은 버린다」였다. 그래서 사전이 얇았다.**
+ *   고칠 목록을 «읽어» 보니 `/firm/kbs`·`/firm/mbc`·`/firm/sbs`·`/firm/tvn`·`/firm/ena` 가
+ *   「실명 없음」으로 올라와 있었다. **KBS 는 실명이다.** 세 글자라서 걸러진 것이다.
+ *   ⛔ 지면이 틀린 것이 아니라 **내 사전이 얇아서 지면을 틀렸다고 한 것이다.**
+ *   ⚠ 목록을 내고 끝냈으면 그 다섯 장을 «고칠 것»으로 남에게 시켰을 것이다.
+ *     **자를 만들면 그 자의 결과를 눈으로 읽어야 한다.**
+ * ✅ 그래서 세 글자도 받는다 — 단 **큰 글자가 하나라도 있을 때만.**
+ *   KBS·MBC·SBS·ENA·tvN 이 다 걸리고, 소문자 낱말(the·and·for)은 그대로 버린다.
+ *   ⚠ 처음엔 「큰 글자가 둘 이상」으로 썼는데 **tvN 이 빠졌다** — 큰 글자가 N 하나다.
+ *     자가시험 이름표에는 「tvN 을 약칭으로 본다」고 적고 기대값은 false 로 두었으니,
+ *     **이름표와 기대값이 서로 어긋난 시험**이었다. 초록이 나와도 뜻이 없는 시험이다.
+ */
+export function 이름쓸만한가(이름) {
+  const s = String(이름 ?? '').trim();
+  if (!/[A-Za-z가-힣]/.test(s)) return false;
+  if (/^(the|and|for|with|from|that|this|korea|korean|netflix)$/i.test(s)) return false;
+  if (s.length >= 4) return true;
+  /* 석 자는 약칭만 받는다 — 큰 글자가 하나라도 있으면 약칭으로 본다 */
+  return s.length === 3 && /[A-Z]/.test(s);
+}
+
+/** 자료 파일들에서 이름을 긁어 모은다. 어느 파일에서 몇 개 왔는지 같이 돌려준다 */
+export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data')) {
+  const 이름 = new Set();
+  const 온데 = [];
+  if (!fs.existsSync(자료방)) return { 이름들: [], 온데 };
+  for (const f of fs.readdirSync(자료방)) {
+    if (!f.endsWith('.json')) continue;
+    let j;
+    try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+    const 배열들 = Array.isArray(j) ? [j] : Object.values(j).filter(Array.isArray);
+    let 여기 = 0;
+    for (const 배열 of 배열들) {
+      for (const 것 of 배열) {
+        if (!것 || typeof 것 !== 'object') continue;
+        /* ⭐ `place` 를 더했다 — `/from/ansan` 같은 지면이 「실명 없음」으로 잡히고 있었다.
+           도시 이름은 사람이 실제로 검색하는 이름이다(wikitip-hometowns.json 에 37곳). */
+        for (const 칸 of ['name', 'title', 'enTitle', '회사', 'firm', 'person', 'place']) {
+          const v = 것[칸];
+          if (typeof v === 'string' && 이름쓸만한가(v)) { 이름.add(v.trim()); 여기 += 1; }
+        }
+      }
+    }
+    if (여기) 온데.push({ 파일: f, 개수: 여기 });
+  }
+  return { 이름들: [...이름], 온데 };
+}
+
+/** 정규식에 쓸 수 있게 특수문자를 막는다 */
+export function 정규식막기(s) {
+  return String(s ?? '').replace(/[.*+?^${}()|[\]\\]/g, (c) => '\\' + c);
+}
+
+/**
+ * 제목에 사전의 이름이 들어 있나. 들어 있으면 «가장 긴 것»을 돌려준다.
+ * ⛔ 낱말 경계를 본다 — 「Us」가 「Just」 안에서 걸리는 것을 막는다.
+ *   ⚠ 우리말은 낱말 경계가 없어 이 규칙이 안 듣는다. 우리말 이름은 그대로 포함으로 본다.
+ */
+export function 제목의실명(제목, 이름들) {
+  const t = String(제목 ?? '');
+  if (!t) return null;
+  let 찾은 = null;
+  for (const n of 이름들) {
+    const 우리말 = /[가-힣]/.test(n);
+    const 걸리나 = 우리말
+      ? t.includes(n)
+      : new RegExp('(^|[^A-Za-z0-9])' + 정규식막기(n) + '([^A-Za-z0-9]|$)', 'i').test(t);
+    if (걸리나 && (!찾은 || n.length > 찾은.length)) 찾은 = n;
+  }
+  return 찾은;
+}
+
+/**
+ * 손님이 받는 지면인가. 셋은 손님 지면이 아니다 — 세되 고칠 목록에 넣지 않는다.
+ * 🔴 처음엔 이 가름이 없어서 은퇴 주소 14장과 /404 가 「고칠 것」 맨 위에 올라왔다.
+ *   ⛔ 고칠 «수 없는» 것을 목록 맨 위에 두면, 그 아래 «고칠 수 있는» 것을 아무도 안 본다.
+ */
+export function 손님지면인가(글) {
+  const h = String(글 ?? '');
+  if (/<meta[^>]+name=["']robots["'][^>]*content=["'][^"']*noindex/i.test(h)) return false;
+  if (/<title[^>]*>\s*Retired address/i.test(h)) return false;   // 옛 주소 — 일부러 비워 둔 것
+  if (/<title[^>]*>\s*Page not found/i.test(h)) return false;    // 404
+  return true;
+}
+
+/** 지면 하나를 석 칸으로 잰다. 글은 «나간 HTML» 이다 */
+export function 지면재기({ 주소, 글, 이름들 }) {
+  const h = String(글 ?? '');
+  const 제목 = (h.match(/<title[^>]*>([\s\S]*?)<\/title>/i)?.[1] ?? '')
+    .replace(/\s*\|\s*K Culture Wire\s*$/i, '').trim();
+  return {
+    주소,
+    제목,
+    실명: 제목의실명(제목, 이름들),
+    구조화: /<script[^>]+type=["']application\/ld\+json["']/i.test(h),
+    canonical: /<link[^>]+rel=["']canonical["']/i.test(h),
+  };
+}
+
+/** 석 칸 중 몇 칸이 찼나. 실명은 두 몫으로 센다 — 규칙이 그것을 먼저 말한다 */
+export function 점수(잰것) {
+  return (잰것.실명 ? 2 : 0) + (잰것.구조화 ? 1 : 0) + (잰것.canonical ? 1 : 0);
+}
+export const 만점 = 4;
+
+/* ── 자가시험 ────────────────────────────────────────────── */
+function 자가시험() {
+  let 든것 = 0, 깬것 = 0;
+  const 재 = (무엇, 실제, 바람) => {
+    const a = JSON.stringify(실제), b = JSON.stringify(바람);
+    if (a === b) { 든것 += 1; } else { 깬것 += 1; console.log(`🔴 ${무엇}\n   나온것 ${a}\n   바람   ${b}`); }
+  };
+
+  재('두 글자 이름은 안 쓴다', 이름쓸만한가('IU'), false);
+  /* 🔴 사전이 얇아서 /firm/kbs 를 「실명 없음」으로 잡던 자리 */
+  재('🔴 KBS 는 석 자여도 실명이다', 이름쓸만한가('KBS'), true);
+  재('MBC·SBS·ENA 도 같다', [이름쓸만한가('MBC'), 이름쓸만한가('SBS'), 이름쓸만한가('ENA')], [true, true, true]);
+  재('🔴 tvN 도 실명이다 — 큰 글자가 N 하나뿐이라 처음 규칙에서 빠졌다',
+    이름쓸만한가('tvN'), true);
+  재('석 자 소문자 낱말은 그대로 버린다',
+    [이름쓸만한가('the'), 이름쓸만한가('and'), 이름쓸만한가('for')], [false, false, false]);
+  재('도시 이름', 이름쓸만한가('Ansan'), true);
+  재('네 글자부터 쓴다', 이름쓸만한가('HYBE'), true);
+  재('흔한 낱말은 뺀다', 이름쓸만한가('Korea'), false);
+  재('Netflix 도 뺀다 — 어디에나 있다', 이름쓸만한가('Netflix'), false);
+  재('빈 값', 이름쓸만한가(null), false);
+  재('우리말 이름', 이름쓸만한가('국립강릉원주대학교'), true);
+
+  const 사전 = ['HYBE', 'Crash Landing on You', 'Go Youn-jung', 'Just', '국립강릉원주대학교'];
+  재('제목에 든 이름을 찾는다', 제목의실명('HYBE alone is two-thirds', 사전), 'HYBE');
+  재('가장 긴 이름을 고른다',
+    제목의실명('Crash Landing on You: 72 weeks in Japan', 사전), 'Crash Landing on You');
+  재('없으면 null', 제목의실명('K-pop market value per artist we can count', 사전), null);
+  재('낱말 안에 박힌 것은 안 센다 — 「Just」가 「Justice」에서 걸리면 안 된다',
+    제목의실명('Justice for all', 사전), null);
+  재('낱말이면 센다', 제목의실명('Just one reader', 사전), 'Just');
+  재('붙임표가 있어도 센다', 제목의실명('Go Youn-jung tops two Wikipedias', 사전), 'Go Youn-jung');
+  재('우리말은 그대로 포함으로 본다',
+    제목의실명('국립강릉원주대학교 취업률', 사전), '국립강릉원주대학교');
+  재('대소문자를 안 가린다', 제목의실명('hybe alone', 사전), 'HYBE');
+  재('빈 제목', 제목의실명('', 사전), null);
+
+  const 글 = '<title>HYBE alone is two-thirds | K Culture Wire</title>'
+    + '<link rel="canonical" href="/x"><script type="application/ld+json">{}</script>';
+  재('석 칸을 다 찾는다',
+    지면재기({ 주소: '/a', 글, 이름들: 사전 }),
+    { 주소: '/a', 제목: 'HYBE alone is two-thirds', 실명: 'HYBE', 구조화: true, canonical: true });
+  재('꼬리 사이트이름을 뗀다',
+    지면재기({ 주소: '/a', 글: '<title>x | K Culture Wire</title>', 이름들: [] }).제목, 'x');
+  재('없으면 다 false',
+    지면재기({ 주소: '/b', 글: '<title>nothing</title>', 이름들: 사전 }),
+    { 주소: '/b', 제목: 'nothing', 실명: null, 구조화: false, canonical: false });
+
+  재('만점', 점수({ 실명: 'x', 구조화: true, canonical: true }), 4);
+  재('실명은 두 몫이다', 점수({ 실명: 'x', 구조화: false, canonical: false }), 2);
+  재('실명 없이 둘을 다 채워도 2 다', 점수({ 실명: null, 구조화: true, canonical: true }), 2);
+  재('아무것도 없으면 0', 점수({ 실명: null, 구조화: false, canonical: false }), 0);
+
+  /* 🔴 손님 지면 가름 — 은퇴 주소와 404 가 「고칠 것」 맨 위에 올라왔던 자리다 */
+  재('보통 지면은 손님 지면이다', 손님지면인가('<title>HYBE alone</title>'), true);
+  재('noindex 는 손님 지면이 아니다',
+    손님지면인가('<meta name="robots" content="noindex,nofollow"><title>x</title>'), false);
+  재('은퇴 주소는 손님 지면이 아니다',
+    손님지면인가('<title>Retired address — K Culture Wire</title>'), false);
+  재('404 는 손님 지면이 아니다', 손님지면인가('<title>Page not found</title>'), false);
+  재('제목 안에 Retired 가 들어간 «진짜» 기사는 막지 않는다 — 머리에 와야 걸린다',
+    손님지면인가('<title>Retired idols: who kept being read</title>'), true);
+
+  /* 🔴 자물쇠 — 「31갈래 묶음」에서 첫 갈래만 읽던 자리 */
+  const 묶음 = new Map();
+  for (const m of '/title · /firm · /actors-in-their · /school  (한 쓸이로 묶은 31갈래)'
+    .matchAll(/\/[A-Za-z0-9-]+(?:\/\*|\/[A-Za-z0-9-]+)?/g)) 묶음.set(m[0], '2026-09-25');
+  재('묶음에서 길을 다 뽑는다', [...묶음.keys()], ['/title', '/firm', '/actors-in-their', '/school']);
+  재('묶음의 «둘째» 길도 자물쇠에 걸린다 — 이것이 새던 자리다',
+    자물쇠걸렸나('/firm', 묶음), '2026-09-25');
+  재('그 아래 지면까지 막는다', 자물쇠걸렸나('/firm/kbs', 묶음), '2026-09-25');
+  재('별표 꼴도 아래까지 막는다',
+    자물쇠걸렸나('/person/iu', new Map([['/person/*', '2026-10-02']])), '2026-10-02');
+  재('안 걸린 지면은 null', 자물쇠걸렸나('/label-reach', 묶음), null);
+  재('비슷한 이름에 안 속는다 — /titles 는 /title 이 아니다',
+    자물쇠걸렸나('/titles', 묶음), null);
+
+  console.log(`\n자가시험 ${든것}가지 통과${깬것 ? ` · 🔴 ${깬것}가지 깨짐` : ''}`);
+  return 깬것 === 0;
+}
+
+/* ── 본 일 ──────────────────────────────────────────────── */
+
+/** 제목 실험 자물쇠가 걸린 지면 — 지금 건드리면 두 변화가 섞인다 */
+function 자물쇠걸린지면들() {
+  const p = path.join(뿌리, 'src/data/kcw-title-experiments.json');
+  if (!fs.existsSync(p)) return new Map();
+  let j;
+  try { j = JSON.parse(fs.readFileSync(p, 'utf8')); } catch { return new Map(); }
+  const 걸림 = new Map();
+  const 오늘 = new Date();
+  for (const x of (j.실험 ?? [])) {
+    const 다시 = x.다시잴날 ? new Date(x.다시잴날) : null;
+    if (!다시 || 다시 <= 오늘) continue;
+    /**
+     * 🔴 [2026-09-04 23:5x] 처음엔 `지면` 칸의 «첫 낱말»만 읽었다. 그래서
+     *   「/title · /firm · /actors-in-their · … (한 쓸이로 묶은 31갈래)」 항목에서
+     *   **첫 갈래 하나만 자물쇠로 잡히고 나머지 서른이 풀린 것으로 보였다.**
+     *   ⚠ 이 주석을 쓰다 하나 더 겪었다 — 갈래 이름 앞에 굵게 표시를 붙이니 별표둘과
+     *     빗금이 이어져 **주석이 그 자리에서 닫혔다.** 아래 코드가 주석 밖으로 튀어나와
+     *     파일이 깨졌다. 갈래 이름은 굵게 표시 없이 적는다.
+     *   ⛔ 그 목록을 그대로 「고칠 것」으로 삼았으면 «실험 중인 지면 서른 장»을 건드려
+     *     A/B 를 통째로 망칠 뻔했다. 자물쇠는 나를 막으려고 있는 것이다.
+     * ✅ 한 항목에 적힌 «모든» 길을 뽑는다. `/x/*` 는 그 아래 전부를 뜻한다.
+     */
+    for (const m of String(x.지면 ?? '').matchAll(/\/[A-Za-z0-9-]+(?:\/\*|\/[A-Za-z0-9-]+)?/g)) {
+      걸림.set(m[0], x.다시잴날);
+    }
+  }
+  return 걸림;
+}
+
+/** 이 주소가 자물쇠에 걸리나. `/x/*` 와 `/x` 는 그 아래 지면까지 막는다 */
+export function 자물쇠걸렸나(주소, 걸림) {
+  const a = String(주소 ?? '');
+  for (const [길, 날] of 걸림) {
+    const 뿌리길 = 길.replace(/\/\*$/, '');
+    if (a === 뿌리길 || a.startsWith(뿌리길 + '/')) return 날;
+  }
+  return null;
+}
+
+function 나간지면들() {
+  /* 서버가 호스트를 보고 접두를 갈아 끼우므로, KCW 지면은 dist/wikitip 아래에 있다 */
+  const 방 = path.join(뿌리, 'dist/wikitip');
+  const 낸것 = [];
+  const 훑 = (d, 앞) => {
+    if (!fs.existsSync(d)) return;
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, e.name);
+      if (e.isDirectory()) 훑(p, 앞 + '/' + e.name);
+      else if (e.name === 'index.html') 낸것.push({ 주소: 앞 || '/', 길: p });
+      else if (e.name.endsWith('.html')) 낸것.push({ 주소: 앞 + '/' + e.name.replace(/\.html$/, ''), 길: p });
+    }
+  };
+  훑(방, '');
+  return 낸것;
+}
+
+function 본일(고칠것만) {
+  const { 이름들, 온데 } = 이름사전만들기();
+  const 자물쇠 = 자물쇠걸린지면들();
+  const 지면들 = 나간지면들();
+
+  console.log('# 지면이 하나하나 「맞춤형」인가 — 석 칸으로 잰 것\n');
+  console.log(`이름 사전 ${이름들.length}개 · 우리 자료 ${온데.length}개 파일에서 모았다`);
+  console.log(`   가장 많이 준 파일: ${온데.sort((a, b) => b.개수 - a.개수).slice(0, 3).map((x) => `${x.파일}(${x.개수})`).join(' · ')}`);
+  console.log(`제목 실험 자물쇠 ${자물쇠.size}장`);
+  console.log('⭐ llms.txt 등재는 이 자가 안 잰다 — `scripts/check-llms-coverage.mjs` 가 갈래로 옳게 잰다');
+
+  if (!지면들.length) {
+    console.log('\n⬜ **dist/wikitip 이 없다 — 못 쟀다.** `npm run build` 를 먼저 돌린다.');
+    return true;                                   // 못 쟀다로 세운다. 「깨끗하다」로 안 읽는다
+  }
+
+  /**
+   * 🔴 [2026-09-04 23:5x] **같은 자를 20분 만에 두 번 돌렸더니 지면 수가 2,080 → 2,780
+   *   으로 달라졌다.** 나는 그 사이 사전만 넓혔고 빌드를 돌리지 않았다.
+   *   ⇒ **여섯 유닛이 같은 작업트리를 쓴다.** 옆 유닛이 배포하면서 `dist` 를 다시 쓰는
+   *     중이었고, 내 첫 번째 셈은 «반쯤 쓰인 dist» 를 센 것이다.
+   * ⛔ 그러니 이 자의 수를 «절대값»으로 읽지 않는다. 잰 시각과 지면 수를 같이 적는다.
+   *   ⚠ 몫(%)은 그래도 읽을 만하다 — 반쯤 쓰인 dist 도 한쪽으로 치우쳐 쓰이지는 않는다.
+   *     그래도 「84% → 88.2%」를 «고쳐서 올랐다»로 읽으면 틀린다. 사전을 넓힌 것이다.
+   */
+  console.log(`\n⚠ 잰 시각 ${new Date().toLocaleString('ko-KR')} · dist 의 지면 ${지면들.length}장`);
+  console.log('   여섯 유닛이 같은 작업트리를 쓴다 — 옆 유닛이 배포 중이면 이 수가 흔들린다.');
+
+  const 다 = 지면들.map(({ 주소, 길 }) => ({ 주소, 글: fs.readFileSync(길, 'utf8') }));
+  const 손님것 = 다.filter((x) => 손님지면인가(x.글));
+  const 안본것 = 다.length - 손님것.length;
+  const 잰것들 = 손님것.map(({ 주소, 글 }) => 지면재기({ 주소, 글, 이름들 }));
+
+  const 셈 = { 실명: 0, 구조화: 0, canonical: 0 };
+  for (const x of 잰것들) for (const k of Object.keys(셈)) if (x[k]) 셈[k] += 1;
+  const 전체 = 잰것들.length;
+  const 몫 = (n) => `${n} / ${전체} (${Math.round((n / 전체) * 1000) / 10}%)`;
+
+  console.log(`\n## 손님이 받는 지면 ${전체}장을 재니\n`);
+  console.log(`  제목에 실명   ${몫(셈.실명)}   ← 어제 정한 규칙의 첫 칸`);
+  console.log(`  구조화 데이터 ${몫(셈.구조화)}   ← GEO. AI 가 읽는 자리`);
+  console.log(`  canonical    ${몫(셈.canonical)}`);
+  if (안본것) {
+    console.log(`\n  ⬜ 안 본 것 ${안본것}장 — noindex·은퇴 주소·404 다. 손님이 받지 않는다.`);
+    console.log('     ⚠ 이것을 「깨끗하다」로 읽지 않는다. 안 본 것은 안 본 것이다.');
+  }
+
+  const 고칠것 = 잰것들
+    .filter((x) => 점수(x) < 만점)
+    .map((x) => ({ ...x, 점: 점수(x), 자물쇠: 자물쇠걸렸나(x.주소, 자물쇠) }))
+    .sort((a, b) => a.점 - b.점 || a.주소.localeCompare(b.주소));
+
+  console.log(`\n## 고칠 지면 ${고칠것.length}장 — 빈 칸이 많은 것부터\n`);
+  const 낼것 = 고칠것만 ? 고칠것 : 고칠것.slice(0, 25);
+  for (const x of 낼것) {
+    const 빈칸 = [
+      !x.실명 && '실명',
+      !x.구조화 && '구조화',
+      !x.canonical && 'canonical',
+    ].filter(Boolean).join('·');
+    const 자 = x.자물쇠 ? `  🔒 ${x.자물쇠} 까지 제목 손대지 않는다` : '';
+    console.log(`  ${String(x.점)}/${만점}  ${x.주소.padEnd(28)} 빈 칸: ${빈칸}${자}`);
+    console.log(`         「${x.제목.slice(0, 74)}」`);
+  }
+  if (!고칠것만 && 고칠것.length > 낼것.length) {
+    console.log(`\n  … ${고칠것.length - 낼것.length}장 더. 전부 보려면 --고칠것`);
+  }
+
+  console.log('\n## ⛔ 이 자가 못 재는 것 — 0 으로 채우지 않는다\n');
+  console.log('  「아무도 답하지 않는 물음인가」는 못 쟀다. 남의 검색결과를 봐야 아는 것이다.');
+  console.log('  ⇒ 이 자는 어제 정한 규칙의 «절반»만 잰다. 실명이 있어도 남이 이미 답하는');
+  console.log('     물음이면 7쪽으로 간다. 그 판정은 사람이 한다.');
+  console.log(`  실명 판정은 «우리 자료에 있는 이름 ${이름들.length}개»로만 했다.`);
+  console.log('     사전에 없는 이름이 제목에 있으면 «없다»로 잡힌다 — 사전을 넓히면 줄어든다.');
+  return true;
+}
+
+const 인 = process.argv.slice(2);
+const 이파일이시작인가 = process.argv[1]
+  && path.resolve(process.argv[1]) === path.resolve(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'));
+if (이파일이시작인가) {
+  if (인.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
+  else process.exit(본일(인.includes('--고칠것')) ? 0 : 1);
+}
