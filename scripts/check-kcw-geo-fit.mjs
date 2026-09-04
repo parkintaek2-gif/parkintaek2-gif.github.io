@@ -89,15 +89,48 @@ export function 이름쓸만한가(이름) {
   return s.length === 3 && /[A-Z]/.test(s);
 }
 
+/**
+ * 자료 방 아래의 `.json` 을 «하위 폴더까지» 모은다.
+ *
+ * 🔴 [2026-09-05 01:1x] **3번이 찾아서 넘겨 주신 결함이다.** 원문 그대로 옮긴다 —
+ *   「`이름사전만들기()` 가 `fs.readdirSync(자료방)` 로 `src/data` 를 훑는데,
+ *   **한 단계만** 봅니다(하위 폴더 안 내려감). 그런데 제 자료는 전부
+ *   `src/data/100yearmap/`(97개 파일) 안에 있습니다 — `pages-major.json` 도
+ *   `title` 칸을 그대로 갖고 있어서(925개 학과 이름) 사전 조건에 이미 맞는데,
+ *   폴더 한 단계 차이로 하나도 안 읽힙니다.」
+ *
+ * ⇒ 그래서 백년지도가 「실명 0 / 4,945」로 나왔다. **지면도 자료도 옳았다.**
+ *   내 사전이 얇았던 «다섯 번째» 갈래다
+ *   (석 자 약칭 · 도시 이름 · 글자 배열 · 숫자로 시작하는 이름 · 그리고 하위 폴더).
+ *
+ * ⭐ 그리고 3번이 **내 파일을 직접 고치지 않고 원인만 넘겨 주셨다.** 그것이 옳다 —
+ *   내가 같은 파일을 계속 손보고 있었으니 겹치면 둘 다 헛수고였다.
+ *   ⛔ 나는 오늘 남의 파일을 두 번 쓸어 담았다. 배울 자리다.
+ *
+ * ⚠ 깊이는 두 단계까지만 본다. 더 깊이 가면 `node_modules` 같은 데까지 훑을 위험이 있고,
+ *   우리 자료는 지금 한 단계 아래에 다 있다. **못 본 깊이가 있음을 적어 둔다.**
+ */
+export function 자료파일들(방, 깊이 = 2) {
+  const 낸것 = [];
+  if (깊이 <= 0 || !fs.existsSync(방)) return 낸것;
+  let 것들 = [];
+  try { 것들 = fs.readdirSync(방, { withFileTypes: true }); } catch { return 낸것; }
+  for (const e of 것들) {
+    const 길 = path.join(방, e.name);
+    if (e.isDirectory()) 낸것.push(...자료파일들(길, 깊이 - 1));
+    else if (e.name.endsWith('.json')) 낸것.push(길);
+  }
+  return 낸것;
+}
+
 /** 자료 파일들에서 이름을 긁어 모은다. 어느 파일에서 몇 개 왔는지 같이 돌려준다 */
 export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data')) {
   const 이름 = new Set();
   const 온데 = [];
   if (!fs.existsSync(자료방)) return { 이름들: [], 온데 };
-  for (const f of fs.readdirSync(자료방)) {
-    if (!f.endsWith('.json')) continue;
+  for (const 길 of 자료파일들(자료방)) {
     let j;
-    try { j = JSON.parse(fs.readFileSync(path.join(자료방, f), 'utf8')); } catch { continue; }
+    try { j = JSON.parse(fs.readFileSync(길, 'utf8')); } catch { continue; }
     const 배열들 = Array.isArray(j) ? [j] : Object.values(j).filter(Array.isArray);
     let 여기 = 0;
     for (const 배열 of 배열들) {
@@ -131,7 +164,7 @@ export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data'))
         }
       }
     }
-    if (여기) 온데.push({ 파일: f, 개수: 여기 });
+    if (여기) 온데.push({ 파일: path.basename(길), 개수: 여기 });
   }
   return { 이름들: [...이름], 온데 };
 }
