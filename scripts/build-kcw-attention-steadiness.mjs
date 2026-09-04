@@ -43,12 +43,27 @@ import path from 'node:path';
 const 뿌리 = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 
-export function 수로(v) {
-  if (v === null || v === undefined || v === '') return null;
-  const n = Number(v);
-  return Number.isFinite(n) ? n : null;
-}
 
+/* ─── 잡음시험은 «공용 자리»에 있다 ────────────────────────────────────────────
+ * 2번의 감수(2026-09-04)로 옮겼다 —
+ *   「유닛마다 따로 짜면 씨앗·문턱이 유닛마다 달라져 서로 검산이 안 됩니다」
+ *
+ * ⚠ 옛 이름을 여기서 «다시 내보낸다». 세 사이트가 한 빌드라, 다른 유닛이 부르던
+ *   자리가 끊기면 그 순간 세 사이트가 다 멈춘다. 이름을 지우지 않는다.
+ */
+/* ⚠ `export … from` 은 «이 파일 안에서 쓸 이름»을 만들지 않는다.
+   그래서 들여온 뒤 다시 내보낸다 — 한 줄로 줄이려다 한 번 깨뜨렸다. */
+import {
+  수로, 분위, 난수기, 다시뽑기,
+  잡음시험, 중간구간, 윌슨구간, 양끝잡음시험, 겹치나,
+  씨앗, 문턱,
+} from './lib/noise-test.mjs';
+
+export {
+  수로, 분위, 난수기, 다시뽑기,
+  잡음시험, 중간구간, 윌슨구간, 양끝잡음시험, 겹치나,
+  씨앗, 문턱,
+};
 export function 띠(편수) {
   const n = 수로(편수);
   if (n === null) return null;
@@ -58,17 +73,6 @@ export function 띠(편수) {
   return '7+';
 }
 export const 띠순서 = ['1', '2-3', '4-6', '7+'];
-
-/**
- * 분위값. ⚠ 자리 고르는 법을 한 곳에만 둔다 — 두 곳에 두면 표와 본문이 어긋난다.
- * 오름차순으로 정렬한 뒤 floor(n*p) 자리를 쓴다(끝을 넘지 않게 자른다).
- */
-export function 분위(값들, p) {
-  const v = 값들.filter((n) => n !== null && Number.isFinite(n)).slice().sort((a, b) => a - b);
-  if (!v.length) return null;
-  return v[Math.min(v.length - 1, Math.floor(v.length * p))];
-}
-
 /** 한 띠의 흔들림 */
 export function 흔들림(값들) {
   const v = 값들.filter((n) => n !== null && Number.isFinite(n));
@@ -86,113 +90,6 @@ export function 흔들림(값들) {
     절반아래로내림: 내린것,
     크게움직인비율: +((오른것 + 내린것) / v.length * 100).toFixed(1),
   };
-}
-
-/* ─── 잡음 시험 ───────────────────────────────────────────────────────────────
- * ⚠ 씨앗 있는 난수를 쓴다. 매번 다른 수가 나오면 기사에 적은 수를 다시 못 잰다.
- *   기사에 「11.7%」라고 적었으면 «누구나 같은 명령으로 11.7%가 나와야» 한다.
- */
-export function 난수기(씨앗) {
-  let a = 씨앗 >>> 0;
-  return function () {
-    a += 0x6D2B79F5;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
-export function 다시뽑기(값들, 뽑을수, 난수) {
-  const v = new Array(뽑을수);
-  for (let i = 0; i < 뽑을수; i += 1) v[i] = 값들[Math.floor(난수() * 값들.length)];
-  return v;
-}
-
-/**
- * 「작은 띠가 더 좁다」가 «표본이 작아서»는 아닌가.
- * 큰 띠에서 작은 띠와 «같은 인원»을 되풀이해 뽑아, 그 폭이 작은 띠 폭 이하로 떨어지는 비율을 센다.
- * 그 비율이 크면 — 좁아짐을 표본 크기로 설명할 수 있다는 뜻이다. 그러면 못 쟀다고 적는다.
- */
-export function 잡음시험(큰띠값들, 작은띠폭, 뽑을수, 횟수 = 10000, 씨앗 = 20260904) {
-  const 난수 = 난수기(씨앗);
-  const 폭들 = [];
-  let 이하 = 0;
-  for (let i = 0; i < 횟수; i += 1) {
-    const s = 다시뽑기(큰띠값들, 뽑을수, 난수);
-    const p = 분위(s, 0.75) - 분위(s, 0.25);
-    폭들.push(p);
-    if (p <= 작은띠폭 + 1e-9) 이하 += 1;
-  }
-  폭들.sort((a, b) => a - b);
-  return {
-    뽑을수, 횟수, 씨앗,
-    이하비율: +(이하 / 횟수 * 100).toFixed(1),
-    폭중간: +폭들[Math.floor(횟수 * 0.5)].toFixed(3),
-    폭5: +폭들[Math.floor(횟수 * 0.05)].toFixed(3),
-    폭95: +폭들[Math.floor(횟수 * 0.95)].toFixed(3),
-  };
-}
-
-/** 중간값의 90% 구간. 넷이 서로 겹치면 「띠끼리 다르다」고 말할 수 없다. */
-export function 중간구간(값들, 횟수 = 10000, 씨앗 = 20260904) {
-  const v = 값들.filter((n) => n !== null && Number.isFinite(n));
-  if (!v.length) return null;
-  const 난수 = 난수기(씨앗);
-  const ms = [];
-  for (let i = 0; i < 횟수; i += 1) ms.push(분위(다시뽑기(v, v.length, 난수), 0.5));
-  ms.sort((a, b) => a - b);
-  return { 아래: +ms[Math.floor(횟수 * 0.05)].toFixed(2), 위: +ms[Math.floor(횟수 * 0.95)].toFixed(2) };
-}
-
-/* ─── 비율을 견줄 때 ──────────────────────────────────────────────────────────
- * ⭐ [2026-09-04] 6번이 이 자를 받아 «비율»(증권사 목표주가 적중률)에 썼는데,
- *   비율에는 부트스트랩보다 **이항 구간**이 맞는 도구다. 6번이 옳았다.
- *   그래서 그 도구를 여기에 함께 둔다 — 다음 사람이 갈래마다 고르지 않게.
- *
- * 🔴 다만 6번 방식에 «한 자리» 위험이 있어 재서 붙인다 —
- *   **여럿 가운데 양끝을 골라 견주는 것**은 미리 고른 둘을 견주는 것보다 훨씬 잘 틀린다.
- *   증권사 8곳이 «다 같은 실력»이라 놓고 3,000번 굴려 쟀다 (실제 n 그대로) —
- *     양끝을 골라 견줌      → 구간이 안 겹친 것이 **9.6%**
- *     미리 고른 SK·대신     → **0.6%**
- *   ⭐ 그래도 실제 격차(14.9%p)는 3,000번 가운데 **한 번도** 안 나왔다 → 6번 결론은 산다.
- */
-
-/** 이항 비율의 95% 구간 (Wilson). ⚠ 정규근사는 작은 n 에서 0 아래로 내려간다 */
-export function 윌슨구간(맞힘, 전체, z = 1.959964) {
-  const n = 수로(전체), h = 수로(맞힘);
-  if (n === null || h === null || n <= 0) return null;
-  const p = h / n, d = 1 + (z * z) / n;
-  const 가운데 = (p + (z * z) / (2 * n)) / d;
-  const 반폭 = (z * Math.sqrt((p * (1 - p)) / n + (z * z) / (4 * n * n))) / d;
-  return { 아래: 가운데 - 반폭, 위: 가운데 + 반폭 };
-}
-
-/**
- * 「여럿 가운데 «양끝»이 다르다」가 잡음인가.
- * 무리 전체가 **같은 비율**이라 놓고 되풀이해 굴려, 양끝 구간이 안 겹치는 비율을 센다.
- * @param 무리 [{이름, n}] — 실제 표본 수를 그대로 쓴다. 같은 수로 바꾸면 딴 물음이 된다
- * @param 참비율 0~1
- */
-export function 양끝잡음시험(무리, 참비율, 횟수 = 3000, 씨앗 = 20260904) {
-  const 난수 = 난수기(씨앗);
-  const 굴리기 = (n) => { let h = 0; for (let i = 0; i < n; i += 1) if (난수() < 참비율) h += 1; return h; };
-  let 안겹침 = 0;
-  for (let t = 0; t < 횟수; t += 1) {
-    const 판 = 무리.map((x) => {
-      const h = 굴리기(x.n);
-      return { p: h / x.n, ci: 윌슨구간(h, x.n) };
-    }).sort((a, b) => b.p - a.p);
-    const 위 = 판[0].ci, 아래 = 판[판.length - 1].ci;
-    if (!겹치나({ 아래: 위.아래, 위: 위.위 }, { 아래: 아래.아래, 위: 아래.위 })) 안겹침 += 1;
-  }
-  return { 횟수, 씨앗, 무리수: 무리.length, 헛경보비율: +(안겹침 / 횟수 * 100).toFixed(1) };
-}
-
-/** 구간 둘이 겹치나 — 겹치면 다르다고 말하지 않는다 */
-export function 겹치나(a, b) {
-  if (!a || !b) return null;
-  return a.아래 <= b.위 && b.아래 <= a.위;
 }
 
 export function 재기(배우들) {
