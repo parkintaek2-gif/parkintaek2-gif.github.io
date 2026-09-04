@@ -26,7 +26,8 @@ export const 손님딱지 = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebK
 export const 갈래들 = [
   { 딱지: 'openapi', 이름: '오픈API', 길: '/data/openapi/openapiList.do?gubun=A', 꼴: 'openapi' },
   { 딱지: 'filedata', 이름: '파일데이터', 길: '/data/filedat/filedatList.do', 꼴: 'filedata' },
-  { 딱지: 'keyword', 이름: '문화 키워드 데이터', 길: '/data/lnkdat/newPblcDatList.do', 꼴: 'keyword' },
+  /* ⚠ 이 갈래만 쪽 넘김에 apiClCd 가 함께 붙는다 — 빼면 늘 1쪽을 돌려준다 */
+  { 딱지: 'keyword', 이름: '문화 키워드 데이터', 길: '/data/lnkdat/newPblcDatList.do?apiClCd=01', 꼴: 'keyword' },
   { 딱지: 'kosis', 이름: '국가통계포털', 길: '/data/lnkdat/ntnStatsList.do', 꼴: 'kosis' },
   { 딱지: 'localgov', 이름: '자치단체 데이터포털', 길: '/data/portalMng/portalMngList.do', 꼴: 'localgov' },
   { 딱지: 'catalog', 이름: '카탈로그 데이터', 길: '/data/linkOpenApi/linkOpenApiList.do', 꼴: 'catalog' },
@@ -106,12 +107,23 @@ function 뽑기_filedata(t) {
 /** 키워드/카탈로그/실감형 꼴: 오픈API | XML | 제목 | 설명… | 제공기관 X | 수정일 D | …호출건수 N */
 function 뽑기_keyword(t) {
   const 것들 = [];
+  /* 🔴 [2026-09-04 실측] 창의 왼쪽 끝을 «앞 줄의 바로가기»에 못박지 않았더니
+     화면 부속(「검색」·「내용」·「최신순」)을 제목으로 집었고, 그 가짜 제목들이
+     서로 겹쳐 중복으로 걸러지면서 **11,234건 중 69건만 담겼다.**
+     0건이면 눈에 띄는데 69건이라 성공한 척 넘어갈 뻔했다. */
+  let 앞칸끝 = -1;
+  const 부속 = /^(최신순|조회순|인기순|제목순|검색|내용|전체|제목|바로가기|건의 결과가 있습니다\.)$/;
   for (let i = 0; i < t.length; i += 1) {
+    if (t[i] === '바로가기') { 앞칸끝 = i; continue; }
     if (t[i] !== '제공기관') continue;
-    const 창머리 = Math.max(0, i - 14);
+    const 창머리 = Math.max(앞칸끝 + 1, i - 14);
     const 창 = t.slice(창머리, i + 10);
     const 값 = (이름) => { const k = 창.indexOf(이름); return k >= 0 ? 창[k + 1] : null; };
-    const 앞 = t.slice(창머리, i).filter((s) => !/^(오픈API|파일데이터|XML|JSON|CSV|REST|LINK|XLSX)$/.test(s));
+    const 앞 = t.slice(창머리, i)
+      .filter((s) => !/^(오픈API|파일데이터|REST|SOAP)$/.test(s))
+      .filter((s) => !/^(JSON|XML|CSV|XLSX|LINK|JSON\+XML|JSON XML|ZIP|PDF)$/.test(s))
+      .filter((s) => !부속.test(s));
+    앞칸끝 = i;
     if (!앞.length) continue;
     것들.push({
       제목: 앞[0],
@@ -278,6 +290,18 @@ export function 재기() {
   const k = 항목뽑기('<i>오픈API</i><i>XML</i><a>한국문화예술교육진흥원_채용정보</a><p>설명이다</p><b>제공기관</b><b>한국문화예술교육진흥원</b><b>수정일</b><b>2026-09-01</b><b>원천기관 호출건수</b><b>4,124</b>', 'keyword');
   봄('키워드 꼴 한 건을 뽑는다', k.length === 1 && k[0].제공기관 === '한국문화예술교육진흥원');
   봄('키워드 꼴 호출건수를 숫자로', !!k[0] && k[0].원천호출건수 === 4124);
+
+  /* 🔴 화면 부속(정렬 단추·검색칸)을 제목으로 집으면 가짜 제목들이 서로 겹쳐
+     중복으로 걸러지고, 11,234건이 69건으로 줄어든다 (2026-09-04 실측). */
+  const 부속낀 = 항목뽑기(
+    '<b>최신순</b><b>조회순</b><b>제목순</b><i>오픈API</i><i>JSON+XML</i><a>한국문화정보원_전통문양조회서비스</a>'
+    + '<p>설명이다</p><b>제공기관</b><b>한국문화정보원</b><b>수정일</b><b>2026-08-24</b><a>바로가기</a>'
+    + '<i>오픈API</i><i>JSON+XML</i><a>한국문화정보원_전국문화기반시설총람</a><p>설명이다</p>'
+    + '<b>제공기관</b><b>한국문화정보원</b><b>수정일</b><b>2026-08-20</b><a>바로가기</a>', 'keyword');
+  봄('키워드 꼴 두 줄을 두 건으로 센다', 부속낀.length === 2);
+  봄('정렬 단추를 제목으로 집지 않는다', 부속낀.length === 2 && 부속낀[0].제목 === '한국문화정보원_전통문양조회서비스');
+  봄('둘째 줄이 첫째 줄의 꼬리를 안 먹는다', 부속낀.length === 2 && 부속낀[1].제목 === '한국문화정보원_전국문화기반시설총람');
+  봄('JSON+XML 같은 포맷 딱지를 제목으로 집지 않는다', 부속낀.every((x) => !/JSON|XML/.test(x.제목)));
 
   const s = 항목뽑기('<a>국가유산관리현황</a><span>&nbsp;&gt;&nbsp;국가유산 현황</span><span>&nbsp;&gt;&nbsp;유형별 현황</span><a>건조물문화유산 현황</a><b>제공기관</b><b>문화재청</b><b>등록일</b><b>2022-01-03</b>', 'kosis');
   봄('국가통계포털 표 이름과 분류를 가른다', s.length === 1 && s[0].제목 === '건조물문화유산 현황' && s[0].분류.length === 3);
