@@ -23,6 +23,14 @@ crossChecks:
   - "The measure is a share, so it does not reward being widely read. J.Y. Park at 329,604 total reads and Jungkook at 5,766,465 are compared on the same scale"
   - "30 people, all measured — no one was dropped for missing data. Every person's title count is printed so a low share can be told apart from a thin count"
   - "This started as a defect in our own work. Counting only main articles made two other people look six to twelve times less read than they are, which is what sent us looking at redirect traffic in the first place"
+corrections:
+  - date: 2026-09-05
+    note: "We widened this measurement from 30 people to 100 the same day. At 30, one person
+      was read mostly through a title Wikipedia no longer uses; at 100 it is six, and all six
+      turn out to have a rename in the move log. The figures in this piece are correct for the
+      30 measured here and are not edited. The fuller count, with all six named and the three
+      different kinds of rename separated, is in Six Korean stars were renamed on Wikipedia.
+      Readers followed none of them."
 excluded:
   - "What anyone typed into a search box. We can see which page title a reader arrived at, not the words they searched"
   - "Search engines that resolve an alternative spelling to the main article. Those arrivals are counted as main-article reads, so redirect shares here are floors"
