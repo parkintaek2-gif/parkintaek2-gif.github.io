@@ -54,7 +54,9 @@ const 뿌리 = path.resolve(import.meta.dirname, '..');
  */
 export const 사람들 = [
   { 이름: 'V', 씨앗: 'V_(singer)' },
-  { 이름: 'Jungkook', 씨앗: 'Jungkook' },
+  /* ⭐ 이름을 «본 지면 이름»으로 적는다 — 위키백과가 Jung Kook 으로 옮겼다.
+     처음엔 Jungkook 으로 적었는데 그것이 넘겨주기였다. 표와 제목이 어긋나면 안 된다. */
+  { 이름: 'Jung Kook', 씨앗: 'Jungkook' },
   { 이름: 'Jimin', 씨앗: 'Jimin' },
   { 이름: 'Jin', 씨앗: 'Jin_(singer)' },
   { 이름: 'RM', 씨앗: 'RM_(musician)' },
@@ -377,6 +379,10 @@ async function 본일(적나) {
     }
     const 하루들 = [...하루합.entries()].map(([날, 수]) => ({ 날, 수 })).sort((a, b) => a.날.localeCompare(b.날));
     사람별주별[이름] = 주별로모으기(하루들);
+    /* ⛔ 몇 제목을 더했고 몇 개가 막혔나를 «자료에» 남긴다 —
+       처음엔 이 두 줄이 빠져 자료에 null 로 들어갔다. 투명성 칸을 조용히 비우지 않는다. */
+    받은제목표[이름] = 받은제목;
+    막힌제목표[이름] = 막힌제목;
     if (안더한것.length) {
       console.log(`     ⬜ ${이름} — 넘겨주기가 아니라서 «안 더한» 제목: ${안더한것.join(', ')}`);
     }

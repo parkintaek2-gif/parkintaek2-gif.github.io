@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-04 23:39 KST",
+  "generated": "2026-09-05 02:36 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 115,
-    "머리글있음": 115,
+    "본지면": 116,
+    "머리글있음": 116,
     "머리글없음": 0
   },
   "missing": [],
@@ -94,6 +94,7 @@
     "/spread": "What gets read across Southeast Asia, and what gets read in one country",
     "/star-signs": "Which Korean stars share your Chinese zodiac sign?",
     "/staying-power": "Staying power and force are two different things",
+    "/streak-vs-read": "V led 108 weeks. Jung Kook was read more per week",
     "/subscribe": "Get this by email",
     "/surge-floor": "Choi Yu-jin or Ha Young: who surged depends on the floor",
     "/tags": "Every subject we have published on",

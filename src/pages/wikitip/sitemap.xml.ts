@@ -659,6 +659,7 @@ export const GET: APIRoute = async () => {
     { path: '/surge-floor', priority: '0.9', changefreq: 'monthly' },
     { path: '/label-reach', priority: '0.9', changefreq: 'monthly' },
     { path: '/cap-per-artist', priority: '0.9', changefreq: 'monthly' },
+    { path: '/streak-vs-read', priority: '0.9', changefreq: 'monthly' },
     /* 44편째 기사의 표. 2026-08-08 17:0x — 기사만 내고 지면을 안 내면 카드의
        「every figure has a table behind it」이 거짓말이 된다 */
     { path: '/home-first', priority: '0.9', changefreq: 'weekly' },
