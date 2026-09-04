@@ -52,10 +52,36 @@ const 일위이름들 = [...new Set(바닥들.map((b: any) => b.맨위[0].이름
  */
 const 바닥수 = 바닥들.length;
 const 일위수 = 일위이름들.length;
-const TITLE = `${바닥수} floors, ${일위수} different number ones`;
-const DESC = `${수(d.합치기.합친뒤)} Korean stars ranked by the surge measure trending lists use. `
-  + `With no floor the top rose ${바닥없음.맨위[0].배수}x from one reader; with a floor it is `
-  + `${가장높은바닥.맨위[0].배수}x.`;
+
+/**
+ * 🔴 [2026-09-05 00:4x] **제목에 실명을 넣었다.** 어제(9/3) 정한 규칙의 첫 칸이
+ *   「제목·h1 에 사람이 실제로 검색하는 실명」인데 전 제목은 「6 floors, 3 different
+ *   number ones」였다 — **수만 있고 이름이 하나도 없다.**
+ *   ⛔ 사람이 검색하는 것은 「Choi Yu-jin」이지 「6 floors」가 아니다.
+ * ⭐ 그리고 이 지면의 물음이 그대로 제목이 된다 — **바닥을 어디에 두느냐로 1위가 바뀐다.**
+ *   두 이름을 나란히 놓는 것이 그 물음을 가장 짧게 말하는 방법이다.
+ *
+ * ⛔ 이름을 자료에서 «계산하지» 않았다 — 제목은 색인에 남으므로 자료가 흔들릴 때마다
+ *   바뀌면 안 된다. 대신 **박은 이름이 오늘 자료의 1위 목록에 있는지 빌드가 검사한다.**
+ *   ⚠ 이 지면 자료는 매주 다시 잰다. 1위가 바뀌면 빌드가 죽어서 «내가 알게» 된다 —
+ *     그것이 옳다. 조용히 틀린 이름이 색인에 남는 것이 가장 나쁘다.
+ */
+const 제목에박은이름 = ['Choi Yu-jin', 'Ha Young'];
+const 못찾은이름 = 제목에박은이름.filter((n) => !일위이름들.some((m: string) => String(m).includes(n)));
+if (못찾은이름.length) {
+  throw new Error(
+    [
+      '🔴 /surge-floor — 제목에 박은 이름이 오늘 자료의 1위 목록에 없다: ' + 못찾은이름.join(', '),
+      '   오늘의 1위들: ' + 일위이름들.join(', '),
+      '   ⛔ 제목을 오늘의 1위로 고치십시오. 자료가 새로 잰 것이면 제목도 새로 잡습니다.',
+    ].join('\n'),
+  );
+}
+
+const TITLE = 'Choi Yu-jin or Ha Young: who surged depends on the floor';
+const DESC = `${수(d.합치기.합친뒤)} Korean stars, ranked by the surge measure trending lists `
+  + `use. With no floor Choi Yu-jin rose ${바닥없음.맨위[0].배수}x from one reader; with a `
+  + `floor it is ${가장높은바닥.맨위[0].배수}x.`;
 
 const jsonLd = [{
   '@context': 'https://schema.org',
