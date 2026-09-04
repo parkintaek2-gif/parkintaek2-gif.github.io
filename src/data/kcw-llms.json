@@ -1,5 +1,5 @@
 {
- "지은날": "2026-09-02T05:51:07.961Z",
+ "지은날": "2026-09-04T18:21:26.461Z",
  "갈래들": [
   {
    "갈래": "Start here",
@@ -22,7 +22,7 @@
     {
      "길": "/data",
      "이름": "Data and sources",
-     "설명": "Every number on this site comes from 6,690 rows we built and keep. This is what is in them, what is missing from them, and what we have had to correct."
+     "설명": "Every number on this site comes from 15,954 rows we built and keep. This is what is in them, what is missing from them, and what we have had to correct."
     }
    ]
   },
@@ -47,7 +47,7 @@
     {
      "길": "/reach",
      "이름": "How many countries a title reaches",
-     "설명": "All 397 Korean titles that reached a Netflix Top 10 in six Southeast Asian markets since 2021, sorted by how many of the six they reached. 45.1% reached all six; 30.7% reached exactly one."
+     "설명": "All 421 Korean titles that reached a Netflix Top 10 in six Southeast Asian markets since 2021, sorted by how many of the six they reached. 43.9% reached all six; 31.8% reached exactly one."
     },
     {
      "길": "/staying-power",
@@ -277,7 +277,7 @@
     {
      "길": "/crowding",
      "이름": "Crowding on the chart",
-     "설명": "Across 2,455 arrivals at the top three of a market chart, the other Korean titles fall by 0.402 on average. Matched against the same measurement for non-Korean arrivals at the same starting level,…"
+     "설명": "Across 2,458 arrivals at the top three of a market chart, the other Korean titles fall by 0.403 on average. Matched against the same measurement for non-Korean arrivals at the same starting level,…"
     },
     {
      "길": "/clumping",
@@ -397,7 +397,7 @@
     {
      "길": "/home-first",
      "이름": "Home first",
-     "설명": "For the 420 Korean titles that reached a Netflix Top 10 in Southeast Asia, Korea's own chart got there first for 51, in the same week for 165, and never charted 150 of them at all."
+     "설명": "For the 421 Korean titles that reached a Netflix Top 10 in Southeast Asia, Korea's own chart got there first for 51, in the same week for 166, and never charted 150 of them at all."
     },
     {
      "길": "/home-abroad",
@@ -432,7 +432,7 @@
     {
      "길": "/provenance",
      "이름": "Provenance",
-     "설명": "A chart row gives a title, not a work. 16 titles in our Korean panel were foreign works carrying the same English name, worth 557 of 39,696 chart places (1.4%). The test is where they charted, not…"
+     "설명": "A chart row gives a title, not a work. 16 titles in our Korean panel were foreign works carrying the same English name, worth 557 of 39,835 chart places (1.4%). The test is where they charted, not…"
     },
     {
      "길": "/places",
@@ -517,7 +517,7 @@
     {
      "길": "/articles",
      "이름": "All articles",
-     "설명": "All 136 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+     "설명": "All 153 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
     },
     {
      "길": "/community",
