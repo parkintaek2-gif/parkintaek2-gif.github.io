@@ -23,6 +23,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 낼길 = path.join(뿌리, 'src/data/wikitip-netflix-files.json');
@@ -175,7 +176,7 @@ const 세계줄 = await 받기(주소.global);
 console.log(`받았다 — 나라 ${나라줄.length - 1}줄 · 세계 ${세계줄.length - 1}줄`);
 
 const 결과 = {
-  measuredAt: new Date().toISOString().slice(0, 10),
+  measuredAt: 케이에스티오늘(),
   whatThisIs: 'The two public Netflix Top 10 files, measured column by column on the day shown: row counts, week coverage, and where the file stops carrying a number.',
   whatThisIsNot: 'Not a copy of the files and not a viewing estimate. Netflix publishes the files; we counted what is in them and what is missing from them.'
 ,

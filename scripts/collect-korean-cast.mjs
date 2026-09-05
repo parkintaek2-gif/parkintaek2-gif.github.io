@@ -23,6 +23,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const DIR = path.resolve('archive/raw/netflix-top10');
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) korean cast join';
@@ -174,7 +175,7 @@ for (const v of 사람.values()) if (v.문서) 편수표[v.문서] = v.작품.si
 /* 편수 많은 사람부터 — 부르는 쪽이 `--top` 으로 앞에서 자른다 */
 const 정렬된 = Object.fromEntries(Object.entries(편수표).sort((a, b) => b[1] - a[1]));
 fs.writeFileSync(이름산출, JSON.stringify({
-  받은날: new Date().toISOString().slice(0, 10),
+  받은날: 케이에스티오늘(),
   출처: 'Wikidata: cast member (P161) of Korean works that reached a Netflix Top 10, filtered to Korean citizenship (P27 = Q884).',
   주의: '⚠ 편수는 우리가 센 작품 안에서의 편수다. 그 사람의 전체 출연작 수가 아니다.',
   배우수: Object.keys(정렬된).length,

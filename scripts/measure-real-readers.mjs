@@ -36,6 +36,7 @@ import { readFileSync, existsSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 유닛, 손님아님, 토큰받기, 무엇이막혔나, 우리속성 } from './ga4-report.mjs';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -312,7 +313,7 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
   /* ⚠ `customerChannels` 는 «최상위»에도 둔다 — 유닛마다 다른 값이 아니고,
      읽는 쪽이 `d.customerChannels` 로 집는다. 안 두면 방송에 «빈 자리»가 나간다(실제로 그랬다). */
   const 적을것 = {
-    generated: new Date().toISOString().slice(0, 10),
+    generated: 케이에스티오늘(),
     days: 날수,
     property: 속성,
     기준: 흔적없음기준,

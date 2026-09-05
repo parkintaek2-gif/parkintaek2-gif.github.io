@@ -32,6 +32,7 @@ import path from 'node:path';
  *   새 스크립트가 **기존 규칙을 물려받지 않는 것**이 오늘 세 번째다. 손 규칙은 여기서 가져다 쓴다.
  */
 import { NOT_KOREAN , 열쇠못믿는것 } from './lib/korean-netflix-titles.mjs';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const DIR = path.resolve('archive/raw/netflix-top10');
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) korean titles keyed';
@@ -234,7 +235,7 @@ console.log(`저장 ${산출}`);
 const 이름산출 = path.join(DIR, 'korean-titles.json');
 const 이름들 = [...(위키.쓰인이름 ?? new Set())].sort();
 fs.writeFileSync(이름산출, JSON.stringify({
-  받은날: new Date().toISOString().slice(0, 10),
+  받은날: 케이에스티오늘(),
   출처: 'Wikidata: works with country of origin (P495) = South Korea (Q884), English labels and English Wikipedia article names.',
   주의: '⚠ 후보 목록이다. 이름이 같은 남의 나라 작품이 섞여 있다 — 거르는 일은 판정 규칙이 한다.',
   제목수: 이름들.length,

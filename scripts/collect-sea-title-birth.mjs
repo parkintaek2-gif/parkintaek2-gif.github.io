@@ -57,6 +57,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const 원본길 = path.join(뿌리, 'archive', 'raw', 'wikipedia', 'sea-title-birth.json');
@@ -291,7 +292,7 @@ if (내가실행됐다) {
   const 저장하기 = (받은것, 못받은수) => {
     fs.mkdirSync(path.dirname(원본길), { recursive: true });
     fs.writeFileSync(원본길, `${JSON.stringify({
-      generatedAt: new Date().toISOString().slice(0, 10),
+      generatedAt: 케이에스티오늘(),
       source: 'Wikipedia API — first revision of each article (action=query&prop=revisions&rvdir=newer)',
       baseEdition: 기준판,
       editions: 볼판들,

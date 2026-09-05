@@ -155,7 +155,16 @@ function 자가시험() {
  * ⛔ 이 수를 «올리지» 않는다. 줄이면 이 줄도 같이 내린다.
  *   올려서 통과시키는 것은 자를 끄는 것과 같다.
  */
-const 오늘까지봐주는수 = 24;
+/*
+ * 🔴 [2026-09-06 · 5번] **24 → 18.** 6번이 자기 백업 자에서 이 병을 찾자 2번·4번이 각자
+ *   자기 자에서 같은 것을 찾아 고쳤다. 그때 이 자를 돌려 보니 «남은 자리 목록»이 이미 있었다.
+ *   ⇒ 각자 하나씩 다시 발견하지 않도록 목록을 전 유닛에 냈고, 5번 몫 여섯 곳을 그 자리에서 고쳤다.
+ *     collect-korean-cast · collect-korean-titles-keyed · collect-sea-title-birth ·
+ *     measure-netflix-top10-files · measure-real-readers · check-title-change-cooldown
+ * ⚠ 남은 18곳 가운데 check-utc-today.mjs:91,93 은 «그 자의 시험 글»이라 헛걸림에 가깝다.
+ *   그래도 빼지 않았다 — 빼는 규칙을 넣으면 진짜 자리도 같이 빠질 수 있다. 세되 알고 둔다.
+ */
+const 오늘까지봐주는수 = 18;
 /*
  * ⚠ 처음에 77 로 적었다. 그것은 내가 «grep 으로» 센 수였고, 이 자가 세는 수는 86 이다
  *   (grep 은 `new Date()` 가 한 줄에 붙어 있는 꼴만 봤다).

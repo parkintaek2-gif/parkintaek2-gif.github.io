@@ -46,6 +46,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09-06] UTC 날짜 병 — KST 새벽에 하루 앞서 찍혔다 */
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const argv = process.argv.slice(2);
@@ -167,7 +168,7 @@ function main() {
 
   const i = argv.indexOf('--날');
   const 식은날 = i >= 0 ? Number(argv[i + 1]) || 기본식은날 : 기본식은날;
-  const 오늘 = new Date().toISOString().slice(0, 10);
+  const 오늘 = 케이에스티오늘();
 
   console.log('■ 제목을 고친 뒤 «재기 전에» 또 고치려는 것은 아닌가\n');
   console.log(`   오늘 ${오늘} · 식은기간 ${식은날}일\n`);
