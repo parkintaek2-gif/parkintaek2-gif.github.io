@@ -899,6 +899,9 @@ export const GET: APIRoute = async () => {
     { path: '/netflix-tudum-data-dictionary', priority: '1.0', changefreq: 'monthly' },
     /* 같은 사람을 한국어와 영어로 나란히 — 어느 말로 읽히나. 트로트와 아이돌이 반대로 선다 */
     { path: '/which-language-reads-you', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 사장님 퍼널의 「Compatibility」 층에 우리가 낼 수 있는 것 — 궁합이 아니라 «같이 있던 횟수»다.
+       답이 「아무것도 안 갈린다」로 나왔다. 궁합을 파는 곳은 이 표를 안 낸다 */
+    { path: '/star-sign-pairs', priority: '0.9', changefreq: 'monthly' },
     /* 🔴 순회공연이 «가는 곳»과 «읽히는 곳»이 같은가. 영어가 으뜸인데 일곱 도시 중 한 곳만 영어권이다 */
     { path: '/tour-city-languages', priority: '0.9', changefreq: 'weekly' },
     /* 캐스팅 기사가 영어권 독자를 움직이나 — 사건이 쌓일수록 표가 길어지는 지면이다 */

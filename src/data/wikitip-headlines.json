@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-06 00:03 KST",
+  "generated": "2026-09-06 01:24 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 125,
-    "머리글있음": 125,
+    "본지면": 126,
+    "머리글있음": 126,
     "머리글없음": 0
   },
   "missing": [],
@@ -99,6 +99,7 @@
     "/sea-athletes": "Indonesia and Thailand look up Son Heung-min. Vietnam looks up Faker",
     "/siblings": "Two shows from one Korean company on the same chart cost each other half a place",
     "/spread": "What gets read across Southeast Asia, and what gets read in one country",
+    "/star-sign-pairs": "Which star signs actually end up in the same K-pop group",
     "/star-signs": "Which Korean stars share your Chinese zodiac sign?",
     "/staying-power": "Staying power and force are two different things",
     "/streak-vs-read": "V led 108 weeks. Jung Kook was read more per week",

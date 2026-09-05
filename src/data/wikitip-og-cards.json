@@ -474,6 +474,11 @@
       "figure": "120.7",
       "label": "views a day in English — a language one tour stop of seven speaks",
       "왜": "자동은 「120.7 — a day」로 잘라 무슨 말인지 안 남는다. 수는 그대로 두고 딱지에 어긋남을 넣는다. ⛔ 「1 of 7」로 하려다 그 글자가 본문에 없어 자가 막았다 — 본문에 없는 수를 카드에 내지 않는 규칙이 맞다."
+    },
+    "zodiac-compatibility-tested-on-real-groups": {
+      "figure": "4,651",
+      "label": "K-pop pairings counted. No two signs find each other",
+      "왜": "자동은 259(그룹 수)를 집는다. 손님을 멈춰 세우는 것은 «얼마나 많이 세었나»이고, 딱지가 그 답까지 말해 준다."
     }
   }
 }
