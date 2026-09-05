@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 20:10 KST",
+  "generated": "2026-09-05 22:39 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 122,
-    "머리글있음": 122,
+    "본지면": 123,
+    "머리글있음": 123,
     "머리글없음": 0
   },
   "missing": [],
@@ -122,6 +122,7 @@
     "/what-to-watch-after": "What to watch after a Korean show",
     "/where-it-moved": "Korean titles lost Asia’s charts and gained Latin America’s",
     "/where-to-watch": "Where to watch Korean drama",
+    "/which-language-reads-you": "Korea's biggest concert draw is read 91 times a day in English. A BTS member is read 2,461",
     "/which-ranking": "Which ranking is the real one?",
     "/who-is-first": "BTS is first in three Southeast Asian countries. In Indonesia it is Babymonster",
     "/who-makes-it": "How many companies make the Korean series that chart?",
