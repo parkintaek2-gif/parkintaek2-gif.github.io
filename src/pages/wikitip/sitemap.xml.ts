@@ -909,6 +909,9 @@ export const GET: APIRoute = async () => {
     { path: '/netflix-tudum-data-dictionary', priority: '1.0', changefreq: 'monthly' },
     /* 같은 사람을 한국어와 영어로 나란히 — 어느 말로 읽히나. 트로트와 아이돌이 반대로 선다 */
     { path: '/which-language-reads-you', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 한국이 내놓은 문화 데이터 1,344건 — 아카이브에 받아만 두고 어느 지면도 안 쓰던 자료다.
+       무료 80% 인데 열두 달 안에 갱신된 것은 24%. 「공짜」와 「살아 있음」을 갈라 놓는다 */
+    { path: '/korea-culture-data-market', priority: '0.9', changefreq: 'monthly' },
     /* 🔴 무엇이 영어권 읽기를 실제로 움직이나 — 사건마다 «같은 그룹 동료»를 대조군으로 둔다.
        구찌 캠페인 1.01배(남는 것 없음) · 생일 1.35배. 사건이 쌓일수록 표가 길어진다 */
     { path: '/what-moves-english-reading', priority: '0.9', changefreq: 'weekly' },

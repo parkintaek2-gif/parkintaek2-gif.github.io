@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-06 02:46 KST",
+  "generated": "2026-09-06 04:38 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 127,
-    "머리글있음": 127,
+    "본지면": 128,
+    "머리글있음": 128,
     "머리글없음": 0
   },
   "missing": [],
@@ -57,6 +57,7 @@
     "/how-many-languages": "Psy is in 97 Wikipedias. ROSÉ of BLACKPINK is in 86, and half of Korean entertainers are in one",
     "/industry": "Korea’s listed content industry, counted whole",
     "/is-it-korean": "Is it actually Korean?",
+    "/korea-culture-data-market": "Korea lists 1,344 culture datasets. 80% are free, 76% are not maintained",
     "/korean-movies-on-netflix": "Korean movies on Netflix",
     "/kpop-attention": "Who the English-speaking world looks up when it looks up K-pop",
     "/kpop-birthdays": "K-pop idol birthdays by month: July is the thinnest, March the fullest",
