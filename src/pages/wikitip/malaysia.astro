@@ -146,9 +146,14 @@ const jsonLd = {
   <KcwCardnews set="malaysia" count={5} />
 
   {/* 🔴 8/15 — 카드뉴스는 12벌인데 영상이 9편이었다. 이 지면이 그 빈 자리 하나였다 */}
-  <KcwShorts set="malaysia"
-    says={`A man and a woman read out the band the four groups of people fall inside, `
-      + `the one figure that sits outside it, and how few brands that figure rests on.`} />
+  {/* 🔴 [2026-09-05] 무성판을 «소리판»으로 갈아 끼운다. 사장님 「무성 콘텐트 다신
+      만들지 말 것」 · 「삭제하지 말고 소리만 입혀서 추가로 배포해」.
+      ⛔ 원본 malaysia.mp4 는 지우지 않았다 — 파일은 그대로 있고 지면만 소리판을 본다.
+      ⚠ 음량을 재서 확인했다 — −24 dB (무음은 −91 dB, 가르는 선은 −60). */}
+  <KcwShorts set="malaysia-voiced"
+    says={`Fourteen seconds, read aloud: Malaysia's share of four country reading is seven `
+      + `point six to eight point six percent for people. For luxury and car brands, twenty `
+      + `three. That row rests on twenty two brands, not thousands.`} />
 
   <KcwRelatedArticles page="/malaysia" />
 </WikiTip>

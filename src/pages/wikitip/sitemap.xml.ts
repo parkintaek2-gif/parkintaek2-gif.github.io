@@ -378,6 +378,18 @@ const videoSets = [
     description: '14 seconds on the country where the gap between brands and people is widest, '
       + 'counted from Wikipedia readers.',
   },
+  /* 🔴 [2026-09-05] 소리를 입힌 판. 무음판(위)은 지우지 않는다 — 사장님
+     「삭제하지 말고 소리만 입혀서 추가로 배포해」. 위 자가 소리판이 있는 무음판을
+     사이트맵에서 걸러 내므로, 손님에게 나가는 것은 이 아래 한 편이다.
+     ⚠ 음량을 재서 확인했다 — −24 dB (무음 −91 · 가르는 선 −60). */
+  {
+    set: 'malaysia-voiced',
+    page: '/malaysia',
+    title: 'Malaysia reads Korean brands nearly three times as readily as Korean people — read aloud',
+    description: '14 seconds, read aloud: Malaysia takes 7.6 to 8.6 percent of four-country '
+      + 'reading for people, and 23 percent for luxury and car brands. That row rests on 22 '
+      + 'brands, not thousands.',
+  },
   {
     set: 'manager',
     page: '/sea-athletes',
