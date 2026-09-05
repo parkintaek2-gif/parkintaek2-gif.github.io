@@ -56,6 +56,42 @@ const 낼곳 = path.join(뿌리, 'src', 'data', 'wikitip-group-nicknames.json');
  *     예외를 하나씩 박아서가 아니다. 그것이 좁힌 것과 짜맞춘 것의 차이다.
  * ⚠ 그 대신 「우리가 놓친 이름」의 수는 작아진다. **작은 참말이 큰 거짓말보다 낫다.**
  */
+/**
+ * 🔴 [2026-09-05 밤] **꼴만 보고 「약칭」이라 부른 것이 일곱 개 틀렸다.**
+ * 처음 판이 낸 16개를 위키백과 도입부에 하나씩 대 보니 이런 것이 섞여 있었다 —
+ * ```
+ *   EXO   → EXO-K · EXO-M     ⛔ 하위 유닛이다. EXO 를 그렇게 «쓰는» 것이 아니다
+ *   Stray Kids → 3RACHA       ⛔ 하위 유닛
+ *   U-KISS     → U-BEAT       ⛔ 하위 유닛
+ *   EXID       → HOLLA        ⛔ 노래 제목
+ *   DNCE       → DCNE         ⛔ 오타 넘김 (게다가 DNCE 는 미국 밴드다 — 그룹 목록 쪽 결함)
+ *   NewJeans   → NJZ          ⛔ 이름 다툼이 걸린 개명이다. 「이렇게도 쓴다」로 낼 것이 아니다
+ *   B.A.P → B.A.P. · I.B.I → I.B.I.   ⛔ 마침표 하나 차이. 손님에게 새로 알려 줄 것이 없다
+ * ```
+ * ⛔ 대문자 2~6자라는 «꼴»은 하위 유닛도 노래도 똑같이 통과한다. 꼴로는 못 가른다.
+ * ⭐ 그래서 둘로 나눈다 —
+ *   ① 꼴로 가를 수 있는 것은 규칙으로 판다 (마침표 차이 · 본이름+구분자+한두글자)
+ *   ② 꼴로 못 가르는 것(하위 유닛·노래·오타)은 **손으로 판정하고 «까닭과 함께» 여기 적는다**
+ * ⚠ ②를 규칙처럼 위장하지 않는다. 손판정임을 이름과 주석에 드러내고, 낸 자료에도 적는다.
+ */
+export const 손으로뺀것 = {
+  'EXO-K': '하위 유닛 (EXO 의 한국 활동조)',
+  'EXO-M': '하위 유닛 (EXO 의 중국 활동조)',
+  '3RACHA': '하위 유닛 (Stray Kids 안의 셋)',
+  'U-BEAT': '하위 유닛 (U-KISS 안의 넷)',
+  HOLLA: '노래 제목 (EXID 싱글)',
+  DCNE: '오타 넘김 (DNCE 를 잘못 친 것)',
+  NJZ: '이름 다툼이 걸린 개명 — 「이렇게도 쓴다」로 낼 수 없다',
+};
+
+/** 본이름 뒤에 구분자와 한두 글자만 붙은 꼴 — 하위 유닛이 이 모양이다 */
+export function 하위유닛꼴인가(본이름, 넘김) {
+  const 뼈 = (t) => String(t ?? '').toUpperCase().replace(/[\s\-_.()·'&/*]/g, '');
+  const a = 뼈(본이름); const b = 뼈(넘김);
+  if (!a || !b) return false;
+  return b.length > a.length && b.length <= a.length + 2 && b.startsWith(a);
+}
+
 export function 약칭인가(본이름, 넘김) {
   const 원 = String(넘김 ?? '').trim();
   if (!원) return false;
@@ -64,6 +100,8 @@ export function 약칭인가(본이름, 넘김) {
   if (/^[0-9]+$/.test(원)) return false;                        /* 숫자만은 이름이 아니다 */
   const 다듬 = (t) => String(t ?? '').toLowerCase().replace(/[\s\-_.()·'&/]/g, '');
   if (다듬(원) === 다듬(본이름)) return false;                    /* 본이름과 사실상 같은 것 */
+  if (하위유닛꼴인가(본이름, 원)) return false;                   /* EXO → EXO-K · EXO-M */
+  if (Object.hasOwn(손으로뺀것, 원.toUpperCase())) return false;  /* 손판정으로 뺀 것 */
   return true;
 }
 
@@ -200,6 +238,33 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
   같나('⛔ 숫자만은 이름이 아니다', 약칭인가('Twice','2026'), false);
   같나('⛔ 본이름과 사실상 같은 것은 약칭이 아니다', 약칭인가('EXO','EXO'), false);
   같나('⭐ 좁혔더니 시끄러운 것이 저절로 빠진다 — 영화 제목', 약칭인가('Iz*One','Eyes on Me: The Movie'), false);
+
+  /* 🔴 [2026-09-05 밤] 꼴만 보고 「약칭」이라 부른 것이 일곱 개 틀렸다. 그 일곱을 시험으로 굳힌다 */
+  같나('⛔ 하위 유닛은 약칭이 아니다 — EXO-K', 약칭인가('EXO', 'EXO-K'), false);
+  같나('⛔ 하위 유닛은 약칭이 아니다 — EXO-M', 약칭인가('EXO', 'EXO-M'), false);
+  같나('⛔ 하위 유닛은 약칭이 아니다 — 3RACHA', 약칭인가('Stray Kids', '3RACHA'), false);
+  같나('⛔ 하위 유닛은 약칭이 아니다 — U-BEAT', 약칭인가('U-KISS', 'U-BEAT'), false);
+  같나('⛔ 노래 제목은 약칭이 아니다 — HOLLA', 약칭인가('EXID', 'HOLLA'), false);
+  같나('⛔ 오타 넘김은 약칭이 아니다 — DCNE', 약칭인가('DNCE', 'DCNE'), false);
+  같나('⛔ 이름 다툼이 걸린 개명은 안 낸다 — NJZ', 약칭인가('NewJeans', 'NJZ'), false);
+  같나('⛔ 마침표 하나 차이는 새 이름이 아니다', 약칭인가('B.A.P', 'B.A.P.'), false);
+  같나('⛔ 마침표 하나 차이 — I.B.I.', 약칭인가('I.B.I', 'I.B.I.'), false);
+
+  /* ⭐ 조인 뒤에도 «진짜»는 살아남아야 한다 — 안 그러면 조인 것이 아니라 지운 것이다 */
+  같나('✅ DBSK 는 남는다 (동방신기 로마자)', 약칭인가('TVXQ', 'DBSK'), true);
+  같나('✅ THSK 도 남는다 (Tohoshinki)', 약칭인가('TVXQ', 'THSK'), true);
+  같나('✅ IZONE 은 남는다 (별표만 뺀 꼴이 아니라 지면에 없는 글자열)', 약칭인가('Iz*One', 'IZONE'), true);
+  같나('✅ ZB1 은 남는다', 약칭인가('Zerobaseone', 'ZB1'), true);
+  같나('✅ SJ-M 은 남는다 (본이름이 이미 유닛이다)', 약칭인가('Super Junior-M', 'SJ-M'), true);
+  같나('✅ P1H 는 남는다', 약칭인가('P1Harmony', 'P1H'), true);
+
+  같나('하위유닛꼴 — 본이름+한글자', 하위유닛꼴인가('EXO', 'EXO-K'), true);
+  같나('하위유닛꼴 — 본이름+두글자', 하위유닛꼴인가('EXO', 'EXO-KM'), true);
+  /* ⚠ 세 글자가 붙으면 이 자는 못 잡는다. 대신 «2~6자» 길이 자가 막는다 — 두 자가 함께 막는 자리다 */
+  같나('세 글자가 붙으면 이 자는 못 잡는다', 하위유닛꼴인가('EXO', 'EXO-CBX'), false);
+  같나('⭐ 그래도 약칭에서는 걸러진다 (길이가 막는다)', 약칭인가('EXO', 'EXO-CBX'), false);
+  같나('⛔ 본이름과 길이가 같으면 하위유닛꼴이 아니다', 하위유닛꼴인가('Iz*One', 'IZONE'), false);
+  같나('⛔ 짧아지는 것은 하위유닛꼴이 아니다 — 약칭이다', 하위유닛꼴인가('Seventeen', 'SVT'), false);
 
   if (실.length) { console.error(`❌ 자가시험 ${실.length}건 실패\n${실.map((s) => `   · ${s}`).join('\n')}`); process.exit(1); }
   console.log(`✅ 그룹 별명 자 — 자가시험 ${통}개 통과`);

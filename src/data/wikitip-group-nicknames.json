@@ -123,31 +123,24 @@
       "slug": "exo",
       "name": "EXO",
       "aliases": 2,
-      "missing": 2,
-      "missingNames": [
-        "EXO-K",
-        "EXO-M"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 10
     },
     {
       "slug": "b-a-p",
       "name": "B.A.P",
       "aliases": 2,
-      "missing": 1,
-      "missingNames": [
-        "B.A.P."
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 6
     },
     {
       "slug": "i-b-i",
       "name": "I.B.I",
       "aliases": 2,
-      "missing": 1,
-      "missingNames": [
-        "I.B.I."
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 5
     },
     {
@@ -164,20 +157,16 @@
       "slug": "stray-kids",
       "name": "Stray Kids",
       "aliases": 1,
-      "missing": 1,
-      "missingNames": [
-        "3RACHA"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 10
     },
     {
       "slug": "u-kiss",
       "name": "U-KISS",
       "aliases": 1,
-      "missing": 1,
-      "missingNames": [
-        "U-BEAT"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 10
     },
     {
@@ -204,10 +193,8 @@
       "slug": "exid",
       "name": "EXID",
       "aliases": 1,
-      "missing": 1,
-      "missingNames": [
-        "HOLLA"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 8
     },
     {
@@ -244,10 +231,8 @@
       "slug": "newjeans",
       "name": "NewJeans",
       "aliases": 1,
-      "missing": 1,
-      "missingNames": [
-        "NJZ"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 5
     },
     {
@@ -264,10 +249,8 @@
       "slug": "dnce",
       "name": "DNCE",
       "aliases": 1,
-      "missing": 1,
-      "missingNames": [
-        "DCNE"
-      ],
+      "missing": 0,
+      "missingNames": [],
       "members": 3
     },
     {
@@ -1510,5 +1493,21 @@
       "missingNames": [],
       "members": 3
     }
-  ]
+  ],
+  "⚠ 2026-09-05_밤_다시_좁혔다": {
+    "왜": "꼴(대문자 2~6자)만 보고 「약칭」이라 부른 것 가운데 일곱이 하위 유닛·노래 제목·오타 넘김이었다. 위키백과 도입부에 하나씩 대 보고 잡았다.",
+    "뺀것": [
+      "EXO → EXO-K (하위 유닛 (EXO 의 한국 활동조))",
+      "EXO → EXO-M (하위 유닛 (EXO 의 중국 활동조))",
+      "B.A.P → B.A.P. (꼴로 걸러짐)",
+      "I.B.I → I.B.I. (꼴로 걸러짐)",
+      "Stray Kids → 3RACHA (하위 유닛 (Stray Kids 안의 셋))",
+      "U-KISS → U-BEAT (하위 유닛 (U-KISS 안의 넷))",
+      "EXID → HOLLA (노래 제목 (EXID 싱글))",
+      "NewJeans → NJZ (이름 다툼이 걸린 개명 — 「이렇게도 쓴다」로 낼 수 없다)",
+      "DNCE → DCNE (오타 넘김 (DNCE 를 잘못 친 것))"
+    ],
+    "⛔ 못 쟀다": "DNCE 는 미국 밴드인데 우리 그룹 목록에 들어 있다. 별명 쪽에서는 뺐으나 그룹 목록 자체의 결함은 아직 안 고쳤다 — 그쪽은 따로 잰다.",
+    "손판정임": "하위 유닛·노래·오타는 «꼴»로 못 가른다. 규칙인 척하지 않고 손으로 판정한 것을 까닭과 함께 scripts/collect-kcw-group-nicknames.mjs 의 손으로뺀것 에 적어 두었다."
+  }
 }
