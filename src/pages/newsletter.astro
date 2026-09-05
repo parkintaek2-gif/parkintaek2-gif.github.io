@@ -8,7 +8,7 @@
  */
 import Base from '../layouts/Base.astro';
 import Newsletter from '../components/Newsletter.astro';
-import { SITE_URL, PUBLISHER } from '../consts';
+import { SITE_URL, PUBLISHER, PUBLISHER_SM } from '../consts';
 import stats from '../data/research-stats.json';
 
 const TITLE = 'The Seoul Markets Brief';
@@ -99,7 +99,7 @@ const jsonLd = {
 
       <p class="asof">
         Published by {PUBLISHER.legalName} · <a href="/about">About and methodology</a> ·{' '}
-        <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
+        <a href={`mailto:${PUBLISHER_SM.email}`}>{PUBLISHER_SM.email}</a>
       </p>
     </div>
   </div>

@@ -3,7 +3,7 @@
  * /contact — 손님이 닿는 문. (seoulmarkets.com/contact)
  *
  * 왜 (2번 75196): /contact 가 404였다. 애드센스 심사가 콘텐트+연락처를 본다. 6번이 광고 첫 자리.
- * ⚠ 대표 메일이 아직 없어 지금은 PUBLISHER.email(실수신 주소)로 둔다. 대표 메일 나오면 그때 바꾼다(consts 한 곳).
+ * ⚠ 대표 메일이 아직 없어 지금은 PUBLISHER_SM.email(실수신 주소)로 둔다. 대표 메일 나오면 그때 바꾼다(consts 한 곳).
  */
 import Base from '../layouts/Base.astro';
 import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, PUBLISHER_SM } from '../consts';
@@ -35,7 +35,7 @@ const jsonLd = {
       <div class="prose">
         <h2>Email</h2>
         <p>
-          Write to <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>. Tell us which dataset
+          Write to <a href={`mailto:${PUBLISHER_SM.email}`}>{PUBLISHER_SM.email}</a>. Tell us which dataset
           or article you mean and we reply directly — a sample and the current licensing terms, or the
           method behind a number. No account, no form-in-the-middle.
         </p>
