@@ -13,6 +13,7 @@ import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
 import 원본 from '../../../data/100yearmap/medical-cost.json';
+import 병원본 from '../../../data/100yearmap/medical-cost-top-diseases.json';
 
 const 자료 = 원본 as any;
 const 나이별 = 자료.나이별 as any[];
@@ -20,6 +21,9 @@ const 최고칸 = 자료.최고칸;
 const 최저칸 = 자료.최저칸;
 const U자 = 자료.U자모양;
 const 영세칸 = 나이별.find((r) => r.칸 === '0세');
+
+const 병자료 = 병원본 as any;
+const 병나이대별 = 병자료.나이대별 as any[];
 
 const 원표시 = (n: number) => n.toLocaleString('ko-KR');
 
@@ -37,7 +41,12 @@ const jsonLd = {
   license: 'https://opendata.hira.or.kr',
   creator: { '@type': 'Organization', name: '백년지도' },
   sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
-  variableMeasured: ['나이대별 1인당 진료비', '나이대별 1인당 진료일수', '나이대별 건강보험 적용대상자수'],
+  variableMeasured: [
+    '나이대별 1인당 진료비',
+    '나이대별 1인당 진료일수',
+    '나이대별 건강보험 적용대상자수',
+    '나이대별 외래 다빈도 질병명',
+  ],
 };
 ---
 
@@ -89,6 +98,36 @@ const jsonLd = {
     {' '}가능성이 있지만, 이 표 하나로 원인을 확정하지 않습니다.
   </p>
 
+  <h2>그 진료비, 무슨 병으로 갔을까요?</h2>
+  <p class="sub">
+    위 진료비는 「얼마나」만 보여줍니다. {병자료.최신}년 HIRA 「{병자료.출처.표}」을 보면
+    {' '}「무슨 병으로 가장 많이 갔는지」도 나이 칸마다 다릅니다(외래 기준).
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>1위</th><th>2위</th><th>3위</th></tr></thead>
+      <tbody>
+        {병나이대별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r.상위[0]?.이름}</td>
+            <td>{r.상위[1]?.이름}</td>
+            <td>{r.상위[2]?.이름}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ 20대부터 70대까지는 <strong>치은염 및 치주질환(잇몸병)</strong>이 줄곧 1위입니다.
+    {' '}그런데 80세 이상에서는 처음으로 <strong>본태성(원발성) 고혈압</strong>이 앞으로
+    {' '}나섭니다. 0~19세는 감기 계열인 급성 기관지염이 1위입니다.
+  </p>
+  <p class="note">
+    ⚠ 이 병 이름 표가 못 가르는 것 —
+    {병자료['⚠ 이 자료가 못 가르는 것'].map((줄: string) => <>{' · '}{줄}</>)}
+  </p>
+
   <h2>⚠ 이 자료로 말할 수 없는 것</h2>
   <ul>
     <li>「나이 들면 아프다」가 아닙니다 — 「적용대상자 1인당」이지 「진료받은 사람 1인당」이
@@ -105,6 +144,8 @@ const jsonLd = {
   <p class="note">
     출처 — {자료.출처.기관}, {자료.출처.표}({자료.최신}년). {자료.출처.이용허락범위}.
     {' '}<a href={자료.출처.주소} rel="noopener">원문 표</a>에서 다른 해도 볼 수 있습니다.
+    {' '}병 이름 표 출처 — {병자료.출처.기관}, {병자료.출처.표}({병자료.최신}년).
+    {' '}<a href={병자료.출처.주소} rel="noopener">원문 표</a>.
   </p>
 
   <p class="note">
