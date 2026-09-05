@@ -49,6 +49,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 오늘 } from './_kst.mjs';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -158,7 +159,7 @@ fs.writeFileSync(
   path.join(ROOT, 'src', 'data', '100yearmap', 'real-wage.json'),
   JSON.stringify({
     출처,
-    받은때: new Date().toISOString().slice(0, 10),
+    받은때: 오늘(),
     최근달,
     최근실질임금: 실질[최근달],
     검산: {

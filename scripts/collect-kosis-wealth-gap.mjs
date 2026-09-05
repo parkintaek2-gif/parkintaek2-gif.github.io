@@ -30,6 +30,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 오늘 } from './_kst.mjs';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -98,7 +99,7 @@ fs.writeFileSync(
   path.join(ROOT, 'src', 'data', '100yearmap', 'wealth-gap-age.json'),
   JSON.stringify({
     출처,
-    받은때: new Date().toISOString().slice(0, 10),
+    받은때: 오늘(),
     기준연도,
     보도자료대조: {
       인용문: `「청년 예산 언박싱(UNBOXING) 2027」관계부처합동 보도자료(2026-08-28) — "세대간 자산격차 — 고령층-청년층 자산격차 '24년 기준 3.9배('12년 2.4배)"`,

@@ -24,6 +24,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { 오늘 } from './_kst.mjs';
 
 const ROOT = path.resolve(
   path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'),
@@ -91,7 +92,7 @@ fs.writeFileSync(
   path.join(ROOT, 'src', 'data', '100yearmap', 'idle-youth.json'),
   JSON.stringify({
     출처,
-    받은때: new Date().toISOString().slice(0, 10),
+    받은때: 오늘(),
     최근달,
     보도자료대조: {
       인용문: `「청년 예산 언박싱(UNBOXING) 2027」관계부처합동 보도자료(2026-08-28) — "(2030세대 쉬었음 인구) '26.7월 기준 65.1만명('16.7월 대비 +24만명 증가)"`,
