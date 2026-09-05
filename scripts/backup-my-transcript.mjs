@@ -40,7 +40,9 @@ if (후보.length === 0) {
 후보.sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
 const 최신 = 후보[0];
 
-const 오늘 = new Date().toISOString().slice(0, 10);
+// ⛔ toISOString()은 UTC다 — KST 자정~09시 사이엔 «어제» 날짜로 잘못 찍힌다
+// (6번이 자기 백업 자에서 2026-09-06 01:5x에 먼저 찾은 병, 여기도 같았다).
+const 오늘 = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
 mkdirSync(백업폴더, { recursive: true });
 const 목적지 = path.join(백업폴더, `${오늘}_${path.basename(최신)}`);
 
