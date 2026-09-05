@@ -1,0 +1,537 @@
+{
+  "site": "sc-domain:seoulmarkets.com",
+  "dimension": "query+page",
+  "window": {
+    "from": "2026-08-05",
+    "to": "2026-09-02",
+    "days": 28
+  },
+  "rowLimit": 25000,
+  "rows": [
+    {
+      "key": "2 biggest korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "big korea companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "biggest companies south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 68
+    },
+    {
+      "key": "biggest korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 8,
+      "clicks": 0,
+      "position": 24
+    },
+    {
+      "key": "biggest south korea companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "biggest south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 56
+    },
+    {
+      "key": "biggest south korean company",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "famous korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "korea biggest companies by market cap",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "korea biggest company",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "korea companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "korea market",
+      "page": "https://seoulmarkets.com/video",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "korea most valuable companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "korea top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "korea trade partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 50
+    },
+    {
+      "key": "korea trade surplus",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "korea trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "korea trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "korea's largest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "korean equities",
+      "page": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "korean largest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 47
+    },
+    {
+      "key": "korean stock market biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "korean treasury bonds",
+      "page": "https://seoulmarkets.com/article/korea-government-bond-yield-curve",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 68.5
+    },
+    {
+      "key": "kospi biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "kospi listing",
+      "page": "https://seoulmarkets.com/article/korea-listed-market-broad-by-count-narrow-by-value",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 41
+    },
+    {
+      "key": "kospi top 10 companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 9
+    },
+    {
+      "key": "kospi top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8
+    },
+    {
+      "key": "large korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "largest companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "largest companies in south korea by market cap",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 60.5
+    },
+    {
+      "key": "largest companies korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 66
+    },
+    {
+      "key": "largest company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 60
+    },
+    {
+      "key": "largest korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 30.6
+    },
+    {
+      "key": "largest korean companies by market cap",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    },
+    {
+      "key": "largest korean company",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 35.5
+    },
+    {
+      "key": "largest korean stocks",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11
+    },
+    {
+      "key": "largest south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 52.5
+    },
+    {
+      "key": "major korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 58
+    },
+    {
+      "key": "most valuable korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 9.5
+    },
+    {
+      "key": "number of companies listed on kospi 2025",
+      "page": "https://seoulmarkets.com/article/korea-listed-market-broad-by-count-narrow-by-value",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "number of kospi listed companies 2025",
+      "page": "https://seoulmarkets.com/article/korea-listed-market-broad-by-count-narrow-by-value",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65
+    },
+    {
+      "key": "south korea biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 52
+    },
+    {
+      "key": "south korea biggest trade partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 7.333333333333333
+    },
+    {
+      "key": "south korea biggest trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "south korea biggest trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 62
+    },
+    {
+      "key": "south korea companies by market cap",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 63
+    },
+    {
+      "key": "south korea exports to us",
+      "page": "https://seoulmarkets.com/article/korea-us-surplus-doubled",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 87
+    },
+    {
+      "key": "south korea largest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "south korea largest trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 6.666666666666667
+    },
+    {
+      "key": "south korea largest trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 60.333333333333336
+    },
+    {
+      "key": "south korea major trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7
+    },
+    {
+      "key": "south korea market cap",
+      "page": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 88
+    },
+    {
+      "key": "south korea top companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 70
+    },
+    {
+      "key": "south korea top trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 3,
+      "clicks": 0,
+      "position": 10.333333333333334
+    },
+    {
+      "key": "south korea trade balance",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 77
+    },
+    {
+      "key": "south korea trade partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 35
+    },
+    {
+      "key": "south korea trade partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "south korea trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-partners-two-giants-one-supplier",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 5
+    },
+    {
+      "key": "south korea trading partners",
+      "page": "https://seoulmarkets.com/article/korea-trade-surplus-four-partners-customs",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 72
+    },
+    {
+      "key": "south korea youth unemployment",
+      "page": "https://seoulmarkets.com/article/korea-youth-unemployment-fell-since-2016",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 75
+    },
+    {
+      "key": "south korea's biggest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "south korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 69.5
+    },
+    {
+      "key": "south korean largest companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 69
+    },
+    {
+      "key": "stock market korea",
+      "page": "https://seoulmarkets.com/article/korea-four-stocks-half-the-market",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "top 10 biggest companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 59
+    },
+    {
+      "key": "top 10 companies in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 12
+    },
+    {
+      "key": "top 10 korean stocks",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 1
+    },
+    {
+      "key": "top 3 companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 64
+    },
+    {
+      "key": "top companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 74
+    },
+    {
+      "key": "top korean companies",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 73
+    },
+    {
+      "key": "top south korean companies by market cap",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 61
+    },
+    {
+      "key": "two biggest companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 4
+    },
+    {
+      "key": "what are the largest companies in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 61.5
+    },
+    {
+      "key": "what is the biggest company in korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10
+    },
+    {
+      "key": "what is the biggest company in south korea",
+      "page": "https://seoulmarkets.com/article/korea-largest-listed-companies",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 54
+    }
+  ]
+}
