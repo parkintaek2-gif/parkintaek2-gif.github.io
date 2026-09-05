@@ -352,6 +352,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-05 — 5번 제안(KCW /cannot-see 처럼 「우리 자가 못 보는 것」을 지면으로).
        대학 취업률 자료 377곳 중 48곳이 비어 있는 이유를 분교·폐교·미확인으로 가른다. */
     { path: '/university-gap', priority: '0.6', changefreq: 'yearly' },
+    /* 🔴 2026-09-05 — 이슈+축: 사장님이 공유하신 K-apt 서울 주차난 기사 + 사장님이
+       직접 받아 주신 K-apt 웹참조자료 엑셀로 준공연도×세대당주차대수를 계산. */
+    { path: '/apt-parking-age', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
