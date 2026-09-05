@@ -154,8 +154,14 @@ export function 시간차(앞, 뒤) {
   return (b - a) / 3600000;
 }
 
-/** 사장님 기준 — 12시간 */
-export const 반응한도 = 12;
+/**
+ * 사장님 기준 — 🔴 **[2026-09-05] 12시간 → 6시간으로 줄었다.**
+ *   원문: 「이슈에 반응 12시간이 아닌 **6시간**으로 기준을 조정함」
+ * ⚠ 이 수를 안 고쳤으면 «옛 기준으로 잰 수»를 사장님께 올릴 뻔했다.
+ *   **지시가 바뀌면 그 지시를 «재는 자»도 같이 바뀌어야 한다.**
+ * ⛔ 아래 자가시험이 이 수를 박아 두고 검사한다. 또 바뀌면 시험부터 걸린다.
+ */
+export const 반응한도 = 6;
 
 /**
  * 제목이 관심을 «확» 끄는가 — 판단을 돕는 표시들. ⛔ 이것으로 판정하지 않는다.
@@ -218,9 +224,13 @@ if (내가 && process.argv.includes('--자가시험')) {
   검('날수를 센다', 날수('2026-09-01', '2026-09-02') === 1);
   검('같은 날은 0', 날수('2026-09-02', '2026-09-02') === 0);
   검('⛔ 못 읽으면 null', 날수('아무것', '2026-09-02') === null);
-  /* ── 사장님이 2026-09-03 에 고치신 새 기준 ── */
-  검('12시간 안이면 반응', 공격형갈래(견본, '2026-09-01T06:00:00+09:00').반응 === true);
-  검('⛔ 12시간을 넘으면 반응이 아니다',
+  /* ── 사장님이 2026-09-03 에 고치신 새 기준 · 🔴 2026-09-05 에 12→6시간으로 다시 줄었다 ── */
+  검('🔴 반응 한도는 6시간이다 (2026-09-05 지시)', 반응한도 === 6);
+  /* 견본의 dataAsOf 는 2026-09-01T00:00:00+09:00 이다 */
+  검('6시간 안이면 반응', 공격형갈래(견본, '2026-09-01T05:00:00+09:00').반응 === true);
+  검('⛔ 6시간을 넘으면 반응이 아니다 — 옛 기준(12시간)이면 통과하던 자리',
+    공격형갈래(견본, '2026-09-01T09:00:00+09:00').반응 === false);
+  검('⛔ 12시간을 넘으면 당연히 반응이 아니다',
     공격형갈래(견본, '2026-09-03T06:00:00+09:00').반응 === false);
   검('⛔ 바깥 자료 시각을 못 읽으면 반응이 아니다(0 이 아니라 못 잰 것)',
     공격형갈래(['---', 'title: "가"', 'pubDate: 2026-09-02', '---'].join(LF), '2026-09-02T06:00:00+09:00').시차 === null);
@@ -229,7 +239,8 @@ if (내가 && process.argv.includes('--자가시험')) {
   검('⛔ 배포 시각이 없으면 배포기준이 아니라고 밝힌다', 공격형갈래(견본).배포기준 === false);
   검('시간차를 센다', 시간차('2026-09-01T00:00:00+09:00', '2026-09-01T12:00:00+09:00') === 12);
   검('⛔ 못 읽으면 null', 시간차('아무것', '2026-09-01T00:00:00+09:00') === null);
-  검('한도는 12시간이다', 반응한도 === 12);
+  /* 🔴 [2026-09-05] 여기가 12로 박혀 있어 «옛 기준»을 지키고 있었다. 지시가 바뀌면 시험도 바뀐다 */
+  검('한도는 6시간이다 (2026-09-05 지시로 12→6)', 반응한도 === 6);
 
   검('방문이 평균보다 많으면 참', 공격형갈래(견본, null, 50, 10).평균넘나 === true);
   검('평균 이하면 거짓', 공격형갈래(견본, null, 5, 10).평균넘나 === false);
@@ -337,10 +348,19 @@ function 발행센다(날, 유닛, 지면표 = null, 평균열림 = null) {
  *   잴 수 없는 것이 아니었다. 자리를 찾아 적으니 세어진다.
  * ⛔ 파일 «시각»으로 세지 않는다 — 손대기만 해도 바뀐다. **git 이 그날 새로 들인 것**만 센다.
  */
+/**
+ * 🔴 [2026-09-05 · 5번] **한글 이름 파일을 못 세고 있었다 — core.quotepath 때문에 못 세던 자리다.**
+ *   git 은 기본으로 non-ASCII 경로를 따옴표로 감싸 내놓는다.
+ *   그래서 끝글 검사(.mp4)가 떨어지고, 3번이 오늘 실제로 낸 영상
+ *   (나이대별가장흔한병.mp4)이 «영상 0/1»로 찍혔다.
+ * ⚠ 오늘 이 자에서 같은 결의 결함을 이미 하나 고쳤다(카드 경로가 없는 폴더를 가리킴).
+ *   ⇒ 이 자는 「0건」과 「못 셌다」를 가르라고 있는데, 스스로 그 둘을 섞고 있었다.
+ * ✅ 모든 git 호출에 -c core.quotepath=false 를 붙였다.
+ */
 function 그날새파일(날, 방들, 끝글, 저장소 = '.') {
   if (!방들 || !방들.length) return [];
   try {
-    const out = execFileSync('git', ['log', `--since=${날} 00:00`, `--until=${날} 23:59:59`,
+    const out = execFileSync('git', ['-c', 'core.quotepath=false', 'log', `--since=${날} 00:00`, `--until=${날} 23:59:59`,
       '--diff-filter=A', '--name-only', '--format=', '--', ...방들],
       { cwd: path.join(뿌리, 저장소), encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
     const 본것 = new Set();
@@ -357,7 +377,7 @@ function 그날새파일(날, 방들, 끝글, 저장소 = '.') {
 function 그날손댄파일(날, 방들, 끝글, 저장소 = '.') {
   if (!방들 || !방들.length) return [];
   try {
-    const out = execFileSync('git', ['log', `--since=${날} 00:00`, `--until=${날} 23:59:59`,
+    const out = execFileSync('git', ['-c', 'core.quotepath=false', 'log', `--since=${날} 00:00`, `--until=${날} 23:59:59`,
       '--name-only', '--format=', '--', ...방들],
       { cwd: path.join(뿌리, 저장소), encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
     const 본것 = new Set();
@@ -418,10 +438,10 @@ export function 지면열림파서(out) {
  */
 function 배포시각찾기(파일길) {
   try {
-    const 들어온때 = execFileSync('git', ['log', '--diff-filter=A', '-1', '--format=%cI', '--', 파일길],
+    const 들어온때 = execFileSync('git', ['-c', 'core.quotepath=false', 'log', '--diff-filter=A', '-1', '--format=%cI', '--', 파일길],
       { cwd: 뿌리, encoding: 'utf8' }).trim();
     if (!들어온때) return null;
-    const 도장 = execFileSync('git', ['log', '--format=%cI', '--grep=배포 도장', `--since=${들어온때}`],
+    const 도장 = execFileSync('git', ['-c', 'core.quotepath=false', 'log', '--format=%cI', '--grep=배포 도장', `--since=${들어온때}`],
       { cwd: 뿌리, encoding: 'utf8' }).trim().split(String.fromCharCode(10)).filter(Boolean);
     /* --since 는 새것부터 내려온다 — 가장 «오래된» 것이 그 글 뒤 첫 배포다 */
     return 도장.length ? 도장[도장.length - 1] : null;
@@ -433,7 +453,7 @@ function 커밋센다(날) {
   for (const repo of ['.', '../klifemap']) {
     let out = '';
     try {
-      out = execFileSync('git', ['log', `--since=${날} 00:00`, `--until=${날} 23:59:59`, '--format=%s'],
+      out = execFileSync('git', ['-c', 'core.quotepath=false', 'log', `--since=${날} 00:00`, `--until=${날} 23:59:59`, '--format=%s'],
         { cwd: path.join(뿌리, repo), encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 });
     } catch { continue; }
     for (const l of out.split(LF).filter(Boolean)) {
