@@ -442,6 +442,16 @@ const videoSets = [
       + 'readers rather than from visitor numbers.',
   },
   {
+    /* ⭐ [2026-09-06] 소리를 입힌 판. 무음판(outside)은 위에 «그대로» 둔다 — 지우지 않는다.
+       재서 확인: 무음판 −91 dB · 이 판 −23.8 dB */
+    set: 'outside-voiced',
+    page: '/places',
+    title: 'The most-read Korean place in Vietnamese was a battle fought in Vietnam — read aloud',
+    description: '14 seconds with narration: we published the Battle of Khe Sanh as the most-read '
+      + 'Korean place in Vietnamese, and it was fought in Vietnam. Nineteen of our 2,238 places are '
+      + 'not in Korea at all, which our own first check did not catch.',
+  },
+  {
     set: 'shelf',
     page: '/what-kind-fell',
     title: 'Southeast Asia is reading less about Korean language and craft',

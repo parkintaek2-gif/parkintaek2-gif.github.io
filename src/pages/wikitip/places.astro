@@ -177,9 +177,14 @@ const jsonLd = {
 
     <KcwCardnews set="outside" count={5} />
 
-    <KcwShorts set="outside"
-      says={`Fourteen seconds on the correction: the place that led the Vietnamese column, `
-        + `the nineteen that were not in Korea, and why our own first check found nothing.`} />
+    {/* ⭐ [2026-09-06] 소리판으로 갈았다. 무음판 파일은 «그대로 둔다» —
+        사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」.
+        재서 확인했다: 무음판 −91 dB · 이 판 **−23.8 dB** (이름이 아니라 음량으로 판정한다) */}
+    <KcwShorts set="outside-voiced"
+      says={`Fourteen seconds, read aloud: we published the Battle of Khe Sanh as the most-read `
+        + `Korean place in Vietnamese, and it was fought in Vietnam. Nineteen of our two thousand `
+        + `two hundred and thirty-eight places are not in Korea at all, which our own first check `
+        + `did not catch.`} />
   </section>
 
   <section class="src">
