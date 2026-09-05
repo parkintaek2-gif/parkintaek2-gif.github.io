@@ -12,9 +12,9 @@ sources:
     api: "list.json + document.xml, corp code 00126362 — 타인에 대한 채무보증 결정 (debt-guarantee decision), rcept_no 20260904800510"
     url: "https://opendart.fss.or.kr"
   - org: "Financial Supervisory Service (Korea, Open DART)"
-    api: "Same filing's referenced prior disclosure — 타인에대한채무보증결정, rcept_no dated 2024-12-13 (cited within the 2026-09-04 filing as the original decision being revised)"
+    api: "Same filing's referenced prior disclosure — another 타인에 대한 채무보증 결정 (debt-guarantee decision), rcept_no dated 2024-12-13 (cited within the 2026-09-04 filing as the original decision being revised)"
     url: "https://opendart.fss.or.kr"
-draft: true
+draft: false
 excluded:
   - "The 'domestic ESS market expansion' narrative that a 2026-09-05 Google Trends spike (search volume 500+) attached to Samsung SDI, sourced from a news headline about a same-day share-price move. That move could not be independently verified here — Korea Exchange's own site (data.krx.co.kr) returned a service-unavailable error on two separate checks (2026-09-04 and 2026-09-05), and no alternative same-day price source was used. This piece does not claim or repeat that stock-move figure."
   - "Whether StarPlus Energy is an ESS (energy storage system) plant or an EV-battery plant. Public reporting describes StarPlus Energy as Samsung SDI's electric-vehicle battery joint venture with Stellantis in Kokomo, Indiana — a different battery end-market from grid-scale ESS. This piece does not conflate the two; readers looking for the ESS story specifically will not find it answered here. Checked and not found within DART's structured filings for this corp code in the 2026-08-01 to 2026-09-05 window"
@@ -60,3 +60,5 @@ The debt-guarantee cut and the swing to profitability appear in the same filing 
 ## What triggered the search interest this piece was written to answer
 
 A same-day Google Trends spike (search volume 500+) on 2026-09-05 attached Samsung SDI's name to a headline reporting a share-price gain on "domestic ESS market expansion" expectations. This piece could not verify that share-price move: the Korea Exchange's own data site returned a service-unavailable error on both 2026-09-04 and 2026-09-05, and no other same-day price source was substituted. Readers arriving from that search will not find the stock-move figure confirmed here — what is confirmed, from Samsung SDI's own DART filings, is the debt-guarantee revision and StarPlus Energy's turn to profit described above.
+
+This is a record of what was filed with DART, not investment advice.
