@@ -59,6 +59,10 @@
       "내레이션": "Rank Korea's stocks by market value and a handful at the top hold about half of everything. Every way we measure it, the same few names dominate.",
       "설명": "But market value is capital intensity, not productivity. The full data is on Seoul Markets dot com."
     },
+    "korea-fractional-shares-broker-lottery": {
+      "내레이션": "Eight Korean brokers publish fractional-share lists. Only 46 stocks are buyable at all eight. The files are matched on the six-character KRX code, not the stock name, since brokers write the same company differently.",
+      "설명": "From eight brokers' own published fractional-share files, source Korea Financial Investment Association. Not investment advice."
+    },
     "korea-five-buybacks-one-cancellation": {
       "내레이션": "Five Korean firms filed share buybacks on the same day. Four just bought the shares back. Only one, Fims, said it would cancel them — the step that actually shrinks the share count. Not advice.",
       "설명": "From DART's own treasury-stock filings for that day. We report what was filed, not investment advice."
