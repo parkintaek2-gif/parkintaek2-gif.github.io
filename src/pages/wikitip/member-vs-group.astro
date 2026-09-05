@@ -20,11 +20,23 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-member-vs-group.json';
+/* 🔴 [2026-09-05] 같은 물음을 «영어»로 다시 잰 자료. 아래 절에서 쓴다 */
+import 영어 from '../../data/wikitip-solo-vs-group.json';
 import KcwPanel from '../../components/KcwPanel.astro';
 
 const 늘위 = d.pairs.filter((p) => p.memberHigherIn === p.editions.length);
 const 늘아래 = d.pairs.filter((p) => p.memberHigherIn === 0);
 const 섞임 = d.pairs.filter((p) => p.memberHigherIn > 0 && p.memberHigherIn < p.editions.length);
+
+const 영어앞선 = 영어.rows.filter((r: any) => (r.times ?? 0) > 1);
+const 영어큰 = [...영어.rows].sort((a: any, b: any) => b.personReads - a.personReads);
+/* 🔴 절이 말하는 수가 자료와 어긋나면 빌드를 세운다 — 수집기와 지면이 따로 세면 반드시 갈라진다 */
+if (영어.aheadOfTheirGroup !== 영어앞선.length) {
+  throw new Error(`자료는 앞선 짝 ${영어.aheadOfTheirGroup}건이라 하는데 지면은 ${영어앞선.length}건으로 센다.`);
+}
+if (영어.behindTheirGroup !== 영어.rows.length - 영어앞선.length) {
+  throw new Error(`자료의 「뒤진 짝」 ${영어.behindTheirGroup} 이 나머지와 안 맞는다.`);
+}
 
 const TITLE = 'V and Jungkook are read less than BTS. Jay Park and Lee Hye-ri are read more '
   + 'than 2PM and Girl\'s Day';
@@ -142,6 +154,64 @@ const jsonLd = {
       </p>
     </section>
   )}
+
+  {/**
+    * 🔴 [2026-09-05] **영어 위키백과로 같은 물음을 다시 물었다.**
+    *   까닭 — 오늘 MBC 쇼! 음악중심에 그룹 멤버의 솔로 컴백 무대가 «같은 날 둘» 올랐다
+    *   (Taemin/SHINee · TEN/NCT). 이 지면은 동남아 네 언어로만 재고 있었다.
+    *   ⭐ 그런데 영어로 재니 **답이 다르다** — 동남아에서는 멤버가 앞서는 짝이 여럿인데,
+    *     영어에서는 여덟 짝 가운데 하나뿐이다. 그 «다름»이 이 절의 내용이다.
+    *   ⛔ 새 지면을 만들지 않았다. 같은 축을 두 지면에 나누면 손님이 둘 다 못 본다.
+    */}
+  <section>
+    <h2>The same question in English gives a different answer</h2>
+    <p class="note">
+      Everything above is measured on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We put
+      the same question to the English one on {영어.rows.length} soloists, over the last 30 days.
+    </p>
+
+    <div class="scroll-x">
+      <table>
+        <caption>
+          Median daily English Wikipedia reads, soloist against their group ({영어.measuredAt})
+        </caption>
+        <thead>
+          <tr><th>Soloist</th><th>Reads</th><th>Group</th><th>Reads</th><th>Times the group</th></tr>
+        </thead>
+        <tbody>
+          {영어.rows.map((r: any) => (
+            <tr class={r.times > 1 ? 'hit' : undefined}>
+              <th scope="row">{r.personLabel}</th>
+              <td>{Number(r.personReads).toLocaleString('en-US')}</td>
+              <td>{r.groupLabel}</td>
+              <td>{Number(r.groupReads).toLocaleString('en-US')}</td>
+              <td>{r.times}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="warn">
+      <strong>Just {영어.aheadOfTheirGroup} of the {영어.rows.length} soloists is read more than their own
+      group in English.</strong> {영어앞선.map((r: any) => r.personLabel).join(', ')} — and nobody
+      else. The most-read individual in the set, {영어큰[0].personLabel} at
+      {' '}{Number(영어큰[0].personReads).toLocaleString('en-US')} reads a day, still sits at
+      {' '}{영어큰[0].times} of {영어큰[0].groupLabel}.
+    </p>
+
+    <p class="note">
+      That is not the picture on the four Southeast Asian Wikipedias above, where several members
+      are read more than their groups. <strong>Which language you count in changes the answer</strong>,
+      which is a reason to name the language every time rather than say &ldquo;readers&rdquo;.
+    </p>
+
+    {영어.unmeasured.length > 0 && (
+      <p class="note">Not measured: {영어.unmeasured.join(' · ')}</p>
+    )}
+    {영어.notMeasured.map((s: string) => <p class="note">{s}</p>)}
+    <p class="note">Source: {영어.source}. {영어.measures}.</p>
+  </section>
 
   <section>
     <h2>What this page cannot tell you</h2>
