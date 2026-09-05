@@ -752,6 +752,50 @@ if (내가실행됐다) {
     }
   }
 
+  /**
+   * 🔴 [2026-09-06 · 5번] **`--지면전부` 가 여기에 없었다.**
+   *
+   * 그 깃발은 `그날파기(날)` 안에만 있었다. 그런데 그 자는 «하루»를 파는 자라
+   * `--날=` 을 함께 줘야만 돌고, 내는 수도 그 하루치다.
+   * ⇒ 전 유닛 점검 보고가 `--지면전부` 만 주고 불렀더니 덩어리가 아예 안 나왔고,
+   *   보고서 1-5 표의 「지면열림」 칸이 **20편 전부 ⬜ 못 쟀다**로 나갔다.
+   *   그러면서 4절에는 「해결했습니다」라고 적혀 있었다.
+   *
+   * ⛔ **「해결했다」고 적힌 칸이 매번 비어 있으면 그 문장이 보고 전체를 못 믿게 만든다.**
+   *   0 으로 채우지 않는 것은 맞지만, «잴 수 있는 것을 안 재고» 못 쟀다고 적는 것은 다른 문제다.
+   * ⭐ 그래서 위 표와 «같은 창»(28일)으로 지면 전부를 여기서 낸다. 화면 기본 출력은
+   *   안 바꾼다 — 깃발을 준 사람에게만 덩어리를 더 준다.
+   */
+  if (process.argv.includes('--지면전부')) {
+    const r4 = await fetch(
+      `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+      {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          dateRanges: [{ startDate: `${일수}daysAgo`, endDate: 'yesterday' }],
+          dimensions: [{ name: 'hostName' }, { name: 'pagePath' }],
+          metrics: [{ name: 'screenPageViews' }],
+          orderBys: [{ desc: true, metric: { metricName: 'screenPageViews' } }],
+          limit: 2000,
+        }),
+      },
+    );
+    const j4 = await r4.json();
+    if (j4.error) {
+      console.log(`\n   ⛔ 지면 전부를 **못 받았다** — ${String(j4.error.message).slice(0, 140)}`);
+    } else {
+      const 줄들 = (j4.rows ?? []).map((r) => ({
+        자리: (r.dimensionValues ?? []).map((d) => d.value).join(' │ '),
+        열림: Number(r.metricValues?.[0]?.value ?? 0),
+      }));
+      console.log(`\n   ▼ 지면 전부 (지면열림 · ${일수}일) — 자가 읽어 가는 자리다`);
+      for (const r of 줄들) console.log(`     ${String(r.열림).padStart(6)}  ${r.자리}`);
+      console.log('   ▲ 지면 전부 끝');
+      if (!줄들.length) console.log('   ⬜ 줄이 하나도 없다 — 못 쟀다. 0 으로 채우지 않는다.');
+    }
+  }
+
   console.log('\n⚠ GA4 는 광고차단·쿠키거부로 **덜 세는 쪽**이다. 바닥값으로 읽는다 —');
   console.log('   실제 방문자는 이보다 많을 수 있다. 「이보다 적을 수는 없다」가 우리가 말할 수 있는 것이다.');
 }
