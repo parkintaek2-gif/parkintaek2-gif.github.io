@@ -24,7 +24,9 @@ if (!existsSync(원본)) {
   process.exit(1);
 }
 
-const 오늘 = new Date().toISOString().slice(0, 10);
+/* ⛔ toISOString() 은 UTC라 KST 자정 넘은 뒤(0~9시)에도 «어제」날짜를 찍는다.
+   이 저장소 모든 시각은 KST라 여기도 KST로 맞춘다(en-CA 로캘이 YYYY-MM-DD를 준다). */
+const 오늘 = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
 const 대상 = path.join(대상뿌리, 오늘);
 mkdirSync(대상뿌리, { recursive: true });
 
