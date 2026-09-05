@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 10:27 KST",
+  "generated": "2026-09-05 13:24 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 117,
-    "머리글있음": 117,
+    "본지면": 118,
+    "머리글있음": 118,
     "머리글없음": 0
   },
   "missing": [],
@@ -65,6 +65,7 @@
     "/member-vs-group": "V and Jungkook are read less than BTS. Jay Park and Lee Hye-ri are read more than 2PM and Girl's Day",
     "/most-popular": "Most popular Korean drama on Netflix?",
     "/most-read": "So Ji-sub outreads ROSÉ 2.1 to 1 in English — 26 Wikipedias against 86",
+    "/name-spelled": "Jungkook, Im Yoon-ah, IU: the spelling readers land on, not the one Wikipedia chose",
     "/netflix-korea-this-week": "Korean titles on Netflix this week",
     "/netflix-top-10-korean-drama": "Netflix top 10 Korean drama",
     "/netflix-top10-data": "Inside Netflix's two Top 10 files",
