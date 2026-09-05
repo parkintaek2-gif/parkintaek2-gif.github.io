@@ -12,6 +12,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/medical-cost-top-diseases.json';
 
 const 자료 = 원본 as any;
@@ -106,6 +107,8 @@ const jsonLd = {
     <br />
     <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
   </p>
+
+  <HundredCardnews 벌="나이대별가장흔한병" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="건강보험심사평가원 HIRA 빅데이터개방포털 실측" />
 </HundredYear>
