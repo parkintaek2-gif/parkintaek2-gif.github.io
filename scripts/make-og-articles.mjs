@@ -220,11 +220,27 @@ if (process.argv[1] && process.argv[1].endsWith('make-og-articles.mjs')) {
     process.exit(1);
   }
 
+  /**
+   * 🔴 [2026-09-06] **달라진 것만 쓴다.**
+   * 그 전에는 돌 때마다 164장을 통째로 다시 썼다. 바이트가 같아도 파일을 건드리니
+   * 작업트리가 늘 지저분했고, 여섯 자리가 한 트리를 쓰는 여기서는 그게 곧 —
+   * ```
+   *   배포 관문 「커밋 안 된 변경 N개」 → 배포가 선다 → 그 자리에서 커밋 → 다시 배포
+   * ```
+   * 오늘 밤에만 이 사슬로 배포가 **세 번** 막혔다. 관문이 옳고, 자가 시끄러웠던 것이다.
+   * ⛔ 관문을 무르게 하지 않는다. **시끄러운 쪽을 조용하게 만든다.**
+   */
+  const 같으면건너뛴다 = (길, 새것) => {
+    if (fs.existsSync(길) && Buffer.compare(fs.readFileSync(길), 새것) === 0) return false;
+    fs.writeFileSync(길, 새것);
+    return true;
+  };
+
   fs.mkdirSync(낼방, { recursive: true });
-  let 잰것 = 0;
+  let 잰것 = 0; let 새로쓴장수 = 0;
   for (const r of 결과) {
     const png = await sharp(Buffer.from(카드SVG(r))).png().toBuffer();
-    fs.writeFileSync(path.join(낼방, `${r.slug}.png`), png);
+    if (같으면건너뛴다(path.join(낼방, `${r.slug}.png`), png)) 새로쓴장수 += 1;
     잰것 += png.length;
   }
 
@@ -234,9 +250,19 @@ if (process.argv[1] && process.argv[1].endsWith('make-og-articles.mjs')) {
     label: 'measured stories, and the tables behind them',
     title: 'Korean film, music, esports and the companies behind them',
   });
-  fs.writeFileSync(path.join(ROOT, 'public', 'wikitip', 'og.png'), await sharp(Buffer.from(기본)).png().toBuffer());
+  /* ⚠ 기본 카드에는 «기사 편수»가 찍힌다. 그래서 기사를 하나 낼 때마다 이 파일은 «진짜로» 바뀐다.
+     빠뜨리기 쉬운 자리라 바뀌었을 때 화면에 대고 말해 준다 — 조용히 바꿔 두지 않는다. */
+  const 기본바뀜 = 같으면건너뛴다(
+    path.join(ROOT, 'public', 'wikitip', 'og.png'),
+    await sharp(Buffer.from(기본)).png().toBuffer(),
+  );
 
-  console.log(`\n카드 ${결과.length}장 + 기본 1장 — 평균 ${(잰것 / 결과.length / 1024).toFixed(0)}KB`);
+  console.log(`\n카드 ${결과.length}장 — 평균 ${(잰것 / 결과.length / 1024).toFixed(0)}KB`
+    + ` · **새로 쓴 것 ${새로쓴장수}장** (나머지는 바이트가 같아 안 건드렸다)`);
   console.log(`→ public/wikitip/og/<slug>.png · https://www.kculturewire.com/og/<slug>.png`);
+  if (기본바뀜) {
+    console.log('🔴 기본 카드 public/wikitip/og.png 가 바뀌었다 — 기사 편수가 찍히는 자리다.');
+    console.log('   ⛔ 이것을 안 커밋하면 다음 배포가 「커밋 안 된 변경」으로 선다. 같이 커밋한다.');
+  }
   console.log('⚠ 한 장을 실제로 열어 **수가 읽히는지** 보고 커밋한다.');
 }
