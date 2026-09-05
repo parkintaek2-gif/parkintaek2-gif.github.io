@@ -1,0 +1,111 @@
+---
+/**
+ * /100y/university-package — 「서울대 10개 만들기」 첫 패키지 지원대학 3곳, 취업률로 보면
+ *
+ * 이슈  교육부가 2026-09-01 「서울대 10개 만들기」 정책의 첫 패키지 지원대학으로
+ *       부산대·전남대·충남대를 선정, 교당 약 700억 원을 지원한다고 발표(다수 언론 확인).
+ * 우리 축  이미 갖고 있는 대학알리미 공시 자료(university/[id].astro와 같은 원본)에서
+ *       이 세 대학의 취업률·중도탈락률을 찾아 전국평균과 나란히 놓는다 — 새 조사 아님.
+ *
+ * ⛔ 선정 기준은 취업률이 아니다(국토공간 대전환 정합성·지역 여건 등, 다수 언론 확인) —
+ *   그래서 「취업률이 낮은데 뽑혔다」를 「잘못 뽑았다」로 읽지 않는다. 선정 기준과
+ *   무관한 축 하나를 나란히 놓을 뿐이다.
+ * ⛔ 세 대학을 서로 비교해 순위를 매기지 않는다 — 각자를 전국평균과만 비교한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import universities from '../../../data/100yearmap/pages-university.json';
+
+const 대학들 = (Array.isArray(universities) ? universities : Object.values(universities)[0]) as any[];
+const 찾기 = (이름: string) => 대학들.find((r) => r.title === 이름 && r['캠퍼스'] === '본교');
+
+const 대상 = ['부산대학교', '전남대학교', '충남대학교'].map((이름) => 찾기(이름)).filter(Boolean);
+const 전국평균 = 대상[0].취업률.전국평균;
+const 공시연도 = 대상[0].공시연도;
+
+const 아래인곳 = 대상.filter((r) => r.취업률.차이 < 0);
+
+const desc =
+  `${공시연도}년 대학알리미 공시 — 교육부가 2026-09-01 「서울대 10개 만들기」 첫 패키지 ` +
+  `지원대학으로 뽑은 부산대·전남대·충남대 세 곳 모두, 취업률이 전국평균(${전국평균}%)보다 ` +
+  `낮습니다. 선정 기준은 취업률이 아닙니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '패키지 지원대학 3곳의 취업률·중도탈락률',
+  description: desc,
+  temporalCoverage: String(공시연도),
+  license: 'https://www.academyinfo.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국대학교육협의회 대학정보공시(대학알리미)' },
+  variableMeasured: ['대학별 취업률', '대학별 중도탈락률'],
+};
+---
+
+<HundredYear
+  title={`부산대·전남대·충남대 — 취업률로 보면 셋 다 전국평균(${전국평균}%) 아래`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>「서울대 10개 만들기」<br />첫 지원대학 3곳, 취업률로 보면</h1>
+  <p class="sub">
+    교육부가 2026년 9월 1일, 「서울대 10개 만들기」 정책의
+    {' '}첫 패키지 지원대학으로 부산대·전남대·충남대를 선정해 교당 약 700억 원을 지원한다고
+    {' '}발표했습니다. 이 세 대학의 {공시연도}년 대학알리미 공시를 봅니다.
+  </p>
+
+  <div class="warn">
+    <p><strong>⚠ 선정 기준은 취업률이 아닙니다.</strong></p>
+    <p class="note">
+      실무위원회가 밝힌 선정 기준은 국토공간 대전환 프로젝트와의 정합성, 지역 여건 및
+      {' '}준비도, 대학 여건 및 준비도, 교육·연구 혁신입니다. 취업률은 그 기준에 없습니다 —
+      {' '}저희는 무관한 축 하나를 나란히 놓을 뿐, 선정을 평가하지 않습니다.
+    </p>
+  </div>
+
+  <h2>세 대학 다 전국평균 아래입니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>대학</th><th>지역</th><th>취업률</th><th>전국평균과 차이</th><th>중도탈락률</th></tr></thead>
+      <tbody>
+        {대상.map((r) => (
+          <tr>
+            <td><a href={r.url}>{r.title}</a></td>
+            <td>{r.지역}</td>
+            <td><strong>{r.취업률.값}%</strong></td>
+            <td>{r.취업률.차이}%p</td>
+            <td>{r.중도탈락률.값}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    {아래인곳.length}곳 모두 전국평균({전국평균}%)보다 취업률이 낮습니다 —
+    {' '}{대상.map((r) => `${r.title} ${r.취업률.차이}%p`).join(' · ')}.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>취업률은 이 정책의 선정 기준이 아닙니다 — 낮다고 선정이 잘못됐다는 뜻이 아닙니다.</li>
+    <li>취업률은 학과 구성(의약·이공 계열이 많은지, 인문 계열이 많은지)에 크게 좌우됩니다 —
+      이 표만으로 원인을 가르지 않습니다.</li>
+    <li>{공시연도}년 한 해 공시치입니다 — 지원이 시작된 뒤 몇 년째 어떻게 바뀌는지는
+      이 지면에서 아직 안 봤습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 대학의 우열이 아닙니다.</strong> 세 대학을 서로 줄 세우지
+    {' '}않습니다. 각 대학이 전국평균과 어떻게 다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — 한국대학교육협의회 대학정보공시(대학알리미), {공시연도}년 공시.
+    {' '}선정 발표는 교육부, 2026-09-01.
+  </p>
+
+  <p class="note">
+    <a href="/ranking-university-region">← 대학 취업률, 권역별 평균으로 보면</a>
+  </p>
+
+  <NextQuestionBrief 모은것="대학알리미 대학정보공시 실측" />
+</HundredYear>

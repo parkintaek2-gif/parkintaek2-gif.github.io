@@ -346,6 +346,9 @@ export const GET: APIRoute = () => {
        HIRA 「다빈도질병 통계」를 새로 찾음. 짝지면으로 따로 냄(진료비는 「얼마나」,
        이 지면은 「무슨 병으로」). */
     { path: '/common-illness', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-05 — 이슈+축: 교육부 「서울대 10개 만들기」 첫 패키지 지원대학 발표(9/1)에
+       기존 대학알리미 공시 축(취업률)을 붙임. */
+    { path: '/university-package', priority: '0.7', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
