@@ -47,9 +47,38 @@ export const 유닛들 = [
    * klifemap(1번)이 «지면이 마크다운이 아니다」를 손댄 .html 로 대신 센 것과 같은 결. */
   { 번호: '3번', 이름: '백년지도', 도메인: '100yearmap.com', 콘텐트: [], 아스트로지면: ['src/pages/100y'], 영상: ['public/100y/video'], 카드: ['public/100y/cardnews'] },
   { 번호: '4번', 이름: '방문자 유입', 도메인: null, 콘텐트: [], 영상: [] },
-  { 번호: '5번', 이름: 'K Culture Wire', 도메인: 'www.kculturewire.com', 콘텐트: ['content/kculturewire'], 영상: ['public/wikitip/video'], 카드: ['public/wikitip/card', 'archive/social'] },
-  { 번호: '6번', 이름: 'SeoulMarkets', 도메인: 'seoulmarkets.com', 콘텐트: ['content/articles'], 영상: ['public/video'], 카드: ['public/card', 'public/seoulmarkets/card'] },
+  /* 🔴 [2026-09-05 · 5번] **3번이 9/3 에 고친 것과 «똑같은 결함»이 5번·6번에 남아 있었다.**
+   *   3번은 자기 줄(`public/100y/card` → `cardnews`)만 고치고 옆 두 줄을 안 봤다.
+   *   그래서 오늘 내 카드가 세 벌 나갔는데 이 자는 «기타 0/1» 로 셌다. 재 보고 알았다 —
+   *     public/wikitip/card        🔴 없는 폴더   → public/wikitip/cardnews  ✅ 1,439개
+   *     public/card                🔴 없는 폴더   ┐ 6번 카드는 실제로
+   *     public/seoulmarkets/card   🔴 없는 폴더   ┘ public/cardnews 에 쌓인다(자 10곳이 그리 쓴다)
+   *   ⇒ **6번의 「기타」는 무엇을 만들든 늘 0 이었다.** 유닛 하나가 몇 주째 억울했을 수 있다.
+   *
+   * ⛔ 이것이 이 파일 스스로 금지한 「없는 경로를 세서 0건과 헷갈리는 것」이다.
+   *   같은 결함이 세 줄에 있었는데 한 줄만 고쳐서 두 줄이 남았다 —
+   *   **고쳤으면 그 결함 이름으로 저장소를 훑는다**(사장님 「하나를 고치면 인용한 곳까지 따라간다」).
+   * ✅ 그래서 아래 `없는카드길()` 자가시험이 «세 유닛 전부»를 훑는다. 한 줄만 고치면 다시 걸린다.
+   */
+  { 번호: '5번', 이름: 'K Culture Wire', 도메인: 'www.kculturewire.com', 콘텐트: ['content/kculturewire'], 영상: ['public/wikitip/video'], 카드: ['public/wikitip/cardnews', 'archive/social'] },
+  { 번호: '6번', 이름: 'SeoulMarkets', 도메인: 'seoulmarkets.com', 콘텐트: ['content/articles'], 영상: ['public/video'], 카드: ['public/cardnews'] },
 ];
+
+/**
+ * 🔴 «없는 폴더»를 가리키는 카드 경로를 찾아낸다. 있으면 그 유닛의 「기타」는
+ *   무엇을 만들든 0 으로 나온다 — 그것이 2026-09-02(3번)·09-05(5번·6번)에 실제로 일어난 일이다.
+ * ⚠ 「0건」과 「못 셌다」는 다르다. 이 자는 그 둘을 가르라고 있는 것인데,
+ *   경로가 틀리면 자 스스로 그 둘을 섞는다.
+ */
+export function 없는카드길(뿌리, 있나 = fs.existsSync) {
+  const 나쁜것 = [];
+  for (const u of 유닛들) {
+    for (const 길 of (u.카드 ?? [])) {
+      if (!있나(path.join(뿌리, 길))) 나쁜것.push({ 유닛: u.번호, 길 });
+    }
+  }
+  return 나쁜것;
+}
 
 /** 어제(KST). ⚠ 이 PC 가 이미 KST 다. toISOString 을 쓰지 않는다 */
 export function 어제(오늘 = new Date()) {
@@ -177,6 +206,15 @@ if (내가 && process.argv.includes('--자가시험')) {
   검('따옴표를 벗긴다', 앞말(견본, 'title') === '가');
   검('⛔ 없는 칸은 null — 빈 문자열이 아니다', 앞말(견본, '없는칸') === null);
   검('⛔ 앞말이 없어도 안 터진다', 앞말('그냥 글', 'pubDate') === null);
+  /* 🔴 [2026-09-05] 카드 경로가 «없는 폴더»를 가리키면 그 유닛의 「기타」는 늘 0 이 된다.
+     3번이 9/3 에 자기 줄만 고쳐 5번·6번 줄이 남아 있었다 — 이 시험이 그것을 막는다.
+     ⚠ 실제 파일 시스템을 본다. 폴더 이름이 바뀌면 «다음 사람이 알기 전에» 여기서 걸린다. */
+  const 나쁜길 = 없는카드길(뿌리);
+  검(`⛔ 카드 경로가 다 실재한다 (없으면: ${나쁜길.map((x) => `${x.유닛} ${x.길}`).join(', ') || '없음'})`,
+    나쁜길.length === 0);
+  검('없는 길을 넣으면 잡아낸다',
+    없는카드길('/없는뿌리', () => false).length > 0);
+  검('있는 길만 있으면 빈 배열', 없는카드길('/아무데나', () => true).length === 0);
   검('날수를 센다', 날수('2026-09-01', '2026-09-02') === 1);
   검('같은 날은 0', 날수('2026-09-02', '2026-09-02') === 0);
   검('⛔ 못 읽으면 null', 날수('아무것', '2026-09-02') === null);
