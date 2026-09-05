@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-samsung-life-insurer-rumor-not-confirmed": {
+      "figure": "October 2",
+      "label": "Samsung Life's deadline to say more about the insurer rumor",
+      "왜": "자동은 「2 — to say more」로 날짜에서 숫자만 끊었다. 요점은 재공시예정일 자체(2026-10-02)"
+    },
     "korea-samsung-sdi-starplus-guarantee-cut": {
       "figure": "45.2%",
       "label": "cut to a $2.11bn debt guarantee — same year JV turned profitable",
