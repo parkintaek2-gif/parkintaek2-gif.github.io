@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, CATEGORIES } from '../consts';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, CATEGORIES, PUBLISHER_SM } from '../consts';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -148,10 +148,10 @@ const jsonLd = {
               사업자 정보 표시로도 부족하지 않다.
               값(legalNameKo·representativeKo·addressKo)은 consts.ts 에 그대로 둔다 —
               한국어판을 낼 때 쓴다. **여기 화면에 다시 넣지 말 것.** */}
-          <strong>{PUBLISHER.legalName}</strong><br />
-          Representative director: {PUBLISHER.representative}<br />
-          {PUBLISHER.address}<br />
-          Business registration number {PUBLISHER.bizRegNo}<br />
+          <strong>{PUBLISHER_SM.legalName} ({PUBLISHER_SM.legalNameKo})</strong><br />
+          Proprietor: {PUBLISHER_SM.representative}<br />
+          {PUBLISHER_SM.address}<br />
+          Business registration number {PUBLISHER_SM.bizRegNo}<br />
           <a href={`mailto:${PUBLISHER.email}`}>{PUBLISHER.email}</a>
         </p>
       </div>

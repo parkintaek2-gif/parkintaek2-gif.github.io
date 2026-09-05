@@ -7,7 +7,7 @@ import AdSlot from '../../components/AdSlot.astro';
 import { publishedArticles } from '../../lib/articles';
 import { tagsForArticle } from '../../lib/tags';
 import { formatDate, formatAsOf, categoryLabel, iso } from '../../lib/format';
-import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../../consts';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, PUBLISHER_SM } from '../../consts';
 
 export async function getStaticPaths() {
   const articles = await publishedArticles();
@@ -127,7 +127,7 @@ const articleLd = {
     '@type': 'NewsMediaOrganization',
     '@id': `${SITE_URL}/#organization`,
     name: SITE.name,
-    legalName: PUBLISHER.legalName,
+    legalName: PUBLISHER_SM.legalName,
   },
   isAccessibleForFree: true,
   keywords: [...d.tags, ...d.tickers].join(', ') || undefined,

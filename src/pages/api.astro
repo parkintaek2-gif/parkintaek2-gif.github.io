@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE, SITE_URL, PUBLISHER } from '../consts';
+import { SITE, SITE_URL, PUBLISHER, PUBLISHER_SM } from '../consts';
 import stats from '../data/research-stats.json';
 import { SUBJECT_STATS } from '../lib/subjects.mjs';
 import { LIMITS, ENFORCE_FROM } from '../lib/tiers.mjs';
@@ -469,7 +469,7 @@ const jsonLd = {
 
         <h2>Who we are</h2>
         <p>
-          {SITE.name} is published by {PUBLISHER.legalName}, registered in Korea. The API and the
+          {SITE.name} is published by {PUBLISHER_SM.legalName}, registered in Korea. The API and the
           newsroom run on the same pipeline — every figure in an article comes from the endpoints
           above, which is why both stay honest. More in <a href="/about">About</a>.
         </p>

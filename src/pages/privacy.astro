@@ -16,7 +16,7 @@
  */
 import Base from '../layouts/Base.astro';
 import { 측정ID, 잇는곳 } from '../components/Analytics.astro';
-import { PUBLISHER, SITE_URL } from '../consts';
+import { PUBLISHER, SITE_URL, PUBLISHER_SM } from '../consts';
 
 const MAIL = 'parkintaek2@gmail.com';
 const TITLE = 'Cookies and what we log';
@@ -31,7 +31,7 @@ const jsonLd = {
   url: `${SITE_URL}/privacy`,
   inLanguage: 'en',
   isPartOf: { '@type': 'WebSite', name: 'SeoulMarkets', url: SITE_URL },
-  publisher: { '@type': 'Organization', name: PUBLISHER.legalName, email: MAIL },
+  publisher: { '@type': 'Organization', name: PUBLISHER_SM.legalName, email: MAIL },
 };
 ---
 
@@ -100,7 +100,7 @@ const jsonLd = {
   <section>
     <h2>Who we are, and how to ask</h2>
     <p>
-      {PUBLISHER.legalName}. Write to <a href={`mailto:${MAIL}`}>{MAIL}</a> to ask what we hold about
+      {PUBLISHER_SM.legalName}. Write to <a href={`mailto:${MAIL}`}>{MAIL}</a> to ask what we hold about
       you, to have it deleted, or to complain about any of the above. It is one inbox and a person
       reads it. There is no form, because a form would be a worse version of an email.
     </p>

@@ -6,7 +6,7 @@
  * ⚠ 대표 메일이 아직 없어 지금은 PUBLISHER.email(실수신 주소)로 둔다. 대표 메일 나오면 그때 바꾼다(consts 한 곳).
  */
 import Base from '../layouts/Base.astro';
-import { SITE, SITE_URL, PUBLISHER, DISCLAIMER } from '../consts';
+import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, PUBLISHER_SM } from '../consts';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -50,7 +50,7 @@ const jsonLd = {
 
         <h2>Who publishes this</h2>
         <p>
-          {SITE.name} is published by {PUBLISHER.legalName} ({PUBLISHER.legalNameKo}). See our{' '}
+          {SITE.name} is published by {PUBLISHER_SM.legalName} ({PUBLISHER_SM.legalNameKo}). See our{' '}
           <a href="/about">about &amp; methodology</a>, <a href="/terms">terms of use</a> and
           {' '}<a href="/privacy">privacy policy</a>.
         </p>

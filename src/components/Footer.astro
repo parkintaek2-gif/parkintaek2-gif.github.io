@@ -1,5 +1,5 @@
 ---
-import { SITE, CATEGORIES, PUBLISHER, DISCLAIMER, SISTER_SITES } from '../consts';
+import { SITE, CATEGORIES, PUBLISHER_SM, DISCLAIMER, SISTER_SITES } from '../consts';
 const year = new Date().getFullYear();
 ---
 
@@ -41,18 +41,22 @@ const year = new Date().getFullYear();
           <li><a href="/about#sources">Full source list</a></li>
         </ul>
       </div>
+      {/**
+        * 🔴 [2026-09-05] 발행 주체를 **범진아카데미**로 바꿨다. 사장님 지시 —
+        *   「서울마켓츠 범진아카데미에 맞게 푸터 수정해라」
+        * ⚠ 이 꼬리말은 **SeoulMarkets 전용**이다. kculturewire·100yearmap 은 각자
+        *   WikiTip.astro·HundredYear.astro 에 자기 꼬리말이 있고 KLifeDesign 을 그대로 쓴다.
+        *   그래서 상수를 갈랐다(`PUBLISHER_SM`). 한 상수를 고쳤으면 세 사이트가 같이 바뀐다.
+        * ⛔ 통신판매업 신고번호를 뺐다 — 그 번호(2026-세종-0591)는 KLifeDesign 명의이고
+        *   주소도 다르다. 남의 번호를 이 상호 아래 적으면 거짓이 된다.
+        * ⛔ 대표자 이름은 예전 결정대로 여기 안 적고 /about 에 둔다(2026-08-29 사장님 지시).
+        */}
       <div>
         <h2>Published by</h2>
         <ul>
-          <li>{PUBLISHER.legalName}</li>
-          {/* 2026-08-29 · 사장님 지시 — 대표자 이름은 여기서 뺐다. 없앤 게 아니라
-              /about 으로 옮겼다(전자상거래법 표시의무는 그대로 지킨다, 클릭 한 번). */}
-          <li>{PUBLISHER.address}</li>
-          <li>Business reg. {PUBLISHER.bizRegNo}</li>
-          {/* 🔴 [2026-08-28] 통신판매업 신고번호. 사장님이 신고를 마치시고 신고증을 주셨다.
-              ⚠ 영문 지면이라 번호는 한국어 그대로 두되 «무엇인지»를 영어로 밝힌다 —
-                번호만 적으면 영어 손님에게는 뜻 없는 글자다. */}
-          <li>Mail-order licence {PUBLISHER.mailOrderNo} ({PUBLISHER.mailOrderAuthorityEn})</li>
+          <li>{PUBLISHER_SM.legalName} ({PUBLISHER_SM.legalNameKo})</li>
+          <li>{PUBLISHER_SM.address}</li>
+          <li>Business reg. {PUBLISHER_SM.bizRegNo}</li>
         </ul>
       </div>
       {
@@ -94,7 +98,7 @@ const year = new Date().getFullYear();
         as-of timestamp of the data it uses. {SITE.name} is not affiliated with, endorsed by, or
         licensed by the Korea Exchange.
       </p>
-      <p>&copy; {year} {PUBLISHER.legalName}. All rights reserved.</p>
+      <p>&copy; {year} {PUBLISHER_SM.legalName}. All rights reserved.</p>
     </div>
   </div>
 </footer>
