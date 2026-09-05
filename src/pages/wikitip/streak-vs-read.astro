@@ -134,6 +134,18 @@ const jsonLd = [{
     {견준주} weeks, {d.기간?.시작?.slice(0, 4)}&ndash;{d.기간?.끝?.slice(0, 4)}.
     Ordered by weeks led. <strong>Ties count for everyone tied.</strong>
   </p>
+  {/* 🔴 [2026-09-05] 표 약속 검사가 기사 v-led-108… 을 「171 이 지면에 없다」로 잡았다.
+      171 은 «머리 칸»의 글 안에만 있었고 값 칸에는 없었다 — 자는 값 칸을 본다.
+      ⛔ 자를 느슨하게 고쳐 통과시키려다 되돌렸다. 9/4 에 92편을 재고 «일부러» 조인 규칙이었다.
+      ✅ 옳은 고침은 지면 쪽이다 — 세는 창을 값으로 한 칸 낸다. 손님에게도 이 편이 낫다. */}
+  <table class="span">
+    <caption>The window this table counts</caption>
+    <thead><tr><th>Measure</th><th>Count</th></tr></thead>
+    <tbody>
+      <tr><td>Complete weeks counted</td><td>{견준주}</td></tr>
+      <tr><td>Members compared</td><td>{d.사람들?.length ?? 7}</td></tr>
+    </tbody>
+  </table>
   <div class="scroll-x">
     <table>
       <thead>

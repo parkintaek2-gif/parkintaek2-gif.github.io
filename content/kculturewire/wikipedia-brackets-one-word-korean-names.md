@@ -8,6 +8,7 @@ dataAsOf: 2026-09-01T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "actors", "wikipedia", "measurement"]
 pages:
+  - "/name-spelled"
   - "/streak-vs-read"
 sources:
   - org: "Wikipedia"

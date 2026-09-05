@@ -1,6 +1,6 @@
 ---
 title: "What DreamWorks is chasing: 93 countries, and Latvia held it 62 weeks"
-dek: "A trade headline this week says DreamWorks is answering KPop Demon Hunters with Forgotten Island on 25 September. We counted what it is answering: 93 countries' Netflix top 10, number one in 76 of them, and Korea sat exactly at the median."
+dek: "93 countries took KPop Demon Hunters into a Netflix top 10, number one in 76 of them. A trade headline says DreamWorks is answering with Forgotten Island. We counted what is being answered — Korea sat exactly at the median."
 category: titles
 genre: film
 purpose: both
@@ -9,6 +9,7 @@ dataAsOf: 2026-08-23T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "film", "kpop", "measurement"]
 pages:
+  - "/demon-hunters-countries"
   - "/watched"
   - "/by-country"
 sources:
