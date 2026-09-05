@@ -23,7 +23,22 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/kcw-films.json';
 
-const TITLE = 'Korean movies on Netflix: 577 of them charted, and most reached one country';
+/**
+ * 🔴 [2026-09-05] 제목에 실명을 세운다 — 찾는 말(「Korean movies on Netflix」)은 그대로 두고
+ *   그 뒤에 «작품 이름»을 붙였다. 손님은 갈래말로도 오고 작품 이름으로도 온다.
+ *   ⚠ 두 수는 자료에서 온다. 어긋나면 빌드를 세운다.
+ */
+const 가장넓은 = data.widest[0];
+const 가장긴 = data.longest[0];
+if (가장넓은?.title !== 'The Great Flood' || 가장넓은.countries !== 93) {
+  throw new Error('제목이 「The Great Flood 93개국」이라 말하는데 자료는 '
+    + JSON.stringify({ title: 가장넓은?.title, countries: 가장넓은?.countries }) + ' 다.');
+}
+if (가장긴?.title !== 'Tarot' || 가장긴.weeks !== 34) {
+  throw new Error('제목이 「Tarot 34주」라 말하는데 자료는 '
+    + JSON.stringify({ title: 가장긴?.title, weeks: 가장긴?.weeks }) + ' 다.');
+}
+const TITLE = 'Korean movies on Netflix: The Great Flood reached 93 countries, Tarot lasted 34 weeks';
 const DESC = 'Every Korean film that ever entered a country\'s Netflix weekly top 10 — 577 of them, '
   + 'more than the 396 Korean series. But the median film reached one country for three weeks, '
   + 'while the median series reached five. Widest, longest-running and most chart places, listed.';

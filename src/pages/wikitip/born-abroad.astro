@@ -71,7 +71,14 @@ const 첫셋 = 밖.slice(0, 3).map((p: any) => p.이름).join(', ');
      hometowns 앞말에도 백틱 든 주석이 있는데 그것들은 멀쩡히 빌드된다.
      ⭐ 다음 사람에게 남길 것은 하나다 — **앞말 주석을 고친 뒤 빌드가 「모듈을 못 찾는다」로
        서면, 코드가 아니라 그 주석을 의심하고 dist 를 지우고 다시 재라.** */
-const 제목 = `Korean actors born abroad — all ${밖.length} names`;
+/* 🔴 [2026-09-05] 제목에 실명 셋을 세운다. 「all 7 names」는 «이름이 있다»고만 말하고
+   정작 이름을 안 보여 줬다 — 손님은 그 이름으로 검색한다.
+   ⚠ 가장 많이 읽힌 셋을 자료 순서에서 그대로 뽑는다(손으로 고르지 않는다).
+   ⚠ 일곱이 아니게 되거나 앞자리가 바뀌면 제목이 저절로 따라간다 — 박아 두지 않는다. */
+const 앞셋 = 밖.slice(0, 3).map((x: any) => x.이름);
+const 제목 = 앞셋.length === 3
+  ? `Korean actors born abroad: ${앞셋[0]}, ${앞셋[1]}, ${앞셋[2]} and ${밖.length - 3} more`
+  : `Korean actors born abroad — all ${밖.length} names`;
 const 설명 = `${밖.length} of the most-read Korean actors and idols we could place were born outside Korea: `
   + `${첫셋} and more — plus the one name our own ruler pushed abroad by mistake.`;
 ---

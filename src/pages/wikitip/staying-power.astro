@@ -22,7 +22,25 @@ import data from '../../data/wikitip-staying-power.json';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 
-const TITLE = 'Staying power and force — two different things';
+/**
+ * 🔴 [2026-09-05] 제목에 «실명»을 세운다 — 사장님 「이미 만들어진 건 하나하나 다 맞춤형으로」.
+ *   옛 제목 「Staying power and force — two different things」는 손님이 칠 말이 하나도 없었다.
+ *   ⛔ 이름을 넣으려고 없는 사실을 쓰지 않는다. 아래 두 수는 자료에서 그대로 온다.
+ *   ⚠ 그래서 제목에 박은 이름과 수가 자료와 어긋나면 «빌드를 세운다» — 자료가 바뀌면
+ *     제목이 조용히 거짓이 되기 때문이다. cap-per-artist 에서 쓴 것과 같은 장치다.
+ */
+const 오래간것 = data.longest[0];
+const 센것 = data.fiercest[1];
+if (오래간것?.title !== 'Squid Game' || 오래간것.weeks !== 42) {
+  throw new Error('제목이 「Squid Game 42주」라고 말하는데 자료는 '
+    + JSON.stringify({ title: 오래간것?.title, weeks: 오래간것?.weeks }) + ' 다. 제목을 고치십시오.');
+}
+if (센것?.title !== 'Our Sticky Love' || 센것.weeks !== 2
+  || Math.round(센것.perWeek / 1_000_000) !== 63) {
+  throw new Error('제목이 「Our Sticky Love 2주 · 주당 63m」이라고 말하는데 자료는 '
+    + JSON.stringify({ title: 센것?.title, weeks: 센것?.weeks, perWeek: 센것?.perWeek }) + ' 다.');
+}
+const TITLE = 'Squid Game held 42 weeks. Our Sticky Love drew 63m hours a week for two';
 const DESC =
   'Korean titles on Netflix’s global chart, measured two ways: how many weeks they lasted and how '
   + 'many hours they drew per week. Of the top eight on each measure, only two appear on both.';

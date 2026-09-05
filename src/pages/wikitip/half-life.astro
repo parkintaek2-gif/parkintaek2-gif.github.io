@@ -38,7 +38,22 @@ const 까닭별 = [...new Set(d.notMeasured.map((t) => t.why.replace(/only \d+ p
   }))
   .sort((a, b) => b.titles.length - a.titles.length);
 
-const TITLE = 'A Korean title loses half its readers in two months. Most of them come back at least once';
+/**
+ * 🔴 [2026-09-05] 제목에 실명을 세운다. 옛 제목은 사실은 맞았으나 «찾을 말»이 없었다 —
+ *   손님은 「half-life」로 치지 않고 작품 이름으로 친다.
+ *   ⚠ 자료가 바뀌어 Goblin 이 가장 오래가는 것이 아니게 되면 제목이 조용히 거짓이 된다.
+ *     그래서 빌드를 세운다.
+ */
+const 가장오래 = [...d.titles].filter((t) => t.halfLifeMonths != null)
+  .sort((a, b) => b.halfLifeMonths - a.halfLifeMonths)[0];
+if (!/^Goblin/.test(가장오래?.title ?? '') || 가장오래.halfLifeMonths !== 7) {
+  throw new Error('제목이 「Goblin 7개월」이라고 말하는데 자료는 '
+    + JSON.stringify({ title: 가장오래?.title, months: 가장오래?.halfLifeMonths }) + ' 다.');
+}
+if (답.halfLifeMedianMonths !== 2) {
+  throw new Error('제목이 「중간 두 달」이라고 말하는데 자료는 ' + 답.halfLifeMedianMonths + ' 다.');
+}
+const TITLE = 'Goblin kept half its readers for seven months. The median Korean title keeps them two';
 const DESC =
   `Across four Southeast Asian Wikipedias, ${답.measured} Korean titles could be timed from their `
   + `peak: the median fell below half in ${답.halfLifeMedianMonths} months. `
