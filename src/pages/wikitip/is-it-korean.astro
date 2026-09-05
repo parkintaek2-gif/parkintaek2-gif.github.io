@@ -31,7 +31,23 @@ import data from '../../data/kcw-is-it-korean.json';
 const c = data.counts;
 const 몫 = (a: number) => Math.round((a / data.titleCount) * 100);
 
-const TITLE = 'Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you';
+/* 🔴 [2026-09-05] 제목에 «실명»을 세운다 — 사장님 「이미 만들어진 건 하나하나 다 맞춤형으로」.
+   옛 제목 「Is it actually Korean? For 423 of 974 Netflix titles…」에는 손님이 칠 말이
+   하나도 없었다. 이 지면이 실제로 다루는 «작품 이름»을 앞에 세운다.
+   ⛔ 이름을 넣으려고 없는 사실을 쓰지 않는다 — 아래 둘은 자료에서 그대로 온다.
+   ⚠ 자료가 바뀌어 앞자리가 달라지면 제목이 조용히 거짓이 되므로 빌드를 세운다. */
+const 나눠가진것 = data.sharedBiggest[0];
+const 못확인한것 = data.notKoreaListed[0];
+if (나눠가진것?.title !== 'The Glory') {
+  throw new Error(`제목이 「The Glory」라고 말하는데 자료 앞자리는 ${나눠가진것?.title} 다.`);
+}
+if (못확인한것?.title !== 'That Night') {
+  throw new Error(`제목이 「That Night」라고 말하는데 자료 앞자리는 ${못확인한것?.title} 다.`);
+}
+if (data.counts?.shared !== 423) {
+  throw new Error(`제목이 「423편」이라고 말하는데 자료는 ${data.counts?.shared} 다.`);
+}
+const TITLE = 'The Glory is Korean and shared. That Night we could not confirm — 423 of 974 Netflix titles';
 const DESC = 'Netflix publishes a title and a rank and nothing else — no year, no country, no '
   + 'director. So when The Glory, Business Proposal or Little Women appears on a chart, the name '
   + 'may belong to a Korean work or to another country’s. Here is every case, counted, including '

@@ -29,7 +29,17 @@ import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-hit-or-flop.json';
 
-const TITLE = 'Hit or flop? What Netflix’s charts actually recorded for 974 Korean titles';
+/* 🔴 [2026-09-05] 제목에 «실명»을 세운다 — 사장님 「이미 만들어진 건 하나하나 다 맞춤형으로」.
+   「Hit or flop?」만으로는 손님이 칠 말이 없다. 이 지면이 실제로 센 작품 이름을 세운다.
+   ⚠ 자료의 앞자리·수가 바뀌면 제목이 조용히 거짓이 되므로 빌드를 세운다. */
+const 가장넓은것 = data.widest[0];
+if (가장넓은것?.title !== 'Squid Game' || 가장넓은것.markets !== 93) {
+  throw new Error(`제목이 「Squid Game 93개국」이라고 말하는데 자료는 ${JSON.stringify({ t: 가장넓은것?.title, m: 가장넓은것?.markets })} 다.`);
+}
+if (data.oneCountryOnly !== 447 || data.titleCount !== 974) {
+  throw new Error(`제목이 「974편 중 447편」이라고 말하는데 자료는 ${data.titleCount} / ${data.oneCountryOnly} 다.`);
+}
+const TITLE = 'Squid Game reached 93 countries. 447 of 974 Korean titles reached one';
 const DESC = 'People ask whether a Korean film or series was a hit or a flop. We will not rule on '
   + 'that, and Netflix publishes nothing that would let anyone rule on it. What we can do is put a '
   + 'title next to the other 973: 46% reached exactly one country, and 31% were number one somewhere.';

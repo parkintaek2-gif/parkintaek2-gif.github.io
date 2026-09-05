@@ -543,6 +543,36 @@
       "지금값": {
         "제목자수": 71
       }
+    },
+    {
+      "지면": "/is-it-korean",
+      "전제목": "Is it actually Korean? For 423 of 974 Netflix titles, the name alone cannot tell you",
+      "후제목": "The Glory is Korean and shared. That Night we could not confirm — 423 of 974 Netflix titles",
+      "바꾼날": "2026-09-05",
+      "다시잴날": "2026-10-03",
+      "무엇을": "제목 — 실명을 세웠다 (사장님 「이미 만들어진 건 하나하나 다 맞춤형으로」)",
+      "⚠ 빌드 자물쇠": "제목에 박은 이름·수가 자료와 어긋나면 빌드가 선다",
+      "전값": {
+        "제목자수": 84
+      },
+      "지금값": {
+        "제목자수": 91
+      }
+    },
+    {
+      "지면": "/hit-or-flop",
+      "전제목": "Hit or flop? What Netflix’s charts actually recorded for 974 Korean titles",
+      "후제목": "Squid Game reached 93 countries. 447 of 974 Korean titles reached one",
+      "바꾼날": "2026-09-05",
+      "다시잴날": "2026-10-03",
+      "무엇을": "제목 — 실명을 세웠다 (사장님 「이미 만들어진 건 하나하나 다 맞춤형으로」)",
+      "⚠ 빌드 자물쇠": "제목에 박은 이름·수가 자료와 어긋나면 빌드가 선다",
+      "전값": {
+        "제목자수": 74
+      },
+      "지금값": {
+        "제목자수": 69
+      }
     }
   ],
   "_9월5일에할것": {
