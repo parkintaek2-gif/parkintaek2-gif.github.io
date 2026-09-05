@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 16:34 KST",
+  "generated": "2026-09-05 19:44 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 120,
-    "머리글있음": 120,
+    "본지면": 121,
+    "머리글있음": 121,
     "머리글없음": 0
   },
   "missing": [],
@@ -89,6 +89,7 @@
     "/read-vs-visited": "Seoul has 25 districts. The tourist count can speak for five of them",
     "/refund": "Refund policy",
     "/returns": "When a Korean title comes back to a chart it had left",
+    "/rookie-reading": "Five K-pop groups debuted in 2025. One is read 9.5x more in English now",
     "/run-length": "How long a Korean title holds a chart — films against series",
     "/same-list": "Which two countries hold the same Korean list",
     "/school": "Where Korean actors and singers studied",
