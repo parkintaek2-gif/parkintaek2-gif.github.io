@@ -138,7 +138,17 @@ export function 이름사전만들기(자료방 = path.join(뿌리, 'src/data'))
         if (!것 || typeof 것 !== 'object') continue;
         /* ⭐ `place` 를 더했다 — `/from/ansan` 같은 지면이 「실명 없음」으로 잡히고 있었다.
            도시 이름은 사람이 실제로 검색하는 이름이다(wikitip-hometowns.json 에 37곳). */
-        for (const 칸 of ['name', 'title', 'enTitle', '회사', 'firm', 'person', 'place']) {
+        /**
+         * 🔴 [2026-09-05 19:3x] **3번이 잡아 주셨다 — 「학과」 칸을 안 읽고 있었다.**
+         *   `/100y/college-major/*` 837장이 전부 「빈 칸: 실명」으로 올라왔는데,
+         *   그 제목에는 「가정교육과 취업률·진학률」처럼 **진짜 학과 이름이 이미 있었다.**
+         *   까닭은 `major-outcomes.json` 이 이름을 `학과` 칸에 담기 때문이다 —
+         *     { "학과": "간호학과", … }
+         *   ⛔ **내 자가 837장을 고치라고 시키고 있었다.** 고치면 이미 맞는 제목을 건드리는 것이다.
+         *   ⚠ 이 자가 시키는 일이 클수록 먼저 «자가 맞는지»부터 본다. 1,142장 가운데 837장이
+         *     거짓이었으니, 그 목록을 그대로 믿고 일을 시작했으면 하루가 통째로 헛일이 된다.
+         */
+        for (const 칸 of ['name', 'title', 'enTitle', '회사', 'firm', 'person', 'place', '학과']) {
           const v = 것[칸];
           if (typeof v === 'string' && 이름쓸만한가(v)) { 이름.add(v.trim()); 여기 += 1; }
         }
