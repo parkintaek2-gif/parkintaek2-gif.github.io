@@ -1,6 +1,6 @@
 ---
 title: "Two solo comebacks in one show. In English, seven of eight soloists are outread by their group"
-dek: "Taemin and TEN both had comeback stages on Music Core on 5 September. We put eight K-pop soloists beside their own group on English Wikipedia: only Hwasa is read more than her group. Jimin sits at 0.27 of BTS."
+dek: "Taemin and TEN both had comeback stages on Music Core on 5 September. We put eight K-pop soloists beside their own group on English Wikipedia: only Hwasa is read more than their own group. Jimin sits at 0.27 of BTS."
 category: stars
 purpose: both
 pubDate: 2026-09-05
