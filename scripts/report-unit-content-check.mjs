@@ -554,9 +554,19 @@ export function ga4파서(out) {
   return 표.length ? 표 : null;
 }
 
+/**
+ * 🔴 [2026-09-06] **`--지면전부` 를 안 주고 있었다.**
+ * 보고서 4절이 「기사가 일으킨 반응 — 해결했습니다. `--지면전부` 로 지면 하나하나를 받는다」고
+ * 적어 놓고, 정작 이 자리에서 그 깃발을 «안 넘겼다». 그래서 지면표가 늘 null 이 되고
+ * 1-5 표의 「지면열림」 칸이 **한 줄도 빠짐없이 ⬜ 못 쟀다**로 나갔다.
+ *
+ * ⛔ 「해결했다」고 적은 칸이 매번 비어 있으면, 그 문장이 보고 전체를 못 믿게 만든다.
+ *   0 으로 채우지 않는 것은 맞지만, **잴 수 있는 것을 안 재고 못 쟀다고 적는 것은 다른 문제다.**
+ */
 function ga4읽기() {
   try {
-    const out = execFileSync('node', ['scripts/ga4-report.mjs'], { cwd: 뿌리, encoding: 'utf8', timeout: 120000 });
+    const out = execFileSync('node', ['scripts/ga4-report.mjs', '--지면전부'],
+      { cwd: 뿌리, encoding: 'utf8', timeout: 180000 });
     return { 표: ga4파서(out), 원문: out };
   } catch (e) { return null; }
 }
