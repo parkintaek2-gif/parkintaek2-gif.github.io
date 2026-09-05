@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 13:24 KST",
+  "generated": "2026-09-05 16:34 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 118,
-    "머리글있음": 118,
+    "본지면": 120,
+    "머리글있음": 120,
     "머리글없음": 0
   },
   "missing": [],
@@ -23,6 +23,7 @@
     "/bts-hometowns": "Where each BTS member was born",
     "/bts-star-signs": "BTS star signs: six signs for seven members, and that is the ordinary result",
     "/by-country": "Netflix top 10 by country: which country’s chart is the most Korean?",
+    "/cannot-see": "Three in four Korean singers have no English Wikipedia article — so our numbers cannot see them",
     "/cap-per-artist": "HYBE, SM, JYP and YG: market value per artist we can count",
     "/catalogue-depth": "How many different Korean titles has your country actually seen?",
     "/catalogue-reach": "Does a bigger catalogue travel further per title?",
@@ -35,6 +36,7 @@
     "/data": "The data behind these pages",
     "/day-pillar": "The day pillars of 9,249 Korean entertainers — BTS land on 6 of the ten",
     "/debut-age": "IU and Im Yoon-ah started before 18. Ma Dong-seok started at 32 — and it is not just career length",
+    "/demon-hunters-countries": "KPop Demon Hunters: 93 countries, and Latvia held it 62 weeks",
     "/esports-games": "What we called an esports pattern was one game",
     "/esports-nations": "We tried to compare Korean esports players with other countries, and could not",
     "/exit": "How a Korean title leaves a Netflix chart",
