@@ -1,0 +1,109 @@
+---
+/**
+ * /100y/university-gap — 우리 대학 자료가 «못 보는» 곳은 몇 곳인가
+ *
+ * 5번 제안(2026-09-05) — KCW `/cannot-see`(위키데이터 한국가수 커버리지 공백)처럼
+ * 「우리 자가 못 보는 것이 무엇인가」를 지면으로 낸다. 강령 「못 잰 것은 못 쟀다고
+ * 적는다」의 실물.
+ *
+ * ⛔ 「미확인」 12곳을 폐교로 짐작해 채우지 않는다 — 진짜 이유를 모른다.
+ * ⛔ 대학을 판정하지 않는다 — 취업률이 없다고 나쁜 학교라는 뜻이 아니다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/university-gap.json';
+
+const 자료 = 원본 as any;
+const 없음퍼센트 = Math.round((자료.없음수 / 자료.전체) * 1000) / 10;
+const 분교퍼센트 = Math.round((자료.분교.수 / 자료.없음수) * 1000) / 10;
+const 폐교퍼센트 = Math.round((자료.폐교확인.수 / 자료.없음수) * 1000) / 10;
+const 미확인퍼센트 = Math.round((자료.미확인.수 / 자료.없음수) * 1000) / 10;
+
+const desc =
+  `저희가 다루는 대학·전문대 ${자료.전체}곳 가운데 ${자료.없음수}곳(${없음퍼센트}%)은 취업률을 ` +
+  `못 보여드립니다. 그 이유는 고르지 않습니다 — ${자료.분교.수}곳은 분교, ${자료.폐교확인.수}곳은 ` +
+  `이미 문 닫은 학교, 나머지 ${자료.미확인.수}곳은 이유를 모릅니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '백년지도 대학 자료의 취업률 공백',
+  description: desc,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.대학자료 },
+  variableMeasured: ['대학별 취업률 공백 수', '공백 사유(분교·폐교·미확인)'],
+};
+---
+
+<HundredYear
+  title={`저희가 못 보는 대학 ${자료.없음수}곳 — 분교 ${자료.분교.수} · 폐교 ${자료.폐교확인.수} · 이유 모름 ${자료.미확인.수}`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>저희 대학 자료가<br />못 보는 곳은 몇 곳일까요?</h1>
+  <p class="sub">
+    백년지도의 학과별·대학별 취업률 지면은 대학알리미 공시 {자료.전체}곳을 다룹니다.
+    {' '}그런데 그 가운데 <strong>{자료.없음수}곳({없음퍼센트}%)은 취업률 칸이 비어 있습니다.</strong>
+    {' '}빈 칸을 0으로 채우지 않고, 왜 비었는지를 갈라 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">취업률을 볼 수 없는 대학·전문대</p>
+    <p class="answer-num">{자료.없음수}곳 / {자료.전체}곳</p>
+    <p class="answer-sub">{없음퍼센트}% — 그런데 이유는 하나가 아닙니다</p>
+  </div>
+
+  <h2>구멍이 고르지 않습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>이유</th><th>곳 수</th><th>{자료.없음수}곳 중 비율</th></tr></thead>
+      <tbody>
+        <tr><td>분교(제2캠퍼스 등) — 취업률이 본교 밑에 잡힙니다</td><td><strong>{자료.분교.수}곳</strong></td><td>{분교퍼센트}%</td></tr>
+        <tr><td>이미 문 닫은 학교(KASFO 폐교 목록과 대조 확인)</td><td><strong>{자료.폐교확인.수}곳</strong></td><td>{폐교퍼센트}%</td></tr>
+        <tr><td>⛔ 이유를 모릅니다 — 짐작으로 채우지 않습니다</td><td><strong>{자료.미확인.수}곳</strong></td><td>{미확인퍼센트}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>
+    빈 칸의 {분교퍼센트}%는 <strong>분교</strong>입니다 — 대학알리미가 취업률을 캠퍼스별이
+    {' '}아니라 본교 단위로 공시하는 경우가 있어, 분교 이름으로는 값이 안 잡힙니다.
+    {' '}또 {폐교퍼센트}%는 <strong>이미 문을 닫은 학교</strong>입니다 — 졸업생 통계를 낼
+    {' '}학생 자체가 더는 없습니다.
+  </p>
+  <p class="note">
+    ⛔ 나머지 {자료.미확인.수}곳({미확인퍼센트}%)은 분교도 아니고 저희가 가진 폐교 목록에도
+    {' '}없습니다. <strong>왜 값이 없는지 저희는 아직 모릅니다.</strong> 짐작으로 「아마 폐교일
+    {' '}것이다」라고 채우지 않습니다 — 모르는 것은 모른다고 적습니다.
+  </p>
+
+  <h2>미확인 12곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>대학·전문대</th></tr></thead>
+      <tbody>
+        {자료.미확인.목록.map((n: string) => (<tr><td>{n}</td></tr>))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>취업률이 없다고 그 학교가 나쁘다는 뜻이 아닙니다 — 자료 구조의 공백입니다.</li>
+    <li>「미확인」 12곳은 폐교일 수도, 아직 공시가 안 된 것일 수도, 다른 이유일 수도
+      있습니다 — 이 지면에서 원인을 확정하지 않습니다.</li>
+    <li>대학알리미 공시(2025년) 한 시점 기준입니다 — 다음 공시에서 채워질 수 있습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 대학의 우열이 아닙니다.</strong> 저희가 무엇을 못 보는지를
+    {' '}밝히는 것이 이 지면이 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.대학자료}, {자료.출처.폐교자료}.
+  </p>
+
+  <p class="note">
+    <a href="/university-package">← 「서울대 10개 만들기」 첫 지원대학, 취업률로 보면</a>
+  </p>
+
+  <NextQuestionBrief 모은것="대학알리미 대학정보공시·KASFO 폐교대학 목록 실측" />
+</HundredYear>

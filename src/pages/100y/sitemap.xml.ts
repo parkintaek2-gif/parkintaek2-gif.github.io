@@ -349,6 +349,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-05 — 이슈+축: 교육부 「서울대 10개 만들기」 첫 패키지 지원대학 발표(9/1)에
        기존 대학알리미 공시 축(취업률)을 붙임. */
     { path: '/university-package', priority: '0.7', changefreq: 'monthly' },
+    /* 🔴 2026-09-05 — 5번 제안(KCW /cannot-see 처럼 「우리 자가 못 보는 것」을 지면으로).
+       대학 취업률 자료 377곳 중 48곳이 비어 있는 이유를 분교·폐교·미확인으로 가른다. */
+    { path: '/university-gap', priority: '0.6', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
