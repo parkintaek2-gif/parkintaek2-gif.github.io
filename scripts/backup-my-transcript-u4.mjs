@@ -15,6 +15,12 @@
  * ⛔ 살아 있는 세션 파일을 «잠그지» 않는다. 읽기 복사만 한다.
  * ⛔ 덮어쓰지 않는다 — 날짜별로 쌓는다(어제 백업이 오늘 것 때문에 사라지지 않는다).
  *
+ * ── 고침 (2026-09-06 · 4번) ──────────────────────────────────────
+ * 6번·2번이 자기 백업 자에서 먼저 잡은 것과 «같은 병» — `toISOString()`은 UTC라
+ * KST 00시~09시 사이엔 «어제» 날짜로 찍힌다. 01:00 KST 예약이 매번 이 창 안에서
+ * 도니 이 자는 늘 하루 전 날짜로 찍히고 있었다(오늘 01:00 실행분이 2026-09-05로
+ * 잘못 찍힌 것을 확인·이름만 2026-09-06으로 바로잡음, 내용은 그대로).
+ *
  * 쓰는 법
  *   node scripts/backup-my-transcript-u4.mjs
  */
@@ -44,7 +50,7 @@ if (후보.length === 0) {
 후보.sort((a, b) => statSync(b).mtimeMs - statSync(a).mtimeMs);
 const 최신 = 후보[0];
 
-const 오늘 = new Date().toISOString().slice(0, 10);
+const 오늘 = new Date().toLocaleDateString('en-CA', { timeZone: 'Asia/Seoul' });
 mkdirSync(백업폴더, { recursive: true });
 const 목적지 = path.join(백업폴더, `${오늘}_${path.basename(최신)}`);
 
