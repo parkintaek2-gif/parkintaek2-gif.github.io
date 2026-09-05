@@ -1,0 +1,111 @@
+---
+/**
+ * /100y/common-illness — 나이대별로 가장 흔한 병 이름
+ *
+ * 사장님 지시(2026-09-05) 「나이대별 진료비 → 그 안에서 실명이 되는 축(질병명·지역명)을
+ * 찾는다」로 HIRA 「다빈도질병 통계」(질병/연령10세구간별)를 새로 찾아 만든 지면.
+ * /medical-cost 는 「얼마나」를 보여 주고, 이 지면은 「무슨 병으로」를 보여 준다 — 짝지면.
+ *
+ * ⛔ 「가장 흔하다」이지 「가장 위험하다」가 아니다 — 흔한 병(잇몸병·감기)이 위에 온다.
+ * ⛔ 「1위·2위·3위」라고 쓰되 순번을 매겨 사람을 «줄 세우는» 표현으로 읽히지 않게,
+ *   병 이름 자체의 차례로만 쓴다(check-100y-banned-words.mjs 「순위」 낱말 회피).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/medical-cost-top-diseases.json';
+
+const 자료 = 원본 as any;
+const 나이대별 = 자료.나이대별 as any[];
+
+const 칸 = (이름: string) => 나이대별.find((r) => r.칸 === 이름);
+const 스물 = 칸('20~29세');
+const 여든 = 칸('80세이상');
+
+const desc =
+  `${자료.최신}년 HIRA 외래 다빈도질병 통계 — 20대부터 70대까지는 ${스물.상위[0].이름}이 ` +
+  `가장 흔한 외래 이유입니다. 그런데 80세 이상은 처음으로 ${여든.상위[0].이름}이 앞섭니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이대별 외래 다빈도 질병명',
+  description: desc,
+  temporalCoverage: 자료.최신,
+  license: 'https://opendata.hira.or.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['나이대별 외래 다빈도 질병명'],
+};
+---
+
+<HundredYear
+  title={`나이대별 가장 흔한 병 — 20~70대는 ${스물.상위[0].이름}, 80세부터는 ${여든.상위[0].이름}`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>나이 들면<br />무슨 병으로 병원에 갈까요?</h1>
+  <p class="sub">
+    건강보험심사평가원(HIRA)의 {자료.최신}년 「{자료.출처.표}」 기준, 외래(양방) 진료에서
+    {' '}나이 칸마다 가장 흔했던 병 이름 셋을 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">20대부터 70대까지 가장 흔한 이유</p>
+    <p class="answer-num">{스물.상위[0].이름}</p>
+    <p class="answer-sub">
+      그런데 80세 이상부터는 <strong>{여든.상위[0].이름}</strong>이 처음으로 앞섭니다
+    </p>
+  </div>
+
+  <h2>나이 칸마다 가장 흔했던 병 셋</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>가장 흔함</th><th>두 번째</th><th>세 번째</th></tr></thead>
+      <tbody>
+        {나이대별.map((r) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td><strong>{r.상위[0]?.이름}</strong></td>
+            <td>{r.상위[1]?.이름}</td>
+            <td>{r.상위[2]?.이름}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>0~19세는 감기 계열, 20~70대는 잇몸병, 80세부터는 고혈압</h2>
+  <p>
+    0~9세와 10~19세는 <strong>급성 기관지염</strong>(감기 계열)이 가장 흔합니다.
+    {' '}그런데 20대부터는 <strong>치은염 및 치주질환(잇몸병)</strong>이 70대까지 줄곧 가장
+    {' '}흔한 외래 이유로 남습니다 — 여섯 개 나이 칸 내내 자리를 지킵니다.
+    {' '}<strong>80세 이상</strong>에서 처음으로 <strong>본태성(원발성) 고혈압</strong>이
+    {' '}잇몸병을 밀어냅니다.
+  </p>
+  <p class="note">
+    ⚠ 「가장 흔하다」는 「가장 위험하다」가 아닙니다. 잇몸병과 감기는 흔해서 이 표
+    {' '}위쪽에 오릅니다 — 드물지만 위험한 병은 여기 안 보입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 병원에 가야 한다거나 안 가도
+    {' '}된다고 쓰지 않습니다. 나이대마다 외래 진료 이유가 어떻게 갈리는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표}({자료.최신}년). {자료.출처.이용허락범위}.
+    {' '}<a href={자료.출처.주소} rel="noopener">원문 표</a>에서 다른 나이·연도도 볼 수 있습니다.
+  </p>
+
+  <p class="note">
+    <a href="/medical-cost">← 나이대별 1인당 진료비는 얼마나 벌어질까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="건강보험심사평가원 HIRA 빅데이터개방포털 실측" />
+</HundredYear>

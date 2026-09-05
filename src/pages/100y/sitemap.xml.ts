@@ -342,6 +342,10 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-04 — 사장님이 원드라이브에 직접 쓰신 「독립 데이터포털 목록.md」에서
        건강보험심사평가원(HIRA) 빅데이터개방포털을 찾음. 국민건강보험공단과 다른 기관. */
     { path: '/medical-cost', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-05 — 사장님 지시로 medical-cost 안에서 실명축(질병명)을 찾다가
+       HIRA 「다빈도질병 통계」를 새로 찾음. 짝지면으로 따로 냄(진료비는 「얼마나」,
+       이 지면은 「무슨 병으로」). */
+    { path: '/common-illness', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
