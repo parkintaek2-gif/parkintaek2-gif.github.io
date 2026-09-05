@@ -5,6 +5,7 @@ category: stars
 purpose: both
 pubDate: 2026-09-05
 dataAsOf: 2026-09-04T00:00:00+09:00
+issueAt: 2026-09-05T16:38:10+09:00
 author: Newsroom
 tags: ["korea", "kpop", "solo", "wikipedia", "measurement", "language"]
 pages:

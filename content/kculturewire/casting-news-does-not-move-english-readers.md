@@ -5,6 +5,7 @@ category: stars
 purpose: both
 pubDate: 2026-09-05
 dataAsOf: 2026-09-04T00:00:00+09:00
+issueAt: 2026-09-05T16:15:05+09:00
 author: Newsroom
 tags: ["korea", "kdrama", "casting", "wikipedia", "measurement", "press"]
 pages:
