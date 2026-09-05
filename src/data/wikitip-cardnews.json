@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-04T08:30:12.586Z",
+  "generated": "2026-09-05T19:19:58.588Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1553,6 +1553,23 @@
       ]
     },
     {
+      "set": "six-korean-stars-renamed-readers-did-not-follow",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "six-titles-or-forty-nine",
       "sq": [
         1,
@@ -2147,6 +2164,23 @@
       ]
     },
     {
+      "set": "v-led-108-weeks-jung-kook-read-more",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "vietnam-asean-cup-korean-coach-netflix-share",
       "sq": [
         1,
@@ -2349,6 +2383,23 @@
       ]
     },
     {
+      "set": "wikipedia-renamed-jungkook-readers-did-not",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "women-in-korean-content-companies",
       "sq": [
         1,
@@ -2381,21 +2432,48 @@
         4,
         5
       ]
+    },
+    {
+      "set": "zodiac-compatibility-tested-on-real-groups",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
     }
   ],
-  "setCount": 142,
-  "imageCount": 1384,
+  "setCount": 146,
+  "imageCount": 1424,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
     "brands-are-not-one-thing",
+    "bts-six-signs-ordinary-9249-behind-them-are-not",
+    "casting-news-does-not-move-english-readers",
+    "cortis-100-million-views-english-readers-arrived-first",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
+    "gucci-week-moved-nothing-birthday-moved",
+    "jimin-34x-english-stadium-acts-reverse",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "only-four-countries-come-close-to-all-korean",
     "the-ceiling-and-the-band",
-    "the-instrument-was-wrong-not-the-question"
+    "the-instrument-was-wrong-not-the-question",
+    "two-solo-comebacks-one-day-groups-still-outread-them",
+    "what-dreamworks-is-chasing-93-countries",
+    "what-is-in-netflix-top10-tsv-files",
+    "wikipedia-brackets-one-word-korean-names",
+    "yunho-tour-seven-cities-one-speaks-english"
   ]
 }
