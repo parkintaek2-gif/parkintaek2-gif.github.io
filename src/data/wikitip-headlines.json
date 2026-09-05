@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 23:31 KST",
+  "generated": "2026-09-06 00:03 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 124,
-    "머리글있음": 124,
+    "본지면": 125,
+    "머리글있음": 125,
     "머리글없음": 0
   },
   "missing": [],
@@ -109,6 +109,7 @@
     "/time-to-peak": "When a Korean title is at its widest — the week the push has already worked",
     "/titles-to-name": "Go Youn-jung against Karina: more charting titles goes with 9.9× the look-ups",
     "/titles": "Korean titles in Southeast Asia’s Netflix Top 10",
+    "/tour-city-languages": "U-Know Yunho's 7 tour cities and the languages that read him",
     "/tv-exports": "Who exports Korean television",
     "/two-pipelines": "Korean series that aired on a Korean network, and those that did not",
     "/underrated": "Underrated Korean drama, measured instead of guessed",

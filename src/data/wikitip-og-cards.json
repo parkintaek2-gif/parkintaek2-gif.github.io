@@ -469,6 +469,11 @@
       "figure": "501,040",
       "label": "rows, 94 countries, 269 weeks",
       "왜": "파일을 찾아온 사람이 알고 싶은 첫 수가 «몇 줄인가»다. 37.9%(빈 칸)는 흠이라 카드에 앞세우지 않는다"
+    },
+    "yunho-tour-seven-cities-one-speaks-english": {
+      "figure": "120.7",
+      "label": "views a day in English — a language one tour stop of seven speaks",
+      "왜": "자동은 「120.7 — a day」로 잘라 무슨 말인지 안 남는다. 수는 그대로 두고 딱지에 어긋남을 넣는다. ⛔ 「1 of 7」로 하려다 그 글자가 본문에 없어 자가 막았다 — 본문에 없는 수를 카드에 내지 않는 규칙이 맞다."
     }
   }
 }

@@ -899,6 +899,8 @@ export const GET: APIRoute = async () => {
     { path: '/netflix-tudum-data-dictionary', priority: '1.0', changefreq: 'monthly' },
     /* 같은 사람을 한국어와 영어로 나란히 — 어느 말로 읽히나. 트로트와 아이돌이 반대로 선다 */
     { path: '/which-language-reads-you', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 순회공연이 «가는 곳»과 «읽히는 곳»이 같은가. 영어가 으뜸인데 일곱 도시 중 한 곳만 영어권이다 */
+    { path: '/tour-city-languages', priority: '0.9', changefreq: 'weekly' },
     /* 캐스팅 기사가 영어권 독자를 움직이나 — 사건이 쌓일수록 표가 길어지는 지면이다 */
     { path: '/casting-news-reading', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-22 — Search Console 실측으로 낸 지면. 우리에게 오는 노출 185개가 **Tudum 파일 주소
