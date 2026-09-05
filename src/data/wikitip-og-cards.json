@@ -446,9 +446,14 @@
       "왜": "자동 딱지가 「to a different」에서 잘린다. 문장을 닫아 준다"
     },
     "wikipedia-brackets-one-word-korean-names": {
-      "figure": "732",
-      "label": "titles for 100 stars, and 20 carry most of them",
-      "왜": "6.5(중간값)는 기사에만 있고 /name-spelled 표에 없다 — 카드가 표에 없는 수를 약속하면 안 된다. 732 는 둘 다에 있다"
+      "figure": "100",
+      "label": "most-read stars; 20 carry most of the titles",
+      "왜": "6.5(중간값)는 /name-spelled 표에 없고 732 는 본문이 아니라 앞말에만 있다. 100 은 본문과 표 둘 다에 있다 — 카드가 약속한 수를 표가 지킨다"
+    },
+    "casting-news-does-not-move-english-readers": {
+      "figure": "0.44",
+      "label": "x the reading, after the story named them",
+      "왜": "자동은 「14 days before」의 14 를 집는다 — 방법이지 발견이 아니다. 0.44 는 이 표에서 가장 큰 움직임이고 방향까지 말한다 · ⛔ 「her」로 썼다가 고쳤다 — 그 사람의 대명사를 우리가 아는 것이 아니다. 모르면 they 로 쓴다"
     }
   }
 }

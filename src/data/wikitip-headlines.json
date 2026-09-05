@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-05 19:44 KST",
+  "generated": "2026-09-05 20:10 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 121,
-    "머리글있음": 121,
+    "본지면": 122,
+    "머리글있음": 122,
     "머리글없음": 0
   },
   "missing": [],
@@ -25,6 +25,7 @@
     "/by-country": "Netflix top 10 by country: which country’s chart is the most Korean?",
     "/cannot-see": "Three in four Korean singers have no English Wikipedia article — so our numbers cannot see them",
     "/cap-per-artist": "HYBE, SM, JYP and YG: market value per artist we can count",
+    "/casting-news-reading": "Six K-drama casting stories, and not one moved English reading up",
     "/catalogue-depth": "How many different Korean titles has your country actually seen?",
     "/catalogue-reach": "Does a bigger catalogue travel further per title?",
     "/climb": "Does a title climb after it enters the chart?",

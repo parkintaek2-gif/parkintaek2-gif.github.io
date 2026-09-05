@@ -895,6 +895,8 @@ export const GET: APIRoute = async () => {
     { path: '/cannot-see', priority: '0.9', changefreq: 'monthly' },
     /* 2025년에 데뷔한 다섯 팀 — 데뷔 뒤 영어권 독자가 실제로 늘었나. 달마다 값이 움직인다 */
     { path: '/rookie-reading', priority: '0.9', changefreq: 'weekly' },
+    /* 캐스팅 기사가 영어권 독자를 움직이나 — 사건이 쌓일수록 표가 길어지는 지면이다 */
+    { path: '/casting-news-reading', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-22 — Search Console 실측으로 낸 지면. 우리에게 오는 노출 185개가 **Tudum 파일 주소
        그 자체**였다(순위 7~11 · 클릭 0). 파일 안에 무엇이 있나를 묻는 사람에게 답이 없었다.
        ⭐ 파일이 안 알려 주는 것을 적는다 — views 가 102주 비어 있고, 제목 71%는 세계 파일에 줄이 없다
