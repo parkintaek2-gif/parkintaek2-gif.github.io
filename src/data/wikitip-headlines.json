@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-06 01:24 KST",
+  "generated": "2026-09-06 02:46 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 126,
-    "머리글있음": 126,
+    "본지면": 127,
+    "머리글있음": 127,
     "머리글없음": 0
   },
   "missing": [],
@@ -122,6 +122,7 @@
     "/weeks": "Every week, and the Korean titles in it",
     "/what-actually-fell": "Southeast Asia's Korean travel pages fell by a third. Its Korean culture pages did not.",
     "/what-kind-fell": "Southeast Asia is reading less about Korean language and craft — and less about Japan's too",
+    "/what-moves-english-reading": "A Gucci campaign moved nothing. A birthday moved 1.35x",
     "/what-to-watch-after": "What to watch after a Korean show",
     "/where-it-moved": "Korean titles lost Asia’s charts and gained Latin America’s",
     "/where-to-watch": "Where to watch Korean drama",
