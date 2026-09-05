@@ -780,6 +780,45 @@ if (내가) {
    *   ✅ 그리고 저장소 사본으로 만든 뒤 OneDrive 로 «복사»한다 —
    *      OneDrive 경로에 공백·한글이 섞여 있어 그쪽에서 바로 만드는 것보다 안전하다.
    */
+  /**
+   * 🔴🔴 [2026-09-05 23:2x] 사장님: 「**.md 파일 표 다 깨져. 엑셀로 보내던지 pdf로 보내던지.**」
+   *
+   * PDF 는 이미 낸다(오늘치 8쪽을 재서 확인했다). 그래도 **엑셀을 함께 낸다** —
+   * PDF 는 «읽는» 것이고 엑셀은 «따져 보는» 것이다. 사장님은 수를 정렬하고 걸러 보신다.
+   *
+   * ⭐ 엑셀 라이브러리를 새로 들이지 않았다. **CSV 에 UTF-8 BOM** 을 붙이면 엑셀이
+   *   한글을 안 깨뜨리고 칸을 제대로 나눠 연다. 의존성 하나가 늘면 그것도 언젠가 깨진다.
+   * ⛔ BOM 을 빼면 엑셀이 한글을 깨뜨린다 — 그 한 바이트가 이 칸의 전부다.
+   */
+  const csv칸 = (v) => {
+    const s = String(v ?? '').replace(/\r?\n/g, ' ');
+    return /[",]/.test(s) ? `"${s.split('"').join('""')}"` : s;
+  };
+  const csv줄들 = [['유닛', '사이트', '발행 편수', '이슈화', '이슈를 만듦', '어제 커밋',
+    '텍스트(몫 6)', '영상(몫 1)', '기타·카드(몫 1)']];
+  for (const u of 유닛들) {
+    const p = 발행.get(u.번호);
+    const 텍스트있나 = u.콘텐트.length || u.아스트로지면?.length;
+    csv줄들.push([
+      `${u.번호}번`, u.사이트 ?? '',
+      텍스트있나 ? p.편수 : '—',
+      !텍스트있나 ? '—' : (p.반응못잼 ? '못 쟀다' : p.반응),
+      !텍스트있나 ? '—' : p.만듦,
+      p.커밋 ?? '',
+      p.텍스트 ?? '', p.영상 ?? '', p.기타 ?? '',
+    ]);
+  }
+  const csv길 = path.join(사본방, `${이름}.csv`);
+  try {
+    fs.writeFileSync(csv길, '﻿' + csv줄들.map((r) => r.map(csv칸).join(',')).join('\r\n'), 'utf8');
+    console.log(`   엑셀로 열 수 있게 CSV 도 냈다 — ${path.basename(csv길)}`);
+    const 원드csv = md.replace(/\.md$/, '.csv');
+    try { fs.copyFileSync(csv길, 원드csv); console.log(`   OneDrive 에도 놓았다 — ${path.basename(원드csv)}`); }
+    catch (e) { console.log(`   🔴 CSV 를 OneDrive 에 못 놓았다 — ${String(e.code || e.message).slice(0, 24)}`); }
+  } catch (e) {
+    console.log(`   🔴 CSV 를 못 냈다 — ${String(e.message).slice(0, 60)}`);
+  }
+
   let pdf = null;
   const 사본md = path.join(사본방, `${이름}.md`);
   try {
