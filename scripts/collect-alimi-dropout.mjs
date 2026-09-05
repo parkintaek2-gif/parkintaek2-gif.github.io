@@ -49,6 +49,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
 import qs from 'node:querystring';
+import { 오늘 } from './_kst.mjs';
 import { 알리미지역_고교지역 } from '../src/lib/region.ts';
 /* 🔴 규칙은 한 곳에 있다. 여기 다시 적지 않는다 — `src/lib/school-rules.ts` */
 import { 최소분모, 방송통신인가, 학교급코드 } from '../src/lib/school-rules.ts';
@@ -212,7 +213,7 @@ for (const r of 목록) {
 }
 
 const 통계 = {
-  받은때: new Date().toISOString().slice(0, 10),
+  받은때: 오늘(),
   출처,
   저쪽행수: 목록.length,
   이은것: 결과.length,

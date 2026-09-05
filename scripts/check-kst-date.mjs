@@ -163,8 +163,13 @@ function 자가시험() {
  *     measure-netflix-top10-files · measure-real-readers · check-title-change-cooldown
  * ⚠ 남은 18곳 가운데 check-utc-today.mjs:91,93 은 «그 자의 시험 글»이라 헛걸림에 가깝다.
  *   그래도 빼지 않았다 — 빼는 규칙을 넣으면 진짜 자리도 같이 빠질 수 있다. 세되 알고 둔다.
+ *
+ * 🔴 [2026-09-06 · 3번] **18 → 13.** 「누가 고칠 몫인가」가 파일 «이름»만 보고 갈라
+ *   collect-kosis-real-wage 등 4곳 + collect-alimi-dropout 1곳(전부 src/data/100yearmap/*.json
+ *   에 쓰는 3번 자료수집기)이 이름에 100y 가 없어 «6번·공용»으로 잘못 잡혔다 — 5곳 다
+ *   고쳤다(오늘() 로 교체). 갈래를 매기는 로직도 파일 «안쪽» 내용까지 보도록 함께 고쳤다.
  */
-const 오늘까지봐주는수 = 18;
+const 오늘까지봐주는수 = 13;
 /*
  * ⚠ 처음에 77 로 적었다. 그것은 내가 «grep 으로» 센 수였고, 이 자가 세는 수는 86 이다
  *   (grep 은 `new Date()` 가 한 줄에 붙어 있는 꼴만 봤다).
@@ -200,12 +205,19 @@ function main() {
   console.log('⚠ 이것은 `toISOString()` 전체가 아니다 — «오프셋 없이 날짜로 자르는» 좁은 꼴만 센다.');
   console.log('✅ 고치는 법: `import { 오늘, 지금 } from \'./_kst.mjs\'` 를 쓴다. 9시간을 손으로 더하지 않는다.');
 
-  /* 유닛별로 갈라 보여 준다 — 누가 고칠 몫인지 바로 보이게 */
+  /* 유닛별로 갈라 보여 준다 — 누가 고칠 몫인지 바로 보이게
+   * 🔴 [2026-09-06 · 3번] 파일 «이름»만 보고 갈랐더니 collect-kosis-real-wage.mjs 같은
+   *   3번 자료수집기가 이름에 100y 가 없어 «6번·공용»으로 잘못 갈렸다(실제로는 전부
+   *   src/data/100yearmap/*.json 에 쓴다 — grep 으로 확인함). 파일 «안쪽»에 자기가
+   *   쓰는 자리(100yearmap · kcw/wikitip · klifemap)가 적혀 있으면 그것을 먼저 본다. */
   const 갈래 = new Map();
   for (const x of 걸린것) {
-    const k = /100y|100yearmap/.test(x.파일) ? '3번(백년지도)'
-      : /kcw|wikitip/.test(x.파일) ? '5번(KCW)'
-        : /klifemap/.test(x.파일) ? '1번·4번(klifemap)'
+    let 글 = '';
+    try { 글 = fs.readFileSync(path.join(뿌리, x.파일), 'utf8'); } catch { /* server.mjs 등 이미 지나감 */ }
+    const 대상 = `${x.파일}\n${글}`;
+    const k = /100y|100yearmap/.test(대상) ? '3번(백년지도)'
+      : /kcw|wikitip/.test(대상) ? '5번(KCW)'
+        : /klifemap/.test(대상) ? '1번·4번(klifemap)'
           : '6번·공용';
     갈래.set(k, (갈래.get(k) ?? 0) + 1);
   }
