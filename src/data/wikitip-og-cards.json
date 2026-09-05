@@ -464,6 +464,11 @@
       "figure": "2,091",
       "label": "English readers a day. In Korean, 61",
       "왜": "제목의 34 는 배수라 카드에서 뜻이 약하다. 2,091 대 61 이 한눈에 갈리는 수다"
+    },
+    "what-is-in-netflix-top10-tsv-files": {
+      "figure": "501,040",
+      "label": "rows, 94 countries, 269 weeks",
+      "왜": "파일을 찾아온 사람이 알고 싶은 첫 수가 «몇 줄인가»다. 37.9%(빈 칸)는 흠이라 카드에 앞세우지 않는다"
     }
   }
 }

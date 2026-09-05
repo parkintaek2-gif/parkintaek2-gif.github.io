@@ -895,6 +895,8 @@ export const GET: APIRoute = async () => {
     { path: '/cannot-see', priority: '0.9', changefreq: 'monthly' },
     /* 2025년에 데뷔한 다섯 팀 — 데뷔 뒤 영어권 독자가 실제로 늘었나. 달마다 값이 움직인다 */
     { path: '/rookie-reading', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 노출의 27%(262건)가 Tudum 파일을 찾는 물음인데 클릭이 0이었다. 그 물음에 답하는 지면 */
+    { path: '/netflix-tudum-data-dictionary', priority: '1.0', changefreq: 'monthly' },
     /* 같은 사람을 한국어와 영어로 나란히 — 어느 말로 읽히나. 트로트와 아이돌이 반대로 선다 */
     { path: '/which-language-reads-you', priority: '0.9', changefreq: 'weekly' },
     /* 캐스팅 기사가 영어권 독자를 움직이나 — 사건이 쌓일수록 표가 길어지는 지면이다 */

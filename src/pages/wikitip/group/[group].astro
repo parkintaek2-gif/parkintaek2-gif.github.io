@@ -28,6 +28,8 @@ import WikiTip from '../../../layouts/WikiTip.astro';
 import KcwShorts from '../../../components/KcwShorts.astro';
 import 그룹영상 from '../../../data/kcw-group-video.json';
 import data from '../../../data/wikitip-groups.json';
+/* 🔴 [2026-09-05] 팬이 치는 «약칭»을 지면이 안 쓰고 있었다 — TVXQ 를 DBSK 로 찾아오는 사람이 못 온다 */
+import 별명자료 from '../../../data/wikitip-group-nicknames.json';
 import people from '../../../data/wikitip-people.json';
 import { 이름표만들기, 이지면의문, 문 } from '../../../lib/person-link';
 /**
@@ -139,14 +141,32 @@ const TITLE = 제목긴것.length <= 60 ? 제목긴것 : `${g.name} members: bir
 /* ⭐ 2026-09-04 — 설명에도 손님이 치는 말(「birthday」)을 앞에 둔다.
    ⚠ 263장을 다 재고 바꿨다 — 새 설명의 최대가 126자다(옛것은 149자). 155자를 넘는 것이 0장이다.
    ⛔ 뜻은 그대로다. 이 지면은 실제로 멤버마다 생일을 싣는다. */
+/**
+ * 🔴 [2026-09-05] **팬이 치는 이름을 우리 지면이 안 썼다.**
+ *   서치콘솔에서 「skz birthday」가 순위 65.5 · 클릭 0 으로 잡혔다. 답은 우리에게 있는데
+ *   손님이 치는 말이 지면에 없었다. 위키백과 넘김을 171개 그룹에 대고 재 보니
+ *   **16개 그룹의 약칭이 지면에 한 번도 안 나온다** — TVXQ→DBSK·DBSG·THSK, EXO→EXO-K·EXO-M.
+ * ⭐ 그래서 그 약칭을 지면에 «싣는다». 우리가 지어낸 이름이 아니라, 그 이름으로 찾아올 사람이
+ *   있다고 보고 «누군가 위키백과에 만들어 둔» 넘김이다.
+ * ⛔ 약칭이 없는 그룹에는 아무것도 안 붙인다 — 없는 것을 채우지 않는다.
+ */
+const 별명 = ((별명자료.rows ?? []).find((r: any) => r.slug === g.slug)?.missingNames ?? []) as string[];
+
 const DESC = `Every ${g.name} member birthday: ${g.membersWithBirthday} on record, `
-  + `${나이글 ?? 'birth years listed'}. Ages as of ${기준해}, oldest to youngest.`;
+  + `${나이글 ?? 'birth years listed'}. Ages as of ${기준해}, oldest to youngest.`
+  + (별명.length ? ` Also written ${별명.join(', ')}.` : '');
 ---
 
 <WikiTip title={TITLE} description={DESC}
   canonical={`https://www.kculturewire.com/group/${g.slug}`}
   jsonLd={그룹구조화(g, new Map(Object.entries(사람문 ?? {})))}>
   <h1>{g.name} members — age and birthday</h1>
+
+  {/* 🔴 [2026-09-05] 팬이 치는 약칭을 «화면에도» 낸다. 설명에만 두면 지면 글에는 없는 것이다.
+      ⛔ 없는 그룹에는 이 줄 자체가 안 나간다 — 빈 「Also written」을 만들지 않는다. */}
+  {별명.length > 0 && (
+    <p class="aka">Also written <b>{별명.join(', ')}</b>.</p>
+  )}
 
   {/* ⭐ 답을 맨 앞에. 그리고 «기준 해»를 답과 같은 문단에 둔다 */}
   <p class="lead">
@@ -339,4 +359,5 @@ const DESC = `Every ${g.name} member birthday: ${g.membersWithBirthday} on recor
 
 <style>
   .warn-box { border: 1px solid #b45309; border-radius: 6px; padding: .5rem 1rem; margin: 0 0 1.6rem; }
+  .aka { font-size: .95rem; color: var(--muted); margin: -.4rem 0 1rem; }
 </style>
