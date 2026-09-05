@@ -34,6 +34,14 @@ import { fileURLToPath } from 'node:url';
 /* 🔴 [2026-09-03] UTC 로 날짜를 만들던 자리를 KST 로 고쳤다 —
    CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다. 날짜를 만들면 새벽에 하루가 어긋난다」 */
 import { 지금 } from './_kst.mjs';
+/**
+ * 🔴 [2026-09-06] 별자리 칸을 더한다. 서치콘솔 실측에서 왔다 —
+ *   `kim woo bin zodiac sign` 이 **자리 1.0** 으로 잡혔다. 우리가 1등인데
+ *   그 지면에 zodiac 이라는 낱말이 «0번» 나온다. 구글이 생일만 보고 맞춰 준 것이다.
+ *   별자리·생일 갈래 물음이 78개·노출 118·클릭 0 이었고, 그 갈래에 답이 안 적혀 있었다.
+ * ⛔ 새로 계산하지 않는다 — 이미 있는 별자리찾기() 를 그대로 쓴다. 두 자리에 두 셈을 두지 않는다.
+ */
+import { 별자리찾기, 별자리표, 경계일인가 } from './build-kcw-star-signs.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 최소편수 = 2;
@@ -60,6 +68,29 @@ export function 보일이름(이름) {
 }
 
 /** 태어난 날에서 나이. ⛔ 생일이 없으면 «없다» — 0 이 아니다 */
+/**
+ * `1989-07-16` → `{ slug: 'cancer', name: 'Cancer' }`. ⛔ 생일이 없으면 null 이다.
+ * ⚠ 셈은 build-kcw-star-signs.mjs 의 별자리찾기() 를 그대로 쓴다 — 두 자리에 두 셈을 두지 않는다.
+ */
+export function 별자리(태어난날) {
+  const m = String(태어난날 ?? '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  const 슬 = 별자리찾기(Number(m[2]), Number(m[3]));
+  if (!슬) return null;
+  const b = 별자리표.find((x) => x.슬러그 === 슬);
+  return b ? { slug: b.슬러그, name: b.이름 } : null;
+}
+
+/**
+ * 🔴 **경계일에 태어난 사람은 해마다 자리가 달라진다.** 태양이 자리를 넘는 시각이 해마다 다르다.
+ * ⛔ 그 사람을 한 자리로 못박으면 우리가 틀린 것을 확정으로 말하는 것이다. 표시해서 지면이 밝힌다.
+ */
+export function 경계일(태어난날) {
+  const m = String(태어난날 ?? '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!m) return null;
+  return 경계일인가(Number(m[2]), Number(m[3]));
+}
+
 export function 나이(태어난날, 기준 = '2026-08-25') {
   const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(String(태어난날 ?? ''));
   if (!m) return null;
@@ -168,6 +199,21 @@ if (process.argv.includes('--자가시험')) {
     생일찾기(생일, 'Kim Min-ji').born === null && 생일찾기(생일, 'Kim Min-ji').why === 'ambiguous');
   검('없는 사람은 notFound 다', 생일찾기(생일, 'Nobody').why === 'notFound');
   검('있는데 날짜가 없으면 noDate 다', 생일찾기(생일, 'No Date').why === 'noDate');
+  /* 🔴 [2026-09-06] 별자리 칸 — 서치콘솔에서 「kim woo bin zodiac sign」이 자리 1.0 인데
+     그 지면에 zodiac 이 0번 나와서 넣었다 */
+  검('생일에서 별자리를 낸다', 별자리('1989-07-16').slug === 'cancer');
+  검('이름도 함께 낸다', 별자리('1989-07-16').name === 'Cancer');
+  검('해를 넘는 염소자리도 맞다 — 12월', 별자리('1990-12-25').slug === 'capricorn');
+  검('해를 넘는 염소자리도 맞다 — 1월', 별자리('1990-01-05').slug === 'capricorn');
+  /* ⛔ 생일이 없으면 아무 자리에나 넣지 않는다 */
+  검('⛔ 생일이 없으면 null', 별자리(null) === null);
+  검('⛔ 해만 있으면 null', 별자리('1989') === null);
+  검('⛔ 꼴이 다르면 null', 별자리('1989/07/16') === null);
+  /* 🔴 경계일에 태어난 사람은 해마다 자리가 달라진다. 못박지 않고 표시한다 */
+  검('경계일을 표시한다', 경계일('1989-07-23') === true);
+  검('경계일이 아니면 거짓', 경계일('1989-07-16') === false);
+  검('⛔ 생일이 없으면 경계일도 null', 경계일(null) === null);
+
 
   console.log(실패 ? '\n❌ ' + 실패 + '개 실패' : '\n✅ 전부 지나갔다');
   process.exit(실패 ? 1 : 0);
@@ -239,6 +285,9 @@ for (const v of 뒤집힌.values()) {
     /** ⛔ 왜 생일이 없는지를 «적는다». 빈칸은 이유를 못 말한다 */
     bornUnknownWhy: b.born ? null : b.why,
     age: 나이(b.born),
+    /* ⛔ 생일이 없으면 별자리도 null 이다. 아무 자리에나 넣지 않는다 */
+    sign: 별자리(b.born),
+    signBoundary: 경계일(b.born),
     titles: 작품,
     titleCount: 작품.length,
     /** 그 사람 작품들이 차지한 톱10 자리 수의 «합». ⚠ 사람의 인기가 아니라 작품의 자취다 */

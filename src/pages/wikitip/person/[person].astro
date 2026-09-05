@@ -332,6 +332,32 @@ const 생일글 = p.born
     </section>
   )}
 
+  {/**
+    * 🔴 [2026-09-06] 별자리 칸을 더한다. 서치콘솔 실측에서 왔다 —
+    *   `kim woo bin zodiac sign` 이 **자리 1.0** 인데 이 지면에 zodiac 이라는 낱말이 «0번»이었다.
+    *   구글이 «생일»만 보고 우리를 1등으로 올려 준 것이다. 물음에 쓰인 낱말로 답을 적는다.
+    * ⛔ 점을 치지 않는다. 태양이 어느 자리를 지날 때 태어났나를 «셈»으로 적을 뿐이다.
+    * ⛔ 경계일에 태어난 사람은 해마다 자리가 달라진다 — 못박지 않고 그 사실을 적는다.
+    */}
+  {p.sign && (
+    <section>
+      <h2>What is {p.name}'s zodiac sign?</h2>
+      <p>
+        {p.name} was born on {p.born}, which places {p.name} under
+        {' '}<b><a href={`/star-sign/${p.sign.slug}`}>{p.sign.name}</a></b>.
+        {p.signBoundary
+          ? ` That date sits on the boundary between two signs, and the sun does not cross at the same hour every year — for a birth year near the edge this can fall either side, so we say so rather than pick one.`
+          : ` This is worked out from the date, not read from anything.`}
+      </p>
+      <p class="fine">
+        We do not read star signs and make no claim about what one means. The sign is the segment of
+        the sky the sun was passing through on that date, and that is the whole of it. We measured
+        whether signs pair up in real K-pop groups and
+        {' '}<a href="/star-sign-pairs">found nothing that chance would not give</a>.
+      </p>
+    </section>
+  )}
+
   <section>
     <h2>How old is {p.name}?</h2>
     <p>{생일글}</p>
