@@ -414,6 +414,41 @@
     "chart-credits-buy-a-level-not-a-direction": {
       "figure": "1,113",
       "label": "actors in Netflix charting Korean titles"
+    },
+    "v-led-108-weeks-jung-kook-read-more": {
+      "figure": "108",
+      "label": "weeks V led the reading, and Jung Kook still won",
+      "왜": "자동은 171 을 집고 딱지가 「weeks」 다섯 자로 잘린다. 이 기사의 요점은 108주 앞서고도 총량에서 진 것이다"
+    },
+    "what-dreamworks-is-chasing-93-countries": {
+      "figure": "93",
+      "label": "countries KPop Demon Hunters charted in",
+      "왜": "자동 딱지가 「into」로 끝나 뒤가 잘린다. 문장을 닫아 준다"
+    },
+    "wikipedia-renamed-jungkook-readers-did-not": {
+      "figure": "72.1%",
+      "label": "of reads still arrive at the old name",
+      "왜": "자동은 4.09m 을 집는데 바로 뒤 「.7」에서 잘려 수가 반 토막 난다. 72.1% 는 기사 본문과 /name-spelled 표에 «둘 다» 있는 수다 — 카드가 약속한 수를 표가 지킨다"
+    },
+    "cortis-100-million-views-english-readers-arrived-first": {
+      "figure": "9.5x",
+      "label": "more English readers now than at debut",
+      "왜": "자동은 제목의 「2025,」를 집는다 — 연도이지 발견이 아니다. 이 기사의 수는 다섯 중 하나만 오른 그 배수다"
+    },
+    "bts-six-signs-ordinary-9249-behind-them-are-not": {
+      "figure": "9,249",
+      "label": "Korean stars behind the six signs",
+      "왜": "자동은 38.7%(무작위와 같다는 수)를 집는데, 그것은 「놀랍지 않다」는 말이다. 기사가 놀랍다고 하는 것은 그 뒤 9,249명 쪽이다"
+    },
+    "six-korean-stars-renamed-readers-did-not-follow": {
+      "figure": "6",
+      "label": "stars renamed, and readers followed none",
+      "왜": "자동 딱지가 「to a different」에서 잘린다. 문장을 닫아 준다"
+    },
+    "wikipedia-brackets-one-word-korean-names": {
+      "figure": "732",
+      "label": "titles for 100 stars, and 20 carry most of them",
+      "왜": "6.5(중간값)는 기사에만 있고 /name-spelled 표에 없다 — 카드가 표에 없는 수를 약속하면 안 된다. 732 는 둘 다에 있다"
     }
   }
 }

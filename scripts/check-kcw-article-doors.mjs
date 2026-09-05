@@ -24,7 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { 이웃표, 문열림 } from '../src/lib/kcw-neighbours.mjs';
+import { 이웃표, 문열림, 쏠림상한 } from '../src/lib/kcw-neighbours.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CD = path.join(뿌리, 'content/kculturewire');
@@ -40,7 +40,8 @@ const CD = path.join(뿌리, 'content/kculturewire');
  *   여기서 막는 것은 **옛 상태로 되돌아가는 것**이다(19번·25편 고아).
  * ⚠ 늘리려면 **왜 쏠려도 되는지**를 여기에 적는다. 조용히 못 늘리게.
  */
-const 쏠림상한 = 18;
+/* 🔴 [2026-09-05] 여기 있던 값을 지웠다 — 규칙은 kcw-neighbours.mjs 한 곳에만 둔다.
+   이웃을 «고르는» 쪽과 «재는» 쪽이 다른 수를 들면 자가 옛 규칙을 잰다. */
 
 /** 앞말을 글자로 읽는다. CRLF 로 저장된 편이 섞여 있어 `\s` 를 안 쓴다(8/8 에 한 편을 놓쳤다) */
 const 앞말 = (src) => {

@@ -8,7 +8,10 @@ pubDate: 2026-08-08
 dataAsOf: 2026-08-08T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "wikidata", "measurement", "method"]
-pages: []
+pages:
+  - "/debut-age"
+  - "/arrival"
+  - "/who-makes-it"
 sources:
   - org: "Wikidata"
     api: "Musical groups (P31/P279* = Q215380) by country of origin (P495 = Q884, Q17, Q30, Q145), with inception (P571) and dissolution (P576), queried 2026-08-08"

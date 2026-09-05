@@ -29,6 +29,13 @@
  * **같은 규칙**을 봐야 한다. 규칙이 두 군데 적히면 한쪽만 고쳐지고 자는 옛 규칙을 잰다.
  */
 
+/**
+ * 한 편에 몰릴 수 있는 상한. **여기 한 곳에만 적는다** —
+ * 자(`check-kcw-article-doors.mjs`)가 이것을 가져다 쓴다.
+ * ⛔ 규칙이 두 군데 적히면 한쪽만 고쳐지고 자는 옛 규칙을 잰다.
+ */
+export const 쏠림상한 = 18;
+
 /** 최신순 — 날짜가 같으면 id 로 갈라 **어느 기계에서나 같은 순서**가 되게 한다. */
 export const 최신순 = (a, b) =>
   +new Date(b.pubDate) - +new Date(a.pubDate) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
@@ -38,7 +45,7 @@ export const 최신순 = (a, b) =>
  * @param {object} 나 {id, pages, tags, category, pubDate}
  * @param {object[]} 모두 같은 모양의 기사들
  */
-export const 후보들 = (나, 모두) => {
+export const 후보겹들 = (나, 모두) => {
   const 남 = 모두.filter((e) => e.id !== 나.id);
   const 내지면 = 나.pages ?? [];
   const 내태그 = 나.tags ?? [];
@@ -55,16 +62,21 @@ export const 후보들 = (나, 모두) => {
   const 같은갈래 = 남.filter((e) => e.category === 나.category).sort(최신순);
 
   const 본것 = new Set();
-  const 줄 = [];
+  const 겹줄 = [];
   for (const 겹 of [같은지면, 같은태그, 같은갈래]) {
+    const 이겹 = [];
     for (const e of 겹) {
       if (본것.has(e.id)) continue;
       본것.add(e.id);
-      줄.push(e);
+      이겹.push(e);
     }
+    겹줄.push(이겹);
   }
-  return 줄;
+  return { 겹줄, 줄: 겹줄.flat() };
 };
+
+/** 예전 꼴 — 평평한 목록 하나. 쓰던 곳이 안 깨지게 남긴다 */
+export const 후보들 = (나, 모두) => 후보겹들(나, 모두).줄;
 
 /**
  * 모든 기사의 이웃을 **한 번에** 정한다. 셋째 자리는 여기서만 정할 수 있다 —
@@ -77,16 +89,49 @@ export const 후보들 = (나, 모두) => {
  */
 export function 이웃표(기사들, { 이웃수 = 3 } = {}) {
   const 순서 = [...기사들].sort(최신순);
-  const 후보 = new Map(순서.map((a) => [a.id, 후보들(a, 순서).map((e) => e.id)]));
+  const 겹후보 = new Map(순서.map((a) => [a.id, 후보겹들(a, 순서).겹줄.map((겹) => 겹.map((e) => e.id))]));
+  const 후보 = new Map(순서.map((a) => [a.id, 겹후보.get(a.id).flat()]));
   const 뽑힘 = new Map(순서.map((a) => [a.id, []]));
   const 들어오는수 = new Map(순서.map((a) => [a.id, 0]));
 
-  /* 앞의 두 자리 — 가까운 순 그대로. 여기는 8/21 까지와 똑같다 */
+  /*
+   * 앞의 두 자리 — 가까운 순. 다만 **둘째 자리에는 무른 상한**을 둔다.
+   *
+   * 🔴 [2026-09-05] 셋째 자리만 고르게 해서는 모자랐다. 실측 —
+   *   `what-dreamworks-is-chasing-93-countries` 한 편에 **25번**이 몰려 상한 18을 넘었다.
+   *   까닭은 그 편이 여러 편과 «같은 자료 지면»을 나눠 쓰는 «허브»라서,
+   *   둘째 자리가 가까운 순 그대로면 새 기사를 낼 때마다 그 편을 또 고르기 때문이다.
+   *   ⇒ 기사가 쌓일수록 쏠림은 «저절로 더 나빠지는» 구조였다.
+   *
+   * ⭐ 그래서 둘째 자리에서만, 이미 상한에 닿은 편은 **다음 후보에게 자리를 넘긴다.**
+   *   ⛔ 첫째 자리는 건드리지 않는다 — 가장 가까운 편은 언제나 붙는다.
+   *   ⛔ 넘길 후보가 없으면 그냥 붙인다. 「고르게」 하려고 «없는 문»을 만들지 않는다.
+   *   ⚠ 이것은 순위를 바꾸는 것이 아니라 «넘치는 자리»를 비키는 것이다.
+   *
+   * ⭐ 실측 (2026-09-05, 기사 159편)
+   * ```
+   *   고치기 전   최다 27번 — what-dreamworks-is-chasing-93-countries 한 편에 몰림
+   *   무른 상한만  최다 26번 — 거의 안 움직였다. 쏠림이 «둘째»가 아니라 «첫째» 자리에서 났다
+   *   겹 안 고르게 최다  4번 · 159편이 다 가리켜진다   ← 지금 규칙
+   * ```
+   * ⛔ 첫 시도가 안 먹힌 것을 지우지 않고 남긴다 — 어디서 쏠렸는지가 여기 답이다.
+   */
   const 가까운자리 = Math.max(0, 이웃수 - 1);
   for (const a of 순서) {
-    for (const id of 후보.get(a.id).slice(0, 가까운자리)) {
-      뽑힘.get(a.id).push(id);
-      들어오는수.set(id, 들어오는수.get(id) + 1);
+    const 겹줄 = 겹후보.get(a.id);
+    const 이미 = 뽑힘.get(a.id);
+    for (const 겹 of 겹줄) {
+      if (이미.length >= 가까운자리) break;
+      /* 같은 겹 안에서는 **덜 가리켜진 편**이 먼저다. 동률이면 겹 안의 원래 차례(최신순) */
+      const 골라진 = [...겹]
+        .map((id, i) => ({ id, i }))
+        .sort((x, y) => 들어오는수.get(x.id) - 들어오는수.get(y.id) || x.i - y.i);
+      for (const { id } of 골라진) {
+        if (이미.length >= 가까운자리) break;
+        if (이미.includes(id)) continue;
+        이미.push(id);
+        들어오는수.set(id, 들어오는수.get(id) + 1);
+      }
     }
   }
 

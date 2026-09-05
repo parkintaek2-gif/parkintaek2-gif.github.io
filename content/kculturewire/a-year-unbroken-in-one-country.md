@@ -7,6 +7,10 @@ pubDate: 2026-09-03
 dataAsOf: 2026-08-23T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "kpop-demon-hunters", "charts", "measurement"]
+pages:
+  - "/run-length"
+  - "/by-country"
+  - "/netflix-which-country"
 sources:
   - org: "Netflix"
     api: "Weekly Top 10 country tables, 269 weeks from 2021-07-04 to 2026-08-23, read as 501,040 rows; 3,043 of them carry this title"
@@ -99,3 +103,5 @@ countries, and we do not convert them into viewers.
 
 It also stops at 2026-08-23. That is the last week in the tables we hold. Whether the film is on
 a Top 10 this week is something we have not measured, and we will not write it down as zero.
+
+The tables behind this are at [kculturewire.com/run-length](/run-length?from=body), [kculturewire.com/by-country](/by-country?from=body) and [kculturewire.com/netflix-which-country](/netflix-which-country?from=body).

@@ -98,19 +98,57 @@ export function 아픈데(코드, 글) {
   return 아픔;
 }
 
-function 받기(길) {
+/**
+ * 🔴 [2026-09-05] **일부러 옮긴 주소를 「아프다」고 세우고 있었다.**
+ *
+ * 사장님이 Riot 을 걷어내라 하셔서 그 기사 두 편과 `/esports` 를 «살아 있는 지면»으로 301 로
+ * 옮겼다. 링크 값을 지키고 손님을 대체 지면에 내려놓는, 옳은 처리다. 그런데 이 자는 리다이렉트를
+ * 안 따라가서 셋을 다 빨강으로 세우고 **exit 1 로 배포를 막았다.** 노출 305건(전체의 13%)이
+ * 「아픈 지면」으로 보고되고 있었다.
+ *
+ * ⛔ 이것은 «예외를 박는 것»이 아니다. 규칙을 넓힌다 —
+ *   **우리 집 안에서 200 으로 끝나는 옮김은 건강한 것**이고, 집을 나가거나 200 이 아닌 데서
+ *   끝나면 여전히 아픈 것이다. 아래 자가시험이 그 경계를 지킨다.
+ * ⚠ 다만 «조용히 통과»시키지 않는다 — 몇 번 옮겨 어디에 닿았는지 화면에 적는다.
+ *   옮긴 주소가 노출을 벌고 있다는 사실 자체가 알 값어치가 있다.
+ */
+export function 옮김판정(코드, 위치, 우리집) {
+  if (코드 !== 301 && 코드 !== 302 && 코드 !== 307 && 코드 !== 308) return { 옮김: false };
+  const 곳 = String(위치 ?? '').trim();
+  if (!곳) return { 옮김: true, 우리집인가: false, 길: null };
+  if (곳.startsWith('/')) return { 옮김: true, 우리집인가: true, 길: 곳 };
+  let u; try { u = new URL(곳); } catch { return { 옮김: true, 우리집인가: false, 길: null }; }
+  if (u.host !== 우리집) return { 옮김: true, 우리집인가: false, 길: null };
+  return { 옮김: true, 우리집인가: true, 길: u.pathname + u.search };
+}
+
+function 한번받기(길) {
   return new Promise((resolve) => {
     const req = https.request({
       host: 호스트, path: 길, method: 'GET',
       headers: { Host: 호스트, 'User-Agent': 'KCultureWire-selfcheck/1.0' },
     }, (res) => {
       let b = ''; res.on('data', (c) => { b += c; });
-      res.on('end', () => resolve({ 코드: res.statusCode, 글: b }));
+      res.on('end', () => resolve({ 코드: res.statusCode, 글: b, 위치: res.headers.location }));
     });
     req.on('error', (e) => resolve({ 코드: 0, 글: e.message }));
     req.setTimeout(25000, () => { req.destroy(); resolve({ 코드: 0, 글: 'timeout' }); });
     req.end();
   });
+}
+
+async function 받기(길) {
+  const 걸음 = [];
+  let 지금 = 길;
+  for (let i = 0; i < 3; i += 1) {
+    const r = await 한번받기(지금);
+    const 옮 = 옮김판정(r.코드, r.위치, 호스트);
+    if (!옮.옮김) return { ...r, 걸음, 마지막길: 지금 };
+    걸음.push(`${r.코드} → ${옮.길 ?? '집 밖'}`);
+    if (!옮.우리집인가) return { 코드: r.코드, 글: '', 걸음, 마지막길: 지금 };   /* 집을 나가면 아픈 것으로 둔다 */
+    지금 = 옮.길;
+  }
+  return { 코드: 0, 글: '옮김이 세 번을 넘는다', 걸음, 마지막길: 지금 };
 }
 
 const 내가실행됐다 = process.argv[1]
@@ -164,6 +202,22 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   /* ⛔ 수를 박아 보지 않는다 — 자료가 바뀌어도 초록이어야 한다 */
   참('수를 박아 보지 않는다', 아픈데(200, 좋은글.replace(/body/g, 'other')).length === 0);
 
+  /* 🔴 [2026-09-05] 일부러 옮긴 주소를 세우던 것을 시험으로 굳힌다 */
+  참('200 은 옮김이 아니다', 옮김판정(200, undefined, 'a.com').옮김 === false);
+  참('301 은 옮김이다', 옮김판정(301, '/b', 'a.com').옮김 === true);
+  참('308 도 옮김이다', 옮김판정(308, '/b', 'a.com').옮김 === true);
+  참('상대 주소는 우리 집이다', 옮김판정(301, '/esports-nations', 'a.com').우리집인가 === true);
+  참('상대 주소의 길을 읽는다', 옮김판정(301, '/esports-nations', 'a.com').길 === '/esports-nations');
+  참('같은 집 절대주소도 우리 집이다',
+    옮김판정(301, 'https://a.com/x', 'a.com').우리집인가 === true);
+  참('같은 집 절대주소의 길을 읽는다',
+    옮김판정(301, 'https://a.com/x?y=1', 'a.com').길 === '/x?y=1');
+  참('⛔ 남의 집으로 가면 우리 집이 아니다',
+    옮김판정(301, 'https://other.com/x', 'a.com').우리집인가 === false);
+  참('⛔ Location 이 비면 우리 집이 아니다', 옮김판정(301, '', 'a.com').우리집인가 === false);
+  참('⛔ 망가진 주소도 우리 집이 아니다', 옮김판정(301, 'http://', 'a.com').우리집인가 === false);
+  참('⛔ 옮겨 간 곳이 404 면 여전히 아프다', 아픈데(404, 좋은글).length === 1);
+
   console.log(`노출을 벌어 오는 지면을 지키는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -196,8 +250,10 @@ if (내가실행됐다) {
     const r = await 받기(x.길);
     const 아픔 = 아픈데(r.코드, r.글);
     const 표 = 아픔.length ? '🔴' : '✅';
+    /* ⚠ 옮긴 주소는 «통과시키되 적는다» — 노출을 버는 주소가 옮겨져 있다는 사실 자체를 알려야 한다 */
+    const 옮김글 = r.걸음?.length ? `  [옮김 ${r.걸음.join(' ')}]` : '';
     console.log(`   ${표} 노출 ${String(x.노출).padStart(4)}  ${x.길.padEnd(44)}`
-      + `${아픔.length ? aptText(아픔) : `${(r.글.length / 1024).toFixed(0)}KB`}`);
+      + `${아픔.length ? aptText(아픔) : `${(r.글.length / 1024).toFixed(0)}KB`}${옮김글}`);
     if (아픔.length) 아픈것.push({ ...x, 아픔 });
   }
   function aptText(아픔) { return 아픔.join(' · '); }

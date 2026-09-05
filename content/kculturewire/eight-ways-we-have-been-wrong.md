@@ -1,6 +1,6 @@
 ---
 title: "14 ways we have been wrong. 10 now fail the build"
-dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for nine of the thirty-four. Four kinds still have no test, and this piece names them rather than reporting the coverage."
+dek: "We tagged every changed figure with the kind of mistake that produced it. One kind accounts for nine of the thirty-five. Four kinds still have no test, and this piece names them rather than reporting the coverage."
 category: titles
 purpose: ads
 pubDate: 2026-08-08
@@ -28,7 +28,7 @@ corrections:
 ---
 
 We keep a record of every figure we have published and had to change. As of today it holds
-**34 corrections** — 13 on data pages and 21 in articles.
+**35 corrections** — 13 on data pages and 22 in articles.
 
 Counting them was never the interesting part. What we wanted to know was whether they were thirty-two
 separate accidents or a few repeating shapes. So each one carries a tag for the **kind** of mistake
@@ -47,7 +47,7 @@ There are fifteen kinds.
 | A rule deciding which titles count was fixed upstream | 1 | 2 | yes |
 | A KOSIS table classifies on two levels, we read one | 1 | 1 | yes |
 | A comparison computed on a group selected by the outcome | 1 | 1 | yes |
-| The set of titles a figure was measured over was widened | 0 | 2 | not yet |
+| The set of titles a figure was measured over was widened | 0 | 3 | not yet |
 | Companies without pay data left in the denominator | 1 | 0 | yes |
 | A property that records who took part, read as where a thing is | 1 | 0 | not yet |
 | Our corrections article miscounted the corrections | 0 | 1 | yes |
@@ -56,7 +56,7 @@ There are fifteen kinds.
 | A window short enough to make its own highest month the peak | 0 | 1 | not yet |
 | Netflix and Wikidata spell the same title with different letter case | 0 | 1 | yes |
 
-**One cause produced nine of the thirty-four.** Titles entered our Korean panel because their English
+**One cause produced nine of the thirty-five.** Titles entered our Korean panel because their English
 name matched a Korean work, and foreign works with the same name came in with them. That single flaw
 moved figures on five pages and in four articles, and it is the reason the panel now carries
 [two independent columns saying how sure we are of each row](/data).

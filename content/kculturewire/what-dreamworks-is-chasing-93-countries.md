@@ -42,7 +42,7 @@ it.
 What we can measure is the thing being answered. We went to Netflix's weekly country tables — 269
 weeks of them — and counted every week *KPop Demon Hunters* appeared in a country's top 10.
 
-| | |
+| What we counted | Figure |
 |---|---:|
 | Countries it charted in | 93 |
 | Countries where it reached number one | 76 |

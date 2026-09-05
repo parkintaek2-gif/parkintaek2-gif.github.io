@@ -24,6 +24,9 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
+/* 🔴 [2026-09-05] 기사가 이 지면을 가리키는데 이 지면에서 그 기사로 돌아가는 문이 없었다.
+   한쪽으로만 난 문은 손님을 여기서 멈추게 하고, 로봇도 그 기사를 여기서 못 찾는다. */
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/kcw-which-country.json';
 
 const TITLE = 'Which countries had this Korean title on Netflix? What the weekly charts prove';
@@ -166,6 +169,8 @@ const jsonLd = {
     method={`Netflix's own weekly top 10 files by country, ${data.weekFrom} to ${data.weekTo}, across ${data.marketCount} countries and ${data.weekCount} weeks. A country is listed for a title when that country's weekly top 10 contained the title in at least one week. "Weeks in its top 10" counts those weeks. The titles shown are not an editorial selection: they are the titles that people searching this question actually landed on this site for, taken from our own Google Search Console query export for the four weeks to 2026-08-26.`}
     limitation={`This is a floor on availability, never a catalogue. Netflix publishes no per-country catalogue, so a country absent from a list here may still have carried the title outside its top ten — which is the common case. Catalogues also change monthly, and these weeks run back years, so nothing here says where a title is today. Netflix states no country of production; which titles count as Korean is our inference from the title text checked against Wikidata, and where Wikidata shows the same English name on works from more than one country we say so on the title rather than hiding it.`}
   />
+
+  <KcwRelatedArticles page="/netflix-which-country" />
 
   <style>
     .lead { font-size: 1.08rem; }

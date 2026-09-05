@@ -175,6 +175,14 @@ export const KLIFEMAP_밝힘 = '같은 곳에서 만드는 KLifeMap';
  *   그대로 반복하고 있었다.
  */
 export const 붙일수있는갈래 = [
+  /**
+   * 🔴 [2026-09-05 · 5번] 3번이 낸 지면 여덟 장이 «at=기타» 로 나가고 있었다.
+   *   기타로 쌓이면 «어느 지면이 손님을 데려왔는지» 소급해서 못 가른다 — 오늘 온 손님을
+   *   내일 다시 나눌 수 없다. 그래서 갈래를 붙인다.
+   *   건강·의료 다섯 · 대학 둘 · 봉사 하나. 이름은 폴더(주소) 그대로다.
+   */
+  'cardiac-arrest', 'common-illness', 'fall-injury', 'medical-cost', 'single-intent',
+  'university-gap', 'university-package', 'volunteer',
   'major', 'college-major', 'school', 'university', 'region', 'age', 'data',
   /* 입구 지면을 달고 나서 늘었다 — 이 넷도 손님이 들어오는 자리다 */
   'size', 'how-long', 'after', 'work', 'research',

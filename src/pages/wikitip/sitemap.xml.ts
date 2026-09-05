@@ -881,6 +881,20 @@ export const GET: APIRoute = async () => {
        1,019명의 위키백과 열람 수를 재서 낸 지면. 달마다 다시 재므로 순위가 움직인다 —
        그것이 손님이 다시 올 까닭이다. ⛔ 「검색량」이라 부르지 않는다 */
     { path: '/most-read', priority: '1.0', changefreq: 'monthly' },
+    /* 🔴 [2026-09-05] **오늘 낸 지면 다섯 장이 통째로 사이트맵에 없었다.**
+       `check-kcw-sitemap-gap` 이 그것을 찾아냈다 — 지면은 200 으로 멀쩡히 열리는데
+       구글은 그 주소를 모르는 상태였다. 「콘텐트는 냈는데 방문자가 없다」가 이렇게 만들어진다.
+       ⛔ 새 고정 지면은 **같은 커밋에서** 이 목록에 넣는다. 나중에 넣겠다고 미루지 않는다. */
+    /* BTS 일곱 사람의 별자리가 무작위와 얼마나 다른가 — 다르지 않다는 것이 이 지면의 답이다 */
+    { path: '/bts-star-signs', priority: '0.8', changefreq: 'monthly' },
+    /* 독자가 실제로 어느 «철자»에 닿는가. 위키백과 넘김 주소를 다 세어 만든 지면 */
+    { path: '/name-spelled', priority: '0.9', changefreq: 'weekly' },
+    /* 드림웍스가 좇는 93개국 — 우리 자료의 안 쓰던 축 하나를 세워 만든 지면 */
+    { path: '/demon-hunters-countries', priority: '0.8', changefreq: 'weekly' },
+    /* 🔴 우리 자가 «못 보는» 사람이 몇인가. 우리 방법의 구멍을 우리가 재서 내놓은 지면 */
+    { path: '/cannot-see', priority: '0.9', changefreq: 'monthly' },
+    /* 2025년에 데뷔한 다섯 팀 — 데뷔 뒤 영어권 독자가 실제로 늘었나. 달마다 값이 움직인다 */
+    { path: '/rookie-reading', priority: '0.9', changefreq: 'weekly' },
     /* 2026-08-22 — Search Console 실측으로 낸 지면. 우리에게 오는 노출 185개가 **Tudum 파일 주소
        그 자체**였다(순위 7~11 · 클릭 0). 파일 안에 무엇이 있나를 묻는 사람에게 답이 없었다.
        ⭐ 파일이 안 알려 주는 것을 적는다 — views 가 102주 비어 있고, 제목 71%는 세계 파일에 줄이 없다

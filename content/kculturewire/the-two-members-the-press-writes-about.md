@@ -7,6 +7,10 @@ pubDate: 2026-09-04
 dataAsOf: 2026-09-04T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "bts", "press", "measurement"]
+pages:
+  - "/member-vs-group"
+  - "/most-read"
+  - "/pickup"
 sources:
   - org: "Star News, Ten Asia"
     api: "Our own daily archive of Korean entertainment headlines, 2026-09-02 to 2026-09-04, three days; 90 headlines from the two outlets our collector reads"
@@ -96,3 +100,5 @@ And the two figures come from different windows — headlines from this week, re
 days to 22 August. We put them side by side. We did not combine them into a score.
 
 **This is a count of headlines and of readers, not a ranking of members.**
+
+The tables behind this are at [kculturewire.com/member-vs-group](/member-vs-group?from=body), [kculturewire.com/most-read](/most-read?from=body) and [kculturewire.com/pickup](/pickup?from=body).

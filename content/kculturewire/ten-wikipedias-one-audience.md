@@ -7,6 +7,10 @@ pubDate: 2026-09-03
 dataAsOf: 2026-08-27T14:34:00+09:00
 author: Newsroom
 tags: ["korea", "kpop", "actors", "wikipedia", "wikidata", "measurement"]
+pages:
+  - "/how-many-languages"
+  - "/works-and-readers"
+  - "/actor-reach"
 sources:
   - org: "Wikidata"
     api: "P106 occupation and P463 member of musical group for 9,249 Korean entertainers, used to split people into singing, acting, or both"
@@ -121,3 +125,5 @@ singer roster and the actor roster.
 One number in the first table is worth keeping. **16.1% of the people credited with both are still
 in one language edition only.** Doing two things is not a passport. It is a pattern that holds across
 992 people and fails for 160 of them.
+
+The tables behind this are at [kculturewire.com/how-many-languages](/how-many-languages?from=body), [kculturewire.com/works-and-readers](/works-and-readers?from=body) and [kculturewire.com/actor-reach](/actor-reach?from=body).

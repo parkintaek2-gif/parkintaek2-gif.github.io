@@ -98,8 +98,8 @@ needs none either. A one-word name only collects brackets if the word already be
 
 While counting titles we found a second thing worth reporting on its own.
 
-**Seventy-two of the hundred have a Hangul redirect** — 소지섭 will take you to So Ji-sub, 아이유 to
-IU. Somebody made each one deliberately. Across the whole set they drew **14,254 reads out of
+**Seventy-two of the hundred have a Hangul redirect** — So Ji-sub (소지섭) and IU (아이유) can each
+be reached by typing the Korean form into the search box. Somebody made each one deliberately. Across the whole set they drew **14,254 reads out of
 232,311,005**, which is 0.006%, or about one read in sixteen thousand.
 
 The doorway in Korean script exists for nearly three-quarters of these people, and on the English

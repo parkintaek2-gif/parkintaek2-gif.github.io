@@ -144,6 +144,15 @@ const jsonLd = {
           <td>{x.표준편차 > 0 ? `+${x.표준편차}` : x.표준편차} sd</td>
         </tr>
       ))}
+      {/* 🔴 [2026-09-05] 합계 줄을 더한다. 이 지면이 9,249 라는 수 «위에» 서 있는데
+          표 어디에도 그 수가 없었다 — 공유 카드가 약속한 수를 표가 못 지키고 있었다.
+          ⛔ 합계는 손으로 적지 않는다. 표의 줄을 더해서 낸다 — 자료가 바뀌면 같이 바뀐다. */}
+      <tr class="sum">
+        <th scope="row">All signs</th>
+        <td>{큰자리.reduce((s: number, x: any) => s + x.사람, 0).toLocaleString('en-US')}</td>
+        <td>{큰자리.reduce((s: number, x: any) => s + x.기대, 0).toLocaleString('en-US')}</td>
+        <td>&mdash;</td>
+      </tr>
     </tbody>
   </table>
 
@@ -230,11 +239,13 @@ const jsonLd = {
   th, td { border-bottom: 1px solid #e3e5e8; padding: .4rem .6rem; text-align: left; }
   th { background: #fafbfc; }
   tr.hit td { background: #fff8e6; font-weight: 600; }
+  tr.sum td, tr.sum th { border-top: 2px solid #cfd3d8; font-weight: 600; }
   .walk { font-size: .95rem; margin: .6rem 0 1.2rem; }
   @media (prefers-color-scheme: dark) {
     .q { background: #1c1f24; border-left-color: #666; }
     th { background: #1a1d21; }
     th, td { border-bottom-color: #2a2e34; }
     tr.hit td { background: #2b2617; }
+    tr.sum td, tr.sum th { border-top-color: #3a3f47; }
   }
 </style>

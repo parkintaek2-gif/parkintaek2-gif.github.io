@@ -7,6 +7,10 @@ pubDate: 2026-09-03
 dataAsOf: 2026-08-23T00:00:00+09:00
 author: Newsroom
 tags: ["korea", "netflix", "kdrama", "charts", "measurement"]
+pages:
+  - "/by-country"
+  - "/hard-markets"
+  - "/netflix-which-country"
 sources:
   - org: "Netflix"
     api: "Weekly Top 10 country tables, 2021-07-04 to 2026-08-23; 539 rows for Teach You a Lesson, 483 for Agent Kim Reactivated, 164 for Our Sticky Love, 3,043 for KPop Demon Hunters"
@@ -89,3 +93,5 @@ sentence is compatible with never charting in America, and readers cannot tell f
 Our tables end **2026-08-23**. Anything after that is unmeasured, and we will not write it down as
 a zero. Two titles in this week's news — *Perfect Crown* and *Mousetrap* — are absent from our
 tables entirely, so we say nothing about them.
+
+The tables behind this are at [kculturewire.com/by-country](/by-country?from=body), [kculturewire.com/hard-markets](/hard-markets?from=body) and [kculturewire.com/netflix-which-country](/netflix-which-country?from=body).

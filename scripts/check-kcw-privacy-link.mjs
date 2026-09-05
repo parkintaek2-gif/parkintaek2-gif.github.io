@@ -30,6 +30,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 없으면안되는길 } from './kcw-static-footer.mjs';
+/**
+ * 🔴 [2026-09-05] **`noindex` 를 단 지면은 «손님 지면»이 아니다.**
+ *   이 자가 `video/review/index.html` 하나 때문에 exit 1 로 배포를 막고 있었다.
+ *   그 지면은 우리가 영상을 검수하려고 만든 «내부» 화면이고 `noindex,nofollow` 에
+ *   사이트맵에도 없다. 법적 꼬리말은 «손님이 받는» 지면에 있어야 하는 것이다.
+ *
+ * ⭐ 판정을 **베끼지 않고 들여온다.** 집안 규칙이 이것이다 —
+ *   「하나를 고치면 인용한 곳까지 따라간다. 두 자리에 두 판단을 두면 반드시 어긋난다.」
+ *   `check-kcw-korean-leak.mjs` 가 같은 결론에 먼저 닿아 이 함수를 갖고 있다.
+ * ⛔ 조용히 건너뛰지 않는다 — 몇 장을 왜 안 봤는지 화면에 적는다.
+ */
+import { 손님지면인가 } from './check-kcw-korean-leak.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 방 = path.join(뿌리, 'dist', 'wikitip');
@@ -117,9 +129,12 @@ if (직접불렸나 && !process.argv.includes('--selftest')) {
 
   const 빨강 = [];
   const 갈래별 = new Map();
+  const 안본것 = [];
   for (const f of 지면들) {
     const 상대 = path.relative(방, f);
-    const r = 지면판정(fs.readFileSync(f, 'utf8'));
+    const 글 = fs.readFileSync(f, 'utf8');
+    if (!손님지면인가(글)) { 안본것.push(상대); continue; }   /* noindex — 내부 지면이다 */
+    const r = 지면판정(글);
     const k = 갈래이름(상대);
     const v = 갈래별.get(k) ?? { 전체: 0, 빨강: 0 };
     v.전체 += 1;
@@ -127,7 +142,12 @@ if (직접불렸나 && !process.argv.includes('--selftest')) {
     갈래별.set(k, v);
   }
 
-  console.log(`손님이 받는 지면 ${지면들.length}장에서 **법적 링크**를 본다`);
+  console.log(`손님이 받는 지면 ${지면들.length - 안본것.length}장에서 **법적 링크**를 본다`);
+  if (안본것.length) {
+    console.log(`⬜ 안 본 것 ${안본것.length}장 — noindex 를 단 «내부» 지면이다(손님이 받지 않는다).`);
+    for (const p of 안본것.slice(0, 5)) console.log(`   · ${p}`);
+    console.log('   ⚠ 이것을 「깨끗하다」로 읽지 않는다. 안 본 것은 안 본 것이다.');
+  }
   console.log(`없으면 안 되는 것: ${없으면안되는길.join(' · ')}\n`);
 
   console.log(`${'갈래'.padEnd(16)} ${'지면'.padStart(6)} ${'빠진 것'.padStart(8)}`);
