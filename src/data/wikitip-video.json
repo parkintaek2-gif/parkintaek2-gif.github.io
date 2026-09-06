@@ -200,11 +200,11 @@
       "src": "/video/samename.mp4"
     },
     {
-      "set": "school-one-name",
+      "set": "school-one-name-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-28",
-      "thumb": "/video/thumb/school-one-name.jpg",
-      "src": "/video/school-one-name.mp4"
+      "uploadDate": "2026-09-06",
+      "thumb": "/video/thumb/school-one-name-voiced.jpg",
+      "src": "/video/school-one-name-voiced.mp4"
     },
     {
       "set": "season",

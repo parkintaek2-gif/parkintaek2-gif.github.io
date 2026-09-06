@@ -262,7 +262,7 @@ const videoSets = [
     description: '14 seconds on the Korean titles that lasted longest while reaching almost nowhere, and on why a long run is not the same as a wide one.',
   },
   {
-    set: 'school-one-name',
+    set: 'school-one-name-voiced',
     page: '/school',
     title: 'Most Korean performing-arts schools reach the charts through one name',
     description: '14 seconds on how many charting names each school has, and on what a single name carrying a whole school does and does not tell you.',
