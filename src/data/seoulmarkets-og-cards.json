@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-government-bond-yield-curve": {
+      "figure": "4.64%",
+      "label": "peak yield, at 30 years — 50-year dips back to 4.54%",
+      "왜": "자동은 날짜(2026-09-04)에서 「09」와 「-04」로 끊었다. 요점 수치(30년 최고점 4.64%)로 바로잡음"
+    },
     "korea-air-cargo-china-japan-outgrow-rest-of-asia": {
       "figure": "10.0%",
       "label": "total air-cargo growth (2yr) — China +23.8%, Japan +28.3%",

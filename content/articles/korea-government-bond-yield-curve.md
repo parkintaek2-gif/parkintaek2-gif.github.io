@@ -1,49 +1,51 @@
 ---
-title: "Korea's government bond curve, one day: 3.6% at a year, 4.7% at thirty"
-dek: "On 2026-08-21, listed Korea Treasury Bonds closed near 3.6% around one year and rose to 4.7% at thirty — a normal upward slope, built from 45 KTBs. These are listed-close yields, not the Bank of Korea's official reference rates. Not advice."
+title: "Korea's bond curve, one day: 3.47% at a year, 4.64% at thirty — then it dips"
+dek: "On 2026-09-04, Bank of Korea's own reference yields ran from 3.47% at one year to a peak of 4.64% at thirty years, then fell back to 4.54% at fifty. The long end of Korea's curve is not a straight climb."
 category: rates
-pubDate: 2026-08-24
-dataAsOf: 2026-08-21T00:00:00+09:00
+pubDate: 2026-09-06
+dataAsOf: 2026-09-04T00:00:00+09:00
 author: Newsroom
-tags: ["bond-yield", "government-bonds", "ktb", "yield-curve", "interest-rates", "korea"]
+tags: ["bond-yield", "government-bonds", "ktb", "yield-curve", "interest-rates", "korea", "bank of korea"]
 tickers: []
 sources:
-  - org: "Korea government bonds (KTB), listed closing yields"
-    api: "getBondPriceInfo (일자별 채권 종가·종가수익률, daily bond close and yield-to-maturity), Korea Treasury Bond (국고채) issues only, basis date 2026-08-21"
-    url: "https://www.data.go.kr"
+  - org: "Bank of Korea, ECOS (Economic Statistics System)"
+    api: "StatisticSearch, table 817Y002 (시장금리, market interest rates, daily), items for Korea Treasury Bond maturities 1/2/3/5/10/20/30/50 years, basis date 2026-09-04"
+    url: "https://ecos.bok.or.kr"
 crossChecks:
-  - "The file for 2026-08-21 holds 396 listed bonds; 45 of them are Korea Treasury Bonds (국고채) with a readable maturity and a closing yield inside a plausible 0.3–8% band. Each KTB's remaining maturity is computed from the maturity month encoded in its name (e.g. 국고03500-5603 matures 2056-03) against the 2026-08 basis date"
-  - "Picking, for each benchmark tenor, the KTB whose remaining maturity is closest (within 25%): 1y 3.60%, 2y 3.74%, 3y 3.82%, 5y 4.11%, 10y 4.37%, 20y 4.67%, 30y 4.70%. The slope is upward at every step — the ordinary shape, long money paid more than short"
-  - "The gap is front-loaded: +0.51 points from 1y to 5y, then +0.26 from 5y to 10y, and only +0.33 across the whole 10y-to-30y span. The curve is steep at the short end and nearly flat past twenty years"
-  - "One listed KTB near five years printed a 2.05% close — well below its neighbours around 4.1% — the kind of stale or thin quote a listed close can carry. It sits in the scatter but was not chosen as the 5y benchmark, which went to a 4.11% issue closer to exactly five years"
+  - "All eight benchmark maturities (1, 2, 3, 5, 10, 20, 30, 50 years) printed a value on the same basis date, 2026-09-04, read directly from ECOS's own daily series — no interpolation or nearest-maturity matching was needed, unlike a listed-bond scatter"
+  - "Yields rise at every step from 1 year (3.469%) to 30 years (4.636%): +0.238 points from 1y to 3y, +0.217 from 3y to 5y, +0.259 from 5y to 10y, +0.213 from 10y to 20y, +0.063 from 20y to 30y — the increase shrinks steadily as maturity lengthens"
+  - "The 50-year yield (4.542%) is lower than the 30-year yield (4.636%) by 0.094 points — the only inversion on the curve. Every other adjacent pair rises with maturity"
 excluded:
-  - "The Bank of Korea's official reference rates. Those are built from over-the-counter final quotes and can differ from these listed-exchange closes; this piece reports what the listed KTBs closed at, not the reference curve"
-  - "Any trend claim. This is one day (T+1), not a time series — 'this is where it closed', not 'this is where it is heading'"
-  - "Absolute price levels and any buy/sell read. Yields are scale-invariant and comparable across issues; the closing prices behind them are not the subject here"
+  - "Any trend claim. This is one official reference-rate reading for one day, not a time series — where the curve sat on 2026-09-04, not where it is heading"
+  - "Why the 30-to-50-year segment inverts. The source gives the rate, not a reason; long-end demand and supply factors are not measured here"
+  - "This is not investment advice"
 ---
 
-Ask what a government pays to borrow in Korea and the honest answer is a curve, not a number. On **2026-08-21**, listed Korea Treasury Bonds closed at about **3.60% around one year** and climbed to **4.70% at thirty years** — the ordinary upward slope, where longer money costs more.
+Ask what the Korean government pays to borrow and the honest answer is a curve, not a number — and on 2026-09-04, that curve was not a straight climb. Bank of Korea's own official reference yields ran from **3.47% at one year** up to **4.64% at thirty years**, the ordinary shape where longer money costs more. But at the very long end, that pattern broke: the fifty-year yield came in at **4.54%** — lower than thirty.
 
-## The benchmark tenors, that day
+## The benchmark maturities, that day
 
-| Remaining maturity | Closing yield |
+| Maturity | Yield |
 | --- | --- |
-| 1 year | 3.60% |
-| 2 years | 3.74% |
-| 3 years | 3.82% |
-| 5 years | 4.11% |
-| 10 years | 4.37% |
-| 20 years | 4.67% |
-| 30 years | 4.70% |
+| 1 year | 3.469% |
+| 2 years | 3.707% |
+| 3 years | 3.884% |
+| 5 years | 4.101% |
+| 10 years | 4.360% |
+| 20 years | 4.573% |
+| 30 years | 4.636% |
+| 50 years | 4.542% |
 
-The steepness lives at the short end. From one to five years the yield adds half a point; from ten to thirty it adds only a third of a point across two decades. Short and long are far apart; long and longer are almost the same.
+Every step from one year to thirty years adds yield, but the size of each step shrinks: +0.238 points crossing from one to three years, down to +0.063 points crossing from twenty to thirty. The climb is flattening well before it ends.
 
-![Korea government bond yields by remaining maturity, 2026-08-21](/charts/bond-yield-curve.svg)
+![Korea government bond yields by maturity, 2026-09-04](/charts/bond-yield-curve.svg)
+
+## Where the curve turns over
+
+Thirty years is the peak, not fifty. The fifty-year yield sits 0.094 points below the thirty-year yield — the one place on this curve where a longer maturity pays less than a shorter one. Every other adjacent pair, from one year up through thirty, rises with maturity; only the last segment reverses.
 
 ## What this is, and is not
 
-These are **listed closing yields** of individual Korea Treasury Bonds, read from the exchange's daily file, with each bond's remaining maturity worked out from the maturity date encoded in its name. They are not the Bank of Korea's official reference rates, which are built from over-the-counter quotes and can sit a little apart from these listed closes.
-
-It is also **one day**. A single close tells you where the curve sat on 2026-08-21, not where it is going. And a listed close can carry a stale quote: one bond near five years printed 2.05% against neighbours around 4.1% — visible as the low grey dot in the chart, and deliberately not used as a benchmark.
+These are Bank of Korea's own official benchmark reference yields for Korea Treasury Bonds, published daily by maturity — not a listed bond's closing trade price, and not derived by matching individual bond issues to target maturities. It is also **one day**: a single reading of where the curve sat on 2026-09-04, not a trend and not a forecast.
 
 We report the shape and the numbers behind it. What they mean for any decision is not ours to say — this is data, not advice.
