@@ -25,9 +25,11 @@ IU released her first single at 15. Im Yoon-ah of Girls' Generation debuted at 1
 miss A at 16, Cha Eun-woo of ASTRO at 19. Ma Dong-seok did not start until he was 32.
 
 Across the Indonesian, Vietnamese, Thai and Malay Wikipedias, the ones who started young are read
-far more today. The median Korean star who debuted before 18 draws **11.89** reads per million
-reads of those editions. The median one who started at 26 or later draws **2.43** — almost five
-times less.
+far more today. Line up everyone who debuted before 18 and take the one in the middle — half above,
+half below — and that person draws **11.89** reads per million reads of those editions. That middle
+figure is the median, and it is what this piece uses throughout rather than an average, because one
+very famous name would drag an average upward and tell you nothing about the rest. The median one
+who started at 26 or later draws **2.43** — almost five times less.
 
 Then there is Go Youn-jung, who started at 23 and is read more than anyone else in the panel.
 

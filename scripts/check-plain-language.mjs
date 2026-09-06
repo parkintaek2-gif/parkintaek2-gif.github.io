@@ -56,6 +56,19 @@ export const 어려운말표 = [
   { 말: '명식', 결: 'astro', 푼말: '태어난 그 순간의 하늘 전체' },
   { 말: '태양궁', 결: 'astro', 푼말: '흔히 「나는 사자자리」라고 할 때의 그 별자리' },
   { 말: '상승궁', 결: 'astro', 푼말: '태어난 그 순간 동쪽 하늘에 떠오르고 있던 별자리' },
+
+  /* ── KCW(영어권 K컬처 독자) 결 — 2026-09-06 에 우리 기사 170편을 세어서 넣었다 ──
+     ⚠ 짐작으로 넣지 않았다. 「실제로 몇 번 쓰였나」를 세고 그중 어려운 것만 골랐다:
+        median 314번(76편) · distribution 42 · chi-square 15 · correlation 12 ·
+        proxy 9 · cumulative 8 · baseline 8 · percentile 6 · outlier 3
+     ⭐ 한 번도 안 쓰인 말(quartile·p-value·CAGR 등 14개)은 «넣지 않았다» —
+        안 쓰는 말을 표에 넣으면 검사가 아무것도 안 잡으면서 길어지기만 한다 */
+  { 말: 'median', 결: 'kcw', 푼말: 'the middle value — half are above it, half below' },
+  { 말: 'percentile', 결: 'kcw', 푼말: 'where it stands when all of them are lined up' },
+  { 말: 'chi-square', 결: 'kcw', 푼말: 'a test of whether a spread is further from even than chance explains' },
+  { 말: 'correlation', 결: 'kcw', 푼말: 'whether two things rise and fall together' },
+  { 말: 'proxy', 결: 'kcw', 푼말: 'a stand-in measure for something we cannot count directly' },
+  { 말: 'outlier', 결: 'kcw', 푼말: 'a value sitting far away from the rest' },
 ];
 
 /** 풀이가 붙었다고 볼 수 있는 꼴 — 괄호 안에 있거나, 괄호로 풀어 놓았거나 */
@@ -82,11 +95,27 @@ export function 풀렸나(글, 말) {
   return 이자리가풀렸나(s, 자리, w);
 }
 
+/**
+ * 영어 글이 말을 푸는 꼴 — 괄호만이 아니다.
+ * 🔴 [2026-09-06] 괄호만 보다가 「median — the middle value, not the average」처럼
+ *   **제대로 풀어 준 영어 문장**을 못 알아봤다. 우리 기사는 대시와 쉼표 삽입구를 즐겨 쓴다.
+ *   ⛔ 한국어 규칙으로 영어를 재면 잘 쓴 글이 걸린다.
+ */
+const 영어푼꼴 = [
+  /^\s*—\s*[^—.]{10,140}/,                     /* median — the middle value…      */
+  /^\s*[-–]\s*[^-–.]{10,140}/,                 /* median - the middle value…      */
+  /^\s*,\s*(that is|meaning|which is|i\.e\.)/i, /* median, that is …               */
+  /^\s*:\s*[^.]{8,120}/,                        /* median: half are above…         */
+];
+
 function 이자리가풀렸나(s, 자리, w) {
   const 끝 = 자리 + w.length;
   /* ② 바로 뒤에 괄호 풀이가 오나 — 사이에 조사 한두 글자는 허용한다 */
   const 뒤 = s.slice(끝, 끝 + 4);
   for (const [여, 닫] of 괄호쌍) if (뒤.trimStart().startsWith(여)) return true;
+  /* ②' 영어 꼴로 풀었나 — 대시·쉼표 삽입구·콜론 */
+  const 뒤긴것 = s.slice(끝, 끝 + 160);
+  for (const re of 영어푼꼴) if (re.test(뒤긴것)) return true;
   /* ① 그 말이 괄호 «안»에 있나 — 앞쪽에서 가장 가까운 여는 괄호를 찾는다 */
   for (const [여, 닫] of 괄호쌍) {
     const 연자리 = s.lastIndexOf(여, 자리);
@@ -179,6 +208,14 @@ if (내가직접돌았나 && (process.argv.includes('--자가시험') || process
   참('화면글만 — 본문은 남긴다', 화면글만('<p>헬레니즘 원전</p>').includes('헬레니즘'));
   참('풀렸나 — 없는 말은 참', 풀렸나('아무 글', '없는말'));
   참('표가 비어 있지 않다', 어려운말표.length >= 20);
+  /* 🔴 [2026-09-06] 영어 글은 괄호보다 대시·쉼표로 푼다. 한국어 규칙으로 재면 잘 쓴 글이 걸린다 */
+  참('영어 대시 풀이를 알아본다', 잰다('The median — the middle value, half above and half below — was 2.').length === 0);
+  참('영어 콜론 풀이를 알아본다', 잰다('median: half of them are above it and half below').length === 0);
+  참('영어 that-is 풀이를 알아본다', 잰다('the median, that is the middle of the set, was two').length === 0);
+  참('영어 괄호 풀이를 알아본다', 잰다('the median (the middle value of all 974) was two').length === 0);
+  참('풀이 없는 영어 용어는 걸린다', 잰다('The median Korean title charted in 2 countries.').length === 1);
+  참('KCW 결이 표에 들어 있다', 어려운말표.some((r) => r.결 === 'kcw' && r.말 === 'median'));
+  참('안 쓰는 말은 표에 없다', !어려운말표.some((r) => /p-value|CAGR|quartile/i.test(r.말)));
   참('표의 모든 줄에 푼말이 있다', 어려운말표.every((r) => r.푼말 && r.푼말.length > 3));
   참('표에 같은 말이 두 번 없다', new Set(어려운말표.map((r) => r.말)).size === 어려운말표.length);
   /* 🔴 [2026-09-06] 화면에 «풀린» 자리를 보여 줘서 고친 것이 안 고친 것처럼 보였다 */
