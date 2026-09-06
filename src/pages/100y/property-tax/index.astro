@@ -1,0 +1,111 @@
+---
+/**
+ * /100y/property-tax — 재산세, 5년 사이 얼마나 늘고 줄었나
+ *
+ * 이슈  2번이 구글트렌드(KR)에서 「재산세」가 갈래없음으로 새고 있는 것을 찾아 줬다 —
+ *       9월은 재산세 2기분 고지서가 나가는 달이라 해마다 이맘때 실제로 뜨는 검색어다.
+ *       2번이 KOSIS TX_11007_A645(행안부 「재산세 과세현황」)로 수집기·자가대조까지
+ *       마쳐 넘겨줬다(scripts/collect-100y-property-tax.mjs, 커밋 a0a04107).
+ * 우리 축  전 국민의 재정 부담이라는 「100년 지도」 자리에 정확히 맞는다.
+ *
+ * ⛔ 등수를 쓰지 않는다 — 시도별 표는 규모(세액 크기) 순으로만 보인다.
+ * ⛔ 세액이 늘고 준 «까닭»(공시가격 조정 등)은 이 표로 못 가른다 — 지면이 스스로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/property-tax.json';
+
+const 자료 = 원본 as any;
+const 연도별 = 자료.전국연도별 as any[];
+const 시도별 = 자료.시도별_최신년도 as any[];
+const 정점 = 자료['⭐ 정점 대비 최신'];
+const 최신 = 연도별[연도별.length - 1];
+
+const desc =
+  `전국 재산세는 ${정점.정점연도}년 ${정점.정점세액조원}조원으로 정점을 찍은 뒤 ` +
+  `${자료.최신}년 ${최신.세액조원}조원으로 ${Math.abs(정점.최신대비변화율)}% 줄었습니다. ` +
+  `행정안전부 지방세통계로 직접 계산했습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '재산세 전국·시도별 5년 추이',
+  description: desc,
+  temporalCoverage: `${연도별[0].연도}/${자료.최신}`,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['연도별 재산세 총액', '시도별 재산세 총액'],
+};
+---
+
+<HundredYear
+  title={`재산세 — ${정점.정점연도}년 ${정점.정점세액조원}조원 정점, ${자료.최신}년 ${최신.세액조원}조원`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>재산세,<br />5년 사이 얼마나 늘고 줄었나요?</h1>
+  <p class="sub">
+    9월은 재산세 2기분 고지서가 나가는 달입니다. 전국 재산세 총액이 지난 5년
+    {' '}({연도별[0].연도}~{자료.최신}) 사이 어떻게 움직였는지 행정안전부 지방세통계로
+    {' '}직접 계산했습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{정점.정점연도}년(정점) → {자료.최신}년</p>
+    <p class="answer-num">{정점.정점세액조원}조원 → {최신.세액조원}조원</p>
+    <p class="answer-sub">{Math.abs(정점.최신대비변화율)}% 줄었습니다 — 건수는 그 사이 거의 그대로입니다</p>
+  </div>
+
+  <h2>연도별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연도</th><th>건수</th><th>세액</th></tr></thead>
+      <tbody>
+        {연도별.map((r) => (
+          <tr>
+            <td>{r.연도}</td>
+            <td>{r.건수.toLocaleString()}건</td>
+            <td><strong>{r.세액조원}조원</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    건수는 5년 내내 5,900만~6,100만 건 사이로 큰 변화가 없습니다. 세액만
+    {' '}{정점.정점연도}년 {정점.정점세액조원}조원까지 올랐다가 {자료.최신}년 {최신.세액조원}조원으로
+    {' '}내려왔습니다 — 낼 사람 수가 아니라 <strong>낼 금액</strong>이 출렁였다는 뜻입니다.
+  </p>
+
+  <h2>시도별로 보면 — 세액 크기 순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>세액({자료.최신}년)</th></tr></thead>
+      <tbody>
+        {시도별.map((r) => (
+          <tr><td>{r.지역}</td><td>{r.세액조원}조원</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    인구·주택 수가 많은 지역이 세액도 큽니다 — 이 표는 <strong>규모의 사실</strong>이지,
+    {' '}세율이나 개인 부담의 크기를 말하지 않습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 전국·시도 총액이 어떻게 움직였는지가
+    {' '}저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표}(KOSIS {자료.출처.tblId}, {자료.최신}년 최신).
+    {' '}자가대조 — 17개 시도 세액 합({자료.자가대조['지역 합 ≈ 전국 총계'].지역합}조원)이
+    {' '}전국 총계({자료.자가대조['지역 합 ≈ 전국 총계'].전국총계세액}조원)와 거의 일치함을 확인했습니다.
+  </p>
+
+  <NextQuestionBrief 모은것="행정안전부 지방세통계(KOSIS) 실측" />
+</HundredYear>
