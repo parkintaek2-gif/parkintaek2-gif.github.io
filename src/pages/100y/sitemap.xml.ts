@@ -364,6 +364,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-06 — 2번이 「재산세」 구글트렌드(9월 2기분 고지서 시즌) 갭을 찾아
        수집기·자가대조까지 넘겨줬다(커밋 a0a04107). 3번이 지면만 붙였다. */
     { path: '/property-tax', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-06 — 8번이 만들어 두고(2026-08-08~10) 지면으로 안 나가고 있던
+       work-map.json(국민연금×KEDI, 공표치 대조까지 마침)을 지면화. */
+    { path: '/work-gap', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

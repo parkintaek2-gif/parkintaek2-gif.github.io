@@ -1,0 +1,161 @@
+---
+/**
+ * /100y/work-gap — 월급이 갈리는 건 어디서, 얼마나 큰 데서, 어느 동네에서 일하느냐 중 무엇 때문일까
+ *
+ * 원자료 work-map.json은 8번이 2026-08-08~10에 국민연금 가입 사업장 내역(2026-06)과
+ * KEDI 졸업자 통계로 만든 것 — 공표치(KOSIS 임금·교육부 취업률·국민연금 공표)와
+ * 이미 대조까지 마친 자료다. 지금까지 지면으로 나가지 않고 있어 새로 지었다.
+ * ⛔ 세 배수(업종·규모·지역)는 서로 기준이 달라 나란히 놓고 크기를 견주지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/work-map.json';
+
+const 자료 = 원본 as any;
+/** 원자료 안 자유글에 박힌 마크다운 강조(**)를 손님 화면에는 벗겨서 낸다 */
+const 민 = (s: string) => (typeof s === 'string' ? s.replace(/\*\*/g, '') : s);
+const 격차 = 자료.격차 as any[];
+const 업종격차 = 격차.find((r) => r.축 === '업종');
+const 규모격차 = 격차.find((r) => r.축 === '규모');
+const 지역격차 = 격차.find((r) => r.축 === '지역');
+
+const desc =
+  `국민연금 가입 사업장 내역(${자료.기준일} 기준)으로 재 보니, ${자료.한줄}` +
+  ` 업종 배수 ${업종격차.배수}배(하한) · 규모 배수 ${규모격차.배수}배 · 지역 배수 ${지역격차.배수}배입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '무엇이 임금과 버팀(퇴직)을 가르나 — 업종·규모·지역',
+  description: desc,
+  temporalCoverage: 자료.기준일,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.국민연금.이름 },
+  variableMeasured: ['업종별 임금 격차', '규모별 임금 격차', '지역별 임금 격차', '규모별 진입·이탈률'],
+};
+---
+
+<HundredYear
+  title={`월급이 갈리는 까닭 — 업종 ${업종격차.배수}배 > 규모 ${규모격차.배수}배 > 지역 ${지역격차.배수}배`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>월급이 갈리는 건<br />무엇 때문일까요?</h1>
+  <p class="sub">
+    <strong>{자료.한줄}</strong> 국민연금 가입 사업장 내역({자료.기준일} 기준)을 업종·규모·지역
+    {' '}세 축으로 나눠 재 봤습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">임금 격차를 가르는 힘 — 세 축 배수</p>
+    <p class="answer-num">업종 {업종격차.배수}배 · 규모 {규모격차.배수}배 · 지역 {지역격차.배수}배</p>
+    <p class="answer-sub">⛔ 기준이 서로 달라 이 세 숫자의 크기를 그대로 견주지 않습니다 — 아래에 각각 적습니다</p>
+  </div>
+
+  <h2>축마다 기준이 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>축</th><th>배수</th><th>설명몫</th><th>기준</th></tr></thead>
+      <tbody>
+        {격차.map((r) => (
+          <tr>
+            <td>{r.축}</td>
+            <td><strong>{r.배수}배</strong></td>
+            <td>{r.설명몫}</td>
+            <td>{r.기준}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  {격차.map((r) => (
+    <p class="note">
+      <strong>{r.축}</strong> — {민(r.비고)}
+    </p>
+  ))}
+
+  <h2>일터가 작을수록 문도 넓고, 나가는 사람도 많습니다</h2>
+  <p>{자료.문.설명} — 전국 평균 {자료.문.전국}%. {민(자료.문.관계)}</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>규모</th><th>가입자 몫</th><th>신규취득자 몫</th><th>문(진입률)</th></tr></thead>
+      <tbody>
+        {자료.문.규모별.map((r: any) => (
+          <tr>
+            <td>{r.규모}</td>
+            <td>{r.사람몫}%</td>
+            <td>{r.새자리몫}%</td>
+            <td><strong>{r.문}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{민(자료.문.주의)}</p>
+
+  <h2>버팀 — 그 달에 자격을 잃은 사람 몫</h2>
+  <p>
+    {자료.버팀.설명} — 전국 {자료.버팀.전국}%(42개 업종 평균은 {자료.버팀.주의.match(/[\d.]+%/)?.[0] ?? ''}).
+    가장 낮은 업종은 <strong>{자료.버팀.가장낮음.업종}</strong>({자료.버팀.가장낮음.값}%),
+    가장 높은 업종은 <strong>{자료.버팀.가장높음.업종}</strong>({자료.버팀.가장높음.값}%)입니다.
+  </p>
+
+  <h2>학과 취업률과도 이어 봤습니다</h2>
+  <p>
+    {자료.학과.출처} 자료 {자료.학과.학과수}개 학과 기준, 전국 취업률 <strong>{자료.학과.전국취업률}%</strong>.
+    {' '}{민(자료.학과.검증)}
+  </p>
+  <p class="note">{민(자료.학과.남녀)}</p>
+  <div class="warn">
+    <p class="note">{민(자료.학과['⛔고친것'])}</p>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.못하는것.map((s: string) => <li>{민(s)}</li>)}
+  </ul>
+  <p class="note">{민(자료.덮는범위)}</p>
+
+  <h2>공표치와 대조했습니다</h2>
+  <p class="note">{민(자료.대조)}</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>규모 칸</th><th>우리(원)</th><th>공표(원)</th><th>차이%</th></tr></thead>
+      <tbody>
+        {자료.공표임금대조.표.map((r: any) => (
+          <tr>
+            <td>{r.칸}</td>
+            <td>{r['우리(원)'].toLocaleString()}</td>
+            <td>{r['공표(원)'].toLocaleString()}</td>
+            <td>{r['차이%']}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{민(자료.공표임금대조['✅맞은것'])}</p>
+  <p class="note">⚠ {민(자료.공표임금대조['🔴어긋난것'])}</p>
+
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 업종·규모·지역이 임금과 버팀을
+    {' '}어떻게 가르는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.국민연금.이름}({자료.출처.국민연금.기준월} 기준) ·
+    {' '}{자료.출처.KEDI.이름}({자료.출처.KEDI.조사회차} 기준). 이용허락범위 제한 없음.
+    {' '}만든이 — {자료.만든이}({자료.만든때}).
+  </p>
+
+  <p class="note">
+    <a href="/wage-distribution">← 학력별 임금 분포(평균이 아닌 갈래)</a>
+    <br />
+    <a href="/real-wage">← 물가를 뺀 월급, 언제부터 줄고 있나?</a>
+    <br />
+    <a href="/wage-education">← 학력별 월급여·시간당임금</a>
+  </p>
+
+  <HundredAgeWalk 키="work-gap" />
+  <NextQuestionBrief 모은것="국민연금 가입 사업장 내역·KEDI 졸업자 통계 실측" />
+</HundredYear>
