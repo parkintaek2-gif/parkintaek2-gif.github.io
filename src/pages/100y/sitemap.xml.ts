@@ -355,6 +355,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-05 — 이슈+축: 사장님이 공유하신 K-apt 서울 주차난 기사 + 사장님이
        직접 받아 주신 K-apt 웹참조자료 엑셀로 준공연도×세대당주차대수를 계산. */
     { path: '/apt-parking-age', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-06 — /school 지면 2,371장의 학업중단 수치를 학교 이름 없이
+       고교유형(일반고·특성화고·자율고·특목고) 넷으로만 묶은 새 지면. */
+    { path: '/dropout-by-school-type', priority: '0.6', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

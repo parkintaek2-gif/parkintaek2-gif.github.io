@@ -1,0 +1,95 @@
+---
+/**
+ * /100y/dropout-by-school-type — 학업중단률, 고교유형별로 보면 다른가
+ *
+ * /school/[code] 지면 2,371장은 이미 학교 하나하나의 학업중단 수치를 보여 준다.
+ * 이 지면은 그 숫자를 「고교유형」(일반고·특성화고·자율고·특목고) 넷으로만 묶는다 —
+ * 학교 이름은 하나도 안 나온다. 등수가 아니라 유형이라는 규모의 사실로만 견준다.
+ *
+ * ⛔ 이것을 「어느 유형이 문제」로 읽지 않는다 — 진로 성격이 다르면 중단 이유도 다르다
+ *   (특성화고는 취업 준비로 조기 자퇴가 섞일 수 있고, 이 자료로는 원인을 못 가른다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/school-dropout-by-type.json';
+
+const 자료 = 원본 as any;
+const 유형별 = 자료.유형별 as any[];
+const 가장낮음 = 유형별[0];
+const 가장높음 = 유형별[유형별.length - 1];
+
+const desc =
+  `고등학교 학업중단률을 학교 이름 없이 고교유형 넷으로만 견줘 보니, ` +
+  `${가장낮음.유형}은 ${가장낮음.학업중단률}%인데 ${가장높음.유형}은 ${가장높음.학업중단률}%입니다. ` +
+  `학교알리미·NEIS 공공데이터로 직접 계산했습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '고교유형별 학업중단률',
+  description: desc,
+  temporalCoverage: 자료.출처.공시연도,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['고교유형별 학업중단률'],
+};
+---
+
+<HundredYear
+  title={`고교유형별 학업중단률 — ${가장낮음.유형} ${가장낮음.학업중단률}% vs ${가장높음.유형} ${가장높음.학업중단률}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>학업중단률,<br />고교유형별로 보면 다를까요?</h1>
+  <p class="sub">
+    /school 지면 2,371장에 실린 학교별 학업중단 수치를, 학교 이름 없이
+    {' '}고교유형(일반고·특성화고·자율고·특목고) 넷으로만 묶었습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">가장 낮은 유형 vs 가장 높은 유형</p>
+    <p class="answer-num">{가장낮음.유형} {가장낮음.학업중단률}% → {가장높음.유형} {가장높음.학업중단률}%</p>
+    <p class="answer-sub">학교 이름은 나오지 않습니다 — 유형 넷으로만 견줍니다</p>
+  </div>
+
+  <h2>고교유형 넷을 나란히 두면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>고교유형</th><th>학교 수</th><th>재학생</th><th>학업중단률</th></tr></thead>
+      <tbody>
+        {유형별.map((r) => (
+          <tr>
+            <td>{r.유형}</td>
+            <td>{r.학교수.toLocaleString()}개교</td>
+            <td>{r.재학생합.toLocaleString()}명</td>
+            <td><strong>{r.학업중단률}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    {가장낮음.유형}({가장낮음.학업중단률}%)이 가장 낮고, {가장높음.유형}({가장높음.학업중단률}%)이
+    {' '}가장 높습니다. 다만 이 차이를 「그 유형이 더 힘들다」로 읽을 수는 없습니다 —
+    {' '}특성화고는 재학 중 취업이 정해지면 자퇴 후 입사하는 경우가 섞여 있을 수 있고,
+    {' '}이 자료는 학업중단의 «이유»를 가르지 않습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>{자료.덮는범위}</li>
+    <li>학업중단에는 전학·유학·건강·검정고시가 모두 섞여 있습니다 — 「그만뒀다」로 읽으면 안 됩니다.</li>
+    <li>유형 안에서도 학교마다 차이가 큽니다 — 이 표는 유형 «평균»이지 개별 학교의 값이 아닙니다.
+      개별 학교의 수치는 각 학교 지면(/school)에서 볼 수 있습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 고교유형별로 학업중단률이 어떻게
+    {' '}다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표}({자료.출처.공시연도}년 공시). {자료.출처.이용허락범위}.
+    {' '}{자료.대조}
+  </p>
+
+  <NextQuestionBrief 모은것="학교알리미·NEIS 공공데이터 실측" />
+</HundredYear>
