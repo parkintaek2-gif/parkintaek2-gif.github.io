@@ -1,5 +1,5 @@
 {
- "generated": "2026-08-30T14:30:20.117Z",
+ "generated": "2026-09-06T23:10:03.254Z",
  "whatThisIs": "Autocomplete presence (Google Suggest) and English Wikipedia article reads. Neither is a search-volume figure and we do not call them one.",
  "whatThisIsNot": "Monthly search volume. We have no paid keyword data. A phrase that autocompletes is a phrase people type; how many people type it is not measured here.",
  "phrases": [
@@ -23,12 +23,12 @@
    "물음실패": false,
    "제안수": 10,
    "그대로있나": true,
-   "몇번째": 3,
+   "몇번째": 2,
    "그말로시작": 8,
    "보기": [
     "day pillar calculator",
-    "day pillar chinese astrology",
     "day pillar",
+    "day pillar chinese astrology",
     "day pillar bazi",
     "day pillar bazi meaning"
    ]
@@ -64,8 +64,8 @@
     "iu birthday",
     "iu birthday date",
     "iu birthday zodiac",
-    "iu birthday songs",
-    "iu birthday cake"
+    "iu birthday age",
+    "iu birthday songs"
    ]
   },
   {
@@ -107,8 +107,8 @@
    "그말로시작": 10,
    "보기": [
     "saju reading",
-    "saju reading chatgpt",
     "saju reading online free",
+    "saju reading chatgpt",
     "saju reading seoul",
     "saju reading online"
    ]
@@ -133,8 +133,8 @@
    "그말로시작": 8,
    "보기": [
     "jungkook zodiac sign",
-    "jungkook zodiac sign soulmate",
     "jungkook zodiac sign chinese",
+    "jungkook zodiac sign soulmate",
     "jungkook zodiac sign indian",
     "jungkook zodiac sign moon sign"
    ]
@@ -145,13 +145,13 @@
    "제안수": 10,
    "그대로있나": true,
    "몇번째": 1,
-   "그말로시작": 9,
+   "그말로시작": 10,
    "보기": [
     "bts birthdays",
     "bts birthdays in order",
     "bts birthdays and ages",
     "bts birthdays and zodiac signs",
-    "bts birthday date"
+    "bts birthdays in order by month"
    ]
   },
   {
@@ -165,8 +165,8 @@
     "kpop birthdays",
     "kpop birthdays today",
     "kpop birthdays july",
-    "kpop birthdays june",
-    "kpop birthdays august"
+    "kpop birthdays august",
+    "kpop birthdays june"
    ]
   },
   {
@@ -246,23 +246,23 @@
  "people": [
   {
    "이름": "IU (singer)",
-   "지난30일읽힘": 1305
+   "지난30일읽힘": 1424
   },
   {
    "이름": "Jungkook",
-   "지난30일읽힘": 3119
+   "지난30일읽힘": 3068
   },
   {
    "이름": "Jisoo",
-   "지난30일읽힘": 90357
+   "지난30일읽힘": 72421
   },
   {
    "이름": "Song Joong-ki",
-   "지난30일읽힘": 41119
+   "지난30일읽힘": 39643
   },
   {
    "이름": "Psy",
-   "지난30일읽힘": 30508
+   "지난30일읽힘": 30072
   }
  ]
 }
