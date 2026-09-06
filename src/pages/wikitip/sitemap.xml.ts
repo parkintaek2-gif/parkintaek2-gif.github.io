@@ -452,6 +452,16 @@ const videoSets = [
       + 'not in Korea at all, which our own first check did not catch.',
   },
   {
+    /* 🔴 [2026-09-06] 무성판에 소리를 입힌 편. 사장님 「무성 콘텐트 다신 만들지 말 것」.
+       ⛔ 원본(shelf)은 지우지 않는다 — 사장님 「삭제하지 말고 소리만 입혀서 추가로 배포해」.
+       ⭐ 제목에 «read aloud» 를 넣어 손님이 소리 있는 판임을 알게 한다. */
+    set: 'shelf-voiced',
+    page: '/what-kind-fell',
+    title: 'Southeast Asia is reading less about Korean language and craft — read aloud',
+    description: '14 seconds, narrated, on which kinds of Korean subject lost readers — and on the '
+      + 'Japanese articles beside them, which fell further.',
+  },
+  {
     set: 'shelf',
     page: '/what-kind-fell',
     title: 'Southeast Asia is reading less about Korean language and craft',

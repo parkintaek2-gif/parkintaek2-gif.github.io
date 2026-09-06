@@ -221,6 +221,13 @@
       "src": "/video/shelf.mp4"
     },
     {
+      "set": "shelf-voiced",
+      "seconds": 14,
+      "uploadDate": "2026-09-06",
+      "thumb": "/video/thumb/shelf-voiced.jpg",
+      "src": "/video/shelf-voiced.mp4"
+    },
+    {
       "set": "signs-voiced",
       "seconds": 14,
       "uploadDate": "2026-09-03",
