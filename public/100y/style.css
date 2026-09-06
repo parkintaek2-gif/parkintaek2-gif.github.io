@@ -217,7 +217,8 @@
 
       .nav { mask-image: linear-gradient(to right, #000 88%, transparent 100%); }
 
-      .nav:has(details.navgroup[open]) {
+      .nav:has(details.navgroup[open]),
+      .nav.nav-open {
         flex-wrap: wrap;
         overflow-x: visible;
         overflow-y: visible;

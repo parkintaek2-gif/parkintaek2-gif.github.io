@@ -346,6 +346,27 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         */}
       <a href="/price">유료서비스</a>
     </nav>
+    {/**
+      * 🔴🔴 2026-09-06 — 사장님이 실제로 겪었다: 「배움으로 보기」를 폰에서 터치하면
+      *   「나이로 보기」 외에는 다 사라짐. 원인은 `.nav:has(details.navgroup[open])`가
+      *   `:has()`를 못 받는 브라우저(구형 웹뷰 등)에서 통째로 무시되는 것 —
+      *   `flex-basis:100%`(별도 규칙, :has() 없이도 항상 걸림)만 적용돼 열린 칸이 한 줄을
+      *   통째로 차지하고, nowrap+overflow-x:auto 통 안에서 나머지 칸이 밀려나 mask-image로 가려진다.
+      * ⭐ `:has()`를 못 믿을 때를 위해 JS로 같은 뜻의 클래스(`nav-open`)를 얹는다.
+      *   toggle 이벤트만 듣는다 — 값을 안 읽고 «열렸나»만 본다, 실패해도 그냥 무시(진행 방해 안 함). */}
+    <script is:inline>
+      (function () {
+        var nav = document.querySelector('.nav');
+        if (!nav) return;
+        var groups = nav.querySelectorAll('details.navgroup');
+        function 갱신() {
+          var 열림 = false;
+          for (var i = 0; i < groups.length; i++) if (groups[i].open) { 열림 = true; break; }
+          nav.classList.toggle('nav-open', 열림);
+        }
+        for (var i = 0; i < groups.length; i++) groups[i].addEventListener('toggle', 갱신);
+      })();
+    </script>
 
     <slot />
 

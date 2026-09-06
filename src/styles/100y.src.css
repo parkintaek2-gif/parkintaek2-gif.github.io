@@ -341,8 +341,17 @@
          갇힌다 — 세로로는 안 잘리지만(overflow-x만 auto라도 overflow-y는 auto로 계산되어
          똑같이 잘리므로) 패널이 통 오른쪽 밖으로 나가면 스크롤해야 보인다.
          ⛔ 그래서 **열려 있는 동안만** 가로 스크롤 통을 풀어 자연스럽게 줄바꿈되게 한다 —
-         닫히면 원래 스크롤 띠로 돌아온다. `:has()` 특이도가 `.nav` 단독보다 높아 아래 그대로 이긴다. */
-      .nav:has(details.navgroup[open]) {
+         닫히면 원래 스크롤 띠로 돌아온다. `:has()` 특이도가 `.nav` 단독보다 높아 아래 그대로 이긴다.
+
+         🔴🔴 2026-09-06 — 사장님이 실제로 겪었다: 「배움으로 보기」를 터치하면
+         「나이로 보기」 외에는 다 사라짐. `:has()`를 안 받는 브라우저(구형 웹뷰 등)에서는
+         이 규칙 전체가 무시되고, `flex-basis:100%`만(별도 규칙, :has() 없이도 항상 걸림)
+         적용돼 열린 칸이 한 줄을 통째로 차지 — nowrap+overflow-x:auto 통 안에서
+         나머지 칸이 옆으로 밀려나고 mask-image 가 그 지점부터 흐려 사라진 것처럼 보인다.
+         ⭐ `:has()` 를 못 믿을 때를 위해 JS 로 같은 뜻의 클래스(`nav-open`)를 얹는다 —
+         `<details>`의 toggle 이벤트를 듣고 `.nav`에 붙이고 뗀다(아래 `<script>` 참조). */
+      .nav:has(details.navgroup[open]),
+      .nav.nav-open {
         flex-wrap: wrap;
         overflow-x: visible;
         overflow-y: visible;
