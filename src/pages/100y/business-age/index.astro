@@ -1,0 +1,126 @@
+---
+/**
+ * /100y/business-age — 오래 버티는 업종은 따로 있다 — 지금 살아 있는 사업장은 몇 년째인가
+ *
+ * 원자료 industry-life.json의 「지금몇년째」는 8번이 2026-08-08~10에 국민연금 가입
+ * 사업장 내역(2026-06)으로 만든 것 — /work-gap(임금·이직 격차)과 같은 원자료지만
+ * 다른 축(지금 살아 있는 곳의 나이)이라 겹치지 않는다. 지금까지 지면으로 안 나갔다.
+ * ⛔ 이것은 생존곡선이 아니다 — 지금 있는 곳만 센 것이라 「이 업종에 들어가면 몇 년
+ *   간다」로 읽으면 안 된다(원자료 자체가 못박은 경고).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/industry-life.json';
+
+const 자료 = 원본 as any;
+const 나이 = 자료['지금몇년째'];
+const 민 = (s: string) => (typeof s === 'string' ? s.replace(/\*\*/g, '') : s);
+
+const 정렬 = [...나이.자료].sort((a: any, b: any) => b['10년+%'] - a['10년+%']);
+const 상위10 = 정렬.slice(0, 10);
+const 하위10 = 정렬.slice(-10).reverse();
+
+const desc =
+  `국민연금 가입 사업장 내역(${자료.출처.기준월} 기준)으로 지금 살아 있는 사업장 1,000곳 이상 ` +
+  `업종 ${나이.기준.match(/\d+개/)?.[0] ?? ''}를 재 보니, 10년 넘게 이어진 곳의 몫이 ` +
+  `${상위10[0]['업종']}은 ${상위10[0]['10년+%']}%인데 ${하위10[0]['업종']}은 ${하위10[0]['10년+%']}%입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '지금 살아 있는 사업장은 업종별로 몇 년째인가',
+  description: desc,
+  temporalCoverage: 자료.출처.기준월,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+  variableMeasured: ['업종별 사업장 나이(10년+ 비율·중앙나이)'],
+};
+---
+
+<HundredYear
+  title={`오래 버티는 업종은 따로 있다 — ${상위10[0]['업종']} 10년+ ${상위10[0]['10년+%']}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>오래 버티는 업종은<br />따로 있을까요?</h1>
+  <p class="sub">
+    <strong>{민(나이.무엇)}</strong> 등록 사업장 1,000곳 이상인 업종 {나이.기준.match(/\d+개/)?.[0] ?? ''}를 봤습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">10년 넘게 이어진 사업장 몫 — 가장 높은 곳 vs 가장 낮은 곳</p>
+    <p class="answer-num">{상위10[0]['업종']} {상위10[0]['10년+%']}% ↔ {하위10[0]['업종']} {하위10[0]['10년+%']}%</p>
+    <p class="answer-sub">중앙나이 {상위10[0]['중앙나이']}년 ↔ {하위10[0]['중앙나이']}년 — 업종 사이 폭이 매우 큽니다</p>
+  </div>
+
+  <h2>업종 전체로 보면</h2>
+  <p>
+    {나이.기준.match(/\d+개/)?.[0] ?? ''} 업종의 10년+% 분포는 하위 10%가 {나이.분포.p10}%,
+    가운데가 {나이.분포.중앙}%, 상위 10%가 {나이.분포.p90}%입니다. {민(나이.분포['⚠읽는법'])}
+  </p>
+
+  <h2>오래 버틴 사업장이 많은 업종 — 위 10곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>사업장</th><th>10년+ 몫</th><th>중앙나이</th></tr></thead>
+      <tbody>
+        {상위10.map((r: any) => (
+          <tr>
+            <td>{r.업종}</td>
+            <td>{r.사업장.toLocaleString()}곳</td>
+            <td><strong>{r['10년+%']}%</strong></td>
+            <td>{r.중앙나이}년</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>오래 버틴 사업장이 적은 업종 — 아래 10곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>사업장</th><th>10년+ 몫</th><th>중앙나이</th><th>3년미만 몫</th></tr></thead>
+      <tbody>
+        {하위10.map((r: any) => (
+          <tr>
+            <td>{r.업종}</td>
+            <td>{r.사업장.toLocaleString()}곳</td>
+            <td><strong>{r['10년+%']}%</strong></td>
+            <td>{r.중앙나이}년</td>
+            <td>{r['3년미만%']}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="warn">
+    <p class="note">⚠ {민(나이['🔴 건설을 그냥 읽지 마라'])}</p>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>{민(나이['⚠ 살아남은 것만 본다'])}</li>
+    <li>{민(나이['⛔ 뺀 것'])}</li>
+    <li>{민(자료.덮는범위)}</li>
+  </ul>
+
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 지금 살아 있는 사업장의 나이가
+    {' '}업종마다 어떻게 다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준월} 기준). {자료.출처.이용허락범위}.
+  </p>
+
+  <p class="note">
+    <a href="/work-gap">← 월급이 갈리는 건 업종·규모·지역 중 무엇 때문일까</a>
+    <br />
+    <a href="/how-long">← 그 일자리는 얼마나 갈까</a>
+  </p>
+
+  <HundredAgeWalk 키="business-age" />
+  <NextQuestionBrief 모은것="국민연금 가입 사업장 내역 실측" />
+</HundredYear>

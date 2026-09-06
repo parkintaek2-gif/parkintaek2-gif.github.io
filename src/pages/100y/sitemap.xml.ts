@@ -367,6 +367,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-06 — 8번이 만들어 두고(2026-08-08~10) 지면으로 안 나가고 있던
        work-map.json(국민연금×KEDI, 공표치 대조까지 마침)을 지면화. */
     { path: '/work-gap', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-06 — 같은 8번 원자료(industry-life.json)의 다른 축 — 지금 살아
+       있는 사업장의 나이. work-gap과 원자료는 같지만 겹치는 칸이 없다. */
+    { path: '/business-age', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
