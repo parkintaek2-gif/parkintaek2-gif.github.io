@@ -81,8 +81,8 @@ than success.
 
 ## Why we leave the word alone
 
-Twenty-six point seven percent of these titles charted in **exactly one country**. The median reached
-**seven**. The median stayed **six weeks**. A person deciding whether a film "flopped" is usually
+**26.7%** of these titles charted in exactly one country. The middle of the set — half above, half
+below — reached **7 countries** and stayed **6 weeks**. A person deciding whether a film "flopped" is usually
 comparing it against an imagined norm; the actual distribution is the thing worth seeing, and it is
 published — [every title we have standing for](/titles), [every market side by side](/catalogue-depth),
 and [all 93 countries](/by-country) counted the same way.
