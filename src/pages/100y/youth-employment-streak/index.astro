@@ -1,0 +1,116 @@
+---
+/**
+ * /100y/youth-employment-streak — 청년 취업자, 몇 개월째 줄고 있나
+ *
+ * 이슈  2026년 8월 발표 기사(2026-07 고용동향 기준) — 「전체 취업자 10만8천명
+ *       늘었지만…청년 취업자 45개월째 감소」. 보도 인용을 베끼지 않고 KOSIS
+ *       원자료(101/DT_1DA7024S)로 처음부터 다시 계산했다 — 45개월·10만8천명
+ *       둘 다 일치했다.
+ * ⛔ 감소의 원인(청년 인구 자체 감소 vs 고용 악화)은 이 표로 못 가른다.
+ * ⚠ 8월 이후 값은 아직 공표되지 않았다(다음 공표 2026-09-09).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/youth-employment-streak.json';
+
+const 자료 = 원본 as any;
+const 청년시계열 = 자료.청년_시계열 as any[];
+const 전체시계열 = 자료.전체_시계열 as any[];
+const 최신 = 청년시계열.at(-1);
+const 최근12 = 청년시계열.slice(-12);
+const 전체최신 = 전체시계열.at(-1);
+
+const 만명 = (천명: number) => `${Math.round(Math.abs(천명)) / 10}만명`;
+
+const desc =
+  `KOSIS 성/연령별 취업자(${자료.최신월} 기준)를 직접 재계산하니, 15~29세 취업자는 ` +
+  `전년동월대비 ${자료.보도대조.재계산한연속감소개월}개월째 줄고 있습니다(최신월 ${만명(최신.증감)} 감소). ` +
+  `같은 달 전체 취업자는 ${만명(전체최신.증감)} 늘었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '청년층(15~29세) 취업자 전년동월대비 연속 감소 개월수',
+  description: desc,
+  temporalCoverage: `${청년시계열[0].월}/${최신.월}`,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+  variableMeasured: ['청년층 취업자 전년동월대비 증감', '전체 취업자 전년동월대비 증감'],
+};
+
+const 표시월 = (월: string) => `${월.slice(0, 4)}-${월.slice(4, 6)}`;
+---
+
+<HundredYear
+  title={`청년 취업자, ${자료.보도대조.재계산한연속감소개월}개월째 줄고 있습니다 (${표시월(자료.최신월)} 기준)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>청년 취업자,<br />몇 개월째 줄고 있을까요?</h1>
+  <p class="sub">
+    2026년 8월 발표 기사가 「청년 취업자 45개월째 감소」라고 적었습니다. 인용을
+    {' '}베끼지 않고 KOSIS 원자료(성/연령별 취업자)로 <strong>매달 전년동월대비 증감을
+    처음부터 다시 계산</strong>했습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">15~29세 취업자, 전년동월대비 연속 감소</p>
+    <p class="answer-num">{자료.보도대조.재계산한연속감소개월}개월째</p>
+    <p class="answer-sub">{표시월(최신.월)} 기준 · 전년동월 대비 {만명(최신.증감)} 감소 · 보도 인용(45개월)과 일치</p>
+  </div>
+
+  <h2>같은 달, 전체 취업자는 늘었습니다</h2>
+  <p>
+    {표시월(최신.월)} 청년층(15~29세) 취업자는 전년동월대비 {만명(최신.증감)} <strong>줄었지만</strong>,
+    {' '}전체 취업자는 {만명(전체최신.증감)} <strong>늘었습니다</strong>. 보도의 「10만8천명」과
+    {' '}이 계산({만명(전체최신.증감)})이 일치합니다.
+  </p>
+
+  <h2>최근 12개월, 전년동월대비 증감</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>월</th><th>청년(15~29세) 증감</th><th>전체 증감</th></tr></thead>
+      <tbody>
+        {최근12.map((r) => {
+          const 짝 = 전체시계열.find((t) => t.월 === r.월);
+          return (
+            <tr>
+              <td>{표시월(r.월)}</td>
+              <td><strong>{r.증감 > 0 ? '+' : ''}{r.증감}천명</strong></td>
+              <td>{짝 ? `${짝.증감 > 0 ? '+' : ''}${짝.증감}천명` : '못 쟀다'}</td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    청년층은 이 12개월 내내 전년동월대비 감소({최근12.every((r) => r.증감 < 0) ? '예외 없음' : '일부 예외 있음'})였고,
+    {' '}전체는 오르내림을 반복했습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>감소의 까닭(청년 인구 자체가 줄어서인지, 고용이 나빠져서인지)은 이 표로 가르지 않습니다 — 취업자 «수»만 셌습니다.</li>
+    <li>{자료.덮는범위}</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 전년동월대비 취업자 수가
+    {' '}어떻게 움직이는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.표}). {자료.출처.이용허락범위}. 만든날 {자료.만든날}.
+    {' '}{자료.대조}
+  </p>
+
+  <p class="note">
+    <a href="/idle-youth">← 일도 구직도 안 하고 쉬는 2030, 몇 명일까</a>
+    <br />
+    <a href="/first-job">← 처음 일자리까지 걸리는 시간</a>
+  </p>
+
+  <HundredAgeWalk 키="youth-employment-streak" />
+  <NextQuestionBrief 모은것="KOSIS 경제활동인구조사 실측 재계산" />
+</HundredYear>

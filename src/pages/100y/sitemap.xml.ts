@@ -370,6 +370,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-06 — 같은 8번 원자료(industry-life.json)의 다른 축 — 지금 살아
        있는 사업장의 나이. work-gap과 원자료는 같지만 겹치는 칸이 없다. */
     { path: '/business-age', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-06 — 뉴스 인용(「청년 취업자 45개월째 감소」)을 KOSIS 원자료로
+       재계산해 검증. 8월 이후 값이 공표되면(다음 공표 9/9) 다시 재는 monthly. */
+    { path: '/youth-employment-streak', priority: '0.8', changefreq: 'monthly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
