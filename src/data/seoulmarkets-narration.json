@@ -66,6 +66,10 @@
     "korea-five-buybacks-one-cancellation": {
       "내레이션": "Five Korean firms filed share buybacks on the same day. Four just bought the shares back. Only one, Fims, said it would cancel them — the step that actually shrinks the share count. Not advice.",
       "설명": "From DART's own treasury-stock filings for that day. We report what was filed, not investment advice."
+    },
+    "korea-fund-factory-slowing": {
+      "내레이션": "Korea has 183,351 registered funds, and the factory making them is slowing down. Most aren't stock funds — derivatives and bonds dominate.",
+      "설명": "Korea Financial Investment Association fund registry, 183,351 funds. We count registrations, not assets under management."
     }
   }
 }
