@@ -355,6 +355,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-05 — 이슈+축: 사장님이 공유하신 K-apt 서울 주차난 기사 + 사장님이
        직접 받아 주신 K-apt 웹참조자료 엑셀로 준공연도×세대당주차대수를 계산. */
     { path: '/apt-parking-age', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-06 — 사장님이 apt-parking-age 와 같은 K-apt 원자료에서
+       「주차면보다 좋은 데이터」를 물으심 — 전기차 충전기 vs 보유대수를 계산. */
+    { path: '/ev-charger-by-age', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-06 — /school 지면 2,371장의 학업중단 수치를 학교 이름 없이
        고교유형(일반고·특성화고·자율고·특목고) 넷으로만 묶은 새 지면. */
     { path: '/dropout-by-school-type', priority: '0.6', changefreq: 'yearly' },

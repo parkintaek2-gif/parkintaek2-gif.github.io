@@ -1,0 +1,103 @@
+---
+/**
+ * /100y/ev-charger-by-age — 아파트가 오래될수록 전기차 충전기가 부족한가
+ *
+ * 이슈  사장님이 apt-parking-age.json 이 쓴 K-apt 웹참조자료(단지 기본정보)에
+ *       주차공간보다 좋은 데이터가 있는지 물으셨다 — 같은 파일에 「차량보유대수(전기차)」·
+ *       「전기차 충전시설 설치대수(지상/지하)」가 있어 재 보니 준공연도별로 뚜렷하게 갈렸다.
+ * 우리 축  준공연도(건물 나이) × 전기차 대비 충전기 수. apt-parking-age 와 같은 「나이」 프레임.
+ *
+ * ⛔ 이 지면의 숫자는 서울 3,185개 단지 자체 계산이다. 단지가 스스로 신고한 충전기
+ *   설치대수라 실제 가동 여부는 확인하지 못했다.
+ * ⚠ 이용허락범위 — apt-parking-age 와 같은 원본(K-apt 웹참조자료 게시판, 명시된 범위 없음).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/ev-charger-by-age.json';
+
+const 자료 = 원본 as any;
+const 나이띠별 = 자료.나이띠별 as any[];
+
+const 가장부족 = 나이띠별.reduce((a, b) => (b.전기차당충전기 > a.전기차당충전기 ? b : a));
+const 가장넉넉 = 나이띠별.reduce((a, b) => (b.전기차당충전기 < a.전기차당충전기 ? b : a));
+
+const desc =
+  `서울 아파트 ${자료.분석대상단지수}개 단지를 준공연도로 나눠 보니, ${가장부족.띠}년 준공 단지는 ` +
+  `전기차 ${가장부족.전기차당충전기}대당 충전기 1대인데 ${가장넉넉.띠}년 준공 단지는 ` +
+  `${가장넉넉.전기차당충전기}대당 1대입니다. K-apt 웹참조자료로 직접 계산했습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '서울 아파트 준공연도별 전기차 대비 충전기 수',
+  description: desc,
+  temporalCoverage: '2026',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.기관 },
+  variableMeasured: ['준공연도별 전기차 대비 충전기 수'],
+};
+---
+
+<HundredYear
+  title={`서울 아파트 — ${가장부족.띠}년 준공은 전기차 ${가장부족.전기차당충전기}대당 충전기 1대`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>아파트가 오래될수록<br />전기차 충전기가 부족할까요?</h1>
+  <p class="sub">
+    K-apt(공동주택관리정보시스템) 서울 주차난 분석을 계기로 준공연도(건물 나이)×
+    {' '}세대당 주차대수를 계산한 데 이어, 같은 자료 안의 전기차 충전 인프라를
+    {' '}준공연도별로 계산했습니다. 서울 아파트 {자료.분석대상단지수}개 단지를 봤습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{가장부족.띠}년 준공 vs {가장넉넉.띠}년 준공, 전기차 대비 충전기</p>
+    <p class="answer-num">{가장부족.전기차당충전기}대당 1대 → {가장넉넉.전기차당충전기}대당 1대</p>
+    <p class="answer-sub">옛 아파트일수록 전기차는 있는데 충전기가 확실히 모자랍니다</p>
+  </div>
+
+  <h2>준공연도가 오를수록 충전기 여유도 늘어납니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>준공연도</th><th>단지 수</th><th>전기차 보유</th><th>충전기 설치</th><th>전기차당 충전기</th></tr></thead>
+      <tbody>
+        {나이띠별.map((r) => (
+          <tr>
+            <td>{r.띠}</td>
+            <td>{r.단지수}</td>
+            <td>{r.전기차합.toLocaleString()}대</td>
+            <td>{r.충전기합.toLocaleString()}대</td>
+            <td><strong>{r.전기차당충전기}대당 1대</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p>
+    1989년 이전 준공 단지는 전기차 {가장부족.전기차당충전기}대마다 충전기가 1대뿐인데,
+    {' '}2020년대 준공 단지는 {가장넉넉.전기차당충전기}대마다 1대로 오히려 충전기가 여유롭습니다.
+    {' '}신축 아파트일수록 처음부터 충전 설비를 넉넉히 갖추고 짓는 것으로 보이지만,
+    {' '}이 자료만으로는 그 까닭을 가르지 않습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>{자료.덮는범위}</li>
+    <li>서울 {자료.분석대상단지수}개 단지 가운데 전기차는 있는데 충전기가 <strong>0대인 단지가
+      {자료['EV있는데충전기0대인단지']}곳</strong>입니다 — 준공연도와 무관하게 어디서나 있을 수 있습니다.</li>
+    <li>충전기 «설치대수»이지 «지금 쓸 수 있는 대수»가 아닙니다 — 고장·점검 중인 기기를
+      빼지 않았습니다.</li>
+    <li>{자료.출처.원본안내문}</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 준공연도별로 전기차 충전 인프라가
+    {' '}어떻게 다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.기관}, {자료.출처.표}({자료.출처.받은날} 받음).
+    {' '}<a href={자료.출처.창구} rel="noopener">원문 게시판</a>.
+    {' '}{자료.이용허락범위}
+  </p>
+
+  <NextQuestionBrief 모은것="K-apt 공동주택관리정보시스템 웹참조자료 실측" />
+</HundredYear>
