@@ -6,6 +6,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const CHARTS = path.join(ROOT, 'public/charts');
 
@@ -58,4 +59,4 @@ ${rows}
   fs.writeFileSync(path.join(CHARTS, 'capital-raising-size-vs-outcome.svg'), svg);
   console.log('✅ capital-raising summary chart · 3 rows');
 }
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();

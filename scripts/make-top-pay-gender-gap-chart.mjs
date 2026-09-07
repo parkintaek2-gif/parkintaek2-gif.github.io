@@ -8,6 +8,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { 합치기 } from './collect-tenure.mjs';
 
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
@@ -87,4 +88,4 @@ ${bars}
   fs.writeFileSync(path.join(CHARTS, 'top-pay-gender-gap.svg'), svg);
   console.log(`✅ ${잰것.length}곳 재현·성별격차 계산 · 못잰 ${못잰것.length}곳(${못잰것.map((r) => r.corp).join(',')}) · 최대격차 ${잰것[0].en} ${잰것[0].배수}x`);
 }
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
