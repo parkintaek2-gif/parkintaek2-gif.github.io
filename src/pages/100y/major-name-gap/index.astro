@@ -1,0 +1,115 @@
+---
+/**
+ * /100y/major-name-gap — 학과 «이름»만으로 취업률을 짐작할 수 있나
+ *
+ * 이슈  2026-09-07 커뮤니티 씨앗 — 「'문송합니다'는 옛말…철학과>컴공과 취업률
+ *       역전, 무슨 일」. 이미 모아 둔 major-outcomes.json(KEDI, 837개 학과)을
+ *       새로 받지 않고 그대로 다시 계산했다.
+ * ⛔ 「철학과가 컴공과를 이겼다」로 뭉뚱그리지 않는다 — «어느 학교의 어느 학과냐»에
+ *   따라 갈린다. 39개 중 10개(26%)만 철학과보다 낮다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/major-name-gap.json';
+
+const 자료 = 원본 as any;
+const 낮은것 = 자료.낮은것 as any[];
+const 높은것 = 자료.높은것 as any[];
+
+const desc =
+  `철학과 취업률은 ${자료.철학취업률}%입니다. 「컴퓨터·소프트웨어·전산」이 이름에 든 학과 ` +
+  `${자료.컴공학과수}개 가운데 ${자료.철학보다낮은수}개(${자료.철학보다낮은몫}%)는 철학과보다 취업률이 낮고, ` +
+  `나머지 ${높은것.length}개는 더 높습니다 — 이름 하나로 뭉뚱그릴 수 없습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [{
+    '@type': 'Question',
+    name: '철학과가 컴퓨터공학과보다 취업률이 높다는 게 사실인가요?',
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `일부만 맞습니다. 철학과 취업률(${자료.철학취업률}%)보다 「컴퓨터·소프트웨어·전산」 이름 학과 ${자료.컴공학과수}개 가운데 ${자료.철학보다낮은수}개가 낮지만, 나머지 ${높은것.length}개는 철학과보다 높습니다. 같은 이름이라도 학교마다 취업률 차이가 큽니다.`,
+    },
+  }],
+};
+---
+
+<HundredYear
+  title={`철학과 취업률 ${자료.철학취업률}% — 컴퓨터·소프트웨어 학과 ${자료.컴공학과수}개 중 ${자료.철학보다낮은수}개보다 높다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>학과 «이름»만으로<br />취업률을 짐작할 수 있을까요?</h1>
+  <p class="sub">
+    「철학과가 컴공과를 이겼다」는 이야기가 돌았습니다. 이미 모아 둔 KEDI 학과별
+    {' '}졸업 후 상황 자료(837개 학과)로 새로 받지 않고 다시 계산해 봤습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">철학과 취업률 vs 「컴퓨터·소프트웨어·전산」 학과 {자료.컴공학과수}개</p>
+    <p class="answer-num">{자료.철학취업률}% — {자료.철학보다낮은수}개보다 높고 {높은것.length}개보다 낮습니다</p>
+    <p class="answer-sub">졸업자 {자료.철학졸업자.toLocaleString()}명 · 취업자 {자료.철학취업자.toLocaleString()}명(철학과)</p>
+  </div>
+
+  <h2>이름이 같아도 학과마다 다릅니다</h2>
+  <p>
+    「컴퓨터·소프트웨어·전산」이 이름에 든 학과 {자료.컴공학과수}개 가운데
+    {' '}<strong>{자료.철학보다낮은수}개({자료.철학보다낮은몫}%)</strong>는 철학과({자료.철학취업률}%)보다 취업률이
+    {' '}낮습니다. 나머지 {높은것.length}개는 철학과보다 높거나 같습니다 — 「이겼다」로
+    {' '}뭉뚱그리면 이 갈림을 지웁니다.
+  </p>
+
+  <h2>철학과보다 낮은 {낮은것.length}개</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학과</th><th>취업률</th><th>졸업자</th></tr></thead>
+      <tbody>
+        {낮은것.map((r: any) => (
+          <tr>
+            <td>{r.학과}</td>
+            <td><strong>{r.취업률}%</strong></td>
+            <td>{r.졸업자.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>철학과보다 높거나 같은 {높은것.length}개 — 위 5곳</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>학과</th><th>취업률</th><th>졸업자</th></tr></thead>
+      <tbody>
+        {높은것.slice(0, 5).map((r: any) => (
+          <tr>
+            <td>{r.학과}</td>
+            <td><strong>{r.취업률}%</strong></td>
+            <td>{r.졸업자.toLocaleString()}명</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>{자료.덮는범위}</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 같은 이름의 학과라도 학교마다
+    {' '}취업률이 얼마나 다른지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처}. {자료.대조}
+  </p>
+
+  <p class="note">
+    <a href="/college-major">← 대학 학과 찾기</a>
+    <br />
+    <a href="/major">← 고등학교 학과 찾기</a>
+  </p>
+
+  <NextQuestionBrief 모은것="한국교육개발원(KEDI) 학과별 졸업 후 상황 실측(기존 수집분 재계산)" />
+</HundredYear>

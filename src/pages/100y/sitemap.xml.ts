@@ -376,6 +376,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-07 — 커뮤니티 씨앗(「'80% 선발' 수시 원서접수」)을 계기로 통계청
        장래인구추계 18세 인구를 직접 재 확인. 매년 갱신되는 추계라 yearly. */
     { path: '/college-age-population', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-07 — 커뮤니티 씨앗(「철학과>컴공과 취업률 역전」)을 계기로
+       이미 모은 major-outcomes.json을 새로 받지 않고 다시 계산해 지면화. */
+    { path: '/major-name-gap', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
