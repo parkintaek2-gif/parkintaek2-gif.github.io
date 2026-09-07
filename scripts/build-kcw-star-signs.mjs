@@ -188,41 +188,54 @@ if (내가직접돌았나 && process.argv.includes('--자가시험')) {
   process.exit(0);
 }
 
-if (!existsSync(원자료)) { console.error(`⛔ 원자료가 없다 — ${원자료}`); process.exit(1); }
-const 원 = JSON.parse(readFileSync(원자료, 'utf8'));
-const 사람들 = Array.isArray(원) ? 원 : (원.사람 ?? Object.values(원).find(Array.isArray));
-if (!Array.isArray(사람들)) { console.error('⛔ 사람 배열을 못 찾았다'); process.exit(1); }
+/**
+ * 🔴 [2026-09-08 · 5번] **아래 본체가 «빗장 밖»에 있었다.**
+ *   build-kcw-people.mjs 가 여기서 별자리찾기·별자리표·경계일인가 셋을 빌려 쓴다.
+ *   그런데 본체가 밖에 있어서, 함수를 빌리는 «순간» 이 자가 통째로 돌았다 —
+ *   원자료를 읽고, 자료를 새로 쓰고, 셈이 안 맞으면 process.exit(1) 로
+ *   **부르는 쪽을 죽였다.** 부르는 쪽은 함수 하나를 빌리려 했을 뿐이다.
+ *
+ *   ⚠ 2026-09-06 에 «자가시험 블록»만 빗장 안으로 넣고 본체는 그대로 뒀다.
+ *     반쯤 고치고 멈춘 것이다 — 오늘 check-import-safe 가 그 나머지를 짚어 줬다.
+ *   ⭐ 자가 있어서 잡혔다. 어젯밤 일곱 건은 사람 눈으로 찾은 것이었다.
+ */
+if (내가직접돌았나) {
+  if (!existsSync(원자료)) { console.error(`⛔ 원자료가 없다 — ${원자료}`); process.exit(1); }
+  const 원 = JSON.parse(readFileSync(원자료, 'utf8'));
+  const 사람들 = Array.isArray(원) ? 원 : (원.사람 ?? Object.values(원).find(Array.isArray));
+  if (!Array.isArray(사람들)) { console.error('⛔ 사람 배열을 못 찾았다'); process.exit(1); }
 
-const { signs, unreadable } = 모으기(사람들);
-const 합 = signs.reduce((s, x) => s + x.people, 0);
+  const { signs, unreadable } = 모으기(사람들);
+  const 합 = signs.reduce((s, x) => s + x.people, 0);
 
-mkdirSync(path.dirname(낼길), { recursive: true });
-writeFileSync(낼길, `${JSON.stringify({
-  generated: new Date().toISOString(),
-  whatThisIs: 'Korean entertainers grouped by the western star sign their birth date falls in, '
-    + 'counted from Wikidata birth dates. The sign is arithmetic on a date, nothing more.',
-  whatThisIsNot: 'This is not astrology and we make no claim about what a sign means. We tested the '
-    + 'nearest thing to a claim — whether a birth-year animal predicts reaching a Netflix chart — '
-    + 'and the spread was indistinguishable from chance.',
-  boundaryNote: 'Sign boundaries shift by a few hours from year to year. We use the widely published '
-    + 'dates, so someone born on a boundary day may fall the other way in their own birth year. '
-    + 'Each page says how many of its people are on a boundary day.',
-  peopleTotal: 사람들.length,
-  placed: 합,
-  unreadableBirthDate: unreadable,
-  signs,
-}, null, 2)}\n`);
+  mkdirSync(path.dirname(낼길), { recursive: true });
+  writeFileSync(낼길, `${JSON.stringify({
+    generated: new Date().toISOString(),
+    whatThisIs: 'Korean entertainers grouped by the western star sign their birth date falls in, '
+      + 'counted from Wikidata birth dates. The sign is arithmetic on a date, nothing more.',
+    whatThisIsNot: 'This is not astrology and we make no claim about what a sign means. We tested the '
+      + 'nearest thing to a claim — whether a birth-year animal predicts reaching a Netflix chart — '
+      + 'and the spread was indistinguishable from chance.',
+    boundaryNote: 'Sign boundaries shift by a few hours from year to year. We use the widely published '
+      + 'dates, so someone born on a boundary day may fall the other way in their own birth year. '
+      + 'Each page says how many of its people are on a boundary day.',
+    peopleTotal: 사람들.length,
+    placed: 합,
+    unreadableBirthDate: unreadable,
+    signs,
+  }, null, 2)}\n`);
 
-console.log('■ 서양 별자리 — 생년월일에서 «계산»했다. 점이 아니다\n');
-console.log('자리          사람   이름실림   경계일   날짜');
-for (const s of signs) {
-  console.log(`${s.name.padEnd(13)} ${String(s.people).padStart(5)} ${String(s.listed).padStart(9)}`
-    + ` ${String(s.onCusp).padStart(7)}   ${s.from} ~ ${s.to}`);
+  console.log('■ 서양 별자리 — 생년월일에서 «계산»했다. 점이 아니다\n');
+  console.log('자리          사람   이름실림   경계일   날짜');
+  for (const s of signs) {
+    console.log(`${s.name.padEnd(13)} ${String(s.people).padStart(5)} ${String(s.listed).padStart(9)}`
+      + ` ${String(s.onCusp).padStart(7)}   ${s.from} ~ ${s.to}`);
+  }
+  console.log(`\n합 ${합} · 생년월일을 못 읽은 사람 ${unreadable}`);
+  if (합 + unreadable !== 사람들.length) {
+    console.error(`🔴 셈이 안 맞는다 — ${합}+${unreadable} ≠ ${사람들.length}. 사람이 사라졌다`);
+    process.exit(1);
+  }
+  console.log(`✅ 셈이 맞는다 — ${합}+${unreadable} = ${사람들.length}. 아무도 안 사라졌다`);
+  console.log(`냈다 — ${path.relative(뿌리, 낼길)}`);
 }
-console.log(`\n합 ${합} · 생년월일을 못 읽은 사람 ${unreadable}`);
-if (합 + unreadable !== 사람들.length) {
-  console.error(`🔴 셈이 안 맞는다 — ${합}+${unreadable} ≠ ${사람들.length}. 사람이 사라졌다`);
-  process.exit(1);
-}
-console.log(`✅ 셈이 맞는다 — ${합}+${unreadable} = ${사람들.length}. 아무도 안 사라졌다`);
-console.log(`냈다 — ${path.relative(뿌리, 낼길)}`);
