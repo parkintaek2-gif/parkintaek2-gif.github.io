@@ -832,10 +832,6 @@ export const GET: APIRoute = async () => {
        ⭐ 우물을 다시 안 길어 왔다 — group-afterlife 자료를 다시 센 것이다.
        ⚠ 달 날수로 기대치를 보정했다. 안 하면 2월이 저절로 낮게 나온다 */
     { path: '/peak-month', priority: '0.9', changefreq: 'weekly' },
-    /* ⭐ [2026-09-08] 새 축 — 팀 문서와 멤버 문서를 나란히 놓은 것(380팀).
-       ⚠ 지면을 만들면 «이 줄을 같은 커밋에» 넣는다. 안 넣으면 지면은 열려 있는데
-         사이트맵에 없는 어긋난 상태가 된다 — 2026-09-07 에 세 지면에서 그랬다. */
-    { path: '/member-vs-group', priority: '0.9', changefreq: 'weekly' },
     /* 만화 원작과 각색을 나란히. 한국 웹툰 14배 · 일본 만화 3.7배 */
     { path: '/webtoon-adaptations', priority: '0.9', changefreq: 'weekly' },
     /* 나라마다 무엇을 읽나. 93 등장 중 63 이 일본, 아홉 나라는 0 */

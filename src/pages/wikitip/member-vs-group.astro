@@ -1,227 +1,118 @@
 ---
 /**
- * K Culture Wire — **팬은 「팀」을 읽나, 「사람」을 읽나.** (`/member-vs-group`)
+ * K Culture Wire — **멤버의 이름과 그룹의 이름을 한 줄에.** (`/member-vs-group`)
  *
- * ── 왜 이 지면인가 ────────────────────────────────────────────
- * 2026-09-07 에 롱테일 축 셋을 하루에 다 썼다. 그러니 그날 저녁 씨앗 넷이 들어왔는데
- * **넷 다 이미 쓴 축**에 붙는 것이었다 — 같은 축에 같은 구조를 한 편 더 얹으면
- * 편수는 늘고 값은 안 는다. ⇒ **하루에 새 축 하나를 쌓는다.** 이것이 그 하나다.
+ * ⭐⭐ 사장님 지시(8/16) — 스타의 이름과 **소속 그룹명**을 제목과 본문에 넣는다.
+ *    손님은 「V」와 「BTS」를 친다. 「가수 1,446명」을 치지 않는다.
  *
- * ⭐ 우리는 그동안 «팀 문서» 하나만 셌다. 팀 문서와 «멤버 문서»를 나란히 놓은 자가 없었다.
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ **「멤버가 그룹을 이겼다」로 팔지 않는다.** 두 수를 나란히 놓기만 한다.
+ *    문서 둘은 손님에게 **다른 물음**에 답한다 — 어느 쪽이 더 유명한가가 아니다.
+ * ⛔ **둘 다 문서가 있는 판만** 견준다. 없는 문서를 0 으로 안 메운다.
+ * ⛔ **못 받은 소속을 「무소속」으로 안 센다.**
+ * ⛔ 위에서 60명만 본 것은 **돈 때문**이지 뜻이 있어서가 아니라고 적는다.
+ * ⛔ 광고 자리를 만들지 않는다.
  *
- * ── 🔴 이 지면이 반드시 보이는 교란 — 하위유닛 ───────────────────
- * 팀 30개로 먼저 재 보니 「사람으로 읽힌다」 위쪽이 죄다 하위유닛이었다
- * (Got the Beat 95.6% · Route 0 97.9% · Moonbin & Sanha 96.3% · BtoB 4U 98.3%).
- * ⛔ 섞어 두면 「한국 팀은 사람으로 읽힌다」가 참인 것처럼 나온다. 그런데 까닭이 다르다 —
- *   **하위유닛은 팀 이름 자체가 안 알려진 것**이다. 소녀시대를 아는 사람이 「Route 0」을
- *   모르는 것은 관심이 사람에게 있다는 뜻이 아니라 그 «이름»을 모른다는 뜻이다.
- * ✅ 그래서 갈라서 «둘 다» 낸다. 빼도 결론이 안 뒤집힌다는 것까지 표에 적는다.
- * ⚠ 하위유닛 판정은 «짐작»이다 — 위키데이터에 그것을 못박은 속성이 없다. 그 말을 지면에 적는다.
- *
- * ── ⛔ 이 지면이 하지 않는 것 ─────────────────────────────────
- * ⛔ 「멤버몫이 크면 팀이 위태롭다」로 읽히게 쓰지 않는다. 우리는 그것을 안 쟀다
- * ⛔ 「읽힌 것」을 「인기」로 바꿔 쓰지 않는다
- * ⛔ 솔로 발표의 «효과»를 말하지 않는다 — 발표일 자료가 없어 못 쟀다
- *
- * ── 새 지면을 낼 때 밟는 넷 (2026-09-07 에 셋을 빠뜨렸다) ───────────
- *   1. src/pages/wikitip/sitemap.xml.ts 목록      ✅ 같은 커밋에서 넣는다
- *   2. canonical=  (⛔ page= 가 아니다 — 레이아웃이 조용히 버린다)  ✅
- *   3. jsonLd — Dataset 스키마                    ✅
- *   4. KcwRelatedArticles — 기사로 가는 문         ✅
+ * 🔴 Astro 앞말은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다 — 붙여 쓸 곳에 {' '} 를 넣는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
-import d from '../../data/kcw-member-vs-group.json';
+import KcwShorts from '../../components/KcwShorts.astro';
+import d from '../../data/wikitip-member-vs-group.json';
+/* 🔴 [2026-09-05] 같은 물음을 «영어»로 다시 잰 자료. 아래 절에서 쓴다 */
+import 영어 from '../../data/wikitip-solo-vs-group.json';
+import KcwPanel from '../../components/KcwPanel.astro';
 
-const 팀 = d.팀;
-/* ⭐ 「가장 많이 읽힌 팀」순으로 낸다 — 멤버몫 순으로 내면 위쪽이 작은 팀·하위유닛으로 찬다 */
-const 큰순 = [...팀].sort((a, b) => b.통합열람 - a.통합열람);
-const 본유닛 = 팀.filter((t) => t.하위유닛짐작 === false);
-const 하위 = 팀.filter((t) => t.하위유닛짐작 === true);
+const 늘위 = d.pairs.filter((p) => p.memberHigherIn === p.editions.length);
+const 늘아래 = d.pairs.filter((p) => p.memberHigherIn === 0);
+const 섞임 = d.pairs.filter((p) => p.memberHigherIn > 0 && p.memberHigherIn < p.editions.length);
 
-const 갈래이름 = ['사람으로 읽힌다', '사람 쪽이 조금 크다', '팀 쪽이 조금 크다', '팀으로만 읽힌다'];
-const 갈래영어 = {
-  '사람으로 읽힌다': 'Read as people',
-  '사람 쪽이 조금 크다': 'People slightly ahead',
-  '팀 쪽이 조금 크다': 'Band slightly ahead',
-  '팀으로만 읽힌다': 'Read as a band',
-};
+const 영어앞선 = 영어.rows.filter((r: any) => (r.times ?? 0) > 1);
+const 영어큰 = [...영어.rows].sort((a: any, b: any) => b.personReads - a.personReads);
+/* 🔴 절이 말하는 수가 자료와 어긋나면 빌드를 세운다 — 수집기와 지면이 따로 세면 반드시 갈라진다 */
+if (영어.aheadOfTheirGroup !== 영어앞선.length) {
+  throw new Error(`자료는 앞선 짝 ${영어.aheadOfTheirGroup}건이라 하는데 지면은 ${영어앞선.length}건으로 센다.`);
+}
+if (영어.behindTheirGroup !== 영어.rows.length - 영어앞선.length) {
+  throw new Error(`자료의 「뒤진 짝」 ${영어.behindTheirGroup} 이 나머지와 안 맞는다.`);
+}
 
-const 중앙값 = (xs) => {
-  if (!xs.length) return null;
-  const s = [...xs].sort((a, b) => a - b);
-  const m = Math.floor(s.length / 2);
-  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
-};
-const 평균 = (xs) => (xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null);
-const 몫 = (xs) => xs.map((t) => t.멤버몫);
-
-/* ⭐ 세 벌을 «같은 식»으로 낸다 — 전부 · 하위유닛 뺀 것 · 하위유닛만 */
-const 묶음 = [
-  { 이름: 'All acts we could measure', 것: 팀 },
-  { 이름: 'Excluding suspected sub-units', 것: 본유닛 },
-  { 이름: 'Suspected sub-units only', 것: 하위 },
-].map((g) => ({
-  ...g,
-  수: g.것.length,
-  평균: 평균(몫(g.것)),
-  중앙: 중앙값(몫(g.것)),
-  갈래: Object.fromEntries(갈래이름.map((k) => [k, g.것.filter((t) => t.어느쪽 === k).length])),
-}));
-
-const 전부 = 묶음[0];
-const 뺀것 = 묶음[1];
-
-const TITLE = 'For most Korean acts, fans read the members — not the band';
+const TITLE = 'V and Jungkook are read less than BTS. Jay Park and Lee Hye-ri are read more '
+  + 'than 2PM and Girl\'s Day';
 const DESC =
-  `We put each act's Wikipedia page beside its members' pages for ${전부.수} Korean acts over `
-  + `twelve months. The median act sends ${(전부.중앙 * 100).toFixed(0)}% of its reads to member `
-  + `pages. Excluding sub-units it is still ${(뺀것.중앙 * 100).toFixed(0)}%.`;
+  `Across the Indonesian, Vietnamese, Thai and Malay Wikipedias we put ${d.pairs.length} K-pop `
+  + `soloists beside the group they belong to. For ${늘아래.length} the group is read more in `
+  + `every country; for ${늘위.length} — including Jay Park, Lee Hye-ri, Mark Lee and Kai — the `
+  + 'member is.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Dataset',
   name: TITLE,
   description: DESC,
-  temporalCoverage: d.창,
   creator: { '@type': 'Organization', name: 'K Culture Wire' },
-  isBasedOn: ['https://wikimedia.org/api/rest_v1/', 'https://query.wikidata.org/'],
+  isBasedOn: ['https://www.wikidata.org/', 'https://wikimedia.org/api/rest_v1/'],
 };
-
-/**
- * 잰 날을 «영어로» 낸다.
- * 🔴 [2026-09-08] 자료의 `잰때` 는 `toLocaleString('ko-KR')` 이라 「2026. 9. 8. 오전 12:…」 꼴이다.
- *   그대로 찍었더니 check-kcw-korean-leak 이 「오후」·「오전」을 잡았다 — 옳다. 손님은 영어권이다.
- * ⛔ 못 읽으면 «지어내지 않는다» — 창(d.창)만 내고 날짜는 뺀다.
- */
-function 잰날영어(글) {
-  const m = /(\d{4})\.\s*(\d{1,2})\.\s*(\d{1,2})/.exec(String(글 || ''));
-  if (!m) return null;
-  const 달 = ['January', 'February', 'March', 'April', 'May', 'June',
-    'July', 'August', 'September', 'October', 'November', 'December'][Number(m[2]) - 1];
-  if (!달) return null;
-  return `${Number(m[3])} ${달} ${m[1]}`;
-}
-const 잰날 = 잰날영어(d.잰때);
-
-const 수 = (n) => (n == null ? '—' : Number(n).toLocaleString('en-US'));
-const 퍼 = (x) => (x == null ? '—' : `${(x * 100).toFixed(1)}%`);
-const 위 = 큰순.slice(0, 40);
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
   canonical="https://www.kculturewire.com/member-vs-group">
   <h1>{TITLE}</h1>
-
-  <p class="lead">
-    A Korean act has a Wikipedia page. So do its members. We counted reads of both over twelve
-    months for <b>{수(전부.수)} acts</b> and asked which page the curiosity actually lands on.
-    For the median act, <b>{퍼(전부.중앙)}</b> of the reading goes to the members. That share is
-    inflated by sub-units, so we split them out — and even without them the median is still
-    {' '}<b>{퍼(뺀것.중앙)}</b>.
+  <KcwPanel editionNames={d.editionNames} countryNames={d.countryNames} />
+  <p class="lead">{d.question}</p>
+  <p class="q">
+    We took the {d.soloLooked} most-read Korean soloists, read who they belong to, and put each one
+    beside their group on the four Southeast Asian Wikipedias. {d.pairs.length} pairs can be
+    compared. In <b>{늘아래.length}</b> of them the group is read more in every country. In
+    {' '}<b>{늘위.length}</b> the member is. The remaining {섞임.length} disagree from one country
+    to the next.
   </p>
 
-  <section class="src">
-    <h2>What was counted</h2>
-    <table>
-      <tbody>
-        <tr><td>Korean acts measured</td><td class="num"><b>{수(전부.수)}</b></td></tr>
-        <tr><td>Acts dropped — <i>not counted as zero</i></td><td class="num">{수(d.셈.못잰팀)}</td></tr>
-        <tr><td>Act–member pairs with an English article</td><td class="num">{수(팀.reduce((a, t) => a + t.멤버수, 0))}</td></tr>
-        <tr><td>Of those acts, suspected sub-units</td><td class="num">{수(하위.length)}</td></tr>
-        <tr><td>Reads counted in total</td><td class="num">{수(팀.reduce((a, t) => a + t.통합열람, 0))}</td></tr>
-        <tr><td>Window</td><td class="num">{d.창}</td></tr>
-      </tbody>
-    </table>
-    <p class="note">
-      Member share = reads of the member pages ÷ (reads of the act's page + reads of the member
-      pages). A member whose reads we could not retrieve is <i>left out</i>, not counted as zero.
-    </p>
-  </section>
-
-  <section class="src">
-    <h2>Why sub-units had to be separated before you read this</h2>
-    <p class="note">
-      The four most member-heavy acts in our first pass were all sub-units — Got the Beat,
-      Route 0, Moonbin &amp; Sanha, BtoB 4U, every one above 95%. That is not curiosity choosing
-      people over a band. <b>It is the band's name being unknown.</b> Someone who knows Girls'
-      Generation may never have heard of Route 0, so all the reading lands on the members by
-      default. Left in, they would make the headline finding look stronger than it is.
-    </p>
-    <p class="note">
-      Wikidata has no property that marks a sub-unit, so we infer it: if half or more of an
-      act's members also belong to <i>another</i> act in this set, we treat it as a suspected
-      sub-unit. <b>That is an inference, not a fact on the record</b>, and it is why every table
-      below reports the two groups separately rather than one blended number.
-    </p>
-  </section>
-
-  <section class="src">
-    <h2>The split, with and without sub-units</h2>
+  <section>
+    <h2>Where the member is read more than the group, everywhere</h2>
     <div class="scroll-x">
       <table>
-        <caption>
-          Thresholds are fixed in the collector, not chosen per table:
-          {' '}{갈래이름.map((k, i) => <>{i > 0 && ' · '}{갈래영어[k]} {d.선[k].replace('멤버몫 ', '')}</>)}.
-        </caption>
         <thead>
-          <tr>
-            <th>Set</th><th class="num">Acts</th>
-            {갈래이름.map((k) => <th class="num">{갈래영어[k]}</th>)}
-            <th class="num">Median share</th><th class="num">Mean</th>
-          </tr>
+          <tr><th>Member</th><th>Group</th>{d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
         </thead>
         <tbody>
-          {묶음.map((g) => (
+          {늘위.map((p) => (
             <tr>
-              <td>{g.이름}</td>
-              <td class="num">{수(g.수)}</td>
-              {갈래이름.map((k) => (
-                <td class="num">{g.갈래[k]}{' '}
-                  <span class="fine">({(g.갈래[k] / g.수 * 100).toFixed(0)}%)</span></td>
-              ))}
-              <td class="num"><b>{퍼(g.중앙)}</b></td>
-              <td class="num fine">{퍼(g.평균)}</td>
+              <td class="nm">{p.member}</td>
+              <td class="nm">{p.group}</td>
+              {d.editions.map((e) => {
+                const r = p.rows.find((x) => x.edition === e);
+                return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+              })}
             </tr>
           ))}
         </tbody>
       </table>
     </div>
     <p class="note">
-      The finding survives the correction. Taking the suspected sub-units out moves the median
-      from {퍼(전부.중앙)} to {퍼(뺀것.중앙)} — smaller, still on the same side of the line. We
-      report it that way round because the uncorrected number would have been the more quotable
-      one.
+      Each cell is <b>member / group</b>, in reads per million reads of that Wikipedia. A dash means
+      one of the two has no article on that edition, so we do not compare there rather than
+      counting a missing article as zero.
     </p>
   </section>
 
-  <section class="src">
-    <h2>The {위.length} most-read acts, and which page the reading lands on</h2>
+  <section>
+    <h2>Where the group is read more, everywhere</h2>
     <div class="scroll-x">
       <table>
-        <caption>
-          Sorted by total reads, not by member share — sorting by share fills the top of the
-          table with small acts and sub-units. &ldquo;Top member&rsquo;s share&rdquo; is that
-          member's slice of the <i>member</i> reads, not of the total.
-        </caption>
         <thead>
-          <tr>
-            <th>Act</th><th class="num">Members</th><th class="num">Act page</th>
-            <th class="num">Member pages</th><th class="num">Member share</th>
-            <th>Most-read member</th><th class="num">Top member&rsquo;s share</th><th>Reads as</th>
-          </tr>
+          <tr><th>Member</th><th>Group</th>{d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
         </thead>
         <tbody>
-          {위.map((t) => (
+          {늘아래.map((p) => (
             <tr>
-              <td class="nm">{t.이름}{t.하위유닛짐작 === true && <span class="fine"> · sub-unit?</span>}</td>
-              <td class="num">{t.멤버수}</td>
-              <td class="num">{수(t.팀열람)}</td>
-              <td class="num">{수(t.멤버열람)}</td>
-              <td class="num"><b>{퍼(t.멤버몫)}</b></td>
-              <td class="nm">{t.으뜸멤버}</td>
-              <td class="num fine">{퍼(t.으뜸멤버몫)}</td>
-              <td class="fine">{갈래영어[t.어느쪽]}</td>
+              <td class="nm">{p.member}</td>
+              <td class="nm">{p.group}</td>
+              {d.editions.map((e) => {
+                const r = p.rows.find((x) => x.edition === e);
+                return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+              })}
             </tr>
           ))}
         </tbody>
@@ -229,61 +120,134 @@ const 위 = 큰순.slice(0, 40);
     </div>
   </section>
 
-  {/* 🔴 [2026-09-08] 여기에 자료의 `이것이아닌것` 을 그대로 찍었더니
-      check-kcw-korean-leak 이 «우리말이 영문 지면에 샜다»고 막았다. 옳은 지적이다 —
-      우리 손님은 영어권이고, 한국어 줄에서 읽기를 멈춘다(사장님 2026-08-05 지시).
-      ⭐ 자료 쪽 우리말은 «우리끼리 읽는 메모»다. 지면에 낼 말은 지면에서 영어로 쓴다.
-      ⛔ 그것을 기계로 번역해 붙이지 않는다 — 자료의 그 문장은 우리 판단을 적은 것이라
-        지면에 맞는 말이 따로 있다. */}
-  <section class="src">
-    <h2>What this is not</h2>
+  {섞임.length > 0 && (
+    <section>
+      <h2>Where it depends on the country</h2>
+      <p>
+        These are the interesting ones. The same member sits above their group in one country and
+        below it in another, which is a fact about the reader rather than about the act.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Member</th><th>Group</th><th>Member higher in</th>
+              {d.editions.map((e) => <th>{d.countryNames[e]}</th>)}</tr>
+          </thead>
+          <tbody>
+            {섞임.map((p) => (
+              <tr>
+                <td class="nm">{p.member}</td>
+                <td class="nm">{p.group}</td>
+                <td>{p.memberHigherIn} of {p.editions.length}</td>
+                {d.editions.map((e) => {
+                  const r = p.rows.find((x) => x.edition === e);
+                  return <td class="fine">{r ? `${r.member} / ${r.group}` : '—'}</td>;
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        T.O.P sits above BigBang only on the Vietnamese Wikipedia, at 76.81 against 38.70, and below
+        it on the other three.
+      </p>
+    </section>
+  )}
+
+  {/**
+    * 🔴 [2026-09-05] **영어 위키백과로 같은 물음을 다시 물었다.**
+    *   까닭 — 오늘 MBC 쇼! 음악중심에 그룹 멤버의 솔로 컴백 무대가 «같은 날 둘» 올랐다
+    *   (Taemin/SHINee · TEN/NCT). 이 지면은 동남아 네 언어로만 재고 있었다.
+    *   ⭐ 그런데 영어로 재니 **답이 다르다** — 동남아에서는 멤버가 앞서는 짝이 여럿인데,
+    *     영어에서는 여덟 짝 가운데 하나뿐이다. 그 «다름»이 이 절의 내용이다.
+    *   ⛔ 새 지면을 만들지 않았다. 같은 축을 두 지면에 나누면 손님이 둘 다 못 본다.
+    */}
+  <section>
+    <h2>The same question in English gives a different answer</h2>
     <p class="note">
-      This is not a popularity ranking, and it is <b>not the effect of a solo release</b> — we
-      have no release dates in this dataset, so we did not measure that and do not claim it.
+      Everything above is measured on the Indonesian, Vietnamese, Thai and Malay Wikipedias. We put
+      the same question to the English one on {영어.rows.length} soloists, over the last 30 days.
     </p>
+
+    <div class="scroll-x">
+      <table>
+        <caption>
+          Median daily English Wikipedia reads, soloist against their group ({영어.measuredAt})
+        </caption>
+        <thead>
+          <tr><th>Soloist</th><th>Reads</th><th>Group</th><th>Reads</th><th>Times the group</th></tr>
+        </thead>
+        <tbody>
+          {영어.rows.map((r: any) => (
+            <tr class={r.times > 1 ? 'hit' : undefined}>
+              <th scope="row">{r.personLabel}</th>
+              <td>{Number(r.personReads).toLocaleString('en-US')}</td>
+              <td>{r.groupLabel}</td>
+              <td>{Number(r.groupReads).toLocaleString('en-US')}</td>
+              <td>{r.times}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <p class="warn">
+      <strong>Just {영어.aheadOfTheirGroup} of the {영어.rows.length} soloists is read more than their own
+      group in English.</strong> {영어앞선.map((r: any) => r.personLabel).join(', ')} — and nobody
+      else. The most-read individual in the set, {영어큰[0].personLabel} at
+      {' '}{Number(영어큰[0].personReads).toLocaleString('en-US')} reads a day, still sits at
+      {' '}{영어큰[0].times} of {영어큰[0].groupLabel}.
+    </p>
+
     <p class="note">
-      A high member share does not mean an act is coming apart, and a low one does not mean it
-      is united — we did not measure anything about the act itself. It also does not rank
-      popularity: an English Wikipedia read is one language edition's curiosity, and plenty of
-      an act's audience never opens an encyclopaedia at all.
+      That is not the picture on the four Southeast Asian Wikipedias above, where several members
+      are read more than their groups. <strong>Which language you count in changes the answer</strong>,
+      which is a reason to name the language every time rather than say &ldquo;readers&rdquo;.
     </p>
+
+    {영어.unmeasured.length > 0 && (
+      <p class="note">Not measured: {영어.unmeasured.join(' · ')}</p>
+    )}
+    {영어.notMeasured.map((s: string) => <p class="note">{s}</p>)}
+    <p class="note">Source: {영어.source}. {영어.measures}.</p>
+  </section>
+
+  <section>
+    <h2>What this page cannot tell you</h2>
+    <p class="warn">
+      <strong>This is not a contest.</strong> A member's article and their group's article answer
+      different questions for a reader, and one being opened more is not evidence that it is better
+      known.
+    </p>
+    {d.cannotSay.map((s) => <p class="note">{s}</p>)}
+    <p class="note">{d.notMeasuredMeans} Of the {d.soloLooked} soloists we looked at,
+      {' '}{d.withGroup} belong to a group, {d.noGroup} belong to none, and {d.notMeasured} could
+      not be read.</p>
   </section>
 
   <section class="src">
-    <h2>Sources</h2>
-    <p class="note">
-      {/* ⚠ 자료의 `우물` 은 우리말이다. 검사가 「자료 이름」으로 봐주지만, 손님은 영어권이니
-          여기서는 «영어로 다시 쓴다». 뜻을 줄이지 않고 그대로 옮긴다. */}
-      Acts from Wikidata: anything whose instance-or-subclass chain reaches musical group,
-      musical ensemble, girl group or boy band, and whose country of origin, country, or
-      formation location resolves to South Korea. Members from Wikidata via both
-      {' '}<i>has part</i> (P527) and <i>member of</i> (P463) — using only one leaves acts out,
-      because different acts fill in different properties. Reads from the Wikimedia Pageviews
-      API: per-article, English Wikipedia, all-access, human agents only, monthly.
-      Window {d.창}; the current month is excluded because it is unfinished.{' '}
-      {/* ⚠ {' '} 를 손으로 넣는다. 줄 끝에서 다음 줄이 {…} 로 시작하면 아스트로가 그 사이
-          공백을 지운다 — 오늘 「unfinished.Counted」로 붙은 것을 빌드본에서 눈으로 잡았다.
-          같은 것을 백년지도 /contact 에서도 두 번 겪었다. */}
-      {잰날 ? `Counted ${잰날}.` : ''}
-    </p>
+    <h2>How this was counted</h2>
+    <ul>
+      <li><b>Source</b> — {d.source}</li>
+      <li><b>Window</b> — {d.window}</li>
+      <li><b>Method</b> — {d.method}</li>
+      <li><b>Limits</b> — {d.limitation}</li>
+    </ul>
   </section>
+
+  {/*
+    🔴 [2026-09-01] 오늘 낸 기사 `no-bts-member-outdraws-bts` 에서 뽑은 숏영상이다.
+    ⛔ 새 수를 만들지 않았다 — 이 지면과 같은 자료(`wikitip-member-vs-group.json`)를 읽는다.
+    ⚠ 화면에 «반대 사례»(Lee Hye-ri)가 같이 선다. 한쪽만 보이면
+      「멤버는 그룹을 못 이긴다」는 틀린 일반화가 된다.
+    ⛔ 소리 있는 판이다 — 사장님 「무성 콘텐트 다신 만들지 말 것」. 음량 −24.9 dB 로 쟀다.
+  */}
+  <KcwShorts set="btsgroup"
+    says={`Fourteen seconds, read aloud: seven BTS members across four Southeast Asian `
+      + `Wikipedias is twenty-eight checks, and the group page wins every one. But Lee Hye-ri `
+      + `beats Girl's Day in all four of hers — six acts lose to their own member everywhere we `
+      + `could measure. This counts encyclopaedia pages being opened, not popularity or streams.`} />
 
   <KcwRelatedArticles page="/member-vs-group" />
 </WikiTip>
-
-<style>
-  h1 { font-size: 1.6rem; line-height: 1.3; margin: 0 0 .6rem; }
-  .lead { font-size: 1.05rem; line-height: 1.65; margin: 0 0 1.4rem; }
-  .src { margin: 1.6rem 0; }
-  .src h2 { font-size: 1.05rem; margin: 0 0 .5rem; }
-  .note { color: var(--muted); font-size: .92rem; line-height: 1.65; margin: .5rem 0; }
-  .scroll-x { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: .92rem; }
-  caption { text-align: left; color: var(--muted); font-size: .86rem;
-    line-height: 1.55; padding-bottom: .5rem; }
-  th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid var(--line); }
-  th.num, td.num { text-align: right; font-variant-numeric: tabular-nums; }
-  .nm { white-space: nowrap; }
-  .fine { color: var(--muted); font-size: .86rem; }
-  @media (max-width: 640px) { table { font-size: .88rem; } h1 { font-size: 1.35rem; } }
-</style>
