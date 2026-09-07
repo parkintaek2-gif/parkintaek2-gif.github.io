@@ -36,6 +36,22 @@ const 오래버틴 = d.팀.filter((t) => t.반토막안됨 && t.봉우리뒤개�
   .sort((a, b) => b.봉우리뒤개월 - a.봉우리뒤개월);
 const 아직오르는중 = d.팀.filter((t) => t.반토막안됨 && t.봉우리뒤개월 === 0).length;
 
+/* ⛔ 창이 2015-07 부터라 그 앞에 데뷔한 팀은 «진짜 봉우리»를 못 본다.
+   그래서 「언제 봉우리가 오나」는 2016년 이후 데뷔 팀만으로 답한다. 나머지는 «뺀다». */
+const 데뷔있음 = d.팀.filter((t) => Number.isFinite(t.데뷔해) && t.데뷔해 >= 1990 && t.데뷔해 <= 2024);
+const 창안쪽 = 데뷔있음.filter((t) => t.데뷔해 >= 2016);
+const 데뷔격차 = (t) => Number(t.봉우리달.slice(0, 4)) - t.데뷔해;
+
+const 중앙값 = (a) => {
+  const s = [...a].filter(Number.isFinite).sort((x, y) => x - y);
+  if (!s.length) return null;
+  return s.length % 2 ? s[(s.length - 1) / 2] : +((s[s.length / 2 - 1] + s[s.length / 2]) / 2).toFixed(1);
+};
+const 세대들 = [1990, 1995, 2000, 2005, 2010, 2015, 2020].map((b) => {
+  const g = 데뷔있음.filter((t) => t.데뷔해 >= b && t.데뷔해 <= b + 4);
+  return { 띠: `${b}–${b + 4}`, 수: g.length, 중앙: 중앙값(g.map((t) => t.반토막까지개월)) };
+});
+
 const 수 = (n) => (n == null ? '—' : Number(n).toLocaleString('en-US'));
 const 위키 = (t) => `https://en.wikipedia.org/wiki/${encodeURIComponent(String(t).split(' ').join('_'))}`;
 ---
@@ -142,6 +158,53 @@ const 위키 = (t) => `https://en.wikipedia.org/wiki/${encodeURIComponent(String
     <p class="note">
       Most of this list is not idol pop. Several are rock and indie acts whose readership was
       never large enough to spike, and a flat line never has a peak to fall from.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>When the peak arrives</h2>
+    <p class="note">
+      Our reads begin in July 2015, so for an act that debuted earlier we cannot know whether
+      its real peak came before we were looking. This table therefore uses only the
+      {' '}<b>{창안쪽.length}</b> acts that debuted in 2016 or later, whose whole career sits
+      inside the window. The other {데뷔있음.length - 창안쪽.length} acts with a known debut year
+      are left out of this question rather than given a peak we cannot verify.
+    </p>
+    <table>
+      <thead><tr><th>Gap between debut year and peak month</th><th>Acts</th></tr></thead>
+      <tbody>
+        {[['Peaked in the debut year itself', 0, 0],
+          ['One to two years later', 1, 2],
+          ['Three to five years later', 3, 5],
+          ['Six years or more', 6, 99]].map(([이름, 아래, 위]) => (
+          <tr>
+            <td>{이름}</td>
+            <td>{창안쪽.filter((t) => 데뷔격차(t) >= (아래 === 0 ? -99 : 아래) && 데뷔격차(t) <= 위).length}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      The median gap is <b>two years</b>. Fewer than one act in six had its biggest month in
+      the year it debuted, and the tail runs long — some acts do not reach their best month
+      for six years or more.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>The fall has not changed in thirty years</h2>
+    <table>
+      <thead><tr><th>Debut years</th><th>Acts</th><th>Median months from peak to half</th></tr></thead>
+      <tbody>
+        {세대들.map((c) => (
+          <tr><td>{c.띠}</td><td>{c.수}</td><td>{c.중앙 ?? '—'}</td></tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      For acts that debuted before 2016 this is the fall from their highest month
+      <i>inside our window</i>, which need not be their career high — but the descent is
+      measured the same way for every act, and it does not vary by generation.
     </p>
   </section>
 
