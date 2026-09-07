@@ -89,6 +89,31 @@ export function 팀재기({ 이름, 제목, q, 데뷔해, 달들, 최소달 = 24
   };
 }
 
+/** JSON 안에 들어가면 안 되는 «날 제어문자»를 씻는다 — ⛔ 몇 자를 씻었는지 함께 낸다 */
+export function 제어문자씻기(글) {
+  const 원 = String(글 ?? '');
+  let 씻은수 = 0;
+  const 결과 = 원.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, () => { 씻은수 += 1; return ' '; });
+  return { 글: 결과, 씻은수 };
+}
+
+/**
+ * ⭐ 우물이 «덜 길어 온 것»을 잡는다.
+ * 자가시험은 함수만 시험한다. 받은 목록이 통째로 모자란 것은 못 잡는다 —
+ * 2026-09-07 에 에스파·RIIZE 가 빠진 채 651팀이 그럴듯하게 나왔다.
+ * 그래서 «반드시 있어야 할 이름»을 넣어 두고 대조한다. 없으면 멈춘다.
+ */
+export const 반드시있어야할이름 = [
+  'Aespa', 'BTS', 'Blackpink', 'Twice', 'Stray Kids',
+  'Tomorrow X Together', 'Riize', 'Itzy', 'NewJeans', 'Seventeen',
+];
+
+export function 덜길어왔나(받은이름들, 반드시 = 반드시있어야할이름) {
+  const 있 = new Set((받은이름들 ?? []).map((n) => String(n).toLowerCase()));
+  const 빠진 = 반드시.filter((n) => !있.has(n.toLowerCase()));
+  return { 덜왔다: 빠진.length > 0, 빠진 };
+}
+
 /* ── 자가시험 ─────────────────────────────────────────────────── */
 function 자가시험() {
   let 통 = 0; let 실 = 0;
@@ -128,6 +153,16 @@ function 자가시험() {
   봐('남은 몫이 10%', 잰.남은몫 === 10);
   봐('반토막 달을 찾아낸다', typeof 잰.반토막달 === 'string');
   봐('봉우리 뒤 개월을 낸다', Number.isFinite(잰.봉우리뒤개월) && 잰.봉우리뒤개월 > 0);
+
+  봐('날 제어문자를 씻는다', 제어문자씻기('a' + String.fromCharCode(1) + 'b').글 === 'a b');
+  봐('몇 자를 씻었는지 센다', 제어문자씻기(String.fromCharCode(1, 2)).씻은수 === 2);
+  봐('⛔ 줄바꿈·탭은 안 건드린다', 제어문자씻기('a\tb\nc').씻은수 === 0);
+  봐('멀쩡한 글은 그대로', 제어문자씻기('Aespa').글 === 'Aespa');
+  봐('🔴 아는 이름이 빠지면 «덜 왔다»고 한다', 덜길어왔나(['BTS'], ['BTS', 'Aespa']).덜왔다 === true);
+  봐('빠진 이름을 적어 준다', 덜길어왔나(['BTS'], ['BTS', 'Aespa']).빠진[0] === 'Aespa');
+  봐('다 있으면 덜 온 것이 아니다', 덜길어왔나(['BTS', 'Aespa'], ['BTS', 'Aespa']).덜왔다 === false);
+  봐('대소문자가 달라도 같은 이름으로 본다', 덜길어왔나(['aespa'], ['Aespa']).덜왔다 === false);
+  봐('⛔ 빈 목록이면 다 빠진 것이다', 덜길어왔나([], ['BTS']).빠진.length === 1);
 
   console.log(`\n팀의 «봉우리 뒤»를 재는 자 — 자가시험 ${통}가지 통과 · ${실}가지 실패`);
   if (실) process.exit(1);
@@ -172,8 +207,15 @@ async function 주된일() {
     OPTIONAL { ?g wdt:P571 ?inception }
   } LIMIT 5000`;
   const su = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(q);
-  const sj = await 받기(su);
-  if (!sj || sj.못받음) throw new Error('위키데이터를 못 받았다: ' + JSON.stringify(sj));
+  /* 🔴 [2026-09-07] 위키데이터가 문서 제목에 «날 제어문자»를 섞어 보내 JSON.parse 가 터졌다.
+     ⛔ 조용히 넘기지 않는다 — 씻어 내되 «몇 자를 씻었는지»를 화면과 결과에 적는다. */
+  const 날글 = await 받기(su, 'text');
+  if (!날글 || 날글.못받음) throw new Error('위키데이터를 못 받았다: ' + JSON.stringify(날글));
+  const 씻김 = 제어문자씻기(String(날글));
+  if (씻김.씻은수) console.log(`  ⚠ 제어문자 ${씻김.씻은수}자를 씻어 냈다 (위키데이터가 보낸 것)`);
+  let sj;
+  try { sj = JSON.parse(씻김.글); }
+  catch (e) { throw new Error('위키데이터 답을 못 읽었다: ' + e.message); }
   const 받은 = sj.results.bindings;
 
   const 팀들 = [];
@@ -189,7 +231,11 @@ async function 주된일() {
       데뷔해: b.inception ? Number(String(b.inception.value).slice(0, 4)) : null,
     });
   }
-  console.log(`\n■ 위키데이터에서 한국 음악 팀 ${팀들.length}팀 (영문 문서가 있는 것만)\n`);
+  console.log(`\n■ 위키데이터에서 한국 음악 팀 ${팀들.length}팀 (영문 문서가 있는 것만)`);
+  /* ⭐ 겉수가 그럴듯해도 «아는 이름»이 빠졌으면 멈춘다 */
+  const 검산 = 덜길어왔나(팀들.map((t) => t.이름));
+  if (검산.덜왔다) throw new Error('우물이 덜 길어 왔다 — 반드시 있어야 할 이름이 빠졌다: ' + 검산.빠진.join(', '));
+  console.log(`  ✅ 검산 — 반드시 있어야 할 ${반드시있어야할이름.length}팀이 다 들어 있다\n`);
 
   /* 2. 팀마다 달별 열람 — 2015-07 부터 «끝난 달»까지 */
   const 이제 = new Date();
