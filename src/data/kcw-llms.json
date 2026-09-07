@@ -1,5 +1,5 @@
 {
- "지은날": "2026-09-04T22:30:13.123Z",
+ "지은날": "2026-09-07T05:54:34.821Z",
  "갈래들": [
   {
    "갈래": "Start here",
@@ -23,6 +23,16 @@
      "길": "/data",
      "이름": "Data and sources",
      "설명": "Every number on this site comes from 15,954 rows we built and keep. This is what is in them, what is missing from them, and what we have had to correct."
+    },
+    {
+     "길": "/what-countries-read",
+     "이름": "What each country actually reads about Korea",
+     "설명": "Wikipedia publishes the most-read articles per country per day. Over 14 days and 20 countries, 87 Korean articles ever entered one — and 63 of the 93 appearances were Japan."
+    },
+    {
+     "길": "/netflix-tudum-data-dictionary",
+     "이름": "What is actually inside the Netflix Tudum files",
+     "설명": "Netflix publishes two Top 10 data files. We counted what is in them: 501,040 rows across 94 countries and 269 weeks in the country file, 10,760 in the global one, both running 2021-07-04 to…"
     }
    ]
   },
@@ -78,6 +88,31 @@
      "길": "/netflix-korea-this-week",
      "이름": "This week in Korea",
      "설명": "17 Korean titles held a Netflix weekly top 10 place somewhere in the week of 23 August 2026. 3 entered, 5 left, 14 held on from the week before. Every title and its country count, listed."
+    },
+    {
+     "길": "/demon-hunters-countries",
+     "이름": "KPop Demon Hunters: 93 countries, and Latvia held it 62 weeks",
+     "설명": "KPop Demon Hunters appeared in 93 countries' Netflix top 10 and reached number one in 76 of them. Latvia held it longest at 62 weeks; Korea sat at 32, exactly the median. In 78 countries the run had…"
+    },
+    {
+     "길": "/all-ten",
+     "이름": "The all-Korean top 10s",
+     "설명": "A Netflix country chart has been Korean in all ten places 8 times — 4 outside Korea, in Vietnam, Indonesia and Malaysia. From 50,034 country-week charts."
+    },
+    {
+     "길": "/same-list",
+     "이름": "Which two countries hold the same Korean Netflix list",
+     "설명": "Malaysia and Singapore hold 77.9% of the same Korean titles in the same week. 4,179 country pairs measured across 269 weeks."
+    },
+    {
+     "길": "/pickup",
+     "이름": "Which markets pick up a Korean title first",
+     "설명": "Malaysia carries a Korean title in the same week it first charts anywhere 71.9% of the time; United Kingdom does it 32.6%. 949 Korean titles across 92 markets."
+    },
+    {
+     "길": "/weeks-counter",
+     "이름": "What Netflix weeks-in-top-10 actually counts",
+     "설명": "Netflix puts a weeks-in-top-10 number on every chart row. Measured across 500,340 rows: it adds one on every consecutive week without exception, and after a gap it keeps counting 98% of the time. It…"
     }
    ]
   },
@@ -120,6 +155,71 @@
      "설명": "We placed 1047 Korean actors and singers into the twelve zodiac signs by year of birth — IU and Song Hye-kyo in the Rooster, Cha Eun-woo and Song Joong-ki in the Ox, Byeon Woo-seok in the Goat. The…"
     },
     {
+     "길": "/group-afterlife",
+     "이름": "How long a K-pop group stays looked up after its peak",
+     "설명": "For 651 Korean acts, the median time to lose half the readers of their best month is two months. One group held out for 65. Peak month, month by month, both sides counted."
+    },
+    {
+     "길": "/bts-star-signs",
+     "이름": "BTS star signs, and the 9,249 stars behind them",
+     "설명": "Jin is a Sagittarius, Suga a Pisces, J-Hope an Aquarius, RM and Jung Kook both Virgos, Jimin a Libra, V a Capricorn. Six distinct signs among seven members — which is the single most likely outcome…"
+    },
+    {
+     "길": "/star-sign-pairs",
+     "이름": "Which star signs end up in the same K-pop group",
+     "설명": "We counted all 4,651 pairings of members inside 259 K-pop groups and set each pair of star signs beside what chance alone would give. Every pair lands between 0.75x and 1.25x. Nothing sorts."
+    },
+    {
+     "길": "/kpop-birthdays",
+     "이름": "K-pop idol birthdays by month",
+     "설명": "1282 K-pop group members with a birth date on record. March has 1.201x an even month, July 0.697x. Every month listed, with the noise test."
+    },
+    {
+     "길": "/name-spelled",
+     "이름": "The spelling readers land on, not the one Wikipedia chose",
+     "설명": "For 100 of the most-read Korean stars we hold 732 English Wikipedia titles and 232,311,005 reads across them. 6 are reached mostly through a title the encyclopedia no longer uses; for the rest the…"
+    },
+    {
+     "길": "/which-language-reads-you",
+     "이름": "Who is read more in English than in Korean",
+     "설명": "We counted daily Wikipedia reads in Korean and in English for the same six Korean singers. Rosé draws 2,461 English readers a day against 105 Korean ones. Lim Young-woong, who filled a stadium for…"
+    },
+    {
+     "길": "/streak-vs-read",
+     "이름": "Leading the weeks is not being read most",
+     "설명": "Which BTS member the English Wikipedia read most, week by week, for 171 weeks. V led 108; Jung Kook had the higher median week. Not a popularity ranking."
+    },
+    {
+     "길": "/rookie-reading",
+     "이름": "How rookie groups are read in English",
+     "설명": "We count daily English Wikipedia readers for the five K-pop groups that debuted in 2025. Cortis is read 9.5x what it was in its first 90 days. 1 held level and 3 are read less now than then. Medians,…"
+    },
+    {
+     "길": "/surge-floor",
+     "이름": "Who surged depends on the floor",
+     "설명": "3,253 Korean stars, ranked by the surge measure trending lists use. With no floor Choi Yu-jin rose 654x from one reader; with a floor it is 6.26x."
+    },
+    {
+     "길": "/what-moves-english-reading",
+     "이름": "What actually moves English reading",
+     "설명": "Korean coverage called Jin the most-searched person in the world the week Gucci unveiled its Primavera campaign. We cannot count Google searches, so we counted English Wikipedia reads against his own…"
+    },
+    {
+     "길": "/casting-news-reading",
+     "이름": "Casting news and English reading",
+     "설명": "K-drama outlets publish casting news constantly. We counted daily English Wikipedia reads for every named performer, 6 stories with a complete window: 4 held level, 2 were read less afterwards, and…"
+    },
+    {
+     "길": "/tour-city-languages",
+     "이름": "Tour cities and the languages that read the act",
+     "설명": "Daily Wikipedia views for U-Know Yunho in every language his seven 2026 tour cities speak. English leads at 120.7; Indonesian, where he plays, runs 6.4."
+    },
+    {
+     "길": "/cannot-see",
+     "이름": "The Korean singers our numbers cannot see",
+     "설명": "Wikidata lists 5,415 Korean singers. Only 1,425 have an English Wikipedia article, so 3,990 of them (73.7%) produce no row in any reading measure we publish. This page counts the hole in our own…"
+    },
+    {
      "길": "/school",
      "이름": "The schools Korean stars went to",
      "설명": "55 schools, each with the Korean actors, singers and other entertainers we counted from it. Built from Wikidata, which records a school for 4,535 of the 9,249 people we hold."
@@ -145,6 +245,11 @@
      "설명": "All 396 Korean webtoon businesses surveyed in 2024 — by type, headcount and revenue. Average revenue and the share earning under ₩1bn are listed."
     },
     {
+     "길": "/webtoon-adaptations",
+     "이름": "Webtoon adaptations, and who gets read",
+     "설명": "Korean webtoons are read 14x more once adapted; Japanese manga only 3.7x. 51 comic-and-adaptation pairs, both sides counted on English Wikipedia."
+    },
+    {
      "길": "/tv-exports",
      "이름": "Korean TV exports",
      "설명": "Korean broadcast programme exports grew 5.4 times in thirteen years. Terrestrial broadcasters went from two-thirds of it to 4%, and independent production companies went from 7% to half. Measured,…"
@@ -153,6 +258,21 @@
      "길": "/two-pipelines",
      "이름": "Two pipelines into the top 10",
      "설명": "Of 287 charting Korean series with a company credit, 238 aired on a Korean television network and reach a median 4 markets. The 49 with no broadcaster credit reach a median 39. They are 17.1% of the…"
+    },
+    {
+     "길": "/label-reach",
+     "이름": "SM, YG, JYP, Hybe: how many artists we can count",
+     "설명": "SM, YG, JYP, Hybe and 152 more K-pop companies. We hold a reader count for 650 artists, but the share we can measure runs 37.2–66.7% — not a ranking."
+    },
+    {
+     "길": "/cap-per-artist",
+     "이름": "Market value per artist we can count",
+     "설명": "HYBE, SM, JYP, YG, Cube and FNC: market value divided by the artists we can count. The divisor is a floor, so every figure is a ceiling. Not a valuation."
+    },
+    {
+     "길": "/korea-culture-data-market",
+     "이름": "Korea culture datasets: free, and how many are maintained",
+     "설명": "We counted every dataset on Korea's culture big-data platform: 1,075 free, 239 paid, and only 322 updated in the last twelve months. 590 are marked as never updating at all."
     }
    ]
   },
@@ -517,7 +637,7 @@
     {
      "길": "/articles",
      "이름": "All articles",
-     "설명": "All 155 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+     "설명": "All 176 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
     },
     {
      "길": "/community",

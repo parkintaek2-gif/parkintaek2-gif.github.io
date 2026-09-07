@@ -75,8 +75,25 @@ export function 줄만들기({ 길, 이름, 설명 }, 밑 = 'https://www.kcultur
   return 설명 ? `${앞}: ${설명}` : 앞;
 }
 
+/* 🔴 [2026-09-07 · 5번] **이 목록이 GEO 의 손잡이다.**
+   GA4 28일을 재 보니 chatgpt.com 유입 44방문 중 «27방문(61%)»이 기사가 아니라
+   자료·축 지면에 내렸다(/data · /exports · /netflix-top10-data · /school/… · /major/…).
+   기사에 내린 것은 10방문(23%)뿐이다.
+   ⇒ **LLM 은 우리 «글»이 아니라 우리 «자료»를 물어다 준다.**
+     그러면 새 축 지면을 낼 때마다 이 목록에 «같이» 넣어야 한다. 안 넣으면 LLM 이 모른다.
+   ⚠ 표본이 방문 44개다. 방향은 뚜렷하지만(61% 대 23%) 크기는 작다 — 그렇게 읽는다.
+   ⛔ 오늘 낸 축 지면 셋이 여기 없었다. 지면을 내고 이 줄을 잊으면 조용히 새는 것이다. */
 /* ⭐ 어느 지면을 낼지는 «손으로» 고른다 — 무엇이 중요한지는 자가 모른다.
    ⛔ 다만 «설명»은 손으로 안 쓴다. 실제 지면에서 가져온다. */
+/**
+ * ⛔ 일부러 안내문에 «안 넣는» 지면. 까닭을 함께 적는다 —
+ *   적지 않으면 check-kcw-llms-freshness 가 다음에도 같은 것을 울리고,
+ *   그러면 사람이 검사를 끄게 된다.
+ */
+export const 봐줄것 = [
+  { 지면: '/tags', 까닭: '주제 목록이라 «길잡이»다. 자료가 아니라 다른 지면으로 가는 문이다' },
+];
+
 export const 차례 = [
   {
     갈래: 'Start here',
@@ -85,6 +102,8 @@ export const 차례 = [
       ['/most-popular', 'Which Korean title did best — it depends what you count'],
       ['/titles', 'Every Korean title we hold'],
       ['/data', 'Data and sources'],
+      ['/what-countries-read', 'What each country actually reads about Korea'],
+      ['/netflix-tudum-data-dictionary', 'What is actually inside the Netflix Tudum files'],
     ],
   },
   {
@@ -100,6 +119,11 @@ export const 차례 = [
       ['/underrated', 'Titles that travelled further than their fame'],
       ['/netflix-top-10-korean-drama', 'Korean drama in the Netflix top 10'],
       ['/netflix-korea-this-week', 'This week in Korea'],
+      ['/demon-hunters-countries', 'KPop Demon Hunters: 93 countries, and Latvia held it 62 weeks'],
+      ['/all-ten', 'The all-Korean top 10s'],
+      ['/same-list', 'Which two countries hold the same Korean Netflix list'],
+      ['/pickup', 'Which markets pick up a Korean title first'],
+      ['/weeks-counter', 'What Netflix weeks-in-top-10 actually counts'],
     ],
   },
   {
@@ -112,6 +136,19 @@ export const 차례 = [
       ['/born-abroad', 'Korean stars born outside Korea'],
       ['/debut-age', 'How old they were at debut'],
       ['/star-signs', 'Star signs across Korean stars'],
+      ['/group-afterlife', 'How long a K-pop group stays looked up after its peak'],
+      ['/bts-star-signs', 'BTS star signs, and the 9,249 stars behind them'],
+      ['/star-sign-pairs', 'Which star signs end up in the same K-pop group'],
+      ['/kpop-birthdays', 'K-pop idol birthdays by month'],
+      ['/name-spelled', 'The spelling readers land on, not the one Wikipedia chose'],
+      ['/which-language-reads-you', 'Who is read more in English than in Korean'],
+      ['/streak-vs-read', 'Leading the weeks is not being read most'],
+      ['/rookie-reading', 'How rookie groups are read in English'],
+      ['/surge-floor', 'Who surged depends on the floor'],
+      ['/what-moves-english-reading', 'What actually moves English reading'],
+      ['/casting-news-reading', 'Casting news and English reading'],
+      ['/tour-city-languages', 'Tour cities and the languages that read the act'],
+      ['/cannot-see', 'The Korean singers our numbers cannot see'],
       ['/school', 'The schools Korean stars went to'],
     ],
   },
@@ -121,8 +158,12 @@ export const 차례 = [
       ['/firms', 'Production companies'],
       ['/who-makes-it', 'Who makes Korean shows'],
       ['/webtoon', 'Titles that began as webtoons'],
+      ['/webtoon-adaptations', 'Webtoon adaptations, and who gets read'],
       ['/tv-exports', 'Korean TV exports'],
       ['/two-pipelines', 'Two pipelines into the top 10'],
+      ['/label-reach', 'SM, YG, JYP, Hybe: how many artists we can count'],
+      ['/cap-per-artist', 'Market value per artist we can count'],
+      ['/korea-culture-data-market', 'Korea culture datasets: free, and how many are maintained'],
     ],
   },
   {
