@@ -140,7 +140,7 @@ console.log('호스트별 라우팅');
 if (자산) {
   /* ⚠ kculturewire.com 은 2026-08-05 에 붙인 K컬처 매체의 새 주소다.
      옛 주소 wiki-tip.com 도 **아직 살아 있어야 한다** — 301 을 걸기 전까지 둘 다 뜬다 */
-  for (const host of ['seoulmarkets.com', '100yearmap.com', 'kculturewire.com', 'wiki-tip.com']) {
+  for (const host of ['seoulmarkets.com', '100yearmap.com', 'www.kculturewire.com', 'wiki-tip.com']) {
     const r = await 부르기(host, 자산);
     확인(r.status === 200, `⭐ ${host}${자산} 이 200`, r.status);
   }
@@ -152,6 +152,36 @@ if (자산) {
 for (const host of ['seoulmarkets.com', '100yearmap.com']) {
   const r = await 부르기(host, '/');
   확인(r.status === 200, `${host}/ 가 200`, r.status);
+}
+
+/* ⚠ [2026-09-07 · 5번] 위 시험 셋의 호스트를 kculturewire.com → www.kculturewire.com 로 바꿨다.
+ *   non-www 에 301 을 걸었으니 그 호스트로는 이제 301 이 온다 — 시험이 «옳게» 실패했다.
+ *   ⛔ 301 을 무르지 않았다. 시험이 «정본 호스트»를 보게 고쳤다.
+ *   ⭐ 시험이 내 변경을 잡아 줬다. 세 줄이 안 울었으면 나는 라이브에서 알았을 것이다. */
+
+/* ── ⭐ [2026-09-07 · 5번] non-www 가 www 로 «301 로 넘어가나» ────────
+ *
+ * 왜 이 시험이 필요했나 — GA4 28일에 두 주소가 «따로» 잡혀 있었다.
+ * 
+ * 사람의 모양이 아닌 88명이 손님 수에 섞이고 있었고, 서치콘솔에는 사이트맵이 둘 잡혔다.
+ *
+ * ⛔ 이 301 은 «딱 한 호스트»만 넘겨야 한다. 다른 사이트는 non-www 가 정본이라
+ *    같이 넘기면 그 사이트들이 통째로 엉뚱한 곳으로 간다. 그래서 양쪽을 다 시험한다.
+ */
+{
+  const r = await 부르기('kculturewire.com', '/webtoon-adaptations');
+  확인(r.status === 301, 'kculturewire.com 이 301 로 넘긴다', r.status);
+  확인(String(r.location ?? '') === 'https://www.kculturewire.com/webtoon-adaptations',
+    '⭐ 301 목적지가 www + 원래 경로다 (경로를 잃지 않는다)', r.location);
+}
+{
+  const r = await 부르기('www.kculturewire.com', '/webtoon-adaptations');
+  확인(r.status !== 301, '⛔ www 쪽은 301 로 넘기지 않는다 (고리가 생기면 지면이 죽는다)', r.status);
+}
+for (const host of ['seoulmarkets.com', '100yearmap.com', 'localhost']) {
+  const r = await 부르기(host, '/');
+  확인(r.status !== 301,
+    '⛔ ' + host + ' 는 non-www 가 정본이라 301 로 넘기지 않는다', r.status);
 }
 
 /* ── ⭐ ③ 301 이 **내부 접두사를 드러내지 않는다** ──────────────── */
@@ -186,7 +216,7 @@ for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
  */
 {
   const 전용 = (p) => existsSync(path.join(ROOT, p));
-  for (const [host, 접두] of [['100yearmap.com', '100y'], ['kculturewire.com', 'wikitip'], ['wiki-tip.com', 'wikitip']]) {
+  for (const [host, 접두] of [['100yearmap.com', '100y'], ['www.kculturewire.com', 'wikitip'], ['wiki-tip.com', 'wikitip']]) {
     const r = await 부르기(host, '/이런주소는없다-abc123');
     확인(r.status === 404, `${host} 없는 주소가 404`, r.status);
     if (전용(`${접두}/404.html`)) {
@@ -242,7 +272,7 @@ for (const p of ['/%zz', '/../../etc/passwd', '/_astro/없는파일.css']) {
   const 겹침 = (이름, 접두) =>
     existsSync(path.join(ROOT, `${이름}.html`)) && existsSync(path.join(ROOT, 접두, `${이름}.html`));
 
-  for (const [host, 접두] of [['kculturewire.com', 'wikitip'], ['100yearmap.com', '100y']]) {
+  for (const [host, 접두] of [['www.kculturewire.com', 'wikitip'], ['100yearmap.com', '100y']]) {
     /* 두 사이트에 **같은 이름으로 다 있는** 지면만 고른다. 없으면 시험할 수 없다 */
     const 볼것 = ['about', 'esports'].filter((n) => 겹침(n, 접두));
     if (!볼것.length) { console.log(`   (${host} — 겹치는 지면이 없어 건너뛴다)`); continue; }

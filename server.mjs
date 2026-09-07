@@ -241,6 +241,39 @@ const handle = async (req, res) => {
    *   그리고 **모르는 호스트는 기본(금융)으로 보낸다** — 새 도메인을 붙였는데
    *   여기 안 적으면 조용히 빈 화면이 나오는 것보다 낫다.
    */
+  /*
+   * ⭐ [2026-09-07 · 5번] **정본 호스트로 301 을 건다.**
+   *
+   * 왜 — GA4 28일을 재 보니 두 주소가 따로 잡혀 있었다.
+   * ```
+   * www.kculturewire.com   순방문자 105 · 평균 머문 62초 · 붙든 방문 33%
+   * kculturewire.com       순방문자  88 · 평균 머문  5초 · 붙든 방문  4%  ← 전부 (direct)
+   * ```
+   *   88명이 다 유입원 없이 들어와 5초에 나간다. **사람의 모양이 아니다.**
+   *   그런데 GA4 는 그것을 손님으로 세고, 서치콘솔에는 사이트맵이 «두 개» 잡혀 있었다
+   *   (www 2,821장 · non-www 2,754장). 같은 글이 두 주소로 뜨면 둘 다 약해진다.
+   *
+   * ⛔ 딱 아는 호스트만 넣는다. 모르는 호스트를 건드리면 배포 헬스체크가 죽는다.
+   * ⛔ GET·HEAD 만 넘긴다 — POST 를 301 로 넘기면 본문이 사라진다.
+   * ⚠ 100yearmap·seoulmarkets·klifemap 은 «non-www 가 정본»이다. 여기 넣지 않는다.
+   *   (그쪽 canonical 태그가 non-www 를 가리키는 것을 2026-09-07 에 확인했다)
+   * ⚠ www.100yearmap.com 도 같은 꼴로 5명·1초가 잡히지만 **3번 도메인**이라 손대지 않는다.
+   *   3번이 같은 줄을 넣으면 된다 — 메모로 알렸다.
+   */
+  const 정본호스트 = {
+    'kculturewire.com': 'www.kculturewire.com',
+  };
+  const 날호스트 = String(req.headers.host ?? '').split(':')[0].toLowerCase();
+  const 정본 = 정본호스트[날호스트];
+  if (정본 && (req.method === 'GET' || req.method === 'HEAD')) {
+    res.writeHead(301, {
+      Location: `https://${정본}${req.url ?? '/'}`,
+      'Cache-Control': 'public, max-age=3600',
+    });
+    res.end();
+    return;
+  }
+
   const host = String(req.headers.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '');
   /*
    * ⚠ 여기 없는 호스트는 **조용히 금융 사이트로 떨어진다.** 404 도 에러도 안 난다.
