@@ -266,6 +266,16 @@ export const 붙일수있는갈래 = [
    *   따로 넣으면 이 자리를 두 번 열게 되고, 그때 또 하나를 빠뜨린다.
    */
   'price', 'terms', 'privacy', 'refund',
+  /**
+   * 🔴 [2026-09-07 · 3번] 5번이 `npm test`로 잡아 준 「at=기타」 14장.
+   *   대부분 오늘 새로 낸 지면(work-gap 이후)과 그 이전에 빠져 있던 것들이다.
+   *   `school`·`major`·`college-major`·`university-gap`·`university-package` 처럼
+   *   대학·학과 «분석» 지면은 어른갈래에 넣지 않는다(도착지 검증 안 함, 기존 결과대로 학부모·학생 쪽 기본 문이 맞다).
+   */
+  'apt-parking-age', 'dropout-by-school-type', 'ev-charger-by-age', 'property-tax', 'video',
+  'work-gap', 'business-age', 'youth-employment-streak', 'college-age-population',
+  'major-name-gap', 'closed-universities', 'field-employment',
+  'university-employment-spread', 'university-enrollment-fill',
   '기타',
 ] as const;
 
