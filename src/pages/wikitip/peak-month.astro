@@ -56,6 +56,10 @@ const jsonLd = {
 const 수 = (n) => (n == null ? '—' : Number(n).toLocaleString('en-US'));
 /* 표에서 눈에 걸리게 — 두 표준편차를 넘은 것만 굵게 */
 const 뚜렷 = (z) => z !== null && Math.abs(z) >= 2;
+/* ⭐ 「몇 달이 두 표준편차를 넘나」를 «한 곳에서만» 센다. 손으로 적으면 자료가 바뀔 때
+   지면과 어긋난다 — 2026-09-08 에 그 일이 실제로 일어났다(지면은 셋, 자료는 다섯). */
+const 뚜렷한달 = 줄.filter((x) => 뚜렷(x.표준편차))
+  .sort((a, b) => Math.abs(b.표준편차) - Math.abs(a.표준편차));
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
@@ -80,7 +84,7 @@ const 뚜렷 = (z) => z !== null && Math.abs(z) >= 2;
         <tr><td>Acts dropped for too few months — <i>not counted as zero</i></td><td class="num">{수(전체.못잰팀)}</td></tr>
         <tr><td>Of those, peaks of {수(큰.문턱)} reads or more</td><td class="num">{수(큰.잰팀)}</td></tr>
         <tr><td>Months in the window</td><td class="num">{수(줄.reduce((a, b) => a + b.창안날수, 0))} days</td></tr>
-        <tr><td>Calendar months more than two SD from expectation</td><td class="num"><b>{줄.filter((x) => 뚜렷(x.표준편차)).length}</b> of 12</td></tr>
+        <tr><td>Calendar months more than two SD from expectation</td><td class="num"><b>{뚜렷한달.length}</b> of 12</td></tr>
       </tbody>
     </table>
   </section>
@@ -125,10 +129,18 @@ const 뚜렷 = (z) => z !== null && Math.abs(z) >= 2;
         </tbody>
       </table>
     </div>
+    {/* 🔴 [2026-09-08] 이 자리에 「Three months」가 «손으로» 적혀 있었고 라이브로 나갔다.
+        자료는 다섯이다(1·2·4·9·11월). 오늘 낮에 기사에서 셋→다섯으로 고치고 **지면을 안 따라갔다.**
+        ⛔ 더 나쁜 것은, 바로 위 「What was counted」 표가 같은 수를 «자료에서 읽어» 5 로
+          찍고 있었다는 것이다 — 지면이 자기와 모순됐다.
+        ✅ 그래서 손으로 적지 않는다. 세고, 달 이름까지 자료에서 읽어 붙인다. */}
     <p class="note">
-      Three months sit more than two standard deviations from expectation on the high side or
-      the low side. That is the finding. The middle of the table is unremarkable, and we say so
-      rather than dressing it up.
+      <b>{뚜렷한달.length}</b> of the twelve months sit more than two standard deviations from
+      expectation — {뚜렷한달.map((x, i) => (
+        <>{i > 0 && (i === 뚜렷한달.length - 1 ? ' and ' : ', ')}{x.이름}{' '}
+          ({x.표준편차 > 0 ? 'high' : 'low'})</>
+      ))}. That is the finding. The middle of the table is unremarkable, and we say so rather
+      than dressing it up.
     </p>
   </section>
 
