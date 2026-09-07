@@ -1,0 +1,175 @@
+---
+/**
+ * K Culture Wire — **K팝 팀이 봉우리를 지나고 나서 얼마나 남는가.** (`/group-afterlife`)
+ *
+ * ── 왜 이 지면인가 ────────────────────────────────────────────
+ * 오늘 이슈(2026-09-07): 「BigBang is back … why the K-pop group still matters」
+ *   「still matters」는 주장이다. 우리는 그것을 «수»로 낸다 —
+ *   가장 읽히던 달과 지금을 나란히 놓으면 된다.
+ *
+ * ⭐ 그리고 이 축은 이슈가 식어도 남는다. 어느 팀이 컴백하든 같은 표에 얹힌다.
+ *   사장님 지시(2026-09-06): 「이슈+롱테일」 — 이슈로 데려오고 축으로 남긴다.
+ *
+ * ── ⛔ 이 지면이 하지 않는 것 ─────────────────────────────────
+ * ⛔ 팀에 등수를 매겨 「한물갔다」고 안 쓴다. 나란히 놓고 수만 적는다
+ * ⛔ 「위키백과를 덜 찾는다」를 「인기가 없다」로 바꿔 쓰지 않는다
+ * ⛔ 못 잰 46팀을 0 으로 안 채운다 — 몇 팀인지 화면에 적는다
+ * ⛔ 🔴 봉우리가 «지난달»인 팀을 「안 꺼진 팀」으로 자랑하지 않는다.
+ *    꺼질 시간이 없었을 뿐이다. 그래서 «봉우리 뒤 12개월 이상» 지난 것만 따로 센다
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/kcw-group-afterlife.json';
+
+const TITLE = 'How long a K-pop group stays looked up after its peak';
+const DESC =
+  'For 651 Korean acts, the median time to lose half the readers of their best month is '
+  + 'two months. One group held out for 65. Peak month, month by month, both sides counted.';
+
+const 셈 = d.셈;
+const 큰 = d.팀.filter((t) => t.봉우리열람 >= 50000);
+const 느린 = 큰.filter((t) => Number.isFinite(t.반토막까지개월))
+  .sort((a, b) => b.반토막까지개월 - a.반토막까지개월).slice(0, 12);
+const 가장큰봉우리 = [...d.팀].sort((a, b) => b.봉우리열람 - a.봉우리열람).slice(0, 12);
+/* ⭐ 「아직 안 꺼졌다」는 봉우리 뒤 «시간이 있었을 때»만 뜻이 있다 */
+const 오래버틴 = d.팀.filter((t) => t.반토막안됨 && t.봉우리뒤개월 >= 12)
+  .sort((a, b) => b.봉우리뒤개월 - a.봉우리뒤개월);
+const 아직오르는중 = d.팀.filter((t) => t.반토막안됨 && t.봉우리뒤개월 === 0).length;
+
+const 수 = (n) => (n == null ? '—' : Number(n).toLocaleString('en-US'));
+const 위키 = (t) => `https://en.wikipedia.org/wiki/${encodeURIComponent(String(t).split(' ').join('_'))}`;
+---
+
+<WikiTip title={TITLE} description={DESC} page="/group-afterlife">
+  <h1>{TITLE}</h1>
+
+  <p class="lead">
+    Every Korean act has one month when more people looked it up than in any other. We found
+    that month for <b>{셈.잰팀} of them</b> and counted what was left afterwards. The median
+    act fell below half of its best month within <b>{셈.반토막까지중앙값개월} months</b>.
+  </p>
+
+  <section class="src">
+    <h2>The whole set</h2>
+    <table>
+      <tbody>
+        <tr><td>Korean acts with an English Wikipedia article</td><td>{수(셈.받은팀)}</td></tr>
+        <tr><td>Measured here (at least 24 months of data)</td><td><b>{수(셈.잰팀)}</b></td></tr>
+        <tr><td>Dropped for too few months — <i>not counted as zero</i></td><td>{수(셈.못잰팀)}</td></tr>
+        <tr><td>Have fallen below half their peak month</td><td>{수(셈.반토막된팀)}</td></tr>
+        <tr><td>Median months from peak to half</td><td><b>{셈.반토막까지중앙값개월}</b></td></tr>
+        <tr><td>Have not fallen below half yet</td><td>{수(셈.아직안꺼진팀)}</td></tr>
+        <tr><td>…of which peaked <i>this month</i>, so had no time to fall</td><td>{아직오르는중}</td></tr>
+      </tbody>
+    </table>
+    <p class="note">
+      That last line matters. An act whose best month is the most recent month cannot have
+      declined yet, and counting it as durable would be wrong. Only
+      {' '}<b>{오래버틴.length}</b> acts have gone twelve months or more past their peak and
+      still hold half of it.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Held on longest — acts whose peak month drew 50,000 or more</h2>
+    <p class="note">
+      Restricted to the {큰.length} acts with a peak of at least 50,000 reads, so that a small
+      article with noisy months cannot lead the table.
+    </p>
+    <table>
+      <thead>
+        <tr><th>Act</th><th>Months from peak to half</th><th>Peak month</th><th>Peak reads</th><th>Left today</th></tr>
+      </thead>
+      <tbody>
+        {느린.map((t) => (
+          <tr>
+            <td><a href={위키(t.제목)} rel="noopener">{t.이름}</a></td>
+            <td><b>{t.반토막까지개월}</b></td>
+            <td>{t.봉우리달}</td>
+            <td>{수(t.봉우리열람)}</td>
+            <td>{t.남은몫}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      The gap between first and second place is the finding here, not the ranking itself.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>The largest peaks, and what is left of them</h2>
+    <table>
+      <thead>
+        <tr><th>Act</th><th>Peak month</th><th>Peak reads</th><th>Latest month</th><th>Left</th><th>Peak to half</th></tr>
+      </thead>
+      <tbody>
+        {가장큰봉우리.map((t) => (
+          <tr>
+            <td><a href={위키(t.제목)} rel="noopener">{t.이름}</a></td>
+            <td>{t.봉우리달}</td>
+            <td>{수(t.봉우리열람)}</td>
+            <td>{수(t.요즘열람)}</td>
+            <td>{t.남은몫}%</td>
+            <td>{t.반토막까지개월 == null ? 'not yet' : `${t.반토막까지개월} mo`}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      A very large peak does not buy a slow decline. Several of the biggest months in this
+      table were an act's debut or a single event, and the month after was already half.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>Past their peak by a year or more, and still above half</h2>
+    <table>
+      <thead>
+        <tr><th>Act</th><th>Peak month</th><th>Months since</th><th>Left</th></tr>
+      </thead>
+      <tbody>
+        {오래버틴.map((t) => (
+          <tr>
+            <td><a href={위키(t.제목)} rel="noopener">{t.이름}</a></td>
+            <td>{t.봉우리달}</td>
+            <td>{t.봉우리뒤개월}</td>
+            <td>{t.남은몫}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="note">
+      Most of this list is not idol pop. Several are rock and indie acts whose readership was
+      never large enough to spike, and a flat line never has a peak to fall from.
+    </p>
+  </section>
+
+  <section class="src">
+    <h2>What this is not</h2>
+    {d.이것이아닌것.map((l) => <p class="note">{l}</p>)}
+  </section>
+
+  <section class="src">
+    <h2>Where else this leads</h2>
+    <p class="note">
+      Korean <i>titles</i> lose half their reading in about the same two months —
+      {' '}<a href="/half-life">we measured that separately</a>, on a different unit, and the
+      timescale came out the same. Comics run the other way:
+      {' '}<a href="/webtoon-adaptations">a Korean webtoon is read 14 times more</a> once a
+      drama exists, so an adaptation builds attention where a comeback mostly spends it.
+    </p>
+  </section>
+
+  <KcwRelatedArticles page="/group-afterlife" />
+
+  <section class="src">
+    <h2>Sources</h2>
+    <p class="note">
+      Acts and debut years — Wikidata SPARQL (P31/P279* Q215380 <i>musical group</i>,
+      P495 <i>country of origin</i> Q884). Reads — Wikimedia Pageviews REST API, English
+      Wikipedia, all-access, <b>agent=user</b> (bots excluded), monthly, {d.창}. The current
+      month is excluded because it is not finished. Collected {d.잰때}.
+    </p>
+  </section>
+</WikiTip>
