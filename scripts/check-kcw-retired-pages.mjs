@@ -207,6 +207,32 @@ export const 접은까닭 = new Map([
       + 'came back Italy, the Philippines and the United States, with no Korean production credit. '
       + 'K Culture Wire counts Korean titles, so it left our catalogue and this address with it. '
       + 'The measurement stands; only the address stopped being ours to keep.']],
+  /**
+   * 🔴 [2026-09-03 · 사장님 「riot 제거」] Riot 자료로 만든 지면 열한 자리를 접었다.
+   *   ⛔ 「수가 나빠서」가 아니다. 우리가 쓰던 «우물»을 걷어낸 것이다 — 그 말을 그대로 적는다.
+   *   ⭐⭐ 사장님이 함께 바로잡아 주신 것을 손님에게도 알린다 —
+   *     「**내가 riot을 제거하라고 했지, e스포츠를 제거하라고는 하지 않았잖아**」
+   *     e스포츠 축은 살아 있다. `/esports-nations` 가 위키백과 열람으로 잰다 —
+   *     그 우물은 열쇠가 필요 없어 언제든 다시 잴 수 있다.
+   *   ⇒ 그러니 갈 곳으로 «그 지면»을 준다. 빈 404 로 내보내지 않는다.
+   */
+  ...[
+    '/esports', '/ladder-churn', '/ladder-gap',
+    '/tag/league-of-legends', '/tag/ranked-ladder', '/tag/riot-games',
+    '/article/korea-challenger-win-rate', '/article/korea-ladder-games-played',
+    '/article/one-region-is-not-like-the-others',
+    '/article/the-top-tier-is-where-players-stay',
+    '/article/what-it-costs-to-be-top-300',
+  ].map((길) => [길, [
+    'We stopped using the Riot data. Nothing measured here was found to be wrong.',
+    'These pages were built on the League of Legends ranked ladder, read through Riot\'s API. '
+    + 'In September 2026 we stopped drawing from that well, so the pages that depended on it '
+    + 'could no longer be kept current — and we would rather retire an address than leave a '
+    + 'number on it that we can no longer check. The measurements themselves still stand; what '
+    + 'changed is our access to the source, not the arithmetic. '
+    + 'Esports has not left this site. We still count it, from a well that needs no key: '
+    + 'Wikipedia reading. See which countries actually read about esports at /esports-nations.',
+  ]]),
   ['/firm/lotte-entertainment',
     ['This company sheet was not removed for cause.',
       'We publish sheets for the companies whose catalogue we can see most completely, and the set '
