@@ -156,13 +156,21 @@ async function 주된일() {
   const 적나 = process.argv.includes('--적는다');
 
   /* 1. 한국 음악 팀을 위키데이터에서 받는다 — 영문 문서가 «있는» 것만 */
-  const q = `SELECT DISTINCT ?g ?gLabel ?en ?inception WHERE {
-    ?g wdt:P31/wdt:P279* wd:Q215380 .
-    ?g wdt:P495 wd:Q884 .
+  /* 🔴 [2026-09-07] 처음 쓴 질의가 «에스파·TXT·RIIZE·보이넥스트도어»를 통째로 빠뜨렸다.
+     까닭이 둘이었다 —
+     ① 분류를 Q215380(음악 그룹) 하나로 좁혔다. 걸그룹(Q641066)은 그 아래가 아니다.
+     ② ⭐⭐ `SERVICE wikibase:label` 이 «말없이 줄을 버렸다».
+        같은 조건으로 라벨 서비스만 빼자 191 → 318 로 늘었고 에스파가 들어왔다.
+        오류도 경고도 없다. 조용히 성공한 척하는 것이 제일 나쁘다 — 그래서 안 쓴다.
+     ⇒ 이름은 라벨이 아니라 «영문 위키 제목»에서 얻는다. 그것이 우리가 열람을 세는 열쇠이기도 하다.
+     ⚠ 그래도 (G)I-DLE 은 안 잡힌다 — 위키데이터 항목에 나라 속성이 없다. 못 잡았다고 적는다. */
+  const q = `SELECT DISTINCT ?g ?en ?inception WHERE {
+    VALUES ?kind { wd:Q215380 wd:Q2088357 wd:Q641066 wd:Q5741069 }
+    ?g wdt:P31/wdt:P279* ?kind .
+    { ?g wdt:P495 wd:Q884 } UNION { ?g wdt:P17 wd:Q884 } UNION { ?g wdt:P740/wdt:P17 wd:Q884 }
     ?en schema:about ?g ; schema:isPartOf <https://en.wikipedia.org/> .
     OPTIONAL { ?g wdt:P571 ?inception }
-    SERVICE wikibase:label { bd:serviceParam wikibase:language "en" }
-  } LIMIT 700`;
+  } LIMIT 5000`;
   const su = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(q);
   const sj = await 받기(su);
   if (!sj || sj.못받음) throw new Error('위키데이터를 못 받았다: ' + JSON.stringify(sj));
@@ -175,7 +183,7 @@ async function 주된일() {
     if (!제목 || 본것.has(제목)) continue;
     본것.add(제목);
     팀들.push({
-      이름: b.gLabel?.value ?? 제목,
+      이름: 제목,   /* ⛔ 라벨 서비스를 안 쓴다 — 위 주석 참조 */
       제목,
       q: b.g.value.split('/').pop(),
       데뷔해: b.inception ? Number(String(b.inception.value).slice(0, 4)) : null,
@@ -225,13 +233,14 @@ async function 주된일() {
   const 낼것 = {
     잰때: new Date().toLocaleString('ko-KR'),
     창: `2015-07 ~ ${끝달.getFullYear()}-${String(끝달.getMonth()).padStart(2, '0')}`,
-    우물: 'Wikidata SPARQL (P31/P279* Q215380 음악 팀 · P495 Q884 한국) + Wikimedia Pageviews per-article, en.wikipedia, all-access, agent=user, monthly',
+    우물: 'Wikidata SPARQL (P31/P279* 음악그룹·음악앙상블·걸그룹·보이밴드 · 나라는 P495/P17/P740 어느 하나가 한국) + Wikimedia Pageviews per-article, en.wikipedia, all-access, agent=user, monthly',
     이것이무엇인가: '한국 음악 팀마다 영문 위키백과에서 가장 많이 읽힌 달을 찾고, 그 뒤로 얼마나 남았는지를 잰 것이다.',
     이것이아닌것: [
       '⛔ 인기 순위가 아니다. 「찾아본 것」이지 「듣는 것」이 아니다.',
       '⛔ 못 잰 팀을 0 으로 채우지 않았다 — 따로 세어 두었다.',
       '⚠ 위키백과 문서는 팀이 유명해진 «뒤에» 자세해진다. 초기 달이 낮은 데는 그 탓도 있다.',
       '⚠ 이번 달은 아직 안 차서 뺐다.',
+      '⚠ (G)I-DLE 은 위키데이터 항목에 나라 속성이 없어 이 표에 «못 들어갔다». 0 이 아니라 못 잡은 것이다.',
     ],
     셈: {
       받은팀: 팀들.length,
