@@ -74,11 +74,11 @@ Almost all of it is CSV — 1,299 of 1,344 — with 263 also offering JSON.
 
 The oldest listings have been sitting still for six years. Among them:
 
-| Dataset | Last updated | Months ago |
+| Dataset (portal name, as listed) | Last updated | Months ago |
 |---|---|---:|
-| 지역별 청소년활동 관심지도 | 2020-06-22 | 74.5 |
-| 베트남의 한류(K-POP) 주제 한류 커뮤니티 키워드 데이터 | 2020-07-01 | 74.2 |
-| 케이스타라이브의 국가별 월별 순 방문자 데이터 | 2020-07-01 | 74.2 |
+| 지역별 청소년활동 관심지도 (a map of youth-activity interest by region) | 2020-06-22 | 74.5 |
+| 베트남의 한류(K-POP) 주제 한류 커뮤니티 키워드 데이터 (Hallyu community keywords in Vietnam) | 2020-07-01 | 74.2 |
+| 케이스타라이브의 국가별 월별 순 방문자 데이터 (KStarLive monthly unique visitors by country) | 2020-07-01 | 74.2 |
 
 The second one is a Korean dataset about **Vietnamese K-pop community keywords**, and it stopped in
 July 2020. Anyone reaching for official Korean data on overseas Hallyu audiences will find a shelf that

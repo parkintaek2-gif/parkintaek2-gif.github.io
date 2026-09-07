@@ -73,6 +73,12 @@ const jsonLd = {
   temporalCoverage: d.window,
   variableMeasured: 있는말.map((r) => `${말이름[r.wiki] ?? r.wiki} Wikipedia views per day`),
 };
+/* 🔴 [2026-09-07] 영어권 손님은 「유노윤호」·「ยุนโฮ」를 못 읽는다. 표의 한 칸이
+   읽을 수 없는 글자면 그 줄은 없는 줄이다. 그래서 라틴 글자가 아닌 제목 뒤에
+   영문 이름을 적는다 — 한국어만 봐주는 것이 아니라 타이·일본어에도 똑같이 붙는다.
+   ⛔ 음역기를 만들지 않는다. 이 지면의 주인은 한 사람이고 그 영문 이름이 자료에 있다. */
+const 라틴인가 = (제목: string) => !/[^\u0000-\u02ff\u1e00-\u1eff]/.test(String(제목 ?? ''));
+const 읽을수있게 = (제목: string) => (라틴인가(제목) ? null : (d.person?.enTitle ?? null));
 ---
 
 <WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
@@ -95,7 +101,10 @@ const jsonLd = {
           <tr>
             <th scope="row">{말이름[r.wiki] ?? r.wiki}</th>
             <td class="num">{쉼표(r.perDay)}</td>
-            <td><code>{r.title}</code></td>
+            <td>
+              <code>{r.title}</code>
+              {읽을수있게(r.title) && <span class="rom"> ({읽을수있게(r.title)})</span>}
+            </td>
             <td>{도시들.filter((c) => c.wikis.includes(r.wiki)).map((c) => c.city).join(', ')}</td>
           </tr>
         ))}
@@ -189,6 +198,9 @@ const jsonLd = {
 </WikiTip>
 
 <style>
+    /* 라틴 글자가 아닌 제목 뒤에 붙는 영문 이름. 제목보다 여리게 둔다 —
+       읽으라고 붙인 것이고, 자료 그 자체는 원문 쪽이다 */
+    .rom { color: var(--muted); font-size: .9em; white-space: nowrap; }
   .lead { font-size: 1.15rem; font-weight: 600; }
   table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .95rem; }
   caption { text-align: left; font-weight: 600; padding-bottom: .4rem; }
