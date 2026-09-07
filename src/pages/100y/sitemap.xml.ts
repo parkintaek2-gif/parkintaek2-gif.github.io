@@ -386,6 +386,10 @@ export const GET: APIRoute = () => {
        집계로 보면 인문·공학 격차가 여전히 남는지, 이미 8번이 만든
        field-outcomes.json(교육부 공표치와 0.03% 안에서 맞춘 것)을 그대로 지면화. */
     { path: '/field-employment', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-07 — 커뮤니티 씨앗(「국·공립대 취업률 1위 목포해양대」)을 계기로
+       이미 붙어 있던 pages-university.json의 취업률(대학알리미)로 분포만 다시 계산.
+       ⛔ 「1위」로 뭉뚱그리지 않고 국공립 43곳 분포에서 자리를 그대로 보여 준다. */
+    { path: '/university-employment-spread', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
