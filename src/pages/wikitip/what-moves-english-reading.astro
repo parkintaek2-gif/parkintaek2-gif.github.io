@@ -101,8 +101,8 @@ const jsonLd = {
             <tr><th scope="row">Seven days before</th><td class="num">{쉼표(e.before)} a day</td></tr>
             <tr><th scope="row">Seven days from the event</th><td class="num">{쉼표(e.after)} a day</td></tr>
             <tr><th scope="row">On the day itself</th><td class="num">{쉼표(e.onTheDay)}</td></tr>
-            <tr><th scope="row">Their own change</th><td class="num">{e.ratio}&times;</td></tr>
-            <tr><th scope="row">Bandmates, same weeks</th><td class="num">{e.controlRatio}&times;</td></tr>
+            <tr><th scope="row">Their own change</th><td class="num">{e.ratio}×</td></tr>
+            <tr><th scope="row">Bandmates, same weeks</th><td class="num">{e.controlRatio}×</td></tr>
             <tr class="net">
               <th scope="row">What is left over</th>
               <td class="num"><b>{움직임글(e)}</b></td>
@@ -134,7 +134,7 @@ const jsonLd = {
           <tr>
             <th scope="row">{e.person}, {e.date}</th>
             <td>{e.kind}</td>
-            <td class="num"><b>{e.netRatio}&times;</b></td>
+            <td class="num"><b>{e.netRatio}×</b></td>
             <td class="num">{e.peakDay} &middot; {쉼표(e.peakViews)}</td>
           </tr>
         ))}
