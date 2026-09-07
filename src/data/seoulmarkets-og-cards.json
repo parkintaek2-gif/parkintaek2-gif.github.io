@@ -7,6 +7,11 @@
     "label 은 45자 안쪽."
   ],
   "chosen": {
+    "korea-stock-forecaster-low-end-misses-growing": {
+      "figure": "8.10%",
+      "label": "low-forecast error, up from 2.89% three weeks earlier",
+      "왜": "자동은 첫 주 수치(2.89%)만 집어 라벨 없이 냄 — 요점은 마지막 주 수치(8.10%)와 3주 추이"
+    },
     "korea-won-14-month-high-two-months-after-peak": {
       "figure": "1,355.2",
       "label": "won/dollar, 7 Sep — 14-month high, down 12.8% from July's peak",
