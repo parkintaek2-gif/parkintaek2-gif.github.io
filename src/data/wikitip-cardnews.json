@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-07T00:22:39.496Z",
+  "generated": "2026-09-07T11:22:39.568Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1217,7 +1217,41 @@
       ]
     },
     {
+      "set": "kpop-demon-hunters-62-weeks-toys-arrive-late",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "kpop-export-left-japan-behind",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "kpop-group-attention-halves-in-two-months",
       "sq": [
         1,
         2,
@@ -1285,6 +1319,23 @@
       ]
     },
     {
+      "set": "mexico-watches-korea-does-not-look-it-up",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "middle-of-the-chart",
       "sq": [
         1,
@@ -1303,6 +1354,23 @@
     },
     {
       "set": "more-charting-work-raises-the-floor",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "most-korean-films-on-netflix-chart-in-one-country",
       "sq": [
         1,
         2,
@@ -2536,6 +2604,23 @@
       ]
     },
     {
+      "set": "when-does-a-kpop-group-peak",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "where-the-counting-stops",
       "sq": [
         1,
@@ -2706,8 +2791,8 @@
       ]
     }
   ],
-  "setCount": 161,
-  "imageCount": 1574,
+  "setCount": 166,
+  "imageCount": 1624,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
