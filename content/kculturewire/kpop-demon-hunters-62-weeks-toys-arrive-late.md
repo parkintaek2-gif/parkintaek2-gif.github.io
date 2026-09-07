@@ -83,13 +83,13 @@ A long Netflix run is one thing. Attention outside the platform is another, and 
 much faster.
 
 We have measured, separately, how long a Korean title holds the *reading* it gains: for
-26 Korean titles with enough months to measure, the median time to lose half of their
-peak Wikipedia readership was **two months**. Encyclopedia reading and chart weeks are
+[26 Korean titles with enough months to measure](/half-life), the median time to lose half
+of their peak Wikipedia readership was **two months**. Encyclopedia reading and chart weeks are
 not the same measure and we do not add them together — but the contrast is the point.
 The thing that lasts 62 weeks on a chart can lose half its lookups in eight.
 
-The same asymmetry shows up in comics. Korean webtoons that get adapted are read
-**fourteen times** more once the drama exists than they were as comics; Japanese manga in
+The same asymmetry shows up in comics. Korean webtoons that get adapted are [read
+**fourteen times** more](/webtoon-adaptations) once the drama exists than they were as comics; Japanese manga in
 the same position, only 3.7 times. Korean stories, in English, tend to acquire their
 audience from the adaptation rather than bring one to it. *KPop Demon Hunters* is that
 pattern at full size — an animated film with a fictional K-pop group inside it, charting

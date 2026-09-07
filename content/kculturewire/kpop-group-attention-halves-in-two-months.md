@@ -100,14 +100,14 @@ not the same sentence.
 
 ## The same two months show up in dramas
 
-We measured this separately, on different data and a different unit: for 26 Korean titles
-with enough months to measure, the median time to lose half of their peak Wikipedia
-readership was also **two months**. Groups and shows are not the same thing and the two
+We measured this separately, on different data and a different unit: for [26 Korean titles
+with enough months to measure](/half-life), the median time to lose half of their peak
+Wikipedia readership was also **two months**. Groups and shows are not the same thing and the two
 numbers are not added together — but the timescale of Korean cultural attention on the
 English-reading internet appears to be about eight weeks, whatever the object is.
 
-Comics are the exception that proves it. A Korean webtoon that becomes a drama is read
-**fourteen times more** as a result, and a Japanese manga in the same position only 3.7
+Comics are the exception that proves it. A Korean webtoon that becomes a drama is [read
+**fourteen times more**](/webtoon-adaptations) as a result, and a Japanese manga in the same position only 3.7
 times. An adaptation *builds* attention. A comeback mostly spends it.
 
 ## Method

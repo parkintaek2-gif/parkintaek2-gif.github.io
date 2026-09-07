@@ -529,6 +529,11 @@
    "figure": "14.0x",
    "label": "more reads once a Korean webtoon is adapted",
    "왜": "자동은 51(짝 수)을 집는다. 발견은 배수 자체다"
+  },
+  "hit-or-flop-240-of-546-reached-number-one": {
+   "figure": "546",
+   "label": "Korean titles with a Netflix chart standing — 240 of them hit No.1",
+   "왜": "자동이 고른 수(546)는 맞았고 «딱지»가 비어 있었다. 그래서 딱지만 적는다. ⛔ 240 으로 바꿨다가 되돌렸다 — 240 은 이 기사의 스냅숏이라 걸린 지면 셋(/titles·/catalogue-depth·/by-country)에 지면의 수로 안 나온다(그 기사 링크 글자로만 나온다). 546 은 세 지면에 다 나온다"
   }
  }
 }

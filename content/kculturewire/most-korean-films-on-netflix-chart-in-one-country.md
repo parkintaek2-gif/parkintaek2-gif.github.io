@@ -90,10 +90,10 @@ attention in several countries at the same time. Whether it converts into a wide
 is a different question, and one we can only answer afterwards — so we will not guess it
 now.
 
-What we can say is that attention of this kind is short. We measured 651 Korean musical acts
+What we can say is that attention of this kind is short. We measured [774 Korean musical acts](/group-afterlife)
 and found the median one loses half of its peak Wikipedia readership within **two months**;
-for 26 Korean titles measured the same way, the answer was also two months. Comics are the
-exception — a Korean webtoon is read **14 times more** once a drama exists — because an
+for [26 Korean titles measured the same way](/half-life), the answer was also two months. Comics are the
+exception — a Korean webtoon is [read **14 times more**](/webtoon-adaptations) once a drama exists — because an
 adaptation builds an audience rather than spending one.
 
 ## Method

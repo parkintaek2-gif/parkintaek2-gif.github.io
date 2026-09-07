@@ -78,9 +78,9 @@ Attention is slower to arrive than the debut-hype story suggests and faster to l
 almost anyone plans for. An act typically spends two years getting to its biggest month and
 eight weeks losing half of it.
 
-The same eight-week figure turns up for Korean *titles*: 26 of them, measured separately on
-a different unit, also halve in two months. Comics are the one place the arrow points the
-other way — a Korean webtoon is read **fourteen times more** after a drama is made from it,
+The same eight-week figure turns up for Korean *titles*: 26 of them, [measured separately on
+a different unit](/half-life), also halve in two months. Comics are the one place the arrow points the
+other way — a Korean webtoon is [read **fourteen times more**](/webtoon-adaptations) after a drama is made from it,
 because an adaptation brings new readers rather than spending existing ones.
 
 ## Method

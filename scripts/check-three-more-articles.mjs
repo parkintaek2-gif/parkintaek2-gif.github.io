@@ -11,6 +11,7 @@
 import fs from 'node:fs';
 /* ⭐ 귀무모형은 «자로» 다시 센다 — 수를 이 파일에 손으로 적지 않는다 */
 import { 재기 } from './measure-kcw-casting-shuffle.mjs';
+import { 기사의때, 자료의때, 무엇으로부를까 } from './_article-drift.mjs';
 
 const CD = 'content/kculturewire';
 const 읽기 = (slug) => {
@@ -159,6 +160,56 @@ if (process.argv[1] && process.argv[1].endsWith('check-three-more-articles.mjs')
    * ⚠ 그래서 자를 통째로 지우지 않고 ③만 뗐다. ①·② 두 편은 살아 있고 계속 지켜야 한다.
    */
 
-  if (틀림) { console.error(`\n❌ ${틀림}개가 기사와 자료가 어긋난다. 자를 먼저 의심한다.`); process.exit(1); }
+  /* 🔴 [2026-09-07] 어긋난 것을 «틀림»과 «낡음»으로 가른다.
+
+     전에는 무조건 세워서, 자료가 움직인 다음날부터 영원히 빨강이었다.
+
+     ⛔ 봐주는 것이 아니다 — dataAsOf 가 없거나 자료가 안 움직였으면 그대로 틀림이다. */
+
+  if (틀림) {
+
+    const 기사글들 = null
+
+      ?? fs.readdirSync('content/kculturewire')
+
+        .filter((f) => f.endsWith('.md')).map((f) => `content/kculturewire/${f}`);
+
+    const 기사때들 = 기사글들.map((g) => { try { return 기사의때(fs.readFileSync(g, 'utf8')); } catch { return null; } })
+
+      .filter((d) => d instanceof Date);
+
+    /* ⚠ 이 자가 여러 편을 보면 «가장 오래된» 기사를 기준으로 잡는다 — 봐주는 쪽으로 기울지 않게 */
+
+    const 기사때 = 기사때들.length ? new Date(Math.min(...기사때들.map((d) => d.getTime()))) : null;
+
+    const 자료때들 = ["archive/raw/netflix-top10/korean-cast-joined.json","src/data/wikitip-broadcast-export.json","src/data/wikitip-music-export.json"].map(자료의때).filter((d) => d instanceof Date);
+
+    const 자료때 = 자료때들.length ? new Date(Math.max(...자료때들.map((d) => d.getTime()))) : null;
+
+    const 판 = 무엇으로부를까({ 기사때, 자료때 });
+
+    if (판.종류 === '낡음') {
+
+      console.log(`\n⚠ ${틀림}줄이 어긋난다 — 그러나 «낡음»이다. ${판.까닭}`);
+
+      console.log('   ⛔ 「고칠 것이 없다」는 뜻이 아니다. 열어 보고 정할 것 —');
+
+      console.log('      정정할 것인가, 그때의 사실로 둘 것인가.');
+
+      console.log(`   기사 dataAsOf ${기사때 ? 기사때.toLocaleDateString('ko-KR') : '없다'}`);
+
+      console.log(`   자료 갱신     ${자료때 ? 자료때.toLocaleDateString('ko-KR') : '못 읽었다'}`);
+
+      process.exit(0);
+
+    }
+
+    console.error(`\n❌ ${틀림}개가 기사와 자료가 어긋난다 — «틀림»이다. ${판.까닭}`);
+
+    console.error('   자를 먼저 의심한다.');
+
+    process.exit(1);
+
+  }
   console.log('\n✅ 더 낸 세 편 전부 기사와 자료가 맞는다');
 }

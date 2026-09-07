@@ -93,13 +93,16 @@ adaptations. But they hand the adaptation a different starting position.
 
 A Japanese manga brings an audience with it. A Korean webtoon, on the English-reading
 internet, mostly does not — it acquires one *after* the drama airs. That is why the
-median gap is 14x on one side and 3.7x on the other.
+median gap is 14x on one side and 3.7x on the other. The full table, comic by comic, is on
+[the webtoon adaptations page](/webtoon-adaptations).
 
 ⚠ **This is a measure of looking things up, not of watching or reading them.** A
 webtoon read inside a publisher's app leaves no Wikipedia trace; a drama on a global
 streaming service invites one. Part of the 14x is that asymmetry rather than
 indifference. What the number does show is where the *English-language curiosity*
-sits — and it sits on the adaptation.
+sits — and it sits on the adaptation. Musical acts run the other way: attention
+[halves two months after the peak](/group-afterlife), because a comeback spends an audience
+rather than building one.
 
 ## Method
 

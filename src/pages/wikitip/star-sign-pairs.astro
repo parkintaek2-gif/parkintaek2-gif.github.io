@@ -50,6 +50,14 @@ if ((가장높은배수.ratio ?? 0) >= 1.5 || (가장낮은배수.ratio ?? 9) <=
 
 const 쉼표 = (n: number | null) => (n === null ? '—' : Number(n).toLocaleString('en-US'));
 
+/* 🔴 [2026-09-07] 별자리마다 몇 명인지를 세어 두고 지면에 안 냈다.
+   이 지면이 「그 둘이 흔한 별자리라서 표 위에 있다」고 말하는데, 그 근거가 이 수다.
+   ⛔ 근거를 안 보여 주면 손님은 우리 말을 믿는 수밖에 없다. 우리는 그 장사를 하지 않는다. */
+const 별자리셈 = Object.entries(d.signCounts ?? {})
+  .map(([이름, 수]) => ({ 이름: 큰글자(이름), 수: Number(수) }))
+  .sort((a, b) => b.수 - a.수);
+const 별자리합 = 별자리셈.reduce((a, b) => a + b.수, 0);
+
 const TITLE = 'Which star signs actually end up in the same K-pop group';
 const DESC =
   `We counted all ${쉼표(d.totalPairs)} pairings of members inside ${d.groupsCounted} K-pop groups and set each `
@@ -148,6 +156,35 @@ const jsonLd = {
     {' '}<a href="/kpop-birthdays">We measured that separately</a>, and it is a fact about when
     people are born in Korea rather than about star signs.
   </p>
+
+  {별자리셈.length > 0 && (
+    <>
+      <h3>How many members each sign has</h3>
+      <p>
+        This is the denominator behind every <b>by chance</b> figure above. The spread is real but
+        modest &mdash; the commonest sign has
+        {' '}<b>{Math.round((별자리셈[0].수 / 별자리셈[별자리셈.length - 1].수 - 1) * 100)}% more</b>
+        {' '}members than the rarest, across {쉼표(별자리합)} members in total.
+      </p>
+      <div class="scroll-x">
+        <table>
+          <caption>
+            Members per star sign. ⚠ This is a count of birthdays, not a ranking of signs.
+          </caption>
+          <thead><tr><th>Sign</th><th class="num">Members</th><th class="num">Share</th></tr></thead>
+          <tbody>
+            {별자리셈.map((x) => (
+              <tr>
+                <td>{x.이름}</td>
+                <td class="num">{쉼표(x.수)}</td>
+                <td class="num">{별자리합 ? (x.수 / 별자리합 * 100).toFixed(1) : '—'}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </>
+  )}
 
   <h2>What we could not measure</h2>
   <ul>{d.notMeasured.map((s: string) => <li>{s}</li>)}</ul>

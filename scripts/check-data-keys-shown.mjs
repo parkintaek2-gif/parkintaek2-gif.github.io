@@ -40,6 +40,23 @@ const 기록용 = /^(generated|generatedAt|builtAt|source|sourceKo|unit|unitKo|u
  */
 const 면제 = [
   /*
+   * 🔴 [2026-09-07] 셋이 걸렸는데 «둘만» 면제했다. 셋째(signCounts)는 지면에 냈다 —
+   *   면제표는 «낼 자리가 아닌 것»만 담는다. 낼 수 있는 것을 여기 넣으면 검사가 껍데기가 된다.
+   */
+  {
+    파일: 'wikitip-tour-city-languages.json', 열쇠: 'windowRaw',
+    까닭: '같은 창을 «영어로 다듬은» window(「5 August – 3 September 2026」)를 지면이 이미 네 곳에서 낸다. '
+      + 'windowRaw 는 그 날 꼴(20260805–20260903)이고, 영어권 손님에게 읽히는 글자가 아니다. '
+      + '⛔ 「아직 안 냈다」가 아니라 «같은 사실을 이미 낸다»는 것이다. window 를 지면에서 빼면 이 면제는 틀린 면제가 된다',
+    쓰는곳: 'scripts/collect-kcw-tour-city-languages.mjs',
+  },
+  {
+    파일: 'wikitip-culture-data-market.json', 열쇠: 'noTopicTag',
+    까닭: '값이 0 이다 — 주제 딱지가 없는 자료가 하나도 없었다. 이 자의 ③「비면 면제」 자리이고, '
+      + '0 이 아니게 되는 날 이 검사가 다시 선다. ⛔ 0 을 «못 쟀다»로 읽지 않는다 — 재서 0 이었다',
+    비면면제: (v) => v === 0 || v == null,
+  },
+  /*
    * 🔴 [2026-09-02] **내부 감사·생성용 파일 둘.** 손님에게 낼 자료가 아니다.
    *   ⚠ 둘 다 `counts` 열쇠가 **한국어**다 — wikitip-headlines 는
    *     「본지면·머리글있음·머리글없음」이다. 영문 매체라 지면에 그대로 낼 수 없고,
