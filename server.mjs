@@ -589,6 +589,13 @@ const handle = async (req, res) => {
     '/wikitip/article/korea-challenger-win-rate': '/esports-games',
     '/wikitip/article/korea-ladder-games-played': '/esports-games',
     '/wikitip/article/the-top-tier-is-where-players-stay': '/esports-games',
+    /* 🔴 [2026-09-08 · 5번] **같은 갈래인데 두 자리를 빠뜨리고 있었다.**
+       9/03 에는 「노출 큰 지면 60장」만 눌러 봐서, 그 목록에 안 든 이 둘이 남았다.
+       오늘 check-kcw-retired-pages 가 접힌 주소 39개를 늘어놓아서 알았다.
+       ⚠ 뜻이 가까운 곳으로만 보낸다는 규칙은 그대로다 — 둘 다 랭크 사다리 글이라
+         /esports-games 가 맞다. 아무 데나 보내지 않는다. */
+    '/wikitip/article/one-region-is-not-like-the-others': '/esports-games',
+    '/wikitip/article/what-it-costs-to-be-top-300': '/esports-games',
     /* ⚠ [2026-09-03 6번] 5번의 방법(전체 지시)을 SeoulMarkets에 그대로 재서 찾았다.
      * 이 둘은 무역 스케일브레이크 결함으로 draft 처리된 지면(korea-us-surplus-doubled·
      * korea-trade-surplus-tripled-five-partners, [[6번-무역데이터-스케일브레이크]])인데
