@@ -1,0 +1,143 @@
+---
+/**
+ * /100y/university-enrollment-fill — 대학 정원, 얼마나 채워져 있을까요
+ *
+ * 오늘(2026-09-07) 만든 /college-age-population(18세 인구 2015→2024 34.1%↓, 2025·2026
+ * 반등 후 2035년까지 재감소)의 자연스러운 후속 — 인구가 주는데 대학은 정원을
+ * 얼마나 채우고 있나. 새 API 호출 없이 이미 모아 둔 pages-university.json
+ * (대학알리미, 377개 대학·캠퍼스)의 재학생충원율만 다시 계산했다.
+ * ⛔ 특정 학교를 「망했다」로 읽지 않는다 — 분포 그대로 보여 준다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/university-enrollment-fill.json';
+
+const 자료 = 원본 as any;
+const 전체 = 자료.전체;
+const 구간 = 자료.구간 as Record<string, number>;
+const 정원미달 = 자료.정원미달;
+const 매우낮은곳 = 자료.매우낮은곳 as any[];
+const 매우높은곳 = 자료.매우높은곳 as any[];
+
+const 구간순서 = ['110% 이상', '100~110%', '90~100%', '80~90%', '70~80%', '70% 미만'];
+
+const desc =
+  `대학알리미가 공시한 재학생충원율을 조사 가능한 대학 ${전체.곳수}곳에 대해 다시 계산했습니다. ` +
+  `정원보다 재학생이 적은 곳(100% 미만)이 ${정원미달.곳수}곳(${정원미달.몫}%)입니다. ` +
+  `공표치를 그대로 옮겨 분포만 다시 계산했습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [{
+    '@type': 'Question',
+    name: '대학 정원을 못 채우는 곳이 얼마나 되나요?',
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `대학알리미 공시 기준으로 재학생충원율을 잴 수 있는 대학 ${전체.곳수}곳 가운데 100% 미만(정원보다 재학생이 적음)인 곳이 ${정원미달.곳수}곳(${정원미달.몫}%)입니다. 다만 30% 미만·200% 초과인 극단값은 대부분 정원 자체가 매우 작은 특수 계열 학교라 일반 대학과 같은 잣대로 비교할 수 없습니다.`,
+    },
+  }],
+};
+---
+
+<HundredYear
+  title={`대학 재학생충원율 — 정원보다 재학생이 적은 곳이 ${전체.곳수}곳 중 ${정원미달.곳수}곳(${정원미달.몫}%)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>대학 정원,<br />얼마나 채워져 있을까요?</h1>
+  <p class="sub">
+    18세 인구는 2024년까지 십 년 넘게 줄었습니다(<a href="/college-age-population">관련 지면</a>).
+    {' '}그렇다면 대학은 정원을 얼마나 채우고 있을까요 — 이미 모아 둔 대학알리미 자료
+    {' '}(대학 377개·캠퍼스, 기존 수집분)로 새로 받지 않고 재학생충원율 분포를 다시 계산해 봤습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">재학생충원율을 잴 수 있는 대학 {전체.곳수}곳 가운데</p>
+    <p class="answer-num">정원보다 재학생이 적은 곳 — {정원미달.곳수}곳 ({정원미달.몫}%)</p>
+    <p class="answer-sub">
+      최소 {전체.최소}% · 중앙값 {전체.중앙값}% · 최대 {전체.최대}% ·
+      {' '}전국평균(참고치) {전체.전국평균참고}% · 값을 못 구한 곳 {전체.못잰곳}곳
+    </p>
+  </div>
+
+  <h2>구간별로 나누면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>재학생충원율</th><th>곳수</th></tr></thead>
+      <tbody>
+        {구간순서.map((k) => (
+          <tr>
+            <td>{k}</td>
+            <td>{구간[k]}곳</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    100%를 넘으면 정원보다 재학생이 많다는 뜻이고, 100% 밑이면 정원을 못 채웠다는 뜻입니다.
+    {' '}「70% 미만」에 있는 곳이라고 모두 같은 사정은 아닙니다 — 아래에서 나눠 봅니다.
+  </p>
+
+  <h2>극단값 — 대부분 정원 자체가 작은 특수 계열입니다</h2>
+  <p>
+    30% 미만인 {매우낮은곳.length}곳과 200%를 넘는 {매우높은곳.length}곳은 신학대·승가대·세무대 등
+    {' '}정원 자체가 매우 작은 학교가 많습니다. 정원이 작으면 학생 몇 명만 늘거나 줄어도
+    {' '}비율이 크게 흔들립니다 — 정원이 큰 일반 대학과 같은 잣대로 비교할 수 없습니다.
+  </p>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>30% 미만</th><th>구분</th><th>재학생충원율</th></tr></thead>
+      <tbody>
+        {매우낮은곳.slice(0, 10).map((r: any) => (
+          <tr>
+            <td>{r.학교}</td>
+            <td>{r.구분}</td>
+            <td><strong>{r.재학생충원율}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>200% 초과</th><th>구분</th><th>재학생충원율</th></tr></thead>
+      <tbody>
+        {매우높은곳.slice(0, 10).map((r: any) => (
+          <tr>
+            <td>{r.학교}</td>
+            <td>{r.구분}</td>
+            <td><strong>{r.재학생충원율}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {자료.덮는범위.map((줄: string) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 재학생충원율 하나만으로 학교가
+    {' '}「잘 되고 있다」·「어렵다」를 판단할 수 없습니다. 같은 표 안에서 이 학교가 어디쯤
+    {' '}있는지를 보여드릴 뿐, 판단은 보는 분의 몫입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}. {자료.대조}
+  </p>
+
+  <p class="note">
+    <a href="/college-age-population">← 대학 갈 나이 인구, 몇 년째 줄고 있을까요?</a>
+    <br />
+    <a href="/university-employment-spread">← 국공립대 취업률, 분포 안에서 어디쯤 있을까요?</a>
+    <br />
+    <a href="/closed-universities">← 문 닫은 대학은 얼마나 되나요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="한국대학교육협의회 대학정보공시(대학알리미) 실측(기존 수집분 재계산)" />
+</HundredYear>

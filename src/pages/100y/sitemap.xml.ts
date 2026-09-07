@@ -390,6 +390,10 @@ export const GET: APIRoute = () => {
        이미 붙어 있던 pages-university.json의 취업률(대학알리미)로 분포만 다시 계산.
        ⛔ 「1위」로 뭉뚱그리지 않고 국공립 43곳 분포에서 자리를 그대로 보여 준다. */
     { path: '/university-employment-spread', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-07 — /college-age-population(18세 인구 감소)의 자연스러운 후속.
+       이미 붙어 있던 pages-university.json의 재학생충원율(대학알리미)로 분포만
+       다시 계산. 특정 학교를 「망했다」로 읽지 않고 분포 그대로 보여 준다. */
+    { path: '/university-enrollment-fill', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
