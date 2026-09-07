@@ -24,6 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
+import { pathToFileURL } from 'node:url';
 /* 🔴 [2026-09-07] 파일 이름을 toISOString 으로 지어 «새벽에 하루가 어긋날» 자리였다.
    저장소 규칙은 _kst.mjs 다 — 9시간을 손으로 더하지 않고 이 자를 쓴다. */
 import { 오늘 } from './_kst.mjs';
@@ -331,5 +332,13 @@ async function 주된일() {
   console.log(`\n📁 적었다 — ${어디}\n자가시험 ${통}가지 통과.`);
 }
 
-if (process.argv.includes('--시험만')) 자가시험();
-else 주된일().catch((e) => { console.error('🔴', e.message); process.exit(1); });
+/**
+ * 🔴 [2026-09-08 · 3번] 5번이 자기 자에서 잡은 것과 같은 흠 — `export function`을 둔 자가
+ *   파일 끝에서 곧바로 본문을 돌리면, 다른 자가 이 파일의 함수만 빌려 쓰려고 import 하는
+ *   순간 이 블록이 돌고 process.exit 가 불려 부르는 쪽이 통째로 죽는다.
+ *   `import.meta.url` 로 「내가 직접 돌 때만」 돌게 막는다.
+ */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (process.argv.includes('--시험만')) 자가시험();
+  else 주된일().catch((e) => { console.error('🔴', e.message); process.exit(1); });
+}

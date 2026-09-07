@@ -21,7 +21,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import https from 'node:https';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -257,6 +257,14 @@ function 빌드결과() {
   process.exit(나쁜값.length || 기타장.length ? 1 : 0);
 }
 
-if (process.argv.includes('--selftest')) 셀프테스트();
-else if (process.argv.includes('--라이브')) await 라이브();
-else 빌드결과();
+/**
+ * 🔴 [2026-09-08 · 3번] 5번이 자기 자에서 잡은 것과 같은 흠 — `export function`을 둔 자가
+ *   파일 끝에서 곧바로 본문을 돌리면, 다른 자가 이 파일의 함수만 빌려 쓰려고 import 하는
+ *   순간 이 블록이 돌고 process.exit 가 불려 부르는 쪽이 통째로 죽는다.
+ *   `import.meta.url` 로 「내가 직접 돌 때만」 돌게 막는다.
+ */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (process.argv.includes('--selftest')) 셀프테스트();
+  else if (process.argv.includes('--라이브')) await 라이브();
+  else 빌드결과();
+}
