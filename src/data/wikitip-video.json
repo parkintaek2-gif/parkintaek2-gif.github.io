@@ -270,11 +270,11 @@
       "src": "/video/wave.mp4"
     },
     {
-      "set": "works",
+      "set": "works-voiced",
       "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/works.jpg",
-      "src": "/video/works.mp4"
+      "uploadDate": "2026-09-07",
+      "thumb": "/video/thumb/works-voiced.jpg",
+      "src": "/video/works-voiced.mp4"
     }
   ],
   "unmeasured": []

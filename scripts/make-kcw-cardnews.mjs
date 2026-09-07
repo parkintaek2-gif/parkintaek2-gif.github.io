@@ -96,6 +96,32 @@ export function 주소줄이기(주소, 쓸폭, 글자폭) {
   return `${s.slice(0, 들어갈글자 - 1)}…`;
 }
 
+/**
+ * 🔴 [2026-09-07] 눈으로 보고 찾았다 — `webtoon-adaptations-read-14x-more` 카드의 주소가
+ *   `…/article/webtoon-adaptations-read-14…` 로 «잘려» 있었다.
+ * ⛔ 잘린 주소는 «칠 수가 없다». 겹침은 막았지만 카드의 목적(유입)은 그대로 죽는다 —
+ *   2026-09-04 의 고침이 겹침만 보고 「닿을 수 있나」를 안 본 것이다.
+ * ✅ 자르지 않고 «두 줄로 접는다». 마지막 / 에서 접으면 앞줄이 곧 우리 이름이 된다.
+ * ⚠ 앞 함수 `주소줄이기` 는 «맨 마지막 수단»으로만 남겨 둔다 — 접을 곳이 아예 없을 때.
+ */
+export function 주소두줄(주소, 쓸폭, 글자폭) {
+  const s = String(주소 ?? '');
+  if (!(쓸폭 > 0) || !(글자폭 > 0)) return [s];
+  if (s.length <= Math.floor(쓸폭 / 글자폭)) return [s];
+  const i = s.lastIndexOf('/');
+  if (i <= 0 || i === s.length - 1) return [s];   // ⛔ 접을 곳이 없으면 «그대로» 둔다. 안 자른다
+  return [s.slice(0, i + 1), s.slice(i + 1)];
+}
+
+/** 접고도 넘치면 글자를 줄인다 — ⛔ 그래도 «자르지는» 않는다 */
+export function 주소글자크기(줄들, 쓸폭, 기본크기, 최소크기) {
+  if (!(쓸폭 > 0) || !(기본크기 > 0)) return 기본크기;
+  const 바닥 = 최소크기 ?? Math.round(기본크기 * 0.62);
+  const 가장긴 = Math.max(...줄들.map((l) => String(l).length), 1);
+  const 맞는크기 = Math.floor(쓸폭 / (가장긴 * 0.52));
+  return Math.max(바닥, Math.min(기본크기, 맞는크기));
+}
+
 export function 막는다(글) {
   return String(글 ?? '')
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -328,16 +354,23 @@ export function 그리기(장, 번호, 총, 규, 주소) {
   }
 
   /* ⛔ 모든 장에 주소를 박는다 — 카드는 우리 지면을 떠나 혼자 돌아다닌다 */
-  조각.push(`<line x1="${여백}" y1="${높이 - 여백 - 56}" x2="${폭 - 여백}"`
-    + ` y2="${높이 - 여백 - 56}" stroke="${색.줄}" stroke-width="2"/>`);
+  /* ⭐ 가름줄은 «주소가 몇 줄인지 안 뒤에» 그린다 — 아래에 있다 */
   /* 🔴 쪽번호가 오른쪽에 붙으므로 주소가 쓸 폭을 «빼고» 잰다 — 안 그러면 둘이 겹친다 */
   const 바닥글자 = Math.round(폭 * 0.026);
   const 쪽글 = `${번호} / ${총}`;
   const 쪽번호폭 = 쪽글.length * 바닥글자 * 0.52;
   const 주소쓸폭 = 폭 - 여백 * 2 - 쪽번호폭 - 바닥글자;
-  조각.push(`<text x="${여백}" y="${높이 - 여백 - 12}" font-family="Helvetica,Arial,sans-serif"`
-    + ` font-size="${바닥글자}" fill="${색.수}">`
-    + `${막는다(주소줄이기(주소, 주소쓸폭, 바닥글자 * 0.52))}</text>`);
+  const 주소줄들 = 주소두줄(주소, 주소쓸폭, 바닥글자 * 0.52);
+  const 주소크기 = 주소글자크기(주소줄들, 주소쓸폭, 바닥글자);
+  const 줄사이 = Math.round(주소크기 * 1.25);
+  주소줄들.forEach((줄, i) => {
+    const 주소y = 높이 - 여백 - 12 - (주소줄들.length - 1 - i) * 줄사이;
+    조각.push(`<text x="${여백}" y="${주소y}" font-family="Helvetica,Arial,sans-serif"`
+      + ` font-size="${주소크기}" fill="${색.수}">${막는다(줄)}</text>`);
+  });
+  const 가름y = 높이 - 여백 - 12 - (주소줄들.length - 1) * 줄사이 - 44;
+  조각.push(`<line x1="${여백}" y1="${가름y}" x2="${폭 - 여백}" y2="${가름y}"`
+    + ` stroke="${색.줄}" stroke-width="2"/>`);
   조각.push(`<text x="${폭 - 여백}" y="${높이 - 여백 - 12}" text-anchor="end"`
     + ` font-family="Helvetica,Arial,sans-serif" font-size="${Math.round(폭 * 0.026)}"`
     + ` fill="${색.흐림}">${번호} / ${총}</text>`);
@@ -463,6 +496,21 @@ if (직접불렸나 && process.argv.includes('--selftest')) {
   참('폭이 0 이면 손대지 않는다 (잘못 잘라 지우지 않는다)',
     주소줄이기('kculturewire.com/article/x', 0, 14) === 'kculturewire.com/article/x');
   참('폭이 아주 좁으면 … 하나만', 주소줄이기('abcdef', 10, 14) === '…');
+
+  /* 🔴 [2026-09-07] 잘린 주소는 «칠 수 없다» — 접어서 온전히 남기는지 본다 */
+  const 긴주소 = 'kculturewire.com/article/webtoon-adaptations-read-14x-more';
+  참('🔴 긴 주소를 접어도 «한 글자도 안 잃는다»',
+    주소두줄(긴주소, 700, 14).join('') === 긴주소);
+  참('접으면 두 줄이 된다', 주소두줄(긴주소, 700, 14).length === 2);
+  참('앞줄이 우리 이름으로 끝난다', 주소두줄(긴주소, 700, 14)[0] === 'kculturewire.com/article/');
+  참('짧으면 접지 않는다', 주소두줄('kculturewire.com/article/x', 900, 14).length === 1);
+  참('⛔ 접을 곳이 없으면 그대로 둔다 — 자르지 않는다',
+    주소두줄('aaaaaaaaaaaaaaaaaaaaaaaa', 30, 14)[0] === 'aaaaaaaaaaaaaaaaaaaaaaaa');
+  참('⛔ 폭을 못 재면 손대지 않는다', 주소두줄(긴주소, 0, 14)[0] === 긴주소);
+  참('넉넉하면 기본 글자크기 그대로', 주소글자크기(['abc'], 900, 28) === 28);
+  참('빠듯하면 글자를 줄인다', 주소글자크기(['a'.repeat(60)], 500, 28) < 28);
+  참('⛔ 아무리 좁아도 바닥 아래로는 안 줄인다',
+    주소글자크기(['a'.repeat(400)], 100, 28) === Math.round(28 * 0.62));
   참('⭐ 긴 슬러그 카드에서 주소와 쪽번호가 «안 겹친다»', (() => {
     const 긴주소 = 'kculturewire.com/article/july-is-the-thinnest-month-for-k-pop-birthdays';
     const svg = 그리기(장[0], 2, 5, 규격[0], 긴주소);

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-06T18:33+09:00",
+  "generated": "2026-09-07T09:12+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
@@ -328,7 +328,7 @@
       "seconds": 14,
       "page": "/what-kind-fell",
       "says": "A man and a woman read out the two medians side by side — the Korean articles and the Japanese ones beside them — and say plainly that both fell. Narrated.",
-      "saysFrom": "page source",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -392,13 +392,13 @@
       "alsoOn": []
     },
     {
-      "set": "works",
-      "src": "/video/works.mp4",
-      "thumb": "/video/thumb/works.jpg",
+      "set": "works-voiced",
+      "src": "/video/works-voiced.mp4",
+      "thumb": "/video/thumb/works-voiced.jpg",
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
-      "saysFrom": "built page",
+      "saysFrom": "page source",
       "alsoOn": []
     }
   ]
