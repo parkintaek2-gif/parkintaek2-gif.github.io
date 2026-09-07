@@ -168,24 +168,57 @@ if (내가직접돌았나) {
     영상 = 셈(산영상, 하루몫.영상, 못잰영상);
   } catch (e) { console.log(`   ⬜ 영상 목록을 못 읽었다: ${String(e.message).slice(0, 50)}`); }
 
-  /* 기타(카드뉴스) — 그날 구운 카드 벌 */
+  /* 기타(카드뉴스) — 그날 «새로 낸» 카드 벌
+   *
+   * 🔴 [2026-09-07 고침] 여기가 **파일 시각(mtime)으로 셌다.** 그래서 그날 옛 카드를
+   *   «다시 구우면» 그것까지 「오늘 만든 것」으로 셌다. 실제로 오늘 OG 딱지 겹침을
+   *   고치려고 166벌을 다시 구웠더니 이 자가 **「기타 166/1 ✅」**을 냈고,
+   *   나는 그 수를 그대로 보고에 옮겼다. **다시 구운 것은 발행이 아니다.**
+   *
+   * ⚠ birthtime 으로도 못 가른다 — 다시 구울 때 파일을 «지우고 새로» 쓰므로
+   *   생성시각도 오늘이 된다. 2026-09-07 에 재 봤다: 새로 1,624 · 다시 0 (틀린 답).
+   * ✅ 그래서 **git 에 묻는다.** 오늘 커밋이 «더한(A)» 것이 새로 낸 것이고,
+   *   «고친(M)» 것은 다시 구운 것이다. 그날 실측: 새로 20벌 · 다시 161벌.
+   * ⛔ 커밋 전이라 git 이 모르는 벌은 「새로」에 안 든다 — 그것이 맞다.
+   *   커밋도 안 된 것은 손님에게 못 간다(라이브 200 도 안 뜬다).
+   */
   const 카드방 = path.join(뿌리, 'public', 'wikitip', 'cardnews');
   let 기타 = 셈(0, 하루몫.기타);
   try {
-    const 시작 = new Date(`${날}T00:00:00`); const 끝 = new Date(시작.getTime() + 86400000);
-    const 벌 = new Set();
-    for (const f of fs.readdirSync(카드방)) {
-      const st = fs.statSync(path.join(카드방, f));
-      if (st.mtime >= 시작 && st.mtime < 끝) 벌.add(f.replace(/-(sq|v)-\d+\.png$/, ''));
+    const { execFileSync } = await import('node:child_process');
+    const 벌뽑기 = (걸러) => {
+      let 글 = '';
+      try {
+        글 = execFileSync('git', ['log', `--since=${날} 00:00`, `--diff-filter=${걸러}`,
+          '--name-only', '--pretty=format:', '--', 'public/wikitip/cardnews'],
+        { cwd: 뿌리, encoding: 'utf8', timeout: 60000 });
+      } catch (e) { return null; }          // 못 물었으면 null — 0 으로 안 채운다
+      const 벌 = new Set();
+      for (const 줄 of 글.split('\n')) {
+        const 이름 = 줄.trim().split('/').pop();
+        if (!이름 || !/\.png$/.test(이름)) continue;
+        벌.add(이름.replace(/-(sq|v)-\d+\.png$/, ''));
+      }
+      return 벌;
+    };
+    const 새벌 = 벌뽑기('A');
+    const 다시벌 = 벌뽑기('M');
+    if (새벌 === null) {
+      console.log('   ⬜ git 에 못 물었다 — 기타를 «못 쟀다»로 둔다(파일 시각으로 되돌리지 않는다)');
+    } else {
+      /* 다시 구운 것은 새로 낸 것에서 뺀다 — 한 벌이 같은 날 더해지고 고쳐질 수 있다 */
+      const 다시만 = new Set([...(다시벌 || [])].filter((v) => !새벌.has(v)));
+      console.log(`   ⭐ 오늘 «새로» 낸 벌 ${새벌.size}개 · «다시 구운» 벌 ${다시만.size}개`);
+      console.log('   ⛔ 다시 구운 것은 발행으로 안 셉니다 (2026-09-07 에 166벌을 그렇게 셌습니다)');
+      let 산카드 = 0; let 못잰카드 = 0;
+      for (const v of 새벌) {
+        let c = 0;
+        try { c = (await fetch(주소꼴.카드(v, 1), { method: 'HEAD', signal: AbortSignal.timeout(25000) })).status; } catch (e) { c = 0; }
+        if (c === 200) 산카드++; else if (c === 0) 못잰카드++;
+        console.log(`   ${c === 200 ? '✅' : c === 0 ? '⬜' : '🔴'} ${String(c || '못 쟀다').padStart(7)}  카드 ${v}`);
+      }
+      기타 = 셈(산카드, 하루몫.기타, 못잰카드);
     }
-    let 산카드 = 0; let 못잰카드 = 0;
-    for (const v of 벌) {
-      let c = 0;
-      try { c = (await fetch(주소꼴.카드(v, 1), { method: 'HEAD', signal: AbortSignal.timeout(25000) })).status; } catch (e) { c = 0; }
-      if (c === 200) 산카드++; else if (c === 0) 못잰카드++;
-      console.log(`   ${c === 200 ? '✅' : c === 0 ? '⬜' : '🔴'} ${String(c || '못 쟀다').padStart(7)}  카드 ${v}`);
-    }
-    기타 = 셈(산카드, 하루몫.기타, 못잰카드);
   } catch (e) { console.log(`   ⬜ 카드 방을 못 읽었다: ${String(e.message).slice(0, 50)}`); }
 
   console.log(`\n■ ${날} 셈`);
