@@ -1,14 +1,14 @@
 {
- "잰때": "2026. 9. 7. 오전 9:58:53",
+ "잰때": "7 September 2026, 09:58 KST",
  "창": "2026-08-24 ~ 2026-09-06",
  "날수": 14,
  "우물": "Wikimedia REST — pageviews/top-per-country (all-access) · 판정은 Wikidata P27·P495·P17",
  "이것이무엇인가": "나라마다 그날 가장 많이 읽힌 위키백과 문서 목록을 날마다 모아, 그중 한국 것이 몇 개이고 열람의 몇 %인지 센 것이다.",
  "이것이아닌것": [
-  "⛔ 「그 나라에서 한국 문서가 읽힌 총량」이 아니다 — «상위 목록에 든 것»만 센다.",
-  "⛔ 상위에 못 든 것은 0 이 아니라 «못 잰 것»이다. 0 으로 채우지 않았다.",
-  "⛔ 열람수는 원본이 100 단위로 반올림해 준다(views_ceil). 정밀한 수가 아니다.",
-  "⛔ 시청·구매가 아니라 «찾아본 것»이다."
+  "This is not the total reading of Korean articles in a country. It counts only what reached the daily most-read list.",
+  "Anything below a country's cut-off is unmeasured, not zero. We did not fill it in as zero.",
+  "The source rounds read counts to the nearest hundred (views_ceil), so these are not exact figures.",
+  "This is looking something up, not watching or buying it."
  ],
  "못받은날": [
   {

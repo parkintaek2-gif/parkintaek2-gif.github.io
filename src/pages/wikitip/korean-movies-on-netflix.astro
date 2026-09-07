@@ -20,6 +20,9 @@
  * ⚠ 극장 개봉작과 넷플릭스 자체 영화가 한 표에 섞여 있다. 못 가른다고 지면이 스스로 적는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+/* 🔴 [2026-09-07] 기사가 이 지면을 가리키는데 이 지면엔 기사로 가는 문이 없었다.
+   check-article-reach 가 잡았다 — 「만들고 문을 안 내면 없는 것과 같다」 */
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import data from '../../data/kcw-films.json';
 
@@ -212,6 +215,8 @@ const jsonLd = {
     method={`Netflix's own weekly top 10 files by country, ${data.weekFrom} to ${data.weekTo}, across ${data.marketCount} countries. Netflix publishes two separate weekly lists, one for films and one for series; this page uses the films list only. A title that appears on both lists is two different works sharing a name, and we do not add them together — where we could not establish which work is the Korean one, we publish neither set of numbers.`}
     limitation={`A chart place is not a viewing figure. Netflix publishes no hours or viewers by country, so nothing here says how many people watched, and a small market counts the same as a large one. Netflix states no country of production, so which titles count as Korean is our inference from the title text and from Wikidata. Our rows also do not say whether a film opened in cinemas before reaching Netflix, so theatrical releases and Netflix originals sit in the same table.`}
   />
+
+  <KcwRelatedArticles page="/korean-movies-on-netflix" />
 
   <style>
     .lead { font-size: 1.08rem; }

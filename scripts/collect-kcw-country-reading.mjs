@@ -277,16 +277,24 @@ async function 주된일() {
       + (r.무엇[0] ? `  맨위: ${r.무엇[0].제목} (${r.무엇[0].열람.toLocaleString('en-US')})` : '  ⬜ 상위에 든 한국 것 없음'));
   }
 
+/** 🔴 손님이 읽는 시각이다 — `toLocaleString('ko-KR')` 은 「오전」을 낸다.
+ *  KST 를 영어로 적는다. ⛔ toISOString() 은 UTC 라 새벽에 하루가 어긋난다. */
+function 잰때영어(때 = new Date()) {
+  const 날 = 때.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const 시 = 때.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+  return `${날}, ${시} KST`;
+}
   const 낼것 = {
-    잰때: new Date().toLocaleString('ko-KR'),
+    잰때: 잰때영어(),
     창, 날수,
     우물: 'Wikimedia REST — pageviews/top-per-country (all-access) · 판정은 Wikidata P27·P495·P17',
     이것이무엇인가: '나라마다 그날 가장 많이 읽힌 위키백과 문서 목록을 날마다 모아, 그중 한국 것이 몇 개이고 열람의 몇 %인지 센 것이다.',
+    /* 🔴 이 줄들은 «지면에 그대로 찍힌다». 영어로 적는다 */
     이것이아닌것: [
-      '⛔ 「그 나라에서 한국 문서가 읽힌 총량」이 아니다 — «상위 목록에 든 것»만 센다.',
-      '⛔ 상위에 못 든 것은 0 이 아니라 «못 잰 것»이다. 0 으로 채우지 않았다.',
-      '⛔ 열람수는 원본이 100 단위로 반올림해 준다(views_ceil). 정밀한 수가 아니다.',
-      '⛔ 시청·구매가 아니라 «찾아본 것»이다.',
+      'This is not the total reading of Korean articles in a country. It counts only what reached the daily most-read list.',
+      'Anything below a country\'s cut-off is unmeasured, not zero. We did not fill it in as zero.',
+      'The source rounds read counts to the nearest hundred (views_ceil), so these are not exact figures.',
+      'This is looking something up, not watching or buying it.',
     ],
     못받은날: 못받은날.slice(0, 40),
     못받은날수: 못받은날.length,

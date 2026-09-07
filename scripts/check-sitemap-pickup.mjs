@@ -22,6 +22,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
+/* 🔴 [2026-09-07] 파일 이름을 toISOString 으로 지어 «새벽에 하루가 어긋날» 자리였다.
+   저장소 규칙은 _kst.mjs 다 — 9시간을 손으로 더하지 않고 이 자를 쓴다. */
+import { 오늘 } from './_kst.mjs';
 
 export const 사이트들 = {
   kcw: 'sc-domain:kculturewire.com',
@@ -173,7 +176,7 @@ async function 주된일() {
   console.log('   실제로 색인된 지면이 있는 사이트도 0 입니다. 0 을 「없다」로 읽으면 오진입니다.');
   console.log('   색인 장수는 node scripts/check-index-verdict.mjs 로 «한 장씩 물어» 셉니다.');
 
-  const 어디 = path.join('src', 'data', `sitemap-pickup-${new Date().toISOString().slice(0, 10)}.json`);
+  const 어디 = path.join('src', 'data', `sitemap-pickup-${오늘()}.json`);
   fs.writeFileSync(어디, JSON.stringify(낼것, null, 1), 'utf8');
   console.log(`\n📁 적었다 — ${어디}\n자가시험 ${통}가지 통과.`);
 }

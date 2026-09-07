@@ -31,6 +31,15 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+/** 🔴 손님이 읽는 시각이다 — toLocaleString('ko-KR') 은 「오전」을 낸다.
+ *  KST 를 영어로 적는다. ⛔ toISOString() 은 UTC 라 새벽에 하루가 어긋난다. */
+function 잰때영어(때 = new Date()) {
+  const 날 = 때.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const 시 = 때.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+  return `${날}, ${시} KST`;
+}
+
+
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SPARQL = 'https://query.wikidata.org/sparql';
 const UA = 'KCultureWire/1.0 (parkintaek2@gmail.com) webtoon adaptations';
@@ -183,7 +192,7 @@ if (내가직접돌았나) {
   }
 
   const 낼것 = {
-    잰때: new Date().toLocaleString('ko-KR'),
+    잰때: 잰때영어(),
     창: `${처음}~${끝} (30일 · 영문 위키 · 사람 트래픽만)`,
     우물: 'Wikidata SPARQL (P144 based on · P31/P279* Q1004 comic · P495 Q884 South Korea) + Wikimedia Pageviews',
     받은짝: 것들.length, 잴수있는것: 잴수있는것.length, 잰것: 잰것.length,

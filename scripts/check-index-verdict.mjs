@@ -24,6 +24,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createSign } from 'node:crypto';
+/* 🔴 [2026-09-07] 파일 이름을 toISOString 으로 지어 «새벽에 하루가 어긋날» 자리였다.
+   저장소 규칙은 _kst.mjs 다 — 9시간을 손으로 더하지 않고 이 자를 쓴다. */
+import { 오늘 } from './_kst.mjs';
 
 export const 사이트들 = {
   kcw: { 속성: 'sc-domain:kculturewire.com', 사이트맵: 'https://www.kculturewire.com/sitemap.xml' },
@@ -55,6 +58,21 @@ export function 몫내기(셈) {
 }
 
 /** 사이트맵 URL 에서 «고르게 퍼진» 표본을 뽑는다 — ⛔ 앞에서 N장만 자르지 않는다 */
+/**
+ * 갈래로 거른다 — `--걸러=/title/` 처럼 «경로 조각»으로 준다.
+ *
+ * ⛔ 아무것도 안 걸리면 «빈 것»을 돌려준다. 못 걸렀다고 통째로 넘기지 않는다 —
+ *   통째로 넘기면 「/title/ 을 물었다」고 믿고 엉뚱한 표본을 재게 된다.
+ */
+export function 갈래로거르기(주소들, 조각) {
+  const 목 = Array.isArray(주소들) ? 주소들 : [];
+const c = String(조각 ??'').trim();
+  if (!c) return 목;
+  return 목.filter((u) => {
+    try { return new URL(u).pathname.includes(c); } catch { return false; }
+  });
+}
+
 export function 고르게뽑기(목록, 몇장) {
   const a = [...(목록 ?? [])];
   if (몇장 <= 0 || !a.length) return [];
@@ -144,6 +162,14 @@ function 자가시험() {
   봐('0장을 달라면 빈 것', 고르게뽑기(목록, 0).length === 0);
   봐('빈 목록이면 빈 것', 고르게뽑기([], 5).length === 0);
 
+  /* 갈래로 거르기 */
+  const 섞 = ['https://a.com/title/x', 'https://a.com/person/y', 'https://a.com/title/z', '깨진주소'];
+  봐('갈래로 거른다', 갈래로거르기(섞, '/title/').length === 2);
+  봐('⛔ 못 걸렀으면 빈 것 — 통째로 넘기지 않는다', 갈래로거르기(섞, '/없는갈래/').length === 0);
+  봐('조각을 안 주면 그대로', 갈래로거르기(섞, '').length === 4);
+  봐('깨진 주소는 조용히 뺀다', !갈래로거르기(섞, '/title/').includes('깨진주소'));
+  봐('목록이 아니면 빈 것', 갈래로거르기(null, '/title/').length === 0);
+
   console.log(`\n색인 판정 검사 — 자가시험 ${통}가지 통과 · ${실}가지 실패`);
   if (실) process.exit(1);
   return 통;
@@ -226,7 +252,14 @@ async function 주된일() {
   }
   console.log(`\n■ ${이름} · 사이트맵 주소 ${주소.length.toLocaleString('en-US')}장 → 표본 ${몇장}장을 «고르게» 뽑아 묻는다`);
 
-  const 표본 = 고르게뽑기(주소, 몇장);
+  const 조각 = 인자('걸러', '');
+  const 걸러진 = 갈래로거르기(주소, 조각);
+  if (조각 && !걸러진.length) {
+    console.error(`⛔ 「${조각}」 에 걸리는 주소가 사이트맵에 없다. 통째로 재지 않고 멈춘다.`);
+    process.exit(1);
+  }
+  if (조각) console.log(`   ⭐ 「${조각}」 갈래만 — ${걸러진.length.toLocaleString('en-US')}장 가운데서 뽑는다`);
+  const 표본 = 고르게뽑기(걸러진, 몇장);
   const 토큰 = await 토큰받기();
   const 셈 = {}; const 줄 = [];
   for (const u of 표본) {
@@ -282,7 +315,9 @@ async function 주된일() {
     console.log('   ⇒ 고칠 것을 찾으려면 «코드와 라이브»를 함께 본다. 이 값만으로 남에게 올리지 않는다.');
   }
 
-  const 어디 = path.join('src', 'data', `index-verdict-${이름}-${new Date().toISOString().slice(0, 10)}.json`);
+  /* ⛔ 갈래별 표본이 같은 이름으로 서로를 덮으면 어느 것을 잰 값인지 모르게 된다 */
+  const 꼬리 = 조각 ? `-${조각.replace(/[^a-z0-9]+/gi, '')}` : '';
+  const 어디 = path.join('src', 'data', `index-verdict-${이름}${꼬리}-${오늘()}.json`);
   fs.writeFileSync(어디, JSON.stringify({
     잰때: new Date().toLocaleString('ko-KR'), 사이트: 이름, 속성: 곳.속성,
     사이트맵장수: 주소.length, 표본: 표본.length, 셈, 몫: m,

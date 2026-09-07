@@ -351,17 +351,25 @@ async function 주된일() {
   console.log('\n   봉우리 대비 지금이 낮은 쪽 8팀');
   for (const x of 잰것.slice(-8)) console.log(`     ${String(x.남은몫).padStart(6)}%  ${x.이름}  (봉우리 ${x.봉우리달} ${x.봉우리열람.toLocaleString('en-US')})`);
 
+/** 🔴 손님이 읽는 시각이다 — `toLocaleString('ko-KR')` 은 「오전」을 낸다.
+ *  KST 를 영어로 적는다. ⛔ toISOString() 은 UTC 라 새벽에 하루가 어긋난다. */
+function 잰때영어(때 = new Date()) {
+  const 날 = 때.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+  const 시 = 때.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false });
+  return `${날}, ${시} KST`;
+}
   const 낼것 = {
-    잰때: new Date().toLocaleString('ko-KR'),
+    잰때: 잰때영어(),
     창: `2015-07 ~ ${끝달.getFullYear()}-${String(끝달.getMonth()).padStart(2, '0')}`,
     우물: 'Wikidata SPARQL (P31/P279* 음악그룹·음악앙상블·걸그룹·보이밴드 · 나라는 P495/P17/P740 어느 하나가 한국) + Wikimedia Pageviews per-article, en.wikipedia, all-access, agent=user, monthly',
     이것이무엇인가: '한국 음악 팀마다 영문 위키백과에서 가장 많이 읽힌 달을 찾고, 그 뒤로 얼마나 남았는지를 잰 것이다.',
+    /* 🔴 이 줄들은 «지면에 그대로 찍힌다». 영어로 적는다 — 한국어를 내면 손님이 거기서 나간다 */
     이것이아닌것: [
-      '⛔ 인기 순위가 아니다. 「찾아본 것」이지 「듣는 것」이 아니다.',
-      '⛔ 못 잰 팀을 0 으로 채우지 않았다 — 따로 세어 두었다.',
-      '⚠ 위키백과 문서는 팀이 유명해진 «뒤에» 자세해진다. 초기 달이 낮은 데는 그 탓도 있다.',
-      '⚠ 이번 달은 아직 안 차서 뺐다.',
-      '⚠ (G)I-DLE 은 위키데이터 항목에 나라 속성이 없어 이 표에 «못 들어갔다». 0 이 아니라 못 잡은 것이다.',
+      'This is not a popularity ranking. It counts what people looked up, not what they listened to.',
+      'Acts we could not measure are counted separately, never filled in as zero.',
+      'A Wikipedia article grows more detailed after an act becomes known, so early months read low partly for that reason.',
+      'The current month is excluded because it is not finished.',
+      '(G)I-DLE has no country property on its Wikidata item and so is absent from this table. That is a miss on our side, not a zero.',
     ],
     셈: {
       받은팀: 팀들.length,
