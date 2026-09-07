@@ -117,6 +117,11 @@ export const GET: APIRoute = () => {
      *   `/after`·`/region` 에서 두 번 그랬다. 그래서 지면과 **같은 커밋**에 넣는다.
      */
     { path: '/price', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 2026-09-07 5번 — /contact 를 «지면과 같은 커밋»에 넣는다.
+       docs/애드센스-계정-상태.md Ⅵ-6 이 2026-09-02 에 「심사를 막는 것은 하나뿐 —
+       백년지도 /contact 가 404」라 적어 뒀는데 9/7 에도 404 였다. 애드센스는 «연락 수단»을 본다.
+       ⚠ 우선순위를 0.4 로 둔다 — 검색 유입용 지면이 아니고 «심사와 신뢰»용 지면이다 */
+    { path: '/contact', priority: '0.4', changefreq: 'monthly' },
     { path: '/terms', priority: '0.4', changefreq: 'yearly' },
     { path: '/privacy', priority: '0.4', changefreq: 'yearly' },
     { path: '/refund', priority: '0.4', changefreq: 'yearly' },
