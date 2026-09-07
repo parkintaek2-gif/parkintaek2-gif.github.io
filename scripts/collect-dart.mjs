@@ -35,6 +35,7 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { put, storeStatus, remoteEnabled } from '../src/lib/store.mjs';
 import { KST밀리 } from './_kst.mjs';
 
@@ -253,7 +254,9 @@ async function main() {
   if (!remoteEnabled) console.log('  ⚠ 원격 저장이 꺼져 있습니다. 이 PC 에만 있습니다.');
 }
 
-main().catch((e) => {
-  console.error(e.message);
-  process.exit(1);
-});
+if (import.meta.url === pathToFileURL(process.argv[1]).href) {
+  main().catch((e) => {
+    console.error(e.message);
+    process.exit(1);
+  });
+}

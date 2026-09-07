@@ -1,23 +1,23 @@
 {
   "source": "Korea government bonds (KTB), listed close yields — data.go.kr getBondPriceInfo, T+1",
   "note": "Listed-KTB closing yields, not the Bank of Korea official reference rates. A short window, not a trend. Spread = 10-year minus 3-year (and minus 2-year); a negative value is an inversion.",
-  "days": 9,
+  "days": 10,
   "from": "2026-08-10",
-  "to": "2026-08-21",
+  "to": "2026-08-24",
   "latest": {
-    "date": "2026-08-21",
-    "y1": 3.595,
-    "y2": 3.737,
-    "y3": 3.82,
-    "y5": 4.11,
-    "y10": 4.37,
-    "y20": 4.668,
-    "y30": 4.702,
-    "spread3_10": 0.55,
-    "spread2_10": 0.633,
-    "ktbUsed": 45
+    "date": "2026-08-24",
+    "y1": 3.319,
+    "y2": 3.685,
+    "y3": 3.852,
+    "y5": 4.16,
+    "y10": 4.373,
+    "y20": 4.623,
+    "y30": 4.676,
+    "spread3_10": 0.521,
+    "spread2_10": 0.688,
+    "ktbUsed": 42
   },
-  "spread3_10_change_bp": 9,
+  "spread3_10_change_bp": 6,
   "series": [
     {
       "date": "2026-08-10",
@@ -135,6 +135,19 @@
       "spread3_10": 0.55,
       "spread2_10": 0.633,
       "ktbUsed": 45
+    },
+    {
+      "date": "2026-08-24",
+      "y1": 3.319,
+      "y2": 3.685,
+      "y3": 3.852,
+      "y5": 4.16,
+      "y10": 4.373,
+      "y20": 4.623,
+      "y30": 4.676,
+      "spread3_10": 0.521,
+      "spread2_10": 0.688,
+      "ktbUsed": 42
     }
   ]
 }
