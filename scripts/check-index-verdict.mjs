@@ -65,6 +65,41 @@ export function 고르게뽑기(목록, 몇장) {
   return 뽑;
 }
 
+/**
+ * 🔴 [2026-09-07] **이 자가 오진을 냈다. 그 까닭을 여기 못박는다.**
+ *
+ * 100yearmap 표본에서 4장이 「noindex 로 뺐다」로 나와, 나는 그것을
+ *   「사이트맵에 noindex 지면이 660장쯤 들어 있다」로 어림해 3번께 세 번 올렸다.
+ * 3번이 코드와 라이브를 직접 보고 반론했다 — 「지금은 noindex 가 안 걸려 있다.
+ *   그 값은 구글이 «마지막으로 기어간 때»의 스냅샷일 것이다」.
+ *
+ * ⭐ 재 보니 3번이 맞았다 —
+ * ```
+ * 네 장의 lastCrawlTime   2026-08-05 02:19 ~ 06:27 UTC  (네 장 다 그날 4시간 안)
+ * 3번이 색인을 «연» 커밋  2026-08-05 19:48 KST = 10:48 UTC
+ * ⇒ 크롤이 «고침보다 먼저»였다. 그 뒤로 구글이 한 번도 다시 안 기어갔다
+ * ```
+ *
+ * ⛔ 그래서 이 자는 이제 `lastCrawlTime` 을 «반드시» 함께 낸다.
+ *   그 칸이 없으면 「지금 그렇다」와 「그때 그랬다」를 못 가른다 —
+ *   못 가른 채로 남에게 올리면 남의 하루를 헛되게 쓴다.
+ */
+export const 낡음문턱일 = 14;
+
+export function 낡은값인가(lastCrawlTime, 이제 = Date.now(), 문턱일 = 낡음문턱일) {
+  if (!lastCrawlTime) return { 낡음: null, 까닭: '기어간 때를 모른다 — 낡았는지도 못 잰다' };
+  const t = Date.parse(lastCrawlTime);
+  if (!Number.isFinite(t)) return { 낡음: null, 까닭: '기어간 때의 꼴이 아니다' };
+  const 지난날 = (이제 - t) / 86400000;
+  return {
+    낡음: 지난날 > 문턱일,
+    지난날: +지난날.toFixed(1),
+    까닭: 지난날 > 문턱일
+      ? `${Math.round(지난날)}일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다`
+      : `${Math.round(지난날)}일 전 크롤이다 — 최근 값이다`,
+  };
+}
+
 /* ── 자가시험 ─────────────────────────────────────────────── */
 function 자가시험() {
   let 통 = 0; let 실 = 0;
@@ -89,6 +124,17 @@ function 자가시험() {
   봐('한 장도 못 물으면 몫을 안 낸다',
     몫내기({ 못물어봄: 3 }).색인몫 === null);
   봐('못 낼 때 까닭을 적는다', /못 물었다/.test(몫내기({ 못물어봄: 3 }).까닭));
+
+  const 이제 = Date.parse('2026-09-07T12:00:00Z');
+  봐('🔴 오래된 크롤을 «낡았다»고 말한다',
+    낡은값인가('2026-08-05T03:00:00Z', 이제).낡음 === true);
+  봐('낡았을 때 «옛것일 수 있다»고 적는다',
+    /옛것/.test(낡은값인가('2026-08-05T03:00:00Z', 이제).까닭));
+  봐('최근 크롤은 낡지 않았다', 낡은값인가('2026-09-05T03:00:00Z', 이제).낡음 === false);
+  봐('⛔ 기어간 때를 모르면 «낡았다/아니다» 어느 쪽도 아니다 — null 이다',
+    낡은값인가(null, 이제).낡음 === null);
+  봐('모를 때도 까닭을 적는다', /못 잰다/.test(낡은값인가(null, 이제).까닭));
+  봐('지난 날수를 함께 낸다', 낡은값인가('2026-09-05T12:00:00Z', 이제).지난날 === 2);
 
   const 목록 = Array.from({ length: 100 }, (_, i) => 'u' + i);
   const 뽑 = 고르게뽑기(목록, 10);
@@ -185,6 +231,7 @@ async function 주된일() {
   const 셈 = {}; const 줄 = [];
   for (const u of 표본) {
     let c = null; let v = null; let 오류 = null;
+    let 긴때 = null; let 막힘 = null; let 로봇 = null;
     try {
       const r = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', {
         method: 'POST',
@@ -193,11 +240,23 @@ async function 주된일() {
       });
       const j = await r.json();
       if (!r.ok) 오류 = `${r.status} ${j?.error?.message ?? ''}`.slice(0, 90);
-      else { c = j?.inspectionResult?.indexStatusResult?.coverageState ?? null; v = j?.inspectionResult?.indexStatusResult?.verdict ?? null; }
+      else {
+        const r2 = j?.inspectionResult?.indexStatusResult ?? {};
+        c = r2.coverageState ?? null;
+        v = r2.verdict ?? null;
+        긴때 = r2.lastCrawlTime ?? null;
+        막힘 = r2.indexingState ?? null;
+        로봇 = r2.robotsTxtState ?? null;
+      }
     } catch (e) { 오류 = e.message.slice(0, 80); }
     const 판 = 오류 ? '못물어봄' : 판정가르기(c, v);
     셈[판] = (셈[판] ?? 0) + 1;
-    줄.push({ 주소: u, 판정: 판, coverageState: c, verdict: v, 오류 });
+    const 낡 = 낡은값인가(긴때);
+    줄.push({
+      주소: u, 판정: 판, coverageState: c, verdict: v, 오류,
+      lastCrawlTime: 긴때, indexingState: 막힘, robotsTxtState: 로봇,
+      낡은값: 낡.낡음, 낡음까닭: 낡.까닭,
+    });
     await new Promise((s) => setTimeout(s, 350));
   }
 
@@ -210,6 +269,18 @@ async function 주된일() {
   }
   console.log(`\n⛔ 이것은 표본 ${표본.length}장이다. 사이트맵 ${주소.length.toLocaleString('en-US')}장 전체가 아니다.`);
   console.log('⚠ 그리고 이것은 «구글의 판단»이다 — 그것이 옳다는 뜻이 아니다.');
+
+  /* 🔴 낡은 값을 「지금 그렇다」로 읽어 오진을 낸 적이 있다(2026-09-07 · 위 주석) */
+  const 낡은것 = 줄.filter((x) => x.낡은값 === true);
+  if (낡은것.length) {
+    console.log(`\n🔴 이 가운데 ${낡은것.length}장은 «${낡음문턱일}일보다 오래된» 크롤 값이다.`);
+    console.log('   그 뒤에 우리가 고쳤다면 이 판정은 «옛것»이다 — 「지금 그렇다」로 읽지 않는다.');
+    for (const x of 낡은것.slice(0, 6)) {
+      console.log(`   · ${x.주소.replace(/^https?:\/\//, '')}`);
+      console.log(`     ${x.coverageState} · ${x.낡음까닭}`);
+    }
+    console.log('   ⇒ 고칠 것을 찾으려면 «코드와 라이브»를 함께 본다. 이 값만으로 남에게 올리지 않는다.');
+  }
 
   const 어디 = path.join('src', 'data', `index-verdict-${이름}-${new Date().toISOString().slice(0, 10)}.json`);
   fs.writeFileSync(어디, JSON.stringify({

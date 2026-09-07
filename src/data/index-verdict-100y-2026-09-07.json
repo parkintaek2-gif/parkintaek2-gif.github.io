@@ -1,18 +1,17 @@
 {
- "잰때": "2026. 9. 7. 오후 12:29:55",
+ "잰때": "2026. 9. 7. 오후 1:19:53",
  "사이트": "100y",
  "속성": "sc-domain:100yearmap.com",
- "사이트맵장수": 4957,
- "표본": 30,
+ "사이트맵장수": 4958,
+ "표본": 20,
  "셈": {
-  "색인됨": 20,
-  "우리가막음": 4,
-  "기다림": 4,
-  "그밖": 2
+  "색인됨": 16,
+  "기다림": 3,
+  "그밖": 1
  },
  "몫": {
-  "물어본": 30,
-  "색인몫": 66.7
+  "물어본": 20,
+  "색인몫": 80
  },
  "이것이아닌것": [
   "⛔ 전수가 아니다 — 표본이다.",
@@ -25,210 +24,240 @@
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-25T04:21:50Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "13일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/major/%EC%A0%95%EB%B3%B4%EC%A0%84%EC%9E%90%EA%B3%BC",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/major/%EB%AC%BC%EB%A5%98%EC%9C%A0%ED%86%B5%EA%B3%BC",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/major/%EC%98%81%EC%83%81%EC%A0%95%EB%B3%B4%EA%B3%BC",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/major/%EC%A7%81%EC%97%85%EA%B3%BC%EC%A0%95%EC%97%AC",
-   "판정": "우리가막음",
-   "coverageState": "Excluded by ‘noindex’ tag",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/major/%EC%83%9D%ED%99%9C%EA%B3%BC%ED%95%99%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EC%9D%B8%ED%84%B0%EB%84%B7%EC%A0%95%EB%B3%B4%EA%B4%80%EB%A0%A8%ED%95%99%EA%B3%BC",
    "판정": "기다림",
    "coverageState": "Discovered - currently not indexed",
    "verdict": "NEUTRAL",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": null,
+   "indexingState": "INDEXING_STATE_UNSPECIFIED",
+   "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "낡은값": null,
+   "낡음까닭": "기어간 때를 모른다 — 낡았는지도 못 잰다"
   },
   {
-   "주소": "https://100yearmap.com/major/%ED%95%98%EC%9D%B4%ED%85%8D%EB%94%94%EC%9E%90%EC%9D%B8%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EC%98%81%EC%83%81%EC%A0%84%EC%9E%90%EA%B3%BC",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-29T14:23:45Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "9일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/college-major/%EC%8B%A4%EC%9A%A9%EC%9D%8C%EC%95%85%EA%B3%BC",
-   "판정": "그밖",
-   "coverageState": "URL is unknown to Google",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EA%B2%BD%EC%98%81%EA%B3%BC",
+   "주소": "https://100yearmap.com/major/%EB%84%A4%ED%8A%B8%EC%9B%8C%ED%81%AC%ED%86%B5%EC%8B%A0%EA%B3%BC",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-25T09:21:26Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "13일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/college-major/%EC%B4%88%EB%93%B1%EC%88%98%ED%95%99%EA%B5%90%EC%9C%A1%EA%B3%BC(%EC%8B%AC%ED%99%94%EA%B3%BC%EC%A0%95)",
+   "주소": "https://100yearmap.com/major/%ED%91%B8%EB%93%9C%ED%85%8C%ED%81%AC%EA%B3%BC",
+   "판정": "색인됨",
+   "coverageState": "Submitted and indexed",
+   "verdict": "PASS",
+   "오류": null,
+   "lastCrawlTime": "2026-08-19T04:49:49Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "19일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EC%82%AC%ED%9A%8C%EB%B3%B5%EC%A7%80%EA%B3%84%EC%97%B4",
    "판정": "기다림",
    "coverageState": "Discovered - currently not indexed",
    "verdict": "NEUTRAL",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": null,
+   "indexingState": "INDEXING_STATE_UNSPECIFIED",
+   "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "낡은값": null,
+   "낡음까닭": "기어간 때를 모른다 — 낡았는지도 못 잰다"
   },
   {
-   "주소": "https://100yearmap.com/college-major/%EC%9C%B5%ED%95%A9%EC%83%9D%EB%AA%85%EA%B3%B5%ED%95%99%EA%B3%BC",
-   "판정": "기다림",
-   "coverageState": "Discovered - currently not indexed",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/college-major/%EC%97%AD%EC%82%AC%EB%AC%B8%ED%99%94%ED%95%99%EA%B3%BC",
+   "주소": "https://100yearmap.com/college-major/%EC%A1%B0%ED%98%95%EC%98%88%EC%88%A0%ED%95%99%EA%B3%BC",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-08T01:34:06Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "30일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
+  },
+  {
+   "주소": "https://100yearmap.com/college-major/%EC%95%84%ED%83%9C%EB%AC%BC%EB%A5%98%ED%95%99%EB%B6%80",
+   "판정": "색인됨",
+   "coverageState": "Submitted and indexed",
+   "verdict": "PASS",
+   "오류": null,
+   "lastCrawlTime": "2026-08-08T07:43:16Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "30일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
   },
   {
    "주소": "https://100yearmap.com/school/9010128",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-30T17:23:35Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "7일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/school/7140271",
+   "주소": "https://100yearmap.com/school/7530629",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/8321275",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-11T09:11:35Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "27일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
   },
   {
    "주소": "https://100yearmap.com/school/8750162",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-07T19:48:30Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "30일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
   },
   {
-   "주소": "https://100yearmap.com/school/7140264",
-   "판정": "그밖",
-   "coverageState": "URL is unknown to Google",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7150108",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7011506",
-   "판정": "우리가막음",
-   "coverageState": "Excluded by ‘noindex’ tag",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7140349",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7010094",
-   "판정": "우리가막음",
-   "coverageState": "Excluded by ‘noindex’ tag",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7430140",
+   "주소": "https://100yearmap.com/school/7010172",
    "판정": "기다림",
    "coverageState": "Discovered - currently not indexed",
    "verdict": "NEUTRAL",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": null,
+   "indexingState": "INDEXING_STATE_UNSPECIFIED",
+   "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "낡은값": null,
+   "낡음까닭": "기어간 때를 모른다 — 낡았는지도 못 잰다"
   },
   {
-   "주소": "https://100yearmap.com/school/7310260",
+   "주소": "https://100yearmap.com/school/7010738",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-25T05:10:24Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "13일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/school/7801179",
+   "주소": "https://100yearmap.com/school/9290072",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-07T19:06:39Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": true,
+   "낡음까닭": "30일 전 크롤이다 — 그 뒤에 고쳤다면 이 판정은 «옛것»이다"
+  },
+  {
+   "주소": "https://100yearmap.com/school/7430140",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null,
+   "lastCrawlTime": null,
+   "indexingState": "INDEXING_STATE_UNSPECIFIED",
+   "robotsTxtState": "ROBOTS_TXT_STATE_UNSPECIFIED",
+   "낡은값": null,
+   "낡음까닭": "기어간 때를 모른다 — 낡았는지도 못 잰다"
+  },
+  {
+   "주소": "https://100yearmap.com/school/8321124",
+   "판정": "색인됨",
+   "coverageState": "Submitted and indexed",
+   "verdict": "PASS",
+   "오류": null,
+   "lastCrawlTime": "2026-08-30T10:04:15Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "8일 전 크롤이다 — 최근 값이다"
   },
   {
    "주소": "https://100yearmap.com/school/8140508",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-27T23:46:35Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "10일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/school/7310601",
+   "주소": "https://100yearmap.com/school/7140236",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/school/7530479",
-   "판정": "색인됨",
-   "coverageState": "Submitted and indexed",
-   "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-24T12:19:12Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "14일 전 크롤이다 — 최근 값이다"
   },
   {
    "주소": "https://100yearmap.com/university/0000173",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-25T08:37:56Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "13일 전 크롤이다 — 최근 값이다"
   },
   {
-   "주소": "https://100yearmap.com/university/0000532",
-   "판정": "우리가막음",
-   "coverageState": "Excluded by ‘noindex’ tag",
-   "verdict": "NEUTRAL",
-   "오류": null
-  },
-  {
-   "주소": "https://100yearmap.com/report/area/%EC%9D%B8%EC%B2%9C%EA%B4%91%EC%97%AD%EC%8B%9C-%EA%B3%84%EC%96%91%EA%B5%AC",
+   "주소": "https://100yearmap.com/report/area/%EA%B2%BD%EA%B8%B0%EB%8F%84-%EB%82%A8%EC%96%91%EC%A3%BC%EC%8B%9C",
    "판정": "색인됨",
    "coverageState": "Submitted and indexed",
    "verdict": "PASS",
-   "오류": null
+   "오류": null,
+   "lastCrawlTime": "2026-08-25T06:01:48Z",
+   "indexingState": "INDEXING_ALLOWED",
+   "robotsTxtState": "ALLOWED",
+   "낡은값": false,
+   "낡음까닭": "13일 전 크롤이다 — 최근 값이다"
   }
  ]
 }
