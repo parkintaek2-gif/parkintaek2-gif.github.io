@@ -12,6 +12,11 @@
       "label": "low-forecast error, up from 2.89% three weeks earlier",
       "왜": "자동은 첫 주 수치(2.89%)만 집어 라벨 없이 냄 — 요점은 마지막 주 수치(8.10%)와 3주 추이"
     },
+    "korea-goldman-kospi-upside-80-to-71": {
+      "figure": "71.5%",
+      "label": "upside to Goldman's 12,000 KOSPI target — was ≈80% one day earlier",
+      "왜": "자동은 「12,000」(목표치 자체)을 집었다 — 요점은 같은 목표에서 나온 두 업사이드 수치의 차이"
+    },
     "korea-won-14-month-high-two-months-after-peak": {
       "figure": "1,355.2",
       "label": "won/dollar, 7 Sep — 14-month high, down 12.8% from July's peak",
