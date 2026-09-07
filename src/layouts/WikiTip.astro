@@ -33,6 +33,16 @@ export interface Props {
   jsonLd?: unknown;
   canonical?: string;
   /**
+   * 🔴 [2026-09-07] 지면 셋(/webtoon-adaptations · /group-afterlife · /what-countries-read)이
+   *   canonical «없이» 라이브로 나갔다. 내가 canonical= 대신 page= 를 넘겼고,
+   *   레이아웃이 그 이름을 **받지 않아 조용히 버렸다**.
+   *   ⛔ 바로 아래 noAds 주석이 이미 못박아 둔 것과 같은 병이다 —
+   *      「넘기는 쪽만 있고 받는 쪽이 없으면 조용히 무시된다」.
+   * ✅ 그래서 이제 «둘 다» 받는다. page 만 줘도 canonical 이 나간다.
+   * ⚠ canonical 이 없으면 구글이 그 지면을 색인에서 뺀다 — 그것도 조용히 빠진다.
+   */
+  page?: string;
+  /**
    * 공유 카드. **절대 주소여야 한다** — 카카오톡·X·페이스북은 상대 주소를 못 따라온다.
    * ⛔ 2026-08-08 까지 여기가 `/og.svg` 하나로 굳어 있었다. 두 가지가 같이 틀렸다 —
    *    **SVG 는 저 셋이 아예 안 그리고**, 36편이 같은 그림이면 떠도 다 똑같다.
@@ -41,9 +51,13 @@ export interface Props {
   ogImage?: string;
 }
 const {
-  title, description, noindex = false, jsonLd, canonical,
+  title, description, noindex = false, jsonLd, canonical, page,
   ogImage = 'https://www.kculturewire.com/og.png',
 } = Astro.props;
+
+/* ⭐ canonical 을 안 줬으면 page 로 짓는다. 둘 다 없으면 못 짓는다 —
+   그때는 scripts/check-kcw-canonical.mjs 가 dist 를 훑어 잡아낸다. */
+const 정본 = canonical ?? (page ? `https://www.kculturewire.com${page}` : undefined);
 
 /* 🔴 `noAds` — esports 지면이 이미 넘기고 있었는데 여기서 안 받고 있었다.
    넘기는 쪽만 있고 받는 쪽이 없으면 조용히 무시된다. */
@@ -138,8 +152,8 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   {/* 네이버 소유확인 (2026-08-08 · 사장님이 받아 주신 코드).
       ⛔ 확인이 끝나도 지우지 않는다 — 지우면 확인이 풀린다. */}
   <meta name="naver-site-verification" content="a7fdcea9501689b6609a677b490e402c6e82918e" />
-  {canonical && <link rel="canonical" href={canonical} />}
-  {canonical && <meta property="og:url" content={canonical} />}
+  {정본 && <link rel="canonical" href={정본} />}
+  {정본 && <meta property="og:url" content={정본} />}
   {noindex && <meta name="robots" content="noindex" />}
   {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   {/*
@@ -329,7 +343,7 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
         <b>Citing this page.</b> Every figure here is measured from named public sources and the
         method is on <a href="/about">how we count</a>. Please cite as
         {' '}<span class="cite-line">K Culture Wire, <em>{title}</em>, {인용연도},
-        {' '}{canonical ?? 'https://www.kculturewire.com'}</span> — and if a number here is wrong,
+        {' '}{정본 ?? 'https://www.kculturewire.com'}</span> — and if a number here is wrong,
         {' '}<a href="/contact">tell us</a> and it goes on <a href="/corrections">corrections</a>.
       </p>
       {/*
