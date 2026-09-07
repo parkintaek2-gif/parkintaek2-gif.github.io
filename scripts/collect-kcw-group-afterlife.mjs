@@ -228,19 +228,24 @@ function 자가시험() {
 
 /* ── 받아오기 ─────────────────────────────────────────────────── */
 async function 받기(주소, 꼴 = 'json') {
-  for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 5; i++) {
     try {
       const r = await fetch(주소, { headers: UA });
       if (r.ok) return 꼴 === 'json' ? await r.json() : await r.text();
       if (r.status === 404) return null;
-      if (r.status === 429) { await new Promise((s) => setTimeout(s, 2500 * (i + 1))); continue; }
+      /* 🔴 [2026-09-07] 위키데이터 질의서비스는 504·503 을 자주 낸다.
+         한 쪽이 504 로 죽으면 그 쪽 팀이 통째로 빠진다 — 429 만 다시 물으면 모자란다. */
+      if (r.status === 429 || r.status >= 500) {
+        await new Promise((s) => setTimeout(s, 3000 * (i + 1)));
+        continue;
+      }
       return { 못받음: r.status };
     } catch (e) {
-      if (i === 2) return { 못받음: e.message };
+      if (i === 4) return { 못받음: e.message };
       await new Promise((s) => setTimeout(s, 900));
     }
   }
-  return { 못받음: '세 번 다 실패' };
+  return { 못받음: '다섯 번 다 실패' };
 }
 
 async function 주된일() {
