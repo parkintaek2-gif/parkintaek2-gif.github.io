@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-07 10:29 KST",
+  "generated": "2026-09-07 21:05 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 131,
-    "머리글있음": 131,
+    "본지면": 132,
+    "머리글있음": 132,
     "머리글없음": 0
   },
   "missing": [],
@@ -82,6 +82,7 @@
     "/only-one-wikipedia": "Only the Indonesian Wikipedia has written about Ahn Sung-ki and Choi Jiwoo",
     "/opening": "What an opening position buys — Korean titles on Netflix country charts",
     "/own-star": "JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook belongs to nobody",
+    "/peak-month": "January is when a K-pop act is read most. September is when it is not",
     "/person": "Korean actors on the Netflix charts",
     "/pickup": "Which markets pick up a Korean title first",
     "/places": "An entertainment company is looked up more than Seoul is",

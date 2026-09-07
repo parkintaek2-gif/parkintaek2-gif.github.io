@@ -828,6 +828,10 @@ export const GET: APIRoute = async () => {
          같은 셋이 두 번 걸린 것이다 — 그래서 아래 셋을 한 덩이로 적어 둔다. */
     /* 774팀의 봉우리 뒤. 중앙값 두 달, 한 팀이 65개월 버텼다 */
     { path: '/group-afterlife', priority: '0.9', changefreq: 'weekly' },
+    /* 774팀의 봉우리가 «어느 달»에 오나. 1월 94팀(z 3.64) · 9월 38팀(z −3.11).
+       ⭐ 우물을 다시 안 길어 왔다 — group-afterlife 자료를 다시 센 것이다.
+       ⚠ 달 날수로 기대치를 보정했다. 안 하면 2월이 저절로 낮게 나온다 */
+    { path: '/peak-month', priority: '0.9', changefreq: 'weekly' },
     /* 만화 원작과 각색을 나란히. 한국 웹툰 14배 · 일본 만화 3.7배 */
     { path: '/webtoon-adaptations', priority: '0.9', changefreq: 'weekly' },
     /* 나라마다 무엇을 읽나. 93 등장 중 63 이 일본, 아홉 나라는 0 */
