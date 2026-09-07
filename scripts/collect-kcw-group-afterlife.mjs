@@ -89,11 +89,35 @@ export function 팀재기({ 이름, 제목, q, 데뷔해, 달들, 최소달 = 24
   };
 }
 
-/** JSON 안에 들어가면 안 되는 «날 제어문자»를 씻는다 — ⛔ 몇 자를 씻었는지 함께 낸다 */
+/**
+ * JSON 문자열 «안»에 있는 날 제어문자를 씻는다.
+ *
+ * 🔴 [2026-09-07] 첫판은 탭·줄바꿈·복귀를 «봐 준다»고 적어 놓았다. 틀렸다 —
+ *   JSON 문자열 «안»에서는 그 셋도 불법이라 파서가 똑같이 터진다.
+ *   그런데 문자열 «밖»의 줄바꿈은 구조를 이루므로 지우면 안 된다.
+ *   ⇒ 어느 쪽인지 «세면서» 지나가야 한다. 통째로 지우는 것으로는 못 고친다.
+ * ⛔ 몇 자를 씻었는지 반드시 함께 낸다. 조용히 고치지 않는다.
+ */
 export function 제어문자씻기(글) {
   const 원 = String(글 ?? '');
+  let 안인가 = false;
+  let 앞이역슬래시 = false;
   let 씻은수 = 0;
-  const 결과 = 원.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, () => { 씻은수 += 1; return ' '; });
+  let 결과 = 
+'';
+  for (const c of 원) {
+    const 코드 = c.codePointAt(0);
+    if (안인가) {
+      if (앞이역슬래시) { 결과 += c; 앞이역슬래시 = false; continue; }
+      if (c === '\\') { 결과 += c; 앞이역슬래시 = true; continue; }
+      if (c === '"') { 결과 += c; 안인가 = false; continue; }
+      if (코드 < 0x20 || 코드 === 0x7f) { 결과 += ' '; 씻은수 += 1; continue; }
+      결과 += c;
+      continue;
+    }
+    if (c === '"') { 안인가 = true; 결과 += c; continue; }
+    결과 += c;
+  }
   return { 글: 결과, 씻은수 };
 }
 
@@ -108,8 +132,18 @@ export const 반드시있어야할이름 = [
   'Tomorrow X Together', 'Riize', 'Itzy', 'NewJeans', 'Seventeen',
 ];
 
+/**
+ * 위키 제목의 «괄호 꼬리»를 뗀다 — 「Seventeen (South Korean band)」 → 「Seventeen」.
+ * ⚠ 보여 줄 이름에만 쓴다. 열람을 물을 때 쓰는 제목은 «원래 그대로»여야 한다.
+ */
+export function 이름다듬기(제목) {
+  return String(제목 ?? '').replace(/\s*\([^)]*\)\s*$/, '').trim() || String(제목 ?? '');
+}
+
 export function 덜길어왔나(받은이름들, 반드시 = 반드시있어야할이름) {
-  const 있 = new Set((받은이름들 ?? []).map((n) => String(n).toLowerCase()));
+  const 있 = new Set((받은이름들 ?? []).flatMap((n) => [
+    String(n).toLowerCase(), 이름다듬기(n).toLowerCase(),
+  ]));
   const 빠진 = 반드시.filter((n) => !있.has(n.toLowerCase()));
   return { 덜왔다: 빠진.length > 0, 빠진 };
 }
@@ -154,10 +188,33 @@ function 자가시험() {
   봐('반토막 달을 찾아낸다', typeof 잰.반토막달 === 'string');
   봐('봉우리 뒤 개월을 낸다', Number.isFinite(잰.봉우리뒤개월) && 잰.봉우리뒤개월 > 0);
 
-  봐('날 제어문자를 씻는다', 제어문자씻기('a' + String.fromCharCode(1) + 'b').글 === 'a b');
-  봐('몇 자를 씻었는지 센다', 제어문자씻기(String.fromCharCode(1, 2)).씻은수 === 2);
-  봐('⛔ 줄바꿈·탭은 안 건드린다', 제어문자씻기('a\tb\nc').씻은수 === 0);
+  봐('문자열 안의 날 제어문자를 씻는다',
+    제어문자씻기(String.fromCharCode(34) + 'a' + String.fromCharCode(1) + 'b' + String.fromCharCode(34)).글
+      === String.fromCharCode(34) + 'a b' + String.fromCharCode(34));
+  봐('몇 자를 씻었는지 센다',
+    제어문자씻기(String.fromCharCode(34, 1, 2, 34)).씻은수 === 2);
+  봐('⛔ 문자열 «밖»의 제어문자는 안 건드린다 — 거기선 파서가 안 터진다',
+    제어문자씻기(String.fromCharCode(1, 2)).씻은수 === 0);
+  봐('🔴 문자열 «안»의 탭·줄바꿈도 씻는다 — 거기서는 그것도 불법이다',
+    제어문자씻기('{"a":"x\ty"}').씻은수 === 1);
+  봐('⛔ 문자열 «밖»의 줄바꿈은 그대로 둔다 — 구조를 이룬다',
+    제어문자씻기('{\n "a": 1\n}').씻은수 === 0);
+  봐('역슬래시로 «이미 이스케이프된» 것은 안 건드린다',
+    제어문자씻기('{"a":"x\\ny"}').씻은수 === 0);
+  봐('문자열 안의 따옴표를 이스케이프한 것을 끝으로 안 본다',
+    제어문자씻기('{"a":"x\\"' + String.fromCharCode(9) + 'y"}').씻은수 === 1);
+  봐('씻은 뒤에는 파싱된다', (() => {
+    const 나쁜 = '{"a":"x' + String.fromCharCode(9) + 'y"}';
+    try { JSON.parse(나쁜); return false; } catch (e) { /* 터져야 맞다 */ }
+    return JSON.parse(제어문자씻기(나쁜).글).a === 'x y';
+  })());
   봐('멀쩡한 글은 그대로', 제어문자씻기('Aespa').글 === 'Aespa');
+  봐('괄호 꼬리를 뗀다', 이름다듬기('Seventeen (South Korean band)') === 'Seventeen');
+  봐('괄호가 없으면 그대로', 이름다듬기('BTS') === 'BTS');
+  봐('⛔ 가운데 괄호는 안 건드린다', 이름다듬기('(G)I-DLE') === '(G)I-DLE');
+  봐('괄호를 떼면 빈 이름이 될 때는 원래 것을 쓴다', 이름다듬기('(Hi)') === '(Hi)');
+  봐('괄호 붙은 제목도 검산에서 같은 이름으로 본다',
+    덜길어왔나(['Seventeen (South Korean band)'], ['Seventeen']).덜왔다 === false);
   봐('🔴 아는 이름이 빠지면 «덜 왔다»고 한다', 덜길어왔나(['BTS'], ['BTS', 'Aespa']).덜왔다 === true);
   봐('빠진 이름을 적어 준다', 덜길어왔나(['BTS'], ['BTS', 'Aespa']).빠진[0] === 'Aespa');
   봐('다 있으면 덜 온 것이 아니다', 덜길어왔나(['BTS', 'Aespa'], ['BTS', 'Aespa']).덜왔다 === false);
@@ -199,24 +256,37 @@ async function 주된일() {
         오류도 경고도 없다. 조용히 성공한 척하는 것이 제일 나쁘다 — 그래서 안 쓴다.
      ⇒ 이름은 라벨이 아니라 «영문 위키 제목»에서 얻는다. 그것이 우리가 열람을 세는 열쇠이기도 하다.
      ⚠ 그래도 (G)I-DLE 은 안 잡힌다 — 위키데이터 항목에 나라 속성이 없다. 못 잡았다고 적는다. */
-  const q = `SELECT DISTINCT ?g ?en ?inception WHERE {
+  /* 🔴 [2026-09-07] 한 번에 받으면 답이 «정확히 196,608자(192KB)에서 잘려» 온다.
+     상태는 200 이고 content-length 는 안 온다(청크 전송). 그래서 오류가 아니라
+     「Bad control character」·「Expected ':'」 같은 «파싱 오류»로 나타난다.
+     ⛔ 그걸 제어문자 탓으로 보고 씻어 봐야 안 고쳐진다 — 잘린 것이다.
+     ✅ ORDER BY 를 두고 LIMIT/OFFSET 으로 «쪽을 나눠» 받는다. 쪽마다 온전히 파싱된다. */
+  const 질의몸 = `SELECT DISTINCT ?g ?en ?inception WHERE {
     VALUES ?kind { wd:Q215380 wd:Q2088357 wd:Q641066 wd:Q5741069 }
     ?g wdt:P31/wdt:P279* ?kind .
     { ?g wdt:P495 wd:Q884 } UNION { ?g wdt:P17 wd:Q884 } UNION { ?g wdt:P740/wdt:P17 wd:Q884 }
     ?en schema:about ?g ; schema:isPartOf <https://en.wikipedia.org/> .
     OPTIONAL { ?g wdt:P571 ?inception }
-  } LIMIT 5000`;
-  const su = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(q);
-  /* 🔴 [2026-09-07] 위키데이터가 문서 제목에 «날 제어문자»를 섞어 보내 JSON.parse 가 터졌다.
-     ⛔ 조용히 넘기지 않는다 — 씻어 내되 «몇 자를 씻었는지»를 화면과 결과에 적는다. */
-  const 날글 = await 받기(su, 'text');
-  if (!날글 || 날글.못받음) throw new Error('위키데이터를 못 받았다: ' + JSON.stringify(날글));
-  const 씻김 = 제어문자씻기(String(날글));
-  if (씻김.씻은수) console.log(`  ⚠ 제어문자 ${씻김.씻은수}자를 씻어 냈다 (위키데이터가 보낸 것)`);
-  let sj;
-  try { sj = JSON.parse(씻김.글); }
-  catch (e) { throw new Error('위키데이터 답을 못 읽었다: ' + e.message); }
-  const 받은 = sj.results.bindings;
+  } ORDER BY ?g`;
+
+  const 한쪽 = 400;
+  const 받은 = [];
+  let 씻은합 = 0;
+  for (let 건너 = 0; 건너 < 20000; 건너 += 한쪽) {
+    const q = `${질의몸} LIMIT ${한쪽} OFFSET ${건너}`;
+    const su = 'https://query.wikidata.org/sparql?format=json&query=' + encodeURIComponent(q);
+    const 날글 = await 받기(su, 'text');
+    if (!날글 || 날글.못받음) throw new Error(`위키데이터를 못 받았다(OFFSET ${건너}): ` + JSON.stringify(날글));
+    const 씻김 = 제어문자씻기(String(날글));
+    씻은합 += 씻김.씻은수;
+    let 쪽;
+    try { 쪽 = JSON.parse(씻김.글); }
+    catch (e) { throw new Error(`위키데이터 답을 못 읽었다(OFFSET ${건너}, ${String(날글).length}자): ` + e.message); }
+    const 줄 = 쪽.results.bindings;
+    받은.push(...줄);
+    if (줄.length < 한쪽) break;
+  }
+  if (씻은합) console.log(`  ⚠ 제어문자 ${씻은합}자를 씻어 냈다 (위키데이터가 보낸 것)`);
 
   const 팀들 = [];
   const 본것 = new Set();
@@ -225,7 +295,7 @@ async function 주된일() {
     if (!제목 || 본것.has(제목)) continue;
     본것.add(제목);
     팀들.push({
-      이름: 제목,   /* ⛔ 라벨 서비스를 안 쓴다 — 위 주석 참조 */
+      이름: 이름다듬기(제목),   /* ⛔ 라벨 서비스를 안 쓴다 · 괄호 꼬리만 뗀다 */
       제목,
       q: b.g.value.split('/').pop(),
       데뷔해: b.inception ? Number(String(b.inception.value).slice(0, 4)) : null,
