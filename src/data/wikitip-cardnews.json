@@ -1,9 +1,26 @@
 {
-  "generated": "2026-09-05T19:19:58.588Z",
+  "generated": "2026-09-07T00:22:39.496Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
   "sets": [
+    {
+      "set": "190-countries-and-the-94-that-can-be-counted",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
     {
       "set": "a-battle-in-vietnam",
       "sq": [
@@ -40,6 +57,23 @@
     },
     {
       "set": "a-label-outreads-the-capital",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-name-fight-and-the-423-titles-that-already-share-one",
       "sq": [
         1,
         2,
@@ -324,6 +358,40 @@
       ]
     },
     {
+      "set": "bts-six-signs-ordinary-9249-behind-them-are-not",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "casting-news-does-not-move-english-readers",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "chart-credits-buy-a-level-not-a-direction",
       "sq": [
         1,
@@ -353,6 +421,23 @@
         2,
         3,
         4
+      ]
+    },
+    {
+      "set": "cortis-100-million-views-english-readers-arrived-first",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
       ]
     },
     {
@@ -458,6 +543,23 @@
       ]
     },
     {
+      "set": "gucci-week-moved-nothing-birthday-moved",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "half-a-place",
       "sq": [
         1,
@@ -493,6 +595,23 @@
     },
     {
       "set": "half-our-panel-cannot-be-verified",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "hit-or-flop-240-of-546-reached-number-one",
       "sq": [
         1,
         2,
@@ -713,6 +832,23 @@
       ]
     },
     {
+      "set": "jimin-34x-english-stadium-acts-reverse",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "jisoo-jungkook-same-arts-school",
       "sq": [
         1,
@@ -782,6 +918,23 @@
     },
     {
       "set": "karina-saju-structure-settled-in-half-the-cases",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "korea-culture-data-free-but-not-maintained",
       "sq": [
         1,
         2,
@@ -2164,6 +2317,23 @@
       ]
     },
     {
+      "set": "two-solo-comebacks-one-day-groups-still-outread-them",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "v-led-108-weeks-jung-kook-read-more",
       "sq": [
         1,
@@ -2232,7 +2402,58 @@
       ]
     },
     {
+      "set": "webtoon-adaptations-read-14x-more",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "what-a-position-does-not-say",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "what-dreamworks-is-chasing-93-countries",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "what-is-in-netflix-top10-tsv-files",
       "sq": [
         1,
         2,
@@ -2383,6 +2604,23 @@
       ]
     },
     {
+      "set": "wikipedia-brackets-one-word-korean-names",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "wikipedia-renamed-jungkook-readers-did-not",
       "sq": [
         1,
@@ -2434,6 +2672,23 @@
       ]
     },
     {
+      "set": "yunho-tour-seven-cities-one-speaks-english",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "zodiac-compatibility-tested-on-real-groups",
       "sq": [
         1,
@@ -2451,29 +2706,19 @@
       ]
     }
   ],
-  "setCount": 146,
-  "imageCount": 1424,
+  "setCount": 161,
+  "imageCount": 1574,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
     "brands-are-not-one-thing",
-    "bts-six-signs-ordinary-9249-behind-them-are-not",
-    "casting-news-does-not-move-english-readers",
-    "cortis-100-million-views-english-readers-arrived-first",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
-    "gucci-week-moved-nothing-birthday-moved",
-    "jimin-34x-english-stadium-acts-reverse",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "only-four-countries-come-close-to-all-korean",
     "the-ceiling-and-the-band",
-    "the-instrument-was-wrong-not-the-question",
-    "two-solo-comebacks-one-day-groups-still-outread-them",
-    "what-dreamworks-is-chasing-93-countries",
-    "what-is-in-netflix-top10-tsv-files",
-    "wikipedia-brackets-one-word-korean-names",
-    "yunho-tour-seven-cities-one-speaks-english"
+    "the-instrument-was-wrong-not-the-question"
   ]
 }
