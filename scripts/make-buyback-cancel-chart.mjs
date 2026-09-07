@@ -7,6 +7,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const DIR = path.join(ROOT, 'archive/raw/dart-breaking');
 const CHARTS = path.join(ROOT, 'public/charts');
@@ -85,4 +86,4 @@ ${bars}
   }, null, 1));
   console.log(`✅ buyback chart+data · ${rows.length}곳 · 1위 ${rows[0].en} ₩${rows[0].억원}억 소각=${rows[0].소각}`);
 }
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();

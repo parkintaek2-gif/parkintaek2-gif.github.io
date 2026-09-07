@@ -9,6 +9,7 @@
  */
 import fs from 'node:fs';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const DIR = path.join(ROOT, 'archive/raw/dart-breaking');
 const CHARTS = path.join(ROOT, 'public/charts');
@@ -144,4 +145,4 @@ ${bars}
 </svg>`;
   fs.writeFileSync(path.join(CHARTS, 'cvbd-dilution.svg'), svg);
 }
-main();
+if (import.meta.url === pathToFileURL(process.argv[1]).href) main();
