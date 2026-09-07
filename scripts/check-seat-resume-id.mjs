@@ -19,14 +19,17 @@
  *
  * 쓰는 법
  *   node scripts/check-seat-resume-id.mjs
+ *   node scripts/check-seat-resume-id.mjs --자가시험
  */
-import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync, mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const 홈 = 'C:/Users/User';
 const 입구id폴더 = 'C:/Users/USER/Desktop/00_세션입구/_현재';
 
-function 재귀찾기(뿌리, 이름) {
+export function 재귀찾기(뿌리, 이름) {
   if (!existsSync(뿌리)) return null;
   const 큐 = [뿌리];
   while (큐.length) {
@@ -42,6 +45,38 @@ function 재귀찾기(뿌리, 이름) {
   return null;
 }
 
+/* ── 자가시험 ─────────────────────────────────────────── */
+if (process.argv.includes('--자가시험')) {
+  const 본다 = (말, 참) => { console.log(참 ? '✅' : '🔴', 말); if (!참) process.exitCode = 1; };
+  const 임시 = mkdtempSync(path.join(os.tmpdir(), 'seat-resume-test-'));
+  try {
+    본다('① 없는 뿌리는 null', 재귀찾기(path.join(임시, '없음'), 'abc') === null);
+
+    const 평평 = path.join(임시, '평평');
+    mkdirSync(평평, { recursive: true });
+    writeFileSync(path.join(평평, 'abc.jsonl'), '{}');
+    본다('② 바로 밑에 있으면 찾는다', 재귀찾기(평평, 'abc') === path.join(평평, 'abc.jsonl'));
+    본다('③ 없는 이름은 null', 재귀찾기(평평, 'zzz') === null);
+
+    const 깊은곳 = path.join(임시, '깊은', 'a', 'b', 'c');
+    mkdirSync(깊은곳, { recursive: true });
+    writeFileSync(path.join(깊은곳, 'def.jsonl'), '{}');
+    본다('④ 여러 겹 아래에 있어도 찾는다', 재귀찾기(path.join(임시, '깊은'), 'def') === path.join(깊은곳, 'def.jsonl'));
+
+    const 헷갈림 = path.join(임시, '헷갈림');
+    mkdirSync(헷갈림, { recursive: true });
+    writeFileSync(path.join(헷갈림, 'abcdef.jsonl'), '{}');
+    본다('⑤ 이름이 부분만 겹치면 안 잡는다(abc vs abcdef)', 재귀찾기(헷갈림, 'abc') === null);
+  } finally {
+    rmSync(임시, { recursive: true, force: true });
+  }
+  process.exit();
+}
+
+// 🔴 남이 재귀찾기()만 import 해도 아래 실제 디스크 스캔이 같이 도는 걸 막는다
+// (collect-1600-report.mjs에서 같은 병을 겪고 고친 것과 같은 자리).
+const 내가직접불렸나 = !!process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
+if (내가직접불렸나) {
 console.log(`■ 자리별 재개-번호 정합성 — ${new Date().toLocaleString('ko-KR')}`);
 console.log('  ⛔ 살아 있는 창을 건드리지 않는다. 파일만 읽는다.\n');
 
@@ -69,3 +104,4 @@ for (let n = 1; n <= 6; n++) {
 }
 
 console.log(`\n══ 흠 ${흠}개 ══  ${흠 === 0 ? '✅ 여섯 자리 다 자기 번호가 자기 폴더에 있다' : '🔴 사람 손이 필요할 수 있다 — 위 자리를 직접 확인하십시오'}`);
+}
