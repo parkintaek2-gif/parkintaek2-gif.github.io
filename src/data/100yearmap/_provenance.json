@@ -294,7 +294,17 @@
   "tutoring-income.json",
   "university-gap.json",
   "volunteer.json",
-  "wage-distribution.json"
+  "wage-distribution.json",
+  "age18-population.json",
+  "apt-parking-age.json",
+  "closed-universities-view.json",
+  "ev-charger-by-age.json",
+  "major-name-gap.json",
+  "property-tax.json",
+  "school-dropout-by-type.json",
+  "university-employment-spread.json",
+  "university-enrollment-fill.json",
+  "youth-employment-streak.json"
  ],
  "3번감수": {
   "언제": "2026-08-08 14:5x",
