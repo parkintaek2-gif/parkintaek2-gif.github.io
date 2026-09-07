@@ -184,6 +184,22 @@ for (const host of ['seoulmarkets.com', '100yearmap.com', 'localhost']) {
     '⛔ ' + host + ' 는 non-www 가 정본이라 301 로 넘기지 않는다', r.status);
 }
 
+/* ── ⭐ [2026-09-07 · 3번] www.100yearmap.com → 100yearmap.com (방향이 kculturewire 와 반대) ────
+ *
+ * 왜 — GA4 28일에 www.100yearmap.com 이 순방문자 5·평균 1초·붙든 방문 0% 로 따로 잡혔다.
+ *   100yearmap 은 non-www 가 정본이라, kculturewire(→www)와 정반대 방향으로 301 을 건다.
+ */
+{
+  const r = await 부르기('www.100yearmap.com', '/school/');
+  확인(r.status === 301, 'www.100yearmap.com 이 301 로 넘긴다', r.status);
+  확인(String(r.location ?? '') === 'https://100yearmap.com/school/',
+    '⭐ 301 목적지가 non-www + 원래 경로다 (경로를 잃지 않는다)', r.location);
+}
+{
+  const r = await 부르기('100yearmap.com', '/');
+  확인(r.status !== 301, '⛔ 100yearmap.com(정본) 쪽은 301 로 넘기지 않는다 (고리 방지)', r.status);
+}
+
 /* ── ⭐ ③ 301 이 **내부 접두사를 드러내지 않는다** ──────────────── */
 {
   const r = await 부르기('100yearmap.com', '/school/');

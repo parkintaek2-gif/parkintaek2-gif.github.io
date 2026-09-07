@@ -257,11 +257,12 @@ const handle = async (req, res) => {
    * ⛔ GET·HEAD 만 넘긴다 — POST 를 301 로 넘기면 본문이 사라진다.
    * ⚠ 100yearmap·seoulmarkets·klifemap 은 «non-www 가 정본»이다. 여기 넣지 않는다.
    *   (그쪽 canonical 태그가 non-www 를 가리키는 것을 2026-09-07 에 확인했다)
-   * ⚠ www.100yearmap.com 도 같은 꼴로 5명·1초가 잡히지만 **3번 도메인**이라 손대지 않는다.
-   *   3번이 같은 줄을 넣으면 된다 — 메모로 알렸다.
+   * ⭐ [2026-09-07 · 3번] www.100yearmap.com 도 같은 꼴(순방문자 5·평균 1초·붙든 방문 0%)이라
+   *   여기 추가했다. 100yearmap 은 non-www 가 정본이라 **방향이 kculturewire 와 반대다**.
    */
   const 정본호스트 = {
     'kculturewire.com': 'www.kculturewire.com',
+    'www.100yearmap.com': '100yearmap.com',
   };
   const 날호스트 = String(req.headers.host ?? '').split(':')[0].toLowerCase();
   const 정본 = 정본호스트[날호스트];
