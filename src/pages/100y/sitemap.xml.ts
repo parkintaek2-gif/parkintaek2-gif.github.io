@@ -382,6 +382,10 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-07 — 커뮤니티 씨앗(대입 정원·지역대학 위기)을 계기로 이미
        8번이 모은 closed-universities.json을 연대·지역·법인상태로 다시 묶음. */
     { path: '/closed-universities', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-07 — /major-name-gap(개별 학과 뒤집힘 사례)의 짝. 계열 전체
+       집계로 보면 인문·공학 격차가 여전히 남는지, 이미 8번이 만든
+       field-outcomes.json(교육부 공표치와 0.03% 안에서 맞춘 것)을 그대로 지면화. */
+    { path: '/field-employment', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
