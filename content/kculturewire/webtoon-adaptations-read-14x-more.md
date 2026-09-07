@@ -8,6 +8,7 @@ dataAsOf: 2026-09-06T00:00:00+09:00
 author: Newsroom
 tags: ["webtoon", "manhwa", "k-drama", "adaptation", "manga", "wikipedia", "attention"]
 pages:
+  - "/webtoon-adaptations"
   - "/webtoon"
 sources:
   - org: "Wikidata"

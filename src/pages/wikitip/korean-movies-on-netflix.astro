@@ -110,8 +110,10 @@ const jsonLd = {
         <tr><td>Median countries reached</td><td class="num">{영.medianCountries}</td><td class="num">{시.medianCountries}</td></tr>
         <tr><td>Median weeks on a chart</td><td class="num">{영.medianWeeks}</td><td class="num">{시.medianWeeks}</td></tr>
         <tr><td>Median chart places</td><td class="num">{영.medianPlaces}</td><td class="num">{시.medianPlaces}</td></tr>
-        <tr><td>Charted in one country only</td><td class="num">{영.oneCountryOnly} <span class="fine">({몫(영.oneCountryOnly, 영.titles)}%)</span></td><td class="num">{시.oneCountryOnly} <span class="fine">({몫(시.oneCountryOnly, 시.titles)}%)</span></td></tr>
-        <tr><td>Lasted exactly one week</td><td class="num">{영.oneWeekOnly} <span class="fine">({몫(영.oneWeekOnly, 영.titles)}%)</span></td><td class="num">{시.oneWeekOnly} <span class="fine">({몫(시.oneWeekOnly, 시.titles)}%)</span></td></tr>
+        <tr><td>Charted in one country only</td><td class="num">{영.oneCountryOnly}</td><td class="num">{시.oneCountryOnly}</td></tr>
+        <tr><td class="fine">…as a share of all that charted</td><td class="num fine">{몫(영.oneCountryOnly, 영.titles)}%</td><td class="num fine">{몫(시.oneCountryOnly, 시.titles)}%</td></tr>
+        <tr><td>Lasted exactly one week</td><td class="num">{영.oneWeekOnly}</td><td class="num">{시.oneWeekOnly}</td></tr>
+        <tr><td class="fine">…as a share of all that charted</td><td class="num fine">{몫(영.oneWeekOnly, 영.titles)}%</td><td class="num fine">{몫(시.oneWeekOnly, 시.titles)}%</td></tr>
         <tr><td>Reached number one somewhere</td><td class="num">{영.everNumberOne}</td><td class="num">{시.everNumberOne}</td></tr>
         <tr><td>Have a page on this site</td><td class="num">{영.published}</td><td class="num">{시.published}</td></tr>
       </tbody>
