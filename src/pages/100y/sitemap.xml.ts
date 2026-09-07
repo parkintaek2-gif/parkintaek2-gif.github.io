@@ -379,6 +379,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-07 — 커뮤니티 씨앗(「철학과>컴공과 취업률 역전」)을 계기로
        이미 모은 major-outcomes.json을 새로 받지 않고 다시 계산해 지면화. */
     { path: '/major-name-gap', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-07 — 커뮤니티 씨앗(대입 정원·지역대학 위기)을 계기로 이미
+       8번이 모은 closed-universities.json을 연대·지역·법인상태로 다시 묶음. */
+    { path: '/closed-universities', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

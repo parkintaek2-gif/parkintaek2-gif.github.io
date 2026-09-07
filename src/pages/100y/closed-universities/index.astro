@@ -1,0 +1,155 @@
+---
+/**
+ * /100y/closed-universities — 문 닫은 대학, 2000년 이후 몇 곳인가
+ *
+ * 이슈  2026-09-07 커뮤니티 우물 씨앗 — 대입 정원·지역대학 위기 관련 기사 다수
+ *       ("'80% 선발' 수시 원서접수", "지방 국립대 등록금 0원" 등). 이미 8번이
+ *       모아 둔 closed-universities.json(한국사학진흥재단, 2026-08-10 실측)을
+ *       새로 받지 않고 연대·지역·법인상태로만 다시 묶었다 — 새 API 호출 없음.
+ * ⛔ 이 표는 "폐교 원인"을 재지 않는다 — 언제·어디서 닫혔는지만 보여준다.
+ *   /college-age-population(대학 갈 나이 인구 감소)과 시기가 겹칠 뿐, 그것이
+ *   폐교의 원인이라고 이 자료가 증명하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/closed-universities-view.json';
+
+const 자료 = 원본 as any;
+const 목록 = 자료.자료 as any[];
+const 민 = (s: string) => (typeof s === 'string' ? s.replace(/\*\*/g, '') : s);
+
+const 연대순 = Object.entries(자료.연대별 as Record<string, number>).sort(([a], [b]) => a.localeCompare(b));
+const 시도순 = Object.entries(자료.시도별 as Record<string, number>).sort((a, b) => (b[1] as number) - (a[1] as number));
+const 법인상태순 = Object.entries(자료.법인상태별 as Record<string, number>);
+
+const 목록정렬 = [...목록].sort((a, b) => a.폐교년도 - b.폐교년도);
+
+const desc =
+  `한국사학진흥재단 「폐교 및 법인 해산 현황」으로 재 보니, 2000년 이후 문을 닫은 대학·전문대학` +
+  `·대학원대학·각종학교가 ${자료.전체}곳입니다. 2010년대에 ${자료.연대별['2010년대'] ?? 0}곳으로 가장 많았고,` +
+  ` 법인이 아직 남아 있는 곳(존속)도 ${자료.법인상태별.존속}곳입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [{
+    '@type': 'Question',
+    name: '2000년 이후 문을 닫은 대학은 몇 곳인가요?',
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `한국사학진흥재단 집계로 ${자료.전체}곳입니다(대학 ${자료.구분별.대학}곳·전문대학 ${자료.구분별.전문대학}곳 포함). 2010년대에 ${자료.연대별['2010년대'] ?? 0}곳으로 가장 많이 문을 닫았습니다.`,
+    },
+  }],
+};
+---
+
+<HundredYear
+  title={`문 닫은 대학, 2000년 이후 ${자료.전체}곳 — 2010년대에 가장 많았다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>문 닫은 대학,<br />2000년 이후 몇 곳일까요?</h1>
+  <p class="sub">
+    대입 정원·지역대학 위기 이야기가 나올 때마다 「학교가 문을 닫는다」는 말이 따라붙습니다.
+    {' '}한국사학진흥재단이 내는 「폐교 및 법인 해산 현황」으로 언제·어디서 몇 곳이 닫혔는지
+    {' '}그대로 옮겼습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">2000년 이후 문을 닫은 곳</p>
+    <p class="answer-num">{자료.전체}곳</p>
+    <p class="answer-sub">대학 {자료.구분별.대학}곳 · 전문대학 {자료.구분별.전문대학}곳 · 대학원대학 {(자료.구분별['대학원대학'] ?? 0) + (자료.구분별['대학원대학교'] ?? 0)}곳 · 각종학교 {자료.구분별.각종학교}곳</p>
+  </div>
+
+  <h2>연대별로는 2010년대에 가장 많았습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연대</th><th>문 닫은 곳</th></tr></thead>
+      <tbody>
+        {연대순.map(([연대, 수]) => (
+          <tr>
+            <td>{연대}</td>
+            <td><strong>{수}곳</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>지역별로는 이렇게 갈립니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>문 닫은 곳</th></tr></thead>
+      <tbody>
+        {시도순.map(([지역, 수]) => (
+          <tr>
+            <td>{지역}</td>
+            <td><strong>{수}곳</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>법인은 남아 있는 곳도 있습니다</h2>
+  <p>
+    문을 닫았다고 법인까지 없어진 것은 아닙니다. {자료.전체}곳 중
+    {' '}<strong>{자료.법인상태별.존속}곳</strong>은 법인이 아직 「존속」 상태고,
+    {' '}{자료.법인상태별.해산}곳은 「해산」, {자료.법인상태별.파산 ?? 0}곳은 「파산」 처리됐습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>법인 상태</th><th>곳 수</th></tr></thead>
+      <tbody>
+        {법인상태순.map(([상태, 수]) => (
+          <tr>
+            <td>{상태}</td>
+            <td><strong>{수}곳</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>전체 목록 — 폐교 연도순</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>이름</th><th>구분</th><th>폐교년도</th><th>지역</th><th>법인상태</th></tr></thead>
+      <tbody>
+        {목록정렬.map((r: any) => (
+          <tr>
+            <td>{r.이름}</td>
+            <td>{r.구분}</td>
+            <td>{r.폐교년도}</td>
+            <td>{r.지역}</td>
+            <td>{r.법인상태}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>이 표는 "폐교 원인"을 재지 않습니다 — 언제·어디서 닫혔는지만 보여줍니다.
+      대학 갈 나이 인구 감소(<a href="/college-age-population">18세 인구 추계</a>)와
+      {' '}시기가 겹칠 뿐, 그것이 폐교의 원인이라고 이 자료가 증명하지 않습니다.</li>
+    <li>폐교 학과는 담지 않습니다 — 학교 단위 폐교만 있습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 언제·어디서 몇 곳이 문을 닫았는지가
+    {' '}저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.기관}({자료.출처.이름}). {자료.출처.이용허락범위}. {민(자료.대조)}
+  </p>
+
+  <p class="note">
+    <a href="/college-age-population">← 대학 갈 나이 인구, 몇 년째 줄고 있나?</a>
+    <br />
+    <a href="/university-gap">← 우리 대학 자료가 못 보는 곳은 몇 곳일까</a>
+  </p>
+
+  <NextQuestionBrief 모은것="한국사학진흥재단 「폐교 및 법인 해산 현황」 실측(기존 수집분 재계산)" />
+</HundredYear>
