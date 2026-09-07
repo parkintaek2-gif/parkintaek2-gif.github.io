@@ -1,0 +1,198 @@
+{
+ "잰때": "2026. 9. 7. 오후 12:39:13",
+ "사이트": "klifemap",
+ "속성": "sc-domain:klifemap.ai",
+ "사이트맵장수": 517,
+ "표본": 25,
+ "셈": {
+  "색인됨": 1,
+  "그밖": 12,
+  "기다림": 12
+ },
+ "몫": {
+  "물어본": 25,
+  "색인몫": 4
+ },
+ "이것이아닌것": [
+  "⛔ 전수가 아니다 — 표본이다.",
+  "⛔ 못 물어본 장을 「색인 안 됨」으로 세지 않았다.",
+  "⚠ 구글의 판단이지 사실 자체가 아니다."
+ ],
+ "줄": [
+  {
+   "주소": "https://klifemap.ai/",
+   "판정": "색인됨",
+   "coverageState": "Submitted and indexed",
+   "verdict": "PASS",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/ai-report.html",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/astrology-compatibility-synastry-vs-marriage-timing-en",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/zodiac-scorpio-en",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/zodiac-taurus-en",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/is-astrology-accurate-ja",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilzin-ilju-2026-09-05",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/gunghap-day-animals-en",
+   "판정": "기다림",
+   "coverageState": "Discovered - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/career-041",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilju-byeong-in",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/unseong-jeol",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/myth-free-then-paid",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/myth-daeun-age",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilzin-2026-08-25",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/taekil-contract-2026-07",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/tian-zhengguo-bazi-zh",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilzin-wol-ttee-2026-08-21",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilzin-2026-08-19",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/career-012",
+   "판정": "그밖",
+   "coverageState": "URL is unknown to Google",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/myth-when-to-see-saju",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/myth-free-and-paid",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/taekil-opening-2026-08",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/sipseong-pyeongwan",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/ilzin-ilju-2026-08-06",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  },
+  {
+   "주소": "https://klifemap.ai/content/taekil-moving-2026-12",
+   "판정": "기다림",
+   "coverageState": "Crawled - currently not indexed",
+   "verdict": "NEUTRAL",
+   "오류": null
+  }
+ ]
+}
