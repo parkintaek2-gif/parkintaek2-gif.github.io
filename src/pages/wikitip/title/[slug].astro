@@ -258,7 +258,39 @@ const 깊은것 = (deepened.bySlug as Record<string, any>)[t.slug];
      같은 날 재 보니 /title/* 546장 중 표본 25장에서 색인된 것이 6장(24%)인데,
      /born-on/* 366장은 표본 25장이 «전부» 색인됐다(100%). 자세한 것은
      docs/색인이-갈리는-자리.md 에 적었다. 제목을 또 만지기 전에 그것을 읽는다. */
-const TITLE = `${t.title}: Netflix country by country, every week it charted`;
+/**
+ * 🧪 [2026-09-07] **제목 A/B — 546장을 반으로 갈랐다.** 다시잴날 2026-09-28.
+ *
+ *   A(그대로)  `{작품}: Netflix country by country, every week it charted`
+ *   B(수를 넣음) `{작품}: Netflix in {나라수} countries, {주수} weeks charted`
+ *
+ * ⭐ 가르는 자는 «슬러그»다. 날짜가 아니다 — 날짜로 가르면 같은 지면의 제목이 날마다
+ *   바뀌어 구글이 어느 것을 보고 판단했는지 알 수 없게 된다. 슬러그로 가르면
+ *   한 지면은 «늘 같은 쪽»에 있다.
+ *
+ * ⛔ 두 꼴 다 「Netflix」를 작품 이름 바로 뒤에 두고 「countries」를 남긴다.
+ *   8/25 에 고친 어순(손님이 치는 꼴 「{작품} netflix country」)을 되돌리지 않는다.
+ * ⛔ 수가 없거나 나라·주가 1 이면 **A 꼴로 물러난다** —
+ *   2026-08-14 에 폰에서 「1 markets」·「1 weeks」를 봤다. 한 나라짜리는 본문이 이름으로 적는다.
+ *
+ * ⚠ 이 갈래는 오늘(9/07) 자물쇠가 풀린 자리다. 위 ✅ 기록을 먼저 읽으십시오 —
+ *   8/25 변경의 판정이 「그대로 둔다」로 끝났고, 그 위에 이 A/B 를 올린 것이다.
+ */
+/** 슬러그를 늘 같은 쪽으로 보낸다. ⛔ Math.random 도, 날짜도 쓰지 않는다 */
+function 어느쪽(슬러그: string): 'A' | 'B' {
+  const s = String(슬러그 ?? '');
+  let h = 0;
+  for (let i = 0; i < s.length; i++) h = ((h * 31) + s.charCodeAt(i)) % 1000003;
+  return h % 2 === 0 ? 'A' : 'B';
+}
+const 제목A = `${t.title}: Netflix country by country, every week it charted`;
+/* ⛔ 수가 못 미더우면 A 로 물러난다. 「1 countries」를 내지 않는다 */
+const 수쓸수있나 = Number.isFinite(t.markets) && Number.isFinite(t.weeks) && t.markets > 1 && t.weeks > 1;
+const 제목B = 수쓸수있나
+  ? `${t.title}: Netflix in ${t.markets} countries, ${t.weeks} weeks charted`
+  : 제목A;
+const 제목쪽 = 수쓸수있나 ? 어느쪽(Astro.params.slug ?? t.slug ?? t.title ?? '') : 'A';
+const TITLE = 제목쪽 === 'B' ? 제목B : 제목A;
 /**
  * ⭐ 2026-08-22 — 설명에 **손님이 치는 말**을 넣는다. Search Console 실측에서 우리에게 오는
  *   물음은 두 꼴이었다 — 「<제목> netflix country」와 「<제목> hit or flop」.
