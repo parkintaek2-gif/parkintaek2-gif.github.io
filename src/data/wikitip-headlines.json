@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-08 15:04 KST",
+  "generated": "2026-09-08 18:35 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
@@ -92,7 +92,7 @@
     "/places": "YG Entertainment is looked up more than Seoul is",
     "/privacy": "Cookies and what we log",
     "/provenance": "Which work is this chart row — reading a title against the markets it charted in",
-    "/rank-shape": "Where on the chart do Korean titles sit?",
+    "/rank-shape": "Korean titles: 8% of Netflix #1 places, 7.3% of #10",
     "/rank-tells": "What a chart position does not tell you about how much was watched",
     "/reach": "How far Korean titles travel in Southeast Asia",
     "/read-vs-visited": "Seoul has 25 districts. The tourist count can speak for five of them",
@@ -142,7 +142,7 @@
     "/who-reads-least": "BTS, Babymonster and Byeon Woo-seok are read most in three different countries — and least in the same one",
     "/workforce": "Who works in K-pop and Korean games",
     "/works-and-readers": "Actors with five charting titles are read seven times as often, and that still tells you little about any one of them",
-    "/world-share": "How much of the world's Netflix top 10 is Korean",
+    "/world-share": "Korean titles are 7.9% of the world's Netflix top 10",
     "/written-down-first": "The same Korean title reaches four Wikipedias in a fixed order, and the biggest one is not first",
     "/zodiac": "The animal years of Korean actors who reached a Netflix chart"
   }
