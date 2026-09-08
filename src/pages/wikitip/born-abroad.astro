@@ -22,6 +22,7 @@
  *   거짓 문장이 된다. 편수를 위해 그렇게 쓰지 않는다.
  */
 import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 /**
  * 🔴 [2026-08-29] 구조화 데이터를 갈래마다 붙이고 마지막에 남은 다섯 장 중 하나다.
  *   목록 지면이므로 다른 213장과 «같은 자»를 쓴다.
@@ -164,6 +165,11 @@ const 설명 = `${밖.length} of the most-read Korean actors and idols we could 
       <li><a href="/person">Everyone we have a page for</a></li>
     </ul>
   </section>
+
+  {/* 🔴 [2026-09-08] 이 지면에 이 칸이 «없었다». 기사가 이 지면을 가리키는데 지면에서는
+      그 기사로 갈 문이 없었다 — check-article-reach 가 잡아 줬다.
+      ⛔ 「만들고 문을 안 내면 없는 것과 같다」. 새 지면을 낼 때 밟는 자리에 이것도 있다. */}
+  <KcwRelatedArticles page="/born-abroad" />
 
   <p class="fine tail">
     Birthplaces: Wikidata (P19), coordinates checked (P625), as of {String(자료.generated ?? '').slice(0, 10)}.
