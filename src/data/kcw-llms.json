@@ -1,5 +1,5 @@
 {
- "지은날": "2026-09-07T05:54:34.821Z",
+ "지은날": "2026-09-08T06:40:04.232Z",
  "갈래들": [
   {
    "갈래": "Start here",
@@ -157,7 +157,7 @@
     {
      "길": "/group-afterlife",
      "이름": "How long a K-pop group stays looked up after its peak",
-     "설명": "For 651 Korean acts, the median time to lose half the readers of their best month is two months. One group held out for 65. Peak month, month by month, both sides counted."
+     "설명": "For 774 Korean acts, the median time to lose half the readers of their best month is two months. One group held out for 65. Peak month, month by month, both sides counted."
     },
     {
      "길": "/bts-star-signs",
@@ -485,6 +485,21 @@
      "설명": "Across the Indonesian, Vietnamese, Thai and Malay Wikipedias we put 23 K-pop soloists beside the group they belong to. For 13 the group is read more in every country; for 6 — including Jay Park, Lee…"
     },
     {
+     "길": "/generations",
+     "이름": "Do the generation labels show up in the reading",
+     "설명": "The press sorts Korean acts into first through sixth generations. We put 182 acts against English Wikipedia reading and tested the lines: median reading climbs, but neighbouring generations overlap…"
+    },
+    {
+     "길": "/attention-share",
+     "이름": "How lopsided attention on Korean acts is",
+     "설명": "In the single month 2026-08, 774 Korean acts drew 2,670,482 English Wikipedia reads. 24 of them — 3.1% — hold half of it, and the lower half of all acts holds 3.1%. The median act was read 519 times.…"
+    },
+    {
+     "길": "/desktop-or-phone",
+     "이름": "Desktop or phone, and why it is not age",
+     "설명": "We measured which device 372 Korean acts are looked up on — English Wikipedia, 2025-09 ~ 2026-08. Desktop is 32.4% of all reading and 34.2% for the median act, and it barely moves with debut era: 2.9…"
+    },
+    {
      "길": "/own-star",
      "이름": "A star of one's own",
      "설명": "Of 214 Korean stars with an article on all four Southeast Asian Wikipedias, 86.6% of the reading about JAY B sits in Thailand alone. An evenly read star would score 25%. Kim Jong-kook of Turbo scores…"
@@ -618,6 +633,11 @@
      "길": "/returns",
      "이름": "Returns",
      "설명": "Across 7,257 title-and-market cells, 924 gaps of 4 weeks or more end with the title returning. 43.6% of those are a different season, not a return. Of the 315 genuine returns, 94.3% happen with no…"
+    },
+    {
+     "길": "/ladder-churn",
+     "이름": "Ladder churn",
+     "설명": null
     }
    ]
   },
@@ -637,7 +657,7 @@
     {
      "길": "/articles",
      "이름": "All articles",
-     "설명": "All 176 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+     "설명": "All 183 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
     },
     {
      "길": "/community",
@@ -653,8 +673,8 @@
   }
  ],
  "셈": {
-  "작품": 550,
-  "사람": 634,
+  "작품": 560,
+  "사람": 636,
   "학교": 55,
   "나라": 93,
   "그룹": 263,
@@ -663,7 +683,6 @@
  },
  "빠진것": [
   "/esports",
-  "/ladder-gap",
-  "/ladder-churn"
+  "/ladder-gap"
  ]
 }
