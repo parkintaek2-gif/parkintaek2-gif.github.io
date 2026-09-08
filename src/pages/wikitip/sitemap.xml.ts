@@ -888,6 +888,11 @@ export const GET: APIRoute = async () => {
        🔴 씨앗이 돈 이야기다 — 그래서 「열람은 돈이 아니다」를 지면에 못박아 뒀다.
        ⛔ 아래쪽 팀을 「실패」로 안 쓴다. 잰 것은 전체의 «모양»이다 */
     { path: '/attention-share', priority: '0.9', changefreq: 'weekly' },
+    /* 136편째 자료 지면. 2026-09-08 — 한국 팀을 무엇으로 찾아보나(컴퓨터냐 전화냐).
+       ⭐ 씨앗은 「K-pop's new power fans? Middle-aged Americans」. 우리는 나이를 못 잰다.
+       🔴 그래서 «기기가 나이를 말해 주지 않는다»는 것까지 쟀다 — 40년 데뷔 차이에 3점 안.
+       ⛔ 「전화면 어리다」를 안 쓴다. 답이 「평평하다」인 것이 이 지면의 값이다 */
+    { path: '/desktop-or-phone', priority: '0.9', changefreq: 'weekly' },
     /* 108편째 자료 지면. 2026-08-21 — 나라마다 «자기 스타»가 따로 있다.
        ⭐ JAY B(GOT7) 는 태국에서만 86.6% · Tempest 는 베트남 86.1% · 고른 값은 25% 다.
        ⛔ 말레이시아가 여덟 명뿐인 것을 감추지 않는다 — 그 자체가 결과다.

@@ -30,7 +30,21 @@ export const 쓰레기 = [
   { 이름: 'undefined', 자: /\bundefined\b/g },
   { 이름: 'NaN', 자: /(^|[\s>(])NaN([\s<).,%]|$)/g },
   { 이름: '[object …]', 자: /\[object [A-Z]\w*\]/g },
-  { 이름: 'TODO·FIXME', 자: /\b(TODO|FIXME|XXX)\b/g },
+  { 이름: 'TODO·FIXME', 자: /\b(TODO|FIXME)\b/g },
+  /**
+   * 🔴 [2026-09-08] `XXX` 를 위 규칙에 함께 넣어 두었더니 **헛경보가 났다.**
+   *   `/desktop-or-phone` 에 「XXX (group)」이 나온다 — 2016년 데뷔한 실제 한국 팀이고
+   *   영문 위키백과 문서 이름이 그렇다. 자리표시가 아니라 «자료»다.
+   *   ⛔ 검사를 맞추려고 실제 자료를 지우지 않는다. 규칙을 좁힌다.
+   *   ⚠ 이 파일이 이미 못박아 둔 것 — 「헛경보가 나면 아무도 이 자를 안 본다.
+   *     그게 자를 죽이는 길이다.」 8/14 에 null 로 같은 일을 겪고 그렇게 적었다.
+   *
+   * ⭐ 가르는 자리: 팀 이름으로 쓰일 때는 뒤에 «괄호 딸린 구분말»이 붙는다 —
+   *   영문 위키백과가 같은 이름을 가르는 방식이다(`(group)`·`(band)`·`(album)` …).
+   *   자리표시로 흘린 XXX 에는 그것이 안 붙는다.
+   * ⚠ 완벽하지 않다 — 구분말 없이 「XXX」로만 적힌 지면이 생기면 그때 다시 좁힌다.
+   */
+  { 이름: 'XXX(자리표시)', 자: /\bXXX\b(?!\s*\((?:group|band|album|EP|singer|rapper)\))/g },
   /**
    * 🔴 8/14 — 처음에 「글자 null 이 있으면 흠」으로 했다가 **둘 다 헛경보**였다.
    *   ① 「Under that null, 513 of the 700…」 — 귀무가설. 통계 용어다
@@ -109,6 +123,11 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     훑기('<p>Under that null, 513 of the 700 would have.</p>'), []);
   재본다('⛔ 「is null, not 0」은 흠이 아니다 — 우리 원칙을 쓴 문장이다',
     훑기('<p>The cell is null, not 0, because those differ.</p>'), []);
+  재본다('⛔ 「XXX (group)」은 흠이 아니다 — 2016년 데뷔한 실제 한국 팀이다',
+    훑기('<td><a href="https://en.wikipedia.org/wiki/XXX_(group)">XXX (group)</a></td>'), []);
+  재본다('🔴 그래도 홀로 선 XXX 는 잡는다',
+    훑기('<p>share was XXX percent</p>').map((x) => x.무엇), ['XXX(자리표시)']);
+  재본다('🔴 TODO 는 그대로 잡는다', 훑기('<p>TODO fill this in</p>').map((x) => x.무엇), ['TODO·FIXME']);
   재본다('⛔ 「Nan」이 든 이름은 안 센다 — 김난희 같은 것',
     훑기('<p>Nanjing and Nancy</p>'), []);
   /* 🔴 그러나 **값 자리**에 홀로 선 것은 코드가 흘린 것이다 */

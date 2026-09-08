@@ -551,6 +551,10 @@
     "twenty-four-acts-hold-half-the-reading": {
       "figure": "519",
       "label": "reads in a month for the median Korean act, of 774"
+    },
+    "device-is-not-age-for-korean-acts": {
+      "figure": "2.9 points",
+      "label": "how little desktop share moves from 1990s debuts to 2020s debuts"
     }
   }
 }

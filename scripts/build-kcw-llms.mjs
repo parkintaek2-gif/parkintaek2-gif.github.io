@@ -234,6 +234,7 @@ export const 차례 = [
       ['/member-vs-group', 'Member versus group'],
       ['/generations', 'Do the generation labels show up in the reading'],
       ['/attention-share', 'How lopsided attention on Korean acts is'],
+      ['/desktop-or-phone', 'Desktop or phone, and why it is not age'],
       ['/own-star', 'A star of one\'s own'],
       ['/who-is-first', 'Who comes first'],
       ['/who-reads-least', 'Who is read least'],
