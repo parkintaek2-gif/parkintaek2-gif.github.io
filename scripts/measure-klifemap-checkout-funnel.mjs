@@ -69,6 +69,41 @@ export function 어디서새나({ 결제조회, 결제사람, 실제결제건수
   return `결제 ${결제}건 (화면 조회 ${조회}회)`;
 }
 
+/**
+ * 🔴🔴 [2026-09-08 22:4x · 1번이 바로잡아 줬다] **로컬 파일을 서비스 자료로 읽었다.**
+ *
+ *   내가 `klifemap/db/beomjin.sqlite3` 를 열어 「paid 174건 · 3,565,000원」을 내고,
+ *   1번의 「paid 0건」이 틀렸다고 사장님께 올렸다. **틀린 것은 나였다.**
+ *
+ *   1번이 짚어 준 것:
+ *     git check-ignore -v db/beomjin.sqlite3
+ *     → .gitignore:10:db/*.sqlite3     ← 커밋된 적 없는 «로컬 전용» 파일
+ *     여섯 자리가 한 작업트리를 쓰며 로컬 서버를 띄워 만든 시험 결제가 쌓인 것이다.
+ *
+ *   ⭐ 실 서비스는 이것으로만 본다 — `https://klifemap.ai/api/admin/payments`
+ *     1번 재확인: 전체 33건 · paid 0건 · pending 33건 · **확정 매출 0원**
+ *     ⇒ 1번의 「paid 0건·매출 0원」은 «틀리지 않았다».
+ *
+ * ⛔ 그러니 이 자는 로컬 파일을 읽을 때 **그것이 로컬 테스트임을 화면에 못박는다.**
+ *   ⭐ 「규칙은 문장이 아니라 검사로 둔다」 — 메모에 적어 두는 것으로는 또 같은 일이 난다.
+ *   ⚠ 오늘 내가 다섯 번째로 어긴 병이 이것이다 — **「어디서 잰 것인가」를 안 밝혔다.**
+ */
+export const 로컬DB경고 = [
+  '🔴 이 수는 «로컬 테스트 DB» 다 — 실 서비스가 아니다',
+  '   klifemap/db/beomjin.sqlite3 은 .gitignore 대상이고, 한 작업트리를 쓰는 여섯 자리가',
+  '   로컬 서버를 띄워 만든 시험 결제가 쌓인 파일이다 (merchant_uid 가 test_ 로 시작한다).',
+  '   ✅ 실 서비스 결제는 https://klifemap.ai/api/admin/payments 로만 본다.',
+  '   ⛔ 이 수를 «매출»이라 부르지 않는다. 2026-09-08 에 내가 그렇게 불렀고 틀렸다.',
+];
+
+/** 로컬 테스트 DB 로 보이나 — merchant_uid 접두로 가른다 */
+export function 로컬시험인가(접두별) {
+  const 전체 = Object.values(접두별 ?? {}).reduce((a, n) => a + Number(n || 0), 0);
+  if (!전체) return null;                     /* ⬜ 못 쟀다 — 0 으로 치지 않는다 */
+  const 시험 = Number(접두별.test ?? 0) + Number(접두별.TEST ?? 0);
+  return 시험 / 전체 >= 0.5;                   /* 절반 넘게 test_ 면 로컬 시험판이다 */
+}
+
 async function DB에서결제건수() {
   const 후보 = [path.join(klifemap, 'db/beomjin.sqlite3'), path.join(klifemap, 'beomjin.sqlite3')];
   const 있는것 = 후보.filter((p) => fs.existsSync(p)).sort((a, b) => fs.statSync(b).size - fs.statSync(a).size);
@@ -91,7 +126,15 @@ async function DB에서결제건수() {
       const n = db.prepare(`SELECT COUNT(*) AS n FROM "${t}"`).get().n;
       셈[t] = n;
     }
-    return { 표들: 표들.length, 결제표: 셈 };
+    /* ⭐ merchant_uid 접두를 세어 «이것이 로컬 시험판인가»를 판정한다 */
+    let 접두별 = {};
+    try {
+      for (const r of db.prepare('SELECT merchant_uid FROM payments').all()) {
+        const p = String(r.merchant_uid || '').split(/[-_]/)[0] || '(빈값)';
+        접두별[p] = (접두별[p] || 0) + 1;
+      }
+    } catch { 접두별 = {}; }
+    return { 표들: 표들.length, 결제표: 셈, 접두별, 로컬시험: 로컬시험인가(접두별) };
   } finally { db.close(); }
 }
 
@@ -125,6 +168,17 @@ if (내가입구인가 && process.argv.includes('--자가시험')) {
     어디서새나({ 결제조회: null, 실제결제건수: 0 }).startsWith('⬜'));
   재다('어디서새나 — 결제 건수를 못 쟀으면 0 으로 안 친다',
     어디서새나({ 결제조회: 20, 실제결제건수: null }).includes('못 쟀다'));
+  /* 🔴 [2026-09-08 22:4x] 1번이 바로잡아 줬다 — 로컬 파일을 서비스 자료로 읽었다 */
+  재다('로컬시험인가 — test_ 가 171/176 이면 로컬 시험판이다',
+    로컬시험인가({ test: 171, bj: 5 }) === true);
+  재다('로컬시험인가 — test_ 가 없으면 로컬 시험판이 아니다',
+    로컬시험인가({ bj: 5 }) === false);
+  재다('로컬시험인가 — 한 건도 못 세면 «못 쟀다»(null) — 0 으로 안 친다',
+    로컬시험인가({}) === null && 로컬시험인가(null) === null);
+  재다('로컬DB경고에 실 서비스 주소가 들어 있다',
+    로컬DB경고.some((l) => l.includes('/api/admin/payments')));
+  재다('로컬DB경고가 «매출이라 부르지 말라»고 못박는다',
+    로컬DB경고.some((l) => l.includes('매출') && l.includes('부르지 않는다')));
   재다('어디서새나 — 결제가 있으면 몫을 낸다',
     어디서새나({ 결제조회: 20, 결제사람: 8, 실제결제건수: 2 }).includes('25.0%'));
 
@@ -191,20 +245,31 @@ if (내가입구인가) {
 
   const db = await DB에서결제건수();
   console.log('');
-  if (db.못쟀다) { console.log(`⬜ DB — ${db.못쟀다}`); }
+  if (db.못쟀다) { console.log(`⬜ 로컬 DB — ${db.못쟀다}`); }
   else {
-    console.log(`■ DB 의 결제 갈래 표 (표 ${db.표들}개 중)`);
+    console.log(`■ «로컬» DB 의 결제 갈래 표 (표 ${db.표들}개 중)`);
     const 것들 = Object.entries(db.결제표).sort((a, b) => b[1] - a[1]);
     if (!것들.length) console.log('   ⬜ 결제 갈래로 보이는 표가 없다');
     for (const [t, n] of 것들) console.log(`   ${String(n).padStart(6)}줄  ${t}`);
+    console.log(`   merchant_uid 접두: ${Object.entries(db.접두별).map(([k, v]) => `${k}=${v}`).join(' · ') || '(없다)'}`);
+    console.log('');
+    /* 🔴 로컬 시험판이면 «수를 내기 전에» 경고를 먼저 낸다 */
+    if (db.로컬시험 === true) for (const l of 로컬DB경고) console.log(l);
+    else if (db.로컬시험 === null) console.log('⬜ merchant_uid 를 못 읽었다 — 로컬 시험판인지 «못 갈랐다»');
+    else console.log('⚠ test_ 접두가 절반 미만이다. 그래도 이 파일은 .gitignore 대상 «로컬» 파일이다 —');
   }
 
-  const 실제결제건수 = db.결제표
-    ? Object.entries(db.결제표).filter(([t]) => /order|payment|purchase|결제/i.test(t)).reduce((a, [, n]) => a + n, 0)
-    : null;
+  /**
+   * ⛔ 로컬 수를 「실제 결제 건수」로 넘기지 «않는다». 2026-09-08 에 그렇게 해서 틀렸다.
+   *   실 서비스는 https://klifemap.ai/api/admin/payments 가 정본이고, 그것은 열쇠가 필요해
+   *   1번이 본다. 여기서는 «못 쟀다»로 둔다 — 0 으로도 174로도 치지 않는다.
+   */
+  const 실제결제건수 = null;
   console.log('');
   console.log('■ 어디서 새나');
   console.log('   ' + 어디서새나({ 결제조회, 결제사람, 실제결제건수 }));
+  console.log('   ⭐ 실 서비스 결제 건수는 1번이 /api/admin/payments 로 봅니다 —');
+  console.log('      2026-09-08 22:4x 1번 실측: 전체 33건 · paid 0건 · pending 33건 · 확정 매출 0원');
   console.log('');
   console.log('⚠ 낱말 — 「조회수」는 지면이 열린 «횟수»다. 한 사람이 세 번 열면 셋이다.');
   console.log('   ⛔ 「조회 20」을 「20명이 왔다」로 옮기지 않는다.');
