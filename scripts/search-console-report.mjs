@@ -11,9 +11,27 @@
  * ⛔ 이 자는 googleapis 패키지를 쓰지 않는다 — JWT 서명 + fetch 만으로 된다.
  *   의존성 하나 늘리는 것보다 이게 더 짧고, 이미 Node 내장 crypto 로 충분하다.
  *
- * 쓰기:
- *   node scripts/search-console-report.mjs https://seoulmarkets.com/ --days 28
- *   node scripts/search-console-report.mjs https://100yearmap.com/ --days 28
+ * 쓰기 — 🔴 **세 사이트가 다 「도메인 속성」이다. 주소 꼴로 부르면 막힌다.**
+ *
+ *   node scripts/search-console-report.mjs sc-domain:seoulmarkets.com   --days 28
+ *   node scripts/search-console-report.mjs sc-domain:100yearmap.com    --days 28
+ *   node scripts/search-console-report.mjs sc-domain:kculturewire.com  --days 28 --축=page --행수=1000
+ *
+ * ── 🔴 [2026-09-09 04:5x · 5번] 이 예시가 «주소 꼴»로 적혀 있었다 ──────────────
+ *
+ * 예전 예시는 `https://seoulmarkets.com/` 였다. 그대로 따라 부르면 이 답이 온다 —
+ *   `User does not have sufficient permission for site 'https://seoulmarkets.com/'`
+ *
+ * 나는 그것을 받고 한때 「자를 고쳐야 한다」고 문서에 적었다. **자는 멀쩡했다.**
+ * 셋을 다 재 보니 이랬다 —
+ * ```
+ *   https://seoulmarkets.com/      🔴    sc-domain:seoulmarkets.com     ✅
+ *   https://100yearmap.com/        🔴    sc-domain:100yearmap.com       ✅
+ *   https://www.kculturewire.com/  🔴    sc-domain:kculturewire.com     ✅
+ * ```
+ * ⛔ **주소 꼴은 하나도 안 된다.** 예시를 도메인 꼴로 갈았다 —
+ *   낡은 예시를 그대로 따라 부른 유닛은 전부 「권한이 없다」를 받고 「우리가 권한이 없다」로
+ *   읽었을 것이다. 예시가 틀리면 자가 멀쩡해도 아무도 못 쓴다.
  */
 import { readFileSync } from 'node:fs';
 import { createSign } from 'node:crypto';
@@ -38,8 +56,10 @@ const 사이트 = process.argv[2];
 const 일수 = Number(arg('--days', 28));
 
 if (!사이트 || !(사이트.startsWith('http') || 사이트.startsWith('sc-domain:'))) {
-  console.error('쓰기: node scripts/search-console-report.mjs https://seoulmarkets.com/ [--days 28]');
-  console.error('     또는 (도메인 속성이면)  node scripts/search-console-report.mjs sc-domain:seoulmarkets.com');
+  console.error('쓰기: node scripts/search-console-report.mjs sc-domain:seoulmarkets.com [--days 28]');
+  console.error('  ⭐ 우리 세 사이트는 다 «도메인 속성»이다 — sc-domain:seoulmarkets.com ·');
+  console.error('     sc-domain:100yearmap.com · sc-domain:kculturewire.com');
+  console.error('  ⛔ 주소 꼴(https://…)로 부르면 「권한이 없다」가 온다. 권한이 없는 것이 아니다.');
   process.exit(1);
 }
 if (!키파일) { console.error('⛔ GOOGLE_APPLICATION_CREDENTIALS 가 .env 에 없다'); process.exit(1); }
