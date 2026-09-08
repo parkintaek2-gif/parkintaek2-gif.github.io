@@ -33,10 +33,46 @@ const 못쟀으면나간다 = () => {
   console.log('   ⛔ 이것은 「통과」가 아니다. 재 보지 못했다는 뜻이다.');
   process.exit(0);
 };
-const k = 최신(/^kpop-\d+\.json$/);
-const m = 최신(/^kpop-members-\d+\.json$/);
+const 기사길 = 'content/kculturewire/kpop-attention-level-or-event.md';
+/**
+ * 🔴🔴 [2026-09-09 04:3x · 5번] **「가장 새 스냅숏」을 잡던 것을 고쳤다.**
+ *
+ * 이 자는 곳간에서 `kpop-<날>.json` 가운데 «가장 새것»을 골랐다. 오늘 그것이 터졌다 —
+ * ```
+ *   기사      2026-08-07 에 냈다 · dataAsOf 2026-08-06 · 팀 1,698개로 셌다
+ *   새 스냅숏  kpop-20260822.json  (팀 수도 창도 다르다)
+ *   ⇒ 28개 칸이 「기사와 자료가 어긋난다」로 빨갛게 떴다
+ * ```
+ * ⛔ **기사도 자료도 틀리지 않았다.** 기사는 «그때» 잰 것이고 자료가 그 뒤에 움직인 것이다.
+ *   원인은 내가 오늘 곳간에 08-22 스냅숏을 되살린 것이었다. 자료가 늘어난 것이 잘못이 아니다.
+ *
+ * ⭐ 그러니 새것을 잡지 않고 **기사가 적어 둔 `dataAsOf` 에 맞는 스냅숏**을 잡는다.
+ *   ⛔ 「자료가 새것이니 기사를 고친다」로 가지 않는다 — 그러면 낸 뒤에 기사 뜻이 바뀐다.
+ *   ⛔ 「어긋나도 넘어간다」로도 가지 않는다 — 그러면 진짜 어긋남을 못 잡는다.
+ *   ⚠ 그 날짜 스냅숏이 없으면 «새것으로 물러서되 그 사실을 화면에 적는다.»
+ */
+const 기사글먼저 = fs.readFileSync(기사길, 'utf8');
+const 기준일 = (기사글먼저.match(/^dataAsOf:\s*(\d{4})-(\d{2})-(\d{2})/m) ?? []).slice(1, 4).join('');
+const 그날것 = (앞) => {
+  if (!기준일) return null;
+  const 길 = `${앞}-${기준일}.json`;
+  try {
+    if (!fs.readdirSync(D).includes(길)) return null;
+    return JSON.parse(fs.readFileSync(path.join(D, 길), 'utf8'));
+  } catch { return null; }
+};
+const k그날 = 그날것('kpop');
+const m그날 = 그날것('kpop-members');
+const k = k그날 ?? 최신(/^kpop-\d+\.json$/);
+const m = m그날 ?? 최신(/^kpop-members-\d+\.json$/);
 못쟀으면나간다();
-const 본문 = fs.readFileSync('content/kculturewire/kpop-attention-level-or-event.md', 'utf8');
+if (k그날 && m그날) {
+  console.log(`⭐ 기사 기준일(${기준일}) 스냅숏으로 잰다 — 새 스냅숏이 들어와도 옛 기사가 빨개지지 않는다`);
+} else {
+  console.log(`⚠ 기사 기준일(${기준일 || '못 읽음'}) 스냅숏이 곳간에 없어 «가장 새것»으로 물러섰다.`);
+  console.log("   ⛔ 그래서 어긋남이 나오면 «기사가 틀린 것»이 아닐 수 있다. 날짜를 먼저 본다.");
+}
+const 본문 = 기사글먼저;
 
 /* 걸러내기 조건을 **본문에서 읽는다.** 기사가 조건을 고치면 검사도 따라간다. */
 const 조건 = 본문.match(/at least (\d+) views in the month and at least (\d+) days of data/);

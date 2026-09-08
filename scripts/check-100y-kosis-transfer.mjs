@@ -67,11 +67,46 @@ if (process.argv.includes('--자가시험')) {
 }
 
 const 읽기 = (길) => JSON.parse(fs.readFileSync(길, 'utf8'))
+/**
+ * 🔴 [2026-09-09 03:5x · 5번] **이 자가 「원본이 아카이브에 없다」고 하는데 «있었다».**
+ *
+ * 이 자는 원본 파일 이름을 «표 번호»로 짐작했다 — `DT_920024_3N_007.json`.
+ * 그런데 그 표를 받는 수집기(`collect-kosis-voc-series.mjs`)는 «해»로 이름을 짓는다 —
+ * `voc-series-2025.json`. ⇒ 파일이 있어도 이 자는 못 찾는다.
+ *
+ * ⛔ 그래서 `npm test` 가 계속 빨갰고, 나는 처음에 그것을 「8번이 수집을 안 했다」로 읽었다.
+ *   **아니었다. 이 자의 이름 짐작이 틀린 것이었다.** 돌려 보니 자료는 그날 바로 들어왔다.
+ *
+ * ⭐ 그러니 이름을 «하나로 짐작하지 않는다» — 딴이름 목록을 함께 본다.
+ *   ⛔ 목록에 없는 이름을 「비슷해 보인다」고 넣지 않는다. **그 표를 받는 수집기가
+ *      실제로 그렇게 적는지 확인하고** 넣는다(아래 줄마다 어느 수집기인지 적었다).
+ */
+const 딴이름 = {
+  /* collect-kosis-voc-series.mjs 가 `voc-series-<연도>.json` 으로 적는다 */
+  DT_920024_3N_007: [/^voc-series-[0-9]{4}\.json$/],
+  /* ⬜ DT_118N_PAYM41 은 «받는 수집기가 아예 없다». 딴이름을 지어 넣지 않는다 —
+     없는 것을 있는 것처럼 만들면 검산이 조용히 헛돈다. 「못 쟀다」로 두는 것이 맞다. */
+}
+
 const 원본쥐기 = (표) => {
-  const 길 = path.join(원본방, `${표}.json`)
-  if (!fs.existsSync(길)) return null
-  const 줄 = 줄을꺼낸다(읽기(길))
-  return 줄 && 줄.length ? 줄 : null
+  const 볼것 = [path.join(원본방, `${표}.json`)]
+  /* 표 번호 이름이 없으면 딴이름을 찾는다. 여럿이면 «가장 새것»을 쓴다 */
+  if (!fs.existsSync(볼것[0]) && (딴이름[표] ?? []).length && fs.existsSync(원본방)) {
+    const 걸린것 = fs.readdirSync(원본방)
+      .filter((f) => 딴이름[표].some((무늬) => 무늬.test(f)))
+      .sort()
+      .reverse()
+    for (const f of 걸린것) 볼것.push(path.join(원본방, f))
+  }
+  for (const 길 of 볼것) {
+    if (!fs.existsSync(길)) continue
+    const 줄 = 줄을꺼낸다(읽기(길))
+    if (줄 && 줄.length) {
+      if (!길.endsWith(`${표}.json`)) console.log(`   ⭐ ${표} 원본을 딴이름으로 찾았다 — ${path.basename(길)}`)
+      return 줄
+    }
+  }
+  return null
 }
 
 let 같은칸 = 0

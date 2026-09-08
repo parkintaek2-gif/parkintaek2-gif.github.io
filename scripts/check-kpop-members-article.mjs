@@ -32,9 +32,35 @@ const 최신 = (re) => {
   if (!f) { 없는것.push(String(re)); return null; }
   return JSON.parse(fs.readFileSync(path.join(D, f), 'utf8'));
 };
-const k = 최신(/^kpop-\d+\.json$/);
-const m = 최신(/^kpop-members-\d+\.json$/);
-const dd0 = 최신(/^kpop-debut-\d+\.json$/);
+/**
+ * 🔴 [2026-09-09 04:3x · 5번] **「가장 새 스냅숏」을 잡으면 옛 기사가 빨개진다.**
+ *   곳간에 새 스냅숏이 하나 들어오는 순간, 그 전에 낸 기사 전부가 「자료와 어긋난다」로 뜬다.
+ *   오늘 실제로 그랬다 — 내가 08-22 스냅숏을 되살리자 08-07·08-08 기사에서 64칸이 빨개졌다.
+ * ⛔ 기사도 자료도 틀리지 않았다. 기사는 «그때» 잰 것이다.
+ * ⭐ 그러니 기사가 적어 둔 dataAsOf 에 맞는 스냅숏을 잡는다. 없으면 새것으로 물러서되 «적는다».
+ */
+const 기사글먼저 = fs.readFileSync(기사, 'utf8');
+const 기준일 = (기사글먼저.match(/^dataAsOf:\s*(\d{4})-(\d{2})-(\d{2})/m) ?? []).slice(1, 4).join('');
+const 그날것 = (앞) => {
+  if (!기준일) return null;
+  const 길 = `${앞}-${기준일}.json`;
+  try {
+    if (!fs.readdirSync(D).includes(길)) return null;
+    return JSON.parse(fs.readFileSync(path.join(D, 길), 'utf8'));
+  } catch { return null; }
+};
+const k그날 = 그날것('kpop');
+const m그날 = 그날것('kpop-members');
+const dd0그날 = 그날것('kpop-debut');
+const k = k그날 ?? 최신(/^kpop-\d+\.json$/);
+const m = m그날 ?? 최신(/^kpop-members-\d+\.json$/);
+const dd0 = dd0그날 ?? 최신(/^kpop-debut-\d+\.json$/);
+if (k그날 && m그날 && dd0그날) {
+  console.log(`⭐ 기사 기준일(${기준일}) 스냅숏으로 잰다 — 새 스냅숏이 들어와도 옛 기사가 안 빨개진다`);
+} else {
+  console.log(`⚠ 기사 기준일(${기준일 || '못 읽음'}) 스냅숏이 곳간에 없어 «가장 새것»으로 물러섰다.`);
+  console.log("   ⛔ 어긋남이 나오면 «기사가 틀린 것»이 아닐 수 있다. 날짜를 먼저 본다.");
+}
 if (없는것.length) {
   console.log(`⚠ 못 쟀다 — ${D} 에 ${없는것.join(", ")} 가 없다. 곳간은 git 에 없으니 먼저 받는다.`);
   console.log('   ⛔ 이것은 「통과」가 아니다. 재 보지 못했다는 뜻이다.');
@@ -42,8 +68,16 @@ if (없는것.length) {
 }
 const dd = dd0.연도;
 /** 겹침·잰수는 **지면 자료**에 있다. 원자료에는 없다 — 빌드가 만든 값이다. */
-const 지면 = JSON.parse(fs.readFileSync('src/data/wikitip-kpop.json', 'utf8'));
-const 본문 = fs.readFileSync(기사, 'utf8');
+/**
+ * 🔴 [2026-09-09 04:4x · 5번] 지면 자료도 «기사 기준일 판»을 먼저 본다.
+ *   이 파일은 08-29 에 다시 만들어져 groups 816→822 · 겹침 23.1%→29.3% 로 움직였다.
+ *   기사(08-07)는 816·23.1% 로 냈고 그것이 맞다 — git 에서 그때 판을 꺼내 곳간에 두었다.
+ * ⛔ 「자료가 새것이니 기사를 고친다」로 가지 않는다. 낸 뒤에 기사 뜻이 바뀐다.
+ */
+const 지면그날 = 그날것('kpop-page');
+const 지면 = 지면그날 ?? JSON.parse(fs.readFileSync('src/data/wikitip-kpop.json', 'utf8'));
+if (!지면그날) console.log('⚠ 지면 자료의 기사 기준일 판이 곳간에 없어 «지금 판»으로 물러섰다.');
+const 본문 = 기사글먼저;
 
 const 조회 = new Map(k.사람.map((p) => [p.이름, p]));
 const 줄 = [];

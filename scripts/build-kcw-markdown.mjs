@@ -143,19 +143,49 @@ if (process.argv.includes('--selftest')) {
   const draft원문 = 가짜원문.replace('draft: false', 'draft: true');
   검('⛔ draft:true는 null', 기사변환(draft원문, '') === null);
 
-  const 가짜HTML = '<section class="notes" aria-labelledby="notes-h"><h2 id="notes-h">Data &amp; Verification Notes</h2><dl><dt>Sources</dt><dd><ul><li><span class="src-org">DART</span> — <a class="src-api" href="https://dart.fss.or.kr" rel="external" target="_blank">공시 원문</a></li></ul></dd><dt>Cross-checks</dt><dd><span>Single-source figures; no independent cross-check was available.</span></dd></dl></section>';
+  /**
+   * 🔴🔴 [2026-09-09 05:3x · 5번] **견본이 낡아서 자가시험이 터지고 있었다.**
+   *
+   * 옛 견본은 노트를 `<dl><dt>Sources</dt><dd><ul>…` 로 적어 두었다.
+   * 그런데 지금 지면이 내는 꼴은 `<h3>Sources</h3><ul>…` 다. `노트변환` 은 그 새 꼴을 읽게
+   * 고쳐졌고, **실제 기사 183편에서 「notes 없이 낸 것 0개」로 잘 돌고 있었다.**
+   * ⇒ 자가 깨진 것이 아니라 **견본이 낡은 것**이었다. 그런데 자가시험이 터지니까
+   *   `npm test` 가 여기서 멈추고 그 뒤 검사들이 안 돌았다.
+   *
+   * ⭐ 그래서 견본을 «지어내지 않고» 실제로 나간 지면에서 떠 왔다 —
+   *   `dist/wikitip/article/190-countries-and-the-94-that-can-be-counted.html`
+   *   ⛔ 견본을 손으로 지으면 또 낡는다. 지면이 내는 꼴 그대로를 쓴다.
+   * ⚠ 그리고 `data-astro-cid-*` 를 «일부러 남겼다» — 아스트로가 실제로 붙이는 것이고,
+   *   그것이 붙어도 읽히는지가 이 시험의 요점이다.
+   */
+  const 가짜HTML = '<section class="notes" data-astro-cid-x><h2 data-astro-cid-x>Where these numbers come from</h2>'
+    + '<h3 data-astro-cid-x>Sources</h3><ul data-astro-cid-x><li data-astro-cid-x><b data-astro-cid-x>DART</b> — '
+    + '<a href="https://dart.fss.or.kr" rel="nofollow noopener" data-astro-cid-x>https://dart.fss.or.kr</a></li></ul>'
+    + '<h3 data-astro-cid-x>Cross-checks</h3><p data-astro-cid-x>Single-source figures; no independent cross-check was available.</p>'
+    + '</section>';
   const 노트 = 노트변환(가짜HTML);
-  검('Sources 항목을 담는다', 노트.includes('**Sources**'));
-  검('링크를 마크다운으로', 노트.includes('[공시 원문](https://dart.fss.or.kr)'));
-  검('리스트 없는 dd도 담는다', 노트.includes('Single-source figures'));
+  검('⛔ 노트를 못 읽으면 null 이 아니라 글이 나온다 — 자가 깨졌으면 여기서 걸린다', 노트 !== null);
+  검('h2 를 절 제목으로 쓴다', String(노트).includes('## Where these numbers come from'));
+  검('h3 Sources 를 담는다', String(노트).includes('Sources'));
+  검('링크를 마크다운으로', String(노트).includes('(https://dart.fss.or.kr)'));
+  검('ul 없는 h3 도 담는다', String(노트).includes('Single-source figures'));
+  검('⛔ data-astro-cid 가 붙어도 읽는다 — 그 글자가 결과에 안 남는다', !String(노트).includes('data-astro-cid'));
   검('⛔ notes 섹션이 없으면 null', 노트변환('<p>아무것도 없다</p>') === null);
 
   const 최종 = 기사변환(가짜원문, 가짜HTML);
   검('제목을 #로 낸다', 최종.includes('# 제목입니다'));
   검('본문을 담는다', 최종.includes('본문 첫 문단입니다'));
   검('표를 그대로 담는다', 최종.includes('| 1 | 2 |'));
-  검('notes를 붙인다', 최종.includes('## Data & Verification Notes'));
-  검('면책을 붙인다', 최종.includes('Not investment advice'));
+  /**
+   * 🔴 [2026-09-09 · 5번] 이 두 줄도 낡아 있었다. 지금 지면이 내는 글자로 갈았다 —
+   *   노트 제목은 「Data & Verification Notes」가 아니라 «기사가 쓴 h2» 그대로이고,
+   *   꼬리말은 SeoulMarkets 의 「Not investment advice」가 아니라 KCW 것이다.
+   * ⛔ 짐작으로 적지 않고 실제 산출물(`dist/wikitip/article/*.md`)에서 떠 왔다.
+   */
+  검('notes 를 붙인다 — 기사가 쓴 h2 를 그대로 쓴다', 최종.includes('## Where these numbers come from'));
+  검('출처 줄을 마크다운 링크로 붙인다', 최종.includes('[https://dart.fss.or.kr](https://dart.fss.or.kr)'));
+  검('꼬리말을 붙인다 — KCW 것이다', 최종.includes('K Culture Wire publishes data journalism'));
+  검('⛔ SeoulMarkets 꼬리말을 잘못 붙이지 않는다', !최종.includes('Not investment advice'));
 
   const HTML없이 = 기사변환(가짜원문, null);
   검('HTML 없어도 만든다(notes만 빠짐)', HTML없이 !== null && !HTML없이.includes('Verification Notes'));
