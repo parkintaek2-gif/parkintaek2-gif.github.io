@@ -18,6 +18,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/kcw-attention-share.json';
 
 const TITLE = 'How lopsided is attention on Korean acts? 24 of 774 hold half of it';
@@ -158,8 +159,9 @@ const jsonLd = {
     </p>
     <p>
       What the numbers do support is narrower and still worth having. If you are the median
-      act on this list, the number of people who looked you up in English in a month is
-      {' '}{수(본.가운데팀열람)}. Whatever the economics of an event are, they are being
+      act on this list, the number of times your page was opened in English in a month is
+      {' '}{수(본.가운데팀열람)} — page-opens, not people, since one reader returning three
+      times counts three. Whatever the economics of an event are, they are being
       attempted at that level of outside recognition, not at{' '}{첫째.이름}'s. The gap
       between those two conditions is what the forum thread was reaching for, and it is the
       one part of it we can put a number on.
@@ -180,6 +182,8 @@ const jsonLd = {
       {' '}<a href="/member-vs-group">the group page or the member pages</a>.
     </p>
   </section>
+
+  <KcwShorts set="lopsided" says={`Fourteen seconds, read aloud: seven hundred seventy four Korean acts drew two point six seven million English Wikipedia reads in the single month of August twenty twenty six, and twenty four of those acts hold half of it. The bottom half of the list — three hundred eighty seven acts together — holds three point one percent, the same share as the top three point one percent. The act in the middle was read five hundred nineteen times in the month. These are encyclopaedia pages being opened, not tickets, not streams and not money, and we hold no revenue data for any act on this page.`} />
 
   <KcwRelatedArticles page="/attention-share" />
 

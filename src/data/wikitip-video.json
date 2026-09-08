@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-03T21:33:50.357Z",
+  "generated": "2026-09-08T03:51:55.397Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -109,11 +109,11 @@
       "src": "/video/least-voiced.mp4"
     },
     {
-      "set": "malaysia",
+      "set": "lopsided",
       "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/malaysia.jpg",
-      "src": "/video/malaysia.mp4"
+      "uploadDate": "2026-09-08",
+      "thumb": "/video/thumb/lopsided.jpg",
+      "src": "/video/lopsided.mp4"
     },
     {
       "set": "malaysia-voiced",
@@ -158,30 +158,16 @@
       "src": "/video/onlyone-voiced.mp4"
     },
     {
-      "set": "outside",
-      "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/outside.jpg",
-      "src": "/video/outside.mp4"
-    },
-    {
       "set": "outside-voiced",
       "seconds": 14,
-      "uploadDate": "2026-09-06",
+      "uploadDate": "2026-09-05",
       "thumb": "/video/thumb/outside-voiced.jpg",
       "src": "/video/outside-voiced.mp4"
     },
     {
-      "set": "places",
-      "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/places.jpg",
-      "src": "/video/places.mp4"
-    },
-    {
       "set": "places-voiced",
       "seconds": 14,
-      "uploadDate": "2026-09-05",
+      "uploadDate": "2026-09-04",
       "thumb": "/video/thumb/places-voiced.jpg",
       "src": "/video/places-voiced.mp4"
     },
@@ -212,13 +198,6 @@
       "uploadDate": "2026-08-21",
       "thumb": "/video/thumb/season.jpg",
       "src": "/video/season.mp4"
-    },
-    {
-      "set": "shelf",
-      "seconds": 14,
-      "uploadDate": "2026-08-21",
-      "thumb": "/video/thumb/shelf.jpg",
-      "src": "/video/shelf.mp4"
     },
     {
       "set": "shelf-voiced",

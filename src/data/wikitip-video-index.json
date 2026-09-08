@@ -1,13 +1,13 @@
 {
-  "generated": "2026-09-07T10:24+09:00",
+  "generated": "2026-09-08T12:51+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 39,
-    "짝찾음": 35,
+    "영상": 40,
+    "짝찾음": 36,
     "짝못찾음": 4,
     "두지면에걸린것": 0,
-    "지면에서읽음": 35
+    "지면에서읽음": 36
   },
   "videos": [
     {
@@ -397,6 +397,16 @@
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "lopsided",
+      "src": "/video/lopsided.mp4",
+      "thumb": "/video/thumb/lopsided.jpg",
+      "seconds": 14,
+      "page": "/attention-share",
+      "says": "Fourteen seconds, read aloud: seven hundred seventy four Korean acts drew two point six seven million English Wikipedia reads in the single month of August twenty twenty six, and twenty four of those acts hold half of it. The bottom half of the list — three hundred eighty seven acts together — holds three point one percent, the same share as the top three point one percent. The act in the middle was read five hundred nineteen times in the month. These are encyclopaedia pages being opened, not tickets, not streams and not money, and we hold no revenue data for any act on this page.",
       "saysFrom": "built page",
       "alsoOn": []
     }

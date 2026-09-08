@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-07T11:22:39.568Z",
+  "generated": "2026-09-08T03:56:14.846Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -2353,6 +2353,23 @@
       ]
     },
     {
+      "set": "twenty-four-acts-hold-half-the-reading",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "two-hops-from-squid-game",
       "sq": [
         1,
@@ -2791,14 +2808,18 @@
       ]
     }
   ],
-  "setCount": 166,
-  "imageCount": 1624,
+  "setCount": 167,
+  "imageCount": 1634,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
     "brands-are-not-one-thing",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
+    "device-is-not-age-for-korean-acts",
+    "fan-votes-and-encyclopedia-reads-disagree",
+    "january-peaks-september-does-not",
+    "kpop-generation-lines-are-a-year-off",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",

@@ -562,6 +562,21 @@ const videoSets = [
       + 'Indonesia, Moon Ga-young Malaysia — and no name is first everywhere.',
   },
   {
+    /**
+     * 🔴 [2026-09-08] 오늘 낸 새 영상. 기사 `twenty-four-acts-hold-half-the-reading` 에서 뽑았다.
+     * ⛔ 「-voiced」가 «아니다» — 처음부터 소리를 넣고 만든 새 편이다.
+     *   소리 자가 기본으로 -voiced 를 붙여서 이름을 바로잡았다(starsign 때 적어 둔 그대로).
+     *   ⚠ 안 바로잡으면 체크리스트가 「버전업」으로 세고 「새 영상 0편」이 남는다.
+     * ⭐ 소리를 «재서» 확인했다 — −23.8 dB (무음판은 −91 dB).
+     */
+    set: 'lopsided',
+    page: '/attention-share',
+    title: '774 Korean acts. 24 of them hold half the reading',
+    description: '14 seconds with narration: in one month 774 Korean acts drew 2.67 million '
+      + 'English Wikipedia reads, and 24 acts hold half of it. The bottom half of the list holds '
+      + '3.1% — the same share as the top 3.1%. The median act was read 519 times. Not money.',
+  },
+  {
     set: 'transfer-voiced',
     page: '/most-read',
     title: 'Hyun Bin took 34% of his show. Song Kang-ho got 3.9%',
