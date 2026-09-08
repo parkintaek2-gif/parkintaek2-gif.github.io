@@ -22,6 +22,9 @@
  * ⛔ 아직 파는 물건이 아니다. **사장님 판단을 받기 위한 실물**이다.
  */
 import fs from 'node:fs';
+/* 🔴 [2026-09-09 · 5번] new Date().toISOString().slice(0,10) 은 UTC 다 —
+   한국 자정~아침 9시에 «어제» 날짜가 나온다. 사장님 강령: 시각은 한국시간(KST). */
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 
 const OUT = 'docs/상품안/본보기-한벌';
@@ -547,7 +550,7 @@ fs.writeFileSync(path.join(OUT, 'method.md'), method);
 /* ── ⑥ 읽는 법 ── 맨 먼저 열리는 것. 여기서 못 잰 것을 먼저 말한다. */
 const readme = `# K Culture Wire — Korean Content Panel
 
-Sample bundle, ${new Date().toISOString().slice(0, 10)}. Ten files. Start here.
+Sample bundle, ${오늘()}. Ten files. Start here.
 
 ## What this is, in six lines
 

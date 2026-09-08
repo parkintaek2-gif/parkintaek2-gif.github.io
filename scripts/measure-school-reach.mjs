@@ -26,6 +26,9 @@
  *   node scripts/measure-school-reach.mjs --잰다 [--최소=5] [--적는다=src/data/kcw-school-reach.json]
  */
 import fs from 'node:fs';
+/* 🔴 [2026-09-09 · 5번] new Date().toISOString().slice(0,10) 은 UTC 다 —
+   한국 자정~아침 9시에 «어제» 날짜가 나온다. 사장님 강령: 시각은 한국시간(KST). */
+import { 오늘 } from './_kst.mjs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -165,7 +168,7 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
   const 적는곳 = (process.argv.find((a) => a.startsWith('--적는다='))?.split('=')[1]) ?? null;
   if (적는곳) {
     fs.writeFileSync(path.join(뿌리, 적는곳), JSON.stringify({
-      잰때: new Date().toISOString().slice(0, 10),
+      잰때: 오늘(),
       무엇: '학교별로, 그 학교 사람들의 작품이 가장 넓게 간 나라 수의 가운데값',
       '⛔ 아닌 것': '이 학교에 가면 멀리 간다는 뜻이 아니다. 인과를 못 가린다.',
       최소인원: 최소, 학교수: 학교별.size,
