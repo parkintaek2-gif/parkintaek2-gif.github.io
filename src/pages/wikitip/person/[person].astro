@@ -164,7 +164,7 @@ const 생일글 = p.born
   <p class="lead">
     <b>{p.name}</b> appears in <b>{p.titleCount}</b> Korean {p.titleCount === 1 ? 'title' : 'titles'}
     {드라마 > 0 && 영화 > 0 ? ` (${드라마} TV, ${영화} film)` : ''} that reached a Netflix weekly
-    top 10 somewhere in the world. Together those titles took <b>{수(p.places)}</b> chart {단복(p.places, 'place', 'places')}
+    top 10 somewhere in the world. Together those titles took <b>{수(p.places)}</b> chart {단복(p.places, 'place', 'places')}{' '}
     in <b>{p.countries}</b> {단복(p.countries, 'country', 'countries')}.
     {/*
       * 🔴 2026-08-25 밤 — 이 지면의 «다음 걸음»이 어디 있는지 재 보니

@@ -70,7 +70,7 @@ const jsonLd = {
       </p>
 
       <ol class="five">
-        <li><b>What it is</b> — exports, imports and trade balance (USD thousand) for all {COUNTRIES}
+        <li><b>What it is</b> — exports, imports and trade balance (USD thousand) for all {COUNTRIES}{' '}
           partner countries, for each of {MONTHS} months, {WINDOW}. Plus national totals. One CSV.</li>
         <li><b>Why trust it</b> — every figure is the customs value as filed, taken from Statistics
           Korea (KOSIS table DT_1R11006, source: Korea Customs Service). We parse, normalise and
@@ -119,7 +119,7 @@ const jsonLd = {
         <table class="press">
           <thead><tr><th>Task</th><th>Doing it yourself from KOSIS</th><th>Already done in this CSV</th></tr></thead>
           <tbody>
-            <tr><td class="axis">Country names</td><td>Korean names, official codes — {COUNTRIES}
+            <tr><td class="axis">Country names</td><td>Korean names, official codes — {COUNTRIES}{' '}
               separate lookups to get English</td><td>{COUNTRIES} partner countries pre-mapped to
               English names</td></tr>
             <tr><td class="axis">Assembling the series</td><td>One query per country per month —

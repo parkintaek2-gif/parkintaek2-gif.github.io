@@ -55,7 +55,7 @@ const jsonLd = {
     <h2>Most of what looks like a return is a new season</h2>
     <p class="note lead-in"><b>How this is counted.</b> {data.unit}</p>
     <p class="warn">
-      The first thing we saw was a title returning after <b>{Math.max(...data.longestReturns.map((x) => x.gapWeeks))}
+      The first thing we saw was a title returning after <b>{Math.max(...data.longestReturns.map((x) => x.gapWeeks))}{' '}
       weeks</b> away, and the second thing we saw was that the obvious cases were second seasons.
       Netflix labels each chart row with a season, so we split the gaps on that label rather than
       guessing. It changes the answer.
