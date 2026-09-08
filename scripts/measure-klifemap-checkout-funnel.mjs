@@ -31,6 +31,8 @@ import { createRequire } from 'node:module';
 import { 토큰받기 } from './ga4-report.mjs';
 
 const 뿌리 = path.resolve(import.meta.dirname, '..');
+/* ⛔ 호스트 이름을 여러 곳에 적지 않는다 — 한쪽만 고쳐지면 그때부터 두 수가 갈린다 */
+export const 클라이프맵호스트 = 'klifemap.ai';
 const klifemap = 'C:/Users/User/Documents/GitHub/klifemap';
 
 /** 결제 갈래 지면인가 — 제목으로 가른다. ⛔ 「결제」 한 낱말만 보고 다 잡지 않는다 */
@@ -194,31 +196,60 @@ if (내가입구인가) {
 
   /* GA4 — 지면 «제목»별 조회수. 사장님이 보신 그 보고서와 같은 축이다 */
   let 결제조회 = null; let 결제사람 = null; const 줄들 = [];
+  let 걸러낸것 = 0;
   try {
     const 열쇠글 = process.env.GOOGLE_APPLICATION_CREDENTIALS_JSON
       || (process.env.GOOGLE_APPLICATION_CREDENTIALS && fs.readFileSync(process.env.GOOGLE_APPLICATION_CREDENTIALS, 'utf8'));
     if (!열쇠글) throw new Error('서비스 계정 열쇠를 못 찾았다 (.env)');
     const 토큰 = await 토큰받기(JSON.parse(열쇠글));
-    const 속성 = (process.argv.find((a) => a.startsWith('--속성='))?.split('=')[1]) || process.env.GA4_PROPERTY_KLIFEMAP;
-    if (!속성) throw new Error('klifemap GA4 속성 ID 를 못 찾았다 (--속성= 또는 .env GA4_PROPERTY_KLIFEMAP)');
+    /**
+     * 🔴🔴 [2026-09-09 02:2x · 5번] **「속성 ID 가 없어 못 쟀다」는 내 잘못이었다.**
+     *
+     * 나는 이틀 동안 사장님 보고와 메모에 이렇게 적었다 —
+     *   「klifemap GA4 속성 ID(GA4_PROPERTY_KLIFEMAP)가 .env 에 없어 결제 화면 조회수를
+     *    못 쟀습니다. 1번·4번께 요청해 뒀습니다.」
+     *
+     * ⛔ **요청해 놓고 기다린 것 자체가 틀렸다.** 오늘 `ga4-report.mjs --찾는다` 를 돌려 보니
+     *   **공용 속성 하나가 klifemap.ai 까지 이미 재고 있었다** —
+     *   klifemap.ai 순방문 100 · 세션 222 · 지면열림 699 (28일).
+     *   따로 속성을 받을 일이 아니었고, 호스트로 걸러 읽으면 되는 일이었다.
+     *
+     * ⭐ 그래서 이렇게 물러선다 — 전용 속성이 있으면 그것을, 없으면 «공용 속성 + 호스트 거르기».
+     *   ⛔ 호스트를 안 걸면 네 사이트 지면 제목이 섞여 「결제」 수가 부풀거나 엉킨다.
+     *   ⛔ 그리고 어느 속성으로 쟀는지 «화면에 밝힌다» — 못 밝히면 다음 세션이 또 헷갈린다.
+     */
+    const 전용 = (process.argv.find((a) => a.startsWith('--속성='))?.split('=')[1]) || process.env.GA4_PROPERTY_KLIFEMAP;
+    const 속성 = 전용 || process.env.GA4_PROPERTY_ID;
+    if (!속성) throw new Error('GA4 속성 ID 를 못 찾았다 (--속성= 또는 .env 의 GA4_PROPERTY_KLIFEMAP·GA4_PROPERTY_ID)');
+    const 공용인가 = !전용;
+    console.log(`■ GA4 속성 ${속성}${공용인가 ? ` — 공용 속성이다. 호스트 ${클라이프맵호스트} 로 걸러 읽는다` : ' — klifemap 전용 속성'}`);
     const r = await fetch(`https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
       body: JSON.stringify({
         dateRanges: [{ startDate: `${일수}daysAgo`, endDate: 'yesterday' }],
-        dimensions: [{ name: 'pageTitle' }],
+        dimensions: [{ name: 'pageTitle' }, { name: 'hostName' }],
         metrics: [{ name: 'screenPageViews' }, { name: 'totalUsers' }],
+        /* ⛔ 공용 속성일 때 호스트를 안 걸면 네 사이트가 섞인다 */
+        ...(공용인가 ? {
+          dimensionFilter: {
+            filter: { fieldName: 'hostName', stringFilter: { matchType: 'CONTAINS', value: 클라이프맵호스트, caseSensitive: false } },
+          },
+        } : {}),
         orderBys: [{ desc: true, metric: { metricName: 'screenPageViews' } }],
-        limit: 100,
+        limit: 200,
       }),
     });
     const j = await r.json();
     if (!r.ok) throw new Error(`GA4 ${r.status} — ${JSON.stringify(j).slice(0, 140)}`);
     for (const row of j.rows ?? []) {
       const 제목 = row.dimensionValues?.[0]?.value ?? '';
+      const 호스트 = row.dimensionValues?.[1]?.value ?? '';
       const 조회 = Number(row.metricValues?.[0]?.value ?? 0);
       const 사람 = Number(row.metricValues?.[1]?.value ?? 0);
-      줄들.push({ 제목, 조회, 사람, 갈래: 결제갈래(제목) });
+      /* ⛔ 거르기가 통했나를 «수로» 본다. 안 통했으면 남의 사이트 줄이 섞여 들어온다 */
+      if (공용인가 && !호스트.toLowerCase().includes(클라이프맵호스트)) { 걸러낸것 += 1; continue; }
+      줄들.push({ 제목, 호스트, 조회, 사람, 갈래: 결제갈래(제목) });
     }
     const 결제줄 = 줄들.filter((x) => x.갈래 === '결제');
     if (결제줄.length) {
@@ -230,6 +261,9 @@ if (내가입구인가) {
     console.log('   ⛔ 0 으로 치지 않는다. 아래 DB 쪽만 낸다.');
   }
 
+  if (걸러낸것) {
+    console.log(`⚠ 다른 사이트 줄 ${걸러낸것}개를 걸러 냈다 — 공용 속성이라 섞여 온다. 이 수가 크면 거르기를 다시 본다.`);
+  }
   if (줄들.length) {
     console.log(`■ klifemap 지면 «제목»별 조회수 — 최근 ${일수}일 (어제까지)`);
     for (const x of 줄들.slice(0, 12)) {
