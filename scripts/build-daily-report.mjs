@@ -164,13 +164,15 @@ if (process.argv[1] && process.argv.includes('--자가시험')) {
 
 
 const 쪽 = 장.map((p, n) => `
-  <section>
+  <section style="--줄임:1">
     <header><span class="no">${n + 1} / ${장.length}</span><h2>${꾸밈(p.이름)}</h2></header>
+    <div class="몸">
     ${p.절.map((s) => `
       <div class="sec">
         ${s.제목 ? `<h3>${꾸밈(s.제목)}</h3>` : ''}
         ${s.글.map(글그리기).join('')}
       </div>`).join('')}
+    </div>
     <footer>${esc(제목)}</footer>
   </section>`).join('');
 
@@ -183,6 +185,10 @@ const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>
   header { border-bottom:1px solid #22262e; padding-bottom:6mm; margin-bottom:7mm; position:relative; }
   h2 { font-family:'Noto Serif KR',serif; font-weight:900; font-size:26pt; color:#c8a44d; letter-spacing:-.5px; }
   .no { position:absolute; right:0; top:2mm; font-size:9pt; color:#5c6167; font-weight:700; }
+  /* 🔴 [2026-09-08] 넘치는 절의 «몸»을 통째로 줄인다. 규칙을 하나하나 고치지 않아도
+     표·코드·글이 같은 비율로 줄어든다. 값은 아래 자바스크립트가 «재서» 정한다. */
+  .몸 { transform: scale(var(--줄임)); transform-origin: top left;
+        width: calc(100% / var(--줄임)); }
   .sec { margin-bottom:6mm; }
   h3 { font-size:12pt; font-weight:700; color:#e9e6df; margin-bottom:2mm; }
   p { font-size:10.5pt; line-height:1.75; color:#9aa0a6; }
@@ -206,9 +212,50 @@ const p = await b.newPage();
 await p.setContent(html, { waitUntil: 'load' });
 
 /** 🔴 넘치는 쪽을 **찾아서 알린다.** 조용히 자르면 그 자리가 없어진 줄 모른다 */
+/**
+ * 🔴 [2026-09-08] **넘치는 절을 실제로 줄인다.** 이 자의 머리글이 처음부터 그렇게
+ *   적혀 있었는데 코드가 없었다 — 그래서 넘친 글이 다음 쪽에 «겹쳐 찍혔다».
+ * ⚠ 0.60 이 바닥이다. 그 아래로는 사장님이 못 읽는다 — 줄이는 것이 목적이 아니라
+ *   읽히는 것이 목적이다. 바닥까지 내려도 안 들면 그대로 알린다(조용히 자르지 않는다).
+ */
+const 줄인것 = await p.evaluate(() => {
+  const 바닥 = 0.60;
+  const 걸음 = 0.02;
+  const 것 = [];
+  for (const [i, sec] of [...document.querySelectorAll('section')].entries()) {
+    let k = 1;
+    while (sec.scrollHeight > sec.clientHeight + 2 && k > 바닥) {
+      k = Math.max(바닥, Number((k - 걸음).toFixed(2)));
+      sec.style.setProperty('--줄임', String(k));
+    }
+    if (k < 1) {
+      것.push({ 쪽: i + 1, 이름: sec.querySelector('h2')?.textContent ?? '',
+        줄임: k, 들었나: sec.scrollHeight <= sec.clientHeight + 2 });
+    }
+  }
+  return 것;
+});
+if (줄인것.length) {
+  console.log(`\n⭐ 넘쳐서 «글자를 줄인» 쪽 ${줄인것.length}개 — 자르지 않았습니다`);
+  for (const x of 줄인것) {
+    console.log(`   ${x.쪽}쪽  ${x.이름}  ${Math.round(x.줄임 * 100)}% 로 줄임`
+      + (x.들었나 ? '' : '  🔴 그래도 안 들어갑니다 — 그 쪽 글을 줄여 주십시오'));
+  }
+}
+
 const 넘침 = await p.evaluate(() =>
   [...document.querySelectorAll('section')]
-    .map((s, i) => ({ 쪽: i + 1, 이름: s.querySelector('h2')?.textContent ?? '', 넘음: s.scrollHeight > s.clientHeight + 2 }))
+    .map((s, i) => ({
+      쪽: i + 1,
+      이름: s.querySelector('h2')?.textContent ?? '',
+      넘음: s.scrollHeight > s.clientHeight + 2,
+      /* 🔴 [2026-09-08] «몇 배» 넘쳤나를 함께 낸다. 「줄이십시오」만 말하면
+         각 자리가 얼마나 줄일지 모르고, 다음에도 같은 일이 난다. */
+      넘친배수: s.clientHeight > 0 ? Number((s.scrollHeight / s.clientHeight).toFixed(2)) : null,
+      /* ⚠ 위 배수는 «이미 줄인 뒤»의 값이다. 어느 배율에서 잰 것인지 함께 낸다 —
+         안 밝히면 「조금만 줄이면 된다」로 읽힌다. */
+      잰배율: Number(getComputedStyle(s).getPropertyValue('--줄임')) || 1,
+    }))
     .filter((x) => x.넘음)
 );
 
@@ -218,7 +265,14 @@ await b.close();
 console.log(`저장 ${출력}  ·  ${장.length}장 (자리 ${장.map((x) => x.이름.split(' ')[0]).join('·')})`);
 if (넘침.length) {
   console.log(`\n⚠ 넘치는 쪽 ${넘침.length}개 — 그 쪽 글을 줄이십시오. **조용히 자르지 않았습니다**`);
-  for (const x of 넘침) console.log(`   ${x.쪽}쪽  ${x.이름}`);
+  for (const x of 넘침) {
+    const 얼마 = x.넘친배수 ? Math.round((1 - 1 / x.넘친배수) * 100) : null;
+    const 배율글 = x.잰배율 < 1 ? `글자를 ${Math.round(x.잰배율 * 100)}% 로 줄인 뒤에도 ` : '';
+    console.log(`   ${x.쪽}쪽  ${x.이름}`
+      + (x.넘친배수 ? `  ${배율글}${x.넘친배수}배 넘침 → 글을 약 ${얼마}% 더 줄여야 한 장에 듭니다`
+        : '  ⬜ 얼마나 넘쳤는지 못 쟀다'));
+  }
+  console.log('   ⚠ 사장님 지시는 「한 세션 당 1페이지씩」입니다. 쪽을 늘리지 않고 «글»을 줄입니다.');
   process.exit(2);
 }
 console.log('✅ 넘치는 쪽 없음 — 여섯 자리가 다 실렸습니다');
