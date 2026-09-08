@@ -402,6 +402,10 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-08 — 시도교육청이 하나씩 내는 2027학년도 수능 응시원서 접수 결과를
        모은다. 전국 KOSIS 표가 없어(확인함) 시도 발표를 직접 모았다 — 지금 경남·충북. */
     { path: '/csat-applicant-mix', priority: '0.7', changefreq: 'weekly' },
+    /* 🔴 2026-09-08 — 「지방국립대 무상교육」 뉴스 씨앗. 정책 효과는 말할 수 없어
+       정책 시행 «전» 기준선(국공립·사립 재학생충원율·취업률)만 pages-university.json
+       재계산으로 남긴다. */
+    { path: '/university-founding-gap', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
