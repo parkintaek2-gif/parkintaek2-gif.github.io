@@ -260,7 +260,140 @@ export function 주제목(정리) {
   return 꼴들.find((t) => t.length <= 60) ?? 꼴들[꼴들.length - 1];
 }
 
-export function 주지면(정리, 슬러그, 전체주수, 앞 = null, 뒤 = null) {
+/**
+ * 🔴🔴 [2026-09-09 04:5x · 5번] **주별 지면 269장이 서로 거의 같은 글이었다.**
+ *
+ * 2026-09-08 에 색인을 물어 보고 두께를 잰 기록이 `src/data/kcw-google-indexed-20260908.json`
+ * 에 남아 있다. 그 결론이 이랬다 —
+ * ```
+ *   /week/ 는 색인이 절반 넘게 되는데(12장 물어 7장) «노출이 0» 이다 — 색인 문제가 아니다
+ *   안 된 것의 까닭이 「Crawled – currently not indexed」로 옮겨 갔다 (와서 보고 안 담기로 했다)
+ *   269장 본문 1,883~3,084자 · 2,500자 미만 159장(59%)
+ *   가장 얇은 두 장의 낱말 겹침 246/277 = 88.8%
+ * ```
+ * ⇒ **서로 다른 글이 아니었다.** 숫자 몇 개와 표만 바뀌고 설명 문단은 269장이 같았다.
+ *
+ * ⭐ 그리고 그 지면을 «찾는 사람은 있다» — 붙여넣은 넷플릭스 주소 검색
+ *   (`netflix.com/tudum/top10?week=2024-11-03` 꼴)이 검색어가 보이는 노출의 33%다.
+ *   ⛔ 그런데 그 검색은 `/market/nicaragua`·`/about`·`/title/knight-flower` 로 떨어진다.
+ *     정작 그 주를 보여 주는 지면은 **노출이 0장**이다.
+ *
+ * ⭐ 그래서 «주마다 반드시 다른 사실»을 붙인다 — **지난주와 무엇이 바뀌었나**다.
+ *   ⛔ 판정이 아니다. 「뜨는 작품」·「지는 작품」이라 쓰지 않는다.
+ *     지난주 목록에 있었나 없었나, 나라 수가 늘었나 줄었나를 «세어» 적는다.
+ *   ⛔ 지난주 자료가 없으면(첫 주·빠진 주) 이 칸을 «만들지 않는다.» 빈 칸을 0으로 채우지 않는다.
+ */
+
+/** 주 정리 하나에서 작품이름 → 나라수 표를 만든다 */
+export function 나라수표(정리) {
+  const 표 = new Map();
+  for (const t of 정리?.titles ?? []) {
+    const 이름 = String(t?.title ?? '').trim();
+    if (!이름) continue;
+    표.set(이름, Number(t.marketCount ?? 0));
+  }
+  return 표;
+}
+
+/**
+ * 이번 주와 지난주를 대 본다.
+ * ⛔ 지난주 정리가 없으면 null — 「바뀐 것이 없다」와 «못 쟀다»를 가른다.
+ */
+export function 주간변화(이번, 지난) {
+  if (!이번 || !지난) return null;
+  const 이 = 나라수표(이번);
+  const 지 = 나라수표(지난);
+  const 새로든것 = [...이.keys()].filter((n) => !지.has(n));
+  const 빠진것 = [...지.keys()].filter((n) => !이.has(n));
+  const 남은것 = [...이.keys()].filter((n) => 지.has(n))
+    .map((n) => ({ 이름: n, 지난: 지.get(n), 이번: 이.get(n), 차: 이.get(n) - 지.get(n) }));
+  const 늘어난것 = 남은것.filter((x) => x.차 > 0).sort((a, b) => b.차 - a.차);
+  const 줄어든것 = 남은것.filter((x) => x.차 < 0).sort((a, b) => a.차 - b.차);
+  return {
+    지난주: 지난.week,
+    새로든것: 새로든것.sort(),
+    빠진것: 빠진것.sort(),
+    그대로: 남은것.filter((x) => x.차 === 0).length,
+    늘어난것,
+    줄어든것,
+    작품수차: (이번.titles?.length ?? 0) - (지난.titles?.length ?? 0),
+    나라수차: (이번.marketCount ?? 0) - (지난.marketCount ?? 0),
+    자리수차: (이번.rows ?? 0) - (지난.rows ?? 0),
+  };
+}
+
+/** 늘거나 줄거나 그대로를 사람 말로. ⛔ 「뜨는/지는」 같은 판정어를 안 쓴다 */
+export function 늘줌말(차) {
+  /**
+   * 🔴 자가시험이 잡았다 — `Number(null)` 은 **0** 이라 「같다」로 새어 나갔다.
+   *   이 저장소가 늘 경고하는 그 함정이다(「못 쟀다」가 0 으로 바뀌는 것).
+   *   ⛔ 그러니 null·undefined·빈 글자를 «Number 로 넘기기 전에» 걸러 낸다.
+   */
+  if (차 === null || 차 === undefined || 차 === '') return 'not measured';
+  const n = Number(차);
+  if (!Number.isFinite(n)) return 'not measured';
+  if (n > 0) return `${n} more`;
+  if (n < 0) return `${-n} fewer`;
+  return 'the same number';
+}
+
+/**
+ * 주간 변화 칸을 HTML 로. 지난주 자료가 없으면 빈 글자 — 칸 자체를 안 만든다.
+ * ⚠ 지면에 한국어를 내지 않는다(손님이 영어권이다). 우리말은 코드 주석에만.
+ */
+export function 변화칸(변화, 슬러그, 읽는날) {
+  if (!변화) return '';
+  const 링크 = (이름) => {
+    const s = 슬러그?.get?.(이름);
+    return s ? `<a href="/title/${s}">${이름}</a>` : 이름;
+  };
+  const 조각 = [];
+  조각.push('    <h2>What changed from the week before</h2>');
+  조각.push(`    <p>Against <a href="/week/${변화.지난주}">${읽는날(변화.지난주)}</a>, this week held `
+    + `${늘줌말(변화.작품수차)} Korean ${Math.abs(변화.작품수차) === 1 ? 'title' : 'titles'}, `
+    + `reached ${늘줌말(변화.나라수차)} ${Math.abs(변화.나라수차) === 1 ? 'country' : 'countries'}, `
+    + `and took ${늘줌말(변화.자리수차)} chart ${Math.abs(변화.자리수차) === 1 ? 'place' : 'places'}.</p>`);
+
+  if (변화.새로든것.length) {
+    조각.push(`    <p><b>Charting this week and not the week before</b> (${변화.새로든것.length}): `
+      + `${변화.새로든것.map(링크).join(' &middot; ')}.</p>`);
+  } else {
+    조각.push('    <p>No title charted this week that had not charted the week before.</p>');
+  }
+  if (변화.빠진것.length) {
+    조각.push(`    <p><b>Charting the week before and not this week</b> (${변화.빠진것.length}): `
+      + `${변화.빠진것.map(링크).join(' &middot; ')}.</p>`);
+  } else {
+    조각.push('    <p>Every title that charted the week before charted again this week.</p>');
+  }
+
+  const 움직인것 = [...변화.늘어난것.slice(0, 3), ...변화.줄어든것.slice(0, 3)];
+  if (움직인것.length) {
+    조각.push('    <div class="scroll">');
+    조각.push('    <table>');
+    조각.push('      <thead><tr><th>Title held both weeks</th>'
+      + '<th class="num">Countries, week before</th><th class="num">Countries, this week</th>'
+      + '<th class="num">Change</th></tr></thead>');
+    조각.push('      <tbody>');
+    for (const x of 움직인것) {
+      조각.push(`        <tr><td class="nm">${링크(x.이름)}</td>`
+        + `<td class="num">${x.지난}</td><td class="num">${x.이번}</td>`
+        + `<td class="num">${x.차 > 0 ? `+${x.차}` : x.차}</td></tr>`);
+    }
+    조각.push('      </tbody>');
+    조각.push('    </table>');
+    조각.push('    </div>');
+    조각.push(`    <p class="note">${변화.그대로} ${변화.그대로 === 1 ? 'title' : 'titles'} held the `
+      + 'same number of countries in both weeks. A country count going up or down is a count of '
+      + 'top-10 listings, not a measure of how much anyone watched &mdash; Netflix&rsquo;s country '
+      + 'file carries no viewing figures.</p>');
+  } else {
+    조각.push('    <p class="note">No title that held both weeks changed its country count.</p>');
+  }
+  return `${조각.join('\n')}\n`;
+}
+
+export function 주지면(정리, 슬러그, 전체주수, 앞 = null, 뒤 = null, 지난정리 = null) {
   const 줄 = 정리.titles.map((t) => {
     const s = 슬러그.get(t.title);
     const 이름 = s ? `<a href="/title/${s}">${t.title}</a>` : t.title;
@@ -319,6 +452,7 @@ ${줄}
     <h2>Where they charted</h2>
     <p class="names">${정리.markets.join(' &middot; ')}</p>
 
+${변화칸(주간변화(정리, 지난정리), 슬러그, 읽는날)}
 ${앞뒤칸(앞, 뒤)}
     <p class="note">One of ${전체주수} weeks we hold. <a href="/weeks">The full run of weeks</a> is
       here, and <a href="/netflix-top10-data">what is actually inside Netflix's two files</a> is
@@ -468,6 +602,52 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   참('정본 주소를 건다', h.includes('canonical" href="https://www.kculturewire.com/week/2024-11-03'));
 
   const 목 = 목록지면([첫, 주정리(주.get('2024-11-10'))], 4);
+  /* 🔴 [2026-09-09 · 5번] 주간 변화 칸 — 269장이 서로 같은 글이던 것을 고친 자리 */
+  {
+    const 이번 = {
+      week: '2024-11-03',
+      rows: 58,
+      marketCount: 26,
+      titles: [{ title: 'Hellbound', marketCount: 20 }, { title: 'Exhuma', marketCount: 5 },
+        { title: 'Knight Flower', marketCount: 3 }],
+    };
+    const 지난 = {
+      week: '2024-10-27',
+      rows: 62,
+      marketCount: 36,
+      titles: [{ title: 'Hellbound', marketCount: 25 }, { title: 'The Cursed', marketCount: 9 },
+        { title: 'Knight Flower', marketCount: 3 }],
+    };
+    const v = 주간변화(이번, 지난);
+    참('지난주와 대 본다', v !== null);
+    참('새로 든 것을 집는다', v.새로든것.length === 1 && v.새로든것[0] === 'Exhuma');
+    참('빠진 것을 집는다', v.빠진것.length === 1 && v.빠진것[0] === 'The Cursed');
+    참('나라 수가 줄어든 것을 집는다',
+      v.줄어든것.length === 1 && v.줄어든것[0].이름 === 'Hellbound' && v.줄어든것[0].차 === -5);
+    참('그대로인 것을 센다', v.그대로 === 1);
+    참('작품·나라·자리 차를 낸다',
+      v.작품수차 === 0 && v.나라수차 === -10 && v.자리수차 === -4);
+    참('⛔ 지난주가 없으면 null — 「바뀐 것 없음」과 가른다', 주간변화(이번, null) === null);
+    참('⛔ 이번 주가 없어도 안 터진다', 주간변화(null, 지난) === null);
+
+    참('늘줌말 — 늘면 more', 늘줌말(3) === '3 more');
+    참('늘줌말 — 줄면 fewer', 늘줌말(-2) === '2 fewer');
+    참('늘줌말 — 같으면 the same number', 늘줌말(0) === 'the same number');
+    참('⛔ 늘줌말 — 수가 아니면 not measured', 늘줌말(null) === 'not measured');
+
+    const 칸 = 변화칸(v, new Map([['Exhuma', 'exhuma']]), 읽는날);
+    참('변화칸에 절 제목이 있다', 칸.includes('<h2>What changed from the week before</h2>'));
+    참('지난주로 가는 링크가 있다', 칸.includes('href="/week/2024-10-27"'));
+    참('지면이 있는 작품은 링크로 건다', 칸.includes('href="/title/exhuma"'));
+    참('⛔ 지면이 없는 작품은 링크로 걸지 않는다', !칸.includes('href="/title/the-cursed"'));
+    참('나라 수가 움직인 표를 낸다', 칸.includes('Countries, week before'));
+    참('⛔ 판정어를 쓰지 않는다 — 뜨는·지는·인기 같은 말이 없다',
+      !/\b(rising|falling|hit|flop|popular|best|worst)\b/i.test(칸));
+    참('⛔ 조회수라고 말하지 않는다 — 넷플릭스 나라 파일에 조회수가 없다',
+      칸.includes('carries no viewing figures'));
+    참('⛔ 지난주가 없으면 칸을 아예 안 만든다', 변화칸(null, new Map(), 읽는날) === '');
+    참('⛔ 변화칸에 한국어가 없다', !/[가-힣]/.test(칸));
+  }
   참('목록이 해별로 묶인다', 목.includes('<h2>2024</h2>'));
   참('목록에 주 링크가 든다', 목.includes('href="/week/2024-11-03"'));
   /* ⛔ 안 낸 주를 조용히 지우지 않는다 */
@@ -527,11 +707,14 @@ if (내가실행됐다) {
   const 낼것 = 모든주.filter((w) => w.rows >= 지면낼최소줄);
   const 안낼것 = 모든주.filter((w) => w.rows < 지면낼최소줄);
 
+  /* ⭐ 주 → 정리 표를 «한 번만» 만든다 — 지난주와 대 보려면 지난주 정리가 필요하다.
+     ⛔ 269장마다 다시 찾으면 그만큼 헛일이다. */
+  const 정리별 = new Map(낼것.map((w) => [w.week, w]));
   fs.mkdirSync(path.join(낼방, 'week'), { recursive: true });
   for (const w of 낼것) {
     const { 앞, 뒤 } = 앞뒤주(낼것, w.week);
     fs.writeFileSync(path.join(낼방, 'week', `${w.week}.html`),
-      주지면(w, 슬러그, 낼것.length, 앞, 뒤));
+      주지면(w, 슬러그, 낼것.length, 앞, 뒤, 앞 ? (정리별.get(앞) ?? null) : null));
   }
   fs.writeFileSync(path.join(낼방, 'weeks.html'), 목록지면(낼것, 안낼것.length));
 
