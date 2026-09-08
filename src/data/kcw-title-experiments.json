@@ -793,6 +793,36 @@
       ],
       "⭐ 제목과 H1 이 같은 것을 확인했다": "셋 다 지은 HTML 에서 title 과 h1 을 뽑아 견줬다. 제목만 바꾸고 h1 을 그대로 두면 손님이 다른 글을 읽는다.",
       "10/06 에 이렇게 잰다": "첫 벌 셋과 «함께» 잰다. 여섯 장 중 몇 장이 0 을 벗어났나, 그리고 «실명이 든 첫 벌»과 «수만 든 이 벌»이 다르게 움직이나를 본다. ⭐ 그것이 갈리면 「이름이 수보다 세다」를 재서 말할 수 있다. 지금은 못 쟀다."
+    },
+    {
+      "지면": "/rank-shape · /world-share · /kpop-attention  (세 벌째 · 오늘 셋째 묶음)",
+      "바꾼날": "2026-09-08",
+      "다시잴날": "2026-10-06",
+      "무엇을": "제목 — 물음만 있던 것을 «자료에서 읽은 수»로 바꿨다",
+      "전제목": "/rank-shape: Where on the chart do Korean titles sit? | /world-share: How much of the world's Netflix top 10 is Korean | /kpop-attention: Who the English-speaking world looks up when it looks up K-pop (62자로 잘렸다)",
+      "후제목": "/rank-shape: Korean titles: 8% of Netflix #1 places, 7.3% of #10 (51자) | /world-share: Korean titles are 7.9% of the world's Netflix top 10 (56자) | /kpop-attention: 2,372 K-pop names, 10.1m reads in 30 days (41자)",
+      "전값": {
+        "창": "2026-08-08~2026-09-05 (GSC 28일)",
+        "/rank-shape": {
+          "노출": 7,
+          "클릭": 0,
+          "평균순위": 4.4
+        },
+        "/world-share": {
+          "노출": 13,
+          "클릭": 0,
+          "평균순위": 6.8
+        },
+        "/kpop-attention": {
+          "노출": 5,
+          "클릭": 0,
+          "평균순위": 9.6
+        }
+      },
+      "가설": "자리 4~10에 서는데 클릭이 0인 것은 순위가 아니라 «목록에 뜬 글»이 안 읽히는 것이다. 물음만 있는 제목에 답(수)을 세우면 클릭이 생긴다.",
+      "⛔무엇을하면안되나": "다시잴날 전에 이 셋의 제목·설명을 또 건드리지 않는다. 오늘 이미 두 벌을 냈으므로 이것이 세 벌째다 — 네 벌째를 오늘 더 내지 않는다(쓸이가 된다).",
+      "⚠못재는것": "노출이 5~13 뿐이라 28일 뒤에도 «수가 적어» 갈리지 않을 수 있다. 그때는 「못 쟀다」로 적고 창을 늘린다. ⛔ 적은 수로 「효과가 있었다」고 말하지 않는다.",
+      "⭐수를손으로안적었다": "rank1Pc·rank10Pc·worldPc·roster·totalViews·days 에서 읽는다. 자료가 바뀌면 제목도 바뀐다."
     }
   ],
   "_9월5일에할것": {

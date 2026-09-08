@@ -44,7 +44,16 @@ import peak from '../../data/wikitip-peak-day.json';
  */
 import 일감 from '../../data/kcw-work-vs-attention.json';
 
-const TITLE = 'Who the English-speaking world looks up when it looks up K-pop';
+/**
+ * 🔴 [2026-09-08 · 5번] 옛 제목은 **62자로 잘리고 수가 없었다** —
+ *   「Who the English-speaking world looks up when it looks up K-pop」
+ *   28일(2026-08-08~09-05) 실측: 노출 5 · 클릭 0 · 평균자리 9.6.
+ * ⛔ 손으로 박지 않는다 — `roster` 와 `totalViews` 에서 읽는다.
+ * ⚠ **「조회」는 사람 수가 아니다.** 한 사람이 세 번 열면 셋으로 센다 —
+ *   그래서 「reads」로 적고 「people」로 안 적는다(같은 잘못을 오늘 두 지면에서 고쳤다).
+ */
+const 백만 = (v: number) => `${(v / 1_000_000).toFixed(1)}m`;
+const TITLE = `${data.roster.toLocaleString('en-US')} K-pop names, ${백만(data.totalViews)} reads in ${data.days} days`;
 const DESC =
   `Thirty days of English Wikipedia page views for every Korean musician and group with an article — `
   + `${data.roster.toLocaleString()} of them. Measured, not voted on, and we say what the ranking cannot tell you.`;

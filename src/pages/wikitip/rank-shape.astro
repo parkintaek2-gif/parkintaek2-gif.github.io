@@ -20,7 +20,19 @@ const 중1 = data.bands[1];
 const 중2 = data.bands[2];
 const 위 = data.bands[3];
 
-const TITLE = 'Where on the chart do Korean titles sit?';
+/**
+ * 🔴 [2026-09-08 · 5번] 옛 제목은 **물음만 있고 수가 없었다** —
+ *   「Where on the chart do Korean titles sit?」
+ *   28일(2026-08-08~09-05) 실측: 노출 7 · 클릭 0 · 평균자리 4.4.
+ *   ⭐ 자리 4.4 는 우리 지면 가운데 «가장 높은 편»이다. 그 자리에서 클릭이 0 이면
+ *     순위가 아니라 «목록에 뜬 글»이 안 읽히는 것이다.
+ *
+ * ⭐ 오늘 잰 것에서 나온 규칙 — 이 지면의 답은 「높은 자리에도 그대로 있다」다.
+ *   1위 칸의 몫과 10위 칸의 몫이 거의 같다. 그 수를 제목에 세운다.
+ * ⛔ 손으로 박지 않는다. `rank1Pc` · `rank10Pc` 에서 읽는다 — 자료가 바뀌면 제목도 바뀐다.
+ * ⚠ 60자 안에 든다(구글이 그 안팎에서 자른다).
+ */
+const TITLE = `Korean titles: ${data.rank1Pc}% of Netflix #1 places, ${data.rank10Pc}% of #10`;
 const DESC =
   `Across ${data.markets} Netflix markets, Korean titles hold ${data.overallPc}% of all chart places. `
   + `In the ${중1.markets} markets where their share is ${중1.label}, they hold only ${중1.rank1Pc}% of `

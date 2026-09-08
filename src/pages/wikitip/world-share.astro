@@ -25,7 +25,15 @@ import season from '../../data/wikitip-season.json';
 import reach from '../../data/wikitip-reach.json';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
-const TITLE = "How much of the world's Netflix top 10 is Korean";
+/**
+ * 🔴 [2026-09-08 · 5번] 옛 제목은 **물음만 있고 수가 없었다** —
+ *   「How much of the world's Netflix top 10 is Korean」
+ *   28일(2026-08-08~09-05) 실측: 노출 13 · 클릭 0 · 평균자리 6.8.
+ * ⭐ 물음을 던져 놓고 답을 안 보이면, 목록에서 답이 보이는 남의 글로 간다.
+ *   그 답이 우리 자료에 있으니 제목에 세운다.
+ * ⛔ 손으로 박지 않는다 — `worldPc` 에서 읽는다.
+ */
+const TITLE = `Korean titles are ${data.worldPc}% of the world's Netflix top 10`;
 
 const 아홉 = data.groups[1];
 const 처음 = 아홉.byYear[0];
