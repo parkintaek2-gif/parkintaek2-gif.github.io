@@ -410,6 +410,10 @@ export const GET: APIRoute = () => {
        계약학과·성균관대 인공지능학과 신설)을 계기로 이미 모은 major-outcomes.json을
        새로 받지 않고 다시 계산 — 신산업 이름 학과들의 취업률이 실제로 갈리는지 본다. */
     { path: '/trendy-major-outcomes', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-08 — 「동국대 취업률 2년 연속 하락」 씨앗. 학교 이름을 걸고 등수를
+       매기지 않고, 대학알리미가 함께 공시하는 중도탈락률을 국공립·사립으로 갈라
+       pages-university.json 재계산으로 기준선만 남긴다. */
+    { path: '/university-dropout-rate', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
