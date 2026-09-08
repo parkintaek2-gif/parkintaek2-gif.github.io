@@ -15,7 +15,18 @@ import data from '../../data/wikitip-actor-reach.json';
 
 const 하나 = data.bands[0];
 const 다섯 = data.bands[3];
-const TITLE = 'If your show travelled, do more people look you up?';
+/* 🔴 [2026-09-08] 옛 제목은 물음만 있고 수가 없었다. 28일 노출 0.
+   ⚠ 이 자료에는 배우 «이름»이 없다(모아 놓은 값만 있다). 그래서 실명을 못 세운다 —
+     넣을 수 있는 것은 문턱(나라 수)과 배수다. 없는 이름을 지어 넣지 않는다.
+   ⛔ 손으로 박지 않는다 — wideThreshold 와 overall.times 에서 센다. */
+const 넓은문턱 = Number(data.wideThreshold);
+const 몇배 = Number(data.overall?.times);
+const 몇배꼴 = Number.isFinite(몇배)
+  ? (Math.abs(몇배 - Math.round(몇배)) < 0.05 ? String(Math.round(몇배)) : 몇배.toFixed(1))
+  : null;
+const TITLE = (Number.isFinite(넓은문턱) && Number.isFinite(몇배))
+  ? `Actors whose show reached ${넓은문턱} countries are read ${몇배꼴} times more`
+  : 'If your show travelled, do more people look you up?';
 const DESC =
   `Joining Netflix's country charts to English Wikipedia page views across ${data.actors} Korean actors, `
   + `those with a title in ${data.wideThreshold}+ countries draw ${data.overall.times}x the median lookups — `

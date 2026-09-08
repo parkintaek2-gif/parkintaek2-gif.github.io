@@ -756,6 +756,43 @@
       ],
       "🔴 조용히 되돌아갈 자리를 막았다": "casting 지면에서 칸 이름을 `name` 으로 짐작해 썼는데 실제는 `person` 이었다. 그러면 이름이 안 뽑혀 «옛 제목으로 조용히 되돌아간다» — 빌드도 검사도 통과하고 아무도 모른다. 이름 둘을 못 뽑으면 빌드를 세우도록 throw 를 넣었다.",
       "10/06 에 이렇게 잰다": "① 세 지면의 노출·클릭·평균순위 ② 0 을 벗어난 것이 몇 장인가 ③ 벗어났으면 나머지 8장(이름 없는 제목)에 같은 손질을 씌운다. 안 벗어났으면 제목이 아니라 다른 것이 막고 있다 — 그때는 색인을 그 세 장에 직접 물어 본다."
+    },
+    {
+      "지면": "/climb · /actor-reach · /foothold",
+      "바꾼날": "2026-09-08",
+      "다시잴날": "2026-10-06",
+      "무엇을": "제목 — 물음만 있고 수가 없던 제목 셋. 두 번째 벌이다(첫 벌은 /places · /webtoon-adaptations · /casting-news-reading). 설명은 안 건드렸다.",
+      "⚠ 첫 벌과 다른 점": "이 셋의 자료에는 사람·작품 «이름»이 없다 — 전부 모아 놓은 값이다. 그래서 실명을 못 세웠고, 없는 이름을 지어 넣지 않았다. 대신 «수»를 세웠다. /foothold 만 자료에 나라 이름이 있어 그것을 썼다(81곳 중 되집히는 7곳에 미국·영국이 있다).",
+      "전값": {
+        "창": "2026-08-08~2026-09-05 (28일)",
+        "/climb": {
+          "노출": 0,
+          "클릭": 0,
+          "옛제목": "Does a title climb after it enters the chart?"
+        },
+        "/actor-reach": {
+          "노출": 0,
+          "클릭": 0,
+          "옛제목": "If your show travelled, do more people look you up?"
+        },
+        "/foothold": {
+          "노출": 0,
+          "클릭": 0,
+          "옛제목": "A company that has charted in a country once charts there again"
+        }
+      },
+      "후제목": {
+        "/climb": "Korean titles climb after entering a chart 57% of the time. Others 41% (70자)",
+        "/actor-reach": "Actors whose show reached 20 countries are read 3 times more (60자)",
+        "/foothold": "A foothold lifts the next chance 3.8x, except in the UK and US (62자)"
+      },
+      "⛔ 손으로 박은 수가 없다": [
+        "/climb — data.korean.climbedPc · data.other.climbedPc 를 반올림해 쓴다",
+        "/actor-reach — data.wideThreshold · data.overall.times. 2.99 가 3.0 으로 떨어지면 소수점을 뺀다(「3.0 times」는 사람이 안 쓰는 말이다)",
+        "/foothold — data.liftTimes 와 data.marketsWhereItReversesNames. 코드를 손으로 이름으로 바꾸지 않고 `kcw-country-reading.json` 의 코드→이름 표를 쓴다. 표에 없는 코드(TT·LT·FI·IE·CA)는 제목에 안 넣는다 — 지어 쓰지 않는다"
+      ],
+      "⭐ 제목과 H1 이 같은 것을 확인했다": "셋 다 지은 HTML 에서 title 과 h1 을 뽑아 견줬다. 제목만 바꾸고 h1 을 그대로 두면 손님이 다른 글을 읽는다.",
+      "10/06 에 이렇게 잰다": "첫 벌 셋과 «함께» 잰다. 여섯 장 중 몇 장이 0 을 벗어났나, 그리고 «실명이 든 첫 벌»과 «수만 든 이 벌»이 다르게 움직이나를 본다. ⭐ 그것이 갈리면 「이름이 수보다 세다」를 재서 말할 수 있다. 지금은 못 쟀다."
     }
   ],
   "_9월5일에할것": {

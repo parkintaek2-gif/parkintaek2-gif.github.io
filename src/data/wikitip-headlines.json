@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-08 14:26 KST",
+  "generated": "2026-09-08 15:04 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
@@ -11,7 +11,7 @@
   "headlines": {
     "/404": "Page not found",
     "/about": "About & methodology",
-    "/actor-reach": "If your show travelled, do more people look you up?",
+    "/actor-reach": "Actors whose show reached 20 countries are read 3 times more",
     "/actors-first": "Go Youn-jung tops two Southeast Asian Wikipedias, Lee Chae-min tops Indonesia and Moon Ga-young tops Malaysia",
     "/actors": "Which Korean actors English readers looked up most",
     "/all-ten": "Every Netflix top 10 that was all Korean",
@@ -29,7 +29,7 @@
     "/casting-news-reading": "Cha Eun-woo and Roh Yoon-seo were cast. Neither was read more",
     "/catalogue-depth": "How many different Korean titles has your country actually seen?",
     "/catalogue-reach": "Does a bigger catalogue travel further per title?",
-    "/climb": "Does a title climb after it enters the chart?",
+    "/climb": "Korean titles climb after entering a chart 57% of the time. Others 41%",
     "/clumping": "Our headline 7.7% is not one place a week — it is nothing, then several at once",
     "/community": "Rooms",
     "/contact": "Tell us a number here looks wrong",
@@ -47,7 +47,7 @@
     "/fame-compare": "One Korean act outreads Son Heung-min in Southeast Asia, and it is BTS",
     "/fewer-titles": "Fewer Korean titles chart every year. The places they hold have not fallen",
     "/firms": "Korean drama production companies — who made it?",
-    "/foothold": "A company that has charted in a country once charts there again",
+    "/foothold": "A foothold lifts the next chance 3.8x, except in the UK and US",
     "/for-industry": "For rights holders, distributors and broadcasters",
     "/generations": "Do the K-pop generation labels show up in the reading?",
     "/group-afterlife": "How long a K-pop group stays looked up after its peak",

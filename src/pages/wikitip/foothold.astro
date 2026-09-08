@@ -16,7 +16,23 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-foothold.json';
 
 const w = data.withinTitle;
-const TITLE = 'A company that has charted in a country once charts there again';
+/* 🔴 [2026-09-08] 옛 제목은 「A company that has charted in a country once charts
+   there again」 — 이름도 수도 없다. 28일 노출 0.
+   ⭐ 이 자료에는 «되집히는 나라»가 있다(81곳 중 7곳). 그 안에 미국·영국이 있다 —
+     사람이 치는 이름이고, 「그런데 여기서는 반대다」는 아무도 답하지 않는 물음이다.
+   ⛔ 코드를 손으로 이름으로 바꾸지 않는다 — `kcw-country-reading.json` 이 이미 가진
+     코드→이름 표를 쓴다. 그 표에 없는 코드는 «수»로만 센다(TT·LT 를 지어 쓰지 않는다). */
+import 나라읽기 from '../../data/kcw-country-reading.json';
+const 코드이름 = new Map((나라읽기.나라 ?? []).map((x) => [x.코드, x.이름]));
+/* 사람이 검색에 쓰는 짧은 꼴로 줄인다. ⛔ 표에 없는 나라는 이 목록에 안 넣는다 */
+const 짧은꼴 = { 'United States': 'US', 'United Kingdom': 'the UK' };
+const 되집힌코드 = data.marketsWhereItReversesNames ?? [];
+const 이름있는것 = 되집힌코드.map((c) => 코드이름.get(c)).filter(Boolean)
+  .map((n) => 짧은꼴[n] ?? n);
+const 몇배올림 = Number(data.liftTimes);
+const TITLE = (이름있는것.length >= 2 && Number.isFinite(몇배올림))
+  ? `A foothold lifts the next chance ${몇배올림}x, except in ${이름있는것[0]} and ${이름있는것[1]}`
+  : 'A company that has charted in a country once charts there again';
 const DESC =
   `Across ${data.firmsCompared} Korean production companies and ${data.marketCount} Netflix markets, a series `
   + `charts in ${w.withFootholdPc}% of the countries where its company had already charted, against `

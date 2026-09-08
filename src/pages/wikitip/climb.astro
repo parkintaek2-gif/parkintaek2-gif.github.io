@@ -15,7 +15,15 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/wikitip-climb.json';
 
-const TITLE = 'Does a title climb after it enters the chart?';
+/* 🔴 [2026-09-08] 옛 제목은 「Does a title climb after it enters the chart?」 —
+   물음만 있고 «수»가 없다. 28일 노출 0 이었다.
+   ⭐ 사람이 치는 것은 물음이 아니라 답 쪽이다. 그래서 두 수를 세운다.
+   ⛔ 손으로 박지 않는다 — 자료의 korean·other 에서 센다. 자료가 바뀌면 제목도 바뀐다. */
+const 한국오름 = Math.round(Number(data.korean?.climbedPc));
+const 남오름 = Math.round(Number(data.other?.climbedPc));
+const TITLE = (Number.isFinite(한국오름) && Number.isFinite(남오름))
+  ? `Korean titles climb after entering a chart ${한국오름}% of the time. Others ${남오름}%`
+  : 'Does a title climb after it enters the chart?';
 const 한 = data.korean;
 const 밖 = data.other;
 const DESC =
