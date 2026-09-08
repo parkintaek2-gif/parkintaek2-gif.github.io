@@ -52,7 +52,21 @@ if (오름.length + 그대로.length + 내림.length !== 다찬것.length) throw
 const 쉼표 = (n: number | null) => (n === null ? '—' : Number(n).toLocaleString('en-US'));
 const 큰순 = [...다찬것].sort((a, b) => (b.ratio ?? 0) - (a.ratio ?? 0));
 
-const TITLE = 'Six K-drama casting stories, and not one moved English reading up';
+/* 🔴 [2026-09-08] 옛 제목은 「Six K-drama casting stories, …」 — **이름이 하나도 없다.**
+   사람은 「casting stories」를 안 치고 「Lee Min-ho」를 친다.
+   ⛔ 이름을 손으로 고르지 않는다 — 가장 많이 읽히는 두 사람을 자료에서 뽑는다.
+   ⛔ 「casting 때문에 떨어졌다」로 안 쓴다. 이 지면이 스스로 거부하는 말이다 —
+     「That is not evidence the story hurt anything, and we are not going to say it is.」
+   ⇒ 그래서 「Neither was read more」까지만 쓴다. 까닭을 말하지 않는다. */
+/* ⚠ 칸 이름은 `person` 이다 — 자료를 열어 확인했다.
+   처음에 `name` 으로 짐작해 썼다. 그러면 이름이 안 뽑혀 **조용히 옛 제목으로 되돌아간다** —
+   빌드도 검사도 통과하고 아무도 모른다. 그 자리를 아래 throw 로 막았다. */
+const 이름앞둘 = [...다찬것].sort((a, b) => (b.before ?? 0) - (a.before ?? 0))
+  .map((x: any) => x.person).filter(Boolean).slice(0, 2);
+if (이름앞둘.length !== 2) {
+  throw new Error(`제목에 세울 이름 둘을 못 뽑았다(${이름앞둘.length}개) — 조용히 옛 제목으로 돌아가지 않고 멈춘다`);
+}
+const TITLE = `${이름앞둘[0]} and ${이름앞둘[1]} were cast. Neither was read more`;
 const DESC =
   'K-drama outlets publish casting news constantly. We counted daily English Wikipedia reads for '
   + `every named performer, ${다찬것.length} stories with a complete window: ${그대로.length} held level, `

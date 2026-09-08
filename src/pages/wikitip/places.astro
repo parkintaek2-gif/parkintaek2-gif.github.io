@@ -21,7 +21,12 @@ import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/wikitip-places.json';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 
-const TITLE = 'An entertainment company is looked up more than Seoul is';
+/* 🔴 [2026-09-08] 옛 제목은 「An entertainment company …」였다 — **이름이 없다.**
+   9/03 에 네 유닛이 정한 규칙: 「제목에 사람이 검색하는 실명 + 아무도 답하지 않는 물음」.
+   사람은 「entertainment company」를 안 친다. 「YG Entertainment」를 친다.
+   ⛔ 이름을 손으로 박지 않는다 — 자료가 뽑은 으뜸 회사를 그대로 쓴다.
+   ⚠ 전값: 28일(8/08~09/05) 노출 0 · 클릭 0. kcw-title-experiments.json 에 올렸다. */
+const TITLE = `${d.topCompany.name} is looked up more than Seoul is`;
 const DESC =
   `We measured ${d.placesMeasured.toLocaleString('en-US')} places in Korea against the Indonesian, `
   + `Vietnamese, Thai and Malay Wikipedias over twelve months. ${d.topCompany.name} scores `

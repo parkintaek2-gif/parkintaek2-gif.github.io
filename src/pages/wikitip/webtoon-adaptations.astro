@@ -26,7 +26,22 @@ import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import data from '../../data/kcw-webtoon-adaptations.json';
 
-const TITLE = 'Webtoon adaptations, and who gets read';
+/* 🔴 [2026-09-08] 옛 제목은 「Webtoon adaptations, and who gets read」 — 이름도 수도 없다.
+   ⭐ 가장 크게 벌어진 짝의 «이름과 배수»를 세운다. 그 이름으로 사람이 검색한다.
+   ⛔ 손으로 박지 않는다 — 표를 가장 큰 차이로 줄세워 첫 줄을 쓴다. 자료가 바뀌면 제목도 바뀐다. */
+/* ⚠ 칸 이름을 «자료를 열어» 확인했다 — rows[].각색 · rows[].배수 · rows[].한국원작 이다.
+   처음에 data.짝 · 각색이름 으로 짐작해 썼다가 바로잡았다(그 칸은 없다). */
+/* ⚠ 바닥선을 둔다. 선이 없으면 Orange Marmalade(81.6배)가 뽑히는데 각색 열람이
+   1,142 뿐이다 — 배수가 «작은 수 위에서» 흔들린 것이다. 오늘 다른 지면에도 같은 선을 뒀다.
+   ⭐ 선을 넘긴 것 중 배수가 가장 큰 것을 쓴다. 지금은 Dear X(61.2배 · 열람 25,027)다. */
+const 제목바닥선 = 10000;
+const 가장벌어진짝 = [...(data.rows ?? [])]
+  .filter((x) => Number.isFinite(x.배수) && x.각색 && x.한국원작 === true
+    && Number(x.각색열람) >= 제목바닥선)
+  .sort((a, b) => b.배수 - a.배수)[0] ?? null;
+const TITLE = 가장벌어진짝
+  ? `${가장벌어진짝.각색} is read ${Math.round(가장벌어진짝.배수)} times more than its webtoon`
+  : 'Webtoon adaptations, and who gets read';
 /* ⚠ 155자쯤까지만 보인다 — 「누를 까닭」을 앞에 둔다 */
 const DESC =
   'Korean webtoons are read 14x more once adapted; Japanese manga only 3.7x. '

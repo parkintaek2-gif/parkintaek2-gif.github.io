@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-08 12:19 KST",
+  "generated": "2026-09-08 14:26 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
@@ -26,7 +26,7 @@
     "/by-country": "Netflix top 10 by country: which country’s chart is the most Korean?",
     "/cannot-see": "Three in four Korean singers have no English Wikipedia article — so our numbers cannot see them",
     "/cap-per-artist": "HYBE, SM, JYP and YG: market value per artist we can count",
-    "/casting-news-reading": "Six K-drama casting stories, and not one moved English reading up",
+    "/casting-news-reading": "Cha Eun-woo and Roh Yoon-seo were cast. Neither was read more",
     "/catalogue-depth": "How many different Korean titles has your country actually seen?",
     "/catalogue-reach": "Does a bigger catalogue travel further per title?",
     "/climb": "Does a title climb after it enters the chart?",
@@ -89,7 +89,7 @@
     "/peak-month": "January is when a K-pop act is read most. September is when it is not",
     "/person": "Korean actors on the Netflix charts",
     "/pickup": "Which markets pick up a Korean title first",
-    "/places": "An entertainment company is looked up more than Seoul is",
+    "/places": "YG Entertainment is looked up more than Seoul is",
     "/privacy": "Cookies and what we log",
     "/provenance": "Which work is this chart row — reading a title against the markets it charted in",
     "/rank-shape": "Where on the chart do Korean titles sit?",
@@ -124,7 +124,7 @@
     "/video": "Videos",
     "/watched": "Most watched Korean dramas and movies on Netflix",
     "/wave-and-floor": "You cannot ask what a Korean hit leaves behind. The article is born with the show",
-    "/webtoon-adaptations": "Webtoon adaptations, and who gets read",
+    "/webtoon-adaptations": "Dear X is read 61 times more than its webtoon",
     "/webtoon": "Korea’s webtoon businesses, counted",
     "/weeks-counter": "What the weeks-in-top-10 counter counts",
     "/weeks": "Every week, and the Korean titles in it",
