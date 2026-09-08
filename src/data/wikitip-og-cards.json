@@ -543,6 +543,10 @@
     "fan-votes-and-encyclopedia-reads-disagree": {
       "figure": "75.7%",
       "label": "of a Korean act’s reading lands on its members, not the act"
+    },
+    "kpop-generation-lines-are-a-year-off": {
+      "figure": "86%",
+      "label": "the smallest overlap between two neighbouring K-pop generations"
     }
   }
 }

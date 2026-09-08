@@ -232,6 +232,7 @@ export const 차례 = [
       ['/kpop-attention', 'K-pop attention'],
       ['/fame-compare', 'Comparing fame'],
       ['/member-vs-group', 'Member versus group'],
+      ['/generations', 'Do the generation labels show up in the reading'],
       ['/own-star', 'A star of one\'s own'],
       ['/who-is-first', 'Who comes first'],
       ['/who-reads-least', 'Who is read least'],
