@@ -20,7 +20,7 @@ sources:
 crossChecks:
   - "Two independent outlets (Hankyung, Money Today), both published 2026-09-03, report the same split: KEPCO proposed Samsung Electronics prepay ₩20tn and SK Hynix ₩5tn, together ₩25tn"
   - "Both tie the figure to each company's actual 2025 electricity payments — Samsung Electronics roughly ₩4.1tn, SK Hynix roughly ₩0.9tn — so the ask is framed as about five years of each company's current annual bill"
-  - "The CEN News separately confirms KEPCO acknowledged the proposal's existence via an on-record spokesperson quote: 'participation, the interest rate, the prepayment size and the duration are not yet finalized' (원문: '참여 여부와 이자율, 선납 규모 및 기간 등 구체적인 세부 조건은 아직 확정되지 않았다')"
+  - "The CEN News separately confirms KEPCO acknowledged the proposal's existence via an on-record spokesperson quote: 'participation, the interest rate, the prepayment size and the duration are not yet finalized' (Korean original: '참여 여부와 이자율, 선납 규모 및 기간 등 구체적인 세부 조건은 아직 확정되지 않았다')"
   - "Stated purpose is consistent across sources: funding a large power-grid buildout to supply the Yongin and Honam semiconductor clusters"
   - "First surfaced on our community desk via an 인벤 (Inven) forum thread (11 comments) referencing the news, which is what put this on our radar within hours of publication"
 excluded:
