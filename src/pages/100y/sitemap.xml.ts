@@ -406,6 +406,10 @@ export const GET: APIRoute = () => {
        정책 시행 «전» 기준선(국공립·사립 재학생충원율·취업률)만 pages-university.json
        재계산으로 남긴다. */
     { path: '/university-founding-gap', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-08 — 오늘 커뮤니티 씨앗(신한대 바둑콘텐츠학과·숭실대 디지털금융AI
+       계약학과·성균관대 인공지능학과 신설)을 계기로 이미 모은 major-outcomes.json을
+       새로 받지 않고 다시 계산 — 신산업 이름 학과들의 취업률이 실제로 갈리는지 본다. */
+    { path: '/trendy-major-outcomes', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

@@ -279,7 +279,7 @@ export const 붙일수있는갈래 = [
   /* 🔴 [2026-09-08 · 3번] 어제(9/7) 이 목록에 새 지면 추가를 빠뜨려 14장이 「at=기타」로
      샜다(5번 지적, 이미 고침). 이번엔 새 지면을 만들면서 바로 넣는다 — school·major·
      university-gap과 같은 결(입시 분석)이라 어른갈래엔 안 넣는다. */
-  'csat-applicant-mix', 'university-founding-gap',
+  'csat-applicant-mix', 'university-founding-gap', 'trendy-major-outcomes',
   '기타',
 ] as const;
 
