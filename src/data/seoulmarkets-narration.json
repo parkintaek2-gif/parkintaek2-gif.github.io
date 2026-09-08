@@ -71,6 +71,10 @@
       "내레이션": "Five Korean firms filed share buybacks on the same day. Four just bought the shares back. Only one, Fims, said it would cancel them — the step that actually shrinks the share count. Not advice.",
       "설명": "From DART's own treasury-stock filings for that day. We report what was filed, not investment advice."
     },
+    "korea-government-bond-yield-curve": {
+      "내레이션": "Korea's bond curve, one day: 3.47% at a year, climbing to 4.64% at thirty years. Then it breaks — fifty years falls back to 4.54%, lower than thirty.",
+      "설명": "Bank of Korea ECOS reference yields, one basis date. We report the curve, not a trend — not investment advice."
+    },
     "korea-fund-factory-slowing": {
       "내레이션": "Korea has 183,351 registered funds, and the factory making them is slowing down. Most aren't stock funds — derivatives and bonds dominate.",
       "설명": "Korea Financial Investment Association fund registry, 183,351 funds. We count registrations, not assets under management."
