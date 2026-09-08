@@ -27,7 +27,9 @@ const 원본길 = path.join(뿌리, 'archive/raw/neis/school-info.json')
  *  못 읽으면 **선다.** 「못 읽었으니 안 묶고 센다」로 넘기면 수가 조용히 틀린다
  *  (2026-08-14 에 안 묶고 세어 8칸을 거짓 빨강으로 띄웠다). */
 export function 이름묶는규칙읽기(글) {
-  const m = String(글).match(/const normKey = \(s\) =>([\s\S]*?);\n/)
+  /* 🔴 [2026-09-09 · 3번] `;\n` 만 찾다가 build-100yearmap-pages.mjs 가 CRLF(`;\r\n`)로
+   *   저장되면서 못 읽게 됐다(자가시험까지 실패했다). `\r?\n` 로 둘 다 받는다. */
+  const m = String(글).match(/const normKey = \(s\) =>([\s\S]*?);\r?\n/)
   if (!m) return null
   return new Function('s', `return (${m[1]})`)
 }
