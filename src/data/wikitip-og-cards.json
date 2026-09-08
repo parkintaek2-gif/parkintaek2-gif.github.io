@@ -547,6 +547,10 @@
     "kpop-generation-lines-are-a-year-off": {
       "figure": "86%",
       "label": "the smallest overlap between two neighbouring K-pop generations"
+    },
+    "twenty-four-acts-hold-half-the-reading": {
+      "figure": "519",
+      "label": "reads in a month for the median Korean act, of 774"
     }
   }
 }

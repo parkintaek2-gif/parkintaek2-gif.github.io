@@ -430,7 +430,12 @@ async function 주된일() {
   }
 
   const 나갈것 = {
-    잰때: new Date().toLocaleString('ko-KR'),
+    /* 🔴 [2026-09-08] 여기에 `toLocaleString('ko-KR')` 을 썼더니 「오후」가 자료에 박혔고,
+       그 자료를 쓰는 지면에서 **한국어가 손님 화면으로 샜다**(check-kcw-korean-leak 이 잡음).
+       ⛔ 자료에 적는 시각은 지면에 그대로 나갈 수 있다. 그러니 «영어권 손님이 읽을 꼴»로 적는다.
+       ⚠ 이 PC 는 이미 KST 다 — 9시간을 더하지 않고 toISOString() 도 쓰지 않는다. */
+    잰때: (() => { const d = new Date(); const p = (n) => String(n).padStart(2, '0');
+      return `${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())} KST`; })(),
     창: `${첫달} ~ ${마지막달}`,
     우물: 'Wikidata SPARQL (팀은 P31/P279* 음악그룹·음악앙상블·걸그룹·보이밴드 · 나라 P495/P17/P740 중 하나가 한국 · 멤버는 P527 과 P463 양쪽) + Wikimedia Pageviews per-article, en.wikipedia, all-access, agent=user, monthly',
     이것이무엇인가: '한 팀의 관심이 «팀 문서»에 있나 «멤버 문서»에 있나를 열두 달 열람으로 잰 것',
