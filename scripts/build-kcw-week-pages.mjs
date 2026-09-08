@@ -410,9 +410,29 @@ export function 주지면(정리, 슬러그, 전체주수, 앞 = null, 뒤 = nul
         「Korean slice」1회 · 「not the whole chart」1회 · Netflix 8회 · Tudum 1회.
         둘 다 본문에 살아 있으므로 설명에서만 덜었다. 없었으면 빼지 않았다.
      ⭐ 대신 무엇이 실려 있는지(작품·나라)를 넣었다 — 그것이 누를 까닭이다. */
-  const 설명 = `${정리.titles[0]?.title ?? 'Korean titles'} led ${정리.titles.length} Korean `
-    + `titles on Netflix in the week of ${읽는날(정리.week)} — ${정리.rows} chart places across `
-    + `${정리.marketCount} countries. Every title and country is listed.`;
+  /**
+   * 🔴🔴 [2026-09-09 06:4x · 5번] **설명 맨 앞에 «ISO 주 이름»을 넣는다.**
+   *
+   * 어제 잰 것 — 검색어가 보이는 노출의 33%(378노출)가 «붙여넣은 넷플릭스 주소»다.
+   * ```
+   *   「https://www.netflix.com/tudum/top10?week=2024-11-03」   노출 62
+   *   「"netflix.com/tudum/top10?week=2024-11-03"」            노출 15
+   * ```
+   * ⛔ 그런데 그 검색이 `/market/nicaragua`(141) · `/about`(91) 로 떨어지고,
+   *   정작 그 주를 보여 주는 이 지면은 **노출이 0장**이었다.
+   *
+   * ⭐ 까닭 하나가 여기 있었다 — 손님이 치는 글자는 `2024-11-03` 인데
+   *   제목도 설명도 「3 November 2024」로만 적혀 있었다. **ISO 글자가 어디에도 없었다.**
+   *
+   * ⛔ 제목은 안 건드린다 — 제목 실험이 돌고 있다(다시잴날 2026-10-02).
+   *   ⇒ 설명 맨 앞에 넣는다. 설명은 그 실험이 재는 변수가 아니다.
+   * ⚠ 그리고 짧게 만든다 — 구글이 155자쯤에서 자른다(check-kcw-description-length).
+   *   옛 설명은 약 150자였다. 앞에 덧붙이면 잘리므로 «줄이면서» 넣었다.
+   */
+  const 설명 = `Netflix week ${정리.week}: ${정리.titles[0]?.title ?? 'Korean titles'} led `
+    + `${정리.titles.length} Korean ${정리.titles.length === 1 ? 'title' : 'titles'} — `
+    + `${정리.rows} chart ${정리.rows === 1 ? 'place' : 'places'} in ${정리.marketCount} `
+    + `${정리.marketCount === 1 ? 'country' : 'countries'}. Every title and country listed.`;
 
   /* 2026-08-29 — 아래 「This week&rsquo;s Korean titles」 는 늘 최신 주를 가리키는 입구다.
      날짜를 모르는 손님이 들어오는 문이라 지우지 않는다.
@@ -593,6 +613,17 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
     /<title>[^<]*Netflix[^<]*3 November 2024/.test(h));
   참('작품 지면으로 문을 낸다', h.includes('href="/title/alive"'));
   참('넷플릭스 그 주 지면으로 문을 낸다', h.includes('tudum/top10?week=2024-11-03'));
+  /**
+   * 🔴 [2026-09-09 · 5번] 손님이 «붙여넣는 글자»는 `2024-11-03` 이다.
+   *   설명에 그 글자가 없으면, 그 주를 찾는 검색이 엉뚱한 지면으로 간다(어제 실측).
+   *   ⛔ 제목은 실험 자물쇠가 걸려 있어 안 건드렸다 — 설명에만 넣었다.
+   */
+  참('🔴 설명 «맨 앞»에 ISO 주 이름이 든다 — 손님이 치는 글자다',
+    /name="description" content="Netflix week 2024-11-03:/.test(h));
+  참('⛔ 설명이 155자를 넘지 않는다 — 구글이 그쯤에서 자른다',
+    ((h.match(/name="description" content="([^"]*)"/) ?? [])[1] ?? '').length <= 155);
+  참('설명이 무엇이 실렸는지 말한다 — 누를 까닭이다',
+    /name="description" content="[^"]*chart place/.test(h));
   /* 🔴 이 두 문장이 없으면 이 지면은 넷플릭스 지면의 사본처럼 읽힌다 */
   참('한국 몫임을 밝힌다', h.includes('Korean slice of that week'));
   참('시청 수가 없다고 적는다', h.includes('no viewing figures'));
