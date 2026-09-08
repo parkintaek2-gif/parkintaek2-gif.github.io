@@ -414,6 +414,10 @@ export const GET: APIRoute = () => {
        매기지 않고, 대학알리미가 함께 공시하는 중도탈락률을 국공립·사립으로 갈라
        pages-university.json 재계산으로 기준선만 남긴다. */
     { path: '/university-dropout-rate', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-08 — 「지방국립대 무상교육」 씨앗. 학교 이름을 걸고 등수를 매기지 않고,
+       대학알리미가 함께 공시하는 전임교원확보율을 국공립·사립으로 갈라
+       pages-university.json 재계산으로 정책 시행 전 기준선만 남긴다. */
+    { path: '/university-faculty-rate', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
