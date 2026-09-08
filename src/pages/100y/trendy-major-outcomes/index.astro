@@ -11,6 +11,7 @@
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import 원본 from '../../../data/100yearmap/trendy-major-outcomes.json';
 
 const 자료 = 원본 as any;
@@ -98,6 +99,8 @@ const jsonLd = {
     <br />
     <a href="/college-major">← 대학 학과 찾기</a>
   </p>
+
+  <HundredCardnews 벌="신산업학과취업률" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="한국교육개발원(KEDI) 학과별 졸업 후 상황 실측(기존 수집분 재계산)" />
 </HundredYear>
