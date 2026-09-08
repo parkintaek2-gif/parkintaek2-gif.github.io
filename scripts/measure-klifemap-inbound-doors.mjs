@@ -1,30 +1,35 @@
 #!/usr/bin/env node
 /**
- * measure-klifemap-inbound-doors.mjs — **klifemap 지면에 「들어오는 문」이 몇 개인가.**
+ * measure-klifemap-inbound-doors.mjs — **klifemap 지면이 홈에서 «몇 걸음»인가.**
  * ─────────────────────────────────────────────────────────────────────────────
  * 매체: **KLifeMap**(klifemap.ai). ⛔ 이 자는 «재기만» 한다. 아무것도 안 고친다 —
  *   klifemap 은 매출이 나는 서비스다. 재는 자가 그 서비스를 건드릴 이유가 없다.
  *
  * ── 🔴 왜 (2026-09-08 · 4번 물음에 5번이 답하려고 지음) ────────────
- * 4번이 klifemap 색인을 재서 이렇게 올렸다 —
- *   「표본 12장을 구글에 직접 물었더니 **색인 0 · 안 됨 12**.
- *    그중 7장은 구글이 이 주소를 «아직 모른다»(크롤 자체가 안 옴).
- *    제목을 바꿔도 구글이 안 왔으면 소용없다」
- * 그리고 제 판단을 기다렸다. 제가 재 보니 4번이 옳았고, 까닭이 «제목»이 아니었다.
+ * 4번이 klifemap 색인을 재서 「표본 12장 중 색인 0. 7장은 구글이 주소를 아직 모른다」고 했다.
+ * 사장님이 「네가 해봐」 하셔서 내가 재고 답했다.
  *
- * ```
- * robots.txt            ✅ Allow: /            — 막고 있지 않다
- * sitemap.xml           ✅ 200 · 주소 526개    — 물어본 12장이 «다» 들어 있다
- * 홈에서 /content/ 링크  🔴 0개
- * saju.html 에서         🔴 3개
- * astro.html 에서        🔴 0개
- * horoscope.html 에서    🔴 0개
- * ```
- * ⭐ 사이트맵에는 있는데 **안쪽에서 아무도 가리키지 않는다.** 그러면 구글은 그 주소를
- *   「낮은 우선순위」로 두고 오지 않는다 — 4번이 본 「아직 모른다 7장」이 그 모습이다.
- * ⛔ 그러니 «제목 실험»을 먼저 하면 안 된다. 구글이 안 온 지면의 제목은 재지지 않는다.
+ * ── 🔴🔴 그런데 내 첫 판이 «두 번» 틀렸다. 둘 다 적어 둔다 ─────────
  *
- * ⚠ 위 다섯 줄은 «표본»이다. 이 자는 사이트맵의 지면을 다 훑어 «참 수»를 낸다.
+ * **첫째 틀림 — 표본 다섯 장으로 전체를 셌다.**
+ *   홈·saju·astro·horoscope 넷과 콘텐트 한 장만 열어 보고
+ *   「사이트맵에만 있고 안쪽 문이 없는 지면 484장(98%)」이라고 냈다.
+ *   전수로 재니 104장(21%)이었다. 표본에 `/content` 목록 지면이 빠져 있었다.
+ *
+ * **둘째 틀림 — 쪽 넘김을 아예 안 봤다. 4번이 잡아 줬다.**
+ *   4번: 「career-042 가 `/content?page=5` 에는 이미 잡히는데 5번 문0 목록에도 들어 있다.
+ *        진짜 표적이 «목록 쪽넘김»이 아니라 «관련 글 본문링크»일 수 있다」
+ *   재 보니 4번이 옳았다 — `/content?page=5` 가 career-042 를 가리킨다.
+ *   ⛔ 내 자가 `?물음표`를 떼어 버려서 `/content?page=5` 를 `/content` 로 눌러 버렸고,
+ *     그래서 **쪽 넘김 지면을 한 장도 안 열었다.** 그 안의 링크를 다 잃은 것이다.
+ *
+ * ⭐ 그러니 이 자료의 참말은 「고아」가 아니라 **「깊다」**다.
+ *   `/content` 1쪽에는 쪽넘김 링크가 **「다음」 하나**뿐이다. 25쪽이면 홈에서 스물다섯 걸음이다.
+ *   구글은 깊은 주소를 낮은 우선순위로 두고 늦게 온다 — 4번이 본 「아직 모른다」가 그 모습이다.
+ *
+ * ⛔ 「문이 없다」와 「멀다」는 **다른 병이고 처방도 다르다.**
+ *   문이 없으면 링크를 달아야 하고, 멀면 «가까운 목록»을 만들어야 한다.
+ *   내가 그것을 섞어 말했다. 그래서 이 자를 «깊이 재는 자»로 다시 지었다.
  *
  * 쓰는 법
  *   node scripts/measure-klifemap-inbound-doors.mjs
@@ -36,6 +41,7 @@ import path from 'node:path';
 const 뿌리 = path.resolve(import.meta.dirname, '..');
 const 사이트맵 = 'https://klifemap.ai/sitemap.xml';
 const 바탕 = 'https://klifemap.ai';
+const 시작길 = '/';
 
 /** 사이트맵 글에서 주소를 뽑는다 */
 export function 주소뽑기(xml) {
@@ -43,9 +49,37 @@ export function 주소뽑기(xml) {
 }
 
 /**
+ * 주소를 «하나의 이름»으로 만든다.
+ *
+ * 🔴 [2026-09-08] 첫 판은 `?물음표`를 **무조건 떼었다.** 그래서 `/content?page=5` 가
+ *   `/content` 가 되고, 쪽 넘김 지면을 한 장도 안 열었다. 링크를 통째로 잃었다.
+ * ✅ 이제 «쪽 넘김 물음표»는 살린다. 그 밖의 물음표는 뗀다 —
+ *   추적 값(`utm_*` 따위)까지 살리면 같은 지면이 여러 개로 세어진다.
+ * ⛔ `#조각`은 언제나 뗀다. 같은 지면이다.
+ */
+export function 이름꼴(길) {
+  let s = String(길 ?? '').split('#')[0];
+  if (!s) return null;
+  const [앞, 물음] = s.split('?');
+  let 뒤 = '';
+  if (물음) {
+    const 살릴것 = [];
+    for (const 짝 of 물음.split('&')) {
+      const [k, v] = 짝.split('=');
+      if (/^(page|p|쪽)$/i.test(k ?? '') && /^\d+$/.test(v ?? '')) 살릴것.push(`${k.toLowerCase()}=${Number(v)}`);
+    }
+    if (살릴것.length) 뒤 = `?${살릴것.sort().join('&')}`;
+  }
+  let 몸 = 앞 || '/';
+  if (몸.length > 1) 몸 = 몸.replace(/\/$/, '');
+  /* ⭐ page=1 은 1쪽과 같은 지면이다. 둘로 세지 않는다 */
+  if (뒤 === '?page=1' || 뒤 === '?p=1') 뒤 = '';
+  return 몸 + 뒤;
+}
+
+/**
  * 한 지면의 글에서 **같은 사이트 안쪽 길**만 뽑는다.
- * ⛔ 남의 사이트 링크는 「들어오는 문」이 아니다.
- * ⚠ `#조각`·`?물음표`를 떼야 같은 지면을 두 개로 세지 않는다.
+ * ⛔ 남의 사이트 링크는 안쪽 문이 아니다.
  */
 export function 안쪽길뽑기(html, 바탕주소 = 바탕) {
   const 길들 = [...String(html ?? '').matchAll(/href\s*=\s*["']([^"']+)["']/g)].map((m) => m[1]);
@@ -57,32 +91,16 @@ export function 안쪽길뽑기(html, 바탕주소 = 바탕) {
     else if (h.startsWith(바탕주소)) 길 = h.slice(바탕주소.length) || '/';
     else if (/^https?:/i.test(h)) continue;          /* 남의 사이트 */
     else 길 = `/${h}`;                                /* 상대 길 */
-    길 = 길.split('#')[0].split('?')[0];
-    if (!길) continue;
-    if (길.length > 1) 길 = 길.replace(/\/$/, '');
-    답.add(길);
+    const 이름 = 이름꼴(길);
+    if (이름) 답.add(이름);
   }
   return [...답];
 }
 
-/** 주소에서 길만. ⛔ 못 읽으면 null — 짐작하지 않는다 */
+/** 주소에서 이름꼴만. ⛔ 못 읽으면 null — 짐작하지 않는다 */
 export function 길만(주소) {
-  try {
-    const p = new URL(주소).pathname;
-    return p.length > 1 ? p.replace(/\/$/, '') : p;
-  } catch { return null; }
-}
-
-/** 한 번에 몇 개씩 나눠 받는다 — 남의 서버를 두들기지 않는다 */
-export async function 나눠받기(주소들, 한번에 = 6, 쉬는틈 = 120, 받기 = 기본받기) {
-  const 답 = new Map();
-  for (let i = 0; i < 주소들.length; i += 한번에) {
-    const 묶음 = 주소들.slice(i, i + 한번에);
-    const 것들 = await Promise.all(묶음.map(async (u) => [u, await 받기(u)]));
-    for (const [u, v] of 것들) 답.set(u, v);
-    if (i + 한번에 < 주소들.length) await new Promise((r) => setTimeout(r, 쉬는틈));
-  }
-  return 답;
+  try { return 이름꼴(new URL(주소).pathname + (new URL(주소).search || '')); }
+  catch { return null; }
 }
 
 async function 기본받기(u) {
@@ -95,6 +113,44 @@ async function 기본받기(u) {
   }
 }
 
+/**
+ * 홈에서 걸어 나가며 «몇 걸음»인지 잰다(너비 우선).
+ * ⚠ 사이트맵에 있는 주소 + 쪽 넘김 주소만 따라간다 — 끝없이 도는 것을 막는다.
+ * ⛔ 못 받은 지면은 「못 받았다」로 남긴다. 0 걸음으로 치지 않는다.
+ */
+export async function 걸음재기({ 시작 = 시작길, 갈수있나, 한번에 = 6, 쉬는틈 = 120, 받기 = 기본받기, 최대지면 = 4000 } = {}) {
+  const 걸음 = new Map([[시작, 0]]);
+  const 못받은 = [];
+  const 링크수 = new Map();
+  let 이번줄 = [시작];
+  let 깊이 = 0;
+  let 본것 = 0;
+
+  while (이번줄.length && 본것 < 최대지면) {
+    const 다음줄 = [];
+    for (let i = 0; i < 이번줄.length; i += 한번에) {
+      const 묶음 = 이번줄.slice(i, i + 한번에);
+      const 것들 = await Promise.all(묶음.map(async (p) => [p, await 받기(바탕 + p)]));
+      for (const [p, v] of 것들) {
+        본것 += 1;
+        if (v.못받음) { 못받은.push({ 길: p, 왜: v.못받음 }); continue; }
+        const 간곳 = 안쪽길뽑기(v.글);
+        링크수.set(p, 간곳.length);
+        for (const q of 간곳) {
+          if (걸음.has(q)) continue;
+          if (!갈수있나(q)) continue;
+          걸음.set(q, 깊이 + 1);
+          다음줄.push(q);
+        }
+      }
+      if (i + 한번에 < 이번줄.length) await new Promise((r) => setTimeout(r, 쉬는틈));
+    }
+    이번줄 = 다음줄;
+    깊이 += 1;
+  }
+  return { 걸음, 못받은, 링크수, 본것 };
+}
+
 /* ── 자가시험 ────────────────────────────────────────────────── */
 const 내가입구인가 = !!process.argv[1]
   && process.argv[1].split(/[\\/]/).pop() === new URL(import.meta.url).pathname.split('/').pop();
@@ -105,28 +161,45 @@ if (내가입구인가 && process.argv.includes('--자가시험')) {
 
   재다('주소뽑기 — loc 두 개', 주소뽑기('<loc>https://a/x</loc><loc>https://a/y</loc>').length === 2);
   재다('주소뽑기 — 빈 글은 0개', 주소뽑기('').length === 0);
-  재다('주소뽑기 — 앞뒤 빈칸을 떼낸다', 주소뽑기('<loc>\n  https://a/x\n</loc>')[0] === 'https://a/x');
 
-  재다('길만 — 뿌리는 /', 길만('https://klifemap.ai/') === '/');
-  재다('길만 — 끝 슬래시를 뗀다', 길만('https://klifemap.ai/content/x/') === '/content/x');
-  재다('길만 — 주소가 아니면 null', 길만('그냥글') === null);
+  /* 🔴 첫 판이 여기서 자료를 잃었다 — 4번이 잡아 준 자리다 */
+  재다('이름꼴 — ?page= 는 «살린다»', 이름꼴('/content?page=5') === '/content?page=5');
+  재다('이름꼴 — page=1 은 1쪽과 같은 지면', 이름꼴('/content?page=1') === '/content');
+  재다('이름꼴 — 추적 물음표는 뗀다', 이름꼴('/content?utm_source=x') === '/content');
+  재다('이름꼴 — 쪽과 추적이 섞이면 쪽만 살린다', 이름꼴('/content?utm_source=x&page=3') === '/content?page=3');
+  재다('이름꼴 — #조각은 뗀다', 이름꼴('/content/a#위') === '/content/a');
+  재다('이름꼴 — 끝 슬래시를 뗀다', 이름꼴('/content/a/') === '/content/a');
+  재다('이름꼴 — 뿌리는 /', 이름꼴('/') === '/');
 
   const 보기 = `<a href="/content/a">A</a><a href="content/b">B</a>
+    <a href="https://klifemap.ai/content?page=2">다음</a>
     <a href="https://klifemap.ai/content/c#조각">C</a>
-    <a href="https://klifemap.ai/content/c?x=1">같은 C</a>
-    <a href="https://다른곳.com/content/z">남</a>
-    <a href="#위">닻</a><a href="mailto:a@b.c">메일</a>`;
+    <a href="https://klifemap.ai/content/c?utm=1">같은 C</a>
+    <a href="https://다른곳.com/content/z">남</a>`;
   const 길들 = 안쪽길뽑기(보기);
-  재다('안쪽길 — 절대·상대·전체주소를 다 받는다', 길들.includes('/content/a') && 길들.includes('/content/b') && 길들.includes('/content/c'));
+  재다('안쪽길 — 쪽넘김 링크를 잡는다', 길들.includes('/content?page=2'));
   재다('안쪽길 — 남의 사이트는 안 센다', !길들.some((x) => x.includes('/z')));
-  재다('안쪽길 — 닻·메일은 안 센다', !길들.includes('#위') && !길들.some((x) => x.includes('mailto')));
-  /* 🔴 조각·물음표를 안 떼면 같은 지면이 셋으로 세어져 「문이 셋 있다」가 된다 */
-  재다('안쪽길 — #조각·?물음표를 떼어 같은 지면을 하나로 센다', 길들.filter((x) => x === '/content/c').length === 1);
+  재다('안쪽길 — 같은 지면을 하나로 센다', 길들.filter((x) => x === '/content/c').length === 1);
 
-  /* ⚠ 「문이 0개」와 「못 받았다」는 다르다 — 섞으면 없는 흠을 만든다 */
-  const 재본것 = await 나눠받기(['u1', 'u2'], 2, 0, async (u) => (u === 'u1' ? { 글: '<a href="/content/a">x</a>' } : { 못받음: '타임아웃' }));
-  재다('나눠받기 — 못 받은 것은 못받음으로 남는다', 재본것.get('u2').못받음 === '타임아웃');
-  재다('나눠받기 — 받은 것은 글이 있다', 안쪽길뽑기(재본것.get('u1').글).includes('/content/a'));
+  /* 깊이 재기 — 「다음」 하나만 있는 쪽 넘김이 얼마나 깊어지나를 그대로 흉내 낸다 */
+  const 가짜 = {
+    '/': '<a href="/content">목록</a>',
+    '/content': '<a href="/content/a1">a1</a><a href="/content?page=2">다음</a>',
+    '/content?page=2': '<a href="/content/a2">a2</a><a href="/content?page=3">다음</a>',
+    '/content?page=3': '<a href="/content/a3">a3</a>',
+  };
+  const 알수있는것 = new Set(['/', '/content', '/content?page=2', '/content?page=3', '/content/a1', '/content/a2', '/content/a3']);
+  const r = await 걸음재기({
+    갈수있나: (p) => 알수있는것.has(p),
+    받기: async (u) => { const p = u.slice(바탕.length); return 가짜[p] ? { 글: 가짜[p] } : { 글: '' }; },
+    한번에: 4, 쉬는틈: 0,
+  });
+  재다('깊이 — 홈은 0걸음', r.걸음.get('/') === 0);
+  재다('깊이 — /content 는 1걸음', r.걸음.get('/content') === 1);
+  재다('깊이 — 1쪽의 글은 2걸음', r.걸음.get('/content/a1') === 2);
+  /* ⭐ 이것이 이 자를 다시 지은 까닭이다 — 「다음」만 있으면 걸음이 쪽수만큼 쌓인다 */
+  재다('깊이 — 3쪽의 글은 4걸음 (쪽마다 한 걸음씩 쌓인다)', r.걸음.get('/content/a3') === 4);
+  재다('깊이 — 못 받은 것은 0으로 치지 않는다', r.못받은.length === 0);
 
   const 틀린것 = 시험.filter(([, ok]) => !ok);
   for (const [이름, ok] of 시험) console.log(`  ${ok ? '✅' : '⛔'} ${이름}`);
@@ -135,63 +208,62 @@ if (내가입구인가 && process.argv.includes('--자가시험')) {
 }
 
 if (내가입구인가) {
-  const r = await fetch(사이트맵, { signal: AbortSignal.timeout(25000) });
-  if (!r.ok) { console.log(`🔴 사이트맵을 못 받았다 — HTTP ${r.status}`); process.exit(1); }
-  const 주소들 = 주소뽑기(await r.text());
-  console.log(`사이트맵 주소 ${주소들.length}개 — 다 훑어 「들어오는 문」을 센다`);
-  console.log('⚠ 재기만 합니다. 이 자는 klifemap 을 고치지 않습니다.\n');
+  const r0 = await fetch(사이트맵, { signal: AbortSignal.timeout(25000) });
+  if (!r0.ok) { console.log(`🔴 사이트맵을 못 받았다 — HTTP ${r0.status}`); process.exit(1); }
+  const 사이트맵길 = new Set(주소뽑기(await r0.text()).map(길만).filter(Boolean));
+  console.log(`사이트맵 지면 ${사이트맵길.size}장 — 홈에서 «몇 걸음»인지 잰다`);
+  console.log('⚠ 재기만 합니다. 이 자는 klifemap 을 고치지 않습니다.');
+  console.log('⭐ 쪽 넘김(?page=N)도 따라갑니다 — 첫 판은 그것을 떼어 버려 자료를 잃었습니다.\n');
 
-  const 받은것 = await 나눠받기(주소들, 6, 150);
+  const 갈수있나 = (p) => 사이트맵길.has(p) || /[?&](page|p)=\d+/i.test(p);
+  const { 걸음, 못받은, 본것 } = await 걸음재기({ 갈수있나 });
 
-  const 문 = new Map();          /* 길 → 나를 가리키는 지면들 */
-  for (const u of 주소들) { const p = 길만(u); if (p) 문.set(p, new Set()); }
-  const 못받은 = [];
-  for (const [u, v] of 받은것) {
-    if (v.못받음) { 못받은.push({ 주소: u, 왜: v.못받음 }); continue; }
-    const 나 = 길만(u);
-    for (const 간곳 of 안쪽길뽑기(v.글)) {
-      if (간곳 === 나) continue;              /* 자기 자신은 문이 아니다 */
-      if (문.has(간곳)) 문.get(간곳).add(나);
-    }
-  }
-
-  /* ⛔ 못 받은 지면이 많으면 「문이 없다」가 아니라 「못 쟀다」다 */
-  const 못받은몫 = 못받은.length / 주소들.length;
+  const 못받은몫 = 본것 ? 못받은.length / 본것 : 1;
   if (못받은몫 > 0.10) {
     console.log(`🔴 못 받은 지면이 ${(못받은몫 * 100).toFixed(0)}% (${못받은.length}장) 입니다 — 세지 않고 멈춥니다.`);
-    console.log('   ⛔ 이 상태로 세면 「문이 없다」와 「못 받았다」가 섞입니다.');
-    for (const x of 못받은.slice(0, 5)) console.log(`   · ${x.주소} — ${x.왜}`);
+    for (const x of 못받은.slice(0, 5)) console.log(`   · ${x.길} — ${x.왜}`);
     process.exit(1);
   }
 
-  const 잰것 = [...문.entries()].filter(([p]) => !못받은.some((x) => 길만(x.주소) === p));
-  const 문없음 = 잰것.filter(([, s]) => s.size === 0).map(([p]) => p);
-  const 콘텐트 = 잰것.filter(([p]) => p.startsWith('/content/'));
-  const 콘텐트문없음 = 콘텐트.filter(([, s]) => s.size === 0).map(([p]) => p);
+  const 사이트맵것 = [...사이트맵길].map((p) => ({ 길: p, 걸음: 걸음.has(p) ? 걸음.get(p) : null }));
+  const 못닿은 = 사이트맵것.filter((x) => x.걸음 == null);
+  const 닿은 = 사이트맵것.filter((x) => x.걸음 != null);
+  const 칸 = [[0, 2], [3, 4], [5, 9], [10, 19], [20, 999]];
 
-  console.log(`■ 잰 지면 ${잰것.length}장 (못 받은 것 ${못받은.length}장은 뺐다)`);
-  console.log(`   들어오는 문이 0인 지면 ${문없음.length}장 (${(문없음.length / 잰것.length * 100).toFixed(1)}%)`);
-  console.log(`   그중 /content/ 지면 ${콘텐트문없음.length}장 — /content/ 전체 ${콘텐트.length}장 가운데`);
+  console.log(`■ 사이트맵 ${사이트맵길.size}장 가운데`);
+  console.log(`   홈에서 닿는 것 ${닿은.length}장 · **한 번도 안 닿는 것 ${못닿은.length}장**`);
+  console.log(`   (훑은 지면 ${본것}장 · 못 받은 것 ${못받은.length}장)`);
   console.log('');
-  const 문많은 = 잰것.filter(([, s]) => s.size > 0).sort((a, b) => b[1].size - a[1].size).slice(0, 5);
-  console.log('■ 문이 있는 지면 가운데 많은 것');
-  for (const [p, s] of 문많은) console.log(`   ${String(s.size).padStart(3)}개 ← ${p}`);
+  console.log('■ 걸음 분포 — 깊으면 구글이 늦게 온다');
+  for (const [a, b] of 칸) {
+    const 것 = 닿은.filter((x) => x.걸음 >= a && x.걸음 <= b);
+    console.log(`   ${String(a).padStart(2)}~${String(b === 999 ? '∞' : b).padEnd(3)} 걸음  ${String(것.length).padStart(4)}장`);
+  }
+  const 깊은것 = 닿은.filter((x) => x.걸음 >= 10).sort((a, b) => b.걸음 - a.걸음);
   console.log('');
-  console.log('■ 문이 0인 /content/ 지면 맛보기 12장');
-  for (const p of 콘텐트문없음.slice(0, 12)) console.log(`   · ${p}`);
+  console.log(`■ 열 걸음 이상 ${깊은것.length}장 — 맛보기 10장`);
+  for (const x of 깊은것.slice(0, 10)) console.log(`   ${String(x.걸음).padStart(2)}걸음 ← ${x.길}`);
+  if (못닿은.length) {
+    console.log('');
+    console.log(`■ 한 번도 안 닿는 ${못닿은.length}장 — 맛보기 10장`);
+    for (const x of 못닿은.slice(0, 10)) console.log(`   · ${x.길}`);
+  }
 
   const 낼곳 = path.join(뿌리, 'src/data/klifemap-inbound-doors.json');
   fs.writeFileSync(낼곳, JSON.stringify({
     지은때: new Date().toLocaleString('ko-KR'),
-    무엇을잰것: 'klifemap.ai 사이트맵 지면에 「들어오는 안쪽 링크」가 몇 개인가',
+    무엇을잰것: 'klifemap.ai 사이트맵 지면이 홈에서 몇 걸음인가 (쪽 넘김 ?page=N 도 따라간다)',
     '⛔ 이 자는 고치지 않는다': 'klifemap 은 매출이 나는 서비스다. 재기만 한다',
-    사이트맵주소수: 주소들.length,
+    '⚠ 첫 판이 틀렸다': '「문이 0인 지면 104장」이라고 냈다. 쪽 넘김을 떼어 버려 링크를 잃은 것이었다 — 4번이 잡아 줬다',
+    사이트맵장수: 사이트맵길.size,
+    훑은장수: 본것,
     못받은장수: 못받은.length,
-    잰장수: 잰것.length,
-    문0인장수: 문없음.length,
-    콘텐트장수: 콘텐트.length,
-    콘텐트문0인장수: 콘텐트문없음.length,
-    문0인콘텐트: 콘텐트문없음,
+    닿은장수: 닿은.length,
+    못닿은장수: 못닿은.length,
+    걸음중앙값: (() => { const v = 닿은.map((x) => x.걸음).sort((a, b) => a - b); return v.length ? (v.length % 2 ? v[(v.length - 1) / 2] : (v[v.length / 2 - 1] + v[v.length / 2]) / 2) : null; })(),
+    열걸음이상: 깊은것.length,
+    열걸음이상목록: 깊은것.map((x) => ({ 길: x.길, 걸음: x.걸음 })),
+    못닿은목록: 못닿은.map((x) => x.길),
     못받은것: 못받은.slice(0, 30),
   }, null, 2), 'utf8');
   console.log(`\n→ ${path.relative(뿌리, 낼곳)}`);
