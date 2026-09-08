@@ -1,544 +1,548 @@
 {
- "_왜": "기사마다 다른 공유 카드에 박을 수. scripts/make-og-articles.mjs 가 읽는다.",
- "_규칙": [
-  "자동 제안이 틀리거나 약한 것만 여기 적는다. 안 적힌 기사는 글머리 첫 수를 자동으로 쓴다.",
-  "⛔ 여기 적은 figure 는 그 기사의 제목·글머리·본문에 실제로 있어야 한다. 없으면 카드가 안 만들어진다.",
-  "⛔ 낡은 수를 적지 않는다 — 정정으로 바뀐 값(294 → 236 같은)이 카드로 나가면 정정이 되살아난다.",
-  "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
- ],
- "chosen": {
-  "two-in-three-koreans": {
-   "figure": "62.3%",
-   "label": "of Koreans have had their fortune read",
-   "왜": "자동은 1,047(띠 붙은 사람)을 집는다. 외국 독자를 멈춰 세우는 수는 62.3% 다"
-  },
-  "one-korean-slot": {
-   "figure": "62%",
-   "label": "of the crowding was the starting level",
-   "왜": "자동은 0.395(겉보기)를 집는데, 그 수는 이 기사가 못 믿을 수라고 말하는 수다"
-  },
-  "a-title-is-not-a-key": {
-   "figure": "48",
-   "label": "chart places that were not Korean at all",
-   "왜": "자동은 13(뺀 편수)을 집는다. 이 기사의 요점은 한 편이 48자리를 가져갔다는 크기다"
-  },
-  "which-markets-only-take-the-big-ones": {
-   "figure": "2",
-   "label": "markets a Korean title needs, at home. Estonia 78",
-   "왜": "자동은 93(시장 수)을 집어 「93개 시장」이라는 다른 기사가 된다. 이 기사의 요점은 2 대 78 이라는 거리다"
-  },
-  "when-a-korean-title-is-widest": {
-   "figure": "21.1%",
-   "label": "Korean series widest in week one — others 45%",
-   "왜": "자동은 「26.6% — against 28」로 대조군 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 20.1 대 44.7 이다"
-  },
-  "what-the-opening-position-buys": {
-   "figure": "6",
-   "label": "weeks if it opens at No.1 — one week at No.10",
-   "왜": "자동은 「7,926 — Korean series runs it moves expected」로 표본 크기를 집고 문장 한가운데서 끊었다. 기사의 요점은 1위와 10위의 거리다"
-  },
-  "korean-films-leave-like-everyone-else": {
-   "figure": "3.7",
-   "label": "weeks a Korean series holds a chart — films 1.96",
-   "왜": "자동은 「208,053 — finished runs」로 표본 크기를 집었다. 기사의 요점은 영화와 시리즈가 갈린 것이다"
-  },
-  "a-quarter-fewer-titles": {
-   "figure": "25.3%",
-   "label": "fewer Korean titles charted than in 2022",
-   "왜": "자동은 「276 — Korean titles charted somewhere in 2022」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 줄어든 몫이다"
-  },
-  "how-a-title-leaves": {
-   "figure": "70.5%",
-   "label": "chance a No.10 title is gone next week",
-   "왜": "자동은 「11,779 — departures instead」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 자리마다 다른 확률이다"
-  },
-  "the-charts-did-not-concentrate": {
-   "figure": "10.02×",
-   "label": "top three vs an even split — was 12.8×",
-   "왜": "🔴 자동이 $360,000 을 집었다. 그건 **남의 수**(인용한 제작비)인데 카드 밑에 「Measured, not repeated」가 붙어 나갔다 — 기사가 통째로 막으려던 바로 그 섞임이다. 우리가 잰 수로 바꿨다"
-  },
-  "one-flaw-twelve-corrections": {
-   "figure": "236",
-   "label": "titles — we had published 294",
-   "왜": "자동은 294 를 집었다. 그건 우리가 정정으로 버린 수다. 정정 기사가 낡은 값을 카드로 퍼뜨릴 뻔했다"
-  },
-  "korea-exports-grew-viewing-did-not": {
-   "figure": "63%",
-   "label": "more exports, and no more viewing",
-   "왜": "자동은 「74 — and 79 million hours a」로 문장 한가운데를 집었다"
-  },
-  "korean-actors-more-titles-buys-a-floor": {
-   "figure": "59,406",
-   "label": "views for the actor with 18 charting titles",
-   "왜": "자동은 19 만 집어 「무엇이 19 인지」가 안 보였다. 대비가 이 기사의 전부다"
-  },
-  "korea-music-outsells-television": {
-   "figure": "$1.80bn",
-   "label": "music against $1.26bn broadcast",
-   "왜": "자동 딱지가 「against $1」에서 잘렸다"
-  },
-  "two-hops-from-squid-game": {
-   "figure": "502",
-   "label": "of 635 titles, within two actors",
-   "왜": "자동은 432(중간 단계)를 집었다. 기사의 결론은 502 다"
-  },
-  "music-and-broadcast-exports-are-the-same-size": {
-   "figure": "−0.13",
-   "label": "correlation between their growth",
-   "왜": "「같은 크기인데 같이 안 움직인다」가 요점이다. 20% 로는 그게 안 보인다"
-  },
-  "who-makes-korean-pop-culture": {
-   "figure": "15,072",
-   "label": "people, and they stay 5.5 years",
-   "왜": "자동은 23.7 billion 을 집는데 그건 옆 기사 카드와 같은 수다"
-  },
-  "kpop-export-left-japan-behind": {
-   "figure": "39×",
-   "label": "North America's growth since 2018",
-   "왜": "자동은 $22m 을 집었다. 「일본이 준 게 아니라 나머지가 컸다」가 요점이다"
-  },
-  "korean-actors-attention-flat": {
-   "figure": "3.1%",
-   "label": "for the most looked-up Korean actor",
-   "왜": "자동은 21.3% 를 집는데 그건 다른 두 기사와 같은 수다"
-  },
-  "short-titles-are-where-we-cannot-check-ourselves": {
-   "figure": "54.1%",
-   "label": "of films come back ambiguous",
-   "왜": "자동은 397 을 집는데 옆 기사 카드와 같은 수다 / 2026-09-03 — 카드가 58.1% 로 남아 있었다. 본문 표는 54.1% 다(정정 절에만 58.1 이 남아 있다). 정정으로 맞췄다"
-  },
-  "film-and-series-share-people-but-less-than-chance": {
-   "figure": "62.4%",
-   "label": "cross between film and series — chance gives 73.8%",
-   "왜": "기댓값과의 차이가 기사다. 700 은 표본 크기일 뿐이다 / 2026-09-03 — 카드가 61.6% 로 남아 있었다. 기사 본문은 62.4% 다(448/718). 정정으로 맞췄다"
-  },
-  "korean-series-travel-films-do-not": {
-   "figure": "35",
-   "label": "countries for a series, 11 for a film",
-   "왜": "자동은 표본 크기 232 를 집었다"
-  },
-  "three-labour-markets-not-one": {
-   "figure": "10.3",
-   "label": "years in broadcasting, 5.4 in games",
-   "왜": "「10.3 years」만으로는 세 시장이 다르다는 게 안 보인다"
-  },
-  "reaching-number-one-is-mostly-length": {
-   "figure": "1.26×",
-   "label": "what is left of 4.4× once you hold length",
-   "왜": "자동은 표본 크기 235 를 집었다. 이 기사가 파는 것은 **길이를 묶으면 남는 것**이다"
-  },
-  "a-weekly-top-ten-is-not-ten-titles": {
-   "figure": "7",
-   "label": "of the ten places, held by one show",
-   "왜": "자동은 493,600(줄수)을 집었다. 크기는 배경이고, 기사가 파는 것은 「열 칸 중 일곱」이다"
-  },
-  "twenty-eight-webtoon-platforms": {
-   "figure": "214",
-   "label": "of them have fewer than ten staff",
-   "왜": "자동은 ₩94.5bn 을 집는데 옆 기사 카드와 **똑같은 수**다. 두 카드가 같은 말을 하면 안 나눈 것이다"
-  },
-  "korea-webtoon-two-economies": {
-   "figure": "₩94.5bn",
-   "label": "a platform, ₩1.5bn a content provider",
-   "왜": "자동은 표본 크기 396 을 집었다. 63배 차이가 기사다"
-  },
-  "the-acts-our-k-pop-panel-cannot-see": {
-   "figure": "1,311",
-   "label": "Korean groups our panel cannot see",
-   "왜": "자동은 2,362(패널 크기)를 집는다. 기사가 파는 것은 **못 보는 쪽**이다 / 2026-09-03 — 제목이 1,312 였는데 본문 표는 1,311 이었다. 표가 맞아서 제목과 카드를 1,311 로 맞췄다"
-  },
-  "what-share-of-korean-output-the-charts-touch": {
-   "figure": "15.3%",
-   "label": "of Korean films since 2021 have reached a Netflix Top 10",
-   "왜": "자동은 30%(반올림 글)나 4,752 를 집는다. 두 갈래의 대비가 기사다 / 2026-09-03 — 옛 카드는 시리즈 쪽 31.6% 를 박았는데, **걸린 지면(/titles·/screen-split)에 그 수가 없다.** 약속이 빈 것이다. 지면에 실제로 있는 영화 쪽 15.3% 로 옮긴다(수치도 15.4% → 15.3% 로 움직였다). 대비는 기사 본문이 그대로 말한다."
-  },
-  "eight-ways-we-have-been-wrong": {
-   "figure": "21",
-   "label": "corrections, in eight distinct shapes",
-   "왜": "「4 of 8」로 적었다가 **그 수가 본문에 없어** 카드가 안 만들어졌다. 규칙이 나를 잡았다"
-  },
-  "young-firms-explain-some-of-it": {
-   "figure": "1.32×",
-   "label": "what is left once firm age is held fixed",
-   "왜": "자동은 6.18(근속)을 집는다. 기사가 파는 것은 **나이를 묶어도 남는 것**이다"
-  },
-  "korea-does-not-chart-it-first": {
-   "figure": "46",
-   "label": "of 397 — Korea charted it first",
-   "왜": "자동은 397 을 집었다. 그건 분모다 — 카드가 「동남아에 한국 작품 397편」이라는 다른 기사가 된다. 이 기사의 요점은 397 중 몇이냐다"
-  },
-  "the-share-that-did-not-grow": {
-   "figure": "7.7%",
-   "label": "of the world’s top-10 places are Korean",
-   "왜": "자동은 93(나라 수)을 집을 자리다 — 카드가 「93개국」이라는 다른 기사가 된다. 이 기사의 요점은 자리 비율이다"
-  },
-  "six-titles-or-forty-nine": {
-   "figure": "6",
-   "label": "titles fill half of America’s Korean chart",
-   "왜": "자동은 문장 첫 수를 집는데 그러면 「Six」가 글자라 놓치거나 93 을 집는다. 이 기사의 요점은 6 대 49 라는 대비다"
-  },
-  "the-decline-that-was-not-there": {
-   "figure": "69%",
-   "label": "a decline we could not publish",
-   "왜": "자동은 제목 첫 수 69 를 집는데 딱지가 「down since 2017」로 붙으면 카드가 하락을 사실로 말한다. 이 기사의 요점은 그 수가 틀렸다는 것이다"
-  },
-  "korean-titles-climb": {
-   "figure": "57.1%",
-   "label": "of Korean chart runs climb after week one",
-   "왜": "자동은 제목에서 첫 수를 집는데 그러면 40.5%(그 밖)를 집을 수 있다. 이 기사의 주어는 한국 작품이다 / 2026-08-09 09:5x — 비라틴 제목 23편을 빼면서 57.3 → 57.5 로 움직였다. 카드도 같이 옮긴다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
-  },
-  "there-is-no-k-drama-season": {
-   "figure": "2.1",
-   "label": "points — the whole yearly swing",
-   "왜": "자동은 제목 첫 수를 집는데 그러면 14.1(주 폭)을 집을 수 있다. 이 기사의 요점은 달 폭이 **작다**는 것이다"
-  },
-  "actors-and-idols-same-shape": {
-   "figure": "0.4",
-   "label": "points — the gap once size is held fixed",
-   "왜": "자동은 제목 첫 수 1,008 을 집는다. 이 기사의 요점은 **차이가 거의 없다**는 것이라 그 수를 카드에 박아야 한다"
-  },
-  "middle-of-the-chart": {
-   "figure": "19 of 21",
-   "label": "markets where Korean titles are rarer at #1 than on the chart",
-   "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다 / 2026-08-09 10:3x — 비라틴 제목을 빼면서 띠가 24곳→23곳이 됐다. 카드도 같이 옮긴다 / 2026-09-03 — 패널을 08-23 주까지 올리자 그 띠가 20곳→21곳이 됐다(지면은 「19 of 21」). 카드가 「18 of 20」에 멈춰 있어 check-table-promises 가 잡았다. 자가 제 몫을 했다."
-  },
-  "half-our-panel-cannot-be-verified": {
-   "figure": "215 of 421",
-   "label": "titles that never reached a global Top 10, so the language label cannot be applied",
-   "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다 / 2026-09-03 — 카드가 「214 of 421」에 멈춰 있었다. 본문은 dek·표·정정절 세 곳 모두 「215 of 421」이다. 카드 자가 「기사 본문에 없다」고 막아 알았다 — 자가 제 몫을 했다. ⭐ 손으로 적은 값은 자료가 움직여도 안 따라온다."
-  },
-  "it-moved-it-did-not-shrink": {
-   "figure": "8.56",
-   "label": "points — mean Korean share fall in nine Asian markets",
-   "왜": "자동 딱지가 「points」 한 낱말이라 무엇의 포인트인지 안 보였다. 카드만 보고는 못 읽는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
-  },
-  "women-in-korean-content-companies": {
-   "figure": "22.8",
-   "label": "points between two halves of one sector — the larger fact",
-   "왜": "자동은 56.9% 를 집었는데 이 기사의 요점은 그 수가 아니라 **한 갈래 안의 22.8p 차이**다. 딱지도 「women」 한 낱말이었다"
-  },
-  "kpop-attention-top-is-actors": {
-   "figure": "41.0%",
-   "label": "of K-pop panel attention goes to the 15% who also act",
-   "왜": "자동은 154 를 집고 딱지를 「in our」에서 끊었다. 이 기사의 요점은 사람 수가 아니라 이름의 10% 가 눈길의 32.6% 를 가져간다는 것이다"
-  },
-  "the-twentieth-title-travels-no-further": {
-   "figure": "−0.118",
-   "label": "catalogue size against how far one title travels — nothing there",
-   "왜": "자동은 앞말 첫 수 207 을 집는다. 이 기사의 요점은 회사 수가 아니라 **관계가 없다는 것**이라 그 수를 박는다 / 카드 자가 「본문에 없다」고 울어 알았다 — 기사는 빼기표(U+2212), 카드는 하이픈으로 적었었다"
-  },
-  "the-broadcast-run-that-never-happened": {
-   "figure": "39",
-   "label": "markets for the median Korean series that never aired on Korean TV — against 4",
-   "왜": "자동은 dek 첫 수 287 을 집는다. 이 기사의 요점은 표본 크기가 아니라 **4 대 39** 라 그 수를 박는다"
-  },
-  "the-return-that-was-a-second-season": {
-   "figure": "43.6%",
-   "label": "of Korean chart comebacks are a different season, not a comeback",
-   "왜": "자동은 dek 첫 수 940 을 집는다. 이 기사의 요점은 틈 수가 아니라 **절반 가까이가 복귀가 아니라는 것**이라 그 수를 박는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
-  },
-  "how-much-of-our-own-number-is-checked": {
-   "figure": "16.4%",
-   "label": "of our headline figure rests on titles we could not check",
-   "왜": "자동은 dek 첫 수 7.7 을 집는데 그건 이 기사의 주어가 아니다. 요점은 **확인 못 한 몫**이라 그 수를 박는다"
-  },
-  "vietnam-reads-a-different-korea": {
-   "figure": "60.6%",
-   "label": "of Korean-athlete reads in Vietnamese Wikipedia are esports. In Indonesian: 0.2%"
-  },
-  "one-title-is-the-median-career": {
-   "figure": "49.5%",
-   "label": "of Korean actors on a Netflix chart have exactly one charting title"
-  },
-  "a-year-in-one-month": {
-   "figure": "11 of 11",
-   "label": "Korean esports players in our Southeast Asian panel peak in the same single month"
-  },
-  "no-one-to-compare-against": {
-   "figure": "71.4%",
-   "label": "of Korean esports players with a Southeast Asian article are read enough to measure. For China, Sweden and the US together: 9.1%"
-  },
-  "it-was-one-game": {
-   "figure": "85.7%",
-   "label": "of the Korean esports players we could measure in Southeast Asian Wikipedias play one game"
-  },
-  "the-manager-is-read-where-he-was-hired": {
-   "figure": "82.4%",
-   "label": "of a Korean football manager reads sit in one country. For players it is 50.6%"
-  },
-  "the-ceiling-and-the-band": {
-   "figure": "342.3",
-   "label": "Son Heung-min, above all 1,023 Korean entertainers we measured in Southeast Asia"
-  },
-  "one-act-clears-the-footballer": {
-   "figure": "380.76",
-   "label": "BTS, the only Korean act read more in Southeast Asia than Son Heung-min (342.3)"
-  },
-  "malaysia-reads-the-label": {
-   "figure": "23%",
-   "label": "of four-country reading about Korean brands is Malaysian. For Korean people it is 7.6 to 8.6%"
-  },
-  "k-pop-groups-travel-widest": {
-   "figure": "41.7%",
-   "label": "of a K-pop group reads sit in one country — closest to even of any Korean name we measured"
-  },
-  "a-label-outreads-the-capital": {
-   "figure": "111.47",
-   "label": "YG Entertainment, read more across Southeast Asia than Seoul (106.54)"
-  },
-  "the-instrument-was-wrong-not-the-question": {
-   "figure": "9.9×",
-   "label": "more reads for the median actor with five charting titles than for the median actor with one"
-  },
-  "brands-are-not-one-thing": {
-   "figure": "53.79",
-   "label": "Indonesia on German cars: first of four. On luxury houses: last.",
-   "왜": "자동은 22(브랜드 개수)를 집는데 그 수는 손님을 안 멈춰 세운다. 이 기사는 같은 나라가 갈래마다 자리를 바꾼다는 것이다. 「1st and 4th」로 넣었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 수는 기사에 있는 53.79 를 쓰고 대비는 라벨에 담는다"
-  },
-  "where-the-counting-stops": {
-   "figure": "Five",
-   "label": "of Seoul's 25 districts the public tourist count can speak for",
-   "왜": "자동은 「16 — of 24 districts the admissions table」로 문장 한가운데를 끊었다. 「5 of 25」로 넣었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 기사에 그대로 있는 「Five.」를 쓰고 25 는 딱지에 담는다"
-  },
-  "december-looking-june-quiet": {
-   "figure": "June",
-   "label": "the month both the looking and the flying fall to their lowest",
-   "왜": "자동이 글머리에서 수를 못 찾았다. 이 기사의 요점은 봉우리(12월·1월)가 아니라 **바닥이 둘 다 6월**이라는 것이다. 수보다 달 이름이 그 요점을 그대로 담는다. 기사 본문에 「June」이 그대로 있다"
-  },
-  "half-life-two-months": {
-   "figure": "19",
-   "label": "of 26 Korean titles came back above half. Median half-life: two months",
-   "왜": "자동이 글머리에서 수를 못 찾아 빌드를 세웠다. ⛔ 「two months」만 카드에 박으면 「두 달이면 끝」으로 읽힌다 — 그건 이 기사가 통째로 부정하는 말이다. / 🔴 8/15 두 번째 — 작품을 35→59 로 늘리자 12/16 이 19/26 이 됐는데 카드는 옛 수 그대로였다. 손으로 적은 값은 자료가 늘어도 안 따라온다. 자료를 늘리면 이 칸을 같이 본다"
-  },
-  "one-title-out": {
-   "figure": "0 against 0.89",
-   "label": "how far two of our own medians moved when one title was removed",
-   "왜": "자동이 「89% — of itself」로 집어 무엇의 89%인지가 잘렸다. 이 기사의 요점은 한 수가 아니라 **두 수의 대비**다 — 하나는 꿈쩍 않고 하나는 제 크기만큼 움직였다. / ⛔ 「0× vs 0.89×」로 적었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 본문에 그대로 있는 「0 against 0.89」를 쓴다"
-  },
-  "bts-babymonster-four-lists": {
-   "figure": "133.45",
-   "label": "BTS reads per million in Vietnam",
-   "왜": "자동이 글머리에서 수를 못 찾아 카드 만들기가 전부 멈췄다(2026-08-22). 이 기사가 실제로 낸 가장 큰 수는 베트남 133.45 — 말레이 33.93 의 네 배라는 그 대비가 요점이다. 본문 28·40·78행에 있다"
-  },
-  "three-actors-no-leader": {
-   "figure": "110.83",
-   "label": "the highest single-country reads per million",
-   "왜": "자동이 수를 못 찾아 카드 만들기가 전부 멈췄다(2026-08-22). 이 기사의 요점은 «셋이 다 있는데 1위가 아무도 없다»이고, 그 가장 높은 칸이 태국의 고윤정 110.83 이다. 본문 33·37행에 있다"
-  },
-  "iu-saju-water-in-all-twelve-hours": {
-   "figure": "5–7",
-   "label": "strength splits strong–weak across twelve"
-  },
-  "jungkook-saju-structure-splits-five-ways": {
-   "figure": "twelve",
-   "label": "hours giving the same strength and element"
-  },
-  "karina-saju-structure-settled-in-half-the-cases": {
-   "figure": "1,047",
-   "label": "Korean entertainers checked the same way"
-  },
-  "most-korean-titles-never-leave-home": {
-   "figure": "28.1%",
-   "label": "of Korean titles charted only at home"
-  },
-  "no-bts-member-outdraws-bts": {
-   "figure": "28",
-   "label": "countries where the group page wins",
-   "왜": "글머리가 문장으로 시작해 자동이 수를 못 집는다. 이 기사의 요점은 「28개국 전부에서 그룹 지면이 이긴다」다"
-  },
-  "squid-game-cast-second-biggest-title": {
-   "figure": "93",
-   "label": "countries Squid Game charted in",
-   "왜": "글머리에 수가 없다. 표의 첫 줄들이 다 93 인데 그 93 은 「전 세계 몇 나라」라는 이 기사의 바탕값이다"
-  },
-  "vietnam-number-one-thirty-four-weeks": {
-   "figure": "34",
-   "label": "weeks Korean titles held No.1 in Vietnam",
-   "왜": "글머리에 수가 없다. 제목이 말하는 34주가 이 기사의 요점이고 표 첫 줄에 그대로 있다"
-  },
-  "alchemy-of-souls-ran-longest-without-number-one": {
-   "figure": "27",
-   "label": "weeks on charts, never once at number one",
-   "왜": "자동 딱지가 「weeks」 한 낱말이라 무엇의 27주인지 안 보였다"
-  },
-  "bigger-title-smaller-share": {
-   "figure": "0.68",
-   "label": "correlation — bigger titles take a smaller share",
-   "왜": "자동 딱지가 아예 비었다. 0.68 만 있으면 카드에서 무슨 수인지 알 길이 없다"
-  },
-  "choi-baek-ho-no-english-page": {
-   "figure": "30",
-   "label": "August — the month he was read, with no English page",
-   "왜": "자동은 「30 August」에서 딱지를 「August」로 잘라 날짜만 남았다"
-  },
-  "korean-titles-rarely-chart-alone": {
-   "figure": "16,408",
-   "label": "chart places sat beside another Korean title",
-   "왜": "자동 딱지가 「of them」이라 무엇의 16,408 인지 안 보였다"
-  },
-  "odyssey-outreads-korean-films": {
-   "figure": "119,356",
-   "label": "Korean Wikipedia reads for one non-Korean film",
-   "왜": "자동 딱지가 「times」 한 낱말이었다. 이 기사의 요점은 그 수가 «한국 영화 열넷을 합친 것»보다 크다는 것이다"
-  },
-  "only-four-countries-come-close-to-all-korean": {
-   "figure": "51",
-   "label": "charts with nine or ten places Korean",
-   "왜": "자동은 dek 첫 수를 집는다. 이 기사의 요점은 «네 나라»이고, 그 넷을 가른 수가 51(다 찬 8 + 아홉 자리 43)이다. 4 를 쓰면 앞 기사(the-four-weeks…)의 카드와 같은 수가 되어 둘이 헷갈린다"
-  },
-  "netflix-weeks-in-top-10-is-not-weeks-in-a-row": {
-   "figure": "98%",
-   "label": "of returns keep counting, not restart",
-   "왜": "자동은 제목의 「top 10」에서 10 을 집어 딱지가 「number」 여섯 자가 됐다. 이 기사의 요점은 틈 뒤에도 98% 가 이어서 센다는 것 — 그래서 「연속 몇 주」로 읽으면 틀린다는 것이다"
-  },
-  "malaysia-gets-korean-titles-in-the-debut-week": {
-   "figure": "71.9%",
-   "label": "of Korean titles reach Malaysia in week one",
-   "왜": "자동은 dek 첫 수 33% 를 집고 딱지가 비었다(그 앞에 낱말이 없다). 이 기사의 요점은 말레이시아 71.9% 이고, 33% 는 견줄 상대(영국)다"
-  },
-  "ten-wikipedias-one-audience": {
-   "figure": "51.9%",
-   "label": "of Korean stars who sing and act sit in 10+ Wikipedia languages. Singers: 8.1%",
-   "왜": "자동은 글머리 첫 수 9,249 를 집는다 — 그건 명부 크기(분모)이고 카드가 「한국 연예인 9,249명」이라는 다른 기사가 된다. 이 기사의 요점은 «한 쪽만 하는 사람과의 거리»라 51.9 대 8.1 을 박는다. 둘 다 본문 표에 그대로 있다."
-  },
-  "arts-high-school-beats-sky-universities": {
-   "figure": "58.4%",
-   "label": "of one arts school crossed 10 languages",
-   "왜": "글머리 첫 수는 4,535(표본)다. 독자를 멈춰 세우는 수는 58.4% — 그 학교의 비율이다"
-  },
-  "more-charting-work-raises-the-floor": {
-   "figure": "7.0x",
-   "label": "more readers, floor only — not the ceiling",
-   "왜": "글머리 첫 수는 1,113(표본)이다. 요점은 바닥이 7배 오르고 천장은 안 오른 것이다"
-  },
-  "chart-credits-buy-a-level-not-a-direction": {
-   "figure": "1,113",
-   "label": "actors in Netflix charting Korean titles"
-  },
-  "v-led-108-weeks-jung-kook-read-more": {
-   "figure": "108",
-   "label": "weeks V led the reading, and Jung Kook still won",
-   "왜": "자동은 171 을 집고 딱지가 「weeks」 다섯 자로 잘린다. 이 기사의 요점은 108주 앞서고도 총량에서 진 것이다"
-  },
-  "what-dreamworks-is-chasing-93-countries": {
-   "figure": "93",
-   "label": "countries KPop Demon Hunters charted in",
-   "왜": "자동 딱지가 「into」로 끝나 뒤가 잘린다. 문장을 닫아 준다"
-  },
-  "wikipedia-renamed-jungkook-readers-did-not": {
-   "figure": "72.1%",
-   "label": "of reads still arrive at the old name",
-   "왜": "자동은 4.09m 을 집는데 바로 뒤 「.7」에서 잘려 수가 반 토막 난다. 72.1% 는 기사 본문과 /name-spelled 표에 «둘 다» 있는 수다 — 카드가 약속한 수를 표가 지킨다"
-  },
-  "cortis-100-million-views-english-readers-arrived-first": {
-   "figure": "9.5x",
-   "label": "more English readers now than at debut",
-   "왜": "자동은 제목의 「2025,」를 집는다 — 연도이지 발견이 아니다. 이 기사의 수는 다섯 중 하나만 오른 그 배수다"
-  },
-  "bts-six-signs-ordinary-9249-behind-them-are-not": {
-   "figure": "9,249",
-   "label": "Korean stars behind the six signs",
-   "왜": "자동은 38.7%(무작위와 같다는 수)를 집는데, 그것은 「놀랍지 않다」는 말이다. 기사가 놀랍다고 하는 것은 그 뒤 9,249명 쪽이다"
-  },
-  "six-korean-stars-renamed-readers-did-not-follow": {
-   "figure": "6",
-   "label": "stars renamed, and readers followed none",
-   "왜": "자동 딱지가 「to a different」에서 잘린다. 문장을 닫아 준다"
-  },
-  "wikipedia-brackets-one-word-korean-names": {
-   "figure": "100",
-   "label": "most-read stars; 20 carry most of the titles",
-   "왜": "6.5(중간값)는 /name-spelled 표에 없고 732 는 본문이 아니라 앞말에만 있다. 100 은 본문과 표 둘 다에 있다 — 카드가 약속한 수를 표가 지킨다"
-  },
-  "casting-news-does-not-move-english-readers": {
-   "figure": "0.44",
-   "label": "x the reading, after the story named them",
-   "왜": "자동은 「14 days before」의 14 를 집는다 — 방법이지 발견이 아니다. 0.44 는 이 표에서 가장 큰 움직임이고 방향까지 말한다 · ⛔ 「her」로 썼다가 고쳤다 — 그 사람의 대명사를 우리가 아는 것이 아니다. 모르면 they 로 쓴다"
-  },
-  "two-solo-comebacks-one-day-groups-still-outread-them": {
-   "figure": "0.27",
-   "label": "x BTS — Jimin, the group still outread",
-   "왜": "자동은 「5 September」의 5 를 집는다 — 날짜이지 발견이 아니다. 0.27 은 기사 본문과 /member-vs-group 표에 둘 다 있다"
-  },
-  "jimin-34x-english-stadium-acts-reverse": {
-   "figure": "2,091",
-   "label": "English readers a day. In Korean, 61",
-   "왜": "제목의 34 는 배수라 카드에서 뜻이 약하다. 2,091 대 61 이 한눈에 갈리는 수다"
-  },
-  "what-is-in-netflix-top10-tsv-files": {
-   "figure": "501,040",
-   "label": "rows, 94 countries, 269 weeks",
-   "왜": "파일을 찾아온 사람이 알고 싶은 첫 수가 «몇 줄인가»다. 37.9%(빈 칸)는 흠이라 카드에 앞세우지 않는다"
-  },
-  "yunho-tour-seven-cities-one-speaks-english": {
-   "figure": "120.7",
-   "label": "views a day in English — a language one tour stop of seven speaks",
-   "왜": "자동은 「120.7 — a day」로 잘라 무슨 말인지 안 남는다. 수는 그대로 두고 딱지에 어긋남을 넣는다. ⛔ 「1 of 7」로 하려다 그 글자가 본문에 없어 자가 막았다 — 본문에 없는 수를 카드에 내지 않는 규칙이 맞다."
-  },
-  "zodiac-compatibility-tested-on-real-groups": {
-   "figure": "4,651",
-   "label": "K-pop pairings counted. No two signs find each other",
-   "왜": "자동은 259(그룹 수)를 집는다. 손님을 멈춰 세우는 것은 «얼마나 많이 세었나»이고, 딱지가 그 답까지 말해 준다."
-  },
-  "gucci-week-moved-nothing-birthday-moved": {
-   "figure": "1.01×",
-   "label": "what a global Gucci campaign left, once his bandmates are counted",
-   "왜": "자동은 큰 수(7,996)를 집는다. 그런데 이 기사의 논점은 «작은 수»다 — 아무 일도 안 일어난 것이 발견이다. 1.01 이 그 발견을 그대로 보여 준다."
-  },
-  "korea-culture-data-free-but-not-maintained": {
-   "figure": "1,022",
-   "label": "of Korea's 1,344 culture datasets have not moved in a year",
-   "왜": "자동은 1,344(전체)를 집는다. 그런데 이 기사의 발견은 «움직이지 않는 쪽»이다. 무료 80%는 좋은 소식처럼 읽히고, 그 옆에 놓아야 할 수가 1,022 다."
-  },
-  "190-countries-and-the-94-that-can-be-counted": {
-   "figure": "94",
-   "label": "countries Netflix publishes a chart for. The rest cannot be counted",
-   "왜": "자동은 190(발표 수)을 집는다. 그런데 이 기사의 발견은 «셀 수 있는 쪽»이 94뿐이라는 것이다. 남의 발표 수를 우리 카드에 크게 싣지 않는다."
-  },
-  "a-name-fight-and-the-423-titles-that-already-share-one": {
-   "figure": "423",
-   "label": "of 974 Korean titles already share their English name with something else",
-   "왜": "자동은 974(전체)를 집는다. 발견은 «겹치는 쪽»이다 — 소송 한 건 옆에 놓아야 할 수가 423 이다."
-  },
-  "kpop-group-attention-halves-in-two-months": {
-   "figure": "65",
-   "label": "months Stray Kids held — the median is 2",
-   "왜": "자동이 65 를 집었지만 딱지가 비어 무슨 65 인지 안 보였다. 이 기사의 요점은 65 라는 예외와 2 라는 보통값의 «거리»라 둘을 한 줄에 담는다"
-  },
-  "mexico-watches-korea-does-not-look-it-up": {
-   "figure": "63",
-   "label": "of 93 Korean article appearances were Japan",
-   "왜": "자동은 51(넷플릭스 주수)을 집을 자리다 — 그러면 카드가 앞 기사(데몬헌터스)와 같은 말을 한다. 이 기사의 발견은 «일본 쏠림»이라 그 수를 박는다"
-  },
-  "most-korean-films-on-netflix-chart-in-one-country": {
-   "figure": "328",
-   "label": "of 577 Korean films charted in one country",
-   "왜": "자동은 577(전체)을 집는다. 발견은 «한 나라뿐인 쪽»이라 그 수를 박는다"
-  },
-  "when-does-a-kpop-group-peak": {
-   "figure": "35",
-   "label": "of 183 acts peaked in their debut year",
-   "왜": "자동은 774(표본)를 집는다. 발견은 «데뷔해에 봉우리가 오는 팀이 적다»는 것이라 그 수를 박는다 / 2026-09-07 — 자료를 847팀으로 넓히면서 28 → 35 로 움직였다. 손으로 적은 값은 자료가 늘어도 안 따라오므로 같이 옮긴다"
-  },
-  "kpop-demon-hunters-62-weeks-toys-arrive-late": {
-   "figure": "51",
-   "label": "weeks in Mexico — the United States gave 49",
-   "왜": "자동은 62(라트비아)를 집는데 그건 축 지면 제목과 같은 수다. 이 기사가 파는 것은 멕시코가 미국보다 길었다는 대비다"
-  },
-  "webtoon-adaptations-read-14x-more": {
-   "figure": "14.0x",
-   "label": "more reads once a Korean webtoon is adapted",
-   "왜": "자동은 51(짝 수)을 집는다. 발견은 배수 자체다"
-  },
-  "hit-or-flop-240-of-546-reached-number-one": {
-   "figure": "546",
-   "label": "Korean titles with a Netflix chart standing — 240 of them hit No.1",
-   "왜": "자동이 고른 수(546)는 맞았고 «딱지»가 비어 있었다. 그래서 딱지만 적는다. ⛔ 240 으로 바꿨다가 되돌렸다 — 240 은 이 기사의 스냅숏이라 걸린 지면 셋(/titles·/catalogue-depth·/by-country)에 지면의 수로 안 나온다(그 기사 링크 글자로만 나온다). 546 은 세 지면에 다 나온다"
-  },
-  "january-peaks-september-does-not": {
-   "figure": "774",
-   "label": "Korean acts, and the calendar month each was read most",
-   "왜": "자동이 고른 수(774)는 맞았고 딱지가 「…we know the single」로 끊겨 읽혔다(글머리 문장을 낱말 수로 자르는 탓이다). 수는 그대로 두고 딱지만 적는다"
+  "_왜": "기사마다 다른 공유 카드에 박을 수. scripts/make-og-articles.mjs 가 읽는다.",
+  "_규칙": [
+    "자동 제안이 틀리거나 약한 것만 여기 적는다. 안 적힌 기사는 글머리 첫 수를 자동으로 쓴다.",
+    "⛔ 여기 적은 figure 는 그 기사의 제목·글머리·본문에 실제로 있어야 한다. 없으면 카드가 안 만들어진다.",
+    "⛔ 낡은 수를 적지 않는다 — 정정으로 바뀐 값(294 → 236 같은)이 카드로 나가면 정정이 되살아난다.",
+    "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
+  ],
+  "chosen": {
+    "two-in-three-koreans": {
+      "figure": "62.3%",
+      "label": "of Koreans have had their fortune read",
+      "왜": "자동은 1,047(띠 붙은 사람)을 집는다. 외국 독자를 멈춰 세우는 수는 62.3% 다"
+    },
+    "one-korean-slot": {
+      "figure": "62%",
+      "label": "of the crowding was the starting level",
+      "왜": "자동은 0.395(겉보기)를 집는데, 그 수는 이 기사가 못 믿을 수라고 말하는 수다"
+    },
+    "a-title-is-not-a-key": {
+      "figure": "48",
+      "label": "chart places that were not Korean at all",
+      "왜": "자동은 13(뺀 편수)을 집는다. 이 기사의 요점은 한 편이 48자리를 가져갔다는 크기다"
+    },
+    "which-markets-only-take-the-big-ones": {
+      "figure": "2",
+      "label": "markets a Korean title needs, at home. Estonia 78",
+      "왜": "자동은 93(시장 수)을 집어 「93개 시장」이라는 다른 기사가 된다. 이 기사의 요점은 2 대 78 이라는 거리다"
+    },
+    "when-a-korean-title-is-widest": {
+      "figure": "21.1%",
+      "label": "Korean series widest in week one — others 45%",
+      "왜": "자동은 「26.6% — against 28」로 대조군 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 20.1 대 44.7 이다"
+    },
+    "what-the-opening-position-buys": {
+      "figure": "6",
+      "label": "weeks if it opens at No.1 — one week at No.10",
+      "왜": "자동은 「7,926 — Korean series runs it moves expected」로 표본 크기를 집고 문장 한가운데서 끊었다. 기사의 요점은 1위와 10위의 거리다"
+    },
+    "korean-films-leave-like-everyone-else": {
+      "figure": "3.7",
+      "label": "weeks a Korean series holds a chart — films 1.96",
+      "왜": "자동은 「208,053 — finished runs」로 표본 크기를 집었다. 기사의 요점은 영화와 시리즈가 갈린 것이다"
+    },
+    "a-quarter-fewer-titles": {
+      "figure": "25.3%",
+      "label": "fewer Korean titles charted than in 2022",
+      "왜": "자동은 「276 — Korean titles charted somewhere in 2022」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 줄어든 몫이다"
+    },
+    "how-a-title-leaves": {
+      "figure": "70.5%",
+      "label": "chance a No.10 title is gone next week",
+      "왜": "자동은 「11,779 — departures instead」로 문장 한가운데를 집어 딱지가 조각이 됐다. 기사의 요점은 자리마다 다른 확률이다"
+    },
+    "the-charts-did-not-concentrate": {
+      "figure": "10.02×",
+      "label": "top three vs an even split — was 12.8×",
+      "왜": "🔴 자동이 $360,000 을 집었다. 그건 **남의 수**(인용한 제작비)인데 카드 밑에 「Measured, not repeated」가 붙어 나갔다 — 기사가 통째로 막으려던 바로 그 섞임이다. 우리가 잰 수로 바꿨다"
+    },
+    "one-flaw-twelve-corrections": {
+      "figure": "236",
+      "label": "titles — we had published 294",
+      "왜": "자동은 294 를 집었다. 그건 우리가 정정으로 버린 수다. 정정 기사가 낡은 값을 카드로 퍼뜨릴 뻔했다"
+    },
+    "korea-exports-grew-viewing-did-not": {
+      "figure": "63%",
+      "label": "more exports, and no more viewing",
+      "왜": "자동은 「74 — and 79 million hours a」로 문장 한가운데를 집었다"
+    },
+    "korean-actors-more-titles-buys-a-floor": {
+      "figure": "59,406",
+      "label": "views for the actor with 18 charting titles",
+      "왜": "자동은 19 만 집어 「무엇이 19 인지」가 안 보였다. 대비가 이 기사의 전부다"
+    },
+    "korea-music-outsells-television": {
+      "figure": "$1.80bn",
+      "label": "music against $1.26bn broadcast",
+      "왜": "자동 딱지가 「against $1」에서 잘렸다"
+    },
+    "two-hops-from-squid-game": {
+      "figure": "502",
+      "label": "of 635 titles, within two actors",
+      "왜": "자동은 432(중간 단계)를 집었다. 기사의 결론은 502 다"
+    },
+    "music-and-broadcast-exports-are-the-same-size": {
+      "figure": "−0.13",
+      "label": "correlation between their growth",
+      "왜": "「같은 크기인데 같이 안 움직인다」가 요점이다. 20% 로는 그게 안 보인다"
+    },
+    "who-makes-korean-pop-culture": {
+      "figure": "15,072",
+      "label": "people, and they stay 5.5 years",
+      "왜": "자동은 23.7 billion 을 집는데 그건 옆 기사 카드와 같은 수다"
+    },
+    "kpop-export-left-japan-behind": {
+      "figure": "39×",
+      "label": "North America's growth since 2018",
+      "왜": "자동은 $22m 을 집었다. 「일본이 준 게 아니라 나머지가 컸다」가 요점이다"
+    },
+    "korean-actors-attention-flat": {
+      "figure": "3.1%",
+      "label": "for the most looked-up Korean actor",
+      "왜": "자동은 21.3% 를 집는데 그건 다른 두 기사와 같은 수다"
+    },
+    "short-titles-are-where-we-cannot-check-ourselves": {
+      "figure": "54.1%",
+      "label": "of films come back ambiguous",
+      "왜": "자동은 397 을 집는데 옆 기사 카드와 같은 수다 / 2026-09-03 — 카드가 58.1% 로 남아 있었다. 본문 표는 54.1% 다(정정 절에만 58.1 이 남아 있다). 정정으로 맞췄다"
+    },
+    "film-and-series-share-people-but-less-than-chance": {
+      "figure": "62.4%",
+      "label": "cross between film and series — chance gives 73.8%",
+      "왜": "기댓값과의 차이가 기사다. 700 은 표본 크기일 뿐이다 / 2026-09-03 — 카드가 61.6% 로 남아 있었다. 기사 본문은 62.4% 다(448/718). 정정으로 맞췄다"
+    },
+    "korean-series-travel-films-do-not": {
+      "figure": "35",
+      "label": "countries for a series, 11 for a film",
+      "왜": "자동은 표본 크기 232 를 집었다"
+    },
+    "three-labour-markets-not-one": {
+      "figure": "10.3",
+      "label": "years in broadcasting, 5.4 in games",
+      "왜": "「10.3 years」만으로는 세 시장이 다르다는 게 안 보인다"
+    },
+    "reaching-number-one-is-mostly-length": {
+      "figure": "1.26×",
+      "label": "what is left of 4.4× once you hold length",
+      "왜": "자동은 표본 크기 235 를 집었다. 이 기사가 파는 것은 **길이를 묶으면 남는 것**이다"
+    },
+    "a-weekly-top-ten-is-not-ten-titles": {
+      "figure": "7",
+      "label": "of the ten places, held by one show",
+      "왜": "자동은 493,600(줄수)을 집었다. 크기는 배경이고, 기사가 파는 것은 「열 칸 중 일곱」이다"
+    },
+    "twenty-eight-webtoon-platforms": {
+      "figure": "214",
+      "label": "of them have fewer than ten staff",
+      "왜": "자동은 ₩94.5bn 을 집는데 옆 기사 카드와 **똑같은 수**다. 두 카드가 같은 말을 하면 안 나눈 것이다"
+    },
+    "korea-webtoon-two-economies": {
+      "figure": "₩94.5bn",
+      "label": "a platform, ₩1.5bn a content provider",
+      "왜": "자동은 표본 크기 396 을 집었다. 63배 차이가 기사다"
+    },
+    "the-acts-our-k-pop-panel-cannot-see": {
+      "figure": "1,311",
+      "label": "Korean groups our panel cannot see",
+      "왜": "자동은 2,362(패널 크기)를 집는다. 기사가 파는 것은 **못 보는 쪽**이다 / 2026-09-03 — 제목이 1,312 였는데 본문 표는 1,311 이었다. 표가 맞아서 제목과 카드를 1,311 로 맞췄다"
+    },
+    "what-share-of-korean-output-the-charts-touch": {
+      "figure": "15.3%",
+      "label": "of Korean films since 2021 have reached a Netflix Top 10",
+      "왜": "자동은 30%(반올림 글)나 4,752 를 집는다. 두 갈래의 대비가 기사다 / 2026-09-03 — 옛 카드는 시리즈 쪽 31.6% 를 박았는데, **걸린 지면(/titles·/screen-split)에 그 수가 없다.** 약속이 빈 것이다. 지면에 실제로 있는 영화 쪽 15.3% 로 옮긴다(수치도 15.4% → 15.3% 로 움직였다). 대비는 기사 본문이 그대로 말한다."
+    },
+    "eight-ways-we-have-been-wrong": {
+      "figure": "21",
+      "label": "corrections, in eight distinct shapes",
+      "왜": "「4 of 8」로 적었다가 **그 수가 본문에 없어** 카드가 안 만들어졌다. 규칙이 나를 잡았다"
+    },
+    "young-firms-explain-some-of-it": {
+      "figure": "1.32×",
+      "label": "what is left once firm age is held fixed",
+      "왜": "자동은 6.18(근속)을 집는다. 기사가 파는 것은 **나이를 묶어도 남는 것**이다"
+    },
+    "korea-does-not-chart-it-first": {
+      "figure": "46",
+      "label": "of 397 — Korea charted it first",
+      "왜": "자동은 397 을 집었다. 그건 분모다 — 카드가 「동남아에 한국 작품 397편」이라는 다른 기사가 된다. 이 기사의 요점은 397 중 몇이냐다"
+    },
+    "the-share-that-did-not-grow": {
+      "figure": "7.7%",
+      "label": "of the world’s top-10 places are Korean",
+      "왜": "자동은 93(나라 수)을 집을 자리다 — 카드가 「93개국」이라는 다른 기사가 된다. 이 기사의 요점은 자리 비율이다"
+    },
+    "six-titles-or-forty-nine": {
+      "figure": "6",
+      "label": "titles fill half of America’s Korean chart",
+      "왜": "자동은 문장 첫 수를 집는데 그러면 「Six」가 글자라 놓치거나 93 을 집는다. 이 기사의 요점은 6 대 49 라는 대비다"
+    },
+    "the-decline-that-was-not-there": {
+      "figure": "69%",
+      "label": "a decline we could not publish",
+      "왜": "자동은 제목 첫 수 69 를 집는데 딱지가 「down since 2017」로 붙으면 카드가 하락을 사실로 말한다. 이 기사의 요점은 그 수가 틀렸다는 것이다"
+    },
+    "korean-titles-climb": {
+      "figure": "57.1%",
+      "label": "of Korean chart runs climb after week one",
+      "왜": "자동은 제목에서 첫 수를 집는데 그러면 40.5%(그 밖)를 집을 수 있다. 이 기사의 주어는 한국 작품이다 / 2026-08-09 09:5x — 비라틴 제목 23편을 빼면서 57.3 → 57.5 로 움직였다. 카드도 같이 옮긴다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
+    },
+    "there-is-no-k-drama-season": {
+      "figure": "2.1",
+      "label": "points — the whole yearly swing",
+      "왜": "자동은 제목 첫 수를 집는데 그러면 14.1(주 폭)을 집을 수 있다. 이 기사의 요점은 달 폭이 **작다**는 것이다"
+    },
+    "actors-and-idols-same-shape": {
+      "figure": "0.4",
+      "label": "points — the gap once size is held fixed",
+      "왜": "자동은 제목 첫 수 1,008 을 집는다. 이 기사의 요점은 **차이가 거의 없다**는 것이라 그 수를 카드에 박아야 한다"
+    },
+    "middle-of-the-chart": {
+      "figure": "19 of 21",
+      "label": "markets where Korean titles are rarer at #1 than on the chart",
+      "왜": "자동은 dek 첫 수 93 을 집고 설명을 문장 한가운데(「hold 7」)에서 잘랐다. 열어 보니 뜻이 없었다. 이 기사의 요점은 세계 전체 수가 아니라 **방향이 한쪽으로 몰린다**는 것이라 그 수를 박는다 / 2026-08-09 10:3x — 비라틴 제목을 빼면서 띠가 24곳→23곳이 됐다. 카드도 같이 옮긴다 / 2026-09-03 — 패널을 08-23 주까지 올리자 그 띠가 20곳→21곳이 됐다(지면은 「19 of 21」). 카드가 「18 of 20」에 멈춰 있어 check-table-promises 가 잡았다. 자가 제 몫을 했다."
+    },
+    "half-our-panel-cannot-be-verified": {
+      "figure": "215 of 421",
+      "label": "titles that never reached a global Top 10, so the language label cannot be applied",
+      "왜": "자동이 「of 397 titles never reached」에서 문장을 끊었다 — 무엇에 못 닿았는지가 잘려 뜻이 없었다 / 2026-09-03 — 카드가 「214 of 421」에 멈춰 있었다. 본문은 dek·표·정정절 세 곳 모두 「215 of 421」이다. 카드 자가 「기사 본문에 없다」고 막아 알았다 — 자가 제 몫을 했다. ⭐ 손으로 적은 값은 자료가 움직여도 안 따라온다."
+    },
+    "it-moved-it-did-not-shrink": {
+      "figure": "8.56",
+      "label": "points — mean Korean share fall in nine Asian markets",
+      "왜": "자동 딱지가 「points」 한 낱말이라 무엇의 포인트인지 안 보였다. 카드만 보고는 못 읽는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
+    },
+    "women-in-korean-content-companies": {
+      "figure": "22.8",
+      "label": "points between two halves of one sector — the larger fact",
+      "왜": "자동은 56.9% 를 집었는데 이 기사의 요점은 그 수가 아니라 **한 갈래 안의 22.8p 차이**다. 딱지도 「women」 한 낱말이었다"
+    },
+    "kpop-attention-top-is-actors": {
+      "figure": "41.0%",
+      "label": "of K-pop panel attention goes to the 15% who also act",
+      "왜": "자동은 154 를 집고 딱지를 「in our」에서 끊었다. 이 기사의 요점은 사람 수가 아니라 이름의 10% 가 눈길의 32.6% 를 가져간다는 것이다"
+    },
+    "the-twentieth-title-travels-no-further": {
+      "figure": "−0.118",
+      "label": "catalogue size against how far one title travels — nothing there",
+      "왜": "자동은 앞말 첫 수 207 을 집는다. 이 기사의 요점은 회사 수가 아니라 **관계가 없다는 것**이라 그 수를 박는다 / 카드 자가 「본문에 없다」고 울어 알았다 — 기사는 빼기표(U+2212), 카드는 하이픈으로 적었었다"
+    },
+    "the-broadcast-run-that-never-happened": {
+      "figure": "39",
+      "label": "markets for the median Korean series that never aired on Korean TV — against 4",
+      "왜": "자동은 dek 첫 수 287 을 집는다. 이 기사의 요점은 표본 크기가 아니라 **4 대 39** 라 그 수를 박는다"
+    },
+    "the-return-that-was-a-second-season": {
+      "figure": "43.6%",
+      "label": "of Korean chart comebacks are a different season, not a comeback",
+      "왜": "자동은 dek 첫 수 940 을 집는다. 이 기사의 요점은 틈 수가 아니라 **절반 가까이가 복귀가 아니라는 것**이라 그 수를 박는다 / 2026-09-03 — 자료를 다시 지어 이 수가 움직였다. 옛 값이 기사에 남은 것은 「What changed」 정정 표뿐이므로 카드는 새 값을 쓴다"
+    },
+    "how-much-of-our-own-number-is-checked": {
+      "figure": "16.4%",
+      "label": "of our headline figure rests on titles we could not check",
+      "왜": "자동은 dek 첫 수 7.7 을 집는데 그건 이 기사의 주어가 아니다. 요점은 **확인 못 한 몫**이라 그 수를 박는다"
+    },
+    "vietnam-reads-a-different-korea": {
+      "figure": "60.6%",
+      "label": "of Korean-athlete reads in Vietnamese Wikipedia are esports. In Indonesian: 0.2%"
+    },
+    "one-title-is-the-median-career": {
+      "figure": "49.5%",
+      "label": "of Korean actors on a Netflix chart have exactly one charting title"
+    },
+    "a-year-in-one-month": {
+      "figure": "11 of 11",
+      "label": "Korean esports players in our Southeast Asian panel peak in the same single month"
+    },
+    "no-one-to-compare-against": {
+      "figure": "71.4%",
+      "label": "of Korean esports players with a Southeast Asian article are read enough to measure. For China, Sweden and the US together: 9.1%"
+    },
+    "it-was-one-game": {
+      "figure": "85.7%",
+      "label": "of the Korean esports players we could measure in Southeast Asian Wikipedias play one game"
+    },
+    "the-manager-is-read-where-he-was-hired": {
+      "figure": "82.4%",
+      "label": "of a Korean football manager reads sit in one country. For players it is 50.6%"
+    },
+    "the-ceiling-and-the-band": {
+      "figure": "342.3",
+      "label": "Son Heung-min, above all 1,023 Korean entertainers we measured in Southeast Asia"
+    },
+    "one-act-clears-the-footballer": {
+      "figure": "380.76",
+      "label": "BTS, the only Korean act read more in Southeast Asia than Son Heung-min (342.3)"
+    },
+    "malaysia-reads-the-label": {
+      "figure": "23%",
+      "label": "of four-country reading about Korean brands is Malaysian. For Korean people it is 7.6 to 8.6%"
+    },
+    "k-pop-groups-travel-widest": {
+      "figure": "41.7%",
+      "label": "of a K-pop group reads sit in one country — closest to even of any Korean name we measured"
+    },
+    "a-label-outreads-the-capital": {
+      "figure": "111.47",
+      "label": "YG Entertainment, read more across Southeast Asia than Seoul (106.54)"
+    },
+    "the-instrument-was-wrong-not-the-question": {
+      "figure": "9.9×",
+      "label": "more reads for the median actor with five charting titles than for the median actor with one"
+    },
+    "brands-are-not-one-thing": {
+      "figure": "53.79",
+      "label": "Indonesia on German cars: first of four. On luxury houses: last.",
+      "왜": "자동은 22(브랜드 개수)를 집는데 그 수는 손님을 안 멈춰 세운다. 이 기사는 같은 나라가 갈래마다 자리를 바꾼다는 것이다. 「1st and 4th」로 넣었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 수는 기사에 있는 53.79 를 쓰고 대비는 라벨에 담는다"
+    },
+    "where-the-counting-stops": {
+      "figure": "Five",
+      "label": "of Seoul's 25 districts the public tourist count can speak for",
+      "왜": "자동은 「16 — of 24 districts the admissions table」로 문장 한가운데를 끊었다. 「5 of 25」로 넣었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 기사에 그대로 있는 「Five.」를 쓰고 25 는 딱지에 담는다"
+    },
+    "december-looking-june-quiet": {
+      "figure": "June",
+      "label": "the month both the looking and the flying fall to their lowest",
+      "왜": "자동이 글머리에서 수를 못 찾았다. 이 기사의 요점은 봉우리(12월·1월)가 아니라 **바닥이 둘 다 6월**이라는 것이다. 수보다 달 이름이 그 요점을 그대로 담는다. 기사 본문에 「June」이 그대로 있다"
+    },
+    "half-life-two-months": {
+      "figure": "19",
+      "label": "of 26 Korean titles came back above half. Median half-life: two months",
+      "왜": "자동이 글머리에서 수를 못 찾아 빌드를 세웠다. ⛔ 「two months」만 카드에 박으면 「두 달이면 끝」으로 읽힌다 — 그건 이 기사가 통째로 부정하는 말이다. / 🔴 8/15 두 번째 — 작품을 35→59 로 늘리자 12/16 이 19/26 이 됐는데 카드는 옛 수 그대로였다. 손으로 적은 값은 자료가 늘어도 안 따라온다. 자료를 늘리면 이 칸을 같이 본다"
+    },
+    "one-title-out": {
+      "figure": "0 against 0.89",
+      "label": "how far two of our own medians moved when one title was removed",
+      "왜": "자동이 「89% — of itself」로 집어 무엇의 89%인지가 잘렸다. 이 기사의 요점은 한 수가 아니라 **두 수의 대비**다 — 하나는 꿈쩍 않고 하나는 제 크기만큼 움직였다. / ⛔ 「0× vs 0.89×」로 적었더니 검사가 「기사 본문에 없다」고 막았다 — 옳다. 본문에 그대로 있는 「0 against 0.89」를 쓴다"
+    },
+    "bts-babymonster-four-lists": {
+      "figure": "133.45",
+      "label": "BTS reads per million in Vietnam",
+      "왜": "자동이 글머리에서 수를 못 찾아 카드 만들기가 전부 멈췄다(2026-08-22). 이 기사가 실제로 낸 가장 큰 수는 베트남 133.45 — 말레이 33.93 의 네 배라는 그 대비가 요점이다. 본문 28·40·78행에 있다"
+    },
+    "three-actors-no-leader": {
+      "figure": "110.83",
+      "label": "the highest single-country reads per million",
+      "왜": "자동이 수를 못 찾아 카드 만들기가 전부 멈췄다(2026-08-22). 이 기사의 요점은 «셋이 다 있는데 1위가 아무도 없다»이고, 그 가장 높은 칸이 태국의 고윤정 110.83 이다. 본문 33·37행에 있다"
+    },
+    "iu-saju-water-in-all-twelve-hours": {
+      "figure": "5–7",
+      "label": "strength splits strong–weak across twelve"
+    },
+    "jungkook-saju-structure-splits-five-ways": {
+      "figure": "twelve",
+      "label": "hours giving the same strength and element"
+    },
+    "karina-saju-structure-settled-in-half-the-cases": {
+      "figure": "1,047",
+      "label": "Korean entertainers checked the same way"
+    },
+    "most-korean-titles-never-leave-home": {
+      "figure": "28.1%",
+      "label": "of Korean titles charted only at home"
+    },
+    "no-bts-member-outdraws-bts": {
+      "figure": "28",
+      "label": "countries where the group page wins",
+      "왜": "글머리가 문장으로 시작해 자동이 수를 못 집는다. 이 기사의 요점은 「28개국 전부에서 그룹 지면이 이긴다」다"
+    },
+    "squid-game-cast-second-biggest-title": {
+      "figure": "93",
+      "label": "countries Squid Game charted in",
+      "왜": "글머리에 수가 없다. 표의 첫 줄들이 다 93 인데 그 93 은 「전 세계 몇 나라」라는 이 기사의 바탕값이다"
+    },
+    "vietnam-number-one-thirty-four-weeks": {
+      "figure": "34",
+      "label": "weeks Korean titles held No.1 in Vietnam",
+      "왜": "글머리에 수가 없다. 제목이 말하는 34주가 이 기사의 요점이고 표 첫 줄에 그대로 있다"
+    },
+    "alchemy-of-souls-ran-longest-without-number-one": {
+      "figure": "27",
+      "label": "weeks on charts, never once at number one",
+      "왜": "자동 딱지가 「weeks」 한 낱말이라 무엇의 27주인지 안 보였다"
+    },
+    "bigger-title-smaller-share": {
+      "figure": "0.68",
+      "label": "correlation — bigger titles take a smaller share",
+      "왜": "자동 딱지가 아예 비었다. 0.68 만 있으면 카드에서 무슨 수인지 알 길이 없다"
+    },
+    "choi-baek-ho-no-english-page": {
+      "figure": "30",
+      "label": "August — the month he was read, with no English page",
+      "왜": "자동은 「30 August」에서 딱지를 「August」로 잘라 날짜만 남았다"
+    },
+    "korean-titles-rarely-chart-alone": {
+      "figure": "16,408",
+      "label": "chart places sat beside another Korean title",
+      "왜": "자동 딱지가 「of them」이라 무엇의 16,408 인지 안 보였다"
+    },
+    "odyssey-outreads-korean-films": {
+      "figure": "119,356",
+      "label": "Korean Wikipedia reads for one non-Korean film",
+      "왜": "자동 딱지가 「times」 한 낱말이었다. 이 기사의 요점은 그 수가 «한국 영화 열넷을 합친 것»보다 크다는 것이다"
+    },
+    "only-four-countries-come-close-to-all-korean": {
+      "figure": "51",
+      "label": "charts with nine or ten places Korean",
+      "왜": "자동은 dek 첫 수를 집는다. 이 기사의 요점은 «네 나라»이고, 그 넷을 가른 수가 51(다 찬 8 + 아홉 자리 43)이다. 4 를 쓰면 앞 기사(the-four-weeks…)의 카드와 같은 수가 되어 둘이 헷갈린다"
+    },
+    "netflix-weeks-in-top-10-is-not-weeks-in-a-row": {
+      "figure": "98%",
+      "label": "of returns keep counting, not restart",
+      "왜": "자동은 제목의 「top 10」에서 10 을 집어 딱지가 「number」 여섯 자가 됐다. 이 기사의 요점은 틈 뒤에도 98% 가 이어서 센다는 것 — 그래서 「연속 몇 주」로 읽으면 틀린다는 것이다"
+    },
+    "malaysia-gets-korean-titles-in-the-debut-week": {
+      "figure": "71.9%",
+      "label": "of Korean titles reach Malaysia in week one",
+      "왜": "자동은 dek 첫 수 33% 를 집고 딱지가 비었다(그 앞에 낱말이 없다). 이 기사의 요점은 말레이시아 71.9% 이고, 33% 는 견줄 상대(영국)다"
+    },
+    "ten-wikipedias-one-audience": {
+      "figure": "51.9%",
+      "label": "of Korean stars who sing and act sit in 10+ Wikipedia languages. Singers: 8.1%",
+      "왜": "자동은 글머리 첫 수 9,249 를 집는다 — 그건 명부 크기(분모)이고 카드가 「한국 연예인 9,249명」이라는 다른 기사가 된다. 이 기사의 요점은 «한 쪽만 하는 사람과의 거리»라 51.9 대 8.1 을 박는다. 둘 다 본문 표에 그대로 있다."
+    },
+    "arts-high-school-beats-sky-universities": {
+      "figure": "58.4%",
+      "label": "of one arts school crossed 10 languages",
+      "왜": "글머리 첫 수는 4,535(표본)다. 독자를 멈춰 세우는 수는 58.4% — 그 학교의 비율이다"
+    },
+    "more-charting-work-raises-the-floor": {
+      "figure": "7.0x",
+      "label": "more readers, floor only — not the ceiling",
+      "왜": "글머리 첫 수는 1,113(표본)이다. 요점은 바닥이 7배 오르고 천장은 안 오른 것이다"
+    },
+    "chart-credits-buy-a-level-not-a-direction": {
+      "figure": "1,113",
+      "label": "actors in Netflix charting Korean titles"
+    },
+    "v-led-108-weeks-jung-kook-read-more": {
+      "figure": "108",
+      "label": "weeks V led the reading, and Jung Kook still won",
+      "왜": "자동은 171 을 집고 딱지가 「weeks」 다섯 자로 잘린다. 이 기사의 요점은 108주 앞서고도 총량에서 진 것이다"
+    },
+    "what-dreamworks-is-chasing-93-countries": {
+      "figure": "93",
+      "label": "countries KPop Demon Hunters charted in",
+      "왜": "자동 딱지가 「into」로 끝나 뒤가 잘린다. 문장을 닫아 준다"
+    },
+    "wikipedia-renamed-jungkook-readers-did-not": {
+      "figure": "72.1%",
+      "label": "of reads still arrive at the old name",
+      "왜": "자동은 4.09m 을 집는데 바로 뒤 「.7」에서 잘려 수가 반 토막 난다. 72.1% 는 기사 본문과 /name-spelled 표에 «둘 다» 있는 수다 — 카드가 약속한 수를 표가 지킨다"
+    },
+    "cortis-100-million-views-english-readers-arrived-first": {
+      "figure": "9.5x",
+      "label": "more English readers now than at debut",
+      "왜": "자동은 제목의 「2025,」를 집는다 — 연도이지 발견이 아니다. 이 기사의 수는 다섯 중 하나만 오른 그 배수다"
+    },
+    "bts-six-signs-ordinary-9249-behind-them-are-not": {
+      "figure": "9,249",
+      "label": "Korean stars behind the six signs",
+      "왜": "자동은 38.7%(무작위와 같다는 수)를 집는데, 그것은 「놀랍지 않다」는 말이다. 기사가 놀랍다고 하는 것은 그 뒤 9,249명 쪽이다"
+    },
+    "six-korean-stars-renamed-readers-did-not-follow": {
+      "figure": "6",
+      "label": "stars renamed, and readers followed none",
+      "왜": "자동 딱지가 「to a different」에서 잘린다. 문장을 닫아 준다"
+    },
+    "wikipedia-brackets-one-word-korean-names": {
+      "figure": "100",
+      "label": "most-read stars; 20 carry most of the titles",
+      "왜": "6.5(중간값)는 /name-spelled 표에 없고 732 는 본문이 아니라 앞말에만 있다. 100 은 본문과 표 둘 다에 있다 — 카드가 약속한 수를 표가 지킨다"
+    },
+    "casting-news-does-not-move-english-readers": {
+      "figure": "0.44",
+      "label": "x the reading, after the story named them",
+      "왜": "자동은 「14 days before」의 14 를 집는다 — 방법이지 발견이 아니다. 0.44 는 이 표에서 가장 큰 움직임이고 방향까지 말한다 · ⛔ 「her」로 썼다가 고쳤다 — 그 사람의 대명사를 우리가 아는 것이 아니다. 모르면 they 로 쓴다"
+    },
+    "two-solo-comebacks-one-day-groups-still-outread-them": {
+      "figure": "0.27",
+      "label": "x BTS — Jimin, the group still outread",
+      "왜": "자동은 「5 September」의 5 를 집는다 — 날짜이지 발견이 아니다. 0.27 은 기사 본문과 /member-vs-group 표에 둘 다 있다"
+    },
+    "jimin-34x-english-stadium-acts-reverse": {
+      "figure": "2,091",
+      "label": "English readers a day. In Korean, 61",
+      "왜": "제목의 34 는 배수라 카드에서 뜻이 약하다. 2,091 대 61 이 한눈에 갈리는 수다"
+    },
+    "what-is-in-netflix-top10-tsv-files": {
+      "figure": "501,040",
+      "label": "rows, 94 countries, 269 weeks",
+      "왜": "파일을 찾아온 사람이 알고 싶은 첫 수가 «몇 줄인가»다. 37.9%(빈 칸)는 흠이라 카드에 앞세우지 않는다"
+    },
+    "yunho-tour-seven-cities-one-speaks-english": {
+      "figure": "120.7",
+      "label": "views a day in English — a language one tour stop of seven speaks",
+      "왜": "자동은 「120.7 — a day」로 잘라 무슨 말인지 안 남는다. 수는 그대로 두고 딱지에 어긋남을 넣는다. ⛔ 「1 of 7」로 하려다 그 글자가 본문에 없어 자가 막았다 — 본문에 없는 수를 카드에 내지 않는 규칙이 맞다."
+    },
+    "zodiac-compatibility-tested-on-real-groups": {
+      "figure": "4,651",
+      "label": "K-pop pairings counted. No two signs find each other",
+      "왜": "자동은 259(그룹 수)를 집는다. 손님을 멈춰 세우는 것은 «얼마나 많이 세었나»이고, 딱지가 그 답까지 말해 준다."
+    },
+    "gucci-week-moved-nothing-birthday-moved": {
+      "figure": "1.01×",
+      "label": "what a global Gucci campaign left, once his bandmates are counted",
+      "왜": "자동은 큰 수(7,996)를 집는다. 그런데 이 기사의 논점은 «작은 수»다 — 아무 일도 안 일어난 것이 발견이다. 1.01 이 그 발견을 그대로 보여 준다."
+    },
+    "korea-culture-data-free-but-not-maintained": {
+      "figure": "1,022",
+      "label": "of Korea's 1,344 culture datasets have not moved in a year",
+      "왜": "자동은 1,344(전체)를 집는다. 그런데 이 기사의 발견은 «움직이지 않는 쪽»이다. 무료 80%는 좋은 소식처럼 읽히고, 그 옆에 놓아야 할 수가 1,022 다."
+    },
+    "190-countries-and-the-94-that-can-be-counted": {
+      "figure": "94",
+      "label": "countries Netflix publishes a chart for. The rest cannot be counted",
+      "왜": "자동은 190(발표 수)을 집는다. 그런데 이 기사의 발견은 «셀 수 있는 쪽»이 94뿐이라는 것이다. 남의 발표 수를 우리 카드에 크게 싣지 않는다."
+    },
+    "a-name-fight-and-the-423-titles-that-already-share-one": {
+      "figure": "423",
+      "label": "of 974 Korean titles already share their English name with something else",
+      "왜": "자동은 974(전체)를 집는다. 발견은 «겹치는 쪽»이다 — 소송 한 건 옆에 놓아야 할 수가 423 이다."
+    },
+    "kpop-group-attention-halves-in-two-months": {
+      "figure": "65",
+      "label": "months Stray Kids held — the median is 2",
+      "왜": "자동이 65 를 집었지만 딱지가 비어 무슨 65 인지 안 보였다. 이 기사의 요점은 65 라는 예외와 2 라는 보통값의 «거리»라 둘을 한 줄에 담는다"
+    },
+    "mexico-watches-korea-does-not-look-it-up": {
+      "figure": "63",
+      "label": "of 93 Korean article appearances were Japan",
+      "왜": "자동은 51(넷플릭스 주수)을 집을 자리다 — 그러면 카드가 앞 기사(데몬헌터스)와 같은 말을 한다. 이 기사의 발견은 «일본 쏠림»이라 그 수를 박는다"
+    },
+    "most-korean-films-on-netflix-chart-in-one-country": {
+      "figure": "328",
+      "label": "of 577 Korean films charted in one country",
+      "왜": "자동은 577(전체)을 집는다. 발견은 «한 나라뿐인 쪽»이라 그 수를 박는다"
+    },
+    "when-does-a-kpop-group-peak": {
+      "figure": "35",
+      "label": "of 183 acts peaked in their debut year",
+      "왜": "자동은 774(표본)를 집는다. 발견은 «데뷔해에 봉우리가 오는 팀이 적다»는 것이라 그 수를 박는다 / 2026-09-07 — 자료를 847팀으로 넓히면서 28 → 35 로 움직였다. 손으로 적은 값은 자료가 늘어도 안 따라오므로 같이 옮긴다"
+    },
+    "kpop-demon-hunters-62-weeks-toys-arrive-late": {
+      "figure": "51",
+      "label": "weeks in Mexico — the United States gave 49",
+      "왜": "자동은 62(라트비아)를 집는데 그건 축 지면 제목과 같은 수다. 이 기사가 파는 것은 멕시코가 미국보다 길었다는 대비다"
+    },
+    "webtoon-adaptations-read-14x-more": {
+      "figure": "14.0x",
+      "label": "more reads once a Korean webtoon is adapted",
+      "왜": "자동은 51(짝 수)을 집는다. 발견은 배수 자체다"
+    },
+    "hit-or-flop-240-of-546-reached-number-one": {
+      "figure": "546",
+      "label": "Korean titles with a Netflix chart standing — 240 of them hit No.1",
+      "왜": "자동이 고른 수(546)는 맞았고 «딱지»가 비어 있었다. 그래서 딱지만 적는다. ⛔ 240 으로 바꿨다가 되돌렸다 — 240 은 이 기사의 스냅숏이라 걸린 지면 셋(/titles·/catalogue-depth·/by-country)에 지면의 수로 안 나온다(그 기사 링크 글자로만 나온다). 546 은 세 지면에 다 나온다"
+    },
+    "january-peaks-september-does-not": {
+      "figure": "774",
+      "label": "Korean acts, and the calendar month each was read most",
+      "왜": "자동이 고른 수(774)는 맞았고 딱지가 「…we know the single」로 끊겨 읽혔다(글머리 문장을 낱말 수로 자르는 탓이다). 수는 그대로 두고 딱지만 적는다"
+    },
+    "fan-votes-and-encyclopedia-reads-disagree": {
+      "figure": "75.7%",
+      "label": "of a Korean act’s reading lands on its members, not the act"
+    }
   }
- }
 }
