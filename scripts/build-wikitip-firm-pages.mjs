@@ -20,6 +20,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 지금 } from './_kst.mjs';
+import { 등급 } from './collect-korean-title-firms.mjs';
+
+/**
+ * **지면을 내는 문턱 — 차트에 든 작품 편수.**
+ *
+ * ⚠ 이 자는 `grade === 'A'` 로 걸러 왔고, `등급()` 은 편수만 본다(10편 이상이 A).
+ *   그런데 지면 글에는 「카탈로그를 온전히 볼 수 있는 곳」이라고 적혀 있었다 — 사실이 아니었다.
+ * ✅ 그래서 문턱을 «수»로 이 자리에 세우고, 지면 글이 그 수를 읽어 말하게 한다.
+ * ⛔ 손으로 10 이라 적고 끝내지 않는다. 아래 자가시험이 `등급()` 과 «맞는지» 잰다 —
+ *   등급 규칙이 바뀌면 시험이 깨져서 알려 준다.
+ */
+export const 지면문턱 = 10;
 
 const 나라파일 = 'archive/raw/netflix-top10/countries.ndjson';
 const 회사파일 = 'archive/raw/netflix-top10/firm-works.json';
@@ -99,6 +111,15 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   재본다('같은 넓이면 이른 주', 가장넓은주([ㅈ('w2', 'KR'), ㅈ('w1', 'JP')]),
     { week: 'w1', countries: 1 });
   재본다('빈 것', 가장넓은주([]), { week: null, countries: 0 });
+  /**
+   * 🔴 [2026-09-08] 지면 글이 자름선을 «다른 것으로» 말하고 있었다 —
+   *   「카탈로그를 온전히 볼 수 있는 곳만」이라고 적혀 있었는데, 실제 자름선은 편수뿐이다.
+   * ✅ 그래서 문턱 수를 세우고 `등급()` 과 어긋나지 않는지 여기서 잰다.
+   *   ⛔ 등급 규칙이 바뀌면 이 시험이 깨진다 — 그때 지면 글도 같이 고쳐야 한다.
+   */
+  재본다(`문턱 ${지면문턱}편이면 A등급이다`, 등급(지면문턱), 'A');
+  재본다(`문턱보다 한 편 적으면 A가 «아니다»`, 등급(지면문턱 - 1) === 'A', false);
+  재본다('편수가 0이어도 등급을 낸다(빈 값이 아니다)', typeof 등급(0), 'string');
   console.log(`회사 지면 수집기 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
 }
@@ -224,9 +245,29 @@ if (내가실행됐다) {
     whatIsNotHere: 'The week-by-week path of each title, its rank in each market, the full market table and the '
       + 'titles that never charted are in the company sheet, not on this page.',
     /* 🔴 이 문장이 「여덟을 골랐다」였다. 이제 고르지 않으므로 고른 이유를 적을 것이 없다.
-       ⛔ 대신 **무엇이 빠졌는지**를 적는다 — 안 보이는 것과 없는 것은 다르다. */
-    whichCompanies: 'Every company whose catalogue we can see completely, in alphabetical order. We do not choose which ones to publish, so this list is not a ranking and being on it is not a judgement.',
-    whatIsMissing: 'Companies whose catalogue we can only see in part have no sheet here. That is a limit of what the credits let us count, not a statement about the company.',
+       ⛔ 대신 **무엇이 빠졌는지**를 적는다 — 안 보이는 것과 없는 것은 다르다.
+
+       🔴🔴 [2026-09-08 · 5번] **그 두 문장이 사실이 아니었다. 라이브 20장에 나가 있었다.**
+         적혀 있던 말: 「Every company whose catalogue we can see completely」
+                     「Companies whose catalogue we can only see in part have no sheet here」
+         ⇒ 「목록을 온전히 볼 수 있는 회사만 낸다」로 읽힌다.
+
+         그런데 실제 자름선은 `collect-korean-title-firms.mjs` 의 `등급()` 이고, 그것은
+         **차트에 든 작품 «편수»뿐**이다 — A는 10편 이상, B는 5편 이상, 그 아래가 C.
+         카탈로그를 얼마나 보는지는 **재지도 않는다.**
+
+       ⛔ 9편인 회사는 「부분만 보이는 곳」이 아니다. 그냥 편수가 적은 곳이다.
+         우리 강령이 「가공하지 않은 사실만 놓는다」인데, 이 문장은 자름선을 «다른 것으로»
+         바꿔 말했다. 지면 스무 장이 그 말을 하고 있었고 그중 하나가 B2B 지면(/for-industry)이다.
+       ⭐ 그리고 이 자름선은 «문턱 수»를 지면이 직접 말해야 한다 — 그래야 손님이 검산한다.
+         그래서 아래 문장은 손으로 적지 않고 `지면문턱` 에서 읽어 만든다. */
+    whichCompanies: `Every company with ${지면문턱} or more titles that reached a Netflix weekly top 10, in alphabetical order. `
+      + 'The cut is a title count and nothing else, so this list is not a ranking and being on it is not a judgement.',
+    whatIsMissing: `Companies with fewer than ${지면문턱} charting titles have no sheet here. `
+      + 'That is a threshold we set to keep each sheet worth reading, not a statement about the company, '
+      + 'and not a claim about how much of its catalogue we can see.',
+    /** ⚠ 문턱을 자료에 함께 낸다. 지면이 수를 손으로 적지 않게 하려는 것이다 */
+    pageThreshold: 지면문턱,
     weeksSpanned: 주모음.size,
     rowsRead: 줄,
     pages: 지면들.length,
