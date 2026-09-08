@@ -92,6 +92,7 @@ const jsonLd = {
         <tr><td>Reads in the window</td><td>{수(셈.전체합)}</td></tr>
         <tr><td>Desktop, all reading added together</td><td><b>{몫(셈.합쳐본데스크톱몫)}</b></td></tr>
         <tr><td>Desktop for the median act</td><td><b>{몫(셈.데스크톱몫중앙값)}</b></td></tr>
+        <tr><td>Spread across debut decades, median act (points)</td><td><b>{띠폭 == null ? "not measured" : (Number(띠폭) * 100).toFixed(1)}</b></td></tr>
         <tr><td>Phone (mobile web plus app)</td><td>{몫(1 - Number(셈.합쳐본데스크톱몫))}</td></tr>
       </tbody>
     </table>

@@ -55,6 +55,11 @@ const 북 = (자료.northOfBoxPeople ?? []).map((p: any) => ({
 
 const 수 = (n: number) => Number(n).toLocaleString('en-US');
 const 첫셋 = 밖.slice(0, 3).map((p: any) => p.이름).join(', ');
+/* ⭐ [2026-09-09 · 5번] 기사가 내건 대표 수(적힌 몫)를 표 칸으로 낸다.
+   ⛔ 「4.7%」를 글자로 박지 않는다 — 자료가 늘면 지면이 자기와 싸운다 */
+const 적힌수 = Number(자료.looked ?? 0);
+const 판수 = Number(자료.peopleTotal ?? 0);
+const 적힌몫 = 판수 ? `${((적힌수 / 판수) * 100).toFixed(1)}%` : null;
 
 /* 🔴 [2026-08-26 · 5번] 자동완성에 「korean actors born abroad」가 «있다»(1번째).
    내 제목은 「Korean **stars** born outside Korea」였다 — 치는 말이 아니다. */
@@ -101,6 +106,21 @@ const 설명 = `${밖.length} of the most-read Korean actors and idols we could 
     <a href="/hometowns">{(자료.cities ?? []).length} city pages</a>, because there is no Korean city
     to put them in — which is exactly why this page exists.
   </p>
+
+  <section class="src">
+    <h2>What this record covers</h2>
+    <table>
+      <thead><tr><th>What we counted</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>Korean names in the panel</td><td>{수(판수)}</td></tr>
+        <tr><td>Of those, a birthplace is recorded at all</td>
+          <td><b>{적힌몫 ?? <span class="fine">not measured</span>}</b></td></tr>
+        <tr><td>Names with a birthplace on record</td><td>{수(적힌수)}</td></tr>
+        <tr><td>Recorded as born outside Korea</td><td>{수(밖.length)}</td></tr>
+        <tr><td>Nationality</td><td><span class="fine">not in this record at all</span></td></tr>
+      </tbody>
+    </table>
+  </section>
 
   <div class="scroll">
     <table>

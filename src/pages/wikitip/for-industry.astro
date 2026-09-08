@@ -250,8 +250,11 @@ const jsonLd = {
   <section>
     <h2>See it before you ask for it</h2>
     <p class="note lead-in">
-      Eight companies have a public page showing how far their titles travelled — markets reached,
-      how many held a title in the same week, and where the places fell. The sheet goes further; the
+      {firmPages.firms.length} companies have a public page showing how far their titles travelled —
+      markets reached, how many held a title in the same week, and where the places fell. A company
+      gets a page once {firmPages.pageThreshold} or more of its titles have reached a Netflix weekly
+      top 10 — that count is the whole cut line.
+      The sheet goes further; the
       page is enough to see whether the measurement is the one you need.
     </p>
     <div class="scroll-x">
