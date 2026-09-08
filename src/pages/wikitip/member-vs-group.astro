@@ -23,10 +23,65 @@ import d from '../../data/wikitip-member-vs-group.json';
 /* 🔴 [2026-09-05] 같은 물음을 «영어»로 다시 잰 자료. 아래 절에서 쓴다 */
 import 영어 from '../../data/wikitip-solo-vs-group.json';
 import KcwPanel from '../../components/KcwPanel.astro';
+/**
+ * 🔴 [2026-09-08 · 5번] **380팀으로 넓힌 판.** 위 「영어」 절은 솔로 여덟 명을 «개인 대 그룹»으로
+ *   30일 중앙 일일 열람으로 잰다. 이것은 «멤버 전체 몫»을 12달 합계로 380팀에서 잰다.
+ *
+ *   ⛔ 새 지면을 만들지 않았다. 이 지면이 스스로 적어 둔 규칙이 그것이다 —
+ *     「같은 축을 두 지면에 나누면 손님이 둘 다 못 본다」.
+ *     ⚠ 나는 어젯밤 그 규칙을 안 읽고 이 지면을 «덮어썼다». 되돌리고 여기 절로 붙인다.
+ *
+ *   ⭐⭐ 붙이기 «전»에 두 자료가 서로 싸우지 않는지 여덟 짝으로 대조했다(2026-09-08 08:3x) —
+ *     **같은 방향 8 · 어긋남 0 · 못 잼 0.** 창도 자도 다른데 답이 같다.
+ *     그 사실을 지면에 싣는다. 손님이 우리 수를 믿을 근거이기 때문이다.
+ *   ⛔ 다만 두 절의 수를 «한 문장에서» 섞지 않는다 — 30일 중앙 일일 ≠ 12달 합계다.
+ */
+import 넓힌판 from '../../data/kcw-member-vs-group.json';
 
 const 늘위 = d.pairs.filter((p) => p.memberHigherIn === p.editions.length);
 const 늘아래 = d.pairs.filter((p) => p.memberHigherIn === 0);
 const 섞임 = d.pairs.filter((p) => p.memberHigherIn > 0 && p.memberHigherIn < p.editions.length);
+
+/* ── 380팀 판의 셈. ⛔ 지면에서 손으로 적지 않고 여기서 «센다» ────────────── */
+const 넓힌팀 = 넓힌판.팀;
+const 큰순 = [...넓힌팀].sort((a: any, b: any) => b.통합열람 - a.통합열람);
+const 하위 = 넓힌팀.filter((t: any) => t.하위유닛짐작 === true);
+const 본유닛 = 넓힌팀.filter((t: any) => t.하위유닛짐작 === false);
+const 중앙값 = (xs: number[]) => {
+  if (!xs.length) return null;
+  const s = [...xs].sort((a, b) => a - b);
+  const m = Math.floor(s.length / 2);
+  return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+};
+const 몫들 = (xs: any[]) => xs.map((t) => t.멤버몫);
+const 넓힌묶음 = [
+  { 이름: 'All acts we could measure', 것: 넓힌팀 },
+  { 이름: 'Excluding suspected sub-units', 것: 본유닛 },
+  { 이름: 'Suspected sub-units only', 것: 하위 },
+].map((g) => ({ ...g, 수: g.것.length, 중앙: 중앙값(몫들(g.것)) }));
+const 넓힌전부 = 넓힌묶음[0];
+const 넓힌뺀것 = 넓힌묶음[1];
+const 넓힌짝 = 넓힌팀.reduce((a: number, t: any) => a + t.멤버수, 0);
+const 퍼 = (x: number | null) => (x == null ? '—' : `${(x * 100).toFixed(1)}%`);
+const 천 = (n: number) => Number(n).toLocaleString('en-US');
+
+/**
+ * ⭐ 두 자료가 같은 방향인가 — 여덟 짝을 «지면에서» 다시 센다.
+ *   ⛔ 08:3x 에 손으로 재고 「어긋남 0」이라 적어 두는 것으로 끝내지 않는다.
+ *     자료가 다시 지어지면 그 수가 틀려진다. 그러면 지면이 자기와 싸운다 —
+ *     어제 /peak-month 에서 겪은 그것이다. 그래서 «지면이 셀 때마다 다시 센다».
+ */
+const 대조 = 영어.rows.map((r: any) => {
+  const t = 넓힌팀.find((x: any) => x.이름.toLowerCase() === r.groupLabel.toLowerCase())
+    || 넓힌팀.find((x: any) => x.이름.toLowerCase().startsWith(r.groupLabel.toLowerCase()));
+  if (!t) return { 이름: r.personLabel, 잼: false };
+  const m = t.멤버들.find((x: any) => x.이름.toLowerCase().startsWith(r.personLabel.toLowerCase()));
+  if (!m) return { 이름: r.personLabel, 잼: false };
+  return { 이름: r.personLabel, 잼: true, 같나: (r.times > 1) === (m.열람 > t.팀열람) };
+});
+const 대조잰것 = 대조.filter((x: any) => x.잼);
+const 대조같음 = 대조잰것.filter((x: any) => x.같나).length;
+const 대조못잼 = 대조.length - 대조잰것.length;
 
 const 영어앞선 = 영어.rows.filter((r: any) => (r.times ?? 0) > 1);
 const 영어큰 = [...영어.rows].sort((a: any, b: any) => b.personReads - a.personReads);
@@ -211,6 +266,102 @@ const jsonLd = {
     )}
     {영어.notMeasured.map((s: string) => <p class="note">{s}</p>)}
     <p class="note">Source: {영어.source}. {영어.measures}.</p>
+  </section>
+
+  {/* 🔴 [2026-09-08] 380팀 판. 위 영어 절(솔로 여덟)의 «넓힌 판»이라 그 바로 뒤에 둔다.
+      ⛔ 두 절의 수를 한 문장에서 섞지 않는다 — 30일 중앙 일일 ≠ 12달 합계다. */}
+  <section>
+    <h2>The same question across {천(넓힌전부.수)} acts, not eight</h2>
+    <p class="note">
+      The eight above are soloists we picked. This is every Korean act whose members have English
+      Wikipedia articles &mdash; <b>{천(넓힌전부.수)} acts</b> and <b>{천(넓힌짝)} act&ndash;member
+      pairs</b> &mdash; and instead of one person against their group it asks a different question:
+      of all the reading an act attracts, <b>how much lands on member pages rather than the act&rsquo;s
+      own?</b> Window {넓힌판.창}, totals rather than daily medians.
+    </p>
+
+    {대조잰것.length > 0 && (
+      <p class="note">
+        <b>The two counts agree.</b> Where both sets contain the same pair, they point the same way
+        in <b>{대조같음} of {대조잰것.length}</b> &mdash; measured over different windows, in
+        different units, by different collectors.
+        {대조못잼 > 0 && <> {대조못잼} pair{대조못잼 > 1 ? 's' : ''} could not be matched, and
+          {대조못잼 > 1 ? ' are' : ' is'} left out rather than counted as agreeing.</>}
+        {' '}That is not a proof, but two instruments disagreeing would have been a warning, and
+        they do not.
+      </p>
+    )}
+
+    <p class="note">
+      For the median act, <b>{퍼(넓힌전부.중앙)}</b> of the reading goes to the members. That share
+      is inflated by sub-units &mdash; groups whose own name is not what people know &mdash; so they
+      are separated out below. Even without them the median is <b>{퍼(넓힌뺀것.중앙)}</b>.
+    </p>
+
+    <div class="scroll-x">
+      <table>
+        <caption>
+          A sub-unit here means half or more of its members also belong to another act in this set.
+          Wikidata has no property that marks one, so this is an inference, not a fact on the record.
+        </caption>
+        <thead>
+          <tr><th>Set</th><th>Acts</th><th>Median member share</th></tr>
+        </thead>
+        <tbody>
+          {넓힌묶음.map((g) => (
+            <tr>
+              <td>{g.이름}</td>
+              <td>{천(g.수)}</td>
+              <td><b>{퍼(g.중앙)}</b></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="scroll-x">
+      <table>
+        <caption>
+          The twenty most-read acts, sorted by total reads rather than by share &mdash; sorting by
+          share fills the top of a table with small acts and sub-units.
+        </caption>
+        <thead>
+          <tr><th>Act</th><th>Members</th><th>Act page</th><th>Member pages</th>
+            <th>Member share</th><th>Most-read member</th></tr>
+        </thead>
+        <tbody>
+          {큰순.slice(0, 20).map((t: any) => (
+            <tr>
+              <td class="nm">{t.이름}{t.하위유닛짐작 === true && <span class="fine"> · sub-unit?</span>}</td>
+              <td>{t.멤버수}</td>
+              <td>{천(t.팀열람)}</td>
+              <td>{천(t.멤버열람)}</td>
+              <td><b>{퍼(t.멤버몫)}</b></td>
+              <td class="nm">{t.으뜸멤버}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    {/* ⚠ 자료의 `이것이아닌것` 은 우리말이라 지면에 그대로 못 싣는다(한국어 검사가 막는다).
+        그래서 아래에서 영어로 다시 쓴다. 뜻을 줄이지 않는다.
+        ⚠ 그리고 주석을 «문장 사이»에 두지 않는다 — 아스트로가 그 자리의 공백을 지워
+          「measured.This」로 붙는다. 오늘 이 실수를 네 번째로 했다. */}
+    <p class="note">
+      A high member share does not mean an act is coming apart, and a low one does not mean it is
+      united &mdash; nothing about the act itself was measured.{' '}
+      This is not a popularity ranking, and it is <b>not the effect of a solo release</b>: this
+      dataset holds no release dates, so that was not measured and is not claimed.
+    </p>
+    <p class="note">
+      Acts from Wikidata (instance-or-subclass of musical group, musical ensemble, girl group or
+      boy band, with country of origin, country, or formation location resolving to South Korea);
+      members via both <i>has part</i> and <i>member of</i>, because acts fill in different
+      properties. Reads from the Wikimedia Pageviews API, English Wikipedia, human agents only.
+      {' '}{천(넓힌판.셈.못잰팀)} act{넓힌판.셈.못잰팀 === 1 ? '' : 's'} dropped for missing reads
+      rather than counted as zero.
+    </p>
   </section>
 
   <section>
