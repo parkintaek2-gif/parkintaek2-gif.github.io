@@ -399,6 +399,9 @@ export const GET: APIRoute = () => {
        이미 붙어 있던 pages-university.json의 재학생충원율(대학알리미)로 분포만
        다시 계산. 특정 학교를 「망했다」로 읽지 않고 분포 그대로 보여 준다. */
     { path: '/university-enrollment-fill', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-08 — 시도교육청이 하나씩 내는 2027학년도 수능 응시원서 접수 결과를
+       모은다. 전국 KOSIS 표가 없어(확인함) 시도 발표를 직접 모았다 — 지금 경남·충북. */
+    { path: '/csat-applicant-mix', priority: '0.7', changefreq: 'weekly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',

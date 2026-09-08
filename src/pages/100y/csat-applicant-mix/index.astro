@@ -1,0 +1,105 @@
+---
+/**
+ * /100y/csat-applicant-mix — 수능 지원자, 재학생은 줄고 졸업생(N수생)은 늘고 있나
+ *
+ * 이슈  2026-09-08 커뮤니티 씨앗 — 경남·충북 교육청이 2027학년도 수능 응시원서
+ *       접수 결과를 발표하며 「재학생 줄고 N수생 늘었다」는 이야기가 두 지역 다
+ *       나왔다. KOSIS를 먼저 훑어 전국 단위 API가 있는지 확인했으나 없었다
+ *       (이 통계는 KICE가 보도자료로만 낸다) — 그래서 발표되는 시도를 하나씩 모은다.
+ * ⛔ 지금은 시도 둘(경남·충북)뿐이다. 「전국이 이렇다」로 읽지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/csat-applicant-mix.json';
+
+const 자료 = 원본 as any;
+const 지역들 = 자료.지역들 as any[];
+const 전국 = 자료.전국_2026학년도;
+
+const desc =
+  `2027학년도 수능 응시원서 접수 결과를 발표한 시도교육청은 지금 경남·충북 둘입니다. ` +
+  `두 곳 다 재학생은 줄고(경남 ${지역들[0].재학생.전년대비}명, 충북 ${지역들[1].재학생.전년대비}명) ` +
+  `졸업생(N수생)은 늘었습니다(경남 +${지역들[0].졸업생.전년대비}명, 충북 +${지역들[1].졸업생.전년대비}명).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [{
+    '@type': 'Question',
+    name: '2027학년도 수능 지원자는 재학생이 줄고 N수생이 늘었나요?',
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: `발표한 두 시도(경남·충북) 다 그렇습니다. 경남은 재학생이 ${Math.abs(지역들[0].재학생.전년대비)}명 줄고 졸업생이 ${지역들[0].졸업생.전년대비}명 늘었고, 충북은 재학생이 ${Math.abs(지역들[1].재학생.전년대비)}명 줄고 졸업생이 ${지역들[1].졸업생.전년대비}명 늘었습니다. 다만 아직 두 시도뿐이라 전국 추세라고 말할 수는 없습니다.`,
+    },
+  }],
+};
+---
+
+<HundredYear
+  title={`수능 지원자 — 발표된 ${지역들.length}개 시도 모두 재학생↓·N수생↑`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>수능 지원자,<br />재학생은 줄고 N수생은 늘고 있을까요?</h1>
+  <p class="sub">
+    2027학년도 대학수학능력시험 응시원서 접수 결과를 시도교육청이 하나씩 발표하고 있습니다.
+    {' '}전국 API가 없어 발표되는 대로 모읍니다 — 지금은 {지역들.length}개 시도입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">지금까지 발표된 {지역들.length}개 시도</p>
+    <p class="answer-num">모두 재학생 감소 · 졸업생(N수생) 증가</p>
+    <p class="answer-sub">경남·충북 — 아직 전국이 아닙니다</p>
+  </div>
+
+  <h2>시도별 자격별 지원자</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>시도</th><th>전체</th><th>전년대비</th><th>재학생</th><th>졸업생(N수생)</th><th>기타</th></tr>
+      </thead>
+      <tbody>
+        {지역들.map((r: any) => (
+          <tr>
+            <td>{r.지역}</td>
+            <td>{r.전체.toLocaleString()}명</td>
+            <td>{r.전체증감 > 0 ? '+' : ''}{r.전체증감}명</td>
+            <td>{r.재학생.인원.toLocaleString()}명({r.재학생.비율}%) {r.재학생.전년대비 != null ? `· ${r.재학생.전년대비 > 0 ? '+' : ''}${r.재학생.전년대비}` : ''}</td>
+            <td>{r.졸업생.인원.toLocaleString()}명({r.졸업생.비율}%) {r.졸업생.전년대비 != null ? `· ${r.졸업생.전년대비 > 0 ? '+' : ''}${r.졸업생.전년대비}` : ''}</td>
+            <td>{r.기타.인원.toLocaleString()}명({r.기타.비율}%)</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    출처 — {지역들.map((r: any) => r.출처.이름).join(' · ')}
+  </p>
+
+  <h2>참고 — 작년(2026학년도) 전국은 반대였습니다</h2>
+  <p>
+    {' '}한국교육과정평가원이 2025-09-09에 발표한 2026학년도 전국 집계는 재학생
+    {' '}<strong>{전국.재학생.전년대비 > 0 ? '+' : ''}{전국.재학생.전년대비.toLocaleString()}명</strong>,
+    {' '}졸업생(N수생) <strong>{전국.졸업생.전년대비}명</strong>이었습니다 — 재학생이 늘고
+    {' '}졸업생이 준 해였습니다.
+  </p>
+  <p class="note">
+    <strong>⚠ 범위가 다릅니다.</strong> 이건 «전국» 수치이고 위 표는 «시도 둘»입니다.
+    {' '}이 둘을 이어 「전국 추세가 뒤집혔다」고 말하지 않습니다 — 나란히 보여드릴 뿐입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>{자료.덮는범위}</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 재학생·N수생이 늘고 주는 흐름은
+    {' '}지역마다 다를 수 있습니다. 다른 시도교육청이 발표하면 이 표에 이어 붙이겠습니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}. {자료.대조}
+  </p>
+
+  <NextQuestionBrief 모은것="시도교육청 2027학년도 수능 응시원서 접수 결과 보도자료 실측" />
+</HundredYear>
