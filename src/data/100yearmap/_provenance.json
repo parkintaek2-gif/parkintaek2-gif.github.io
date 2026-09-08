@@ -304,7 +304,13 @@
   "school-dropout-by-type.json",
   "university-employment-spread.json",
   "university-enrollment-fill.json",
-  "youth-employment-streak.json"
+  "youth-employment-streak.json",
+  "csat-applicant-mix.json",
+  "freshman-fill-region.json",
+  "trendy-major-outcomes.json",
+  "university-dropout-rate.json",
+  "university-faculty-rate.json",
+  "university-founding-gap.json"
  ],
  "3번감수": {
   "언제": "2026-08-08 14:5x",

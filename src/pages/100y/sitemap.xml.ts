@@ -418,6 +418,9 @@ export const GET: APIRoute = () => {
        대학알리미가 함께 공시하는 전임교원확보율을 국공립·사립으로 갈라
        pages-university.json 재계산으로 정책 시행 전 기준선만 남긴다. */
     { path: '/university-faculty-rate', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-08 — 「지방국립대 무상교육」 씨앗의 다섯 번째 지표. 국공립·사립 대신
+       수도권·비수도권 축으로 신입생충원율을 pages-university.json 재계산으로 남긴다. */
+    { path: '/freshman-fill-region', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
