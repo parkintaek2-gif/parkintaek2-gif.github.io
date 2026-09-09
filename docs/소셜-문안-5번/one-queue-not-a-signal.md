@@ -1,4 +1,4 @@
-# 채널 문안 — No country's Netflix chart is a signal for another's — 58 markets are standing in one queue
+# 채널 문안 — No Netflix chart signals another — 58 are in one queue
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/one-queue-not-a-signal
 
 ## Threads
 ```
-No country's Netflix chart is a signal for another's — 58 markets are standing in one queue
+No Netflix chart signals another — 58 are in one queue
 
 Where one did come first, only 1 of 8,333 country triples contradict each other — the markets form one stable order.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-No country's Netflix chart is a signal for another's — 58 markets are standing in one queue
+No Netflix chart signals another — 58 are in one queue
 
 · Of 135,036 times a Korean series reached two countries charts, 58.1% arrived in both the same week.
 · Where one did come first, only 1 of 8,333 country triples contradict each other — the markets form one stable order.

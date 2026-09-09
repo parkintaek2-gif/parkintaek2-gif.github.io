@@ -1,4 +1,4 @@
-# 채널 문안 — A Netflix weekly top ten is not ten titles. One show has held seven of the places.
+# 채널 문안 — A Netflix weekly top 10 is not ten titles
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,20 +14,20 @@ https://www.kculturewire.com/article/a-weekly-top-ten-is-not-ten-titles
 
 ## Threads
 ```
-A Netflix weekly top ten is not ten titles. One show has held seven of the places.
+A Netflix weekly top 10 is not ten titles
 
-Seasons explain 26,068 of the 26,093 extra rows. The 25 that are left are two different films sharing one name inside a single top ten.
+One show has held seven of the ten. Seasons explain some of it.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/a-weekly-top-ten-is-not-ten-titles
 ```
 
 ## Instagram
 ```
-A Netflix weekly top ten is not ten titles. One show has held seven of the places.
+A Netflix weekly top 10 is not ten titles
 
 · Across 493,600 country-chart rows, 18,586 weekly lists put one title in two or more places.
-· Seasons explain 26,068 of the 26,093 extra rows.
-· The 25 that are left are two different films sharing one name inside a single top ten.
+· One show has held seven of the ten.
+· Seasons explain some of it.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/a-weekly-top-ten-is-not-ten-titles

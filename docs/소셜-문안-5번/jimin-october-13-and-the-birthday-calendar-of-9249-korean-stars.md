@@ -1,4 +1,4 @@
-# 채널 문안 — Jimin's birthday is 13 October, and 25 other Korean stars share it
+# 채널 문안 — Jimin's birthday is 13 October, and 25 other Korean stars share it — day 137 of 366
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,37 +6,32 @@
 
 ## X
 ```
-We hold full birth dates for 9,249 Korean entertainers. 26 share 13 October — day 137 of 366. An ordinary date.
+Fans are organising around 13 October.
 
 https://www.kculturewire.com/article/jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars
 ```
-⚠ 208자 (한도 280)
+⚠ 63자 (한도 280)
 
 ## Threads
 ```
-Jimin's birthday is 13 October, and 25 other Korean stars share it
+Jimin's birthday is 13 October, and 25 other Korean stars share it — day 137 of 366
 
-We counted every calendar day across 9,249 Korean entertainers. 13 October holds 26 people and ranks 137th of 366. The average date holds 25.27, so it is an ordinary day — which is worth publishing precisely because it is dull.
+We hold full birth dates for 9,249 Korean entertainers, so we counted every calendar day. That date holds 26 people, ranking 137th of 366.
 
-February is the fullest month per day and June the thinnest, and that survives deleting the five most crowded dates. 1 January is not a real cluster: it is where editors put people whose actual birthday is unknown.
-
-Our own day page says 18 for the same date, on a narrower panel. We print both: https://www.kculturewire.com/article/jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars
+How we counted it, and what it cannot say: https://www.kculturewire.com/article/jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars
 ```
 
 ## Instagram
 ```
-Jimin's birthday is 13 October, and 25 other Korean stars share it
+Jimin's birthday is 13 October, and 25 other Korean stars share it — day 137 of 366
 
-· 9,249 Korean entertainers with a full birth date. All 366 calendar days counted.
-· 13 October holds 26 people — day 137 of 366. The average date holds 25.27.
-· February is the fullest month per day, June the thinnest, by 40%.
-· 1 January holds 48 people, but that is a record-keeping artefact, not a cluster of births.
-· Delete the five most crowded dates and February still leads. The threshold chose them, not us.
+· Fans are organising around 13 October.
+· We hold full birth dates for 9,249 Korean entertainers, so we counted every calendar day.
+· That date holds 26 people, ranking 137th of 366.
 
-Our own day page for 13 October says 18, because it covers 7,015 people
-who have an English Wikipedia article. This one covers 9,249 with a birth
-date recorded at all. We print both rather than harmonising them.
-Link in bio → https://www.kculturewire.com/article/jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars
+We publish the working, the thresholds we chose, and the questions this
+data cannot answer. Link in bio → https://www.kculturewire.com/article/jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars
 
-#BTS #Jimin #Kpop #Birthdays #Wikidata #DataJournalism #KCultureWire #Method
+#Bts #Kpop #Jimin #Birthdays #Wikidata #Method #Datagaps #KCultureWire
 ```
+

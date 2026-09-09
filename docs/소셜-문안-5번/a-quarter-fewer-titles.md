@@ -1,4 +1,4 @@
-# 채널 문안 — A quarter fewer Korean titles reach a Netflix top 10 than in 2022. The space they hold did not shrink
+# 채널 문안 — A quarter fewer Korean titles chart than in 2022
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,7 +6,7 @@
 
 ## X
 ```
-289 Korean titles charted somewhere in 2022 and 216 in 2025, while the places they held rose 7.9%.
+288 Korean titles charted somewhere in 2022 and 215 in 2025, while the places they held rose 9.7%.
 
 https://www.kculturewire.com/article/a-quarter-fewer-titles
 ```
@@ -14,19 +14,19 @@ https://www.kculturewire.com/article/a-quarter-fewer-titles
 
 ## Threads
 ```
-A quarter fewer Korean titles reach a Netflix top 10 than in 2022. The space they hold did not shrink
+A quarter fewer Korean titles chart than in 2022
 
-Remove each year's biggest title and the ten largest gained just 3.6 points — most of the concentration is one show returning.
+Remove each year's biggest title and the ten largest gained 3.1 points — much of the concentration is one show returning.
 
 How we counted it, and what it cannot say: https://www.kculturewire.com/article/a-quarter-fewer-titles
 ```
 
 ## Instagram
 ```
-A quarter fewer Korean titles reach a Netflix top 10 than in 2022. The space they hold did not shrink
+A quarter fewer Korean titles chart than in 2022
 
-· 289 Korean titles charted somewhere in 2022 and 216 in 2025, while the places they held rose 7.9%.
-· Remove each year's biggest title and the ten largest gained just 3.6 points — most of the concentration is one show returning.
+· 288 Korean titles charted somewhere in 2022 and 215 in 2025, while the places they held rose 9.7%.
+· Remove each year's biggest title and the ten largest gained 3.1 points — much of the concentration is one show returning.
 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/a-quarter-fewer-titles

@@ -1,4 +1,4 @@
-# 채널 문안 — K-pop's music exports were 81% Japanese in 2012. They are 36% Japanese now — and Japan never shrank.
+# 채널 문안 — K-pop exports were 81% Japanese in 2012, and 36% now
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/kpop-export-left-japan-behind
 
 ## Threads
 ```
-K-pop's music exports were 81% Japanese in 2012. They are 36% Japanese now — and Japan never shrank.
+K-pop exports were 81% Japanese in 2012, and 36% now
 
 Japan's share more than halved — but Japanese sales grew 1.7× since 2018 while North America grew 39×. The concentration broke because everywhere else caught up.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-K-pop's music exports were 81% Japanese in 2012. They are 36% Japanese now — and Japan never shrank.
+K-pop exports were 81% Japanese in 2012, and 36% now
 
 · Korean music exports went from $22m in 2005 to $1.80bn in 2024.
 · Japan's share more than halved — but Japanese sales grew 1.7× since 2018 while North America grew 39×.

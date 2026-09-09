@@ -1,4 +1,4 @@
-# 채널 문안 — We built the day pillar for 9,249 Korean entertainers — IU, Jungkook, RM and BTS included
+# 채널 문안 — Day pillars for 9,249 Korean entertainers, IU and BTS in
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/day-pillars-of-9249-korean-entertainers
 
 ## Threads
 ```
-We built the day pillar for 9,249 Korean entertainers — IU, Jungkook, RM and BTS included
+Day pillars for 9,249 Korean entertainers, IU and BTS in
 
 English saju sites read one chart at a time, so nobody has a denominator. One of our four tests crossed the chance line; here is what we did to kill it.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-We built the day pillar for 9,249 Korean entertainers — IU, Jungkook, RM and BTS included
+Day pillars for 9,249 Korean entertainers, IU and BTS in
 
 · English saju sites read one chart at a time, so nobody has a denominator.
 · We built one: 9,249 Korean entertainers with a birth date on record to the day.
@@ -32,6 +32,6 @@ We built the day pillar for 9,249 Korean entertainers — IU, Jungkook, RM and B
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/day-pillars-of-9249-korean-entertainers
 
-#Saju #Stars #Method #Kpop #Wikidata #KCultureWire #Netflix #Kdrama
+#Jungkook #Bts #Saju #Stars #Method #Kpop #Wikidata #KCultureWire
 ```
 

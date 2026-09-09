@@ -1,4 +1,4 @@
-# 채널 문안 — In Southeast Asia, a Korean record label is looked up more than Seoul
+# 채널 문안 — A Korean record label is looked up more than Seoul itself
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/a-label-outreads-the-capital
 
 ## Threads
 ```
-In Southeast Asia, a Korean record label is looked up more than Seoul
+A Korean record label is looked up more than Seoul itself
 
 YG Entertainment scores 111.47 and Seoul 106.54. Twelve companies out-read 520 cities and districts on the median.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-In Southeast Asia, a Korean record label is looked up more than Seoul
+A Korean record label is looked up more than Seoul itself
 
 · We measured 2,238 places in Korea against four Southeast Asian Wikipedias.
 · YG Entertainment scores 111.47 and Seoul 106.54.

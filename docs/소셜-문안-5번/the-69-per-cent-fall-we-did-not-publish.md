@@ -1,4 +1,4 @@
-# 채널 문안 — New Korean groups look 69% down since 2015. We are not publishing that, and here is what killed it
+# 채널 문안 — New Korean groups look 69% down. We are not publishing it
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-69-per-cent-fall-we-did-not-publish
 
 ## Threads
 ```
-New Korean groups look 69% down since 2015. We are not publishing that, and here is what killed it
+New Korean groups look 69% down. We are not publishing it
 
 The 2023-25 average is 31% of the 2015-17 average. Then we ran the same count for Japan, the United States and the United Kingdom — and all three fell too.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-New Korean groups look 69% down since 2015. We are not publishing that, and here is what killed it
+New Korean groups look 69% down. We are not publishing it
 
 · Wikidata records 691 Korean musical groups with a formation year.
 · The 2023-25 average is 31% of the 2015-17 average.

@@ -1,4 +1,4 @@
-# 채널 문안 — Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min in the countries that hired them
+# 채널 문안 — Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-manager-is-read-where-he-was-hired
 
 ## Threads
 ```
-Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min in the countries that hired them
+Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min
 
 A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min in the countries that hired them
+Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min
 
 · A Korean player is read across Southeast Asia; a Korean manager is read in the one country that hired him.
 · Median concentration in a single country: 50.55% for the players, 81.35% for the managers.
@@ -31,6 +31,6 @@ Shin Tae-yong and Kim Sang-sik outdraw Son Heung-min in the countries that hired
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/the-manager-is-read-where-he-was-hired
 
-#Korea #Sport #Football #Southeastasia #Measurement #KCultureWire #Netflix #Kdrama
+#Shintaeyong #Kimsangsik #Sonheungmin #Korea #Sport #Football #Southeastasia #Measurement
 ```
 

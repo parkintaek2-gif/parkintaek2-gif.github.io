@@ -1,4 +1,4 @@
-# 채널 문안 — The most-read Korean place in Vietnamese was a battle fought in Vietnam
+# 채널 문안 — 19 of our 2,238 Korean places are not in Korea
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/a-battle-in-vietnam
 
 ## Threads
 ```
-The most-read Korean place in Vietnamese was a battle fought in Vietnam
+19 of our 2,238 Korean places are not in Korea
 
 Nineteen are not in Korea, including the one leading the Vietnamese column. The field we selected on records who was involved, not only where a thing is — and our first check reused it and found nothing.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-The most-read Korean place in Vietnamese was a battle fought in Vietnam
+19 of our 2,238 Korean places are not in Korea
 
 · We published 2,238 Korean places.
 · Nineteen are not in Korea, including the one leading the Vietnamese column.

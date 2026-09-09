@@ -1,4 +1,4 @@
-# 채널 문안 — IU's saju: the balancing element holds without a birth hour, the strength reading splits 5–7
+# 채널 문안 — IU’s saju holds without a birth hour. Strength splits 5–7
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/iu-saju-water-in-all-twelve-hours
 
 ## Threads
 ```
-IU's saju: the balancing element holds without a birth hour, the strength reading splits 5–7
+IU’s saju holds without a birth hour. Strength splits 5–7
 
 Its engine returns water in all twelve possible hours. Strength comes out five strong, seven weak.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-IU's saju: the balancing element holds without a birth hour, the strength reading splits 5–7
+IU’s saju holds without a birth hour. Strength splits 5–7
 
 · KLifeMap ran IU's chart from the public birth date, 16 May 1993, with no birth hour.
 · Its engine returns water in all twelve possible hours.

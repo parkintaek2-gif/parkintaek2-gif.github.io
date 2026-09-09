@@ -1,4 +1,4 @@
-# 채널 문안 — Every credited name in Parasite appears in another charting Korean title. In The Influencer, one does.
+# 채널 문안 — Every name in Parasite charts again. In The Influencer, 1
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/who-appears-in-nothing-else
 
 ## Threads
 ```
-Every credited name in Parasite appears in another charting Korean title. In The Influencer, one does.
+Every name in Parasite charts again. In The Influencer, 1
 
 The spread runs from 0% to 89%, and it separates prestige work from reality and youth casting.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Every credited name in Parasite appears in another charting Korean title. In The Influencer, one does.
+Every name in Parasite charts again. In The Influencer, 1
 
 · Across 312 Korean productions with five or more recorded cast, the median has 16.7% of its cast appearing in nothing else that charted.
 · The spread runs from 0% to 89%, and it separates prestige work from reality and youth casting.
@@ -31,6 +31,6 @@ Every credited name in Parasite appears in another charting Korean title. In The
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/who-appears-in-nothing-else
 
-#Koreandrama #Koreanfilm #Netflix #Casting #Wikidata #Korea #KCultureWire #Kdrama
+#Parasite #Theinfluencer #Koreandrama #Koreanfilm #Netflix #Casting #Wikidata #Korea
 ```
 

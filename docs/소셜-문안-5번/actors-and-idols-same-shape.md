@@ -1,4 +1,4 @@
-# 채널 문안 — Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact.
+# 채널 문안 — Actors and K-pop acts are looked up in the same shape
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/actors-and-idols-same-shape
 
 ## Threads
 ```
-Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact.
+Actors and K-pop acts are looked up in the same shape
 
 The raw gap of 5.0% against 6.1% disappears once the two groups are compared at the same size.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Actors and K-pop acts are looked up in the same shape. The difference people assume is a size artefact.
+Actors and K-pop acts are looked up in the same shape
 
 · Across 1,113 Korean actors and 2,372 K-pop acts, the biggest single day is about 5% of a 30-day month for both.
 · The raw gap of 5.0% against 6.1% disappears once the two groups are compared at the same size.

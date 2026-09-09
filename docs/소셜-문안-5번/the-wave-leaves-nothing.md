@@ -1,4 +1,4 @@
-# 채널 문안 — You cannot ask what a Korean hit leaves behind. The article is born with the show
+# 채널 문안 — You cannot ask what a Korean hit leaves behind
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-wave-leaves-nothing
 
 ## Threads
 ```
-You cannot ask what a Korean hit leaves behind. The article is born with the show
+You cannot ask what a Korean hit leaves behind
 
 Twenty-two were disqualified because their article did not exist before the title arrived.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-You cannot ask what a Korean hit leaves behind. The article is born with the show
+You cannot ask what a Korean hit leaves behind
 
 · Of 59 Korean titles fetched across four Southeast Asian Wikipedias, nine could be measured before and after their peak.
 · Twenty-two were disqualified because their article did not exist before the title arrived.

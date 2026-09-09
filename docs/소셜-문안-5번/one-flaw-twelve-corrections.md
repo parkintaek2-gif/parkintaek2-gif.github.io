@@ -1,4 +1,4 @@
-# 채널 문안 — One flaw in how we matched titles put wrong figures on seven pages and four articles in a single morning
+# 채널 문안 — One flaw put wrong figures on seven pages and four articles
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/one-flaw-twelve-corrections
 
 ## Threads
 ```
-One flaw in how we matched titles put wrong figures on seven pages and four articles in a single morning
+One flaw put wrong figures on seven pages and four articles
 
 It is 236 and 23.7 billion. Here is the mistake, how it spread, why counting alone would never have caught it, and what we changed so it cannot happen the same way twice.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-One flaw in how we matched titles put wrong figures on seven pages and four articles in a single morning
+One flaw put wrong figures on seven pages and four articles
 
 · Our Korean Netflix catalogue was 294 titles and 27.7 billion hours.
 · It is 236 and 23.7 billion.

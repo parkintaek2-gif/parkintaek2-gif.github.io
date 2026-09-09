@@ -1,4 +1,4 @@
-# 채널 문안 — In Southeast Asia a Korean title charts in all six countries or in one. There is little in between.
+# 채널 문안 — A Korean title charts in all 6 countries, or in 1
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korean-titles-southeast-asia-all-or-nothing
 
 ## Threads
 ```
-In Southeast Asia a Korean title charts in all six countries or in one. There is little in between.
+A Korean title charts in all 6 countries, or in 1
 
 Series average 4.6 countries; films average 2.6.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-In Southeast Asia a Korean title charts in all six countries or in one. There is little in between.
+A Korean title charts in all 6 countries, or in 1
 
 · Of 397 Korean titles that reached a Netflix Top 10 in Southeast Asia since 2021, 45.1% charted in all six countries and 30.7% in exactly one.
 · Series average 4.6 countries; films average 2.6.

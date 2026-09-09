@@ -1,4 +1,4 @@
-# 채널 문안 — Korea's webtoon industry averages ₩8.1bn a business. Three-quarters of it earns under ₩1bn.
+# 채널 문안 — Korean webtoon firms average ₩8.1bn. Most earn under ₩1bn
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korea-webtoon-two-economies
 
 ## Threads
 ```
-Korea's webtoon industry averages ₩8.1bn a business. Three-quarters of it earns under ₩1bn.
+Korean webtoon firms average ₩8.1bn. Most earn under ₩1bn
 
 The 28 platforms average ₩94.5bn each; the 368 content providers average ₩1.5bn. The average describes almost nobody, and the studios that draw the comics sit at the bottom of it.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korea's webtoon industry averages ₩8.1bn a business. Three-quarters of it earns under ₩1bn.
+Korean webtoon firms average ₩8.1bn. Most earn under ₩1bn
 
 · 396 webtoon businesses were surveyed in 2024.
 · The 28 platforms average ₩94.5bn each; the 368 content providers average ₩1.5bn.

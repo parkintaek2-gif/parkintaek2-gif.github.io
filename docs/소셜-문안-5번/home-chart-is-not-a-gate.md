@@ -1,4 +1,4 @@
-# 채널 문안 — A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more.
+# 채널 문안 — A Korean title’s run at home leans the odds, not the gate
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/home-chart-is-not-a-gate
 
 ## Threads
 ```
-A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more.
+A Korean title’s run at home leans the odds, not the gate
 
 But 29 reached twenty countries without ever charting in Korea.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-A Korean title's run at home leans the odds abroad. It does not decide them, and format decides more.
+A Korean title’s run at home leans the odds, not the gate
 
 · Titles with six to ten weeks on Korea's own Netflix chart reached ten countries 56.5% of the time, against 11.4% for those with one or two.
 · But 29 reached twenty countries without ever charting in Korea.

@@ -1,4 +1,4 @@
-# 채널 문안 — Southeast Asia looks up a Korean trip in December. It stops looking in June
+# 채널 문안 — Southeast Asia looks up a Korean trip in December, not June
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,15 +6,15 @@
 
 ## X
 ```
-Southeast Asia looks up a Korean trip in December. It stops looking in June
+Southeast Asia looks up a Korean trip in December, not June
 
 https://www.kculturewire.com/article/december-looking-june-quiet
 ```
-⚠ 100자 (한도 280)
+⚠ 84자 (한도 280)
 
 ## Threads
 ```
-Southeast Asia looks up a Korean trip in December. It stops looking in June
+Southeast Asia looks up a Korean trip in December, not June
 
 Reads of Korean travel articles in four Southeast Asian Wikipedias peak in December; flights on the Asia routes peak in January. The steadier signal is the other end — both fall to their lowest point in the same month.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Southeast Asia looks up a Korean trip in December. It stops looking in June
+Southeast Asia looks up a Korean trip in December, not June
 
 · Reads of Korean travel articles in four Southeast Asian Wikipedias peak in December; flights on the Asia routes peak in January.
 · The steadier signal is the other end — both fall to their lowest point in the same month.

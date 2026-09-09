@@ -1,4 +1,4 @@
-# 채널 문안 — We said reaching number one doubles a title's hours. Most of that gap was run length.
+# 채널 문안 — Number one doubles a title’s hours — mostly by run length
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/reaching-number-one-is-mostly-length
 
 ## Threads
 ```
-We said reaching number one doubles a title's hours. Most of that gap was run length.
+Number one doubles a title’s hours — mostly by run length
 
 Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-We said reaching number one doubles a title's hours. Most of that gap was run length.
+Number one doubles a title’s hours — mostly by run length
 
 · Measured on all 246 Korean titles instead of the fifty largest, the number-one group runs five weeks to everyone else's two.
 · Hold length fixed and the gap that is left is 1.3× among titles that lasted six to ten weeks.

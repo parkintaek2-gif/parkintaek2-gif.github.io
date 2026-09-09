@@ -1,4 +1,4 @@
-# 채널 문안 — Half the Korean actors on a Netflix chart are there for exactly one title
+# 채널 문안 — 50% of Korean actors on a Netflix chart have 1 title
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/one-title-is-the-median-career
 
 ## Threads
 ```
-Half the Korean actors on a Netflix chart are there for exactly one title
+50% of Korean actors on a Netflix chart have 1 title
 
 We tried to test whether debuting younger buys a wider career.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Half the Korean actors on a Netflix chart are there for exactly one title
+50% of Korean actors on a Netflix chart have 1 title
 
 · We tried to test whether debuting younger buys a wider career.
 · The answer did not come out in one direction, so we went looking for why — and found that for 658 of 1,329 actors, the chart only ever lit them once.

@@ -1,4 +1,4 @@
-# 채널 문안 — Korea's music and broadcast exports have been the same size for thirteen years — and they do not move together
+# 채널 문안 — Korea’s music and broadcast exports: same size, 13 years
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/music-and-broadcast-exports-are-the-same-si
 
 ## Threads
 ```
-Korea's music and broadcast exports have been the same size for thirteen years — and they do not move together
+Korea’s music and broadcast exports: same size, 13 years
 
 Their year-on-year growth correlates at −0.13. Two industries arriving at the same number by unrelated routes, until 2024 pulled them apart.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korea's music and broadcast exports have been the same size for thirteen years — and they do not move together
+Korea’s music and broadcast exports: same size, 13 years
 
 · In ten of thirteen years the two are within 20% of each other.
 · Their year-on-year growth correlates at −0.13.

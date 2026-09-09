@@ -1,4 +1,4 @@
-# 채널 문안 — Undercover took 48 chart places in our Korean panel. It is a Belgian series
+# 채널 문안 — Undercover took 48 places in our Korean panel. It is Belgian
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,15 +6,15 @@
 
 ## X
 ```
-Undercover took 48 chart places in our Korean panel. It is a Belgian series
+Undercover took 48 places in our Korean panel. It is Belgian
 
 https://www.kculturewire.com/article/a-title-is-not-a-key
 ```
-⚠ 100자 (한도 280)
+⚠ 85자 (한도 280)
 
 ## Threads
 ```
-Undercover took 48 chart places in our Korean panel. It is a Belgian series
+Undercover took 48 places in our Korean panel. It is Belgian
 
 Two works can carry the same English title, and a chart row does not say which one it is. Thirteen titles in our Korean panel turned out to be foreign works.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Undercover took 48 chart places in our Korean panel. It is a Belgian series
+Undercover took 48 places in our Korean panel. It is Belgian
 
 · Two works can carry the same English title, and a chart row does not say which one it is.
 · Thirteen titles in our Korean panel turned out to be foreign works.

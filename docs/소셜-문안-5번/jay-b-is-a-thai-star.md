@@ -1,4 +1,4 @@
-# 채널 문안 — JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook belongs to nobody
+# 채널 문안 — JAY B is a Thai star. Kim Jong-kook belongs to nobody
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/jay-b-is-a-thai-star
 
 ## Threads
 ```
-JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook belongs to nobody
+JAY B is a Thai star. Kim Jong-kook belongs to nobody
 
 An evenly read star would score 25%. Kim Jong-kook of Turbo scores 27.5%.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook belongs to nobody
+JAY B is a Thai star. Kim Jong-kook belongs to nobody
 
 · Of 214 Korean stars with an article on all four Southeast Asian Wikipedias, 86.6% of the reading about JAY B sits in Thailand alone.
 · An evenly read star would score 25%.
@@ -32,6 +32,6 @@ JAY B of GOT7 is a Thai star, Tempest is a Vietnamese one, and Kim Jong-kook bel
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/jay-b-is-a-thai-star
 
-#Wikipedia #Southeastasia #Kpop #Actors #Method #KCultureWire #Netflix #Kdrama
+#Jayb #Got7 #Kimjongkook #Tempest #Wikipedia #Southeastasia #Kpop #Actors
 ```
 

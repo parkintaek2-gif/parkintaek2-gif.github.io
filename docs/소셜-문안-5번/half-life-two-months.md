@@ -1,4 +1,4 @@
-# 채널 문안 — Squid Game lost half its readers in one month. Goblin took seven
+# 채널 문안 — Squid Game lost half its readers in a month. Goblin took 7
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,15 +6,15 @@
 
 ## X
 ```
-Squid Game lost half its readers in one month. Goblin took seven
+Squid Game lost half its readers in a month. Goblin took 7
 
 https://www.kculturewire.com/article/half-life-two-months
 ```
-⚠ 89자 (한도 280)
+⚠ 83자 (한도 280)
 
 ## Threads
 ```
-Squid Game lost half its readers in one month. Goblin took seven
+Squid Game lost half its readers in a month. Goblin took 7
 
 Twenty-six Korean titles could be timed from their peak across four Southeast Asian Wikipedias. The median fell below half in two months, nine of them in a single month, and nineteen later rose above half again.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Squid Game lost half its readers in one month. Goblin took seven
+Squid Game lost half its readers in a month. Goblin took 7
 
 · Twenty-six Korean titles could be timed from their peak across four Southeast Asian Wikipedias.
 · The median fell below half in two months, nine of them in a single month, and nineteen later rose above half again.
@@ -31,6 +31,6 @@ Squid Game lost half its readers in one month. Goblin took seven
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/half-life-two-months
 
-#Koreandrama #Wikipedia #Attention #Squidgame #Korea #KCultureWire #Netflix #Kdrama
+#Squidgame #Goblin #Koreandrama #Wikipedia #Attention #Korea #KCultureWire #Netflix
 ```
 

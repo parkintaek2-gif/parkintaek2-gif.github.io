@@ -1,4 +1,4 @@
-# 채널 문안 — Fewer people are looking up what hangul is. The same is true of kana
+# 채널 문안 — Hangul reads fell 25.5% in a year. Kana fell 28.2%
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-reference-shelf-is-emptying
 
 ## Threads
 ```
-Fewer people are looking up what hangul is. The same is true of kana
+Hangul reads fell 25.5% in a year. Kana fell 28.2%
 
 The Japanese equivalents fell 28.2%. Two other genres we measured could not be used at all, and we say why.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Fewer people are looking up what hangul is. The same is true of kana
+Hangul reads fell 25.5% in a year. Kana fell 28.2%
 
 · Reads of Korean language, hangul, hanbok and taekwondo fell 25.5% across four Southeast Asian Wikipedias in a year.
 · The Japanese equivalents fell 28.2%.

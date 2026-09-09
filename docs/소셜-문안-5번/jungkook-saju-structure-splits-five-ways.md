@@ -1,4 +1,4 @@
-# 채널 문안 — Jungkook's saju: two of the three judgements hold without a birth hour, the structure splits five ways
+# 채널 문안 — Jungkook’s saju: 2 of 3 judgements hold, structure splits 5
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/jungkook-saju-structure-splits-five-ways
 
 ## Threads
 ```
-Jungkook's saju: two of the three judgements hold without a birth hour, the structure splits five ways
+Jungkook’s saju: 2 of 3 judgements hold, structure splits 5
 
 Strength and the governing element come out identical in all twelve possible hours. Only the structure splits, five ways.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Jungkook's saju: two of the three judgements hold without a birth hour, the structure splits five ways
+Jungkook’s saju: 2 of 3 judgements hold, structure splits 5
 
 · KLifeMap ran Jungkook's chart from the public birth date, 1 September 1997, with no birth hour.
 · Strength and the governing element come out identical in all twelve possible hours.
@@ -32,6 +32,6 @@ Jungkook's saju: two of the three judgements hold without a birth hour, the stru
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/jungkook-saju-structure-splits-five-ways
 
-#Saju #Stars #Klifemap #Method #Kpop #KCultureWire #Netflix #Kdrama
+#Jungkook #Saju #Stars #Klifemap #Method #Kpop #KCultureWire #Netflix
 ```
 

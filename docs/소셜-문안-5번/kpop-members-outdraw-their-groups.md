@@ -1,4 +1,4 @@
-# 채널 문안 — K-pop members outdraw their own groups four to one, and the BTS exception was a hole in Wikidata
+# 채널 문안 — K-pop members outdraw their groups 4 to 1 — except BTS
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/kpop-members-outdraw-their-groups
 
 ## Threads
 ```
-K-pop members outdraw their own groups four to one, and the BTS exception was a hole in Wikidata
+K-pop members outdraw their groups 4 to 1 — except BTS
 
 Newer groups looked like the opposite until we checked why: Wikidata lists two members for Fromis 9.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-K-pop members outdraw their own groups four to one, and the BTS exception was a hole in Wikidata
+K-pop members outdraw their groups 4 to 1 — except BTS
 
 · Across 86 groups whose full membership can be measured, the members' pages were opened 3.88 times as often as the group's.
 · Newer groups looked like the opposite until we checked why: Wikidata lists two members for Fromis 9.
@@ -31,6 +31,6 @@ K-pop members outdraw their own groups four to one, and the BTS exception was a 
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/kpop-members-outdraw-their-groups
 
-#Kpop #Attention #Wikipedia #Wikidata #Measurement #Korea #KCultureWire #Netflix
+#Bts #Kpop #Attention #Wikipedia #Wikidata #Measurement #Korea #KCultureWire
 ```
 

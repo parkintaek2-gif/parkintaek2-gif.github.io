@@ -1,4 +1,4 @@
-# 채널 문안 — Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one.
+# 채널 문안 — Korean titles climb the Netflix chart. Others peak week one
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,7 +6,7 @@
 
 ## X
 ```
-Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
+Across 93 markets, 57.1% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
 
 https://www.kculturewire.com/article/korean-titles-climb
 ```
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korean-titles-climb
 
 ## Threads
 ```
-Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one.
+Korean titles climb the Netflix chart. Others peak week one
 
 Longer runs give more chances to climb — and the gap holds inside every run-length band.
 
@@ -23,9 +23,9 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korean titles climb the Netflix chart after they arrive. Most other titles peak in week one.
+Korean titles climb the Netflix chart. Others peak week one
 
-· Across 93 markets, 57.4% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
+· Across 93 markets, 57.1% of Korean chart runs reach a higher rank than their opening week against 40.5% for everything else.
 · Longer runs give more chances to climb — and the gap holds inside every run-length band.
 
 We publish the working, the thresholds we chose, and the questions this

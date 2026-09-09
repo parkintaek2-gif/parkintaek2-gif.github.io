@@ -1,4 +1,4 @@
-# 채널 문안 — Five charting shows, seven times the readers, and still no way to guess about one actor
+# 채널 문안 — Actors with 5 charting titles are read 7x more
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/five-shows-and-one-reader
 
 ## Threads
 ```
-Five charting shows, seven times the readers, and still no way to guess about one actor
+Actors with 5 charting titles are read 7x more
 
 Korean actors with five or more charting titles are read seven times as often as actors with one, across four Southeast Asian Wikipedias.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Five charting shows, seven times the readers, and still no way to guess about one actor
+Actors with 5 charting titles are read 7x more
 
 · Korean actors with five or more charting titles are read seven times as often as actors with one, across four Southeast Asian Wikipedias.
 · Pick one from each group at random and the busier one wins 82% of the time — a long way from a rule.

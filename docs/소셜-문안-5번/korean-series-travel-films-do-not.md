@@ -1,4 +1,4 @@
-# 채널 문안 — Korean series reach three times as many countries as Korean films, and the gap is not about runtime
+# 채널 문안 — Korean series reach 3x the countries films do
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/korean-series-travel-films-do-not
 
 ## Threads
 ```
-Korean series reach three times as many countries as Korean films, and the gap is not about runtime
+Korean series reach 3x the countries films do
 
 Series also last longer — but the country gap is the one runtime cannot explain.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korean series reach three times as many countries as Korean films, and the gap is not about runtime
+Korean series reach 3x the countries films do
 
 · Among the 232 Korean titles Netflix has verifiably filed as Non-English, the median series charted in 35 countries and the median film in 11.
 · Series also last longer — but the country gap is the one runtime cannot explain.

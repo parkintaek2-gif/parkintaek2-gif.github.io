@@ -1,4 +1,4 @@
-# 채널 문안 — What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on
+# 채널 문안 — What a chart position does not say about Korean titles
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/what-a-position-does-not-say
 
 ## Threads
 ```
-What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on
+What a chart position does not say about Korean titles
 
 Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-What a chart position does not tell you — and why it tells you least on the chart Korean titles sit on
+What a chart position does not say about Korean titles
 
 · Netflix attaches hours viewed to 10,720 global chart rows and to 0 of its 499,180 country rows.
 · Knowing a rank narrows the possible hours by 47.3% on the non-English series chart — least of the four, and the one Korean titles sit on.

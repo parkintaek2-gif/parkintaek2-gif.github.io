@@ -1,4 +1,4 @@
-# 채널 문안 — We said we could not count the acts our K-pop panel misses. We can, and it is 1,312 groups.
+# 채널 문안 — Our K-pop panel misses 1,311 groups. We counted them
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/the-acts-our-k-pop-panel-cannot-see
 
 ## Threads
 ```
-We said we could not count the acts our K-pop panel misses. We can, and it is 1,312 groups.
+Our K-pop panel misses 1,311 groups. We counted them
 
 Our attention panel sees the 816 with an English Wikipedia article. Among singers the gap is wider — 5,408 exist, we measure 1,421, and 3,572 of the missing ones have a Korean article.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-We said we could not count the acts our K-pop panel misses. We can, and it is 1,312 groups.
+Our K-pop panel misses 1,311 groups. We counted them
 
 · Wikidata holds 2,128 Korean musical groups.
 · Our attention panel sees the 816 with an English Wikipedia article.

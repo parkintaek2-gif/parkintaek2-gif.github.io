@@ -1,4 +1,4 @@
-# 채널 문안 — We published two findings and corrected one. A one-line check told them apart beforehand
+# 채널 문안 — Removing 1 title moved one median by 89%, the other by 0
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/one-title-out
 
 ## Threads
 ```
-We published two findings and corrected one. A one-line check told them apart beforehand
+Removing 1 title moved one median by 89%, the other by 0
 
 The interquartile range rated the two almost identically. We ran neither before publishing.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-We published two findings and corrected one. A one-line check told them apart beforehand
+Removing 1 title moved one median by 89%, the other by 0
 
 · Removing a single title left one of our medians exactly where it was and moved the other by 89% of itself.
 · The interquartile range rated the two almost identically.

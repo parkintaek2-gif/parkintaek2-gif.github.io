@@ -1,4 +1,4 @@
-# 채널 문안 — Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is.
+# 채널 문안 — 50% of our Southeast Asia panel cannot be verified Korean
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,7 +6,7 @@
 
 ## X
 ```
-214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
+215 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
 
 https://www.kculturewire.com/article/half-our-panel-cannot-be-verified
 ```
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/half-our-panel-cannot-be-verified
 
 ## Threads
 ```
-Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is.
+50% of our Southeast Asia panel cannot be verified Korean
 
 They are also the small ones.
 
@@ -23,9 +23,9 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Half the titles in our Southeast Asia panel cannot be verified as Korean. Here is exactly how big that is.
+50% of our Southeast Asia panel cannot be verified Korean
 
-· 214 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
+· 215 of 421 titles never reached a global Top 10, so Netflix's language label — the only thing that separates a Korean work from a foreign one with the same name — cannot be applied to them.
 · They are also the small ones.
 
 We publish the working, the thresholds we chose, and the questions this

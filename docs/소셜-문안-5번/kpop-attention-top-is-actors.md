@@ -1,4 +1,4 @@
-# 채널 문안 — Rank Korean musicians by look-ups and IU is not first — the top name is there for acting
+# 채널 문안 — Rank Korean musicians by look-ups and IU is not first
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/kpop-attention-top-is-actors
 
 ## Threads
 ```
-Rank Korean musicians by look-ups and IU is not first — the top name is there for acting
+Rank Korean musicians by look-ups and IU is not first
 
 They are 15% of the names and 41% of the attention. Removing them does not correct the list.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Rank Korean musicians by look-ups and IU is not first — the top name is there for acting
+Rank Korean musicians by look-ups and IU is not first
 
 · 232 of the 1,550 individuals in our K-pop panel also appear in Korean titles that reached a Netflix Top 10.
 · They are 15% of the names and 41% of the attention.

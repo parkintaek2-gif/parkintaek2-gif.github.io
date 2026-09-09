@@ -1,4 +1,4 @@
-# 채널 문안 — IU, Jungkook and Karina: a missing birth hour moved one chart by a whole day
+# 채널 문안 — IU, Jungkook, Karina: a missing hour moved 1 chart
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/iu-jungkook-karina-missing-birth-hour
 
 ## Threads
 ```
-IU, Jungkook and Karina: a missing birth hour moved one chart by a whole day
+IU, Jungkook, Karina: a missing hour moved 1 chart
 
 KLifeMap read the charts of IU, Jungkook and Karina without their birth hours. Trying all twelve hour branches moved one reading a day earlier.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-IU, Jungkook and Karina: a missing birth hour moved one chart by a whole day
+IU, Jungkook, Karina: a missing hour moved 1 chart
 
 · KLifeMap read the charts of IU, Jungkook and Karina without their birth hours.
 · Trying all twelve hour branches moved one reading a day earlier.
@@ -32,6 +32,6 @@ IU, Jungkook and Karina: a missing birth hour moved one chart by a whole day
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/iu-jungkook-karina-missing-birth-hour
 
-#Saju #Stars #Klifemap #Method #Kpop #KCultureWire #Netflix #Kdrama
+#Jungkook #Karina #Saju #Stars #Klifemap #Method #Kpop #KCultureWire
 ```
 

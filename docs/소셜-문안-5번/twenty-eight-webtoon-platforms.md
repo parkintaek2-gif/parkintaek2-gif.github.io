@@ -1,4 +1,4 @@
-# 채널 문안 — Korea's webtoon industry is 396 businesses. Twenty-eight of them earn 64 times what the other 368 do.
+# 채널 문안 — 28 webtoon firms earn 64x what the other 368 do
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/twenty-eight-webtoon-platforms
 
 ## Threads
 ```
-Korea's webtoon industry is 396 businesses. Twenty-eight of them earn 64 times what the other 368 do.
+28 webtoon firms earn 64x what the other 368 do
 
 Three-quarters of all webtoon businesses take less than ₩1bn a year, and 214 of them have fewer than ten staff.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Korea's webtoon industry is 396 businesses. Twenty-eight of them earn 64 times what the other 368 do.
+28 webtoon firms earn 64x what the other 368 do
 
 · Platforms average ₩94.5bn in revenue; content providers average ₩1.5bn.
 · Three-quarters of all webtoon businesses take less than ₩1bn a year, and 214 of them have fewer than ten staff.

@@ -1,4 +1,4 @@
-# 채널 문안 — Two hops from Squid Game reaches 79% of every Korean title Netflix has charted
+# 채널 문안 — Two hops from Squid Game reaches 80.5% of Korean titles
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -14,7 +14,7 @@ https://www.kculturewire.com/article/two-hops-from-squid-game
 
 ## Threads
 ```
-Two hops from Squid Game reaches 79% of every Korean title Netflix has charted
+Two hops from Squid Game reaches 80.5% of Korean titles
 
 Sixty-nine titles share an actor with Squid Game directly. Out of 635 Korean titles with a recorded cast, 502 sit within two shared actors of one show.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Two hops from Squid Game reaches 79% of every Korean title Netflix has charted
+Two hops from Squid Game reaches 80.5% of Korean titles
 
 · Sixty-nine titles share an actor with Squid Game directly.
 · Another 432 are one further step away.
@@ -32,6 +32,6 @@ Two hops from Squid Game reaches 79% of every Korean title Netflix has charted
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/two-hops-from-squid-game
 
-#Koreandrama #Koreanfilm #Netflix #Squidgame #Casting #Korea #KCultureWire #Kdrama
+#Squidgame #Koreandrama #Koreanfilm #Netflix #Casting #Korea #KCultureWire #Kdrama
 ```
 

@@ -1,4 +1,4 @@
-# 채널 문안 — Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does
+# 채널 문안 — Faker gets a year of readers in one month. Son does not
 
 > ⛔ 계정이 없어 **아직 안 올렸다.** 「계정 열면 오늘 올라감」 상태다.
 > ⛔ 셋은 서로 다른 글이다. 복사해 붙인 것이 아니다.
@@ -6,15 +6,15 @@
 
 ## X
 ```
-Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does
+Faker gets a year of readers in one month. Son does not
 
 https://www.kculturewire.com/article/a-year-in-one-month
 ```
-⚠ 118자 (한도 280)
+⚠ 80자 (한도 280)
 
 ## Threads
 ```
-Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does
+Faker gets a year of readers in one month. Son does not
 
 Split Indonesian, Vietnamese, Thai and Malay Wikipedia reads by month. All eleven esports players in the panel peak in the same month, and they agree in three of the four years we measured.
 
@@ -23,7 +23,7 @@ How we counted it, and what it cannot say: https://www.kculturewire.com/article/
 
 ## Instagram
 ```
-Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-min never does
+Faker gets a year of readers in one month. Son does not
 
 · Split Indonesian, Vietnamese, Thai and Malay Wikipedia reads by month.
 · All eleven esports players in the panel peak in the same month, and they agree in three of the four years we measured.
@@ -32,6 +32,6 @@ Faker and Peanut get a year of Southeast Asian readers in one month. Son Heung-m
 We publish the working, the thresholds we chose, and the questions this
 data cannot answer. Link in bio → https://www.kculturewire.com/article/a-year-in-one-month
 
-#Korea #Esports #Sport #Southeastasia #Measurement #Limits #KCultureWire #Netflix
+#Faker #Peanut #Sonheungmin #Korea #Esports #Sport #Southeastasia #Measurement
 ```
 
