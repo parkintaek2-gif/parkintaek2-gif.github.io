@@ -57,6 +57,35 @@ export const 브랜드 = [
   { q: 'Q36008', name: 'Mercedes-Benz', kind: 'car' },
   { q: 'Q26678', name: 'BMW', kind: 'car' },
   { q: 'Q40993', name: 'Porsche', kind: 'car' },
+
+  /*
+   * 🔴 [2026-09-10] 두 갈래를 더했다 — «오늘 돌고 있는 이슈»가 이 갈래인데 우리 축에 없었다.
+   *
+   * 2026-09-10 새벽 수집(archive/raw/community-desk/2026-09-10.json · 688건)에서 5번 몫
+   * 217건을 세 보니 같은 이야기가 네 번 걸렸다 —
+   *   BLACKPINK ROSÉ is the new ambassador for Apple's iPhone 18 camera
+   *   BLACKPINK ROSÉ - Vogue x Apple iPhone 18 ("new trick" MV Behind)
+   *   BLACKPINK ROSÉ - Digital Single: new trick (Teaser Image / Teaser Video)
+   * 그리고 하나 더 — BIGBANG G-DRAGON is McDonald's new brand ambassador.
+   *
+   * ⛔ 그런데 우리 22개 브랜드에 «기술»과 «패스트푸드»가 아예 없었다. 명품·차·보석·패션뿐이다.
+   *   축에 없는 갈래로 이슈가 돌면 우리는 그 이슈에 아무 말도 못 한다.
+   * ⭐ 열람수 우물은 열쇠가 필요 없고 «소급이 된다» — 그래서 같은 12개월 창으로 함께 잰다.
+   *   새로 더한 갈래를 「최근 것이라 적다」고 말하지 않아도 된다. 같은 창이다.
+   *
+   * ⚠ 삼성전자를 기술 갈래에 넣었다. 한국 회사라 자리가 갈릴 수 있는데, 이 축이 재는 것은
+   *   「어느 나라가 이 갈래를 읽나」이므로 «국적»이 아니라 «갈래»로 넣는 것이 맞다.
+   *   한국 차를 car-korean 으로 따로 둔 것과 다른 판단이라, 그 까닭을 여기 적어 둔다 —
+   *   차는 한국 차 셋이 모여 갈래를 이룰 만큼 있었고, 기술은 삼성 하나뿐이라 갈래가 안 된다.
+   */
+  { q: 'Q312', name: 'Apple Inc.', kind: 'tech' },
+  { q: 'Q20718', name: 'Samsung Electronics', kind: 'tech' },
+  { q: 'Q95', name: 'Google', kind: 'tech' },
+  { q: 'Q2283', name: 'Microsoft', kind: 'tech' },
+  { q: 'Q38076', name: "McDonald's", kind: 'fastfood' },
+  { q: 'Q37158', name: 'Starbucks', kind: 'fastfood' },
+  { q: 'Q177054', name: 'KFC', kind: 'fastfood' },
+  { q: 'Q39776', name: 'Burger King', kind: 'fastfood' },
 ];
 
 /** 🔴 못 재는 것 — 자료에 그대로 싣는다 */
@@ -196,6 +225,11 @@ if (내가실행됐다) {
 
   const 잰것 = 결과.filter((x) => x.seaPerMillionTotal !== null)
     .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal);
+
+  /* 🔴 [2026-09-10] 폴더를 안 만들고 쓰려 해서, **다 받아 놓고 마지막 줄에서 죽었다.**
+   *   12개월 조회수를 브랜드 30개 × 판 4개 = 120번 불러 놓고 한 줄도 못 적고 버렸다.
+   *   ⛔ 오래 받는 자는 «쓸 자리를 먼저» 만든다. 받기 전이나 쓰기 직전에 mkdir 한다. */
+  fs.mkdirSync(path.dirname(결과길), { recursive: true });
 
   fs.writeFileSync(결과길, `${JSON.stringify({
     generated: 지금(),

@@ -27,12 +27,24 @@ import d from '../../data/wikitip-brand-kinds.json';
 
 const 명품 = d.kinds.find((k) => k.key === 'luxury');
 const 독일차 = d.kinds.find((k) => k.key === 'car');
+const 기술 = d.kinds.find((k) => k.key === 'tech');
+const 패스트푸드 = d.kinds.find((k) => k.key === 'fastfood');
 const 흔들린나라 = d.countryNames[d.positionSwing.제일];
+
+/* 🔴 [2026-09-10] 「22」를 손으로 적어 두었더니 브랜드를 여덟 개 더한 날 «글만 옛 수»로 남았다.
+ *   ⛔ 자료에서 나오는 수를 지면에 손으로 적지 않는다. 세어서 쓴다. */
+/* ⚠ 이 칸은 «수»다(배열이 아니다). 실측: brandsMeasured = 30, number.
+ *   ⛔ 꼴을 짐작해서 .length 를 걸면 조용히 null 이 되어 글에서 「the brands」로 새어 나간다. */
+const 브랜드수 = typeof d.brandsMeasured === 'number' ? d.brandsMeasured : null;
+
+/* 기술이 명품보다 몇 배인가 — ⛔ 분모가 0 이면 null 이다 */
+const 기술배수 = (기술 && 명품 && 명품.합 > 0) ? +(기술.합 / 명품.합).toFixed(1) : null;
 
 const TITLE = 'Southeast Asia does not read brands as one thing';
 const DESC =
-  `Split 22 fashion, luxury, jewellery and car brands by kind and the four countries change places. `
-  + `${흔들린나라} is first among ${독일차.label.toLowerCase()} and last among ${명품.label.toLowerCase()}. `
+  `Split ${브랜드수 ?? 'the'} luxury, jewellery, fashion, car, technology and fast food brands by kind `
+  + `and the four countries change places. ${흔들린나라} is first among `
+  + `${독일차.label.toLowerCase()} and last among ${명품.label.toLowerCase()}. `
   + `Read as a single ranking, that disappears.`;
 
 const jsonLd = {
@@ -91,13 +103,48 @@ const jsonLd = {
     <p>
       {흔들린나라} sits {d.positionSwing.자리[d.positionSwing.제일].join(', ')} across the kinds that
       are thick enough to read — first in one, last in another. That is the whole point of splitting
-      them. A single ranking of 22 brands would have given {흔들린나라} one position and hidden the
-      rest.
+      them. A single ranking of {브랜드수 ?? 'all these'} brands would have given {흔들린나라} one
+      position and hidden the rest.
     </p>
     <p class="note">
       This is not a statement that one country cares more than another. It says the four countries
       are interested in <b>different kinds of thing</b>, and a page that ranks brands together cannot
       show that.
+    </p>
+  </section>
+
+  <section>
+    <h2>Two kinds we had left out, and the week that showed it</h2>
+    <p>
+      Until 10 September 2026 this page measured luxury, jewellery, fashion and cars. It did not
+      measure technology or fast food. In one morning our own feed carried four separate items
+      about a K-pop singer becoming the face of a phone camera, and one about another becoming the
+      face of a burger chain — two kinds this page could not have said a single number about.
+      So we added them, over the same {d.window} window, and re-read everything.
+    </p>
+    <p class="q">
+      {기술 && 명품 && 기술배수
+        ? `${기술.label} are read ${기술배수} times as much as every ${명품.label.toLowerCase()} brand here put together.`
+        : 'We could not compute that multiple, so we are not publishing one.'}
+    </p>
+    <p>
+      {패스트푸드 && 독일차 && 패스트푸드.합 > 독일차.합
+        ? `${패스트푸드.label} also come in above ${독일차.label.toLowerCase()} — ${패스트푸드.합} against ${독일차.합}.`
+        : `${패스트푸드 ? 패스트푸드.label : 'Fast food'} sits below the car makers here.`}
+      {' '}The kinds a global brand deal now reaches are not the kinds this page was built to watch.
+    </p>
+    <p class="note">
+      <b>Read this multiple carefully.</b> A technology company's article is read for reasons that
+      have nothing to do with the brand being desirable — people look up a phone, a company, a
+      founder, a lawsuit. A luxury house's article is read by people interested in the house. The
+      two are not the same kind of curiosity, and this page cannot separate them. What the number
+      does support is narrower and still useful: <b>far more people in these four countries end up
+      on the technology pages</b>. If a face is placed there, more people are in the room.
+    </p>
+    <p class="note">
+      ⚠ Adding a kind late does not make it look small here. Pageviews can be asked for past
+      months, so the new kinds were measured over the <b>same</b> {d.window} window as the rest —
+      not from the day we thought of them.
     </p>
   </section>
 

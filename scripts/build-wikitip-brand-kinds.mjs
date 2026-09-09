@@ -36,6 +36,11 @@ export const 갈래이름 = {
   'car-korean': 'Korean car makers',
   jewellery: 'Jewellers and watchmakers',
   fashion: 'Everyday fashion labels',
+  /* 🔴 [2026-09-10] 오늘 돌고 있는 이슈가 이 두 갈래인데 축에 없었다 —
+   *   BLACKPINK ROSÉ 가 Apple iPhone 18 앰버서더가 되고 G-DRAGON 이 McDonald's 것이 됐다.
+   *   축에 없는 갈래로 이슈가 돌면 우리는 그 이슈에 아무 말도 못 한다. */
+  tech: 'Technology makers',
+  fastfood: 'Fast food and coffee chains',
 };
 /** ⚠ 이보다 적으면 갈래라 부르지 않고 화면에 「얇다」고 적는다 */
 export const 얇음문턱 = 3;

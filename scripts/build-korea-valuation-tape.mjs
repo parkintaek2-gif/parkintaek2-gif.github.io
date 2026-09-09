@@ -98,8 +98,16 @@ export function 시세읽기(글) {
     const t = 줄.trim();
     if (!t) continue;
     let x; try { x = JSON.parse(t); } catch { continue; }
-    /* 칸 이름은 KRX 것을 그대로 쓴다(포털이 그렇게 준다) */
-    const 코드 = String(x.종목코드 ?? x.srtnCd ?? x.단축코드 ?? '').replace(/^A/, '').trim();
+    /*
+     * 🔴 [2026-09-10 실측] 칸 이름을 «짐작»해서 처음 판이 0종목을 읽었다.
+     *   나는 `종목코드` 라고 썼는데 실제 칸은 `코드` 다. 열어 보고 알았다 —
+     *     일자|코드|isin|이름|시장|종가|전일비|등락률|시가|고가|저가|거래량|거래대금|상장주식수|시가총액|거래없음
+     *   ⛔ 칸 이름을 짐작하면 «조용히 0» 이 된다. PER·PBR 이 0/2,709 로 나왔다.
+     *   ⭐ 그래서 읽은 수가 0 이면 아래에서 화면에 「0종목」이라고 찍게 해 두었다 —
+     *     그 한 줄이 없으면 「PER 이 원래 안 붙는 것」으로 넘어갔을 것이다.
+     * ⚠ KRX 꼴(srtnCd·mrktTotAmt)도 남겨 둔다 — 앞으로 경로가 바뀔 수 있다.
+     */
+    const 코드 = String(x.코드 ?? x.종목코드 ?? x.srtnCd ?? x.단축코드 ?? '').replace(/^A/, '').trim();
     const 시총 = Number(x.시가총액 ?? x.mrktTotAmt);
     if (!/^\d{6}$/.test(코드) || !Number.isFinite(시총)) continue;
     표.set(코드, 시총);
@@ -216,7 +224,11 @@ function 자가시험() {
   재다('🔴 다듬기: null 은 null 로 남는다', 다듬기(null) === null && 다듬기(undefined) === null);
   재다('⛔ 다듬기: NaN·Infinity 도 null', 다듬기(NaN) === null && 다듬기(Infinity) === null);
 
-  재다('시세읽기: 종목코드와 시총을 접는다', (() => {
+  재다('🔴 시세읽기: «실제» 칸 이름은 「코드」다 — 짐작해서 0종목을 읽었다', (() => {
+    const r = 시세읽기('{"일자":"20260908","코드":"900110","시가총액":22142994331}\n');
+    return r.표.get('900110') === 22142994331 && r.날 === '20260908';
+  })());
+  재다('시세읽기: 「종목코드」 꼴도 읽는다 (앞으로 바뀔 수 있다)', (() => {
     const r = 시세읽기('{"종목코드":"005930","시가총액":123,"일자":"20260908"}\n');
     return r.표.get('005930') === 123 && r.날 === '20260908';
   })());
@@ -339,6 +351,14 @@ const 낼것 = {
     note: 'PER is null when net income is not positive. PBR and ROE are null when total '
       + 'equity is not positive. Consolidated (CFS) is used when available, otherwise '
       + 'separate (OFS); the basis column says which. No sector averages are computed.',
+    /* 🔴 이 줄이 이 상품에서 가장 중요한 고백이다 — 안 적으면 손님이 TTM 으로 읽는다 */
+    howToRead: 'These are trailing annual multiples, not trailing twelve months. The market cap '
+      + 'column is a single trading day (priceAsOf) and the earnings and equity columns come from '
+      + 'the annual report for fiscalYear. The gap between those two dates is months, so a company '
+      + 'whose earnings moved since its last annual filing will read high or low here. That is why '
+      + 'both dates ship as columns: the multiple can be recomputed against any other price date.',
+    whyRowsAreKept: 'Rows that could not be computed are kept, with the reason in notMeasured. '
+      + 'Dropping them would remove the denominator and leave a flattering count.',
   },
   rows: 줄들,
 };
