@@ -2,7 +2,7 @@
  "builtOn": "2026. 9. 9",
  "window": "June to August 2026",
  "windowRaw": "20260601 ~ 20260831",
- "source": "Wikimedia REST — pageviews/per-article, all-access, user (봇 제외) · 판별 제목은 Wikidata sitelinks",
+ "source": "Wikimedia REST — pageviews/per-article, all-access, user traffic only (bots excluded). Each edition's article title resolved from Wikidata sitelinks.",
  "threshold": 20,
  "people": 478,
  "editions": 15,

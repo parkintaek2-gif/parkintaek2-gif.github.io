@@ -1,7 +1,7 @@
 ---
 title: "July is the thinnest month for K-pop idol birthdays, March the fullest"
 category: stars
-dek: "We counted 1,282 members of 263 K-pop groups. Put on a per-day footing, March runs at 1.20 times an even month and July at 0.70. Scattering the same birthdays evenly 10,000 times produced a gap that wide 1.2% of the time."
+dek: "We counted 1,303 members of 263 K-pop groups. Put on a per-day footing, March runs at 1.20 times an even month and July at 0.69. Scattering the same birthdays evenly 10,000 times produced a gap that wide 1.1% of the time."
 purpose: both
 pubDate: 2026-09-04
 dataAsOf: 2026-09-04T00:00:00+09:00
@@ -11,13 +11,16 @@ pages:
   - "/kpop-birthdays"
 sources:
   - org: "Wikidata"
-    api: "Date of birth (P569) for members of Korean idol groups, CC0. 263 groups, 1,581 member places, 1,295 distinct people with a date; 1,282 after removing 1 January"
+    api: "Date of birth (P569) for members of Korean idol groups, CC0. 263 groups, 1,581 member places, 1,317 distinct people with a date; 1,303 after removing 1 January"
     url: "https://www.wikidata.org/"
+corrections:
+  - date: 2026-09-09
+    note: "People were being de-duplicated by name alone, which merged different people who share a name. Keyed on name plus birth date, this panel holds 1,317 distinct people rather than 1,295, and 1,303 rather than 1,282 after removing 1 January. Every figure in this article moved a little: March 1.20x is unchanged, July went from 0.70x to 0.69x, and the noise test from 1.2% to 1.1%. March fullest and July thinnest still holds. The defect was found while building a wider panel of 9,249 Korean entertainers, where 288 names carried more than one birth date."
 crossChecks:
   - "Months are not the same length, so every month is put on a per-day footing before comparison. February uses 28.2425 days, the leap-year average, not 28."
-  - "1 January held 13 people, 3.67 times an average day. That is the date sources fall back on when only a birth year is known, so it is removed and the removal is shown. With it the chance figure is 1.6%; without it, 1.2%."
-  - "A person who appears in two groups is counted once, by name. 1,581 member places reduce to 1,295 people."
-  - "The noise test uses a fixed seed (20260904) so the 1.2% can be reproduced by anyone re-running the script."
+  - "1 January held 14 people, 3.89 times an average day. That is the date sources fall back on when only a birth year is known, so it is removed and the removal is shown. With it the chance figure is 1.5%; without it, 1.1%."
+  - "A person who appears in two groups is counted once, keyed on name plus birth date. 1,581 member places reduce to 1,317 people."
+  - "The noise test uses a fixed seed (20260904) so the 1.1% can be reproduced by anyone re-running the script."
 ---
 
 Ask which month has the most K-pop idol birthdays and the honest first answer is that nobody has
@@ -53,7 +56,7 @@ The full table, with each month's share, is on [K-pop idol birthdays by month](/
 
 ## Is a gap that wide just luck?
 
-With 1,282 people spread across twelve months, some months will run ahead by chance. So we
+With 1,303 people spread across twelve months, some months will run ahead by chance. So we
 scattered the same number of birthdays evenly across a year 10,000 times and asked how often the
 gap between the fullest and thinnest month came out as wide as ours.
 
@@ -91,10 +94,10 @@ idol roster gets assembled — debut cohorts, agency intakes, which members reac
 entry at all — could produce a gap of this size on its own. We did not separate those, and we are
 not going to pretend the data can.
 
-It also says nothing about any one person. This is a count of 1,282 people. A July birthday is not
+It also says nothing about any one person. This is a count of 1,303 people. A July birthday is not
 rare, and a March birthday is not lucky. Roughly one K-pop member in seventeen was born in July
 against one in ten for March, and that is the whole of it.
 
 Members whose birth date is not recorded on Wikidata are not in the count. We hold 1,581 member
 places across 263 groups; after collapsing people who appear in more than one group, and after
-removing 1 January, 1,282 remain.
+removing 1 January, 1,303 remain.

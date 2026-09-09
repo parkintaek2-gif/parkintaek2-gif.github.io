@@ -1591,6 +1591,16 @@ export const GET: APIRoute = async () => {
     entries.push({ path: `/born-year/${y.year}`, priority: '0.7', changefreq: 'monthly', lastmod: 해지어진날 });
   }
 
+  /* 🔴 [2026-09-09] 오늘 낸 세 지면이 «빌드되고 배포까지 됐는데» 여기 없었다.
+   *   ⛔ 위 주석의 「새 지면을 내면 이 목록에 «같은 커밋에서» 넣는다」를 내가 어겼다.
+   *     배포부터 하고 사이트맵을 잊어서, 세 지면이 라이브 200 이면서 검색엔 안 알려진
+   *     상태로 몇 시간 있었다. `check-search-readiness.mjs` 가 잡아 줬다.
+   *   ⭐ lastmod 를 손으로 주지 않는다 — 위 `소스찾기` 가 지면 소스의 import 줄을 읽어
+   *     저절로 붙인다. 손으로 적는 것이 이 파일의 세 번째 사고였다(위 주석). */
+  entries.push({ path: '/read-in', priority: '0.9', changefreq: 'weekly' });
+  entries.push({ path: '/group-mix', priority: '0.9', changefreq: 'weekly' });
+  entries.push({ path: '/service-years', priority: '0.9', changefreq: 'weekly' });
+
   const articles = await getCollection('kcwArticles');
   for (const a of articles.filter((e) => !e.data.draft)) {
     const 날 = a.data.updatedDate ?? a.data.pubDate;

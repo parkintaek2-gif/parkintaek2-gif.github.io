@@ -97,6 +97,23 @@ export function 배수(위, 아래) {
   return Math.round((위 / 아래) * 10) / 10;
 }
 
+/**
+ * 손님 화면에 나갈 출처 한 줄 — **영어로만** 쓴다.
+ *
+ * 🔴 왜 함수로 두나 — 아카이브의 `우물` 필드를 그대로 흘려 보내다 한국어가 지면에 나갔다.
+ *   문장을 여기 한 곳에 두면 아래 자가시험이 «한글이 섞였나»를 잴 수 있다.
+ * ⛔ 여기에 한글을 넣지 않는다. 자가시험이 막는다.
+ */
+export function 지면에낼우물() {
+  return 'Wikimedia REST — pageviews/per-article, all-access, user traffic only (bots excluded). '
+    + 'Each edition\'s article title resolved from Wikidata sitelinks.';
+}
+
+/** 한글이 섞였나 — 손님 화면에 나가는 글을 재는 자 */
+export function 한글있나(글) {
+  return /[ㄱ-ㆎ가-힣]/.test(String(글 ?? ''));
+}
+
 function 짓기() {
   const f = 최근파일(fs.readdirSync(방));
   if (!f) throw new Error('language-reads 파일이 없다 — collect-kcw-language-reads.mjs 를 먼저 돌린다');
@@ -129,7 +146,12 @@ function 짓기() {
     builtOn: o.잰때 ? String(o.잰때).slice(0, 10) : null,
     window: 읽는창(o.창),
     windowRaw: o.창,
-    source: o.우물,
+    /* 🔴 [2026-09-09 고침] 여기에 `o.우물` 을 그대로 넣었더니 «지면에 한국어가 나갔다».
+     *   /read-in 이 라이브에서 「(봇 제외) · 판별 제목은 …」을 띄우고 있었다.
+     *   ⛔ 아카이브 안쪽 글(한국어)과 «손님 화면에 나가는 글»(영어)은 다른 것이다.
+     *     안쪽 필드를 지면으로 흘려 보내면, 우리끼리 쓰던 말이 영어권 손님 화면에 뜬다.
+     *   ⭐ 그래서 아카이브의 `우물` 은 한국어로 그대로 두고, 여기서 영어 문장을 «따로» 쓴다. */
+    source: 지면에낼우물(),
     threshold: o.문턱,
     people: 사.length,
     editions: (o.판들 ?? []).length,
@@ -165,6 +187,15 @@ if (나 && process.argv.includes('--자가시험')) {
   검('⛔ 이름내기 — 모르는 코드는 코드를 그대로 (지어내지 않는다)', 이름내기('xx') === 'xx');
   검('⛔ 이름내기 — null 도 견딘다', 이름내기(null) === '');
   검('판이름에 열다섯이 다 있다', Object.keys(판이름).length === 15);
+
+  /* 🔴 [2026-09-09] 지면에 한국어가 나갔다 — 그 결함을 검사로 굳힌다.
+   *   ⛔ 「조심하자」로 남기지 않는다. 자가시험이 울려야 다음에도 막힌다. */
+  검('한글있나 — 한글을 잡는다', 한글있나('user (봇 제외)') === true);
+  검('한글있나 — 영어만이면 안 잡는다', 한글있나('bots excluded') === false);
+  검('한글있나 — null 도 견딘다', 한글있나(null) === false);
+  검('🔴 지면에 낼 출처에 한글이 없다', 한글있나(지면에낼우물()) === false);
+  검('지면에 낼 출처가 무엇을 셌는지 밝힌다',
+    /pageviews/.test(지면에낼우물()) && /bots excluded/.test(지면에낼우물()) && /sitelinks/.test(지면에낼우물()));
 
   검('최근파일 — 가장 늦은 날짜를 고른다',
     최근파일(['language-reads-2026-09-01.json', 'language-reads-2026-09-09.json', 'kpop-20260806.json']) === 'language-reads-2026-09-09.json');

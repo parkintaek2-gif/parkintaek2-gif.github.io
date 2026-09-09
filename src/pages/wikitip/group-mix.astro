@@ -66,6 +66,15 @@ const jsonLd = {
           <tr class="edge"><td class="nm">Both men and women</td><td class="tot">{수(c.coed)}</td><td>{data.coedShareOfClassified}%</td></tr>
           <tr><td class="nm">No sex recorded for anyone</td><td>{수(c.unknown)}</td><td class="fine">not sorted</td></tr>
         </tbody>
+        {/* ⭐ [2026-09-09] 바닥줄을 더했다 — 전체 그룹 수가 글 안에만 있어서 표 약속 검사가
+            「428 이 표에 없다」고 세웠고 그 말이 맞았다. 분모를 표에 두는 편이 읽기도 낫다. */}
+        <tfoot>
+          <tr>
+            <th scope="row">Every Korean music group on Wikidata</th>
+            <td class="tot">{수(data.groups)}</td>
+            <td class="fine">{수(data.classified)} sorted</td>
+          </tr>
+        </tfoot>
       </table>
     </div>
     <p class="note">
