@@ -61,6 +61,7 @@ export const 단계들 = [
    *   그래서 /read-in 이 폰에서 122px 밀린 채 배포까지 나갔고, /esports-nations 는
    *   그 전부터 11px 밀리고 있었다. 손님은 폰으로 온다 — 이 자를 관문에 둔다. */
   "node scripts/check-kcw-phone.mjs --자가시험",
+  "node scripts/build-seoulmarkets-target-changes.mjs --자가시험",
   "node scripts/restore-archive-from-onedrive.mjs --자가시험",
   "node scripts/collect-kcw-korean-names.mjs --자가시험",
   "node scripts/lib/kcw-roster-match.mjs --자가시험",

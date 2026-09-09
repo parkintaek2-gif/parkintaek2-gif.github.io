@@ -1,0 +1,231 @@
+---
+/*
+ * Target-price changes — P5 무료 지면. (seoulmarkets.com/data/target-changes)
+ *
+ * 왜 (2026-09-09 · 사장님 「데이터 가공·제공업을 본격화」):
+ *   상품 넷 가운데 **Korea Consensus Tape** 의 «무료 깔때기»다.
+ *   ⭐ 우리 몫은 컨센서스 «값»이 아니라 **«바뀐 것»**이다 — 누가 언제 올렸나 내렸나.
+ *
+ * ⛔ 이 지면이 지키는 것 — 지우지 않는다
+ * 🔴 **분모를 숨기지 않는다.** 105건은 625건 중이 아니라 «목표주가를 낸 199건» 중이다.
+ *    보고서 426건은 목표주가가 아예 없다(68%). 이 문장을 첫 화면에 둔다
+ * ⛔ 「올렸다 = 좋다」로 쓰지 않는다. 우리가 바늘을 세우지 않는다
+ * ⛔ 증권사 영문명을 지어내지 않는다 — 사전에 없으면 「안 적혀 있다」로 낸다
+ * ⛔ 화면에 한국어를 내지 않는다
+ * ⛔ 표를 감싸고 «그 칸이 실제로 스크롤되는지» 재고 낸다 — 2026-09-09 에 KCW 쪽에서
+ *    감싸 놓고 안 스크롤되는 규칙 때문에 폰에서 표가 화면을 밀었다
+ *
+ * 자료: src/data/seoulmarkets-target-changes.json (scripts/build-seoulmarkets-target-changes.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/seoulmarkets-target-changes.json';
+
+const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+const c = data.counts;
+
+const TITLE = 'Who moved a Korean target price';
+const SAMPLE = `${수(data.reports)} equity reports · ${data.publishingDays} publishing days · `
+  + `${data.windowFirstDay} to ${data.windowLastDay}`;
+const DESC =
+  `Of ${수(data.reports)} Korean equity reports we collected, ${수(data.reportsWithATarget)} carried a `
+  + `target price and ${수(data.movedCount)} of those moved it — ${수(c.raised)} up, ${수(c.cut)} down. `
+  + 'Broker by broker, with the previous and new figure for every move.';
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean analyst target-price changes',
+  description: DESC, url: `${SITE_URL}/data/target-changes`,
+  temporalCoverage: `${data.windowFirstDay}/${data.windowLastDay}`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['target price raised', 'target price cut', 'reports with no target price'],
+};
+
+/* 표에는 스무 건만 — 전량은 상품이다. ⛔ 「전부 보여 준다」고 쓰지 않는다 */
+const 보일것 = data.moves.slice(0, 20);
+const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+
+      <p class="lead">
+        A target price only means something when you can see it <b>move</b>. We collect the Korean
+        research list every day and sort each report by what the analyst did to the number:
+        <b>{수(c.raised)} raised</b>, <b>{수(c.cut)} cut</b>, {수(c.unchanged)} left it alone, and
+        {' '}{수(c.initiated)} put one out for the first time.
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>Read the denominator first.</b> {수(data.reports)} reports came through, but
+        {' '}<b>{수(c.noTarget)} of them carry no target price at all</b> — {Math.round(c.noTarget / data.reports * 100)}%.
+        So the {수(data.movedCount)} moves are {data.movedShareOfWithTarget}% of the
+        {' '}{수(data.reportsWithATarget)} reports that <i>had</i> a number, not of the full
+        {' '}{수(data.reports)}. Quoting it against the larger figure would make the change rate look
+        three times smaller than it is.
+      </aside>
+
+      <ol class="five">
+        <li><b>What it is</b> — every report on the Korean consensus list we collected, tagged
+          raised / cut / unchanged / newly initiated / no target.</li>
+        <li><b>Why it cannot be bought back later</b> — the source list is capped at roughly one
+          month. This history exists only because we save a snapshot every day. Someone starting
+          today gets one month and no more.</li>
+        <li><b>What it is not</b> — not a recommendation. A raised target is a fact about what an
+          analyst published, not a view of ours.</li>
+        <li><b>Not accuracy either</b> — whether these targets were met is a
+          <a href="/data/target-price-accuracy">separate page</a>.</li>
+        <li><b>Not the whole market</b> — this is the list one Korean site showed on the days we
+          collected it.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>What analysts did to the number</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>What the report did</th><th class="r">Reports</th><th class="r">Share of all</th></tr></thead>
+            <tbody>
+              <tr><td class="axis">Raised the target</td><td class="r"><b>{수(c.raised)}</b></td><td class="r">{Math.round(c.raised / data.reports * 1000) / 10}%</td></tr>
+              <tr><td class="axis">Cut the target</td><td class="r"><b>{수(c.cut)}</b></td><td class="r">{Math.round(c.cut / data.reports * 1000) / 10}%</td></tr>
+              <tr><td class="axis">Left it unchanged</td><td class="r">{수(c.unchanged)}</td><td class="r">{Math.round(c.unchanged / data.reports * 1000) / 10}%</td></tr>
+              <tr><td class="axis">Published a first target</td><td class="r">{수(c.initiated)}</td><td class="r">{Math.round(c.initiated / data.reports * 1000) / 10}%</td></tr>
+              <tr><td class="axis">No target price at all</td><td class="r">{수(c.noTarget)}</td><td class="r">{Math.round(c.noTarget / data.reports * 1000) / 10}%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          More reports were cut than raised in this window — {수(c.cut)} against {수(c.raised)}. We
+          report the count and not a reading of it.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>Broker by broker</h2>
+        <p>“Moved” counts only the reports that carried a target, which is why the last column is a
+          share of a smaller number than the first.</p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Broker</th><th class="r">Reports</th><th class="r">With a target</th>
+                <th class="r">Raised</th><th class="r">Cut</th><th class="r">Moved</th></tr>
+            </thead>
+            <tbody>
+              {data.brokers.map((b) => (
+                <tr>
+                  <td class="axis">{b.broker_en ?? 'English name not recorded'}</td>
+                  <td class="r">{수(b.reports)}</td>
+                  <td class="r">{수(b.withTarget)}</td>
+                  <td class="r">{수(b.raised)}</td>
+                  <td class="r">{수(b.cut)}</td>
+                  <td class="r">{b.movedShareOfWithTarget == null ? '—' : `${b.movedShareOfWithTarget}%`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        {이름없는곳.length > 0 && (
+          <p class="fine">
+            <b>{이름없는곳.length} of these houses appear without a name.</b> Our institution
+            dictionary has no English name recorded for them, and we would rather leave the row
+            unnamed than transliterate one ourselves. Their report counts are
+            {' '}{이름없는곳.map((b) => 수(b.reports)).join(', ')} and are included in every total
+            above.
+          </p>
+        )}
+      </section>
+
+      <section class="blk">
+        <h2>The most recent {보일것.length} moves</h2>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Date</th><th>Ticker</th><th>Broker</th><th>Move</th>
+                <th class="r">From (KRW)</th><th class="r">To (KRW)</th><th class="r">Change</th></tr>
+            </thead>
+            <tbody>
+              {보일것.map((m) => (
+                <tr>
+                  <td class="axis">{m.published_on ?? '—'}</td>
+                  <td>{m.ticker ?? '—'}</td>
+                  <td>{m.broker_en ?? 'not recorded'}</td>
+                  <td>{m.direction}</td>
+                  <td class="r">{수(m.previous_krw)}</td>
+                  <td class="r">{수(m.target_krw)}</td>
+                  <td class="r">{m.change_pct == null ? '—' : `${m.change_pct > 0 ? '+' : ''}${m.change_pct}%`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          Tickers are shown rather than company names, because an English company name is a separate
+          record we do not hold for every listed name yet. All {수(data.movedCount)} moves, with the
+          analyst who signed each one, are in the licensed file — {수(data.distinctAnalystNames)}
+          {' '}distinct analyst names across {수(data.distinctTickers)} tickers.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>How we counted</h2>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Source</th><td>{data.source}</td></tr>
+              <tr><th>Window</th><td>{data.windowFirstDay} to {data.windowLastDay} · {data.publishingDays} days carried a report</td></tr>
+              <tr><th>Built</th><td>{data.builtOn}</td></tr>
+              <tr><th>Duplicates</th><td>Reports are keyed on the publisher's own report id, so the same report collected on two days is counted once.</td></tr>
+              <tr><th>Zero is not a number</th><td>A blank or zero target is treated as “no target”, never as a target of zero.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="fine">
+          {data.whatThisIsNot.map((x) => <li>{x}</li>)}
+        </ul>
+      </section>
+
+      <p class="fine bottom">
+        This page reports what analysts published. It is not investment advice, and nothing here is a
+        recommendation to buy or sell any security.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--card); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  /* 🔴 표를 감싸는 칸 — 여기서 실제로 스크롤돼야 한다. 폰에서 지면이 밀리면 표는 «안 읽힌 것»이다 */
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; white-space: nowrap; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+  ul.fine { padding-left: 1.2rem; }
+  ul.fine li { margin: 0 0 .35rem; }
+  .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>

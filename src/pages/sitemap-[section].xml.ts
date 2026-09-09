@@ -68,6 +68,11 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/sector-workforce-panel', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/pension-wage-panel', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/target-price-accuracy', changefreq: 'weekly', priority: '0.8' },
+      /* 🔴 [2026-09-09 · 5번] P5 무료 지면 — Korea Consensus Tape 의 깔때기.
+       *   ⚠ 「맞췄나」(target-price-accuracy)와 다른 지면이다 — 이쪽은 「누가 언제 «바꿨나»」다.
+       *   ⛔ 지면을 내면 사이트맵에 «같은 커밋에서» 넣는다. 오늘 KCW 쪽에서 이것을 잊어
+       *     세 지면이 라이브 200 이면서 검색엔 안 알려진 채로 몇 시간 있었다. */
+      { loc: '/data/target-changes', changefreq: 'daily', priority: '0.8' },
       { loc: '/data/board-composition', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/analyst-attention', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/broker-candour', changefreq: 'weekly', priority: '0.8' },
