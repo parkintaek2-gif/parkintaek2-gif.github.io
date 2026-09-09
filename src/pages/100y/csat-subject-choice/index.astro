@@ -12,6 +12,7 @@
  *   그대로 옮겼다(자료 파일 「비율기준」 칸 참고).
  */
 import HundredYear from '../../../layouts/HundredYear.astro';
+import HundredCardnews from '../../../components/HundredCardnews.astro';
 import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import 원본 from '../../../data/100yearmap/csat-subject-choice.json';
 
@@ -113,6 +114,8 @@ const jsonLd = {
   <p class="note">
     출처 — {자료.출처.이름}. {자료.대조}
   </p>
+
+  <HundredCardnews 벌="사탐런" 장수={6} 머리="이 지면을 카드 여섯 장으로" />
 
   <NextQuestionBrief 모은것="KICE 대학수학능력시험 응시원서 접수 결과 보도자료 인용(다수 매체 교차확인)" />
 </HundredYear>
