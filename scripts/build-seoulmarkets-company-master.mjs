@@ -27,6 +27,12 @@ const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 회사길 = path.join(뿌리, 'archive/raw/dart-company/company.ndjson');
 const 시세방 = path.join(뿌리, 'archive/raw/krx');
 const 낼방 = path.join(뿌리, 'public/data');
+const 업종영문길 = path.join(뿌리, 'src/data/korea-industry-name-english.json');
+
+/** P3-B — 업종명 영문. 짐작 안 함: 사전에 없으면 null(「못 붙였다」로 남긴다), 기계번역 안 함 */
+export function 업종영문사전읽기() {
+  try { return JSON.parse(fs.readFileSync(업종영문길, 'utf8')).map ?? {}; } catch { return {}; }
+}
 
 export function 날꼴(d = new Date()) {
   const y = d.getFullYear();
@@ -152,6 +158,15 @@ export function 짓기() {
     결과.push(행);
   }
 
+  // P3-B — 업종명 영문(짐작·기계번역 안 함, 사전에 없으면 null로 남겨 「못 붙였다」가 보이게 한다)
+  const 업종영문 = 업종영문사전읽기();
+  let 업종영문못붙음 = new Set();
+  for (const 행 of 결과) {
+    행.industry_name_en = 행.industry_name_ko ? (업종영문[행.industry_name_ko] ?? null) : null;
+    if (행.industry_name_ko && 행.industry_name_en === null) 업종영문못붙음.add(행.industry_name_ko);
+  }
+  if (업종영문못붙음.size) 집계.업종영문못붙은이름 = [...업종영문못붙음];
+
   const 매치됨 = 결과.filter((x) => x.dart_status === 'matched' || x.dart_status === 'matched_via_parent').length;
   return { 결과, 집계, 전체: 결과.length, 매치됨, 매치율: 결과.length ? 매치됨 / 결과.length : 0, 시세날 };
 }
@@ -162,7 +177,7 @@ function 칸(v) {
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-const 머리칸 = ['ticker', 'name_ko', 'name_en', 'market', 'dart_corp', 'industry_code', 'industry_name_ko',
+const 머리칸 = ['ticker', 'name_ko', 'name_en', 'market', 'dart_corp', 'industry_code', 'industry_name_ko', 'industry_name_en',
   'is_preferred_share', 'parent_ticker', 'entity_type', 'dart_status', 'match_method',
   'close_price_krw', 'market_cap_krw', 'price_as_of'];
 
@@ -185,8 +200,9 @@ function 파일로쓰기() {
       name_en: 'DART-filed English name. Null if not matched. For preferred shares, parent company name + "(preferred)".',
       market: 'KOSPI or KOSDAQ.',
       dart_corp: 'DART corp code (8 digits). Null if not matched to any DART filer.',
-      industry_code: 'DART-filed KSIC industry code (Korean govt classification). English crosswalk is a separate file — not yet built for all codes.',
-      industry_name_ko: 'Industry name as DART files it, Korean. English dictionary pending.',
+      industry_code: 'DART-filed KSIC industry code (Korean govt classification). Fine-grained (630+ codes storewide) — see industry_name_ko/en for the grouped label actually used.',
+      industry_name_ko: 'Industry name as DART files it, Korean (60 distinct labels across our matched universe).',
+      industry_name_en: 'English label, hand-mapped from KSIC standard nomenclature (src/data/korea-industry-name-english.json) — not machine translation. Null if industry_name_ko has no entry yet in that file (see notMeasured).',
       is_preferred_share: 'true if this ticker is a preferred-share class of another listed company.',
       parent_ticker: 'For preferred shares only: the common-share ticker of the same company.',
       entity_type: 'spac | reit | preferred_share | null. Only set when dart_status is not_matched or matched_via_parent.',
@@ -197,7 +213,9 @@ function 파일로쓰기() {
       price_as_of: 'Trading date of the price columns.',
     },
     notMeasured: [
-      'English industry-name dictionary — 630 distinct DART industry codes exist storewide; not yet crosswalked to English. Pending.',
+      집계.업종영문못붙은이름?.length
+        ? `English industry-name dictionary — ${집계.업종영문못붙은이름.length} label(s) not yet in src/data/korea-industry-name-english.json: ${집계.업종영문못붙은이름.join(', ')}`
+        : 'English industry-name dictionary — all industry_name_ko labels in this run are covered.',
       `Preferred shares not linked (${집계.우선주못맞음}) — name-strip did not find a matching common-share row this run.`,
       `SPACs (${집계.스팩}) and REITs (${집계.리츠}) — kept as separate master rows; not linked to any DART corp (most SPACs/REITs do file with DART, this is a name-based miss, not a decision to exclude them).`,
       `Newly-listed/split companies (${집계.새상장추정}) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh.`,
@@ -224,6 +242,8 @@ function 자가시험() {
   재본다('갈래판정 — 스팩', 갈래판정('한투기업인수목적25호스팩'), 'spac');
   재본다('갈래판정 — 리츠', 갈래판정('SK리츠'), 'reit');
   재본다('이름다듬기 — 괄호·공백 제거', 이름다듬기('(주) 삼성 전자'), '삼성전자');
+  재본다('업종영문사전 — 전자부품 매핑', 업종영문사전읽기()['전자부품·컴퓨터·통신장비'], 'Electronic Components, Computers, and Communication Equipment');
+  재본다('업종영문사전 — 사전에 없는 이름은 undefined', 업종영문사전읽기()['없는업종명123'], undefined);
 
   const 실 = 것.filter(([, a, b]) => a !== b);
   if (실.length) {

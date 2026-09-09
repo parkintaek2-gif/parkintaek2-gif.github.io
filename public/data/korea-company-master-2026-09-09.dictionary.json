@@ -1,13 +1,13 @@
 {
   "whatThisIs": "KRX-listed tickers (KOSPI+KOSDAQ, 2765 rows as of 20260907) joined to DART corporate filings by ticker, with preferred shares re-linked to their common-share parent by name. Not investment advice.",
-  "matchRate": "97.6% (2700/2765)",
+  "matchRate": "97.9% (2706/2765)",
   "breakdown": {
-    "직접일치": 2589,
+    "직접일치": 2595,
     "우선주맞음": 111,
     "우선주못맞음": 3,
     "스팩": 30,
     "리츠": 1,
-    "새상장추정": 31
+    "새상장추정": 25
   },
   "columns": {
     "ticker": "KRX 6-digit code (or alphanumeric for some preferred classes).",
@@ -15,8 +15,9 @@
     "name_en": "DART-filed English name. Null if not matched. For preferred shares, parent company name + \"(preferred)\".",
     "market": "KOSPI or KOSDAQ.",
     "dart_corp": "DART corp code (8 digits). Null if not matched to any DART filer.",
-    "industry_code": "DART-filed KSIC industry code (Korean govt classification). English crosswalk is a separate file — not yet built for all codes.",
-    "industry_name_ko": "Industry name as DART files it, Korean. English dictionary pending.",
+    "industry_code": "DART-filed KSIC industry code (Korean govt classification). Fine-grained (630+ codes storewide) — see industry_name_ko/en for the grouped label actually used.",
+    "industry_name_ko": "Industry name as DART files it, Korean (60 distinct labels across our matched universe).",
+    "industry_name_en": "English label, hand-mapped from KSIC standard nomenclature (src/data/korea-industry-name-english.json) — not machine translation. Null if industry_name_ko has no entry yet in that file (see notMeasured).",
     "is_preferred_share": "true if this ticker is a preferred-share class of another listed company.",
     "parent_ticker": "For preferred shares only: the common-share ticker of the same company.",
     "entity_type": "spac | reit | preferred_share | null. Only set when dart_status is not_matched or matched_via_parent.",
@@ -27,10 +28,10 @@
     "price_as_of": "Trading date of the price columns."
   },
   "notMeasured": [
-    "English industry-name dictionary — 630 distinct DART industry codes exist storewide; not yet crosswalked to English. Pending.",
+    "English industry-name dictionary — all industry_name_ko labels in this run are covered.",
     "Preferred shares not linked (3) — name-strip did not find a matching common-share row this run.",
     "SPACs (30) and REITs (1) — kept as separate master rows; not linked to any DART corp (most SPACs/REITs do file with DART, this is a name-based miss, not a decision to exclude them).",
-    "Newly-listed/split companies (31) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh."
+    "Newly-listed/split companies (25) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh."
   ],
   "disclaimer": "Not investment advice. Market cap reflects capital intensity, not productivity."
 }
