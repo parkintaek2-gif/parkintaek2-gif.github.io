@@ -1,0 +1,542 @@
+#!/usr/bin/env node
+/**
+ * collect-dart-financials.mjs — **F1. DART 재무제표를 받는다.** 이것이 병목이다.
+ *
+ *   node scripts/collect-dart-financials.mjs --재본다              한도·응답만 잰다 (안 적는다)
+ *   node scripts/collect-dart-financials.mjs --해 2025 --적는다     한 해를 받아 적는다
+ *   node scripts/collect-dart-financials.mjs --해 2025 --몇개 30    앞의 몇 곳만 (시험용)
+ *   node scripts/collect-dart-financials.mjs --자가시험
+ *
+ * ── 🔴 왜 이것이 먼저인가 (2026-09-10) ──────────────────────────────────
+ *
+ * 사장님: 「**우리는 영문판 fnGuide**이라고 했잖아...여기에 맞춰 실행계획, 개발 일정을
+ *        다시 짜야 하지 않나?」 · 「**서울마켓츠일에 80%쓰라는 건데**」
+ *
+ * FnGuide 의 본체 다섯 축을 재 보니 넷은 이미 쥐고 있었고 **재무제표만 없었다.**
+ * 그런데 이 한 칸이 없으면 PER·PBR·ROE·스크리너가 «전부» 안 선다 —
+ * ```
+ * PER = 시가총액 ÷ 당기순이익      시총 ✅ 있다 (2,873종목) × 순이익 ← 없었다
+ * PBR = 시가총액 ÷ 자본총계        시총 ✅ 있다            × 자본  ← 없었다
+ * ROE = 당기순이익 ÷ 자본총계      둘 다 ← 없었다
+ * ```
+ * ⇒ 그래서 상품 순위의 1번이 되었다. `docs/서울마켓츠-실행계획-영문FnGuide-재편.md`
+ *
+ * ── ⛔ 이 자가 지키는 것 ───────────────────────────────────────────────
+ * ```
+ * ⛔ 0 으로 채우지 않는다. 없는 계정은 null 이다 (DART 는 빈 칸을 '-' 나 '' 로 준다)
+ * ⛔ CFS(연결)와 OFS(개별)를 «섞지» 않는다 — 섞으면 PER 이 틀린다. 따로 담는다
+ * ⛔ 「대부분 받았다」로 보고하지 않는다 — «붙은 수 / 전체 수»를 적는다
+ * ⛔ 못 붙은 회사는 이름으로 적는다 (스팩·신규상장·분할은 원래 없을 수 있다)
+ * ⛔ 하루 한도에 걸리면 «걸렸다»고 적고 멈춘다. 덮어쓰지 않는다
+ * ```
+ *
+ * 영문 계정명은 2번이 만든 자를 그대로 쓴다 — `scripts/lib/financial-account-en.mjs`
+ * 사전에 없는 계정은 `unmapped:<원문>` 으로 나오고, 그 목록을 세어 2번께 넘긴다.
+ */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { 계정명영문, 재무제표명영문 } from './lib/financial-account-en.mjs';
+
+const ROOT = process.cwd();
+export const 회사대장 = 'archive/raw/dart-company/company.ndjson';
+export const 담을방 = 'archive/raw/dart-financials';
+export const 끝점 = 'https://opendart.fss.or.kr/api/fnlttSinglAcntAll.json';
+
+/** 보고서 코드 — 넷을 다 넣는다. 「연간만」으로 두면 분기 축이 영영 없다 */
+export const 보고서 = {
+  11011: { 이름: '사업보고서', 영문: 'Annual', 분기: 4 },
+  11012: { 이름: '반기보고서', 영문: 'Half-year', 분기: 2 },
+  11013: { 이름: '1분기보고서', 영문: 'Q1', 분기: 1 },
+  11014: { 이름: '3분기보고서', 영문: 'Q3', 분기: 3 },
+};
+
+/** 연결/개별 — ⛔ 섞지 않는다 */
+export const 재무구분 = { CFS: 'Consolidated', OFS: 'Separate' };
+
+/** 밸류에이션에 반드시 있어야 하는 계정 — 이것이 없으면 그 회사는 「못 쟀다」다 */
+export const 핵심계정 = ['자산총계', '자본총계', '당기순이익', '매출액', '영업이익'];
+
+/* ── 재는 함수들 (전부 순수함수 — 자가시험이 이것을 잰다) ──────────── */
+
+/**
+ * DART 가 주는 금액 글자를 수로 바꾼다.
+ * ⛔ 빈 칸·'-'·'None' 을 0 으로 만들지 않는다 — null 이다.
+ *   0 으로 채우면 「자본총계 0」이 되어 PBR 이 무한이 된다.
+ */
+export function 금액(글) {
+  if (글 === null || 글 === undefined) return null;
+  const s = String(글).trim();
+  if (!s || s === '-' || s === 'None' || s === 'null') return null;
+  /* 괄호는 음수다 — (1,234) → -1234 */
+  const 음수 = /^\(.*\)$/.test(s);
+  const 알맹이 = s.replace(/[(),\s]/g, '');
+  if (!/^-?\d+(\.\d+)?$/.test(알맹이)) return null;
+  const n = Number(알맹이);
+  if (!Number.isFinite(n)) return null;
+  return 음수 ? -n : n;
+}
+
+/**
+ * 실제로 «거래소에 상장된» 시장 셋. E 는 상장이 아니다.
+ *
+ * 🔴 [2026-09-10 실측] 처음에 나는 「종목코드가 여섯 자리면 상장」으로 판정했다. **틀렸다.**
+ *   회사대장 3,931곳이 «전부» 종목코드를 갖고 있었고, 그래서 나는 「상장 3,931곳」이라고
+ *   화면에 찍었다. 그런데 앞의 열 곳을 부르니 **열 곳 다 「자료 없음」**이 왔다.
+ *   시장 칸을 세 보니 이렇게 갈렸다 —
+ * ```
+ *   Y 유가증권(KOSPI)   830
+ *   K 코스닥          1,772
+ *   N 코넥스            107
+ *   E 기타            1,222   ← 외부감사대상 등. 거래소에 없다. 사업보고서도 없다
+ *   ⇒ 진짜 상장은 2,709곳이다. 1,222곳을 상장으로 세고 있었다
+ * ```
+ * ⛔ 「칸이 채워져 있다」를 「그 뜻이다」로 읽지 않는다. 값의 «갈래»를 세어 봐야 한다.
+ */
+export const 상장시장 = new Set(['Y', 'K', 'N']);
+
+/** 회사 한 곳이 상장사인가 — 종목코드 여섯 자리 «그리고» 시장이 Y·K·N 이어야 한다 */
+export function 상장인가(회사) {
+  const c = String(회사?.종목 ?? '').trim();
+  if (!/^\d{6}$/.test(c)) return false;
+  return 상장시장.has(String(회사?.시장 ?? '').trim());
+}
+
+/**
+ * 계정명을 «맞춰 보기 위한 꼴»로 만든다. ⛔ 표시용이 아니다 — 원문은 그대로 남긴다.
+ *
+ * 🔴 [2026-09-10 실측] 처음 판은 계정명을 «통글자»로 맞췄고, 그래서 열 곳 가운데
+ *   핵심계정이 1/5·2/5 로 나왔다. 회사마다 이렇게 다르게 적는다 —
+ * ```
+ *   영업이익(손실)          ← 괄호로 「(손실)」을 붙인다
+ *   자본총계(B)             ← 표 안의 기호를 붙인다
+ *   장기매출채권, 총액        ← 「, 총액」을 붙인다
+ *   매출채권 및 기타채권      ← 띄어쓰기가 회사마다 다르다
+ * ```
+ * ⇒ 그래서 ① 공백을 다 없애고 ② 끝에 붙은 「(…)」·「,…」 을 뗀다.
+ * ⚠ 괄호를 «가운데»서 떼지 않는다 — 「수익(매출액)」 같은 것은 뜻이 괄호 안에 있다.
+ */
+export function 계정정규화(원문) {
+  let s = String(원문 ?? '').trim();
+  if (!s) return '';
+  s = s.replace(/\s+/g, '');
+  /* 끝에 붙은 꼬리를 뗀다 — 여러 번 붙는 경우가 있어 되풀이한다 */
+  for (let i = 0; i < 3; i += 1) {
+    const 앞 = s;
+    s = s.replace(/[,·][^,·()]*$/, '');          /* 「,총액」 */
+    s = s.replace(/\((손실|이익|손익|B|A|주|단위:[^)]*)\)$/, ''); /* 「(손실)」·「(B)」 */
+    if (s === 앞) break;
+  }
+  return s;
+}
+
+/**
+ * 핵심계정의 «동의어». ⛔ 짐작으로 넣지 않았다 — 위 실측에서 본 꼴만 넣는다.
+ * ⚠ 앞에 있는 것이 먼저 이긴다. 넓은 것(수익·매출)을 뒤에 둔다.
+ */
+export const 동의어 = {
+  자산총계: ['자산총계'],
+  자본총계: ['자본총계', '자본'],
+  당기순이익: ['당기순이익', '연결당기순이익', '당기순손익', '계속영업당기순이익'],
+  매출액: ['매출액', '수익(매출액)', '영업수익', '매출', '수익'],
+  영업이익: ['영업이익', '영업손익'],
+};
+
+/**
+ * 응답 한 벌에서 «한 계정»을 찾는다. 재무제표를 가려서 찾는다.
+ *
+ * ⚠ 「당기순이익」은 손익계산서와 포괄손익계산서에 «둘 다» 있다 — 손익계산서를 먼저 본다.
+ * ⚠ 그런데 손익계산서를 «아예 안 내는» 회사가 있다(포괄손익계산서 하나로 낸다).
+ *   그래서 포괄손익계산서도 우선 목록에 둔다. 실측: 삼화콘덴서·차이나크리스탈이 그 꼴이다.
+ */
+export function 계정찾기(줄들, 계정, 우선재무제표 = ['재무상태표', '손익계산서', '포괄손익계산서']) {
+  if (!Array.isArray(줄들)) return null;
+  const 후보들 = 동의어[계정] ?? [계정];
+  const 맞나 = (x, 찾을것) => 계정정규화(x?.account_nm) === 계정정규화(찾을것);
+
+  /* 동의어 순서가 먼저다 — 「매출액」이 있으면 「수익」을 쓰지 않는다 */
+  for (const 후보 of 후보들) {
+    for (const 표 of 우선재무제표) {
+      const 것 = 줄들.find((x) => String(x?.sj_nm ?? '').trim() === 표 && 맞나(x, 후보));
+      if (것) return 것;
+    }
+  }
+  for (const 후보 of 후보들) {
+    const 것 = 줄들.find((x) => 맞나(x, 후보));
+    if (것) return 것;
+  }
+  return null;
+}
+
+/**
+ * 응답 한 벌을 «우리 표 한 줄»로 접는다.
+ * @returns {{쟀나:boolean, 값:object, 없는계정:string[]}}
+ */
+export function 한줄만들기(줄들, 뼈대 = {}) {
+  const 값 = { ...뼈대 };
+  const 없는계정 = [];
+  for (const 계정 of 핵심계정) {
+    const 것 = 계정찾기(줄들, 계정);
+    const n = 금액(것?.thstrm_amount);
+    값[계정] = n;                       /* ⛔ null 을 0 으로 바꾸지 않는다 */
+    if (n === null) 없는계정.push(계정);
+  }
+  /* 밸류에이션이 서려면 자본총계와 당기순이익이 있어야 한다 */
+  const 쟀나 = 값.자본총계 !== null && 값.당기순이익 !== null;
+  return { 쟀나, 값, 없는계정 };
+}
+
+/**
+ * 밸류에이션 — ⛔ 음수·0 이면 null 이다. 음수 PER 을 내지 않는다.
+ * @param {number|null} 시가총액
+ */
+export function 밸류에이션({ 시가총액, 당기순이익, 자본총계 }) {
+  const per = (Number.isFinite(시가총액) && Number.isFinite(당기순이익) && 당기순이익 > 0)
+    ? 시가총액 / 당기순이익 : null;
+  const pbr = (Number.isFinite(시가총액) && Number.isFinite(자본총계) && 자본총계 > 0)
+    ? 시가총액 / 자본총계 : null;
+  const roe = (Number.isFinite(당기순이익) && Number.isFinite(자본총계) && 자본총계 > 0)
+    ? 당기순이익 / 자본총계 : null;
+  return { per, pbr, roe };
+}
+
+/** 응답의 status 를 읽는다 — 000 만 정상. 013 은 「자료 없음」이라 흠이 아니다 */
+export function 응답판정(j) {
+  const s = String(j?.status ?? '').trim();
+  if (s === '000') return { 정상: true, 없음: false, 한도: false, 까닭: null };
+  if (s === '013') return { 정상: false, 없음: true, 한도: false, 까닭: '그 해·그 보고서가 없다' };
+  if (s === '020') return { 정상: false, 없음: false, 한도: true, 까닭: '🔴 하루 한도에 걸렸다' };
+  return { 정상: false, 없음: false, 한도: false, 까닭: `status ${s} ${j?.message ?? ''}`.trim() };
+}
+
+/** 영문 계정명이 몇 개 붙었나 — 2번께 넘길 «안 붙은 목록»도 같이 낸다 */
+export function 영문붙이기(줄들) {
+  const 안붙은 = new Set();
+  let 붙은 = 0; let 전체 = 0;
+  for (const x of (Array.isArray(줄들) ? 줄들 : [])) {
+    const 원문 = String(x?.account_nm ?? '').trim();
+    if (!원문) continue;
+    전체 += 1;
+    const en = 계정명영문(원문);
+    if (typeof en === 'string' && en.startsWith('unmapped:')) 안붙은.add(원문);
+    else 붙은 += 1;
+  }
+  return { 붙은, 전체, 비율: 전체 === 0 ? null : 붙은 / 전체, 안붙은: [...안붙은] };
+}
+
+/** 회사대장을 읽는다. 못 읽으면 null (⛔ 빈 배열이 아니다) */
+export function 회사읽기(뿌리 = ROOT, 읽기 = null) {
+  const 잼 = 읽기 ?? ((p) => { try { return fs.readFileSync(p, 'utf8'); } catch { return null; } });
+  const 글 = 잼(path.join(뿌리, 회사대장));
+  if (글 === null) return null;
+  const 것 = [];
+  for (const 줄 of 글.split(/\r?\n/)) {
+    const t = 줄.trim();
+    if (!t) continue;
+    try { 것.push(JSON.parse(t)); } catch { /* 깨진 줄은 건너뛴다 */ }
+  }
+  return 것;
+}
+
+/* ── 자가시험 ───────────────────────────────────────────────────────── */
+function 자가시험() {
+  const 것 = []; const 재다 = (이름, 됐나) => 것.push({ 이름, 됐나 });
+
+  재다('보고서 코드가 넷이다 — 연간만 두면 분기 축이 영영 없다',
+    Object.keys(보고서).length === 4 && 보고서[11011].영문 === 'Annual');
+  재다('재무구분이 둘이다 (CFS·OFS)', Object.keys(재무구분).length === 2);
+  재다('핵심계정이 다섯이다', 핵심계정.length === 5 && 핵심계정.includes('자본총계'));
+
+  재다('금액: 쉼표를 뗀다', 금액('566,942,110,000,000') === 566942110000000);
+  재다('금액: 음수 부호', 금액('-1234') === -1234);
+  재다('금액: 괄호는 음수다', 금액('(1,234)') === -1234);
+  재다('🔴 금액: 빈 칸은 null — 0 이 아니다', 금액('') === null && 금액('   ') === null);
+  재다("🔴 금액: '-' 는 null", 금액('-') === null);
+  재다('🔴 금액: None·null 글자도 null', 금액('None') === null && 금액('null') === null);
+  재다('🔴 금액: undefined 도 null', 금액(undefined) === null && 금액(null) === null);
+  재다('⛔ 금액: 글자가 섞이면 null — 짐작으로 잘라 읽지 않는다', 금액('약 1,000') === null);
+  재다('금액: 0 은 «진짜 0» 이라 0 이다', 금액('0') === 0);
+
+  재다('상장인가: 여섯 자리 + 시장 Y·K·N',
+    상장인가({ 종목: '005930', 시장: 'Y' }) === true
+    && 상장인가({ 종목: '036720', 시장: 'K' }) === true
+    && 상장인가({ 종목: '123456', 시장: 'N' }) === true);
+  재다('🔴 상장인가: 시장 E 는 «상장이 아니다» — 1,222곳을 상장으로 세고 있었다',
+    상장인가({ 종목: '036720', 시장: 'E' }) === false);
+  재다('🔴 상장인가: 시장 칸이 없으면 아니다 — 종목코드만 보고 판정하지 않는다',
+    상장인가({ 종목: '005930' }) === false);
+  재다('⛔ 상장인가: 빈 것·짧은 것은 아니다',
+    상장인가({ 종목: '', 시장: 'Y' }) === false
+    && 상장인가({ 종목: '123', 시장: 'Y' }) === false && 상장인가({}) === false);
+
+  const 줄들 = [
+    { sj_nm: '재무상태표', account_nm: '자산총계', thstrm_amount: '566,942,110,000,000' },
+    { sj_nm: '재무상태표', account_nm: '자본총계', thstrm_amount: '436,320,337,000,000' },
+    { sj_nm: '손익계산서', account_nm: '매출액', thstrm_amount: '333,605,938,000,000' },
+    { sj_nm: '손익계산서', account_nm: '영업이익', thstrm_amount: '43,601,051,000,000' },
+    { sj_nm: '손익계산서', account_nm: '당기순이익', thstrm_amount: '45,206,805,000,000' },
+    { sj_nm: '포괄손익계산서', account_nm: '당기순이익', thstrm_amount: '99,999' },
+  ];
+
+  재다('🔴 계정찾기: 당기순이익은 «손익계산서» 것을 먼저 잡는다 — 포괄손익에도 있다',
+    금액(계정찾기(줄들, '당기순이익')?.thstrm_amount) === 45206805000000);
+  재다('계정찾기: 없는 계정은 null', 계정찾기(줄들, '없는계정') === null);
+  재다('⛔ 계정찾기: 줄들이 배열이 아니면 null', 계정찾기(null, '자산총계') === null);
+
+  /* ── 계정정규화 — 실측한 변이만 넣었다 ── */
+  재다('계정정규화: 공백을 없앤다', 계정정규화('매출채권 및 기타채권') === '매출채권및기타채권');
+  재다('🔴 계정정규화: 「영업이익(손실)」 → 「영업이익」', 계정정규화('영업이익(손실)') === '영업이익');
+  재다('🔴 계정정규화: 「자본총계(B)」 → 「자본총계」', 계정정규화('자본총계(B)') === '자본총계');
+  재다('🔴 계정정규화: 「장기매출채권, 총액」 → 「장기매출채권」',
+    계정정규화('장기매출채권, 총액') === '장기매출채권');
+  재다('⚠ 계정정규화: 괄호를 «가운데»서 떼지 않는다 — 「수익(매출액)」은 뜻이 괄호 안에 있다',
+    계정정규화('수익(매출액)') === '수익(매출액)');
+  재다('⛔ 계정정규화: 빈 것은 빈 글자', 계정정규화('') === '' && 계정정규화(null) === '');
+
+  재다('🔴 계정찾기: 포괄손익계산서에만 있는 「영업이익(손실)」을 잡는다', (() => {
+    const 것 = [{ sj_nm: '포괄손익계산서', account_nm: '영업이익(손실)', thstrm_amount: '-500' }];
+    return 금액(계정찾기(것, '영업이익')?.thstrm_amount) === -500;
+  })());
+  재다('🔴 계정찾기: 「자본총계(B)」도 자본총계로 잡는다', (() => {
+    const 것 = [{ sj_nm: '재무상태표', account_nm: '자본총계(B)', thstrm_amount: '1,000' }];
+    return 금액(계정찾기(것, '자본총계')?.thstrm_amount) === 1000;
+  })());
+  재다('🔴 계정찾기: 「매출액」이 있으면 넓은 「수익」을 쓰지 않는다 — 동의어 순서가 먼저다', (() => {
+    const 것 = [
+      { sj_nm: '포괄손익계산서', account_nm: '기타수익', thstrm_amount: '1' },
+      { sj_nm: '포괄손익계산서', account_nm: '매출액', thstrm_amount: '999' },
+    ];
+    return 금액(계정찾기(것, '매출액')?.thstrm_amount) === 999;
+  })());
+  재다('계정찾기: 「영업수익」만 있으면 그것을 매출액으로 본다', (() => {
+    const 것 = [{ sj_nm: '포괄손익계산서', account_nm: '영업수익', thstrm_amount: '777' }];
+    return 금액(계정찾기(것, '매출액')?.thstrm_amount) === 777;
+  })());
+  재다('동의어: 다섯 핵심계정에 다 있다',
+    핵심계정.every((k) => Array.isArray(동의어[k]) && 동의어[k].length >= 1));
+
+  재다('한줄만들기: 다섯 칸을 채우고 쟀다로 본다', (() => {
+    const r = 한줄만들기(줄들, { 종목: '005930' });
+    return r.쟀나 === true && r.값.자산총계 === 566942110000000
+      && r.값.종목 === '005930' && r.없는계정.length === 0;
+  })());
+  재다('🔴 한줄만들기: 자본총계가 없으면 «쟀나=false» 다 — 밸류에이션이 안 선다', (() => {
+    const r = 한줄만들기(줄들.filter((x) => x.account_nm !== '자본총계'));
+    return r.쟀나 === false && r.없는계정.includes('자본총계') && r.값.자본총계 === null;
+  })());
+  재다('🔴 한줄만들기: 없는 칸은 null 로 «남는다» — 0 으로 채우지 않는다', (() => {
+    const r = 한줄만들기([]);
+    return 핵심계정.every((k) => r.값[k] === null) && r.없는계정.length === 5;
+  })());
+
+  const v = 밸류에이션({ 시가총액: 1000, 당기순이익: 100, 자본총계: 500 });
+  재다('밸류에이션: PER 10 · PBR 2 · ROE 0.2',
+    v.per === 10 && v.pbr === 2 && v.roe === 0.2);
+  재다('🔴 밸류에이션: 순이익이 음수면 PER 은 null — 음수 PER 을 내지 않는다',
+    밸류에이션({ 시가총액: 1000, 당기순이익: -50, 자본총계: 500 }).per === null);
+  재다('🔴 밸류에이션: 순이익이 0 이면 PER 은 null (무한이 아니다)',
+    밸류에이션({ 시가총액: 1000, 당기순이익: 0, 자본총계: 500 }).per === null);
+  재다('🔴 밸류에이션: 자본총계가 0 이하면 PBR·ROE 는 null', (() => {
+    const r = 밸류에이션({ 시가총액: 1000, 당기순이익: 100, 자본총계: 0 });
+    const r2 = 밸류에이션({ 시가총액: 1000, 당기순이익: 100, 자본총계: -10 });
+    return r.pbr === null && r.roe === null && r2.pbr === null && r2.roe === null;
+  })());
+  재다('⛔ 밸류에이션: 시총이 null 이면 PER·PBR 은 null (ROE 는 살아 있다)', (() => {
+    const r = 밸류에이션({ 시가총액: null, 당기순이익: 100, 자본총계: 500 });
+    return r.per === null && r.pbr === null && r.roe === 0.2;
+  })());
+
+  재다('응답판정: 000 은 정상', 응답판정({ status: '000' }).정상 === true);
+  재다('응답판정: 013 은 «자료 없음» — 흠이 아니다', (() => {
+    const r = 응답판정({ status: '013' });
+    return r.정상 === false && r.없음 === true && r.한도 === false;
+  })());
+  재다('🔴 응답판정: 020 은 하루 한도다 — 멈춰야 한다', (() => {
+    const r = 응답판정({ status: '020' });
+    return r.한도 === true && /한도/.test(r.까닭);
+  })());
+  재다('응답판정: 모르는 status 는 까닭에 그대로 적는다',
+    /status 999/.test(응답판정({ status: '999', message: '어쩌구' }).까닭));
+
+  재다('영문붙이기: 붙은 수와 안 붙은 목록을 «따로» 낸다', (() => {
+    const r = 영문붙이기([
+      { account_nm: '자산총계' },
+      { account_nm: '자본총계' },
+      { account_nm: '이런계정은사전에없다' },
+    ]);
+    return r.전체 === 3 && r.붙은 === 2 && r.안붙은.length === 1;
+  })());
+  재다('⛔ 영문붙이기: 빈 것은 비율이 null — 0 이 아니다',
+    영문붙이기([]).비율 === null && 영문붙이기(null).비율 === null);
+  재다('영문붙이기: 같은 계정이 여러 번 나와도 안붙은은 한 번만 센다', (() => {
+    const r = 영문붙이기([{ account_nm: '없는것' }, { account_nm: '없는것' }]);
+    return r.안붙은.length === 1 && r.전체 === 2;
+  })());
+
+  재다('재무제표명영문: 재무상태표를 옮긴다',
+    재무제표명영문('재무상태표') === 'Statement of Financial Position');
+
+  재다('회사읽기: ndjson 을 줄마다 읽는다', (() => {
+    const 것 = 회사읽기('X', () => '{"corp":"1","종목":"000001"}\n{"corp":"2","종목":"000002"}\n');
+    return Array.isArray(것) && 것.length === 2 && 것[1].종목 === '000002';
+  })());
+  재다('회사읽기: 깨진 줄은 건너뛴다', (() => {
+    const 것 = 회사읽기('X', () => '{"corp":"1"}\n깨진줄\n{"corp":"2"}\n');
+    return 것.length === 2;
+  })());
+  재다('🔴 회사읽기: 못 읽으면 null — 빈 배열이 아니다 («0곳»으로 보고되면 안 된다)',
+    회사읽기('X', () => null) === null);
+
+  const 실패 = 것.filter((x) => !x.됐나);
+  console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
+  for (const x of 실패) console.log(`  🔴 ${x.이름}`);
+  return 실패.length === 0;
+}
+
+/* ── 돌리기 ─────────────────────────────────────────────────────────── */
+if (process.argv.includes('--자가시험')) {
+  process.exit(자가시험() ? 0 : 1);
+}
+
+function 인자(이름, 기본 = null) {
+  const i = process.argv.indexOf(`--${이름}`);
+  return i > 0 && process.argv[i + 1] ? process.argv[i + 1] : 기본;
+}
+
+function 열쇠() {
+  try {
+    const 글 = fs.readFileSync(path.resolve('.env'), 'utf8');
+    const m = 글.match(/^DART_API_KEY\s*=\s*(.+)$/m);
+    return m ? m[1].trim().replace(/^["']|["']$/g, '') : '';
+  } catch { return ''; }
+}
+
+const 잠깐 = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function 한벌받기(키, corp, 해, 보고서코드, 구분) {
+  const u = `${끝점}?crtfc_key=${키}&corp_code=${corp}&bsns_year=${해}`
+    + `&reprt_code=${보고서코드}&fs_div=${구분}`;
+  try {
+    const r = await fetch(u);
+    const j = await r.json();
+    return { j, 판정: 응답판정(j) };
+  } catch (e) {
+    return { j: null, 판정: { 정상: false, 없음: false, 한도: false, 까닭: `못 불렀다 — ${e.message}` } };
+  }
+}
+
+async function 돌리기() {
+  if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 받지 않는다.'); process.exit(1); }
+  console.log('');
+
+  const 키 = 열쇠();
+  if (!키) { console.log('🔴 .env 의 DART_API_KEY 가 없다.'); process.exit(1); }
+
+  const 해 = 인자('해', '2025');
+  const 몇개 = Number(인자('몇개', '0')) || 0;
+  const 적는다 = process.argv.includes('--적는다');
+  const 재본다 = process.argv.includes('--재본다');
+
+  const 회사들 = 회사읽기();
+  if (회사들 === null) { console.log(`🔴 회사대장을 못 읽었다 — ${회사대장}`); process.exit(1); }
+  let 상장 = 회사들.filter(상장인가);
+  console.log(`■ 회사대장 ${회사들.length}곳 · 종목코드 있는 것 ${상장.length}곳`);
+  if (몇개) { 상장 = 상장.slice(0, 몇개); console.log(`  ⚠ 시험 삼아 앞 ${몇개}곳만 본다`); }
+
+  if (재본다) {
+    /* 한도와 응답 꼴만 잰다 — 열 곳으로 잰다 */
+    console.log('\n■ 재보기 — 열 곳만 부른다 (적지 않는다)');
+    let 정상 = 0; let 없음 = 0; let 흠 = 0;
+    for (const c of 상장.slice(0, 10)) {
+      const { j, 판정 } = await 한벌받기(키, c.corp, 해, '11011', 'CFS');
+      if (판정.한도) { console.log(`  🔴 한도에 걸렸다 — 멈춘다`); break; }
+      if (판정.정상) {
+        정상 += 1;
+        const r = 한줄만들기(j.list, {});
+        const en = 영문붙이기(j.list);
+        console.log(`  ✅ ${c.이름.padEnd(14)} ${j.list.length}행 · 핵심 ${5 - r.없는계정.length}/5`
+          + ` · 영문 ${en.붙은}/${en.전체}`);
+      } else if (판정.없음) { 없음 += 1; console.log(`  ⬜ ${c.이름.padEnd(14)} ${판정.까닭}`); }
+      else { 흠 += 1; console.log(`  🔴 ${c.이름.padEnd(14)} ${판정.까닭}`); }
+      await 잠깐(120);
+    }
+    console.log(`\n  정상 ${정상} · 자료없음 ${없음} · 흠 ${흠}`);
+    console.log('  ⇒ --적는다 를 붙이면 전량을 받는다.');
+    return;
+  }
+
+  if (!적는다) {
+    console.log('\n⭐ 아무것도 안 했다. --재본다 또는 --적는다 를 붙인다.');
+    return;
+  }
+
+  const 방 = path.join(ROOT, 담을방);
+  fs.mkdirSync(방, { recursive: true });
+
+  const 표 = [];
+  const 못붙은 = [];
+  const 안붙은계정 = new Map();
+  let 부른수 = 0; let 한도걸림 = false;
+
+  for (const [i, c] of 상장.entries()) {
+    if (한도걸림) break;
+    const 한줄 = { 종목: c.종목, corp: c.corp, 이름: c.이름, 영문이름: c.영문 ?? null,
+      시장: c.시장, 업종명: c.업종명 ?? null, 해: Number(해) };
+    let 하나라도 = false;
+
+    for (const 구분 of Object.keys(재무구분)) {
+      const { j, 판정 } = await 한벌받기(키, c.corp, 해, '11011', 구분);
+      부른수 += 1;
+      if (판정.한도) { 한도걸림 = true; break; }
+      if (!판정.정상) continue;
+
+      const r = 한줄만들기(j.list, {});
+      const en = 영문붙이기(j.list);
+      for (const a of en.안붙은) 안붙은계정.set(a, (안붙은계정.get(a) ?? 0) + 1);
+
+      /* ⛔ CFS 와 OFS 를 «섞지» 않는다 — 칸 이름에 구분을 박는다 */
+      for (const k of 핵심계정) 한줄[`${구분}_${k}`] = r.값[k];
+      한줄[`${구분}_행수`] = j.list.length;
+      한줄[`${구분}_쟀나`] = r.쟀나;
+      if (r.쟀나) 하나라도 = true;
+      await 잠깐(120);
+    }
+
+    if (!하나라도) 못붙은.push({ 종목: c.종목, 이름: c.이름, 시장: c.시장 });
+    표.push(한줄);
+
+    if ((i + 1) % 100 === 0) {
+      console.log(`   … ${i + 1}/${상장.length}곳 · 부른 수 ${부른수} · 못 붙은 곳 ${못붙은.length}`);
+    }
+  }
+
+  const 쟀다 = 표.filter((x) => x.CFS_쟀나 || x.OFS_쟀나).length;
+  const 오늘 = new Date();
+  const 날 = `${오늘.getFullYear()}${String(오늘.getMonth() + 1).padStart(2, '0')}${String(오늘.getDate()).padStart(2, '0')}`;
+  const 낼것 = {
+    잰때: 오늘.toLocaleString('ko-KR'),
+    해: Number(해),
+    보고서: '11011 사업보고서',
+    부른수,
+    한도걸림,
+    전체: 상장.length,
+    쟀다,
+    비율: 상장.length === 0 ? null : 쟀다 / 상장.length,
+    못붙은수: 못붙은.length,
+    못붙은: 못붙은.slice(0, 200),
+    안붙은계정: [...안붙은계정].sort((a, b) => b[1] - a[1]).slice(0, 200)
+      .map(([이름, 수]) => ({ 이름, 수 })),
+    줄들: 표,
+  };
+  const 길 = path.join(방, `financials-${해}-${날}.json`);
+  fs.writeFileSync(길, JSON.stringify(낼것, null, 1), 'utf8');
+
+  console.log('');
+  console.log(`■ ${해}년 사업보고서 — ${쟀다} / ${상장.length}곳 (${(낼것.비율 * 100).toFixed(1)}%)`);
+  console.log(`   부른 수 ${부른수} · 못 붙은 곳 ${못붙은.length} · 한도 ${한도걸림 ? '🔴 걸렸다' : '안 걸렸다'}`);
+  console.log(`   사전에 없는 계정 ${안붙은계정.size}가지 — 2번께 넘긴다`);
+  console.log(`📁 적었다 — ${길}`);
+  if (한도걸림) console.log('   🔴 하루 한도에 걸려 도중에 멈췄다. 내일 이어 받는다.');
+}
+
+돌리기().catch((e) => { console.log('🔴', e.message); process.exit(1); });
