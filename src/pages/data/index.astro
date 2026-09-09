@@ -6,85 +6,193 @@
  *   판매 지면들이 직접 URL 로만 있어 손님이 발견할 길이 없었다. 이 인덱스가 그 길이다.
  *   각 상품에 「무엇이 들어 있나」 + 값(또는 「곧 엽니다」) + 다음 칸(지면 링크)이 하나도 안 빠지게 둔다.
  *   ⛔ 값은 확정 전까지 「곧 엽니다」 — 사장님 결정 대기.
+ *
+ * ── 🔴 [2026-09-09 18:2x · 5번] 묶는 «축»을 바꿨다 (개편 기획 가설 D 시행) ──────
+ *
+ * 사장님: 「**세계 최고의 금융데이터 사이트와 서비스를 만들자**」
+ * ⇒ 그러면 세계 최고가 실제로 어떻게 하는지 «재고» 따른다. 짐작으로 안 짓는다.
+ *   robots.txt 를 먼저 재고 열 수 있는 곳만 열어 봤다(2026-09-09 16:1x 실측):
+ *     LSEG  /en/data-analytics    → Data & Feeds · Analytics · Workflows
+ *     QUICK Data Factory          → Delivery(API/File) · Mapping · Status
+ *     HKEX  Market Data Services  → Data and Index · Real Time
+ *   ⭐ 셋이 서로 다른 것도 많지만 **이 하나는 같았다 — 「어떻게 받아 가나」로 묶는다.**
+ *
+ * ⛔ 앞서 이 지면은 «주제»로 묶여 있었다 — 리서치·목표주가·업종·사람·무역이 한 줄로 늘어섰다.
+ *   그러면 손님이 「지금 당장 받아 갈 수 있는 것」과 「아직 못 받는 것」을 못 가른다.
+ * ✅ 그래서 넷으로 묶는다. **손님이 우리에게 오는 말에 맞춘 축이다.**
+ *     ① Read here   지금 열어 보는 것 (무료 지면 — 셈이 다 적혀 있다)
+ *     ② Download    지금 받아 가는 것 (무료 CSV · 한 번 사는 파일)
+ *     ③ Licensed    판을 찍어 보내는 파일 (내려받기 지면은 P4 · 09-23)
+ *     ④ Live API    도는 것에 붙는 것
+ *
+ * ⛔ 값을 아직 화면에 안 거는 상품이 있다 — 2번 판정(2026-09-09)을 따른다.
+ *   「손님이 «스스로 받아 갈 수 있게» 된 뒤에 값을 건다. 그 전에 걸면 판다고 해놓고
+ *    못 주는 것이 된다」 ⇒ P5 넷은 「Coming — sample first」로 둔다. 값을 여기 적지 않는다.
+ *
+ * ⛔ 지면을 내면 이 허브에 «같은 커밋에서» 걸린다. 오늘 P5 지면 네 장을 라이브에 내고
+ *   이 허브에 안 걸어 둬서 손님이 찾을 길이 없었다. 사이트맵을 빠뜨린 것과 같은 갈래다.
  */
 import Base from '../../layouts/Base.astro';
 
 const TITLE = 'Data for licence';
 const DESC =
-  'Datasets SeoulMarkets builds from Korean public filings and sells: the labour fingerprint of '
-  + 'listed companies by sector, and a near-census pension wage panel. Company-level tables are free.';
+  'Datasets SeoulMarkets builds from Korean public filings and sells, grouped by how you receive '
+  + 'them: pages you can read now, files you can download now, licensed files, and a live API.';
 
-const 상품 = [
+/* ⭐ 축 = 「어떻게 받아 가나」. 순서가 뜻을 갖는다 — 지금 받을 수 있는 것이 위다. */
+const 묶음 = [
   {
-    href: '/data/concentration',
-    name: 'Korea Concentration Index — market × trade',
-    one: 'How top-heavy Korea is — Samsung’s share of the KOSPI, KOSDAQ vs KOSPI, and Korea’s biggest export and import partners, measured with one lens: whatever you rank, the top four are about half and every Gini clears 0.9. A cross of KRX and Korea Customs data no single-feed vendor builds. Free daily CSV; Pro API from $99/mo.',
-    price: 'Free · Pro from $99/mo',
-    cta: 'See the index',
+    key: 'read',
+    name: 'Read it here',
+    lede: 'Free pages that publish the counts in full — including the gaps we could not measure. '
+      + 'Each one counts the very file we license, so the free figures and the paid figures cannot disagree.',
+    items: [
+      {
+        href: '/data/target-changes',
+        name: 'Who moved a target price, and when',
+        one: 'Every Korean broker report that raised, cut or initiated a target price — counted from the same tape we license. The window closes after 30 days at the source, so a day not collected is a day gone.',
+        price: 'Free page',
+        cta: 'Read the counts',
+      },
+      {
+        href: '/data/ownership',
+        name: 'Ownership and insider filings',
+        one: 'Large-holding reports and executive share filings as filed: who moved a stake up, who moved it down, and where shares changed hands while the percentage did not.',
+        price: 'Free page',
+        cta: 'Read the counts',
+      },
+      {
+        href: '/data/mezzanine',
+        name: 'Convertibles, warrants and exchangeables',
+        one: 'Korean CB, BW and EB issues as filed — private versus public placement, zero-coupon convertibles, and refix floors. Exchangeables have no refix column by design, and we say so instead of writing zero.',
+        price: 'Free page',
+        cta: 'Read the counts',
+      },
+      {
+        href: '/data/people',
+        name: 'Workforce, tenure and the pay gap',
+        one: 'Headcount, tenure and annual pay per person by gender for Korean listed companies — as a distribution, never as a benchmark. These are ratios, not reasons, and no company is named or ranked.',
+        price: 'Free page',
+        cta: 'Read the counts',
+      },
+      {
+        href: '/data/concentration',
+        name: 'Korea Concentration Index — market × trade',
+        one: 'How top-heavy Korea is — Samsung’s share of the KOSPI, KOSDAQ vs KOSPI, and Korea’s biggest export and import partners, measured with one lens: whatever you rank, the top four are about half and every Gini clears 0.9. A cross of KRX and Korea Customs data no single-feed vendor builds.',
+        price: 'Free page · CSV below',
+        cta: 'See the index',
+      },
+    ],
   },
   {
-    href: '/data/korea-trade-dataset',
-    name: 'Korea trade dataset — every partner, every month',
-    one: 'Exports, imports and the balance with all 243 partner countries, month by month, on a customs basis — normalised to English in one clean CSV. The raw source is Korean and awkward; this is the ready extract. Free preview; full set is a one-time buy.',
-    price: '$29 — one-time',
-    cta: 'See what’s in it',
+    key: 'download',
+    name: 'Download it now',
+    lede: 'Files you can take today. No account, no key, no waiting on us.',
+    items: [
+      {
+        href: '/data/korean-listed-workforce.csv',
+        name: 'Listed-company workforce table (CSV)',
+        one: 'The company-level table the sector panel is built from — every listed company with employees, tenure, pay and market cap. Free to download.',
+        price: 'Free',
+        cta: 'Download the CSV',
+        download: true,
+      },
+      {
+        href: '/data/korea-concentration.csv',
+        name: 'Korea Concentration Index (daily CSV)',
+        one: 'The concentration figures behind the index page, rebuilt every trading day, in one flat file you can cite.',
+        price: 'Free',
+        cta: 'Download the CSV',
+        download: true,
+      },
+      {
+        href: '/data/korea-bond-concentration.csv',
+        name: 'Bond trading concentration (CSV)',
+        one: 'How concentrated Korean bond trading is, in the same flat shape as the equity file.',
+        price: 'Free',
+        cta: 'Download the CSV',
+        download: true,
+      },
+      {
+        href: '/data/korea-trade-dataset',
+        name: 'Korea trade dataset — every partner, every month',
+        one: 'Exports, imports and the balance with all 243 partner countries, month by month, on a customs basis — normalised to English in one clean CSV. The raw source is Korean and awkward; this is the ready extract. Free preview; full set is a one-time buy.',
+        price: '$29 — one-time',
+        cta: 'See what’s in it',
+      },
+    ],
   },
   {
-    href: '/data/sector-workforce-panel',
-    name: 'The sector workforce panel',
-    one: '2,644 listed companies in 11 sectors, each carrying tenure, pay, the gender pay gap and pay-per-head — the columns the big vendors leave out. Leaders flagged. Quarterly.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
+    key: 'licensed',
+    name: 'Licensed file, delivered by edition',
+    lede: 'Dated editions with a data dictionary and a correction record. '
+      + 'We are building the self-serve download page now; until it opens we send editions directly, '
+      + 'and we do not post a price for something you cannot yet fetch yourself.',
+    items: [
+      {
+        href: '/data/target-price-accuracy',
+        name: 'Broker target-price accuracy',
+        one: 'Every broker report’s target price scored against the stock 12 months later. Hit rate by house — from 49% down to 13%. A multi-year archive nobody else keeps.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/sector-workforce-panel',
+        name: 'The sector workforce panel',
+        one: '2,644 listed companies in 11 sectors, each carrying tenure, pay, the gender pay gap and pay-per-head — the columns the big vendors leave out. Leaders flagged. Quarterly.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/pension-wage-panel',
+        name: 'The National Pension wage panel',
+        one: 'A near-census pay ladder for the Korean workforce from the national pension bill — 553,978 workplaces, 11.56m people, by industry, region and firm size, with a cap-pressure column so every figure is a floor.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/board-composition',
+        name: 'Board composition by sector',
+        one: 'Who runs Korean listed companies, by sector — the share of women officers (7.2% overall), owner-led firms, CEO tenure and boardroom age. From 35,004 officers’ own filings.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/sector-leaders',
+        name: 'Sector leaders vs the rest',
+        one: 'Split each sector into its market-cap leaders and the rest, and our labour data separates: in all 8 classified sectors the leaders pay 1.2–1.43x more and mostly retain longer — and in heavy industry and finance, employ fewer women at the top. A size split, not a stock pick. Not investment advice.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/broker-candour',
+        name: 'Broker candour — the vanishing Sell',
+        one: 'Korean broker research by rating, house by house: Buy on four in five reports, Sell on almost none. Of 13 houses we track, 10 issued no Sell rating at all this year. The rating as filed — not whether it was right, and not investment advice.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+      {
+        href: '/data/analyst-attention',
+        name: 'Analyst attention by sector',
+        one: 'Where Korean equity research piles up and where it thins — from our own archive of single-stock broker reports. A third of listed companies drew a report this year; the busiest name drew 100, most drew none. Attention concentration, not investment advice.',
+        price: 'Licensing — coming soon',
+        cta: 'See what’s in it',
+      },
+    ],
   },
   {
-    href: '/data/target-price-accuracy',
-    name: 'Broker target-price accuracy',
-    one: 'Every broker report’s target price scored against the stock 12 months later. Hit rate by house — from 49% down to 13%. A multi-year archive nobody else keeps.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/board-composition',
-    name: 'Board composition by sector',
-    one: 'Who runs Korean listed companies, by sector — the share of women officers (7.2% overall), owner-led firms, CEO tenure and boardroom age. From 35,004 officers’ own filings.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/sector-leaders',
-    name: 'Sector leaders vs the rest',
-    one: 'Split each sector into its market-cap leaders and the rest, and our labour data separates: in all 8 classified sectors the leaders pay 1.2–1.43x more and mostly retain longer — and in heavy industry and finance, employ fewer women at the top. A size split, not a stock pick. Not investment advice.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/broker-candour',
-    name: 'Broker candour — the vanishing Sell',
-    one: 'Korean broker research by rating, house by house: Buy on four in five reports, Sell on almost none. Of 13 houses we track, 10 issued no Sell rating at all this year. The rating as filed — not whether it was right, and not investment advice.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/analyst-attention',
-    name: 'Analyst attention by sector',
-    one: 'Where Korean equity research piles up and where it thins — from our own archive of single-stock broker reports. A third of listed companies drew a report this year; the busiest name drew 100, most drew none. Attention concentration, not investment advice.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/pension-wage-panel',
-    name: 'The National Pension wage panel',
-    one: 'A near-census pay ladder for the Korean workforce from the national pension bill — 553,978 workplaces, 11.56m people, by industry, region and firm size, with a cap-pressure column so every figure is a floor.',
-    price: 'Licensing — coming soon',
-    cta: 'See what’s in it',
-  },
-  {
-    href: '/data/korean-listed-workforce.csv',
-    name: 'Listed-company workforce table (CSV)',
-    one: 'The company-level table the sector panel is built from — every listed company with employees, tenure, pay and market cap. Free to download.',
-    price: 'Free',
-    cta: 'Download the CSV',
-    download: true,
+    key: 'api',
+    name: 'Live API',
+    lede: 'The same data over HTTP, for people who would rather call than download. Self-serve keys are open.',
+    items: [
+      {
+        href: '/api',
+        name: 'SeoulMarkets Data API',
+        one: 'Issue your own key and call the endpoints directly — research archive, concentration and trade. Free tier for trying it; paid tiers raise the ceiling.',
+        price: 'Free tier · Pro from $99/mo',
+        cta: 'Read the API docs',
+      },
+    ],
   },
 ];
 ---
@@ -96,25 +204,34 @@ const 상품 = [
       <h1>Data for licence</h1>
       <p class="lead">
         We build datasets from Korea's public filings and sell what the terminals don't carry — the{' '}
-        <b>labour fingerprint</b> of listed companies and a near-census wage panel. Every figure is
-        re-derived from the source and ships with its own correction record. Company-level tables are
-        free; the joined panels are licensed.
+        <b>labour fingerprint</b> of listed companies, the broker tape, and a near-census wage panel.
+        Every figure is re-derived from the source and ships with its own correction record.
+      </p>
+      <p class="lead axis">
+        This page is grouped by <b>how you receive it</b>, not by subject — because the first thing
+        worth knowing is whether you can have it right now.
       </p>
 
-      <ul class="cards">
-        {상품.map((p) => (
-          <li class="card">
-            <h2><a href={p.href}>{p.name}</a></h2>
-            <p class="one">{p.one}</p>
-            <div class="foot">
-              <span class="price" data-free={p.price === 'Free' ? '' : undefined}>{p.price}</span>
-              {p.download
-                ? <a class="go" href={p.href} download>{p.cta} →</a>
-                : <a class="go" href={p.href}>{p.cta} →</a>}
-            </div>
-          </li>
-        ))}
-      </ul>
+      {묶음.map((g) => (
+        <section class="grp">
+          <h2 class="grph">{g.name} <span class="n">{g.items.length}</span></h2>
+          <p class="grpl">{g.lede}</p>
+          <ul class="cards">
+            {g.items.map((p) => (
+              <li class="card">
+                <h3><a href={p.href}>{p.name}</a></h3>
+                <p class="one">{p.one}</p>
+                <div class="foot">
+                  <span class="price" data-free={/^Free/.test(p.price) ? '' : undefined}>{p.price}</span>
+                  {p.download
+                    ? <a class="go" href={p.href} download>{p.cta} →</a>
+                    : <a class="go" href={p.href}>{p.cta} →</a>}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
 
       <p class="fine">
         Built from DART annual filings, KRX close and the National Pension workplace file via
@@ -128,26 +245,42 @@ const 상품 = [
 </Base>
 
 <style>
-  .dx { max-width: 46rem; margin: 0 auto; }
+  .dx { max-width: 52rem; margin: 0 auto; }
   .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
             font-weight: 700; margin: 1.2rem 0 .3rem; }
   .dx h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); line-height: 1.2; margin: 0 0 .6rem; letter-spacing: -.02em; }
-  .dx .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 2rem; }
-  .dx .lead b { font-weight: 650; }
-
-  .cards { list-style: none; margin: 0 0 2rem; padding: 0; display: grid; gap: 1rem; }
-  .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.2rem 1.3rem; background: var(--card); }
-  .card h2 { font-size: 1.12rem; margin: 0 0 .5rem; letter-spacing: -.01em; }
-  .card h2 a { color: var(--ink); text-decoration: none; }
-  .card h2 a:hover { color: var(--accent); }
-  .card .one { font-size: .93rem; line-height: 1.65; margin: 0 0 1rem; color: var(--ink-2, var(--ink)); }
-  .foot { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-  .price { font-size: .84rem; font-weight: 600; color: var(--muted); }
-  .price[data-free] { color: var(--up, #1a7f37); }
-  .go { font-size: .9rem; font-weight: 650; color: var(--accent); text-decoration: none;
-        border-bottom: 1px solid currentColor; padding-bottom: 1px; white-space: nowrap; }
-  .go:hover { color: var(--ink); }
-
-  .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 2rem 0 1rem;
+  .lead { font-size: 1.02rem; line-height: 1.7; margin: 0 0 .9rem; }
+  .axis { color: var(--muted); font-size: .95rem; margin: 0 0 2rem; padding-bottom: 1.2rem;
+          border-bottom: 1px solid var(--line); }
+  .axis b { color: var(--ink); }
+  /* ⭐ 묶음 머리 — 손님이 「지금 받을 수 있나」를 먼저 읽게 한다 */
+  .grp { margin: 0 0 2.6rem; }
+  .grph { font-size: 1.24rem; margin: 0 0 .35rem; letter-spacing: -.01em; display: flex;
+          align-items: baseline; gap: .5rem; }
+  .grph .n { font-size: .74rem; font-weight: 600; color: var(--muted); font-variant-numeric: tabular-nums;
+             border: 1px solid var(--line); border-radius: 999px; padding: .05rem .45rem; }
+  .grpl { font-size: .88rem; color: var(--muted); line-height: 1.65; margin: 0 0 1.1rem; max-width: 42rem; }
+  /* ⭐ [2026-09-09 · 5번] 카드 17장이 한 줄로 늘어서 지면이 1,000px 폭에서 10,418px 였다.
+   *   손님이 넷째 묶음(Live API)까지 가려면 아홉 화면을 넘겨야 한다.
+   *   ⇒ 넓은 화면에서만 두 칸으로 접는다. minmax 라 폰(390px)은 그대로 한 칸이다. */
+  .cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 1rem;
+           grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr)); }
+  /* ⚠ align-items:start 로 뒀더니 한 줄 안에서 카드 높이가 들쭉날쭉해 값·단추 줄이 어긋났다.
+   *   ⇒ 카드를 세로 flex 로 두고 아래 줄을 margin-top:auto 로 «바닥에» 붙인다.
+   *     그러면 같은 줄의 값과 단추가 한 선에 온다. */
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; background: var(--card);
+          display: flex; flex-direction: column; }
+  .card h3 { font-size: 1.06rem; margin: 0 0 .5rem; letter-spacing: -.01em; line-height: 1.3; }
+  .card h3 a { color: var(--ink); text-decoration: none; }
+  .card h3 a:hover { color: var(--accent); }
+  .one { font-size: .9rem; line-height: 1.65; margin: 0 0 .9rem; color: var(--ink-2); }
+  /* 긴 상품 이름이 두 줄이 되어도 카드 높이만 늘고 아래 줄은 바닥에 남는다 */
+  .foot { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+          gap: .5rem; margin-top: auto; padding-top: .3rem; }
+  .price { font-size: .82rem; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .price[data-free] { color: var(--accent); }
+  .go { font-size: .84rem; font-weight: 600; color: var(--accent); text-decoration: none; white-space: nowrap; }
+  .go:hover { text-decoration: underline; }
+  .fine { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-top: 2rem;
           padding-top: 1rem; border-top: 1px solid var(--line); }
 </style>
