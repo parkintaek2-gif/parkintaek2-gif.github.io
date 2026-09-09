@@ -53,6 +53,10 @@ export const 단계들 = [
   "node scripts/deploy.mjs --selftest",
   "node scripts/check-comment-close.mjs",
   "node scripts/count-newsdesk.mjs --자가시험",
+  /* 🔴 [2026-09-09 · 5번] 신문 제목 수집기가 여기 «없었다». 세는 자(count-newsdesk)만 걸려
+   *   있고 받는 자는 안 걸려 있어서, 오늘 결함 둘(세고 버리기·덮어쓰기)이 아무 검사에도
+   *   안 잡혔다. 소급이 안 되는 항목의 수집기는 반드시 걸어 둔다. */
+  "node scripts/collect-news-desk.mjs --자가시험",
   "node scripts/restore-archive-from-onedrive.mjs --자가시험",
   "node scripts/collect-kcw-korean-names.mjs --자가시험",
   "node scripts/lib/kcw-roster-match.mjs --자가시험",
