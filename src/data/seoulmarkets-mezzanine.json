@@ -1,0 +1,85 @@
+{
+ "builtOn": "2026-09-09",
+ "builtFrom": "korea-mezzanine-book-2026-09-09.csv",
+ "source": "DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable bonds (EB), collected by us and published as our licensed file. This page counts the same file we sell, so the free figures and the paid figures cannot disagree.",
+ "rows": 5084,
+ "naiveLineCount": 5564,
+ "columns": 20,
+ "companies": 1296,
+ "byType": {
+  "CB": 4324,
+  "BW": 332,
+  "EB": 428
+ },
+ "placement": {
+  "private": 4998,
+  "public": 86,
+  "notRecorded": 0
+ },
+ "couponZero": {
+  "count": 2240,
+  "ofCbWithACoupon": 4115,
+  "pct": 54.4
+ },
+ "refix": {
+  "CB": {
+   "hasFloor": 1895,
+   "notApplicable": 0,
+   "notRecorded": 2429
+  },
+  "BW": {
+   "hasFloor": 139,
+   "notApplicable": 0,
+   "notRecorded": 193
+  },
+  "EB": {
+   "hasFloor": 0,
+   "notApplicable": 428,
+   "notRecorded": 0
+  }
+ },
+ "fill": {
+  "strike_price_krw": {
+   "filled": 4920,
+   "of": 5084,
+   "pct": 96.8
+  },
+  "strike_ratio_pct": {
+   "filled": 4921,
+   "of": 5084,
+   "pct": 96.8
+  },
+  "total_face_value_krw": {
+   "filled": 4913,
+   "of": 5084,
+   "pct": 96.6
+  },
+  "coupon_rate_pct": {
+   "filled": 4838,
+   "of": 5084,
+   "pct": 95.2
+  },
+  "maturity_date": {
+   "filled": 4913,
+   "of": 5084,
+   "pct": 96.6
+  },
+  "subscription_date": {
+   "filled": 4725,
+   "of": 5084,
+   "pct": 92.9
+  },
+  "payment_date": {
+   "filled": 4917,
+   "of": 5084,
+   "pct": 96.7
+  }
+ },
+ "whatThisIs": "Every convertible, warrant and exchangeable bond filing in our window, counted from the same file we license.",
+ "whatThisIsNot": [
+  "Not a judgement. A zero coupon or a private placement is a fact about a filing, not a criticism of the company.",
+  "Not a dilution forecast. We publish the terms as filed and never model what a conversion would do.",
+  "Not a complete history. The window is what we have collected.",
+  "Not a signal. Nothing here is a view on any security."
+ ]
+}

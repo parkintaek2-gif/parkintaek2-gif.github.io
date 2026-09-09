@@ -1,0 +1,256 @@
+---
+/*
+ * Korea People Panel — P5 무료 지면 4/4. (seoulmarkets.com/data/people)
+ *
+ * 왜 (사장님 「경쟁사는 재무를 한다. 우리는 사람을 한다」):
+ *   Korea People Panel 상품의 «무료 깔때기»다. 근속·성별격차·1인당 급여는
+ *   CEO스코어·CEO랭킹이 안 세는 축이고, 영문으로 내는 곳은 우리뿐이다.
+ *
+ * ⭐ 이 지면의 규칙 — **파는 파일에서 센다** (P5 공통)
+ *   원자료(DART)로 다시 가지 않는다. 파는 CSV 를 그대로 읽어 센다.
+ *   🔴 까닭: 무료 지면 수와 파는 파일 수가 «어긋날 수 없게» 만든다.
+ *
+ * 🔴 이 지면이 회사에서 가장 위험한 자료다 — 성별 급여·근속 비율이 들어 있다
+ * ⛔ **차별의 증거로 쓰지 않는다.** 공시에는 비율만 있고 까닭이 없다. 직군·연차·근무형태가
+ *    한 칸에 섞여 있다. 우리는 잰 것만 적고, 읽는 사람이 판단한다
+ * ⛔ **회사를 점수 매기거나 순위로 세우지 않는다.** 이름을 지목하지 않는다
+ * ⛔ **평균을 규범으로 만들지 않는다** — 분포와 중간값으로 낸다 (강령 ②).
+ *    「1.0 이 정상」으로 읽히면 우리가 사람을 밀어붙이는 것이다
+ * 🔴 **「해당 없음」과 「못 쟀다」를 가른다** — 급여를 성별로 나눠 안 적은 공시가 258건이다
+ * ⛔ **「생산성」이라 쓰지 않는다** — 시가총액은 미래 베팅이지 사람이 만든 값이 아니다(강령)
+ * ⛔ 화면에 한국어를 내지 않는다 · 표를 감싸고 그 칸이 실제로 스크롤되는지 재고 낸다
+ *
+ * 자료: src/data/seoulmarkets-people.json (scripts/build-seoulmarkets-people-page.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/seoulmarkets-people.json';
+
+const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+const pa = data.payRatioAvailability;
+const g = data.knownGap;
+
+/* 칸 이름을 손으로 안 적는다 — 경계에서 자가 만든다 */
+const 칸이름 = (b, 단위 = '') =>
+  b.to == null ? `${b.from}${단위} and up` : `${b.from}–${b.to}${단위}`;
+
+const TITLE = `Korean listed companies report a median woman-to-man pay ratio of ${data.payRatioMedian}`;
+const SAMPLE = `${수(data.rows)} companies · ${수(data.headcount.sum)} employees · ${data.columns} columns · filings joined to KRX prices`;
+const DESC =
+  `Workforce figures as filed by ${수(data.rows)} Korean listed companies: median woman-to-man `
+  + `annual pay per person ${data.payRatioMedian}, median tenure ratio ${data.tenureRatioMedian}, `
+  + `median women's share of headcount ${data.womenSharePctMedian}%. `
+  + `${수(pa.notApplicable)} filings do not split pay by gender and we say so rather than counting them as zero.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean listed-company workforce panel as filed',
+  description: DESC, url: `${SITE_URL}/data/people`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: [
+    'headcount', 'women share of headcount', 'average tenure in years',
+    'woman-to-man tenure ratio', 'annual pay per person by gender', 'woman-to-man pay ratio',
+  ],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+
+      <p class="lead">
+        Every listed company in Korea files how many people it employs, how long they stay, and
+        what it pays them — split by gender. Those numbers sit inside annual filings, one company
+        at a time, in Korean. We collect them, join each company to its KRX closing price, and
+        publish the result as one file of {수(data.rows)} rows and {data.columns} columns.
+      </p>
+
+      <p class="caveat">
+        <b>These are ratios, not reasons.</b> A filing reports what a company paid; it does not
+        report why. Job mix, seniority mix, part-time share and industry all sit inside a single
+        number, and none of them are disclosed separately. So this page shows you the
+        {' '}<b>distribution</b> and nothing else. There is no ranking here, no company is named, and
+        no figure on this page is evidence about any individual employer.
+      </p>
+
+      <section class="blk">
+        <h2>Woman-to-man annual pay per person</h2>
+        <p>
+          A value of 1.00 means the two averages are equal. The median filing reports
+          {' '}<b>{data.payRatioMedian}</b>. We publish the spread because a single average would
+          read as a norm, and a norm is a thing we have no standing to set.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Ratio</th><th class="r">Companies</th><th class="r">Share of measured</th></tr>
+            </thead>
+            <tbody>
+              {data.payRatio.bands.map((b) => (
+                <tr>
+                  <td class="axis">{칸이름(b)}</td>
+                  <td class="r">{수(b.count)}</td>
+                  <td class="r">{data.payRatio.measured ? `${Math.round((b.count / data.payRatio.measured) * 1000) / 10}%` : '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          Measured on {수(data.payRatio.measured)} of {수(data.payRatio.of)} companies. The rest are
+          in the next table, split by <i>why</i> the figure is absent.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>Why a pay ratio can be missing — two different reasons</h2>
+        <p>
+          A blank is not a zero, and two blanks are not the same blank. Some filings state that pay
+          is not disclosed by gender; for those, the ratio <b>does not apply</b>. Others simply
+          carry nothing, and for those we <b>could not measure</b> it. Collapsing the two into one
+          number would be the easiest lie in this dataset, so we keep them apart.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>State</th><th class="r">Companies</th><th>What it means</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="axis">Reported</td>
+                <td class="r">{수(pa.has)}</td>
+                <td>The filing splits annual pay per person by gender.</td>
+              </tr>
+              <tr class="edge">
+                <td class="axis">Does not apply</td>
+                <td class="r">{수(pa.notApplicable)}</td>
+                <td>The filing states a reason for not splitting pay by gender. We carry that reason in its own column.</td>
+              </tr>
+              <tr>
+                <td class="axis">Not measured</td>
+                <td class="r">{수(pa.notRecorded)}</td>
+                <td>Neither a figure nor a stated reason. We write it as unmeasured, never as zero.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>Woman-to-man average tenure</h2>
+        <p>
+          Median <b>{data.tenureRatioMedian}</b> across {수(data.tenureRatio.measured)} companies
+          that report tenure for both. Tenure is the axis competitors skip, and it moves for
+          reasons pay does not — hiring waves, spin-offs, and which roles a company grew last.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Ratio</th><th class="r">Companies</th></tr>
+            </thead>
+            <tbody>
+              {data.tenureRatio.bands.map((b) => (
+                <tr><td class="axis">{칸이름(b)}</td><td class="r">{수(b.count)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>Women as a share of headcount</h2>
+        <p>
+          Median <b>{data.womenSharePctMedian}%</b>. This is a count, not a judgement: it says how
+          many, not whether that is the right many.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Share of headcount</th><th class="r">Companies</th></tr>
+            </thead>
+            <tbody>
+              {data.womenSharePct.bands.map((b) => (
+                <tr><td class="axis">{칸이름(b, '%')}</td><td class="r">{수(b.count)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>The gap we did not round away</h2>
+        <p>
+          The source universe is {수(g.sourceUniverse)} companies. This file carries
+          {' '}{수(g.inThisFile)}. <b>{수(g.missing)} are missing</b>, and that is a fact about our
+          file rather than about the market.
+        </p>
+        <p class="fine">{g.note}</p>
+      </section>
+
+      <section class="blk">
+        <h2>How we counted</h2>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Source</th><td>{data.source}</td></tr>
+              <tr><th>Counted from</th><td><code>{data.builtFrom}</code> — the same file we license</td></tr>
+              <tr><th>Rows and columns</th><td>{수(data.rows)} × {data.columns}</td></tr>
+              <tr><th>Employees covered</th><td>{수(data.headcount.sum)}; median company {수(data.headcount.median)}</td></tr>
+              <tr><th>Fiscal years present</th><td>{Object.entries(data.byFiscalYear).map(([k, v]) => `${k}: ${수(v)}`).join(' · ')}</td></tr>
+              <tr><th>Built</th><td>{data.builtOn}</td></tr>
+              <tr><th>Central figure</th><td>Median, not mean. One very large employer would drag a mean and change what the page appears to say.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="fine">
+          {data.notThis.map((x) => <li>{x}</li>)}
+        </ul>
+      </section>
+
+      <p class="fine bottom">
+        This page reports filings made to the Korean regulator. It is not investment advice, and
+        nothing here is a recommendation to buy or sell any security.
+        {' '}<a href="/data/mezzanine">Mezzanine issues</a> ·{' '}
+        <a href="/data/ownership">Ownership filings</a> ·{' '}
+        <a href="/data/target-changes">Target-price changes</a> ·{' '}
+        <a href="/data">All data products</a>
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.6rem, 4.6vw, 2.2rem); line-height: 1.22; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--card); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  /* 🔴 표를 감싸는 칸 — 여기서 실제로 스크롤돼야 한다 */
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; white-space: nowrap; }
+  table.press td.axis { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  table.press tr.edge td { background: var(--card); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84em; }
+  .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+  ul.fine { padding-left: 1.2rem; }
+  ul.fine li { margin: 0 0 .35rem; }
+  .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>
