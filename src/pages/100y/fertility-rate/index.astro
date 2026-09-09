@@ -1,0 +1,139 @@
+---
+/**
+ * /100y/fertility-rate — 합계출산율은 얼마나 떨어졌고, 최근엔 어떻게 움직였나
+ *
+ * 인구동향조사 101/DT_1B81A17(시군구/합계출산율, 모의 연령별 출산율, 2000~2025)에서
+ * 전국 연도별 추세와 최신년도 시도별 분포를 함께 뽑는다.
+ *
+ * ⛔ 「낮다」·「정상」을 우리가 매기지 않는다 — 표에 있는 숫자만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/fertility-rate.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.전국_최신;
+const 첫해 = 자료.전국_첫해;
+const 최고 = 자료.전국_최고;
+const 최저 = 자료.전국_최저;
+const 시도분포 = 자료.시도분포_최신 as { 시도: string; 합계출산율: number }[];
+
+const desc =
+  `${첫해.해}년 전국 합계출산율은 ${첫해.합계출산율}명이었고, ${최저.해}년 ${최저.합계출산율}명까지 ` +
+  `내려간 뒤 ${최신.해}년에는 ${최신.합계출산율}명입니다. 인구동향조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '시군구/합계출산율 — 전국 추세와 시도별 분포',
+  description: desc,
+  temporalCoverage: `${첫해.해}/${최신.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['연도별 합계출산율', '시도별 합계출산율'],
+};
+
+const 표본해들 = (자료.전국_연도별 as any[]).filter(
+  (r) => Number(r.해) % 4 === 0 || r.해 === 최신.해 || r.해 === 첫해.해 || r.해 === 최저.해,
+);
+
+const 반등폭 = Math.round((최신.합계출산율 - 최저.합계출산율) * 1000) / 1000;
+---
+
+<HundredYear
+  title={`합계출산율 — ${첫해.해}년 ${첫해.합계출산율}명 → ${최신.해}년 ${최신.합계출산율}명`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>합계출산율은<br />얼마나 떨어졌을까요?</h1>
+  <p class="sub">
+    인구동향조사(신고 기반 행정통계) 기준, 여성 1명이 가임기간(15~49세) 동안 낳을 것으로
+    {' '}예상되는 평균 출생아 수(합계출산율)가 {첫해.해}년부터 {최신.해}년까지
+    {' '}<strong>해마다 어떻게 달랐는지</strong>와, {최신.해}년 시도별로 어떻게 갈렸는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전국 합계출산율 — {첫해.해}년 → {최신.해}년</p>
+    <p class="answer-num">{첫해.합계출산율}명 → {최신.합계출산율}명</p>
+    <p class="answer-sub">
+      가장 높았던 해는 {최고.해}년 {최고.합계출산율}명 · 가장 낮았던 해는
+      {' '}{최저.해}년 {최저.합계출산율}명입니다
+    </p>
+  </div>
+
+  <h2>{최저.해}년 이후 — 가장 최근 두 해는 오히려 올랐다</h2>
+  <p>
+    {최저.해}년 {최저.합계출산율}명까지 내려간 뒤, {최신.해}년에는 {최신.합계출산율}명으로
+    {' '}<strong>{반등폭}명 올랐습니다</strong>. 이 표는 오른 까닭을
+    {' '}가리지 않습니다 — {최저.해}년부터 {최신.해}년까지 값이 다시 올랐다는 사실만 놓습니다.
+  </p>
+
+  <h2>{첫해.해}년부터 {최신.해}년까지, 4년 단위로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>합계출산율</th></tr></thead>
+      <tbody>
+        {표본해들.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td><strong>{r.합계출산율 ?? '못 쟀다'}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{최신.해}년, 시도마다 얼마나 다를까</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>합계출산율</th></tr></thead>
+      <tbody>
+        {시도분포.map((r) => (
+          <tr>
+            <td>{r.시도}</td>
+            <td><strong>{r.합계출산율}명</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ {최신.해}년 시도 중 값이 가장 높은 곳은 <strong>{시도분포[0].시도}({시도분포[0].합계출산율}명)</strong>,
+    가장 낮은 곳은 <strong>{시도분포[시도분포.length - 1].시도}({시도분포[시도분포.length - 1].합계출산율}명)</strong>입니다.
+    같은 해, 같은 나라 안에서도 이만큼 갈립니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>값이 「낮다」·「정상 범위다」를 이 표가 가르지 않습니다 — 저희는 판정하지 않고,
+      표에 있는 숫자만 그대로 놓습니다.</li>
+    <li>값이 오르내린 까닭(정책·인식·경제 상황 등)을 이 표가 가르지 않습니다 —
+      숫자만 알려 줄 뿐, 무엇이 원인인지는 이 표로 답할 수 없습니다.</li>
+    <li>시도별 값은 {최신.해}년 한 해의 스냅샷입니다 — 그해의 순간을 보여줄 뿐,
+      그 지역의 오랜 성향이라 단정하지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 합계출산율이 높다고도
+    {' '}낮다고도 판정하지 않습니다. 해마다, 지역마다 값이 어떻게 달랐는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.정의} {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/birth-sex-ratio">← 태어날 때 성비는 얼마나 기울었을까요?</a>
+    <br />
+    <a href="/nonmarital-birth">← 혼인 밖에서 태어나는 아이는 얼마나 될까요?</a>
+    <br />
+    <a href="/multicultural-marriage">← 다문화 혼인은 얼마나 될까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="fertility-rate" />
+
+  <NextQuestionBrief 모은것="인구동향조사 자료" />
+</HundredYear>
