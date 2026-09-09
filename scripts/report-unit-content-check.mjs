@@ -97,6 +97,24 @@ export function 벌로묶기(파일들) {
   return [...벌];
 }
 
+/**
+ * PDF 쪽수를 «파일에서» 센다 — 표지 한 장짜리를 보내지 않기 위한 자.
+ *
+ * ⚠ 두 곳을 다 본다. `/Count n` 은 쪽나무 뿌리에 적힌 수이고, `/Type /Page` 는 실제 쪽
+ *   객체다. 둘 중 «작은 쪽»을 쓴다 — 하나가 부풀려져 있어도 속지 않는다.
+ * ⛔ 못 세면 0 이 아니라 **null** 이다. 「못 쟀다」로 막지 않는다 — 못 잰 하나가
+ *   보낼 수 있는 백 개를 가리면 안 된다(강령 ③).
+ */
+export function 쪽수재기(길, 읽기 = fs.readFileSync) {
+  let 글;
+  try { 글 = String(읽기(길, 'latin1')); } catch { return null; }
+  if (!글.startsWith('%PDF')) return null;
+  const 쪽객체 = (글.match(/\/Type\s*\/Page[^s]/g) || []).length;
+  const 셈들 = [...글.matchAll(/\/Count\s+(\d+)/g)].map((m) => Number(m[1])).filter((n) => n > 0);
+  const 후보 = [쪽객체, ...셈들].filter((n) => n > 0);
+  return 후보.length ? Math.min(...후보) : null;
+}
+
 export function 없는카드길(뿌리, 있나 = fs.existsSync) {
   const 나쁜것 = [];
   for (const u of 유닛들) {
@@ -374,6 +392,21 @@ const 내가 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolv
 if (내가 && process.argv.includes('--자가시험')) {
   let 통 = 0; const 실 = [];
   const 검 = (n, ok) => { if (ok) 통 += 1; else 실.push(n); };
+  /* 🔴 쪽수 관문 — 표지 한 장짜리가 세 번 나갔다. 이 자에는 관문이 «없었다» */
+  const 가짜pdf = (본문) => () => '%PDF-1.4' + LF + 본문;
+  검('쪽수: /Count 를 읽는다', 쪽수재기('x', 가짜pdf('/Type /Pages /Count 8')) === 8);
+  검('쪽수: 쪽 객체를 센다',
+    쪽수재기('x', 가짜pdf('/Type /Page /Type /Page /Type /Page ')) === 3);
+  검('⭐ 쪽수: 둘이 어긋나면 «작은 쪽»을 쓴다 — 부풀려진 수에 속지 않는다',
+    쪽수재기('x', 가짜pdf('/Count 99 /Type /Page ')) === 1);
+  검('🔴 쪽수: 표지 한 장은 1 이다 — 이 값이 관문을 막는다',
+    쪽수재기('x', 가짜pdf('/Type /Pages /Count 1')) === 1);
+  검('⛔ 쪽수: 못 읽으면 0 이 아니라 null 이다',
+    쪽수재기('x', () => { throw new Error('없다'); }) === null);
+  검('⛔ 쪽수: PDF 가 아니면 null 이다 (0 으로 막지 않는다)',
+    쪽수재기('x', () => 'PK 그냥 zip 이다') === null);
+  검('⛔ 쪽수: 쪽 표시가 하나도 없으면 null 이다', 쪽수재기('x', 가짜pdf('아무것도 없다')) === null);
+
   검('어제를 낸다', 어제(new Date(2026, 8, 3)) === '2026-09-02');
   검('달을 넘어도 맞다', 어제(new Date(2026, 8, 1)) === '2026-08-31');
   검('해를 넘어도 맞다', 어제(new Date(2026, 0, 1)) === '2025-12-31');
@@ -1152,6 +1185,33 @@ if (내가) {
     process.exit(1);
   }
   const 붙일것 = 손첨부 || pdf || null;
+
+  /**
+   * 🔴 [2026-09-09 23:3x] **쪽수 관문을 여기에도 붙인다.**
+   *
+   * 사장님이 사흘 연속으로 같은 지적을 하셨다 —
+   *   09-05 「.md 파일 표 다 깨져... pdf 보낸건 1페이지야」
+   *   09-06 「업무보고 제대로 안하나. pdf 표지 한장이잖아」
+   *   09-09 「pdf는 표지만 있고...자꾸 동일한 실수할래?」
+   *
+   * ⛔ 그때 관문을 `send-1600-report.mjs` «한 자에만» 붙였다. 이 자에는 0개였다.
+   *   그러니 이 자로 보내면 표지 한 장도 그냥 나간다. **같은 구멍이 다른 문에 남아 있었다.**
+   *   ⭐ 2026-09-03 에도 똑같은 무늬였다 — 「pdf첨부 빠짐」 지적이 send-mail 쪽만 고쳐지고
+   *     이 자는 안 고쳐져서 두 통이 첨부 없이 나갔다(위 주석). **세 번째다.**
+   *
+   * ⇒ 결함을 고칠 때 «같은 일을 하는 다른 자»까지 따라간다(강령 ⑤).
+   */
+  if (붙일것) {
+    const 쪽 = 쪽수재기(붙일것);
+    if (쪽 !== null && 쪽 < 2) {
+      console.error(LF + `⛔ PDF 가 ${쪽}쪽이다 — **안 보낸다.** 표지 한 장짜리가 세 번 나갔다.`);
+      console.error('   ' + 붙일것);
+      console.error('   ⚠ 먼저 열어서 안에 유닛 표가 들어 있는지 보십시오.');
+      process.exit(1);
+    }
+    console.log(LF + `✅ 쪽수 관문 — PDF ${쪽 === null ? '쪽수를 못 쟀다(그래도 막지 않는다)' : 쪽 + '쪽'}`);
+  }
+
   const 보낼인자 = ['scripts/send-mail.mjs', `--받는곳=${받는곳}`,
     `--제목=[전 유닛 점검] ${날} · 발행 ${총편수}편 · 이슈화 ${총반응} · 이슈생성 ${총만듦}`,
     `--글=${path.relative(뿌리, md)}`];
