@@ -1,0 +1,140 @@
+---
+/**
+ * /100y/remarriage — 재혼은 얼마나 흔한가, 사별 후냐 이혼 후냐
+ *
+ * /marriage-age(결혼 나이)·/divorce-age(이혼)의 다음 칸이다. 인구동향조사
+ * 101/DT_1B83A11(시도/부부의 혼인종류별 혼인, 1990~2025)에서 전국 합계만 뽑는다.
+ *
+ * ⛔ 아내의 혼인종류와 남편의 혼인종류는 서로 다른 집계다(한쪽만 미상이어도 다른 쪽엔
+ *   안 들어간다) — 합치거나 평균 내지 않고 각각 그대로 놓는다.
+ * ⛔ 판정하지 않는다 — 「재혼이 늘/줄었다」로 쓰지 않고 해마다 값을 그대로 보여 준다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/remarriage.json';
+
+const 자료 = 원본 as any;
+const 아내최신 = 자료.아내_최신;
+const 남편최신 = 자료.남편_최신;
+const 아내1995 = 자료.아내_1995;
+const 정점 = 자료.아내_재혼비중_정점;
+
+const 비중 = (줄: any) => (줄 && 줄.총계 ? Math.round((줄.재혼 / 줄.총계) * 1000) / 10 : null);
+const 최신비중 = 비중(아내최신);
+const 첫비중 = 비중(아내1995);
+
+const desc =
+  `${아내1995.해}년 전국 혼인 중 재혼은 ${첫비중}%였고, ${정점.해}년 ${정점.재혼비중}%까지 오른 뒤 ` +
+  `${아내최신.해}년에는 ${최신비중}%로 내려왔습니다. ${아내최신.해}년 재혼 중 사별 후는 아내 ${아내최신.사별후재혼.toLocaleString()}건· ` +
+  `남편 ${남편최신.사별후재혼.toLocaleString()}건입니다. 인구동향조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '혼인종류별 혼인 — 재혼 비중과 사별후재혼·이혼후재혼',
+  description: desc,
+  temporalCoverage: `1995/${아내최신.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['연도별 재혼 비중(아내·남편)', '사별후재혼·이혼후재혼 건수'],
+};
+
+const 표본해들 = (자료.아내_연도별 as any[]).filter(
+  (r) => Number(r.해) % 5 === 0 || r.해 === 아내최신.해,
+);
+---
+
+<HundredYear
+  title={`재혼 — ${아내1995.해}년 ${첫비중}% → ${아내최신.해}년 ${최신비중}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>결혼 중 재혼은<br />얼마나 될까요?</h1>
+  <p class="sub">
+    인구동향조사(신고 기반 행정통계) 기준, 전국 혼인 중 재혼이 차지하는 몫이
+    {' '}{아내1995.해}년부터 {아내최신.해}년까지 <strong>해마다 어떻게 달랐는지</strong>와,
+    재혼 중 사별 후인지 이혼 후인지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전국 혼인 중 재혼 비중(아내 기준) — {아내1995.해}년 → {아내최신.해}년</p>
+    <p class="answer-num">{첫비중}% → {최신비중}%</p>
+    <p class="answer-sub">
+      가장 높았던 해는 {정점.해}년 {정점.재혼비중}%입니다 · 아래로도 위로도 곧장 가지 않았습니다
+    </p>
+  </div>
+
+  <h2>{아내1995.해}년부터 {아내최신.해}년까지, 5년 단위로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>전체 혼인</th><th>재혼</th><th>재혼 비중</th></tr></thead>
+      <tbody>
+        {표본해들.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.총계?.toLocaleString()}건</td>
+            <td>{r.재혼?.toLocaleString()}건</td>
+            <td><strong>{비중(r)}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{아내최신.해}년, 재혼은 사별 후일까 이혼 후일까</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th></th><th>사별 후 재혼</th><th>이혼 후 재혼</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>아내 쪽 집계</td>
+          <td>{아내최신.사별후재혼.toLocaleString()}건</td>
+          <td>{아내최신.이혼후재혼.toLocaleString()}건</td>
+        </tr>
+        <tr>
+          <td>남편 쪽 집계</td>
+          <td>{남편최신.사별후재혼.toLocaleString()}건</td>
+          <td>{남편최신.이혼후재혼.toLocaleString()}건</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ {아내최신.해}년 사별 후 재혼은 <strong>아내 쪽 집계({아내최신.사별후재혼.toLocaleString()}건)가
+    {' '}남편 쪽 집계({남편최신.사별후재혼.toLocaleString()}건)보다 많습니다.</strong> 두 집계는
+    같은 부부를 각각 다른 기준(아내의 혼인종류·남편의 혼인종류)으로 센 것이라 하나로
+    합치지 않습니다 — 두 숫자를 나란히 놓는 것이 저희가 할 수 있는 전부입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>아내의 혼인종류(C3)와 남편의 혼인종류(C2)는 서로 다른 집계입니다 — 한쪽만
+      혼인종류가 「미상」이어도 다른 쪽 집계에는 안 들어갑니다. 두 표를 평균 내거나
+      더하지 않습니다.</li>
+    <li>재혼 비중이 오르내린 까닭(초혼 연령 상승·혼인 건수 자체의 감소 등)을 이 표가
+      가르지 않습니다 — 재혼 건수가 줄어도 전체 혼인이 더 줄면 비중은 오릅니다.</li>
+    <li>시도별 표는 남편 주소지 기준이라 이 지면은 전국 합계만 씁니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 재혼이 늘었다고도
+    {' '}줄었다고도 판정하지 않습니다. 해마다 값이 어떻게 달랐는지가 저희가 놓을 수 있는
+    {' '}전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/marriage-age">← 서른 살에 사람들은 결혼했을까, 아직일까?</a>
+    <br />
+    <a href="/divorce-age">← 이혼은 몇 살에, 몇 년차에 할까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="remarriage" />
+
+  <NextQuestionBrief 모은것="인구동향조사 자료" />
+</HundredYear>
