@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="984" viewBox="0 0 1180 984" font-family="'Segoe UI',system-ui,sans-serif">
+<rect width="1180" height="984" fill="#ffffff"/>
+<text x="28" y="42" font-size="24" font-weight="700" fill="#1a1a1a">SeoulMarkets — Korean market data in English</text>
+<text x="28" y="66" font-size="14" fill="#5f6368">seoulmarkets.com — 328 pages in sitemap · measured 2026. 9. 9. 23시 23분 51초 KST</text>
+<rect x="28" y="84" width="13" height="13" rx="3" fill="#1a7f4b"/>
+<text x="47" y="95" font-size="12.5" fill="#3c4043">○ Free</text>
+<rect x="103.6" y="84" width="13" height="13" rx="3" fill="#b3261e"/>
+<text x="122.6" y="95" font-size="12.5" fill="#3c4043">● Paid</text>
+<rect x="179.2" y="84" width="13" height="13" rx="3" fill="#a05a00"/>
+<text x="198.2" y="95" font-size="12.5" fill="#3c4043">◐ Mixed</text>
+<rect x="262.2" y="84" width="13" height="13" rx="3" fill="#5f6368"/>
+<text x="281.2" y="95" font-size="12.5" fill="#3c4043">□ Not measured</text>
+<rect x="28" y="498" width="232" height="40" rx="8" fill="#1a1a1a"/>
+<text x="144" y="524" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle">seoulmarkets.com</text>
+<path d="M 260 518 H 266" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<path d="M 266 141 V 895" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<path d="M 266 141 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="130" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="146" font-size="13" font-weight="600" fill="#1a7f4b">○ /article</text>
+<text x="462" y="146" font-size="12.5" fill="#3c4043">127</text>
+<path d="M 266 167 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="156" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="172" font-size="13" font-weight="600" fill="#1a7f4b">○ /tag</text>
+<text x="462" y="172" font-size="12.5" fill="#3c4043">106</text>
+<path d="M 266 193 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="182" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="198" font-size="13" font-weight="600" fill="#1a7f4b">○ /trade</text>
+<text x="462" y="198" font-size="12.5" fill="#3c4043">61</text>
+<path d="M 266 219 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="208" width="150" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
+<text x="310" y="224" font-size="13" font-weight="600" fill="#a05a00">◐ /data</text>
+<text x="462" y="224" font-size="12.5" fill="#3c4043">16</text>
+<path d="M 318 219 V 245 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="249" font-size="12" fill="#5f6368">/data/analyst-attention</text>
+<text x="666" y="249" font-size="12" fill="#80868b">1</text>
+<path d="M 318 245 V 271 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="275" font-size="12" fill="#5f6368">/data/board-composition</text>
+<text x="666" y="275" font-size="12" fill="#80868b">1</text>
+<path d="M 318 271 V 297 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="301" font-size="12" fill="#5f6368">/data/broker-candour</text>
+<text x="666" y="301" font-size="12" fill="#80868b">1</text>
+<path d="M 318 297 V 323 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="327" font-size="12" fill="#5f6368">/data/concentration</text>
+<text x="666" y="327" font-size="12" fill="#80868b">1</text>
+<path d="M 318 323 V 349 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="353" font-size="12" fill="#5f6368">/data/korea-bond-concentration.csv</text>
+<text x="666" y="353" font-size="12" fill="#80868b">1</text>
+<path d="M 318 349 V 375 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="379" font-size="12" fill="#5f6368">/data/korea-concentration.csv</text>
+<text x="666" y="379" font-size="12" fill="#80868b">1</text>
+<path d="M 318 375 V 401 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="405" font-size="12" fill="#5f6368">/data/korea-trade-dataset</text>
+<text x="666" y="405" font-size="12" fill="#80868b">1</text>
+<path d="M 318 401 V 427 H 338" stroke="#dde1e5" stroke-width="1.3" fill="none"/>
+<text x="346" y="431" font-size="12" fill="#5f6368">/data/mezzanine</text>
+<text x="666" y="431" font-size="12" fill="#80868b">1</text>
+<text x="346" y="457" font-size="11.5" font-style="italic" fill="#9aa0a6">… 7 more under /data</text>
+<path d="M 266 479 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="468" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="484" font-size="13" font-weight="600" fill="#1a7f4b">○ /(home)</text>
+<text x="462" y="484" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 505 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="494" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="510" font-size="13" font-weight="600" fill="#1a7f4b">○ /about</text>
+<text x="462" y="510" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 531 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="520" width="150" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
+<text x="310" y="536" font-size="13" font-weight="600" fill="#a05a00">◐ /api</text>
+<text x="462" y="536" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 557 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="546" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="562" font-size="13" font-weight="600" fill="#1a7f4b">○ /commodities</text>
+<text x="462" y="562" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 583 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="572" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="588" font-size="13" font-weight="600" fill="#1a7f4b">○ /community</text>
+<text x="462" y="588" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 609 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="598" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="614" font-size="13" font-weight="600" fill="#1a7f4b">○ /contact</text>
+<text x="462" y="614" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 635 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="624" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="640" font-size="13" font-weight="600" fill="#1a7f4b">○ /equities</text>
+<text x="462" y="640" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 661 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="650" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="666" font-size="13" font-weight="600" fill="#1a7f4b">○ /funds</text>
+<text x="462" y="666" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 687 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="676" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="692" font-size="13" font-weight="600" fill="#1a7f4b">○ /fx</text>
+<text x="462" y="692" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 713 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="702" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="718" font-size="13" font-weight="600" fill="#1a7f4b">○ /macro</text>
+<text x="462" y="718" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 739 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="728" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="744" font-size="13" font-weight="600" fill="#1a7f4b">○ /newsletter</text>
+<text x="462" y="744" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 765 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="754" width="150" height="22" rx="5" fill="#fdeceb" stroke="#b3261e" stroke-width="1.2"/>
+<text x="310" y="770" font-size="13" font-weight="600" fill="#b3261e">● /pricing</text>
+<text x="462" y="770" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 791 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="780" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="796" font-size="13" font-weight="600" fill="#1a7f4b">○ /privacy</text>
+<text x="462" y="796" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 817 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="806" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="822" font-size="13" font-weight="600" fill="#1a7f4b">○ /rankings</text>
+<text x="462" y="822" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 843 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="832" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="848" font-size="13" font-weight="600" fill="#1a7f4b">○ /rates</text>
+<text x="462" y="848" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 869 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="858" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="874" font-size="13" font-weight="600" fill="#1a7f4b">○ /refund</text>
+<text x="462" y="874" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 895 H 292" stroke="#c9ced4" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
+<rect x="300" y="884" width="215.2" height="22" rx="5" fill="#f6f7f8" stroke="#1a7f4b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="310" y="900" font-size="12.5" fill="#1a7f4b">+ 2 more free sections</text>
+<text x="527.2" y="900" font-size="12.5" fill="#3c4043">2</text>
+<text x="28" y="950" font-size="11.5" fill="#80868b">Paid/free is scanned from the code that renders the buy button or paywall — not guessed. Sections not scanned stay grey.</text>
+<text x="28" y="968" font-size="11.5" fill="#80868b">Made by scripts/make-sitemap-tree.mjs — re-run it when pages change.</text>
+</svg>
