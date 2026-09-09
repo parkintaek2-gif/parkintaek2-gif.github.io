@@ -22,5 +22,3 @@
 # 유닛<TAB>경로<TAB>언제까지(YYYY-MM-DD)<TAB>무엇
 1번	src/lib/api.mjs	2026-09-10	P7 카탈로그 — /api 응답에 tier_catalog 를 붙이는 몫 (파일 주석에 「[2026-09-09 · 1번] P7 카탈로그 몫」이라 적혀 있다)
 1번	src/lib/tiers.mjs	2026-09-10	P7 카탈로그 — TIER_CATALOG 요금 구간 칸 정의(값 없이). 5번이 14:55 에 드린 몫이고 1번이 16:13 에 완료 보고했다
-3번	src/lib/klifemap.ts	2026-09-10	100yearmap 슬러그 목록에 fertility-rate 를 더하는 중 (diff 에 그 슬러그가 추가돼 있고, 3번이 19시대에 birth-sex-ratio 를 냈다)
-3번	src/data/100yearmap/_provenance.json	2026-09-10	위와 같은 작업 — 출처 목록에 fertility-rate.json 추가
