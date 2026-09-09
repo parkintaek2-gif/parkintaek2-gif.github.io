@@ -1,0 +1,261 @@
+---
+/*
+ * Ownership filings — P5 무료 지면. (seoulmarkets.com/data/ownership)
+ *
+ * 왜 (2026-09-09 · 사장님 「데이터 가공·제공업 본격화」):
+ *   Korea Ownership Ledger 상품의 «무료 깔때기»다. QUICK 이 일본판(EDINET)을 판다.
+ *
+ * ⭐ 이 지면의 알맹이 — 오늘 세면서 나왔다
+ *   신고 21,774건 중 6,008건이 「지분율 변화 0」인데, 그 안 631건은 «주식 수»가 움직였다.
+ *   국일제지는 액면병합으로 보고자 주식이 9억 450만 주 줄었는데 지분율은 89.14% 그대로다.
+ *   🔴 **지분율만 보는 자는 그 631건을 못 본다. 그것이 「행을 파는」 까닭이다.**
+ *
+ * ⛔ 이 지면이 지키는 것
+ * ⛔ 보고자 «이름»을 내지 않는다 — 개인이 섞여 있다. 우리가 내는 것은 건수다
+ * ⛔ 「누가 사고 누가 팔았다」를 매수·매도 신호로 쓰지 않는다
+ * ⛔ 「변화 0」을 「아무 일도 없었다」로 쓰지 않는다 — 631건이 반례다
+ * ⛔ 회사명은 영문만. 원자료에 2,541곳 다 영문명이 있다(오늘 확인)
+ * ⛔ 화면에 한국어를 내지 않는다
+ * ⛔ 표를 감싸고 그 칸이 «실제로» 스크롤되는지 재고 낸다
+ *
+ * 자료: src/data/seoulmarkets-ownership.json (scripts/build-seoulmarkets-ownership.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/seoulmarkets-ownership.json';
+
+const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+const c = data.counts;
+const f = data.sharesMovedStakeFlat;
+const 몫 = (n) => Math.round((n / data.filings) * 1000) / 10;
+
+const TITLE = 'A quarter of Korean ownership filings report no change — and 631 hide one';
+const SAMPLE = `${수(data.filings)} large-holding filings · ${수(data.companiesThatFiled)} companies · `
+  + `${data.windowFirstDay} to ${data.windowLastDay}`;
+const DESC =
+  `Every large-holding filing under Korea's 5% rule in this window: ${수(c.stakeUp)} raised a stake, `
+  + `${수(c.stakeDown)} cut one, ${수(c.noChange)} moved nothing at all — and ${수(f.count)} moved `
+  + 'millions of shares while the stake percentage stayed exactly where it was.';
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean large-holding (5% rule) filings',
+  description: DESC, url: `${SITE_URL}/data/ownership`,
+  temporalCoverage: `${data.windowFirstDay}/${data.windowLastDay}`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['stake raised', 'stake cut', 'no change in stake', 'shares moved with stake flat'],
+};
+
+const 해들 = Object.entries(data.byYear).sort();
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+
+      <p class="lead">
+        Anyone crossing 5% of a Korean listed company has to say so, and say so again every time the
+        holding moves. We collect those filings. Over this window there were
+        {' '}<b>{수(data.filings)}</b> of them across <b>{수(data.companiesThatFiled)}</b> companies —
+        and the most interesting group is the one that looks like nothing happened.
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>{수(f.count)} filings report a stake that did not move — while the share count did.</b>
+        {f.largestExample && (
+          <span>
+            {' '}The largest of them: a holder went from {수(f.largestExample.sharesBefore)} shares to
+            {' '}{수(f.largestExample.sharesAfter)}, a fall of
+            {' '}<b>{수(f.largestShareChange)} shares</b>, and the stake stayed at
+            {' '}{f.largestExample.stakePct}%. The company had consolidated its shares, so every
+            holder's count shrank together.
+          </span>
+        )}
+        <b> A screener that watches the percentage sees nothing in these {수(f.count)} rows.</b>
+      </aside>
+
+      <ol class="five">
+        <li><b>What it is</b> — every large-holding filing in the window, tagged by what it did to
+          the holder's stake.</li>
+        <li><b>Not a register</b> — these are events, not a snapshot of who owns what today.</li>
+        <li><b>Not names</b> — individuals appear in these filings, so we count events and never
+          publish the person.</li>
+        <li><b>Not a signal</b> — a holder raising a stake is a fact about a filing, not a view of
+          ours.</li>
+        <li><b>Not complete history</b> — the window starts when our collection starts.</li>
+      </ol>
+
+      <section class="blk">
+        <h2>What the filing did to the stake</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>What happened</th><th class="r">Filings</th><th class="r">Share</th></tr></thead>
+            <tbody>
+              <tr><td class="axis">Holder raised the stake</td><td class="r"><b>{수(c.stakeUp)}</b></td><td class="r">{몫(c.stakeUp)}%</td></tr>
+              <tr><td class="axis">Holder cut the stake</td><td class="r"><b>{수(c.stakeDown)}</b></td><td class="r">{몫(c.stakeDown)}%</td></tr>
+              <tr><td class="axis">Nothing moved — stake or shares</td><td class="r">{수(c.noChange)}</td><td class="r">{몫(c.noChange)}%</td></tr>
+              <tr class="edge"><td class="axis">Shares moved, stake did not</td><td class="r"><b>{수(f.count)}</b></td><td class="r">{f.shareOfAll}%</td></tr>
+              <tr><td class="axis">Stake change not recorded</td><td class="r">{수(c.unmeasured)}</td><td class="r">{몫(c.unmeasured)}%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The last row is zero, which is worth printing: every filing in this window carries a
+          readable stake-change figure, so none of the counts above is standing in for a gap.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>Why {수(f.count)} filings move shares without moving a percentage</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Reason given in the filing</th><th class="r">Filings</th></tr></thead>
+            <tbody>
+              <tr><td class="axis">A share consolidation or split</td><td class="r">{수(f.reasons.consolidationOrSplit)}</td></tr>
+              <tr><td class="axis">A related party's dealing</td><td class="r">{수(f.reasons.relatedParty)}</td></tr>
+              <tr><td class="axis">Something else</td><td class="r">{수(f.reasons.other)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          <b>We sort these by keyword and say so.</b> The reason field is free text written by the
+          filer, in Korean, and we do not translate it into a category we then present as the
+          filer's own words. “Something else” is {수(f.reasons.other)} filings we could not place —
+          we leave them unplaced rather than guessing.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>How often a company's holders file</h2>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Median company</th><td>{수(data.filingsPerCompany.median)} filings in the window</td></tr>
+              <tr><th>Mean</th><td>{수(data.filingsPerCompany.mean)} — pulled up by the busiest names</td></tr>
+              <tr><th>Busiest single company</th><td>{수(data.filingsPerCompany.max)} filings</td></tr>
+              <tr><th>Companies that filed</th><td>{수(data.companiesThatFiled)} of {수(data.companiesScanned)} we scanned</td></tr>
+              <tr><th>Days with at least one filing</th><td>{수(data.filingDays)}</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p>The gap between the median of {수(data.filingsPerCompany.median)} and the busiest
+          {' '}{수(data.filingsPerCompany.max)} is the whole point: ownership churn is not spread
+          evenly, and the names where it concentrates are visible.</p>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Company</th><th class="r">Filings</th></tr></thead>
+            <tbody>
+              {data.busiest.map((x) => (
+                <tr><td class="axis">{x.name}</td><td class="r">{수(x.filings)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>Filings by year, and the two report forms</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Year</th><th class="r">Filings</th></tr></thead>
+            <tbody>
+              {해들.map(([y, n]) => (
+                <tr><td class="axis">{y}</td><td class="r">{수(n)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The first and last years are part-years — the window runs {data.windowFirstDay} to
+          {' '}{data.windowLastDay} — so read the middle year as the only full one.
+        </p>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Report form</th><th class="r">Filings</th></tr></thead>
+            <tbody>
+              {Object.entries(data.byForm).sort((a, b) => b[1] - a[1]).map(([k, n]) => (
+                <tr>
+                  <td class="axis">{k === '일반' ? 'Full report' : k === '약식' ? 'Short report' : 'Form not recorded'}</td>
+                  <td class="r">{수(n)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>What the licensed file adds</h2>
+        <p>This page counts events. The file gives you the rows: for each of the
+          {' '}{수(data.filings)} filings, the receipt id and date, the report form, the shares and
+          stake held, the change in each, the related-party holding, and the reason text as filed.
+          It also carries <b>{수(data.officerFilings)}</b> officer and major-shareholder filings,
+          which are a separate stream from the 5% rule.</p>
+        <ul class="fine">
+          {data.whatThisIsNot.map((x) => <li>{x}</li>)}
+        </ul>
+      </section>
+
+      <section class="blk">
+        <h2>How we counted</h2>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Source</th><td>{data.source}</td></tr>
+              <tr><th>Window</th><td>{data.windowFirstDay} to {data.windowLastDay}</td></tr>
+              <tr><th>Built</th><td>{data.builtOn}</td></tr>
+              <tr><th>Zero and blank</th><td>A blank stake-change is counted as “not recorded”, never as zero. In this window there are none.</td></tr>
+              <tr><th>Company identity</th><td>Filings are grouped by ticker, not by name, so two spellings of one company do not become two companies.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <p class="fine bottom">
+        This page reports filings made to the Korean regulator. It is not investment advice, and
+        nothing here is a recommendation to buy or sell any security.
+        {' '}<a href="/data/target-changes">Who moved a Korean target price</a> ·{' '}
+        <a href="/data">All data products</a>
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.6rem, 4.6vw, 2.2rem); line-height: 1.22; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--card); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .five { margin: 0 0 2.4rem; padding: 1.1rem 1.2rem 1.1rem 2.4rem; background: var(--card);
+          border: 1px solid var(--line); border-radius: 8px; }
+  .five li { margin: 0 0 .5rem; font-size: .92rem; line-height: 1.6; }
+  .five li:last-child { margin-bottom: 0; }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  /* 🔴 표를 감싸는 칸 — 여기서 실제로 스크롤돼야 한다 */
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; white-space: nowrap; }
+  table.press td.axis { font-weight: 600; color: var(--ink); }
+  table.press tr.edge td { background: var(--card); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+  ul.fine { padding-left: 1.2rem; }
+  ul.fine li { margin: 0 0 .35rem; }
+  .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>

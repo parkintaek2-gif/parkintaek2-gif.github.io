@@ -73,6 +73,8 @@ export const GET: APIRoute = async ({ params }) => {
        *   ⛔ 지면을 내면 사이트맵에 «같은 커밋에서» 넣는다. 오늘 KCW 쪽에서 이것을 잊어
        *     세 지면이 라이브 200 이면서 검색엔 안 알려진 채로 몇 시간 있었다. */
       { loc: '/data/target-changes', changefreq: 'daily', priority: '0.8' },
+      /* P5 둘째 무료 지면 — Korea Ownership Ledger 의 깔때기 (2026-09-09 · 5번) */
+      { loc: '/data/ownership', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/board-composition', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/analyst-attention', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/broker-candour', changefreq: 'weekly', priority: '0.8' },

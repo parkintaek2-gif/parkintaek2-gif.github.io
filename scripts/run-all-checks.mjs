@@ -62,6 +62,7 @@ export const 단계들 = [
    *   그 전부터 11px 밀리고 있었다. 손님은 폰으로 온다 — 이 자를 관문에 둔다. */
   "node scripts/check-kcw-phone.mjs --자가시험",
   "node scripts/build-seoulmarkets-target-changes.mjs --자가시험",
+  "node scripts/build-seoulmarkets-ownership.mjs --자가시험",
   "node scripts/restore-archive-from-onedrive.mjs --자가시험",
   "node scripts/collect-kcw-korean-names.mjs --자가시험",
   "node scripts/lib/kcw-roster-match.mjs --자가시험",

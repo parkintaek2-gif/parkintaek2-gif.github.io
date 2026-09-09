@@ -1,0 +1,134 @@
+{
+ "builtOn": "2026-09-09",
+ "source": "DART large-holding reports (the Korean 5% rule) and officer/major-shareholder reports, collected by us through the official open API.",
+ "windowFirstDay": "2024-09-09",
+ "windowLastDay": "2026-09-09",
+ "filingDays": 487,
+ "companiesScanned": 2541,
+ "companiesThatFiled": 2414,
+ "filings": 21774,
+ "officerFilings": 32514,
+ "counts": {
+  "stakeUp": 8994,
+  "stakeDown": 6772,
+  "sharesMovedStakeFlat": 631,
+  "noChange": 5377,
+  "unmeasured": 0
+ },
+ "byForm": {
+  "일반": 15626,
+  "약식": 6148
+ },
+ "byYear": {
+  "2024": 3010,
+  "2025": 9864,
+  "2026": 8900
+ },
+ "filingsPerCompany": {
+  "mean": 9,
+  "median": 6,
+  "max": 91
+ },
+ "busiest": [
+  {
+   "ticker": "001270",
+   "name": "BOOKOOK SECURITIES CO.,LTD",
+   "filings": 91
+  },
+  {
+   "ticker": "010580",
+   "name": "SM BEXEL CO.,LTD",
+   "filings": 88
+  },
+  {
+   "ticker": "008930",
+   "name": "Hanmi Science Co.,Ltd",
+   "filings": 77
+  },
+  {
+   "ticker": "086520",
+   "name": "ECOPRO CO.,LTD",
+   "filings": 69
+  },
+  {
+   "ticker": "178320",
+   "name": "SEOJIN SYSTEM CO.,LTD",
+   "filings": 64
+  },
+  {
+   "ticker": "007460",
+   "name": "Aprogen, Inc",
+   "filings": 61
+  },
+  {
+   "ticker": "015360",
+   "name": "INVENI Co., Ltd.",
+   "filings": 60
+  },
+  {
+   "ticker": "012700",
+   "name": "The LEADCORP, Inc.",
+   "filings": 57
+  },
+  {
+   "ticker": "033290",
+   "name": "LOGEN Co., Ltd.",
+   "filings": 57
+  },
+  {
+   "ticker": "255440",
+   "name": "YAS Co., Ltd",
+   "filings": 56
+  },
+  {
+   "ticker": "010780",
+   "name": "IS DONGSEO CO., LTD.",
+   "filings": 56
+  },
+  {
+   "ticker": "033160",
+   "name": "MKElectron",
+   "filings": 55
+  },
+  {
+   "ticker": "043260",
+   "name": "SUNGHO ELECTRONICS CORP.",
+   "filings": 53
+  },
+  {
+   "ticker": "019490",
+   "name": "EXICURE HITRON INC.",
+   "filings": 52
+  },
+  {
+   "ticker": "204620",
+   "name": "Global Tax Free Co., Ltd.",
+   "filings": 51
+  }
+ ],
+ "sharesMovedStakeFlat": {
+  "count": 631,
+  "shareOfAll": 2.9,
+  "reasons": {
+   "consolidationOrSplit": 81,
+   "relatedParty": 274,
+   "other": 276
+  },
+  "largestShareChange": 904500000,
+  "largestExample": {
+   "sharesBefore": 1005000000,
+   "sharesAfter": 100500000,
+   "sharesChange": -904500000,
+   "stakePct": 89.14,
+   "stakeChangePct": 0,
+   "reasonKind": "consolidationOrSplit"
+  }
+ },
+ "whatThisIs": "Every large-holding report filed for a Korean listed company in this window, sorted by what it did to the holder's stake.",
+ "whatThisIsNot": [
+  "Not a list of who owns what today. These are filings — events — not a snapshot of the register.",
+  "Not a buy or sell signal. A holder raising a stake is a fact about a filing, not a view of ours.",
+  "Not holder names. Individuals appear in these filings, so we count events and never publish the person.",
+  "Not complete history. The window is what we have collected, and it starts when we started."
+ ]
+}
