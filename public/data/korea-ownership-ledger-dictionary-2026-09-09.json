@@ -1,0 +1,55 @@
+{
+ "product": "Korea Ownership Ledger",
+ "version": "2026-09-09",
+ "publisher": "SeoulMarkets (KLifeDesign Inc.)",
+ "disclaimer": "This file is data, not investment advice. It contains no recommendation to buy or sell anything.",
+ "whatThisIs": "Two tables from DART (Financial Supervisory Service) ownership disclosures for Korean listed companies. 21,774 substantial-shareholding filings (majorstock) and 32,514 officer/major-shareholder ownership rows (elestock).",
+ "whatThisIsNot": [
+  "Not investment advice or a recommendation.",
+  "Not a live feed. Each version is a snapshot as of its filename date; it does not update after publication.",
+  "Not a romanized name list. holder_name and person_name are printed exactly as filed — Korean text is left in Korean, not transliterated.",
+  "Not a full float table. This covers only names required to file (5%+ holders, officers, major shareholders), not every shareholder."
+ ],
+ "source": "DART (Financial Supervisory Service) — majorstock (substantial shareholding) and elestock (executive/major shareholder ownership status) APIs",
+ "files": {
+  "korea-ownership-ledger-filings-2026-09-09.csv": {
+   "rows": 21774,
+   "grain": "one row per substantial-shareholding filing (majorstock)",
+   "columns": {
+    "ticker": "Six-digit KRX issue code.",
+    "name_en": "English company name as filed with DART. Blank when DART has no English name on record.",
+    "name_ko": "Korean company name as filed.",
+    "filing_id": "DART receipt number (rcept_no). Unique per filing.",
+    "filed_on": "Filing date, ISO 8601 (YYYY-MM-DD), KST.",
+    "filing_kind": "\"general\" or \"abbreviated\" (일반/약식), from DART report_tp. \"unmapped:<원문>\" if a new value appears that this file has not yet mapped.",
+    "holder_name": "Reporting holder’s name exactly as filed. Not translated or transliterated.",
+    "shares_held": "Shares held after this filing.",
+    "shares_change": "Change in shares held versus the previous filing.",
+    "stake_pct": "Ownership percentage after this filing.",
+    "stake_change_pct": "Change in ownership percentage versus the previous filing.",
+    "related_party_shares": "Shares held by related parties acting together with the reporting holder.",
+    "related_party_pct": "Ownership percentage held by related parties.",
+    "reason_raw_ko": "Reason for the filing, original Korean text as filed. Not summarized or translated — we do not invent an English gloss for legal text."
+   }
+  },
+  "korea-ownership-ledger-executives-2026-09-09.csv": {
+   "rows": 32514,
+   "grain": "one row per officer/major-shareholder ownership record (elestock)",
+   "columns": {
+    "ticker": "Six-digit KRX issue code.",
+    "name_en": "English company name as filed with DART.",
+    "name_ko": "Korean company name as filed.",
+    "filing_id": "DART receipt number (rcept_no).",
+    "filed_on": "Filing date, ISO 8601 (YYYY-MM-DD), KST.",
+    "person_name": "Person’s name exactly as filed. Not translated or transliterated.",
+    "is_registered_officer": "\"registered\" or \"unregistered\" (등기임원/비등기임원). Blank when DART reports neither (major shareholder who is not an officer).",
+    "title": "Job title as filed, original text.",
+    "relationship": "Relationship to the company as filed (e.g. major shareholder, executive), original text.",
+    "shares_held": "Shares held.",
+    "shares_change": "Change in shares held versus the previous filing.",
+    "stake_pct": "Ownership percentage.",
+    "stake_change_pct": "Change in ownership percentage versus the previous filing."
+   }
+  }
+ }
+}
