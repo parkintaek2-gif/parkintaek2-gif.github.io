@@ -22,10 +22,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 회사길 = path.join(뿌리, 'archive/raw/dart-company/company.ndjson');
-const 시세방 = path.join(뿌리, 'archive/raw/krx');
 const 낼방 = path.join(뿌리, 'public/data');
 const 업종영문길 = path.join(뿌리, 'src/data/korea-industry-name-english.json');
 
@@ -68,20 +68,16 @@ export function 갈래판정(isuNm) {
   return null;
 }
 
+/* 🔴 [2026-09-09] KRX 직접 경로 → 공공데이터포털 15094808 로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *     ⛔ 이 파일은 «파는» 파일을 만든다. 비상업 전용 자료가 들어가면 안 된다.
+ *   ⭐ 칸 이름은 KRX 그대로다(ISU_CD·TDD_CLSPRC·MKTCAP…) — 아래 셈은 안 바꿨다.
+ *   정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
 function 최근시세() {
-  const 파일들 = fs.readdirSync(시세방);
-  const 날들 = [...new Set(파일들.map((f) => (f.match(/_bydd_trd-(\d{8})\.json$/) || [])[1]).filter(Boolean))].sort();
-  for (const d of [...날들].reverse()) {
-    const 것 = [];
-    for (const 앞 of ['stk_bydd_trd', 'ksq_bydd_trd']) {
-      const f = `${앞}-${d}.json`;
-      if (!파일들.includes(f)) continue;
-      const o = JSON.parse(fs.readFileSync(path.join(시세방, f), 'utf8'));
-      것.push(...(o.OutBlock_1 ?? Object.values(o).find(Array.isArray) ?? []));
-    }
-    if (것.length) return { 날: d, 줄: 것 };
-  }
-  return { 날: null, 줄: [] };
+  const { 날, 줄들, 까닭 } = 시세(뿌리);
+  if (!줄들.length) { console.log(`⚠ 못 쟀다 — ${까닭}`); return { 날: null, 줄: [] }; }
+  return { 날, 줄: 줄들 };
 }
 
 export function 짓기() {

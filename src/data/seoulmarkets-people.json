@@ -8,8 +8,9 @@
   "companies": 2879,
   "byMarket": {
     "KOSPI": 825,
-    "(not recorded)": 300,
-    "KOSDAQ": 1754
+    "(not recorded)": 194,
+    "KOSDAQ": 1754,
+    "KONEX": 106
   },
   "byFiscalYear": {
     "2025": 2879

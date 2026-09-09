@@ -11,9 +11,9 @@
   "Not a complete market. A company appears only if it filed workforce figures."
  ],
  "source": "DART (Financial Supervisory Service) employee status filings; KRX daily trading data",
- "priceAsOf": "20260907",
+ "priceAsOf": "20260908",
  "rows": 2879,
- "withPrice": 2579,
+ "withPrice": 2685,
  "payRatioWithheld": 258,
  "withheldRule": "A women-to-men ratio is left blank when either sex has fewer than 5 employees, when a figure was not reported, or when the denominator is zero. The reason is given in pay_ratio_withheld_reason.",
  "columns": {

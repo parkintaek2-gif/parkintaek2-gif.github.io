@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * build-implied-upside.mjs — 차별화 상품: «브로커 목표가 대비 실주가 괴리».
- *   재료 = ① /v1/research 최근 브로커 목표가(broker facts) ② KRX 현재 종가(archive/raw/krx)
+ *   재료 = ① /v1/research 최근 브로커 목표가(broker facts) ② 현재 종가(공공데이터포털 15094808)
  *   ③ rankings.json 업종. 이름으로 조인. 단일피드 벤더가 못 만드는 교차.
  *
  * ⛔ 개별종목 «사라»가 아니다. 시장·업종 «집계»로 낸다 — 브로커가 그렇게 말했다는 사실(데이터).
@@ -13,15 +13,20 @@ import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
 const norm = (s) => String(s || '').replace(/\s/g, '').replace(/\(.*?\)/g, '');
 
-// ── KRX 최근 종가: name → {close, mktcap, code, mkt} ──
-const krxDir = path.join(ROOT, 'archive/raw/krx');
-const krxFiles = fs.readdirSync(krxDir).filter((f) => f.endsWith('.json')).sort();
-const latestDd = krxFiles.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
+// ── 최근 종가: name → {close, mktcap, code, mkt} ──
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+/* 🔴 [2026-09-09] KRX 직접 경로에서 공공데이터포털로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *   포털 15094808(금융위원회 · 이용허락범위 «제한 없음») 쪽이 커버도 넓다 —
+ *   유가증권 943 → 코스닥·코넥스까지 2,873 종목.
+ *   ⭐ 칸 이름은 KRX 그대로 나온다(MKTCAP·ISU_NM·ACC_TRDVAL…) — 아래 셈은 안 바꿨다.
+ *   금지·대체의 정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+const { 날: dd, 줄들: 시세줄들, 까닭: 시세까닭 } = 시세(ROOT);
+if (!시세줄들.length) { console.log(`⚠ 못 쟀다 — ${시세까닭}. 기존 출력 그대로 둔다.`); process.exit(0); }
+const latestDd = dd;
 const px = new Map();
-for (const f of krxFiles.filter((f) => f.includes(latestDd))) {
-  const { rows } = JSON.parse(fs.readFileSync(path.join(krxDir, f), 'utf8'));
-  for (const r of rows) px.set(norm(r.ISU_NM), { close: +r.TDD_CLSPRC, mktcap: +r.MKTCAP, code: r.ISU_CD, mkt: r.MKT_NM });
-}
+for (const r of 시세줄들) px.set(norm(r.ISU_NM), { close: +r.TDD_CLSPRC, mktcap: +r.MKTCAP, code: r.ISU_CD, mkt: r.MKT_NM });
 
 // ── 업종: rankings.json name → industry ──
 const rk = JSON.parse(fs.readFileSync(path.join(ROOT, 'src/data/rankings.json'), 'utf8'));

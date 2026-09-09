@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * make-turnover-vs-cap-charts.mjs — 「가치는 어디에, 거래는 어디서」 기사용 SVG.
- *   재료: KRX 일별매매정보(archive/raw/krx). MKTCAP(시총) vs ACC_TRDVAL(거래대금).
+ *   재료: 공공데이터포털 주식시세정보 15094808. MKTCAP(시총) vs ACC_TRDVAL(거래대금).
  *   둘 다 «비율»로만 낸다 — 시세 스케일과 무관, 검증가능.
  * 출력: public/charts/turnover-vs-cap-market.svg(그룹막대) · turnover-velocity.svg(회전율)
  *   + src/data/turnover-concentration.json
@@ -9,18 +9,21 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const KRX = path.join(ROOT, 'archive/raw/krx');
 const CHARTS = path.join(ROOT, 'public/charts');
 fs.mkdirSync(CHARTS, { recursive: true });
-
-// ⚠ archive/raw/krx 는 git 미추적 — 서버 이동 때 안 따라온다. 「못 쟀다」와 「깨졌다」를 가른다.
-if (!fs.existsSync(KRX)) { console.log('⚠ 못 쟀다 — archive/raw/krx 폴더 없음(서버 이동 때 정상). 커밋된 기존 차트·데이터 유지, 아무것도 덮어쓰지 않음.'); process.exit(0); }
-const files = fs.readdirSync(KRX).filter((f) => f.endsWith('.json'));
-if (!files.length) { console.log('⚠ 못 쟀다 — archive/raw/krx 에 KRX json 없음. 기존 출력 유지.'); process.exit(0); }
-const dd = files.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+/* 🔴 [2026-09-09] KRX 직접 경로에서 공공데이터포털로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *   포털 15094808(금융위원회 · 이용허락범위 «제한 없음») 쪽이 커버도 넓다 —
+ *   유가증권 943 → 코스닥·코넥스까지 2,873 종목.
+ *   ⭐ 칸 이름은 KRX 그대로 나온다(MKTCAP·ISU_NM·ACC_TRDVAL…) — 아래 셈은 안 바꿨다.
+ *   금지·대체의 정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+const { 날: dd, 줄들: 시세줄들, 까닭: 시세까닭 } = 시세(ROOT);
+if (!시세줄들.length) { console.log(`⚠ 못 쟀다 — ${시세까닭}. 기존 출력 그대로 둔다.`); process.exit(0); }
 const EN = { '삼성전자': 'Samsung Electronics', 'SK하이닉스': 'SK hynix', '삼성전자우': 'Samsung Elec. (pref)', '삼성전기': 'Samsung Electro-Mech.', 'SK스퀘어': 'SK Square', '카카오': 'Kakao', '금호건설': 'Kumho E&C' };
 let all = [];
-for (const f of files.filter((f) => f.includes(dd))) { const { rows } = JSON.parse(fs.readFileSync(path.join(KRX, f), 'utf8')); for (const r of rows) { all.push({ nm: r.ISU_NM, en: EN[r.ISU_NM] || r.ISU_NM, cap: +r.MKTCAP, val: +r.ACC_TRDVAL, mkt: r.MKT_NM }); } }
+for (const r of 시세줄들) { all.push({ nm: r.ISU_NM, en: EN[r.ISU_NM] || r.ISU_NM, cap: +r.MKTCAP, val: +r.ACC_TRDVAL, mkt: r.MKT_NM }); }
 const totCap = all.reduce((s, x) => s + x.cap, 0), totVal = all.reduce((s, x) => s + x.val, 0);
 const kospi = all.filter((x) => x.mkt === 'KOSPI'), kosdaq = all.filter((x) => x.mkt === 'KOSDAQ');
 const sum = (a, k) => a.reduce((s, x) => s + x[k], 0);

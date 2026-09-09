@@ -3,25 +3,30 @@
  * make-largest-companies.mjs — 「한국에서 제일 큰 상장회사」 — 회사단위(우선주 합산).
  *   왜: 흔한 순위는 «종목» 단위라 삼성전자 우선주가 별도로 잡혀 삼성이 두 번 세어진다.
  *   회사단위로 합치면 순위가 달라진다 — 그 «세는 함정»이 이 지면의 이야기다. 검색어 largest korean companies.
- *   재료: archive/raw/krx 시총(비율만 — sim 스케일 무관·검증가능). 절대 시세는 안 낸다.
+ *   재료: 공공데이터포털 15094808 시총(비율만 — sim 스케일 무관·검증가능). 절대 시세는 안 낸다.
  * 출력: public/charts/largest-companies.svg + src/data/largest-companies.json
  */
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const KRX = path.join(ROOT, 'archive/raw/krx');
 const CHARTS = path.join(ROOT, 'public/charts');
 fs.mkdirSync(CHARTS, { recursive: true });
-if (!fs.existsSync(KRX)) { console.log('⚠ 못 쟀다 — archive/raw/krx 없음(서버이동 때 정상). 기존 출력 유지.'); process.exit(0); }
-const files = fs.readdirSync(KRX).filter((f) => f.endsWith('.json'));
-if (!files.length) { console.log('⚠ 못 쟀다 — KRX json 없음.'); process.exit(0); }
-const dd = files.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+/* 🔴 [2026-09-09] KRX 직접 경로에서 공공데이터포털로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *   포털 15094808(금융위원회 · 이용허락범위 «제한 없음») 쪽이 커버도 넓다 —
+ *   유가증권 943 → 코스닥·코넥스까지 2,873 종목.
+ *   ⭐ 칸 이름은 KRX 그대로 나온다(MKTCAP·ISU_NM·ACC_TRDVAL…) — 아래 셈은 안 바꿨다.
+ *   금지·대체의 정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+const { 날: dd, 줄들: 시세줄들, 까닭: 시세까닭 } = 시세(ROOT);
+if (!시세줄들.length) { console.log(`⚠ 못 쟀다 — ${시세까닭}. 기존 출력 그대로 둔다.`); process.exit(0); }
 
 const EN = { '삼성전자': 'Samsung Electronics', 'SK하이닉스': 'SK hynix', 'SK스퀘어': 'SK Square', '삼성전기': 'Samsung Electro-Mechanics', '현대차': 'Hyundai Motor', 'LG에너지솔루션': 'LG Energy Solution', '삼성바이오로직스': 'Samsung Biologics', '삼성생명': 'Samsung Life Insurance', '삼성물산': 'Samsung C&T', 'KB금융': 'KB Financial', '한화에어로스페이스': 'Hanwha Aerospace', '기아': 'Kia', 'NAVER': 'NAVER', '셀트리온': 'Celltrion', '현대모비스': 'Hyundai Mobis', 'POSCO홀딩스': 'POSCO Holdings', '신한지주': 'Shinhan Financial' };
 const base = (nm) => nm.replace(/우[BC]?$/, '').replace(/\(전환\)$/, '').replace(/[0-9]+우[BC]?$/, '').trim();
 
 let issues = [];
-for (const f of files.filter((f) => f.includes(dd))) { const { rows } = JSON.parse(fs.readFileSync(path.join(KRX, f), 'utf8')); for (const r of rows) { const c = +r.MKTCAP; if (c > 0) issues.push({ nm: r.ISU_NM, cap: c, mkt: r.MKT_NM }); } }
+for (const r of 시세줄들) { const c = +r.MKTCAP; if (c > 0) issues.push({ nm: r.ISU_NM, cap: c, mkt: r.MKT_NM }); }
 const total = issues.reduce((s, x) => s + x.cap, 0);
 const co = new Map();
 for (const x of issues) { const b = base(x.nm); const e = co.get(b) || { ko: b, cap: 0, mkt: x.mkt }; e.cap += x.cap; co.set(b, e); }

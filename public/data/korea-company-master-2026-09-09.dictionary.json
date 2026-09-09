@@ -1,13 +1,13 @@
 {
-  "whatThisIs": "KRX-listed tickers (KOSPI+KOSDAQ, 2765 rows as of 20260907) joined to DART corporate filings by ticker, with preferred shares re-linked to their common-share parent by name. Not investment advice.",
-  "matchRate": "97.9% (2706/2765)",
+  "whatThisIs": "KRX-listed tickers (KOSPI+KOSDAQ, 2873 rows as of 20260908) joined to DART corporate filings by ticker, with preferred shares re-linked to their common-share parent by name. Not investment advice.",
+  "matchRate": "97.9% (2812/2873)",
   "breakdown": {
-    "직접일치": 2595,
+    "직접일치": 2701,
     "우선주맞음": 111,
     "우선주못맞음": 3,
     "스팩": 30,
     "리츠": 1,
-    "새상장추정": 25
+    "새상장추정": 27
   },
   "columns": {
     "ticker": "KRX 6-digit code (or alphanumeric for some preferred classes).",
@@ -31,7 +31,7 @@
     "English industry-name dictionary — all industry_name_ko labels in this run are covered.",
     "Preferred shares not linked (3) — name-strip did not find a matching common-share row this run.",
     "SPACs (30) and REITs (1) — kept as separate master rows; not linked to any DART corp (most SPACs/REITs do file with DART, this is a name-based miss, not a decision to exclude them).",
-    "Newly-listed/split companies (25) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh."
+    "Newly-listed/split companies (27) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh."
   ],
   "disclaimer": "Not investment advice. Market cap reflects capital intensity, not productivity."
 }

@@ -100,4 +100,4 @@ console.log(`  기준일 ${g.날} · 줄 ${g.줄들.length.toLocaleString()} · 
 console.log(`  시장별 ${Object.entries(시장별).map(([k, v]) => `${k} ${v}`).join(' · ')}`);
 console.log(`  종가 있음 ${종가있음.toLocaleString()} · 시가총액 있음 ${시총있음.toLocaleString()} (⛔ 빈칸을 0 으로 세지 않았다)`);
 console.log('  ⭐ 이 출처는 이용허락범위 「제한 없음」이다 — 팔 파일에 넣어도 된다');
-console.log('  ⛔ archive/raw/krx (KRX OPEN API) 는 「비상업적 목적으로만」이다. 팔 파일에 넣지 않는다');
+console.log('  ⛔ archive/raw/krx (KRX OPEN API) 는 「비상업적 목적으로만」이다. 팔 파일에 넣지 않는다'); // 금지경로-눈감음: 금지를 설명하는 출력문이다. 부르는 것이 아니다

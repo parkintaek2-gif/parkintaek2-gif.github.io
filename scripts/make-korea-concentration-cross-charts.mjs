@@ -9,7 +9,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const KRX = path.join(ROOT, 'archive/raw/krx');
 const TRADE = path.join(ROOT, 'src/data/trade-country-monthly.json');
 const CHARTS = path.join(ROOT, 'public/charts');
 fs.mkdirSync(CHARTS, { recursive: true });
@@ -18,13 +17,19 @@ function gini(x) { x = x.filter((v) => v >= 0).sort((m, n) => m - n); const n = 
 const top = (vals, k) => { const s = [...vals].sort((a, b) => b - a); const t = s.reduce((x, y) => x + y, 0); return +(s.slice(0, k).reduce((x, y) => x + y, 0) / t * 100).toFixed(1); };
 const half = (vals) => { const s = [...vals].sort((a, b) => b - a); const t = s.reduce((x, y) => x + y, 0); let c = 0; for (let i = 0; i < s.length; i++) { c += s[i]; if (c / t >= 0.5) return i + 1; } };
 
-// ── 주가: archive 가드(못 쟀다 vs 깨졌다) ──
-if (!fs.existsSync(KRX)) { console.log('⚠ 못 쟀다 — archive/raw/krx 없음(서버 이동 때 정상). 기존 출력 유지.'); process.exit(0); }
-const kf = fs.readdirSync(KRX).filter((f) => f.endsWith('.json'));
-if (!kf.length) { console.log('⚠ 못 쟀다 — KRX json 없음.'); process.exit(0); }
-const dd = kf.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
+// ── 주가: 공공데이터포털 (못 쟀다 vs 깨졌다를 가른다) ──
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+/* 🔴 [2026-09-09] KRX 직접 경로에서 공공데이터포털로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *   포털 15094808(금융위원회 · 이용허락범위 «제한 없음») 쪽이 커버도 넓다 —
+ *   유가증권 943 → 코스닥·코넥스까지 2,873 종목.
+ *   ⭐ 칸 이름은 KRX 그대로 나온다(MKTCAP·ISU_NM·ACC_TRDVAL…) — 아래 셈은 안 바꿨다.
+ *   금지·대체의 정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+const { 날: dd, 줄들: 시세줄들, 까닭: 시세까닭 } = 시세(ROOT);
+if (!시세줄들.length) { console.log(`⚠ 못 쟀다 — ${시세까닭}. 기존 출력 그대로 둔다.`); process.exit(0); }
 let caps = [], vals = [];
-for (const f of kf.filter((f) => f.includes(dd))) { const { rows } = JSON.parse(fs.readFileSync(path.join(KRX, f), 'utf8')); for (const r of rows) { const c = +r.MKTCAP, v = +r.ACC_TRDVAL; if (c > 0) caps.push(c); if (v > 0) vals.push(v); } }
+for (const r of 시세줄들) { const c = +r.MKTCAP, v = +r.ACC_TRDVAL; if (c > 0) caps.push(c); if (v > 0) vals.push(v); }
 
 // ── 무역: 커밋본 ──
 if (!fs.existsSync(TRADE)) { console.log('⚠ 못 쟀다 — trade-country-monthly.json 없음.'); process.exit(0); }

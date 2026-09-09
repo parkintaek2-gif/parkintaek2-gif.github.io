@@ -34,11 +34,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 고용길 = path.join(뿌리, 'archive/raw/dart-employment/employment-2025.ndjson');
 const 회사길 = path.join(뿌리, 'archive/raw/dart-company/company.ndjson');
-const 시세방 = path.join(뿌리, 'archive/raw/krx');
 const 낼방 = path.join(뿌리, 'public/data');
 
 /** ⚠ 시각은 KST. 이 PC 가 이미 KST 다 — UTC 로 바꾸면 새벽에 하루 어긋난다 */
@@ -87,22 +87,16 @@ export const 머리칸 = [
 ];
 
 /** 가장 최근 거래일의 시세를 두 시장에서 모아 온다. ⛔ 없으면 «없다»고 하고 0 으로 안 채운다 */
-export function 최근시세(파일들, 읽기) {
-  const 날 = [...new Set(파일들
-    .map((f) => (f.match(/_bydd_trd-(\d{8})\.json$/) || [])[1])
-    .filter(Boolean))].sort().reverse();
-  for (const d of 날) {
-    const 것 = [];
-    for (const 앞 of ['stk_bydd_trd', 'ksq_bydd_trd']) {
-      const f = `${앞}-${d}.json`;
-      if (!파일들.includes(f)) continue;
-      const o = 읽기(f);
-      const a = o?.OutBlock_1 ?? Object.values(o ?? {}).find(Array.isArray) ?? [];
-      것.push(...a);
-    }
-    if (것.length) return { 날: d, 줄: 것 };
-  }
-  return { 날: null, 줄: [] };
+/* 🔴 [2026-09-09] KRX 직접 경로 → 공공데이터포털 15094808 로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *     ⛔ 이 파일은 «파는» 파일을 만든다. 비상업 전용 자료가 들어가면 안 된다.
+ *   ⭐ 칸 이름은 KRX 그대로다(ISU_CD·TDD_CLSPRC·MKTCAP…) — 아래 셈은 안 바꿨다.
+ *   정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+export function 최근시세(뿌리길 = 뿌리, 재기 = 시세) {
+  const { 날, 줄들, 까닭 } = 재기(뿌리길);
+  if (!줄들.length) { console.log(`⚠ 못 쟀다 — ${까닭}. 시세 칸을 「못 쟀다」로 남긴다`); return { 날: null, 줄: [] }; }
+  return { 날, 줄: 줄들 };
 }
 
 function 짓기() {
@@ -112,8 +106,7 @@ function 짓기() {
   for (const l of fs.readFileSync(회사길, 'utf8').trim().split('\n')) {
     try { const o = JSON.parse(l); if (o.종목) 회사.set(String(o.종목).padStart(6, '0'), o); } catch { /* 한 줄이 깨져도 나머지를 버리지 않는다 */ }
   }
-  const 파일들 = fs.readdirSync(시세방);
-  const 시세 = 최근시세(파일들, (f) => JSON.parse(fs.readFileSync(path.join(시세방, f), 'utf8')));
+  const 시세 = 최근시세();
   const 시세표 = new Map(시세.줄.map((r) => [String(r.ISU_CD).trim(), r]));
 
   const 줄들 = [];
@@ -250,14 +243,24 @@ if (나 && process.argv.includes('--자가시험')) {
     머리칸.includes('annual_pay_per_person_krw_men'));
   검('머리칸에 «안 낸 까닭» 칸이 있다', 머리칸.includes('pay_ratio_withheld_reason'));
 
-  const 파일들 = ['stk_bydd_trd-20260901.json', 'ksq_bydd_trd-20260901.json', 'stk_bydd_trd-20260907.json'];
-  const 읽기 = (f) => ({ OutBlock_1: [{ ISU_CD: f.includes('ksq') ? '060310' : '005930', MKT_NM: f.includes('ksq') ? 'KOSDAQ' : 'KOSPI' }] });
-  const s = 최근시세(파일들, 읽기);
-  검('최근시세 — 가장 최근 날을 고른다', s.날 === '20260907');
-  검('⛔ 최근시세 — 그 날에 있는 시장만 담는다 (없는 파일을 지어내지 않는다)', s.줄.length === 1);
-  const s2 = 최근시세(['stk_bydd_trd-20260901.json', 'ksq_bydd_trd-20260901.json'], 읽기);
-  검('최근시세 — 두 시장이 다 있으면 둘 다 담는다', s2.줄.length === 2);
-  검('⛔ 최근시세 — 파일이 없으면 «없다»고 한다', 최근시세([], 읽기).날 === null);
+  /* 🔴 [2026-09-09] 최근시세 가 공공데이터포털을 읽게 바뀌었다(KRX 직접 경로 폐지).
+   *   ⚠ 내가 서명을 바꿔 놓고 이 시험들을 안 고쳐서 npm test 156개 중 1개가 깨졌다.
+   *     «서명을 바꾸면 그 자리의 시험도 같은 커밋에서 고친다.» */
+  const 가짜시세 = (_뿌리) => ({
+    날: '20260908',
+    줄들: [{ ISU_CD: '005930', MKT_NM: 'KOSPI', TDD_CLSPRC: 70000, MKTCAP: 1 },
+           { ISU_CD: '060310', MKT_NM: 'KOSDAQ', TDD_CLSPRC: 2000, MKTCAP: 2 }],
+    까닭: null,
+  });
+  const s = 최근시세('/아무데나', 가짜시세);
+  검('최근시세 — 포털이 준 기준일을 그대로 쓴다', s.날 === '20260908');
+  검('최근시세 — 두 시장이 한 파일에 함께 온다 (포털은 시장을 안 가른다)', s.줄.length === 2);
+  검('최근시세 — 코스닥이 함께 들어 있다 (KRX 판은 유가증권 943뿐이었다)',
+    s.줄.some((r) => r.MKT_NM === 'KOSDAQ'));
+  검('⛔ 최근시세 — 줄이 없으면 «없다»고 한다. 0 으로 채우지 않는다',
+    최근시세('/아무데나', () => ({ 날: null, 줄들: [], 까닭: '폴더가 없다' })).날 === null);
+  검('⛔ 최근시세 — 못 읽었을 때 줄도 빈 배열이다',
+    최근시세('/아무데나', () => ({ 날: '20260908', 줄들: [], 까닭: '못 읽었다' })).줄.length === 0);
 
   검('날꼴 — KST 자정 직후에도 그날이다', 날꼴(new Date(2026, 8, 9, 0, 30)) === '2026-09-09');
   검('🔴 「차별이 있다고 말하지 않는다」가 코드에 살아 있다',

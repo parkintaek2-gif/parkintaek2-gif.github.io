@@ -1,9 +1,9 @@
 {
- "asOf": "20260907",
- "stocks": 2765,
- "top1": 25.3,
- "top5": 52.9,
- "top10": 58.7,
+ "asOf": "20260908",
+ "stocks": 2873,
+ "top1": 25.4,
+ "top5": 53.2,
+ "top10": 58.9,
  "top30": 71.4,
  "top100": 85.6,
  "stocksForHalf": 4,
@@ -19,11 +19,11 @@
  "top10list": [
   {
    "en": "Samsung Electronics",
-   "share": 25.3
+   "share": 25.4
   },
   {
    "en": "SK hynix",
-   "share": 20.9
+   "share": 21.1
   },
   {
    "en": "Samsung Elec. (pref)",
@@ -39,7 +39,7 @@
   },
   {
    "en": "LG Energy Solution",
-   "share": 1.4
+   "share": 1.3
   },
   {
    "en": "Hyundai Motor",
@@ -50,7 +50,7 @@
    "share": 1.1
   },
   {
-   "en": "Samsung Life",
+   "en": "Samsung C&T",
    "share": 1
   },
   {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * append-krx-daily-history.mjs — KRX 하루치 «집계 한 줄»을 커밋되는 시계열에 쌓는다.
- *   왜: archive/raw/krx 는 git 미추적 → 서버 이동 때 사라진다. 매일수집만으로는
+ *   왜: archive/raw/stocks 는 git 미추적 → 서버 이동 때 사라진다. 매일수집만으로는
  *       시계열이 안 쌓인다. 여기서 그날의 «비율·집계»만(수십 개 숫자) 뽑아
  *       src/data/krx-daily-history.json(커밋)에 날짜로 idempotent 하게 넣는다.
  *   비율만 저장 — 시세 스케일 무관, 검증가능. 나중 8/19 시계열 코멘트(전일/전주)의 재료.
@@ -10,18 +10,20 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname).replace(/^\/([A-Za-z]:)/, '$1'), '..');
-const KRX = path.join(ROOT, 'archive/raw/krx');
 const HIST = path.join(ROOT, 'src/data/krx-daily-history.json');
-
-// ⚠ archive 없음 = 「못 쟀다」(서버 이동 때 정상). 「깨졌다」와 가른다 — 기존 시계열은 건드리지 않는다.
-if (!fs.existsSync(KRX)) { console.log('⚠ 못 쟀다 — archive/raw/krx 없음(서버 이동 때 정상). 시계열 그대로 둔다.'); process.exit(0); }
-const files = fs.readdirSync(KRX).filter((f) => f.endsWith('.json'));
-if (!files.length) { console.log('⚠ 못 쟀다 — KRX json 없음. 시계열 그대로 둔다.'); process.exit(0); }
-const dd = files.map((f) => f.match(/-(\d{8})\.json$/)?.[1]).filter(Boolean).sort().pop();
-if (!dd) { console.log('⚠ 못 쟀다 — 날짜 붙은 KRX json 없음.'); process.exit(0); }
+import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+/* 🔴 [2026-09-09] KRX 직접 경로에서 공공데이터포털로 갈아탔다.
+ *   사장님: 「공공데이터포털에서만 수집하도록 해, krx 자료가 전혀 필요없네」
+ *   까닭: KRX OPEN API 약관 제6조② 「비상업적인 목적으로만」 · 제11조 「제3자 제공 금지」.
+ *   포털 15094808(금융위원회 · 이용허락범위 «제한 없음») 쪽이 커버도 넓다 —
+ *   유가증권 943 → 코스닥·코넥스까지 2,873 종목.
+ *   ⭐ 칸 이름은 KRX 그대로 나온다(MKTCAP·ISU_NM·ACC_TRDVAL…) — 아래 셈은 안 바꿨다.
+ *   금지·대체의 정본: docs/수집-금지경로.tsv · 검사: scripts/check-forbidden-sources.mjs */
+const { 날: dd, 줄들: 시세줄들, 까닭: 시세까닭 } = 시세(ROOT);
+if (!시세줄들.length) { console.log(`⚠ 못 쟀다 — ${시세까닭}. 기존 출력 그대로 둔다.`); process.exit(0); }
 
 let all = [];
-for (const f of files.filter((f) => f.includes(dd))) { const { rows } = JSON.parse(fs.readFileSync(path.join(KRX, f), 'utf8')); for (const r of rows) all.push({ cap: +r.MKTCAP, val: +r.ACC_TRDVAL, mkt: r.MKT_NM }); }
+for (const r of 시세줄들) all.push({ cap: +r.MKTCAP, val: +r.ACC_TRDVAL, mkt: r.MKT_NM });
 if (all.length < 100) { console.log(`⚠ 깨졌다? — ${dd} 행이 ${all.length}개뿐(정상은 수천). 시계열에 안 넣는다.`); process.exit(1); }
 
 const totCap = all.reduce((s, x) => s + x.cap, 0), totVal = all.reduce((s, x) => s + x.val, 0);

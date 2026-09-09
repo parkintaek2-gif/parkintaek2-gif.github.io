@@ -70,6 +70,7 @@ export const 단계들 = [
   "node scripts/probe-broker-site.mjs --자가시험",
   "node scripts/check-stock-prices-datago.mjs",
   "node scripts/check-licence-register.mjs",
+  "node scripts/check-forbidden-sources.mjs",
   /* 🔴 [2026-09-09 · 5번] 자물쇠가 매일 부르라던 자가 «없었다». 만들었으니 관문에 둔다 —
    *   「PDF 를 열어서 쪽수를 보고 나서만 보낸다」가 이 자의 자가시험에 박혀 있다. */
   "node scripts/send-1600-report.mjs --자가시험",
