@@ -1,0 +1,143 @@
+---
+/**
+ * /100y/birth-sex-ratio — 태어날 때 성비는 얼마나 기울었었나
+ *
+ * 인구동향조사 101/DT_1B81A19(시도/몇째아이인지별 출생성비, 1990~2025)에서
+ * 전국 연도별 추세(총출생성비·첫째아·둘째아·셋째아이상)와 최신년도
+ * 시도별 분포를 함께 뽑는다.
+ *
+ * ⛔ 「정상」·「기울었다」를 우리가 매기지 않는다 — 표에 있는 숫자만 놓는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/birth-sex-ratio.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.전국_최신;
+const 첫해 = 자료.전국_첫해;
+const 고점 = 자료.전국_고점;
+const 저점 = 자료.전국_저점;
+const 셋째고점 = 자료.전국_셋째아이상_고점;
+const 시도분포 = 자료.시도분포_최신 as { 시도: string; 성비: number }[];
+
+const desc =
+  `${첫해.해}년 전국 출생성비(여아 100명당 남아 수)는 ${첫해.총출생성비}명이었고, ` +
+  `${고점.해}년 ${고점.총출생성비}명까지 오른 뒤 ${최신.해}년에는 ${최신.총출생성비}명입니다. ` +
+  `같은 기간 셋째아이상은 ${셋째고점.해}년 ${셋째고점.셋째아이상}명까지 올랐습니다. 인구동향조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '시도/몇째아이인지별 출생성비 — 전국 추세와 시도별 분포',
+  description: desc,
+  temporalCoverage: `${첫해.해}/${최신.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['연도별 총출생성비·몇째아이인지별 출생성비', '시도별 출생성비'],
+};
+
+const 표본해들 = (자료.전국_연도별 as any[]).filter(
+  (r) => Number(r.해) % 4 === 0 || r.해 === 최신.해 || r.해 === 첫해.해,
+);
+---
+
+<HundredYear
+  title={`출생성비 — ${첫해.해}년 ${첫해.총출생성비}명 → ${최신.해}년 ${최신.총출생성비}명`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>태어날 때 성비는<br />얼마나 기울었을까요?</h1>
+  <p class="sub">
+    인구동향조사(신고 기반 행정통계) 기준, 그해 태어난 여아 100명당 남아 수(출생성비)가
+    {' '}{첫해.해}년부터 {최신.해}년까지 <strong>해마다 어떻게 달랐는지</strong>와, 첫째·둘째·
+    셋째아이상 몇째아이인지별로, 그리고 {최신.해}년 시도별로 어떻게 갈렸는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전국 출생성비(여아 100명당 남아) — {첫해.해}년 → {최신.해}년</p>
+    <p class="answer-num">{첫해.총출생성비}명 → {최신.총출생성비}명</p>
+    <p class="answer-sub">
+      가장 높았던 해는 {고점.해}년 {고점.총출생성비}명 · 가장 낮았던 해는
+      {' '}{저점.해}년 {저점.총출생성비}명입니다
+    </p>
+  </div>
+
+  <h2>몇째아이인지별로 보면 — 셋째아이상이 가장 많이 움직였다</h2>
+  <p>
+    {셋째고점.해}년 셋째아이상 출생성비는 <strong>{셋째고점.셋째아이상}명</strong>이었습니다.
+    {' '}같은 해 총출생성비({셋째고점.총출생성비}명)보다 훨씬 높았습니다. {최신.해}년 셋째아이상은
+    {' '}{최신.셋째아이상}명입니다.
+  </p>
+
+  <h2>{첫해.해}년부터 {최신.해}년까지, 4년 단위로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>총출생성비</th><th>첫째아</th><th>둘째아</th><th>셋째아이상</th></tr></thead>
+      <tbody>
+        {표본해들.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td><strong>{r.총출생성비 ?? '못 쟀다'}</strong></td>
+            <td>{r.첫째아 ?? '못 쟀다'}</td>
+            <td>{r.둘째아 ?? '못 쟀다'}</td>
+            <td>{r.셋째아이상 ?? '못 쟀다'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{최신.해}년, 시도마다 얼마나 다를까</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>출생성비</th></tr></thead>
+      <tbody>
+        {시도분포.map((r) => (
+          <tr>
+            <td>{r.시도}</td>
+            <td><strong>{r.성비}명</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ {최신.해}년 시도 중 값이 가장 높은 곳은 <strong>{시도분포[0].시도}({시도분포[0].성비}명)</strong>,
+    가장 낮은 곳은 <strong>{시도분포[시도분포.length - 1].시도}({시도분포[시도분포.length - 1].성비}명)</strong>입니다.
+    같은 해, 같은 나라 안에서도 이만큼 갈립니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>출생성비의 「자연스러운 범위」가 얼마인지는 표 밖의 이야기입니다 — 저희는 값이
+      높다·낮다·기울었다를 판정하지 않고, 표에 있는 숫자만 그대로 놓습니다.</li>
+    <li>값이 오르내린 까닭(제도·인식 변화 등)을 이 표가 가르지 않습니다 —
+      숫자만 알려 줄 뿐, 무엇이 원인인지는 이 표로 답할 수 없습니다.</li>
+    <li>시도별 값은 {최신.해}년 한 해의 스냅샷입니다 — 그해의 순간을 보여줄 뿐,
+      그 지역의 오랜 성향이라 단정하지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 출생성비가 높다고도
+    {' '}낮다고도 판정하지 않습니다. 해마다, 지역마다 값이 어떻게 달랐는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/marriage-age">← 서른 살에 사람들은 결혼했을까, 아직일까?</a>
+    <br />
+    <a href="/nonmarital-birth">← 혼인 밖에서 태어나는 아이는 얼마나 될까요?</a>
+    <br />
+    <a href="/multicultural-marriage">← 다문화 혼인은 얼마나 될까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="birth-sex-ratio" />
+
+  <NextQuestionBrief 모은것="인구동향조사 자료" />
+</HundredYear>
