@@ -1,0 +1,36 @@
+{
+  "whatThisIs": "KRX-listed tickers (KOSPI+KOSDAQ, 2765 rows as of 20260907) joined to DART corporate filings by ticker, with preferred shares re-linked to their common-share parent by name. Not investment advice.",
+  "matchRate": "97.6% (2700/2765)",
+  "breakdown": {
+    "직접일치": 2589,
+    "우선주맞음": 111,
+    "우선주못맞음": 3,
+    "스팩": 30,
+    "리츠": 1,
+    "새상장추정": 31
+  },
+  "columns": {
+    "ticker": "KRX 6-digit code (or alphanumeric for some preferred classes).",
+    "name_ko": "KRX-listed name, Korean.",
+    "name_en": "DART-filed English name. Null if not matched. For preferred shares, parent company name + \"(preferred)\".",
+    "market": "KOSPI or KOSDAQ.",
+    "dart_corp": "DART corp code (8 digits). Null if not matched to any DART filer.",
+    "industry_code": "DART-filed KSIC industry code (Korean govt classification). English crosswalk is a separate file — not yet built for all codes.",
+    "industry_name_ko": "Industry name as DART files it, Korean. English dictionary pending.",
+    "is_preferred_share": "true if this ticker is a preferred-share class of another listed company.",
+    "parent_ticker": "For preferred shares only: the common-share ticker of the same company.",
+    "entity_type": "spac | reit | preferred_share | null. Only set when dart_status is not_matched or matched_via_parent.",
+    "dart_status": "matched (direct ticker match) | matched_via_parent (preferred share, linked by name) | not_matched (no DART filing found — see entity_type).",
+    "match_method": "ticker | preferred_name_strip | null.",
+    "close_price_krw": "KRX closing price, price_as_of date. Null if not available.",
+    "market_cap_krw": "KRX market cap, price_as_of date.",
+    "price_as_of": "Trading date of the price columns."
+  },
+  "notMeasured": [
+    "English industry-name dictionary — 630 distinct DART industry codes exist storewide; not yet crosswalked to English. Pending.",
+    "Preferred shares not linked (3) — name-strip did not find a matching common-share row this run.",
+    "SPACs (30) and REITs (1) — kept as separate master rows; not linked to any DART corp (most SPACs/REITs do file with DART, this is a name-based miss, not a decision to exclude them).",
+    "Newly-listed/split companies (31) — DART company list dated 2026-08-05, stale. 2번 is refreshing per P2-A; re-run after refresh."
+  ],
+  "disclaimer": "Not investment advice. Market cap reflects capital intensity, not productivity."
+}

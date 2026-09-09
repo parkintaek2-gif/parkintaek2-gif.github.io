@@ -184,6 +184,7 @@ export const 단계들 = [
   "node scripts/fetch-kcw-entertainer-gender.mjs --자가시험",
   "node scripts/build-kcw-service-years.mjs --자가시험",
   "node scripts/build-seoulmarkets-people-panel.mjs --자가시험",
+  "node scripts/build-seoulmarkets-company-master.mjs --자가시험",
   "node scripts/check-archive-freshness.mjs",
 ];
 
