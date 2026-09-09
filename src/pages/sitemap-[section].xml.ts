@@ -75,6 +75,8 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/target-changes', changefreq: 'daily', priority: '0.8' },
       /* P5 둘째 무료 지면 — Korea Ownership Ledger 의 깔때기 (2026-09-09 · 5번) */
       { loc: '/data/ownership', changefreq: 'weekly', priority: '0.8' },
+      /* P5 셋째 무료 지면 — Korea Mezzanine Book 의 깔때기 (2026-09-09 · 5번) */
+      { loc: '/data/mezzanine', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/board-composition', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/analyst-attention', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/broker-candour', changefreq: 'weekly', priority: '0.8' },

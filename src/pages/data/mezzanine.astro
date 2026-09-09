@@ -1,0 +1,227 @@
+---
+/*
+ * Mezzanine book — P5 무료 지면. (seoulmarkets.com/data/mezzanine)
+ *
+ * 왜 (2026-09-09 · 사장님 「데이터 가공·제공업 본격화」):
+ *   Korea Mezzanine Book 상품의 «무료 깔때기»다. FnGuide 가 국문으로 월 22만원에 판다.
+ *
+ * ⭐ 이 지면의 규칙 — **파는 파일에서 센다**
+ *   원자료(DART)로 다시 가지 않는다. 2번이 낸 상품 CSV 를 그대로 읽어 센다.
+ *   🔴 까닭: 무료 지면의 수와 파는 파일의 수가 «어긋날 수 없게» 만든다.
+ *     갈라지면 손님이 둘 중 하나를 못 믿고, 그러면 둘 다 못 믿는다.
+ *
+ * ⛔ 이 지면이 지키는 것
+ * 🔴 **「해당 없음」과 「못 쟀다」를 가른다.** EB 는 리픽싱 하한 칸이 애초에 해당 없음이다 —
+ *    이미 발행된 주식과 바꾸는 것이라 새로 찍을 주식이 없다. 0% 라고 쓰면 거짓이다
+ * ⛔ 사모가 많은 것을 «나쁘다»고 쓰지 않는다. 표면이자 0% 도 「손해」로 쓰지 않는다
+ * ⛔ 희석을 «예측»하지 않는다. 조건을 적힌 대로 낼 뿐이다
+ * ⛔ 회사 이름을 지목하지 않는다 — 셈을 내는 지면이다
+ * ⛔ 화면에 한국어를 내지 않는다 · 표를 감싸고 그 칸이 실제로 스크롤되는지 재고 낸다
+ *
+ * 자료: src/data/seoulmarkets-mezzanine.json (scripts/build-seoulmarkets-mezzanine-page.mjs)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import data from '../../data/seoulmarkets-mezzanine.json';
+
+const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+const t = data.byType;
+const p = data.placement;
+const z = data.couponZero;
+const 사모몫 = Math.round((p.private / data.rows) * 1000) / 10;
+
+const TITLE = `Only ${수(p.public)} of ${수(data.rows)} Korean convertible issues were offered to the public`;
+const SAMPLE = `${수(data.rows)} filings · ${수(data.companies)} companies · CB ${수(t.CB)} · BW ${수(t.BW)} · EB ${수(t.EB)}`;
+const DESC =
+  `Korean convertible bonds, bonds with warrants and exchangeable bonds as filed: `
+  + `${수(p.private)} of ${수(data.rows)} were private placements (${사모몫}%), and ${수(z.count)} of `
+  + `the ${수(z.ofCbWithACoupon)} convertible bonds that state a coupon state zero.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korean mezzanine issues (CB, BW, EB) as filed',
+  description: DESC, url: `${SITE_URL}/data/mezzanine`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  variableMeasured: ['private vs public placement', 'zero-coupon convertibles', 'refix floor recorded'],
+};
+
+const 갈래목 = ['CB', 'BW', 'EB'];
+const 긴이름 = { CB: 'Convertible bond', BW: 'Bond with warrant', EB: 'Exchangeable bond' };
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · data for licence</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+
+      <p class="lead">
+        A Korean company that wants equity money without selling equity today issues a convertible.
+        We hold <b>{수(data.rows)}</b> of those filings across <b>{수(data.companies)}</b> companies,
+        with the terms as filed — strike price, strike window, coupon, refix floor. Two things stand
+        out before any of the terms: almost none of it was sold to the public, and more than half of
+        the convertible bonds pay <b>no interest at all</b>.
+      </p>
+
+      <aside class="caveat" role="note">
+        <b>Neither of those is a criticism.</b> A private placement is a legal route, and a zero
+        coupon is not a loss — the conversion right is the payment. We publish the terms as filed
+        and put no value on them. <b>We also never model dilution:</b> what a conversion would do to
+        a share count depends on facts this file does not contain.
+      </aside>
+
+      <section class="blk">
+        <h2>Who it was sold to</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Placement</th><th class="r">Filings</th><th class="r">Share</th></tr></thead>
+            <tbody>
+              <tr class="edge"><td class="axis">Private placement</td><td class="r"><b>{수(p.private)}</b></td><td class="r">{사모몫}%</td></tr>
+              <tr><td class="axis">Public offering</td><td class="r">{수(p.public)}</td><td class="r">{Math.round((p.public / data.rows) * 1000) / 10}%</td></tr>
+              <tr><td class="axis">Not recorded</td><td class="r">{수(p.notRecorded)}</td><td class="r">{Math.round((p.notRecorded / data.rows) * 1000) / 10}%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          The “not recorded” row is {수(p.notRecorded)}. We print it even when it is zero, so you can
+          see that the two figures above are not standing in for a gap.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>{수(z.count)} of {수(z.ofCbWithACoupon)} convertible bonds state a coupon of zero</h2>
+        <p>That is <b>{z.pct}%</b> of the convertible bonds whose filing states a coupon at all. The
+          denominator matters: {수(t.CB)} convertible bonds are in the file, and
+          {' '}{수(t.CB - z.ofCbWithACoupon)} of them do not state a coupon, so they are outside this
+          count rather than counted as zero.</p>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Convertible bonds in the file</th><td>{수(t.CB)}</td></tr>
+              <tr><th>Of those, state a coupon</th><td>{수(z.ofCbWithACoupon)}</td></tr>
+              <tr><th>Of those, state zero</th><td><b>{수(z.count)}</b> — {z.pct}%</td></tr>
+              <tr><th>Do not state a coupon</th><td>{수(t.CB - z.ofCbWithACoupon)} — left out, not read as zero</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="blk">
+        <h2>The refix floor, and where the column does not apply</h2>
+        <p>A refix clause lets the conversion price fall if the share price falls, which changes how
+          many shares a conversion produces. The floor is the limit on that fall. It is the term
+          retail holders ask about most, and it is not always on the filing.</p>
+        <div class="tw">
+          <table class="press">
+            <thead>
+              <tr><th>Instrument</th><th class="r">Filings</th><th class="r">Floor recorded</th>
+                <th class="r">Not applicable</th><th class="r">Not recorded</th></tr>
+            </thead>
+            <tbody>
+              {갈래목.map((g) => (
+                <tr>
+                  <td class="axis">{긴이름[g]}</td>
+                  <td class="r">{수(t[g])}</td>
+                  <td class="r">{수(data.refix[g].hasFloor)}</td>
+                  <td class="r">{수(data.refix[g].notApplicable)}</td>
+                  <td class="r">{수(data.refix[g].notRecorded)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          <b>Read the exchangeable-bond row carefully.</b> All {수(t.EB)} of them sit under “not
+          applicable”, not under “not recorded”. An exchangeable bond is swapped for shares that
+          already exist, so there is no new issue price to reset — the column is not empty, it does
+          not apply. <b>Reporting that as a 0% floor would be false</b>, and reporting it as missing
+          data would be false in a different way.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>What is filled in, column by column</h2>
+        <div class="tw">
+          <table class="press">
+            <thead><tr><th>Column</th><th class="r">Filled</th><th class="r">Of</th><th class="r">Share</th></tr></thead>
+            <tbody>
+              {Object.entries(data.fill).map(([k, v]) => (
+                <tr>
+                  <td class="axis">{k}</td>
+                  <td class="r">{수(v.filled)}</td>
+                  <td class="r">{수(v.of)}</td>
+                  <td class="r">{v.pct == null ? '—' : `${v.pct}%`}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          We publish fill rates because a data product that hides them is asking you to trust it.
+          Column names carry their unit — <code>total_face_value_krw</code>,
+          {' '}<code>coupon_rate_pct</code> — so nothing depends on remembering what a number means.
+        </p>
+      </section>
+
+      <section class="blk">
+        <h2>How we counted</h2>
+        <div class="tw">
+          <table class="kv">
+            <tbody>
+              <tr><th>Source</th><td>{data.source}</td></tr>
+              <tr><th>Counted from</th><td><code>{data.builtFrom}</code> — the same file we license</td></tr>
+              <tr><th>Rows and columns</th><td>{수(data.rows)} × {data.columns}</td></tr>
+              <tr><th>Built</th><td>{data.builtOn}</td></tr>
+              <tr><th>Why the row count is not the line count</th><td>Some filed text contains line breaks, so a naive count of file lines gives {수(data.naiveLineCount)} where the answer is {수(data.rows)}. We parse quoting properly and say so.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="fine">
+          {data.whatThisIsNot.map((x) => <li>{x}</li>)}
+        </ul>
+      </section>
+
+      <p class="fine bottom">
+        This page reports filings made to the Korean regulator. It is not investment advice, and
+        nothing here is a recommendation to buy or sell any security.
+        {' '}<a href="/data/ownership">Ownership filings</a> ·{' '}
+        <a href="/data/target-changes">Target-price changes</a> ·{' '}
+        <a href="/data">All data products</a>
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .pp { max-width: 46rem; margin: 0 auto; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
+            font-weight: 700; margin: 1.2rem 0 .3rem; }
+  .pp h1 { font-size: clamp(1.6rem, 4.6vw, 2.2rem); line-height: 1.22; margin: 0 0 .5rem; letter-spacing: -.02em; }
+  .pp .sample { font-size: .9rem; color: var(--muted); font-variant-numeric: tabular-nums;
+                margin: 0 0 1.4rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
+  .pp .lead { font-size: 1.05rem; line-height: 1.7; margin: 0 0 1.4rem; }
+  .caveat { margin: 0 0 1.8rem; padding: .9rem 1.1rem; border: 1px solid var(--accent);
+            border-radius: 8px; background: var(--card); font-size: .9rem; line-height: 1.65; }
+  .caveat b { color: var(--ink); }
+  .blk { margin: 0 0 2.2rem; }
+  .blk h2 { font-size: 1.15rem; margin: 0 0 .8rem; letter-spacing: -.01em; }
+  .blk p { line-height: 1.7; margin: 0 0 .8rem; }
+  /* 🔴 표를 감싸는 칸 — 여기서 실제로 스크롤돼야 한다 */
+  .tw { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 0 .8rem; }
+  table.kv, table.press { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  table.kv th, table.kv td, table.press th, table.press td {
+    padding: .55rem .6rem; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  table.kv th { font-weight: 600; color: var(--ink); white-space: nowrap; width: 1%; }
+  table.kv td { line-height: 1.6; }
+  table.press th { font-size: .74rem; text-transform: uppercase; letter-spacing: .04em;
+                   color: var(--muted); font-weight: 600; white-space: nowrap; }
+  table.press td.axis { font-weight: 600; color: var(--ink); }
+  table.press tr.edge td { background: var(--card); }
+  .r { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .84em; }
+  .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
+  ul.fine { padding-left: 1.2rem; }
+  ul.fine li { margin: 0 0 .35rem; }
+  .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+</style>

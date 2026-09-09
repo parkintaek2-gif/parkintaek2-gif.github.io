@@ -121,15 +121,49 @@ async function 재기(주소들, { 라이브 }) {
             부모넘김: 부모 ? getComputedStyle(부모).overflowX : 'none',
           };
         });
-        return { 폭, 가로넘침: Math.max(0, document.documentElement.scrollWidth - 폭), 표들 };
+        /* 🔴 [2026-09-09 · 5번] 스타일이 «실제로 붙었나»를 함께 낸다.
+         *   file:// 로 dist 를 열면 `/_astro/*.css` 같은 «절대경로» 스타일시트가
+         *   조용히 안 붙는다. 그런데도 수는 멀쩡하게 나온다 — flex 가 안 걸려
+         *   항해줄이 안 감기니 「74px 밀린다」는 «가짜 결함»이 나왔다.
+         *   실측(09-09): dist/data/*.html 을 file:// 로 열면 .nav 가 display:block,
+         *   같은 지면을 라이브로 열면 display:flex 이고 밀림은 0 이다. */
+        const 못붙은시트 = [...document.querySelectorAll('link[rel~="stylesheet"]')]
+          .filter((l) => !l.sheet).map((l) => l.getAttribute('href')).slice(0, 3);
+        return {
+          폭, 가로넘침: Math.max(0, document.documentElement.scrollWidth - 폭), 표들,
+          못붙은시트, 시트수: document.styleSheets.length,
+        };
       });
       /* eslint-enable no-undef */
+      // ⛔ 스타일이 안 붙었으면 그 수는 «못 쟀다»다. 0 으로도, 결함으로도 옮기지 않는다.
+      const 스타일흠 = 스타일못붙음(값);
+      if (스타일흠) { 잰것들.push({ 주소, 못쟀다: 스타일흠 }); continue; }
       잰것들.push({ 주소, ...값 });
     }
   } finally {
     await b.close();
   }
   return { 잰것들 };
+}
+
+/** 스타일이 «실제로 붙었나» — 안 붙었으면 못 쟀다고 말할 까닭을 낸다. 붙었으면 null.
+ *
+ * 🔴 [2026-09-09 · 5번] 이것이 없어서 «가짜 결함»을 하나 만들었다.
+ *   `dist/data/mezzanine.html` 을 file:// 로 열어 재니 「밀림 74px」이 나왔고, 나는
+ *   서울마켓츠 전 지면이 폰에서 밀린다고 판정했다. 라이브로 재니 **밀림 0** 이었다.
+ *   까닭: file:// 에서는 `/_astro/*.css` 같은 «절대경로» 스타일시트가 안 붙는다.
+ *   그러면 .nav 가 display:block 이 되어 flex 감김이 사라지고, 붙어 있던 링크들이
+ *   한 줄로 삐져나간다. 수는 멀쩡히 나오지만 그 수는 «우리 지면의 수가 아니다».
+ *   ⛔ 「못 쟀는데 수가 나오는 것」이 제일 나쁘다 — 없는 결함을 쫓게 만든다.
+ */
+export function 스타일못붙음(값) {
+  if (!값) return null;
+  const 못붙은 = 값.못붙은시트 ?? [];
+  if (못붙은.length) {
+    return `스타일시트가 안 붙었다(${못붙은.join(' · ')}) — file:// 로는 절대경로 CSS 가 안 온다. --라이브 로 재십시오`;
+  }
+  if (값.시트수 === 0) return '스타일시트가 한 장도 없다 — 이 수는 우리 지면의 수가 아니다. --라이브 로 재십시오';
+  return null;
 }
 
 /* ── 자가시험 ─────────────────────────────────────────────────────────────── */
@@ -167,6 +201,15 @@ export function 자가시험() {
     ['폰 폭을 390 으로 잰다', () => 폰폭 === 390],
     ['볼 지면에 오늘 낸 셋이 들어 있다', () => ['/read-in', '/group-mix', '/service-years'].every((x) => 볼지면.includes(x))],
     ['넓게 보기가 기본보다 많다', () => 볼지면넓게.length > 볼지면.length],
+    /* 🔴 스타일이 안 붙은 채로 낸 수를 결함으로 옮기지 않는다 (09-09 가짜 결함 74px) */
+    ['🔴 스타일시트가 안 붙으면 못 쟀다고 한다', () => /안 붙었다/.test(
+      스타일못붙음({ 못붙은시트: ['/_astro/x.css'], 시트수: 0 }) ?? '')],
+    ['🔴 시트가 한 장도 없으면 못 쟀다고 한다', () => /한 장도 없다/.test(
+      스타일못붙음({ 못붙은시트: [], 시트수: 0 }) ?? '')],
+    ['스타일이 붙었으면 조용하다', () => 스타일못붙음({ 못붙은시트: [], 시트수: 3 }) === null],
+    ['⛔ 빈 것도 견딘다 (스타일 검사)', () => 스타일못붙음(null) === null && 스타일못붙음({}) === null],
+    ['까닭에 «--라이브» 로 재라는 길을 적는다', () => /--라이브/.test(
+      스타일못붙음({ 못붙은시트: ['/_astro/x.css'], 시트수: 0 }) ?? '')],
   ];
   let 통 = 0; const 실 = [];
   for (const [이름, 재본다] of 목) {
