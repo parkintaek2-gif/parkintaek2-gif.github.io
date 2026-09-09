@@ -1,0 +1,136 @@
+---
+/**
+ * /100y/multicultural-marriage — 다문화 혼인은 늘었나 줄었나, 어디가 높을까
+ *
+ * /marriage-age·/divorce-age·/remarriage 의 다음 칸이다. 인구동향조사
+ * 101/DT_1BB0002(지역별 다문화 혼인, 2008~2024)에서 전국 추세와 최신년도
+ * 시도별 분포를 함께 뽑는다.
+ *
+ * ⛔ 이 표의 「다문화 혼인」은 부부 중 한쪽이 외국인이거나 귀화자인 혼인이다.
+ * ⛔ 늘/줄었다로 판정하지 않는다 — 해마다 값을 그대로 보여 준다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/multicultural-marriage.json';
+
+const 자료 = 원본 as any;
+const 최신 = 자료.전국_최신;
+const 첫해 = 자료.전국_첫해;
+const 고점 = 자료.전국_고점;
+const 저점 = 자료.전국_저점;
+const 시도분포 = 자료.시도분포_최신 as { 시도: string; 비중: number }[];
+
+const desc =
+  `${첫해.해}년 전국 혼인 중 다문화 혼인은 ${첫해.다문화혼인비중}%였고, ${저점.해}년 ${저점.다문화혼인비중}%까지 ` +
+  `내려간 뒤 ${최신.해}년에는 ${최신.다문화혼인비중}%입니다. 가장 높았던 해는 ${고점.해}년 ${고점.다문화혼인비중}%입니다. ` +
+  `인구동향조사 실측입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '지역별 다문화 혼인 — 전국 추세와 시도별 분포',
+  description: desc,
+  temporalCoverage: `${첫해.해}/${최신.해}`,
+  license: 'https://www.kosis.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '국가데이터처' },
+  variableMeasured: ['연도별 다문화 혼인 비중·건수', '시도별 다문화 혼인 비중'],
+};
+
+const 표본해들 = (자료.전국_연도별 as any[]).filter(
+  (r) => Number(r.해) % 4 === 0 || r.해 === 최신.해,
+);
+---
+
+<HundredYear
+  title={`다문화 혼인 — ${첫해.해}년 ${첫해.다문화혼인비중}% → ${최신.해}년 ${최신.다문화혼인비중}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>다문화 혼인은<br />얼마나 될까요?</h1>
+  <p class="sub">
+    인구동향조사(신고 기반 행정통계) 기준, 전국 혼인 중 다문화 혼인(부부 중 한쪽이
+    외국인이거나 귀화자인 혼인)이 차지하는 몫이 {첫해.해}년부터 {최신.해}년까지
+    {' '}<strong>해마다 어떻게 달랐는지</strong>와, {최신.해}년 시도별로 어떻게
+    갈렸는지를 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">전국 혼인 중 다문화 혼인 비중 — {첫해.해}년 → {최신.해}년</p>
+    <p class="answer-num">{첫해.다문화혼인비중}% → {최신.다문화혼인비중}%</p>
+    <p class="answer-sub">
+      가장 높았던 해는 {고점.해}년 {고점.다문화혼인비중}% · 가장 낮았던 해는
+      {' '}{저점.해}년 {저점.다문화혼인비중}%입니다 — 곧장 한 방향으로 가지 않았습니다
+    </p>
+  </div>
+
+  <h2>{첫해.해}년부터 {최신.해}년까지, 4년 단위로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>전체 혼인</th><th>다문화 혼인</th><th>비중</th></tr></thead>
+      <tbody>
+        {표본해들.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.전체혼인건수?.toLocaleString()}건</td>
+            <td>{r.다문화혼인건수?.toLocaleString()}건</td>
+            <td><strong>{r.다문화혼인비중}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>{최신.해}년, 시도마다 얼마나 다를까</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>시도</th><th>다문화 혼인 비중</th></tr></thead>
+      <tbody>
+        {시도분포.map((r) => (
+          <tr>
+            <td>{r.시도}</td>
+            <td><strong>{r.비중}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⭐ {최신.해}년 시도 중 비중이 가장 높은 곳은 <strong>{시도분포[0].시도}({시도분포[0].비중}%)</strong>,
+    가장 낮은 곳은 <strong>{시도분포[시도분포.length - 1].시도}({시도분포[시도분포.length - 1].비중}%)</strong>입니다.
+    같은 해, 같은 나라 안에서도 이만큼 갈립니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>이 표의 「다문화 혼인」은 부부 중 한쪽이 외국인이거나 귀화자인 혼인입니다 —
+      표에 실린 정의를 그대로 따랐을 뿐, 국제결혼 전체를 센 것이 아닙니다.</li>
+    <li>비중이 오르내린 까닭(전체 혼인 건수 자체의 증감·정책 변화 등)을 이 표가
+      가르지 않습니다 — 다문화 혼인 건수가 줄어도 전체 혼인이 더 줄면 비중은 오릅니다.</li>
+    <li>시도별 값은 {최신.해}년 한 해의 스냅샷입니다 — 그해의 순간을 보여줄 뿐,
+      그 지역의 오랜 성향이라 단정하지 않습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 저희는 다문화 혼인이 늘었다고도
+    {' '}줄었다고도 판정하지 않습니다. 해마다, 지역마다 값이 어떻게 달랐는지가 저희가
+    {' '}놓을 수 있는 전부입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}, {자료.출처.표}. {자료.출처.주의} 받은 날 {자료.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/marriage-age">← 서른 살에 사람들은 결혼했을까, 아직일까?</a>
+    <br />
+    <a href="/divorce-age">← 이혼은 몇 살에, 몇 년차에 할까요?</a>
+    <br />
+    <a href="/remarriage">← 결혼 중 재혼은 얼마나 될까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="multicultural-marriage" />
+
+  <NextQuestionBrief 모은것="인구동향조사 자료" />
+</HundredYear>
