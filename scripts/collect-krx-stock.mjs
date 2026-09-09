@@ -2,7 +2,7 @@
 /**
  * collect-krx-stock.mjs — KRX 유가증권/코스닥 일별매매정보(종목별 시세·거래량).
  *   KRX Data Marketplace OPEN API. 헤더 AUTH_KEY, 파라미터 basDd=YYYYMMDD, JSON(OutBlock_1).
- *   base: http://data-dbg.krx.co.kr/svc/apis/sto/{service}
+ *   base: https://data-dbg.krx.co.kr/svc/apis/sto/{service}   ⚠ http 는 302 로 넘긴다. https 로 직결한다
  * 출력: archive/raw/krx/{service}-{basDd}.json
  *
  * 왜: 그동안 못 갖던 «종목별 주가·거래량». 애널 목표주가 × 실주가(적중률) 교차상품의 재료.
@@ -46,7 +46,12 @@ async function key() {
 const k = await key();
 
 async function pull(service, basDd) {
-  const url = `http://data-dbg.krx.co.kr/svc/apis/sto/${service}?basDd=${basDd}`;
+  /* 🔴 [2026-09-09] http 는 302 로 https 로 넘긴다. 재서 확인했다 —
+     http HTTP 302 → Location: https://… · https 직결도 HTTP 200 · 행 수 같음.
+     ⛔ 방향이 바뀌는 redirect 는 사용자 정의 머리글(AUTH_KEY)을 흘릴 수 있다.
+     그리고 공공데이터포털 공지(2026-08-03)도 「오픈API 는 https(443)로」라고 못박았다.
+     ⇒ 처음부터 https 로 부른다. 왕복도 한 번 줄어든다. */
+  const url = `https://data-dbg.krx.co.kr/svc/apis/sto/${service}?basDd=${basDd}`;
   const r = await fetch(url, { headers: { AUTH_KEY: k }, signal: AbortSignal.timeout(30000) });
   const t = await r.text();
   let j; try { j = JSON.parse(t); } catch { throw new Error('JSON 아님: ' + t.slice(0, 150)); }

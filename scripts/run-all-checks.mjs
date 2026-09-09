@@ -183,6 +183,7 @@ export const 단계들 = [
   "node scripts/check-all-selftests.mjs",
   "node scripts/fetch-kcw-entertainer-gender.mjs --자가시험",
   "node scripts/build-kcw-service-years.mjs --자가시험",
+  "node scripts/build-seoulmarkets-people-panel.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */
