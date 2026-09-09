@@ -1,0 +1,2545 @@
+{
+  "builtOn": "2026. 9. 10. 6시 33분 20초",
+  "measuredOn": "10 September 2026, 06:20 KST",
+  "measuredOnKo": "2026. 9. 10. 6시 20분 18초",
+  "claim": "Papers whose title or abstract mentions one of four Korean market terms",
+  "notAClaim": "Not \"every paper about Korean markets\" — phrase search admits papers that only mention the term",
+  "source": {
+    "이름": "OpenAlex",
+    "라이선스": "CC0 — public domain, no attribution required and no permission to ask (help.openalex.org/access/pricing/, measured 2026-09-09)",
+    "주의": "Titles and metadata only. Paper full text carries its own per-copy licence; we record it in the 라이선스 field and will only reuse cc-by / cc0 text."
+  },
+  "queries": [
+    {
+      "name": "KOSPI",
+      "phrase": "\"KOSPI\"",
+      "total": 2728
+    },
+    {
+      "name": "KOSDAQ",
+      "phrase": "\"KOSDAQ\"",
+      "total": 1321
+    },
+    {
+      "name": "Korean stock market",
+      "phrase": "\"Korean stock market\"",
+      "total": 1643
+    },
+    {
+      "name": "Korean won (FX)",
+      "phrase": "\"Korean won\"",
+      "total": 1207
+    }
+  ],
+  "indexed": 1406,
+  "years": [
+    {
+      "해": 2010,
+      "수": 277
+    },
+    {
+      "해": 2011,
+      "수": 282
+    },
+    {
+      "해": 2012,
+      "수": 318
+    },
+    {
+      "해": 2013,
+      "수": 321
+    },
+    {
+      "해": 2014,
+      "수": 309
+    },
+    {
+      "해": 2015,
+      "수": 403
+    },
+    {
+      "해": 2016,
+      "수": 389
+    },
+    {
+      "해": 2017,
+      "수": 393
+    },
+    {
+      "해": 2018,
+      "수": 377
+    },
+    {
+      "해": 2019,
+      "수": 326
+    },
+    {
+      "해": 2020,
+      "수": 337
+    },
+    {
+      "해": 2021,
+      "수": 310
+    },
+    {
+      "해": 2022,
+      "수": 257
+    },
+    {
+      "해": 2023,
+      "수": 260
+    },
+    {
+      "해": 2024,
+      "수": 253
+    },
+    {
+      "해": 2025,
+      "수": 316
+    },
+    {
+      "해": 2026,
+      "수": 327
+    }
+  ],
+  "yearsAreCounts": "OpenAlex counts per phrase, summed. A paper matching two phrases is counted twice — we cannot de-duplicate a grouped count, and we say so rather than implying we did.",
+  "peak": {
+    "해": 2015,
+    "수": 403
+  },
+  "perPhraseYears": [
+    {
+      "name": "KOSPI",
+      "total": 2716,
+      "recent": [
+        {
+          "해": 2016,
+          "수": 172
+        },
+        {
+          "해": 2017,
+          "수": 158
+        },
+        {
+          "해": 2018,
+          "수": 136
+        },
+        {
+          "해": 2019,
+          "수": 120
+        },
+        {
+          "해": 2020,
+          "수": 129
+        },
+        {
+          "해": 2021,
+          "수": 130
+        },
+        {
+          "해": 2022,
+          "수": 102
+        },
+        {
+          "해": 2023,
+          "수": 105
+        },
+        {
+          "해": 2024,
+          "수": 105
+        },
+        {
+          "해": 2025,
+          "수": 153
+        },
+        {
+          "해": 2026,
+          "수": 158
+        }
+      ]
+    },
+    {
+      "name": "KOSDAQ",
+      "total": 1317,
+      "recent": [
+        {
+          "해": 2016,
+          "수": 75
+        },
+        {
+          "해": 2017,
+          "수": 63
+        },
+        {
+          "해": 2018,
+          "수": 74
+        },
+        {
+          "해": 2019,
+          "수": 65
+        },
+        {
+          "해": 2020,
+          "수": 72
+        },
+        {
+          "해": 2021,
+          "수": 71
+        },
+        {
+          "해": 2022,
+          "수": 62
+        },
+        {
+          "해": 2023,
+          "수": 62
+        },
+        {
+          "해": 2024,
+          "수": 59
+        },
+        {
+          "해": 2025,
+          "수": 67
+        },
+        {
+          "해": 2026,
+          "수": 69
+        }
+      ]
+    },
+    {
+      "name": "Korean stock market",
+      "total": 1625,
+      "recent": [
+        {
+          "해": 2016,
+          "수": 84
+        },
+        {
+          "해": 2017,
+          "수": 117
+        },
+        {
+          "해": 2018,
+          "수": 95
+        },
+        {
+          "해": 2019,
+          "수": 82
+        },
+        {
+          "해": 2020,
+          "수": 72
+        },
+        {
+          "해": 2021,
+          "수": 70
+        },
+        {
+          "해": 2022,
+          "수": 63
+        },
+        {
+          "해": 2023,
+          "수": 63
+        },
+        {
+          "해": 2024,
+          "수": 50
+        },
+        {
+          "해": 2025,
+          "수": 48
+        },
+        {
+          "해": 2026,
+          "수": 53
+        }
+      ]
+    },
+    {
+      "name": "Korean won (FX)",
+      "total": 1189,
+      "recent": [
+        {
+          "해": 2016,
+          "수": 58
+        },
+        {
+          "해": 2017,
+          "수": 55
+        },
+        {
+          "해": 2018,
+          "수": 72
+        },
+        {
+          "해": 2019,
+          "수": 59
+        },
+        {
+          "해": 2020,
+          "수": 64
+        },
+        {
+          "해": 2021,
+          "수": 39
+        },
+        {
+          "해": 2022,
+          "수": 30
+        },
+        {
+          "해": 2023,
+          "수": 30
+        },
+        {
+          "해": 2024,
+          "수": 39
+        },
+        {
+          "해": 2025,
+          "수": 48
+        },
+        {
+          "해": 2026,
+          "수": 47
+        }
+      ]
+    }
+  ],
+  "yearSpan": {
+    "from": 1976,
+    "to": 2026,
+    "distinct": 39
+  },
+  "since2020": 833,
+  "sampleSkew": "Sampled as top-200 cited + newest-200 per phrase, so recent years are over-represented by construction. Do not read this as a trend.",
+  "topics": [
+    {
+      "주제": "Financial Markets and Investment Strategies",
+      "수": 267
+    },
+    {
+      "주제": "Corporate Finance and Governance",
+      "수": 183
+    },
+    {
+      "주제": "Auditing, Earnings Management, Governance",
+      "수": 149
+    },
+    {
+      "주제": "Market Dynamics and Volatility",
+      "수": 147
+    },
+    {
+      "주제": "Stock Market Forecasting Methods",
+      "수": 142
+    },
+    {
+      "주제": "Financial Risk and Volatility Modeling",
+      "수": 122
+    },
+    {
+      "주제": "Complex Systems and Time Series Analysis",
+      "수": 112
+    },
+    {
+      "주제": "Impact of AI and Big Data on Business and Society",
+      "수": 48
+    },
+    {
+      "주제": "Monetary Policy and Economic Impact",
+      "수": 48
+    },
+    {
+      "주제": "Global Financial Crisis and Policies",
+      "수": 47
+    },
+    {
+      "주제": "Corporate Social Responsibility Reporting",
+      "수": 42
+    },
+    {
+      "주제": "Financial Reporting and Valuation Research",
+      "수": 38
+    },
+    {
+      "주제": "Technology and Data Analysis",
+      "수": 38
+    },
+    {
+      "주제": "Firm Innovation and Growth",
+      "수": 35
+    },
+    {
+      "주제": "Insurance and Financial Risk Management",
+      "수": 35
+    },
+    {
+      "주제": "Economic and Environmental Valuation",
+      "수": 31
+    },
+    {
+      "주제": "Environmental Sustainability in Business",
+      "수": 25
+    },
+    {
+      "주제": "Stochastic processes and financial applications",
+      "수": 25
+    },
+    {
+      "주제": "Forecasting Techniques and Applications",
+      "수": 21
+    },
+    {
+      "주제": "Private Equity and Venture Capital",
+      "수": 21
+    },
+    {
+      "주제": "Banking stability, regulation, efficiency",
+      "수": 20
+    },
+    {
+      "주제": "Corporate Taxation and Avoidance",
+      "수": 20
+    },
+    {
+      "주제": "COVID-19 Pandemic Impacts",
+      "수": 20
+    },
+    {
+      "주제": "Energy, Environment, Economic Growth",
+      "수": 18
+    }
+  ],
+  "topicsTotal": 111,
+  "journals": [
+    {
+      "이름": "SSRN Electronic Journal",
+      "수": 90
+    },
+    {
+      "이름": "Zenodo (CERN European Organization for Nuclear Research)",
+      "수": 50
+    },
+    {
+      "이름": "Sustainability",
+      "수": 42
+    },
+    {
+      "이름": "Physica A Statistical Mechanics and its Applications",
+      "수": 34
+    },
+    {
+      "이름": "Pacific-Basin Finance Journal",
+      "수": 31
+    },
+    {
+      "이름": "Korean Journal of Financial Studies",
+      "수": 24
+    },
+    {
+      "이름": "The Institute of Management and Economy Research",
+      "수": 23
+    },
+    {
+      "이름": "Asia-Pacific Journal of Financial Studies",
+      "수": 18
+    },
+    {
+      "이름": "Expert Systems with Applications",
+      "수": 17
+    },
+    {
+      "이름": "Applied Economics Letters",
+      "수": 16
+    },
+    {
+      "이름": "Finance research letters",
+      "수": 15
+    },
+    {
+      "이름": "Journal of Futures Markets",
+      "수": 15
+    },
+    {
+      "이름": "The Korean Data Analysis Society",
+      "수": 14
+    },
+    {
+      "이름": "Emerging Markets Finance and Trade",
+      "수": 12
+    },
+    {
+      "이름": "Applied Economics",
+      "수": 10
+    },
+    {
+      "이름": "Korea International Trade Research Institute",
+      "수": 9
+    },
+    {
+      "이름": "GLOBAL BUSINESS & FINANCE REVIEW",
+      "수": 8
+    },
+    {
+      "이름": "Investment Analysts Journal",
+      "수": 8
+    },
+    {
+      "이름": "Journal of Asian Finance Economics and Business",
+      "수": 8
+    },
+    {
+      "이름": "Journal of the Korea Academia-Industrial cooperation Society",
+      "수": 8
+    }
+  ],
+  "journalsTotal": 517,
+  "journalMissing": 115,
+  "reuse": {
+    "쓸수있음": 253,
+    "안됨": 139,
+    "못쟀다": 1014
+  },
+  "inKorean": 107,
+  "koreanJournals": 17,
+  "mostCited": [
+    {
+      "id": "W2789364533",
+      "제목": "Forecasting the volatility of stock price index: A hybrid model integrating LSTM with multiple GARCH-type models",
+      "해": 2018,
+      "인용": 777,
+      "저자": "Ha Young Kim, Chang Hyun Won",
+      "저자수": 2,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2018.03.002",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Risk and Volatility Modeling",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2108315103",
+      "제목": "KMPI: measuring knowledge management performance",
+      "해": 2004,
+      "인용": 568,
+      "저자": "Kun Chang Lee, Sangjae Lee, In Won Kang",
+      "저자수": 3,
+      "실은곳": "Information & Management",
+      "doi": "10.1016/j.im.2004.02.003",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Intellectual Capital and Performance Analysis",
+        "Knowledge Management and Sharing"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1975064861",
+      "제목": "Cointegration and causality between macroeconomic variables and stock market returns",
+      "해": 1999,
+      "인용": 364,
+      "저자": "Chung S. Kwon, Tai S. Shin",
+      "저자수": 2,
+      "실은곳": "Global Finance Journal",
+      "doi": "10.1016/s1044-0283(99)00006-x",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2125476067",
+      "제목": "Stroke Statistics in Korea: Part I. Epidemiology and Risk Factors: A Report from the Korean Stroke Society and Clinical Research Center for Stroke",
+      "해": 2013,
+      "인용": 346,
+      "저자": "Keun‐Sik Hong, Oh Young Bang, Dong‐Wha Kang and 9 more",
+      "저자수": 12,
+      "실은곳": "Journal of Stroke",
+      "doi": "10.5853/jos.2013.15.1.2",
+      "oa": "diamond",
+      "라이선스": "cc-by-nc",
+      "주제": [
+        "Acute Ischemic Stroke Management",
+        "Stroke Rehabilitation and Recovery"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2895790973",
+      "제목": "Genetic Algorithm-Optimized Long Short-Term Memory Network for Stock Market Prediction",
+      "해": 2018,
+      "인용": 312,
+      "저자": "Hye‐Jung Chung, Kyung‐shik Shin",
+      "저자수": 2,
+      "실은곳": "Sustainability",
+      "doi": "10.3390/su10103765",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Data Stream Mining Techniques"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2557716251",
+      "제목": "Empirical study on relationship between corporate social responsibility and financial performance in Korea",
+      "해": 2016,
+      "인용": 266,
+      "저자": "Jae-Joon Han, Hyun Jeong Kim, Jeongmin Yu",
+      "저자수": 3,
+      "실은곳": "Asian Journal of Sustainability and Social Responsibility",
+      "doi": "10.1186/s41180-016-0002-3",
+      "oa": "hybrid",
+      "라이선스": "cc-by",
+      "주제": [
+        "Corporate Social Responsibility Reporting",
+        "Environmental Sustainability in Business"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2010370161",
+      "제목": "Does XBRL adoption reduce information asymmetry?",
+      "해": 2010,
+      "인용": 244,
+      "저자": "Hyung-Wook Yoon, Hangjung Zo, Andrew P. Ciganek",
+      "저자수": 3,
+      "실은곳": "Journal of Business Research",
+      "doi": "10.1016/j.jbusres.2010.01.008",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Reporting and XBRL",
+        "Auditing, Earnings Management, Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2069596373",
+      "제목": "Oil price volatility and stock price fluctuations in an emerging market: Evidence from South Korea",
+      "해": 2011,
+      "인용": 236,
+      "저자": "Rumi Masih, Sanjay Peters, Lurion De Mello",
+      "저자수": 3,
+      "실은곳": "Energy Economics",
+      "doi": "10.1016/j.eneco.2011.03.015",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Monetary Policy and Economic Impact"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W612522678",
+      "제목": "Pacific-basin capital markets research",
+      "해": 1990,
+      "인용": 235,
+      "저자": "S. Ghon Rhee, Rosita P. Chang",
+      "저자수": 2,
+      "실은곳": "Medical Entomology and Zoology",
+      "doi": null,
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Global Financial Crisis and Policies"
+      ],
+      "갈래": "book"
+    },
+    {
+      "id": "W3013138029",
+      "제목": "THE IMPACT OF COVID-19 CORONAVIRUS ON STOCK MARKETS: EVIDENCE FROM SELECTED COUNTRIES",
+      "해": 2020,
+      "인용": 214,
+      "저자": "Feyyaz Zeren, Atike Elanur Hızarcı",
+      "저자수": 2,
+      "실은곳": "Muhasebe ve Finans İncelemeleri Dergisi",
+      "doi": "10.32951/mufider.706159",
+      "oa": "diamond",
+      "라이선스": "cc-by-nc",
+      "주제": [
+        "COVID-19 Pandemic Impacts",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2891295326",
+      "제목": "Improving financial trading decisions using deep Q-learning: Predicting the number of shares, action strategies, and transfer learning",
+      "해": 2018,
+      "인용": 207,
+      "저자": "Gyeeun Jeong, Ha Young Kim",
+      "저자수": 2,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2018.09.036",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Energy Load and Power Forecasting"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1980043390",
+      "제목": "Use of DEA cross-efficiency evaluation in portfolio selection: An application to Korean stock market",
+      "해": 2013,
+      "인용": 195,
+      "저자": "Sungmook Lim, Kwang Wuk Oh, Joe Zhu",
+      "저자수": 3,
+      "실은곳": "European Journal of Operational Research",
+      "doi": "10.1016/j.ejor.2013.12.002",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Efficiency Analysis Using DEA",
+        "Economic and Environmental Valuation"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2001887873",
+      "제목": "Using genetic algorithm to support portfolio optimization for index fund management",
+      "해": 2004,
+      "인용": 182,
+      "저자": "Kyong Joo Oh, Tae Yoon Kim, Sungky Min",
+      "저자수": 3,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2004.10.014",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2067126594",
+      "제목": "Informed trading in the index option market: The case of KOSPI 200 options",
+      "해": 2008,
+      "인용": 174,
+      "저자": "Hee‐Joon Ahn, Jangkoo Kang, Doojin Ryu",
+      "저자수": 3,
+      "실은곳": "Journal of Futures Markets",
+      "doi": "10.1002/fut.20369",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2145849450",
+      "제목": "Epidemiology of Insomnia in Korean Adults: Prevalence and Associated Factors",
+      "해": 2009,
+      "인용": 167,
+      "저자": "Yong Won Cho, Won Chul Shin, Chang‐Ho Yun and 3 more",
+      "저자수": 6,
+      "실은곳": "Journal of Clinical Neurology",
+      "doi": "10.3988/jcn.2009.5.1.20",
+      "oa": "hybrid",
+      "라이선스": "cc-by-nc",
+      "주제": [
+        "Sleep and related disorders",
+        "Sleep and Wakefulness Research"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2084619613",
+      "제목": "Effects of foreign ownership on payout policy: Evidence from the Korean market",
+      "해": 2010,
+      "인용": 153,
+      "저자": "Jin Q Jeon, Cheolwoo Lee, Clay Moffett",
+      "저자수": 3,
+      "실은곳": "Journal of Financial Markets",
+      "doi": "10.1016/j.finmar.2010.08.001",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Corporate Finance and Governance",
+        "Islamic Finance and Banking Studies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2903325752",
+      "제목": "Financial news-based stock movement prediction using causality analysis of influence in the Korean stock market",
+      "해": 2018,
+      "인용": 153,
+      "저자": "Kihwan Nam, Nohyoon Seong",
+      "저자수": 2,
+      "실은곳": "Decision Support Systems",
+      "doi": "10.1016/j.dss.2018.11.004",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4281856450",
+      "제목": "Dynamic Capabilities and an ESG Strategy for Sustainable Management Performance",
+      "해": 2022,
+      "인용": 142,
+      "저자": "Yi Liang, Min‐Jae Lee, Jin Sup Jung",
+      "저자수": 3,
+      "실은곳": "Frontiers in Psychology",
+      "doi": "10.3389/fpsyg.2022.887776",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Environmental Sustainability in Business",
+        "Sustainable Supply Chain Management"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4360848002",
+      "제목": "The Impact of Digital Marketing Innovation on Firm Performance: Mediation by Marketing Capability and Moderation by Firm Size",
+      "해": 2023,
+      "인용": 142,
+      "저자": "Sang-Uk Jung, Valeriia Shegai",
+      "저자수": 2,
+      "실은곳": "Sustainability",
+      "doi": "10.3390/su15075711",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Digital Marketing and Social Media",
+        "Technology Adoption and User Behaviour"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2141390568",
+      "제목": "The role of audit committees in decreasing earnings management: Korean evidence",
+      "해": 2004,
+      "인용": 137,
+      "저자": "Jong‐Hag Choi, Kyu‐An Jeon, Jong‐Il Park",
+      "저자수": 3,
+      "실은곳": "International Journal of Accounting Auditing and Performance Evaluation",
+      "doi": "10.1504/ijaape.2004.004142",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Risk Management in Financial Firms"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2056508960",
+      "제목": "Effects of global financial crisis on network structure in a local stock market",
+      "해": 2014,
+      "인용": 130,
+      "저자": "Ashadun Nobi, Seong Eun Maeng, Gyeong Gyun Ha and 1 more",
+      "저자수": 4,
+      "실은곳": "Physica A Statistical Mechanics and its Applications",
+      "doi": "10.1016/j.physa.2014.03.083",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Complex Systems and Time Series Analysis",
+        "Complex Network Analysis Techniques"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2789305177",
+      "제목": "Self-Inductance-Based Metal Object Detection With Mistuned Resonant Circuits and Nullifying Induced Voltage for Wireless EV Chargers",
+      "해": 2018,
+      "인용": 128,
+      "저자": "Seog Y. Jeong, Van X. Thai, Jun Hong Park and 1 more",
+      "저자수": 4,
+      "실은곳": "IEEE Transactions on Power Electronics",
+      "doi": "10.1109/tpel.2018.2813437",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Wireless Power Transfer Systems",
+        "RFID technology advancements"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2022122945",
+      "제목": "An evolutionary approach to the combination of multiple classifiers to predict a stock price index",
+      "해": 2005,
+      "인용": 123,
+      "저자": "Myoung-Jong Kim, Sung-Hwan Min, Ingoo Han",
+      "저자수": 3,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2005.09.020",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Evolutionary Algorithms and Applications",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2103359683",
+      "제목": "A Multiagent Approach to $Q$-Learning for Daily Stock Trading",
+      "해": 2007,
+      "인용": 121,
+      "저자": "Jae Wook Lee, Jonghun Park, O Jangmin and 2 more",
+      "저자수": 5,
+      "실은곳": "IEEE Transactions on Systems Man and Cybernetics - Part A Systems and Humans",
+      "doi": "10.1109/tsmca.2007.904825",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4214483114",
+      "제목": "ON THE RELATIONSHIP BETWEEN ECONOMIC POLICY UNCERTAINTY, GEOPOLITICAL RISK AND STOCK MARKET RETURNS IN SOUTH KOREA: A QUANTILE CAUSALITY ANALYSIS",
+      "해": 2022,
+      "인용": 121,
+      "저자": "Tomiwa Sunday Adebayo, Seyi Saint Akadırı, Husam Rjoub",
+      "저자수": 3,
+      "실은곳": "Annals of Financial Economics",
+      "doi": "10.1142/s2010495222500087",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Energy, Environment, Economic Growth"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W3097696495",
+      "제목": "The COVID-19 IMPACT on the ASIAN STOCK MARKETS",
+      "해": 2020,
+      "인용": 120,
+      "저자": "Luis A. Gil‐Alana, Gloria Claudio‐Quiroga",
+      "저자수": 2,
+      "실은곳": "Asian Economics Letters",
+      "doi": "10.46557/001c.17656",
+      "oa": "diamond",
+      "라이선스": "cc-by-sa",
+      "주제": [
+        "COVID-19 Pandemic Impacts",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1491302875",
+      "제목": "Stock price prediction using reinforcement learning",
+      "해": 2002,
+      "인용": 115,
+      "저자": "Jae Wook Lee",
+      "저자수": 1,
+      "실은곳": null,
+      "doi": "10.1109/isie.2001.931880",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Reinforcement Learning in Robotics"
+      ],
+      "갈래": "conference-paper"
+    },
+    {
+      "id": "W1990654647",
+      "제목": "Technological forecasting at the Korean stock market: A dynamic competition analysis using Lotka–Volterra model",
+      "해": 2005,
+      "인용": 114,
+      "저자": "Seong-Joon Lee, Deok-Joo Lee, Hyung‐Sik Oh",
+      "저자수": 3,
+      "실은곳": "Technological Forecasting and Social Change",
+      "doi": "10.1016/j.techfore.2002.11.001",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Innovation Diffusion and Forecasting",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W3090382853",
+      "제목": "Advantages of direct input-to-output connections in neural networks: The Elman network for stock index forecasting",
+      "해": 2020,
+      "인용": 113,
+      "저자": "Yaoli Wang, Lipo Wang, Fangjun Yang and 2 more",
+      "저자수": 5,
+      "실은곳": "Information Sciences",
+      "doi": "10.1016/j.ins.2020.09.031",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Neural Networks and Applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1536501861",
+      "제목": "The Information Content of Trades: An Analysis of KOSPI 200 Index Derivatives",
+      "해": 2013,
+      "인용": 111,
+      "저자": "Doojin Ryu",
+      "저자수": 1,
+      "실은곳": "Journal of Futures Markets",
+      "doi": "10.1002/fut.21637",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2085003836",
+      "제목": "Characteristics of the Korean stock market correlations",
+      "해": 2005,
+      "인용": 107,
+      "저자": "Woo‐Sung Jung, Seung Byung Chae, Jae‐Suk Yang and 1 more",
+      "저자수": 4,
+      "실은곳": "Physica A Statistical Mechanics and its Applications",
+      "doi": "10.1016/j.physa.2005.06.081",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Complex Systems and Time Series Analysis",
+        "Financial Risk and Volatility Modeling"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2053523928",
+      "제목": "International stock price spillovers and market liberalization: Evidence from Korea, Japan, and the United States",
+      "해": 1995,
+      "인용": 102,
+      "저자": "Sang Woon Kim, John H. Rogers",
+      "저자수": 2,
+      "실은곳": "Journal of Empirical Finance",
+      "doi": "10.1016/0927-5398(94)00013-7",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Risk and Volatility Modeling",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2065732073",
+      "제목": "Futures trading, spot market volatility, and market efficiency: The case of the Korean index futures markets",
+      "해": 2004,
+      "인용": 101,
+      "저자": "Sung C. Bae, Taek Ho Kwon, Jong Won Park",
+      "저자수": 3,
+      "실은곳": "Journal of Futures Markets",
+      "doi": "10.1002/fut.20135",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2108983686",
+      "제목": "Ethical Commitment, Financial Performance, and Valuation: An Empirical Investigation of Korean Companies",
+      "해": 2007,
+      "인용": 100,
+      "저자": "Tae-Hee Choi, Jinchul Jung",
+      "저자수": 2,
+      "실은곳": "Journal of Business Ethics",
+      "doi": "10.1007/s10551-007-9506-1",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Corporate Social Responsibility Reporting",
+        "Ethics in Business and Education"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1753383671",
+      "제목": "Financial Time Series Prediction Using Elman Recurrent Random Neural Networks",
+      "해": 2016,
+      "인용": 100,
+      "저자": "Jie Wang, Jie Wang, Jun Wang and 3 more",
+      "저자수": 6,
+      "실은곳": "Computational Intelligence and Neuroscience",
+      "doi": "10.1155/2016/4742515",
+      "oa": "hybrid",
+      "라이선스": "cc-by",
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Neural Networks and Applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2485327968",
+      "제목": "Crude oil and stock markets: Causal relationships in tails?",
+      "해": 2016,
+      "인용": 98,
+      "저자": "Haoyuan Ding, Hyunggun Kim, Sung Y. Park",
+      "저자수": 3,
+      "실은곳": "Energy Economics",
+      "doi": "10.1016/j.eneco.2016.07.013",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Energy, Environment, Economic Growth"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2965801268",
+      "제목": "Regulation spillovers across cryptocurrency markets",
+      "해": 2019,
+      "인용": 97,
+      "저자": "Nicola Borri, Kirill Shakhnov",
+      "저자수": 2,
+      "실은곳": "Finance research letters",
+      "doi": "10.1016/j.frl.2019.101333",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Blockchain Technology Applications and Security",
+        "Financial Markets and Investment Strategies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2079965047",
+      "제목": "TAIFEX and KOSPI 200 forecasting based on two-factors high-order fuzzy time series and particle swarm optimization",
+      "해": 2009,
+      "인용": 97,
+      "저자": "Jin-Il Park, Dae-Jong Lee, Chang‐Kyu Song and 1 more",
+      "저자수": 4,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2009.05.081",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1973427732",
+      "제목": "Using a choice experiment to measure the environmental costs of air pollution impacts in Seoul",
+      "해": 2007,
+      "인용": 95,
+      "저자": "Seung‐Hoon Yoo, Seung-Jun Kwak, Joo-Suk Lee",
+      "저자수": 3,
+      "실은곳": "Journal of Environmental Management",
+      "doi": "10.1016/j.jenvman.2006.12.008",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Economic and Environmental Valuation",
+        "Urban Transport and Accessibility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2315010283",
+      "제목": "A hybrid feature selection algorithm integrating an extreme learning machine for landslide susceptibility modeling of Mt. Woomyeon, South Korea",
+      "해": 2016,
+      "인용": 93,
+      "저자": "Nikhil Nedumpallile Vasu, Seung-Rae Lee",
+      "저자수": 2,
+      "실은곳": "Geomorphology",
+      "doi": "10.1016/j.geomorph.2016.03.023",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Landslides and related hazards",
+        "Dam Engineering and Safety"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2899193264",
+      "제목": "Firm-specific investor sentiment and daily stock returns",
+      "해": 2018,
+      "인용": 93,
+      "저자": "Sangik Seok, Hoon Cho, Doojin Ryu",
+      "저자수": 3,
+      "실은곳": "The North American Journal of Economics and Finance",
+      "doi": "10.1016/j.najef.2018.10.005",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1986000555",
+      "제목": "Intraday price formation and bid-ask spread components: A new approach using a cross-market model",
+      "해": 2011,
+      "인용": 91,
+      "저자": "Doojin Ryu",
+      "저자수": 1,
+      "실은곳": "Journal of Futures Markets",
+      "doi": "10.1002/fut.20533",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stochastic processes and financial applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2010423912",
+      "제목": "Korean stock prices under price limits: variance ratio tests of random walks",
+      "해": 2002,
+      "인용": 91,
+      "저자": "Hyun-Jung Ryoo, G. Stevenson Smith",
+      "저자수": 2,
+      "실은곳": "Applied Financial Economics",
+      "doi": "10.1080/09603100010015789",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2062204750",
+      "제목": "Parametric models and non-parametric machine learning models for predicting option prices: Empirical comparison study over KOSPI 200 Index options",
+      "해": 2014,
+      "인용": 84,
+      "저자": "Hyejin Park, Namhyoung Kim, Jaewook Lee",
+      "저자수": 3,
+      "실은곳": "Expert Systems with Applications",
+      "doi": "10.1016/j.eswa.2014.01.032",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stochastic processes and financial applications",
+        "Forecasting Techniques and Applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2150950098",
+      "제목": "Valuing environmental impacts of large dam construction in Korea: An application of choice experiments",
+      "해": 2007,
+      "인용": 84,
+      "저자": "Sang-Yong Han, Seung-Jun Kwak, Seung‐Hoon Yoo",
+      "저자수": 3,
+      "실은곳": "Environmental Impact Assessment Review",
+      "doi": "10.1016/j.eiar.2007.07.001",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Economic and Environmental Valuation",
+        "Housing Market and Economics"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2038811001",
+      "제목": "Weather effects on returns: Evidence from the Korean stock market",
+      "해": 2008,
+      "인용": 84,
+      "저자": "Seong‐Min Yoon, Sang Hoon Kang",
+      "저자수": 2,
+      "실은곳": "Physica A Statistical Mechanics and its Applications",
+      "doi": "10.1016/j.physa.2008.11.017",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Financial Risk and Volatility Modeling"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2052848417",
+      "제목": "Adaptive stock trading with dynamic asset allocation using reinforcement learning",
+      "해": 2005,
+      "인용": 83,
+      "저자": "O Jangmin, Jongwoo Lee, Jae Wook Lee and 1 more",
+      "저자수": 4,
+      "실은곳": "Information Sciences",
+      "doi": "10.1016/j.ins.2005.10.009",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Financial Markets and Investment Strategies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2070128917",
+      "제목": "An estimation of energy and GHG emission intensity caused by energy consumption in Korea: An energy IO approach",
+      "해": 2009,
+      "인용": 83,
+      "저자": "Whan-Sam Chung, Susumu Tohno, Sang Yul Shim",
+      "저자수": 3,
+      "실은곳": "Applied Energy",
+      "doi": "10.1016/j.apenergy.2009.02.001",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Environmental Impact and Sustainability",
+        "Energy, Environment, and Transportation Policies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2971254008",
+      "제목": "Linkages between crude oil and emerging Asian stock markets: New evidence from the Chinese stock market crash",
+      "해": 2019,
+      "인용": 83,
+      "저자": "Imran Yousaf, Arshad Hassan",
+      "저자수": 2,
+      "실은곳": "Finance research letters",
+      "doi": "10.1016/j.frl.2019.08.023",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Energy, Environment, Economic Growth"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2769487452",
+      "제목": "Predictability of machine learning techniques to forecast the trends of market index prices: Hypothesis testing for the Korean stock markets",
+      "해": 2017,
+      "인용": 82,
+      "저자": "Sujin Pyo, Jaewook Lee, Mincheol Cha and 1 more",
+      "저자수": 4,
+      "실은곳": "PLoS ONE",
+      "doi": "10.1371/journal.pone.0188107",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Forecasting Techniques and Applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2147029952",
+      "제목": "Cost-effectiveness Outcomes of the National Gastric Cancer Screening Program in South Korea",
+      "해": 2013,
+      "인용": 81,
+      "저자": "Eun Cho, Moon Hae Kang, Kui Son Choi and 3 more",
+      "저자수": 6,
+      "실은곳": "Asian Pacific Journal of Cancer Prevention",
+      "doi": "10.7314/apjcp.2013.14.5.2533",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Helicobacter pylori-related gastroenterology studies",
+        "Gastric Cancer Management and Outcomes"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2589074148",
+      "제목": "Investor sentiment, asset returns and firm characteristics: Evidence from the Korean Stock Market",
+      "해": 2017,
+      "인용": 80,
+      "저자": "Heejin Yang, Doojin Ryu, Doowon Ryu and 2 more",
+      "저자수": 5,
+      "실은곳": "Investment Analysts Journal",
+      "doi": "10.1080/10293523.2016.1277850",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2067591829",
+      "제목": "Long memory properties in return and volatility: Evidence from the Korean stock market",
+      "해": 2007,
+      "인용": 80,
+      "저자": "Sang Hoon Kang, Seong‐Min Yoon",
+      "저자수": 2,
+      "실은곳": "Physica A Statistical Mechanics and its Applications",
+      "doi": "10.1016/j.physa.2007.07.051",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Complex Systems and Time Series Analysis",
+        "Financial Risk and Volatility Modeling"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4225009202",
+      "제목": "Central bank digital currency as a payment method for tourists: application of the theory of planned behavior to digital Yuan/Won/Dollar choice",
+      "해": 2022,
+      "인용": 79,
+      "저자": "Aleksandar Radić, Wei Quan, Bonhak Koo and 3 more",
+      "저자수": 6,
+      "실은곳": "Journal of Travel & Tourism Marketing",
+      "doi": "10.1080/10548408.2022.2061677",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Digital Platforms and Economics",
+        "Technology Adoption and User Behaviour"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2167706426",
+      "제목": "Pharmacoeconomic analysis of thiopurine methyltransferase polymorphism screening by polymerase chain reaction for treatment with azathioprine in Korea",
+      "해": 2003,
+      "인용": 79,
+      "저자": "K-T Oh",
+      "저자수": 1,
+      "실은곳": "British journal of rheumatology",
+      "doi": "10.1093/rheumatology/keh001",
+      "oa": "bronze",
+      "라이선스": null,
+      "주제": [
+        "Acute Lymphoblastic Leukemia research",
+        "Rheumatoid Arthritis Research and Therapies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2166127104",
+      "제목": "The impact of stock index futures on the Korean stock market",
+      "해": 2004,
+      "인용": 79,
+      "저자": "Hyun-Jung Ryoo, G. Stevenson Smith",
+      "저자수": 2,
+      "실은곳": "Applied Financial Economics",
+      "doi": "10.1080/0960310042000201183",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Financial Markets and Investment Strategies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1691150555",
+      "제목": "Information Effects of Trade Size and Trade Direction: Evidence from the KOSPI 200 Index Options Market*",
+      "해": 2010,
+      "인용": 78,
+      "저자": "Hee‐Joon Ahn, Jangkoo Kang, Doojin Ryu",
+      "저자수": 3,
+      "실은곳": "Asia-Pacific Journal of Financial Studies",
+      "doi": "10.1111/j.2041-6156.2010.01016.x",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W3089335535",
+      "제목": "The recovery of global stock markets indices after impacts due to pandemics",
+      "해": 2020,
+      "인용": 78,
+      "저자": "Sérgio Adriani David, Claudio Marcio Cassela Inacio, J. A. Tenreiro Machado",
+      "저자수": 3,
+      "실은곳": "Research in International Business and Finance",
+      "doi": "10.1016/j.ribaf.2020.101335",
+      "oa": "hybrid",
+      "라이선스": "cc-by-nc-nd",
+      "주제": [
+        "COVID-19 Pandemic Impacts",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W3121248534",
+      "제목": "Do Main Banks Extract Rents from their Client Firms? Evidence from Korean Chaebol",
+      "해": 2002,
+      "인용": 77,
+      "저자": "Yitae Kim, Kwangwoo Park, Ronald A. Ratti and 1 more",
+      "저자수": 4,
+      "실은곳": "RePEc: Research Papers in Economics",
+      "doi": null,
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Corporate Finance and Governance",
+        "Banking stability, regulation, efficiency"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W3169540234",
+      "제목": "Forecasting Stock Market Indices Using Padding-Based Fourier Transform Denoising and Time Series Deep Learning Models",
+      "해": 2021,
+      "인용": 77,
+      "저자": "Donghwan Song, Adrian Matias Chung Baek, Namhun Kim",
+      "저자수": 3,
+      "실은곳": "IEEE Access",
+      "doi": "10.1109/access.2021.3086537",
+      "oa": "gold",
+      "라이선스": "cc-by-nc-nd",
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Time Series Analysis and Forecasting"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4200101666",
+      "제목": "Volatility spillovers among Northeast Asia and the US: Evidence from the global financial crisis and the COVID-19 pandemic",
+      "해": 2021,
+      "인용": 75,
+      "저자": "Sun‐Yong Choi",
+      "저자수": 1,
+      "실은곳": "Economic Analysis and Policy",
+      "doi": "10.1016/j.eap.2021.11.014",
+      "oa": "hybrid",
+      "라이선스": "cc-by-nc-nd",
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Energy, Environment, Economic Growth"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2087931033",
+      "제목": "Corporate Governance, Commitment to Business Ethics, and Firm Valuation: Evidence from the Korean Stock Market",
+      "해": 2010,
+      "인용": 72,
+      "저자": "Jinhan Pae, Tae-Hee Choi",
+      "저자수": 2,
+      "실은곳": "Journal of Business Ethics",
+      "doi": "10.1007/s10551-010-0682-z",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1970503778",
+      "제목": "Empirical comparison of alternative stochastic volatility option pricing models: Evidence from Korean KOSPI 200 index options market",
+      "해": 2003,
+      "인용": 71,
+      "저자": "In Joon Kim, Sol Kim",
+      "저자수": 2,
+      "실은곳": "Pacific-Basin Finance Journal",
+      "doi": "10.1016/s0927-538x(03)00042-8",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stochastic processes and financial applications",
+        "Financial Risk and Volatility Modeling"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W4311426571",
+      "제목": "Extending machine learning prediction capabilities by explainable AI in financial time series prediction",
+      "해": 2022,
+      "인용": 71,
+      "저자": "Taha Buğra Çeli̇k, Özgür İcan, Elif Bulut",
+      "저자수": 3,
+      "실은곳": "Applied Soft Computing",
+      "doi": "10.1016/j.asoc.2022.109876",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Forecasting Techniques and Applications"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2183842764",
+      "제목": "Text Opinion Mining to Analyze News for Stock Market Prediction",
+      "해": 2014,
+      "인용": 71,
+      "저자": "Yoosin Kim, Seung Ryul Jeong, Imran Ghani",
+      "저자수": 3,
+      "실은곳": null,
+      "doi": null,
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Advanced Text Analysis Techniques"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2752054910",
+      "제목": "Using genetic algorithm to support clustering-based portfolio optimization by investor information",
+      "해": 2017,
+      "인용": 70,
+      "저자": "Donghyun Cheong, Young Min Kim, Hyun Woo Byun and 2 more",
+      "저자수": 5,
+      "실은곳": "Applied Soft Computing",
+      "doi": "10.1016/j.asoc.2017.08.042",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1735442105",
+      "제목": "High Frequency Trading in the Korean Index Futures Market",
+      "해": 2013,
+      "인용": 67,
+      "저자": "Eun Jung Lee",
+      "저자수": 1,
+      "실은곳": "Journal of Futures Markets",
+      "doi": "10.1002/fut.21640",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Market Dynamics and Volatility"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W3033337679",
+      "제목": "Investor Sentiment and Herding Behavior in the Korean Stock Market",
+      "해": 2020,
+      "인용": 67,
+      "저자": "Ki-Hong Choi, Seong‐Min Yoon",
+      "저자수": 2,
+      "실은곳": "International Journal of Financial Studies",
+      "doi": "10.3390/ijfs8020034",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2155838764",
+      "제목": "Korean bank governance reform after the Asian financial crisis",
+      "해": 2003,
+      "인용": 67,
+      "저자": "Heungsik Choe, Bong‐Soo Lee",
+      "저자수": 2,
+      "실은곳": "Pacific-Basin Finance Journal",
+      "doi": "10.1016/s0927-538x(03)00051-9",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Corporate Finance and Governance",
+        "Banking stability, regulation, efficiency"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2109558264",
+      "제목": "Interest rate and exchange rate exposures of banking institutions in pre-crisis Korea",
+      "해": 2004,
+      "인용": 66,
+      "저자": "Joon‐Ho Hahm",
+      "저자수": 1,
+      "실은곳": "Applied Economics",
+      "doi": "10.1080/0003684042000206979",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Risk Management in Financial Firms",
+        "Insurance and Financial Risk Management"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2770115141",
+      "제목": "Philip Morris International introduces new heat-not-burn product, IQOS, in South Korea",
+      "해": 2017,
+      "인용": 66,
+      "저자": "Minji Kim",
+      "저자수": 1,
+      "실은곳": "Tobacco Control",
+      "doi": "10.1136/tobaccocontrol-2017-053965",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Smoking Behavior and Cessation",
+        "Global Public Health Policies and Epidemiology"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1485041730",
+      "제목": "The economic value of South Korea׳s renewable energy policies (RPS, RFS, and RHO): A contingent valuation study",
+      "해": 2015,
+      "인용": 66,
+      "저자": "Sung‐Yoon Huh, Jongsu Lee, Jungwoo Shin",
+      "저자수": 3,
+      "실은곳": "Renewable and Sustainable Energy Reviews",
+      "doi": "10.1016/j.rser.2015.04.107",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Economic and Environmental Valuation",
+        "Social Acceptance of Renewable Energy"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2058264873",
+      "제목": "Kernel density estimation for time series data",
+      "해": 2011,
+      "인용": 64,
+      "저자": "Andrew Harvey, Vitaliy Oryshchenko",
+      "저자수": 2,
+      "실은곳": "International Journal of Forecasting",
+      "doi": "10.1016/j.ijforecast.2011.02.016",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Risk and Volatility Modeling",
+        "Statistical Methods and Inference"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2070844896",
+      "제목": "Socioeconomic Costs of Stroke in Korea: Estimated from the Korea National Health Insurance Claims Database",
+      "해": 2009,
+      "인용": 64,
+      "저자": "Seung-ji Lim, Han-joong Kim, Chung Mo Nam and 4 more",
+      "저자수": 7,
+      "실은곳": "Journal of Preventive Medicine and Public Health",
+      "doi": "10.3961/jpmph.2009.42.4.251",
+      "oa": "gold",
+      "라이선스": "cc-by-nc",
+      "주제": [
+        "Acute Ischemic Stroke Management",
+        "Stroke Rehabilitation and Recovery"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W649229424",
+      "제목": "The Effect of Macroeconomic Variables on Stock Market Returns in Developing Markets",
+      "해": 1997,
+      "인용": 64,
+      "저자": "Chung S. Kwon, Tai S. Shin, Frank W. Bacon",
+      "저자수": 3,
+      "실은곳": "Multinational Business Review",
+      "doi": null,
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2089149934",
+      "제목": "Time-delay recurrent neural network for temporal correlations and prediction",
+      "해": 1998,
+      "인용": 64,
+      "저자": "Sung-Suk Kim",
+      "저자수": 1,
+      "실은곳": "Neurocomputing",
+      "doi": "10.1016/s0925-2312(98)00018-6",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Neural Networks and Applications",
+        "Neural Networks and Reservoir Computing"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1505819858",
+      "제목": "Trading Behavior, Performance, and Stock Preference of Foreigners, Local Institutions, and Individual Investors: Evidence from the Korean Stock Market*",
+      "해": 2011,
+      "인용": 64,
+      "저자": "Sung C. Bae, Jae Hoon Min, Sunbong Jung",
+      "저자수": 3,
+      "실은곳": "Asia-Pacific Journal of Financial Studies",
+      "doi": "10.1111/j.2041-6156.2011.01037.x",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2587152362",
+      "제목": "An intelligent hybrid trading system for discovering trading rules for the futures market using rough sets and genetic algorithms",
+      "해": 2017,
+      "인용": 63,
+      "저자": "Y.-M. Kim, Wonbin Ahn, Kyong Joo Oh and 1 more",
+      "저자수": 4,
+      "실은곳": "Applied Soft Computing",
+      "doi": "10.1016/j.asoc.2017.02.006",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Rough Sets and Fuzzy Logic"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W1980635688",
+      "제목": "Exchange Market Pressure in Korean: An Application of the Girton-Roper Monetary Model: Note",
+      "해": 1985,
+      "인용": 63,
+      "저자": "Inchul Kim",
+      "저자수": 1,
+      "실은곳": "Journal of money credit and banking",
+      "doi": "10.2307/1992339",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Monetary Policy and Economic Impact",
+        "Global Financial Crisis and Policies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W2157066250",
+      "제목": "Exchange Rate Regimes and Equilibrium Exchange Rates in East Asia",
+      "해": 2003,
+      "인용": 61,
+      "저자": "Seeun Jeong, Jacques Mazier",
+      "저자수": 2,
+      "실은곳": "Revue économique",
+      "doi": "10.3917/reco.545.0001",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Global Financial Crisis and Policies",
+        "Monetary Policy and Economic Impact"
+      ],
+      "갈래": "article"
+    }
+  ],
+  "newest": [
+    {
+      "id": "W7130520889",
+      "제목": "An Explainable AI-Based Framework for Predicting Construction Firm Profitability and Capital Structure Considering Supply-Chain Volatility",
+      "해": 2026,
+      "인용": 2,
+      "저자": "Seong-Jun Ye, Kyung-Tae Lee",
+      "저자수": 2,
+      "실은곳": "Buildings",
+      "doi": "10.3390/buildings16040840",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Financial Distress and Bankruptcy Prediction",
+        "Construction Project Management and Performance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7159783497",
+      "제목": "Asymmetric and Time-Varying Lag Structures in Bitcoin’s Kimchi Premium: Rolling-Window Evidence from Granger Causality and Transfer Entropy",
+      "해": 2026,
+      "인용": 2,
+      "저자": "Insu Choi",
+      "저자수": 1,
+      "실은곳": "Mathematics",
+      "doi": "10.3390/math14091501",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Blockchain Technology Applications and Security",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7162248804",
+      "제목": "Comparative Analysis of Cryptocurrency Market Efficiency and Local Features Using MF-DFA and DCC-GARCH",
+      "해": 2026,
+      "인용": 2,
+      "저자": "Do-Hyeon Kim, Jin Lee, Sun-Yong Choi",
+      "저자수": 3,
+      "실은곳": "Fractal and Fractional",
+      "doi": "10.3390/fractalfract10060353",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Complex Systems and Time Series Analysis",
+        "Blockchain Technology Applications and Security"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7127165363",
+      "제목": "Corporate Governance and Dividend Policy Under Concentrated Ownership: Evidence from Post-Reform Korea",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Okechukwu Enyeribe Njoku, Younghwan Lee, J. Ji",
+      "저자수": 3,
+      "실은곳": "Journal of risk and financial management",
+      "doi": "10.3390/jrfm19020103",
+      "oa": "hybrid",
+      "라이선스": "cc-by",
+      "주제": [
+        "Corporate Finance and Governance",
+        "Corporate Insolvency and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7124966974",
+      "제목": "Digital Cognitive Behavioral Therapy for Chronic Insomnia in South Korea: Cost-Effectiveness Analysis Using Decision Tree and Markov Modeling Based on a Secondary Analysis of a Randomized Clinical Trial",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Jung Hyun Kim, Minjeong Sohn, Jimin Woo and 2 more",
+      "저자수": 5,
+      "실은곳": "JMIR mhealth and uhealth",
+      "doi": "10.2196/71750",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Sleep and related disorders",
+        "Digital Mental Health Interventions"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7140138347",
+      "제목": "Epidemiology, Comorbidities, and Healthcare Costs of Prader-Willi Syndrome in South Korea Using the Korean National Health Insurance Service Database",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Aram Yang, Yong Jun Choi, Eungu Kang and 2 more",
+      "저자수": 5,
+      "실은곳": "Journal of Obesity & Metabolic Syndrome",
+      "doi": "10.7570/jomes25060",
+      "oa": "diamond",
+      "라이선스": "cc-by-nc",
+      "주제": [
+        "Genetic Syndromes and Imprinting",
+        "Glycogen Storage Diseases and Myoclonus"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7124827978",
+      "제목": "Foreign investors as guardians or colluders? The moderating role of IFRS in corporate tax avoidance in Korea",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Gee-Jung Kwon",
+      "저자수": 1,
+      "실은곳": "International Journal of ADVANCED AND APPLIED SCIENCES",
+      "doi": "10.21833/ijaas.2026.01.011",
+      "oa": "gold",
+      "라이선스": "cc-by-nc-nd",
+      "주제": [
+        "Corporate Taxation and Avoidance",
+        "Auditing, Earnings Management, Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7152994428",
+      "제목": "Internal determinants of financial performance: Evidence from Korean listed firms",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Trọng Bách Nhữ, Anh Thi Nguyen",
+      "저자수": 2,
+      "실은곳": "Business Performance Review",
+      "doi": "10.22495/bprv4i2p3",
+      "oa": "hybrid",
+      "라이선스": "cc-by",
+      "주제": [
+        "Working Capital and Financial Performance",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7134201526",
+      "제목": "Net arbitrage trading by foreign investors and short sellers and stock returns: Evidence from the Korean stock market",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Jaeyoung Jeong, Jiwon Eo, Jangkoo Kang",
+      "저자수": 3,
+      "실은곳": "Pacific-Basin Finance Journal",
+      "doi": "10.1016/j.pacfin.2026.103139",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7160414286",
+      "제목": "Predicting corporate management performance using AI: Incorporating CEO strategy insights from sustainable management reports",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Xiao Wang, Feng Sun, Yong Ki Kim and 3 more",
+      "저자수": 6,
+      "실은곳": "PLoS ONE",
+      "doi": "10.1371/journal.pone.0347140",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Financial Distress and Bankruptcy Prediction",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7168260288",
+      "제목": "Reinterpreting Short-Term Prediction Signals as a Post-Signal Realization Diagnostic: Evidence from KOSPI",
+      "해": 2026,
+      "인용": 1,
+      "저자": "Yeo Hoon Yoon, Kyung Sung Kim",
+      "저자수": 2,
+      "실은곳": "The Korean Data Analysis Society",
+      "doi": "10.37727/jkdas.2026.28.3.931",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Explainable Artificial Intelligence (XAI)",
+        "Complex Systems and Time Series Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7207577586",
+      "제목": "A Case Study on the Economic Implications of Capital Account Liberalization: Focused on Korean Business Groups (Chaebols)",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Junesuh Yi, Dong Hyun Choi",
+      "저자수": 2,
+      "실은곳": "Dongguk Business Research Institute",
+      "doi": "10.55685/bcr.2026.48.2.111",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Global Financial Crisis and Policies",
+        "Banking stability, regulation, efficiency"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7138333876",
+      "제목": "A Configurational Analysis of Digital Transformation and Intellectual Capital on Firm Performance: Evidence from KOSPI-listed Manufacturing Firms",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Kyung-Yun Hwang",
+      "저자수": 1,
+      "실은곳": "Korea International Trade Research Institute",
+      "doi": "10.16980/jitc.22.1.202602.307",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Intellectual Capital and Performance Analysis",
+        "Firm Innovation and Growth"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7164994697",
+      "제목": "A State-Conditional Probabilistic Framework for Financial Instability Measurement and Sustainable Risk Management",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Jiyoung Jeon, DaeHyuk You, HyungGun Song and 4 more",
+      "저자수": 7,
+      "실은곳": "Sustainability",
+      "doi": "10.3390/su18126257",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Financial Risk and Volatility Modeling",
+        "Financial Markets and Investment Strategies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7129331485",
+      "제목": "A study of the impact of family participation on venture's growth",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Youngkeun Choi",
+      "저자수": 1,
+      "실은곳": "Journal of Strategy & Innovation",
+      "doi": "10.1016/j.jsinno.2026.200568",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Family Business Performance and Succession",
+        "Private Equity and Venture Capital"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7138397633",
+      "제목": "A Study on Uncertainty in the Korean Financial Market and Stock Returns: Focusing on a Cross-sectional Analysis Based on Portfolios Sorted by the Beta on Changes in the VKOSPI Index",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Kyoung-Woo Sohn, Ji-Yeong Chung",
+      "저자수": 2,
+      "실은곳": "Korea International Trade Research Institute",
+      "doi": "10.16980/jitc.22.1.202602.327",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Markets and Investment Strategies",
+        "Auditing, Earnings Management, Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7155384020",
+      "제목": "AI-Based Demand Forecasting and Accounting Decision-Making : A Comparison of Traditional Forecasting Models and Machine Learning Models",
+      "해": 2026,
+      "인용": 0,
+      "저자": "In-Ha Yang, Soonyeo Jung",
+      "저자수": 2,
+      "실은곳": null,
+      "doi": "10.29189/kaiaair.44.1.2",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Forecasting Techniques and Applications",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7164329251",
+      "제목": "Alternative models to functional-ARCH using deep-PCA for high frequency volatility",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Jong-Min Kim, Sun Young Hwang",
+      "저자수": 2,
+      "실은곳": "Communications in Statistics - Simulation and Computation",
+      "doi": "10.1080/03610918.2026.2685005",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Financial Risk and Volatility Modeling",
+        "Risk and Portfolio Optimization"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7169879821",
+      "제목": "An Empirical Analysis of the Nonlinear Relationship between Leverage and Firm Profitability",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Soo Kyung An",
+      "저자수": 1,
+      "실은곳": null,
+      "doi": "10.29189/kaiaair.44.2.2",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Corporate Finance and Governance",
+        "Working Capital and Financial Performance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7168293793",
+      "제목": "An Empirical Study on the ESG Premium in the Korean Bond Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Sangki Lee, Dongyoup Lee, Seongbin Lee",
+      "저자수": 3,
+      "실은곳": "The Institute of Management and Economy Research",
+      "doi": "10.32599/apjb.17.2.202606.113",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Sustainable Finance and Green Bonds",
+        "Corporate Social Responsibility Reporting"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7154995908",
+      "제목": "An Empirical Study on the Predictive Validity of a Relational Risk Machine Learning Model for Trading Suspensions: Based on Six Statistical Tests and Out-of-Time Validation",
+      "해": 2026,
+      "인용": 0,
+      "저자": "JAEJOON PARK",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6354259",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Financial Distress and Bankruptcy Prediction",
+        "Credit Risk and Financial Regulations"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7155538910",
+      "제목": "An Empirical Study on the Predictive Validity of a Relational Risk Machine Learning Model for Trading Suspensions: Based on Six Statistical Tests and Out-of-Time Validation",
+      "해": 2026,
+      "인용": 0,
+      "저자": "JAEJOON PARK",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6644078",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Financial Distress and Bankruptcy Prediction",
+        "Credit Risk and Financial Regulations"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7211948651",
+      "제목": "An ESSG Evaluation Model with Safety as an Independent Dimension : Development and Empirical Analysis of Top 30 KOSPI Companies",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Korea Safety Culture Society, Sun Chul Kwon, Jin woo Jung and 1 more",
+      "저자수": 4,
+      "실은곳": "Forum of Public Safety and Culture",
+      "doi": "10.52902/kjsc.2026.57.397",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Occupational Health and Safety Research",
+        "Corporate Social Responsibility Reporting"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7165363025",
+      "제목": "An Explainable Accounting Information System for Corporate Tax Risk Prediction: Benchmarking Tabular Machine Learning and Neural Feature-Fusion with Financial Statement and MD&A Disclosure-Tone Signals",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Hyung Jong Na, Hyungjoon Kim, Seung Uk Choi",
+      "저자수": 3,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6968040",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Financial Reporting and XBRL"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7164931972",
+      "제목": "Analysis of PBR Determinants Using ROE/CoE Ratio: Implications for the Korean Value-Up Program",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Hyeong Joon Kim, Jin Q Jeon",
+      "저자수": 2,
+      "실은곳": "Korean Journal of Financial Studies",
+      "doi": "10.26845/kjfs.2026.4.55.3.211",
+      "oa": "diamond",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7166828697",
+      "제목": "Application of the PPP–SIRRIPA Framework to Two Leading South Korean AI-Related Technology Companies: Samsung Electronics and SK Hynix",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Rainsy Sam",
+      "저자수": 1,
+      "실은곳": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "10.5281/zenodo.21099662",
+      "oa": "green",
+      "라이선스": "cc-by",
+      "주제": [],
+      "갈래": "conference-paper"
+    },
+    {
+      "id": "W7166863906",
+      "제목": "Application of the PPP–SIRRIPA Framework to Two Leading South Korean AI-Related Technology Companies: Samsung Electronics and SK Hynix",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Rainsy Sam",
+      "저자수": 1,
+      "실은곳": "Zenodo (CERN European Organization for Nuclear Research)",
+      "doi": "10.5281/zenodo.21099663",
+      "oa": "green",
+      "라이선스": "cc-by",
+      "주제": [],
+      "갈래": "conference-paper"
+    },
+    {
+      "id": "W7203689808",
+      "제목": "Association between ambient temperature and the risk of hospital admission for injury in South Korea",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Byungyoon Yun, Jian Lee, Jae‐Hong Ryoo and 4 more",
+      "저자수": 7,
+      "실은곳": "Environmental Epidemiology",
+      "doi": "10.1097/ee9.0000000000000514",
+      "oa": "gold",
+      "라이선스": "cc-by-nc-nd",
+      "주제": [
+        "Climate Change and Health Impacts",
+        "Thermal Regulation in Medicine"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7161537649",
+      "제목": "Beyond R&D and Advertising : The Investment Nature of Main SG&A in the Korean Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Sang-Giun Yim",
+      "저자수": 1,
+      "실은곳": "KOREAN JOURNAL OF MANAGEMENT ACCOUNTING RESEARCH",
+      "doi": "10.31507/kjmar.2026.4.26.1.187",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Firm Innovation and Growth",
+        "Technology and Data Analysis"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7128704227",
+      "제목": "Big Data Text Mining-Based Stock Prediction System",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Tai-Sung Hur, Ariunjargal Amintsog",
+      "저자수": 2,
+      "실은곳": "Journal of the Korea Society of Computer and Information",
+      "doi": "10.9708/jksci.2026.31.01.051",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Customer churn and segmentation"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7136937866",
+      "제목": "Business Strategy, Audit Risk, and Auditor–Client Disagreement: Evidence from Korea",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Jihwan Choi",
+      "저자수": 1,
+      "실은곳": "Risks",
+      "doi": "10.3390/risks14030067",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7165875208",
+      "제목": "Can Monetary Tightening Defend the Korean Won? Evidence from Rate Differentials and Policy Surprises",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Hyunju Kang",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6999344",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Global Financial Crisis and Policies",
+        "Monetary Policy and Economic Impact"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7154953222",
+      "제목": "Capital as a Viscous Fluid: A Navier-Stokes Framework for Modeling Sudden Stops and Flow Reversals in the Korean Financial Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Nakcho Choi",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6510038",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7171641108",
+      "제목": "Capital as a Viscous Fluid: A Navier-Stokes Framework for Modeling Sudden Stops and Flow Reversals in the Korean Financial Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Nakcho Choi",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6484760",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Market Dynamics and Volatility",
+        "Stock Market Forecasting Methods"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7166580269",
+      "제목": "Capital Structure and Firm Value in Korea: Addressing Endogeneity and Nonlinear Effects of Liabilities",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Kwon Geejung",
+      "저자수": 1,
+      "실은곳": "Asian Academy of Management Journal of Accounting and Finance",
+      "doi": "10.21315/aamjaf2026.22.1.6",
+      "oa": "diamond",
+      "라이선스": "cc-by",
+      "주제": [
+        "Corporate Finance and Governance",
+        "Auditing, Earnings Management, Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7133968639",
+      "제목": "CEO Labor Market Efficiency and ESG Management",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Junghoon Kim, Daehyun Lee, Jeongil Seo",
+      "저자수": 3,
+      "실은곳": "Korean Academy of Organization and Management",
+      "doi": "10.36459/jom.2026.50.1.67",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Corporate Finance and Governance",
+        "Corporate Social Responsibility Reporting"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7204971267",
+      "제목": "CIMTS: candlestick-integrated multi-modal trading system for stock indices",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Juhyeon Jang, Jaeyun Kim, David Enke",
+      "저자수": 3,
+      "실은곳": "PeerJ Computer Science",
+      "doi": "10.7717/peerj-cs.4069",
+      "oa": "gold",
+      "라이선스": "cc-by",
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Financial Markets and Investment Strategies"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7160557592",
+      "제목": "Comparing ChatGPT-Based and KR-FinBERT-Based News Sentiment for Stock Return Predictability: Evidence from the KOSPI Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Thị Mỹ Tâm Trần, Shiyong Yoo",
+      "저자수": 2,
+      "실은곳": "Journal of the Korea Academia-Industrial cooperation Society",
+      "doi": "10.5762/kais.2026.27.4.684",
+      "oa": "diamond",
+      "라이선스": null,
+      "주제": [
+        "Stock Market Forecasting Methods",
+        "Auditing, Earnings Management, Governance"
+      ],
+      "갈래": "article"
+    },
+    {
+      "id": "W7160695263",
+      "제목": "Consolidated-Standalone Revenue Gap and Capital Market Mispricing: Evidence from Korean Dual-Reporting Firms",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Eunsang Jee",
+      "저자수": 1,
+      "실은곳": "SSRN Electronic Journal",
+      "doi": "10.2139/ssrn.6741382",
+      "oa": "green",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Corporate Finance and Governance"
+      ],
+      "갈래": "preprint"
+    },
+    {
+      "id": "W7169866081",
+      "제목": "Construction of Core Earnings and Its Usefulness: Evidence from the Korean Market",
+      "해": 2026,
+      "인용": 0,
+      "저자": "Sukyoon Jung, Heejin Park, Hyunji Choi",
+      "저자수": 3,
+      "실은곳": null,
+      "doi": "10.29189/kaiaair.44.2.11",
+      "oa": "closed",
+      "라이선스": null,
+      "주제": [
+        "Auditing, Earnings Management, Governance",
+        "Corporate Social Responsibility Disclosure"
+      ],
+      "갈래": "article"
+    }
+  ]
+}

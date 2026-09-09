@@ -71,6 +71,8 @@ export const 단계들 = [
   "node scripts/check-stock-prices-datago.mjs",
   "node scripts/check-licence-register.mjs",
   "node scripts/check-forbidden-sources.mjs",
+  "node scripts/build-seoulmarkets-research-page.mjs --자가시험",
+  "node scripts/collect-korea-markets-research.mjs --자가시험",
   "node scripts/collect-trade-revisions.mjs --자가시험",
   "node scripts/make-sitemap-tree.mjs --자가시험",
   /* 🔴 [2026-09-09 · 5번] 자물쇠가 매일 부르라던 자가 «없었다». 만들었으니 관문에 둔다 —

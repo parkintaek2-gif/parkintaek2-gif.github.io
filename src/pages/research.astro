@@ -1,0 +1,275 @@
+---
+/*
+ * Korea Markets Research Index — 무료 영문 깔때기. (seoulmarkets.com/research)
+ *
+ * ── 왜 (2026-09-09 사장님) ────────────────────────────────────────────────
+ * 사장님: 「투자관련 논문을 찾아서 서비스하는 것도 검토해봐」
+ * 내가 재서 올린 것 — 한국시장 논문이 적다(KOSPI 2,728 vs 중국시장 7,561).
+ *   자료가 영문으로 포장돼 있지 않아서다. 학술 데이터 벤더가 미국 CRSP·중국 CSMAR 은
+ *   있는데 «한국은 없다».
+ * 사장님: 「**이것도 좋네. 검색하면 한국시장 논문을 보여주는 거니까**」
+ *
+ * ⭐ 이 지면은 «상품»이 아니라 **깔때기**다 — QUICK 이 「Japan Markets View」를 상품
+ *   사이트와 따로 둔 그 자리. 무료 영문 지면으로 검색 손님을 받고, 유료(영어판 FnGuide)로 잇는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────────
+ * ⛔ **「한국시장을 다룬 논문」이라고 쓰지 않는다.** 구절 검색이라 곁가지가 섞인다 —
+ *    실측으로 「KMPI: measuring knowledge management performance」가 들어 있다(초록에 KOSPI).
+ *    ⇒ 「이 네 낱말이 제목·초록에 나오는 논문」으로 적는다. 부풀리지 않는다.
+ * ⛔ **논문 본문·초록을 싣지 않는다.** 제목·해·저자·실은곳·인용수는 사실이지만 본문은
+ *    사본마다 라이선스가 다르다. 우리는 그 칸을 기록해 두고 cc-by·cc0 인 것만 나중에 쓴다.
+ * ⛔ **「추천 논문」을 만들지 않는다.** 우리가 고르면 그것은 판정이다. 인용수와 해로만 세운다.
+ * ⛔ 화면에 한국어를 내지 않는다 (사장님: 우리 손님은 영어권이다).
+ * ⚠ OpenAlex 데이터는 CC0 라 출처표시 의무가 «없다». 그래도 예의로 적는다.
+ *
+ * 자료: src/data/seoulmarkets-research.json
+ *   (collect-korea-markets-research.mjs → build-seoulmarkets-research-page.mjs)
+ */
+import Base from '../layouts/Base.astro';
+import { SITE_URL } from '../consts';
+import data from '../data/seoulmarkets-research.json';
+
+const 수 = (v: unknown) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
+
+const 총합 = (data.queries ?? []).reduce((s: number, q: any) => s + (q.total ?? 0), 0);
+const 가장큰해 = (data.years ?? []).reduce((m: number, y: any) => Math.max(m, y.수 ?? 0), 0);
+
+/* 「늘고 있나」를 말로 하지 않고 «수로» 낸다 — 정점·바닥·마지막 해를 자료에서 짚는다 */
+const 해들 = (data.years ?? []) as { 해: number; 수: number }[];
+const peakYear = data.peak?.해 ?? null;
+const lastYear = 해들.length ? 해들[해들.length - 1] : null;
+/* 정점 «뒤»의 바닥 — 정점 앞의 낮은 해를 「바닥」이라 부르면 이야기가 거꾸로 된다 */
+const 누구low = 해들
+  .filter((y) => peakYear != null && y.해 > peakYear)
+  .reduce((m: { 해: number; 수: number } | null, y) => (!m || y.수 < m.수 ? y : m), null);
+
+const TITLE = 'Korea Markets Research Index — what has been written, in English';
+const SAMPLE = `${수(data.indexed)} papers indexed · ${수(data.topicsTotal)} research topics · ${수(data.journalsTotal)} journals · ${data.yearSpan?.from}–${data.yearSpan?.to}`;
+const DESC =
+  `An open index of academic work that mentions KOSPI, KOSDAQ, the Korean stock market or the Korean won. `
+  + `${수(data.indexed)} papers across ${수(data.journalsTotal)} journals and ${수(data.topicsTotal)} topics, `
+  + `${수(data.since2020)} of them published since 2020. `
+  + `Metadata from OpenAlex (CC0). We record each paper's own text licence and reuse only cc-by and cc0 text.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea Markets Research Index',
+  description: DESC,
+  url: `${SITE_URL}/research`,
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  isBasedOn: ['https://openalex.org'],
+  license: 'https://creativecommons.org/publicdomain/zero/1.0/',
+  variableMeasured: [
+    { '@type': 'PropertyValue', name: 'papers indexed', value: data.indexed },
+    { '@type': 'PropertyValue', name: 'journals', value: data.journalsTotal },
+    { '@type': 'PropertyValue', name: 'research topics', value: data.topicsTotal },
+    { '@type': 'PropertyValue', name: 'published since 2020', value: data.since2020 },
+  ],
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="ri">
+      <p class="kicker">SeoulMarkets · free index</p>
+      <h1>{TITLE}</h1>
+      <p class="sample">{SAMPLE}</p>
+
+      <p class="lede">
+        Korea is thinly covered in English-language finance research, and part of the reason is
+        plumbing: the United States has CRSP and Compustat, China has CSMAR and RESSET, and Korea
+        has no equivalent packaged for researchers in English. This page counts what exists.
+      </p>
+
+      <h2>What this counts — and what it does not</h2>
+      <div class="honest">
+        <p>
+          <b>What we counted.</b> Papers whose <i>title or abstract</i> mentions one of four terms.
+          The totals below are OpenAlex&rsquo;s own counts for each phrase.
+        </p>
+        <p>
+          <b>What this is not.</b> It is not &ldquo;every paper about Korean markets.&rdquo; A phrase
+          search admits papers that only mention the term in passing &mdash; the most-cited list below
+          includes a knowledge-management paper that happens to name KOSPI in its abstract. We leave it
+          in rather than quietly hand-picking, because once we start choosing, the list becomes our
+          judgement instead of a count.
+        </p>
+        <p>
+          <b>{수(data.inKorean)} of the indexed papers are written in Korean</b>, across
+          {' '}{수(data.koreanJournals)} Korean-language journals. They are counted in every total on
+          this page but kept out of the lists below, because this site is written in English and we do
+          not put Korean text on the screen. That share is itself the point: a meaningful part of the
+          research on Korean markets is not readable by the people who most need it.
+        </p>
+      </div>
+
+      <table class="q">
+        <caption>Search phrase &rarr; papers in OpenAlex</caption>
+        <thead><tr><th scope="col">Phrase</th><th scope="col">Papers</th></tr></thead>
+        <tbody>
+          {(data.queries ?? []).map((q: any) => (
+            <tr><th scope="row"><code>{q.phrase}</code> &mdash; {q.name}</th><td class="n">{수(q.total)}</td></tr>
+          ))}
+          <tr class="tot"><th scope="row">Sum of the four (papers can appear in more than one)</th><td class="n">{수(총합)}</td></tr>
+          <tr><th scope="row">Indexed here, duplicates removed</th><td class="n">{수(data.indexed)}</td></tr>
+        </tbody>
+      </table>
+
+      <h2>When it was written — it has not grown</h2>
+      <div class="honest">
+        <p>
+          <b>The count peaked around {peakYear} and has not recovered.</b> The four phrases together
+          reached {수(data.peak?.수)} papers in {peakYear}; {누구low ? `the low was ${수(누구low.수)} in ${누구low.해}` : 'the trough came later'},
+          and {lastYear?.해} stands at {수(lastYear?.수)} with the year still running.
+          English-language work naming Korean markets has been flat for roughly fifteen years.
+        </p>
+        <p>
+          <b>How this is counted.</b> These are OpenAlex&rsquo;s own per-phrase counts, summed &mdash;
+          a paper matching two phrases is counted twice. We cannot de-duplicate a grouped count and we
+          are not going to imply we did. Years with no papers are absent rather than drawn as zero.
+        </p>
+        <p>
+          <b>What we do not show.</b> An earlier draft of this chart used our own sample &mdash; the
+          200 most-cited and 200 newest papers per phrase &mdash; which made recent years look like a
+          record high purely because of how we sampled. That chart told a story the data does not support,
+          so it is gone.
+        </p>
+      </div>
+      <ul class="bars">
+        {(data.years ?? []).map((y: any) => (
+          <li>
+            <span class="yr">{y.해}</span>
+            <span class="bar" style={`--w:${가장큰해 ? Math.round((y.수 / 가장큰해) * 100) : 0}%`}></span>
+            <span class="n">{수(y.수)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <h2>What it is about</h2>
+      <p class="note">
+        Topics as classified by OpenAlex. {수(data.topicsTotal)} topics appear in the index;
+        the {(data.topics ?? []).length} most common are listed.
+      </p>
+      <ul class="chips">
+        {(data.topics ?? []).map((t: any) => (
+          <li><span class="t">{t.주제}</span><span class="c">{수(t.수)}</span></li>
+        ))}
+      </ul>
+
+      <h2>Where it is published</h2>
+      <p class="note">
+        {수(data.journalsTotal)} distinct journals. {수(data.journalMissing)} papers carry no journal
+        in the source record &mdash; we say so rather than counting them as zero.
+      </p>
+      <ul class="chips">
+        {(data.journals ?? []).map((j: any) => (
+          <li><span class="t">{j.이름}</span><span class="c">{수(j.수)}</span></li>
+        ))}
+      </ul>
+
+      <h2>Can the text be reused?</h2>
+      <p class="note">
+        Open access and &ldquo;you may reuse the text&rdquo; are different questions. OpenAlex records a
+        licence per copy, so we count that field rather than the access status.
+      </p>
+      <table class="q">
+        <tbody>
+          <tr><th scope="row">Text reusable (cc-by, cc-by-sa, cc0, public domain)</th><td class="n">{수(data.reuse?.쓸수있음)}</td></tr>
+          <tr><th scope="row">Licence present but restrictive (nc, nd, publisher terms)</th><td class="n">{수(data.reuse?.안됨)}</td></tr>
+          <tr><th scope="row">No licence recorded &mdash; not measured</th><td class="n">{수(data.reuse?.못쟀다)}</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Most cited</h2>
+      <p class="note">
+        Ranked by citation count in the source record. Papers with no citation count are absent from
+        this list rather than shown as zero.
+      </p>
+      <ol class="papers">
+        {(data.mostCited ?? []).map((p: any) => (
+          <li>
+            <span class="ttl">{p.doi ? <a href={`https://doi.org/${p.doi}`} rel="nofollow noopener">{p.제목}</a> : p.제목}</span>
+            <span class="meta">
+              {p.해}{p.실은곳 ? <> &middot; {p.실은곳}</> : null}{p.저자 ? <> &middot; {p.저자}</> : null}
+              {' '}&middot; cited {수(p.인용)}
+              {p.라이선스 ? <> &middot; <span class="lic">{p.라이선스}</span></> : null}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      <h2>Most recent</h2>
+      <ol class="papers">
+        {(data.newest ?? []).map((p: any) => (
+          <li>
+            <span class="ttl">{p.doi ? <a href={`https://doi.org/${p.doi}`} rel="nofollow noopener">{p.제목}</a> : p.제목}</span>
+            <span class="meta">
+              {p.해}{p.실은곳 ? <> &middot; {p.실은곳}</> : null}{p.저자 ? <> &middot; {p.저자}</> : null}
+              {Number.isInteger(p.인용) ? <> &middot; cited {수(p.인용)}</> : <> &middot; citations not recorded</>}
+            </span>
+          </li>
+        ))}
+      </ol>
+
+      <h2>Source and method</h2>
+      <p class="note">
+        Metadata from <a href="https://openalex.org" rel="nofollow noopener">OpenAlex</a>, whose data is
+        released under CC0 &mdash; public domain, no attribution required. We name it anyway.
+        Measured {data.measuredOn ?? 'date not recorded'}. Twelve API calls: four phrases, each sorted by
+        citations and by date, plus one grouped year count per phrase so the chart above shows real
+        counts rather than our sample. Titles, years, authors, journals, citation counts and licence
+        fields only; no abstracts or full text.
+      </p>
+      <p class="note">
+        This index is free and always will be. What we sell is Korean market data in English &mdash;
+        see <a href="/data">the data catalogue</a>.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 2rem 1.1rem 4rem; }
+  .kicker { font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; color: #6b7280; margin: 0 0 .4rem; }
+  h1 { font-size: clamp(1.5rem, 3.4vw, 2.1rem); line-height: 1.22; margin: 0 0 .5rem; }
+  .sample { color: #4b5563; font-size: .93rem; margin: 0 0 1.4rem; }
+  .lede { font-size: 1.02rem; line-height: 1.65; margin: 0 0 1.8rem; }
+  h2 { font-size: 1.12rem; margin: 2.1rem 0 .5rem; }
+  .note { color: #4b5563; font-size: .9rem; line-height: 1.6; margin: 0 0 .8rem; }
+  .honest { border-left: 3px solid #d1d5db; padding: .1rem 0 .1rem .9rem; margin: 0 0 1rem; }
+  .honest p { font-size: .92rem; line-height: 1.62; margin: .5rem 0; color: #374151; }
+
+  table.q { width: 100%; border-collapse: collapse; font-size: .9rem; margin: 0 0 .6rem; }
+  table.q caption { text-align: left; color: #6b7280; font-size: .82rem; padding-bottom: .35rem; }
+  table.q th, table.q td { border-bottom: 1px solid #e5e7eb; padding: .45rem .5rem; text-align: left; font-weight: 400; }
+  table.q td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  table.q tr.tot th, table.q tr.tot td { color: #6b7280; }
+  table.q code { font-size: .86em; }
+
+  ul.bars { list-style: none; margin: 0 0 .6rem; padding: 0; }
+  ul.bars li { display: grid; grid-template-columns: 3.2rem 1fr 3.4rem; align-items: center; gap: .5rem; padding: .1rem 0; }
+  ul.bars .yr { font-variant-numeric: tabular-nums; color: #4b5563; font-size: .84rem; }
+  ul.bars .bar { height: 10px; border-radius: 0 4px 4px 0; background: #1a7f4b; width: var(--w); min-width: 2px; }
+  ul.bars .n { text-align: right; font-variant-numeric: tabular-nums; font-size: .84rem; color: #374151; }
+
+  ul.chips { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: 0 0 .6rem; padding: 0; }
+  ul.chips li { display: inline-flex; align-items: baseline; gap: .4rem; border: 1px solid #e5e7eb; border-radius: 999px; padding: .2rem .6rem; font-size: .84rem; }
+  ul.chips .c { color: #6b7280; font-variant-numeric: tabular-nums; }
+
+  ol.papers { margin: 0 0 .6rem; padding-left: 1.4rem; }
+  ol.papers li { margin: 0 0 .7rem; }
+  ol.papers .ttl { display: block; font-size: .95rem; line-height: 1.45; }
+  ol.papers .meta { display: block; color: #6b7280; font-size: .82rem; margin-top: .15rem; }
+  ol.papers .lic { font-variant: small-caps; }
+  a { color: #1d4ed8; }
+
+  @media (prefers-color-scheme: dark) {
+    .sample, .note, ul.chips .c, ol.papers .meta, .kicker { color: #9ca3af; }
+    .honest { border-left-color: #374151; }
+    .honest p { color: #d1d5db; }
+    table.q th, table.q td, ul.chips li { border-color: #374151; }
+    ul.bars .bar { background: #34d399; }
+    a { color: #93b4fd; }
+  }
+</style>
