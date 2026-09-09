@@ -205,8 +205,23 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
     .cite { font-size: .82rem; }
     .cite-line { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .78rem;
                  color: var(--ink); word-break: break-word; }
-    /* 표·코드가 지면을 밀지 않게 각자 스크롤한다 */
-    .scroll-x { overflow-x: auto; }
+    /*
+     * 표·코드가 지면을 밀지 않게 각자 스크롤한다.
+     *
+     * 🔴 [2026-09-09 · 5번] **이 규칙이 죽어 있었다.** 아스트로가 레이아웃 스타일에
+     *   자기 속성을 붙여 `.scroll-x[data-astro-cid-…]` 로 내보내는데, `.scroll-x` 를 다는
+     *   것은 «지면» 쪽 요소다. 그 요소에는 레이아웃 속성이 없으니 규칙이 한 번도 안 걸렸다.
+     *
+     *   ⚠ 오랫동안 안 드러난 까닭 — 지면 표가 대개 350px 안쪽이라 390px 화면에 들어갔다.
+     *     오늘 일곱 칸짜리 표(492px)를 내자마자 드러났다. 실측 —
+     *       휴대폰 390px 에서 scrollWidth 512 · 표 넓이 492 · 부모 overflow-x: visible
+     *
+     *   ⇒ `:global()` 로 감싼다. 손님 화면이 가로로 밀리는 것은 「그릇」의 문제다.
+     * ⛔ 지면마다 자기 스타일로 다시 적어 막지 않는다 — 132장에 같은 줄을 132번 적게 된다.
+     */
+    :global(.scroll-x) { overflow-x: auto; }
+    /* 아주 긴 표는 세로로도 자기 안에서 넘긴다 — 478줄이 지면을 끝없이 늘이지 않게 */
+    :global(.scroll-x.tall) { max-height: 70vh; overflow-y: auto; }
     @media print {
       :root { --bg:#fff; --ink:#000; --muted:#444; --line:#bbb; --card:#fff; }
       .site, footer nav { display: none; }
