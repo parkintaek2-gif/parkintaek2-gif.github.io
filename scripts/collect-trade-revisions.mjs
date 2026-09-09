@@ -42,6 +42,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/* 🔴 store.put 은 로컬(archive/)과 R2 «양쪽»에 쓴다.
+ *   ⛔ writeFileSync 로 로컬에만 쓰면 이 컴퓨터가 죽는 날 소급 불가 자료가 통째로 없어진다.
+ *   ⚠ 세션간 메모에 「R2 백업 없이 로컬에만 쓰던 결함」이 세 번 적혀 있다
+ *     (신용융자 · K팝기획사 · KRX 원자료). 내가 네 번째를 만들지 않는다. */
+import { put, remoteEnabled } from '../src/lib/store.mjs';
 
 export const 스냅방 = 'archive/raw/trade-snapshots';
 export const 대장길 = 'src/data/trade-revisions.json';
@@ -160,8 +165,12 @@ export function 기간별로접기(고쳐짐) {
 }
 
 /**
- * 스냅숏 «한 벌»로도 잴 수 있는 것 — LST_CHN_DE 분포.
- * ⭐ 이 칸이 원자료에 있어서, 스냅숏이 하나뿐인 오늘도 「언제 고쳐졌나」는 낼 수 있다.
+ * LST_CHN_DE 분포 — «표 덩어리»가 언제 손질됐나.
+ *
+ * ⚠ [재서 물린 것] 처음엔 「스냅숏 한 벌로도 개정 시점을 잴 수 있다」고 적었다. 아니다.
+ *   5,260줄에 값이 두 가지뿐이다(2026-02-19 · 2026-08-18) — 줄마다가 아니라 덩어리 단위다.
+ *   ⇒ 이 함수가 내는 것은 「어느 수가 언제 고쳐졌나」가 «아니다». 표가 언제 손질됐나일 뿐이다.
+ *   ⇒ 개정 «폭»과 «어느 수»는 스냅숏 둘 이상으로만 잰다. 지면에 쓸 때 둘을 섞지 않는다.
  */
 export function 바뀐날분포(줄들) {
   const m = new Map();
@@ -317,8 +326,17 @@ if (!process.argv.includes('--안받는다')) {
       const t = await r.text();
       const j = JSON.parse(t);
       if (!Array.isArray(j)) throw new Error('배열이 아니다: ' + t.slice(0, 160));
-      fs.writeFileSync(path.join(방, `${오늘}.json`), JSON.stringify(j), 'utf8');
+      /* ⛔ writeFileSync 로 «로컬에만» 쓰지 않는다. store.put 이 archive/ 와 R2 양쪽에 쓴다.
+       *   ⚠ 세션간 메모에 「R2 백업 없이 로컬에만 쓰던 결함」이 세 번 적혀 있다
+       *     (신용융자 · K팝기획사 · KRX 원자료). 그리고 이 자료는 «소급이 안 된다» —
+       *     이 컴퓨터가 죽으면 그날까지 쌓은 것이 통째로 없어진다. 네 번째를 만들지 않는다. */
+      const res = await put(`raw/trade-snapshots/${오늘}.json`, JSON.stringify(j), 'application/json');
       console.log(`\n✅ 오늘 스냅숏 — ${오늘}.json · ${j.length.toLocaleString()}줄`);
+      console.log(`   로컬 ${res.local ? '✅' : '🔴'}`
+        + ` · R2 ${remoteEnabled ? (res.remote ? '✅' : `🔴 ${res.remoteError ?? '까닭 모름'}`) : '⬜ 꺼져 있다'}`);
+      if (remoteEnabled && !res.remote) {
+        console.log('   ⛔ R2 에 못 올렸다 — 이 자료는 소급이 안 된다. «로컬만 남았다»는 것을 적어 둔다.');
+      }
     } catch (e) {
       console.log(`\n🔴 오늘 스냅숏을 못 받았다 — ${e.message}`);
       console.log('  ⛔ 「받았다」로 적지 않는다. 다음 실행에서 다시 받는다.');
