@@ -402,6 +402,10 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-08 — 시도교육청이 하나씩 내는 2027학년도 수능 응시원서 접수 결과를
        모은다. 전국 KOSIS 표가 없어(확인함) 시도 발표를 직접 모았다 — 지금 경남·충북. */
     { path: '/csat-applicant-mix', priority: '0.7', changefreq: 'weekly' },
+    /* 🔴 2026-09-09 — 「사탐런」 씨앗. 같은 수능 지원자 안에서 탐구 과목 선택
+       구성비(사탐만/과탐만/교차)가 2026→2027학년도 어떻게 바뀌었는지 — 위
+       /csat-applicant-mix(자격별 지원자 수)와는 다른 축이다. */
+    { path: '/csat-subject-choice', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-08 — 「지방국립대 무상교육」 뉴스 씨앗. 정책 효과는 말할 수 없어
        정책 시행 «전» 기준선(국공립·사립 재학생충원율·취업률)만 pages-university.json
        재계산으로 남긴다. */

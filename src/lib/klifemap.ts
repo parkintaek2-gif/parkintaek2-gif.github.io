@@ -280,7 +280,7 @@ export const 붙일수있는갈래 = [
      샜다(5번 지적, 이미 고침). 이번엔 새 지면을 만들면서 바로 넣는다 — school·major·
      university-gap과 같은 결(입시 분석)이라 어른갈래엔 안 넣는다. */
   'csat-applicant-mix', 'university-founding-gap', 'trendy-major-outcomes', 'university-dropout-rate',
-  'university-faculty-rate', 'freshman-fill-region',
+  'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   '기타',
 ] as const;
 
