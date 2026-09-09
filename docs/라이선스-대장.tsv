@@ -42,7 +42,7 @@ research	증권사 리포트 (네이버 경로) — 목표주가·투자의견	�
 broker	증권사 자사 사이트 직접수집 — 사실만	🟡	같은 59줄 판정 + collect-broker-direct.mjs 머리 「본문·PDF 는 받지도 저장하지도 않는다」
 netflix-top10	Netflix Top10 (Tudum) 주간 순위	🟡	데이터-라이선스-대장.md 124~126줄 — 집계만 내고 원본 표는 재배포 안 함(🟢), 파일로 파는 것은 미확인(🔴)
 krx	KRX OPEN API (data-dbg.krx.co.kr · AUTH_KEY)	🔴	이용약관 제6조②「비상업적인 목적으로만」·제11조「제3자에게 제공할 수 없다」 (2026-09-09 5번 실측). ⚠ 그래도 모으는 까닭 — 공공데이터포털 판과 어긋나는지 대 보는 «내부 검산용». ⛔ 팔 파일·광고 지면에 넣지 않는다
-hankyung-consensus	한경컨센서스 (직접수집)	⬜	재배포 범위 아직 안 읽었다 — 5번이 다음에 잰다
+hankyung-consensus	한경컨센서스 (markets.hankyung.com api/v2 · 자동 호출)	🔴	한경닷컴 이용약관 제19조① 「사전 서면 허가 없이 로봇·크롤러·스크레이퍼·매크로 등 자동화 수단으로 … 수집·확인·정리·사용하는 행위를 허용하지 않습니다」 · 제11조⑤ 사전 승낙 없이 복사·복제·제공 금지 · 제22조① 저작권은 회사 귀속. (2026-09-09 5번 실측 · www.hankyung.com/help/policy?category=이용약관) ⚠ robots.txt 는 /hkapp/ 만 막는다 — robots 허용이 약관 허용이 아니다. ⛔ 2번 상품(Korea Consensus Tape) 재료라 5번이 단독으로 멈추지 않고 2번 판정을 청했다
 kosis	KOSIS 국가통계포털	⬜	아직 안 봤다
 kosis-expl	KOSIS 설명자료	⬜	아직 안 봤다
 kosis-industrial-activity-runs	KOSIS 산업활동동향 실행 마커 (우리가 만든 기록)	🟢	우리가 만든 파일이다 — 남의 자료가 아니다
