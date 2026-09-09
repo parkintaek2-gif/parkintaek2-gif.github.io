@@ -2,6 +2,7 @@
 title: "A 14-year age gap made three headlines today. Only 2 of 337 Korean groups have one that wide"
 dek: "Korean entertainment labels a couple by the years between them: 14 younger, 9 younger, 9 younger, in one morning. We measured the years inside the groups instead. The median spread from oldest to youngest member is 4 years."
 category: stars
+purpose: both
 genre: music
 pubDate: 2026-09-09
 dataAsOf: 2026-09-09T00:00:00+09:00

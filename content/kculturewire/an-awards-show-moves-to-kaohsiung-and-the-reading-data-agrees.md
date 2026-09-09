@@ -2,6 +2,7 @@
 title: "A Korean awards show is being staged in Kaohsiung. Our reading data says that is where the audience is"
 dek: "The Asia Artist Awards is running its 2026 lineup posts under the line IN KAOHSIUNG. We had measured which language edition reads Korean stars most: Chinese leads for 306 of 478. Lee Da-hee, named today, is read 2.4x more in Chinese."
 category: stars
+purpose: both
 pubDate: 2026-09-09
 dataAsOf: 2026-08-31T23:59:59+09:00
 issueAt: 2026-09-09T11:57:00+09:00

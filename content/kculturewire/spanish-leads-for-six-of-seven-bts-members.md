@@ -2,6 +2,7 @@
 title: "Spanish, not Chinese, leads for six of the seven BTS members — Jimin is the exception"
 dek: "Chinese Wikipedia is the most-read edition for 306 of 478 Korean stars. For BTS it leads for none. Spanish tops six of the seven members; Japanese tops Jimin by 4,669 reads over three months."
 category: stars
+purpose: both
 genre: music
 pubDate: 2026-09-09
 dataAsOf: 2026-08-31T23:59:59+09:00

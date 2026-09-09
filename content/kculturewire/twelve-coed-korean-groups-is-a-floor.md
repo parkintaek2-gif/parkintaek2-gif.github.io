@@ -2,6 +2,7 @@
 title: "Only 12 of 379 Korean groups have both men and women — and 12 is a floor, not a count"
 dek: "We sorted every one of the 428 Korean music groups on Wikidata by the sex recorded for each member. 185 are all-men, 182 all-women, 12 mixed. But 127 groups still contain a member with no sex recorded, so the mixed number can only go up."
 category: stars
+purpose: both
 genre: music
 pubDate: 2026-09-09
 dataAsOf: 2026-09-09T00:00:00+09:00

@@ -2,6 +2,7 @@
 title: "Chinese Wikipedia, not Japanese, is where Korean stars are read most — 306 of 478"
 dek: "We asked Wikimedia how many people opened 478 Korean entertainers' articles in 15 language editions over three months. With English set aside, Chinese leads for 306 of them and Japanese for 142. These are languages, not countries."
 category: stars
+purpose: both
 pubDate: 2026-09-09
 dataAsOf: 2026-08-31T23:59:59+09:00
 author: Newsroom

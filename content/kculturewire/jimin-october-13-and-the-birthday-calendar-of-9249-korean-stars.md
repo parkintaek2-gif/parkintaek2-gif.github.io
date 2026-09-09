@@ -2,6 +2,7 @@
 title: "Jimin's birthday is 13 October, and 25 other Korean stars share it — day 137 of 366"
 dek: "Fans are organising around 13 October. We hold full birth dates for 9,249 Korean entertainers, so we counted every calendar day. That date holds 26 people, ranking 137th of 366. Two of the busiest single days are artefacts we can name."
 category: stars
+purpose: both
 pubDate: 2026-09-09
 dataAsOf: 2026-09-09T00:00:00+09:00
 issueAt: 2026-09-09T05:30:00+09:00
