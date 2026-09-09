@@ -168,7 +168,9 @@ function 짓기() {
     product: 'Korea People Panel',
     version: 오늘,
     publisher: 'SeoulMarkets (KLifeDesign Inc.)',
-    notInvestmentAdvice: 'This file is data, not investment advice. It contains no recommendation to buy or sell anything.',
+    /* ⚠ [2026-09-09] 칸 이름을 6번 쪽에 맞춘다 — 상품마다 이름이 다르면
+       손님이 파일마다 사전을 다시 읽어야 한다. 6번의 «disclaimer» 가 더 짧고 넓다 */
+    disclaimer: 'This file is data, not investment advice. It contains no recommendation to buy or sell anything.',
     whatThisIs: `Workforce figures that Korean listed companies file with the Financial Supervisory Service, joined to KRX daily prices. ${줄들.length} companies.`,
     whatThisIsNot: [
       'Not a claim about discrimination. We publish ratios; the reasons are not in the filings.',

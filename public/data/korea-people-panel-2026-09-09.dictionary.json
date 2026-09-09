@@ -2,7 +2,7 @@
  "product": "Korea People Panel",
  "version": "2026-09-09",
  "publisher": "SeoulMarkets (KLifeDesign Inc.)",
- "notInvestmentAdvice": "This file is data, not investment advice. It contains no recommendation to buy or sell anything.",
+ "disclaimer": "This file is data, not investment advice. It contains no recommendation to buy or sell anything.",
  "whatThisIs": "Workforce figures that Korean listed companies file with the Financial Supervisory Service, joined to KRX daily prices. 2879 companies.",
  "whatThisIsNot": [
   "Not a claim about discrimination. We publish ratios; the reasons are not in the filings.",
