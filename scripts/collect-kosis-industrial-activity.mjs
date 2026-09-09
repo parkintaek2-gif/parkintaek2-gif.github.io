@@ -27,7 +27,16 @@ const k = await key();
 const org = '101';
 const 표들 = ['DT_1JH20201', 'DT_1JH20202']; // 원지수 · 계절조정지수
 
+/**
+ * ⚠ 이 표는 «매달 말» 갱신되는 한 파일(누적 24개월)이라, 다른 갈래처럼 파일 이름에
+ * 날짜가 안 박힌다. check-archive-freshness.mjs 가 «언제 마지막으로 돌았나»를 재게
+ * 돌릴 때마다 오늘 날짜 마커를 archive/raw/kosis-industrial-activity-runs/ 에 남긴다.
+ */
+const 마커방 = join(ROOT, 'archive', 'raw', 'kosis-industrial-activity-runs');
 await mkdir(OUT, { recursive: true });
+await mkdir(마커방, { recursive: true });
+
+const 최신월들 = {};
 for (const tblId of 표들) {
   const u = `https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=${k}`
     + `&orgId=${org}&tblId=${tblId}&itmId=ALL&objL1=ALL`
@@ -37,6 +46,11 @@ for (const tblId of 표들) {
   const rows = Array.isArray(j) ? j : [];
   await writeFile(join(OUT, `${tblId}.json`), JSON.stringify({ tblId, orgId: org, rows }, null, 0));
   const P = [...new Set(rows.map((r) => r.PRD_DE))].sort();
+  최신월들[tblId] = P[P.length - 1] ?? null;
   console.log(`✅ ${tblId} — ${rows.length}행 · ${P[0]}~${P[P.length - 1]}`);
   console.log('   C1:', [...new Set(rows.map((r) => r.C1_NM))].join(' | '));
 }
+
+const 오늘 = new Date();
+const 오늘꼴 = `${오늘.getFullYear()}-${String(오늘.getMonth() + 1).padStart(2, '0')}-${String(오늘.getDate()).padStart(2, '0')}`;
+await writeFile(join(마커방, `${오늘꼴}.json`), JSON.stringify({ 실행일: 오늘꼴, 최신월들 }, null, 2));
