@@ -1,0 +1,525 @@
+{
+ "builtOn": "2026. 9. 9",
+ "window": "June to August 2026",
+ "windowRaw": "20260601 ~ 20260831",
+ "source": "Wikimedia REST — pageviews/per-article, all-access, user (봇 제외) · 판별 제목은 Wikidata sitelinks",
+ "threshold": 20,
+ "people": 478,
+ "editions": 15,
+ "cellsWithNoArticle": 1511,
+ "blockedResponses": 0,
+ "whatThisIs": "For 478 Korean entertainers with articles in at least 20 Wikipedia editions, how many people opened each article in each of 15 language editions.",
+ "whatThisIsNot": [
+  "Not popularity. A page climbs for good news and bad; we report the count and never the reason.",
+  "Not a country count. Chinese Wikipedia is blocked in mainland China, and Spanish is read across Spain and Latin America. These are language editions, not nations.",
+  "Not an explanation. Nothing here says whether a language leads because of population, diaspora, or editing habits.",
+  "Not the full roster. Only people with articles in many editions are measured, and the threshold is printed."
+ ],
+ "leadTable": [
+  {
+   "code": "zh",
+   "name": "Chinese",
+   "leads": 306,
+   "share": 64
+  },
+  {
+   "code": "ja",
+   "name": "Japanese",
+   "leads": 142,
+   "share": 29.7
+  },
+  {
+   "code": "es",
+   "name": "Spanish",
+   "leads": 15,
+   "share": 3.1
+  },
+  {
+   "code": "fr",
+   "name": "French",
+   "leads": 5,
+   "share": 1
+  },
+  {
+   "code": "de",
+   "name": "German",
+   "leads": 5,
+   "share": 1
+  },
+  {
+   "code": "ru",
+   "name": "Russian",
+   "leads": 4,
+   "share": 0.8
+  },
+  {
+   "code": "th",
+   "name": "Thai",
+   "leads": 1,
+   "share": 0.2
+  }
+ ],
+ "leadersByEdition": {
+  "zh": [
+   {
+    "name": "So Ji-sub",
+    "top": 330748,
+    "second": "Japanese",
+    "secondReads": 97731,
+    "english": 390545
+   },
+   {
+    "name": "Park Eun-bin",
+    "top": 201326,
+    "second": "Japanese",
+    "secondReads": 113304,
+    "english": 286879
+   },
+   {
+    "name": "Son Na-eun",
+    "top": 185071,
+    "second": "Japanese",
+    "secondReads": 28819,
+    "english": 130412
+   },
+   {
+    "name": "Byeon Woo-seok",
+    "top": 179973,
+    "second": "Japanese",
+    "secondReads": 87529,
+    "english": 231710
+   },
+   {
+    "name": "Lim Ji-yeon",
+    "top": 165436,
+    "second": "Japanese",
+    "secondReads": 93789,
+    "english": 221743
+   },
+   {
+    "name": "Jung Hae-in",
+    "top": 155431,
+    "second": "Japanese",
+    "secondReads": 94032,
+    "english": 260828
+   },
+   {
+    "name": "Kim Go-eun",
+    "top": 134323,
+    "second": "Japanese",
+    "secondReads": 79902,
+    "english": 152892
+   },
+   {
+    "name": "Nam Joo-hyuk",
+    "top": 120024,
+    "second": "Japanese",
+    "secondReads": 42014,
+    "english": 168519
+   },
+   {
+    "name": "Hwasa",
+    "top": 112332,
+    "second": "Japanese",
+    "secondReads": 16451,
+    "english": 74292
+   },
+   {
+    "name": "Park Ji-hoon",
+    "top": 105650,
+    "second": "Japanese",
+    "secondReads": 43556,
+    "english": 126666
+   },
+   {
+    "name": "Lee Dong-wook",
+    "top": 103044,
+    "second": "Japanese",
+    "secondReads": 48942,
+    "english": 117557
+   },
+   {
+    "name": "IU",
+    "top": 102141,
+    "second": "Japanese",
+    "secondReads": 55114,
+    "english": 209510
+   }
+  ],
+  "ja": [
+   {
+    "name": "Seo In-guk",
+    "top": 86437,
+    "second": "Chinese",
+    "secondReads": 67904,
+    "english": 146683
+   },
+   {
+    "name": "Kim Jae-joong",
+    "top": 79957,
+    "second": "Chinese",
+    "secondReads": 19743,
+    "english": 26118
+   },
+   {
+    "name": "Son Ye-jin",
+    "top": 77502,
+    "second": "Chinese",
+    "secondReads": 50424,
+    "english": 158713
+   },
+   {
+    "name": "Gong Yoo",
+    "top": 75860,
+    "second": "Chinese",
+    "secondReads": 71369,
+    "english": 125963
+   },
+   {
+    "name": "Momo",
+    "top": 73360,
+    "second": "Chinese",
+    "secondReads": 22955,
+    "english": 45878
+   },
+   {
+    "name": "Park Seo-joon",
+    "top": 70447,
+    "second": "Chinese",
+    "secondReads": 37977,
+    "english": 102848
+   },
+   {
+    "name": "Han Hyo-joo",
+    "top": 68622,
+    "second": "Chinese",
+    "secondReads": 42644,
+    "english": 70859
+   },
+   {
+    "name": "Hyun Bin",
+    "top": 60812,
+    "second": "Chinese",
+    "secondReads": 34372,
+    "english": 120556
+   },
+   {
+    "name": "Taeyang",
+    "top": 60512,
+    "second": "Chinese",
+    "secondReads": 35203,
+    "english": 59553
+   },
+   {
+    "name": "Song Joong-ki",
+    "top": 58934,
+    "second": "Chinese",
+    "secondReads": 35098,
+    "english": 124863
+   },
+   {
+    "name": "Kim Ji-won",
+    "top": 54061,
+    "second": "Chinese",
+    "secondReads": 41319,
+    "english": 81164
+   },
+   {
+    "name": "Park Min-young",
+    "top": 53042,
+    "second": "Chinese",
+    "secondReads": 43027,
+    "english": 85042
+   }
+  ],
+  "es": [
+   {
+    "name": "Jungkook",
+    "top": 86913,
+    "second": "Japanese",
+    "secondReads": 74910,
+    "english": 340956
+   },
+   {
+    "name": "V",
+    "top": 83578,
+    "second": "Japanese",
+    "secondReads": 77657,
+    "english": 354780
+   },
+   {
+    "name": "Ejae",
+    "top": 72294,
+    "second": "German",
+    "secondReads": 36510,
+    "english": 296277
+   },
+   {
+    "name": "Suga",
+    "top": 35269,
+    "second": "Japanese",
+    "secondReads": 25311,
+    "english": 189302
+   },
+   {
+    "name": "Kim Seok-jin",
+    "top": 33302,
+    "second": "Japanese",
+    "secondReads": 31760,
+    "english": 199368
+   },
+   {
+    "name": "RM",
+    "top": 33159,
+    "second": "German",
+    "secondReads": 23765,
+    "english": 194021
+   },
+   {
+    "name": "J-Hope",
+    "top": 28856,
+    "second": "German",
+    "secondReads": 23035,
+    "english": 161693
+   },
+   {
+    "name": "Ken Jeong",
+    "top": 23173,
+    "second": "German",
+    "secondReads": 17057,
+    "english": 287931
+   },
+   {
+    "name": "Bang Chan",
+    "top": 21823,
+    "second": "Chinese",
+    "secondReads": 17086,
+    "english": 99209
+   },
+   {
+    "name": "Moonbin",
+    "top": 13792,
+    "second": "Chinese",
+    "secondReads": 11538,
+    "english": 49818
+   },
+   {
+    "name": "Lee Know",
+    "top": 11451,
+    "second": "Japanese",
+    "secondReads": 11001,
+    "english": 49585
+   },
+   {
+    "name": "Kim Hyun-joong",
+    "top": 9146,
+    "second": "Chinese",
+    "secondReads": 8956,
+    "english": 39114
+   }
+  ],
+  "fr": [
+   {
+    "name": "Pom Klementieff",
+    "top": 36395,
+    "second": "Japanese",
+    "secondReads": 30097,
+    "english": 209822
+   },
+   {
+    "name": "Steven Yeun",
+    "top": 15497,
+    "second": "Spanish",
+    "secondReads": 13757,
+    "english": 267234
+   },
+   {
+    "name": "Arden Cho",
+    "top": 7204,
+    "second": "Russian",
+    "secondReads": 4668,
+    "english": 216178
+   },
+   {
+    "name": "James Kyson",
+    "top": 3761,
+    "second": "Japanese",
+    "secondReads": 3106,
+    "english": 17959
+   },
+   {
+    "name": "Jenna Ushkowitz",
+    "top": 2187,
+    "second": "Spanish",
+    "secondReads": 1666,
+    "english": 28979
+   }
+  ],
+  "de": [
+   {
+    "name": "Daniel Dae Kim",
+    "top": 19421,
+    "second": "French",
+    "secondReads": 17011,
+    "english": 263923
+   },
+   {
+    "name": "Paul Sun-Hyung Lee",
+    "top": 10118,
+    "second": "French",
+    "secondReads": 6148,
+    "english": 134151
+   },
+   {
+    "name": "Sumi Jo",
+    "top": 6663,
+    "second": "French",
+    "secondReads": 2112,
+    "english": 11466
+   },
+   {
+    "name": "Linda Park",
+    "top": 4030,
+    "second": "French",
+    "secondReads": 1086,
+    "english": 27423
+   },
+   {
+    "name": "Soon-Tek Oh",
+    "top": 2041,
+    "second": "Japanese",
+    "secondReads": 1466,
+    "english": 14969
+   }
+  ],
+  "ru": [
+   {
+    "name": "Kim Ki-duk",
+    "top": 5409,
+    "second": "Chinese",
+    "secondReads": 4617,
+    "english": 16467
+   },
+   {
+    "name": "Oh Yeong-su",
+    "top": 4091,
+    "second": "Japanese",
+    "secondReads": 3479,
+    "english": 11422
+   },
+   {
+    "name": "Ki-hong Lee",
+    "top": 3097,
+    "second": "Chinese",
+    "secondReads": 3013,
+    "english": 28009
+   },
+   {
+    "name": "AleXa",
+    "top": 908,
+    "second": "Spanish",
+    "secondReads": 596,
+    "english": 11647
+   }
+  ],
+  "th": [
+   {
+    "name": "JAY B",
+    "top": 9828,
+    "second": "Chinese",
+    "secondReads": 7464,
+    "english": 19411
+   }
+  ]
+ },
+ "zhOverJa": {
+  "count": 59,
+  "rule": "Chinese reads at least 3x Japanese reads",
+  "top": [
+   {
+    "name": "So Ji-sub",
+    "zh": 330748,
+    "ja": 97731,
+    "times": 3.4,
+    "english": 390545
+   },
+   {
+    "name": "Son Na-eun",
+    "zh": 185071,
+    "ja": 28819,
+    "times": 6.4,
+    "english": 130412
+   },
+   {
+    "name": "Hwasa",
+    "zh": 112332,
+    "ja": 16451,
+    "times": 6.8,
+    "english": 74292
+   },
+   {
+    "name": "Koo Kyo-hwan",
+    "zh": 89647,
+    "ja": 29027,
+    "times": 3.1,
+    "english": 96556
+   },
+   {
+    "name": "Jun Ji-hyun",
+    "zh": 76214,
+    "ja": 25541,
+    "times": 3,
+    "english": 150132
+   },
+   {
+    "name": "Kim Hye-yoon",
+    "zh": 67738,
+    "ja": 18589,
+    "times": 3.6,
+    "english": 69618
+   },
+   {
+    "name": "Gong Hyo-jin",
+    "zh": 63010,
+    "ja": 17105,
+    "times": 3.7,
+    "english": 73448
+   },
+   {
+    "name": "Ong Seongwu",
+    "zh": 57870,
+    "ja": 19452,
+    "times": 3,
+    "english": 88012
+   },
+   {
+    "name": "Yoo Jae-suk",
+    "zh": 44890,
+    "ja": 5905,
+    "times": 7.6,
+    "english": 45274
+   },
+   {
+    "name": "Lee Hyori",
+    "zh": 42866,
+    "ja": 8066,
+    "times": 5.3,
+    "english": 63025
+   },
+   {
+    "name": "Choi Siwon",
+    "zh": 39294,
+    "ja": 10256,
+    "times": 3.8,
+    "english": 36144
+   },
+   {
+    "name": "Jung Eun-chae",
+    "zh": 36305,
+    "ja": 7386,
+    "times": 4.9,
+    "english": 38266
+   }
+  ]
+ }
+}

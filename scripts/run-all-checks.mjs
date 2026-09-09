@@ -188,6 +188,7 @@ export const 단계들 = [
   "node scripts/check-archive-freshness.mjs",
   "node scripts/collect-kcw-language-reads.mjs --자가시험",
   "node scripts/build-kcw-group-mix.mjs --자가시험",
+  "node scripts/build-kcw-language-reads.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */

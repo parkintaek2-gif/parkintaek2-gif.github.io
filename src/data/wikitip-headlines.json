@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-08 18:35 KST",
+  "generated": "2026-09-09 11:22 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 136,
-    "머리글있음": 136,
+    "본지면": 139,
+    "머리글있음": 139,
     "머리글없음": 0
   },
   "missing": [],
@@ -51,6 +51,7 @@
     "/for-industry": "For rights holders, distributors and broadcasters",
     "/generations": "Do the K-pop generation labels show up in the reading?",
     "/group-afterlife": "How long a K-pop group stays looked up after its peak",
+    "/group-mix": "Only 12 of 379 Korean groups have both men and women",
     "/group": "Kpop idols by group — age and birthday, member by member",
     "/half-life": "Goblin kept half its readers for seven months. The median Korean title keeps them two",
     "/hard-markets": "Which markets only take the wide Korean titles — and which take the narrow ones too",
@@ -95,6 +96,7 @@
     "/rank-shape": "Korean titles: 8% of Netflix #1 places, 7.3% of #10",
     "/rank-tells": "What a chart position does not tell you about how much was watched",
     "/reach": "How far Korean titles travel in Southeast Asia",
+    "/read-in": "Chinese, not Japanese, leads for 306 of 478 Korean stars",
     "/read-vs-visited": "Seoul has 25 districts. The tourist count can speak for five of them",
     "/refund": "Refund policy",
     "/returns": "When a Korean title comes back to a chart it had left",
@@ -104,6 +106,7 @@
     "/school": "Where Korean actors and singers studied",
     "/screen-split": "Korea exports television to the world, not film",
     "/sea-athletes": "Indonesia and Thailand look up Son Heung-min. Vietnam looks up Faker",
+    "/service-years": "525 men and 611 women across 428 K-pop groups, by birth year",
     "/siblings": "Two shows from one Korean company on the same chart cost each other half a place",
     "/spread": "What gets read across Southeast Asia, and what gets read in one country",
     "/star-sign-pairs": "Which star signs actually end up in the same K-pop group",
