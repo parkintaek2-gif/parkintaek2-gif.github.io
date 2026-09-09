@@ -31,6 +31,7 @@
  * 그래서 오늘은 공지만 하고 시행은 2주 뒤다. 응답 헤더로 미리 알려 준다.
  * 이 날짜를 앞당기지 말 것 — 앞당기는 순간 우리가 한 말이 지켜지지 않은 게 된다.
  */
+import { pathToFileURL } from 'node:url';
 
 /** 한도 시행 개시일 (KST). 이날 00:00 부터 429 를 돌려준다. */
 export const ENFORCE_FROM = '2026-08-17';
@@ -46,6 +47,62 @@ export const LIMITS = {
     maxPageSize: 1000,
     /** RapidAPI 요금제가 분당·월간 쿼터를 건다. 우리 쪽에서 또 조이면 이중 제한이 된다 */
     perMinute: null,
+  },
+};
+
+/**
+ * 🔴 [2026-09-09 · 1번] **P7 카탈로그가 쓸 요금 구간 — 칸만, 값은 없다.**
+ *
+ * ── 왜 값을 안 넣나 ─────────────────────────────────────────────
+ * 5번 지시: 「값 없이 칸만 잡아 달라」. 2번의 정정을 5번이 받아들인 것이 근거다 —
+ * 「파일 내려받기(P4)가 09-23, 열쇠 인증(P6)이 10-03인데 값부터 걸면
+ *   ‘판다고 해놓고 못 준다’는 신뢰 문제가 생긴다」(Ⅶ-2-2 절 참고).
+ * **그래서 `price` 는 전 구간 `null` 이고, `status` 가 「지금 무엇이 되는가」를 말한다.**
+ * P7 이 값을 걸 준비가 되면 이 자리에 숫자만 채운다 — 칸 이름은 안 바뀐다.
+ *
+ * ── 위 `LIMITS`(free/pro) 와의 관계 ────────────────────────────
+ * `LIMITS` 는 **지금 실제로 강제되는 두 갈래**(RapidAPI 프록시 시크릿 · 자체 열쇠)다.
+ * 이 카탈로그는 **손님에게 보여 줄 이름표**다 — free → Free, pro → 아직 하나뿐이라
+ * Developer 로 부른다. Team·Enterprise 는 **아직 아무 코드도 강제하지 않는다**
+ * (LIMITS 에 없다) — 이름과 칸만 미리 잡아 두는 것이지 지어내는 것이 아니다.
+ * ⛔ 카탈로그에 없는 `LIMITS` 키가 생기면(혹은 반대) 자가시험이 잡는다.
+ */
+export const TIER_CATALOG = {
+  free: {
+    name: 'Free',
+    monthlyRequestQuota: null,   // perMinute 로만 재고 있다 — 월간 총량은 아직 안 잰다
+    maxPageSize: LIMITS.free.maxPageSize,
+    filesIncluded: false,       // P4(파일 4종)는 이 구간에 안 딸린다
+    supportChannel: 'community',
+    price: null,
+    status: 'available',
+  },
+  pro: {
+    name: 'Developer',
+    monthlyRequestQuota: null,  // RapidAPI 요금제가 매기게 될 자리 — 아직 값 없음
+    maxPageSize: LIMITS.pro.maxPageSize,
+    filesIncluded: false,
+    supportChannel: 'email',
+    price: null,
+    status: 'available',        // 자체 발급(apikeys.mjs)로 지금도 받을 수 있다(free 등급으로)
+  },
+  team: {
+    name: 'Team',
+    monthlyRequestQuota: null,
+    maxPageSize: null,
+    filesIncluded: true,        // P4 파일 4종 포함 예정
+    supportChannel: 'email',
+    price: null,
+    status: 'coming_soon',      // ⛔ P4 내려받기 지면이 없어 아직 못 준다(6번 몫)
+  },
+  enterprise: {
+    name: 'Enterprise',
+    monthlyRequestQuota: null,
+    maxPageSize: null,
+    filesIncluded: true,
+    supportChannel: 'dedicated',
+    price: null,
+    status: 'coming_soon',
   },
 };
 
@@ -139,3 +196,22 @@ export const TIER_NOTE = {
   policy:
     'Limits are published before they are enforced. Until the date above, requests over the limit are counted and reported in the response headers but never rejected, so you can size your integration before anything breaks.',
 };
+
+/* node src/lib/tiers.mjs --selftest */
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (process.argv.includes('--selftest')) {
+    let 실패 = 0;
+    const 확인 = (설명, 참) => { if (!참) { 실패 += 1; console.error('✖', 설명); } else { console.log('✔', 설명); } };
+
+    for (const key of Object.keys(LIMITS)) {
+      확인(`① LIMITS.${key} 는 TIER_CATALOG 에도 있다`, key in TIER_CATALOG);
+    }
+    for (const [key, t] of Object.entries(TIER_CATALOG)) {
+      확인(`② TIER_CATALOG.${key} 의 price 는 아직 null 이다(값 없이 칸만)`, t.price === null);
+      확인(`③ TIER_CATALOG.${key} 의 status 가 available|coming_soon 중 하나다`, ['available', 'coming_soon'].includes(t.status));
+      확인(`④ TIER_CATALOG.${key} 의 name 이 비어있지 않다`, typeof t.name === 'string' && t.name.length > 0);
+    }
+    console.log(실패 === 0 ? `\ntiers.mjs 자가시험 통과` : `\n실패 ${실패}건`);
+    process.exit(실패 === 0 ? 0 : 1);
+  }
+}

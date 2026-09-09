@@ -59,7 +59,7 @@ import {
 import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
 import { TRADE } from './trade-data.mjs';
-import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE } from './tiers.mjs';
+import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
 import { 발급 as 열쇠발급 } from './apikeys.mjs';
@@ -598,6 +598,9 @@ async function meta() {
      * 값은 tiers.mjs 하나에서 온다. 두 곳에 적으면 반드시 어긋난다(오늘만 세 번 겪었다).
      */
     tiers: TIER_NOTE,
+    /* 🔴 [2026-09-09 · 1번] P7 카탈로그 몫 — 값 없이 칸만(tiers.mjs TIER_CATALOG 참고).
+       team·enterprise 는 status:"coming_soon" 이다. 여기서도 두 곳에 안 적는다. */
+    tier_catalog: TIER_CATALOG,
     contract: {
       policy:
         'Fields may be added within v1. Fields are never removed or renamed within v1 — a breaking change ships as /v2.',
