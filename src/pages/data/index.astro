@@ -20,10 +20,10 @@
  * ⛔ 앞서 이 지면은 «주제»로 묶여 있었다 — 리서치·목표주가·업종·사람·무역이 한 줄로 늘어섰다.
  *   그러면 손님이 「지금 당장 받아 갈 수 있는 것」과 「아직 못 받는 것」을 못 가른다.
  * ✅ 그래서 넷으로 묶는다. **손님이 우리에게 오는 말에 맞춘 축이다.**
- *     ① Read here   지금 열어 보는 것 (무료 지면 — 셈이 다 적혀 있다)
- *     ② Download    지금 받아 가는 것 (무료 CSV · 한 번 사는 파일)
- *     ③ Licensed    판을 찍어 보내는 파일 (내려받기 지면은 P4 · 09-23)
- *     ④ Live API    도는 것에 붙는 것
+ *     1. Read here   지금 열어 보는 것 (무료 지면 — 셈이 다 적혀 있다)
+ *     2. Download    지금 받아 가는 것 (무료 CSV · 한 번 사는 파일)
+ *     3. Licensed    판을 찍어 보내는 파일 (내려받기 지면은 P4 · 09-23)
+ *     4. Live API    도는 것에 붙는 것
  *
  * ⛔ 값을 아직 화면에 안 거는 상품이 있다 — 2번 판정(2026-09-09)을 따른다.
  *   「손님이 «스스로 받아 갈 수 있게» 된 뒤에 값을 건다. 그 전에 걸면 판다고 해놓고
@@ -38,6 +38,21 @@ const TITLE = 'Data for licence';
 const DESC =
   'Datasets SeoulMarkets builds from Korean public filings and sells, grouped by how you receive '
   + 'them: pages you can read now, files you can download now, licensed files, and a live API.';
+
+/**
+ * 카드에 붙는 «배달 종류» 이름표.
+ *
+ * ⭐ [2026-09-09 20:0x · 5번] FactSet 상품 카탈로그를 열어 재서 가져온 것이다.
+ *   409상품 목록에서 낱개 카드마다 「Platform」·「Data Feed」가 붙어 있었다.
+ *   ⇒ 묶음 머리까지 올라가지 않고 **카드 하나만 보고** 무엇인지 안다.
+ * ⚠ 우리는 상품이 열일곱이라 걸름 단추는 아직 필요 없다. 이름표만 가져온다.
+ */
+const 이름표 = {
+  read: 'Free page',
+  download: 'File',
+  licensed: 'Licensed file',
+  api: 'API',
+};
 
 /* ⭐ 축 = 「어떻게 받아 가나」. 순서가 뜻을 갖는다 — 지금 받을 수 있는 것이 위다. */
 const 묶음 = [
@@ -219,10 +234,20 @@ const 묶음 = [
           <ul class="cards">
             {g.items.map((p) => (
               <li class="card">
+                {/* ⭐ [2026-09-09 20:0x · 5번] 카드마다 «배달 종류» 이름표를 붙인다.
+                    FactSet 카탈로그(409상품) 실측에서 가져온 것이다 — 낱개 카드마다
+                    「Platform」·「Data Feed」가 붙어 있어, 목록을 훑는 눈이 «지금 받을 수
+                    있나»를 카드 하나만 보고 안다. 묶음 머리로 갔다 와야 알던 것을 없앤다. */}
+                <p class="badge">{이름표[g.key]}</p>
                 <h3><a href={p.href}>{p.name}</a></h3>
                 <p class="one">{p.one}</p>
                 <div class="foot">
-                  <span class="price" data-free={/^Free/.test(p.price) ? '' : undefined}>{p.price}</span>
+                  {/* ⚠ [2026-09-09 20:1x · 5번] 이름표를 붙이고 «눈으로 보니» 「FREE PAGE」가
+                      위아래로 두 번 나왔다. 값 칸이 이름표와 같은 말이면 안 낸다.
+                      ⛔ 렌더해서 보지 않았으면 이 겹침을 못 봤다 — 사장님 「만들면 눈으로 본다」. */}
+                  {p.price !== 이름표[g.key]
+                    ? <span class="price" data-free={/^Free/.test(p.price) ? '' : undefined}>{p.price}</span>
+                    : <span class="price price--none" aria-hidden="true"></span>}
                   {p.download
                     ? <a class="go" href={p.href} download>{p.cta} →</a>
                     : <a class="go" href={p.href}>{p.cta} →</a>}
@@ -270,6 +295,9 @@ const 묶음 = [
    *     그러면 같은 줄의 값과 단추가 한 선에 온다. */
   .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; background: var(--card);
           display: flex; flex-direction: column; }
+  /* 배달 종류 이름표 — 카드 하나만 보고 「지금 받을 수 있나」를 안다 (FactSet 실측) */
+  .badge { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
+           color: var(--muted); margin: 0 0 .45rem; }
   .card h3 { font-size: 1.06rem; margin: 0 0 .5rem; letter-spacing: -.01em; line-height: 1.3; }
   .card h3 a { color: var(--ink); text-decoration: none; }
   .card h3 a:hover { color: var(--accent); }
