@@ -114,11 +114,69 @@ export function 한글있나(글) {
   return /[ㄱ-ㆎ가-힣]/.test(String(글 ?? ''));
 }
 
+/**
+ * 한 사람의 «줄» — 1위 판·2위 판·영어. 478명 전부를 이 꼴로 낸다.
+ *
+ * ⭐ [2026-09-09] 왜 전부 내나 — 앞서는 판마다 위 열두 명만 냈다. 그래서 어떤 사람의 줄을
+ *   지면에서 보이려면 «그 사람을 고르는» 코드를 새로 넣어야 했다. 고르면 그 고름이 결과가 된다.
+ *   ⛔ 「BTS 일곱만 담자」 같은 생각이 그것이다. 담을 이유가 이번 기사이므로, 다음 기사에서는
+ *     다른 일곱을 담게 되고, 지면은 기사를 따라 흔들린다.
+ *   ⇒ 478명을 다 낸다. 고를 일이 없어진다.
+ * ⛔ en 은 «1위 다툼»에서 빼지만 줄에는 싣는다 — 숨기고 빼면 속임이다.
+ * ⛔ 수가 아닌 칸은 null 로 둔다. 0 으로 채우면 「아무도 안 열었다」가 되어 버린다.
+ */
+/**
+ * 지면에 낼 «이름» — 영문으로만.
+ *
+ * 🔴 [2026-09-09] 478명 표를 낸 뒤에 영어 지면 검사가 잡았다 — 카리나·윈터·카이 세 사람의
+ *   Wikidata 이름표가 한국어였다. 그대로 실으면 영어권 손님 화면에 한국어가 뜬다.
+ * ⇒ `src/data/kcw-english-names.json` 의 영문 이름표(labels.en)나 영문 위키 문서 제목을 쓴다.
+ * ⛔ 내가 로마자로 «옮겨 적지» 않는다 — 이름 표기는 지어낼 것이 아니다.
+ * ⛔ 영문 이름이 없으면 그 사람을 «조용히 빼지» 않는다. 못 쟀다고 표시해 그대로 싣는다 —
+ *   빼면 478명이 아닌 표가 되고, 그 사실이 아무 데도 안 남는다.
+ */
+export function 낼이름(사람, 이름지도 = {}) {
+  const 원 = String(사람?.name ?? '');
+  const 한글 = /[ㄱ-ㆎ가-힣]/.test(원);
+  if (!한글) return { name: 원, nameIsEnglish: true };
+  const 것 = 이름지도[사람?.q];
+  const 영 = 것?.label || 것?.enwiki || null;
+  if (영 && !/[ㄱ-ㆎ가-힣]/.test(영)) return { name: 영, nameIsEnglish: true };
+  /* ⬜ 못 쟀다 — 이름을 지어내지 않고, 있는 것을 숨기지도 않는다 */
+  return { name: 사람?.q ?? '—', nameIsEnglish: false };
+}
+
+export function 사람줄(사람, { 뺄판 = 'en', 이름지도 = {} } = {}) {
+  if (!사람 || !사람.수들) return null;
+  const 수들 = 사람.수들;
+  const 정 = Object.entries(수들)
+    .filter(([판, v]) => 판 !== 뺄판 && Number.isFinite(v))
+    .sort((a, b) => b[1] - a[1]);
+  const 첫 = 정[0]; const 둘 = 정[1];
+  return {
+    ...낼이름(사람, 이름지도),
+    topCode: 첫 ? 첫[0] : null,
+    top: 첫 ? 이름내기(첫[0]) : null,
+    topReads: 첫 ? 첫[1] : null,
+    secondCode: 둘 ? 둘[0] : null,
+    second: 둘 ? 이름내기(둘[0]) : null,
+    secondReads: 둘 ? 둘[1] : null,
+    english: Number.isFinite(수들[뺄판]) ? 수들[뺄판] : null,
+    /* 1위가 2위를 얼마나 앞서나 — 「이겼다」만 내고 «차»를 감추지 않는다 */
+    margin: (첫 && 둘) ? 첫[1] - 둘[1] : null,
+    editions: 정.length,
+  };
+}
+
 function 짓기() {
   const f = 최근파일(fs.readdirSync(방));
   if (!f) throw new Error('language-reads 파일이 없다 — collect-kcw-language-reads.mjs 를 먼저 돌린다');
   const o = JSON.parse(fs.readFileSync(path.join(방, f), 'utf8'));
   const 사 = (o.사람 ?? []).filter((x) => x.수들);
+  /* 영문 이름표 — 없으면 빈 지도로 두고, 한국어 이름은 낼이름() 이 「못 쟀다」로 표시한다 */
+  const 이름길 = path.join(뿌리, 'src/data/kcw-english-names.json');
+  const 이름지도 = fs.existsSync(이름길)
+    ? (JSON.parse(fs.readFileSync(이름길, 'utf8')).지도 ?? {}) : {};
 
   const 셈 = 으뜸셈(사);
   const 판순 = Object.entries(셈).sort((a, b) => b[1] - a[1])
@@ -167,6 +225,10 @@ function 짓기() {
     leadTable: 판순,
     leadersByEdition: 판별사람,
     zhOverJa: { count: 셋배넘.length, rule: 'Chinese reads at least 3x Japanese reads', top: 셋배넘.slice(0, 12) },
+    /* ⭐ 478명 «전부». 위 leadersByEdition 은 판마다 열두 명만 담아서, 어떤 사람의 줄을
+       지면에서 보이려면 그 사람을 고르는 코드가 필요했다. 전부 담아 고를 일을 없앤다. */
+    allRows: 사.map((x) => 사람줄(x, { 이름지도 })).filter(Boolean)
+      .sort((a, b) => (b.english ?? 0) - (a.english ?? 0)),
   };
 
   fs.mkdirSync(path.dirname(낼길), { recursive: true });
@@ -194,6 +256,41 @@ if (나 && process.argv.includes('--자가시험')) {
   검('한글있나 — 영어만이면 안 잡는다', 한글있나('bots excluded') === false);
   검('한글있나 — null 도 견딘다', 한글있나(null) === false);
   검('🔴 지면에 낼 출처에 한글이 없다', 한글있나(지면에낼우물()) === false);
+  /* ⭐ 사람줄 — 478명을 다 내는 꼴. 고르지 않으려고 만든 자다 */
+  const 줄 = 사람줄({ name: 'X', 수들: { en: 900, es: 500, ja: 400, zh: 100 } });
+  검('사람줄 — 1위와 2위를 낸다', 줄.topCode === 'es' && 줄.secondCode === 'ja');
+  검('사람줄 — 1위 다툼에서 en 을 뺀다', 줄.topCode !== 'en');
+  검('사람줄 — 그래도 en 을 줄에 싣는다 (숨기지 않는다)', 줄.english === 900);
+  검('사람줄 — 1위와 2위의 «차»를 낸다', 줄.margin === 100);
+  검('사람줄 — 판 이름을 영문으로 낸다', 줄.top === 'Spanish' && 줄.second === 'Japanese');
+  검('⛔ 사람줄 — 수 아닌 칸을 0 으로 채우지 않는다', (() => {
+    const r = 사람줄({ name: 'Y', 수들: { en: null, ja: 5 } });
+    return r.english === null && r.topCode === 'ja';
+  })());
+  검('⛔ 사람줄 — 판이 하나면 2위는 null (지어내지 않는다)', (() => {
+    const r = 사람줄({ name: 'Z', 수들: { ja: 5 } });
+    return r.secondCode === null && r.margin === null;
+  })());
+  검('⛔ 사람줄 — 빈 것도 견딘다', 사람줄(null) === null && 사람줄({ name: 'A' }) === null);
+
+  /* 🔴 [2026-09-09] 지면에 한국어 이름이 나갔다 — 그 결함을 검사로 굳힌다 */
+  검('낼이름 — 영문 이름은 그대로', 낼이름({ name: 'Jimin' }).name === 'Jimin');
+  검('🔴 낼이름 — 한국어 이름을 영문 이름표로 바꾼다',
+    낼이름({ q: 'Q1', name: '카이' }, { Q1: { label: 'Kai', enwiki: 'Kai (singer)' } }).name === 'Kai');
+  검('낼이름 — 이름표가 없으면 영문 문서 제목을 쓴다',
+    낼이름({ q: 'Q1', name: '윈터' }, { Q1: { label: null, enwiki: 'Winter (singer)' } }).name === 'Winter (singer)');
+  검('⛔ 낼이름 — 영문 이름이 없으면 «못 쟀다»로 표시하고 빼지 않는다', (() => {
+    const r = 낼이름({ q: 'Q9', name: '카리나' }, {});
+    return r.name === 'Q9' && r.nameIsEnglish === false;
+  })());
+  검('⛔ 낼이름 — 영문이라던 이름표에 한글이 섞였으면 안 믿는다',
+    낼이름({ q: 'Q1', name: '카이' }, { Q1: { label: '카이 Kai' } }).nameIsEnglish === false);
+  검('낼이름 — 영문이면 참으로 표시한다', 낼이름({ name: 'V' }).nameIsEnglish === true);
+  검('🔴 사람줄이 낸 이름에 한글이 없다', (() => {
+    const r = 사람줄({ q: 'Q1', name: '카이', 수들: { en: 9, zh: 5 } }, { 이름지도: { Q1: { label: 'Kai' } } });
+    return r.name === 'Kai' && !한글있나(r.name);
+  })());
+
   검('지면에 낼 출처가 무엇을 셌는지 밝힌다',
     /pageviews/.test(지면에낼우물()) && /bots excluded/.test(지면에낼우물()) && /sitelinks/.test(지면에낼우물()));
 

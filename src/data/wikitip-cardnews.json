@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-08T03:56:14.846Z",
+  "generated": "2026-09-09T04:46:32.871Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -1857,6 +1857,23 @@
       ]
     },
     {
+      "set": "spanish-leads-for-six-of-seven-bts-members",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "squid-game-cast-second-biggest-title",
       "sq": [
         1,
@@ -2808,23 +2825,30 @@
       ]
     }
   ],
-  "setCount": 167,
-  "imageCount": 1634,
+  "setCount": 168,
+  "imageCount": 1644,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "a-korean-chart-life-is-three-weeks-and-unbroken",
+    "age-gaps-make-headlines-groups-carry-them-quietly",
+    "an-awards-show-moves-to-kaohsiung-and-the-reading-data-agrees",
     "brands-are-not-one-thing",
+    "chinese-not-japanese-reads-korean-stars",
     "crash-landing-on-you-72-weeks-in-japan",
     "december-looking-june-quiet",
     "device-is-not-age-for-korean-acts",
     "fan-votes-and-encyclopedia-reads-disagree",
+    "five-agencies-one-day-and-what-a-label-count-cannot-say",
     "january-peaks-september-does-not",
+    "jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars",
     "kpop-generation-lines-are-a-year-off",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "only-four-countries-come-close-to-all-korean",
     "the-ceiling-and-the-band",
-    "the-instrument-was-wrong-not-the-question"
+    "the-instrument-was-wrong-not-the-question",
+    "twelve-coed-korean-groups-is-a-floor",
+    "what-the-record-cannot-see-about-nationality"
   ]
 }

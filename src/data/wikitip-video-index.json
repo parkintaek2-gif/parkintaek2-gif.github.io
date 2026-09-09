@@ -1,11 +1,11 @@
 {
-  "generated": "2026-09-08T12:51+09:00",
+  "generated": "2026-09-09T13:45+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 40,
+    "영상": 37,
     "짝찾음": 36,
-    "짝못찾음": 4,
+    "짝못찾음": 1,
     "두지면에걸린것": 0,
     "지면에서읽음": 36
   },
@@ -161,13 +161,13 @@
       "alsoOn": []
     },
     {
-      "set": "malaysia",
-      "src": "/video/malaysia.mp4",
-      "thumb": "/video/thumb/malaysia.jpg",
+      "set": "lopsided",
+      "src": "/video/lopsided.mp4",
+      "thumb": "/video/thumb/lopsided.jpg",
       "seconds": 14,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
+      "page": "/attention-share",
+      "says": "Fourteen seconds, read aloud: seven hundred seventy four Korean acts drew two point six seven million English Wikipedia reads in the single month of August twenty twenty six, and twenty four of those acts hold half of it. The bottom half of the list — three hundred eighty seven acts together — holds three point one percent, the same share as the top three point one percent. The act in the middle was read five hundred nineteen times in the month. These are encyclopaedia pages being opened, not tickets, not streams and not money, and we hold no revenue data for any act on this page.",
+      "saysFrom": "built page",
       "alsoOn": []
     },
     {
@@ -231,16 +231,6 @@
       "alsoOn": []
     },
     {
-      "set": "outside",
-      "src": "/video/outside.mp4",
-      "thumb": "/video/thumb/outside.jpg",
-      "seconds": 14,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
-      "alsoOn": []
-    },
-    {
       "set": "outside-voiced",
       "src": "/video/outside-voiced.mp4",
       "thumb": "/video/thumb/outside-voiced.jpg",
@@ -248,16 +238,6 @@
       "page": "/places",
       "says": "Fourteen seconds, read aloud: we published the Battle of Khe Sanh as the most-read Korean place in Vietnamese, and it was fought in Vietnam. Nineteen of our two thousand two hundred and thirty-eight places are not in Korea at all, which our own first check did not catch.",
       "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
-      "set": "places",
-      "src": "/video/places.mp4",
-      "thumb": "/video/thumb/places.jpg",
-      "seconds": 14,
-      "page": null,
-      "says": null,
-      "saysFrom": null,
       "alsoOn": []
     },
     {
@@ -307,16 +287,6 @@
       "seconds": 14,
       "page": "/look-vs-fly",
       "says": "A man and a woman read out the two peak months and the one month both sides fall lowest — June.",
-      "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
-      "set": "shelf",
-      "src": "/video/shelf.mp4",
-      "thumb": "/video/thumb/shelf.jpg",
-      "seconds": 14,
-      "page": "/what-kind-fell",
-      "says": "A man and a woman read out the two medians side by side — the Korean articles and the Japanese ones beside them — and say plainly that both fell.",
       "saysFrom": "built page",
       "alsoOn": []
     },
@@ -401,12 +371,12 @@
       "alsoOn": []
     },
     {
-      "set": "lopsided",
-      "src": "/video/lopsided.mp4",
-      "thumb": "/video/thumb/lopsided.jpg",
+      "set": "editions-voiced",
+      "src": "/video/editions-voiced.mp4",
+      "thumb": "/video/thumb/editions-voiced.jpg",
       "seconds": 14,
-      "page": "/attention-share",
-      "says": "Fourteen seconds, read aloud: seven hundred seventy four Korean acts drew two point six seven million English Wikipedia reads in the single month of August twenty twenty six, and twenty four of those acts hold half of it. The bottom half of the list — three hundred eighty seven acts together — holds three point one percent, the same share as the top three point one percent. The act in the middle was read five hundred nineteen times in the month. These are encyclopaedia pages being opened, not tickets, not streams and not money, and we hold no revenue data for any act on this page.",
+      "page": "/read-in",
+      "says": "Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 reads. The film says on screen that these are language editions and not countries.",
       "saysFrom": "built page",
       "alsoOn": []
     }

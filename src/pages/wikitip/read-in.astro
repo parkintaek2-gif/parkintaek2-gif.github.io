@@ -14,6 +14,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import data from '../../data/kcw-language-reads.json';
 
 const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
@@ -171,6 +172,60 @@ const 좁은판 = 표.filter((x) => x.leads > 0 && x.leads < 20 && x.code !== 'e
       documented people and not Korean entertainers in general.
     </p>
   </section>
+
+  {data.allRows && (
+    <section>
+      <h2>All {수(data.allRows.length)} people, one row each</h2>
+      <p class="note">
+        <b>Every person we measured, not a selection.</b> Sorted by English reads, because that
+        is the one edition every person here shares. “Leads” sets English aside; the margin
+        column is how far ahead of the next edition that lead is.
+      </p>
+      <p class="warn">
+        <b>Read the margin before quoting the winner.</b> Some leads are enormous and some are a
+        few hundred reads over three months. A lead of 1,542 is a different fact from a lead of
+        330,000, and a table that printed only the winner would hide that.
+      </p>
+      <p class="note">
+        <b>Names are Wikidata's English label, not our transliteration.</b> Three people in this
+        panel are recorded only under a Korean name, and rather than romanising them ourselves we
+        take the English label the record already holds. If a row ever shows an identifier
+        beginning with Q, that means no English name is recorded for that person and we would
+        rather show you the gap than invent a spelling.
+        {data.allRows.filter((r) => r.nameIsEnglish === false).length === 0
+          ? ' No row is in that state today.'
+          : ` ${data.allRows.filter((r) => r.nameIsEnglish === false).length} rows are in that state.`}
+      </p>
+      <div class="scroll-x tall">
+        <table>
+          <thead>
+            <tr>
+              <th>Person</th><th>Leads in</th><th>Reads</th>
+              <th>Next edition</th><th>Reads</th><th>Lead by</th><th>English</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.allRows.map((r) => (
+              <tr>
+                <td class="nm">{r.name}</td>
+                <td>{r.top ?? '—'}</td>
+                <td class="tot">{수(r.topReads)}</td>
+                <td>{r.second ?? '—'}</td>
+                <td>{수(r.secondReads)}</td>
+                <td class="tot">{수(r.margin)}</td>
+                <td class="fine">{수(r.english)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  <KcwShorts set="editions-voiced"
+    says={`Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven `
+      + `BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 `
+      + `reads. The film says on screen that these are language editions and not countries.`} />
 
   <KcwRelatedArticles page="/read-in" />
 

@@ -476,6 +476,13 @@ const videoSets = [
       + 'that is indistinguishable from chance.',
   },
   {
+    set: 'editions-voiced',
+    page: '/read-in',
+    title: 'Chinese Wikipedia leads for 306 of 478 Korean stars — for BTS it leads for none',
+    description: '14 seconds on which language edition reads Korean stars most, on the six of '
+      + 'seven BTS members Spanish tops, and on the 4,669-read margin that makes Jimin the exception.',
+  },
+  {
     set: 'works-voiced',
     page: '/works-and-readers',
     title: 'Actors with five charting titles are read seven times as often',
