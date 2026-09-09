@@ -21,6 +21,7 @@ import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 export const 지킴목록길 = 'docs/지킴목록.tsv';
+export const 작업중신고길 = 'docs/작업중-신고.tsv';
 export const 되돌아간것길 = 'docs/되돌아간것.tsv';
 
 /** 열쇠가 맞나. ⛔ 없으면 배포 안 한다 — 히스토리를 안 읽었다는 뜻이다. */
@@ -368,7 +369,10 @@ if (내가실행됐다 && !process.argv.includes('--자가시험')) {
 
   const 최신 = 최신인가({ 로컬, 원격, 앞선수, 뒤진수 });
   /* ⭐ 「작업중」으로 신고된 남의 파일은 막지 않고 이름을 붙여 알린다 (2026-09-09 · 5번) */
-  const 신고길 = path.join(뿌리, 'docs', '작업중-신고.tsv');
+  /* ⚠ 지킴목록길과 같은 꼴로 «상대경로»를 쓴다 — 이 자는 저장소 뿌리에서 돌린다.
+   *   처음에 없는 변수(`뿌리`)를 써서 관문이 통째로 죽었다. 자가시험은 통과했다 —
+   *   ⛔ **자가시험이 이 줄을 안 밟았기 때문이다.** 순수 함수만 시험하면 실전 경로가 빈다. */
+  const 신고길 = 작업중신고길;
   const 신고 = 신고읽기(fs.existsSync(신고길) ? fs.readFileSync(신고길, 'utf8') : '');
   const 깨끗 = 깨끗한가(깃('status', '--porcelain') ?? '', 신고);
   깨끗.신고 = 신고;
