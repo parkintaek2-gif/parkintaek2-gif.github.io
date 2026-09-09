@@ -62,6 +62,7 @@ import { TRADE } from './trade-data.mjs';
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
+import { 발급 as 열쇠발급 } from './apikeys.mjs';
 
 const gunzipAsync = promisify(gunzip);
 
@@ -860,7 +861,7 @@ export async function handleApi(pathname, searchParams, ctx = {}) {
    *   「한도는 시행 전에 먼저 공지한다」고 써서 내보냈다. 같은 날 조이면 그 말이 거짓이 된다.
    *   헤더로는 지금부터 알려 준다 — 이용자가 미리 자기 사용량을 볼 수 있어야 한다.
    */
-  const tier = tierOf(ctx.headers);
+  const tier = await tierOf(ctx.headers);
   const rate = rateCheck(ctx.ip, tier);
   const 등급헤더 = {
     'X-Tier': tier,
@@ -916,6 +917,37 @@ export async function handleApi(pathname, searchParams, ctx = {}) {
     const 어느사이트 = String(ctx?.headers?.host ?? '').split(':')[0].toLowerCase().replace(/^www\./, '') || null;
     const r = await subscribe({ ...body, site: 어느사이트 });
     return 붙이기(json(r.status, r.payload, { 'Cache-Control': 'no-store' }));
+  }
+
+  /* 🔴 [2026-09-09 · 1번] 셀프 발급 API 열쇠 — P6(사장님 지시 「전 유닛 절반 투입」)의
+     1번 몫. 뉴스레터와 같은 이유로 POST 전용·이메일은 URL 에 안 싣는다.
+     ⚠ 지금은 등급을 항상 free 로 낸다 — 결제와 이은 pro 발급은 다음 단계다. */
+  if (pathname === '/v1/keys') {
+    if (ctx.method !== 'POST') {
+      return 붙이기(err(405, 'method_not_allowed', 'Use POST with a JSON body: {"email":"you@example.com"}'));
+    }
+    let body;
+    try {
+      body = typeof ctx.body === 'string' ? JSON.parse(ctx.body) : (ctx.body ?? {});
+    } catch {
+      return 붙이기(err(400, 'invalid_json', 'Body must be JSON.'));
+    }
+    meter('keys.issue');
+    const r = await 열쇠발급({ email: body.email, tier: 'free' });
+    if (!r.ok && r.why === 'invalid_email') {
+      return 붙이기(err(400, 'invalid_email', 'Provide a valid email address.'));
+    }
+    if (!r.ok && r.why === 'already_issued') {
+      return 붙이기(
+        err(409, 'already_issued',
+          'A key was already issued to this email. We do not store or re-display raw keys — if it is lost, contact support for a rotation.'),
+      );
+    }
+    return 붙이기(json(201, {
+      apiKey: r.apiKey,
+      tier: r.tier,
+      note: 'This key is shown once and never stored in plaintext. Save it now. Send it as the X-Api-Key header.',
+    }, { 'Cache-Control': 'no-store' }));
   }
 
   return 붙이기(await 라우팅(pathname, searchParams, tier));

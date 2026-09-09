@@ -216,7 +216,8 @@ const handle = async (req, res) => {
   /* 🔴 2026-08-31 — 자체 댓글(`/api/comments`) 등록도 POST 라 여기 더한다.
    *   사장님 지시: 「우리 자체 댓글 서비스를 만들어라... 모든 유닛이 이용하도록」.
    *   3자 위젯(Giscus 등)을 안 쓰는 이유는 comments.mjs 머리글 참고 — IP·쿠키 정책 충돌. */
-  const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments');
+  /* 🔴 [2026-09-09 · 1번] `/v1/keys` — 셀프 발급 API 열쇠(P6). 같은 이유로 POST 허용 목록에 더한다. */
+  const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;

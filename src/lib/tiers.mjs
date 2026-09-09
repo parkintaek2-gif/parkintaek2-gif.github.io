@@ -52,18 +52,29 @@ export const LIMITS = {
 /**
  * 이 요청이 어느 등급인가.
  *
- * RapidAPI 는 자기를 거친 요청에만 `X-RapidAPI-Proxy-Secret` 을 붙인다.
- * **이 값은 저장소에 두지 않는다** — 공개 저장소다. 환경변수로만 받는다.
+ * 두 길이 있다 — 어느 쪽이든 되면 pro 다.
+ *   ① RapidAPI 프록시 시크릿   마켓플레이스를 거친 요청에만 자기가 붙여 준다.
+ *      **이 값은 저장소에 두지 않는다** — 공개 저장소다. 환경변수로만 받는다.
+ *   ② 🔴 [2026-09-09 · 1번] 자체 발급 열쇠(`X-Api-Key`) — apikeys.mjs 로 셀프 발급한 것.
+ *      우리 도메인에서 직접 산 손님은 이 길로 온다(①은 그동안 아무도 안 썼다).
  *
- * ⚠ 비밀값이 설정돼 있지 않으면 **아무도 pro 가 되지 않는다.**
+ * ⚠ 비밀값이 설정돼 있지 않으면 **아무도 ①로는 pro 가 되지 않는다.**
  *   반대로 하면(설정 안 됐을 때 전부 통과) 유료화가 그냥 뚫린다.
- *   기본값은 언제나 **닫힘**이어야 한다.
+ *   기본값은 언제나 **닫힘**이어야 한다. ②는 열쇠 자체가 저장소에서 확인돼야만 통한다 —
+ *   같은 원칙이다.
  */
-export function tierOf(headers) {
+export async function tierOf(headers) {
   const 비밀 = process.env.RAPIDAPI_PROXY_SECRET;
-  if (!비밀) return 'free';
   const 받은값 = headers?.['x-rapidapi-proxy-secret'] ?? headers?.['X-RapidAPI-Proxy-Secret'];
-  return 받은값 && 받은값 === 비밀 ? 'pro' : 'free';
+  if (비밀 && 받은값 && 받은값 === 비밀) return 'pro';
+
+  const 열쇠 = headers?.['x-api-key'] ?? headers?.['X-Api-Key'];
+  if (열쇠) {
+    const { 확인 } = await import('./apikeys.mjs');
+    const 인증 = await 확인(열쇠);
+    if (인증) return 인증.tier === 'pro' ? 'pro' : 'free';
+  }
+  return 'free';
 }
 
 /* ── 분당 한도 ───────────────────────────────────────────────────
