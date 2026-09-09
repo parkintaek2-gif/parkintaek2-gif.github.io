@@ -1,0 +1,40 @@
+{
+  "출처": {
+    "org": "Korea Customs Service (via KOSIS, Statistics Korea)",
+    "dataset": "Exports and imports by partner country — DT_1R11006_FRM101 (org 360)",
+    "licence": "KOSIS terms art.8 commercial use permitted · art.7 attribution required",
+    "unit": "thousand USD"
+  },
+  "왜": "Korea publishes 10-day provisional trade figures and revises them later. Nobody counts the revision. This ledger does.",
+  "잰때": "2026. 9. 9. 23시 43분 47초",
+  "스냅숏": [
+    "2026-09-07",
+    "2026-09-09"
+  ],
+  "줄수": 5260,
+  "바뀐날분포": {
+    "날별": [
+      {
+        "날": "2026-02-19",
+        "수": 2195
+      },
+      {
+        "날": "2026-08-18",
+        "수": 3065
+      }
+    ],
+    "날없음": 0
+  },
+  "개정": {
+    "앞": "2026-09-07",
+    "뒤": "2026-09-09",
+    "고쳐진건수": 0,
+    "그대로": 5260,
+    "새로들어옴": 0,
+    "빠짐": 0,
+    "못잰것": 0,
+    "기간별": [],
+    "가장큰것": []
+  },
+  "못잰까닭": null
+}

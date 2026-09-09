@@ -1,5 +1,5 @@
 {
- "잰때": "2026. 9. 9. 오후 10:33:16",
+ "잰때": "2026. 9. 9. 오후 11:52:52",
  "무엇인가": "Market value divided by the number of artists we can count for each listed K-pop company. The market figures are measured by our markets desk from KRX prices; the artist counts are ours.",
  "⛔아닌것": [
   "투자 판단이 아니다. 「한 명당 얼마」는 나눗셈이지 고평가·저평가라는 뜻이 아니다.",
@@ -10,7 +10,7 @@
  "시총출처": {
   "파일": "market-cap-20260908.json",
   "기준일": "20260908",
-  "출처": "공공데이터포털 주식시세정보(15094808 · 금융위원회 · 이용허락범위 제한 없음), archive/raw/stocks",
+  "출처": "Korea Public Data Portal — Stock Price Information (dataset 15094808, Financial Services Commission; no usage restriction), archive/raw/stocks",
   "잰이": "6번 SeoulMarkets"
  },
  "읽힘출처": {
