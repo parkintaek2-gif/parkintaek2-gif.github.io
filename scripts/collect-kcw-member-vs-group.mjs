@@ -24,7 +24,14 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-export const 낼곳 = 'src/data/kcw-member-vs-group.json';
+/**
+ * 🔴 낼 이름을 바꿨다 — 2026-09-10 14:30
+ *   처음에 'src/data/kcw-member-vs-group.json' 로 냈다. 그런데 그 파일이 «09-08부터 있던
+ *   남의 자료»(380팀 축)였고, /member-vs-group 지면이 39줄에서 그것을 읽고 있었다.
+ *   ⇒ 내 수집기가 그것을 덮어 «전체 빌드»가 섰다. 여섯이 다 배포를 못 했다.
+ *   ⛔ 「없을 것 같은 이름」을 짐작해서 쓰지 않는다. 낼 곳이 이미 있는지 «먼저 본다».
+ */
+export const 낼곳 = 'src/data/kcw-group-vs-members-panel.json';
 export const 판 = 'en';
 export const 창 = { 처음: '20250901', 끝: '20260831' };
 export const 창말 = 'September 2025 to August 2026';
@@ -397,6 +404,19 @@ if (내가실행됐다) {
   }
 
   const 못쟨무리 = 낸것.filter((x) => !x.열두달.잴수있나);
+  // 🔴 덮기 방지 — 낼 곳에 «내 것이 아닌» 파일이 있으면 멈춘다 (2026-09-10 사고)
+  if (fs.existsSync(낼곳)) {
+    let 남의것 = false;
+    try {
+      const 있던것 = JSON.parse(fs.readFileSync(낼곳, 'utf8'));
+      남의것 = !(있던것 && 있던것._meta && 있던것._meta.source && /Wikimedia/.test(있던것._meta.source) && Array.isArray(있던것.groups));
+    } catch { 남의것 = true; }
+    if (남의것) {
+      console.error(`⛔ ${낼곳} 에 이미 «내 것이 아닌» 파일이 있다 — 덮지 않는다.`);
+      console.error(`   지면이 그것을 읽고 있으면 덮는 순간 전체 빌드가 선다. 이름을 바꾸십시오.`);
+      process.exit(1);
+    }
+  }
   fs.mkdirSync(path.dirname(낼곳), { recursive: true });
   fs.writeFileSync(낼곳, JSON.stringify({
     _meta: {
