@@ -3,9 +3,21 @@
  * collect-dart-financials.mjs — **F1. DART 재무제표를 받는다.** 이것이 병목이다.
  *
  *   node scripts/collect-dart-financials.mjs --재본다              한도·응답만 잰다 (안 적는다)
- *   node scripts/collect-dart-financials.mjs --해 2025 --적는다     한 해를 받아 적는다
+ *   node scripts/collect-dart-financials.mjs --해 2025 --적는다     한 해(사업보고서)를 받아 적는다
+ *   node scripts/collect-dart-financials.mjs --해 2026 --보고서 11012 --적는다   반기·분기는 이렇게
  *   node scripts/collect-dart-financials.mjs --해 2025 --몇개 30    앞의 몇 곳만 (시험용)
  *   node scripts/collect-dart-financials.mjs --자가시험
+ *
+ * ── [2026-09-10 6번] 반기·분기 추가 ─────────────────────────────────────
+ * 보고서 코드 넷은 이미 표(아래 `보고서`)로 있었는데 돌리는 자리(`돌리기`)는 '11011'을
+ * 그대로 박아 뒀었다. `--보고서` 인자로 고르게 했다.
+ * ⚠ 「최근 분기」는 2025년 사업보고서가 아니라 **2026년 반기·1분기**다 — 지금(2026-09)
+ *   시점에서 이미 확정 제출된 것은 2026년 1분기(11013·5월 제출)·반기(11012·8월 제출)뿐이고
+ *   2026년 3분기(11014)는 아직 제출 전(11월)이라 --재본다 로 확인하면 전부 013(없음)이다.
+ *   ⛔ 짐작으로 넘겨짚지 않고 --재본다 로 먼저 있는지 확인한 뒤에 --적는다 를 돌린다.
+ * ⚠ DART_API_KEY 는 **공용**(하루 20,000건, 6번 몫 3,000~6,000 — docs/세션-공통수칙.md).
+ *   5번이 오늘 이미 5,418건(11011·2025)을 썼다. 반기·분기 하나를 더 받으면 그만큼
+ *   또 쓰므로, 한 번에 다 받지 않고 **보고서 하나씩** 받아 남는 몫을 본 뒤 잇는다.
  *
  * ── 🔴 왜 이것이 먼저인가 (2026-09-10) ──────────────────────────────────
  *
@@ -224,6 +236,15 @@ export function 영문붙이기(줄들) {
   return { 붙은, 전체, 비율: 전체 === 0 ? null : 붙은 / 전체, 안붙은: [...안붙은] };
 }
 
+/**
+ * 파일 이름 — 11011(사업보고서)은 «옛 이름 그대로» 낸다. 이미 그 이름을
+ * `build-korea-valuation-tape.mjs` 가 정규식(`financials-\d{4}-\d{8}.json`)으로 찾고 있어서,
+ * 여기서 이름을 바꾸면 그 자가 돈다.
+ */
+export function 파일이름(해, 보고서코드, 날) {
+  return 보고서코드 === '11011' ? `financials-${해}-${날}.json` : `financials-${해}-${보고서코드}-${날}.json`;
+}
+
 /** 회사대장을 읽는다. 못 읽으면 null (⛔ 빈 배열이 아니다) */
 export function 회사읽기(뿌리 = ROOT, 읽기 = null) {
   const 잼 = 읽기 ?? ((p) => { try { return fs.readFileSync(p, 'utf8'); } catch { return null; } });
@@ -376,6 +397,11 @@ function 자가시험() {
   재다('재무제표명영문: 재무상태표를 옮긴다',
     재무제표명영문('재무상태표') === 'Statement of Financial Position');
 
+  재다('파일이름: 11011(사업보고서)은 옛 이름 그대로 — 밸류에이션 자가 찾는 이름이다',
+    파일이름('2025', '11011', '20260910') === 'financials-2025-20260910.json');
+  재다('파일이름: 반기·분기는 코드를 이름에 넣는다 — 11011과 안 겹친다',
+    파일이름('2026', '11012', '20260910') === 'financials-2026-11012-20260910.json');
+
   재다('회사읽기: ndjson 을 줄마다 읽는다', (() => {
     const 것 = 회사읽기('X', () => '{"corp":"1","종목":"000001"}\n{"corp":"2","종목":"000002"}\n');
     return Array.isArray(것) && 것.length === 2 && 것[1].종목 === '000002';
@@ -433,9 +459,16 @@ async function 돌리기() {
   if (!키) { console.log('🔴 .env 의 DART_API_KEY 가 없다.'); process.exit(1); }
 
   const 해 = 인자('해', '2025');
+  const 보고서코드 = 인자('보고서', '11011');
   const 몇개 = Number(인자('몇개', '0')) || 0;
   const 적는다 = process.argv.includes('--적는다');
   const 재본다 = process.argv.includes('--재본다');
+
+  if (!보고서[보고서코드]) {
+    console.log(`🔴 --보고서 ${보고서코드} 는 모르는 코드다 — 11011·11012·11013·11014 중 하나`);
+    process.exit(1);
+  }
+  console.log(`■ 보고서 ${보고서코드} ${보고서[보고서코드].이름}(${보고서[보고서코드].영문}) · 해 ${해}`);
 
   const 회사들 = 회사읽기();
   if (회사들 === null) { console.log(`🔴 회사대장을 못 읽었다 — ${회사대장}`); process.exit(1); }
@@ -448,7 +481,7 @@ async function 돌리기() {
     console.log('\n■ 재보기 — 열 곳만 부른다 (적지 않는다)');
     let 정상 = 0; let 없음 = 0; let 흠 = 0;
     for (const c of 상장.slice(0, 10)) {
-      const { j, 판정 } = await 한벌받기(키, c.corp, 해, '11011', 'CFS');
+      const { j, 판정 } = await 한벌받기(키, c.corp, 해, 보고서코드, 'CFS');
       if (판정.한도) { console.log(`  🔴 한도에 걸렸다 — 멈춘다`); break; }
       if (판정.정상) {
         정상 += 1;
@@ -485,7 +518,7 @@ async function 돌리기() {
     let 하나라도 = false;
 
     for (const 구분 of Object.keys(재무구분)) {
-      const { j, 판정 } = await 한벌받기(키, c.corp, 해, '11011', 구분);
+      const { j, 판정 } = await 한벌받기(키, c.corp, 해, 보고서코드, 구분);
       부른수 += 1;
       if (판정.한도) { 한도걸림 = true; break; }
       if (!판정.정상) continue;
@@ -516,7 +549,7 @@ async function 돌리기() {
   const 낼것 = {
     잰때: 오늘.toLocaleString('ko-KR'),
     해: Number(해),
-    보고서: '11011 사업보고서',
+    보고서: `${보고서코드} ${보고서[보고서코드].이름}`,
     부른수,
     한도걸림,
     전체: 상장.length,
@@ -528,11 +561,11 @@ async function 돌리기() {
       .map(([이름, 수]) => ({ 이름, 수 })),
     줄들: 표,
   };
-  const 길 = path.join(방, `financials-${해}-${날}.json`);
+  const 길 = path.join(방, 파일이름(해, 보고서코드, 날));
   fs.writeFileSync(길, JSON.stringify(낼것, null, 1), 'utf8');
 
   console.log('');
-  console.log(`■ ${해}년 사업보고서 — ${쟀다} / ${상장.length}곳 (${(낼것.비율 * 100).toFixed(1)}%)`);
+  console.log(`■ ${해}년 ${보고서[보고서코드].이름} — ${쟀다} / ${상장.length}곳 (${(낼것.비율 * 100).toFixed(1)}%)`);
   console.log(`   부른 수 ${부른수} · 못 붙은 곳 ${못붙은.length} · 한도 ${한도걸림 ? '🔴 걸렸다' : '안 걸렸다'}`);
   console.log(`   사전에 없는 계정 ${안붙은계정.size}가지 — 2번께 넘긴다`);
   console.log(`📁 적었다 — ${길}`);
