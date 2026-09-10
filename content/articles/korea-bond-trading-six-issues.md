@@ -9,17 +9,18 @@ tags: ["bonds", "rates", "liquidity", "concentration", "government-bonds", "kore
 tickers: []
 sources:
   - org: "Korea Exchange (KRX OPEN API)"
-    api: "Daily listed-bond trading (close, trading value ACC_TRDVAL, residual maturity) for 2026-08-10 through 2026-08-21 (9 trading days)"
+    api: "Daily listed-bond trading (close, trading value ACC_TRDVAL, residual maturity) for 2026-08-10 through 2026-09-09 (22 trading days)"
 crossChecks:
   - "On 2026-08-21, of 396 bonds with a quote that day, the 6 most-traded (1.5% of them) were 90% of all trading value; the top 10 were 98.6%"
   - "The single most-traded issue — the on-the-run 3-year Treasury bond 국고03500-2906(26-5) — was 36.6% of the day's bond trading by itself; the top three were all Treasuries, together 73.5%"
   - "Korea Treasury Bonds (국고) were 95.1% of the day's trading value while making up 51 of the 396 quoted issues"
-  - "Across all 9 trading days measured, the top 10 issues held 98.2–99.3% of trading and Treasuries held 95.1–98.2% — a structure, not a one-day snapshot"
+  - "Across all 22 trading days measured (2026-08-10 to 09-09), the top 10 issues held 98.2–99.3% of trading and Treasuries held 95.1–98.2% — a structure, not a one-day snapshot"
+  - "As of 2026-09-09, the pattern still holds: 321 quoted bonds, top 10 were 99%, Treasuries 97.1%, and the single busiest issue was again 국고03500-2906(26-5) — the same bond that led on 2026-08-21"
 excluded:
   - "The universe is bonds that carried a close and trading value in the KRX daily file that day (i.e. had a quote); it is not the full registry of listed bonds, and non-trading issues are simply absent — so read every share as 'of quoted-bond turnover'"
   - "Concentration is measured on trading value (a KRX-reported aggregate), reported only as ratios, which do not depend on the won price level"
   - "Treasury benchmarks are the most liquid by design, so high concentration is expected; the point is the degree (≈99% in ten issues) and that 300-plus other issues split about 1%"
-  - "Nine trading days is a short window; we say 'held every day measured', not that it is fixed forever"
+  - "Twenty-two trading days is about a month; we say 'held every day measured', not that it is fixed forever"
   - "This is not investment advice"
 image: /charts/bond-trading-concentration.svg
 ---
@@ -38,7 +39,7 @@ The single busiest bond — the current **three-year Treasury benchmark**, 국�
 
 Sort by type and the picture is blunt: **Korea Treasury Bonds were 95.1%** of the day's trading value, out of 51 of the 396 quoted issues. Everything else on the board — housing bonds, local-government bonds, bank and corporate paper, hundreds of them — shared the remaining **5%**.
 
-This is not a one-day accident. Across **all nine trading days** we measured (2026-08-10 to 08-21), the top ten issues never left the **98.2–99.3%** band, and Treasuries stayed between **95.1% and 98.2%**. The concentration is a fixture.
+This is not a one-day accident. Across **all 22 trading days** we measured (2026-08-10 to 09-09), the top ten issues never left the **98.2–99.3%** band, and Treasuries stayed between **95.1% and 98.2%**. As of the most recent day measured, 2026-09-09, the same bond — 국고03500-2906(26-5) — was still the single busiest issue, now **41.5%** of that day's trading on its own. The concentration is a fixture.
 
 ## What it means, and what it doesn't
 
