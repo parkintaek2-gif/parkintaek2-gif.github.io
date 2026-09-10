@@ -150,6 +150,9 @@ export const 단계들 = [
   "node scripts/check-kcw-median-stability.mjs --selftest",
   "node scripts/check-kcw-plural.mjs --selftest",
   "node scripts/check-kcw-script-habits.mjs --selftest",
+  /* 🔴 [2026-09-11] 기사 겹침 — 자가시험만 관문에 넣는다. 본검사는 «막지 않는» 자다
+     (헛울림이 빨간불이 되면 그 옆의 진짜 빨간불이 안 보인다). 목록은 check-kcw-all 의 보는검사에 있다 */
+  "node scripts/check-article-overlap.mjs --자가시험",
   "node scripts/check-kcw-search-ready.mjs --selftest",
   "node scripts/check-kcw-three-clicks.mjs --selftest",
   "node scripts/check-kcw-visitor-eyes.mjs --selftest",
