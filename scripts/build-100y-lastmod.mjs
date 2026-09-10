@@ -123,6 +123,8 @@ export const 갈래 = {
   '/fertility-rate': ['src/pages/100y/fertility-rate/index.astro', 'src/data/100yearmap/fertility-rate.json'],
   '/qual-duration': ['src/pages/100y/qual-duration/index.astro', 'src/data/100yearmap/qual-duration.json'],
   '/qual-age': ['src/pages/100y/qual-age/index.astro', 'src/data/100yearmap/qual-age.json'],
+  '/industry-region-cross': ['src/pages/100y/industry-region-cross/index.astro', 'src/data/100yearmap/industry-region-cross.json'],
+  '/industry-size-cross': ['src/pages/100y/industry-size-cross/index.astro', 'src/data/100yearmap/industry-size-cross.json'],
   '/before': [
     'src/pages/100y/before/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json',
     'src/data/100yearmap/pediatrics.json', 'src/data/100yearmap/afterschool.json', 'src/data/100yearmap/elementary.json',
