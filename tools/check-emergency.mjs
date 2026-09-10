@@ -61,12 +61,16 @@ export function 보이는글자(본문) {
 }
 
 /**
- * «비었다」고 화면이 직접 말하는 문구. ⛔ 200 이어도 이 말이 있으면 사고다 —
- * 오늘 klifemap 사고의 그 문구(「아직 발행된 콘텐츠가 없습니다」)를 넣어 둔다.
+ * «비었다」고 화면이 직접 말하는 문구. ⛔ 200 이어도 이 말이 있으면 사고다.
+ *
+ * 🔴 [2026-09-10 · 5번 지적] 처음 판은 klifemap 사고의 «한국어» 문구를 그대로 옮겨 왔었다.
+ *   seoulmarkets 는 영문 전용 사이트라 그 문구는 여기 화면에 «절대 안 뜬다» —
+ *   영원히 안 걸리는 판정이었다. src/pages/index.astro·[category].astro 를 직접 읽어
+ *   «이 사이트가 실제로 쓰는» 빈 화면 문구로 갈아 끼운다.
  */
 const 비어있다표현 = [
-  '아직 발행된', '글이 없습니다', '기사가 없습니다', '콘텐츠가 없습니다',
-  '데이터가 없습니다', '자료가 없습니다', 'No articles found', 'no data available',
+  'No articles published yet.',   // src/pages/index.astro — 홈이 통째로 비었을 때
+  'Nothing filed in',             // src/pages/[category].astro — 그 갈래가 비었을 때 (뒤에 카테고리명이 붙는다)
 ];
 export function 비었다고말하나(본문) {
   const t = String(본문 ?? '');
@@ -180,10 +184,12 @@ function 단위시험() {
     보이는글자('<style>.x{color:red}</style><script>var x=1</script><p>글</p>') === 1);
   재다('⛔ 보이는글자: 빈 것은 0', 보이는글자('') === 0 && 보이는글자(null) === 0);
 
-  재다('비었다고말하나: 오늘 klifemap 사고 문구를 잡는다',
-    비었다고말하나('<p>아직 발행된 콘텐츠가 없습니다</p>') === true);
+  재다('🔴 비었다고말하나: seoulmarkets 가 «실제로» 쓰는 빈 홈 문구를 잡는다(klifemap 문구가 아니다)',
+    비었다고말하나('<p class="empty">No articles published yet.</p>') === true);
+  재다('비었다고말하나: 빈 갈래 문구(카테고리명이 뒤에 붙어도) 잡는다',
+    비었다고말하나('<p class="empty">Nothing filed in FX yet.</p>') === true);
   재다('비었다고말하나: 정상 본문에는 안 걸린다',
-    비었다고말하나('<p>삼성전자 목표주가 상향</p>') === false);
+    비었다고말하나('<p>Samsung Electronics target price raised</p>') === false);
 
   const 실패 = 것.filter((x) => !x.됐나);
   if (!조용히 || 실패.length) console.log(`■ 단위시험 ${것.length - 실패.length}/${것.length}`);
