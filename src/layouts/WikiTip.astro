@@ -178,14 +178,35 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       --accent: #6b3fa0;
       --bg: #fcfbfe;
       --card: #f6f4fa;
+      --link: #5b3490;
     }
     /* 다크모드 — 사장님 필수지시(그릇). 뒤에 붙이지 않고 처음부터 넣는다 */
     @media (prefers-color-scheme: dark) {
       :root {
         --ink: #ece9f3; --muted: #a49cb8; --line: #2b2635;
         --accent: #b491e8; --bg: #14111c; --card: #1c1826;
+        --link: #b491e8;
       }
     }
+    /* 🔴 [2026-09-10 · 5번] 사장님 지시 — 「케이컬쳐 첫화면의 파랑색이 너무 눈부셔서
+       가독성이 떨어지니 조절해라」
+       재 보니 «우리가 고른 색이 아니었다». 링크에 색을 안 준 자리가 있어 브라우저 기본색
+       #0000ee 가 그대로 나가고 있었다. 첫 화면 표제 링크 열여섯 개가 그 색이었다.
+       실측(대비) — 밝은 화면 바탕 #fcfbfe 기준
+         #0000ee  9.12   ← 대비는 높은데 «순색 파랑»이라 눈이 부신다. 그리고 우리 색이 아니다
+         #5b3490  8.71   ← 골랐다. 로고 「Wire」의 자주(#6b3fa0)와 한 갈래이고 조금 더 깊다
+       🔴 어두운 화면(#14111c)에서는 #0000ee 의 대비가 **1.98** — 사실상 안 읽힌다.
+         즉 이 결함은 다크모드에서 훨씬 나빴다. 그쪽은 #b491e8 (7.24) 로 둔다.
+       ⛔ .axes 한 곳만 고치지 않는다 — 색을 안 준 링크는 어느 지면에나 또 생긴다.
+         그래서 «전역»에 둔다. 자기 색을 따로 정한 곳(.sections·.logo·footer)은 그대로 이긴다. */
+    /* ⚠ 이 style 블록은 Astro 가 «이 컴포넌트 안으로 한정»한다 —
+       그냥 `a { }` 로 적으면 a[data-astro-cid-…] 가 되어 «다른 지면의 링크»에는 안 걸린다.
+       처음에 그렇게 적고 다시 재 보니 첫 화면 링크 여덟 개가 그대로 rgb(0,0,238) 이었다.
+       ⇒ :global() 로 감싼다. 그래야 레이아웃을 쓰는 모든 지면의 링크에 걸린다.
+       ⛔ 「고쳤다」로 넘기지 않고 «다시 재서» 잡았다. */
+    :global(a) { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+    :global(a:hover) { text-decoration-thickness: 2px; }
+    :global(a:visited) { color: var(--link); }
     * { box-sizing: border-box; }
     body {
       margin: 0; background: var(--bg); color: var(--ink);
