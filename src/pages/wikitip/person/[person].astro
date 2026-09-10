@@ -79,6 +79,41 @@ export function getStaticPaths() {
   const 지면있는작품 = 지면있는것들((titlePages as any).titles ?? []);
   const 지면있는작품목록 = 지면있는작품 === null ? null : [...지면있는작품];
 
+  /* ── 나라별 셈 ────────────────────────────────────────────────────
+   * 🔴 [2026-09-11 06:2x · 5번] 사람 지면 24장을 URL Inspection 으로 물었다 —
+   *   **크롤했는데 안 넣음 54.2% · 발견만 16.7% · 들어갔다 29.2%.**
+   *   구글이 «와서 보고 안 넣기로» 정한 것이다. 그리고 같은 날 재 보니 판박이 겹침은
+   *   색인과 상관이 +0.19 였다 — 문장을 다듬는 것으로는 이 자리가 안 풀린다.
+   * ⭐ 「크롤했는데 안 넣음」에 대한 우리 답은 **그 지면에만 있는 사실을 늘리는 것**이다.
+   *   작품 지면은 나라별 표를 갖고 있는데 사람 지면은 나라를 «수»로만 말하고 있었다.
+   *   ⇒ 그 사람 작품들의 나라별 자리를 합쳐, 「어느 나라에서 가장 많이 걸렸나」를 낸다.
+   *   이 표는 다른 어디에도 없다 — 작품 지면을 다 열어 손으로 합쳐야 나오는 수다.
+   * ⛔ 지어내지 않는다. 전부 byMarket(작품·나라·자리)에서 «더한» 것이다.
+   * ⚠ 작품 하나가 여러 나라에 걸리므로 나라별 자리의 합은 그 사람의 자리 합과 같다.
+   */
+  const 작품별나라 = new Map<string, any[]>();
+  for (const t of ((titlePages as any).titles ?? [])) {
+    if (t?.slug && Array.isArray(t.byMarket)) 작품별나라.set(t.slug, t.byMarket);
+  }
+  const 나라셈하기 = (사람: any) => {
+    const 셈 = new Map<string, { 이름: string; 자리: number; 작품: number; 최고: number }>();
+    for (const t of (사람.titles ?? [])) {
+      for (const m of (작품별나라.get(t.slug) ?? [])) {
+        const k = String(m?.iso2 ?? m?.name ?? '');
+        if (!k) continue;
+        const 앞 = 셈.get(k) ?? { 이름: String(m.name ?? k), 자리: 0, 작품: 0, 최고: 99 };
+        앞.자리 += Number(m.places) || 0;
+        앞.작품 += 1;
+        if (Number(m.peak) > 0) 앞.최고 = Math.min(앞.최고, Number(m.peak));
+        셈.set(k, 앞);
+      }
+    }
+    const 줄 = [...셈.values()].sort((a, b) => b.자리 - a.자리 || a.이름.localeCompare(b.이름));
+    /* 「그 사람의 모든 작품이 걸린 나라」 — 작품 수와 나라의 작품 수가 같은 곳 */
+    const 다걸린 = 줄.filter((x) => x.작품 === (사람.titles ?? []).length).length;
+    return { 위: 줄.slice(0, 8), 나라수: 줄.length, 다걸린 };
+  };
+
   return 사람들.map((p: any, i: number) => ({
     params: { person: p.slug },
     props: {
@@ -92,14 +127,16 @@ export function getStaticPaths() {
       멤버쌍: 멤버표.get(String(p.name).toLowerCase().trim()) ?? [],
       난해: (p.born && 해있나.has(String(p.born).slice(0, 4))) ? String(p.born).slice(0, 4) : null,
       난해사람수: (p.born && 해수.get(String(p.born).slice(0, 4))) || null,
+      나라셈: 나라셈하기(p),
     },
   }));
 }
 
-const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍, 난해, 난해사람수, 지면있는작품목록 } = Astro.props as {
+const { p, 이웃, 멀리간사람, 동명이인, 멤버쌍, 난해, 난해사람수, 지면있는작품목록, 나라셈 } = Astro.props as {
   지면있는작품목록: string[] | null;
   난해: string | null; 난해사람수: number | null;
   멤버쌍: any[];
+  나라셈: { 위: { 이름: string; 자리: number; 작품: number; 최고: number }[]; 나라수: number; 다걸린: number };
   p: any; 이웃: any[]; 멀리간사람: any[]; 동명이인: any;
 };
 const 수 = (n: number) => Number(n ?? 0).toLocaleString('en-US');
@@ -372,6 +409,54 @@ const 생일글 = p.born
         &mdash; two titles charting in Japan is still one country.
       </li>
     </ul>
+
+    {/* 🔴 [2026-09-11] 이 표를 왜 넣었나는 getStaticPaths 의 「나라별 셈」 주석에 있다 —
+        사람 지면 표본 24장 가운데 54%가 「크롤했는데 안 넣음」이었다. 그 답은 문장 다듬기가
+        아니라 «이 지면에만 있는 사실»을 늘리는 것이다. 작품 지면은 나라별 표가 있는데
+        사람 지면은 나라를 수로만 말하고 있었다. 이 수는 작품 지면을 다 열어 손으로 합쳐야 나온다. */}
+    {나라셈 && 나라셈.위.length > 1 && (
+      <section>
+        <h2>Which countries chart {p.name} most?</h2>
+        <p class="fine">
+          Every country-week slot any {p.name} title took, added up by country. A person can appear
+          in a country through more than one title, so the {단복(p.titleCount, 'title', 'titles')}{' '}
+          column says how many of the {p.titleCount} charted there.
+        </p>
+        <div class="scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Country</th>
+                <th>Chart places</th>
+                <th>Titles</th>
+                <th>Best rank there</th>
+              </tr>
+            </thead>
+            <tbody>
+              {나라셈.위.map((c) => (
+                <tr>
+                  <td>{c.이름}</td>
+                  <td>{수(c.자리)}</td>
+                  <td>{c.작품}</td>
+                  <td>{c.최고 < 99 ? `#${c.최고}` : '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p class="fine">
+          {나라셈.위.length < 나라셈.나라수
+            ? `Top ${나라셈.위.length} of ${나라셈.나라수} countries by chart places.`
+            : `All ${나라셈.나라수} ${단복(나라셈.나라수, 'country', 'countries')} are listed.`}
+          {' '}
+          {나라셈.다걸린 > 0
+            ? `In ${나라셈.다걸린} of them, every one of the ${p.titleCount} titles charted.`
+            : `No single country charted all ${p.titleCount} titles.`}
+          {' '}&ldquo;Best rank there&rdquo; is the highest position any of the titles reached in
+          that country, and a dash means the rank was not recorded.
+        </p>
+      </section>
+    )}
   </section>
 
   {멤버쌍.length > 0 && (
