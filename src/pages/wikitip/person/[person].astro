@@ -149,6 +149,36 @@ const 최고 = [...p.titles].sort((a: any, b: any) => (a.peak ?? 99) - (b.peak ?
 const 드라마 = p.titles.filter((t: any) => t.type === 'TV').length;
 const 영화 = p.titles.length - 드라마;
 
+/* ── 지면의 «모양»을 자료에서 읽는다 ─────────────────────────────────
+ * 🔴 [2026-09-11 06:1x · 5번] `measure-page-sameness.mjs` 로 재니 사람 지면 636장이
+ *   **89% 판박이**였다. 2026-08-24 실측으로 67% 위는 구글이 「발견만」·「크롤했는데 안 넣음」에
+ *   두는 자리다 — 즉 이 636장은 «색인이 안 되는 쪽»에 서 있다.
+ * ⭐ 그 자의 진단이 정확했다 — 「고칠 것은 자료가 아니라 자료를 «감싼 문장»이다」.
+ *   수는 사람마다 다른데 그 수를 설명하는 문장이 636장 똑같았다.
+ * ⇒ 그래서 문장의 «꼴»을 자료에서 고른다. 쏠림·최고순위·나라 폭·해 폭 넷을 칸으로 나누면
+ *   111가지 꼴이 나오고, 가장 큰 묶음이 636장에서 **26장**으로 떨어진다(실측).
+ * ⛔ 무작위로 고르지 않는다. 같은 자료면 같은 문장이어야 한다 — 그러지 않으면 이 지면이
+ *   빌드마다 달라져 우리도 무엇이 나갔는지 모른다.
+ * ⛔ 없는 사실을 만들지 않는다. 넷 다 이미 표에 있는 수를 «말로» 한 것이다.
+ */
+const 자리합 = p.titles.reduce((a: number, t: any) => a + (Number(t.places) || 0), 0);
+const 으뜸작 = [...p.titles].sort((a: any, b: any) => (b.places ?? 0) - (a.places ?? 0))[0] ?? null;
+const 쏠림 = 자리합 > 0 && 으뜸작 ? (Number(으뜸작.places) || 0) / 자리합 : null;
+const 해들 = p.titles.flatMap((t: any) => [
+  Number(String(t.firstWeek ?? '').slice(0, 4)) || null,
+  Number(String(t.lastWeek ?? '').slice(0, 4)) || null,
+]).filter((y: number | null) => y) as number[];
+const 첫해 = 해들.length ? Math.min(...해들) : null;
+const 끝해 = 해들.length ? Math.max(...해들) : null;
+/** 쏠림을 네 칸으로 — 「대개」가 아니라 칸 이름이 문장을 고른다 */
+const 쏠림칸 = 쏠림 == null ? null
+  : 쏠림 >= 0.9 ? '거의하나'
+    : 쏠림 >= 0.6 ? '주로하나'
+      : 쏠림 >= 0.4 ? '둘로갈림' : '고르게';
+const 나라칸 = p.countries === 1 ? '한나라'
+  : p.countries < 10 ? '몇나라'
+    : p.countries < 50 ? '여러나라' : '거의세계';
+
 const 생일글 = p.born
   ? `${p.name} was born on ${p.born}, which makes ${p.name} ${p.age} on ${기준일}.`
   : (p.bornUnknownWhy === 'ambiguous'
@@ -180,6 +210,64 @@ const 생일글 = p.born
       {' '}<a href={`/title/${가장멀리.slug}`}>{가장멀리.title}</a>,
       {' '}which charted in {수(가장멀리.markets)} of them.</>
     )}
+  </p>
+
+  {/* 자료가 고르는 문단 — 위 「지면의 모양」 주석이 왜인지를 적어 두었다 */}
+  <p class="shape">
+    {쏠림칸 === '거의하나' && 으뜸작 && (
+      <><b>Almost all of it is one title.</b>{' '}
+      <a href={`/title/${으뜸작.slug}`}>{으뜸작.title}</a> holds {수(으뜸작.places)} of the{' '}
+      {수(자리합)} chart places on this page, so the rest of the table is a short tail.</>
+    )}
+    {쏠림칸 === '주로하나' && 으뜸작 && (
+      <><b>One title carries most of it.</b>{' '}
+      <a href={`/title/${으뜸작.slug}`}>{으뜸작.title}</a> holds {수(으뜸작.places)} of the{' '}
+      {수(자리합)} chart places, and {p.titleCount - 1} other{' '}
+      {단복(p.titleCount - 1, 'title', 'titles')} make up the remainder.</>
+    )}
+    {쏠림칸 === '둘로갈림' && 으뜸작 && (
+      <><b>It is not one title.</b> The largest,{' '}
+      <a href={`/title/${으뜸작.slug}`}>{으뜸작.title}</a>, is {수(으뜸작.places)} of{' '}
+      {수(자리합)} chart places — a little under half — so at least one other title here is doing
+      comparable work.</>
+    )}
+    {쏠림칸 === '고르게' && (
+      <><b>No single title dominates.</b> The largest of {p.titleCount} is only{' '}
+      {Math.round((쏠림 ?? 0) * 100)}% of the {수(자리합)} chart places, which is unusual on these
+      pages and means the table is worth reading past the first row.</>
+    )}
+    {최고 && 최고.peak === 1 && (
+      <> At least one of these titles reached{' '}
+      <b>number one</b> somewhere: <a href={`/title/${최고.slug}`}>{최고.title}</a>.</>
+    )}
+    {최고 && 최고.peak > 1 && 최고.peak <= 3 && (
+      <> Nothing here reached number one; the best rank on the page is{' '}
+      <b>{최고.peak}</b>, by <a href={`/title/${최고.slug}`}>{최고.title}</a>.</>
+    )}
+    {최고 && 최고.peak > 3 && (
+      <> These are chart appearances rather than chart-toppers — the best rank anywhere is{' '}
+      <b>{최고.peak}</b>.</>
+    )}
+    {나라칸 === '한나라' && (
+      <> Every place counted here came from <b>one country</b>.</>
+    )}
+    {나라칸 === '몇나라' && (
+      <> The places came from <b>{p.countries}</b> countries, which is a narrow spread.</>
+    )}
+    {나라칸 === '여러나라' && (
+      <> The places are spread over <b>{p.countries}</b> countries.</>
+    )}
+    {나라칸 === '거의세계' && (
+      <> The places are spread over <b>{p.countries}</b> countries — most of the Netflix map.</>
+    )}
+    {첫해 && 끝해 && 첫해 !== 끝해 && (
+      <> The charting runs from <b>{첫해}</b> to <b>{끝해}</b>.</>
+    )}
+    {첫해 && 끝해 && 첫해 === 끝해 && (
+      <> All of it sits inside <b>{첫해}</b>.</>
+    )}
+    {드라마 > 0 && 영화 === 0 && <> All of it is television.</>}
+    {영화 > 0 && 드라마 === 0 && <> All of it is film.</>}
   </p>
 
   <p class="warn">
@@ -407,6 +495,8 @@ const 생일글 = p.born
 
 <style>
   .warn { border-left: 3px solid #b45; padding-left: .8rem; }
+  /* 자료가 고르는 문단 — 경고가 아니라 «읽는 법»이라 색을 달리 둔다 */
+  .shape { border-left: 3px solid #6a8; padding-left: .8rem; line-height: 1.62; }
   .scroll { overflow-x: auto; }
   table { border-collapse: collapse; width: 100%; font-size: .93rem; }
   th, td { padding: .35rem .55rem; border-bottom: 1px solid #3332; text-align: left; }
