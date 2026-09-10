@@ -1,0 +1,270 @@
+[
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "첫 화면",
+    "길": "/",
+    "있어야": [
+      "KLifeMap"
+    ],
+    "http": 200,
+    "보이는글자": 4667,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 KLifeMap.AI · HUMAN INTELLIGENCE PLATFORM KLifeMap.AI 플랫폼과 함께, 흔들림 없는 기준으로 나를 본다 동양의 지혜, ",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "콘텐츠 목록",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 3,
+    "메뉴고르기": ".filter-bar a",
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "한국어",
+        "길": "/content"
+      },
+      {
+        "글": "English",
+        "길": "/content?lang=en"
+      },
+      {
+        "글": "日本語",
+        "길": "/content?lang=ja"
+      },
+      {
+        "글": "中文",
+        "길": "/content?lang=zh"
+      },
+      {
+        "글": "전체",
+        "길": "/content"
+      },
+      {
+        "글": "Human Story",
+        "길": "/content?pillar=human_story"
+      },
+      {
+        "글": "Human Intelligence",
+        "길": "/content?pillar=human_intelligence"
+      },
+      {
+        "글": "Domain Engine Story",
+        "길": "/content?pillar=domain_engine"
+      },
+      {
+        "글": "Core Engine Story",
+        "길": "/content?pillar=core_engine"
+      },
+      {
+        "글": "공지",
+        "길": "/content?pillar=notice"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 한국어",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ English",
+    "길": "/content?lang=en",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 7705,
+    "첫글": "KLifeMap.AI ☰ 🌐 EN ▾ Sign in Sign up Articles Notes on self-understanding and better decisions — from KLifeMap.AI 한국어 E",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 日本語",
+    "길": "/content?lang=ja",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3481,
+    "첫글": "KLifeMap.AI ☰ 🌐 日本 ▾ ログイン 会員登録 記事 自分を知り、よりよく決めるために — KLifeMap.AI から 한국어 English 日本語 中文 すべて 物語 自分を知る 四柱推命の読み方 エンジンの判断 お知",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 中文",
+    "길": "/content?lang=zh",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2956,
+    "첫글": "KLifeMap.AI ☰ 🌐 中文 ▾ 登录 注册 文章 认识自己、做出更好的判断 — 来自 KLifeMap.AI 한국어 English 日本語 中文 全部 故事 认识自己 命理解读 引擎如何判断 公告 命理解读 结婚登记择日：能挑",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 전체",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Human Story",
+    "길": "/content?pillar=human_story",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2857,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Human Intelligence",
+    "길": "/content?pillar=human_intelligence",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3727,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Domain Engine Story",
+    "길": "/content?pillar=domain_engine",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 4076,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Core Engine Story",
+    "길": "/content?pillar=core_engine",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3423,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 공지",
+    "길": "/content?pillar=notice",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 739,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 1,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "글 지면",
+    "길": "/content/ilju-im-in",
+    "본문고르기": "article",
+    "적어도글자": 300,
+    "http": 200,
+    "보이는글자": 3006,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 Core Engine Story 임인(壬寅) 일주 — 일간 임이 인을 딛고 선 자리 2026-09-10 · KLifeMap.AI 무료로 내 사주 보기 → 임인(",
+    "카드": null,
+    "본문": 1967,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "사주 화면",
+    "길": "/saju.html",
+    "있어야": [
+      "사주"
+    ],
+    "http": 200,
+    "보이는글자": 1519,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 命理 정본 명리 사주 보기 격국·용신·상신을 대운 흐름에 따라 정밀하게 풀이합니다. 나의 타고난 기운과 인생의 흐름을 격국·용신 체계로 정밀하게 분석합니다. 한",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  }
+]
