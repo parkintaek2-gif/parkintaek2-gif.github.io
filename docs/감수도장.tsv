@@ -8,3 +8,4 @@ src/pages/wikitip/index.astro	aed47a8215de981a	5번	2026-09-10 13:21 KST	기준�
 src/pages/100y/index.astro	3363eabce7cf4e05	5번	2026-09-10 13:21 KST	기준선(이미 라이브)	오늘 이미 라이브인 상태를 기준선으로 둔다 — 이 뒤에 고치면 감수를 받는다
 src/pages/100y/price.astro	e187598329a53960	5번	2026-09-10 13:21 KST	기준선(이미 라이브)	오늘 이미 라이브인 상태를 기준선으로 둔다 — 이 뒤에 고치면 감수를 받는다
 src/pages/100y/refund.astro	42ddfafe804e134c	5번	2026-09-10 13:21 KST	기준선(이미 라이브)	오늘 이미 라이브인 상태를 기준선으로 둔다 — 이 뒤에 고치면 감수를 받는다
+src/pages/wikitip/index.astro	37cbc8aab01fdc13	3번	2026-09-10 19:38 KST	통과
