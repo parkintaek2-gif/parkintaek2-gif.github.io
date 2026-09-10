@@ -230,6 +230,26 @@ const jsonLd = {
       border-left: 3px solid var(--accent); }
   .warn-box { border-left: 3px solid #b45309; padding-left: 1rem; }
   .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+  /* 격자 칸은 min-width:auto 가 기본이라 안의 것 너비만큼 부푼다. 0 으로 눌러 둔다 */
+  .col { min-width: 0; }
+  /**
+   * 🔴 [2026-09-11 02:2x] **이 지면이 폰에서 470px 밀렸는데, 범인은 표가 아니었다.**
+   *
+   * 나는 두 번 헛짚었다 — 처음엔 격자 칸, 다음엔 표를 감싼 `.scroll-x` 를 고쳤다.
+   * 둘 다 고쳐도 scrollWidth 가 860 그대로였다. 그래서 «가두는 조상이 없는 것»만
+   * 골라 재는 자를 따로 만들어 다시 쟀다. 나온 답 —
+   *
+   *   깊이6 <li> 안 800px / 밖 310px  「Grouping — Wikidata gives dozens of place…」
+   *
+   * 「How this was counted」 절의 낱말 대응표다. `city/district/dong/county/…` 처럼
+   * **빗금으로 이은 긴 줄**은 브라우저가 끊을 자리를 못 찾아 한 낱말로 늘어선다.
+   * 표는 이미 `.scroll-x` 안에서 잘 굴러 있었다 — 넘친 것을 다 늘어놓고 보면
+   * «스크롤 상자 안에서 정상적으로 넘친 것»까지 섞여 범인이 가려진다.
+   *
+   * ⛔ 그래서 이 자리에서 배운 것 — **밀림을 표 탓으로 짐작하지 않는다.**
+   *   가두는 조상이 있나까지 재고 나서 범인을 짚는다.
+   */
+  li, p { overflow-wrap: anywhere; }
   .col table { width: 100%; font-size: 0.9rem; }
   .col h3 { margin-bottom: 0.3rem; }
 </style>

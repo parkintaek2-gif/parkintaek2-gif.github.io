@@ -269,7 +269,10 @@ const jsonLd = {
     .sub { color: var(--muted); font-size: .95rem; margin: .2rem 0 1rem; }
     .fine { color: var(--muted); font-size: .9rem; line-height: 1.6; }
     section { margin: 2.4rem 0; }
-    table { width: 100%; border-collapse: collapse; font-size: .95rem; margin-bottom: .8rem; }
+    /* ⚠ [2026-09-11] 390px 로 재니 몸통이 209px 밀렸다 — 여섯 칸 표가 579px 였다.
+       표를 블록으로 두고 «표 자신»이 옆으로 구르게 한다. 기사 템플릿과 같은 꼴이다. */
+    table { width: 100%; border-collapse: collapse; font-size: .95rem; margin-bottom: .8rem;
+      display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     th, td { padding: .45rem .5rem; border-bottom: 1px solid var(--line); text-align: left;
       vertical-align: baseline; }
     th { font-weight: 600; font-size: .82rem; text-transform: uppercase; letter-spacing: .04em;
