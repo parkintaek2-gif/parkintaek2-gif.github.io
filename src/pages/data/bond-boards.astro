@@ -130,7 +130,7 @@ const jsonLd = [datasetLd, faqLd];
       <p class="lead">
         Almost every published Korean bond yield comes from the government inter-dealer board, which
         carried <b>{끝?.시장?.KTS?.종목수 ?? '8-12'} listings</b> on the latest session. Beside it sit the
-        general board and a <b>near-fixed {끝?.시장?.소액채권?.종목수 ?? 40}-listing small-lot board</b>
+        general board and a <b>near-fixed {끝?.시장?.소액채권?.종목수 ?? 40}-listing small-lot board</b>{' '}
         that Korean households actually buy from — and nobody counts it in English. This is the compass,
         free. The full daily history and API are what we licence.
       </p>
@@ -181,7 +181,7 @@ const jsonLd = [datasetLd, faqLd];
           </table>
           {국채범위 && (
             <p class="note">
-              The government board is not a fixed reference either — its own median ran
+              The government board is not a fixed reference either — its own median ran{' '}
               <b> {국채범위.좁.toFixed(3)}% to {국채범위.넓.toFixed(3)}%</b> inside the same window, so
               the premium widens and narrows for reasons on both sides of it.
             </p>
@@ -194,7 +194,7 @@ const jsonLd = [datasetLd, faqLd];
           <h2>Sorted by who issued the paper</h2>
           <p class="note">
             The board a bond trades on is a different question from who owes the money. Issuer type is
-            read out of the listing name, and names that do not announce it stay <b>unclassified</b>
+            read out of the listing name, and names that do not announce it stay <b>unclassified</b>{' '}
             rather than being folded into a tidier bucket.
           </p>
           <table class="tbl">
@@ -217,7 +217,7 @@ const jsonLd = [datasetLd, faqLd];
       <h2>How this is counted, and what is left out</h2>
       <ul class="honest">
         <li>
-          Every figure is a <b>median</b>, never a mean. One general-board listing settled at
+          Every figure is a <b>median</b>, never a mean. One general-board listing settled at{' '}
           <b> 117.082%</b> on 9 September; a mean would have carried it into the headline.
         </li>
         <li>

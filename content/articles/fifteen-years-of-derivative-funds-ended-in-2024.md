@@ -9,11 +9,11 @@ tags: ["funds", "asset management", "derivatives", "fund of funds", "korea"]
 tickers: []
 sources:
   - org: "Korea Financial Investment Association (KOFIA) — fund standard-code registry, via data.go.kr"
-    api: "Registered fund master (표준코드 · 유형 · 설정일), 183,351 rows, snapshot to 20 August 2026"
+    api: "Registered fund master — standard code, fund type and establishment date per code; 183,351 rows, snapshot to 20 August 2026"
     url: "https://www.data.go.kr"
 crossChecks:
   - "Every figure is a count of registered fund codes carrying an establishment date, not a count of funds and not an amount of money. 183,351 rows were read; 183,346 carry a readable establishment date and 5 do not, and those 5 are left out rather than counted as zero"
-  - "Codes by establishment year and type were counted from the 유형 field with no reclassification. The type shares quoted are that year's count divided by that year's total codes"
+  - "Codes by establishment year and type were counted from the registry's own fund-type field with no reclassification. The type shares quoted are that year's count divided by that year's total codes"
   - "Derivative-type codes: 1,674 (2022), 1,633 (2023), 238 (2024), 183 (2025). Fund-of-funds codes over the same years: 744, 604, 893, 1,281. Both series come from the same field in the same file"
   - "1998 is the largest single establishment year still on the register at 13,925 codes, against 4,137 in 1997 and 5,052 in 1999. The spread inside 1998 was checked for a placeholder date: the codes fall across all twelve months, with October at 3,304 and November at 3,359, so the spike is not one repeated date"
 excluded:
