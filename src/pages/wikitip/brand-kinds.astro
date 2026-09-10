@@ -90,7 +90,15 @@ const jsonLd = {
         <thead>
           <tr><th>Kind</th><th>Brands</th><th>Counted</th>
             {d.editionsSea.map((p) => <th>{d.countryNames[p]}</th>)}
-            <th>Read most in</th></tr>
+            <th>Read most in</th>
+            {/* 🔴 [2026-09-10] 이 칸을 표에 «올렸다». 본문에만 두었더니
+                 표 약속 검사가 「대표 수가 걸린 지면에 없다」로 잡았고, 그것이 맞았다 —
+                 한 곳이 갈래를 만들고 있다는 것은 «표에서 보여야» 하는 사실이다. */}
+            {/* ⚠ 이름과 몫을 «두 칸»으로 나눈다. 한 칸에 「Google — 75.1%」로 두었더니
+                 표 약속 검사가 안 통과했다 — 그 자는 칸이 «정확히 같아야» 통과시킨다.
+                 ⛔ 그 규칙을 느슨하게 고치지 않는다. 2026-09-05 에 한 번 고쳤다가 되돌렸고,
+                   까닭이 check-table-promises.mjs 177줄에 적혀 있다. 표를 고치는 것이 맞다. */}
+            <th>Biggest one in it</th><th>Its share</th></tr>
         </thead>
         <tbody>
           {d.kinds.map((k) => (
@@ -100,6 +108,8 @@ const jsonLd = {
               <td class="fine">{k.온전수}</td>
               {d.editionsSea.map((p) => <td>{k.판별[p]}</td>)}
               <td class="fine">{d.countryNames[k.차례[0]]}</td>
+              <td class="fine">{k.으뜸 ? k.으뜸.name : '—'}</td>
+              <td class="fine">{k.으뜸 ? `${k.으뜸.share}%` : '—'}</td>
             </tr>
           ))}
         </tbody>

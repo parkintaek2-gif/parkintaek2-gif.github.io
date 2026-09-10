@@ -1,0 +1,234 @@
+---
+/*
+ * K Culture Wire — **상장 K팝 회사의 신고된 계정.** (`/label-accounts`)
+ *
+ * ── 왜 ─────────────────────────────────────────────────────────
+ *   오늘(2026-09-10) 「여섯 곳의 2025 실적」 기사를 냈는데 **걸 축 지면이 없었다.**
+ *   표 약속 검사가 그것을 잡았다 — 기사의 대표 수가 걸린 지면의 «표 칸»에 없다고.
+ *   ⛔ 검사를 피해 가지 않는다. 지면이 없는 것이 사실이므로 지면을 만든다.
+ *   사장님 규칙: 「이슈는 반드시 축 지면 하나에 묶는다」 — 묶을 지면이 있어야 묶는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────
+ * ⛔ 화면에 한국어를 내지 않는다 — 회사 이름을 영문으로 낸다.
+ * ⛔ PER 을 내지 않는다 — 시총은 하루, 이익은 한 해다. 분자·분모를 내고 몫은 손님이 낸다.
+ * ⛔ 부호가 바뀐 곳에 «비율»을 내지 않는다 — 적자→흑자를 「+438%」로 적으면 거짓이 된다.
+ *    그 자리에는 「loss to profit」이라고 적는다.
+ * ⛔ 못 잰 회사를 빼지 않는다 — 줄로 남기고 무엇이 없는지 이름으로 적는다.
+ * ⛔ 「왜 손실이 났나」를 지어내지 않는다. 영업선 아래 차이를 «수로만» 낸다.
+ * ⛔ 등수를 매기지 않는다 — 시총 순으로 놓는 것은 크기 순이지 좋은 순이 아니다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * 🔴 JSX 는 끝 공백을 버린다. 붙여 써야 할 곳은 `{' '}` 를 넣는다.
+ */
+import WikiTip from '../../layouts/WikiTip.astro';
+import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import d from '../../data/kcw-label-accounts.json';
+
+type Row = {
+  nameEn: string | null; ticker: string | null; basis: string | null;
+  filingReceipt: string | null; fiscalYear: number | null; period: string | null;
+  marketCap: number | null;
+  revenue: number | null; revenuePrior: number | null; revenueChangePct: number | null;
+  operatingProfit: number | null; operatingProfitPrior: number | null;
+  operatingProfitChangePct: number | null; operatingProfitChangeNote: string | null;
+  operatingSwing: string | null;
+  netProfit: number | null; netProfitPrior: number | null; netProfitSwing: string | null;
+  belowOperatingLine: number | null;
+  notMeasured: string | null;
+};
+
+const meta = (d as any)._meta as Record<string, any>;
+const rows = ((d as any).rows ?? []) as Row[];
+
+const 조 = (n: number | null) => (n === null ? '—' : (n / 1e12).toFixed(3));
+const 억 = (n: number | null) => (n === null ? '—' : Math.round(n / 1e8).toLocaleString('en-GB'));
+const 퍼 = (n: number | null) => (n === null ? null : `${n > 0 ? '+' : ''}${n}%`);
+const fmtDd = (s: string | null) =>
+  (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : (s ?? '—'));
+
+const capDate = fmtDd(meta.marketCapAsOf);
+const measured = rows.filter((r) => !r.notMeasured);
+const unmeasured = rows.filter((r) => r.notMeasured);
+const grew = measured.filter((r) => (r.revenueChangePct ?? 0) > 0);
+const lossMakers = measured.filter((r) => (r.netProfit ?? 0) < 0);
+const biggest = measured.reduce<Row | null>((a, r) =>
+  (!a || (r.marketCap ?? 0) > (a.marketCap ?? 0) ? r : a), null);
+const restCap = measured
+  .filter((r) => r !== biggest)
+  .reduce((s, r) => s + (r.marketCap ?? 0), 0);
+const 배수 = (biggest?.marketCap && restCap > 0)
+  ? +((biggest.marketCap / restCap).toFixed(2)) : null;
+
+const TITLE = 'What the listed K-pop labels actually filed for 2025';
+const DESC =
+  `Revenue, operating profit and net profit as filed with Korea's disclosure system for the `
+  + `${measured.length} listed K-pop companies we can measure. ${grew.length} grew revenue and `
+  + `${lossMakers.length} finished the year below the line. No price-earnings ratio, because the `
+  + `market cap is one day and the profit is one year — both dates are given instead.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Listed K-pop label accounts, fiscal 2025',
+  description: DESC,
+  keywords: ['K-pop', 'HYBE', 'SM Entertainment', 'JYP Entertainment', 'YG Entertainment',
+    'Cube Entertainment', 'FNC Entertainment', 'revenue', 'operating profit', 'net profit',
+    'DART', 'Korea', 'entertainment industry'],
+  creator: { '@type': 'Organization', name: 'K Culture Wire' },
+  isBasedOn: ['https://opendart.fss.or.kr', 'https://www.data.go.kr'],
+  temporalCoverage: `2025/${capDate}`,
+  variableMeasured: ['revenue', 'operating profit', 'net profit', 'market capitalisation',
+    'revenue change', 'operating profit change'],
+  isAccessibleForFree: true,
+};
+const jsonLd = [datasetLd];
+---
+
+<WikiTip title={TITLE} description={DESC} jsonLd={jsonLd}
+  canonical="https://www.kculturewire.com/label-accounts">
+  <article class="wrap">
+    <h1>What the listed K-pop labels actually filed for 2025</h1>
+    <p class="lead">
+      Six companies we can measure, one we cannot. {grew.length} of {measured.length} sold more
+      than the year before. {lossMakers.length} finished below the line. Market capitalisation is
+      the trading day {capDate}; every profit figure is the full fiscal year 2025 as filed.
+    </p>
+
+    <section>
+      <h2>The accounts</h2>
+      <p class="note">
+        In trillions of won, ordered by market value — size order, not merit order.
+        <b>Change</b> is left empty where the prior year was not positive, because a percentage
+        across a sign change says nothing; the <b>swing</b> column names the change instead.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Company</th><th class="n">Market cap</th>
+              <th class="n">Revenue</th><th class="n">Change</th>
+              <th class="n">Operating profit</th><th class="n">Change</th>
+              <th class="n">Net profit</th><th>Swing</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr class={r.notMeasured ? 'dim' : undefined}>
+                <td class="nm">{r.nameEn ?? r.ticker}</td>
+                <td class="n">{조(r.marketCap)}</td>
+                <td class="n">{조(r.revenue)}</td>
+                <td class="n">{퍼(r.revenueChangePct) ?? '—'}</td>
+                <td class="n">{조(r.operatingProfit)}</td>
+                <td class="n">{퍼(r.operatingProfitChangePct) ?? '—'}</td>
+                <td class="n">{조(r.netProfit)}</td>
+                <td class="fine">{r.operatingSwing ?? r.netProfitSwing ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {unmeasured.length > 0 && (
+        <p class="note">
+          ⬜ {unmeasured.map((r) => r.nameEn ?? r.ticker).join(', ')} — not measured.
+          {' '}Missing: {unmeasured.map((r) => r.notMeasured).join('; ')}.
+          Kept as a row rather than dropped, and never filled with zero.
+        </p>
+      )}
+    </section>
+
+    <section>
+      <h2>The distance from top to bottom</h2>
+      {biggest && 배수 && (
+        <p class="q">
+          {biggest.nameEn} is worth {배수} times the other {measured.length - 1} listed labels
+          put together.
+        </p>
+      )}
+      <p>
+        In an industry usually discussed as one thing, the listed set is not one thing. The largest
+        company here reported a net loss while three smaller ones reported profits, and the two
+        smallest are a rounding error against the largest by market value.
+      </p>
+    </section>
+
+    <section>
+      <h2>Below the operating line</h2>
+      <p class="note">
+        The gap between operating profit and net profit, in hundreds of millions of won. This says
+        how much of the result happened below the operating line — <b>not what it was</b>. Naming
+        that means reading the filing notes, which is a different piece of work.
+      </p>
+      <table class="grid2">
+        <thead><tr><th>Company</th><th class="n">Operating profit</th><th class="n">Net profit</th><th class="n">Gap</th></tr></thead>
+        <tbody>
+          {measured.map((r) => (
+            <tr>
+              <td class="nm">{r.nameEn}</td>
+              <td class="n">{억(r.operatingProfit)}</td>
+              <td class="n">{억(r.netProfit)}</td>
+              <td class="n">{억(r.belowOperatingLine)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Why there is no PER column</h2>
+      <p class="warn">{meta.howToRead}</p>
+      <p class="note">
+        For a company with negative net profit the ratio is not small — it is not a ratio. For the
+        profitable ones the market cap is one day and the earnings are one year, months apart. The
+        inputs are all in the table above, so anyone who wants the quotient can take it knowing
+        exactly what they are dividing.
+      </p>
+    </section>
+
+    <section>
+      <h2>Where this comes from</h2>
+      <p class="note">{meta.source}</p>
+      <p class="note">
+        Filing receipt numbers are held with every row. Both year columns come from the same
+        filing, so each comparison is the company's own rather than two documents stitched
+        together. Built {meta.builtAt}.
+      </p>
+      <p class="note">
+        Nothing here is a forecast, a target, or a view on any share.
+        <b>This is not investment advice.</b>
+      </p>
+    </section>
+
+    <KcwRelatedArticles page="/label-accounts" />
+  </article>
+</WikiTip>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { font-size: clamp(1.5rem, 4vw, 2.1rem); line-height: 1.16; margin: 0 0 .6rem; }
+  .lead { font-size: 1.02rem; line-height: 1.6; color: #333; margin: 0 0 1.5rem; }
+  section { margin: 2.1rem 0; }
+  h2 { font-size: 1.12rem; margin: 0 0 .5rem; }
+  p { line-height: 1.65; margin: 0 0 .7rem; }
+  .note { font-size: .87rem; color: #555; }
+  .fine { font-size: .82rem; color: #666; }
+  .q { font-size: 1.05rem; font-weight: 600; line-height: 1.5; margin: 0 0 .6rem; }
+  .warn { font-size: .93rem; line-height: 1.62; background: #fffaf2; border-left: 3px solid #d08700;
+          padding: .65rem .85rem; }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .89rem; }
+  th, td { border-bottom: 1px solid #ececec; padding: .36rem .5rem; text-align: left; }
+  thead th { border-bottom: 2px solid #ddd; font-weight: 600; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .nm { font-weight: 600; }
+  tr.dim td { color: #8a8a8a; }
+  .grid2 { margin-top: .3rem; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #cfcfcf; }
+    .note { color: #a8a8a8; }
+    .fine { color: #9a9a9a; }
+    .warn { background: #2a2318; border-left-color: #c08a20; }
+    th, td { border-bottom-color: #2c2c2c; }
+    thead th { border-bottom-color: #3a3a3a; }
+    tr.dim td { color: #777; }
+  }
+</style>

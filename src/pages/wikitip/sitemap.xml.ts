@@ -825,6 +825,10 @@ export const GET: APIRoute = async () => {
        ⚠ 76편을 안 지운다. 76편이 옳았고 여기서 자를 바꿨다 */
     { path: '/titles-to-name', priority: '0.9', changefreq: 'weekly' },
     { path: '/brand-kinds', priority: '0.9', changefreq: 'weekly' },
+    /* 🔴 [2026-09-10] 상장 K팝 회사의 신고된 계정. 오늘 낸 기사의 «축 지면»이다 —
+       기사를 먼저 내고 걸 지면이 없어 표 약속 검사에 걸렸고, 그래서 지면을 만들었다.
+       ⛔ 지면을 만들고 사이트맵에 안 넣으면 «검색이 못 본다» — 검색 채비 검사가 그것을 잡았다. */
+    { path: '/label-accounts', priority: '0.9', changefreq: 'weekly' },
     /* 89편째 기사의 표. 2026-08-15 — 사장님 관광 자료 지시. 재려다 못 쟀고, 못 잰 까닭을 냈다.
        ⛔ 서울 스물다섯 중 열여섯 구에 집계된 유료 관광지가 하나도 없다 */
     { path: '/read-vs-visited', priority: '0.9', changefreq: 'weekly' },

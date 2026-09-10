@@ -9,6 +9,7 @@ dataAsOf: 2026-09-08T00:00:00+09:00
 author: Newsroom
 tags: ["kpop", "hybe", "sm", "jyp", "yg", "industry", "financials", "dart", "method"]
 pages:
+  - "/label-accounts"
   - "/cap-per-artist"
 sources:
   - org: "Financial Supervisory Service (DART)"
@@ -38,7 +39,8 @@ Those two facts sit in the same industry, in the same year.
 ## The table
 
 Consolidated filings for fiscal 2025, in trillions of won. Market capitalisation is the trading
-day 8 September 2026.
+day 8 September 2026. The same figures, with the gap between operating and net profit set out
+company by company, are on our [listed label accounts](/label-accounts) page.
 
 | Company | Market cap | Revenue 2025 | Revenue 2024 | Operating profit 2025 | Operating profit 2024 | Net profit 2025 | Net profit 2024 |
 |---|---:|---:|---:|---:|---:|---:|---:|
@@ -50,7 +52,7 @@ day 8 September 2026.
 | FNC Entertainment | 0.03 | 0.102 | 0.086 | −0.001 | −0.004 | −0.012 | −0.007 |
 
 Read down the revenue columns and the year looks straightforwardly good. Five of six grew, and the
-four largest grew between 17.5% and 49.3%.
+four largest grew between 17.5% and 49.4%.
 
 Read across HYBE's row and it does not.
 
@@ -58,7 +60,7 @@ Read across HYBE's row and it does not.
 
 Revenue **₩2,650bn**, up from ₩2,256bn — a rise of 17.5%.
 
-Operating profit **₩49bn**, down from ₩184bn — a fall of 73%.
+Operating profit **₩49bn**, down from ₩184bn — a fall of 73.2%.
 
 Net profit **−₩254bn**, against −₩3bn the year before.
 
@@ -74,18 +76,18 @@ which is a different piece of work than this one.
 ₩183bn. Net profit went from ₩1bn to ₩359bn — a jump so large that it, too, is mostly happening
 below the operating line rather than in the business of selling records and concerts.
 
-**JYP Entertainment** is the cleanest row in the table: revenue up 36.5%, operating profit up 21%,
+**JYP Entertainment** is the cleanest row in the table: revenue up 36.6%, operating profit up 21.0%,
 net profit up from ₩98bn to ₩161bn. Every line moved the same direction.
 
 **YG Entertainment** turned an operating loss of ₩21bn into an operating profit of ₩71bn, on
-revenue up 49.3% — the largest revenue increase of the six.
+revenue up 49.4% — the largest revenue increase of the six.
 
 ## And the two small ones did not
 
-**Cube Entertainment** is the only company here whose revenue fell, by 15.5%, and it went from an
+**Cube Entertainment** is the only company here whose revenue fell, by 15.0%, and it went from an
 operating profit of ₩12bn to an operating loss of ₩7bn.
 
-**FNC Entertainment** grew revenue 18.6% and still lost money on both lines, as it did the year
+**FNC Entertainment** grew revenue 18.7% and still lost money on both lines, as it did the year
 before.
 
 Together the two of them are ₩0.12tn of market value against HYBE's ₩7.82tn. In an industry
@@ -98,7 +100,7 @@ The obvious next column would be a price-earnings ratio. We are not printing one
 reasons.
 
 For HYBE the reason is arithmetic: net profit is negative, so the ratio is either negative or
-undefined. A negative PER is not a small PER — it is not a PER. We leave it out rather than print
+not defined at all. A negative PER is not a small PER — it is not a PER. We leave it out rather than print
 a number that looks comparable and is not.
 
 For the four profitable companies the reason is dates. The market capitalisation above is one
