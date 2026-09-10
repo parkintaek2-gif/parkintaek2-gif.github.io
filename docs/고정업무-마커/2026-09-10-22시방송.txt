@@ -1,0 +1,7 @@
+22시 방문자·체류 방송 마커
+남긴때: 2026. 9. 10. 오후 9:31:24
+잰 자: scripts/measure-real-readers.mjs --잰다 --적는다=src/data/real-readers.json
+진짜 손님 28일 순방문자: 100yearmap 121 · KCW 60 · SeoulMarkets 21 · KLifeMap 5
+체류(초): 66.4 · 99.7 · 267.3 · 62.7   1인당 지면: 1.22 · 1.60 · 1.31 · 1.45
+방송한 곳: docs/세션간-메모.md · ../klifemap/docs/1번-4번-메모.md
+9월 목표(유닛당 하루 1,000명)에서 멀다 — 좋게 적지 않았다.
