@@ -1,0 +1,927 @@
+[
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "첫 화면",
+    "길": "/",
+    "있어야": [
+      "KLifeMap"
+    ],
+    "http": 200,
+    "보이는글자": 4667,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 KLifeMap.AI · HUMAN INTELLIGENCE PLATFORM KLifeMap.AI 플랫폼과 함께, 흔들림 없는 기준으로 나를 본다 동양의 지혜, ",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "콘텐츠 목록",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 3,
+    "메뉴고르기": ".filter-bar a",
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "한국어",
+        "길": "/content"
+      },
+      {
+        "글": "English",
+        "길": "/content?lang=en"
+      },
+      {
+        "글": "日本語",
+        "길": "/content?lang=ja"
+      },
+      {
+        "글": "中文",
+        "길": "/content?lang=zh"
+      },
+      {
+        "글": "전체",
+        "길": "/content"
+      },
+      {
+        "글": "Human Story",
+        "길": "/content?pillar=human_story"
+      },
+      {
+        "글": "Human Intelligence",
+        "길": "/content?pillar=human_intelligence"
+      },
+      {
+        "글": "Domain Engine Story",
+        "길": "/content?pillar=domain_engine"
+      },
+      {
+        "글": "Core Engine Story",
+        "길": "/content?pillar=core_engine"
+      },
+      {
+        "글": "공지",
+        "길": "/content?pillar=notice"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 한국어",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ English",
+    "길": "/content?lang=en",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 7705,
+    "첫글": "KLifeMap.AI ☰ 🌐 EN ▾ Sign in Sign up Articles Notes on self-understanding and better decisions — from KLifeMap.AI 한국어 E",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 日本語",
+    "길": "/content?lang=ja",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3481,
+    "첫글": "KLifeMap.AI ☰ 🌐 日本 ▾ ログイン 会員登録 記事 自分を知り、よりよく決めるために — KLifeMap.AI から 한국어 English 日本語 中文 すべて 物語 自分を知る 四柱推命の読み方 エンジンの判断 お知",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 中文",
+    "길": "/content?lang=zh",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2956,
+    "첫글": "KLifeMap.AI ☰ 🌐 中文 ▾ 登录 注册 文章 认识自己、做出更好的判断 — 来自 KLifeMap.AI 한국어 English 日本語 中文 全部 故事 认识自己 命理解读 引擎如何判断 公告 命理解读 结婚登记择日：能挑",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 전체",
+    "길": "/content",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3569,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Human Story",
+    "길": "/content?pillar=human_story",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2857,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Human Intelligence",
+    "길": "/content?pillar=human_intelligence",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3727,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Domain Engine Story",
+    "길": "/content?pillar=domain_engine",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 4076,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ Core Engine Story",
+    "길": "/content?pillar=core_engine",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3423,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 20,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "  ↳ 공지",
+    "길": "/content?pillar=notice",
+    "카드고르기": ".post-card",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 739,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 콘텐츠 자기이해와 좋은 판단을 돕는 KLifeMap.AI의 이야기 한국어 English 日本語 中文 전체 Human Story Human Intelligence",
+    "카드": 1,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "글 지면",
+    "길": "/content/ilju-im-in",
+    "본문고르기": "article",
+    "적어도글자": 300,
+    "http": 200,
+    "보이는글자": 3006,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 Core Engine Story 임인(壬寅) 일주 — 일간 임이 인을 딛고 선 자리 2026-09-10 · KLifeMap.AI 무료로 내 사주 보기 → 임인(",
+    "카드": null,
+    "본문": 1967,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "KLifeMap",
+    "주인": "1번",
+    "이름": "사주 화면",
+    "길": "/saju.html",
+    "있어야": [
+      "사주"
+    ],
+    "http": 200,
+    "보이는글자": 1519,
+    "첫글": "KLifeMap.AI ☰ 🌐 KO ▾ 로그인 회원가입 命理 정본 명리 사주 보기 격국·용신·상신을 대운 흐름에 따라 정밀하게 풀이합니다. 나의 타고난 기운과 인생의 흐름을 격국·용신 체계로 정밀하게 분석합니다. 한",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "첫 화면",
+    "길": "/",
+    "메뉴고르기": "nav a, header a",
+    "http": 200,
+    "보이는글자": 2653,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 0~100세, 백년지도가 그 백 년을 그립니다. 대학은 100년 중 한 점일 뿐입니다. 그 길로 간 사람들이 졸업하고 나서 실제로 어떻게 됐는지",
+    "카드": null,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "백년지도\n인생 네비",
+        "길": "/"
+      },
+      {
+        "글": "나이로 보기",
+        "길": "/age"
+      },
+      {
+        "글": "",
+        "길": "/before"
+      },
+      {
+        "글": "",
+        "길": "/after"
+      },
+      {
+        "글": "",
+        "길": "/work"
+      },
+      {
+        "글": "",
+        "길": "/major"
+      },
+      {
+        "글": "",
+        "길": "/college-major"
+      },
+      {
+        "글": "",
+        "길": "/school"
+      },
+      {
+        "글": "",
+        "길": "/university"
+      },
+      {
+        "글": "",
+        "길": "/region"
+      },
+      {
+        "글": "유료서비스",
+        "길": "/price"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ 백년지도\n인생 네비",
+    "길": "/",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2653,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 0~100세, 백년지도가 그 백 년을 그립니다. 대학은 100년 중 한 점일 뿐입니다. 그 길로 간 사람들이 졸업하고 나서 실제로 어떻게 됐는지",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ 나이로 보기",
+    "길": "/age",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 4315,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 나이로 보기 백년지도는 열아홉에서 끝나지 않습니다. 대학 다음의 자리를 나이로 놓았습니다. ⛔ 나이를 줄세우지 않았습니다. 어느 나이가 나은 나",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/before",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 1382,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 대학 이전 대학 이후가 있다면 그 앞도 있어야 합니다. 백년지도가 낸 대학 이전 지면 6개를 나이 차례로 모았습니다. ⛔ 카드에 적힌 수는 그 ",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/after",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3200,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 대학에 간 다음이 궁금하실 겁니다. 어디에 합격했는지까지는 어디서나 알려줍니다. 그 다음은 아무도 안 봅니다. 졸업하고 나서 실제로 어떻게 됐는",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/work",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3637,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 대학에 가지 않은 길도 백 년을 갑니다. 고등학교를 마치고 바로 일터로 간 사람들이 있습니다. 해마다 63,005명입니다. 그 사람들이 그 뒤에",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/major",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 12089,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 학과 찾기 전국 고등학교의 나이스 학과정보에 등록된 학과 925개입니다. 학교가 나라에 올려 둔 목록이고, 지금 학생을 받는지까지는 나라가 알려",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/college-major",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 12502,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 대학 어느 과를 나오면 어떻게 되나요? 대학 학과 837개가 졸업한 뒤 실제로 어떻게 됐는지 모았습니다. 취업률과 진학률, 그리고 남녀가 다르게",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/school",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 6350,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 학교 찾기 전국 고등학교 2,525곳입니다. 이 가운데 학과가 있는 곳이 1,172곳입니다 — 나머지는 일반고라 학과를 나누지 않습니다. 지역으",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/university",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2992,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 대학 찾기 전국 377곳입니다 — 대학교 222 · 교육대학 11 · 전문대학 144 · 2025년 대학정보공시 기준 경기 69곳 가천대학교 대",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ ",
+    "길": "/region",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 1839,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 지역으로 보기 시·도 17곳입니다. 고등학교 2,525곳 · 대학 377곳을 지역으로 묶었습니다. ⛔ 지역을 등수로 놓지 않았습니다. 가나다순입",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "  ↳ 유료서비스",
+    "길": "/price",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 939,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 값 지역 한 벌을 포함해 백년지도 지면은 전부 무료입니다. 🎁 지역 한 벌(옛 9,900원짜리)도 지금은 무료로 여셨습니다. 아래 표의 「지역",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "백년지도",
+    "주인": "3번",
+    "이름": "나이 축",
+    "길": "/age",
+    "http": 200,
+    "보이는글자": 4315,
+    "첫글": "백년지도 인생 네비 나이로 보기 배움으로 보기 배움 길 찾기 유료서비스 나이로 보기 백년지도는 열아홉에서 끝나지 않습니다. 대학 다음의 자리를 나이로 놓았습니다. ⛔ 나이를 줄세우지 않았습니다. 어느 나이가 나은 나",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "첫 화면",
+    "길": "/",
+    "메뉴고르기": "nav a, header a",
+    "http": 200,
+    "보이는글자": 27942,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Korean pop culture, i",
+    "카드": null,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "Stars",
+        "길": "/section/stars"
+      },
+      {
+        "글": "Titles",
+        "길": "/section/titles"
+      },
+      {
+        "글": "Industry",
+        "길": "/section/industry"
+      },
+      {
+        "글": "Tradition",
+        "길": "/section/tradition"
+      },
+      {
+        "글": "All articles",
+        "길": "/articles"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "  ↳ Stars",
+    "길": "/section/stars",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 24853,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Stars The people — ac",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "  ↳ Titles",
+    "길": "/section/titles",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 21186,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Titles The works — wh",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "  ↳ Industry",
+    "길": "/section/industry",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 10687,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Industry The business",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "  ↳ Tradition",
+    "길": "/section/tradition",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 1929,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Tradition The older l",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "  ↳ All articles",
+    "길": "/articles",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 66761,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Every article we have",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "K Culture Wire",
+    "주인": "5번",
+    "이름": "기사 목록",
+    "길": "/articles",
+    "http": 200,
+    "보이는글자": 66761,
+    "첫글": "K Culture Wire Korean pop culture, in numbers Stars · Titles · Industry · Tradition · All articles Every article we have",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "첫 화면",
+    "길": "/",
+    "메뉴고르기": "nav a, header a",
+    "http": 200,
+    "보이는글자": 50324,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT KOREAN MARKETS, EXPLAINED WI",
+    "카드": null,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "SeoulMarkets",
+        "길": "/"
+      },
+      {
+        "글": "EQUITIES",
+        "길": "/equities"
+      },
+      {
+        "글": "FX",
+        "길": "/fx"
+      },
+      {
+        "글": "RATES",
+        "길": "/rates"
+      },
+      {
+        "글": "COMMODITIES",
+        "길": "/commodities"
+      },
+      {
+        "글": "FUNDS",
+        "길": "/funds"
+      },
+      {
+        "글": "MACRO",
+        "길": "/macro"
+      },
+      {
+        "글": "DATA",
+        "길": "/data"
+      },
+      {
+        "글": "VIDEO",
+        "길": "/video"
+      },
+      {
+        "글": "API",
+        "길": "/api"
+      },
+      {
+        "글": "ABOUT",
+        "길": "/about"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ SeoulMarkets",
+    "길": "/",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 50324,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT KOREAN MARKETS, EXPLAINED WI",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ EQUITIES",
+    "길": "/equities",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 24333,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Equities Listed Kore",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ FX",
+    "길": "/fx",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3423,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION FX The won against t",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ RATES",
+    "길": "/rates",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3648,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Rates Korean governm",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ COMMODITIES",
+    "길": "/commodities",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 3770,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Commodities Oil, gol",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ FUNDS",
+    "길": "/funds",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 2431,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Funds Korean fund pe",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ MACRO",
+    "길": "/macro",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 17073,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Macro Growth, prices",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ DATA",
+    "길": "/data",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 8123,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SEOULMARKETS · DATA FOR LICE",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ VIDEO",
+    "길": "/video",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 6852,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SEOULMARKETS · VIDEO Korean ",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ API",
+    "길": "/api",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 12956,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT FOR DEVELOPERS Korean market",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ ABOUT",
+    "길": "/about",
+    "적어도": 1,
+    "http": 200,
+    "보이는글자": 6301,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT ABOUT Who we are, and how we",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "깨짐",
+    "흠": [
+      "카드가 null장이다 (적어도 1장)"
+    ]
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "증시 목록",
+    "길": "/equities",
+    "http": 200,
+    "보이는글자": 24333,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Equities Listed Kore",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  }
+]
