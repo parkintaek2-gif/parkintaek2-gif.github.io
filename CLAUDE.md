@@ -558,7 +558,15 @@ WikiTip        K컬처·e스포츠    K팝·드라마·영화·웹툰·e스포�
 매일 한 번   한경컨센서스 목록       node scripts/collect-seoulmarkets-hankyung-consensus.mjs   (2번)
 매일 한 번   한경컨센서스 애널리스트  node scripts/collect-seoulmarkets-hankyung-analysts.mjs    (2번)
 거래일+1     KRX 일별 시세          archive/raw/krx/  (다음 저녁 19시경에 들어온다)
+거래일+1     일반상품(금·석유)       node scripts/collect-commodities.mjs   (5번)
 하루 두 번   API 승인 확인          npm run watch:approvals
+
+🔴 **[2026-09-11 02:5x · 5번] 일반상품을 이 목록에 넣었다 — 폴더가 «0개»였다.**
+   수집기는 2026-08-04 에 붙었고 승인도 그때 나 있었다. **한 번도 안 돌린 것**이다.
+   같은 날 두 시간 전에 채권에서 18일이 조용히 사라진 것을 잡았는데, 이쪽은 더 나빴다.
+   ⇒ 7/1~9/9 49거래일 245행을 소급해 받고 `check-archive-freshness.mjs` 감시에 올렸다.
+   ⛔ **「자를 만들었다」를 「돈다」로 세지 않는다.** 감시에 올려야 도는 것이 된다.
+   ⛔ 소급이 되는 자료라도 감시에서 빼지 않는다 — 채권에서 그 생각으로 18일을 잃었다.
 
 🔴 **[2026-09-09] 한경컨센서스를 이 목록에 넣었다 — 5번이 재서 알았다.**
    `--일수 365` 로 1년을 달라고 해도 **31일 창과 똑같은 624건·13쪽·165종목**이 왔다.
