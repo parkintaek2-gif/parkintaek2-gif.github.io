@@ -26,6 +26,7 @@ import { readdirSync, existsSync, mkdirSync, writeFileSync, statSync } from 'nod
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘, 지금 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 영상방 = path.join(뿌리, 'public/wikitip/video');
@@ -212,7 +213,12 @@ for (const f of 파일들) {
   const 카드첫장 = path.join(뿌리, 'public/wikitip/cardnews', 벌, '01.png');
   const 됐나 = 그림뽑기(길, 그림, 초, 카드첫장);
   if (!됐나) { 못한것.push({ f, 왜: '썸네일을 못 뽑았다' }); continue; }
-  const 올린날 = statSync(길).mtime.toISOString().slice(0, 10);
+  /* 🔴 [2026-09-11 05:4x · 5번] 여기가 `mtime.toISOString()` 이었다 — UTC 다.
+     그래서 «새벽 0~9시에 구운 영상»이 어제 날짜로 적혔다. 오늘 05:05 에 구운 편이
+     `uploadDate: 2026-09-10` 으로 나가 있었고, 그 탓에 두시간체크가 「새 영상 0/1」이라 했다.
+     ⛔ 손해는 두 겹이다 — 몫이 안 세지고, 구조화 데이터의 올린날이 손님·구글에 하루 틀리게 간다.
+     CLAUDE.md 🔴 「toISOString() 도 쓰지 않는다 — 날짜를 만들면 새벽에 하루가 어긋난다」 */
+  const 올린날 = 오늘(statSync(길).mtime.getTime());
   나온것.push({ set: 벌, seconds: Math.round(초 * 10) / 10, uploadDate: 올린날,
     thumb: `/video/thumb/${벌}.jpg`, src: `/video/${벌}.mp4` });
   console.log(`  ✅ ${벌.padEnd(14)} ${초.toFixed(1)}초 · ${올린날}`);
@@ -221,7 +227,7 @@ for (const f of 파일들) {
 for (const x of 못한것) console.log(`  ⛔ ${x.f} — ${x.왜} (이 영상은 스키마를 안 낸다)`);
 
 writeFileSync(낼길, `${JSON.stringify({
-  generated: new Date().toISOString(),
+  generated: 지금(),
   whatThisIs: 'Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.',
   whatThisIsNot: 'This does not mean the videos rank. Google still has to index them.',
   videos: 나온것,
