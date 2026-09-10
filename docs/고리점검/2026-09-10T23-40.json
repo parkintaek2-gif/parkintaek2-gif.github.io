@@ -1,0 +1,252 @@
+[
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "첫 화면",
+    "길": "/",
+    "메뉴고르기": "nav a, header a",
+    "http": 200,
+    "보이는글자": 50324,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT KOREAN MARKETS, EXPLAINED WI",
+    "카드": null,
+    "본문": null,
+    "메뉴": [
+      {
+        "글": "SeoulMarkets",
+        "길": "/"
+      },
+      {
+        "글": "EQUITIES",
+        "길": "/equities"
+      },
+      {
+        "글": "FX",
+        "길": "/fx"
+      },
+      {
+        "글": "RATES",
+        "길": "/rates"
+      },
+      {
+        "글": "COMMODITIES",
+        "길": "/commodities"
+      },
+      {
+        "글": "FUNDS",
+        "길": "/funds"
+      },
+      {
+        "글": "MACRO",
+        "길": "/macro"
+      },
+      {
+        "글": "DATA",
+        "길": "/data"
+      },
+      {
+        "글": "VIDEO",
+        "길": "/video"
+      },
+      {
+        "글": "API",
+        "길": "/api"
+      },
+      {
+        "글": "ABOUT",
+        "길": "/about"
+      }
+    ],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ SeoulMarkets",
+    "길": "/",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 50324,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT KOREAN MARKETS, EXPLAINED WI",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ EQUITIES",
+    "길": "/equities",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 24333,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Equities Listed Kore",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ FX",
+    "길": "/fx",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 3423,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION FX The won against t",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ RATES",
+    "길": "/rates",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 3648,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Rates Korean governm",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ COMMODITIES",
+    "길": "/commodities",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 3770,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Commodities Oil, gol",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ FUNDS",
+    "길": "/funds",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 2431,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Funds Korean fund pe",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ MACRO",
+    "길": "/macro",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 17073,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Macro Growth, prices",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ DATA",
+    "길": "/data",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 8123,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SEOULMARKETS · DATA FOR LICE",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ VIDEO",
+    "길": "/video",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 6852,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SEOULMARKETS · VIDEO Korean ",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ API",
+    "길": "/api",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 12956,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT FOR DEVELOPERS Korean market",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "  ↳ ABOUT",
+    "길": "/about",
+    "카드고르기": null,
+    "적어도": null,
+    "http": 200,
+    "보이는글자": 6301,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT ABOUT Who we are, and how we",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  },
+  {
+    "사이트": "SeoulMarkets",
+    "주인": "6번",
+    "이름": "증시 목록",
+    "길": "/equities",
+    "http": 200,
+    "보이는글자": 24333,
+    "첫글": "Skip to content SeoulMarkets EQUITIES FX RATES COMMODITIES FUNDS MACRO DATA VIDEO API ABOUT SECTION Equities Listed Kore",
+    "카드": null,
+    "본문": null,
+    "메뉴": [],
+    "상태": "괜찮다",
+    "흠": []
+  }
+]
