@@ -67,15 +67,50 @@ export function rowOut(r: any): string {
   ].map(cell).join(',');
 }
 
+/**
+ * 🔴 [2026-09-10] 무료로 내주는 줄 수를 «좁혔다».
+ *
+ * 사장님: 「이건 좋아, 그런데 이렇게 모든 상장사의 데이터를 그냥 공짜로 다운로드 받을 수
+ *        있게 하는 게 우리한테 많은 도움이 될까 궁금하다」
+ *
+ * ⛔ 처음 판은 상장 2,709곳 전량을 열었다. 그런데 우리 실행계획의 **F5(파일 배달, 09-23)가
+ *   바로 그 파일**이다. 전량을 무료로 내면 팔 물건이 남지 않는다 —
+ *   깔때기를 만든 것이 아니라 상품을 내준 것이었다.
+ * ⚠ 「무료가 넓으면 검색에 유리하다」도 내 짐작이었다. 구글 데이터셋 검색은 «설명과
+ *   구조화 데이터»를 색인한다. 줄 수를 색인하지 않는다 — 표본으로도 자격은 그대로다.
+ *
+ * ⭐ 그래서 «시가총액이 큰 100곳»만 낸다. 칸은 하나도 안 줄인다 —
+ *   손님이 «품질»을 다 볼 수 있어야 깔때기가 돈다. 줄 수만 줄인다.
+ * ⛔ 표본을 전량인 척하지 않는다. 머리글에 표본이라고 적고 «전량이 몇 줄인지»도 적는다.
+ */
+export const 무료줄수 = 100;
+
+export function 표본뽑기(rows, 몇줄 = 무료줄수) {
+  if (!Array.isArray(rows)) return [];
+  /* ⛔ 앞에서 자르지 않는다 — 파일 순서는 뜻이 없다. 시총 큰 것부터가 손님이 아는 회사다 */
+  return [...rows]
+    .sort((a, b) => (Number(b?.marketCap) || -1) - (Number(a?.marketCap) || -1))
+    .slice(0, 몇줄);
+}
+
 export const GET: APIRoute = () => {
   const meta = (tape as any)._meta ?? {};
-  const rows = ((tape as any).rows ?? []) as any[];
+  const 전량 = ((tape as any).rows ?? []) as any[];
+  const rows = 표본뽑기(전량);
 
   /* 머리글 — 어디서 왔고 어떻게 읽어야 하나를 파일 «안»에 넣는다.
      ⛔ 지면에만 적으면 CSV 를 받아 간 사람은 그것을 못 본다 */
   const head = [
     `# Korea Valuation Tape — SeoulMarkets (${'https://seoulmarkets.com'}/data/valuation)`,
-    `# rows: ${rows.length} · with PER: ${meta.withPer ?? ''} · with PBR: ${meta.withPbr ?? ''}`
+    `# 🔓 THIS IS A FREE SAMPLE: the ${rows.length} largest companies by market value.`,
+    `#   The full tape covers ${전량.length} companies — every listed company in Korea.`,
+    '#   Same columns, same method, same dates. Only the row count differs.',
+    '#   The full file, the daily rebuild and the query API are the paid product:',
+    `#   ${'https://seoulmarkets.com'}/data`,
+    `# in this sample — with PER: ${rows.filter((r) => r.per !== null && r.per !== undefined).length}`
+      + ` · with PBR: ${rows.filter((r) => r.pbr !== null && r.pbr !== undefined).length}`
+      + ` · with ROE: ${rows.filter((r) => r.roe !== null && r.roe !== undefined).length}`,
+    `# in the full tape — with PER: ${meta.withPer ?? ''} · with PBR: ${meta.withPbr ?? ''}`
       + ` · with ROE: ${meta.withRoe ?? ''} · not computed: ${meta.notMeasured ?? ''}`,
     `# market cap as of: ${meta.priceAsOf ?? ''} (Korean public data portal daily price dataset)`,
     `# financials: DART open API fnlttSinglAcntAll, annual report 11011, fiscal year ${meta.fiscalYear ?? ''}`,

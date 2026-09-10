@@ -117,9 +117,11 @@ const datasetLd = {
   temporalCoverage: `${fiscalYear}/${priceDate}`,
   variableMeasured: ['PER', 'PBR', 'ROE', 'debt to equity', 'market capitalisation', 'net income',
     'total equity', 'total assets', 'revenue', 'operating income'],
+  /* 🔴 [2026-09-10] 무료로 내려받는 것은 «표본»이다 — 스키마에도 그렇게 적는다.
+     ⛔ 「전량 CSV」라고 적어 두면 구조화 데이터가 거짓을 말한다. */
   distribution: [{
     '@type': 'DataDownload',
-    name: 'Korea valuation tape (CSV)',
+    name: 'Korea valuation tape — free sample (100 largest companies, all columns, CSV)',
     encodingFormat: 'text/csv',
     contentUrl: `${SITE_URL}/data/korea-valuation.csv`,
   }],
@@ -154,7 +156,7 @@ const faq: Array<[string, string]> = [
     + 'recomputed against any other price date.'],
   ['Is Korean company data available in English?',
     `Yes. Every one of the ${total.toLocaleString('en-GB')} rows here carries an English company `
-    + 'name and an English industry label, and the file is free to download as CSV.'],
+    + 'name and an English industry label. A free CSV sample of the 100 largest is on this page.'],
   ['How many companies are listed on KOSPI and KOSDAQ?',
     byMarket.map((m) => `${m.label} ${m.n.toLocaleString('en-GB')}`).join(', ')
     + '. This counts companies with a DART filing identity, not separate preferred lines.'],
@@ -308,13 +310,24 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
     </section>
 
     <section>
-      <h2>Take the whole file</h2>
+      <h2>Take a sample now, licence the tape when you need all of it</h2>
       <p>
-        All {total.toLocaleString('en-GB')} rows, every column, free:
+        <b>Free sample</b> — the 100 largest companies by market value, with every column:
         {' '}<a href="/data/korea-valuation.csv">korea-valuation.csv</a>.
         English company name, English industry, market, market cap, net income, total equity, total
         assets, revenue, operating income, PER, PBR, ROE, debt to equity, the price date, the fiscal
         year, the report code, the basis, and the reason where a row could not be computed.
+      </p>
+      <p>
+        <b>The full tape</b> covers all {total.toLocaleString('en-GB')} listed companies — same
+        columns, same method, same dates, {(total - 100).toLocaleString('en-GB')} more rows — plus
+        the daily rebuild and the query API.
+        {' '}<a href="/data">See what is in the catalogue</a>.
+      </p>
+      <p class="note">
+        We show the sample with every column rather than a trimmed version of everything, because
+        you should be able to judge the quality of a row before licensing 2,709 of them. The page
+        above counts the whole tape, not the sample, and says so wherever the two differ.
       </p>
     </section>
 
