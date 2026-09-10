@@ -49,7 +49,7 @@ kosis-industrial-activity-runs	KOSIS 산업활동동향 실행 마커 (우리가
 procure	나라장터 조달 공고	⬜	아직 안 봤다
 work24	고용24 / 워크넷 — 직업코드·RIASEC (3번이 4유형이라 버린 것)	🔴	데이터-라이선스-대장.md 0절 공공누리 4유형(상업 이용 금지). ⚠ 그래도 폴더에 남은 까닭 — 08-04 자 네 파일(job-codes·job-path·riasec-by-job·career-bridge-riasec)이 잠들어 있다. 2026-09-09 5번이 재서 확인: 지면·상품 어디도 이 파일을 «쓰지 않는다»(grep 0건). ⛔ 발행에 쓰지 않는다. 지우려면 3번 판단이 필요하다
 wikidata	Wikidata (CC0)	🟢	Wikidata 는 CC0 — 다만 이 줄은 5번이 «약관 지면을 다시 읽고» 근거 주소를 넣어야 한다
-star-pageviews	위키백과 열람수 API	⬜	CC BY-SA 로 알고 있으나 조문을 안 읽었다 — 짐작으로 🟢 를 주지 않는다
+star-pageviews	위키백과 열람수 API	🟢	CC0 — 조문을 읽었다(2026-09-10). dumps.wikimedia.org/legal.html: 「Analytics Datasets All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified.」 열람수는 Analytics dataset 이다. ⚠ CC BY-SA 는 «문서 본문»에 걸리는 것이고 열람수 «수»에는 걸리지 않는다 — 내가 CC BY-SA 로 짐작했던 것이 틀렸다(안전한 쪽으로 틀렸다). 본문을 인용하면 그때는 CC BY-SA 를 따른다
 kpop-agencies	우리가 만든 소속사 명부	🟢	우리가 만든 파일이다
 newsdesk-korean-press	신문 제목 (제목만)	⬜	제목만 받되 조문을 안 읽었다 — 5번이 잰다
 community-desk	커뮤니티·SNS (에펨코리아·루리웹·인벤·Reddit·구글트렌드)	⬜	robots 는 재서 골랐다(collect-community-desk.mjs 머리). 저작권 조문은 안 읽었다
@@ -72,4 +72,4 @@ work24-training-card	한국고용정보원 직업훈련 국민내일배움카드
 trade-snapshots	국가데이터처 KOSIS · 관세청 국가별 수출입액 DT_1R11006_FRM101 (org 360)	🟢	KOSIS 통계정보 활용약관 제8조 「상업적 활용 가능」 · 제7조 출처표시 의무. ⛔ 제5조 — raw 를 그대로 제3자에 «유료 제공»만 금지다. 우리가 가공해 파는 것은 된다. ⚠ 소급 불가 — KOSIS 가 표를 제자리에서 고치므로 안 받은 날의 값은 영영 없다. 그래서 check-archive-freshness 감시 목록에 넣었다(참는 선 2일). 6번 아이디어 「잠정치→확정치 개정폭 상품화」의 재료다
 openalex-korea-markets	OpenAlex (openalex.org) — 한국시장 네 낱말이 제목·초록에 나오는 논문의 서지 메타데이터	🟢	OpenAlex 데이터는 **CC0**(퍼블릭도메인)다 — help.openalex.org/access/pricing/ 원문 「the data is a public good, released under a CC0 public-domain license with no personal use only carve-out and no permission to ask」(2026-09-09 실측). 출처표시 의무도 없고 상업적 이용도 된다. ⚠ 다만 API «사용»은 유료가 됐다(열쇠 없이 $0.10/일 · 무료 열쇠 $1/일) — 그래서 이 자는 열두 번만 부른다. 덩어리 내려받기는 무료·AWS 계정 불필요(s3://openalex/data/jsonl --no-sign-request). ⛔ 논문 «본문·초록»은 싣지 않는다 — 사본마다 라이선스가 달라서 라이선스 칸을 기록해 두고 cc-by·cc0 인 것만 나중에 쓴다
 dart-financials	DART fnlttSinglAcntAll 재무제표 (공시 API 계열)	🟢	위 DART 계열과 같은 공공누리 1유형 · 2026-09-10
-wikipedia	위키백과 문서(회사이름 사전 등) — _probe-*.mjs 탐침 스크립트가 쓴다	⬜	star-pageviews 와 같은 자리 — CC BY-SA 로 알고 있으나 조문을 안 읽었다. 짐작으로 🟢 를 주지 않는다
+wikipedia	위키백과·Wikidata (문서 제목·링크·열람수) — 탐침과 sea-brands 가 쓴다	🟢	CC0 — 조문을 읽었다(2026-09-10). 같은 문서: 「Wikidata Copyrights of structured data in the main, Property, Lexeme, and EntitySchema namespaces are waived using the Creative Commons Zero (CC0) public domain dedication.」 우리가 쓰는 것은 «문서 제목·링크(Wikidata)»와 «열람수»뿐이다. ⛔ 문서 «본문»을 옮기면 그것은 CC BY-SA 이고 출처·동일조건이 붙는다 — 본문은 쓰지 않는다
