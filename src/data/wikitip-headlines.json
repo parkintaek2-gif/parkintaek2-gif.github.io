@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-10 12:33 KST",
+  "generated": "2026-09-10 16:02 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 141,
-    "머리글있음": 141,
+    "본지면": 142,
+    "머리글있음": 142,
     "머리글없음": 0
   },
   "missing": [],
@@ -83,6 +83,7 @@
     "/netflix-top10-data": "Inside Netflix's two Top 10 files",
     "/netflix-tudum-data-dictionary": "all-weeks-countries.tsv and all-weeks-global.tsv: what is actually inside",
     "/netflix-which-country": "Which countries had it on Netflix?",
+    "/newsdesk-abroad": "One day of a Korean entertainment desk, measured from outside Korea",
     "/one-month": "Faker and Peanut get a year of readers in one month. Son Heung-min never does",
     "/one-out": "We published two findings and corrected one. A one-line check told them apart before we knew",
     "/one-title": "Half of the Korean actors on a Netflix chart are there for one title",
