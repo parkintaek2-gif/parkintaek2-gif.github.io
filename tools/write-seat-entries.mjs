@@ -33,6 +33,8 @@
  *   ⇒ 한국어 설명은 이 파일과 `_입구설명.md` 에 둔다. 입구에는 안 넣는다.
  */
 
+const 기본계정 = 'admin@klifedesign.net';
+
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -45,7 +47,11 @@ export const 검사자 = 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics\\too
  */
 export const 자리표 = [
   { 자리: 1, 파일: '1번_KLifeMap.cmd',        영문: 'KLifeMap',       계정: 'u1@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u1', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
-  { 자리: 2, 파일: '2번_조율.cmd',            영문: 'Coordinator',    계정: 'u2@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  /* 🔴 [2026-09-10 · 5번] 계정을 u2@ 에서 admin@ 으로 고쳤다 — 실측으로 확인한 것이다.
+     .claude-u2 는 처음부터 admin@klifedesign.net 으로 로그인돼 있었고, u2@ 로 클로드에
+     로그인한 흔적은 일곱 방에 0건이다. 옛 값으로 두면 자리를 다시 세울 때 «없는 계정»으로 세운다.
+     ⚠ 9/21 에 2번 자리가 없어지면 이 줄은 K Culture Wire 로 바뀐다(전환 계획 3-4절). */
+  { 자리: 2, 파일: '2번_조율.cmd',            영문: 'Coordinator',    계정: 'admin@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
   { 자리: 3, 파일: '3번_백년지도.cmd',        영문: 'HundredYear',    계정: 'u3@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u3', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
   { 자리: 4, 파일: '4번_KLifeMap보조.cmd',    영문: 'KLifeMap-2',     계정: 'u4@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u4', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
   { 자리: 5, 파일: '5번_케이컬처와이어.cmd',  영문: 'KCultureWire',   계정: 'u5@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u5', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
@@ -109,7 +115,13 @@ export function 입구글(칸, 검사길 = 검사자) {
     'REM       silently again - if something failed you can read why.',
     'REM',
     'REM  DO NOT delete the CLAUDE_CONFIG_DIR line. Without it this window',
-    `REM  signs in as admin@klifedesign.net instead of ${계정}.`,
+    /* 🔴 [2026-09-10 · 5번] 기본 계정과 그 자리 계정이 «같은» 자리가 생겼다 —
+       2번이 admin@ 을 빌려 쓴다(실측). 그러면 이 경고문이 「admin@ 대신 admin@」이 되어
+       자기 모순이 된다. 그 자리에는 다른 말을 적는다.
+       ⛔ 문장이 스스로 모순되면 읽는 사람이 그 파일 전체를 안 믿는다. */
+    계정 === 기본계정
+      ? `REM  uses the same account as a plain window (${계정}); the config dir is the only thing keeping this seat separate.`
+      : `REM  signs in as ${기본계정} instead of ${계정}.`,
     'REM',
     'REM  NOTE ON DIRECTORIES: a transcript folder is fixed by the directory the',
     'REM  session FIRST opened in, not by where you resume from. That is why we',
