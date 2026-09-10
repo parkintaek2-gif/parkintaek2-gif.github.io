@@ -102,6 +102,26 @@ const 갈래들 = Object.entries(갈래별).map(([k, 줄]) => {
     합,
     차례: 판차례(판별),
     이름들: 줄.map((r) => r.name).sort(),
+    /*
+     * 🔴 [2026-09-10] 갈래 «안»에서 제일 큰 한 곳의 몫을 같이 담는다.
+     *   까닭: 기술 갈래 1,382.54 가운데 Google 하나가 1,038.59 — 75.1% 였다.
+     *   그런데 Google 은 앰버서더를 쓰는 브랜드가 아니다. 그 한 곳을 빼면 배수가
+     *   5.2배에서 1.30배로 내려앉는다.
+     * ⛔ 갈래 «합»만 내면 「기술이 명품을 압도한다」로 읽힌다 — 자료가 그것을 받쳐 주지 않는다.
+     * ⇒ 배수를 낼 자리에서는 늘 이 칸을 함께 본다. 한 곳이 갈래를 만들고 있으면 그렇게 적는다.
+     */
+    으뜸: (() => {
+      const 온전 = 줄.filter((r) => r.seaEditionsWithArticle === 판들.length
+        && Number.isFinite(r.seaPerMillionTotal))
+        .sort((a, b) => b.seaPerMillionTotal - a.seaPerMillionTotal);
+      if (!온전.length || !(합 > 0)) return null;      /* ⛔ 못 재면 null. 0 으로 채우지 않는다 */
+      const 첫 = 온전[0];
+      return {
+        name: 첫.name,
+        value: +첫.seaPerMillionTotal.toFixed(2),
+        share: +((첫.seaPerMillionTotal / 합) * 100).toFixed(1),
+      };
+    })(),
   };
 }).sort((a, b) => b.합 - a.합);
 

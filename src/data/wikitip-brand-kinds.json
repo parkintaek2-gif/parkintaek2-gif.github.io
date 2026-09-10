@@ -43,7 +43,12 @@
         "Google",
         "Microsoft",
         "Samsung Electronics"
-      ]
+      ],
+      "으뜸": {
+        "name": "Google",
+        "value": 1038.59,
+        "share": 75.1
+      }
     },
     {
       "key": "luxury",
@@ -76,7 +81,12 @@
         "Hermès",
         "Louis Vuitton",
         "Prada"
-      ]
+      ],
+      "으뜸": {
+        "name": "Gucci",
+        "value": 58.33,
+        "share": 22
+      }
     },
     {
       "key": "fastfood",
@@ -103,7 +113,12 @@
         "KFC",
         "McDonald's",
         "Starbucks"
-      ]
+      ],
+      "으뜸": {
+        "name": "McDonald's",
+        "value": 84.19,
+        "share": 45.8
+      }
     },
     {
       "key": "car",
@@ -129,7 +144,12 @@
         "BMW",
         "Mercedes-Benz",
         "Porsche"
-      ]
+      ],
+      "으뜸": {
+        "name": "BMW",
+        "value": 66.76,
+        "share": 40.4
+      }
     },
     {
       "key": "jewellery",
@@ -156,7 +176,12 @@
         "Cartier",
         "Rolex",
         "Tiffany & Co."
-      ]
+      ],
+      "으뜸": {
+        "name": "Cartier",
+        "value": 18.33,
+        "share": 34.4
+      }
     },
     {
       "key": "fashion",
@@ -181,7 +206,12 @@
       "이름들": [
         "Calvin Klein",
         "Tommy Hilfiger"
-      ]
+      ],
+      "으뜸": {
+        "name": "Tommy Hilfiger",
+        "value": 8.75,
+        "share": 100
+      }
     },
     {
       "key": "car-korean",
@@ -207,7 +237,8 @@
         "Genesis Motor",
         "Hyundai Motor Company",
         "Kia"
-      ]
+      ],
+      "으뜸": null
     }
   ],
   "countryNames": {

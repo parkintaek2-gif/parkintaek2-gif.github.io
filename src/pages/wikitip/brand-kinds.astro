@@ -40,6 +40,18 @@ const 브랜드수 = typeof d.brandsMeasured === 'number' ? d.brandsMeasured : n
 /* 기술이 명품보다 몇 배인가 — ⛔ 분모가 0 이면 null 이다 */
 const 기술배수 = (기술 && 명품 && 명품.합 > 0) ? +(기술.합 / 명품.합).toFixed(1) : null;
 
+/*
+ * 🔴 [2026-09-10] 「기술이 명품의 5.2배」를 내려다 «한 곳이 그 배수를 만들고 있는» 것을 봤다.
+ *   Google 하나가 기술 갈래 1,382.54 가운데 1,038.59 — **75.1%** 다.
+ *   그런데 Google 은 앰버서더를 쓰는 브랜드가 아니다. 그 한 곳을 빼면 1.30배로 내려앉는다.
+ * ⛔ 갈래 합만 내면 「기술이 명품을 압도한다」로 읽힌다. 그것은 이 자료가 받쳐 주지 않는다.
+ * ⇒ 그래서 갈래 안에서 «제일 큰 한 곳의 몫»을 세어 같이 낸다. 배수를 낼 때는 늘 이것을 본다.
+ */
+/* ⛔ 지면이 세지 않는다 — 빌더가 세어 담은 칸(으뜸)을 읽는다. 짐작으로 채우지 않는다 */
+const 기술으뜸 = (기술 as any)?.으뜸 ?? null;
+const 기술빼고 = (기술 && 기술으뜸 && 명품 && 명품.합 > 0)
+  ? +((기술.합 - 기술으뜸.value) / 명품.합).toFixed(2) : null;
+
 const TITLE = 'Southeast Asia does not read brands as one thing';
 const DESC =
   `Split ${브랜드수 ?? 'the'} luxury, jewellery, fashion, car, technology and fast food brands by kind `
@@ -123,9 +135,19 @@ const jsonLd = {
       So we added them, over the same {d.window} window, and re-read everything.
     </p>
     <p class="q">
-      {기술 && 명품 && 기술배수
-        ? `${기술.label} are read ${기술배수} times as much as every ${명품.label.toLowerCase()} brand here put together.`
+      {기술으뜸 && 기술빼고 && 명품
+        ? `One company carries that kind: ${기술으뜸.name} is ${기술으뜸.share}% of it. Take it out and technology is ${기술빼고} times the luxury houses, not ${기술배수}.`
         : 'We could not compute that multiple, so we are not publishing one.'}
+    </p>
+    <p class="note">
+      <b>We nearly published the wrong number.</b> The kind totals say
+      {기술 && 명품 && 기술배수 ? ` technology is ${기술배수} times the luxury houses` : ' technology leads'},
+      and that reads as though the kind is overwhelming. It is not the kind — it is one entry.
+      {기술으뜸 ? ` ${기술으뜸.name} alone is ${기술으뜸.value} of the ${기술?.합} total,` : ''}
+      {' '}and nobody makes {기술으뜸 ? 기술으뜸.name : 'a search engine'} the face of a campaign.
+      The honest comparison is brand against brand, and it is smaller and still real: the phone
+      company is read about three times as much as the most-read luxury house here, and the burger
+      chain about one and a half times.
     </p>
     <p>
       {패스트푸드 && 독일차 && 패스트푸드.합 > 독일차.합
