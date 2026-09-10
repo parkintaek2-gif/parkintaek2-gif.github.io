@@ -1,6 +1,6 @@
 ---
 title: "One K-pop member outdraws her own group — by 0.4%"
-dek: "Jennie's solo single just matched a BTS record, so we counted lookups for three groups and their fifteen members. Only Lisa passed her own group page, by 7,413 out of 1.8 million. But add the members up and BLACKPINK's name is worth a third of its four."
+dek: "Jennie's solo single matched a BTS record, so we counted lookups for three groups and all fifteen members. Only Lisa passed her own group page — by 7,413 out of 1.8 million. Added up, BLACKPINK's four beat its name 3.25 times."
 category: industry
 purpose: both
 genre: music
@@ -38,7 +38,9 @@ than the band.
 We cannot check that on the charts — Billboard's data is licensed and we do not hold a
 licence. We can check something adjacent and open: how many people go and look each of
 them up. So we counted twelve months of English Wikipedia lookups for three groups and
-all fifteen of their members.
+all fifteen of their members. It is the same well, the same window and the same filter we
+used to count [fictional groups against real ones](/fictional-vs-real), which means the two
+sets of numbers can be laid beside each other.
 
 ## Only one member passed her own group, and only just
 
@@ -136,5 +138,9 @@ we are not going to explain the table with them.
 And the news peg itself — fifteen weeks in a Billboard top ten — is not in this piece at all,
 because we are not licensed to republish it. We counted what we are allowed to count and
 labelled it.
+
+Two related counts, from the same well: how much attention
+[a fictional group draws against real ones](/fictional-vs-real), and how much
+[market value each label carries per artist on its roster](/cap-per-artist).
 
 *These are statistics, not you. This is not investment advice.*
