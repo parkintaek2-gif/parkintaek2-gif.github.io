@@ -125,6 +125,7 @@ export const 갈래 = {
   '/qual-age': ['src/pages/100y/qual-age/index.astro', 'src/data/100yearmap/qual-age.json'],
   '/industry-region-cross': ['src/pages/100y/industry-region-cross/index.astro', 'src/data/100yearmap/industry-region-cross.json'],
   '/industry-size-cross': ['src/pages/100y/industry-size-cross/index.astro', 'src/data/100yearmap/industry-size-cross.json'],
+  '/turnover-cross-check': ['src/pages/100y/turnover-cross-check/index.astro', 'src/data/100yearmap/industry-life.json'],
   '/before': [
     'src/pages/100y/before/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json',
     'src/data/100yearmap/pediatrics.json', 'src/data/100yearmap/afterschool.json', 'src/data/100yearmap/elementary.json',

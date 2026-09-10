@@ -114,6 +114,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'qual-duration', 'qual-age',
   /* 🔴 2026-09-10 3번 신설 — wage-education·wage-distribution과 같은 결(임금 비교) */
   'industry-region-cross', 'industry-size-cross',
+  /* 🔴 2026-09-10 3번 신설 — 같은 원자료의 이직 추정치를 공식 통계와 대조(판정 없음) */
+  'turnover-cross-check',
 ]);
 
 /**
@@ -285,7 +287,7 @@ export const 붙일수있는갈래 = [
   'csat-applicant-mix', 'university-founding-gap', 'trendy-major-outcomes', 'university-dropout-rate',
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   /* 🔴 2026-09-10 3번 신설 */
-  'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross',
+  'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross', 'turnover-cross-check',
   '기타',
 ] as const;
 

@@ -81,6 +81,13 @@ export const 온줄 = [
   { 키: 'qual-age', 주소: '/qual-age', 말: '나이띠별 국가기술자격 응시·합격' },
   /* 등급별(나이 아님) 자격 취득 소요일수 — qual-age 와 짝인 자료라 곁에 둔다 */
   { 키: 'qual-duration', 주소: '/qual-duration', 말: '등급별 국가기술자격 취득 소요일수' },
+  /* 🔴 [2026-09-10 3번] industry-region-cross·industry-size-cross 가 이 정본 목록에
+     없었다(먼저 만든 세션이 이 파일을 빠뜨렸다) — <HundredAgeWalk> 를 불러도 앞뒤도
+     온줄도 안 나오고 있었다. 나이 아닌 «일하는 동안» 축(work-gap·business-age 와 같은
+     결)이라 온줄에 넣는다. */
+  { 키: 'industry-region-cross', 주소: '/industry-region-cross', 말: '같은 업종, 서울과 지방이 얼마나 다를까' },
+  { 키: 'industry-size-cross', 주소: '/industry-size-cross', 말: '같은 업종 안에서 규모가 임금을 얼마나 올릴까' },
+  { 키: 'turnover-cross-check', 주소: '/turnover-cross-check', 말: '우리 이직 추정치, 공식 통계와 견주면' },
 ];
 
 const 자리 = 차례.findIndex((r) => r.키 === 키);
