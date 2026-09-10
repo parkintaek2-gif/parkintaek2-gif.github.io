@@ -26,12 +26,15 @@ import d from '../../data/kcw-age-in-headline.json';
    ⭐ 사장님 지시대로 이슈는 «축 지면 하나»에 묶는다 — 새 지면을 늘리지 않는다.
    ⛔ 이 자료의 수도 손으로 안 적는다. */
 import 돈자료 from '../../data/kcw-money-vs-age-in-headline.json';
+/* [2026-09-11 06:0x] 셋째 축 — 제목에 섞인 로마자. 영어권 손님이 «읽을 수 있는» 조각이다. */
+import 로마자료 from '../../data/kcw-latin-in-headline.json';
 
-const TITLE = 'Korean entertainment headlines put your age in quotation marks — we counted';
+const TITLE = 'What a Korean front page puts in a headline: age, money and Latin letters, counted';
 const DESC =
-  'Korean entertainment desks open stories with the subject’s age in quote marks, before the name. '
-  + 'We read ten days of front pages from four Korean outlets, 1,365 headlines, and counted. One desk '
-  + 'does it in 27 percent of its headlines. The general and business papers do it in none.';
+  'Korean desks open stories with the subject’s age in quote marks, print won amounts, and mix Latin '
+  + 'letters into Korean type — and each habit belongs to a different desk. We read ten days of front '
+  + 'pages from four Korean outlets and counted all three, desk by desk, with what we could not measure '
+  + 'written down beside each figure.';
 
 /** 매체 영문 제호 — ⛔ 지어내지 않는다. 넷 다 그 매체가 스스로 쓰는 영문 이름이다 */
 const 영문제호: Record<string, string> = {
@@ -77,6 +80,22 @@ const 둘다합 = Number((돈자료 as any).둘다합);
 const 돈제목합 = Number((돈자료 as any).제목합) || 0;
 const 돈으뜸 = 돈매체들.length ? 돈매체들.slice().sort((a, b) => b.돈몫 - a.돈몫)[0] : null;
 
+/* ── 로마자 축 ─────────────────────────────────────────────────────
+   ⚠ 두 글자부터가 낱말이다 — 「A형」·「S급」은 등급 표시라 안 센다.
+   ⚠ 매체가 «자기 약칭»을 박는다(MK 31개). 빼고 센 값을 함께 낸다. */
+type 로마매체 = {
+  매체: string; 갈래: string | null; 제목수: number; 로마자든제목: number; 몫: number | null;
+  제몸뺀제목: number; 제몸뺀몫: number | null; 제몸조각: number; 조각수: number;
+  꼴: { 다대문자: number; 첫대문자: number; 다소문자: number; 섞임: number };
+  으뜸낱말: { 낱말: string; 수: number }[];
+};
+const 로마매체들 = (((로마자료 as any).매체들 || []) as 로마매체[])
+  .slice().sort((a, b) => (b.몫 ?? -1) - (a.몫 ?? -1));
+const 으뜸낱말전체 = (((로마자료 as any).으뜸낱말전체 || []) as { 낱말: string; 수: number }[]).slice(0, 8);
+const 로마제목합 = Number((로마자료 as any).제목합) || 0;
+const 로마낱개합 = Number((로마자료 as any).낱개제목합) || 0;
+const 로마든합 = Number((로마자료 as any).로마자든제목합) || 0;
+
 const datasetLd = {
   '@context': 'https://schema.org', '@type': 'Dataset',
   name: 'Ages quoted in Korean entertainment headlines',
@@ -99,9 +118,12 @@ const datasetLd = {
 <WikiTip title={TITLE} description={DESC} jsonLd={[datasetLd]} page="/age-in-headlines">
   <article class="wrap">
     <p class="kicker">K Culture Wire · industry</p>
-    <h1>Your age, in quotation marks, before your name</h1>
+    {/* 🔴 [2026-09-11 06:0x] 머리글을 넓혔다 — 이 지면이 하루 만에 «세 축»을 담게 됐다
+        (나이 · 돈 · 로마자). 「Your age, in quotation marks」로 두면 지면과 머리글이
+        어긋나고, 그것은 검색에도 손님에게도 손해다. ⛔ 주소는 그대로 둔다(캐노니컬·사이트맵). */}
+    <h1>What a Korean front page puts in a headline</h1>
     <p class="asof">
-      {날수} days of front pages · {제목수.toLocaleString('en-US')} headlines · four Korean outlets
+      {날수} days of front pages · {제목수.toLocaleString('en-US')} headline-days · four Korean outlets
       {날들.length > 0 && <> · {날꼴(날들[0])} to {날꼴(날들[날들.length - 1])}</>}
     </p>
 
@@ -152,7 +174,7 @@ const datasetLd = {
       <>
         <h2>Which ages get announced</h2>
         <div class="scroll-x">
-        <table class="tbl">
+        <table class="tbl narrow">
           <thead><tr><th>Age bracket</th><th class="n">Times</th><th>Share</th></tr></thead>
           <tbody>
             {나이대.map((x) => (
@@ -278,6 +300,77 @@ const datasetLd = {
       the same at both ends, which is the part the argument above rests on.
     </p>
 
+    <h2>The third habit: the letters an English reader can actually read</h2>
+    <p class="lead">
+      A reader who cannot read Korean can still read the Latin script in a Korean headline — the
+      brand, the acronym, the unit. Counted on the same file, {로마든합} of{' '}
+      {로마제목합.toLocaleString('en-US')} headline-days carry at least one Latin word of two or more
+      letters, and the habit is again unevenly held.
+    </p>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Outlet</th>
+            <th class="n">With Latin</th>
+            <th class="n">Minus its own initials</th>
+            <th class="n">ALL CAPS</th>
+            <th class="n">Headline-days</th>
+          </tr>
+        </thead>
+        <tbody>
+          {로마매체들.map((x) => (
+            <tr>
+              <td class="k">
+                {영문(영문제호, x.매체)}
+                <span class="u"> · {영문(영문갈래, x.갈래)}</span>
+              </td>
+              <td class="n">{몫꼴(x.몫)}</td>
+              <td class="n">{몫꼴(x.제몸뺀몫)}</td>
+              <td class="n">{x.꼴.다대문자}</td>
+              <td class="n">{x.제목수.toLocaleString('en-US')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      The second column exists because a paper prints <b>its own name</b> in its own headlines — MK is
+      Maeil Business's abbreviation and is that desk's most frequent Latin word. Taking each outlet's
+      initials out of its own count lowers every rate and changes no part of the order. The ALL CAPS
+      column is a count of words, not headlines: the business desk's Latin is almost entirely
+      capitals (the vocabulary of a market report), while the entertainment desks are the ones with
+      lower-case and mixed-case words — and their frequent words are brands.
+    </p>
+
+    <div class="scroll-x">
+      <table class="tbl narrow">
+        <thead>
+          <tr><th>Latin word</th><th class="n">Times</th></tr>
+        </thead>
+        <tbody>
+          {으뜸낱말전체.map((x) => (
+            <tr>
+              <td class="k">{x.낱말}</td>
+              <td class="n">{x.수}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Read the unit before the ranking: this whole page counts <b>headline-days</b>, so a headline
+      still on the page tomorrow is counted again. The {로마제목합.toLocaleString('en-US')}{' '}
+      headline-days contain {로마낱개합.toLocaleString('en-US')} distinct headlines. We print both
+      rather than pick one, and the word counts are the more repeat-sensitive of the two — one Star
+      News headline carrying 'FACE OF GUCCI' held its place five days running and is 15 of that
+      desk's 97 Latin words. The full write-up is at{' '}
+      <a href="/article/the-only-part-of-a-korean-headline-an-english-reader-can-read">
+        the letters an English reader can read
+      </a>.
+    </p>
+
     <KcwShorts
       set="each-korean-desk-has-one-number-and-they-never-mix-voiced"
       says={`Twenty seconds: the business desk put a won amount in ${돈으뜸 ? 몫꼴(돈으뜸.돈몫) : ''} of its headlines and an age in none, the entertainment desk is the mirror image, and ${둘다합} of ${돈제목합.toLocaleString('en-US')} headlines carried both.`}
@@ -304,6 +397,9 @@ const datasetLd = {
      넓은 것은 «자기 그릇 안에서» 구른다. 몸통은 절대 옆으로 구르지 않는다. */
   .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
   .scroll-x .tbl { min-width: 560px; }
+  /* 🔴 [2026-09-11 06:0x] 두 칸짜리 표에도 560px 이 걸려 「Times」 칸이 화면 밖으로 나갔다 —
+     순위표에서 수가 안 보이면 그것은 순위표가 아니다. 390px 로 찍어 보고 잡았다. */
+  .scroll-x .tbl.narrow { min-width: 0; }
   .tbl { border-collapse: collapse; width: 100%; font-size: 15px; margin: 10px 0 12px; }
   .tbl th, .tbl td { border-bottom: 1px solid currentColor; border-color: color-mix(in srgb, currentColor 14%, transparent); padding: 9px 10px; text-align: left; }
   .tbl th { font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; opacity: .62; }
