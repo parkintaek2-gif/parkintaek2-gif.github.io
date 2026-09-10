@@ -377,8 +377,10 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
           /about 으로 옮겼다(전자상거래법 표시의무는 그대로 지킨다, 클릭 한 번). */}
       <p class="fine">
         Published by {PUBLISHER.legalName} ·{' '}
-        Business reg. {PUBLISHER.bizRegNo} · Mail-order licence {PUBLISHER.mailOrderNo}
-        {' '}({PUBLISHER.mailOrderAuthorityEn})<br />
+        {/* 🔴 [2026-09-11 · 사장님 지시] 「두 개를 같이 써 — 다국어는 영어를 앞에, 한국어를 뒤에」.
+            여기는 영문 지면이라 로마자가 앞이다. ⛔ 로마자만 적지 않는다 — 그러면 조회가 안 되는
+            번호가 된다. 진짜 번호(2026-세종-0591)가 뒤에 그대로 있다. */}
+        Business reg. {PUBLISHER.bizRegNo} · Mail-order licence {PUBLISHER.mailOrderBothEn}<br />
         {PUBLISHER.address}
       </p>
       <p class="cite">

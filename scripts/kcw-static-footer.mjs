@@ -46,7 +46,7 @@ import { PUBLISHER } from '../src/consts.ts';
  */
 export function 발행주체() {
   return `Published by ${PUBLISHER.legalName} &middot; Business reg. ${PUBLISHER.bizRegNo} `
-    + `&middot; Mail-order licence ${PUBLISHER.mailOrderNo} (${PUBLISHER.mailOrderAuthorityEn})`;
+    + `&middot; Mail-order licence ${PUBLISHER.mailOrderBothEn}`;   /* 2026-09-11 사장님 지시 — 둘 다, 영어가 앞 */
 }
 
 /**
