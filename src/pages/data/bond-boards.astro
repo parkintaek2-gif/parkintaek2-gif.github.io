@@ -1,0 +1,276 @@
+---
+/*
+ * Korea's three bond boards — 무료 지면(나침반) + 유료 피드로 가는 깔때기.
+ *   (seoulmarkets.com/data/bond-boards)
+ *
+ * 왜 (2026-09-11 · 5번)
+ *   6번이 금리(Rates) 갈래를 키우기로 하고(9/10 23:56) 내가 「남들이 안 센 축」을 찾기로 했다.
+ *   국고채 금리는 어디서나 말한다. 그런데 **판이 셋**이고 그 사이 금리 차를 세는 곳이 없다 —
+ *   특히 «소액채권»(개인이 사는 판)을 영문으로 내는 곳이 없다. 하루 39~40종의 작은 판이다.
+ *
+ * 자료: src/data/bond-segment-spread.json  (build-bond-segment-spread.mjs 가 만든다)
+ *   ⛔ 평균을 안 쓴다 — 중앙값이다. 9/9 에 일반채권 한 종목이 117.082% 로 들어왔다.
+ *   ⛔ 이상해 보이는 행을 지우지 않는다 — 「이상범위 N행」을 화면에 함께 낸다.
+ *   ⛔ 시가·고가·저가 수익률 칸을 안 쓴다(음수 22행 · 일중폭 1위 23,602%p).
+ *   ⚠ 이 자료는 8/24 에 멈춰 18일 비어 있었다. 9/11 에 12거래일을 소급해 메웠고 감시에 넣었다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import spread from '../../data/bond-segment-spread.json';
+
+const TITLE = 'Korea lists bonds on three boards — government, general and small-lot yields';
+const DESC =
+  'South Korea lists bonds on three separate boards and almost every published yield comes from one '
+  + 'of them. The government inter-dealer board carries 8 to 12 listings; the general board 270 to 346; '
+  + 'the small-lot board a near-fixed 40 that Korean households actually buy. Daily median yields and '
+  + 'the spread between the boards, free. Not investment advice.';
+
+type 판 = { 종목수: number; 중앙값: number | null };
+type 날 = {
+  날: string; 종목수: number; 이상범위행: number;
+  시장: Record<string, 판>; 주체: Record<string, 판>;
+  스프레드: { 기준: string; 기준중앙값: number; 차: Record<string, number | null> } | null;
+};
+const 날들 = ((spread as any).날들 || []) as 날[];
+const 끝 = 날들.length ? 날들[날들.length - 1] : null;
+
+/** ⛔ 못 잰 값을 0 으로 채우지 않는다 — 화면에도 「—」로 낸다 */
+const 수 = (v: number | null | undefined, 꼬리 = '%') =>
+  (v == null || !Number.isFinite(v) ? '—' : v.toFixed(3) + 꼬리);
+
+/** 22일 범위 — 한 날의 수를 「그 스프레드」라고 부르지 않기 위해 함께 낸다 */
+function 범위(키: string) {
+  const v = 날들.map((d) => (d.스프레드 ? d.스프레드.차[키] : null))
+    .filter((x): x is number => x != null && Number.isFinite(x));
+  return v.length ? { 좁: Math.min(...v), 넓: Math.max(...v), 날수: v.length } : null;
+}
+const 일반범위 = 범위('일반채권');
+const 소액범위 = 범위('소액채권');
+
+/** 국채 판의 중앙값도 움직인다 — 「기준이 고정」이라는 오해를 막는다 */
+const 국채중앙값들 = 날들.map((d) => (d.시장?.KTS ? d.시장.KTS.중앙값 : null))
+  .filter((x): x is number => x != null);
+const 국채범위 = 국채중앙값들.length
+  ? { 좁: Math.min(...국채중앙값들), 넓: Math.max(...국채중앙값들) } : null;
+
+const 판이름: Record<string, string> = {
+  KTS: 'Government (inter-dealer)', 소액채권: 'Small-lot', 일반채권: 'General',
+};
+const 주체이름: Record<string, string> = {
+  금융: 'Financial', 그밖: 'Unclassified', 지방채: 'Local government',
+  공공기관: 'Public corporation', 국채: 'Treasury', 국민주택채: 'Housing bonds',
+};
+
+const 판들 = 끝 ? Object.entries(끝.시장)
+  .map(([k, v]) => ({ 키: k, 이름: 판이름[k] || k, ...v }))
+  .sort((a, b) => (a.중앙값 ?? 99) - (b.중앙값 ?? 99)) : [];
+const 주체들 = 끝 ? Object.entries(끝.주체)
+  .map(([k, v]) => ({ 키: k, 이름: 주체이름[k] || k, ...v }))
+  .sort((a, b) => (b.중앙값 ?? -1) - (a.중앙값 ?? -1)) : [];
+
+const datasetLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: "Korea's three bond boards — daily median yields and spreads",
+  description: DESC,
+  url: `${SITE_URL}/data/bond-boards`,
+  keywords: ['Korea', 'South Korea', 'bond yields', 'KTS', 'inter-dealer', 'small-lot bonds',
+    'housing bonds', 'credit spread', 'median yield', 'retail bonds', 'Korean treasury bonds'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique:
+    'Median closing yield per listing board and per issuer type, computed from the Financial Services '
+    + 'Commission Bond Securities Information Service. Medians rather than means, because single listings '
+    + 'settle at implausible yields near redemption. Opening, high and low yield fields are excluded as '
+    + 'unreliable. Rows outside 0.1-20 percent are counted and reported, never deleted.',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  dateModified: 끝 ? 끝.날 : undefined,
+  temporalCoverage: 날들.length ? `${날들[0].날}/${날들[날들.length - 1].날}` : undefined,
+  variableMeasured: ['median closing yield by board', 'board-to-government spread', 'median yield by issuer type'],
+};
+
+const faq = [
+  ['How many bond boards does Korea have?',
+   'Three. The government inter-dealer board carried 10 listings on '
+   + (끝 ? 끝.날 : 'the latest session') + ', the general board '
+   + (끝?.시장?.일반채권?.종목수 ?? '270-346') + ', and the small-lot board '
+   + (끝?.시장?.소액채권?.종목수 ?? 40) + '. Almost every published Korean bond yield comes from the first one.'],
+  ['What is a small-lot bond in Korea?',
+   'A near-fixed universe of about 40 listings, mostly housing-bond series, quoted in small denominations. '
+   + 'It is the board a Korean household actually buys from, and its median yield on '
+   + (끝 ? 끝.날 : 'the latest session') + ' was ' + 수(끝?.시장?.소액채권?.중앙값) + '.'],
+  ['What is the spread between Korean government and corporate bonds?',
+   일반범위
+     ? `Over ${일반범위.날수} sessions the general board's median ran ${일반범위.좁.toFixed(3)} to `
+       + `${일반범위.넓.toFixed(3)} percentage points above the government board. A single quoted spread `
+       + 'is a number picked from a range twice its own width.'
+     : 'Not measured in the current window.'],
+  ['Which Korean issuers pay the highest bond yields?',
+   주체들.length
+     ? `On ${끝!.날} financial-sector paper had the highest median at ${수(주체들[0].중앙값)}, against `
+       + `${수(주체들[주체들.length - 1].중앙값)} for the lowest group.`
+     : 'Not measured in the current window.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · rates</p>
+      <h1>Korea lists bonds on three boards</h1>
+      {끝 && <p class="sample">Latest session {끝.날} · {날들.length} sessions in window · updated each trading day</p>}
+      <p class="lead">
+        Almost every published Korean bond yield comes from the government inter-dealer board, which
+        carried <b>{끝?.시장?.KTS?.종목수 ?? '8-12'} listings</b> on the latest session. Beside it sit the
+        general board and a <b>near-fixed {끝?.시장?.소액채권?.종목수 ?? 40}-listing small-lot board</b>
+        that Korean households actually buy from — and nobody counts it in English. This is the compass,
+        free. The full daily history and API are what we licence.
+      </p>
+
+      {끝 && (
+        <table class="tbl">
+          <thead>
+            <tr><th>Board</th><th class="n">Listings</th><th class="n">Median yield</th><th class="n">Over government</th></tr>
+          </thead>
+          <tbody>
+            {판들.map((p) => (
+              <tr>
+                <td class="k">{p.이름}</td>
+                <td class="n">{p.종목수}</td>
+                <td class="n"><b>{수(p.중앙값)}</b></td>
+                <td class="n">{p.키 === 끝.스프레드?.기준 ? '—' : 수(끝.스프레드 ? 끝.스프레드.차[p.키] : null, 'pp')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {(일반범위 || 소액범위) && (
+        <>
+          <h2>The gap is not a constant</h2>
+          <table class="tbl">
+            <thead>
+              <tr><th>Board over government</th><th class="n">Narrowest</th><th class="n">Widest</th><th class="n">Latest</th></tr>
+            </thead>
+            <tbody>
+              {일반범위 && (
+                <tr>
+                  <td class="k">General</td>
+                  <td class="n">{일반범위.좁.toFixed(3)}pp</td>
+                  <td class="n">{일반범위.넓.toFixed(3)}pp</td>
+                  <td class="n"><b>{수(끝?.스프레드 ? 끝.스프레드.차['일반채권'] : null, 'pp')}</b></td>
+                </tr>
+              )}
+              {소액범위 && (
+                <tr>
+                  <td class="k">Small-lot</td>
+                  <td class="n">{소액범위.좁.toFixed(3)}pp</td>
+                  <td class="n">{소액범위.넓.toFixed(3)}pp</td>
+                  <td class="n"><b>{수(끝?.스프레드 ? 끝.스프레드.차['소액채권'] : null, 'pp')}</b></td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+          {국채범위 && (
+            <p class="note">
+              The government board is not a fixed reference either — its own median ran
+              <b> {국채범위.좁.toFixed(3)}% to {국채범위.넓.toFixed(3)}%</b> inside the same window, so
+              the premium widens and narrows for reasons on both sides of it.
+            </p>
+          )}
+        </>
+      )}
+
+      {주체들.length > 0 && (
+        <>
+          <h2>Sorted by who issued the paper</h2>
+          <p class="note">
+            The board a bond trades on is a different question from who owes the money. Issuer type is
+            read out of the listing name, and names that do not announce it stay <b>unclassified</b>
+            rather than being folded into a tidier bucket.
+          </p>
+          <table class="tbl">
+            <thead>
+              <tr><th>Issuer type</th><th class="n">Listings</th><th class="n">Median yield</th></tr>
+            </thead>
+            <tbody>
+              {주체들.map((p) => (
+                <tr>
+                  <td class="k">{p.이름}</td>
+                  <td class="n">{p.종목수}</td>
+                  <td class="n"><b>{수(p.중앙값)}</b></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </>
+      )}
+
+      <h2>How this is counted, and what is left out</h2>
+      <ul class="honest">
+        <li>
+          Every figure is a <b>median</b>, never a mean. One general-board listing settled at
+          <b> 117.082%</b> on 9 September; a mean would have carried it into the headline.
+        </li>
+        <li>
+          Yields outside 0.1-20% are <b>counted and reported, not deleted</b> —
+          {끝 && <> <b>{끝.이상범위행} rows</b> of {끝.종목수} on {끝.날}.</>} They are what the source
+          published, and a record that quietly drops them is not a record.
+        </li>
+        <li>
+          Opening, high and low yield fields are <b>not used anywhere on this page</b>. 22 of 3,547 rows
+          carried a negative high yield, and the widest intraday range those fields imply is 23,602
+          percentage points, which is not a market move.
+        </li>
+        <li>
+          Residual maturity and classification arrive filled on <b>2.8% of rows</b>, so no maturity
+          bucket appears here. Maturity is recoverable from listing names and is used on our yield-curve
+          work instead.
+        </li>
+        <li>
+          A board with fewer than three listings on a day is shown as <b>unmeasured</b>, not given a median.
+        </li>
+        <li>
+          This series had a hole. Collection stopped after <b>24 August</b> and went unnoticed for 18 days
+          because the dataset sat outside our missing-day check. The 12 absent sessions were refetched from
+          source on 11 September and the check now covers it.
+        </li>
+      </ul>
+
+      <p class="note">
+        Source: Financial Services Commission (Republic of Korea), Bond Securities Information Service.
+        Medians computed by SeoulMarkets. <b>This is not investment advice.</b>
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 64px; }
+  .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: #6b7280; margin: 0 0 6px; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 34px 0 10px; }
+  .sample { font-size: 13px; color: #6b7280; margin: 0 0 18px; }
+  .lead { font-size: 16.5px; line-height: 1.7; margin: 0 0 22px; }
+  .tbl { border-collapse: collapse; width: 100%; font-size: 15px; margin: 10px 0 14px; }
+  .tbl th, .tbl td { border-bottom: 1px solid #e5e7eb; padding: 9px 10px; text-align: left; }
+  .tbl th { font-size: 12.5px; letter-spacing: .04em; text-transform: uppercase; color: #6b7280; }
+  .tbl .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .tbl .k { font-weight: 600; }
+  .note { font-size: 13.5px; line-height: 1.65; color: #4b5563; margin: 8px 0 0; }
+  .honest { font-size: 14px; line-height: 1.7; color: #374151; margin: 8px 0 0 18px; }
+  .honest li { margin: 7px 0; }
+  @media (max-width: 560px) {
+    h1 { font-size: 24px; }
+    .tbl { font-size: 13.5px; }
+    .tbl th, .tbl td { padding: 7px 6px; }
+  }
+</style>
