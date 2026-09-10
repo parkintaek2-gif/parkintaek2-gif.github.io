@@ -422,8 +422,26 @@ if (내가실행됐다) {
    *     session-brief · build-kcw-asked · 그리고 여기.
    *   ⭐ 그만두라 하신 일은 그 일을 «시키던 자»를 **끝까지** 훑어야 한다.
    */
-  const 막힘 = ['🔴 www 301(6번 확인 대기)'];
-  console.log(줄('⑥', '막힌 것', { 됐나: false, 말: 막힘.join(' · ') }));
+  /* ✅ [2026-09-10 · 5번] 값을 박지 않고 «잰다».
+     17:45 에 여섯 주소를 직접 재서 www 301 이 결함이 아님을 확인했고(정규화다) 6번 회신도 받았다.
+     그런데 이 줄이 손으로 박힌 값이라 계속 빨간불이었다 — 바로 위 주석이 경고한 그 병이다.
+     ⛔ 「막힌 것」은 사람이 적는 목록이 아니라 «지금 재서 나오는 것»이어야 한다. */
+  const 볼주소 = [
+    'https://seoulmarkets.com/', 'https://www.seoulmarkets.com/',
+    'https://kculturewire.com/', 'https://www.kculturewire.com/',
+    'https://100yearmap.com/', 'https://www.100yearmap.com/',
+  ];
+  const 막힘 = [];
+  let 못잰것 = 0;
+  for (const u of 볼주소) {
+    try {
+      const r = await fetch(u, { redirect: 'follow' });
+      if (!r.ok) 막힘.push(`🔴 ${u} → ${r.status}`);
+    } catch (e) { 못잰것 += 1; }
+  }
+  console.log(줄('⑥', '막힌 것', 막힘.length
+    ? { 됐나: false, 말: 막힘.join(' · ') }
+    : (못잰것 ? null : { 됐나: true, 말: `주소 ${볼주소.length}개 다 200 (301 은 정규화다)` })));
 
   /* ⑦ 진행 줄 */
   let 진행 = null;

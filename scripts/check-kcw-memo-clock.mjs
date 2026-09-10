@@ -39,6 +39,30 @@ export const 봐주는분 = 5;
 /** 아직 안 채운 자리 — 이건 «반드시» 흠이다 */
 export const 빈자리꼴 = /\d{2}:\d?[xX×]/;
 
+/**
+ * 🔴 [2026-09-10 18:38 · 5번] **기준선.** 이 시각 뒤에 «새로» 적힌 것만 흠으로 센다.
+ *
+ * 까닭 — 이 자가 잡은 여덟 개가 전부 16:38 «전»에 적은 것이었다(12:0x ~ 15:4x).
+ *   그 시각에 나는 습관을 바꿨다: 글을 다 쓴 «뒤»에 시각을 찍어 그 수를 적는다.
+ *   ⛔ 지난 기록을 고쳐 쓰지 않는다 — 역사를 위조하는 일이다.
+ *   ⛔ 그러나 다 지나간 일로 빨간불을 영원히 켜 두지도 않는다. 영원한 빨간불은
+ *     그 옆의 «새 빨간불»을 안 보이게 만든다(같은 날 버전업 몫에서 겪었다).
+ * ✅ 기준선 앞의 것은 ⬜ 기록으로 세어 보이기만 한다.
+ *   감수 도장의 「기준선(이미 라이브)」과 같은 꼴이다.
+ */
+export const 기준선 = '16:38';
+
+/** 그 줄의 시각이 기준선 뒤인가. 시각을 못 읽으면 null — 못 쟀다이고 흠으로 세지 않는다 */
+export function 기준선뒤인가(줄, 기준 = 기준선) {
+  const m = String(줄 ?? '').match(/(\d{2}):(\d?[\dxX×])/);
+  if (!m) return null;
+  const 시 = Number(m[1]);
+  const 분 = Number(String(m[2]).replace(/[xX×]/, '0'));
+  const [기준시, 기준분] = 기준.split(':').map(Number);
+  if (!Number.isFinite(시) || !Number.isFinite(분)) return null;
+  return 시 * 60 + 분 >= 기준시 * 60 + 기준분;
+}
+
 /** 줄에 찍힌 날짜 도장(YYYY-MM-DD). 없으면 null */
 export const 날짜꼴 = /(20\d{2}-\d{2}-\d{2})/;
 export function 줄의날짜(줄) {
@@ -263,19 +287,29 @@ if (내가실행됐다) {
   }
 
   const 내것 = []; const 빈것 = [];
+  const 옛빈것 = [];   // 🔴 기준선 앞에 적힌 것 — 기록이다. 고쳐 쓰지 않는다
   for (const 줄 of 줄들) {
     if (!내가낸제목인가(줄)) continue;
-    if (빈자리꼴.test(줄)) { 빈것.push(줄.trim().slice(0, 78)); continue; }
+    if (빈자리꼴.test(줄)) {
+      /* 🔴 기준선 앞의 것은 «기록»이다. 지난 글을 고쳐 쓰는 것은 역사를 위조하는 일이다 */
+      (기준선뒤인가(줄) === true ? 빈것 : 옛빈것).push(줄.trim().slice(0, 78));
+      continue;
+    }
     const t = 내줄시각(줄);
     if (t) 내것.push({ 줄: 줄.trim().slice(0, 70), ...t });
   }
 
   console.log(`■ 메모에 적은 시각이 시계와 맞나 — 오늘 ${오늘} · 지금 ${지금}\n`);
-  console.log(`   내가 낸 줄 ${내것.length}개 · 안 채운 자리 ${빈것.length}개`);
+  console.log(`   내가 낸 줄 ${내것.length}개 · 안 채운 자리 ${빈것.length}개(기준선 ${기준선} 뒤) · 기준선 앞 ${옛빈것.length}개`);
 
   if (빈것.length) {
     console.log(`\n🔴 **「14:2x」처럼 안 채운 자리 ${빈것.length}개** — 그대로 나가면 아무 뜻이 없다`);
     빈것.forEach((x) => console.log(`     ${x}`));
+  }
+  if (옛빈것.length) {
+    console.log(`\n⬜ 기준선(${기준선}) «앞»에 적힌 안 채운 자리 ${옛빈것.length}개 — 기록이라 고쳐 쓰지 않는다`);
+    옛빈것.slice(0, 3).forEach((x) => console.log(`     ${x}`));
+    if (옛빈것.length > 3) console.log(`     … 그리고 ${옛빈것.length - 3}개 더`);
   }
 
   /* 미래에 적힌 것 — 이건 확실한 흠이다 */
