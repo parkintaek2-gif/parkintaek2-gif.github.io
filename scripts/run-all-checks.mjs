@@ -202,6 +202,10 @@ export const 단계들 = [
   "node scripts/check-seat-config.mjs --자가시험",
   "node scripts/check-seat-resume-id.mjs --자가시험",
   "node scripts/_article-drift.mjs --자가시험",
+  /* 🔴 [2026-09-10 · 6번] 5번이 만든 검사가 npm test 에 안 물려 있었다 —
+   *   check-tests-wired.mjs 가 「안 부르는 검사 0→1」로 잡았다. 만든 사람이 물려야 하는데
+   *   빠졌던 것을 6번이 이어서 물린다. */
+  "node scripts/check-article-product-funnel.mjs --자가시험",
   "node scripts/check-plain-language.mjs --자가시험",
   "node scripts/check-selftest-hijack.mjs",
   "node tools/save-history.mjs --자가시험",
