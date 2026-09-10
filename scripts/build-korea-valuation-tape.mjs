@@ -187,6 +187,22 @@ export function 셈보고(줄들) {
   };
 }
 
+/**
+ * 🔴 화면·파일로 나가는 시각은 «영문»이다. 손님이 영어권이다.
+ *
+ * [2026-09-10 실측] 처음 판이 `toLocaleString('ko-KR')` 을 그대로 담아서
+ *   무료 CSV 머리글에 「built: 2026. 9. 10. 오전 9:17:42」가 찍혀 나갔다.
+ *   ⛔ 이 무늬가 오늘 세 번째다 — cap-per-artist 의 시총 출처, research 지면의 날짜, 그리고 이것.
+ *   ⇒ 자료 파일에 담는 시각은 «만들 때부터» 영문으로 만든다. 나중에 옮기지 않는다.
+ */
+export function 영문시각(날 = new Date()) {
+  const 달 = ['January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'][날.getMonth()];
+  const 시 = String(날.getHours()).padStart(2, '0');
+  const 분 = String(날.getMinutes()).padStart(2, '0');
+  return `${날.getDate()} ${달} ${날.getFullYear()}, ${시}:${분} KST`;
+}
+
 /** 방에서 가장 최근 파일 이름. 없으면 null */
 export function 최근파일(목록, 무늬 = /\.json$/) {
   if (!Array.isArray(목록)) return null;
@@ -313,6 +329,10 @@ function 자가시험() {
   재다('⛔ 셈보고: 빈 것은 비율이 null — 0 이 아니다',
     셈보고([]).비율 === null && 셈보고(null).비율 === null);
 
+  재다('🔴 영문시각: 화면·파일로 나가는 시각은 영문이다 — CSV 머리글에 한국어가 새어 나갔다',
+    영문시각(new Date('2026-09-10T09:17:42+09:00')) === '10 September 2026, 09:17 KST');
+  재다('영문시각: 한 자리 시각도 두 자리로 채운다',
+    영문시각(new Date('2026-01-02T03:04:00+09:00')) === '2 January 2026, 03:04 KST');
   재다('최근파일: 이름 순 마지막', 최근파일(['a-1.json', 'a-2.json', 'z.txt']) === 'a-2.json');
   재다('⛔ 최근파일: 없으면 null', 최근파일([]) === null && 최근파일(null) === null);
 
@@ -378,7 +398,7 @@ const 오늘 = new Date();
 const 낼것 = {
   _meta: {
     product: 'Korea Valuation Tape',
-    builtAt: 오늘.toLocaleString('ko-KR'),
+    builtAt: 영문시각(오늘),
     priceAsOf: 시세?.날 ?? null,
     fiscalYear: 재무.해,
     report: 'Annual (11011)',
