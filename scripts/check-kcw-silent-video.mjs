@@ -166,6 +166,30 @@ if (셈.무음.length) {
   console.log('   ✅ 하루 한 편씩 소리를 입혀 새 제목으로 낸다:');
   console.log('     node scripts/make-kcw-sound.mjs --set <이름> --목소리 en-US-AndrewNeural');
   console.log('   ⚠ 먼저 src/data/kcw-narration.json 에 그 편의 «대본»을 적는다. 자가 지어내지 않는다.');
+
+  /* 🔴 [2026-09-10 · 5번] **잰 값을 파일로 남긴다.**
+     까닭 — 두 시간 체크리스트가 「버전업 몫」을 세려고 원부의 «이름»을 봤다.
+     alchemy 에 alchemy-voiced 가 없으면 「무음이 남았다」로 셌는데, alchemy.mp4 는
+     처음부터 소리가 있는 편이라 소리판이 필요 없다. ⇒ 다 끝낸 몫이 영원한 빨간불로 남고,
+     그 옆의 «진짜 빨간불»이 안 보인다.
+     ⛔ 무음이냐는 «음량을 재야» 안다. 이름으로는 못 안다 — 오늘 이 잘못을 일곱 번 했다.
+     ✅ 그래서 이 자가 «잰» 수를 적고, 세는 쪽은 이 파일만 읽는다. */
+  try {
+    const 두자 = (n) => String(n).padStart(2, '0');
+    const 이제 = new Date();
+    const 적을때 = `${이제.getFullYear()}-${두자(이제.getMonth() + 1)}-${두자(이제.getDate())} ${두자(이제.getHours())}:${두자(이제.getMinutes())}`;
+    fs.writeFileSync(path.join(뿌리, 'src/data/kcw-video-sound.json'), JSON.stringify({
+      만든이: 'check-kcw-silent-video.mjs',
+      잰때: 적을때,
+      가르는선dB: -60,
+      잰편수: 것들.length,
+      소리없는편: 진짜남음.length,
+      소리없는목록: 진짜남음.map((x) => x.f),
+    }, null, 2) + '\n', 'utf8');
+    console.log(`   ✔ 잰 결과를 적었다 — src/data/kcw-video-sound.json (소리 없는 편 ${진짜남음.length})`);
+  } catch (e) {
+    console.log('   ⚠ 잰 결과를 못 적었다 — ' + e.message);
+  }
 }
 if (셈.못쟀다.length) {
   console.log('\n■ ⬜ 못 쟀다 — 눈으로 봐야 한다');
