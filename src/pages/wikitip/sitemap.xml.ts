@@ -267,6 +267,14 @@ const videoSets = [
       + 'in 3 percent, and the general and business papers did it zero times in 1,080 headlines.',
   },
   {
+    set: 'each-korean-desk-has-one-number-and-they-never-mix-voiced',
+    page: '/age-in-headlines',
+    title: 'Korean desks each have one number in the headline. In 1,365 of them, the two never appeared together',
+    description: '20 seconds on the same 1,365 Korean headlines, counted a second way. The business '
+      + 'desk put a won amount in 22 percent of them and an age in none; the entertainment desk is '
+      + 'the mirror image; and not one headline carried both.',
+  },
+  {
     set: 'a-phone-and-a-burger-took-two-k-pop-faces-voiced',
     page: '/brand-kinds',
     title: 'A phone and a burger took two K-pop faces. Neither was a kind we measured',

@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-10T16:41:41.046Z",
+  "generated": "2026-09-10T20:04:24.437Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -23,6 +23,23 @@
     },
     {
       "set": "a-battle-in-vietnam",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-korean-forum-post-gets-one-day-an-english-one-gets-three",
       "sq": [
         1,
         2,
@@ -476,6 +493,23 @@
     },
     {
       "set": "daystem",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "each-korean-desk-has-one-number-and-they-never-mix",
       "sq": [
         1,
         2,
@@ -2006,6 +2040,23 @@
       ]
     },
     {
+      "set": "the-age-in-the-headline-is-one-desk-not-a-country",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
       "set": "the-biggest-school-is-not-the-idol-school",
       "sq": [
         1,
@@ -2859,8 +2910,8 @@
       ]
     }
   ],
-  "setCount": 170,
-  "imageCount": 1664,
+  "setCount": 173,
+  "imageCount": 1694,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
     "68-weeks-of-fan-votes-and-fifth-place-in-lookups",
@@ -2884,7 +2935,6 @@
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
     "one-member-outdraws-her-own-group-by-04-percent",
     "only-four-countries-come-close-to-all-korean",
-    "the-age-in-the-headline-is-one-desk-not-a-country",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
     "the-lost-two-years-happened-to-everyone",

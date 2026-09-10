@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-10T16:45:57.048Z",
+  "generated": "2026-09-10T20:02:26.376Z",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -79,6 +79,13 @@
       "uploadDate": "2026-09-01",
       "thumb": "/video/thumb/debut-voiced.jpg",
       "src": "/video/debut-voiced.mp4"
+    },
+    {
+      "set": "each-korean-desk-has-one-number-and-they-never-mix-voiced",
+      "seconds": 19.8,
+      "uploadDate": "2026-09-10",
+      "thumb": "/video/thumb/each-korean-desk-has-one-number-and-they-never-mix-voiced.jpg",
+      "src": "/video/each-korean-desk-has-one-number-and-they-never-mix-voiced.mp4"
     },
     {
       "set": "editions-voiced",

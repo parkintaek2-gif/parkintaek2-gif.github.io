@@ -22,6 +22,10 @@ import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import KcwCardnews from '../../components/KcwCardnews.astro';
 import KcwShorts from '../../components/KcwShorts.astro';
 import d from '../../data/kcw-age-in-headline.json';
+/* [2026-09-11 05:2x] 같은 1,365편을 «돈»으로 다시 센 것을 이 축 지면에 붙인다.
+   ⭐ 사장님 지시대로 이슈는 «축 지면 하나»에 묶는다 — 새 지면을 늘리지 않는다.
+   ⛔ 이 자료의 수도 손으로 안 적는다. */
+import 돈자료 from '../../data/kcw-money-vs-age-in-headline.json';
 
 const TITLE = 'Korean entertainment headlines put your age in quotation marks — we counted';
 const DESC =
@@ -58,6 +62,20 @@ const 가장많은대 = 나이대.length ? 나이대.reduce((a, b) => (b.수 > a
 /** 빈 나이대 — 「없다」를 화면에 적기 위해 «있는 것»에서 뒤집어 낸다 */
 const 빈대 = [10, 20, 30, 40, 50, 60, 70, 80, 90]
   .filter((대) => !나이대.some((x) => x.대 === 대 && x.수 > 0));
+
+/* ── 돈 축 ─────────────────────────────────────────────────────────
+   ⚠ 「돈」은 «아래쪽» 값이다 — 「10억 배상」처럼 원을 뺀 제목이 따로 있어 폭으로 낸다.
+   그 안에는 「10억 뷰」도 섞이므로 올려 세지 않는다. */
+type 돈매체 = {
+  매체: string; 갈래: string | null; 제목수: number; 돈: number; 단위만: number;
+  나이: number; 둘다: number; 돈몫: number; 돈위쪽몫: number; 나이몫: number;
+};
+const 돈매체들 = (((돈자료 as any).매체들 || []) as 돈매체[])
+  .slice().sort((a, b) => b.제목수 - a.제목수);
+const 몫꼴 = (v: unknown) => (Number.isFinite(Number(v)) ? `${(Number(v) * 100).toFixed(1)}%` : '—');
+const 둘다합 = Number((돈자료 as any).둘다합);
+const 돈제목합 = Number((돈자료 as any).제목합) || 0;
+const 돈으뜸 = 돈매체들.length ? 돈매체들.slice().sort((a, b) => b.돈몫 - a.돈몫)[0] : null;
 
 const datasetLd = {
   '@context': 'https://schema.org', '@type': 'Dataset',
@@ -179,6 +197,92 @@ const datasetLd = {
         are a first look rather than a distribution.
       </li>
     </ul>
+
+    <h2>The other number in the headline: money</h2>
+    <p class="lead">
+      Reading the same file again, a second habit was hard to miss — the money. So we counted headlines
+      carrying a number followed by the character for won, on exactly the same{' '}
+      {돈제목합.toLocaleString('en-US')} headlines. The two habits turn out to be complementary rather
+      than two versions of the same thing: the desk that leads with ages almost never leads with money,
+      the desks that lead with money never lead with ages, and{' '}
+      <b>{둘다합} headlines carried both</b>.
+    </p>
+
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead>
+          {/* ⚠ 390px 에서 찍어 보고 칸 순서를 바꿨다 — 「Headlines」를 앞에 두었더니
+              폰에서 손님이 보는 첫 화면에 «답이 아닌 칸»만 보였다. 답을 앞으로 낸다.
+              ⛔ 그래도 셈을 빼지 않는다 — 비율만 있는 줄을 만들지 않는다 */}
+          <tr>
+            <th>Outlet</th>
+            <th class="n">Money</th>
+            <th class="n">Age</th>
+            <th class="n">Both</th>
+            <th class="n">Headlines</th>
+          </tr>
+        </thead>
+        <tbody>
+          {돈매체들.map((x) => (
+            <tr>
+              <td class="k">
+                {영문(영문제호, x.매체)}
+                <span class="u"> · {영문(영문갈래, x.갈래)}</span>
+              </td>
+              <td class="n">{몫꼴(x.돈몫)}</td>
+              <td class="n">{몫꼴(x.나이몫)}</td>
+              <td class="n">{x.둘다}</td>
+              <td class="n">{x.제목수.toLocaleString('en-US')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      A business paper quoting money is not a finding on its own.{' '}
+      {돈으뜸 ? `${영문(영문제호, 돈으뜸.매체)} leads at ${몫꼴(돈으뜸.돈몫)} and prints no ages at all.` : ''}{' '}
+      What the pairing shows is that these are two different tools, held by different desks, and the{' '}
+      <b>Both</b> column is zero on every row.
+    </p>
+
+    <h2>The money figure is a floor, and here is the band</h2>
+    <div class="scroll-x">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Outlet</th>
+            <th class="n">Band</th>
+            <th class="n">Won stated</th>
+            <th class="n">Unit only</th>
+          </tr>
+        </thead>
+        <tbody>
+          {돈매체들.map((x) => (
+            <tr>
+              <td class="k">{영문(영문제호, x.매체)}</td>
+              <td class="n">{몫꼴(x.돈몫)}–{몫꼴(x.돈위쪽몫)}</td>
+              <td class="n">{x.돈} ({몫꼴(x.돈몫)})</td>
+              <td class="n">{x.단위만}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      Korean headlines drop the word for won constantly. A headline reading <i>10-eok damages</i> is one
+      billion won to any Korean reader — <i>eok</i> being the unit for a hundred million — and our
+      pattern does not count it, because the same pattern also catches <i>10-eok views</i>.{' '}
+      <b>Unit only</b> counts headlines carrying a large-number unit with no won after it, so the low
+      end of the band counts only what is unambiguously money and the high end assumes every bare unit
+      is money — which it is not. The true figure sits between, and the ordering of the four desks is
+      the same at both ends, which is the part the argument above rests on.
+    </p>
+
+    <KcwShorts
+      set="each-korean-desk-has-one-number-and-they-never-mix-voiced"
+      says={`Twenty seconds: the business desk put a won amount in ${돈으뜸 ? 몫꼴(돈으뜸.돈몫) : ''} of its headlines and an age in none, the entertainment desk is the mirror image, and ${둘다합} of ${돈제목합.toLocaleString('en-US')} headlines carried both.`}
+    />
+    <KcwCardnews set="moneyage" count={4} />
 
     <KcwShorts
       set="the-age-in-the-headline-is-one-desk-not-a-country-voiced"

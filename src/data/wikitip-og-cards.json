@@ -608,6 +608,11 @@
       "figure": "1.13 times",
       "label": "separates actors from idols in lookups, per person",
       "왜": "자동은 «1.13 — times» 를 집는다. 수는 맞지만 딸림글이 「times」뿐이어서 무엇의 배수인지 카드에서 읽히지 않는다. 이 기사의 요점은 합계로는 1.97배인 것이 1인당으로는 1.13배라는 것이므로 «per person» 을 딸림글에 넣는다 · 「1.13×」로 적었더니 검사가 «본문에 그 글자가 없다»고 막았다 — 본문은 「1.13 times」로 쓴다. 카드 딱지는 본문에 있는 글자여야 한다"
+    },
+    "each-korean-desk-has-one-number-and-they-never-mix": {
+      "figure": "1,365",
+      "label": "headlines, and not one of them carried both money and an age",
+      "왜": "자동은 표지에 수를 아예 안 넣었다 — 9:16 카드를 열어 보니 가운데가 텅 비었다. 요점은 «둘이 같이 안 온다»이므로 표본 크기(1,365)를 세우고 0 을 딸림글에 붙인다. ⛔ 0 을 표지 수로 세우면 「없다」로만 읽히고 표본이 안 보인다"
     }
   }
 }

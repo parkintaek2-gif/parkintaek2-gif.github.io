@@ -157,6 +157,11 @@
       "제목": "Korean entertainment headlines put your age in quotation marks. One desk does almost all of it",
       "내레이션": "Ten days of Korean front pages. One thousand three hundred sixty five headlines. One entertainment desk opened twenty seven per cent of its stories with an age in quote marks. The other desk, same beat, same days, did it in three per cent. The business paper and the general paper did it zero times in one thousand and eighty headlines. So this is not a Korean press convention. It is one desk. Twenty six ages in ten days is a small sample, and we are not calling it a year.",
       "설명": "We counted only ages the desk put inside quote marks. We did not measure sex, because guessing it from a name would be inventing a variable. We did not check whether the ages are right, because that needs recorded birth years and we did not fetch them."
+    },
+    "each-korean-desk-has-one-number-and-they-never-mix": {
+      "제목": "Korean desks each have one number in the headline. In 1,365 of them, the two never appeared together",
+      "내레이션": "Ten days of Korean front pages. One thousand three hundred sixty five headlines. The business desk put a won amount in twenty two per cent of them, and an age in none. The entertainment desk is the mirror image. Not one headline carried both. Ten days is a small sample, and a zero here is a zero for ten days.",
+      "설명": "The money figure is a floor. Korean headlines drop the word for won, so we count that set separately and print a band instead of choosing for it."
     }
   }
 }

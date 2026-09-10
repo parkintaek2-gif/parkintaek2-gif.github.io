@@ -220,7 +220,86 @@ export const 벌목록 = {
   /* [2026-09-11] 오늘 낸 기사의 짝 — 제목에 나이를 박는 것이 「한국 언론」이 아니라
      «한 데스크»라는 것. 열흘·제목 1,365개를 세서 알았다. */
   agehead: { 자료: 'src/data/kcw-age-in-headline.json', 만들기: (d) => 나이제목벌짓기(d) },
+  /* [2026-09-11 05:0x] 같은 1,365편을 «돈»으로 다시 센 짝.
+     ⭐ 카드로 낼 값이 있는 것은 표의 «마지막 칸»이다 — 둘 다 든 제목이 0편이다.
+     ⛔ 「경제지가 돈을 쓴다」만 내면 아무것도 아니다. 짝이 이야기다. */
+  moneyage: { 자료: 'src/data/kcw-money-vs-age-in-headline.json', 만들기: (d) => 돈나이벌짓기(d) },
 };
+
+/**
+ * 돈·나이 벌 — 오늘 낸 기사(`/article/each-korean-desk-has-one-number-and-they-never-mix`)의 짝.
+ *
+ * ⭐ 이야기 한 줄: **네 데스크가 제목에 쓰는 수가 한 가지씩이고, 1,365편에서 둘이 한 번도
+ *   같은 제목에 오지 않았다.**
+ *
+ * ⛔ 이 벌이 스스로 막는 것 —
+ *   ⛔⛔ **0 을 「불가능」으로 내지 않는다.** 넷째 장 첫 줄이 그것이다 — 열흘치에서 안 보였다는 뜻이다.
+ *   ⛔ 「돈」 값은 «아래쪽»이다. 「10억 배상」처럼 원을 뺀 것이 따로 있어 **폭으로 낸다.**
+ *      그 안에 「10억 뷰」도 섞이므로 올려 세지 않는다.
+ *   ⛔ 수를 손으로 박지 않는다 — 전부 kcw-money-vs-age-in-headline.json 에서 읽는다.
+ */
+export function 돈나이벌짓기(d) {
+  const 매체 = (d.매체들 || []).slice().sort((a, b) => b.제목수 - a.제목수);
+  const 몫 = (v) => (v == null ? '—' : (Number(v) * 100).toFixed(1) + '%');
+  const 줄 = 매체.map((x) => [
+    매체이름영문(x.매체), Number(x.제목수).toLocaleString('en-US'),
+    몫(x.돈몫), 몫(x.나이몫), String(x.둘다)]);
+  const 폭줄 = 매체.map((x) => [
+    매체이름영문(x.매체), `${x.돈} (${몫(x.돈몫)})`, String(x.단위만),
+    `${몫(x.돈몫)}–${몫(x.돈위쪽몫)}`]);
+  const 돈으뜸 = 매체.slice().sort((a, b) => b.돈몫 - a.돈몫)[0] || null;
+  const 나이으뜸 = 매체.slice().sort((a, b) => b.나이몫 - a.나이몫)[0] || null;
+  const 제목합 = Number(d.제목합 || 0);
+  return {
+    갈피: 'money-vs-age-in-headline',
+    빛: '#8fb8e8',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Korean front pages · ${제목합.toLocaleString('en-US')} headlines · ${d.날수} days`,
+        큰: 'Each desk has\none number.\nNever both.',
+        아래: 돈으뜸 && 나이으뜸
+          ? `The business desk put a won amount in **${몫(돈으뜸.돈몫)}** of its headlines and an age in `
+            + `**none**. The entertainment desk put an age in **${몫(나이으뜸.나이몫)}** and is the mirror `
+            + `image. Across all ${제목합.toLocaleString('en-US')} headlines, **${d.둘다합} carried both**.`
+          : 'We could not read a rate from the data.',
+      },
+      {
+        꼴: '표',
+        제목: 'Money here,\nage there,\nnever together',
+        머리: ['Outlet', 'Headlines', 'Money', 'Age', 'Both'],
+        줄,
+        아래: `A business paper quoting money is not a finding. The **pairing** is: the desk that leads `
+          + `with ages almost never leads with money, and the last column is zero on every row.`,
+      },
+      {
+        꼴: '표',
+        제목: 'The money figure\nis a floor',
+        머리: ['Outlet', 'Won stated', 'Unit only', 'Band'],
+        줄: 폭줄,
+        /* 🔴 처음에 *기울임* 표시를 넣었더니 별표가 «그대로» 그려졌다 — 카드 그리개는
+           **굵게**만 안다. 카드를 열어서 눈으로 보고 잡았다(2026-09-11 05:0x). */
+        아래: `Korean headlines drop the word for won. A headline reading "10-eok damages" is one billion `
+          + `won to any Korean reader — **eok is a hundred million** — and the same pattern also catches `
+          + `"10-eok views", so we count that set separately and print the band instead of choosing for it.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          `Not a claim that the two cannot co-occur. Zero in ${d.날수} days is zero in ${d.날수} days, and one `
+            + 'in a few thousand would read as zero at this sample size',
+          'Not money without the won character — that is the upper end of the band, not the count',
+          'Not other currencies, and nothing converted to dollars',
+          'Not whether the amounts or the ages are correct. This counts what the desks printed',
+          'Not why the habits differ. Beat convention and house style would both produce this, and neither is in a headline archive',
+        ],
+      },
+    ],
+  };
+}
 
 /**
  * 데뷔 벌 — 106편째 짝(`/debut-age`).
@@ -1967,7 +2046,14 @@ export function 주소빠진장(한벌, 그린것들) {
   return 그린것들.map((h, i) => (h.includes(주소) ? null : i)).filter((x) => x !== null);
 }
 
-const 굵게 = (s) => String(s ?? '').replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+/**
+ * 🔴 2026-09-11 — `.` 는 줄바꿈을 안 먹는다. 그래서 **굵게** 가 «줄을 걸치면» 안 걸리고
+ *   별표가 카드에 그대로 그려졌다. fame 벌 다섯째 장이 그 상태로 라이브에 있었다
+ *   (「**An ambassador announcement travels because\na Korean act is attached to it.**」).
+ *   ⇒ `[\s\S]` 로 바꿔 줄을 걸쳐도 걸리게 했다. 안쪽 줄바꿈은 그 뒤에 `<br>` 로 간다.
+ *   ⛔ 이 결함은 «검사가 없어서» 오래 남았다 — 같은 날 자가시험에 관문을 붙였다.
+ */
+const 굵게 = (s) => String(s ?? '').replace(/\*\*([\s\S]+?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
 
 export function 카드HTML(c, i, 전체, 벌) {
   const 번호 = `<div class="no">${i + 1} / ${전체}</div>`;
@@ -2116,6 +2202,11 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
     재본다(`${이름} — 주소가 모든 장에`, 주소빠진장(그벌, 그린), []);
     재본다(`${이름} — 빈 칸이 안 샌다`, 본문만(그린.join(' ')),
       (s) => !/undefined|NaN|\[object/.test(s));
+    /* 🔴 2026-09-11 — moneyage 벌에 `*기울임*` 을 썼더니 별표가 **그대로 그려졌다.**
+       그리개는 `**굵게**` 하나만 안다. 눈으로 봐서 잡았고, 여기에 굳힌다 —
+       ⛔ 눈으로 잡은 결함을 자로 안 옮기면 다음 벌에서 또 난다. */
+    재본다(`${이름} — 안 그려지는 표시가 남지 않았다`, 본문만(그린.join(' ')),
+      (s) => !s.includes('*') && !/(?:^|\s)_[^_\s][^_]*_(?:\s|$)/.test(s));
   }
   console.log(`카드뉴스 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
