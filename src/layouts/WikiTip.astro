@@ -133,7 +133,13 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   */}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon.ico" sizes="32x32 16x16" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
+  {/* 🔴 [2026-09-10 · 5번] 여기가 `/favicon.png` 를 가리키고 있었는데 그 파일이 **32x32** 였다.
+      iOS 는 홈화면 아이콘이 너무 작으면 «무시하고» 글자 아이콘을 만든다 — 그래서 사장님 폰에
+      회색 「K」가 떠 있었다(사장님 스크린샷 2026-09-10 20:34로 알았다).
+      ⛔ 파비콘(16~32px)과 홈화면 아이콘(180px)을 한 파일로 겸할 수 없다.
+      아이콘은 `node scripts/make-app-icons.mjs --굽는다` 가 굽는다(크기까지 재서 판정한다). */}
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="description" content={description} />
   <meta property="og:title" content={제목} />
   <meta property="og:description" content={description} />

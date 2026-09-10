@@ -125,6 +125,12 @@ const orgLd = {
     <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* 🔴 [2026-09-10 · 5번] 홈화면 아이콘 선언이 «아예 없었다». 그래서 사장님이 폰 홈에
+        얹어 두신 SeoulMarkets 이 회색 「K」로 떠 있었다(스크린샷 2026-09-10 20:34).
+        사장님: 「케이라이프맵처럼 이미지가 뜨게 좀 하라고」
+        아이콘은 `node scripts/make-app-icons.mjs --굽는다` 가 굽는다 — 180x180 불투명. */}
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
 
     <script type="application/ld+json" set:html={JSON.stringify(orgLd)} is:inline />
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />}

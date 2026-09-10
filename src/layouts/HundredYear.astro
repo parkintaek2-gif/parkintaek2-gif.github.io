@@ -159,6 +159,13 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       ⚠ 토큰은 사이트마다 다르다 — 다른 사이트 레이아웃에 이 값을 옮겨 쓰지 않는다. */}
   <meta name="google-site-verification" content="L61A3vqmXxQSHREz8213-ll8gRYYL03yC-glBGZSIaY" />
   <title>{FULL}</title>
+  {/* 🔴 [2026-09-10 · 5번] 백년지도에는 아이콘 선언이 **하나도** 없었다(파비콘도 404였다).
+      그래서 사장님 폰 홈에서는 아이콘이 아니라 «화면 조각»이 떠 있었다(스크린샷 20:34).
+      사장님: 「케이라이프맵처럼 이미지가 뜨게 좀 하라고」
+      `node scripts/make-app-icons.mjs --굽는다` 가 굽는다 — 180x180 불투명, 「백」 글자마크. */}
+  <link rel="icon" type="image/png" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
   <meta property="og:url" content={canonical} />

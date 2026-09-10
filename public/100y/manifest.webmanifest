@@ -1,0 +1,19 @@
+{
+ "name": "백년지도",
+ "short_name": "백년지도",
+ "display": "standalone",
+ "background_color": "#6b5a1e",
+ "theme_color": "#6b5a1e",
+ "icons": [
+  {
+   "src": "/apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "/icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}
