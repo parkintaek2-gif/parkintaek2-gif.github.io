@@ -1,272 +1,237 @@
 {
-  "asOf": "2026-08-24",
+  "asOf": "2026-09-09",
   "source": "Korea government bonds (KTB), listed close yields — data.go.kr getBondPriceInfo via KRX/공공데이터, T+1",
   "note": "These are listed-KTB closing yields, not the Bank of Korea official reference (over-the-counter) rates; they can differ. One day, not a trend.",
-  "ktbCount": 42,
-  "usedCount": 42,
+  "ktbCount": 35,
+  "usedCount": 35,
   "droppedOutliers": 0,
   "notMatchedTenors": [],
   "curve": [
     {
       "tenor": 1,
-      "yield": 3.319,
-      "residualYears": 0.83,
-      "maturity": "2027-06",
-      "bond": "국고02125-2706(17-3)"
+      "yield": 3.701,
+      "residualYears": 1,
+      "maturity": "2027-09",
+      "bond": "국고02250-2709(25-6)"
     },
     {
       "tenor": 2,
-      "yield": 3.685,
-      "residualYears": 1.58,
+      "yield": 3.736,
+      "residualYears": 1.5,
       "maturity": "2028-03",
-      "bond": "국고05500-2803(08-2)"
+      "bond": "국고03000-2803(26-1)"
     },
     {
       "tenor": 3,
-      "yield": 3.852,
-      "residualYears": 3.08,
-      "maturity": "2029-09",
-      "bond": "국고03000-2909(24-7)"
+      "yield": 3.91,
+      "residualYears": 2.75,
+      "maturity": "2029-06",
+      "bond": "국고03500-2906(26-5)"
     },
     {
       "tenor": 5,
-      "yield": 4.16,
-      "residualYears": 5.33,
+      "yield": 4.21,
+      "residualYears": 5.25,
       "maturity": "2031-12",
       "bond": "국고04000-3112(11-7)"
     },
     {
       "tenor": 10,
-      "yield": 4.373,
-      "residualYears": 10.08,
-      "maturity": "2036-09",
-      "bond": "국고01500-3609(16-6)"
+      "yield": 4.371,
+      "residualYears": 9.75,
+      "maturity": "2036-06",
+      "bond": "국고04250-3606(26-6)"
     },
     {
       "tenor": 20,
-      "yield": 4.623,
-      "residualYears": 19.08,
-      "maturity": "2045-09",
-      "bond": "국고02750-4509(25-9)"
+      "yield": 4.594,
+      "residualYears": 19.5,
+      "maturity": "2046-03",
+      "bond": "국고02000-4603(16-1)"
     },
     {
       "tenor": 30,
-      "yield": 4.676,
-      "residualYears": 29.58,
-      "maturity": "2056-03",
-      "bond": "국고03500-5603(26-2)"
+      "yield": 4.613,
+      "residualYears": 30,
+      "maturity": "2056-09",
+      "bond": "국고04500-5609(26-8)"
     }
   ],
   "allPoints": [
     {
-      "residualYears": 0.33,
-      "yield": 3.047,
+      "residualYears": 0.25,
+      "yield": 3.212,
       "maturity": "2026-12"
     },
     {
-      "residualYears": 0.33,
-      "yield": 3.222,
-      "maturity": "2026-12"
+      "residualYears": 1,
+      "yield": 3.701,
+      "maturity": "2027-09"
     },
     {
-      "residualYears": 0.58,
-      "yield": 3.348,
-      "maturity": "2027-03"
+      "residualYears": 1.25,
+      "yield": 3.681,
+      "maturity": "2027-12"
     },
     {
-      "residualYears": 0.83,
-      "yield": 3.319,
-      "maturity": "2027-06"
-    },
-    {
-      "residualYears": 1.58,
-      "yield": 3.685,
+      "residualYears": 1.5,
+      "yield": 3.736,
       "maturity": "2028-03"
     },
     {
-      "residualYears": 1.58,
-      "yield": 3.697,
-      "maturity": "2028-03"
-    },
-    {
-      "residualYears": 2.83,
-      "yield": 3.836,
+      "residualYears": 2.75,
+      "yield": 3.91,
       "maturity": "2029-06"
     },
     {
-      "residualYears": 3.08,
-      "yield": 3.852,
-      "maturity": "2029-09"
-    },
-    {
-      "residualYears": 3.33,
-      "yield": 3.89,
+      "residualYears": 3.25,
+      "yield": 3.965,
       "maturity": "2029-12"
     },
     {
-      "residualYears": 3.33,
-      "yield": 3.894,
-      "maturity": "2029-12"
+      "residualYears": 3.5,
+      "yield": 3.846,
+      "maturity": "2030-03"
     },
     {
-      "residualYears": 3.83,
-      "yield": 4.005,
+      "residualYears": 3.75,
+      "yield": 4.023,
       "maturity": "2030-06"
     },
     {
-      "residualYears": 4.33,
-      "yield": 4.034,
+      "residualYears": 4.25,
+      "yield": 2.123,
       "maturity": "2030-12"
     },
     {
-      "residualYears": 4.33,
-      "yield": 4.084,
+      "residualYears": 4.25,
+      "yield": 4.053,
       "maturity": "2030-12"
     },
     {
-      "residualYears": 4.58,
-      "yield": 4.069,
+      "residualYears": 4.5,
+      "yield": 4.137,
       "maturity": "2031-03"
     },
     {
-      "residualYears": 5.33,
-      "yield": 4.16,
+      "residualYears": 5.25,
+      "yield": 4.21,
       "maturity": "2031-12"
     },
     {
-      "residualYears": 5.33,
+      "residualYears": 5.25,
       "yield": 4.168,
       "maturity": "2031-12"
     },
     {
-      "residualYears": 5.83,
-      "yield": 4.235,
+      "residualYears": 5.75,
+      "yield": 4.277,
       "maturity": "2032-06"
     },
     {
-      "residualYears": 6.33,
-      "yield": 4.209,
-      "maturity": "2032-12"
-    },
-    {
-      "residualYears": 6.83,
-      "yield": 4.217,
+      "residualYears": 6.75,
+      "yield": 4.325,
       "maturity": "2033-06"
     },
     {
-      "residualYears": 7.33,
-      "yield": 4.258,
-      "maturity": "2033-12"
-    },
-    {
-      "residualYears": 7.33,
-      "yield": 4.259,
-      "maturity": "2033-12"
-    },
-    {
-      "residualYears": 7.83,
-      "yield": 4.337,
-      "maturity": "2034-06"
-    },
-    {
-      "residualYears": 8.33,
-      "yield": 4.299,
-      "maturity": "2034-12"
-    },
-    {
-      "residualYears": 9.83,
-      "yield": 4.338,
+      "residualYears": 9.75,
+      "yield": 4.371,
       "maturity": "2036-06"
     },
     {
-      "residualYears": 10.08,
-      "yield": 4.373,
-      "maturity": "2036-09"
-    },
-    {
-      "residualYears": 11.08,
-      "yield": 4.394,
-      "maturity": "2037-09"
-    },
-    {
-      "residualYears": 13.08,
-      "yield": 4.433,
+      "residualYears": 13,
+      "yield": 4.369,
       "maturity": "2039-09"
     },
     {
-      "residualYears": 14.08,
-      "yield": 4.487,
+      "residualYears": 14,
+      "yield": 4.513,
       "maturity": "2040-09"
     },
     {
-      "residualYears": 15.08,
-      "yield": 4.585,
-      "maturity": "2041-09"
-    },
-    {
-      "residualYears": 16.08,
-      "yield": 4.642,
+      "residualYears": 16,
+      "yield": 4.506,
       "maturity": "2042-09"
     },
     {
-      "residualYears": 17.08,
-      "yield": 4.584,
-      "maturity": "2043-09"
-    },
-    {
-      "residualYears": 18.08,
-      "yield": 4.629,
-      "maturity": "2044-09"
-    },
-    {
-      "residualYears": 19.08,
-      "yield": 4.623,
+      "residualYears": 19,
+      "yield": 4.551,
       "maturity": "2045-09"
     },
     {
-      "residualYears": 23.58,
-      "yield": 4.682,
+      "residualYears": 19.5,
+      "yield": 4.594,
+      "maturity": "2046-03"
+    },
+    {
+      "residualYears": 22.5,
+      "yield": 4.593,
+      "maturity": "2049-03"
+    },
+    {
+      "residualYears": 23.5,
+      "yield": 4.637,
       "maturity": "2050-03"
     },
     {
-      "residualYears": 26.08,
-      "yield": 4.731,
+      "residualYears": 24.5,
+      "yield": 4.657,
+      "maturity": "2051-03"
+    },
+    {
+      "residualYears": 26,
+      "yield": 4.632,
       "maturity": "2052-09"
     },
     {
-      "residualYears": 26.58,
-      "yield": 4.692,
+      "residualYears": 26.5,
+      "yield": 4.628,
       "maturity": "2053-03"
     },
     {
-      "residualYears": 27.08,
-      "yield": 4.728,
+      "residualYears": 27,
+      "yield": 4.644,
       "maturity": "2053-09"
     },
     {
-      "residualYears": 27.58,
-      "yield": 4.683,
+      "residualYears": 27.5,
+      "yield": 4.655,
       "maturity": "2054-03"
     },
     {
-      "residualYears": 28.08,
-      "yield": 4.688,
+      "residualYears": 28,
+      "yield": 4.632,
       "maturity": "2054-09"
     },
     {
-      "residualYears": 28.58,
-      "yield": 4.675,
+      "residualYears": 28.5,
+      "yield": 4.656,
       "maturity": "2055-03"
     },
     {
-      "residualYears": 29.08,
-      "yield": 4.658,
+      "residualYears": 29,
+      "yield": 4.652,
       "maturity": "2055-09"
     },
     {
-      "residualYears": 29.58,
-      "yield": 4.676,
+      "residualYears": 29.5,
+      "yield": 4.642,
       "maturity": "2056-03"
+    },
+    {
+      "residualYears": 30,
+      "yield": 4.613,
+      "maturity": "2056-09"
+    },
+    {
+      "residualYears": 42,
+      "yield": 4.674,
+      "maturity": "2068-09"
+    },
+    {
+      "residualYears": 44,
+      "yield": 4.887,
+      "maturity": "2070-09"
     }
   ]
 }
