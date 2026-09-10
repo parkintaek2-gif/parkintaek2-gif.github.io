@@ -413,6 +413,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-10 — 같은 국민연금 원자료의 월상실률(3번, 0.58~12.16%)을 KOSIS
        142/DT_G26036(중소기업실태조사 공식 이직률)과 나란히 놓는다. 판정 없음. */
     { path: '/turnover-cross-check', priority: '0.6', changefreq: 'yearly' },
+    /* 🔴 2026-09-10 — 고용24 RIASEC(PAR사 홀랜드 SDS, 상업이용 불가)의 대체로 O*NET
+       Interest Profiler(CC BY 4.0) 자료를 새로 받아 낸다. */
+    { path: '/onet-riasec', priority: '0.6', changefreq: 'yearly' },
     /* 🔴 2026-09-08 — 「지방국립대 무상교육」 뉴스 씨앗. 정책 효과는 말할 수 없어
        정책 시행 «전» 기준선(국공립·사립 재학생충원율·취업률)만 pages-university.json
        재계산으로 남긴다. */

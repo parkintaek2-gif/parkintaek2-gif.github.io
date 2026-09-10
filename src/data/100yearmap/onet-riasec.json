@@ -1,0 +1,257 @@
+{
+ "무엇": "O*NET(미국 노동부)가 923개 직업을 홀랜드 흥미유형(RIASEC)으로 분류한 것",
+ "만든날": "2026-09-10",
+ "출처": {
+  "이름": "O*NET 31.0 Database — Career Interest Types",
+  "기관": "U.S. Department of Labor, Employment and Training Administration · O*NET Center",
+  "url": "https://www.onetcenter.org/database.html",
+  "이용허락범위": "CC BY 4.0 (출처표시 조건) — onetcenter.org/IP.html·database.html 원문 확인(2026-09-10)",
+  "받은때": "2026-09-10",
+  "대체한것": "고용24 RIASEC 40건(archive/raw/work24/riasec-by-job.json) — 검사도구 자체가 미국 PAR사 홀랜드 SDS 라이선스물이라 상업이용 불가. RIASEC 여섯 유형이라는 «이론»은 학설이라 권리가 없지만, «검사 도구»(문항·채점·규준)는 PAR 것이었다"
+ },
+ "유형정의": {
+  "Realistic": {
+   "한글": "현실형",
+   "뜻": "도구·기계·몸을 쓰는 일 — 만들고 고치고 다루는 쪽"
+  },
+  "Investigative": {
+   "한글": "탐구형",
+   "뜻": "관찰하고 분석하고 답을 찾는 일 — 연구·조사 쪽"
+  },
+  "Artistic": {
+   "한글": "예술형",
+   "뜻": "형식에 매이지 않고 만들어내는 일 — 표현·창작 쪽"
+  },
+  "Social": {
+   "한글": "사회형",
+   "뜻": "사람을 돕고 가르치고 돌보는 일"
+  },
+  "Enterprising": {
+   "한글": "진취형",
+   "뜻": "설득하고 이끌고 사업을 벌이는 일"
+  },
+  "Conventional": {
+   "한글": "관습형",
+   "뜻": "자료를 정리하고 규칙대로 처리하는 일 — 사무·회계 쪽"
+  }
+ },
+ "직업수": 923,
+ "전문가검증_직업수": 871,
+ "모델추정만_직업수": 52,
+ "유형분포_1순위기준": {
+  "Realistic": 387,
+  "Investigative": 113,
+  "Artistic": 28,
+  "Social": 129,
+  "Enterprising": 100,
+  "Conventional": 166
+ },
+ "유형별대표직업": {
+  "Realistic": [
+   {
+    "이름": "Electro-Mechanical and Mechatronics Technologists and Technicians",
+    "점수": 7
+   },
+   {
+    "이름": "Automotive Engineering Technicians",
+    "점수": 7
+   },
+   {
+    "이름": "Photonics Technicians",
+    "점수": 7
+   },
+   {
+    "이름": "Dishwashers",
+    "점수": 7
+   },
+   {
+    "이름": "Landscaping and Groundskeeping Workers",
+    "점수": 7
+   },
+   {
+    "이름": "Tree Trimmers and Pruners",
+    "점수": 7
+   },
+   {
+    "이름": "Agricultural Equipment Operators",
+    "점수": 7
+   },
+   {
+    "이름": "Farmworkers and Laborers, Crop, Nursery, and Greenhouse",
+    "점수": 7
+   }
+  ],
+  "Investigative": [
+   {
+    "이름": "Computer and Information Research Scientists",
+    "점수": 7
+   },
+   {
+    "이름": "Mathematicians",
+    "점수": 7
+   },
+   {
+    "이름": "Biostatisticians",
+    "점수": 7
+   },
+   {
+    "이름": "Biochemists and Biophysicists",
+    "점수": 7
+   },
+   {
+    "이름": "Microbiologists",
+    "점수": 7
+   },
+   {
+    "이름": "Bioinformatics Scientists",
+    "점수": 7
+   },
+   {
+    "이름": "Geneticists",
+    "점수": 7
+   },
+   {
+    "이름": "Biologists",
+    "점수": 7
+   }
+  ],
+  "Artistic": [
+   {
+    "이름": "Art Directors",
+    "점수": 7
+   },
+   {
+    "이름": "Fine Artists, Including Painters, Sculptors, and Illustrators",
+    "점수": 7
+   },
+   {
+    "이름": "Special Effects Artists and Animators",
+    "점수": 7
+   },
+   {
+    "이름": "Fashion Designers",
+    "점수": 7
+   },
+   {
+    "이름": "Graphic Designers",
+    "점수": 7
+   },
+   {
+    "이름": "Actors",
+    "점수": 7
+   },
+   {
+    "이름": "Choreographers",
+    "점수": 7
+   },
+   {
+    "이름": "Music Directors and Composers",
+    "점수": 7
+   }
+  ],
+  "Social": [
+   {
+    "이름": "Educational, Guidance, and Career Counselors and Advisors",
+    "점수": 7
+   },
+   {
+    "이름": "Directors, Religious Activities and Education",
+    "점수": 7
+   },
+   {
+    "이름": "Psychology Teachers, Postsecondary",
+    "점수": 7
+   },
+   {
+    "이름": "Health Specialties Teachers, Postsecondary",
+    "점수": 7
+   },
+   {
+    "이름": "Nursing Instructors and Teachers, Postsecondary",
+    "점수": 7
+   },
+   {
+    "이름": "Education Teachers, Postsecondary",
+    "점수": 7
+   },
+   {
+    "이름": "Social Work Teachers, Postsecondary",
+    "점수": 7
+   },
+   {
+    "이름": "English Language and Literature Teachers, Postsecondary",
+    "점수": 7
+   }
+  ],
+  "Enterprising": [
+   {
+    "이름": "General and Operations Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Advertising and Promotions Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Marketing Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Sales Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Public Relations Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Fundraising Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Financial Managers",
+    "점수": 7
+   },
+   {
+    "이름": "Purchasing Managers",
+    "점수": 7
+   }
+  ],
+  "Conventional": [
+   {
+    "이름": "Accountants and Auditors",
+    "점수": 7
+   },
+   {
+    "이름": "Budget Analysts",
+    "점수": 7
+   },
+   {
+    "이름": "Pharmacy Technicians",
+    "점수": 7
+   },
+   {
+    "이름": "Bill and Account Collectors",
+    "점수": 7
+   },
+   {
+    "이름": "Billing and Posting Clerks",
+    "점수": 7
+   },
+   {
+    "이름": "Bookkeeping, Accounting, and Auditing Clerks",
+    "점수": 7
+   },
+   {
+    "이름": "Payroll and Timekeeping Clerks",
+    "점수": 7
+   },
+   {
+    "이름": "Procurement Clerks",
+    "점수": 7
+   }
+  ]
+ },
+ "덮는범위": "미국 노동시장 기준 923개 직업이다 — 한국 직업 명칭·구조와 다르며, \"한국에서도 이렇다\"로 읽지 않는다. 52개(5.6%) 직업은 전문가 검증 없이 모델 추정값만 있어 대표직업 목록에서 뺐다. RIASEC은 여섯 갈래로 나누는 분류다 — 유형 점수가 높다고 그 일을 \"더 잘한다\"는 뜻이 아니다.",
+ "대조": "못 맞췄다 — 이 파일이 O*NET 공식 배포 CSV 원본과 항목 수(923개 직업 × 9행)가 일치하는지만 확인했고, O*NET이 별도로 발표한 요약 통계와 대조해 본 적은 없다."
+}
