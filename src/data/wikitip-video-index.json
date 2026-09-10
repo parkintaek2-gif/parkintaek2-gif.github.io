@@ -1,15 +1,25 @@
 {
-  "generated": "2026-09-09T13:45+09:00",
+  "generated": "2026-09-10T12:07+09:00",
   "whatThisIs": "Every short film we publish, paired with the page it was built from. The pairing is read from the pages themselves, so it cannot drift out of date.",
   "whatThisIsNot": "It is not a description written for the video. The sentence beside each film is the one printed next to it on its own page.",
   "counts": {
-    "영상": 37,
-    "짝찾음": 36,
+    "영상": 38,
+    "짝찾음": 37,
     "짝못찾음": 1,
     "두지면에걸린것": 0,
-    "지면에서읽음": 36
+    "지면에서읽음": 37
   },
   "videos": [
+    {
+      "set": "a-phone-and-a-burger-took-two-k-pop-faces-voiced",
+      "src": "/video/a-phone-and-a-burger-took-two-k-pop-faces-voiced.mp4",
+      "thumb": "/video/thumb/a-phone-and-a-burger-took-two-k-pop-faces-voiced.jpg",
+      "seconds": 17,
+      "page": "/brand-kinds",
+      "says": "Seventeen seconds on the two brand kinds this panel had left out, and on the moment we found one company was three quarters of the technology total and cut our own headline from five times to one point three.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
     {
       "set": "actors-voiced",
       "src": "/video/actors-voiced.mp4",
@@ -107,6 +117,16 @@
       "seconds": 14,
       "page": "/debut-age",
       "says": "Fourteen seconds, read aloud: stars who debuted before eighteen are read 11.89 per million; those who started at twenty-six or later, 2.43. Median career length barely differs across the four bands, so this is not the older ones simply having had less time.",
+      "saysFrom": "built page",
+      "alsoOn": []
+    },
+    {
+      "set": "editions-voiced",
+      "src": "/video/editions-voiced.mp4",
+      "thumb": "/video/thumb/editions-voiced.jpg",
+      "seconds": 14,
+      "page": "/read-in",
+      "says": "Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 reads. The film says on screen that these are language editions and not countries.",
       "saysFrom": "built page",
       "alsoOn": []
     },
@@ -367,16 +387,6 @@
       "seconds": 14,
       "page": "/works-and-readers",
       "says": "Fourteen seconds: the ladder of median reads by number of charting titles, the chance one actor from the top band outreads one from the bottom, and where the two bands overlap.",
-      "saysFrom": "built page",
-      "alsoOn": []
-    },
-    {
-      "set": "editions-voiced",
-      "src": "/video/editions-voiced.mp4",
-      "thumb": "/video/thumb/editions-voiced.jpg",
-      "seconds": 14,
-      "page": "/read-in",
-      "says": "Fourteen seconds: Chinese Wikipedia leads for 306 of these 478 people, for the seven BTS members it leads for none, Spanish takes six, and Jimin is the exception by 4,669 reads. The film says on screen that these are language editions and not countries.",
       "saysFrom": "built page",
       "alsoOn": []
     }

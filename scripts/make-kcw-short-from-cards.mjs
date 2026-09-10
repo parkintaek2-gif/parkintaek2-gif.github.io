@@ -31,7 +31,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import ffmpeg경로 from 'ffmpeg-static';
 
 const ROOT = process.cwd();
@@ -248,18 +248,20 @@ execFileSync(ffmpeg경로, [
   '-shortest', 낼길,
 ], { stdio: ['ignore', 'pipe', 'pipe'] });
 
-/* ⛔ 「만들었다」로 끝내지 않는다 — 음량을 «재서» 확인한다 */
-let 잰글 = '';
-try {
-  execFileSync(ffmpeg경로, ['-i', 낼길, '-af', 'volumedetect', '-f', 'null', '-'],
-    { stdio: ['ignore', 'pipe', 'pipe'] });
-} catch (e) { 잰글 = String(e.stderr ?? ''); }
-if (!잰글) {
-  try {
-    잰글 = execFileSync(ffmpeg경로, ['-i', 낼길, '-af', 'volumedetect', '-f', 'null', '-'],
-      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] });
-  } catch (e) { 잰글 = String(e.stderr ?? e.stdout ?? ''); }
-}
+/*
+ * ⛔ 「만들었다」로 끝내지 않는다 — 음량을 «재서» 확인한다.
+ *
+ * 🔴 [2026-09-10] 처음에 execFileSync 로 재고 «예외에서» stderr 를 꺼내려 했다. 못 잡았다.
+ *   ffmpeg 은 volumedetect 결과를 stderr 로 내는데 «종료코드는 0» 이라 예외가 안 난다.
+ *   그래서 잰글이 비고, 음량이 null 이 되고, 「무음이다」로 판정해 파일을 지웠다.
+ *   ⇒ 이미 도는 자(check-kcw-silent-video.mjs 129줄)가 spawnSync 로 stderr 를 그냥 읽고 있었다.
+ *   ⛔ 같은 일을 하는 자가 있으면 그 자가 «어떻게» 하는지 먼저 본다. 세 번째로 같은 잘못이다.
+ * ⭐ 그리고 「무음이면 안 낸다」가 실제로 작동해서 무음판이 나가지 않았다 —
+ *   관문이 제 몫을 한 것이라 그 부분은 결함이 아니다.
+ */
+const 잼 = spawnSync(ffmpeg경로, ['-i', 낼길, '-af', 'volumedetect', '-f', 'null', '-'],
+  { encoding: 'utf8' });
+const 잰글 = String(잼.stderr ?? '');
 const 음량 = 음량읽기(잰글);
 const 판정 = 소리나나(음량);
 const 크기 = fs.statSync(낼길).size;

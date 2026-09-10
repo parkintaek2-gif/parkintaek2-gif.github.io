@@ -249,6 +249,19 @@ const videoSets = [
    * ⚠ 영상 갤러리 목록(wikitip-video-index)은 24편인데 여기는 21편이었다. 두 목록이
    *   따로 손질되니 반드시 갈라진다 — check-kcw-video-lists.mjs 가 이제 그 차이를 잡는다.
    */
+  /*
+   * 🔴 [2026-09-10] 오늘 카드로 구운 첫 숏영상. **세 곳에 다 올려야 보인다** —
+   *   ① 지면에 <KcwShorts set="…"> ② 여기 videoSets ③ 파일 자리.
+   *   check-kcw-video-lists.mjs 가 셋이 어긋나면 잡는다. 실제로 잡혀서 여기 적는 것이다.
+   */
+  {
+    set: 'a-phone-and-a-burger-took-two-k-pop-faces-voiced',
+    page: '/brand-kinds',
+    title: 'A phone and a burger took two K-pop faces. Neither was a kind we measured',
+    description: '17 seconds on the two brand kinds our panel had left out — and on the moment '
+      + 'we found one company was three quarters of the technology total, and cut our own '
+      + 'headline from five times to one point three.',
+  },
   {
     set: 'tworulers-voiced',
     page: '/person',
