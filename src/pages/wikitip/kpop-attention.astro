@@ -43,6 +43,9 @@ import peak from '../../data/wikitip-peak-day.json';
  *     ⭐ 오르는 것은 **바닥**이고 천장이 아니다. 그 문장을 표 위에 둔다.
  */
 import 일감 from '../../data/kcw-work-vs-attention.json';
+/* [2026-09-11] 영문 뉴스 피드가 무엇으로 채워지나 — 「무엇을 찾아보나」의 짝이다 */
+import 피드자료 from '../../data/kcw-feed-franchise.json';
+import 머묾자료 from '../../data/kcw-front-page-dwell.json';
 
 /**
  * 🔴 [2026-09-08 · 5번] 옛 제목은 **62자로 잘리고 수가 없었다** —
@@ -52,6 +55,24 @@ import 일감 from '../../data/kcw-work-vs-attention.json';
  * ⚠ **「조회」는 사람 수가 아니다.** 한 사람이 세 번 열면 셋으로 센다 —
  *   그래서 「reads」로 적고 「people」로 안 적는다(같은 잘못을 오늘 두 지면에서 고쳤다).
  */
+const 피드들 = (((피드자료 as any).피드들 || []) as any[])
+  .slice().sort((a, b) => (b.으뜸몫 ?? -1) - (a.으뜸몫 ?? -1));
+const 피드날수 = Number((피드자료 as any).날수) || 0;
+
+/* 머묾 — 첫 화면에 이튿날도 남아 있나. ⛔ 수를 손으로 적지 않는다(처음에 손으로 적었다가 고쳤다) */
+const 머묾이름: Record<string, string> = {
+  커뮤니티: 'Korean community sites',
+  SNS: 'English-language Korea subreddits',
+  뉴스: 'Google News feeds',
+};
+const 머묾줄 = ['커뮤니티', 'SNS', '뉴스']
+  .map((k) => {
+    const v = ((머묾자료 as any).갈래별 || {})[k];
+    return v ? { ...v, 이름: 머묾이름[k] || k, 강조: k !== '뉴스' } : null;
+  })
+  .filter(Boolean) as any[];
+const 머묾날수 = Number((머묾자료 as any).쓴날수) || 0;
+
 const 백만 = (v: number) => `${(v / 1_000_000).toFixed(1)}m`;
 const TITLE = `${data.roster.toLocaleString('en-US')} K-pop names, ${백만(data.totalViews)} reads in ${data.days} days`;
 const DESC =
@@ -374,6 +395,92 @@ const jsonLd = {
       {' '}<a href="/label-reach">Label reach</a> adds up the readers each label&rsquo;s roster draws
       in English, and <a href="/cap-per-artist">reach per artist</a> divides that by how many acts
       the label has &mdash; which is where a company carried by one name stops looking like a roster.
+    </p>
+  </section>
+
+  {/* 🔴 [2026-09-11 07:0x · 5번] 오늘 기사(「영문 K팝 피드의 58%가 한 작품」)가 이 지면을
+      가리키는데, 그 대표 수(645)가 여기 «표 칸»에 없었다 — check-table-promises.mjs 가 잡았다.
+      ⭐ 그 자가 옳다. 이 지면은 「영어권이 무엇을 찾아보나」를 재는 자리고, 「영어권 뉴스 피드가
+        무엇으로 채워져 있나」는 그 물음의 짝이다. 그래서 표를 여기에 둔다 — 가리키기만 하지 않는다.
+      ⛔ 수를 손으로 안 적는다. src/data/kcw-feed-franchise.json 에서 읽는다. */}
+  <section>
+    <h2>What the English-language news feeds are made of</h2>
+    <p class="note">
+      The tables above count what English-speaking readers <b>look up</b>. This one counts what they
+      are <b>handed</b>. We keep a daily copy of three English-language Google News queries about
+      Korea; over {피드날수} days, the most frequent three-word phrase in each feed was found by
+      counting every phrase rather than by choosing one.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Feed</th>
+            <th>Item-days</th>
+            <th>Most frequent phrase</th>
+            <th>In item-days</th>
+            <th>Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          {피드들.map((f: any) => (
+            <tr>
+              <td>{f.영문}</td>
+              <td>{Number(f.항목날).toLocaleString('en-US')}</td>
+              <td>{f.으뜸이음말 ?? '—'}</td>
+              <td><b>{Number(f.으뜸든항목날).toLocaleString('en-US')}</b></td>
+              <td>{f.으뜸몫 == null ? '—' : `${(f.으뜸몫 * 100).toFixed(1)}%`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      One animated film is most of one feed, while no single subject passes eight percent of the
+      other two. The full count — including the share of items carrying a buying word, and what we
+      could not measure (who published any of it) — is at{' '}
+      <a href="/article/one-film-is-most-of-the-english-k-pop-news-feed">
+        one film is most of the English K-pop news feed
+      </a>.
+    </p>
+
+    <h3>And how long any of it stays visible</h3>
+    <p class="note">
+      The same daily capture holds the front pages of Korean community sites and the
+      English-language Korea subreddits. Counting how often the same post URL is still there the
+      next evening gives the other half of attention — not what is looked up, but how long it is
+      even on the page.
+    </p>
+    <div class="scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>Front page</th>
+            <th>Posts seen</th>
+            <th>Still there next day</th>
+            <th>Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          {머묾줄.map((r) => (
+            <tr>
+              <td>{r.이름} ({r.우물수})</td>
+              <td>{Number(r.글).toLocaleString('en-US')}</td>
+              <td>{Number(r.이틀이상).toLocaleString('en-US')}</td>
+              <td>{r.강조 ? <b>{(r.이틀이상몫 * 100).toFixed(1)}%</b> : `${(r.이틀이상몫 * 100).toFixed(1)}%`}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      {머묾날수} consecutive days, one capture per evening — so &ldquo;one day&rdquo; is the resolution of
+      the instrument, not a post&rsquo;s lifespan, and part of the gap is that a rotating
+      &ldquo;best&rdquo; list and a vote-weighted &ldquo;hot&rdquo; ranking are different machines.
+      Both limits, and the per-room figures, are in{' '}
+      <a href="/article/a-korean-forum-post-gets-one-day-an-english-one-gets-three">
+        a Korean forum post gets one day, an English one gets three
+      </a>.
     </p>
   </section>
 

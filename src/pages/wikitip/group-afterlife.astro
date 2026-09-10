@@ -20,11 +20,34 @@
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
 import d from '../../data/kcw-group-afterlife.json';
+/* [2026-09-11] 「한 무리의 잃은 2년」이 그 무리만의 것인가 — 같은 창으로 여덟 무리를 다 잰다 */
+import 넷째대자료 from '../../data/kcw-newjeans-two-years.json';
 
 const TITLE = 'How long a K-pop group stays looked up after its peak';
 const DESC =
   'For 774 Korean acts, the median time to lose half the readers of their best month is '
   + 'two months. One group held out for 65. Peak month, month by month, both sides counted.';
+
+/* ── 넷째 대 여덟 무리 — 앞창 대 뒤창 ─────────────────────────────────
+   ⛔ 수를 손으로 안 적는다. 창(앞·뒤)도 자료가 쥐고 있다. */
+const 넷째창앞 = ((넷째대자료 as any).앞창 || []) as string[];
+const 넷째창뒤 = ((넷째대자료 as any).뒤창 || []) as string[];
+const 달합 = (달값: Record<string, number>, 창: string[]) =>
+  창.reduce((a, k) => a + (Number(달값?.[k]) || 0), 0);
+const 넷째대 = (((넷째대자료 as any).것들 || []) as any[])
+  .map((x) => {
+    const 앞 = 달합(x.달값, 넷째창앞);
+    const 뒤 = 달합(x.달값, 넷째창뒤);
+    return { 이름: String(x.이름), 앞, 뒤, 배: 앞 > 0 ? 뒤 / 앞 : null, 주인공: !!x.주인공 };
+  })
+  .sort((a, b) => (b.배 ?? -1) - (a.배 ?? -1));
+const 주인공배 = (넷째대.find((r) => r.주인공) || {}).배 ?? null;
+const 남은배 = 넷째대.filter((r) => !r.주인공 && r.배 != null).map((r) => r.배 as number).sort((a, b) => a - b);
+const 나머지중앙 = 남은배.length
+  ? (남은배.length % 2 ? 남은배[(남은배.length - 1) / 2]
+    : (남은배[남은배.length / 2 - 1] + 남은배[남은배.length / 2]) / 2)
+  : null;
+const 더떨어진 = 주인공배 == null ? 0 : 넷째대.filter((r) => !r.주인공 && r.배 != null && (r.배 as number) < 주인공배).length;
 
 const 셈 = d.셈;
 const 큰 = d.팀.filter((t) => t.봉우리열람 >= 50000);
@@ -224,6 +247,63 @@ const jsonLd = {
     <h2>What this is not</h2>
     {d.이것이아닌것.map((l) => <p class="note">{l}</p>)}
   </section>
+
+  {/* 🔴 [2026-09-11 07:2x · 5번] 기사(「the lost two years happened to everyone」)가 이 지면을
+      가리키는데, 그 수가 여기 «표»에 없었다 — 지면의 관련기사 딱지에 글로만 있었다.
+      check-table-promises.mjs 가 잡았고, 그 자의 주석이 답을 이미 적어 두었다 —
+      「옳은 고침은 자가 아니라 지면이다. 그 수를 표의 값 칸에 실으면 된다」.
+      ⛔ 수를 손으로 안 적는다 — kcw-newjeans-two-years.json 을 여기서 «다시 더한다».
+      ⚠ 창이 움직이므로 값도 움직인다. 기사는 0.61 로 냈고 한 달치가 더 쌓인 지금은 아래 값이다 —
+        그 «드리프트»를 숨기지 않고 표 아래에 적는다. */}
+  {넷째대.length > 0 && (
+    <section>
+      <h2>One rupture, eight groups — was the drop only theirs?</h2>
+      <p class="note">
+        A Korean desk called it one group&rsquo;s <i>lost two years</i>. The same twelve-month
+        before-and-after can be run on every fourth-generation girl group, and it is the only way to
+        know whether a fall belongs to the group or to the generation.
+      </p>
+      <table>
+        <thead>
+          <tr>
+            <th>Group</th>
+            <th class="n">Reads, 12 months before</th>
+            <th class="n">Reads, 12 months after</th>
+            <th class="n">After ÷ before</th>
+          </tr>
+        </thead>
+        <tbody>
+          {넷째대.map((r) => (
+            <tr>
+              <td>{r.이름}{r.주인공 ? ' (the one the desk wrote about)' : ''}</td>
+              <td class="n">{r.앞.toLocaleString('en-US')}</td>
+              <td class="n">{r.뒤.toLocaleString('en-US')}</td>
+              <td class="n">{r.배 == null ? '—' : `${r.배.toFixed(2)}×`}</td>
+            </tr>
+          ))}
+          <tr>
+            <td><b>Groups counted</b></td>
+            <td class="n">—</td>
+            <td class="n">—</td>
+            <td class="n"><b>{넷째대.length}</b></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="note">
+        The median of the other seven is <b>{나머지중앙 == null ? '—' : `${나머지중앙.toFixed(2)}×`}</b>,
+        and {더떨어진}{' '}
+        {더떨어진 === 1 ? 'group fell further' : 'groups fell further'} than the one the desk named.
+        ⚠ The window moves as months are added: when we first published this the named group read{' '}
+        <b>0.61×</b> and it now reads{' '}
+        <b>{주인공배 == null ? '—' : `${주인공배.toFixed(2)}×`}</b>. Neither is a correction of the
+        other — each is the same measurement on a window one month apart, which is the whole reason we
+        print the window with the number. The full piece is at{' '}
+        <a href="/article/the-lost-two-years-happened-to-everyone">
+          the lost two years happened to everyone
+        </a>.
+      </p>
+    </section>
+  )}
 
   <section class="src">
     <h2>Where else this leads</h2>

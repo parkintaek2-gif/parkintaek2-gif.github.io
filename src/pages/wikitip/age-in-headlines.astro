@@ -257,6 +257,16 @@ const datasetLd = {
               <td class="n">{x.제목수.toLocaleString('en-US')}</td>
             </tr>
           ))}
+          {/* 🔴 [2026-09-11 07:0x] 합계 줄을 넣었다 — `check-table-promises.mjs` 가
+              「기사의 대표 수가 걸린 지면의 «표 칸»에 있나」를 본다. 1,365 가 글로만 있고
+              칸에는 없었다. ⭐ 그 자가 옳다 — 손님이 표를 볼 때 합이 없으면 스스로 더해야 한다. */}
+          <tr>
+            <td class="k">All four desks</td>
+            <td class="n">—</td>
+            <td class="n">—</td>
+            <td class="n"><b>{둘다합}</b></td>
+            <td class="n"><b>{돈제목합.toLocaleString('en-US')}</b></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -332,6 +342,13 @@ const datasetLd = {
               <td class="n">{x.제목수.toLocaleString('en-US')}</td>
             </tr>
           ))}
+          <tr>
+            <td class="k">All four desks</td>
+            <td class="n">—</td>
+            <td class="n">—</td>
+            <td class="n">—</td>
+            <td class="n"><b>{로마제목합.toLocaleString('en-US')}</b></td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -359,6 +376,16 @@ const datasetLd = {
         </tbody>
       </table>
     </div>
+    <p class="note">
+      <b>The two totals on this page differ, and here is why.</b> The money table sums to{' '}
+      {돈제목합.toLocaleString('en-US')} and this one to {로마제목합.toLocaleString('en-US')}. We
+      photograph each front page more than once a day and <b>merge</b> the captures, because a page
+      pushes headlines off during the day and overwriting would lose them. The money count was taken
+      at 00:23 and this one at 05:30, so the later one holds{' '}
+      {(로마제목합 - 돈제목합).toLocaleString('en-US')} headline-days the earlier one had not seen
+      yet. Neither number is wrong; each is stamped with the time it was taken.
+    </p>
+
     <p class="note">
       Read the unit before the ranking: this whole page counts <b>headline-days</b>, so a headline
       still on the page tomorrow is counted again. The {로마제목합.toLocaleString('en-US')}{' '}

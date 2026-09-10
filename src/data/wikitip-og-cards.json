@@ -609,6 +609,11 @@
       "label": "separates actors from idols in lookups, per person",
       "왜": "자동은 «1.13 — times» 를 집는다. 수는 맞지만 딸림글이 「times」뿐이어서 무엇의 배수인지 카드에서 읽히지 않는다. 이 기사의 요점은 합계로는 1.97배인 것이 1인당으로는 1.13배라는 것이므로 «per person» 을 딸림글에 넣는다 · 「1.13×」로 적었더니 검사가 «본문에 그 글자가 없다»고 막았다 — 본문은 「1.13 times」로 쓴다. 카드 딱지는 본문에 있는 글자여야 한다"
     },
+    "the-lost-two-years-happened-to-everyone": {
+      "figure": "8",
+      "label": "fourth-generation girl groups counted, and the named one is not the lowest",
+      "왜": "자동은 0.61(배수)을 집는다. 그 수는 «창이 움직이면 바뀐다» — 한 달치가 더 쌓인 지금은 0.62 다. 그러면 지면의 표와 기사가 매달 어긋난다. ⭐ 이 기사의 요점은 배수 자체가 아니라 «여덟을 다 재 보니 그 무리만의 일이 아니었다»는 것이므로, 흔들리지 않는 수(여덟)를 표지에 세운다. /group-afterlife 표에 「Groups counted 8」 칸이 있다"
+    },
     "each-korean-desk-has-one-number-and-they-never-mix": {
       "figure": "1,365",
       "label": "headlines, and not one of them carried both money and an age",
