@@ -59,6 +59,14 @@ import {
 import { RATING_SCALE, RATING_STATS, normaliseRating } from './ratings.mjs';
 import { SUBJECT_STATS, describeSubject } from './subjects.mjs';
 import { TRADE } from './trade-data.mjs';
+/*
+ * 🔴 [2026-09-10 · 6번] F2(Korea Valuation Tape)를 /v1 에 붙인다.
+ * openapi.mjs 가 이미 이 꼴(JSON 모듈 import, `with { type: 'json' }`)로 research-stats.json 을
+ * 읽고 있어 이 서버 환경에서 실제로 도는 것을 확인하고 그대로 따른다 — trade-data.mjs 처럼
+ * .mjs 래퍼를 새로 만들지 않는다. 자료 자체가 `scripts/build-korea-valuation-tape.mjs` 의
+ * 최종 산출물이라 한 번 더 감쌀 계산이 없다.
+ */
+import VALUATION_TAPE from '../data/korea-valuation-tape.json' with { type: 'json' };
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -501,6 +509,96 @@ function tradeCoverage() {
   };
 }
 
+/**
+ * /v1/valuation — F2 Korea Valuation Tape. 2026-09-10 6번.
+ * ⛔ 필드 이름은 밖으로 나가는 이름을 따로 정한다(위 「응답 계약」 원칙) — 엔진 칸 이름
+ *   (build-korea-valuation-tape.mjs 의 camelCase)을 그대로 흘리지 않는다.
+ */
+function valuationCoverage() {
+  const m = VALUATION_TAPE?._meta ?? {};
+  return {
+    source: 'DART (financial statements) + Korea Public Data Portal (daily KRX prices)',
+    price_as_of: m.priceAsOf ?? null,
+    fiscal_year: m.fiscalYear ?? null,
+    report: m.report ?? null,
+    built_at: m.builtAt ?? null,
+    rows: m.rows ?? (Array.isArray(VALUATION_TAPE?.rows) ? VALUATION_TAPE.rows.length : 0),
+    with_per: m.withPer ?? null,
+    with_pbr: m.withPbr ?? null,
+    with_roe: m.withRoe ?? null,
+    not_measured: m.notMeasured ?? null,
+    note: m.note ?? null,
+    how_to_read: m.howToRead ?? null,
+  };
+}
+
+function valuationRow(r) {
+  return {
+    ticker: r.ticker,
+    name: r.name,
+    name_en: r.nameEn,
+    market: r.market,
+    industry: r.industry,
+    industry_en: r.industryEn,
+    price_as_of: r.priceAsOf,
+    fiscal_year: r.fiscalYear,
+    report: r.report,
+    basis: r.basis,
+    market_cap_krw: r.marketCap,
+    net_income_krw: r.netIncome,
+    total_equity_krw: r.totalEquity,
+    total_assets_krw: r.totalAssets,
+    revenue_krw: r.revenue,
+    operating_income_krw: r.operatingIncome,
+    per: r.per,
+    pbr: r.pbr,
+    roe: r.roe,
+    debt_to_equity: r.debtToEquity,
+    not_measured: r.notMeasured,
+  };
+}
+
+function valuation(params, tier = 'free') {
+  const rows = Array.isArray(VALUATION_TAPE?.rows) ? VALUATION_TAPE.rows : [];
+
+  const tickerQ = (params.get('ticker') || '').trim();
+  if (tickerQ) {
+    const hit = rows.find((r) => r.ticker === tickerQ);
+    if (!hit) {
+      return err(
+        404,
+        'unknown_ticker',
+        `No such ticker: ${tickerQ}`,
+        'Use the 6-digit KRX short code, e.g. ticker=005930. Browse /v1/valuation without a ticker for the full list.',
+      );
+    }
+    return json(200, { result: valuationRow(hit), coverage: valuationCoverage() });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const industryQ = (params.get('industry') || '').trim().toLowerCase();
+  const measuredOnly = params.get('measured') === 'true';
+
+  let filtered = rows;
+  if (industryQ) {
+    filtered = filtered.filter(
+      (r) => String(r.industryEn ?? '').toLowerCase().includes(industryQ)
+        || String(r.industry ?? '').toLowerCase().includes(industryQ),
+    );
+  }
+  /* ⛔ notMeasured 가 null 이면 「붙었다」다 — 위 build-korea-valuation-tape.mjs 규약 그대로 */
+  if (measuredOnly) filtered = filtered.filter((r) => !r.notMeasured);
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced.map(valuationRow),
+    coverage: valuationCoverage(),
+  });
+}
+
 /* ── 라우트 ─────────────────────────────────────────────────── */
 
 /** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
@@ -524,6 +622,8 @@ async function root() {
       'GET /v1/trade/flash': "Korea's 10-day provisional trade figures (1st, 11th, 21st, 09:00 KST)",
       'GET /v1/trade/exports':
         'Exports, imports and balance by partner country and month (customs basis). National totals by default; ?country= for one partner, ?since=YYYY-MM to trim. HS-code granularity arrives with the direct customs feed.',
+      'GET /v1/valuation':
+        'PER, PBR, ROE and debt-to-equity for listed Korean companies, with the price date and financial-statement vintage the multiple was computed from. ?ticker= for one company (6-digit KRX code), ?industry= to filter, ?measured=true to drop rows without a usable multiple.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
     contact: 'sibcheongan@gmail.com',
@@ -570,6 +670,17 @@ async function meta() {
       error: 'Index could not be read.',
     };
   }
+
+  /* 🔴 [2026-09-10 · 6번] F2 는 번들 JSON 이라 archiveStatus() 를 안 거친다 — R2 확인이
+     아니라 파일 자체의 _meta 를 그대로 보여 준다(위 valuationCoverage() 와 같은 값). */
+  datasets.valuation = {
+    label: 'PER, PBR, ROE and debt-to-equity for listed Korean companies',
+    agency: 'Financial Supervisory Service (DART) + Korea Public Data Portal',
+    licence: 'Unrestricted (Korea Public Data Portal); DART filings are public disclosure.',
+    collected: Array.isArray(VALUATION_TAPE?.rows) && VALUATION_TAPE.rows.length > 0,
+    ...valuationCoverage(),
+  };
+
   return json(200, {
     dictionary: {
       hs_chapters: DICT_STATS.chapters,
@@ -1002,6 +1113,10 @@ async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1/trade/exports') {
     meter('trade.exports');
     return tradeExports(searchParams, tier);
+  }
+  if (pathname === '/v1/valuation') {
+    meter('valuation');
+    return valuation(searchParams, tier);
   }
 
   return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');

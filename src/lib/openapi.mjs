@@ -104,6 +104,11 @@ export function openapi(baseUrl) {
           `Every target price and rating issued by Korean brokerages, ${stats.first_day.slice(0, 4)}-${stats.latest_day.slice(0, 4)}. ${stats.records.toLocaleString('en-US')} records. This is the only place the series exists in English.`,
       },
       { name: 'Trade', description: "Korea's customs trade series." },
+      {
+        name: 'Markets',
+        description:
+          'PER, PBR, ROE and debt-to-equity for listed Korean companies, with the price date and financial-statement vintage each multiple was computed from — so it can be recomputed against any other price date.',
+      },
       { name: 'Meta', description: 'Coverage, schema policy and collection status.' },
     ],
     paths: {
@@ -455,6 +460,28 @@ export function openapi(baseUrl) {
           ],
           responses: {
             200: { description: 'Monthly trade series with source, window and caveats' },
+          },
+        },
+      },
+      '/valuation': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getValuation',
+          summary: 'PER, PBR, ROE and debt-to-equity for listed Korean companies',
+          description:
+            'One row per listed company. Consolidated (CFS) financials are used when available, otherwise separate (OFS) — the `basis` field says which. PER is null when net income is not positive; PBR and ROE are null when total equity is not positive. No sector averages are computed. `?ticker=` returns one company by its 6-digit KRX short code; otherwise a filtered, paginated list.',
+          parameters: [
+            { name: 'ticker', in: 'query', required: false, schema: { type: 'string', pattern: '^\\d{6}$' }, description: '6-digit KRX short code, e.g. 005930.' },
+            { name: 'industry', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean industry name. Substring match.' },
+            { name: 'measured', in: 'query', required: false, schema: { type: 'boolean' }, description: 'true drops rows with no usable multiple (see `not_measured`).' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Valuation rows with source, price date and financial-statement vintage' },
+            404: {
+              description: 'ticker did not match any listed company.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
           },
         },
       },
