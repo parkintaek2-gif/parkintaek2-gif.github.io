@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-09T04:46:32.871Z",
+  "generated": "2026-09-10T16:41:41.046Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -74,6 +74,23 @@
     },
     {
       "set": "a-name-fight-and-the-423-titles-that-already-share-one",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "a-phone-and-a-burger-took-two-k-pop-faces",
       "sq": [
         1,
         2,
@@ -493,6 +510,23 @@
     },
     {
       "set": "film-and-series-share-people-but-less-than-chance",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "set": "five-of-six-k-pop-labels-earned-more-the-biggest-lost",
       "sq": [
         1,
         2,
@@ -2825,12 +2859,15 @@
       ]
     }
   ],
-  "setCount": 168,
-  "imageCount": 1644,
+  "setCount": 170,
+  "imageCount": 1664,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
+    "68-weeks-of-fan-votes-and-fifth-place-in-lookups",
     "a-korean-chart-life-is-three-weeks-and-unbroken",
+    "a-korean-gossip-desk-names-eighteen-people-abroad-two-vanish",
     "age-gaps-make-headlines-groups-carry-them-quietly",
+    "an-ai-actor-gave-a-cnn-interview-we-counted-who-people-actually-look-up",
     "an-awards-show-moves-to-kaohsiung-and-the-reading-data-agrees",
     "brands-are-not-one-thing",
     "chinese-not-japanese-reads-korean-stars",
@@ -2845,9 +2882,12 @@
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
+    "one-member-outdraws-her-own-group-by-04-percent",
     "only-four-countries-come-close-to-all-korean",
+    "the-age-in-the-headline-is-one-desk-not-a-country",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
+    "the-lost-two-years-happened-to-everyone",
     "twelve-coed-korean-groups-is-a-floor",
     "what-the-record-cannot-see-about-nationality"
   ]

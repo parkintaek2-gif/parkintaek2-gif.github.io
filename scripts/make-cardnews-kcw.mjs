@@ -47,6 +47,83 @@ export const 주소 = 'kculturewire.com';
  * ⛔ 「넷플릭스가 틀렸다」고 하지 않는다. **무엇을 세는지**만 말한다(자료의 whatThisIsNot 그대로).
  * ⛔ 수를 손으로 적지 않는다. 전부 kcw-weeks-counter.json 에서 읽는다.
  */
+/**
+ * 나이제목 벌 — 오늘 기사의 짝.
+ *
+ * ⭐ 이야기 한 줄: **한 데스크가 제목 넷에 하나꼴로 나이를 박는다. 나머지 셋은 0이다.**
+ * ⚠ 표본이 작다(열흘 · 박힌 나이 26개). 카드는 짧아서 표본을 숨기기 쉽다 —
+ *   그래서 카드마다 «몇 개 중 몇 개»를 함께 적는다.
+ * ⛔ 성별·나이가 맞는지는 안 쟀다. 「없는것」 카드에 그대로 적는다.
+ */
+/** 매체명을 영문으로 — ⛔ 지어내지 않는다. 넷 다 그 매체의 «자기 영문 제호»다.
+   🔴 처음에 한국어를 그대로 카드에 냈다. 카드를 눈으로 보고 잡았다(2026-09-11 01:5x). */
+export const 매체영문 = {
+  텐아시아: 'TenAsia', 스타뉴스: 'Star News',
+  매일경제: 'Maeil Business', 동아일보: 'Dong-A Ilbo',
+};
+/** 모르는 매체는 «그대로» 둔다 — 로마자로 지어내지 않는다. 다음 사람이 채운다 */
+export function 매체이름영문(이름) {
+  const n = String(이름 ?? "").trim();
+  return 매체영문[n] || n;
+}
+
+function 나이제목벌짓기(d) {
+  const 매체 = (d.매체별 || []).slice();
+  const 으뜸 = 매체[0] || null;
+  const 줄 = 매체.map((x) => [
+    매체이름영문(x.매체), String(x.제목수), String(x.따옴표붙은제목),
+    x.비율 == null ? "—" : x.비율.toFixed(1) + "%"]);
+  const 대별 = Object.entries(d.나이대 || {}).sort((a, b) => Number(a[0]) - Number(b[0]));
+  const 나이합 = 대별.reduce((a, [, n]) => a + Number(n), 0);
+  const 영인곳 = 매체.filter((x) => x.따옴표붙은제목 === 0);
+  const 영제목수 = 영인곳.reduce((a, x) => a + x.제목수, 0);
+  return {
+    갈피: 'age-in-headline',
+    빛: '#e0a95c',
+    사이트: 'K CULTURE WIRE',
+    주소,
+    카드: [
+      {
+        꼴: '표지',
+        위: `Korean front pages · ${Number(d.제목수).toLocaleString("en-US")} headlines · ${d.날수} days`,
+        큰: 'Your age,\nin quotation marks,\nbefore your name',
+        아래: 으뜸
+          ? `Korean entertainment desks open stories with an age in quote marks. One desk did it in `
+            + `**${으뜸.비율.toFixed(1)}%** of its headlines — ${으뜸.따옴표붙은제목} of ${으뜸.제목수}. `
+            + `The general and business papers did it **zero times in ${Number(영제목수).toLocaleString("en-US")}**.`
+          : 'We could not read a rate from the data.',
+      },
+      {
+        꼴: '표',
+        제목: 'It is one desk,\nnot a country',
+        머리: ['Outlet', 'Headlines', 'With an age', 'Rate'],
+        줄,
+        아래: `Two desks cover the same beat on the same days. One is at `
+          + `**${매체[0] ? 매체[0].비율.toFixed(1) : "—"}%**, the other at `
+          + `**${매체[1] ? 매체[1].비율.toFixed(1) : "—"}%**. A rate printed without its count hides that.`,
+      },
+      {
+        꼴: '표',
+        제목: 'Which ages\nget announced',
+        머리: ['Age bracket', 'Times'],
+        줄: 대별.map(([d2, n]) => [String(d2) + "s", String(n)]),
+        아래: `${나이합} quoted ages in ${d.날수} days. Nobody in their twenties or fifties appears here — `
+          + `with ${나이합} cases that is a gap to watch, **not yet a pattern**.`,
+      },
+      {
+        꼴: '없는것',
+        제목: 'What is not in here',
+        목록: [
+          'Not sex — guessing it from a name would be inventing a variable and printing it as a finding',
+          'Not whether the ages are right — that needs recorded birth years, which we did not fetch',
+          'Not a year. Ten days is ten days, and 26 ages is a small sample',
+          'Not a bare age in running text — only ages the desk put inside quote marks or brackets',
+        ],
+      },
+    ],
+  };
+}
+
 function 세는자벌짓기(d) {
   const k = d.korean; const c = d.koreanCellShape;
   const 으뜸 = (d.longestKorean ?? [])[0];
@@ -140,6 +217,9 @@ export const 벌목록 = {
      넷플릭스가 줄마다 붙이는 「weeks in top 10」이 «연속»이 아니라는 것.
      ⛔ 사장님 하루 몫이 텍스트 6 · 영상 1 · **기타(카드) 1** 로 바뀌었다. 그 칸을 채운다. */
   counter: { 자료: 'src/data/kcw-weeks-counter.json', 만들기: (d) => 세는자벌짓기(d) },
+  /* [2026-09-11] 오늘 낸 기사의 짝 — 제목에 나이를 박는 것이 「한국 언론」이 아니라
+     «한 데스크»라는 것. 열흘·제목 1,365개를 세서 알았다. */
+  agehead: { 자료: 'src/data/kcw-age-in-headline.json', 만들기: (d) => 나이제목벌짓기(d) },
 };
 
 /**
@@ -2007,6 +2087,11 @@ if (내가실행됐다 && process.argv.includes('--자가시험')) {
 
   /* 🔴 사장님 지시는 「**매일** 낸다」다. 벌이 하나뿐이면 내일 낼 것이 없다 */
   재본다('벌이 하나가 아니다', Object.keys(벌목록).length, (n) => n >= 2);
+  재본다('🔴 매체명을 영문으로 옮긴다 — 손님이 영어권이다',
+    매체이름영문('텐아시아'), (v) => v === 'TenAsia');
+  재본다('⛔ 모르는 매체는 그대로 둔다 — 로마자로 지어내지 않는다',
+    매체이름영문('처음보는신문'), (v) => v === '처음보는신문');
+  재본다('네 매체를 다 안다', Object.keys(매체영문).length, (n) => n === 4);
   /**
    * 🔴 2026-08-14 — 브랜드 벌의 표 제목이 「Five kinds」인데 표에는 **셋**만 있었다.
    *   얇은 갈래를 뺀 것은 옳았는데 제목을 안 고쳤다. ⛔ 제목이 표보다 크면 그 자체가 거짓말이다.

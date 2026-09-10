@@ -8,6 +8,7 @@ dataAsOf: 2026-09-11T01:45:00+09:00
 author: Newsroom
 tags: ["korean media", "headlines", "age", "measurement", "entertainment press"]
 pages:
+  - "/age-in-headlines"
   - "/kpop-attention"
 sources:
   - org: "K Culture Wire newsroom archive"

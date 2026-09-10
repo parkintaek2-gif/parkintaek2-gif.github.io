@@ -254,6 +254,18 @@ const videoSets = [
    *   ① 지면에 <KcwShorts set="…"> ② 여기 videoSets ③ 파일 자리.
    *   check-kcw-video-lists.mjs 가 셋이 어긋나면 잡는다. 실제로 잡혀서 여기 적는 것이다.
    */
+  /*
+   * [2026-09-11] 오늘 카드로 구운 숏영상. 검사가 «사이트맵에 없다»고 잡아서 여기 적는다 —
+   *   세 곳에 다 올려야 보인다: ① 지면 <KcwShorts> ② 여기 ③ 파일 자리.
+   */
+  {
+    set: 'the-age-in-the-headline-is-one-desk-not-a-country-voiced',
+    page: '/age-in-headlines',
+    title: 'Korean entertainment headlines put your age in quotation marks. One desk does almost all of it',
+    description: '17 seconds on ten days of Korean front pages. One entertainment desk opened 27 '
+      + 'percent of its headlines with an age in quote marks; the other desk on the same beat did it '
+      + 'in 3 percent, and the general and business papers did it zero times in 1,080 headlines.',
+  },
   {
     set: 'a-phone-and-a-burger-took-two-k-pop-faces-voiced',
     page: '/brand-kinds',
@@ -1633,6 +1645,7 @@ export const GET: APIRoute = async () => {
   entries.push({ path: '/read-in', priority: '0.9', changefreq: 'weekly' });
   entries.push({ path: '/group-mix', priority: '0.9', changefreq: 'weekly' });
   entries.push({ path: '/service-years', priority: '0.9', changefreq: 'weekly' });
+  entries.push({ path: '/age-in-headlines', priority: '0.9', changefreq: 'weekly' });
 
   const articles = await getCollection('kcwArticles');
   for (const a of articles.filter((e) => !e.data.draft)) {
