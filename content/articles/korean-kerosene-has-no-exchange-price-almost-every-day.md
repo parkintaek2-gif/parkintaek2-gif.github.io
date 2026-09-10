@@ -1,6 +1,6 @@
 ---
-title: "Korea's exchange publishes two oil prices a day. On kerosene, only one of them exists."
-dek: "Across 49 sessions the Korean petroleum exchange reported a negotiated weighted average every single time and a competitive one on 83 of 147 rows. For kerosene the competitive price was missing on 47 of 49 sessions."
+title: "We measured Korea's two oil prices in August. Ten weeks later the kerosene auction is almost gone."
+dek: "Our August count put the kerosene auction dark one day in six across six years. Over the 49 sessions to 9 September it was dark 47 times — and petrol and diesel have tripled their own dark rate."
 category: commodities
 pubDate: 2026-09-11
 dataAsOf: 2026-09-09T00:00:00+09:00
@@ -20,16 +20,20 @@ excluded:
   - "A kerosene premium. Two comparable sessions is not a distribution, and printing a number from them would turn a coin flip into a finding. The tool that produced this piece refuses to emit that figure at all"
   - "Volume in physical units. The dataset reports a volume field without a unit, so the totals here are the reported figures and are not converted to litres or barrels"
   - "Retail pump prices. This is exchange trading. What a Korean driver pays is set elsewhere and is not in this file"
-  - "Why competitive trading is absent. Thin participation, a negotiated-only convention for some fuels, or a reporting rule would all look identical here. The data shows which figure exists, not the reason"
-  - "Any period longer than these 49 sessions. This archive was empty until 11 September 2026 and there is no earlier history behind it"
+  - "Why the auction went quiet. Thin participation, a negotiated-only convention for some fuels, or a reporting change would all look identical in this data. We report the level and the change, never the cause"
+  - "Any period longer than these 49 sessions in this file. Our own six-year count is a separate collection and is cited rather than re-derived here"
 ---
 
 The Korea Exchange runs a petroleum market, and for each fuel it publishes **two** weighted average
 prices per session: one for competitive trading, where orders meet on a book, and one for negotiated
 trading, where the two sides agree a price between themselves.
 
-Almost nobody looks at which of the two actually exists. We read 49 sessions — 147 fuel-days — and
-counted.
+We counted those two prices once before. On 8 August we published
+[a six-year read of them](/article/korea-oil-exchange-two-prices) — 1,619 trading days to 6 August
+2026 — and reported that the competitive auction printed nothing at all on 4.1 percent of diesel
+days, 5.1 percent of petrol days and **16.2 percent of kerosene days**. One day in six for kerosene.
+
+This is what the same measurement looks like on the 49 sessions to 9 September.
 
 | | Rows |
 | --- | ---: |
@@ -39,26 +43,39 @@ counted.
 | Competitive price absent | **64** (43.5%) |
 
 The negotiated figure never fails to appear. The competitive one is missing on more than four rows in
-ten. So on those days, the number an exchange publishes as the price of that fuel is a price two
-parties agreed on, not one a market cleared.
+ten — against roughly one in twenty across the six years to August. So on those days the number the
+exchange publishes as the price of that fuel is a price two parties agreed on, not one a market
+cleared.
 
 ## Kerosene has essentially no competitive price
 
 The absence is not spread evenly.
 
-| Fuel | Sessions | Competitive price absent | Reported volume |
+| Fuel | Dark, 6 years to Aug | Dark, 49 sessions to 9 Sep | Reported volume |
 | --- | ---: | ---: | ---: |
-| Petrol | 49 | 8 (16%) | 173,154,004 |
-| Diesel | 49 | 9 (18%) | 127,573,238 |
-| **Kerosene** | 49 | **47 (96%)** | 5,582,003 |
+| Petrol | 5.1% | **8 of 49 (16%)** | 173,154,004 |
+| Diesel | 4.1% | **9 of 49 (18%)** | 127,573,238 |
+| **Kerosene** | 16.2% | **47 of 49 (96%)** | 5,582,003 |
 
-For petrol and diesel a missing competitive session is an exception. For kerosene it is the rule: on
-47 of 49 sessions there was no competitive weighted average at all, and the published figure was the
-negotiated one.
+For petrol and diesel a missing competitive session used to be a rare exception and is now roughly a
+one-in-six event. For kerosene it has stopped being an exception at all: on 47 of 49 sessions there
+was no competitive weighted average, and the published figure was the negotiated one.
 
-That single line is the piece. Korea's exchange kerosene price is, for practical purposes, a
-negotiated price with a competitive price twice a quarter. Anyone treating the three fuels as three
-comparable exchange series is comparing two market prices with one that is not.
+It is not one bad fortnight. Split by month, the level holds:
+
+| Month | Kerosene sessions | Auction dark | Petrol dark | Diesel dark |
+| --- | ---: | ---: | ---: | ---: |
+| July 2026 | 22 | **22 (100%)** | 4 (18%) | 5 (23%) |
+| August 2026 | 20 | 18 (90%) | 3 (15%) | 3 (15%) |
+| September (to 9th) | 7 | **7 (100%)** | 1 (14%) | 1 (14%) |
+
+Our August figure of 16.2 percent was a six-year average, and July 2026 sits inside that window — so
+the average was already being lifted by this stretch while also hiding it. That is the point worth
+keeping: a rate computed over six years cannot tell you that the last three months were near-total.
+
+Korea's exchange kerosene price is now, for practical purposes, a negotiated price with a competitive
+price twice a quarter. Anyone treating the three fuels as three comparable exchange series is
+comparing two market prices with one that has largely stopped being one.
 
 ## Where both exist, the negotiated price is the higher one
 
@@ -73,7 +90,10 @@ one.
 
 Both figures are small, both are positive, and both are steady enough across forty sessions to be
 worth stating: negotiated buyers in this market pay about three-tenths of a percent more than the
-book.
+book. That agrees with our August read, which put the median gap a little above the auction at 5.0,
+1.6 and 0.9 won a litre while also finding the negotiated price *below* the auction on 37 to 46
+percent of individual days. A small positive median and a near coin-flip day to day are the same
+finding stated two ways, and neither is a claim that one price is the right one.
 
 The kerosene row is blank on purpose. Two comparable sessions cannot carry a median, and the tool
 behind this article will not emit one — it holds a floor of five and returns nothing below it. We
@@ -89,7 +109,12 @@ We treat a zero as *absent* and count how many there are, which is why the absen
 rather than a footnote. It is the same discipline as the rest of this desk: a gap gets counted and
 named, never filled.
 
-This archive did not exist two days ago. The collector for it was written on 4 August 2026 and had
-never been run, so `archive/raw/commodities` held no files at all. We pulled 1 July to 9 September and
-put it under the same daily watch as our bond and broker archives — but 49 sessions is 49 sessions,
-and nothing here says what the year looks like.
+One note on how this was built. The daily collection behind this piece did not exist yesterday: the
+collector was written on 4 August 2026 and had never been run, so its archive folder held no files.
+That is why our August article drew on a separate six-year pull and this one draws on a fresh daily
+archive — two collections, cited separately, not merged into one series. We have now pulled 1 July to
+9 September and put the daily collection under the same watch as our bond and broker archives.
+
+Forty-nine sessions is 49 sessions. What it can say is that the level in July, August and the first
+week of September is far above the six-year average we published a month ago. What it cannot say is
+when it changed, because the daily archive does not reach back before July.

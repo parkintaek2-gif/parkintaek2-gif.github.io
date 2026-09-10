@@ -26,6 +26,11 @@ excluded:
 The Korea Exchange lists gold in two sizes. One contract is a **1kg bar** of 99.99 percent gold; the
 other is a **100g mini bar** of the same metal at the same purity. Two listings, one substance.
 
+We have counted this pair once before, on a different axis: in August we reported that
+[turnover in the retail-sized 100g contract rose through the price decline](/article/korea-exchange-gold-down-from-january-peak),
+running 72.3 percent above the 2025 daily average. That piece measured how much of each contract
+traded. This one measures what the two of them cost.
+
 The obvious assumption is that the small bar costs more — smaller units usually do. We counted 49
 sessions to see whether that is true on this exchange. It is not, or at least not reliably.
 
