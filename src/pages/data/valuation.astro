@@ -177,7 +177,7 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
     <h1>Korea valuation tape</h1>
     <p class="lead">
       PER, PBR and ROE for every company listed in Korea, in English, free.
-      Market capitalisation as of <b>{priceDate}</b>; earnings and equity from the
+      Market capitalisation as of <b>{priceDate}</b>; earnings and equity from the{' '}
       <b>{fiscalYear}</b> annual report. Both dates sit on every row.
     </p>
 
@@ -206,7 +206,7 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
     <section>
       <h2>Why {(total - withPer).toLocaleString('en-GB')} companies have no PER</h2>
       <p>
-        Of the {joined.length.toLocaleString('en-GB')} companies whose filing we could read,
+        Of the {joined.length.toLocaleString('en-GB')} companies whose filing we could read,{' '}
         <b>{lossMaking.toLocaleString('en-GB')} reported net income of zero or less</b>. A PER built on
         that is negative or undefined, so the cell is empty rather than misleading.
         {joined.length.toLocaleString('en-GB')} − {lossMaking.toLocaleString('en-GB')} =

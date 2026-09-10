@@ -213,6 +213,8 @@ export const 단계들 = [
   "node scripts/build-seoulmarkets-ownership-ledger.mjs --자가시험",
   "node scripts/build-seoulmarkets-mezzanine-book.mjs --자가시험",
   "node scripts/lib/financial-account-en.mjs --자가시험",
+  "node scripts/build-korea-valuation-tape.mjs --자가시험",
+  "node scripts/build-korea-index-tape.mjs --자가시험",
   "node scripts/check-archive-freshness.mjs",
   "node scripts/collect-kcw-language-reads.mjs --자가시험",
   "node scripts/build-kcw-group-mix.mjs --자가시험",
