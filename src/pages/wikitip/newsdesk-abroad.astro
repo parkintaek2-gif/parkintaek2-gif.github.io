@@ -212,8 +212,17 @@ const jsonLd = {
     <>
       <h2>⬜ Left out on purpose</h2>
       <ul class="gaps">
+        {/* ⛔ 화면에 한글을 내지 않는다 — 로마자가 있으면 그것을 낸다.
+            로마자를 모르면 이름을 «아예 안 내고» 까닭만 낸다. 지어내지 않는다.
+            ⚠ 이 주석은 map «밖»에 둔다 — 화살표 함수가 바로 JSX 를 돌려줄 때
+              그 안에 주석과 요소를 나란히 두면 컴파일러가 막는다(방금 겪었다). */}
         {d.못가른이름.map((r) => (
-          <li><strong>{r.이름}</strong> — {r.왜} Rather than pick one, we leave the name out and say so here.</li>
+          <li>
+            {r.로마자
+              ? <><strong>{r.로마자}</strong> — </>
+              : <><strong>One name</strong> — </>}
+            {r.왜} Rather than pick one, we leave the name out and say so here.
+          </li>
         ))}
       </ul>
     </>

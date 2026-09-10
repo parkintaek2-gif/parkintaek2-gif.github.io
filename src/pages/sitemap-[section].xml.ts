@@ -90,6 +90,12 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/korea-concentration.csv', changefreq: 'daily', priority: '0.6' },
       // 채권 거래집중 무료 CSV — 인용 유도용(2026-08-26, 5번 「자료 먼저」). 발견돼야 인용된다.
       { loc: '/data/korea-bond-concentration.csv', changefreq: 'weekly', priority: '0.6' },
+      // 🔴 [2026-09-11 · 5번] 이 둘을 «만들고 여기 넣는 것을 잊었다». bond-boards 는
+      // 오늘 새벽에 냈는데 몇 시간 동안 라이브 200 이면서 검색엔 안 알려진 상태였다.
+      // ⛔ 지면을 만들면 «같은 커밋에서» 이 목록에 넣는다.
+      { loc: '/data/bond-boards', changefreq: 'daily', priority: '0.9' },
+      // 펀드 등록원부를 «설정연도 × 유형»으로 읽은 지면. 남들이 안 세는 축이다.
+      { loc: '/data/fund-shelf', changefreq: 'weekly', priority: '0.9' },
       // 파는 조건 지면 — 사는 쪽 법무가 본다.
       { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
       { loc: '/refund', changefreq: 'monthly', priority: '0.3' },

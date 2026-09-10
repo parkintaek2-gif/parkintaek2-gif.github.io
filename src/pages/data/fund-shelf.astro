@@ -1,0 +1,350 @@
+---
+/*
+ * Korea's fund shelf, dated — 무료 영문 지면 (seoulmarkets.com/data/fund-shelf)
+ *
+ * 왜 (2026-09-11 02:3x · 5번)
+ *   고리점검에서 SeoulMarkets 갈래 넷이 «얇다»고 걸렸다. 까닭은 그릇이 아니라 담긴 것이었다 —
+ *   funds 갈래는 기사가 셋뿐이다. 그런데 등록원부에 18만 3,351행이 있다.
+ *   ⭐ 남들이 안 세는 축: **설정연도 × 유형**. 이렇게 읽으면 선반이 세 번 손바뀐 것이 보인다.
+ *
+ * 자료: src/data/fund-shelf-turnover.json  (measure-fund-shelf-turnover.mjs 가 만든다)
+ *
+ * ⛔ 이 지면이 지키는 것
+ *   · **「펀드 수」라고 쓰지 않는다.** 한 펀드가 클래스마다 코드를 따로 받는다 — 세는 것은 코드다
+ *   · **옛 해는 «살아남은 것»만 세어 적게 나온다.** 감소는 아래로 잡은 값이다. 화면에 적는다
+ *   · 운용사 셈은 ⬜ 다 — 표준코드가 네 계열(KR5·K55·KRM·K5V)이라 네 자리가 운용사가 아니다
+ *   · 2026년은 안 끝난 해다. 끝점으로 쓰지 않는다 — 마지막 «온해»를 쓴다
+ *   · 화면에 한국어를 안 낸다. 유형 이름도 영문으로 옮긴다 (⛔ 모르는 것은 그대로 둔다)
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import d from '../../data/fund-shelf-turnover.json';
+
+const TITLE = 'Korea’s fund shelf, dated — what got registered, by year and by type';
+const DESC =
+  'Korea’s fund registry dates every code it holds. Read by establishment year, the shelf has changed '
+  + 'hands three times: mixed-bond funds through 2008, derivative funds from 2009 to 2023, and '
+  + 'funds-of-funds since. 183,351 codes, every year and every type, free. Not investment advice.';
+
+/** 유형 영문 이름 — ⛔ 지어내지 않는다. 모르는 것은 한글 그대로 두지 말고 «그밖»으로 묶는다 */
+const 유형영문: Record<string, string> = {
+  파생상품: 'Derivative', 채권형: 'Bond', 혼합채권형: 'Mixed-bond', 주식형: 'Equity',
+  재간접: 'Fund of funds', 혼합주식형: 'Mixed-equity', 단기금융: 'Money market',
+  변액보험: 'Variable insurance', 부동산: 'Real estate', 특별자산: 'Special assets',
+  혼합자산: 'Mixed assets', 투자계약: 'Investment contract', 실물: 'Physical assets',
+};
+const 영문 = (이름: unknown) => 유형영문[String(이름 ?? '')] ?? null;
+
+const 해들 = ((d as any).해들 || []) as number[];
+const 해별 = ((d as any).해별 || {}) as Record<string, number>;
+const 해갈래 = ((d as any).해갈래 || {}) as Record<string, Record<string, number>>;
+const 전체갈래 = ((d as any).전체갈래 || {}) as Record<string, number>;
+const 센것 = Number((d as any).센것) || 0;
+const 읽음 = Number((d as any).읽음) || 0;
+const 설정일없음 = Number((d as any).설정일없음) || 0;
+const 꼭지해 = Number((d as any).꼭지해) || null;
+const 마지막온해 = Number((d as any).마지막온해) || null;
+
+/** 화면에 낼 해 — 표를 2005년부터 낸다. 그 앞은 따로 「가장 큰 코호트」로 낸다 */
+const 표해들 = 해들.filter((y) => y >= 2005);
+/** ⛔ 못 잰 칸을 0 으로 채우지 않는다. 없는 것은 «—» 로 낸다 */
+const 칸 = (y: number, 갈래: string) => {
+  const v = 해갈래[String(y)]?.[갈래];
+  return Number.isFinite(v) ? Number(v) : null;
+};
+const 몫 = (y: number, 갈래: string) => {
+  const v = 칸(y, 갈래); const 합 = 해별[String(y)];
+  return v != null && 합 > 0 ? v / 합 : null;
+};
+/** 그 해 가장 많았던 갈래. ⛔ 비면 null */
+function 으뜸(y: number) {
+  const 것 = Object.entries(해갈래[String(y)] ?? {}).filter(([, n]) => Number(n) > 0);
+  if (!것.length) return null;
+  것.sort((a, b) => Number(b[1]) - Number(a[1]));
+  return { 갈래: 것[0][0], 수: Number(것[0][1]) };
+}
+
+/** 표에 세울 갈래 — 전체에서 큰 것 여섯. 나머지는 「Other」 한 칸으로 묶는다 */
+const 큰갈래 = Object.entries(전체갈래)
+  .filter(([이름]) => 영문(이름))
+  .sort((a, b) => b[1] - a[1]).slice(0, 6).map(([이름]) => 이름);
+const 묶인갈래 = Object.keys(전체갈래).filter((이름) => !큰갈래.includes(이름));
+const 그밖 = (y: number) => {
+  const 합 = 묶인갈래.reduce((a, 이름) => a + (칸(y, 이름) ?? 0), 0);
+  return 합 > 0 ? 합 : null;
+};
+
+/** 손바뀜 — 으뜸 갈래가 바뀐 해를 «세어» 찾는다. ⛔ 손으로 적지 않는다 */
+const 시대: { 갈래: string; 첫해: number; 끝해: number; 해수: number }[] = [];
+for (const y of 표해들) {
+  const t = 으뜸(y)?.갈래 ?? null;
+  if (!t) continue;
+  const 뒤 = 시대[시대.length - 1];
+  if (뒤 && 뒤.갈래 === t) { 뒤.끝해 = y; 뒤.해수 += 1; } else { 시대.push({ 갈래: t, 첫해: y, 끝해: y, 해수: 1 }); }
+}
+const 가장긴시대 = 시대.length ? 시대.reduce((a, b) => (b.해수 > a.해수 ? b : a)) : null;
+const 이제시대 = 시대.length ? 시대[시대.length - 1] : null;
+
+const 셈 = (n: number | null | undefined) =>
+  (n == null || !Number.isFinite(n) ? '—' : Number(n).toLocaleString('en-US'));
+const 퍼 = (v: number | null) => (v == null ? '—' : `${(v * 100).toFixed(0)}%`);
+
+const datasetLd = {
+  '@context': 'https://schema.org', '@type': 'Dataset',
+  name: 'Korea’s registered fund codes by establishment year and type',
+  description: DESC,
+  url: `${SITE_URL}/data/fund-shelf`,
+  keywords: ['Korea', 'South Korea', 'funds', 'asset management', 'fund registry', 'derivative funds',
+    'fund of funds', 'bond funds', 'KOFIA', 'fund launches'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique:
+    'Counts of registered fund standard codes carrying a readable establishment date, grouped by that '
+    + 'year and by the registry’s own type field with no reclassification. Codes are not funds: one '
+    + 'fund holds a separate code per share class. Closed funds leave the register, so earlier years are '
+    + 'counted through survivors only and every decline is a lower bound. Rows without a readable date '
+    + 'are reported, never counted as zero.',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  temporalCoverage: 해들.length ? `${해들[0]}/${해들[해들.length - 1]}` : undefined,
+  variableMeasured: ['codes by establishment year', 'codes by type', 'most common type per year'],
+};
+
+const faq = [
+  ['How many funds are registered in Korea?',
+   `The registry holds ${셈(읽음)} standard codes, of which ${셈(센것)} carry a readable establishment `
+   + `date and ${셈(설정일없음)} do not. These are codes, not funds: one fund is registered once per `
+   + 'share class, so a fund sold in eight classes appears eight times.'],
+  ['What kind of fund does Korea register most?',
+   가장긴시대
+     ? `Across the whole register, ${(영문(Object.keys(전체갈래)[0]) ?? '').toLowerCase()} codes are the `
+       + `largest group. Year by year the answer changes: ${영문(가장긴시대.갈래)} funds were the most `
+       + `common new registration for ${가장긴시대.해수} consecutive years, ${가장긴시대.첫해} to `
+       + `${가장긴시대.끝해}.`
+     : 'Not measured in the current file.'],
+  ['What is Korea registering now?',
+   이제시대
+     /* ⚠ 「Fund of funds」에 「funds」를 또 붙이면 「fund of funds funds」가 된다.
+        지면을 눈으로 보고 잡았다 — 이름을 그대로 쓰고 낱말을 덧붙이지 않는다. */
+     ? `${영문(이제시대.갈래)}. That has been the most common new registration since `
+       + `${이제시대.첫해}, at ${퍼(몫(이제시대.끝해, 이제시대.갈래))} of codes established in `
+       + `${이제시대.끝해}.`
+     : 'Not measured in the current file.'],
+  ['When were most of Korea’s registered funds set up?',
+   꼭지해
+     ? `${꼭지해} is the largest single establishment year still on the register, at `
+       + `${셈(해별[String(꼭지해)])} codes. Because closed funds leave the register, older years are `
+       + 'counted through survivors only, so that figure is what is left of that year rather than what '
+       + 'the year produced.'
+     : 'Not measured in the current file.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={[datasetLd, faqLd]} noAds>
+  <div class="wrap">
+    <article class="pp">
+      <p class="kicker">SeoulMarkets · funds</p>
+      <h1>Korea&rsquo;s fund shelf, dated</h1>
+      <p class="sample">
+        {셈(읽음)} registered codes · {셈(센것)} with a readable establishment date
+        {해들.length > 0 && <> · {해들[0]} to {해들[해들.length - 1]}</>}
+      </p>
+
+      <p class="lead">
+        Korea&rsquo;s fund registry does one thing very well: it dates things. Every registered code
+        carries the day the fund behind it was established. Read that way &mdash; year by year, and by
+        the registry&rsquo;s own type field &mdash; the shelf has changed hands.
+        {가장긴시대 && (
+          <> {영문(가장긴시대.갈래)} funds were the most common new registration for{' '}
+          <b>{가장긴시대.해수} consecutive years</b>, {가장긴시대.첫해} to {가장긴시대.끝해}.</>
+        )}
+        {이제시대 && 가장긴시대 && 이제시대.갈래 !== 가장긴시대.갈래 && (
+          <> Since {이제시대.첫해} the most common has been{' '}
+          <b>{(영문(이제시대.갈래) ?? 'another type').toLowerCase()}</b>.</>
+        )}
+      </p>
+
+      <div class="warn">
+        <p>
+          <b>These are codes, not funds, and not money.</b> One fund is registered once per share
+          class &mdash; ClassA, ClassC1, ClassC-P2e each hold their own code and their own
+          establishment date. A registry also weighs a &#8361;1bn fund and a &#8361;1tn fund
+          identically, so nothing here says where Korean savings sit.
+        </p>
+        <p>
+          <b>Older years are counted through survivors only.</b> Codes leave the register when funds
+          close, so an early year shows what is <i>left</i> of it. Every decline below is therefore a
+          floor, not the whole fall.
+        </p>
+      </div>
+
+      {시대.length > 0 && (
+        <section>
+          <h2>Three eras on one shelf</h2>
+          <div class="scroll-x">
+            <table>
+              <thead><tr><th>Years</th><th>Most common new code</th><th class="n">Years running</th></tr></thead>
+              <tbody>
+                {시대.filter((s) => s.해수 >= 2).map((s) => (
+                  <tr>
+                    <td class="nm">{s.첫해 === s.끝해 ? s.첫해 : `${s.첫해}–${s.끝해}`}</td>
+                    <td>{영문(s.갈래) ?? 'Other'}</td>
+                    <td class="n">{s.해수}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            The eras are not written in by hand &mdash; the page walks the years and starts a new row
+            whenever the most common type changes. Runs shorter than two years are left out of this
+            table and are visible in the full one below.
+          </p>
+        </section>
+      )}
+
+      {표해들.length > 0 && (
+        <section>
+          <h2>Every year, every type</h2>
+          <div class="scroll-x">
+            <table>
+              <thead>
+                <tr>
+                  <th>Established</th>
+                  {큰갈래.map((이름) => <th class="n">{영문(이름)}</th>)}
+                  <th class="n">Other</th>
+                  <th class="n">All codes</th>
+                  <th>Most common</th>
+                </tr>
+              </thead>
+              <tbody>
+                {표해들.slice().reverse().map((y) => (
+                  <tr>
+                    <td class="nm">{y}{마지막온해 != null && y > 마지막온해 && <span class="part"> part year</span>}</td>
+                    {큰갈래.map((이름) => <td class="n">{셈(칸(y, 이름))}</td>)}
+                    <td class="n">{셈(그밖(y))}</td>
+                    <td class="n"><b>{셈(해별[String(y)])}</b></td>
+                    <td class="u">{(() => { const t = 으뜸(y); return t ? `${영문(t.갈래) ?? 'Other'} ${퍼(몫(y, t.갈래))}` : '—'; })()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            Types are the registry&rsquo;s own field, uncounted and unreclassified.
+            {묶인갈래.length > 0 && <> &ldquo;Other&rdquo; holds {묶인갈래.length} smaller types.</>}
+            {마지막온해 != null && <> Years after {마지막온해} are part years and are not compared
+            like-for-like.</>}
+          </p>
+        </section>
+      )}
+
+      {꼭지해 != null && (
+        <section>
+          <h2>The largest cohort still on the register is from {꼭지해}</h2>
+          <p>
+            {꼭지해} accounts for {셈(해별[String(꼭지해)])} of the codes still registered &mdash; more
+            than any later year. A spike that size in one year is the shape a data error makes, so it
+            was checked before being printed: the codes spread across all twelve months rather than
+            piling onto one date, and their composition dates them.
+          </p>
+          <p class="note">
+            Read this the way the caveat above requires: it is what is <i>left</i> of {꼭지해}, not what
+            {' '}{꼭지해} produced. The year was larger than this.
+          </p>
+        </section>
+      )}
+
+      <section class="src">
+        <h2>How this was counted</h2>
+        <ul>
+          <li>
+            <b>Source</b> &mdash; the Korean fund standard-code registry (KOFIA, via data.go.kr).
+            {' '}{셈(읽음)} rows; {셈(센것)} carry a readable eight-digit establishment date and
+            {' '}{셈(설정일없음)} do not. Rows without one are left out and counted here rather than
+            treated as zero.
+          </li>
+          <li>
+            <b>Counting</b> &mdash; one code, one row. Types come from the registry&rsquo;s own field
+            with no reclassification. Shares are that year&rsquo;s count over that year&rsquo;s total.
+          </li>
+          <li>
+            <b>Not funds</b> &mdash; recovering funds from codes would mean stripping share-class
+            suffixes off names and guessing where the guess ends. We do not do it, so no fund count
+            appears anywhere on this page.
+          </li>
+          <li>
+            <b>Not asset managers</b> &mdash; the standard code comes in at least four families
+            (KR5&hellip;, K55&hellip;, KRM&hellip;, K5V&hellip;), and the four digits that identify a
+            manager in one family do not in another. We hold no table turning those codes into names,
+            so there is no manager-level count here. Stated as a gap rather than filled with a guess.
+          </li>
+          <li>
+            <b>Not money, not returns</b> &mdash; the registry names and dates funds. It does not say
+            what they hold, what they charge, or how they did.
+          </li>
+        </ul>
+      </section>
+
+      <section class="faq">
+        <h2>Questions</h2>
+        {faq.map(([q, a]) => (
+          <details>
+            <summary>{q}</summary>
+            <p>{a}</p>
+          </details>
+        ))}
+      </section>
+
+      <p class="fine">
+        Not investment advice. Counts of public registry entries, prepared with AI assistance and
+        checked against the source file.
+      </p>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 900px; margin: 0 auto; padding: 26px 18px 70px; }
+  .kicker { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; opacity: .62; margin: 0 0 6px; }
+  h1 { font-size: 30px; line-height: 1.24; margin: 0 0 8px; }
+  h2 { font-size: 20px; margin: 34px 0 10px; }
+  .sample { font-size: 13px; opacity: .66; margin: 0 0 18px; }
+  .lead { font-size: 16.5px; line-height: 1.7; margin: 0 0 20px; }
+  .warn { border-left: 3px solid #b45309; padding: .2rem 0 .2rem 1rem; margin: 1.4rem 0 2rem; }
+  .warn p { font-size: 14.5px; line-height: 1.68; margin: .6rem 0; }
+  /* ⚠ [2026-09-11] 표는 «자기 그릇 안에서» 구른다. 몸통은 절대 옆으로 구르지 않는다.
+     그리고 .scroll-x 규칙을 «이 지면 자기» style 에 적는다 — 레이아웃 쪽에만 있으면
+     아스트로 스코프에 걸려 지면의 div 에 안 붙는다(2026-09-09 · 09-11 에 두 번 겪었다). */
+  .scroll-x { overflow-x: auto; -webkit-overflow-scrolling: touch; max-width: 100%; }
+  table { border-collapse: collapse; width: 100%; font-size: 14.5px; margin: 10px 0 12px;
+    min-width: 620px; }
+  th, td { border-bottom: 1px solid currentColor;
+    border-color: color-mix(in srgb, currentColor 14%, transparent); padding: 8px 9px; text-align: left; }
+  th { font-size: 12px; letter-spacing: .04em; text-transform: uppercase; opacity: .62; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .nm { font-weight: 600; white-space: nowrap; }
+  .u { opacity: .78; white-space: nowrap; }
+  .part { opacity: .55; font-weight: 400; font-size: 11.5px; }
+  .note { font-size: 13.5px; line-height: 1.66; opacity: .78; margin: 6px 0 0; }
+  /* ⚠ 빗금으로 이은 긴 줄이 몸통을 미는 것을 /places 에서 겪었다 — 끊을 자리를 열어 둔다 */
+  .src li, p { overflow-wrap: anywhere; }
+  .src ul { font-size: 14.5px; line-height: 1.7; margin: 8px 0 0 18px; }
+  .src li { margin: 9px 0; }
+  .faq details { border-bottom: 1px solid color-mix(in srgb, currentColor 12%, transparent); padding: 10px 0; }
+  .faq summary { cursor: pointer; font-weight: 600; font-size: 15px; }
+  .faq p { font-size: 14.5px; line-height: 1.7; margin: 8px 0 0; opacity: .84; }
+  .fine { font-size: 12.5px; opacity: .6; margin: 30px 0 0; }
+  @media (max-width: 560px) {
+    h1 { font-size: 24px; }
+    table { font-size: 13px; }
+    th, td { padding: 6px 6px; }
+  }
+</style>
