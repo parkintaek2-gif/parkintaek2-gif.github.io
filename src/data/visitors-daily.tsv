@@ -1,0 +1,80 @@
+# 방문자 날마다 — 진짜 손님(Organic Search · AI Assistant · Organic Social)만
+# 만든 자: scripts/measure-visitors-daily.mjs   ⛔ 손으로 고치지 않는다
+# 날짜	유닛	순방문자	페이지뷰	세션
+2026-08-11	1·4번 KLifeMap	1	1	1
+2026-08-11	3번 100yearmap	2	2	2
+2026-08-11	5번 K Culture Wire	2	2	2
+2026-08-12	3번 100yearmap	8	8	8
+2026-08-12	5번 K Culture Wire	2	2	2
+2026-08-13	3번 100yearmap	9	14	9
+2026-08-14	1·4번 KLifeMap	1	3	1
+2026-08-14	3번 100yearmap	7	8	7
+2026-08-14	5번 K Culture Wire	4	13	5
+2026-08-15	1·4번 KLifeMap	1	2	1
+2026-08-15	3번 100yearmap	6	6	7
+2026-08-15	5번 K Culture Wire	1	1	1
+2026-08-16	1·4번 KLifeMap	1	1	1
+2026-08-16	3번 100yearmap	10	11	10
+2026-08-16	5번 K Culture Wire	1	2	2
+2026-08-17	1·4번 KLifeMap	1	1	1
+2026-08-17	3번 100yearmap	8	8	8
+2026-08-17	5번 K Culture Wire	1	1	1
+2026-08-18	3번 100yearmap	6	8	6
+2026-08-19	3번 100yearmap	13	14	13
+2026-08-20	3번 100yearmap	11	12	11
+2026-08-20	5번 K Culture Wire	1	1	1
+2026-08-21	3번 100yearmap	9	15	10
+2026-08-21	5번 K Culture Wire	3	4	4
+2026-08-22	3번 100yearmap	4	4	5
+2026-08-22	6번 SeoulMarkets	1	10	1
+2026-08-23	3번 100yearmap	2	2	2
+2026-08-23	5번 K Culture Wire	4	4	4
+2026-08-24	1·4번 KLifeMap	1	1	1
+2026-08-24	3번 100yearmap	1	1	1
+2026-08-24	5번 K Culture Wire	2	2	2
+2026-08-25	1·4번 KLifeMap	1	1	1
+2026-08-25	3번 100yearmap	4	13	4
+2026-08-25	5번 K Culture Wire	2	6	2
+2026-08-26	3번 100yearmap	2	4	2
+2026-08-26	5번 K Culture Wire	1	1	1
+2026-08-26	6번 SeoulMarkets	1	1	1
+2026-08-27	3번 100yearmap	4	5	4
+2026-08-27	6번 SeoulMarkets	1	1	1
+2026-08-28	1·4번 KLifeMap	1	5	3
+2026-08-28	3번 100yearmap	2	2	3
+2026-08-28	5번 K Culture Wire	2	2	2
+2026-08-28	6번 SeoulMarkets	2	2	2
+2026-08-29	3번 100yearmap	3	4	3
+2026-08-29	5번 K Culture Wire	1	2	1
+2026-08-29	6번 SeoulMarkets	1	1	1
+2026-08-30	3번 100yearmap	2	2	2
+2026-08-30	5번 K Culture Wire	2	2	2
+2026-08-31	1·4번 KLifeMap	1	2	2
+2026-08-31	3번 100yearmap	1	3	1
+2026-08-31	5번 K Culture Wire	2	2	2
+2026-08-31	6번 SeoulMarkets	2	1	2
+2026-09-01	5번 K Culture Wire	5	6	5
+2026-09-01	6번 SeoulMarkets	4	4	4
+2026-09-02	3번 100yearmap	1	1	1
+2026-09-02	5번 K Culture Wire	4	5	5
+2026-09-03	3번 100yearmap	1	1	1
+2026-09-03	5번 K Culture Wire	3	2	3
+2026-09-03	6번 SeoulMarkets	2	2	2
+2026-09-04	5번 K Culture Wire	5	11	5
+2026-09-05	3번 100yearmap	2	2	2
+2026-09-05	5번 K Culture Wire	4	25	6
+2026-09-05	6번 SeoulMarkets	4	6	4
+2026-09-06	3번 100yearmap	2	2	2
+2026-09-06	5번 K Culture Wire	6	7	7
+2026-09-06	6번 SeoulMarkets	2	1	2
+2026-09-07	3번 100yearmap	5	4	5
+2026-09-07	5번 K Culture Wire	4	5	4
+2026-09-08	3번 100yearmap	2	3	3
+2026-09-08	5번 K Culture Wire	2	2	2
+2026-09-08	6번 SeoulMarkets	2	2	3
+2026-09-09	3번 100yearmap	7	9	7
+2026-09-09	5번 K Culture Wire	6	11	6
+2026-09-09	6번 SeoulMarkets	2	3	3
+2026-09-10	3번 100yearmap	1	0	1
+2026-09-10	5번 K Culture Wire	2	6	3
+2026-09-10	6번 SeoulMarkets	1	0	1
