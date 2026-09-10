@@ -221,6 +221,7 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-31 — 「순위+문제제기」 시리즈 2편. CEOscore데일리 국내 주식부호 순위(3자
        인용) + 100yearmap 청년 가구 자산 실측(KOSIS) 대조. 개인 행복 판정 안 함. */
     { path: '/ranking-stock-wealth', priority: '0.7', changefreq: 'yearly' },
+    { path: '/happiness-ranking', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-08-31 — 시즌2-2 「몸/맘」 1편. 한국보건사회연구원 KOSIS 우울감·스트레스
        나이대별 실측. 진단 아님 — docs/3번-시즌2-2-몸맘.md 참고. */
     { path: '/mental-health', priority: '0.7', changefreq: 'yearly' },

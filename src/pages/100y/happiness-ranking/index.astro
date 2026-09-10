@@ -1,0 +1,186 @@
+---
+/**
+ * /100y/happiness-ranking — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 6편)
+ *
+ * 🔴 사장님 지시(2026-08-31) — docs/3번-순위콘텐트-지침.md 참고.
+ *   「국내외 순위를 공개해...행복도 국가순위(OECD)는 관심이 많겠지」
+ *
+ * ⛔⛔ 이 지면이 반드시 지키는 것 —
+ *   ① 어느 나라·개인이 「행복하다/불행하다」고 100yearmap이 판정하지 않는다 —
+ *      World Happiness Report가 발표한 순위·점수를 그대로 인용할 뿐이다.
+ *   ② "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json에 이 지면을 등록해 둔다.
+ *   ③ 국가 간 비교(한국 vs 다른 나라)를 새로 만들지 않는다 — 이미 발표된 순위를
+ *      그대로 인용하고, «한국 안에서» 100yearmap 실측 자료로 맥락을 더한다.
+ *
+ * ⛔⛔ 원자료 접근 제한 — korea-japan-youth-2026.json과 같은 예외 갈래다.
+ *   worldhappiness.report 원문 사이트가 이 세션에서 HTTP 403으로 막혀 방법론 원문·
+ *   요인별 분해 점수를 직접 확인하지 못했다. 순위·점수·연도별 추이는 복수 언론
+ *   보도(서울경제·아시아경제, 둘 다 2026-03-19)로만 인용한다 — 자료 안 「⚠원자료」에
+ *   그대로 적어 뒀다.
+ *
+ * ⭐ 톤: 보고서가 짚은 약점(사회적 신뢰·지역사회 기여)과 100yearmap이 이미 잰 자원봉사
+ *   참여율(/volunteer)을 나란히 놓는다 — "그래서 몇 등이다"가 아니라 "그 약점이라는
+ *   것이 우리 자료로는 이렇게 보인다"까지만 말한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/happiness-ranking-2026.json';
+import 자원봉사 from '../../../data/100yearmap/volunteer.json';
+
+const 자료 = 원본 as any;
+const 한국 = 자료.한국;
+const 봉사 = 자원봉사 as any;
+
+const 만콤마 = (n: number) => n.toLocaleString();
+
+const desc =
+  `World Happiness Report 2026(Gallup·옥스포드대·UN SDSN 공동 발표, 2026-03-19)에서 한국은 ` +
+  `147개국 중 ${한국['2026_순위']}위(점수 ${한국['2026_점수']})로 3년 연속 하락했습니다(2024년 ` +
+  `${한국['2024_순위']}위 → 2025년 ${한국['2025_순위']}위 → 2026년 ${한국['2026_순위']}위). ` +
+  `보고서가 짚은 약점(지역사회 기여)을 100yearmap이 실측한 자원봉사 참여율(${봉사.전체_참여율}%)과 나란히 놓습니다.`;
+
+/** 막대 그림 — 3개년 순위 추이(작을수록 좋은 순위이므로 막대 길이는 「거꾸로」 — 147에서 뺀 값) */
+const 추이 = [
+  { 해: '2024', 순위: 한국['2024_순위'] },
+  { 해: '2025', 순위: 한국['2025_순위'] },
+  { 해: '2026', 순위: 한국['2026_순위'] },
+];
+const 대상국수 = 자료.발표.대상국수;
+const 막대 = (() => {
+  const 폭 = 520, 높줄 = 46, 간격 = 14, 왼쪽여백 = 60;
+  const 최대값 = 대상국수;
+  return 추이.map((r, i) => {
+    const 길이 = Math.round(((최대값 - r.순위) / 최대값) * (폭 - 왼쪽여백));
+    return { ...r, y: i * (높줄 + 간격), 길이, 왼쪽여백 };
+  });
+})();
+const svg높 = 추이.length * 60 - 14;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 행복도 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. Gallup·옥스포드대학 웰빙연구센터·UN지속가능발전해법네트워크(SDSN)가 공동 발표한 World Happiness Report 2026을 그대로 인용했습니다. ${자료['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '순위가 낮으면 한국 사람들이 불행하다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '100yearmap이 판정할 일이 아닙니다. 이 지면은 발표된 순위를 그대로 보여드리고, 그 보고서가 짚은 약점(지역사회 기여) 하나를 100yearmap이 실측한 자원봉사 참여율과 나란히 놓을 뿐입니다. 행복은 여섯 요인의 합이라 한 가지 자료로 전부를 설명할 수 없습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`행복도 국가순위 — 한국 147개국 중 ${한국['2026_순위']}위, 3년째 하락 중`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>한국의 행복도 국가순위,<br />147개국 중 {한국['2026_순위']}위입니다</h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {자료.출처}가 {자료.발표.날짜} 발표했습니다({자료.발표.조사기간} 응답 평균,
+      {' '}{만콤마(대상국수)}개국 대상). {자료['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국의 2026년 행복 점수는 <strong>{한국['2026_점수']}점</strong>(10점 만점)이고,
+    {' '}순위는 <strong>{대상국수}개국 중 {한국['2026_순위']}위</strong>입니다. 일본({한국.일본_2026_순위}위)·
+    {' '}중국({한국.중국_2026_순위}위)보다 낮습니다.
+  </p>
+
+  <h2>3년째 순위가 내려가고 있습니다</h2>
+  <div class="tablewrap">
+    <svg viewBox={`0 0 560 ${svg높}`} width="100%" style="max-width:560px" role="img"
+         aria-label={`한국의 World Happiness Report 순위 추이 — 2024년 ${한국['2024_순위']}위, 2025년 ${한국['2025_순위']}위, 2026년 ${한국['2026_순위']}위. 막대가 길수록 순위가 높다(숫자가 작다)`}>
+      {막대.map((r) => (
+        <>
+          <text x="0" y={r.y + 24} font-size="18" fill="var(--ink)">{r.해}</text>
+          <rect x={r.왼쪽여백} y={r.y} width={r.길이} height="32" rx="4" fill="#c9a84c" opacity="0.85" />
+          <text x={r.왼쪽여백 + r.길이 + 10} y={r.y + 22} font-size="16" fill="var(--ink)">{r.순위}위</text>
+        </>
+      ))}
+    </svg>
+  </div>
+  <p class="note">
+    {만콤마(대상국수)}개국 중 순위이므로 막대가 <strong>길수록 순위가 높습니다</strong>(숫자는 작습니다).
+    {' '}2024년 {한국['2024_순위']}위 → 2025년 {한국['2025_순위']}위 → 2026년 {한국['2026_순위']}위로,
+    {' '}{한국.연속하락해수}년 연속 내려갔습니다.
+  </p>
+
+  <h2>무엇으로 재나요?</h2>
+  <p>
+    World Happiness Report는 여섯 요인을 봅니다 — {(자료.방법론_여섯요인 as string[]).join(' · ')}.
+    {' '}보도는 한국이 <strong>{자료.보도가짚은약점}</strong>
+  </p>
+  <p class="note">
+    ⚠ 여섯 요인을 각각 몇 점으로 나눴는지(요인별 분해 점수)는 원문 사이트 접근이 막혀
+    {' '}확인하지 못했습니다. 언론 보도에 나온 「무엇이 약했나」라는 서술까지만 인용합니다.
+  </p>
+
+  <h2>그 약점 하나를, 저희가 이미 잰 자료로 견줘 봅니다</h2>
+  <p>
+    보도가 짚은 약점 중 하나가 <strong>지역사회 기여도(자선활동)</strong>입니다. 100yearmap이
+    {' '}국가데이터처 「사회조사」로 실측한 {봉사.최신연도}년 자원봉사 참여율은
+    {' '}<strong>{봉사.전체_참여율}%</strong>입니다 — 지난 1년간 자원봉사를 했다고 답한 사람이
+    {' '}열 명 중 한 명이 조금 넘습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>자원봉사 참여율</th></tr></thead>
+      <tbody>
+        {(봉사.연령별 as any[]).map((r: any) => (
+          <tr><td>{r.칸}</td><td>{r.참여율}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 이 표만으로 「그래서 순위가 낮다」고 말할 수 없습니다. World Happiness Report의
+    {' '}「관대함」 요인은 국가별 설문(기부 경험 등)을 따로 재는 것이라, 저희 자원봉사
+    {' '}참여율과 «같은 자»가 아닙니다. 다만 같은 방향(지역사회 기여가 낮다)을 국내 자료로도
+    {' '}볼 수 있다는 것만 말씀드립니다.
+  </p>
+
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 발표된 순위와 저희가 잰
+    {' '}자료를 나란히 놓을 뿐, 한국이나 개인이 행복한지 불행한지 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    <a href="/mental-health">← 스트레스는 30~40대, 우울감은 80대가 가장 높습니다</a>
+    <br />
+    <a href="/volunteer">← 자원봉사, 13~19세가 압도적으로 높습니다</a>
+    <br />
+    <a href="/ranking-stock-wealth">← 한 사람의 주식재산이 청년 가구 몇 곳과 같을까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <NextQuestionBrief 모은것="World Happiness Report 2026 언론 보도 + 국가데이터처 사회조사" />
+
+  {/* 🔴 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/happiness-ranking"></div>
+</HundredYear>
