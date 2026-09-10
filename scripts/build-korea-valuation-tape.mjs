@@ -34,6 +34,15 @@ const ROOT = process.cwd();
 export const 재무방 = 'archive/raw/dart-financials';
 export const 시세방 = 'archive/raw/stocks';
 export const 낼곳 = 'src/data/korea-valuation-tape.json';
+const 업종영문길 = path.join(ROOT, 'src/data/korea-industry-name-english.json');
+
+/**
+ * 업종명 영문 — 6번의 P3-B 사전(src/data/korea-industry-name-english.json)을 그대로 쓴다.
+ * ⛔ 짐작 안 함: 사전에 없으면 null 이다(못 붙었다로 남긴다). 기계번역하지 않는다.
+ */
+export function 업종영문사전읽기() {
+  try { return JSON.parse(fs.readFileSync(업종영문길, 'utf8')).map ?? {}; } catch { return {}; }
+}
 
 /* ── 재는 함수들 ───────────────────────────────────────────────────── */
 
@@ -121,7 +130,7 @@ export function 시세읽기(글) {
  * 🔴 이것이 이 자의 핵심 규칙이다. 못 붙은 것을 버리면 분모가 사라져
  *   「2,400종목에 PER 이 있다」처럼 «좋아 보이는» 수만 남는다.
  */
-export function 한줄(재무줄, 시가총액, { 시세판 = null } = {}) {
+export function 한줄(재무줄, 시가총액, { 시세판 = null, 업종영문 = {} } = {}) {
   const 구분 = 구분고르기(재무줄);
   const 당기순이익 = 값꺼내기(재무줄, 구분, '당기순이익');
   const 자본총계 = 값꺼내기(재무줄, 구분, '자본총계');
@@ -131,12 +140,17 @@ export function 한줄(재무줄, 시가총액, { 시세판 = null } = {}) {
   const 시총 = Number.isFinite(시가총액) ? 시가총액 : null;
   const r = 셈({ 시가총액: 시총, 당기순이익, 자본총계, 자산총계 });
   const 까닭 = 못붙은까닭({ 시가총액: 시총, 재무줄, 구분 });
+  const 업종한글 = 재무줄?.업종명 ?? null;
 
   return {
     ticker: 재무줄?.종목 ?? null,
     name: 재무줄?.이름 ?? null,
     nameEn: 재무줄?.영문이름 ?? null,
     market: 재무줄?.시장 ?? null,
+    /* 🔴 [2026-09-10 · 2번] F3 사전을 물렸다 — 업종명이 한국어로만 나가던 것을 고쳤다.
+       ⛔ 사전에 없으면 null 이다(6번 P3-B 규율 그대로) — 기계번역으로 채우지 않는다 */
+    industry: 업종한글,
+    industryEn: 업종한글 ? (업종영문[업종한글] ?? null) : null,
     /* 🔴 어느 판을 썼나 — 이것이 상품이다 */
     priceAsOf: 시세판,
     fiscalYear: 재무줄?.해 ?? null,
@@ -159,7 +173,7 @@ export function 한줄(재무줄, 시가총액, { 시세판 = null } = {}) {
 /** 붙은 수를 «분모와 함께» 센다 */
 export function 셈보고(줄들) {
   const 전체 = Array.isArray(줄들) ? 줄들.length : 0;
-  if (!전체) return { 전체: 0, per: 0, pbr: 0, roe: 0, 못붙음: 0, 비율: null };
+  if (!전체) return { 전체: 0, per: 0, pbr: 0, roe: 0, industryEn: 0, 못붙음: 0, 비율: null };
   const 세기 = (k) => 줄들.filter((x) => x[k] !== null && x[k] !== undefined).length;
   const 못붙음 = 줄들.filter((x) => x.notMeasured).length;
   return {
@@ -167,6 +181,7 @@ export function 셈보고(줄들) {
     per: 세기('per'),
     pbr: 세기('pbr'),
     roe: 세기('roe'),
+    industryEn: 세기('industryEn'),
     못붙음,
     비율: (전체 - 못붙음) / 전체,
   };
@@ -266,12 +281,34 @@ function 자가시험() {
     return r.basis === 'Separate' && r.pbr === 2 && r.per === 20;
   })());
 
+  재다('한줄: F3 사전에 있으면 industryEn 을 채운다', (() => {
+    const r = 한줄({ ...재무, 업종명: '1차 금속' }, 1000, { 시세판: '20260908', 업종영문: { '1차 금속': 'Primary Metals' } });
+    return r.industry === '1차 금속' && r.industryEn === 'Primary Metals';
+  })());
+  재다('🔴 한줄: F3 사전에 없으면 industryEn 은 null — 기계번역으로 안 채운다', (() => {
+    const r = 한줄({ ...재무, 업종명: '처음보는업종' }, 1000, { 시세판: '20260908', 업종영문: {} });
+    return r.industry === '처음보는업종' && r.industryEn === null;
+  })());
+  재다('⛔ 한줄: 업종명이 없으면 industry·industryEn 다 null', (() => {
+    const r = 한줄({ ...재무, 업종명: null }, 1000, { 시세판: '20260908', 업종영문: { X: 'Y' } });
+    return r.industry === null && r.industryEn === null;
+  })());
+  재다('⛔ 한줄: 업종영문 인자를 안 주면(기본값) industryEn 은 null', (() => {
+    const r = 한줄({ ...재무, 업종명: '1차 금속' }, 1000, { 시세판: '20260908' });
+    return r.industryEn === null;
+  })());
+
+  재다('업종영문사전읽기 — 실제 사전을 읽는다(1차 금속이 있다)', (() => {
+    const 사전 = 업종영문사전읽기();
+    return 사전['1차 금속'] === 'Primary Metals';
+  })());
+
   재다('셈보고: 분모와 같이 센다', (() => {
     const r = 셈보고([
-      { per: 10, pbr: 1, roe: 0.1, notMeasured: null },
-      { per: null, pbr: null, roe: null, notMeasured: '재무제표가 없다' },
+      { per: 10, pbr: 1, roe: 0.1, industryEn: 'X', notMeasured: null },
+      { per: null, pbr: null, roe: null, industryEn: null, notMeasured: '재무제표가 없다' },
     ]);
-    return r.전체 === 2 && r.per === 1 && r.못붙음 === 1 && r.비율 === 0.5;
+    return r.전체 === 2 && r.per === 1 && r.industryEn === 1 && r.못붙음 === 1 && r.비율 === 0.5;
   })());
   재다('⛔ 셈보고: 빈 것은 비율이 null — 0 이 아니다',
     셈보고([]).비율 === null && 셈보고(null).비율 === null);
@@ -317,8 +354,9 @@ const 시세 = 시세파일
 console.log(`■ 재무 ${재무파일} — ${재무.해}년 · 쟀다 ${재무.쟀다}/${재무.전체}`);
 console.log(`■ 시세 ${시세파일 ?? '⬜ 없다'} — ${시세 ? `${시세.표.size}종목 · 판 ${시세.날}` : '못 읽었다'}`);
 
+const 업종영문 = 업종영문사전읽기();
 const 줄들 = (재무.줄들 ?? []).map((x) => 한줄(x, 시세?.표.get(String(x.종목)) ?? null,
-  { 시세판: 시세?.날 ?? null }));
+  { 시세판: 시세?.날 ?? null, 업종영문 }));
 const 보고 = 셈보고(줄들);
 
 console.log('');
@@ -326,6 +364,7 @@ console.log(`■ Korea Valuation Tape — ${보고.전체}줄`);
 console.log(`   PER  ${보고.per} / ${보고.전체}`);
 console.log(`   PBR  ${보고.pbr} / ${보고.전체}`);
 console.log(`   ROE  ${보고.roe} / ${보고.전체}`);
+console.log(`   industryEn  ${보고.industryEn} / ${보고.전체} (F3 사전에 없는 업종명은 null)`);
 console.log(`   못 붙은 줄 ${보고.못붙음} — 줄은 남겼다(까닭이 칸에 있다)`);
 
 /* 못 붙은 까닭을 갈래로 센다 — 「못 붙었다」로 뭉치지 않는다 */
