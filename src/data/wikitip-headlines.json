@@ -1,10 +1,10 @@
 {
-  "generated": "2026-09-09 11:22 KST",
+  "generated": "2026-09-10 11:47 KST",
   "whatThisIs": "The first heading of every single-page section of the site, read from the built pages so the numbers inside it are the real ones.",
   "whatThisIsNot": "Not a list of every page. Pages built from a template (articles, titles, people) already carry their own heading and are not repeated here.",
   "counts": {
-    "본지면": 139,
-    "머리글있음": 139,
+    "본지면": 140,
+    "머리글있음": 140,
     "머리글없음": 0
   },
   "missing": [],
@@ -66,6 +66,7 @@
     "/korean-movies-on-netflix": "Korean movies on Netflix",
     "/kpop-attention": "Who the English-speaking world looks up when it looks up K-pop",
     "/kpop-birthdays": "K-pop idol birthdays by month: July is the thinnest, March the fullest",
+    "/label-accounts": "Which K-pop company earned the most in 2025",
     "/label-reach": "SM, YG, JYP, Hybe: how many artists we can actually count",
     "/ladder-churn": "We stopped using the Riot data. Nothing measured here was found to be wrong.",
     "/lead-lag": "No country's Netflix chart is a signal for another's — they are one queue",
