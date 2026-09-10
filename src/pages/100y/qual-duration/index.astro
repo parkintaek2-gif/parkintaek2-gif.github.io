@@ -1,0 +1,131 @@
+---
+/**
+ * /100y/qual-duration — 국가기술자격, 등급별 취득 소요일수·필기 합격 횟수
+ *
+ * 2026-08-15 에 받아 둔 자료(공공데이터포털 15039800)에 지면이 없어 묵혀 있던 것을
+ * 2026-09-10 에 낸다. 등수·순위·「제일 어렵다」를 쓰지 않는다 — src/data/100yearmap/
+ * qual-duration.json 의 「⛔ 쓰지 않는 말」을 그대로 지킨다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/qual-duration.json';
+
+const 자료 = 원본 as any;
+const 등급들 = 자료.등급 as any[];
+const 날나오는등급 = 등급들.filter((r) => r.날을_낼_수_있나);
+const 전체 = 자료.전체;
+const 못보여주나 = (자료.셈과한계['③ 무엇을 못 보여 주나'] as string[]).map((s) => s.replace(/\*\*/g, ''));
+
+const 최단 = 날나오는등급.reduce((a, b) => (b.가운데값일 < a.가운데값일 ? b : a));
+const 최장 = 날나오는등급.reduce((a, b) => (b.가운데값일 > a.가운데값일 ? b : a));
+
+const desc =
+  `한국산업인력공단 국가기술자격 취득 관련 현황(${자료.출처.기준연도}년, ${자료.출처.줄수검산})에서 ` +
+  `등급별로 자격을 따는 데 걸린 날의 가운데값과, 필기시험을 몇 번 만에 붙었는지를 모았습니다. ` +
+  `${최단.등급} ${최단.가운데값일}일부터 ${최장.등급} ${최장.가운데값일}일까지 등급마다 다릅니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '국가기술자격 등급별 취득 소요일수·필기 합격 횟수',
+  description: desc,
+  license: 'https://www.data.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국산업인력공단' },
+  variableMeasured: ['등급별 취득 소요일수(가운데값)', '등급별 필기 응시 횟수 분포'],
+};
+---
+
+<HundredYear
+  title={`국가기술자격, 등급마다 며칠이나 걸릴까 — ${최단.등급} ${최단.가운데값일}일~${최장.등급} ${최장.가운데값일}일`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>자격증,<br />며칠이나 걸릴까요?</h1>
+  <p class="sub">
+    한국산업인력공단이 공공데이터포털에 공개한 {자료.출처.기준연도}년 국가기술자격 취득 관련
+    {' '}현황에서, 등급마다 자격을 따는 데 걸린 날의 <strong>가운데값</strong>을 모았습니다.
+    {' '}평균이 아니라 가운데값을 쓴 까닭은 17일부터 3,224일까지 값이 넓게 퍼져 있어서입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">등급별 취득 소요일수 — 가운데값</p>
+    <p class="answer-num">
+      {최단.등급} <strong>{최단.가운데값일}일</strong> · {최장.등급} <strong>{최장.가운데값일}일</strong>
+    </p>
+    <p class="answer-sub">등급마다 걸린 날이 이만큼 다릅니다.</p>
+  </div>
+
+  <h2>등급 다섯 — 걸린 날과 종목 수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>등급</th><th>종목수</th><th>취득 소요일수(가운데값)</th></tr></thead>
+      <tbody>
+        {등급들.map((r) => (
+          <tr>
+            <td>{r.등급}</td>
+            <td>{r.종목수}</td>
+            <td><strong>{r.날을_낼_수_있나 ? `${r.가운데값일}일` : '안 낸다(종목 30개 미만)'}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    기능장은 종목이 28개라 저희가 정한 최소 표본(30종목)에 못 미쳐 걸린 날을 내지 않았습니다
+    {' '}— 없는 것이 아니라 못 낸 것입니다.
+  </p>
+
+  <h2>몇 번 만에 붙나 — 필기시험 응시 횟수</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>등급</th><th>1회</th><th>2회</th><th>세 번 넘게</th><th>응시분모</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>전체</strong></td>
+          <td>{전체.한번에}%</td>
+          <td>{전체.두번}%</td>
+          <td>{전체.세번넘게}%</td>
+          <td>{전체.응시분모.toLocaleString()}건</td>
+        </tr>
+        {등급들.map((r) => (
+          <tr>
+            <td>{r.등급}</td>
+            <td>{r.한번에}%</td>
+            <td>{r.두번}%</td>
+            <td>{r.세번넘게}%</td>
+            <td>{r.응시분모.toLocaleString()}건</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⛔ 이 비율은 <strong>끝내 자격을 딴 사람들 중의 비율</strong>입니다. 「전체 응시자 절반이
+    {' '}한 번에 붙는다」가 아닙니다 — 끝내 못 딴 사람은 이 표에 없습니다. 「3회 이상」은
+    {' '}원자료에서부터 한 칸에 뭉쳐 있어 「세 번 넘게」로만 적습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {못보여주나.map((줄) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 등급마다 걸린 날과 붙는 횟수가 다르다는
+    {' '}사실만 놓습니다 — 어느 자격이 «더 어렵다»거나 «더 낫다»고 저희가 매기지 않습니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준연도}년, {자료.출처.줄수검산}). {자료.대조} 받은 날 {자료.출처.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/qual-age">← 나이띠별 국가기술자격 응시·합격, 몇 살에도 따고 있을까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="qual-duration" />
+
+  <NextQuestionBrief 모은것="한국산업인력공단 국가기술자격 취득 관련 현황" />
+</HundredYear>

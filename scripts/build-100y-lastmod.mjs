@@ -112,6 +112,17 @@ export const 갈래 = {
   '/polytech': ['src/pages/100y/polytech/index.astro', 'src/data/100yearmap/polytech.json'],
   '/pension': ['src/pages/100y/pension/index.astro', 'src/data/100yearmap/pension-recipients.json'],
   '/training-card': ['src/pages/100y/training-card/index.astro', 'src/data/100yearmap/training-card.json'],
+  /* 🔴 2026-09-10 3번 — csat-applicant-mix·csat-subject-choice(9/9)·remarriage·
+     multicultural-marriage·birth-sex-ratio·fertility-rate(9/9) 여섯 장이 이 표에
+     빠져 있었다(사이트맵·llms.txt 도 같이 빠짐 — 세 곳을 오늘 함께 고친다) */
+  '/csat-applicant-mix': ['src/pages/100y/csat-applicant-mix/index.astro', 'src/data/100yearmap/csat-applicant-mix.json'],
+  '/csat-subject-choice': ['src/pages/100y/csat-subject-choice/index.astro', 'src/data/100yearmap/csat-subject-choice.json'],
+  '/remarriage': ['src/pages/100y/remarriage/index.astro', 'src/data/100yearmap/remarriage.json'],
+  '/multicultural-marriage': ['src/pages/100y/multicultural-marriage/index.astro', 'src/data/100yearmap/multicultural-marriage.json'],
+  '/birth-sex-ratio': ['src/pages/100y/birth-sex-ratio/index.astro', 'src/data/100yearmap/birth-sex-ratio.json'],
+  '/fertility-rate': ['src/pages/100y/fertility-rate/index.astro', 'src/data/100yearmap/fertility-rate.json'],
+  '/qual-duration': ['src/pages/100y/qual-duration/index.astro', 'src/data/100yearmap/qual-duration.json'],
+  '/qual-age': ['src/pages/100y/qual-age/index.astro', 'src/data/100yearmap/qual-age.json'],
   '/before': [
     'src/pages/100y/before/index.astro', 'src/data/100yearmap/nursery-none.json', 'src/data/100yearmap/kindergarten.json',
     'src/data/100yearmap/pediatrics.json', 'src/data/100yearmap/afterschool.json', 'src/data/100yearmap/elementary.json',

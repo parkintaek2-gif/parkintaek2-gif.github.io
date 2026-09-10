@@ -46,6 +46,13 @@ import 혼인외출생 from '../../../data/100yearmap/nonmarital-birth.json';
 import 몸맘 from '../../../data/100yearmap/mental-health-by-age.json';
 import 시니어의사 from '../../../data/100yearmap/senior-doctor-program.json';
 import 고가주택 from '../../../data/100yearmap/high-value-home-age.json';
+/* 🔴 2026-09-10 3번 — 9/9 에 낸 넷이 이 «문들» 목록에 없었다. 오늘 함께 넣는다 */
+import 재혼 from '../../../data/100yearmap/remarriage.json';
+import 다문화혼인 from '../../../data/100yearmap/multicultural-marriage.json';
+import 출생성비 from '../../../data/100yearmap/birth-sex-ratio.json';
+import 합계출산율 from '../../../data/100yearmap/fertility-rate.json';
+import 자격나이 from '../../../data/100yearmap/qual-age.json';
+import 자격기간 from '../../../data/100yearmap/qual-duration.json';
 
 const a = 어린이집 as any, b = 유치원 as any, c = 방과후 as any, d = 소아과 as any;
 const e = 초등 as any, f = 직장 as any, g = 남은해 as any, h = 건강한해 as any;
@@ -74,6 +81,12 @@ const ae = 혼인외출생 as any;
 const af = 몸맘 as any;
 const ag = 시니어의사 as any;
 const ah = 고가주택 as any;
+const ai = 재혼 as any;
+const aj = 다문화혼인 as any;
+const ak = 출생성비 as any;
+const al = 합계출산율 as any;
+const am = 자격나이 as any;
+const an = 자격기간 as any;
 
 /** ⛔ 수는 자료에서 읽는다. 몇 해치인지도 함께 적는다 */
 const 문들 = [
@@ -292,6 +305,44 @@ const 문들 = [
     수: `${(h.나이별 as any[]).find((r: any) => r.나이 === 0).벌어짐}년`,
     한줄: '같은 해 같은 표인데 재는 법이 다르면 이만큼 벌어집니다.',
     기간: `${h.해들[0]}~${h.최신} · ${h.해들.length}번 조사`,
+  },
+  /* 🔴 2026-09-10 3번 — 9/9 에 낸 넷을 여기 함께 넣는다(사이트맵·lastmod·llms.txt·
+     HundredAgeWalk 도 오늘 같이 고쳤다) */
+  {
+    나이: '태어날 때', 주소: '/birth-sex-ratio', 이름: '태어날 때 성비는 얼마나 기울었을까',
+    수: `${ak.전국_연도별[ak.전국_연도별.length - 1].총출생성비}`,
+    한줄: `1990년 ${ak.전국_연도별[0].총출생성비}에서 ${ak.전국_연도별[ak.전국_연도별.length - 1].해}년 ${ak.전국_연도별[ak.전국_연도별.length - 1].총출생성비}로, 정상범위(105~107)에 들어왔습니다.`,
+    기간: `${ak.전국_연도별[0].해}~${ak.전국_연도별[ak.전국_연도별.length - 1].해} · 인구동향조사`,
+  },
+  {
+    나이: '태어날 때', 주소: '/fertility-rate', 이름: '합계출산율은 얼마나 떨어졌을까',
+    수: `${al.전국_최신.합계출산율}명`,
+    한줄: `${al.전국_첫해.해}년 ${al.전국_첫해.합계출산율}명에서 ${al.전국_최신.해}년 ${al.전국_최신.합계출산율}명까지 내려갔습니다.`,
+    기간: `${al.전국_첫해.해}~${al.전국_최신.해} · 인구동향조사`,
+  },
+  {
+    나이: '결혼', 주소: '/remarriage', 이름: '재혼은 얼마나 될까',
+    수: `${ai.아내_연도별[ai.아내_연도별.length - 1].재혼.toLocaleString()}건`,
+    한줄: `${ai.아내_연도별[ai.아내_연도별.length - 1].해}년 아내 기준 재혼 건수입니다. 이혼 후 재혼이 사별 후 재혼보다 훨씬 많습니다.`,
+    기간: `${ai.아내_연도별[0].해}~${ai.아내_연도별[ai.아내_연도별.length - 1].해} · 인구동향조사`,
+  },
+  {
+    나이: '결혼', 주소: '/multicultural-marriage', 이름: '다문화 혼인은 얼마나 될까',
+    수: `${aj.전국_연도별[aj.전국_연도별.length - 1].다문화혼인비중}%`,
+    한줄: `전체 혼인 중 다문화 혼인 비중입니다. 2008년 ${aj.전국_연도별[0].다문화혼인비중}%에서 한 번 내려갔다가 다시 올랐습니다.`,
+    기간: `${aj.전국_연도별[0].해}~${aj.전국_연도별[aj.전국_연도별.length - 1].해} · 인구동향조사`,
+  },
+  {
+    나이: '일하는 동안', 주소: '/qual-age', 이름: '몇 살에도 국가기술자격을 따고 있을까',
+    수: `${(am.나이 as any[]).filter((r: any) => r.비율을_낼_수_있나).length}개 나이띠`,
+    한줄: '나이띠마다 응시·합격 건수와 합격률, 가장 많이 보는 등급을 담았습니다 — 사람이 아니라 응시 건수 기준입니다.',
+    기간: `${am.출처.기준연도}년 · 한국산업인력공단`,
+  },
+  {
+    나이: '일하는 동안', 주소: '/qual-duration', 이름: '자격증 따는 데 며칠이나 걸릴까',
+    수: `${(an.등급 as any[]).find((r: any) => r.등급 === '기술사').가운데값일}일`,
+    한줄: `등급마다 걸린 날이 다릅니다 — 기능사 ${(an.등급 as any[]).find((r: any) => r.등급 === '기능사').가운데값일}일부터 기술사 ${(an.등급 as any[]).find((r: any) => r.등급 === '기술사').가운데값일}일까지.`,
+    기간: `${an.출처.기준연도}년 · 한국산업인력공단`,
   },
 ];
 

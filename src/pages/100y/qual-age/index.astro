@@ -1,0 +1,116 @@
+---
+/**
+ * /100y/qual-age — 나이띠별 국가기술자격 응시·합격
+ *
+ * 2026-08-15 에 받아 둔 자료(공공데이터포털 15037521)에 지면이 없어 묵혀 있던 것을
+ * 2026-09-10 에 낸다. src/data/100yearmap/qual-age.json 의 「③ 무엇을 못 보여 주나」·
+ * 「⛔ 쓰지 않는 말」을 그대로 화면 문구에 반영한다 — 나이띠끼리 곧바로 견주지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/qual-age.json';
+
+const 자료 = 원본 as any;
+const 나이들 = (자료.나이 as any[]).filter((r) => r.나이 !== '미상');
+const 최고합격률 = 나이들.reduce((a, b) => (b.합격률 > a.합격률 ? b : a));
+const 최저합격률 = 나이들.reduce((a, b) => (b.합격률 < a.합격률 ? b : a));
+const 전체응시 = 나이들.reduce((a, r) => a + r.응시, 0);
+const 전체합격 = 나이들.reduce((a, r) => a + r.합격, 0);
+const 못보여주나 = (자료['③ 무엇을 못 보여 주나'] as string[]).map((s) => s.replace(/\*\*/g, ''));
+
+const desc =
+  `한국산업인력공단 국가자격 취득자 통계(${자료.출처.기준연도}년, ${자료.출처.줄수검산})에서 ` +
+  `나이띠마다 국가기술자격 응시·합격 건수와 합격률을 모았습니다. ${최저합격률.나이} ${최저합격률.합격률}%부터 ` +
+  `${최고합격률.나이} ${최고합격률.합격률}%까지, 나이띠마다 가장 많이 보는 등급도 함께 담았습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이띠별 국가기술자격 응시·합격',
+  description: desc,
+  license: 'https://www.data.go.kr',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '한국산업인력공단' },
+  variableMeasured: ['나이띠별 응시 건수', '나이띠별 합격 건수', '나이띠별 합격률', '나이띠별 최다 응시 등급'],
+};
+---
+
+<HundredYear
+  title={`국가기술자격, 몇 살에도 따고 있을까 — 나이띠별 응시·합격`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>국가기술자격,<br />몇 살에도 따고 있을까요?</h1>
+  <p class="sub">
+    한국산업인력공단이 공공데이터포털에 공개한 {자료.출처.기준연도}년 국가자격 취득자 통계에서
+    {' '}나이띠마다 그 해의 응시·합격 건수를 모았습니다. {자료['② 어떻게 셌나']?.분모 ?? ''}
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">나이띠별 합격률 — 가장 낮은 자리와 가장 높은 자리</p>
+    <p class="answer-num">
+      {최저합격률.나이} <strong>{최저합격률.합격률}%</strong> ·
+      {최고합격률.나이} <strong>{최고합격률.합격률}%</strong>
+    </p>
+    <p class="answer-sub">
+      나이띠마다 응시가 몰리는 등급이 달라, 합격률만으로 「이 나이가 잘 본다」고 읽으면 안 됩니다
+      {' '}— 아래 「이 자료로 말할 수 없는 것」을 먼저 읽어 주십시오.
+    </p>
+  </div>
+
+  <h2>나이띠 열두 칸 — 응시·합격·합격률·가장 많이 본 등급</h2>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr><th>나이띠</th><th>응시</th><th>합격</th><th>합격률</th><th>가장 많이 본 등급</th></tr>
+      </thead>
+      <tbody>
+        {나이들.map((r) => (
+          <tr>
+            <td>{r.나이}</td>
+            <td>{r.응시.toLocaleString()}건</td>
+            <td>{r.합격.toLocaleString()}건</td>
+            <td><strong>{r.비율을_낼_수_있나 ? `${r.합격률}%` : '못 쟀다(응시 30건 미만)'}</strong></td>
+            <td>{r.가장많이본등급}({r.가장많이본등급_응시.toLocaleString()}건)</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    분모는 그 나이띠의 <strong>응시 건수</strong>입니다 — 사람 수가 아닙니다. 한 사람이 같은 해
+    {' '}여러 번 시험을 봤으면 여러 건으로 잡힙니다.
+  </p>
+
+  <h2>전 연령을 다 합치면</h2>
+  <p>
+    나이띠 열두 칸(미상 제외)을 다 더하면 응시 {전체응시.toLocaleString()}건 가운데
+    {' '}합격 {전체합격.toLocaleString()}건입니다. 등급마다 셈이 달라 이 합계를 등급별
+    {' '}취득 소요일수와 바로 잇지는 않습니다 — 등급별 수치는{' '}
+    <a href="/qual-duration">등급별 국가기술자격 취득 소요일수</a> 지면에 있습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {못보여주나.map((줄) => <li>{줄}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 나이에 자격을 따야 한다거나, 늦었다거나
+    {' '}유리하다고 이 표는 말하지 않습니다. 나이띠마다 그 해 응시·합격이 어떻게 갈렸는지를
+    {' '}보여줄 뿐입니다.
+  </p>
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준연도}년, {자료.출처.줄수검산}). {자료.대조} 받은 날 {자료.출처.받은때}.
+  </p>
+
+  <p class="note">
+    <a href="/qual-duration">← 등급별 국가기술자격 취득 소요일수, 며칠이나 걸릴까요?</a>
+    <br />
+    <a href="/ages">← 나이로 보는 문 — 0세부터 100세까지 한 자리에</a>
+  </p>
+
+  <HundredAgeWalk 키="qual-age" />
+
+  <NextQuestionBrief 모은것="한국산업인력공단 국가자격 취득자 통계" />
+</HundredYear>

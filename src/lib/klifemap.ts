@@ -111,6 +111,7 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'pets', 'travel', 'promotion', 'exercise', 'hiking', 'golf', 'workout', 'cycling', 'swimming', 'soccer', 'parental-leave', 'oneperson', 'lifelong', 'retire-income', 'polytech', 'pension', 'training-card',
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education', 'wage-distribution', 'divorce-age', 'remarriage', 'multicultural-marriage', 'birth-sex-ratio', 'fertility-rate',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
+  'qual-duration', 'qual-age',
 ]);
 
 /**
@@ -281,6 +282,8 @@ export const 붙일수있는갈래 = [
      university-gap과 같은 결(입시 분석)이라 어른갈래엔 안 넣는다. */
   'csat-applicant-mix', 'university-founding-gap', 'trendy-major-outcomes', 'university-dropout-rate',
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
+  /* 🔴 2026-09-10 3번 신설 */
+  'qual-duration', 'qual-age',
   '기타',
 ] as const;
 

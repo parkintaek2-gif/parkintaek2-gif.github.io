@@ -71,6 +71,16 @@ export const 온줄 = [
   { 키: 'work-gap', 주소: '/work-gap', 말: '일하는 동안 · 월급이 갈리는 건 업종·규모·지역 중 무엇 때문일까' },
   { 키: 'business-age', 주소: '/business-age', 말: '일하는 동안 · 오래 버티는 업종은 따로 있을까' },
   { 키: 'college-age-population', 주소: '/college-age-population', 말: '18세 · 대학 갈 나이 인구, 몇 년째 줄고 있나' },
+  /* 🔴 2026-09-10 3번 — 9/9 에 낸 넷이 지면에서 <HundredAgeWalk 키="…" /> 를 부르는데도
+     이 정본 목록엔 없었다 — 나이 아닌 «해」 축(divorce-age 와 같은 결)이라 온줄에 넣는다. */
+  { 키: 'remarriage', 주소: '/remarriage', 말: '재혼 추이, 1995~2025' },
+  { 키: 'multicultural-marriage', 주소: '/multicultural-marriage', 말: '다문화 혼인 비중, 2008~2024' },
+  { 키: 'birth-sex-ratio', 주소: '/birth-sex-ratio', 말: '태어날 때 성비, 1990~2025' },
+  { 키: 'fertility-rate', 주소: '/fertility-rate', 말: '합계출산율, 2000~2025' },
+  /* 🔴 2026-09-10 3번 신설 — 나이띠별 국가기술자격 응시·합격(0세는 아니지만 나이띠 전체를 덮는다) */
+  { 키: 'qual-age', 주소: '/qual-age', 말: '나이띠별 국가기술자격 응시·합격' },
+  /* 등급별(나이 아님) 자격 취득 소요일수 — qual-age 와 짝인 자료라 곁에 둔다 */
+  { 키: 'qual-duration', 주소: '/qual-duration', 말: '등급별 국가기술자격 취득 소요일수' },
 ];
 
 const 자리 = 차례.findIndex((r) => r.키 === 키);

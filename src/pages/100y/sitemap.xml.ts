@@ -425,6 +425,18 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-08 — 「지방국립대 무상교육」 씨앗의 다섯 번째 지표. 국공립·사립 대신
        수도권·비수도권 축으로 신입생충원율을 pages-university.json 재계산으로 남긴다. */
     { path: '/freshman-fill-region', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-10 3번 — 9/9 에 낸 넷(remarriage·multicultural-marriage·birth-sex-ratio·
+       fertility-rate)이 이 사이트맵에 빠져 있었다. 지면은 라이브인데 사이트맵엔 없는
+       어긋난 상태 — /after·/region 때와 같은 실수. lastmod·llms.txt 도 같이 고친다. */
+    { path: '/remarriage', priority: '0.7', changefreq: 'yearly' },
+    { path: '/multicultural-marriage', priority: '0.7', changefreq: 'yearly' },
+    { path: '/birth-sex-ratio', priority: '0.7', changefreq: 'yearly' },
+    { path: '/fertility-rate', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-10 3번 신설 — 국가기술자격 취득 소요일수·필기 합격 횟수(등급별).
+       공공데이터포털 15039800, 제한 없음. 8/15에 자료만 받고 지면이 없어 묵혀 있었다. */
+    { path: '/qual-duration', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-10 3번 신설 — 나이띠별 국가기술자격 응시·합격(나이 축). 15037521, 제한 없음. */
+    { path: '/qual-age', priority: '0.7', changefreq: 'yearly' },
     ...[25, 32, 40, 55, 68].map((나이) => ({
       path: `/age/${나이}`,
       priority: '0.7',
