@@ -216,6 +216,14 @@
    "url이없는까닭": "worldhappiness.report 원문 사이트가 이 세션에서 HTTP 403으로 막혀 직접 확인하지 못했다 — 서울경제·아시아경제 2차 보도로만 확인했다.",
    "근거": "파일 안에 ⚠원자료·보도출처 칸으로 이미 밝혀져 있다."
   },
+  "salary-ranking-2026.json": {
+   "무엇": "CEO스코어(기업데이터연구소) 500대 기업 평균급여 순위 vs 100yearmap 임금분포 실측 대조 지면 밑자료",
+   "출처": "순위 — CEO스코어(기업데이터연구소) 2026년 상반기 500대 기업 평균급여 조사, 2026-09-02 발표(2차 보도 reportera.co.kr로만 확인) · 실측 — 국가데이터처 KOSIS 고용노동부 고용형태별근로실태조사(118/DT_PAY0011), 2025년 기준(wage-distribution.json과 같은 자료, 이미 검증됨)",
+   "url": "https://www.reportera.co.kr/news/korea-top-500-companies-first-half-salary-ranking-koreainvestment/",
+   "url이없는까닭": "위 url은 CEO스코어 원 보도자료가 아니라 2차 보도(리포테라)다 — CEO스코어 원문 보도자료 URL은 이 세션에서 찾지 못했다.",
+   "근거": "파일 안에 순위출처.⚠원자료·실측출처.이름 칸으로 이미 밝혀져 있다.",
+   "라이선스대장비고": "docs/라이선스-대장.tsv는 archive/raw/<폴더> 단위 다운로드 자료를 위한 대장이다(파일 머리말 참고) — 이 자료는 press-citation(url:null 짝인 ranking-stock-wealth·happiness-ranking과 동일한 전례)이라 그 대장에 행을 넣지 않고, 이 provenance 항목과 지면 안 순위출처 칸에 출처·날짜·미확인 사실을 밝히는 것으로 대신한다."
+  },
   "senior-doctor-program.json": {
    "무엇": "시니어의사 채용지원 사업(보건복지부) 신청·지원 추이 지면 밑자료",
    "출처": "보건복지부 시니어의사 채용지원 사업 — 언론 보도 인용(사장님이 전달한 기사 발췌), 원문 매체를 확인하지 못했다",

@@ -73,6 +73,7 @@ export const 갈래 = {
   '/ranking-university-level': ['src/pages/100y/ranking-university-level/index.astro', 'src/data/100yearmap/ranking-university-level.json'],
   '/ranking-stock-wealth': ['src/pages/100y/ranking-stock-wealth/index.astro', 'src/data/100yearmap/ranking-stock-wealth-2026.json'],
   '/happiness-ranking': ['src/pages/100y/happiness-ranking/index.astro', 'src/data/100yearmap/happiness-ranking-2026.json'],
+  '/salary-ranking': ['src/pages/100y/salary-ranking/index.astro', 'src/data/100yearmap/salary-ranking-2026.json'],
   '/nonmarital-birth': ['src/pages/100y/nonmarital-birth/index.astro', 'src/data/100yearmap/nonmarital-birth.json'],
   '/mental-health': ['src/pages/100y/mental-health/index.astro', 'src/data/100yearmap/mental-health-by-age.json'],
   '/senior-doctor': ['src/pages/100y/senior-doctor/index.astro', 'src/data/100yearmap/senior-doctor-program.json'],
