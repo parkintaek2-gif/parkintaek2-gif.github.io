@@ -15,18 +15,27 @@
  *
  * ⚠ videos.json 에 줄을 넣어야 /video 지면에 실린다. 안 넣으면 파일만 있고 아무도 못 본다
  *   (8/14 에 그렇게 한 번 놓쳤다)
+ * ⭐ [2026-09-10 · 3번] 2026-08-29 사장님 지시("무성 콘텐트 다신 만들지 말 것") 뒤에도
+ *   이 자는 소리 없이 남아 있었다 — /100y/qual-duration 지면이 그날까지 없어 손대지
+ *   못했다. 지면을 오늘 냈으니 같이 고친다. 원본(무음)은 지우지 않고 목소리를 「얹은」
+ *   판을 새로 낸다(csat-applicant-mix 와 같은 방식 — mix-voice-kcw.mjs 재사용).
  *
- * 쓰는 법  node scripts/make-video-100y-qual.mjs [--selftest]
+ * 쓰는 법  node scripts/make-video-100y-qual.mjs [--selftest] [--out <파일명>]
  */
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import { 섞기필터, 넘치나 } from './mix-voice-kcw.mjs';
+import { 초읽기 } from './make-voice-100y.mjs';
 
 const 여기 = fileURLToPath(new URL('..', import.meta.url));
 const 폭 = 1080, 높 = 1920, 초당 = 30, 길이 = 14;
 const 집 = 'https://100yearmap.com';
+export const 목소리방 = 'archive/video/voice/qual-duration';
+/** 화면 문구가 나타나는 시각과 맞춘다 — 머리(0.0)·뒷말(8.2)·맺음(11.6) */
+export const 목소리때들 = [0.0, 8.2, 11.6];
 
 const 자료 = JSON.parse(fs.readFileSync(path.join(여기, 'src/data/100yearmap/qual-duration.json'), 'utf8'));
 /** ⛔ 종목 30 미만은 «걸린 날»을 못 낸다 — 자료가 스스로 말해 준다 */
@@ -141,7 +150,8 @@ const 내가직접불렸나 = !!process.argv[1] && path.basename(process.argv[1]
 if (내가직접불렸나) {
   /* ── 그리기 ─────────────────────────────────────────── */
   const 인자 = process.argv.slice(2);
-  const 낼이름 = 인자.includes('--out') ? 인자[인자.indexOf('--out') + 1] : '자격걸린날.mp4';
+  /* ⛔ 소리 없는 원본(자격걸린날.mp4, 2026-08-16)을 덮어쓰지 않는다 — 기본값을 -voiced 로 둔다 */
+  const 낼이름 = 인자.includes('--out') ? 인자[인자.indexOf('--out') + 1] : '자격걸린날-voiced.mp4';
   const 낼곳 = path.join(여기, 'public/100y/video');
   fs.mkdirSync(낼곳, { recursive: true });
   const 칸방 = path.join(여기, 'out', '_칸-qual');
@@ -166,14 +176,33 @@ if (내가직접불렸나) {
   }
   await 브라우저.close();   // ⛔ puppeteer 만 닫는다. 사장님 크롬 창은 건드리지 않는다
 
+  const 줄들 = 목소리때들.map((때, i) => {
+    const 길 = path.join(여기, 목소리방, `${String(i).padStart(2, '0')}.wav`);
+    if (!fs.existsSync(길)) { console.error(`⛔ 목소리가 없다 — ${길} (make-voice-100y.mjs로 먼저 낸다)`); process.exit(1); }
+    return { 길, 때, 초: 초읽기(길) };
+  });
+  const 넘은것 = 넘치나(줄들, 길이);
+  if (넘은것.length) {
+    console.error('⛔ 목소리가 영상보다 길다 — 얹으면 잘린다:');
+    for (const t of 넘은것) console.error(`   · ${t}`);
+    process.exit(1);
+  }
+
   const 갖다 = createRequire('C:/Users/USER/Documents/GitHub/klifemap/package.json');
   const ff = 갖다('ffmpeg-static');
-  execFileSync(ff, ['-y', '-framerate', String(초당), '-i', path.join(칸방, '%04d.png'),
+  const 인자들 = ['-y', '-framerate', String(초당), '-i', path.join(칸방, '%04d.png')];
+  for (const 줄 of 줄들) 인자들.push('-i', 줄.길);
+  인자들.push(
+    '-filter_complex', 섞기필터(줄들, 길이),
+    '-map', '0:v', '-map', '[말끝]',
     '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-preset', 'medium', '-crf', '20',
-    path.join(낼곳, 낼이름)], { stdio: 'inherit' });
+    '-c:a', 'aac', '-b:a', '128k', '-shortest', '-movflags', '+faststart',
+    path.join(낼곳, 낼이름),
+  );
+  execFileSync(ff, 인자들, { stdio: 'inherit' });
 
   const 크기 = fs.statSync(path.join(낼곳, 낼이름)).size;
-  console.log(`\n✅ ${낼이름} · ${(크기 / 1024 / 1024).toFixed(2)}MB · ${길이}초`);
+  console.log(`\n✅ ${낼이름} · ${(크기 / 1024 / 1024).toFixed(2)}MB · ${길이}초 · 목소리 ${줄들.length}줄`);
   console.log('🔴 ⛔ videos.json 에 줄을 넣어야 /video 지면에 실린다');
 
 }
