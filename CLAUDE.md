@@ -448,6 +448,34 @@ ctype ls -t @parkintaek2/seoulmarkets:main
 **klifemap 프로젝트에 `web` 이 잘못 생성됐다.** 즉시 제거했고 klifemap-app 은 무사했지만,
 운이 나빴으면 남의 서비스를 메모리 부족으로 밀어낼 수 있었다.
 
+
+### 🔴🔴 [2026-09-11] **`-t` 를 붙였는데도 같은 사고가 났다 — 빠진 것은 «디렉터리»였다**
+
+5번이 `dataeconomics` 폴더에 선 채로 이것을 쳤다.
+
+```bash
+ctype apply -f .cloudtype/app.yaml -t @parkintaek2/klifemap:main
+```
+
+`-t` 는 제대로 붙었다. 그런데 `-f` 가 가리키는 `.cloudtype/app.yaml` 이 **서 있던 폴더의 것**,
+곧 SeoulMarkets 설정이었다. 결과는 2026-07-31·08-05 와 똑같다 —
+**klifemap 스테이지에 `web` 이 또 생겼다.** (즉시 `ctype remove` 했고 `klifemap-app` 은 Running 이었다.)
+
+```
+⛔ 「-t 를 붙였으니 안전하다」가 아니다. -t 는 «어느 스테이지»만 정한다
+⛔ -f 의 상대 경로는 «지금 서 있는 폴더»에서 풀린다 — 그것이 «무엇을» 올릴지 정한다
+✅ 스테이지와 폴더가 «짝»이어야 한다. 짝이 어긋나면 남의 앱이 남의 자리에 뜬다
+```
+
+| 올릴 것 | 서 있어야 할 폴더 | 명령 |
+|---|---|---|
+| SeoulMarkets | `~/Documents/GitHub/dataeconomics` | `ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main` |
+| KLifeMap | `~/Documents/GitHub/klifemap` | `ctype apply -f .cloudtype/app.yaml -t @parkintaek2/klifemap:main` |
+
+✅ 그리고 **친 뒤에 나오는 줄을 읽는다.** 이번에 화면이 정확히 말해 주고 있었다 —
+  `app "web" deployed to stage main` 인데 klifemap 에 올렸으면 «이름이 틀린 것»이다.
+  klifemap 은 `klifemap-app`, SeoulMarkets 는 `web` 이다. **이름이 다르면 그 자리에서 지운다.**
+
 ### 🔴 배포를 지우는 명령은 `remove` 다 — `undeploy` 는 **없는 명령**이다
 
 2026-08-05 에 1번이 실측해 알려 왔다. 이 문서에 `undeploy` 로 적혀 있어서

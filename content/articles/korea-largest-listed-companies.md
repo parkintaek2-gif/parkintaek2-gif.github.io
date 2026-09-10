@@ -43,6 +43,23 @@ The honest fix is to rank by **company**, folding a firm's preferred shares back
 
 Every figure here is a **share of total market value**, not a won amount — the price level in this data feed is a simulation, so only the ratios, which do not depend on it, are used. "Largest" means most valuable on one trading day (2026-08-21), which moves with the market. For the fuller picture of just how top-heavy this is — [four stocks are half the market](/article/korea-four-stocks-half-the-market), and [the same lopsidedness runs through Korea's trade](/article/korea-everything-comes-down-to-four). This is a description of Korea's biggest listed companies, **not investment advice**.
 
+## Update, 11 September 2026 — the answer changes with the measure
+
+This article ranks by **one** measure: share of total market value on a single day. Since it was
+published we have built the annual financial statements for every listed company, so the same
+question can now be asked three more ways — by revenue, by total assets, and by operating profit.
+
+They do not agree. Take the top ten on each of the four measures and put them in one pile and you
+get **21 companies, not ten**; only **Samsung Electronics and Hyundai Motor** appear in all four.
+SK Square, third here by market value, is **270th by revenue**. Korea Electric Power is fifth by
+revenue and 34th by market value. Nineteen of the hundred most valuable companies have no revenue
+line at all, most of them banks and insurers.
+
+The four rankings, with the ranks side by side and every count of what is missing, are on
+[the largest companies in Korea](/data/largest-companies). That page carries won amounts rather
+than shares, because it is built on the public data portal's price dataset instead of the
+simulated feed used here.
+
 ## Related — where this shows up
 
 - [What Korea's pension's 107% return really measures](https://seoulmarkets.com/article/korea-pension-107-percent-read-the-label) — the national pension is a major holder of these same large-caps; read the label on that number.
