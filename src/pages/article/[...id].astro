@@ -6,6 +6,10 @@ import DataNotes from '../../components/DataNotes.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { publishedArticles } from '../../lib/articles';
 import { tagsForArticle } from '../../lib/tags';
+/* 🔴 [2026-09-10] 손으로 적은 슬러그 정규식을 «태그로 재는 자»로 갈았다 —
+   4번 실측: 131편 중 7편(5.3%)만 /data 로 이어지고 있었다. 까닭이 그 정규식이었다.
+   ⛔ 사람이 낱말을 더해서 지키는 구조를 되살리지 않는다. */
+import { 상품고르기 } from '../../lib/article-product';
 import { formatDate, formatAsOf, categoryLabel, iso } from '../../lib/format';
 import { SITE, SITE_URL, PUBLISHER, DISCLAIMER, PUBLISHER_SM } from '../../consts';
 
@@ -100,15 +104,7 @@ const 상품들 = {
   concentration: { href: '/data/concentration', name: 'the Korea Concentration Index',
     blurb: 'how top-heavy Korea’s market and trade are — Samsung’s KOSPI weight, top partners, updated daily' },
 };
-const 관련상품 = /comes-down-to-four|four-stocks|kosdaq-trades|trade-partners|two-giants|concentration|half-the-market|largest-listed|largest-companies/.test(entry.id) ? 상품들.concentration
-  : /leader|biggest-companies|market-cap-leaders|pay-more/.test(entry.id) ? 상품들.leaders
-  : /candour|vanish|sell-rating|stopped-saying|buy-rating|rating/.test(entry.id) ? 상품들.candour
-  : /attention|coverage|unwritten|piles-up|ignored/.test(entry.id) ? 상품들.attention
-  : /research|broker|price-target|aim-high|hit-less/.test(entry.id) ? 상품들.target
-  : /board|officer|governance|director|owner-led/.test(entry.id) ? 상품들.board
-  : /pension|wage|churn|separation|workers-concentrate|bigger-firms|small-firms|oldest-workplace|pension-map/.test(entry.id) ? 상품들.wage
-  : /tenure|gender|headcount|workforce|market-cap-per-worker|pay-holding|how-long-industries/.test(entry.id) ? 상품들.sector
-  : null;
+const { 상품: 관련상품, 왜: 관련상품왜 } = 상품고르기({ tags: d.tags, category: d.category });
 
 const articleLd = {
   '@context': 'https://schema.org',
@@ -352,7 +348,7 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
         관련상품 && (
           <aside class="product-cta">
             <span class="pc-kicker">The data behind this article</span>
-            <a class="pc-link" href={관련상품.href}>License {관련상품.name} &rarr;</a>
+            <a class="pc-link" href={관련상품.href}>{관련상품.href === '/data' ? 'Browse' : 'License'} {관련상품.name} &rarr;</a>
             <span class="pc-blurb">{관련상품.blurb}</span>
           </aside>
         )
