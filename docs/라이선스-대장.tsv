@@ -47,7 +47,7 @@ kosis	KOSIS 국가통계포털	⬜	아직 안 봤다
 kosis-expl	KOSIS 설명자료	⬜	아직 안 봤다
 kosis-industrial-activity-runs	KOSIS 산업활동동향 실행 마커 (우리가 만든 기록)	🟢	우리가 만든 파일이다 — 남의 자료가 아니다
 procure	나라장터 조달 공고	⬜	아직 안 봤다
-work24	고용24 / 워크넷 — 직업코드·RIASEC (3번이 4유형이라 버린 것)	🔴	데이터-라이선스-대장.md 0절 공공누리 4유형(상업 이용 금지). ⚠ 그래도 폴더에 남은 까닭 — 08-04 자 네 파일(job-codes·job-path·riasec-by-job·career-bridge-riasec)이 잠들어 있다. 2026-09-09 5번이 재서 확인: 지면·상품 어디도 이 파일을 «쓰지 않는다»(grep 0건). ⛔ 발행에 쓰지 않는다. 지우려면 3번 판단이 필요하다
+work24	고용24 / 워크넷 — 직업코드·RIASEC (3번 2026-09-10 재판정)	🟡	[2026-09-10 3번] 넷 중 «갈래가 다르다» — 하나로 뭉쳐 판정하지 않는다. ① job-codes.json(492) = KECO 코드+명칭 표 그 자체 → 포털 15086395(제한 없음)와 내용이 «완전히 일치» → 🟢 (판매 가능, 출처는 15086395로 표기). ② job-path.json(492) 안의 jobCd·jobNm·jobClcdNM·kecoCd·kecoNm(식별 코드)은 ①과 같은 논리로 🟢. 다만 같은 파일의 되는길(서술)·학력분포·전공계열분포·자격기관·certNm 은 work24 JOBDTL(dtlGb=3) 고유 조사·서술물이라 15086395 표(코드+명칭만 있음)가 «덮지 않는다» — 이 필드들은 ⬜ 미확인(못 쟀다)으로 남긴다. 대체 후보는 수집-금지경로.tsv 80행의 보조 출처 15056641(교육부 커리어넷 직업정보 · 공공누리 1유형)이나, 아직 새로 받지 않았다 — 짐작으로 🟢 매기지 않는다. ③④ riasec-by-job.json·career-bridge-riasec.json(RIASEC 49건)은 PAR 소유 검사도구라 그대로 🔴 — 대체는 O*NET Interest Profiler(CC BY 4.0)로 «새로 수집»해야 하며 아직 안 받았다. ⇒ 폴더 전체는 발행 가능한 것과 못 쟀다·못 쓴다가 섞여 있어 대표값을 🟡로 둔다(가장 낮은 쓰는 판정). 파일 지우지 않는다(사장님 지시)
 wikidata	Wikidata (CC0)	🟢	Wikidata 는 CC0 — 다만 이 줄은 5번이 «약관 지면을 다시 읽고» 근거 주소를 넣어야 한다
 star-pageviews	위키백과 열람수 API	🟢	CC0 — 조문을 읽었다(2026-09-10). dumps.wikimedia.org/legal.html: 「Analytics Datasets All Analytics datasets are available under the Creative Commons Zero (CC0) public domain dedication, unless otherwise specified.」 열람수는 Analytics dataset 이다. ⚠ CC BY-SA 는 «문서 본문»에 걸리는 것이고 열람수 «수»에는 걸리지 않는다 — 내가 CC BY-SA 로 짐작했던 것이 틀렸다(안전한 쪽으로 틀렸다). 본문을 인용하면 그때는 CC BY-SA 를 따른다
 kpop-agencies	우리가 만든 소속사 명부	🟢	우리가 만든 파일이다
