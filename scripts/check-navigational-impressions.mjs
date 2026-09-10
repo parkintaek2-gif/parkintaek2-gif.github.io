@@ -46,7 +46,20 @@ import { fileURLToPath } from 'node:url';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 /* ⚠ 새 자료를 받으면 여기도 옮긴다 — node scripts/fetch-gsc.mjs --사이트 kcw
    ⛔ 안 옮기면 «인자를 안 준 사람»이 낡은 창을 새 것으로 읽는다. 2026-09-04 에 내가 그랬다. */
-const 기본자료 = 'src/data/gsc-kcw-2026-09-01.json';
+/**
+ * 🔴 [2026-09-11 06:5x · 5번] 기본 자료가 «날짜로 박혀» 있었다.
+ *   이 자 스스로 「낡은 창으로 콘텐트를 정하면 지나간 수요를 좇는다」고 적어 두었는데,
+ *   그 기본값이 열흘 낡은 파일이었다. 오늘 새 창(09-08)을 받아 놓고도 이 자는 09-01 을 읽었다.
+ * ⇒ 박아 두지 않고 «가장 늦은 것»을 고른다. 창은 화면에 그대로 찍히므로 사람이 볼 수 있다.
+ * ⛔ 없으면 「없다」가 아니라 못 쟀다로 끝난다(아래 존재 확인이 그 일을 한다).
+ */
+export function 가장늦은자료(들) {
+  const 것 = (들 ?? []).filter((f) => /^gsc-kcw-\d{4}-\d{2}-\d{2}\.json$/.test(f)).sort();
+  return 것.length ? `src/data/${것[것.length - 1]}` : 'src/data/gsc-kcw-2026-09-01.json';
+}
+const 기본자료 = 가장늦은자료(
+  fs.existsSync(path.join(뿌리, 'src', 'data')) ? fs.readdirSync(path.join(뿌리, 'src', 'data')) : [],
+);
 
 /**
  * 이 질의가 «어딘가로 가려고» 친 것인가.
