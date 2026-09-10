@@ -1,0 +1,150 @@
+---
+/**
+ * /100y/health-checkup-rate — 건강검진, 몇 살에 가장 많이 받았다고 답할까요
+ *
+ * docs/백년지도-남들은-어떻게.md 4절("열두 고민이 한 곳도 안 빈다")의 「건강검진」 항목이
+ * 유일하게 지면 0개였다. 원래 후보였던 154/DT_MOGE_3021300332는 objL 1~5단계 전부
+ * 실패해(2026-09-10 kosis-probe.mjs 실측) 접근이 안 됐다 — 짐작하지 않고 KOSIS
+ * statisticsSearch.do로 "건강검진"을 다시 검색해 대체 표를 찾았다.
+ *
+ * 채택: 질병관리청 국민건강영양조사(KNHANES) 「건강검진 수진율 추이」(177/DT_11702_N081).
+ * ⛔ 자기응답 조사다 — 실제 수검 기록을 확인한 것이 아니라 「최근 2년 동안 받았다」고
+ *   응답한 비율이다. 판정 어휘(많다/적다/좋다/나쁘다/순위/등수) 금지.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/health-checkup-rate.json';
+
+const 자료 = 원본 as any;
+const 나이순서 = 자료.나이순서 as string[];
+const 최신 = 자료.최신연도;
+const 최신전체 = (자료.연도별_전체_나이대 as any[]).find((r) => r.연도 === 최신);
+const 성별 = 자료.최신_성별_나이대;
+
+const 큰순 = [...나이순서].sort((a, b) => 최신전체[b] - 최신전체[a]);
+const 가장높은 = 큰순[0];
+const 가장낮은 = 큰순[큰순.length - 1];
+
+const 연도들 = (자료.연도별_전체_나이대 as any[]).map((r) => r.연도);
+const 첫해 = 자료.연도별_전체_나이대[0];
+const 첫해년 = 첫해.연도;
+
+const desc =
+  `질병관리청 국민건강영양조사(2015~${최신})로 재 보니, 나이대별 건강검진 수진율은 ` +
+  `19-29세 ${최신전체['19-29세']}%로 가장 낮고 60-69세 ${최신전체['60-69세']}%로 가장 높습니다. ` +
+  `실제 수검 기록이 아니라 「받았다」는 응답 비율입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '나이대별 건강검진 수진율',
+  description: desc,
+  license: 'https://www.data.go.kr/index.do',
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: '질병관리청 국민건강영양조사(KNHANES)' },
+  variableMeasured: ['나이대별 건강검진 수진율(%)', '성별 건강검진 수진율(%)', '2015~2024년 추이'],
+};
+---
+
+<HundredYear
+  title={`건강검진, 몇 살에 가장 많이 받았다 할까 — 60대 ${최신전체['60-69세']}% · 20대 ${최신전체['19-29세']}%`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>건강검진, 몇 살에<br class="pcbr" /> 가장 많이 받았다고 할까요?</h1>
+  <p class="sub">
+    질병관리청 국민건강영양조사가 «최근 2년 동안 건강검진을 받았다»고 답한 사람의 비율을
+    {' '}나이대별로 냅니다. ⛔ <strong>자기응답 조사</strong>입니다 — 실제 수검 기록을
+    {' '}확인한 것이 아니라, 받았다고 «응답한» 비율입니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">{최신}년 · 나이대별 건강검진 수진율</p>
+    <p class="answer-num">
+      {가장낮은} <strong>{최신전체[가장낮은]}%</strong> ↔ {가장높은} <strong>{최신전체[가장높은]}%</strong>
+    </p>
+    <p class="answer-sub">
+      가장 낮은 나이대와 가장 높은 나이대 사이가 {Math.round((최신전체[가장높은] - 최신전체[가장낮은]) * 10) / 10}%p 벌어집니다.
+    </p>
+  </div>
+
+  <h2>나이대로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>수진율</th></tr></thead>
+      <tbody>
+        {나이순서.map((b) => (
+          <tr>
+            <td>{b}</td>
+            <td>{최신전체[b]}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    높은 순으로 골라 놓은 것이 아닙니다 — 나이 차례 그대로 놓았습니다.
+    {' '}⛔ <strong>70세 이상이 60대보다 낮습니다</strong> — 나이가 들수록 계속 오르는
+    {' '}흐름이 아닙니다.
+  </p>
+
+  <h2>{첫해년}년부터 {최신}년까지 — 낮았던 20대가 계속 올랐습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>연도</th><th>19-29세</th><th>60-69세</th><th>70세 이상</th></tr></thead>
+      <tbody>
+        {(자료.연도별_전체_나이대 as any[]).map((r) => (
+          <tr>
+            <td>{r.연도}</td>
+            <td>{r['19-29세']}%</td>
+            <td>{r['60-69세']}%</td>
+            <td>{r['70세이상']}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    {첫해년}년 19-29세 수진율은 {첫해['19-29세']}%였습니다. {연도들.length}해 만에{' '}
+    {최신전체['19-29세']}%까지 올랐지만, 같은 기간 60-69세({첫해['60-69세']}% → {최신전체['60-69세']}%)를
+    {' '}한 번도 넘어서지 못했습니다.
+  </p>
+
+  <h2>성별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>남자</th><th>여자</th></tr></thead>
+      <tbody>
+        {나이순서.map((b) => (
+          <tr>
+            <td>{b}</td>
+            <td>{성별.남자[b]}%</td>
+            <td>{성별.여자[b]}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    나이대마다 남녀 사이가 다르게 벌어집니다 — 어느 쪽이 «더 건강하다»는 뜻이 아니라
+    {' '}«받았다고 응답한 비율»이 다르다는 뜻입니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    {(자료['⚠ 이 자료가 못 가르는 것'] as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 20대의 수진율이 낮다는 것은 20대 전체의
+    {' '}사정이지, 당신 개인이 검진을 받아야 하는지 아닌지를 정해 주지 않습니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.데이터셋}) · {자료.출처.이용허락범위}. {자료.대조}
+  </p>
+
+  <HundredAgeWalk 키="health-checkup-rate" />
+
+  <NextQuestionBrief 모은것="질병관리청 국민건강영양조사 건강검진 수진율" />
+</HundredYear>

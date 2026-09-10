@@ -118,6 +118,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'turnover-cross-check',
   /* 🔴 2026-09-10 3번 신설 — 고용24 RIASEC(상업이용 불가)의 대체, O*NET(CC BY 4.0) */
   'onet-riasec',
+  /* 🔴 2026-09-10 3번 신설 — 질병관리청 국민건강영양조사, 나이대별 건강검진 수진율(자기응답) */
+  'health-checkup-rate',
 ]);
 
 /**
@@ -290,6 +292,7 @@ export const 붙일수있는갈래 = [
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   /* 🔴 2026-09-10 3번 신설 */
   'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross', 'turnover-cross-check', 'onet-riasec',
+  'health-checkup-rate',
   '기타',
 ] as const;
 

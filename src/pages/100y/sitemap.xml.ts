@@ -416,6 +416,8 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-09-10 — 고용24 RIASEC(PAR사 홀랜드 SDS, 상업이용 불가)의 대체로 O*NET
        Interest Profiler(CC BY 4.0) 자료를 새로 받아 낸다. */
     { path: '/onet-riasec', priority: '0.6', changefreq: 'yearly' },
+    /* 🔴 2026-09-10 3번 신설 — 질병관리청 국민건강영양조사, 나이대별 건강검진 수진율(자기응답) */
+    { path: '/health-checkup-rate', priority: '0.6', changefreq: 'yearly' },
     /* 🔴 2026-09-08 — 「지방국립대 무상교육」 뉴스 씨앗. 정책 효과는 말할 수 없어
        정책 시행 «전» 기준선(국공립·사립 재학생충원율·취업률)만 pages-university.json
        재계산으로 남긴다. */
