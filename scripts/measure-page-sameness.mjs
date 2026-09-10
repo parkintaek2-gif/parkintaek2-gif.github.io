@@ -60,6 +60,7 @@
  */
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const 인자 = (이름, 기본) => {
   const a = process.argv.find((x) => x.startsWith(`--${이름}=`));
@@ -161,7 +162,16 @@ export function 중앙값(수들) {
   return a[Math.floor(a.length / 2)];
 }
 
-if (process.argv.includes('--자가시험')) {
+/**
+ * 🔴 [2026-09-11 06:2x · 5번] **이 자를 «빌려 쓰려» 하자 자기가 돌아 버렸다.**
+ *   아래 돌리는 대목이 모듈 맨 바닥에 그냥 있어서, 다른 자가 `본문·낱말·이음말` 을
+ *   import 하는 순간 이 자의 자가시험이 돌고 `process.exit(0)` 으로 «불러온 쪽»을 죽였다.
+ * ⛔ 함수를 베껴 쓰지 않는다(그러면 두 자가 서로 다르게 늙는다). 대문에 자물쇠를 단다.
+ * ⚠ 같은 무늬가 이 저장소의 다른 자에도 있다 — 남이 빌려 쓸 때 드러난다.
+ */
+const 내가실행됐다 = !!process.argv[1]
+  && path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url));
+if (내가실행됐다 && process.argv.includes('--자가시험')) {
   const 실패 = [];
   const 검 = (이름, 참) => { if (!참) 실패.push(이름); };
 
@@ -217,6 +227,11 @@ if (process.argv.includes('--자가시험')) {
   console.log('✅ measure-page-sameness 자가시험 통과 (24)');
   process.exit(0);
 }
+
+/* ⛔ 여기서부터 «돌리는 대목»이다. 빌려 쓰는 쪽에서는 한 줄도 돌지 않아야 한다.
+   ⛔ 여기에 `process.exit(0)` 를 쓰면 «불러온 쪽»이 죽는다 — 그것이 방금 겪은 결함이다.
+   그래서 나가는 것이 아니라 «감싼다». */
+if (내가실행됐다) {
 
 const 방 = 인자('방', 'dist/wikitip');
 if (!existsSync(방)) {
@@ -291,3 +306,5 @@ console.log('   ⚠ 이 수의 위험선은 **아직 못 쟀다** — 판박이�
 console.log('      옛 선을 새 수에 그대로 걸지 않는다. 색인 여부와 다시 맞춰 봐야 안다.');
 console.log('\n⚠ 「몇 %면 위험」은 구글이 밝힌 문턱이 아니라 **2026-08-24 에 우리 사이트를 재서**');
 console.log('  나온 선이다 — 기사(40%)는 표본 전부 색인, 67% 위는 「발견만」·「크롤했는데 안 넣음」이었다.');
+
+} /* ← 「내가실행됐다」 감싸기 끝 */
