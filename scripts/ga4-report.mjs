@@ -125,6 +125,20 @@ export function 유닛별로(줄들) {
   return { 표: 표.sort((a, b) => b.순방문 - a.순방문), 남은것, 개발 };
 }
 
+/**
+ * ⭐ 2026-09-10 — `pagePath` 가 홈인지 · `/data` 계열인지를 가른다.
+ *   5번의 09-09 지시(사이트개편 1단계)가 이 둘을 갈라서 세라고 못 박았다.
+ * ⛔ 짐작으로 문자열 비교하지 않는다 — 물음표(쿼리스트링)가 붙은 홈("/?utm=…")도 홈이다.
+ */
+export function 홈경로인가(경로) {
+  const p = String(경로 ?? '').split('?')[0].split('#')[0];
+  return p === '' || p === '/';
+}
+export function 데이터지면인가(경로) {
+  const p = String(경로 ?? '').split('?')[0].split('#')[0];
+  return p === '/data' || p.startsWith('/data/');
+}
+
 /** 어떤 오류인지 **갈라** 적는다. ⛔ 「실패」 한 마디로 뭉개면 무엇을 켤지 알 수 없다 */
 export function 무엇이막혔나(오류글) {
   const s = String(오류글 ?? '');
@@ -214,6 +228,18 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   참('하나도 안 맞으면 고르지 않는다', 우리속성(요약, '없는말').고른것 === null);
   참('빈 목록도 안 죽는다', 우리속성(null).전부.length === 0);
   참('읽기 갈래만 청한다', 갈래.endsWith('analytics.readonly'));
+
+  /* 🔴 [2026-09-10 · 4번] 09-09 5번 지시(SeoulMarkets 사이트개편 1단계 실측)용 헬퍼 */
+  참('홈경로인가: 「/」는 홈', 홈경로인가('/'));
+  참('홈경로인가: 빈 문자열도 홈(루트 리다이렉트 흔적)', 홈경로인가(''));
+  참('홈경로인가: 물음표 붙은 홈도 홈', 홈경로인가('/?utm=abc'));
+  참('⛔ 홈경로인가: /data 는 홈이 아니다', !홈경로인가('/data'));
+  참('데이터지면인가: /data 자체', 데이터지면인가('/data'));
+  참('데이터지면인가: /data/target-changes', 데이터지면인가('/data/target-changes'));
+  참('⛔ 데이터지면인가: /database 는 /data 계열이 아니다(접두어만 보면 오탐)',
+    !데이터지면인가('/database'));
+  참('⛔ 데이터지면인가: 홈은 /data 계열이 아니다', !데이터지면인가('/'));
+  참('데이터지면인가: 물음표 붙어도 가른다', 데이터지면인가('/data/valuation?x=1'));
 
   console.log(`GA4 를 읽는 자 — 자가시험 ${통} 통과 · ${실} 실패`);
   process.exit(실 ? 1 : 0);
@@ -794,6 +820,164 @@ if (내가실행됐다) {
       console.log('   ▲ 지면 전부 끝');
       if (!줄들.length) console.log('   ⬜ 줄이 하나도 없다 — 못 쟀다. 0 으로 채우지 않는다.');
     }
+  }
+
+  /**
+   * ⭐ `--서울마켓개편` — [2026-09-10 · 4번] 5번 09-09 지시(목표 09-12) —
+   *   「SeoulMarkets 사이트개편 1단계」. 지면별 열린 횟수(28일)·유입 경로·
+   *   홈에서 다음 클릭·이탈 지면 **넷을 한 번에 낸다.**
+   *   5번 원문: 「이 수가 없으면 «홈에 무엇을 낼까»는 취향 싸움이 된다」.
+   * ⚠ --호스트= 로 다른 유닛도 그대로 쓸 수 있다. 기본은 seoulmarkets.com.
+   */
+  if (process.argv.includes('--서울마켓개편')) {
+    const 호스트 = process.argv.find((a) => a.startsWith('--호스트='))?.split('=')[1] ?? 'seoulmarkets.com';
+    const q2 = async (dims, metrics, extra = {}) => {
+      const r = await fetch(
+        `https://analyticsdata.googleapis.com/v1beta/properties/${속성}:runReport`,
+        {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            dateRanges: [{ startDate: `${일수}daysAgo`, endDate: 'yesterday' }],
+            dimensions: dims.map((name) => ({ name })),
+            metrics: metrics.map((name) => ({ name })),
+            limit: 2000,
+            ...extra,
+          }),
+        },
+      );
+      const j = await r.json();
+      if (j.error) return { 오류: String(j.error.message) };
+      return {
+        줄: (j.rows ?? []).map((x) => ({
+          키: (x.dimensionValues ?? []).map((d) => d.value ?? '').join(' │ '),
+          값: (x.metricValues ?? []).map((m) => Number(m.value ?? 0)),
+        })),
+      };
+    };
+    const 호스트필터 = {
+      filter: { fieldName: 'hostName', stringFilter: { matchType: 'CONTAINS', value: 호스트 } },
+    };
+
+    console.log(`\n═══ SeoulMarkets 사이트개편 1단계 실측 — 호스트 ${호스트} · 최근 ${일수}일(어제까지) ═══`);
+    console.log('   (5번 09-09 지시: 이 수 없이는 「홈 노출 여부」에 답하지 않는다)');
+
+    /* ① 지면별 열린 횟수 — 홈 · /data 계열 · 그 밖으로 가른다 */
+    console.log('\n■ 1. 지면별 열린 횟수 (screenPageViews)');
+    const 지면 = await q2(['pagePath'], ['screenPageViews'], {
+      dimensionFilter: 호스트필터,
+      orderBys: [{ desc: true, metric: { metricName: 'screenPageViews' } }],
+    });
+    if (지면.오류) {
+      console.log(`   ⛔ 못 쟀다 — ${지면.오류.slice(0, 160)}`);
+    } else if (!지면.줄.length) {
+      console.log('   ⬜ 줄이 없다 — 못 쟀다 (0 으로 채우지 않는다)');
+    } else {
+      const 홈줄 = 지면.줄.filter((r) => 홈경로인가(r.키));
+      const 데이터줄 = 지면.줄.filter((r) => 데이터지면인가(r.키));
+      const 그밖 = 지면.줄.filter((r) => !홈경로인가(r.키) && !데이터지면인가(r.키));
+      const 홈합 = 홈줄.reduce((s, r) => s + r.값[0], 0);
+      const 데이터합 = 데이터줄.reduce((s, r) => s + r.값[0], 0);
+      const 전체합 = 지면.줄.reduce((s, r) => s + r.값[0], 0);
+      console.log(`   홈(/) ${홈합} · /data 계열 합 ${데이터합} · 그 밖 ${전체합 - 홈합 - 데이터합} · 전체 ${전체합}`);
+      console.log('   /data 계열 지면별:');
+      for (const r of 데이터줄) console.log(`     ${String(r.값[0]).padStart(6)}  ${r.키}`);
+      if (!데이터줄.length) console.log('     ⬜ /data 계열에 열림이 하나도 없다');
+      console.log(`   ⚠ 표에 없는 그 밖 지면(${그밖.length}장)은 요약만 냈다 — 전부는 --지면전부 로 본다`);
+    }
+
+    /* ② 유입 경로 — 어디로 들어와서(landingPage), 어디서 왔나(source/medium) */
+    console.log('\n■ 2. 유입 경로 — 검색이 «어디로» 바로 들어오나');
+    const 착지 = await q2(['landingPage'], ['sessions'], {
+      dimensionFilter: 호스트필터,
+      orderBys: [{ desc: true, metric: { metricName: 'sessions' } }],
+    });
+    if (착지.오류) {
+      console.log(`   ⛔ 착지 지면을 못 쟀다 — ${착지.오류.slice(0, 160)}`);
+    } else if (!착지.줄.length) {
+      console.log('   ⬜ 세션이 없다 — 못 쟀다');
+    } else {
+      const 홈착지 = 착지.줄.filter((r) => 홈경로인가(r.키)).reduce((s, r) => s + r.값[0], 0);
+      const 데이터착지 = 착지.줄.filter((r) => 데이터지면인가(r.키)).reduce((s, r) => s + r.값[0], 0);
+      const 전체세션 = 착지.줄.reduce((s, r) => s + r.값[0], 0);
+      console.log(`   홈으로 착지 ${홈착지}세션 · /data 로 «바로» 착지 ${데이터착지}세션`
+        + ` · 그 밖 ${전체세션 - 홈착지 - 데이터착지} · 전체 ${전체세션}`);
+      if (전체세션 > 0) {
+        console.log(`   ⇒ 세션의 ${((100 * 데이터착지) / 전체세션).toFixed(0)}% 가 홈을 «거치지 않고» /data 로 바로 들어온다`);
+      }
+      console.log('   /data 로 바로 착지한 지면 상위 10:');
+      for (const r of 착지.줄.filter((r) => 데이터지면인가(r.키)).slice(0, 10)) {
+        console.log(`     ${String(r.값[0]).padStart(6)}  ${r.키}`);
+      }
+    }
+    const 출처 = await q2(['sessionSource', 'sessionMedium'], ['sessions'], {
+      dimensionFilter: 호스트필터,
+      orderBys: [{ desc: true, metric: { metricName: 'sessions' } }],
+    });
+    if (출처.오류) {
+      console.log(`   ⛔ 유입 출처를 못 쟀다 — ${출처.오류.slice(0, 160)}`);
+    } else {
+      console.log('   전체 세션의 유입 출처 상위 8:');
+      for (const r of 출처.줄.slice(0, 8)) console.log(`     ${String(r.값[0]).padStart(6)}  ${r.키}`);
+    }
+
+    /* ③ 홈에서 다음 클릭 — GA4 Data API 엔 「다음 페이지」 차원이 없다.
+       ⭐ pageReferrer(=바로 앞 화면의 URL)가 홈 URL 과 «정확히 같은» 페이지뷰를 모으면
+       그것이 «홈 다음에 연 지면»의 근사치다. ⛔ 근사치라고 그대로 밝힌다 — 확정으로 안 읽는다. */
+    console.log('\n■ 3. 홈에서 다음 클릭 — «근사치»다 (GA4 엔 다음-페이지 차원이 없다)');
+    const 벗은호스트 = 호스트.replace(/^www\./, '');
+    const 홈URL후보 = [벗은호스트, `www.${벗은호스트}`]
+      .flatMap((h) => [`https://${h}/`, `https://${h}`]);
+    const 다음클릭 = await q2(['pagePath'], ['screenPageViews'], {
+      dimensionFilter: {
+        andGroup: {
+          expressions: [
+            호스트필터,
+            { filter: { fieldName: 'pageReferrer', inListFilter: { values: 홈URL후보 } } },
+          ],
+        },
+      },
+      orderBys: [{ desc: true, metric: { metricName: 'screenPageViews' } }],
+    });
+    if (다음클릭.오류) {
+      console.log(`   ⛔ 못 쟀다 — ${다음클릭.오류.slice(0, 160)}`);
+    } else if (!다음클릭.줄.length) {
+      console.log('   ⬜ 「바로 앞 화면 = 홈」인 페이지뷰가 하나도 없다 — 못 쟀다.');
+      console.log('      (referrer 가 안 남는 경로거나, 표본이 이 창에서 너무 적을 수 있다)');
+    } else {
+      console.log('   홈 바로 다음에 연 지면 상위 10 (screenPageViews):');
+      for (const r of 다음클릭.줄.slice(0, 10)) console.log(`     ${String(r.값[0]).padStart(6)}  ${r.키}`);
+    }
+
+    /* ④ 이탈 지면 — 🔴 [2026-09-10] 처음엔 `exits` 지표로 짰다가 «못 쟀다»만 냈다.
+       ⭐ metadata 엔드포인트(properties/{id}/metadata)로 직접 확인했다 —
+       이 속성이 가진 지표에 exits·entrances 는 **아예 없다**(bounceRate·engagementRate
+       계열뿐). GA4 표준 Data API 에 진짜 「퇴장 지면」 지표는 없다 — 지어내지 않는다.
+       ⇒ 그나마 «착지 지면별 이탈률(bounceRate)» 이 «여기서 들어와 그대로 나갔다»에
+       가장 가까운 공식 지표다. **이탈 지면(exit page)과는 다른 개념**임을 그대로 밝힌다. */
+    console.log('\n■ 4. 이탈 — GA4 엔 «퇴장 지면(exit page)» 지표가 없다 (metadata 로 확인)');
+    console.log('   ⛔ exits·entrances 지표 자체가 이 속성에 없다. bounceRate·engagementRate 뿐이다.');
+    console.log('   ⭐ 대신 «착지 지면별 이탈률(bounceRate)» — 여기로 들어와 그대로 나갔을 가능성 —을 낸다.');
+    console.log('   ⚠ 이것은 «퇴장 지면»이 아니라 «시작하자마자 끝난 지면»이다. 다른 개념이다.');
+    const 이탈근사 = await q2(['landingPage'], ['sessions', 'bounceRate'], {
+      dimensionFilter: 호스트필터,
+      orderBys: [{ desc: true, metric: { metricName: 'sessions' } }],
+    });
+    if (이탈근사.오류) {
+      console.log(`   ⛔ 이것도 못 쟀다 — ${이탈근사.오류.slice(0, 160)}`);
+    } else if (!이탈근사.줄.length) {
+      console.log('   ⬜ 줄이 없다 — 못 쟀다');
+    } else {
+      console.log('   착지 지면별 세션·이탈률:');
+      for (const r of 이탈근사.줄.slice(0, 10)) {
+        console.log(`     세션 ${String(r.값[0]).padStart(4)}  이탈률 ${(r.값[1] * 100).toFixed(0)}%  ${r.키}`);
+      }
+      const 홈행 = 이탈근사.줄.find((r) => 홈경로인가(r.키));
+      if (홈행) console.log(`   홈(/) 착지 이탈률 ${(홈행.값[1] * 100).toFixed(0)}% (세션 ${홈행.값[0]})`);
+    }
+
+    console.log('\n⛔ 이 표는 «있었던 일»만 말한다 — 「홈에 무엇을 낼까」의 판정은 사람(5번·2번)이 한다.');
+    process.exit(0);
   }
 
   console.log('\n⚠ GA4 는 광고차단·쿠키거부로 **덜 세는 쪽**이다. 바닥값으로 읽는다 —');
