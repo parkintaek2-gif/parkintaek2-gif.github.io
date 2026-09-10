@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 오늘 } from './_kst.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 자료길 = path.join(뿌리, 'src/data/100yearmap/industry-life.json');
@@ -113,7 +114,7 @@ if (내가직접불렸나 && !process.argv.includes('--자가시험')) {
       '단위기간': '연간(그 해 이직 인원 ÷ 전년도 12월 현인원)',
       '모집단': '중소기업(소상공인 제외) — 대기업 없음. 2024년부터 표본틀이 바뀌어 이전 연도와 직접 비교 안 함(원자료 각주)',
       '이용허락범위': 'KOSIS 통계정보 활용약관 제8조 — 상업적 활용 가능',
-      '받은때': new Date().toISOString().slice(0, 10),
+      '받은때': 오늘(),
     },
     '우리': {
       '이름': '국민연금 가입 사업장 내역 — 업종 40개 가중평균 월상실률',
@@ -131,7 +132,7 @@ if (내가직접불렸나 && !process.argv.includes('--자가시험')) {
       '월→연 환산은 근사다. 실제 연간 자료가 아니라 12번 반복 가정이다',
     ],
     '⚠ 왜 어긋나는지': '우리가 밝히지 못했다 — 월상실률이 «그 일터를 떠나는 속도»(다른 곳으로 옮겨도 잡힘)라 industry-life.json 자체가 이미 한 번 이런 어긋남(공표 근속 분포 대비 약 50배)을 기록해 뒀다. 이번 것도 같은 무늬로 보이지만 확정하지 않는다',
-    '잰이': '3번 · ' + new Date().toISOString().slice(0, 10),
+    '잰이': '3번 · ' + 오늘(),
   };
   fs.writeFileSync(자료길, JSON.stringify(industryLife, null, 1));
   console.log(`✅ 공식 이직률 ${줄.DT}% (${줄.PRD_DE}) · 우리 가중월상실률 ${우리.가중월상실률}% → 연율화 ${연율.복리}%(복리)/${연율.단리}%(단리)`);
