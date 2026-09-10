@@ -18,11 +18,13 @@ import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
 import majors from '../../../data/100yearmap/pages-major.json';
 import schools from '../../../data/100yearmap/pages-school.json';
 import universities from '../../../data/100yearmap/pages-university.json';
+import industryLife from '../../../data/100yearmap/industry-life.json';
 
 const 대학공시연도 = (universities as any[])[0]?.공시연도;
 const 취업기준연도 = (majors as any[]).find((m) => m.취업)?.취업?.기준연도;
 const 학과없는학교 = (schools as any[]).filter((s) => (s.학과수 ?? 0) === 0).length;
 const 대학값있음 = (universities as any[]).filter((u) => u.취업률).length;
+const 업종자료 = (industryLife as any).자료 as any[];
 
 const 표 = [
   {
@@ -53,10 +55,20 @@ const 표 = [
     출처: '교육부 NEIS 교육정보 개방 포털',
     주의: `학과가 0개인 곳이 ${학과없는학교.toLocaleString()}곳입니다. 학과가 누락된 것이 아니라 학과를 나누지 않는 일반고입니다. 고교유형 판정 근거를 함께 넣었습니다 — NEIS 유형값에 마이스터고 항목이 없어 학교 이름으로 판정한 곳이 있습니다.`,
   },
+  {
+    이름: '업종별 임금·이직·생존',
+    파일: '/data/industry-life.csv',
+    행: 업종자료.length,
+    무엇: '국민연금 가입 사업장 40개 업종의 1인당 고지액, 월상실률·월유입률(이직 대용), 10년 이상 생존 사업장 비율, 가입자 중앙연령',
+    기준: `${(industryLife as any).출처.기준월} 기준`,
+    출처: (industryLife as any).출처.이름 + ' (공공데이터포털)',
+    주의:
+      '「국민연금고지액_월_원」은 임금이 아니라 1인당 국민연금 고지액(기준소득월액×9%, 상한·하한 있음)입니다 — 그대로 월급으로 읽거나 11을 곱해 되돌리지 마십시오. 같은 열끼리의 배수만 씁니다. 「10년이상_생존사업장_비율」은 지금 살아 있는 사업장 중 몫이며, 이미 문 닫은 곳은 분모에 없습니다.',
+  },
 ];
 
 const DESC =
-  '백년지도가 지면에 쓰는 표를 그대로 내려받을 수 있습니다. 대학 377개교, 고등학교 2,525곳, 학과 925종. ' +
+  '백년지도가 지면에 쓰는 표를 그대로 내려받을 수 있습니다. 대학 377개교, 고등학교 2,525곳, 학과 925종, 업종 40개. ' +
   '출처와 기준시점, 수치의 분모까지 함께 적었습니다.';
 ---
 
