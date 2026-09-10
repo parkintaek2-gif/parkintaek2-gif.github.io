@@ -67,6 +67,13 @@ import { TRADE } from './trade-data.mjs';
  * 최종 산출물이라 한 번 더 감쌀 계산이 없다.
  */
 import VALUATION_TAPE from '../data/korea-valuation-tape.json' with { type: 'json' };
+/*
+ * 🔴 [2026-09-10 · 2번] F3·F4 를 /v1 에 붙인다. 5번 실측(18:25) — 새 서버·새 열쇠를
+ * 만들지 않는다. 6번의 valuation 과 같은 꼴(JSON 모듈 import)로 자기가 만든 자료를
+ * 자기가 붙인다.
+ */
+import INDEX_TAPE from '../data/korea-index-tape.json' with { type: 'json' };
+import ACCOUNT_DICTIONARY from '../data/korea-financial-account-english.json' with { type: 'json' };
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -599,6 +606,137 @@ function valuation(params, tier = 'free') {
   });
 }
 
+/**
+ * /v1/index-tape — F4 Korea Index Tape. 2026-09-10 2번.
+ * ⛔ 엔진 칸 이름(build-korea-index-tape.mjs 의 camelCase)을 그대로 흘리지 않는다.
+ */
+function indexTapeCoverage() {
+  const m = INDEX_TAPE?._meta ?? {};
+  return {
+    source: 'Korea public data portal + KRX index series',
+    snapshot_date: m.snapshotDate ?? null,
+    source_file: m.sourceFile ?? null,
+    built_at: m.builtAt ?? null,
+    rows: m.rows ?? (Array.isArray(INDEX_TAPE?.rows) ? INDEX_TAPE.rows.length : 0),
+    with_name_en: m.withNameEn ?? null,
+    with_year_low: m.withYearLow ?? null,
+    year_low_not_measured: m.yearLowNotMeasured ?? null,
+    note: m.note ?? null,
+    why_rows_are_kept: m.whyRowsAreKept ?? null,
+  };
+}
+
+function indexTapeRow(r) {
+  return {
+    date: r.date,
+    name: r.name,
+    name_en: r.nameEn,
+    family: r.family,
+    family_en: r.familyEn,
+    constituent_count: r.constituentCount,
+    is_computed_index: r.isComputedIndex,
+    close: r.close,
+    change: r.change,
+    change_pct: r.changePct,
+    open: r.open,
+    high: r.high,
+    low: r.low,
+    volume: r.volume,
+    trading_value_krw: r.tradingValue,
+    market_cap_krw: r.marketCap,
+    year_high: r.yearHigh,
+    year_high_date: r.yearHighDate,
+    year_low: r.yearLow,
+    year_low_date: r.yearLowDate,
+    /* ⛔ [2026-09-10 실측] year_low=0 이 연최저일보다 «미래»인 스냅숏 sentinel 이면
+       빌더가 이미 null 로 내렸다 — 여기서는 그 까닭만 그대로 흘린다 */
+    year_low_not_measured: r.yearLowNotMeasured,
+    base_date: r.baseDate,
+    base_index: r.baseIndex,
+    ytd_change_pct: r.ytdChangePct,
+  };
+}
+
+function indexTape(params, tier = 'free') {
+  const rows = Array.isArray(INDEX_TAPE?.rows) ? INDEX_TAPE.rows : [];
+
+  const nameQ = (params.get('name') || '').trim().toLowerCase();
+  const hit = nameQ ? rows.find((r) => String(r.nameEn ?? '').toLowerCase() === nameQ
+    || String(r.name ?? '').toLowerCase() === nameQ) : null;
+  if (nameQ && !hit) {
+    return err(
+      404,
+      'unknown_index',
+      `No such index: ${nameQ}`,
+      'Use the English or Korean index name exactly, e.g. name=KOSPI 200. Browse /v1/index-tape without a name for the full list.',
+    );
+  }
+  if (hit) return json(200, { result: indexTapeRow(hit), coverage: indexTapeCoverage() });
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const familyQ = (params.get('family') || '').trim().toLowerCase();
+
+  let filtered = rows;
+  if (familyQ) {
+    filtered = filtered.filter(
+      (r) => String(r.familyEn ?? '').toLowerCase().includes(familyQ)
+        || String(r.family ?? '').toLowerCase().includes(familyQ),
+    );
+  }
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced.map(indexTapeRow),
+    coverage: indexTapeCoverage(),
+  });
+}
+
+/**
+ * /v1/account-dictionary — F3 영문 계정·재무제표명 사전. 2026-09-10 2번.
+ * ⛔ 사전에 없는 계정명은 「unmapped:<원문>」이지 짐작 번역이 아니다 —
+ *   그 규약(scripts/lib/financial-account-en.mjs 계정명영문())을 여기서도 그대로 지킨다.
+ */
+function accountDictionaryCoverage() {
+  const m = ACCOUNT_DICTIONARY?._meta ?? {};
+  return {
+    source: 'Hand-mapped from DART fnlttSinglAcntAll account_nm to standard K-IFRS English terms',
+    account_count: Object.keys(ACCOUNT_DICTIONARY?.accountNames ?? {}).length,
+    statement_count: Object.keys(ACCOUNT_DICTIONARY?.statementNames ?? {}).length,
+    note: m.note ?? null,
+    coverage: m.coverage ?? null,
+    unmeasured: m.unmeasured ?? null,
+    fallback: m.fallback ?? null,
+  };
+}
+
+function accountDictionary(params, tier = 'free') {
+  const type = (params.get('type') || 'account').trim().toLowerCase();
+  if (type !== 'account' && type !== 'statement') {
+    return err(400, 'unknown_type', `Unknown type: ${type}`, 'Use type=account (default) or type=statement.');
+  }
+  const table = type === 'statement' ? (ACCOUNT_DICTIONARY?.statementNames ?? {}) : (ACCOUNT_DICTIONARY?.accountNames ?? {});
+
+  const q = (params.get('q') || '').trim().toLowerCase();
+  const matched = Object.entries(table)
+    .filter(([ko, en]) => !q || ko.toLowerCase().includes(q) || String(en).toLowerCase().includes(q))
+    .map(([korean, english]) => ({ korean, english }));
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 최대, 최대);
+  const sliced = matched.slice(0, limit);
+
+  return json(200, {
+    type,
+    count: sliced.length,
+    returned_of: matched.length,
+    entries: sliced,
+    coverage: accountDictionaryCoverage(),
+  });
+}
+
 /* ── 라우트 ─────────────────────────────────────────────────── */
 
 /** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
@@ -624,6 +762,10 @@ async function root() {
         'Exports, imports and balance by partner country and month (customs basis). National totals by default; ?country= for one partner, ?since=YYYY-MM to trim. HS-code granularity arrives with the direct customs feed.',
       'GET /v1/valuation':
         'PER, PBR, ROE and debt-to-equity for listed Korean companies, with the price date and financial-statement vintage the multiple was computed from. ?ticker= for one company (6-digit KRX code), ?industry= to filter, ?measured=true to drop rows without a usable multiple.',
+      'GET /v1/index-tape':
+        'Daily levels for 168 KRX indices (KOSPI, KOSDAQ, KRX and theme series), in English. ?name= for one index (English or Korean), ?family= to filter by series.',
+      'GET /v1/account-dictionary':
+        'Korean financial-statement account and statement names mapped to standard English (K-IFRS terms), hand-mapped from real DART filings — not machine translation. ?type=account (default) or ?type=statement, ?q= to search.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
     contact: 'sibcheongan@gmail.com',
@@ -679,6 +821,24 @@ async function meta() {
     licence: 'Unrestricted (Korea Public Data Portal); DART filings are public disclosure.',
     collected: Array.isArray(VALUATION_TAPE?.rows) && VALUATION_TAPE.rows.length > 0,
     ...valuationCoverage(),
+  };
+
+  /* 🔴 [2026-09-10 · 2번] F4 — 번들 JSON 이라 archiveStatus() 를 안 거친다. valuation 과 같다 */
+  datasets['index-tape'] = {
+    label: 'Daily levels for 168 KRX indices, in English',
+    agency: 'Korea public data portal + KRX index series',
+    licence: 'Unrestricted (Korea Public Data Portal)',
+    collected: Array.isArray(INDEX_TAPE?.rows) && INDEX_TAPE.rows.length > 0,
+    ...indexTapeCoverage(),
+  };
+
+  /* 🔴 [2026-09-10 · 2번] F3 — 사전 파일이라 rows 개념이 없다. account_count 로 붙음을 본다 */
+  datasets['account-dictionary'] = {
+    label: 'Korean financial-statement account names mapped to standard English',
+    agency: 'Financial Supervisory Service (DART), hand-mapped',
+    licence: 'Derived work; DART filings are public disclosure.',
+    collected: Object.keys(ACCOUNT_DICTIONARY?.accountNames ?? {}).length > 0,
+    ...accountDictionaryCoverage(),
   };
 
   return json(200, {
@@ -1117,6 +1277,14 @@ async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1/valuation') {
     meter('valuation');
     return valuation(searchParams, tier);
+  }
+  if (pathname === '/v1/index-tape') {
+    meter('index-tape');
+    return indexTape(searchParams, tier);
+  }
+  if (pathname === '/v1/account-dictionary') {
+    meter('account-dictionary');
+    return accountDictionary(searchParams, tier);
   }
 
   return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');

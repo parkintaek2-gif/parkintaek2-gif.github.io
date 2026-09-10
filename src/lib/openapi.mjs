@@ -485,6 +485,48 @@ export function openapi(baseUrl) {
           },
         },
       },
+      '/index-tape': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getIndexTape',
+          summary: 'Daily levels for 168 KRX indices, in English',
+          description:
+            'One row per index (KOSPI, KOSDAQ, KRX and theme series) for the most recent snapshot date. `yearLow` and `yearLowDate` are null when the source reported a 0 paired with an impossible future date — a source placeholder, not a real annual low of zero; see `yearLowNotMeasured`. `?name=` returns one index by its exact English or Korean name; otherwise a filtered, paginated list.',
+          parameters: [
+            { name: 'name', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact English or Korean index name, e.g. "KOSPI 200".' },
+            { name: 'family', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean series name (e.g. "KOSPI Series"). Substring match.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Index rows with source and snapshot date' },
+            404: {
+              description: 'name did not match any index.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
+      '/account-dictionary': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getAccountDictionary',
+          summary: 'Korean financial-statement account names mapped to standard English',
+          description:
+            'Hand-mapped from real DART fnlttSinglAcntAll filings to standard K-IFRS English terms — not machine translation. `?type=account` (default) returns line-item names; `?type=statement` returns the five financial-statement names. Account names not yet in this dictionary are not covered by this endpoint at all (there is no guessed entry) — resolve them client-side as `unmapped:<original>`.',
+          parameters: [
+            { name: 'type', in: 'query', required: false, schema: { type: 'string', enum: ['account', 'statement'] }, description: 'Which dictionary to return. Default: account.' },
+            { name: 'q', in: 'query', required: false, schema: { type: 'string' }, description: 'Search the Korean or English text. Substring match.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max entries; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Dictionary entries with source and coverage notes' },
+            400: {
+              description: 'type was neither "account" nor "statement".',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
     },
   };
 }
