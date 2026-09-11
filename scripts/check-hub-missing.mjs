@@ -58,6 +58,22 @@ export function 갈래세기(주소들) {
   return 셈;
 }
 
+/**
+ * 🔴 [2026-09-11] 첫 판이 열 갈래에 빨간불을 켰는데 **넷은 헛경보**였다 —
+ *   `/title` 은 404 지만 `/titles` 가 200 이고, `/article`→`/articles`, `/tag`→`/tags`,
+ *   `/week`→`/weeks`, `/firm`→`/firms` 가 다 그랬다. **허브 이름이 복수형인 집이었다.**
+ * ⛔ 헛경보를 켜는 자는 곧 안 보게 된다. 그러면 진짜 빨간불도 같이 묻힌다.
+ * ⇒ 낱장 갈래 하나에 «허브 후보를 여럿» 둔다. 하나라도 살면 있는 것이다.  (복수형도-본다)
+ * ⚠ 단수↔복수만 본다. 뜻으로 짐작해서 후보를 만들지 않는다 — 그건 내가 지어내는 것이다.
+ */
+export function 허브후보(갈래) {
+  const 것 = [갈래];
+  if (/y$/.test(갈래)) 것.push(갈래.slice(0, -1) + 'ies');   /* /country → /countries */
+  else if (/(s|x|ch|sh)$/.test(갈래)) 것.push(갈래 + 'es');
+  else 것.push(갈래 + 's');
+  return [...new Set(것)];
+}
+
 /** 살아 있는 응답인가 — 200~399 만 「있다」로 본다 */
 export function 살았나(코드) {
   const n = Number(코드);
@@ -111,6 +127,12 @@ function 자가시험() {
   잰다('판정 — 많고 허브 200 이면 있다', 판정(546, 10, 200), '있다');
   /* ⛔ 못 쟀다를 없다로 섞으면 남의 사이트가 잠깐 죽었을 때 헛경보가 난다 */
   잰다('판정 — 못 쟀으면 「없다」가 아니다', 판정(258, 10, null), '못쟀다');
+
+  /* 🔴 헛경보 넷을 낸 자리 — 복수형 허브 */
+  잰다('허브후보 — 단수에 복수를 더한다', 허브후보('/title'), ['/title', '/titles']);
+  잰다('허브후보 — y 는 ies 로', 허브후보('/country'), ['/country', '/countries']);
+  잰다('허브후보 — s 로 끝나면 es', 허브후보('/class'), ['/class', '/classes']);
+  잰다('허브후보 — 이미 복수면 겹치지 않는다', 허브후보('/data').length, 2);
 
   console.log(`■ 자가시험 ${통과 + 깨짐.length}가지 — 통과 ${통과} · 깨짐 ${깨짐.length}`);
   for (const d of 깨짐) console.log('   🔴 ' + d);
@@ -169,7 +191,14 @@ for (const [이름, 밑] of 사이트들) {
   console.log(`━━ ${이름} — 주소 ${주소.length}개 · ${문턱}장 넘는 갈래 ${셈.length}개`);
 
   for (const [갈래, n] of 셈) {
-    const r = await 받기(밑 + 갈래);
+    /* ⚠ 후보를 «다» 두드린 뒤에 판정한다. 하나라도 살면 허브가 있는 것이다 */
+    let r = { 코드: null }; let 산것 = null;
+    for (const 후보 of 허브후보(갈래)) {
+      const x = await 받기(밑 + 후보);
+      if (살았나(x.코드)) { r = x; 산것 = 후보; break; }
+      if (r.코드 === null) r = x;                /* 못 닿은 것과 404 를 가르기 위해 첫 답을 쥔다 */
+      else if (x.코드 !== null) r = x;
+    }
     const 결 = 판정(n, 문턱, r.코드);
     if (결 === '없다') {
       빨간불++;
@@ -178,7 +207,7 @@ for (const [이름, 밑] of 사이트들) {
       못쟀다++;
       console.log(`   ⬜ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 — 허브를 «못 쟀다»(못 닿음)`);
     } else {
-      console.log(`   ✅ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 · 허브 ${r.코드}`);
+      console.log(`   ✅ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 · 허브 ${산것 ?? 갈래} (${r.코드})`);
     }
   }
   console.log('');
