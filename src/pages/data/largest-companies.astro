@@ -137,11 +137,34 @@ const unionRows = unionTickers
 const cap100 = orderBy('marketCap').slice(0, 100);
 const noRevenue100 = cap100.filter((r) => r.revenue === null);
 const noRevenueAll = rows.filter((r) => r.revenue === null).length;
+/**
+ * 🔴 [2026-09-11 · 6번 검수로 잡힘] **빈 매출 칸의 까닭이 «하나»가 아니라 «둘»이다.**
+ *   처음에 나는 274곳 전부를 「표준 계정에 매출 줄이 없다」로 적었다. 6번이 재 보니
+ *   상위 100 안의 19곳 가운데 6곳은 그것이 아니라 **우리 수집기가 못 붙인 것**이었고
+ *   (SK이노베이션·고려아연·가온전선·SK바이오팜은 매출 계정이 «있는» 회사다),
+ *   전체 2,709 로 넓히면 274곳 중 **205곳**이 그 갈래였다.
+ *
+ * ⛔ 우리 구멍을 「자료에 없다」로 적는 것은 손님에게 틀린 까닭을 말하는 것이다.
+ *   회사 규율 그대로다 — 「못 잰 것은 못 쟀다고 적는다」. 남의 탓으로 돌리지 않는다.
+ * ✅ 그래서 수를 손으로 박지 않고 «자료에서» 가른다. 6번이 수집기를 고치면 이 수가
+ *   저절로 따라 움직이고, 화면 글도 같이 맞는다.
+ *     notMeasured 가 비어 있다 → 재무제표는 읽혔는데 그 계정이 없다 (은행·보험·지주)
+ *     notMeasured 가 차 있다   → 우리가 그 회사 재무제표를 아직 못 붙였다
+ */
+const 계정이없다 = (r: Row) => r.revenue === null && !r.notMeasured;
+const 우리가못붙였다 = (r: Row) => r.revenue === null && !!r.notMeasured;
+const noAccount100 = cap100.filter(계정이없다).length;
+const notJoined100 = cap100.filter(우리가못붙였다).length;
+const noAccountAll = rows.filter(계정이없다).length;
+const notJoinedAll = rows.filter(우리가못붙였다).length;
+/* 업종 표는 «계정이 없는» 쪽만 센다 — 우리 구멍을 업종 탓으로 보이게 하지 않는다 */
 const noRevenueIndustry = (() => {
   const m = new Map<string, number>();
-  for (const r of noRevenue100) m.set(r.industryEn ?? 'Unclassified', (m.get(r.industryEn ?? 'Unclassified') ?? 0) + 1);
+  for (const r of cap100.filter(계정이없다)) m.set(r.industryEn ?? 'Unclassified', (m.get(r.industryEn ?? 'Unclassified') ?? 0) + 1);
   return [...m].sort((a, b) => b[1] - a[1]);
 })();
+/* 우리가 못 붙인 큰 회사는 «이름으로» 적는다. 숨기면 그 수가 영영 안 줄어든다 */
+const notJoinedNames = cap100.filter(우리가못붙였다).map((r) => r.nameEn).filter(Boolean) as string[];
 
 /* 시장별로 시총 상위 100이 어디에 있나 */
 const cap100ByMarket = ['Y', 'K', 'N']
@@ -231,11 +254,13 @@ const faq: Array<[string, string]> = [
     + `what buyers paid on one day; revenue is what came in the door over a year. Neither is the `
     + `true size, and we do not combine them into a score.`],
   ['Are Korean banks missing from the revenue ranking?',
-    `Some are. Of the 100 largest companies by market value, ${noRevenue100.length} carry no revenue `
-    + `line in the standardised account set we read, and ${noRevenueIndustry[0]?.[1] ?? 0} of those `
-    + `are classified as ${noRevenueIndustry[0]?.[0] ?? 'Financial Services'}. Across all `
-    + `${num(total)} companies the figure is ${num(noRevenueAll)}. They stay in the market value, `
-    + `assets and profit rankings; they are absent only where the number does not exist.`],
+    `Some are, for two different reasons, and we separate them. Of the 100 largest companies by `
+    + `market value, ${noRevenue100.length} have no revenue figure here: ${noAccount100} because `
+    + `their filing carries no revenue account at all — banks, insurers and holding companies `
+    + `report interest, premiums or equity-method income instead — and ${notJoined100} because our `
+    + `own collector has not yet attached their statements. Across all ${num(total)} companies it `
+    + `is ${num(noAccountAll)} and ${num(notJoinedAll)}. The second number is our gap, not the `
+    + `market's, and we publish it rather than folding it into the first.`],
   ['Where does this data come from and is it free?',
     `It is free and in English. Financial figures come from the Korean Financial Supervisory `
     + `Service DART open API, annual report code 11011 for ${fiscalYear}. Market capitalisation `
@@ -357,16 +382,45 @@ const jsonLd = [datasetLd, faqLd];
     ))}
 
     <section>
-      <h2>Who has no revenue figure, and why</h2>
+      <h2>Who has no revenue figure — and which half of that is our fault</h2>
       <p>
-        Of the 100 largest companies by market value, <b>{noRevenue100.length}</b> carry no revenue
-        line in the standardised account set we read. Across all {num(total)} companies it is{' '}
-        <b>{num(noRevenueAll)}</b>. They are not dropped from the page — they still rank by market
-        value, assets and operating profit. They are absent only from the revenue column, because
-        the number does not exist to put there.
+        Of the 100 largest companies by market value, <b>{noRevenue100.length}</b> have no revenue
+        figure here. That is not one fact but two, and they deserve different answers, so we count
+        them separately. Across all {num(total)} companies the split is{' '}
+        <b>{num(noAccountAll)}</b> and <b>{num(notJoinedAll)}</b>.
       </p>
       <table class="grid">
-        <thead><tr><th>Industry</th><th class="n">Companies in the largest 100</th></tr></thead>
+        <thead>
+          <tr><th>Why the cell is empty</th><th class="n">In the largest 100</th><th class="n">All {num(total)}</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>The filing carries no revenue account</td>
+            <td class="n">{noAccount100}</td><td class="n">{num(noAccountAll)}</td>
+          </tr>
+          <tr>
+            <td><b>Our collector has not attached the statements yet</b></td>
+            <td class="n">{notJoined100}</td><td class="n">{num(notJoinedAll)}</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="warn">
+        The second row is <b>our gap, not the market's</b>. Those companies file a revenue figure;
+        we have not read it yet. Rolling it into the first row would make this page look complete
+        and would be false, so it sits here as its own line and will shrink as we fix the collector.
+        {notJoinedNames.length > 0 && (
+          <> In the largest 100 they are: {notJoinedNames.join(' · ')}</>
+        )}
+      </p>
+      <p>
+        The first row is a real property of the filings. Banks, insurers and holding companies file
+        an income statement built around interest, premiums or equity-method income rather than a
+        single revenue line, so the standardised account is simply not there. Filling those cells
+        with a substitute would make the revenue ranking look complete while comparing two different
+        things.
+      </p>
+      <table class="grid">
+        <thead><tr><th>Industry, where the account does not exist</th><th class="n">In the largest 100</th></tr></thead>
         <tbody>
           {noRevenueIndustry.map(([ind, n]) => (
             <tr><td>{ind}</td><td class="n">{n}</td></tr>
@@ -374,11 +428,8 @@ const jsonLd = [datasetLd, faqLd];
         </tbody>
       </table>
       <p class="note">
-        Banks, insurers and holding companies file an income statement built around interest,
-        premiums or equity-method income rather than a single revenue line, so the standardised
-        account we read is simply not present. Filling those cells with a substitute figure would
-        make the revenue ranking look complete while comparing two different things. We would rather
-        the column be short and honest.
+        None of these companies is dropped. They still rank by market value, total assets and
+        operating profit; they are absent only from the revenue column.
       </p>
     </section>
 
