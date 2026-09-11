@@ -500,8 +500,27 @@ if (내가실행됐다) {
     좌석 = { 됐나: false, 말: '못 쟀다' };
   }
 
-  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석].filter((x) => x === null || x.됐나 === false).length;
-  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 여덟 자리 다 섰다.'}`);
+  /* ⑨ klifemap 이 성한가 — 2026-09-11 신설.
+     [왜] 그날 16:28 에 콘솔 환경변수가 통째로 날아가 R2 복제가 끊겼는데 «두 시간 넘게»
+       아무도 몰랐다. 알아차린 것은 사장님이 로그인 화면을 눈으로 보시고 물으셨기 때문이다.
+       ⛔ 사장님이 먼저 발견하시는 구조는 그것 자체가 결함이다. 그래서 매시 자리에 올린다.
+     ⚠ 그 서비스는 «남의 집»(1번·2번)이지만 죽으면 회사의 매출이 죽는다 — 자리 나눔보다 위다. */
+  let 케맵;
+  try {
+    const 낸것 = execFileSync('node', ['scripts/check-klifemap-health.mjs'], { cwd: 뿌리, encoding: 'utf8' });
+    console.log(`✅ ⑨ klifemap     ${(낸것.match(/✅ 성하다[^\n]*/) || ['성하다'])[0]}`);
+    케맵 = { 됐나: true, 말: '' };
+  } catch (e) {
+    const 낸것 = (e.stdout || '') + (e.stderr || '');
+    const 까닭 = (낸것.match(/🔴 상했다[^\n]*/) || ['자를 돌리지 못했다'])[0];
+    console.log(`🔴 ⑨ klifemap     ${까닭}`);
+    for (const 줄 of (낸것.match(/^ {6}· .*$/gm) || [])) console.log('     ' + 줄.trim());
+    console.log('     ⛔ 고치는 길은 check-klifemap-health.mjs 를 직접 돌리면 다 적혀 있다');
+    케맵 = { 됐나: false, 말: '상했다' };
+  }
+
+  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 케맵].filter((x) => x === null || x.됐나 === false).length;
+  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 아홉 자리 다 섰다.'}`);
   console.log('⚠ ③이 뒤처졌는데 다른 일을 하고 있으면 그것이 잘못이다.');
   process.exit(흠 ? 1 : 0);
 }
