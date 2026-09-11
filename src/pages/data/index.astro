@@ -369,6 +369,74 @@ const 묶음 = [
         worth knowing is whether you can have it right now.
       </p>
 
+      {/* 🔴 [2026-09-11 · 5번 문안, 2번이 얹음] docs/값표-지면-문안-5번.md Ⅰ-Ⅲ·Ⅴ 그대로.
+          사장님 급전 지시(값표를 얹는다) — /data 카탈로그에 실제로 살 수 있는 값을 건다. */}
+      <p class="lede">
+        Every dataset below has a free page and a free sample. The full file —
+        every row, as CSV and Parquet, with a data dictionary — is licensed.
+        Prices are listed. You will not be asked to request a quote.
+      </p>
+
+      <section id="licence" class="licence-block">
+        <table class="pricing">
+          <caption>Licence options</caption>
+          <thead>
+            <tr><th>Licence</th><th>What you get</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Page &amp; sample</th>
+              <td>The published page and a sample file. No registration.</td>
+              <td><strong>Free</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">Single dataset</th>
+              <td>One dataset, complete. CSV + Parquet + data dictionary. One release, yours to keep.</td>
+              <td><strong>KRW 390,000</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">Single dataset + 1 year</th>
+              <td>The same dataset, plus every release for twelve months.</td>
+              <td><strong>KRW 1,200,000</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">All datasets + 1 year</th>
+              <td>All six datasets, plus every release for twelve months.</td>
+              <td><strong>KRW 3,600,000</strong></td>
+            </tr>
+            <tr>
+              <th scope="row">Academic</th>
+              <td>One dataset for a thesis, dissertation or published paper. Cite us and we list your work.</td>
+              <td><strong>KRW 90,000</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>How to buy</h2>
+        <ol class="buy-steps">
+          <li>Email <a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a> with the dataset
+              name and your organisation.</li>
+          <li>We send an invoice. Korean businesses receive a tax invoice (세금계산서).</li>
+          <li>Pay by bank transfer. Invoiced in KRW.</li>
+          <li>You receive a download link within one business day. Links do not expire.</li>
+        </ol>
+        <p class="fine buy-fine">
+          No account, no subscription, no card on file. A single-dataset licence is a one-time
+          purchase — we do not bill you again unless you ask for the renewing option.
+        </p>
+
+        <details>
+          <summary>Licence terms</summary>
+          <ul>
+            <li>Use inside your organisation, including in client deliverables and research output.</li>
+            <li>Redistribution of the file itself, or resale as a dataset, is not included.</li>
+            <li>Attribution: <em>SeoulMarkets</em>, with the release date.</li>
+            <li>Source data is public. We license our compilation, normalisation and coverage work —
+                not the underlying facts, which nobody owns.</li>
+          </ul>
+        </details>
+      </section>
+
       {묶음.map((g) => (
         <section class="grp">
           <h2 class="grph">{g.name} <span class="n">{g.items.length}</span></h2>
@@ -453,4 +521,20 @@ const 묶음 = [
   .go:hover { text-decoration: underline; }
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.65; margin-top: 2rem;
           padding-top: 1rem; border-top: 1px solid var(--line); }
+  /* [2026-09-11 · 5번 문안] 값표 — Nasdaq 식 「Contact sales」 대신 값을 적는다 */
+  .lede { font-size: .95rem; line-height: 1.65; color: var(--ink-2); margin: 0 0 1.6rem; max-width: 42rem; }
+  .licence-block { margin: 0 0 2.6rem; padding: 1.2rem 1.4rem; border: 1px solid var(--line);
+                   border-radius: 10px; background: var(--card); }
+  .pricing { width: 100%; border-collapse: collapse; font-size: .88rem; margin: 0 0 1.4rem; }
+  .pricing caption { text-align: left; font-weight: 700; font-size: 1.02rem; margin: 0 0 .6rem; }
+  .pricing th, .pricing td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--line);
+                              vertical-align: top; }
+  .pricing thead th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .pricing td:last-child, .pricing th:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .licence-block h2 { font-size: 1.02rem; margin: 1.2rem 0 .5rem; }
+  .buy-steps { margin: 0 0 .8rem; padding-left: 1.2rem; font-size: .88rem; line-height: 1.6; }
+  .buy-fine { margin-top: 0; padding-top: 0; border-top: none; }
+  .licence-block details { font-size: .85rem; margin-top: .6rem; }
+  .licence-block summary { cursor: pointer; font-weight: 600; }
+  .licence-block details ul { margin: .5rem 0 0; padding-left: 1.2rem; line-height: 1.6; }
 </style>
