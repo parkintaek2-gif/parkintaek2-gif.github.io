@@ -41,6 +41,34 @@ import { 오늘 as 케이에스티오늘 } from './_kst.mjs';   /* 🔴 [2026-09
 const 내가실행됐다 = process.argv[1]
   && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
 
+/**
+ * 🔴 [2026-09-11 22:3x · 5번] **이 자가 «깨져서» 아무것도 못 재고 죽었다.**
+ *
+ * 22시 방송을 하려고 돌렸더니 이랬다 —
+ *   SyntaxError: Unexpected token '<', "<!DOCTYPE "... is not valid JSON
+ *
+ * 구글이 JSON 이 아니라 «HTML 오류 쪽»을 돌려준 것이다(로그인 벽·점검·프록시 따위).
+ * 그런데 코드가 곧바로 r.json() 을 부르는 바람에 자가 그냥 죽었다.
+ *
+ * ⛔ **자가 죽으면 「못 쟀다」조차 말해 주지 못한다.** 그게 제일 나쁘다 —
+ *   나는 그 자리에서 다른 자(ga4-report)로 갈아타 재야 했다.
+ * ✅ 그래서 답을 읽기 전에 «무엇이 왔는지» 보고, JSON 이 아니면 그렇게 말한다.
+ *   0 으로 채우지 않는다. 우리 강령 그대로 — 「못 잰 것은 못 쟀다고 적는다」.
+ */
+async function 답읽기(r, 무엇) {
+  const 글 = await r.text();
+  try {
+    return JSON.parse(글);
+  } catch {
+    const 꼴 = /^\s*</.test(글) ? 'HTML' : '알 수 없는 꼴';
+    console.log(`🔴 ${무엇} — **못 쟀다.** 구글이 JSON 이 아니라 ${꼴} 을 돌려줬다 (HTTP ${r.status})`);
+    console.log(`   첫 줄: ${글.split('\n')[0].slice(0, 100)}`);
+    console.log('   ⇒ 대개 토큰이 막혔거나 구글 쪽이 잠깐 막힌 것이다. 잠시 뒤 다시 잰다.');
+    console.log('   ⛔ 이때 0 으로 적지 않는다. 「못 쟀다」가 맞는 답이다.');
+    process.exit(0);
+  }
+}
+
 /* ── 가르는 자. 여기만 자가시험한다 ────────────────────────── */
 
 /**
@@ -264,7 +292,7 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
   if (!속성) {
     const r = await fetch('https://analyticsadmin.googleapis.com/v1beta/accountSummaries',
       { headers: { Authorization: `Bearer ${토큰}` } });
-    const j = await r.json();
+    const j = await 답읽기(r, '속성 목록');
     속성 = 우리속성(j.accountSummaries).고른것?.속성 ?? 우리속성(j.accountSummaries).전부[0]?.속성 ?? null;
   }
   if (!속성) { console.log('🔴 속성을 못 찾았다 — **못 쟀다**'); process.exit(0); }
@@ -287,7 +315,7 @@ if (내가실행됐다 && process.argv.includes('--잰다')) {
         limit: 5000,
       }),
     });
-    const j = await r.json();
+    const j = await 답읽기(r, 'GA4 보고');
     if (j.error) { console.log(`🔴 GA4 가 거절했다 — **못 쟀다.** ${JSON.stringify(j.error).slice(0, 200)}`); process.exit(0); }
     return j.rows ?? [];
   })();
