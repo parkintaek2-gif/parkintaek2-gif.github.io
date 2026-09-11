@@ -69,6 +69,13 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/video', lastmod: newest, changefreq: 'weekly', priority: '0.7' },
       // 데이터 상품 지면들 — 기업이 살 「주소」다. 검색 유입이 곧 영업. 5장이 사이트맵에 0개였다(56316, 2026-08-09).
       { loc: '/data', changefreq: 'weekly', priority: '0.9' },
+      /* 🔴 [2026-09-12 · 4번] F6 무료 영문 지면 넷(Financials·Valuation·Index·Consensus) —
+       *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
+       *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).
+       *   ⛔ 지면을 만들면 «같은 커밋에서» 이 목록에 넣는다. */
+      { loc: '/data/financials', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/valuation', changefreq: 'weekly', priority: '0.9' },
+      { loc: '/data/indices', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/sector-workforce-panel', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/pension-wage-panel', changefreq: 'weekly', priority: '0.8' },
       { loc: '/data/target-price-accuracy', changefreq: 'weekly', priority: '0.8' },
@@ -100,6 +107,17 @@ export const GET: APIRoute = async ({ params }) => {
       { loc: '/data/bond-boards', changefreq: 'daily', priority: '0.9' },
       // 펀드 등록원부를 «설정연도 × 유형»으로 읽은 지면. 남들이 안 세는 축이다.
       { loc: '/data/fund-shelf', changefreq: 'weekly', priority: '0.9' },
+      /* 🔴 [2026-09-12 · 4번] 전수 대조로 더 찾은 누락 넷 — 전부 라이브 200,
+       *   셋(kospi-weights·largest-companies·trading-partners)은 «서치콘솔이 가리켜»
+       *   5번이 2026-09-11에 만든 지면인데 사이트맵에는 못 들어갔다. 수요를 확인하고
+       *   만든 지면이 검색엔 안 보이는 채로 있었다. */
+      { loc: '/data/kospi-weights', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/largest-companies', changefreq: 'weekly', priority: '0.8' },
+      { loc: '/data/trading-partners', changefreq: 'weekly', priority: '0.7' },
+      { loc: '/data/korea-valuation.csv', changefreq: 'weekly', priority: '0.6' },
+      { loc: '/data/korea-trade.csv', changefreq: 'weekly', priority: '0.6' },
+      { loc: '/data/korea-trade-balance.csv', changefreq: 'weekly', priority: '0.6' },
+      { loc: '/data/korean-listed-workforce.csv', changefreq: 'weekly', priority: '0.6' },
       // 파는 조건 지면 — 사는 쪽 법무가 본다.
       { loc: '/terms', changefreq: 'monthly', priority: '0.3' },
       { loc: '/refund', changefreq: 'monthly', priority: '0.3' },
