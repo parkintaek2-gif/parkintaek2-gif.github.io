@@ -1,0 +1,466 @@
+---
+/**
+ * **Who are South Korea's largest trading partners?** — 무료 영문 지면.
+ * (seoulmarkets.com/data/trading-partners)
+ *
+ * ── 🔴 왜 이 지면인가 — 서치콘솔이 가리켰다 (2026-09-11 · 5번 실측) ──────────
+ *   28일 창에서 「trading partners」 무리가 **지면 없이** 노출되고 있었다 —
+ *     south korea largest trading partners  6회 · 33.5위
+ *     south korea trading partners          4회 · 38.5위
+ *     south korea biggest trade partners    3회 ·  7.3위
+ *     south korea top trading partners      3회 · 10.3위
+ *     korea trading partners / korea trade partners / south korea major …  합 5회
+ *   ⇒ 합 21회. 클릭 0.
+ *
+ * 🔴 그런데 **자료도 지면도 이미 있었다** — /data/korea-trade-dataset.
+ *   그 지면이 못 받는 까닭이 이것이다: 그것은 **「자료가 있습니다」 지면**이고,
+ *   손님이 찾는 것은 **「누가 제일 큰가」라는 답**이다.
+ *   사장님이 2026-09-11 에 짚으신 「공급자 마인드로 결론 없이 마감」이 바로 이 모양이다.
+ *   ⇒ 이 지면은 «답»을 낸다. 자료 지면은 그대로 두고 서로 잇는다.
+ *
+ * ── ⭐ 우리 축 — 남들이 안 내는 것 ───────────────────────────────────
+ *   ① 「제일 큰 상대」와 「제일 남는 상대」가 **다른 나라**다.
+ *      중국이 총교역 1위인데 수지는 미국이 훨씬 크다. 어디서도 나란히 안 놓는다.
+ *   ② 「한쪽으로만 흐르는 정도」 = |수지| ÷ 총교역. 홍콩은 사실상 «파는 곳»이고,
+ *      중국은 상위 25 가운데 가장 «고른» 상대다. 크기 순위만 보면 안 보인다.
+ *   ③ 꼬리 — 243 상대 가운데 절반이 전체의 0.01% 에도 못 미친다. 아무도 안 센다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * ⛔ 「교역액이 크다」를 「중요하다」로 바꿔 말하지 않는다. 크기는 크기일 뿐이다.
+ * ⛔ 관세청 기준 **상품**만이다. 용역(서비스)은 이 자료에 없다 — 그 사실을 표 «위»에 적는다.
+ * ⛔ 나라 이름은 원자료의 표기를 우리가 «철자만» 고친다. 영토·귀속을 바꾸지 않는다.
+ * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * ⚠ 줄바꿈만으로 두 글월을 띄우면 «붙어» 나간다. 사이에 {' '} 를 넣는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import { TRADE } from '../../lib/trade-data.mjs';
+
+/*
+ * ⛔ 원자료(관세청)의 영문 표기는 영어 독자에게 깨져 보인다 — 「Netherland」·「U.S.A」·
+ *   「China peoples' republic of」. 그릇이 내용물을 결정한다(사장님 2026-08-02).
+ * ⚠ 다만 **철자만** 고친다. 어느 나라를 어디에 넣을지는 원자료가 정한 그대로 둔다.
+ *   여기 없는 이름은 원자료 표기를 그대로 낸다 — 짐작으로 바꾸지 않는다.
+ */
+const 이름고침: Record<string, string> = {
+  "China peoples' republic of": 'China',
+  'U.S.A': 'United States',
+  'Hong kong(BR)': 'Hong Kong',
+  'Saudi-arabia': 'Saudi Arabia',
+  'U.arab emirates': 'United Arab Emirates',
+  Netherland: 'Netherlands',
+  'Marshalls Islands': 'Marshall Islands',
+  'Viet nam': 'Vietnam',
+  'Russian federation': 'Russia',
+  'Korea, republic of': 'South Korea',
+  'Czech republic': 'Czechia',
+  'United kingdom': 'United Kingdom',
+  'New zealand': 'New Zealand',
+  'South africa': 'South Africa',
+  'Sri lanka': 'Sri Lanka',
+  'Costa rica': 'Costa Rica',
+};
+const 부르기 = (n: string) => 이름고침[n] ?? n;
+
+type 상대 = {
+  name: string; raw: string; ex: number; im: number; total: number; bal: number;
+  달들: Array<{ month: string; bal: number }>;
+};
+
+/* 천달러 단위로 들어온다 — 1e6 천달러 = 10억 달러 */
+const 십억 = (n: number) => n / 1e6;
+const bn = (n: number, d = 1) => 십억(n).toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d });
+const num = (n: number) => n.toLocaleString('en-GB');
+const pc = (n: number, d = 1) => `${n.toFixed(d)}%`;
+
+const 모두: 상대[] = TRADE.countries.map((c: any) => {
+  const ex = c.months.reduce((a: number, m: any) => a + (m.exports ?? 0), 0);
+  const im = c.months.reduce((a: number, m: any) => a + (m.imports ?? 0), 0);
+  return {
+    name: 부르기(c.name_en), raw: c.name_en, ex, im, total: ex + im, bal: ex - im,
+    달들: c.months.map((m: any) => ({ month: m.month, bal: (m.exports ?? 0) - (m.imports ?? 0) })),
+  };
+}).filter((c: 상대) => c.total > 0);
+모두.sort((a, b) => b.total - a.total);
+
+const 상대수 = 모두.length;
+const 총교역 = 모두.reduce((a, c) => a + c.total, 0);
+const 몫 = (c: 상대) => (c.total / 총교역) * 100;
+const 누적 = (n: number) => (모두.slice(0, n).reduce((a, c) => a + c.total, 0) / 총교역) * 100;
+
+const 첫 = 모두[0];
+const 둘 = 모두[1];
+
+/* 크기가 아니라 «수지»로 세운 순위 — 이 둘이 어긋나는 것이 이 지면의 머릿기사다 */
+const 흑자순 = [...모두].filter((c) => c.bal > 0).sort((a, b) => b.bal - a.bal);
+const 적자순 = [...모두].filter((c) => c.bal < 0).sort((a, b) => a.bal - b.bal);
+const 흑자수 = 흑자순.length;
+const 적자수 = 적자순.length;
+const 균형수 = 상대수 - 흑자수 - 적자수;
+const 수지1등 = 흑자순[0];
+const 배수 = 첫.bal > 0 ? 수지1등.bal / 첫.bal : null;
+
+/* 한쪽으로만 흐르는 정도 — 상위 25 안에서만 잰다. 작은 상대는 한쪽 쏠림이 흔해 뜻이 없다 */
+const 큰상대 = 모두.slice(0, 25).map((c) => ({ ...c, 한쪽: Math.abs(c.bal) / c.total }));
+const 쏠린순 = [...큰상대].sort((a, b) => b.한쪽 - a.한쪽);
+const 가장쏠림 = 쏠린순[0];
+const 가장고름 = 쏠린순[쏠린순.length - 1];
+
+/* 꼬리 — 아무도 안 세는 자리 */
+const 꼬리선 = 총교역 * 0.0001;            /* 전체의 0.01% */
+const 꼬리수 = 모두.filter((c) => c.total < 꼬리선).length;
+const 꼬리몫 = (모두.filter((c) => c.total < 꼬리선).reduce((a, c) => a + c.total, 0) / 총교역) * 100;
+
+/* 열두 달 안에 흑자·적자가 «뒤집힌» 큰 상대 — 한 해치 한 줄로는 안 보이는 것 */
+const 뒤집힌 = 모두.slice(0, 25).filter((c) => {
+  const 부호 = c.달들.map((m) => Math.sign(m.bal)).filter((s) => s !== 0);
+  return new Set(부호).size > 1;
+});
+
+const 창 = `${TRADE.window.first_month} to ${TRADE.window.latest_month}`;
+const 달수 = TRADE.window.months;
+
+const TITLE = "South Korea's largest trading partners — ranked, with the balance";
+const DESC =
+  `South Korea traded with ${num(상대수)} partner countries over the ${달수} months from ${창}. `
+  + `${첫.name} is the largest at ${pc(몫(첫))} of all trade, but the largest surplus comes from `
+  + `${수지1등.name}. Free, in English, on a customs goods basis, with the long tail and the gaps published.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: "South Korea's trading partners ranked by trade value and by balance",
+  description: DESC,
+  url: `${SITE_URL}/data/trading-partners`,
+  keywords: ['South Korea', 'trading partners', 'Korea trade', 'exports', 'imports',
+    'trade balance', 'trade surplus', 'trade deficit', 'customs', 'China', 'United States'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  temporalCoverage: 창.replace(' to ', '/'),
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  variableMeasured: ['exports (USD)', 'imports (USD)', 'trade balance (USD)',
+    'share of total trade', 'balance as a share of two-way trade'],
+  measurementTechnique:
+    'Exports and imports are summed over the stated months per partner country on a customs basis, '
+    + 'which covers goods only and excludes services. Share of total trade is a partner’s two-way '
+    + 'trade divided by the sum of two-way trade across all partners with a non-zero figure. Balance '
+    + 'is exports minus imports. Partner names follow the source; only their spelling is normalised '
+    + 'for English readers, never their territorial assignment.',
+  distribution: {
+    '@type': 'DataDownload', encodingFormat: 'text/csv',
+    contentUrl: `${SITE_URL}/data/korea-trade-balance.csv`,
+  },
+};
+
+/* FAQ — ⛔ 화면에 «실제로 보이는» 글월과 같아야 한다(구글 규칙) */
+const faq: Array<[string, string]> = [
+  ["Who is South Korea's largest trading partner?",
+    `${첫.name}, at ${pc(몫(첫))} of all two-way trade over the ${달수} months from ${창} — `
+    + `$${bn(첫.total)} billion. ${둘.name} is second at ${pc(몫(둘))}, or $${bn(둘.total)} billion. `
+    + `The two together are ${pc(누적(2))} of everything South Korea trades.`],
+  ['Which partner gives South Korea the biggest trade surplus?',
+    `${수지1등.name}, at $${bn(수지1등.bal)} billion over the ${달수} months`
+    + (배수 && 배수 > 1.5
+      ? ` — about ${배수.toFixed(1)} times the surplus with ${첫.name}, the larger partner by trade value.`
+      : '.')
+    + ' The biggest partner and the biggest surplus are not the same country, and a ranking by size alone hides that.'],
+  ['How many countries does South Korea trade with?',
+    `${num(상대수)} partner countries recorded a non-zero figure in this window. The count is not the `
+    + `story on its own: ${num(꼬리수)} of them — ${pc((꼬리수 / 상대수) * 100, 0)} of the list — are each `
+    + `under one hundredth of one percent of total trade, and ${pc(꼬리몫, 2)} between them.`],
+  ['Does South Korea run a surplus or a deficit with most partners?',
+    `A surplus, and by a wide margin of countries: ${num(흑자수)} partners are in surplus against `
+    + `${num(적자수)} in deficit`
+    + (균형수 ? `, with ${num(균형수)} exactly level` : '')
+    + `. The deficits are concentrated in a few large ones — the largest is `
+    + `${적자순[0].name} at $${bn(-적자순[0].bal)} billion.`],
+  ['Does this include services?',
+    'No. These are customs figures, which cover goods crossing the border. Shipping, tourism, '
+    + 'royalties, software and financial services are not in this dataset, and for some partners '
+    + 'they are large. A goods balance is not a current-account balance, and we do not present it as one.'],
+  ['Where does the data come from and is it free?',
+    'It is free and in English. The figures come from the Korean government public data portal, '
+    + `on a customs basis, covering ${달수} months from ${창}. The full month-by-month file for all `
+    + `${num(상대수)} partners is downloadable as CSV.`],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Who are South Korea&rsquo;s largest trading partners?</h1>
+    <p class="lead">
+      {num(상대수)} partner countries, {달수} months, <b>{창}</b>, in English and free.{' '}
+      <b>{첫.name}</b> is the largest at <b>{pc(몫(첫))}</b> of all trade — but the largest{' '}
+      <b>surplus</b> comes from <b>{수지1등.name}</b>. Those are two different rankings, and almost
+      everyone publishes only the first.
+    </p>
+
+    <section class="stats">
+      <div class="stat"><b>{num(상대수)}</b><span>partner countries</span></div>
+      <div class="stat"><b>{pc(몫(첫))}</b><span>{첫.name}, the largest</span></div>
+      <div class="stat"><b>{pc(누적(5))}</b><span>the top five together</span></div>
+      <div class="stat"><b>{num(흑자수)} : {num(적자수)}</b><span>surplus : deficit partners</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: goods only, and the names are the source&rsquo;s</h2>
+      <p class="warn">
+        These are <b>customs figures</b>. They count goods crossing the border and they do not
+        include <b>services</b> — shipping, tourism, royalties, software, finance. For some partners
+        services are large, so a goods balance is not a current-account balance and we do not call
+        it one. Partner names come from the source; we normalise <b>spelling only</b> so the page
+        reads in English, and never reassign a territory. Anything we have no correction for is
+        printed exactly as the source wrote it.
+      </p>
+      <p class="note">
+        This is data, not advice. Nothing here says a partner is good, risky, over-exposed or
+        under-exposed, and no averages are computed.
+      </p>
+    </section>
+
+    <section>
+      <h2>The twenty-five largest, by two-way trade</h2>
+      <div class="scroll">
+        <table class="grid">
+          <thead>
+            <tr>
+              <th class="n">#</th><th>Partner</th>
+              <th class="n">Two-way ($bn)</th><th class="n">Share</th>
+              <th class="n">Cumulative</th><th class="n">Balance ($bn)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {모두.slice(0, 25).map((c, i) => (
+              <tr>
+                <td class="n rk">{i + 1}</td>
+                <td class="nm">{c.name}</td>
+                <td class="n">{bn(c.total)}</td>
+                <td class="n">{pc(몫(c), 2)}</td>
+                <td class="n cum">{pc(누적(i + 1))}</td>
+                <td class={c.bal >= 0 ? 'n pos' : 'n neg'}>
+                  {c.bal >= 0 ? '+' : '−'}{bn(Math.abs(c.bal))}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Two-way trade is exports plus imports. Balance is exports minus imports — a plus sign means
+        South Korea sold more than it bought.
+      </p>
+    </section>
+
+    <section>
+      <h2>The biggest partner and the biggest surplus are different countries</h2>
+      <p>
+        {첫.name} is first by trade value. It is not first by balance.{' '}
+        <b>{수지1등.name}</b> produced a surplus of <b>${bn(수지1등.bal)} billion</b> over these{' '}
+        {달수} months
+        {배수 && 배수 > 1.5
+          ? <span>, about <b>{배수.toFixed(1)} times</b> the ${bn(첫.bal)} billion from {첫.name}</span>
+          : <span></span>}
+        {' '}— on{' '}
+        <b>{((수지1등.total / 첫.total) * 100).toFixed(0)}%</b> as much two-way trade. Size tells you
+        how much moves. It does not tell you which direction it moves in.
+      </p>
+      <div class="two">
+        <div>
+          <h3>Largest surpluses</h3>
+          <table class="grid sm">
+            <tbody>
+              {흑자순.slice(0, 6).map((c, i) => (
+                <tr><td class="n rk">{i + 1}</td><td class="nm">{c.name}</td>
+                  <td class="n pos">+{bn(c.bal)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>Largest deficits</h3>
+          <table class="grid sm">
+            <tbody>
+              {적자순.slice(0, 6).map((c, i) => (
+                <tr><td class="n rk">{i + 1}</td><td class="nm">{c.name}</td>
+                  <td class="n neg">&minus;{bn(-c.bal)}</td></tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">
+        Billions of US dollars, summed over {달수} months. {num(흑자수)} partners are in surplus and{' '}
+        {num(적자수)} in deficit{균형수 ? `, with ${num(균형수)} exactly level` : ''} — surplus is the
+        ordinary case, and the deficits are concentrated in a few large ones.
+      </p>
+    </section>
+
+    <section>
+      <h2>One-way partners and two-way partners</h2>
+      <p>
+        A partner can be large and still be almost entirely a <i>destination</i>, or almost entirely
+        a <i>supplier</i>. Dividing the balance by two-way trade says which. Among the twenty-five
+        largest, <b>{가장쏠림.name}</b> is the most one-sided at{' '}
+        <b>{pc(가장쏠림.한쪽 * 100, 0)}</b> — South Korea{' '}
+        {가장쏠림.bal > 0 ? 'sells there far more than it buys' : 'buys there far more than it sells'}.
+        The most even is <b>{가장고름.name}</b> at <b>{pc(가장고름.한쪽 * 100, 0)}</b>, which is worth
+        holding beside its rank: the largest partner by value is also one of the most balanced.
+      </p>
+      <div class="scroll">
+        <table class="grid">
+          <thead>
+            <tr>
+              <th>Partner</th><th class="n">Two-way ($bn)</th>
+              <th class="n">Balance as share of trade</th><th>Direction</th>
+            </tr>
+          </thead>
+          <tbody>
+            {쏠린순.slice(0, 10).map((c) => (
+              <tr>
+                <td class="nm">{c.name}</td>
+                <td class="n">{bn(c.total)}</td>
+                <td class="n">{pc(c.한쪽 * 100, 0)}</td>
+                <td class={c.bal > 0 ? 'pos' : 'neg'}>
+                  {c.bal > 0 ? 'Korea sells' : 'Korea buys'}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Ranked among the twenty-five largest partners only. In a very small partner a one-sided
+        ratio is common and says little, so we do not rank the whole list on it.
+      </p>
+    </section>
+
+    {뒤집힌.length > 0 && (
+      <section>
+        <h2>A yearly figure hides the months that went the other way</h2>
+        <p>
+          {뒤집힌.length} of the twenty-five largest partners changed direction at least once inside
+          these {달수} months — a surplus month and a deficit month in the same year. Summed over a
+          year they show one sign, and the sign is true; it is just not the whole shape.
+        </p>
+        <ul class="flip">
+          {뒤집힌.slice(0, 8).map((c) => {
+            const 흑 = c.달들.filter((m) => m.bal > 0).length;
+            const 적 = c.달들.filter((m) => m.bal < 0).length;
+            return (
+              <li>
+                <b>{c.name}</b> — {흑} surplus {흑 === 1 ? 'month' : 'months'}, {적} deficit{' '}
+                {적 === 1 ? 'month' : 'months'}; the year nets to{' '}
+                <span class={c.bal >= 0 ? 'pos' : 'neg'}>
+                  {c.bal >= 0 ? '+' : '−'}${bn(Math.abs(c.bal))} billion
+                </span>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    )}
+
+    <section>
+      <h2>How concentrated is it, and what is in the tail?</h2>
+      <table class="dist">
+        <tbody>
+          {[1, 2, 3, 5, 10, 20, 50].map((n) => (
+            <tr>
+              <th>Top {n}</th>
+              <td class="bar"><span style={`width:${누적(n).toFixed(1)}%`}></span></td>
+              <td class="p">{pc(누적(n))}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        The other side of that is the tail, and it is the part nobody counts:{' '}
+        <b>{num(꼬리수)} of the {num(상대수)} partners</b> — {pc((꼬리수 / 상대수) * 100, 0)} of the
+        list — are each under one hundredth of one percent of total trade, and{' '}
+        <b>{pc(꼬리몫, 2)}</b> between them. They are real trade with real countries, and a top-ten
+        table makes all {num(꼬리수)} of them disappear at once.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p class="note">
+        The full month-by-month file for every partner:{' '}
+        <a href="/data/korea-trade-dataset">the Korea trade dataset</a>{' '}
+        (free CSV). Company-level concentration in the equity market, measured the same way:{' '}
+        <a href="/data/kospi-weights">what share of KOSPI is each company</a>. What we hold on
+        company accounts: <a href="/data/financials">financials coverage</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Questions</h2>
+      {faq.map(([q, a]) => (
+        <div class="qa"><h3>{q}</h3><p class="note">{a}</p></div>
+      ))}
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0 0 .6rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; color: #333; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  h3 { font-size: .98rem; margin: 0 0 .3rem; }
+  p { line-height: 1.65; margin: 0 0 .7rem; }
+  .note { font-size: .88rem; color: #555; }
+  .warn { font-size: .95rem; line-height: 1.65; background: #fffaf2; border-left: 3px solid #d08700;
+          padding: .7rem .9rem; margin: 0 0 .7rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .7rem; }
+  .stat { border: 1px solid #e3e3e3; border-radius: 6px; padding: .8rem .9rem; background: #fcfcfc; }
+  .stat b { display: block; font-size: 1.45rem; line-height: 1.1; }
+  .stat span { font-size: .82rem; color: #666; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .grid th, .grid td { border-bottom: 1px solid #ececec; padding: .38rem .5rem; text-align: left; }
+  .grid thead th { border-bottom: 2px solid #ddd; font-weight: 600; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .nm { font-weight: 600; }
+  .rk, .cum { color: #666; }
+  .pos { color: #1c6b45; }
+  .neg { color: #9c3024; }
+  .scroll { overflow-x: auto; }
+  .scroll .grid { min-width: 40rem; }
+  .sm { font-size: .88rem; }
+  .two { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.2rem; }
+  .flip { margin: 0 0 .7rem; padding-left: 1.1rem; }
+  .flip li { line-height: 1.6; margin: 0 0 .25rem; font-size: .92rem; }
+  .dist th { text-align: left; padding: .3rem .5rem .3rem 0; font-weight: 500; white-space: nowrap; }
+  .dist td { padding: .3rem .4rem; }
+  .dist .bar { width: 50%; }
+  .dist .bar span { display: block; height: .7rem; background: #2f6f4f; border-radius: 2px; }
+  .dist .p { color: #666; font-size: .84rem; text-align: right; white-space: nowrap; }
+  .qa { margin: 0 0 1rem; }
+  a { color: #1a5c9c; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #cfcfcf; }
+    .note { color: #a8a8a8; }
+    .warn { background: #2a2318; border-left-color: #c08a20; }
+    .stat { border-color: #333; background: #1b1b1b; }
+    .grid th, .grid td { border-bottom-color: #2c2c2c; }
+    .grid thead th { border-bottom-color: #3a3a3a; }
+    .rk, .cum, .dist .p { color: #a0a0a0; }
+    .pos { color: #6dbd93; }
+    .neg { color: #e08a7e; }
+    a { color: #7ab3e8; }
+  }
+</style>
