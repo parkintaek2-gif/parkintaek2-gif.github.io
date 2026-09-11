@@ -148,7 +148,20 @@ const cap100ByMarket = ['Y', 'K', 'N']
   .map((k) => ({ label: marketNames[k], n: cap100.filter((r) => r.market === k).length }))
   .filter((m) => m.n > 0);
 
-const trn = (n: number | null) => (n === null ? '—' : (n / 1e12).toFixed(n / 1e12 >= 100 ? 0 : 1));
+/**
+ * 서수 — 🔴 [2026-09-11] 라이브에 「SK Square is **3th** by market value」가 나갔다.
+ *   `${순위}th` 로 붙여 적은 탓이다. 손님이 영어권인데 영어가 틀리면 그 지면의 수도 의심받는다.
+ * ⚠ 11·12·13 은 예외다(11st 가 아니라 11th). 그래서 100 으로 나눈 나머지를 먼저 본다.
+ */
+const 서수 = (n: number | null | undefined) => {
+  if (n === null || n === undefined) return '—';
+  const v = Number(n); const 백 = v % 100; const 십 = v % 10;
+  const 꼬리 = (백 >= 11 && 백 <= 13) ? 'th' : 십 === 1 ? 'st' : 십 === 2 ? 'nd' : 십 === 3 ? 'rd' : 'th';
+  return `${v.toLocaleString('en-GB')}${꼬리}`;
+};
+/* ⚠ 조 단위. 백조가 넘으면 소수점을 버리되 «쉼표»는 넣는다 — 「1576 trillion」이 라이브에 나갔다 */
+const trn = (n: number | null) => (n === null ? '—'
+  : (n / 1e12) >= 100 ? Math.round(n / 1e12).toLocaleString('en-GB') : (n / 1e12).toFixed(1));
 const num = (n: number) => n.toLocaleString('en-GB');
 
 const samsung = rows.find((r) => r.ticker === '005930');
@@ -201,7 +214,7 @@ const faq: Array<[string, string]> = [
   ['What is the largest company in South Korea?',
     `It depends on what you measure. ${samsung?.nameEn ?? 'Samsung Electronics'} is first by market `
     + `value at ${trn(samsung?.marketCap ?? null)} trillion won on ${priceDate} and first by revenue `
-    + `for ${fiscalYear}, but it is ${rankOf('005930', 'totalAssets') ?? '—'}th by total assets, `
+    + `for ${fiscalYear}, but it is ${서수(rankOf('005930', 'totalAssets'))} by total assets, `
     + `where ${byKey.get('totalAssets')!.top[0]?.nameEn} is first. This page publishes all four `
     + `orders side by side rather than picking one.`],
   ['What are the top 10 biggest companies in Korea?',
@@ -210,10 +223,11 @@ const faq: Array<[string, string]> = [
     + `all four lists: ${inAllFour.map((t) => byTicker.get(t)?.nameEn).join(' and ')}.`],
   ['Why do the rankings disagree so much?',
     `Because the four measures answer different questions. `
-    + `${skSquare?.nameEn ?? 'SK Square'} is ${rankOf(skSquare?.ticker ?? null, 'marketCap') ?? '—'}`
-    + `th by market value and ${rankOf(skSquare?.ticker ?? null, 'revenue') ?? '—'}th by revenue. `
-    + `${kepco?.nameEn ?? 'KEPCO'} is ${rankOf(kepco?.ticker ?? null, 'revenue') ?? '—'}th by revenue `
-    + `and ${rankOf(kepco?.ticker ?? null, 'marketCap') ?? '—'}th by market value. Market value is `
+    + `${skSquare?.nameEn ?? 'SK Square'} is `
+    + `${서수(rankOf(skSquare?.ticker ?? null, 'marketCap'))} by market value and `
+    + `${서수(rankOf(skSquare?.ticker ?? null, 'revenue'))} by revenue. `
+    + `${kepco?.nameEn ?? 'KEPCO'} is ${서수(rankOf(kepco?.ticker ?? null, 'revenue'))} by revenue `
+    + `and ${서수(rankOf(kepco?.ticker ?? null, 'marketCap'))} by market value. Market value is `
     + `what buyers paid on one day; revenue is what came in the door over a year. Neither is the `
     + `true size, and we do not combine them into a score.`],
   ['Are Korean banks missing from the revenue ranking?',
