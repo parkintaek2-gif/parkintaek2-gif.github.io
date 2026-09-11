@@ -1,0 +1,328 @@
+---
+/*
+ * **What is actually in the Korean financial-statement tape** — 무료 영문 지면(F6 깔때기).
+ * (seoulmarkets.com/data/financials)
+ *
+ * ── 🔴 왜 이 지면인가 ────────────────────────────────────────────────
+ *   사장님 지시(2026-09-10): 「우리는 영문판 fnGuide이다」.
+ *   실행계획 F6 이 무료 영문 지면 «넷»을 정해 두었다 —
+ *     Financials · Valuation · Index · Consensus
+ *   그 가운데 Valuation·Consensus 는 지면이 있고, Index 는 2번 몫(F4),
+ *   **Financials 만 지면이 없었다.** 이 지면이 그 자리다.
+ *
+ * ⭐ 그리고 이 지면은 «숫자를 보여 주는 곳»이 아니라 **「우리가 무엇을 갖고 있나」를
+ *   손님이 판정하게 하는 곳**이다. 자료를 사려는 사람이 값을 묻기 전에 보는 것이 이것이다.
+ *   ⇒ 그래서 자랑이 아니라 **커버리지와 구멍**을 낸다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * 🔴 **KONEX 12.1% 를 숨기지 않는다.** 전체 94.9% 만 적으면 코넥스를 사려는 손님이 속는다.
+ *   시장별로 갈라 적는 것이 이 지면의 존재 이유다.
+ * ⛔ 연결(CFS)과 개별(OFS)을 섞지 않는다 — 섞으면 배수가 틀린다. 몇 곳이 어느 쪽인지 적는다.
+ * ⛔ 못 붙은 것을 0 으로 채우지 않는다. 까닭을 갈래로 세어 적는다.
+ * ⛔ 「업종 평균」을 만들지 않는다.
+ * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * ⚠ 줄바꿈만으로 두 글월을 띄우면 «붙어» 나간다. 사이에 {' '} 를 넣는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-valuation-tape.json';
+
+type Row = {
+  ticker: string | null; nameEn: string | null; market: string | null;
+  basis: string | null; notMeasured: string | null;
+  totalAssets: number | null; totalEquity: number | null; revenue: number | null;
+  operatingIncome: number | null; netIncome: number | null; marketCap: number | null;
+};
+
+const meta = (tape as any)._meta as Record<string, any>;
+const rows = ((tape as any).rows ?? []) as Row[];
+const total = rows.length;
+
+const joined = rows.filter((r) => !r.notMeasured);
+const num = (n: number) => n.toLocaleString('en-GB');
+const pct = (n: number, d: number) => (d === 0 ? '—' : `${((n / d) * 100).toFixed(1)}%`);
+
+/* 계정별 채움 — ⛔ 「대부분 있다」로 뭉치지 않는다 */
+const accounts: Array<{ key: keyof Row; label: string; note: string }> = [
+  { key: 'totalAssets', label: 'Total assets', note: 'Balance sheet' },
+  { key: 'totalEquity', label: 'Total equity', note: 'Balance sheet' },
+  { key: 'revenue', label: 'Revenue', note: 'Income statement — absent from many financial filers' },
+  { key: 'operatingIncome', label: 'Operating profit', note: 'Income statement' },
+  { key: 'netIncome', label: 'Net income', note: 'Income statement' },
+];
+const filled = accounts.map((a) => ({
+  ...a, n: rows.filter((r) => r[a.key] !== null).length,
+}));
+
+/* 🔴 시장별로 갈라야 한다 — 전체 하나로 적으면 코넥스를 사려는 손님이 속는다 */
+const marketNames: Record<string, string> = { Y: 'KOSPI', K: 'KOSDAQ', N: 'KONEX' };
+const byMarket = ['Y', 'K', 'N'].map((m) => {
+  const all = rows.filter((r) => r.market === m);
+  const ok = all.filter((r) => !r.notMeasured);
+  return { label: marketNames[m], all: all.length, ok: ok.length };
+}).filter((m) => m.all > 0);
+const worst = [...byMarket].sort((a, b) => (a.ok / a.all) - (b.ok / b.all))[0];
+
+/* 연결·개별 */
+const basisCount = (b: string) => joined.filter((r) => r.basis === b).length;
+const consolidated = basisCount('Consolidated');
+const separate = basisCount('Separate');
+
+/* 못 붙은 까닭 */
+const reasons = (() => {
+  const m = new Map<string, number>();
+  for (const r of rows) if (r.notMeasured) m.set(r.notMeasured, (m.get(r.notMeasured) ?? 0) + 1);
+  return [...m].sort((a, b) => b[1] - a[1]);
+})();
+const reasonEn = (why: string) =>
+  (why.includes('자본총계')
+    ? 'a filing arrived but the equity and net-income lines we need were not in it'
+    : why.includes('시가총액')
+      ? 'no market capitalisation on the price date, so the row cannot be joined'
+      : 'no annual report for that fiscal year — newly listed, merged, or dormant');
+
+/* 적자 회사 — 배수를 쓸 때 반드시 알아야 하는 수 */
+const lossMaking = joined.filter((r) => r.netIncome !== null && r.netIncome <= 0).length;
+
+const fiscalYear = meta.fiscalYear as number;
+const TITLE = 'What is in the Korean financial-statement tape — coverage, basis and the gaps';
+const DESC =
+  `Annual financial statements for ${num(joined.length)} of ${num(total)} listed Korean companies `
+  + `(${pct(joined.length, total)}) for ${fiscalYear}, in English and free. Coverage is not even: `
+  + `${byMarket[0]?.label} ${pct(byMarket[0]?.ok ?? 0, byMarket[0]?.all ?? 1)} but `
+  + `${worst?.label} ${pct(worst?.ok ?? 0, worst?.all ?? 1)}. We publish the gaps, not just the total.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korean listed-company financial statements — coverage and structure',
+  description: DESC,
+  url: `${SITE_URL}/data/financials`,
+  keywords: ['Korea', 'financial statements', 'DART', 'KOSPI', 'KOSDAQ', 'KONEX', 'balance sheet',
+    'income statement', 'consolidated', 'separate', 'data coverage', 'Korean companies'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique:
+    'Statements come from the Korean Financial Supervisory Service DART open API '
+    + '(fnlttSinglAcntAll, annual report code 11011). Consolidated statements are used where filed '
+    + 'and separate statements otherwise; which one was used is recorded per company and the two are '
+    + 'never mixed within a row. A company whose filing did not carry the accounts we need is kept '
+    + 'in the file with the reason recorded, not dropped and not filled with zero.',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  temporalCoverage: String(fiscalYear),
+  variableMeasured: ['total assets', 'total equity', 'revenue', 'operating income', 'net income'],
+};
+
+const faq: Array<[string, string]> = [
+  ['How many Korean listed companies have financial statements here?',
+    `${num(joined.length)} of ${num(total)} (${pct(joined.length, total)}) for fiscal year ${fiscalYear}. `
+    + `Coverage is not even across markets: `
+    + byMarket.map((m) => `${m.label} ${num(m.ok)} of ${num(m.all)} (${pct(m.ok, m.all)})`).join(', ')
+    + '. The uneven part matters more than the headline number.'],
+  ['Why is KONEX coverage so much lower?',
+    `${worst?.label} is ${pct(worst?.ok ?? 0, worst?.all ?? 1)} against roughly 98 percent on the two `
+    + 'main boards. These are the smallest listed companies in Korea and many of them do not file the '
+    + 'standardised full account set the API serves. We publish the figure rather than quoting the '
+    + 'overall average, because anyone building on the small-cap board needs to know before they start.'],
+  ['Are consolidated and separate statements mixed?',
+    `No. ${num(consolidated)} companies are on a consolidated basis and ${num(separate)} on a separate `
+    + 'basis, and each row records which. Mixing the two inside one comparison is a common way to get '
+    + 'valuation multiples wrong, so the basis ships as a column rather than as an assumption.'],
+  ['How many Korean listed companies lost money?',
+    `${num(lossMaking)} of the ${num(joined.length)} companies with a readable filing reported net `
+    + `income of zero or less for ${fiscalYear} — ${pct(lossMaking, joined.length)}. That is why the `
+    + 'valuation tape leaves a price-earnings ratio empty rather than printing a negative one.'],
+  ['What is not in this data?',
+    'It is annual, so quarterly and half-year figures are not here. It is one fiscal year at a time. '
+    + 'It carries the headline accounts — assets, equity, revenue, operating profit, net income — not '
+    + 'the full note-level detail of a filing. And it does not include companies that filed nothing.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>What is in the Korean financial-statement tape</h1>
+    <p class="lead">
+      Annual statements for <b>{num(joined.length)}</b> of {num(total)} listed Korean companies,
+      fiscal year <b>{fiscalYear}</b>, in English and free. This page is about coverage — what we
+      hold, on what basis, and where the holes are.
+    </p>
+
+    <section class="stats">
+      <div class="stat"><b>{pct(joined.length, total)}</b><span>of listed companies</span></div>
+      <div class="stat"><b>{num(consolidated)}</b><span>consolidated</span></div>
+      <div class="stat"><b>{num(separate)}</b><span>separate</span></div>
+      <div class="stat"><b>{pct(worst?.ok ?? 0, worst?.all ?? 1)}</b><span>on {worst?.label}</span></div>
+    </section>
+
+    <section>
+      <h2>Coverage is not one number. It is three.</h2>
+      <p class="warn">
+        The headline is {pct(joined.length, total)}. <b>Quoting only that would mislead anyone
+        building on the small-cap board.</b> Coverage on the two main boards is around 98 percent;
+        on {worst?.label} it is <b>{pct(worst?.ok ?? 0, worst?.all ?? 1)}</b>. Those companies are
+        the smallest listed firms in Korea and many do not file the standardised full account set
+        the regulator&rsquo;s API serves. We would rather you know that before you licence anything.
+      </p>
+      <table class="grid">
+        <thead>
+          <tr><th>Market</th><th class="n">Companies</th><th class="n">With statements</th><th class="n">Coverage</th></tr>
+        </thead>
+        <tbody>
+          {byMarket.map((m) => (
+            <tr>
+              <td>{m.label}</td>
+              <td class="n">{num(m.all)}</td>
+              <td class="n">{num(m.ok)}</td>
+              <td class={m.ok / m.all < 0.5 ? 'n low' : 'n'}>{pct(m.ok, m.all)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Which accounts are present</h2>
+      <table class="grid">
+        <thead>
+          <tr><th>Account</th><th class="n">Companies</th><th class="n">Share of {num(total)}</th><th>Where it comes from</th></tr>
+        </thead>
+        <tbody>
+          {filled.map((a) => (
+            <tr>
+              <td class="nm">{a.label}</td>
+              <td class="n">{num(a.n)}</td>
+              <td class="n">{pct(a.n, total)}</td>
+              <td class="ind">{a.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="note">
+        Revenue is the thinnest line, and not because of a collection failure alone: banks, insurers
+        and holding companies file an income statement built around interest, premiums or
+        equity-method income and carry no single revenue account. The split between &ldquo;the
+        account does not exist&rdquo; and &ldquo;we have not attached it yet&rdquo; is counted on{' '}
+        <a href="/data/largest-companies">the largest companies page</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Consolidated or separate — recorded, never mixed</h2>
+      <p>
+        <b>{num(consolidated)}</b> companies are read on a consolidated basis and{' '}
+        <b>{num(separate)}</b> on a separate basis. Every row records which one was used.
+        Comparing a consolidated figure against a separate one is one of the easier ways to get a
+        valuation multiple wrong, so the basis travels with the number instead of being assumed.
+      </p>
+    </section>
+
+    <section>
+      <h2>What did not join, and why</h2>
+      <ul class="why">
+        {reasons.map(([why, n]) => (
+          <li><b>{num(n)}</b> {reasonEn(why)}</li>
+        ))}
+      </ul>
+      <p class="note">
+        These rows stay in the file with the reason in a column. Dropping them would remove the
+        denominator and leave a flattering count. The first group is our own gap and it shrinks as
+        we improve the parser — it fell by 71 companies on 11 September 2026 when two account-name
+        patterns were fixed.
+      </p>
+    </section>
+
+    <section>
+      <h2>One number worth knowing before you compute anything</h2>
+      <p>
+        <b>{num(lossMaking)}</b> of the {num(joined.length)} companies with a readable filing
+        reported net income of zero or less for {fiscalYear} — <b>{pct(lossMaking, joined.length)}</b>.
+        That is not a small tail. It is why the{' '}
+        <a href="/data/valuation">valuation tape</a> leaves a price-earnings ratio empty for those
+        companies rather than printing a negative number, and why any screen built on PER silently
+        drops a third of the market unless you decide what to do about it.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        Ratios built on this tape: <a href="/data/valuation">Korea valuation tape</a>. Size rankings
+        from the same rows: <a href="/data/largest-companies">the largest companies in Korea</a>.
+        Each company&rsquo;s share of the market: <a href="/data/kospi-weights">KOSPI shares</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+
+    <section class="faq">
+      <h2>Questions</h2>
+      {faq.map(([q, a]) => (
+        <div class="qa"><h3>{q}</h3><p>{a}</p></div>
+      ))}
+    </section>
+
+    <section>
+      <h2>Sources, and what this cannot tell you</h2>
+      <p class="note">
+        Financial statements: DART open API (Financial Supervisory Service), annual report code
+        11011, fiscal year {fiscalYear}. Listed-company identity: DART corporate register. Built{' '}
+        {meta.builtAt}.
+      </p>
+      <p class="note">
+        It is annual, not quarterly. It carries headline accounts, not note-level detail. It cannot
+        tell you whether a filing is right — only what it said. <b>This is not investment advice.</b>
+      </p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0 0 .6rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; color: #333; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  h3 { font-size: .98rem; margin: 0 0 .3rem; }
+  p { line-height: 1.65; margin: 0 0 .7rem; }
+  .note { font-size: .88rem; color: #555; }
+  .warn { font-size: .95rem; line-height: 1.65; background: #fffaf2; border-left: 3px solid #d08700;
+          padding: .7rem .9rem; margin: 0 0 .7rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .7rem; }
+  .stat { border: 1px solid #e3e3e3; border-radius: 6px; padding: .8rem .9rem; background: #fcfcfc; }
+  .stat b { display: block; font-size: 1.45rem; line-height: 1.1; }
+  .stat span { font-size: .82rem; color: #666; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .grid th, .grid td { border-bottom: 1px solid #ececec; padding: .38rem .5rem; text-align: left; }
+  .grid thead th { border-bottom: 2px solid #ddd; font-weight: 600; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .nm { font-weight: 600; }
+  .ind { color: #555; font-size: .84rem; }
+  .low { color: #b03030; font-weight: 700; }
+  ul.why { margin: .3rem 0 .7rem 1.1rem; padding: 0; }
+  ul.why li { line-height: 1.6; margin: 0 0 .2rem; }
+  .qa { margin: 0 0 1rem; }
+  a { color: #1a5c9c; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #cfcfcf; }
+    .note { color: #a8a8a8; }
+    .warn { background: #2a2318; border-left-color: #c08a20; }
+    .stat { border-color: #333; background: #1b1b1b; }
+    .grid th, .grid td { border-bottom-color: #2c2c2c; }
+    .grid thead th { border-bottom-color: #3a3a3a; }
+    .ind { color: #a0a0a0; }
+    .low { color: #e08080; }
+    a { color: #7ab3e8; }
+  }
+</style>
