@@ -224,6 +224,16 @@ const jsonLd = {
         </ul>
       </section>
 
+      {/* [2026-09-11 · 5번 문안 Ⅳ, 2번] 실측: data.rows·data.columns·data.builtOn */}
+      <aside class="licence-cta">
+        <p>
+          This page shows a slice. The full dataset — <strong>{수(data.rows)} rows,
+          {' '}{data.columns} columns, as of {data.builtOn}</strong> —
+          is available as CSV and Parquet.{' '}
+          <a href="/data#licence">See licence options</a>.
+        </p>
+      </aside>
+
       <p class="fine bottom">
         This page reports filings made to the Korean regulator. It is not investment advice, and
         nothing here is a recommendation to buy or sell any security.
@@ -267,4 +277,8 @@ const jsonLd = {
   ul.fine { padding-left: 1.2rem; }
   ul.fine li { margin: 0 0 .35rem; }
   .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+  .licence-cta { margin: 1.6rem 0; padding: .9rem 1.1rem; border: 1px solid var(--line);
+                 border-radius: 8px; background: var(--card); font-size: .88rem; }
+  .licence-cta p { margin: 0; }
+  .licence-cta a { color: var(--accent); font-weight: 600; }
 </style>

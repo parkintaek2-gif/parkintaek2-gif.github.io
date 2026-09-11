@@ -220,6 +220,15 @@ const jsonLd = [datasetLd, faqLd];
       ))}
     </section>
 
+    {/* [2026-09-11 · 5번 문안 Ⅳ, 2번] 실측: total(tape.rows.length)·Row 열쇠 17개·meta.builtAt */}
+    <aside class="licence-cta">
+      <p>
+        This page shows a slice. The full dataset — <strong>{total} rows,
+        17 columns, built {meta.builtAt}</strong> — is available as CSV and Parquet.{' '}
+        <a href="/data#licence">See licence options</a>.
+      </p>
+    </aside>
+
     <section>
       <h2>Sources, and what this cannot tell you</h2>
       <p class="note">
@@ -259,6 +268,9 @@ const jsonLd = [datasetLd, faqLd];
   ul.why li { line-height: 1.6; margin: 0 0 .2rem; }
   .qa { margin: 0 0 1rem; }
   a { color: #1a5c9c; }
+  .licence-cta { margin: 1.6rem 0; padding: .9rem 1.1rem; border: 1px solid #e3e3e3;
+                 border-radius: 8px; background: #fcfcfc; font-size: .88rem; }
+  .licence-cta p { margin: 0; }
   @media (prefers-color-scheme: dark) {
     .lead { color: #cfcfcf; }
     .note { color: #a8a8a8; }
@@ -266,6 +278,7 @@ const jsonLd = [datasetLd, faqLd];
     .stat { border-color: #333; background: #1b1b1b; }
     .grid th, .grid td { border-bottom-color: #2c2c2c; }
     .grid thead th { border-bottom-color: #3a3a3a; }
+    .licence-cta { border-color: #333; background: #1b1b1b; }
     a { color: #7ab3e8; }
   }
 </style>

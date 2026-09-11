@@ -218,6 +218,15 @@ const jsonLd = [datasetLd, faqLd];
         about a quarter of all imports.</p>
       </section>
 
+      {/* [2026-09-11 · 5번 문안 Ⅳ, 2번] 실측: hist.days.length(일일 이력)·열쇠 17개, 매일 늘어나 날짜창 대신 build일 표기 */}
+      <aside class="licence-cta">
+        <p>
+          This page shows a slice. The full daily history — <strong>{days} rows so far, 17 columns,
+          rebuilt every trading day</strong> — is available as CSV and Parquet.{' '}
+          <a href="/data#licence">See licence options</a>.
+        </p>
+      </aside>
+
       <p class="fine">
         Built from Korea Exchange OPEN API (KOSPI + KOSDAQ daily) and Korea Customs Service partner-country
         trade via KOSIS. Every figure is a <b>share or a Gini</b> — scale-invariant, so it does not depend
@@ -288,4 +297,8 @@ const jsonLd = [datasetLd, faqLd];
   .read { font-size: .95rem; margin: 1.4rem 0; }
   .fine { font-size: .82rem; color: var(--muted); line-height: 1.6; margin: 2rem 0 1rem;
           padding-top: 1rem; border-top: 1px solid var(--line); }
+  .licence-cta { margin: 1.6rem 0; padding: .9rem 1.1rem; border: 1px solid var(--line);
+                 border-radius: 8px; background: var(--card); font-size: .88rem; }
+  .licence-cta p { margin: 0; }
+  .licence-cta a { color: var(--accent); font-weight: 600; }
 </style>
