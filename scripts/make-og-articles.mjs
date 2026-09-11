@@ -76,7 +76,10 @@ export function 제안(dek) {
     const 뒤 = 걸러진.slice(m.index + m[0].length).trim().replace(/(\d),(\d)/g, '$1$2');
     const 토막 = 뒤.split(/[.,;:—–]|\sand\s|\sbut\s|\sagainst\s/)[0].replace(//g, ',').trim();
     /* 「with a recorded」 처럼 **말이 끊긴 채** 끝나면 그 꼬리를 뗀다 */
-    const 꼬리 = /^(a|an|the|in|of|on|to|as|at|for|with|that|than|from|and|but|is|are|was|were|by)$/i;
+    /* 🔴 [2026-09-11] **끝에 남은 부사도 말을 끊는다.** 카드에 「58 / percent of foreign
+       entries are already」가 나갔다 — 여섯 낱말을 채웠지만 문장이 끝나지 않았다.
+       ⛔ 「are」로 끝나는 것만 막고 「already」로 끝나는 것을 안 막으면 같은 흠이 또 난다. */
+    const 꼬리 = /^(a|an|the|in|of|on|to|as|at|for|with|that|than|from|and|but|is|are|was|were|by|already|still|only|just|also|even|yet|more|most|now)$/i;
     const 낱말 = 토막.split(/\s+/).slice(0, 6);
     while (낱말.length && 꼬리.test(낱말[낱말.length - 1])) 낱말.pop();
     return { figure: 값, label: 낱말.join(' ') };
@@ -180,6 +183,13 @@ if (process.argv[1] && process.argv[1].endsWith('make-og-articles.mjs')) {
   본다('Top 10 의 10 을 안 집는다', 제안('Five years of Top 10 hold 23.7 billion hours.').figure === '23.7 billion');
   본다('쉼표 있는 네 자리는 연도가 아니다', 제안('Being top 300 means 2,623 LP in Europe West.').figure === '2,623');
   본다('달러를 붙여 집는다', 제안('Exports went from $22m in 2005 to $1.80bn.').figure === '$22m');
+  /* 🔴 [2026-09-11] 끝에 남은 부사를 뗀다 — 「… are already」가 카드에 나갔다 */
+  본다('끝에 남은 부사를 뗀다',
+    제안('In the table 58 percent of foreign entries are already outside it.').label
+      === 'percent of foreign entries');
+  본다('부사를 떼도 뜻이 남는 것은 그대로 둔다',
+    제안('The top five hold 73.1 percent of district admissions.').label
+      === 'percent of district admissions');
   본다('수가 없으면 못 고른다', 제안('No figures live in this sentence at all.') === null);
   본다('수 속의 쉼표로 자르지 않는다', 제안('154 of the 1,545 individuals also chart.').label === 'of the 1,545 individuals also chart');
   본다('끊긴 꼬리를 뗀다', 제안('660 Korean titles have some kind of a recorded cast.').label === 'Korean titles have some kind');
