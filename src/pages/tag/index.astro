@@ -10,11 +10,19 @@ import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import { SITE_URL } from '../../consts';
 import { getPagedTags } from '../../lib/tags';
+import { publishedArticles } from '../../lib/articles';
 
 const tags = await getPagedTags();
+const 기사들 = await publishedArticles();
 const n = tags.length;
 const 기사수 = tags.reduce((s, t) => s + t.articles.length, 0);
-const 가장큰 = tags[0];
+
+/* ⚠ 「korea」 한 태그에 132편 중 87편이 달려 있다 — 그건 주제가 아니라 사이트 이름이다.
+   머릿글에 그것을 「제일 깊은 주제」라고 내면 손님에게 아무 뜻이 없다.
+   그래서 «기사 절반 넘게 달린 태그»는 머릿글 문장에서만 뺀다. 목록에는 그대로 둔다.
+   ⛔ 목록에서 지우지 않는다 — 지우면 그 태그 지면 87장이 다시 고아가 된다. */
+const 너무흔함 = Math.max(2, Math.round(기사들.length * 0.5));
+const 고른것 = tags.filter((t) => t.articles.length < 너무흔함).slice(0, 3);
 
 const TITLE = `Korea market topics — ${n} subject pages on SeoulMarkets`;
 const DESC = `Browse ${n} topics across SeoulMarkets, from the won and the policy rate to chip exports and shareholder returns. Each topic page collects every story on it, built from official Korean data. Not investment advice.`;
@@ -48,10 +56,12 @@ const jsonLd = {
       <h1>Topics</h1>
       <p>
         {n} subjects, ordered by how much we have written on each.
-        {가장큰 && (
+        {고른것.length === 3 && (
           <span>
-            {' '}The deepest is <a href={`/tag/${가장큰.slug}`}>{가장큰.label}</a> with{' '}
-            {가장큰.articles.length} stories.
+          {' '}The deepest are{' '}
+            <a href={'/tag/' + 고른것[0].slug} class="cap">{고른것[0].label}</a> ({고른것[0].articles.length}),{" "}
+            <a href={'/tag/' + 고른것[1].slug} class="cap">{고른것[1].label}</a> ({고른것[1].articles.length}) and{" "}
+            <a href={'/tag/' + 고른것[2].slug} class="cap">{고른것[2].label}</a> ({고른것[2].articles.length}).
           </span>
         )}
         {' '}A subject gets its own page once two stories share it, so every link here leads somewhere.
@@ -98,6 +108,7 @@ const jsonLd = {
              text-decoration: none; color: inherit; padding: .5rem .75rem;
              border: 1px solid var(--rule, #e5e5e5); border-radius: .4rem; }
   .cloud a:hover { border-color: var(--accent, #0f4c81); }
+  .cap { text-transform: capitalize; }
   .cloud__label { text-transform: capitalize; line-height: 1.35; }
   .cloud__n { font-size: .8rem; font-weight: 700; color: var(--ink-3, #777); flex: none; }
 

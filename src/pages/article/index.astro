@@ -101,8 +101,10 @@ const jsonLd = {
                   letter-spacing: -.02em; }
   .page-head p { font-size: 1rem; line-height: 1.6; color: var(--ink-2, var(--ink)); margin: 0; }
 
+  /* ⚠ 위에 이미 지면 구분선이 하나 그어져 있다 — border-top 을 또 주면 줄이 «두 개»로 보인다.
+     390px 로 띄워 눈으로 보고 알았다(2026-09-11). 검사기로는 안 잡힌다. */
   .jump { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center;
-          margin: 0 0 1.6rem; padding: .7rem 0; border-top: 1px solid var(--rule, #e5e5e5);
+          margin: .2rem 0 1.6rem; padding: 0 0 .9rem;
           border-bottom: 1px solid var(--rule, #e5e5e5); }
   .jump__label { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
                  color: var(--ink-3, #777); font-weight: 700; margin-right: .2rem; }
