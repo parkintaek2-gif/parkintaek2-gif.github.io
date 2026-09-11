@@ -75,6 +75,46 @@ export function 허브후보(갈래) {
 }
 
 /** 살아 있는 응답인가 — 200~399 만 「있다」로 본다 */
+/**
+ * 🔴 [2026-09-11 · 5번] **이 자가 헛울렸다. 그 까닭과 고침을 여기 적는다.**
+ *
+ * 이 자는 갈래 이름으로 허브 «주소를 추측»했다 — `/from` 이면 `/from`·`/froms` 를 두드린다.
+ * 그런데 **사람은 허브에 다른 이름을 붙인다.** 재 보니 넷이 다 그랬다 —
+ *
+ * ```
+ *   /from/       37장  → 허브는 /hometowns    (37/37 을 건다)
+ *   /market/     93장  → 허브는 /by-country   (93/93)
+ *   /star-sign/  12장  → 허브는 /born-on      (12/12)
+ *   /report/area 258장 → 허브는 /region       (258/258, 라이브 200)
+ * ```
+ *
+ * ⛔ 그래서 **「그 갈래의 낱장을 여럿 거는 지면이 있나」로 판정한다.** 이름은 안 본다.
+ * ⚠ 자가 헛울리면 그 옆의 «진짜 빨강»까지 같이 안 믿게 된다. 이번엔 다섯 중 넷이 헛울림이었다.
+ *
+ * @param 낱장수      그 갈래의 낱장 수
+ * @param 거는수       한 지면이 «서로 다른» 낱장을 몇 개 거나 (가장 많이 거는 지면의 수)
+ * @returns {boolean} 이름이 무엇이든 그것을 허브로 볼 수 있나
+ */
+export function 허브노릇하나(낱장수, 거는수) {
+  if (!Number.isFinite(낱장수) || 낱장수 <= 0) return false;
+  if (!Number.isFinite(거는수) || 거는수 <= 0) return false;
+  return 거는수 >= 낱장수 * 0.5;
+}
+
+/** 사이트맵 주소 가운데 «한 겹짜리»(/region 처럼)만 — 허브는 거의 언제나 여기에 있다 */
+export function 한겹주소(주소들, 밑 = '') {
+  const 것 = [];
+  for (const u of 주소들 ?? []) {
+    /* ⚠ 사이트맵에는 «온전한» 주소만 온다. 상대경로로 풀면 쓰레기까지 주소가 돼 버린다 —
+       new URL('%%%', 밑) 는 던지지 않고 '/%%%' 를 내준다 */
+    let 길;
+    try { 길 = new URL(String(u)).pathname; } catch { continue; }
+    const 조각 = 길.split('/').filter(Boolean);
+    if (조각.length === 1) 것.push('/' + 조각[0]);
+  }
+  return [...new Set(것)];
+}
+
 export function 살았나(코드) {
   const n = Number(코드);
   return Number.isFinite(n) && n >= 200 && n < 400;
@@ -133,6 +173,18 @@ function 자가시험() {
   잰다('허브후보 — y 는 ies 로', 허브후보('/country'), ['/country', '/countries']);
   잰다('허브후보 — s 로 끝나면 es', 허브후보('/class'), ['/class', '/classes']);
   잰다('허브후보 — 이미 복수면 겹치지 않는다', 허브후보('/data').length, 2);
+
+  /* 🔴 [2026-09-11] 이름이 다른 허브 — 이 자가 헛울린 자리다 */
+  잰다('허브노릇 — 절반 넘게 걸면 이름이 달라도 허브다', 허브노릇하나(37, 37), true);
+  잰다('허브노릇 — 딱 절반이면 허브로 본다', 허브노릇하나(100, 50), true);
+  잰다('허브노릇 — 절반에 못 미치면 허브가 아니다', 허브노릇하나(108, 7), false);
+  잰다('허브노릇 — 0개면 허브가 아니다', 허브노릇하나(258, 0), false);
+  잰다('⛔ 허브노릇 — 못 쟀으면(NaN) 「허브다」로 만들지 않는다', 허브노릇하나(258, NaN), false);
+  잰다('허브노릇 — 낱장이 0이면 판정하지 않는다', 허브노릇하나(0, 5), false);
+  잰다('한겹주소 — 한 겹만 고른다',
+    한겹주소(['https://a.com/region', 'https://a.com/report/area/x', 'https://a.com/']), ['/region']);
+  잰다('한겹주소 — 같은 것은 한 번만', 한겹주소(['https://a.com/x', 'https://a.com/x']).length, 1);
+  잰다('한겹주소 — 주소가 아니면 조용히 건너뛴다', 한겹주소(['%%%', 'https://a.com/y']), ['/y']);
 
   console.log(`■ 자가시험 ${통과 + 깨짐.length}가지 — 통과 ${통과} · 깨짐 ${깨짐.length}`);
   for (const d of 깨짐) console.log('   🔴 ' + d);
@@ -199,10 +251,30 @@ for (const [이름, 밑] of 사이트들) {
       if (r.코드 === null) r = x;                /* 못 닿은 것과 404 를 가르기 위해 첫 답을 쥔다 */
       else if (x.코드 !== null) r = x;
     }
-    const 결 = 판정(n, 문턱, r.코드);
+    let 결 = 판정(n, 문턱, r.코드);
+    /* 🔴 이름 추측이 「없다」고 해도 곧바로 믿지 않는다 — 이름이 «다른» 허브를 찾는다.
+       2026-09-11 에 다섯 중 넷이 이 갈래로 헛울렸다(/hometowns · /by-country · /born-on · /region) */
+    let 딴이름 = null;
+    if (결 === '없다') {
+      let 으뜸 = 0;
+      /* ⚠ 자르는 수를 80 으로 뒀다가 또 헛울렸다 — KCW 는 한 겹 주소가 그보다 많아서
+         정작 허브인 /hometowns 가 잘려 나갔다. 「덜 보고 없다고 하는 것」이 이 자의 병이다 */
+      for (const 후보 of 한겹주소(주소, 밑)) {
+        const x = await 받기(밑 + 후보);
+        if (!살았나(x.코드)) continue;
+        const 맞 = x.글.match(new RegExp(`href="${갈래}/[^"#]+"`, 'g'));
+        const 수 = 맞 ? new Set(맞).size : 0;
+        if (수 > 으뜸) { 으뜸 = 수; 딴이름 = { 길: 후보, 수 }; }
+      }
+      if (허브노릇하나(n, 으뜸)) 결 = '있다';
+    }
     if (결 === '없다') {
       빨간불++;
-      console.log(`   🔴 ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장인데 허브가 ${r.코드} 다`);
+      console.log(`   🔴 ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장인데 허브가 없다`
+        + (딴이름 ? ` (가장 많이 거는 지면도 ${딴이름.길} 에서 ${딴이름.수}개뿐)` : ' (거는 지면이 하나도 없다)'));
+    } else if (딴이름) {
+      console.log(`   ✅ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 · 허브는 «이름이 다르다» — ${딴이름.길} (${딴이름.수}개를 건다)`);
+      continue;
     } else if (결 === '못쟀다') {
       못쟀다++;
       console.log(`   ⬜ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 — 허브를 «못 쟀다»(못 닿음)`);
