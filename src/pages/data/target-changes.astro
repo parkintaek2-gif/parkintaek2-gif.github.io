@@ -187,6 +187,17 @@ const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
         </ul>
       </section>
 
+      {/* 🔴 [2026-09-11 · 5번 문안 Ⅳ, 2번이 얹음] 실측치만 채운다 — 지어내지 않는다.
+          ROWS=data.moves.length(전량 아님을 «가공 몫» 표기로 밝힘), COLS=낱장 열쇠 수, RANGE=실측 창. */}
+      <aside class="licence-cta">
+        <p>
+          This page shows a slice. The full dataset — <strong>{data.moves.length} rows,
+          {' '}{Object.keys(data.moves[0]).length} columns, {data.windowFirstDay} to {data.windowLastDay}</strong> —
+          is available as CSV and Parquet.{' '}
+          <a href="/data#licence">See licence options</a>.
+        </p>
+      </aside>
+
       <p class="fine bottom">
         This page reports what analysts published. It is not investment advice, and nothing here is a
         recommendation to buy or sell any security.
@@ -227,5 +238,9 @@ const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
   .fine { font-size: .84rem; color: var(--muted); line-height: 1.65; }
   ul.fine { padding-left: 1.2rem; }
   ul.fine li { margin: 0 0 .35rem; }
+  .licence-cta { margin: 1.6rem 0; padding: .9rem 1.1rem; border: 1px solid var(--line);
+                 border-radius: 8px; background: var(--card); font-size: .88rem; }
+  .licence-cta p { margin: 0; }
+  .licence-cta a { color: var(--accent); font-weight: 600; }
   .bottom { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--line); }
 </style>
