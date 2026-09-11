@@ -416,7 +416,10 @@ const 묶음 = [
         <ol class="buy-steps">
           <li>Email <a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a> with the dataset
               name and your organisation.</li>
-          <li>We send an invoice. Korean businesses receive a tax invoice (세금계산서).</li>
+          {/* ⛔ [2026-09-11 · 5번] 여기 「(세금계산서)」가 한글로 들어가 있었다 — 제 문안이 낸 것이다.
+              이 사이트는 화면에 한국어를 내지 않는다(사장님 지시: 손님이 영어권이다).
+              뜻은 살리고 글자는 영어로 바꾼다 — 한국 사업자가 무엇을 받는지 그대로 알 수 있다. */}
+          <li>We send an invoice. Korean businesses receive a National Tax Service electronic tax invoice.</li>
           <li>Pay by bank transfer. Invoiced in KRW.</li>
           <li>You receive a download link within one business day. Links do not expire.</li>
         </ol>
@@ -531,6 +534,24 @@ const 묶음 = [
                               vertical-align: top; }
   .pricing thead th { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
   .pricing td:last-child, .pricing th:last-child { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  /* 🔴 [2026-09-11 19:3x · 5번] **폰에서 값표가 안 읽혔다.** 390px 로 띄워 눈으로 보고 알았다 —
+     세 칸이 눌려 「The / published / page and a / sample file.」처럼 한두 낱말씩 끊겼다.
+     ⛔ 여기는 «사는 사람이 값을 보는 화면»이다. 읽기 어려우면 값표가 없는 것과 같다.
+     ✅ 좁은 화면에서는 표를 버리고 «덩이»로 쌓는다 — 이름과 값을 한 줄에, 설명은 그 아래.
+     ⚠ 표 자체는 그대로 둔다(넓은 화면·스크린리더·복사에는 표가 맞다). 보이는 꼴만 바꾼다. */
+  @media (max-width: 640px) {
+    .pricing, .pricing tbody, .pricing tr, .pricing th, .pricing td { display: block; width: 100%; }
+    .pricing thead { position: absolute; left: -9999px; }   /* 읽어 주는 기계에는 남긴다 */
+    .pricing tbody tr { display: grid; grid-template-columns: 1fr auto; gap: .1rem .6rem;
+                        border: 1px solid var(--line); border-radius: 10px;
+                        padding: .7rem .8rem; margin: 0 0 .6rem; }
+    .pricing tbody th[scope="row"] { grid-column: 1; grid-row: 1; font-size: .95rem; font-weight: 700;
+                                     border: 0; padding: 0; }
+    .pricing tbody td:last-child { grid-column: 2; grid-row: 1; text-align: right; border: 0; padding: 0;
+                                   font-size: .95rem; font-weight: 700; }
+    .pricing tbody td:first-of-type { grid-column: 1 / -1; grid-row: 2; border: 0;
+                                      padding: .3rem 0 0; color: var(--muted); line-height: 1.55; }
+  }
   .licence-block h2 { font-size: 1.02rem; margin: 1.2rem 0 .5rem; }
   .buy-steps { margin: 0 0 .8rem; padding-left: 1.2rem; font-size: .88rem; line-height: 1.6; }
   .buy-fine { margin-top: 0; padding-top: 0; border-top: none; }
