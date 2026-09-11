@@ -92,6 +92,16 @@ const 십억 = (n: number) => n / 1e6;
 const bn = (n: number, d = 1) => 십억(n).toLocaleString('en-GB', { minimumFractionDigits: d, maximumFractionDigits: d });
 const num = (n: number) => n.toLocaleString('en-GB');
 const pc = (n: number, d = 1) => `${n.toFixed(d)}%`;
+/*
+ * 서수 — 🔴 [2026-09-11] 라이브에 「3th」가 나갔던 자다(largest-companies).
+ *   손님이 영어권인데 영어가 틀리면 그 지면의 «수»까지 의심받는다.
+ * ⚠ 11·12·13 은 예외다(11st 가 아니라 11th). 그래서 100 으로 나눈 나머지를 먼저 본다.
+ */
+const 서수 = (n: number) => {
+  const 백 = n % 100; const 십 = n % 10;
+  const 꼬리 = (백 >= 11 && 백 <= 13) ? 'th' : 십 === 1 ? 'st' : 십 === 2 ? 'nd' : 십 === 3 ? 'rd' : 'th';
+  return `${n}${꼬리}`;
+};
 
 const 모두: 상대[] = TRADE.countries.map((c: any) => {
   const ex = c.months.reduce((a: number, m: any) => a + (m.exports ?? 0), 0);
@@ -125,6 +135,14 @@ const 큰상대 = 모두.slice(0, 25).map((c) => ({ ...c, 한쪽: Math.abs(c.bal
 const 쏠린순 = [...큰상대].sort((a, b) => b.한쪽 - a.한쪽);
 const 가장쏠림 = 쏠린순[0];
 const 가장고름 = 쏠린순[쏠린순.length - 1];
+/*
+ * 🔴 [2026-09-11] 처음 낸 판은 「가장 고른 상대」 옆에 「크기 1위가 곧 가장 고른 상대다」라고
+ *   적어 두었다. **재기 «전»에 쓴 글월이었고 수와 맞지 않았다** — 가장 고른 곳은 9위 말레이시아,
+ *   1위 중국은 그 다음 줄이었다. 틀린 한 줄이 옆의 옳은 수까지 의심받게 만든다.
+ * ✅ 그래서 크기 1위의 «자기 값»을 따로 세어 그것만 말한다. 짐작한 말은 지웠다.
+ */
+const 첫쏠림 = 큰상대.find((c) => c.name === 첫.name)!;
+const 첫고름순위 = 쏠린순.length - 쏠린순.findIndex((c) => c.name === 첫.name);
 
 /* 꼬리 — 아무도 안 세는 자리 */
 const 꼬리선 = 총교역 * 0.0001;            /* 전체의 0.01% */
@@ -333,8 +351,13 @@ const jsonLd = [datasetLd, faqLd];
         largest, <b>{글월이름(가장쏠림.name, true).replace(/^The /, 'the ')}</b> is the most one-sided at{' '}
         <b>{pc(가장쏠림.한쪽 * 100, 0)}</b> — South Korea{' '}
         {가장쏠림.bal > 0 ? 'sells there far more than it buys' : 'buys there far more than it sells'}.
-        The most even is <b>{글월이름(가장고름.name)}</b> at <b>{pc(가장고름.한쪽 * 100, 0)}</b>, which is worth
-        holding beside its rank: the largest partner by value is also one of the most balanced.
+        The most even is <b>{글월이름(가장고름.name)}</b> at <b>{pc(가장고름.한쪽 * 100, 0)}</b>.
+      </p>
+      <p>
+        Put that beside the size ranking and the two do not line up.{' '}
+        <b>{글월이름(첫.name, true)}</b> is the largest partner by value, and on this measure it is{' '}
+        <b>{pc(첫쏠림.한쪽 * 100, 0)}</b> — <b>{서수(첫고름순위)}</b> most even of the twenty-five.
+        Being the biggest says nothing about which way the goods go.
       </p>
       <div class="scroll">
         <table class="grid">
@@ -430,8 +453,26 @@ const jsonLd = [datasetLd, faqLd];
         <div class="qa"><h3>{q}</h3><p class="note">{a}</p></div>
       ))}
     </section>
+
+    {/* [2026-09-11 · 5번] 값표 Ⅳ — 무료 지면마다 붙이는 안내. 이 한 곳만 빠져 있었다.
+        ⛔ 수는 지어내지 않는다 — 상대수·달수·창은 이 지면이 이미 계산해 둔 값을 그대로 쓴다 */}
+    <aside class="licence-cta">
+      <p>
+        {/* ⚠ &times; 는 여기서 글자 그대로 나온다 — 빌드해서 눈으로 보고 알았다. 문자를 바로 쓴다 */}
+        This page shows a slice. The full dataset — <strong>{num(상대수)} partner countries
+        {' '}× {달수} months, {창}, exports and imports with the balance</strong> —
+        is available as CSV and Parquet.{' '}
+        <a href="/data#licence">See licence options</a>.
+      </p>
+    </aside>
   </article>
 </Base>
+
+<style>
+  .licence-cta { margin: 1.6rem 0 0; padding: .9rem 1.1rem; border: 1px solid var(--line, #ddd);
+                 border-radius: 8px; font-size: .92rem; line-height: 1.6; }
+  .licence-cta p { margin: 0; }
+</style>
 
 <style>
   .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
