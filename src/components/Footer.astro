@@ -10,6 +10,10 @@ const year = new Date().getFullYear();
         <h2>Sections</h2>
         <ul>
           {CATEGORIES.map((c) => <li><a href={`/${c.slug}`}>{c.label}</a></li>)}
+          {/* 🔴 [2026-09-11 · 5번] 기사·태그 허브로 가는 문. 이 두 줄이 없어서 낱장 240장이
+              사이트 안에서 닿을 길이 없었다 — 갈래 여섯 지면 어디에도 「전체」가 없었다. */}
+          <li><a href="/article">All stories</a></li>
+          <li><a href="/tag">Topics</a></li>
         </ul>
       </div>
       <div>

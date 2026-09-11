@@ -1,0 +1,106 @@
+---
+/**
+ * /tag — 태그 전체를 모으는 «허브». (2026-09-11, 5번)
+ *
+ * /tag/{slug} 가 108장 사는데 /tag 는 404 였다 — /article 과 같은 병이다.
+ * ⚠ 문턱은 lib/tags.ts 의 TAG_THRESHOLD(2편) 하나만 본다. 여기서 따로 세지 않는다 —
+ *   따로 세면 지면·사이트맵·허브 셋이 어긋나 404 가 실린다.
+ */
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { SITE_URL } from '../../consts';
+import { getPagedTags } from '../../lib/tags';
+
+const tags = await getPagedTags();
+const n = tags.length;
+const 기사수 = tags.reduce((s, t) => s + t.articles.length, 0);
+const 가장큰 = tags[0];
+
+const TITLE = `Korea market topics — ${n} subject pages on SeoulMarkets`;
+const DESC = `Browse ${n} topics across SeoulMarkets, from the won and the policy rate to chip exports and shareholder returns. Each topic page collects every story on it, built from official Korean data. Not investment advice.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/tag`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: n,
+    itemListElement: tags.slice(0, 100).map((t, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/tag/${t.slug}`,
+      name: t.label,
+    })),
+  },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <div class="page-head">
+      <p class="kicker">SeoulMarkets · topics</p>
+      <h1>Topics</h1>
+      <p>
+        {n} subjects, ordered by how much we have written on each.
+        {가장큰 && (
+          <span>
+            {' '}The deepest is <a href={`/tag/${가장큰.slug}`}>{가장큰.label}</a> with{' '}
+            {가장큰.articles.length} stories.
+          </span>
+        )}
+        {' '}A subject gets its own page once two stories share it, so every link here leads somewhere.
+      </p>
+    </div>
+
+    {
+      n === 0 ? (
+        <p class="empty">No topic has two stories yet.</p>
+      ) : (
+        <ul class="cloud">
+          {tags.map((t) => (
+            <li>
+              <a href={`/tag/${t.slug}`}>
+                <span class="cloud__label">{t.label}</span>
+                <span class="cloud__n">{t.articles.length}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+
+    <p class="foot">
+      {기사수} story slots across {n} topics — a story sits under every subject it touches.
+      Looking for everything at once? <a href="/article">All stories</a>.
+    </p>
+
+    <a class="backlink" href="/">&larr; Front page</a>
+  </div>
+</Base>
+
+<style>
+  .page-head { max-width: 46rem; margin: 1.4rem 0 1.2rem; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em;
+            color: var(--accent, #0f4c81); font-weight: 700; margin: 0 0 .3rem; }
+  .page-head h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.2; margin: 0 0 .4rem;
+                  letter-spacing: -.02em; }
+  .page-head p { font-size: 1rem; line-height: 1.6; color: var(--ink-2, var(--ink)); margin: 0; }
+
+  .cloud { list-style: none; padding: 0; margin: 0 0 1.6rem;
+           display: grid; grid-template-columns: repeat(auto-fill, minmax(13rem, 1fr)); gap: .5rem; }
+  .cloud a { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem;
+             text-decoration: none; color: inherit; padding: .5rem .75rem;
+             border: 1px solid var(--rule, #e5e5e5); border-radius: .4rem; }
+  .cloud a:hover { border-color: var(--accent, #0f4c81); }
+  .cloud__label { text-transform: capitalize; line-height: 1.35; }
+  .cloud__n { font-size: .8rem; font-weight: 700; color: var(--ink-3, #777); flex: none; }
+
+  .foot { font-size: .9rem; color: var(--ink-3, #777); line-height: 1.6; margin: 0 0 1.2rem; }
+  .empty { color: var(--ink-3, #777); }
+</style>

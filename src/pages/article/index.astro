@@ -1,0 +1,114 @@
+---
+/**
+ * /article — 기사 전체를 모으는 «허브». (2026-09-11, 5번)
+ *
+ * 왜 만들었나 — 4번이 백년지도에서 찾은 것과 «같은 병»을 서울마켓츠에서 재서 알았다:
+ *   /article/{id} 가 132장 사는데 /article 은 404 였다. 손님이 닿을 길이 사이트맵뿐이었다.
+ *   사이트맵을 손으로 여는 손님은 없다. 「all / list / archive」 검색도 통째로 못 받았다.
+ * ⛔ 이 지면을 지우면 132장이 다시 고아가 된다.
+ */
+import Base from '../../layouts/Base.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import { CATEGORIES, SITE_URL } from '../../consts';
+import { publishedArticles } from '../../lib/articles';
+import { getPagedTags } from '../../lib/tags';
+import { formatDate, iso } from '../../lib/format';
+
+const articles = await publishedArticles();
+const tags = await getPagedTags();
+
+const n = articles.length;
+const 갈래수 = CATEGORIES.map((c) => ({
+  ...c,
+  count: articles.filter((a) => a.data.category === c.slug).length,
+})).filter((c) => c.count > 0);
+
+const 최신 = articles[0]?.data.pubDate;
+const 최고 = articles[articles.length - 1]?.data.pubDate;
+
+const TITLE = `All SeoulMarkets stories — ${n} reports on Korea's markets`;
+const DESC = `Every SeoulMarkets story, newest first: ${n} reports on Korean equities, FX, rates, commodities and the wider economy, each built from official Korean data with its source and timestamp. Not investment advice.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: TITLE,
+  description: DESC,
+  url: `${SITE_URL}/article`,
+  isPartOf: { '@id': `${SITE_URL}/#organization` },
+  mainEntity: {
+    '@type': 'ItemList',
+    numberOfItems: n,
+    itemListElement: articles.slice(0, 50).map((a, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/article/${a.id}`,
+      name: a.data.title,
+    })),
+  },
+};
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <div class="wrap">
+    <AdSlot slot="banner" />
+
+    <div class="page-head">
+      <p class="kicker">SeoulMarkets · archive</p>
+      <h1>All stories</h1>
+      <p>
+        {n} reports, newest first. Every one is built from official Korean data and carries the
+        source and the date the data was pulled.
+        {최고 && 최신 && (
+          <span>
+            {' '}Published between <time datetime={iso(최고)}>{formatDate(최고)}</time> and{' '}
+            <time datetime={iso(최신)}>{formatDate(최신)}</time>.
+          </span>
+        )}
+      </p>
+    </div>
+
+    <nav class="jump" aria-label="Browse by section">
+      <span class="jump__label">Sections</span>
+      {갈래수.map((c) => (
+        <a href={`/${c.slug}`}>{c.label} <b>{c.count}</b></a>
+      ))}
+      {tags.length > 0 && <a href="/tag">Topics <b>{tags.length}</b></a>}
+    </nav>
+
+    {
+      n === 0 ? (
+        <p class="empty">Nothing published yet.</p>
+      ) : (
+        <ul class="stream">
+          {articles.map((entry) => (
+            <ArticleCard entry={entry} />
+          ))}
+        </ul>
+      )
+    }
+
+    <a class="backlink" href="/">&larr; Front page</a>
+  </div>
+</Base>
+
+<style>
+  .page-head { max-width: 46rem; margin: 1.4rem 0 1.2rem; }
+  .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em;
+            color: var(--accent, #0f4c81); font-weight: 700; margin: 0 0 .3rem; }
+  .page-head h1 { font-size: clamp(1.6rem, 5vw, 2.3rem); line-height: 1.2; margin: 0 0 .4rem;
+                  letter-spacing: -.02em; }
+  .page-head p { font-size: 1rem; line-height: 1.6; color: var(--ink-2, var(--ink)); margin: 0; }
+
+  .jump { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center;
+          margin: 0 0 1.6rem; padding: .7rem 0; border-top: 1px solid var(--rule, #e5e5e5);
+          border-bottom: 1px solid var(--rule, #e5e5e5); }
+  .jump__label { font-size: .72rem; text-transform: uppercase; letter-spacing: .07em;
+                 color: var(--ink-3, #777); font-weight: 700; margin-right: .2rem; }
+  .jump a { font-size: .86rem; text-decoration: none; color: inherit;
+            border: 1px solid var(--rule, #e5e5e5); border-radius: 999px; padding: .22rem .7rem; }
+  .jump a:hover { border-color: var(--accent, #0f4c81); color: var(--accent, #0f4c81); }
+  .jump a b { font-weight: 700; color: var(--ink-3, #777); margin-left: .15rem; }
+  .empty { color: var(--ink-3, #777); }
+</style>

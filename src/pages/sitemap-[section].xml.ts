@@ -51,6 +51,10 @@ export const GET: APIRoute = async ({ params }) => {
     urls = [
       { loc: '', lastmod: newest, changefreq: 'daily', priority: '1.0' },
       // 커뮤니티 허브 — 손님이 「갈 곳」이자 갈래 지면으로 가는 문. 새 지면이라 목록에 빠져 있었다(2026-08-21).
+      /* 🔴 [2026-09-11 · 5번] 기사·태그 «허브». 낱장 132·108 장이 사는데 모으는 장이 404 였다.
+       *   손님이 닿을 길이 사이트맵뿐이었고, 사이트맵을 손으로 여는 손님은 없다. */
+      { loc: '/article', lastmod: newest, changefreq: 'daily', priority: '0.9' },
+      { loc: '/tag', lastmod: newest, changefreq: 'weekly', priority: '0.8' },
       { loc: '/community', lastmod: newest, changefreq: 'weekly', priority: '0.7' },
       // 데이터 API 판매 화면. 개발자 검색 유입이 곧 영업이라 우선순위를 높게 둔다.
       { loc: '/api', changefreq: 'weekly', priority: '0.9' },
