@@ -30,6 +30,7 @@
  */
 import { readFileSync, existsSync, appendFileSync, writeFileSync } from 'node:fs';
 import { createSign } from 'node:crypto';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -714,6 +715,26 @@ if (내가실행됐다) {
     const 한줄 = [때, 보내는주소, 받는곳, String(제목).split(칸).join(' '), j2.id].join(칸);
     appendFileSync(적을길, 한줄 + 줄끝);
     console.log(`   ✔ 기록했다 — docs/보낸메일.tsv (${때})`);
+
+    /*
+     * 🔴 [2026-09-11 · 5번] **적어 놓고 커밋을 안 해서 오늘 두 건이 통째로 사라졌다.**  (적은-즉시-커밋)
+     *   09:31·11:09 에 실제로 나간 보고 두 줄이 파일에서 없어졌고, 그 바람에
+     *   check-kcw-wakers 가 「11시 업무보고가 밀렸다」로 읽었다. 메일은 나갔는데 기록이 없으니
+     *   다음 자리는 «안 보낸 것»으로 판정한다 — 2026-08-31 에 이 기록을 만든 까닭이 바로 그거였다.
+     * ⚠ 까닭은 «공용 작업트리»다. 여섯 자리가 한 트리를 쓰므로 커밋 안 된 줄은
+     *   남의 checkout·clean 한 번에 조용히 사라진다. 적는 것만으로는 남지 않는다.
+     * ⛔ git add 를 아예 안 쓴다 — 공용 트리라 남이 «담아 둔» 것을 건드리면 안 된다.
+     *   `git commit -- <경로>` 는 인덱스를 거치지 않고 그 파일의 작업트리 내용만 담는다.
+     * ⛔ 커밋에 실패해도 «보낸 것»과 «적은 것»은 사실이다. 그것을 뒤집지 않고 알리기만 한다.
+     */
+    try {
+      execFileSync('git', ['commit', '-q', '-m', `보낸메일 기록 — ${때} ${String(제목).slice(0, 50)}`,
+        '--', 'docs/보낸메일.tsv'], { cwd: 뿌리, stdio: 'ignore' });
+      console.log('   ✔ 그 자리에서 커밋했다 — 공용 트리에서 지워지지 않는다');
+    } catch (e) {
+      console.log(`   ⚠ **적긴 했는데 커밋을 못 했다** — ${String(e.message).slice(0, 70)}`);
+      console.log('      ⛔ 공용 트리라 이 줄은 사라질 수 있다. 손으로 커밋해 두십시오.');
+    }
   } catch (e) {
     /* ⛔ 기록에 실패해도 «보낸 것»은 사실이다. 그것을 뒤집지 않는다 — 다만 알린다 */
     console.log(`   ⚠ **보내긴 했는데 기록을 못 남겼다** — ${String(e.message).slice(0, 70)}`);
