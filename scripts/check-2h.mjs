@@ -508,7 +508,15 @@ if (내가실행됐다) {
   let 케맵;
   try {
     const 낸것 = execFileSync('node', ['scripts/check-klifemap-health.mjs'], { cwd: 뿌리, encoding: 'utf8' });
-    console.log(`✅ ⑨ klifemap     ${(낸것.match(/✅ 성하다[^\n]*/) || ['성하다'])[0]}`);
+    /* ⏳ 「서비스는 도는데 열쇠를 기다리는 칸」은 빨간불이 아니다 — 다만 «보이게» 남긴다.
+       ⛔ 늘 빨간 자리는 안 읽히고, 안 읽히면 그 아래 진짜 빨간불까지 같이 넘어간다 */
+    const 기다림 = 낸것.match(/⏳ 서비스는 성하다[^\n]*/);
+    if (기다림) {
+      console.log(`⏳ ⑨ klifemap     ${기다림[0].replace('⏳ ', '')}`);
+      for (const 줄 of (낸것.match(/^ {6}· .*$/gm) || [])) console.log('     ' + 줄.trim());
+    } else {
+      console.log(`✅ ⑨ klifemap     ${(낸것.match(/✅ 성하다[^\n]*/) || ['성하다'])[0]}`);
+    }
     케맵 = { 됐나: true, 말: '' };
   } catch (e) {
     const 낸것 = (e.stdout || '') + (e.stderr || '');

@@ -33,14 +33,31 @@ const 주소 = 'https://klifemap.ai/api/health';
 
 /* ── 판정만 떼어 낸다 (밖에 안 나가고 시험할 수 있게) ─────────────────── */
 
+/* 🔴 [2026-09-11 23:4x · 5번] 세 등급으로 가른다 — «상함»과 «기다림»은 다른 것이다.
+ *
+ * 처음엔 선택 칸이 하나라도 꺼져 있으면 전부 「상했다」로 빨간불을 켰다. 그런데 oauth 는
+ * 사장님이 구글·네이버·카카오 콘솔에서 열쇠를 내주셔야 켜지는 칸이라 **계속 빨갛다.**
+ *
+ * ⛔ 늘 빨간 자리는 결국 안 읽힌다. 그리고 안 읽히는 순간 그 «아래»에 있는 진짜 빨간불까지
+ *   같이 건너뛰게 된다 — Riot 을 매일 확인 목록에 남겨 뒀다가 겪은 것과 똑같은 병이다.
+ *
+ * 그래서 「자료가 사라지거나 손님이 못 쓰는 것」과 「열쇠가 와야 켜지는 것」을 가른다.
+ *   상함    DB · 엔진 · 환경변수가 통째로 빔 · aiReports(판정 리포트가 상품이다)
+ *   기다림  oauth · email · initialAdmin — 서비스는 돌고, 열쇠가 오면 켜진다
+ * ⛔ 기다림을 «없는 것»으로 만들지 않는다. 화면에 ⏳ 로 남겨 무엇을 기다리는지 적는다. */
+const 기다려도되는칸 = new Set(['oauth', 'email', 'initialAdmin']);
+
 /**
  * health 몸통을 보고 무엇이 잘못됐는지 갈라 낸다.
- * @returns {{판정:'성함'|'상함'|'못쟀다', 잃은것:string[], 말:string}}
+ * @returns {{판정:'성함'|'기다림'|'상함'|'못쟀다', 잃은것:string[], 기다리는것:string[], 말:string}}
  */
 export function 살핀다(몸통) {
-  if (몸통 === null || 몸통 === undefined) return { 판정: '못쟀다', 잃은것: [], 말: '답을 못 받았다' };
+  if (몸통 === null || 몸통 === undefined) {
+    return { 판정: '못쟀다', 잃은것: [], 기다리는것: [], 말: '답을 못 받았다' };
+  }
   const 선택 = 몸통.checks?.optional ?? {};
   const 잃은것 = [];
+  const 기다리는것 = [];
 
   /* 🔴 R2 가 첫째다 — 이것이 끊기면 «자료가 사라질 수 있다». 나머지는 기능이 꺼질 뿐이다.
      ⚠ health 는 R2 를 따로 말해 주지 않는다. 그래서 다른 열쇠가 전부 비었으면
@@ -51,7 +68,16 @@ export function 살핀다(몸통) {
   if (있는칸.length > 0 && 꺼진칸.length === 있는칸.length) {
     잃은것.push('환경변수가 통째로 비었다 — R2 복제도 끊겼을 수 있다');
   } else {
-    for (const k of 꺼진칸) 잃은것.push(k + ' 가 꺼져 있다');
+    for (const k of 꺼진칸) {
+      if (기다려도되는칸.has(k)) 기다리는것.push(k + ' — 열쇠가 와야 켜진다');
+      else 잃은것.push(k + ' 가 꺼져 있다');
+    }
+  }
+  /* 선택 칸 목록에 없더라도 초기 관리자처럼 «기다리는» 칸은 따로 세어 둔다 */
+  for (const k of Object.keys(선택)) {
+    if (!열쇠칸.includes(k) && 기다려도되는칸.has(k) && 선택[k] !== 'configured') {
+      기다리는것.push(k + ' — 열쇠가 와야 켜진다');
+    }
   }
 
   if (몸통.checks?.database?.status && 몸통.checks.database.status !== 'ok') {
@@ -61,8 +87,9 @@ export function 살핀다(몸통) {
     잃은것.unshift('엔진이 ' + 몸통.checks.engine.status);
   }
 
-  if (잃은것.length) return { 판정: '상함', 잃은것, 말: 몸통.status ?? '' };
-  return { 판정: '성함', 잃은것: [], 말: 몸통.status ?? '' };
+  if (잃은것.length) return { 판정: '상함', 잃은것, 기다리는것, 말: 몸통.status ?? '' };
+  if (기다리는것.length) return { 판정: '기다림', 잃은것: [], 기다리는것, 말: 몸통.status ?? '' };
+  return { 판정: '성함', 잃은것: [], 기다리는것: [], 말: 몸통.status ?? '' };
 }
 
 /**
@@ -96,7 +123,25 @@ function 자가시험() {
 
   const 하나만 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
     optional: { aiReports: 'configured', email: 'configured', oauth: 'not_configured' } } };
-  검('하나만 꺼졌으면 «통째로»라고 하지 않는다', 살핀다(하나만).잃은것, ['oauth 가 꺼져 있다']);
+  검('하나만 꺼졌으면 «통째로»라고 하지 않는다', 살핀다(하나만).잃은것, []);
+  검('⭐ oauth 하나만 꺼진 것은 «상함»이 아니라 «기다림»이다', 살핀다(하나만).판정, '기다림');
+  검('기다리는 것이 무엇인지 적는다', 살핀다(하나만).기다리는것, ['oauth — 열쇠가 와야 켜진다']);
+
+  /* 🔴 오늘 밤 실제로 온 답 — R2 를 되살린 «뒤»의 모양이다.
+     DB·엔진·AI 는 성한데 oauth·email·initialAdmin 만 꺼져 있다.
+     ⛔ 이것을 「상했다」로 읽으면 매시 자리가 영영 빨갛고, 그러면 아무도 안 읽는다 */
+  const 오늘밤 = { ok: true, status: 'degraded', uptimeSec: 827,
+    checks: { database: { status: 'ok' }, engine: { status: 'ok' },
+      optional: { aiReports: 'configured', email: 'not_configured', oauth: 'not_configured',
+        initialAdmin: 'not_configured' } } };
+  검('R2 되살린 뒤의 답은 «기다림»이다', 살핀다(오늘밤).판정, '기다림');
+  검('그 답에 잃은 것은 없다', 살핀다(오늘밤).잃은것, []);
+  검('기다리는 칸 셋을 다 센다', 살핀다(오늘밤).기다리는것.length, 3);
+
+  /* ⛔ 다만 AI 리포트는 «상품»이다 — 이건 기다림이 아니라 상함이다 */
+  const AI꺼짐 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
+    optional: { aiReports: 'not_configured', email: 'configured', oauth: 'configured' } } };
+  검('⛔ AI 리포트가 꺼지면 «상함»이다 — 손님이 산 것이 안 나온다', 살핀다(AI꺼짐).판정, '상함');
 
   const DB상함 = { status: 'unhealthy', checks: { database: { status: 'error' }, engine: { status: 'ok' },
     optional: { aiReports: 'configured', email: 'configured', oauth: 'configured' } } };
@@ -139,6 +184,15 @@ console.log(`   떠 있은 시간  ${몸통.uptimeSec ?? '못 쟀다'}초` + (�
 
 if (본것.판정 === '성함') {
   console.log('   ✅ 성하다 (status ' + 본것.말 + ')');
+  process.exit(0);
+}
+
+/* ⏳ 서비스는 도는데 열쇠가 없어 꺼진 칸만 있는 자리.
+   ⛔ 이것을 빨간불로 켜지 않는다. 대신 «무엇을 기다리는지»를 남겨 안 보이게 하지 않는다 */
+if (본것.판정 === '기다림') {
+  console.log('   ⏳ 서비스는 성하다 — 열쇠가 와야 켜지는 칸만 꺼져 있다 (status ' + 본것.말 + ')');
+  for (const x of 본것.기다리는것) console.log('      · ' + x);
+  console.log('   ✅ DB·엔진·AI 리포트는 성하다. 손님이 산 것은 나온다');
   process.exit(0);
 }
 
