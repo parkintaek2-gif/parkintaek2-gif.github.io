@@ -84,6 +84,12 @@ console.log('괴리 작은/음5:', joined.slice(-5).reverse().map((j) => `${j.su
 
 fs.writeFileSync(path.join(ROOT, 'src/data/implied-upside.json'), JSON.stringify({
   _왜: '브로커 목표가(팩트) vs KRX 현재종가. 개별 추천 아님 — 시장·업종 집계.',
+  /* 🔴 [2026-09-11] 출처 칸 — 이 파일을 읽고 기사·지면을 쓰는 쪽이 «어디서 왔나»를
+   * 다시 찾아 헤매지 않게 파일 안에 못박는다(largest-companies·market-concentration·
+   * turnover-concentration 차트 세 개는 이미 SVG 캡션에 Source 줄이 있다 — 실측 확인). */
+  _출처: 'Broker target prices: SeoulMarkets /v1/research (Hankyung Consensus, collected daily). '
+    + `Current price and market cap: Korean public data portal, dataset 15094808 (금융위원회, usage `
+    + `scope: no restriction), trading date ${latestDd}. Sector labels: rankings.json (DART-derived).`,
   asOf: latestDd, since, stocks: joined.length, brokerReports: all.length,
   marketMedian: +med(ups).toFixed(1), sectorMed, top: joined.slice(0, 15), bottom: joined.slice(-10),
 }, null, 1));
