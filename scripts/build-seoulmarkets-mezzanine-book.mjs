@@ -36,6 +36,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parquet로쓰기 } from './lib/parquet-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-issuance/mezzanine.ndjson');
@@ -178,6 +179,7 @@ function 짓기() {
     [표본머리, CSV로(머리칸, 표본)].join('\n'),
     'utf8',
   );
+  parquet로쓰기(표본, 머리칸, path.join(낼방, 'korea-mezzanine-book-sample.parquet'));
 
   const 사전 = {
     product: 'Korea Mezzanine Book',
@@ -225,6 +227,7 @@ function 짓기() {
   console.log(`   행 ${줄들.length.toLocaleString('en-US')} · 칸 ${머리칸.length} · CB ${갈래건수.CB} · BW ${갈래건수.BW} · EB ${갈래건수.EB}`);
   console.log(`✅ ${사전길}`);
   console.log(`✅ ${path.join(낼방, 'korea-mezzanine-book-sample.csv')} (표본 ${표본.length}행 · 공개)`);
+  console.log(`✅ ${path.join(낼방, 'korea-mezzanine-book-sample.parquet')} (같은 표본 · Parquet)`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);

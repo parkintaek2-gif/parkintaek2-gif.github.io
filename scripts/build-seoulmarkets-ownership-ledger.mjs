@@ -26,6 +26,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { parquet로쓰기 } from './lib/parquet-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-ownership/ownership.ndjson');
@@ -173,6 +174,7 @@ function 짓기() {
     [대량보유표본머리, CSV로(대량보유머리, 대량보유표본)].join('\n'),
     'utf8',
   );
+  parquet로쓰기(대량보유표본, 대량보유머리, path.join(낼방, 'korea-ownership-ledger-filings-sample.parquet'));
 
   const 임원주주표본 = 표본뽑기(임원주주줄);
   const 임원주주표본머리 = [
@@ -187,6 +189,7 @@ function 짓기() {
     [임원주주표본머리, CSV로(임원주주머리, 임원주주표본)].join('\n'),
     'utf8',
   );
+  parquet로쓰기(임원주주표본, 임원주주머리, path.join(낼방, 'korea-ownership-ledger-executives-sample.parquet'));
 
   const 사전 = {
     product: 'Korea Ownership Ledger',
@@ -255,6 +258,7 @@ function 짓기() {
   console.log(`✅ ${사전길}`);
   console.log(`✅ ${path.join(낼방, 'korea-ownership-ledger-filings-sample.csv')} (표본 ${대량보유표본.length}행 · 공개)`);
   console.log(`✅ ${path.join(낼방, 'korea-ownership-ledger-executives-sample.csv')} (표본 ${임원주주표본.length}행 · 공개)`);
+  console.log(`✅ 같은 표본 둘 다 .parquet 로도 냄`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);

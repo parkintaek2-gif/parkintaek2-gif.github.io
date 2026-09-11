@@ -202,10 +202,11 @@ const 해들 = Object.entries(data.byYear).sort();
       <section class="blk">
         <h2>Take a sample now, licence the ledger when you need all of it</h2>
         <p>
-          <b>Free sample</b> — the 100 most recently filed rows, every column:
-          {' '}<a href="/data/korea-ownership-ledger-filings-sample.csv">filings sample (5% rule)</a>
-          {' '}·{' '}
-          <a href="/data/korea-ownership-ledger-executives-sample.csv">executives sample</a>.
+          <b>Free sample</b> — the 100 most recently filed rows, every column, filings (5% rule):
+          {' '}<a href="/data/korea-ownership-ledger-filings-sample.csv">CSV</a> ·{' '}
+          <a href="/data/korea-ownership-ledger-filings-sample.parquet">Parquet</a>. Executives:
+          {' '}<a href="/data/korea-ownership-ledger-executives-sample.csv">CSV</a> ·{' '}
+          <a href="/data/korea-ownership-ledger-executives-sample.parquet">Parquet</a>.
         </p>
         <p>
           <b>The full ledger</b> covers all {수(data.filings)} filings and {수(data.officerFilings)}

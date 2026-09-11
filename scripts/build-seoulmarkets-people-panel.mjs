@@ -35,6 +35,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { 시세 } from '../src/lib/stock-prices-datago.mjs';
+import { parquet로쓰기 } from './lib/parquet-out.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 고용길 = path.join(뿌리, 'archive/raw/dart-employment/employment-2025.ndjson');
@@ -180,6 +181,7 @@ function 짓기() {
   ].join('\n');
   const 표본csv = [표본머리, 머리칸.join(','), ...표본.map((r) => 머리칸.map((k) => 칸(r[k])).join(','))].join('\n');
   fs.writeFileSync(path.join(낼방, 'korea-people-panel-sample.csv'), 표본csv, 'utf8');
+  parquet로쓰기(표본, 머리칸, path.join(낼방, 'korea-people-panel-sample.parquet'));
 
   /* 칸 사전 — ⭐ Wind·QUICK 이 상품 지면에서 가장 길게 쓰는 것이 이것이다 */
   const 사전 = {
@@ -236,6 +238,7 @@ function 짓기() {
   console.log(`   ⛔ 급여 격차를 «안 낸» 것 ${격차안낸것.toLocaleString('en-US')} — 얇은 칸에 비율을 내지 않는다`);
   console.log(`✅ ${사전길}`);
   console.log(`✅ ${path.join(낼방, 'korea-people-panel-sample.csv')} (표본 ${표본.length}행 · 공개)`);
+  console.log(`✅ ${path.join(낼방, 'korea-people-panel-sample.parquet')} (같은 표본 · Parquet)`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
