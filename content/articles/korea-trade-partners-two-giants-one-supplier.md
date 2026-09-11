@@ -48,6 +48,14 @@ Stack the partners up from the largest and both curves climb steeply. **Four par
 
 We keep a page for each of Korea's [biggest trading partners](/trade) — surplus or deficit, rank, and share of exports and imports, country by country.
 
+## The full ranking — all 243 partners, with the balance
+
+This article reads one month. If what you want is **South Korea's largest trading partners ranked in full**, that is a separate page: [243 partner countries over twelve months](/data/trading-partners), 2025-08 to 2026-07.
+
+It answers a question this one does not. **China is the largest partner at 21.5% of all trade — but the largest surplus comes from the United States.** Those are two different rankings, and almost everyone publishes only the first. The top five together are 55.6% of the total; 161 partners run a surplus and 79 a deficit.
+
+⚠ Different basis, stated so you can tell them apart: that page is built on **customs** figures over twelve months — goods crossing the border, services excluded — while the shares above come from the monthly statistics table. The two will not agree to the decimal, and neither is wrong.
+
 ## What these numbers are, and are not
 
 Everything here is a **share** — the fraction of the basket each partner holds — and deliberately so. The underlying table's monthly dollar totals contain a scale break from March 2026, so the absolute figures are not trustworthy and are not used; the *shares*, by contrast, barely move across that break (China's export share reads 18.9%, 19.1% and 19.6% in February, March and June), which is why they can be reported with confidence. This is a description of *where* Korea's trade goes and comes from in one month, in relative terms — **not investment advice**.

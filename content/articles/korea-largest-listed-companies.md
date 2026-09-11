@@ -60,6 +60,18 @@ The four rankings, with the ranks side by side and every count of what is missin
 than shares, because it is built on the public data portal's price dataset instead of the
 simulated feed used here.
 
+## Looking for the weights themselves?
+
+This article stops at ten companies. If what you want is the **index weight of every KOSPI
+constituent** — each company's share of total market value, all **828** of them, ranked and free
+to read — that is a separate page: [what share of KOSPI is each company](/data/kospi-weights).
+The two largest are **52.2 percent** of the market between them on 2026-09-09.
+
+⚠ One caveat stated there and worth repeating: those are shares of **full** market value, not of
+free float. Index providers weight by float, so a company whose founding family holds a large
+block will sit lower in the official index than it does on that page. We say so rather than
+publishing a float-adjusted number we cannot source.
+
 ## Related — where this shows up
 
 - [What Korea's pension's 107% return really measures](https://seoulmarkets.com/article/korea-pension-107-percent-read-the-label) — the national pension is a major holder of these same large-caps; read the label on that number.
