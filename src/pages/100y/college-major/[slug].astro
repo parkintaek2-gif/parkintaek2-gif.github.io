@@ -54,6 +54,55 @@ export async function getStaticPaths() {
 }
 
 const { 과 } = Astro.props as { 과: any };
+
+/**
+ * 🔴 [2026-09-11 22:3x · 5번] **837장이 「막다른 길」이었다.**
+ *
+ * 22시 방문자 방송에서 백년지도가 «손님은 제일 많은데 걸음은 가장 짧은» 것을 보고
+ * 갈래별로 재 봤다 — `/college-major` 만 앞으로 가는 링크가 «평균 0.3개»였다.
+ * 표본 200장 전부, 위아래 메뉴 말고는 갈 곳이 없었다(다른 갈래는 8~15개).
+ *
+ * ⛔ 손님이 이 지면에 닿아도 다음 장이 없으니 그대로 나간다 — 1인당 1.22장의 까닭이다.
+ * ✅ 그래서 «이 학과를 본 사람이 다음에 볼 만한 것»을 두 갈래로 잇는다.
+ *   ① 이름을 나눠 쓰는 학과 — 「AI융합교육전공」이면 AI·융합·교육을 쓰는 학과들
+ *   ② 취업률이 가장 가까운 학과 — 견주어 보라고 내는 것이다
+ * ⛔ 지어내지 않는다. 837개 자료 안에 «실제로 있는» 학과만 건다.
+ */
+const 낱말빼기 = (이름: string) => {
+  const 민 = String(이름 ?? '').replace(/(학과|학부|전공|계열|과)$/g, '');
+  const 것 = new Set<string>();
+  for (let n = 4; n >= 2; n--) {
+    for (let i = 0; i + n <= 민.length; i++) 것.add(민.slice(i, i + n));
+  }
+  return [...것];
+};
+
+/* ⚠ 묶음(major-merged)은 660개에 칸 이름이 «이름»이고 지면 슬러그와 안 맞는다 —
+   처음에 그걸 썼다가 링크가 /college-major/undefined 로 나갔다. 빌드해서 눈으로 보고 잡았다.
+   지면이 실제로 나는 837개는 성과(major-outcomes)의 «학과» 칸이다. */
+const 모든과: any[] = (성과 as any).자료 ?? [];
+const 이웃 = (() => {
+  const 나 = String(과.학과 ?? '');
+  const 내낱말 = 낱말빼기(나);
+  const 같은결 = 모든과
+    .filter((x) => x.학과 !== 나 && 내낱말.some((w) => String(x.학과).includes(w)))
+    .sort((a, b) => {
+      /* 긴 낱말이 겹칠수록 가깝다. 같으면 졸업자가 많은 쪽을 먼저 */
+      const 길 = (x: any) => Math.max(...내낱말.filter((w) => String(x.학과).includes(w)).map((w) => w.length), 0);
+      return (길(b) - 길(a)) || ((b.졸업자 ?? 0) - (a.졸업자 ?? 0));
+    })
+    .slice(0, 6);
+
+  const 내취업 = Number(과.취업률);
+  const 비슷한취업 = Number.isFinite(내취업)
+    ? 모든과
+        .filter((x) => x.학과 !== 나 && Number.isFinite(Number(x.취업률)) && (x.졸업자 ?? 0) >= 300
+          && !같은결.some((y) => y.학과 === x.학과))
+        .sort((a, b) => Math.abs(Number(a.취업률) - 내취업) - Math.abs(Number(b.취업률) - 내취업))
+        .slice(0, 4)
+    : [];
+  return { 같은결, 비슷한취업, 내취업 };
+})();
 const 묶인것 = 묶음표.get(꼬리떼기(과.학과)) ?? null;
 
 /**
@@ -337,9 +386,59 @@ const jsonLd = {
     무리={`전국 ${과.학과} 졸업생 ${(과.졸업자 ?? 0).toLocaleString()}명을 한데 묶은 값`}
   />
 
+  {/* 🔴 [2026-09-11 · 5번] 여기가 «막다른 길»이었다. 다음 장으로 가는 문을 낸다 */}
+  {(이웃.같은결.length > 0 || 이웃.비슷한취업.length > 0) && (
+    <section class="이웃">
+      {이웃.같은결.length > 0 && (
+        <>
+          <h2>같은 이름을 나눠 쓰는 학과</h2>
+          <p class="note">이름이 겹치는 학과끼리 견주어 보시라고 냅니다. 같은 계열이라는 뜻은 아닙니다.</p>
+          <ul class="이웃목록">
+            {이웃.같은결.map((x: any) => (
+              <li>
+                <a href={`/college-major/${학과슬러그(x.학과)}`}>{x.학과}</a>
+                <span class="수">졸업 {(x.졸업자 ?? 0).toLocaleString()}명 · 취업률 {퍼센트(x.취업률)}</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+      {이웃.비슷한취업.length > 0 && (
+        <>
+          <h2>취업률이 가장 가까운 학과</h2>
+          <p class="note">
+            {과.학과}{조사(과.학과, '은는', '는')} {퍼센트(이웃.내취업)}입니다.
+            졸업자 300명 이상인 학과 가운데 이 값에 가장 가까운 넷입니다.
+            ⚠ 취업률이 같다고 하는 일이 같지는 않습니다.
+          </p>
+          <ul class="이웃목록">
+            {이웃.비슷한취업.map((x: any) => (
+              <li>
+                <a href={`/college-major/${학과슬러그(x.학과)}`}>{x.학과}</a>
+                <span class="수">취업률 {퍼센트(x.취업률)} · 졸업 {(x.졸업자 ?? 0).toLocaleString()}명</span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </section>
+  )}
+
   {/* 🔴 둘 다 19px 이었다(2026-08-09 05:3x · 375px 실측). 837장에 붙는 줄이다 */}
   <p class="note linkrow">
     <a href="/college-major">대학 학과 전부 보기</a> · <a href="/after">대학 이후</a> ·{' '}
     <a href="/ages">나이로 보는 문 — 0세부터 100세까지</a>
   </p>
 </HundredYear>
+
+<style>
+  /* [2026-09-11 · 5번] 이 지면에만 쓰는 것. 837장에 붙으므로 가볍게 둔다 */
+  .이웃 { margin: 2rem 0 1.2rem; }
+  .이웃 h2 { font-size: 1.05rem; margin: 1.4rem 0 .4rem; }
+  .이웃목록 { list-style: none; padding: 0; margin: .6rem 0 0;
+              display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); gap: .5rem; }
+  .이웃목록 li { border: 1px solid var(--line, #e0e0e0); border-radius: .4rem; padding: .55rem .75rem; }
+  .이웃목록 a { display: block; font-weight: 600; text-decoration: none; line-height: 1.4; }
+  .이웃목록 a:hover { text-decoration: underline; }
+  .이웃목록 .수 { display: block; font-size: .82rem; color: var(--muted, #777); margin-top: .15rem; }
+</style>
