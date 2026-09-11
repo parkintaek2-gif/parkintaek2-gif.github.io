@@ -45,7 +45,23 @@ const 주소 = 'https://klifemap.ai/api/health';
  *   상함    DB · 엔진 · 환경변수가 통째로 빔 · aiReports(판정 리포트가 상품이다)
  *   기다림  oauth · email · initialAdmin — 서비스는 돌고, 열쇠가 오면 켜진다
  * ⛔ 기다림을 «없는 것»으로 만들지 않는다. 화면에 ⏳ 로 남겨 무엇을 기다리는지 적는다. */
-const 기다려도되는칸 = new Set(['oauth', 'email', 'initialAdmin']);
+/* 🔴🔴 [2026-09-12 07:5x · 5번] **위 판정이 틀렸다. 몇 시간 만에 내가 잡혔다.**
+ *
+ * 아침에 나는 oauth·email 이 꺼진 것을 「기다림 — 서비스는 성하다」로 적었다.
+ * 사장님이 그 자리에서 짚으셨다 —
+ *   「케이라이프맵 유료서비스가 거의 모두 닫힌 거나 진배없다...아마추어도 해선 안 될 실수이다」
+ *
+ * 재 보니 사장님 말씀이 맞았다. 창구에 직접 물었다 —
+ *   /api/auth/providers        []                          손님이 «들어오지 못한다»
+ *   /api/health  email         not_configured              가입확인·영수증이 «안 나간다»
+ *   /api/billing/toss/status   clientKey "test_ck_…"       돈이 «안 들어온다»
+ *
+ * ⛔ 내가 본 것은 «서버가 살아 있나»였고, 재야 했던 것은 «손님이 살 수 있나»였다.
+ *   DB 가 ok 고 엔진이 ok 라도 손님이 문 앞에서 막히면 그 가게는 닫힌 것이다.
+ *
+ * ⇒ 그래서 「기다림」 칸을 비운다. 로그인과 메일은 «상함»이다.
+ *   기다림은 정말로 «손님 길에 닿지 않는 것»만 들어간다(관리자 초기계정 따위). */
+const 기다려도되는칸 = new Set(['initialAdmin']);
 
 /**
  * health 몸통을 보고 무엇이 잘못됐는지 갈라 낸다.
@@ -93,6 +109,33 @@ export function 살핀다(몸통) {
 }
 
 /**
+ * 🔴 **돈길을 잰다 — 「손님이 살 수 있나」.**
+ *
+ * 이것이 없어서 2026-09-12 아침에 「성하다」를 냈다. 서버가 사는 것과 장사가 되는 것은 다르다.
+ * ⛔ 「enabled: true」를 「판다」로 읽지 않는다 — 토스는 «테스트 키»로도 enabled 가 참이다.
+ *   test_ 로 시작하는 열쇠는 돈이 안 들어온다. 그것이 닫힌 것과 같다.
+ *
+ * @returns {{연다:boolean, 막힌것:string[]}}
+ */
+export function 돈길살핀다({ 토스, 페이팔, 로그인 } = {}) {
+  const 막힌것 = [];
+
+  if (!토스 || 토스.ok !== true || !토스.enabled) {
+    막힌것.push('토스 결제가 꺼져 있다 — 원화로 받을 길이 없다');
+  } else if (토스.live === false || String(토스.clientKey ?? '').startsWith('test_')) {
+    막힌것.push('토스가 «테스트 열쇠»로 돌고 있다 — 손님이 눌러도 돈이 들어오지 않는다');
+  }
+
+  /* 페이팔은 해외 손님 몫이다. 없으면 «해외가 닫힌 것»이지 국내까지 닫힌 것은 아니다 */
+  if (!페이팔 || 페이팔.enabled !== true) 막힌것.push('페이팔이 꺼져 있다 — 해외 손님은 못 산다');
+
+  const 것 = Array.isArray(로그인?.providers) ? 로그인.providers : [];
+  if (것.length === 0) 막힌것.push('소셜 로그인이 하나도 없다 — 손님이 문 앞에서 막힌다');
+
+  return { 연다: 막힌것.length === 0, 막힌것 };
+}
+
+/**
  * 컨테이너가 방금 다시 떴나 — 다시 뜬 «직후»가 자료를 잃는 자리다.
  * ⛔ 「오래 떠 있다」를 안전으로 읽지 않는다. 위험한 것은 «다음에 다시 뜰 때»다
  */
@@ -123,9 +166,10 @@ function 자가시험() {
 
   const 하나만 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
     optional: { aiReports: 'configured', email: 'configured', oauth: 'not_configured' } } };
-  검('하나만 꺼졌으면 «통째로»라고 하지 않는다', 살핀다(하나만).잃은것, []);
-  검('⭐ oauth 하나만 꺼진 것은 «상함»이 아니라 «기다림»이다', 살핀다(하나만).판정, '기다림');
-  검('기다리는 것이 무엇인지 적는다', 살핀다(하나만).기다리는것, ['oauth — 열쇠가 와야 켜진다']);
+  검('하나만 꺼졌으면 «통째로»라고 하지 않는다', 살핀다(하나만).잃은것, ['oauth 가 꺼져 있다']);
+  /* 🔴 아침에 이 시험이 「기다림」을 바랐다. 그것이 틀린 판정을 «지켜 주고» 있었다 —
+     손님이 로그인을 못 하면 그 가게는 닫힌 것이다. 시험을 뒤집어 못 박는다 */
+  검('🔴 oauth 가 꺼지면 «상함»이다 — 손님이 문 앞에서 막힌다', 살핀다(하나만).판정, '상함');
 
   /* 🔴 오늘 밤 실제로 온 답 — R2 를 되살린 «뒤»의 모양이다.
      DB·엔진·AI 는 성한데 oauth·email·initialAdmin 만 꺼져 있다.
@@ -134,9 +178,32 @@ function 자가시험() {
     checks: { database: { status: 'ok' }, engine: { status: 'ok' },
       optional: { aiReports: 'configured', email: 'not_configured', oauth: 'not_configured',
         initialAdmin: 'not_configured' } } };
-  검('R2 되살린 뒤의 답은 «기다림»이다', 살핀다(오늘밤).판정, '기다림');
-  검('그 답에 잃은 것은 없다', 살핀다(오늘밤).잃은것, []);
-  검('기다리는 칸 셋을 다 센다', 살핀다(오늘밤).기다리는것.length, 3);
+  검('🔴 R2 를 되살려도 로그인·메일이 죽었으면 «상함»이다', 살핀다(오늘밤).판정, '상함');
+  검('무엇이 죽었는지 둘을 집어낸다', 살핀다(오늘밤).잃은것.length, 2);
+  검('초기 관리자만 «기다림»으로 남는다', 살핀다(오늘밤).기다리는것.length, 1);
+
+  /* ── 돈길 — 「손님이 살 수 있나」 ─────────────────────────────── */
+  const 좋은돈길 = {
+    토스: { ok: true, enabled: true, live: true, clientKey: 'live_ck_abc' },
+    페이팔: { ok: true, enabled: true },
+    로그인: { ok: true, providers: ['google', 'naver', 'kakao'] },
+  };
+  검('다 열려 있으면 연다고 한다', 돈길살핀다(좋은돈길).연다, true);
+
+  /* 🔴 2026-09-12 08:0x 에 실제로 온 답 */
+  const 오늘돈길 = {
+    토스: { ok: true, enabled: true, live: false, clientKey: 'test_ck_AQ92ymxN34PzJ55D7pKj3ajRKXvd' },
+    페이팔: { ok: true, enabled: false, live: false, clientId: null },
+    로그인: { ok: true, providers: [] },
+  };
+  검('🔴 오늘 답은 «못 연다»', 돈길살핀다(오늘돈길).연다, false);
+  검('테스트 열쇠를 «열렸다»로 읽지 않는다',
+    돈길살핀다(오늘돈길).막힌것.some((x) => x.includes('테스트 열쇠')), true);
+  검('막힌 것 셋을 다 센다', 돈길살핀다(오늘돈길).막힌것.length, 3);
+  검('⛔ enabled 가 참이어도 test_ 열쇠면 막힌 것이다',
+    돈길살핀다({ 토스: { ok: true, enabled: true, live: true, clientKey: 'test_ck_x' },
+      페이팔: { enabled: true }, 로그인: { providers: ['google'] } }).연다, false);
+  검('아예 못 받았으면 «연다»고 하지 않는다', 돈길살핀다({}).연다, false);
 
   /* ⛔ 다만 AI 리포트는 «상품»이다 — 이건 기다림이 아니라 상함이다 */
   const AI꺼짐 = { status: 'degraded', checks: { database: { status: 'ok' }, engine: { status: 'ok' },
@@ -171,6 +238,20 @@ try {
   몸통 = await r.json();
 } catch { 몸통 = null; }
 
+/* 🔴 돈길도 함께 잰다 — 서버가 사는 것과 «장사가 되는 것»은 다르다 */
+async function 물어본다(길) {
+  try {
+    const r = await fetch('https://klifemap.ai' + 길, { signal: AbortSignal.timeout(20000) });
+    return await r.json();
+  } catch { return null; }
+}
+const [토스, 페이팔, 로그인] = await Promise.all([
+  물어본다('/api/billing/toss/status'),
+  물어본다('/api/billing/paypal/status'),
+  물어본다('/api/auth/providers'),
+]);
+const 돈길 = 돈길살핀다({ 토스, 페이팔, 로그인 });
+
 const 본것 = 살핀다(몸통);
 console.log('■ klifemap — 매출이 나는 서비스다. 밖에서 잰다');
 
@@ -182,17 +263,24 @@ if (본것.판정 === '못쟀다') {
 const 갓 = 갓떴나(몸통.uptimeSec);
 console.log(`   떠 있은 시간  ${몸통.uptimeSec ?? '못 쟀다'}초` + (갓 === true ? '  ⚠ 방금 다시 떴다' : ''));
 
-if (본것.판정 === '성함') {
+/* 🔴 돈길을 «맨 먼저» 낸다. 사장님이 물으시는 것은 「팔리나」이지 「떠 있나」가 아니다 */
+if (돈길.연다) {
+  console.log('   ✅ 돈길 — 손님이 «살 수 있다»');
+} else {
+  console.log('   🔴 돈길이 막혔다 — 손님이 «살 수 없다»');
+  for (const x of 돈길.막힌것) console.log('      · ' + x);
+}
+
+if (본것.판정 === '성함' && 돈길.연다) {
   console.log('   ✅ 성하다 (status ' + 본것.말 + ')');
   process.exit(0);
 }
 
 /* ⏳ 서비스는 도는데 열쇠가 없어 꺼진 칸만 있는 자리.
    ⛔ 이것을 빨간불로 켜지 않는다. 대신 «무엇을 기다리는지»를 남겨 안 보이게 하지 않는다 */
-if (본것.판정 === '기다림') {
-  console.log('   ⏳ 서비스는 성하다 — 열쇠가 와야 켜지는 칸만 꺼져 있다 (status ' + 본것.말 + ')');
+if (본것.판정 === '기다림' && 돈길.연다) {
+  console.log('   ⏳ 팔리고는 있다 — 손님 길에 안 닿는 칸만 꺼져 있다 (status ' + 본것.말 + ')');
   for (const x of 본것.기다리는것) console.log('      · ' + x);
-  console.log('   ✅ DB·엔진·AI 리포트는 성하다. 손님이 산 것은 나온다');
   process.exit(0);
 }
 
