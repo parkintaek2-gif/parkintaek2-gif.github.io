@@ -43,6 +43,9 @@ import { TRADE } from '../../lib/trade-data.mjs';
  *   「China peoples' republic of」. 그릇이 내용물을 결정한다(사장님 2026-08-02).
  * ⚠ 다만 **철자만** 고친다. 어느 나라를 어디에 넣을지는 원자료가 정한 그대로 둔다.
  *   여기 없는 이름은 원자료 표기를 그대로 낸다 — 짐작으로 바꾸지 않는다.
+ * ✅ [2026-09-11] 화면에 «실제로» 나오는 이름 26개를 뽑아 하나씩 봤다(상위 25 · 흑자 6 ·
+ *   적자 6 · 쏠림 10 을 합친 집합). 안 고쳐진 채 나가던 것은 「Quatar」 하나였다.
+ *   ⛔ 표를 늘리면 여기도 다시 훑는다 — 자료가 바뀌면 안 보이던 이름이 올라온다.
  */
 const 이름고침: Record<string, string> = {
   "China peoples' republic of": 'China',
@@ -52,6 +55,8 @@ const 이름고침: Record<string, string> = {
   'U.arab emirates': 'United Arab Emirates',
   Netherland: 'Netherlands',
   'Marshalls Islands': 'Marshall Islands',
+  /* ⚠ 원자료의 철자 오류다 — 같은 나라의 «철자»만 고치는 것이라 이 규칙 안이다 */
+  Quatar: 'Qatar',
   'Viet nam': 'Vietnam',
   'Russian federation': 'Russia',
   'Korea, republic of': 'South Korea',
@@ -63,6 +68,19 @@ const 이름고침: Record<string, string> = {
   'Costa rica': 'Costa Rica',
 };
 const 부르기 = (n: string) => 이름고침[n] ?? n;
+
+/*
+ * 🔴 [2026-09-11] 처음 낸 판이 「comes from United States」라고 썼다 — 영어가 틀렸다.
+ *   표 칸에서는 이름만 쓰는 것이 맞지만 «글월 안»에서는 관사가 붙는 나라가 있다.
+ *   영어 독자에게 내는 지면에서 이런 한 글자가 「기계가 쓴 글」로 읽히게 만든다.
+ * ⛔ 규칙으로 짐작하지 않는다 — 관사가 붙는 이름을 «세어서» 적는다.
+ */
+const 관사나라 = new Set([
+  'United States', 'United Kingdom', 'United Arab Emirates', 'Netherlands',
+  'Philippines', 'Czechia', 'Marshall Islands',
+]);
+const 글월이름 = (n: string, 첫머리 = false) =>
+  (관사나라.has(n) ? `${첫머리 ? 'The' : 'the'} ${n}` : n);
 
 type 상대 = {
   name: string; raw: string; ex: number; im: number; total: number; bal: number;
@@ -125,8 +143,8 @@ const 달수 = TRADE.window.months;
 const TITLE = "South Korea's largest trading partners — ranked, with the balance";
 const DESC =
   `South Korea traded with ${num(상대수)} partner countries over the ${달수} months from ${창}. `
-  + `${첫.name} is the largest at ${pc(몫(첫))} of all trade, but the largest surplus comes from `
-  + `${수지1등.name}. Free, in English, on a customs goods basis, with the long tail and the gaps published.`;
+  + `${글월이름(첫.name, true)} is the largest at ${pc(몫(첫))} of all trade, but the largest surplus comes from `
+  + `${글월이름(수지1등.name)}. Free, in English, on a customs goods basis, with the long tail and the gaps published.`;
 
 const datasetLd = {
   '@context': 'https://schema.org',
@@ -159,13 +177,13 @@ const datasetLd = {
 /* FAQ — ⛔ 화면에 «실제로 보이는» 글월과 같아야 한다(구글 규칙) */
 const faq: Array<[string, string]> = [
   ["Who is South Korea's largest trading partner?",
-    `${첫.name}, at ${pc(몫(첫))} of all two-way trade over the ${달수} months from ${창} — `
-    + `$${bn(첫.total)} billion. ${둘.name} is second at ${pc(몫(둘))}, or $${bn(둘.total)} billion. `
+    `${글월이름(첫.name, true)}, at ${pc(몫(첫))} of all two-way trade over the ${달수} months from ${창} — `
+    + `$${bn(첫.total)} billion. ${글월이름(둘.name, true)} is second at ${pc(몫(둘))}, or $${bn(둘.total)} billion. `
     + `The two together are ${pc(누적(2))} of everything South Korea trades.`],
   ['Which partner gives South Korea the biggest trade surplus?',
-    `${수지1등.name}, at $${bn(수지1등.bal)} billion over the ${달수} months`
+    `${글월이름(수지1등.name, true)}, at ${bn(수지1등.bal)} billion over the ${달수} months`
     + (배수 && 배수 > 1.5
-      ? ` — about ${배수.toFixed(1)} times the surplus with ${첫.name}, the larger partner by trade value.`
+      ? ` — about ${배수.toFixed(1)} times the surplus with ${글월이름(첫.name)}, the larger partner by trade value.`
       : '.')
     + ' The biggest partner and the biggest surplus are not the same country, and a ranking by size alone hides that.'],
   ['How many countries does South Korea trade with?',
@@ -177,7 +195,7 @@ const faq: Array<[string, string]> = [
     + `${num(적자수)} in deficit`
     + (균형수 ? `, with ${num(균형수)} exactly level` : '')
     + `. The deficits are concentrated in a few large ones — the largest is `
-    + `${적자순[0].name} at $${bn(-적자순[0].bal)} billion.`],
+    + `${글월이름(적자순[0].name)} at $${bn(-적자순[0].bal)} billion.`],
   ['Does this include services?',
     'No. These are customs figures, which cover goods crossing the border. Shipping, tourism, '
     + 'royalties, software and financial services are not in this dataset, and for some partners '
@@ -203,7 +221,7 @@ const jsonLd = [datasetLd, faqLd];
     <p class="lead">
       {num(상대수)} partner countries, {달수} months, <b>{창}</b>, in English and free.{' '}
       <b>{첫.name}</b> is the largest at <b>{pc(몫(첫))}</b> of all trade — but the largest{' '}
-      <b>surplus</b> comes from <b>{수지1등.name}</b>. Those are two different rankings, and almost
+      <b>surplus</b> comes from <b>{글월이름(수지1등.name)}</b>. Those are two different rankings, and almost
       everyone publishes only the first.
     </p>
 
@@ -266,11 +284,11 @@ const jsonLd = [datasetLd, faqLd];
     <section>
       <h2>The biggest partner and the biggest surplus are different countries</h2>
       <p>
-        {첫.name} is first by trade value. It is not first by balance.{' '}
-        <b>{수지1등.name}</b> produced a surplus of <b>${bn(수지1등.bal)} billion</b> over these{' '}
+        {글월이름(첫.name, true)} is first by trade value. It is not first by balance.{' '}
+        <b>{글월이름(수지1등.name, true)}</b> produced a surplus of <b>${bn(수지1등.bal)} billion</b> over these{' '}
         {달수} months
         {배수 && 배수 > 1.5
-          ? <span>, about <b>{배수.toFixed(1)} times</b> the ${bn(첫.bal)} billion from {첫.name}</span>
+          ? <span>, about <b>{배수.toFixed(1)} times</b> the ${bn(첫.bal)} billion from {글월이름(첫.name)}</span>
           : <span></span>}
         {' '}— on{' '}
         <b>{((수지1등.total / 첫.total) * 100).toFixed(0)}%</b> as much two-way trade. Size tells you
@@ -312,10 +330,10 @@ const jsonLd = [datasetLd, faqLd];
       <p>
         A partner can be large and still be almost entirely a <i>destination</i>, or almost entirely
         a <i>supplier</i>. Dividing the balance by two-way trade says which. Among the twenty-five
-        largest, <b>{가장쏠림.name}</b> is the most one-sided at{' '}
+        largest, <b>{글월이름(가장쏠림.name, true).replace(/^The /, 'the ')}</b> is the most one-sided at{' '}
         <b>{pc(가장쏠림.한쪽 * 100, 0)}</b> — South Korea{' '}
         {가장쏠림.bal > 0 ? 'sells there far more than it buys' : 'buys there far more than it sells'}.
-        The most even is <b>{가장고름.name}</b> at <b>{pc(가장고름.한쪽 * 100, 0)}</b>, which is worth
+        The most even is <b>{글월이름(가장고름.name)}</b> at <b>{pc(가장고름.한쪽 * 100, 0)}</b>, which is worth
         holding beside its rank: the largest partner by value is also one of the most balanced.
       </p>
       <div class="scroll">
