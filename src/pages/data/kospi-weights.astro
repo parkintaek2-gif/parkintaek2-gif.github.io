@@ -1,0 +1,339 @@
+---
+/*
+ * **What share of KOSPI each company is** — 무료 영문 지면(F6 깔때기).
+ * (seoulmarkets.com/data/kospi-weights)
+ *
+ * ── 🔴 왜 이 지면인가 — 서치콘솔이 가리켰다 (2026-09-11 · 5번) ─────────────
+ *   28일치 질의를 보니 「kospi index constituents weights」에서 우리 평균 순위가 **1.0위**다.
+ *   그런데 노출이 두 번뿐이다. ⇒ **수요가 우리를 찾는데 받을 지면이 없다.**
+ *   그 물음을 받는 지면이 없으니 노출이 안 늘고, 노출이 없으니 아무도 안 온다.
+ *
+ * ── 🔴 이 지면이 «절대» 거짓말하면 안 되는 한 가지 ──────────────────────
+ *   손님이 「weights」로 찾아오지만 **우리가 내는 것은 지수 편입비중이 아니다.**
+ *   진짜 KOSPI 편입비중은 «유동주식(free float)»을 조정해 쓴다. 우리는 그 조정 계수를
+ *   갖고 있지 않다. 우리가 내는 것은 **시가총액 전액 기준 몫**이다.
+ *   ⛔ 그것을 「weight」라고 부르면 손님이 지수 비중으로 읽는다 — 그 순간 이 지면은 거짓이다.
+ *   ✅ 그래서 제목·본문·구조화 데이터 전부에서 「share of total market value」로 부르고,
+ *     무엇이 다른지를 «표 위»에 적는다. 각주로 내리지 않는다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다.
+ * ⛔ 「싸다·비싸다·사라·팔라」를 말하지 않는다. 투자자문이 아니다.
+ * ⛔ 평균을 만들지 않는다. 분포를 낸다.
+ * ⛔ 못 잰 것을 0 으로 채우지 않는다 — 시총이 없는 줄은 분모에서 뺀다.
+ * ⚠ 회사 단위다. 우선주가 따로 상장돼 있어도 «발행 회사» 하나로 센다(DART 신고 주체 기준).
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * ⚠ 줄바꿈만으로 두 글월을 띄우면 «붙어» 나간다. 사이에 {' '} 를 넣는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-valuation-tape.json';
+
+type Row = {
+  ticker: string | null; nameEn: string | null; market: string | null;
+  industryEn: string | null; marketCap: number | null; priceAsOf: string | null;
+};
+
+const meta = (tape as any)._meta as Record<string, any>;
+const rows = ((tape as any).rows ?? []) as Row[];
+
+const fmtDd = (s: string | null) =>
+  (s && s.length === 8 ? `${s.slice(0, 4)}-${s.slice(4, 6)}-${s.slice(6, 8)}` : (s ?? '—'));
+const priceDate = fmtDd(meta.priceAsOf);
+
+/* KOSPI 만 — 시총이 «있는» 것만. ⛔ 없는 것을 0 으로 세지 않는다 */
+const kospi = rows
+  .filter((r) => r.market === 'Y' && r.marketCap !== null)
+  .sort((a, b) => (b.marketCap as number) - (a.marketCap as number));
+const total = kospi.reduce((s, r) => s + (r.marketCap as number), 0);
+const share = (r: Row) => ((r.marketCap as number) / total) * 100;
+
+const cum = (n: number) =>
+  (kospi.slice(0, n).reduce((s, r) => s + (r.marketCap as number), 0) / total) * 100;
+
+const top25 = kospi.slice(0, 25);
+const 두곳 = cum(2);
+const 바닥수 = Math.max(0, kospi.length - 300);
+const 바닥몫 = 바닥수 > 0
+  ? (kospi.slice(300).reduce((s, r) => s + (r.marketCap as number), 0) / total) * 100
+  : 0;
+
+/* 시총이 없어 못 센 KOSPI 줄 — 숨기지 않는다 */
+const kospiNoCap = rows.filter((r) => r.market === 'Y' && r.marketCap === null).length;
+
+/* 분포 — 몫의 크기로 나눈다. ⛔ 평균을 내지 않는다 */
+const bands = [
+  { label: '5% or more', test: (p: number) => p >= 5 },
+  { label: '1% to 5%', test: (p: number) => p >= 1 && p < 5 },
+  { label: '0.5% to 1%', test: (p: number) => p >= 0.5 && p < 1 },
+  { label: '0.1% to 0.5%', test: (p: number) => p >= 0.1 && p < 0.5 },
+  { label: 'under 0.1%', test: (p: number) => p < 0.1 },
+].map((b) => {
+  const hit = kospi.filter((r) => b.test(share(r)));
+  return {
+    label: b.label,
+    n: hit.length,
+    pct: (hit.reduce((s, r) => s + (r.marketCap as number), 0) / total) * 100,
+  };
+});
+const bandMax = Math.max(1, ...bands.map((b) => b.n));
+
+const num = (n: number) => n.toLocaleString('en-GB');
+const trn = (n: number | null) => (n === null ? '—'
+  : (n / 1e12) >= 100 ? Math.round(n / 1e12).toLocaleString('en-GB') : (n / 1e12).toFixed(1));
+
+const TITLE = 'What share of KOSPI is each company? Free, in English, with the float caveat stated';
+const DESC =
+  `Every KOSPI company's share of total market value — ${num(kospi.length)} companies on `
+  + `${priceDate}, ranked, free and in English. The two largest are ${두곳.toFixed(1)} percent of `
+  + `the market between them. This is share of full market capitalisation, not the free-float index `
+  + `weight, and we say so on every table. Not investment advice.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'KOSPI companies by share of total market value',
+  description: DESC,
+  url: `${SITE_URL}/data/kospi-weights`,
+  keywords: ['KOSPI', 'KOSPI constituents', 'KOSPI weights', 'market capitalisation',
+    'Korea stock market', 'Samsung Electronics', 'SK hynix', 'index concentration', 'free float'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique:
+    'Share is a company’s market capitalisation divided by the summed market capitalisation of '
+    + 'all KOSPI companies for which a figure exists on the stated trading day. Companies without a '
+    + 'figure are excluded from the denominator rather than entered as zero, and their count is '
+    + 'published. Figures are company-level: a firm with separately listed preferred shares is '
+    + 'counted once, under its regulatory filing identity. This is NOT the free-float adjusted index '
+    + 'weight used to construct the KOSPI index, which requires float factors we do not hold.',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  dateModified: priceDate,
+  variableMeasured: ['market capitalisation', 'share of total market value'],
+};
+
+/* FAQ — ⛔ 화면에 «실제로 보이는» 문장과 같아야 한다(구글 규칙) */
+const faq: Array<[string, string]> = [
+  ['Is this the KOSPI index weight?',
+    'No, and the difference matters. The KOSPI index is built on free-float adjusted market '
+    + 'capitalisation, which discounts shares that are not available to trade. This page divides '
+    + 'full market capitalisation by the sum of full market capitalisations. For a company with a '
+    + 'large locked-in holding the two numbers differ. We publish the one we can actually compute '
+    + 'and name it for what it is.'],
+  ['What share of KOSPI is Samsung Electronics?',
+    (() => {
+      const s = kospi.find((r) => r.ticker === '005930');
+      return s
+        ? `${s.nameEn} is ${share(s).toFixed(2)} percent of total KOSPI market value on ${priceDate}, `
+          + `at ${trn(s.marketCap)} trillion won. The second largest, ${kospi[1]?.nameEn}, is `
+          + `${share(kospi[1]).toFixed(2)} percent. Together the two are ${두곳.toFixed(1)} percent.`
+        : 'Not measured on this date.';
+    })()],
+  ['How concentrated is the KOSPI?',
+    `The five largest companies hold ${cum(5).toFixed(1)} percent of total market value, the ten `
+    + `largest ${cum(10).toFixed(1)} percent and the fifty largest ${cum(50).toFixed(1)} percent. `
+    + `The ${num(바닥수)} companies outside the top 300 hold ${바닥몫.toFixed(2)} percent between them.`],
+  ['How many companies are on the KOSPI?',
+    `${num(kospi.length)} companies have a market capitalisation on ${priceDate} in this dataset. `
+    + `${kospiNoCap === 0 ? 'None are missing a figure' : `${num(kospiNoCap)} more are listed but have no figure that day and are left out of the denominator`}. `
+    + 'Counting is by company, not by listed line: a firm whose preferred shares list separately is '
+    + 'counted once.'],
+  ['Where does the data come from and is it free?',
+    `It is free and in English. Market capitalisation comes from the Korean government public data `
+    + `portal daily price dataset for ${priceDate}; company identity and industry come from the `
+    + `Korean Financial Supervisory Service DART filings.`],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>What share of KOSPI is each company?</h1>
+    <p class="lead">
+      {num(kospi.length)} KOSPI companies ranked by share of total market value on{' '}
+      <b>{priceDate}</b>. Free, in English, company-level. The two largest are{' '}
+      <b>{두곳.toFixed(1)}%</b> of the market between them.
+    </p>
+
+    <section class="stats">
+      <div class="stat"><b>{num(kospi.length)}</b><span>companies counted</span></div>
+      <div class="stat"><b>{두곳.toFixed(1)}%</b><span>the top two</span></div>
+      <div class="stat"><b>{cum(10).toFixed(1)}%</b><span>the top ten</span></div>
+      <div class="stat"><b>{바닥몫.toFixed(2)}%</b><span>the {num(바닥수)} smallest</span></div>
+    </section>
+
+    <section>
+      <h2>Read this before the table: it is not the index weight</h2>
+      <p class="warn">
+        People search for &ldquo;KOSPI weights&rdquo; and mean the numbers used to build the index.
+        <b> This page is not that.</b> The index is constructed on <b>free-float adjusted</b> market
+        capitalisation, which discounts shares that cannot trade. We do not hold the float factors,
+        so we publish what we can compute honestly: <b>a company&rsquo;s full market capitalisation
+        as a share of the sum of all of them</b>. For a company with a large locked-in stake the two
+        figures differ, and in one direction — the unadjusted share is the higher one.
+      </p>
+      <p class="note">
+        This is data, not advice. Nothing here says a company is cheap, expensive, over-weighted or
+        under-weighted, and no averages are computed.
+      </p>
+    </section>
+
+    <section>
+      <h2>The twenty-five largest</h2>
+      <div class="scroll">
+        <table class="grid">
+          <thead>
+            <tr>
+              <th class="n">#</th><th>Company</th><th>Industry</th>
+              <th class="n">Value (&#8361;tn)</th><th class="n">Share</th><th class="n">Cumulative</th>
+            </tr>
+          </thead>
+          <tbody>
+            {top25.map((r, i) => (
+              <tr>
+                <td class="n rk">{i + 1}</td>
+                <td class="nm">{r.nameEn}</td>
+                <td class="ind">{r.industryEn ?? '—'}</td>
+                <td class="n">{trn(r.marketCap)}</td>
+                <td class="n">{share(r).toFixed(2)}%</td>
+                <td class="n cum">{cum(i + 1).toFixed(1)}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Company-level: a firm whose preferred shares list separately is counted once, under its
+        regulatory filing identity. Ranking by listed line instead would put one company in the
+        table twice and push the genuine 25th off the bottom.
+      </p>
+    </section>
+
+    <section>
+      <h2>How the market is distributed</h2>
+      <p class="note">
+        A distribution, not an average. Each band shows how many companies fall in it and how much
+        of total market value they hold together.
+      </p>
+      <table class="dist">
+        <tbody>
+          {bands.map((b) => (
+            <tr>
+              <th>{b.label}</th>
+              <td class="bar"><span style={`width:${Math.round((b.n / bandMax) * 100)}%`}></span></td>
+              <td class="n">{num(b.n)}</td>
+              <td class="p">{b.pct.toFixed(1)}% of value</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p>
+        Read the top and the bottom row together. The handful of companies above 5 percent hold{' '}
+        <b>{bands[0].pct.toFixed(1)}%</b> of the market; the {num(bands[4].n)} companies under 0.1
+        percent hold <b>{bands[4].pct.toFixed(1)}%</b>. An index that looks like a broad market by
+        company count is, by value, a small number of names.
+      </p>
+    </section>
+
+    <section>
+      <h2>Concentration, stated plainly</h2>
+      <table class="grid">
+        <thead><tr><th>Largest</th><th class="n">Share of total market value</th></tr></thead>
+        <tbody>
+          {[2, 5, 10, 30, 50, 100].map((k) => (
+            <tr><td>{k} companies</td><td class="n">{cum(k).toFixed(1)}%</td></tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="note">
+        {kospiNoCap === 0
+          ? 'Every KOSPI company in the dataset has a market capitalisation on this date, so the denominator is the whole list.'
+          : `${num(kospiNoCap)} KOSPI companies have no market capitalisation on this date. They are left out of the denominator rather than entered as zero, so the shares above sum across ${num(kospi.length)} companies.`}
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        The same companies with price-earnings, price-book and return-on-equity figures are on the{' '}
+        <a href="/data/valuation">Korea valuation tape</a>. Ranked four different ways by size — value,
+        revenue, assets and operating profit — on{' '}
+        <a href="/data/largest-companies">the largest companies in Korea</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+
+    <section class="faq">
+      <h2>Questions</h2>
+      {faq.map(([q, a]) => (
+        <div class="qa"><h3>{q}</h3><p>{a}</p></div>
+      ))}
+    </section>
+
+    <section>
+      <h2>Sources, and what this cannot tell you</h2>
+      <p class="note">
+        Market capitalisation: Korean government public data portal daily price dataset,{' '}
+        {priceDate}. Company identity and industry: DART filings, Financial Supervisory Service.
+        Built {meta.builtAt}.
+      </p>
+      <p class="note">
+        It cannot tell you the index weight, because that needs free-float factors we do not hold.
+        It is one trading day, so it moves. It says nothing about what any company is worth or what
+        anyone should do. <b>This is not investment advice.</b>
+      </p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0 0 .6rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; color: #333; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  h3 { font-size: .98rem; margin: 0 0 .3rem; }
+  p { line-height: 1.65; margin: 0 0 .7rem; }
+  .note { font-size: .88rem; color: #555; }
+  .warn { font-size: .95rem; line-height: 1.65; background: #fffaf2; border-left: 3px solid #d08700;
+          padding: .7rem .9rem; margin: 0 0 .7rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .7rem; }
+  .stat { border: 1px solid #e3e3e3; border-radius: 6px; padding: .8rem .9rem; background: #fcfcfc; }
+  .stat b { display: block; font-size: 1.45rem; line-height: 1.1; }
+  .stat span { font-size: .82rem; color: #666; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .grid th, .grid td { border-bottom: 1px solid #ececec; padding: .38rem .5rem; text-align: left; }
+  .grid thead th { border-bottom: 2px solid #ddd; font-weight: 600; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; }
+  .nm { font-weight: 600; }
+  .rk, .cum { color: #666; }
+  .ind { color: #555; font-size: .84rem; }
+  .scroll { overflow-x: auto; }
+  .scroll .grid { min-width: 42rem; }
+  .dist th { text-align: left; padding: .3rem .5rem .3rem 0; font-weight: 500; white-space: nowrap; }
+  .dist td { padding: .3rem .4rem; }
+  .dist .bar { width: 50%; }
+  .dist .bar span { display: block; height: .7rem; background: #2f6f4f; border-radius: 2px; }
+  .dist .p { color: #666; font-size: .84rem; text-align: right; white-space: nowrap; }
+  .qa { margin: 0 0 1rem; }
+  a { color: #1a5c9c; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #cfcfcf; }
+    .note { color: #a8a8a8; }
+    .warn { background: #2a2318; border-left-color: #c08a20; }
+    .stat { border-color: #333; background: #1b1b1b; }
+    .grid th, .grid td { border-bottom-color: #2c2c2c; }
+    .grid thead th { border-bottom-color: #3a3a3a; }
+    .ind, .rk, .cum, .dist .p { color: #a0a0a0; }
+    a { color: #7ab3e8; }
+  }
+</style>
