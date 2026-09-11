@@ -1,0 +1,194 @@
+/**
+ * **check-hub-missing** — 「낱장은 잔뜩 있는데 그것을 모으는 «허브»가 없는 갈래」를 찾는다.
+ *
+ * ── 🔴 왜 이 자가 생겼나 (2026-09-11) ────────────────────────────────
+ *   한 시간 안에 **서로 다른 두 사이트에서 같은 병**이 나왔다. 우연이 아니라 우리 버릇이다.
+ *
+ *     4번 실측   100yearmap  /report/area/<구> 258장이 사는데  /report/area  가 404
+ *                허브 여덟 곳을 손으로 열어 봐도 그리로 가는 링크가 «하나도» 없었다
+ *     5번 실측   KCW         /star-sign/<자리> 가 사는데(게자리 지면에만 719명)
+ *                /star-sign  가 404. 중국어 「韩国明星星座统计」이 4.8위 18회인데 클릭 0 —
+ *                「统计(통계)」를 찾는 사람이 원하는 것이 바로 그 «모은 장»이었다
+ *
+ * ── 왜 나쁜가 — 셋이다 ──────────────────────────────────────────────
+ *   ① 손님이 닿을 길이 없다. 사이트맵을 손으로 여는 손님은 없다
+ *   ② 「전체 · 목록 · 순위 · 통계」를 찾는 검색을 통째로 못 받는다. 낱장은 그 말에 안 걸린다
+ *   ③ 구글이 「이 지면이 이 사이트에서 중요한가」를 읽을 신호(내부링크)가 0 이 된다
+ *
+ * ── ⛔ 이 자가 지키는 것 ────────────────────────────────────────────
+ * ⛔ **못 받아 온 것을 「허브가 없다」로 세지 않는다.** 사이트맵이 안 열리면 「못 쟀다」다
+ * ⛔ 낱장이 «적은» 갈래는 빨간불을 켜지 않는다 — 두세 장짜리에 허브를 만들면 얇은 지면이 된다
+ * ⛔ 이 자는 «있다/없다»만 잰다. 허브가 있어도 «좋은가»는 못 잰다. 그건 눈으로 본다
+ *
+ * ── 쓰는 법 ─────────────────────────────────────────────────────────
+ *   node scripts/check-hub-missing.mjs                    세 사이트 다
+ *   node scripts/check-hub-missing.mjs --사이트 kcw        하나만
+ *   node scripts/check-hub-missing.mjs --문턱 20           낱장 20장 넘는 갈래만
+ *   node scripts/check-hub-missing.mjs --자가시험
+ */
+
+/* ── 잴 거리 ───────────────────────────────────────────────────────── */
+
+/** 사이트맵 글에서 주소만 뽑는다 */
+export function 주소뽑기(글) {
+  return [...String(글 ?? '').matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/g)].map((m) => m[1]);
+}
+
+/**
+ * 주소를 «갈래»로 가른다 — `/star-sign/cancer` → 갈래 `/star-sign`.
+ * ⚠ 조각이 하나뿐인 주소(`/about`)는 갈래가 «없다». 그건 그 자체가 허브다.
+ * ⚠ 조각이 셋 이상이면 «맨 앞 둘»까지만 갈래로 본다 — `/report/area/seoul-mapo` → `/report/area`.
+ */
+export function 갈래내기(주소) {
+  let 길;
+  try { 길 = new URL(주소).pathname; } catch { 길 = String(주소 ?? ''); }
+  const 조각 = 길.split('/').filter(Boolean);
+  if (조각.length < 2) return null;
+  return '/' + 조각.slice(0, 조각.length - 1).join('/');
+}
+
+/** 갈래마다 낱장이 몇인지 센다 */
+export function 갈래세기(주소들) {
+  const 셈 = new Map();
+  for (const u of 주소들 ?? []) {
+    const g = 갈래내기(u);
+    if (!g) continue;
+    셈.set(g, (셈.get(g) ?? 0) + 1);
+  }
+  return 셈;
+}
+
+/** 살아 있는 응답인가 — 200~399 만 「있다」로 본다 */
+export function 살았나(코드) {
+  const n = Number(코드);
+  return Number.isFinite(n) && n >= 200 && n < 400;
+}
+
+/**
+ * 판정 — ⛔ 「못 쟀다」를 「없다」로 섞지 않는다.
+ *   코드가 null 이면 «못 쟀다»이지 «허브가 없다»가 아니다.
+ */
+export function 판정(낱장수, 문턱, 허브코드) {
+  if (낱장수 < 문턱) return '작다';
+  if (허브코드 === null || 허브코드 === undefined) return '못쟀다';
+  return 살았나(허브코드) ? '있다' : '없다';
+}
+
+/* ── 자가시험 ──────────────────────────────────────────────────────── */
+
+function 자가시험() {
+  let 통과 = 0; const 깨짐 = [];
+  const 잰다 = (이름, 본값, 바람) => {
+    if (JSON.stringify(본값) === JSON.stringify(바람)) 통과++;
+    else 깨짐.push(`${이름} — 나온 것 ${JSON.stringify(본값)} · 바란 것 ${JSON.stringify(바람)}`);
+  };
+
+  잰다('주소뽑기 — loc 를 집는다',
+    주소뽑기('<url><loc>https://a.com/x</loc></url><url><loc>https://a.com/y</loc></url>'),
+    ['https://a.com/x', 'https://a.com/y']);
+  잰다('주소뽑기 — 빈 글은 0개', 주소뽑기('').length, 0);
+  잰다('주소뽑기 — 앞뒤 공백을 턴다', 주소뽑기('<loc>  https://a.com/x  </loc>'), ['https://a.com/x']);
+
+  잰다('갈래내기 — 두 조각', 갈래내기('https://a.com/star-sign/cancer'), '/star-sign');
+  잰다('갈래내기 — 세 조각은 앞 둘까지', 갈래내기('https://a.com/report/area/seoul-mapo'), '/report/area');
+  /* ⚠ 한 조각짜리는 그 자체가 허브다 — 갈래가 없다 */
+  잰다('갈래내기 — 한 조각은 갈래 없음', 갈래내기('https://a.com/about'), null);
+  잰다('갈래내기 — 뿌리는 갈래 없음', 갈래내기('https://a.com/'), null);
+  잰다('갈래내기 — 주소가 아니어도 경로로 읽는다', 갈래내기('/title/abc'), '/title');
+
+  const 셈 = 갈래세기(['https://a.com/t/1', 'https://a.com/t/2', 'https://a.com/p/1', 'https://a.com/about']);
+  잰다('갈래세기 — 갈래별 수', [...셈.entries()].sort(), [['/p', 1], ['/t', 2]]);
+  잰다('갈래세기 — 빈 것', 갈래세기(null).size, 0);
+
+  잰다('살았나 — 200', 살았나(200), true);
+  잰다('살았나 — 301 도 산 것', 살았나(301), true);
+  잰다('살았나 — 404', 살았나(404), false);
+  잰다('살았나 — 0(못 닿음)', 살았나(0), false);
+
+  /* 🔴 이 셋이 이 자의 뼈대다 */
+  잰다('판정 — 낱장이 적으면 빨간불 안 켠다', 판정(3, 10, 404), '작다');
+  잰다('판정 — 많은데 허브 404 면 없다', 판정(258, 10, 404), '없다');
+  잰다('판정 — 많고 허브 200 이면 있다', 판정(546, 10, 200), '있다');
+  /* ⛔ 못 쟀다를 없다로 섞으면 남의 사이트가 잠깐 죽었을 때 헛경보가 난다 */
+  잰다('판정 — 못 쟀으면 「없다」가 아니다', 판정(258, 10, null), '못쟀다');
+
+  console.log(`■ 자가시험 ${통과 + 깨짐.length}가지 — 통과 ${통과} · 깨짐 ${깨짐.length}`);
+  for (const d of 깨짐) console.log('   🔴 ' + d);
+  return 깨짐.length === 0;
+}
+
+/* ── 몸통 ──────────────────────────────────────────────────────────── */
+
+const 인자 = process.argv.slice(2);
+if (인자.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
+
+const 고르기 = (이름, 기본) => {
+  const i = 인자.indexOf(이름);
+  return i >= 0 && 인자[i + 1] ? 인자[i + 1] : 기본;
+};
+const 문턱 = Number(고르기('--문턱', '10'));
+const 고른사이트 = 고르기('--사이트', null);
+
+const 사이트들 = [
+  ['kcw', 'https://www.kculturewire.com'],
+  ['100y', 'https://100yearmap.com'],
+  ['seoulmarkets', 'https://seoulmarkets.com'],
+].filter(([이름]) => !고른사이트 || 이름 === 고른사이트);
+
+const 받기 = async (u) => {
+  try {
+    const r = await fetch(u, { redirect: 'follow', signal: AbortSignal.timeout(25000) });
+    return { 코드: r.status, 글: r.ok ? await r.text() : '' };
+  } catch { return { 코드: null, 글: '' }; }
+};
+
+console.log('■ 낱장은 있는데 «모으는 허브»가 없는 갈래를 찾는다');
+console.log(`   문턱 ${문턱}장 — 이보다 적은 갈래는 빨간불을 안 켠다(얇은 허브를 만들지 않기 위해서다)`);
+console.log('');
+
+let 빨간불 = 0; let 못쟀다 = 0;
+for (const [이름, 밑] of 사이트들) {
+  const 사이트맵 = await 받기(`${밑}/sitemap.xml`);
+  if (!살았나(사이트맵.코드)) {
+    console.log(`⬜ ${이름.padEnd(13)} 사이트맵을 못 받았다 (${사이트맵.코드 ?? '못 닿음'}) — 「못 쟀다」로 적는다`);
+    못쟀다++;
+    continue;
+  }
+  let 주소 = 주소뽑기(사이트맵.글);
+  /* ⚠ 사이트맵 색인(sitemap 안에 sitemap) 이면 한 겹 더 들어간다 */
+  const 속맵 = 주소.filter((u) => /sitemap[^/]*\.xml$/i.test(u));
+  if (속맵.length) {
+    for (const s of 속맵.slice(0, 12)) {
+      const r = await 받기(s);
+      if (살았나(r.코드)) 주소 = 주소.concat(주소뽑기(r.글));
+    }
+  }
+  주소 = [...new Set(주소.filter((u) => !/sitemap[^/]*\.xml$/i.test(u)))];
+
+  const 셈 = [...갈래세기(주소).entries()].filter(([, n]) => n >= 문턱).sort((a, b) => b[1] - a[1]);
+  console.log(`━━ ${이름} — 주소 ${주소.length}개 · ${문턱}장 넘는 갈래 ${셈.length}개`);
+
+  for (const [갈래, n] of 셈) {
+    const r = await 받기(밑 + 갈래);
+    const 결 = 판정(n, 문턱, r.코드);
+    if (결 === '없다') {
+      빨간불++;
+      console.log(`   🔴 ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장인데 허브가 ${r.코드} 다`);
+    } else if (결 === '못쟀다') {
+      못쟀다++;
+      console.log(`   ⬜ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 — 허브를 «못 쟀다»(못 닿음)`);
+    } else {
+      console.log(`   ✅ ${갈래.padEnd(24)} 낱장 ${String(n).padStart(4)}장 · 허브 ${r.코드}`);
+    }
+  }
+  console.log('');
+}
+
+if (빨간불) {
+  console.log(`🔴 허브가 없는 갈래 ${빨간불}개 — **손님이 그 낱장들에 닿을 길이 없다**`);
+  console.log('   ⛔ 「사이트맵에 있으니 구글은 찾는다」로 넘기지 않는다. 사이트맵을 여는 손님은 없다.');
+  console.log('   ✅ 허브를 낼 때도 얇게 내지 않는다 — 모아 놓기만 하면 그것도 얇은 지면이다.');
+}
+if (못쟀다) console.log(`⬜ 못 잰 것 ${못쟀다}개 — 「없다」가 아니다. 다시 잰다.`);
+if (!빨간불 && !못쟀다) console.log('✅ 낱장이 많은 갈래는 모두 허브가 있다');
+process.exit(빨간불 ? 1 : 0);
