@@ -176,6 +176,7 @@ export const 단계들 = [
   "node scripts/collect-dart-mezzanine.mjs --자가시험",
   "node scripts/collect-seoulmarkets-hankyung-consensus.mjs --자가시험",
   "node scripts/collect-seoulmarkets-hankyung-analysts.mjs --자가시험",
+  "node scripts/build-seoulmarkets-consensus-tape.mjs --자가시험",
   "node scripts/collect-cpi-telecom-base-effect.mjs --자가시험",
   "node scripts/collect-emp-gendergap-h1.mjs --자가시험",
   "node scripts/make-gendergap-census-chart.mjs --자가시험",

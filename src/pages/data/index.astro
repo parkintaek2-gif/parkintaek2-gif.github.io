@@ -173,6 +173,20 @@ const 묶음 = [
     lede: 'Files you can take today. No account, no key, no waiting on us.',
     items: [
       {
+        /* 🔴 [2026-09-11] Korea Consensus Tape(F6 넷 중 하나) — 자료(archive/raw/hankyung-consensus/)는
+           매일 쌓이고 있었는데 그것을 쓰는 지면이 없었다(2번 몫으로 배정된 채 미착수). 사장님
+           상시 지시("모은 자료는 갖고만 있지 말고 페이지·콘텐트·가공데이터로 내라")에 맞춰
+           이미 만들어져 있던 build-seoulmarkets-consensus-tape.mjs 를 오늘 처음 돌려 냈다.
+           ⛔ 재배포 범위(P1 Ⅶ)를 아직 못 읽어 값은 안 붙인다 — 무료로만 낸다.
+           ⚠ 날짜가 파일명에 박힌 «판»이다(31일 창이라 소급 불가) — 다음 판은 다시 돌려야 나온다. */
+        href: '/data/korea-consensus-tape-2026-09-11.csv',
+        name: 'Korea Consensus Tape (daily CSV)',
+        one: 'Every Hankyung Consensus broker report in the source’s own rolling ~31-day window — 644 reports, 111 raised/lowered target prices, 165 named analysts, 12 brokers, 169 tickers on this edition. A dated snapshot, not a live feed: a day not collected is gone for good. Not a buy/sell signal — target_change is a fact about what a broker filed.',
+        price: 'Free',
+        cta: 'Download the CSV',
+        download: true,
+      },
+      {
         href: '/data/korean-listed-workforce.csv',
         name: 'Listed-company workforce table (CSV)',
         one: 'The company-level table the sector panel is built from — every listed company with employees, tenure, pay and market cap. Free to download.',
