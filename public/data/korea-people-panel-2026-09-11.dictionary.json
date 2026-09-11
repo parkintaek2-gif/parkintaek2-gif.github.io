@@ -1,0 +1,43 @@
+{
+ "product": "Korea People Panel",
+ "version": "2026-09-11",
+ "publisher": "SeoulMarkets (KLifeDesign Inc.)",
+ "disclaimer": "This file is data, not investment advice. It contains no recommendation to buy or sell anything.",
+ "whatThisIs": "Workforce figures that Korean listed companies file with the Financial Supervisory Service, joined to KRX daily prices. 2879 companies.",
+ "whatThisIsNot": [
+  "Not a claim about discrimination. We publish ratios; the reasons are not in the filings.",
+  "Not a benchmark. No company is scored, ranked as good, or compared to a norm.",
+  "Not total payroll. Pay columns are annual pay PER PERSON in Korean won.",
+  "Not a complete market. A company appears only if it filed workforce figures."
+ ],
+ "source": "DART (Financial Supervisory Service) employee status filings; KRX daily trading data",
+ "priceAsOf": "20260909",
+ "rows": 2879,
+ "withPrice": 2685,
+ "payRatioWithheld": 258,
+ "withheldRule": "A women-to-men ratio is left blank when either sex has fewer than 5 employees, when a figure was not reported, or when the denominator is zero. The reason is given in pay_ratio_withheld_reason.",
+ "columns": {
+  "ticker": "Six-digit KRX issue code.",
+  "name_en": "English company name as filed with DART.",
+  "name_ko": "Korean company name as filed.",
+  "market": "KOSPI or KOSDAQ, from KRX. Blank when the ticker did not trade on the price date.",
+  "sector_ko": "Industry name as recorded by DART. Korean text; an English mapping is not yet published.",
+  "fiscal_year": "Filing year of the workforce figures.",
+  "headcount": "Total employees reported.",
+  "men": "Male employees reported.",
+  "women": "Female employees reported.",
+  "women_share": "women divided by headcount. Blank when either is missing.",
+  "tenure_years": "Average years of service, all employees.",
+  "tenure_years_men": "Average years of service, men.",
+  "tenure_years_women": "Average years of service, women.",
+  "tenure_ratio_women_to_men": "tenure_years_women divided by tenure_years_men. Withheld on thin cells.",
+  "annual_pay_per_person_krw_men": "Annual pay PER PERSON for men, Korean won.",
+  "annual_pay_per_person_krw_women": "Annual pay PER PERSON for women, Korean won.",
+  "pay_ratio_women_to_men": "Women pay divided by men pay. 1.0 means equal. Withheld on thin cells.",
+  "pay_ratio_withheld_reason": "Why a ratio is blank. Empty when a ratio is given.",
+  "close_price_krw": "KRX closing price on price_as_of.",
+  "market_cap_krw": "KRX market capitalisation on price_as_of.",
+  "listed_shares": "Listed shares on price_as_of.",
+  "price_as_of": "Trading date of the price columns. Blank when no price was joined."
+ }
+}

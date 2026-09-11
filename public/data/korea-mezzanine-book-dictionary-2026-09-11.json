@@ -1,0 +1,43 @@
+{
+ "product": "Korea Mezzanine Book",
+ "version": "2026-09-11",
+ "publisher": "SeoulMarkets (KLifeDesign Inc.)",
+ "disclaimer": "This file is data, not investment advice. It contains no recommendation to buy or sell anything.",
+ "whatThisIs": "Convertible bond (CB), bond-with-warrant (BW) and exchangeable bond (EB) issuance filings from DART (Financial Supervisory Service), for Korean listed companies. 5,084 rows: CB 4,324 · BW 332 · EB 428.",
+ "whatThisIsNot": [
+  "Not investment advice or a recommendation.",
+  "Not all 46 DART fields. We publish the columns that carry value; the rest is in the raw DART filing (rcept_no links to it).",
+  "Not a single instrument. CB, BW and EB are different legal instruments; instrument_type tells them apart. strike_price_krw / strike_ratio_pct / strike_window_* normalize three differently-named DART fields (conversion for CB, exercise for BW/EB) into one column because they serve the same economic role — see the note on this file’s builder script.",
+  "Not proof a refixing floor is missing when refix_floor_price_krw is blank for an EB row — EB has no such field at all (see refix_floor_note)."
+ ],
+ "source": "DART (Financial Supervisory Service) — cvbdIsDecsn (convertible bond), bdwtIsDecsn (bond with warrant), exbdIsDecsn (exchangeable bond) resolution-to-issue APIs, full history (2010–present) swept 2026-09-09",
+ "rows": 5084,
+ "byInstrument": {
+  "CB": 4324,
+  "BW": 332,
+  "EB": 428
+ },
+ "refixFloorNotApplicable": 428,
+ "columns": {
+  "ticker": "Six-digit KRX issue code.",
+  "name_en": "English company name as filed with DART.",
+  "name_ko": "Korean company name as filed.",
+  "filing_id": "DART receipt number (rcept_no). Look up the full 46-field filing with this.",
+  "instrument_type": "CB (convertible bond), BW (bond with warrant), or EB (exchangeable bond).",
+  "board_resolution_date": "Board resolution date, ISO 8601.",
+  "instrument_kind_ko": "Instrument description as filed, original Korean (e.g. registered/unregistered, secured/unsecured, public/private placement).",
+  "total_face_value_krw": "Total face value of the issue, Korean won.",
+  "coupon_rate_pct": "Coupon (stated) interest rate, percent.",
+  "maturity_rate_pct": "Yield to maturity rate, percent.",
+  "maturity_date": "Maturity date, ISO 8601.",
+  "strike_price_krw": "Price per share to convert (CB) or exercise (BW/EB) into equity, Korean won.",
+  "strike_ratio_pct": "Conversion (CB) or exercise (BW/EB) ratio, percent.",
+  "strike_window_start": "First date the conversion/exercise right may be used, ISO 8601.",
+  "strike_window_end": "Last date the conversion/exercise right may be used, ISO 8601.",
+  "refix_floor_price_krw": "Floor price below which the strike price cannot be refixed downward, Korean won. Blank for EB — see refix_floor_note.",
+  "refix_floor_note": "Explains a blank refix_floor_price_krw. \"not applicable\" for every EB row (the field does not exist for exchangeable bonds); blank otherwise (CB/BW report a value or explicitly \"-\", both preserved as blank here, not 0).",
+  "subscription_date": "Subscription date, ISO 8601.",
+  "payment_date": "Payment date, ISO 8601.",
+  "private_placement": "\"private\" or \"public\", from the DART issuance-method field."
+ }
+}

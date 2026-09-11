@@ -39,6 +39,10 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-issuance/mezzanine.ndjson');
+/* 🔴 [2026-09-11] 전량은 공개 폴더에 두지 않는다 — 밸류에이션에서 겪은 실수(2026-09-10,
+ * 사장님 물음: 「모든 상장사를 그냥 공짜로 내려받게 하는 게 도움이 될까?」)를 되풀이하지 않는다.
+ * 전량은 src/data/full(비공개, git 은 지킨다) · 공개 폴더에는 «표본»만 낸다 */
+const 전체방 = path.join(뿌리, 'src/data/full');
 const 낼방 = path.join(뿌리, 'public/data');
 
 export function 날꼴(d = new Date()) {
@@ -123,6 +127,14 @@ function CSV로(머리, 줄들) {
   return [머리.join(','), ...줄들.map((r) => 머리.map((k) => 칸(r[k])).join(','))].join('\n');
 }
 
+/** 표본 — 이사회 결의일이 가장 최근인 것부터 N건 */
+export function 표본뽑기(rows, 몇줄 = 100) {
+  if (!Array.isArray(rows)) return [];
+  return [...rows]
+    .sort((a, b) => String(b?.board_resolution_date ?? '').localeCompare(String(a?.board_resolution_date ?? '')))
+    .slice(0, 몇줄);
+}
+
 function 짓기() {
   const 회사들 = fs.readFileSync(원본길, 'utf8').trim().split('\n')
     .map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
@@ -146,10 +158,26 @@ function 짓기() {
   리픽싱없음건수 = 줄들.filter((r) => r.refix_floor_note).length;
 
   const 오늘 = 날꼴();
+  fs.mkdirSync(전체방, { recursive: true });
   fs.mkdirSync(낼방, { recursive: true });
 
-  const csv길 = path.join(낼방, `korea-mezzanine-book-${오늘}.csv`);
+  const csv길 = path.join(전체방, `korea-mezzanine-book-${오늘}.csv`);
   fs.writeFileSync(csv길, CSV로(머리칸, 줄들), 'utf8');
+
+  /* 표본 — 최근 결의 100건. 칸은 하나도 줄이지 않는다 */
+  const 표본 = 표본뽑기(줄들);
+  const 표본머리 = [
+    `# Korea Mezzanine Book — SeoulMarkets (https://seoulmarkets.com/data/mezzanine)`,
+    `# 🔓 THIS IS A FREE SAMPLE: the ${표본.length} most recent board-resolution filings.`,
+    `#   The full book covers ${줄들.length.toLocaleString('en-US')} rows. Same columns, same method.`,
+    '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
+    `# built: ${오늘}`,
+  ].join('\n');
+  fs.writeFileSync(
+    path.join(낼방, 'korea-mezzanine-book-sample.csv'),
+    [표본머리, CSV로(머리칸, 표본)].join('\n'),
+    'utf8',
+  );
 
   const 사전 = {
     product: 'Korea Mezzanine Book',
@@ -193,9 +221,10 @@ function 짓기() {
   const 사전길 = path.join(낼방, `korea-mezzanine-book-dictionary-${오늘}.json`);
   fs.writeFileSync(사전길, JSON.stringify(사전, null, 1), 'utf8');
 
-  console.log(`✅ ${csv길}`);
+  console.log(`✅ ${csv길} (전량 · 공개 폴더 아님)`);
   console.log(`   행 ${줄들.length.toLocaleString('en-US')} · 칸 ${머리칸.length} · CB ${갈래건수.CB} · BW ${갈래건수.BW} · EB ${갈래건수.EB}`);
   console.log(`✅ ${사전길}`);
+  console.log(`✅ ${path.join(낼방, 'korea-mezzanine-book-sample.csv')} (표본 ${표본.length}행 · 공개)`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -249,6 +278,12 @@ if (나 && process.argv.includes('--자가시험')) {
 
   검('🔴 「P1 문서의 칸 목록을 CB 기준으로만」 정정 근거가 코드에 남아 있다',
     fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').includes('BW·EB 는 다른 이름을 쓴다'));
+
+  검('표본뽑기 — 결의일 최근 순', (() => {
+    const r = 표본뽑기([{ board_resolution_date: '2020-01-01' }, { board_resolution_date: '2026-01-01' }], 2);
+    return r[0].board_resolution_date === '2026-01-01';
+  })());
+  검('⛔ 표본뽑기 — 배열이 아니면 빈 배열', 표본뽑기(null).length === 0);
 
   if (실.length) {
     console.error(`❌ 자가시험 실패 ${실.length}\n${실.map((x) => `   · ${x}`).join('\n')}`);

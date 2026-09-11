@@ -29,6 +29,10 @@ import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 원본길 = path.join(뿌리, 'archive/raw/dart-ownership/ownership.ndjson');
+/* 🔴 [2026-09-11] 전량은 공개 폴더에 두지 않는다 — 밸류에이션에서 겪은 실수(2026-09-10,
+ * 사장님 물음: 「모든 상장사를 그냥 공짜로 내려받게 하는 게 도움이 될까?」)를 되풀이하지 않는다.
+ * 전량은 src/data/full(비공개, git 은 지킨다) · 공개 폴더에는 «표본»만 낸다 */
+const 전체방 = path.join(뿌리, 'src/data/full');
 const 낼방 = path.join(뿌리, 'public/data');
 
 export function 날꼴(d = new Date()) {
@@ -85,6 +89,14 @@ function CSV로(머리, 줄들) {
   return [머리.join(','), ...줄들.map((r) => 머리.map((k) => 칸(r[k])).join(','))].join('\n');
 }
 
+/** 표본 — 가장 최근에 접수된 건부터 N건. ⛔ 파일 순서(회사 순서)로 자르지 않는다 */
+export function 표본뽑기(rows, 몇줄 = 100) {
+  if (!Array.isArray(rows)) return [];
+  return [...rows]
+    .sort((a, b) => String(b?.filed_on ?? '').localeCompare(String(a?.filed_on ?? '')))
+    .slice(0, 몇줄);
+}
+
 function 짓기() {
   const 회사들 = fs.readFileSync(원본길, 'utf8').trim().split('\n')
     .map((l) => { try { return JSON.parse(l); } catch { return null; } }).filter(Boolean);
@@ -138,13 +150,43 @@ function 짓기() {
   }
 
   const 오늘 = 날꼴();
+  fs.mkdirSync(전체방, { recursive: true });
   fs.mkdirSync(낼방, { recursive: true });
 
-  const 대량보유길 = path.join(낼방, `korea-ownership-ledger-filings-${오늘}.csv`);
+  const 대량보유길 = path.join(전체방, `korea-ownership-ledger-filings-${오늘}.csv`);
   fs.writeFileSync(대량보유길, CSV로(대량보유머리, 대량보유줄), 'utf8');
 
-  const 임원주주길 = path.join(낼방, `korea-ownership-ledger-executives-${오늘}.csv`);
+  const 임원주주길 = path.join(전체방, `korea-ownership-ledger-executives-${오늘}.csv`);
   fs.writeFileSync(임원주주길, CSV로(임원주주머리, 임원주주줄), 'utf8');
+
+  /* 표본 — 최근 접수 100건씩. 칸은 하나도 줄이지 않는다 */
+  const 대량보유표본 = 표본뽑기(대량보유줄);
+  const 대량보유표본머리 = [
+    `# Korea Ownership Ledger — substantial-shareholding filings — SeoulMarkets (https://seoulmarkets.com/data/ownership)`,
+    `# 🔓 THIS IS A FREE SAMPLE: the ${대량보유표본.length} most recently filed rows.`,
+    `#   The full ledger covers ${대량보유줄.length.toLocaleString('en-US')} filings. Same columns, same method.`,
+    '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
+    `# built: ${오늘}`,
+  ].join('\n');
+  fs.writeFileSync(
+    path.join(낼방, 'korea-ownership-ledger-filings-sample.csv'),
+    [대량보유표본머리, CSV로(대량보유머리, 대량보유표본)].join('\n'),
+    'utf8',
+  );
+
+  const 임원주주표본 = 표본뽑기(임원주주줄);
+  const 임원주주표본머리 = [
+    `# Korea Ownership Ledger — officer/major-shareholder rows — SeoulMarkets (https://seoulmarkets.com/data/ownership)`,
+    `# 🔓 THIS IS A FREE SAMPLE: the ${임원주주표본.length} most recently filed rows.`,
+    `#   The full ledger covers ${임원주주줄.length.toLocaleString('en-US')} rows. Same columns, same method.`,
+    '#   The full file and the query API are the licensed product: https://seoulmarkets.com/data',
+    `# built: ${오늘}`,
+  ].join('\n');
+  fs.writeFileSync(
+    path.join(낼방, 'korea-ownership-ledger-executives-sample.csv'),
+    [임원주주표본머리, CSV로(임원주주머리, 임원주주표본)].join('\n'),
+    'utf8',
+  );
 
   const 사전 = {
     product: 'Korea Ownership Ledger',
@@ -204,13 +246,15 @@ function 짓기() {
   const 사전길 = path.join(낼방, `korea-ownership-ledger-dictionary-${오늘}.json`);
   fs.writeFileSync(사전길, JSON.stringify(사전, null, 1), 'utf8');
 
-  console.log(`✅ ${대량보유길}`);
+  console.log(`✅ ${대량보유길} (전량 · 공개 폴더 아님)`);
   console.log(`   행 ${대량보유줄.length.toLocaleString('en-US')} · 칸 ${대량보유머리.length}`);
-  console.log(`✅ ${임원주주길}`);
+  console.log(`✅ ${임원주주길} (전량 · 공개 폴더 아님)`);
   console.log(`   행 ${임원주주줄.length.toLocaleString('en-US')} · 칸 ${임원주주머리.length}`);
   if (보고구분못맞춘것) console.log(`   ⚠ filing_kind 못 맞춘 값 ${보고구분못맞춘것}건 — 사전에 unmapped: 로 남음`);
   if (등기여부못맞춘것) console.log(`   ⚠ is_registered_officer 못 맞춘 값 ${등기여부못맞춘것}건 — 사전에 unmapped: 로 남음`);
   console.log(`✅ ${사전길}`);
+  console.log(`✅ ${path.join(낼방, 'korea-ownership-ledger-filings-sample.csv')} (표본 ${대량보유표본.length}행 · 공개)`);
+  console.log(`✅ ${path.join(낼방, 'korea-ownership-ledger-executives-sample.csv')} (표본 ${임원주주표본.length}행 · 공개)`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -250,6 +294,12 @@ if (나 && process.argv.includes('--자가시험')) {
 
   검('🔴 「로마자로 «지어내지» 않는다」가 코드에 살아 있다',
     fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').includes('로마자로 «지어내지» 않는다'));
+
+  검('표본뽑기 — 최근 접수일부터 N건', (() => {
+    const r = 표본뽑기([{ filed_on: '2026-01-01' }, { filed_on: '2026-09-01' }, { filed_on: '2026-05-01' }], 2);
+    return r.length === 2 && r[0].filed_on === '2026-09-01' && r[1].filed_on === '2026-05-01';
+  })());
+  검('⛔ 표본뽑기 — 배열이 아니면 빈 배열', 표본뽑기(null).length === 0);
 
   if (실.length) {
     console.error(`❌ 자가시험 실패 ${실.length}\n${실.map((x) => `   · ${x}`).join('\n')}`);

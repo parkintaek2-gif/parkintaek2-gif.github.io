@@ -39,6 +39,11 @@ import { 시세 } from '../src/lib/stock-prices-datago.mjs';
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 고용길 = path.join(뿌리, 'archive/raw/dart-employment/employment-2025.ndjson');
 const 회사길 = path.join(뿌리, 'archive/raw/dart-company/company.ndjson');
+/* 🔴 [2026-09-11] 전량 파일은 «공개 폴더»에 두지 않는다 — 같은 실수를 밸류에이션에서 한 번
+ * 겪었다(2026-09-10, 사장님 물음): 「모든 상장사를 그냥 공짜로 내려받게 하는 게 도움이 될까?」
+ * ⛔ 전량을 public/ 에 두면 링크가 없어도 URL 을 알면 누구나 «상품 전체»를 가져간다.
+ * ✅ 전량은 src/data/full(비공개, 그러나 git 은 지킨다 · 판마다 남긴다) · 공개 폴더에는 «표본»만 낸다 */
+const 전체방 = path.join(뿌리, 'src/data/full');
 const 낼방 = path.join(뿌리, 'public/data');
 
 /** ⚠ 시각은 KST. 이 PC 가 이미 KST 다 — UTC 로 바꾸면 새벽에 하루 어긋난다 */
@@ -68,6 +73,12 @@ export function 격차(여값, 남값, 여수, 남수, 바닥 = 5) {
   if (여n < 바닥 || 남n < 바닥) return { 값: null, 까닭: `fewer than ${바닥} of one sex` };
   if (b === 0) return { 값: null, 까닭: 'divide by zero' };
   return { 값: Math.round((a / b) * 1000) / 1000, 까닭: null };
+}
+
+/** 표본 — 인원이 많은 회사부터 N곳. ⛔ 앞에서 자르지 않는다(파일 순서는 뜻이 없다) */
+export function 표본뽑기(rows, 몇줄 = 100) {
+  if (!Array.isArray(rows)) return [];
+  return [...rows].sort((a, b) => (b?.headcount ?? -1) - (a?.headcount ?? -1)).slice(0, 몇줄);
 }
 
 /** CSV 한 칸 — ⛔ 쉼표·따옴표·줄바꿈이 든 값이 표를 깨뜨리지 않게 한다 */
@@ -151,10 +162,24 @@ function 짓기() {
   줄들.sort((a, b) => (b.headcount ?? -1) - (a.headcount ?? -1));
 
   const 오늘 = 날꼴();
+  fs.mkdirSync(전체방, { recursive: true });
   fs.mkdirSync(낼방, { recursive: true });
   const csv = [머리칸.join(','), ...줄들.map((r) => 머리칸.map((k) => 칸(r[k])).join(','))].join('\n');
-  const csv길 = path.join(낼방, `korea-people-panel-${오늘}.csv`);
+  const csv길 = path.join(전체방, `korea-people-panel-${오늘}.csv`);
   fs.writeFileSync(csv길, csv, 'utf8');
+
+  /* 표본 — 인원 많은 100곳. 칸은 하나도 줄이지 않는다(품질은 다 보여야 깔때기가 돈다) */
+  const 표본 = 표본뽑기(줄들);
+  const 표본머리 = [
+    `# Korea People Panel — SeoulMarkets (https://seoulmarkets.com/data/people)`,
+    `# 🔓 THIS IS A FREE SAMPLE: the ${표본.length} companies with the largest headcount.`,
+    `#   The full panel covers ${줄들.length} companies — every listed company we could join.`,
+    '#   Same columns, same method. Only the row count differs. The full file and the query API',
+    '#   are the licensed product: https://seoulmarkets.com/data',
+    `# built: ${오늘}`,
+  ].join('\n');
+  const 표본csv = [표본머리, 머리칸.join(','), ...표본.map((r) => 머리칸.map((k) => 칸(r[k])).join(','))].join('\n');
+  fs.writeFileSync(path.join(낼방, 'korea-people-panel-sample.csv'), 표본csv, 'utf8');
 
   /* 칸 사전 — ⭐ Wind·QUICK 이 상품 지면에서 가장 길게 쓰는 것이 이것이다 */
   const 사전 = {
@@ -205,11 +230,12 @@ function 짓기() {
   const 사전길 = path.join(낼방, `korea-people-panel-${오늘}.dictionary.json`);
   fs.writeFileSync(사전길, JSON.stringify(사전, null, 1), 'utf8');
 
-  console.log(`✅ ${csv길}`);
+  console.log(`✅ ${csv길} (전량 · 공개 폴더 아님)`);
   console.log(`   행 ${줄들.length.toLocaleString('en-US')} · 칸 ${머리칸.length}`);
   console.log(`   시세가 붙은 것 ${시세붙은것.toLocaleString('en-US')} (${(시세붙은것 / 줄들.length * 100).toFixed(1)}%) · 시세 기준일 ${시세.날 ?? '⬜ 못 찾음'}`);
   console.log(`   ⛔ 급여 격차를 «안 낸» 것 ${격차안낸것.toLocaleString('en-US')} — 얇은 칸에 비율을 내지 않는다`);
   console.log(`✅ ${사전길}`);
+  console.log(`✅ ${path.join(낼방, 'korea-people-panel-sample.csv')} (표본 ${표본.length}행 · 공개)`);
 }
 
 const 나 = process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1]);
@@ -242,6 +268,12 @@ if (나 && process.argv.includes('--자가시험')) {
   검('머리칸에 단위가 박혀 있다 — 급여를 총액으로 오해하지 않게',
     머리칸.includes('annual_pay_per_person_krw_men'));
   검('머리칸에 «안 낸 까닭» 칸이 있다', 머리칸.includes('pay_ratio_withheld_reason'));
+
+  검('표본뽑기 — 인원 많은 순으로 N곳', (() => {
+    const r = 표본뽑기([{ headcount: 5 }, { headcount: 50 }, { headcount: 20 }], 2);
+    return r.length === 2 && r[0].headcount === 50 && r[1].headcount === 20;
+  })());
+  검('⛔ 표본뽑기 — 배열이 아니면 빈 배열', 표본뽑기(null).length === 0);
 
   /* 🔴 [2026-09-09] 최근시세 가 공공데이터포털을 읽게 바뀌었다(KRX 직접 경로 폐지).
    *   ⚠ 내가 서명을 바꿔 놓고 이 시험들을 안 고쳐서 npm test 156개 중 1개가 깨졌다.
