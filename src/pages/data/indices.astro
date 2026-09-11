@@ -1,0 +1,271 @@
+---
+/*
+ * **Korea Index Tape** — 무료 영문 지면(F6 깔때기, F4 상품화).
+ * (seoulmarkets.com/data/indices)
+ *
+ * ── 🔴 왜 이 지면인가 ────────────────────────────────────────────────
+ *   실행계획 F6 이 무료 영문 지면 «넷»을 정해 두었다 —
+ *     Financials · Valuation · Index · Consensus
+ *   Index 축은 2번(F4) 몫이었다. 자료(archive/raw/indices/)는 이미 있었다 —
+ *   수집이 아니라 «상품화»였다(docs/서울마켓츠-실행계획-영문FnGuide-재편.md F4).
+ *
+ * ⭐ financials.astro·kospi-weights.astro 와 같은 결 — 숫자를 자랑하지 않고
+ *   **커버리지와 못 잰 자리**를 낸다. 자료를 사려는 사람이 값을 묻기 전에 보는 곳이다.
+ *
+ * ── ⛔ 이 지면이 지키는 것 ────────────────────────────────────────────
+ * ⛔ 「구성종목수」를 종목 «비중»으로 읽지 않는다 — 그 지수가 몇 종목으로 짜였는지일 뿐,
+ *   유동주식 조정 비중은 여기 없다(그 계수를 우리가 못 갖고 있다 — kospi-weights와 같은 이유).
+ * ⛔ 연최저(yearLow)가 0으로 찍힌 162곳은 «실제 0」이 아니라 소스가 못 채운 자리다.
+ *   0 으로 읽으면 거짓이 된다 — 그래서 null 로 두고 못 잰 수를 그대로 낸다.
+ * ⛔ 「계산식 지수」(K-Sharpe 등 7개) 는 구성종목수가 0인 것이 «결함이 아니다» —
+ *   바스켓이 아니라 산식으로 나오는 값이라 원래 종목이 없다. 다르다고 감추지 않고 적는다.
+ * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
+ *
+ * 🔴 Astro 앞말(`---` 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ * ⚠ 줄바꿈만으로 두 글월을 띄우면 «붙어» 나간다. 사이에 {' '} 를 넣는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-index-tape.json';
+
+type Row = {
+  date: string; name: string; nameEn: string | null; family: string; familyEn: string | null;
+  constituentCount: number | null; isComputedIndex: boolean;
+  close: number; change: number; changePct: number;
+  yearHigh: number | null; yearHighDate: string | null;
+  yearLow: number | null; yearLowDate: string | null; yearLowNotMeasured: string | null;
+  baseDate: string | null; baseIndex: number | null; ytdChangePct: number | null;
+};
+
+const meta = (tape as any)._meta as Record<string, any>;
+const rows = ((tape as any).rows ?? []) as Row[];
+const total = rows.length;
+const num = (n: number) => n.toLocaleString('en-GB');
+const pct = (n: number, d: number) => (d === 0 ? '—' : `${((n / d) * 100).toFixed(1)}%`);
+
+const withNameEn = rows.filter((r) => r.nameEn).length;
+const computed = rows.filter((r) => r.isComputedIndex);
+const basket = rows.filter((r) => !r.isComputedIndex);
+const withBaseDate = rows.filter((r) => r.baseDate).length;
+const withYearLow = rows.filter((r) => r.yearLow !== null).length;
+
+/* 계열별 — 전체 하나로 뭉치면 어느 계열이 얇은지 안 보인다 */
+const families = [...new Set(rows.map((r) => r.familyEn ?? r.family))];
+const byFamily = families.map((f) => {
+  const all = rows.filter((r) => (r.familyEn ?? r.family) === f);
+  return {
+    name: f,
+    n: all.length,
+    constituents: all.reduce((a, r) => a + (r.constituentCount ?? 0), 0),
+    withBase: all.filter((r) => r.baseDate).length,
+  };
+});
+
+const snapshotDate = meta.snapshotDate as string;
+const fmtDate = (d: string) => `${d.slice(0, 4)}-${d.slice(4, 6)}-${d.slice(6, 8)}`;
+
+const TITLE = 'Korea Index Tape — 168 KRX indices in English, coverage and gaps';
+const DESC =
+  `Every KRX-family index published on the ${fmtDate(snapshotDate)} snapshot — `
+  + `${num(total)} indices, ${pct(withNameEn, total)} with an English name, in English and free. `
+  + `We publish which indices are computed rather than basket indices, and where the source `
+  + `left a placeholder instead of a real figure.`;
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'Korea Index Tape — KRX-family index levels and composition',
+  description: DESC,
+  url: `${SITE_URL}/data/indices`,
+  keywords: ['Korea', 'KOSPI', 'KOSDAQ', 'KRX', 'stock index', 'index composition',
+    'index constituents', 'Korean equity index', 'data coverage'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: `${SITE_URL}/terms`,
+  isAccessibleForFree: true,
+  measurementTechnique:
+    'Daily index levels and composition are collected from the Korean public-data portal and KRX '
+    + 'index disclosures. Index and index-family names are translated to English; the underlying '
+    + 'level, change and constituent count are never altered. A source placeholder (an annual low of '
+    + 'zero paired with a date after the snapshot itself) is recorded as not measured rather than as zero.',
+  spatialCoverage: { '@type': 'Place', name: 'Republic of Korea' },
+  temporalCoverage: snapshotDate,
+  variableMeasured: ['index level', 'daily change', 'constituent count', 'base date', 'year high', 'year low'],
+};
+
+const faq: Array<[string, string]> = [
+  ['How many Korean indices are covered, and in what language?',
+    `${num(total)} indices from the KOSPI, KOSDAQ, KRX and thematic-index families, as of `
+    + `${fmtDate(snapshotDate)}. ${pct(withNameEn, total)} carry an English name for both the index `
+    + 'and its family — every one of them, because the family and index name are the two labels a '
+    + 'foreign reader needs before anything else.'],
+  ['What does "constituent count" mean, and is it the same as index weight?',
+    'It is how many stocks make up that index on this date — not each stock’s weight inside it. '
+    + 'We do not carry the free-float-adjusted weighting KRX uses internally, so this page never uses '
+    + 'the word "weight." Company-level share of total market value is a separate page: '
+    + 'see what share of KOSPI is each company, below.'],
+  ['Why do seven indices show zero constituents?',
+    `Those are computed indices — ${computed.map((r) => r.nameEn).join(', ')} — built from a formula `
+    + '(a risk-adjusted return calculation, or a blend of a handful of named instruments) rather than '
+    + 'from a basket of listed constituents. A zero there is not a gap; it is the correct shape for '
+    + 'that kind of index, and we label it rather than mixing it into the basket-index count.'],
+  ['Why is the year-low column mostly empty?',
+    `Of ${num(total)} rows, only ${num(withYearLow)} carry a usable annual-low figure. In the rest, `
+    + 'the source paired an annual low of exactly zero with a date one day after the snapshot itself — '
+    + 'a placeholder the source had not filled in yet, not a real low of zero. We record it as not '
+    + 'measured rather than publish a number we know is wrong.'],
+  ['Does every index have a base date?',
+    `${num(withBaseDate)} of ${num(total)} do. A base date and base index value let you compute an `
+    + 'index’s return since its own inception rather than only since whatever date our snapshot '
+    + 'happens to start. Where a base is not disclosed, the column is empty rather than guessed.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Korea Index Tape</h1>
+    <p class="lead">
+      <b>{num(total)}</b> KRX-family indices as of <b>{fmtDate(snapshotDate)}</b>, in English and
+      free. This page is about coverage — what we hold, what each column actually measures, and
+      where the source left a gap instead of a number.
+    </p>
+
+    <section class="stats">
+      <div class="stat"><b>{num(total)}</b><span>indices</span></div>
+      <div class="stat"><b>{pct(withNameEn, total)}</b><span>with English names</span></div>
+      <div class="stat"><b>{num(basket.length)}</b><span>basket indices</span></div>
+      <div class="stat"><b>{num(computed.length)}</b><span>computed indices</span></div>
+    </section>
+
+    <section>
+      <h2>Four families, not one number</h2>
+      <p>
+        Indices come from four families, and how many carry a disclosed base date differs a lot
+        between them — worth knowing before you compute a since-inception return.
+      </p>
+      <table class="grid">
+        <thead>
+          <tr><th>Family</th><th class="n">Indices</th><th class="n">Constituent slots (sum)</th><th class="n">With base date</th></tr>
+        </thead>
+        <tbody>
+          {byFamily.map((f) => (
+            <tr>
+              <td>{f.name}</td>
+              <td class="n">{num(f.n)}</td>
+              <td class="n">{num(f.constituents)}</td>
+              <td class="n">{pct(f.withBase, f.n)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <p class="note">
+        &ldquo;Constituent slots&rdquo; is a sum across indices, not a count of distinct companies —
+        one company sits inside many indices at once (a KOSPI stock is typically in a sector index,
+        a size index and the headline index together), so this number is not a market census. Company
+        by company, that is <a href="/data/kospi-weights">the KOSPI weights page</a>.
+      </p>
+    </section>
+
+    <section>
+      <h2>Seven indices are computed, not counted</h2>
+      <p class="warn">
+        <b>A zero constituent count is not always a gap.</b> {num(computed.length)} of {num(total)} indices
+        are built from a formula rather than a basket of listed stocks — the four K-Sharpe indices
+        (risk-adjusted return over 1, 3, 5 and 10 years) and three named blends. A basket index with
+        zero constituents would be a defect; a computed index with zero is simply the wrong question.
+        We tag which is which rather than let one zero mean two different things.
+      </p>
+      <ul class="why">
+        {computed.map((r) => (
+          <li><b>{r.nameEn}</b> — {r.familyEn}</li>
+        ))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>The year-low column, and why most of it is empty</h2>
+      <p>
+        <b>{num(withYearLow)}</b> of {num(total)} indices carry a usable annual-low figure on this
+        snapshot. In the other <b>{num(total - withYearLow)}</b>, the source recorded an annual low
+        of exactly zero paired with a low-date one day <i>after</i> the snapshot date itself — an
+        impossible value for something that already happened, and a sign the field is a placeholder
+        rather than a real observation. We record those as not measured. A zero we cannot verify is
+        worse than a blank we can explain.
+      </p>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        Company-level share of the market, not the index level: <a href="/data/kospi-weights">what
+        share of KOSPI is each company</a>. The financial-statement and valuation tapes these ratios
+        would sit beside: <a href="/data/financials">financials coverage</a>,{' '}
+        <a href="/data/valuation">the valuation tape</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+
+    <section class="faq">
+      <h2>Questions</h2>
+      {faq.map(([q, a]) => (
+        <div class="qa"><h3>{q}</h3><p>{a}</p></div>
+      ))}
+    </section>
+
+    <section>
+      <h2>Sources, and what this cannot tell you</h2>
+      <p class="note">
+        Index levels and composition: the Korean public-data portal and KRX index disclosures.
+        Snapshot date {fmtDate(snapshotDate)}; daily snapshots have been kept since late August 2026.
+        Built {meta.builtAt}.
+      </p>
+      <p class="note">
+        This is one day&rsquo;s snapshot, not a time series page — the underlying daily files go back
+        further and feed the API. It carries level, change and composition, not the free-float
+        weighting scheme KRX uses to run the index itself. <b>This is not investment advice.</b>
+      </p>
+    </section>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 62rem; margin: 0 auto; padding: 1rem 1.1rem 4rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.3rem); line-height: 1.15; margin: 0 0 .6rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; color: #333; margin: 0 0 1.6rem; }
+  section { margin: 2.2rem 0; }
+  h2 { font-size: 1.15rem; margin: 0 0 .6rem; }
+  h3 { font-size: .98rem; margin: 0 0 .3rem; }
+  p { line-height: 1.65; margin: 0 0 .7rem; }
+  .note { font-size: .88rem; color: #555; }
+  .warn { font-size: .95rem; line-height: 1.65; background: #fffaf2; border-left: 3px solid #d08700;
+          padding: .7rem .9rem; margin: 0 0 .7rem; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .7rem; }
+  .stat { border: 1px solid #e3e3e3; border-radius: 6px; padding: .8rem .9rem; background: #fcfcfc; }
+  .stat b { display: block; font-size: 1.45rem; line-height: 1.1; }
+  .stat span { font-size: .82rem; color: #666; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; }
+  .grid th, .grid td { border-bottom: 1px solid #ececec; padding: .38rem .5rem; text-align: left; }
+  .grid thead th { border-bottom: 2px solid #ddd; font-weight: 600; }
+  .n { text-align: right; font-variant-numeric: tabular-nums; }
+  ul.why { margin: .3rem 0 .7rem 1.1rem; padding: 0; }
+  ul.why li { line-height: 1.6; margin: 0 0 .2rem; }
+  .qa { margin: 0 0 1rem; }
+  a { color: #1a5c9c; }
+  @media (prefers-color-scheme: dark) {
+    .lead { color: #cfcfcf; }
+    .note { color: #a8a8a8; }
+    .warn { background: #2a2318; border-left-color: #c08a20; }
+    .stat { border-color: #333; background: #1b1b1b; }
+    .grid th, .grid td { border-bottom-color: #2c2c2c; }
+    .grid thead th { border-bottom-color: #3a3a3a; }
+    a { color: #7ab3e8; }
+  }
+</style>
