@@ -120,6 +120,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'onet-riasec',
   /* 🔴 2026-09-10 3번 신설 — 질병관리청 국민건강영양조사, 나이대별 건강검진 수진율(자기응답) */
   'health-checkup-rate',
+  /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
+  'student-warning-signs',
 ]);
 
 /**
@@ -204,6 +206,8 @@ export const 붙일수있는갈래 = [
   'marriage-age', 'home', 'spending', 'healthy-years', 'years-left', 'real-wage', 'idle-youth', 'wealth-gap', 'youth-budget-2027', 'nonmarital-birth', 'korea-japan-youth', 'ranking-university', 'ranking-university-founding', 'ranking-university-region', 'ranking-university-level', 'ranking-stock-wealth', 'happiness-ranking', 'salary-ranking', 'mental-health', 'senior-doctor', 'high-value-home-age', 'wage-education', 'wage-distribution', 'divorce-age', 'remarriage', 'multicultural-marriage', 'birth-sex-ratio', 'fertility-rate',
   'keep-working', 'longest-job', 'care', 'ages', 'community', 'first-job',
   'breakfast', 'kindergarten', 'nursery', 'nursery-fill', 'pediatrics', 'afterschool', 'elementary', 'tutoring', 'tutoring-region', 'tutoring-income',
+  /* 🔴 2026-09-11 3번 신설 — 사장님 지시. 학생자살 사망사안 보고서(한겨레 인용) */
+  'student-warning-signs',
   /** ⭐ 2026-08-23 — 메뉴 개편으로 신설된 「대학 이전」 허브. 안의 여섯 지면과 같은 결(아이 쪽)이라
    *  `어른갈래`에는 넣지 않는다 — 부모가 보러 온 자리라 기본 도착지(적성)가 이미 맞다. */
   'before',
