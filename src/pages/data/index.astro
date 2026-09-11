@@ -103,6 +103,20 @@ const 묶음 = [
         cta: 'Read the tape',
       },
       {
+        /* 🔴 [2026-09-11] 서치콘솔이 가리킨 자리 — 「kospi index constituents weights」에서
+           우리 평균 순위가 1.0위인데 노출이 둘뿐이었다. 수요가 우리를 찾는데 받을 지면이 없었다.
+           ⛔ 이름을 「weight」로 달지 않는다 — 진짜 지수 비중은 유동주식(free float) 조정치이고
+             우리는 그 계수를 못 갖고 있다. 부르는 이름이 곧 거짓이 되는 자리다. */
+        href: '/data/kospi-weights',
+        name: 'What share of KOSPI is each company',
+        one: 'Every KOSPI company ranked by its share of total market value — 828 companies, '
+          + 'company-level, free and in English. The two largest are 52 percent of the market '
+          + 'between them; the 528 smallest are 1.5 percent together. This is full market '
+          + 'capitalisation, not the free-float index weight, and the page says so above every table.',
+        price: 'Free page',
+        cta: 'See the shares',
+      },
+      {
         /* 🔴 [2026-09-11] 서치콘솔 28일치를 재서 세운 지면이다 — 우리 질의 노출의 38%가
            「biggest / largest korean companies」 한 갈래였는데, 그 물음을 받던 기사가
            평균 34.9위였다. 말투를 고쳐서 오르지 않는다(2026-09-10 실측: 상관 +0.19).
