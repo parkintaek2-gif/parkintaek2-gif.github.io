@@ -90,6 +90,15 @@ function CSV로(머리, 줄들) {
   return [머리.join(','), ...줄들.map((r) => 머리.map((k) => 칸(r[k])).join(','))].join('\n');
 }
 
+/**
+ * 🔴 [2026-09-11 실측] 종목코드는 «6자리 숫자»가 아니라 «6자리 영숫자»다.
+ * "0015S0" 처럼 글자 섞인 코드도 KRX·공공데이터포털 시세 파일에 그대로 있는 진짜 코드다
+ * (People Panel 에서 먼저 실측 — 스팩 아닌 실제 상장사 22곳이 순수 숫자 필터에서 빠졌었다).
+ */
+export function 유효한종목코드인가(t) {
+  return /^[0-9A-Za-z]{6}$/.test(String(t ?? ''));
+}
+
 /** 표본 — 가장 최근에 접수된 건부터 N건. ⛔ 파일 순서(회사 순서)로 자르지 않는다 */
 export function 표본뽑기(rows, 몇줄 = 100) {
   if (!Array.isArray(rows)) return [];
@@ -109,7 +118,7 @@ function 짓기() {
 
   for (const c of 회사들) {
     const t = String(c.종목 ?? '').padStart(6, '0');
-    if (!/^\d{6}$/.test(t)) continue;
+    if (!유효한종목코드인가(t)) continue;
     const 공통 = { ticker: t, name_en: c.영문 ?? null, name_ko: c.이름 ?? null };
 
     for (const x of c.대량보유 ?? []) {
@@ -298,6 +307,10 @@ if (나 && process.argv.includes('--자가시험')) {
 
   검('🔴 「로마자로 «지어내지» 않는다」가 코드에 살아 있다',
     fs.readFileSync(fileURLToPath(import.meta.url), 'utf8').includes('로마자로 «지어내지» 않는다'));
+
+  검('유효한종목코드인가 — 순수 숫자 6자리는 유효', 유효한종목코드인가('005930') === true);
+  검('🔴 유효한종목코드인가 — 글자 섞인 6자리도 유효(진짜 코드다)', 유효한종목코드인가('0015S0') === true);
+  검('⛔ 유효한종목코드인가 — 6자리가 아니면 무효', 유효한종목코드인가('12345') === false);
 
   검('표본뽑기 — 최근 접수일부터 N건', (() => {
     const r = 표본뽑기([{ filed_on: '2026-01-01' }, { filed_on: '2026-09-01' }, { filed_on: '2026-05-01' }], 2);
