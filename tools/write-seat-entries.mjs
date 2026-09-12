@@ -83,9 +83,31 @@ export function 아스키만인가(글) {
   return !/[^\x09\x0A\x0D\x20-\x7E]/.test(String(글 ?? ''));
 }
 
+/**
+ * 🔴 [2026-09-13 · 5번] 원격제어 이름 — 사장님이 폰에서 보시는 «그 이름»이다.
+ *
+ * 사장님(2026-09-13): 「u4나 admin을 소유자로 해놨고, 이 아이디로 로그인시
+ * 원격제어 가능하면 된다」 → 조직 설정의 「원격 제어」를 켜 주셨다.
+ *
+ * ⛔ 켜 두기만 해서는 안 붙는다. 세션을 띄울 때 `--remote-control` 을 «붙여야» 한다.
+ *    2026-09-13 에 실측했다 — 그냥 띄운 자리는 claude.ai/code 에 안 뜨고,
+ *    `--remote-control` 로 띄운 자리만 「최근 항목」에 떴다.
+ * ⛔ 그리고 «계정별»이다. admin 으로 로그인하면 admin 계정으로 도는 자리만 보인다.
+ *    같은 날 실측 — RC-TEST-admin 은 떴고 RC-TEST-u5 는 안 떴다.
+ * ⛔ 이름에 한글을 쓰지 않는다. 이 파일이 찍어 내는 .cmd 는 전부 ASCII 여야 한다.
+ */
+export function 원격이름(칸) {
+  return ('Seat-' + 칸.자리 + '-' + 칸.영문)
+    .replace(/[^A-Za-z0-9]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '')
+    .slice(0, 48);
+}
+
 /** 한 자리의 입구 글을 찍는다. ⛔ 한글을 넣지 않는다 */
 export function 입구글(칸, 검사길 = 검사자) {
   const { 자리, 영문, 계정, 설정, 작업 } = 칸;
+  const 알씨 = 원격이름(칸);
   const 줄 = [
     '@echo off',
     'chcp 65001 >nul',
@@ -151,7 +173,7 @@ export function 입구글(칸, 검사길 = 검사자) {
     'echo   [.] Resuming this seat\'s live conversation.',
     'echo       id %LIVEID%',
     'echo.',
-    'claude --resume %LIVEID%',
+    `claude --resume %LIVEID% --remote-control "${알씨}"`,
     'goto ended',
     '',
     ':fresh',
@@ -161,7 +183,7 @@ export function 입구글(칸, 검사길 = 검사자) {
     'echo       shared memo file to read next - then carry on from today.',
     `echo       If a login screen appears, sign in as ${계정}`,
     'echo.',
-    'claude',
+    `claude --remote-control "${알씨}"`,
     'goto ended',
     '',
     ':nodir',
@@ -218,6 +240,23 @@ function 자가시험() {
   재다('🔴 입구글: --continue 를 «부르지» 않는다 — 살아 있는 자리가 빈 대화로 열린다',
     !/--continue/.test(명령3));
   재다('🔴 입구글: 옛 ID 대장(_현재)을 읽지 않는다', !/set \/p LIVEID=/.test(명령3));
+
+  /* 🔴 [2026-09-13 · 5번] 원격제어 — 사장님이 폰에서 붙으실 길이다.
+     ⛔ 조직 설정을 켜 두기만 해서는 «안 붙는다». 이 깃발이 명령줄에 있어야 붙는다.
+        그래서 문장으로 적어 두지 않고 여기서 잰다 — 누가 이 줄을 지우면 검사가 막는다. */
+  const 부르는claude = 명령3.split(/\r?\n/).filter((l) => /^claude\b/.test(l.trim()));
+  재다('🔴 입구글: claude 를 부르는 줄이 둘이다 (이어열기 · 새로열기)', 부르는claude.length === 2);
+  재다('🔴 입구글: claude 를 부르는 «모든» 줄에 --remote-control 이 붙어 있다',
+    부르는claude.length > 0 && 부르는claude.every((l) => /--remote-control "/.test(l)));
+  재다('🔴 입구글: 원격제어 이름이 전부 ASCII 다 — 한글이면 cmd 가 깨뜨린다',
+    부르는claude.every((l) => 아스키만인가((l.match(/--remote-control "([^"]*)"/) || [])[1] || '')));
+  for (const 칸 of 자리표) {
+    const 이름 = 원격이름(칸);
+    재다(`원격이름: ${칸.자리}번은 자리 번호가 이름에 박혀 있다 (${이름})`,
+      이름.startsWith(`Seat-${칸.자리}-`) && 아스키만인가(이름) && !/\s/.test(이름));
+  }
+  재다('원격이름: 여섯 자리 이름이 서로 «다르다» — 같으면 폰에서 어느 자리인지 못 가른다',
+    new Set(자리표.map(원격이름)).size === 자리표.length);
 
   재다('입구글: 설정폴더를 못박는다', 글3.includes('set CLAUDE_CONFIG_DIR=C:\\Users\\USER\\.claude-u3'));
   재다('입구글: 작업폴더로 cd 한다', 글3.includes('cd /d C:\\Users\\User\\Documents\\GitHub\\dataeconomics'));
