@@ -231,6 +231,15 @@ export const 단계들 = [
   "node scripts/collect-kcw-language-reads.mjs --자가시험",
   "node scripts/build-kcw-group-mix.mjs --자가시험",
   "node scripts/build-kcw-language-reads.mjs --자가시험",
+  /* 🔴 [2026-09-13 · 6번] check-tests-wired.mjs 가 「안 부르는 검사 0→3」으로 잡았다.
+   *   만든 사람이 안 물렸던 것을 이어서 물린다. */
+  "node scripts/check-hub-missing.mjs",
+  "node scripts/check-klifemap-adsense-ready.mjs",
+  "node scripts/check-klifemap-payment.mjs",
+  /* 🔴 [2026-09-13 · 6번] F7 — build-korea-people-tape.mjs 도 새로 만든 자기시험이라
+   *   여기 안 물리면 check-tests-wired.mjs 가 「안 부르는 검사」로 다시 잡는다. */
+  "node scripts/build-korea-people-tape.mjs --자가시험",
+  "node scripts/build-korea-mezzanine-tape.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */

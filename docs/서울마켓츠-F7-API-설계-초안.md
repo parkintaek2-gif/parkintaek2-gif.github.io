@@ -152,3 +152,54 @@ account-dictionary 처럼 `?ticker=`로 필터링할 행 배열이 없어서, �
    숫자로 확인 안 하고 「뚫었다」고 보고할 뻔했다. **못 쟀으면 못 쟀다고 적는다.**
 ⬜ 다음 손댈 사람에게 남기는 선택지 — 행 단위 원자료(DART 개별 공시)부터 다시 뽑거나,
    아니면 이 셋은 API 목록에서 빼고 화면 전용으로 못박는다. **결정은 안 했다.**
+
+### 🔴 [2026-09-13 · 6번] 위 판정 정정 — «집계본만 보고 없다고 했다». **행 단위 원자료는 이미 있었다**
+
+5번이 23:29 감수에서 잡았다(docs/세션간-메모.md) — `seoulmarkets-*.json` 은 화면용 집계본이
+맞지만, 그 옆에 **행 단위 원자료가 이미 있다**(`builtFrom` 칸이 스스로 적어 두고 있었다).
+
+```
+src/data/full/korea-people-panel-2026-09-11.csv          2,923행 (사람)
+src/data/full/korea-mezzanine-book-2026-09-11.csv         5,563행 (메자닌)
+src/data/full/korea-ownership-ledger-*.csv (2개) + archive/raw/dart-ownership/ownership.ndjson (16MB)
+```
+
+순서(5번 지정) — **people → mezzanine → ownership.** people 이 가장 작고 만만하다.
+
+#### ✅ people — 오늘 뚫었다. 살아 있다
+
+```
+scripts/build-korea-people-tape.mjs --적는다   src/data/full/korea-people-panel-*.csv
+  → src/data/korea-people-tape.json (행 2,924개, index-tape 와 같은 꼴 — _meta + rows)
+src/lib/api.mjs      GET /v1/people  (?ticker= 단건, ?market=·?name= 필터, ?limit=)
+src/lib/openapi.mjs  /people 명세 추가 — 명세에 없으면 안 팔린다(강령)
+```
+
+⛔ **women_share·근속비·급여비는 API 에서 퍼센트로 바꾸지 않았다** — 원본 그대로 0~1 비율이다.
+  무료 지면(`build-seoulmarkets-people-page.mjs`)은 퍼센트로 한 번 곱해 내지만, 그건 그 지면의
+  목적(분포 그래프)에 맞춘 가공이고 API 는 **원자료 그대로**가 원칙이다(강령 ③). 필드 이름에
+  `_ratio`를 박아 손님이 다시 안 헷갈리게 했다.
+
+⬜ **mezzanine·ownership 은 아직 안 뚫었다.** mezzanine(5,563행·1.1MB)이 다음이고,
+  ownership(4MB×2 + ndjson 16MB)은 통째로 메모리에 올리지 않고 쪽(page)으로 잘라야 한다
+  — 5번이 이미 이렇게 지정해 뒀다. 다음 사람은 이 문서 위쪽 「같은 틀이 안 통한다」 판정을
+  «집계본에 한해서만» 맞는 말로 읽는다. 원자료 기준으로는 셋 다 뚫린다.
+
+#### ✅ mezzanine — 오늘(같은 세션) 이어서 뚫었다. 살아 있다
+
+```
+scripts/build-korea-mezzanine-tape.mjs --적는다   src/data/full/korea-mezzanine-book-*.csv
+  → src/data/korea-mezzanine-tape.json (행 5,084개 — 파싱하면 5,563 «naive 줄»보다 준다.
+    칸 안 줄바꿈이 있는 필드가 있어서다. people-page 스크립트가 이미 겪은 현상 그대로)
+src/lib/api.mjs      GET /v1/mezzanine  (?filing_id= 단건, ?ticker=·?type=CB|BW|EB·?name= 필터)
+src/lib/openapi.mjs  /mezzanine 명세 추가
+```
+
+⛔ **EB 의 `refix_floor_price_krw` 를 0 이나 「못 쟀다」로 뭉개지 않았다** — `refix_floor_note`
+가 EB 428건 전부에 「해당 없음」 이유를 달고 있어서(원자료 자체가 그렇게 적혀 있다), 값과
+까닭 두 칸을 그대로 따로 낸다. 실측: EB 필터 결과 428건, 값이 있는 EB 는 0건, note 는 428건
+전부 있음 — 정확히 겹친다.
+
+⬜ **ownership 은 아직이다.** 원자료가 커서(4MB×2 CSV + 16MB ndjson) people·mezzanine 처럼
+  JSON 모듈로 통째로 번들에 실으면 안 된다 — 스트리밍·페이지 자름이 필요하다. 다음 손댈
+  사람은 이 셋 중 «가장 큰 것»을 마지막에 맡는다는 순서(5번 지정)를 그대로 따른다.

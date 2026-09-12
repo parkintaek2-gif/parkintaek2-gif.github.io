@@ -74,6 +74,15 @@ import VALUATION_TAPE from '../data/korea-valuation-tape.json' with { type: 'jso
  */
 import INDEX_TAPE from '../data/korea-index-tape.json' with { type: 'json' };
 import ACCOUNT_DICTIONARY from '../data/korea-financial-account-english.json' with { type: 'json' };
+/*
+ * 🔴 [2026-09-13 · 6번] F7 첫 갈래 — Korea People Tape. 5번 감수(23:29)로 보류를 풀었다
+ * (docs/세션간-메모.md) — 「원자료가 없다」가 아니라 집계본만 보고 못 찾은 것이었다.
+ * 순서는 people → mezzanine → ownership. 원자료가 508KB 라 index-tape 와 같은 꼴로
+ * (JSON 모듈 import, 번들에 통째로 실림) 그대로 따른다.
+ */
+import PEOPLE_TAPE from '../data/korea-people-tape.json' with { type: 'json' };
+/* 🔴 [2026-09-13 · 6번] F7 두 번째 갈래 — Korea Mezzanine Tape. people 과 같은 순서·같은 꼴. */
+import MEZZANINE_TAPE from '../data/korea-mezzanine-tape.json' with { type: 'json' };
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -695,6 +704,184 @@ function indexTape(params, tier = 'free') {
 }
 
 /**
+ * /v1/people — F7 Korea People Tape. 2026-09-13 6번.
+ * ⛔ women_share·근속비·급여비는 원본 그대로 «비율»이다 — 무료 지면(/data/people)처럼
+ *   퍼센트로 곱해 내지 않는다. API 는 원자료 그대로가 원칙이다(강령 ③).
+ */
+function peopleCoverage() {
+  const m = PEOPLE_TAPE?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.builtAt ?? null,
+    source_file: m.sourceFile ?? null,
+    rows: m.rows ?? (Array.isArray(PEOPLE_TAPE?.rows) ? PEOPLE_TAPE.rows.length : 0),
+    with_pay_ratio: m.withPayRatio ?? null,
+    pay_withheld_with_reason: m.payWithheldWithReason ?? null,
+    pay_withheld_no_reason: m.payWithheldNoReason ?? null,
+    pay_ratio_withheld_reason_note: m.payRatioWithheldReasonNote ?? null,
+    not_this: m.notThis ?? null,
+  };
+}
+
+function peopleRow(r) {
+  return {
+    ticker: r.ticker,
+    name_en: r.nameEn,
+    name_ko: r.nameKo,
+    market: r.market,
+    sector_ko: r.sectorKo,
+    fiscal_year: r.fiscalYear,
+    headcount: r.headcount,
+    men: r.men,
+    women: r.women,
+    women_share_ratio: r.womenShareRatio,
+    tenure_years: r.tenureYears,
+    tenure_years_men: r.tenureYearsMen,
+    tenure_years_women: r.tenureYearsWomen,
+    tenure_ratio_women_to_men: r.tenureRatioWomenToMen,
+    annual_pay_per_person_krw_men: r.annualPayPerPersonKrwMen,
+    annual_pay_per_person_krw_women: r.annualPayPerPersonKrwWomen,
+    pay_ratio_women_to_men: r.payRatioWomenToMen,
+    pay_ratio_withheld_reason: r.payRatioWithheldReason,
+    close_price_krw: r.closePriceKrw,
+    market_cap_krw: r.marketCapKrw,
+    listed_shares: r.listedShares,
+    price_as_of: r.priceAsOf,
+  };
+}
+
+function people(params, tier = 'free') {
+  const rows = Array.isArray(PEOPLE_TAPE?.rows) ? PEOPLE_TAPE.rows : [];
+
+  const tickerQ = (params.get('ticker') || '').trim();
+  if (tickerQ) {
+    const hit = rows.find((r) => r.ticker === tickerQ);
+    if (!hit) {
+      return err(
+        404,
+        'unknown_ticker',
+        `No such ticker: ${tickerQ}`,
+        'Use the exact KRX ticker (6 characters, may be alphanumeric), e.g. ticker=005930. Browse /v1/people without a ticker for the full list.',
+      );
+    }
+    return json(200, { result: peopleRow(hit), coverage: peopleCoverage() });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const marketQ = (params.get('market') || '').trim().toLowerCase();
+  const nameQ = (params.get('name') || '').trim().toLowerCase();
+
+  let filtered = rows;
+  if (marketQ) filtered = filtered.filter((r) => String(r.market ?? '').toLowerCase() === marketQ);
+  if (nameQ) {
+    filtered = filtered.filter(
+      (r) => String(r.nameEn ?? '').toLowerCase().includes(nameQ) || String(r.nameKo ?? '').includes(nameQ),
+    );
+  }
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced.map(peopleRow),
+    coverage: peopleCoverage(),
+  });
+}
+
+/**
+ * /v1/mezzanine — F7 Korea Mezzanine Tape. 2026-09-13 6번.
+ * ⛔ refixFloorPriceKrw 가 null 인 것을 0 으로 안 낸다 — EB 는 그 칸이 애초에 없다.
+ *   refixFloorNote 가 있으면 「해당 없음」, 둘 다 없으면 「못 쟀다」다.
+ */
+function mezzanineCoverage() {
+  const m = MEZZANINE_TAPE?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.builtAt ?? null,
+    source_file: m.sourceFile ?? null,
+    rows: m.rows ?? (Array.isArray(MEZZANINE_TAPE?.rows) ? MEZZANINE_TAPE.rows.length : 0),
+    by_type: m.byType ?? null,
+    with_refix_floor: m.withFloor ?? null,
+    refix_floor_withheld_with_note: m.floorWithheldWithNote ?? null,
+    refix_floor_withheld_no_note: m.floorWithheldNoNote ?? null,
+    refix_floor_note: m.refixFloorNote ?? null,
+    not_this: m.notThis ?? null,
+  };
+}
+
+function mezzanineRow(r) {
+  return {
+    ticker: r.ticker,
+    name_en: r.nameEn,
+    name_ko: r.nameKo,
+    filing_id: r.filingId,
+    instrument_type: r.instrumentType,
+    board_resolution_date: r.boardResolutionDate,
+    instrument_kind_ko: r.instrumentKindKo,
+    total_face_value_krw: r.totalFaceValueKrw,
+    coupon_rate_pct: r.couponRatePct,
+    maturity_rate_pct: r.maturityRatePct,
+    maturity_date: r.maturityDate,
+    strike_price_krw: r.strikePriceKrw,
+    strike_ratio_pct: r.strikeRatioPct,
+    strike_window_start: r.strikeWindowStart,
+    strike_window_end: r.strikeWindowEnd,
+    refix_floor_price_krw: r.refixFloorPriceKrw,
+    refix_floor_note: r.refixFloorNote,
+    subscription_date: r.subscriptionDate,
+    payment_date: r.paymentDate,
+    private_placement: r.privatePlacement,
+  };
+}
+
+function mezzanine(params, tier = 'free') {
+  const rows = Array.isArray(MEZZANINE_TAPE?.rows) ? MEZZANINE_TAPE.rows : [];
+
+  const filingIdQ = (params.get('filing_id') || '').trim();
+  if (filingIdQ) {
+    const hit = rows.find((r) => r.filingId === filingIdQ);
+    if (!hit) {
+      return err(
+        404,
+        'unknown_filing_id',
+        `No such filing_id: ${filingIdQ}`,
+        'Use the exact DART filing id (rcept_no), e.g. filing_id=20200601000239. Browse /v1/mezzanine without filing_id for the full list.',
+      );
+    }
+    return json(200, { result: mezzanineRow(hit), coverage: mezzanineCoverage() });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const tickerQ = (params.get('ticker') || '').trim();
+  const typeQ = (params.get('type') || '').trim().toUpperCase();
+  const nameQ = (params.get('name') || '').trim().toLowerCase();
+
+  let filtered = rows;
+  if (tickerQ) filtered = filtered.filter((r) => r.ticker === tickerQ);
+  if (typeQ) {
+    if (!['CB', 'BW', 'EB'].includes(typeQ)) {
+      return err(400, 'unknown_type', `Unknown type: ${typeQ}`, 'Use type=CB, type=BW or type=EB.');
+    }
+    filtered = filtered.filter((r) => r.instrumentType === typeQ);
+  }
+  if (nameQ) {
+    filtered = filtered.filter(
+      (r) => String(r.nameEn ?? '').toLowerCase().includes(nameQ) || String(r.nameKo ?? '').includes(nameQ),
+    );
+  }
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced.map(mezzanineRow),
+    coverage: mezzanineCoverage(),
+  });
+}
+
+/**
  * /v1/account-dictionary — F3 영문 계정·재무제표명 사전. 2026-09-10 2번.
  * ⛔ 사전에 없는 계정명은 「unmapped:<원문>」이지 짐작 번역이 아니다 —
  *   그 규약(scripts/lib/financial-account-en.mjs 계정명영문())을 여기서도 그대로 지킨다.
@@ -766,6 +953,10 @@ async function root() {
         'Daily levels for 168 KRX indices (KOSPI, KOSDAQ, KRX and theme series), in English. ?name= for one index (English or Korean), ?family= to filter by series.',
       'GET /v1/account-dictionary':
         'Korean financial-statement account and statement names mapped to standard English (K-IFRS terms), hand-mapped from real DART filings — not machine translation. ?type=account (default) or ?type=statement, ?q= to search.',
+      'GET /v1/people':
+        'Workforce filings for listed Korean companies — headcount, tenure and pay by gender, joined to KRX closing price. One row per company-fiscal-year. ?ticker= for one company (exact KRX code), ?market= to filter (KOSPI/KOSDAQ), ?name= to search by English or Korean name. Ratios (women share, tenure, pay) are raw 0-1 figures, not percentages.',
+      'GET /v1/mezzanine':
+        'DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable bonds (EB) — coupon, maturity, strike and refixing-floor terms as filed. One row per filing. ?filing_id= for one filing (exact DART rcept_no), ?ticker= for one company, ?type=CB|BW|EB, ?name= to search. refixFloorPriceKrw is null for EB by design (no refixing floor exists) — see refix_floor_note.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
     contact: 'sibcheongan@gmail.com',
@@ -839,6 +1030,24 @@ async function meta() {
     licence: 'Derived work; DART filings are public disclosure.',
     collected: Object.keys(ACCOUNT_DICTIONARY?.accountNames ?? {}).length > 0,
     ...accountDictionaryCoverage(),
+  };
+
+  /* 🔴 [2026-09-13 · 6번] F7 첫 갈래 — 번들 JSON 이라 archiveStatus() 를 안 거친다 (위 셋과 같다) */
+  datasets.people = {
+    label: 'Workforce filings for listed Korean companies — headcount, tenure and pay by gender',
+    agency: 'Financial Supervisory Service (FSS) filings + KRX daily closing prices',
+    licence: 'Filed disclosure, collected and republished by us as a licensed dataset.',
+    collected: Array.isArray(PEOPLE_TAPE?.rows) && PEOPLE_TAPE.rows.length > 0,
+    ...peopleCoverage(),
+  };
+
+  /* 🔴 [2026-09-13 · 6번] F7 두 번째 갈래 — 번들 JSON 이라 archiveStatus() 를 안 거친다 */
+  datasets.mezzanine = {
+    label: 'Convertible bond (CB), bond-with-warrant (BW) and exchangeable bond (EB) filings',
+    agency: 'Financial Supervisory Service (DART)',
+    licence: 'Public disclosure filings, collected and republished by us as a licensed dataset.',
+    collected: Array.isArray(MEZZANINE_TAPE?.rows) && MEZZANINE_TAPE.rows.length > 0,
+    ...mezzanineCoverage(),
   };
 
   return json(200, {
@@ -1285,6 +1494,14 @@ async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1/account-dictionary') {
     meter('account-dictionary');
     return accountDictionary(searchParams, tier);
+  }
+  if (pathname === '/v1/people') {
+    meter('people');
+    return people(searchParams, tier);
+  }
+  if (pathname === '/v1/mezzanine') {
+    meter('mezzanine');
+    return mezzanine(searchParams, tier);
   }
 
   return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');

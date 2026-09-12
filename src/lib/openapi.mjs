@@ -527,6 +527,55 @@ export function openapi(baseUrl) {
           },
         },
       },
+      '/people': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getPeople',
+          summary: 'Workforce filings for listed Korean companies, by gender',
+          description:
+            'Headcount, tenure and pay by gender, as filed with the Financial Supervisory Service, joined to KRX closing price. One row per company. Ratio fields (`women_share_ratio`, `tenure_ratio_women_to_men`, `pay_ratio_women_to_men`) are raw 0-1 figures, not percentages. `pay_ratio_women_to_men` is null when a filing did not carry the figure — `pay_ratio_withheld_reason` distinguishes a filed reason (not applicable) from an unmeasured gap (also null). This is not a discrimination claim, a benchmark or a company ranking — see the coverage `not_this` notes. `?ticker=` returns one company by its exact KRX code; otherwise a filtered, paginated list.',
+          parameters: [
+            { name: 'ticker', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact KRX ticker (6 characters; some are alphanumeric), e.g. "005930".' },
+            { name: 'market', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact market name, e.g. "KOSPI" or "KOSDAQ".' },
+            { name: 'name', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean company name. Substring match.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'People rows with source and coverage notes' },
+            404: {
+              description: 'ticker did not match any filed company.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
+      '/mezzanine': {
+        get: {
+          tags: ['Markets'],
+          operationId: 'getMezzanine',
+          summary: 'Convertible bond, bond-with-warrant and exchangeable bond filings',
+          description:
+            'DART filings for CB, BW and EB — coupon, maturity, strike and refixing-floor terms as filed. One row per filing. `refix_floor_price_krw` is null for EB by design (exchangeable bonds have no refixing floor) — `refix_floor_note` carries the filed reason when one exists; both null means we could not measure it. Not a dilution forecast or a signal — terms as filed only. `?filing_id=` returns one filing by its exact DART receipt number; otherwise a filtered, paginated list.',
+          parameters: [
+            { name: 'filing_id', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact DART filing id (rcept_no), e.g. "20200601000239".' },
+            { name: 'ticker', in: 'query', required: false, schema: { type: 'string' }, description: 'Exact KRX ticker (6 characters; some are alphanumeric).' },
+            { name: 'type', in: 'query', required: false, schema: { type: 'string', enum: ['CB', 'BW', 'EB'] }, description: 'Instrument type.' },
+            { name: 'name', in: 'query', required: false, schema: { type: 'string' }, description: 'English or Korean company name. Substring match.' },
+            { name: 'limit', in: 'query', required: false, schema: { type: 'integer' }, description: 'Max rows; capped by plan.' },
+          ],
+          responses: {
+            200: { description: 'Mezzanine filing rows with source and coverage notes' },
+            400: {
+              description: 'type was not one of CB, BW or EB.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+            404: {
+              description: 'filing_id did not match any filed instrument.',
+              content: { 'application/json': { schema: ERROR_SCHEMA } },
+            },
+          },
+        },
+      },
     },
   };
 }
