@@ -3,17 +3,17 @@
 > 사장님 지시 (2026-09-09): 「모든 유닛 사이트맵을 이미지 파일로 만들어서 사이트맵 폴더를 만들어
 > 넣어놔줘. tree 모양으로 해서 한 눈에 알아보게...유료, 무료는 컬러를 다르게 해서 구분되게 하고」
 
-잰때: 2026. 9. 9. 23시 25분 40초 KST
+잰때: 2026. 9. 13. 0시 32분 42초 KST
 
 만든 자: `scripts/make-sitemap-tree.mjs` (SVG) · `scripts/make-sitemap-tree-png.mjs` (PNG)
 ⛔ 한 번 그리고 버리는 그림이 아니다. 지면이 늘면 다시 돌린다.
 
 | 사이트 | 지면 | 갈래 | 값 붙은 갈래 | 그림 |
 |---|---:|---:|---:|---|
-| seoulmarkets.com | 328 | 22 | 3 | `seoulmarkets.svg` · `seoulmarkets.png` |
-| www.kculturewire.com | 2,859 | 152 | 0 | `kculturewire.svg` · `kculturewire.png` |
-| 100yearmap.com | 4,969 | 105 | 2 | `100yearmap.svg` · `100yearmap.png` |
-| klifemap.ai | 535 | 35 | 10 | `klifemap.svg` · `klifemap.png` |
+| seoulmarkets.com | 349 | 22 | 3 | `seoulmarkets.svg` · `seoulmarkets.png` |
+| www.kculturewire.com | 2,885 | 156 | 0 | `kculturewire.svg` · `kculturewire.png` |
+| 100yearmap.com | 4,985 | 121 | 2 | `100yearmap.svg` · `100yearmap.png` |
+| klifemap.ai | 535 | 35 | 13 | `klifemap.svg` · `klifemap.png` |
 
 ## 색
 

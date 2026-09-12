@@ -8,7 +8,7 @@ dataAsOf: 2026-09-11T00:00:00+09:00
 author: Newsroom
 tags: ["seventeen", "hoshi", "kpop", "attention", "method", "wikipedia"]
 pages:
-  - "/member-vs-group"
+  - "/fictional-vs-real"
 sources:
   - org: "Wikimedia Foundation — Pageviews API"
     api: "Per-article daily pageviews on English Wikipedia, all-access, user agents only. Window 12 September 2025 to 11 September 2026, fourteen articles: the group page and all thirteen members."

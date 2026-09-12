@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="880" viewBox="0 0 1180 880" font-family="'Segoe UI',system-ui,sans-serif">
-<rect width="1180" height="880" fill="#ffffff"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="906" viewBox="0 0 1180 906" font-family="'Segoe UI',system-ui,sans-serif">
+<rect width="1180" height="906" fill="#ffffff"/>
 <text x="28" y="42" font-size="24" font-weight="700" fill="#1a1a1a">KLifeMap — saju, astrology, compatibility</text>
-<text x="28" y="66" font-size="14" fill="#5f6368">klifemap.ai — 535 pages in sitemap · measured 2026. 9. 9. 23시 25분 40초 KST</text>
+<text x="28" y="66" font-size="14" fill="#5f6368">klifemap.ai — 535 pages in sitemap · measured 2026. 9. 13. 0시 32분 42초 KST</text>
 <rect x="28" y="84" width="13" height="13" rx="3" fill="#1a7f4b"/>
 <text x="47" y="95" font-size="12.5" fill="#3c4043">○ Free</text>
 <rect x="103.6" y="84" width="13" height="13" rx="3" fill="#b3261e"/>
@@ -10,10 +10,10 @@
 <text x="198.2" y="95" font-size="12.5" fill="#3c4043">◐ Mixed</text>
 <rect x="262.2" y="84" width="13" height="13" rx="3" fill="#5f6368"/>
 <text x="281.2" y="95" font-size="12.5" fill="#3c4043">□ Not measured</text>
-<rect x="28" y="446" width="232" height="40" rx="8" fill="#1a1a1a"/>
-<text x="144" y="472" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle">klifemap.ai</text>
-<path d="M 260 466 H 266" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<path d="M 266 141 V 791" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="28" y="459" width="232" height="40" rx="8" fill="#1a1a1a"/>
+<text x="144" y="485" font-size="15" font-weight="600" fill="#ffffff" text-anchor="middle">klifemap.ai</text>
+<path d="M 260 479 H 266" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<path d="M 266 141 V 817" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
 <path d="M 266 141 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
 <rect x="300" y="130" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
 <text x="310" y="146" font-size="13" font-weight="600" fill="#1a7f4b">○ /content</text>
@@ -63,8 +63,8 @@
 <text x="310" y="432" font-size="13" font-weight="600" fill="#1a7f4b">○ /events.html</text>
 <text x="462" y="432" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 453 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="442" width="163.6" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="458" font-size="13" font-weight="600" fill="#1a7f4b">○ /gwansang.html</text>
+<rect x="300" y="442" width="163.6" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
+<text x="310" y="458" font-size="13" font-weight="600" fill="#a05a00">◐ /gwansang.html</text>
 <text x="475.6" y="458" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 479 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
 <rect x="300" y="468" width="172.2" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
@@ -87,8 +87,8 @@
 <text x="310" y="588" font-size="13" font-weight="600" fill="#1a7f4b">○ /jeongbon-framework.html</text>
 <text x="561.6" y="588" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 609 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="598" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="614" font-size="13" font-weight="600" fill="#1a7f4b">○ /liuyao.html</text>
+<rect x="300" y="598" width="150" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
+<text x="310" y="614" font-size="13" font-weight="600" fill="#a05a00">◐ /liuyao.html</text>
 <text x="462" y="614" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 635 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
 <rect x="300" y="624" width="206.6" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
@@ -114,10 +114,14 @@
 <rect x="300" y="754" width="150" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
 <text x="310" y="770" font-size="13" font-weight="600" fill="#a05a00">◐ /saju.html</text>
 <text x="462" y="770" font-size="12.5" fill="#3c4043">1</text>
-<path d="M 266 791 H 292" stroke="#c9ced4" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
-<rect x="300" y="780" width="223.79999999999998" height="22" rx="5" fill="#f6f7f8" stroke="#1a7f4b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="310" y="796" font-size="12.5" fill="#1a7f4b">+ 10 more free sections</text>
-<text x="535.8" y="796" font-size="12.5" fill="#3c4043">10</text>
-<text x="28" y="846" font-size="11.5" fill="#80868b">Paid/free is scanned from the code that renders the buy button or paywall — not guessed. Sections not scanned stay grey.</text>
-<text x="28" y="864" font-size="11.5" fill="#80868b">Made by scripts/make-sitemap-tree.mjs — re-run it when pages change.</text>
+<path d="M 266 791 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
+<rect x="300" y="780" width="150" height="22" rx="5" fill="#fdf1e3" stroke="#a05a00" stroke-width="1.2"/>
+<text x="310" y="796" font-size="13" font-weight="600" fill="#a05a00">◐ /tarot.html</text>
+<text x="462" y="796" font-size="12.5" fill="#3c4043">1</text>
+<path d="M 266 817 H 292" stroke="#c9ced4" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
+<rect x="300" y="806" width="215.2" height="22" rx="5" fill="#f6f7f8" stroke="#1a7f4b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="310" y="822" font-size="12.5" fill="#1a7f4b">+ 9 more free sections</text>
+<text x="527.2" y="822" font-size="12.5" fill="#3c4043">9</text>
+<text x="28" y="872" font-size="11.5" fill="#80868b">Paid/free is scanned from the code that renders the buy button or paywall — not guessed. Sections not scanned stay grey.</text>
+<text x="28" y="890" font-size="11.5" fill="#80868b">Made by scripts/make-sitemap-tree.mjs — re-run it when pages change.</text>
 </svg>

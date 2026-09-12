@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1180" height="828" viewBox="0 0 1180 828" font-family="'Segoe UI',system-ui,sans-serif">
 <rect width="1180" height="828" fill="#ffffff"/>
 <text x="28" y="42" font-size="24" font-weight="700" fill="#1a1a1a">100 Year Map — education and careers</text>
-<text x="28" y="66" font-size="14" fill="#5f6368">100yearmap.com — 4,969 pages in sitemap · measured 2026. 9. 9. 23시 25분 40초 KST</text>
+<text x="28" y="66" font-size="14" fill="#5f6368">100yearmap.com — 4,985 pages in sitemap · measured 2026. 9. 13. 0시 32분 42초 KST</text>
 <rect x="28" y="84" width="13" height="13" rx="3" fill="#1a7f4b"/>
 <text x="47" y="95" font-size="12.5" fill="#3c4043">○ Free</text>
 <rect x="103.6" y="84" width="13" height="13" rx="3" fill="#b3261e"/>
@@ -81,33 +81,33 @@
 <text x="310" y="562" font-size="13" font-weight="600" fill="#1a7f4b">○ /before</text>
 <text x="462" y="562" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 583 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="572" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="588" font-size="13" font-weight="600" fill="#1a7f4b">○ /breakfast</text>
-<text x="462" y="588" font-size="12.5" fill="#3c4043">1</text>
+<rect x="300" y="572" width="180.79999999999998" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="588" font-size="13" font-weight="600" fill="#1a7f4b">○ /birth-sex-ratio</text>
+<text x="492.79999999999995" y="588" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 609 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="598" width="155" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="614" font-size="13" font-weight="600" fill="#1a7f4b">○ /business-age</text>
-<text x="467" y="614" font-size="12.5" fill="#3c4043">1</text>
+<rect x="300" y="598" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="614" font-size="13" font-weight="600" fill="#1a7f4b">○ /breakfast</text>
+<text x="462" y="614" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 635 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="624" width="172.2" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="640" font-size="13" font-weight="600" fill="#1a7f4b">○ /cardiac-arrest</text>
-<text x="484.2" y="640" font-size="12.5" fill="#3c4043">1</text>
+<rect x="300" y="624" width="155" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="640" font-size="13" font-weight="600" fill="#1a7f4b">○ /business-age</text>
+<text x="467" y="640" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 661 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="650" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="666" font-size="13" font-weight="600" fill="#1a7f4b">○ /care</text>
-<text x="462" y="666" font-size="12.5" fill="#3c4043">1</text>
+<rect x="300" y="650" width="172.2" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="666" font-size="13" font-weight="600" fill="#1a7f4b">○ /cardiac-arrest</text>
+<text x="484.2" y="666" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 687 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
-<rect x="300" y="676" width="215.2" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
-<text x="310" y="692" font-size="13" font-weight="600" fill="#1a7f4b">○ /closed-universities</text>
-<text x="527.2" y="692" font-size="12.5" fill="#3c4043">1</text>
+<rect x="300" y="676" width="150" height="22" rx="5" fill="#e8f5ee" stroke="#1a7f4b" stroke-width="1.2"/>
+<text x="310" y="692" font-size="13" font-weight="600" fill="#1a7f4b">○ /care</text>
+<text x="462" y="692" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 713 H 292" stroke="#c9ced4" stroke-width="1.6" fill="none"/>
 <rect x="300" y="702" width="150" height="22" rx="5" fill="#fdeceb" stroke="#b3261e" stroke-width="1.2"/>
 <text x="310" y="718" font-size="13" font-weight="600" fill="#b3261e">● /price</text>
 <text x="462" y="718" font-size="12.5" fill="#3c4043">1</text>
 <path d="M 266 739 H 292" stroke="#c9ced4" stroke-width="1.6" stroke-dasharray="3 3" fill="none"/>
-<rect x="300" y="728" width="223.79999999999998" height="22" rx="5" fill="#f6f7f8" stroke="#1a7f4b" stroke-width="1" stroke-dasharray="3 3"/>
-<text x="310" y="744" font-size="12.5" fill="#1a7f4b">+ 84 more free sections</text>
-<text x="535.8" y="744" font-size="12.5" fill="#3c4043">84</text>
+<rect x="300" y="728" width="232.39999999999998" height="22" rx="5" fill="#f6f7f8" stroke="#1a7f4b" stroke-width="1" stroke-dasharray="3 3"/>
+<text x="310" y="744" font-size="12.5" fill="#1a7f4b">+ 100 more free sections</text>
+<text x="544.4" y="744" font-size="12.5" fill="#3c4043">100</text>
 <text x="28" y="794" font-size="11.5" fill="#80868b">Paid/free is scanned from the code that renders the buy button or paywall — not guessed. Sections not scanned stay grey.</text>
 <text x="28" y="812" font-size="11.5" fill="#80868b">Made by scripts/make-sitemap-tree.mjs — re-run it when pages change.</text>
 </svg>
