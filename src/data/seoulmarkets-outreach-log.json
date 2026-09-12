@@ -1,0 +1,61 @@
+{
+ "보낸것": [
+  {
+   "기관": "Kopernik Global Investors",
+   "받는곳": "contact@kopernikglobal.com",
+   "보낸곳": "admin@klifedesign.net",
+   "제목": "Korean listed-company data, in English — SeoulMarkets",
+   "근거": {
+    "종목수": 5,
+    "공시건수": 15,
+    "공시이름": "KopernikGlobalInvestors,LLC"
+   },
+   "주소출처": "https://www.kopernikglobal.com/contact-us/",
+   "보낸시각": "2026. 9. 12. 오후 2:21:22",
+   "결과": {
+    "ok": true,
+    "simulated": false,
+    "via": "gmail"
+   }
+  },
+  {
+   "기관": "Pzena Investment Management",
+   "받는곳": "info@pzena.com",
+   "보낸곳": "admin@klifedesign.net",
+   "제목": "Korean listed-company data, in English — SeoulMarkets",
+   "근거": {
+    "종목수": 3,
+    "공시건수": 4,
+    "공시이름": "PzenaInvestmentManagement,LLC"
+   },
+   "주소출처": "https://www.pzena.com/contact/",
+   "보낸시각": "2026. 9. 12. 오후 2:21:25",
+   "결과": {
+    "ok": true,
+    "simulated": false,
+    "via": "gmail"
+   }
+  },
+  {
+   "기관": "Wasatch Global Investors",
+   "받는곳": "institutionalinfo@wasatchglobal.com",
+   "보낸곳": "admin@klifedesign.net",
+   "제목": "Korean listed-company data, in English — SeoulMarkets",
+   "근거": {
+    "종목수": 1,
+    "공시건수": 4,
+    "공시이름": "WasatchAdvisorsLP"
+   },
+   "주소출처": "https://wasatchglobal.com/contact-us/",
+   "보낸시각": "2026. 9. 12. 오후 2:21:28",
+   "결과": {
+    "ok": true,
+    "simulated": false,
+    "via": "gmail"
+   }
+  }
+ ],
+ "뺀곳": [
+  "Polar Capital"
+ ]
+}
