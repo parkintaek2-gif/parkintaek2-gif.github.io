@@ -15,3 +15,5 @@ src/pages/100y/price.astro	a78b177063f69670	6번	2026-09-10 19:55 KST	통과
 src/pages/100y/after/index.astro	0fe5796876313a58	6번	2026-09-10 19:55 KST	통과	
 src/pages/100y/refund.astro	202b83ffd7532211	3번	2026-09-11 11:31 KST	통과	
 src/pages/index.astro	1e1b5ce58622372f	3번	2026-09-12 10:05 KST	통과	
+src/pages/index.astro	3b7d07f17380bed8	5번	2026-09-13 02:13 KST	통과	
+src/pages/100y/index.astro	84cc65f22ee168eb	5번	2026-09-13 02:13 KST	통과	
