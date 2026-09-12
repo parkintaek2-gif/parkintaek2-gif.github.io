@@ -228,6 +228,9 @@ export const GET: APIRoute = () => {
     /* 🔴 2026-08-31 — 시즌2-2 「몸/맘」 1편. 한국보건사회연구원 KOSIS 우울감·스트레스
        나이대별 실측. 진단 아님 — docs/3번-시즌2-2-몸맘.md 참고. */
     { path: '/mental-health', priority: '0.7', changefreq: 'yearly' },
+    /* 🔴 2026-09-12 — 국회미래연구원 「한국인의 행복조사」 나이 축. 사장님 지시(9/11),
+       5번이 수집·가공한 자료를 지면으로 냈다. */
+    { path: '/happiness-by-age', priority: '0.7', changefreq: 'yearly' },
     /* 🔴 2026-09-11 — 사장님 지시로 신설. 학생자살 사망사안 보고서(한겨레 인용) — 조기발견의
        틈을 판정 없이 옮긴다. 안전보도 원칙 준수(방법 언급 없음·상담전화 최상단). */
     { path: '/student-warning-signs', priority: '0.7', changefreq: 'yearly' },

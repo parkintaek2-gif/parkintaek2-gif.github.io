@@ -76,6 +76,7 @@ export const 갈래 = {
   '/salary-ranking': ['src/pages/100y/salary-ranking/index.astro', 'src/data/100yearmap/salary-ranking-2026.json'],
   '/nonmarital-birth': ['src/pages/100y/nonmarital-birth/index.astro', 'src/data/100yearmap/nonmarital-birth.json'],
   '/mental-health': ['src/pages/100y/mental-health/index.astro', 'src/data/100yearmap/mental-health-by-age.json'],
+  '/happiness-by-age': ['src/pages/100y/happiness-by-age/index.astro', 'src/data/nafi-happiness-by-age.json'],
   '/student-warning-signs': ['src/pages/100y/student-warning-signs/index.astro', 'src/data/100yearmap/student-warning-signs-2026.json'],
   '/senior-doctor': ['src/pages/100y/senior-doctor/index.astro', 'src/data/100yearmap/senior-doctor-program.json'],
   '/korea-japan-youth': ['src/pages/100y/korea-japan-youth/index.astro', 'src/data/100yearmap/korea-japan-youth-2026.json'],

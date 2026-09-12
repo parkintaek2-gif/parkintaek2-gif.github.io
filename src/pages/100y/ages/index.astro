@@ -44,6 +44,7 @@ import 자산격차 from '../../../data/100yearmap/wealth-gap-age.json';
 import 청년예산2027 from '../../../data/100yearmap/youth-budget-2027.json';
 import 혼인외출생 from '../../../data/100yearmap/nonmarital-birth.json';
 import 몸맘 from '../../../data/100yearmap/mental-health-by-age.json';
+import 행복조사 from '../../../data/nafi-happiness-by-age.json';
 import 시니어의사 from '../../../data/100yearmap/senior-doctor-program.json';
 import 고가주택 from '../../../data/100yearmap/high-value-home-age.json';
 /* 🔴 2026-09-10 3번 — 9/9 에 낸 넷이 이 «문들» 목록에 없었다. 오늘 함께 넣는다 */
@@ -79,6 +80,7 @@ const ac = 자산격차 as any;
 const ad = 청년예산2027 as any;
 const ae = 혼인외출생 as any;
 const af = 몸맘 as any;
+const ao = 행복조사 as any;
 const ag = 시니어의사 as any;
 const ah = 고가주택 as any;
 const ai = 재혼 as any;
@@ -191,6 +193,12 @@ const 문들 = [
     수: `${af['2023_핵심대비'].우울감_최고.값}%`,
     한줄: `${af.최근연도}년 우울감 경험률(한국보건사회연구원) — 80세 이상이 가장 높습니다. 스트레스 인지율은 반대로 30~40대가 가장 높습니다. 진단이 아니라 설문 응답입니다.`,
     기간: `${Object.keys(af.연도별)[0]}~${af.최근연도} · ${Object.keys(af.연도별).length}해`,
+  },
+  {
+    나이: '15세 이상', 주소: '/happiness-by-age', 이름: '행복감, 60대 이상이 가장 낮고 가장 많이 떨어졌습니다',
+    수: `${ao.나이별.find((r: any) => r.이름 === '60대 이상').평균2021}점`,
+    한줄: `${ao.출처.기관} 「한국인의 행복조사」(표본 17,057명) — 2021년 전반적 행복감, 60대 이상이 가장 낮고 2020년 대비 하락폭도 가장 큽니다.`,
+    기간: `2020~2022 · 국회미래연구원 보고서 3건`,
   },
   {
     나이: '60세~', 주소: '/senior-doctor', 이름: '시니어의사 신청은 늘었는데, 지원은 절반뿐',
