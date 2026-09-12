@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>SeoulMarkets — Korea Market Data</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #1a2233;
+    background: #fff;
+  }
+  section.slide {
+    width: 1280px;
+    height: 720px;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    display: flex;
+    flex-direction: column;
+    padding: 64px 72px;
+  }
+  section.slide:last-child { page-break-after: auto; }
+
+  .navy { background: #0b1730; color: #f2f4f8; }
+  .kicker {
+    font-size: 15px; letter-spacing: .12em; text-transform: uppercase;
+    color: #c9a84c; font-weight: 700; margin: 0 0 14px;
+  }
+  .navy .kicker { color: #d9b85a; }
+  h1 { font-size: 52px; line-height: 1.12; margin: 0 0 18px; letter-spacing: -.01em; font-weight: 800; }
+  h2.slide-title { font-size: 40px; margin: 0 0 6px; letter-spacing: -.01em; font-weight: 800; }
+  .subtitle { font-size: 22px; color: #4a5468; line-height: 1.5; margin: 0 0 8px; max-width: 900px; }
+  .navy .subtitle { color: #b7c0d4; }
+  .hook { font-size: 19px; color: #5a6478; line-height: 1.6; max-width: 920px; }
+  .navy .hook { color: #c9d1e3; }
+
+  .badge-row { display: flex; gap: 14px; margin: 28px 0 0; flex-wrap: wrap; }
+  .badge {
+    background: #f3f0e2; color: #7a5c14; border: 1px solid #e0d3a0;
+    padding: 8px 16px; border-radius: 999px; font-size: 15px; font-weight: 700;
+  }
+  .navy .badge { background: rgba(217,184,90,.14); color: #d9b85a; border-color: rgba(217,184,90,.4); }
+
+  .stat-row { display: flex; gap: 28px; margin: 30px 0 0; }
+  .stat {
+    flex: 1; background: #f7f8fb; border: 1px solid #e6e9f0; border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .stat b { display: block; font-size: 38px; font-weight: 800; color: #0b1730; line-height: 1.05; }
+  .stat span { font-size: 14px; color: #6b7690; }
+
+  table.schema {
+    width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 18px;
+  }
+  table.schema th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .05em;
+    color: #8891a5; font-weight: 700; padding: 6px 10px; border-bottom: 2px solid #dfe3ec;
+  }
+  table.schema td {
+    padding: 7px 10px; border-bottom: 1px solid #edeff4; color: #2a3244;
+    font-family: "Consolas", "SF Mono", monospace; font-size: 12.5px;
+  }
+  table.schema tr:nth-child(even) td { background: #fafbfd; }
+
+  .footer-bar {
+    position: absolute; bottom: 30px; left: 72px; right: 72px;
+    display: flex; justify-content: space-between; font-size: 13px; color: #99a2b5;
+    border-top: 1px solid #e6e9f0; padding-top: 14px;
+  }
+  .navy .footer-bar { border-top-color: rgba(255,255,255,.15); color: #7e88a3; }
+  .pagenum { font-variant-numeric: tabular-nums; }
+
+  .cadence-row { display: flex; gap: 40px; margin-top: 26px; }
+  .cadence-item { font-size: 15px; color: #4a5468; }
+  .cadence-item b { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: #8891a5; font-weight: 700; margin-bottom: 4px; }
+
+  .logo-mark {
+    font-size: 22px; font-weight: 800; letter-spacing: -.01em;
+  }
+  .logo-mark .accent { color: #d9b85a; }
+
+  .center-col { display: flex; flex-direction: column; justify-content: center; height: 100%; }
+
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 34px; }
+  .contact-card {
+    background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14);
+    border-radius: 14px; padding: 26px 28px;
+  }
+  .contact-card h3 { margin: 0 0 10px; font-size: 18px; color: #d9b85a; }
+  .contact-card p { margin: 0 0 6px; font-size: 15px; color: #cfd6e6; line-height: 1.6; }
+  .price-tiers { display: flex; gap: 14px; margin-top: 10px; }
+  .tier { background: rgba(217,184,90,.1); border: 1px solid rgba(217,184,90,.35); border-radius: 10px; padding: 10px 14px; text-align: center; flex: 1; }
+  .tier b { display: block; font-size: 18px; color: #f2f4f8; }
+  .tier span { font-size: 11px; color: #b7c0d4; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<section class="slide navy">
+  <div class="center-col">
+    <p class="kicker">Korea Market Data, In English</p>
+    <h1>SeoulMarkets</h1>
+    <p class="subtitle">The first English-language data product built directly from Korea's own regulatory
+      filings — ownership, workforce, mezzanine debt, valuation and index composition —
+      not translated commentary, the underlying rows.</p>
+    <div class="badge-row">
+      <span class="badge">6 datasets, live today</span>
+      <span class="badge">REST API + CSV/Parquet</span>
+      <span class="badge">Listed on RapidAPI</span>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Beomjin Academy · Sejong, Republic of Korea</span>
+    <span class="pagenum">1 / 8</span>
+  </div>
+</section>
+
+<!-- 2. FINANCIAL STATEMENTS -->
+<section class="slide">
+  <p class="kicker">Dataset 1 of 6</p>
+  <h2 class="slide-title">Korea Financial Statements Tape</h2>
+  <p class="hook">Annual filings for the Korean stock market, consolidated and separate reported
+    separately — the raw statement lines behind every ratio, not just the ratio.</p>
+  <div class="stat-row">
+    <div class="stat"><b>2,570 / 2,709</b><span>listed companies covered (94.9%)</span></div>
+    <div class="stat"><b>FY2025</b><span>most recent annual report cycle</span></div>
+    <div class="stat"><b>DART</b><span>Financial Supervisory Service, official open API</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>ticker</td><td>name_en</td><td>industry_en</td></tr>
+    <tr><td>fiscal_year</td><td>report (annual/half-year)</td><td>basis (consolidated/separate)</td></tr>
+    <tr><td>total_assets_krw</td><td>total_equity_krw</td><td>net_income_krw</td></tr>
+    <tr><td>revenue_krw</td><td>operating_income_krw</td><td>not_measured (reason, never zero)</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Rebuilt each session; DART re-checked continuously</div>
+    <div class="cadence-item"><b>Format</b>CSV · Parquet</div>
+    <div class="cadence-item"><b>Coverage rule</b>Rows kept even when unmeasured, with a reason column</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">2 / 8</span></div>
+</section>
+
+<!-- 3. VALUATION -->
+<section class="slide">
+  <p class="kicker">Dataset 2 of 6</p>
+  <h2 class="slide-title">Korea Valuation Tape</h2>
+  <p class="hook">PER, PBR, ROE and debt-to-equity for every listed company, computed from the tape
+    above — same table, same day, so the ratio and the statement line can never disagree.</p>
+  <div class="stat-row">
+    <div class="stat"><b>2,709</b><span>listed companies, every one kept</span></div>
+    <div class="stat"><b>1,588</b><span>with a computed PER (rest: loss or unfiled, stated why)</span></div>
+    <div class="stat"><b>2,556 / 2,562</b><span>with PBR / ROE</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>per</td><td>pbr</td><td>roe</td></tr>
+    <tr><td>debt_to_equity</td><td>market_cap_krw</td><td>price_as_of</td></tr>
+    <tr><td>fiscal_year</td><td>basis</td><td>not_measured (reason)</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Daily price join, on the current annual statement set</div>
+    <div class="cadence-item"><b>Format</b>CSV · Parquet</div>
+    <div class="cadence-item"><b>Rule</b>No sector averages computed. Null, never negative-or-zero-by-default</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">3 / 8</span></div>
+</section>
+
+<!-- 4. OWNERSHIP LEDGER -->
+<section class="slide">
+  <p class="kicker">Dataset 3 of 6</p>
+  <h2 class="slide-title">Korea Ownership Ledger</h2>
+  <p class="hook">Every substantial-shareholding (5%-rule) filing and officer/major-shareholder
+    ownership record, at filing level — who crossed a threshold, and by how much, on which day.</p>
+  <div class="stat-row">
+    <div class="stat"><b>21,774</b><span>large-holding (5%-rule) filings</span></div>
+    <div class="stat"><b>32,000+</b><span>officer / major-shareholder ownership rows</span></div>
+    <div class="stat"><b>2,547</b><span>tickers with at least one filing</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>filing_id</td><td>filed_on</td><td>holder_name</td></tr>
+    <tr><td>shares_held</td><td>shares_change</td><td>stake_pct / stake_change_pct</td></tr>
+    <tr><td>related_party_shares</td><td>related_party_pct</td><td>reason_raw_ko (original text)</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Rebuilt each session from DART majorstock/elestock</div>
+    <div class="cadence-item"><b>Format</b>CSV · Parquet (two tables: filings + executives)</div>
+    <div class="cadence-item"><b>Rule</b>Holder names printed as filed, never guessed into romanized form</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">4 / 8</span></div>
+</section>
+
+<!-- 5. PEOPLE PANEL -->
+<section class="slide">
+  <p class="kicker">Dataset 4 of 6</p>
+  <h2 class="slide-title">Korea People Panel</h2>
+  <p class="hook">Headcount, tenure and annual pay per person, split by gender, joined to market cap —
+    the workforce axis competitors that cover Korean financials do not carry at all.</p>
+  <div class="stat-row">
+    <div class="stat"><b>2,924</b><span>listed companies with workforce filings</span></div>
+    <div class="stat"><b>22</b><span>columns per company</span></div>
+    <div class="stat"><b>No vendor found</b><span>publishing this axis for Korea, in English</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>headcount</td><td>women_share</td><td>tenure_years_men / women</td></tr>
+    <tr><td>annual_pay_per_person_krw_men</td><td>annual_pay_per_person_krw_women</td><td>pay_ratio_women_to_men</td></tr>
+    <tr><td>pay_ratio_withheld_reason</td><td>market_cap_krw</td><td>price_as_of</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Annual filing cycle + daily price join</div>
+    <div class="cadence-item"><b>Format</b>CSV · Parquet</div>
+    <div class="cadence-item"><b>Rule</b>Ratios shown as distribution, never averaged into a single "norm"</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">5 / 8</span></div>
+</section>
+
+<!-- 6. MEZZANINE BOOK -->
+<section class="slide">
+  <p class="kicker">Dataset 5 of 6</p>
+  <h2 class="slide-title">Korea Mezzanine Book</h2>
+  <p class="hook">Convertible bonds, bonds-with-warrants and exchangeable bonds — strike terms,
+    refix floors and placement type, as filed, with the three instruments' differently-named
+    DART fields normalized into one comparable table.</p>
+  <div class="stat-row">
+    <div class="stat"><b>5,084</b><span>CB / BW / EB issuances</span></div>
+    <div class="stat"><b>98.3%</b><span>were private placements, not public offerings</span></div>
+    <div class="stat"><b>3 instruments</b><span>unified into one schema, kept distinguishable</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>instrument_type (CB/BW/EB)</td><td>total_face_value_krw</td><td>coupon_rate_pct</td></tr>
+    <tr><td>strike_price_krw</td><td>strike_ratio_pct</td><td>strike_window_start / end</td></tr>
+    <tr><td>refix_floor_price_krw</td><td>refix_floor_note</td><td>private_placement</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Rebuilt each session from DART issuance filings</div>
+    <div class="cadence-item"><b>Format</b>CSV · Parquet</div>
+    <div class="cadence-item"><b>Rule</b>EB's missing refix column marked "not applicable", never zero</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">6 / 8</span></div>
+</section>
+
+<!-- 7. INDEX TAPE -->
+<section class="slide">
+  <p class="kicker">Dataset 6 of 6</p>
+  <h2 class="slide-title">Korea Index Tape</h2>
+  <p class="hook">Every KRX, KOSPI, KOSDAQ and thematic index KRX publishes, in English —
+    the index universe most vendors leave in Korean-only filings.</p>
+  <div class="stat-row">
+    <div class="stat"><b>168</b><span>KRX indices, English names</span></div>
+    <div class="stat"><b>Daily</b><span>close, change, constituent count, base date</span></div>
+    <div class="stat"><b>API today</b><span>CSV/Parquet snapshot in progress — not yet shipped</span></div>
+  </div>
+  <table class="schema">
+    <tr><th>column</th><th>column</th><th>column</th></tr>
+    <tr><td>name_en</td><td>family_en (KOSPI/KOSDAQ series)</td><td>constituent_count</td></tr>
+    <tr><td>close / change / change_pct</td><td>year_high / year_low</td><td>base_date / base_index</td></tr>
+  </table>
+  <div class="cadence-row">
+    <div class="cadence-item"><b>Update</b>Daily</div>
+    <div class="cadence-item"><b>Format</b>Live via REST API today; file snapshot next</div>
+    <div class="cadence-item"><b>Rule</b>Full market cap shown, not the free-float index weight — labeled as such</div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">7 / 8</span></div>
+</section>
+
+<!-- 8. CONTACT -->
+<section class="slide navy">
+  <p class="kicker">Get the full tables</p>
+  <h2 class="slide-title" style="color:#f2f4f8;">Let's talk data</h2>
+  <p class="hook">Every dataset above is live, versioned, and already served through our own API.
+    A free sample of each is available today; full tables and a query API are the licensed product.</p>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3>Live today</h3>
+      <p>seoulmarkets.com/data — free sample of every table, CSV and Parquet</p>
+      <p>rapidapi.com/parkintaek2/api/seoulmarkets-korean-broker-ratings-and-trade-data7</p>
+      <div class="price-tiers">
+        <div class="tier"><b>$0</b><span>BASIC</span></div>
+        <div class="tier"><b>$29</b><span>PRO</span></div>
+        <div class="tier"><b>$99</b><span>ULTRA</span></div>
+        <div class="tier"><b>$399</b><span>MEGA</span></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <h3>Contact</h3>
+      <p>Park In-taek</p>
+      <p>Beomjin Academy (SeoulMarkets)</p>
+      <p>159 Chunghyeon-ro, Jochiwon-eup, Sejong, Republic of Korea</p>
+      <p>admin@klifedesign.net</p>
+    </div>
+  </div>
+  <div class="footer-bar"><span>SeoulMarkets — Korea Market Data</span><span class="pagenum">8 / 8</span></div>
+</section>
+
+</body>
+</html>
