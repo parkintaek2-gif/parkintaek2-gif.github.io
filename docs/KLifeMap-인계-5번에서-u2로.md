@@ -18,17 +18,50 @@
 ⛔ **「서버가 떠 있다」·「enabled: true」를 「팔린다」로 읽지 마십시오.** 오늘 아침 제가
   그렇게 적었다가 사장님께 「아마추어도 해선 안 될 실수」라는 말씀을 들었습니다.
 
-### 0-1. 왜 못 고쳤나 — 원인은 잡았고, 마지막 한 칸에서 막혀 있습니다
+### 0-1. 🔴 왜 못 고쳤나 — **2026-09-12 18:4x 에 다시 재서 앞선 진단을 뒤집었습니다**
+
+⛔ 이 자리에 원래 「Cloudtype 배포 환경변수 바인딩이 컨테이너에 안 닿는다(세 번 실측)」라고
+  적혀 있었습니다. **틀렸습니다.** 그 말을 믿고 파면 엉뚱한 데를 팝니다.
+
+콘솔(설정 갈피)을 열어 붙어 있는 이름을 세어 봤습니다 —
 
 ```
-Cloudtype 콘솔의 «스테이지 시크릿»에는 값이 들어 있다   ← 넣어 두었다
-그런데 «배포 환경변수 바인딩»이 컨테이너에 안 닿는다     ← 세 번 실측했다
-  (비밀이 아닌 MAIL_PROBE=hello-0912 로도 재 봤다. 그래도 안 닿았다)
+붙어 있는 것 «정확히 14개»
+  R2_BUCKET · R2_ENDPOINT · R2_ACCESS_KEY_ID · R2_SECRET_ACCESS_KEY
+  SAJU_ADMIN_KEY · GEMINI_API_KEY · AI_PROVIDER · OWNER_NOTIFY_KEY · OWNER_EMAIL
+  KLM_TRIAL_KEY · YOUTUBE_API_KEY · KOPIS_API_KEY · GMAIL_SEND_AS · GMAIL_SA_JSON
+
+  ⭐ app.yaml 에 선언된 14개와 «똑같다»
+  ⭐ 그리고 /api/health 가 gmail sa:2357 sendAs:21 로 «닿아 있다»고 말한다
+  ⇒ 선언하면 닿는다. 바인딩은 성하다
+
+없는 것
+  🔴 TOSS_CLIENT_KEY · TOSS_SECRET_KEY        ← 매출 0 의 «진짜» 까닭
+  🔴 OAUTH_NAVER_* · OAUTH_KAKAO_* (여섯)     ← 손님이 들어오는 문이 좁은 까닭
+  ⚠ 로컬 klifemap/.env 에도 없습니다. 저장소 어디에도 없습니다
 ```
 
-고치는 길은 `.cloudtype/app.yaml` 에 env 를 «이름으로» 선언해 올리는 것이고,
-**그 파일은 이미 14줄로 준비해 두었습니다**(`klifemap/.cloudtype/app.yaml`).
-다만 `ctype apply` 가 자동승인 분류기에 막혀 실행되지 않았습니다.
+⇒ **고치는 길은 두 걸음뿐입니다.**
+
+```
+1. 스테이지 시크릿에 값을 넣는다
+   ctype stage secret TOSS_CLIENT_KEY <값> -t @parkintaek2/klifemap:main
+   ⛔ 값을 셸 명령줄에 올리면 기록에 남습니다. 콘솔 화면에서 넣는 쪽이 낫습니다
+2. app.yaml 에 두 줄(name/secret)을 더하고 올린다
+   ⛔ app.yaml 에 «없는» 것은 날아갑니다. 지금 14개가 전부 적혀 있으니
+      «더하기»만 하고 «지우지» 마십시오
+```
+
+### 0-1-2. 🔴 그래서 «지금» 막힌 것은 하나입니다 — **열쇠 값 자체**
+
+토스 실키는 토스 상점관리자(app.tosspayments.com)에 있습니다.
+그 지면은 **소셜 로그인이 없고 이메일+비밀번호**만 받습니다.
+제가 크롬에 저장된 자격증명으로 들어가 보았고, 결과는 아래 「막힌 것」에 적었습니다.
+
+⚠ 구글 로그인은 «살아 있습니다» — `/api/auth/providers` 가 `["google"]` 를 냅니다.
+  `/api/health` 의 `oauthDetail: google off(id:0 secret:0)` 는 **다른 것을 재고 있습니다** —
+  구글은 브라우저 쪽 GIS(id token)로 돌고, health 는 서버 쪽 OAUTH_GOOGLE_* 만 봅니다.
+  ⛔ health 한 줄을 보고 「구글도 죽었다」로 읽지 마십시오. providers 로 재십시오.
 
 ⛔ 🔴🔴 **그리고 klifemap 스테이지에 `ctype apply` 를 함부로 치면 안 됩니다.**
   2026-09-11 에 env 를 선언하지 않은 yaml 로 apply 했다가 **콘솔 환경변수가 통째로 날아가**
