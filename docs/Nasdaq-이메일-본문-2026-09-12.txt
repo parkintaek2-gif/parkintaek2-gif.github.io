@@ -1,0 +1,33 @@
+I'm writing to update an earlier data-partnership inquiry from SeoulMarkets (operated by Beomjin Academy, Sejong, Republic of Korea). Since our last message, the scope of what we can offer has grown substantially, and I'd like to submit the current lineup rather than the single dataset we originally proposed.
+
+SeoulMarkets builds English-language datasets from Korean public filings (DART, the Financial Supervisory Service; the Korean public data portal; KRX). Everything below is live today, rebuilt on a schedule, and already served through our own REST API.
+
+What's live now (6 datasets):
+
+1. Korea Financial Statements Tape
+Annual filings for 2,570 of 2,709 listed Korean companies (94.9%), consolidated and separate reported separately, FY2025.
+
+2. Korea Valuation Tape
+PER, PBR, ROE and debt-to-equity for all 2,709 listed companies — 1,588 with a computed PER, 2,556 with PBR, 2,562 with ROE. Every row carries the price date and fiscal year it was computed from.
+
+3. Korea Ownership Ledger
+21,774 substantial-shareholding (5%-rule) filings, plus a companion officer/major-shareholder ownership file, English company names, filing-level granularity.
+
+4. Korea People Panel
+Workforce data for 2,924 listed companies — headcount, tenure and annual pay per person, split by gender, joined to market cap. A column no other vendor we've found publishes for Korea.
+
+5. Korea Mezzanine Book
+5,084 convertible bond, bond-with-warrant and exchangeable bond issuances, with strike terms, refix floors and placement type.
+
+6. Korea Index Tape
+All 168 KRX indices — English names, constituent counts, base dates.
+
+All six are delivered as versioned CSV/Parquet snapshots and through a live REST API, already listed on RapidAPI: https://rapidapi.com/parkintaek2/api/seoulmarkets-korean-broker-ratings-and-trade-data7 (BASIC $0 / PRO $29 / ULTRA $99 / MEGA $399 per month).
+
+I tried to submit through the form at data.nasdaq.com/monetize-data, but the page returns a server error. Could you send the intake link directly, or let me know the current submission path?
+
+Best,
+Park In-taek
+Beomjin Academy (SeoulMarkets)
+159 Chunghyeon-ro, Jochiwon-eup, Sejong, Republic of Korea
+admin@klifedesign.net
