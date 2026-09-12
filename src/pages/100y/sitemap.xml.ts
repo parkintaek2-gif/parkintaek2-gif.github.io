@@ -332,6 +332,9 @@ export const GET: APIRoute = () => {
     { path: '/promotion', priority: '0.8', changefreq: 'monthly' },
     { path: '/exercise', priority: '0.8', changefreq: 'monthly' },
     { path: '/oneperson', priority: '0.8', changefreq: 'monthly' },
+    /* 🔴 2026-09-12 3번 신설 — 국회미래연구원 1인가구 증가 대응 방안(직접 수집). /oneperson과
+       다른 자료 — 이쪽은 경제·주거·사회연결망 격차 */
+    { path: '/oneperson-vulnerability', priority: '0.7', changefreq: 'yearly' },
     { path: '/lifelong', priority: '0.8', changefreq: 'monthly' },
     { path: '/retire-income', priority: '0.8', changefreq: 'monthly' },
     /* 「배움의 길」 첫 지면(2026-08-26 신설, 사장님 지시) — 폴리텍대학 학과·과정 */

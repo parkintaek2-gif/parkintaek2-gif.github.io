@@ -111,6 +111,7 @@ export const 갈래 = {
   '/promotion': ['src/pages/100y/promotion/index.astro', 'src/data/100yearmap/promotion.json'],
   '/exercise': ['src/pages/100y/exercise/index.astro', 'src/data/100yearmap/exercise.json'],
   '/oneperson': ['src/pages/100y/oneperson/index.astro', 'src/data/100yearmap/oneperson.json'],
+  '/oneperson-vulnerability': ['src/pages/100y/oneperson-vulnerability/index.astro', 'src/data/nafi-oneperson-vulnerability.json'],
   '/lifelong': ['src/pages/100y/lifelong/index.astro', 'src/data/100yearmap/lifelong.json'],
   '/retire-income': ['src/pages/100y/retire-income/index.astro', 'src/data/100yearmap/retire-income.json'],
   '/polytech': ['src/pages/100y/polytech/index.astro', 'src/data/100yearmap/polytech.json'],
