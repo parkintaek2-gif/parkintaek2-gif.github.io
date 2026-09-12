@@ -95,3 +95,60 @@ GET /api/v1/trade                     Korea Trade Revision Tape
 이 문서를 쓴 사람(2번)은 서버 배포·인증 인프라를 실제로 만들어 본 적이 아직 없다
 (F1~F4는 전부 정적 파일 빌더였다). 그래서 0절의 A/B 판단과 요율·쿼터 숫자는 **짐작이지
 실측이 아니다** — 확정하지 말고 6번·5번이 다시 봐 주시기를 부탁드린다.
+
+---
+
+## 🔴 [2026-09-12 21:xx · 6번] 0절 A/B 판단 — **이미 A 로 서 있다. 새로 고를 게 없다**
+
+지시(21:01 업무분장): 「① A/B 판단 — 6번 — 지금 구조로 동적 API 가 서나」에 답한다.
+**히스토리부터 봤다** — 이 문서가 말한 「정적 빌드라 동적 API가 안 선다」는 절반만 맞다.
+
+```
+✅ Astro 자체는 정적 빌드다(astro.config.mjs 에 output·adapter 없음) — 이 부분은 맞다
+✅ 그런데 seoulmarkets 는 Astro 를 «그대로» 배포하지 않는다.
+   package.json start = `node server.mjs` — dist/ 를 서비스하는 «진짜 Node 서버»가 이미 돈다
+   (.cloudtype/app.yaml 도 이렇게 명시: 「Astro 정적 빌드 결과를 server.mjs 가 서비스」)
+⇒ server.mjs → src/lib/api.mjs 의 handleApi() 가 **요청마다** 실행된다.
+   그 안에서 이미 되고 있는 것:
+   - tierOf(ctx.headers) · rateCheck(ctx.ip, tier)  — 분당 요율(무료 60/분), 429 시행
+     (src/lib/tiers.mjs, 사장님 지시 2026-08-03 「RapidAPI 유료화」)
+   - POST /v1/keys — 셀프 발급 API 열쇠(X-Api-Key 헤더). 2026-09-09 · 1번이 이미 만듦
+   - meter() 로 라우트별 사용량 집계
+```
+
+**즉 A(작은 Node 서버를 새로 둔다)는 이미 구현돼 있다 — 「새로 두는」게 아니라 «이미 있다».**
+B(Cloudtype 서버리스 함수)는 알아볼 필요가 없어졌다. **판단 끝.**
+
+⚠ 헤더 이름은 초안의 `x-sm-key` 가 아니라 **`X-Api-Key`** 로 이미 굳어 있다(1번이 그렇게 냈다).
+  F7 문서·예제(1번 몫)를 쓸 때 이 이름을 따른다 — 초안의 `x-sm-key`는 되살리지 않는다.
+
+### ③ 엔드포인트 — index-tape 는 **이미 살아 있었다.** 오늘은 «최신화 + 재검증»만 했다
+
+`/v1/index-tape` 는 2026-09-10 에 2번이 이미 뚫어 배포까지 끝냈다(핸들러 `src/lib/api.mjs:658`).
+오늘 확인해 보니 자료가 09-09 시세로 멈춰 있었다 — 09-10 자료가 아카이브에 들어와 있는데
+빌드가 안 돌아간 것이다. `node scripts/build-korea-index-tape.mjs --적는다` 로 다시 만들고
+`ctype apply -f .cloudtype/app.yaml -t @parkintaek2/seoulmarkets:main` 로 배포, **실측으로
+확인했다** — `curl https://seoulmarkets.com/v1/index-tape?name=KOSPI%20200` → `date: 20260910`.
+
+⛔ **「엔드포인트가 있다」와 「최신 자료로 서고 있다」는 다른 것이다.** 다음 사람은 매번
+   재실측하지 말고, `build-korea-index-tape.mjs` 를 아카이브 새 판이 들어올 때마다 자동으로
+   불러 주는 고리(cron 혹은 check-archive-freshness 같은 감시)가 없다는 것부터 안다.
+
+### 남은 넷(F7 엔드포인트 7개 중) — **ownership·mezzanine·people 은 「같은 틀」이 안 통한다**
+
+초안 1절이 「파일이 이미 있다」고 적은 세 상품을 실측했다 — **행(row) 단위 자료가 아니다.**
+
+```
+seoulmarkets-ownership.json    rows 없음 — 요약 통계(builtOn·filings·byForm·busiest 상위 목록뿐)
+seoulmarkets-mezzanine.json    rows: 5084  ← «배열»이 아니라 «건수(숫자)»다. 실제 행 자료가 없다
+seoulmarkets-people.json       위와 같다. rows 가 숫자다
+```
+
+이 셋은 `/data/ownership` 같은 **화면(집계 리포트)용으로 만든 파일**이다. index-tape·valuation·
+account-dictionary 처럼 `?ticker=`로 필터링할 행 배열이 없어서, 지금 그대로 라우트만 추가하면
+「집계 숫자 하나」를 돌려주는 장식 엔드포인트가 된다 — **팔 수 있는 API 가 아니다.**
+
+⛔ 그래서 오늘 이 셋을 「하나 되면 나머지는 같은 틀」로 밀어붙이지 않았다. 밀었으면
+   숫자로 확인 안 하고 「뚫었다」고 보고할 뻔했다. **못 쟀으면 못 쟀다고 적는다.**
+⬜ 다음 손댈 사람에게 남기는 선택지 — 행 단위 원자료(DART 개별 공시)부터 다시 뽑거나,
+   아니면 이 셋은 API 목록에서 빼고 화면 전용으로 못박는다. **결정은 안 했다.**
