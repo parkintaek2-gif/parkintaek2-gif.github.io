@@ -29,7 +29,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 자료방 = path.join(뿌리, 'public/data');
+/* 🔴 [2026-09-12] 6번이 P4 전량 파일을 public/data 에서 src/data/full 로 옮겼다
+ * (밸류에이션과 같은 "전량 무료 노출" 실수를 되풀이하지 않으려고 — 표본만 공개 폴더에 남긴다).
+ * 이 자는 전량을 읽어 «셈»을 내야 하므로 옮겨 간 자리를 따라간다. */
+const 자료방 = path.join(뿌리, 'src/data/full');
 const 낼길 = path.join(뿌리, 'src/data/seoulmarkets-people.json');
 
 /**
@@ -168,12 +171,14 @@ function 짓기() {
     payRatioMedian: 중간값(급여비들),
     /* 🔴 여기가 이 지면의 핵심 규율 — 없는 값의 «까닭»을 가른다 */
     payRatioAvailability: 값갈래(몸, 자('pay_ratio_women_to_men'), 자('pay_ratio_withheld_reason')),
-    /* ⚠ 원자료 2,924 곳 가운데 45곳이 빠져 있다 — 명세서 1-2-b. 숨기지 않고 적는다 */
+    /* 🔴 [2026-09-12] 이 45곳 구멍은 고쳤다 — «내부코드」가 아니라 KRX·공공데이터포털도 쓰는
+     * 진짜 6자리 영숫자 코드였다(예: "0015S0" 페스카로). 종목코드 검사를 순수 숫자에서
+     * 6자리 영숫자로 넓혀 잡았더니 45곳이 그대로 들어왔다(2,879→2,924). 명세서 1-2-b 갱신. */
     knownGap: {
       sourceUniverse: 2924,
       inThisFile: 몸.length,
       missing: 2924 - 몸.length,
-      note: 'Companies whose filing we could not join to a KRX price line, plus one REIT we wrongly excluded and are putting back. We publish the gap rather than rounding it away.',
+      note: 'As of 2026-09-12 this gap is closed — the 45 companies were excluded by a ticker-format bug (alphanumeric codes like "0015S0" were rejected as invalid), not because they were unmatchable. We publish the count either way so a re-opened gap would show here rather than being rounded away.',
     },
     notThis: [
       'Not a claim about discrimination. The filings carry ratios, not reasons: job mix, seniority mix and contract type all sit inside a single number.',
@@ -255,7 +260,8 @@ function 자가시험() {
       Number.isFinite(낸것.naiveLineCount));
     검('파는 파일 이름을 증거로 남긴다', /^korea-people-panel-\d{4}-\d{2}-\d{2}\.csv$/.test(낸것.builtFrom));
     검('칸이 22개다', 낸것.columns === 22);
-    검('⚠ 빠진 45곳을 숨기지 않고 적는다', 낸것.knownGap.missing > 0);
+    검('🔴 [2026-09-12] 45곳 구멍이 고쳐졌다 — 지금은 0이어야 한다(다시 빠지면 이 시험이 잡는다)',
+      낸것.knownGap.missing === 0);
     검('🔴 급여비율의 «해당 없음»과 «못 쟀다»가 갈려 있다',
       낸것.payRatioAvailability.has + 낸것.payRatioAvailability.notApplicable
       + 낸것.payRatioAvailability.notRecorded === 낸것.rows);

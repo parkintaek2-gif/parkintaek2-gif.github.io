@@ -28,7 +28,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const 자료방 = path.join(뿌리, 'public/data');
+/* 🔴 [2026-09-12] 6번이 P4 전량 파일을 public/data 에서 src/data/full 로 옮겼다
+ * (밸류에이션과 같은 "전량 무료 노출" 실수를 되풀이하지 않으려고 — 표본만 공개 폴더에 남긴다).
+ * 이 자는 전량을 읽어 «셈»을 내야 하므로 옮겨 간 자리를 따라간다. */
+const 자료방 = path.join(뿌리, 'src/data/full');
 const 낼길 = path.join(뿌리, 'src/data/seoulmarkets-mezzanine.json');
 
 /**

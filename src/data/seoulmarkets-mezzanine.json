@@ -1,6 +1,6 @@
 {
- "builtOn": "2026-09-09",
- "builtFrom": "korea-mezzanine-book-2026-09-09.csv",
+ "builtOn": "2026-09-12",
+ "builtFrom": "korea-mezzanine-book-2026-09-11.csv",
  "source": "DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable bonds (EB), collected by us and published as our licensed file. This page counts the same file we sell, so the free figures and the paid figures cannot disagree.",
  "rows": 5084,
  "naiveLineCount": 5564,

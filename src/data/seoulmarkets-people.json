@@ -1,127 +1,127 @@
 {
-  "builtOn": "2026-09-10",
-  "builtFrom": "korea-people-panel-2026-09-09.csv",
+  "builtOn": "2026-09-12",
+  "builtFrom": "korea-people-panel-2026-09-11.csv",
   "source": "Workforce figures that Korean listed companies file with the Financial Supervisory Service, joined to KRX daily closing prices. We collect the filings ourselves and publish them as our licensed file. This page counts the same file we sell, so the free figures and the paid figures cannot disagree.",
-  "rows": 2879,
-  "naiveLineCount": 2879,
+  "rows": 2924,
+  "naiveLineCount": 2924,
   "columns": 22,
-  "companies": 2879,
+  "companies": 2924,
   "byMarket": {
-    "KOSPI": 825,
+    "KOSPI": 828,
     "(not recorded)": 194,
-    "KOSDAQ": 1754,
-    "KONEX": 106
+    "KOSDAQ": 1794,
+    "KONEX": 108
   },
   "byFiscalYear": {
-    "2025": 2879
+    "2025": 2924
   },
   "headcount": {
-    "sum": 1872028,
-    "measured": 2823,
-    "median": 159
+    "sum": 1874591,
+    "measured": 2851,
+    "median": 157
   },
   "womenSharePct": {
-    "measured": 2772,
-    "of": 2879,
+    "measured": 2793,
+    "of": 2924,
     "bands": [
       {
         "from": 0,
         "to": 10,
-        "count": 447
+        "count": 450
       },
       {
         "from": 10,
         "to": 20,
-        "count": 678
+        "count": 684
       },
       {
         "from": 20,
         "to": 30,
-        "count": 523
+        "count": 525
       },
       {
         "from": 30,
         "to": 40,
-        "count": 387
+        "count": 390
       },
       {
         "from": 40,
         "to": 50,
-        "count": 303
+        "count": 304
       },
       {
         "from": 50,
         "to": 60,
-        "count": 227
+        "count": 229
       },
       {
         "from": 60,
         "to": null,
-        "count": 207
+        "count": 211
       }
     ]
   },
   "womenSharePctMedian": 24.6,
   "tenureRatio": {
-    "measured": 2615,
-    "of": 2879,
+    "measured": 2635,
+    "of": 2924,
     "bands": [
       {
         "from": 0,
         "to": 0.6,
-        "count": 428
+        "count": 430
       },
       {
         "from": 0.6,
         "to": 0.8,
-        "count": 744
+        "count": 748
       },
       {
         "from": 0.8,
         "to": 1,
-        "count": 733
+        "count": 740
       },
       {
         "from": 1,
         "to": 1.2,
-        "count": 425
+        "count": 428
       },
       {
         "from": 1.2,
         "to": null,
-        "count": 285
+        "count": 289
       }
     ]
   },
-  "tenureRatioMedian": 0.83,
+  "tenureRatioMedian": 0.831,
   "payRatio": {
-    "measured": 2621,
-    "of": 2879,
+    "measured": 2641,
+    "of": 2924,
     "bands": [
       {
         "from": 0,
         "to": 0.6,
-        "count": 378
+        "count": 379
       },
       {
         "from": 0.6,
         "to": 0.7,
-        "count": 648
+        "count": 656
       },
       {
         "from": 0.7,
         "to": 0.8,
-        "count": 812
+        "count": 817
       },
       {
         "from": 0.8,
         "to": 0.9,
-        "count": 545
+        "count": 548
       },
       {
         "from": 0.9,
         "to": 1,
-        "count": 157
+        "count": 160
       },
       {
         "from": 1,
@@ -132,15 +132,15 @@
   },
   "payRatioMedian": 0.733,
   "payRatioAvailability": {
-    "has": 2621,
-    "notApplicable": 258,
+    "has": 2641,
+    "notApplicable": 283,
     "notRecorded": 0
   },
   "knownGap": {
     "sourceUniverse": 2924,
-    "inThisFile": 2879,
-    "missing": 45,
-    "note": "Companies whose filing we could not join to a KRX price line, plus one REIT we wrongly excluded and are putting back. We publish the gap rather than rounding it away."
+    "inThisFile": 2924,
+    "missing": 0,
+    "note": "As of 2026-09-12 this gap is closed — the 45 companies were excluded by a ticker-format bug (alphanumeric codes like \"0015S0\" were rejected as invalid), not because they were unmatchable. We publish the count either way so a re-opened gap would show here rather than being rounded away."
   },
   "notThis": [
     "Not a claim about discrimination. The filings carry ratios, not reasons: job mix, seniority mix and contract type all sit inside a single number.",
