@@ -46,16 +46,22 @@ export const 검사자 = 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics\\too
  * ⚠ 설정폴더는 실제 폴더 이름 그대로 적는다 — 실측하면 대문자 USER 다.
  */
 export const 자리표 = [
-  { 자리: 1, 파일: '1번_KLifeMap.cmd',        영문: 'KLifeMap',       계정: 'u1@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u1', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
+  /* 🔴 [2026-09-12 저녁 · 5번] 자리를 통째로 다시 그었다. 사장님 지시 —
+       「u1에게 케이컬쳐를 맡기고, U2에게 케이라이프맵을 맡겨라」
+       「1번이 맡고 있던 케이라이프맵도 2번에게 다 넘기고」
+       「왼쪽 상단에 담당 업무 기재해줘. 안그럼 못찾는다」
+     ⇒ 창 제목(title)에 «지금 맡은 것»이 뜨게 한다. 제목이 옛 배정이면 사장님이 창을 못 찾으신다.
+     ⚠ 작업 폴더도 따라 바뀐다 — KCW 는 dataeconomics 안에 있고, KLifeMap 은 형제 저장소다. */
+  { 자리: 1, 파일: '1번_케이컬처와이어.cmd',  영문: 'KCW - K Culture Wire',      계정: 'u1@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u1', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
   /* 🔴 [2026-09-10 · 5번] 계정을 u2@ 에서 admin@ 으로 고쳤다 — 실측으로 확인한 것이다.
      .claude-u2 는 처음부터 admin@klifedesign.net 으로 로그인돼 있었고, u2@ 로 클로드에
      로그인한 흔적은 일곱 방에 0건이다. 옛 값으로 두면 자리를 다시 세울 때 «없는 계정»으로 세운다.
      ⚠ 9/21 에 2번 자리가 없어지면 이 줄은 K Culture Wire 로 바뀐다(전환 계획 3-4절). */
-  { 자리: 2, 파일: '2번_조율.cmd',            영문: 'Coordinator',    계정: 'admin@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 3, 파일: '3번_백년지도.cmd',        영문: 'HundredYear',    계정: 'u3@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u3', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 4, 파일: '4번_KLifeMap보조.cmd',    영문: 'KLifeMap-2',     계정: 'u4@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u4', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
-  { 자리: 5, 파일: '5번_케이컬처와이어.cmd',  영문: 'KCultureWire',   계정: 'u5@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u5', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 6, 파일: '6번_서울마켓.cmd',        영문: 'SeoulMarkets',   계정: 'u6@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u6', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 2, 파일: '2번_케이라이프맵.cmd',    영문: 'KLifeMap - payments first', 계정: 'admin@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
+  { 자리: 3, 파일: '3번_백년지도.cmd',        영문: '100YearMap',               계정: 'u3@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u3', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 4, 파일: '4번_서울마켓지원.cmd',    영문: 'SeoulMarkets support + checks', 계정: 'u4@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u4', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 5, 파일: '5번_총괄.cmd',            영문: 'Chief - review + SeoulMarkets 80%', 계정: 'u5@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u5', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 6, 파일: '6번_서울마켓.cmd',        영문: 'SeoulMarkets - F7 API',    계정: 'u6@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u6', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
 ];
 
 /**
@@ -220,9 +226,17 @@ function 자가시험() {
   재다('입구글: 세 갈래가 모두 :ended 로 모인다',
     (글3.match(/goto ended/g) || []).length === 3);
 
+  /* 🔴 [2026-09-12] 배정이 바뀌어 이 시험도 따라 고쳤다 —
+     1번은 KCW(dataeconomics), 2번은 KLifeMap(klifemap) 이다.
+     ⛔ 자를 바꾸면 그 자를 보는 시험도 «같이» 옮긴다. 안 옮기면 시험이 옛 배정을 지키게 된다. */
   const 글1 = 입구글(자리표[0]);
-  재다('입구글: 1번은 klifemap 으로 cd 한다', 글1.includes('GitHub\\klifemap'));
+  재다('입구글: 1번(KCW)은 dataeconomics 로 cd 한다', 글1.includes('GitHub\\dataeconomics'));
   재다('입구글: 1번 설정폴더는 u1 이다', 글1.includes('.claude-u1'));
+  const 글2 = 입구글(자리표[1]);
+  재다('입구글: 2번(KLifeMap)은 klifemap 으로 cd 한다', 글2.includes('GitHub\\klifemap'));
+  재다('입구글: 2번 설정폴더는 u2 이다', 글2.includes('.claude-u2'));
+  재다('입구글: 창 제목에 담당 업무가 들어간다 — 사장님이 창을 찾으셔야 한다',
+    자리표.every((칸) => 입구글(칸).includes('title Seat ' + 칸.자리 + ' - ' + 칸.영문)));
   재다('입구글: 검사자 경로는 자리와 무관하게 같다 — 1번도 dataeconomics 의 자를 부른다',
     글1.includes('dataeconomics\\tools\\seat-resume-check.mjs'));
 
