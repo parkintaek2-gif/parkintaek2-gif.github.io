@@ -135,7 +135,14 @@ async function 잰다() {
     for (const x of 답.막힌것) console.log('      · ' + x);
     console.log('');
     console.log('   ✅ 고치는 길 — Cloudtype 스테이지 시크릿에 넣고 다시 띄운다');
-    console.log('      TOSS_CLIENT_KEY · TOSS_SECRET_KEY          (단건 계약 완료 — 실키가 있다)');
+    console.log('      TOSS_CLIENT_KEY · TOSS_SECRET_KEY');
+    console.log('      🔴 [2026-09-12 19:1x 실측] **실키가 «아직 발급된 적이 없다».**');
+    console.log('         토스 개발자센터 라이브 갈피 — live_ck_/live_sk_ 둘 다 «없음»,');
+    console.log('         개별 연동 키 칸도 비었고 화면이 「내 키는 전자결제 신청하고');
+    console.log('         확인할 수 있어요 · 이용 신청하기」라고 말한다.');
+    console.log('         ⇒ 막힌 것은 코드도 배포도 아니고 «전자결제 이용 신청»이다.');
+    console.log('         ⛔ 이 자리에 원래 「단건 계약 완료 — 실키가 있다」라고 적혀 있었다.');
+    console.log('            확인 안 하고 적은 거짓이었고, 그 한 줄이 사람을 엉뚱한 데로 보냈다.');
     console.log('      OAUTH_GOOGLE/NAVER/KAKAO_CLIENT_ID·SECRET  (손님이 들어오는 문)');
     console.log('      SMTP_* 또는 NCP_*                          (가입 인증코드)');
     console.log('   ⛔ klifemap 에 ctype apply 를 «env 선언 없이» 치지 않는다 — 그것이 09-11 에 다 지웠다');
