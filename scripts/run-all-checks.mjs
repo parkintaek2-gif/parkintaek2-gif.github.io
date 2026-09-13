@@ -240,6 +240,12 @@ export const 단계들 = [
    *   여기 안 물리면 check-tests-wired.mjs 가 「안 부르는 검사」로 다시 잡는다. */
   "node scripts/build-korea-people-tape.mjs --자가시험",
   "node scripts/build-korea-mezzanine-tape.mjs --자가시험",
+  /* 🔴 [2026-09-13 · 6번] F7 마지막 갈래(ownership) + 그걸 쓴 첫 기사(ownership-exit) +
+   *   UAE 확장 1호 수집기 — 자가시험이 있는데 안 물리면 다음 사람이 「이게 돌고 있나」를
+   *   다시 재야 한다. 위 둘과 같은 이유로 물린다. */
+  "node scripts/build-korea-ownership-tape.mjs --자가시험",
+  "node scripts/build-ownership-exit-ranking.mjs --자가시험",
+  "node scripts/collect-uae-cbuae-fx-rates.mjs --자가시험",
   /* 🔴 [2026-09-13 · 3번] F7 — 「⑤ 데이터 품질」 몫. 일곱 엔드포인트 밑감의
    *   값 채움률·최신 날짜를 검사로 지킨다. archive-freshness 와 같은 결로
    *   «실제 검사»를 npm test 관문에 둔다(자가시험은 따로 손으로 돌린다). */
