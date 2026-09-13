@@ -1,0 +1,158 @@
+---
+/**
+ * /100y/ranking-medical-quota — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 의대 정원 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「국내외 순위를
+ *   공개해」·「너도 사람들이 뭘 궁금해 하는 지 찾아」 이행. 지역의사제 의대 정원 배정
+ *   (의협신문 2026-04-30 보도)을 그대로 인용하고, 100yearmap이 새로 매기지 않는다.
+ *   "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: 정원을 늘린 게 "좋다/나쁘다"로 판정하지 않는다. 같은 「지역 의료 공백」 문제를
+ *   정부가 두 가지 다른 대책(의대 정원 확대 vs 시니어의사 채용)으로 메우고 있다는
+ *   사실만 나란히 놓는다 — 시니어의사 자료는 이미 만든 것을 재사용한다(/senior-doctor).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-medical-quota-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top10 = 자료.top10 as any[];
+const 대조 = 자료.실측대조;
+const 일위들 = top10.filter((r) => r.순위 === 1);
+
+const desc =
+  `${순위출처.이름}(${순위출처.발표일} ${순위출처.매체} 보도)에서 ${일위들.map((r: any) => r.대학).join('·')}가 ` +
+  `${일위들[0].정원_명}명으로 가장 많습니다. 그런데 100yearmap이 실측한 시니어의사(60세 이상) 채용 신청은 ` +
+  `${대조.신청배율}배 늘었는데 정부 지원율은 ${대조.지원율_퍼센트}%뿐입니다 — 지역 의료 공백을 두 가지 대책이 메우고 있습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 의대 정원 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.매체}(${순위출처.발표일} 보도)를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '정원을 늘리면 바로 지역에 의사가 늘어나나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 의대 본과 4년과 수련 과정을 거쳐야 해 최소 6년이 걸립니다. 그 사이 지역 의료 공백은 다른 방법(시니어의사 채용 등)으로 메워지고 있습니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '지역의사제와 시니어의사 채용지원 사업은 같은 제도인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 서로 다른 정부 대책입니다. 같은 「지역 의료 공백」 문제를 각자 다른 방식으로 메우고 있다는 사실만 나란히 놓았습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${일위들.map((r: any) => r.대학).join('·')} 지역의사 정원 ${일위들[0].정원_명}명 — 전국 1위`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {일위들.map((r: any) => r.대학).join('·')} 지역의사 정원 {일위들[0].정원_명}명<br class="pcbr" />
+    전국 1위입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} {순위출처.매체} 보도)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    2027학년도 「지역의사제」 정원은 전국 {자료.합계.의대수}개 의대에 총 {자료.합계.정원_명}명이
+    배정됐습니다. {일위들.map((r: any) => r.대학).join('·')}가 {일위들[0].정원_명}명으로
+    가장 많이 배정받았습니다. {자료.선발기준}
+  </p>
+
+  <h2>순위표({top10.length}곳)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>대학</th><th>정원</th></tr></thead>
+      <tbody>
+        {top10.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.대학}</td>
+            <td><strong>{r.정원_명}명</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {자료.덮는범위}</p>
+
+  <h2>정원을 늘려도, 지역엔 지금 당장 은퇴한 60대 의사가 필요합니다</h2>
+  <p>
+    {대조.요지}
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>시니어의사 채용 신청 인원</th></tr></thead>
+      <tbody>
+        <tr><td>2025</td><td>{대조.신청인원_2025}명</td></tr>
+        <tr><td>2026</td><td>{대조.신청인원_2026}명 ({대조.신청배율}배)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    최근 3년간 정부 지원율은 <strong>{대조.지원율_퍼센트}%</strong>뿐입니다 — 신청이 늘어난
+    만큼 지원이 못 따라가고 있습니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 정원 배정과 시니어의사
+    {' '}신청 추이의 «규모»만 사실대로 보여줄 뿐, 어느 정책이 옳다고 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 순위: {순위출처.매체}({순위출처.url}) · 실측: 보건복지부 시니어의사 채용지원
+    사업(같은 자료 — /senior-doctor)
+  </p>
+
+  <p class="note">
+    <a href="/senior-doctor">← 시니어의사(60세 이상) 채용지원 사업 — 신청은 느는데 지원은 반쯤</a>
+    <br />
+    <a href="/ranking-university-global">← 서울대는 세계·국내 대학순위가 다 가장 높은데, 취업률은 비교 대학 중 가장 낮습니다</a>
+    <br />
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 맨 위입니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-medical-quota" />
+
+  <NextQuestionBrief 모은것="지역의사제 정원 배정 보도 + 시니어의사 채용지원 사업(보건복지부)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-medical-quota"></div>
+</HundredYear>
