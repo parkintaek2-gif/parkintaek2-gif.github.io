@@ -1,0 +1,174 @@
+---
+/**
+ * /100y/ranking-university-global — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 세계대학순위 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「국내외 순위를 공개해...
+ *   대학 순위(이상한 외국 평가기관이 있어)는 관심이 많겠지」를 이행한다. 순위는
+ *   QS World University Rankings 2026(언론 재보도) 인용, 100yearmap이 새로 매기지 않는다.
+ *   "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json에 이 지면을 등록해 둔다.
+ *
+ * ⭐ 톤: 국내·세계 순위가 가장 높은 서울대의 취업률이 비교 대상 중 가장 낮다는 실측,
+ *   그리고 KAIST가 설문 부정행위로 2026 순위에서 통째로 빠진 실제 사건을 나란히 붙인다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-university-global-2026.json';
+
+const 자료 = 원본 as any;
+const QS출처 = 자료.QS순위출처;
+const QS2026 = 자료.QS2026 as any[];
+const 카이스트 = 자료.카이스트제외;
+const 대비 = 자료.국내대비;
+const 대비항목 = 대비.항목 as any[];
+const 서울대 = 대비항목.find((r) => r.대학 === '서울대학교');
+const 최고취업률 = 대비항목.reduce((a: any, b: any) => (a.취업률 > b.취업률 ? a : b));
+
+const desc =
+  `${QS출처.이름}(${QS출처.발표일} 발표)에서 서울대는 세계 ${서울대.세계순위}위로 국내 순위 1위와 같은 대학입니다. ` +
+  `그런데 100yearmap이 실측한 취업률은 ${서울대.취업률}%로, 비교한 다섯 개 대학 중 가장 낮습니다. ` +
+  `같은 순위에서 KAIST는 설문 부정행위로 아예 빠졌습니다(${카이스트.발단}).`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 세계대학순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${QS출처.이름}을 그대로 인용했습니다. ${QS출처['⚠원자료']} 100yearmap은 개별 대학을 새로 평가하지 않습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'KAIST는 왜 순위에 없나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${카이스트.발단} ${카이스트.제재}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '순위가 높은 대학이 취업도 잘 되나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `이번에 견준 다섯 개 대학 중에서는 국내·세계 순위가 가장 높은 서울대학교의 취업률(${서울대.취업률}%)이 가장 낮았습니다. ${대비['⚠못가르는것']}`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`서울대 국내 1위·세계 ${서울대.세계순위}위, 그런데 취업률은 다섯 곳 중 가장 낮습니다 — KAIST는 순위에서 아예 빠졌습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    서울대 국내 1위·세계 {서울대.세계순위}위<br class="pcbr" />
+    그런데 취업률은 다섯 곳 중 가장 낮습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {QS출처.이름}({QS출처.발표일} 발표)를 그대로 인용했습니다. {QS출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    {QS출처.이름}은 {QS출처.무엇을재나}. 국내 순위 1위인 서울대학교는 이 국제 순위에서
+    {' '}세계 {서울대.세계순위}위였습니다(전년대비 {QS2026.find((r: any) => r.대학 === '서울대학교').전년대비}).
+  </p>
+
+  <h2>국내 아홉 개 대학의 세계 순위</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>대학</th><th>세계 순위</th><th>전년대비</th></tr></thead>
+      <tbody>
+        {QS2026.map((r) => (
+          <tr>
+            <td>{r.대학}</td>
+            <td><strong>{r.세계순위}</strong></td>
+            <td>{r.전년대비 ?? '(자료 없음)'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>그런데 KAIST는 이 표에 없습니다</h2>
+  <p>
+    {카이스트.무엇}. {카이스트.발단}
+  </p>
+  <p>
+    {카이스트.제재}
+  </p>
+  <p class="note">⚠ KAIST 입장 — "{카이스트.KAIST입장}"</p>
+
+  <h2>순위가 가장 높은 곳이, 취업률도 가장 높지는 않습니다</h2>
+  <p>
+    {대비.무엇}를 나란히 놓으면 —
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>대학</th><th>국내 순위</th><th>세계 순위</th><th>100yearmap 실측 취업률</th></tr></thead>
+      <tbody>
+        {대비항목.map((r) => (
+          <tr>
+            <td>{r.대학}</td>
+            <td>{r.국내순위}</td>
+            <td>{r.세계순위}</td>
+            <td><strong>{r.취업률}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 국내·세계 순위가 가장 높은 {서울대.대학}의 취업률({서울대.취업률}%)이 다섯 곳 중 가장
+    {' '}낮고, 국내 순위가 가장 낮은 {최고취업률.대학}의 취업률({최고취업률.취업률}%)이 가장 높습니다.
+    {' '}{대비['⚠못가르는것']}
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국제·국내 순위와 취업률을
+    {' '}나란히 놓을 뿐, 어느 대학이 더 낫다고 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 세계 순위: {QS출처.이름}({QS출처.url}) · KAIST 제외: {카이스트.출처.map((s: any) => s.매체).join(', ')} ·
+    국내 순위·취업률: 중앙일보 대학평가 2025 + 대학알리미(같은 자료 — /ranking-university)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-university">← 국내 대학 순위, 학생들이 행복한 순위일까요?</a>
+    <br />
+    <a href="/school-type-gap">← 특목고는 정말 대학을 더 많이 보낼까요?</a>
+    <br />
+    <a href="/ranking-hagwon">← 교육기업 브랜드평판 맨 위, 그런데 대표강사 둘은 재판을 받고 있습니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-university-global" />
+
+  <NextQuestionBrief 모은것="QS 세계대학순위 보도 + KAIST 제외 보도 + 중앙일보 대학평가 + 대학알리미" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-university-global"></div>
+</HundredYear>

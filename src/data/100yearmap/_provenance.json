@@ -232,6 +232,13 @@
    "근거": "파일 안에 순위출처.⚠원자료·일타강사이슈.⚠확인못한것·지역사교육비대조.출처 칸으로 이미 밝혀져 있다.",
    "라이선스대장비고": "docs/라이선스-대장.tsv는 archive/raw/<폴더> 단위 다운로드 자료를 위한 대장이다 — 이 자료는 press-citation(url:null이 아니라 2차 보도 url이 있는 salary-ranking과 동일한 전례)이라 그 대장에 행을 넣지 않고, 이 provenance 항목과 지면 안 순위출처 칸에 출처·날짜·미확인 사실을 밝히는 것으로 대신한다."
   },
+  "ranking-university-global-2026.json": {
+   "무엇": "QS 세계대학순위 2026 vs 중앙일보 대학평가 2025(국내 순위) vs 100yearmap 실측 취업률 대조 + KAIST 순위 제외 사건 지면 밑자료",
+   "출처": "세계 순위 — QS World University Rankings 2026(2025-06-19 발표, spotlightuniv.com 2차 보도로 확인) · KAIST 제외 — 베리타스알파(2025-03-20)·카이스트신문 보도 · 국내 순위·취업률 — ranking-university-2025.json과 같은 자료(중앙일보 대학평가 2025 + 대학알리미)",
+   "url": "https://www.spotlightuniv.com/%E3%80%902026-qs-%EC%84%B8%EA%B3%84%EB%8C%80%ED%95%99%EB%9E%AD%ED%82%B9-%EC%A7%91%EC%A4%91%EB%B6%84%EC%84%9D-4%E3%80%91%ED%95%9C%EA%B5%AD-%EB%8C%80%ED%95%99%EC%9D%98-%ED%98%84%EC%A3%BC%EC%86%8C/",
+   "url이없는까닭": "QS 공식 사이트(topuniversities.com)는 이 세션에서 HTTP 403으로 막혀 2차 보도로만 확인했다.",
+   "근거": "파일 안에 QS순위출처.⚠원자료·카이스트제외.출처 칸으로 이미 밝혀져 있다."
+  },
   "senior-doctor-program.json": {
    "무엇": "시니어의사 채용지원 사업(보건복지부) 신청·지원 추이 지면 밑자료",
    "출처": "보건복지부 시니어의사 채용지원 사업 — 언론 보도 인용(사장님이 전달한 기사 발췌), 원문 매체를 확인하지 못했다",
