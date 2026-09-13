@@ -20,3 +20,7 @@
 #
 # 꼴 — 탭으로 가른다
 # 유닛<TAB>경로<TAB>언제까지(YYYY-MM-DD)<TAB>무엇
+3번	src/data/100yearmap/_provenance.json	2026-09-15	학원 순위 지면 작업 중 (5번이 대신 신고 — 3번 확인 바랍니다)
+3번	src/data/100yearmap/ranking-hagwon-2026.json	2026-09-15	학원 순위 자료 (5번 대신 신고)
+3번	src/lib/klifemap.ts	2026-09-15	학원 순위 지면이 부르는 자 (5번 대신 신고)
+3번	src/pages/100y/ranking-hagwon/index.astro	2026-09-15	학원 순위 지면 (5번 대신 신고)
