@@ -1,5 +1,5 @@
 {
- "지은날": "2026-09-08T06:40:04.232Z",
+ "지은날": "2026-09-13T10:04:59.082Z",
  "갈래들": [
   {
    "갈래": "Start here",
@@ -172,7 +172,7 @@
     {
      "길": "/kpop-birthdays",
      "이름": "K-pop idol birthdays by month",
-     "설명": "1282 K-pop group members with a birth date on record. March has 1.201x an even month, July 0.697x. Every month listed, with the noise test."
+     "설명": "1303 K-pop group members with a birth date on record. March has 1.199x an even month, July 0.685x. Every month listed, with the noise test."
     },
     {
      "길": "/name-spelled",
@@ -617,7 +617,7 @@
     {
      "길": "/brand-kinds",
      "이름": "Kinds of brand",
-     "설명": "Split 22 fashion, luxury, jewellery and car brands by kind and the four countries change places. Indonesia is first among german car makers and last among luxury houses. Read as a single ranking,…"
+     "설명": "Split 30 luxury, jewellery, fashion, car, technology and fast food brands by kind and the four countries change places. Indonesia is first among german car makers and last among luxury houses. Read…"
     },
     {
      "길": "/leverage",
@@ -657,7 +657,7 @@
     {
      "길": "/articles",
      "이름": "All articles",
-     "설명": "All 183 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
+     "설명": "All 205 pieces from K Culture Wire, newest first. Each one names its sources, lists what we cross-checked, and states what we left out."
     },
     {
      "길": "/community",
