@@ -16,6 +16,11 @@
  *   Single 을 그 자리에 놓았고, All 은 FnGuide 전체 묶음(연 ≈$12,000)보다 훨씬 낮췄다.
  *   우리가 후발이고, 아직 손님이 없다.
  *
+ * 🔴 [2026-09-13 감수에서 잡았다] ⚠ 상품 이름에 «수»를 적지 않는다.
+ *   「All six datasets」로 적어 두었는데 실제 고르개에는 넷뿐이었다(6번이 UAE 를 더하기 전에는 셋).
+ *   데이터셋이 늘고 줄 때마다 이 이름을 따라 고쳐야 하는데, 반드시 한 번은 잊는다.
+ *   ⇒ 「All datasets」로 둔다. 값을 받는 화면의 틀린 수 하나가 옳은 스물셋을 같이 의심받게 한다.
+ *
  * ⚠ 「월 얼마」는 «참고»로만 적는다. 실제 청구는 연 1회다.
  *   달마다 걷는 정기결제는 아직 안 붙였으므로 **되는 척하지 않는다.**
  */
@@ -43,7 +48,7 @@ export const 상품 = {
   },
   all: {
     코드: 'all',
-    이름: 'All six datasets — one year',
+    이름: 'All datasets — one year',
     설명: 'Every dataset on the page, plus every release for twelve months.',
     usd: '2990.00',
     기간: 'year',
@@ -70,7 +75,7 @@ export const 상품 = {
   },
   all_monthly: {
     코드: 'all_monthly',
-    이름: 'All six datasets — monthly',
+    이름: 'All datasets — monthly',
     설명: 'Every dataset, with every release while you subscribe. Cancel any time.',
     usd: '299.00',
     기간: 'month',
