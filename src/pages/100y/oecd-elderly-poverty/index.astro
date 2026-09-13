@@ -1,0 +1,158 @@
+---
+/**
+ * /100y/oecd-elderly-poverty — 한국 노인빈곤율, OECD 회원국 중 1위
+ *
+ * docs/세션간-메모.md 2026-09-12 10:30 조사 항목(OECD·IMF·World Bank 한국 관련 국제비교,
+ * happiness-by-age와 붙일 후보) 이행 — 국제비교 자료로 OECD 「한눈에 보는 연금」을 쓴다.
+ *
+ * ⛔⛔ 판정하지 않는다 — OECD 수치와 국내(통계청) 수치 중 어느 쪽이 맞다고 쓰지 않는다.
+ * ⛔⛔ retire-income.json의 실측(소득 절벽·자산 유지)을 "그러니 괜찮다/안 괜찮다"로 읽지
+ *   않는다 — 자산에 부동산이 섞여 있다는 한계를 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/oecd-elderly-poverty-2026.json';
+
+const 자료 = 원본 as any;
+const OECD출처 = 자료.OECD출처;
+const 빈곤율 = 자료.노인빈곤율;
+const 국내차이 = 자료.국내잣대와차이;
+const 연금 = 자료.연금소득대체율;
+const 실측 = 자료.실측대조;
+
+const desc =
+  `${OECD출처.이름}(${OECD출처.보도일} 보도)에 따르면 한국 노인빈곤율은 ${빈곤율.한국_최신}%로 ` +
+  `OECD 평균(${빈곤율.OECD평균}%)의 ${빈곤율.배수}배이자 회원국 중 가장 높습니다. ` +
+  `100yearmap이 실측한 50대→60세 이상 소득은 ${실측.소득변화율}% 절벽처럼 줄지만, ` +
+  `자산은 ${실측.자산변화율}%만 줄어듭니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '한국 노인빈곤율이 정말 OECD 1위인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `${OECD출처.이름}에 따르면 그렇습니다(${빈곤율.한국_최신}%, OECD 평균 ${빈곤율.OECD평균}%). ${OECD출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '그런데 국내 통계는 다른 숫자를 말하지 않나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `그렇습니다. ${국내차이.기준연도}년 국가데이터처 가계금융복지조사로는 ${국내차이.국내수치}%입니다. ${국내차이['⚠왜다른가']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '소득이 줄어든다는 것은 노인이 가난해진다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `이 지면은 소득과 자산을 나란히 보여줄 뿐입니다. 100yearmap 실측으로는 소득은 ${실측.소득변화율}% 줄지만 자산은 ${실측.자산변화율}%만 줄어듭니다 — 다만 그 자산에는 부동산처럼 당장 쓸 수 없는 재산도 섞여 있어 이 하나로 "괜찮다/안 괜찮다"를 판정할 수 없습니다.`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`한국 노인빈곤율 ${빈곤율.한국_최신}%, OECD 회원국 중 1위 — 그런데 소득은 절벽, 자산은 거의 그대로입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    한국 노인빈곤율 {빈곤율.한국_최신}%, OECD 회원국 중 1위<br class="pcbr" />
+    그런데 소득은 절벽, 자산은 거의 그대로입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {OECD출처.이름}({OECD출처.보도일} {OECD출처.매체} 보도)를 그대로 인용했습니다. {OECD출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    OECD가 {OECD출처.발행주기}마다 내는 이 보고서에서, 66세 이상 인구 중 중위소득 50% 미만으로
+    {' '}사는 사람의 비율(상대적 소득빈곤율)이 한국은 <strong>{빈곤율.한국_최신}%</strong>로 OECD
+    {' '}평균({빈곤율.OECD평균}%)의 {빈곤율.배수}배였습니다.
+  </p>
+
+  <h2>2015년부터 계속 내려왔지만, 여전히 가장 높습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>한국 노인빈곤율</th></tr></thead>
+      <tbody>
+        {(빈곤율.흐름 as any[]).map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td><strong>{r.값}%</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {빈곤율['⚠주의']}</p>
+
+  <h2>그런데 국내 통계로는 다른 숫자가 나옵니다</h2>
+  <p>
+    {국내차이.무엇}. {국내차이.기준연도}년 국가데이터처 가계금융복지조사 기준으로는
+    {' '}<strong>{국내차이.국내수치}%</strong>입니다. {국내차이['⚠왜다른가']}
+  </p>
+
+  <h2>연금도 OECD 평균의 절반 남짓입니다</h2>
+  <p>
+    연금 소득대체율(은퇴 전 소득 대비 연금 수령액 비율)도 한국은 {연금.한국}%로,
+    {' '}OECD 평균({연금.OECD평균}%)에 크게 못 미칩니다.
+  </p>
+
+  <h2>소득은 절벽인데, 자산은 그렇지 않습니다</h2>
+  <p>
+    100yearmap이 국가데이터처 가계금융복지조사로 실측한 값으로는, {실측.구간} 구간에서
+    {' '}가구 소득이 <strong>{실측.소득변화율}%</strong> 줄어드는 동안, 순자산은
+    {' '}<strong>{실측.자산변화율}%</strong>만 줄었습니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국제·국내 수치와 소득·자산
+    {' '}변화를 나란히 놓을 뿐, 한국 노년층의 삶이 «괜찮다/안 괜찮다»를 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 국제비교: {OECD출처.이름}({OECD출처.url}) · 국내: 국가데이터처 가계금융복지조사(KOSIS
+    {' '}101/DT_1HDAAA06, 상업적 활용 가능)
+  </p>
+
+  <p class="note">
+    <a href="/retire-income">← 은퇴 후 소득, 몇 살에 절벽을 만날까요?</a>
+    <br />
+    <a href="/happiness-ranking">← 세계 행복 순위, 한국은 몇 위일까요?</a>
+    <br />
+    <a href="/ranking-university-global">← 서울대는 국내 맨 위·세계 38등, 그런데 취업률은요?</a>
+  </p>
+
+  <HundredAgeWalk 키="oecd-elderly-poverty" />
+
+  <NextQuestionBrief 모은것="OECD 한눈에 보는 연금 2025 보도 + 가계금융복지조사(KOSIS)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/oecd-elderly-poverty"></div>
+</HundredYear>
