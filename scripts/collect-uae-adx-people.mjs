@@ -167,6 +167,15 @@ console.log('');
 
 const 대기 = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/**
+ * 오늘 날짜(한국시간) — YYYY-MM-DD.
+ * ⛔ toISOString() 을 쓰지 않는다. 그것은 UTC 라 새벽에 하루가 어긋난다.
+ *   이 PC 는 이미 KST 다(CLAUDE.md 「시각은 한국시간」).
+ */
+export function 오늘글(날 = new Date()) {
+  return 날.getFullYear() + '-' + String(날.getMonth() + 1).padStart(2, '0')
+    + '-' + String(날.getDate()).padStart(2, '0');
+}
 async function 종목목록받기() {
   const j = curlJson(`${GATEWAY}/marketwatch-delayed/1.1/scrollingTicker`);
   const rows = j?.response?.results;
@@ -206,7 +215,12 @@ async function main() {
         continue;
       }
 
-      const 결과 = await put(`raw/uae-adx-people/${종목}.json`, JSON.stringify({
+      /* 🔴 [2026-09-14 · 5번] 같은 내용을 «날짜별로도 쌓는다».
+         평평한 파일은 덮어쓰기라 어제 명단이 사라진다. 그러면 «누가 언제 바뀌었나»를
+         영영 못 낸다 — 그것이 이 자료에서 값이 붙는 유일한 축인데도.
+         ⛔ 소급이 안 된다. 오늘 안 쌓으면 오늘치는 없다.
+         ⚠ 평평한 파일은 그대로 둔다 — build-uae-adx-people-panel.mjs 가 그것을 읽는다 */
+      const 본문 = JSON.stringify({
         _meta: {
           product: 'ADX listed company — board/management + substantial shareholders',
           symbol: 종목,
@@ -222,8 +236,11 @@ async function main() {
         company: profile ? { symbol: 종목, engName: profile.engName ?? null, arbName: profile.arbName ?? null, engAddress: profile.engAddress ?? null } : null,
         board: 골라낸이사진,
         substantialShareholders: 골라낸주주,
-      }, null, 1), 'application/json');
-      console.log(`  ✅ ${종목}  이사/경영진 ${골라낸이사진.length}명 · 대주주 ${골라낸주주.length}건 → ${결과.local}`);
+      }, null, 1);
+
+      const 결과 = await put(`raw/uae-adx-people/${종목}.json`, 본문, 'application/json');
+      await put(`raw/uae-adx-people-daily/${오늘글()}/${종목}.json`, 본문, 'application/json');
+      console.log(`  ✅ ${종목}  이사/경영진 ${골라낸이사진.length}명 · 대주주 ${골라낸주주.length}건 → ${결과.local} (+${오늘글()})`);
       성공 += 1;
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
