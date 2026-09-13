@@ -36,6 +36,22 @@ export const 데이터셋 = {
       '/data/full/korea-ownership-ledger-executives-2026-09-11.csv',
     ],
   },
+  /**
+   * 🔴 [2026-09-13 · 6번] UAE 확장 1호 판매 상품. 사장님 지시: 「상품 목록 만들고, 가격은
+   * 한국 금융시장 대상 상품과 같게 해」 — 값은 여기서 새로 정하지 않는다. 이 코드가
+   * `상품`(licence-products.mjs)의 single/all 표에 자동으로 얹힌다(같은 값, 같은 결제 화면).
+   * 출처: ADX(아부다비 증권거래소) 공개 회사데이터 API(collect-uae-adx-people.mjs) —
+   * 이사회·경영진 명단 + 5% 이상 대주주 지분율. 시세·재무제표가 아니라 «사람» 축이다.
+   */
+  uae: {
+    코드: 'uae',
+    이름: 'UAE (ADX) board & ownership panel',
+    설명: 'Every ADX-listed company — board and management rosters, plus substantial (5%+) shareholders.',
+    파일: [
+      '/data/full/uae-adx-board-2026-09-13.csv',
+      '/data/full/uae-adx-shareholders-2026-09-13.csv',
+    ],
+  },
 };
 
 /** 화면이 고르게 낼 목록 — 값이 아니라 «무엇을 사는가»다 */
