@@ -1,0 +1,158 @@
+---
+/**
+ * /100y/school-type-gap — 특목고·자사고는 정말 대학을 더 많이 보내는가
+ *
+ * docs/세션간-메모.md 2026-09-12 10:30 조사 항목 이행 — 사장님이 지시하신 「특목고/자사고
+ * 대입성과의 선발효과」 콘텐트. school-career.json(이미 provenance 등록된 학교알리미
+ * 자료)을 고교유형별로 다시 묶었을 뿐, 새 원자료 수집은 아니다.
+ *
+ * ⛔⛔ 판정하지 않는다 — 「특목고가 낫다/나쁘다」를 쓰지 않는다.
+ * ⛔⛔ 학교 단위 집계 진학률 격차를 «학교 효과»로 단정하지 않는다 — 심재휘·김경근(2017)의
+ *   패널데이터 연구 결론(선발효과가 주된 설명)을 그대로 붙여, 원인은 우리가 가르지 못함을 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/school-type-gap-2026.json';
+
+const 자료 = 원본 as any;
+const 유형별 = 자료.유형별 as any[];
+const 특목고 = 유형별.find((r) => r.유형 === '특수목적고등학교');
+const 일반고 = 유형별.find((r) => r.유형 === '일반고등학교');
+const 자율고 = 유형별.find((r) => r.유형 === '자율고등학교');
+const 연구 = 자료.선발효과연구;
+
+const desc =
+  `${자료.출처.공시연도}년 학교알리미 졸업생 진로현황(1,839개교)을 고교유형별로 다시 묶으면, ` +
+  `특목고 4년제 대학 진학률은 ${특목고.대학교진학률}%로 일반고(${일반고.대학교진학률}%)보다 ${자료.격차.특목고_일반고_격차p}%p 높습니다. ` +
+  `그런데 자율고(자사고)는 ${자율고.대학교진학률}%로 일반고보다 오히려 낮습니다. ` +
+  `${연구.저자}(${연구.발표연도})의 패널데이터 연구는 이런 격차가 주로 «선발효과»에 기인한다고 밝혔습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '특목고에 가면 대학을 더 많이 가나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `2024년 학교알리미 집계로는 특목고 졸업생의 4년제 대학 진학률(${특목고.대학교진학률}%)이 일반고(${일반고.대학교진학률}%)보다 높습니다. 다만 이 차이가 학교의 효과인지, 애초에 입학하는 학생이 다른 «선발효과»인지는 이 학교 단위 집계만으로는 가를 수 없습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '자사고도 특목고처럼 진학률이 더 높나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. 이번 집계에서 자율고등학교(자사고 포함)의 4년제 대학 진학률(${자율고.대학교진학률}%)은 일반고보다 오히려 ${Math.abs(자료.격차.자율고_일반고_격차p)}%p 낮았습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 격차의 원인이 무엇인지 100yearmap이 판정하나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${연구.저자}(${연구.발표연도}, ${연구.게재지})가 ${연구.쓴자료}로 분석한 결론을 인용할 뿐입니다 — "${연구.결론}". ${연구['⚠원문확인못함']}`,
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`특목고 4년제 진학률 ${특목고.대학교진학률}%, 일반고 ${일반고.대학교진학률}% — 그런데 자사고는 일반고보다 낮습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    특목고 4년제 대학 진학률 {특목고.대학교진학률}%, 일반고 {일반고.대학교진학률}%<br class="pcbr" />
+    그런데 자사고(자율고)는 일반고보다 낮습니다
+  </h1>
+
+  <p class="sub">
+    {자료.출처.공시연도}년 학교알리미 「졸업생의 진로 현황」(1,839개교)을 고교유형별로
+    {' '}다시 묶어, 4년제 대학 진학률이 유형마다 얼마나 다른지 봅니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">특목고 4년제 대학 진학률 − 일반고 4년제 대학 진학률</p>
+    <p class="answer-num">{자료.격차.특목고_일반고_격차p}%p</p>
+    <p class="answer-sub">
+      특목고 {특목고.학교수}개교 {특목고.대학교진학률}% vs 일반고 {일반고.학교수}개교 {일반고.대학교진학률}% — {자료.출처.공시연도}년
+    </p>
+  </div>
+
+  <h2>고교유형별로 나란히 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>고교유형</th><th>학교수</th><th>4년제 진학률</th><th>전문대 진학률</th><th>국외 진학률</th></tr></thead>
+      <tbody>
+        {유형별.map((r) => (
+          <tr>
+            <td>{r.유형}</td>
+            <td>{r.학교수}개교</td>
+            <td><strong>{r.대학교진학률}%</strong></td>
+            <td>{r.전문대진학률}%</td>
+            <td>{r.국외진학률}%</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 특성화고등학교는 이번 집계에 3개교만 잡혀 표본이 매우 작습니다 — 참고용으로만 싣습니다.
+    {' '}자율고등학교도 {자율고.학교수}개교로 특목고·일반고보다 적어, 평균이 소수 학교에 더 흔들릴 수 있습니다.
+  </p>
+
+  <h2>그런데 이 격차, 학교가 «만든» 것일까요?</h2>
+  <p>
+    {연구.저자}({연구.발표연도}), 「{연구.제목}」, {연구.게재지}는 {연구.쓴자료}로 이 물음을
+    {' '}직접 분석했습니다. 결론은 — <strong>"{연구.결론}"</strong>입니다.
+  </p>
+  <p class="note">
+    ⚠ {연구['⚠원문확인못함']}
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 고교유형별 진학률이
+    {' '}어떻게 다른지, 그리고 그 차이의 원인을 두고 학계가 무엇을 밝혔는지를 나란히 놓을 뿐,
+    {' '}어느 고교유형이 더 낫다고 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {자료.출처.이름} 「{자료.출처.공시항목}」, {자료.출처.공시연도}년 공시
+    {' '}({자료.출처.이용허락범위}) · 연구 — {연구.저자}({연구.발표연도}), {연구.게재지}
+  </p>
+
+  <p class="note">
+    <a href="/wage-education">← 학력별 월급여는 최저와 최고 사이 몇 배 차이일까요?</a>
+    <br />
+    <a href="/major">← 학과 찾기 — 그 길로 간 사람들은 어떻게 됐나요?</a>
+    <br />
+    <a href="/tutoring-region">← 지역에 따라 사교육비는 얼마나 다를까요?</a>
+    <br />
+    <a href="/ranking-university">← 대학 순위, 학생들이 행복한 순위일까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="school-type-gap" />
+
+  <NextQuestionBrief 모은것="학교알리미 졸업생 진로현황 + 심재휘·김경근(2017) 교육사회학연구" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/school-type-gap"></div>
+</HundredYear>
