@@ -7,6 +7,16 @@
     "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
   ],
   "chosen": {
+    "jin-called-sold-out-king-ranks-5th-of-7-in-bts": {
+      "figure": "5th of 7",
+      "label": "BTS members Jin ranks by Wikipedia lookups",
+      "왜": "자동은 dek 첫머리의 「5」만 집어 뜻이 안 산다. 「5th of 7」이 이 기사의 결론이다"
+    },
+    "24-netflix-k-titles-ran-long-21-never-left-south-korea": {
+      "figure": "21",
+      "label": "of 24 long-running Korean titles never left home",
+      "왜": "자동은 문턱값 「6」(주)을 집는다. 기사의 핵심 수는 21(한 나라 밖을 못 나간 편수)이다"
+    },
     "two-in-three-koreans": {
       "figure": "62.3%",
       "label": "of Koreans have had their fortune read",

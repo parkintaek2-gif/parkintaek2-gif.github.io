@@ -1,6 +1,6 @@
 {
- "잰때": "7 September 2026, 21:01 KST",
- "지은날": "2026-09-07",
+ "잰때": "13 September 2026, 18:25 KST",
+ "지은날": "2026-09-13",
  "창": "2015-07 ~ 2026-08",
  "우물": "Wikimedia Pageviews REST API (English Wikipedia, all-access, agent=user, monthly), acts from Wikidata SPARQL. Re-counted from kcw-group-afterlife.json — no new collection.",
  "이것이무엇인가": "For each Korean act we know its single best-read month on English Wikipedia. This counts those months by calendar month, against an expectation built from the actual number of days each calendar month contributes to the window.",
