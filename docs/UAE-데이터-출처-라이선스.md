@@ -135,6 +135,25 @@ KRX(거래소) 웹사이트가 아니라 **금융위원회**가 공공데이터�
   한국은행 데이터셋과 사실상 같은 조건으로 쓸 수 있다.
   ([CBUAE Open Data](https://www.centralbank.ae/en/open-data-landing/), [u.ae Open Government
   Data](https://u.ae/en/about-the-uae/digital-uae/data/open-government-data))
+- 🔴🔴 [2026-09-13 사장님 지시 — 「각종 거시경제지표도 갖고 와야지」] **가장 큰 창구를
+  찾았다 — FCSC(Federal Competitiveness and Statistics Center, 통계청 격).** Bayanat.ae
+  안에서 «발행 기관별 데이터셋 수»를 세어 보니 **FCSC 하나가 606개**로 압도적 1위였다
+  (2위 Statistics Centre−Abu Dhabi 328개). GDP(부문별·지출별)·CPI(월별·품목별)·대외무역
+  (Federal Customs Authority)·인구·고용 등 거시 축 대부분이 이 한 기관에 모여 있다 —
+  한국의 통계청(KOSIS)에 해당하는 자리다.
+- ⚠ **다만 신선도가 나라마다 다르다.** 실제로 열어 재 보니 —
+  ```
+  CBUAE 환율·EIBOR         매일 갱신 (확인됨)
+  CPI(가장 최신 것)         2025-05-12 최종 갱신 — 1년 넘게 지남
+  GDP(부문별·지출별)         2021~2023 사이에 멈춤 — 최신 것도 2년 이상 지남
+  대외무역(월별)             2024-06-25 최종 갱신 — 1년 이상 지남
+  ```
+  한국 KOSIS/한국은행 ECOS처럼 «달마다 바로 갱신»되는 게 아니라, **기관마다 갱신 주기가
+  들쭉날쭉하고 상당수가 밀려 있다.** ⛔ "FCSC가 606개나 낸다"를 "매일 새 걸 받을 수 있다"로
+  읽지 않는다 — 갱신일을 매번 확인하고 써야 한다.
+- **결론** — 거시 지표«축»은 확실히 존재하고 라이선스도 깨끗하지만(CBUAE와 같은 연방
+  오픈데이터 정책), **뉴스성(오늘 나온 지표)보다는 "그 나라의 구조를 설명하는" 배경 자료로
+  먼저 쓰는 게 맞다.** 매일 바뀌는 것은 CBUAE 환율·EIBOR뿐이다.
 
 ### 1-4. 상용 벤더와의 관계
 
