@@ -1,0 +1,236 @@
+#!/usr/bin/env node
+/**
+ * collect-uae-adx-people.mjs — **UAE 확장 2호 수집기.** ADX(아부다비 증권거래소) 상장사
+ * «사람과 지분» — 이사회·경영진 명단, 5% 이상 대주주 지분율. 시세·재무가 아니다.
+ *
+ *   node scripts/collect-uae-adx-people.mjs --자가시험
+ *   node scripts/collect-uae-adx-people.mjs                 전 종목 새로 받는다(멱등)
+ *   node scripts/collect-uae-adx-people.mjs --종목 ALDAR,ADIB   특정 종목만
+ *
+ * ── 왜 이 데이터인가 (사장님 지시 2026-08-04 「경쟁사는 재무를, 우리는 사람을」) ──────
+ * ADX 웹사이트의 회사별 지면(`/company-profile/shareholder-and-board`)은 화면 전체를
+ * 그대로 가져오면 «내비게이션·CSS·GA·라이브챗» 같은 잡음이 태반이다(직접 받아 realize —
+ * 24만자 압축 JSON 중 실제 이사·주주 데이터는 0자, 전부 화면 뼈대였다).
+ * 사장님 지시(2026-09-13): 「**중요한 정보만 갖고 올 수 있게 만들어**」 —
+ * 그래서 화면 전체가 아니라, 화면이 그린 뒤에 부르는 **데이터 API 세 개만** 골라 쓴다.
+ *
+ * ── 출처 (docs/UAE-데이터-출처-라이선스.md 1-2 「상장기업 공시」) ────────────────────
+ *   listed-companies/1.1/board-members/<종목>          이사회·경영진 명단 + 직위 + 순번
+ *   marketwatch/1.1/listedCompanyShareholderInfo/<종목>  5% 이상 대주주 지분율(거래소가 이미
+ *                                                       "중요"를 걸러 공시 의무 있는 주주만 낸다)
+ *   marketwatch/1.1/listedCompanyProfileData/<종목>      법인명·주소(맥락 확인용, 최소)
+ * apigateway.adx.ae 는 ADX 공식 웹사이트(www.adx.ae)가 브라우저에서 그대로 부르는
+ * 공개 데이터 API 다 — 로그인 없이, 그 회사 개별 지면을 열면 누구나 받는 자료다.
+ *
+ * ⚠ 화면의 자바스크립트 안에 있던 `adx-gateway-apikey` 를 그대로 쓴다 — 서버 비밀키가
+ *   아니라 브라우저가 매 요청에 실어 보내는 **공개 클라이언트 키**다(개발자도구로 누구나 본다).
+ *   referer·origin 헤더로 www.adx.ae 출처만 허용하는 방식으로 보인다.
+ * 🔴 [2026-09-13 실측] Node `fetch()`(undici)는 이 API 에서도 403 이다 — curl 은 200 이다.
+ *   CBUAE 와 같은 Cloudflare TLS 지문 벽. ⇒ **curl 프로세스를 그대로 쓴다.** fetch 로 되돌리지 말 것.
+ * ⚠ 종목 목록 자체도 같은 게이트웨이의 scrollingTicker 에서 받는다 — 채권·ETF 심볼도 섞여
+ *   있어 이사회/주주 데이터가 없을 수 있다(빈 결과는 실패가 아니라 「없다」로 적는다).
+ *
+ * 저장: archive/raw/uae-adx-people/<종목>.json  (종목마다 한 파일, 멱등 — 다시 돌리면 덮어쓴다)
+ */
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
+import { put } from '../src/lib/store.mjs';
+
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/152.0.0.0 Safari/537.36';
+const APIKEY = '1863a94c-582b-46f9-b4f0-0d02c0cc5307';
+const GATEWAY = 'https://apigateway.adx.ae/adx';
+const 간격ms = 260;
+
+/** 이 회사 지면을 여는 브라우저가 실제로 보내는 헤더 그대로(개발자도구 실측). */
+function 헤더인자() {
+  return [
+    '-A', UA,
+    '-H', 'Accept: application/json',
+    '-H', 'Referer: https://www.adx.ae/',
+    '-H', 'Origin: https://www.adx.ae',
+    '-H', 'channel-id: OSS WEB',
+    '-H', 'x-correlation-id: uuid',
+    '-H', 'x-uuid: ',
+    '-H', `adx-gateway-apikey: ${APIKEY}`,
+  ];
+}
+
+/** curl 로 받는다(node fetch 는 403 — 위 주석 참고). 실패하면 던진다. */
+function curlJson(url) {
+  const 글자 = execFileSync('curl', ['-sS', '-f', ...헤더인자(), url], { maxBuffer: 1024 * 1024 * 10 }).toString('utf8');
+  return JSON.parse(글자);
+}
+
+/**
+ * 직위 문자열 → «이사회» / «경영진» / «내부자목록(잡음)» / «미분류».
+ * 한국 DART 의 `rgist_exctv_at`(등재임원/미등기) 과 같은 자리 — 오너 쪽 의사결정권(이사회)과
+ * 실무 집행(경영진)을 가른다. ADX 는 이 구분을 별도 칸으로 안 주므로 직위명으로 가른다.
+ *
+ * 🔴 [2026-09-13 실측] `board-members` 엔드포인트 이름과 달리 «이사회 명단»만 오지 않는다 —
+ *   ALDAR 로 받아 보니 198건 중 180건이 Insider·Finance Employee·Accountant 였다.
+ *   이건 이사회가 아니라 **내부자거래 규정상 신고의무자 명단**(누가 이 회사 주식을
+ *   내부정보로 거래하면 안 되는지 감독기관에 보고하는 목록)이다 — 사람마다 뉴스가 되는
+ *   축이 아니라 «규정상 등록된 무명 다수»라 사장님 지시(2026-09-13 「중요한 정보만」)의
+ *   대상이 아니다. **이사회·경영진만 골라내고, 나머지는 세되 버린다.**
+ *
+ * ⚠ "Managing Director"·"Executive Director" 도 director 계열이라 이사회로 묶는다 —
+ *   걸프 상장사에서 이 직함은 대개 이사회 의석을 겸한다. 확신은 없다 — 그래서 미분류를 남겨 둔다.
+ */
+export function 직위분류(직위) {
+  const t = String(직위 ?? '');
+  if (!t.trim()) return '미분류';
+  if (/insider|finance employee|accountant|auditor/i.test(t)) return '내부자목록(잡음)';
+  if (/chairman|board member|\bdirector\b/i.test(t)) return '이사회';
+  if (/general manager|chief executive|top management|management|\bceo\b|\bcfo\b|\bcoo\b/i.test(t)) return '경영진';
+  return '미분류';
+}
+
+/**
+ * board-members 원본 배열 → **이사회·경영진만** 남긴다(잡음: symbolCode 중복, 내부자목록 대량).
+ * 버린 건수는 호출한 쪽이 `_meta` 에 적을 수 있도록 `dropped` 로 같이 돌려준다 —
+ * 「걸러냈다」를 조용히 하지 않고 숫자로 남긴다.
+ */
+export function 이사경영진골라내기(rows) {
+  if (!Array.isArray(rows)) return { rows: [], dropped: 0 };
+  const 전체 = rows.map((r) => ({
+    nameEnglish: r.nameEnglish ?? null,
+    nameArabic: r.nameArabic ?? null,
+    title: r.englishJobTitle ?? null,
+    order: Number(r.jobTitleOrder ?? NaN) || null,
+    구분: 직위분류(r.englishJobTitle),
+  }));
+  const 남길것 = 전체.filter((r) => r.구분 === '이사회' || r.구분 === '경영진' || r.구분 === '미분류')
+    .sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+  return { rows: 남길것, dropped: 전체.length - 남길것.length };
+}
+
+/** shareholderInfo 원본 배열 → 중요한 칸만(거래소가 이미 5% 이상만 낸다 — 추가로 거를 게 없다). */
+export function 대주주골라내기(rows) {
+  if (!Array.isArray(rows)) return [];
+  return rows.map((r) => ({
+    name: r.name ?? null,
+    id: r.id ?? null,
+    percentage: Number(r.percentage ?? NaN),
+  })).filter((r) => Number.isFinite(r.percentage))
+    .sort((a, b) => b.percentage - a.percentage);
+}
+
+/* ── 자가시험 ───────────────────────────────────────────────────────── */
+function 자가시험() {
+  const 것 = []; const 재다 = (이름, 됐나) => 것.push({ 이름, 됐나 });
+
+  재다('직위분류: Chairman → 이사회', 직위분류('Chairman') === '이사회');
+  재다('직위분류: Vice Chairman → 이사회', 직위분류('Vice Chairman') === '이사회');
+  재다('직위분류: Managing Director → 이사회', 직위분류('Managing Director') === '이사회');
+  재다('직위분류: General Manager → 경영진', 직위분류('General Manager') === '경영진');
+  재다('직위분류: Top Management → 경영진', 직위분류('Top Management') === '경영진');
+  재다('직위분류: 빈 값 → 미분류', 직위분류('') === '미분류');
+  재다('🔴 직위분류: Insider → 내부자목록(잡음) — 이사회가 아니다', 직위분류('Insider') === '내부자목록(잡음)');
+  재다('🔴 직위분류: Finance Employee → 내부자목록(잡음)', 직위분류('Finance Employee') === '내부자목록(잡음)');
+  재다('직위분류: Auditor → 내부자목록(잡음)', 직위분류('Auditor') === '내부자목록(잡음)');
+
+  const 가짜이사진 = [
+    { symbolCode: 'X', nameEnglish: 'A', nameArabic: 'ا', englishJobTitle: 'Chairman', arabicJobTitle: '_', jobTitleOrder: '1.0' },
+    { symbolCode: 'X', nameEnglish: 'B', nameArabic: 'ب', englishJobTitle: 'General Manager', arabicJobTitle: '_', jobTitleOrder: '8.0' },
+    { symbolCode: 'X', nameEnglish: 'C', nameArabic: 'ج', englishJobTitle: 'Insider', arabicJobTitle: '_', jobTitleOrder: '16.0' },
+  ];
+  const { rows: 골라낸이사진, dropped } = 이사경영진골라내기(가짜이사진);
+  재다('🔴 이사경영진골라내기: Insider 는 버려서 2건만 남는다(198건 중 180건이 이거였다)', 골라낸이사진.length === 2);
+  재다('이사경영진골라내기: dropped 숫자로 남긴다(조용히 안 지운다)', dropped === 1);
+  재다('이사경영진골라내기: order 로 정렬된다', 골라낸이사진[0].nameEnglish === 'A');
+  재다('이사경영진골라내기: 구분 칸이 붙는다', 골라낸이사진[0].구분 === '이사회' && 골라낸이사진[1].구분 === '경영진');
+  재다('⛔ 이사경영진골라내기: symbolCode·arabicJobTitle 은 안 남는다(잡음)',
+    !('symbolCode' in 골라낸이사진[0]) && !('arabicJobTitle' in 골라낸이사진[0]));
+
+  const 가짜주주 = [
+    { name: 'A홀딩', listedCompanyID: 'X', id: 'UAE1', percentage: 12.2 },
+    { name: 'B홀딩', listedCompanyID: 'X', id: 'UAE2', percentage: 28.2 },
+    { name: '깨진값', listedCompanyID: 'X', id: 'UAE3', percentage: 'NaN문자' },
+  ];
+  const 골라낸주주 = 대주주골라내기(가짜주주);
+  재다('🔴 대주주골라내기: 숫자 아닌 지분율은 버린다(0으로 채우지 않는다)', 골라낸주주.length === 2);
+  재다('대주주골라내기: 지분율 내림차순 정렬', 골라낸주주[0].percentage === 28.2);
+  재다('⛔ 대주주골라내기: listedCompanyID 는 안 남는다(잡음 — 종목코드는 파일명이 이미 안다)',
+    !('listedCompanyID' in 골라낸주주[0]));
+
+  const 실패 = 것.filter((x) => !x.됐나);
+  console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
+  for (const x of 실패) console.log(`  🔴 ${x.이름}`);
+  return 실패.length === 0;
+}
+
+/* ── 돌리기 ─────────────────────────────────────────────────────────── */
+if (process.argv.includes('--자가시험')) process.exit(자가시험() ? 0 : 1);
+if (!자가시험()) { console.log('🔴 자가시험이 깨졌다 — 돌리지 않는다.'); process.exit(1); }
+console.log('');
+
+const 대기 = (ms) => new Promise((r) => setTimeout(r, ms));
+
+async function 종목목록받기() {
+  const j = curlJson(`${GATEWAY}/marketwatch-delayed/1.1/scrollingTicker`);
+  const rows = j?.response?.results;
+  if (!Array.isArray(rows) || !rows.length) throw new Error('scrollingTicker 가 빈 배열 — 게이트웨이 형식이 바뀌었을 수 있다');
+  return rows.map((r) => r.companySymbol).filter(Boolean);
+}
+
+async function main() {
+  const 인자 = process.argv.find((a) => a.startsWith('--종목'));
+  let 종목들;
+  if (인자) {
+    종목들 = 인자.split('=')[1]?.split(',').map((s) => s.trim()).filter(Boolean)
+      ?? process.argv[process.argv.indexOf(인자) + 1]?.split(',').map((s) => s.trim());
+  } else {
+    console.log('종목 목록을 받는다 — scrollingTicker');
+    종목들 = await 종목목록받기();
+    console.log(`${종목들.length}개 종목 (ADX 메인마켓 — 채권·ETF 심볼도 섞여 있다)`);
+  }
+
+  let 성공 = 0; let 데이터없음 = 0; let 실패 = 0;
+  for (const 종목 of 종목들) {
+    try {
+      let profile = null; let board = null; let shareholders = null;
+      try { profile = curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyProfileData/${종목}`)?.response?.companyProfileData; } catch {}
+      await 대기(간격ms);
+      try { board = curlJson(`${GATEWAY}/listed-companies/1.1/board-members/${종목}`)?.response?.results; } catch {}
+      await 대기(간격ms);
+      try { shareholders = curlJson(`${GATEWAY}/marketwatch/1.1/listedCompanyShareholderInfo/${종목}`)?.response?.results; } catch {}
+      await 대기(간격ms);
+
+      const { rows: 골라낸이사진, dropped: 이사진버림 } = 이사경영진골라내기(board);
+      const 골라낸주주 = 대주주골라내기(shareholders);
+
+      if (!profile && !골라낸이사진.length && !골라낸주주.length) {
+        console.log(`  – ${종목}  자료 없음(채권·ETF 등일 수 있다)`);
+        데이터없음 += 1;
+        continue;
+      }
+
+      const 결과 = await put(`raw/uae-adx-people/${종목}.json`, JSON.stringify({
+        _meta: {
+          product: 'ADX listed company — board/management + substantial shareholders',
+          symbol: 종목,
+          builtAt: new Date().toISOString(),
+          source: 'Abu Dhabi Securities Exchange (ADX) public company-profile data API',
+          sourceUrl: `https://www.adx.ae/en/main-market/company-profile/shareholder-and-board?symbols=${종목}&secCode=${종목}`,
+          notThis: [
+            'Not price/trading data — see uae-cbuae-fx / separate market-data channel for that.',
+            'Not investment advice.',
+            '이사회/경영진 구분은 직위명으로 추정한 것 — 회사 정관상 실제 등재 여부와 다를 수 있다(미분류로 남긴 항목 참고).',
+          ],
+        },
+        company: profile ? { symbol: 종목, engName: profile.engName ?? null, arbName: profile.arbName ?? null, engAddress: profile.engAddress ?? null } : null,
+        board: 골라낸이사진,
+        substantialShareholders: 골라낸주주,
+      }, null, 1), 'application/json');
+      console.log(`  ✅ ${종목}  이사/경영진 ${골라낸이사진.length}명 · 대주주 ${골라낸주주.length}건 → ${결과.local}`);
+      성공 += 1;
+    } catch (e) {
+      console.error(`  ✕ ${종목}  ${e.message}`);
+      실패 += 1;
+    }
+  }
+  console.log(`\n합계 성공 ${성공} · 자료없음 ${데이터없음} · 실패 ${실패} · archive/raw/uae-adx-people/`);
+}
+
+if (pathToFileURL(process.argv[1]).href === import.meta.url) await main();
