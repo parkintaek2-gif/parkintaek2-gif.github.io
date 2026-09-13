@@ -1,0 +1,45 @@
+Korean filings data in English — three datasets nobody else compiles
+
+You hold Korean equities. The filings behind them are published in Korean,
+on DART, one company at a time. We compile them into English panel data.
+
+What we publish
+  Ownership and insider filings   Large-holding reports and executive share
+                                  filings — who moved a stake in a listed
+                                  company, and when.
+  Convertibles, warrants, EB      Korean CB, BW and EB issues as filed —
+                                  private versus public placement, coupons,
+                                  refixing floors.
+  Sector workforce panel          Headcount, tenure, pay and the gender gap,
+                                  as filed. The axis nobody else counts.
+
+Also open, free, as a JSON API:
+  Annual financial statements for 2,709 listed companies (2024 and 2025)
+  Korean brokerage reports and the analyst ranking, as published
+  Dated history of KRX index levels, with English index names
+
+  https://seoulmarkets.com/v1
+
+How we handle what we cannot measure
+  A company with no statement on file carries nulls, never zeros.
+  A report with no previous target price carries null, not "unchanged".
+  An index low the source prints as 0 is marked not-measured.
+  Every response names its source and its coverage.
+
+Price, in USD, no account required
+  Academic licence, one dataset          $79    one-time
+  Single dataset, one year               $990
+  All datasets, one year                 $2,990
+  Monthly is available if you prefer it.
+
+  https://seoulmarkets.com/data
+
+We are a Korean data company publishing in English. This is filings data,
+not investment advice, and we do not sell signals or recommendations.
+
+If this is not the right desk, we would be grateful if you could point us
+to the one that handles data vendors.
+
+SeoulMarkets
+https://seoulmarkets.com
+admin@klifedesign.net
