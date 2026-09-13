@@ -50,13 +50,13 @@ export function 결제판정(사이트코드, 답) {
     if (j.live !== true) return { 산다: false, 왜: 'live 가 아니다 — 시험 모드다' };
     return { 산다: true, 왜: 'enabled·live · ' + (j.currency || '?') };
   }
-  /* klifemap 은 /api/health 를 본다 */
-  const 옵션 = (j.checks && j.checks.optional) || {};
-  const 꺼진것 = [];
-  if (j.paypal && j.paypal.enabled === false) 꺼진것.push('페이팔');
-  if (옵션.payments === 'not_configured') 꺼진것.push('결제');
-  if (j.status === 'degraded') 꺼진것.push('degraded');
-  return 꺼진것.length ? { 산다: false, 왜: 꺼진것.join(' · ') } : { 산다: true, 왜: j.status || 'ok' };
+  /* 🔴 klifemap 은 «결제 갈래»(/api/billing/paypal/status)를 본다.
+     ⛔ /api/health 의 degraded 로 판정하지 않는다 — 그것은 소셜 로그인 열쇠가 없어서도 뜬다.
+       2026-09-13 에 결제가 멀쩡히 산 채로 빨강이 떴다. 헛우는 자는 아무도 안 본다.
+     ⚠ 로그인이 막힌 것은 «문» 항목(door)이 따로 잡는다. 둘을 한 칸에 섞지 않는다. */
+  if (j.enabled === true) return { 산다: true, 왜: '페이팔 enabled' };
+  if (j.enabled === false) return { 산다: false, 왜: '페이팔이 꺼져 있다 — 해외 손님은 못 산다' };
+  return { 산다: false, 왜: '결제 갈래가 답을 안 준다' };
 }
 
 /** 들어오는 문 — oauth 가 꺼져 있으면 살 사람이 못 들어온다 */
@@ -127,9 +127,13 @@ export function 자가시험() {
   재다('⛔ 꺼져 있으면 안 산다', !결제판정('seoulmarkets', { 코드: 200, 글: '{"enabled":false}' }).산다);
   재다('⛔ 지면이 오면 안 산 것', !결제판정('seoulmarkets', { 코드: 200, 글: '<!DOCTYPE html>' }).산다);
   재다('⛔ 404 면 안 산다', !결제판정('seoulmarkets', { 코드: 404, 글: '' }).산다);
-  재다('klifemap — 페이팔이 꺼지면 안 산 것', !결제판정('klifemap', { 코드: 200, 글: '{"status":"ok","paypal":{"enabled":false}}' }).산다);
-  재다('klifemap — degraded 면 안 산 것', !결제판정('klifemap', { 코드: 200, 글: '{"status":"degraded"}' }).산다);
-  재다('klifemap — ok 면 산다', 결제판정('klifemap', { 코드: 200, 글: '{"status":"ok"}' }).산다);
+  재다('klifemap — 페이팔이 꺼지면 안 산 것', !결제판정('klifemap', { 코드: 200, 글: '{"ok":true,"enabled":false}' }).산다);
+  재다('klifemap — 페이팔이 켜지면 산다', 결제판정('klifemap', { 코드: 200, 글: '{"ok":true,"enabled":true}' }).산다);
+  /* 🔴 이 셋이 오늘 겪은 헛울음을 막는다 — 로그인이 죽어도 «결제»는 판정이 바뀌지 않는다 */
+  재다('klifemap — degraded 여도 결제가 켜졌으면 산다',
+    결제판정('klifemap', { 코드: 200, 글: '{"enabled":true,"status":"degraded"}' }).산다);
+  재다('klifemap — 답이 애매하면 안 산 것으로 본다', !결제판정('klifemap', { 코드: 200, 글: '{"ok":true}' }).산다);
+  재다('klifemap — 지면이 오면 안 산 것', !결제판정('klifemap', { 코드: 200, 글: '<!DOCTYPE html>' }).산다);
 
   재다('문 — oauth 가 꺼지면 안 산 것',
     !문판정({ 코드: 200, 글: '{"checks":{"optional":{"oauth":"not_configured","oauthDetail":{"google":"off"}}}}' }).산다);
@@ -145,7 +149,7 @@ export function 자가시험() {
 
 async function 본일() {
   const 흠 = 자가시험();
-  console.log(흠.length ? '🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ') : '✅ 자가시험 33/33');
+  console.log(흠.length ? '🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ') : '✅ 자가시험 ' + (35 - 흠.length) + '/35');
   if (흠.length) process.exit(1);
   if (인자.includes('--자가시험')) return;
 

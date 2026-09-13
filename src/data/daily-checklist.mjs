@@ -51,8 +51,11 @@ export const 항목 = [
     이름: '결제가 사나',
     왜: '결제가 죽으면 그날 매출이 0 이다. 우리가 가장 늦게 아는 고장이기도 하다',
     재는법: 'json',
-    길: { seoulmarkets: '/api/pay/config', klifemap: '/api/health' },
-    봄: { seoulmarkets: '켜짐과 live', klifemap: 'paypal·toss 둘 다' },
+    /* 🔴 [2026-09-13] klifemap 은 «결제 갈래»를 직접 본다 — /api/health 를 보면 안 된다.
+       health 의 degraded 는 소셜 로그인 열쇠가 없어서도 뜬다. 그것으로 판정했더니
+       결제가 멀쩡히 살아 있는데 빨강이 떴다. 그렇게 우는 자는 아무도 안 보게 된다. */
+    길: { seoulmarkets: '/api/pay/config', klifemap: '/api/billing/paypal/status' },
+    봄: { seoulmarkets: '켜짐과 live', klifemap: '페이팔 갈래가 enabled 인가' },
   },
   {
     코드: 'door',
