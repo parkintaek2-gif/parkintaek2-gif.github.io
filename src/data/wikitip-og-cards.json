@@ -7,6 +7,11 @@
     "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
   ],
   "chosen": {
+    "kdol-named-jimin-no-1-wikipedia-says-third-in-bts": {
+      "figure": "12.0%",
+      "label": "of BTS's Wikipedia lookups this month went to Jimin, not first",
+      "왜": "자동은 KDOL 이 보도한 「850 million-vote margin」을 집는다. 그건 우리가 검증하지 않은 남의 앱 수치다. 12.0%(9월 1~13일 위키백과 열람 몫)가 우리가 직접 잰 수이고 이 기사의 요점이다"
+    },
     "jin-called-sold-out-king-ranks-5th-of-7-in-bts": {
       "figure": "5th of 7",
       "label": "BTS members Jin ranks by Wikipedia lookups",
