@@ -460,7 +460,11 @@ git push origin main && git push site main
 | SeoulMarkets (여기) | `@parkintaek2/seoulmarkets:main` | `web` | 0.5GB |
 | KLifeMap | `@parkintaek2/klifemap:main` | `klifemap-app` | 0.5GB |
 
-구독 총량 **1GB**. 계정 단위로 구독하고 두 프로젝트가 나눠 쓴다. 프로젝트별 결제가 없다.
+🔴 **[2026-09-14 정정] 구독 총량은 «2GB» 다.** 여기 「1GB」로 적혀 있었고, 그 틀린 수 때문에
+오늘 아침 배포가 멈춘 것을 「메모리 부족」으로 오진해 `remove` 를 쳤다(아래 사고 참조).
+콘솔 실측 — **메모리 1GB of 2GB · 디스크 0G of 2GB · 서비스 2/8.**
+계정 단위로 구독하고 두 프로젝트가 나눠 쓴다. 프로젝트별 결제가 없다.
+⛔ 수를 근거로 처방을 내리기 전에 **그 수를 다시 잰다.** 문서의 수는 옛것일 수 있다.
 
 ## 반드시 지킬 것
 
@@ -559,6 +563,37 @@ ctype remove   web -t …   ✅ 이것이 맞다  (CLI v0.7.1)
 
 **조용히 성공한 척하는 것이 제일 나쁘다.** 지웠다고 믿고 다음 단계로 넘어가면
 남의 스테이지에 우리 배포가 남은 채로 시간이 간다. **지운 뒤에는 `ctype ls -t …` 로 눈으로 본다.**
+
+### 🔴🔴 [2026-09-14] `ctype remove` 는 **커스텀 도메인 연결까지 가져간다** — 사이트 셋이 한 시간 내려갔다
+
+배포가 「Starting」에서 멈춰 있어 위 「메모리다」 처방대로 `remove` → `apply` 를 했다.
+앱은 잘 떴다. 그런데 **손님 주소로는 셋 다 404 였다.**
+
+```
+ctype routes -t @parkintaek2/seoulmarkets:main
+  → ENTRYPOINTS 에 port-0-web-….cloudtype.app «하나만» 남아 있었다
+  → seoulmarkets.com · kculturewire.com · 100yearmap.com 이 «사라졌다»
+```
+
+⛔ **도메인은 `app.yaml` 에 없다.** 콘솔에서 붙이는 것이라 `apply` 로 되살아나지 않는다.
+⛔ 그리고 CLI 로는 붙일 수 없다 — `ctype routes` 는 «보기»만 되고 `domain` 명령이 없다.
+
+✅ 되붙이는 길 (콘솔) — 한 도메인에 약 15초
+```
+app.cloudtype.io → 구글 로그인(parkintaek2@gmail.com) → @parkintaek2/seoulmarkets
+  → 「연결」 탭 → 오른쪽 위 「도메인 연결」
+  → 칸에 도메인을 «치고» → 인증하기 → (연결할 서비스: web) → 연결하기
+지금 붙어 있어야 하는 것 다섯 —
+  seoulmarkets.com · www.seoulmarkets.com
+  kculturewire.com · www.kculturewire.com
+  100yearmap.com
+```
+
+⭐ 그래서 **`remove` 를 치기 전에 `ctype routes` 로 붙은 도메인을 먼저 적어 둔다.**
+  적어 두지 않으면 무엇이 있었는지조차 모른다. 오늘은 다행히 세 사이트를 알고 있었다.
+⚠ 그리고 이번 건은 **`remove` 가 애초에 필요 없었다** — 메모리는 1GB of 2GB 로 여유가 있었다.
+  문서의 「총량 1GB」를 믿고 오진한 것이다. **처방 전에 수를 다시 잰다.**
+✅ 이제 매일 점검이 도메인을 «기계로» 잰다 — `node scripts/check-domains.mjs`
 
 ## 배포가 안 뜰 때 — 원인은 대개 메모리다
 

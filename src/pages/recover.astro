@@ -136,6 +136,13 @@ const DESC = 'Lost the download link? Enter the PayPal order ID from your receip
 
     var 상품들 = [];
 
+    /* ⚠ /api/pay/config 의 products 는 «객체»(코드가 열쇠)이고 datasets 는 «배열»이다.
+       둘이 달라서 한쪽만 보고 짜면 터진다 — 실제로 터졌다. 둘 다 견디게 한 줄로 편다. */
+    function 펴기(것) {
+      if (!것) return [];
+      return Array.isArray(것) ? 것 : Object.keys(것).map(function (k) { return 것[k]; });
+    }
+
     function 말한다(글, 나쁜가) {
       알림.textContent = 글;
       알림.hidden = !글;
@@ -158,7 +165,7 @@ const DESC = 'Lost the download link? Enter the PayPal order ID from your receip
     fetch('/api/pay/config')
       .then(function (r) { return r.json(); })
       .then(function (c) {
-        상품들 = c.products || [];
+        상품들 = 펴기(c.products);
         품칸.innerHTML = '';
         var 첫 = document.createElement('option');
         첫.value = ''; 첫.textContent = 'Choose…';
@@ -170,14 +177,16 @@ const DESC = 'Lost the download link? Enter the PayPal order ID from your receip
         });
 
         셋칸.innerHTML = '';
-        (c.datasets || []).forEach(function (d) {
+        펴기(c.datasets).forEach(function (d) {
           var o = document.createElement('option');
           o.value = d['코드']; o.textContent = d['이름'];
           셋칸.appendChild(o);
         });
         다시그린다();
       })
-      .catch(function () {
+      .catch(function (e) {
+        /* ⚠ 왜 실패했는지를 남긴다. 안 남기면 「unavailable」만 보이고 까닭을 못 찾는다 */
+        if (window.console) window.console.error('[recover] config', e);
         말한다('We could not load the product list. Email admin@klifedesign.net with your order ID and we will send the file.', true);
         품칸.innerHTML = '<option value="">unavailable</option>';
       });

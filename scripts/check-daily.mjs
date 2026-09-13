@@ -179,6 +179,28 @@ async function 본일() {
     + new Date().toLocaleString('ko-KR'));
   console.log('  ' + 때[때코드].설명 + '\n');
 
+  /* 🔴 [2026-09-14] 손님 «주소»부터 잰다 — 이것이 손님이 걷는 길보다 앞이다.
+     그날 ctype remove 가 커스텀 도메인 연결까지 가져가 세 사이트가 한 시간 404 였는데,
+     앱은 Running 이고 로그도 조용해서 «아무 자도 안 짖었다». 사람이 눈치채야 알았다. */
+  try {
+    const d = await import('./check-domains.mjs');
+    const 깨짐 = [];
+    for (const x of d.손님주소) {
+      let 코드 = 0;
+      try { 코드 = (await fetch(x.주소, { redirect: 1 ? undefined : undefined, signal: AbortSignal.timeout(20000) })).status; }
+      catch (e) { 코드 = 0; }
+      const r = d.판정(코드);
+      if (!r.산다) 깨짐.push(x.사이트 + '(' + x.자리 + ') — ' + r.왜);
+    }
+    if (깨짐.length) {
+      console.log('🔴🔴 손님 주소가 ' + 깨짐.length + '개 죽었다 — 다른 것을 재기 전에 이것부터 고친다');
+      깨짐.forEach((x) => console.log('   · ' + x));
+      console.log('   ⭐ 404 면 도메인이 «떨어진» 것부터 의심한다 — ctype routes -t @parkintaek2/seoulmarkets:main\n');
+    } else {
+      console.log('✅ 손님 주소 ' + d.손님주소.length + '개 다 살아 있다\n');
+    }
+  } catch (e) { console.log('⬜ 주소 검사를 못 돌렸다 — ' + (e && e.message ? e.message : e) + '\n'); }
+
   let 깨진것 = 0, 손으로볼것 = 0, 잰것 = 0;
   const 길막힘 = [];
   for (const c of 볼사이트들) {
