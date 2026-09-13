@@ -57,11 +57,11 @@ export const 자리표 = [
      .claude-u2 는 처음부터 admin@klifedesign.net 으로 로그인돼 있었고, u2@ 로 클로드에
      로그인한 흔적은 일곱 방에 0건이다. 옛 값으로 두면 자리를 다시 세울 때 «없는 계정»으로 세운다.
      ⚠ 9/21 에 2번 자리가 없어지면 이 줄은 K Culture Wire 로 바뀐다(전환 계획 3-4절). */
-  { 자리: 2, 파일: '2번_케이라이프맵.cmd',    영문: 'KLifeMap - payments first', 계정: 'admin@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
+  { 자리: 2, 파일: '2번_케이라이프맵.cmd',    영문: 'KLifeMap', 계정: 'admin@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u2', 작업: 'C:\\Users\\USER\\Documents\\GitHub\\klifemap' },
   { 자리: 3, 파일: '3번_백년지도.cmd',        영문: '100YearMap',               계정: 'u3@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u3', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 4, 파일: '4번_서울마켓지원.cmd',    영문: 'SeoulMarkets support + checks', 계정: 'u4@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u4', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 5, 파일: '5번_총괄.cmd',            영문: 'Chief - review + SeoulMarkets 80%', 계정: 'u5@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u5', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
-  { 자리: 6, 파일: '6번_서울마켓.cmd',        영문: 'SeoulMarkets - F7 API',    계정: 'u6@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u6', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 4, 파일: '4번_서울마켓지원.cmd',    영문: 'SeoulMarkets support', 계정: 'u4@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u4', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 5, 파일: '5번_총괄.cmd',            영문: 'Chief', 계정: 'u5@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u5', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
+  { 자리: 6, 파일: '6번_서울마켓.cmd',        영문: 'SeoulMarkets',    계정: 'u6@klifedesign.net', 설정: 'C:\\Users\\USER\\.claude-u6', 작업: 'C:\\Users\\User\\Documents\\GitHub\\dataeconomics' },
 ];
 
 /**
