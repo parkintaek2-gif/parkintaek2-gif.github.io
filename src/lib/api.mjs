@@ -88,6 +88,17 @@ import MEZZANINE_TAPE from '../data/korea-mezzanine-tape.json' with { type: 'jso
  *   (build-seoulmarkets-ownership-ledger.mjs 가 이미 정한 것) — 표 둘, ?kind= 로 고른다. */
 import OWNERSHIP_FILINGS_TAPE from '../data/korea-ownership-filings-tape.json' with { type: 'json' };
 import OWNERSHIP_EXECUTIVES_TAPE from '../data/korea-ownership-executives-tape.json' with { type: 'json' };
+/*
+ * 🔴 [2026-09-13 · 5번] 사장님 「마무리 해」 — 내가 구멍으로 보고한 셋을 여기서 막는다.
+ *   설계 문서(docs/사업전략-데이터제공업.md 303줄)에 2026-08 부터 적혀 있었는데
+ *   «지은 적이 없어» /v1/financials · /v1/consensus · /v1/indices 가 404 였고
+ *   /v1 색인에도 없었다. 적어 놓고 안 지은 것이 가장 나쁜 꼴이다.
+ * ⚠ 셋 다 빌더가 자가시험을 돌고 지은 표다 —
+ *   scripts/build-v1-financials-tape.mjs (18) · -consensus- (21) · -indices- (23)
+ */
+import FINANCIALS_TAPE from '../data/korea-financials-tape.json' with { type: 'json' };
+import CONSENSUS_TAPE from '../data/korea-consensus-tape.json' with { type: 'json' };
+import INDICES_HISTORY from '../data/korea-indices-history.json' with { type: 'json' };
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -1047,6 +1058,214 @@ function accountDictionary(params, tier = 'free') {
   });
 }
 
+/**
+ * /v1/financials — 상장사 연간 재무(DART 사업보고서). 2026-09-13 5번.
+ * ⛔ DART 에 안 올라온 회사는 measured:false 에 값이 전부 null 이다. 0 으로 채우지 않는다.
+ * ⚠ basis 가 CFS 면 연결, OFS 면 별도다. 밝히지 않고 섞으면 회사끼리 비교가 안 된다.
+ */
+function financialsCoverage() {
+  const m = FINANCIALS_TAPE?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.builtAt ?? null,
+    rows: m.rows ?? (Array.isArray(FINANCIALS_TAPE?.rows) ? FINANCIALS_TAPE.rows.length : 0),
+    years: m.years ?? null,
+    basis_note: m.basisNote ?? null,
+    not_measured_note: m.notMeasuredNote ?? null,
+    not_this: m.notThis ?? null,
+  };
+}
+
+function financials(params, tier = 'free') {
+  const rows = Array.isArray(FINANCIALS_TAPE?.rows) ? FINANCIALS_TAPE.rows : [];
+
+  const ticker = (params.get('ticker') || '').trim();
+  if (ticker) {
+    const hit = rows.filter((r) => String(r.code) === ticker);
+    if (!hit.length) {
+      return err(404, 'unknown_ticker', `No financial statements on file for: ${ticker}`,
+        'Use the 6-digit KRX code, e.g. ticker=005930. Browse /v1/financials without a ticker for the full tape.');
+    }
+    return json(200, { count: hit.length, results: hit, coverage: financialsCoverage() });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const yearQ = Number(params.get('year'));
+  const marketQ = (params.get('market') || '').trim().toUpperCase();
+  const nameQ = (params.get('name') || '').trim().toLowerCase();
+  const measuredOnly = params.get('measured') === 'true';
+
+  let filtered = rows;
+  if (Number.isFinite(yearQ) && yearQ > 0) filtered = filtered.filter((r) => r.year === yearQ);
+  if (marketQ) filtered = filtered.filter((r) => String(r.market ?? '').toUpperCase() === marketQ);
+  if (nameQ) {
+    filtered = filtered.filter((r) => String(r.name ?? '').toLowerCase().includes(nameQ)
+      || String(r.name_en ?? '').toLowerCase().includes(nameQ));
+  }
+  /* ⛔ 기본값은 «다 낸다» — 못 잰 줄을 말없이 숨기면 커버리지가 부풀어 보인다 */
+  if (measuredOnly) filtered = filtered.filter((r) => r.measured);
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced,
+    coverage: financialsCoverage(),
+  });
+}
+
+/**
+ * /v1/consensus — 증권사 리포트 목록과 애널리스트 순위. 2026-09-13 5번.
+ * 🔴 원 지면이 창을 30일에서 자른다 — 그날 안 받으면 영영 없는 자료다.
+ *   그래서 우리가 받아 쌓은 스냅숏이 곧 기록이다. coverage 에 어느 날들인지 적는다.
+ * ⛔ 이전 목표가가 없으면 target_change_pct 는 null 이다. 「안 바뀌었다」가 아니라 「모른다」다.
+ */
+function consensusCoverage() {
+  const m = CONSENSUS_TAPE?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.builtAt ?? null,
+    reports: m.reports ?? null,
+    report_snapshots: m.reportSnapshots ?? null,
+    analyst_rows: m.analystRows ?? null,
+    analyst_snapshots: m.analystSnapshots ?? null,
+    with_target_change: m.withTargetChange ?? null,
+    target_change_note: m.targetChangeNote ?? null,
+    window_note: m.windowNote ?? null,
+    accuracy_note: m.accuracyNote ?? null,
+    not_this: m.notThis ?? null,
+  };
+}
+
+function consensus(params, tier = 'free') {
+  const kind = (params.get('kind') || 'reports').trim().toLowerCase();
+  if (kind !== 'reports' && kind !== 'analysts') {
+    return err(400, 'unknown_kind', `No such kind: ${kind}`, 'Use kind=reports (default) or kind=analysts.');
+  }
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+
+  if (kind === 'analysts') {
+    const rows = Array.isArray(CONSENSUS_TAPE?.analysts) ? CONSENSUS_TAPE.analysts : [];
+    const asOf = (params.get('as_of') || '').trim();
+    const houseQ = (params.get('house') || '').trim().toLowerCase();
+    let filtered = rows;
+    if (asOf) filtered = filtered.filter((r) => r.as_of === asOf);
+    if (houseQ) filtered = filtered.filter((r) => String(r.house ?? '').toLowerCase().includes(houseQ));
+    const sliced = filtered.slice(0, limit);
+    return json(200, {
+      kind: 'analysts',
+      count: sliced.length,
+      returned_of: filtered.length,
+      results: sliced,
+      coverage: consensusCoverage(),
+    });
+  }
+
+  const rows = Array.isArray(CONSENSUS_TAPE?.reports) ? CONSENSUS_TAPE.reports : [];
+  const ticker = (params.get('ticker') || '').trim();
+  const houseQ = (params.get('house') || '').trim().toLowerCase();
+  const since = (params.get('since') || '').trim();
+  const changedOnly = params.get('target_changed') === 'true';
+
+  let filtered = rows;
+  if (ticker) filtered = filtered.filter((r) => String(r.code) === ticker);
+  if (houseQ) filtered = filtered.filter((r) => String(r.house ?? '').toLowerCase().includes(houseQ));
+  if (since) filtered = filtered.filter((r) => String(r.published_on ?? '') >= since);
+  if (changedOnly) filtered = filtered.filter((r) => r.target_change_pct !== null);
+
+  if (ticker && !filtered.length) {
+    return err(404, 'unknown_ticker', `No reports on file for: ${ticker}`,
+      'Use the 6-digit KRX code, e.g. ticker=005930. The source only keeps a rolling 30-day window.');
+  }
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    kind: 'reports',
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced,
+    coverage: consensusCoverage(),
+  });
+}
+
+/**
+ * /v1/indices — 날짜가 있는 지수 «이력». 2026-09-13 5번.
+ * 🔴 /v1/index-tape 와 다른 것이다 — 그쪽은 «가장 최근 하루» 스냅숏(영문 이름·기준일 포함),
+ *   이쪽은 아카이브에 쌓인 날들을 이어 붙인 시계열이다. 같은 것을 두 번 내지 않는다.
+ * ⛔ 원 지면이 연최저를 0 으로 내주는 자리가 있다. 지수에 0 은 없다 —
+ *   year_low_not_measured:true 로 내고 0 으로 팔지 않는다(index-tape 와 같은 판정).
+ */
+function indicesCoverage() {
+  const m = INDICES_HISTORY?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.builtAt ?? null,
+    rows: m.rows ?? null,
+    days: m.days ?? null,
+    first_date: m.firstDate ?? null,
+    last_date: m.lastDate ?? null,
+    distinct_indices: m.distinctIndices ?? null,
+    day_breakdown: m.dayBreakdown ?? null,
+    dropped_unparsable_lines: m.droppedUnparsableLines ?? null,
+    not_index_tape: m.notIndexTape ?? null,
+    year_low_note: m.yearLowNote ?? null,
+    not_this: m.notThis ?? null,
+  };
+}
+
+function indices(params, tier = 'free') {
+  const rows = Array.isArray(INDICES_HISTORY?.rows) ? INDICES_HISTORY.rows : [];
+
+  if (params.get('list') === 'names') {
+    /* ⚠ 한글 이름만 내면 영어권 손님은 무엇을 물어야 할지 모른다.
+       짝으로 낸다 — name 은 원자료가 부르는 이름, name_en 은 index-tape 의 짝이다. */
+    const 이름들 = INDICES_HISTORY?.indexNames ?? [];
+    const 영문 = new Map();
+    for (const r of (INDICES_HISTORY?.rows ?? [])) {
+      if (r.name && r.name_en && !영문.has(r.name)) 영문.set(r.name, r.name_en);
+    }
+    return json(200, {
+      count: 이름들.length,
+      names: 이름들.map((n) => ({ name: n, name_en: 영문.get(n) ?? null })),
+      coverage: indicesCoverage(),
+    });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const nameQ = (params.get('name') || '').trim();
+  const familyQ = (params.get('family') || '').trim().toLowerCase();
+  const since = (params.get('since') || '').trim();
+  const until = (params.get('until') || '').trim();
+
+  let filtered = rows;
+  if (nameQ) {
+    const 낮 = nameQ.toLowerCase();
+    /* 🔴 우리 손님은 영어권이다 — 영문 이름으로도 찾게 한다.
+       ⛔ 부분일치로 넓히지 않는다: 「코스피 200」 을 물었는데 「코스피 200 금융」이 섞이면
+         손님이 «다른 지수»의 값을 자기 것으로 읽는다. 정확히 같은 이름만 낸다. */
+    filtered = filtered.filter((r) => String(r.name ?? '').toLowerCase() === 낮
+      || String(r.name_en ?? '').toLowerCase() === 낮);
+    if (!filtered.length) {
+      return err(404, 'unknown_index', `No such index: ${nameQ}`,
+        'Use the English or Korean index name exactly, e.g. name=KOSPI 200. Call /v1/indices?list=names for every name we carry.');
+    }
+  }
+  if (familyQ) filtered = filtered.filter((r) => String(r.family ?? '').toLowerCase().includes(familyQ));
+  if (since) filtered = filtered.filter((r) => String(r.date ?? '') >= since);
+  if (until) filtered = filtered.filter((r) => String(r.date ?? '') <= until);
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced,
+    coverage: indicesCoverage(),
+  });
+}
+
 /* ── 라우트 ─────────────────────────────────────────────────── */
 
 /** GET /v1 — 무엇이 있는지. 개발자가 처음 여는 문이다. */
@@ -1080,6 +1299,14 @@ async function root() {
         'Workforce filings for listed Korean companies — headcount, tenure and pay by gender, joined to KRX closing price. One row per company-fiscal-year. ?ticker= for one company (exact KRX code), ?market= to filter (KOSPI/KOSDAQ), ?name= to search by English or Korean name. Ratios (women share, tenure, pay) are raw 0-1 figures, not percentages.',
       'GET /v1/mezzanine':
         'DART filings for convertible bonds (CB), bonds with warrants (BW) and exchangeable bonds (EB) — coupon, maturity, strike and refixing-floor terms as filed. One row per filing. ?filing_id= for one filing (exact DART rcept_no), ?ticker= for one company, ?type=CB|BW|EB, ?name= to search. refixFloorPriceKrw is null for EB by design (no refixing floor exists) — see refix_floor_note.',
+      'GET /v1/ownership':
+        'Large-holding reports and executive share filings from DART — who moved a stake in a listed company, and when. ?kind=filings (default) or ?kind=executives, ?ticker= for one company, ?name= to search.',
+      'GET /v1/financials':
+        'Annual financial statements for listed Korean companies as filed with DART (annual report, reprt_code 11011) — assets, equity, revenue, operating profit and net profit. ?ticker= for one company (6-digit KRX code), ?year= to pick a fiscal year, ?market= to filter, ?measured=true to drop companies with nothing on file. basis says CFS (consolidated) or OFS (separate-only); companies with no statement on file carry nulls, never zeros.',
+      'GET /v1/consensus':
+        'Korean brokerage reports and the analyst ranking, as published. ?kind=reports (default) or ?kind=analysts, ?ticker= for one company, ?house= to filter by brokerage, ?since=YYYY-MM-DD to trim, ?target_changed=true for reports that moved a target price. The source keeps only a rolling 30-day window — our dated snapshots are the record.',
+      'GET /v1/indices':
+        'Dated history of KRX index levels — one row per index per trading day. ?name= for one index, ?family= to filter by series, ?since= / ?until= to trim, ?list=names for every index name we carry. This is the time series; /v1/index-tape is the single most-recent snapshot with English names.',
     },
     licence: 'Source data published by Korean agencies under an unrestricted-use licence.',
     contact: 'sibcheongan@gmail.com',
@@ -1640,6 +1867,18 @@ async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1/ownership') {
     meter('ownership');
     return ownership(searchParams, tier);
+  }
+  if (pathname === '/v1/financials') {
+    meter('financials');
+    return financials(searchParams, tier);
+  }
+  if (pathname === '/v1/consensus') {
+    meter('consensus');
+    return consensus(searchParams, tier);
+  }
+  if (pathname === '/v1/indices') {
+    meter('indices');
+    return indices(searchParams, tier);
   }
 
   return err(404, 'unknown_endpoint', `No such endpoint: ${pathname}`, 'See GET /v1');
