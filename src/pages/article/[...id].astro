@@ -245,12 +245,13 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
         <span class="asof">Data as of {formatAsOf(d.dataAsOf)}</span>
       </div>
 
+      {/* 🔴 [2026-09-13 지시] 「투자자문 아님은 기사 «말미»에만」 — 여기(기사 위쪽)는
+          방법론 고지(AI 보조·사람 검수)만 남긴다. 투자자문 고지는 DataNotes(기사 끝)에서 낸다. */}
       <p class="transparency">
         <span aria-hidden="true">◆</span>
         <span>
           <strong>{DISCLAIMER.ai}</strong> Figures are pulled programmatically from the official
-          sources listed at the end of this article and checked by an editor before publication.{' '}
-          <strong>{DISCLAIMER.short}</strong>
+          sources listed at the end of this article and checked by an editor before publication.
         </span>
       </p>
 

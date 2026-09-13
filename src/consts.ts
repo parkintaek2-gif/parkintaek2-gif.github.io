@@ -299,10 +299,16 @@ export const ADS = {
   slots: { banner: '2467100360', inArticle: '2718381807' },
 } as const;
 
+/**
+ * 🔴 [2026-09-13 지시] 「투자자문 아님을 기사 «말미»에만 쓰라」·「투자는 본인 책임하에
+ * 하는 것도 명기하라」 — 문구를 다듬었다. 전에는 기사 «위쪽»(방법론 고지 줄)에도 짧게
+ * 한 번 더 붙어 있었는데, 그건 뺐다(src/pages/article/[...id].astro) — 여기 이 문장
+ * (기사 끝 DataNotes·전역 Footer)에서만 낸다.
+ */
 export const DISCLAIMER = {
-  short: 'Not investment advice.',
+  short: 'Not investment advice — invest at your own risk.',
   ai: 'AI-assisted, human-reviewed sourcing.',
-  long: `${SITE.name} publishes data journalism for general information only. Nothing here is investment advice, a recommendation, or an offer to buy or sell any security. Figures are derived from official public data sources and may be revised by the issuing agency. Verify independently before acting.`,
+  long: `${SITE.name} publishes data journalism for general information only. Nothing here is investment advice, a recommendation, or an offer to buy or sell any security — any investment you make is at your own risk and responsibility. Figures are derived from official public data sources and may be revised by the issuing agency. Verify independently before acting.`,
 } as const;
 
 /**
