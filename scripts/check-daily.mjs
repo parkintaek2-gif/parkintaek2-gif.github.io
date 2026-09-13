@@ -19,7 +19,7 @@
  *   ✅ 항목은 src/data/daily-checklist.mjs 에만 있다. 여기서 항목을 또 적지 않는다.
  */
 import https from 'node:https';
-import { 사이트, 때, 볼것, 지금때, 잴수있나, 길찾기, 항목 } from '../src/data/daily-checklist.mjs';
+import { 사이트, 때, 볼것, 지금때, 잴수있나, 길찾기, 항목, 손님길 } from '../src/data/daily-checklist.mjs';
 
 const 인자 = process.argv.slice(2);
 const 값 = (이름) => { const i = 인자.indexOf(이름); return i >= 0 ? 인자[i + 1] : null; };
@@ -74,7 +74,16 @@ export function 문판정(답) {
 
 async function 한사이트(사이트코드, 때코드) {
   const s = 사이트[사이트코드];
-  const 볼것들 = 볼것(사이트코드, 때코드);
+  /* 🔴 [2026-09-13] 사장님: 「로그인 안하면 결제를 못하잖아」
+     손님이 걷는 길(들어오기 → 돈 내기 → 다시 보기)을 «맨 앞»에 세운다.
+     차례가 곧 중요도다 — 눈이 먼저 닿는 자리에 가장 중요한 것이 있어야 한다. */
+  const 볼것들 = 볼것(사이트코드, 때코드).slice().sort((a, b) => {
+    const i = 손님길.indexOf(a.코드), j = 손님길.indexOf(b.코드);
+    if (i < 0 && j < 0) return 0;
+    if (i < 0) return 1;
+    if (j < 0) return -1;
+    return i - j;
+  });
   const 줄들 = [];
   for (const it of 볼것들) {
     if (!잴수있나(it, 사이트코드)) {
@@ -110,6 +119,15 @@ export function 자가시험() {
   재다('⛔ 유료에 발행 항목은 안 건다', !볼것('seoulmarkets', '마감').some((x) => x.코드 === 'publish-today'));
   재다('전 사이트는 200 을 본다', ['seoulmarkets', 'klifemap', 'kculturewire', '100yearmap']
     .every((c) => 볼것(c, '아침').some((x) => x.코드 === 'page-200')));
+  /* 🔴 손님이 걷는 길 셋은 하루 세 번 다 본다 — 사장님 「매일 세번 확인해」 */
+  재다('손님길 셋이 유료에 다 걸린다', ['door','pay-live','reread']
+    .every((c) => 볼것('klifemap', '아침').some((x) => x.코드 === c)));
+  재다('손님길은 세 때에 다 본다', ['아침','낮','마감']
+    .every((t) => ['door','pay-live','reread'].every((c) => 볼것('klifemap', t).some((x) => x.코드 === c))));
+  재다('⛔ 무료에는 손님길을 안 건다', ['door','pay-live','reread']
+    .every((c) => !볼것('kculturewire', '아침').some((x) => x.코드 === c)));
+  재다('손님길 차례가 들어오기→돈→다시보기다', 손님길.join('>') === 'door>pay-live>reread');
+
   재다('아카이빙은 마감에만', 볼것('seoulmarkets', '아침').every((x) => x.코드 !== 'archive-gap')
     && 볼것('seoulmarkets', '마감').some((x) => x.코드 === 'archive-gap'));
   재다('모르는 사이트는 빈 목록', 볼것('없는곳', '아침').length === 0);
@@ -149,7 +167,7 @@ export function 자가시험() {
 
 async function 본일() {
   const 흠 = 자가시험();
-  console.log(흠.length ? '🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ') : '✅ 자가시험 ' + (35 - 흠.length) + '/35');
+  console.log(흠.length ? '🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ') : '✅ 자가시험 ' + (39 - 흠.length) + '/39');
   if (흠.length) process.exit(1);
   if (인자.includes('--자가시험')) return;
 
@@ -162,17 +180,30 @@ async function 본일() {
   console.log('  ' + 때[때코드].설명 + '\n');
 
   let 깨진것 = 0, 손으로볼것 = 0, 잰것 = 0;
+  const 길막힘 = [];
   for (const c of 볼사이트들) {
     const s = 사이트[c];
     if (!s) { console.log('🔴 모르는 사이트: ' + c); continue; }
     console.log((s.유료 ? '💰 유료 ' : '   무료 ') + s.이름 + '  (' + s.자리 + ')');
+    let 길머리 = false;
     for (const 줄 of await 한사이트(c, 때코드)) {
-      console.log('     ' + 줄.표시 + ' ' + 줄.항목.이름.padEnd(16, ' ') + ' ' + 줄.말);
-      if (!줄.잼) { 손으로볼것 += 1; continue; }
+      const 길인가 = 손님길.indexOf(줄.항목.코드) >= 0;
+      if (길인가 && !길머리) { console.log('     ── 손님이 걷는 길 ──'); 길머리 = true; }
+      if (!길인가 && 길머리) { console.log('     ── 그 밖 ──'); 길머리 = false; }
+      console.log('     ' + 줄.표시 + ' ' + 줄.항목.이름.padEnd(20, ' ') + ' ' + 줄.말);
+      if (!줄.잼) { 손으로볼것 += 1; if (길인가) 길막힘.push({ s, 줄, 손: true }); continue; }
       잰것 += 1;
-      if (!줄.됐나) { 깨진것 += 1; console.log('        ↳ ' + 줄.항목.왜); }
+      if (!줄.됐나) { 깨진것 += 1; console.log('        ↳ ' + 줄.항목.왜); if (길인가) 길막힘.push({ s, 줄 }); }
     }
     console.log('');
+  }
+
+  /* 🔴 손님이 걷는 길이 막혔으면 그것부터 크게 말한다 — 그 셋이 다른 무엇보다 앞이다 */
+  const 진짜막힘 = 길막힘.filter((x) => !x.손);
+  if (진짜막힘.length) {
+    console.log('🔴🔴 손님이 걷는 길이 막혔다 — **다른 일을 하기 전에 이것부터 고친다**');
+    for (const x of 진짜막힘) console.log('   · ' + x.s.이름 + ' — ' + x.줄.항목.이름 + ' (' + x.줄.말 + ')');
+    console.log('   ⛔ 들어오기·돈 내기·다시 보기 가운데 하나라도 빨간 채로 지면·새 기능으로 가지 않는다.\n');
   }
 
   console.log('잰 것 ' + 잰것 + '개 가운데 깨진 것 ' + 깨진것 + '개 · 손으로 볼 것 ' + 손으로볼것 + '개');
