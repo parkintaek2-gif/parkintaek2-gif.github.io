@@ -769,7 +769,11 @@ const 묶음 = [
             if (!j.ok) throw new Error(j.error || 'not confirmed');
             끝났다('payment received.', j.downloadUrl,
               'Keep this link \u2014 it does not expire. Order ' + data.orderID +
-              '. Receipt ' + (j.receipt || '') + '. Trouble? admin@klifedesign.net');
+              '. Receipt ' + (j.receipt || '') +
+              /* 🔴 [2026-09-14 · 5번] 아침 점검에서 찾았다 — 링크는 안 만료되는데
+                   «되찾는 길»을 안 알려 주고 있었다. 사장님: 「비회원 결제는 감명서를 다시 못보잖아」 */
+              '. Lost it? Go to seoulmarkets.com/recover and enter that order ID \u2014 PayPal emailed it to you too.' +
+              ' Trouble? admin@klifedesign.net');
           });
       };
     }

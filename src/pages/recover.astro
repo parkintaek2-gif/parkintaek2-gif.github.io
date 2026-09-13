@@ -1,0 +1,213 @@
+---
+/*
+ * `/recover` — 산 사람이 파일을 «다시» 받는 지면. (seoulmarkets.com/recover)
+ *
+ * ── 🔴 왜 만들었나 (2026-09-14 아침 점검, 5번) ──────────────────────────────
+ *   일일 점검의 「3. 산 것을 다시 볼 수 있나」를 손으로 보다가 찾았다.
+ *
+ *   지금까지의 구조 —
+ *     결제가 끝나면 화면에 내려받기 주소가 «한 번» 뜬다. 그 주소는 만료되지 않는다.
+ *     그런데 손님이 그 창을 닫으면, 되찾을 «지면»이 없었다.
+ *     우리는 DB 를 두지 않아 주문을 저장하지 않고, 영수증 메일도 보내지 않는다.
+ *
+ *   사장님이 케이라이프맵에 대해 짚으신 것과 같은 문제다 —
+ *     「**비회원 결제는 감명서를 다시 못보잖아**」 (2026-09-13)
+ *
+ * ── 어떻게 푸나 — DB 를 두지 않고도 된다 ────────────────────────────────────
+ *   페이팔이 «진실의 근원»이다(src/lib/paypal.mjs 머리글). 손님은 결제하면 페이팔에서
+ *   영수증 메일을 받고, 거기에 주문번호가 적혀 있다. 그 번호만 있으면 /api/download 가
+ *   페이팔에 되물어 「정말 산 사람인가」를 판정한다.
+ *   ⇒ 이 지면은 그 번호를 받는 «입구»일 뿐이다. 새 저장소도, 새 열쇠도 필요 없다.
+ *
+ * ⛔ 여기서 값을 받거나 결제를 다시 걸지 않는다. 이미 낸 사람에게 파일을 돌려줄 뿐이다.
+ * ⛔ 상품·데이터셋 목록을 이 파일에 «박아 넣지» 않는다 — /api/pay/config 하나에서 온다.
+ *    (2026-09-13 에 「All six datasets」가 실제로는 넷이었던 사고가 목록을 두 곳에 둔 탓이다)
+ */
+import Base from '../layouts/Base.astro';
+const TITLE = 'Get your download link back';
+const DESC = 'Lost the download link? Enter the PayPal order ID from your receipt and we will give you the file again. No account needed.';
+---
+
+<Base title={TITLE} description={DESC} noindex={true}>
+  <div class="wrap">
+    <article class="legal">
+      <p class="kicker">SeoulMarkets · licence holders</p>
+      <h1>Get your download link back</h1>
+      <p class="lead">
+        You bought a dataset and the download link is gone — the tab closed, or the machine changed.
+        Nothing is lost. <b>Your link never expires</b>, and this page rebuilds it.
+      </p>
+
+      <section>
+        <h2>What you need</h2>
+        <p>
+          The <b>order ID from your PayPal receipt</b>. PayPal emails it to you at the moment of
+          payment; it looks like <code>8XT12345AB678901C</code>. We do not keep a copy of your
+          purchase — PayPal is the record — so that ID is the key.
+        </p>
+      </section>
+
+      <section>
+        <h2>Rebuild the link</h2>
+
+        <form id="recoverForm" novalidate>
+          <label class="fld">
+            <span>PayPal order ID</span>
+            <input id="orderId" name="orderId" type="text" inputmode="latin" autocomplete="off"
+              spellcheck="false" placeholder="8XT12345AB678901C" required />
+          </label>
+
+          <label class="fld">
+            <span>What you bought</span>
+            <select id="product" name="product" required>
+              <option value="">Loading…</option>
+            </select>
+          </label>
+
+          <label class="fld" id="datasetField" hidden>
+            <span>Which dataset</span>
+            <select id="dataset" name="dataset">
+              <option value="">Loading…</option>
+            </select>
+          </label>
+
+          <p id="msg" class="msg" hidden></p>
+
+          <button id="go" type="submit" class="btn">Get my file</button>
+        </form>
+      </section>
+
+      <section>
+        <h2>If it does not work</h2>
+        <p>
+          Write to <a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a> with the order ID
+          and we will sort it out by hand. A licence you paid for is a licence you keep — that does
+          not depend on you holding on to a link.
+        </p>
+      </section>
+    </article>
+  </div>
+</Base>
+
+<style>
+  .wrap { max-width: 46rem; margin: 0 auto; padding-block: 2.5rem; padding-inline: 1rem; }
+  .kicker { font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; opacity: .65; margin: 0 0 .35rem; }
+  h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); line-height: 1.2; margin: 0 0 .75rem; }
+  .lead { font-size: 1.05rem; line-height: 1.6; opacity: .9; }
+  section { margin-top: 2rem; }
+  h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+  p { line-height: 1.65; }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .92em;
+    padding: .1em .35em; border-radius: .25rem; background: rgba(127, 127, 127, .14); }
+
+  /* 폼 — 한 줄에 하나씩. 좁은 화면에서 그대로 쌓인다 */
+  .fld { display: block; margin: 0 0 1rem; }
+  .fld > span { display: block; font-size: .85rem; opacity: .75; margin: 0 0 .3rem; }
+  .fld input, .fld select {
+    width: 100%; box-sizing: border-box; padding: .6rem .7rem; font: inherit;
+    border: 1px solid rgba(127, 127, 127, .45); border-radius: .4rem;
+    background: transparent; color: inherit;
+  }
+  .fld input:focus, .fld select:focus { outline: 2px solid currentColor; outline-offset: 1px; }
+
+  .btn {
+    font: inherit; font-weight: 600; padding: .65rem 1.2rem; border-radius: .4rem;
+    border: 1px solid currentColor; background: transparent; color: inherit; cursor: pointer;
+  }
+  .btn[disabled] { opacity: .45; cursor: default; }
+
+  .msg { margin: 0 0 1rem; padding: .6rem .7rem; border-radius: .4rem; line-height: 1.5;
+    border: 1px solid rgba(127, 127, 127, .45); }
+  .msg.bad { border-color: #c0392b; }
+</style>
+
+<script is:inline>
+  /* ⚠ 이 지면은 Astro 로 «정적»으로 나가고, 상품 목록만 뛰면서 받아 온다.
+       목록을 지면에 구워 넣으면 상품이 늘 때 두 곳을 고쳐야 하고, 한 곳을 빠뜨린다. */
+  (function () {
+    var 폼 = document.getElementById('recoverForm');
+    var 번호칸 = document.getElementById('orderId');
+    var 품칸 = document.getElementById('product');
+    var 셋칸 = document.getElementById('dataset');
+    var 셋줄 = document.getElementById('datasetField');
+    var 알림 = document.getElementById('msg');
+    var 단추 = document.getElementById('go');
+    if (!폼) return;
+
+    var 상품들 = [];
+
+    function 말한다(글, 나쁜가) {
+      알림.textContent = 글;
+      알림.hidden = !글;
+      알림.className = 나쁜가 ? 'msg bad' : 'msg';
+    }
+
+    function 고른품() {
+      for (var i = 0; i < 상품들.length; i += 1) if (상품들[i]['코드'] === 품칸.value) return 상품들[i];
+      return null;
+    }
+
+    /* 데이터셋을 골라야 하는 상품인가에 따라 칸을 보였다 감춘다 */
+    function 다시그린다() {
+      var p = 고른품();
+      셋줄.hidden = !(p && p['고르기']);
+    }
+
+    품칸.addEventListener('change', 다시그린다);
+
+    fetch('/api/pay/config')
+      .then(function (r) { return r.json(); })
+      .then(function (c) {
+        상품들 = c.products || [];
+        품칸.innerHTML = '';
+        var 첫 = document.createElement('option');
+        첫.value = ''; 첫.textContent = 'Choose…';
+        품칸.appendChild(첫);
+        상품들.forEach(function (p) {
+          var o = document.createElement('option');
+          o.value = p['코드']; o.textContent = p['이름'];
+          품칸.appendChild(o);
+        });
+
+        셋칸.innerHTML = '';
+        (c.datasets || []).forEach(function (d) {
+          var o = document.createElement('option');
+          o.value = d['코드']; o.textContent = d['이름'];
+          셋칸.appendChild(o);
+        });
+        다시그린다();
+      })
+      .catch(function () {
+        말한다('We could not load the product list. Email admin@klifedesign.net with your order ID and we will send the file.', true);
+        품칸.innerHTML = '<option value="">unavailable</option>';
+      });
+
+    폼.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var 번호 = (번호칸.value || '').trim();
+      var p = 고른품();
+
+      /* ⛔ 서버가 어차피 다시 보지만, 여기서 먼저 걸러 손님이 빈 화면을 안 보게 한다 */
+      if (!/^[A-Za-z0-9-]{6,64}$/.test(번호)) {
+        말한다('That does not look like a PayPal order ID. It is 6 to 64 letters and digits, on your PayPal receipt.', true);
+        번호칸.focus();
+        return;
+      }
+      if (!p) { 말한다('Choose what you bought.', true); 품칸.focus(); return; }
+      if (p['고르기'] && !셋칸.value) { 말한다('Choose which dataset.', true); 셋칸.focus(); return; }
+
+      var 주소 = '/api/download?order=' + encodeURIComponent(번호) + '&product=' + encodeURIComponent(p['코드']);
+      if (p['고르기'] && 셋칸.value) 주소 += '&dataset=' + encodeURIComponent(셋칸.value);
+
+      말한다('Checking your order with PayPal…', false);
+      단추.disabled = true;
+      window.location.href = 주소;
+
+      /* 내려받기가 시작돼도 이 지면은 그대로 남는다. 단추를 영영 잠그지 않는다 */
+      setTimeout(function () {
+        단추.disabled = false;
+        말한다('If nothing downloaded, the order ID and the product may not match. Check the receipt, or email admin@klifedesign.net.', false);
+      }, 6000);
+    });
+  })();
+</script>
