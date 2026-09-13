@@ -244,6 +244,11 @@ export const 단계들 = [
    *   값 채움률·최신 날짜를 검사로 지킨다. archive-freshness 와 같은 결로
    *   «실제 검사»를 npm test 관문에 둔다(자가시험은 따로 손으로 돌린다). */
   "node scripts/check-f7-data-quality.mjs",
+  /* 🔴 [2026-09-13 · 3번] 5번의 check-daily.mjs(일일 점검표, 사장님 지시) 가 안 물려
+   *   check-tests-wired.mjs 에 걸렸다. 자가시험만 문다 — 실제 검사는 「손으로 볼 것」이
+   *   남아 있어 일부러 exit 1 을 낸다(아직 자동화 전이라는 신호). 그걸 npm test 관문에
+   *   걸면 자동화되기 전까지 늘 빨갛다 — 그건 이 자의 설계 의도가 아니다. */
+  "node scripts/check-daily.mjs --자가시험",
 ];
 
 /** 한 단계가 «검사»인가 — 요약에서 갈라 세려고 본다 */

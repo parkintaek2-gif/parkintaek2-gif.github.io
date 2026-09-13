@@ -1,0 +1,104 @@
+---
+/**
+ * /100y/twenties-jan-aug-employment — 20대 취업자, 올해 1~8월 작년보다 얼마나 줄었나
+ *
+ * 사장님이 U2 경로로 전한 인용문(2026-09-13) — 「13일 국가통계포털(KOSIS)에 따르면
+ * 올해 1∼8월 20대 취업자는 월 평균 327만9천명으로 지난해 같은 기간(347만2천명)보다
+ * 19만3천명 감소했다.」 KOSIS 원자료(101/DT_1DA7024S, 20~29세)로 처음부터 다시
+ * 계산했다 — 세 수(327.9만·347.1만·19.3만) 모두 인용과 사실상 일치했다.
+ *
+ * ⛔ 옆 지면(/youth-employment-streak)과 나이 구간(15~29세 vs 20~29세)·계산법(매달
+ *   YoY 연속개월수 vs 1~8월 누적 평균)이 다르다 — 같은 표로 섞어 인용하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/20s-jan-aug-employment.json';
+
+const 자료 = 원본 as any;
+const 대조 = 자료.보도대조;
+const 최신년 = 자료.최신년 as number;
+
+const 만명 = (천명: number) => `${(Math.round(천명 * 10) / 10 / 10).toFixed(1)}만명`;
+
+const desc =
+  `KOSIS 성/연령별 취업자(20~29세)를 직접 재계산하니, ${최신년}년 1~8월 20대 취업자는 ` +
+  `월평균 ${만명(자료.올해_1_8월_평균_천명)}으로 작년 같은 기간(${만명(자료.작년_1_8월_평균_천명)})보다 ` +
+  `${대조.재계산_감소_만명}만명 줄었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: '20대(20~29세) 취업자, 1~8월 누적 월평균 전년동기대비',
+  description: desc,
+  temporalCoverage: `${최신년 - 1}-01/${최신년}-08`,
+  creator: { '@type': 'Organization', name: '백년지도' },
+  sourceOrganization: { '@type': 'Organization', name: 자료.출처.이름 },
+  variableMeasured: ['20대 취업자 1~8월 누적 월평균', '전년동기대비 증감'],
+};
+
+const 월이름 = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월'];
+---
+
+<HundredYear
+  title={`20대 취업자, 1~8월 누적 ${대조.재계산_감소_만명}만명 줄었습니다 (${최신년}년 기준)`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>20대 취업자,<br />올해 1~8월 작년보다 얼마나 줄었을까요?</h1>
+  <p class="sub">
+    2026년 9월 발표 기사가 「올해 1∼8월 20대 취업자는 월 평균 327만9천명으로 지난해
+    같은 기간(347만2천명)보다 19만3천명 감소했다」고 적었습니다. 인용을 베끼지 않고
+    KOSIS 원자료(성/연령별 취업자, 20~29세)로 <strong>1~8월 여덟 달을 각 해에서 직접
+    평균 내어</strong> 다시 계산했습니다.
+  </p>
+
+  <div class="answer">
+    <p class="answer-label">20대 취업자, 1~8월 누적 월평균 전년동기대비</p>
+    <p class="answer-num">{대조.재계산_감소_만명}만명 감소</p>
+    <p class="answer-sub">
+      {최신년}년 {만명(자료.올해_1_8월_평균_천명)} · {최신년 - 1}년 {만명(자료.작년_1_8월_평균_천명)} · 보도 인용(19만3천명)과 일치
+    </p>
+  </div>
+
+  <h2>여덟 달을 하나씩 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>월</th><th>{최신년}년</th><th>{최신년 - 1}년</th></tr></thead>
+      <tbody>
+        {월이름.map((이름, i) => (
+          <tr>
+            <td>{이름}</td>
+            <td>{만명(자료.올해_1_8월_각월_천명[i])}</td>
+            <td>{만명(자료.작년_1_8월_각월_천명[i])}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    여덟 달 중 {자료.올해_1_8월_각월_천명.filter((v: number, i: number) => v < 자료.작년_1_8월_각월_천명[i]).length}개월이
+    작년 같은 달보다 적었습니다.
+  </p>
+
+  <h2>⚠ 이 자료로 말할 수 없는 것</h2>
+  <ul>
+    <li>감소의 까닭(20대 인구 자체가 줄어서인지, 고용이 나빠져서인지)은 이 표로 가르지 않습니다 — 취업자 «수»만 셌습니다.</li>
+    <li>{자료.덮는범위}</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 1~8월 누적 취업자 수가 전년동기대비
+    어떻게 움직였는지가 저희가 놓을 수 있는 전부입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.표}). {자료.출처.이용허락범위}. 만든날 {자료.만든날}.
+  </p>
+
+  <p class="note">
+    <a href="/youth-employment-streak">← 15~29세 · 청년 취업자, 몇 개월째 줄고 있나 (다른 나이 구간·다른 계산법)</a>
+  </p>
+
+  <HundredAgeWalk 키="twenties-jan-aug-employment" />
+  <NextQuestionBrief 모은것="KOSIS 경제활동인구조사 실측 재계산" />
+</HundredYear>
