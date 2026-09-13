@@ -102,6 +102,10 @@ const DESC = 'Lost the download link? Enter the PayPal order ID from your receip
 
   /* 폼 — 한 줄에 하나씩. 좁은 화면에서 그대로 쌓인다 */
   .fld { display: block; margin: 0 0 1rem; }
+  /* 🔴 [2026-09-14] 이 줄이 없으면 el.hidden = true 가 «안 먹는다».
+     브라우저 기본 규칙의 [hidden]{display:none} 을 위의 .fld{display:block} 이 이기기 때문이다.
+     실제로 상품을 안 골랐는데 「Which dataset」 칸이 떠 있었다 — 렌더해서 눈으로 보고 잡았다. */
+  .fld[hidden] { display: none; }
   .fld > span { display: block; font-size: .85rem; opacity: .75; margin: 0 0 .3rem; }
   .fld input, .fld select {
     width: 100%; box-sizing: border-box; padding: .6rem .7rem; font: inherit;
