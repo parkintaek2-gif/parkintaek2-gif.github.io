@@ -1,0 +1,191 @@
+---
+/**
+ * /100y/ranking-hagwon — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 학원/교육기업 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「학원 순위도 공개해,
+ *   일타강사도 공개해」를 이 지면에서 이행한다. 순위는 한국기업평판연구소(언론 재보도)
+ *   인용, 100yearmap이 새로 매기지 않는다. "순위"라는 낱말을 의도적으로 쓴다 —
+ *   docs/금지말-대장.json에 이 지면을 등록해 둔다.
+ *
+ * ⭐ 톤: 브랜드평판 1위 회사 소속 최상위권 강사 둘이 문항거래로 기소된 실제 사건(2026-01
+ *   보도)을 그대로 붙여, "이 순위가 보여주지 않는 것"을 사실로 보여준다. 개인 수입은
+ *   숫자로 내지 않는다 — 공식 확인된 자료가 없다("못 쟀다"로 남긴다).
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-hagwon-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top10 = 자료.top10 as any[];
+const 이슈 = 자료.일타강사이슈;
+const 지역 = 자료.지역사교육비대조;
+
+const 배수 = Math.round((지역.최고.금액_만원 / 지역.최저.금액_만원) * 100) / 100;
+const 지수있는것 = top10.filter((r) => r.브랜드평판지수 != null);
+
+const desc =
+  `${순위출처.이름}(${순위출처.발표일} 발표) 1위는 ${top10[0].회사}입니다. ` +
+  `그런데 이 회사 소속 최상위권 강사 둘(${이슈.이름들.join('·')})이 문항거래 혐의로 기소돼 ` +
+  `재판을 받고 있습니다(${이슈.보도일} 보도). 100yearmap이 실측한 지역별 사교육비는 ` +
+  `${지역.최고.지역} ${지역.최고.금액_만원}만원으로 ${지역.최저.지역}의 ${배수}배입니다.`;
+
+/** 브랜드평판지수 top5 막대그림 — 새 JS 라이브러리 없이 인라인 SVG */
+const 차트 = (() => {
+  const 항목 = 지수있는것.map((r) => ({ 이름: r.회사, 값: r.브랜드평판지수 }));
+  const 최대 = Math.max(...항목.map((r) => r.값));
+  const 폭 = 520, 막대영역 = 340, 왼쪽라벨 = 100, 줄높이 = 34, 위여백 = 8;
+  const 높 = 위여백 * 2 + 줄높이 * 항목.length;
+  return { 항목, 최대, 폭, 막대영역, 왼쪽라벨, 줄높이, 위여백, 높 };
+})();
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 교육기업 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}을 그대로 인용했습니다. ${순위출처['⚠원자료']} 100yearmap은 개별 기업을 새로 평가하지 않습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '일타강사들은 실제로 얼마나 버나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `공식으로 확인된 개인별 수입 자료는 찾지 못했습니다. ${이슈['⚠확인못한것']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '브랜드평판 순위가 높은 회사에 다니면 더 좋은가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '이 지면은 순위와 실제 사건을 나란히 보여줄 뿐, 어느 회사가 더 낫다고 판정하지 않습니다. 그 판단은 손님의 몫입니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${top10[0].회사}, 교육기업 브랜드평판 1위 — 그런데 소속 최상위권 강사 둘은 지금 재판을 받고 있습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {top10[0].회사}, 교육기업 브랜드평판 1위<br class="pcbr" />
+    그런데 소속 최상위권 강사 둘은 지금 재판을 받고 있습니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} 발표)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    한국기업평판연구소가 {순위출처.분석기간} 브랜드 빅데이터 {순위출처.조사대상}로 분석한
+    {' '}교육서비스 상장기업 브랜드평판에서 <strong>{top10[0].회사}</strong>가 1위,
+    {' '}{top10[1].회사}가 2위, {top10[2].회사}가 3위였습니다.
+  </p>
+
+  <h2>순위표(10곳)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>회사</th><th>브랜드평판지수</th></tr></thead>
+      <tbody>
+        {top10.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.회사}</td>
+            <td>{r.브랜드평판지수 != null ? r.브랜드평판지수.toLocaleString() : '(미공개)'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ 지수가 공개된 곳은 다섯 곳뿐입니다 — 그 아래는 언론 보도에 지수가 없어 회사명 순서만 옮겼습니다.</p>
+
+  <div class="tablewrap">
+    <svg viewBox={`0 0 ${차트.폭} ${차트.높}`} width="100%" style="max-width:520px" role="img"
+         aria-label="교육기업 브랜드평판지수 상위 5곳 막대그림">
+      {차트.항목.map((r, i) => {
+        const y = 차트.위여백 + i * 차트.줄높이;
+        const 막대폭 = (r.값 / 차트.최대) * 차트.막대영역;
+        return (
+          <g>
+            <text x={차트.왼쪽라벨 - 8} y={y + 15} font-size="12" text-anchor="end" fill="#333">{r.이름}</text>
+            <rect x={차트.왼쪽라벨} y={y + 3} width={막대폭} height="16" rx="3" fill="#c9a84c" opacity="0.85" />
+            <text x={차트.왼쪽라벨 + 막대폭 + 6} y={y + 15} font-size="11" fill="#333">{r.값.toLocaleString()}</text>
+          </g>
+        );
+      })}
+    </svg>
+  </div>
+
+  <h2>그런데 {top10[0].순위}위 회사 소속 최상위권 강사 둘은 지금 재판을 받고 있습니다</h2>
+  <p>
+    {이슈.이름들.join('·')} — 문·이과를 통틀어 최다 수강생을 두었다고 알려진 최상위권 강사들이
+    {' '}수능·모의고사 <strong>문항거래 혐의</strong>로 기소됐습니다({이슈.보도일} 보도).
+    {' '}공소장에 따르면 {이슈.혐의}
+  </p>
+  <p class="note">
+    ⚠ {이슈['⚠확인못한것']}
+  </p>
+
+  <h2>브랜드평판은 학부모가 실제로 내는 돈과는 다른 이야기입니다</h2>
+  <p>
+    100yearmap이 {지역.기준연도}년 초중고사교육비조사로 실측한 지역별 학생 1인당 월평균
+    {' '}사교육비는 <strong>{지역.최고.지역} {지역.최고.금액_만원}만원</strong>으로,
+    {' '}<strong>{지역.최저.지역} {지역.최저.금액_만원}만원</strong>의 {배수}배입니다. 브랜드평판
+    {' '}순위는 회사의 화제성을 잴 뿐, 그 회사에 돈을 내는 학부모가 어디 사느냐에 따라
+    {' '}부담이 몇 배씩 다르다는 사실은 보여주지 않습니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 순위와 실제 사건을 나란히
+    {' '}보여줄 뿐, 어느 학원·강사가 더 낫다거나 나쁘다고 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 순위: {순위출처.이름}({순위출처.url}) · 사건: {이슈.출처.map((s: any) => s.매체).join(', ')} ·
+    실측: 국가데이터처 초중고사교육비조사(KOSIS 101/DT_1PE202)
+  </p>
+
+  <p class="note">
+    <a href="/tutoring-region">← 지역에 따라 사교육비는 얼마나 다를까요?</a>
+    <br />
+    <a href="/tutoring">← 학원, 얼마나 다니고 얼마나 안 다닐까요?</a>
+    <br />
+    <a href="/salary-ranking">← 500대 기업 평균급여 순위는 얼마나 다를까요?</a>
+    <br />
+    <a href="/ranking-university">← 대학 순위, 학생들이 행복한 순위일까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-hagwon" />
+
+  <NextQuestionBrief 모은것="한국기업평판연구소 브랜드평판 보도 + 문항거래 기소 보도 + 초중고사교육비조사" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 — docs/세션간-메모.md 참고 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-hagwon"></div>
+</HundredYear>
