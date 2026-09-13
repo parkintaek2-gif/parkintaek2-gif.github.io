@@ -1,0 +1,132 @@
+---
+/**
+ * ProductFloatingBar.astro — 기사 화면 아래에 «떠 있는» 상품 입구.
+ *
+ * 사장님 지시(2026-09-13): 「콘텐트 안에는 우리 상품 소개 페이지의 입구를 눈에 띄게
+ * 만들어 … 플로팅 배너도 괜찮고」.
+ *
+ * ⛔ 이미 있던 본문 끝 `.product-cta` 상자([...id].astro)는 **끝까지 읽어야만 보인다.**
+ *   그래서 없앤 게 아니라 «위에 하나 더 얹는다» — 스크롤 위치와 무관하게 항상 보이는 자리.
+ * ✅ 실제 <a href> 로 서버가 그대로 낸다 — JS 로만 그리지 않는다(GEO/SEO: 크롤러도 본다).
+ * ✅ 닫기는 세션당 한 번만 — sessionStorage. 탭을 새로 열거나 다음 날 오면 다시 보인다
+ *   (영구히 숨기면 「배너가 있다」는 사실 자체가 사라진다).
+ */
+interface Props {
+  href: string;
+  label: string;
+  blurb?: string;
+}
+const { href, label, blurb } = Astro.props;
+---
+
+<div class="pfb" id="pfb" data-key={href}>
+  <a class="pfb-link" href={href}>
+    <span class="pfb-kicker">SeoulMarkets data</span>
+    <span class="pfb-label">{label}</span>
+    {blurb && <span class="pfb-blurb">{blurb}</span>}
+  </a>
+  <button class="pfb-close" id="pfb-close" aria-label="Dismiss">&times;</button>
+</div>
+
+<script>
+  /**
+   * 🔴 실측(2026-09-13, 데스크톱 스크린샷) — 이 배너를 그냥 fixed 로만 두면
+   * 지면 맨 아래의 「투자자문 아님」고지·발행 주체 정보(footer)를 그대로 덮는다.
+   * YMYL 필수 고지를 가려서는 안 된다(CLAUDE.md 「투자자문 아님을 고정 노출」).
+   * ⇒ footer 가 화면에 들어오면 배너를 스스로 숨긴다(IntersectionObserver).
+   */
+  (function () {
+    try {
+      const bar = document.getElementById('pfb');
+      const closeBtn = document.getElementById('pfb-close');
+      if (!bar || !closeBtn) return;
+      const key = 'pfb-dismissed:' + (bar.dataset.key || '');
+      if (sessionStorage.getItem(key)) { bar.hidden = true; return; }
+      closeBtn.addEventListener('click', () => {
+        bar.hidden = true;
+        try { sessionStorage.setItem(key, '1'); } catch {}
+      });
+
+      const dismissed = () => { try { return !!sessionStorage.getItem(key); } catch { return false; } };
+      const footer = document.querySelector('footer');
+      if (footer && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          if (dismissed()) return;
+          bar.hidden = entries[0].isIntersecting;
+        }, { rootMargin: '0px 0px -10px 0px' });
+        io.observe(footer);
+      }
+    } catch {}
+  })();
+</script>
+
+<style>
+  /* ⚠ `.pfb{display:flex}` 아래 있는 것이 UA 기본 [hidden]{display:none} 보다 우선순위가 높다 —
+     그래서 JS 로 hidden 을 켜도 안 사라졌다(2026-09-13 실측). 명시로 되짚는다. */
+  .pfb[hidden] { display: none; }
+  .pfb {
+    position: fixed;
+    left: 0.8rem;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    z-index: 40;
+    max-width: 640px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 0.7rem 0.65rem 0.9rem;
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    background: var(--card, #fff);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+  }
+  .pfb-link {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .pfb-kicker {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .pfb-label {
+    font-family: var(--serif, inherit);
+    font-size: 0.98rem;
+    font-weight: 650;
+    line-height: 1.25;
+  }
+  .pfb-blurb {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.35;
+    /* 좁은 화면에서 두 줄까지만 — 배너가 화면을 다 덮지 않게 */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pfb-close {
+    flex: 0 0 auto;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: none;
+    border-radius: 50%;
+    background: var(--rule, #eee);
+    color: var(--muted);
+    font-size: 1.1rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .pfb-close:hover { background: var(--line, #ddd); }
+
+  @media (max-width: 480px) {
+    .pfb-blurb { display: none; }
+  }
+</style>
