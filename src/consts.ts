@@ -291,7 +291,12 @@ export const ADS = {
    *     여기 두 값을 채우고 배포한다. 자가 그 순간을 알려 주므로 사람이 기억하지 않는다.
    */
   client: 'ca-pub-3547185342873229',
-  slots: { banner: '', inArticle: '' },
+  /**
+   * 🔴 [2026-09-13 · 6번] 승인 확인 후 광고 단위 둘을 만들어 채웠다 —
+   *   banner-responsive(디스플레이, 반응형) · inarticle-responsive(인아티클).
+   *   check-ad-fill.mjs 가 「단위없음」에서 「채워짐」으로 바뀌는지 다시 잰다.
+   */
+  slots: { banner: '2467100360', inArticle: '2718381807' },
 } as const;
 
 export const DISCLAIMER = {
