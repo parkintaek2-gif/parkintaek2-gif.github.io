@@ -1,0 +1,165 @@
+---
+/**
+ * /100y/ranking-apartment-value — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 아파트값 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「국내외 순위를 공개해...
+ *   특히 부자들」 이행. 앞서 「아파트값(자료 없음, 보류)」였으나 국토교통부 공동주택
+ *   공시가격(실명 단지 순위, 정부 발표)을 찾아 해소한다. 순위는 그대로 인용, 100yearmap이
+ *   새로 매기지 않는다. "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: 부자가 되자는 말이 아니다(사장님 지시 7 — 「부자가 되자고 얘기하는 게 아니잖아」).
+ *   가격의 «규모»만 보여주고, 100yearmap이 실측한 청년가구 순자산과 나란히 놓아 그
+ *   규모가 얼마나 큰지를 사실로만 보여준다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-apartment-value-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top10 = 자료.top10 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top10[0];
+
+const 가구환산 = (억원: number) => Math.round((억원 * 100000000) / 실측.청년가구_평균순자산_원);
+const 만콤마 = (n: number) => n.toLocaleString();
+
+const desc =
+  `${순위출처.이름}(${순위출처.발표일} 발표) 전국 1위는 ${일위.단지}(${일위.위치}), 공시가격 ${일위.공시가격_억원}억원입니다. ` +
+  `100yearmap이 실측한 청년가구 평균 순자산(${실측.표시})으로 환산하면 ${만콤마(가구환산(일위.공시가격_억원))}가구분과 같습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 아파트값 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.이름}을 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '공시가격이 실제 거래 가격(시세)인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 공시가격은 정부가 세금 부과를 위해 매기는 평가액으로, 대체로 실제 거래 가격(시세)보다 낮게 잡힙니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 지면은 부자가 되는 법을 알려주나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 가격의 «규모»만 사실대로 보여줄 뿐, 부동산을 사야 한다거나 부자가 되는 방법을 조언하지 않습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${일위.단지} 공시가격 ${일위.공시가격_억원}억원 — 전국 공동주택 중 가장 비쌉니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {일위.단지} 공시가격 {일위.공시가격_억원}억원<br class="pcbr" />
+    전국 공동주택 중 가장 비쌉니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일} 발표)를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    {일위.단지}({일위.위치})의 2026년 공시가격은 <strong>{일위.공시가격_억원}억원</strong>으로,
+    {' '}전년보다 {일위.전년대비} 올랐습니다. 2년 연속 전국 1위입니다.
+  </p>
+
+  <h2>순위표(10곳)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>단지</th><th>위치</th><th>공시가격</th><th>전년대비</th></tr></thead>
+      <tbody>
+        {top10.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.단지}</td>
+            <td>{r.위치}</td>
+            <td><strong>{r.공시가격_억원}억원</strong></td>
+            <td>{r.전년대비 ?? '(자료 없음)'}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {자료.지역쏠림}</p>
+
+  <h2>이 아파트 한 채는 청년가구 몇 곳을 합친 것과 같을까요?</h2>
+  <p>
+    100yearmap이 {실측.기준연도}년 국가데이터처 가계금융복지조사로 실측한 청년가구
+    {' '}평균 순자산은 <strong>{실측.표시}</strong>입니다. {일위.단지} 한 채(공시가격
+    {' '}{일위.공시가격_억원}억원)는 이 청년가구 <strong>{만콤마(가구환산(일위.공시가격_억원))}가구분</strong>
+    {' '}순자산을 합친 것과 같습니다.
+  </p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>단지</th><th>청년가구 환산</th></tr></thead>
+      <tbody>
+        {top10.slice(0, 5).map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.단지}</td>
+            <td>{만콤마(가구환산(r.공시가격_억원))}가구분</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 공시가격의 «규모»만
+    {' '}보여줄 뿐, 부동산을 사야 한다거나 부자가 되는 법을 조언하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 순위: {순위출처.이름}({순위출처.url}) · 실측: 국가데이터처 KOSIS 가계금융복지조사
+    {' '}(같은 자료 — /ranking-stock-wealth)
+  </p>
+
+  <p class="note">
+    <a href="/ranking-stock-wealth">← 한 사람의 주식재산이 청년가구 몇 곳을 합친 것과 같을까요?</a>
+    <br />
+    <a href="/salary-ranking">← 500대 기업 평균급여 순위는 얼마나 다를까요?</a>
+    <br />
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 맨 위입니다</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-apartment-value" />
+
+  <NextQuestionBrief 모은것="국토교통부 공동주택 공시가격 보도 + 가계금융복지조사(KOSIS)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-apartment-value"></div>
+</HundredYear>
