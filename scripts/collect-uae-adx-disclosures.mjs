@@ -273,7 +273,9 @@ async function main() {
   const fromDate = 미국식날짜(시작); const toDate = 미국식날짜(끝);
 
   let 성공 = 0; let 실패 = 0;
+  const 커버리지 = { attempted: 0, withData: 0, empty: 0, emptyReason: {} };
   for (const 종목 of 종목들) {
+    커버리지.attempted += 1;
     try {
       const j = curlJson(`${GATEWAY}/tradings/1.1/news/category?categoryName=cdc&symbol=${종목}&fromDate=${fromDate}&toDate=${toDate}`);
       const rows = j?.response?.results ?? [];
@@ -297,6 +299,10 @@ async function main() {
           period: { fromDate, toDate },
           total: rows.length,
           highWeight: 높은것.length,
+          /* 🔴 [2026-09-14 · 항목1] DFM 수집기와 같은 꼴 — attempted 는 항상 true(curl 이 던지면
+           * catch 로 빠져 파일 자체가 안 남는다 = "못 받았다"). empty 는 rows.length===0 일 때뿐 —
+           * ADX 는 실측(2026-09-14, 5번) 96개사 전부 내용이 있어 거의 없다. */
+          coverage: { attempted: true, withData: rows.length > 0, empty: rows.length === 0, emptyReason: rows.length ? null : 'no-disclosures-in-feed-window' },
           notThis: [
             'Weight is a hand-set heuristic (see header comment) — not a trading signal.',
             'Not investment advice.',
@@ -310,13 +316,21 @@ async function main() {
         for (const h of 높은것.slice(0, 5)) console.log(`       [${h.무게}] ${h.태그} · ${h.date} · ${h.title}`);
       }
       성공 += 1;
+      if (rows.length) 커버리지.withData += 1;
+      else { 커버리지.empty += 1; 커버리지.emptyReason['no-disclosures-in-feed-window'] = (커버리지.emptyReason['no-disclosures-in-feed-window'] ?? 0) + 1; }
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
       실패 += 1;
+      커버리지.empty += 1;
+      커버리지.emptyReason[`fetch-failed: ${e.message}`] = (커버리지.emptyReason[`fetch-failed: ${e.message}`] ?? 0) + 1;
     }
     await 대기(300);
   }
-  console.log(`\n합계 성공 ${성공} · 실패 ${실패} · archive/raw/uae-adx-disclosures/`);
+  await put('raw/uae-adx-disclosures/_coverage.json', JSON.stringify({
+    _meta: { product: 'ADX disclosures collector run coverage — attempted/withData/empty + why', builtAt: new Date().toISOString() },
+    ...커버리지,
+  }, null, 1), 'application/json');
+  console.log(`\n합계 성공 ${성공} · 실패 ${실패} · 커버리지: 시도 ${커버리지.attempted} · 데이터있음 ${커버리지.withData} · 빔 ${커버리지.empty} · archive/raw/uae-adx-disclosures/`);
 }
 
 if (pathToFileURL(process.argv[1]).href === import.meta.url) await main();

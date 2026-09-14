@@ -136,7 +136,12 @@ async function main() {
   if (인자i === -1) console.log(`${종목들.length}개 종목 (DFM 상장 전체)`);
 
   let 성공 = 0; let 실패 = 0; let 합계높은것 = 0;
+  /* 🔴 [2026-09-14 · 항목1] rows.length===0 이 "그 종목엔 공시 자체가 없어서"인지
+   * "efsah 를 못 받아서"인지 구분한다 — 못 받으면 여기서 catch 로 빠져 파일이 아예
+   * 안 남으므로(아래), 파일이 있는데 total:0 이면 «진짜로 없다»는 뜻임을 명시한다. */
+  const 커버리지 = { attempted: 0, withData: 0, empty: 0, emptyReason: {} };
   for (const 종목 of 종목들) {
+    커버리지.attempted += 1;
     try {
       const rows = await 공시가져오기(종목);
       const 후보 = rows.map((r) => {
@@ -146,6 +151,9 @@ async function main() {
       }).filter(Boolean).sort((a, b) => b.무게 - a.무게);
       const 높은것 = 후보.filter((x) => x.무게 >= 6);
       합계높은것 += 높은것.length;
+      const 이유 = rows.length ? null : 'no-disclosures-in-efsah-feed';
+      if (rows.length) 커버리지.withData += 1;
+      else { 커버리지.empty += 1; 커버리지.emptyReason[이유] = (커버리지.emptyReason[이유] ?? 0) + 1; }
 
       await put(`raw/dubai-dfm-breaking/${종목}.json`, JSON.stringify({
         _meta: {
@@ -155,6 +163,7 @@ async function main() {
           source: 'Dubai Financial Market (DFM) Efsah disclosure feed (api2.dfm.ae) — public, no login',
           total: rows.length,
           highWeight: 높은것.length,
+          coverage: { attempted: true, withData: rows.length > 0, empty: rows.length === 0, emptyReason: 이유 },
           notThis: ['Weight is a hand-set heuristic mapped to US SEC Form 8-K — not a trading signal.', 'Not investment advice.'],
         },
         items: 후보,
@@ -165,8 +174,14 @@ async function main() {
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
       실패 += 1;
+      커버리지.empty += 1;
+      커버리지.emptyReason[`fetch-failed: ${e.message}`] = (커버리지.emptyReason[`fetch-failed: ${e.message}`] ?? 0) + 1;
     }
   }
+  await put('raw/dubai-dfm-breaking/_coverage.json', JSON.stringify({
+    _meta: { product: 'DFM disclosures collector run coverage — attempted/withData/empty + why', builtAt: new Date().toISOString() },
+    ...커버리지,
+  }, null, 1), 'application/json');
   console.log(`\n합계 성공 ${성공} · 실패 ${실패} · 무게≥6 합계 ${합계높은것}건 · archive/raw/dubai-dfm-breaking/`);
 }
 

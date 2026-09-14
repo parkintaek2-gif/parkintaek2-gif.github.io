@@ -144,13 +144,22 @@ async function main() {
   }
 
   let 성공 = 0; let 실패 = 0;
+  /*
+   * 🔴 [2026-09-14 · 항목1 — 5번 지침] "없어서 빈 것"과 "못 받아서 빈 것"을 구분한다.
+   * 예전엔 efsah 가 실패하든(네트워크 오류) 진짜로 제출 이력이 없든 똑같이 «빈 배열»
+   * 이었다 — 손님이 구분을 못 했다. 이제 실패 사유를 남기고, 전체 실행 요약을
+   * _coverage.json 에 적는다(강령 ③ "못 잰 것은 못 쟀다고 적는다").
+   */
+  const 커버리지 = { attempted: 0, withData: 0, empty: 0, emptyReason: {} };
   for (const 종목 of 종목들) {
+    커버리지.attempted += 1;
     try {
       const profile = await widget('companyprofile', { symbol: 종목 });
       const 팩트 = 회사팩트골라내기(profile);
       await 대기(150);
 
       let 제출이력 = [];
+      let efsah상태 = 'ok';
       try {
         const r = await fetch(
           `https://api2.dfm.ae/efsah/v1/prototype_efsah?lang=en&h7_datetime_format=MMM+dd%2C+yyyy+HH%3Amm%3Ass&take=40&skip=0&symbol=${encodeURIComponent(종목)}&cms_resources=true`,
@@ -159,12 +168,25 @@ async function main() {
         const 글자 = (await r.text()).replace(/^﻿/, ''); // efsah 가 BOM 을 앞에 붙여 온다
         const j = JSON.parse(글자);
         제출이력 = 재무제출이력골라내기(j.root);
-      } catch { /* efsah 못 받아도 회사 팩트는 살린다 */ }
+      } catch (e) {
+        efsah상태 = `fetch-failed: ${e.message}`; // 진짜 실패 — 「없다」가 아니라 「못 받았다」
+      }
       await 대기(150);
 
       if (!팩트) {
         console.log(`  – ${종목}  회사 팩트 없음(상장폐지·상품군 다를 수 있다)`);
+        커버리지.empty += 1;
+        커버리지.emptyReason['company-profile-not-found'] = (커버리지.emptyReason['company-profile-not-found'] ?? 0) + 1;
         continue;
+      }
+
+      const 이유 = 제출이력.length
+        ? null
+        : (efsah상태 === 'ok' ? 'no-financial-statement-filings-in-feed' : efsah상태);
+      if (제출이력.length) 커버리지.withData += 1;
+      else {
+        커버리지.empty += 1;
+        커버리지.emptyReason[이유] = (커버리지.emptyReason[이유] ?? 0) + 1;
       }
 
       const 결과 = await put(`raw/dubai-dfm-companies/${종목}.json`, JSON.stringify({
@@ -174,6 +196,7 @@ async function main() {
           builtAt: new Date().toISOString(),
           source: 'Dubai Financial Market (DFM) public widget API (api2.dfm.ae) — no login, no key',
           sourceUrl: `https://www.dfm.ae/en/the-exchange/market-information/company/${종목}`,
+          coverage: { attempted: true, withData: 제출이력.length > 0, empty: 제출이력.length === 0, emptyReason: 이유 },
           notThis: [
             'Financial statement figures (assets/equity/revenue) are not yet extracted — only filing dates/PDF links.',
             'Not price/trading data.',
@@ -188,9 +211,15 @@ async function main() {
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
       실패 += 1;
+      커버리지.empty += 1;
+      커버리지.emptyReason[`fetch-failed: ${e.message}`] = (커버리지.emptyReason[`fetch-failed: ${e.message}`] ?? 0) + 1;
     }
   }
-  console.log(`\n합계 성공 ${성공} · 실패 ${실패} · archive/raw/dubai-dfm-companies/`);
+  await put('raw/dubai-dfm-companies/_coverage.json', JSON.stringify({
+    _meta: { product: 'DFM companies collector run coverage — attempted/withData/empty + why', builtAt: new Date().toISOString() },
+    ...커버리지,
+  }, null, 1), 'application/json');
+  console.log(`\n합계 성공 ${성공} · 실패 ${실패} · 커버리지: 시도 ${커버리지.attempted} · 데이터있음 ${커버리지.withData} · 빔 ${커버리지.empty} · archive/raw/dubai-dfm-companies/`);
 }
 
 if (pathToFileURL(process.argv[1]).href === import.meta.url) await main();

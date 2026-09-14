@@ -83,11 +83,16 @@ async function main() {
   if (인자i === -1) console.log(`${종목들.length}개 종목`);
 
   let 성공 = 0; let 대주주있음 = 0; let 실패 = 0;
+  /* 🔴 [2026-09-14 · 항목1] 빈 배열이 "정말 대주주 공시가 없어서"인지 "못 받아서"인지 남긴다. */
+  const 커버리지 = { attempted: 0, withData: 0, empty: 0, emptyReason: {} };
   for (const 종목 of 종목들) {
+    커버리지.attempted += 1;
     try {
       const raw = await widget('GetFreshTopShareholders', { Company: 종목, symbol: 종목 });
       const 대주주 = 대주주골라내기(raw);
-      if (대주주.length) 대주주있음 += 1;
+      const 이유 = 대주주.length ? null : 'no-substantial-shareholders-disclosed';
+      if (대주주.length) { 대주주있음 += 1; 커버리지.withData += 1; }
+      else { 커버리지.empty += 1; 커버리지.emptyReason[이유] = (커버리지.emptyReason[이유] ?? 0) + 1; }
 
       await put(`raw/dubai-dfm-shareholders/${종목}.json`, JSON.stringify({
         _meta: {
@@ -96,6 +101,7 @@ async function main() {
           asOf: raw?.Item1 ?? null,
           builtAt: new Date().toISOString(),
           source: 'Dubai Financial Market (DFM) public widget API (api2.dfm.ae) — no login, no key',
+          coverage: { attempted: true, withData: 대주주.length > 0, empty: 대주주.length === 0, emptyReason: 이유 },
           notThis: ['Board/management roster not found on this exchange yet — see header comment.', 'Not investment advice.'],
         },
         substantialShareholders: 대주주,
@@ -106,9 +112,16 @@ async function main() {
     } catch (e) {
       console.error(`  ✕ ${종목}  ${e.message}`);
       실패 += 1;
+      /* 못 받은 종목은 파일 자체를 안 남긴다(위 catch) — 대신 커버리지 요약에 사유를 남긴다 */
+      커버리지.empty += 1;
+      커버리지.emptyReason[`fetch-failed: ${e.message}`] = (커버리지.emptyReason[`fetch-failed: ${e.message}`] ?? 0) + 1;
     }
   }
-  console.log(`\n합계 성공 ${성공}(대주주 있음 ${대주주있음}) · 실패 ${실패} · archive/raw/dubai-dfm-shareholders/`);
+  await put('raw/dubai-dfm-shareholders/_coverage.json', JSON.stringify({
+    _meta: { product: 'DFM shareholders collector run coverage — attempted/withData/empty + why', builtAt: new Date().toISOString() },
+    ...커버리지,
+  }, null, 1), 'application/json');
+  console.log(`\n합계 성공 ${성공}(대주주 있음 ${대주주있음}) · 실패 ${실패} · 커버리지: 시도 ${커버리지.attempted} · 데이터있음 ${커버리지.withData} · 빔 ${커버리지.empty} · archive/raw/dubai-dfm-shareholders/`);
 }
 
 if (pathToFileURL(process.argv[1]).href === import.meta.url) await main();
