@@ -5,45 +5,134 @@ import { cleanPath } from '../lib/format';
 const path = cleanPath(Astro.url.pathname);
 const isCurrent = (href: string) => (path === href ? 'page' : undefined);
 
-// 🔴 [2026-09-14 · 사장님 지시] 로고를 「SeoulMarkets」→「SMarkets」로 줄였다.
-// 붙여 쓴 이름이라 공백 없이 이어 붙인다 — S + Markets. 강조색은 이제 «첫 글자(S)» 쪽이다.
+/* 🔴 [2026-09-14 · 5번] 사장님: **「smarkets로 바꿨는데 디자인이 맘에 안든다」**
+ *                            **「메뉴 배치한 디자인도 너무 싸구려 같다. 고쳐라」**
+ *
+ * [무엇이 싸구려였나 — 재서 적는다]
+ *   폰 420px 에서 머리가 **196px** 이었다. 첫 화면의 4분의 1을 링크 목록이 먹었다.
+ *   링크 열 개가 «전부 같은 크기·같은 대문자»로 세 줄에 쏟아졌다 — 위계가 없다.
+ *   그러면 파는 지면(Data Products)이 읽을거리 아홉 개 사이에 묻힌다.
+ *   ⚠ CSS 주석은 「폰에서 차림표는 가로로 스크롤되는 통이다」라고 적혀 있었는데
+ *     실제 값은 `flex-wrap: wrap` 이었다 — 적어 둔 뜻과 도는 것이 달랐다.
+ *
+ * [무엇으로 바꾸나 — 머리를 «두 켜»로 가른다]
+ *   윗켜  로고 · 그리고 오른쪽 끝에 «사는 길»(Pricing · API · About)
+ *   아랫켜 섹션 — Data Products 를 굵게 세우고 나머지는 옅게, 한 줄로
+ *   폰    아랫켜가 «가로로 밀리는 한 줄»이다. 줄바꿈을 막는다(주석이 원래 말하던 그것)
+ *
+ * ⛔ 링크를 지우지 않는다 — 크롤러가 타고 다니는 길이다. 자리와 무게만 바꾼다.
+ * ⛔ 대문자 + 자간 벌림을 걷어낸다. 열 개를 다 그렇게 쓰면 흔한 판매 템플릿으로 읽힌다.
+ */
 const [head, ...tail] = SITE.nameParts;
+
+/* 「사는 길」과 「읽는 길」을 가른다 — 손님이 돈을 쓰는 길이 섹션 목록에 묻히면 안 된다 */
+const 사는길 = [
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/api', label: 'API' },
+  { href: '/about', label: 'About' },
+];
 ---
 
 <header class="masthead">
-  <div class="wrap masthead__bar">
+  <div class="wrap masthead__top">
     <a class="logo" href="/" aria-label={SITE.name}><span>{head}</span>{tail.join('')}</a>
-    <nav class="nav" aria-label="Sections">
+    <nav class="util" aria-label="Company">
+      {사는길.map((x) => <a href={x.href} aria-current={isCurrent(x.href)}>{x.label}</a>)}
+    </nav>
+  </div>
+
+  <div class="masthead__sections">
+    <nav class="wrap nav" aria-label="Sections">
       {/* 🔴 [2026-09-12 · 5번] 사장님 지시로 «상품»을 차림표 맨 앞에 세웠다.
           > 「메뉴도 제일 앞에 주식이 아닌 우리 상품 소개가 제일 앞에 있어야 한다.
           >  주력이 뭔지 염두에 둬야지」
-          ⛔ 전에는 Equities 가 맨 앞이었다. 그러면 손님은 이곳을 «증시 소식 읽는 곳»으로 읽는다.
-             우리 주력은 자료이고, 차림표 첫 칸이 그것을 말해야 한다.
-          ⚠ 이름도 Data → «Data Products» 로 바꾼다. 「Data」한 마디는 무료 자료로 읽힌다. */}
+          ⛔ 전에는 Equities 가 맨 앞이었다. 그러면 손님은 이곳을 «증시 소식 읽는 곳»으로 읽는다. */}
       <a class="nav-lead" href="/data" aria-current={isCurrent('/data')}>Data Products</a>
-      {
-        CATEGORIES.map((c) => (
-          <a href={`/${c.slug}`} aria-current={isCurrent(`/${c.slug}`)}>
-            {c.label}
-          </a>
-        ))
-      }
+      {CATEGORIES.map((c) => (
+        <a href={`/${c.slug}`} aria-current={isCurrent(`/${c.slug}`)}>{c.label}</a>
+      ))}
       {/* 영상 갤러리 — 가장 센 방문 축(구글 비디오). 모든 지면 내비에서 걸어 사람·크롤러가 닿게 한다(2026-08-24). */}
       <a href="/video" aria-current={isCurrent('/video')}>Video</a>
-      <a href="/api" aria-current={isCurrent('/api')}>API</a>
-      <a href="/about" aria-current={isCurrent('/about')}>About</a>
     </nav>
   </div>
 </header>
 
 <style>
-  /* 🔴 주력을 차림표에서 «보이게» 한다 — 맨 앞에 두는 것만으로는 옆 칸과 똑같아 보인다.
-     ⚠ 폰(<480px)에서 차림표는 가로로 스크롤되는 통이다. 줄바꿈을 막아 두 줄로 깨지지 않게 한다. */
-  .nav-lead {
-    font-weight: 700;
+  /* ── 윗켜 — 이름과 «사는 길» ─────────────────────────────────────────── */
+  .masthead__top {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.95rem 0.75rem;
+  }
+
+  /* 「사는 길」은 작고 옅게 둔다 — 늘 보이되 섹션보다 앞서 나서지 않는다 */
+  .util {
+    display: flex;
+    gap: 1.05rem;
+    align-items: baseline;
+    flex-shrink: 0;
+  }
+  .util a {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--muted, #6b6b6b);
+    text-decoration: none;
     white-space: nowrap;
-    padding-right: .55rem;
-    margin-right: .15rem;
-    border-right: 1px solid var(--line, #d7d7d7);
+  }
+  .util a:hover { color: var(--accent); }
+  .util a[aria-current='page'] { color: var(--ink); font-weight: 600; }
+
+  /* ── 아랫켜 — 섹션 ───────────────────────────────────────────────────── */
+  .masthead__sections { border-top: 1px solid var(--rule); }
+
+  /* 🔴 한 줄로 둔다. 폰에서는 «가로로 밀린다» — 줄바꿈으로 세 줄이 되던 것을 막는다.
+     스크롤막대는 숨기되 손가락으로는 밀린다(모바일에선 원래 막대가 안 보인다). */
+  .nav {
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding-block: 0.6rem;
+  }
+  .nav::-webkit-scrollbar { display: none; }
+
+  /* ⛔ 대문자·자간 벌림을 걷어냈다 — 열 개를 다 그렇게 쓰면 싸구려 템플릿으로 읽힌다 */
+  .nav a {
+    font-size: 0.86rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-2);
+    text-decoration: none;
+    white-space: nowrap;
+    padding-block: 0.2rem;
+    border-bottom: 2px solid transparent;
+  }
+  .nav a:hover { color: var(--accent); }
+  .nav a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--accent); }
+
+  /* 🔴 주력은 «굵기와 색»으로 세운다 — 맨 앞에 두는 것만으로는 옆 칸과 똑같아 보인다 */
+  .nav-lead {
+    font-weight: 700 !important;
+    color: var(--ink) !important;
+    padding-right: 1.25rem;
+    margin-right: 0;
+    border-right: 1px solid var(--rule);
+  }
+
+  /* 폰 — 이름을 조금 줄이고, 「사는 길」이 이름과 한 줄에 남게 한다 */
+  @media (max-width: 30rem) {
+    .util { gap: 0.8rem; }
+    .util a { font-size: 0.74rem; }
+    .nav { gap: 1.05rem; }
+    /* 가로로 미는 줄이라는 것을 «보이게» 한다 — 오른쪽 끝을 흐린다 */
+    .masthead__sections {
+      -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+      mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+    }
   }
 </style>
