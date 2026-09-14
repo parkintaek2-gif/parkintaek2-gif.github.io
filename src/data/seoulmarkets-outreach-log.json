@@ -16,7 +16,8 @@
     "ok": true,
     "simulated": false,
     "via": "gmail"
-   }
+   },
+   "지역": "뉴욕"
   },
   {
    "기관": "Pzena Investment Management",
@@ -34,7 +35,8 @@
     "ok": true,
     "simulated": false,
     "via": "gmail"
-   }
+   },
+   "지역": "뉴욕"
   },
   {
    "기관": "Wasatch Global Investors",
@@ -52,7 +54,9 @@
     "ok": true,
     "simulated": false,
     "via": "gmail"
-   }
+   },
+   "지역": "뉴욕",
+   "메일": "institutionalinfo@wasatchglobal.com"
   },
   {
    "기관": "J.P. Morgan Securities plc",
@@ -125,14 +129,20 @@
    "메일": "enquiries.apac@aberdeenplc.com",
    "보낸때": "2026. 9. 13. 오후 6:52:54",
    "제목": "Korean filings data in English — SeoulMarkets",
-   "지역": "싱가포르"
+   "지역": "싱가포르",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오전 10:37:19",
+   "보낸상품판": "korea+uae"
   },
   {
    "기관": "STIC Private Equity Fund L.P.",
    "메일": "BusinessDevelopment@sticinvestments.com",
    "보낸때": "2026. 9. 13. 오후 6:52:56",
    "제목": "Korean filings data in English — SeoulMarkets",
-   "지역": "서울"
+   "지역": "서울",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오전 10:37:21",
+   "보낸상품판": "korea+uae"
   }
  ],
  "뺀곳": [
