@@ -130,6 +130,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'tax-vs-wage',
   /* 🔴 2026-09-14 3번 신설 — 국회미래연구원 인구위기와 축소사회 대응 I.총론(3번이 직접 수집) */
   'military-age-men',
+  /* 🔴 2026-09-14 3번 신설 — 국회예산정책처 인구위기와 축소사회 대응 II.노동시장(3번이 직접 수집) */
+  'labor-market-2072',
 ]);
 
 /**
@@ -304,7 +306,7 @@ export const 붙일수있는갈래 = [
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   /* 🔴 2026-09-10 3번 신설 */
   'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross', 'turnover-cross-check', 'onet-riasec',
-  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men',
+  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men', 'labor-market-2072',
   '기타',
 ] as const;
 
