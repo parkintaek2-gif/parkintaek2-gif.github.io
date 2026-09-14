@@ -134,6 +134,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'labor-market-2072',
   /* 🔴 2026-09-14 3번 신설 — 국회예산정책처 인구위기와 축소사회 대응 III.지방행정재정체제(3번이 직접 수집) */
   'population-decline-regions',
+  /* 🔴 2026-09-14 3번 신설 — region-axis.json(8번 8/8~10 수집) 재활용 — A7 지침에 지면 없다던 것 */
+  'region-pay-raw-vs-adjusted',
 ]);
 
 /**
@@ -308,7 +310,7 @@ export const 붙일수있는갈래 = [
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   /* 🔴 2026-09-10 3번 신설 */
   'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross', 'turnover-cross-check', 'onet-riasec',
-  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men', 'labor-market-2072', 'population-decline-regions',
+  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men', 'labor-market-2072', 'population-decline-regions', 'region-pay-raw-vs-adjusted',
   '기타',
 ] as const;
 
