@@ -23,6 +23,19 @@ import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 
 const 뿌리 = path.resolve(import.meta.dirname, '..');
+const 멈춤쪽지 = path.join(뿌리, 'docs/영업/영업메일-멈춤.txt');
+
+/**
+ * 🔴 멈춤쪽지가 있으면 «한 통도» 안 보낸다.
+ * 사장님(2026-09-14): 「메일 보내는 것도 멈춰...다 완료되면 보내라」
+ *                    「사이트 소개(제일 위)..도 다 바꾼 뒤에 메일 보내」
+ * ⛔ 예약을 지우는 것만으로는 못 막는다 — 손으로 쳐도 나가기 때문이다.
+ * ✅ 다시 열 때는 쪽지 파일을 지운다. 코드를 고치지 않는다.
+ */
+export function 멈췄나(쪽지 = 멈춤쪽지) {
+  try { return fs.existsSync(쪽지) ? fs.readFileSync(쪽지, 'utf8').trim() : null; }
+  catch (e) { return null; }
+}
 const 기록파일 = path.join(뿌리, 'src/data/seoulmarkets-outreach-log.json');
 
 /**
@@ -169,6 +182,8 @@ export function 자가시험() {
 
   재다('제 시각에 아직 안 보낸 곳은 마저 보낸다', 다시보내야하나({ 메일: 'a@b.c' }) === true);
   재다('주소가 없으면 안 보낸다', 다시보내야하나({}) === false);
+  재다('🔴 멈춤쪽지가 있으면 사유를 읽어 낸다', 멈췄나(path.join(뿌리, 'package.json')) !== null);
+  재다('멈춤쪽지가 없으면 null 이다', 멈췄나(path.join(뿌리, '없는쪽지-' + Date.now() + '.txt')) === null);
   재다('빈 줄도 견딘다', 다시보내야하나(null) === false);
   재다('받는곳 칸만 있어도 주소로 본다', 주소({ 받는곳: ' A@B.C ' }) === 'a@b.c');
 
@@ -206,6 +221,15 @@ function 본일() {
   console.log(흠.length ? '🔴 자가시험 실패:\n  - ' + 흠.join('\n  - ') : '✅ 자가시험 ' + (잰수 - 흠.length) + '/' + 잰수);
   if (흠.length) process.exit(1);
   if (process.argv.includes('--자가시험')) return;
+
+  const 멈춤사유 = 멈췄나();
+  if (멈춤사유 && !process.argv.includes('--잰다')) {
+    console.log('\n🔴 영업 메일이 «멈춤»이다 — 한 통도 안 보낸다.');
+    console.log('   쪽지: ' + 멈춤쪽지);
+    멈춤사유.split('\n').forEach((줄) => console.log('   │ ' + 줄));
+    console.log('   ✅ 다시 열려면 그 파일을 지운다. 코드를 고치지 않는다.');
+    return;
+  }
 
   const 기록 = JSON.parse(fs.readFileSync(기록파일, 'utf8'));
   기록.보낸것 = Array.isArray(기록.보낸것) ? 기록.보낸것 : [];

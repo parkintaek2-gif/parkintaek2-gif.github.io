@@ -10,9 +10,11 @@ export const SITE = {
   name: 'SeoulMarkets',
   /** 로고에서 뒷부분에 강조색을 주기 위한 분할. name 을 바꾸면 여기도 맞출 것. */
   nameParts: ['Seoul', 'Markets'],
-  tagline: 'Korean markets, explained with data.',
+  /* 🔴 [2026-09-14] 「코리아」에서 「아시아·걸프」 우산으로 넓혔다 — 사장님 지시.
+     ⚠ 사이트 «이름»은 SeoulMarkets 그대로다. 이름이 아니라 «파는 범위»가 넓어진 것이다. */
+  tagline: 'Asian and Gulf markets, explained with data.',
   description:
-    'Data journalism on Korean equities, currencies, bonds, commodities and macroeconomics — sourced from official Korean government open data, published in English.',
+    'Filings data from Asia and the Gulf, in English under one schema — Korea (KRX / DART) and the United Arab Emirates (ADX and DFM) live, with China, Hong Kong, India, Saudi Arabia and Taiwan in build. Equities, currencies, bonds, commodities and macroeconomics, every figure carrying its source and timestamp.',
   locale: 'en-US',
   lang: 'en',
 } as const;

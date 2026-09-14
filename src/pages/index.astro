@@ -38,7 +38,7 @@ const jsonLd = {
 };
 ---
 
-<Base title="Korean stock market data in English — KOSPI, KOSDAQ, exports, economy" description="Korean stock market and economy data in English: KOSPI and KOSDAQ, Samsung's share of the market, Korea's biggest export and import partners, the won, bonds and prices — every figure from official Korean data, with its source and timestamp." jsonLd={jsonLd}>
+<Base title="Asia & Gulf filings data in English — Korea, UAE, and more" description="Filings data from Asia and the Gulf in English under one schema: Korean listed companies (KRX / DART) and the United Arab Emirates (ADX and DFM) live today, with China, Hong Kong, India, Saudi Arabia and Taiwan in build. Financial statements, valuations, indices, analyst consensus and ownership — every figure with its source and timestamp." jsonLd={jsonLd}>
   <div class="wrap">
     <AdSlot slot="banner" />
 
@@ -51,12 +51,20 @@ const jsonLd = {
         ⛔ 기사를 없애지 않는다 — 아래로 내린다. 깔때기 노릇은 그대로다. */}
     <div class="page-head">
       <p class="kicker">{SITE.tagline}</p>
-      <h1>Korean financial data, in English</h1>
+      <h1>Asia &amp; Gulf filings data, in English</h1>
       <p>
-        We are a data company, not a newsroom. Financial statements, valuations, indices,
-        analyst consensus and ownership filings for Korean listed companies — delivered as
-        pages you can read, CSV files you can licence, and an API. Every figure carries its
-        source and the timestamp it was taken from.
+        We are a data company, not a newsroom. The filings behind Asian and Gulf equities are
+        published in Korean, in Arabic, one company at a time, one regulator at a time. We compile
+        them into English panel data under a single schema — financial statements, valuations,
+        indices, analyst consensus and ownership — delivered as pages you can read, CSV files you
+        can licence, and an API. Every figure carries its source and the timestamp it came from.
+      </p>
+      {/* 🔴 [2026-09-14] 이 칸은 /data 지면의 같은 칸과 «글자까지» 맞춰 둔다.
+          두 곳이 다른 나라를 말하면 손님은 둘 다 못 믿는다. 하나를 고치면 다른 하나도 고친다. */}
+      <p class="coverage">
+        <b>Live</b> — Korea (KRX / DART) · United Arab Emirates (ADX and DFM).{' '}
+        <b>In build</b> — China A-shares, Hong Kong, India, Saudi Arabia and Taiwan.{' '}
+        <span>Same schema, same licence, same price. A new market is not a new contract.</span>
       </p>
     </div>
 
@@ -158,6 +166,15 @@ const jsonLd = {
 </Base>
 
 <style>
+  /* 🔴 [2026-09-14] 덮는 시장을 적는 줄 — /data 지면과 «같은 모양»으로 둔다.
+     모양이 다르면 손님은 다른 회사의 지면으로 읽는다. 한쪽을 고치면 다른 쪽도 고친다. */
+  .coverage {
+    margin: .7rem 0 0; padding: .7rem .9rem;
+    border-left: 3px solid var(--accent, #b4884a);
+    background: var(--paper-2, rgba(127,127,127,.07));
+    font-size: .95rem; line-height: 1.6;
+  }
+  .coverage span { color: var(--ink-2, #555); }
   .data-hub {
     display: flex; align-items: baseline; gap: .7rem; flex-wrap: wrap;
     margin: 0 0 1.4rem; padding: .8rem 1rem;
