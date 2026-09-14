@@ -81,10 +81,16 @@ export async function 주문만들기(상품, 데이터셋코드 = null, 부르�
         reference_id: 상품.코드,
         /* ⭐ 무엇을 샀는지 페이팔 쪽에도 남긴다 — 나중에 따질 때 우리 기록이 아니라 «그쪽 기록»이 근거가 된다 */
         custom_id: (상품.코드 + (데이터셋코드 ? ':' + 데이터셋코드 : '')).slice(0, 127),
-        description: ('SeoulMarkets — ' + 상품.이름 + (데이터셋코드 ? ' (' + 데이터셋코드 + ')' : '')).slice(0, 127),
+        /* 🔴 [2026-09-15 · 사장님 「결제창도 그렇게 바꿔」] 지면 로고는 SMarkets 인데
+           결제창·카드 명세서가 SeoulMarkets 이면 손님이 결제 직전에 멈추고, 나중에
+           명세서에 모르는 이름이 찍히면 이의제기로 간다.
+           ⛔ 한쪽을 버리지 않는다 — 브랜드와 «도메인»을 같이 적어 손님이 맞춰 볼 수 있게 한다.
+           ⚠ 값·통화·흐름은 한 글자도 안 건드렸다. 보이는 «이름»만 바꾼다. */
+        description: ('SMarkets — ' + 상품.이름 + (데이터셋코드 ? ' (' + 데이터셋코드 + ')' : '')).slice(0, 127),
         amount: { currency_code: 'USD', value: 상품.usd },
       }],
-      application_context: { brand_name: 'SeoulMarkets', shipping_preference: 'NO_SHIPPING', user_action: 'PAY_NOW' },
+      /* brand_name 은 페이팔 결제창 «맨 위»에 뜨는 파는 이의 이름이다 — 지면 로고와 같아야 한다 */
+      application_context: { brand_name: 'SMarkets (seoulmarkets.com)', shipping_preference: 'NO_SHIPPING', user_action: 'PAY_NOW' },
     }),
   });
   const j = await r.json().catch(() => ({}));

@@ -51,6 +51,5 @@ on file carries nulls, never zeros.
 If this is not the right desk, we would be grateful if you could point us
 to the one that handles data vendors.
 
-SeoulMarkets
-https://seoulmarkets.com
+SMarkets · seoulmarkets.com
 admin@klifedesign.net
