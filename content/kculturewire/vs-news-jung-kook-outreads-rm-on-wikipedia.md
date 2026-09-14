@@ -26,6 +26,13 @@ excluded:
   - "Any explanation for the gap. Solo release schedule, military service status, variety-show appearances and news cycles all move Wikipedia lookups, and we measured none of them here."
   - "A claim that RM is unpopular. A steady ~2,100 English Wikipedia lookups a day is still a large audience on a global measure — the story is the size of the gap to a bandmate, not that either number is small."
   - "Any ranking of the two as people. This counts encyclopedia page visits, not talent, contribution to the group, or any other quality."
+vote:
+  poll: "vs-news-jungkook-vs-rm-2026-09-14"
+  choices:
+    - id: "jungkook"
+      label: "Jung Kook"
+    - id: "rm"
+      label: "RM"
 ---
 
 Fan-vote platforms built around head-to-head idol rankings are having a moment — KDOL's monthly
