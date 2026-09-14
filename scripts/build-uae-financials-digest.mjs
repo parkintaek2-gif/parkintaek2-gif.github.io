@@ -9,10 +9,17 @@
  * cashAndEquivalentsAED). 두 거래소가 칸이 다르면 손님이 한 표로 못 쓴다.
  * exchange 열만 하나 앞에 더 붙인다(uae-adx-board-2026-09-14.csv 와 같은 관례).
  *
- * ⛔ ADX: Total Assets·Total Equity 없음(거래소 AI 요약이 손익 위주 — 대차대조표 항목
- *   자체가 없다). DFM: expenseAED·cashAndEquivalentsAED 없음(회사마다 라벨이 달라
- *   자신 있게 하나로 못 골랐다 — collect-dubai-dfm-financials.mjs 헤더 주석 참고).
- *   둘 다 «못 잰 건 못 쟀다»로 빈 칸으로 둔다 — 있는 척 채우지 않는다.
+ * ⛔ DFM: expenseAED·cashAndEquivalentsAED 없음(회사마다 라벨이 달라 자신 있게 하나로
+ *   못 골랐다 — collect-dubai-dfm-financials.mjs 헤더 주석 참고). 둘 다 «못 잰 건
+ *   못 쟀다»로 빈 칸으로 둔다 — 있는 척 채우지 않는다.
+ *
+ * 🔴 [2026-09-14 21:5x · 5번] ADX 대차대조표(collect-uae-adx-balance-sheet.mjs)가
+ * archive/raw/uae-adx-financials/<종목>.json 의 각 quarter 에 여섯 칸을 덧붙였다 —
+ * totalAssetsAED·totalLiabilitiesAED·totalEquityAED·balanceSheetReconciled·
+ * liabilitiesDerived·unitHint·balanceSheetReason. DFM 은 아직 대차대조표가 없어 이
+ * 여섯 칸은 항상 빈 칸이다. ⛔ liabilitiesDerived=true 인 줄의 totalLiabilitiesAED
+ * 는 «읽은 값»이 아니라 자산−자본으로 뺀 값이다 — 반드시 그 칸과 «같이» 낸다,
+ * 감춰서 읽은 값처럼 보이게 하지 않는다.
  */
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
@@ -34,7 +41,13 @@ function 거래소읽기(dir, 거래소이름) {
     종목수 += 1;
     for (const q of (j.quarters ?? [])) {
       분기수 += 1;
-      행.push([거래소이름, symbol, q.date, q.title, q.period, q.priorPeriod, q.revenue, q.expense, q.netProfit, q.eps, q.cashAndEquivalents, q.engPdfUrl]);
+      행.push([
+        거래소이름, symbol, q.date, q.title, q.period, q.priorPeriod,
+        q.revenue, q.expense, q.netProfit, q.eps, q.cashAndEquivalents,
+        q.totalAssets ?? '', q.totalLiabilities ?? '', q.totalEquity ?? '',
+        q.balanceSheetReconciled ?? '', q.liabilitiesDerived ?? '', q.unitHint ?? '', q.balanceSheetReason ?? '',
+        q.engPdfUrl,
+      ]);
     }
   }
   return { 행, 종목수, 분기수 };
@@ -44,7 +57,13 @@ function main() {
   if (!existsSync(ADX_DIR) && !existsSync(DFM_DIR)) { console.error('⛔ 못 쟀다 — 원본이 없다. 수집기를 먼저 돌린다'); process.exit(1); }
   const adx = 거래소읽기(ADX_DIR, 'ADX');
   const dfm = 거래소읽기(DFM_DIR, 'DFM');
-  const 행 = [['exchange', 'symbol', 'date', 'title', 'period', 'priorPeriod', 'revenueAED', 'expenseAED', 'netProfitAED', 'eps', 'cashAndEquivalentsAED', 'engPdfUrl'], ...adx.행, ...dfm.행];
+  const 행 = [[
+    'exchange', 'symbol', 'date', 'title', 'period', 'priorPeriod',
+    'revenueAED', 'expenseAED', 'netProfitAED', 'eps', 'cashAndEquivalentsAED',
+    'totalAssetsAED', 'totalLiabilitiesAED', 'totalEquityAED',
+    'balanceSheetReconciled', 'liabilitiesDerived', 'unitHint', 'balanceSheetReason',
+    'engPdfUrl',
+  ], ...adx.행, ...dfm.행];
   if (행.length <= 1) { console.error('⛔ 못 쟀다 — 분기 데이터가 하나도 없다'); process.exit(1); }
   const 날짜 = 오늘날짜();
   const 파일 = path.join(OUT_DIR, `uae-financials-digest-${날짜}.csv`);

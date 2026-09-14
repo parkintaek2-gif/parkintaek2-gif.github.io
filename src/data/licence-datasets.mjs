@@ -65,17 +65,23 @@ export const 데이터셋 = {
   },
   /**
    * 🔴 [2026-09-14 · 6번] 항목4(5번 지침) — ADX+DFM 재무제표 수치, 두 거래소 다 찼다.
-   * ADX(96개사·292행)는 거래소 자체 AI가 뽑아 둔 Revenue·Expense·Net Profit·EPS·Cash
-   * 를 그대로 옮겼다. DFM(76개사·106행)은 그런 요약이 없어 PDF 를 직접 열어
-   * (pdftotext -table, collect-dubai-dfm-financials.mjs) Revenue·Net Profit·EPS 를
-   * 읽었다 — 회사마다 표가 달라 Expense·Cash 는 자신 있게 못 골라 뺐다(정직하게 빈 칸).
+   * ADX(운영회사 76곳·292행 — 나머지 20곳은 ETF 라 손익계산서가 없다)는 거래소 자체
+   * AI가 뽑아 둔 Revenue·Expense·Net Profit·EPS·Cash 를 그대로 옮겼다. DFM(49개사·
+   * 106행 — 27개사는 제출본이 스캔 이미지라 못 읽는다)은 그런 요약이 없어 PDF 를
+   * 직접 열어(pdftotext -table, collect-dubai-dfm-financials.mjs) Revenue·Net Profit·
+   * EPS 를 읽었다 — 회사마다 표가 달라 Expense·Cash 는 자신 있게 못 골라 뺐다.
    * 감사받은 원문 수치를 우리가 다시 검산한 것은 아니다.
-   * ⛔ Total Assets·Total Equity 는 둘 다 없다 — 대차대조표 항목은 아직 못 뽑았다.
+   * 🔴 [2026-09-14 21:5x · 5번] ADX 대차대조표(Total Assets·Liabilities·Equity)를
+   * 292건 중 121건(41%)에 붙였다 — 자산=부채+자본 검산이 되는 것만(collect-uae-adx-
+   * balance-sheet.mjs). 나머지는 제출사 스캔본이 OCR 로 깨져 있어 안 낸다.
+   * ⛔ totalLiabilitiesAED 가 liabilitiesDerived=true 인 줄은 «읽은 값»이 아니라
+   * 자산−자본으로 뺀 값이다 — 그 칸을 반드시 같이 낸다, 감추지 않는다.
+   * ⛔ unitHint(AED'000·AED million 등)를 같이 안 내면 숫자만으로는 1,000배 틀린다.
    */
   'uae-financials': {
     코드: 'uae-financials',
-    이름: 'UAE financial highlights (ADX+DFM — Revenue/Net Profit/EPS)',
-    설명: 'Revenue, net profit and EPS for every ADX and DFM quarterly filing — ADX from the exchange’s own AI-extracted summary, DFM parsed directly from the filed PDF (Total Assets/Equity not yet available; not audited figures).',
+    이름: 'UAE financial highlights (ADX+DFM — Revenue/Net Profit/EPS, plus ADX balance sheet)',
+    설명: 'Revenue, net profit and EPS for every ADX and DFM quarterly filing — ADX from the exchange’s own AI-extracted summary (76 operating companies; 20 ADX listings are ETFs with no income statement), DFM parsed directly from the filed PDF (49 of 76 filers; the rest file scanned images we will not guess at). Total assets, liabilities and equity are included for 121 of 292 ADX filings — published only where assets = liabilities + equity reconciles, with unit and derivation flagged per row.',
     파일: ['/data/full/uae-financials-digest-2026-09-14.csv'],
   },
 };

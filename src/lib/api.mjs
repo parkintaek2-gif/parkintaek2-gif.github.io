@@ -99,6 +99,7 @@ import OWNERSHIP_EXECUTIVES_TAPE from '../data/korea-ownership-executives-tape.j
 import FINANCIALS_TAPE from '../data/korea-financials-tape.json' with { type: 'json' };
 import CONSENSUS_TAPE from '../data/korea-consensus-tape.json' with { type: 'json' };
 import INDICES_HISTORY from '../data/korea-indices-history.json' with { type: 'json' };
+import UAE_FINANCIALS_TAPE from '../data/uae-financials-tape.json' with { type: 'json' };
 import { tierOf, rateCheck, LIMITS, ENFORCE_FROM, TIER_NOTE, TIER_CATALOG } from './tiers.mjs';
 import { openapi } from './openapi.mjs';
 import { subscribe } from './subscribe.mjs';
@@ -1116,6 +1117,62 @@ function financials(params, tier = 'free') {
 }
 
 /**
+ * /v1/uae-financials — ADX+DFM 재무 하이라이트(+ADX 대차대조표). 2026-09-14 6번.
+ * ⛔ ADX 는 거래소 자체 AI 요약, DFM 은 직접 읽은 PDF — 감사받은 원문을 우리가 다시
+ *   검산한 것이 아니다. ⛔ liabilities_derived=true 인 줄의 total_liabilities_aed 는
+ *   읽은 값이 아니라 자산−자본으로 뺀 값이다 — 그 칸을 감추지 않고 함께 낸다.
+ */
+function uaeFinancialsCoverage() {
+  const m = UAE_FINANCIALS_TAPE?._meta ?? {};
+  return {
+    source: m.source ?? null,
+    built_at: m.built_at ?? null,
+    rows: m.rows ?? (Array.isArray(UAE_FINANCIALS_TAPE?.rows) ? UAE_FINANCIALS_TAPE.rows.length : 0),
+    adx_companies_with_data: m.adx_companies_with_data ?? null,
+    adx_etf_note: m.adx_etf_note ?? null,
+    dfm_companies_with_data: m.dfm_companies_with_data ?? null,
+    dfm_scanned_note: m.dfm_scanned_note ?? null,
+    balance_sheet_rows: m.balance_sheet_rows ?? null,
+    balance_sheet_note: m.balance_sheet_note ?? null,
+    not_this: m.not_this ?? null,
+  };
+}
+
+function uaeFinancials(params, tier = 'free') {
+  const rows = Array.isArray(UAE_FINANCIALS_TAPE?.rows) ? UAE_FINANCIALS_TAPE.rows : [];
+
+  const symbol = (params.get('symbol') || '').trim().toUpperCase();
+  if (symbol) {
+    const hit = rows.filter((r) => String(r.symbol).toUpperCase() === symbol);
+    if (!hit.length) {
+      return err(404, 'unknown_symbol', `No financial filings on file for: ${symbol}`,
+        'Use the ADX or DFM ticker symbol, e.g. symbol=ALDAR or symbol=EMAAR. Browse /v1/uae-financials without a symbol for the full tape.');
+    }
+    return json(200, { count: hit.length, results: hit, coverage: uaeFinancialsCoverage() });
+  }
+
+  const 최대 = LIMITS[tier]?.maxPageSize ?? LIMITS.free.maxPageSize;
+  const limit = Math.min(Number(params.get('limit')) || 50, 최대);
+  const exchangeQ = (params.get('exchange') || '').trim().toUpperCase();
+  const periodQ = (params.get('period') || '').trim();
+  const balanceSheetOnly = params.get('balance_sheet') === 'true';
+
+  let filtered = rows;
+  if (exchangeQ) filtered = filtered.filter((r) => String(r.exchange ?? '').toUpperCase() === exchangeQ);
+  if (periodQ) filtered = filtered.filter((r) => r.period === periodQ);
+  /* ⛔ 기본값은 «다 낸다» — 대차대조표 없는 줄을 말없이 숨기면 커버리지가 부풀어 보인다 */
+  if (balanceSheetOnly) filtered = filtered.filter((r) => r.balance_sheet_reconciled || r.liabilities_derived);
+
+  const sliced = filtered.slice(0, limit);
+  return json(200, {
+    count: sliced.length,
+    returned_of: filtered.length,
+    results: sliced,
+    coverage: uaeFinancialsCoverage(),
+  });
+}
+
+/**
  * /v1/consensus — 증권사 리포트 목록과 애널리스트 순위. 2026-09-13 5번.
  * 🔴 원 지면이 창을 30일에서 자른다 — 그날 안 받으면 영영 없는 자료다.
  *   그래서 우리가 받아 쌓은 스냅숏이 곧 기록이다. coverage 에 어느 날들인지 적는다.
@@ -1303,6 +1360,8 @@ async function root() {
         'Large-holding reports and executive share filings from DART — who moved a stake in a listed company, and when. ?kind=filings (default) or ?kind=executives, ?ticker= for one company, ?name= to search.',
       'GET /v1/financials':
         'Annual financial statements for listed Korean companies as filed with DART (annual report, reprt_code 11011) — assets, equity, revenue, operating profit and net profit. ?ticker= for one company (6-digit KRX code), ?year= to pick a fiscal year, ?market= to filter, ?measured=true to drop companies with nothing on file. basis says CFS (consolidated) or OFS (separate-only); companies with no statement on file carry nulls, never zeros.',
+      'GET /v1/uae-financials':
+        'Quarterly financial highlights for ADX (Abu Dhabi) and DFM (Dubai) listed companies — revenue, net profit, EPS, and total assets/liabilities/equity where the balance sheet reconciles. ADX figures come from the exchange’s own AI-extracted disclosure summary; DFM figures are parsed directly from the filed PDF by us. ?symbol= for one company, ?exchange=ADX|DFM to filter, ?period= (e.g. "Q2 2026"), ?balance_sheet=true to keep only rows with assets/liabilities/equity. liabilities_derived=true means total_liabilities_aed was computed as assets minus equity, not read from the filing; unit_hint carries the unit as printed (e.g. AED’000) and figures are never rescaled.',
       'GET /v1/consensus':
         'Korean brokerage reports and the analyst ranking, as published. ?kind=reports (default) or ?kind=analysts, ?ticker= for one company, ?house= to filter by brokerage, ?since=YYYY-MM-DD to trim, ?target_changed=true for reports that moved a target price. The source keeps only a rolling 30-day window — our dated snapshots are the record.',
       'GET /v1/indices':
@@ -1871,6 +1930,10 @@ async function 라우팅(pathname, searchParams, tier) {
   if (pathname === '/v1/financials') {
     meter('financials');
     return financials(searchParams, tier);
+  }
+  if (pathname === '/v1/uae-financials') {
+    meter('uae-financials');
+    return uaeFinancials(searchParams, tier);
   }
   if (pathname === '/v1/consensus') {
     meter('consensus');
