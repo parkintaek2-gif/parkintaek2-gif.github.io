@@ -56,14 +56,20 @@
     "via": "gmail"
    },
    "지역": "뉴욕",
-   "메일": "institutionalinfo@wasatchglobal.com"
+   "메일": "institutionalinfo@wasatchglobal.com",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오후 10:37:22",
+   "보낸상품판": "korea+uae"
   },
   {
    "기관": "J.P. Morgan Securities plc",
    "메일": "jpmam.info@jpmorgan.com",
    "보낸때": "2026. 9. 13. 오후 6:52:40",
    "제목": "Korean filings data in English — SeoulMarkets",
-   "지역": "런던"
+   "지역": "런던",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오후 5:37:26",
+   "보낸상품판": "korea+uae"
   },
   {
    "기관": "Miri Capital Management LLC",
@@ -79,7 +85,10 @@
    "메일": "press@nbim.no",
    "보낸때": "2026. 9. 13. 오후 6:52:44",
    "제목": "Korean filings data in English — SeoulMarkets",
-   "지역": "유럽"
+   "지역": "유럽",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오후 5:37:28",
+   "보낸상품판": "korea+uae"
   },
   {
    "기관": "Kopernik Global Investors, LLC",
@@ -95,7 +104,10 @@
    "메일": "contact@silchester.com",
    "보낸때": "2026. 9. 13. 오후 6:52:47",
    "제목": "Korean filings data in English — SeoulMarkets",
-   "지역": "런던"
+   "지역": "런던",
+   "제때보냄": true,
+   "제때보낸때": "2026. 9. 14. 오후 5:37:29",
+   "보낸상품판": "korea+uae"
   },
   {
    "기관": "Kayne Anderson Rudnick Investment Management, LLC",
