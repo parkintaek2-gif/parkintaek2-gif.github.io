@@ -37,6 +37,8 @@
  *
  *   ADX 분류(실측)                              가장 가까운 8-K Item          우리 무게
  *   Financial Reports(실적·보도자료·통합보고서)    Item 2.02 실적/재무상태 결과       9
+ *   🔴 [2026-09-14 추가] CEO·회장 변경/사임/선임    Item 5.02 임원 변경              8
+ *   🔴 [2026-09-14 추가] 지배권 변경(인수 등)      Item 5.01 지배권 변동            8
  *   "Change in ... Shareholding"                Item 5.01 지배권 변동            8
  *   Board Meeting "Results/ Outcome"             Item 1.01/5.02 등(내용에 따라 갈림) 6
  *   AED 거액이 박힌 General Disclosure           Item 2.01/7.01(자산처분·자율공시)  5
@@ -97,6 +99,19 @@ export function 공시무게(항목) {
   const dt = String(항목?.disclosureType ?? '');
 
   if (dt === '1') return { 무게: 9, 태그: 'financial-report' }; // 실적·실적보도자료·통합보고서
+  /*
+   * 🔴 [2026-09-14 지침] ceo-change·control-change — 사람 축은 「서비스」로 내렸지만
+   * (CLAUDE.md 「주력과 서비스」), 「회사 주인·CEO/회장이 바뀌는 경우」는 예외다.
+   * 실측(2026-09-13)으로 이 태그가 없어 이·임원 변경이 board-procedural(무게1)·
+   * pr-marketing(2) 로 흘러 들어갔을 수 있었다 — 한국(collect-dart-breaking.mjs)에는
+   * 이미 있던 것을 여기 채운다.
+   */
+  if (/change of (the )?(chief executive|ceo|chairman|managing director)|resignation of (the )?(ceo|chairman|chief executive officer|managing director)|appointment of (a |the )?(new )?(ceo|chairman|chief executive|managing director)/i.test(title)) {
+    return { 무게: 8, 태그: 'ceo-change' };
+  }
+  if (/acquisition .*(resulting in|leading to) .*change of control|change of control of the company/i.test(title)) {
+    return { 무게: 8, 태그: 'control-change' };
+  }
   if (/change in .*shareholding|substantial shareholding|major shareholding/i.test(title)) {
     return { 무게: 8, 태그: 'ownership-change' };
   }
@@ -132,6 +147,9 @@ function 자가시험() {
 
   재다('공시무게: 실적(disclosureType=1) → 무게 9', 공시무게({ disclosureType: '1', title: 'x', engSubCategoryName: 'Financial Report' }).무게 === 9);
   재다('공시무게: 대주주지분 변동 제목 → 무게 8', 공시무게({ disclosureType: '4', title: 'Market Disclosure – Change in Major Shareholding' }).태그 === 'ownership-change');
+  재다('🔴 공시무게: CEO 사임 → ceo-change 무게8', 공시무게({ disclosureType: '4', title: 'Resignation of the CEO' }).태그 === 'ceo-change');
+  재다('🔴 공시무게: 신임 회장 선임 → ceo-change', 공시무게({ disclosureType: '4', title: 'Appointment of a New Chairman' }).태그 === 'ceo-change');
+  재다('🔴 공시무게: 지배권 변경 인수 → control-change 무게8', 공시무게({ disclosureType: '4', title: 'Acquisition resulting in change of control of the Company' }).태그 === 'control-change');
   재다('공시무게: 이사회 결과(Results/Outcome) → 무게 6', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Results/ Outcome', title: 'x' }).무게 === 6);
   재다('공시무게: 이사회 절차(Agenda) → 무게 1(잡음에 가깝다)', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Announcement/ Agenda', title: 'x' }).무게 === 1);
   재다('공시무게: 총회 초청장(disclosureType=3) → 무게 1', 공시무게({ disclosureType: '3', title: 'AGM Invitation' }).무게 === 1);
@@ -161,9 +179,26 @@ console.log('');
 
 const 대기 = (ms) => new Promise((r) => setTimeout(r, ms));
 
+/** 🔴 [2026-09-14] 표본 7개사 → ADX 상장 «전부»로 넓힌다(collect-uae-adx-people.mjs 와 같은 우물). */
+async function 종목목록받기() {
+  const j = curlJson(`${GATEWAY}/marketwatch-delayed/1.1/scrollingTicker`);
+  const rows = j?.response?.results;
+  if (!Array.isArray(rows) || !rows.length) throw new Error('scrollingTicker 가 빈 배열');
+  return rows.map((r) => r.companySymbol).filter(Boolean);
+}
+
 async function main() {
   const 인자 = process.argv.find((a) => a.startsWith('--종목'));
-  const 종목들 = 인자 ? 인자.split('=')[1].split(',').map((s) => s.trim()).filter(Boolean) : 기본종목;
+  let 종목들;
+  if (인자) {
+    종목들 = 인자.split('=')[1].split(',').map((s) => s.trim()).filter(Boolean);
+  } else if (process.argv.includes('--표본')) {
+    종목들 = 기본종목;
+  } else {
+    console.log('종목 목록을 받는다 — scrollingTicker');
+    종목들 = await 종목목록받기();
+    console.log(`${종목들.length}개 종목 (ADX 메인마켓 전부 — 채권·ETF 섞여 있다)`);
+  }
 
   const 끝 = new Date();
   const 시작 = new Date(끝); 시작.setDate(시작.getDate() - 364);
