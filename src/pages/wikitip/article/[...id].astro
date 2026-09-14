@@ -311,6 +311,15 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
 
     <div class="body"><Content /></div>
 
+    {/* "[VS News]" 자체 투표 — 사장님 지시(2026-09-14). 무쿠키·무IP, votes.mjs 참고 */}
+    {d.vote && (
+      <section class="vs-vote">
+        <h2>Cast your vote</h2>
+        <div data-vote-poll={d.vote.poll} data-vote-choices={JSON.stringify(d.vote.choices)}></div>
+        <script src="/vote-widget.js" defer></script>
+      </section>
+    )}
+
     <section class="notes">
       <h2>Where these numbers come from</h2>
 

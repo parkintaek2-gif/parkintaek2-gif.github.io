@@ -16,6 +16,7 @@ import { fileURLToPath } from 'node:url';
 import { renderAdmin, renderRaw } from './src/lib/admin.mjs';
 import { handleApi } from './src/lib/api.mjs';
 import { 등록 as 댓글등록, 목록 as 댓글목록 } from './src/lib/comments.mjs';
+import { 던지기 as 투표던지기, 집계 as 투표집계 } from './src/lib/votes.mjs';
 import { 경로후보 } from './src/lib/url-path.mjs';
 import { 센다, flush할때되면, 유입표, 현황 as 유입현황 } from './src/lib/traffic.mjs';
 /* 🔴 [2026-09-13 · 5번] 달러 결제 — 사장님: 「페이팔 결제붙여」·「이런 절차 필요없이 바로 결제」 */
@@ -232,8 +233,10 @@ const handle = async (req, res) => {
    *   3자 위젯(Giscus 등)을 안 쓰는 이유는 comments.mjs 머리글 참고 — IP·쿠키 정책 충돌. */
   /* 🔴 [2026-09-09 · 1번] `/v1/keys` — 셀프 발급 API 열쇠(P6). 같은 이유로 POST 허용 목록에 더한다. */
   /* 🔴 [2026-09-13 · 5번] 결제 두 자리도 POST 다 — 여기 안 넣으면 405 로 막혀 «살 수가 없다» */
+  /* 🔴 [2026-09-14 · 1번] 자체 투표(`/api/vote`, VS 뉴스) — comments 와 같은 이유로 POST 를 연다.
+   *   사장님 지시: 「투표할 수 있는 걸 만들어줘야지... 집계도 실시간으로」. */
   const POST허용 = req.method === 'POST' && (parsed.pathname === '/v1/subscribe' || parsed.pathname === '/api/comments' || parsed.pathname === '/v1/keys'
-    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture');
+    || parsed.pathname === '/api/pay/order' || parsed.pathname === '/api/pay/capture' || parsed.pathname === '/api/vote');
   if (req.method !== 'GET' && req.method !== 'HEAD' && !POST허용) {
     res.writeHead(405, { ...BASE_HEADERS, Allow: 'GET, HEAD' }).end('Method Not Allowed');
     return;
@@ -359,7 +362,10 @@ const handle = async (req, res) => {
    *   복사본이 없다. 접두사가 붙으면 그 두 사이트에서 404 다 — 실제로 그랬다
    *   (SeoulMarkets 만 초록, KCW·백년지도는 404). 그러면 「라이브가 최신인가」를
    *   세 지면 중 하나만 잴 수 있다. 자가 셋 중 둘을 못 재면 그 자는 못 쓰는 자다. */
-  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$/;
+  /* 🔴 [2026-09-14 · 1번] `/api/vote`·`/vote-widget.js` 도 같은 사정으로 뺀다 — comments 와
+   *   완전히 같은 이유(세 사이트 공용, 접두사 붙으면 다른 사이트에서 404). VS 뉴스는
+   *   지금 KCW 전용이지만, 댓글처럼 다른 사이트도 나중에 같은 코드로 쓸 수 있게 둔다. */
+  const 공유경로 = /^\/(_astro|_image|_worker|@vite|assets)\/|^\/admin(\/|$)|^\/v1\/subscribe$|^\/api\/comments$|^\/comments-widget\.js$|^\/deploy-stamp\.txt$|^\/api\/vote$|^\/vote-widget\.js$/;
 
   const prefix = SITE_PREFIX[host] ?? '';
   if (prefix && !공유경로.test(pathname) && !pathname.startsWith(prefix)) {
@@ -394,7 +400,7 @@ const handle = async (req, res) => {
      *   이메일 한 줄에 16KB 면 충분하고도 남는다.
      */
     let 본문 = null;
-    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/') || pathname === '/api/comments')) {
+    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/') || pathname === '/api/comments' || pathname === '/api/vote')) {
       본문 = await new Promise((resolve) => {
         const 조각 = [];
         let 크기 = 0;
@@ -443,6 +449,38 @@ const handle = async (req, res) => {
           name: 입력.name,
           body: 입력.body,
           honeypot: 입력.website, // 화면엔 「website」라는 미끼 이름으로 낸다(봇이 흔히 채우는 이름)
+          openedAt: typeof 입력.openedAt === 'number' ? 입력.openedAt : undefined,
+        });
+        res.writeHead(결과.ok ? 200 : (결과.code ?? 400), 헤더);
+        res.end(JSON.stringify(결과));
+        return;
+      }
+    }
+
+    /* ── 자체 투표(/api/vote) — 세 사이트 공용, 로그인·쿠키·IP 없음 ──────────
+     * 사장님 지시(2026-09-14): 「[VS 뉴스] 코너... 투표할 수 있는 걸 만들어줘야지...
+     * 집계도 실시간으로」. comments 와 같은 정책·같은 스팸 방지 방식(votes.mjs 머리글 참고).
+     * ⚠ 이 투표는 여론조사이지 인증투표가 아니다 — IP·쿠키가 없어 한 사람이 여러 번
+     *   누르는 것을 서버가 확정적으로 막지 못한다(votes.mjs 머리글에 그 판단이 적혀 있다). */
+    if (pathname === '/api/vote') {
+      const 헤더 = { ...BASE_HEADERS, 'Content-Type': 'application/json; charset=utf-8', 'X-Robots-Tag': 'noindex' };
+      if (req.method === 'GET') {
+        const poll = parsed.searchParams.get('poll') ?? '';
+        const choicesRaw = parsed.searchParams.get('choices') ?? '';
+        const choices = choicesRaw ? choicesRaw.split(',').filter(Boolean) : undefined;
+        const 집계결과 = await 투표집계(poll, { choices }).catch(() => ({ counts: {}, total: 0, updatedAt: null }));
+        res.writeHead(200, 헤더);
+        res.end(JSON.stringify({ ok: true, tally: 집계결과 }));
+        return;
+      }
+      if (req.method === 'POST') {
+        let 입력 = {};
+        try { 입력 = JSON.parse(본문 ?? '{}'); } catch { 입력 = {}; }
+        const 결과 = await 투표던지기({
+          poll: 입력.poll,
+          choices: Array.isArray(입력.choices) ? 입력.choices : undefined,
+          choice: 입력.choice,
+          honeypot: 입력.website, // 화면엔 「website」라는 미끼 이름으로 낸다(comments 와 같은 미끼)
           openedAt: typeof 입력.openedAt === 'number' ? 입력.openedAt : undefined,
         });
         res.writeHead(결과.ok ? 200 : (결과.code ?? 400), 헤더);

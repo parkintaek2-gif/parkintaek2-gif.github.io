@@ -121,6 +121,16 @@ const kcwArticles = defineCollection({
     pages: z.array(z.string()).default([]),
     author: z.string().default('Newsroom'),
     draft: z.boolean().default(false),
+    /**
+     * "[VS News]" 코너 — 사장님 지시(2026-09-14): 「[VS 뉴스] 코너명으로... 투표할 수
+     * 있는 걸 만들어줘야지... 집계도 실시간으로」. 자체 투표 위젯(vote-widget.js →
+     * /api/vote → src/lib/votes.mjs)을 이 기사에 붙일지·무엇으로 붙일지를 여기서 정한다.
+     * ⛔ 없어도 된다 — 모든 기사가 VS 뉴스는 아니다.
+     */
+    vote: z.object({
+      poll: z.string(),
+      choices: z.array(z.object({ id: z.string(), label: z.string() })).min(2),
+    }).optional(),
   }),
 });
 
