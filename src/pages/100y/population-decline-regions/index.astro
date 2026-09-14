@@ -1,0 +1,158 @@
+---
+/**
+ * /100y/population-decline-regions — 국회예산정책처 「인구위기와 축소사회 대응 III. 지방행정·재정체제」
+ *
+ * 🔴 사장님 지시(2026-09-11): 「국회연구원 삶의 질 자료를 꼭 서비스해라」
+ *   — 원자료(archive/raw/nabo/*III. 인구감소지역*.pdf)는 3번이 nabo.go.kr에서 직접
+ *   다운로드해 pdfjs-dist로 읽었다. labor-market-2072·military-age-men과 같은
+ *   국회 공동연구 시리즈의 다른 편이다.
+ *
+ * ⛔ 89개 지정은 인구증감률 하나만이 아니라 8개 지표를 종합한 것 — 늘어난 지역도 섞여 있다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/nabo-population-decline-regions.json';
+
+const 자료 = 원본 as any;
+const 인구 = 자료.인구증감률_10년;
+const 청년 = 자료.청년인구비중_2024;
+const 노인 = 자료.노인인구비중_2024;
+const 지정 = 자료.지정현황;
+
+const desc =
+  `국회예산정책처 「인구위기와 축소사회 대응 III. 인구감소지역 지방행정·재정체제 개편방안」(2025-12)을 보면, ` +
+  `행정안전부가 지정한 인구감소지역 ${지정.인구감소지역_수}곳의 최근 10년 인구는 ${Math.abs(인구.인구감소지역)}% 줄었습니다. ` +
+  `같은 기간 나머지 지역은 ${인구.비인구감소지역}%로 거의 변동이 없었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `인구감소지역 89곳, 10년 새 인구 ${Math.abs(인구.인구감소지역)}% 줄었습니다 — 나머지 지역은 ${인구.비인구감소지역}%`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
+---
+
+<HundredYear
+  title={`인구감소지역 89곳, 10년 새 인구 ${Math.abs(인구.인구감소지역)}% 줄었습니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    인구감소지역 {지정.인구감소지역_수}곳, 10년 새 인구 {Math.abs(인구.인구감소지역)}%<br class="pcbr" />
+    나머지 지역은 {인구.비인구감소지역}%로 거의 그대로입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 89개 지정은 인구 수 하나만 보고 정한 게 아닙니다.</strong></p>
+    <p class="note">{자료.덮는범위}</p>
+  </div>
+
+  <p class="sub">
+    국회예산정책처(국회연구조정협의회 공동연구)가 낸 「인구위기와 축소사회 대응
+    {' '}III. 인구감소지역 지방행정·재정체제 개편방안」(2025년 12월)입니다. 행정안전부는
+    {' '}2021년 10월 전국 {지정.인구감소지역_수}개 시·군·구를 인구감소지역으로 지정했고,
+    {' '}{지정.지정주기_년}년 단위로 재지정합니다({지정.다음지정예정} 재지정 예정).
+  </p>
+
+  <h2>10년 사이 인구가 벌어졌습니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>구분</th><th>2016~2025.9 인구증감률</th></tr></thead>
+      <tbody>
+        <tr><th>전국 평균</th><td>{인구.전국}%</td></tr>
+        <tr><th>인구감소지역 {지정.인구감소지역_수}곳</th><td>{인구.인구감소지역}%</td></tr>
+        <tr><th>나머지 지역(비인구감소지역)</th><td>{인구.비인구감소지역}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>청년은 떠나고, 노인 비중은 두 배</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>구분</th><th>전국</th><th>인구감소지역</th><th>나머지 지역</th></tr></thead>
+      <tbody>
+        <tr><th>청년인구 비중({청년.정의})</th><td>{청년.전국}%</td><td>{청년.인구감소지역}%</td><td>{청년.비인구감소지역}%</td></tr>
+        <tr><th>노인인구 비중({노인.정의})</th><td>{노인.전국}%</td><td>{노인.인구감소지역}%</td><td>{노인.비인구감소지역}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    2024년 12월 말 기준, 인구감소지역의 노인인구 비중({노인.인구감소지역}%)은 나머지 지역
+    {' '}({노인.비인구감소지역}%)의 약 2배입니다. 지역내총생산(GRDP)도 수도권이 {자료.GRDP_2023.수도권}%,
+    {' '}비수도권이 {자료.GRDP_2023.비수도권}%로 갈립니다(2023년 기준).
+  </p>
+
+  <h2>같은 인구감소지역 안에서도 격차가 큽니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>10년간 인구가 가장 많이 줄어든 지역</th><th>증감률</th></tr></thead>
+      <tbody>
+        {(자료.인구증감률_극단_10년.가장_많이_줄어든_지역 as {지역:string;증감률:number}[]).map((r) => (
+          <tr><td>{r.지역}</td><td>{r.증감률}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>같은 기간 인구가 늘거나 덜 줄어든 지역</th><th>증감률</th></tr></thead>
+      <tbody>
+        {(자료.인구증감률_극단_10년.가장_많이_늘어난_지역 as {지역:string;증감률:number}[]).map((r) => (
+          <tr><td>{r.지역}</td><td>{r.증감률}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    인천 강화군은 지난 5년(2020~2024년) 중·장년층이 다른 지역에서 유입되며 인구감소지역
+    {' '}중 유일하게 인구가 늘었습니다. 반대로 강원 태백시는 10년 새 인구의 4분의 1이 넘게
+    {' '}줄었습니다.
+  </p>
+
+  <h2>노인인구 비중이 가장 높은 지역</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지역</th><th>노인인구 비중(2024년)</th></tr></thead>
+      <tbody>
+        {(자료.노인비중_극단_2024.가장_높은_지역 as {지역:string;비율:number}[]).map((r) => (
+          <tr><td>{r.지역}</td><td>{r.비율}%</td></tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    경북 의성군·대구 군위군은 인구의 거의 절반이 65세 이상입니다. 지방소멸대응기금은
+    {' '}{자료.지방소멸대응기금.기간} 동안 매년 {자료.지방소멸대응기금.연간_투입액_조원}조 원이
+    {' '}투입되고 있습니다.
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 100yearmap은 지방행정체제를 어떻게
+    {' '}개편해야 하는지 판정하지 않습니다. 보고서가 짚은 수치와 문제의식을 그대로 옮길 뿐입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.보고서}({자료.출처.기관}, {자료.출처.지은이}, {자료.출처.발행일}). {자료.출처.출처표시}
+  </p>
+
+  <p class="note">
+    <a href="/labor-market-2072">← 일하는 사람, 2072년엔 지금의 64%</a>
+    <br />
+    <a href="/military-age-men">← 20대 남성 인구, 2025년 323만명 → 2072년 142만명</a>
+    <br />
+    <a href="/oneperson-vulnerability">← 1인가구, 소득은 58%인데 자가보유율은 절반도 안 됩니다</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국회예산정책처 「인구위기와 축소사회 대응 III. 지방행정·재정체제 개편방안」" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/population-decline-regions"></div>
+</HundredYear>
