@@ -1,7 +1,15 @@
-Korean filings data in English — three datasets nobody else compiles
+Asia & Gulf filings data in English — Korea, UAE etc.
 
-You hold Korean equities. The filings behind them are published in Korean,
-on DART, one company at a time. We compile them into English panel data.
+You hold Asian equities. The filings behind them are published in Korean, in
+Arabic, one company at a time, one regulator at a time. We compile them into
+English panel data under a single schema.
+
+Coverage
+  Live      Korea (KRX / DART)  ·  United Arab Emirates (ADX and DFM)
+  In build  China A-shares (Shanghai / Shenzhen) and Hong Kong
+
+  Same schema, same licence, same price.
+  A new market does not mean a new contract.
 
 What we publish
   Ownership and insider filings   Large-holding reports and executive share
@@ -34,8 +42,10 @@ Price, in USD, no account required
 
   https://seoulmarkets.com/data
 
-We are a Korean data company publishing in English. This is filings data,
-not investment advice, and we do not sell signals or recommendations.
+We are a Korea-based data company publishing Asian and Gulf filings in English.
+This is filings data, not investment advice, and we do not sell signals or
+recommendations. What we could not measure, we say so — a company with nothing
+on file carries nulls, never zeros.
 
 If this is not the right desk, we would be grateful if you could point us
 to the one that handles data vendors.

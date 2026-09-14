@@ -233,7 +233,11 @@ function 본일() {
     try {
       execFileSync('node', [path.join(뿌리, 'scripts/send-mail.mjs'),
         '--받는곳=' + x.메일,
-        '--제목=' + (x.제목 || 'Korean filings data in English — SeoulMarkets'),
+        /* 🔴 [2026-09-14] 「Korean」 한 마디가 우리를 «한국 전문업체»로 분류시킨다.
+           아시아 전체를 사는 펀드에게는 그것이 «내 담당이 아니다»로 읽힌다.
+           ⛔ 그렇다고 「Asia」라고만 쓰면 일본·중국이 있다고 읽는다 — 지금은 없다.
+           ✅ 그래서 «우산 + 지금 열린 것»을 함께 적는다. 과장이 아니고 좁지도 않다. */
+        '--제목=' + (x.제목 || 'Asia & Gulf filings data in English — Korea, UAE etc.'),
         '--글=' + path.join(뿌리, 'docs/영업/영업편지-기관투자자-영문.txt'),
         '--보낸다'], { cwd: 뿌리, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 90000 });
       /* 합친 줄이 아니라 «원래 줄»에 적어야 기록이 남는다 */

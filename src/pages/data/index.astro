@@ -34,7 +34,7 @@
  */
 import Base from '../../layouts/Base.astro';
 
-const TITLE = 'Data for licence';
+const TITLE = 'Data for licence — Asia & Gulf filings in English (Korea, UAE etc.)';
 const DESC =
   'Datasets SeoulMarkets builds from Korean public filings and sells, grouped by how you receive '
   + 'them: pages you can read now, files you can download now, licensed files, and a live API.';
@@ -384,6 +384,14 @@ const 묶음 = [
     <article class="dx">
       <p class="kicker">SeoulMarkets · data for licence</p>
       <h1>Data for licence</h1>
+      {/* 🔴 [2026-09-14 · 5번] 「어느 나라를 덮나」를 첫 화면에 적는다.
+          손님이 제일 먼저 묻는 것이 그것인데 지금까지 어디에도 없었다.
+          ⛔ 「Asia」라고만 적지 않는다 — 지금 열린 것을 그대로 적는다. */}
+      <p class="coverage">
+        <b>Live</b> — Korea (KRX / DART) · United Arab Emirates (ADX and DFM).{' '}
+        <b>In build</b> — China A-shares and Hong Kong.{' '}
+        Same schema, same licence, same price across markets.
+      </p>
       <p class="lead">
         We build datasets from public filings — Korea, and now the UAE (ADX+DFM) — and sell what
         the terminals don't carry — the <b>labour fingerprint</b> of listed companies, the broker
@@ -583,6 +591,14 @@ const 묶음 = [
    *     그러면 같은 줄의 값과 단추가 한 선에 온다. */
   .card { border: 1px solid var(--line); border-radius: 10px; padding: 1.1rem 1.2rem; background: var(--card);
           display: flex; flex-direction: column; }
+  /* 🔴 [2026-09-14] 덮는 시장을 첫 화면에 적는 줄 */
+  .coverage {
+    margin: .6rem 0 1.1rem; padding: .7rem .9rem;
+    border-left: 3px solid var(--accent, #b4884a);
+    background: var(--paper-2, rgba(127,127,127,.07));
+    font-size: .95rem; line-height: 1.6;
+  }
+
   /* 배달 종류 이름표 — 카드 하나만 보고 「지금 받을 수 있나」를 안다 (FactSet 실측) */
   .badge { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em;
            color: var(--muted); margin: 0 0 .45rem; }
