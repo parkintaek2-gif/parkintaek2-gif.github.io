@@ -90,32 +90,47 @@ function 규모되나(n) { return n != null && Math.abs(n) >= 100; }
  */
 export function 대차대조표읽기(글) {
   if (!글) return null;
-  const 줄들 = String(글).split('\n');
-  const 뽑기 = (re) => {
+  const 쪽들 = String(글).split('\f');
+  const 뽑기 = (본문, re) => {
     const 후보 = [];
-    for (const 줄 of 줄들) {
+    for (const 줄 of String(본문).split('\n')) {
       if (!re.test(줄)) continue;
       const ns = 줄숫자들(줄);
       if (ns.length && 규모되나(ns[0])) 후보.push(ns[0]);   /* 재무상태표는 «현재 열이 먼저» */
     }
     return 후보;
   };
-  const 자산들 = 뽑기(라벨.자산);
-  const 부채들 = 뽑기(라벨.부채);
-  const 자본들 = 뽑기(라벨.자본);
-  if (!자산들.length || !부채들.length || !자본들.length) return null;
+  const 자산들 = 뽑기(글, 라벨.자산);
+  const 부채들 = 뽑기(글, 라벨.부채);
+  const 자본들 = 뽑기(글, 라벨.자본);
 
-  /* 셋을 맞춰 본다 — 여러 표가 섞여 있어도 «맞는 짝»이 진짜 재무상태표다 */
+  /* ① 가장 좋은 길 — 셋을 다 읽고 맞춰 본다.
+     여러 표가 섞여 있어도 «검산되는 짝»이 진짜 재무상태표다 */
   for (const a of 자산들) {
     for (const l of 부채들) {
       for (const e of 자본들) {
         if (Math.abs(a - (l + e)) / Math.abs(a) < 0.005) {
-          return { totalAssets: a, totalLiabilities: l, totalEquity: e, reconciled: true };
+          return { totalAssets: a, totalLiabilities: l, totalEquity: e, reconciled: true, liabilitiesDerived: false };
         }
       }
     }
   }
-  return null;   /* 검산이 안 되면 안 낸다 */
+
+  /* ② 🔴 [2026-09-14 · 5번] 「Total liabilities」를 한 줄로 안 적는 회사가 있다
+     (유동/비유동으로 나눠 쓰고 합계를 생략한다 — 2POINTZERO·ADAVIATION 실측).
+     그때는 «같은 쪽»에 있는 자산·자본만으로 부채를 뺄셈으로 구한다.
+     ⛔ 쪽을 안 따지면 부문 주석의 자산과 연결 자본을 짝지어 조용히 틀린다.
+     ⛔ 구한 부채는 liabilitiesDerived 로 «표시»한다 — 읽은 값이 아니다. */
+  for (const 쪽 of 쪽들) {
+    if (!/statement of financial position|balance sheet/i.test(쪽)) continue;
+    const a쪽 = 뽑기(쪽, 라벨.자산);
+    const e쪽 = 뽑기(쪽, 라벨.자본);
+    if (!a쪽.length || !e쪽.length) continue;
+    const a = a쪽[0], e = e쪽[0];
+    if (!(e > 0 && e < a)) continue;                     /* 자본이 자산보다 크면 다른 표다 */
+    return { totalAssets: a, totalLiabilities: a - e, totalEquity: e, reconciled: false, liabilitiesDerived: true };
+  }
+  return null;   /* 그래도 안 되면 안 낸다 */
 }
 
 /** PDF 의 단위 표기를 «읽어만» 둔다 — 우리가 곱하지 않는다. */
@@ -170,6 +185,18 @@ export function 자가시험() {
   재다('세 줄 중 하나라도 없으면 null', 대차대조표읽기('Total assets 1,000\nTotal liabilities 400') === null);
   재다('두 자리 수는 규모가 아니라 각주다 → null', 대차대조표읽기('Total assets 12\nTotal liabilities 8\nTotal equity 4') === null);
   재다('빈 글 → null', 대차대조표읽기('') === null);
+
+  /* 🔴 실측(2POINTZERO·ADAVIATION): 「Total liabilities」를 한 줄로 안 적는 회사 */
+  const 부채없음 = '\fCONSOLIDATED STATEMENT OF FINANCIAL POSITION\n'
+    + 'TOTAL ASSETS   133,668,546   43,011,382\nTotal equity    94,644,578   30,425,313';
+  const d = 대차대조표읽기(부채없음);
+  재다('🔴 실측(2POINTZERO): 부채 줄이 없으면 자산−자본으로 구한다', d?.totalLiabilities === 39023968);
+  재다('🔴 그렇게 구한 부채는 derived 로 «표시»한다', d?.liabilitiesDerived === true && d?.reconciled === false);
+  재다('🔴 재무상태표 쪽이 아니면 뺄셈으로 구하지 않는다',
+    대차대조표읽기('Segment note\nTotal assets 1,000,000\nTotal equity 400,000') === null);
+  재다('🔴 자본이 자산보다 크면 다른 표다 — 안 낸다',
+    대차대조표읽기('\fSTATEMENT OF FINANCIAL POSITION\nTotal assets 400,000\nTotal equity 900,000') === null);
+  재다('셋을 다 읽은 쪽이 뺄셈보다 «먼저»다', 대차대조표읽기(adcb)?.liabilitiesDerived === false);
 
   재다('단위힌트: AED’000 을 읽는다', 단위힌트("All amounts in AED’000 unless stated") === "AED'000");
   재다('단위힌트: million 을 읽는다', 단위힌트('Figures in AED million') === 'AED million');
@@ -231,7 +258,8 @@ async function main() {
         q.totalAssets = bs.totalAssets;
         q.totalLiabilities = bs.totalLiabilities;
         q.totalEquity = bs.totalEquity;
-        q.balanceSheetReconciled = true;        /* 자산 = 부채 + 자본 이 맞았다 */
+        q.balanceSheetReconciled = bs.reconciled;      /* 셋을 다 읽어 검산까지 된 것만 true */
+        q.liabilitiesDerived = bs.liabilitiesDerived;  /* true 면 부채는 «자산−자본»으로 구한 값이다 */
         q.unitHint = 단위힌트(글);
         delete q.balanceSheetReason;
         셈.채움 += 1; 이종목채움 += 1;
@@ -245,7 +273,7 @@ async function main() {
       addedBy: 'collect-uae-adx-balance-sheet.mjs (5번, 2026-09-14)',
       quartersWithBalanceSheet: 이종목채움,
       quartersTotal: 분기들.length,
-      rule: 'Total assets, liabilities and equity are published only when assets = liabilities + equity within 0.5%. Figures are in the units printed in the filing (see unitHint); we do not rescale them.',
+      rule: 'Preferred path: all three totals are read from the filing and published only when assets = liabilities + equity within 0.5% (balanceSheetReconciled: true). Fallback: some filers print no single "Total liabilities" line, so liabilities are derived as assets minus equity from the same balance-sheet page (liabilitiesDerived: true, balanceSheetReconciled: false). Figures are in the units printed in the filing (see unitHint); we do not rescale them.',
     };
     await put(`raw/uae-adx-financials/${종목}.json`, JSON.stringify(v, null, 1), 'application/json');
     console.log(`  ${이종목채움 ? '✅' : '–'} ${종목}  분기 ${분기들.length} 중 대차대조표 ${이종목채움}건`);
