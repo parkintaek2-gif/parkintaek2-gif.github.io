@@ -24,3 +24,4 @@
 3번	src/data/100yearmap/ranking-hagwon-2026.json	2026-09-15	학원 순위 자료 (5번 대신 신고)
 3번	src/lib/klifemap.ts	2026-09-15	학원 순위 지면이 부르는 자 (5번 대신 신고)
 3번	src/pages/100y/ranking-hagwon/index.astro	2026-09-15	학원 순위 지면 (5번 대신 신고)
+5번	src/data/seoulmarkets-outreach-log.json	2026-09-15	영업메일 발송 기록(6번 대신 신고 — 5번 확인 바랍니다)
