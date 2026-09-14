@@ -15,6 +15,8 @@ import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import path from 'node:path';
 
 const SRC = path.resolve('archive/raw/uae-adx-people');
+const DFM_SH_SRC = path.resolve('archive/raw/dubai-dfm-shareholders');
+const DFM_CO_SRC = path.resolve('archive/raw/dubai-dfm-companies');
 const OUT_DIR = path.resolve('src/data/full');
 
 function csv셀(v) {
@@ -32,8 +34,8 @@ function main() {
     ? (() => { const d = new Date(); return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`; })()
     : '0000-00-00';
 
-  const 이사행 = [['ticker', 'company_name_en', 'name_english', 'name_arabic', 'title', 'category', 'rank_order']];
-  const 주주행 = [['ticker', 'company_name_en', 'shareholder_name', 'shareholder_id', 'percentage']];
+  const 이사행 = [['exchange', 'ticker', 'company_name_en', 'name_english', 'name_arabic', 'title', 'category', 'rank_order']];
+  const 주주행 = [['exchange', 'ticker', 'company_name_en', 'shareholder_name', 'shareholder_id', 'percentage']];
   let 종목수 = 0; let 이사수 = 0; let 주주수 = 0;
 
   for (const f of 파일들) {
@@ -44,12 +46,28 @@ function main() {
     for (const b of (j.board ?? [])) {
       /* ⛔ 산 사람은 영어권이다 — 구분(이사회/경영진)을 한글로 그대로 팔지 않는다 */
       const category = b.구분 === '이사회' ? 'Board' : b.구분 === '경영진' ? 'Management' : 'Unclassified';
-      이사행.push([ticker, 회사명, b.nameEnglish ?? '', b.nameArabic ?? '', b.title ?? '', category, b.order ?? '']);
+      이사행.push(['ADX', ticker, 회사명, b.nameEnglish ?? '', b.nameArabic ?? '', b.title ?? '', category, b.order ?? '']);
       이사수 += 1;
     }
     for (const s of (j.substantialShareholders ?? [])) {
-      주주행.push([ticker, 회사명, s.name ?? '', s.id ?? '', s.percentage ?? '']);
+      주주행.push(['ADX', ticker, 회사명, s.name ?? '', s.id ?? '', s.percentage ?? '']);
       주주수 += 1;
+    }
+  }
+
+  /* 🔴 [2026-09-14] 「UAE 시장이 두 곳이면 두 곳 다 해야지」 — DFM(두바이) 대주주를 더한다.
+     ⛔ DFM 은 이사회 명단을 못 찾아(collect-dubai-dfm-shareholders.mjs 헤더 참고) 대주주만 있다. */
+  if (existsSync(DFM_SH_SRC)) {
+    for (const f of readdirSync(DFM_SH_SRC).filter((f) => f.endsWith('.json'))) {
+      const j = JSON.parse(readFileSync(path.join(DFM_SH_SRC, f), 'utf8'));
+      const ticker = j._meta?.symbol ?? f.replace(/\.json$/, '');
+      let 회사명 = '';
+      const 회사파일 = path.join(DFM_CO_SRC, f);
+      if (existsSync(회사파일)) 회사명 = JSON.parse(readFileSync(회사파일, 'utf8')).company?.fullName ?? '';
+      for (const s of (j.substantialShareholders ?? [])) {
+        주주행.push(['DFM', ticker, 회사명, s.name ?? '', '', s.percentage ?? '']);
+        주주수 += 1;
+      }
     }
   }
 

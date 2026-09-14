@@ -37,20 +37,31 @@ export const 데이터셋 = {
     ],
   },
   /**
-   * 🔴 [2026-09-13 · 6번] UAE 확장 1호 판매 상품. 사장님 지시: 「상품 목록 만들고, 가격은
-   * 한국 금융시장 대상 상품과 같게 해」 — 값은 여기서 새로 정하지 않는다. 이 코드가
-   * `상품`(licence-products.mjs)의 single/all 표에 자동으로 얹힌다(같은 값, 같은 결제 화면).
-   * 출처: ADX(아부다비 증권거래소) 공개 회사데이터 API(collect-uae-adx-people.mjs) —
-   * 이사회·경영진 명단 + 5% 이상 대주주 지분율. 시세·재무제표가 아니라 «사람» 축이다.
+   * 🔴 [2026-09-13 · 6번] UAE 확장 1호. 값은 한국 상품과 같다(licence-products.mjs).
+   * 🔴 [2026-09-14 정정] CLAUDE.md 「주력과 서비스」 — 이건 «곁들이»다. 주력은 아래
+   * uae-disclosures 다. ADX(아부다비)만 있던 것을 DFM(두바이) 대주주까지 넓혔다
+   * (두바이는 이사회 명단을 아직 못 찾았다 — collect-dubai-dfm-shareholders.mjs 참고).
    */
   uae: {
     코드: 'uae',
-    이름: 'UAE (ADX) board & ownership panel',
-    설명: 'Every ADX-listed company — board and management rosters, plus substantial (5%+) shareholders.',
+    이름: 'UAE (ADX+DFM) board & ownership panel',
+    설명: 'Board/management rosters (ADX) and substantial (5%+) shareholders (ADX+DFM) — the service tier, not the main product.',
     파일: [
-      '/data/full/uae-adx-board-2026-09-13.csv',
-      '/data/full/uae-adx-shareholders-2026-09-13.csv',
+      '/data/full/uae-adx-board-2026-09-14.csv',
+      '/data/full/uae-adx-shareholders-2026-09-14.csv',
     ],
+  },
+  /**
+   * 🔴 [2026-09-14 · 6번] UAE 주력 상품 — 재무·공시(CLAUDE.md 「주력과 서비스」).
+   * ADX(96개사)+DFM(131개사) 공시를 미국 SEC Form 8-K 기준으로 무게 매겨 상위만 골랐다
+   * (collect-uae-adx-disclosures.mjs · collect-dubai-dfm-disclosures.mjs →
+   *  build-uae-disclosures-digest.mjs). 한국의 목표주가·공시 감지 상품과 같은 자리다.
+   */
+  'uae-disclosures': {
+    코드: 'uae-disclosures',
+    이름: 'UAE material disclosures (ADX+DFM)',
+    설명: 'Every ADX and DFM company disclosure ranked by likely price impact — earnings, ownership change, delisting risk and more, scored against US SEC Form 8-K categories.',
+    파일: ['/data/full/uae-disclosures-digest-2026-09-14.csv'],
   },
 };
 
