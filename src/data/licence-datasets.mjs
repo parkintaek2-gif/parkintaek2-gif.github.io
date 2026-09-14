@@ -64,17 +64,19 @@ export const 데이터셋 = {
     파일: ['/data/full/uae-disclosures-digest-2026-09-14.csv'],
   },
   /**
-   * 🔴 [2026-09-14 · 6번] 항목4(5번 지침) 대응 — ADX 재무제표 수치, 첫 판.
-   * PDF 는 표 구조가 불규칙해 직접 파싱을 못 했지만(collect-uae-adx-financials.mjs
-   * 헤더 주석 참고), ADX 가 공시마다 자체 AI로 이미 뽑아 둔 Revenue·Expense·Net Profit·
-   * EPS·Cash 를 그대로 옮겼다 — 감사받은 원문 수치를 우리가 직접 읽은 것은 아니다.
-   * ⛔ Total Assets·Total Equity 는 없다 — 대차대조표 항목은 아직 못 뽑았다(솔직히 표기).
+   * 🔴 [2026-09-14 · 6번] 항목4(5번 지침) — ADX+DFM 재무제표 수치, 두 거래소 다 찼다.
+   * ADX(96개사·292행)는 거래소 자체 AI가 뽑아 둔 Revenue·Expense·Net Profit·EPS·Cash
+   * 를 그대로 옮겼다. DFM(76개사·106행)은 그런 요약이 없어 PDF 를 직접 열어
+   * (pdftotext -table, collect-dubai-dfm-financials.mjs) Revenue·Net Profit·EPS 를
+   * 읽었다 — 회사마다 표가 달라 Expense·Cash 는 자신 있게 못 골라 뺐다(정직하게 빈 칸).
+   * 감사받은 원문 수치를 우리가 다시 검산한 것은 아니다.
+   * ⛔ Total Assets·Total Equity 는 둘 다 없다 — 대차대조표 항목은 아직 못 뽑았다.
    */
   'uae-financials': {
     코드: 'uae-financials',
-    이름: 'ADX financial highlights (Revenue/Net Profit/EPS)',
-    설명: 'Revenue, expense, net profit, EPS and cash for every ADX quarterly filing — sourced from the exchange’s own AI-extracted summary (Total Assets/Equity not yet available; not audited figures).',
-    파일: ['/data/full/uae-adx-financials-digest-2026-09-14.csv'],
+    이름: 'UAE financial highlights (ADX+DFM — Revenue/Net Profit/EPS)',
+    설명: 'Revenue, net profit and EPS for every ADX and DFM quarterly filing — ADX from the exchange’s own AI-extracted summary, DFM parsed directly from the filed PDF (Total Assets/Equity not yet available; not audited figures).',
+    파일: ['/data/full/uae-financials-digest-2026-09-14.csv'],
   },
 };
 
