@@ -1,0 +1,118 @@
+---
+/**
+ * /100y/public-transfers-by-age — 정부는 나이마다 어디에 돈을 쓰나
+ *
+ * 재료: 국가데이터처 KOSIS 「국민이전계정」(101/DT_1NTA2005)을 3번이 2026-09-15
+ * KOSIS Open API로 직접 받았다. lifecycle-deficit(시장 소득·소비)의 짝 지면 —
+ * 여기는 «정부를 거친» 이전만 다룬다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/public-transfers-by-age.json';
+
+const 자료 = 원본 as any;
+const 정점 = 자료.네갈래_정점;
+const 만원 = (천원: number) => Math.round(천원 / 10);
+
+const desc =
+  `국가데이터처 「국민이전계정」(2023년)을 보면, 1인당 공공 교육 지원은 ${정점.교육.나이}에, ` +
+  `공공 의료 지원은 ${정점.보건.나이}에, 공공연금 수급은 ${정점.연금.나이}에 가장 큽니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.이름,
+  description: desc,
+  temporalCoverage: '2023',
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear
+  title="정부는 나이마다 어디에 돈을 쓸까요?"
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>정부는 나이마다<br class="pcbr" /> 어디에 돈을 쓸까요?</h1>
+
+  <div class="card warn">
+    <p class="note">
+      ⚠ 이 값은 그 나이 <strong>1인당 평균</strong>입니다. 음수(순부담)라고 그 나이가
+      {' '}혜택을 못 받는다는 뜻이 아니라, <strong>내는 몫이 받는 몫보다 크다</strong>는
+      {' '}뜻입니다.
+    </p>
+  </div>
+
+  <p class="sub">
+    국가데이터처 KOSIS 「국민이전계정」(2023년)은 교육·보건(의료)·연금·사회보호,
+    {' '}네 갈래로 정부(공공부문)를 거쳐 나이마다 얼마가 오가는지 잽니다.
+    {' '}<a href="/lifecycle-deficit">생애주기적자</a> 지면이 시장 소득·소비를 봤다면,
+    {' '}여기는 <strong>정부가 어디에 쓰는지</strong>를 봅니다.
+  </p>
+
+  <h2>네 갈래가 정점을 찍는 나이가 다릅니다</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>갈래</th><th>정점 나이</th><th>1인당 순수혜(연)</th><th>뜻</th></tr></thead>
+      <tbody>
+        <tr><td>교육</td><td>{정점.교육.나이}</td><td>{만원(정점.교육.천원)}만원</td><td>{정점.교육.뜻}</td></tr>
+        <tr><td>보건(의료)</td><td>{정점.보건.나이}</td><td>{만원(정점.보건.천원)}만원</td><td>{정점.보건.뜻}</td></tr>
+        <tr><td>연금</td><td>{정점.연금.나이}</td><td>{만원(정점.연금.천원)}만원</td><td>{정점.연금.뜻}</td></tr>
+        <tr><td>사회보호</td><td>{정점.사회보호.나이}</td><td>{만원(정점.사회보호.천원)}만원</td><td>{정점.사회보호.뜻}</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    연금은 {자료.연금_순수혜전환.이전}세까지 순부담이다가 {자료.연금_순수혜전환.이후}세부터
+    {' '}순수혜로 바뀝니다. 교육은 취학 전(0~5세)엔 미미하다가 6세부터 크게 뛰어오릅니다.
+  </p>
+
+  <h2>나이별로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이</th><th>교육</th><th>보건</th><th>연금</th><th>사회보호</th></tr></thead>
+      <tbody>
+        {
+          (자료.나이별 as any[]).map((r) => (
+            <tr>
+              <td>{r.나이}</td>
+              <td>{만원(r.교육_천원)}만원</td>
+              <td>{만원(r.보건_천원)}만원</td>
+              <td>{만원(r.연금_천원)}만원</td>
+              <td>{만원(r.사회보호_천원)}만원</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    음수는 그 나이가 받는 몫보다 세금 등으로 내는 몫이 크다는 뜻입니다. 30~50대는
+    {' '}네 갈래 전부 음수입니다 — 아이들의 교육과 노년의 의료·연금을 함께 뒷받침하는
+    {' '}자리입니다.
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 100yearmap은 재정을 어떻게
+    {' '}배분해야 하는지 판정하지 않습니다. 지금 어떻게 나뉘어 있는지만 보여드립니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준연도}년 기준, {자료.출처.표}). {자료.출처.다음발표}.
+  </p>
+
+  <p class="note">
+    <a href="/lifecycle-deficit">← 몇 살에 가장 많이 쓰고, 몇 살에 가장 많이 벌까요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 「국민이전계정」 — 공공이전" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/public-transfers-by-age"></div>
+</HundredYear>
