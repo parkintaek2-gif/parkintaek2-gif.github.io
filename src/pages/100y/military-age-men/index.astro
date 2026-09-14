@@ -1,0 +1,102 @@
+---
+/**
+ * /100y/military-age-men — 국회미래연구원 「인구위기와 축소사회 대응 I. 총론」
+ *
+ * 🔴 사장님 지시(2026-09-11): 「국회연구원 삶의 질 자료를 꼭 서비스해라」
+ *   — 원자료(archive/raw/nafi/*I. 총론*.pdf)는 3번이 pdfjs-dist로 직접 읽었다(요약 7~9쪽).
+ *
+ * ⛔ 지키는 것 — 2072년 등 미래 수치는 통계청 장래인구추계(전망)이지 확정이 아니다.
+ *   징병제를 유지 못 한다는 것은 보고서의 문제제기이지 100yearmap의 판정이 아니다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/nafi-military-age-men.json';
+
+const 자료 = 원본 as any;
+const 핵심 = 자료.핵심수치;
+const 남성 = 핵심['20대남성'];
+const 출산율 = 핵심.합계출산율;
+const 부양비 = 핵심.노년부양비;
+
+const desc =
+  `국회미래연구원 「인구위기와 축소사회 대응 I. 총론」(2025-12)을 보면, 20대 남성 인구는 ` +
+  `2025년 ${남성['2025']}에서 2072년 ${남성['2072']}로 줄어들 전망입니다. 같은 보고서는 ` +
+  `노년부양비도 ${부양비['2024']}명에서 ${부양비['2072']}명으로 늘어난다고 짚었습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: `20대 남성 ${남성['2025']}에서 ${남성['2072']}로 — 국회미래연구원이 짚은 인구위기`,
+  description: desc,
+  inLanguage: 'ko',
+  isAccessibleForFree: true,
+};
+---
+
+<HundredYear
+  title={`20대 남성 ${남성['2025']} → ${남성['2072']} — ${남성.말}`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    20대 남성 {남성['2025']} → {남성['2072']}<br class="pcbr" />
+    {남성.말}
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 2072년 수치는 예측입니다.</strong></p>
+    <p class="note">{자료.덮는범위}</p>
+  </div>
+
+  <p class="sub">
+    국회미래연구원(국회연구조정협의회 공동연구)이 통계청 장래인구추계 등을 묶어 낸
+    {' '}「인구위기와 축소사회 대응 I. 총론」(2025년 12월)입니다. 보고서는 20대 남성
+    {' '}인구가 2025년 {남성['2025']}에서 2072년 {남성['2072']}로 줄어들면, {남성.말}고
+    {' '}짚었습니다.
+  </p>
+
+  <h2>같은 보고서가 함께 짚은 수치</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지표</th><th>과거·현재</th><th>미래(전망)</th></tr></thead>
+      <tbody>
+        <tr><td>합계출산율</td><td>1970년 {출산율['1970']}명</td><td>2024년 {출산율['2024']}명</td></tr>
+        <tr><td>노년부양비({부양비.정의})</td><td>2024년 {부양비['2024']}명</td><td>2072년 {부양비['2072']}명</td></tr>
+        <tr><td>1인가구 중 50대 이상 비중</td><td>2023년 {핵심['1인가구_50대이상비율']['2023']}%</td><td>2072년 {핵심['1인가구_50대이상비율']['2072']}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    합계출산율은 2018년 {출산율['2018']}명, 2023년 {출산율['2023']}명으로 세계 최저 수준을
+    {' '}기록했습니다. 농림어업 종사자 중 고령자 비중은 {핵심.농림어업_고령종사자비율}%에
+    {' '}이릅니다.
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 100yearmap은 징병제를 어떻게 바꿔야
+    {' '}하는지 판정하지 않습니다. 보고서가 짚은 수치와 문제의식을 그대로 옮길 뿐입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.보고서}({자료.출처.기관}, {자료.출처.지은이}, {자료.출처.발행일}). {자료.출처.출처표시}
+  </p>
+
+  <p class="note">
+    <a href="/oneperson-vulnerability">← 1인가구, 소득은 58%인데 자가보유율은 절반도 안 됩니다</a>
+    <br />
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 맨 위입니다</a>
+    <br />
+    <a href="/fertility-rate">← 합계출산율은 어떻게 변해 왔나요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국회미래연구원 「인구위기와 축소사회 대응 I. 총론」" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/military-age-men"></div>
+</HundredYear>
