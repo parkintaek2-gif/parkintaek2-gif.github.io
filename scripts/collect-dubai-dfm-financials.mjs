@@ -341,9 +341,16 @@ async function main() {
 
     커버리지.attempted += 1;
     const 분기들 = [];
-    for (const 제출 of 제출이력.slice(0, 4)) { // 최근 4건만(사업연도 하나치) — 전부 열면 너무 느리다
+    let 글자최대 = 0;              // 뽑힌 글자 수의 최대 — 「스캔 이미지인가」를 가르는 잣대
+    /* 🔴 [2026-09-14 · 5번] 최근 4건만 보다가 «읽히는 제출본»을 다섯 곳에서 놓쳤다.
+       4건에서 하나도 못 읽었으면 나머지까지 이어서 연다. 읽힌 곳은 4건에서 멈추므로
+       느려지지 않는다 — 느려지는 것은 어차피 빈 곳뿐이다. */
+    const 볼제출 = 제출이력.slice(0, 4);
+    const 남은제출 = 제출이력.slice(4);
+    for (const 제출 of 볼제출) { // 최근 4건 먼저(사업연도 하나치)
       try {
         const 텍스트 = await PDF다운로드후텍스트(제출.pdfPath);
+        글자최대 = Math.max(글자최대, 텍스트.replace(/\s/g, '').length);
         const 표 = 재무표파싱(텍스트);
         if (!표) continue;
         const 연도 = (제출.headline.match(/\b(20\d{2})\b/) ?? [])[1] ?? (제출.date ?? '').match(/\b(20\d{2})\b/)?.[1] ?? null;
@@ -367,13 +374,55 @@ async function main() {
       }
     }
 
+    /* 🔴 4건에서 하나도 못 읽었으면 «나머지 제출본»까지 이어서 연다 */
+    if (!분기들.length && 남은제출.length) {
+      console.log(`  … ${종목}  최근 4건에서 못 읽음 → 남은 ${남은제출.length}건을 이어서 연다`);
+      for (const 제출 of 남은제출) {
+        try {
+          const 텍스트 = await PDF다운로드후텍스트(제출.pdfPath);
+          글자최대 = Math.max(글자최대, 텍스트.replace(/\s/g, '').length);
+          const 표 = 재무표파싱(텍스트);
+          if (!표) continue;
+          const 연도2 = (제출.headline.match(/\b(20\d{2})\b/) ?? [])[1] ?? (제출.date ?? '').match(/\b(20\d{2})\b/)?.[1] ?? null;
+          분기들.push({
+            date: 제출.date,
+            title: 제출.headline,
+            engPdfUrl: FEEDS_BASE + encodeURI(제출.pdfPath).replace(/%2F/g, '/'),
+            period: 제출.period && 연도2 ? `${제출.period} ${연도2}` : (제출.headline ?? null),
+            priorPeriod: null,
+            revenue: 표.revenue,
+            revenuePrior: 표.revenuePrior,
+            expense: null,
+            netProfit: 표.netProfit,
+            eps: 표.eps,
+            cashAndEquivalents: null,
+            quarterOrderKnown: 표.quarterOrderKnown,
+          });
+        } catch (e) {
+          console.log(`  ⚠ ${종목} · ${제출.headline} — PDF 못 읽음(${e.message.slice(0, 60)})`);
+        }
+      }
+    }
+
     const 결과 = await put(`raw/dubai-dfm-financials/${종목}.json`, JSON.stringify({
       _meta: {
         product: 'DFM financial highlights — Revenue/Net Profit/EPS parsed directly from the filed PDF (pdftotext -table) — not audited by us, Expense/Cash intentionally omitted (see header comment)',
         symbol: 종목,
         builtAt: new Date().toISOString(),
         source: 'DFM Efsah disclosure feed PDF (feeds.dfm.ae/documents<path>) — public, no login',
-        coverage: { attempted: true, withData: 분기들.length > 0, empty: 분기들.length === 0, emptyReason: 분기들.length ? null : 'pdf-parse-found-no-recognized-line-items' },
+        coverage: {
+          attempted: true,
+          withData: 분기들.length > 0,
+          empty: 분기들.length === 0,
+          filingsOpened: 제출이력.length,
+          maxCharsExtracted: 글자최대,
+          /* 🔴 [2026-09-14 · 5번] 「왜 비었나」를 갈라 적는다 — 다음 사람이 «무슨 연장이
+             필요한지» 알아야 한다. scanned-image 면 OCR, text-but-no-table 이면 라벨 보강이다. */
+          emptyReason: 분기들.length ? null
+            : (글자최대 < 200 ? 'all-filings-are-scanned-images(needs-OCR)'
+              : (글자최대 < 4000 ? 'text-too-short(cover-letter-not-statements)'
+                : 'pdf-parse-found-no-recognized-line-items')),
+        },
         notThis: [
           'Expense and Cash and Cash Equivalents are NOT included — line-item labels vary too much company to company to pick one confidently (see header comment).',
           'Column order (quarterly vs cumulative) is detected per filing from the PDF header text — when it cannot be determined, that quarter is left out rather than guessed.',
@@ -385,7 +434,14 @@ async function main() {
     }, null, 1), 'application/json');
 
     if (분기들.length) { 성공 += 1; 커버리지.withData += 1; console.log(`  ✅ ${종목}  재무제출 ${제출이력.length}건 중 표 읽음 ${분기들.length}건 → ${결과.local}`); }
-    else { 실패 += 1; 커버리지.empty += 1; 커버리지.emptyReason['pdf-parse-found-no-recognized-line-items'] = (커버리지.emptyReason['pdf-parse-found-no-recognized-line-items'] ?? 0) + 1; console.log(`  – ${종목}  재무제출 ${제출이력.length}건 있으나 표를 하나도 못 읽음`); }
+    else {
+      실패 += 1; 커버리지.empty += 1;
+      const 사유 = 글자최대 < 200 ? 'all-filings-are-scanned-images(needs-OCR)'
+        : (글자최대 < 4000 ? 'text-too-short(cover-letter-not-statements)'
+          : 'pdf-parse-found-no-recognized-line-items');
+      커버리지.emptyReason[사유] = (커버리지.emptyReason[사유] ?? 0) + 1;
+      console.log(`  – ${종목}  재무제출 ${제출이력.length}건 다 열었으나 표 없음 (뽑힌 글자 최대 ${글자최대}자 · ${사유})`);
+    }
   }
   await put('raw/dubai-dfm-financials/_coverage.json', JSON.stringify({
     _meta: { product: 'DFM financials collector run coverage — attempted/withData/empty + why', builtAt: new Date().toISOString() },
