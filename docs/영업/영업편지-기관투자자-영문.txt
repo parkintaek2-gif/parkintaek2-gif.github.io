@@ -6,7 +6,8 @@ English panel data under a single schema.
 
 Coverage
   Live      Korea (KRX / DART)  ·  United Arab Emirates (ADX and DFM)
-  In build  China A-shares (Shanghai / Shenzhen) and Hong Kong
+  In build  China A-shares (Shanghai / Shenzhen) and Hong Kong  ·  India (NSE)
+            Saudi Arabia (Tadawul)  ·  Taiwan (TWSE)
 
   Same schema, same licence, same price.
   A new market does not mean a new contract.

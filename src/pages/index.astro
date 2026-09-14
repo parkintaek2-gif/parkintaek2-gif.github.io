@@ -40,8 +40,6 @@ const jsonLd = {
 
 <Base title="Asia & Gulf filings data in English — Korea, UAE, and more" description="Filings data from Asia and the Gulf in English under one schema: Korean listed companies (KRX / DART) and the United Arab Emirates (ADX and DFM) live today, with China, Hong Kong, India, Saudi Arabia and Taiwan in build. Financial statements, valuations, indices, analyst consensus and ownership — every figure with its source and timestamp." jsonLd={jsonLd}>
   <div class="wrap">
-    <AdSlot slot="banner" />
-
     {/* 🔴 [2026-09-12 · 5번] 사장님 지시로 첫 화면을 «상품 소개»로 다시 짰다.
         > 「메인을 상품소개 위주로 재구성해라. 우리는 콘텐트 생산이 아닌 영어판 FnGuide임을
         >  유저들이 바로 알 수 있게 해라. 아직 개발이 끝나지 않았더라도 바로 조치하도록」
@@ -67,6 +65,11 @@ const jsonLd = {
         <span>Same schema, same licence, same price. A new market is not a new contract.</span>
       </p>
     </div>
+
+    {/* 🔴 [2026-09-14] 광고를 «소개 아래»로 내렸다. 위에 두었더니 휴대폰 400px 에서
+        385px 을 먹고 h1 을 y=709 로 밀어, 첫 화면이 통째로 흰 여백이었다(실측).
+        ⛔ 광고를 지우지 않는다 — 자리만 바꾼다. */}
+    <AdSlot slot="banner" />
 
     <section class="products" aria-labelledby="products-h">
       <h2 id="products-h">What we sell</h2>

@@ -202,6 +202,13 @@ main {
   min-height: 0;
 }
 
+/* 🔴 [2026-09-14] 광고가 «안 채워졌을 때» 그 자리를 접는다.
+   구글이 unfilled 를 이 표시로 알려 주고, 접는 것을 권한다.
+   안 접으면 빈 상자가 휴대폰 한 화면을 통째로 먹는다(400px 에서 385px 실측). */
+ins.adsbygoogle[data-ad-status='unfilled'] {
+  display: none !important;
+}
+
 /* ── page furniture ─────────────────────────────────────────────────── */
 .page-head {
   padding-block: 2.25rem 1.25rem;
