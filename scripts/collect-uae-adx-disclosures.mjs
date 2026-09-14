@@ -117,10 +117,21 @@ export function 공시무게(항목) {
    * ⚠ 넓힌 만큼 오탐도 는다(예: 감사인 사임도 「resignation」에 걸릴 수 있다) — 감지 단계라
    * 받아들인다(투자AI 신호로는 안 쓴다).
    */
-  if (/\bresignations?\b|board of directors appoints|appoint(s|ment|ing)?\s+(of\s+)?(a\s+|the\s+)?(new\s+)?(chairman|chief executive|\bceo\b|managing director|director\b)|(list|names?) of (candidates|nominees)\b|nomination(s)?\s+(for|to|closed|period)|opening of (the )?nomination|board of directors.*election|reconstitution of the executive committee|elections?\s*\(board members\)|change of (the )?(chief executive|ceo|chairman|managing director)/i.test(title)) {
+  if (/\bresignations?\b|board of directors appoints|appoint(s|ment|ing)?\s+(of\s+)?(a\s+|the\s+)?(new\s+)?(chairman|chief executive|\bceo\b|managing director|director\b)|(list|names?) of (candidates|nominees)\b|nomination(s)?\s+(for|to|closed|period)|opening of (the )?nomination|board of directors.*election|reconstitution of the executive committee|elections?\s*\(board members\)|change of (the )?(chief executive|ceo|chairman|managing director)|appoints?\s+[\w.\s'-]{0,60}\bas\s+(ceo|chairman|chief executive|managing director)\b|\bceo\s+appointment\b|nomination of (an?\s+)?(independent\s+)?board member|appointment of (an?\s+)?independent member|key leadership appointments?\b|appointment of .{0,40}\bto\b.{0,15}\bboard of directors\b/i.test(title)) {
     return { 무게: 8, 태그: 'ceo-change' };
   }
-  if (/acquisition of (a\s+)?majority stake|completes? (the\s+)?acquisition|increases? (its\s+)?ownership.*to\s*100|majority shareholder in|change of control of the company/i.test(title)) {
+  /*
+   * 🔴 [2026-09-14 3차 · 5번 항목3 대응] "acquisition of a majority stake"(명사형)만
+   * 잡았더니 실제로 더 흔한 동사형("Acquires Majority Stake in…"·"to Acquire Majority
+   * Stake in…"·"signs agreement to acquire a majority stake") 수십 건이 pr-marketing
+   * 잡음(무게2)에 그대로 묻혀 있었다(IHC·Multiply Group·Emirates Driving 등 실측).
+   * ⛔ 단순 지분 매각/소수지분 인수("Sells 9.77% Stake"·"acquisition of a stake in")는
+   * 지배권 변경이 아니므로 여전히 제외 — "majority" 가 있어야 잡는다.
+   * 🔴 [2026-09-14 4차] "completes majority acquisition"·"completes the full acquisition"처럼
+   * completes 와 acquisition 사이에 낱말이 낀 경우, "100% stake"·"majority acquisition of",
+   * 그리고 실제 상장사간 대형 합병("merger of"·"combination of … and …")도 지배권 변경이다.
+   */
+  if (/acqui(?:re|res|ring|sition)[^.]{0,40}majority stake|majority stak(?:e|eholder)s? in|majority acquisition of|completes?[^.]{0,25}acquisition|full acquisition of|acquire\s+100%|100%\s*stake|increases? (its\s+)?ownership.*to\s*100|change of control of the company|merger of|combination of .+ and /i.test(title)) {
     return { 무게: 8, 태그: 'control-change' };
   }
   if (/change in .*shareholding|substantial shareholding|major shareholding/i.test(title)) {
@@ -181,6 +192,32 @@ function 자가시험() {
   재다('실측: "Appointment of a Director" → ceo-change', 공시무게({ disclosureType: '4', title: 'Appointment of a Director' }).태그 === 'ceo-change');
   재다('⛔ 오탐 방지: 「Board of Directors Report for the Period Ended…」(정기보고)은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'DANA GAS PJSC Board of Directors Report for the Period Ended June 30,2026' }).태그 !== 'ceo-change');
   재다('⛔ 오탐 방지: 「Results of Board of Directors’ Resolution by Circulation」(정기결의)은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'ESHRAQ INVESTMENTS P.J.S.C Results of Board of Directors’ Resolution by Circulation on 01/04/2026' }).태그 !== 'ceo-change');
+
+  /* 🔴 [2026-09-14 3차] 지배권변경 — 동사형("Acquires/to Acquire Majority Stake") 실측 보강 */
+  재다('실측: "Multiply Group … signs agreement to acquire a majority stake in ISEM" → control-change', 공시무게({ disclosureType: '4', title: 'Multiply Group PJSC signs agreement to acquire a majority stake in ISEM Packaging Group' }).태그 === 'control-change');
+  재다('실측: "IHC Acquires Majority Stake in First Women Bank Limited" → control-change', 공시무게({ disclosureType: '4', title: 'IHC Acquires Majority Stake in First Women Bank Limited, Strengthening UAE–Pakistan Economic Partnership' }).태그 === 'control-change');
+  재다('실측: "Emirates Driving Announces Intent to Acquire a Majority Stake in Performise Labs" → control-change', 공시무게({ disclosureType: '4', title: 'Emirates Driving Announces Intent to Acquire a Majority Stake in Performise Labs' }).태그 === 'control-change');
+  재다('실측: "L’imad Holding … acquires shares of majority stakeholders in Modon Holding" → control-change', 공시무게({ disclosureType: '4', title: 'L’imad Holding Company, acquires shares of majority stakeholders in Modon Holding' }).태그 === 'control-change');
+  재다('⛔ 오탐 방지: 소수지분 매각("Sells 9.77% Stake")은 control-change 가 아니다', 공시무게({ disclosureType: '4', title: 'AD Ports Group Sells 9.77% Stake in NMDC for AED 1.6 Billion' }).태그 !== 'control-change');
+  재다('⛔ 오탐 방지: "acquisition of a stake in"(과반 언급 없음)은 control-change 가 아니다', 공시무게({ disclosureType: '4', title: 'Notification on acquisition of a stake in Whoop, Inc.' }).태그 !== 'control-change');
+
+  /* 🔴 [2026-09-14 4차] 순서 바뀐 CEO 선임·이사회 멤버 임명·대형 합병 실측 보강 */
+  재다('실측: "Board-Approved CEO Appointment"(순서 반대) → ceo-change', 공시무게({ disclosureType: '4', title: 'Burjeel Holdings Announces Board-Approved CEO Appointment' }).태그 === 'ceo-change');
+  재다('실측: "Appoints … as CEO" → ceo-change', 공시무게({ disclosureType: '4', title: 'Ooredoo Announces Formation of New International Connectivity Infrastructure Entity and Appoints Khalid Hassan Al-Hamadi as CEO' }).태그 === 'ceo-change');
+  재다('실측: "Appointment of [사람] to Board of Directors" → ceo-change', 공시무게({ disclosureType: '4', title: 'Space42 Announces Appointment of Bashar Alrosan to Board of Directors' }).태그 === 'ceo-change');
+  재다('실측: "nomination of an independent board member" → ceo-change', 공시무게({ disclosureType: '4', title: 'The Central Bank of the UAE has no objection to the nomination of an independent board member.' }).태그 === 'ceo-change');
+  재다('실측: "Appointment of Independent Member"(이사회결의) → ceo-change', 공시무게({ disclosureType: '4', title: 'Board Resolution by Circulation – Appointment of Independent Member' }).태그 === 'ceo-change');
+  재다('실측: "Key Leadership Appointments" → ceo-change', 공시무게({ disclosureType: '4', title: '2PointZero Group Announces Key Leadership Appointments to Lead Its Next Phase of Strategic Growth' }).태그 === 'ceo-change');
+  재다('⛔ 오탐 방지: 유동성공급자 선임("Appoints QMM as Liquidity Provider")은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'Abu Dhabi National Company for Building Materials PJSC Appoints QMM as Liquidity Provider on ADX' }).태그 !== 'ceo-change');
+  재다('⛔ 오탐 방지: "Appointment of … as Liquidity Provider"도 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'Appointment of BHM Capital Financial Services as Liquidity Provider for ANAN' }).태그 !== 'ceo-change');
+  재다('⛔ 오탐 방지: "Appoints … as Liquidity Provider"(as 뒤가 CEO/Chairman 아님)도 제외', 공시무게({ disclosureType: '4', title: 'Investcorp S.A. Appoints Al Ramz Capital LLC as Liquidity Provider for Investcorp Capital plc Shares' }).태그 !== 'ceo-change');
+
+  재다('실측: "completes majority acquisition in ISEM"(사이 낱말 낌) → control-change', 공시무게({ disclosureType: '4', title: '2PointZero Group completes majority acquisition in Italy-based ISEM Packaging Group' }).태그 === 'control-change');
+  재다('실측: "completes the full acquisition of"(사이 낱말 낌) → control-change', 공시무게({ disclosureType: '4', title: 'PTCL Group completes the full acquisition of Telenor Pakistan' }).태그 === 'control-change');
+  재다('실측: "acquire 100% stake of"→ control-change', 공시무게({ disclosureType: '4', title: 'O2 Slovakia signs an agreement to acquire 100% stake of UPC Slovakia from Liberty Global' }).태그 === 'control-change');
+  재다('실측: "Majority Acquisition of"(명사구 반대순서) → control-change', 공시무게({ disclosureType: '4', title: 'IHC Strengthens Digital Services Portfolio with Majority Acquisition of Peko Holdings' }).태그 === 'control-change');
+  재다('실측: "combination of Borouge … and Borealis …"(합병) → control-change', 공시무게({ disclosureType: '4', title: 'Statement on completion of the combination of Borouge PLC (Borouge) and Borealis GmbH (Borealis)' }).태그 === 'control-change');
+  재다('실측: "Merger of 2PointZero, Multiply Group, and Ghitha Holding" → control-change', 공시무게({ disclosureType: '4', title: 'IHC Plans Strategic AED 120 Billion Merger of 2PointZero, Multiply Group, and Ghitha Holding to Create a Next Generation Listed Investment Powerhouse' }).태그 === 'control-change');
   재다('공시무게: 이사회 결과(Results/Outcome) → 무게 6', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Results/ Outcome', title: 'x' }).무게 === 6);
   재다('공시무게: 이사회 절차(Agenda) → 무게 1(잡음에 가깝다)', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Announcement/ Agenda', title: 'x' }).무게 === 1);
   재다('공시무게: 총회 초청장(disclosureType=3) → 무게 1', 공시무게({ disclosureType: '3', title: 'AGM Invitation' }).무게 === 1);

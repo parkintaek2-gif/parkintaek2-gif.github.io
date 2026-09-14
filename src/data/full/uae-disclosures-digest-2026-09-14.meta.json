@@ -1,15 +1,15 @@
 {
  "minWeight": 6,
- "builtAt": "2026-09-14T03:28:22.219Z",
+ "builtAt": "2026-09-14T03:40:59.335Z",
  "adx": {
   "total": 4373,
-  "included": 1439,
-  "excluded": 2934
+  "included": 1457,
+  "excluded": 2916
  },
  "dfm": {
   "total": 937,
   "included": 298,
   "excluded": 639
  },
- "totalIncluded": 1737
+ "totalIncluded": 1755
 }

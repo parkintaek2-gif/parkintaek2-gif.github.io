@@ -10,10 +10,13 @@ ADX,2POINTZERO,2025-10-28 00:00:00.0,9,financial-report,"Multiply Group PJSC Fin
 ADX,2POINTZERO,2026-08-31 00:00:00.0,8,control-change,Disclosure regarding ePointZero’s acquisition of a majority stake in Azura Power Holding Limited.
 ADX,2POINTZERO,2026-07-14 00:00:00.0,8,control-change,"2PointZero’s ePointZero Enters U.S. Market, Completes Acquisition of Traverse Midstream Partners for USD 2.25 Billion"
 ADX,2POINTZERO,2026-03-05 00:00:00.0,8,control-change,Notification on acquisition of a majority stake in ISEM Packaging Group.
+ADX,2POINTZERO,2026-03-05 00:00:00.0,8,control-change,2PointZero Group completes majority acquisition in Italy-based ISEM Packaging Group 
+ADX,2POINTZERO,2025-12-23 00:00:00.0,8,ceo-change,2PointZero Group Announces Key Leadership Appointments to Lead Its Next Phase of Strategic Growth
 ADX,2POINTZERO,2025-12-16 00:00:00.0,8,control-change,Two Point Zero Group’s E Point Zero Limited Increases Ownership in Maseera to 100%
 ADX,2POINTZERO,2025-12-15 00:00:00.0,8,ceo-change,List of Candidates for the Board of Two Point Zero Group PJSC
 ADX,2POINTZERO,2025-11-21 00:00:00.0,8,ceo-change,TWO POINT ZERO GROUP - P.J.S.C Elections (Board Members)
 ADX,2POINTZERO,2025-11-17 00:00:00.0,8,control-change,Multiply Group PJSC completes the acquisition all of Two Point Zero Holding shares and IHC’s shares in Ghitha Holding
+ADX,2POINTZERO,2025-10-08 00:00:00.0,8,control-change,Multiply Group PJSC signs agreement to acquire a majority stake in ISEM Packaging Group
 ADX,2POINTZERO,2026-08-27 00:00:00.0,6,board-outcome,TWO POINT ZERO GROUP - P.J.S.C Board Meeting Results held on 27/08/2026 at 16:00 
 ADX,2POINTZERO,2026-07-30 00:00:00.0,6,board-outcome,TWO POINT ZERO GROUP - P.J.S.C Board Meeting Results held on 30/07/2026 at 16:00 
 ADX,2POINTZERO,2026-05-04 00:00:00.0,6,board-outcome,TWO POINT ZERO GROUP - P.J.S.C Board Meeting Results held on 01/05/2026 at 15:30 
@@ -191,7 +194,6 @@ ADX,ADNOCDRILL,2025-10-28 00:00:00.0,9,financial-report,"ADNOC Drilling Company 
 ADX,ADNOCDRILL,2025-10-28 00:00:00.0,9,financial-report,"ADNOC Drilling Company PJSC Financial Results for the Period Ended September 30,2025"
 ADX,ADNOCDRILL,2025-10-28 00:00:00.0,9,financial-report,"ADNOC Drilling Company PJSC Financial Results Press Release for the Period Ended September 30,2025"
 ADX,ADNOCDRILL,2026-02-24 00:00:00.0,8,ceo-change,Reconstitution of The Executive Committee of the Board of Directors of ADNOC Drilling Company PJSC
-ADX,ADNOCDRILL,2025-12-11 00:00:00.0,8,control-change,The majority shareholder in ADNOC Drilling PJSC (the Company)
 ADX,ADNOCDRILL,2026-02-12 00:00:00.0,6,board-outcome,ADNOC Drilling Company PJSC Board Meeting Results held on 11/02/2026 at 15:00 
 ADX,ADNOCGAS,2026-08-17 00:00:00.0,9,financial-report,ADNOC Gas plc Sustainability Report
 ADX,ADNOCGAS,2026-08-10 00:00:00.0,9,financial-report,"ADNOC Gas plc Financial Results for the Period Ended June 30,2026"
@@ -316,6 +318,8 @@ ADX,ALAIN,2026-03-16 00:00:00.0,9,financial-report,"Al Ain Alahlia Insurance Co.
 ADX,ALAIN,2026-03-16 00:00:00.0,9,financial-report,"Al Ain Alahlia Insurance Co. Financial Results for the Period Ended December 31,2025"
 ADX,ALAIN,2026-02-12 00:00:00.0,9,financial-report,"Al Ain Alahlia Insurance Co. Preliminary Financial Results for the Period Ended December 31,2025"
 ADX,ALAIN,2025-11-12 00:00:00.0,9,financial-report,"Al Ain Alahlia Insurance Co. Financial Results for the Period Ended September 30,2025"
+ADX,ALAIN,2026-03-11 00:00:00.0,8,ceo-change,The Central Bank of the UAE has no objection to the nomination of an independent board member.
+ADX,ALAIN,2026-01-29 00:00:00.0,8,ceo-change,Board Resolution by Circulation – Appointment of Independent Member
 ADX,ALAIN,2026-01-12 00:00:00.0,8,ceo-change,Announcement of the results of the board of directors' resolution regarding the resignation of one of the board members.
 ADX,ALAIN,2026-01-07 00:00:00.0,8,ceo-change,Announcement regarding the resolution of the resignation of one of the board member.
 ADX,ALAIN,2026-08-11 00:00:00.0,6,board-outcome,Al Ain Alahlia Insurance Co. Board Meeting Results held on 11/08/2026 at 11:00 
@@ -532,6 +536,8 @@ ADX,BOROUGE,2026-02-04 00:00:00.0,9,financial-report,"Borouge PLC Financial Resu
 ADX,BOROUGE,2025-10-29 00:00:00.0,9,financial-report,"Borouge PLC Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,BOROUGE,2025-10-29 00:00:00.0,9,financial-report,"Borouge PLC Financial Results for the Period Ended September 30,2025"
 ADX,BOROUGE,2025-10-29 00:00:00.0,9,financial-report,"Borouge PLC Financial Results Press Release for the Period Ended September 30,2025"
+ADX,BOROUGE,2026-03-31 00:00:00.0,8,control-change,Statement on completion of the combination of Borouge PLC (Borouge) and Borealis GmbH (Borealis) and the acquisition of Nova Chemicals
+ADX,BOROUGE,2026-03-25 00:00:00.0,8,control-change,Statement on completion of the combination of Borouge PLC (Borouge) and Borealis GmbH (Borealis)
 ADX,BOROUGE,2026-07-31 00:00:00.0,6,board-outcome,Borouge PLC Board Meeting Results held on 30/07/2026 at 15:00 
 ADX,BOROUGE,2026-04-30 00:00:00.0,6,board-outcome,Borouge PLC Board Meeting Results held on 29/04/2026 at 15:00 
 ADX,BOROUGE,2026-03-31 00:00:00.0,6,board-outcome,Borouge PLC Board Meeting Results held on 30/03/2026 at 18:00 
@@ -575,6 +581,7 @@ ADX,BURJEEL,2025-11-03 00:00:00.0,9,financial-report,"BURJEEL HOLDINGS PLC Finan
 ADX,BURJEEL,2026-08-27 00:00:00.0,8,ceo-change,Resignation of the Chief Financial Officer
 ADX,BURJEEL,2026-03-04 00:00:00.0,8,ceo-change,Appointment of a Director 
 ADX,BURJEEL,2026-02-27 00:00:00.0,8,ceo-change,Resignation of a Board Member
+ADX,BURJEEL,2025-12-18 00:00:00.0,8,ceo-change,Burjeel Holdings Announces Board-Approved CEO Appointment 
 ADX,BURJEEL,2026-08-05 00:00:00.0,6,board-outcome,BURJEEL HOLDINGS PLC Board Meeting Results held on 05/08/2026 at 15:00 
 ADX,BURJEEL,2026-05-06 00:00:00.0,6,board-outcome,BURJEEL HOLDINGS PLC Board Meeting Results held on 06/05/2026 at 15:30 
 ADX,BURJEEL,2026-03-04 00:00:00.0,6,board-outcome,BURJEEL HOLDINGS PLC Board Meeting Results held on 04/03/2026 at 15:30 
@@ -642,6 +649,8 @@ ADX,EAND,2026-02-12 00:00:00.0,9,financial-report,"Emirates Telecom. Group Compa
 ADX,EAND,2025-10-29 00:00:00.0,9,financial-report,"Emirates Telecom. Group Company PJSC Financial Results for the Period Ended September 30,2025"
 ADX,EAND,2025-10-28 00:00:00.0,9,financial-report,"Emirates Telecom. Group Company PJSC Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,EAND,2026-04-30 00:00:00.0,8,control-change,O2 Slovakia successfully completes the acquisition of UPC Slovakia 
+ADX,EAND,2025-12-31 00:00:00.0,8,control-change,PTCL Group completes the full acquisition of Telenor Pakistan
+ADX,EAND,2025-12-18 00:00:00.0,8,control-change, O2 Slovakia signs an agreement to acquire 100% stake of UPC Slovakia from Liberty Global
 ADX,EAND,2026-07-10 00:00:00.0,6,board-outcome,Emirates Telecom. Group Company PJSC Board Meeting Results held on 09/07/2026 at 16:00 
 ADX,EAND,2026-04-28 00:00:00.0,6,board-outcome,Emirates Telecom. Group Company PJSC Board Meeting Results held on 28/04/2026 at 13:00 
 ADX,EAND,2026-04-16 00:00:00.0,6,board-outcome,Emirates Telecom. Group Company PJSC Board Meeting Results held on 16/04/2026 at 09:30 
@@ -678,6 +687,7 @@ ADX,EMOBILITY,2026-01-29 00:00:00.0,9,financial-report,"Emirates Driving Company
 ADX,EMOBILITY,2026-01-29 00:00:00.0,9,financial-report,"Emirates Driving Company Management Discussion and Analysis Report for the Period Ended December 31,2025"
 ADX,EMOBILITY,2025-10-23 00:00:00.0,9,financial-report,"Emirates Driving Company Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,EMOBILITY,2025-10-23 00:00:00.0,9,financial-report,"Emirates Driving Company Financial Results for the Period Ended September 30,2025"
+ADX,EMOBILITY,2026-02-20 00:00:00.0,8,control-change,Emirates Driving Announces Intent to Acquire a Majority Stake in Performise Labs
 ADX,EMOBILITY,2026-07-21 00:00:00.0,6,board-outcome,Emirates Mobility Company Board Meeting Results held on 21/07/2026 at 13:00 
 ADX,EMOBILITY,2026-02-18 00:00:00.0,6,board-outcome,Emirates Driving Company – Results of Board Resolutions Passed by Circulation on 18/02/2026 at 3:00 PM
 ADX,EMOBILITY,2026-01-29 00:00:00.0,6,board-outcome,Emirates Driving Company Board Meeting Results held on 28/01/2026 at 12:00 
@@ -936,10 +946,15 @@ ADX,IHC,2026-02-13 00:00:00.0,9,financial-report,"International Holding Company 
 ADX,IHC,2025-11-05 00:00:00.0,9,financial-report,"International Holding Company PJSC Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,IHC,2025-11-05 00:00:00.0,9,financial-report,"International Holding Company PJSC Financial Results for the Period Ended September 30,2025"
 ADX,IHC,2025-11-05 00:00:00.0,9,financial-report,"International Holding Company PJSC Financial Results Summary for the Period Ended September 30,2025"
+ADX,IHC,2026-09-08 00:00:00.0,8,control-change,"IHC to Acquire Majority Stake in Marlan Space, Advancing UAE Space Technology and Infrastructure Capabilities"
 ADX,IHC,2026-04-15 00:00:00.0,8,control-change,International Holding Company PJSC - Disclosure on Completion of Acquisition of a Majority Stake in First Women Bank Limited 
+ADX,IHC,2026-03-31 00:00:00.0,8,control-change,IHC Advances USD 1 Billion Investment to Acquire Majority Stake in India’s Sammaan Capital
 ADX,IHC,2026-03-10 00:00:00.0,8,ceo-change,International Holding Company - List of Candidates for Membership of Board of Directors
+ADX,IHC,2025-12-23 00:00:00.0,8,control-change,IHC Strengthens Digital Services Portfolio with Majority Acquisition of Peko Holdings
 ADX,IHC,2025-11-14 00:00:00.0,8,control-change,Disclosure from International Holding Company PJSC: Completion of Multiply Group PJSC’s Acquisition of majority stake in Ghitha Holding PJSC  
+ADX,IHC,2025-10-17 00:00:00.0,8,control-change,"IHC Acquires Majority Stake in First Women Bank Limited, Strengthening UAE–Pakistan Economic Partnership "
 ADX,IHC,2025-10-17 00:00:00.0,8,control-change,International Holding Company PJSC - Disclosure on Acquisition of a Majority Stake in First Women Bank Limited (FWBL) – Pakistan 
+ADX,IHC,2025-10-15 00:00:00.0,8,control-change,"IHC Plans Strategic AED 120 Billion Merger of 2PointZero, Multiply Group, and Ghitha Holding to Create a Next Generation Listed Investment Powerhouse"
 ADX,IHC,2026-08-05 00:00:00.0,6,board-outcome,International Holding Company PJSC Board Meeting Results held on 05/08/2026 at 15:30 
 ADX,IHC,2026-05-06 00:00:00.0,6,board-outcome,International Holding Company PJSC Board Meeting Results held on 06/05/2026 at 18:00 
 ADX,IHC,2026-03-16 00:00:00.0,6,board-outcome,International Holding Company PJSC Board Meeting Results held on 16/03/2026 at 17:00 
@@ -1040,6 +1055,7 @@ ADX,MODON,2026-07-29 00:00:00.0,9,financial-report,"Modon Holding PSC Financial 
 ADX,MODON,2026-07-29 00:00:00.0,9,financial-report,"Modon Holding PSC Financial Results for the Period Ended June 30,2026"
 ADX,MODON,2026-02-18 00:00:00.0,9,financial-report,"Modon delivers outstanding growth in 2025, with AED 3.9 billion in net profit and AED 46.0 billion revenue backlog "
 ADX,MODON,2026-02-18 00:00:00.0,9,financial-report,"Modon Holding PSC Financial Results for the Period Ended December 31,2025"
+ADX,MODON,2025-10-30 00:00:00.0,8,control-change,"L’imad Holding Company, acquires shares of majority stakeholders in Modon Holding"
 ADX,MODON,2026-07-29 00:00:00.0,6,board-outcome,Modon Holding PSC Board Meeting Results held on 29/07/2026 at 16:00 
 ADX,MODON,2026-02-18 00:00:00.0,6,board-outcome,Modon Holding PSC Board Meeting Results held on 18/02/2026 at 04:00 
 ADX,MODON,2025-11-24 00:00:00.0,6,board-outcome,Modon Holding PSC Board Meeting Results held on 21/11/2025 at 16:00 
@@ -1161,6 +1177,7 @@ ADX,ORDS,2025-10-29 00:00:00.0,9,financial-report,"OOREDOO Financial Results for
 ADX,ORDS,2025-10-29 00:00:00.0,9,financial-report,"OOREDOO Financial Results Press Release for the Period Ended September 30,2025"
 ADX,ORDS,2025-10-29 00:00:00.0,9,financial-report,"OOREDOO Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,ORDS,2025-10-29 00:00:00.0,9,financial-report,"OOREDOO Financial Results Summary for the Period Ended September 30,2025"
+ADX,ORDS,2026-02-16 00:00:00.0,8,ceo-change,Ooredoo Announces Formation of New International Connectivity Infrastructure Entity and Appoints Khalid Hassan Al-Hamadi as CEO
 ADX,ORDS,2026-01-29 00:00:00.0,8,ceo-change,Ooredoo Group Appoints New CEO for Ooredoo Maldives 
 ADX,ORDS,2026-01-08 00:00:00.0,8,ceo-change,Ooredoo Group Appoints New CEO for Ooredoo Tunisia 
 ADX,ORDS,2026-02-09 00:00:00.0,6,board-outcome,OOREDOO Board Meeting Results held on 09/02/2026 at 14:30 
@@ -1350,6 +1367,7 @@ ADX,SPACE42,2026-02-11 00:00:00.0,9,financial-report,"SPACE42 PLC Preliminary Fi
 ADX,SPACE42,2025-11-06 00:00:00.0,9,financial-report,"SPACE42 PLC Management Discussion and Analysis Report for the Period Ended September 30,2025"
 ADX,SPACE42,2025-11-06 00:00:00.0,9,financial-report,"SPACE42 PLC Financial Results Press Release for the Period Ended September 30,2025"
 ADX,SPACE42,2025-11-06 00:00:00.0,9,financial-report,"SPACE42 PLC Financial Results for the Period Ended September 30,2025"
+ADX,SPACE42,2026-05-05 00:00:00.0,8,ceo-change,Space42 Announces Appointment of Bashar Alrosan to Board of Directors
 ADX,SPACE42,2026-08-05 00:00:00.0,6,board-outcome,SPACE42 PLC Board Meeting Results held on 05/08/2026 at 17:00 
 ADX,SPACE42,2026-07-06 00:00:00.0,6,board-outcome,SPACE42 PLC Board Meeting Results held on 06/07/2026 at 17:00 
 ADX,SPACE42,2026-05-13 00:00:00.0,6,board-outcome,SPACE42 PLC Board Meeting Results held on 13/05/2026 at 17:00 
@@ -1445,7 +1463,7 @@ DFM,AIRARABIA,"May 14, 2026 17:22:36",9,financial-report,Financial statements fo
 DFM,AIRARABIA,"Feb 13, 2026 08:57:00",9,financial-report,Financial statements for the year of 2025
 DFM,AIRARABIA,"Aug 13, 2026 16:58:18",8,earnings-press,Press Release on Financial Results
 DFM,AIRARABIA,"May 14, 2026 17:25:18",8,earnings-press,Press release regarding financial results for the … QTR 1 of 2026
-DFM,AIRARABIA,"Feb 27, 2026 15:02:12",6,director-nomination,Nominees for Board of Directors membership
+DFM,AIRARABIA,"Feb 27, 2026 15:02:12",8,ceo-change,Nominees for Board of Directors membership
 DFM,AJMANBANK,"Jul 23, 2026 16:23:00",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,AJMANBANK,"Apr 29, 2026 15:20:09",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,AJMANBANK,"Jan 28, 2026 15:07:18",9,financial-report,Financial statements for the year of 2025
@@ -1454,8 +1472,8 @@ DFM,ALANSARI,"May 15, 2026 08:45:00",9,financial-report,Financial statements for
 DFM,ALANSARI,"Feb 13, 2026 08:10:00",9,financial-report,Financial statements for the year of 2025
 DFM,ALANSARI,"Aug 14, 2026 08:35:36",8,earnings-press,Press release regarding financial results for the H1 of 2026
 DFM,ALANSARI,"May 15, 2026 08:46:40",8,earnings-press,Press release regarding financial results for the Q1 of 2026
+DFM,ALANSARI,"Mar 12, 2026 15:12:59",8,ceo-change,Nominees for Board of Directors membership
 DFM,ALANSARI,"Feb 13, 2026 08:13:42",8,earnings-press,Press release regarding financial results for the 4th QTR of 2025 and Full Year 2025 
-DFM,ALANSARI,"Mar 12, 2026 15:12:59",6,director-nomination,Nominees for Board of Directors membership
 DFM,ALEC,"Aug 13, 2026 13:35:08",9,financial-report,Financial statements for the first half of 2026
 DFM,ALEC,"May 08, 2026 16:33:07",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,ALEC,"Feb 11, 2026 15:16:00",9,financial-report,Financial statements for the year of 2025
@@ -1467,7 +1485,7 @@ DFM,ALFIRDOUS,"Jun 24, 2026 15:02:23",9,financial-report,Financial statements fo
 DFM,ALFIRDOUS,"Feb 13, 2026 16:24:29",9,financial-report,Financial statements for the 3rd QTR of 2026
 DFM,ALFIRDOUS,"Nov 12, 2025 15:02:19",9,financial-report,Financial statements for the 2nd QTR of 2025
 DFM,ALFIRDOUS,"Aug 13, 2025 16:42:50",9,financial-report,Financial statements for the 1st QTR of 2025
-DFM,ALFIRDOUS,"Jul 14, 2026 15:02:10",6,director-nomination,Nominees for Board of Directors membership
+DFM,ALFIRDOUS,"Jul 14, 2026 15:02:10",8,ceo-change,Nominees for Board of Directors membership
 DFM,ALLIANCE,"Aug 13, 2026 15:38:51",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,ALLIANCE,"May 13, 2026 18:41:40",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,ALLIANCE,"Feb 17, 2026 19:07:16",9,financial-report,Financial statements for the year of 2025
@@ -1508,12 +1526,12 @@ DFM,ARMX,"Aug 05, 2026 17:53:14",9,financial-report,Financial statements for the
 DFM,ARMX,"May 08, 2026 19:55:48",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,ARMX,"Aug 05, 2026 17:54:33",8,earnings-press,Press Release on Financial Results
 DFM,ARMX,"May 08, 2026 19:57:52",8,earnings-press,Press release regarding financial results for the first quarter of 2026
-DFM,ARMX,"Apr 02, 2026 19:17:20",6,director-nomination,Nominees for Board of Directors membership
+DFM,ARMX,"Apr 02, 2026 19:17:20",8,ceo-change,Nominees for Board of Directors membership
 DFM,ARTC,"Feb 04, 2021 14:22:07",8,ceo-change,Resignation of CEO
 DFM,ASNIC,"Aug 14, 2026 22:05:42",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,ASNIC,"May 15, 2026 20:21:00",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,ASNIC,"Mar 31, 2026 23:38:51",9,financial-report,Financial statements for the year of 2025
-DFM,ASNIC,"Apr 28, 2026 21:02:03",6,director-nomination,Nominees for Board of Directors membership
+DFM,ASNIC,"Apr 28, 2026 21:02:03",8,ceo-change,Nominees for Board of Directors membership
 DFM,AWTAD,"Jun 30, 2019 10:49:00",9,financial-report,Financial statements for the 2nd QTR of 2019
 DFM,AWTAD,"Mar 07, 2019 08:53:00",9,financial-report,Financial statements for the year of 2018
 DFM,AWTAD,"Aug 14, 2018 08:44:00",9,financial-report,Financial statements for the 2nd QTR of 2018
@@ -1540,9 +1558,9 @@ DFM,DEYAAR,"May 12, 2026 08:31:07",8,earnings-press,Press release regarding fina
 DFM,DEYAAR,"Feb 11, 2026 16:32:32",8,earnings-press,Press release regarding financial results for the full year 2025 
 DFM,DIB,"Jul 14, 2026 19:04:22",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,DIB,"Apr 28, 2026 19:42:22",9,financial-report,Financial statements for the 1st QTR of 2026
+DFM,DIB,"Mar 27, 2026 09:23:00",8,ceo-change,Nominees for Board of Directors membership
 DFM,DIB,"Jul 14, 2026 19:08:01",7,md-and-a,"DIB Management Discussion and Analysis Report for the Period Ended June 30, 2026"
 DFM,DIB,"Apr 28, 2026 19:44:41",7,md-and-a,"DIB Management Discussion and Analysis Report for the Period Ended March 31,2026"
-DFM,DIB,"Mar 27, 2026 09:23:00",6,director-nomination,Nominees for Board of Directors membership
 DFM,DIC,"Aug 10, 2026 18:01:48",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,DIC,"May 11, 2026 19:39:53",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,DIC,"Aug 10, 2026 18:12:49",8,earnings-press,Press Release regarding financial results for the 2nd QTR of 2026
@@ -1556,9 +1574,9 @@ DFM,DNIR,"Mar 13, 2026 17:33:09",9,financial-report,Financial statements for the
 DFM,DRC,"Jul 29, 2026 17:16:43",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,DRC,"May 13, 2026 08:29:00",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,DRC,"Feb 11, 2026 08:46:00",9,financial-report,Financial statements for the year of 2025
-DFM,DRC,"Apr 01, 2026 15:02:02",6,director-nomination,Nominees for Board of Directors membership
-DFM,DRC,"Mar 30, 2026 19:28:48",6,director-nomination,Nominees for Board of Directors membership
-DFM,DRC,"Mar 24, 2026 15:02:20",6,director-nomination,Nominees for Board of Directors membership
+DFM,DRC,"Apr 01, 2026 15:02:02",8,ceo-change,Nominees for Board of Directors membership
+DFM,DRC,"Mar 30, 2026 19:28:48",8,ceo-change,Nominees for Board of Directors membership
+DFM,DRC,"Mar 24, 2026 15:02:20",8,ceo-change,Nominees for Board of Directors membership
 DFM,DSI,"Aug 07, 2026 17:30:40",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,DSI,"May 13, 2026 21:44:56",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,DSI,"Aug 07, 2026 17:31:57",8,earnings-press,Press Release on Financial Results
@@ -1571,7 +1589,7 @@ DFM,DU,"Jul 22, 2026 18:48:52",9,financial-report,Financial statements for the 2
 DFM,DU,"Apr 22, 2026 18:11:41",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,DU,"Jul 22, 2026 18:52:48",8,earnings-press,Press release regarding financial results for the 2nd QTR of 2026
 DFM,DU,"Apr 22, 2026 18:12:27",8,earnings-press,Press release regarding financial results for the 1st QTR of 2026Y
-DFM,DU,"Mar 18, 2026 16:29:41",6,director-nomination,Nominees for Board of Directors membership
+DFM,DU,"Mar 18, 2026 16:29:41",8,ceo-change,Nominees for Board of Directors membership
 DFM,DXBE,"Apr 25, 2021 10:00:10",9,financial-report,Financial statements for the 1st QTR of 2021
 DFM,EIB,"Oct 23, 2025 07:49:06",9,financial-report,Financial statements for the 3rd QTR of 2025
 DFM,EIB,"Jul 24, 2025 07:56:05",9,financial-report,Financial statements for the 2nd QTR of 2025
@@ -1597,9 +1615,9 @@ DFM,EMAARDEV,"Feb 12, 2026 16:36:30",9,financial-report,Financial statements for
 DFM,EMAARDEV,"Nov 06, 2025 15:12:42",9,financial-report,Financial statements for the 3rd QTR of 2025
 DFM,EMAARDEV,"Aug 07, 2026 09:01:21",8,earnings-press,Press Release regarding financial results for the 2nd QTR of 2026
 DFM,EMAARDEV,"May 11, 2026 08:03:14",8,earnings-press,Press release regarding financial results for the 1st QTR of 2026
+DFM,EMAARDEV,"Mar 10, 2026 22:00:00",8,ceo-change,Nominees for Board of Directors membership
 DFM,EMAARDEV,"Feb 12, 2026 15:14:00",8,earnings-press,Press release regarding financial results for the year of 2025
 DFM,EMAARDEV,"Nov 06, 2025 15:13:37",8,earnings-press,Press release regarding financial results for the third quarter of 2025
-DFM,EMAARDEV,"Mar 10, 2026 22:00:00",6,director-nomination,Nominees for Board of Directors membership
 DFM,EMAARMALLS,"Nov 11, 2021 17:10:00",9,financial-report,Financial statements for the 3rd QTR of 2021
 DFM,EMAARMALLS,"Aug 11, 2021 14:58:07",9,financial-report,Financial statements for the 2nd QTR of 2021
 DFM,EMAARMALLS,"May 10, 2021 23:01:00",9,financial-report,Financial statements for the 1st QTR of 2021
@@ -1618,7 +1636,7 @@ DFM,ERC,"May 14, 2026 19:47:08",9,financial-report,Financial statements for the 
 DFM,ERC,"Mar 09, 2026 00:01:16",9,financial-report,Financial statements for the year of 2025
 DFM,ERC,"Nov 13, 2025 15:02:10",9,financial-report,Financial statements for the 3rd QTR of 2025
 DFM,ERC,"Aug 13, 2025 22:58:33",9,financial-report,Financial statements for the 2nd QTR of 2025
-DFM,ERC,"Apr 10, 2026 17:17:48",6,director-nomination,Nominees for Board of Directors membership
+DFM,ERC,"Apr 10, 2026 17:17:48",8,ceo-change,Nominees for Board of Directors membership
 DFM,ETIHADENERGY,"Aug 05, 2026 22:36:39",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,ETIHADENERGY,"Aug 05, 2026 22:44:26",8,earnings-press,Press Release on Financial Results
 DFM,GFH,"Aug 13, 2026 22:43:17",9,financial-report,Financial statements for the 2nd QTR of 2026
@@ -1627,7 +1645,7 @@ DFM,GGICO,"May 12, 2023 09:08:04",9,financial-report,Financial statements for th
 DFM,GGICO,"Mar 23, 2023 09:26:00",9,financial-report,Financial statements for the year of 2022
 DFM,GGICO,"Nov 11, 2022 09:12:09",9,financial-report,Financial statements for the 3rd QTR of 2022
 DFM,GGICO,"Aug 12, 2022 07:38:06",9,financial-report,Financial statements for the 2nd QTR of 2022
-DFM,GULFA-INVEST,"Jun 20, 2023 15:17:10",6,director-nomination,Nominees for Board of Directors membership
+DFM,GULFA-INVEST,"Jun 20, 2023 15:17:10",8,ceo-change,Nominees for Board of Directors membership
 DFM,IFA,"Aug 10, 2026 16:57:26",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,ITHMR,"Aug 12, 2026 15:37:00",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,ITHMR,"May 13, 2026 17:15:15",9,financial-report,Financial statements for the 1st QTR of 2026
@@ -1691,7 +1709,7 @@ DFM,SUKOON,"Jul 29, 2026 15:07:21",9,financial-report,Financial statements for t
 DFM,SUKOON,"Apr 29, 2026 15:20:33",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,SUKOONTAKAFL,"Jul 29, 2026 17:05:32",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,SUKOONTAKAFL,"Apr 29, 2026 16:48:19",9,financial-report,Financial statements for the 1st QTR of 2026
-DFM,SUKOONTAKAFL,"Apr 23, 2026 20:01:17",6,director-nomination,Nominees for Board of Directors membership
+DFM,SUKOONTAKAFL,"Apr 23, 2026 20:01:17",8,ceo-change,Nominees for Board of Directors membership
 DFM,TAALEEM,"Jul 09, 2026 18:14:03",9,financial-report,Financial statements for the 3rd QTR of 2026
 DFM,TAALEEM,"Mar 26, 2026 21:04:54",9,financial-report,Financial statements for the 2nd QTR of 2025/26
 DFM,TAALEEM,"Jan 08, 2026 19:39:43",9,financial-report,Financial statements for the 1st QTR of 2025/26
@@ -1702,11 +1720,11 @@ DFM,TABREED,"Aug 10, 2026 22:26:09",9,financial-report,Financial statements for 
 DFM,TABREED,"May 14, 2026 22:43:24",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,TABREED,"Aug 10, 2026 22:27:19",8,earnings-press,Press Release on Financial Results
 DFM,TABREED,"May 14, 2026 22:44:14",8,earnings-press,Press release regarding financial results for the 1st QTR of 2026
-DFM,TABREED,"Mar 23, 2026 09:16:10",6,director-nomination,Nominees for Board of Directors membership
+DFM,TABREED,"Mar 23, 2026 09:16:10",8,ceo-change,Nominees for Board of Directors membership
 DFM,TAKAFUL-EM,"Aug 12, 2026 15:29:02",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,TAKAFUL-EM,"May 15, 2026 15:20:00",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,TAKAFUL-EM,"Mar 30, 2026 22:38:00",9,financial-report,Financial statements for the year of 2025
-DFM,TAKAFUL-EM,"Apr 27, 2026 15:55:55",6,director-nomination,Nominees for Board of Directors membership
+DFM,TAKAFUL-EM,"Apr 27, 2026 15:55:55",8,ceo-change,Nominees for Board of Directors membership
 DFM,TAMWEEL,"Jul 21, 2014 15:23:00",9,financial-report,Financial statements for the 2nd QTR of 2014
 DFM,TAMWEEL,"Feb 02, 2014 14:21:00",9,financial-report,Financial statement for the year 2013 
 DFM,TECOM,"Jul 29, 2026 23:26:32",9,financial-report,Financial statements for the 2nd QTR of 2026
@@ -1719,18 +1737,18 @@ DFM,UFC,"Aug 07, 2026 23:30:50",9,financial-report,Financial statements for the 
 DFM,UFC,"May 12, 2026 23:37:52",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,UFC,"Feb 13, 2026 15:40:43",9,financial-report,Financial statements for the year of 2025
 DFM,UFC,"Nov 13, 2025 17:43:42",9,financial-report,Financial statements for the 3rd QTR of 2025
-DFM,UFC,"Mar 25, 2026 16:08:55",6,director-nomination,Nominees for Board of Directors membership
+DFM,UFC,"Mar 25, 2026 16:08:55",8,ceo-change,Nominees for Board of Directors membership
 DFM,UNIKAI,"Aug 14, 2026 16:11:00",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,UNIKAI,"May 14, 2026 19:49:00",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,UNIKAI,"Mar 17, 2026 01:28:00",9,financial-report,Financial statements for the year of 2025
-DFM,UNIKAI,"Apr 03, 2026 15:16:45",6,director-nomination,Nominees for Board of Directors membership
+DFM,UNIKAI,"Apr 03, 2026 15:16:45",8,ceo-change,Nominees for Board of Directors membership
 DFM,UNIONCOOP,"Aug 10, 2026 18:24:16",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,UNIONCOOP,"May 11, 2026 18:26:18",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,UNIONCOOP,"Feb 16, 2026 20:47:00",9,financial-report,Financial statements for the year of 2025
 DFM,UNIONCOOP,"Nov 06, 2025 19:20:22",9,financial-report,Financial statements for the 3rd QTR of 2025
 DFM,UPP,"Jul 23, 2026 17:55:00",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,UPP,"May 12, 2026 19:17:00",9,financial-report,Financial statements for the 1st QTR of 2026
-DFM,UPP,"Mar 27, 2026 16:53:18",6,director-nomination,Nominees for Board of Directors membership
+DFM,UPP,"Mar 27, 2026 16:53:18",8,ceo-change,Nominees for Board of Directors membership
 DFM,WATANIA,"Aug 11, 2026 16:46:00",9,financial-report,Financial statements for the 2nd QTR of 2026
 DFM,WATANIA,"May 14, 2026 11:58:00",9,financial-report,Financial statements for the 1st QTR of 2026
 DFM,WATANIA,"Mar 31, 2026 21:58:12",9,financial-report,Financial statements for the year of 2025

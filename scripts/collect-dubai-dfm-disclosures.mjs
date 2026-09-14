@@ -19,7 +19,7 @@
  *   Financial statements for … / Press release … financial results   Item 2.02   9 / 8
  *   Management Discussion and Analysis Report                         Item 2.02   7
  *   Results of BOD Meeting                                            내용부전     5
- *   Nominees for Board of Directors membership                        Item 5.02   6
+ *   Nominees for Board of Directors membership                        Item 5.02   8 (ceo-change)
  *   Resolutions of General Assembly                                   내용부전     4
  *   Integrated report for the year                                   Item 9.01   4
  *   BOD meeting(안건만)·AGM 초청/의사록·날짜 공지                       절차          1
@@ -32,6 +32,13 @@
  * 새 나라를 열 때마다 이 두 태그를 넣는다(CLAUDE.md 「주력과 서비스」).
  *
  * ⛔ 이 무게는 8-K 유형에 맞춰 본 사람 규칙이다 — 신호로 안 쓴다(투자AI 판독지침).
+ *
+ * 🔴 [2026-09-14 · 5번 항목3 대응] "Nominees for Board of Directors membership"을
+ * ceo-change 로 합쳤다 — ADX 쪽 규칙(collect-uae-adx-disclosures.mjs)이 이미
+ * "list of candidates to board of directors"·"opening of nomination for membership
+ * of the board" 를 ceo-change 로 잡고 있는데, DFM 은 같은 내용을 별도 태그
+ * (director-nomination)로 갈라 놨었다 — 같은 실질을 거래소마다 다르게 재는 것은
+ * 일관성이 아니다. 인위적으로 기준을 낮춘 것이 아니라 두 나라 규칙을 «맞춘» 것이다.
  *
  * 저장: archive/raw/dubai-dfm-breaking/<종목>.json (종목마다 한 파일, 멱등)
  */
@@ -49,7 +56,7 @@ export const 유형 = [
   { re: /change (of|in) (the )?(major|controlling) shareholder|acquisition .* (resulting in|leading to) .*change of control/i, 무게: 8, 태그: 'control-change' },
   { re: /^press release.*financial results|regarding financial results/i, 무게: 8, 태그: 'earnings-press' },
   { re: /management discussion and analysis/i, 무게: 7, 태그: 'md-and-a' },
-  { re: /nominees for board of directors/i, 무게: 6, 태그: 'director-nomination' },
+  { re: /nominees for board of directors/i, 무게: 8, 태그: 'ceo-change' },
   { re: /results of bod meeting|board of directors.*(resolution|decision)/i, 무게: 5, 태그: 'board-outcome' },
   { re: /resolutions of general assembly/i, 무게: 4, 태그: 'agm-resolution' },
   { re: /integrated report for/i, 무게: 4, 태그: 'integrated-report' },
@@ -74,8 +81,8 @@ function 자가시험() {
     유형찾기('Press release regarding financial results for the 1st QTR of 2026')?.태그 === 'earnings-press');
   재다('DIB Management Discussion and Analysis Report → md-and-a',
     유형찾기('DIB Management Discussion and Analysis Report for the Period Ended June 30, 2026')?.태그 === 'md-and-a');
-  재다('Nominees for Board of Directors membership → director-nomination',
-    유형찾기('Nominees for Board of Directors membership')?.태그 === 'director-nomination');
+  재다('🔴 Nominees for Board of Directors membership → ceo-change(ADX와 통일)',
+    유형찾기('Nominees for Board of Directors membership')?.태그 === 'ceo-change');
   재다('Results of BOD Meeting → board-outcome', 유형찾기('Results of BOD Meeting')?.태그 === 'board-outcome');
   재다('Resolutions of General Assembly → agm-resolution', 유형찾기('Resolutions of General Assembly')?.태그 === 'agm-resolution');
   재다('Integrated report for the year 2025 → integrated-report', 유형찾기('Integrated report for the year 2025')?.태그 === 'integrated-report');
