@@ -5,13 +5,14 @@ import { cleanPath } from '../lib/format';
 const path = cleanPath(Astro.url.pathname);
 const isCurrent = (href: string) => (path === href ? 'page' : undefined);
 
-// 붙여 쓴 이름이라 공백 없이 이어 붙인다 — Seoul + Markets
+// 🔴 [2026-09-14 · 사장님 지시] 로고를 「SeoulMarkets」→「SMarkets」로 줄였다.
+// 붙여 쓴 이름이라 공백 없이 이어 붙인다 — S + Markets. 강조색은 이제 «첫 글자(S)» 쪽이다.
 const [head, ...tail] = SITE.nameParts;
 ---
 
 <header class="masthead">
   <div class="wrap masthead__bar">
-    <a class="logo" href="/" aria-label={SITE.name}>{head}<span>{tail.join('')}</span></a>
+    <a class="logo" href="/" aria-label={SITE.name}><span>{head}</span>{tail.join('')}</a>
     <nav class="nav" aria-label="Sections">
       {/* 🔴 [2026-09-12 · 5번] 사장님 지시로 «상품»을 차림표 맨 앞에 세웠다.
           > 「메뉴도 제일 앞에 주식이 아닌 우리 상품 소개가 제일 앞에 있어야 한다.

@@ -7,9 +7,11 @@ export const SITE_URL = 'https://seoulmarkets.com';
 
 export const SITE = {
   // 한 단어로 붙여 쓰고 각 낱말의 첫 글자를 대문자로. (KLifeMap 과 같은 표기 방식)
+  // ⚠ 사이트 «이름»(법인·메타데이터용)은 SeoulMarkets 그대로다 — 로고 표기만 줄인다.
   name: 'SeoulMarkets',
-  /** 로고에서 뒷부분에 강조색을 주기 위한 분할. name 을 바꾸면 여기도 맞출 것. */
-  nameParts: ['Seoul', 'Markets'],
+  /** 🔴 [2026-09-14 · 사장님 지시] 로고 표기를 「SeoulMarkets」→「SMarkets」로 줄인다.
+      첫 글자(S)에 강조색을 준다 — Masthead.astro 가 nameParts[0] 을 강조 span 으로 감싼다. */
+  nameParts: ['S', 'Markets'],
   /* 🔴 [2026-09-14] 「코리아」에서 「아시아·걸프」 우산으로 넓혔다 — 사장님 지시.
      ⚠ 사이트 «이름»은 SeoulMarkets 그대로다. 이름이 아니라 «파는 범위»가 넓어진 것이다. */
   tagline: 'Asian and Gulf markets, explained with data.',
