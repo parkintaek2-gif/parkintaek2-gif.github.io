@@ -142,6 +142,8 @@ export const 어른갈래: ReadonlySet<string> = new Set([
   'industry-region-concentration',
   /* 🔴 2026-09-14 3번 신설 — school-class-size.json 재활용, 학급당 학생수 전국 분포 */
   'class-size-distribution',
+  /* 🔴 2026-09-15 3번 신설 — 국가데이터처 KOSIS 국민이전계정, 생애주기적자(3번이 직접 수집) */
+  'lifecycle-deficit',
 ]);
 
 /**
@@ -316,7 +318,7 @@ export const 붙일수있는갈래 = [
   'university-faculty-rate', 'freshman-fill-region', 'csat-subject-choice',
   /* 🔴 2026-09-10 3번 신설 */
   'qual-duration', 'qual-age', 'industry-region-cross', 'industry-size-cross', 'turnover-cross-check', 'onet-riasec',
-  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men', 'labor-market-2072', 'population-decline-regions', 'region-pay-raw-vs-adjusted', 'industry-pay-turnover', 'industry-region-concentration', 'class-size-distribution',
+  'health-checkup-rate', 'happiness-by-age', 'oneperson-vulnerability', 'tax-vs-wage', 'military-age-men', 'labor-market-2072', 'population-decline-regions', 'region-pay-raw-vs-adjusted', 'industry-pay-turnover', 'industry-region-concentration', 'class-size-distribution', 'lifecycle-deficit',
   '기타',
 ] as const;
 
