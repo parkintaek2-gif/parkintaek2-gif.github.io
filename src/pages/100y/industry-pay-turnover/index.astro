@@ -1,0 +1,165 @@
+---
+/**
+ * /100y/industry-pay-turnover — 업종마다 임금·이직·근속이 이렇게 다릅니다
+ *
+ * 재료: src/data/100yearmap/industry-axis.json (8번이 2026-08-08~10 국민연금 가입
+ * 사업장 내역으로 만들었다 — region-pay-raw-vs-adjusted와 같은 원자료의 업종 축인데
+ * 지면이 없었다).
+ *
+ * 🔴 지키는 것 — 「월임금」은 국민연금 고지액이지 임금이 아니다(size 페이지와 같은 문구).
+ * 🔴 자료가 스스로 못박은 것 — "⛔ 안 쓰는 말": 순위·몇 위·상위 몇%·좋은 업종·나쁜 업종.
+ *   그래서 최고·최저를 적을 때도 "좋다/나쁘다"로 읽히지 않게 사실만 적는다.
+ * 🔴 업종 축은 국민연금 공표통계에 산업 분류가 없어 KOSIS와 대조하지 못했다 — 그대로 밝힌다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/industry-axis.json';
+
+const 자료 = 원본 as any;
+const 업종들 = 자료.자료 as any[];
+const 분포 = 자료.분포;
+
+const 요율 = 0.09;
+const 만원 = (원단위: number) => Math.round(원단위 / 요율 / 10000);
+
+const 임금순 = [...업종들].sort((a, b) => b.월임금 - a.월임금);
+const 임금최고 = 임금순[0];
+const 임금최저 = 임금순[임금순.length - 1];
+
+const 상실순 = [...업종들].sort((a, b) => b.월상실률 - a.월상실률);
+const 상실최고 = 상실순[0];
+const 상실최저 = 상실순[상실순.length - 1];
+
+const 근속있음 = 업종들.filter((x) => x.직원둔기간_중앙 != null).sort((a, b) => b.직원둔기간_중앙 - a.직원둔기간_중앙);
+
+const desc =
+  `국민연금 가입 사업장 내역(2026-06)으로 업종 41개의 임금·이직률·근속기간을 쟀습니다. ` +
+  `1인당 국민연금 고지액으로 보면 업종 간 분위수(p10~p90) 격차가 ${분포['업종 41칸 · 사람 4,877,495명 기준']['p90/p10']}배입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.이름,
+  description: desc,
+  temporalCoverage: 자료.출처.기준월,
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear
+  title="업종마다 임금·이직·근속이 이렇게 다릅니다"
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>업종마다 임금·이직·근속이<br class="pcbr" /> 이렇게 다릅니다</h1>
+
+  <div class="card warn">
+    <p class="note">
+      ⛔ <strong>아래 금액은 월급이 아닙니다.</strong> 국민연금 <strong>고지액</strong>입니다 —
+      월 소득의 <strong>9%</strong>만큼 걷힙니다(근로자 4.5% + 회사 4.5%). 상한·하한이 있어
+      그대로 되돌리면 실제 임금과 어긋납니다.
+    </p>
+  </div>
+
+  <p class="sub">
+    국민연금공단 가입 사업장 내역(2026-06, 2명 이상 사업장)에서 가입자 5만 명 이상인
+    {' '}업종 {업종들.length}개를 갈라 쟀습니다. 「좋은 업종·나쁜 업종」을 가리려는 것이
+    {' '}아니라, <strong>업종을 고를 때 임금·이직·근속이 이렇게나 갈린다</strong>는 것을
+    {' '}보여드립니다.
+  </p>
+
+  <h2>분위수로 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>p10</th><th>p50(중앙)</th><th>p90</th><th>p90 ÷ p10</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>{만원(분포['업종 41칸 · 사람 4,877,495명 기준'].p10)}만원</td>
+          <td>{만원(분포['업종 41칸 · 사람 4,877,495명 기준'].p50)}만원</td>
+          <td>{만원(분포['업종 41칸 · 사람 4,877,495명 기준'].p90)}만원</td>
+          <td>{분포['업종 41칸 · 사람 4,877,495명 기준']['p90/p10']}배</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 최고 ÷ 최저 배수({분포['최고÷최저'].값}배)는 사람이 몇만 명뿐인 양 끝 두 업종에 걸려
+    {' '}있어 흔들립니다. 그래서 <strong>분위수를 함께 적습니다</strong> — 순위가 아니라
+    {' '}분포입니다.
+  </p>
+
+  <h2>고지액이 가장 높은 업종·가장 낮은 업종</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>국민연금 고지액(월)</th><th>인원</th></tr></thead>
+      <tbody>
+        <tr><td>{임금최고.업종}</td><td>{임금최고.월임금.toLocaleString()}원 <span class="note">(되돌리면 약 {만원(임금최고.월임금)}만원)</span></td><td>{임금최고.인원.toLocaleString()}명</td></tr>
+        <tr><td>{임금최저.업종}</td><td>{임금최저.월임금.toLocaleString()}원 <span class="note">(되돌리면 약 {만원(임금최저.월임금)}만원)</span></td><td>{임금최저.인원.toLocaleString()}명</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>한 달에 자격을 잃는 비율(이직·퇴직) — 가장 높은 업종·가장 낮은 업종</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>월상실률</th><th>인원</th></tr></thead>
+      <tbody>
+        <tr><td>{상실최고.업종}</td><td>{상실최고.월상실률}%</td><td>{상실최고.인원.toLocaleString()}명</td></tr>
+        <tr><td>{상실최저.업종}</td><td>{상실최저.월상실률}%</td><td>{상실최저.인원.toLocaleString()}명</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    월상실률은 그 달에 국민연금 자격을 잃은 사람 ÷ 가입자입니다. 이직과 퇴직을 함께
+    {' '}담아서, 둘을 갈라 보여드리지는 못합니다.
+  </p>
+
+  <h2>사업장이 직원을 두고 있던 기간(중앙값)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>직원 둔 기간(중앙값)</th><th>자격 없어진 곳</th></tr></thead>
+      <tbody>
+        {
+          근속있음.map((x) => (
+            <tr><td>{x.업종}</td><td>{x.직원둔기간_중앙}년</td><td>{x.자격없어진곳.toLocaleString()}곳</td></tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 이 기간은 <strong>폐업 수명이 아닙니다.</strong> 직원을 내보내고 대표 혼자 계속하는
+    {' '}사업장도 여기서는 「끝난 것」으로 잡힙니다. 그리고 이 칸은 자료가 있는 업종
+    {' '}{근속있음.length}개만 나온 것으로, 나머지 업종은 이 통계를 저희가 아직 못 냈습니다.
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    <li>국민연금 공표통계에는 업종(산업) 분류 표가 없어 — 지역 축과 달리 — KOSIS 등 공표치와 맞춰 보지 못했습니다.</li>
+    <li>이 축 인원의 22%(137만 명)는 사업자등록번호가 없는 사업장(BIZ_NO미존재사업장)에 속해 있어 업종을 모릅니다 — 업종끼리 견줄 때는 빼고 셌습니다.</li>
+    <li>「월임금」은 국민연금 기준소득월액이지 실제 월급이 아닙니다. 상한·하한 때문에 그대로 되돌릴 수 없습니다.</li>
+    <li>1인 사업장·프리랜서는 이 자료에 없습니다.</li>
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 업종이 「좋다·나쁘다」를
+    {' '}100yearmap이 판정하지 않습니다. 업종을 고를 때 임금만이 아니라 이직·근속도
+    {' '}함께 갈린다는 것만 보여드립니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준월} 기준, data.go.kr {자료.출처.데이터셋}).
+  </p>
+
+  <p class="note">
+    <a href="/region-pay-raw-vs-adjusted">← 어디가 벌이가 좋나요? 물음이 두 가지입니다</a>
+    <br />
+    <a href="/size">← 큰 회사가 정말 나을까요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국민연금공단 가입 사업장 내역 — 업종 축" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/industry-pay-turnover"></div>
+</HundredYear>
