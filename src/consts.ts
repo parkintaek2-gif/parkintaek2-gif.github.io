@@ -18,7 +18,7 @@ export const SITE = {
       후보군과 고른 까닭은 docs/브랜드-S-후보군.md 에 있다.
       ⭐ 바꿀 때는 «이 한 줄만» 고치면 된다 — 지면·CSS 를 안 건드린다.
       ⛔ Signals·Speculation 은 안 된다. 투자자문 아님 고지가 거짓이 된다. */
-  logoOverline: 'Statements',
+  logoOverline: 'Sources & Markets',
   /* 🔴 [2026-09-14] 「코리아」에서 「아시아·걸프」 우산으로 넓혔다 — 사장님 지시.
      ⚠ 사이트 «이름»은 SeoulMarkets 그대로다. 이름이 아니라 «파는 범위»가 넓어진 것이다. */
   tagline: 'Asian and Gulf markets, explained with data.',
