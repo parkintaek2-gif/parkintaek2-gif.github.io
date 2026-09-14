@@ -1,0 +1,195 @@
+---
+/**
+ * /100y/tax-vs-wage — 국세 수입은 늘었다, 그런데 실질임금은요
+ *
+ * 사장님이 2026-09-13/14 직접 전달하신 표(열린재정·재정경제부, 소득세·법인세·부가세
+ * 연도별 수입) + 100yearmap 기존 실측(real-wage.json)을 대조한다.
+ *
+ * ⛔⛔ 판정하지 않는다 — 세금이 많다/적다, 늘어난 게 좋다/나쁘다를 쓰지 않는다.
+ * ⛔⛔ 세수 증가의 원인(세율·세법·물가 등)을 이 표만으로 가르지 않는다.
+ * ⚠ 2027(예산안) 줄은 사장님이 보내신 수치가 다른 해와 비교해 부자연스럽게 튀어(소득세
+ *   791.4조) 확인 전까지 싣지 않는다 — 확인되면 더한다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/tax-vs-wage-2026.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 국세 = 자료.국세연도별 as any[];
+const 결산 = 국세.filter((r) => r.구분 === '결산');
+const 비교 = 자료.증가율비교;
+const 임금 = 자료.실질임금대조;
+
+const 만콤마 = (n: number) => n.toLocaleString();
+
+const desc =
+  `${출처.이름} 자료로 보면 소득세 수입은 ${결산[0].해}년 ${결산[0].소득세}조원에서 ` +
+  `${결산[결산.length - 1].해}년 ${결산[결산.length - 1].소득세}조원으로 ${비교.소득세_2012_2025}% 늘었습니다. ` +
+  `같은 기간 100yearmap이 실측한 실질임금은 ${비교.실질임금_2012_2025}%만 늘었습니다.`;
+
+const 최대값 = Math.max(...결산.map((r) => Math.max(r.소득세, r.법인세, r.부가세)));
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 국세 수치는 100yearmap이 조사한 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${출처.이름} 자료를 그대로 인용했습니다. ${출처.받은법}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '2027년 예산안 수치는 왜 안 나오나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 자료['2027예산안_확인중']['⚠'],
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '세금이 실질임금보다 훨씬 많이 늘었다는 것은 세금이 과하다는 뜻인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '이 지면은 두 수치가 다르게 움직였다는 사실만 보여줄 뿐, 세금이 많다·적다를 판정하지 않습니다. 세수 증가에는 세율·세법 개정·물가 상승 등 여러 원인이 섞여 있어 이 표만으로 원인을 가를 수 없습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`소득세 수입 ${결산[0].해}~${결산[결산.length - 1].해}년 ${비교.소득세_2012_2025}% 증가 — 실질임금은 ${비교.실질임금_2012_2025}%뿐입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    소득세 수입 13년간 {비교.소득세_2012_2025}% 늘었습니다<br class="pcbr" />
+    그런데 실질임금은 {비교.실질임금_2012_2025}%뿐입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 국세 수치는 저희가 조사한 게 아닙니다.</strong></p>
+    <p class="note">{출처.이름} 자료를 그대로 옮겼습니다. {출처.받은법} {출처.url이없는까닭}</p>
+  </div>
+
+  <p class="sub">
+    {결산[0].해}년 {결산[0].소득세}조원이던 소득세 수입은 {결산[결산.length - 1].해}년
+    {' '}{결산[결산.length - 1].소득세}조원으로 늘었습니다. 같은 기간 100yearmap이 실측한
+    {' '}실질임금(전산업 상용근로자 월평균)은 {만콤마(임금['2012_원'])}원에서
+    {' '}{만콤마(임금['2025_원'])}원으로 늘었습니다.
+  </p>
+
+  <h2>연도별로 나란히 보면(결산 확정치만)</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>해</th><th>소득세</th><th>법인세</th><th>부가가치세</th></tr></thead>
+      <tbody>
+        {결산.map((r) => (
+          <tr>
+            <td>{r.해}</td>
+            <td>{r.소득세}조</td>
+            <td>{r.법인세}조</td>
+            <td>{r.부가세}조</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tablewrap">
+    <svg viewBox={`0 0 560 220`} width="100%" style="max-width:560px" role="img"
+         aria-label="연도별 소득세·법인세·부가가치세 수입 꺾은선그림">
+      {(() => {
+        const 왼쪽 = 40, 아래 = 190, 폭 = 500, 높 = 150;
+        const n = 결산.length;
+        const x = (i: number) => 왼쪽 + (i / (n - 1)) * 폭;
+        const y = (v: number) => 아래 - (v / 최대값) * 높;
+        const 선 = (키: string, 색: string) => {
+          const d = 결산.map((r, i) => `${i === 0 ? 'M' : 'L'} ${x(i)} ${y(r[키])}`).join(' ');
+          return <path d={d} fill="none" stroke={색} stroke-width="2" />;
+        };
+        return (
+          <g>
+            <line x1={왼쪽} y1={아래} x2={왼쪽 + 폭} y2={아래} stroke="#ccc" />
+            {선('소득세', '#c9a84c')}
+            {선('법인세', '#7a9cc9')}
+            {선('부가세', '#999')}
+            <text x={왼쪽} y="15" font-size="11" fill="#c9a84c">■ 소득세</text>
+            <text x={왼쪽 + 70} y="15" font-size="11" fill="#7a9cc9">■ 법인세</text>
+            <text x={왼쪽 + 140} y="15" font-size="11" fill="#999">■ 부가가치세</text>
+            <text x={왼쪽 - 5} y={아래 + 12} font-size="10" fill="#333" text-anchor="middle">{결산[0].해}</text>
+            <text x={왼쪽 + 폭} y={아래 + 12} font-size="10" fill="#333" text-anchor="middle">{결산[n - 1].해}</text>
+          </g>
+        );
+      })()}
+    </svg>
+  </div>
+  <p class="note">
+    ⚠ 2026줄은 추경(수정 전망)입니다 — 아직 확정된 결산이 아닙니다. 위 표·그림에는
+    {' '}넣지 않고 참고로만 적습니다: {(국세.find((r: any) => r.해 === 2026) as any).소득세}조·
+    {' '}{(국세.find((r: any) => r.해 === 2026) as any).법인세}조·
+    {' '}{(국세.find((r: any) => r.해 === 2026) as any).부가세}조.
+  </p>
+  <p class="note">⚠ {자료['2027예산안_확인중']['⚠']}</p>
+
+  <h2>13년간 증가율을 나란히 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>항목</th><th>2012→2025 증가율</th></tr></thead>
+      <tbody>
+        <tr><td>소득세</td><td><strong>{비교.소득세_2012_2025}%</strong></td></tr>
+        <tr><td>법인세</td><td>{비교.법인세_2012_2025}%</td></tr>
+        <tr><td>부가가치세</td><td>{비교.부가세_2012_2025}%</td></tr>
+        <tr><td>실질임금(100yearmap 실측)</td><td><strong>{비교.실질임금_2012_2025}%</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    소득세 수입 증가율({비교.소득세_2012_2025}%)은 같은 기간 실질임금 증가율
+    ({비교.실질임금_2012_2025}%)의 약 {Math.round((비교.소득세_2012_2025 / 비교.실질임금_2012_2025) * 10) / 10}배입니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 국세 수입과 실질임금이
+    {' '}다르게 움직였다는 사실만 보여줄 뿐, 세금이 많다·적다를 판정하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 국세: {출처.이름}(단위 {출처.단위}) · 실질임금: {임금.출처}(같은 자료 — /real-wage)
+  </p>
+
+  <p class="note">
+    <a href="/real-wage">← 물가를 뺀 월급, 언제부터 줄고 있나요?</a>
+    <br />
+    <a href="/wage-distribution">← 임금 구간별로 근로자가 어떻게 나뉘어 있을까요?</a>
+    <br />
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 맨 위입니다</a>
+  </p>
+
+  <HundredAgeWalk 키="tax-vs-wage" />
+
+  <NextQuestionBrief 모은것="열린재정(재정경제부) + 사업체노동력조사·소비자물가조사(KOSIS)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/tax-vs-wage"></div>
+</HundredYear>
