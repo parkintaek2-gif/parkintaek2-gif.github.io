@@ -52,7 +52,9 @@
  *   그래서 실제로 신호는 못 만든다(투자AI 판독지침: 근거·sourceId 없이 신호화 금지). 감지까지만 한다.
  * 🔴 apigateway.adx.ae 는 node fetch 에 403 — curl 로 받는다(CBUAE·board-members 와 같은 벽).
  *
- * 저장: archive/raw/uae-adx-disclosures/<종목>-<시작~끝>.json (멱등 — 다시 돌리면 덮어쓴다)
+ * 저장: archive/raw/uae-adx-disclosures/<종목>.json (종목마다 «한 파일» — 다시 돌리면 덮어쓴다)
+ * ⚠ 예전엔 파일 이름에 365일 창의 시작~끝 날짜가 들어 있었다 — 하루만 지나도 이름이 바뀌어
+ *   «새 파일»이 되고 어제 파일이 안 지워졌다(2026-09-14 실측, 5번이 잡음). 지금은 종목 이름만.
  */
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -106,10 +108,19 @@ export function 공시무게(항목) {
    * pr-marketing(2) 로 흘러 들어갔을 수 있었다 — 한국(collect-dart-breaking.mjs)에는
    * 이미 있던 것을 여기 채운다.
    */
-  if (/change of (the )?(chief executive|ceo|chairman|managing director)|resignation of (the )?(ceo|chairman|chief executive officer|managing director)|appointment of (a |the )?(new )?(ceo|chairman|chief executive|managing director)/i.test(title)) {
+  /*
+   * 🔴 [2026-09-14 · 5번 실측] 처음 쓴 규칙(정확한 문구만)은 실전 제목과 안 맞아 96개사
+   * 4,841건 중 ceo-change·control-change 가 합쳐 6건만 잡혔다 — 진짜 이·임원 변경 공시
+   * 수백 건이 board-procedural·pr-marketing 잡음에 묻혀 있었다(실제 제목 표본으로 확인:
+   * "Resignation and Appointment"·"Board of Directors Appoints … as Chairman"·
+   * "List of Candidates to Board of Directors Membership" 등). 제목을 직접 읽고 다시 짰다.
+   * ⚠ 넓힌 만큼 오탐도 는다(예: 감사인 사임도 「resignation」에 걸릴 수 있다) — 감지 단계라
+   * 받아들인다(투자AI 신호로는 안 쓴다).
+   */
+  if (/\bresignations?\b|board of directors appoints|appoint(s|ment|ing)?\s+(of\s+)?(a\s+|the\s+)?(new\s+)?(chairman|chief executive|\bceo\b|managing director|director\b)|(list|names?) of (candidates|nominees)\b|nomination(s)?\s+(for|to|closed|period)|opening of (the )?nomination|board of directors.*election|reconstitution of the executive committee|elections?\s*\(board members\)|change of (the )?(chief executive|ceo|chairman|managing director)/i.test(title)) {
     return { 무게: 8, 태그: 'ceo-change' };
   }
-  if (/acquisition .*(resulting in|leading to) .*change of control|change of control of the company/i.test(title)) {
+  if (/acquisition of (a\s+)?majority stake|completes? (the\s+)?acquisition|increases? (its\s+)?ownership.*to\s*100|majority shareholder in|change of control of the company/i.test(title)) {
     return { 무게: 8, 태그: 'control-change' };
   }
   if (/change in .*shareholding|substantial shareholding|major shareholding/i.test(title)) {
@@ -150,6 +161,26 @@ function 자가시험() {
   재다('🔴 공시무게: CEO 사임 → ceo-change 무게8', 공시무게({ disclosureType: '4', title: 'Resignation of the CEO' }).태그 === 'ceo-change');
   재다('🔴 공시무게: 신임 회장 선임 → ceo-change', 공시무게({ disclosureType: '4', title: 'Appointment of a New Chairman' }).태그 === 'ceo-change');
   재다('🔴 공시무게: 지배권 변경 인수 → control-change 무게8', 공시무게({ disclosureType: '4', title: 'Acquisition resulting in change of control of the Company' }).태그 === 'control-change');
+
+  /* 🔴 [2026-09-14] 실제 ADX 제목 표본으로 넓힌 규칙을 검증한다 */
+  재다('실측: "Resignation and Appointment" → ceo-change', 공시무게({ disclosureType: '4', title: 'Abu Dhabi National Insurance Company - Resignation and Appointment' }).태그 === 'ceo-change');
+  재다('실측: "Board of Directors Appoints … as Chairman" → ceo-change', 공시무게({ disclosureType: '4', title: 'Abu Dhabi Aviation Board of Directors Appoints H.E. Mansour AlMulla as Chairman' }).태그 === 'ceo-change');
+  재다('실측: "List of Candidates to Board of Directors Membership" → ceo-change', 공시무게({ disclosureType: '4', title: 'List of Candidates to Board of Directors Membership' }).태그 === 'ceo-change');
+  재다('실측: "Opening of Nomination for Membership of the Board" → ceo-change', 공시무게({ disclosureType: '4', title: 'Abu Dhabi Aviation PJSC: Announcement on the Opening of Nomination for Membership of the Board of Directors' }).태그 === 'ceo-change');
+  재다('실측: "Reconstitution of The Executive Committee" → ceo-change', 공시무게({ disclosureType: '4', title: 'Reconstitution of The Executive Committee of the Board of Directors of ADNOC Drilling Company PJSC' }).태그 === 'ceo-change');
+  재다('실측: "TWO POINT ZERO GROUP - Elections (Board Members)" → ceo-change', 공시무게({ disclosureType: '4', title: 'TWO POINT ZERO GROUP - P.J.S.C Elections (Board Members)' }).태그 === 'ceo-change');
+  재다('실측: "completes the acquisition of Traverse Midstream" → control-change', 공시무게({ disclosureType: '4', title: '2PointZero’s ePointZero Enters U.S. Market, Completes Acquisition of Traverse Midstream Partners for USD 2.25 Billion' }).태그 === 'control-change');
+  재다('실측: "acquisition of a majority stake in ISEM Packaging" → control-change', 공시무게({ disclosureType: '4', title: 'Notification on acquisition of a majority stake in ISEM Packaging Group.' }).태그 === 'control-change');
+  재다('⛔ 오탐 방지: 유동성공급자 선임은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'Extension of the Appointment of Al Ramz Capital LLC as Liquidity Provider for ADNOC Distribution' }).태그 !== 'ceo-change');
+
+  /* 🔴 [2026-09-14 2차] "resignation" 복수형·이사 후보 공시류를 더 넓혔다 */
+  재다('실측: "resignations of two members" (복수형) → ceo-change', 공시무게({ disclosureType: '4', title: 'ESHRAQ INVESTMENTS - Receipt of a letter from Abu Dhabi Financial Group and the resignations of two members of the Board of Directors.' }).태그 === 'ceo-change');
+  재다('실측: "List of Nominees for the Board" → ceo-change', 공시무게({ disclosureType: '4', title: 'Agthia Group PJSC - List of Nominees for the Board' }).태그 === 'ceo-change');
+  재다('실측: "Nomination Closed for the board members" → ceo-change', 공시무게({ disclosureType: '4', title: 'Agthia Group PJSC Nomination Closed for the board members' }).태그 === 'ceo-change');
+  재다('실측: "Names of Candidates for Board of Directors Membership" → ceo-change', 공시무게({ disclosureType: '4', title: 'Disclosure – Names of Candidates for Board of Directors Membership of Eshraq Investments PJSC' }).태그 === 'ceo-change');
+  재다('실측: "Appointment of a Director" → ceo-change', 공시무게({ disclosureType: '4', title: 'Appointment of a Director' }).태그 === 'ceo-change');
+  재다('⛔ 오탐 방지: 「Board of Directors Report for the Period Ended…」(정기보고)은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'DANA GAS PJSC Board of Directors Report for the Period Ended June 30,2026' }).태그 !== 'ceo-change');
+  재다('⛔ 오탐 방지: 「Results of Board of Directors’ Resolution by Circulation」(정기결의)은 ceo-change 가 아니다', 공시무게({ disclosureType: '4', title: 'ESHRAQ INVESTMENTS P.J.S.C Results of Board of Directors’ Resolution by Circulation on 01/04/2026' }).태그 !== 'ceo-change');
   재다('공시무게: 이사회 결과(Results/Outcome) → 무게 6', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Results/ Outcome', title: 'x' }).무게 === 6);
   재다('공시무게: 이사회 절차(Agenda) → 무게 1(잡음에 가깝다)', 공시무게({ disclosureType: '5', engSubCategoryName: 'Board Meeting | Announcement/ Agenda', title: 'x' }).무게 === 1);
   재다('공시무게: 총회 초청장(disclosureType=3) → 무게 1', 공시무게({ disclosureType: '3', title: 'AGM Invitation' }).무게 === 1);
@@ -212,7 +243,15 @@ async function main() {
       const 추린것 = 공시추리기(rows);
       const 높은것 = 추린것.filter((x) => x.무게 >= 5);
 
-      const 결과 = await put(`raw/uae-adx-disclosures/${종목}-${fromDate.replace(/\//g, '')}~${toDate.replace(/\//g, '')}.json`, JSON.stringify({
+      /*
+       * 🔴🔴 [2026-09-14 · 5번 감수로 발견] 파일 이름에 «오늘 기준 365일 창»의 시작~끝 날짜를
+       * 넣었더니, 하루만 지나도 창이 하루씩 밀려 «새 파일»이 된다 — 어제 파일이 안 지워지고
+       * 그대로 남는다. 그래서 ALDAR 하나에만 어제 것 + 오늘 것 두 파일이 쌓여 있었고, 그걸
+       * 세는 쪽(digest 빌더 등)이 «같은 공시를 두 번» 세고 있었다(5번이 잡은 5,139 vs 5,778
+       * 불일치의 진짜 원인 중 하나). ⇒ 파일 이름에서 날짜를 뺀다 — 종목 하나에 «파일 하나»,
+       * 다시 돌리면 진짜로 덮어쓴다(ADX 사람 수집기 collect-uae-adx-people.mjs 와 같은 규칙).
+       */
+      const 결과 = await put(`raw/uae-adx-disclosures/${종목}.json`, JSON.stringify({
         _meta: {
           product: 'ADX company disclosures — weighted by likely price impact (heuristic, not a signal)',
           symbol: 종목,
