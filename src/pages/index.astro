@@ -84,10 +84,13 @@ const jsonLd = {
           </li>
         ))}
       </ul>
+      {/* 🔴 [2026-09-14 · 6번 감수] 값을 여기 새로 적지 않는다 — licence-products.mjs 가
+          정본이다(헤더 주석: "지면의 값과 페이팔이 받는 값이 어긋나면 그것이 사고다").
+          이전엔 KRW 로 된 옛 값(사장님이 이미 「달러로만」로 바꾸라 하신 것)이 남아 있었다. */}
       <p class="plicence">
-        <b>Licence</b> — single dataset <b>KRW 390,000</b> · single dataset + 1 year of updates{' '}
-        <b>KRW 1,200,000</b> · all datasets + 1 year <b>KRW 3,600,000</b> · academic{' '}
-        <b>KRW 90,000</b>. <a href="/data">See every dataset and what is in it →</a>
+        <b>Licence</b> — academic <b>$79</b> one-time · single dataset <b>$990/yr</b> or{' '}
+        <b>$99/mo</b> · all datasets <b>$2,990/yr</b> or <b>$299/mo</b>.{' '}
+        <a href="/data">See every dataset and what is in it →</a>
       </p>
       {/* ⛔ 다 된 것처럼 적지 않는다. 어디까지 채워졌는지는 «지면마다» 적혀 있다 */}
       <p class="pnote">
