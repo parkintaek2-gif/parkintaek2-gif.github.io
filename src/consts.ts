@@ -12,6 +12,13 @@ export const SITE = {
   /** 🔴 [2026-09-14 · 사장님 지시] 로고 표기를 「SeoulMarkets」→「SMarkets」로 줄인다.
       첫 글자(S)에 강조색을 준다 — Masthead.astro 가 nameParts[0] 을 강조 span 으로 감싼다. */
   nameParts: ['S', 'Markets'],
+  /** 🔴 [2026-09-15 · 사장님 지시] 「s를 약어로 쓰는 좋은 단어 후보군도 만들라고 했는데」
+      「s위에 그 단어를 smarkets랑 길이가 같게」
+      ⇒ S 가 무엇의 약어인지를 로고 «위»에 얹고, 너비를 SMarkets 에 맞춘다.
+      후보군과 고른 까닭은 docs/브랜드-S-후보군.md 에 있다.
+      ⭐ 바꿀 때는 «이 한 줄만» 고치면 된다 — 지면·CSS 를 안 건드린다.
+      ⛔ Signals·Speculation 은 안 된다. 투자자문 아님 고지가 거짓이 된다. */
+  logoOverline: 'Statements',
   /* 🔴 [2026-09-14] 「코리아」에서 「아시아·걸프」 우산으로 넓혔다 — 사장님 지시.
      ⚠ 사이트 «이름»은 SeoulMarkets 그대로다. 이름이 아니라 «파는 범위»가 넓어진 것이다. */
   tagline: 'Asian and Gulf markets, explained with data.',

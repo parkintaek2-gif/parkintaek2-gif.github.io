@@ -134,26 +134,30 @@ main {
 /* .masthead__bar 는 2026-09-14 에 Masthead.astro 의 .masthead__top 으로 옮겼다 —
    머리를 «두 켜»(이름 줄 / 섹션 줄)로 가르면서 한 곳에서만 재도록 모았다. */
 
-/* 🔴 [2026-09-14 · 5번] 사장님 「smarkets로 바꿨는데 디자인이 맘에 안든다」
-   이름이 «SMarkets» 로 짧아졌는데 S 한 글자만 색이 달라 「S  Markets」로 끊겨 보였다.
-   짧은 이름일수록 한 덩어리로 읽혀야 한다 — 자간을 더 좁히고, S 는 «색 + 크기»로 세운다. */
+/* 🔴🔴 [2026-09-15 · 5번] **내가 사장님 지시를 «결함»으로 보고 손댔다가 되돌린 자리다.**
+   사장님 원지시(2026-09-14 23:07): 「제일 위 SEOUL Market>>>SMarkets 로 수정. **s는 컬러 다르게**」
+   그런데 나는 「S 한 글자만 색이 달라 끊겨 보인다」며 S 를 1.2배로 키우고 자간을 더 좁혔다.
+   사장님: 「s 글자색만 다르게 하라고 내가 지시한겨」
+   ⇒ 지시는 «색»이었다. 크기도 자간도 내가 얹은 것이다. 원래대로 되돌린다.
+   ⛔ 사장님이 정하신 것을 고치기 전에 «그 지시 원문을 먼저 찾는다».
+     앞 세션이 적어 둔 것을 「누가 그랬는지 모를 결정」으로 읽지 않는다. */
 .logo {
   font-family: var(--serif);
-  font-size: 1.5rem;
+  font-size: 1.55rem;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.02em;
   text-decoration: none;
-  line-height: 1.05;
-  color: var(--ink);
-  display: inline-flex;
-  align-items: baseline;
+  line-height: 1.1;
 }
 
-.logo span {
+/* 🔴 [2026-09-15] 선택자가 «너무 넓었다».
+   이름 위에 낱말을 얹으면서 로고 안에 span 이 셋이 됐다 —
+     .logo__over(윗줄) · .logo__word(아랫줄) · 그 안의 S
+   그런데 규칙이 「.logo span」이라 셋 다 강조색이 되어 «전부 같은 색»이 됐다.
+   ⇒ 사장님 지시(「s는 컬러 다르게」)가 그 자리에서 깨졌다. S 하나만 고른다.
+   ⛔ 구조를 바꿀 때는 그 구조를 «보고 있던 선택자»도 같이 본다. */
+.logo__word > span {
   color: var(--accent);
-  font-size: 1.2em;        /* S 를 한 치수 키워 이름의 «표식»으로 삼는다 */
-  line-height: 0.8;
-  margin-right: -0.015em;
 }
 
 /* 🔴 .nav 규칙은 2026-09-14 에 Masthead.astro 로 옮겼다.

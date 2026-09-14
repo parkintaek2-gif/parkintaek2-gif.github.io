@@ -35,7 +35,15 @@ const 사는길 = [
 
 <header class="masthead">
   <div class="wrap masthead__top">
-    <a class="logo" href="/" aria-label={SITE.name}><span>{head}</span>{tail.join('')}</a>
+    {/* 🔴 [2026-09-15 · 사장님 지시] 「s위에 그 단어를 smarkets랑 길이가 같게」
+        S 가 무엇의 약어인지를 이름 «위»에 얹는다. 너비는 아래 글자(SMarkets)가 정하고,
+        윗줄이 그 너비에 «맞춰 늘어난다» — text-align-last: justify 가 그 일을 한다.
+        ⇒ 글꼴이 바뀌어도, 낱말을 갈아 끼워도 두 줄의 너비가 저절로 같다.
+        ⛔ 아래 글자에는 손대지 않는다. 사장님 지시는 「s는 컬러 다르게」 그것뿐이다. */}
+    <a class="logo" href="/" aria-label={SITE.name}>
+      {SITE.logoOverline && <span class="logo__over" aria-hidden="true">{SITE.logoOverline}</span>}
+      <span class="logo__word"><span>{head}</span>{tail.join('')}</span>
+    </a>
     <nav class="util" aria-label="Company">
       {사는길.map((x) => <a href={x.href} aria-current={isCurrent(x.href)}>{x.label}</a>)}
     </nav>
@@ -58,6 +66,36 @@ const 사는길 = [
 </header>
 
 <style>
+  /* ── 로고 — 이름 위에 «S 가 무엇인지»를 얹는다 (2026-09-15 사장님 지시) ──────── */
+  .logo {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: stretch;   /* 윗줄이 아랫줄 너비를 그대로 받는다 */
+    width: -moz-fit-content;
+    width: fit-content;     /* 통의 너비 = 아래 글자(SMarkets)의 너비 */
+    gap: 0.1rem;
+  }
+
+  /* 🔴 너비를 «맞추는» 자리는 여기다.
+     text-align-last: justify 는 «마지막 한 줄»도 양끝에 맞춰 늘인다 —
+     한 줄짜리 글은 그 규칙이 없으면 왼쪽에만 붙는다.
+     ⇒ 글자 사이가 저절로 벌어져 아래 이름과 끝이 딱 맞는다. */
+  .logo__over {
+    display: block;
+    width: 100%;
+    text-align: justify;
+    text-align-last: justify;
+    -moz-text-align-last: justify;
+    font-family: var(--sans, system-ui);
+    font-size: 0.52rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--muted, #6b6b6b);
+    line-height: 1;
+  }
+
+  .logo__word { display: block; white-space: nowrap; }
+
   /* ── 윗켜 — 이름과 «사는 길» ─────────────────────────────────────────── */
   .masthead__top {
     display: flex;
