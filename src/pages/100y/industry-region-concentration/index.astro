@@ -1,0 +1,128 @@
+---
+/**
+ * /100y/industry-region-concentration — 업종이 어느 지역에 몰려 있나
+ *
+ * 재료: src/data/100yearmap/industry-region-cells.json(업종×시도 교차표, 8번 2026-08-08~10
+ * 수집·1,491칸)을 3번이 업종별로 다시 묶어 만든 파생 지면. region-pay-raw-vs-adjusted·
+ * industry-pay-turnover와 같은 국민연금 원자료의 세 번째 각도.
+ *
+ * 🔴 원본 자료의 지침을 그대로 지킨다 — "⛔ 안 쓰는 말: 순위·몇 위·상위 몇%·좋은 업종·나쁜 업종"
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/industry-region-concentration.json';
+
+const 자료 = 원본 as any;
+const 몰린1등 = 자료.몰린[0];
+const 퍼진1등 = 자료.퍼진[0];
+
+const desc =
+  `국민연금 가입 사업장 내역(2026-06)을 업종×지역으로 묶어 보면, ` +
+  `${몰린1등.업종}은 인원의 ${몰린1등.몰림비율}%가 ${몰린1등.최다지역}에 있지만, ` +
+  `${퍼진1등.업종}은 가장 많은 지역도 ${퍼진1등.몰림비율}%뿐입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.이름,
+  description: desc,
+  temporalCoverage: '2026-06',
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear
+  title="업종이 어느 지역에 몰려 있나요?"
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>업종이 어느 지역에<br class="pcbr" /> 몰려 있나요?</h1>
+
+  <p class="sub">
+    국민연금 가입 사업장 내역(2026-06)을 업종×지역 교차표로 묶어 보면, 어떤 업종은
+    {' '}거의 서울에만 있고 어떤 업종은 전국에 고르게 퍼져 있습니다. 「좋은 업종·나쁜 업종」이
+    {' '}아니라 <strong>업종마다 지리적 성격이 다르다</strong>는 것을 보여드립니다.
+  </p>
+
+  <h2>서울에 몰려 있는 업종</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>가장 많은 지역</th><th>그 지역 비중</th><th>전체 인원</th></tr></thead>
+      <tbody>
+        {
+          자료.몰린.map((r: any) => (
+            <tr>
+              <td>{r.업종}</td>
+              <td>{r.최다지역}</td>
+              <td>{r.몰림비율}%</td>
+              <td>{r.총인원.toLocaleString()}명</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    {몰린1등.업종}은 문턱(가입자 1,000명 이상)을 넘은 지역이 {몰린1등.지역수}곳뿐인데,
+    {' '}그중 {몰린1등.몰림비율}%가 {몰린1등.최다지역}에 있습니다. 인력·광고·금융 같은
+    {' '}업종이 이런 모습을 보입니다.
+  </p>
+
+  <h2>전국에 퍼져 있는 업종</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>업종</th><th>가장 많은 지역</th><th>그 지역 비중</th><th>전체 인원</th></tr></thead>
+      <tbody>
+        {
+          자료.퍼진.map((r: any) => (
+            <tr>
+              <td>{r.업종}</td>
+              <td>{r.최다지역}</td>
+              <td>{r.몰림비율}%</td>
+              <td>{r.총인원.toLocaleString()}명</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    {퍼진1등.업종}은 문턱을 넘은 지역이 {퍼진1등.지역수}곳이나 되는데도, 가장 많은
+    {' '}{퍼진1등.최다지역}조차 {퍼진1등.몰림비율}%뿐입니다. 병원·건설·부품제조처럼
+    {' '}사람이 있는 곳마다 필요한 업종이 이런 모습을 보입니다.
+  </p>
+
+  <div class="card warn">
+    <p class="note">
+      ⚠ 「지역수」는 그 업종이 1,000명 문턱을 넘은 지역만 센 것입니다. 문턱 밑에 소수
+      {' '}인원이 있는 지역은 이 셈에서 빠져 있어, 실제 분포는 이보다 더 넓을 수 있습니다.
+    </p>
+  </div>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 어느 업종이 「좋다·나쁘다」를
+    {' '}100yearmap이 판정하지 않습니다. 업종마다 지역에 묶이는 정도가 다르다는 것만
+    {' '}보여드립니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}(2026-06 기준, data.go.kr {자료.출처.데이터셋}). {자료.대조}
+  </p>
+
+  <p class="note">
+    <a href="/industry-pay-turnover">← 업종마다 임금·이직·근속이 이렇게 다릅니다</a>
+    <br />
+    <a href="/region-pay-raw-vs-adjusted">← 어디가 벌이가 좋나요? 물음이 두 가지입니다</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국민연금공단 가입 사업장 내역 — 업종×지역 교차" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/industry-region-concentration"></div>
+</HundredYear>
