@@ -648,6 +648,11 @@
    "figure": "3,590",
    "label": "average daily English Wikipedia lookups for V — inside its usual range, deal or not",
    "왜": "자동은 뉴스가 보도한 「$6.3M media impact value」를 집는다. 그건 저희가 검증하지 않은 남의 집계다. 3,590(30일 평균 일일 조회수)이 저희가 직접 잰 수이고 이 기사의 요점이다"
+  },
+  "baekhyun-court-injunction-reading-spike-hits-only-him": {
+   "figure": "1.51x",
+   "label": "Baekhyun's 14 Sep reading vs. his 30-day average — Chen and Xiumin stayed flat",
+   "왜": "자동은 dek 의 날짜 「15 September」에서 15 를 집는다. 날짜는 우리가 센 것이 아니다. 우리가 센 것은 백현의 열람이 평소의 1.51배로 튄 것이고, 같은 사건의 첸·시우민은 그러지 않았다는 것이다"
   }
  }
 }
