@@ -36,7 +36,37 @@ import { fileURLToPath } from 'node:url';
 const 이칸 = path.dirname(fileURLToPath(import.meta.url));
 const 뿌리 = path.resolve(이칸, '..');
 const 집 = os.homedir();
-const 사본칸 = path.join(집, '대화기록-사본');
+
+/**
+ * 🔴 [2026-09-16 · 사장님 지시] **사본을 «원드라이브에만» 둔다.**
+ *
+ * > 「C:\\Users\\User\\대화기록-사본 >>>15GB인데 **원드라이브에만 저장하고,
+ * >  PC에서는 볼 수 있는 자리만 있게 해**」
+ *
+ * ── 왜 이렇게 바뀌었나 ──────────────────────────────────────────────
+ * 그때까지 이 자는 «두 곳»에 떴다 —
+ *   ① C:\\Users\\User\\대화기록-사본   (매시 · 로컬)
+ *   ② …\\OneDrive\\대화기록-사본        (하루 한 번 · 이레치)
+ * 그런데 ①이 **16.16GB / 1,080개**까지 불어 있었다. 재 보니 ②와 «거의 같은 것»이었다.
+ * ⇒ 같은 디스크에 16GB 를 쌓아 두는 것은 사본이 아니라 그냥 «두 배 쓰는 것»이다.
+ *   디스크가 죽으면 원본과 함께 죽는다(이 파일 아래 절에 그 까닭이 이미 적혀 있었다).
+ *
+ * ── 이제 어떻게 도나 ────────────────────────────────────────────────
+ * ```
+ * 매시   원드라이브 폴더로 «바로» 뜬다. 로컬 사본칸을 따로 두지 않는다
+ * PC     원드라이브 파일 온디맨드가 «자리만» 남긴다(구름 표시). 디스크를 안 먹는다
+ * 이레   지난 것은 그대로 이레 뒤 지운다
+ * ```
+ * ⚠ 파일 온디맨드가 켜져 있어야 한다 — 실측으로 켜져 있음을 확인했다
+ *   (SavedPlaceholdersEnabledState = true).
+ * ⛔ 로컬 경로를 되살리지 않는다. 되살리면 16GB 가 다시 쌓인다.
+ */
+const 사본칸 = path.join(
+  process.env.OneDrive || process.env.OneDriveConsumer || path.join(집, 'OneDrive'),
+  '대화기록-사본',
+);
+/** 옛 로컬 자리 — 남아 있으면 «비었을 때만» 치운다. ⛔ 안에 것이 있으면 안 지운다 */
+const 옛로컬칸 = path.join(집, '대화기록-사본');
 const 작업이름 = 'KLifeDesign-대화기록-사본';
 const 남길날수 = 7;
 
@@ -192,33 +222,63 @@ export function 원드라이브낡은것치운다(오늘날, 남길 = 남길날�
   return 지운것;
 }
 
+/**
+ * 🔴 [2026-09-16] **이 자리는 이제 «옮기지» 않는다. 낡은 것을 치우기만 한다.**
+ *
+ * 사본칸이 곧 원드라이브칸이 되었으므로(위 지시), 여기서 또 복사하면
+ * 원드라이브 → 원드라이브로 제자리 복사를 하게 된다. 뜻이 없고, 파일 온디맨드가
+ * 잠들여 둔 것을 «다시 내려받게» 만들어 디스크를 도로 채운다.
+ * ⛔ 그래서 복사를 걷어냈다. 되살리지 않는다.
+ * ✅ 남긴 것은 이레 지난 것 치우기 하나다 — 사장님: 「1주일 지나면 지우는 식으로 해」
+ */
+/**
+ * 🔴 PC 에는 «볼 수 있는 자리»만 남긴다 — 사장님 지시 원문 그대로.
+ *
+ * 원드라이브 파일 온디맨드의 «여유 공간 확보»와 같은 일을 자로 한다.
+ *   attrib +U  구름 전용으로 (U = unpinned)
+ *   attrib -P  「항상 이 기기에 유지」를 끈다 (P = pinned)
+ *
+ * ⚠ **아직 올라가지 않은 파일은 안 비워진다.** 원드라이브가 올린 뒤에야 자리만 남는다.
+ *   그래서 이 자를 «매시» 부른다 — 오늘 못 비운 것은 다음 판에 비워진다.
+ *   ⛔ 「한 번 걸었으니 됐다」로 끝내지 않는다. 처음 걸었을 때 1,080개 중 700개만 비워졌다.
+ * ⛔ 실패해도 사본 뜨는 일을 멈추지 않는다. 자리를 비우는 것은 «덤»이고 사본이 «본»이다.
+ */
+function 자리만남긴다() {
+  if (!fs.existsSync(사본칸)) return;
+  const r = spawnSync('attrib', ['+U', '-P', path.join(사본칸, '*'), '/s', '/d'],
+    { encoding: 'utf8', timeout: 120000, windowsHide: true });
+  if (r.error) { console.log(`     ⬜ 자리 비우기를 못 했다 — ${r.error.message}`); return; }
+  /* ⛔ 파일마다 attrib 를 부르지 않는다 — 1,080번이면 몇 분이 간다.
+     한 번에 훑어 «줄»을 센다. 줄 앞머리에 U 가 있으면 자리만 남은 것이다. */
+  const 본다 = spawnSync('attrib', [path.join(사본칸, '*'), '/s'],
+    { encoding: 'utf8', timeout: 180000, windowsHide: true, maxBuffer: 64 * 1024 * 1024 });
+  const 줄들 = String(본다.stdout || '').split(/\r?\n/).filter((l) => /\.jsonl\s*$/i.test(l));
+  const 구름 = 줄들.filter((l) => /^[A-Z ]*U[A-Z ]*\s+[A-Z]:/.test(l)).length;
+  const 남은것 = 줄들.length;
+  console.log(`     ☁ 자리만 남김 — 파일 ${남은것}개 중 구름전용 ${구름}개`
+    + (구름 < 남은것 ? ` (나머지 ${남은것 - 구름}개는 아직 올라가는 중 — 다음 판에 비워진다)` : ''));
+}
+
 function 원드라이브에뜬다(날) {
   if (!fs.existsSync(원드라이브집)) {
     console.log(`  ⛔ 원드라이브를 못 찾았다: ${원드라이브집} — **못 떴다**(건너뛴 것이 아니다)`);
     return { 떴다: 0, 못떴다: 1 };
   }
-  const 오늘칸 = path.join(사본칸, 날);
-  if (!fs.existsSync(오늘칸)) {
-    console.log(`  ⬜ 오늘 사본이 아직 없다: ${오늘칸} — 뜰 것이 없다`);
-    return { 떴다: 0, 못떴다: 0 };
-  }
-  let 떴다 = 0, 같다 = 0, 못떴다 = 0;
-  const 걷는다 = (칸, 아래) => {
-    let 목록 = [];
-    try { 목록 = fs.readdirSync(칸, { withFileTypes: true }); } catch { 못떴다++; return; }
-    for (const e of 목록) {
-      const 원 = path.join(칸, e.name);
-      if (e.isDirectory()) { 걷는다(원, path.join(아래, e.name)); continue; }
-      const r = 옮긴다(원, path.join(원드라이브칸, 날, 아래, e.name));
-      if (r === '떴다') 떴다++; else if (r === '같다') 같다++; else 못떴다++;
-    }
-  };
-  걷는다(오늘칸, '.');
   const 지운것 = 원드라이브낡은것치운다(날);
-  console.log(`  ☁ 원드라이브 — 새로 뜬 것 ${떴다} · 그대로 ${같다} · 못 뜬 것 ${못떴다}`
-    + `${지운것.length ? ` · 이레 지난 ${지운것.length}일치 지웠다` : ''}`);
+  console.log(`  ☁ 원드라이브가 «곧 사본칸»이다 — 따로 옮기지 않는다`
+    + `${지운것.length ? ` · 이레 지난 ${지운것.length}일치 지웠다` : ' · 치울 것 없다'}`);
   console.log(`     자리 ${path.join(원드라이브칸, 날)}`);
-  return { 떴다, 못떴다 };
+
+  /* 옛 로컬 자리가 «비어 있으면» 치운다. ⛔ 안에 것이 있으면 손대지 않는다 */
+  try {
+    if (fs.existsSync(옛로컬칸) && fs.readdirSync(옛로컬칸).filter((x) => !x.startsWith('.')).length === 0) {
+      fs.rmSync(옛로컬칸, { recursive: true, force: true });
+      console.log(`     🧹 빈 옛 자리를 치웠다 — ${옛로컬칸}`);
+    }
+  } catch { /* 못 치우면 다음 판에 다시 해 본다 */ }
+
+  자리만남긴다();
+  return { 떴다: 0, 못떴다: 0 };
 }
 
 function 예약등록() {
