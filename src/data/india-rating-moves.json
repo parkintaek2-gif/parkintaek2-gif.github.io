@@ -1,0 +1,1741 @@
+{
+ "_meta": {
+  "product": "India rating moves — our own counts over exchange-disseminated rating actions",
+  "builtAt": "2026-09-15T03:17:45.642Z",
+  "basedOn": "archive\\raw\\india-nse-credit-rating\\20260915.json.gz",
+  "source": "NSE system-driven disclosure of credit ratings (SEBI LODR Reg 30)",
+  "notThis": [
+   "Not a copy of the exchange table. These are counts we computed.",
+   "Actions the agency filed as \"Other\" are NOT interpreted and NOT counted as moves.",
+   "Dates the filer typed wrongly are excluded from the monthly trend, not corrected.",
+   "Not investment advice, and not a view on any company."
+  ],
+  "publishGate": "⛔ NSE 약관 판단을 사장님께 여쭸다(2026-09-15 메일). 답 전에는 지면에 안 낸다."
+ },
+ "eventsStored": 21956,
+ "movesCounted": 3301,
+ "upgrades": 2579,
+ "downgrades": 722,
+ "downgradeShare": 21.9,
+ "notCountedBecauseActionUnclear": 17058,
+ "datesNotTrusted": 2,
+ "byAgency": [
+  {
+   "agency": "CRISIL",
+   "upgrades": 1267,
+   "downgrades": 250,
+   "moves": 1517,
+   "downgradeShare": 16.5
+  },
+  {
+   "agency": "ICRA",
+   "upgrades": 564,
+   "downgrades": 87,
+   "moves": 651,
+   "downgradeShare": 13.4
+  },
+  {
+   "agency": "CARE",
+   "upgrades": 400,
+   "downgrades": 197,
+   "moves": 597,
+   "downgradeShare": 33
+  },
+  {
+   "agency": "India",
+   "upgrades": 209,
+   "downgrades": 64,
+   "moves": 273,
+   "downgradeShare": 23.4
+  },
+  {
+   "agency": "Infomerics",
+   "upgrades": 84,
+   "downgrades": 77,
+   "moves": 161,
+   "downgradeShare": 47.8
+  },
+  {
+   "agency": "Acuite",
+   "upgrades": 54,
+   "downgrades": 45,
+   "moves": 99,
+   "downgradeShare": 45.5
+  },
+  {
+   "agency": "Brickwork",
+   "upgrades": 1,
+   "downgrades": 2,
+   "moves": 3,
+   "downgradeShare": 66.7
+  }
+ ],
+ "byMonth": [
+  {
+   "month": "2025-08",
+   "upgrades": 140,
+   "downgrades": 82,
+   "ratio": 1.7
+  },
+  {
+   "month": "2025-09",
+   "upgrades": 133,
+   "downgrades": 58,
+   "ratio": 2.3
+  },
+  {
+   "month": "2025-10",
+   "upgrades": 77,
+   "downgrades": 28,
+   "ratio": 2.8
+  },
+  {
+   "month": "2025-11",
+   "upgrades": 72,
+   "downgrades": 53,
+   "ratio": 1.4
+  },
+  {
+   "month": "2025-12",
+   "upgrades": 101,
+   "downgrades": 56,
+   "ratio": 1.8
+  },
+  {
+   "month": "2026-01",
+   "upgrades": 58,
+   "downgrades": 39,
+   "ratio": 1.5
+  },
+  {
+   "month": "2026-02",
+   "upgrades": 122,
+   "downgrades": 32,
+   "ratio": 3.8
+  },
+  {
+   "month": "2026-03",
+   "upgrades": 174,
+   "downgrades": 70,
+   "ratio": 2.5
+  },
+  {
+   "month": "2026-04",
+   "upgrades": 657,
+   "downgrades": 41,
+   "ratio": 16
+  },
+  {
+   "month": "2026-05",
+   "upgrades": 371,
+   "downgrades": 47,
+   "ratio": 7.9
+  },
+  {
+   "month": "2026-06",
+   "upgrades": 255,
+   "downgrades": 92,
+   "ratio": 2.8
+  },
+  {
+   "month": "2026-07",
+   "upgrades": 201,
+   "downgrades": 67,
+   "ratio": 3
+  },
+  {
+   "month": "2026-08",
+   "upgrades": 168,
+   "downgrades": 40,
+   "ratio": 4.2
+  },
+  {
+   "month": "2026-09",
+   "upgrades": 50,
+   "downgrades": 17,
+   "ratio": 2.9
+  }
+ ],
+ "repeatDowngrades": [
+  {
+   "symbol": "UTKARSHBNK",
+   "company": "Utkarsh Small Finance Bank Limited",
+   "listing": "equities",
+   "downgradeActions": 23,
+   "downgradeOccasions": 4,
+   "agencies": [
+    "CARE",
+    "ICRA"
+   ],
+   "firstDate": "2025-08-12",
+   "lastDate": "2026-07-14"
+  },
+  {
+   "symbol": "VIPIND",
+   "company": "VIP Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 22,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-11-25",
+   "lastDate": "2026-06-25"
+  },
+  {
+   "symbol": "TIRUMALCHM",
+   "company": "Thirumalai Chemicals Limited",
+   "listing": "equities",
+   "downgradeActions": 21,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-08-26",
+   "lastDate": "2026-08-13"
+  },
+  {
+   "symbol": "SEPC",
+   "company": "SEPC Limited",
+   "listing": "equities",
+   "downgradeActions": 20,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "CRISIL",
+    "Infomerics"
+   ],
+   "firstDate": "2026-02-13",
+   "lastDate": "2026-03-11"
+  },
+  {
+   "symbol": "VIKRAN",
+   "company": "Vikran Engineering Limited",
+   "listing": "equities",
+   "downgradeActions": 15,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "India",
+    "Infomerics"
+   ],
+   "firstDate": "2026-06-10",
+   "lastDate": "2026-06-19"
+  },
+  {
+   "symbol": "SWASTIK",
+   "company": "Swastik Pipe Limited",
+   "listing": "sme",
+   "downgradeActions": 8,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-11-19",
+   "lastDate": "2026-01-20"
+  },
+  {
+   "symbol": "VPRPL",
+   "company": "Vishnu Prakash R Punglia Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-01-19",
+   "lastDate": "2026-06-09"
+  },
+  {
+   "symbol": "DECCANCE",
+   "company": "Deccan Cements Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "CARE",
+    "Infomerics"
+   ],
+   "firstDate": "2026-06-09",
+   "lastDate": "2026-08-20"
+  },
+  {
+   "symbol": "DPSCLTD",
+   "company": "DPSC Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 3,
+   "agencies": [
+    "Brickwork",
+    "Infomerics"
+   ],
+   "firstDate": "2026-05-22",
+   "lastDate": "2026-07-10"
+  },
+  {
+   "symbol": "SPANDANA",
+   "company": "Spandana Sphoorty Financial Limited",
+   "listing": "equities",
+   "downgradeActions": 26,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE",
+    "ICRA",
+    "India"
+   ],
+   "firstDate": "2025-08-26",
+   "lastDate": "2025-08-28"
+  },
+  {
+   "symbol": "CHEMPLASTS",
+   "company": "Chemplast Sanmar Limited",
+   "listing": "equities",
+   "downgradeActions": 19,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-09-16",
+   "lastDate": "2026-03-25"
+  },
+  {
+   "symbol": "DCAL",
+   "company": "Dishman Carbogen Amcis Limited",
+   "listing": "equities",
+   "downgradeActions": 12,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "India"
+   ],
+   "firstDate": "2026-02-18",
+   "lastDate": "2026-06-04"
+  },
+  {
+   "symbol": "PURVFLEXI",
+   "company": "Purv Flexipack Limited",
+   "listing": "sme",
+   "downgradeActions": 12,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-01",
+   "lastDate": "2026-06-05"
+  },
+  {
+   "symbol": "MIRZAINT",
+   "company": "Mirza International Limited",
+   "listing": "equities",
+   "downgradeActions": 10,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CRISIL",
+    "ICRA"
+   ],
+   "firstDate": "2026-04-08",
+   "lastDate": "2026-07-15"
+  },
+  {
+   "symbol": "AUSL",
+   "company": "Aditya Ultra Steel Limited",
+   "listing": "sme",
+   "downgradeActions": 8,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-11-25",
+   "lastDate": "2026-06-30"
+  },
+  {
+   "symbol": "KRITIKA",
+   "company": "Kritika Wires Limited",
+   "listing": "equities",
+   "downgradeActions": 8,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "Acuite",
+    "Infomerics"
+   ],
+   "firstDate": "2025-08-26",
+   "lastDate": "2026-07-28"
+  },
+  {
+   "symbol": "SDBL",
+   "company": "Som Distilleries & Breweries Limited",
+   "listing": "equities",
+   "downgradeActions": 8,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2026-05-19",
+   "lastDate": "2026-06-30"
+  },
+  {
+   "symbol": "SIGACHI",
+   "company": "Sigachi Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 7,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-12-24",
+   "lastDate": "2026-02-24"
+  },
+  {
+   "symbol": "OMINFRAL",
+   "company": "OM INFRA LIMITED",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-26",
+   "lastDate": "2026-03-30"
+  },
+  {
+   "symbol": "PAKKA",
+   "company": "PAKKA LIMITED",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-06",
+   "lastDate": "2026-06-09"
+  },
+  {
+   "symbol": "SHAREINDIA",
+   "company": "Share India Securities Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "Acuite",
+    "Infomerics"
+   ],
+   "firstDate": "2025-09-22",
+   "lastDate": "2026-05-28"
+  },
+  {
+   "symbol": "SPICEJET",
+   "company": "SPICEJET LTD",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-09",
+   "lastDate": "2026-07-22"
+  },
+  {
+   "symbol": "TEJASCARGO",
+   "company": "Tejas Cargo India Limited",
+   "listing": "sme",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-20",
+   "lastDate": "2026-06-03"
+  },
+  {
+   "symbol": "USK",
+   "company": "Udayshivakumar Infra Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-11-28",
+   "lastDate": "2026-06-29"
+  },
+  {
+   "symbol": "ARABIAN",
+   "company": "Arabian Petroleum Limited",
+   "listing": "sme",
+   "downgradeActions": 5,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE",
+    "India"
+   ],
+   "firstDate": "2026-05-08",
+   "lastDate": "2026-06-05"
+  },
+  {
+   "symbol": "LOKESHMACH",
+   "company": "Lokesh Machines Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "Acuite",
+    "CARE"
+   ],
+   "firstDate": "2025-08-29",
+   "lastDate": "2025-11-19"
+  },
+  {
+   "symbol": "ATMASTCO",
+   "company": "Atmastco Limited",
+   "listing": "sme",
+   "downgradeActions": 4,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "India",
+    "Infomerics"
+   ],
+   "firstDate": "2025-11-24",
+   "lastDate": "2026-02-27"
+  },
+  {
+   "symbol": "DCXINDIA",
+   "company": "DCX Systems Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CRISIL",
+    "Infomerics"
+   ],
+   "firstDate": "2025-09-19",
+   "lastDate": "2026-05-08"
+  },
+  {
+   "symbol": "OSIAHYPER",
+   "company": "Osia Hyper Retail Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "India"
+   ],
+   "firstDate": "2026-05-06",
+   "lastDate": "2026-06-25"
+  },
+  {
+   "symbol": "KUANTUM",
+   "company": "Kuantum Papers Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE",
+    "India"
+   ],
+   "firstDate": "2026-07-07",
+   "lastDate": "2026-07-20"
+  },
+  {
+   "symbol": "MUKKA",
+   "company": "Mukka Proteins Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-01-08",
+   "lastDate": "2026-05-26"
+  },
+  {
+   "symbol": "MHHL",
+   "company": "Mohini Health & Hygiene Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 2,
+   "agencies": [
+    "CARE",
+    "India"
+   ],
+   "firstDate": "2026-04-27",
+   "lastDate": "2026-09-03"
+  },
+  {
+   "symbol": "ACCURACY",
+   "company": "Accuracy Shipping Limited",
+   "listing": "equities",
+   "downgradeActions": 30,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-12-29",
+   "lastDate": "2025-12-29"
+  },
+  {
+   "symbol": "VASCONEQ",
+   "company": "Vascon Engineers Limited",
+   "listing": "equities",
+   "downgradeActions": 13,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-08-21",
+   "lastDate": "2026-08-21"
+  },
+  {
+   "symbol": "WATERBASE",
+   "company": "Waterbase Limited",
+   "listing": "equities",
+   "downgradeActions": 10,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-11-14",
+   "lastDate": "2025-11-14"
+  },
+  {
+   "symbol": "ESAFSFB",
+   "company": "ESAF Small Finance Bank Limited",
+   "listing": "equities",
+   "downgradeActions": 9,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-02",
+   "lastDate": "2025-09-02"
+  },
+  {
+   "symbol": "SHREDIGCEM",
+   "company": "Shree Digvijay Cement Co.Ltd",
+   "listing": "equities",
+   "downgradeActions": 9,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-07-22",
+   "lastDate": "2026-07-22"
+  },
+  {
+   "symbol": "KABRAEXTRU",
+   "company": "Kabra Extrusion Technik Limited",
+   "listing": "equities",
+   "downgradeActions": 8,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-05-12",
+   "lastDate": "2026-05-12"
+  },
+  {
+   "symbol": "MANGALAM",
+   "company": "Mangalam Drugs And Organics Limited",
+   "listing": "equities",
+   "downgradeActions": 8,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-11-24",
+   "lastDate": "2025-11-24"
+  },
+  {
+   "symbol": "EIDPARRY",
+   "company": "EID Parry India Limited",
+   "listing": "equities",
+   "downgradeActions": 7,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-08-14",
+   "lastDate": "2025-08-14"
+  },
+  {
+   "symbol": "GRPLTD",
+   "company": "GRP Limited",
+   "listing": "equities",
+   "downgradeActions": 7,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-12-10",
+   "lastDate": "2025-12-10"
+  },
+  {
+   "symbol": "KRYSTAL",
+   "company": "Krystal Integrated Services Limited",
+   "listing": "equities",
+   "downgradeActions": 7,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-04-30",
+   "lastDate": "2026-04-30"
+  },
+  {
+   "symbol": "NEOGEN",
+   "company": "Neogen Chemicals Limited",
+   "listing": "equities",
+   "downgradeActions": 7,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-07-17",
+   "lastDate": "2026-07-17"
+  },
+  {
+   "symbol": "AAKASH",
+   "company": "Aakash Exploration Services Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-07-27",
+   "lastDate": "2026-07-27"
+  },
+  {
+   "symbol": "BSHSL",
+   "company": "Bombay Super Hybrid Seeds Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-25",
+   "lastDate": "2026-03-25"
+  },
+  {
+   "symbol": "HERANBA",
+   "company": "Heranba Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-06-08",
+   "lastDate": "2026-06-08"
+  },
+  {
+   "symbol": "INDOCO",
+   "company": "Indoco Remedies Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-08-04",
+   "lastDate": "2025-08-04"
+  },
+  {
+   "symbol": "ORIENTCER",
+   "company": "ORIENT CERATECH LIMITED",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-10-01",
+   "lastDate": "2025-10-01"
+  },
+  {
+   "symbol": "PACEDIGITK",
+   "company": "Pace Digitek Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2025-10-30",
+   "lastDate": "2025-10-30"
+  },
+  {
+   "symbol": "RENUKA",
+   "company": "Shree Renuka Sugars Limited",
+   "listing": "equities",
+   "downgradeActions": 6,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "India"
+   ],
+   "firstDate": "2026-08-24",
+   "lastDate": "2026-08-24"
+  },
+  {
+   "symbol": "ARMANFIN",
+   "company": "Arman Financial Services Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2025-09-23",
+   "lastDate": "2025-09-23"
+  },
+  {
+   "symbol": "CELEBRITY",
+   "company": "Celebrity Fashions Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-09-05",
+   "lastDate": "2025-09-05"
+  },
+  {
+   "symbol": "DWARKESH",
+   "company": "Dwarikesh Sugar Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2026-05-25",
+   "lastDate": "2026-05-25"
+  },
+  {
+   "symbol": "HESTERBIO",
+   "company": "Hester Biosciences Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-23",
+   "lastDate": "2026-03-23"
+  },
+  {
+   "symbol": "KONSTELEC",
+   "company": "Konstelec Engineers Limited",
+   "listing": "sme",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-01-08",
+   "lastDate": "2026-01-08"
+  },
+  {
+   "symbol": "RPPINFRA",
+   "company": "R.P.P. Infra Projects Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-07-28",
+   "lastDate": "2026-07-28"
+  },
+  {
+   "symbol": "TEGA",
+   "company": "Tega Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 5,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-05-14",
+   "lastDate": "2026-05-14"
+  },
+  {
+   "symbol": "AARTISURF",
+   "company": "Aarti Surfactants Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-12-19",
+   "lastDate": "2025-12-19"
+  },
+  {
+   "symbol": "DCI",
+   "company": "Dc Infotech And Communication Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-05-26",
+   "lastDate": "2026-05-26"
+  },
+  {
+   "symbol": "DCMSRIND",
+   "company": "DCM Shriram Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-09",
+   "lastDate": "2026-04-09"
+  },
+  {
+   "symbol": "DEEM",
+   "company": "Deem Roll Tech Limited",
+   "listing": "sme",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-10-28",
+   "lastDate": "2025-10-28"
+  },
+  {
+   "symbol": "DBOL",
+   "company": "Dhampur Bio Organics Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-01-13",
+   "lastDate": "2026-01-13"
+  },
+  {
+   "symbol": "EXXARO",
+   "company": "Exxaro Tiles Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-08-14",
+   "lastDate": "2025-08-14"
+  },
+  {
+   "symbol": "GREENCHEF",
+   "company": "Greenchef Appliances Limited",
+   "listing": "sme",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-01-06",
+   "lastDate": "2026-01-06"
+  },
+  {
+   "symbol": "JINDALPOLY",
+   "company": "Jindal Poly Films Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-10-06",
+   "lastDate": "2025-10-06"
+  },
+  {
+   "symbol": "LEMERITE",
+   "company": "Le Merite Exports Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-01-06",
+   "lastDate": "2026-01-06"
+  },
+  {
+   "symbol": "MUNJALSHOW",
+   "company": "Munjal Showa Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-08-29",
+   "lastDate": "2025-08-29"
+  },
+  {
+   "symbol": "NATCAPSUQ",
+   "company": "Natural Capsules Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-08-13",
+   "lastDate": "2025-08-13"
+  },
+  {
+   "symbol": "NECLIFE",
+   "company": "Nectar Lifesciences Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-02",
+   "lastDate": "2026-03-02"
+  },
+  {
+   "symbol": "SHALBY",
+   "company": "Shalby Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2026-07-27",
+   "lastDate": "2026-07-27"
+  },
+  {
+   "symbol": "SWSOLAR",
+   "company": "Sterling and Wilson Renewable Energy Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-07-31",
+   "lastDate": "2026-07-31"
+  },
+  {
+   "symbol": "TVTODAY",
+   "company": "TV Today Network Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-04-10",
+   "lastDate": "2026-04-10"
+  },
+  {
+   "symbol": "UNIVASTU",
+   "company": "Univastu India Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-09-11",
+   "lastDate": "2026-09-11"
+  },
+  {
+   "symbol": "VSTL",
+   "company": "Vibhor Steel Tubes Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-09-10",
+   "lastDate": "2026-09-10"
+  },
+  {
+   "symbol": "VINDHYATEL",
+   "company": "Vindhya Telelinks Limited",
+   "listing": "equities",
+   "downgradeActions": 4,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-01",
+   "lastDate": "2026-04-01"
+  },
+  {
+   "symbol": "ANYA",
+   "company": "Anya Polytech & Fertilizers Limited",
+   "listing": "sme",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-09-08",
+   "lastDate": "2026-09-08"
+  },
+  {
+   "symbol": "APEX",
+   "company": "Apex Frozen Foods Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-08-01",
+   "lastDate": "2025-08-01"
+  },
+  {
+   "symbol": "BIRLACABLE",
+   "company": "Birla Cable Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-01",
+   "lastDate": "2026-04-01"
+  },
+  {
+   "symbol": "DHRUV",
+   "company": "Dhruv Consultancy Services Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-02-24",
+   "lastDate": "2026-02-24"
+  },
+  {
+   "symbol": "EVERESTIND",
+   "company": "Everest Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-11-25",
+   "lastDate": "2025-11-25"
+  },
+  {
+   "symbol": "HFCL",
+   "company": "HFCL Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-08",
+   "lastDate": "2025-09-08"
+  },
+  {
+   "symbol": "KALPATARU",
+   "company": "Kalpataru Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-09-10",
+   "lastDate": "2026-09-10"
+  },
+  {
+   "symbol": "NRAIL",
+   "company": "N R Agarwal Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-08-25",
+   "lastDate": "2025-08-25"
+  },
+  {
+   "symbol": "OMNI",
+   "company": "Omnitech Engineering Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-26",
+   "lastDate": "2026-03-26"
+  },
+  {
+   "symbol": "PSFL",
+   "company": "Paramount Speciality Forgings Limited",
+   "listing": "sme",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-06-08",
+   "lastDate": "2026-06-08"
+  },
+  {
+   "symbol": "PSPPROJECT",
+   "company": "PSP Projects Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-12-22",
+   "lastDate": "2025-12-22"
+  },
+  {
+   "symbol": "RVTH",
+   "company": "Revathi Equipment India Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-02-09",
+   "lastDate": "2026-02-09"
+  },
+  {
+   "symbol": "TRU",
+   "company": "TruCap Finance Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-10-24",
+   "lastDate": "2025-10-24"
+  },
+  {
+   "symbol": "VISHWARAJ",
+   "company": "Vishwaraj Sugar Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 3,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2026-06-09",
+   "lastDate": "2026-06-09"
+  },
+  {
+   "symbol": "AAREYDRUGS",
+   "company": "Aarey Drugs & Pharmaceuticals Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-05-27",
+   "lastDate": "2026-05-27"
+  },
+  {
+   "symbol": "ARCHIES",
+   "company": "Archies Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2026-06-09",
+   "lastDate": "2026-06-09"
+  },
+  {
+   "symbol": "BESTAGRO",
+   "company": "Best Agrolife Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-08-22",
+   "lastDate": "2025-08-22"
+  },
+  {
+   "symbol": "CAPTRUST",
+   "company": "Capital Trust Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-12-16",
+   "lastDate": "2025-12-16"
+  },
+  {
+   "symbol": "DREAMFOLKS",
+   "company": "Dreamfolks Services Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-09-24",
+   "lastDate": "2025-09-24"
+  },
+  {
+   "symbol": "ELGIRUBCO",
+   "company": "Elgi Rubber Company Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-06-08",
+   "lastDate": "2026-06-08"
+  },
+  {
+   "symbol": "ESPRIT",
+   "company": "Esprit Stones Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-02-02",
+   "lastDate": "2026-02-02"
+  },
+  {
+   "symbol": "GSLSU",
+   "company": "Global Surfaces Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-08-31",
+   "lastDate": "2026-08-31"
+  },
+  {
+   "symbol": "GOACARBON",
+   "company": "Goa Carbon Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2025-11-07",
+   "lastDate": "2025-11-07"
+  },
+  {
+   "symbol": "GUJALKALI",
+   "company": "Gujarat Alkalies and Chemicals Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-08-03",
+   "lastDate": "2026-08-03"
+  },
+  {
+   "symbol": "HIGREEN",
+   "company": "Hi-Green Carbon Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-02",
+   "lastDate": "2025-09-02"
+  },
+  {
+   "symbol": "HILTON",
+   "company": "Hilton Metal Forging Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2025-09-02",
+   "lastDate": "2025-09-02"
+  },
+  {
+   "symbol": "INCREDIBLE",
+   "company": "INCREDIBLE INDUSTRIES LIMITED",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-04-10",
+   "lastDate": "2026-04-10"
+  },
+  {
+   "symbol": "IGCL",
+   "company": "Indogulf Cropsciences Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-09-05",
+   "lastDate": "2025-09-05"
+  },
+  {
+   "symbol": "KAPSTON",
+   "company": "Kapston Services Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-04-14",
+   "lastDate": "2026-04-14"
+  },
+  {
+   "symbol": "LAKSHYA",
+   "company": "Lakshya Powertech Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-09-10",
+   "lastDate": "2026-09-10"
+  },
+  {
+   "symbol": "MKPL",
+   "company": "M K Proteins Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-03-05",
+   "lastDate": "2026-03-05"
+  },
+  {
+   "symbol": "MODINATUR",
+   "company": "Modi Naturals Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-05-21",
+   "lastDate": "2026-05-21"
+  },
+  {
+   "symbol": "NAGREEKEXP",
+   "company": "Nagreeka Exports Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-06-09",
+   "lastDate": "2026-06-09"
+  },
+  {
+   "symbol": "ONMOBILE",
+   "company": "OnMobile Global Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-10-17",
+   "lastDate": "2025-10-17"
+  },
+  {
+   "symbol": "ORCHPHARMA",
+   "company": "Orchid Pharma Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-08",
+   "lastDate": "2026-04-08"
+  },
+  {
+   "symbol": "PARACABLES",
+   "company": "Paramount Communications Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-01-06",
+   "lastDate": "2026-01-06"
+  },
+  {
+   "symbol": "RKFORGE",
+   "company": "Ramkrishna Forgings Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-09-22",
+   "lastDate": "2025-09-22"
+  },
+  {
+   "symbol": "SALONA",
+   "company": "Salona Cotspin Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-30",
+   "lastDate": "2026-03-30"
+  },
+  {
+   "symbol": "SEMAC",
+   "company": "Semac Construction Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-02-20",
+   "lastDate": "2026-02-20"
+  },
+  {
+   "symbol": "SESHAPAPER",
+   "company": "Seshasayee Paper and Boards Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2025-12-31",
+   "lastDate": "2025-12-31"
+  },
+  {
+   "symbol": "SHANTIGOLD",
+   "company": "Shanti Gold International Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-02-03",
+   "lastDate": "2026-02-03"
+  },
+  {
+   "symbol": "SHEMAROO",
+   "company": "Shemaroo Entertainment Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-03-24",
+   "lastDate": "2026-03-24"
+  },
+  {
+   "symbol": "SHIVAUM",
+   "company": "Shiv Aum Steels Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "India"
+   ],
+   "firstDate": "2025-11-24",
+   "lastDate": "2025-11-24"
+  },
+  {
+   "symbol": "SHYAMCENT",
+   "company": "Shyam Century Ferrous Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "ICRA"
+   ],
+   "firstDate": "2025-08-20",
+   "lastDate": "2025-08-20"
+  },
+  {
+   "symbol": "SIGIND",
+   "company": "Signet Industries Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-07-15",
+   "lastDate": "2026-07-15"
+  },
+  {
+   "symbol": "SUKHJITS",
+   "company": "Sukhjit Starch & Chemicals Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CRISIL"
+   ],
+   "firstDate": "2026-06-12",
+   "lastDate": "2026-06-12"
+  },
+  {
+   "symbol": "SURANAT&P",
+   "company": "Surana Telecom and Power Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-04-07",
+   "lastDate": "2026-04-07"
+  },
+  {
+   "symbol": "RUBYMILLS",
+   "company": "The Ruby Mills Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-02-20",
+   "lastDate": "2026-02-20"
+  },
+  {
+   "symbol": "THEMISMED",
+   "company": "Themis Medicare Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Acuite"
+   ],
+   "firstDate": "2026-06-08",
+   "lastDate": "2026-06-08"
+  },
+  {
+   "symbol": "TOLINS",
+   "company": "Tolins Tyres Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "CARE"
+   ],
+   "firstDate": "2026-06-08",
+   "lastDate": "2026-06-08"
+  },
+  {
+   "symbol": "UMAEXPORTS",
+   "company": "Uma Exports Limited",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-11-24",
+   "lastDate": "2025-11-24"
+  },
+  {
+   "symbol": "UMIYA-MRO",
+   "company": "UMIYA BUILDCON LIMITED",
+   "listing": "equities",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2026-05-20",
+   "lastDate": "2026-05-20"
+  },
+  {
+   "symbol": "USHAFIN",
+   "company": "Usha Financial Services Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-12-05",
+   "lastDate": "2025-12-05"
+  },
+  {
+   "symbol": "UTSSAV",
+   "company": "Utssav CZ Gold Jewels Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-09-05",
+   "lastDate": "2025-09-05"
+  },
+  {
+   "symbol": "VINYAS",
+   "company": "Vinyas Innovative Technologies Limited",
+   "listing": "sme",
+   "downgradeActions": 2,
+   "downgradeOccasions": 1,
+   "agencies": [
+    "Infomerics"
+   ],
+   "firstDate": "2025-11-07",
+   "lastDate": "2025-11-07"
+  }
+ ],
+ "withdrawn": {
+  "rows": 1856,
+  "companies": 311
+ }
+}

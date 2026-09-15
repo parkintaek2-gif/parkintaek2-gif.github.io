@@ -97,6 +97,9 @@ export const 단계들 = [
   "node scripts/check-jsx-space.mjs",
   /* 값이 한 곳에서 오나 — 상품표와 지면의 값이 어긋나면 손님이 딴 값을 보고 결제한다 */
   "node scripts/check-price-single-source.mjs",
+  /* 인도 신용등급 — 받는 자와 세는 자. 날짜·「Other」를 잘못 읽으면 기사가 거짓이 된다 */
+  "node scripts/collect-india-nse-credit-rating.mjs --자가시험",
+  "node scripts/build-india-rating-moves.mjs --자가시험",
   "node scripts/check-legal-name.mjs",
   "node scripts/check-korean.mjs",
   "node scripts/check-frontmatter.mjs",
