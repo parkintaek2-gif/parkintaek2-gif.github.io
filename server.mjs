@@ -25,8 +25,22 @@ import { 상품, 상품찾기 } from './src/data/licence-products.mjs';
 import { 데이터셋목록, 데이터셋찾기, 줄파일들, 골라야하나 } from './src/data/licence-datasets.mjs';
 import { 묶기 } from './src/lib/tar-gz.mjs';
 
-/** 산 파일들을 한 묶음(.tar.gz)으로. ⛔ 실패하면 던진다 — 빈 묶음을 조용히 주지 않는다 */
-function 묶음만들기(경로들) { return 묶기(경로들, ROOT.replace(/[\\/]$/, '')); }
+/*
+ * 🔴🔴 [2026-09-15 20:4x] **손님이 돈을 내고 «빈 봉투»를 받게 돼 있었다.**
+ *
+ * 파는 파일은 `src/data/full/` 에 있다 — 거기 둔 것이 맞다.
+ * dist 에 두면 `/data/full/...` 로 «누구나 공짜로» 받아 가기 때문이다(라이브 404 로 확인).
+ * 그런데 이 자가 묶을 때 «dist» 를 뿌리로 삼고 있었다. 그래서
+ *   결제는 되고 · 승인도 되고 · 내려받기 주소도 나가고 · 그 주소를 누르면 파일이 없다.
+ * ⛔ 오늘 만난 «빨간불이 안 켜지는» 세 번째 갈래다. 그리고 앞의 둘보다 나쁘다 —
+ *   앞의 둘은 손님이 못 샀고, 이것은 **돈을 내고 못 받는다.**
+ *
+ * ⇒ 뿌리를 `src` 로 잡는다. 목록의 경로가 `/data/full/x.csv` 이므로
+ *   `<저장소>/src` + `/data/full/x.csv` 로 정확히 떨어진다.
+ * ⛔ dist 로 되돌리지 않는다. 되돌리면 공짜로 새거나(dist 에 넣으면) 빈 봉투가 된다.
+ */
+const 파는것뿌리 = fileURLToPath(new URL('./src', import.meta.url));
+function 묶음만들기(경로들) { return 묶기(경로들, 파는것뿌리.replace(/[\\/]$/, '')); }
 
 /** 묶음 파일 이름에 넣을 날짜. ⚠ 이 PC 는 이미 KST 다 — toISOString() 을 쓰지 않는다 */
 function 오늘글(날 = new Date()) {
