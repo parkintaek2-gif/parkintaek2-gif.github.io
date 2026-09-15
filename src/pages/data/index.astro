@@ -36,7 +36,7 @@ import Base from '../../layouts/Base.astro';
 
 const TITLE = 'Data for licence — Asia & Gulf filings in English (Korea, UAE etc.)';
 const DESC =
-  'Datasets SeoulMarkets builds from Korean public filings and sells, grouped by how you receive '
+  'Datasets SMarkets builds from public filings across Asia and the Gulf and sells, grouped by how you receive '
   + 'them: pages you can read now, files you can download now, licensed files, and a live API.';
 
 /**
@@ -55,6 +55,30 @@ const 이름표 = {
 };
 
 /* ⭐ 축 = 「어떻게 받아 가나」. 순서가 뜻을 갖는다 — 지금 받을 수 있는 것이 위다. */
+/**
+ * 🔴 [2026-09-15 · 사장님 지시] **「서울, 두바이, 아부다비, 상하이…등 상품들이
+ *   한눈에 다 볼 수 있도록」**
+ *
+ * 왜 안 보였나 — 이 진열장은 «어떻게 받나»(읽기·내려받기·라이선스·API)로만 묶여 있었다.
+ * 그래서 UAE 상품 셋이 맨 아래 API 칸에 묻혔고, 위에서 훑는 눈에는 한국만 보였다.
+ * ⇒ «시장»을 첫 줄에 올린다. 손님이 제일 먼저 묻는 것이 「내 시장이 있나」다.
+ *
+ * ⛔ 없는 시장을 있는 척 늘어놓지 않는다. 지금 «상품이 있는» 시장만 세고,
+ *   준비 중인 곳은 아래 coverage 줄에 그대로 적는다.
+ */
+const 시장표 = [
+  { key: 'korea', 이름: 'Seoul', 나라: 'Korea', 찾을말: /korea|krx|dart|kospi|kosdaq|konex|seoul|won/i },
+  { key: 'uae', 이름: 'Abu Dhabi · Dubai', 나라: 'UAE', 찾을말: /uae|adx|dfm|abu dhabi|dubai|gulf|dirham/i },
+];
+
+/** 한 상품이 어느 시장 것인가. ⛔ 못 가리면 «비워 둔다» — 짐작으로 한국에 넣지 않는다 */
+function 시장찾기(p) {
+  if (Array.isArray(p.시장)) return p.시장;                 /* 손으로 적어 둔 것이 먼저다 */
+  const 글 = String(p.name || '') + ' ' + String(p.one || '');
+  const 것 = 시장표.filter((m) => m.찾을말.test(글)).map((m) => m.key);
+  return 것;
+}
+
 const 묶음 = [
   {
     key: 'read',
@@ -86,6 +110,8 @@ const 묶음 = [
       },
       {
         href: '/data/ownership',
+        /* 시장 — DART 대량보유·임원 공시 */
+        시장: ['korea'],
         name: 'Ownership and insider filings',
         one: 'Large-holding reports and executive share filings as filed: who moved a stake up, who moved it down, and where shares changed hands while the percentage did not.',
         price: 'Free page',
@@ -203,6 +229,8 @@ const 묶음 = [
       },
       {
         href: '/data/korean-listed-workforce.csv',
+        /* 시장 — DART 사업보고서 종업원 현황 */
+        시장: ['korea'],
         name: 'Listed-company workforce table (CSV)',
         one: 'The company-level table the sector panel is built from — every listed company with employees, tenure, pay and market cap. Free to download.',
         price: 'Free',
@@ -306,6 +334,8 @@ const 묶음 = [
          남들은 모형을 감추는데 우리는 공개한다는 점이 이 목록에서 제일 세다. */
       {
         href: '/data/company-credit',
+        /* 시장 — 지금은 한국 재무제표만. UAE 가 붙으면 여기 더한다 */
+        시장: ['korea'],
         name: 'Corporate credit data — the SMarkets Grade',
         one: 'A credit grade for every listed company we cover, computed from the statements the '
           + 'company itself filed. Six measures — interest cover, borrowings to assets, liabilities '
@@ -320,6 +350,8 @@ const 묶음 = [
       },
       {
         href: '/data/target-price-accuracy',
+        /* 시장 — 한국 증권사 리포트 */
+        시장: ['korea'],
         name: 'Broker target-price accuracy',
         one: 'Every broker report’s target price scored against the stock 12 months later. Hit rate by house — from 49% down to 13%. A multi-year archive nobody else keeps.',
         price: 'Licensing — coming soon',
@@ -327,6 +359,8 @@ const 묶음 = [
       },
       {
         href: '/data/sector-workforce-panel',
+        /* 시장 — DART 종업원 현황 */
+        시장: ['korea'],
         name: 'The sector workforce panel',
         one: '2,644 listed companies in 11 sectors, each carrying tenure, pay, the gender pay gap and pay-per-head — the columns the big vendors leave out. Leaders flagged. Quarterly.',
         price: 'Licensing — coming soon',
@@ -348,6 +382,8 @@ const 묶음 = [
       },
       {
         href: '/data/sector-leaders',
+        /* 시장 — 같은 패널에서 나온다 */
+        시장: ['korea'],
         name: 'Sector leaders vs the rest',
         one: 'Split each sector into its market-cap leaders and the rest, and our labour data separates: in all 8 classified sectors the leaders pay 1.2–1.43x more and mostly retain longer — and in heavy industry and finance, employ fewer women at the top. A size split, not a stock pick. Not investment advice.',
         price: 'Licensing — coming soon',
@@ -401,7 +437,9 @@ const 묶음 = [
     items: [
       {
         href: '/api',
-        name: 'SeoulMarkets Data API',
+        /* 시장 — 한 갈래로 두 시장을 다 준다 */
+        시장: ['korea', 'uae'],
+        name: 'SMarkets Data API',
         one: 'Issue your own key and call the endpoints directly — research archive, concentration and trade. Free tier for trying it; paid tiers raise the ceiling.',
         price: 'Free tier · Pro from $99/mo',
         cta: 'Read the API docs',
@@ -414,7 +452,7 @@ const 묶음 = [
 <Base title={TITLE} description={DESC} noAds>
   <div class="wrap">
     <article class="dx">
-      <p class="kicker">SeoulMarkets · data for licence</p>
+      <p class="kicker">Sources &amp; Markets · data for licence</p>
       <h1>Data for licence</h1>
       {/* 🔴 [2026-09-14 · 5번] 「어느 나라를 덮나」를 첫 화면에 적는다.
           손님이 제일 먼저 묻는 것이 그것인데 지금까지 어디에도 없었다.
@@ -424,6 +462,20 @@ const 묶음 = [
         <b>In build</b> — China A-shares, Hong Kong, India, Saudi Arabia and Taiwan.{' '}
         <span>Same schema, same licence, same price. A new market is not a new contract.</span>
       </p>
+      {/* 🔴 [2026-09-15 · 사장님 지시] 시장을 «첫 줄»에 올린다 —
+          「서울, 두바이, 아부다비, 상하이…등 상품들이 한눈에 다 볼 수 있도록」
+          누르면 그 시장 상품만 남는다. 다시 누르면 다 보인다. */}
+      <nav class="mkts" aria-label="Markets">
+        <span class="mkts__lab">Markets</span>
+        <button type="button" class="mk mk--on" data-mkt="">All <em id="mkt-all">0</em></button>
+        {시장표.map((m) => (
+          <button type="button" class="mk" data-mkt={m.key}>
+            {m.이름} <em data-count={m.key}>0</em>
+          </button>
+        ))}
+        <span class="mkts__soon">In build — Shanghai · Hong Kong · India · Saudi Arabia · Taiwan</span>
+      </nav>
+
       <p class="lead">
         We build datasets from public filings — Korea, and now the UAE (ADX+DFM) — and sell what
         the terminals don't carry — the <b>labour fingerprint</b> of listed companies, the broker
@@ -548,7 +600,7 @@ const 묶음 = [
           <ul>
             <li>Use inside your organisation, including in client deliverables and research output.</li>
             <li>Redistribution of the file itself, or resale as a dataset, is not included.</li>
-            <li>Attribution: <em>SeoulMarkets</em>, with the release date.</li>
+            <li>Attribution: <em>SMarkets</em>, with the release date.</li>
             <li>Source data is public. We license our compilation, normalisation and coverage work —
                 not the underlying facts, which nobody owns.</li>
           </ul>
@@ -556,12 +608,12 @@ const 묶음 = [
       </section>
 
       {묶음.map((g) => (
-        <section class="grp">
+        <section class="grp" data-grp>
           <h2 class="grph">{g.name} <span class="n">{g.items.length}</span></h2>
           <p class="grpl">{g.lede}</p>
           <ul class="cards">
             {g.items.map((p) => (
-              <li class="card">
+              <li class="card" data-mkt={시장찾기(p).join(' ')}>
                 {/* ⭐ [2026-09-09 20:0x · 5번] 카드마다 «배달 종류» 이름표를 붙인다.
                     FactSet 카탈로그(409상품) 실측에서 가져온 것이다 — 낱개 카드마다
                     「Platform」·「Data Feed」가 붙어 있어, 목록을 훑는 눈이 «지금 받을 수
@@ -595,9 +647,75 @@ const 묶음 = [
       </p>
     </article>
   </div>
+
+  <script>
+    /* 시장 고르기 — 누르면 그 시장 상품만 남는다. 다시 누르면 다 보인다.
+       ⛔ 상품을 숨기고 «수»를 안 고치면 손님이 「몇 개인지」를 잘못 읽는다. 수도 같이 고친다.
+       ⛔ 한 묶음이 통째로 비면 그 묶음 머리도 감춘다 — 빈 제목만 남으면 고장으로 보인다. */
+    (function () {
+      var 카드들 = Array.prototype.slice.call(document.querySelectorAll('.card[data-mkt]'));
+      if (!카드들.length) return;
+      var 단추들 = Array.prototype.slice.call(document.querySelectorAll('.mk[data-mkt]'));
+
+      function 센다(키) {
+        if (!키) return 카드들.length;
+        var n = 0;
+        for (var i = 0; i < 카드들.length; i += 1) {
+          if ((카드들[i].getAttribute('data-mkt') || '').split(' ').indexOf(키) >= 0) n += 1;
+        }
+        return n;
+      }
+
+      /* 처음에 수를 채운다 — 짓는 때 못 세는 수라 여기서 센다 */
+      var 다 = document.getElementById('mkt-all');
+      if (다) 다.textContent = String(카드들.length);
+      document.querySelectorAll('[data-count]').forEach(function (el) {
+        el.textContent = String(센다(el.getAttribute('data-count')));
+      });
+
+      function 고른다(키) {
+        for (var i = 0; i < 카드들.length; i += 1) {
+          var 것 = (카드들[i].getAttribute('data-mkt') || '').split(' ');
+          카드들[i].hidden = !!키 && 것.indexOf(키) < 0;
+        }
+        /* 묶음이 통째로 비면 머리까지 감춘다 */
+        document.querySelectorAll('[data-grp]').forEach(function (g) {
+          var 남 = g.querySelectorAll('.card:not([hidden])').length;
+          g.hidden = 남 === 0;
+          var 수 = g.querySelector('.grph .n');
+          if (수) 수.textContent = String(남);
+        });
+        단추들.forEach(function (b2) {
+          var 켜짐 = (b2.getAttribute('data-mkt') || '') === (키 || '');
+          b2.classList.toggle('mk--on', 켜짐);
+          b2.setAttribute('aria-pressed', 켜짐 ? 'true' : 'false');
+        });
+      }
+
+      단추들.forEach(function (b2) {
+        b2.addEventListener('click', function () {
+          var 키 = b2.getAttribute('data-mkt') || '';
+          고른다(b2.classList.contains('mk--on') ? '' : 키);
+        });
+      });
+    })();
+  </script>
 </Base>
 
 <style>
+  /* 🔴 시장 띠 — 진열장에서 «제일 먼저» 보여야 하는 줄이다 */
+  .mkts { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin: 1rem 0 .2rem; }
+  .mkts__lab { font-size: .72rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
+               letter-spacing: .05em; margin-right: .2rem; }
+  .mk { padding: .3rem .7rem; border: 1px solid var(--rule); border-radius: 999px;
+        background: var(--paper); color: var(--ink); font: inherit; font-size: .84rem; cursor: pointer; }
+  .mk em { font-style: normal; font-size: .74rem; color: var(--muted); margin-left: .2rem; }
+  .mk:hover { border-color: var(--accent); }
+  .mk--on { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .mk--on em { color: rgba(255,255,255,.75); }
+  /* ⛔ 아직 상품이 없는 시장을 단추로 만들지 않는다 — 누를 것이 없으면 거짓말이 된다 */
+  .mkts__soon { font-size: .74rem; color: var(--muted); flex-basis: 100%; margin-top: .15rem; }
+
   .dx { max-width: 52rem; margin: 0 auto; }
   .kicker { font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--accent);
             font-weight: 700; margin: 1.2rem 0 .3rem; }
