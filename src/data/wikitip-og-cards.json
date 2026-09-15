@@ -7,6 +7,11 @@
   "label 은 45자 안쪽으로. 넘치면 카드에서 잘린다."
  ],
  "chosen": {
+  "chung-ha-agency-split-reading-spike-smaller-than-unexplained-one": {
+   "figure": "3.8x",
+   "label": "an unexplained spike beat the agency-split reading rise",
+   "왜": "글머리에 수가 없어 자동이 못 골랐다. 3.8x(8/30 열람이 30일 평균 대비)가 이 기사의 핵심 대조다"
+  },
   "kdol-named-jimin-no-1-wikipedia-says-third-in-bts": {
    "figure": "12.0%",
    "label": "of BTS's Wikipedia lookups this month went to Jimin, not first",
