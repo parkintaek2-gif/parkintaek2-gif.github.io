@@ -205,6 +205,15 @@ async function 단추그려지나() {
     await page.setViewport({ width: 400, height: 860 });   /* 손님 크기로 본다 */
     await page.goto(사이트 + '/data#buy', { waitUntil: 'networkidle2', timeout: 60000 });
     await new Promise((r) => setTimeout(r, 2500));
+    /* 🔴 [2026-09-16] 결제칸 이메일이 «필수」가 됐다(사장님 결정) — 안 채우면
+       단추가 «일부러» 안 그려진다(설계대로). 손님이 하는 대로 이메일부터 채운다. */
+    await page.evaluate(() => {
+      const 메일칸 = document.getElementById('buyEmail');
+      if (메일칸) {
+        메일칸.value = 'seoulmarkets-healthcheck@example.com';
+        메일칸.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    });
     /* 손님이 하는 대로 — 상품 하나를 고른다 */
     await page.evaluate(() => {
       const 칩 = document.querySelectorAll('#buyProducts .chip');
