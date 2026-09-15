@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-11T05:43+09:00",
+  "generated": "2026-09-15T19:25+09:00",
   "whatThisIs": "Duration measured with ffmpeg; upload date is the file date. Nothing here is estimated.",
   "whatThisIsNot": "This does not mean the videos rank. Google still has to index them.",
   "videos": [
@@ -58,6 +58,13 @@
       "uploadDate": "2026-09-01",
       "thumb": "/video/thumb/btsgroup.jpg",
       "src": "/video/btsgroup.mp4"
+    },
+    {
+      "set": "chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced",
+      "seconds": 10.9,
+      "uploadDate": "2026-09-15",
+      "thumb": "/video/thumb/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced.jpg",
+      "src": "/video/chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced.mp4"
     },
     {
       "set": "control",

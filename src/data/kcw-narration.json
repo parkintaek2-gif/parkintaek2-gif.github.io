@@ -3,6 +3,11 @@
   "⛔ 지키는 것": "이 파일에 없는 말을 자가 지어내지 않는다. 화면에 없는 수를 목소리로 말하지 않는다. 화면과 소리가 다른 것을 말하면 그 편은 우리를 못 믿게 만든다.",
   "⚠ 길이": "14초 화면에 들어가는 말은 대략 35낱말이다. 넘치면 화면을 늘이지 말고 «말을 줄인다» — make-kcw-sound.mjs 가 그것을 재고 넘치면 멈춘다.",
   "대본": {
+    "chung-ha-agency-split-reading-spike-smaller-than-unexplained-one": {
+      "제목": "Chung Ha's Agency Split Made K-pop News. Her Biggest Reading Spike Wasn't That Day",
+      "내레이션": "A Reddit post said Chung Ha left her agency. Her Wikipedia reading rose two point two times that day. Three weeks earlier, an unexplained day was three point eight times higher.",
+      "설명": "A pageview is a lookup, not a reason. We measured; we did not guess."
+    },
     "spike-hearts2hearts": {
       "제목": "Hearts2Hearts was looked up twice as often yesterday on the Vietnamese Wikipedia",
       "내레이션": "Hearts2Hearts was opened twice as often on the Vietnamese Wikipedia yesterday. Three hundred forty-nine, against a hundred seventy-four a day the week before.",

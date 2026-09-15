@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-10T20:04:24.437Z",
+  "generated": "2026-09-15T10:26:15.011Z",
   "whatThisIs": "Card-news images that exist as files and belong to an article we publish. Counted from the files themselves, never written by hand.",
   "whatThisIsNot": "This does not mean Google has indexed them. It means they are now findable.",
   "base": "/cardnews",
@@ -455,6 +455,23 @@
         2,
         3,
         4
+      ]
+    },
+    {
+      "set": "chung-ha-agency-split-reading-spike-smaller-than-unexplained-one",
+      "sq": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "v": [
+        1,
+        2,
+        3,
+        4,
+        5
       ]
     },
     {
@@ -2910,10 +2927,11 @@
       ]
     }
   ],
-  "setCount": 173,
-  "imageCount": 1694,
+  "setCount": 174,
+  "imageCount": 1704,
   "setsWithoutArticle": [],
   "articlesWithoutCards": [
+    "24-netflix-k-titles-ran-long-21-never-left-south-korea",
     "68-weeks-of-fan-votes-and-fifth-place-in-lookups",
     "a-korean-chart-life-is-three-weeks-and-unbroken",
     "a-korean-gossip-desk-names-eighteen-people-abroad-two-vanish",
@@ -2927,18 +2945,28 @@
     "device-is-not-age-for-korean-acts",
     "fan-votes-and-encyclopedia-reads-disagree",
     "five-agencies-one-day-and-what-a-label-count-cannot-say",
+    "hoshi-page-tripled-the-day-his-injury-was-reported",
     "january-peaks-september-does-not",
     "jimin-october-13-and-the-birthday-calendar-of-9249-korean-stars",
+    "jin-called-sold-out-king-ranks-5th-of-7-in-bts",
+    "kdol-named-jimin-no-1-wikipedia-says-third-in-bts",
     "kpop-generation-lines-are-a-year-off",
+    "lee-jung-jae-drew-10-percent-hyun-bin-drew-34-percent",
     "malaysia-and-singapore-hold-the-same-korean-list",
     "malaysia-gets-korean-titles-in-the-debut-week",
     "netflix-weeks-in-top-10-is-not-weeks-in-a-row",
+    "one-film-is-most-of-the-english-k-pop-news-feed",
     "one-member-outdraws-her-own-group-by-04-percent",
     "only-four-countries-come-close-to-all-korean",
+    "seventeen-thirteen-members-none-close-to-the-group",
+    "the-biggest-foreign-draw-is-not-seoul",
     "the-ceiling-and-the-band",
     "the-instrument-was-wrong-not-the-question",
     "the-lost-two-years-happened-to-everyone",
+    "the-only-part-of-a-korean-headline-an-english-reader-can-read",
     "twelve-coed-korean-groups-is-a-floor",
+    "v-champion-6-3-million-media-value-wikipedia-flat",
+    "vs-news-jung-kook-outreads-rm-on-wikipedia",
     "what-the-record-cannot-see-about-nationality"
   ]
 }

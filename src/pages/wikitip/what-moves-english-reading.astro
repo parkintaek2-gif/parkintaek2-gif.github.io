@@ -19,6 +19,7 @@
  */
 import WikiTip from '../../layouts/WikiTip.astro';
 import KcwRelatedArticles from '../../components/KcwRelatedArticles.astro';
+import KcwShorts from '../../components/KcwShorts.astro';
 import KcwMethodLimits from '../../components/KcwMethodLimits.astro';
 import d from '../../data/wikitip-what-moves-reading.json';
 
@@ -179,6 +180,11 @@ const jsonLd = {
     }} />
 
   <p class="asof">Measured {d.measuredAt}. Window {d.windowDays} days either side.</p>
+
+  <KcwShorts
+    set="chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced"
+    says="Seventeen seconds: a Reddit post said Chung Ha left her agency, and her Wikipedia reading rose 2.2x that day, but an unexplained day three weeks earlier was 3.8x, and we don't know why."
+  />
 
   <KcwRelatedArticles page="/what-moves-english-reading" />
 </WikiTip>

@@ -242,6 +242,14 @@ const 영상그림 = new Set((videoData.videos ?? []).map((v: any) => v.set));
       견주고, 하나라도 빠지면 «막는다». 다음에 또 조용히 빠지지 않는다.
    ⚠ 아래 열두 편의 제목은 **라이브 지면 제목에서 가져왔다** — 지어내지 않았다. */
 const videoSets = [
+  {
+    set: 'chung-ha-agency-split-reading-spike-smaller-than-unexplained-one-voiced',
+    page: '/what-moves-english-reading',
+    title: "Chung Ha's Agency Split Made K-pop News. Her Biggest Reading Spike Wasn't That Day",
+    description: '17 seconds on a Reddit post reporting Chung Ha left her agency: her English '
+      + 'Wikipedia reading rose 2.2x that day, smaller than an unexplained 3.8x spike three weeks '
+      + "earlier that we can't source a cause for.",
+  },
   /*
    * 🔴 [2026-08-29] **어제·오늘 만든 영상 넷이 이 목록에 없었다.**
    *   목록에 없으면 ① 영상 사이트맵에 안 들어가고 ② 올릴 문안(upload-kit)이 안 만들어진다.
