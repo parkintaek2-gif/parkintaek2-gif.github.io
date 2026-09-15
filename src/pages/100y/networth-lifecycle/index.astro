@@ -1,0 +1,103 @@
+---
+/**
+ * /100y/networth-lifecycle — 순자산은 몇 살에 가장 많을까
+ *
+ * 재료: 국가데이터처 KOSIS 「가계금융복지조사」(101/DT_1HDAAA06, 2025년)를 3번이
+ * 2026-09-15 KOSIS Open API로 직접 받았다. wealth-gap 지면(총자산 기준, 29세이하 vs
+ * 60세이상만 비교)의 짝 지면 — 여기는 순자산(부채 뺀 값)으로 전체 나이 곡선을 본다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/networth-lifecycle.json';
+
+const 자료 = 원본 as any;
+const 정점 = 자료.정점;
+const 배율 = 자료.배율;
+const 억원 = (만원: number) => (만원 / 10000).toFixed(2);
+
+const desc =
+  `국가데이터처 「가계금융복지조사」(2025년)를 보면, 가구주 연령별 평균 순자산은 ${정점.연령}에 ` +
+  `${억원(정점.순자산_만원)}억원으로 가장 많습니다. 순자산 기준 60세 이상 ÷ 29세 이하 배율은 ${배율.순자산_60이상_대_29이하}배입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.이름,
+  description: desc,
+  temporalCoverage: 자료.출처.기준연도,
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear
+  title="순자산은 몇 살에 가장 많을까요?"
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>순자산은<br class="pcbr" /> 몇 살에 가장 많을까요?</h1>
+
+  <p class="sub">
+    국가데이터처 KOSIS 「가계금융복지조사」({자료.출처.기준연도}년)로 가구주 연령대별
+    {' '}평균 자산·부채·순자산을 봤습니다. <a href="/wealth-gap">wealth-gap 지면</a>이
+    {' '}총자산(부채를 빼기 전)으로 29세 이하와 60세 이상만 비교했다면, 여기는
+    {' '}<strong>부채까지 뺀 순자산</strong>으로 전체 나이 곡선을 봅니다.
+  </p>
+
+  <h2>가구주 연령별 자산·부채·순자산</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>가구주 연령</th><th>자산</th><th>부채</th><th>순자산</th></tr></thead>
+      <tbody>
+        {
+          (자료.나이별 as any[]).map((r) => (
+            <tr>
+              <td>{r.가구주연령}</td>
+              <td>{억원(r.자산_만원)}억원</td>
+              <td>{억원(r.부채_만원)}억원</td>
+              <td>{억원(r.순자산_만원)}억원</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    순자산은 <strong>{정점.연령}에 {억원(정점.순자산_만원)}억원으로 가장 많고</strong>,
+    {' '}60세 이상부터 조금씩 줄어듭니다. 부채는 30~40대에 가장 크고 나이가 들수록
+    {' '}줄어드는 모습입니다.
+  </p>
+
+  <h2>부채까지 빼면 격차가 더 벌어집니다</h2>
+  <p>
+    총자산 기준 60세 이상 ÷ 29세 이하 배율은 <strong>{배율.총자산_60이상_대_29이하}배</strong>지만,
+    {' '}부채까지 뺀 순자산 기준으로는 <strong>{배율.순자산_60이상_대_29이하}배</strong>로 더
+    {' '}벌어집니다. {배율.설명}
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 순자산이 많고 적음을 100yearmap이
+    {' '}좋다·나쁘다로 판정하지 않습니다. 나이에 따라 평균이 어떻게 바뀌는지만
+    {' '}보여드립니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준연도}년 기준, {자료.출처.표}).
+  </p>
+
+  <p class="note">
+    <a href="/wealth-gap">← 청년과 고령 가구, 총자산은 몇 배 차이일까요?</a>
+    <br />
+    <a href="/lifecycle-deficit">← 몇 살에 가장 많이 쓰고, 몇 살에 가장 많이 벌까요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 「가계금융복지조사」 — 연령별 자산·부채" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/networth-lifecycle"></div>
+</HundredYear>
