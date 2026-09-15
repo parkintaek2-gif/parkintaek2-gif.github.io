@@ -1,0 +1,112 @@
+---
+/**
+ * /100y/income-inequality-by-age — 은퇴연령층 안에서도 소득 격차가 큽니다
+ *
+ * 재료: 국가데이터처 KOSIS 「가계금융복지조사」 소득분배지표(101/DT_1HDALF06, 2024년)를
+ * 3번이 2026-09-15 KOSIS Open API로 직접 받았다. oecd-elderly-poverty(65세+ 35.9%,
+ * OECD 대조)의 짝 지면 — 여기는 나이대를 더 잘게 쪼개고, 지니계수 등 격차 지표를 본다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import 원본 from '../../../data/100yearmap/income-inequality-by-age.json';
+
+const 자료 = 원본 as any;
+const 비교 = 자료.근로연령_대_은퇴연령;
+const 근로 = 비교['근로연령인구(18~65세)'];
+const 은퇴 = 비교['은퇴연령인구(66세 이상)'];
+const 나이대별 = 자료.나이대별_빈곤율 as any[];
+const 최고빈곤 = 나이대별[나이대별.length - 1];
+
+const desc =
+  `국가데이터처 「가계금융복지조사」(2024년)를 보면, 은퇴연령(66세 이상)의 소득 지니계수는 ` +
+  `${은퇴.지니계수}로 근로연령(18~65세) ${근로.지니계수}보다 높습니다. 76세 이상 상대적 빈곤율은 ${최고빈곤.상대적빈곤율_50}%에 이릅니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 자료.이름,
+  description: desc,
+  temporalCoverage: '2024',
+  creator: { '@type': 'Organization', name: '백년지도' },
+};
+---
+
+<HundredYear
+  title="은퇴연령층 안에서도 소득 격차가 큽니다"
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>은퇴연령층 안에서도<br class="pcbr" /> 소득 격차가 큽니다</h1>
+
+  <p class="sub">
+    국가데이터처 KOSIS 「가계금융복지조사」(2024년)로 근로연령(18~65세)과 은퇴연령
+    {' '}(66세 이상)의 소득 분포를 견줬습니다. 은퇴연령은 평균 소득만 낮은 게 아니라
+    {' '}<strong>그 안에서 격차 자체가 더 큽니다.</strong>
+  </p>
+
+  <h2>근로연령 vs 은퇴연령</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>지표</th><th>근로연령(18~65세)</th><th>은퇴연령(66세 이상)</th></tr></thead>
+      <tbody>
+        <tr><th>지니계수(0~1, 클수록 불평등)</th><td>{근로.지니계수}</td><td>{은퇴.지니계수}</td></tr>
+        <tr><th>P90/P10(소득 90분위 경계 ÷ 10분위 경계)</th><td>{근로['P90/P10']}배</td><td>{은퇴['P90/P10']}배</td></tr>
+        <tr><th>소득 5분위배율</th><td>{근로.소득5분위배율}배</td><td>{은퇴.소득5분위배율}배</td></tr>
+        <tr><th>팔마(Palma)비율</th><td>{근로.팔마비율}</td><td>{은퇴.팔마비율}</td></tr>
+        <tr><th>균등화 중위소득(연)</th><td>{근로.균등화중위소득_만원}만원</td><td>{은퇴.균등화중위소득_만원}만원</td></tr>
+        <tr><th>상대적 빈곤율(중위소득 50% 이하)</th><td>{근로.상대적빈곤율_50}%</td><td>{은퇴.상대적빈곤율_50}%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    지니계수·P90/P10·팔마비율 모두 은퇴연령이 근로연령보다 높습니다 — 평균만이 아니라
+    {' '}<strong>분포의 폭 자체가 더 넓다</strong>는 뜻입니다. 누군가는 연금·자산이
+    {' '}두터운 반면, 누군가는 거의 없다는 것을 보여줍니다.
+  </p>
+
+  <h2>나이대를 잘게 쪼개 보면</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>나이대</th><th>상대적 빈곤율(중위소득 50% 이하)</th><th>균등화 중위소득(연)</th></tr></thead>
+      <tbody>
+        {
+          나이대별.map((r) => (
+            <tr><td>{r.나이대}</td><td>{r.상대적빈곤율_50}%</td><td>{r.균등화중위소득_만원}만원</td></tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    「65세 이상」 한 덩어리로 보면 35.9%지만(<a href="/oecd-elderly-poverty">oecd-elderly-poverty
+    {' '}지면</a> 참조), 나이대를 쪼개면 66~75세 26.6%와 76세 이상 {최고빈곤.상대적빈곤율_50}%로
+    {' '}크게 갈립니다. 「노인」이라는 한 단어로 묶으면 이 격차가 가려집니다.
+  </p>
+
+  <h2>이 자료가 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    <strong>이것은 통계이지 당신이 아닙니다.</strong> 100yearmap은 이 격차를 어떻게
+    {' '}줄여야 하는지 판정하지 않습니다. 「은퇴연령」이라는 한 단어 안의 편차를
+    {' '}보여드릴 뿐입니다.
+  </p>
+
+  <p class="note">
+    출처 — {자료.출처.이름}({자료.출처.기준연도}년 기준, {자료.출처.표}).
+  </p>
+
+  <p class="note">
+    <a href="/oecd-elderly-poverty">← 한국 노인빈곤율, OECD 회원국 중 맨 위입니다</a>
+    <br />
+    <a href="/lifecycle-deficit">← 몇 살에 가장 많이 쓰고, 몇 살에 가장 많이 벌까요?</a>
+  </p>
+
+  <NextQuestionBrief 모은것="국가데이터처 KOSIS 「가계금융복지조사」 소득분배지표" />
+
+  {/* 2번의 자체 댓글 시스템(2026-08-31, 무쿠키·무IP) */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/income-inequality-by-age"></div>
+</HundredYear>
