@@ -73,6 +73,8 @@ export const GET: APIRoute = async ({ params }) => {
        *   target-changes(Consensus)만 여기 있었고 나머지 셋은 라이브 200인데 이 목록에
        *   없었다. 같은 사고가 이 파일에서 벌써 세 번째다(위 5번 주석 두 곳 참고).
        *   ⛔ 지면을 만들면 «같은 커밋에서» 이 목록에 넣는다. */
+      /* 무료 스크리너 — 손님이 «자기 물음»을 넣는 지면이라 색인 우선순위를 높게 둔다 */
+      { loc: '/data/screener', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/financials', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/valuation', changefreq: 'weekly', priority: '0.9' },
       { loc: '/data/indices', changefreq: 'weekly', priority: '0.9' },
