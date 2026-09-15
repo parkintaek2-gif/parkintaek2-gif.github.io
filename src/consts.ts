@@ -7,8 +7,20 @@ export const SITE_URL = 'https://seoulmarkets.com';
 
 export const SITE = {
   // 한 단어로 붙여 쓰고 각 낱말의 첫 글자를 대문자로. (KLifeMap 과 같은 표기 방식)
-  // ⚠ 사이트 «이름»(법인·메타데이터용)은 SeoulMarkets 그대로다 — 로고 표기만 줄인다.
-  name: 'SeoulMarkets',
+  /** 🔴 [2026-09-15 20:2x · 사장님 지시] **「SMarket 으로 변경해」**
+   *
+   * 아이폰 「홈 화면에 추가」 화면을 찍어 보내 주셨다 — 거기 이름이 아직
+   * 「SeoulMarkets」로 떠 있었다(스크린샷 2026-09-15 20.23.33).
+   *
+   * ⚠ 여기에 원래 「사이트 «이름»(법인·메타데이터용)은 SeoulMarkets 그대로다 —
+   *   로고 표기만 줄인다」라고 적혀 있었다. **그 한 줄은 사장님 지시가 아니라
+   *   우리가 붙인 풀이였다.** 09-14 지시는 「로고 표기를 줄인다」까지였다.
+   *   이제 사장님이 이름 자체를 정하셨으므로 그 풀이를 걷어낸다.
+   *
+   * ⇒ 손님 눈에 닿는 이름을 하나로 만든다 — 로고 · 홈 화면 · og:site_name · 고지.
+   * ⛔ 안 바뀌는 것 둘 — 도메인(seoulmarkets.com)과 «발행 주체»(범진아카데미).
+   *   그 둘은 브랜드가 아니라 주소와 법인이다. YMYL 고지가 그것으로 선다. */
+  name: 'SMarkets',
   /** 🔴 [2026-09-14 · 사장님 지시] 로고 표기를 「SeoulMarkets」→「SMarkets」로 줄인다.
       첫 글자(S)에 강조색을 준다 — Masthead.astro 가 nameParts[0] 을 강조 span 으로 감싼다. */
   nameParts: ['S', 'Markets'],

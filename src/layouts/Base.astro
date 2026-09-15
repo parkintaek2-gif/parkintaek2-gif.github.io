@@ -109,6 +109,12 @@ const orgLd = {
     <meta name="google-adsense-account" content="ca-pub-3547185342873229" />
     {noindex && <meta name="robots" content="noindex, follow" />}
 
+    {/* 🔴 [2026-09-15 · 사장님 「SMarket 으로 변경해」] 아이폰 「홈 화면에 추가」가
+        집어 오는 이름은 «이 태그»가 먼저다. 매니페스트 short_name 보다 앞선다.
+        이것이 없어서 <title> 을 긁어 「SeoulMarkets」로 떠 있었다.
+        ⚠ 길게 두면 홈 화면에서 잘린다. 로고와 똑같이 한 낱말로 둔다. */}
+    <meta name="apple-mobile-web-app-title" content={SITE.name} />
+    <meta name="application-name" content={SITE.name} />
     <meta property="og:site_name" content={SITE.name} />
     <meta property="og:type" content={ogType} />
     <meta property="og:title" content={title} />
