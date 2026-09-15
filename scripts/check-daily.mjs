@@ -94,6 +94,16 @@ async function 한사이트(사이트코드, 때코드) {
       if (잴자) {
         try {
           const mod = await import(잴자);
+          /* 🔴 [2026-09-15 · 5번] 이 갈래가 «값 검사» 하나에만 맞춰 박혀 있었다.
+             그래서 새 자를 물리면 조용히 「손으로 본다」로 떨어졌다.
+             ⇒ 자가 «공통 입구»(일일점검)를 내놓으면 그것을 먼저 쓴다. 자를 더 물리기 쉬워진다. */
+          if (typeof mod.일일점검 === "function") {
+            const r = await mod.일일점검(사이트코드);
+            줄들.push(r.됐나 === null
+              ? { 항목: it, 잼: false, 표시: "⬜", 말: r.말 }
+              : { 항목: it, 잼: true, 됐나: r.됐나, 표시: r.됐나 ? "✅" : "🔴", 말: r.말 });
+            continue;
+          }
           const 상품표 = (await import("../src/data/licence-products.mjs")).상품;
           const fs2 = await import("node:fs");
           const 글 = fs2.readFileSync("src/pages/data/index.astro", "utf8");
