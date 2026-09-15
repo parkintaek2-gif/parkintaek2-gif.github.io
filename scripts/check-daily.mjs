@@ -87,6 +87,25 @@ async function 한사이트(사이트코드, 때코드) {
   const 줄들 = [];
   for (const it of 볼것들) {
     if (!잴수있나(it, 사이트코드)) {
+      /* 🔴 [2026-09-15 · 5번] 자가 «있는» 항목은 여기서 돌려 버린다.
+         ⛔ 「손으로 볼 것」을 통과로 세지 않는다 — 그러려면 자가 있어야 한다.
+         자가 있는 사이트만 재고, 없는 사이트는 그대로 ⬜ 로 남긴다(숨기지 않는다). */
+      const 잴자 = it.모듈 && it.모듈[사이트코드];
+      if (잴자) {
+        try {
+          const mod = await import(잴자);
+          const 상품표 = (await import("../src/data/licence-products.mjs")).상품;
+          const fs2 = await import("node:fs");
+          const 글 = fs2.readFileSync("src/pages/data/index.astro", "utf8");
+          const 어긋남 = mod.어긋난값찾기(글, 상품표);
+          줄들.push(어긋남.length
+            ? { 항목: it, 잼: true, 됐나: false, 표시: "🔴", 말: "지면이 정본에 없는 값을 말한다 — " + 어긋남.map(function (x) { return "$" + x.수; }).join(" · ") }
+            : { 항목: it, 잼: true, 됐나: true, 표시: "✅", 말: "지면 카드의 값이 모두 정본 안에 있다" });
+        } catch (e) {
+          줄들.push({ 항목: it, 잼: true, 됐나: false, 표시: "🔴", 말: "자를 못 돌렸다 — " + String(e.message).slice(0, 60) });
+        }
+        continue;
+      }
       줄들.push({ 항목: it, 잼: false, 표시: '⬜', 말: '손으로 본다 — ' + ((it.봄 && (it.봄[사이트코드] || it.봄.전체)) || '') });
       continue;
     }

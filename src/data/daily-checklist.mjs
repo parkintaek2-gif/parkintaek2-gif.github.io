@@ -101,8 +101,12 @@ export const 항목 = [
     때들: ['아침'],
     이름: '값이 한 곳에서 오나',
     왜: '화면 값과 실제 청구 값이 어긋나면 그 자리에서 환불과 항의가 난다',
-    재는법: '손',
-    봄: { seoulmarkets: 'src/data/licence-products.mjs 하나만 본다', klifemap: 'billing 설정' },
+    /* 🔴 [2026-09-15 · 5번] 서울마켓츠는 이제 «기계»가 잰다 —
+       scripts/check-price-single-source.mjs 가 지면 카드의 값을 정본과 맞대 본다.
+       ⚠ 케이라이프맵(billing 설정)은 아직 손이다. 그 자는 2번이 만든다. */
+    재는법: '모듈',
+    모듈: { seoulmarkets: './check-price-single-source.mjs' },
+    봄: { klifemap: 'billing 설정' },
   },
 
   /* ── 무료 사이트 ───────────────────────────────────────── */
