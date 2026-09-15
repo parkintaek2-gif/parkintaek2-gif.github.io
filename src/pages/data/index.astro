@@ -923,8 +923,27 @@ const 묶음 = [
     끝칸.appendChild(f);
   }
 
+  /*
+   * 🔴🔴 [2026-09-15 20:2x] **페이팔 단추를 눌러도 아무 일이 안 일어났다 — 결제 0 이었다.**
+   *
+   * 사장님: 「페이팔 결제 페이지로 안 넘어감」 · 「결제 안됨」
+   *
+   * 까닭 — SDK 를 «언제나» vault=true&intent=subscription 으로 싣고 있었는데,
+   * 일회성 상품(Annual · Academic · Single · All)은 createOrder 로 부른다.
+   * 페이팔 SDK 는 subscription 판에서 createOrder 를 «모른다». 그래서
+   *   단추는 그려지고 · 눌리고 · 오류도 안 나고 · 우리 서버로 요청도 안 가고 · 아무 일도 없다.
+   * ⛔ 이것이 오늘 두 번째로 만난 «빨간불이 안 켜지는» 갈래다. 손님은 그냥 떠난다.
+   *
+   * ⇒ 판이 둘이니 SDK 도 «둘»을 싣는다. data-namespace 로 갈라 둔다.
+   *   ⛔ 주기를 바꿀 때마다 스크립트를 다시 꽂지 않는다 — window.paypal 이 서로 덮어쓴다.
+   */
+  function 판고르기() {
+    return 주기 === 'month' ? window.paypal_sub : window.paypal_once;
+  }
+
   function 그리자() {
-    if (!window.paypal || !window.paypal.Buttons) { 글(알림, 'Checkout is still loading...'); return; }
+    var pp = 판고르기();
+    if (!pp || !pp.Buttons) { 글(알림, 'Checkout is still loading...'); return; }
     var 옵션 = { style: { layout: 'vertical', shape: 'rect', label: 주기 === 'month' ? 'subscribe' : 'pay' } };
 
     if (주기 === 'month') {
@@ -975,7 +994,7 @@ const 묶음 = [
       글(알림, 'Payment could not be completed. Nothing was charged. Please try again, or write to admin@klifedesign.net.');
       if (window.console) console.error('[pay]', err);
     };
-    window.paypal.Buttons(옵션).render('#paypalButtons');
+    pp.Buttons(옵션).render('#paypalButtons');
   }
 
   fetch('/api/pay/config').then(function (r) { return r.json(); }).then(function (c) {
@@ -996,13 +1015,29 @@ const 묶음 = [
       셋칸.appendChild(칩(d['이름'], d['설명'], function () { 고른셋 = { 코드: d['코드'] }; 다시그리기(); }));
     });
 
-    var sdk = document.createElement('script');
-    /* 정기결제를 쓰려면 vault=true & intent=subscription 이 필요하다 */
-    sdk.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(c.clientId) +
-              '&currency=USD&vault=true&intent=subscription&components=buttons&locale=en_US';
-    sdk.onload = function () { 상품그리기(); };
-    sdk.onerror = function () { 글(알림, 'Checkout could not load. Write to admin@klifedesign.net.'); };
-    document.head.appendChild(sdk);
+    /*
+     * 🔴 SDK 를 «둘» 싣는다. 한 판으로는 둘 다 못 판다 —
+     *   일회성(Annual·Academic·Single·All)  intent=capture  → createOrder
+     *   정기(Monthly)                        vault=true&intent=subscription → createSubscription
+     * ⛔ 하나만 싣고 둘 다 팔려고 하면, 안 맞는 쪽은 «눌러도 아무 일이 안 일어난다».
+     *   오류도 안 난다. 그래서 2026-09-15 에 결제가 통째로 죽어 있는 줄 몰랐다.
+     * ⚠ data-namespace 가 없으면 나중에 실린 것이 window.paypal 을 덮어쓴다. 반드시 가른다.
+     */
+    var 싣는다 = function (이름, 덧, 다되면) {
+      var s = document.createElement('script');
+      s.src = 'https://www.paypal.com/sdk/js?client-id=' + encodeURIComponent(c.clientId) +
+              '&currency=USD&components=buttons&locale=en_US' + 덧;
+      s.setAttribute('data-namespace', 이름);
+      s.onload = 다되면;
+      s.onerror = function () { 글(알림, 'Checkout could not load. Write to admin@klifedesign.net.'); };
+      document.head.appendChild(s);
+    };
+    /* 기본이 Annual 이라 «일회성»이 먼저 준비돼야 한다. 그것이 되면 바로 그린다 */
+    싣는다('paypal_once', '&intent=capture', function () { 상품그리기(); });
+    싣는다('paypal_sub', '&vault=true&intent=subscription', function () {
+      /* 월 상품을 이미 고른 채였다면 그때 다시 그린다 */
+      if (주기 === 'month') 다시그리기();
+    });
   }).catch(function () {
     글(알림, 'Checkout is unavailable. Write to admin@klifedesign.net and we will invoice you.');
   });
