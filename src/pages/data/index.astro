@@ -565,18 +565,32 @@ const 묶음 = [
               <a href="mailto:admin@klifedesign.net">admin@klifedesign.net</a> and we will invoice you.</p>
           </noscript>
 
+          {/* 🔴 [2026-09-16 · 6번 · 사장님 결정] 「회원가입 하는 게 안전하다 …
+              페이팔 등록한 메일이 잘 안쓰는 거면?」 — 결제 «전»에 비밀번호를 만들게
+              하지 않는다(그 자리에서 손님 절반이 떠난다). 대신 이메일 한 칸만 필수로
+              받고, 결제 뒤 그 주소로 편지를 보낸다. 페이팔 결제 메일과 다를 수 있어
+              «흡수»하지 않고 둘 다 쓴다(둘 다 있으면 둘 다 보낸다). */}
           <fieldset class="buyrow">
-            <legend>1 · How you pay</legend>
+            <legend>1 · Your email — for the receipt &amp; download link</legend>
+            <input type="email" id="buyEmail" class="buyemail" placeholder="you@company.com"
+              autocomplete="email" required aria-describedby="buyEmailNote" />
+            <p id="buyEmailNote" class="fine buyemail-note">
+              We only use this to send your receipt and the download link — never to log in.
+            </p>
+          </fieldset>
+
+          <fieldset class="buyrow">
+            <legend>2 · How you pay</legend>
             <div id="buyCycle" class="chips"></div>
           </fieldset>
 
           <fieldset class="buyrow">
-            <legend>2 · Licence</legend>
+            <legend>3 · Licence</legend>
             <div id="buyProducts" class="chips"></div>
           </fieldset>
 
           <fieldset class="buyrow" id="buyDatasetRow" hidden>
-            <legend>3 · Which dataset</legend>
+            <legend>4 · Which dataset</legend>
             <div id="buyDatasets" class="chips"></div>
           </fieldset>
 
@@ -815,6 +829,12 @@ const 묶음 = [
   .buyrow { border: 0; padding: 0; margin: 0 0 .7rem; }
   .buyrow legend { font-size: .78rem; letter-spacing: .04em; text-transform: uppercase;
                    color: var(--muted); padding: 0; margin-bottom: .35rem; }
+  /* 🔴 [2026-09-16] 이메일 필수 칸 — 결제 전 마지막 마찰이라 크고 또렷하게 둔다 */
+  .buyemail { display: block; width: 100%; max-width: 22rem; padding: .5rem .65rem;
+              font: inherit; font-size: .92rem; border: 1px solid var(--rule, #d8d8d8);
+              border-radius: 8px; background: var(--paper, #fff); color: var(--ink); }
+  .buyemail:focus { outline: 2px solid var(--accent, #444); outline-offset: 1px; }
+  .buyemail-note { margin: .35rem 0 0; padding: 0; border: 0; }
   .chips { display: flex; flex-wrap: wrap; gap: .4rem; }
   /* ⚠ [2026-09-13] 눈으로 보고 잡았다 — span 이 인라인이라 이름과 밑글이 «한 줄로 붙어»
        「Academic licence — one dataset$79 · One-time」처럼 나왔다. block 으로 내린다.
@@ -844,6 +864,12 @@ const 묶음 = [
   var 상자 = document.getElementById('buyBox');
   if (!상자) return;
   var 알림 = document.getElementById('buyNote');
+  /* 🔴 [2026-09-16 · 6번 · 사장님 결정] 이메일 칸 — 「연락 닿는 주소」를 결제 시점에 쥔다.
+     ⛔ 저장소·로그 어디에도 안 남긴다 — 이 변수는 손님 브라우저 메모리에만 있다가
+        주문·승인 요청 본문에 실려 서버로 한 번 갈 뿐이다. */
+  var 메일칸 = document.getElementById('buyEmail');
+  function 메일유효() { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((메일칸 && 메일칸.value || '').trim()); }
+  if (메일칸) 메일칸.addEventListener('input', 다시그리기);
   var 주기칸 = document.getElementById('buyCycle');
   var 품칸 = document.getElementById('buyProducts');
   var 셋칸 = document.getElementById('buyDatasets');
@@ -901,6 +927,10 @@ const 묶음 = [
     단추칸.innerHTML = '';
     if (!살수있나()) {
       글(알림, 고른품 && 고른품.고르기 ? 'Choose a dataset to continue.' : 'Choose a licence to continue.');
+      return;
+    }
+    if (!메일유효()) {
+      글(알림, 'Enter a valid email above (for your receipt and download link) to continue.');
       return;
     }
     글(알림, '');
@@ -966,7 +996,7 @@ const 묶음 = [
       옵션.createOrder = function () {
         return fetch('/api/pay/order', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ product: 고른품.코드, dataset: 고른셋 ? 고른셋.코드 : null }),
+          body: JSON.stringify({ product: 고른품.코드, dataset: 고른셋 ? 고른셋.코드 : null, email: (메일칸 && 메일칸.value || '').trim() }),
         }).then(function (r) { return r.json(); })
           .then(function (j) { if (!j.ok) throw new Error(j.error || 'order failed'); return j.id; });
       };
@@ -974,7 +1004,7 @@ const 묶음 = [
         글(알림, 'Confirming your payment...');
         return fetch('/api/pay/capture', {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ orderID: data.orderID, product: 고른품.코드, dataset: 고른셋 ? 고른셋.코드 : null }),
+          body: JSON.stringify({ orderID: data.orderID, product: 고른품.코드, dataset: 고른셋 ? 고른셋.코드 : null, email: (메일칸 && 메일칸.value || '').trim() }),
         }).then(function (r) { return r.json(); })
           .then(function (j) {
             if (!j.ok) throw new Error(j.error || 'not confirmed');

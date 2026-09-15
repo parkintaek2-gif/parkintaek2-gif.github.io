@@ -593,9 +593,12 @@ const handle = async (req, res) => {
         res.end(JSON.stringify({ ok: true, downloadUrl: 받는곳, receipt: 결과.결제번호 }));
 
         /*
-         * 🔴 [2026-09-15 · 5번→6번 · 사장님 지시 「회원가입 안하면 정보를 어떻게 보내지?」]
+         * 🔴 [2026-09-15/16 · 5번→6번 · 사장님 지시 「회원가입 안하면 정보를 어떻게 보내지?」
+         *   「페이팔 등록한 메일이 잘 안쓰는 거면?」]
          *   회원가입도 DB 도 없어, 손님이 탭을 닫으면 화면의 링크가 유일한 증거였다.
-         *   페이팔이 승인 응답에 준 구매자 메일로 편지를 보낸다 — 유일한 안전망을 하나 더 둔다.
+         *   두 주소로 편지를 보낸다 — ① 결제칸에 손님이 «직접 적은» 이메일(필수 칸,
+         *   실제로 읽는 주소일 확률이 높다) ② 페이팔 승인 응답의 구매자 메일(결제용이라
+         *   다를 수 있다). 하나는 «흡수»하지 않는다 — 사장님 지시: 둘 다 있으면 둘 다 보낸다.
          *
          * ⛔ **응답은 이미 위에서 나갔다.** 편지가 막혀도 결제는 이미 성공한 뒤다.
          *   메일보내기() 는 절대 던지지 않으므로 catch 는 방어일 뿐이다.
@@ -603,33 +606,42 @@ const handle = async (req, res) => {
          *   (사장님 지시 — 「실제 사람의 사적인 내용은 공용 저장소에 적지 않는다」).
          *   아래 실패 로그에도 주소를 담지 않는다 — 주문번호까지만 남긴다.
          */
-        if (결과.산사람메일) {
+        const 체크아웃메일 = (() => {
+          const e = String(입력.email ?? '').trim();
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e) ? e : null;
+        })();
+        /* ⛔ 대소문자만 다른 같은 주소로 두 통을 보내지 않는다 */
+        const 받을주소들 = [체크아웃메일, 결과.산사람메일].filter(Boolean)
+          .filter((v, i, arr) => arr.findIndex((x) => x.toLowerCase() === v.toLowerCase()) === i);
+        if (받을주소들.length) {
           const 상품이름 = 품.이름 + (골른것 ? ' — ' + 골른것.이름 : '');
-          const 받을주소 = 'https://seoulmarkets.com' + 받는곳;
-          메일보내기({
-            받는곳: 결과.산사람메일,
-            제목: 'Your SMarkets order — ' + 상품이름,
-            글: [
-              (결과.산사람이름 ? `Hi ${결과.산사람이름},` : 'Hi,'),
-              '',
-              `Thank you for your order — ${상품이름}.`,
-              '',
-              `Download your files: ${받을주소}`,
-              '',
-              `Order ID: ${입력.orderID}`,
-              `Receipt: ${결과.결제번호}`,
-              '',
-              'This link does not expire. If you ever lose it, go to',
-              'https://seoulmarkets.com/recover and enter the order ID above',
-              '— PayPal also emailed you this same order ID in your receipt.',
-              '',
-              'Questions? Write to admin@klifedesign.net',
-              '',
-              '— SMarkets (seoulmarkets.com)',
-            ].join('\n'),
-          }).then((r) => {
-            if (!r.ok) console.error('[pay-mail] order ' + 입력.orderID + ' — 편지를 못 보냈다: ' + r.왜);
-          }).catch(() => { /* 메일보내기() 는 던지지 않는다 — 방어용 */ });
+          const 받을링크 = 'https://seoulmarkets.com' + 받는곳;
+          for (const 주소 of 받을주소들) {
+            메일보내기({
+              받는곳: 주소,
+              제목: 'Your SMarkets order — ' + 상품이름,
+              글: [
+                (결과.산사람이름 && 주소 === 결과.산사람메일 ? `Hi ${결과.산사람이름},` : 'Hi,'),
+                '',
+                `Thank you for your order — ${상품이름}.`,
+                '',
+                `Download your files: ${받을링크}`,
+                '',
+                `Order ID: ${입력.orderID}`,
+                `Receipt: ${결과.결제번호}`,
+                '',
+                'This link does not expire. If you ever lose it, go to',
+                'https://seoulmarkets.com/recover and enter the order ID above',
+                '— PayPal also emailed you this same order ID in your receipt.',
+                '',
+                'Questions? Write to admin@klifedesign.net',
+                '',
+                '— SMarkets (seoulmarkets.com)',
+              ].join('\n'),
+            }).then((r) => {
+              if (!r.ok) console.error('[pay-mail] order ' + 입력.orderID + ' — 편지를 못 보냈다: ' + r.왜);
+            }).catch(() => { /* 메일보내기() 는 던지지 않는다 — 방어용 */ });
+          }
         }
         return;
       } catch (e) {
