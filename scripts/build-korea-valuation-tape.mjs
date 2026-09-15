@@ -137,6 +137,17 @@ export function 한줄(재무줄, 시가총액, { 시세판 = null, 업종영문
   const 자산총계 = 값꺼내기(재무줄, 구분, '자산총계');
   const 매출액 = 값꺼내기(재무줄, 구분, '매출액');
   const 영업이익 = 값꺼내기(재무줄, 구분, '영업이익');
+  /* 🔴 [2026-09-16 · 6번 · 5번 지시, 9/17 21:00] 신용등급(SMarkets Grade) 여섯 축의
+     병목이던 일곱 계정 — collect-dart-financials.mjs 의 핵심계정에 이미 더했다.
+     여기서는 그 CFS_/OFS_ 칸을 그대로 꺼내 영문 이름(smarkets-grade.mjs 가 쓰는
+     바로 그 칸 이름)으로 낸다. ⛔ 없으면 null — 0 으로 채우지 않는다. */
+  const 유동자산 = 값꺼내기(재무줄, 구분, '유동자산');
+  const 유동부채 = 값꺼내기(재무줄, 구분, '유동부채');
+  const 이익잉여금 = 값꺼내기(재무줄, 구분, '이익잉여금');
+  const 금융비용 = 값꺼내기(재무줄, 구분, '금융비용');
+  const 단기차입금 = 값꺼내기(재무줄, 구분, '단기차입금');
+  const 장기차입금 = 값꺼내기(재무줄, 구분, '장기차입금');
+  const 사채 = 값꺼내기(재무줄, 구분, '사채');
   const 시총 = Number.isFinite(시가총액) ? 시가총액 : null;
   const r = 셈({ 시가총액: 시총, 당기순이익, 자본총계, 자산총계 });
   const 까닭 = 못붙은까닭({ 시가총액: 시총, 재무줄, 구분 });
@@ -162,6 +173,15 @@ export function 한줄(재무줄, 시가총액, { 시세판 = null, 업종영문
     totalAssets: 자산총계,
     revenue: 매출액,
     operatingIncome: 영업이익,
+    /* 🔴 [2026-09-16] SMarkets Grade 여섯 축이 쓰는 칸 이름 그대로 — company-credit.astro
+       가 여기서 바로 매긴다() 로 넘긴다. 이름이 다르면 소리 없이 null 로 빠진다. */
+    currentAssets: 유동자산,
+    currentLiabilities: 유동부채,
+    retainedEarnings: 이익잉여금,
+    financeCosts: 금융비용,
+    shortTermBorrowings: 단기차입금,
+    longTermBorrowings: 장기차입금,
+    bonds: 사채,
     per: 다듬기(r.per),
     pbr: 다듬기(r.pbr),
     roe: 다듬기(r.roe, 4),

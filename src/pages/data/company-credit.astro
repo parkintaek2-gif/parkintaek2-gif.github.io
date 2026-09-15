@@ -17,12 +17,14 @@
  *      정본은 src/lib/smarkets-grade.mjs 이고 이 지면은 그것을 «불러서» 낸다.
  *      ⛔ 기준선 숫자를 이 파일에 손으로 옮겨 적지 않는다 — 두 곳이 어긋나면 거짓이 된다.
  *
- * ── 🔴 오늘 등급이 나오는 회사는 «0곳»이다. 그것을 그대로 적는다 ──────────
- *   지금 우리 재무 테이프에는 여섯 축 가운데 둘만 잴 수 있는 계정이 들어 있다.
- *   기준(넷)에 못 미치므로 2,709곳이 전부 NR 이다.
- *   ⛔ 이것을 숨기고 방법론만 내지 않는다. 「재 보고 안 된다고 적는 것도 결과다」.
- *   ⛔ 그렇다고 기준을 둘로 낮추지 않는다 — 두 축으로 매긴 등급은 등급이 아니다.
- *   ✅ 모자란 «계정 이름»을 그대로 적는다. 손님이 언제 쓸 수 있을지 스스로 판정한다.
+ * ── 🔴 [2026-09-16 정정] 「등급 0곳」은 «어제까지»였다 ──────────────────
+ *   낸 날(2026-09-15)에는 여섯 축 가운데 둘만 잴 수 있는 계정이 들어 있어 2,709곳이
+ *   전부 NR 이었다. 5번 지시(9/17 21:00 마감)로 나머지 일곱 계정(유동자산·유동부채·
+ *   이익잉여금·금융비용·단기차입금·장기차입금·사채)을 collect-dart-financials.mjs
+ *   핵심계정에 더하고 다시 받았다(2026-09-16) — 이제 여섯 축 대부분이 선다.
+ *   ⛔ 그래도 «모두 다» 커버되는 척하지 않는다 — 계정 자체가 없는 회사(사채가
+ *     없는 무차입 경영 등)는 여전히 그 축만 못 잰다. «오늘 실제로 몇 곳» 인지
+ *     주장하지 않고 돌려서 센다 — 아래 코드가 그 숫자를 만든다.
  *
  * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
  * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
@@ -41,6 +43,10 @@ const num = (n: number) => n.toLocaleString('en-GB');
 type TapeRow = {
   totalAssets: number | null; totalEquity: number | null; revenue: number | null;
   operatingIncome: number | null; marketCap: number | null;
+  /* 🔴 [2026-09-16] 신용등급 병목이던 일곱 계정 — build-korea-valuation-tape.mjs 가 낸다 */
+  currentAssets: number | null; currentLiabilities: number | null;
+  retainedEarnings: number | null; financeCosts: number | null;
+  shortTermBorrowings: number | null; longTermBorrowings: number | null; bonds: number | null;
 };
 const rows = ((tape as any).rows ?? []) as TapeRow[];
 const 센것 = rows.map((r) => 매긴다({
@@ -49,6 +55,9 @@ const 센것 = rows.map((r) => 매긴다({
   /* 부채총계는 회계 항등식으로 나온다 — 자산 − 자본. 추정이 아니라 정의다 */
   totalLiabilities: (r.totalAssets !== null && r.totalEquity !== null)
     ? r.totalAssets - r.totalEquity : null,
+  currentAssets: r.currentAssets, currentLiabilities: r.currentLiabilities,
+  retainedEarnings: r.retainedEarnings, financeCosts: r.financeCosts,
+  shortTermBorrowings: r.shortTermBorrowings, longTermBorrowings: r.longTermBorrowings, bonds: r.bonds,
 })) as any[];
 const 총수 = 센것.length;
 const 등급받은수 = 센것.filter((g) => g.grade !== 'NR').length;
@@ -60,19 +69,20 @@ const 축분포 = (() => {
 const 가장흔한축수 = 축분포[0]?.[0] ?? 0;
 const 가장흔한축수곳 = 축분포[0]?.[1] ?? 0;
 
-/* 지금 못 잡는 계정 — ⛔ 「자료가 부족하다」로 뭉치지 않는다. 이름을 그대로 적는다 */
-const 모자란계정 = [
-  { item: 'Finance costs', blocks: 'Operating income to finance costs (weight 30)' },
-  {
-    item: 'Short-term borrowings, current portion of long-term debt, long-term borrowings, bonds',
-    blocks: 'Total borrowings to total assets (weight 20)',
-  },
-  {
-    item: 'Current assets, current liabilities',
-    blocks: 'Current assets to current liabilities (weight 15), and the working-capital term of the Altman Z',
-  },
-  { item: 'Retained earnings', blocks: 'The retained-earnings term of the Altman Z (weight 10)' },
-];
+/*
+ * 🔴 [2026-09-16] 「모자란 계정」을 정적 목록으로 두지 않는다 — 계정을 더한 지금도
+ * 두는 것은 «오늘 실제로 얼마나 남았나»다. 축마다 «못 잰 회사 수»를 세서 보여 준다.
+ * ⛔ 「일곱 계정을 다 더했으니 다 됐다」로 뭉치지 않는다 — 계정 자체가 없는 회사
+ *   (무차입 경영 등)는 지금도 그 축만 못 잰다. 그 수를 그대로 낸다.
+ */
+const 축별못잰수 = 기준선.map((축) => ({
+  item: 축.이름,
+  weight: 축.가중치,
+  missing: 센것.filter((g) => {
+    const a = g.axes.find((x: any) => x.key === 축.key);
+    return !a || !a.measured;
+  }).length,
+}));
 
 /* ── 우리가 관찰하는 «실제» 등급 변동 (인도 NSE) ────────────────────────── */
 const mv = moves as any;
@@ -116,11 +126,14 @@ const faq: Array<[string, string]> = [
     + 'Treating an absent line item as a zero would quietly punish companies whose filings are simply '
     + 'formatted differently.'],
   ['How many companies get a grade today?',
-    num(등급받은수) + ' of ' + num(총수) + '. Most companies in our tape — ' + num(가장흔한축수곳)
-    + ' of them — currently have only ' + 가장흔한축수 + ' of the ' + 기준선.length
-    + ' measures available, which is below the minimum of ' + 적어도있어야할축
-    + '. The line items that are missing are named on this page. We would rather publish a zero than '
-    + 'lower the bar to make the number look better.'],
+    num(등급받은수) + ' of ' + num(총수) + '. ' + (등급받은수 > 0
+      ? (num(가장흔한축수곳) + ' companies have ' + 가장흔한축수 + ' of the ' + 기준선.length
+        + ' measures available. The rest are marked NR because fewer than ' + 적어도있어야할축
+        + ' measures could be computed from what they filed — most often because the company carries '
+        + 'no debt of the kind a given line item covers, not because the figure is hidden.')
+      : ('The rest have only ' + 가장흔한축수 + ' of the ' + 기준선.length + ' measures available, which '
+        + 'is below the minimum of ' + 적어도있어야할축 + '. We would rather publish a zero than lower '
+        + 'the bar to make the number look better.'))],
   ['Where does the Altman Z score come from?',
     'It is not our formula. It is the 1968 published discriminant function, cited in full: '
     + 알트만출전 + '. We compute it only where every one of its five terms is present.'],
@@ -144,7 +157,8 @@ const jsonLd = [datasetLd, faqLd];
       hand and disagree with it. No analyst judgement, no sector premium, no forecast.
       Version <b>{판}</b>.
     </p>
-    <BuyBar 자리="top" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
+    <BuyBar 자리="top" 살수있나={false} 아직={'The grade is computed but not yet on sale — today it covers '
+      + num(등급받은수) + ' of ' + num(총수) + ' companies, and this page names what still blocks the rest.'} />
 
     <section class="stats">
       <div class="stat"><b>{기준선.length}</b><span>measures</span></div>
@@ -155,34 +169,62 @@ const jsonLd = [datasetLd, faqLd];
 
     {/* ⛔ 이 칸을 아래로 내리지 않는다. 손님이 제일 먼저 알아야 하는 것이 이것이다 */}
     <section>
-      <h2>Read this before anything else: today the grade covers nothing</h2>
-      <p class="warn">
-        <b>{num(등급받은수)} of {num(총수)}</b> Korean listed companies currently receive a grade.
-        Not because those companies are weak &mdash; because <b>our tape does not yet carry the line
-        items the grade needs</b>. {num(가장흔한축수곳)} companies have {가장흔한축수} of
-        the {기준선.length} measures available, and the floor is {적어도있어야할축}.
-        We publish that number rather than lowering the floor to make it look better.
-      </p>
-      <p>
-        These are the line items that are missing and what each one blocks. They come from the same
-        regulator API we already use; it is a question of requesting more accounts per company, not
-        of a new source or a new licence.
-      </p>
-      <div class="scroll">
-        <table>
-          <thead><tr><th>Line item not yet collected</th><th>What it blocks</th></tr></thead>
-          <tbody>
-            {모자란계정.map((r) => (
-              <tr><td>{r.item}</td><td>{r.blocks}</td></tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <p class="note">
-        Two measures &mdash; liabilities to equity, and operating income to total assets &mdash; can
-        already be computed for {num(가장흔한축수곳)} companies from what we hold. They are not
-        published as a grade, because a grade built on two of six measures is not a grade.
-      </p>
+      {등급받은수 > 0 ? (
+        <>
+          <h2>Read this before anything else: what the grade covers today, and what it still does not</h2>
+          <p class="warn">
+            <b>{num(등급받은수)} of {num(총수)}</b> Korean listed companies receive a grade today.
+            The rest are marked <b>NR</b>, not scored low &mdash; each one is missing at least three of
+            the six line items below in its own filing (most often because it simply carries none of
+            that kind of debt), so fewer than the required {적어도있어야할축} of {기준선.length}
+            measures could be computed.
+          </p>
+          <p>
+            Per-measure gaps, counted the same way as the grade itself &mdash; nothing here is estimated:
+          </p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Measure</th><th>Weight</th><th>Companies still missing this figure</th></tr></thead>
+              <tbody>
+                {축별못잰수.map((r) => (
+                  <tr><td>{r.item}</td><td>{r.weight}</td><td>{num(r.missing)} of {num(총수)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="note">
+            Version {판} added seven line items (current assets, current liabilities, retained earnings,
+            finance costs, short-term borrowings, long-term borrowings, bonds) that a prior version of
+            this tape did not yet request from the regulator API. That is why coverage moved from 0
+            companies to {num(등급받은수)}.
+          </p>
+        </>
+      ) : (
+        <>
+          <h2>Read this before anything else: today the grade covers nothing</h2>
+          <p class="warn">
+            <b>{num(등급받은수)} of {num(총수)}</b> Korean listed companies currently receive a grade.
+            Not because those companies are weak &mdash; because <b>our tape does not yet carry the line
+            items the grade needs</b>. {num(가장흔한축수곳)} companies have {가장흔한축수} of
+            the {기준선.length} measures available, and the floor is {적어도있어야할축}.
+            We publish that number rather than lowering the floor to make it look better.
+          </p>
+          <p>
+            Per-measure gaps &mdash; these line items come from the same regulator API we already use;
+            it is a question of requesting more accounts per company, not of a new source or a new licence.
+          </p>
+          <div class="scroll">
+            <table>
+              <thead><tr><th>Measure</th><th>Weight</th><th>Companies missing this figure</th></tr></thead>
+              <tbody>
+                {축별못잰수.map((r) => (
+                  <tr><td>{r.item}</td><td>{r.weight}</td><td>{num(r.missing)} of {num(총수)}</td></tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </section>
 
     <section>
