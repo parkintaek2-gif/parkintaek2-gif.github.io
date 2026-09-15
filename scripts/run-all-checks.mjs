@@ -257,6 +257,9 @@ export const 단계들 = [
    *   다시 재야 한다. 위 둘과 같은 이유로 물린다. */
   "node scripts/build-korea-ownership-tape.mjs --자가시험",
   "node scripts/build-ownership-exit-ranking.mjs --자가시험",
+  /* 🔴 [2026-09-15 · 1번] 사장님 지시(「매시 정각 5번과 소통... 자물쇠」)로 만든 자가시험.
+   *   시각에 좌우되는 실행부(마지막 줄)는 여기 안 건다 — 자가시험만 물린다. */
+  "node scripts/check-kcw-hourly-sync.mjs --자가시험",
   "node scripts/collect-uae-cbuae-fx-rates.mjs --자가시험",
   /* 🔴 [2026-09-13 · 3번] F7 — 「⑤ 데이터 품질」 몫. 일곱 엔드포인트 밑감의
    *   값 채움률·최신 날짜를 검사로 지킨다. archive-freshness 와 같은 결로
