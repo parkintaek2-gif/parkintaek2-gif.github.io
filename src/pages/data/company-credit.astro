@@ -32,6 +32,7 @@ import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
 import moves from '../../data/india-rating-moves.json';
 import { 매긴다, 방법론, 기준선, 적어도있어야할축, 판, 알트만출전 } from '../../lib/smarkets-grade.mjs';
+import BuyBar from '../../components/BuyBar.astro';
 
 const method = 방법론() as any;
 const num = (n: number) => n.toLocaleString('en-GB');
@@ -143,6 +144,7 @@ const jsonLd = [datasetLd, faqLd];
       hand and disagree with it. No analyst judgement, no sector premium, no forecast.
       Version <b>{판}</b>.
     </p>
+    <BuyBar 자리="top" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
 
     <section class="stats">
       <div class="stat"><b>{기준선.length}</b><span>measures</span></div>
@@ -234,6 +236,7 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
+    <BuyBar 자리="mid" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
     <section>
       <h2>The Altman Z is not ours</h2>
       <p>
@@ -310,6 +313,7 @@ const jsonLd = [datasetLd, faqLd];
         <a href="/data#licence">See licence options</a>.
       </p>
     </aside>
+  <BuyBar 자리="bottom" 살수있나={false} 아직="The grade is computed but not yet on sale — today it covers 0 of 2,709 companies, and this page names the line items we still need." />
   </article>
 </Base>
 

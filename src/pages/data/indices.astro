@@ -27,6 +27,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-index-tape.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 type Row = {
   date: string; name: string; nameEn: string | null; family: string; familyEn: string | null;
@@ -137,6 +138,7 @@ const jsonLd = [datasetLd, faqLd];
       free. This page is about coverage — what we hold, what each column actually measures, and
       where the source left a gap instead of a number.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{num(total)}</b><span>indices</span></div>
@@ -202,6 +204,7 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
+    <BuyBar 자리="mid" />
     <section>
       <h2>Related</h2>
       <p>
@@ -242,6 +245,7 @@ const jsonLd = [datasetLd, faqLd];
         weighting scheme KRX uses to run the index itself. <b>This is not investment advice.</b>
       </p>
     </section>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 

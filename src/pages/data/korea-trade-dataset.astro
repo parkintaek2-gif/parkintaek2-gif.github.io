@@ -16,6 +16,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import { TRADE } from '../../lib/trade-data.mjs';
+import BuyBar from '../../components/BuyBar.astro';
 
 const COUNTRIES = TRADE.countries.length;
 const MONTHS = TRADE.window.months;
@@ -60,6 +61,7 @@ const jsonLd = {
       <p class="kicker">SeoulMarkets · open trade data</p>
       <h1>Korea trade dataset — every partner, every month</h1>
       <p class="sample">{SAMPLE}</p>
+    <BuyBar 자리="top" />
       <p class="lead">
         Korea's customs office publishes what the country sells to, and buys from, <b>every partner on
         earth</b>, month by month. It publishes it in Korean, un-normalised, one awkward query at a time.
@@ -229,7 +231,8 @@ const jsonLd = {
         Data Portal, commercial use permitted with attribution. We parse, normalise and translate; figures
         are the customs values as filed. Not investment advice.
       </p>
-    </article>
+    <BuyBar 자리="bottom" />
+  </article>
   </div>
 </Base>
 

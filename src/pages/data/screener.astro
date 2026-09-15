@@ -28,6 +28,7 @@ import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import 메타 from '../../data/screener-meta.json';
 import { 수칸 } from '../../lib/screener.mjs';
+import BuyBar from '../../components/BuyBar.astro';
 
 const M = 메타 as any;
 const 줄수 = M._meta.rows as number;
@@ -85,6 +86,7 @@ const jsonLd = {
     <div class="page-head">
       <p class="kicker">Sources &amp; Markets · free tool</p>
       <h1>Asia &amp; Gulf screener</h1>
+      <BuyBar 자리="top" />
       <p>
         Filter <b>{줄수.toLocaleString('en-US')}</b> listed companies across{' '}
         {시장목록.map((m, i) => (
@@ -529,6 +531,8 @@ const jsonLd = {
         });
     })();
   </script>
+  {/* ⛔ 표를 다 훑어 내려온 손님이 «다시 위로 올라가» 값을 찾게 하지 않는다 */}
+  <div class="wrap"><BuyBar 자리="bottom" /></div>
 </Base>
 
 <style>

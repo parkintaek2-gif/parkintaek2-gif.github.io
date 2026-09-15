@@ -22,6 +22,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 type Row = {
   ticker: string | null; name: string | null; nameEn: string | null; market: string | null;
@@ -182,6 +183,7 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
       Market capitalisation as of <b>{priceDate}</b>; earnings and equity from the{' '}
       <b>{fiscalYear}</b> annual report. Both dates sit on every row.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{total.toLocaleString('en-GB')}</b><span>companies</span></div>
@@ -272,6 +274,7 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
       </table>
     </section>
 
+    <BuyBar 자리="mid" />
     <section>
       <h2>The twenty largest by market value</h2>
       <p class="note">
@@ -360,6 +363,7 @@ const trn = (n: number | null) => (n === null ? '—' : `${(n / 1e12).toFixed(1)
         It does not compute sector averages. <b>This is not investment advice.</b>
       </p>
     </section>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 

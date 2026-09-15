@@ -23,6 +23,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import data from '../../data/seoulmarkets-mezzanine.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
 const t = data.byType;
@@ -55,6 +56,7 @@ const 긴이름 = { CB: 'Convertible bond', BW: 'Bond with warrant', EB: 'Exchan
       <p class="kicker">SeoulMarkets · data for licence</p>
       <h1>{TITLE}</h1>
       <p class="sample">{SAMPLE}</p>
+    <BuyBar 자리="top" />
 
       <p class="lead">
         A Korean company that wants equity money without selling equity today issues a convertible.
@@ -138,7 +140,8 @@ const 긴이름 = { CB: 'Convertible bond', BW: 'Bond with warrant', EB: 'Exchan
           not apply. <b>Reporting that as a 0% floor would be false</b>, and reporting it as missing
           data would be false in a different way.
         </p>
-      </section>
+      </section>
+    <BuyBar 자리="mid" />
 
       <section class="blk">
         <h2>What is filled in, column by column</h2>
@@ -214,7 +217,8 @@ const 긴이름 = { CB: 'Convertible bond', BW: 'Bond with warrant', EB: 'Exchan
         <a href="/data/target-changes">Target-price changes</a> ·{' '}
         <a href="/data">All data products</a>
       </p>
-    </article>
+    <BuyBar 자리="bottom" />
+  </article>
   </div>
 </Base>
 

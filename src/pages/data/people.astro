@@ -25,6 +25,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import data from '../../data/seoulmarkets-people.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
 const pa = data.payRatioAvailability;
@@ -60,6 +61,7 @@ const jsonLd = {
       <p class="kicker">SeoulMarkets · data for licence</p>
       <h1>{TITLE}</h1>
       <p class="sample">{SAMPLE}</p>
+    <BuyBar 자리="top" />
 
       <p class="lead">
         Every listed company in Korea files how many people it employs, how long they stay, and
@@ -160,6 +162,7 @@ const jsonLd = {
         </div>
       </section>
 
+    <BuyBar 자리="mid" />
       <section class="blk">
         <h2>Women as a share of headcount</h2>
         <p>
@@ -242,7 +245,8 @@ const jsonLd = {
         <a href="/data/target-changes">Target-price changes</a> ·{' '}
         <a href="/data">All data products</a>
       </p>
-    </article>
+    <BuyBar 자리="bottom" />
+  </article>
   </div>
 </Base>
 

@@ -20,6 +20,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import data from '../../data/seoulmarkets-target-changes.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 const 수 = (v) => (v == null ? '—' : Number(v).toLocaleString('en-US'));
 const c = data.counts;
@@ -52,6 +53,7 @@ const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
       <p class="kicker">SeoulMarkets · data for licence</p>
       <h1>{TITLE}</h1>
       <p class="sample">{SAMPLE}</p>
+    <BuyBar 자리="top" />
 
       <p class="lead">
         A target price only means something when you can see it <b>move</b>. We collect the Korean
@@ -138,6 +140,7 @@ const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
         )}
       </section>
 
+    <BuyBar 자리="mid" />
       <section class="blk">
         <h2>The most recent {보일것.length} moves</h2>
         <div class="tw">
@@ -202,7 +205,8 @@ const 이름없는곳 = data.brokers.filter((b) => b.broker_en_missing);
         This page reports what analysts published. It is not investment advice, and nothing here is a
         recommendation to buy or sell any security.
       </p>
-    </article>
+    <BuyBar 자리="bottom" />
+  </article>
   </div>
 </Base>
 

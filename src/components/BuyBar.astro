@@ -1,0 +1,106 @@
+---
+/**
+ * BuyBar.astro — **값과 사는 길을 지면 «안»에 놓는다.**
+ *
+ * ── 🔴 왜 만드나 (2026-09-15 · 사장님) ───────────────────────────────────
+ * > 「s마켓츠 **상품 소개를 보다가 바로 결제를 해야 하는 데 결제할 수 있는 게 없다**」
+ * > 「**우리가 파는 것을 클릭하면 제일 위에 가격과 결제창이 떠야지.
+ * >   그리고 콘텐트가 길면 중간, 마지막에도 가격과 결제창이 있어야지**」
+ *
+ * 그때 우리 지면은 이랬다 — 상품 카드를 누르면 «읽는 지면»이 열리고,
+ * 값과 결제는 그 지면 «맨 아래 한 줄»에 링크로만 있었다. 우리 상품 지면은 길다
+ * (커버리지·방법·표·FAQ). 그 길을 다 내려간 손님만 값을 봤다.
+ * ⛔ 사려고 온 손님을 «읽게» 만든 것이다. 파는 자리에서 값이 안 보이면 안 파는 것과 같다.
+ *
+ * ── 그래서 이 조각이 지키는 것 ────────────────────────────────────────────
+ * ✅ 값을 «한 곳에서만» 읽는다 — src/data/licence-products.mjs 가 정본이다.
+ *   ⛔ 지면마다 값을 손으로 적지 않는다. 지면의 값과 페이팔이 받는 값이 어긋나면 그것이 사고다.
+ * ✅ 자리를 셋 둔다 — 맨 위(top) · 중간(mid) · 마지막(bottom).
+ *   중간은 «얇게» 낸다. 같은 덩어리를 세 번 크게 내면 지면이 광고가 된다.
+ * ⛔ 「곧 엽니다」인 상품에는 값을 걸지 않는다 — 팔 수 없는 것에 값을 걸면 거짓이 된다.
+ *   그럴 때는 `살수있나={false}` 로 부른다. 그러면 «무엇을 기다리는지»만 적는다.
+ *
+ * 쓰는 법
+ *   <BuyBar 자리="top" />
+ *   <BuyBar 자리="mid" />
+ *   <BuyBar 자리="bottom" 살수있나={false} 아직="6번이 계정을 넓히는 9/17 뒤에 엽니다" />
+ */
+import { 상품 } from '../data/licence-products.mjs';
+
+interface Props {
+  자리?: 'top' | 'mid' | 'bottom';
+  살수있나?: boolean;
+  아직?: string | null;
+}
+const { 자리 = 'top', 살수있나 = true, 아직 = null } = Astro.props as Props;
+
+const p = 상품 as Record<string, any>;
+const 값 = (코드: string) => '$' + String(p[코드]?.usd ?? '').replace(/\.00$/, '');
+const 사는곳 = '/data#buy';
+const 얇게 = 자리 === 'mid';
+---
+
+<aside class={'buybar ' + (얇게 ? 'thin' : '')} aria-label="Prices and checkout">
+  {살수있나 ? (
+    <>
+      <div class="bb-prices">
+        <span class="bb-lab">Licence this data</span>
+        <span class="bb-row">
+          <b>{값('academic')}</b> academic, one-time
+          <i>·</i>
+          <b>{값('single')}</b> one dataset a year
+          <i>·</i>
+          <b>{값('all')}</b> everything a year
+        </span>
+      </div>
+      <div class="bb-act">
+        <a class="bb-btn" href={사는곳}>Buy now</a>
+        {!얇게 && (
+          <span class="bb-fine">
+            Card or PayPal, in US dollars, from any country. No account with us and no automatic
+            renewal. <a href="mailto:admin@klifedesign.net">Invoice for procurement</a>.
+          </span>
+        )}
+      </div>
+    </>
+  ) : (
+    /* ⛔ 아직 못 파는 것에 값을 걸지 않는다. 대신 «무엇을 기다리는지»를 적는다 */
+    <div class="bb-prices">
+      <span class="bb-lab">Not on sale yet</span>
+      <span class="bb-row bb-wait">{아직 ?? 'This dataset is still being filled in. The page says exactly what is missing.'}{' '}
+        <a href="/data">See what is on sale today &rarr;</a></span>
+    </div>
+  )}
+</aside>
+
+<style>
+  .buybar {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .7rem 1.1rem;
+    margin: 1.1rem 0; padding: .85rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent, #0f4c81) 35%, transparent);
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  /* ⛔ 중간 자리는 얇게 — 같은 덩어리를 세 번 크게 내면 지면이 광고가 된다 */
+  .buybar.thin { padding: .5rem .8rem; margin: 1.4rem 0; }
+  .bb-prices { flex: 1 1 18rem; min-width: 0; }
+  .bb-lab {
+    display: block; font-size: .7rem; font-weight: 700;
+    letter-spacing: .05em; text-transform: uppercase; color: var(--accent, #0f4c81);
+  }
+  .bb-row { display: block; font-size: .86rem; line-height: 1.6; }
+  .bb-row b { font-weight: 700; }
+  .bb-row i { font-style: normal; opacity: .45; margin: 0 .2rem; }
+  .bb-wait { color: var(--muted, #555); }
+  .bb-act { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .8rem; }
+  .bb-btn {
+    display: inline-block; padding: .5rem 1.15rem; border-radius: 6px;
+    background: var(--accent, #0f4c81); color: #fff;
+    font-size: .9rem; font-weight: 700; text-decoration: none; white-space: nowrap;
+  }
+  .bb-btn:hover { opacity: .88; }
+  .bb-fine { flex: 1 1 14rem; font-size: .74rem; line-height: 1.45; color: var(--muted, #555); }
+  @media (prefers-color-scheme: dark) {
+    .buybar { border-color: #2d4c6b; }
+  }
+</style>

@@ -29,6 +29,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 type Row = {
   ticker: string | null; nameEn: string | null; market: string | null;
@@ -163,6 +164,7 @@ const jsonLd = [datasetLd, faqLd];
       <b>{priceDate}</b>. Free, in English, company-level. The two largest are{' '}
       <b>{두곳.toFixed(1)}%</b> of the market between them.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{num(kospi.length)}</b><span>companies counted</span></div>
@@ -244,6 +246,7 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
+    <BuyBar 자리="mid" />
     <section>
       <h2>Concentration, stated plainly</h2>
       <table class="grid">
@@ -301,6 +304,7 @@ const jsonLd = [datasetLd, faqLd];
         anyone should do. <b>This is not investment advice.</b>
       </p>
     </section>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 

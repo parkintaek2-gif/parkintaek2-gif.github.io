@@ -16,6 +16,7 @@ import { SITE_URL } from '../../consts';
 import cross from '../../data/concentration-cross.json';
 import hist from '../../data/krx-daily-history.json';
 import today from '../../data/market-today.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 const TITLE = 'Korea stock market & trade concentration — KOSPI, KOSDAQ, exports';
 const DESC =
@@ -86,6 +87,7 @@ const jsonLd = [datasetLd, faqLd];
       <p class="kicker">SeoulMarkets · data for licence</p>
       <h1>Korea Concentration Index</h1>
       <p class="sample">Stocks as of {fmtDd(stockAsOf)} · trade {tradeMonth} · updated every trading day</p>
+    <BuyBar 자리="top" />
       <p class="lead">
         Rank Korea's listed stocks by value or by trading, or rank its trading partners by exports or
         imports. Each time, the four largest are <b>about half of the total</b> — and every concentration
@@ -235,7 +237,8 @@ const jsonLd = [datasetLd, faqLd];
         intuition anchor, not an identical calculation. Not investment advice. See our{' '}
         <a href="/terms">terms</a>.
       </p>
-    </article>
+    <BuyBar 자리="bottom" />
+  </article>
   </div>
 </Base>
 

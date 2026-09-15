@@ -38,6 +38,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 type Row = {
   ticker: string | null; name: string | null; nameEn: string | null; market: string | null;
@@ -285,6 +286,7 @@ const jsonLd = [datasetLd, faqLd];
       <b>{priceDate}</b>; revenue, assets and operating profit from the <b>{fiscalYear}</b>{' '}
       annual reports. We do not merge them into a single order, because they do not agree.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{unionTickers.length}</b><span>companies make a top ten</span></div>
@@ -433,6 +435,7 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
+    <BuyBar 자리="mid" />
     <section>
       <h2>Where the largest are listed</h2>
       <table class="grid">
@@ -496,6 +499,7 @@ const jsonLd = [datasetLd, faqLd];
         <b>This is not investment advice.</b>
       </p>
     </section>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 

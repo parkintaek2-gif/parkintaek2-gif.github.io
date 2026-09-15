@@ -28,6 +28,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import tape from '../../data/korea-valuation-tape.json';
+import BuyBar from '../../components/BuyBar.astro';
 
 type Row = {
   ticker: string | null; nameEn: string | null; market: string | null;
@@ -159,6 +160,7 @@ const jsonLd = [datasetLd, faqLd];
       fiscal year <b>{fiscalYear}</b>, in English and free. This page is about coverage — what we
       hold, on what basis, and where the holes are.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{pct(joined.length, total)}</b><span>of listed companies</span></div>
@@ -244,6 +246,7 @@ const jsonLd = [datasetLd, faqLd];
       </p>
     </section>
 
+    <BuyBar 자리="mid" />
     <section>
       <h2>One number worth knowing before you compute anything</h2>
       <p>
@@ -294,6 +297,7 @@ const jsonLd = [datasetLd, faqLd];
         tell you whether a filing is right — only what it said. <b>This is not investment advice.</b>
       </p>
     </section>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 

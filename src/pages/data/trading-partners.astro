@@ -37,6 +37,7 @@
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
 import { TRADE } from '../../lib/trade-data.mjs';
+import BuyBar from '../../components/BuyBar.astro';
 
 /*
  * ⛔ 원자료(관세청)의 영문 표기는 영어 독자에게 깨져 보인다 — 「Netherland」·「U.S.A」·
@@ -242,6 +243,7 @@ const jsonLd = [datasetLd, faqLd];
       <b>surplus</b> comes from <b>{글월이름(수지1등.name)}</b>. Those are two different rankings, and almost
       everyone publishes only the first.
     </p>
+    <BuyBar 자리="top" />
 
     <section class="stats">
       <div class="stat"><b>{num(상대수)}</b><span>partner countries</span></div>
@@ -388,7 +390,8 @@ const jsonLd = [datasetLd, faqLd];
     </section>
 
     {뒤집힌.length > 0 && (
-      <section>
+
+    <BuyBar 자리="mid" />      <section>
         <h2>A yearly figure hides the months that went the other way</h2>
         <p>
           {뒤집힌.length} of the twenty-five largest partners changed direction at least once inside
@@ -465,6 +468,7 @@ const jsonLd = [datasetLd, faqLd];
         <a href="/data#licence">See licence options</a>.
       </p>
     </aside>
+  <BuyBar 자리="bottom" />
   </article>
 </Base>
 
