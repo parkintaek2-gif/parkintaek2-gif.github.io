@@ -1,0 +1,351 @@
+---
+/*
+ * `/data/company-credit` — **우리가 매기는 기업 신용등급, 그 방법론 전체.**
+ * (seoulmarkets.com/data/company-credit)
+ *
+ * ── 🔴 왜 이 지면이 오늘 급했나 ────────────────────────────────────────
+ *   어제 진열장(/data)에 이 상품 카드를 걸면서 링크를 «먼저» 걸어 두었다.
+ *   오늘 사장님이 첫 화면을 보시던 중에 재 보니 그 링크가 **라이브에서 404** 였다.
+ *   ⛔ 값을 받겠다고 적어 둔 카드가 빈 곳을 가리키고 있었다. 지면이 없는 것보다 나쁘다.
+ *   ⇒ 「지면을 내면 그 커밋에서 허브에 건다」의 «반대»도 참이다 —
+ *     **허브에 걸었으면 그 커밋에서 지면이 있어야 한다.**
+ *
+ * ── ⭐ 이 지면이 파는 것 ───────────────────────────────────────────────
+ *   평가사는 모형을 감춘다. 우리는 반대로 간다 — 기준선·가중치·쓴 계정을 다 낸다.
+ *   손님이 종이와 계산기로 우리 등급을 다시 낼 수 있어야 한다. 그것이 상품이다.
+ *   ⇒ 그래서 이 지면은 «등급표»가 아니라 «방법론»이 본문이다.
+ *      정본은 src/lib/smarkets-grade.mjs 이고 이 지면은 그것을 «불러서» 낸다.
+ *      ⛔ 기준선 숫자를 이 파일에 손으로 옮겨 적지 않는다 — 두 곳이 어긋나면 거짓이 된다.
+ *
+ * ── 🔴 오늘 등급이 나오는 회사는 «0곳»이다. 그것을 그대로 적는다 ──────────
+ *   지금 우리 재무 테이프에는 여섯 축 가운데 둘만 잴 수 있는 계정이 들어 있다.
+ *   기준(넷)에 못 미치므로 2,709곳이 전부 NR 이다.
+ *   ⛔ 이것을 숨기고 방법론만 내지 않는다. 「재 보고 안 된다고 적는 것도 결과다」.
+ *   ⛔ 그렇다고 기준을 둘로 낮추지 않는다 — 두 축으로 매긴 등급은 등급이 아니다.
+ *   ✅ 모자란 «계정 이름»을 그대로 적는다. 손님이 언제 쓸 수 있을지 스스로 판정한다.
+ *
+ * ⛔ 화면에 한국어를 내지 않는다. 투자자문이 아니다.
+ * 🔴 Astro 앞말(--- 사이)은 TypeScript 다. JSX 를 넣으면 빌드가 죽는다.
+ */
+import Base from '../../layouts/Base.astro';
+import { SITE_URL } from '../../consts';
+import tape from '../../data/korea-valuation-tape.json';
+import moves from '../../data/india-rating-moves.json';
+import { 매긴다, 방법론, 기준선, 적어도있어야할축, 판, 알트만출전 } from '../../lib/smarkets-grade.mjs';
+
+const method = 방법론() as any;
+const num = (n: number) => n.toLocaleString('en-GB');
+
+/* ── 오늘 몇 곳이 등급을 받나 — «주장하지 않고 돌려서 센다» ──────────────── */
+type TapeRow = {
+  totalAssets: number | null; totalEquity: number | null; revenue: number | null;
+  operatingIncome: number | null; marketCap: number | null;
+};
+const rows = ((tape as any).rows ?? []) as TapeRow[];
+const 센것 = rows.map((r) => 매긴다({
+  totalAssets: r.totalAssets, totalEquity: r.totalEquity, revenue: r.revenue,
+  operatingIncome: r.operatingIncome, marketCap: r.marketCap,
+  /* 부채총계는 회계 항등식으로 나온다 — 자산 − 자본. 추정이 아니라 정의다 */
+  totalLiabilities: (r.totalAssets !== null && r.totalEquity !== null)
+    ? r.totalAssets - r.totalEquity : null,
+})) as any[];
+const 총수 = 센것.length;
+const 등급받은수 = 센것.filter((g) => g.grade !== 'NR').length;
+const 축분포 = (() => {
+  const m = new Map<number, number>();
+  for (const g of 센것) m.set(g.axesMeasured, (m.get(g.axesMeasured) ?? 0) + 1);
+  return [...m].sort((a, b) => b[1] - a[1]);
+})();
+const 가장흔한축수 = 축분포[0]?.[0] ?? 0;
+const 가장흔한축수곳 = 축분포[0]?.[1] ?? 0;
+
+/* 지금 못 잡는 계정 — ⛔ 「자료가 부족하다」로 뭉치지 않는다. 이름을 그대로 적는다 */
+const 모자란계정 = [
+  { item: 'Finance costs', blocks: 'Operating income to finance costs (weight 30)' },
+  {
+    item: 'Short-term borrowings, current portion of long-term debt, long-term borrowings, bonds',
+    blocks: 'Total borrowings to total assets (weight 20)',
+  },
+  {
+    item: 'Current assets, current liabilities',
+    blocks: 'Current assets to current liabilities (weight 15), and the working-capital term of the Altman Z',
+  },
+  { item: 'Retained earnings', blocks: 'The retained-earnings term of the Altman Z (weight 10)' },
+];
+
+/* ── 우리가 관찰하는 «실제» 등급 변동 (인도 NSE) ────────────────────────── */
+const mv = moves as any;
+const 상위평가사 = (mv.byAgency ?? []).slice(0, 6);
+const 거듭내려간곳 = (mv.repeatDowngrades ?? []).length;
+
+const TITLE = 'Corporate credit data — the SMarkets Grade, method in full';
+const DESC =
+  'Our own credit grade for listed companies, computed only from the statements the company itself '
+  + 'filed. Every threshold, every weight and every input line item is published on this page, so you '
+  + 'can recompute the grade and disagree with it. Version ' + 판 + '. Today it grades '
+  + num(등급받은수) + ' of ' + num(총수) + ' Korean listed companies, and this page says exactly why.';
+
+const datasetLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Dataset',
+  name: 'SMarkets Grade — corporate credit scores from filed financial statements',
+  description: DESC,
+  url: SITE_URL + '/data/company-credit',
+  keywords: ['credit rating', 'credit score', 'corporate credit', 'Altman Z', 'interest coverage',
+    'Korea', 'KOSPI', 'KOSDAQ', 'financial statements', 'default risk', 'rating methodology'],
+  creator: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  publisher: { '@type': 'Organization', name: 'SeoulMarkets', url: SITE_URL },
+  license: SITE_URL + '/terms',
+  isAccessibleForFree: true,
+  version: 판,
+  measurementTechnique: method.howItWorks,
+  variableMeasured: (method.measures ?? []).map((m: any) => m.name),
+};
+
+const faq: Array<[string, string]> = [
+  ['Is the SMarkets Grade a credit rating?',
+    'It is our own measure and it is not the rating of any licensed credit rating agency. It is built '
+    + 'only from figures the company filed itself, using thresholds and weights we publish, so anyone '
+    + 'can recompute it. The opinions of the established agencies are theirs and are not reproduced here.'],
+  ['How is the grade computed?',
+    method.howItWorks + ' The scale runs ' + method.scale + '.'],
+  ['Why is a company marked NR instead of getting a low grade?',
+    'Because a missing figure is a gap, not a weakness. A grade is only issued when at least '
+    + 적어도있어야할축 + ' of the ' + 기준선.length + ' measures can be computed from the filing. '
+    + 'Treating an absent line item as a zero would quietly punish companies whose filings are simply '
+    + 'formatted differently.'],
+  ['How many companies get a grade today?',
+    num(등급받은수) + ' of ' + num(총수) + '. Most companies in our tape — ' + num(가장흔한축수곳)
+    + ' of them — currently have only ' + 가장흔한축수 + ' of the ' + 기준선.length
+    + ' measures available, which is below the minimum of ' + 적어도있어야할축
+    + '. The line items that are missing are named on this page. We would rather publish a zero than '
+    + 'lower the bar to make the number look better.'],
+  ['Where does the Altman Z score come from?',
+    'It is not our formula. It is the 1968 published discriminant function, cited in full: '
+    + 알트만출전 + '. We compute it only where every one of its five terms is present.'],
+];
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({
+    '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+  })),
+};
+const jsonLd = [datasetLd, faqLd];
+---
+
+<Base title={TITLE} description={DESC} jsonLd={jsonLd}>
+  <article class="wrap">
+    <h1>Corporate credit data — the SMarkets Grade</h1>
+    <p class="lead">
+      A credit grade computed only from the statements a company filed itself. <b>Every threshold,
+      every weight and every input line item is on this page</b>, so you can recompute the grade by
+      hand and disagree with it. No analyst judgement, no sector premium, no forecast.
+      Version <b>{판}</b>.
+    </p>
+
+    <section class="stats">
+      <div class="stat"><b>{기준선.length}</b><span>measures</span></div>
+      <div class="stat"><b>{적어도있어야할축}</b><span>minimum to be graded</span></div>
+      <div class="stat"><b>SM1&ndash;SM9</b><span>scale, plus NR</span></div>
+      <div class="stat"><b>{num(등급받은수)}</b><span>graded today, of {num(총수)}</span></div>
+    </section>
+
+    {/* ⛔ 이 칸을 아래로 내리지 않는다. 손님이 제일 먼저 알아야 하는 것이 이것이다 */}
+    <section>
+      <h2>Read this before anything else: today the grade covers nothing</h2>
+      <p class="warn">
+        <b>{num(등급받은수)} of {num(총수)}</b> Korean listed companies currently receive a grade.
+        Not because those companies are weak &mdash; because <b>our tape does not yet carry the line
+        items the grade needs</b>. {num(가장흔한축수곳)} companies have {가장흔한축수} of
+        the {기준선.length} measures available, and the floor is {적어도있어야할축}.
+        We publish that number rather than lowering the floor to make it look better.
+      </p>
+      <p>
+        These are the line items that are missing and what each one blocks. They come from the same
+        regulator API we already use; it is a question of requesting more accounts per company, not
+        of a new source or a new licence.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Line item not yet collected</th><th>What it blocks</th></tr></thead>
+          <tbody>
+            {모자란계정.map((r) => (
+              <tr><td>{r.item}</td><td>{r.blocks}</td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Two measures &mdash; liabilities to equity, and operating income to total assets &mdash; can
+        already be computed for {num(가장흔한축수곳)} companies from what we hold. They are not
+        published as a grade, because a grade built on two of six measures is not a grade.
+      </p>
+    </section>
+
+    <section>
+      <h2>The scale</h2>
+      <p>
+        <b>SM1</b> is the strongest and <b>SM9</b> the weakest. A company that cannot be measured is
+        <b> NR</b>, never a low grade. We use our own symbols rather than the letter grades the
+        established agencies use, precisely so that nobody reads our number as one of theirs.
+      </p>
+    </section>
+
+    <section>
+      <h2>The {기준선.length} measures, with every threshold</h2>
+      <p>
+        Each measure is scored 1 to 9 against the thresholds below, then averaged using the weights.
+        The thresholds read left to right from strongest to weakest: a value that clears the first
+        threshold scores 1, the second scores 2, and a value past the last threshold scores 9.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead>
+            <tr><th>Measure</th><th>Weight</th><th>Direction</th><th>Thresholds (score 1 &rarr; 8)</th></tr>
+          </thead>
+          <tbody>
+            {기준선.map((m: any) => (
+              <tr>
+                <td>{m.이름}</td>
+                <td class="n">{m.가중치}</td>
+                <td>{m.클수록좋다 ? 'Higher is better' : 'Lower is better'}</td>
+                <td class="n mono">{m.선.join(' · ')}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        <b>Finance costs, not interest expense.</b> {method.financeCostsNote} We use the wider line
+        because some filings do not break interest out, and we say so rather than substituting a
+        guess.
+      </p>
+    </section>
+
+    <section>
+      <h2>How the average is taken &mdash; and why this part matters</h2>
+      <p>{method.howItWorks}</p>
+      <p class="warn">
+        That last sentence is the whole difference. If a measure cannot be computed, its weight is
+        <b> removed from the denominator</b>. Scoring it zero instead would mean a company with an
+        unusually formatted filing quietly grades worse than an identical company whose filing we
+        happened to parse. That is a defect dressed up as a rating.
+      </p>
+    </section>
+
+    <section>
+      <h2>The Altman Z is not ours</h2>
+      <p>
+        One of the {기준선.length} measures is the 1968 Altman discriminant function. We cite it in
+        full and we compute it only where all five of its terms are present:
+      </p>
+      <p class="cite">{알트만출전}</p>
+    </section>
+
+    <section>
+      <h2>What the agencies themselves did &mdash; the rating actions we track</h2>
+      <p>
+        Separately from our own grade, we archive the rating actions that exchanges disseminate. This
+        is not a copy of an agency table: these are counts we computed from
+        {' '}{num(mv.eventsStored)} archived disclosure rows, and <b>we only count an action where the
+        agency itself labelled it an upgrade or a downgrade</b>. The
+        {' '}{num(mv.notCountedBecauseActionUnclear)} rows filed as &ldquo;Other&rdquo; are left
+        uninterpreted rather than guessed at.
+      </p>
+      <section class="stats">
+        <div class="stat"><b>{num(mv.movesCounted)}</b><span>rating moves counted</span></div>
+        <div class="stat"><b>{num(mv.downgrades)}</b><span>downgrades</span></div>
+        <div class="stat"><b>{mv.downgradeShare}%</b><span>of moves were downgrades</span></div>
+        <div class="stat"><b>{num(거듭내려간곳)}</b><span>companies cut more than once</span></div>
+      </section>
+      <p>
+        The share differs sharply by agency, and that spread is itself the finding &mdash; the same
+        universe of borrowers, rated by different houses, produces downgrade rates that differ by a
+        factor of three.
+      </p>
+      <div class="scroll">
+        <table>
+          <thead><tr><th>Agency</th><th>Upgrades</th><th>Downgrades</th><th>Downgrade share</th></tr></thead>
+          <tbody>
+            {상위평가사.map((a: any) => (
+              <tr>
+                <td>{a.agency}</td>
+                <td class="n">{num(a.upgrades)}</td>
+                <td class="n">{num(a.downgrades)}</td>
+                <td class="n">{a.downgradeShare}%</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="note">
+        Dates that the source filed impossibly &mdash; a year in the future, for instance &mdash; are
+        flagged and left as filed ({num(mv.datesNotTrusted)} of them) rather than silently corrected.
+      </p>
+    </section>
+
+    <section>
+      <h2>What this is not</h2>
+      <ul>
+        {(method.notThis ?? []).map((x: string) => (<li>{x}</li>))}
+      </ul>
+    </section>
+
+    <section>
+      <h2>Related</h2>
+      <p>
+        The statements this grade is built on: <a href="/data/financials">the financial-statement
+        tape</a>. Ratios from the same rows: <a href="/data/valuation">the valuation tape</a>. Filter
+        companies yourself across Korea and the Gulf: <a href="/data/screener">the screener</a>.{' '}
+        <a href="/data">See what else is in the catalogue</a>.
+      </p>
+    </section>
+
+    <aside class="licence-cta">
+      <p>
+        <b>Licensing this dataset.</b> The method above is free and always will be &mdash; you can
+        rebuild the grade yourself from it. What we licence is the computed file: every company,
+        every input line item, every measure score and the grade, refreshed as filings land.{' '}
+        <a href="/data#licence">See licence options</a>.
+      </p>
+    </aside>
+  </article>
+</Base>
+
+<style>
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .6rem; }
+  h2 { font-size: 1.12rem; margin: 1.8rem 0 .5rem; }
+  .lead { font-size: 1rem; line-height: 1.65; margin: 0 0 1.2rem; }
+  p { line-height: 1.65; }
+  .stats {
+    display: grid; gap: .6rem; margin: 1rem 0 1.4rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  }
+  .stat { padding: .7rem .8rem; border: 1px solid var(--line, #e5e5e5); border-radius: 6px; }
+  .stat b { display: block; font-size: 1.25rem; line-height: 1.2; }
+  .stat span { font-size: .78rem; color: var(--muted, #666); }
+  .warn {
+    padding: .8rem .95rem; border-left: 4px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+  }
+  .note { font-size: .85rem; color: var(--muted, #555); }
+  .cite { font-size: .85rem; padding-left: 1rem; border-left: 3px solid var(--line, #ddd); }
+  .scroll { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; margin: .6rem 0; }
+  th, td { text-align: left; padding: .45rem .55rem; border-bottom: 1px solid var(--line, #eee); }
+  th { font-weight: 650; }
+  td.n { text-align: right; white-space: nowrap; }
+  td.mono { font-variant-numeric: tabular-nums; }
+  ul { line-height: 1.65; padding-left: 1.2rem; }
+  .licence-cta {
+    margin: 1.8rem 0 0; padding: .9rem 1.1rem;
+    border: 1px solid var(--line, #e3e3e3); border-radius: 6px;
+  }
+  .licence-cta p { margin: 0; }
+  @media (prefers-color-scheme: dark) {
+    .stat, .licence-cta { border-color: #333; }
+    .licence-cta { background: #1b1b1b; }
+  }
+</style>
