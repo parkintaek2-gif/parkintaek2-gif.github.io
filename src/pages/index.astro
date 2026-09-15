@@ -97,17 +97,28 @@ const jsonLd = {
 
     <section class="products" aria-labelledby="products-h">
       <h2 id="products-h">What we sell</h2>
+      {/* 🔴 [2026-09-15 · 사장님] 「s마켓츠 **상품 소개를 보다가 바로 결제를 해야 하는 데
+          결제할 수 있는 게 없다**」
+          ⛔ 맞다. 이 칸은 「What we sell」인데 카드마다 길이 «읽는 지면»으로만 났다.
+             사려는 손님은 /data 를 찾아 들어가 스스로 스크롤해야 했다.
+             ⇒ 파는 자리에서 «사는 단추»가 안 보이면 안 파는 것과 같다.
+          ✅ 그래서 카드마다 길을 «둘»로 낸다 — 무엇인지 보는 길, 그 자리에서 사는 길.
+          ⛔ 두 길을 겹치지 않는다. 겉 <a> 안에 <a> 를 넣으면 브라우저가 무너뜨린다 —
+             카드 전체를 덮는 링크를 쓰지 않고 «두 단추»를 나란히 둔다. */}
       <ul class="pgrid">
         {PRODUCTS.map((p) => (
           <li class="pcard">
-            <a href={p.href}>
+            <div class="pin">
               {/* ⛔ 시장을 제목 «뒤»에 두지 않는다. 손님이 제일 먼저 묻는 것이
                   「내 시장이 있나」라서, 제목보다 먼저 읽히는 자리에 둔다 */}
               <span class="pmkt">{p.mkt}</span>
-              <h3>{p.name}</h3>
+              <h3><a href={p.href}>{p.name}</a></h3>
               <p>{p.one}</p>
-              <span class="pgo">{p.cta} →</span>
-            </a>
+              <div class="pacts">
+                <a class="pgo" href={p.href}>{p.cta} →</a>
+                <a class="pbuy" href="/data#buy">Licence it →</a>
+              </div>
+            </div>
           </li>
         ))}
       </ul>
@@ -118,6 +129,14 @@ const jsonLd = {
         <b>Licence</b> — academic <b>$79</b> one-time · single dataset <b>$990/yr</b> or{' '}
         <b>$99/mo</b> · all datasets <b>$2,990/yr</b> or <b>$299/mo</b>.{' '}
         <a href="/data">See every dataset and what is in it →</a>
+      </p>
+      {/* ⛔ 값만 적어 두고 끝내지 않는다. 값을 읽은 바로 그 자리에서 살 수 있어야 한다.
+          카드가 아니라 «묶음 전체»를 사려는 손님이 갈 곳이 여기다. */}
+      <p class="pbuyline">
+        <a class="pbuybig" href="/data#buy">Buy a licence now</a>
+        <span>Card or PayPal, in US dollars, from any country &mdash; no account with us, and no
+        automatic renewal. Need an invoice for procurement?{' '}
+        <a href="mailto:admin@klifedesign.net">write to us</a>.</span>
       </p>
       {/* ⛔ 다 된 것처럼 적지 않는다. 어디까지 채워졌는지는 «지면마다» 적혀 있다 */}
       <p class="pnote">
@@ -237,12 +256,20 @@ const jsonLd = {
     grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
   }
   .pcard { margin: 0; }
-  .pcard a {
-    display: block; height: 100%; padding: .85rem .9rem;
+  .pin {
+    display: flex; flex-direction: column; height: 100%; padding: .85rem .9rem;
     border: 1px solid var(--line, #e5e5e5); border-radius: 6px;
-    text-decoration: none; color: inherit; background: var(--card, transparent);
+    background: var(--card, transparent);
   }
-  .pcard a:hover { border-color: var(--accent, #0f4c81); }
+  .pin:hover { border-color: var(--accent, #0f4c81); }
+  .pcard h3 a { color: inherit; text-decoration: none; }
+  .pcard h3 a:hover { text-decoration: underline; }
+  /* ⛔ 두 단추를 붙여 두지 않는다 — 손가락으로 누를 때 옆엣것이 눌린다 */
+  .pacts { margin-top: auto; display: flex; flex-wrap: wrap; gap: .3rem .9rem; }
+  .pbuy { font-size: .8rem; font-weight: 700; color: var(--accent, #0f4c81);
+    text-decoration: none; border-bottom: 2px solid currentColor; }
+  .pbuy:hover { text-decoration: none; opacity: .8; }
+  .pgo { text-decoration: none; }
   .pmkt {
     display: block; margin: 0 0 .2rem;
     font-size: .7rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
@@ -251,6 +278,17 @@ const jsonLd = {
   .pcard h3 { margin: 0 0 .35rem; font-size: .97rem; font-weight: 650; }
   .pcard p { margin: 0 0 .55rem; font-size: .86rem; line-height: 1.5; color: var(--muted, #555); }
   .pgo { font-size: .8rem; font-weight: 650; color: var(--accent, #0f4c81); }
+  .pbuyline {
+    display: flex; flex-wrap: wrap; align-items: center; gap: .6rem .9rem;
+    margin: 0 0 1rem; font-size: .84rem; color: var(--muted, #555); line-height: 1.5;
+  }
+  .pbuyline span { flex: 1 1 16rem; }
+  .pbuybig {
+    display: inline-block; padding: .55rem 1.1rem; border-radius: 6px;
+    background: var(--accent, #0f4c81); color: #fff;
+    font-size: .92rem; font-weight: 700; text-decoration: none; white-space: nowrap;
+  }
+  .pbuybig:hover { opacity: .88; }
   .plicence {
     margin: 0 0 .5rem; padding: .7rem .9rem;
     border-left: 4px solid var(--accent, #0f4c81);
