@@ -29,6 +29,18 @@ Also open, free, as a JSON API:
 
   https://seoulmarkets.com/v1
 
+Try it before you read the price list
+  A free screener over 2,834 listed companies in Seoul, Abu Dhabi and Dubai —
+  one table, one currency, filter by market cap, revenue, profit, PER, PBR,
+  ROE and debt.
+
+  It also counts what every other screener hides: when a filter removes a
+  company because the figure does not exist rather than because it failed your
+  test, we say so on the page. A PER screen alone removes 1,246 of 2,834 that
+  way, including every Gulf listing.
+
+  https://seoulmarkets.com/data/screener
+
 How we handle what we cannot measure
   A company with no statement on file carries nulls, never zeros.
   A report with no previous target price carries null, not "unchanged".
