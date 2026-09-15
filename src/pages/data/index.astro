@@ -301,6 +301,23 @@ const 묶음 = [
       + 'We are building the self-serve download page now; until it opens we send editions directly, '
       + 'and we do not post a price for something you cannot yet fetch yourself.',
     items: [
+      /* 🔴 [2026-09-15 · 사장님 「기업신용정보 데이터 유료 상품 카테고리에 포함해」]
+         맨 앞에 둔다 — 값을 받는 것 가운데 유일하게 «우리가 만든 판정»이고,
+         남들은 모형을 감추는데 우리는 공개한다는 점이 이 목록에서 제일 세다. */
+      {
+        href: '/data/company-credit',
+        name: 'Corporate credit data — the SMarkets Grade',
+        one: 'A credit grade for every listed company we cover, computed from the statements the '
+          + 'company itself filed. Six measures — interest cover, borrowings to assets, liabilities '
+          + 'to equity, current ratio, return on assets and the Altman Z — scored against published '
+          + 'thresholds and published weights. Every threshold, every weight and every input line '
+          + 'item ships with the file, so you can recompute the grade yourself and disagree with it. '
+          + 'No analyst judgement, no sector premium, no forecast. A company whose filing is missing '
+          + 'a figure is marked NR, never given a low grade. Delivered with the rating actions the '
+          + 'exchanges themselves disclose, so you can put our grade beside the agencies’ own.',
+        price: 'Licensing — coming soon',
+        cta: 'See how it is computed',
+      },
       {
         href: '/data/target-price-accuracy',
         name: 'Broker target-price accuracy',

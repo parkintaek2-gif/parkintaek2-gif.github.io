@@ -100,6 +100,11 @@ export const 단계들 = [
   /* 인도 신용등급 — 받는 자와 세는 자. 날짜·「Other」를 잘못 읽으면 기사가 거짓이 된다 */
   "node scripts/collect-india-nse-credit-rating.mjs --자가시험",
   "node scripts/build-india-rating-moves.mjs --자가시험",
+  /* 우리가 매기는 등급 — 기준선·가중치가 말없이 바뀌면 여기서 걸린다 */
+  "node scripts/check-smarkets-grade.mjs",
+  /* 인도 신용등급 — 받는 자와 세는 자. 날짜·「Other」를 잘못 읽으면 기사가 거짓이 된다 */
+  "node scripts/collect-india-nse-credit-rating.mjs --자가시험",
+  "node scripts/build-india-rating-moves.mjs --자가시험",
   "node scripts/check-legal-name.mjs",
   "node scripts/check-korean.mjs",
   "node scripts/check-frontmatter.mjs",

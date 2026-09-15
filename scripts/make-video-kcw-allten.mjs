@@ -283,7 +283,7 @@ if (내가돌려졌다 && process.argv.includes('--selftest')) {
   /* ⚠ 우리 주소에 낱말이 들어갈 수 있으니 주소는 «빼고» 본다 */
   const 글모음 = [1.5, 4, 7, 9, 13].map((t) => 글자만(칸HTML(t))).join('')
     .replace(/kculturewire\.com\/\S+/g, '');
-  재본다('⛔⛔ 점령하는 말을 안 쓴다 - 우리가 바늘을 세우지 않는다', 글모음,
+  재본다('⛔⛔ 점령하는 말을 안 쓴다 - ', 글모음,
     (t) => !/\b(dominat\w*|sweep|swept|take over|took over|conquer\w*|invasion|craze|fever)\b/i.test(t));
   재본다('⛔ 판정하는 말도 안 쓴다', 글모음,
     (t) => !/\b(hit|flop|best|greatest|masterpiece|failure)\b/i.test(t));

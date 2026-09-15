@@ -313,7 +313,7 @@ if (내가돌려졌다 && process.argv.includes('--selftest')) {
    *   이 수는 「이거 본 사람이 저것도 봤대」로 읽히기 가장 쉬운 수다. 우리가 그 말을 쓰면
    *   그 순간 사실이 추천이 된다. ⛔ 이 검사를 지우지 않는다.
    */
-  재본다('⛔⛔ 추천하는 말을 안 쓴다 - 우리가 바늘을 세우지 않는다',
+  재본다('⛔⛔ 추천하는 말을 안 쓴다 - ',
     [1.5, 4, 7, 9, 13].map((t) => 글자만(칸HTML(t))).join('').replace(/kculturewire\.com\/\S+/g, ''),
     (s) => !/\b(recommend\w*|similar|you should|watch next|if you liked|fans of|perfect for|must[- ]watch)\b/i.test(s));
   재본다('⛔ 판정하는 말도 안 쓴다',
