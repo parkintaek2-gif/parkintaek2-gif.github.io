@@ -393,14 +393,40 @@ const handle = async (req, res) => {
       req.socket?.remoteAddress ||
       '';
     /*
-     * POST 본문을 읽는다. 뉴스레터 접수(`/v1/subscribe`) 하나 때문이다.
+     * POST 본문을 읽는다. 뉴스레터 접수(`/v1/subscribe`) 하나 때문이었다.
      *
      * ⚠ 크기를 **반드시** 막는다. 안 막으면 누구나 무한정 밀어넣어 메모리를 채운다.
      *   Cloudtype 여유가 0.25GB 라 그 자리에서 klifemap 까지 같이 죽는다.
      *   이메일 한 줄에 16KB 면 충분하고도 남는다.
+     *
+     * ── 🔴🔴 [2026-09-15 19:3x] **결제가 여기서 죽어 있었다 — 매출 0 이었다** ──
+     *
+     * 사장님: 「에스마켓츠도 케이라이프맵처럼 유료 판매를 본격적으로 시작햇으니
+     *          **결제창이 제대로 작동하는 지** … 확인해야지」
+     * 재 보니 결제 주문 경로가 모든 상품을 «unknown product» 로 물렸다.
+     * ```
+     *   curl -X POST /api/pay/order -d '{"product":"all"}'      → unknown product
+     *   curl -X POST /api/pay/order -d '{"product":"single"}'   → unknown product
+     *   curl -X POST /api/pay/order -d '{"product":"academic"}' → unknown product
+     * ```
+     * 상품표는 멀쩡했다. 지면도 멀쩡했다. 페이팔 열쇠도 live 였고 단추도 그려졌다.
+     * ⇒ **이 흰 목록에 결제 경로가 빠져 있어서 본문을 «아예 안 읽고» 있었다.**
+     *   본문이 null 이면 입력이 {} 가 되고, product 가 undefined 가 되고,
+     *   상품찾기(undefined) 가 null 을 낸다. 그래서 400 이다.
+     *
+     * ⛔ 이것이 가장 나쁜 갈래의 사고다 — **어디에도 빨간불이 안 켜진다.**
+     *   서버는 200 이고, 지면은 멀쩡하고, 단추도 뜬다. 손님이 「Pay with PayPal」을
+     *   누른 «그 순간»에만 깨진다. 그 순간을 우리는 못 본다. 손님은 그냥 떠난다.
+     * ⛔ 그러니 경로를 새로 붙일 때 이 목록을 «같이» 고친다. 여기 안 적으면
+     *   그 경로는 POST 를 받는 척만 하고 본문이 항상 비어 온다.
+     * ✅ 이제 자가 잡는다 — node scripts/check-seoulmarkets-payment.mjs
+     *   그 자는 실제로 주문을 «만들어 보고» 판정한다(승인은 안 부른다 — 돈이 오가는 자리다).
      */
+    const 본문읽을경로 = (p) => p === '/v1' || p.startsWith('/v1/')
+      || p === '/api/comments' || p === '/api/vote'
+      || p === '/api/pay/order' || p === '/api/pay/capture';   /* 🔴 빠져 있던 둘 */
     let 본문 = null;
-    if (req.method === 'POST' && (pathname === '/v1' || pathname.startsWith('/v1/') || pathname === '/api/comments' || pathname === '/api/vote')) {
+    if (req.method === 'POST' && 본문읽을경로(pathname)) {
       본문 = await new Promise((resolve) => {
         const 조각 = [];
         let 크기 = 0;
