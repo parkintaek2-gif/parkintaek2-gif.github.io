@@ -1,0 +1,150 @@
+---
+/**
+ * /100y/ranking-kbo-salary — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 프로야구 연봉 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「국내외 순위를
+ *   공개해...사람들이 관심 많은 모든 것」 이행. KBO(한국야구위원회) 공식 발표(2026-03-18,
+ *   양의지 42억원 1위)를 그대로 인용하고, 100yearmap이 새로 매기지 않는다.
+ *   "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: 부자가 되자는 말이 아니다(사장님 지시 7). 근로자 실질임금(이미 만든 자료
+ *   /real-wage 재사용)과 나란히 놓아 «규모»만 보여준다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-kbo-salary-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const top5 = 자료.top5 as any[];
+const 실측 = 자료.실측대조;
+const 일위 = top5[0];
+
+const 만콤마 = (n: number) => Math.round(n).toLocaleString();
+
+const desc =
+  `${순위출처.이름}(${순위출처.발표일})에서 ${일위.이름}(${일위.소속}) 선수가 ${일위.연봉_억원}억원으로 가장 많습니다. ` +
+  `100yearmap이 실측한 근로자 실질임금(연 환산 ${만콤마(실측.연_환산_실질임금_원 / 10000)}만원)으로 나누면 ${실측.배율_1위}년치와 같습니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 KBO 연봉 순위는 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.매체}(${순위출처.발표일})를 그대로 인용했습니다. ${순위출처['⚠원자료']}`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 연봉이 선수의 실제 수령액인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '옵션·인센티브를 뺀 기본 계약금액입니다. 실제 수령액은 성과에 따라 달라질 수 있습니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 지면은 부자가 되는 법을 알려주나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 연봉의 «규모»만 사실대로 보여줄 뿐, 선수의 능력을 평가하거나 부자가 되는 방법을 조언하지 않습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`${일위.이름} 선수 연봉 ${일위.연봉_억원}억원 — KBO 전체 1위입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    {일위.이름} 선수 연봉 {일위.연봉_억원}억원<br class="pcbr" />
+    KBO 전체 1위입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 순위는 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.매체}({순위출처.발표일})를 그대로 인용했습니다. {순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    2026년 KBO 리그 연봉 공식 발표 결과, 두산 베어스 {일위.이름}({일위.포지션}) 선수의
+    연봉은 <strong>{일위.연봉_억원}억원</strong>으로 전체 선수 가운데 가장 많습니다.
+    리그 평균 연봉은 {자료.리그평균_억원}억원입니다.
+  </p>
+
+  <h2>순위표</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>순위</th><th>이름</th><th>포지션</th><th>소속</th><th>연봉</th></tr></thead>
+      <tbody>
+        {top5.map((r) => (
+          <tr>
+            <td>{r.순위}위</td>
+            <td>{r.이름}</td>
+            <td>{r.포지션}</td>
+            <td>{r.소속}</td>
+            <td><strong>{r.연봉_억원}억원</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">⚠ {자료.덮는범위}</p>
+
+  <h2>이 연봉은 근로자 실질임금 몇 년치와 같을까요?</h2>
+  <p>
+    100yearmap이 {실측.기준월} 국가데이터처 KOSIS 사업체노동력조사로 실측한 전산업
+    근로자 실질임금은 월 {만콤마(실측.월_실질임금_원)}원 — 1년으로 환산하면
+    {' '}<strong>{만콤마(실측.연_환산_실질임금_원)}원</strong>입니다. {일위.이름} 선수의
+    연봉({일위.연봉_억원}억원)은 이 실질임금 <strong>{실측.배율_1위}년치</strong>와 같습니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 연봉의 «규모»만
+    {' '}보여줄 뿐, 선수를 평가하거나 부자가 되는 법을 조언하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 순위: {순위출처.매체}({순위출처.url}) · 실측: 국가데이터처 KOSIS 사업체노동력조사
+    {' '}(같은 자료 — /real-wage)
+  </p>
+
+  <p class="note">
+    <a href="/real-wage">← 근로자 실질임금, 얼마나 늘거나 줄었을까요?</a>
+    <br />
+    <a href="/ranking-lawmaker-wealth">← 국회의원 가운데 재산이 가장 많은 분은 얼마일까요?</a>
+    <br />
+    <a href="/salary-ranking">← 500대 기업 평균급여 순위는 얼마나 다를까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-kbo-salary" />
+
+  <NextQuestionBrief 모은것="KBO 공식 연봉 발표 + 사업체노동력조사(KOSIS)" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-kbo-salary"></div>
+</HundredYear>

@@ -279,6 +279,12 @@
    "출처": "순위 — 2026년 국회의원 정기 재산변동사항 신고내역(2026-03-26 언론 2차 보도) · 실측 — 국가데이터처 KOSIS 가계금융복지조사(ranking-apartment-value-2026.json·wealth-gap-age.json과 같은 자료)",
    "url": "https://v.daum.net/v/9UPrldrNTl",
    "근거": "파일 안에 순위출처.⚠원자료 칸으로 이미 밝혀져 있다."
+  },
+  "ranking-kbo-salary-2026.json": {
+   "무엇": "2026년 KBO 프로야구 연봉 순위 vs 100yearmap 근로자 실질임금 실측 대조 지면 밑자료",
+   "출처": "순위 — KBO(한국야구위원회) 공식 발표(2026-03-18) · 실측 — 국가데이터처 KOSIS 사업체노동력조사(real-wage.json과 같은 자료)",
+   "url": "https://www.koreabaseball.com/MediaNews/Notice/View.aspx?bdSe=11861",
+   "근거": "파일 안에 순위출처.⚠원자료 칸으로 이미 밝혀져 있다."
   }
  },
  "이미_파일_안에_출처가_있는_것": [
