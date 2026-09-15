@@ -1,47 +1,122 @@
 #!/usr/bin/env node
 /**
  * build-screener-data.mjs — 스크리너가 브라우저에서 쓸 «추린 자료»를 만든다.
+ *   **우리가 여는 시장을 다 담는다 — 한국(KOSPI·KOSDAQ·KONEX) + UAE(ADX·DFM).**
  *
  * 사장님(2026-09-15): 「스크리너를 정교하게 만들어. 원하는 자료를 쉽게 고객들이 찾을 수 있게」
+ * 사장님(2026-09-15): **「한국시장 뿐만 아니라 우리가 서비스하는 시장 관련 데이터도
+ *                        스크리너로 볼 수 있게 하는 거지?」**
  *
- * ── 왜 추리나 ────────────────────────────────────────────────────────────
- *   src/data/korea-valuation-tape.json 은 1.6MB 다. 그대로 브라우저에 보내면
- *   폰에서 첫 화면이 늦는다 — 「그릇이 내용물을 결정한다」에 걸린다.
- *   ⇒ 거르는 데 «쓰는 칸»만 남기고 이름도 한 글자로 줄인다.
+ * ── 🔴 이 자가 «안 내는» 것 — 낼 수 없어서가 아니라 «틀릴 수 있어서» 안 낸다 ──
+ * UAE 자료에는 단위가 어긋나는 자리가 있다. 2026-09-15 에 손으로 재서 알았다 —
+ *
+ *   손익계산서(매출·순이익·EPS)   «실제 AED» 다. EPS × 주식수 ≈ 순이익 으로 검산된다
+ *                                (FAB 1.39 × 약 110억주 ≈ 153억 vs 신고 161억 ✅)
+ *   대차대조표(자산·부채·자본)     **배수를 모른다.** unit_hint 가 「AED'000」인 줄도 있고
+ *                                비어 있는 줄도 있는데, 수집기가 곱하지 않고 날것으로 담았다
+ *
+ * ⇒ 그래서 이렇게 가른다.
+ *   ✅ 부채비율 = 부채 ÷ 자본   «같은 표» 안의 두 수라 배수가 약분된다. 안전하다
+ *   ⛔ ROE     = 순이익 ÷ 자본  손익계산서(실제)와 대차대조표(배수 모름)를 섞는다. **안 낸다**
+ *   ⛔ PBR     = 시총 ÷ 자본    같은 까닭으로 **안 낸다**
+ *   ⛔ PER     = 시총 ÷ 순이익  배수는 맞지만 UAE 줄은 «분기»라 연간 배수가 아니다. **안 낸다**
+ *
+ * ⛔ 「그럴듯해 보이니 일단 낸다」를 하지 않는다. 틀린 숫자 하나가 옳은 스물셋을
+ *   같이 의심받게 한다(강령 3).
+ *
+ * ── 돈은 달러 한 가지로 맞춘다 ─────────────────────────────────────────────
+ * 원과 디르함을 섞어 놓고 「시총 1,000 이상」을 받으면 그 수가 무슨 뜻인지 아무도 모른다.
+ * UAE 중앙은행(CBUAE) 고시 환율로 달러로 맞추고, 쓴 환율과 날짜를 지면이 적는다.
+ * 줄마다 «원래 통화와 원래 값»도 함께 실어 신고서와 맞대어 볼 수 있게 한다.
  *
  * ⛔ 값을 반올림하거나 0 으로 채우지 않는다. 없는 칸은 «없는 채로» 보낸다 —
- *   스크리너가 「값이 없어 빠진 곳」을 세려면 null 이 null 인 채로 와야 한다(강령 ③).
+ *   스크리너가 「값이 없어 빠진 곳」을 세려면 null 이 null 인 채로 와야 한다.
  *
  *   node scripts/build-screener-data.mjs
  */
-import { readFileSync, writeFileSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
-const 들어오는곳 = 'src/data/korea-valuation-tape.json';
+const 한국탭 = 'src/data/korea-valuation-tape.json';
+const UAE탭 = 'src/data/uae-financials-tape.json';
+const ADX사람 = 'archive/raw/uae-adx-people';
+const DFM회사 = 'archive/raw/dubai-dfm-companies';
+const 환율광 = 'archive/raw/uae-cbuae-fx';
 
 /* 🔴 줄 뭉치는 «public» 으로 낸다 — 지면 HTML 안에 통째로 박지 않는다.
- *   박으면 536KB 가 첫 화면을 그만큼 늦추고, 다시 와도 다시 받는다.
- *   따로 두면 브라우저가 «캐시»한다. 「그릇이 내용물을 결정한다」에 걸리는 자리다.
- * ⭐ 대신 지면이 «짓는 때» 알아야 하는 것(업종 목록·칸별 채움수)만 작은 딴 파일로 낸다. */
-const 나가는곳 = 'public/data/screener-korea.json';
-const 머리나가는곳 = 'src/data/screener-korea-meta.json';
+ *   박으면 첫 화면이 그만큼 늦고, 다시 와도 다시 받는다. 따로 두면 브라우저가 «캐시»한다.
+ * ⭐ 지면이 «짓는 때» 알아야 하는 것(시장·업종 목록)만 작은 딴 파일로 낸다.
+ * ⛔ 이름을 한 나라에 묶지 않는다 — screener-korea 로 지었다가 사장님께 바로잡혔다. */
+const 나가는곳 = 'public/data/screener.json';
+const 머리나가는곳 = 'src/data/screener-meta.json';
 
 /** 값이 있으면 숫자로, 없으면 null 로. ⛔ 0 으로 채우지 않는다 */
-function 수(v) {
+export function 수(v) {
   if (v === null || v === undefined || v === '') return null;
-  const n = Number(v);
+  const n = Number(String(v).replace(/,/g, ''));
   return Number.isFinite(n) ? n : null;
 }
 
+/** 곱한다 — 어느 한쪽이라도 없으면 null. ⛔ 없는 값을 0 으로 보고 곱하지 않는다 */
+export function 곱(값, 배) {
+  const n = 수(값);
+  return n === null || !Number.isFinite(배) ? null : n * 배;
+}
+
 /**
- * 🔴 [2026-09-15 실측] roe·debtToEquity 는 원본에서 «비율»이다 — 삼성전자 roe 0.1036.
- *   지면 머리에 「ROE %」라고 쓰고 0.1 을 내면 손님이 「ROE 0.1%」로 읽는다. 여기서 100을 곱한다.
- *   ⛔ 값이 없는 칸은 그대로 null 이다 — 0 을 곱해 0 으로 만들지 않는다(강령 3).
+ * 자리를 줄인다. 환산한 달러를 소수점 끝까지 담으면(1151148514.8329806) 파일만 커진다.
+ * ⛔ 「없음」을 0 으로 만들지 않는다 — null 은 null 로 나간다.
+ * ⚠ 돈은 «한 달러» 단위까지면 넉넉하다. 어차피 우리가 환산한 수이고, 지면은 백만 단위로 그린다.
  */
-function 백분율(v) {
+export function 자름(v, 소수 = 0) {
   const n = 수(v);
-  return n === null ? null : n * 100;
+  if (n === null) return null;
+  const 배 = Math.pow(10, 소수);
+  return Math.round(n * 배) / 배;
+}
+
+/**
+ * CBUAE 고시에서 달러 환율을 읽는다.
+ * 낸다 — { 날짜, AED당달러, KRW당달러, usdVsAed, krwVsAed }
+ * ⛔ 고시가 없으면 지어내지 않고 던진다. 환율 없이 돈 칸을 내면 그 수가 거짓이 된다.
+ */
+export function 환율읽기(글들) {
+  const 날 = {};
+  for (const r of 글들 || []) {
+    if (!r || !r.date) continue;
+    (날[r.date] = 날[r.date] || []).push(r);
+  }
+  const 날짜들 = Object.keys(날).sort();
+  for (let i = 날짜들.length - 1; i >= 0; i -= 1) {
+    const 그날 = 날[날짜들[i]];
+    const usd = 그날.find((x) => /^US Dollar$/i.test(String(x.currency).trim()));
+    const krw = 그날.find((x) => /Korean Won/i.test(String(x.currency)));
+    const u = usd && 수(usd.rateVsAed);
+    const k = krw && 수(krw.rateVsAed);
+    if (u && k && u > 0 && k > 0) {
+      return {
+        날짜: 날짜들[i],
+        usdVsAed: u,
+        krwVsAed: k,
+        AED당달러: 1 / u,          /* 1 AED = ? USD */
+        KRW당달러: k / u,          /* 1 KRW = ? USD */
+      };
+    }
+  }
+  return null;
+}
+
+/** 폴더에서 _ 로 시작하지 않는 json 을 다 읽는다 */
+function 폴더읽기(뿌리) {
+  const p = path.resolve(뿌리);
+  if (!existsSync(p)) return [];
+  return readdirSync(p)
+    .filter((f) => f.endsWith('.json') && !f.startsWith('_'))
+    .map((f) => {
+      try { return JSON.parse(readFileSync(path.join(p, f), 'utf8')); } catch { return null; }
+    })
+    .filter(Boolean);
 }
 
 /**
@@ -56,90 +131,438 @@ const 못잰까닭영문 = {
     'No market capitalisation — this ticker is not in the daily price file',
 };
 
-export function 추린다(줄들) {
+/* ── 한국 ──────────────────────────────────────────────────────────────── */
+
+/**
+ * 🔴 [2026-09-15 실측] roe·debtToEquity 는 원본에서 «비율»이다 — 삼성전자 roe 0.1036.
+ *   머리에 「ROE %」라고 쓰고 0.1 을 내면 손님이 「ROE 0.1%」로 읽는다. 여기서 100을 곱한다.
+ */
+function 백분율(v) {
+  const n = 수(v);
+  return n === null ? null : n * 100;
+}
+
+export function 한국을추린다(줄들, KRW당달러) {
   return (줄들 || []).map((r) => ({
     t: r.ticker,
     n: r.nameEn || r.name,
-    k: r.name,
+    k: r.name,                          /* 찾기에만 쓴다 — 그리지 않는다 */
     m: r.market,
-    i: r.industryEn || r.industry,
-    c: 수(r.marketCap),
-    p: 수(r.per),
-    b: 수(r.pbr),
-    r: 백분율(r.roe),          /* 비율 → % */
-    d: 백분율(r.debtToEquity),  /* 비율 → % */
-    v: 수(r.revenue),
-    /* 왜 비었는지 — 짧은 글 하나. 손님이 「왜 안 나오지」를 그 자리에서 안다 */
+    i: r.industryEn || r.industry || null,
+    /* ⛔ 통화는 줄마다 담지 않는다 — 시장 코드로 정해지므로(lib 의 시장들) 두 벌이 되면 어긋난다 */
+    /* 기준이 되는 기간 — 한국은 «사업연도»다. UAE 는 분기라 섞어 보면 안 된다 */
+    as: r.fiscalYear ? 'FY' + r.fiscalYear : null,
+    c: 자름(곱(r.marketCap, KRW당달러)),
+    v: 자름(곱(r.revenue, KRW당달러)),
+    np: 자름(곱(r.netIncome, KRW당달러)),
+    e: null,                            /* 한국 탭에 주당순이익 칸이 없다 — 지어내지 않는다 */
+    p: 자름(r.per, 2),
+    b: 자름(r.pbr, 2),
+    r: 자름(백분율(r.roe), 2),
+    d: 자름(백분율(r.debtToEquity), 2),
+    /* 원래 신고한 값 — 손님이 신고서와 맞대어 본다 */
+    nc: 자름(r.marketCap),
+    nv: 자름(r.revenue),
     x: (r.notMeasured && 못잰까닭영문[r.notMeasured]) || null,
   }));
 }
 
+/* ── UAE ───────────────────────────────────────────────────────────────── */
+
+/**
+ * 회사마다 «가장 늦은» 신고 한 줄만 쓰려고 날짜를 견줄 수 있는 글자로 바꾼다.
+ * 🔴 [2026-09-15 실측] **날짜 꼴이 거래소마다 다르다.**
+ *     ADX  「2026-07-30 00:00:00.0」   ISO 라 앞 열 글자를 그냥 쓰면 된다
+ *     DFM  「Aug 12, 2026 11:45:00」   ISO 가 아니다
+ *   앞의 것만 보고 짰더니 DFM 은 전부 「2026-00-00」으로 같아져 **첫 줄이 이겼다** —
+ *   회사마다 옛 분기가 뽑혔고 배수 검산까지 그 줄로 어긋났다.
+ * ⛔ 한 우물의 꼴을 보고 「이 자료는 이렇다」고 정하지 않는다. 우물마다 재 본다.
+ */
+export function 기간점수(줄) {
+  const 날 = String((줄 && 줄.date) || '').trim();
+  const iso = 날.slice(0, 10);
+  if (/^[0-9]{4}-[0-9]{2}-[0-9]{2}$/.test(iso)) return iso;
+  const t = Date.parse(날);
+  if (Number.isFinite(t)) return new Date(t).toISOString().slice(0, 10);
+  const m = String((줄 && 줄.period) || '').match(/([0-9]{4})/);
+  return m ? m[1] + '-00-00' : '0000-00-00';
+}
+
+export function 가장늦은줄만(줄들) {
+  const 통 = new Map();
+  for (const r of 줄들 || []) {
+    const 열쇠 = r.exchange + ':' + r.symbol;
+    const 이전 = 통.get(열쇠);
+    if (!이전 || 기간점수(r) > 기간점수(이전)) 통.set(열쇠, r);
+  }
+  return [...통.values()];
+}
+
+/**
+ * DFM 이 준 시가총액을 쓸 수 있나.
+ * 🔴 [2026-09-15 실측] DFM 에는 쿠웨이트·미국·바레인 통화로 액면을 적은 상장이 섞여 있다
+ *   (시총이 붙은 62곳 중 AED 가 아닌 곳이 10곳). 그것을 디르함으로 치면 그 줄이 거짓이 된다.
+ * ⇒ 액면 통화가 디르함인 것만 쓴다. 나머지는 «안 낸다»고 적는다.
+ */
+export function DFM시총쓸수있나(회사) {
+  const ps = String((회사 && 회사.perShareValue) || '');
+  if (!수((회사 || {}).marketCap)) return { 쓴다: false, 까닭: null };
+  if (/AED|UAE\s*Dirham/i.test(ps)) return { 쓴다: true, 까닭: null };
+  const 통화 = (ps.replace(/[0-9.,\s]/g, '') || 'an unstated currency');
+  return {
+    쓴다: false,
+    까닭: 'Market capitalisation withheld — this DFM listing quotes its par value in '
+      + 통화 + ', so we could not confirm the currency of the exchange’s market-cap figure',
+  };
+}
+
+/**
+ * 🔴🔴 [2026-09-15 실측] **신고서마다 «배수»가 다르다.** 이것을 안 잡으면 1,000배 틀린
+ *   수가 손님 화면에 선다. EPS × 주식수 ≈ 순이익 으로 잡아냈다 —
+ *
+ *     DFM:ALEC   순이익 ÷ EPS = 추정 주식수 5,010,087  vs  실제 5,000,000,000  → **1,000배**
+ *     DFM:DEWA   추정 52,281,167                        vs  실제 50,000,000,000 → **1,000배**
+ *     ADX:ADNOCGAS 추정 75,826,086,957                  vs  실제 약 768억        → 그대로 맞다
+ *
+ *   ⇒ 거래소마다 다르고, 한 거래소 안에서도 회사마다 다르다(DFM 은 ×1 과 ×1000 이 섞여 있다).
+ *
+ * 그래서 **검산되는 줄의 돈 칸만 낸다.**
+ *   1. 주식수를 아는 곳(DFM)  — 추정 주식수가 실제와 ±25% 안에 드는 배수를 고른다
+ *   2. 주식수를 모르는 곳(ADX) — 추정 주식수가 사람이 쓸 만한 폭(1천만~2천억주) 안에 드는 배수
+ *   3. 둘 다 맞거나 둘 다 안 맞으면 «못 정했다». 그 줄은 돈 칸을 안 낸다
+ *
+ * ⛔ 「대충 맞아 보이니 낸다」를 하지 않는다. 배수를 틀리면 그냥 틀린 것이 아니라 «1,000배» 틀린다.
+ * ⚠ 부채비율은 이 판정과 상관없다 — 같은 표 안의 두 수라 배수가 약분된다. 그래서 그것은 그대로 낸다.
+ */
+export const 후보배수 = [1, 1000];
+
+export function 배수정하기(eps, 순이익, 주식수) {
+  const e = 수(eps); const np = 수(순이익); const sh = 수(주식수);
+  if (!e || !np) return { 배수: null, 까닭: 'no-eps' };
+  const 맞는것 = [];
+  for (const f of 후보배수) {
+    const 추정 = (np * f) / e;
+    /* ⚠ 우리가 가리는 것은 «열 배 단위»지 EPS 의 정확도가 아니다.
+         신고서의 EPS 는 «지배주주 몫 이익 ÷ 가중평균 주식수»라 우리가 쥔 현재 발행주식수와
+         본래 몇 할씩 어긋난다(EMAAR 1.28배 · DEWA 1.45배). ±25% 로 조이면 맞는 줄이 떨어져 나간다.
+         ⇒ 세 배 안쪽이면 같은 자릿수로 본다. 다음 후보(×1000)와는 세 자릿수가 벌어져 섞이지 않는다. */
+    if (sh) { const 비 = 추정 / sh; if (비 > 1 / 3 && 비 < 3) 맞는것.push(f); }
+    else if (추정 >= 1e7 && 추정 <= 2e11) 맞는것.push(f);
+  }
+  if (맞는것.length === 1) return { 배수: 맞는것[0], 까닭: null };
+  return { 배수: null, 까닭: 맞는것.length > 1 ? 'ambiguous' : 'no-fit' };
+}
+
+/**
+ * 한 거래소가 «압도적으로» 한 배수면(9할 이상), 줄 혼자서는 못 가른 줄에 그 배수를 쓴다.
+ * ⛔ 압도적이지 않으면 안 쓴다 — DFM 은 ×1 과 ×1000 이 섞여 있어 이 길을 안 탄다.
+ * ⛔ 줄이 «다른» 배수라고 말하는데 다수와 어긋나면 그 줄은 버린다. 둘 중 하나가 틀린 것이고,
+ *   어느 쪽인지 모르는 채로 내지 않는다.
+ */
+export function 거래소배수(판정들) {
+  const 셈 = {};
+  let 합 = 0;
+  for (const f of 판정들) if (f) { 셈[f] = (셈[f] || 0) + 1; 합 += 1; }
+  if (!합) return null;
+  const [으뜸, 수효] = Object.entries(셈).sort((a, b) => b[1] - a[1])[0];
+  return (수효 / 합) >= 0.9 ? Number(으뜸) : null;
+}
+
+export function UAE를추린다(줄들, 이름표, AED당달러) {
+  const 늦은것 = 가장늦은줄만(줄들);
+
+  /* 1. 줄마다 «혼자서» 배수를 가려 본다 */
+  const 혼자 = new Map();
+  for (const r of 늦은것) {
+    const 정보 = 이름표[r.exchange + ':' + r.symbol] || {};
+    혼자.set(r, 배수정하기(r.eps, r.net_profit_aed, 정보.shares));
+  }
+
+  /* 2. 거래소가 압도적으로 한 배수면 못 가른 줄에 그것을 쓴다 (ADX 는 98%가 ×1 이다) */
+  const 거래소별 = {};
+  for (const r of 늦은것) {
+    (거래소별[r.exchange] = 거래소별[r.exchange] || []).push(혼자.get(r).배수);
+  }
+  const 다수배수 = {};
+  for (const [ex, 목록] of Object.entries(거래소별)) 다수배수[ex] = 거래소배수(목록);
+
+  return 늦은것.map((r) => {
+    const 정보 = 이름표[r.exchange + ':' + r.symbol] || {};
+    const 시총 = 정보.시총쓸수있나 ? 곱(정보.marketCap, AED당달러) : null;
+    const 판 = 혼자.get(r);
+    const 다수 = 다수배수[r.exchange];
+
+    /* 배수를 정한다 —
+       · 줄이 스스로 말하면 그것을 쓴다. 단 다수와 «어긋나면» 버린다(어느 쪽이 틀린지 모른다)
+       · 줄이 못 가르면 다수를 쓴다. 다수도 없으면 못 정한 것이다 */
+    let 배수 = null;
+    let 배수까닭 = null;
+    if (판.배수 !== null) {
+      if (다수 !== null && 판.배수 !== 다수) {
+        배수까닭 = 'Figures withheld — this filing’s stated earnings per share does not agree with '
+          + 'the scale the rest of this exchange files in, so we could not tell which of the two is wrong';
+      } else 배수 = 판.배수;
+    } else if (다수 !== null && 판.까닭 === 'ambiguous') {
+      배수 = 다수;
+    } else {
+      배수까닭 = 판.까닭 === 'no-eps'
+        ? 'Revenue and profit withheld — the filing states no earnings per share, so we could not '
+          + 'check whether its figures are in dirhams or in thousands of dirhams'
+        : 'Revenue and profit withheld — earnings per share times shares in issue does not match the '
+          + 'stated profit at any scale we could verify';
+    }
+
+    /* 🔴 부채비율은 이 판정과 «상관없다» — 같은 표 안의 두 수라 배수가 약분된다.
+       ROE·PBR 은 손익계산서와 대차대조표를 섞으므로 안 낸다.
+       PER 은 배수가 맞더라도 이 줄이 «분기»라 연간 배수가 아니므로 안 낸다. */
+    const 부채 = 수(r.total_liabilities_aed);
+    const 자본 = 수(r.total_equity_aed);
+    const 부채비율 = (부채 !== null && 자본 !== null && 자본 > 0 && r.balance_sheet_reconciled)
+      ? (부채 / 자본) * 100
+      : null;
+
+    const 까닭들 = [];
+    if (배수까닭) 까닭들.push(배수까닭);
+    if (정보.시총까닭) 까닭들.push(정보.시총까닭);
+
+    const 돈 = (값) => (배수 === null ? null : 곱(값, AED당달러 * 배수));
+
+    return {
+      t: r.symbol,
+      n: 정보.name || r.symbol,
+      k: null,
+      m: r.exchange,
+      i: 정보.sector || null,
+      as: r.period || null,           /* 「Q2 2026」 — 한국의 「FY2025」와 섞어 보면 안 된다 */
+      c: 자름(시총),
+      v: 자름(돈(r.revenue_aed)),
+      np: 자름(돈(r.net_profit_aed)),
+      e: 자름(배수 === null ? null : 곱(r.eps, AED당달러), 4),
+      p: null,
+      b: null,
+      r: null,
+      d: 자름(부채비율, 2),
+      nc: 정보.시총쓸수있나 ? 자름(정보.marketCap) : null,
+      nv: 자름(배수 === null ? null : 수(r.revenue_aed) * 배수),
+      x: 까닭들.length ? 까닭들.join(' · ') : null,
+    };
+  });
+}
+
+/** ADX·DFM 회사 이름표(이름·업종·시총)를 모은다 */
+export function 이름표만들기(ADX들, DFM들) {
+  const 표 = {};
+  for (const j of ADX들) {
+    const c = j.company || {};
+    if (!c.symbol) continue;
+    표['ADX:' + c.symbol] = {
+      name: c.engName || c.symbol, sector: null, marketCap: null,
+      시총쓸수있나: false, 시총까닭: null,
+      shares: null,   /* ADX 는 발행주식수를 주는 우물을 아직 못 찾았다 */
+    };
+  }
+  for (const j of DFM들) {
+    const c = j.company || {};
+    if (!c.symbol) continue;
+    const 판정 = DFM시총쓸수있나(c);
+    표['DFM:' + c.symbol] = {
+      name: c.fullName || c.symbol,
+      sector: c.sector || null,
+      marketCap: 수(c.marketCap),
+      시총쓸수있나: 판정.쓴다,
+      시총까닭: 판정.까닭,
+      /* 🔴 배수를 검산하는 잣대다 — EPS × 주식수 ≈ 순이익 이어야 한다 */
+      shares: 수(c.issuedShares),
+    };
+  }
+  return 표;
+}
+
+/* ── 본일 ──────────────────────────────────────────────────────────────── */
+
 async function 본일() {
-  const 원본 = JSON.parse(readFileSync(path.resolve(들어오는곳), 'utf8'));
-  const 줄들 = Array.isArray(원본) ? 원본 : Object.values(원본).find((x) => Array.isArray(x));
-  if (!줄들) throw new Error('줄을 못 찾았다 — ' + 들어오는곳);
-
-  const 추린것 = 추린다(줄들);
-
-  /* 🔴 관문 — 손님 화면에 나가는 칸(n·i·x)에 한국어가 «한 글자라도» 있으면 멈춘다.
-   *   사장님 지시: 「화면에 한국어를 안 낸다」(2026-08-05, 손님이 영어권이다).
-   *   ⚠ k(한국어 이름)는 «찾기»에만 쓰고 그리지 않으므로 여기서 안 본다 —
-   *     한국 손님이 「삼성전자」로 칠 수 있게 남겨 둔 칸이다.
-   *   ⛔ 이것을 「조심하겠다」로 두지 않는다. 검사로 굳힌다(강령 4). */
-  const 한글샌줄 = 추린것.filter((r) => /[가-힣]/.test((r.n || '') + (r.i || '') + (r.x || '')));
-  if (한글샌줄.length) {
-    console.error(`🔴 손님 화면 칸에 한국어가 ${한글샌줄.length}줄 있다 — 안 낸다`);
-    for (const r of 한글샌줄.slice(0, 5)) console.error(`   ${r.t} · n=${r.n} · i=${r.i} · x=${r.x}`);
+  /* 1. 환율 — 이것이 없으면 돈 칸을 낼 수 없다. 지어내지 않는다 */
+  const 환율글 = 폴더읽기(환율광).flatMap((j) => j.rows || Object.values(j).find(Array.isArray) || []);
+  const 환 = 환율읽기(환율글);
+  if (!환) {
+    console.error('🔴 CBUAE 고시에서 USD·KRW 환율을 못 찾았다 — 돈 칸을 지어내지 않는다. 멈춘다');
     process.exit(1);
   }
 
-  /* ⛔ 「몰라서 null 로 뒀다」를 조용히 넘기지 않는다 — 몇 줄이 그랬는지 센다 */
-  const 못옮긴 = 줄들.filter((r, i) => r.notMeasured && !추린것[i].x).length;
-  if (못옮긴) console.log(`   🔴 못 쟌 까닭 ${못옮긴}줄을 영문으로 못 옮겼다 — 못잰까닭영문 에 넣어라`);
+  /* 2. 한국 */
+  const 한국원본 = JSON.parse(readFileSync(path.resolve(한국탭), 'utf8'));
+  const 한국줄 = Array.isArray(한국원본) ? 한국원본 : (한국원본.rows || []);
+  const 한국 = 한국을추린다(한국줄, 환.KRW당달러);
+
+  /* 3. UAE */
+  const UAE원본 = JSON.parse(readFileSync(path.resolve(UAE탭), 'utf8'));
+  const 이름표 = 이름표만들기(폴더읽기(ADX사람), 폴더읽기(DFM회사));
+  const UAE = UAE를추린다(UAE원본.rows || [], 이름표, 환.AED당달러);
+
+  const 추린것 = [...한국, ...UAE];
+
+  /* 🔴 관문 — 손님 화면에 나가는 칸(n·i·x·as)에 한국어가 «한 글자라도» 있으면 멈춘다.
+   *   사장님 지시: 「화면에 한국어를 안 낸다」(손님이 영어권이다).
+   *   ⚠ k(한국어 이름)는 «찾기»에만 쓰고 그리지 않으므로 여기서 안 본다.
+   *   ⛔ 이것을 「조심하겠다」로 두지 않는다. 검사로 굳힌다. */
+  const 한글샌줄 = 추린것.filter((r) => /[가-힣]/.test((r.n || '') + (r.i || '') + (r.x || '') + (r.as || '')));
+  if (한글샌줄.length) {
+    console.error(`🔴 손님 화면 칸에 한국어가 ${한글샌줄.length}줄 있다 — 안 낸다`);
+    for (const r of 한글샌줄.slice(0, 5)) console.error(`   ${r.m} ${r.t} · n=${r.n} · i=${r.i} · x=${r.x}`);
+    process.exit(1);
+  }
+
+  /* 🔴 관문 둘 — 시장 코드가 lib 의 목록에 없으면 멈춘다. 지면이 그 줄을 그릴 수 없다 */
+  const { 시장들 } = await import(pathToFileURL(path.resolve('src/lib/screener.mjs')).href);
+  const 아는코드 = new Set(시장들.map((m) => m.code));
+  const 모르는 = [...new Set(추린것.map((r) => r.m).filter((m) => !아는코드.has(m)))];
+  if (모르는.length) {
+    console.error('🔴 src/lib/screener.mjs 의 시장들 에 없는 코드 — ' + 모르는.join(', '));
+    process.exit(1);
+  }
+
   const 업종 = [...new Set(추린것.map((r) => r.i).filter(Boolean))].sort();
 
-  /* 칸마다 «값이 있는 곳»이 몇인지 함께 보낸다 — 지면이 그것을 먼저 보인다 */
-  const 채움 = {};
-  for (const k of ['c', 'p', 'b', 'r', 'd', 'v']) {
-    채움[k] = 추린것.filter((x) => x[k] !== null).length;
-  }
+  /* 시장마다 «그 시장에서» 칸이 몇 곳 차 있나 — 지면이 이것을 먼저 보인다 */
+  const 칸들 = ['c', 'v', 'np', 'e', 'p', 'b', 'r', 'd'];
+  const 시장별 = 시장들.map((m) => {
+    const 줄 = 추린것.filter((r) => r.m === m.code);
+    const 채움 = {};
+    for (const k of 칸들) 채움[k] = 줄.filter((x) => x[k] !== null && x[k] !== undefined).length;
+    채움.i = 줄.filter((x) => x.i).length;
+    return { ...m, rows: 줄.length, filled: 채움 };
+  }).filter((m) => m.rows > 0);
 
   const 냄 = {
     _meta: {
-      product: 'SMarkets screener — Korean listed companies, the fields a screen actually uses',
+      product: 'SMarkets screener — Asian and Gulf listed companies, the fields a screen actually uses',
       builtAt: new Date().toISOString(),
-      source: 'src/data/korea-valuation-tape.json (KRX price · DART filings)',
+      sources: [
+        'Korea: src/data/korea-valuation-tape.json (KRX closing price via the Korean public data portal + DART filings)',
+        'UAE: src/data/uae-financials-tape.json (ADX disclosure feed + ADX/DFM filed PDFs), DFM company profiles',
+        'FX: Central Bank of the UAE published rates',
+      ],
       rows: 추린것.length,
-      filled: 채움,
+      fx: {
+        asOf: 환.날짜,
+        note: 'Money columns are converted to US dollars at these Central Bank of the UAE rates.',
+        usdPerAed: 환.AED당달러,
+        usdPerKrw: 환.KRW당달러,
+        aedPerUsd: 환.usdVsAed,
+        krwPerUsd: 환.usdVsAed / 환.krwVsAed,
+      },
       notThis: [
         'Empty fields are sent as null, never as zero — the screener counts how many companies a filter silently drops.',
+        'Korea figures are a full financial year; UAE figures are the filing period shown on each row. Do not read them as the same thing.',
+        'UAE PER, PBR and ROE are deliberately absent: the filed balance sheets do not state a consistent scale, so any ratio mixing them with the income statement could be wrong by a factor of 1,000.',
         'No ranking, no score, no recommendation. These are filed figures and a price.',
         'Not investment advice.',
       ],
     },
+    markets: 시장별,
     industries: 업종,
     rows: 추린것,
   };
 
   writeFileSync(path.resolve(나가는곳), JSON.stringify(냄), 'utf8');
-
-  /* 지면이 짓는 때 읽는 작은 머리 — 줄은 안 들었다 */
   writeFileSync(
     path.resolve(머리나가는곳),
-    JSON.stringify({ _meta: 냄._meta, industries: 업종, dataUrl: '/data/screener-korea.json' }, null, 2) + '\n',
+    JSON.stringify({
+      _meta: 냄._meta, markets: 시장별, industries: 업종, dataUrl: '/data/screener.json',
+    }, null, 2) + '\n',
     'utf8',
   );
 
-  const 전 = Math.round(statSync(path.resolve(들어오는곳)).size / 1024);
+  const 전 = Math.round((statSync(path.resolve(한국탭)).size + statSync(path.resolve(UAE탭)).size) / 1024);
   const 후 = Math.round(statSync(path.resolve(나가는곳)).size / 1024);
-  console.log(`✅ ${나가는곳} — ${추린것.length}줄 · 업종 ${업종.length}개`);
-  console.log(`   ${전}KB → ${후}KB (${Math.round((1 - 후 / 전) * 100)}% 줄였다)`);
-  console.log(`   ${머리나가는곳} — 지면이 짓는 때 읽는 머리(업종 ${업종.length}개 · 칸별 채움수)`);
-  console.log('   칸마다 값이 있는 곳 —');
-  for (const [k, n] of Object.entries(채움)) {
-    console.log(`     ${k}  ${n}/${추린것.length} (${Math.round((n / 추린것.length) * 100)}%)`);
+  console.log(`✅ ${나가는곳} — ${추린것.length}줄 · 시장 ${시장별.length}개 · 업종 ${업종.length}개`);
+  console.log(`   ${머리나가는곳} — 지면이 짓는 때 읽는 머리`);
+  console.log(`   ${전}KB → ${후}KB`);
+  console.log(`   환율(CBUAE ${환.날짜}) — 1 USD = ${환.usdVsAed} AED = ${(환.usdVsAed / 환.krwVsAed).toFixed(1)} KRW`);
+  console.log('   시장마다 칸이 «있는» 곳 —');
+  for (const m of 시장별) {
+    const 몫 = 칸들.map((k) => `${k} ${m.filled[k]}`).join(' · ');
+    console.log(`     ${m.code.padEnd(4)} ${String(m.rows).padStart(5)}줄  ${몫}`);
   }
-  console.log('   ⭐ 100% 가 아닌 칸으로 거르면 나머지가 «말없이» 빠진다 — 지면이 그 수를 보인다');
+  console.log('   ⭐ 0 인 칸으로 거르면 그 시장이 «통째로» 빠진다 — 지면이 그 수를 손님에게 보인다');
 }
 
-if (pathToFileURL(process.argv[1]).href === import.meta.url) await 본일();
+/* ── 자가시험 ──────────────────────────────────────────────────────────── */
+export function 자가시험() {
+  const 것 = [];
+  const 재다 = (이름, 됐나) => 것.push({ 이름, 됐나 });
+
+  재다('수: 쉼표가 든 글자도 읽는다', 수('23,006,831,000') === 23006831000);
+  재다('수: 빈 것은 null', 수('') === null && 수(null) === null);
+  재다('⛔ 수: 0 은 살린다', 수(0) === 0);
+  재다('곱: 한쪽이 없으면 null', 곱(null, 2) === null);
+  재다('자름: 소수를 정리한다', 자름(1151148514.8329806) === 1151148515);
+  재다('⛔ 자름: null 을 0 으로 만들지 않는다', 자름(null) === null);
+
+  /* 🔴 날짜 꼴이 거래소마다 다르다 — 이것을 놓쳐서 DFM 이 옛 분기로 뽑혔다 */
+  재다('기간점수: ADX 의 ISO 꼴', 기간점수({ date: '2026-07-30 00:00:00.0' }) === '2026-07-30');
+  재다('🔴 기간점수: DFM 의 「Aug 12, 2026」 꼴', 기간점수({ date: 'Aug 12, 2026 11:45:00' }) === '2026-08-12');
+  재다('기간점수: 날짜가 없으면 해로 떨어진다', 기간점수({ period: 'Q2 2026' }) === '2026-00-00');
+  재다('🔴 가장늦은줄만: 회사마다 늦은 것 하나', 가장늦은줄만([
+    { exchange: 'DFM', symbol: 'A', date: 'Aug 12, 2026 11:45:00', v: 2 },
+    { exchange: 'DFM', symbol: 'A', date: 'May 03, 2026 09:00:00', v: 1 },
+  ]).length === 1);
+  재다('가장늦은줄만: 늦은 쪽이 남는다', 가장늦은줄만([
+    { exchange: 'DFM', symbol: 'A', date: 'May 03, 2026 09:00:00', v: 1 },
+    { exchange: 'DFM', symbol: 'A', date: 'Aug 12, 2026 11:45:00', v: 2 },
+  ])[0].v === 2);
+
+  /* 🔴🔴 배수 — 이것을 틀리면 1,000배 틀린 수가 손님 화면에 선다 */
+  재다('🔴 배수: 주식수를 알면 ×1000 을 잡아낸다 (DEWA 꼴)',
+    배수정하기(0.046, 3328285, 50000000000).배수 === 1000);
+  재다('🔴 배수: 그대로 맞는 곳은 ×1 (ADNOCGAS 꼴)',
+    배수정하기(0.052, 3993000000, 76800000000).배수 === 1);
+  재다('🔴 배수: EPS 가 없으면 못 정한다', 배수정하기(null, 100, 1e9).배수 === null);
+  재다('배수: 못 정하면 까닭을 남긴다', 배수정하기(null, 100, 1e9).까닭 === 'no-eps');
+  재다('🔴 배수: 어느 배수로도 안 맞으면 버린다',
+    배수정하기(1000, 5, 1e9).배수 === null);
+  재다('배수: 주식수를 모르면 사람이 쓸 만한 폭으로 가른다 (ADX)',
+    배수정하기(0.052, 3993000000, null).배수 === 1);
+
+  재다('거래소배수: 9할이 넘으면 그 배수를 쓴다', 거래소배수([1, 1, 1, 1, 1, 1, 1, 1, 1, 1000]) === 1);
+  재다('🔴 거래소배수: 섞여 있으면 안 쓴다 (DFM 꼴)', 거래소배수([1, 1, 1000, 1000, 1000]) === null);
+  재다('거래소배수: 빈 것은 null', 거래소배수([null, null]) === null);
+
+  /* 🔴 DFM 에는 디르함이 아닌 통화로 액면을 적은 상장이 섞여 있다 */
+  재다('🔴 DFM 시총: 액면이 AED 면 쓴다',
+    DFM시총쓸수있나({ marketCap: '23,006,831,000', perShareValue: '1.00 AED' }).쓴다 === true);
+  재다('🔴 DFM 시총: 액면이 쿠웨이트 디나르면 «안 쓴다»',
+    DFM시총쓸수있나({ marketCap: '1,000', perShareValue: '0.10 K.D' }).쓴다 === false);
+  재다('DFM 시총: 안 쓸 때는 까닭을 손님 말로 남긴다',
+    /withheld/.test(DFM시총쓸수있나({ marketCap: '1,000', perShareValue: '0.10 K.D' }).까닭 || ''));
+  재다('DFM 시총: 시총 자체가 없으면 까닭도 없다',
+    DFM시총쓸수있나({ marketCap: null }).까닭 === null);
+
+  /* 환율 — 없으면 지어내지 않는다 */
+  const 환 = 환율읽기([
+    { date: '2026-08-30', currency: 'US Dollar', rateVsAed: 3.6725 },
+    { date: '2026-08-30', currency: 'Korean Won', rateVsAed: 0.002683 },
+    { date: '2026-08-31', currency: 'US Dollar', rateVsAed: 3.6725 },
+    { date: '2026-08-31', currency: 'Korean Won', rateVsAed: 0.002683 },
+  ]);
+  재다('환율: 가장 늦은 고시를 쓴다', 환 && 환.날짜 === '2026-08-31');
+  재다('환율: 1 AED 는 약 0.272 달러', 환 && Math.abs(환.AED당달러 - 0.2723) < 0.001);
+  재다('환율: 1 USD 는 약 1,369 원', 환 && Math.abs(환.usdVsAed / 환.krwVsAed - 1368.8) < 1);
+  재다('🔴 환율: 한쪽만 있으면 안 쓴다',
+    환율읽기([{ date: '2026-08-31', currency: 'US Dollar', rateVsAed: 3.6725 }]) === null);
+
+  /* 한국 — 비율을 백분율로 */
+  const 한 = 한국을추린다([{ ticker: 'A', nameEn: 'A', market: 'Y', roe: 0.1036, debtToEquity: 0.2994, marketCap: 1368800000000, fiscalYear: 2025 }], 1 / 1368.8);
+  재다('🔴 한국: ROE 비율을 백분율로 (0.1036 → 10.36)', 한[0].r === 10.36);
+  재다('한국: 시총을 달러로', 한[0].c === 1000000000);
+  재다('한국: 기간은 사업연도로 적는다', 한[0].as === 'FY2025');
+  재다('⛔ 한국: 없는 EPS 를 지어내지 않는다', 한[0].e === null);
+
+  const 실패 = 것.filter((x) => !x.됐나);
+  console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
+  for (const x of 실패) console.log(`  🔴 ${x.이름}`);
+  return 실패.length === 0;
+}
+
+if (process.argv.includes('--시험')) process.exit(자가시험() ? 0 : 1);
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) await 본일();

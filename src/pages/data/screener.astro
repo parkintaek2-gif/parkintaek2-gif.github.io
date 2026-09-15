@@ -1,41 +1,54 @@
 ---
 /**
- * /data/screener — **거르는 지면.**
+ * /data/screener — **거르는 지면. 우리가 여는 시장을 다 담는다.**
  *
- * 사장님(2026-09-15): **「스크리너를 정교하게 만들어. 원하는 자료를 쉽게 고객들이 찾을 수 있게」**
+ * 사장님(2026-09-15): 「스크리너를 정교하게 만들어. 원하는 자료를 쉽게 고객들이 찾을 수 있게」
+ * 사장님(2026-09-15): **「한국시장 뿐만 아니라 우리가 서비스하는 시장 관련 데이터도
+ *                        스크리너로 볼 수 있게 하는 거지?」**
+ *   ⇒ 한국 전용으로 지었던 것을 시장 축이 있는 꼴로 다시 짰다. 지금 다섯 시장 —
+ *     KOSPI · KOSDAQ · KONEX · ADX(아부다비) · DFM(두바이).
  *
  * ── 🔴 이 지면이 남의 스크리너와 다른 한 가지 ───────────────────────────────
- *   조건을 걸면 수가 줄어든다. 줄어드는 까닭이 «둘»인데 보통은 하나만 보여 준다 —
+ *   조건을 걸면 수가 줄어든다. 까닭이 «둘»인데 보통은 하나만 보여 준다 —
  *     1. 조건에 안 맞아서 빠졌다        ← 손님이 바라는 것
  *     2. 그 칸이 «비어 있어서» 빠졌다    ← 손님이 모르는 채로 잃는 것
- *   PER 로 거르면 한국 2,709곳 가운데 **1,121곳이 2번으로 사라진다**(PER 있는 곳 1,588).
- *   ⇒ 이 지면은 2번의 수를 «크게» 적는다. 그것이 우리가 파는 정직함이다.
  *
- * ⛔ 점수·등급·추천을 만들지 않는다. 사실만 놓고 판단은 손님이 한다(강령 1).
- * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다.
- * ⛔ 줄 뭉치(536KB)를 지면 안에 박지 않는다. /data/screener-korea.json 을 «받아» 쓴다.
- * 🔴 판정 셈은 src/lib/screener.mjs 가 정본이다(자가시험 30가지). 아래 브라우저 셈은
+ *   **시장을 섞으면 2번이 훨씬 커진다.** ADX 는 시가총액을 주는 우물을 아직 못 찾아
+ *   PER 이 «한 곳도» 없다. 남들처럼 지으면 UAE 를 고른 손님이 조건 하나에 76곳을
+ *   통째로 잃고도 그 사실을 모른다. 이 지면은 그 수를 빨간 칸에 적는다.
+ *
+ * ⛔ 점수·등급·추천을 만들지 않는다. 사실만 놓고 판단은 손님이 한다.
+ * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다(자료 만드는 자에 관문이 있다).
+ * 🔴 판정 셈은 src/lib/screener.mjs 가 정본이다(자가시험 41가지). 아래 브라우저 셈은
  *   그것과 «같은 규칙»을 옮긴 것이다 — 고칠 때는 두 곳을 같이 고친다.
+ * 🔴 define:vars 에 넘기는 이름은 «아스키»여야 한다. 한글로 넘겼더니 Astro 가 한글을
+ *   떼어 내 「… is not defined」로 지면이 빈 채 섰다(2026-09-15 실측).
  */
 import Base from '../../layouts/Base.astro';
 import { SITE_URL } from '../../consts';
-import 메타 from '../../data/screener-korea-meta.json';
+import 메타 from '../../data/screener-meta.json';
 import { 수칸 } from '../../lib/screener.mjs';
 
-const TITLE = 'Korea stock screener — filter 2,709 listed companies by filed figures';
-const DESC = 'Screen every company listed in Seoul by market cap, PER, PBR, ROE, debt and revenue. '
-  + 'Unlike other screeners, this one tells you how many companies each filter silently drops '
-  + 'because the figure does not exist.';
+const M = 메타 as any;
+const 줄수 = M._meta.rows as number;
+const dataUrl = M.dataUrl as string;
+const 시장목록 = M.markets as Array<{ code: string; name: string; country: string; ccy: string; rows: number; filled: Record<string, number> }>;
+const 업종들 = M.industries as string[];
+const fx = M._meta.fx as { asOf: string; aedPerUsd: number; krwPerUsd: number };
+const 지은때 = String(M._meta.builtAt || '').slice(0, 10);
 
-const 줄수 = (메타 as any)._meta.rows as number;
-const 채움 = (메타 as any)._meta.filled as Record<string, number>;
-/* 🔴 define:vars 에 넘기는 이름은 «아스키»여야 한다. 2026-09-15 에 실측했다 —
-   `자료URL` 로 넘겼더니 Astro 가 한글을 떼고 `const URL = …` 로 냈고, 본문은
-   여전히 `자료URL` 을 불러 「자료URL is not defined」로 지면이 빈 채 섰다.
-   ⛔ define:vars 키에 한글을 쓰지 않는다. 안쪽 셈의 이름은 한글이어도 된다. */
-const dataUrl = (메타 as any).dataUrl as string;
-const 업종들 = (메타 as any).industries as string[];
-const 지은때 = String((메타 as any)._meta.builtAt || '').slice(0, 10);
+/* 나라별로 묶어 보인다 — 손님은 「UAE 를 보고 싶다」로 생각하지 코드로 생각하지 않는다 */
+const 나라들: Array<{ 이름: string; 시장: typeof 시장목록 }> = [];
+for (const m of 시장목록) {
+  let 통 = 나라들.find((x) => x.이름 === m.country);
+  if (!통) { 통 = { 이름: m.country, 시장: [] }; 나라들.push(통); }
+  통.시장.push(m);
+}
+
+/* 이 지면이 존재하는 까닭을 수로 말한다 — 「PER 을 걸면 몇 곳이 조용히 사라지나」 */
+const PER있는곳 = 시장목록.reduce((a, m) => a + m.filled.p, 0);
+const PER없는곳 = 줄수 - PER있는곳;
+const UAE줄 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + m.rows, 0);
 
 /* 손님이 자주 찾는 칸을 «한 번 눌러» 채우는 지름길.
    ⛔ 이름을 「Value」·「Quality」로 짓지 않는다 — 그러면 우리가 좋다/나쁘다를 말한 것이 된다.
@@ -45,14 +58,19 @@ const 지름길 = [
   { 이름: 'PBR under 1', 건다: { b: { max: 1 } } },
   { 이름: 'ROE over 15%', 건다: { r: { min: 15 } } },
   { 이름: 'Debt/equity under 100%', 건다: { d: { max: 100 } } },
-  { 이름: 'Market cap over ₩1tn', 건다: { c: { min: 1000 } } },
-  { 이름: 'Revenue over ₩1tn', 건다: { v: { min: 1000 } } },
+  { 이름: 'Market cap over $1bn', 건다: { c: { min: 1000 } } },
+  { 이름: 'Revenue over $1bn', 건다: { v: { min: 1000 } } },
 ];
+
+const TITLE = 'Asia and Gulf stock screener — filter listed companies by the figures they filed';
+const DESC = 'Screen ' + 줄수.toLocaleString('en-US') + ' companies listed in Seoul, Abu Dhabi and Dubai '
+  + 'by market cap, revenue, profit, PER, PBR, ROE and debt. Unlike other screeners, this one counts '
+  + 'the companies each filter removes because the figure does not exist.';
 
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'SMarkets Korea Screener',
+  name: 'SMarkets Screener — Asia and Gulf',
   applicationCategory: 'FinanceApplication',
   operatingSystem: 'Any',
   description: DESC,
@@ -66,19 +84,21 @@ const jsonLd = {
   <div class="wrap">
     <div class="page-head">
       <p class="kicker">Sources &amp; Markets · free tool</p>
-      <h1>Korea stock screener</h1>
+      <h1>Asia &amp; Gulf screener</h1>
       <p>
-        Filter <b>{줄수.toLocaleString('en-US')}</b> companies listed in Seoul by the figures they
-        actually filed. Market capitalisation comes from the closing price; earnings, equity, debt
-        and revenue come from each company's own submission to DART.
+        Filter <b>{줄수.toLocaleString('en-US')}</b> listed companies across{' '}
+        {시장목록.map((m, i) => (
+          <>{i > 0 ? (i === 시장목록.length - 1 ? ' and ' : ', ') : ''}<b>{m.name}</b> ({m.rows.toLocaleString('en-US')})</>
+        ))} by the figures they actually filed.
       </p>
       <p class="coverage">
         <b>What this screener tells you that others don't.</b> When a filter removes a company
         because the figure <i>does not exist</i> — not because it failed your test — we count those
         companies and say so, in red, above the table. A PER screen on its own removes{' '}
-        <b>{(줄수 - 채움.p).toLocaleString('en-US')}</b> of {줄수.toLocaleString('en-US')} companies
-        that way. Most screeners drop them in silence, and the market then looks smaller and
-        tidier than it really is.
+        <b>{PER없는곳.toLocaleString('en-US')}</b> of {줄수.toLocaleString('en-US')} companies that
+        way, and that includes <b>every one of the {UAE줄} Gulf listings</b>: Abu Dhabi publishes no
+        market capitalisation we can source, so no Gulf company here has a PER at all. Most screeners
+        drop them in silence, and the market then looks smaller and tidier than it really is.
       </p>
     </div>
 
@@ -86,7 +106,7 @@ const jsonLd = {
       <div class="row">
         <label class="fld grow">
           <span>Name or ticker</span>
-          <input type="search" id="q" placeholder="Samsung, 005930, Hyundai…" autocomplete="off" />
+          <input type="search" id="q" placeholder="Samsung, 005930, Emaar, FAB…" autocomplete="off" />
         </label>
         <label class="fld grow">
           <span>Industry</span>
@@ -95,15 +115,22 @@ const jsonLd = {
             {업종들.map((x) => <option value={x}>{x}</option>)}
           </select>
         </label>
-        <fieldset class="fld mkt">
-          <span>Market</span>
-          <div class="chips">
-            <label><input type="checkbox" class="mk" value="Y" checked /> KOSPI</label>
-            <label><input type="checkbox" class="mk" value="K" checked /> KOSDAQ</label>
-            <label><input type="checkbox" class="mk" value="N" checked /> KONEX</label>
-          </div>
-        </fieldset>
       </div>
+
+      <fieldset class="mkts">
+        <legend>Markets</legend>
+        {나라들.map((c) => (
+          <div class="country">
+            <button type="button" class="ctry" data-country={c.이름}>{c.이름}</button>
+            {c.시장.map((m) => (
+              <label class="chip">
+                <input type="checkbox" class="mk" value={m.code} data-country={c.이름} checked />
+                {m.name} <em>{m.rows.toLocaleString('en-US')}</em>
+              </label>
+            ))}
+          </div>
+        ))}
+      </fieldset>
 
       <div class="shortcuts">
         <span class="sc-lab">Quick filters</span>
@@ -112,8 +139,7 @@ const jsonLd = {
         ))}
       </div>
 
-      {/* 🔴 폰에서는 접어 둔다 — 안 접으면 손수 치는 칸 여섯을 다 지나야 표에 닿는다.
-          넓은 화면에서는 아래 셈이 열어 준다. 조건이 주소에 실려 오면 그때도 연다. */}
+      {/* 🔴 폰에서는 접어 둔다 — 안 접으면 손수 치는 칸 여덟을 다 지나야 표에 닿는다 */}
       <details class="ranges" id="ranges">
         <summary>Set your own ranges</summary>
         <div class="grid" id="nums">
@@ -125,10 +151,9 @@ const jsonLd = {
                 <span class="tilde">–</span>
                 <input type="number" class="mx" placeholder="max" step="any" aria-label={f.이름 + ' maximum'} />
               </div>
-              {/* ⭐ 걸기 «전»에 그 칸이 몇 곳에 있는지 보인다 — 걸고 나서 알면 늦다 */}
-              <span class="have">
-                {채움[f.key].toLocaleString('en-US')} of {줄수.toLocaleString('en-US')} have this figure
-              </span>
+              {/* ⭐ 고른 시장에서 이 칸이 몇 곳에 «있는지»를 걸기 전에 보인다.
+                  시장마다 크게 다르므로 짓는 때 박아 두지 않고 브라우저가 다시 센다 */}
+              <span class="have" data-have={f.key}>—</span>
             </div>
           ))}
         </div>
@@ -151,56 +176,84 @@ const jsonLd = {
             <th scope="col">Company</th>
             <th scope="col" data-sort="m">Market</th>
             <th scope="col" data-sort="c" class="n">Market cap</th>
+            <th scope="col" data-sort="v" class="n">Revenue</th>
+            <th scope="col" data-sort="np" class="n">Net profit</th>
+            <th scope="col" data-sort="e" class="n">EPS</th>
             <th scope="col" data-sort="p" class="n">PER</th>
             <th scope="col" data-sort="b" class="n">PBR</th>
             <th scope="col" data-sort="r" class="n">ROE %</th>
             <th scope="col" data-sort="d" class="n">Debt/eq %</th>
-            <th scope="col" data-sort="v" class="n">Revenue</th>
           </tr>
         </thead>
-        <tbody id="rows"><tr><td colspan="8" class="empty">Loading…</td></tr></tbody>
+        <tbody id="rows"><tr><td colspan="10" class="empty">Loading…</td></tr></tbody>
       </table>
     </div>
 
     <p class="more" id="more" hidden><button type="button" id="showmore">Show 100 more</button></p>
 
     <p class="note">
-      <b>No score, no grade, no recommendation.</b> These are filed figures and a closing price;
-      what you make of them is your call. The multiples are trailing annual, not TTM — market
-      capitalisation is one day's price while earnings and equity are a full financial year, so the
-      two dates are months apart. A dash means the figure does not exist for that company, never
-      zero. Data built {지은때}. This is not investment advice.
+      <b>Read the period before you compare.</b> Korean rows are a full financial year; Gulf rows are
+      the filing period shown under the company name — usually a quarter. They are not the same
+      thing, and sorting by revenue across both mixes a year with three months.
       <br /><br />
-      This page is a sample. The full Korea valuation tape — every field, every company, as a file —
-      is a licensed dataset: see <a href="/data">Data Products</a>.
+      <b>Money is shown in US dollars</b> so that markets can sit in one table, converted at the
+      Central Bank of the UAE rates published on {fx.asOf}: 1 USD = {fx.aedPerUsd} AED
+      = {Math.round(fx.krwPerUsd).toLocaleString('en-US')} KRW. Hover any money figure to see the
+      amount in the currency the company actually filed.
+      <br /><br />
+      <b>Why Gulf rows have no PER, PBR or ROE.</b> The filed balance sheets do not state a consistent
+      scale — some are in dirhams and some in thousands of dirhams — so any ratio built from them
+      could be wrong by a factor of a thousand. We check each filing's stated earnings per share
+      against its profit before we publish a money figure at all, and withhold the row's figures when
+      that check fails. The reason appears on the row.
+      <br /><br />
+      <b>No score, no grade, no recommendation.</b> These are filed figures and a price; what you
+      make of them is your call. A dash means the figure does not exist for that company, never zero.
+      Data built {지은때}. This is not investment advice.
+      <br /><br />
+      This page is a sample. The full tapes — every field, every company, as a file — are licensed
+      datasets: see <a href="/data">Data Products</a>.
     </p>
   </div>
 
   <script define:vars={{ dataUrl }}>
-    /* ⛔ 판정의 정본은 src/lib/screener.mjs 다(자가시험 30가지).
+    /* ⛔ 판정의 정본은 src/lib/screener.mjs 다(자가시험 41가지).
        ⚠ 브라우저는 그 모듈을 못 받으므로 «같은 규칙»을 여기 옮겨 적었다.
          한쪽을 고치면 반드시 다른 쪽도 고친다. */
     (function () {
       var 줄들 = null;
-      var 시장 = { Y: 'KOSPI', K: 'KOSDAQ', N: 'KONEX' };
-      var 칸이름 = { c: 'market cap', p: 'PER', b: 'PBR', r: 'ROE', d: 'debt/equity', v: 'revenue' };
-      var 곱 = { c: 1e9, v: 1e9 };      /* 손님은 ₩bn 으로 친다 — 원으로 바꾼다 */
+      var 시장 = {};
+      var 통화 = {};
+      var 칸이름 = {
+        c: 'market cap', v: 'revenue', np: 'net profit', e: 'EPS',
+        p: 'PER', b: 'PBR', r: 'ROE', d: 'debt/equity', i: 'industry',
+      };
+      var 곱 = { c: 1e6, v: 1e6, np: 1e6 };   /* 손님은 $m 으로 친다 — 달러로 바꾼다 */
       var 보인수 = 100;
       var 정렬칸 = 'c', 내림 = true;
 
       var $ = function (id) { return document.getElementById(id); };
       function 있나(v) { return !(v === null || v === undefined || v === '') && isFinite(Number(v)); }
 
-      function 돈글(원) {
-        if (!있나(원)) return '—';
-        var n = Number(원), a = Math.abs(n);
-        if (a >= 1e12) return '₩' + (n / 1e12).toFixed(1) + 'tn';
-        if (a >= 1e9) return '₩' + Math.round(n / 1e9).toLocaleString('en-US') + 'bn';
-        if (a >= 1e6) return '₩' + Math.round(n / 1e6).toLocaleString('en-US') + 'm';
-        return '₩' + Math.round(n).toLocaleString('en-US');
+      function 돈글(달러) {
+        if (!있나(달러)) return '—';
+        var n = Number(달러), a = Math.abs(n);
+        if (a >= 1e12) return '$' + (n / 1e12).toFixed(2) + 'T';
+        if (a >= 1e9) return '$' + (n / 1e9).toFixed(1) + 'B';
+        if (a >= 1e6) return '$' + Math.round(n / 1e6).toLocaleString('en-US') + 'M';
+        return '$' + Math.round(n).toLocaleString('en-US');
+      }
+      function 원글(값, cur) {
+        if (!있나(값)) return '';
+        var n = Number(값), a = Math.abs(n);
+        if (a >= 1e12) return (n / 1e12).toFixed(2) + 'tn ' + cur;
+        if (a >= 1e9) return (n / 1e9).toFixed(1) + 'bn ' + cur;
+        if (a >= 1e6) return Math.round(n / 1e6).toLocaleString('en-US') + 'm ' + cur;
+        return Math.round(n).toLocaleString('en-US') + ' ' + cur;
       }
       function 수글(v, 자리) { return 있나(v) ? Number(v).toFixed(자리 === undefined ? 1 : 자리) : '—'; }
       function 칸(k) { return document.querySelector('#nums .num[data-key="' + k + '"]'); }
+      function 벗(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;'); }
 
       function 고른시장() {
         var 것 = [], 상자 = document.querySelectorAll('.mk');
@@ -227,7 +280,7 @@ const jsonLd = {
         if ($('q').value.trim()) p.set('q', $('q').value.trim());
         if ($('ind').value) p.set('ind', $('ind').value);
         var 고른 = 고른시장();
-        if (고른.length < 3) p.set('mkt', 고른.join(''));
+        if (고른.length < document.querySelectorAll('.mk').length) p.set('mkt', 고른.join(','));
         var 칸들 = document.querySelectorAll('#nums .num');
         for (var i = 0; i < 칸들.length; i += 1) {
           var el = 칸들[i], k = el.getAttribute('data-key');
@@ -244,7 +297,8 @@ const jsonLd = {
         if (p.get('q')) $('q').value = p.get('q');
         if (p.get('ind')) $('ind').value = p.get('ind');
         if (p.get('mkt')) {
-          var 쓸것 = p.get('mkt'), 상자 = document.querySelectorAll('.mk');
+          var 쓸것 = p.get('mkt').split(',');
+          var 상자 = document.querySelectorAll('.mk');
           for (var i = 0; i < 상자.length; i += 1) 상자[i].checked = 쓸것.indexOf(상자[i].value) >= 0;
         }
         var 칸들 = document.querySelectorAll('#nums .num');
@@ -263,32 +317,58 @@ const jsonLd = {
         var 글 = ($('q').value || '').trim().toLowerCase();
         var 고른 = 고른시장();
         var 업종 = $('ind').value;
-        var 남은 = [], 안맞음 = 0, 값없음 = 0, 칸별 = {};
+        var 시장안 = [], 남은 = [], 안맞음 = 0, 값없음 = 0, 칸별 = {};
 
         for (var i = 0; i < 줄들.length; i += 1) {
           var r = 줄들[i];
           if (고른.indexOf(r.m) < 0) continue;
-          if (업종 && r.i !== 업종) continue;
           if (글 && ((r.n || '') + ' ' + (r.k || '') + ' ' + (r.t || '')).toLowerCase().indexOf(글) < 0) continue;
+          시장안.push(r);      /* 고른 시장 안의 줄 — 「이 칸이 몇 곳에 있나」의 분모다 */
 
           var 까닭 = null;
-          for (var j = 0; j < 조건.length; j += 1) {
-            var c = 조건[j], v = r[c.key];
-            if (!있나(v)) { 까닭 = 'missing'; 칸별[c.key] = (칸별[c.key] || 0) + 1; break; }
-            var n = Number(v);
-            if (있나(c.min) && n < c.min) { 까닭 = 'fail'; break; }
-            if (있나(c.max) && n > c.max) { 까닭 = 'fail'; break; }
+          /* 업종도 «없을 수» 있다 — ADX 는 업종을 주는 우물이 없다.
+             없는 것을 「안 맞았다」로 세면 손님을 속이는 것이다 */
+          if (업종) {
+            if (!r.i) { 까닭 = 'missing'; 칸별.i = (칸별.i || 0) + 1; }
+            else if (r.i !== 업종) 까닭 = 'fail';
+          }
+          if (!까닭) {
+            for (var j = 0; j < 조건.length; j += 1) {
+              var c = 조건[j], v = r[c.key];
+              if (!있나(v)) { 까닭 = 'missing'; 칸별[c.key] = (칸별[c.key] || 0) + 1; break; }
+              var n = Number(v);
+              if (있나(c.min) && n < c.min) { 까닭 = 'fail'; break; }
+              if (있나(c.max) && n > c.max) { 까닭 = 'fail'; break; }
+            }
           }
           if (까닭 === 'missing') { 값없음 += 1; continue; }
           if (까닭 === 'fail') { 안맞음 += 1; continue; }
           남은.push(r);
         }
-        return { 남은: 남은, 안맞음: 안맞음, 값없음: 값없음, 칸별: 칸별 };
+        return { 남은: 남은, 시장안: 시장안, 안맞음: 안맞음, 값없음: 값없음, 칸별: 칸별 };
+      }
+
+      /* ⭐ 고른 시장에서 칸마다 몇 곳에 값이 «있나» — 조건을 걸기 «전»에 보인다.
+           시장을 바꾸면 이 수가 통째로 달라지므로 다시 센다 */
+      function 채움보이기(시장안) {
+        var 칸들 = document.querySelectorAll('#nums .num');
+        for (var i = 0; i < 칸들.length; i += 1) {
+          var k = 칸들[i].getAttribute('data-key');
+          var n = 0;
+          for (var j = 0; j < 시장안.length; j += 1) if (있나(시장안[j][k])) n += 1;
+          var 자 = 칸들[i].querySelector('.have');
+          자.textContent = n.toLocaleString('en-US') + ' of ' + 시장안.length.toLocaleString('en-US')
+            + ' have this figure';
+          /* 0 이면 그 조건은 «아무도 남기지 못한다» — 걸기 전에 알아야 한다 */
+          if (n === 0) 자.setAttribute('data-none', ''); else 자.removeAttribute('data-none');
+        }
       }
 
       function 그린다() {
         if (!줄들) return;
         var r = 거른다();
+        채움보이기(r.시장안);
+
         var 것 = r.남은.slice();
         것.sort(function (A, B) {
           var a = A[정렬칸], b = B[정렬칸];
@@ -301,7 +381,7 @@ const jsonLd = {
         });
 
         $('count').textContent = 것.length.toLocaleString('en-US') + ' of '
-          + 줄들.length.toLocaleString('en-US') + ' companies'
+          + r.시장안.length.toLocaleString('en-US') + ' companies'
           + (r.안맞음 ? ' · ' + r.안맞음.toLocaleString('en-US') + ' did not match' : '');
 
         /* 🔴 말없이 빠진 곳 — 이 지면이 있는 이유 */
@@ -322,23 +402,31 @@ const jsonLd = {
         tb.textContent = '';
         if (!것.length) {
           var tr0 = document.createElement('tr');
-          tr0.innerHTML = '<td colspan="8" class="empty">No company matches these filters.</td>';
+          tr0.innerHTML = '<td colspan="10" class="empty">No company matches these filters.</td>';
           tb.appendChild(tr0);
         }
         var 볼것 = 것.slice(0, 보인수);
         for (var i2 = 0; i2 < 볼것.length; i2 += 1) {
           var x = 볼것[i2];
+          var cur = 통화[x.m] || '';
+          var 돈칸 = function (달러, 원래) {
+            var t = 원래 != null ? ' title="' + 벗(원글(원래, cur)) + ' as filed"' : '';
+            return '<td class="n"' + t + '>' + 돈글(달러) + '</td>';
+          };
+          var 밑줄 = [x.t, x.i, x.as].filter(Boolean).join(' · ');
           var tr = document.createElement('tr');
-          tr.innerHTML = '<td><span class="nm">' + (x.n || x.k || '') + '</span>'
-            + '<span class="tk">' + (x.t || '') + (x.i ? ' · ' + x.i : '') + '</span>'
-            + (x.x ? '<span class="why">' + x.x + '</span>' : '') + '</td>'
-            + '<td>' + (시장[x.m] || x.m || '—') + '</td>'
-            + '<td class="n">' + 돈글(x.c) + '</td>'
+          tr.innerHTML = '<td><span class="nm">' + 벗(x.n || x.k || '') + '</span>'
+            + '<span class="tk">' + 벗(밑줄) + '</span>'
+            + (x.x ? '<span class="why">' + 벗(x.x) + '</span>' : '') + '</td>'
+            + '<td>' + 벗(시장[x.m] || x.m || '—') + '</td>'
+            + 돈칸(x.c, x.nc)
+            + 돈칸(x.v, x.nv)
+            + '<td class="n">' + 돈글(x.np) + '</td>'
+            + '<td class="n">' + (있나(x.e) ? '$' + Number(x.e).toFixed(3) : '—') + '</td>'
             + '<td class="n">' + 수글(x.p) + '</td>'
             + '<td class="n">' + 수글(x.b, 2) + '</td>'
             + '<td class="n">' + 수글(x.r) + '</td>'
-            + '<td class="n">' + 수글(x.d) + '</td>'
-            + '<td class="n">' + 돈글(x.v) + '</td>';
+            + '<td class="n">' + 수글(x.d) + '</td>';
           tb.appendChild(tr);
         }
         $('more').hidden = 것.length <= 보인수;
@@ -361,6 +449,22 @@ const jsonLd = {
       $('ind').addEventListener('change', 다시);
       document.querySelectorAll('.mk').forEach(function (b) { b.addEventListener('change', 다시); });
 
+      /* 나라 단추 — 그 나라만 보고 싶을 때 한 번에. 이미 그 나라만 켜져 있으면 «다 켠다» */
+      document.querySelectorAll('.ctry').forEach(function (b) {
+        b.addEventListener('click', function () {
+          var 나라 = b.getAttribute('data-country');
+          var 상자 = document.querySelectorAll('.mk');
+          var 그나라만 = true;
+          for (var i = 0; i < 상자.length; i += 1) {
+            if (상자[i].checked !== (상자[i].getAttribute('data-country') === 나라)) { 그나라만 = false; break; }
+          }
+          for (var j = 0; j < 상자.length; j += 1) {
+            상자[j].checked = 그나라만 ? true : (상자[j].getAttribute('data-country') === 나라);
+          }
+          다시();
+        });
+      });
+
       document.querySelectorAll('.sc').forEach(function (b) {
         b.addEventListener('click', function () {
           var 건다 = JSON.parse(b.getAttribute('data-set'));
@@ -371,6 +475,7 @@ const jsonLd = {
             el.querySelector('.mx').value = (켜짐 || 건다[k].max === undefined) ? '' : 건다[k].max;
           }
           b.classList.toggle('on');
+          $('ranges').open = true;      /* 무엇이 걸렸는지 손님이 보게 편다 */
           다시();
         });
       });
@@ -404,18 +509,22 @@ const jsonLd = {
 
       /* 넓은 화면에서는 손수 치는 칸을 펴 둔다. 조건을 싣고 온 주소라면 폭과 상관없이 편다 */
       (function () {
-        var 조건왔나 = /[cpbrdv]_(min|max)=/.test(location.search);
+        var 조건왔나 = /(^|&)(c|v|np|e|p|b|r|d)_(min|max)=/.test(location.search.slice(1));
         if (조건왔나 || window.innerWidth >= 900) $('ranges').open = true;
       })();
 
-      /* ── 줄 뭉치를 «받아» 온다. 못 받으면 못 받았다고 적는다(강령 3) ── */
+      /* ── 줄 뭉치를 «받아» 온다. 못 받으면 못 받았다고 적는다 ── */
       주소에서읽는다();
       fetch(dataUrl)
         .then(function (res) { if (!res.ok) throw new Error('HTTP ' + res.status); return res.json(); })
-        .then(function (j) { 줄들 = j.rows || []; 그린다(); })
+        .then(function (j) {
+          줄들 = j.rows || [];
+          (j.markets || []).forEach(function (m) { 시장[m.code] = m.name; 통화[m.code] = m.ccy; });
+          그린다();
+        })
         .catch(function (e) {
           $('count').textContent = 'Could not load the data';
-          $('rows').innerHTML = '<tr><td colspan="8" class="empty">The dataset did not load ('
+          $('rows').innerHTML = '<tr><td colspan="10" class="empty">The dataset did not load ('
             + String(e.message) + '). Reload the page, or see <a href="/data">Data Products</a>.</td></tr>';
         });
     })();
@@ -438,20 +547,22 @@ const jsonLd = {
     padding: .45rem .55rem; border: 1px solid var(--rule);
     background: var(--paper); color: var(--ink); font: inherit; font-size: .88rem;
   }
-  .mkt .chips { display: flex; gap: .7rem; align-items: center; padding-top: .35rem; }
-  .mkt .chips label { display: inline-flex; align-items: center; gap: .3rem; font-size: .84rem; white-space: nowrap; }
 
-  .ranges { margin-top: 1rem; }
-  .ranges > summary {
-    cursor: pointer; font-size: .78rem; font-weight: 600; color: var(--muted);
-    padding: .25rem 0; list-style-position: inside;
+  .mkts { border: 0; padding: 0; margin: 0 0 .9rem; display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; }
+  .mkts legend { font-size: .78rem; font-weight: 600; color: var(--muted); padding: 0; margin-bottom: .35rem; }
+  .country { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; }
+  /* 나라 이름은 «단추»다 — 손님은 「UAE 만 보고 싶다」로 생각한다 */
+  .ctry {
+    padding: .2rem .5rem; border: 1px solid var(--rule); border-radius: 3px;
+    background: var(--paper); color: var(--muted); font: inherit; font-size: .72rem;
+    font-weight: 700; text-transform: uppercase; letter-spacing: .04em; cursor: pointer;
   }
-  .ranges > summary:hover { color: var(--accent); }
-  .ranges[open] > summary { margin-bottom: .7rem; }
+  .ctry:hover { color: var(--accent); border-color: var(--accent); }
+  .chip { display: inline-flex; align-items: center; gap: .3rem; font-size: .84rem; white-space: nowrap; }
+  .chip em { font-style: normal; font-size: .72rem; color: var(--muted); }
 
-  /* ⚠ auto-fit 은 1440px 에서 5+1 로 놓아 Revenue 한 칸만 아랫줄에 외따로 떨어졌다.
-       3+3 으로 못박는다 — 눈으로 보고 고친 자리다(2026-09-15). */
-  .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .85rem; }
+  .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .85rem; }
+  @media (max-width: 1040px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 860px) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
   .num { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
@@ -463,10 +574,19 @@ const jsonLd = {
     background: var(--paper); color: var(--ink); font: inherit; font-size: .85rem;
   }
   .tilde { color: var(--muted); }
-  /* ⭐ 「이 칸에 값이 있는 곳이 몇인가」를 걸기 «전»에 보인다 */
   .have { font-size: .7rem; color: var(--muted); line-height: 1.3; }
+  /* 🔴 고른 시장에 그 칸이 «한 곳도» 없으면 — 걸면 전멸한다. 걸기 전에 빨갛게 말한다 */
+  .have[data-none] { color: var(--down); font-weight: 600; }
 
-  .shortcuts { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; margin-top: 1rem; }
+  .ranges { margin-top: 1rem; }
+  .ranges > summary {
+    cursor: pointer; font-size: .78rem; font-weight: 600; color: var(--muted);
+    padding: .25rem 0; list-style-position: inside;
+  }
+  .ranges > summary:hover { color: var(--accent); }
+  .ranges[open] > summary { margin-bottom: .7rem; }
+
+  .shortcuts { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
   .sc-lab { font-size: .72rem; font-weight: 600; color: var(--muted); margin-right: .2rem; }
   .sc {
     padding: .28rem .6rem; border: 1px solid var(--rule); border-radius: 999px;
@@ -490,18 +610,17 @@ const jsonLd = {
     background: color-mix(in srgb, var(--down) 8%, transparent);
     font-size: .9rem; line-height: 1.65;
   }
-  .dropped span { color: var(--muted); }
 
   .tablewrap { overflow-x: auto; }
   table { width: 100%; border-collapse: collapse; font-size: .86rem; }
-  th, td { padding: .5rem .6rem; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
-  th { font-size: .72rem; color: var(--muted); white-space: nowrap; font-weight: 600; }
+  th { padding: .5rem .6rem; border-bottom: 1px solid var(--rule); text-align: left;
+       font-size: .72rem; color: var(--muted); white-space: nowrap; font-weight: 600; }
   th[data-sort] { cursor: pointer; user-select: none; }
   th[data-sort]:hover { color: var(--accent); }
   th[aria-sort] { color: var(--ink); }
   th[aria-sort='descending']::after { content: ' ▾'; }
   th[aria-sort='ascending']::after { content: ' ▴'; }
-  th.n, td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  th.n { text-align: right; }
 
   .more { margin: 1rem 0; }
   .more button {
@@ -518,17 +637,20 @@ const jsonLd = {
 <!--
   🔴 [2026-09-15 실측] 표의 줄과 빨간 칸의 속은 «자바스크립트가» 만든다.
      Astro 의 좁힌 style 은 짓는 때 «data-astro-cid-…» 가 붙은 것에만 걸리므로,
-     그렇게 만든 것에는 «한 줄도 안 먹는다**. 재 봤다 — .nm 이 display:inline 이라
+     그렇게 만든 것에는 **한 줄도 안 먹는다.** 재 봤다 — .nm 이 display:inline 이라
      회사이름과 종목코드가 한 줄에 붙어 「HYUNDAI MOTOR CO005380」으로 나왔다.
   ⇒ 그 규칙만 여기로 옮긴다. ⛔ 이름을 넓게 짓지 않는다 — 다 #rows·#dropped 안이다.
 -->
 <style is:global>
   #rows td { padding: .5rem .6rem; border-bottom: 1px solid var(--rule); vertical-align: top; }
   #rows td.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  /* 시장 이름(「DFM — Dubai」)이 두 줄로 접히면 줄 높이가 들쭉날쭉해진다 */
+  #rows td:nth-child(2) { white-space: nowrap; }
+  #rows td.n[title] { cursor: help; }
   #rows .nm { display: block; font-weight: 600; color: var(--ink); }
   #rows .tk { display: block; font-size: .72rem; color: var(--muted); margin-top: .1rem; }
   /* 「왜 비었는지」는 손님이 «그 줄에서» 알아야 한다 — 표 밖으로 미루지 않는다 */
-  #rows .why { display: block; font-size: .72rem; color: var(--down); margin-top: .15rem; }
+  #rows .why { display: block; font-size: .72rem; color: var(--down); margin-top: .15rem; max-width: 34rem; }
   #rows .empty { color: var(--muted); padding: 1.6rem .6rem; text-align: center; }
   #rows tr:hover td { background: var(--paper-2); }
   #dropped span { color: var(--muted); }

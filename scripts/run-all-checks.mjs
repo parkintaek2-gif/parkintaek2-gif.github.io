@@ -95,6 +95,8 @@ export const 단계들 = [
   "node scripts/check-100yearmap-copy.mjs",
   "node scripts/check-school-rules.mjs",
   "node scripts/check-jsx-space.mjs",
+  /* 값이 한 곳에서 오나 — 상품표와 지면의 값이 어긋나면 손님이 딴 값을 보고 결제한다 */
+  "node scripts/check-price-single-source.mjs",
   "node scripts/check-legal-name.mjs",
   "node scripts/check-korean.mjs",
   "node scripts/check-frontmatter.mjs",
