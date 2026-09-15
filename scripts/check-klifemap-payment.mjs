@@ -72,18 +72,56 @@ export function 돈이들어오나({ 토스, 페이팔 } = {}) {
   return { 들어오나: 막힌것.length === 0, 국내막힘, 막힌것 };
 }
 
+/**
+ * 🔴 손님길 셋째 다리 — **산 감명서를 «다시 볼» 수 있나.**
+ *
+ * 사장님(2026-09-13): 「**비회원 결제는 감명서를 다시 못보잖아**」
+ * 사장님(2026-09-15): 「**세 징검다리를 너, 담당 유닛 2이 번갈아 가면서 확인해**」
+ *
+ * ⚠ KLifeMap 은 SeoulMarkets 와 다르다 — 회원(로그인)이 있고, 「감명 내역」은
+ *   로그인한 회원의 화면이다. 그래서 되찾는 «지면 하나»가 아니라 ①안내 지면에
+ *   그 기능이 실려 있는가 ②무인증 요청이 «남의 것을 새어 주지 않는가»로 잰다.
+ * ⛔ 실제 로그인→목록→상세 왕복까지는 **운영 DB에 테스트 손님을 못 심어** 이 자로는
+ *   못 잰다. 그건 klifemap/tools/check-감명다시보기.mjs 를 로컬(배포 전)에서 인자
+ *   없이 돌리는 쪽이 맡는다 — 여기서는 «입구가 살아 있나»까지만 잰다. 통과로
+ *   부풀리지 않는다(강령 셋째 — 못 잰 것은 못 쟀다고 적는다).
+ */
+export function 다시볼수있나({ 로그인지면, 목록무인증, 결제무인증 } = {}) {
+  if (로그인지면 == null && 목록무인증 == null && 결제무인증 == null) {
+    return { 된다: null, 막힌것: [], 까닭: '못 쟀다' };
+  }
+  const 막힌것 = [];
+  if (typeof 로그인지면 === 'string' && !/감명\s*내역/.test(로그인지면)) {
+    막힌것.push('login.html 에 「감명 내역」 글자가 없다 — 지면이 빠졌거나 이름이 바뀌었다');
+  }
+  /* ⛔ 무인증인데 200 이면 «막힘»이 아니라 «남의 것이 새는» 반대 방향 사고다 — 더 나쁘다 */
+  if (목록무인증 && 목록무인증.status !== 401) {
+    막힌것.push('🔴 토큰 없이 /api/my/sessions 가 ' + 목록무인증.status + ' — 남의 감명 내역이 샐 수 있다');
+  }
+  if (결제무인증 && 결제무인증.status !== 401) {
+    막힌것.push('🔴 토큰 없이 /api/my/payments 가 ' + 결제무인증.status + ' — 남의 결제내역이 샐 수 있다');
+  }
+  return { 된다: 막힌것.length === 0, 막힌것, 까닭: null };
+}
+
 /** 셋을 합쳐 한 마디로 — 사장님이 물으시는 것은 「팔리나」 하나다 */
 export function 팔리나(답들) {
   const 문 = 들어올수있나(답들);
   const 돈 = 돈이들어오나(답들);
+  const 되 = 다시볼수있나(답들);
   const 막힌것 = [];
   if (!문.열렸나) 막힌것.push('손님이 «가입도 로그인도» 못 한다 — 문이 하나도 없다');
-  막힌것.push(...돈.막힌것);
-  /* 🔴 문이 막혔거나 국내 결제가 막혔으면 매출은 0 이다 */
-  const 심각 = !문.열렸나 || 돈.국내막힘;
+  막힌것.push(...돈.막힌것, ...되.막힌것);
+  /* ⛔ 못 쟀으면 «막혔다»로 몰지 않는다. 못 쟀다고 따로 말한다 */
+  const 못잰것 = [];
+  if (되.된다 === null) 못잰것.push('산 감명서를 다시 볼 수 있나 — 못 쟀다');
+  /* 🔴 문이 막혔거나 국내 결제가 막혔으면 매출은 0 이다. 다시보기가 막히면 반쪽만 판 것이라
+     심각으로 올린다 — 돈은 받았는데 손님이 산 것을 잃는 사고다 */
+  const 심각 = !문.열렸나 || 돈.국내막힘 || 되.된다 === false;
   return {
     판정: 막힌것.length === 0 ? '팔린다' : (심각 ? '매출0' : '줄었다'),
     막힌것,
+    못잰것,
     열린문: 문.문,
   };
 }
@@ -102,16 +140,27 @@ async function 물어본다(길, 보낼것) {
   } catch { return null; }
 }
 
+/** 셋째 다리용 — GET 하나를 status 만 뽑아 온다(본문은 로그인 지면만 필요하다) */
+async function 상태만(길) {
+  try {
+    const r = await fetch(사이트 + 길, { signal: AbortSignal.timeout(15000) });
+    return { status: r.status };
+  } catch { return null; }
+}
+
 async function 잰다() {
-  const [토스, 페이팔, 로그인] = await Promise.all([
+  const [토스, 페이팔, 로그인, 로그인지면글, 목록무인증, 결제무인증] = await Promise.all([
     물어본다('/api/billing/toss/status'),
     물어본다('/api/billing/paypal/status'),
     물어본다('/api/auth/providers'),
+    fetch(사이트 + '/login.html', { signal: AbortSignal.timeout(15000) }).then((r) => r.text()).catch(() => null),
+    상태만('/api/my/sessions'),
+    상태만('/api/my/payments'),
   ]);
   /* ⚠ 우리 주소로만 찔러 본다 — 손님 주소로 메일을 보내지 않는다 */
   const 메일보냄 = await 물어본다('/api/auth/email/send', { email: 'u5@klifedesign.net' });
 
-  const 답 = 팔리나({ 토스, 페이팔, 로그인, 메일보냄 });
+  const 답 = 팔리나({ 토스, 페이팔, 로그인, 메일보냄, 로그인지면: 로그인지면글, 목록무인증, 결제무인증 });
   const 때 = new Date();
 
   console.log('■ klifemap 결제 점검 — ' + 때.toLocaleString('ko-KR'));
@@ -123,15 +172,20 @@ async function 잰다() {
   console.log('   인증메일      ' + (메일보냄
     ? (메일보냄.simulated === true ? '🔴 simulated — «보낸 척»만 한다' : '나간다')
     : '못 쟀다'));
+  console.log('   다시 보기     ' + (목록무인증 && 결제무인증
+    ? ('login.html 「감명 내역」 ' + (typeof 로그인지면글 === 'string' && /감명\s*내역/.test(로그인지면글) ? '있음' : '없음')
+      + ' · 무인증 sessions=' + 목록무인증.status + ' payments=' + 결제무인증.status)
+    : '못 쟀다'));
   console.log('');
+  for (const x of 답.못잰것) console.log('   ⬜ ' + x);
 
   if (답.판정 === '팔린다') {
-    console.log('   ✅ 팔린다 — 손님이 들어와서 돈을 낼 수 있다');
+    console.log('   ✅ 팔린다 — 손님이 들어와서 돈을 내고 다시 볼 수 있다');
   } else if (답.판정 === '줄었다') {
     console.log('   ⚠ 국내는 팔리는데 한쪽이 막혔다');
     for (const x of 답.막힌것) console.log('      · ' + x);
   } else {
-    console.log('   🔴🔴 **매출 0** — 손님이 돈을 낼 수 없다');
+    console.log('   🔴🔴 **매출 0** — 손님이 돈을 낼 수 없거나 산 것을 잃는다');
     for (const x of 답.막힌것) console.log('      · ' + x);
     console.log('');
     console.log('   ✅ 고치는 길 — Cloudtype 스테이지 시크릿에 넣고 다시 띄운다');
@@ -221,6 +275,32 @@ function 자가시험() {
   검('⛔ 아무것도 못 받았으면 «팔린다»고 하지 않는다', 팔리나({}).판정, '매출0');
   검('못 받았을 때 토스를 «꺼졌다»로 적는다',
     돈이들어오나({}).막힌것[0].includes('토스가 꺼져 있다'), true);
+
+  /* ── 손님길 셋째 다리 — 다시 보기 ─────────────────────────────────── */
+  검('아무것도 안 주면 못 쟀다(null) — 막혔다로 몰지 않는다', 다시볼수있나({}).된다, null);
+  검('login.html 에 「감명 내역」 글자가 없으면 잡는다',
+    다시볼수있나({ 로그인지면: '로그인 화면입니다', 목록무인증: { status: 401 }, 결제무인증: { status: 401 } })
+      .막힌것.some((x) => x.includes('감명 내역')), true);
+  검('「감명 내역」 있고 둘 다 401 이면 된다',
+    다시볼수있나({ 로그인지면: '감명 내역 목록', 목록무인증: { status: 401 }, 결제무인증: { status: 401 } }).된다, true);
+  검('🔴🔴 무인증인데 sessions 가 200 이면 «남의 것이 샌다»로 잡는다(막힘보다 나쁘다)',
+    다시볼수있나({ 로그인지면: '감명 내역', 목록무인증: { status: 200 }, 결제무인증: { status: 401 } })
+      .막힌것.some((x) => x.includes('샐 수 있다')), true);
+  검('🔴 무인증인데 payments 가 200 이어도 잡는다',
+    다시볼수있나({ 로그인지면: '감명 내역', 목록무인증: { status: 401 }, 결제무인증: { status: 200 } })
+      .막힌것.some((x) => x.includes('결제내역')), true);
+
+  검('다시보기가 막히면 국내 결제가 살아 있어도 매출0 이다(반쪽만 판 것)',
+    팔리나({ 토스: { ok: true, enabled: true, live: true, clientKey: 'live_ck_x' },
+      페이팔: { enabled: true }, 로그인: { providers: ['google'] }, 메일보냄: { ok: true },
+      로그인지면: '로그인', 목록무인증: { status: 200 }, 결제무인증: { status: 401 } }).판정, '매출0');
+  검('셋 다 열리면 팔린다', 팔리나({
+    토스: { ok: true, enabled: true, live: true, clientKey: 'live_ck_x' },
+    페이팔: { enabled: true }, 로그인: { providers: ['google'] }, 메일보냄: { ok: true },
+    로그인지면: '감명 내역', 목록무인증: { status: 401 }, 결제무인증: { status: 401 },
+  }).판정, '팔린다');
+  검('다시보기를 못 쟀으면 「못잰것」에 남는다(팔린다를 부풀리지 않되 막지도 않는다)',
+    팔리나(다열림).못잰것.some((x) => x.includes('다시 볼 수 있나')), true);
 
   console.log(`■ 자가시험 ${통과 + 깨짐.length}가지 — 통과 ${통과} · 깨짐 ${깨짐.length}`);
   for (const d of 깨짐) console.log('   🔴 ' + d);
