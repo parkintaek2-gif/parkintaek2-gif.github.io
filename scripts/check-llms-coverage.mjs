@@ -102,3 +102,44 @@ if (빠짐.length) {
 } else {
   console.log('✅ 빠진 것 없음.');
 }
+
+/* ────────────────────────────────────────────────────────────────────────
+ * 🔴 [2026-09-16] **상품 지면도 잰다.** 기사만 재고 있었다.
+ *
+ * 사장님이 「GEO 를 검색보다 앞에 둔다」에 ok 하셨다. 근거는 실측이다 —
+ *   12일(9/2~9/13) GA4 326명 중 AI Assistant 80명(25%) · Organic Search 21명(6%),
+ *   같은 기간 GSC 클릭은 «1회». 검색이 아니라 AI 가 손님을 데려온다.
+ *
+ * 그런데 그날 재 보니 **데이터 상품 지면 17장이 llms.txt 에 하나도 없었고
+ * UAE 언급이 0**이었다. 우리를 데려오는 유일한 길이 «우리가 무엇을 파는지 몰랐다».
+ *
+ * ⛔ 기사만 세는 자는 그것을 못 잡는다. 파는 것은 기사가 아니라 지면이기 때문이다.
+ * ✅ 그래서 src/pages/data/*.astro 를 세어 llms.txt 와 맞댄다.
+ *   새 상품 지면을 내고 llms.txt 에 안 올리면 여기서 걸린다.
+ */
+export function 상품지면목록(폴더 = 'src/pages/data') {
+  const 뿌 = path.join(뿌리 ?? process.cwd(), 폴더);
+  let 것 = [];
+  try { 것 = fs.readdirSync(뿌); } catch { return []; }
+  return 것
+    .filter((f) => f.endsWith('.astro') && f !== 'index.astro')
+    .map((f) => f.replace(/\.astro$/, ''));
+}
+
+export function 상품빠진것(지면들, llms원문) {
+  const 글 = String(llms원문 ?? '');
+  return 지면들.filter((s) => !글.includes('/data/' + s));
+}
+
+if (process.argv.includes('--상품') || process.argv[1]?.endsWith('check-llms-coverage.mjs')) {
+  const 지면 = 상품지면목록();
+  const 글 = (() => { try { return fs.readFileSync(path.join(뿌리 ?? process.cwd(), 'public/llms.txt'), 'utf8'); } catch { return ''; } })();
+  const 빠진 = 상품빠진것(지면, 글);
+  console.log(`\n■ 상품 지면 커버리지 — ${지면.length}장 중 ${지면.length - 빠진.length}장 걸림 · ${빠진.length}장 빠짐`);
+  if (빠진.length) {
+    for (const s of 빠진) console.log(`  🔴 /data/${s} — llms.txt 에 없다`);
+    console.log('  ⛔ AI 가 방문의 4분의 1을 데려온다. 거기 없으면 파는 것이 안 보인다.');
+  } else {
+    console.log('  ✅ 상품 지면이 다 걸려 있다.');
+  }
+}

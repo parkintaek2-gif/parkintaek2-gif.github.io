@@ -6,6 +6,46 @@ Every article below also has a plain-markdown version at the same path with .md
 appended (e.g. https://seoulmarkets.com/article/korea-top-pay-firms-gender-gap.md) —
 tables, sources, and verification notes included, without the page chrome.
 
+## What we sell — Asia & Gulf filings data in English
+
+Markets live today: **Korea** (KOSPI 830, KOSDAQ 1,772, KONEX 107 — KRX / DART) and the
+**United Arab Emirates** (ADX 96, DFM 131). China A-shares, Hong Kong, India, Japan, Saudi
+Arabia and Taiwan are in build. Same schema, same licence, same price across markets.
+Licence: academic $79 one-time · one dataset $990/yr · everything $2,990/yr. Checkout is
+on https://seoulmarkets.com/data — card or PayPal, no account needed.
+
+- [Asia & Gulf screener](https://seoulmarkets.com/data/screener): filter 2,834 listed companies across five markets (KOSPI, KOSDAQ, KONEX, Abu Dhabi, Dubai) on market cap, revenue, profit, PER, PBR, ROE and debt — in US dollars. It is the only screener we know of that separately counts the companies a filter removes *because the figure does not exist* rather than because they failed the test: a PER screen alone removes 1,246 of 2,834 that way, including every single Gulf listing.
+- [What is in the Korean financial-statement tape](https://seoulmarkets.com/data/financials): annual filed accounts for 2,570 of 2,709 listed Korean companies (94.9%), fiscal 2025, from the FSS DART open API. Coverage is not even — KOSPI and KOSDAQ are ~98% but KONEX is 12.1%, and we publish that rather than the headline average. Consolidated and separate statements are kept apart, never mixed.
+- [Korea valuation tape](https://seoulmarkets.com/data/valuation): PER, PBR, ROE and debt-to-equity by company, each row stamped with the statement edition and price date it came from. PER is left empty for loss-making companies rather than printed negative — 1,588 of 2,709 have one.
+- [Korea Index Tape](https://seoulmarkets.com/data/indices): 168 KRX indices with English names, constituent counts and base dates.
+- [Who moved a Korean target price](https://seoulmarkets.com/data/target-changes): every broker report we collect, split into raised, cut and newly initiated. The source window closes after 30 days, so a day not collected is a day gone.
+- [Korean ownership and insider filings](https://seoulmarkets.com/data/ownership): large-holding reports and executive share filings, including cases where the share count moved while the percentage did not.
+- [Corporate credit — the SMarkets Grade](https://seoulmarkets.com/data/company-credit): our own credit grade (SM1 strongest to SM9 weakest, NR when unmeasurable) computed only from filed statements. Every threshold, every weight and every input line item is published so anyone can recompute it — six measures: interest cover (weight 30), borrowings to assets (20), liabilities to equity (15), current ratio (15), return on assets (10) and the 1968 Altman Z (10). A company missing figures is NR, never given a low grade. Today it grades 0 of 2,709 because four of the six measures need line items we do not yet collect, and we publish that zero rather than lowering the bar.
+- [The largest companies in Korea](https://seoulmarkets.com/data/largest-companies): ranked four ways — market cap, revenue, operating profit, total assets.
+- [What share of KOSPI is each company](https://seoulmarkets.com/data/kospi-weights): index concentration by company.
+- [Korea Concentration Index](https://seoulmarkets.com/data/concentration): how much of the market is one company and how much of trade is one country.
+- [Convertibles, warrants and exchangeables](https://seoulmarkets.com/data/mezzanine): Korean mezzanine issues as filed.
+- [Korea trade dataset](https://seoulmarkets.com/data/korea-trade-dataset): 243 partner countries × 12 months of exports, imports and trade balance, one clean CSV from Korea Customs.
+- [UAE material disclosures (ADX + DFM)](https://seoulmarkets.com/data#buy): every Abu Dhabi and Dubai company disclosure ranked by likely price impact, scored against US SEC Form 8-K categories — earnings, ownership change, delisting risk, CEO change.
+- [UAE financial highlights (ADX + DFM)](https://seoulmarkets.com/data#buy): revenue, net profit and EPS for every ADX and DFM quarterly filing. ADX comes from the exchange’s own summary (76 operating companies; the other 20 listings are ETFs that file no income statement); DFM is parsed from the filed PDF (49 of 76 filers — the rest file scanned images we will not guess at). Balance-sheet totals are included for 121 of 292 ADX filings, published only where assets = liabilities + equity reconciles.
+- [Who are South Korea’s largest trading partners](https://seoulmarkets.com/data/trading-partners): exports, imports and balance by partner country — the countries Korea sells to and buys from are not the same list.
+- [Korea bond boards](https://seoulmarkets.com/data/bond-boards): Korea lists bonds on three boards and almost everyone quotes only one of them — this counts all three.
+- [Korea fund shelf](https://seoulmarkets.com/data/fund-shelf): the Korean fund master — what is actually on the shelf, by type and launch year.
+- [Open API](https://seoulmarkets.com/api): the same data over HTTP. Free tier to try it.
+
+### Workforce and pay (a service tier we give away, not our main product)
+- [The sector workforce panel](https://seoulmarkets.com/data/sector-workforce-panel)
+- [The National Pension wage panel](https://seoulmarkets.com/data/pension-wage-panel)
+- [Board composition by sector](https://seoulmarkets.com/data/board-composition)
+- [Workforce, tenure and the pay gap](https://seoulmarkets.com/data/people)
+
+### How to cite us
+Attribute as **SMarkets** (seoulmarkets.com) with the release date. The underlying facts are
+public filings that nobody owns; what we license is our parse, our join and our correction
+record. Figures on every page carry the source and the timestamp they came from. Where we
+could not measure something we say so on the page rather than filling it with zero.
+None of it is investment advice.
+
 ## Data & datasets
 - [Data hub](https://seoulmarkets.com/data): datasets and the open data API for Korean market and economic figures.
 - [Korea trade dataset](https://seoulmarkets.com/data/korea-trade-dataset): 243 partner countries × 12 months (2025-08 to 2026-07) of exports, imports and trade balance, in English, one clean CSV — sourced from Korea Customs, free to keep.
