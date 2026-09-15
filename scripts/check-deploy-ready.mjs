@@ -428,8 +428,31 @@ if (내가실행됐다 && !process.argv.includes('--자가시험')) {
     console.log('\n⛔ 감수 도장 검사를 못 돌렸다 — ' + String(e.message).slice(0, 120) + ' (0 으로 치지 않는다)');
   }
 
+  /* 🔴 [2026-09-15 · 사장님] 「**매시 정각 5번과 소통...소통 안하면 업무 못하게
+     자물쇠..>>>>각 섹션에 통보**」
+     ⇒ 자물쇠를 «배포»에 건다. 커밋에는 안 건다 — 커밋을 막으면 소통 자체를 못 적는다.
+     ⚠ 누가 배포하는지는 CLAUDE_CONFIG_DIR 로 안다(.claude-uN). 자리마다 하나씩이다.
+     ⛔ 못 알아보면 «막지 않는다». 알아볼 수 없는 것을 죄로 물으면 사람이 관문을 끈다. */
+  let 소통막힘 = null;
+  try {
+    const 자 = await import('./매시소통-자물쇠.mjs');
+    const m = String(process.env.CLAUDE_CONFIG_DIR ?? '').match(/.claude-u(d)/);
+    const 나 = m ? m[1] + '번' : null;
+    if (나) {
+      const r = 자.잠겼나(나, 자.대장읽기());
+      if (r.잠겼나) 소통막힘 = r;
+    }
+  } catch (e) {
+    console.log('\n⬜ 매시 소통 자물쇠를 못 쟀다 — ' + String(e.message).slice(0, 80) + ' (0 으로 치지 않는다)');
+  }
+  if (소통막힘) {
+    console.log('\n🔒 **매시 소통을 안 해서 배포가 막혔다** — ' + 소통막힘.까닭);
+    console.log('   푸는 법 — ' + 소통막힘.푸는법);
+    console.log('   ⛔ 뒷문은 없다. 사장님이 「소통 안하면 업무 못하게」라고 정하셨다.');
+  }
+
   const 통과 = 열쇠.맞다 && 최신.최신이다 && 깨끗.깨끗하다 && 사라진것.length === 0
-    && 파일빠짐.빠진것.length === 0 && 감수막을것.length === 0;
+    && 파일빠짐.빠진것.length === 0 && 감수막을것.length === 0 && !소통막힘;
   console.log(판정글({ 열쇠, 최신, 깨끗, 지킴수: 줄들.length, 사라진것, 통과 }));
   console.log('');
   for (const 줄 of 파일줄) console.log(줄);
