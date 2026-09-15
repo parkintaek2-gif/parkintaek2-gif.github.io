@@ -137,6 +137,23 @@ export function 공시무게(항목) {
   if (/change in .*shareholding|substantial shareholding|major shareholding/i.test(title)) {
     return { 무게: 8, 태그: 'ownership-change' };
   }
+  /*
+   * 🔴 [2026-09-16 · 6번 · 5번 지시, 9/17 21:00] credit-rating — 「기업신용정보」 상품과
+   * 바로 이어지는 태그다. S&P·Moody's·Fitch·Capital Intelligence 는 유료지만, **회사가
+   * 자기 입으로 그 결과를 거래소에 공시**하면 그것은 공시 자료다(재무제표와 같은 법정
+   * 공시 성격 — docs/UAE-데이터-출처-라이선스.md 1-2절 논리 그대로).
+   * 실측(2026-09-16, archive/raw/uae-adx-disclosures 97개 파일 전수 검색)으로 잡은 실제
+   * 제목 — "RAKBANK - Credit Rating by Moody's/Fitch/Capital Intelligence",
+   * "RAKBANK's Credit Ratings Reaffirmed by Moody's with Positive Outlook Maintained",
+   * "Announcement on Credit Rating", "Credit Rating Disclosure",
+   * "Burjeel Holdings Assigned BB+ by S&P and Ba2 by Moody's...",
+   * "Invest Bank's Standalone Rating and Core Financial Strength raised by Capital Intelligence".
+   * ⚠ 회사가 «자발적으로» 낼 때만 잡힌다 — 인도 NSE(Reg 30, 전 상장사 의무)처럼 전수가
+   * 아니다. 지면에 그 사실을 적는다(company-credit.astro 참고).
+   */
+  if (/credit rating|rating(?:s)?\s+(?:reaffirmed|affirmed|assigned|upgraded|downgraded|revised)\b|(?:assigned|affirmed|upgraded|downgraded|raised|lowered)[^.]{0,60}\bby\s+(?:s&p|moody|fitch|capital intelligence|standard\s*&\s*poor)/i.test(title)) {
+    return { 무게: 7, 태그: 'credit-rating' };
+  }
   if (dt === '5' && /results|outcome/i.test(sub)) return { 무게: 6, 태그: 'board-outcome' };
   if (dt === '2') return { 무게: 5, 태그: 'exchange-notice' }; // 확신 없음 — 사람이 읽는다(주석 참고)
   if (/AED\s*[\d.,]+\s*(billion|bn|million|mn)/i.test(title)) return { 무게: 5, 태그: 'large-value-announcement' };
@@ -233,6 +250,29 @@ function 자가시험() {
   const 추린것 = 공시추리기(가짜목록);
   재다('공시추리기: 3건 다 남고 무게순 정렬(재무가 먼저)', 추린것.length === 3 && 추린것[0].태그 === 'financial-report');
   재다('공시추리기: 절차성 공시가 맨 뒤로 간다', 추린것[2].태그 === 'board-procedural');
+
+  /* 🔴 [2026-09-16] credit-rating — 실제 제목(archive/raw/uae-adx-disclosures 전수 검색, 2026-09-16) */
+  재다("실측: RAKBANK - Credit Rating by Moody's → credit-rating",
+    공시무게({ disclosureType: '4', title: "RAKBANK - Credit Rating by Moody's" }).태그 === 'credit-rating');
+  재다('실측: "RAKBANK - Credit Rating by Fitch" → credit-rating',
+    공시무게({ disclosureType: '4', title: 'RAKBANK - Credit Rating by Fitch' }).태그 === 'credit-rating');
+  재다('실측: "Rakbank - Credit Rating by Capital Intelligence" → credit-rating',
+    공시무게({ disclosureType: '4', title: 'Rakbank - Credit Rating by Capital Intelligence' }).태그 === 'credit-rating');
+  재다("실측: RAKBANK's Credit Ratings Reaffirmed by Moody's with Positive Outlook Maintained → credit-rating",
+    공시무게({ disclosureType: '4', title: "RAKBANK's Credit Ratings Reaffirmed by Moody's with Positive Outlook Maintained" }).태그 === 'credit-rating');
+  재다('실측: "Announcement on Credit Rating" → credit-rating',
+    공시무게({ disclosureType: '4', title: 'Announcement on Credit Rating' }).태그 === 'credit-rating');
+  재다('실측: "Credit Rating Disclosure" → credit-rating',
+    공시무게({ disclosureType: '4', title: 'Credit Rating Disclosure' }).태그 === 'credit-rating');
+  재다("실측: Burjeel Holdings Assigned BB+ by S&P and Ba2 by Moody's → credit-rating",
+    공시무게({ disclosureType: '4', title: "Burjeel Holdings Assigned BB+ by S&P and Ba2 by Moody's; Establishes USD 1.5 Billion Sukuk Programme" }).태그 === 'credit-rating');
+  재다("실측: \"Invest Bank's Standalone Rating and Core Financial Strength raised by Capital Intelligence\" → credit-rating",
+    공시무게({ disclosureType: '4', title: "Invest Bank's Standalone Rating and Core Financial Strength raised by Capital Intelligence" }).태그 === 'credit-rating');
+  재다('credit-rating 무게는 7이다', 공시무게({ disclosureType: '4', title: 'Credit Rating Disclosure' }).무게 === 7);
+  재다('⛔ 오탐 방지: ETF 상품명의 "S&P"는 credit-rating 이 아니다',
+    공시무게({ disclosureType: '4', title: 'Boreas S&P AI Data, Power & Infrastructure UCITS ETF – AED (Dist) FACT Sheet' }).태그 !== 'credit-rating');
+  재다('⛔ 오탐 방지: 그냥 "Rating" 단어만으로는 안 잡는다(등급이 바뀌었다는 동사가 있어야 한다)',
+    공시무게({ disclosureType: '4', title: 'Company mentions its rating in an unrelated announcement' }).태그 !== 'credit-rating');
 
   const 실패 = 것.filter((x) => !x.됐나);
   console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);
