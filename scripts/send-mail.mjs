@@ -29,10 +29,18 @@
  *   node scripts/send-mail.mjs --selftest
  */
 import { readFileSync, existsSync, appendFileSync, writeFileSync } from 'node:fs';
-import { createSign } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+/*
+ * 🔴 [2026-09-16 · 6번] MIME 조립·JWT·발송은 이제 src/lib/gmail-send.mjs 「한 곳」에만 있다.
+ *   server.mjs(결제 뒤 자동 발송)도 같은 것을 쓴다 — 두 곳에 있으면 나중에 어긋난다.
+ *   이 파일은 CLI 껍데기(인자 파싱·미리보기·진단·기록)만 남긴다.
+ */
+import {
+  제목인코딩, 종류고르기, 첨부이름인코딩, 편지만들기, 감싸기,
+  키읽기, jwt만들기, 위임토큰받기, 메일보내기,
+} from '../src/lib/gmail-send.mjs';
 
 (function 환경파일읽기() {
   try {
@@ -154,97 +162,8 @@ export function 받을만한주소인가(주소) {
   return { 된다: true, 까닭: null };
 }
 
-/**
- * RFC 2822 한 통. ⛔ 제목에 한글·한자가 들면 **그대로 넣으면 깨진다** —
- *   MIME 인코딩(=?UTF-8?B?...?=)으로 감싼다. 2026-08-23 에 이걸 빼고 짰다가 자가시험에서 걸렸다.
- */
-export function 제목인코딩(제목) {
-  const s = String(제목 ?? '');
-  if (/^[\x20-\x7E]*$/.test(s)) return s;
-  return `=?UTF-8?B?${Buffer.from(s, 'utf8').toString('base64')}?=`;
-}
-
-/**
- * 파일 이름으로 MIME 종류를 고른다. ⛔ 모르는 것은 «모른다»고 두고 octet-stream 을 쓴다 —
- *   지어낸 종류를 적으면 받는 쪽이 열지 못한다.
- */
-export function 종류고르기(파일이름) {
-  const n = String(파일이름 ?? '').toLowerCase();
-  if (n.endsWith('.pdf')) return 'application/pdf';
-  if (n.endsWith('.xlsx')) return 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-  if (n.endsWith('.docx')) return 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
-  if (n.endsWith('.csv')) return 'text/csv';
-  if (n.endsWith('.tsv')) return 'text/tab-separated-values';
-  if (n.endsWith('.md') || n.endsWith('.txt')) return 'text/plain';
-  if (n.endsWith('.png')) return 'image/png';
-  if (n.endsWith('.jpg') || n.endsWith('.jpeg')) return 'image/jpeg';
-  return 'application/octet-stream';
-}
-
-/**
- * 첨부 이름을 헤더에 안전하게 적는다. ⛔ 한글 파일이름을 그대로 넣으면 깨진다 —
- *   제목과 같은 MIME 인코딩으로 감싼다. (2026-09-03 에 실측: 우리 보고서 이름이 다 한글이다)
- */
-export function 첨부이름인코딩(이름) {
-  return 제목인코딩(이름);
-}
-
-/**
- * 편지 한 통. 첨부가 있으면 multipart/mixed 로 짠다.
- *
- * 🔴 [2026-09-03] **사장님: 「pdf첨부 빠짐」**
- *   이 자에 «첨부 기능이 아예 없었다.** 그런데 나는 `--첨부=…` 를 붙여 보내고
- *   「첨부했다」고 믿었다. 인자() 가 모르는 인자를 조용히 버리기 때문이다.
- *   ⛔ **조용히 성공한 척하는 것이 제일 나쁘다** — CLAUDE.md 의 `undeploy` 사고와 같은 꼴이다.
- *   그래서 두 가지를 같이 고쳤다: (1) 첨부를 실제로 붙인다 (2) 모르는 인자를 «거부»한다.
- *   ⚠ 그 전에 나간 보고 메일 셋(9/3 06:51·07:07·16:30)에는 첨부가 «없이» 갔다.
- */
-export function 편지만들기({ 받는곳, 제목, 글, 첨부들 = [], 보내는곳 = 보내는주소, 이름 = 보내는이름 }) {
-  const 글64 = (t) => Buffer.from(String(t ?? ''), 'utf8').toString('base64').replace(/(.{76})/g, '$1\n');
-
-  if (!첨부들.length) {
-    return [
-      `From: ${이름} <${보내는곳}>`,
-      `To: ${받는곳}`,
-      `Subject: ${제목인코딩(제목)}`,
-      'MIME-Version: 1.0',
-      'Content-Type: text/plain; charset="UTF-8"',
-      'Content-Transfer-Encoding: base64',
-      '',
-      글64(글),
-    ].join('\r\n');
-  }
-
-  /* 경계 글자는 본문에 나올 수 없는 것이어야 한다 */
-  const 경계 = '----klifedesign-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
-  const 줄들 = [
-    `From: ${이름} <${보내는곳}>`,
-    `To: ${받는곳}`,
-    `Subject: ${제목인코딩(제목)}`,
-    'MIME-Version: 1.0',
-    `Content-Type: multipart/mixed; boundary="${경계}"`,
-    '',
-    `--${경계}`,
-    'Content-Type: text/plain; charset="UTF-8"',
-    'Content-Transfer-Encoding: base64',
-    '',
-    글64(글),
-  ];
-  for (const a of 첨부들) {
-    줄들.push(
-      `--${경계}`,
-      `Content-Type: ${종류고르기(a.이름)}; name="${첨부이름인코딩(a.이름)}"`,
-      'Content-Transfer-Encoding: base64',
-      `Content-Disposition: attachment; filename="${첨부이름인코딩(a.이름)}"`,
-      '',
-      a.내용.toString('base64').replace(/(.{76})/g, '$1\n'),
-    );
-  }
-  줄들.push(`--${경계}--`, '');
-  return 줄들.join('\r\n');
-}
-
-export const 감싸기 = (편지) => Buffer.from(편지, 'utf8').toString('base64url');
+/* 🔴 제목인코딩·종류고르기·첨부이름인코딩·편지만들기·감싸기는 이제 src/lib/gmail-send.mjs 에서 온다
+   (위 import). 여기서 두 벌로 지키면 언젠가 어긋난다 — 「한 곳에서만 보낸다」. */
 
 /** 막힌 것을 갈라 적는다. ⛔ 「실패」로 뭉개지 않는다 */
 export function 무엇이막혔나(글) {
@@ -354,13 +273,16 @@ if (내가실행됐다 && process.argv.includes('--selftest')) {
   참('감싼 제목을 되돌릴 수 있다',
     Buffer.from(제목인코딩('안녕').slice(10, -2), 'base64').toString('utf8') === '안녕');
 
-  const 편지 = 편지만들기({ 받는곳: 'a@b.com', 제목: 'Subject line', 글: 'Body here' });
+  /* ⛔ [2026-09-16] 보내는곳·이름을 «명시»한다 — 임포트한 편지만들기() 는 기본값으로
+     gmail-send.mjs 자신의 보내는주소를 쓰는데, 아래 판정은 이 파일의 보내는주소를 본다.
+     둘이 다르면(서버 프로세스처럼 CLAUDE_SEAT 이 없을 때) 시험이 헛돈다. */
+  const 편지 = 편지만들기({ 받는곳: 'a@b.com', 제목: 'Subject line', 글: 'Body here', 보내는곳: 보내는주소, 이름: 보내는이름 });
 
   /* 🔴 [2026-09-03] 사장님 「pdf첨부 빠짐」 — 이 자에 첨부 기능이 «없었다».
      그런데 나는 --첨부 를 붙여 보내고 「첨부했다」고 믿었다. 아래 시험들이 그것을 막는다. */
   {
     const 붙인편지 = 편지만들기({
-      받는곳: 'a@b.com', 제목: '보고', 글: '본문',
+      받는곳: 'a@b.com', 제목: '보고', 글: '본문', 보내는곳: 보내는주소, 이름: 보내는이름,
       첨부들: [{ 이름: '보고서.pdf', 내용: Buffer.from('PDF-1.7 어쩌고') }],
     });
     참('첨부가 있으면 multipart/mixed 다', 붙인편지.includes('multipart/mixed'));
@@ -449,22 +371,11 @@ if (내가실행됐다) {
     console.log('⚠ 서비스 계정 키파일이 없다 — **못 보냈다.**');
     process.exit(0);
   }
-  const 키 = JSON.parse(readFileSync(키파일, 'utf8'));
+  const 키 = 키읽기();
+  if (!키) { console.log('⚠ 서비스 계정 키파일을 읽지 못했다 — **못 보냈다.**'); process.exit(0); }
 
-  /**
-   * 🔴 `sub` 를 인자로 받게 고쳤다 — 두 주소로 청해 봐야 **무엇이 막혔는지 가려진다.**
-   *   고정해 두면 `invalid_grant` 하나만 보고 끝나서 사장님께 「둘 중 하나」밖에 못 드린다.
-   */
-  const jwt만들기 = (대신할주소 = 보내는주소) => {
-    const 지금 = Math.floor(Date.now() / 1000);
-    const h = Buffer.from(JSON.stringify({ alg: 'RS256', typ: 'JWT' })).toString('base64url');
-    /* ⭐ `sub` 가 도메인 위임의 핵심이다 — 「이 사람을 대신해서」라는 뜻 */
-    const b = Buffer.from(JSON.stringify({
-      iss: 키.client_email, sub: 대신할주소, scope: 갈래,
-      aud: 'https://oauth2.googleapis.com/token', iat: 지금, exp: 지금 + 3600,
-    })).toString('base64url');
-    return `${h}.${b}.${createSign('RSA-SHA256').update(`${h}.${b}`).sign(키.private_key, 'base64url')}`;
-  };
+  /* 🔴 [2026-09-16] jwt만들기() 는 이제 src/lib/gmail-send.mjs 에서 온다(server.mjs 도 같이 쓴다).
+     `sub`(대신할 주소)를 매번 명시한다 — 고정해 두면 두 주소를 못 가린다(아래 --가린다). */
 
   const 막혔다 = (제목, 글) => {
     const m = 무엇이막혔나(글);
@@ -490,7 +401,7 @@ if (내가실행됐다) {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({
             grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
-            assertion: jwt만들기(주소),
+            assertion: jwt만들기(키, 주소),
           }),
         });
         const j = await r.json();
@@ -574,18 +485,8 @@ if (내가실행됐다) {
 
   console.log(`메일 — 보내는 주소 ${보내는주소} · 서비스 계정 ${키.client_email}`);
 
-  let 토큰 = null;
   try {
-    const r = await fetch('https://oauth2.googleapis.com/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer', assertion: jwt만들기(),
-      }),
-    });
-    const j = await r.json();
-    if (!j.access_token) throw new Error(JSON.stringify(j));
-    토큰 = j.access_token;
+    await 위임토큰받기(키, 보내는주소);
   } catch (e) {
     막혔다('위임 토큰을 못 받았다', e.message);
     process.exit(0);
@@ -681,14 +582,10 @@ if (내가실행됐다) {
     process.exit(0);
   }
 
-  const r2 = await fetch('https://gmail.googleapis.com/gmail/v1/users/me/messages/send', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${토큰}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({ raw: 감싸기(편지만들기({ 받는곳, 제목, 글, 첨부들 })) }),
-  });
-  const j2 = await r2.json();
-  if (j2.error) { 막혔다('보내다가 막혔다', j2.error.message); process.exit(1); }
-  console.log(`\n✅ 보냈다 — 메시지 id ${j2.id}`);
+  /* 🔴 [2026-09-16] 실제 발송도 이제 gmail-send.mjs 의 메일보내기() — server.mjs 와 같은 길 */
+  const 결과 = await 메일보내기({ 받는곳, 제목, 글, 첨부들, 보내는곳: 보내는주소, 이름: 보내는이름, 대신할주소: 보내는주소 });
+  if (!결과.ok) { 막혔다('보내다가 막혔다', 결과.왜); process.exit(1); }
+  console.log(`\n✅ 보냈다 — 메시지 id ${결과.id}`);
   console.log('   ⭐ 보낸 날을 문서에 적는다. 무응답을 「허락」으로 읽지 않기 위한 기준선이다.');
 
   /*
@@ -712,7 +609,7 @@ if (내가실행됐다) {
      * ⛔ 시각은 어림하지도, 다른 시간대로 적지도 않는다. 무엇으로 적었는지 칸에 밝힌다.
      */
     const 때 = new Date().toLocaleString('sv-SE', { timeZone: 'Asia/Seoul' }).slice(0, 16);
-    const 한줄 = [때, 보내는주소, 받는곳, String(제목).split(칸).join(' '), j2.id].join(칸);
+    const 한줄 = [때, 보내는주소, 받는곳, String(제목).split(칸).join(' '), 결과.id].join(칸);
     appendFileSync(적을길, 한줄 + 줄끝);
     console.log(`   ✔ 기록했다 — docs/보낸메일.tsv (${때})`);
 

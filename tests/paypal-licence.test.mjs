@@ -125,6 +125,32 @@ test('🔴 다른 상품 값으로는 통과 못 한다 — $79 내고 $2,990 �
   assert.equal(승인읽기(잘된답(상품.single.usd), 상품.all).ok, false);
 });
 
+/* ── 승인읽기 — 구매자 메일 (2026-09-16 · 「회원가입 안하면 정보를 어떻게 보내지?」) ── */
+
+test('✅ 메일 있음 — payer.email_address 를 함께 낸다', () => {
+  const 답 = 잘된답('990.00');
+  답.payer = { email_address: 'buyer@example.com', name: { given_name: 'Jane', surname: 'Doe' } };
+  const r = 승인읽기(답, 상품.single);
+  assert.equal(r.ok, true);
+  assert.equal(r.산사람메일, 'buyer@example.com');
+  assert.equal(r.산사람이름, 'Jane Doe');
+});
+
+test('⛔ 메일 없음 — payer 가 통째로 없어도 결제는 그대로 성공이고, 메일칸은 null 이다', () => {
+  const r = 승인읽기(잘된답('990.00'), 상품.single);
+  assert.equal(r.ok, true, '메일이 없다고 결제 자체가 막히면 안 된다');
+  assert.equal(r.산사람메일, null, '없으면 null — 빈 문자열로 두지 않는다');
+  assert.equal(r.산사람이름, null);
+});
+
+test('⛔ payer 는 있는데 email_address 만 없어도 null 이다(빈 문자열이 아니다)', () => {
+  const 답 = 잘된답('990.00');
+  답.payer = { name: { given_name: 'Jane' } };
+  const r = 승인읽기(답, 상품.single);
+  assert.equal(r.산사람메일, null);
+  assert.equal(r.산사람이름, 'Jane', '성이 없으면 이름만으로도 낸다');
+});
+
 /* ── 열쇠가 없을 때 — 되는 척하지 않는다 ─────────────────── */
 
 test('⛔ 열쇠가 없으면 꺼진 것으로 본다. 화면에 결제 단추를 내지 않는다', () => {

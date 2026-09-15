@@ -21,6 +21,7 @@ import { 경로후보 } from './src/lib/url-path.mjs';
 import { 센다, flush할때되면, 유입표, 현황 as 유입현황 } from './src/lib/traffic.mjs';
 /* 🔴 [2026-09-13 · 5번] 달러 결제 — 사장님: 「페이팔 결제붙여」·「이런 절차 필요없이 바로 결제」 */
 import * as 페이팔 from './src/lib/paypal.mjs';
+import { 메일보내기 } from './src/lib/gmail-send.mjs';
 import { 상품, 상품찾기 } from './src/data/licence-products.mjs';
 import { 데이터셋목록, 데이터셋찾기, 줄파일들, 골라야하나 } from './src/data/licence-datasets.mjs';
 import { 묶기 } from './src/lib/tar-gz.mjs';
@@ -590,6 +591,46 @@ const handle = async (req, res) => {
           + (골른것 ? '&dataset=' + encodeURIComponent(골른것.코드) : '');
         res.writeHead(200, 헤더);
         res.end(JSON.stringify({ ok: true, downloadUrl: 받는곳, receipt: 결과.결제번호 }));
+
+        /*
+         * 🔴 [2026-09-15 · 5번→6번 · 사장님 지시 「회원가입 안하면 정보를 어떻게 보내지?」]
+         *   회원가입도 DB 도 없어, 손님이 탭을 닫으면 화면의 링크가 유일한 증거였다.
+         *   페이팔이 승인 응답에 준 구매자 메일로 편지를 보낸다 — 유일한 안전망을 하나 더 둔다.
+         *
+         * ⛔ **응답은 이미 위에서 나갔다.** 편지가 막혀도 결제는 이미 성공한 뒤다.
+         *   메일보내기() 는 절대 던지지 않으므로 catch 는 방어일 뿐이다.
+         * 🔴 손님 이메일 주소는 저장소·로그·docs/보낸메일.tsv 어디에도 적지 않는다
+         *   (사장님 지시 — 「실제 사람의 사적인 내용은 공용 저장소에 적지 않는다」).
+         *   아래 실패 로그에도 주소를 담지 않는다 — 주문번호까지만 남긴다.
+         */
+        if (결과.산사람메일) {
+          const 상품이름 = 품.이름 + (골른것 ? ' — ' + 골른것.이름 : '');
+          const 받을주소 = 'https://seoulmarkets.com' + 받는곳;
+          메일보내기({
+            받는곳: 결과.산사람메일,
+            제목: 'Your SMarkets order — ' + 상품이름,
+            글: [
+              (결과.산사람이름 ? `Hi ${결과.산사람이름},` : 'Hi,'),
+              '',
+              `Thank you for your order — ${상품이름}.`,
+              '',
+              `Download your files: ${받을주소}`,
+              '',
+              `Order ID: ${입력.orderID}`,
+              `Receipt: ${결과.결제번호}`,
+              '',
+              'This link does not expire. If you ever lose it, go to',
+              'https://seoulmarkets.com/recover and enter the order ID above',
+              '— PayPal also emailed you this same order ID in your receipt.',
+              '',
+              'Questions? Write to admin@klifedesign.net',
+              '',
+              '— SMarkets (seoulmarkets.com)',
+            ].join('\n'),
+          }).then((r) => {
+            if (!r.ok) console.error('[pay-mail] order ' + 입력.orderID + ' — 편지를 못 보냈다: ' + r.왜);
+          }).catch(() => { /* 메일보내기() 는 던지지 않는다 — 방어용 */ });
+        }
         return;
       } catch (e) {
         console.error('[pay] ' + pathname + ' —', e?.message ?? e);

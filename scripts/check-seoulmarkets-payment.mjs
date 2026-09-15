@@ -42,6 +42,13 @@
  * ⛔ 안 한다  /api/pay/capture — **그것이 돈이 오가는 자리다.**
  *           사장님 지시: 「결제, 입출금 등 돈이 직접 오가는 건만 승인받도록」
  * ```
+ *
+ * ── 🔴 [2026-09-16 · 6번] 손님길 «넷째 다리» — 산 사람에게 편지가 갈 수 있나 ──────
+ * 사장님 「회원가입 안하면 정보를 어떻게 보내지?」(9/16 21시) 뒤로 결제 성공 시
+ * server.mjs 가 페이팔이 준 구매자 메일로 편지를 보낸다(src/lib/gmail-send.mjs).
+ * `--자가시험`에 이 다리를 넣었다 — paypal.mjs 의 순수함수 `승인읽기()`가 승인 응답에서
+ * 메일을 뽑아내는지만 잰다. ⛔ 여기서 real capture 를 부르지 않는다 — 진짜 편지를
+ * 보내 보려면 진짜 결제(돈이 오간다)가 있어야 하고, 그것은 이 자가 재는 범위 밖이다.
  * ⚠ 주문을 «만드는 것»은 돈이 움직이지 않는다(승인은 capture 에서 일어난다).
  *   그래서 주문 만들기까지가 승인 없이 잴 수 있는 끝이고, 여기서 멈춘다.
  */
@@ -49,6 +56,8 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { 승인읽기 } from '../src/lib/paypal.mjs';
+import { 상품 as 상품표 } from '../src/data/licence-products.mjs';
 
 const 뿌리 = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const 사이트 = 'https://seoulmarkets.com';
@@ -386,6 +395,25 @@ export function 자가시험() {
   재다('막힌 것이 여럿이면 다 센다',
     팔리나({ 설정: { enabled: true, live: false, currency: 'KRW', clientId: '' }, 정본, 주문: null, 단추 })
       .막힌것.length >= 4);
+
+  /**
+   * ── 손님길 «넷째 다리» — 산 사람에게 편지가 갈 수 있나 ─────────────────
+   * 🔴 [2026-09-15 · 5번→6번 · 사장님 지시, 9/16 21시] 「회원가입 안하면 정보를
+   *   어떻게 보내지?」 — 페이팔 승인 응답에서 구매자 메일을 «뽑을 수 있나»만 잰다.
+   * ⛔ 여기서 진짜 편지를 보내 보지는 않는다 — 그러려면 진짜 결제(돈이 오간다)가 필요하다.
+   *   그래서 real capture 를 부르지 않고, paypal.mjs 의 순수함수 승인읽기() 만 시험한다.
+   */
+  {
+    const 잘된답 = (메일있음) => ({
+      status: 'COMPLETED',
+      purchase_units: [{ payments: { captures: [{ id: 'CAP1', status: 'COMPLETED', amount: { currency_code: 'USD', value: 상품표.single.usd } }] } }],
+      ...(메일있음 ? { payer: { email_address: 'buyer@example.com', name: { given_name: 'Jane', surname: 'Doe' } } } : {}),
+    });
+    재다('넷째 다리 — 메일 «있는» 응답에서 뽑아낸다',
+      승인읽기(잘된답(true), 상품표.single).산사람메일 === 'buyer@example.com');
+    재다('넷째 다리 — 메일 «없는» 응답도 결제는 성공, 메일칸은 null',
+      (() => { const r = 승인읽기(잘된답(false), 상품표.single); return r.ok === true && r.산사람메일 === null; })());
+  }
 
   const 실패 = 것.filter((x) => !x.됐나);
   console.log(`■ 자가시험 ${것.length - 실패.length}/${것.length}`);

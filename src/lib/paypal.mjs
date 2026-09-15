@@ -115,7 +115,15 @@ export async function 승인확인(주문번호, 상품, 부르기 = fetch) {
   return 승인읽기(j, 상품);
 }
 
-/** 페이팔 답을 읽어 «정말로 받았나»를 가른다. 순수함수라 시험할 수 있다 */
+/**
+ * 페이팔 답을 읽어 «정말로 받았나»를 가른다. 순수함수라 시험할 수 있다.
+ *
+ * 🔴 [2026-09-15 · 5번→6번 · 사장님 지시, 9/16 21시] 「회원가입 안하면 정보를 어떻게
+ *   보내지?」 — 페이팔 승인 응답에 `payer.email_address`(구매자 메일)가 들어 있는데
+ *   여태 여기서 «버리고» 있었다. 이제 함께 낸다 — server.mjs 가 이것으로 손님에게
+ *   내려받기 링크를 편지로 보낸다.
+ * ⛔ 없으면 null 이다. 「없다」를 빈 문자열로 두면 나중에 빈 문자열로 메일을 보내려 든다.
+ */
 export function 승인읽기(답, 상품) {
   /* ⛔ [2026-09-13] 검사가 잡았다 — 상품이 없으면 아래에서 터졌다.
        「무엇을 샀는지 모르는 결제」는 터질 일이 아니라 «막을» 일이다. */
@@ -132,7 +140,16 @@ export function 승인읽기(답, 상품) {
   if (센트(금액.value) !== 센트(상품.usd)) {
     return { ok: false, 왜: 'wrong amount: got ' + 금액.value + ', expected ' + 상품.usd };
   }
-  return { ok: true, 결제번호: 잡힌것.id, 금액: 금액.value };
+  const 산사람 = 답.payer || {};
+  const 이름칸 = 산사람.name || {};
+  const 산사람이름 = [이름칸.given_name, 이름칸.surname].filter(Boolean).join(' ') || null;
+  return {
+    ok: true,
+    결제번호: 잡힌것.id,
+    금액: 금액.value,
+    산사람메일: 산사람.email_address || null,
+    산사람이름,
+  };
 }
 
 /**
