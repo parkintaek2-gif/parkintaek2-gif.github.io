@@ -310,6 +310,43 @@ function PDF글(주소, 자리) {
  */
 export const OCR자 = 'C:/Program Files/Tesseract-OCR/tesseract.exe';
 
+/**
+ * 🔴 [2026-09-17 실측] **단위도 통화도 문서마다 다르다. 둘 다 읽는다.**
+ *
+ * 6번 자의 `단위힌트()` 는 앞 6000자만 본다. 그런데 실측해 보니 —
+ * ```
+ *   ADNH    앞 6000자에 없음 · 글 전체에는 AED'000 이 84번
+ *   ADCB    AED'000 160번
+ *   ADNOCGAS  🔴 **USD'000** 117번 — AED 가 아니다
+ *   ABNIC   표기 없음 (실단위로 적는 판)
+ * ```
+ * ⛔ 칸 이름이 `total_assets_aed` 라 «AED» 처럼 보이지만 **아니다.**
+ *   ADNOC 계열은 달러로 보고한다. 통화를 안 적으면 걸프 전체 비교가 통째로 틀린다.
+ * ✅ 그래서 글 «전체»에서 세어 **가장 많이 나온 표기**를 쓴다. 한 보고서 안에서
+ *   표 머리마다 되풀이되므로 압도적으로 많은 쪽이 그 보고서의 단위다.
+ * ⛔ 못 찾으면 «비운다». 「표기가 없으니 실단위겠지」로 채우지 않는다 — 천 배가 걸린 일이다.
+ */
+export function 단위읽기(글) {
+  const t = String(글 ?? '');
+  const 셈 = {};
+  const 더 = (열쇠, n) => { if (n) 셈[열쇠] = (셈[열쇠] || 0) + n; };
+  for (const 돈 of ['AED', 'USD']) {
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`${돈}[ '’]*000\b`, 'gi')) || []).length);
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`${돈}\s*thousands?\b`, 'gi')) || []).length);
+    더(`${돈} million`, (t.match(new RegExp(String.raw`${돈}\s*millions?\b`, 'gi')) || []).length);
+    더(`${돈} million`, (t.match(new RegExp(String.raw`millions?\s+of\s+${돈}`, 'gi')) || []).length);
+    /* ⚠ 「UAE Dirhams」는 AED 일 때만 붙인다 — 두 통화 루프에 다 넣었더니 같은 글을
+       AED 로도 USD 로도 세어 «엇비슷»이 되고 둘 다 버려졌다(자가시험이 잡았다). */
+    const 딴이름 = 돈 === 'AED' ? String.raw`|UAE\s+Dirhams?|Dirhams?` : '';
+    더(`${돈}'000`, (t.match(new RegExp(String.raw`thousands?\s+of\s+(?:${돈}${딴이름})`, 'gi')) || []).length);
+  }
+  const 줄 = Object.entries(셈).filter(([, n]) => n > 0).sort((a, b) => b[1] - a[1]);
+  if (!줄.length) return null;
+  /* ⚠ 1·2등이 엇비슷하면 «못 정했다»로 둔다 — 두 통화가 섞인 문서를 우리가 고르지 않는다 */
+  if (줄.length > 1 && 줄[1][1] > 0 && 줄[0][1] < 줄[1][1] * 2) return null;
+  return 줄[0][0];
+}
+
 /** 글자가 거의 없는 쪽 번호들 — 그 쪽이 그림이다 */
 export function 빈쪽찾기(pdf자리, 최대쪽 = 60) {
   const 것 = [];
@@ -395,6 +432,17 @@ function 자가시험() {
   /* 고른 자리에 맞는 짝이 없으면 그때는 비운다 — 아무거나 끌어오지 않는다 */
   const 못고름 = 검산해서고른다([1234567, 1000000, 2000000], [600000, 1200000], [400000, 800000]);
   다('🔴 고른 자리에 짝이 없으면 비운다', 못고름.됐나 === false && /ambiguous/.test(못고름.왜));
+
+  /* 🔴 단위·통화를 읽는다 — 안 적으면 천 배가 틀리고, 통화를 섞으면 나라 비교가 통째로 틀린다 */
+  다('AED\'000 을 읽는다', 단위읽기("AED'000 ".repeat(10)) === "AED'000");
+  다('🔴 USD 로 내는 회사도 있다 — 통화를 가른다', 단위읽기("USD'000 ".repeat(10)) === "USD'000");
+  다('백만 단위도 읽는다', 단위읽기('AED million '.repeat(10)) === 'AED million');
+  다('「thousands of UAE Dirhams」 도 읽는다', 단위읽기('in thousands of UAE Dirhams '.repeat(6)) === "AED'000");
+  다('표기가 없으면 null — 「없으니 실단위겠지」로 채우지 않는다', 단위읽기('Total assets 1,000') === null);
+  다('🔴 두 통화가 엇비슷하게 섞이면 «못 정했다»로 둔다',
+    단위읽기("AED'000 ".repeat(5) + "USD'000 ".repeat(4)) === null);
+  다('한쪽이 압도적이면 그것을 쓴다', 단위읽기("AED'000 ".repeat(20) + "USD'000 ") === "AED'000");
+  다('빈 것도 견딘다', 단위읽기('') === null && 단위읽기(null) === null);
 
   다('스캔(글자 없음)은 그렇게 적는다', 글에서뽑는다('짧다').왜 === 'scanned-image');
   다('빈 것도 견딘다', 글에서뽑는다('').됐나 === false && 글에서뽑는다(null).됐나 === false);
@@ -526,6 +574,43 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   /* 🔴 [2026-09-17] **왜 못 뽑나 — 우리 자 탓인가 PDF 탓인가.** 짐작하지 않고 센다.
    *   라벨을 아무리 넓혀도 «글자가 없는 쪽»은 못 읽는다. 그런 문서가 몇이나 되는지 세면
    *   OCR 을 붙일 값이 있는지 정할 수 있다. ⛔ 「PDF 탓이다」를 재지 않고 적지 않는다. */
+  /* 🔴🔴 [2026-09-17 02:0x] **단위를 안 적으면 이 수들은 쓸 수 없다.**
+   *
+   *   ADCB 한 회사 안에서 값이 이렇게 갈려 있었다 —
+   *     833,184 · 808,857 · 773,654   (앞 사람이 적은 것)
+   *     744,273,269                   (내가 적은 것)
+   *   둘 다 맞다. **단위가 다를 뿐이다**(백만 AED 와 천 AED).
+   *   ⛔ 단위 없이 PBR·ROE 를 내면 천 배 틀린다. 그리고 틀린 수 하나가
+   *     옳은 스물셋을 같이 의심받게 한다.
+   *   ⚠ 칸 이름이 `total_assets_aed` 라 «AED 단위»처럼 보이는 것도 함정이다 —
+   *     실제로는 «그 보고서에 적힌 단위»다.
+   *   ✅ 값을 우리가 곱해서 맞추지 않는다. 곱하다 틀리면 조용히 틀린다.
+   *     보고서에 적힌 단위를 «읽어서 적어만» 둔다(6번 자의 원칙을 그대로 따른다).
+   */
+  else if (process.argv.includes('--단위채우기')) {
+    const t = JSON.parse(fs.readFileSync(탭길, 'utf8'));
+    const 줄들 = (t.rows || t).filter((x) => x.eng_pdf_url && x.total_assets_aed != null && !x.unit_hint);
+    console.log(`■ 값은 있는데 «단위»가 없는 줄 ${줄들.length}개\n`);
+    let 채움 = 0; let 못찾음 = 0; let 센것 = 0;
+    for (const r of 줄들) {
+      센것 += 1;
+      const 자리 = `C:/Users/User/AppData/Local/Temp/_bs_u_${r.exchange}_${r.symbol}.pdf`;
+      let 단위 = null;
+      try { 단위 = 단위읽기(PDF글(r.eng_pdf_url, 자리)); } catch { /* 못 받으면 못 찾은 것으로 친다 */ }
+      try { fs.unlinkSync(자리); } catch { /* 지워도 그만 */ }
+      if (단위) { r.unit_hint = 단위; 채움 += 1; } else { 못찾음 += 1; }
+      if (센것 % 20 === 0 && process.argv.includes('--적는다')) {
+        fs.writeFileSync(탭길, JSON.stringify(t, null, 1));
+        console.log(`   … ${센것}/${줄들.length} (채움 ${채움} · 못 찾음 ${못찾음})`);
+      }
+    }
+    console.log(`\n■ 단위를 찾아 적은 것 ${채움} · 못 찾은 것 ${못찾음}`);
+    console.log('⛔ 못 찾은 것은 «비운 채로» 둔다. 짐작으로 단위를 정하지 않는다 — 천 배가 걸린 일이다.');
+    if (process.argv.includes('--적는다')) {
+      fs.writeFileSync(탭길, JSON.stringify(t, null, 1));
+      console.log('✅ 탭에 적었다 — ' + 탭길);
+    } else { console.log('⬜ 아직 안 적었다. 적으려면 --적는다'); }
+  }
   else if (process.argv.includes('--병목조사')) {
     const i = process.argv.indexOf('--병목조사');
     const 몇 = Number(process.argv[i + 1] || 20);
