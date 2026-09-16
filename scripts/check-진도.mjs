@@ -137,19 +137,38 @@ export const 맡은일 = [
   /* ── 주력 한 줄 (계획 F1 — 병목) ──────────────────────────────────── */
   {
     자리: '6번', 이름: 'F1 재무 — 2023년 + 분기 + 계정 일곱', 마감: '2026-09-17 21:00',
+    /* 🔴 [2026-09-16 · 5번] **이 칸이 「새 계정 0/7」이라고 거짓말하고 있었다.**
+       사장님: 「마켓 데이터 구축 진척도 알려줘」 → 재 보니 계정 일곱은 «이미 다 들어와 있었다».
+       ⛔ 내가 `korea-financials-tape.json` 한 곳만 보고 있었다. 6번은 그 일곱을
+         `korea-valuation-tape.json` 에 넣었다(칸 이름도 낙타등이다 — current_assets 가 아니라 currentAssets).
+       ⇒ 자가 없는 것을 「안 했다」로 읽었고, 나는 그것을 그대로 보고할 뻔했다.
+       ⭐ 그러니 «두 테이프를 다 본다». 한쪽에만 있어도 들어온 것이다.
+       ⚠ 칸 이름은 두 꼴을 다 받는다 — 밑줄판과 낙타등판. 한 꼴만 보면 같은 잘못이 되풀이된다. */
     잰다: () => {
-      const g = 읽기(path.join(뿌리, 'src/data/korea-financials-tape.json'));
-      if (g === null) return { 됐나: null, 말: '재무 테이프를 못 읽었다' };
-      let 줄 = [];
-      try { const j = JSON.parse(g); 줄 = j.rows ?? j; } catch { return { 됐나: null, 말: '못 읽었다' }; }
-      const 해 = [...new Set(줄.map((r) => r.year ?? r.fiscalYear))].filter(Boolean).sort();
-      const 계정 = Object.keys(줄[0] ?? {});
+      const 본다 = (이름) => {
+        const g = 읽기(path.join(뿌리, 'src/data/' + 이름));
+        if (g === null) return null;
+        try { const j = JSON.parse(g); return j.rows ?? j; } catch { return null; }
+      };
+      const 재무 = 본다('korea-financials-tape.json');
+      const 밸류 = 본다('korea-valuation-tape.json');
+      if (!재무 && !밸류) return { 됐나: null, 말: '두 테이프를 다 못 읽었다' };
+
+      /* 해 — 재무 테이프가 해마다 쌓는 쪽이다 */
+      const 해 = [...new Set((재무 ?? []).map((r) => r.year ?? r.fiscalYear))].filter(Boolean).sort();
+
+      /* 계정 — 어느 테이프에 있든 «손님이 받는다»는 점에서 같다 */
+      const 칸 = new Set([...Object.keys((재무 ?? [])[0] ?? {}), ...Object.keys((밸류 ?? [])[0] ?? {})]);
+      const 같게 = (s) => String(s).toLowerCase().replace(/[^a-z]/g, '');
+      const 있는꼴 = new Set([...칸].map(같게));
       const 새계정 = ['current_assets', 'current_liabilities', 'retained_earnings',
         'finance_costs', 'short_term_borrowings', 'long_term_borrowings', 'bonds']
-        .filter((k) => 계정.includes(k));
+        .filter((k) => 있는꼴.has(같게(k)));
+
       return {
         됐나: 해.length >= 3 && 새계정.length >= 7,
-        말: '해 ' + 해.join('·') + ' (' + 해.length + '/3) · 새 계정 ' + 새계정.length + '/7',
+        말: '해 ' + (해.join('·') || '못 쟀다') + ' (' + 해.length + '/3) · 계정 일곱 ' + 새계정.length + '/7'
+          + (새계정.length >= 7 ? ' (밸류에이션 테이프에 있다)' : ''),
       };
     },
   },
