@@ -13,9 +13,16 @@
  *     1. 조건에 안 맞아서 빠졌다        ← 손님이 바라는 것
  *     2. 그 칸이 «비어 있어서» 빠졌다    ← 손님이 모르는 채로 잃는 것
  *
- *   **시장을 섞으면 2번이 훨씬 커진다.** ADX 는 시가총액을 주는 우물을 아직 못 찾아
- *   PER 이 «한 곳도» 없다. 남들처럼 지으면 UAE 를 고른 손님이 조건 하나에 76곳을
- *   통째로 잃고도 그 사실을 모른다. 이 지면은 그 수를 빨간 칸에 적는다.
+ *   **시장을 섞으면 2번이 훨씬 커진다.** 걸프에는 PER 이 «한 곳도» 없다.
+ *   남들처럼 지으면 UAE 를 고른 손님이 조건 하나에 125곳을 통째로 잃고도 그 사실을
+ *   모른다. 이 지면은 그 수를 빨간 칸에 적는다.
+ *
+ * 🔴 [2026-09-16 · 5번] 여기 「ADX 는 시가총액을 주는 우물을 아직 못 찾아」라고 적혀
+ *   있었고, 그 말이 손님 화면에까지 「아부다비가 안 낸다」로 나가 있었다. **사실이 아니다.**
+ *   우물은 있었다 — /adx/marketwatch/1.1/securityBoard/marketwatch (128/128 에 시총이 있다).
+ *   우리가 «-delayed» 옆 문을 부르고 있었을 뿐이다. 지금은 받아서 쓴다(ADX 76/76).
+ *   ⛔ 그래도 PER 은 여전히 안 낸다 — 걸프 신고서가 «분기»라, 한 분기 이익에 오늘 값을
+ *     붙이면 우리가 책임질 수 없는 수가 된다. 까닭이 바뀌었으면 «까닭»을 고쳐 적는다.
  *
  * ⛔ 점수·등급·추천을 만들지 않는다. 사실만 놓고 판단은 손님이 한다.
  * ⛔ 화면에 한국어를 내지 않는다 — 손님이 영어권이다(자료 만드는 자에 관문이 있다).
@@ -50,6 +57,9 @@ for (const m of 시장목록) {
 const PER있는곳 = 시장목록.reduce((a, m) => a + m.filled.p, 0);
 const PER없는곳 = 줄수 - PER있는곳;
 const UAE줄 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + m.rows, 0);
+/* 🔴 걸프에 시가총액이 «있는» 곳. 예전엔 0 이었고, 그래서 지면이 「그쪽이 안 낸다」고
+   말하고 있었다. 이제 받아 오므로 수가 산다 — 수가 바뀌면 문장도 저절로 따라간다. */
+const UAE시총 = 시장목록.filter((m) => m.country === 'UAE').reduce((a, m) => a + m.filled.c, 0);
 
 /* 손님이 자주 찾는 칸을 «한 번 눌러» 채우는 지름길.
    ⛔ 이름을 「Value」·「Quality」로 짓지 않는다 — 그러면 우리가 좋다/나쁘다를 말한 것이 된다.
@@ -98,9 +108,12 @@ const jsonLd = {
         because the figure <i>does not exist</i> — not because it failed your test — we count those
         companies and say so, in red, above the table. A PER screen on its own removes{' '}
         <b>{PER없는곳.toLocaleString('en-US')}</b> of {줄수.toLocaleString('en-US')} companies that
-        way, and that includes <b>every one of the {UAE줄} Gulf listings</b>: Abu Dhabi publishes no
-        market capitalisation we can source, so no Gulf company here has a PER at all. Most screeners
-        drop them in silence, and the market then looks smaller and tidier than it really is.
+        way, and that includes <b>every one of the {UAE줄} Gulf listings</b> — not because the
+        exchanges withhold anything. Abu Dhabi and Dubai both publish market capitalisation, and we
+        carry it for <b>{UAE시총}</b> of the {UAE줄}. What they file is <i>quarterly</i>, so a PER
+        built on one quarter of earnings and today&rsquo;s price would be a number we could not stand
+        behind. We leave it empty and say why, on the row itself. Most screeners drop these companies
+        in silence, and the market then looks smaller and tidier than it really is.
       </p>
     </div>
 

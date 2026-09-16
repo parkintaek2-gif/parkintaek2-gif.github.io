@@ -41,6 +41,10 @@ import { pathToFileURL } from 'node:url';
 const 한국탭 = 'src/data/korea-valuation-tape.json';
 const UAE탭 = 'src/data/uae-financials-tape.json';
 const ADX사람 = 'archive/raw/uae-adx-people';
+/* 🔴 [2026-09-16 · 5번] ADX «공식» 시가총액. 여기 오기 전에는 「아부다비가 안 낸다」고
+   손님에게 적어 두었었다 — 사실이 아니었다. 우리가 «-delayed» 옆 문을 부르고 있었다.
+   scripts/collect-uae-adx-marketwatch.mjs 가 날마다 쌓는다(소급 안 되는 자료다). */
+const ADX시총 = 'archive/raw/uae-adx-marketwatch';
 const DFM회사 = 'archive/raw/dubai-dfm-companies';
 const 환율광 = 'archive/raw/uae-cbuae-fx';
 
@@ -349,16 +353,48 @@ export function UAE를추린다(줄들, 이름표, AED당달러) {
   });
 }
 
+/**
+ * 날짜별로 쌓인 ADX marketwatch 가운데 «가장 최근» 한 장을 읽어 종목→시총 표로 만든다.
+ * ⛔ 여러 날을 섞지 않는다 — 시총은 그날의 값이라 섞으면 어느 날 것인지 아무도 모른다.
+ */
+export function ADX시총표만들기(파일들) {
+  /* 파일들 = [{날짜, rows}] — 최근 것 하나만 쓴다 */
+  const 날 = (x) => String(x?.날짜 || x?.rows?.[0]?.date || '');
+  const 산것 = 파일들.filter((x) => x && Array.isArray(x.rows) && x.rows.length)
+    .sort((a, b) => 날(b).localeCompare(날(a)));
+  if (!산것.length) return { 날짜: null, 표: {} };
+  const 첫 = 산것[0];
+  const 표 = {};
+  for (const r of 첫.rows) {
+    if (!r || !r.symbol) continue;
+    const mc = 수(r.marketCap);
+    if (mc === null || mc <= 0) continue;   /* ⛔ 0 을 시총으로 세지 않는다 */
+    표[r.symbol] = { marketCap: mc, 날짜: r.date || 날(첫) };
+  }
+  return { 날짜: 날(첫) || null, 표 };
+}
+
 /** ADX·DFM 회사 이름표(이름·업종·시총)를 모은다 */
-export function 이름표만들기(ADX들, DFM들) {
+export function 이름표만들기(ADX들, DFM들, ADX시총표 = {}) {
   const 표 = {};
   for (const j of ADX들) {
     const c = j.company || {};
     if (!c.symbol) continue;
+    /* 🔴 [2026-09-16] 여기 「ADX 는 발행주식수를 주는 우물을 아직 못 찾았다」고 적혀 있었고,
+       그 한 줄 때문에 지면이 손님에게 「아부다비가 시총을 안 낸다」고 말하고 있었다.
+       ⛔ 우리가 못 찾은 것을 그쪽 탓으로 적지 않는다. 우물은 찾았다 —
+          /adx/marketwatch/1.1/securityBoard/marketwatch (128/128 에 시총이 들어 있다).
+       ⚠ 주식수는 여전히 없다. 그래서 시총은 «받아서» 쓰고 «계산해서» 만들지 않는다 —
+          계산판은 두바이로 검산했더니 오차 가운데값 99.9% 였다. */
+    const 시총 = ADX시총표[c.symbol];
     표['ADX:' + c.symbol] = {
-      name: c.engName || c.symbol, sector: null, marketCap: null,
-      시총쓸수있나: false, 시총까닭: null,
-      shares: null,   /* ADX 는 발행주식수를 주는 우물을 아직 못 찾았다 */
+      name: c.engName || c.symbol, sector: null,
+      marketCap: 시총 ? 시총.marketCap : null,
+      시총쓸수있나: Boolean(시총),
+      시총까닭: 시총 ? null
+        : 'Market capitalisation withheld — this ticker was not in the exchange’s market-watch feed '
+          + 'on the day we last collected it',
+      shares: null,   /* ⛔ 주식수는 아직 없다. 시총을 주식수로 되돌려 쓰지 않는다 */
     };
   }
   for (const j of DFM들) {
@@ -396,7 +432,9 @@ async function 본일() {
 
   /* 3. UAE */
   const UAE원본 = JSON.parse(readFileSync(path.resolve(UAE탭), 'utf8'));
-  const 이름표 = 이름표만들기(폴더읽기(ADX사람), 폴더읽기(DFM회사));
+  const ADX시총것 = ADX시총표만들기(폴더읽기(ADX시총));
+  console.log(`   ADX 공식 시가총액 — ${Object.keys(ADX시총것.표).length}종목 (${ADX시총것.날짜 || '못 받음'})`);
+  const 이름표 = 이름표만들기(폴더읽기(ADX사람), 폴더읽기(DFM회사), ADX시총것.표);
   const UAE = UAE를추린다(UAE원본.rows || [], 이름표, 환.AED당달러);
 
   const 추린것 = [...한국, ...UAE];
