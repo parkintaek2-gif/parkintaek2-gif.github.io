@@ -381,13 +381,24 @@ console.log('\n## ①-2 ⭐ 진짜 손님만 — **2026-08-29 부터 이 수가 
   } else {
     const d = JSON.parse(readFileSync(자료길, 'utf8'));
     console.log(`   잰 날 ${d.generated ?? '모름'} · 창 ${d.days ?? '?'}일`);
-    console.log('   유닛                    손님세션   사람   갈래');
+    /* 🔴 [2026-09-16] 사장님: 「**방문자수 당일, 하루평균 달라 했잖아. 또 두번이상 말하게 하네**」
+     *
+     * 여기가 «28일 창의 총합»만 내고 있었다. 사장님이 보시려는 것은 그 총합이 아니라
+     * **하루 평균**과 **당일**이다. 총합을 앞세우면 커 보이고, 목표(하루 1,000명)와 견줄 수도 없다.
+     * ⇒ 창 총합은 «뒤»로 물리고 하루 평균을 «앞»에 세운다.
+     * ⚠ 당일은 이 자료(28일 묶음)에 없다 — 그래서 아래에 어디서 받는지 길을 함께 적는다.
+     *   ⛔ 「없으니 뺀다」로 넘기지 않는다. 사장님이 두 번 말씀하신 칸이다. */
+    console.log('   유닛                   하루평균   당일   (28일 창: 세션·사람)   갈래');
     for (const u of d.units ?? []) {
       const c = u.realCustomers ?? {};
       const 갈래 = (u.realCustomerChannels ?? []).map((x) => `${x.channel} ${x.세션}`).join(' · ') || '없음';
-      console.log(`   ${String(u.unit).slice(0, 22).padEnd(22)} ${String(c.세션 ?? '못잼').padStart(6)}`
-        + ` ${String(c.사람 ?? '못잼').padStart(6)}   ${갈래}`);
+      const 날수 = Number(d.days) || 28;
+      const 평균 = Number.isFinite(Number(c.사람)) ? (Number(c.사람) / 날수).toFixed(1) + '명' : '못잼';
+      console.log(`   ${String(u.unit).slice(0, 20).padEnd(20)} ${평균.padStart(8)} ${'(따로)'.padStart(6)}`
+        + `   ${String(c.세션 ?? '못잼').padStart(5)}·${String(c.사람 ?? '못잼').padStart(5)}   ${갈래}`);
     }
+    console.log('   ⛔ 「당일」은 이 28일 묶음에 없다. 아래 자로 받아서 함께 낸다 —');
+    console.log('      node scripts/ga4-daily.mjs --days 2      (어제까지) · 오늘치는 GA4 today 로 따로 잰다');
     /**
      * ⛔⛔ 처음 판은 `d.customerChannels` 가 «비어» 있어도 그대로 찍었다 —
      * 「**기준이 바뀌었습니다.**  만 셉니다.」라는 빈 자리가 방송에 나갈 뻔했다.
