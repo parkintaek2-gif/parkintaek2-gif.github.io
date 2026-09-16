@@ -1,0 +1,185 @@
+---
+/**
+ * /100y/sandwich-generation — 중장년의 절반이 부모·자녀 양쪽을 함께 돌본다
+ *
+ * 🔴 사장님 지시(2026-09-16, mt.co.kr 링크와 함께) — 「지표 서비스를 하니, 데이터를
+ *   갖고 와서 반영해라」. 서울시·서울시50플러스재단이 국내 최초로 낸 「중장년 삶의
+ *   질 지표」(2026-09-15 발표)를 그대로 인용한다. 100yearmap이 새로 조사하지 않는다.
+ *
+ * ⛔ 서울 거주 40~64세 2,058명 자기응답 조사다 — 전국 수치가 아니다. 화면에 못박는다.
+ * ⛔ 「돌봄부담자」(88.1%)와 「끼인세대」(48.4%)는 분모/정의가 다르다 — 섞어 쓰지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/sandwich-generation.json';
+
+const 자료 = 원본 as any;
+const 출처 = 자료.출처;
+const 핵심 = 자료.핵심지표;
+const 주거 = 자료.주거형태별 as any[];
+const 가구 = 자료.가구구성별 as any[];
+
+const desc =
+  `서울시·서울시50플러스재단이 2026-09-15 발표한 「중장년 삶의 질 지표」에 따르면, ` +
+  `서울 거주 40~64세의 ${핵심.끼인세대_퍼센트}%가 부모와 자녀를 동시에 돌보는 «끼인세대»입니다. ` +
+  `50~54세로 좁히면 ${핵심.끼인세대_50대초반_퍼센트}%까지 오릅니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 지표는 100yearmap이 조사한 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. 서울시·서울시50플러스재단이 국내 최초로 개발해 2026-09-15 발표한 지표를 ${출처.매체} 보도로 그대로 인용했습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '전국 중장년에게도 같은 수치가 적용되나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '알 수 없습니다. 이 조사는 서울 거주 40~64세 2,058명을 대상으로 했습니다 — 전국 표본이 아닙니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '돌봄부담자 88.1%와 끼인세대 48.4%는 같은 말인가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '다릅니다. 돌봄부담자는 부모 또는 자녀 «한쪽 이상»을 돌보는 사람이고, 끼인세대는 부모와 자녀 «양쪽을 동시에» 돌보는 사람입니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`중장년 ${핵심.끼인세대_퍼센트}%가 부모·자녀를 동시에 돌봅니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    중장년 {핵심.끼인세대_퍼센트}%가<br class="pcbr" />
+    부모·자녀를 동시에 돌봅니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 지표는 저희가 조사한 게 아닙니다.</strong></p>
+    <p class="note">
+      서울시·서울시50플러스재단이 국내 최초로 개발한 「중장년 삶의 질 지표」({출처.발표})를
+      {' '}{출처.매체}({출처.기자} 기자) 보도로 그대로 인용했습니다. {출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    서울 거주 40~64세 {자료.조사방법.표본.toLocaleString()}명({자료.조사방법.조사시기} 조사,
+    {' '}{자료.조사방법.지표영역_개수}개 영역 {자료.조사방법.세부지표_개수}개 세부지표)을 물은 결과,
+    부모 또는 자녀 한쪽 이상을 돌보는 사람은 <strong>{핵심.돌봄부담자_퍼센트}%</strong>였고,
+    이 가운데 양쪽을 «동시에» 돌보는 «끼인세대»는 <strong>{핵심.끼인세대_퍼센트}%</strong>였습니다.
+    50~54세로 좁히면 이 비중은 <strong>{핵심.끼인세대_50대초반_퍼센트}%</strong>까지 오릅니다.
+  </p>
+
+  <h2>벌어도 만족스럽지 않은 소득</h2>
+  <p>
+    월평균 가구소득은 {핵심.월평균가구소득_만원.toLocaleString()}만원이었지만, 그 소득에
+    만족한다고 답한 사람은 <strong>{핵심.소득만족도_퍼센트}%</strong>뿐이었습니다. 소득 상위
+    4분위(고소득층)로 좁혀도 만족도는 {핵심.상위4분위_소득만족도_퍼센트}%로 크게 다르지
+    않았습니다 — 버는 돈의 많고 적음과 만족도가 나란히 가지 않는다는 뜻입니다.
+  </p>
+
+  <h2>어디서, 누구와 사는가에 따라 갈리는 만족도</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>주거 형태</th><th>삶의 만족도(5점)</th><th>주거 안정성 체감(5점)</th></tr></thead>
+      <tbody>
+        {주거.map((r) => (
+          <tr>
+            <td>{r.유형}</td>
+            <td><strong>{r.삶의만족도}</strong></td>
+            <td>{r.주거안정성체감}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>가구 구성</th><th>삶의 만족도(5점)</th></tr></thead>
+      <tbody>
+        {가구.map((r) => (
+          <tr>
+            <td>{r.유형}</td>
+            <td><strong>{r.삶의만족도}</strong></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">
+    ⚠ 국민대 사회학과 계봉오 교수: 「{자료.인용문[0].말}」
+  </p>
+
+  <h2>정책은 원하는 것과 체감하는 것이 다릅니다</h2>
+  <p>
+    정책이 더 필요하다고 답한 사람은 {핵심.정책확대필요_체감_퍼센트}%였지만, 실제로 정책의
+    도움을 받고 있다고 느낀 사람은 {핵심.정책도움_체감_퍼센트}%뿐이었습니다 — 격차는
+    {' '}<strong>{핵심.정책수요체감_격차_퍼센트포인트}%p</strong>였습니다. 일자리 연계가
+    필요하다는 응답은 {핵심.일자리연계필요_퍼센트}%, 그 가운데 거주지역 안에서 일자리를
+    원한다는 응답은 {핵심.거주지역내일자리희망_퍼센트}%였습니다.
+  </p>
+  <p class="note">
+    ⚠ 서울시는 이에 맞춰 취업사관학교를 {자료.정책안건.취업사관학교}는 계획을 밝혔습니다
+    ({자료.정책안건.거리기준}).
+  </p>
+
+  <h2>100yearmap이 실측한 돌봄과 이어 보면</h2>
+  <p>
+    {자료.실측이음.무엇}. 이 서베이가 잡아낸 «돌봄을 주는 중장년»과
+    {' '}<a href="/care">100yearmap이 KOSIS 노인장기요양보험통계로 실측한 «돌봄이 필요해지는 나이»</a>는
+    같은 현상의 양면입니다 — 한쪽이 지금 돌보는 부모가, 다른 쪽 표에서는 등급판정을 받는
+    당사자입니다.
+  </p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 서울 거주 40~64세 자기응답 조사
+    {' '}결과일 뿐, 전국 모든 중장년의 삶을 대표하지 않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — {출처.매체}({출처.url}) · 인용: 서울시·서울시50플러스재단 「중장년 삶의 질 지표」
+    ({출처.발표}) · 돌봄 실측: 국민건강보험공단·국가데이터처 KOSIS 노인장기요양보험통계
+  </p>
+
+  <p class="note">
+    <a href="/care">← 몇 살부터 돌봄이 필요해질까요?</a>
+    <br />
+    <a href="/keep-working">← 그만두고도 계속 일하고 싶은가요?</a>
+    <br />
+    <a href="/longest-job">← 가장 오래 다닌 직장, 몇 살에 그만둘까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="sandwich-generation" />
+
+  <NextQuestionBrief 모은것="서울시·서울시50플러스재단 「중장년 삶의 질 지표」" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/sandwich-generation"></div>
+</HundredYear>
