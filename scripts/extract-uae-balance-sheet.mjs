@@ -163,11 +163,22 @@ export function 검산해서고른다(자산들, 부채들, 자본들, 차 = 맞
  *   통째로 막는다. 「Total assets under management」·「Total liabilities and equity」가
  *   한 번에 걸러진다(내 것은 부정 예측으로 하나씩 막고 있었다).
  *   ⛔ 같은 일을 하는 자가 둘이면 «있는 것을 고친다»가 우리 규칙이다. 베껴 온 자리를 적어 둔다. */
-const 꼬리 = String.raw`\s*(?:\d{1,2}\s*)?[\s.·]*(?=[\d(]|$)`;
-export const 자산재 = new RegExp(String.raw`^\s*total\s+assets${꼬리}`, 'i');
-export const 부채재 = new RegExp(String.raw`^\s*total\s+liabilities${꼬리}`, 'i');
+/* ⚠ 꼬리에 `_ — – -` 를 더한 것은 **OCR 글 때문**이다(2026-09-17 실측).
+ *   스캔 쪽을 읽으면 라벨과 수 사이의 점선이 이렇게 나온다 —
+ *     `Total equity ——___11,193,228) _____—i' 505,293`
+ *   이 글자들을 안 넣으면 OCR 로 애써 읽어 놓고 라벨에서 놓친다.
+ *   ⛔ 넓혀도 안전하다 — 여전히 뒤에 «수»가 와야 하고(`(?=[\d(]|$)`),
+ *     「Total assets under management」처럼 «말»이 붙은 줄은 그대로 막힌다. */
+/* ⚠ 머리에 «한두 자리 수»를 허용한 것도 OCR 때문이다 — 스캔 쪽을 읽으면 쪽번호·각주가
+ *   라벨 «앞»에 붙어 나온다: `2 Total assets 14,108,238 14,508,491`.
+ *   ⛔ 줄머리 조건을 아예 풀지는 않는다 — 그러면 「represents 46% of the total assets」
+ *     같은 본문이 걸린다. 앞에 올 수 있는 것은 «수»뿐이지 «말»이 아니다. */
+const 머리 = String.raw`\s*(?:\d{1,2}\s+)?`;
+const 꼬리 = String.raw`\s*(?:\d{1,2}\s*)?[\s.·_—–\-]*(?=[\d(]|$)`;
+export const 자산재 = new RegExp(String.raw`^${머리}total\s+assets${꼬리}`, 'i');
+export const 부채재 = new RegExp(String.raw`^${머리}total\s+liabilities${꼬리}`, 'i');
 export const 자본재 = new RegExp(
-  String.raw`^\s*total\s+(?:net\s+)?(?:equity|shareholders[’']?\s*(?:equity|funds)|owners[’']?\s*equity|capital\s+and\s+reserves)${꼬리}`, 'i');
+  String.raw`^${머리}total\s+(?:net\s+)?(?:equity|shareholders[’']?\s*(?:equity|funds)|owners[’']?\s*equity|capital\s+and\s+reserves)${꼬리}`, 'i');
 /* 🔴 [2026-09-16 실측] 「Total liabilities」 한 줄을 «안 쓰는» 회사가 많다.
  *   ADNOCLS 는 Total non-current assets / Total current assets / Total assets 로만 적고
  *   부채도 비유동·유동 둘로만 적는다. 그래서 「부채 줄이 없다」로 8건이 버려지고 있었다.
@@ -182,11 +193,11 @@ export const 자본재 = new RegExp(
  * **「Total liabilities and equity」(대차 균형 줄)**로 닫는다. 그 값은 자산과 «같아야» 한다.
  * ✅ 그러니 그 줄로 자산을 검산하고, 자본은 **자산 − 부채**로 낸다(정의상 항등식이다).
  * ⛔ 대신 부채 후보가 둘 이상 갈리면 비운다 — 아무거나 빼서 자본을 만들지 않는다. */
-export const 대차합계재 = new RegExp(String.raw`^\s*total\s+(?:liabilities\s+and\s+(?:equity|shareholders[’']?\s*(?:equity|funds))|equity\s+and\s+liabilities)${꼬리}`, 'i');
-export const 비유동부채재 = new RegExp(String.raw`^\s*total\s+non[- ]current\s+liabilities${꼬리}`, 'i');
-export const 유동부채재 = new RegExp(String.raw`^\s*total\s+current\s+liabilities${꼬리}`, 'i');
-export const 비유동자산재 = new RegExp(String.raw`^\s*total\s+non[- ]current\s+assets${꼬리}`, 'i');
-export const 유동자산재 = new RegExp(String.raw`^\s*total\s+current\s+assets${꼬리}`, 'i');
+export const 대차합계재 = new RegExp(String.raw`^${머리}total\s+(?:liabilities\s+and\s+(?:equity|shareholders[’']?\s*(?:equity|funds))|equity\s+and\s+liabilities)${꼬리}`, 'i');
+export const 비유동부채재 = new RegExp(String.raw`^${머리}total\s+non[- ]current\s+liabilities${꼬리}`, 'i');
+export const 유동부채재 = new RegExp(String.raw`^${머리}total\s+current\s+liabilities${꼬리}`, 'i');
+export const 비유동자산재 = new RegExp(String.raw`^${머리}total\s+non[- ]current\s+assets${꼬리}`, 'i');
+export const 유동자산재 = new RegExp(String.raw`^${머리}total\s+current\s+assets${꼬리}`, 'i');
 
 /** 같은 열 자리끼리 더해 후보를 만든다 (비유동 + 유동) */
 export function 합쳐서후보(앞, 뒤) {
@@ -277,6 +288,57 @@ export function 균형줄로푼다(자산들, 부채들, 대차합계들, 차 = 
 function PDF글(주소, 자리) {
   execFileSync('curl', ['-sS', '-f', ...헤더, 주소, '-o', 자리], { maxBuffer: 1e8 });
   return execFileSync('pdftotext', ['-table', 자리, '-'], { maxBuffer: 1e8 }).toString('utf8');
+}
+
+/* ── 🔴 스캔 쪽을 읽는다 (2026-09-17) ─────────────────────────────────────
+ *
+ * 사장님: 「**지난해 실적기준 감사보고서가 없다고? 어디있는데 너희가 못찾는 것 같다**」
+ *
+ * 감사보고서는 91/91 다 있었다. 그런데 대차대조표를 못 뽑는 것이 많아 «왜»를 셌다
+ * (`--병목조사` 18건) — **못 뽑은 16건 가운데 15건이 「글자 없는 쪽」을 갖고 있었다.**
+ * ```
+ *   ADNH Q2 2026   1쪽 143자 · 2쪽 목차 · 3쪽 검토보고서 · **4쪽 0자** · 5쪽 손익계산서
+ *                  ⇒ 목차 순서로 보면 그 0자 쪽이 «재무상태표»다. 그 쪽만 그림이었다
+ * ```
+ * ⛔ 라벨을 더 넓혀도 소용없다. 글자가 아예 없다.
+ * ✅ 그래서 그 쪽만 **그림으로 찍어 읽는다** — 크롬으로 그리고 tesseract 로 읽는다.
+ *   실측(ADNH 4쪽): `Total assets 14,108,238` · `Total liabilities 2,915,010` 이 읽혔고
+ *   자본은 OCR 이 깨졌지만(`——___11,193,228)`) 숫자는 살아 있어
+ *   **14,108,238 = 2,915,010 + 11,193,228** 로 검산이 딱 맞았다.
+ * ⚠ OCR 은 글자를 «짐작»한다. 그래서 검산을 더 엄격히 하지 않는다 —
+ *   원래 규칙(자산 = 부채 + 자본, 0.5%)이 그대로 걸러 준다. 안 맞으면 비운다.
+ */
+export const OCR자 = 'C:/Program Files/Tesseract-OCR/tesseract.exe';
+
+/** 글자가 거의 없는 쪽 번호들 — 그 쪽이 그림이다 */
+export function 빈쪽찾기(pdf자리, 최대쪽 = 60) {
+  const 것 = [];
+  for (let p = 1; p <= 최대쪽; p += 1) {
+    let 쪽글 = '';
+    try { 쪽글 = execFileSync('pdftotext', ['-table', '-f', String(p), '-l', String(p), pdf자리, '-'], { maxBuffer: 1e8 }).toString('utf8'); }
+    catch { break; }
+    if (!쪽글) break;
+    if (쪽글.replace(/\s/g, '').length < 40) 것.push(p);
+  }
+  return 것;
+}
+
+/** 그 쪽을 크롬으로 그려 PNG 로 찍고 tesseract 로 읽는다 */
+async function 쪽읽기(브라우저, pdf자리, 쪽, 임시밑) {
+  const png = `${임시밑}_p${쪽}`;
+  const page = await 브라우저.newPage();                    /* ⭐ 언제나 새 탭 */
+  try {
+    await page.setViewport({ width: 1240, height: 1754, deviceScaleFactor: 2 });
+    await page.goto(`file:///${pdf자리}#page=${쪽}&zoom=page-fit`, { waitUntil: 'load', timeout: 60000 });
+    await new Promise((r) => setTimeout(r, 5000));          /* 뷰어가 그 쪽을 그릴 때까지 */
+    await page.screenshot({ path: `${png}.png` });
+  } finally {
+    await page.close();
+  }
+  execFileSync(OCR자, [`${png}.png`, png, '-l', 'eng', '--psm', '6'], { maxBuffer: 1e8 });
+  const 글 = fs.readFileSync(`${png}.txt`, 'utf8');
+  for (const 끝 of ['.png', '.txt']) { try { fs.unlinkSync(png + 끝); } catch { /* 지워도 그만 */ } }
+  return 글;
 }
 
 /* ── 자가시험 ─────────────────────────────────────────────────────────── */
@@ -512,25 +574,69 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const 표본 = 할것.slice(0, 몇개 === Infinity ? 할것.length : 몇개);
     console.log(`■ 자산이 비어 있고 PDF 가 있는 줄 ${할것.length}개 · 이번에 ${표본.length}개를 뽑는다\n`);
 
-    let 됐다 = 0; const 까닭수 = {};
+    /* 🔴 스캔 쪽을 읽으려면 크롬이 있어야 한다. 없으면 «없다고 적고» OCR 없이 간다 —
+     *   ⛔ 조용히 건너뛰지 않는다. 안 재 본 것을 「못 뽑는다」로 세면 다음 사람이 속는다. */
+    const OCR쓴다 = !process.argv.includes('--OCR없이');
+    let 브라우저 = null;
+    if (OCR쓴다) {
+      try {
+        const { createRequire } = await import('node:module');
+        const 부르기 = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
+        브라우저 = await 부르기('puppeteer-core')
+          .connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+        if (!fs.existsSync(OCR자)) { 브라우저.disconnect(); 브라우저 = null; console.log('⚠ tesseract 가 없다 — 스캔 쪽은 못 읽는다\n'); }
+      } catch (e) { console.log(`⚠ 크롬(9222)에 못 붙었다 — 스캔 쪽은 못 읽는다: ${e.message}\n`); }
+    }
+
+    /* ⚠ 전부 돌리면 두 시간이 넘는다(스캔 쪽마다 크롬으로 그리고 읽는다).
+     *   그 사이에 끊기면 «한 건도 안 남는다» — 그래서 스무 건마다 적어 둔다.
+     *   ⛔ 「끝에 한 번 적는다」로 두면 중간에 죽을 때 애써 읽은 것이 다 사라진다. */
+    const 적는다 = () => {
+      if (!process.argv.includes('--적는다')) return;
+      fs.writeFileSync(탭길, JSON.stringify(t, null, 1));
+      덜적은게있다 = false;
+    };
+    let 덜적은게있다 = false;
+    let 센것 = 0;
+
+    let 됐다 = 0; let OCR로됐다 = 0; const 까닭수 = {};
     for (const r of 표본) {
+      센것 += 1;
+      덜적은게있다 = true;
+      if (센것 % 20 === 0) { 적는다(); console.log(`   … ${센것}/${표본.length} 까지 적어 두었다`); }
       const 자리 = `C:/Users/User/AppData/Local/Temp/_bs_${r.exchange}_${r.symbol}.pdf`;
-      let 것;
+      let 것; let OCR로 = false;
       try { 것 = 글에서뽑는다(PDF글(r.eng_pdf_url, 자리)); }
       catch (e) { 것 = { 됐나: false, 왜: 'download-or-pdftotext-failed' }; }
+
+      /* 글자로 못 뽑았고 «그림인 쪽»이 있으면 그 쪽만 읽어 다시 해 본다 */
+      if (!것.됐나 && 브라우저 && fs.existsSync(자리)) {
+        try {
+          const 빈쪽 = 빈쪽찾기(자리);
+          for (const p of 빈쪽.slice(0, 4)) {
+            const 글 = await 쪽읽기(브라우저, 자리, p, 자리.replace(/\.pdf$/, ''));
+            const 다시 = 글에서뽑는다(글 + 'x'.repeat(2100));   /* 한 쪽이라 길이 문턱을 채워 준다 */
+            if (다시.됐나) { 것 = 다시; OCR로 = true; break; }
+          }
+        } catch (e) { /* OCR 이 실패해도 앞서 적은 까닭을 그대로 쓴다 */ }
+      }
       try { fs.unlinkSync(자리); } catch { /* 지워도 그만 */ }
       if (것.됐나) {
-        됐다 += 1;
+        됐다 += 1; if (OCR로) OCR로됐다 += 1;
         r.total_assets_aed = 것.자산; r.total_liabilities_aed = 것.부채; r.total_equity_aed = 것.자본;
         r.balance_sheet_reconciled = true; r.balance_sheet_reason = null;
-        console.log(`   ✅ ${r.symbol.padEnd(12)} ${String(r.period).padEnd(10)} 자산 ${것.자산.toLocaleString()} = 부채 ${것.부채.toLocaleString()} + 자본 ${것.자본.toLocaleString()}`);
+        /* ⭐ OCR 로 읽은 것은 «그렇게 읽었다»고 적어 둔다 — 글자를 짐작한 값이다 */
+        r.balance_sheet_source = OCR로 ? 'ocr-of-scanned-page' : 'pdf-text';
+        console.log(`   ${OCR로 ? '🔍' : '✅'} ${r.symbol.padEnd(12)} ${String(r.period).padEnd(10)} 자산 ${것.자산.toLocaleString()} = 부채 ${것.부채.toLocaleString()} + 자본 ${것.자본.toLocaleString()}${OCR로 ? '  (스캔 쪽을 읽었다)' : ''}`);
       } else {
         까닭수[것.왜] = (까닭수[것.왜] || 0) + 1;
         r.balance_sheet_reason = 것.왜;
         console.log(`   ⬜ ${r.symbol.padEnd(12)} ${String(r.period).padEnd(10)} ${것.왜}`);
       }
     }
-    console.log(`\n■ 검산을 통과해 채운 것 ${됐다}/${표본.length}`);
+    if (브라우저) 브라우저.disconnect();          /* ⛔ close() 가 아니다 — 사장님 창이 닫힌다 */
+    if (덜적은게있다) 적는다();                   /* 마지막 자투리까지 적는다 */
+    console.log(`\n■ 검산을 통과해 채운 것 ${됐다}/${표본.length}  (그 가운데 스캔 쪽을 읽어 건진 것 ${OCR로됐다})`);
     for (const [k, v] of Object.entries(까닭수).sort((a, b) => b[1] - a[1])) console.log(`   ${String(v).padStart(3)}  ${k}`);
     console.log('⛔ 검산이 안 맞은 것은 «비운 채로» 두었다. 짐작으로 채우지 않는다.');
 
