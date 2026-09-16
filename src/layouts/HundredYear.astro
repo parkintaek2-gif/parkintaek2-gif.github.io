@@ -4,6 +4,7 @@ import Analytics from '../components/Analytics.astro';
 import { ADS } from '../consts';
 import path from 'node:path';
 import { 자매링크 } from '../lib/sister-link';
+import ContentRail from '../components/ContentRail.astro';
 
 /** CSS 파일이 바뀌면 저절로 바뀌는 판 번호. ⛔ 손으로 올리지 않는다 —
  *  손으로 올리게 두면 반드시 잊는다(오늘만 규칙을 손으로 적었다가 다섯 곳이 어긋났다). */
@@ -378,7 +379,25 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
       })();
     </script>
 
-    <slot />
+    {/* 🔴 [2026-09-16 · 사장님] 「1칼럼을 2칼럼으로」 ·
+        「케이컬쳐와이어와 백년지도에는 «자기 콘텐트로 가는 입구»를 만들어」
+        ⛔ 상품을 붙이지 않는다 — 여긴 학부모·수험생이 보는 자리다. 우리 지면으로만 보낸다.
+        ⛔ 1,080px 아래에서는 열이 사라지고 본문이 온 폭을 쓴다(폰에서 본문 위에 안 쌓는다). */}
+    <div class="wrap--crail">
+      <div class="col-main"><slot /></div>
+      <ContentRail
+        제목="백년지도 둘러보기"
+        칸들={[
+          { href: '/age', 이름: '나이로 보기', 한줄: '0살부터 100살까지, 그 나이에 무엇이 있나', 딱지: '지도' },
+          { href: '/major', 이름: '학과 찾기', 한줄: '취업률·중도탈락률까지 같이 본다', 딱지: '진학' },
+          { href: '/after', 이름: '대학 이후', 한줄: '취업 뒤에는 무엇이 기다리나', 딱지: '진로' },
+          { href: '/school', 이름: '학교 찾기', 한줄: '우리 동네 학교를 수로 본다', 딱지: '진학' },
+          { href: '/region', 이름: '지역으로', 한줄: '사는 곳에 따라 무엇이 달라지나', 딱지: '지도' },
+        ]}
+        더보기={{ href: '/about', 글: '백년지도는 무엇인가' }}
+        꼬리="이것은 통계이지 당신이 아닙니다."
+      />
+    </div>
 
     <footer>
       {/* ⭐ 사장님 지시(2026-08-24) — 로고를 이미지 파일로 만들어 홈페이지에도 걸어 둔다.
@@ -470,3 +489,19 @@ const 광고를부르나 = ADS.client !== '' && !noAds && !광고안받는길;
   </div>
 </body>
 </html>
+
+<style is:global>
+  /* 🔴 [2026-09-16 · 사장님] 백년지도 1칼럼 → 2칼럼. 옆 열은 «자기 콘텐트로 가는 입구».
+     ⚠ is:global 이다 — 이 층이 감싸는 것은 페이지 쪽 DOM 이라 범위 CSS 가 안 걸린다. */
+  @media (min-width: 1080px) {
+    .wrap--crail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 2.2rem;
+      align-items: start;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .wrap--crail .col-main { min-width: 0; }
+  }
+</style>

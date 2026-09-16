@@ -21,6 +21,7 @@ import { getCollection, render } from 'astro:content';
 import cardnewsData from '../../../data/wikitip-cardnews.json';
 import WikiTip from '../../../layouts/WikiTip.astro';
 import { 이웃표 } from '../../../lib/kcw-neighbours.mjs';
+import ContentRail from '../../../components/ContentRail.astro';
 
 export async function getStaticPaths() {
   const all = await getCollection('kcwArticles');
@@ -241,6 +242,11 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
 
 <WikiTip title={d.title} description={d.dek} canonical={url} jsonLd={jsonLd}
   ogImage={카드}>
+  {/* 🔴 [2026-09-16 · 사장님] 「1칼럼을 2칼럼으로」 ·
+      「케이컬쳐와이어와 백년지도에는 «자기 콘텐트로 가는 입구»를 만들어」
+      ⛔ 여기엔 상품을 안 붙인다 — K팝 독자에게 데이터 상품은 맞지 않는다. 우리 콘텐트로만 보낸다. */}
+  <div class="wrap--crail">
+  <div class="col-main">
   <article>
     {/* 🔴 2026-08-10 — 갈래가 **글자로만** 있어서 눌러 볼 수가 없었다. 2번이 짚어 주셨다.
         ⛔ `/stars` 가 아니라 `/section/stars` 다 — `/titles`·`/industry` 는 자료 지면이 이미 쓴다. */}
@@ -429,6 +435,19 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
       <span aria-hidden="true"> · </span><a href="/">Front page</a>
     </p>
   </article>
+  </div>
+  <ContentRail
+    제목="More from K Culture Wire"
+    칸들={이웃.slice(0, 5).map((e) => ({
+      href: '/article/' + e.id,
+      이름: e.data.title,
+      한줄: e.data.dek,
+      딱지: CATEGORY[e.data.category] ?? e.data.category,
+    }))}
+    더보기={{ href: '/section/' + d.category, 글: 'All ' + (CATEGORY[d.category] ?? d.category) }}
+    꼬리={전체기사수 + ' pieces, all counted from public sources.'}
+  />
+  </div>
 </WikiTip>
 
 <style>
@@ -499,4 +518,20 @@ const jsonLd = [articleLd, breadcrumbLd, datasetLd].filter(Boolean);
   .notes li { margin: .35rem 0; }
 
   .back { margin-top: 2.5rem; font-size: .9rem; }
+</style>
+
+<style>
+  /* 🔴 [2026-09-16 · 사장님] 1칼럼 → 2칼럼. 옆 열은 «우리 콘텐트로 가는 입구»다.
+     ⛔ 상품을 붙이지 않는다 — K팝 독자에게 데이터 상품은 맞지 않는다. */
+  @media (min-width: 1080px) {
+    .wrap--crail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 2.2rem;
+      align-items: start;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .col-main { min-width: 0; }
+  }
 </style>
