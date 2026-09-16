@@ -104,20 +104,50 @@ export function 다시볼수있나({ 로그인지면, 목록무인증, 결제무
   return { 된다: 막힌것.length === 0, 막힌것, 까닭: null };
 }
 
+/**
+ * 🔴🔴 [2026-09-17] **손님이 «실제로» 결제창까지 가나** — 이 자리가 없어서 사고가 났다.
+ *
+ * 사장님: 「대체 유료서비스에서 결제가 안되는 게 말이되나? 내가 몇 번씩 하루에도 확인하라고
+ *         한게 징검다리 셋이잖아...뭐한 거야, 대체?」
+ *        「내가 지인한테 부탁해서 커뮤니티와 입소문을 낸 건데 진짜 허무하고 짜증나고 실망스럽다」
+ *        「똑바로 체크해서 **결제까지 다 해봐**」
+ *
+ * 무슨 일이 있었나 — 위 `돈이들어오나` 는 **설정만** 본다(토스 enabled·live·실키).
+ * 그 셋이 다 참인데도 손님은 「결제창을 열지 못했습니다」만 봤다. 까닭은 **키 종류**였다 —
+ * 우리 라이브 키는 `live_gck_`(주문서형·결제창형)인데 코드는 `tp.payment()`(API 개별 연동)를
+ * 불렀고, 토스가 그 조합을 거부했다. 설정을 아무리 읽어도 이것은 안 보인다.
+ * ⇒ **브라우저로 손님이 되어 눌러 봐야만** 보인다.
+ *
+ * ⚠ 그리고 «사장님 계정»으로 누르면 「관리자라 0원 즉시 처리」로 빠져 결제 경로를 아예 안 탄다.
+ *   그래서 이 검사는 **로그인 안 한 손님**으로 잰다.
+ * ⛔ 못 쟀으면(브라우저가 없으면) «통과»로 세지 않는다. 「못 쟀다」로 남긴다.
+ */
+export function 결제창열리나({ 결제수단그려짐, 결제창틀높이 } = {}) {
+  if (결제수단그려짐 == null && 결제창틀높이 == null) {
+    return { 열리나: null, 막힌것: [], 까닭: '못 쟀다 — 브라우저(9222)에 못 붙었다' };
+  }
+  const 막힌것 = [];
+  if (!결제수단그려짐) 막힌것.push('🔴 손님 화면에 «결제수단»이 안 그려진다 — 카드를 고를 수 없다');
+  if (!(Number(결제창틀높이) > 100))막힌것.push('🔴 「결제하기」를 눌러도 «결제창»이 안 열린다');
+  return { 열리나: 막힌것.length === 0, 막힌것, 까닭: null };
+}
+
 /** 셋을 합쳐 한 마디로 — 사장님이 물으시는 것은 「팔리나」 하나다 */
 export function 팔리나(답들) {
   const 문 = 들어올수있나(답들);
   const 돈 = 돈이들어오나(답들);
   const 되 = 다시볼수있나(답들);
+  const 창 = 결제창열리나(답들);
   const 막힌것 = [];
   if (!문.열렸나) 막힌것.push('손님이 «가입도 로그인도» 못 한다 — 문이 하나도 없다');
-  막힌것.push(...돈.막힌것, ...되.막힌것);
+  막힌것.push(...돈.막힌것, ...창.막힌것, ...되.막힌것);
   /* ⛔ 못 쟀으면 «막혔다»로 몰지 않는다. 못 쟀다고 따로 말한다 */
   const 못잰것 = [];
+  if (창.열리나 === null) 못잰것.push('🔴 손님으로 결제창까지 — 못 쟀다 (이 자리가 빈 채로 사고가 났다)');
   if (되.된다 === null) 못잰것.push('산 감명서를 다시 볼 수 있나 — 못 쟀다');
   /* 🔴 문이 막혔거나 국내 결제가 막혔으면 매출은 0 이다. 다시보기가 막히면 반쪽만 판 것이라
      심각으로 올린다 — 돈은 받았는데 손님이 산 것을 잃는 사고다 */
-  const 심각 = !문.열렸나 || 돈.국내막힘 || 되.된다 === false;
+  const 심각 = !문.열렸나 || 돈.국내막힘 || 창.열리나 === false || 되.된다 === false;
   return {
     판정: 막힌것.length === 0 ? '팔린다' : (심각 ? '매출0' : '줄었다'),
     막힌것,
@@ -148,6 +178,56 @@ async function 상태만(길) {
   } catch { return null; }
 }
 
+/**
+ * 🔴 «로그인 안 한 손님»이 되어 결제창까지 눌러 본다. 브라우저가 없으면 null 을 낸다.
+ * ⛔ 카드번호는 넣지 않는다 — 결제창이 «뜨는 것»까지만 본다. 승인은 부르지 않는다.
+ * ⚠ 이메일은 우리 시험 주소를 쓴다. 남의 주소를 지어내지 않는다.
+ */
+async function 손님으로결제창까지() {
+  let b = null; let 방 = null; let page = null;
+  try {
+    const { createRequire } = await import('node:module');
+    const 부르기 = createRequire('file:///C:/Users/User/Documents/GitHub/klifemap/package.json');
+    b = await 부르기('puppeteer-core').connect({ browserURL: 'http://127.0.0.1:9222', defaultViewport: null });
+    방 = await b.createBrowserContext();          /* 사장님 로그인과 갈라 놓는다 */
+    page = await 방.newPage();
+    const 쉼 = (ms) => new Promise((r) => setTimeout(r, ms));
+    await page.setViewport({ width: 430, height: 1400 });
+    await page.evaluateOnNewDocument(() => { try { localStorage.setItem('bj_lang', 'ko'); } catch (e) { /* 막혀도 간다 */ } });
+    await page.goto(사이트 + '/checkout.html?service=saju', { waitUntil: 'networkidle2', timeout: 60000 });
+    await 쉼(4500);
+    /* 비회원 문을 연다 */
+    await page.evaluate(() => {
+      const 넣 = (id, v) => { const e = document.getElementById(id); if (e) { e.value = v; e.dispatchEvent(new Event('input', { bubbles: true })); } };
+      넣('guestEmail', 'u5@klifedesign.net'); 넣('guestPhone', '01000000000');
+      for (const id of ['guestAgreeTerms', 'guestAgreePrivacy', 'guestAgreeAge']) { const e = document.getElementById(id); if (e && !e.checked) e.click(); }
+      const s = document.getElementById('guestSubmitBtn'); if (s) s.click();
+    });
+    await 쉼(8000);
+    await page.evaluate(() => { const e = document.getElementById('cardBtn'); if (e) e.click(); });
+    await 쉼(14000);
+    const 그려짐 = await page.evaluate(() => {
+      const 상자 = document.getElementById('tossWidgetBox');
+      return !!(상자 && !상자.classList.contains('hidden') && document.querySelector('#tossMethods iframe'));
+    });
+    await page.evaluate(() => { const e = document.getElementById('tossPayBtn'); if (e) e.click(); });
+    await 쉼(14000);
+    const 높이 = await page.evaluate(() => {
+      const 틀 = [...document.querySelectorAll('iframe')]
+        .filter((f) => /tosspayments\.com/.test(f.src || ''))
+        .map((f) => Math.round(f.getBoundingClientRect().height));
+      return 틀.length ? Math.max(...틀) : 0;
+    });
+    return { 결제수단그려짐: 그려짐, 결제창틀높이: 높이 };
+  } catch (e) {
+    return { 결제수단그려짐: null, 결제창틀높이: null, 왜: e.message };
+  } finally {
+    try { if (page) await page.close(); } catch { /* 닫혀도 그만 */ }
+    try { if (방) await 방.close(); } catch { /* 그만 */ }
+    if (b) b.disconnect();                        /* ⛔ close() 가 아니다 */
+  }
+}
+
 async function 잰다() {
   const [토스, 페이팔, 로그인, 로그인지면글, 목록무인증, 결제무인증] = await Promise.all([
     물어본다('/api/billing/toss/status'),
@@ -160,7 +240,16 @@ async function 잰다() {
   /* ⚠ 우리 주소로만 찔러 본다 — 손님 주소로 메일을 보내지 않는다 */
   const 메일보냄 = await 물어본다('/api/auth/email/send', { email: 'u5@klifedesign.net' });
 
-  const 답 = 팔리나({ 토스, 페이팔, 로그인, 메일보냄, 로그인지면: 로그인지면글, 목록무인증, 결제무인증 });
+  /* 🔴 여기가 새로 붙은 자리 — 설정만 읽지 않고 «손님이 되어» 결제창까지 눌러 본다.
+     ⚠ 브라우저를 띄우므로 30~60초가 든다. --빨리 를 주면 건너뛰되 «못 쟀다»로 적는다. */
+  const 창 = process.argv.includes('--빨리')
+    ? { 결제수단그려짐: null, 결제창틀높이: null, 왜: '--빨리 로 건너뜀' }
+    : await 손님으로결제창까지();
+
+  const 답 = 팔리나({
+    토스, 페이팔, 로그인, 메일보냄, 로그인지면: 로그인지면글, 목록무인증, 결제무인증,
+    결제수단그려짐: 창.결제수단그려짐, 결제창틀높이: 창.결제창틀높이,
+  });
   const 때 = new Date();
 
   console.log('■ klifemap 결제 점검 — ' + 때.toLocaleString('ko-KR'));
@@ -172,6 +261,13 @@ async function 잰다() {
   console.log('   인증메일      ' + (메일보냄
     ? (메일보냄.simulated === true ? '🔴 simulated — «보낸 척»만 한다' : '나간다')
     : '못 쟀다'));
+  /* 🔴 손님이 «실제로» 결제창까지 가나 — 이 줄이 없어서 결제가 죽은 줄 몰랐다 */
+  console.log('   🔴 결제창       ' + (창.결제수단그려짐 == null
+    ? ('⬜ 못 쟀다 — ' + (창.왜 || '브라우저(9222)에 못 붙었다'))
+    : (창.결제수단그려짐 ? '결제수단 그려짐' : '🔴 결제수단 «안» 그려짐')
+      + ' · ' + (Number(창.결제창틀높이) > 100
+        ? ('결제창 열림(' + 창.결제창틀높이 + 'px)')
+        : '🔴 결제창 «안» 열림')));
   console.log('   다시 보기     ' + (목록무인증 && 결제무인증
     ? ('login.html 「감명 내역」 ' + (typeof 로그인지면글 === 'string' && /감명\s*내역/.test(로그인지면글) ? '있음' : '없음')
       + ' · 무인증 sessions=' + 목록무인증.status + ' payments=' + 결제무인증.status)
@@ -273,6 +369,23 @@ function 자가시험() {
   검('열린 문을 둘 다 센다', 팔리나(다열림).열린문.length, 2);
 
   검('⛔ 아무것도 못 받았으면 «팔린다»고 하지 않는다', 팔리나({}).판정, '매출0');
+
+  /* 🔴🔴 [2026-09-17] 이 넷이 없어서 결제가 죽은 줄 몰랐다. 사장님이 두 번 말씀하셨다 —
+     「똑바로 체크해서 결제까지 다 해봐」 */
+  검('🔴 결제수단이 안 그려지면 «막힌 것»이다',
+    결제창열리나({ 결제수단그려짐: false, 결제창틀높이: 0 }).열리나, false);
+  검('🔴 「결제하기」를 눌러도 결제창이 안 열리면 막힌 것이다',
+    결제창열리나({ 결제수단그려짐: true, 결제창틀높이: 0 }).열리나, false);
+  검('둘 다 되면 열린 것이다',
+    결제창열리나({ 결제수단그려짐: true, 결제창틀높이: 650 }).열리나, true);
+  검('⬜ 못 쟀으면 «통과»로 세지 않는다', 결제창열리나({}).열리나, null);
+  검('🔴 결제창이 안 열리면 판정이 «매출0» 이다 — 설정이 다 참이어도',
+    팔리나({
+      토스: { ok: true, enabled: true, live: true, clientKey: 'live_gck_x' },
+      페이팔: { enabled: true }, 로그인: { providers: ['google'] }, 메일보냄: { ok: true },
+      로그인지면: '감명 내역', 목록무인증: { status: 401 }, 결제무인증: { status: 401 },
+      결제수단그려짐: true, 결제창틀높이: 0,
+    }).판정, '매출0');
   검('못 받았을 때 토스를 «꺼졌다»로 적는다',
     돈이들어오나({}).막힌것[0].includes('토스가 꺼져 있다'), true);
 
