@@ -725,7 +725,18 @@ WikiTip        K컬처·e스포츠    K팝·드라마·영화·웹툰·e스포�
 매일 한 번   한경컨센서스 애널리스트  node scripts/collect-seoulmarkets-hankyung-analysts.mjs    (2번)
 거래일+1     KRX 일별 시세          archive/raw/krx/  (다음 저녁 19시경에 들어온다)
 거래일+1     일반상품(금·석유)       node scripts/collect-commodities.mjs   (5번)
+매일 한 번   ADX 시가총액·시세       node scripts/collect-uae-adx-marketwatch.mjs   (5번)
 하루 두 번   API 승인 확인          npm run watch:approvals
+
+🔴 **[2026-09-16 · 5번] ADX 시가총액을 이 목록에 넣었다 — 그날 값은 그날만 있다.**
+   그 전까지 `/data/screener` 는 손님에게 「**아부다비가 시가총액을 안 낸다**」고 말하고 있었다.
+   사실이 아니었다. 우리가 «-delayed» 옆 문(`scrollingTicker`)을 부르고 있었을 뿐이고,
+   시총은 `/adx/marketwatch/1.1/securityBoard/marketwatch` 에 **128/128** 로 들어 있었다.
+   ⛔ **우리가 못 찾은 것을 그쪽 탓으로 적지 않는다.** 강령은 「못 잰 것은 못 쟀다고 적는다」이지
+     「그쪽이 안 낸다」고 적는 것이 아니다.
+   ⛔ **계산해서 메꾸지 않는다** — `주식수 = 순이익 ÷ EPS` 로 만든 판은 두바이로 검산하니
+     16곳 중 2곳만 오차 5% 안, 오차 가운데값 99.9% 였다(순이익은 AED'000, EPS 는 AED).
+   ⇒ ADX 시가총액 0 → 76/76. 걸프 125곳 가운데 111곳에 시총이 섰다.
 
 🔴 **[2026-09-11 02:5x · 5번] 일반상품을 이 목록에 넣었다 — 폴더가 «0개»였다.**
    수집기는 2026-08-04 에 붙었고 승인도 그때 나 있었다. **한 번도 안 돌린 것**이다.
