@@ -1,0 +1,153 @@
+---
+/**
+ * ProductRail.astro — **콘텐트 옆에 붙는 «상품 열».**
+ *
+ * ── 🔴 왜 만드나 (2026-09-16 · 사장님) ───────────────────────────────────
+ *
+ * > 「**모든 콘텐트에서 오른쪽이든 왼쪽 열이든 상품 소개화면으로 바로 갈 수 있게 해놓는 게
+ * >  어때? 즉, 현재 1칼럼(1열)로 되어있는 걸 2칼럼(2열)로 바꾸자는 뜻...
+ * >  상품소개하는 칼럼이 가로가 많이 짧게 해야 하겠지**」
+ *
+ * 그때 잰 것이 사장님 생각을 뒷받침했다 —
+ * ```
+ *   우리가 가진 콘텐트 면적   기사 133 + KCW 210 + 백년지도 139 = 482장
+ *   그중 상품으로 가는 길     ≈ 0 — 손님이 상단 메뉴에서 스스로 찾아야 했다
+ *   AI 가 데려오는 손님        25% (검색의 4배). 그 손님은 «기사»로 들어온다
+ *   화면 크기                 데스크톱 74% — 2칼럼이 실제로 보이는 손님이 다수다
+ * ```
+ * ⇒ 가장 넓은 땅을 놀리고 있었다.
+ *
+ * ── 이 조각이 지키는 것 ──────────────────────────────────────────────────
+ * ```
+ * ✅ 값을 «한 곳»에서만 읽는다 — src/data/licence-products.mjs 가 정본이다
+ * ✅ 데스크톱에서만 열로 선다. 좁아지면 열이 사라지고 본문이 온 폭을 쓴다
+ * ⛔ 모바일에서 본문 «위»에 쌓지 않는다 — 본문 전에 광고가 오면 손님이 그냥 나간다
+ *   (2026-08-10 에 백년지도에서 겪었다: 폰 첫 화면의 47%를 메뉴가 먹고 있었다)
+ * ⛔ 붙어 다니되(sticky) 화면보다 길어지지 않게 한다. 길면 스크롤이 갇힌다
+ * ```
+ *
+ * ⚠ 붙이는 상품이 «그 사이트 손님»에게 맞아야 한다.
+ *   금융 독자에게 데이터 상품은 맞지만, K팝 독자에게 붙이면 지면이 스팸이 된다.
+ *   그래서 이 조각은 SeoulMarkets 에만 쓴다.
+ */
+import { 상품 } from '../data/licence-products.mjs';
+
+interface Props {
+  /** 이 지면과 «가장 가까운» 상품 하나 — 있으면 맨 위에 세운다 */
+  고른것?: { href: string; name: string; blurb?: string } | null;
+  자리?: 'article' | 'data';
+}
+const { 고른것 = null } = Astro.props as Props;
+
+const p = 상품 as Record<string, any>;
+const 값 = (코드: string) => '$' + String(p[코드]?.usd ?? '').replace(/\.00$/, '');
+
+/* ⛔ 여기 목록을 길게 늘어놓지 않는다 — 열이 길면 붙어 다니질 못한다.
+   손님이 제일 먼저 묻는 「내 시장이 있나」에 답하는 넷만 둔다. */
+const 볼것 = [
+  { href: '/data/screener', 이름: 'Asia & Gulf screener', 시장: 'Seoul · Abu Dhabi · Dubai',
+    한줄: 'Filter 2,834 companies yourself, in US dollars.' },
+  { href: '/data/financials', 이름: 'Financial Statement Tape', 시장: 'Seoul',
+    한줄: '2,570 of 2,709 listed Korean companies, filed accounts.' },
+  { href: '/data/valuation', 이름: 'Valuation Tape', 시장: 'Seoul',
+    한줄: 'PER, PBR, ROE — with the statement edition each came from.' },
+  { href: '/data#buy', 이름: 'Gulf Filings Tape', 시장: 'Abu Dhabi · Dubai',
+    한줄: 'Revenue, net profit and EPS from every ADX and DFM filing.' },
+];
+---
+
+<aside class="rail" aria-label="Data products">
+  <div class="rail-in">
+    <span class="rail-kicker">Data for licence</span>
+
+    {고른것 && (
+      <a class="rail-pick" href={고른것.href}>
+        <span class="rp-tag">The data behind this article</span>
+        <span class="rp-name">{고른것.name} &rarr;</span>
+        {고른것.blurb && <span class="rp-blurb">{고른것.blurb}</span>}
+      </a>
+    )}
+
+    <ul class="rail-list">
+      {볼것.map((x) => (
+        <li>
+          <a href={x.href}>
+            <span class="rl-mkt">{x.시장}</span>
+            <span class="rl-name">{x.이름}</span>
+            <span class="rl-one">{x.한줄}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+
+    {/* ⛔ 값을 여기 손으로 적지 않는다. 지면 값과 청구 값이 어긋나면 그것이 사고다 */}
+    <div class="rail-price">
+      <b>{값('academic')}</b> academic, one-time<br />
+      <b>{값('single')}</b> one dataset a year<br />
+      <b>{값('all')}</b> everything a year
+    </div>
+    <a class="rail-buy" href="/data#buy">Buy a licence</a>
+    <span class="rail-fine">Card or PayPal, any country. No account, no auto-renewal.</span>
+    <a class="rail-all" href="/data">See every dataset &rarr;</a>
+  </div>
+</aside>
+
+<style>
+  .rail { display: none; }   /* 기본은 «없다». 넓을 때만 선다 */
+
+  /* 🔴 1,080px 부터 열을 세운다. 그 아래는 본문이 온 폭을 쓴다 —
+     좁은 화면에서 두 열로 쪼개면 본문이 읽기 힘들어진다 */
+  @media (min-width: 1080px) {
+    .rail { display: block; }
+    .rail-in {
+      position: sticky; top: 1.2rem;
+      /* ⛔ 화면보다 길어지지 않게 — 길면 스크롤이 갇힌다 */
+      max-height: calc(100vh - 2.4rem); overflow-y: auto;
+      padding: 1rem 1.05rem;
+      border: 1px solid var(--line, #e5e5e5); border-radius: 10px;
+      background: var(--card, transparent);
+      font-size: .84rem; line-height: 1.5;
+    }
+  }
+
+  .rail-kicker {
+    display: block; font-size: .68rem; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent, #0f4c81); margin-bottom: .6rem;
+  }
+
+  .rail-pick {
+    display: block; margin: 0 0 .85rem; padding: .6rem .7rem;
+    border-left: 3px solid var(--accent, #0f4c81);
+    background: color-mix(in srgb, var(--accent, #0f4c81) 7%, transparent);
+    text-decoration: none; color: inherit; border-radius: 0 6px 6px 0;
+  }
+  .rp-tag { display: block; font-size: .66rem; text-transform: uppercase;
+    letter-spacing: .05em; color: var(--muted, #666); }
+  .rp-name { display: block; font-weight: 700; color: var(--accent, #0f4c81); margin: .1rem 0; }
+  .rp-blurb { display: block; font-size: .78rem; color: var(--muted, #555); }
+
+  .rail-list { list-style: none; margin: 0 0 .9rem; padding: 0; }
+  .rail-list li + li { margin-top: .7rem; padding-top: .7rem; border-top: 1px solid var(--line, #eee); }
+  .rail-list a { text-decoration: none; color: inherit; display: block; }
+  .rail-list a:hover .rl-name { color: var(--accent, #0f4c81); }
+  .rl-mkt { display: block; font-size: .62rem; font-weight: 700; letter-spacing: .05em;
+    text-transform: uppercase; color: var(--accent, #0f4c81); }
+  .rl-name { display: block; font-weight: 650; margin: .05rem 0; }
+  .rl-one { display: block; font-size: .76rem; color: var(--muted, #666); }
+
+  .rail-price {
+    padding: .6rem .7rem; border-radius: 6px;
+    background: color-mix(in srgb, var(--accent, #0f4c81) 6%, transparent);
+    font-size: .78rem; line-height: 1.7;
+  }
+  .rail-buy {
+    display: block; margin: .6rem 0 .4rem; padding: .55rem;
+    border-radius: 6px; background: var(--accent, #0f4c81); color: #fff;
+    text-align: center; font-weight: 700; text-decoration: none;
+  }
+  .rail-buy:hover { opacity: .88; }
+  .rail-fine { display: block; font-size: .7rem; color: var(--muted, #777); line-height: 1.45; }
+  .rail-all { display: inline-block; margin-top: .5rem; font-size: .78rem; font-weight: 650;
+    color: var(--accent, #0f4c81); text-decoration: none; }
+</style>

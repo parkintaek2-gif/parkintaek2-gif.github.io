@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import Base from '../../layouts/Base.astro';
 import DataNotes from '../../components/DataNotes.astro';
 import AdSlot from '../../components/AdSlot.astro';
+import ProductRail from '../../components/ProductRail.astro';
 import ProductFloatingBar from '../../components/ProductFloatingBar.astro';
 import { publishedArticles } from '../../lib/articles';
 import { tagsForArticle } from '../../lib/tags';
@@ -218,7 +219,12 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
   ogType="article"
   image={ogImage}
 >
-  <div class="wrap">
+  {/* 🔴 [2026-09-16 · 사장님] 「모든 콘텐트에서 오른쪽이든 왼쪽 열이든 상품 소개화면으로
+      바로 갈 수 있게... 1칼럼을 2칼럼으로... 상품소개하는 칼럼이 가로가 많이 짧게」
+      ⇒ 본문 + 상품 열. 1,080px 아래에서는 열이 사라지고 본문이 온 폭을 쓴다.
+      ⛔ 모바일에서 상품을 본문 «위»에 쌓지 않는다 — 본문 전에 광고가 오면 그냥 나간다. */}
+  <div class="wrap wrap--rail">
+    <div class="col-main">
     <AdSlot slot="banner" />
 
     <article class="article">
@@ -393,6 +399,8 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
 
       <a class="backlink" href={`/${d.category}`}>&larr; More {categoryLabel(d.category)}</a>
     </article>
+    </div>
+    <ProductRail 고른것={관련상품} />
   </div>
 
   {/* 스크롤 위치와 무관하게 항상 보이는 상품 입구 — 본문 끝 product-cta 와 같은 상품을 가리킨다.
@@ -501,4 +509,20 @@ const jsonLd = 추가스키마.length ? [articleLd, ...추가스키마] : articl
   .cardnews .note { font-size: .82rem; color: var(--ink-2, #666); margin: 0 0 .8rem; }
   .cardnews .cards { display: flex; gap: .6rem; overflow-x: auto; padding-bottom: .5rem; }
   .cardnews img { width: 200px; height: auto; border-radius: 8px; flex: 0 0 auto; background: #0d1420; }
+</style>
+
+<style>
+  /* 🔴 [2026-09-16 · 사장님] 1칼럼 → 2칼럼. 상품 열은 «가로가 짧게».
+     ⛔ 좁은 화면에서 쪼개지 않는다 — 본문이 읽기 힘들어진다.
+     ⚠ 이 규칙은 Base 의 .wrap 을 «덮어쓰는» 것이 아니라 넓을 때만 더한다. */
+  @media (min-width: 1080px) {
+    .wrap--rail {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 2.2rem;
+      align-items: start;
+      max-width: 1180px;
+    }
+    .col-main { min-width: 0; }   /* ⛔ 없으면 긴 표·코드가 열을 밀어낸다 */
+  }
 </style>
