@@ -527,8 +527,28 @@ if (내가실행됐다) {
     케맵 = { 됐나: false, 말: '상했다' };
   }
 
-  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 케맵].filter((x) => x === null || x.됐나 === false).length;
-  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 아홉 자리 다 섰다.'}`);
+  /* ⑩ 손님이 «끝까지» 들어올 수 있나 — 2026-09-16 신설.
+     [왜] 그날 카카오가 클라이언트 시크릿을 기본 켜짐으로 바꿨는데 우리 서버엔 그 열쇠가 없었다.
+       health 는 kakao:on, providers 에도 kakao, 지면에 단추도 그려졌다. **아무 데도 빨간불이
+       안 켜졌고**, 손님만 아이디를 넣은 «뒤에» 튕겼다.
+     ⛔ 「단추가 있나」를 「로그인이 되나」로 읽지 않는다 — 그 착각이 이 사고를 만들었다.
+     ⭐ 이 자는 가짜 코드로 토큰 교환까지 «실제로» 밟아 열쇠가 통과하는지 본다(계정은 안 생긴다). */
+  let 들어오기;
+  try {
+    const 낸것 = execFileSync('node', ['scripts/check-klifemap-login.mjs'], { cwd: 뿌리, encoding: 'utf8' });
+    console.log(`✅ ⑩ 들어오기     ${(낸것.match(/✅ 셋 다[^\n]*/) || ['셋 다 통과'])[0]}`);
+    들어오기 = { 됐나: true, 말: '' };
+  } catch (e) {
+    const 낸것 = (e.stdout || '') + (e.stderr || '');
+    const 상한줄 = (낸것.match(/^ {3}[🔴⬜] \w+[^\n]*$/gm) || ['자를 돌리지 못했다']);
+    console.log('🔴 ⑩ 들어오기     손님이 못 들어온다');
+    for (const 줄 of 상한줄) console.log('     ' + 줄.trim());
+    console.log('     ⛔ 고치는 길은 check-klifemap-login.mjs 를 직접 돌리면 다 적혀 있다');
+    들어오기 = { 됐나: false, 말: '막혔다' };
+  }
+
+  const 흠 = [지시, 소통, 몫, 보고, 라이브, 진행, 좌석, 케맵, 들어오기].filter((x) => x === null || x.됐나 === false).length;
+  console.log(`\n${흠 ? `⛔ 손댈 것 ${흠}개 — 위에서 🔴·⬜ 를 먼저 한다.` : '✅ 열 자리 다 섰다.'}`);
   console.log('⚠ ③이 뒤처졌는데 다른 일을 하고 있으면 그것이 잘못이다.');
   process.exit(흠 ? 1 : 0);
 }
