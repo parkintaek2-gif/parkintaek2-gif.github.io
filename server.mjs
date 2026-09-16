@@ -130,6 +130,29 @@ const TYPES = {
    * 이 표에 없으면 조용히 octet-stream 이 된다(위 주석의 교훈, 영상과 같은 함정). */
   '.md': 'text/markdown; charset=utf-8',
   '.json': 'application/json; charset=utf-8',
+  /* 🔴🔴 [2026-09-16] **홈 화면 이름이 계속 「seoulmarkets」로 뜬 까닭이 여기였다.**
+   *
+   * 사장님: 「홈화면에 추가할 때 여전히 seoulmarkets로 뜸 … 어제 작업한 건데, 왜 그러지?」
+   *
+   * 어제 이름은 제대로 고쳤다 — manifest 의 name·short_name 도, apple-mobile-web-app-title 도
+   * 라이브에서 SMarkets 로 확인했다. 그런데 **아이폰이 그 매니페스트를 읽지 못했다.**
+   * ```
+   *   /manifest.webmanifest → Content-Type: application/octet-stream
+   *   그리고 우리는 X-Content-Type-Options: nosniff 를 건다(「추측하지 말라」)
+   *   ⇒ 사파리가 매니페스트로 «파싱하기를 거부»한다. 이름을 못 찾으니 주소로 떨어진다
+   * ```
+   * 사장님이 보신 소문자 「seoulmarkets」가 그 증거다 — 그것은 «호스트 이름»이다.
+   *
+   * ⛔ 이 표에 없는 확장자는 조용히 octet-stream 이 된다. 위 .mp4 주석이 같은 사고였고,
+   *   그 주석에 「새 미디어를 쓰기 시작하면 여기부터 더한다」고 적어 두고도 또 당했다.
+   *   ⇒ 이제 자가 잡는다 — scripts/check-content-types.mjs */
+  '.webmanifest': 'application/manifest+json; charset=utf-8',
+  /* 🔴 [2026-09-16] 자를 만들자마자 둘을 더 잡았다 — **우리가 «파는» 파일 형식이다.**
+   *   .csv 18개 · .parquet 4개가 octet-stream 으로 나가고 있었다.
+   *   손님이 받아도 열리긴 하지만, 브라우저·크롤러·AI 는 그것이 표인 줄 모른다.
+   *   ⚠ CSV 는 «다운로드»가 맞다 — 화면에 글자로 펴 보이면 손님이 복사해 쓰기 나쁘다. */
+  '.csv': 'text/csv; charset=utf-8',
+  '.parquet': 'application/vnd.apache.parquet',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
   '.jpeg': 'image/jpeg',
