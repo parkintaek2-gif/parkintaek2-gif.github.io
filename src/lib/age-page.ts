@@ -20,6 +20,7 @@ export type 나이자료 = {
     최다: { 남편: string; 아내: string };
     누적: Record<string, { 남편: number; 아내: number }>;
   };
+  고용: Record<string, number>;
 };
 
 /** 임금 표의 띠 이름 — 표가 쓰는 글자 그대로여야 값을 찾는다 */
@@ -100,6 +101,22 @@ export function 살림값(자료: 나이자료, 나이: number) {
     부채평균: 만원말(v['부채_전가구평균']),
     소득중앙: 만원말(v['경상소득_보유가구중앙']),
   };
+}
+
+/** 나이대별 고용률 — 임금띠와 같은 이름표를 쓴다(collect-age-axis.mjs가 그렇게 맞춰 냈다) */
+export function 고용값(자료: 나이자료, 나이: number) {
+  const 띠 = 임금띠(나이);
+  const 몫 = 자료.고용[띠];
+  if (몫 === undefined) return null;
+  return { 띠, 띠말: 띠말(띠), 고용률: 몫 };
+}
+
+/** 고용률이 가장 높은 띠 */
+export function 고용꼭대기(자료: 나이자료) {
+  const 줄 = Object.entries(자료.고용).filter(([띠]) => 띠 !== '전체' && 띠 !== '15~29세_청년');
+  let 으뜸: [string, number] | null = null;
+  for (const 칸 of 줄) if (!으뜸 || 칸[1] > 으뜸[1]) 으뜸 = 칸 as [string, number];
+  return 으뜸 ? { 띠: 으뜸[0], 띠말: 띠말(으뜸[0]), 고용률: 으뜸[1] } : null;
 }
 
 /** 월급여가 가장 높은 띠 — 「꼭대기가 어디인가」는 지면마다 되풀이해 쓰인다 */

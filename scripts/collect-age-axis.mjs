@@ -71,7 +71,7 @@ if (process.argv.includes('--selftest')) {
 }
 
 const KEY = 키()
-const 낸다 = { 만든날: 오늘한국(), 출처: {}, 임금: {}, 살림: {}, 혼인: {} }
+const 낸다 = { 만든날: 오늘한국(), 출처: {}, 임금: {}, 살림: {}, 혼인: {}, 고용: {} }
 
 // ① 나이대별 월급여 — 고용노동부 고용형태별근로실태조사
 {
@@ -152,9 +152,40 @@ const 낸다 = { 만든날: 오늘한국(), 출처: {}, 임금: {}, 살림: {}, 
   }
 }
 
+// ④ 나이대별 고용률 — 국가데이터처 경제활동인구조사
+//    사장님 지시(2026-09-17) 「나이대별 고용률 등도 주요 지표로 포함해서. 나이로 보기에 추가하자」
+//    함께 인용하신 기사(2026-09-16자): 「8월 청년 고용률은 44.1%로 전년 동월 대비 1.0%포인트 하락」
+//    ⇒ 101/DT_1DA7002S(연령별 경제활동인구 총괄)의 「고용률」 항목, C1=75(15~29세)가
+//       바로 그 «청년 고용률»이다. 실측(2026-08 44.1% · 2025-08 45.1%)이 인용과 정확히 같다.
+{
+  // ⛔ 위 공용 받기()는 prdSe=Y(연간) 고정이라 이 표(월간)에는 못 쓴다 — 따로 부른다
+  const r = await fetch(`https://kosis.kr/openapi/Param/statisticsParameterData.do?method=getList&apiKey=${KEY}` +
+    `&orgId=101&tblId=DT_1DA7002S&itmId=ALL&objL1=ALL&format=json&jsonVD=Y&prdSe=M&newEstPrdCnt=1`)
+  const j = JSON.parse(await r.text())
+  if (!Array.isArray(j)) throw new Error(`DT_1DA7002S: ${JSON.stringify(j).slice(0, 140)}`)
+  const 최신월 = j.filter(x => x.ITM_NM === '고용률').map(x => x.PRD_DE).sort().at(-1)
+  낸다.출처.고용 = { 기관: '국가데이터처', 표: '연령별 경제활동인구 총괄', id: '101/DT_1DA7002S', 해: 최신월,
+                   조건: '남녀 계 · 월간(계절조정 전 원계열)',
+                   비고: '청년 고용률(15~29세)은 이 표의 C1=75 줄이다 — 사장님이 인용하신 기사(2026-09-16, 8월 44.1%·전년동월대비 -1.0%p)와 실측이 일치한다' }
+  // 표가 쓰는 이름 → 임금띠와 같은 이름으로 맞춘다(같은 지면에서 나란히 쓰기 위해)
+  const 이름바꿈 = {
+    '15 - 19세': '~ 19세', '20 - 24세': '20 ~ 24', '25 - 29세': '25 ~ 29',
+    '30 - 34세': '30 ~ 34', '35 - 39세': '35 ~ 39', '40 - 44세': '40 ~ 44',
+    '45 - 49세': '45 ~ 49', '50 - 54세': '50 ~ 54', '55 - 59세': '55 ~ 59',
+    '60세이상': '60세 ~',
+  }
+  for (const x of j) {
+    if (x.PRD_DE !== 최신월 || x.ITM_NM !== '고용률') continue
+    if (x.C1_NM === '15세 이상 전체') { 낸다.고용['전체'] = 수(x.DT); continue }
+    if (x.C1_NM === '15 - 29세') { 낸다.고용['15~29세_청년'] = 수(x.DT); continue }  // ⚠ 5살 띠가 아니다 — 정책상 「청년」 구간
+    const 이름 = 이름바꿈[x.C1_NM]
+    if (이름) 낸다.고용[이름] = 수(x.DT)
+  }
+}
+
 fs.mkdirSync(path.dirname(낼곳), { recursive: true })
 fs.writeFileSync(낼곳, JSON.stringify(낸다, null, 2) + '\n', 'utf8')
 
-const 나이수 = Object.keys(낸다.임금).length, 살림수 = Object.keys(낸다.살림).length
-console.log(`✅ ${path.relative(뿌리, 낼곳)}  임금 ${나이수}띠 · 살림 ${살림수}띠`)
-if (나이수 < 10 || 살림수 < 5) { console.error('⛔ 띠가 모자란다 — 축 이름이 바뀌었을 수 있다. 지면에 쓰기 전에 눈으로 본다'); process.exit(1) }
+const 나이수 = Object.keys(낸다.임금).length, 살림수 = Object.keys(낸다.살림).length, 고용수 = Object.keys(낸다.고용).length
+console.log(`✅ ${path.relative(뿌리, 낼곳)}  임금 ${나이수}띠 · 살림 ${살림수}띠 · 고용 ${고용수}띠`)
+if (나이수 < 10 || 살림수 < 5 || 고용수 < 10) { console.error('⛔ 띠가 모자란다 — 축 이름이 바뀌었을 수 있다. 지면에 쓰기 전에 눈으로 본다'); process.exit(1) }
