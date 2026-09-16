@@ -27,7 +27,13 @@ export const 손님주소 = [
   { 주소: 'https://kculturewire.com/', 사이트: 'K Culture Wire', 자리: '1번' },
   { 주소: 'https://www.kculturewire.com/', 사이트: 'K Culture Wire (www)', 자리: '1번' },
   { 주소: 'https://100yearmap.com/', 사이트: '백년지도', 자리: '3번' },
+  /* 🔴 [2026-09-16 · 5번] www 를 여기 넣었다 — **콘솔에 아예 안 붙어 있어 404 였다.**
+     DNS 는 진작 우리 쪽을 가리켰고 서버에도 www→꼭지 301 규칙이 있었는데, Cloudtype
+     연결 목록에만 없었다. 그래서 손님이 www 를 치면 클라우드타입 오류 지면을 봤다.
+     ⛔ 「꼭지가 200 이니 그 사이트는 산 것」으로 읽지 않는다 — 손님은 www 를 친다. */
+  { 주소: 'https://www.100yearmap.com/', 사이트: '백년지도 (www)', 자리: '3번' },
   { 주소: 'https://klifemap.ai/', 사이트: 'KLifeMap', 자리: '2번' },
+  { 주소: 'https://www.seoulmarkets.com/', 사이트: 'SeoulMarkets (www)', 자리: '6번' },
 ];
 
 /**
@@ -62,7 +68,12 @@ export function 자가시험() {
   재다('500 은 앱이 아픈 것이다', 판정(503).등급 === 'server');
   재다('403 은 그 밖이다', 판정(403).등급 === 'other');
   재다('404 는 산 것이 아니다', 판정(404).산다 === false);
-  재다('주소 목록이 다섯이다', 손님주소.length === 5);
+  재다('주소 목록이 일곱이다 — www 까지 센다', 손님주소.length === 7);
+  /* 🔴 [2026-09-16] www 를 빠뜨려 백년지도 www 가 404 인 채로 있었다. 짝을 «시험»으로 굳힌다 */
+  재다('www 판이 있는 사이트는 꼭지와 www 를 «둘 다» 잰다',
+    ['100yearmap.com', 'kculturewire.com', 'seoulmarkets.com'].every((d) =>
+      손님주소.some((x) => x.주소 === 'https://' + d + '/')
+      && 손님주소.some((x) => x.주소 === 'https://www.' + d + '/')));
   재다('주소마다 담당 자리가 있다', 손님주소.every((x) => x.자리 && x.사이트));
   재다('주소는 다 https 다', 손님주소.every((x) => x.주소.startsWith('https://')));
   /* 🔴 오늘 실제로 겪은 꼴 — 기본주소는 200 인데 손님주소가 404 였다 */
@@ -94,7 +105,7 @@ async function 본일() {
     if (!p.산다) 깨진것.push({ ...x, ...p });
   }
 
-  if (!깨진것.length) { console.log('\n✅ 다섯 주소 다 살아 있다.'); return; }
+  if (!깨진것.length) { console.log('\n✅ ' + 손님주소.length + '개 주소 다 살아 있다.'); return; }
 
   console.log('\n🔴🔴 손님이 못 들어오는 주소가 ' + 깨진것.length + '개다 — **다른 일을 하기 전에 이것부터 고친다**');
   for (const x of 깨진것) console.log('   · ' + x.사이트 + ' (' + x.자리 + ') — ' + x.왜);
