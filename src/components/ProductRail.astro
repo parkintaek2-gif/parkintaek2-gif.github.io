@@ -40,7 +40,13 @@ interface Props {
 const { 고른것 = null } = Astro.props as Props;
 
 const p = 상품 as Record<string, any>;
-const 값 = (코드: string) => '$' + String(p[코드]?.usd ?? '').replace(/\.00$/, '');
+/* 🔴 [2026-09-16 · 눈으로 재서 잡았다] 열 안에 「2,834 companies」는 쉼표가 있는데
+   값만 「$2990」으로 붙어 있었다. 한 칸 안에서 수 쓰는 법이 둘이면 값이 싸구려로 보인다.
+   ⛔ 값 자체는 한 글자도 안 건드린다 — «보이는 꼴»만 천 단위로 끊는다. */
+const 값 = (코드: string) => {
+  const v = String(p[코드]?.usd ?? '').replace(/\.00$/, '');
+  return v ? '$' + v.replace(/\B(?=(\d{3})+(?!\d))/g, ',') : '';
+};
 
 /* ⛔ 여기 목록을 길게 늘어놓지 않는다 — 열이 길면 붙어 다니질 못한다.
    손님이 제일 먼저 묻는 「내 시장이 있나」에 답하는 넷만 둔다. */

@@ -21,7 +21,10 @@ const { href, label, blurb } = Astro.props;
 
 <div class="pfb" id="pfb" data-key={href}>
   <a class="pfb-link" href={href}>
-    <span class="pfb-kicker">SeoulMarkets data</span>
+    {/* 🔴 [2026-09-16 · 눈으로 재서 잡았다] 폰 화면을 찍어 보니 바로 위 로고는 «SMarkets»인데
+        이 띠만 «SeoulMarkets»였다. 한 화면 안에서 파는 이의 이름이 둘이면 손님이 멈춘다 —
+        결제창 이름을 SMarkets 로 맞춘 것과 같은 까닭이다(9/15 사장님 지시). */}
+    <span class="pfb-kicker">SMarkets data</span>
     <span class="pfb-label">{label}</span>
     {blurb && <span class="pfb-blurb">{blurb}</span>}
   </a>
