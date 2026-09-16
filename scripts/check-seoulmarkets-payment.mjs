@@ -153,6 +153,10 @@ export function 팔리나({ 설정, 정본, 주문, 단추, 되찾기 } = {}) {
   if (되.된다 === null) 못잰것.push('산 것을 다시 볼 수 있나 — 못 쟀다');
   if (단추 === null || 단추 === undefined) 못잰것.push('손님 브라우저에서 단추가 그려지나 — 못 쟀다(크롬 9222 가 안 떠 있다)');
   else if (단추.그려졌나 !== true) 막힌것.push('페이팔 단추가 «화면에 안 그려진다» — 설정은 살아 있는데 손님 눈에는 살 곳이 없다');
+  /* 🔴 [2026-09-17] 「그려진다」와 「눌러서 열린다」는 다르다 — klifemap 에서 그 차이로
+     손님이 아무도 못 샀다(단추는 그려졌는데 누르면 토스가 거절했다). 둘 다 본다. */
+  else if (단추.창떴나 === null || 단추.창떴나 === undefined) 못잰것.push('단추를 눌러 페이팔 창이 뜨나 — 못 쟀다');
+  else if (단추.창떴나 !== true) 막힌것.push('🔴 페이팔 단추를 «눌러도 결제창이 안 뜬다» — 손님이 거기서 멈춘다');
 
   return {
     판정: 막힌것.length === 0 ? '팔린다' : '매출0',
@@ -220,13 +224,46 @@ async function 단추그려지나() {
       if (칩.length) 칩[칩.length - 1].click();
     });
     await new Promise((r) => setTimeout(r, 3500));
-    return await page.evaluate(() => ({
+    const 본것 = await page.evaluate(() => ({
       그려졌나: document.querySelectorAll('#paypalButtons iframe').length > 0,
       틀수: document.querySelectorAll('#paypalButtons iframe').length,
       상품칩수: document.querySelectorAll('#buyProducts .chip').length,
       총액: ((document.getElementById('buyTotal') || {}).textContent || '').trim(),
       로그인하라는말: /\b(log ?in|sign ?in)\b/i.test(document.body.innerText),
     }));
+
+    /* 🔴🔴 [2026-09-17] **단추를 «눌러» 페이팔 창이 뜨는지까지 본다.**
+     *
+     * 사장님: 「똑바로 체크해서 **결제까지 다 해봐**」
+     * 같은 날 klifemap 에서 겪었다 — 설정이 다 참이고 단추도 그려졌는데,
+     * 누르는 순간 토스가 「이 키로는 안 된다」고 거절해 손님이 아무도 못 샀다.
+     * ⇒ 「그려진다」와 「눌러서 열린다」는 다른 것이다. 둘 다 잰다.
+     * ⛔ 페이팔 «로그인·승인»은 건드리지 않는다 — 창이 뜨는 것까지만 본다. 돈은 안 움직인다.
+     */
+    let 창떴나 = null;
+    try {
+      const 전탭 = (await b.pages()).length;
+      const 새창약속 = new Promise((맞다) => {
+        const 손 = (t) => { b.off('targetcreated', 손); 맞다(t); };
+        b.on('targetcreated', 손);
+        setTimeout(() => { b.off('targetcreated', 손); 맞다(null); }, 15000);
+      });
+      /* 페이팔 단추는 iframe 안에 있다 — 그 틀 가운데를 누른다 */
+      const 틀 = await page.$('#paypalButtons iframe');
+      if (틀) {
+        const 네모 = await 틀.boundingBox();
+        if (네모) await page.mouse.click(네모.x + 네모.width / 2,네모.y + 20);
+      }
+      const 새것 = await 새창약속;
+      await new Promise((r) => setTimeout(r, 4000));
+      const 뒤탭 = await b.pages();
+      const 페이팔창 = 뒤탭.map((p) => p.url()).filter((u) => /paypal\.com/i.test(u));
+      창떴나 = 페이팔창.length > 0 || (!!새것 && /paypal/i.test(새것.url() || ''));
+      /* ⛔ 우리가 연 창은 우리가 닫는다 — 사장님 창은 건드리지 않는다 */
+      for (const p of 뒤탭.slice(전탭)) { try { await p.close(); } catch { /* 그만 */ } }
+    } catch { 창떴나 = null; }
+
+    return { ...본것, 창떴나 };
   } catch { return null; }
   finally {
     /* ⛔ b.close() 를 부르지 않는다 — 사장님이 쓰시던 창이 통째로 닫힌다 */
@@ -279,6 +316,11 @@ async function 잰다() {
       + ' · 상품 ' + 단추.상품칩수 + '개 · ' + (단추.총액 || '총액 없음')
       + (단추.로그인하라는말 ? ' · ⚠ 화면이 로그인을 말한다' : ''))
     : '⬜ 못 쟀다 — 크롬 9222 가 안 떠 있다'));
+  /* 🔴 「그려진다」와 「눌러서 열린다」는 다르다 — klifemap 에서 그 차이로 아무도 못 샀다 */
+  console.log('   🔴 결제창       ' + (!단추 ? '⬜ 못 쟀다 — 크롬 9222 가 안 떠 있다'
+    : (단추.창떴나 === true ? '✅ 단추를 누르니 페이팔 창이 뜬다'
+      : (단추.창떴나 === false ? '🔴 단추를 «눌러도» 창이 안 뜬다 — 손님이 거기서 멈춘다'
+        : '⬜ 못 쟀다 — 단추를 못 눌러 봤다'))));
   /* 🔴 손님길 셋째 다리 — 사장님: 「비회원 결제는 감명서를 다시 못보잖아」 */
   console.log('   다시 보기     ' + (되찾기.되찾는지면
     ? ('/recover ' + 되찾기.되찾는지면.status
@@ -396,6 +438,17 @@ export function 자가시험() {
 
   재다('🔴 단추가 «안 그려지면» 매출0 — 설정이 살아 있어도',
     팔리나({ 설정: 살아있는설정, 정본, 주문, 단추: { 그려졌나: false } }).판정 === '매출0');
+
+  /* 🔴🔴 [2026-09-17] klifemap 에서 겪은 것 — 단추는 그려졌는데 «누르면» 거절당했다.
+     그 차이를 이 자도 보게 한다. 사장님: 「똑바로 체크해서 결제까지 다 해봐」 */
+  재다('🔴 단추를 «눌러도 창이 안 뜨면» 매출0 — 그려진 것만으로는 판 것이 아니다',
+    팔리나({ 설정: 살아있는설정, 정본, 주문, 되찾기, 단추: { 그려졌나: true, 창떴나: false } }).판정 === '매출0');
+  재다('그려지고 «창까지 뜨면» 판다',
+    팔리나({ 설정: 살아있는설정, 정본, 주문, 되찾기, 단추: { 그려졌나: true, 창떴나: true } }).판정 === '팔린다');
+  재다('⬜ 창까지는 못 쟀으면 «못 쟀다»로 남긴다', (() => {
+    const r = 팔리나({ 설정: 살아있는설정, 정본, 주문, 되찾기, 단추: { 그려졌나: true } });
+    return r.판정 === '팔린다' && r.못잰것.some((x) => /페이팔 창이 뜨나/.test(x));
+  })());
   재다('⬜ 못 쟀으면 «막혔다»로 몰지 않는다 — 못 쟀다고 따로 말한다', (() => {
     const r = 팔리나({ 설정: 살아있는설정, 정본, 주문, 단추: null, 되찾기 });
     return r.판정 === '팔린다' && r.못잰것.length === 1;
