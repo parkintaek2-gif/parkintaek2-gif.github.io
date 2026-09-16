@@ -1,7 +1,7 @@
 {
   "_meta": {
     "product": "SMarkets screener — Asian and Gulf listed companies, the fields a screen actually uses",
-    "builtAt": "2026-09-16T08:06:33.622Z",
+    "builtAt": "2026-09-16T18:13:49.273Z",
     "sources": [
       "Korea: src/data/korea-valuation-tape.json (KRX closing price via the Korean public data portal + DART filings)",
       "UAE: src/data/uae-financials-tape.json (ADX disclosure feed + ADX/DFM filed PDFs), DFM company profiles",
@@ -91,9 +91,9 @@
         "np": 73,
         "e": 73,
         "p": 0,
-        "b": 0,
+        "b": 33,
         "r": 0,
-        "d": 30,
+        "d": 48,
         "i": 0
       }
     },
@@ -109,9 +109,9 @@
         "np": 16,
         "e": 16,
         "p": 0,
-        "b": 0,
+        "b": 15,
         "r": 0,
-        "d": 0,
+        "d": 26,
         "i": 45
       }
     }

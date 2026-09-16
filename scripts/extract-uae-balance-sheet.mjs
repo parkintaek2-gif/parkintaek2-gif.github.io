@@ -690,8 +690,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       덜적은게있다 = true;
       if (센것 % 20 === 0) { 적는다(); console.log(`   … ${센것}/${표본.length} 까지 적어 두었다`); }
       const 자리 = `C:/Users/User/AppData/Local/Temp/_bs_${r.exchange}_${r.symbol}.pdf`;
-      let 것; let OCR로 = false;
-      try { 것 = 글에서뽑는다(PDF글(r.eng_pdf_url, 자리)); }
+      let 것; let OCR로 = false; let 쓴글 = '';
+      try { 쓴글 = PDF글(r.eng_pdf_url, 자리); 것 = 글에서뽑는다(쓴글); }
       catch (e) { 것 = { 됐나: false, 왜: 'download-or-pdftotext-failed' }; }
 
       /* 글자로 못 뽑았고 «그림인 쪽»이 있으면 그 쪽만 읽어 다시 해 본다 */
@@ -706,7 +706,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
           for (const p of 빈쪽.slice(0, 10)) {
             const 글 = await 쪽읽기(브라우저, 자리, p, 자리.replace(/\.pdf$/, ''));
             const 다시 = 글에서뽑는다(글 + 'x'.repeat(2100));   /* 한 쪽이라 길이 문턱을 채워 준다 */
-            if (다시.됐나) { 것 = 다시; OCR로 = true; break; }
+            if (다시.됐나) { 것 = 다시; OCR로 = true; 쓴글 = 글; break; }
           }
         } catch (e) { /* OCR 이 실패해도 앞서 적은 까닭을 그대로 쓴다 */ }
       }
@@ -717,6 +717,11 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
         r.balance_sheet_reconciled = true; r.balance_sheet_reason = null;
         /* ⭐ OCR 로 읽은 것은 «그렇게 읽었다»고 적어 둔다 — 글자를 짐작한 값이다 */
         r.balance_sheet_source = OCR로 ? 'ocr-of-scanned-page' : 'pdf-text';
+        /* 🔴 [2026-09-17 03:1x] **단위도 «그 글»에서 함께 읽는다.**
+         *   문서 전체가 스캔인 판은 pdftotext 로 글자가 없어 나중에 `--단위채우기` 를
+         *   돌려도 못 찾는다(76건 중 0건이었다). 애써 OCR 한 글을 그냥 버리고 있었다.
+         *   ⚠ 이미 적힌 단위는 덮지 않는다 — 먼저 적은 쪽이 더 나은 근거일 수 있다. */
+        if (!r.unit_hint) { const u = 단위읽기(쓴글); if (u) r.unit_hint = u; }
         console.log(`   ${OCR로 ? '🔍' : '✅'} ${r.symbol.padEnd(12)} ${String(r.period).padEnd(10)} 자산 ${것.자산.toLocaleString()} = 부채 ${것.부채.toLocaleString()} + 자본 ${것.자본.toLocaleString()}${OCR로 ? '  (스캔 쪽을 읽었다)' : ''}`);
       } else {
         까닭수[것.왜] = (까닭수[것.왜] || 0) + 1;
