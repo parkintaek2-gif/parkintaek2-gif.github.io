@@ -158,9 +158,16 @@ export function 검산해서고른다(자산들, 부채들, 자본들, 차 = 맞
  * 앞의 것만 부채로 받는다. 뒤의 것을 부채로 읽으면 자본이 0 에 가까워지고
  * 그래도 검산은 맞아 버린다(위 라벨오독선이 막지만, 애초에 안 잡는 것이 낫다).
  */
-export const 자산재 = /^\s*Total\s+assets\b/i;
-export const 부채재 = /^\s*Total\s+liabilit\w*\s*(?!.*\band\s+(equity|shareholder))/i;
-export const 자본재 = /^\s*Total\s+(net\s+)?(equity|shareholders'?\s+(equity|funds)|capital\s+and\s+reserves)\b(?!.*\band\s+liabilit)/i;
+/* 🔴 [2026-09-17] 라벨은 **6번이 먼저 만든 `collect-uae-adx-balance-sheet.mjs` 것을 가져왔다.**
+ *   그쪽이 내 것보다 정교하다 — 꼬리에 `(?=[\d(]|$)` 를 달아 **라벨 뒤에 말이 더 붙은 줄**을
+ *   통째로 막는다. 「Total assets under management」·「Total liabilities and equity」가
+ *   한 번에 걸러진다(내 것은 부정 예측으로 하나씩 막고 있었다).
+ *   ⛔ 같은 일을 하는 자가 둘이면 «있는 것을 고친다»가 우리 규칙이다. 베껴 온 자리를 적어 둔다. */
+const 꼬리 = String.raw`\s*(?:\d{1,2}\s*)?[\s.·]*(?=[\d(]|$)`;
+export const 자산재 = new RegExp(String.raw`^\s*total\s+assets${꼬리}`, 'i');
+export const 부채재 = new RegExp(String.raw`^\s*total\s+liabilities${꼬리}`, 'i');
+export const 자본재 = new RegExp(
+  String.raw`^\s*total\s+(?:net\s+)?(?:equity|shareholders[’']?\s*(?:equity|funds)|owners[’']?\s*equity|capital\s+and\s+reserves)${꼬리}`, 'i');
 /* 🔴 [2026-09-16 실측] 「Total liabilities」 한 줄을 «안 쓰는» 회사가 많다.
  *   ADNOCLS 는 Total non-current assets / Total current assets / Total assets 로만 적고
  *   부채도 비유동·유동 둘로만 적는다. 그래서 「부채 줄이 없다」로 8건이 버려지고 있었다.
@@ -175,11 +182,11 @@ export const 자본재 = /^\s*Total\s+(net\s+)?(equity|shareholders'?\s+(equity|
  * **「Total liabilities and equity」(대차 균형 줄)**로 닫는다. 그 값은 자산과 «같아야» 한다.
  * ✅ 그러니 그 줄로 자산을 검산하고, 자본은 **자산 − 부채**로 낸다(정의상 항등식이다).
  * ⛔ 대신 부채 후보가 둘 이상 갈리면 비운다 — 아무거나 빼서 자본을 만들지 않는다. */
-export const 대차합계재 = /^\s*Total\s+(liabilit\w*\s+and\s+(equity|shareholder)|equity\s+and\s+liabilit)/i;
-export const 비유동부채재 = /^\s*Total\s+non[- ]current\s+liabilit/i;
-export const 유동부채재 = /^\s*Total\s+current\s+liabilit/i;
-export const 비유동자산재 = /^\s*Total\s+non[- ]current\s+assets/i;
-export const 유동자산재 = /^\s*Total\s+current\s+assets/i;
+export const 대차합계재 = new RegExp(String.raw`^\s*total\s+(?:liabilities\s+and\s+(?:equity|shareholders[’']?\s*(?:equity|funds))|equity\s+and\s+liabilities)${꼬리}`, 'i');
+export const 비유동부채재 = new RegExp(String.raw`^\s*total\s+non[- ]current\s+liabilities${꼬리}`, 'i');
+export const 유동부채재 = new RegExp(String.raw`^\s*total\s+current\s+liabilities${꼬리}`, 'i');
+export const 비유동자산재 = new RegExp(String.raw`^\s*total\s+non[- ]current\s+assets${꼬리}`, 'i');
+export const 유동자산재 = new RegExp(String.raw`^\s*total\s+current\s+assets${꼬리}`, 'i');
 
 /** 같은 열 자리끼리 더해 후보를 만든다 (비유동 + 유동) */
 export function 합쳐서후보(앞, 뒤) {
@@ -453,6 +460,45 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     for (const [k, v] of Object.entries(셈).sort((a, b) => b[1] - a[1]).slice(0, 40)) {
       console.log(`   ${String(v).padStart(3)}개 문서  ${k}`);
     }
+  }
+  /* 🔴 [2026-09-17] **왜 못 뽑나 — 우리 자 탓인가 PDF 탓인가.** 짐작하지 않고 센다.
+   *   라벨을 아무리 넓혀도 «글자가 없는 쪽»은 못 읽는다. 그런 문서가 몇이나 되는지 세면
+   *   OCR 을 붙일 값이 있는지 정할 수 있다. ⛔ 「PDF 탓이다」를 재지 않고 적지 않는다. */
+  else if (process.argv.includes('--병목조사')) {
+    const i = process.argv.indexOf('--병목조사');
+    const 몇 = Number(process.argv[i + 1] || 20);
+    const t = JSON.parse(fs.readFileSync(탭길, 'utf8'));
+    const 줄들 = (t.rows || t).filter((x) => x.eng_pdf_url && x.total_assets_aed == null).slice(0, 몇);
+    const 셈 = { 뽑힘: 0, 빈쪽있음: 0, 빈쪽없음: 0, 못받음: 0 };
+    for (const r of 줄들) {
+      const 자리 = `C:/Users/User/AppData/Local/Temp/_bs_bot_${r.exchange}_${r.symbol}.pdf`;
+      let 글 = '';
+      try {
+        execFileSync('curl', ['-sS', '-f', ...헤더, r.eng_pdf_url, '-o', 자리], { maxBuffer: 1e8 });
+        글 = execFileSync('pdftotext', ['-table', 자리, '-'], { maxBuffer: 1e8 }).toString('utf8');
+      } catch { 셈.못받음 += 1; try { fs.unlinkSync(자리); } catch { /* 그만 */ } continue; }
+      const 것 = 글에서뽑는다(글);
+      if (것.됐나) { 셈.뽑힘 += 1; try { fs.unlinkSync(자리); } catch { /* 그만 */ } continue; }
+      /* 쪽을 하나씩 뽑아 «글자가 거의 없는 쪽»을 센다 — 그 쪽이 이미지다 */
+      let 빈쪽 = 0; let 전체 = 0;
+      for (let p = 1; p <= 40; p += 1) {
+        let 쪽글 = '';
+        try { 쪽글 = execFileSync('pdftotext', ['-table', '-f', String(p), '-l', String(p), 자리, '-'], { maxBuffer: 1e8 }).toString('utf8'); }
+        catch { break; }
+        if (!쪽글) break;
+        전체 += 1;
+        if (쪽글.replace(/\s/g, '').length < 40) 빈쪽 += 1;
+      }
+      try { fs.unlinkSync(자리); } catch { /* 그만 */ }
+      if (빈쪽 > 0) 셈.빈쪽있음 += 1; else 셈.빈쪽없음 += 1;
+      console.log(`   ${r.symbol.padEnd(12)} ${String(r.period).padEnd(9)} ${것.왜.padEnd(34)} 쪽 ${전체} 중 «글자 없는 쪽» ${빈쪽}`);
+    }
+    console.log('\n■ 못 뽑은 까닭이 어디에 있나');
+    console.log(`   뽑힘                  ${셈.뽑힘}`);
+    console.log(`   못 뽑음 · 빈 쪽 있음   ${셈.빈쪽있음}   ← PDF 가 글자를 안 준다(OCR 이 있어야 한다)`);
+    console.log(`   못 뽑음 · 빈 쪽 없음   ${셈.빈쪽없음}   ← 글자는 있는데 «우리 자»가 못 읽는다`);
+    console.log(`   PDF 를 못 받음         ${셈.못받음}`);
+    console.log('⭐ 「빈 쪽 없음」이 크면 우리 자를 고칠 값이 있다. 「빈 쪽 있음」이 크면 OCR 이 답이다.');
   }
   else {
     const 인자 = (이름, 기본) => {
