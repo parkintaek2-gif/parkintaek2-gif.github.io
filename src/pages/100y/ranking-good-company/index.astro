@@ -1,0 +1,145 @@
+---
+/**
+ * /100y/ranking-good-company — 순위는 공개한다, 그러나 전부는 아니다 (시리즈 · 일하기 좋은 기업 편)
+ *
+ * 🔴 docs/3번-순위콘텐트-지침.md 참고 — 사장님 지시(2026-08-31) 「국내외 순위를
+ *   공개해...사람들이 관심 많은 모든 것」 이행. 잡플래닛(웍스피어) 「2026 잡플래닛
+ *   어워즈」(2026-03-10 발표)를 그대로 인용 + 고용노동부 사업체노동력조사(2024-04
+ *   기준) 규모별 근로자 수를 나란히 놓는다. 100yearmap이 새로 순위를 매기지 않는다.
+ *   "순위"라는 낱말을 의도적으로 쓴다 — docs/금지말-대장.json 등록.
+ *
+ * ⭐ 톤: "일하기 좋은 회사"에 오른 기업 대부분이 대기업·외국계다. 그런 규모의
+ *   회사에서 일하는 근로자 자체가 전체 상용근로자의 6명 중 1명뿐이라는 사실을
+ *   비판적으로 짚는다 — 특정 회사를 비방하지 않는다.
+ */
+import HundredYear from '../../../layouts/HundredYear.astro';
+import NextQuestionBrief from '../../../components/NextQuestionBrief.astro';
+import HundredAgeWalk from '../../../components/HundredAgeWalk.astro';
+import 원본 from '../../../data/100yearmap/ranking-good-company-2026.json';
+
+const 자료 = 원본 as any;
+const 순위출처 = 자료.순위출처;
+const 부문별 = 자료.부문별 as Record<string, string[]>;
+const 규모 = 자료.규모대조;
+
+const desc =
+  `${순위출처.이름}(${순위출처.발표일})는 전국 ${순위출처.모집단_기업수.toLocaleString()}개 기업 가운데 ` +
+  `상위 ${순위출처.선정_비율_퍼센트}%인 ${순위출처.선정_기업수}곳을 뽑았습니다. ` +
+  `그런데 고용노동부 통계로는 300인 이상 사업체 근로자가 전체의 ${규모['300인이상_비중_퍼센트']}%뿐입니다.`;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: '이 일하기 좋은 기업 명단은 100yearmap이 매긴 건가요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `아닙니다. ${순위출처.운영사}가 운영하는 잡플래닛이 재직·퇴사자 평점을 바탕으로 자체 선정한 명단(${순위출처.매체} 보도)을 그대로 인용했습니다.`,
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 31곳 같은 회사에 들어갈 확률은 얼마나 될까요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '이 표로는 알 수 없습니다. 다만 고용노동부 사업체노동력조사에 따르면 300인 이상 사업체(대기업급)에서 일하는 상용근로자는 전체의 16.8%뿐입니다 — 이런 규모의 회사 자체가 흔치 않습니다.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: '이 지면은 중소기업을 나쁘다고 말하나요?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '아닙니다. 이 지면은 「일하기 좋다」는 평가가 나오는 회사의 «규모»가 전체 근로자 가운데 어느 정도인지 사실로 보여줄 뿐, 중소기업을 판정하지 않습니다.',
+      },
+    },
+  ],
+};
+---
+
+<HundredYear
+  title={`"일하기 좋은 기업" 31곳 — 그런 규모 회사, 근로자 6명 중 1명뿐입니다`}
+  description={desc}
+  jsonLd={jsonLd}
+>
+  <h1>
+    "일하기 좋은 기업" 31곳<br class="pcbr" />
+    그런 규모 회사, 근로자 6명 중 1명뿐입니다
+  </h1>
+
+  <div class="warn">
+    <p><strong>⚠ 이 명단은 저희가 매긴 게 아닙니다.</strong></p>
+    <p class="note">
+      {순위출처.이름}({순위출처.발표일})를 {순위출처.매체} 보도로 그대로 인용했습니다.
+      {' '}{순위출처['⚠원자료']}
+    </p>
+  </div>
+
+  <p class="sub">
+    잡플래닛(운영사 {순위출처.운영사})은 전국 <strong>{순위출처.모집단_기업수.toLocaleString()}개</strong> 기업의
+    재직·퇴사자 평점(2025년 1년치)을 바탕으로 상위 <strong>{순위출처.선정_비율_퍼센트}%</strong>인
+    <strong>{순위출처.선정_기업수}곳</strong>을 급여·복지, 워라밸, 커리어 성장, 채용 경험 4개 부문으로 뽑았습니다.
+  </p>
+
+  <h2>부문별 선정 기업</h2>
+  {Object.entries(부문별).map(([부문, 목록]) => (
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th colspan="1">{부문}</th></tr></thead>
+        <tbody>
+          {(목록 as string[]).map((회사) => (<tr><td>{회사}</td></tr>))}
+        </tbody>
+      </table>
+    </div>
+  ))}
+  <p class="note">⚠ {순위출처.정의}</p>
+
+  <h2>이런 규모의 회사, 실제로 몇 명이 다닐까요?</h2>
+  <p>
+    {규모.무엇}({규모.기준월} 기준)에 따르면, 상용근로자 {규모.합계_천명.toLocaleString()}천명 가운데
+    300인 이상 사업체에서 일하는 사람은 <strong>{규모['300인이상_천명'].toLocaleString()}천명</strong>
+    ({' '}<strong>{규모['300인이상_비중_퍼센트']}%</strong>)뿐이고, 나머지
+    {' '}<strong>{규모['300인미만_천명'].toLocaleString()}천명</strong>은 300인 미만 사업체에서 일합니다.
+    잡플래닛이 뽑은 31곳은 대부분 이 «상위 16.8%» 규모의 회사입니다.
+  </p>
+  <p class="note">⚠ {규모.정의} · {자료.덮는범위}</p>
+
+  <h2>이 지면이 말하지 않는 것</h2>
+  <ul>
+    {(자료.이자료가못가르는것 as string[]).map((s: string) => <li>{s}</li>)}
+  </ul>
+  <p class="note">
+    ⚠ <strong>이것은 통계이지 당신이 아닙니다.</strong> 이 지면은 「일하기 좋다」는 평가가
+    {' '}나오는 회사의 규모를 사실로 보여줄 뿐, 중소기업에서 일하는 것을 나쁘다고 판정하지
+    {' '}않습니다.
+  </p>
+
+  <h2>자주 묻는 말</h2>
+  {jsonLd.mainEntity.map((q: any) => (
+    <div class="note">
+      <p><strong>{q.name}</strong></p>
+      <p>{q.acceptedAnswer.text}</p>
+    </div>
+  ))}
+
+  <p class="note">
+    출처 — 명단: {순위출처.매체}({순위출처.url}) · 규모 통계: 고용노동부({규모.url})
+  </p>
+
+  <p class="note">
+    <a href="/ranking-kbo-salary">← KBO 최고 연봉은 근로자 실질임금 몇 년치와 같을까요?</a>
+    <br />
+    <a href="/salary-ranking">← 500대 기업 평균급여 순위는 얼마나 다를까요?</a>
+  </p>
+
+  <HundredAgeWalk 키="ranking-good-company" />
+
+  <NextQuestionBrief 모은것="잡플래닛(웍스피어) 2026 잡플래닛 어워즈 + 고용노동부 사업체노동력조사" />
+
+  {/* 2번의 자체(무쿠키·무IP) 댓글 시스템 */}
+  <h2>어떻게 생각하십니까</h2>
+  <script src="/comments-widget.js" defer></script>
+  <div data-comments-page="/ranking-good-company"></div>
+</HundredYear>
